@@ -1,64 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595823;
-	b=qg/cGBZLdy6WEOq6PueocNjvgIEqepQFDsNWI8WPCe8ywAUbYRSawVYdc9ygBDNKxby6
-	 AjFIxrNYOD60SHPNQkA7bIUZpKvHalqgW0CZN4Q8KvWWP7gNYV+hPKymbSCY+G+4TvM3i
-	 vcg2kuttFO7tHZWNlum4Rm1VetRlbbPyx74ViPrbKgHrOghuzK7VXQXPhNEm+6uKKA5R4
-	 WgJ5Wg6b+uvptO8x2t11+wTQhuanKVZJ0RzP/3VDd6d0Z1h7g88jgclWbdcnVVGPVMeUS
-	 q7Jciiyo/H5RyzDi8unJXOHP3AD9+86zDoco/A/Yst6DlSjRbbpg0oX9blJV+drKCZA==
+	t=1792595860;
+	b=As4aSbcws00bODPqgHEAzhO5Pr6D6LNv7a5rVfxO+NQ3p9CC09gq2ZIow/r/a9tyonQI
+	 /i2oiZOMSlaTyS/3Y00yHMieH8Jtcsxt3MY7M6m4c0soONM4Qb12aJCz28aLVnIa9EyOz
+	 GcmmVb18p9fHhXLbBnXbFIwOgTKefT0qZoKWwzVT64gbftLzocM9JfeHwB/dgc+u3jje5
+	 9qYyR13FSjW0YfF7H/bLwtx1rru37bRTwPcC/yV51X6eEY8Qr+LNSoncJhVDGzWfNiDaZ
+	 7HSJYdcoZQO1eQ9HOi2bK71les5S6ywfFyf9zXgqbcSA0XLFafEzUSekAOF99UbtBNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595823;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=VUwVNBdTmyElFd5++SFMk99jQ0/AW6Li9MfUrUHf72o=;
-	b=Yt5X8C0PBct/GG9ZFlxribAvtp5ZtO4fOkN4d5Ld3REhbnM8HCzEPmZNL6DIixWNiw/A
-	 aHcOk1XaSLGRpd2Fj6RZKaLnDuvvziADDBGCPEL0/nZeGVmuMB5ZFGC1620b3YbdUQ2jN
-	 kJ6J2VtbJiajFZcF9UHHf1AQqtHPR6DRemta+P7I1IQ14riqgVVWLp5RU6Lm02+eeM3bM
-	 R2B69WZckfAlfT9XrdljuDO5v40jfNO854nTbfyWTKIkgNDvOlMIjCdY4Ng21XEy7oG6N
-	 or7xM9mla8XFBLhbSEgjuhtXacbWo8ZaoQfnp1i2CUBh8Vn0EkP4LQAMglwR+1wLxVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595860;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sMmjYtG/rjFjeMhRDVGkf/87tw6pvM/e0yvKC2pDRLg=;
+	b=mVRFcPoVQse0kDhaHCkOgEJQchGiGOR8pTcAkglYQLfe4AqUu6Rq1oVc6JRNoIlLvViZ
+	 ky0/52CorVwTO85JlWdg/n1PRMXgVfScHbsCeqGGpI8D+l7xjKpDR5zrGg0khLX+Tq6je
+	 S8b2OAmiSr5RkcdW5oqd7xbb7Ii8mpZTcjS7C4yfZxvWFZTkyA71hMs1LYDhxspAzupSl
+	 z5A48NkXz2EKq+9+WJ/OawE1eGlrGdrKYnGibn4YyysqlEfV5podPN30vmP+TJvQZy0dQ
+	 8LdJUSCRlWHVDK4foRD3IL8ka+rukBLJaJO+ykz8iupPMfN080KZfrsM5ntTR0EIFeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=a9ldZ8pP;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="I/5/5o/3";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=avTrso4B;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3978E606A319;
-	Wed, 21 Oct 2026 15:17:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3978E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE0F606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:17:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EE0F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=a9ldZ8pP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=VU
-	wVNBdTmyElFd5++SFMk99jQ0/AW6Li9MfUrUHf72o=; b=a9ldZ8pPBmOnKhSwQA
-	Fm5LFjpzG2LWRHv1aF53IRTqIYUn4uei+RVC0z1ZIAywUwoTpcBW3K8/YsEH3LBQ
-	17V6iW5lx32QkJ134kY8nBGl1CMOAu6XM72Wbj2biAzvADgZ1RpJ1KZBbzc7+DjW
-	l+ux9wZFHW+d49BPWIZ876v68=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wDn93cq19hqoFfvBQ--.50052S5;
-	Wed, 21 Oct 2026 23:15:57 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Nas Chung <nas.chung@chipsnmedia.com>,
-	Jackson Lee <jackson.lee@chipsnmedia.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Sebastian Fricke <sebastian.fricke@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v3 3/4] media: wave5: handle encoder runtime resume failures
-Date: Wed, 21 Oct 2026 23:15:50 +0800
-Message-Id: <20261021151552.428590-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021151552.428590-1-yaojiale02@163.com>
-References: <20261021151552.428590-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=I/5/5o/3;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=avTrso4B
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEF6Uc1389731
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:17:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=sMmjYtG/rjFjeMhRDVGkf/
+	87tw6pvM/e0yvKC2pDRLg=; b=I/5/5o/3w+GXYaqYMYOy5XXTKXJ4O+aPrJtD8D
+	q8n3+swFpVlK7tsTSeUhbOlkxaO+YtTwARHNPLp6lCzJrGsqr1hnHMcKFfADGpdF
+	tMTWiMZN/RjtEpfem5WRIp9wrN9ySsBLyeLywNwxG+uGtpuT6+KanMaEKLC6Fnn/
+	0maZclydMceUFEvpyqrSijs0vOHjgcLRCYM2H2s34C500Szl/NQZRhpRAmi4qCSU
+	a2jP7tHiO2MRIP9CC1uFz1nVur0wSi9t3+S0BuP+gfgXJjQ/A769vseMOE69K9n6
+	XAeCoKYtk94sU4b1auyyPbg3yJA4glIy1tCpp8Vpr7FX2zUA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedajmkns-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:17:38 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30bcb065bfdso1398920eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792595856; x=1793200656; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sMmjYtG/rjFjeMhRDVGkf/87tw6pvM/e0yvKC2pDRLg=;
+        b=avTrso4BjPJJaDA9tqiifXSMknqtTNBAHK7NFZhWSCGRhE3tFMOqgOLmvmrHyV4zg1
+         K/9q0usXuigzpWbTcmOLtwWxkmrdNCInNU96WK/DSr0tp5QRk89LTB1Mq++nHC6vj0Hn
+         P+BJM3YjR+WXf4ib8IVSJ/5PAQztW2tdkpKdPksmj2/xgQN8iUzqXSMIl9xdaGDTV05n
+         a7kXeyb150FG3fvJK1S2krOAXvC4FJgSMNygqFMPu3wFlUroIaUT7B1oqAhkTfVh+Sz/
+         DH8FvnifYNoOpcwkMC5kvTYOKBs9/avjlh8E8UbqG/EgbQFg7jSu+5CJE4v2tOBlPKjC
+         6BSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792595856; x=1793200656;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=sMmjYtG/rjFjeMhRDVGkf/87tw6pvM/e0yvKC2pDRLg=;
+        b=o2TuQxxYxcXuUCvkzO4kGLfYnCq9GJx2XIArQNJDK3rkA/askcTjKEpK+p3bs2yNSa
+         glc0x7f8MF+dulQ0b8XXMMO5slxupnkucRhJEyFpM+q7MnrtrnVDeOg6HesYNVwqSY4g
+         bChXGyzBn6fQkwm5ap2rSX53zvZ1qRrTBq8fRoOO0e5xiOYqOAUfx8J4N1s8KUF4gGqY
+         MQI3SeVRILWVpX3BYxugrwOTgp9vsl/uOQh7k+qqQ4r98XIXql0z2Cc4pa1GuKivO0M2
+         ZZQ9VBxGxswYCPkTfwLC9EDydlIzmG5SwvntfOEvH0fEfQbuokZ3jmAScWMfPfhzSy1N
+         YTIA==
+X-Forwarded-Encrypted: i=1; AKwUvByEq3euZ/DwLWagnVt+mri/oJKnGKOm4OmyReB+QclAcoi0ekL03tMz7Rw52GfzFNITHyE6Qn4Ya3rPHu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQwk0J5NRcLwJbkcZawYWXNDlm+fHbKoQyOUwGmf44BvsJtXLj
+	6lZ4RcUfWjIUPpgU+5BRiNmgGiiJrwu6AvL7Nf1YwCIZ6degx+nofLH3qzI3YG9/PugS/yxGjue
+	YB3PLR7UQNa6mvZAlxZ8wPROOGYR3TUxbO9YeF1O35NGl56hgUKapuqBhwByXX0BesFrgFkBkiW
+	4=
+X-Gm-Gg: AYBFou1LBYz0CBY2lO8ETvllGUWOr9o4X91+lY4H6148oyLnaQSWtu8QxGn90uNu18T
+	v407qVkCnqoiUc+tV5lpuaegozxmwSP3FJFgyPeadAl0pnzUlhvifrp4iB4Qn13yeAjGMAJtXfP
+	hj7v9HCNEEQpSuCuA9xNMiYsTOpOkC4tPlrVWAIHTwR08eU+sdfM+bdTBUYPm0aaKehpZ1IUeMX
+	90dDRlsDl5AMs7ATpzE4bLZX5do5W5CGogAtkng4myEiQVa7oQYcIupbgtPr+X783rmhIZFM8eZ
+	GAZT4gmNGWnrSGaV18zWP9CHVom/bcUpkhDI6QnwMRw0bAm6mAOSRrIW17rHfU7GPO2IRtYc2wQ
+	tQ4YATAGK1CM3QBWiyCqHdlfhp8OSZP6q
+X-Received: by 2002:a05:7300:de42:b0:351:dbc:b663 with SMTP id 5a478bee46e88-3674e54a412mr3556454eec.31.1792595856409;
+        Wed, 21 Oct 2026 08:17:36 -0700 (PDT)
+X-Received: by 2002:a05:7300:de42:b0:351:dbc:b663 with SMTP id 5a478bee46e88-3674e54a412mr3556416eec.31.1792595855604;
+        Wed, 21 Oct 2026 08:17:35 -0700 (PDT)
+Received: from hu-anantiwa-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8c6dsm9142117eec.12.2026.10.21.08.17.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:17:35 -0700 (PDT)
+From: anand.tiwari@oss.qualcomm.com
+Subject: [PATCH 0/6] arm64: dts: qcom: talos-lyra-evk: Add display overlays
+ for EVK board
+Date: Wed, 21 Oct 2026 20:47:24 +0530
+Message-Id: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,106 +116,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn93cq19hqoFfvBQ--.50052S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCF4UKF45uw1kZr4UWw4Durg_yoWrGrWrpr
-	yvg3ZIkrWUtw18Xw4xJr4xZF90kws3CrWxCF93Gas7Ary3Jr1qvr12yF1jvF1kCrWkJa98
-	Cr4DZ3y7CF42vrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jqSoJUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzg3RDGrY1y3sCAAA3y
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAITX2GoC/yXMwQ6CMAwA0F8hPdtkW2QRf8V4qFC1BmFpB4EQ/
+ t2px3d5GxirsMG52kB5FpNxKPCHCtonDQ9G6YohuBC98w32qxJ2YqmnFadkWZnemEbLGI6xjiG
+ eqHEBSpCU77L88sv1b5tuL27zd4R9/wCrlwP7fgAAAA==
+X-Change-ID: 20261019-lyra-display-upstream-post-24656268a902
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+        linux-arm-kernel@lists.infradead.org,
+        Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
+        venkata.valluru@oss.qualcomm.com,
+        Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+        Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792595849; l=2465;
+ i=anand.tiwari@oss.qualcomm.com; s=20260717; h=from:subject:message-id;
+ bh=/x6VoMzCsBiTnvMH8LNkojMMeM9fxxZt7W8E4IaOH9U=;
+ b=AuvkK5Dy6j2wfe5kYXF/E2SbeA9MltC3kcc7mwKTrxraE7JHfYgZnPiNHnMgUDVZg3iCUQwIC
+ gF1B65Jtm6ADjLInfuOs5fVdHgQ6+KRPsO/A7bpuuO2vSGgyMuKR9bY
+X-Developer-Key: i=anand.tiwari@oss.qualcomm.com; a=ed25519;
+ pk=ygURjl6LxwG8EhgPNHYYgCZLsaXFgWZZoHRRyud5B40=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2MCBTYWx0ZWRfX5AZ80Uh3sqtC
+ WyS7UKS3mh/L01yPqtFv2l9e7UHZvaAPqggDS7C/Ls8AGKEm6wHr0+Ni8B5MaXZ39ZhBAc+ISX1
+ MqAiM3PXaHvuibxI5PPgCYDu8Tkp1hG6Z9cZ/XHkIN2mAtAO3o1cbR7fY8lwN2Lp46uHdSu9uZS
+ slG62xv7TC+d6zNroqnbS8zcUbwQdIwd5rlwJXxAoX4xsPGnfDvS5OQqxZK+3u+D+EnY9NSyrGJ
+ O2qrDHDrL3W/qtP2/nK7WcDgX2fXqKRiZ6yLCa89muaGswXJZmnJwEewGfgc2PPMaAVx07U0Rzt
+ HE3Ikwae1g62+2btthx1jVnyaq/bCz2IqGwhh5IhgDR/QOg6UYAWncppMWOfl9T9DsgM4bj1j/8
+ vRhVK7NNQyGXv/ZyaVlzXEwfeNPbCLwtZT/4DvQOiyPP/+5UnaS2SniVTP/C2hD9dKISd0bkTmR
+ AixgjSdtZ+50TFjCaPg==
+X-Proofpoint-GUID: y8_imq2VlAXS32vqybhuFZPlSzorvz8g
+X-Proofpoint-ORIG-GUID: y8_imq2VlAXS32vqybhuFZPlSzorvz8g
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2MCBTYWx0ZWRfX2NEHOHuEwqSi
+ FLzA/qPN0xTtdYALgg7w1EodJWQV2xlV9Ob5vpyxBEzqWuai6QEsd2DgLg8USr2glj2tFdOOOly
+ QCz01MjIZVOLeP6kYUK9zNqegL6K5vI=
+X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6ad8d792 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tMPW8O63IxkL4n0aSRoA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210060
 
-The encoder callbacks ignore failures from pm_runtime_resume_and_get()
-and continue issuing firmware commands. Runtime resume can fail while
-enabling the VPU clocks, leaving the registers inaccessible. The
-callbacks can then drop a runtime PM reference that was not acquired.
+Talos Lyra EVK SoC card are mounted on the Lyra carrier card. The
+DSI0 interface from SoC card is routed to either the 22-pin DSI
+connector on carrier card named as JDISP1 DSI0 or to the DSI0_B2B
+connector, through a MUX which can be selected by a hardware DIP
+switch. There are multiple daughter cards designed that can be
+connected to this B2B connector.
 
-Runtime PM retains a resume error, so simply finishing the current job
-leaves PIC_RUN runnable and causes the mem2mem scheduler to retry the
-same failing job. On a resume failure, stop the instance, mark both
-queues in error, return their queued buffers as errors, and finish the
-job. Also stop the instance in stop_streaming() before attempting the
-runtime resume, since the state transition only touches software state.
-Propagate the error from start_streaming() and preserve buffer cleanup
-without accessing the hardware or issuing an unmatched put.
+The below B2B display interfaces are enabled by default in base DTB:
+  - DSI-to-HDMI using the LT9611UXD daughter card
 
-Fixes: 2092b3833487 ("media: chips-media: wave5: Support runtime suspend/resume")
-Cc: stable@vger.kernel.org
-Reviewed-by: Jackson Lee <jackson.lee@chipsnmedia.com>
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Below overlay DTs are added for additional display configurations:
+  - talos-lyra-evk-dlc0697: DLC0697 DSI panel for Lyra with DLC
+    daughter card
+  - talos-lyra-evk-raspberrypi-dsi-7inch: Raspberry Pi 7-inch DSI
+    panel with touch via the 22-pin DSI connector for Lyra
+  - talos-lyra-evk-waveshare-dsi-8inch: Waveshare 8-inch DSI panel
+    with touch via the 22-pin DSI connector for Lyra
+  - talos-lyra-evk-lvds-auo,g133han01: AUO G133HAN01 LVDS panel for
+    Lyra with LVDS daughter card
+
+These overlays are applied on top of the corresponding base board
+DTBs.
+
+Link: https://lore.kernel.org/r/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com
+Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
 ---
- .../chips-media/wave5/wave5-vpu-enc.c         | 35 ++++++++++++++++---
- 1 file changed, 31 insertions(+), 4 deletions(-)
+Anand Tiwari (2):
+      arm64: defconfig: Enable PWM_CLK for backlight PWM support
+      arm64: dts: qcom: talos-lyra-evk: Add AUO G133HAN01 LVDS panel overlay
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-index f9fcdf4c22..3463b7d7fb 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpu-enc.c
-@@ -1351,7 +1351,12 @@ static int wave5_vpu_enc_start_streaming(struct vb2_queue *q, unsigned int count
- 	struct v4l2_m2m_ctx *m2m_ctx = inst->v4l2_fh.m2m_ctx;
- 	int ret = 0;
- 
--	pm_runtime_resume_and_get(inst->dev->dev);
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		wave5_return_bufs(q, VB2_BUF_STATE_QUEUED);
-+		return ret;
-+	}
-+
- 	v4l2_m2m_update_start_streaming_state(m2m_ctx, q);
- 
- 	if (inst->state == VPU_INST_STATE_NONE && q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE) {
-@@ -1451,6 +1456,7 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
- {
- 	struct vpu_instance *inst = vb2_get_drv_priv(q);
- 	bool check_cmd = true;
-+	int ret;
- 
- 	/*
- 	 * Note that we don't need m2m_ctx->next_buf_last for this driver, so we
-@@ -1458,11 +1464,18 @@ static void wave5_vpu_enc_stop_streaming(struct vb2_queue *q)
- 	 */
- 
- 	dev_dbg(inst->dev->dev, "%s: type: %u\n", __func__, q->type);
--	pm_runtime_resume_and_get(inst->dev->dev);
--
- 	if (wave5_vpu_both_queues_are_streaming(inst))
- 		switch_state(inst, VPU_INST_STATE_STOP);
- 
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		if (q->type == V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
-+			streamoff_output(inst, q);
-+		else
-+			streamoff_capture(inst, q);
-+		return;
-+	}
-+
- 	while (check_cmd) {
- 		struct queue_status_info q_status;
- 		struct enc_output_info enc_output_info;
-@@ -1526,7 +1539,21 @@ static void wave5_vpu_enc_device_run(void *priv)
- 	u32 fail_res = 0;
- 	int ret = 0;
- 
--	pm_runtime_resume_and_get(inst->dev->dev);
-+	ret = pm_runtime_resume_and_get(inst->dev->dev);
-+	if (ret < 0) {
-+		struct vb2_queue *src_vq = v4l2_m2m_get_src_vq(m2m_ctx);
-+		struct vb2_queue *dst_vq = v4l2_m2m_get_dst_vq(m2m_ctx);
-+
-+		dev_err(inst->dev->dev, "Failed to resume VPU: %d\n", ret);
-+		switch_state(inst, VPU_INST_STATE_STOP);
-+		vb2_queue_error(src_vq);
-+		vb2_queue_error(dst_vq);
-+		wave5_return_bufs(src_vq, VB2_BUF_STATE_ERROR);
-+		wave5_return_bufs(dst_vq, VB2_BUF_STATE_ERROR);
-+		v4l2_m2m_job_finish(inst->v4l2_m2m_dev, m2m_ctx);
-+		return;
-+	}
-+
- 	switch (inst->state) {
- 	case VPU_INST_STATE_PIC_RUN:
- 		ret = start_encode(inst, &fail_res);
--- 
-2.34.1
+Mohit Dsor (1):
+      arm64: dts: qcom: talos-lyra-evk: Add LT9611UXD HDMI bridge support
+
+Shashank Maurya (3):
+      arm64: dts: qcom: talos-lyra-evk: Add DLC DLC0697 panel overlay
+      arm64: dts: qcom: talos-lyra-evk: Add RPi 7-inch DSI panel overlay
+      arm64: dts: qcom: talos-lyra-evk: Add Waveshare 8-inch DSI panel overlay
+
+ arch/arm64/boot/dts/qcom/Makefile                  |  18 +++
+ .../boot/dts/qcom/talos-lyra-evk-dlc0697.dtso      |  78 ++++++++++++
+ .../qcom/talos-lyra-evk-lvds-auo,g133han01.dtso    | 134 +++++++++++++++++++++
+ .../qcom/talos-lyra-evk-raspberrypi-dsi-7inch.dtso |  88 ++++++++++++++
+ .../qcom/talos-lyra-evk-waveshare-dsi-8inch.dtso   |  75 ++++++++++++
+ arch/arm64/boot/dts/qcom/talos-lyra-evk.dts        | 106 ++++++++++++++++
+ arch/arm64/configs/defconfig                       |   1 +
+ 7 files changed, 500 insertions(+)
+---
+base-commit: 1128acbf0e37fb5fe5b67d7e2494fa45905afda0
+change-id: 20261019-lyra-display-upstream-post-24656268a902
+
+Best regards,
+--  
+Anand Tiwari <anand.tiwari@oss.qualcomm.com>
 
