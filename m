@@ -1,106 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.40
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792602389;
-	b=poxIVNvUt29JDxV7dn9ulfeBH1BKLXdzawZgrUz+6flH5Bq3k5eFOTwT0pcLjNQ5Spz2
-	 VY7SbcWMJDDoGGxfcBOmnQYKKiB5g3Vt5B7kehbqY9l3cmyqRX3sHmXM9uY2Q4Bdd46n8
-	 ljwCIjXZ4nD24ylqO9p4+QSHIjwPaI8jv9Gvidpr0tzFYB0igjR+VG6vsQ6+l476XUDB9
-	 O90SaDAfQqft30sxDhv0B2vAh0LLutgN3Bp/jlM2d0WXEkUcEb2RlZps1D6Y8snanvOIG
-	 FJbKXXn0Yhdwm5SnZkV+2tyVVL0GxZLSZYznF3ihBKuo8pF/tMu1TKOeRABwYo1F9ig==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602389;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6g34E0kndyo7+g6dqXkTSIgL7SYJue/L3piZeF1/FJI=;
-	b=khK1iGmBMS5NQoljw43ttgiOHkcPDBHO0uJhcL6zPjCXv46RgQ/XLYHmjLH1qDKRen4n
-	 cWgkVYx4XFSKGB735A7OaJGqi+N22PoakeCU9/DCIKoiQ3I+7C4YcPsD6nNWqtSVPEvSa
-	 jnoyFnpLUpHpNC9nQikW36YVCZw4W8xwC3JDKNCboKpe5adRnutCobFUN0bpVp5+/Dx5R
-	 ykTnyTBwTNauaSX6l/tGqmyocyIkDjiRWkTplJ6LtHsjFyOscwubesCU5wNXiDUy4sjAO
-	 rHlxwt6GWpoo2yhmXziz+mNPbuZkoHUQNd6xBqT3uXefYzrD3lvB7JorNiiXu0TXN4A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bNVdZZat;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.40
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011040.outbound.protection.outlook.com [40.93.194.40])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.25
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792602391;
+	b=FoVFqQXifz5TaSVjrlGaZsQ8Drddy9jLZVAz3F1yh4C8P5nS4n6NgfmvgBmR8VXDBcMi
+	 GHpV+wSfpZp3OZE2gwdr8+S9WMFM37Ipe96Z9tmGOSRzlsGycy5KOdPiUR3vrN2zNKhSi
+	 ZmUMCnHpk9pRQDHDQG2mkpAP2oc+PTP5zdwtOvCC/Wl21hhrhRMDS6nf0aBhUbmXZEJg3
+	 ET0MZXRpe8o4P4mlOialYeKhSx6NpOnXPp0AVDcFIklYvngTi0b2dggK5UXZHuGcr/45Q
+	 CgnsR3LgUq+lXIm0LyY8zJcnS7Kgucy36guqqaq2+IQ7S/TsQRvvyYAOR/2JQPn5xfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602391;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=rkKKVnZv/kHJBrv3uwIvqeZA4Aam5alns9BT/D3usA8=;
+	b=uReTjyG0sK5telvFrn7pcrA8ucoM9xWhwkgRS0TX0tE+pa1e9wEA0ysSR/om8nfsf9UA
+	 sPz85zCTZ2nMsE0MZjoGdygHQoKtSiSmoXzky/6DxV2QOlPSvb96f8QDe+2G7H/13pPGz
+	 y7+J5Fs6mkT8jfp8mAj+nCFAu39EojBhnlEiB0j56pKbzcRrY0TJsMwlEfzEhCN4eI4tX
+	 KC3QxXNvOlVeR/Wi4lmzyUb+BDnVlW43Pc8Kp9t8NVvVDlPuVIloDng7bl2VbJOkWzyKB
+	 lSWZ/irmwVekNUwq1K3e8BNyNpfDcRI1yq/IIciC2EpnTyl+O7tEvjUyx6Eez2cVdsQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.25
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46ACC606A31D;
-	Wed, 21 Oct 2026 17:06:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46ACC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bNVdZZat
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZNpEWPeIG0/SQvR7fLwQAOjNRbe+Msj570Y4ixK3Ot+U1AALC/Wvi38Aapk1W3UFnb6B+0U7qZFOtfCwWemCNlVzySVmFSDF9n9tMiwLYYbwYFcEIm6vu/1/T7Zpo8dJDIksg7E3VOd5CH03qLERxFfUrHNSlFDdWn48oqYff+HPFQmRtYWHij/bFG4ZPIbAv4h07Mvh6vX3GDHH9zcHpO0wQSeN/4p8CsaKpoViz78mTIqF6s6Tiqdctbo+fiCrlb3nuBHYrpVkec/S2UNoon96IBAOn/JIQqpRgCmxLOXs7jPk1iM2TQY4Rc2EebmVvHHdOLaYCuK0VPrHQF0geQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6g34E0kndyo7+g6dqXkTSIgL7SYJue/L3piZeF1/FJI=;
- b=mlwCP/6uJtGlAfmIvo+/sMyYfnuwTy+Jm9OrVudXajpwbkOBHPt2Hj+px0pTW0hEgCaB4EqGGHCO8eo79r/o4pTYgF5+aN0f7riMKQUCbxoVEHJCysNfxCGznnH+yQpRBw8YPWnyi4E1rkd3P6L/4vI76ePoBPSKdAZNfXj/1OLHs1C0/ZUThuJ6RIbMHfoB/So7ONRYSHrUvmh17+SFJWSefgiMqgr7M2FNPDDhd0aQuFbYGQNO0rjZ4jouALXnxyOyJKbZhmBnb0cDS7Kz4OIpLHmKrxhw1PqDEQe5X5jgErt+ror3iQKHSiXRJRKnKuu/wYgAGNtJkWeYtfJzLQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6g34E0kndyo7+g6dqXkTSIgL7SYJue/L3piZeF1/FJI=;
- b=bNVdZZat3S2ccyDLT8rvYA/cv5+WDghsoGLpEIt8nWJW/l8nMSfKEf6WCgTpiPD+AEEmZe4iPAmCXSCDGKVA6fCJay1YI2zvQ+oo7gHYYXr7eol4tHM3aT+zaoT8asPxs1sCs1feOb+tYPMMEnD4BeWQ9Bie0Y6rPF5Jpk3K698=
-Received: from CH0PR04CA0112.namprd04.prod.outlook.com (2603:10b6:610:75::27)
- by SA0PR12MB7464.namprd12.prod.outlook.com (2603:10b6:806:24b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 17:06:18 +0000
-Received: from CH01EPF000BE94F.namprd02.prod.outlook.com
- (2603:10b6:610:75:cafe::47) by CH0PR04CA0112.outlook.office365.com
- (2603:10b6:610:75::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
- 21 Oct 2026 17:06:16 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH01EPF000BE94F.mail.protection.outlook.com (10.167.244.199) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 17:06:16 +0000
-Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 12:06:15 -0500
-From: "Pratik R. Sampat" <prsampat@amd.com>
-To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
-	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
-	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
-CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
-	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
-	<shansinha@google.com>, <prsampat@amd.com>
-Subject: [Patch v5 4/7] crypto: ccp - Factor out the release of the SEV firmware buffers
-Date: Wed, 21 Oct 2026 17:05:00 +0000
-Message-ID: <be72e0b1015156f8613fc2c360fa73d59108dcc6.1792599491.git.prsampat@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1792599491.git.prsampat@amd.com>
-References: <cover.1792599491.git.prsampat@amd.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A72606A320;
+	Wed, 21 Oct 2026 17:06:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32A72606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from ar (unknown [42.86.112.99])
+	by APP-05 (Coremail) with SMTP id zQCowABnzzkF8dhqtPUEDA--.14779S2;
+	Thu, 22 Oct 2026 01:06:15 +0800 (CST)
+From: Sun Yuechi <sunyuechi@iscas.ac.cn>
+To: idryomov@gmail.com,
+	xiubo.li@clyso.com,
+	amarkuze@redhat.com
+Cc: slava@dubeyko.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sun Yuechi <sunyuechi@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ceph: reconnect on peer reset even if the mdsmap says the MDS is active
+Date: Wed, 21 Oct 2026 10:06:13 -0700
+Message-ID: <20261021170613.1144381-1-sunyuechi@iscas.ac.cn>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,126 +56,171 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH01EPF000BE94F:EE_|SA0PR12MB7464:EE_
-X-MS-Office365-Filtering-Correlation-Id: 899e661c-96dc-4941-c6cc-08df2f959e77
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|7416014|376014|1800799024|6133799003|22082099003|18002099003|10067099003|261021123027099002|261021121427099002|11063799006|5023799004|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	WaRAQ6gdCV1KaOj8Up7ERrvYO/E0oTRmiDHjy6Sl29yTXnOob93GFdCVOyPesk4U0J34rtRmAZtskxFhpyT8qI/W20GIteiDIKSYWQr1jRJFkiXW4GPrAaJrKZi2zZvAzsOqkxHezhCQiP/q8msNk4Hbhy5CJ1PwW3RQhaugEqPucZmhjrcH8/g2XOqKmlrBNBbUkWReZVUwmweQMJXR//KYJq5qrsPJkKx5e6iEhIZDv5zq73E12g72HOi2c3e362pKr1HBO/Cd+1D2skj7ykOvXCytWNHEYWQh3G6znnPDbCmaaSdbZ0ryQvwNAmx6ElEmeqm9lMDP3/04n10ZPKsRlq8RDji5+aADMtoWIIWjk0N7OscJL6gyynboIYyC/CcV9IAhHNvwMrLNjl1seWoRjCx1Wiu0k/X6yg138gt5snXzp75PrnRM5m6wmQ7RbzjgC3Laq/PaGI6mYkn8iZvJ4CttJniMRewiSrSmIMyF9cbyI09/PGCTp7+P2S/9YMETW/bPIHDUT08maKsiikBcBJu0i0L+mazJALMp1biBl6Lrg5yag+J6RxRZN90UIHNmG6LtluDRDakK2K8Cc7AO2usvHed2wpSmhebZEDvK65QtnS+QuH6Gn/8AFpcIv/hmvDXlD6hvEBFikWFAxhYp8VtocMenDMJYni91+9Sw6iwchlMfpXqa4Kg8HWvhDz/7qYpeX8tRj0PIAEoAnw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(7416014)(376014)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(261021123027099002)(261021121427099002)(11063799006)(5023799004)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/eB6bNC9WIqwZvxFmhPf3o4pAiE1AGaapwq4REKwKPH2BO14aCaPKzKcEYRKMtr9wPfd5I5EEzSYrNJj7ESwuEZzKk4c5pg2WkdKYaojQYiy8/qOi1MhoDmbXqIxr4+0NKP2Dd9/hlywdZwWPjSkdXSD6japAU1wvhGXOOfAPMiJIbJLk1f+pZjdgrPBZcuxzp3iOmc5tRWv59YiBdlCNqgCnfRVpFmR2xBM48wjHWyvgNCKJn3xoSzcmdsKeeuD49LB+1pMnSTYktVrn1kfX2qpC6/K8YnmZxDCDV3kUZ6jeoce5AvHU7EbhVXrifV9gYiceq/wvi3se6eNjQL5QZCYw2xspBdsk2i6CmTRr2REkOPaB5hRY3tMvPUxus3lxOZq2oop3tD4HkU7YOMlVe7nPwoiAVga6wr0VPr0pzld0o7UX1ExylRmXmD2tULE
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 17:06:16.4628
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 899e661c-96dc-4941-c6cc-08df2f959e77
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH01EPF000BE94F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7464
+X-CM-TRANSID:zQCowABnzzkF8dhqtPUEDA--.14779S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Ary7ZF1kCF47Xw1UAF1xAFb_yoW7Cw1kpr
+	Zaka93Gr4kAw1xtrZrJa4DuFyvkr15ua13JrW0qF95Ga45ur1ftFWvyw1vgasrJr97Ca1F
+	9FW2qFZ5Aa1jv37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbSfO7UUUU
+	U==
+X-CM-SenderInfo: 5vxq53phfkxq5lvft2wodfhubq/1tbiCRUHAmrYx7xX1AAAsT
 
-__sev_firmware_shutdown() reclaims and frees the TMR and the INIT_EX NV
-area once the platform has been taken down. Move that into a helper so
-that other paths which de-initialize the platform can reuse the same
-path.
+Since commit 39fe30315893 ("ceph: harden send_mds_reconnect and handle
+active-MDS peer reset"), mds_peer_reset() tears the session down instead
+of reconnecting when our mdsmap shows the rank past RECONNECT.
 
-No functional change intended.
+That map can be stale.  An MDS killed and restarted on the same address
+resets our connection before the monitors report the rank as failed, so
+the session is torn down while the map still says active.  When a
+standby then takes over the rank in up:reconnect, check_new_map() has
+no session left to reconnect, the new MDS evicts and blocklists us
+after mds_reconnect_timeout, and the mount returns EACCES until it is
+unmounted:
 
-Suggested-by: Shantanu Sinha <shansinha@google.com>
-Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+  libceph: mds0 (2)10.89.20.12:6800 session reset
+  ceph: [...]: mds0 closed our session
+  (mds) evicting unresponsive client ceph-c1 (14900), after waiting
+        49.7175 seconds during MDS startup
+
+Send the reconnect and let the MDS decide, as before that commit.  A
+daemon restarted on the old address has a new nonce, so the reconnect
+does not get through, and check_new_map() reconnects once a map carries
+the rank's new address.  An MDS that really is active replies with
+CLOSE, and handle_session() unregisters the session so that new
+requests open a fresh one, which is what that commit intended.
+
+Skip the warning for -ESTALE and -ENOENT: send_mds_reconnect() already
+logs those, and the removed code was silent for closed and rejected
+sessions.
+
+Tested on riscv64 (7.2.6 kernel, Ceph 21, one active MDS with a
+standby-replay): SIGKILL the active MDS while dropping the client's
+monitor traffic until it logs "closed our session".  Evicted in 4 of 4
+runs without the patch, "reconnect success" in 3 of 3 with it.  Eviction
+by an active MDS without blocklist still recovers with a new session,
+2 of 2 runs.
+
+Fixes: 39fe30315893 ("ceph: harden send_mds_reconnect and handle active-MDS peer reset")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sun Yuechi <sunyuechi@iscas.ac.cn>
 ---
-v4..v5:
-* Collected Reviewed-by from Tom
----
- drivers/crypto/ccp/sev-dev.c | 55 ++++++++++++++++++++----------------
- 1 file changed, 30 insertions(+), 25 deletions(-)
+ fs/ceph/mds_client.c | 84 +++++---------------------------------------
+ 1 file changed, 9 insertions(+), 75 deletions(-)
 
-diff --git a/drivers/crypto/ccp/sev-dev.c b/drivers/crypto/ccp/sev-dev.c
-index f833cb7e4da3..1ed9e61a95cc 100644
---- a/drivers/crypto/ccp/sev-dev.c
-+++ b/drivers/crypto/ccp/sev-dev.c
-@@ -1881,6 +1881,35 @@ static int __sev_platform_shutdown_locked(int *error)
- 	return ret;
- }
- 
-+static void __sev_release_firmware_buffers(bool panic)
-+{
-+	if (sev_es_tmr) {
-+		/*
-+		 * The TMR area was encrypted, flush it from the cache.
-+		 *
-+		 * If invoked during panic handling, local interrupts are
-+		 * disabled and all CPUs are stopped, so wbinvd_on_all_cpus()
-+		 * can't be used. In that case, wbinvd() is done on remote CPUs
-+		 * via the NMI callback, and done for this CPU later during
-+		 * SNP shutdown, so wbinvd_on_all_cpus() can be skipped.
-+		 */
-+		if (!panic)
-+			wbinvd_on_all_cpus();
-+
-+		__snp_free_firmware_pages(virt_to_page(sev_es_tmr),
-+					  get_order(sev_es_tmr_size),
-+					  true);
-+		sev_es_tmr = NULL;
-+	}
-+
-+	if (sev_init_ex_buffer) {
-+		__snp_free_firmware_pages(virt_to_page(sev_init_ex_buffer),
-+					  get_order(NV_LENGTH),
-+					  true);
-+		sev_init_ex_buffer = NULL;
-+	}
-+}
-+
- static int sev_get_platform_state(int *state, int *error)
+diff --git a/fs/ceph/mds_client.c b/fs/ceph/mds_client.c
+index d4ef8a355a48..d23250af0750 100644
+--- a/fs/ceph/mds_client.c
++++ b/fs/ceph/mds_client.c
+@@ -7236,7 +7236,7 @@ static void mds_peer_reset(struct ceph_connection *con)
  {
- 	struct sev_user_data_status data;
-@@ -2906,31 +2935,7 @@ static void __sev_firmware_shutdown(struct sev_device *sev, bool panic)
+ 	struct ceph_mds_session *s = con->private;
+ 	struct ceph_mds_client *mdsc = s->s_mdsc;
+-	int session_state;
++	int rc;
  
- 	__sev_platform_shutdown_locked(&error);
+ 	pr_warn_client(mdsc->fsc->client, "mds%d closed our session\n",
+ 		       s->s_mds);
+@@ -7246,82 +7246,16 @@ static void mds_peer_reset(struct ceph_connection *con)
+ 		return;
  
--	if (sev_es_tmr) {
--		/*
--		 * The TMR area was encrypted, flush it from the cache.
--		 *
--		 * If invoked during panic handling, local interrupts are
--		 * disabled and all CPUs are stopped, so wbinvd_on_all_cpus()
--		 * can't be used. In that case, wbinvd() is done on remote CPUs
--		 * via the NMI callback, and done for this CPU later during
--		 * SNP shutdown, so wbinvd_on_all_cpus() can be skipped.
--		 */
--		if (!panic)
--			wbinvd_on_all_cpus();
+ 	/*
+-	 * Only reconnect if MDS is in its RECONNECT phase.  An MDS past
+-	 * RECONNECT (REJOIN, CLIENTREPLAY, ACTIVE) will reject reconnect
+-	 * attempts, so those states fall through to session teardown below.
++	 * Our mdsmap may be stale: an MDS restarted on the same address
++	 * resets the connection before we learn that the rank failed.
++	 * Send the reconnect and let the MDS decide; one that is past
++	 * RECONNECT replies with CLOSE and handle_session() closes the
++	 * session so that new requests open a fresh one.
+ 	 */
+-	if (ceph_mdsmap_get_state(mdsc->mdsmap, s->s_mds) == CEPH_MDS_STATE_RECONNECT) {
+-		int rc = send_mds_reconnect(mdsc, s);
 -
--		__snp_free_firmware_pages(virt_to_page(sev_es_tmr),
--					  get_order(sev_es_tmr_size),
--					  true);
--		sev_es_tmr = NULL;
+-		if (rc)
+-			pr_warn_client(mdsc->fsc->client,
+-				       "mds%d reconnect failed: %d\n",
+-				       s->s_mds, rc);
+-		return;
 -	}
 -
--	if (sev_init_ex_buffer) {
--		__snp_free_firmware_pages(virt_to_page(sev_init_ex_buffer),
--					  get_order(NV_LENGTH),
--					  true);
--		sev_init_ex_buffer = NULL;
+-	/*
+-	 * MDS is active (past RECONNECT).  It will not accept a
+-	 * CLIENT_RECONNECT from us, so tear the session down locally
+-	 * and let new requests re-open a fresh session.
+-	 *
+-	 * Snapshot session state with READ_ONCE, then revalidate under
+-	 * mdsc->mutex before acting.  The subsequent mdsc->mutex
+-	 * section rechecks s_state to catch concurrent transitions, so
+-	 * the lockless snapshot here is safe.  s->s_mutex is taken
+-	 * separately for cleanup after unregistration, which avoids
+-	 * introducing a new s->s_mutex + mdsc->mutex nesting.
+-	 */
+-	session_state = READ_ONCE(s->s_state);
+-
+-	switch (session_state) {
+-	case CEPH_MDS_SESSION_RESTARTING:
+-	case CEPH_MDS_SESSION_RECONNECTING:
+-	case CEPH_MDS_SESSION_CLOSING:
+-	case CEPH_MDS_SESSION_OPEN:
+-	case CEPH_MDS_SESSION_HUNG:
+-	case CEPH_MDS_SESSION_OPENING:
+-		mutex_lock(&mdsc->mutex);
+-		if (s->s_mds >= mdsc->max_sessions ||
+-		    mdsc->sessions[s->s_mds] != s ||
+-		    s->s_state != session_state) {
+-			pr_info_client(mdsc->fsc->client,
+-				       "mds%d state changed to %s during peer reset\n",
+-				       s->s_mds,
+-				       ceph_session_state_name(s->s_state));
+-			mutex_unlock(&mdsc->mutex);
+-			return;
+-		}
+-
+-		ceph_get_mds_session(s);
+-		s->s_state = CEPH_MDS_SESSION_CLOSED;
+-		__unregister_session(mdsc, s);
+-		__wake_requests(mdsc, &s->s_waiting);
+-		mutex_unlock(&mdsc->mutex);
+-
+-		mutex_lock(&s->s_mutex);
+-		cleanup_session_requests(mdsc, s);
+-		remove_session_caps(s);
+-		mutex_unlock(&s->s_mutex);
+-
+-		wake_up_all(&mdsc->session_close_wq);
+-
+-		mutex_lock(&mdsc->mutex);
+-		kick_requests(mdsc, s->s_mds);
+-		mutex_unlock(&mdsc->mutex);
+-
+-		ceph_put_mds_session(s);
+-		break;
+-	case CEPH_MDS_SESSION_CLOSED:
+-	case CEPH_MDS_SESSION_REJECTED:
+-		break;
+-	default:
++	rc = send_mds_reconnect(mdsc, s);
++	if (rc && rc != -ESTALE && rc != -ENOENT)
+ 		pr_warn_client(mdsc->fsc->client,
+-			       "mds%d peer reset in unexpected state %s\n",
+-			       s->s_mds,
+-			       ceph_session_state_name(session_state));
+-		break;
 -	}
-+	__sev_release_firmware_buffers(panic);
- 
- 	__sev_snp_shutdown_locked(&error, panic);
++			       "mds%d reconnect failed: %d\n", s->s_mds, rc);
  }
+ 
+ static void mds_dispatch(struct ceph_connection *con, struct ceph_msg *msg)
 -- 
-2.43.0
+2.56.0
 
