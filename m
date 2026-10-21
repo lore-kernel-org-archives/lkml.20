@@ -1,38 +1,38 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.131.191.57
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581908;
-	b=0LZ64JYRuFEAoxUw2GqSQ9ll26vrj3cUvaTogOSRcTc96574D78rTyFnjix0eRc1auKu
-	 Y7BuyXHStF9WKmOEWSA4eAkUf7x07I+21ud3orIvBalcx9ly7f2YA8sARXzHR4HsoXNG4
-	 p4usHJ+imyTztuPW/wjaRNGtA5VsLjfOJhWeV7fIrhw2fyXRSX9R5QGYAalf6I+8whBir
-	 li5AgHDhWz1N3TCNKEzuQlwNvNBxo0rsinZh3iqYTJB0AQ/vh9EiPWoxusLh91xCiqASf
-	 xarYYeCh8PBDnKIIouRbTvzxxeTksG9isxMNnVzXjfeb8zmmRkqn3gYEHw4jWmY94NA==
+	t=1792581902;
+	b=wvvWAj649LEIokNazyn3xNz6W2orI21HKn5COvHlIdeinbQ473Sc0aT8qs3fyTv1BX5j
+	 DDkyKhTxvMFqRH2QsmORaoLKWbUew2YSFBJip8YzIElufY+4UK1/47G8PT26MpxA8Mrmt
+	 61QzhhLujaCoj7QzYVBmZVD43EXf//yUTT6YhR3SOrDTraoQyg+V6ul43D9wHxZ22E2Tk
+	 TVo4wjhNVpWg9IKTvxt8nec7z5OqODf2puWOXY6u+KVchx4cYA0hvcQbXgAQJmh9Pi5N8
+	 QIl/p7uIuAUVMb+vKf7vugAOs3298UPT18bO1v1D0MjufZ4I99cbTdPIHL+sVnglnAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581908;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792581902;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=mBXfKVl4/Kl4meR18VHWKqXqUs3LmwtSo20MC6ZTq7c=;
-	b=vqlsa+ZXvgBIlmlQmfrxSdbpiVsBAVBfgM5DcL9FsS7AZrUyZ4D6mdTPtrwew27CMfx/
-	 BxcIEqprI7uMJupOugI3yhbJF6zM7/BHSDGAEfzz0YPpQYG/NlG5NRGpCcOHExDwpeldq
-	 kAI5GlctCMMLlmqOMNA/SHLwScfqsivy6/bkIFLsdskguith8xIvdh9ubx7+sR8ojYEWu
-	 tCKoYIH/z2xwH6jcG3Kp9mI+NoZgxUzswqZ8VtoukAG3+7q3AwZmbwcsZgHLMyEX6F5+m
-	 KtftLYdSx+Z2k/LHLghro9MfkF1XlgeobaZ/prbt5WUrxCEI3Qpl1x4YGb05RtGkSeA==
+	bh=XNod+BDD/BkSwCVYSyt2PbUacsNtMgi+MLEdpjX47ak=;
+	b=pUK/FV5fszLimbBWg1Q36lcxXAPrpVlBd6D4bEdTYz8lcZfG8Yw2XX+Pj03iw8EZ7Yqh
+	 nXlBJpTtXC51jN441CVhP33TQ/HC3Eu31PZ3Hgvqg/tq3/0zJbBxtmdlo6s8OQNP3t3/H
+	 kMzlOQKt/9YIV4+AiJo6a60O+fHpgBKN+1mbphyBP/U+7GbCf+cgXLMQ48FCkgPA+TnDW
+	 pZhRYgJP6/Oin4fKSkIBfLUxwZFlNQo/50gfblvZlpw6UImOIyEKJoDT50iKMHGjLZ/7j
+	 LjdBqgqZkifSz/hKAen/87q2lgSbjKhhJESVCvPH+d11kC1nDmMlIQ84EW4BXl4LLNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=easystack.cn;
 	spf=pass smtp.mailfrom=easystack.cn;
-	arc=none smtp.remote-ip=103.131.191.57
-Received: from mail-m10313119157.xmail.ntesmail.com (mail-m10313119157.xmail.ntesmail.com [103.131.191.57])
+	arc=none smtp.remote-ip=210.79.60.16
+Received: from mail-m6016.netease.com (mail-m6016.netease.com [210.79.60.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B75606A331;
-	Wed, 21 Oct 2026 11:25:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2B75606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E920606A31B;
+	Wed, 21 Oct 2026 11:25:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E920606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151ad;
-	Wed, 21 Oct 2026 19:24:55 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151a7;
+	Wed, 21 Oct 2026 19:24:50 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: ast@kernel.org,
 	daniel@iogearbox.net,
@@ -58,9 +58,9 @@ Cc: bpf@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v3 5/7] mm/page_owner: record the NUMA node in the scan cursor
-Date: Wed, 21 Oct 2026 19:24:35 +0800
-Message-Id: <20261021112437.1799213-6-zhen.ni@easystack.cn>
+Subject: [PATCH v3 2/7] mm/page_owner: protect page access with mem-hotplug read lock
+Date: Wed, 21 Oct 2026 19:24:32 +0800
+Message-Id: <20261021112437.1799213-3-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20261021112437.1799213-1-zhen.ni@easystack.cn>
 References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
@@ -74,132 +74,121 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa15e35045c0229kunme08c1fd526ace7
+X-HM-Tid: 0aa15e34f2a30229kunme08c1fd526acd7
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGkkdVk4fTklKTR5KHUlOHlYVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSx5PVhoeSE1LGB5LTEpMH1YVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Compute the page's NUMA node in page_owner_next_eligible() while the
-page is still valid, and store it in scan->nid.
+The page_owner scan walks PFNs locklessly and dereferences the resolved
+struct page in the scan itself and in print_page_owner(). With
+CONFIG_MEMORY_HOTREMOVE, a concurrent remove_memory() can tear down the
+section's vmemmap, so a dereference after a stale validity check may
+fault.
 
-The debugfs nid filter reads scan->nid instead of recomputing it, and a
-BPF program iterating the cursor reads the node straight from scan->nid.
+Take a mem-hotplug read lock across each page's check-then-deref. In the
+scan, gate every PFN with pfn_to_online_page() under the reader and drop
+it before cond_resched(), so hotplug can still interleave between pages;
+in print_page_owner(), re-resolve the page under a reader covering just
+the print of one record.
 
-Resolve nid at scan time to avoid dereferencing a possibly-unmapped page.
-Keep it in the transient scan cursor rather than struct page_owner, so
-nid does not add per-page memory overhead.
+The reader is cheap: get_online_mems()/put_online_mems() are just
+per-CPU counter increments/decrements when no hotplug is active, so
+they contend only with an actual add/remove. Taking the lock per-page
+bounds the writer's wait to a single page's check-and-deref, keeping
+hot-remove stalls brief while all accesses stay protected.
+
+This makes the traversal crash-free. A recycled-but-present page can
+still yield stale data -- the lockless scan is best-effort and
+unchanged by this patch.
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
 Changes in v3:
-- Add @scan->nid to the comment describing what is filled.
-
-Changes in v2:
-- Removes the v1 get_nid() kfunc. The node is now stored in scan->nid.
-
-v2: https://lore.kernel.org/linux-mm/20261013122125.843451-5-zhen.ni@easystack.cn/
-v1: https://lore.kernel.org/linux-mm/20261009112308.240769-5-zhen.ni@easystack.cn/
+- New patch. Add the mem-hotplug protect.
 ---
- mm/page_owner.c      | 29 +++++++++++++++++------------
- mm/page_owner.h      |  1 +
- mm/page_owner_iter.c |  4 +++-
- 3 files changed, 21 insertions(+), 13 deletions(-)
+ mm/page_owner.c | 35 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 30 insertions(+), 5 deletions(-)
 
 diff --git a/mm/page_owner.c b/mm/page_owner.c
-index ece3b69a2579..8bc15bcdc24e 100644
+index 92a92cdf74ec..8e72a85c663c 100644
 --- a/mm/page_owner.c
 +++ b/mm/page_owner.c
-@@ -711,9 +711,22 @@ void __dump_page_owner(const struct page *page)
- 	page_ext_put(page_ext);
- }
- 
-+/*
-+ * NUMA node of @page, bypassing PF_POISONED_CHECK() in page_to_nid() to
-+ * avoid VM_BUG_ON on poisoned pages; -1 for poisoned pages.
-+ */
-+static int page_owner_get_nid(struct page *page)
-+{
-+	memdesc_flags_t page_flags = READ_ONCE(page->flags);
-+
-+	if (page_flags.f == PAGE_POISON_PATTERN)
-+		return -1;
-+	return memdesc_nid(&page_flags);
-+}
-+
- /*
-  * Advance @scan to the next page eligible for page_owner output.
-- * On a hit, fill scan->pfn/po_snap and return true; the caller
-+ * On a hit, fill scan->pfn/po_snap/nid and return true; the caller
-  * must advance scan->pfn past the hit before calling again to resume
-  * the scan.
-  */
-@@ -790,6 +803,7 @@ bool page_owner_next_eligible(struct page_owner_scan *scan)
- 		if (!scan->po_snap.handle)
- 			goto ext_put_continue;
- 
-+		scan->nid = page_owner_get_nid(page);
- 		page_ext_put(page_ext);
- 		put_online_mems();
- 		return true;
-@@ -833,17 +847,8 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
- 			goto skip_continue;
- 
- 		if (state->nid_filter_enabled) {
--			int nid;
--			memdesc_flags_t page_flags = READ_ONCE(page->flags);
--
--			/*
--			 * Bypass PF_POISONED_CHECK() in page_to_nid() to avoid
--			 * VM_BUG_ON when accessing poisoned pages.
--			 */
--			if (page_flags.f == PAGE_POISON_PATTERN)
--				goto skip_continue;
--			nid = memdesc_nid(&page_flags);
--			if (!node_isset(nid, state->nid_filter))
-+			if (scan.nid < 0 ||
-+			    !node_isset(scan.nid, state->nid_filter))
- 				goto skip_continue;
+@@ -762,13 +762,22 @@ static bool page_owner_next_eligible(struct page_owner_scan *scan)
+ 			continue;
  		}
  
-diff --git a/mm/page_owner.h b/mm/page_owner.h
-index 4ab513f17fc9..934bc9f84d6f 100644
---- a/mm/page_owner.h
-+++ b/mm/page_owner.h
-@@ -38,6 +38,7 @@ struct page_owner_scan {
- 	/* resume point */
- 	unsigned long pfn;
- 	struct page_owner po_snap;
-+	int nid;
- };
+-		page = pfn_to_page(pfn);
++		/*
++		 * Hold a mem-hotplug reader across the page derefs so the
++		 * vmemmap isn't torn down mid-scan; released before
++		 * cond_resched().
++		 */
++		get_online_mems();
++		page = pfn_to_online_page(pfn);
++		if (!page)
++			goto put_online_continue;
++
+ 		if (skip_buddy_pages(&pfn, page))
+-			continue;
++			goto put_online_continue;
  
- bool page_owner_next_eligible(struct page_owner_scan *scan);
-diff --git a/mm/page_owner_iter.c b/mm/page_owner_iter.c
-index 4b9741a2de53..b7e0ce1dfa80 100644
---- a/mm/page_owner_iter.c
-+++ b/mm/page_owner_iter.c
-@@ -12,10 +12,11 @@ struct bpf_iter__page_owner {
- 	__bpf_md_ptr(struct bpf_iter_meta *, meta);
- 	__bpf_md_ptr(struct page_owner *, po);
- 	u64 pfn;
-+	int nid;
- };
+ 		page_ext = page_ext_get(page);
+ 		if (unlikely(!page_ext))
+-			continue;
++			goto put_online_continue;
  
- DEFINE_BPF_ITER_FUNC(page_owner, struct bpf_iter_meta *meta,
--		     struct page_owner *po, u64 pfn)
-+		     struct page_owner *po, u64 pfn, int nid)
+ 		/*
+ 		 * Some pages could be missed by concurrent allocation or free,
+@@ -805,10 +814,13 @@ static bool page_owner_next_eligible(struct page_owner_scan *scan)
+ 			goto ext_put_continue;
  
- static void *page_owner_seq_start(struct seq_file *seq, loff_t *posp)
- {
-@@ -52,6 +53,7 @@ static int page_owner_prog_seq_show(struct bpf_prog *prog,
- 		/* @po: hit-time snapshot, no RCU window needed. */
- 		ctx.po = &scan->po_snap;
- 		ctx.pfn = scan->pfn;
-+		ctx.nid = scan->nid;
+ 		page_ext_put(page_ext);
++		put_online_mems();
+ 		return true;
+ 
+ ext_put_continue:
+ 		page_ext_put(page_ext);
++put_online_continue:
++		put_online_mems();
+ 		cond_resched();
  	}
  
- 	return bpf_iter_run_prog(prog, &ctx);
+@@ -831,7 +843,17 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 
+ 	/* Find an allocated page */
+ 	while (page_owner_next_eligible(&scan)) {
+-		struct page *page = pfn_to_page(scan.pfn);
++		struct page *page;
++		ssize_t ret;
++
++		/*
++		 * The scan is lockless. Re-resolve the page under a mem-hotplug
++		 * read-side lock so that we never access a hot-removed section.
++		 */
++		get_online_mems();
++		page = pfn_to_online_page(scan.pfn);
++		if (!page)
++			goto skip_continue;
+ 
+ 		if (state->nid_filter_enabled) {
+ 			int nid;
+@@ -851,10 +873,13 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 		/* Record the next PFN to read in the file offset */
+ 		*ppos = scan.pfn + 1;
+ 
+-		return print_page_owner(buf, count, scan.pfn, page,
++		ret = print_page_owner(buf, count, scan.pfn, page,
+ 				&scan.po_snap, scan.po_snap.handle, state);
++		put_online_mems();
++		return ret;
+ 
+ skip_continue:
++		put_online_mems();
+ 		scan.pfn++;
+ 		cond_resched();
+ 	}
 -- 
 2.20.1
 
