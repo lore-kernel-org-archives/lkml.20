@@ -1,64 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792543271;
-	b=YE82FuBC167EVLjUa5Ap090Xe0EyG5UZjBiTfrtL4f9R4Ee5v0ysnxsFGZ9uCKV88GFB
-	 Sa7e2aGCKfBOjINENiPatko2xCecmVq4fF4lX8Iojd9+HqPYej+y+FWGe0yqWVrZIp7RY
-	 Vwfu0Fa5uJtkm56xTGvLJQ9X1FojeXk7mgSp414Z46DKeE90cBHGHzhmhpA0gENwmSPIQ
-	 TIbPAi7pb/8Y6Js8G7RU9UGOyXVwtiZDc+bAOS7OZ1AGlkWPyVSZEXS1oOs/A4+vTiivg
-	 df71VhV21OXEn0tks7t+RiXF6uNt8q34jMbE5HK/tML7E1YNDqThu3lXLNaErx2HSPw==
+	t=1792543275;
+	b=QNUcj0nFpoLlY5uwZZE88HfQVlEdF2i/rYMYvw6o4/HrwiPhzqeqZ3Ei6WqpP5hlkSpF
+	 HAfWHlAT0oNdR8K6TwsBPm9+Np0QSAuo3+rnhN+WjCaQBDwb9kmTX5HMCwC2yk/6NTWfu
+	 68WpRNRvNTWc2FXMEsBxxkY0cP2IklXqar5WssBqpSw3PZ3eBiFLAYDb2D5Rd18VYAT2g
+	 32iP5qJ+pLZdzMON+qtn3oNaqw8NVcwH7twPfFXoy0szVd2Li4rdZsxN+J/yFFXe1PKgJ
+	 VYzn3EkCOeynV1ugpvZkH5eD0S+bZhUmfCGKmPD6HAMzX98TvBdQEZ8l1Av5ZlmzsWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792543271;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792543275;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=BsHhe+WPP54yq9eGTkOlxgoW3QO5RQJOgYpYL91UBak=;
-	b=KZ+rz3bV9lPkr1Hg8EoptZc4cN9KeU30lrgR1C5eCYZtu2U3pJVuUCN46O4GfGiW2EVK
-	 xZDzWOQpyhVpka1Mnu4Z/QAaXoZoF8agOYyGNxku9cdr6o3bB6RpCpAo69ttVhQ9vVL/Q
-	 aiQk056ei1wRffX/vBFpZwzvxPZ4tA+bE1yri5QNzTAYohtzInm/kaQeIv2orvWTyLWq0
-	 BpeLYdb3qQBujGSkPLHanV3dr09DQz1TdFREPF+Z3d8p97i7xXYpUGiknW9TD0YQQ8Vd/
-	 2SxHPy9WXhuvhzbM0u9c9qWKNWkc9KeK2whNsywhMyOXdKhSg7IWD328m31JqBokS0w==
+	bh=ciyslDAt+TZ7UGt4BogxbF/cRnwKu6zGiIwhiRrJtKk=;
+	b=IdZuf0m2ZlOozuXjvyNtRgi9Dl222yjfToOJR7sLHi4Z358igqfsWJPAW0K9qXiK/2CB
+	 LIsKsTR/86w5WUWyxTsQJ/vUy9f3l+dULpUWdnXkpdtsZrfldM16vj0N1X0BHaPs1DJLG
+	 ByPdId12pFxeghhOrQD0vjRBRAQ5dK4aUnh7T8twD1qiA14a8aKJ5ZkfbHo4eyca/z7Ub
+	 cYEZUsBu4TWs6HyMIt9UCFujn8nj4K8f788iqhHZ1E7Oartjt+v6Ak73DQ0sa+p1GQj6j
+	 gKMFsYmmERYpuXNWsNRbeHiDh5uPc+Wor5R3VvOHoyQaqcTpIYz5YlFDifseNc5G+hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQOih52C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5obs7Ms;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32EF4606A31E;
-	Wed, 21 Oct 2026 00:41:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31DF606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:41:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WQOih52C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BE7B1F000CC;
-	Wed, 21 Oct 2026 00:41:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5obs7Ms
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9621F000CF;
+	Wed, 21 Oct 2026 00:41:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792543271;
-	bh=BsHhe+WPP54yq9eGTkOlxgoW3QO5RQJOgYpYL91UBak=;
+	s=k20260515; t=1792543274;
+	bh=ciyslDAt+TZ7UGt4BogxbF/cRnwKu6zGiIwhiRrJtKk=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=WQOih52CGOWOWMZDEl6pBSHaRi+Ji9GM2pKbRalgIrXb0pvT9+GXJvCk9gP3Jmkbi
-	 MoZu+Fx5zz+chKLenG66K+xb8Pzo3BEdrYynP+WaFNJrTmieDNLt0eT7EguvLWX3HZ
-	 rca6kLNVs+9+uykxzxw9Da+nSaywXiQRtK2NpHH3Ee1lp4/ZLjLSgrznsSarzX6iCb
-	 /A30GtIou1PtIXBNc0kHp7PpU3gv2gWF8ufYDqzpfDp+ddGaDxrDhsIOmORCk0Ogd2
-	 hgXtDnGdFGiPxdujckQ6PNT4XzJ9HmwLPeIZ3HbHG1ZjzWX62jybjbyLwC4q3Up4Xl
-	 cMFlDDepFvz8w==
+	b=O5obs7Msntimqrx2GTYzrz5Bx7kvsIoH1kft2NSb5tZ+f0C2Ld5HLSbAct2xjm94J
+	 bkX3gGZR7XHr9p+lhMYWlyXVxwOXCZLYtx1Vhw2VozcSDxs2pUtWUOa7+16zrhq6wA
+	 BbnGM9VtGBdPIGUPUeubR0hL7Tas6DeyGYEeUAJM4plWgzBaTEuh3zbwpMjGedalSk
+	 sC6pcQ7xC5DxVemnGNTwuP/CavFaN0tlmTEUhQycnWxI9EElV9FnT+jA93PeFhIDrk
+	 gzcX0IPRNc9O4lYNtOjt+mrRTODosNs3J0WTJzRTHoxn3AZwbE0bMviA0t3sUTXIG+
+	 r9rtV7Cr+S8rA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0D9DF3809A0D;
-	Wed, 21 Oct 2026 00:41:11 +0000 (UTC)
-Subject: Re: [GIT PULL] alpha updates for v7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D3F553809A0D;
+	Wed, 21 Oct 2026 00:41:14 +0000 (UTC)
+Subject: Re: [GIT PULL] m68k updates for v7.4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <ataJlL6L7TrS3gWs@z440.darklands.se>
-References: <ataJlL6L7TrS3gWs@z440.darklands.se>
-X-PR-Tracked-List-Id: <linux-alpha.vger.kernel.org>
-X-PR-Tracked-Message-Id: <ataJlL6L7TrS3gWs@z440.darklands.se>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/lindholm/alpha.git tags/alpha-for-v7.4-tag
-X-PR-Tracked-Commit-Id: 71cf9644bcb35e686c3e12a703325335a0925946
+In-Reply-To: <20261019121317.669372-1-geert@linux-m68k.org>
+References: <20261019121317.669372-1-geert@linux-m68k.org>
+X-PR-Tracked-List-Id: <linux-m68k.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261019121317.669372-1-geert@linux-m68k.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/geert/linux-m68k.git m68k-for-v7.4-tag1
+X-PR-Tracked-Commit-Id: af32c3cb72529b14bfb2685bbdaa2b1514496b58
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 742f62b63904cdc20a364a49d2861e32464a0af7
-Message-Id: <179254326984.289274.148433132364390249.pr-tracker-bot@kernel.org>
-Date: Wed, 21 Oct 2026 00:41:09 +0000
-To: Magnus Lindholm <linmag7@gmail.com>
-Cc: torvalds@linux-foundation.org, linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org, mattst88@gmail.com, richard.henderson@linaro.org, linmag7@gmail.com
+X-PR-Merge-Commit-Id: 6be53e26e8f9f2d09a4030339d1c7f653fc07983
+Message-Id: <179254327371.289274.5731917532722577593.pr-tracker-bot@kernel.org>
+Date: Wed, 21 Oct 2026 00:41:13 +0000
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Andrew Morton <akpm@linux-foundation.org>, Greg Ungerer <gerg@linux-m68k.org>, linux-m68k@lists.linux-m68k.org, linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +68,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Mon, 19 Oct 2026 23:20:20 +0200:
+The pull request you sent on Mon, 19 Oct 2026 14:13:17 +0200:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/lindholm/alpha.git tags/alpha-for-v7.4-tag
+> git://git.kernel.org/pub/scm/linux/kernel/git/geert/linux-m68k.git m68k-for-v7.4-tag1
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/742f62b63904cdc20a364a49d2861e32464a0af7
+https://git.kernel.org/torvalds/c/6be53e26e8f9f2d09a4030339d1c7f653fc07983
 
 Thank you!
 
