@@ -1,112 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.167
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792560652;
-	b=m8xxECuulYSD6yrZSGbLmM/eXSrqf3bNnxiCVr93Q8xWzTwl3ML4OEMvuFMaJb/xUQrA
-	 p0a04PQRmVEX9WfbOjJlc4pQwwg2qYBcp4A/J9QLxOesdjeYD9Nt5kJ693+6M8T4o/gYW
-	 mJ4z+iv57P3cKmkSllf3jDob5Im8d3R5r2LOno7yEKLBEoXENpW0wzNLwRatUn/ANNfaU
-	 zyWS8LMRDgfSmGSfiyJ1JEQqBjJKh5GCJ8buXa1LRRwzXX+sd/0Na5kjdvG4+6/mQo74q
-	 2IyT0MYPo0KtQjjHDkJY3+NhMM0+i9W+0GgzlYXnp6JntM0rZ/DqFMa9ylfxggBauvg==
+	t=1792560668;
+	b=2BW3D+CMGp6yIDTFJ6nSCqiZoYmYTXcdjET7etfNayBww6dHmERZggTF+8+tIqe/GHx8
+	 i97Yx/Mpwnmo77vNAKrz9X/HpKnPrvqQNFs7BbDbL0KiFIzrLnMUQteKNQ148hQs2mbZ2
+	 ZmO5QTiynxlhxvaxZmMQmyhNU3qT8YGeOt7g5fOnzdN7lj6hghZ5mNOrQOwOI5LktLAk3
+	 peRA1o5hDczbpzxBdb/0KVvLgbT9YMNAaXxOxcygNZESiuZl1RH57ilrh/Ba4vO9AFvTF
+	 pcMxlgyM0GayIGEux1zTt+8cIhVOSzt8IzW2wbfpSGwx+BZkxUFv80q5iLtxCBgWd5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792560652;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Message-ID:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type;
-	bh=wOxW4z1BbQYP9uEvGV85h66bQb0xJWZvNtv4eVINyQQ=;
-	b=NwREZ2cifbD5XdV8Xxg4mOcbICntVbFSEyD4NDCfYq88cTkD8JcoreOgrJC94zngWPEW
-	 TCaz0M9KItNrswvrHg+olRZ1SWjeXHZlB1Cb7Jwk+m7aXgm1508ckOYV+n1pTVGUr3z/0
-	 5iLl37GEE9sUr+yOELXVN31nWZN9OIoXnhxy+gkqbAeGuLQXZzM0hVYf5INTpqait91jY
-	 7AQrCOTZOMVRb589Cma7rJqGpoKrcFb02kAtcC7m+YB1RrPX//KL/QO+pQ6gF6DohAylT
-	 QZvLbrzel1muIuaMz6uKZ/rraxyYMWtcZ76jJHEcs5nNg2ZqRfT5ICXU/8F4sRiXaxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792560668;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=ky2NpRR2wA3rI5JofH0oPOu2Ap9UfVO+8mvTU5ilZnc=;
+	b=Ee5ENCEY/tXCjl8tHdi9lBWgwCjRhVEJc5aQ/f3hrZha97UVnJXkTFgyTYBScuytpGix
+	 thUiRo0fabA3F8PC4etukxUHgRJyqQBePsKgDj0W0O7VI/3h7t6zeFKQJEibfjECfF+Tm
+	 blfGhkVBTtOUpOrjo6B3sOiCe0b03xCKRvZlzIvDGnGkUWQm4iVyG8aa8Jk/a0p5IkF3M
+	 gqF2XTfGfbVywohxB0QhN92ywPAhWtFYORc9qOPT8vBIb+PXscu2weoAWL3hZjYXKmbYs
+	 ktPfhW90bZX04sAOupyD176xbaqQ8j3qyeVcyzzwybFZZVaVvJ6Ypbnt5jpo5aLVEQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=innovatrics.com;
-	spf=pass smtp.mailfrom=innovatrics.com;
-	dkim=pass header.d=innovatrics.com header.i=@innovatrics.com header.a=rsa-sha256 header.s=google header.b=dZG9+Qrb;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=xej6Vdz6;
+	arc=none smtp.remote-ip=202.108.3.167
+Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6645606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:30:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6645606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=innovatrics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=innovatrics.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5712C606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:31:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5712C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=innovatrics.com header.i=@innovatrics.com header.a=rsa-sha256 header.s=google header.b=dZG9+Qrb
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1f68a9855so1635435e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:30:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=innovatrics.com; s=google; t=1792560650; x=1793165450; darn=vger.kernel.org;
-        h=content-type:mime-version:date:references:in-reply-to:message-id
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wOxW4z1BbQYP9uEvGV85h66bQb0xJWZvNtv4eVINyQQ=;
-        b=dZG9+Qrbq6r8virMQzN/ZnScSqFL9UpktW2+0+n3rDobwVeYO2vFRf/TLLKIVXBmhF
-         Gy8RLB4EpeJSlAY8DjkXHht8NBPQbM5e5fFurkIdO9DfEYRLT1UnIUiVHv5USugAATTU
-         SMpXa/vr/CV4YYNC5DI0uYI78q0K+X5Fj4Q/g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792560650; x=1793165450;
-        h=content-type:mime-version:date:references:in-reply-to:message-id
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wOxW4z1BbQYP9uEvGV85h66bQb0xJWZvNtv4eVINyQQ=;
-        b=n/Rm7tiXs4gWIy6pBycoh/bncQ1ebVEnUYP//xTs/IeVxpnZtIl6IPxYz2ySFWFXjV
-         vmLnJHnvwu+wp5LTCJ6wLJXL/e3HAnndilCNCRetxPhMwqgmZheABBCtn+1vRUj1dxYv
-         kZ8vQ1jJ3FAkhOrTajs/tF4hNSokjiiAOZLSm1YaRkV5b60OaDxWMf9suxMrjlj7J3U1
-         aiD4e/27Yl0RxBLkkGFkJjAhd/aNru9cquni551yqRWV0Y7u95SS+4zELDouYv8LHwrL
-         60vB63KZ9gkw+VY8liU7lpKxv84fyUGnm7Hi6z7lM3Fy+gs39HGbifPPqYkaiCPYsXsU
-         DpjQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxQaEKCKdYdkvAj0WHKL+zrSW7p9E35BYAAA0JOYtx1XDiom4V5/WErKFgmfQ0OU66Ugl9CRvIRUUz/vYo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYQP8ZU0hYUb4YxOWkN7qJPpKi8Ry9m+7CgmZJ95WiScz560O7
-	cArMeETnm5cu6P3bXOZhtxkFyNczugAZgYugK4GKG1GJWosoiXluASeH1RQ7YaZSYg==
-X-Gm-Gg: AYBFou3M73wHiokNY3jSbC/X+UXtFDVq1aWKp5yR+pR1PbdB9dgyweNaHK9PV179gXR
-	TYp2LTEaN7MA7yoQcPBz7wjOGwJWjFc73XeFgFED2pxGgu9KF4ttVFf7xUmv9xQJbH0hv+N26Bz
-	xospoqJF2SmZhS3aJmrxiDr5StfHO/Cikb7p6Ax20f3dCXYnUjo7mB3eVOmzS3waEeozMxthRGQ
-	yCzs8h4Ad/+m9Ti56bhh9Ie5sW/ojrYkGhY3dd+whu82014rEWXQf6Mu1doBO1Z1eKrcS6ZmWHJ
-	kMxDZo2iQ6YdxxNhGTeR8uiGSTTZ93mddiF6UZ49ezWbXoOr0MINORA/zGyKmKTrP6NCVG5eQgA
-	dDg3rztxXVMvlvPdWJtcghqAQIKDnxQ+3Ym1dk9had0ikUwCL3F5yHiVFImdWwNrpB2DUoZ7ydW
-	XXM81aeA8GlnQ/hIXuCD7BGkhVYnLRQS/bEqb04Dr9okltuIASC4CHfPDsiB5tP48EX6hEzAT+t
-	a9eLwxFr9GBY3mOpABbsRP2TjUS6RWkkGJNVM7Igc2ojRJNIQG5wBWXYtePv3flgcPD5Es/5RYr
-	r19GNAv4TbcaVwCo6rpfmVQyHAL0pQMnM8whio7AfL5u6TQPeHtYbuxV+x3XX4ODm48nQQSPyb+
-	rW6FOWZG/1XNP
-X-Received: by 2002:a05:600c:4686:b0:4a0:b6:4619 with SMTP id 5b1f17b1804b1-4a1fd72e1e6mr17106685e9.0.1792560650270;
-        Tue, 20 Oct 2026 22:30:50 -0700 (PDT)
-Received: from [10.11.72.5] (bip-static-148.213-81-147.telecom.sk. [213.81.147.148])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f8016c93sm85779985e9.5.2026.10.20.22.30.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 22:30:49 -0700 (PDT)
-From: Petr Chmelar <petr.chmelar@innovatrics.com>
-To: David Howells <dhowells@redhat.com>
-Cc: Christian Brauner <christian@brauner.io>,
-    Paulo Alcantara <pc@manguebit.org>,
-    Matthew Wilcox <willy@infradead.org>,
-    Namjae Jeon <linkinjeon@kernel.org>,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Stefan Metzmacher <metze@samba.org>,
-    Eric Van Hensbergen <ericvh@kernel.org>,
-    Dominique Martinet <asmadeus@codewreck.org>,
-    Ilya Dryomov <idryomov@gmail.com>,
-    netfs@lists.linux.dev,
-    linux-afs@lists.infradead.org,
-    linux-cifs@vger.kernel.org,
-    linux-nfs@vger.kernel.org,
-    ceph-devel@vger.kernel.org,
-    v9fs@lists.linux.dev,
-    linux-fsdevel@vger.kernel.org,
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 4/5] cachefiles: Don't rely on backing fs storage map
- for most use cases
-Message-ID: <20261021.cachefiles-mainline-confirmed.pchmelar@innovatrics.com>
-In-Reply-To: <2648476.1792482342@warthog.procyon.org.uk>
-References: <20260910220242.2165023-1-dhowells@redhat.com>
- <20260910220242.2165023-5-dhowells@redhat.com>
- <20261011.cachefiles-partial-zeros.pchmelar@innovatrics.com>
- <1655268.1791878098@warthog.procyon.org.uk>
- <20261013.cachefiles-partial-zeros-trace.pchmelar@innovatrics.com>
- <1995693.1791971125@warthog.procyon.org.uk>
- <2648476.1792482342@warthog.procyon.org.uk>
-Date: Wed, 21 Oct 2026 05:30:48 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=xej6Vdz6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792560665;
+	bh=ky2NpRR2wA3rI5JofH0oPOu2Ap9UfVO+8mvTU5ilZnc=;
+	h=From:Subject:Date:Message-ID;
+	b=xej6Vdz6x7Ot3NyND7ikFS47e8wZNqSMhcO4dcHgCoDBZ4IcVZlhjgHPwG2482bKW
+	 MKMIPEhAEQcUF04YXeF2JFwvYEBk4CZ2M8NWeO1kd5qIFt/AL7l4VQF3/truT/DkiJ
+	 8YjojnxpdN+YzagjTHocEGILZBRT960Dy+I5L2mQ=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.33) with ESMTP
+	id 6AD84E0D00006B73; Wed, 21 Oct 2026 13:30:56 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 8399316685400
+X-SMAIL-UIID: 094CBD41D6DC47BD8ACA3DD8161A78B9-20261021-133056-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] kernel BUG in create_default_group...
+Date: Wed, 21 Oct 2026 13:30:53 +0800
+Message-ID: <20261021053053.50220-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
+References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,25 +69,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-David Howells <dhowells@redhat.com> wrote:
+From: Edward Aadm Davis <eadavis@sina.com>
 
-> Note that these patches are now upstream with this change incorporated.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 58161ead29e5
 
-Thanks, David, and sorry for the slow reply to your question about
-the fix - I was on vacation.
-
-I've now tested mainline (72a16bcff2) with the same reproducers as in
-my earlier mail, and it fixes the problem.  All 4096 blocks read back
-correctly on both full reads, and the reads were served from the
-cache:
-
- - 9p, cache=fscache: 0 wrong blocks (936 on 13e340e397).
- - NFSv4.2 loopback with fsc: 0 wrong blocks (817 on 9f8b64f66),
-   also after a server-side rewrite of half the file and after
-   truncating and regrowing it through the mount.
-
-Thanks again for the quick fix.
-
-Petr
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index eda80c2a2d38..45a955b8ab36 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -313,7 +313,6 @@ static int configfs_create_dir(struct config_item *item, struct dentry *dentry,
+ 		goto out_remove;
+ 
+ 	inode->i_op = &configfs_dir_inode_operations;
+-	inode->i_fop = &configfs_dir_operations;
+ 	/* directory inodes start off with i_nlink == 2 (for "." entry) */
+ 	inc_nlink(inode);
+ 	d_make_persistent(dentry, inode);
+@@ -930,6 +929,10 @@ static int configfs_attach_group(struct config_item *item,
+ 		inode_unlock(d_inode(dentry));
+ 		if (ret)
+ 			d_delete(dentry);
++		else {
++			struct inode *inode = d_inode(dentry);
++			inode->i_fop = &configfs_dir_operations;
++		}
+ 	}
+ 
+ 	return ret;
+@@ -1430,8 +1433,13 @@ static struct dentry *configfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
+ 
+ 	if (group)
+ 		ret = configfs_attach_group(item, dentry, frag);
+-	else
++	else {
+ 		ret = configfs_attach_item(item, dentry, frag);
++		if (!ret) {
++			struct inode *inode = d_inode(dentry);
++			inode->i_fop = &configfs_dir_operations;
++		}
++	}
+ 
+ 	spin_lock(&configfs_dirent_lock);
+ 	sd->s_type &= ~CONFIGFS_USET_IN_MKDIR;
