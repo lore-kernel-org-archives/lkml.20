@@ -1,111 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573428;
-	b=DbF29Qc7tlm2sMYH5TDO7d4p/RdXfP4hmRSHUppB+GqwcjiMDDbS8PTZnLiguqG6JpgX
-	 6W/C2Yf0dLRpRQFwPVWAF1V0Zsv9I0HdSXfV3Z6rAkHe2OwVNCk/F0grUwvnTQ6FJOW62
-	 DcmdDWklhvXGOb6nzJ+909bRCZEw9btJkQ1UpTMmvkhAdrh6TspF5Khe/3uZ+clnpnWiT
-	 4/RghjZHI7tywJdHGwiBadDOuTQJ1lJ2Au+cwLilI/9FSDf+J6+dtTBQEwqWdBmhd/Tqq
-	 wCxU47RGxPk5Yy7nRHG+igRNdhUJ/U0VIEUhqnoOVxUimkatl0lA/e6h3WUWXd6bOnQ==
+	t=1792573465;
+	b=hykuWl+icneSkhplgFjbEnPK6BZbczjw/qR8ulp88KAYrBzIWIXzOk/q/sFRQdOvJIso
+	 NeRLW1QXjzuN2tOM/eKF86NiGK3XES+35AAsVxbnjctOZ/cVjzJ7FxaGAVhBCsCEw0a9h
+	 gnuEzXzff63Lay2FRkKkPUt4Z6ldMM6CQrE7lwSrrlvgieFa+b6gwdxasFQP8pl9NR9iA
+	 62h8ksfbr/IuNdpFZJz7UsxzUKDD2iJnha4nXVl+ZxjsbpfOL7tEeejA48JUKUMMzEab1
+	 DTDuwEuFSlL6sy2VPlxwJtSKwcJNi378lieqqZBuCIdav0zcR6PwBxNWsMo2F0nhR/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573428;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=b5BtvqtvptDu4T6AHb9Bl48iLMJa4oRxaJrIUF7qgQQ=;
-	b=1MxoQWkMqJ1lDRv0d0+i8k6wzf0FbespKXLzCcaRN1pe+rvCxy12f5Vk6ZBDjq2zTRKM
-	 nLV38oe/2s5UYoWqpBgybbGXwklYbB7l2DwvorazcRX5tP/Q9QLUfh5k1G79em6yeBjrv
-	 f8qQvJ/sWuJ2/292haOzXYwhwKlMJHRTTTDOObcOK+A5kwPxIwBhErcPF0o5I7e7sDtuY
-	 6S1w/mfKjQe470aKwN3vIGr4FpZzcMxwnC/zdowAcJTeQ2TmFb/7SJ5BGvVbQ/y+ITCXc
-	 FpQQQfRI4kT9mz1cON+B9laR0su6Evres8oErkHq29PTrv/mYJ+pRrmENJG2b2oc78A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573465;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s3xFwzQFM=;
+	b=w/oIRUyhRLmcU0lORVmA9Z6Fg4NG6XAw8PWPYsuTUkeQJEGPRtgIwhAhDq6wZrnceNLy
+	 ThEdLvf2tO+YLNZuqDx+qUvOtKz6vATasLLEzwXPVEEQ7tWXRzCJrZoIdu3+cbCwZRItK
+	 uecszzORX4/oU7ffRv4GjEarAfsHbUghue8Ow/rV9BI7PIeuROa+ZT5Due3FCQmaEMZUf
+	 KaI6V84umnyo109y6YTpTVTEDck55soGjvpkAZ2USCvWpvbt27Wgief1bhELQCN7j5I1j
+	 z8aA47SWxyIaRsFjMcQBU3bOFFvbTXqc4P1GvliJUBH/0bvWNnO9xyKEFrGZMXkxpPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z+Hq+DUt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T2UIYRLc;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=none header.from=queasysnail.net;
+	spf=pass smtp.mailfrom=queasysnail.net;
+	dkim=pass header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm3 header.b=omeSON72;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=nudGWP2W;
+	arc=none smtp.remote-ip=202.12.124.150
+Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DBF606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:03:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2DBF606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F9A606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:04:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F9A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z+Hq+DUt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T2UIYRLc
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5j6rQ793346
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:03:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b5BtvqtvptDu4T6AHb9Bl48iLMJa4oRxaJrIUF7qgQQ=; b=Z+Hq+DUtwjM3e+7q
-	FQiql8qBvO9CK7NZQpBz+IQ1xlHSd3P98RmIslutyrqCR8nx7FY7PMc/tbRLXmFI
-	7054hLp+yWXH1m8FoR6tF3/ZuowLXg2QpXNlaI+4lbqWOqtVr7SbTFBQOiUEAYJ7
-	E25TqyjLVCxfBhX+Mhk0Lj+UiuTskaTGV8IdC7UY5C80UV7i/ve7UZuBYSMfTAU5
-	tA3a7WwfoWf/zvJ2P0POOu0RjedPoZcHWTz931+tTR5s9xMHTSTwMwAK0mNW7/jL
-	Y+vnjmjigckwPgu1LF/+rkI0KI6hBPi9WPi4PPnNjs35uMlDjdFctdPLTBCyC5f0
-	398H0w==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedabk625-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:03:46 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36637676140so884199eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:03:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792573426; x=1793178226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b5BtvqtvptDu4T6AHb9Bl48iLMJa4oRxaJrIUF7qgQQ=;
-        b=T2UIYRLciffuZJlr26g21fr8jtvvPFPP/gRqchv2nLjkRmPt3B/2k/KK9MxnIpfO+2
-         ZeKyJzc3HnYrq0kwnY/jLVTFhhtBJ90u4ld3TjvJmZc4bHFIt+/04gkCj5Gq2NGx45KA
-         oorpMgEo/o4i2L5QxULCsx6rihvYSyOsyvdfagYEB9Zlpe5CPomTDqPzWF8/w0oq+9rM
-         X6qsAtKvappWozuJW2ldOr9xoobUrpWADZ9+9iL9E4ifJpvrk5mmfTVsmem5LVTw9srJ
-         9dCvuNnc7kxqoFF+0TXhgMJgLOif21H7gB9a1qpZ+aHhQfwMMmZWEDHR3grWPIRpORgg
-         3c/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792573426; x=1793178226;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b5BtvqtvptDu4T6AHb9Bl48iLMJa4oRxaJrIUF7qgQQ=;
-        b=o0KOj9R3uIlj2WLwPkRqhZ7+0BdLbSejmc1Y6PzUXEx0HSPtlKYbkTv58QsAGBBysh
-         iuSsHQS2MlGIPjwQb/XK4SnIvqCLtoFrj0iSfqzL6zBRNvaQAlGPetpUU6MlocvHw1RE
-         sPNrQkfQOJa9EFvgseA4C26zUriobMWtiJ71c8o5yV75SeuC7BTA/o8a6jRvAM4jL5BA
-         gnUYiR9v5NSJhDAn7qIPALCaepYnAYYBr2COnArSm98j02W8jxfc0CAIVJyxKTXkk73X
-         hAFloscyVxXLlkpYLMxOq3HdqBX5IlidNDJlyjKI+H/HlHCDmbm29XrJG7tUAMTTAIH/
-         sRXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwDRdIjHBN7L6/fGB5LUuW4mZ5rVbPttZL066nE3LVlQijSv0e3wTyPQMlSCLKYg7+0TSwVeaayZp3+hDc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7q3koUhlgZ5zqASBMNVTrY3nawbUAoOYGOWC8psHF+LSaCZe/
-	NSqULrkYOiEhCyrOtMusrfaT8bJW97qHjs0tjxY73qBp7VDEHISy6YoiUdm5o2/atyW7w87iMOo
-	4FooO3SG0YNYNBzY9hWgHRqNscxrTVMYIkbxwen42OVe0nwaCw7AkOq2HGvJESj3rOcA=
-X-Gm-Gg: AYBFou35ayOjcOYTdO9pmDZGbi5DCk+o8PWgdPCeoDtW8S0/Qdp5MdxJ+lm7VOuSJ2c
-	3wfNywzAp/LT9QmXUw5Vk+r20x2lfkbXWZA6vRcZQC7msMC9qiprtA4SQvk1RJhp3wpK2KEt9E5
-	PxKXDbUagHdNzyTWS6eP0N6qDcnoX35erV30Je7BObjDCMsfDPk7avhd7zhMDf4LpZ9+JKQXnWw
-	VdEuOn/ytW3tpaT4pBI8pNC1dNt/qfkPdGumircj/AMqmOqGOLpbR912WrxpzwPNW3XpRiUZWY3
-	KFSKpzpxMgCF5JPytP+V53Ez8TJjjt/vMBXDK/jzF0pqtxfkxGBoS5Be77sFTwXIA5lajYI/oPK
-	OKk58u2d1PdetwgVPro64lAnt1FlF6dI=
-X-Received: by 2002:a05:7300:d090:b0:351:7d5f:df26 with SMTP id 5a478bee46e88-3674db5680cmr2001078eec.15.1792573425909;
-        Wed, 21 Oct 2026 02:03:45 -0700 (PDT)
-X-Received: by 2002:a05:7300:d090:b0:351:7d5f:df26 with SMTP id 5a478bee46e88-3674db5680cmr2001055eec.15.1792573425175;
-        Wed, 21 Oct 2026 02:03:45 -0700 (PDT)
-Received: from [10.217.223.82] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1d8sm7902967eec.24.2026.10.21.02.03.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 02:03:44 -0700 (PDT)
-Message-ID: <ff0a5a0a-92de-46f3-9377-ee601d8d12fa@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 14:33:39 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm3 header.b=omeSON72;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=nudGWP2W
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.stl.internal (Postfix) with ESMTP id 95C881D00134
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:04:23 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:04:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-type:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm3; t=1792573462; x=
+	1792659862; bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s3xFwzQFM=; b=o
+	meSON72QEHErjg7n+i2yeuPoD4JJO3wC0eQEUP670QY9jVILee30qzKmS4mOVKdh
+	peivkki6RAGkgrXSwPyFReTEuB2+aWZDnKuVFkTVbbhn2IRuPe5EeYiZwiaCXj5t
+	BWH64f724LqnDxwnUntOpa3zIYyNBDfQYtQHdLdokmn+my2gMwsWUEQY/OmWDJe7
+	EJnGJvBElhHJ0OAILgOBGI+yyTKyMjRknJIWe1ECfuY6xvFveHLyHxIAw4Tavkq4
+	RSk9rc/qmrqrc6+egbMBOmveywQYLX+4SUCet7HMTXriVVYcz3rn+0z2xmpE7vfg
+	B2L+2FrywVUryW31X7QbQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792573462; x=1792659862; bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s
+	3xFwzQFM=; b=nudGWP2WpJidpEIlgg3pDi5/YpEIj6ZF1hEBVngrs55d/rt2z2r
+	qVMvOlua5w007vKBlQhSkEwUT/a1btkc382XtH5ii4vJi15RO21GmxCu0XicxAb4
+	uQmUVMfqotwY7kcloF8ILjTkmORbIDWN8UcJ/xa/LrY6FUh4qZjrEpJG5yHQXfVE
+	ZbrqLfoUch8u1E6MsFiWlUcQrTjpuTlexzxZ37gfGwmyiU1fC25AYMzvtXKPjk9i
+	HQ+R/nnmVFfCSJOkjpgvfjt4CDcMArLIqdg5psbzaZwfOpdgPSqLOin8hzEOdnx5
+	YiuwnLQu0GyRO18SV0tdHtmV5O608ehqv/g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=queasysnail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792573462; d=queasysnail.net;
+	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:IVAmoHZN3WRKxPPzdtfNTAPJ8R9KRR/55breYxJaAPMn2Sm
+	BTXLZQ7dlqbEjaeqWkb3UqA5CwMJmJfiefozuEqw8MYz4Bfh8FRE79ZUANOppWKk
+	517m6Dl/e+jgh2maqIg8B40DErl7eI+tO5AvS5o5urfDE/02HaK82W+GcZ1kk0po
+	qoEdurWeyRgcT3MJ7wTnfuqaUPdVKsLy2ECz5clPd/3ef+ftObkoBDC0FckzIQNO
+	UkoyxhRm/cgSqzz+/rkQLvXl4MkOOT36A8/629Q0HQozllnxOJK35vyoxPINnQCX
+	W8Qjg22QjjkWjdXxI0osBln3wRI+0/+UANbPjzA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:BPsFBW8hox1ARX6bqMlGNHye56oNNRkxjp5ruwYW0+0=:SN3lCVCm/+OtZcsJHcgkhERSa+yp3BYbsp+O1Bf8328=;
+X-ME-Sender: <xms:FYDYauMP4a6wy_N2vd6bl73-dVR2gJpMSg2ECRE9E7AoSIfCc0-ObQ>
+    <xme:FYDYai8tYAKVjeW7LlIJgoPvnHmhVc0ki5KINUUIhyzUh0WVk6yclIt0vAOyOSW_5
+    PpkMHEjLj_XNJuJfAHA8izGpTqAMAjbU3B3jFz2O-gPjHOZwRbIBf3A>
+X-ME-Received: <xmr:FYDYagHgn2hk1qgwWQ_s2nu5LBEYvscjvWc-lIkZ3WCp1ipFJudtLW93p1I>
+X-ME-Proxy-Cause: dmFkZTEu9GlWtHXe9v9ClB+erUmoDap8HNWDFhJJi5pP1RUgD8TZuRnUuCCBr1H8B0+f/F
+    xcfo+/mXnhan7i4FzLnwhbRZ1QUo3U6auOgMvtpuwR2wXwUsPO+dgsJWQse6rYu/MYGQEa
+    ad1sJrqX8ZWQOBJ6jfBeswqfi6sidebXP4/b8Bh79NYyEa9JUa5eD7EAXE7AC9a8j3kV2X
+    5MSXnED3dLH8vB0pOcMbwyTMEltKQRLJMoRGB6ZEVyDVa4L7LMImJcGM4lhXxaZEh407Aq
+    XCONGZqAuEXOSov9Vh9qXgV/z7vur5hiAvGh5U/Uw7Bo4UmHthK+M2P+GHo7tPi+cTERg9
+    XIdDkkS/xzWpx+dlIdz6guXu+8uWxwWTolp5QLOE0QqjzRZZU49Cenr04EKtkEtPSW/Ri3
+    DAsATrp2XrU6EkAqZbnespu9lj4RzsN2Xq0lCo5BPfLilXxT2ftpnlKihgY5oDR8pyvSQS
+    xkIOjMMw0kc8+vB8YGSgajmwODNIvlkJ3Toh4fp16CtxXFQgFDed4p2tYLsvQ3qcdivC6r
+    WD4E9l3vvEoaqaR1QWM3iACMvLwrMyeazLpwQ/jGvPOkWrVxtoX0NYe7oSUK+FNw+6lIXW
+    fA63JfweHR0DDhQiCL/GZCRyZ1kSzUB0fW6trlhpQAkO8nJSbNUaQDUHSjxg
+X-ME-Proxy: <xmx:FYDYahhXsVAlRoPfZxlYTlnuGVDc0p2cbNbubdbOVdIHS1xBAzyE0g>
+    <xmx:FYDYaltnXFMlSICTXpMrGUS5sT331VQrnoXPKTE19ku_RQsEJ4Jz8w>
+    <xmx:FYDYastJkBcNLiTvh6lv7qwqBeYpVOLZMtlUriOnvVgES6fl8axYcA>
+    <xmx:FYDYaiERLrOeTp1AA3BRNfh6dO_pV630xhxRy7QThbW2zWXYdQ6Otw>
+    <xmx:FoDYajcdDGLF-Dn0E_Z4KMbYXiTD9mw18eJF4PVv5YGZ6XLz4JvZC956>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 05:04:21 -0400 (EDT)
+Date: Wed, 21 Oct 2026 11:04:19 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Rishikesh Jethwani <rjethwani@purestorage.com>
+Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
+	davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] tls: device: keep tls_sw_fallback() from encrypting
+ its own output
+Message-ID: <atiAExld_bpR7sQm@krikkit>
+References: <20261019212651.733565-1-rjethwani@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,104 +125,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/7] arm64: dts: qcom: lemans: Enable
- lemans-sa8255p-ride board support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Nikunj Kela <quic_nkela@quicinc.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
- <20261015023711.721837-8-shengchao.guo@oss.qualcomm.com>
- <45b54ff8-a2a6-4eaf-9d5b-cfd9bb40c459@oss.qualcomm.com>
-Content-Language: en-US
-From: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
-In-Reply-To: <45b54ff8-a2a6-4eaf-9d5b-cfd9bb40c459@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX3Ll9IHMiPOkj
- YgOfLvCXuIlmEeLzaQCRDg4Ma6sJRfyNTn1ZJItxgF/YAdb/4ZLppPdWV4q3ETQB54btg20YB1g
- cVMF0mnHWWdNT7bOyVj4KJJT7b6lTC4=
-X-Proofpoint-ORIG-GUID: xaSJAFyqjPjRi5FVuHWpWYyfwJwPBRYK
-X-Proofpoint-GUID: xaSJAFyqjPjRi5FVuHWpWYyfwJwPBRYK
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNSBTYWx0ZWRfX9u5T38uPetfD
- IM1WelADbn8XjRwRlv955K1LN+8QrjoTDTr2mBabmuVrU4ASPz8or2FA7Wi2z+EVz4v8gTygUa6
- ryj6zsfMx12VyeUUrh7Z1b/k94Qx2gNDeYCHF5Th94dpc0NugbkLz+hdX8XaVrh5Iv/ztiJa0sM
- yz4qm9rIJs/aDtlFboDQPh148bziMwoENgqpPcrauU8k3jOQscc1uXWZjoOnkXNCuKinbJ1H42j
- XZV60BdpTjxBbpoE25cwfWfBsjP/1nus1BxKU0YROMwhmD7TKKPxr5Oo5r9zf/6jlGCicVkKmlA
- RdNVIUvE+5uO0F/ZHqd4GjcPaksC2voyRBARMwWDkEujKg4eOh6/yF7uKhHnYtV3arVcIvtvtB4
- bq8k+xO+oflGCT0tkN4ZHy8/zZerEerzwvd2gTiMNsvASoCTWos6TvchWtXCXsu+mVhPFJHWiey
- Iayyxubzbg9O2bJIKSA==
-X-Authority-Analysis: v=2.4 cv=NLpAaE6g c=1 sm=1 tr=0 ts=6ad87ff2 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=iDK90Gyl-TMhxqDKVhgA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- impostorscore=0 phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210035
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261019212651.733565-1-rjethwani@purestorage.com>
 
+2026-10-19, 15:26:51 -0600, Rishikesh Jethwani wrote:
+> A socket offloaded through a bond has every skb validated twice, once
+> at the master and again at the slave. tls_validate_xmit_skb() passes
+> the master-level call through for that reason (netif_is_bond_master()),
+> but tls_validate_xmit_skb_sw(), the validator tls_device_down()
+> installs, calls tls_sw_fallback() unconditionally, so it encrypts the
+> master-level ciphertext a second time with the same rcd_sn and IV. This
+> cancels the CTR keystream and exposes plaintext on the wire. For a
+> complete record encrypted twice in one skb, the second pass also
+> generates a valid GCM tag, so the peer accepts corrupted data without
+> an authentication failure.
+> 
+> Guard on the content rather than the device. Offload plaintext always
+> carries the decrypted bit (tls_push_data() and
+> tls_device_write_space() send with MSG_SENDPAGE_DECRYPTED), so
+> tls_sw_fallback() can pass through any skb without it: such a skb needs
+> no offload encryption. complete_skb() now clears the bit that
+> skb_copy_header() copied from the plaintext original, so the fallback's
+> own output passes through any later validation pass untouched. This
+> also does not rely on every path validating a skb at both the master
+> and the slave.
+> 
+> Tested on two hosts back to back over a mlx5 port, the only slave of
+> a bond0 (balance-xor, layer3+4), so each transmit is validated at the
 
+As in another patch, a couple of selftests for "offload over
+bond->NIC" would be good.
 
-On 10/20/2026 5:46 PM, Konrad Dybcio wrote:
-> On 10/15/26 4:37 AM, Shawn Guo wrote:
->> From: Nikunj Kela <quic_nkela@quicinc.com>
->>
->> Add initial device tree support for the Lemans SA8255P Ride board. Enable
->> UFS storage, UART10 as the serial console, PCIe EP interfaces, thermal
->> zones for PMM8654AU sensors, and SCMI protocol nodes.
->>
->> Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
->> Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
->> Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
->> Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
->> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
->> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
->> ---
-> 
-> [...]
-> 
->> +	thermal-zones {
->> +		pmm8654au_0_thermal: pm8255-0-thermal {
->> +			polling-delay-passive = <100>;
-> 
-> Do we need the polling, is there no interrupt?
-> 
-> [...]
-> 
-> 
->> +&pcie0_ep {
->> +	pinctrl-names = "default";
->> +	pinctrl-0 = <&pcie0_ep_clkreq_default &pcie0_ep_perst_default
->> +		    &pcie0_ep_wake_default>;
->> +	reset-gpios = <&tlmm 2 GPIO_ACTIVE_LOW>;
->> +	wake-gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>;
-> 
-> This GPIO reference feels like a layering violation - the previous
-> commit promised TLMM is abstracted away
+> master and again at the slave. Run from each host as sender, a TLS 1.2
+> AES-GCM-128 TX socket kept open across an administrative bounce of the
+> slave leaked every later record as plaintext before the fix; after it
+> each record is encrypted exactly once and the kTLS peer reads the
+> stream intact.
 
-Hi Konard,
+The wording and verbosity of this section ("administrative bounce", 3
+lines to say "before it didn't work and now it does" which IMO
+shouldn't even have to be said) needs to be cleaned up. The rest of
+the commit message as well.
 
-For PCIe EP, the TLMM gpio's are controlled via kernel and are not 
-abstracted. Possibly we need to reserve them for kernel only.
-
--Shazad
-
+> Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
+> Cc: stable@vger.kernel.org # needs commit fc6d80eb5044 ("tcp: prevent collapsing skbs across boundary in rtx queue")
+> Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
+> ---
+>  net/tls/tls_device_fallback.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
 > 
-> Konrad
+> diff --git a/net/tls/tls_device_fallback.c b/net/tls/tls_device_fallback.c
+> index 3b7d0ab2bcf1..24fba12febd1 100644
+> --- a/net/tls/tls_device_fallback.c
+> +++ b/net/tls/tls_device_fallback.c
+> @@ -192,6 +192,14 @@ static void complete_skb(struct sk_buff *nskb, struct sk_buff *skb, int headln)
+>  	skb->destructor = NULL;
+>  	skb->sk = NULL;
+>  
+> +	/* nskb carries ciphertext now, but skb_copy_header() inherited the
+> +	 * plaintext original's decrypted bit. Clear it so the bit keeps meaning
+> +	 * "still-plaintext, needs an encryptor": a requeued nskb would otherwise
+> +	 * be re-validated and encrypted a second time on any re-entry into
+> +	 * tls_sw_fallback().
+> +	 */
 
+"nskb is encrypted now" is enough. the rest of this comment (why it
+was set and what the bug would be) really doesn't belong here.
+
+> +	nskb->decrypted = 0;
+> +
+>  	update_chksum(nskb, headln);
+>  
+>  	/* sock_efree means skb must gone through skb_orphan_partial() */
+> @@ -371,6 +379,17 @@ static struct sk_buff *tls_sw_fallback(struct sock *sk, struct sk_buff *skb)
+>  	s32 sync_size = 0;
+>  	u64 rcd_sn;
+>  
+> +	/* Only skbs carrying the decrypted bit hold plaintext that awaits
+> +	 * offload encryption; anything else needs no work here. That
+> +	 * includes this function's own output (complete_skb() clears the
+> +	 * bit skb_copy_header() inherited), which is seen again when a skb
+> +	 * is validated a second time, e.g. a bond master handing it to a
+> +	 * slave via bond_dev_queue_xmit(). fill_sg_in() would map it back
+> +	 * onto its own record by tcp_seq, reusing rcd_sn and IV.
+> +	 */
+
+Sorry, I'm not reading all this. 0 or 1 line of comment here, nothing more.
+
+> +	if (!skb_is_decrypted(skb))
+> +		return skb;
+> +
+>  	/* worst case is:
+>  	 * MAX_SKB_FRAGS in tls_record_info
+>  	 * MAX_SKB_FRAGS + 1 in SKB head and frags.
+> -- 
+> 2.50.1
+> 
+
+-- 
+Sabrina
