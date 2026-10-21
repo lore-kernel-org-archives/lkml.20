@@ -1,52 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611703;
-	b=LWD5/e0Z1UJ52QKW+O31iO8XMlVhJuOvychXbGKR4DVb08dfEg/p8LmpE0TCWtVXQh5v
-	 jBs0z/iqoKlohYnUE2zH62R55qk6XjKQPU+QqV0zMmCuUWrpMN3YZ1YI3CMOwVkfF2lQZ
-	 6eejQ0JT+W9eO5LxvV0Bu0Y//H9yIHE2T/g4Tg8SUviBmoUxpFmqUZQVOxfQ4mjknbEAS
-	 SDatmZJefC0SD3lpE6XIN3yRtUaDhwZ6GDrcHPOc4IzKGw8PVWvr6Q1BT9htk/H7sAO4a
-	 aV8Fnto83jr2YIM6SJVJKnEY2aCAvjMjjQsS+7buJgrvY1ohR3jz7wLcULZPiXHbfeg==
+	t=1792611813;
+	b=l/kvyUXzoq9c/82p0mJC6eB08z0JWk59YoRR9b3D7T1dNl+fALv+qAymn8sbRAp3hvwy
+	 HhaQD3RP8GVhspldADihKj9sXr2EReoLmw8aj05UNovRAamiswXB1uGvaS+37K9Eo1yOD
+	 18U+Qaec7kFTKQnfeVHIiDGowi/QaZNXSFk8mkWVt9kihDO3f/ogrPRH2U9TzbGsa5xRq
+	 ZPNanHRBJGkkESqCDhcLzs+HY+Uw/D2qeKixjcgPXZKmwZQ8wMoUwL3ZLYaRDF6hxd/0i
+	 zWfnNOZxAszvY30uKCrUiEDZqQUNR4OaaRCdfWZ0GDAdU+RzGxZODNTIwcpUfoGMoRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611703;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=NgkQoXkgpK2sGjYpbm2KHffmsrL6QXfO4giZc0eF7UA=;
-	b=eybrmTErXVr53OnB8sXwQIdv5TBobHl7bWjaUx+rU1GDcIqtrQH9ROQ2NKJvDgxdBrB8
-	 cYftwEiFt9wGNa90kl8BkJk9PYyivWxVeD6COLLeoES6Yw9cRAFXhExjJBwjkCtsBC1OZ
-	 ddpqD1naZ62zt82Aa4/yPHeHq/D8zPYp6PLbw8NXBfF+RlMhzh5TzSiwNini88laYyzLc
-	 y8QJlQ6nIcNA/gegDwDiAtOaQAYpMWKZfAV9u10EBLjMYRBmMDvzCDrZPGE8THHmiNKO1
-	 NLn0XP8wfdJx3LPgAxcKwXQSS9RPNqaP461vrXnk/ECV5LQip9uLhGHJYJ364pEirdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611813;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=+ywMzQ+to7W6P4+Q6vGmUU1pcAEfM/gAHMO22DZ3gX0=;
+	b=YdpWzpXQ4AFFTtdke9oWRRlVnJhpcU1CpAU7kX1jm4qwL6F0YyMyzbgmXIf4KuA9cvYt
+	 IBzjnMjTM0JisZCw3RID6fmJv/EEEs1Iv7ewwEKVAIElkowg0ZPzY7Q2lX+ouqpGqyLEX
+	 2wotQT8S15BUO3h/XBRgQSX39ffWDrQLbDnoBSuuD33PzVYyJnjKu8uF8jJNHrJJFVqQn
+	 mWPQGoK/OKVQznQ7JOPHwupmNe1BG1qvyaBz/tM7hpaMtmBzCI78N4fDz96wm1R69CPXl
+	 KNRSvccg+bEb56eLZGoKg5orksF/bnXwuxCnduzZdSEIKuxu61h0OS35Aze6UIbWrmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=YYaPHnv+;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jXJLdWXU;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCC1606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:41:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCC1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12FE5606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:43:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12FE5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=YYaPHnv+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1792610988;
-	bh=Q3+HsUdu3d/EUxk8By48lCwrk1lztJ3pfJKy4nwymFY=;
-	h=From:Date:Subject:To:Cc:From;
-	b=YYaPHnv+RQQH61lelvthtAzl7/+8rQrgNUbbRdiBBGBbQ2YTLI0lm2gFsCgxmp8ao
-	 9cEJ2YA1HH3Tl0XhsqQs7QsLgtcQ1y6zvWKD3YtmpzeAmymal50dPQj130KzD9S21W
-	 T4XuKrPYUyJ+1YqNSzD6E3A2U3j0p7mEzi9aWWbI=
-Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTPS id 917C54014B;
-	Wed, 21 Oct 2026 12:29:47 -0700 (PDT)
-From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Date: Wed, 21 Oct 2026 12:29:45 -0700
-Subject: [PATCH v7] sched/fair: Preserve wake-affine CPU for non-SMT
- reciprocal sync wakeups
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jXJLdWXU
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35943f55c06so256811eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:43:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792611812; x=1793216612; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+ywMzQ+to7W6P4+Q6vGmUU1pcAEfM/gAHMO22DZ3gX0=;
+        b=jXJLdWXUbIO6BAVwWpahbYB6kuv2stskNJnEjTt/T7LPq4h4xpcSwcbuPX2lyLt/IO
+         kOo1UyQ2lyrkEAqUJZzWecphJKuBAdwyzrTJN4t8wG1U5htXFP0t8cy9P+CUGP0k4kfm
+         3IcrAb8ErsRv5lF+kV3Q17Lox7ICKGz9UogA7MUft91uDXXzTv/WlOOvuuKosgbVsq7A
+         hhMyBGTPtsRtnvqFtS2n9VtahzCh+YEbzLvwhIQwn7C3IhopiegDVMR2RPlR4SHK+avU
+         dEPeQ5khKJehe/UPizMk5ur7ob4ucM9d76X5OWCBTnBHAU/fih4scufI6y0fCpfOVUut
+         TVDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792611812; x=1793216612;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+ywMzQ+to7W6P4+Q6vGmUU1pcAEfM/gAHMO22DZ3gX0=;
+        b=uGYICe7rXJAR6Mq6uexO4qcR0qFM6m6xDfoDatOX0TZThCaOTtfIVjSB1Sl7j7507D
+         Upuo8bUfFgfmRDtCUrzHKYNUBM1wEha1YlhqDG8VOmTxOMOSS9BaSjGD6HrtZbtIsuJJ
+         iXGPVViMoekOfZ5eF/G4gusnr+k31uDhYc17PKb080ZIpo+5djo7a7iaWDzmOcpQOT5o
+         vU/SyoVOni0TO2cdM7Aehx19+d1RG8qH/vQyJsJ6RMjAl4jicurA4UIw4iRMMuxMhFCc
+         utRbhmxU1/ks7L/x4tlisykpgjxzNBZU4KJ/r/IECBgT6nZ0RFsbCRLkGr07AG3tJ8yA
+         nB8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx7yT2TtDLT2v5d+jYZzphSlJtapHES4lkAH/1GHohfBGZpFs8Z2DG3pyZFGij5nr3pXbE9X/U10DyUkEg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjf0WeQFZydt1Vms6G0Bj7DnV2QPP5L3h+gJneNPIM7oBC+gUG
+	1xgZCz+AR2s+zorh0CYONpfbIUOwcVNaoDGrXufLyPwK1cYeOSIFB1lfP28LwQ==
+X-Gm-Gg: AYBFou23el1nPQXNeEzWYiPgkXqwcSM/mjZyKxWLmgQTEAuiKXReNLkjrnWASLAZe/G
+	Q52tLonhGZHMVSKZ+leNhL9cxcFNJ13txI7fZM83vD8tHmNj3PFuynWwaZZ3MbDxY9fy1ApeDns
+	iplFDSt4wf98JDrifsooiLQcnRvM52Tt7QCJmwnRVXQopR2ex55vRjIcesspbRXzj9y3sTsbb7k
+	O3PtOTVOJ/qlIPusHx2B7zC0AN7hx2gsMGpAtYMLiTahcpkpyiY0H3/bIBFUbmFDoiHyuVH5vCb
+	W3yCocKev4EskNVouLfZquLABggpQt7D0c0U4BiJ3ASJT7PDI31dpYOUQUifpek+1BBZY9dYGc/
+	mij4xpetDg36NW42d8cXXNOUeNPpz5ePgV/Xhwo7cPAsABynZ8syWiAAljlT4Ma1K8GQ3WhbEfg
+	vmZ7P63MPN79MbClxeoPC4x0yf5o9jYt9MUOs9mSLYoYf+O8k/4Wfrrrqg+uYY2+oQeQa4+OmD2
+	nw8SJS6qfy3bevDCvBPKDtMtuuHawOD1Bi+BRPnvH2Edi7UkaokjJZ6H2UKIwCbBnG9b6MrQSCw
+	Q5e1+JpdYh0/UxlyK3UWNA==
+X-Received: by 2002:a05:7300:559a:b0:360:aeee:9b8a with SMTP id 5a478bee46e88-368afd86aabmr373883eec.8.1792611811996;
+        Wed, 21 Oct 2026 12:43:31 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:1761:399a:3c8c:31ba])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367f52ce166sm6124428eec.29.2026.10.21.12.43.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 12:43:30 -0700 (PDT)
+Date: Wed, 21 Oct 2026 12:43:28 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Andy Shevchenko <andy@kernel.org>, 
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] gpiolib: fix GPIO descriptor leak in
+ gpiod_get_array()
+Message-ID: <atkVrwhbP45oLiIE@google.com>
+References: <20261021190212.2237804-1-dmitry.torokhov@gmail.com>
+ <atkULU8_9xQ1c3eY@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,154 +99,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-b4-sched-sync-wakeup-v7-1-91995ba5b596@gentwo.org>
-X-B4-Tracking: v=1; b=H4sIAKgS2WoC/4XQTWrDMBAF4KsErauikcaS3FXvUbLQz8gWBTtYq
- ZMQfPcqWbQuxnT5BuZ7w9xZoSlTYW+HO5toziWPQw3m5cBC74aOeI41MymkFkYC98hL6Cnychs
- Cv7hP+jpxgRFF8OQhOlZXTxOlfH2yH8ea+1zO43R7tszwmP4DzsCBx9BiAoskTXrvaDhfxtdx6
- thDnOVakTuKrEoC0Nho4SX6jaLWitlRVFVaERJaiD7aZqPgr2KF2lGwKo1USvlKedNulOZHASH
- sjtJUBVxqk/NoW729Ra8U2PuLropzRoRIgKjVH2VZlm++y+KqFwIAAA==
-X-Change-ID: 20260721-b4-sched-sync-wakeup-04d40cbeb1da
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Christian Loehle <christian.loehle@arm.com>, 
- Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>
-Cc: "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
- Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
- linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792610987; l=3961;
- i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
- bh=Q3+HsUdu3d/EUxk8By48lCwrk1lztJ3pfJKy4nwymFY=;
- b=HROFmQFT9tLpwZkIWpeJxIoyLlCEFqR7668Kcho9yvqTOVQouIPtr5un1XmH9s2oK9hiWvXuF
- VwCBUk4GG66Ce4QC+wAGmwCl+CHoGm5Ng8O8pgpn0jAGyiZMKf3b9bB
-X-Developer-Key: i=sh@gentwo.org; a=ed25519;
- pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atkULU8_9xQ1c3eY@ashevche-desk.local>
 
-For WF_SYNC wakeups, wake_affine() may select or retain the waker CPU,
-but select_idle_sibling() can subsequently move the wakee to another
-idle CPU.
+On Wed, Oct 21, 2026 at 10:36:13PM +0300, Andy Shevchenko wrote:
+> On Wed, Oct 21, 2026 at 12:02:06PM -0700, Dmitry Torokhov wrote:
+> > In gpiod_get_array(), descs->ndescs is used as the loop induction
+> > variable and is only incremented at the end of each iteration. When
+> > krealloc() fails on the first iteration (when index is 0), descs->desc[0]
+> > has already been acquired via gpiod_get_index(), but descs->ndescs is
+> > still 0. Consequently, gpiod_put_array() frees descs without releasing
+> > descs->desc[0], leaking the descriptor.
+> > 
+> > Fix this by using a dedicated loop induction variable and incrementing
+> > descs->ndescs immediately upon storing the retrieved descriptor.
+> > Additionally, since the fast-path array_info setup only executes for
+> > the first element (index 0), simplify the bitmap_set() calls to start at
+> > bit 0 for count bits instead of calculating offsets from the loop index.
+> 
+> Can you start doing cover letters, please? The problem is if I want to give a
+> tag for the entire series I will need to iterate over all patches, while `b4`
+> has facility to do it for me. Also with --base it would be easier to see which
+> base you have used for the series.
 
-Pipe-style ping-pong workloads exercise the following handoff:
+Alright. It was supposed to be a small patch so I did it in my patch
+queue, but then it grew to series if 5...
 
-  A wakes B
-  B wakes A
-  A wakes B
+Thanks.
 
-When A wakes B for the second time, B last woke A. record_wakee(B)
-records B as A's last wakee; together with B.last_wakee == A, this
-identifies the reciprocal handoff.
-
-Within the existing non-wide wake-affine path, on non-SMT systems, keep
-this reciprocal WF_SYNC wakee on the waker CPU when wake-affine selected
-or retained it and the waker has no other runnable task. This preserves
-the direct handoff instead of searching for another idle CPU.
-
-Record last_wakee history only in task context. In IRQ or softirq
-context, current is the interrupted task rather than the logical waker.
-
-This does not introduce a generic WF_SYNC placement rule. SMT systems
-continue through select_idle_sibling(), which can choose an idle sibling
-or idle core. On asymmetric-capacity systems, continue to require that
-the wakee fits on the waker CPU.
-
-Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
----
-Testing was performed on an 80-core non-SMT Ampere Altra system.
-
-  perf bench sched pipe -l 1000000, 30 runs:
-
-    baseline: mainline at a804c5742bff
-
-    default:
-      4.030 -> 2.366 usec/op mean,   about 41.3% improvement
-      4.110 -> 2.334 usec/op median, about 43.2% improvement
-
-    taskset -c 78,79:
-      4.200 -> 2.348 usec/op mean,   about 44.1% improvement
-      4.294 -> 2.316 usec/op median, about 46.1% improvement
-
-Changes in v7:
-  - Record the wakee before testing the reciprocal wakeup relationship.
-  - Explicitly require both directions of the current <-> wakee history,
-    making the reciprocal handoff visible at the placement decision.
-
-Link to v6: https://lore.kernel.org/r/20261012-b4-sched-sync-wakeup-v6-1-aa70cde14463@gentwo.org
----
- kernel/sched/fair.c | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index b5546cd27dba08603fad190ba78f4bc1811c8452..0d7fb30170aa4850c2430c4747fe66499c636e3e 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -8470,6 +8470,10 @@ static unsigned long capacity_of(int cpu)
- 
- static void record_wakee(struct task_struct *p)
- {
-+	/* IRQ/softirq current is the interrupted task, not the logical waker. */
-+	if (!in_task())
-+		return;
-+
- 	/*
- 	 * Only decay a single time; tasks that have less then 1 wakeup per
- 	 * jiffy will not have built up many flips.
-@@ -9145,6 +9149,22 @@ static inline bool asym_fits_cpu(unsigned long util,
- 	return true;
- }
- 
-+static bool can_stack_on_waker(struct task_struct *p, int cpu)
-+{
-+	struct rq *rq = cpu_rq(cpu);
-+
-+	if ((rq->nr_running - cfs_h_nr_delayed(rq)) != 1)
-+		return false;
-+
-+	if (sched_asym_cpucap_active()) {
-+		sync_entity_load_avg(&p->se);
-+		if (!task_fits_cpu(p, cpu))
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
- /*
-  * Try and locate an idle core/thread in the LLC cache domain.
-  */
-@@ -9953,6 +9973,19 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
- 			if (cpu != prev_cpu)
- 				new_cpu = wake_affine(tmp, p, cpu, prev_cpu, sync);
- 
-+			/*
-+			 * record_wakee() established current->last_wakee == p.
-+			 * A reciprocal wakeup also requires that p was last
-+			 * woken by current.
-+			 */
-+			if (sync && !sched_smt_active() &&
-+			    new_cpu == cpu &&
-+			    in_task() &&
-+			    current->last_wakee == p &&
-+			    p->last_wakee == current &&
-+			    can_stack_on_waker(p, cpu))
-+				return cpu;
-+
- 			sd = NULL; /* Prefer wake_affine over balance flags */
- 			break;
- 		}
-
----
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
-change-id: 20260721-b4-sched-sync-wakeup-04d40cbeb1da
-
-Best regards,
 -- 
-Shubhang Kaushik (Ampere) <sh@gentwo.org>
-
+Dmitry
