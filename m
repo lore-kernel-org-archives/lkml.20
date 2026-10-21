@@ -1,65 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593971;
-	b=SbyxbziPUG7b27/SiR4QDU+kn5mmSA8oqEj0ttaD9w2uea3dSg5zjY+eOieaVk+tyVUp
-	 6psIsZMgjVWhUbCF0vAIa9vqvkE5aL1HeAlaZGYlO0+Z8iXZAUPZeJNRWkZP7ULQidtcM
-	 hfzQt8snSX7gdRk6DLm8rhfldPXnP078WuyFXhZ32B3WytnM7BK7DLYGgwK63gz4cGnYw
-	 5eerG1lhkOHLKi+gll1n1PWVgg2AqmmtfjIaD4FVW2RqcVxjK/+Qd4hc7s8nLf5Ew48Me
-	 AoLuRWd2CnUc/BP4YPnyuI3JRXQpPT6HpcF++sH/WtRvSbO86AUMI5oOAO1wrVFRlPg==
+	t=1792594047;
+	b=JQy5E4skLeNgVR1IT/XfpMuvRueLgSwGBnvuZ5YwoDQdtHeESaRL45eOyUaj3LTQ23ky
+	 WW1cfG8VZxo9R37njeGmTmI5OdzLgOlK75d9nlNBz08i4va9DbenSPk3OCBiDuqQEwXAc
+	 eWayLxX/pnxk7Ui8r4+Lw2Jltu+0Rd70FPruBpIOOcCIt+w6/mRUWrIaoFdbLKOTkremz
+	 O7m7bHVnAy8k1Cyua80QGcYft4XdynxQgtd2/b4vsCW42jvHk6mOSNFvxTKUvhyipsRNS
+	 terRccPr9YSjwTZKJcNEail7d7V07ZeY0tZltXIw68JpogiLIQWtKMlDSOnQUeKoGMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593971;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=zUYwdbG4sGnh4rJtyaEXbUadbRzgXptSYV1kw+ac9sY=;
-	b=sOvbKju//CKmd7wi4CamNYba5dDx2aVMKzgGqHXUFm/vkClRjhzlvX5iU0IyQ0NyCVtT
-	 fmc2jVna8/B/pKzqtp7jrFo9nRrXU8/ZY43Hqbs35jAAHtTXTIYMuzBeZD3lN5qnaqoBU
-	 kFw303+TTF2xyP1BepGkNypvIZZLHkgbte9jZO5sgeeY46zJ7ZtHal/2b1tlV4AjhpuZo
-	 md23o9M+TAzUBwccmB6G4WZ95XvkXL7K/+OqDOdYJalQtg+ZWl3oEBGZgu5eUJwpu8Avl
-	 NataVvEz86wIwbVrTZNwUhbEVX1XWtXccqrYtI7f5CidGenBsy6oE9huDsQzqs6Nt+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594047;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:MIME-Version:Content-Type:Content-Disposition:
+	 Organization;
+	bh=+LkWPtSlVsuDvgUtPy5ilVpC1ecQBrXWwBbNCkxc178=;
+	b=W6VIDYeg289tUxwUCC0aW3c7gZ6zdxruGMbJxmS5AZFJrGZco2kx2fo7kPwTNkzHFHrk
+	 7XwprF0y1O6UNrsNfBfDznuWNxqAaqvuCf+8XBi3KD7/giF5ythv3VW7yB9Nok+Dsyk62
+	 rUQUJPzakBveUOZ/qPem8+JKBze7OUuR2qphDmZoawFnw4jD9U5Q4IKoawKD/KSq6cW1F
+	 N5ZZM2JKEV4fKAv4wtqOu7XFeKNih2M7SkMuTlXpD/fOu+pPidQqkplWXf0eQ8PKRuXV1
+	 s0SJ7QelLNyviK3GkcpM2JYzEEVmQABVN5lBC/7uz7hWQ5XL7XtGHpZOMuM1/WsX7QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NvYW3HF5;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dbmHpImc;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 900DA60A260A;
-	Wed, 21 Oct 2026 14:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 900DA60A260A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 970B0606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 970B0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NvYW3HF5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=zU
-	YwdbG4sGnh4rJtyaEXbUadbRzgXptSYV1kw+ac9sY=; b=NvYW3HF5Ijz9XZuj7l
-	Q0K7sVcjeyI/HaQQG4kklvscq+teEvEVA+QgJmH+TNZz4R4gPQDICcGlNys+8N00
-	nocSKLlszd1vIJeDg/ZbzqZlKPj8S7dSBj96+4N8Wr1HArYM6++p4KtjoWNX79Xy
-	FIeDZodLljPdd7NFZ4brKHtlQ=
-Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3998G0NhqjItXBw--.10228S5;
-	Wed, 21 Oct 2026 22:45:30 +0800 (CST)
-From: Jiale Yao <yaojiale02@163.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Tomasz Nowicki <tn@semihalf.com>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Christoffer Dall <christoffer.dall@linaro.org>,
-	Julien Grall <julien.grall@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 3/6] irqchip/gic-v3: validate MADT records before use
-Date: Wed, 21 Oct 2026 22:45:21 +0800
-Message-Id: <20261021144524.364143-4-yaojiale02@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021144524.364143-1-yaojiale02@163.com>
-References: <20261021144524.364143-1-yaojiale02@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dbmHpImc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792594047; x=1824130047;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=c9u14pveAe1ai3wSmSNW56xyOPkY5BLySyq0tgkrX/g=;
+  b=dbmHpImczyfkfaF8e+3hu9HvDF0Ce+nPwKybXmQzf4FRSQiD/wmfyo87
+   p+XuoXSAmpVTnnsgeB1OnWZ3w6vcCBb5+WnFbp3P5RNqRLbPPl6UsvxxJ
+   XIzv5xoIEUXA6/lhTioX6Etcm74kUN7QOiD8X+l4+I1NGP19esh7W6NS5
+   5t8XnK5y6T4bGyzw5CZMDnMFw6FuWhJuZXvP2yn4uTbCvt0BllcH5E8Ps
+   KQuqGNC/ReU/nB18gbH0rYxibjxeOQqddgMz8c1wmig61dbVSOqQOHXAW
+   +3Wd/MuHuV0T9VsIET/THCAlpzZNMXm93XhRO5VRVy3gDcWS2fJf02+0v
+   A==;
+X-CSE-ConnectionGUID: n4yYpq7UTRuZd0z9SN1H5A==
+X-CSE-MsgGUID: EYvpAO/zRUiueewh9sA2rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1196183"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1196183"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:47:27 -0700
+X-CSE-ConnectionGUID: s4GWtXIbT1SXLb5iuLRYhw==
+X-CSE-MsgGUID: B7B90v7HTludCeaktyEe1w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3165387"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa003.fm.intel.com with ESMTP; 21 Oct 2026 07:47:24 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id D36489B; Wed, 21 Oct 2026 16:47:23 +0200 (CEST)
+Date: Wed, 21 Oct 2026 16:47:23 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Andy Shevchenko <andy@kernel.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: [GIT PULL] auxdisplay for 7.4-1
+Message-ID: <atjQe4XqMT-gGiOJ@black.igk.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,88 +78,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3998G0NhqjItXBw--.10228S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGryxXF43ZF48Jw4xXrW5Jrb_yoW5Zr1rpF
-	47Kr909w43trWag393Jw4DZFW5Ars2yFZFqFWxCa43Kw4rKryjvFWI9FyYgF1xJF1ruw42
-	vr4FqF4UCFW8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j7GYLUUUUU=
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQoHQWrY0Aoi-AAA33
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-The GICv3 ACPI paths cast generic MADT headers to distributor,
-redistributor, and CPU interface records before confirming that the
-required fields are present. Truncated records can therefore cause
-out-of-bounds field reads while probing or setting up virtualization data.
+Hi Linus,
 
-Validate fixed-size distributor and redistributor records before their
-first field access. Use the version-aware GICC minimum size for CPU
-interface records so valid entries from older ACPI revisions remain
-accepted. Validate the distributor in the version callback, which runs
-before the probe callback uses the same record.
+A tiny batch of auxdisplay changes, which resided in Linux next for more than
+enough without any regression reports. Please, pull.
 
-Fixes: ffa7d6166a96 ("irqchip/gic-v3: Add ACPI support for GICv3/4 initialization")
-Fixes: b70fb7af6715 ("irqchip/gic-v3: ACPI: Add redistributor support via GICC structures")
-Fixes: 1839e576968f ("irqchip/gic-v3: Parse and export virtual GIC information")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
----
- drivers/irqchip/irq-gic-v3.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Thanks,
 
-diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 6e1fa5b247fc..89b9ef5927eb 100644
---- a/drivers/irqchip/irq-gic-v3.c
-+++ b/drivers/irqchip/irq-gic-v3.c
-@@ -2299,6 +2299,9 @@ gic_acpi_parse_madt_redist(union acpi_subtable_headers *header,
- 			(struct acpi_madt_generic_redistributor *)header;
- 	void __iomem *redist_base;
- 
-+	if (BAD_MADT_ENTRY(redist, end))
-+		return -EINVAL;
-+
- 	redist_base = ioremap(redist->base_address, redist->length);
- 	if (!redist_base) {
- 		pr_err("Couldn't map GICR region @%llx\n", redist->base_address);
-@@ -2325,6 +2328,9 @@ gic_acpi_parse_madt_gicc(union acpi_subtable_headers *header,
- 	u32 size = reg == GIC_PIDR2_ARCH_GICv4 ? SZ_64K * 4 : SZ_64K * 2;
- 	void __iomem *redist_base;
- 
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
-+		return -EINVAL;
-+
- 	/* Neither enabled or online capable means it doesn't exist, skip it */
- 	if (!(gicc->flags & (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
- 		return 0;
-@@ -2391,6 +2397,9 @@ static int __init gic_acpi_match_gicc(union acpi_subtable_headers *header,
- 	struct acpi_madt_generic_interrupt *gicc =
- 				(struct acpi_madt_generic_interrupt *)header;
- 
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
-+		return -EINVAL;
-+
- 	/*
- 	 * If GICC is enabled and has valid gicr base address, then it means
- 	 * GICR base is presented via GICC. The redistributor is only known to
-@@ -2437,6 +2446,9 @@ static bool __init acpi_validate_gic_table(struct acpi_subtable_header *header,
- 	int count;
- 
- 	dist = (struct acpi_madt_generic_distributor *)header;
-+	if (BAD_MADT_ENTRY(dist, (unsigned long)header + header->length))
-+		return false;
-+
- 	if (dist->version != ape->driver_data)
- 		return false;
- 
-@@ -2457,6 +2469,9 @@ static int __init gic_acpi_parse_virt_madt_gicc(union acpi_subtable_headers *hea
- 	int maint_irq_mode;
- 	static int first_madt = true;
- 
-+	if (BAD_MADT_GICC_ENTRY(gicc, end))
-+		return -EINVAL;
-+
- 	if (!(gicc->flags &
- 	      (ACPI_MADT_ENABLED | ACPI_MADT_GICC_ONLINE_CAPABLE)))
- 		return 0;
+With Best Regards,
+Andy Shevchenko
+
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/andy/linux-auxdisplay.git tags/auxdisplay-v7.4-1
+
+for you to fetch changes up to f63dc0eea92d07c5bb799a406571b555cd2bbd97:
+
+  docs: ABI: auxdisplay: use literal blocks for commands (2026-09-24 21:17:35 +0200)
+
+----------------------------------------------------------------
+auxdisplay for v7.4-1
+
+* Fix ABI documentation formatting
+* Miscellaneous cleanups
+
+----------------------------------------------------------------
+Li Jun (1):
+      auxdisplay: arm-charlcd: Use DEFINE_SIMPLE_DEV_PM_OPS for power management
+
+Peng Fan (1):
+      auxdisplay: panel: use assign_bit() where applicable
+
+Randy Dunlap (1):
+      docs: ABI: auxdisplay: use literal blocks for commands
+
+ Documentation/ABI/testing/sysfs-auxdisplay-linedisp | 9 ++++++---
+ drivers/auxdisplay/arm-charlcd.c                    | 7 ++-----
+ drivers/auxdisplay/panel.c                          | 5 +----
+ 3 files changed, 9 insertions(+), 12 deletions(-)
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
