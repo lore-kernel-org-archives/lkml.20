@@ -1,51 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594916;
-	b=nir/b9XismOmullt51VA3LfLW5fNzHhZdcI22Ugsk4BxYcOY6Dd4BzBpS/7cDIpUoqOB
-	 o3s7wPbxarx+DQgkxJnQc4bmIIYeTvqErard2fmGNsv/PfUOlY1iT11HayXlxv8cqSRUH
-	 Z6rTK2uoq8KEGmSUfQZcGlg5mUIJv43D3NnolsEKXoUPNKd7rtCghJa+oBc3LdV+zu8hC
-	 fEkwIcqgPXA3m4o2pHf0MLkycde5YDyNGe8oqq+dU0cJdxu6Lb20xV4H4MO//KiKq1iYd
-	 gEt0Xa2yKalK5RVB04j4HAqJeKZJ11h9gvoeKVRyxkcqznYI9vushvzmb1ZSDdn6UBg==
+	t=1792594963;
+	b=wQbEVOaVwU1u3HE+L2PTtxWwsKTS+3zyZkpl9HMTgFIaj5jL0RBC7k/rsnBtbduXQ96b
+	 MLD5sxsgaxRypFEqZM7iZzmZZ5wzQZLCiJbtAdCW0NTF1ic6NusnWtzK1s+KDJqUpJl5k
+	 0pLWqrmKIHBvuCP/fWsr0NxtIwkKpcEjKqmIXymXuecePzwS3w1HdmUVQ0kcTOkUcL3Z+
+	 ue2oy6ya/UsXwgjOx+pPsoeb3cRVBonpxf7NrfMdtgrvyVkMDP+E+ar2DgIl3LwJEd2UO
+	 uohX3ym3Ij7SPCuwS5+UIOPWQYPymYUGOTyyCfa2slqx3Nb0wZhRh4+5lzk8nbEAuDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594916;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:Message-Id:
-	 X-Coremail-Antispam:Date:X-CM-SenderInfo;
-	bh=p9nrjK4e5tANDN+95PQbLKMF9LMQF0ZHU5hRCppkci0=;
-	b=xmlUFp+jnlGbY/DKj6uicc1W2ztVth3W94BAS/w/ljVBgYYbJ2IiJOuvVuv8SR6o7YPm
-	 J0u+N6SXawmZy88Rwqh00DNs8zmF0i36blQN2/UBVrHErHxS6OEJO6AY30YBfPqlzsih8
-	 1Dh4nIYN2GQMsO4qEHWbW9BRSJULI/9ZkPKhj0iAlT8yBG8mvn2B7XY5TCmZMNkiRljmy
-	 RFXFjZeDJcqUokActA4eqQt4PdiOgZcGGqT9844wdTG2R++t6vkNJkuHNlRePdv7YqCPV
-	 +yqsReYoH6UF0o9AhMd1X1Ils8QGnpbM0KBpznMRXHt157+A4PbHjUiNoGEK/IpiQUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594963;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=d5JxF9k90cA5rrayOyNwrmjTdjOiAyML1KCzl9Ju/xA=;
+	b=3OIebkuvAZyap7msg53kZ6vMHyYQOAij+ALW7UJKToB9/LVHnXswjD5SorQDGIkIu+pN
+	 X4o42jNUqGG7bM0tk8ak7t696WyNFnduKtmOYSPfQJlZ2W7mzTvn8crSgfgamY/ciKVIm
+	 xsrWC9J+JLwl8nk+xOzt2b/MwRDU9Vp9pL8ZwXwwQND3TLD07mmT9DqvHEM2sPt4+LQZ7
+	 8LqArc+1TEbdGTdWku5e25I1FE41zR+fCxEp1DbNhm5oKDqMDsVtHoE289Z/A9rPrUE/p
+	 2eGiMH3JjoaZFWaeKsViWBQU1JmzvG7M4Qjk032gB7DxO3YeyZrZBlywbhLdJhoeE5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IQ7CUTOh;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kb5CqPro;
 	arc=none smtp.remote-ip=117.135.210.2
 Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54620606A319;
-	Wed, 21 Oct 2026 15:01:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54620606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95E6606A319;
+	Wed, 21 Oct 2026 15:02:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B95E6606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=IQ7CUTOh
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Kb5CqPro
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:MIME-Version:Content-Type:
-	Message-Id:Date; bh=p9nrjK4e5tANDN+95PQbLKMF9LMQF0ZHU5hRCppkci0=;
-	b=IQ7CUTOhRdfJUsIi1LrJyRnNqRXeoukexknFzz+F3dCTMi8VljkdeT7f9EpIK4
-	sgZyhwy02zQ91HR89VW5aobtD24dqu6W1ZiTMKvqMBsTsZ3xlyhBI+DXVSclmvZz
-	vA+sY/p37Z6ncDtFXXoCVIspX5Hch7fFhXvNLfy/5vrjM=
-Received: from zcf1810-ThinkPad-E420 (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgD3P03Y09hqJX7vBA--.22114S2;
-	Wed, 21 Oct 2026 23:01:44 +0800 (CST)
-From: Chunfa Zhang <zcf1810@163.com>
-To: linux-spi@vger.kernel.org
-Cc: Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
-Subject: [PATCH] spi: fix zero-length scatterlist entries for vmalloc buffers
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=d5
+	JxF9k90cA5rrayOyNwrmjTdjOiAyML1KCzl9Ju/xA=; b=Kb5CqProWoljNLQKNL
+	rLEqQpNjBOGWopPeGnGtvBdhzY9Ot8ton/Ijr65VxBdXJ4WKze3+dL9yIN6Mpj8h
+	GjptTPNp2B9Au8pRW7cQWZB6WBj2wZUSEQ3UJbiQV0+Ac1nvQnEY9MxThluIJsPT
+	dQnUAXz4ufk5Zg26OtFJSvENY=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3_8ro09hqpMAiBg--.20706S2;
+	Wed, 21 Oct 2026 23:02:03 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
+	Keith Busch <kbusch@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org,
+	Dave Jiang <dave.jiang@intel.com>
+Subject: [PATCH v2] lib/firmware_table: validate subtable bounds
+Date: Wed, 21 Oct 2026 23:01:59 +0800
+Message-Id: <20261021150159.399043-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,97 +66,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:PigvCgD3P03Y09hqJX7vBA--.22114S2
-Message-Id:<6AD8D3D8.0ADCD5.20255@m16.mail.163.com>
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw43ury8KF4UWF4UXF1rtFb_yoW5Cw4rpF
-	WfKFWYvr43Gr1xAr4fAa1DuFySyas3ur4jg34fK3sYvr4UJ3sFqFyUW3yagFyrtFs7ur4Y
-	kw4qg3sYka1DZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UdPEhUUUUU=
-Date: Wed, 21 Oct 2026 23:01:45 +0800 (CST)
-X-CM-SenderInfo: p2fiimirq6il2tof0z/xtbC4Rj7m2rY09hKuAAA3S
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3_8ro09hqpMAiBg--.20706S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CF1Dur1UGF4kuFykuw4kZwb_yoW8tw4rpF
+	1fK3s8trWFqFy7Xrn7J3WFyF4YvrW7W3ZxAFyxKr18twn8ZF1rWFy3G3sFqFZ3ZrWxWF4Y
+	gayjqry8Cr4kAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UhL0OUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7wsAOmrY0+tkOAAA3I
 
-spi_map_buf_attrs() sizes the sg table with
+The generic firmware table walker dispatches matching entries after only
+checking that a generic subtable header is present. A record whose
+declared length is shorter than its header or extends past the table can
+therefore reach a handler before its bounds have been established.
 
-	DIV_ROUND_UP(len + offset_in_page(buf), desc_len)
+Once a complete generic header is available, validate the declared record
+range before looking up or invoking a handler. This rejects zero-length
+and truncated records while preserving the existing behavior of ignoring
+trailing table data too short to contain another subtable header.
 
-but fills the entries with
-
-	min(desc_len, min(len, PAGE_SIZE - offset_in_page(buf)))
-
-Those two expressions only agree when a page boundary coincides with a
-chunk boundary.  On 64K pages with a controller whose max_seg_size is
-smaller than PAGE_SIZE, a buffer that is not page aligned produces a
-table that is one or more entries too large, and the trailing entries are
-filled with length 0.
-
-dma_map_sgtable() maps every entry up to sgt->orig_nents, so such an
-entry reaches dma_direct_map_sg() -> dma_direct_map_page(size = 0).
-dma_capable() computes end = addr + size - 1, i.e. addr - 1 for a zero
-sized mapping, which is false for any buffer above the device DMA mask,
-and swiotlb_map() then calls swiotlb_tbl_map_single(size = 0) ->
-swiotlb_do_find_slots(), where
-
-	BUG_ON(!nslots);
-
-fires because nr_slots(0) is 0.  On 4K pages desc_len always equals
-PAGE_SIZE and the page boundary absorbs the offset, which is why this has
-only been observed after switching to 64K pages.
-
-Fix the entry count to match the way the loop consumes the buffer, and skip
-zero length transfers entirely.
-
-Signed-off-by: Chunfa Zhang <zcf1810@163.com>
+Fixes: 60574d1e05b0 ("acpi: Create subtable parsing infrastructure")
+Cc: stable@vger.kernel.org
+Cc: Dave Jiang <dave.jiang@intel.com>
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
 ---
-Validated against the fill loop with 20000 random combinations of
-(len, offset_in_page, PAGE_SIZE in {4K,16K,64K}, max_seg_size): no
-zero-length entries are produced and the segment lengths always sum to
-len.  Not boot-tested on hardware; the reporter hits the BUG on a 6.1.158
-arm64 board with 64K pages.
+Changes in v2:
+- Preserve support for trailing padding shorter than a subtable header.
+- Add the stable and code-author Cc trailers.
+---
+ lib/fw_table.c | 20 +++++++++-----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-Resend with an ASCII-only sign-off; the patch is unchanged.
-
- drivers/spi/spi.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
-
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -1339,9 +1339,34 @@ static int spi_map_buf_attrs(struct spi_controller *ctlr, struct device *dev,
- 	size_t min;
- 	int i, ret;
+diff --git a/lib/fw_table.c b/lib/fw_table.c
+index 16291814450e..40846044e01b 100644
+--- a/lib/fw_table.c
++++ b/lib/fw_table.c
+@@ -172,7 +172,15 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
+ 	    ((unsigned long)table_header + table_size);
+ 	subtable_len = acpi_get_subtable_header_length(&entry);
  
-+	if (!len) {
-+		/*
-+		 * Zero-length transfers need no DMA mapping.  Leave an empty
-+		 * table behind so spi_unmap_buf_attrs() sees orig_nents == 0.
-+		 */
-+		memset(sgt, 0, sizeof(*sgt));
-+		return 0;
-+	}
+-	while (((unsigned long)entry.hdr) + subtable_len < table_end) {
++	while ((unsigned long)entry.hdr + subtable_len <= table_end) {
++		entry_len = acpi_get_entry_length(&entry);
++		if (entry_len < subtable_len ||
++		    entry_len > table_end - (unsigned long)entry.hdr) {
++			pr_err("[%4.4s:0x%02lx] Invalid length %lu\n", id,
++			       acpi_get_entry_type(&entry), entry_len);
++			return -EINVAL;
++		}
 +
- 	if (vmalloced_buf || kmap_buf) {
--		desc_len = min_t(unsigned long, max_seg_size, PAGE_SIZE);
--		sgs = DIV_ROUND_UP(len + offset_in_page(buf), desc_len);
-+		size_t off = offset_in_page(buf);
-+		size_t first = min_t(size_t, len, PAGE_SIZE - off);
-+		size_t rest;
-+
-+		desc_len = min_t(size_t, max_seg_size, PAGE_SIZE);
-+		/*
-+		 * The buffer is first split at page boundaries, then every
-+		 * piece is split into desc_len chunks.  Sizing the table with
-+		 * DIV_ROUND_UP(len + off, desc_len) does not model that and
-+		 * leaves zero-length entries whenever a page boundary does
-+		 * not coincide with a chunk boundary (which trips
-+		 * BUG_ON(!nslots) in swiotlb on 64K pages).
-+		 */
-+		sgs = DIV_ROUND_UP(first, desc_len);
-+		rest = len - first;
-+		sgs += (rest / PAGE_SIZE) * DIV_ROUND_UP(PAGE_SIZE, desc_len);
-+		if (rest % PAGE_SIZE)
-+			sgs += DIV_ROUND_UP(rest % PAGE_SIZE, desc_len);
- 	} else if (virt_addr_valid(buf)) {
- 		desc_len = min_t(size_t, max_seg_size, ctlr->max_dma_len);
- 		sgs = DIV_ROUND_UP(len, desc_len);
+ 		for (i = 0; i < proc_num; i++) {
+ 			if (acpi_get_entry_type(&entry) != proc[i].id)
+ 				continue;
+@@ -186,16 +194,6 @@ acpi_parse_entries_array(char *id, unsigned long table_size,
+ 			break;
+ 		}
+ 
+-		/*
+-		 * If entry->length is 0, break from this loop to avoid
+-		 * infinite loop.
+-		 */
+-		entry_len = acpi_get_entry_length(&entry);
+-		if (entry_len == 0) {
+-			pr_err("[%4.4s:0x%02x] Invalid zero length\n", id, proc->id);
+-			return -EINVAL;
+-		}
+-
+ 		entry.hdr = (union acpi_subtable_headers *)
+ 		    ((unsigned long)entry.hdr + entry_len);
+ 	}
+-- 
+2.34.1
 
