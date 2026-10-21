@@ -1,73 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588706;
-	b=J3W0FV9TuqmAwQOpkURTjaslc5hEQfYJG1AE3OdXicbKC006HUx7IA8qN8dQeCc/rNKO
-	 ehHnixyIsY0+bgXV9tMtsMFCSJXxgmVMGRBVmisIvu3gEc3Fd7m0elke08mK71sN9SLhR
-	 nd4qImFLh2+ixF8EW6eX2PgWnATrFhErXlGBCF92Fwyi7fYiTmM5gmcy/OTVs12PpO6VL
-	 a8npLiAUuAT2k+bEWXIaZkWTjczxfzPmRoRCsYVAmqbK1GrLC1mQPqcy8vBtyDqyo7Gta
-	 PbdnQrY9A8Sm6lB6UFyZsM+8767vf6oagjobVx3A8NYfWa1IV8c5rvsSmOrEmQNXx/Q==
+	t=1792588726;
+	b=KPDwM/+qhVIVhRAA+C/T/BniMfOniH6d4SX5T//E20oGbI85+rWFbxmvtAZt3jf1cw5f
+	 8nETkV0uxpK1b+Ke0kzU97wVCo6Yngs4aUqU3Z9mKqckaAx+5OgF5vPqug60pxH5Cpk+H
+	 p5dBaZHo1GPEiWbk8Fgx5gAXiNbdnjjmEytOXUAETwGnnKXRY/71Hq9hS7W0i3jVyZV+q
+	 YtKTqMUnqhdNhyxUmw2OzFIMCTYwBwpV7qWe7rw7/S13hpbJEhYeGVC6D8HNvetLxnNJp
+	 +eNfjDRQ/nyazQrLwZXBId6NqZa1ULzY9dQyUZ31Pybz2/jRcFAfZxtQoL2qwBrLM9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588706;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ekCibKv0PWllJqYiwbL8NTR+L8MQ741UG7Kn2SVkZkQ=;
-	b=SrNdeeMzbHMysx2Y0Wcf2zAqWA+/7GJ+i8TK0pndoP+70ZUQ8wWj9zwv3OYjZOKJrMrc
-	 37fojtg2poZFLCa+1lwIjiXYDFp6aRonIlCikeSpMRYdnV+psgtjv5BLRymE6kNVU3fT6
-	 fBat6Ih4JoIz6yJcLk66IjtPpZa/oEE6GwbdWfcm7FRP68Q3FC4rZrae8vN5YYuLKF1gk
-	 1y4LdJn+erda8o29ImrbFBQYRfwdBPt+INc4ytxXT7To9Kuzj1MHhpjZCkfotD/CINXOd
-	 Kv4OkYsw2+sSpLokzYuFV5+lQQ0xRK/qOW5PudZ9s7XgJjeWt9DyuuhK1Xt6hZqv7Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588726;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=XrLsm8yNe15oQtyztYgnund0Iae4jM4PKuJX/0+Hjf4=;
+	b=ZZXDRJEoYsPugQczgyL/UrVD5Ohzrtf0yDY+J7pNuvWFCCIXThluE6CTq1rpKnqfExxe
+	 hBd6Hq/8ZGeqjQwRpjESAdwa03ilDTYhq0zHwpvYXsrLQcShkOHlbq3IwtHIK7E9x+ALm
+	 hG6Ew+1aJPREtZk0wFetjVNIrRplxRNEzbuazxmfekc9FiNnCfcyI+Z44rgEjW/H2ikTE
+	 k8rHC+lB/sA+mozhpV/baFur0+n926gbZtja4pE7hIUZAgXejrVUeF7fQzwrQD9wybwaF
+	 Mw5DjrMDeedLUA8xjKO4aUnDgheVx0cQBt8/m0dEnYQGO2+Dwyw2vQGhhxVmQL+MVHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsr8bwoM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KqgYjlJJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id E6863606A319;
-	Wed, 21 Oct 2026 13:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89BC1606A319;
+	Wed, 21 Oct 2026 13:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jsr8bwoM
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0A3D91F000C4;
-	Wed, 21 Oct 2026 13:18:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KqgYjlJJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1E41F000C6;
+	Wed, 21 Oct 2026 13:18:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792588705;
-	bh=ekCibKv0PWllJqYiwbL8NTR+L8MQ741UG7Kn2SVkZkQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jsr8bwoM0yi7oKg8wHJk3tffC/dTPOTVs02uNlnkZ4oZWn0IRD9DnECnE5Clx9r6/
-	 ae6V09MG/X3D3cV1QxAnRe59hVNjgMeTeC2l3rixB9FwGLnAcoRuWiBmxiMQRy215D
-	 KlFub3OGGxGN1Lj/YXKj9T6VFQl/OwSTT1uEPvEpAYwuf42DB0Qgyo2P3dFeemH39k
-	 hSSRslObIuFVGzjPkPQ4TUg8OJ9ci1WSwwH2CMBPyn+Uo5RY4Hp0Nyg09UBj2hEAjf
-	 6SzyPKcXDuv4ynFZgHteRinGWJl/umxFeJ1xORjnZuD73uYifWxgtWFv9KC4EkTUad
-	 GjWn5gnUhlygw==
-Date: Wed, 21 Oct 2026 16:18:21 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Mimi Zohar <zohar@linux.ibm.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, Yeoreum Yun <yeoreum.yun@arm.com>,
-	Dionna Glaze <drdeeglaze@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
-	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-	sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
-	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-	roberto.sassu@huawei.com
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-Message-ID: <ati7na9OJjN9FA1u@kernel.org>
-References: <20261017231007.GP13920@nvidia.com>
- <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
- <atX9fugGUsI0hGcA@FV6GYCPJ69>
- <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
- <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
- <20261020140655.GV13920@nvidia.com>
- <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
- <ateSly15N5mLrM1m@e129823.arm.com>
- <20261020165251.GG3008132@nvidia.com>
- <ae372ed03da3cd2d57c922850b3b017bcb83ca07.camel@linux.ibm.com>
+	s=k20260515; t=1792588726;
+	bh=XrLsm8yNe15oQtyztYgnund0Iae4jM4PKuJX/0+Hjf4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=KqgYjlJJPL7TvmfwLOYlBdju8BPi9bVa6f4P0ubTSSA/NHVIeDiyH2aUDl/0SO6oP
+	 aKiNzp9Erq16obrCttp3hCpL/NlxuHOzXmV3zKtcNjqxJYK4BqyJhziO0Xw+Gflm3W
+	 yqU1OR9IHO5vsHGBOkfU2Wk++lC9MVfF0ltYTXjrmMDpbqJ6dM8iwfPN7YX8OugZl8
+	 1vis5a/JPEVM+odE9CUpsSR9EZBWqRPdSANxxxz/ss8eBgcJORUd2DU3Yxkjgc7iKA
+	 XbaaGzwREVATwNvg0O/LWJiS4TeadkdDjv8NqAgggY9u5c4CdW+Xg6SOiItrqw8+5r
+	 Agw1aKNfPXPuA==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ Miklos Szeredi <mszeredi@redhat.com>, Jeff Layton <jlayton@kernel.org>, 
+ shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
+References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
+Subject: Re: [PATCH 0/6] fs: fixes for statmount() short buffers and
+ listmount()/listns() cursors
+Message-Id: <20261021-pfosten-gentherapie-einladen-8b2af28a086c@brauner>
+Date: Wed, 21 Oct 2026 15:18:41 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,35 +61,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ae372ed03da3cd2d57c922850b3b017bcb83ca07.camel@linux.ibm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-On Wed, Oct 21, 2026 at 08:23:05AM -0400, Mimi Zohar wrote:
-> On Tue, 2026-10-20 at 13:52 -0300, Jason Gunthorpe wrote:
-> > On Tue, Oct 20, 2026 at 05:11:03PM +0100, Yeoreum Yun wrote:
-> > > But, I have a related concern about deferred probing of RoT devices.
-> > > 
-> > > For example, if TPM probing is deferred until after the attestation
-> > > subsystem has been initialized, how would the subsystem handle the
-> > > TPM becoming available later (This is reason for
-> > > IMA_INIT_LATE_SYNC).
+On Wed, 21 Oct 2026 13:46:53 +0200, Christian Brauner wrote:
+> shaos reported two issues in [1] and [2]. Both are real.
 > 
-> FYI, this patch set initializes at module_initcall(), not even late_initcall().
+> - statmount() reserves the empty string in the seq buffer before a
+>   handler runs but the early return for "nothing emitted" never checks
+>   that byte against the caller's buffer. So ask for STATMOUNT_MNT_UIDMAP
+>   on a mount that isn't idmapped with a buffer smaller than struct
+>   statmount and we write one zero byte past the buffer. It's the
+>   caller's own memory but that's still not ok. I'm fixing this in
+>   prepare_kstatmount() where the exact-size check already lives so that
+>   unset strings keep pointing at an empty string.
 > 
-> > I don't think it would be any different, the mechanism for TPM would
-> > become generalized and apply to any attestation driver.
-> > 
-> > This series doesn't attempt to do that flow yet, moving ima over and
-> > dealing with this is another series :)
-> 
-> When TPM device initialization is deferred, it is retried during
-> late_initcall().
+> [...]
 
-I don't remember when but I recall that this has been debated a few
-times and the idea of deferred TPM initialization has never been
-successful.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Just stating the odds :-)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-Br, Jarkkko
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/6] statmount: don't copy the reserved empty string past the buffer
+      https://git.kernel.org/vfs/vfs/c/6410ba49924f
+[2/6] selftests/filesystems: check short buffers for statmount() strings
+      https://git.kernel.org/vfs/vfs/c/4620c3aa7259
+[3/6] listmount: don't wrap around with a U64_MAX cursor
+      https://git.kernel.org/vfs/vfs/c/db1ad1eac126
+[4/6] selftests/filesystems: check listmount() with a U64_MAX cursor
+      https://git.kernel.org/vfs/vfs/c/7d9ebfa4e4fc
+[5/6] listns: don't wrap around with a U64_MAX cursor
+      https://git.kernel.org/vfs/vfs/c/f98c8e0d1536
+[6/6] selftests/namespaces: check listns() with a U64_MAX cursor
+      https://git.kernel.org/vfs/vfs/c/21f54bd8da86
+
