@@ -1,104 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580408;
-	b=xM8iHADOFDzW58BIgT0kFMszTzAy+ENWxRgmuxho2ggOkpYj/K6/SKYIG65+83BUDZxd
-	 cMk+2qh8dR/gcB0ZSjS0o68tWncK6CCkgkpmGujPV2wjYgCHuGZ2Ov8/TOhF46fzEAGXV
-	 zL6+gVR1W/HFKqLnEVV+FYSiDRkfC5K6ZO+kpHeVGu90keWaPBBUm6O6wgJmtSBMgqgrj
-	 +P49MTipZ7re2GylERY/RdS5PN1UAIjx45CXtbN3zb6OOaWP/9APyBXasqbEGQBSm7IYg
-	 MTXgaAGBn6KY9RW0XMZ0sWqpYLETA/kedmFO9JDM+1vzVgjRo3gs93BbvdTO/MKjA8Q==
+	t=1792580452;
+	b=yMb9JmSX9YeWbxe4LgP/KnGVqknJo4Mje54H2D1cTtW5+0NZU+0A2h04/g4GySEnHqF1
+	 hISiC5xbysm/aay3ByXKzFR/56/l3U8ICZS/YXaa2osmipYnUmcxxMfW2N7rqXryq6NhZ
+	 jxXxXZlBZEVNZJy5ESwQ4dAyFR759NGcJ9xJjXfjRJY2171BiOtEey16lLS6c1YY/K4Tj
+	 njzfIVCxNmeWinEyfCMKNUUfEK+hbFaQb/EXJOqaqBHmhzYZa8BTj335jRUcF1CL7wtke
+	 quQ+dwxKXrGj/pAa07j3+5HrauYUzewiJbuGtCfbDwk2bIgb4ZERv60S39ZVriTGk8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580408;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=An+ETgbADntwtFKiPu43Mts6liLduZLS5iQIAQ+a5W8=;
-	b=N8AZKHShUw1BB6yQ6Vjk9wwhfQUriFhTUXe0v7goPHXZck1yhpefSkql6laaOxVHOlOR
-	 Ss9UDauKZwhIdv8Z30rN4bHQ3vffCSNieuFxAk65d9+SmgCDp9FOSC4Z5HSBv1vc0ItxB
-	 D1ZtIazYRrfcFNyz5ZGTfpyyz3XkbnW3e4klBd/HYsiNAXv/qVofpTYP3NuRWe1dGVLqN
-	 896COs6NfYDzLw4/GBag1FrXqMYsrdbxZVwhCGn4+gvsibsfmL/tIad3aAPGre47pp8We
-	 WhbAaCcBktLFjwh5TCgbIkGUaj76B2lYYjimKsPZPfQSAFK5UXTJvJfGZ0EuBMrlonw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580452;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=aZ9SAWkkwTTy4NnoMgvNraUdhnHDvEnXt6t9/TvONPg=;
+	b=g3FpQ0Setk1QhXPLgMCvht/gVYtiMYCLHB86rYzdD2sqVoJoOYJX2akvKDbA3m/yu2TQ
+	 bcf6ZTLPNr32ONdGa9ds1oPlU42UxYujj6EMOXwz99RDfF8u7wYJAaIY3eLzM96Tm4nur
+	 3VQ/w7mE6LEbKUPpB88QxMT3GsIRhsp1KZ+IVraV+euWGP9Dc8Kks4gcyQI+kXs1eIc9u
+	 sQ6Jsz5+x1Pzh5YsHlbagGLh5t9Brhjvj2FGe9RR8dhOa7HIzC15uSW2XBAT04j/1PORW
+	 jUN5MTXmaHGYdzDcklVn0SpoO9rjEbwehPsYbnvGiiITs4ldC7F3F31LF6mYMeJrcCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cD9VTAj5;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HweTXTA7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E30606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:00:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73E30606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50B06606A319;
+	Wed, 21 Oct 2026 11:00:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cD9VTAj5
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd6a7e1f4e4so169899a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:00:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792580408; x=1793185208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=An+ETgbADntwtFKiPu43Mts6liLduZLS5iQIAQ+a5W8=;
-        b=cD9VTAj53OPERn37dHuTGUZB4REtJ1I7VzpktNygl/tR2wuIKZ9E6n4EQ94oL/kd9k
-         8PakWWnAKJDJ2Nh4TzQBv6fX6/Q1nGDKDjr0Xn2LasBQk8k2VWtlG5nYn836bLakBvLz
-         55ZQIwApzttJb2OlV5vPm08MUh1qTO+wx53c0cIlBVelREQvymTN8sdvIE45yD8FQCu6
-         vhTvSlM3skR92w4GTAj95bOkHVkafXBkctfpbF3ATYznm5QeKPLB0Npr7QFKEy9yEfux
-         J0lQvUii9GJ+pQoxKhi1SqX9iJuiQnc3wNJkP2IdX/CJsuCGT/CcPBbbajWPu8aF4cCm
-         FINA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580408; x=1793185208;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=An+ETgbADntwtFKiPu43Mts6liLduZLS5iQIAQ+a5W8=;
-        b=taEO774LOK23ux1D2Ygjw0542m/zit/144VzaYmG1zsKdxXpc/NA9UCuFbQXu95tlD
-         J18rQFezgo0lXSdQoBuQ6+yHjMFr1llGHX52hFoMCW8fB2jc5O4HCEAXkFuVae2A7Eop
-         1Hg6VL/QkojqTV68j3bKU4gPcHo3xeYoMJkL+zMHt28lZPh080RfrDiXY5wlLFaUEE1e
-         MiubHLeeTVLuwonuYyyEva7ah+qVcvwyhbvOJ8HwsECh0NM01f3iUkgYnPb/5aN6QGtl
-         GPRcKiDx0PeFPzxq8ds2uZLAf7TxiXd7q9+X4d/V5r8GJYROfZHbHrx0TLZpC0woaddS
-         yXJQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGI20MtgIam+oOiN2qPg7cBAg1w/oLr/R1fI13msEt3yxtW72JNGBdFsi4yAVkr5GTvPMgH+qReL0s52E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNhrG526u3Anjimx1Cuzir+oK4Q6yRr6y8VDr3oLjIPUQn6wfd
-	QREpE4M/kbrsenedVw7Gcnxzud+ryooOwcZK/dM+kepcrkVlfkBW8fE5
-X-Gm-Gg: AYBFou3kdlJNgQB06m3XUztE7uG2lEVpWrDFBc7gBvyE3RJLi7hJKhtafeaHIJFmMcK
-	cg3bWjwlhHSIm+JqwV7zLxm7mAnFdxua8ilVhQuPDRCm7w2hk7WSYOlMslv/cVlV46U3OdhujhZ
-	/qo63w2htzbgqmTWceJS9XfD8Z9i4fFLQFZHcSOoVSlGzHLeJSmMSQnt8MLF9lB3E+NeFO9w64Z
-	Kd+h0FuembeWRW24at7VItYwC6EEjz3XotlMa3u/ug0if+gP2NBp7CXK8J/3XpOwvBrmcg7U9zi
-	NQNZmU5PGMhWIRkIs/yNqsBXJ3l6EN0ojSgysl4Ojf5RGxnDzqshG5Bj8NM1HNUmkyt/MD1hCar
-	sIeCzoMMnk3dGjAiL3l38L1CecrfWCWXkGl1xTN0amC15mBB0vRwELETupRVEgDg/4XJ1HCTv2x
-	Zgfal9PYnhSEe0r+6iBGG74Gdk8app/1ZaTq3/JLss1Chiekewkrn6AOo9ZPzy0Q+tkxI2QFGHR
-	+XLiWfBCugLi/tGNfutQMczGEInLvdxqP81rnMyBD+Q8vdOfnah9g64DZQmCjxnGBlEYFHckc4J
-	28/z1nGWGS3+r0xhhpT6kXYRtnOlL7D6vkfA7H6dsShnszvMZE9n4Pq6F/Sbqn/eZ3Z8/BmUMyM
-	WFDtpouTOtmnhayExoTTyZKnw5DyAPid83cE=
-X-Received: by 2002:a05:6300:210e:b0:3d3:ae1f:d7f8 with SMTP id adf61e73a8af0-3e287df515emr1543449637.24.1792580407543;
-        Wed, 21 Oct 2026 04:00:07 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6a85c6fbesm656992a12.11.2026.10.21.04.00.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:00:06 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Yixun Lan <dlan@kernel.org>
-Cc: E Shattow <e@freeshell.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: spacemit: mark K1 board boot devices bootph-pre-ram
-Date: Wed, 21 Oct 2026 18:59:59 +0800
-Message-ID: <20261021110001.2905669-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021083425-GKA125937@kernel.org>
-References: <20261017180141.3477743-3-alan.tseng.cs@gmail.com> <13d6926f-f085-4214-8051-7bf7b5d92b67@freeshell.de> <20261019141752.2077207-1-alan.tseng.cs@gmail.com> <20261021083425-GKA125937@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HweTXTA7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BD11F000C9;
+	Wed, 21 Oct 2026 11:00:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792580451;
+	bh=aZ9SAWkkwTTy4NnoMgvNraUdhnHDvEnXt6t9/TvONPg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=HweTXTA7etRFHCaPlJVEsL1HLJMWcPMjcHG4GmkaI4vVHFc6XfIm8d09zbkMtNMNH
+	 seVtvv8MImechffrqTnLC6ChEUY1zxmU36yzlMAaCqseeBxOTeWsTuS331wSyCx9l9
+	 RuQGrYjhhv2qzDaaLbLLePOg0iL7KE42jUzcsowqtMeqETZ85rcU1wUVScxovCux+h
+	 idBcx+lgwIsCnXBOn3DWdapXYKR/FVZMAPDat6LrVBqyyL/+whMVwAR7QfzW6iN7Is
+	 Hi0E4P1SK+2tQD0waAAPMLo6ZwToRmj8mOBA2kLB3oNaRSYoTxHt3/tr+PDAHDIWY3
+	 gL3KPByRbnasQ==
+From: Christian Brauner <brauner@kernel.org>
+To: David Howells <dhowells@redhat.com>, 
+ Karl Mehltretter <kmehltretter@gmail.com>
+Cc: Paulo Alcantara <pc@manguebit.org>, Jeff Layton <jlayton@kernel.org>, 
+ netfs@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260905051738.11317-1-kmehltretter@gmail.com>
+References: <20260905051738.11317-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH] netfs: Restore selective debug mask handling
+Message-Id: <20261021-inzwischen-ufern-blasen-f5882ee63602@brauner>
+Date: Wed, 21 Oct 2026 13:00:48 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,28 +60,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-Hi Yixun,
+On Sat, 05 Sep 2026 07:17:38 +0200, Karl Mehltretter wrote:
+> The netfs debug macros test only whether netfs_debug is nonzero.
+> Consequently, selecting one debug point enables every entry, exit and
+> general debug message.
+> 
+> Documentation/filesystems/caching/fscache.rst and the NETFS_DEBUG
+> Kconfig help still describe /sys/module/netfs/parameters/debug as a
+> bitmask of per-stream function entry, exit and general debugging
+> points, and the fscache_*.c files still define FSCACHE_DEBUG_LEVEL,
+> but nothing has decoded either since the mask handling was dropped
+> when FS-Cache was folded into netfs.
+> 
+> [...]
 
-Yixun Lan wrote:
-> but for bootph-pre-ram, isn't it about the DT nodes which needed before DDR
-> initialization in SPL stage, and should have nothing to do with BootROM?
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Thanks for checking with the vendor. I agree, the schema defines it as
-"the phase that sets up SDRAM".
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-I also need to correct what I said earlier: the EEPROM is not only
-used to tell the boards apart. It also holds the board's DRAM
-configuration (number of chip selects, data rate and DDR type), which
-has to be read before DRAM can be trained [1].
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-So in v3 I'd like to keep the i2c2 and EEPROM tags, and also tag the
-EEPROM on the OrangePi RV2 and R2S, which I missed in v2.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-E, does that address your concern?
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-[1] board/spacemit/k1/spl.c in U-Boot, ddr_early_init() -> read_ddr_info()
+[1/1] netfs: Restore selective debug mask handling
+      https://git.kernel.org/vfs/vfs/c/35f4755ed06f
 
-Thanks,
-Hung-Chun
