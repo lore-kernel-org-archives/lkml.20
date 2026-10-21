@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548131;
-	b=suM5rGsHNGrJNX00kZfzqDLwHfhWEZ7hdyrj+mZQ97oQxVqsXBAVleIBWI8O6t5Vg6Hj
-	 e53EMDVzX4rxKSu7x/QUJVjHLXbJKmuZyLo4tdOgIQlM8aw3ZkRKR8yaiKZIMSLQl6E3b
-	 WkWWja20ORlIsuVpsG5xXj+mYagGt6q9FkKeUHhJCTDyM8QkzlST/wBIiPGHlG0rsBaF1
-	 LAMM08DGNyvSO8Xk6tA/UcbmBWnvQdovrQBNwD4Bt2M4w1IPqfS6oLUZzkBUp4t9HO91G
-	 6usqCHiIGvqrJJGZ3LdJXLALdbBD6GcTwHwABE17o2t3DTa0kvz5Jrw5psutU8QZGQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=OGwi9n/sjudDqRr2GLNZOw5hXvKMm5llKrzOU2BnbmA=;
-	b=EA+eyHRDo7gndwyIwmZgRmOFQeYfYEf8pffuuhoo1wHZFfXvpFPJNH7RsDINBIO4K8lj
-	 Wb4J4Hm3wd9vFuiM3d2rfupHmb08vPn8OEFY9VAgvd9wGV24V23YKqmvH+a5QEAN8Zisn
-	 TO3Gc4s0nQLL12MNvRoYVAG/cZKkW3pQBYoJAY0QxKqDhkRqw7ASJy+z8Ep7GkGKWgaM4
-	 qwvvbUqYLQH9vgRiaBwdiQziQ+ZVXNlAmrdlJwO+5koDfXREd7cv5Pa2IFuzpddzYn2GI
-	 JD/0vDsCmApMvylwyJB6i2H1RAE4yE25ZHSoMYTosxnBBUw/RjNuzmEWv/N3QP+5FNQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jsb7XwcZ;
-	arc=none smtp.remote-ip=209.85.216.51
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792548153;
+	b=lWzDEFHPzGvwEtsbiMOL6mfzIoNMQjWFzOBjhjWQnqDhhvFz+YHfnso/kCNJx6Ynw78C
+	 pO/urJZn3guH1UXyJ/87Olw/TjBeKeQj8t+uuQbI5tMx15kxcTWEWusaF45N2YRFYTWC2
+	 n4hgZvWRHdIBHH72wjwpB94iAlQyjKfh9y/QgnRfusr0PLYW7vM997VNHJvsHeuKhWaQq
+	 JfYbZaFbPCn1szI+aEyQVnrHOBZoiIRn1tIXARcFmOZkW84ixPjOOyAdV40lLpnujyax5
+	 DinGcEwIAcq9eILmgF+4hYy4h8cjf4NYH01JOoaykvYIIpyku2nc9wsb5M9hFJrmlbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548153;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
+	b=zESQscpxbCHFM7Z8ra3er89OzYDvIl13Gt1j4IxOmOIi6ifYeEV8aF0EujMqJOUuKv++
+	 dF/kWweBeI8XwS9F82XuRbtNoC9+p/bcUxGca8Ms2WhiqAvAbGPHRpAeinmiIV8qPtYwY
+	 yOIc9Qp15Nak3OnKNafX+f86uKgadXvQ56StWnccEfQhmJbBw8fabwGVc/9TFvGiV0QNk
+	 lMp98STj/XJsqMNf0qZCKFN1MtGA10uvorhdfH55iuT0DwQ7TJbBvUITQEjGmiZOyAhlG
+	 QdUM+KwDOFVUo5CCp+yD/LDtLpZJYizplxgdI/oVZYDB3NK/QCN5YF2jC+orD3aijAA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DAC606A31A;
+	Wed, 21 Oct 2026 02:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792548152;
+	b=hQ1W6tdyEFzXVuVZwcb9SD7JGXgDWAmguY+qAGBfvI0nRDYSGwuMOy6Htt1VHhusyt/e
+	 kSDr+6n+KZJGhYxKaO09aL4IbL2ZgZudoNiGax4ly3c0kpQptOpeyPR5zN9YpNE77C0bI
+	 aPuE4x0AfjxvxgseHfrVcX1nQV8J9e8Q/B51MOAQEDkVL7yupjEwTr4M8hh+hCdnLa8KA
+	 UCcJEegpHYIME/DgTiPy0B+e4SaEZg+v8Qw1A3kF/ZjuupTQGEPMb1H0Z25lOhfPv/3Mh
+	 GlrZgfr5f3affeCkbN6CCwPH7CmG9mHn59m8YUlJuaerVh1I5JTgM+roB6OT36rd5VA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792548152;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
+	b=W/4ZXCzJRmOslF46zwU0v2yhYioJyet2oDl5VdLCyp26KzaaSVt/9dXp/kT62EqqO4G0
+	 bCO4okQqmPGzHA1nXSHLp4C5ZGOgAa7u/+kWbN+sKHy/9A0ygCchv3Gn+wQYpCQUTKhR5
+	 qTAvov6a/nk7t3qghoMIJtZO153ZcM/wuSM1zHQ2lzTX7PObqqT8jHr+1GThuW6pR0dZt
+	 6yncQuZlQsl28trQoxQ1MqGRFOaWUk3NKS4ZYIapql2Jz0IvCs8LFdOq6bFlNBHAOV2ZA
+	 MlQ8OLyNUCilBtSQFX9pZwchhSu+kVl/8021gohLSFmvSt//W47CBHOWz7+qpxY2Fpg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D706B606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:02:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D706B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jsb7XwcZ
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ab3f899c8aso66890a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:02:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792548130; x=1793152930; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OGwi9n/sjudDqRr2GLNZOw5hXvKMm5llKrzOU2BnbmA=;
-        b=Jsb7XwcZZirdIXiUJ71858GWkfBI5N/3zoejxXwhkpWfqgiu87Zc45k60KdBai1Nup
-         ZpDo5fObcudP+Ynv6mi7QHWxfChfSikxqCtvqQuT8UTYfJ5E1xN7hz/XYbcX4sVliB9c
-         vsuXS+Y0NFTOlrFS5pE2dXAO6UskMRunEcpQIwX9PUQLcqGBmrnbFAmMk8ppo2aqi/Ck
-         Evpbv5CyomDL3XC+7AiKFtDpGlqNVWw6yS7v9NMNA4MG4RdBPdUC4ukxmxfM41nFkeRm
-         4wKJbYJnKEfXpnjTomZlnRdrFQqUGAFpJJKRdf+dyWLd71gQW0uqsWXZyZalRfIfkUxZ
-         dxvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792548130; x=1793152930;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OGwi9n/sjudDqRr2GLNZOw5hXvKMm5llKrzOU2BnbmA=;
-        b=xOSzYzQuJchZ2spr7H/OlqswPabehRuovgjtNXCPOvyC9E18m3HgY+7CYh1RJ7AXn3
-         Zg+nXv2fsvmsrN4PiHOB1w/GHkQ0wnNSs7gCTdtLdLLKENs9S/UVg1aBIgg5e4UfP8Kz
-         fGntzfbOlNrAhJqnMJwWHz8RziWbkdYXFF6l0+4iXAhgCAkd/7/MYLc9PMB5lfYOjAhK
-         HcUTE/OM4bnwbfk4CAOOdEQaJ1zdl+wSYmuB+9u3HaBG9n7ZvUeoDZ/Y2gJ2JS+HGEST
-         RPjMqdU1OPY1yXdKShJRUP9j089mE1wQgn4wzVnm3UlHjgt/7JygpAqNAH3t1Yc+F6Ul
-         QP6Q==
-X-Forwarded-Encrypted: i=1; AKwUvByEBVgr2awO32W5w6iS+Czd+t6HEKHl6sLS4jbl7eSY7Msr1aWyQY962iReWVxyHg7tWiczLibqHiSHcQ8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFICOu4c7/ukM2vQbPXv6DLtV8TYaYo99dZ81BqAAxzYScUr0O
-	N1hhKUerv/PTmeSdsUGeL68k48BhNStTomk2gC5/1HiGTbY6EHz0tH2f
-X-Gm-Gg: AYBFou3dzZlvbU9gkVRtu+j6ZvCjMrxCjnivLjRI3T3n5Xz55iYwjjt+PBuEmgR0Yqf
-	wO63X091sDGTq6xBVqJqi2TqqoNg7A5wjUsboYGj+KLMK3O579/dwP8MSmoDBbuEdPIW6A8HFxU
-	o7QL5MVumqklsBGI/LvwVTRJUTVawquX1faxVm0MI86h2VUF0GHYJr6eXp3LC94kTKcvOrtotsi
-	VlMF7LQh0GB4gXgIgoSS5BcVd0VV2bJQELg4SoFtpFeQdFRmcNvaa+i7bQlaqWgnXvU8wPkXySQ
-	/GOS70oyDacIeaQmaaHcFwSx7DDdW9pkgIfjgUl7Y4Qcey/P64iBdj/KyucqtzZ/4SmwLFWQE8J
-	kgJ6EGj51MwTVoSlVTbB3ZBWuZReKfq8+CLlD2JuO0sihdPWEKgyypZ7yNLNa5gKyb9zbt4iexE
-	34OnC26gDg0X3rAGnLsm+Dzs4lqKfaPulUHUAT6JpUVf9iZLkfHWLeCu+T0gMsIuspgkfQep27c
-	6nD8qSEZpWXOOdF87EgvdhdwJaYaINcsv/jQI2WuEJaaT8v9Wc=
-X-Received: by 2002:a05:6a20:7350:b0:3e1:8890:83f1 with SMTP id adf61e73a8af0-3e287c9f7b7mr925934637.1.1792548130163;
-        Tue, 20 Oct 2026 19:02:10 -0700 (PDT)
-Received: from gmail.com ([43.224.245.234])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895fa6c6sm219573b3a.48.2026.10.20.19.02.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:02:08 -0700 (PDT)
-Date: Wed, 21 Oct 2026 10:01:35 +0800
-From: Wenwu Hou <hwenwur@gmail.com>
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev,
-	akpm@linux-foundation.org, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm: zswap: set zswap_ever_enabled when enabling zswap at
- runtime
-Message-ID: <atgc_4y2dA4egqXs@gmail.com>
-References: <20261020122942.3477541-1-hwenwur@gmail.com>
- <CAO9r8zNgnt=9UXN_FJ3zByVtC18MNe94-tXssAS-eAQfutNXRQ@mail.gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id EA6781F000C9;
+	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792548152;
+	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=eSD7Couposucux9BBfClKOEFLwEoiFInTcZfcMuL22QeyB9Il3A3mLqtFMb3OYpUv
+	 z6HREFIMJLJSDgpwow3xoGobUeAprDaJm1Gu1+e1d+995hyBWgj/ETKCub5YP6B8te
+	 7EqE3WyT5srHrs+cxM+GtkyeXufO7w9TvH2TrbtFzaEswLE7ooc5W2lxcatrGueeay
+	 fv8F1PDNoefCjIbk+UAW7tmcl+MaT4BMRNIbZLlS7tWqAKvCNz8SlaCWzl6nk+f1tU
+	 iQXuxeONsL0Gzmi4CAEQ+FT6Ct9Un1wbKfFoJmzJw+yG5Se18P/5l+zQvVXOFQkKmJ
+	 HAXwJGj4KFWAg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 7A8474326F;
+	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Wed, 21 Oct 2026 02:02:29 +0000
+Subject: [PATCH] arm64: dts: rockchip: Add vdd_log and vdd_center to Kobol
+ Helios64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,36 +83,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO9r8zNgnt=9UXN_FJ3zByVtC18MNe94-tXssAS-eAQfutNXRQ@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-helios64-vdd-log-center-v1-1-4cafd110e0e5@iav.lv>
+X-B4-Tracking: v=1; b=H4sIADUd2GoC/x3MQQqAIBBA0avErBtoTCy6SrQwnWogNDQiiO6et
+ HyL/x/InIQzDNUDiS/JEkMB1RW4zYaVUXwxqEYZahThxrvEbDRe3uMeV3QcTk44U+sXPZuutwS
+ lPhIvcv/ncXrfDzkFkdJpAAAA
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2557; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=RDt7P+CwOHiaEZvswLkEBaOOUqR15G5E3l+XUXhUTd8=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFk3ZM28ok6uurQ4RuGJvaChU8C3vtWXs34WMTzvOV6gO
+ ofBseBRRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhI8SmG/1lfjils1Jsu0lPc
+ klw6+daeKx4PfI8siAiqF+btd3xrHsjIsCsy+OKF7YymHVIti1g23t9sLJ3R8S8h2Svyb/PRd0d
+ jGQE=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
+Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 20, 2026 at 08:57:15AM -0700, Yosry Ahmed wrote:
-> On Tue, Oct 20, 2026 at 5:30 AM Wenwu Hou <hwenwur@gmail.com> wrote:
-> >
-> > zswap can end up enabled without zswap_ever_enabled being set, which
-> > leads to data corruption. With CONFIG_ZSWAP_DEFAULT_ON=n:
-> >
-> > 1. zswap_setup() fails to create the initial pool. Setup still counts
-> >    as successful, but zswap_has_pool stays false.
-> > 2. The user writes a compressor name to
-> >    /sys/module/zswap/parameters/compressor.
-> >    zswap_compressor_param_set() creates a pool and sets
-> >    zswap_has_pool = true, but never enables the zswap_ever_enabled
-> >    static key.
-> > 3. The user runs "echo Y > /sys/module/zswap/parameters/enabled".
-> > 4. zswap_store() now stores pages in zswap, and swap_writeout() skips
-> >    writing them to the swap device.
-> > 5. On swap-in, zswap_load() first checks zswap_never_enabled(). It
-> >    returns true, so zswap_load() reports that the page is not in zswap.
-> >    The page is then read from the swap device, which holds stale data.
-> >
-> > Fix this by enabling zswap_ever_enabled in zswap_enabled_param_set()
-> > before zswap_enabled becomes true.
-> 
-> Wasn't this fixed by
-> https://lore.kernel.org/linux-mm/20260906133601.3563324-1-xialonglong2025@163.com/?
+From: Igor Velkov <iav@iav.lv>
 
-Yes, please drop this one, sorry for the noise.
+The Helios64 feeds VDD_LOG from a PWM regulator driven by PWM2 and
+VDD_CENTER from DCDC_REG1 of the RK808, but the device tree describes
+neither of them.
+
+Describe both. The vdd_log range comes from the schematic (sheet 8):
+0.83 V with 3.0 V on LOG_DVS_PWM and 1.4 V with 0 V, so the PWM is
+inverted. vdd_center gets the same limits as vdd_cpu_l.
+
+With U-Boot setting both rails to 950 mV, Linux 7.3-rc7 reports 949 mV
+and 950 mV.
+
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+No regulator-state-mem: deep suspend does not resume on this board yet,
+so no suspend value is tested.
+
+U-Boot sets both rails to 950 mV:
+https://lore.kernel.org/r/20261021-b4-helios64-v1-1-74afe8aa6d72@iav.lv
+
+This conflicts with the pending power tree series in the list of fixed
+regulators; I will rebase whichever goes in second:
+https://lore.kernel.org/r/20261016-helios64-power-tree-v1-0-31d6c8dc5092@iav.lv
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 ++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index 63ad79b4c8ac..3c2ba805e999 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -271,6 +271,17 @@ vcc12v_dcin_bkup: regulator-vcc12v-dcin-bkup {
+ 		regulator-max-microvolt = <12000000>;
+ 		vin-supply = <&vcc12v_dcin>;
+ 	};
++
++	vdd_log: regulator-vdd-log {
++		compatible = "pwm-regulator";
++		pwms = <&pwm2 0 25000 1>;
++		pwm-supply = <&vcc5v0_sys>;
++		regulator-name = "vdd_log";
++		regulator-always-on;
++		regulator-boot-on;
++		regulator-min-microvolt = <830000>;
++		regulator-max-microvolt = <1400000>;
++	};
+ };
+ 
+ /*
+@@ -370,6 +381,15 @@ rk808: pmic@1b {
+ 		#clock-cells = <1>;
+ 
+ 		regulators {
++			vdd_center: DCDC_REG1 {
++				regulator-name = "vdd_center";
++				regulator-always-on;
++				regulator-boot-on;
++				regulator-min-microvolt = <750000>;
++				regulator-max-microvolt = <1350000>;
++				regulator-ramp-delay = <6001>;
++			};
++
+ 			vdd_cpu_l: DCDC_REG2 {
+ 				regulator-name = "vdd_cpu_l";
+ 				regulator-always-on;
+@@ -580,6 +600,10 @@ &pwm1 {
+ 	status = "okay";
+ };
+ 
++&pwm2 {
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&vcc1v8_s3>;
+ 	status = "okay";
+
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261021-helios64-vdd-log-center-b13df4b678a1
+
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
+
 
