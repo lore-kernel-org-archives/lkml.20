@@ -1,79 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=66.163.185.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601964;
-	b=0adP6bpMhlqA8Da7DYgJx2wRM4dVMB6zXT41zXOYyRBfLERBgRUnr2zYFSdiQBMZDB72
-	 zSoLl7+DsXqlVoC5IxbH4E4FDYbB0/WSg4j8PjGP0F/wt0+NmEW6oQcg68YhbfnUNiOf+
-	 9AM89B4nrFOtzv60SibhFLjktgskWA4O0oy0xfOah706gMTOja/20jCJkQv21mwyoM/q1
-	 OdnGopRZp7A5YhHOnUo+sQE8kkN/4Xl2sBnUUqqckcmHuCcimhrA98v3QCYmM/TlzSVsl
-	 lbmexbE45R0Px6rXOd3TF5B543h7rZP/8DGhnglwIWwM5MN0vde6WTvgQ10TwP1axtw==
+	t=1792601980;
+	b=DCKPu11JVFnWMIoFY2uQLd7Ck7TciSX/R6hzqSgU9vmw4lDdRS7GePq+adj2MYZkQs4R
+	 de8GAlvSNjnrXby20T8aUjJQE1F/q9on4b+xvim5GPTgPz075Z5b1PDEaK5+TjY5Xzp2A
+	 bOUX5D2UOdAfHRWoyCQm0ftLsn2OXN3z1MVDgWn2b9qzfKZP6p53qgdEM58kwTYRUSwBx
+	 AXueeo/YHMiUQwRMaGWrGt1m1rQE+M3Z2IUGOXR1Lu1L8W7X1lGp1nkBhxNIHOP1EIL5W
+	 ZPEYbz4nhonlZMSrHUKXN4BUCPlGslsEXq9MUNHgb29x3ug0QTIdyBLeeaE6SUEXOfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601964;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=kah1CZOWcJGjnZrMGrCQ0VvDoaKkFOiqXfkmX5BbHr8=;
-	b=24aFetI3Pxbti7xHow82XoItAdx2uJ2wcPDg55DGdw/n1oqiTv3X3BS1B7idnM68lxhW
-	 dYxXhsJB11NHZooG4Fk3ACF7QM6qQagjAeONC9/mAtLutvNIALpCcLGzWLO3N3821y8nv
-	 dL2oLoLU2wn3Je+SvSxjnSJTfms0niur1xjF2MOi7TwkgM2NUh0dlJUYCt6QfVu21ctar
-	 8+h1ud8zuMytuv+5oXAP+6E3+Q6mqwnX7dGFfBAXHvP9bhyk26eDnizrad64cP7IpVvNQ
-	 uTbLNDinSdP5mfDZl2fsSxJjcudpkolUJjIm/NFQ13bpQt5DeRrM1KC+9GW0roqM0Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601980;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=p+CU0uLPlyx2SCbGFn0tLzOAhUz48rH3EvqMuFceNuw=;
+	b=OwmkoZHAPX3t89B/8hrYeo8tjsIuFmHryiK07XIvzmwNrUZlfLtEIeyrilxsJKmCygZS
+	 RJ3fDTzG2t9YbXNlukvg4leH+33psoWOnNOs7hb66gj4xa5/k+IkVyQ1UaCa7PYqXVxIq
+	 sdpIqY6p+KDFS8Cne03Bpe0Wn6z17F/QGDsYOmQbPaCfrEQEZNb2JWZ2uqXM3VYlBkCdo
+	 SvVrHN2Qh+9GYINo7AymepWZt41G/xe1cw3YPqgQBPjtWp/KqsqXAS4z01N6q3FJkMJIh
+	 AWt79PtT8K90OirvCNjwx3IyxEMXWj1gENBtW8y/HF2EEqTk/2Bpl4lE0EmBI9JGymQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=schaufler-ca.com;
-	spf=pass smtp.mailfrom=schaufler-ca.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=qMQnfBDi;
-	arc=none smtp.remote-ip=66.163.185.153
-Received: from sonic305-27.consmr.mail.ne1.yahoo.com (sonic305-27.consmr.mail.ne1.yahoo.com [66.163.185.153])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.76
+Received: from mta1.migadu.com (out-76.mta1.migadu.com [95.215.58.76])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2976606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:59:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2976606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=qMQnfBDi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792601961; bh=kah1CZOWcJGjnZrMGrCQ0VvDoaKkFOiqXfkmX5BbHr8=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=qMQnfBDia3rzQvnbPH1rRInnCtXPAP7wZxUN69jQdmj3/feNJUurhHOMBlYlDz6noeiMmcDw8D3O4VsFGFMc68sBU7kW9UooBIYSAnN7sc8q3CgvnBl6SlrGNLvn7X4DjI+bv+1/2OFC1fgQpEobvfQx3Or0w1h7HgHC2zANGhnkDTNdehZRGNSM1vY3+aw5PHGXjvaNz7toI9rFfbZ2qV0WaNHY8pYG+ddiJ+VuwMU2+a63TXX+xbcSlJxQUSFdKWWayhUQB0h5zMg4Ry2fjOtSIJ7w2qFcn5BK5OkWXtbSjDELJvZ5JhzuDfy9VaDrWDF0kYau8YoH/wgolRUgzg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792601961; bh=9PleWcYR8e2xn5hY7aHEeHxiIX60ZkmF9ZqouUvxMwn=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=BiFURWH2inSJa7DFCFcZJwzBVBrLuIxN0cdXYla1/FI4QIgnjpsEUnivZv112EPYGJnvKMXlWURjSGrxzegCZc6npQ8F8GiIkCMZVHdqD/+vr/67no8e8pPnQFvpXgYs19P/40Y+1rFyltkA2GxCcMRtn3fBmBSZ1yrvhkz1/K5ccD2RgnOUD5ppzYTYrRHoNMfuGYU3z57cFbJXfZgehmzAs6YmxbKSKO4m/l89JzNp/t2GQP3OSvDH4hedXG4DzZC1LcRgTsNN3VILCvMirXj+L1Hx9eLf3/UbEFkKx+58zNXuLh5W5G+/bZFUkKTTPNqqVqyEJJ2flRpRVQZ8JQ==
-X-YMail-OSG: LCA5RiIVM1mFSCBMSGrvZTC8G7qdX_QeTDLQPq11oZ4Qs99RUpqqME0f_B_mElZ
- l6.tE9BmQSqjGHTZGbu5..066d1.QaQxFtWQhzSbQaXqKv9BGyIywqx2ethhepd5Le6FRRzaBgvT
- IA5kBQUdG3bOvzIV8Mdg3nBI_l1Vw6U2HLt6PO4KsNeIahFcgcofhYolkU_geZBbhLYIVAuC407Y
- HvbLmP_rwk5D5uBG9Ck5xRyetpLcpQKf7QbYsUtP.8bAQyx5Q_DKSiBUK9W77Zo1DwP2joi6nKId
- azCcKYp3M3lk7toaR7qnZ3jmWyj0ZHcrPeGPdva5QynQCq7tx4Wf3_uUjq_gO03SL1p4T99TNaa0
- sIDF3HL.BTRJJ9wG4tWNiGQdpFQfzXDg0ZLx7ReBnXGGuaGQM.7Mf6WDB7BOPA2rFMF.jRlOy.PF
- YkK8ScMuhQFMupMZzQI9r0jBzRPPvY.AP2NJ2Bm_uVycbuEGE3k11XU2g_x_1vnZVgoQ70hoshl5
- c7DtDzSnTv8o3modT6ZdSdrlcQul8Ml4gUOdlQfZwJ5NplHl9tEgyua5GAx8vvnlM2XAPrFW5CjL
- hWFjiv0R_G90utoxLyOtsCsynU1DK0YWmKR0aHelhshp9Ik92VJfRLjPAapXvR1ZrT0z1LEb7kRc
- 5E317PXytnV8Jp7oYSDMdHjrJZUMw_vdyRU5ecKfsC7Xmb0bgD6JRw9EH9XOLs5PXcvAZodtbQkK
- 4FoVtN.J9jgRMVbRgqjsudq2xYgpq6ntEtCqoT0TSwWD8nORuSBy.3C1343SDhg7Y7H9woZcCjj4
- j3ym21r4ATvK8faXoConUY68Ct2M_v0k0r9ZafLWBaDmRxVHvMTean.IKYrqq8XvN5Ig7xk129vG
- HILg1N144lXulDiXI1UYiZKVOKuW9JXGXWk0bvw1wzqGUi.oLuG2IgPMuBvtGQgmXDrRsGkS8oKe
- wjjXUU5xri6qnDyGVb1EY0.4H6raaNgpLrBwb.spG0hbAJPhfSxgBns.YZpiVOH8F9yDWkogQ3CF
- Oc5sfT3VLkLCxu1.EfkYQsI1WbW6xjmcpPVawbpHSyX98Nf5fM1_1QD3MuUmaC6ehO55_yB9l.z6
- Re9XZczDI_95HTzLLfNiOIEI3qT.soQ5bTtLQsMcJk03ETZsfAyKc0ylSYplHM9e_iMNHjUPY0uM
- EVbxOX8_hf2rgWLMEawC9ES5oz9t7CFtGXLiNes2Jpev5e43XzLY28mQt6l.F5mw84Gx8D9rgKwt
- Hrxag5HrDqh0Pe5t8.HTz45sXVQqt7sq_0pak4Xvya6Ztzesc0XT9EfCuPq_9gjHBG2Pp0BZUPvM
- 7GjTYYNV9nGProtYkPF70ABSabjDdYOOHJco2neGyV28BQm6flQyvfXC2DsXLUIA8MWd9iaJcXIO
- 3snVF99t2NwPTCF825eJhnIjdPTxQSoACtUtGyZ7qj5lR9ck1wpavjNaU2YxsOlnJh9MPANCcWzG
- grDz5WAW3VtLpPUC.wjvvz.iYd_aGqnrQWtIBnB0.FvtevthzWTMu5UpFIboJfDL5qfkneyaX24c
- uKj7xwMxTsK03KM8wvImj5ZuXnRozbbeU0HZpaPElt_QyVpuv4JYRMcHm__iCAo.rOj7g07TUkcH
- dEBlnRsD0E7s3MHPqx8C6WN21R6vsy5X2ZbDXxbh1C2ZmRKkSadL0QqxNRcJ9e46FnF.1PdafapW
- 9AyUruX88Y4VUp1EPcuU.34N7QRKobQ7N98TjaYtOsBV0cTF3oHfD3J8pCQ27V22nsqVoFaddqgy
- JdDWkDKsocrnRJn7l01fOgJovbUa3sRWC2YuDIEEHtlkEO8VFw18XzuC30JLHXC98rj5r0lPR5g5
- D7gOW3y_hng_S.bbgnIDbGwv3xuA0Vv_eawLObYrhnEBms1PDU7i28IufTfcYJqckL7WKnh3psBi
- 0VJ_5yABobEbzCFT6Xv9kIJNCui0UgR4VSpUx1CQtqG12WwTIFsnXGRfQg0xZE.LVcMFPMTGrFQ8
- aI982JBxQoWpacnVh3SKkzmojx1r04A6WI7.AZTv1YnHu8aoZTDWiQz_aqeGisA9GNb2BiB4SCaA
- pqB0t7kUCPvh0Ic8i.cszWuYosiBbEy.dyTUNI_Hd5QZbcp3xMThX9eqxEpJR3Prooszu0RgBUWu
- gRUeji98ltpVfBZgpC8HqsDSaSwYhH7Qx5RS2ZcQrpV3PlazGfrWnwNktaL6IvnpxsZ84ZIk_q45
- N2vKv5blDyT86KvsV_F7z8m7hnVaLFROlo.sESARl5kSsfbP3jG1rMz_px8rm
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: e7a1fa82-6891-4739-95f8-4de5b52417d8
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.ne1.yahoo.com with HTTP; Wed, 21 Oct 2026 16:59:21 +0000
-Received: by hermes--production-gq1-fd7994565-ftb5j (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 9de1ca094d9183894955e8f06f19efe4;
-          Wed, 21 Oct 2026 16:59:17 +0000 (UTC)
-Message-ID: <0aeea80c-e3ac-4b6f-b1c9-ef18ea2964b3@schaufler-ca.com>
-Date: Wed, 21 Oct 2026 09:59:15 -0700
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862EC606A32F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:59:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 862EC606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=N2OoIaXbm1ikGvwpS1JJSDFdorhSOcRL/wya42gaR/o=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792601977; v=1; x=1793206777;
+ b=WqohzBuXMER1LmjiCeUCqqT3n8lklluRkRPsxMIjlU1bosfcFkiH5w/GJGYfTwMS7MRRniwW
+ R64eJpT1uOdaQPteFt49LBqyJyKoAX/7hmh1cq1dAiDDzX72NdvsXJG/M9S07K6GTAojBCM6oBe
+ xJRmKI4T+lMdZXoUDKMiFCzs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id de2331398842e179;
+	Wed, 21 Oct 2026 16:59:37 +0000
+X-Mizu-Trace-ID: de2331398842e179
+X-Migadu-Flow: FLOW_OUT
+From: Igor Korotin <igor.korotin@linux.dev>
+To: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>,
+ Danilo Krummrich <dakr@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Lars-Peter Clausen <lars@metafoo.de>, Mark Brown <broonie@kernel.org>,
+ Brandon StJohn <branstj@gmail.com>, linux-iio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v6 0/4] iio: position: add Rust driver for ams AS5600
+Date: Wed, 21 Oct 2026 17:59:36 +0100
+Message-ID: <179260197668.3127.18219777718091081046@linux.dev>
+In-Reply-To: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
+References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,66 +70,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH slab/for-next 11/14] smack: specify SLAB_MAY_ACCOUNT for
- smack_rule cache
-To: "Harry Yoo (Meta)" <harry@kernel.org>, Vlastimil Babka
- <vbabka@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, Johannes Weiner
- <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
- David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>,
- Hao Ge <hao.ge@linux.dev>, Pedro Falcato <pfalcato@suse.de>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, linux-security-module@vger.kernel.org,
- Casey Schaufler <casey@schaufler-ca.com>
-References: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
- <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-11-096800aa3330@kernel.org>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-11-096800aa3330@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On 10/21/2026 4:46 AM, Harry Yoo (Meta) wrote:
-> smk_copy_rules() allocates rules with the gfp passed from
-> security_prepare_creds(), which is GFP_KERNEL_ACCOUNT. Specify
-> SLAB_MAY_ACCOUNT when the object may be charged to a memcg.
-> __GFP_ACCOUNT without SLAB_MAY_ACCOUNT will not be allowed.
->
-> Path: fork() -> copy_creds() -> prepare_creds()
->   -> security_prepare_creds(GFP_KERNEL_ACCOUNT) -> smack_cred_prepare()
->   -> smk_copy_rules() -> kmem_cache_zalloc(smack_rule_cache)
->
-> Assisted-by: LLM
-> Cc: Casey Schaufler <casey@schaufler-ca.com>
-> Cc: Paul Moore <paul@paul-moore.com>
-> Cc: James Morris <jmorris@namei.org>
-> Cc: "Serge E. Hallyn" <serge@hallyn.com>
-> Cc: linux-security-module@vger.kernel.org
-> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
+Hi Muchamad,
 
-How was this change tested?
+Reviewed the lifetime/teardown contracts you asked about. read_raw() has
+a problem: it takes parent: &Device<Bound> and recovers &I2cClient<Bound>
+via TryFrom. That conversion just got removed upstream ("rust: i2c:
+remove TryFrom<&Device> implementation for &I2cClient", use-after-free,
+unrelated thread), so this won't compile anymore. More importantly, Gary
+Guo made the point that needing the conversion at all is the actual
+design issue: a class device shouldn't reach back into a generic parent
+reference during a callback -- whatever bus-specific resource it needs
+should be captured once, at registration time, and handed back via its
+own private data.
 
-> ---
->  security/smack/smack_lsm.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-> index 8e88ac65fd7f..8a802578ac29 100644
-> --- a/security/smack/smack_lsm.c
-> +++ b/security/smack/smack_lsm.c
-> @@ -5352,7 +5352,7 @@ static __init int smack_init(void)
->  	struct cred *cred = (struct cred *) current->cred;
->  	struct task_smack *tsp;
->  
-> -	smack_rule_cache = KMEM_CACHE(smack_rule, 0);
-> +	smack_rule_cache = KMEM_CACHE(smack_rule, SLAB_MAY_ACCOUNT);
->  	if (!smack_rule_cache)
->  		return -ENOMEM;
->  
->
+Concretely, this means dropping devres and letting Data<'bound> carry a
+borrowed reference directly, which it's designed for
+(Driver::Data<'bound>: Send + 'bound):
+
+  pub struct As5600Priv<'a> {
+      client: &'a I2cClient<Bound>,
+      #[pin]
+      io_lock: Mutex<()>,
+  }
+
+  unsafe impl Send for As5600Priv<'_> {}
+  unsafe impl Sync for As5600Priv<'_> {}
+
+  unsafe impl IioDriver for As5600Priv<'_> {
+      fn read_raw(&self, _chan: *const iio_chan_spec, info: IioChanInfo)
+          -> Result<IioVal> {
+          let client = self.client;
+          ...
+      }
+  }
+
+In probe(), capture the client once via deref coercion (Core -> Bound)
+and split the driver struct so the registered IIO device carries the
+same 'bound lifetime:
+
+  struct As5600;
+
+  struct As5600Data<'bound> {
+      _iio_dev: Device<As5600Priv<'bound>, Registered>,
+  }
+
+  impl Driver for As5600 {
+      type Data<'bound> = As5600Data<'bound>;
+      fn probe<'bound>(dev: &'bound I2cClient<Core<'_>>, ...) -> ... {
+          let client: &'bound I2cClient<Bound> = dev;
+          ...
+      }
+  }
+
+register() then just returns Device<T, Registered> directly instead of
+transferring it to parent devres -- that transfer is what forced T:
+'static in the first place, which is what made storing the borrowed
+client impossible and pushed you toward TryFrom.
+
+I built this end to end against current rust-next: compiles clean, zero
+warnings, and zero changes to rust/kernel/i2c.rs. Happy to send the full
+diff if it's useful as a starting point for v7.
+
+Cheers
+Igor
