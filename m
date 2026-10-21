@@ -1,122 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571539;
-	b=gCoIWD0Us5p75IaGbSJKRuXHqTX+/qdpAH2S53mbmzqkKD0zIbWIySdsrXgKmgIeslfq
-	 FhbbNBjOi659Hm+Hu9Rb5W27BrSq+5xVoAg7BGLToeMiBTxmLxmCSlRotTZKFXlochzu3
-	 GsuViYelh5K+/2gYAsL5xuHBEJmc+VpG2qPIHAHEmOfUGTPrbBS5D7nEHoljBV6ay9aBK
-	 gXDHV6Pr+7pLAMqQFEBn5dThrCq4Q0BFSS3Jw3WH5hkDu55ogZHiprVgIbbmvXZ9QSLWF
-	 XOR+YbuuNrWJbyzuYUoYty69cLC5CPXQOMFnHtYvIANq3sSpqnEvyaSTXzFZ7UQBCSw==
+	t=1792571541;
+	b=Lc7qYb/X2xS5moRuUEnjH2gbn8un9aAbCZqxgr/KaDMERYQYeQ5MrbCbCl3aU0Bo9qXX
+	 ennZvyUt6Enx9SmxfZgjmJv7d7Pg99G7aeSN3CuJa/MJ7pSYQov42BX8NrUh++i0t306+
+	 I7OmuJCLoZo96cB5WaC/F+tOwj8+cNkoPdqsbKzeJnWkP6oQvUBYee3mezQTATQ/T93Iv
+	 b06zlEwjyqjmAfNgl53tJn/F6I7Db7Dro9CMWrZ3D2wfqGS2MNTTKqZ4mVzVCynw6eLFC
+	 sDBY0zD+eNY2EuXwyI7k1XTb7cbo3mMBZgrHkB1x5Uy+WB/xisMWVbzWr4aUSMiZrrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571539;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571541;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gUG85+B7KqrDZpPXGb0QyiCfKe+tueHmqLD38rgeJ0Q=;
-	b=gGqxKB4rBdw8FgnzjTDM+POxKOIQI65XoDHk2xeh9C32EXg5uMZ8Vsm61BMpBFX9kUvF
-	 Ft/Z5VRA+szDJk0iOCsdhhdp78VBluX/IbcHQEwx97hsf9IsKkfOqne+XZYBF2VBLqSD+
-	 +lYFV8QtHnLpVA7yau+hd99hOwlju1UTxSFSYN1AN/PEgvR9xMBDOxRBBOwasogs6FXtL
-	 HqM1MGm1SYGPVk7cWlxYHZhRjG9xTUj5vG1oNIeMOE2HYPVU5ScN0DNFUfjKcnd0JZohD
-	 g++oAymwSRM+fK1mAghcNT1hnWMEwBJjguvIaelFNDP6O9u3ceI2vCW5ZOsw4YmNLJQ==
+	 From:X-Google-Original-From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=5ULIkKvwaWQI67UTt7sKZLeHrIi/qSx+LiDlZeAM51g=;
+	b=WiwMqGrZHlbtTRnXwqnHUnK+Wpe44gE3eAsiVq6xxFnj+6ct9wsJl3ZcesccZoXlFtcQ
+	 bbHJpkvFesqvKAOK8rYJgw9tBTbmtqwnjLTYkfm9h9Nu4ZJxqneXj4y02QyW2YpTN+HCm
+	 zfUK/D+vr4SBN2u4NSO8oxIXwdYtWnfDXPklZ/ZEoS/adbfGRqbyeT9hnc7aG3a1Zc5Fe
+	 HUE/NC5U6DdWRgR4IeSk838pc//0LnXClAMQiRGWQZeUbECtmO28cHxVZrSJF7wO2FfW1
+	 SgQLLBAhQmZ/fMD6IocSEwzv7gL6XqlgH04fPr0vJaWcfcjV+VN1KVMbM8qibtjgvHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gEL9sIZw;
-	arc=none smtp.remote-ip=74.125.228.9
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TPSX9hAw;
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 957D960A2621
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:32:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 957D960A2621
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB7C606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB7C606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gEL9sIZw
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cd65a511e43so163626a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:32:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TPSX9hAw
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso10337625e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:32:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792571539; x=1793176339; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792571534; x=1793176334; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gUG85+B7KqrDZpPXGb0QyiCfKe+tueHmqLD38rgeJ0Q=;
-        b=gEL9sIZwgFMUDSnky3+nlBl4QfvJFOrw9F/YXqQhpMXKIXCR96RJS5rnha1nzR7rXC
-         U5dV2v/oJ3d+oK0YJ9o/THAyPFsxcfZy7k9XeeGsGqXSchTXTj3Oqiz/6c3jbNH5yO75
-         G7olI8qXPIJErYa+oBqUAqhXfCir3dHaP9wW4LOyHeifay9GtuE5DuIAJcQ4OWSF2UyZ
-         iimPxA+FIVlhlltjAtJ6sSM4b3BKTnzgiNFL9Z3vduXqg5Qo4AYoMA7m6yU+TOshdQTS
-         d6Bvg/1cpBiDvTNQR8YXF0RR6Hvz1Z/vnZpXa2wGCZ6/ECdXyIqhwFmvuYqeMdZbIAvQ
-         ec0A==
+        bh=5ULIkKvwaWQI67UTt7sKZLeHrIi/qSx+LiDlZeAM51g=;
+        b=TPSX9hAw13viOJ51MNDDNRuYGgwsMMG9b9960TUVTwW0asT/XwBFzC7DJg5Y5Peabj
+         91HTzrQvV1PI2hLa6O6T4lacbs1jgOGec6/feFrabTrNqTJYF/NV0UhIvenxKwlZR/bc
+         Cd/LzWO04/dqXMClE3G52rDFlZJyVk/4ZiTsc80K1pqeGZJuKRuJwl6pRTqyd9UUl8VE
+         XYOCxBx4ldHP0LQP8W1JW5HsP0IWezqoqy8Soyzu+UA68GZTmFR/EZhI56k779BrIZes
+         Gtq2wXXS4V96IeLSGF+FLGizf0L8uih0qhYlTrMmhaVsAq/FH4qhxAOAlzrHyDoL9Vgi
+         Emiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792571539; x=1793176339;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gUG85+B7KqrDZpPXGb0QyiCfKe+tueHmqLD38rgeJ0Q=;
-        b=IETepMsrBmuii5U5EyFF3HxA4HwaG5E9jOEGE/45HMJi6RrVfqDvS9j90O8xGGAUhb
-         dpW7JbYHeEWfz8ZGfwx30YGjRKNV+ZbEXQUwQKc4rOYdASuCABvw6F2lY5vUp7sUEYvy
-         WxripictoQ7qLnm6h8ELxC/CXwFyfy863P7PC4Aw12Zcf2pL9LIOdt7PlkgdlbfuM1P9
-         pjnYcfr9aYGCLk2CdHjnUORJP48P27vg2QLjmvZpjsvIfg1ZYOSeBYk84Z72tOHonJMy
-         h2hauBQB2ZSL3Nc8OHdh5WrWJqFICfzDE5qOQ8IbYvNcxHKMwuMjlJX+3wIDBVyhe4pR
-         Mh8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxCKMIqugjiLu/BipxXrus80AT0fKaEkf2eIMDWK1qFRvUrkxdMT8FXQvTUZ/oI6KwI7VUQZNL15QDdsmM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIta8UEHPX91Jq1psWFMkAVbsSLay9v4iuImawQzcDsTTRuU9AA
-	ldH1f3eZfSN/JGFPGvM3WqNwU6hhIORW2lcp9Y3Zpc+mqN7BMpW1R38R
-X-Gm-Gg: AYBFou0LIPJjoul0aZEu0Hh7tXAQInKCFdo9DFZv0fWB/lyixViELZmPVo3NwAzVwfR
-	WjUYE5OpHpBgmvEIKJeJx6Vit2LNd1Wqm833vGXMWUhaf4+Gle4mlW2VgzYfYfv365Bsyzul47J
-	ezZZIfPtaji0PMg8DanwrXf1RQ10+eUoNPC1iix1NBXq+dYHV8j3fyT0kyS54+vu3+RbXefQTr0
-	/Y4dMe6AzgxKrZT+4GjzmzZ2VruobWhE/p6onHyzfvpDTS3SdqoksySFemPLWruq41979xJS6Uq
-	CuNHSCj53KoXL6CF+CnCY47bCi/t1pLmDaa3p5PvKArj2ptcTYXamEBk+fy90Ru8x1PgB+WwrmR
-	UGVYJNtI4SqlOz17tu+HlaBUzGKdmTS09VwOrD0BKFUOlcx+gBr9+uL1Ae1nRcLosuOepEgUGc5
-	K94p6/6rHKlJRkRYUPRAQwuv8PUOoFk/u3e2e/ZbZViRlPW58X9YUUpy1h4mhTdJj4urGr3zloX
-	BDEi6i/ho20l+YwDDWzN4ClwaDWWJaRqcudipY/NbwKXWmMuu+yIpjY3/eVq2ghtfX3
-X-Received: by 2002:a05:6a00:a0e:b0:8a0:1435:fda0 with SMTP id d2e1a72fcca58-8a089d4702cmr1201474b3a.51.1792571538862;
-        Wed, 21 Oct 2026 01:32:18 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895e273bsm600653b3a.41.2026.10.21.01.31.56
+        d=1e100.net; s=20260707; t=1792571534; x=1793176334;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ULIkKvwaWQI67UTt7sKZLeHrIi/qSx+LiDlZeAM51g=;
+        b=x7axdKWpMS+4lzXYxHvMiJ0V5Lk5Cu3+V307Yjk2Yp+xu/ja/4uqgkRVQVtC+oOKI0
+         rCQ513x7qGiGBQygDjbQNtsENkW0KEVFuDgTvsG/PqZDMddopa6TBdTn/1xkio2SHczy
+         dbZgywbCgcJtLCqNKeQSmIxeVf/1or+1HSaVMN1XsD4+4gHhC2n2w+iDG+IRDXFCQ0Ez
+         FQaAfkyxpU9UAxvO6NK8bzwWfL0GArfQqmflJ0IfKqRqrQZnDPRpRIdU9od+18isB0H0
+         +5snoQK0tPm7DcX94WeCk1Mm1TrgGRvUTyoZ0MaJznmzHSMa1xcsESrzA20Sn/p1yWr/
+         0a3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxx3wBrlBBMegomzLeogM54a1uTJh2J3knIH3cNT2dSSmaKIgv1orgrl/NXnV/LXFxUYpspZux3Igg0EOQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLRzTwgWE3MZ8GHFz+iehcU+flLxaQX2x0vtunAj/IaRj5BIwxC
+	1Zcp0lZX9ijQ7x1hEsL/TKefbonzsAhQr4pLjqJokutjekB8Hlt0mO6I
+X-Gm-Gg: AYBFou0W4XkeGHfi8yGWO1p7iCpgKteOs7sl335VmAB6dPsr8fQU9cGFwm2VU6K98zV
+	+rWvj+ptiEgIIFb6fE3SS7mtuRxYjK4vg6LRb6Y6hzyxQ7TswBW1nSSZ7DNlWRITu9Rga8J+fwP
+	LaA0UGtVkguu81FM701AK8zx+/GJfuvE1Oxugt0MHPWKyN8QGMeZtUr08yy2DjfEraoPC1l6jPg
+	64ZTQfcx5y1ZDAyt7ckPqzj1ToYOoDvR73Z6Qky909ZdAL7bo7vBl+T2740BRZ8j8ZzZUfsNz7a
+	siBLU9kgz72unNMxuBzpbDeh1HVhzK54RzlrjUABPGeb6LP9b+gBumINTSjOz8jtwGiEFP+AC6s
+	Vx5jvsUw70j393l/wz/4pRIeCOSToQ16BCly/ENnRpwl7C6GlEGuPPHeyrcFnsxa9FrohLHHqmu
+	ZnxoVRrq23Ru0LN940104szUdGYVfFxhUpDudejc/LVxhpI+eJ0quvf/kCXVGxyWfVVQ7ZNjsBE
+	GFdTy+EXckEYUes07MML5DsNziwYLE1dj4qRJXVBvsiuUbN7w+A2+pXBSL/4936Ndacq8+NHrOj
+	0tI96cvyG8P448wDR2QjGic=
+X-Received: by 2002:a05:600c:3103:b0:4a1:e57b:667e with SMTP id 5b1f17b1804b1-4a1fdb155bbmr27564805e9.4.1792571534212;
+        Wed, 21 Oct 2026 01:32:14 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:23c4:a702:d301:39f4:e118:e272:79d8])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd2eff9sm36250145e9.4.2026.10.21.01.32.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:32:09 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: robh@kernel.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	m.szyprowski@samsung.com
-Cc: catalin.marinas@arm.com,
-	will@kernel.org,
-	mark.rutland@arm.com,
-	chenhuacai@kernel.org,
-	kernel@xen0n.name,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	hpa@zytor.com,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [PATCH v9 7/8] of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
-Date: Wed, 21 Oct 2026 16:30:10 +0800
-Message-ID: <20261021083011.2170525-8-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021083011.2170525-1-chenwandun1@gmail.com>
-References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+        Wed, 21 Oct 2026 01:32:13 -0700 (PDT)
+From: Biju Das <biju.das.au@gmail.com>
+X-Google-Original-From: Biju Das <biju.das.jz@bp.renesas.com>
+Date: Wed, 21 Oct 2026 09:32:04 +0100
+Subject: [PATCH v6 4/4] can: rcar_canfd: Add support for Renesas RZ/G3L
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,81 +93,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-canfd_rzg3l-v6-4-b4abfdba8e70@bp.renesas.com>
+References: <20261021-canfd_rzg3l-v6-0-b4abfdba8e70@bp.renesas.com>
+In-Reply-To: <20261021-canfd_rzg3l-v6-0-b4abfdba8e70@bp.renesas.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>, 
+ Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>
+Cc: linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Biju Das <biju.das.jz@bp.renesas.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792571528; l=3895;
+ i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
+ bh=y2Mps8bfpUVBsT29o/nYD2/x6wtmg90QtO5iKikQJVk=;
+ b=pGiu93n+LR2RblBYw7xxK37coY3NAQuHm9DGkEpPyqRsS1oX8i1QBUJLlojT1xwxRTEM7VZwV
+ H2x1d0EhllzDCy5iWSWi1jAj8brbokXqPhm+OV6TKoaELMOcyLEDmUF
+X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
+ pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-From: Wandun Chen <chenwandun@lixiang.com>
+Add support for Renesas RZ/G3L CANFD IP. RZ/G3L has 3 channels and
+11 interrupts, compared 2 channels and 8 interrupts on RZ/G3S.
+RZ/G3L has 288 buffers compared to 192 buffers on RZ/G3S.
 
-Mark non-dumpable reserved-memory regions with MEMBLOCK_NODUMP so
-kdump can omit them from the vmcore.
+Like RZ/G3S, the controller supports only CAN-FD mode and update
+the comments to note that Classical CAN mode is not available on
+RZ/G3L either.
 
-The marking is guarded by CONFIG_CRASH_DUMP and either CONFIG_KEXEC_FILE
-or CONFIG_CRASH_HOTPLUG, so kernels that do not build or update crash
-ELF headers do not pay the cost of splitting memblock.memory entries
-at NODUMP boundaries.
-
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
- drivers/of/fdt.c             |  1 +
- drivers/of/of_private.h      |  1 +
- drivers/of/of_reserved_mem.c | 18 ++++++++++++++++++
- 3 files changed, 20 insertions(+)
+v5->v6:
+ * No change.
+v4->v5:
+ * Dropped the tags as there are new changes.
+ * Documented Classical CAN mode is not available on RZ/G3L.
+ * Added r9a08g046_hw_info to device data.
+v3->v4:
+ * Collected the tag.
+v2->v3:
+ * Fixed the typo 198->192 buffers in commit description.
+ * Collected the tag.
+v1->v2:
+ * Updated commit description
+ * Dropped RZ/G3S fallback
+---
+ drivers/net/can/rcar/rcar_canfd.c | 31 ++++++++++++++++++++++++++-----
+ 1 file changed, 26 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index ecc923102622..a5f223a74b7e 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -1285,6 +1285,7 @@ void __init unflatten_device_tree(void)
+diff --git a/drivers/net/can/rcar/rcar_canfd.c b/drivers/net/can/rcar/rcar_canfd.c
+index 86fa88ccf63b..0da2fefb047b 100644
+--- a/drivers/net/can/rcar/rcar_canfd.c
++++ b/drivers/net/can/rcar/rcar_canfd.c
+@@ -6,7 +6,7 @@
  
- 	/* Save the statically-placed regions in the reserved_mem array */
- 	fdt_scan_reserved_mem_late();
-+	fdt_mark_reserve_mem_nodump();
+ /* The R-Car CAN FD controller can operate in either one of the below two modes
+  *  - CAN FD only mode
+- *  - Classical CAN (CAN 2.0) only mode (Except RZ/G3S)
++ *  - Classical CAN (CAN 2.0) only mode (Except RZ/G3{L,S})
+  *
+  * This driver puts the controller in CAN FD only mode by default. In this
+  * mode, the controller acts as a CAN FD node that can also interoperate with
+@@ -247,10 +247,10 @@
+ #define RCANFD_CFFDCSTS_CFBRS		BIT(1)
+ #define RCANFD_CFFDCSTS_CFESI		BIT(0)
  
- 	/* Populate an empty root node when bootloader doesn't provide one */
- 	if (!fdt) {
-diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-index 0ae16da066e2..505735732c13 100644
---- a/drivers/of/of_private.h
-+++ b/drivers/of/of_private.h
-@@ -187,6 +187,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
+-/* This controller supports either Classical CAN only mode(Except RZ/G3S) or
+- * CAN FD only mode. These modes are supported in two separate set of register
+- * maps & names. However, some of the register offsets are common for both
+- * modes. Those offsets are listed below as Common registers.
++/* This controller supports either Classical CAN only mode(Except RZ/G3{L,S})
++ * or CAN FD only mode. These modes are supported in two separate set of
++ * register maps & names. However, some of the register offsets are common for
++ * both modes. Those offsets are listed below as Common registers.
+  *
+  * The CAN FD only mode specific registers & Classical CAN only mode specific
+  * registers are listed separately. Their register names starts with
+@@ -681,6 +681,26 @@ static const struct rcar_canfd_hw_info r9a08g045_hw_info = {
+ 	.fixed_canfd = 1,
+ };
  
- int fdt_scan_reserved_mem(void);
- void __init fdt_scan_reserved_mem_late(void);
-+void __init fdt_mark_reserve_mem_nodump(void);
- 
- bool of_fdt_device_is_available(const void *blob, unsigned long node);
- 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 8c9d6395d6a3..db2bf76000d2 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -677,6 +677,24 @@ static void __init fdt_init_reserved_mem_node(unsigned long node, const char *un
- 	reserved_mem_count++;
- }
- 
-+void __init fdt_mark_reserve_mem_nodump(void)
-+{
-+	struct reserved_mem *rmem;
-+	int i;
++static const struct rcar_canfd_hw_info r9a08g046_hw_info = {
++	.nom_bittiming = &rcar_canfd_gen4_nom_bittiming_const,
++	.data_bittiming = &rcar_canfd_gen4_data_bittiming_const,
++	.tdc_const = &rcar_canfd_gen4_tdc_const,
++	.regs = &rcar_gen4_regs,
++	.sh = &rcar_gen4_shift_data,
++	.rnc_field_width = 16,
++	.max_aflpn = 15,
++	.max_cftml = 31,
++	.max_channels = 3,
++	.postdiv = 2,
++	.shared_global_irqs = 0,
++	.multi_channel_irqs = 1,
++	.ch_interface_mode = 1,
++	.shared_can_regs = 1,
++	.external_clk = 1,
++	.fcan_pclk = 1,
++	.fixed_canfd = 1,
++};
 +
-+	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-+		return;
-+
-+	if (!IS_ENABLED(CONFIG_KEXEC_FILE) && !IS_ENABLED(CONFIG_CRASH_HOTPLUG))
-+		return;
-+
-+	for (i = 0; i < reserved_mem_count; i++) {
-+		rmem = &reserved_mem[i];
-+		if (rmem->size && !rmem->dumpable)
-+			memblock_mark_nodump(rmem->base, rmem->size);
-+	}
-+}
-+
- struct rmem_assigned_device {
- 	struct device *dev;
- 	struct reserved_mem *rmem;
+ static const struct rcar_canfd_hw_info r9a09g047_hw_info = {
+ 	.nom_bittiming = &rcar_canfd_gen4_nom_bittiming_const,
+ 	.data_bittiming = &rcar_canfd_gen4_data_bittiming_const,
+@@ -2404,6 +2424,7 @@ static DEFINE_SIMPLE_DEV_PM_OPS(rcar_canfd_pm_ops, rcar_canfd_suspend,
+ static const __maybe_unused struct of_device_id rcar_canfd_of_table[] = {
+ 	{ .compatible = "renesas,r8a779a0-canfd", .data = &rcar_gen4_hw_info },
+ 	{ .compatible = "renesas,r9a08g045-canfd", .data = &r9a08g045_hw_info },
++	{ .compatible = "renesas,r9a08g046-canfd", .data = &r9a08g046_hw_info },
+ 	{ .compatible = "renesas,r9a09g047-canfd", .data = &r9a09g047_hw_info },
+ 	{ .compatible = "renesas,r9a09g077-canfd", .data = &r9a09g077_hw_info },
+ 	{ .compatible = "renesas,rcar-gen3-canfd", .data = &rcar_gen3_hw_info },
+
 -- 
 2.43.0
 
