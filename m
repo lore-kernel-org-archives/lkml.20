@@ -1,109 +1,197 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792543100;
-	b=3tMmYsvXjx2FkMmpvsTUKlTs8k+yHFQJ2+ULBHIOW3UDAPN78oKOdi55vs2KSs5Bkb3S
-	 iL11SV5nt033fz5sOTUAJpq0Y6pCo9DBnDF5KRA12FoBLczs9e1WYrnvg3g+3qcACQ4fm
-	 LNzKlF4CazfAylH5PDy6W+rqGbK5ihmNTdIg/HM/fw08tQCWlc/qalpUSIxcTdRDqV+n7
-	 trISlmIdoe9R8so4QKU6o/6iX674l3wRF2YbH7nGMcVaNdZVy+LTrNvUcGXLG36zK7Fmo
-	 0fXsrvVaPtMzIRrgY3eJqZVreF6dRrkuihhZvTpytw43LBK4WB8z2eT1Isyqtqdjtug==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792543100;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=HXFVCDgnjjgxR9X2+oHJiKj4Y5WpimrH/aIfriX4MSw=;
-	b=KXqpCZUJZSdh5cAS8IDcLPXGIzK+lJx8qNtHRhFYA98+RLpCNdLIeNL5H6JKIduVrQBr
-	 ja0pHhZnfNtX4axfvkbsccqG6G8ydAoHwPuvnHC83DuKPg5EVE1Q5cUHYl7/7zGS2mPQ0
-	 Bv1rSGM53b42quhKcg5QGZ7P/X2Dx06XPcwULozSqaMeJfkoghKShxxrlDlGynHucf0zo
-	 m0q1HpblndjGpjSIFvmWjiO4zT0XgcTrzMrsFT4AgDAoEjd5maCPgsxqbqaSJ926CHvgj
-	 OeUjWomFautBv+ZPVktY9YyVHe4sU059kWVN7L+hTUMxi868NkWy3zHDL2PHnB1+QpA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o73MNKiJ;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gfB0UNBw;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.16
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792543183;
+	b=kTeR7fv28b8Do/KJGTk/9ujAy3oRI0ViKXlr9ZEnOdt6H3lFHgEgGfZ3SBxzQQIP741L
+	 95HARXLLuEWmdHDsjY+b3JX92Itbs8QSPNgmRXr48m6f2CcbI8ZzCt1RqjvhNPjHLZcqc
+	 +CiDfHMYo5qNahCfdgbfws5nOaZWHhCNJMXZ8gCVqq8TlGBe3Ryy6nxnrYEzcvxbpbtqO
+	 LjnWMgTrTS1Kw1VHFDWDV8IHh7PaoK+QzFZJ6EM8PVpYHHi+bGaQEAZL8F2bQYSWF65il
+	 dX73Q749wdb+1vBvex5ofikiKOwsRThtyg26WRHJDAE94VWQafX+yW8AGSgoRux9Eew==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792543183;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=WGcUiVY4jws+B4jp3G4iZ3CxGhFlpq0jCXESu+h8pyw=;
+	b=Jnm9j8X0n5UR3+I9M5zbABTvRWS2ovmLpgGVroReNXM15xCLrzx87WU92lQJb60dez8W
+	 QDKSuBMbFBzOcOCgwt9je9tihh9IlK9hSE6B8Q5EiXy2VKsMtYDOgb257mUIa9EUvavir
+	 rySxCA7/jM+l3D72juqGBBZRs6yItOBXAtx6nSFXRR34uJvyIJQ5hT4pD5ZwaU32Sg5i6
+	 UqVgLRTCBtmMM/tTO3YdLqopX3XXKrvpzdRWwH9GV5qZf0GWMwXfQ0Y+3ecfHIdoOgJKS
+	 IK4nSBCs6lWLqk0pFJehK1hn3hS7HN61NMTcT1K7G6g3UBiyhA8FcyguYsJSoLyvwwQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UvWHC1BO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AFD606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:38:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67AFD606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B2DA606A319;
+	Wed, 21 Oct 2026 00:39:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B2DA606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o73MNKiJ;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gfB0UNBw
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KKtowS2795606
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:38:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HXFVCDgnjjgxR9X2+oHJiKj4Y5WpimrH/aIfriX4MSw=; b=o73MNKiJFJnuycX6
-	l2U/FRlMksGAHvhPprSiOBdS/qPPArjE2CJD5qDOh3kVEsCL5dGvtWVXnxCsZMaZ
-	hCbQvZ6IPJP1zq2hf8qmIksXNAO6n2UMnlVifIME7QtVmHDJgeQ/uyj1PNL+ZDwN
-	MO1S4bRqSOvl6DSHxDua9GtTIscdE7zNixc+oXCFIs2J1e7iSH+GSpKaD8+HlcUp
-	q6ClQtwB9tF+r375pX+bo4pUQ7rx6pMhYsxXuAfxgtQaC10fD5a2bV4zKKfuY+rm
-	7bynBTr2f1qgJ+VWe6oMs7tI25tM664OS1eH1GLeK8chClc8OcgK1cjAj0MX8yyF
-	9VcZkQ==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2as45-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:38:19 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so598566c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:38:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792543099; x=1793147899; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HXFVCDgnjjgxR9X2+oHJiKj4Y5WpimrH/aIfriX4MSw=;
-        b=gfB0UNBw+2IPzVgM/mVTnJr6bbtIH5jwm5lkL0uRfbj13JrMxxPxk2jIkquW7YW8ua
-         13Fev5x8x8dwgoHW3DdUN6202FYwe3n90IHOmiEDh4U6jAPBRcimklipv3WdfAjtZM3U
-         R3o/DoyhpAOA4loTzQA5ZP90RzIqyq37vkBiUH2Rt9a8Quzfh1ruKz7eN4ymv42dI6E6
-         CnDyBVGGW8y2pJN8NiktpBWol3OD24M956G1LhB9OXSIyKUarnizPIC+HinHt0PRDrpI
-         MbJbvyEjxHwHED9fC1+qKj9AACD3N2Mv/4ZZISAEalTaPPnggsvJFC+GCpu23yuKM/jd
-         QH6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792543099; x=1793147899;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HXFVCDgnjjgxR9X2+oHJiKj4Y5WpimrH/aIfriX4MSw=;
-        b=hW2E2SJ0nQ+nR4/bb9WnwgOvUw8oLVg0HFfoaNL9TpLIDe9/GRIN3SLbrYMfg6DzzI
-         Tx0onOn34kxSLhMidHTOarNGKZx66goN9/2E5rRucICVS4LmFh9DbUE2sM3cF5nnM0Z9
-         dyR67OUyYSJp+wZu4i6NmZsx2rKyLGvUxEkbG1zRgEsuplAkSJAkcmcDNTEbN78iAp/I
-         /LZVQK2H1HjzR33wf3HbG66JKlB/KjGEw0kRyLVSkWTEUSOxzb1nHe5DWf6lBthxdsoT
-         nDMe1qtJThDehCn2XuT81lJxF2uwUdBGcr0c5S7p8sYlGJOdPkqMr/lIzUJpqoPDRLSs
-         r2rg==
-X-Forwarded-Encrypted: i=1; AKwUvBzeUh79ISjOqmtFCs/GWYJ5jxYdq8xUxq2Up2OHaFwHtzhbwfgOo816iaJOyBbKvkvn68BaDhQI97WPriU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIizCqklI52a4NFvLdpCUnnqQG1kUgE39VGKt/0BIX2VWkwRXYr
-	kieV51dDTCoahMcXLQ06JV56TLEXkGEiIyW3Sr/14dlwO2ncEJBWHoR0TthyjWXXTvmSGeZltpT
-	gV7tj156b+I+Yux/WDlBp6Vf3/Etwe2p0XZXdBFQXfAYJ6H0tzrrJTUQ2Sc5AcFUZSOg=
-X-Gm-Gg: AYBFou3SysttjQCuX//P83NlsovgyfNi5Uol92kQwjK4KeHvEVEUdEWTN5f+C+0z1fO
-	XWjipeWn2HZrRxidgXBzYdQiGhAKeY4CzQt3dIZs3EkTYsjzTUkCoKupXE1GKaiP9D/A795sb05
-	aMsO9x2uZ2q5NSOtpW0LT0lavm1tsDDmVy/yAOH2TZVJd8hWE3a6DjnY3Ws7+5yzLCKm3a7EFX4
-	76r5lMPrx80VJNHPuqsAv0VWt2c/5mH3m3wYZHD+B8tDvNY224nuhI1QIJpX32ZnmFnubt1Hz5T
-	M7l/fvD+xNJcc7KMzDz9Prnbs6Cod8isrN1NjIgqFZ1MS152eoCPuSDCU89bSVh+dgEPR17EVqF
-	kxQ+Ad3U/nH6Dhh2u4kQqRUH1HewqHYwISGZ6dMz93n1q3Jh9gwMl2SlxDg==
-X-Received: by 2002:a05:7023:a5a:b0:143:6080:668f with SMTP id a92af1059eb24-190a6adc7b9mr501645c88.7.1792543098809;
-        Tue, 20 Oct 2026 17:38:18 -0700 (PDT)
-X-Received: by 2002:a05:7023:a5a:b0:143:6080:668f with SMTP id a92af1059eb24-190a6adc7b9mr501614c88.7.1792543098127;
-        Tue, 20 Oct 2026 17:38:18 -0700 (PDT)
-Received: from [192.168.1.20] (33.sub-75-218-193.myvzw.com. [75.218.193.33])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903d3ae06fsm1928326c88.19.2026.10.20.17.38.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 17:38:17 -0700 (PDT)
-Message-ID: <1e1238a6-399d-4cb5-a5ab-756ccac64169@oss.qualcomm.com>
-Date: Tue, 20 Oct 2026 17:38:16 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UvWHC1BO
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792543182; x=1824079182;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=WGcUiVY4jws+B4jp3G4iZ3CxGhFlpq0jCXESu+h8pyw=;
+  b=UvWHC1BO3pflBMoukuRIDNFL1ee8u557qTBTcjgdqlkZrlN0mYCDcqLx
+   4IvJJrt54NrwTzXRdrEburakGuiVAFolPQ7QPhNnJVK4Qz3bSI9eQ1fhe
+   jmspy6ArRjlhcb/cj6Wk0Bdrdvg8Bg67NnJb2eN75uK2dBgcXGyscHbq4
+   C3Uqs9nj02y3H5mLbM6jUipZVIDd8e+w3zgp+QlaQfYKviQhKhvGflxgy
+   invSyh8i1wR/FNuUx9t3l6Gt802b/7vcZC+lLSnI/F+3TCOk5YzAy+fy8
+   gBWSQjc0uGMfnn2xzFnHkrJPmV7YuWPVrY7IpFt2ponTveF1VBVX/rp4j
+   w==;
+X-CSE-ConnectionGUID: 2Aw6DO6ZSBSztgTErpON8w==
+X-CSE-MsgGUID: zhj9GFrDRj2S4YUOYeVhSQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1250197"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1250197"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 17:39:41 -0700
+X-CSE-ConnectionGUID: 9Ul/fpewRY+frjvcDDTLcA==
+X-CSE-MsgGUID: YqC8EOlDQIW5uHstKC8i3w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="2898244"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 17:39:41 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 17:39:41 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Tue, 20 Oct 2026 17:39:41 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.26) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 17:39:40 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T0tJBBA83ZJG6PVIC2rgOeoeRw2QxjC0/9QfwjoItr43rqY6DSzaPfrtg9v8eNXmrTikxSyOxVe6+ydiFg+O8Yn0gNcxcqXue4q3gsDySZyBonKkxbfbE9QcRZESRGMSVPwkZj20hjgb8I6qJ23h5omodTFZVfc2lpGTFyQrIktIalDJZ1HSDfFsZ2XZJcvNMsD6HnlF6u8FxxrY89+jIPNpAXqhNgeV8zciO6iNEerxhgCZREKqTtKqdiv4cWTSsBuv456L/6DYSi+OeIayJIus0sH9bqwKQ/abmsBAC+Aj/GXBRCmjS9+fdPpeZdRTRraOdBFO0+o6biVU7pYB4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WGcUiVY4jws+B4jp3G4iZ3CxGhFlpq0jCXESu+h8pyw=;
+ b=kk/alU6xDUL/97Lb16Ar8k6wfsljPylm0HDJh2ykJsu4zOKb3ElTC9JsxAhiJtVup/08Z335f5RhFwnDddSVxRClrHGPrWmtkycRiT6WEhPm3DDdhDLqn1U2NyFKguMQaUG/WI/6ssz07nk9RzlQVEeoaSjK9ocElOJj9NydcGGY+t+gH6nmduy8vhysRk47FGREcSDEhfLbGm6J4BAWEc2zkt6LyMsd6aHYOam53XQNnKljx6CPbvvQUU9IQ/KX1h0UyTAnvA8mg4Ps+aqxZcs8QoAY2zL0te35L75vnJCAXi0gk1FI+oiSQJKxkH9wGwrrbFjlxmSKnDbHnwa9xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB634048.namprd11.prod.outlook.com
+ (2603:10b6:208:549::23) by CH3PR11MB566895.namprd11.prod.outlook.com
+ (2603:10b6:610:34d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 00:39:38 +0000
+Received: from IA3PR11MB634048.namprd11.prod.outlook.com
+ ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
+ ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 00:39:38 +0000
+From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
+To: "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"binbin.wu@linux.intel.com" <binbin.wu@linux.intel.com>
+CC: "Gao, Chao" <chao.gao@intel.com>, "seanjc@google.com" <seanjc@google.com>,
+	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kas@kernel.org"
+	<kas@kernel.org>, "Li, Xiaoyao" <xiaoyao.li@intel.com>, "Maloor, Kishen"
+	<kishen.maloor@intel.com>, "dedekind1@gmail.com" <dedekind1@gmail.com>,
+	"tony.lindgren@linux.intel.com" <tony.lindgren@linux.intel.com>,
+	"pbonzini@redhat.com" <pbonzini@redhat.com>, "andrew.cooper3@citrix.com"
+	<andrew.cooper3@citrix.com>, "nik.borisov@suse.com" <nik.borisov@suse.com>,
+	"Hunter, Adrian" <adrian.hunter@intel.com>
+Subject: Re: [PATCH v5 4/5] KVM: TDX: Report only KVM-allowed CPUIDs in
+ KVM_TDX_CAPABILITIES
+Thread-Topic: [PATCH v5 4/5] KVM: TDX: Report only KVM-allowed CPUIDs in
+ KVM_TDX_CAPABILITIES
+Thread-Index: AQHdXU5ES2ZpZQtqB0uCCFQIpVd2H7cHLrEA
+Date: Wed, 21 Oct 2026 00:39:38 +0000
+Message-ID: <b69f075f475bb8c09c74cff621ae23f76da50795.camel@intel.com>
+References: <20261016091422.3182216-1-binbin.wu@linux.intel.com>
+	 <20261016091422.3182216-5-binbin.wu@linux.intel.com>
+In-Reply-To: <20261016091422.3182216-5-binbin.wu@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Evolution 3.44.4-0ubuntu2.1 
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|CH3PR11MB566895:EE_
+x-ms-office365-filtering-correlation-id: 0f4bb074-cf2c-4031-af28-08df2f0bc9e6
+x-ld-processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|56012099006|38070700021|4143699003|11063799006|10067099003|18002099003|22082099003|6133799003;
+x-microsoft-antispam-message-info: KuZ778EmyqhVRwOEXJB5d/Ult/UzFsfFfBHlA3CMtYeE3tOGPlCNbE0uiZnmJRv3g3xH+Q9XvPgBXq2fOocDoxgBSiPD3xy7/erDVp4lsrTZXb4/BGsqVOFGHTVv08cQ2vbGYgun+CFSUEl9ECaclOdVKpA6mV4LPa3cgdtRb/Fxf1DmXBlkYGBwV305PzsZ0TSGYBzGx0GrXzr62KUBdbNiPivPcnZtA5/Ibpe+87mlfTZAkG5To4TLwT6KzPMnT3w1SLcwTq19rqlyVr9tid7fvrQ1oWxzVj4QXxy0Xu42LoFKMAtnggSOby8eQZZ95J82x8gmnBf0/s5nYUWKWDFH5lV2tvo48rQfkeL/QwBeoINT2gmVv/Q2c8CD17XE9/9+AukQlc+0WI3z8zPl4blFQcgHTLPp8yyl7sq6DbT/r49pwFWJtCRht//05eDXWx/PhTMxJU1DUe50J3M/XVJz0EakqvN8b2ayAxL1rQu40ejdcO7sAUxclBwYwLjMjczwkFWBjlpOS7/2wnmgTlcUjxof7pH+5iThHoTeWnNe1c8r+0YYG4CRDk4at4I5cAemissEX1mhIesbiIFZLu+L5Fr1w2Dp2cRZeUfksgLPWORA7jmypHePKlcqJ44y5otEacSigk9LK5v5UTFmyadAWAYsoIHlRKKltK8/Pppne9ZknJa/VjG/CxC3+Wz4uuG0o0mAylZKEEeuG/e6OEAivHl6C+SohO9fvnEmeHc=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(56012099006)(38070700021)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dnl3Q0JUb1o1SjVtZ1JMMjNMRGg5ZDVyWVJweHlPM3NuQzRKWnViWkRFMXlF?=
+ =?utf-8?B?ODR0TlRaSUVrTDV2T0d0VkUrdURxdzI0NnhRTUwzUnpUc1JXY2dmeVlJMGli?=
+ =?utf-8?B?WGk2K1BxRndRa2JLWm9VZmFRL3lZazdhKzY2Z0NBaWt5TVlLNzIzYXR4TUpG?=
+ =?utf-8?B?T2EwN25YK0MvaHc1SEJKWUVjY3VYMTVaTG5TMnRRMmJjVVVkVVpiczFqVzE0?=
+ =?utf-8?B?d2tXeHJpaysvWjVFbmozWVVIQmxoWjZKamFIdWdEVzhoVWVZU2hIZXA0Y1pU?=
+ =?utf-8?B?a1NLLzR0NGdteGxiZUlNeFEybDdWSUhWamVHZEFlUE54bzNCa3N3V2xEdkIx?=
+ =?utf-8?B?SVI1NENOazVHV1UxZXQ5ZHNJbUI4bVFhZGlBSGtYVE1YKzF1VmFLdHNzU1dQ?=
+ =?utf-8?B?eFJrQmMyendlaFpNV0pOK1Z6MU5OdFRITWw3WTFHaFovWThVSzZPbDNUT0xN?=
+ =?utf-8?B?Z3JxZWVUUHc2cGtiUUw0QlRqU3Z0ZE91Rm9qR2hzZ0d3UWcvS1NVcHdxaTZQ?=
+ =?utf-8?B?QjZaZ1ppNnNNMURNK2hVTWJ4QnFkbzdJTzMxN3pVa0xTekZFZE41Q0ZzNkxU?=
+ =?utf-8?B?dDV3NGRGUmptZWFLeHhuZHhXYk90TjIyTWtNdHVwVk9zaGgzNjZuZTRHWDIz?=
+ =?utf-8?B?UEZqWjN3a0FJK0xyczJZczB4d2VDZW5XRVplanB5SDZyYjAwakxoS25ieFNI?=
+ =?utf-8?B?VmVTVC9SOU4wbGNmZEtQaEdMQWl6NjkrL0UxM3U2RTJUV3dmZEF6M1FWRzRR?=
+ =?utf-8?B?M0ZzNzVuQzFINTVlZnluQjNVQ3o4aWxNUzd1QWcwWS9yQnJmMVQ3Rk1LOUd5?=
+ =?utf-8?B?aEprK09ONk5naVhWKzRlRUdneUZDc2JLcVh2K1hGRkpVWDhlNHA4a3JsS3do?=
+ =?utf-8?B?R0FvZEZ6WEphT1AvOGRBY1ZnNmhKM0QzRFlsU2FaWk9YTW12U1lkbzhkc3Vu?=
+ =?utf-8?B?a2w2aGw3Sit6ak9yMjdXMkZ1dW90YURRWFFGUStLUkdXQzlGUkl0aStVMHZP?=
+ =?utf-8?B?WFNTNjBwYUcxalpQcVZWcUxUc0FoY3RIMnh2RktRRUZydnRPRFM0LytPdTE1?=
+ =?utf-8?B?QjFITEg0NmgyTUVIdE5ad0tpTDc4U3NBV0dNNEpLb1pNR0d3emFwM1M5SjhF?=
+ =?utf-8?B?YVZLa20weUdaMDE3RlpzSmJIbjJVNzhtZVppU3FwcUY1STlwNTB0NXVxNzVE?=
+ =?utf-8?B?WWRTZzErYkpDTmRVZFkxSmVrRUJXTTFSOWc1NHZ3QVQzQWV4aU1RNnVjVlZK?=
+ =?utf-8?B?Mkp6VUhkYWdLa1ZDNktvNEw2NGNvZ0tEekJjMU5VTU5VUHA1V29CRzFZZ21Q?=
+ =?utf-8?B?M2RaZU45ekFQTm5LY01ZQmx4bE43alM5MnB4enNpSXdPSm5TTU1zVGtUdlgr?=
+ =?utf-8?B?aGNKV2s5V3NyYjJMYTN3amszUHhsaVdkQWlGYmJZeGNjMVdadGtvUC8zU2Rm?=
+ =?utf-8?B?N29STDBLazJtVkJMRGlvdTBuRWhlNitOU0Nub1paS0tPRmNlcGZWL0x2c3c2?=
+ =?utf-8?B?YVBnZzVlTGhWMzZNSjdGbHp0bkZ5OGU0dUQ3SWpNdGNYelJuZ2hXeGIvdEhn?=
+ =?utf-8?B?aFJoMjR6cHp1VHdIcUVqS0JxWVh1djBjbkZydk51YzVnRUo4UU8yUUk2RHE3?=
+ =?utf-8?B?UkJiSFVXSVQyZU9nclduZ0wrb2djNEVyVyt4cmdBUzVROVozL3NZZXVscjdw?=
+ =?utf-8?B?MGdtbThrbURXaEhFZFUyTERqMlBGcGxPZkczMTZtVnZYdlUrbGFsQnpWOWlw?=
+ =?utf-8?B?dEpmdllFRC81ZWowbUdMNENNM1REYVM0Z3l6Qyt6ajBNeWpleURiWThtSDVC?=
+ =?utf-8?B?MVRvWFd5WWc5Um9LOXNGdFBhbmkwNmZna2o1eEUyazZJTjZKS2UyU3NIQmZF?=
+ =?utf-8?B?Uk9lSlh3WkJXL3h0Z21kWVlBRDB4Uy9WYWdkSEU0WmEzSGVsbHFub2w1TEtX?=
+ =?utf-8?B?WFhYVnI3dGhhWXJQOVhyUFBaL1JIbjYzdmtLcXZRN2NGVVc3MlhYZy9IVlZP?=
+ =?utf-8?B?Tk9zaHpWd09GbDF0TFl6MEtRcFJDSzhmUEhLcEFsaHVVdndkd2xEZDBaOEI4?=
+ =?utf-8?B?UEJmMnM1cmJ4NVJXMFBBVjRNd3FUOWNiWnVPTGRyV2t3QUtwWUtZR1RaL0p1?=
+ =?utf-8?B?UUFYUmhhaXpVRW5DVmZYODcwdHlGU241ZDZoUG5maE1nVkl6UGVCYU5qYVFR?=
+ =?utf-8?B?WjVhcE1mekhRTWhzZWJkMkt0cllNbnJxdmhUOXZrN29GbGdHTnIzNWw4bU9C?=
+ =?utf-8?B?WWp5bG1KL0hqdUFlck1QQllOMU4zTUd2aDg0OG1KVU5GNVloZy84UGhWYW1K?=
+ =?utf-8?B?Z2lxT3ZoYThmWGhZR3UyemUwdUF4YzVNMEU1dkRLNlFhMkgxeXR0UlB3N3Rp?=
+ =?utf-8?Q?M2nz+BrcoUq5TAAE=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B282DDD6DC26824CB9BFA17463B5C3D5@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,168 +201,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] wifi: ath9k: stop WMI event tasklet from rescheduling
- itself on probe failure
-To: Deepanshu Kartikey <kartikey406@gmail.com>, toke@toke.dk
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-        syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
-References: <20261003021147.7461-1-kartikey406@gmail.com>
-From: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20261003021147.7461-1-kartikey406@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 7udX9f036UTiuyD3zDQzMzSNgMPWlSJg
-X-Proofpoint-ORIG-GUID: 7udX9f036UTiuyD3zDQzMzSNgMPWlSJg
-X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad8097b cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=AnolQpdaNwb4XK4FG+QP+g==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=edf1wS77AAAA:8 a=hSkVLCK3AAAA:8 a=pGLkceISAAAA:8 a=_LGFtKlyWMYaSsMoYZQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10
- a=vr4QvYf-bLy2KjpDp97w:22 a=DcSpbTIhAlouE1Uv7lRv:22 a=cQPPKAXgyycSBL8etih5:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAwMSBTYWx0ZWRfX/TMRdIohAP4B
- 01328WdWhDt2IYKU3SmTOFcv0yaXgsOFQbP/4LPpxl2mKpXPobGY2dmw+qdVy/AYyeCnGieKNSL
- wwYfnkoCtu56WJoP169tui3ekqbFTyU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAwMSBTYWx0ZWRfX6ac/moLg+zID
- gKI7SrX1cGrzoeok5BEaSH7oQMbel2kVlMIhFrrj80bTPLFBRcbUIg8YXFBzXokT3H19JcXHHUF
- CX8aRwPYGltVkjlOD6YRAp+KokaF7q6v/5zZPYOqh6r6GtDiOfV1GcTKM0YRJWzowoSj9xFmPJ3
- cP8atnEzikZO2SZ+1b3YZfURpI+9vgErnbU8yeQThIOhNlb5r8Uq6G9vrO+eo/2Em15bNeQlDRO
- QmS8Nfmt3OYiIiOazuqlgEOec7b4Ova9uEdnEQStaiiCSShIhjBZAQwX8WhAFslGM5DIf6yufK9
- OGNUDTvH7Y5VctIJVex2oD6u+/N0IhF09+x67YI4KTQw5vlulQU2S7V1UtxmY826BP/DEHqEdIJ
- b641G0TvTbPu9uDHQMiQhDg4dFk8BXZ3orxStZWRyY8EGZWdERtOArENlQabrSpXIGOoc8Iif4n
- PDZDHKeFpz045vftH8w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-20_04,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210001
+X-Exchange-RoutingPolicyChecked: udgxcEN8s2RjY6aVnL1KdIrkhimi5Xo3F5QGgI1hW0T4uuhzjm7s7x/gafe1OzYdXekDAuxIvPqlbEGy5I+and/fFiJemoYKtehjZBKnlt8rtkRdyfnnQyFT+8ZY4wAbHVtZLvfFwFVWe4uZ0/Yb6fPxIfTKwF0cWDo31pfxJgVWGstNbe/Rjh+crE21RW/0Duyrid5ag8y09gYA6EjFYVzoMfhA4EteD22NfgnlbgeYf0i18PkiuzXsBVsl6biuORJgpTFtuJ85GfYc41d/iMJKYFgyRfG5Ddgnft2WbCNHGyXbfveTFobqAoy5sMZpBFZt3psbXeaXxFchT2+YAw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f4bb074-cf2c-4031-af28-08df2f0bc9e6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 00:39:38.8352
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lVKaKSjwJ2ScR42z3MoQNt/eu8gnWMgNFN6zWIHyUbbnjOPfU9utapaMjkqe3YdndcpjgQ6bHjceFkpWiOcYqH3bOm+a2CJtnIresExCS48=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB566895
+X-OriginatorOrg: intel.com
 
-On 10/2/2026 7:11 PM, Deepanshu Kartikey wrote:
-> Since the init guards were consolidated, ath9k_wmi_event_tasklet()
-> reschedules itself until priv->initialized is set. If
-> ath9k_init_device() fails, initialized is never set, so the tasklet
-> keeps rescheduling itself while the probe error path calls
-> ath9k_destroy_wmi() and frees struct wmi. tasklet_action_common() then
-> touches the freed tasklet, causing a slab-use-after-free.
-> 
-> Make the tasklet drop its queued events and stop rescheduling once
-> wmi->stopped is set, and call tasklet_kill() before freeing wmi in
-> ath9k_destroy_wmi(). The probe error path already sets stopped and
-> kills the RX URBs first, so the tasklet cannot be re-armed afterwards.
-> 
-> Fixes: 1af8dc9ca726 ("wifi: ath9k: Clean up device initialisation guards")
-> Reported-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=e91dc13b1b37759b3d9f
-> Tested-by: syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
-> Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
-> ---
->  drivers/net/wireless/ath/ath9k/wmi.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/net/wireless/ath/ath9k/wmi.c b/drivers/net/wireless/ath/ath9k/wmi.c
-> index 4a08babb6d9d..f8b174b0f209 100644
-> --- a/drivers/net/wireless/ath/ath9k/wmi.c
-> +++ b/drivers/net/wireless/ath/ath9k/wmi.c
-> @@ -122,6 +122,10 @@ void ath9k_stop_wmi(struct ath9k_htc_priv *priv)
->  
->  void ath9k_destroy_wmi(struct ath9k_htc_priv *priv)
->  {
-> +	struct wmi *wmi = priv->wmi;
-> +
-> +	tasklet_kill(&wmi->wmi_event_tasklet);
-> +	skb_queue_purge(&wmi->wmi_event_queue);
->  	kfree(priv->wmi);
->  }
->  
-> @@ -148,6 +152,10 @@ void ath9k_wmi_event_tasklet(struct tasklet_struct *t)
->  
->  	/* Check if ath9k_init_device() completed. */
->  	if (!smp_load_acquire(&priv->initialized)) {
-> +		if (READ_ONCE(wmi->stopped)) {
-> +			skb_queue_purge(&wmi->wmi_event_queue);
-
-Can you check my review agent's analysis:
-
-Locking inconsistency in the new tasklet early-exit path** (`wmi.c:156`)
-`wmi_event_queue` has two lockguards in this file:
-- **producer** (`ath9k_wmi_ctrl_rx`, line 249): holds `wmi->wmi_lock`, uses
-`__skb_queue_tail()` (lockless variant)
-- **consumer** (tasklet normal path, line 164): holds `wmi->wmi_lock`, uses
-`__skb_dequeue()`
-- **`ath9k_wmi_event_drain()`** (line 137–139): holds `wmi->wmi_lock`, uses
-`__skb_queue_purge()`
-
-The new `skb_queue_purge()` (locking variant) uses `queue->lock`, which is a
-**different lock** from `wmi->wmi_lock`. The window between
-`ath9k_stop_wmi()` setting `stopped=true` and `ath9k_hif_usb_dealloc_urbs()`
-finishing means `ath9k_wmi_ctrl_rx()` could still be enqueuing under
-`wmi_lock` while the tasklet purges under `queue->lock` — two different
-locks protecting the same queue simultaneously.
-
-It works in practice because `ath9k_wmi_ctrl_rx()` also checks
-`unlikely(wmi->stopped)` at entry and bails early, but the locking is
-technically unsound. The correct pattern (as used in
-`ath9k_wmi_event_drain()`) would be:
-
-```c
-if (READ_ONCE(wmi->stopped)) {
-    spin_lock_irqsave(&wmi->wmi_lock, flags);
-    __skb_queue_purge(&wmi->wmi_event_queue);
-    spin_unlock_irqrestore(&wmi->wmi_lock, flags);
-    return;
-}
-```
-
-The `skb_queue_purge()` in `ath9k_destroy_wmi()` (line 128) is called after
-`tasklet_kill()` and after `ath9k_hif_usb_dealloc_urbs()`, so no concurrent
-producer can run there — that usage is safe.
-
-I always have another agent verify these automated code reviews, and my
-verification agent concurred:
-
-Issue #1 — Locking inconsistency at wmi.c:156 — Valid
-
-The review is correct. Confirmed from the live source:
-
-All code that touches wmi_event_queue uses wmi->wmi_lock with the lockless
-__skb_* variants:
-- producer ath9k_wmi_ctrl_rx (lines 249–252):
-spin_lock_irqsave(&wmi->wmi_lock) + __skb_queue_tail()
-- consumer tasklet normal path (lines 164–169):
-spin_lock_irqsave(&wmi->wmi_lock) + __skb_dequeue()
-- drain ath9k_wmi_event_drain (lines 137–139):
-spin_lock_irqsave(&wmi->wmi_lock) + __skb_queue_purge()
-
-The new early-exit path (lines 155–157) breaks this pattern by using
-skb_queue_purge() (the locking variant, which takes queue->lock — a completely
-different lock). The race is real: ath9k_wmi_ctrl_rx's guard at line 238 is a
-plain read of wmi->stopped (not even READ_ONCE), so it can miss the
-stopped=true write and proceed to enqueue under wmi->wmi_lock while the
-tasklet purges under queue->lock. Two unrelated locks protecting the same
-queue simultaneously is unsound.
-
-The skb_queue_purge() in the new ath9k_destroy_wmi() (line 128) is fine — it
-runs after tasklet_kill() and after URB dealloc, so no concurrent producer
-exists there.
-
-Fix: mirror ath9k_wmi_event_drain's pattern in the tasklet early-exit:
-if (READ_ONCE(wmi->stopped)) {
-    spin_lock_irqsave(&wmi->wmi_lock, flags);
-    __skb_queue_purge(&wmi->wmi_event_queue);
-    spin_unlock_irqrestore(&wmi->wmi_lock, flags);
-    return;
-}
-Note flags is already declared in the tasklet function (line 150), so no new
-variable is needed.
-
-> +			return;
-> +		}
->  		tasklet_schedule(t);
->  		return;
->  	}
-
+T24gRnJpLCAyMDI2LTEwLTE2IGF0IDE3OjE0ICswODAwLCBCaW5iaW4gV3Ugd3JvdGU6DQo+IE5v
+dGUsIHRoZSBjaGFuZ2UgaXMgdXNlci12aXNpYmxlLCBhcyBzb21lIGJpdHMgdGhhdCB3ZXJlIHBy
+ZXZpb3VzbHkNCj4gcmVwb3J0ZWQgYXMgY29uZmlndXJhYmxlIG5vIGxvbmdlciBhcmUuwqAgVGhl
+IEFCSSBpdHNlbGYgaXMgdW5jaGFuZ2VkOiBLVk0NCj4gYWxyZWFkeSBmaWx0ZXJlZCB1bnN1cHBv
+cnRlZCBDUFVJRCBiaXRzIG91dCBvZiBLVk1fVERYX0NBUEFCSUxJVElFUywgYWxiZWl0DQo+IHZp
+YSBhIGRlbnlsaXN0LCBhbmQgdGhlIHNldCBvZiBjb25maWd1cmFibGUgYml0cyBhbHJlYWR5IHZh
+cmllcyB3aXRoIHRoZQ0KPiBURFggbW9kdWxlIGFuZCBLVk0gdmVyc2lvbnMuDQoNCkknbSBub3Qg
+c3VyZSB3aGF0IHRoaXMgaXMgc2F5aW5nLCB0aGUgY2hhbmdlIGlzIHVzZXIgdmlzaWJsZSBidXQg
+dGhlcmUgaXMgbm8gQUJJDQpjaGFuZ2U/IENhbid0IGJlIGJvdGguLi4gc28gSSB0aGluayB0aGVy
+ZSBpcyBhbiBBQkkgY2hhbmdlLg0KDQo+IA0KPiBUaGUgY2hhbmdlIGlzbid0IGV4cGVjdGVkIHRv
+IGJyZWFrIHVzZXJzcGFjZSBvciBndWVzdHM6DQo+IMKgLSBVc2Vyc3BhY2UgdGhhdCBob25vcnMg
+S1ZNX1REWF9DQVBBQklMSVRJRVMgc2ltcGx5IHN0b3BzIHNldHRpbmcgdGhlDQo+IMKgwqAgZHJv
+cHBlZCBiaXRzLCBhbmQgS1ZNX1REWF9JTklUX1ZNIHN0aWxsIHN1Y2NlZWRzLg0KPiDCoC0gQ09S
+RV9DQVBBQklMSVRJRVMsIHdoaWNoIG9sZGVyIFREWCBtb2R1bGUgc3BlY3MgZGVmaW5lZCBhcyBm
+aXhlZC0xLCBpcw0KPiDCoMKgIHN0aWxsIGFsbG93ZWQuDQo+IMKgLSBUaGUgZHJvcHBlZCBmZWF0
+dXJlcyBhcmUgZWl0aGVyIG9ic29sZXRlIG9yIHVuc3VwcG9ydGVkIGJ5IEtWTSwgYW5kIGluDQo+
+IMKgwqAgdGhlIGxhdHRlciBjYXNlLCBhIGd1ZXN0IHJlbHlpbmcgb24gdGhlbSB3b3VsZCBhbHJl
+YWR5IGhhdmUgcnVuIGludG8NCj4gwqDCoCBwcm9ibGVtcy4NCg0K
