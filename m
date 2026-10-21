@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=81.70.192.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571908;
-	b=x0zK9P5dt4gHPUbgOSogK0p6Amae064e3zOX46eM+O7fNPqOW+VN+BlbQtjNahRli8q7
-	 qqTy0J1K0SdEBu6v9Qt0GJG5otXo1PvkDlVX3kJlInX6PQT3hoY7RcFhKHQs4Jjb1SMuR
-	 vQ80wslEmEdq334VviJFN1B+x/f3LxVA///6oaCrvkd02tMngimLCqM3oBZsJSVllPA1d
-	 PAYiMV4/DKKHDHI0+wc8jkIj4BHYN1MlAgkhZg6u0HE0mhF6H6YtIZ/Bsbag5L2vfXOtP
-	 GwGeB0wcxB1W9T+ocm/a5LWQQnZBRQpHjlsecbx5nbJvbeBo1JldsHqP3yoIfS0CyWw==
+	t=1792571914;
+	b=EtmaP3BlVLWYFP56ZcZ91fXR4a4M2gDcH4WLuRsnIdqVbYlvfRtQv8j/XZgwX57HVv2r
+	 Qe/gvPlbJi1zz63z9lbmQhqIJIg8u89gd/X2l2Ge46evOJG+RxwZZOxiCqvbdntppDake
+	 ebTfoEBa0g+xSWeLpgs7mxWos+eysuQzf/q+8HVgbmzmqP7jEQhsqNJo4V5DjxQMKzdIF
+	 oQv5LRpHPCY9Secmdx8QIPsXDQep3oH4D1dLGT/mNGyUNVEwJzR7RsxsDG/JtWJ216Lqk
+	 i/r8oEj9vBPfenQzqTx2qq7F7JnNOxjijGYwKE8WkuABAKZ+Hq4x4PUBkNJPBD64m4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571908;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:CC:In-Reply-To:
-	 References:Date:Message-ID:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Originating-IP:X-ClientProxiedBy;
-	bh=0E3k5w9CNVufTL0u7G2hV7VFMWQrRB7ev5VkwT5ZY/w=;
-	b=xssC4g9fNgZ2aF6A5dZHfOyFX0o/jSIGs5QFrV7VuuWCHZyCoAMY6PetG7cdXqsHuvG/
-	 P4uZzAdntGDJWaI6s4u/bnctcpBfNwY8N+ykpkQfD9Bekwwn/kMTxDYE9bTqUDVpThiQI
-	 WU3OqgnJ1D3EgGkZ6S97o/i+9lnm/MHzBAsHGG4Z7HfJZyCE+20n2AAef7ImAwAQ+G2vQ
-	 uvy+kSASOGaO3USD5keZ9qV1RcCTR9HTEhnRDRsxQtD2Lz3Pn3odi5cjKa9L0RXs+CAie
-	 1Xa936EPbke+x3L1qwEGb1I1Pl02Y7S4eM1H7Grg1k8u7uf3JpFgY0vRwxIQLRgRVfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571914;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ezaUw4HbM92qbq50KCeRpsCuDK1ahVr0MqnfbwD+p5c=;
+	b=Z4J73Gy3jvbjIo3FLvujF1wD068bqyOD0CurQ+V6z954jNHvE2+hY4rpfHxikGGMKGzq
+	 wHlo0ThGtQHKkGm88WYo6aG234WGRR+J7MLu+ELB/bMDUtCuFB82e5GI5RHqkJAex2FpX
+	 mHL6xPmc6r+YfkdFulmL3M0MGwRvc75CgQdNR36c6Y2+fvTOV78INslp10c+k0WCiRJu+
+	 ejhE1VlfABakIDtoDitpvw3+orsg4a7ACmBVhITaYSFvsBX6LZKBr2ai3hFUd/h43LoOD
+	 03DsS4j4WbIUzV/3OxgkwUARpCXBHK5kYVbzDxZnVleQSRayRhbMXMpf6RphMzcEVGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=honor.com;
-	spf=pass smtp.mailfrom=honor.com;
-	dkim=pass header.d=honor.com header.i=@honor.com header.a=rsa-sha256 header.s=dkim header.b=adye7O36;
-	arc=none smtp.remote-ip=81.70.192.198
-Received: from mta22.hihonor.com (mta22.hihonor.com [81.70.192.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Sc438LRA;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2427606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2427606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=honor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=honor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2911606A32F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2911606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=honor.com header.i=@honor.com header.a=rsa-sha256 header.s=dkim header.b=adye7O36
-dkim-signature: v=1; a=rsa-sha256; d=honor.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=To:From;
-	bh=0E3k5w9CNVufTL0u7G2hV7VFMWQrRB7ev5VkwT5ZY/w=;
-	b=adye7O36KeeXjIUvTtvaSsYzLlZ9yINZBiR8Z5UbuoQLKPHR4vJ4N76WjPTZ0WIIrUZMQk0Gt
-	TnZmwCM6mOFiFEjbKUDRNQuzjdek+JTS5k3YF3AQwUqBrVALV+bV7thbLnpCJN6C91itKE5KQJ2
-	Ue2EP5cG6OOexzqaIAuLzeg=
-Received: from TW002-1.hihonor.com (unknown [10.72.0.137])
-	by mta22.hihonor.com (SkyGuard) with ESMTPS id 4j8jNV1Jx2zYl8L2;
-	Wed, 21 Oct 2026 16:38:18 +0800 (CST)
-Received: from TA012-1.hihonor.com (10.77.199.132) by TW002-1.hihonor.com
- (10.72.0.137) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 21 Oct
- 2026 16:38:18 +0800
-Received: from [10.144.5.36] (10.144.5.36) by TA012-1.hihonor.com
- (10.77.199.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 21 Oct
- 2026 16:38:02 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Sc438LRA
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36681e85e87so914435eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:38:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792571913; x=1793176713; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ezaUw4HbM92qbq50KCeRpsCuDK1ahVr0MqnfbwD+p5c=;
+        b=Sc438LRApyTpSreJ2uVrqCx6QYKAesxvwh3mQBDucT8nngGIfn/JLHPOGQX3LKkUO7
+         a7kNu5jrEPLbZwIaHTlir0LJPhvqNjvSQkxdXfcB4rfdWqNprujV2Bzf5b7FeYyRwaiF
+         xFiMuD4wOVvsLu/UGBXbru/3s3X4bjLI7pbkMWed9bxe0hGXZzsh7cL7iI9AaoAYHigB
+         1vVCeLgiaNKaVtTfJ6t8fG2vK7AqWXWHdl0b74mXMCcbi8uytjMbD38t4my9JF2C/M9e
+         G1YdHPheMNiPSzx+MyUdvNe33Owwk4+hokAgqJUfyAE2lt0bukmA4NgrGIF8giW/UcQZ
+         AIiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792571913; x=1793176713;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ezaUw4HbM92qbq50KCeRpsCuDK1ahVr0MqnfbwD+p5c=;
+        b=oVbZbS4cwhHX9uhyXYl39+4Z9AuVgB1Y5j1UIqNFkLAOJXCdZsTqEXHgPWZqAfruPJ
+         S6KJd69zYW2jhtwBubCY1cXXNuv8y8bWGPc1xGV26jy92w8d2cPyQkwklmiqgI0/ZyDN
+         I2QwVCnBgSsPIk+4ilBCddeBtlPNymJN3uxUd6X/AucpJtrTvVsKVPR2KVpWkdMUov1O
+         PowmOBu00GqrZaHcegdE8XGRCU3Ul84gL5IZIZskUWi5MXtoZ9y6sKmsH1Pg45Kg00y+
+         UVoPqcvEoB9NCN//jA8CG0HTIVn/pMTS9uFbCZYyk0MDf2phkNhvtJ2E4FqnVuMpjYLB
+         c1wA==
+X-Forwarded-Encrypted: i=1; AKwUvBy7r6a8Wle//btk9GAxiOJukxSoxJjjCFrqPHDJspjiq6rzUtEqZyPo3hcYTM4r5087PEzV9RPBec6hhik=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+YoLvFFsuXzdghd6/qxj95ckzBBKt4J9ckJ7y2q/y2S9+m2AN
+	I/8n3e1qmK/8mhRruNBRL7ti3qewlgwYSvJIzw2/kR/J+0JnRXE1l64Z
+X-Gm-Gg: AYBFou1rEDvtd7XbjV5EYMfAPIMY8kGbjS6crlnoSfmr90UoarHJf0pKfL01qpfYMI6
+	6KgWnr6iYZTcVkH+4iq4S+TgjvWcxiWR8VuDzwrIUweoOClNQS12tao1ex+fl+M2uQ22TnBG+54
+	by8+V3tts+cinghZvaB+b1JEYbA/ffvZYJ8WXByz34IQOLUDzBYTQGCXSk57/eQDKz7gJl/XkJc
+	ajIebsi6OqWeU26CzXXaFGDifIrOCI6yj76+N6OgSwVCaJ8CfmEP10vhCB64ZhwBgb/nEgjNtdo
+	uqnAa888cufXEGyGk0h6A64HDocqublcGXii3xXNmpiRgK2R3IU6Iy24fOjae13vl5RInYhxZCK
+	uDKIPTgHp+fSv0cyIm8j/r0MCOP/A91gtjPlkm3reihPNLQcA+iPBFsjoALm4GCcwM3YcxnUY9q
+	BYPYCo+WhZ2QNGv8/bXJKRUHtd/OXEnefyVYtTzoXYAwo2epQVrLEdSBtGY89bgi/x48frPO4bm
+	2x7mRVTLyREcVpnwaM3hY+My6w0PXEhWS3in32pOvLkf/zIjJ6B3RR49jfW3IZswjQKspeLEA==
+X-Received: by 2002:a05:693c:864c:20b0:351:1f56:3a89 with SMTP id 5a478bee46e88-3674e548e2amr2574946eec.23.1792571912854;
+        Wed, 21 Oct 2026 01:38:32 -0700 (PDT)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411b4145sm6102203eec.15.2026.10.21.01.38.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 01:38:32 -0700 (PDT)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: Gao Xiang <xiang@kernel.org>,
+	Chao Yu <chao@kernel.org>
+Cc: Giuseppe Scrivano <giuseppe@scrivano.org>,
+	Yue Hu <zbestahu@gmail.com>,
+	Jeffle Xu <jefflexu@linux.alibaba.com>,
+	Sandeep Dhavale <dhavale@google.com>,
+	linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	Zhan Xusheng <zhanxusheng@xiaomi.com>
+Subject: [PATCH] erofs: don't reuse a superblock for a mount that passes device=
+Date: Wed, 21 Oct 2026 16:38:26 +0800
+Message-ID: <20261021083826.1870937-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,180 +99,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH mm-new] mm/mglru: clarify the generation placement in
- lru_gen_folio_seq()
-From: <wangzicheng@honor.com>
-To: Ridong Chen <ridong.chen@linux.dev>
-CC: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Kairui Song <kasong@tencent.com>, Qi Zheng
-	<qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Barry Song
-	<baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie
-	<yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He
-	<baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>,
-	<linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, Ridong Chen
-	<chenridong@xiaomi.com>
-In-Reply-To: <20261020023548.3242028-1-ridong.chen@linux.dev>
-References: <20261020023548.3242028-1-ridong.chen@linux.dev>
-Date: Wed, 21 Oct 2026 16:38:17 +0800
-Message-ID: <179257189711.741142.157439930403322311.b4-reply@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792571897; l=7204;
- i=wangzicheng@honor.com; h=from:subject:message-id;
- bh=npX0BKN6Y9GvZwuJEDSaGDu/guxI30HeaYdlAc8oFy4=;
- b=f/voRK03GH3mF2PvO6wVcSA3sVC9Hyl29JaCthXME2KGgX+dm5PCp2A+PYPUdflUATMptZumx
- MLx9lDFGQT6BetMYWqkgUQGwiZ6QbJgJxl3oAT9hw8SjF8Rn+Xa7E0V
-X-Developer-Key: i=wangzicheng@honor.com; a=ed25519;
- pk=g+Qn/iierc6RbauMzxguVPAh7jEJCJf1WMdMV9Kk2sc=
-X-ClientProxiedBy: TW003.hihonor.com (10.77.199.161) To TA012-1.hihonor.com
- (10.77.199.132)
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-20 10:35 +0800, Ridong Chen wrote:
-> From: Ridong Chen <chenridong@xiaomi.com>
-> 
-> lru_gen_folio_seq() computes how many generations below max_seq a
-> folio should be added to, but stores it in a variable named "gen".
-> Elsewhere in MGLRU "gen" means an index into lrugen->folios[], i.e.
-> seq % MAX_NR_GENS, so reusing the name for a relative offset is
-> confusing.
-> 
-> The comment table above the code also no longer matches it. It only
-> covers the PG_active and the final branch, leaving out the reclaiming
-> and "can't evict yet" cases, and it lists LRU_REFS_FLAGS as an input
-> although lru_gen_folio_seq() never looks at it.
-> 
-> Rename the local variable to "age", redraw the table so that each
-> branch maps to the age and seq it produces, and note that the result
-> is clamped to min_seq[type].
-> 
-> No functional change.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  include/linux/mm_inline.h | 48 ++++++++++++++++++++++++++-------------
->  1 file changed, 32 insertions(+), 16 deletions(-)
-> 
-> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-> index ab69b9930893..a933d8c14558 100644
-> --- a/include/linux/mm_inline.h
-> +++ b/include/linux/mm_inline.h
-> @@ -302,34 +302,50 @@ static inline unsigned long lru_gen_folio_seq(const struct lruvec *lruvec,
->  					      const struct folio *folio,
->  					      bool reclaiming)
->  {
-> -	int gen;
-> +	int age;
->  	int type = folio_is_file_lru(folio);
->  	const struct lru_gen_folio *lrugen = &lruvec->lrugen;
->  
->  	/*
-> -	 * +-----------------------------------+-----------------------------------+
-> -	 * | Accessed through page tables and  | Accessed through file descriptors |
-> -	 * | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
-> -	 * +-----------------------------------+-----------------------------------+
-> -	 * | PG_active (set while isolated)    |                                   |
-> -	 * +-----------------+-----------------+-----------------+-----------------+
-> -	 * |  PG_workingset  |  PG_referenced  |  PG_workingset  |  LRU_REFS_FLAGS |
-> -	 * +-----------------------------------+-----------------------------------+
-> -	 * |<---------- MIN_NR_GENS ---------->|                                   |
-> -	 * |<---------------------------- MAX_NR_GENS ---------------------------->|
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 * age        |        1        |        2        |        3        |        4        |
-Hi Ridong,
-  
-Agreed, I also found this part confusing.
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-One problem with the new name: in MGLRU a larger seq/gen means a
-younger generation, but a larger age means an older one, so every
-read needs a flip (max_seq - age + 1). Assigning the seq directly in
-each branch might read more naturally.
+superblock_share together with device= is rejected in
+erofs_fc_fill_super():
 
-Also, both tables run past 80 columns (~95 for the art in mglru-fg
-4/17, ~96 for the redrawn one here, tab as 8). Would you consider
-something vertical and shorter? I had prepared a comment for
-mglru-fg, and since this is being discussed here too, here it is
-(conditions are per mglru-fg, where the flags became the refs
-count):
+	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
+	    sbi->devs->extra_devices)
+		return -EINVAL;
 
-    /*
-        * The seq is clamped to min_seq[type]:
-        *
-        *   destination     | folio state
-        *   ----------------+--------------------------------------------
-        *   youngest        | PG_active, refs >= LRU_REFS_WORKINGSET
-        *   (max_seq)       |
-        *
-        *   2nd youngest    | PG_active, refs < LRU_REFS_WORKINGSET
-        *   (max_seq - 1)   | anon folio not yet in swapcache
-        *                   | PG_reclaim folio, dirty or under writeback
-        *
-        *   2nd oldest      | refs >= LRU_REFS_WORKINGSET
-        *   (max_seq - 2)   |
-        *
-        *   oldest          | reclaiming
-        *   (min_seq[type]) | otherwise: refs < LRU_REFS_WORKINGSET
-        */
+but extra_devices is kept in sbi->devs, not in sbi->opt, and
+erofs_sb_share_test_super() compares only the backing inode, the
+fsoffset and sbi->opt.  So once the image is mounted with
+superblock_share, a second mount with superblock_share,device= matches
+that superblock and get_tree_super() reuses it without calling
+fill_super() at all.
 
-With a comment like this, developers can see the generation
-placement directly, instead of working it out from the code.
+The same command line therefore either fails with -EINVAL or succeeds
+with device= quietly dropped, depending on whether a compatible mount
+already exists.
 
-Best,
-Zicheng
+Refuse to match a context that brought device= options, so that it gets
+a superblock of its own and fill_super() decides as it does today.
 
+Only the incoming context can be tested: a shared superblock may have
+extra_devices set itself, because erofs_scan_devices() fills the device
+table from the image when no device= was given.
 
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 * seq        |     max_seq     |    max_seq-1    |    max_seq-2    |    max_seq-3    |
-> +	 *            +-----------------------------------+-----------------------------------+
-> +	 *            |<---------- MIN_NR_GENS ---------->|                                   |
-> +	 *            |<---------------------------- MAX_NR_GENS ---------------------------->|
-> +	 *            +-----------------------------------+-----------------------------------+
-> +	 *            | Accessed through page tables and  | Accessed through file descriptors |
-> +	 *            | promoted by folio_update_gen()    | and protected by folio_inc_gen()  |
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 * PG_active  |  PG_workingset  | !PG_workingset  |                 |                 |
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 * reclaiming |                 |                 |                 |     always      |
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 * can't      |                 |  anon && not in |                 |                 |
-> +	 * evict yet  |                 |  swapcache, or  |                 |                 |
-> +	 *            |                 |  PG_reclaim &&  |                 |                 |
-> +	 *            |                 | dirty/writeback |                 |                 |
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 * else       |                 |                 |  PG_workingset  | !PG_workingset  |
-> +	 *            |                 |                 |       or        |       &&        |
-> +	 *            |                 |                 |  PG_referenced  | !PG_referenced  |
-> +	 *            +-----------------+-----------------+-----------------+-----------------+
-> +	 *
-> +	 * The resulting seq is clamped to min_seq[type].
->  	 */
->  	if (folio_test_active(folio))
-> -		gen = MIN_NR_GENS - folio_test_workingset(folio);
-> +		age = MIN_NR_GENS - folio_test_workingset(folio);
->  	else if (reclaiming)
-> -		gen = MAX_NR_GENS;
-> +		age = MAX_NR_GENS;
->  	else if ((!folio_is_file_lru(folio) && !folio_test_swapcache(folio)) ||
->  		 (folio_test_reclaim(folio) &&
->  		  (folio_test_dirty(folio) || folio_test_writeback(folio))))
-> -		gen = MIN_NR_GENS;
-> +		age = MIN_NR_GENS;
->  	else
-> -		gen = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
-> +		age = MAX_NR_GENS - (folio_test_workingset(folio) || folio_test_referenced(folio));
->  
-> -	return max(READ_ONCE(lrugen->max_seq) - gen + 1, READ_ONCE(lrugen->min_seq[type]));
-> +	return max(READ_ONCE(lrugen->max_seq) - age + 1, READ_ONCE(lrugen->min_seq[type]));
->  }
->  
->  static inline bool lru_gen_add_folio(struct lruvec *lruvec, struct folio *folio, bool reclaiming)
-> -- 
-> 2.34.1
-> 
-> 
+Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+ fs/erofs/super.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
+diff --git a/fs/erofs/super.c b/fs/erofs/super.c
+index 16fa3b853f1b6..bc9ab5a6234a0 100644
+--- a/fs/erofs/super.c
++++ b/fs/erofs/super.c
+@@ -825,6 +825,13 @@ static int erofs_sb_share_test_super(struct super_block *sb,
+ 		return 0;
+ 	if (!sbi->dif0.file || !new_sbi->dif0.file)
+ 		return 0;
++	/*
++	 * extra_devices is not part of sbi->opt, so the memcmp below cannot
++	 * see device= options.  @sb may have extra_devices set from the
++	 * on-disk device table, so only the incoming context is tested.
++	 */
++	if (new_sbi->devs->extra_devices)
++		return 0;
+ 	return file_inode(sbi->dif0.file) == file_inode(new_sbi->dif0.file) &&
+ 	       sbi->dif0.fsoff == new_sbi->dif0.fsoff &&
+ 	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt));
+
+base-commit: 1137aa577a35e2684e8046c3e53f920e79c7cc60
+-- 
+2.43.0
 
