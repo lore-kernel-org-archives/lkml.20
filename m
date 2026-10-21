@@ -1,103 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597204;
-	b=sX3zDUbrXCncrdwJoVx5r+U7BkAHfQlPvonZi9Ki0bnw1vBMmE43n+tY6mMikklTj4LQ
-	 0a1rQl1K3r5yzbY6ppzIgCl7hGF+/o73veDX3NJcCsOPT9gyVPI+XcCP6A660GwHzMHoK
-	 k7lfAt8jTPHmKXkWH36DJYCH+NI0XyuEcLLy2Uhmkeh/4FIKsjQy8M8l0PLmVXn17kckR
-	 Yh9uvqOxK51SNsLi+b9rNajl2J8BOhME1QzAsHzkklrVAP1XeXi0XysBCR/LlCVhIJ4fs
-	 TEC4j1h0qD1qoqsDEROmQeURnteaK/kIc1NBuzRUjUkCTGrZpuGEqSA6/85vE+rib2Q==
+	t=1792597254;
+	b=eWFjwTU1pkXbNlUjo0vKqWxMCIXfFGLYi2JzKkjmERBmK2DjdnLhHm9f247XPDtVYZgd
+	 4iEX3fYUBAHO9IJTX/Il/fRY6CxqtFQkv1lbX7sGPWyg834WcNvsHXOzkVj8crr72CaRh
+	 cpNRXpC0L34G+iF/vcUhicI8uFKliWdEKMX6rlkP4HzFJtnQqT5zeHGuYZ17bmjvY6Rlz
+	 yIT5uFSxs8Z8cvkxmb2qtNOjiE9LG+7hijPtjglTi3gEPOW6ELa87i+wQ1S+hLWAsxdJo
+	 38u2SmAhYNjpaNfLdfsK4PyLKTmeSQ3X6vUPnIM+ZdsHcQ+YQ1wGBBq4v0S9PJorI7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=zaYwnYAxjbvafi5ZHaoMwUtj+Rh3uHmAjABbHohiMRE=;
-	b=TdkLLguVj9bKD9VcR1K4LbxZOiBwB/PojF0OfsgfXLybIueYtWweZpGNuuN8agAw56YP
-	 EX3ZmxCbYSPLliFFQyTWe+TzCcyrkfPgOoBMIA4EBZYvK+ufJfGZ35gJW42PXwVP90Cqc
-	 JTNV0SYyBN4zwYtywKEbiWDw6ig7jJjNQLejGY4n0H9HDHbJdyIYN5fkjeN2PUl9kuHTA
-	 TjFz/LnTTp89eq989JmNYBesajiC4zlXT0GWzXUniaYbJnn2kra260OGCVRHsX+j8YqvQ
-	 IZ9O3gSM6hzqSz4mBJZSgIcw7iIPv50rWgcoIv4cQcGPuxPwDyZoLqNvTjbINlp/F8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597254;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=0wrngVONHc9nJrhRKPV4wKnzIjyRYO2/pb5pVC+Qvxo=;
+	b=x66SXc6GQVj7Z4+7PEhgpKRdnZBbANoqw5mzg3z9HZoJOw0Hr9BtE26EkP0cq2KlDlnk
+	 6x6qSn/mGdC7OHosnULbuBw4o6kasbKtUcIpWX8FLoUxxuySRd8e+6NTrxYWAzB/F1dcQ
+	 i5BMiwkHgYPsI7LJxJ+Rc+JhxIIQs8RX52s/ioWXAIBiMeTC+t2wwKtsFKxw8GcN/d7OL
+	 fPos09FWDf/MWJ8aK9vG4TQz0bSjNhiixWh16WN1H0Ad+30RS/yRvsUVeLYgRVpNVE+M7
+	 JBC2ccOza84ke++t4quM2TFp0AmgQ4uda1IFJdZ8Wvpxr/otb+QsY3kW7C5A4339nYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UeXBTAIf;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=Cqzoaneo;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B4A606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:40:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55B4A606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B5E606A319;
+	Wed, 21 Oct 2026 15:40:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13B5E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UeXBTAIf
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so10246035e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:40:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792597203; x=1793202003; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zaYwnYAxjbvafi5ZHaoMwUtj+Rh3uHmAjABbHohiMRE=;
-        b=UeXBTAIfPiCMuR1LAD8ORgCkAfwJvgzFVzOv5DelyEpnNtRMT829g4ht0Y9ToGZ6Er
-         al9V7Xp2Ea73W67Mfiw/DYe88EYVF5T8T0CutO0NQvlf9OID2yNUPOLXXv9l+3ZcfJjG
-         DM4tmDkJKbFoRonUeyHiHUoUdCaLlu4Z2Mbq0iq6FfReF8mf0Y46M/PUAC0M1dSr8xEj
-         SwWRg6p3GnBb+m/o0ri4ic1Q1UKZYBh0SgqeEWkBYIhrz+jUU+jhwjykw10vxlDcz4IF
-         J+0Sh7N6IdKx4fcT3GIYTGYX7gT3L521otbmiQ5xE2hnge4tl6HRP0ZvFPhjCDv8plUb
-         PS4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792597203; x=1793202003;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zaYwnYAxjbvafi5ZHaoMwUtj+Rh3uHmAjABbHohiMRE=;
-        b=iHyU84vcL7sm3Puh8sGtjU1F3Zxi7NrT4tn89qJ4ALJBtZOu4GiPLr4vnumiRVWTTA
-         YZWwQMwa0PZS9t7lYToZdwW1sw+1dhnNVNN0/vdOw0eb2XhFqeIUb8JYx06070QHPty0
-         GHkTtjAu0T1Qeiq1wfheQ0H2MPthLA3teSPlvyYAKyU+o2I4ItQsJIWi1diRgqPhPYI1
-         HFxPRwdSd/voZfxQLbHUtSPuzjSRrJaGPx5mSFPhzZoVaapd+jMUcXrcHD/qtNYAkBCG
-         3KjRxvm8BXHkAjF6EOBWA1U5k6gwA5TYSxCS4zy6gAwaWmuzsVR9KE9TYWgEbkghnlht
-         zP4A==
-X-Forwarded-Encrypted: i=1; AKwUvBxfX/y15cJAM0XuKXbtC6z01X7Gv0qgDf5sPQ4SLuVVV4K1Kr0UENPfm/y52+nrGvpck8vb1gBAjhTHOnI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwDZx0QkOG/NR0VztAHzHOzREm1w5xpIhQyR3KPX96Oq6cBdDA
-	SZ3Zcqutg56k1VH4VYGJlzepO3FG45fIGyuJ/8RGr0Xrsq6s0EI9y8PC
-X-Gm-Gg: AYBFou1r8WUaNMnw24h0ksQIf9GqFLvTNYL4bcpgKv466UHf/bGNl17Klr8/U0PXD23
-	5X9BXaz+ZPWOoN0ceWY30CfLCouMXLSKz3rc3ZYFI1ZD9Z+1vHvtY8qfGyIJ+fmk0i+gA8A8t48
-	Pf0gnl6XwNkSb6Il1rJs8o49lE4470EjN4cTQS3qwwmMXM3UzXO61ehbDirPHR0B6tCKFK4ZGHY
-	zQ+BJwSvGrGPtNZu6I7TBX9Y5zGmlY2rpjnrm9svcGwIb55KOd4cIB4i/OMUAXAiyvjK0wtIAqT
-	vyrp24mIreA0rLuB5K1oplIZLwYRxPVDtB+4cmNGavG6tBpV9a5qLdcVqso+p0xnyCPWU0D5E+U
-	B5EJ0eawPpwE3NDD0UHu/u7ObkRjWJBqt6y8MJnCweaZTe7ghpTSpDEHTKP2VDgEbtp1FOUSh+n
-	CxY/63x//OXwYrx9YtxvjUhmBXYtxhLSCqLdzi7QpKCA/vITIw15zxc6xKbvE/9Knbsj0eBFzWo
-	eJxCfOnyFSDNKdKRFXqO1IdyRIAbv3W7DUuSXrUDF27H89WilGDgYmLYeVydBy2347RjaCnp1QV
-	SUj+vVTLy8zCd5/iCwKk+4pVH6QaFuwk2kxKEDu2INHNayTBZvXnooUHtj45
-X-Received: by 2002:a05:600c:3513:b0:4a1:88df:8a2a with SMTP id 5b1f17b1804b1-4a1fdd2461cmr53680805e9.13.1792597202563;
-        Wed, 21 Oct 2026 08:40:02 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (93-34-92-187.ip49.fastwebnet.it. [93.34.92.187])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd70027sm27793675e9.0.2026.10.21.08.40.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:40:01 -0700 (PDT)
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Stefan Roese <sr@denx.de>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=Cqzoaneo
+Received: from localhost.localdomain (unknown [187.91.217.172])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 265041210B1;
+	Wed, 21 Oct 2026 12:40:48 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1792597248;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=0wrngVONHc9nJrhRKPV4wKnzIjyRYO2/pb5pVC+Qvxo=;
+	b=CqzoaneoHh+gZLnZdthqGRNqhGGg3OrRslOOVNMfb5yalPYYZRpBVATRmsou3IveEMHnUL
+	aM0y9nQEeQKgZdbl+aMJRuqv19UybzDMV0LnbXLD55rzGU1/DOg9s2ncTB2hnLXhp+yebl
+	K/JfBL+42UGxZe+DBADq4g021oujnao20JnXesCfrbbB/Yw5p3fCTtxFjJ7mV1uyCB8Gcm
+	foMV18IGL5B5cAnNbnj3Yg2B9GlyjpBequS/HRj/bmSDDz5xns6qfampOtCjiPLyXOsrde
+	oL6ISg9krFshK3DuXng8cW5xbPIN93zl/Utkpqhi1Ghs/pjXsHQoOUv/UfKWIg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: Christian Marangi <ansuelsmth@gmail.com>
-Subject: [PATCH 2/2] i2c: mt7621: limit SCL_STRETCH only to Mediatek SoC
-Date: Wed, 21 Oct 2026 17:39:52 +0200
-Message-ID: <20261021153953.285222-2-ansuelsmth@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261021153953.285222-1-ansuelsmth@gmail.com>
-References: <20261021153953.285222-1-ansuelsmth@gmail.com>
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [PATCH v2] fat: preallocate space before expanding in fat_cont_expand()
+Date: Wed, 21 Oct 2026 12:40:24 -0300
+Message-ID: <20261021154024.56868-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,70 +65,152 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The same I2C driver is also used for Airoha SoC with the only difference
-that the i2c_reset should not enable SCL_STRETCH for Airoha SoC.
+The fat_cont_expand() implementation leaves allocation of new clusters
+to generic_cont_expand_simple(). This path does many small cluster
+allocations, harming performance.
 
-Introduce a new compatible for Airoha and limit the SCL_STRETCH only to
-Mediatek SoC.
+Preallocate cluster space in fat_cont_expand(). Move preallocation to
+a new fat_preallocate() helper used by both fat_cont_expand() and
+fat_fallocate(FALLOC_FL_KEEP_SIZE).
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Benchmarking was done under QEMU/KVM with a virtio-blk device using
+cache=none. Each result is the arithmetic mean of the listed samples.
+
+start = now_ns();
+for (unsigned i = 0; i < count; i++) {
+    if (truncate_mode)
+        ftruncate(fds[i], bytes);
+    else
+        fallocate(fds[i], 0, 0, bytes);
+}
+elapsed = now_ns() - start;
+
+16 files, 512-byte clusters:
+length    mode      sync?    before    after    improvement    samples
+256MiB    ftruncate no       9.576s    5.345s   1.79x          10
+256MiB    fallocate no       9.634s    5.640s   1.71x          10
+1MiB      ftruncate yes      58.66s    0.362s   162.15x        5
+1MiB      fallocate yes      61.36s    0.390s   157.15x        5
+
+128 files, 512-byte clusters:
+length    mode      sync?    before    after    improvement    samples
+512KiB    ftruncate no       0.433s    0.352s   1.23x          10
+512KiB    fallocate no       0.446s    0.393s   1.13x          10
+64KiB     ftruncate yes      31.32s    0.429s   73.00x         10
+64KiB     fallocate yes      29.59s    0.410s   72.42x         10
+
+16 files, 4096-byte clusters:
+length    mode      sync?    before    after    improvement    samples
+256MiB    ftruncate no       5.181s    4.417s   1.17x          10
+256MiB    fallocate no       5.166s    4.442s   1.16x          10
+1MiB      ftruncate yes      9.294s    0.111s   84.06x         10
+1MiB      fallocate yes      8.710s    0.110s   79.36x         10
+
+The biggest improvement is on filesystems with a small cluster size and
+on synchronous mounts.
+
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 ---
- drivers/i2c/busses/i2c-mt7621.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-mt7621.c b/drivers/i2c/busses/i2c-mt7621.c
-index 0a288c998419..19dde7c4069e 100644
---- a/drivers/i2c/busses/i2c-mt7621.c
-+++ b/drivers/i2c/busses/i2c-mt7621.c
-@@ -65,6 +65,7 @@ struct mtk_i2c {
- 	u32 clk_div;
- 	u32 flags;
- 	struct clk *clk;
-+	bool have_scl_stretch;
+Changes in v2:
+- fat_cont_expand(): Hold truncate_lock around fat_truncate_blocks().
+
+This patch depends on:
+https://lore.kernel.org/linux-fsdevel/20261012171106.146243-1-matheus.aalmeida@inf.ufrgs.br/T/#t
+
+ fs/fat/file.c | 56 ++++++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 37 insertions(+), 19 deletions(-)
+
+diff --git a/fs/fat/file.c b/fs/fat/file.c
+index 3aa541c6b127..dd0ae795dc14 100644
+--- a/fs/fat/file.c
++++ b/fs/fat/file.c
+@@ -217,15 +217,50 @@ const struct file_operations fat_file_operations = {
+ 	.setlease	= generic_setlease,
  };
  
- static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
-@@ -83,6 +84,7 @@ static int mtk_i2c_wait_idle(struct mtk_i2c *i2c)
- 
- static void mtk_i2c_reset(struct mtk_i2c *i2c)
++static int fat_preallocate(struct inode *inode, loff_t new_size)
++{
++	int nr_cluster; /* Number of clusters to be allocated */
++	loff_t mm_bytes; /* Number of bytes to be allocated for file */
++	loff_t ondisksize; /* block aligned on-disk size in bytes*/
++	struct super_block *sb = inode->i_sb;
++	struct msdos_sb_info *sbi = MSDOS_SB(sb);
++
++	ondisksize = inode->i_blocks << 9;
++	if (new_size <= ondisksize)
++		return 0;
++
++	/* First compute the number of clusters to be allocated */
++	mm_bytes = new_size - ondisksize;
++	nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
++		     sbi->cluster_bits;
++
++	/* Allocate the clusters. We are not zeroing them out */
++	return fat_add_clusters(inode, nr_cluster);
++}
++
+ static int fat_cont_expand(struct inode *inode, loff_t size)
  {
-+	u32 reg;
- 	int ret;
+ 	struct address_space *mapping = inode->i_mapping;
+ 	loff_t start = inode->i_size, count = size - inode->i_size;
+ 	int err;
  
- 	ret = device_reset(i2c->adap.dev.parent);
-@@ -93,8 +95,11 @@ static void mtk_i2c_reset(struct mtk_i2c *i2c)
- 	 * Don't set SM0CTL0_ODRAIN as its bit meaning is inverted. To
- 	 * configure open-drain mode, this bit needs to be cleared.
- 	 */
--	iowrite32(((i2c->clk_div << 16) & SM0CTL0_CLK_DIV_MASK) | SM0CTL0_EN |
--		  SM0CTL0_SCL_STRETCH, i2c->base + REG_SM0CTL0_REG);
-+	reg = ((i2c->clk_div << 16) & SM0CTL0_CLK_DIV_MASK) | SM0CTL0_EN;
-+	if (i2c->have_scl_stretch)
-+		reg |= SM0CTL0_SCL_STRETCH;
-+
-+	iowrite32(reg, i2c->base + REG_SM0CTL0_REG);
- 	iowrite32(0, i2c->base + REG_SM0CFG2_REG);
- }
+-	err = generic_cont_expand_simple(inode, size);
++	/*
++	 * Preallocating space here is more efficient than during
++	 * generic_cont_expand_simple() because of batching.
++	 */
++	err = inode_newsize_ok(inode, size);
+ 	if (err)
+ 		goto out;
++	err = fat_preallocate(inode, size);
++	if (err)
++		goto out;
++	err = generic_cont_expand_simple(inode, size);
++	if (err) {
++		down_write(&MSDOS_I(inode)->truncate_lock);
++		fat_truncate_blocks(inode, inode->i_size);
++		up_write(&MSDOS_I(inode)->truncate_lock);
++		goto out;
++	}
  
-@@ -249,6 +254,7 @@ static const struct i2c_algorithm mtk_i2c_algo = {
+ 	fat_truncate_time(inode, NULL, FAT_UPDATE_CMTIME);
+ 	mark_inode_dirty(inode);
+@@ -263,12 +298,7 @@ static int fat_cont_expand(struct inode *inode, loff_t size)
+ static long fat_fallocate(struct file *file, int mode,
+ 			  loff_t offset, loff_t len)
+ {
+-	int nr_cluster; /* Number of clusters to be allocated */
+-	loff_t mm_bytes; /* Number of bytes to be allocated for file */
+-	loff_t ondisksize; /* block aligned on-disk size in bytes*/
+ 	struct inode *inode = file->f_mapping->host;
+-	struct super_block *sb = inode->i_sb;
+-	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+ 	int err = 0;
  
- static const struct of_device_id i2c_mtk_dt_ids[] = {
- 	{ .compatible = "mediatek,mt7621-i2c" },
-+	{ .compatible = "airoha,an7581-i2c" },
- 	{ /* sentinel */ }
- };
+ 	/* No support for hole punch or other fallocate flags. */
+@@ -281,19 +311,7 @@ static long fat_fallocate(struct file *file, int mode,
  
-@@ -296,6 +302,10 @@ static int mtk_i2c_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	/* Set SCL_STRETCH only for Mediatek SoC */
-+	if (device_is_compatible(i2c->dev, "mediatek,mt7621-i2c"))
-+		i2c->have_scl_stretch = true;
-+
- 	adap = &i2c->adap;
- 	adap->owner = THIS_MODULE;
- 	adap->algo = &mtk_i2c_algo;
+ 	inode_lock(inode);
+ 	if (mode & FALLOC_FL_KEEP_SIZE) {
+-		ondisksize = inode->i_blocks << 9;
+-		if ((offset + len) <= ondisksize)
+-			goto error;
+-
+-		/* First compute the number of clusters to be allocated */
+-		mm_bytes = offset + len - ondisksize;
+-		nr_cluster = (mm_bytes + (sbi->cluster_size - 1)) >>
+-			sbi->cluster_bits;
+-
+-		/* Allocate the clusters. We are not zeroing them out */
+-		err = fat_add_clusters(inode, nr_cluster);
+-		if (err)
+-			goto error;
++		err = fat_preallocate(inode, offset + len);
+ 	} else {
+ 		if ((offset + len) <= i_size_read(inode))
+ 			goto error;
 -- 
-2.55.0
+2.43.0
 
