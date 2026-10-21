@@ -1,55 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588897;
-	b=3p1tODEhjQat1Yl9AdAUuKDisqnFMC1Dya10y+k11xpV5YU3h/X3PyaGtpAsh918u0B6
-	 pD4icNtesNVtuBl/y0GkGHg0Zz+GFn4jOzEGNYmmgQdvF3tXqWRd4t9/ApD4JNJ+n7OQa
-	 In/Q4n9GrtuEg1FzjOauVoxYjtAg+nRlWppxd9v3q4z/MMQIbC/7A2II1z1phtqGhllZg
-	 OqvWKnJMwBj/OWxHM74WmnGWBvuOzwqeGvu3BBQKJWXEnVm/haXU9hv8U3QkrP+C9XDYa
-	 k9kMStvl8Fq9kPDOg2Q8+OQXcoLMstjcq/GPJonwSNe5SQLI6Etj5IxI/k/0UkHCqQw==
+	t=1792588908;
+	b=SGqWd+tT8rKpAfBKsVv9W7Otri0CfT7vtOldmIOKNT+OQ0+dqW+cZ0jrzA55t4v8Z0vW
+	 QFsP7htHIXlps67qlLYqhb5zcvRKBww4RdlPgjW+A3y8/kuZxAD7uLJwIGOCGF3WEz92y
+	 dttX11Xdk9pzY/U2Dn758No2oyhz7lRtep713Z09Lcgn7HnfuQD0Br2igYdfwUsw95EOX
+	 d6T8Zwqse6e4aCJNT3XbTfdAZkwwNJzWmrz2D067gW2Z/uWJ9xKkIP8BZQnULH38fYuOO
+	 sojUgDez9MQY59xGk8af2YOcGBXFzXSI/uUmYaJOvFQqcCF96x8O0f8G1HDXNUW5BGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588897;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=x4h5kE+S61gNfgfp7dSlkNy6fJzrNZu9bf6ZqONC3wM=;
-	b=z/XYPEvuF+h5h+A9QJeuH5qwRvU30s1g8zU1eiCnN4FASCz/tfJpiBhr1nQq+yWCzIwz
-	 RCI5AsuB7sEls0opSQSBTsfifB9Vcbv4NzKPWpzvuJpPl66G74ZvtAiCRbLzzBQXNhutv
-	 p8v3v4XUvGgTrPVON7CeZm9wfPWF8WFWvTNOkC3g5pRP53VhdXKb80qvK/j5OktuM1eiw
-	 KqO8bnanUp7fOCPwRJql5Rpo3a7kUgb/rBjU28lh7Qbk35OaXir+DpoVVdVe6JPzwazXS
-	 Tx1/inUUlu/8goZ2sgtBaXEPhxRi8La/eTVEPtTOJh1JiHUpuFInJpznNSLIuNpT8Mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588908;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=TXc2rXrjRxoGSP5yLA3diE1tbm1o5gWYHfKbRjkqKFk=;
+	b=PSIQ6nRZHKSn5Asc07jaEZOyKVae6KfCkzXVaKRH4M1/zJdhSnNgNXKYKTRWv1r9LIpU
+	 ir54jy7oSyJj0HqtyED/rqsJf+rULRFqbW2TYml1rfB/hY0doHZgQHAngG1BqDEnT/f1B
+	 +fTe1i2Qo91Mslh9gD9LyV7gbYhShSuCWyY+FrA79N+auaua3YZS+Ujit+HpkSpGO/Kr0
+	 zLsmbEg04e53vMwKPlafFe60btAv1iLcIwpYVsOYuSK0O/kdTW6d2N2y9Y2LkcDLWk7Cj
+	 rnbkNPwHcSXx9w9baF2iOt6BcPKMdeMR0gsJYr+j6QRQbnNWXjbEk+LyinWSP3bgoYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOz5EhnZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=HsV140Sj;
+	arc=none smtp.remote-ip=216.40.44.12
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2054A606A319;
-	Wed, 21 Oct 2026 13:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4E3606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:21:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD4E3606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OOz5EhnZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750441F000C4;
-	Wed, 21 Oct 2026 13:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792588896;
-	bh=x4h5kE+S61gNfgfp7dSlkNy6fJzrNZu9bf6ZqONC3wM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OOz5EhnZ2xah57azAtoOqNsETu4shI1NQAjIinIFdZGbAwwrgiDOIsAmsFnkat1sW
-	 fNAT5xuovv58yZkuF01AUBAXOkzvjeQwrFuYs0bqJr38qOClaNyPuJ+tha5HQTWNb1
-	 arJzOUPvCJNIPxDv5vCYwFmMziolJXkIhmH+iT7n8+VY3e5M9WmFFEXaf6LNP28G2t
-	 5u+aWxfH1VwXEFhOEcUeQSfawIE1lJAX8FhzbOgTYE39BY5SNzAGBoNyYpCpXN0P/V
-	 a4ktOrRX/ratIMH8gv7xiEG7iUcUJ/ZvQYaaVa6FxZTR1K8RSvEJgMmHMhf8YjCF2U
-	 +Fe8AoUyXrRhg==
-Date: Wed, 21 Oct 2026 15:21:28 +0200
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] Input: joystick - use usb_make_subpath()
-Message-ID: <ati7yINv0_Z3yPMg@debian>
-References: <20261021123146.17202-1-shlomojune6@gmail.com>
- <20261021123146.17202-3-shlomojune6@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=HsV140Sj
+Received: from omf01.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id CC335A0552;
+	Wed, 21 Oct 2026 13:21:39 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf01.hostedemail.com (Postfix) with ESMTPA id 8DF0F60010;
+	Wed, 21 Oct 2026 13:21:37 +0000 (UTC)
+Date: Wed, 21 Oct 2026 09:21:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: John Stultz <jstultz@google.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Christian Loehle <christian.loehle@arm.com>,
+ Qais Yousef <qyousef@google.com>, LKML <linux-kernel@vger.kernel.org>,
+ Hongyan Xia <hongyan.xia2@arm.com>, Ingo Molnar <mingo@kernel.org>, Wei
+ Wang <wvw@google.com>, Patrick Bellasi <patrick.bellasi@arm.com>, Dietmar
+ Eggemann <dietmar.eggemann@arm.com>
+Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
+Message-ID: <20261021092136.249e2d19@gandalf.local.home>
+In-Reply-To: <20261021113806.GE2823843@noisy.programming.kicks-ass.net>
+References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
+	<20261020152933.16989549@gandalf.local.home>
+	<20261021113806.GE2823843@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,119 +65,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vv2co7kgh7mconel"
-Content-Disposition: inline
-In-Reply-To: <20261021123146.17202-3-shlomojune6@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout02
+X-Rspamd-Queue-Id: 8DF0F60010
+X-Stat-Signature: cwgt4qnynqhhybyfsmosfbaiunbhe47x
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+y/j5BtLKD8SFbWaEeCEsM0dPa/oNh72g=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=TXc2rXrjRxoGSP5yLA3diE1tbm1o5gWYHfKbRjkqKFk=; b=HsV140SjSkk/hkmRzAHyugsVoR+8Hk4v+jI1hT23J7ltW89J7yXl1Hki2QUWHrlCUabgId8P8HeHLQWFAblM8l+pcHMa7q3zqzTqnmgcBLZgXVYx6/b2PCL99tC9S/2BxMlzjWqQBa1BL11+9f6QfhtvOJOYT4LW2QqjWvc04y0=
+X-HE-Tag: 1792588897-727226
+X-HE-Meta: U2FsdGVkX1/BvUeOtMisHrFHzccE3MkhCiFMIHHqNW1zA3LlzmkKfXVY8mEKuU28PJMthpY5Khh9vIHkignR+48jDom/mGUw1HZ8/Me+9y18dFMA5FV/2T5QIL+Aw8lnen9UCwGDCagbKvIGbPxeYA899hczUhn7buuTfCACikDAG+jb5L1aGS3xqdLodB8KFzLYCZ7sPrrLcTNzTQ//C3RviPtKwmBTPFWbtx6VVrIsHqO3E78XEwwL15SWnhPW0GFt/nwoXFQzeSgd4y09DNvHONbUMGawmYGonmJL94Zbdm9fWfCLZSQorRzvVakFLkX3oyMCRCqLFprUFLKBG5Z/aIWdwofeyTk3eWhq2VdM9UF7PHzK0B08peteoHw60o/7LQgSUmhTU9kWbaG9aw==
 
+On Wed, 21 Oct 2026 13:38:06 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
---vv2co7kgh7mconel
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-From: Alejandro Colomar <alx+linux-hardening@kernel.org>
-To: Shihuang Liu <shlomojune6@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] Input: joystick - use usb_make_subpath()
-Message-ID: <ati7yINv0_Z3yPMg@debian>
-References: <20261021123146.17202-1-shlomojune6@gmail.com>
- <20261021123146.17202-3-shlomojune6@gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <20261021123146.17202-3-shlomojune6@gmail.com>
+> On Tue, Oct 20, 2026 at 03:29:33PM -0400, Steven Rostedt wrote:
+> > On Tue, 20 Oct 2026 11:53:47 -0700
+> > John Stultz <jstultz@google.com> wrote:
+> >   
+> > > Maybe should the jump_label_update() logic be using something like
+> > > stop_machine? Or should there still be a conditional on key->enabled
+> > > in the unlikely case to make the behavior consistent? Or is there just
+> > > something about the uclamp usage that is off?  
+> > 
+> > There's never been any guarantee that all call sites would update
+> > atomically. The first user of jump labels was tracepoints and I really do
+> > not want stop machine involved with them.
+> > 
+> > Perhaps we could add an api like static_key_enable_atomic() and
+> > static_key_disable_atomic() that would go through a stop_machine() and
+> > update everything that way for those locations that need an atomic view of
+> > the updated jump labels.  
+> 
+> Argh, no, we do not want people to 'accidentally' add stop_machine()
+> usage, which we then have to spend tons of time on removing again.
 
-Hi Shihuang,
+OK, sure. I was a bit skeptical of that approach too.
 
-> Date: 2026-10-21 20:31:42+0800
-> From: Shihuang Liu <shlomojune6@gmail.com>
->
-> The pxrc and xpad drivers build their input device physical paths
-> by appending "/input0" with strlcat() after usb_make_path().
->=20
-> In preparation for removing the deprecated strlcat() API [1],
-> replace each pair of calls with usb_make_subpath(). The helper
-> formats the USB path and the "input0" subpath in one call,
-> avoiding a separate buffer scan and append operation.
->=20
-> Link: https://github.com/KSPP/linux/issues/370 [1]
-> Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-> ---
->  drivers/input/joystick/pxrc.c | 3 +--
->  drivers/input/joystick/xpad.c | 3 +--
->  2 files changed, 2 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/input/joystick/pxrc.c b/drivers/input/joystick/pxrc.c
-> index 52d9eab667b7a..1a11e73d7cd04 100644
-> --- a/drivers/input/joystick/pxrc.c
-> +++ b/drivers/input/joystick/pxrc.c
-> @@ -169,8 +169,7 @@ static int pxrc_probe(struct usb_interface *intf,
-> =20
->  	pxrc->input->name =3D "PXRC Flight Controller Adapter";
-> =20
-> -	usb_make_path(udev, pxrc->phys, sizeof(pxrc->phys));
-> -	strlcat(pxrc->phys, "/input0", sizeof(pxrc->phys));
-> +	usb_make_subpath(udev, pxrc->phys, sizeof(pxrc->phys), "input0");
+> 
+> And yeah, its always been the case that jump_labels (and static_branch)
+> updates are non-atomic. Most of them are init time, and don't care.
+> 
+> Now, I'm sure we've ran into this particular problem before, and it
+> always requires care.
+> 
+> Also note that a simple global boolean has the exact same problem.
+> Adding runtime conditionals isn't going to fix this.
 
-To be honest, I think the composed approach is more readable.  You don't
-need to learn a new _subpath function with all the details it has.
+Another idea for "atomic static branch" is to have two static branches at
+each location. One that switches to a "check this variable and do a normal
+test and branch" and "we are now in sync and can use the original static
+branch".
 
-Everyone knows what a str*cat() (or str*cpy, FWIW) function does.
+Something like:
 
-I'd rather improve this by adding strscat().  The reason for removing
-strlcat(3) is that it is vulnerable to DoS, and that it is inefficient,
-but it is good at producing readable code, and a replacement should not
-degrade that.
+	if (static_branch_unlikely(&foo_use_variable.key)) {
+		return static_key_enabled(&foo->key);
+	} else {
+		if (static_branch_unlikely(&foo->key))
+			return true;
+		else
+			return false;
+	}
 
+And then in between updates of foo, the foo_use_variable gets set making
+all the branches use the key, which will be updated "atomically" (maybe
+some memory barriers needs to be added). After the updates of all the
+static keys are complete, the foo_use_variable gets unset.
 
-Have a lovely day!
-Alex
+The non-atomic portion of "foo_use_variable" is OK because the foo->key
+will match whatever the static_branch version it has.
 
->  	pxrc->input->phys =3D pxrc->phys;
-> =20
->  	usb_to_input_id(udev, &pxrc->input->id);
-> diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-> index feb8f368f834e..0f7ca5adaeee7 100644
-> --- a/drivers/input/joystick/xpad.c
-> +++ b/drivers/input/joystick/xpad.c
-> @@ -2059,8 +2059,7 @@ static int xpad_probe(struct usb_interface *intf, c=
-onst struct usb_device_id *id
->  	if (!xpad)
->  		return -ENOMEM;
-> =20
-> -	usb_make_path(udev, xpad->phys, sizeof(xpad->phys));
-> -	strlcat(xpad->phys, "/input0", sizeof(xpad->phys));
-> +	usb_make_subpath(udev, xpad->phys, sizeof(xpad->phys), "input0");
-> =20
->  	xpad->idata =3D usb_alloc_coherent(udev, XPAD_PKT_LEN,
->  					 GFP_KERNEL, &xpad->idata_dma);
-> --=20
-> 2.43.0
->=20
->=20
+The end result avoids the test and branch but will have two nop/jmp pairs.
 
---=20
-<https://www.alejandro-colomar.es>
+-- Steve
 
---vv2co7kgh7mconel
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrYvFgACgkQ64mZXMKQ
-wqnfLA//TQzUh8oI+7WSy72n9mO3Ix+vhVOXV8V3j/V8xW2Cn8UIThuVaS8vkM1m
-uCtMjHTg+naQRMPW60rIsneuky/TWUE6TM8s1zWYx5LSbdXfRGi6ymsKAQZESkMD
-zzNBFPJSWJwbEcY9TM4J3xQJgUyWPrNLRzYD4WXtvOHFOyeWKaOH7NS0SpLIzx/k
-7Vegs/XT5Cij9twaM3NC+2xTlwbzxQptBKQ3GSsSiTSaxe/UUjKMzpDguSadXUvQ
-rdOlyOUNgCUFmikzH8N53optE1Srwvf4hzAOpn1OSBZp0Mv1P+ww8rqqvmQqDzel
-QoOISoeyRZ3U7rE8LZMpKeA9++fKeMFB7Ht8ky9qB0n3uTdTW096bKRtbdn6gL7q
-gOrPpBLDuSUo2lRa98CMdmR+ieMDFINHsByzjDCa1S5eT6oSdkRMoe+e7jshzkS7
-zcgOBzzNx+R6PYFYh+EhadR7bXZMUrybl8goP6um2iFrD8QWesL18eu4GZqd6bOf
-8/S/3aSnPwuBCGRUrSvtkLVcUTHek4s2JKbcWUCtDHwqo+L24H41KGY6ImJdWPR7
-SQqmFPVQHb3hxbm5+IXm6m+CCxVUH9vxjuvlDPv/a0Jt16aalHydqfD074nRIzsj
-yk3jsnOLhOdeshLM4BER2AOHL2tiBrNuWQBa8pZFMUs7fTFMYCc=
-=b1h/
------END PGP SIGNATURE-----
-
---vv2co7kgh7mconel--
