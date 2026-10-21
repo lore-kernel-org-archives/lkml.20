@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550644;
-	b=wI+0UAmZStJFWPE8aEWItUur1tQSxc+rkK74hp1+/oWl8rneNyfBC5K3KwMnq9RIziTB
-	 PjsQQ1v65d8ORb1uhCOasTcfygk4D4b7OcwBDpaAg62rMrgA96bt9749FAzsuOEKmqIDu
-	 O/8hCqThMChfVGyCiE/cAprQPZ+/fhCkwLopqkkmQs3YXRY8h1iDVeOl0kK1zvr5aRHns
-	 mY+sWuQvYH66+4zuYL+pQULpHk0LvX3jtVJTTg38IRBNFT4rxhSqJwqhahtlzIlLLU1FJ
-	 1PTONI3YWRTZtBiKTA+ce+DgZHUNdpdfTt3DNiYNOrtib1FAkb90Vky9/0dKP8X5xGg==
+	t=1792550646;
+	b=bzi8XK5cuKIMtvr6kiSP17E1BTjI3qLN4xeocdJgq5YQkF9CGtkWTs+szCIVIVVsVBKO
+	 bLdT3odHney5sQZXcn+wKIngNZNthGkShfiLrNiINnJwPJxp9I54/oIFGQ7iMQ1+GoVmW
+	 59BLe6Ud+kMtUNF2D7dtf3ZTJGyv2eb4w4hpV0mbO56rP8f0YCxPY7LDCUWf4LcDU6suQ
+	 bjqRhxGITUnjEx+rG7SexmFH4Ttf+xuSPZeV4sp+DIuxc4/O+NTK3ChAvZjwCMtIZXrjx
+	 JSfdYOK+64SP+T0IMkiikEkzFG61pPnGdRgWvMCv7fbPJKZbdUrAImzCIidzGqJzSkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550644;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550646;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=pvMWMt14YWUTlKsuuOS9brN/+GEAU/YOCzBR9QabAX4=;
-	b=OvTpfWmDbisnPz8Z7HgnaB4D35JvY1HVmSM2/Owvp8QKinTM3kt1eIUh7pXxYhBiB/nK
-	 eJpIHU62oYoKnk3LR7xcm2AID0vnj1d57/nTLHN0i8bSUnid7fWO0ErR5OTOrQmV/zAnq
-	 CvWqgVbHjEH3cb8PCVlClw+4x1o+tyklqwPoUVhZj72ETY4M7Qlmmfa4RoRVOhk72sYff
-	 qDaO1mxoNuEVz7Y7uBfMy0Ur0C41hywdq4DEf+b1xFTSBdgWHzFeTmRI8OzZSgUrT+oT4
-	 3LcS5s1D0bdp1yxzJnhphi9Z3VXSC4JvMyCCyI/RiCy2XeZ9nN+OUdTNFpmnsBBqsWw==
+	bh=pym0WhT+qvTbeYJitXM6250lqg6RXxznxmPyuxJHkps=;
+	b=XndW9nV6QAcK57zCwHKyRLT97P51pOvoIjs0AMNQa9d7DPBsqW24O7h4E6AJ2lsBTEOf
+	 vSMPIO5jZBKv6YaA0ipQsUGhlTSCiMVYdJwmv7sNbe4NmmOrpOZksANhznO3miIvMeasu
+	 2K9H5p9JAqeyRzciyOny8PEohTWxs4Z0sZ0Wv9BrBSgRzN+flxDRHRCEYIQ7SlVMfTS3N
+	 rIBB2aKFJefFnisa4fC2lyVv3XIYnEkQrnrro38KvcYIX4dLCYYzqTU3MkeSVwFBZR7Qt
+	 cXo5TxNvO+bk62r8hm+BxHbtltqZPHOEfsqVauYYLFjHPx/1E3BJZyYjgsEmemp1i3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGSIizvr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ2K7Cfd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB66B606A319;
-	Wed, 21 Oct 2026 02:44:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBD2606A331;
+	Wed, 21 Oct 2026 02:44:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZGSIizvr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C551A1F000C9;
-	Wed, 21 Oct 2026 02:44:02 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZ2K7Cfd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0A61F000CE;
+	Wed, 21 Oct 2026 02:44:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792550643;
-	bh=pvMWMt14YWUTlKsuuOS9brN/+GEAU/YOCzBR9QabAX4=;
+	s=k20260515; t=1792550646;
+	bh=pym0WhT+qvTbeYJitXM6250lqg6RXxznxmPyuxJHkps=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ZGSIizvrzRcR8g52cd07DadGtP30s08v0SHHDCS+XW0/Z3Ji0Wa2r5kr8/Xyrez4M
-	 OUtPtEj+d0ce+PFUlgTrxmeVdjK8l8/huauA2YLOfaWiL1vfrgf+pfh0pBz9Im3NCp
-	 GCQwTVGeaqoMabJ3f4KwVgNEOPbwJXQKY5rvTTvX8YVa6ljW36GkFv3Z9e3vWHromK
-	 XObt7QWJxEqp993lhMfTVj2ezDQXtzQoaPIHYZIvj5ORfbxaB4WFWap/V9djHNE1Cf
-	 BqDV/TmflGKAawHB0d5Ek0QlaAUPsrDT1L7WuceYL6d8jiURygADSoOeTe9xQjhxhw
-	 pOO8Pk703erFw==
-Subject: Re: [PATCH net-next v2 1/3] ipv4: draw rt_genid from a sequence
- shared by all netns
+	b=RZ2K7Cfd39sSBucECD68WaRzd02Wt1iZCE02GFAhNRdlvnP0XFQNEpF5XFNhxQ0gn
+	 mAEfCpyzmmYHOBDE2WvAY/vySg6Xmtmq2PZfwoVNX7hOxRkfeTD0Z1ozjdyG7L5iGV
+	 fQ1FxwNtR9/XyeerFMbV01HmH3WvxoVe3IkCPUTxN1OwbFXDgfV9WQ6ACkf71DeIEb
+	 kkHNVqIvMFeO4zTuvfisx6wLJQxzwMny5pkg1iYBN82CJuJrERbLPR8mdnslWKRBaz
+	 6xXBTsPdbXhGwbmBnIviWqd3LfC0J7eSqf5Vcmrc+h9aHyfm8WuoPdkxsyjZ6ynR6U
+	 Vwe2jC8tnlikQ==
+Subject: Re: [PATCH net-next v2 3/3] net: remove rcu_barrier() from
+ __dev_change_net_namespace()
 From: netdev-bot+sashiko@kernel.org
 To: odys.yuan@gmail.com
 Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
  pabeni@redhat.com, horms@kernel.org, dsahern@kernel.org, idosch@nvidia.com,
  razor@blackwall.org, kuniyu@google.com, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 02:44:02 +0000
-Message-ID: <179255064227.3135.1573234159062930165@kernel.org>
+Date: Wed, 21 Oct 2026 02:44:04 +0000
+Message-ID: <179255064497.3135.10889465434398446823@kernel.org>
 In-Reply-To:
- <20261019-bug-net-netns-move-rcu-barrier-v2-1-b6eb7780c492@gmail.com>
+ <20261019-bug-net-netns-move-rcu-barrier-v2-3-b6eb7780c492@gmail.com>
 References:
- <20261019-bug-net-netns-move-rcu-barrier-v2-1-b6eb7780c492@gmail.com>
-X-sashiko-severity: Medium
+ <20261019-bug-net-netns-move-rcu-barrier-v2-3-b6eb7780c492@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,10 +67,10 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -78,128 +78,68 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The commit says "a cached route never matches the rt_genid of
-  the netns its device moves to".
-- [Low] The comment added above rt_genid_seq in net/ipv4/route.c, and the
-  commit message, say each netns "bumps on NETDEV_UP before any of its…
+- [High] net: stale IPv6 nexthop exception dst and wrong-netns stats
+  after netns move
 
 --
 
-ipv4: draw rt_genid from a sequence shared by all netns
-
-This commit stops incrementing rt_genid separately in each netns. Instead,
-every bump takes its value from one global sequence that never returns 0.
-The goal is that a route cached through a device can never match the
-rt_genid of the netns the device moves into.
-
-> diff --git a/net/ipv4/route.c b/net/ipv4/route.c
-> index 595a3b7f17830..25bebbb30bf3c 100644
-> --- a/net/ipv4/route.c
-> +++ b/net/ipv4/route.c
-> @@ -393,6 +393,26 @@ static inline int ip_rt_proc_init(void)
->  }
->  #endif /* CONFIG_PROC_FS */
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -12994,7 +12994,6 @@ int __dev_change_net_namespace(struct net_device *dev, struct net *net,
+>  	 * the device is just moving and can keep their slaves up.
+>  	 */
+>  	call_netdevice_notifiers(NETDEV_UNREGISTER, dev);
+> -	rcu_barrier();
 >  
-> +/*
-> + * Draw rt_genid bumps from one sequence shared by all netns. A route keeps
-> + * the genid of the netns it was created in, and is checked against the netns
-> + * its device is in now, so distinct values make that check fail once the
-> + * device has moved. Every netns starts at 0, which the sequence never hands
-> + * out, and bumps on NETDEV_UP before any of its devices can carry traffic.
-> + */
+>  	new_nsid = peernet2id_alloc(dev_net(dev), net, GFP_KERNEL);
+>  
+>
 
-[Severity: Low]
-Is the last sentence of this comment accurate? The commit message makes
-the same claim:
+[Severity: High]
+Removing the rcu_barrier() here looks like it opens a window for IPv6
+nexthop exception routes that the changelog does not cover.
 
-  "A netns bumps its rt_genid on NETDEV_UP before its devices can carry
-  traffic"
+Consider a route in net_old that uses a nexthop group with more than
+one member, where one member, nh1, is bound to dev. When dev is moved,
+nexthop_flush_dev() calls remove_nexthop() on nh1. Because the group
+still has other members, remove_nh_grp_entry() only drops nh1 from the
+group. The fib6_info stays, its fn_sernum is not bumped, and nh1's
+exception bucket is not flushed synchronously.
 
-In net/core/dev.c, __dev_open() marks the device up and activates it
-before any notifier runs:
+That flush happens later, in this chain:
 
-    netif_set_up(dev, true);
-    dev_set_rx_mode(dev);
-    dev_activate(dev);
+  nexthop_free_rcu()
+    -> nexthop_free_single()
+    -> fib6_nh_release()
+    -> fib6_nh_flush_exceptions()
 
-netif_open() only sends NETDEV_UP after __dev_open() has returned:
+remove_nexthop() queues it through nexthop_put() and call_rcu_hurry().
 
-    rtmsg_ifinfo(RTM_NEWLINK, dev, IFF_UP | IFF_RUNNING, GFP_KERNEL, 0, NULL);
-    call_netdevice_notifiers(NETDEV_UP, dev);
+Under RTNL, synchronize_net() is synchronize_rcu_expedited(), which
+does not wait for that callback. Without the barrier,
+dev_net_set(dev, net) can therefore run first. Two things then go
+wrong:
 
-So rt_cache_flush() in fib_netdev_event() runs after the device can
-already transmit.
+- RTF_CACHE exceptions created by ip6_rt_cache_alloc() have
+  rt->sernum == 0. ip6_dst_check() then skips rt6_is_valid() and goes
+  through rt6_check(), which still passes because rt->from is alive in
+  net_old with an unchanged cookie. A socket in net_old can keep
+  transmitting through dev after it has moved to the new netns, until
+  the callback finally calls dst_dev_put(). The fib6_sernum argument
+  in the changelog does not seem to hold for these entries.
 
-The NETDEV_UP bump also doesn't always happen. For a device with no
-in_device, for example one whose MTU is too small for IPv4,
-fib_netdev_event() returns early:
+- rt6_remove_exception() uses dev_net(rt6_ex->rt6i->dst.dev) to pick
+  which rt6_stats->fib_rt_cache to decrement. When it runs after the
+  move, it decrements the new netns counter instead of net_old's,
+  leaving both counters wrong.
 
-    in_dev = __in_dev_get_rtnl(dev);
-    if (!in_dev)
-        return NOTIFY_DONE;
-
-The nonzero genid on cached routes seems to come from the FIB insertion
-paths instead, such as fib_table_insert()->rt_cache_flush() and the
-NETDEV_UP case of fib_inetaddr_event().
-
-The next patch in the series, "net: remove rcu_barrier() from
-__dev_change_net_namespace()", depends on this invariant. Could the
-comment and the commit message describe the ordering that actually holds?
-
-> +static atomic_t rt_genid_seq;
-> +
-> +void rt_genid_bump_ipv4(struct net *net)
-> +{
-> +	int genid;
-> +
-> +	do {
-> +		genid = atomic_inc_return(&rt_genid_seq);
-> +	} while (!genid);
-> +	atomic_set(&net->ipv4.rt_genid, genid);
-> +}
-
-[Severity: Medium]
-The commit message says:
-
-  "so a cached route never matches the rt_genid of the netns its device
-  moves to."
-
-Doesn't that only hold modulo 2^32? rt_genid_seq is one 32-bit atomic_t
-shared by every netns, and rtable::rt_genid is an int. The loop only
-skips 0, so values start repeating after 2^32 - 1 bumps.
-
-Anyone who can create a user namespace and a netns can advance the
-shared counter by writing /proc/sys/net/ipv4/route/flush. Each write
-makes ipv4_sysctl_rtcache_flush() call rt_cache_flush(), and
-sysctl_route_net_init() keeps the flush entry for netns owned by non-init
-user namespaces:
-
-    /* Don't export non-whitelisted sysctls to unprivileged users */
-    if (net->user_ns != &init_user_ns) {
-        if (tbl[0].procname != ipv4_route_flush_procname)
-            table_size = 0;
-    }
-
-Suppose a route is cached in netns A with genid X, and its device then
-moves to netns B. If B's genid equals X before
-free_fib_info_rcu()->nexthop_free_rcu() gets to dst_dev_put(), the check
-in rt_is_expired() passes:
-
-    res = rth->rt_genid != rt_genid_ipv4(dev_net_rcu(rth->dst.dev));
-
-ipv4_dst_check() then accepts the dst, and the socket in A keeps sending
-through a device that B now owns.
-
-This is hard to hit, because B's bump has to land on the unknown X
-within a few RCU grace periods. However, the follow-up patch "net: remove
-rcu_barrier() from __dev_change_net_namespace()" removes the barrier. It
-then relies on genid uniqueness alone to reject every FIB-cached route
-through the moved device, not just routes that use nexthop objects.
-
-Would an approach that doesn't depend on a wrapping 32-bit value work
-here? For example, the move could invalidate the cached dsts, or call
-dst_dev_put() on them, synchronously. Another option would be to check
-the netns the route was created in.
+Was this case considered? If the barrier goes, it seems the nexthop
+code would need to flush nh1's exceptions synchronously when nh1 is
+removed from a group because its device is going away, instead of
+relying on the RCU callback. Alternatively, rt6_remove_exception()
+could avoid deriving the netns from the dst device. Which direction
+would you prefer?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019-bug-net-netns-move-rcu-barrier-v2-0-b6eb7780c492%40gmail.com
