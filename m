@@ -1,49 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612122;
-	b=p/enPwO88NXzAL9tbwNAiS71t03lOFZb+CF4YlnNfNLq1IDRqmtRkH5bMav7zLIrvOPY
-	 sQmwtzirC1AOhd5giuFvPgAZ1giGA2UMCFbnp4NjM4TBgOY2GoniiOn9qpGcUqBTD/L90
-	 mTPnHVeK8kU2DPW2WdK/Xof6wKkW0muFazw5Sqd8/zAfVGICI45NKUu2dgkNVPxAYi1uC
-	 P0ClSCqCNl+uNUdqbWDxrjwq0oTsaSHbwSY9l4RxPHIqnqrrRKUmee18dFlciJ7/Ct6uI
-	 VzDX882Ft/cnMjLydez8BD6H/abi7L/8yARufWaCDRDlGn/oO352GG9Yo/8bTRHstdQ==
+	t=1792612126;
+	b=HrRykGcFY3PgtRAEgxZch7sBZeSy+aAuW5d23fKQW3CYF1d3bemg6U3NTSbGnWAESHlf
+	 2OY5m6q478GbV/wQIwqJbvxVWQyMZDWcz5+s1++imJk3gu/86ddGY0a42NkjccOWQ/4nf
+	 /tdHIbVynsWrRiIt8NKwWDnT1FiGcjHOFMCmueeX2IcFP/UnebAOQJmWzLE4VKAyjWcVy
+	 cHj/Hakh5+BqLtETROwi1ULg7mAdIQNvFV/aKI5sXM+wYWUYki+4RT02Tj5Ya/tlflEWU
+	 GBlzu0O79lxeWTLN5tfby/qICX9Pe3uejLthePtFF2jXZPFvzzsTIIZu8v1mzoXn0EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612122;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=//z1fRmqXWjQh/7N6utcvjU1J8+lEZQGzJ/Dqs244bI=;
-	b=zthPfiYm9prVcn3d6U4GeRqYpi6lDz832W2vicwHDSZtWLmEKtc3jQAY32L/1Vhcjcdf
-	 hv3JGnGwhxOnKh0dt7ZLfsTNjIYUp6HjvDhtPAa0+ONBG4KCvYdu8fhfw+xAgUEeNDEFq
-	 k4QuxNqVsbSUqXfoYVMIIPEQrFLp5RMYUtqsL+AHO1d3HLZCWfdgIdUnGX5l9egxT/qB7
-	 vXF2Rd+bgK0kDAbPEqUGJEL4g75MV76xYqAT/HaOaRy8pILaBsWrQPGqdGynfviq7E+Lk
-	 FnAGNBqnLfchQKQ6MvPqM9PERRxO+SWR9la5Yhx2APL9339O3pUT1SVjlNVzmrJ0TbA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612126;
+	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=eWlBKL2FrSB99yvUJcyvTb/4uFs8JHzUkIHSRVTAqmc=;
+	b=BKxzlmodbQOuPmhwLSr2wX7N5tSqa1szIB+f8w3mHpmkwi+kTWaFp8xab6NE/QeT9cND
+	 KW9YVZFXMujwMeQfVidESSJc44dVb2lePciEgeUd2kooE9IU4nkh5fjnJ5MWFrlc7SxG/
+	 aQuPGOAQ1jH2a3FS91G7Zu2HNQwJYfVM391k40/EsMqgWj354H2oNvA0PMoX6+V4vly5d
+	 Mko5WcC0fAkgP1YOANK3Fcm2HU5EaMjS/7ld0OJLueyFM8CpuWCJsY+DWhkCwfz79gLI0
+	 2ukrhzjFA53cCCUmyruxiklhymVpnZMXQW5U7S8X+yjt1j20u0Xn86w69z9p06V62dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=GLOI1DHM;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D66606A319;
-	Wed, 21 Oct 2026 19:48:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01D66606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=GLOI1DHM
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 64B27A0031;
-	Wed, 21 Oct 2026 21:48:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792612110; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=//z1fRmqXWjQh/7N6utcvjU1J8+lEZQGzJ/Dqs244bI=;
-	b=GLOI1DHMZXtsX21nu7Ios4Qs9gubrXOut/Mr2OPLBGWsK15uGZCObmetdILk/TdC1JZ3LB
-	/dzblUDLVBE4RCdd2CGTmomJMo9q0srP32B2dhf5L+FmZz8gUZkRRIjQjW2BSbPsBmxuP3
-	tO/fiw/iIwQ8gJrKDs7I+aVd1Sqd5R1EaJAYqUIhTeprR5ZuT2VDHqAWIJtRDvMT0fCiNA
-	TBjSKAPnLaS7cBnFL2zeJFqDO/RzZhXKD3m3HBTMdFc/srRBZUQuYatxxvf5kkZ/Xh+eC8
-	bgoPBxq+Ws10Z+j+g8uBoXM9wN7DgTZEaSSfuLQ+qjkWt0do93gOvTIWj6RVjg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA37606A322;
+	Wed, 21 Oct 2026 19:48:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA37606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [127.0.1.1] (unknown [223.166.93.48])
+	by APP-03 (Coremail) with SMTP id rQCowAB3gT_6Ftlqxu5hCw--.4480S2;
+	Thu, 22 Oct 2026 03:48:12 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+Subject: [PATCH 00/18] riscv: add initial support for Zhihe A210 and Melon
+ Pi
+Date: Thu, 22 Oct 2026 03:48:08 +0800
+Message-Id: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,89 +48,123 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 21 Oct 2026 21:48:28 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Chris Babroski <cbabroski@nvidia.com>
-Cc: Raju.Lakkaraju@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, bryan.whitehead@microchip.com, davem@davemloft.net,
- davthompson@nvidia.com, edumazet@kernel.org, kuba@kernel.org,
- linux-kernel@vger.kernel.org, linux@armlinux.org.uk,
- maxime.chevallier@bootlin.com, netdev@vger.kernel.org, pabeni@redhat.com,
- richardcochran@gmail.com
-Subject: Re: [PATCH net-next v1 0/5] net: lan743x: automatically recover from
- TX hang
-In-Reply-To: <20261021192341.361517-1-cbabroski@nvidia.com>
-References: <c0117e4e987c3bd349e56a979cbbdbc5@tipi-net.de>
- <20261021192341.361517-1-cbabroski@nvidia.com>
-Message-ID: <86df200787e1be614b21a7d009e8f1be@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVpBw2uIhZVg7EoaRGJuLti+
+ ZKff0EgzxSgTi7wdHDgxUWoNAE7GTeS4D4aUKJWElEYVFKw4030WWm7inReaAOxXz0NfH6vpv0
+ d9m4mu70DuO8Hf3JP0m0AAAA=
+X-Change-ID: 20261022-a210-init-d38cb9e6456a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Icenowy Zheng <uwu@icenowy.me>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.16.0
+X-CM-TRANSID:rQCowAB3gT_6Ftlqxu5hCw--.4480S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCw4rAFW3ArW8Zr4kCF1UAwb_yoW5Aw4xpF
+	srCrW3tFWUCr4aqr4fZF48Cr1fXF1rGa4aga9Fg347JFsxAFWUAwnxKFyvyr4kGrs3Cry2
+	yFyUG393ua4YvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
+	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
+	BIdaVFxhVjvjDU0xZFpf9x0pRWv3bUUUUU=
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBggHDGrYxtWXvwAAsM
 
-Hi Chris
+This series adds initial support for the Zhihe A210 SoC and the Melon Pi
+V1 and V2 boards.
 
-On 21.10.2026 21:23, Chris Babroski wrote:
->>> Is there anything special about the 52 byte usage?
->> 
->> Not that I know of. It looks like the head of a scatter-gather frame
->> whose fragments never came in. Does it match the buffer_length of the
->> first active descriptor at tx->last_head?
-> 
-> Yes, you're right, tx->last_head is pointing to the header of a TSO
-> frame and the consistent 52 bytes was just an artifact of the test
-> data I was using to reproduce this week which creates a 54-byte
-> header. FCT_TX_USED is 52 bytes, but tx->last_head has a buffer_length
-> of 54, so not sure where the 2 byte difference comes from. TX_HEAD
-> stopped at the frame's payload descriptor, after the TSO extension
-> descriptor.
+The A210 features eight RISC-V cores in two clusters: four C908 cores
+and four C920 cores.
 
-AN2948 5.2.9 says FCT_TX_USED counts the frame length rounded up to a
-dword plus the command words, so a 54 byte header should read 56 or
-more. 52 does not add up, so I would leave that to Microchip.
+This series provides UART, clock, reset and pinctrl support, together
+with the required bindings and device trees.
 
-The same document lists TX_ERR_STS0 with TX_DATA_READ_ERR and
-TX_DESC_READ_ERR, set when a PCIe read failed "and all retries have
-been used", and FCT_TXE for a failed FCT sanity check. They land in
-DMAC_INT_STS bit 21, which the driver never enables or reads. What do
-TX_ERR_STS0, DMAC_INT_STS and FCT_INT_STS show while it hangs?
+It is based on Linux v7.3 and has been boot-tested on a Melon Pi V2
+with all eight CPUs online.
 
-DMAC_CFG MAX_READ_REQ is not a size either. It is the number of
-outstanding TX data reads, 1 to 6, and the driver sets 6. Does the
-hang survive MAX_READ_REQ = 1?
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+Han Gao (6):
+      dt-bindings: clock: add Zhihe A210 AON clock controller
+      dt-bindings: timer: add Zhihe A210 CLINT
+      riscv: dts: zhihe: add A210 module memory
+      riscv: dts: zhihe: add Melon Pi V1 and V2
+      riscv: defconfig: enable A210 support
+      MAINTAINERS: add Zhihe A210
 
-> 
->> Which one? Ours sit behind a Pericom PI7C9X2G404.
-> 
-> Oh, we are also using a Diodes switch, the PI7C9X3G606GP.
+Zhiguo Zhu (12):
+      dt-bindings: vendor-prefixes: add Zhihe
+      riscv: add Zhihe A210 support
+      dt-bindings: clock: add Zhihe A210 clock controllers
+      clk: zhihe: add A210 support
+      dt-bindings: reset: add Zhihe A210 reset controllers
+      reset: zhihe: add A210 support
+      dt-bindings: pinctrl: add Zhihe A210 pin controller
+      pinctrl: zhihe: add A210 support
+      dt-bindings: interrupt-controller: add Zhihe A210 PLIC
+      dt-bindings: riscv: add Melon Pi V1 and V2
+      riscv: dts: zhihe: add A210 core support
+      riscv: dts: zhihe: add A210 UARTs
 
-Same family then - and I it's known to have it quirks ...
-Ours is the Gen2 part at 2.5 GT/s and has not hung so far, but that
-port sees little TX load. If you can share the reproducer I can run it 
-here.
+ .../bindings/clock/zhihe,a210-aon-clk.yaml         |   58 +
+ .../devicetree/bindings/clock/zhihe,a210-clk.yaml  |  231 ++
+ .../interrupt-controller/sifive,plic-1.0.0.yaml    |    1 +
+ .../bindings/pinctrl/zhihe,a210-pinctrl.yaml       |  206 ++
+ .../bindings/reset/zhihe,a210-reset.yaml           |   56 +
+ Documentation/devicetree/bindings/riscv/zhihe.yaml |   27 +
+ .../devicetree/bindings/timer/sifive,clint.yaml    |    1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
+ MAINTAINERS                                        |   16 +
+ arch/riscv/Kconfig.socs                            |   10 +
+ arch/riscv/boot/dts/Makefile                       |    1 +
+ arch/riscv/boot/dts/zhihe/Makefile                 |    2 +
+ arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi |   55 +
+ arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts      |    9 +
+ arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts      |    9 +
+ arch/riscv/boot/dts/zhihe/a210-som.dtsi            |   11 +
+ arch/riscv/boot/dts/zhihe/a210.dtsi                |  645 ++++++
+ arch/riscv/configs/defconfig                       |    4 +
+ drivers/clk/Kconfig                                |    1 +
+ drivers/clk/Makefile                               |    1 +
+ drivers/clk/zhihe/Kconfig                          |   12 +
+ drivers/clk/zhihe/Makefile                         |    2 +
+ drivers/clk/zhihe/clk-a210-aon.c                   |   94 +
+ drivers/clk/zhihe/clk-a210-ap.c                    | 2283 ++++++++++++++++++++
+ drivers/pinctrl/Kconfig                            |   14 +
+ drivers/pinctrl/Makefile                           |    1 +
+ drivers/pinctrl/pinctrl-a210.c                     | 1206 +++++++++++
+ drivers/reset/Kconfig                              |   11 +
+ drivers/reset/Makefile                             |    1 +
+ drivers/reset/reset-a210.c                         |  589 +++++
+ include/dt-bindings/clock/zhihe,a210-aon-clk.h     |    9 +
+ include/dt-bindings/clock/zhihe,a210-clk.h         |  649 ++++++
+ include/dt-bindings/reset/zhihe,a210-resets.h      |  351 +++
+ 33 files changed, 6568 insertions(+)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261022-a210-init-d38cb9e6456a
 
-> [...]
+Best regards,
+--  
+Han Gao <gaohan@iscas.ac.cn>
 
->> My guess: the replay hands the NIC a completion it had already 
->> counted,
->> and the DMA engine then waits for data that never comes, with nothing
->> in the error registers.
->> 
->> Lowering MaxReadReq to 128 bytes with setpci would be a cheap way to
->> test that?
-> 
-> Unfortunately, we can still reproduce with MaxReadReq set to 128.
-> Using the same test as mentioned previously, the FCT_TX_USED now shows
-> the header plus ~1 KB of payload data instead of 52 bytes.
-
-So not the request size. What is left in the driver is the descriptor
-prefetch. lan743x_tx_open() sets TX_PF_THRES to 0x10 and
-TX_PF_PRI_THRES to 4, and the prefetcher works hardest with a full
-ring, which is when you see the most hangs. Does TX_PF_THRES 1 change
-the rate?
-
-> [...]
-
-Regards,
-Nicolai
