@@ -1,56 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595061;
-	b=eOM4HILYINiuJLyXltvKuGP/fNOHrEPWQXMSIxTmeBOIujLCczqK0mvrfnvuhXdMuqhE
-	 pFhqjx28CCfeIDKnO14n+/8ejK8ayNpSwRd3PF56LoYknRWQxWWNH2eAApC0tF44Ki9/x
-	 dHhXBKvphl9uFCe0S9Ff+ads8IkkLKIRqDXdoq2rFCjVFxkE4gG4NtJfi/RoSSafax9e6
-	 ZtuqY8cN3T40/6adfkkSnAdrZYqDF9sI39Bb2zkin+vkDN184Vwe8nmGrIPSk8mKfYZzB
-	 b+jxkTJ5IR2+3ygxp4YI5yKDTCaMKdTJtzGYjd96iY7PCCag7X55uBZ0fDQT6XqQieA==
+	t=1792595090;
+	b=L/CvUiDP/+lciT/X2AolBe5nfmWc3BAPod0qRY+FagiGuFhWOQjvHApOhm/QXyYn0AJY
+	 FA8WAQPD7AZr8X1WyRIXtbUCBw9EqOc6YmHx0fkSXMcJ6npIksuedyyj+cVTfEjS7wCu/
+	 qof5NPHnbIzDFWZePqNfl9/1C7HGzwes1UPYE5FTqaUDEcvEu/RoJoOBPqOT0az4+wvfo
+	 WpgZIIj5x6Zo7QZthWaKpdSZ+3QP48steECiGzKy7x/JTiohypknya+qSknKpDYq7N3ST
+	 xBJp4kXnB+N+g28lRhrxj3vsQL79tmOrYfaHtaK6HF3PeNLZzLls8YHepzYEnKM5RzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595061;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ZSxyEI4AsGYUJT5acb4ZBGKg6gQOIHPiQd5kF/QQLZg=;
-	b=WQ0smKm1F97lfylpG8S5qUI6AufNgYO5raJ5ItOylew1MlIx0jkQ/jodEZ7PqlxMT4hc
-	 ieX41NN7PJo5g1gdDAQpew/UQbz58hhiZ44b17/rw1hvr8gO4qVuoR+2h0bab6Zz6Pb39
-	 amBGazTDT2j4l6Gq3hHvIgGWAYtxxrRrrqeIgg2Tiu5UleIzUdH+AwBv8jKkmdHB2CAhM
-	 fN5RVHrEnY4GmRuq6GVnPmF0cHSx0q/j0jGdN29PypbAxpr8hNBb843HibXWpFEnsDIWE
-	 VIBiRrx3XK86R/eCc1a2rflqO4mTsQmb9mKFccENBPg/vWpSG0YClT53rKkqF7vs2EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595090;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=8T+G7Q1w12+FTvzcXtLFnt6A23468XnwYVbQ1vgJF1U=;
+	b=A+huqX0Y6e0uWOl9NH+lnHl8ESG5PwoSpa//Q50vj7yjym1Ak7Bp0s1N8FE/Ltega6N3
+	 WevlNslGLjBa5TVYFPJDWJN0aIRY8eqbL58CTQPvy6Mz/+y0LzLhJAAnLwfC41YCXUzwa
+	 obZhOWIbEe0BpwVIbAYy+x25ySMzTyYSiUPDZON4EC8qIjqE6uBjWckkgDETuoYmmu6Gd
+	 CXS6Wx4MxVOCdYIX8qag6r99hBAtVpPpLFouM9uTkc7tUBMx/M7kI3a5YAiQUBT8tR7LF
+	 rNBAHr9bj6rcWO4z78nIryweuAdnWndLFEHbgnZSFmvkcGoY5+piM5ZhSVOq0HSEjdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=amW+ICYO;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mcG7Nd6g;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF71606A319;
-	Wed, 21 Oct 2026 15:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF5E606A31B;
+	Wed, 21 Oct 2026 15:04:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF5E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=amW+ICYO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 062211F000C2;
-	Wed, 21 Oct 2026 15:04:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792595061;
-	bh=ZSxyEI4AsGYUJT5acb4ZBGKg6gQOIHPiQd5kF/QQLZg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=amW+ICYO77hrYCXI3wxQUrwhumFowu5yCjiD8M5x6qQ7V+NQlqBJHhyRzHjm0sWXe
-	 khn0AEQaR8c7op+6XCCV+sQwM7a3zC5HTcr4NXdLzHPbxUoxFDoU3ABBKZ06m3xhPw
-	 cFGFBLPGog/oW2lnWWSQMRrh8arlZRXs8AE4JgWI=
-Date: Wed, 21 Oct 2026 11:04:20 -0400
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-Message-ID: <20261021-origami-groundhog-of-radiance-78baf9@lemur>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <20261021063927.GA31908@sol>
- <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
- <20261021064940.GC31908@sol>
- <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=mcG7Nd6g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=8T+G7Q1w12+FTvzcXtLFnt6A23468XnwYVbQ1vgJF1U=; b=m
+	cG7Nd6ge2s6/IFaIVw8tn3Su7pqOJXDgx3CPYCqWBsHZkR3mSL4aNvIcOfKlnC7G
+	SG5m7UtzKqGEBPCNeYSd1J65ooiraZaP3O7GhJ7EyYBhE+mLOW/dIpzWA9KN5c70
+	/maWeMsfX42LGhMOh7rSe6Y/7VVH1Eq/ENkk3QWcuM=
+Date: Wed, 21 Oct 2026 23:04:23 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Dave Jiang" <dave.jiang@intel.com>
+Cc: "Andrew Morton" <akpm@linux-foundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	"Len Brown" <lenb@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-acpi@vger.kernel.org
+Subject: Re:Re: [PATCH] lib/firmware_table: validate subtable bounds
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <10926256-ce32-4403-9f45-84f42fefe29c@intel.com>
+References: <20261016144154.2818962-1-yaojiale02@163.com>
+ <20261016161547.bc418897d11f3f19924065b4@linux-foundation.org>
+ <10926256-ce32-4403-9f45-84f42fefe29c@intel.com>
+X-NTES-SC: AL_Qu2SAPmSukgt5SKaZekcn08ShO49XMOyvfoi2YFTc+AEnyzt4CYNekNFJlbR4NixDT6PtCCIYido2OlHUoR6sXcqme3QhY/LPdOMDp6b5A==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,39 +67,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+Message-ID: <748c0fc7.9d0c.1a15efdf1bc.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:aygvCgDnzz531Nhqz4ddAA--.902W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC7xcjXWrY1HdxIAAA3G
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
-> >> So again: base has ZERO meaning to the maintainer process. It has
-> >> meaning to tools, so fix the tools to work on known and obvious trees.
-> > 
-> > So what is your proposed algorithm to apply an arbitrary patch when
-> 
-> Already provided that, so to recap:
-> 
-> > there's no base-commit?  Including any historical patch (from
-> > months/years ago), patches with dependencies, etc.
-> 
-> Dependency is something else, but for every other patch:
-> 1. For testing/CI: you apply on top of next
-> 2. Every other case the maintainer knows where to apply it, because it
-> is his HEAD of next-branch.
-> 
-> I am repeating myself, but I really had no single problem of lack of
-> knowledge where to apply a patch as a maintainer or reviewer of some
-> subsystem, thus maybe I do not understand the actual problem you are
-> experiencing.
-
-From my perspective, I don't really want to force contributors to manually
-provide the tree information, but it's helpful if tooling includes it
-automatically.
-
-Specifically, I am working on a service that eager-builds git bundles for all
-submitted patch series -- the goal is to make it simple for CI systems to
-fetch patch submissions as bundles that are already applicable against
-mainline. Knowing which tree and commit the series is based on is really
-helpful when figuring this out.
-
--K
+QXQgMjAyNi0xMC0xOSAyMzoyOTo1NywgIkRhdmUgSmlhbmciIDxkYXZlLmppYW5nQGludGVsLmNv
+bT4gd3JvdGU6Cj4KPgo+T24gMTAvMTYvMjYgNDoxNSBQTSwgQW5kcmV3IE1vcnRvbiB3cm90ZToK
+Pj4gT24gRnJpLCAxNiBPY3QgMjAyNiAyMjo0MTo1NCArMDgwMCBKaWFsZSBZYW8gPHlhb2ppYWxl
+MDJAMTYzLmNvbT4gd3JvdGU6Cj4+IAo+Pj4gVGhlIGdlbmVyaWMgZmlybXdhcmUgdGFibGUgd2Fs
+a2VyIGRpc3BhdGNoZXMgbWF0Y2hpbmcgZW50cmllcyBhZnRlciBvbmx5Cj4+PiBjaGVja2luZyB0
+aGF0IGEgZ2VuZXJpYyBzdWJ0YWJsZSBoZWFkZXIgaXMgcHJlc2VudC4gQSByZWNvcmQgd2hvc2UK
+Pj4+IGRlY2xhcmVkIGxlbmd0aCBpcyBzaG9ydGVyIHRoYW4gaXRzIGhlYWRlciBvciBleHRlbmRz
+IHBhc3QgdGhlIHRhYmxlIGNhbgo+Pj4gdGhlcmVmb3JlIHJlYWNoIGEgaGFuZGxlciBiZWZvcmUg
+aXRzIGJvdW5kcyBoYXZlIGJlZW4gZXN0YWJsaXNoZWQuCj4+Pgo+Pj4gVmFsaWRhdGUgdGhlIGNv
+bXBsZXRlIGdlbmVyaWMgaGVhZGVyIGFuZCB0aGUgZGVjbGFyZWQgcmVjb3JkIHJhbmdlCj4+PiBi
+ZWZvcmUgbG9va2luZyB1cCBvciBpbnZva2luZyBhIGhhbmRsZXIuIFRoaXMgYWxzbyByZWplY3Rz
+IHplcm8tbGVuZ3RoCj4+PiByZWNvcmRzIGFuZCBwcmV2ZW50cyBtYWxmb3JtZWQgbGVuZ3RocyBm
+cm9tIGFkdmFuY2luZyB0aGUgY3Vyc29yIG91dHNpZGUKPj4+IHRoZSB0YWJsZS4KPj4gCj4+IFRo
+YW5rcy4KPj4gCj4+IGdldF9tYWludGFpbmVyIGlzIHF1aXRlIHVucmVsaWFibGUgd2l0aCBsaWIv
+IGZpbGVzLiAgUGxlYXNlIGFsd2F5cyB1c2UKPj4gZ2l0LWJsYW1lIHdoZW4gZGV0ZXJtaW5pbmcg
+d2hvIHNob3VsZCBiZSBjYydlZC4KPj4gCj4+IERhdmUsIGNhbiB5b3UgcGxlYXNlIHRha2UgYSBs
+b29rPwo+PiAKPj4+IC0tLSBhL2xpYi9md190YWJsZS5jCj4+PiArKysgYi9saWIvZndfdGFibGUu
+Ywo+Pj4gQEAgLTE3Miw3ICsxNzIsMjAgQEAgYWNwaV9wYXJzZV9lbnRyaWVzX2FycmF5KGNoYXIg
+KmlkLCB1bnNpZ25lZCBsb25nIHRhYmxlX3NpemUsCj4+PiAgCSAgICAoKHVuc2lnbmVkIGxvbmcp
+dGFibGVfaGVhZGVyICsgdGFibGVfc2l6ZSk7Cj4+PiAgCXN1YnRhYmxlX2xlbiA9IGFjcGlfZ2V0
+X3N1YnRhYmxlX2hlYWRlcl9sZW5ndGgoJmVudHJ5KTsKPj4+ICAKPj4+IC0Jd2hpbGUgKCgodW5z
+aWduZWQgbG9uZyllbnRyeS5oZHIpICsgc3VidGFibGVfbGVuIDwgdGFibGVfZW5kKSB7Cj4+PiAr
+CXdoaWxlICgodW5zaWduZWQgbG9uZyllbnRyeS5oZHIgPCB0YWJsZV9lbmQpIHsKPj4+ICsJCWlm
+ICh0YWJsZV9lbmQgLSAodW5zaWduZWQgbG9uZyllbnRyeS5oZHIgPCBzdWJ0YWJsZV9sZW4pIHsK
+Pj4+ICsJCQlwcl9lcnIoIlslNC40c10gSW52YWxpZCBzdWJ0YWJsZSBoZWFkZXJcbiIsIGlkKTsK
+Pj4+ICsJCQlyZXR1cm4gLUVJTlZBTDsKPj4+ICsJCX0KPj4+ICsKPj4+ICsJCWVudHJ5X2xlbiA9
+IGFjcGlfZ2V0X2VudHJ5X2xlbmd0aCgmZW50cnkpOwo+Pj4gKwkJaWYgKGVudHJ5X2xlbiA8IHN1
+YnRhYmxlX2xlbiB8fAo+Pj4gKwkJICAgIGVudHJ5X2xlbiA+IHRhYmxlX2VuZCAtICh1bnNpZ25l
+ZCBsb25nKWVudHJ5Lmhkcikgewo+Pj4gKwkJCXByX2VycigiWyU0LjRzOjB4JTAybHhdIEludmFs
+aWQgbGVuZ3RoICVsdVxuIiwgaWQsCj4+PiArCQkJICAgICAgIGFjcGlfZ2V0X2VudHJ5X3R5cGUo
+JmVudHJ5KSwgZW50cnlfbGVuKTsKPj4+ICsJCQlyZXR1cm4gLUVJTlZBTDsKPj4+ICsJCX0KPj4+
+ICsKPj4+ICAJCWZvciAoaSA9IDA7IGkgPCBwcm9jX251bTsgaSsrKSB7Cj4+PiAgCQkJaWYgKGFj
+cGlfZ2V0X2VudHJ5X3R5cGUoJmVudHJ5KSAhPSBwcm9jW2ldLmlkKQo+Pj4gIAkJCQljb250aW51
+ZTsKPj4+IEBAIC0xODYsMTYgKzE5OSw2IEBAIGFjcGlfcGFyc2VfZW50cmllc19hcnJheShjaGFy
+ICppZCwgdW5zaWduZWQgbG9uZyB0YWJsZV9zaXplLAo+Pj4gIAkJCWJyZWFrOwo+Pj4gIAkJfQo+
+Pj4gIAo+Pj4gLQkJLyoKPj4+IC0JCSAqIElmIGVudHJ5LT5sZW5ndGggaXMgMCwgYnJlYWsgZnJv
+bSB0aGlzIGxvb3AgdG8gYXZvaWQKPj4+IC0JCSAqIGluZmluaXRlIGxvb3AuCj4+PiAtCQkgKi8K
+Pj4+IC0JCWVudHJ5X2xlbiA9IGFjcGlfZ2V0X2VudHJ5X2xlbmd0aCgmZW50cnkpOwo+Pj4gLQkJ
+aWYgKGVudHJ5X2xlbiA9PSAwKSB7Cj4+PiAtCQkJcHJfZXJyKCJbJTQuNHM6MHglMDJ4XSBJbnZh
+bGlkIHplcm8gbGVuZ3RoXG4iLCBpZCwgcHJvYy0+aWQpOwo+Pj4gLQkJCXJldHVybiAtRUlOVkFM
+Owo+Pj4gLQkJfQo+Pj4gLQo+Pj4gIAkJZW50cnkuaGRyID0gKHVuaW9uIGFjcGlfc3VidGFibGVf
+aGVhZGVycyAqKQo+Pj4gIAkJICAgICgodW5zaWduZWQgbG9uZyllbnRyeS5oZHIgKyBlbnRyeV9s
+ZW4pOwo+Pj4gIAl9Cj4+PiAtLSAKPj4+IDIuMzQuMQo+Cj5DYW4gdGhpcyB0dXJuIGEgcHJldmlv
+dXNseSBhY2NlcHRlZCB0YWJsZSBpbnRvIGEgZmF0YWwgcGFyc2UgZXJyb3I/IE15Cj5tYWluIGNv
+bmNlcm4gaXMgYnJlYWtpbmcgcHJldmlvdXNseSB0b2xlcmF0ZWQgYmVoYXZpb3IgYW5kIHdlIGVu
+ZCB1cAo+YnJlYWtpbmcgZGVwbG95ZWQgc3lzdGVtcy4gR2l2ZW4gdGhpcyBjb2RlIGhhcyBiZWVu
+IGFyb3VuZCBhIGxvbmcgdGltZS4KPk1heWJlIFJhZmFlbCBvciBMZW4gY2FuIGNvbW1lbnQuCj4K
+PlRoZSBvbGQgbG9vcCBzdG9wcGVkIHF1aWV0bHkgd2hlbiBzdWJ0YWJsZV9sZW4gb3IgZmV3ZXIg
+Ynl0ZXMgcmVtYWluZWQKPmFmdGVyIHRoZSBsYXN0IGVudHJ5LiBIZXJlIHN1YnRhYmxlX2xlbiBp
+cyBzaXplb2YoKSB0aGUgc3VidGFibGUgaGVhZGVyCj5zdHJ1Y3R1cmUsIDIgYnl0ZXMgZm9yIE1B
+RFQgb3IgNCBmb3IgQ0RBVCwgbm90IHRoZSBlbnRyeSdzIGxlbmd0aCBmaWVsZC4KPgo+Tm93IGZl
+d2VyIHRoYW4gc3VidGFibGVfbGVuIGxlZnRvdmVyIGJ5dGVzIHJldHVybiAtRUlOVkFMLiBFeGFj
+dGx5Cj5zdWJ0YWJsZV9sZW4gbGVmdG92ZXIgYnl0ZXMgYXJlIHJlYWQgYXMgYSBoZWFkZXIsIGFu
+ZCBmYWlsIHRoZSBlbnRyeV9sZW4KPmNoZWNrIGJlbG93IHVubGVzcyB0aGV5IGhhcHBlbiB0byBo
+b2xkIGEgdmFsaWQgb25lLiBBIHRhYmxlIHdpdGggYSBmZXcKPmJ5dGVzIG9mIHBhZGRpbmcgYWZ0
+ZXIgdGhlIGxhc3QgZW50cnkgbm93IGZhaWxzIHRoZSB3aG9sZSBwYXJzZS4KPgo+T24geDg2IHRo
+YXQgZXJyb3IgaXMgbm90IGNvbnRhaW5lZCB0byBvbmUgZW50cnkgdHlwZToKPgo+ZWFybHlfYWNw
+aV9wcm9jZXNzX21hZHQoKQo+ICBlYXJseV9hY3BpX3BhcnNlX21hZHRfbGFwaWNfYWRkcl9vdnIo
+KQo+ICAgIGFjcGlfdGFibGVfcGFyc2VfbWFkdChBQ1BJX01BRFRfVFlQRV9MT0NBTF9BUElDX09W
+RVJSSURFLCAuLi4pCj4gICAgICAtPiAtRUlOVkFMCj4KPglpZiAoZXJyb3IgPT0gLUVJTlZBTCkg
+ewo+CQkuLi4KPgkJcHJfZXJyKCJJbnZhbGlkIEJJT1MgTUFEVCwgZGlzYWJsaW5nIEFDUElcbiIp
+Owo+CQlkaXNhYmxlX2FjcGkoKTsKPgl9Cj4KPldvdWxkIGl0IGJlIHNhZmVyIHRvIGtlZXAgdG9s
+ZXJhdGluZyBsZWZ0b3ZlciBieXRlcyB0b28gc21hbGwgdG8gaG9sZCBhCj5zdWJ0YWJsZSBoZWFk
+ZXIsIGFuZCByZWplY3Qgb25seSBlbnRyaWVzIHdob3NlIGRlY2xhcmVkIGxlbmd0aCBpcwo+aW52
+YWxpZD8gVGhlIGxvb3AgY29uZGl0aW9uIGNhbiBlbmQgdGhlIHdhbGsgaW4gdGhhdCBjYXNlIHdp
+dGhvdXQgYQo+c2VwYXJhdGUgY2hlY2s6Cj4KPgl3aGlsZSAoKHVuc2lnbmVkIGxvbmcpZW50cnku
+aGRyICsgc3VidGFibGVfbGVuIDw9IHRhYmxlX2VuZCkgewo+CQllbnRyeV9sZW4gPSBhY3BpX2dl
+dF9lbnRyeV9sZW5ndGgoJmVudHJ5KTsKPgkJaWYgKGVudHJ5X2xlbiA8IHN1YnRhYmxlX2xlbiB8
+fAo+CQkgICAgZW50cnlfbGVuID4gdGFibGVfZW5kIC0gKHVuc2lnbmVkIGxvbmcpZW50cnkuaGRy
+KSB7Cj4JCQkuLi4KPgkJCXJldHVybiAtRUlOVkFMOwo+CQl9ClRoYW5rcyBmb3IgeW91ciByZXZp
+ZXcsCmhvdyBhYm91dCB0aGlzIG9uZSwgaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYx
+MDIxMTUwMTU5LjM5OTA0My0xLXlhb2ppYWxlMDJAMTYzLmNvbQoKSmlhbGUK
