@@ -1,63 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562983;
-	b=jK2mrg4Rxg3z5ZUoPA2QixiYVk9znFPQef//yjfYcjbgFqybeyc2KgqL1GBuGD8h3Q4v
-	 1H5DLqE42Dg0ofYtrnMON2N1ZkZpS8Awk0KSNW0fSjUxHHBC88yUyCdqfMnoBLc8LgobX
-	 LpG9zZbKOKOiN3YA4gdyUQhq5QtZA4jRhmsoKQUbg0BDd2r/GjziJAjD/komdCQnUxlZg
-	 wYr5NbVDsj8UeeVobFsttnkpoCGkGrJQie2/V25u7wEtrbmaF0PeBmp6KF7Rd0f28V5lb
-	 EHWJ8j7F1/JNdS8m3SIgH8kHQ8Pq8K0b5ziieu6btZf6pDWRwEL0No2QV9xSvEodyng==
+	t=1792562988;
+	b=5GOyLhBUQocsITG3BNPbp7iLqWNtlnwms/dfpNlhrUXUf2elB7iWCbx+3sraL4jlyl8N
+	 6ngEtp3PzUZnkxuB6JX9gNQNz3EiX9Guus+9n6vashrrA5PI6lT9CoZ+7L+Ga+tunuMPt
+	 nONc28AQ4pFN78CHBsEAY/vqfcrLg4QomQGTvAjMuHFiMkwM8bxeGZRYNbS95eWwAeIq3
+	 04Hgia+189nkVNPs1DVCUyx5ngy4SImtrzbNeG5+wjRa/IbhHH3NS4xFlbGRCJ0LvGk4g
+	 oVpX6PlkhFn1LGTLCTF0BXdqzVMZPS0dchWa1XWVOmeR7s134eqjrrrNsDijWIWXFYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562983;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562988;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
-	bh=Y3Kbd4rECN07DcxByi+wY4G9Biu9iKfm+5QZE7UXzxc=;
-	b=fwFCbyL7TwVL2Pg0AmL4xYzRI+O9MN5ps+WWJYgwPmn0jR0AF9o5wJ2DVh3MrvDyO+LW
-	 Yks7IJc2HXqBqLcLNT7yrlqh+tVLoyBbmcm4j6Hrwt1tP4wn+XYi1ULIjkiBnXX3NIJM3
-	 NCJG+a1uSR2aZPqaqnLZx/wQX8Gt6kNJODAfIzF8RJGUGIVzufZZ42A8mu3KCe57otaZE
-	 biGri4CkN5Ifu0vJs8waaOK9nQaSTP/UBIHXfDMq1IBqAW0OLRrJgy7AqV1y4/heP/zBz
-	 bDT3Y7MqSj0kXwHTHk/n0V1+wruM1u2+olHYkzdnWx3MGNhc9BJShbCkRjhYMg4Cy0A==
+	 Message-ID:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Scanned-By;
+	bh=/oPZ5v8UURnygDGPq56oBxX6OW/e3IZH+1dLPLTtNgg=;
+	b=5EJIan5JUaspV7t9eWblttKCbdtXRvnXrfTrAFWMJ0rBTDHYAEDPgGLJ/UUPzPla1hEY
+	 cL1p639AYNuCICPOzMimFsGQdv5ZK05Hub0296/mmzDXnGkkctWReDq3r2uW7DkU1WsIY
+	 sYqjClBA2gDw0RCzuM8P/ttUzNcQEkvdeMqLB0TodAz1ep+LKDhGgZCbb4ZR7VXhsBIy1
+	 9kstYyQFSVpik3tnM2Tio+1IduF1W93llswqb+fUNsHvQipxTiyIfW7pogiPwdZlGsLtV
+	 HopGqdumME/tdMsyzZp1LOtYR80VHEPFQaMaTEBdkMtXJ+TIvEdrTvazcCu2cItTk8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LkFUIp0f;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IBnampiP;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3B4606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:09:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB3B4606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C29B606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:09:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C29B606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LkFUIp0f
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=IBnampiP
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792562982;
+	s=mimecast20190719; t=1792562987;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Y3Kbd4rECN07DcxByi+wY4G9Biu9iKfm+5QZE7UXzxc=;
-	b=LkFUIp0fPfD1gs6ovWe7solNwuywKSFoEoBZgzUecpxYOTmn/6CCkaef5fNIrMQ/2zxixk
-	LIrwk9wHCduu2tyfLAUt1lGEz2MKDfhvwX9Y0InSHqjO6IFu2LtSCYAPCiuMh0L3jnDfar
-	pKXKULknoUKlTOXJhmDxXg63u8VQMng=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/oPZ5v8UURnygDGPq56oBxX6OW/e3IZH+1dLPLTtNgg=;
+	b=IBnampiPwZ4euwDi51Gdyhyut63zEPQK/1uyHLSqxIGu2NVPcososBWDjHafDkkG03B8oA
+	Nenv3DtqtWeUwOfZnFV2euMjOOLT1tM9/Bo2Y/Kq7BrI0zPJPM9+xIMpGkAF8GrpJU30oz
+	GOYepO7oWxrt2B0LAB+bP/ZCo/xa398=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-292-bItbCJ_LODKIpUzCS97Hhg-1; Wed,
- 21 Oct 2026 06:09:40 +0000
-X-MC-Unique: bItbCJ_LODKIpUzCS97Hhg-1
-X-Mimecast-MFC-AGG-ID: bItbCJ_LODKIpUzCS97Hhg_1792562979
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-551-Or28QkqkNAyBY-zPtmy13w-1; Wed,
+ 21 Oct 2026 06:09:44 +0000
+X-MC-Unique: Or28QkqkNAyBY-zPtmy13w-1
+X-Mimecast-MFC-AGG-ID: Or28QkqkNAyBY-zPtmy13w_1792562983
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E44751956065;
-	Wed, 21 Oct 2026 06:09:38 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 280A4180066F;
+	Wed, 21 Oct 2026 06:09:43 +0000 (UTC)
 Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0A51B1800347;
-	Wed, 21 Oct 2026 06:09:36 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6A1521800480;
+	Wed, 21 Oct 2026 06:09:41 +0000 (UTC)
 From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
 To: jjohnson@kernel.org
 Cc: ath11k@lists.infradead.org,
@@ -65,9 +67,11 @@ Cc: ath11k@lists.infradead.org,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH v8 0/2] wifi: ath12k: implement TX flow control
-Date: Wed, 21 Oct 2026 08:09:29 +0200
-Message-ID: <20261021060931.249629-1-jtornosm@redhat.com>
+Subject: [PATCH v8 1/2] wifi: ath12k: remove skb parameter from get_ring_selector
+Date: Wed, 21 Oct 2026 08:09:30 +0200
+Message-ID: <20261021060931.249629-2-jtornosm@redhat.com>
+In-Reply-To: <20261021060931.249629-1-jtornosm@redhat.com>
+References: <20261021060931.249629-1-jtornosm@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,30 +84,93 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-This series implements a custom wake_tx_queue operation for the ath12k
-driver to prevent hardware ring overflow issues under heavy traffic.
+Change the get_ring_selector hw_ops callback signature from
+get_ring_selector(struct sk_buff *skb) to get_ring_selector(u8 ac),
+removing the dependency on the skb.
 
-Without proper flow control, the driver can hang and experiences -ENOMEM
-errors ("failed to transmit frame -12") when the hardware TCL ring fills
-up. These issues are more commonly observed in VMs with PCIe passthrough
-but also occur on bare metal systems.
+All ath12k get_ring_selector implementations fall into two categories:
+ - smp_processor_id(): ignores the skb entirely
+ - skb_get_queue_mapping(): only reads the AC value from the skb
 
-The implementation follows the pattern used in the iwlwifi driver,
-adapted for ath12k hardware ring architecture, checking hardware ring
-space before dequeuing packets from mac80211.
+Since the AC is the only information extracted from the skb, pass it
+directly as a u8 parameter instead. Callers in the dp_tx path now
+pass skb_get_queue_mapping(skb), which preserves the exact same
+behavior.
 
-Testing shows stable operation with eliminated -ENOMEM errors, no hangs,
-and improved throughput under heavy traffic conditions.
+This change enables a subsequent patch to call get_ring_selector()
+from wake_tx_queue using txq->ac, without needing access to the skb.
+mac80211 guarantees that skb_get_queue_mapping(skb) == txq->ac
+for any skb dequeued from a given txq, since both values are
+derived from the same skb->priority through the same AC mapping.
 
-Jose Ignacio Tornos Martinez (2):
-  wifi: ath12k: remove skb parameter from get_ring_selector
-  wifi: ath12k: implement custom wake_tx_queue with flow control
+No functional change.
 
+Tested-on: WCN7850 hw2.0 PCI WLAN.HMT.1.1.c7-00108-QCAHMTSWPL_V1.0_V2.0_SILICONZ_UPSTREAM-3
+
+Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+---
 v8: Split ath11k and ath12k into separate series to avoid conflict
     with Julius's airtime queue limits series (ath11k only) and help to
     unblock both
     No code changes from v7
-v7: https://lore.kernel.org/all/20260917064825.12747-1-jtornosm@redhat.com/
+v7: https://lore.kernel.org/all/20260917064825.12747-3-jtornosm@redhat.com/
+
+ drivers/net/wireless/ath/ath12k/hw.h          | 2 +-
+ drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c | 2 +-
+ drivers/net/wireless/ath/ath12k/wifi7/hw.c    | 6 +++---
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath12k/hw.h b/drivers/net/wireless/ath/ath12k/hw.h
+index 86fb8b719613..65caa7a2349f 100644
+--- a/drivers/net/wireless/ath/ath12k/hw.h
++++ b/drivers/net/wireless/ath/ath12k/hw.h
+@@ -243,7 +243,7 @@ struct ath12k_hw_ops {
+ 	int (*mac_id_to_pdev_id)(const struct ath12k_hw_params *hw, int mac_id);
+ 	int (*mac_id_to_srng_id)(const struct ath12k_hw_params *hw, int mac_id);
+ 	int (*rxdma_ring_sel_config)(struct ath12k_base *ab);
+-	u8 (*get_ring_selector)(struct sk_buff *skb);
++	u8 (*get_ring_selector)(u8 ac);
+ 	bool (*dp_srng_is_tx_comp_ring)(int ring_num);
+ 	bool (*is_frame_link_agnostic)(struct ath12k_link_vif *arvif,
+ 				       struct ieee80211_mgmt *mgmt);
+diff --git a/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c b/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c
+index d2749de44553..74359e8eea47 100644
+--- a/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c
++++ b/drivers/net/wireless/ath/ath12k/wifi7/dp_tx.c
+@@ -111,7 +111,7 @@ int ath12k_wifi7_dp_tx(struct ath12k_pdev_dp *dp_pdev, struct ath12k_link_vif *a
+ 	 * If all rings are full, we drop the packet.
+ 	 * TODO: Add throttling logic when all rings are full
+ 	 */
+-	ring_selector = dp->hw_params->hw_ops->get_ring_selector(skb);
++	ring_selector = dp->hw_params->hw_ops->get_ring_selector(skb_get_queue_mapping(skb));
+
+ tcl_ring_sel:
+ 	tcl_ring_retry = false;
+diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hw.c b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+index d9fdd2fc8298..7436cf70925a 100644
+--- a/drivers/net/wireless/ath/ath12k/wifi7/hw.c
++++ b/drivers/net/wireless/ath/ath12k/wifi7/hw.c
+@@ -49,7 +49,7 @@ ath12k_wifi7_hw_mac_id_to_srng_id_qcn9274(const struct ath12k_hw_params *hw,
+ 	return 0;
+ }
+
+-static u8 ath12k_wifi7_hw_get_ring_selector_qcn9274(struct sk_buff *skb)
++static u8 ath12k_wifi7_hw_get_ring_selector_qcn9274(u8 ac)
+ {
+ 	return smp_processor_id();
+ }
+@@ -83,9 +83,9 @@ ath12k_wifi7_hw_mac_id_to_srng_id_wcn7850(const struct ath12k_hw_params *hw,
+ 	return mac_id;
+ }
+
+-static u8 ath12k_wifi7_hw_get_ring_selector_wcn7850(struct sk_buff *skb)
++static u8 ath12k_wifi7_hw_get_ring_selector_wcn7850(u8 ac)
+ {
+-	return skb_get_queue_mapping(skb);
++	return ac;
+ }
+
+ static bool ath12k_wifi7_dp_srng_is_comp_ring_wcn7850(int ring_num)
 --
 2.54.0
 
