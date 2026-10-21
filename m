@@ -1,83 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.12.53.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616448;
-	b=kgwmRjKXE0qprB9wHJkHEFceXyX3qhTDhQlfOkPFJchfjnoYYGuCgdd28YZq/4EyFNSy
-	 +gJLh39puRqhZ5nE1Xij1jgbbH9AqB8QkK7s/DP55FGd63Qr4oCFfQrOxiDEFXwCtTtZF
-	 gzJ6WqoLbXWAibU5tUgPIwCyzzTDX33CiTGxWNjQpcECw/lY4YERiRcXNvzMiJqPKTVMW
-	 jP2+bl9TCKUG13lq9bdSCE0bnq1yO0CP7mHjWCvfM8zJEQFNgc1YiV/JHAENOwqnbuB2U
-	 HC4NZ4VBnj/ZvBJV+EfDIUKWdMwKC3HyFUUcjq+5BZxshm7LaPvFoZPF52PhRFV1wxw==
+	t=1792616470;
+	b=RMUy7Pm/qIqXdPOdxC9um+vk5X243dUSzN5hguC0Ar0XTbbbIIxZ6QJplu6Ne3u5BJNP
+	 F2/iQnToEd9vIdKBPaMmAuOkrk6KXn8jUqAnifPfxWmUZa4/S1ktb2CrB+JqCJCe/7L23
+	 TYERJIVJIGmnfJaVBW8/5W02tBO2fI4jSAKR2V3Jf3SFYJVXUz901QmWbueYOvYkpnEQL
+	 27qRj6yXlimS78M4xSgyJQCQPhskZTXEV9YZYwKSg7HPdo5s9e3iJiAh3CASI6F/OPKVj
+	 eNZrm9Fdc3X+Dlhlnz0o9yiWnn7HQ3Gcw+2O49GzKZ5Fh5cxz3JoWeC5Ihjf1HGoovg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616448;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=5SoBYLzK+ZdLfi5BCMX08p53Wh7vlbOFUlLFSPM85IU=;
-	b=3jf0RRxYklf2UgYjynZnvr6gthnmTdrFqLAWvENNrHoUEpjQNXtoTIIG0enXFcf5l1qE
-	 B4Z78zPBNNcKS2vQHckfsUeF9ebhqvysxyhDPfxkAgp/OU+6PabDxloJAZ9Lkgf0qlgAk
-	 GOeg3cojzWG/WEdD4whkXXpK1QJsBxzYJGusDhHuAL4nid+jOXNCwv/8TJlY5KuyTGb+P
-	 a8b/zx+Kbczdf5cOQZ7IhDya6g5m+Tstbr4QI+ryu85wjVR6qEascZvRoS+VMFC5v0hNv
-	 9Ppv71pva4aBwT+aclQvr9QPx9v3iH395lm079VMkxPGGSH9s/NYlGBqtwU6DFjnIRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616470;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=9xFDwKa9QE4RkXSn8pB3Ype9/9E+5MMs7HrH2FQlI88=;
+	b=AdHzEqQoaqseep+QMtMF2tO5l+8snGygO6hBkjcU6662CH+9NoiPuJS5EuTkyzRrzomY
+	 gO3XfqoXPiwHBCOToUB0qWBtHzXEHzY4qV5n2K+Kdm8iJCnC4PrQDvvG2S3FP43eKsD7F
+	 6l0qJqHXr7v6ObGEqAImbLt5OG2BNy3jQNhIRyboEPJvlvASSkn8z102vw3GziMQe4CHG
+	 lK+1HvkB4QsI/X9rTWBJHEeL1CiAtLCqott+SWDg0CkIj6Sq/W0sxvYE8ZUJtxAmJ0Feg
+	 kP9p6cRK8bt4k+nvsXK8psIHwOZDSmPPeojnW3dbo1y7f+9PpwpOnZXGBBmKLWw6U3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=UGJmQZnB;
-	arc=none smtp.remote-ip=52.12.53.23
-Received: from pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.12.53.23])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IoR+o3ND;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0119606A31B;
-	Wed, 21 Oct 2026 21:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0119606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F91606A31E;
+	Wed, 21 Oct 2026 21:01:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=UGJmQZnB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792616447; x=1824152447;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=5SoBYLzK+ZdLfi5BCMX08p53Wh7vlbOFUlLFSPM85IU=;
-  b=UGJmQZnBXJB6i3PE42zHeplNup0FOWr0FTLyuMS6U0LuUIg/ydSYzvYk
-   G1B0GDcEhM1ZxICri9k4ZVATmyf5aiP569iPVjLUioqLSyZO1JxgLEpJj
-   RyM6rswdy0TaekTz0R8ds+/gW+LrF9z/3EbsBDZSy81AWtbcpOGH5jUIw
-   W9r53/31lfsfvNUWK4WAbK7x8ozCVuQr3pbjTJjl5Mi5r+gR6IKEnaHGC
-   sKpf0tuG8oxLqSowmhEf053FXxr+8sJUdNcu8DGpQ4tcqCNOtlOxo4eUc
-   JH0opWP0MMxjGhibuU5CqkIRod6xYS0dP+HUTYb4QhE+FAF3QcVzgw1FK
-   g==;
-X-CSE-ConnectionGUID: 4/rpq61JRLqO9NOaBAgw+Q==
-X-CSE-MsgGUID: sYrwamOUTHyVUZD/vCqM3w==
-X-IronPort-AV: E=Sophos;i="6.27,170,1787011200"; 
-   d="scan'208";a="31778176"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-010.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 21:00:47 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.236:13056]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.42.190:2525] with esmtp (Farcaster)
- id d86c36b0-f405-4590-bf50-a87d9474e8c4; Wed, 21 Oct 2026 21:00:47 +0000 (UTC)
-X-Farcaster-Flow-ID: d86c36b0-f405-4590-bf50-a87d9474e8c4
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.218) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 21 Oct 2026 21:00:46 +0000
-Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
- (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Wed, 21 Oct 2026
- 21:00:46 +0000
-From: Patrick Zhang <patrzhan@amazon.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
-	<mailhol@kernel.org>, <linux-can@vger.kernel.org>
-CC: Pavel Pisa <pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>,
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 3/3] can: ifi_canfd: enable NAPI before starting the controller
-Date: Wed, 21 Oct 2026 20:59:24 +0000
-Message-ID: <20261021205924.2538511-4-patrzhan@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261021205924.2538511-1-patrzhan@amazon.com>
-References: <20261021205924.2538511-1-patrzhan@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IoR+o3ND
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629C51F000C1;
+	Wed, 21 Oct 2026 21:01:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792616470;
+	bh=9xFDwKa9QE4RkXSn8pB3Ype9/9E+5MMs7HrH2FQlI88=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IoR+o3NDBCbVzx84h6KUCMBpq9z9MmhjRp+GwGzx1iOzdg041DTSdBwRmG8vwROCR
+	 y8+hHxzBHJddtwOQOETh3Pv/ickuZbLpyg2VoCjaroTQJcTJkv8xVBmmhvZ4MJTF5O
+	 53Q0I1CAENdcAVZbdxuB+MzJccXA8v938TRmBLXtBs5pjtfmN0JM/WF9GbsGMXpLih
+	 Yji9iEOGTpsPPGHJJrIN60SuZ9Ifgm6lq3Lv7KYuwo6/tFHmoB7VB2k0ENa8b9xv9q
+	 gjMYrF1RCEyY5ltlVzur4riJCoalnifF3QketRB7dkJZuWsvg8MrPyQRBQqQ67366i
+	 BcV4K1YukWElQ==
+Date: Wed, 21 Oct 2026 15:01:08 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>, Ming Lei <ming.lei@redhat.com>,
+	Surabhi Gogte <sgogte@purestorage.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Maurizio Lombardi <mlombard@redhat.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Daniel Wagner <wagi@kernel.org>
+Subject: Re: [PATCH 0/5] nvme-fabrics: fix connects with isolated CPUs and
+ queue mapping bugs
+Message-ID: <atkoFMy-_dmOG5ED@kbusch-mbp>
+References: <20261014-nvme-fabrics-isolcpu-v1-0-355156be27b2@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,59 +66,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261014-nvme-fabrics-isolcpu-v1-0-355156be27b2@kernel.org>
 
-ifi_canfd_open() calls ifi_canfd_start(), which unmasks the interrupts
-in IFI_CANFD_IRQMASK and then enables the controller through
-IFI_CANFD_STCMD, and only then calls napi_enable(). A frame that
-arrives in that window raises RXFIFO_NEMPTY. ifi_canfd_isr() masks all
-interrupts with ifi_canfd_irq_enable(ndev, 0) and calls
-napi_schedule(). NAPI is still disabled, so napi_schedule_prep() finds
-NAPI_STATE_SCHED set and the schedule is dropped. Only ifi_canfd_poll()
-unmasks the interrupts again, and it never runs. From then on the
-interface receives nothing. ifi_canfd_start_xmit() stops the queue
-after every frame and relies on the TX FIFO interrupt to wake it, and
-that interrupt is masked too, so transmit stops after the next frame.
-The stall lasts until the next close. Every re-open runs the same race
-again.
+On Wed, Oct 14, 2026 at 09:46:38AM +0200, Daniel Wagner wrote:
+> Connecting a fabrics controller fails when all CPUs of a hardware
+> context are isolated with isolcpus=domain or an isolated cpuset
+> partition. Since commit a46c27026da1 ("blk-mq: don't schedule block
+> kworker on isolated CPUs") the CPU mask of such a hardware context is
+> empty and blk_mq_alloc_request_hctx() fails the Connect command with
+> -EXDEV. Patch 2 lets passthrough requests use the software context of a
+> housekeeping CPU instead.
+> 
+> Patches 3-5 fix the fabrics queue mapping:
+> 
+>   - Stale io_queues[] entries after a reconnect with fewer queues crash
+>     blk_mq_map_swqueue().
+>   - A queue type can get more queues than online CPUs, so connecting
+>     fails with -EXDEV.
+>   - Without queues left for polling, the queue claims poll support and
+>     polled I/O ends up on a non-poll queue.
+> 
+> Patch 1 fixes a regression in nvme-7.4 found while testing: since commit
+> 61b0ed3be81b ("nvme-tcp: parallelize I/O queue allocation and startup")
+> nvme_tcp_init_request takes a mutex before it is initialized, which
+> disables lock debugging on the first connect.
 
-Enable NAPI before the controller starts, so that an early RX interrupt
-can schedule the poll. NAPI can be enabled while the controller is in
-reset, because nothing schedules it until an interrupt arrives.
-ifi_canfd_start() cannot fail, so no error path changes.
-
-This is the same race as in ctucanfd and xilinx_can, fixed by the
-previous patches. I do not have IFI CAN FD hardware, so this change is
-compile tested only and the failure sequence is taken from the code.
-
-Fixes: 0c4d9c94a130 ("can: ifi: Add IFI CANFD IP support")
-Assisted-by: LLM
-Signed-off-by: Patrick Zhang <patrzhan@amazon.com>
----
- drivers/net/can/ifi_canfd/ifi_canfd.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/can/ifi_canfd/ifi_canfd.c b/drivers/net/can/ifi_canfd/ifi_canfd.c
-index 0f83335e4..feb738eb0 100644
---- a/drivers/net/can/ifi_canfd/ifi_canfd.c
-+++ b/drivers/net/can/ifi_canfd/ifi_canfd.c
-@@ -846,9 +846,12 @@ static int ifi_canfd_open(struct net_device *ndev)
- 		goto err_irq;
- 	}
- 
-+	/* Keep before ifi_canfd_start(): the ISR masks the interrupts and only
-+	 * the poll unmasks them.
-+	 */
-+	napi_enable(&priv->napi);
- 	ifi_canfd_start(ndev);
- 
--	napi_enable(&priv->napi);
- 	netif_start_queue(ndev);
- 
- 	return 0;
--- 
-2.50.1
-
+It seems the nvme patches (1, 3-5) can be applied independently of the
+blk-mq patch, so I staged those in nvme-7.4.
