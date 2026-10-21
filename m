@@ -1,124 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792568694;
-	b=sHnqOnCFZKynRiZXRbUXqr/3AuWkb2QqEQm2t8tBrWRvYvfzXIaPG8TeFSx3jJTIXZh+
-	 8pmB6MON4zYhmWrxD5sRFZs3Q3sfufGzE0dw+reDqMg8aehDGUG5DlSd0zOI1TSj6d5Yl
-	 C4XIJg2U+6CtnqkXAA+75rXkpYMEG0TDZjRs/T7BpzRd+hf836hNtAuDqiJqLOuWoKxo0
-	 6GVlGTVZnSG3DJPbC7U2Mb1O4gHUaMxZsu5+xF+FBl05cOnyr3cQiIlwxfnR/vr7a+9sH
-	 xoxf+69Y3FpUgPERWwl76ppSGw46sTxjakzfoXs+B9Wk4Iu+lD04T74RSNqli41x61g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792568694;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rUepUBVvZqTH1fHQ+aT3wHsXwm6+pjQiNT04ccwpTr0=;
-	b=Bzai1du2Y5ilz0IX8EXYcseDzt07OXd/epbJIknKE32tY2d4/4VUJD07YEZAc+ZnGe7g
-	 JAghWawtpoj05AeTp2gD/1Hthe5k55VKN4HY91hV4M0Ze6y+h1NJAUqlBDyyNvfOlvSLN
-	 gHecH2xzSRDBIMTA0oXkqnZHE83ELSpJuufZRXolGQ/aIeRgFquvnIFozUFLyxtDaVsXM
-	 mZ3oq3ZvOq4/q75nAakokHOld700W2VFSMi5u+Ro797IuM9ktIVIUsczXPVU6FPAMAUtW
-	 r/CGIM11xu3qNa1EN3KlEfTYj8sIevCxEkFMqvp5eAR/PvsqQACzmyZVuRWAded6FsQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jdxo1FD5;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JmwWMyb0;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792568737;
+	b=xN62anuXNZ91u5ADS92Y3xxU0iSt0IkgMhDLvBc42aDXlJ3aOR7iESvT9XUOguu4iv0X
+	 vUKPWUyr76NQtngnH6Cg3lg+ssllf2o1ZoWclc0AuUyfJvDh4Uj/508XC9Hr3+e1lLsog
+	 nbDHG9/jQlmfakDb95y7QcYWJLDKgBhwY3NEfJIWIqHcYtG9fECOs7Bb/8uKOpnpfYWGA
+	 YtamhNjvXOjQcA5t4O7t7dCArmAbOi3Rb6N316aOxYAcmSj8NwJtx60vkAn0shf29ggAj
+	 TA2epYw53Dg1LJpkdL4PTmVafWR8eD5oHSY9fHYQ9qrXSRZT4vOpCJBnZgaX1AH4sCA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568737;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VbSlF666/qtELADyJnYbEb4dVJFod2JtONLzJEpZbCw=;
+	b=Na1mjkhllelSjoWkZx+Ix1ITZQdZAmrlzsH9AmGszBDECB31PAgiwHOgJKN2FDxCC8Lz
+	 GHxeNVyo0aByeYrBZv1Yp0DKFI38SDyQRzfUy4k6zIIkqO4voQidX7Vp1zz/pJiu28FAZ
+	 bed1oz9rexy4bkAzFDDiH0rxQcGaVIRP+Pr6Bd2pQHrFgWLu4TuA3zvDJt9hS72pKJmeq
+	 g6hraDIkiGBQyta8OvkrH6eF33pRaLG3iDoPhevhMTCK+QDwkSTL/Fx07k5lPv/JyO8/F
+	 blmtERj1oA7uMIoJpGbWf66chexp8Q7YeJM2S9dG0VFZxnh6x6Xnga33wSQ5iUzJS8w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T+LwCzYD;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935D5606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 935D5606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405B3606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:45:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 405B3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jdxo1FD5;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JmwWMyb0
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jNaN3359107
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:44:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rUepUBVvZqTH1fHQ+aT3wHsXwm6+pjQiNT04ccwpTr0=; b=jdxo1FD5E9Y1CbK8
-	wJBF3T7px8WGG3gXrO963dXhMxvwAJS8yx9tXnrCwq/OaFfc+2aqeJ9re5lH8yJm
-	2FAjfPD+Oc0TY8kifDBMwzPhN2/r9RrGOqTwwsdu8SLmqBtjrkqTs82W34gjXcb/
-	rdEUsc6ANKPtkjcaJs6I0opoOzqyRxj7eZzlVr9skQYeQ0XTnzAJHnrVwUguJOxs
-	Wb1rKqEqJSUe04ovRZfTWcfKeDBK6PIv44wnmTv6uFeaxa9PQnzFg7tduJfzp+fo
-	U8i3HX93Sl6MoK/lLpZrEszvHUEaa0BMpcoZZv3IVeTXK73B3GZDQSsK3AxVnwt/
-	5Z3C4Q==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda0jm13-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:44:52 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93f568dee56so99609085a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:44:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792568692; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iTwuSUNyT3Yp121Ww5y1ffZH+spDWGtnxd7/QAneRD+MCm3GYxkPzmP+A6c1nZp8sp
-         UQDZODsTNdGiwBU2XnHFB/D0JL+Nz5gZdMtuqZ3jCCQ9xnciyTtK+erNt1Y/97zceQs2
-         MvnE1LSg9KEnqGTR9PJ+RjA/8ymrooQwgsv1RO49ZkdQAfIZ1A8104Xmuy0KSSKvjEvz
-         MnrHQ2ruyl0aoPK/5cehEBXjkJqpbtOIkofawr9N/V8//kxEe8QGUY7aadOLTKjGXheW
-         7pinOM4v7Ya09NVZjwi+T0WaTuBf5OaT38b+VKWI8EYhrIRkrAUzGjsdwHzzOutiMcOY
-         ibuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=rUepUBVvZqTH1fHQ+aT3wHsXwm6+pjQiNT04ccwpTr0=;
-        fh=1mRIf35EM2KhCaH8TP5T+o7yAzvRRysnwzc5CnDTDqs=;
-        b=r+Pi178hWm0PtWEYykHA2I8YJMwd2ZJ9HThdqJV9YW+Gxw8TbjhcSs8pflxsXbKuse
-         Kg30uryf7LRMLRic69lyx6+1G7LqDvtlVRzf0w4Lq+jPKg6xDoV9hX7C/HJJSYJa1kI/
-         Eboy64b9kl2iz7jzc1x8KleGqYhudpbkYpTdmdK5LSfcY1z33NIOSHQJPeNFXNOPzxoo
-         RbkanZzplgCrXDaCkuFFNto5QaPAVRORMeyagVq6ZJAsh4QxwMZjeiBRUgWbh8agjFZA
-         6DEptXDTCg/UJHQhLxiiSaR6J2PcenWs/Wuewk+5f6OXyd+weDRHfugXkEvVD8UC2GCo
-         pc3g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T+LwCzYD
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3514b90bb89so1139669eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:45:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792568692; x=1793173492; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rUepUBVvZqTH1fHQ+aT3wHsXwm6+pjQiNT04ccwpTr0=;
-        b=JmwWMyb022VDqs2dVvgQPo2irMuTnmV6fLk8pAuN/vZGs4lhWpsd3UaPdet2pXrCOI
-         s1NpjLlLr5CWAczCdVhggYP2P3vVB/aJGm3h9qjQ4dkiMeC8alqwLvlWWFVO/zCuncZ8
-         I/noH2qpVA8I6zYbJGykmUBtJ787jgrQgT6OQTXt6+SiJp6mn7vUYaA/4iZjAVuy0YPd
-         aU0B+2cNPk7dCHc4jxT1BPVVJsaU2tqAhYeC2dc63h1lzTg1p9Usgue5YzYI46XhkfWz
-         /x7LUuS8mm02/djjUANHaXBjaKZ3jG2eunC/0lfe+Vy8L7BMv1T7/kyRhJbQ9Zv5wmzd
-         THGA==
+        d=gmail.com; s=20251104; t=1792568735; x=1793173535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VbSlF666/qtELADyJnYbEb4dVJFod2JtONLzJEpZbCw=;
+        b=T+LwCzYD/+r3BD1t+gyX97/dXd8OAFO5P+jNDQbK6LBfuQBk/f5tFHQ5H1+1yTFkny
+         fz1z60u+HaatTEwFW5AdQ2dQaf+TzVc0F3dC3a6bnqthoU6GqAa3HfCItZr68hXCmkiN
+         dwVgHJlE0TBg0buaRuftRj3qfT8gjqO+gJwjNbfX6FpYzM5Y2+1i5SE59OjVNm3J8t4b
+         sxW4sPnqXAdKtqgEtv2YIBzgA5dUWuXnJBAerRFL5WfdCyNsxMWCnVlp3MMZakD9/rZg
+         PrdWPeI7joEvJHx9HIIsQ6TetsbqF0N8xt+r1swkmcRbjU3aEoP3fS9tRqkXzQDn2iFy
+         W7sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792568692; x=1793173492;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rUepUBVvZqTH1fHQ+aT3wHsXwm6+pjQiNT04ccwpTr0=;
-        b=b8JfcOCxiqXTIOFbKZUk6VzRJKtaR3k6ey5HEMavWtReQ67prD2eRc1tX3ypFOMTMt
-         E84jeWGsnqu+eQ9JwjfgOD+Cp27OUHCAIih5TrM3eN+9SY8b9hNU1Jbwos4htsvRSP4K
-         1i/HM+BajKsELfAB6bx3SwmtXe0xLkAfswDcXYcysmxqvhoO0rc0OiThFqwcvvXxuLNp
-         Vgk7YDn2B+a1e7I1zP136j4ANKASlRUbo+0YYAkoUxf3oUn2HGnrvmRAkpTCX2EAU4wx
-         AWrcJR4SrC7QDVum2cPLUktYiPuGNs422sNGI/uUm196NoFbGa2RO+CcQL7bxepbMMuL
-         cwQA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSmcY4B/gIfvNHJOdpY+70EjcZc84Boz9mq0ImkHrLO+w/bxXFKylejQVJfgdQassJwTUwhAvihPIs3F8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJgyAMTrgjERNhUrqXGmeEKKXnUIxaw1hOq/la8/WEoquw/JmDm
-	Oc2n8g0tLDtXCl//oyV6QUJN/qVqL/UcJXG7o6rqsmN3K8+a1TnNJWLiDBoKt3X0SoaRbrmba6u
-	HgoJJ/P9Kb+y/sus/oVs2Q5K3JjNM63nsSXcza5iyBvGYmgaMZDGgWfAddjHTBLkYd00OJdQ9zH
-	Sml18hVd5a3W4lIvS7hfhGmn2IogeNVsZPXu1geoL4wAcIgHCPWRsI
-X-Gm-Gg: AYBFou1P0KZCFN8D36qvSveBnZKNVbvSlzFJt17oyJYczPvMRiGmWVwZTexcqs+N4mR
-	rgKXG885QX4GvYDRlm3T278leI4DZol+waFvIY6xwylskKdk8+v9R6AHVxPQDH1CxPCpIrwatrO
-	0o9k0gXsA9h1MH7F6623xxpPTt5MG59R+YEQTqYXzcy2UJXm4S23XgmnzSr14FgLVmUc5fEkPQn
-	27uy4JYLKnFO1UNkTEI4oILNIMFLFZaJlbKhC2pvkqn0JpcsQPPJi2fYxeBz0T6H/N/2CaiYvM=
-X-Received: by 2002:a05:620a:4452:b0:939:de48:e41f with SMTP id af79cd13be357-93f57f4a770mr277892185a.31.1792568691709;
-        Wed, 21 Oct 2026 00:44:51 -0700 (PDT)
-X-Received: by 2002:a05:620a:4452:b0:939:de48:e41f with SMTP id
- af79cd13be357-93f57f4a770mr277889085a.31.1792568691247; Wed, 21 Oct 2026
- 00:44:51 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792568735; x=1793173535;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VbSlF666/qtELADyJnYbEb4dVJFod2JtONLzJEpZbCw=;
+        b=i4CM9vjoPit3RTt0lRz+EADQDm+HOX4v/R2x7bgdxojBi+h/UqU0U+xPES/TI5s9S5
+         SIiIjcEZYBYavOKM+WlzFkhzNhKy22oCIMkX0gXn4fwh9XGLUa6mu9K3HYHm1ghYZV/d
+         QqfRIbkrpIRD8EY6ddiXqpRR+WKnRurZ+T4cicRMfYKLwnBrWOWeyLs20vwnKvrpQ3ND
+         X/6v5M8tj19+K8qCcHRmZlr1xvkn1lEh7fZJQ/9KOHlOuhN7rtzNrpIORYh/N/nY3sIB
+         JbQSlWKXe1yUQI1dV6UqMPvAMX4oFnnhlvR0yW55OlgylrpajMd4yDBBH9zz7G/9DvxK
+         fFMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgFdbFFJZek8h1qXucliToSNcOU2ldxZLXd+YvYnrD67ocSdfKjrhAAwkfC1j1zaM/Xp1AMAgJNAGSTNc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIkPIF9rS9bO4/FJRjisWSnnpCnVfx2s650c/Yf/F/TZQs/oaMV
+	pNGuyPeyVx9Sogp8J7k6+eDCFQZR/yQ1yVtUjtG/Oqaabvr9lZjaE0od
+X-Gm-Gg: AYBFou25fatPAHw+bh2J7hDaqEyHjQDtFJliwmZ5/h5PaUElsq+Y8zgvTeju5e50kCi
+	HNr1dtGoW/xjIeOqqcPfgVabObp6bj39j/L37CyhFrtQGoq85n3/wIIMeepqqdxd/arfZywqKyL
+	VvJ1StGcyhrmn30RJzyV2xl3LbqCmbsllIXR+djjKvEi89IeWUuBUmv0boE4x4ie1yoW3tx7JyF
+	HwGmI5pgYW/6d4wLdqICr4kgqJc6ARyeUvJRL+g9kbFD1lC9W712B1xZEDkjMskW4YvSQZ8USuD
+	/5C1ehWq6kFxVTdbubsY+UEaubjRlrsl1fp/HnJgxu+QRzcIQVsYNbtCUCHK8T/ANoLr4cTm6Wc
+	NrvpX812vZx20uQjFkbRN69wOLwDjoD8trV0OICf39TQSUZw9h8sjQMEi1ZYF5yDU+MN47muwL6
+	6a2nc5gl6x7H2fdbjmXWUUQqnuFy9a3QWaRCaPSnh2zeg46lcJM0G+muJEpvO1oMzBuLBwLGXpz
+	VSdw1v1oVAGvs0eBRXGGRd/81F9LSVF8K6h3Mowf+6RlKq+ocCugqFDablpjoi0yR6ZW1a15zBF
+	rmj37diu0VVNUeA=
+X-Received: by 2002:a05:693c:2a0b:b0:351:bb8f:540c with SMTP id 5a478bee46e88-3674df47953mr2365876eec.35.1792568735108;
+        Wed, 21 Oct 2026 00:45:35 -0700 (PDT)
+Received: from Athena ([36.255.108.104])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367412b24e3sm4352662eec.19.2026.10.21.00.45.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 00:45:34 -0700 (PDT)
+From: Harshal Chavan <harshal24.chavan@gmail.com>
+To: io-uring@vger.kernel.org,
+	axboe@kernel.dk
+Cc: krisman@suse.de,
+	gregkh@linuxfoundation.org,
+	linux-kernel@vger.kernel.org,
+	Harshal Chavan <harshal24.chavan@gmail.com>
+Subject: [PATCH v7] io_uring/register: add IORING_REGISTER_CLONE_FILES opcode
+Date: Wed, 21 Oct 2026 13:15:17 +0530
+Message-ID: <20261021074517.68961-1-harshal24.chavan@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,113 +97,260 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020193946.51478-1-birk.skyum@pm.me> <20261020193946.51478-3-birk.skyum@pm.me>
-In-Reply-To: <20261020193946.51478-3-birk.skyum@pm.me>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 09:44:39 +0200
-X-Gm-Features: AclHuK-A2tHFi1BbsII8WbD0jiKjbsnoXE2GHZ86KIPcCe_VjivQo4KKDrbb9oI
-Message-ID: <CAFEp6-0wmUYhcF+_nv8U3WovxyHVJJFs1FWfN8xb9ogMOxpBRg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] i2c: qcom-cci: Suspend the controller 50 ms after the
- last transfer
-To: Birk Skyum <birk.skyum@pm.me>
-Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Saikiran <bjsaikiran@gmail.com>, Mark Brown <broonie@kernel.org>,
-        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzMCBTYWx0ZWRfX1FGyhSLKm9E6
- PmAjkkIr2IDi/nMM8ssHB1yYz8U7ovMbprqmKFq+S28O8o/rYM12s7jQpx45Y6qRwWJXWwD4EpZ
- 6FmZQvAXR3tfvvXJweuf7P3kNkH1MoHCX8g99hkE0NnK8qELeKm7ro+w+WbMf8pYoO1DasosTwq
- 6L/U+mEyc2jQG1P/i00OwyG5/YETP3IsWAok6tyCJHglLcwnpdzGrp7+ASBCUkAA3qkBJdNN4WJ
- E8qEp/D/DiGyKsRSuIMTd1uG8tHfmMIl+Rhfo9PymKg7nMUU3TyOHuf5ypcHvkjOF2B3gWD+RXo
- PC2hiIDQjcHDT31gMLpAW/Z9lVv3VJoQf8epbRNg+IZxyVZ9C+daBQbWCEyFmKIWM9OSAh6MVvM
- r7EcLJJKEPiw7Mt7/RL8KHWQduF6en3kMQVAHIuNTfLMqUWSuwsQJqz2WXY0OuFLovHpZlno1Ir
- rVs+HOyywLSSHTbeEqA==
-X-Proofpoint-ORIG-GUID: 50hxuYT3MabraRSzAUfq16d4bqoBCkdv
-X-Proofpoint-GUID: 50hxuYT3MabraRSzAUfq16d4bqoBCkdv
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzMCBTYWx0ZWRfX1LI9uDgjqMYW
- 8Vkwe5iom43NYUp6DBMg8aMAAPwiRCF8pCLV6Kh5l6RtRRTO3buZAnpD+sj6SdFrmj+M/Ps8rN9
- QNjd1Opifm6Z7eZLkF1qZEMvy0+xfwo=
-X-Authority-Analysis: v=2.4 cv=HL5WhYtv c=1 sm=1 tr=0 ts=6ad86d74 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8 a=ZovgdgjKAAAA:8
- a=Bu-N7aw3tzf4DBNc8b0A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
- a=VOxKbm1zgHvARWIDjr3b:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
- clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210030
+Content-Transfer-Encoding: 8bit
 
-Hi Birk,
+Currently, if an application wants to duplicate registered file
+descriptors from one io_uring instance to another, it must manually
+unregister and re-register them, incurring unnecessary overhead.
 
-On Tue, Oct 20, 2026 at 9:40=E2=80=AFPM Birk Skyum <birk.skyum@pm.me> wrote=
-:
->
-> With a 1 s autosuspend delay the controller stays clocked across any
-> power cycle of a target that is shorter than a second, so the reset on
-> resume never runs in between and the first transfer after the target
-> comes back stalls until the 100 ms timeout. Camera sensors are powered
-> down when they stop streaming and up again when they start, so closing
-> and reopening a camera quickly hits this.
->
-> On the Lenovo Yoga Slim 7x (X1E80100), restarting the OV02C10 with
-> v4l2-ctl after pauses of 0.05, 0.1, 0.2 and 0.5 s failed in 19 of 20
-> cycles each, and in 16 of 20 after 1 s pauses. With this change and the
-> reset on resume, all 100 cycles started, and so did 150 of 150
-> libcamera starts back to back.
->
-> Transfers come in bursts (a sensor mode alone is a few hundred register
-> writes), so suspending 50 ms after the last one costs one reset per
-> burst.
+Add IORING_REGISTER_CLONE_FILES to allow direct cloning of the file
+table from a source ring to a destination ring. This implementation
+strictly mirrors the io_clone_buffers UAPI, supporting partial offsets
+and the IORING_REGISTER_DST_REPLACE flag.
 
-So, no, we should not rely on runtime suspend/resume timing as a
-workaround for this. That approach is inherently bad and fragile.
+To ensure lock synchronization safety, destination nodes are strictly
+allocated as new, private io_rsrc_nodes rather than sharing references
+across rings.
 
-Have you been able to probe the CCI I2C bus during resume? It would be
-useful to see whether there is any activity on SCL/SDA and, in
-particular, whether either line is being held low.
+Signed-off-by: Harshal Chavan <harshal24.chavan@gmail.com>
+---
+v7:
+  - Copy src_node->tag to dst_node in io_clone_file_node (Gabriel).
+v6:
+  - Fixed trailing whitespace checkpatch error.
+v5:
+  - Added missing spacing in comment (Gabriel).
+  - Removed ctx->user and mm_account checks (Gabriel).
+  - Used !! for boolean conversion (Gabriel).
+  - Moved mutex_unlock unconditionally above the out label (Gabriel).
+  - liburing implementation and tests: https://github.com/axboe/liburing/pull/1606
+v4:
+  - Updated Signed-off-by to use real name and moved above the scissors line (Greg KH).
+v3:
+  - Rewrote the cloning loop to allocate private destination nodes via io_rsrc_node_alloc to fix non-atomic ref lock synchronization (Jens).
+  - Maintained partial offset/copy support to mirror io_clone_buffers UAPI (Jens).
+  - Gated the replacement free check on ctx->file_table.data.nr (Gabriel).
+  - Prevented self-cloning by checking ctx == src_ctx (Gabriel).
+  - Removed submitter_task check to allow cross-thread pooling setups (Gabriel).
+v2:
+  - Dropped unrelated whitespace formatting changes from v1.
+---
+ include/uapi/linux/io_uring.h |  12 +++
+ io_uring/register.c           |   6 ++
+ io_uring/rsrc.c               | 140 ++++++++++++++++++++++++++++++++++
+ io_uring/rsrc.h               |   1 +
+ 4 files changed, 159 insertions(+)
 
-I wonder if enabling SCL stretching support could help here. One
-possibility is that the sensor (or another I2C slave) is not yet ready
-when the transfer is initiated and therefore holds SCL low. If that's
-the case, have you tried the change below?
-https://lore.kernel.org/all/20261007050147.274096-1-hitesh@ebytelogic.com/#=
-t
+diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
+index 909fb7aea638..2ba13d30a6cf 100644
+--- a/include/uapi/linux/io_uring.h
++++ b/include/uapi/linux/io_uring.h
+@@ -723,6 +723,9 @@ enum io_uring_register_op {
+ 	/* register bpf filtering programs */
+ 	IORING_REGISTER_BPF_FILTER		= 37,
+ 
++	/* clone registered files from source ring to current ring */
++	IORING_REGISTER_CLONE_FILES		= 38,
++
+ 	/* this goes last */
+ 	IORING_REGISTER_LAST,
+ 
+@@ -845,6 +848,15 @@ enum {
+ 	IORING_REGISTER_DST_REPLACE	= (1U << 1),
+ };
+ 
++struct io_uring_clone_files {
++	__u32 src_fd;
++	__u32 flags;
++	__u32 src_off;
++	__u32 dst_off;
++	__u32 nr;
++	__u32 pad[3];
++};
++
+ struct io_uring_clone_buffers {
+ 	__u32	src_fd;
+ 	__u32	flags;
+diff --git a/io_uring/register.c b/io_uring/register.c
+index dab3eb4258df..057ef27e6e4d 100644
+--- a/io_uring/register.c
++++ b/io_uring/register.c
+@@ -978,6 +978,12 @@ static int __io_uring_register(struct io_ring_ctx *ctx, unsigned opcode,
+ 			WRITE_ONCE(ctx->bpf_filters,
+ 				   ctx->restrictions.bpf_filters->filters);
+ 		break;
++	case IORING_REGISTER_CLONE_FILES:
++		ret = -EINVAL;
++		if (!arg || nr_args != 1)
++			break;
++		ret = io_register_clone_files(ctx, arg);
++		break;
+ 	default:
+ 		ret = -EINVAL;
+ 		break;
+diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
+index 51b46e624ddd..b4bbfb5ceb30 100644
+--- a/io_uring/rsrc.c
++++ b/io_uring/rsrc.c
+@@ -1501,6 +1501,146 @@ int io_register_clone_buffers(struct io_ring_ctx *ctx, void __user *arg)
+ 	return ret;
+ }
+ 
++static int io_clone_file_node(struct io_ring_ctx *ctx,
++			      struct io_rsrc_node *src_node,
++			      int dst_index,
++			      struct io_file_table *new_table)
++{
++	struct io_rsrc_node *dst_node;
++	struct file *file;
++
++	dst_node = io_rsrc_node_alloc(ctx, IORING_RSRC_FILE);
++	if (!dst_node)
++		return -ENOMEM;
++
++	file = io_slot_file(src_node);
++	get_file(file);
++	io_fixed_file_set(dst_node, file);
++	dst_node->tag = src_node->tag;
++
++	new_table->data.nodes[dst_index] = dst_node;
++	io_file_bitmap_set(new_table, dst_index);
++
++	return 0;
++}
++
++static int io_clone_files(struct io_ring_ctx *ctx, struct io_ring_ctx *src_ctx,
++			  struct io_uring_clone_files *arg)
++{
++	struct io_file_table new_file_table;
++	unsigned int dst_nr = ctx->file_table.data.nr;
++	unsigned int src_nr = src_ctx->file_table.data.nr;
++	unsigned int new_nr, i;
++
++	lockdep_assert_held(&ctx->uring_lock);
++	lockdep_assert_held(&src_ctx->uring_lock);
++
++	if (dst_nr && !(arg->flags & IORING_REGISTER_DST_REPLACE))
++		return -EBUSY;
++
++	if (!src_nr)
++		return -ENXIO;
++
++	if (!arg->nr)
++		arg->nr = src_nr;
++	else if (arg->nr > src_nr)
++		return -EINVAL;
++
++	if (check_add_overflow(arg->src_off, arg->nr, &i) || i > src_nr)
++		return -EINVAL;
++	if (check_add_overflow(arg->dst_off, arg->nr, &i))
++		return -EINVAL;
++
++	new_nr = max(dst_nr, arg->dst_off + arg->nr);
++	if (new_nr > IORING_MAX_FIXED_FILES)
++		return -EINVAL;
++
++	memset(&new_file_table, 0, sizeof(new_file_table));
++	if (!io_alloc_file_tables(ctx, &new_file_table, new_nr))
++		return -ENOMEM;
++
++	for (i = 0; i < min(arg->dst_off, dst_nr); i++) {
++		struct io_rsrc_node *src_node = io_rsrc_node_lookup(&ctx->file_table.data, i);
++
++		if (!src_node)
++			continue;
++		if (io_clone_file_node(ctx, src_node, i, &new_file_table))
++			goto out;
++	}
++
++	for (i = 0; i < arg->nr; i++) {
++		struct io_rsrc_node *src_node = io_rsrc_node_lookup(&src_ctx->file_table.data,
++				arg->src_off + i);
++
++		if (!src_node)
++			continue;
++		if (io_clone_file_node(ctx, src_node, arg->dst_off + i, &new_file_table))
++			goto out;
++	}
++
++	for (i = arg->dst_off + arg->nr; i < dst_nr; i++) {
++		struct io_rsrc_node *src_node = io_rsrc_node_lookup(&ctx->file_table.data, i);
++
++		if (!src_node)
++			continue;
++		if (io_clone_file_node(ctx, src_node, i, &new_file_table))
++			goto out;
++	}
++
++	if (dst_nr)
++		io_free_file_tables(ctx, &ctx->file_table);
++
++	WARN_ON_ONCE(ctx->file_table.data.nr);
++	ctx->file_table = new_file_table;
++	io_file_table_set_alloc_range(ctx, 0, ctx->file_table.data.nr);
++	return 0;
++
++out:
++	io_free_file_tables(ctx, &new_file_table);
++	return -ENOMEM;
++}
++
++int io_register_clone_files(struct io_ring_ctx *ctx, void __user *arg)
++{
++	struct io_uring_clone_files clone_arg;
++	struct io_ring_ctx *src_ctx;
++	bool registered_src;
++	struct file *file;
++	int ret;
++
++	if (copy_from_user(&clone_arg, arg, sizeof(clone_arg)))
++		return -EFAULT;
++	if (clone_arg.flags &
++	    ~(IORING_REGISTER_SRC_REGISTERED | IORING_REGISTER_DST_REPLACE))
++		return -EINVAL;
++
++	if (memchr_inv(clone_arg.pad, 0, sizeof(clone_arg.pad)))
++		return -EINVAL;
++
++	registered_src = !!(clone_arg.flags & IORING_REGISTER_SRC_REGISTERED);
++	file = io_uring_ctx_get_file(clone_arg.src_fd, registered_src);
++	if (IS_ERR(file))
++		return PTR_ERR(file);
++
++	src_ctx = file->private_data;
++	if (src_ctx == ctx) {
++		ret = -EINVAL;
++		goto out;
++	}
++
++	mutex_unlock(&ctx->uring_lock);
++	lock_two_rings(ctx, src_ctx);
++
++	ret = io_clone_files(ctx, src_ctx, &clone_arg);
++
++	mutex_unlock(&src_ctx->uring_lock);
++
++out:
++	if (!registered_src)
++		fput(file);
++	return ret;
++}
++
+ void io_vec_free(struct iou_vec *iv)
+ {
+ 	if (!iv->iovec)
+diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
+index 9ef88383b363..10b66f3e2492 100644
+--- a/io_uring/rsrc.h
++++ b/io_uring/rsrc.h
+@@ -71,6 +71,7 @@ int io_prep_reg_iovec(struct io_kiocb *req, struct iou_vec *iv,
+ 			const struct iovec __user *uvec, size_t uvec_segs);
+ 
+ int io_register_clone_buffers(struct io_ring_ctx *ctx, void __user *arg);
++int io_register_clone_files(struct io_ring_ctx *ctx, void __user *arg);
+ int io_sqe_buffers_unregister(struct io_ring_ctx *ctx);
+ int io_sqe_buffers_register(struct io_ring_ctx *ctx, void __user *arg,
+ 			    unsigned int nr_args, u64 __user *tags);
+-- 
+2.55.0
 
-Regards,
-Loic
-
->
-> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
-> ---
->  drivers/i2c/busses/i2c-qcom-cci.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-q=
-com-cci.c
-> index 51ce174..62b0fcb 100644
-> --- a/drivers/i2c/busses/i2c-qcom-cci.c
-> +++ b/drivers/i2c/busses/i2c-qcom-cci.c
-> @@ -794,7 +794,7 @@ static int cci_probe(struct platform_device *pdev)
->         if (ret < 0)
->                 goto disable_clocks;
->
-> -       pm_runtime_set_autosuspend_delay(dev, MSEC_PER_SEC);
-> +       pm_runtime_set_autosuspend_delay(dev, 50);
->         ret =3D devm_pm_runtime_set_active_enabled(dev);
->         if (ret)
->                 goto disable_clocks;
-> --
-> 2.53.0
->
->
