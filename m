@@ -1,53 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587188;
-	b=lT/M1jLJPwoqmfgnvzp95i3YO1rzsPGIqRnWi41KfVPIg8AbOhk64ozuRq4EVabwH0JS
-	 tOlBWPIj6IDYduSOqV//aqGC9EU0Ibhwe6Xr4pEN1jRAkgzmBdN1ZxwcDTOtl/HZTUvey
-	 qBwv3OICHDWVIB6qqrXrEUJnXoGrsFM5FMjaFWfDG6nRE0HxP96680RNIuKUVV9RRkVez
-	 TAkUhg8H0FR1DmSooTGw91jPXeLkmtNkR9IhJ3jBiZNAtrYbqBkx/DEy2yJ7YRS0R+rzn
-	 0oQ9xBz4B5zYcC2Nvti0Co6q9GsR6o5fya/odGP9VE6SfJ/ENlR0DdfJhENGiRHXHyA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587188;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=PJxCsxLoda1k5+V93PXZRa0ldkZinddq3/bu/rJA/QQ=;
-	b=QD7dl4bjJgPTZDOlG1HrTb1l0zEICPmMj8+DsOb41GIKCz3nYV/N0weJCfO+7lstf8Sq
-	 Z3gM8HZCBc+lVhbgB0rsUZN/QLiGsBQ4tKxlOGzFG/wqPU3kpp5gNR7E95Wh5gADfKvcU
-	 RKmtZn5XWjD5t33dQqpy/89HfjBs81GcOmKxWB95qufSSW4y3fXE2/9DfLMrGC7pR8Eli
-	 cenuUw7PmpeSlSQi4TfNiKWzquVikCAMwtLpxnS0Jzpsc1RqWQ3lJhHBgQP7gUXHOXm7c
-	 1M16a0rbyAkFHwwZ7IoEttmb+kuqdWlK+wFY4TnpMzsBY1So7gcCn9YeF5bVg/th6bw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=eGyaChAT;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792587228;
+	b=iSx3dcFwduLOuObAW20JL2KQ4I+YPmV7xfDSqv7rnt4zoq+0Gqp8YSu2/nC0+XnxUaiB
+	 luHAIvnUh4s6ZhF1+T45NtcLgmvwZzBY8fNlxSPsZXGs783tKRZnAMza7cmnMX9iVaJRn
+	 0UKK1C/LA0LBF/l85vPumFP3ETtjR0R/9JV3njV5fzT9uGGNq80Hav/1SXr6Rx/hgh9xa
+	 FAcOqvEF0dK0Wbe+kXtukmGssXkWF4DA8uank1zGvgHnGFCqn3TkcGWEmnAxk6rypm35q
+	 FUI30K2IT8as0d+5O88e2xq+s+TPnnHQ+l2XVuL8VcHYBSq6A+eiWCjlyjtDIT+mrvw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587228;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vVQV8bQ7dJZGlG+AnyXvGIO0abFwqKNBWUl84ZSQwZE=;
+	b=ntf8KItXs8mDkKXfqNghmcOsrCt1uHSHtFd0vO5YEWwJDtSBABAVGx9O1gvZ7y2j7rBA
+	 prGnsUPqaPxNNwtGfUw4ujzmGFWSBh+lGCReCr0RpVhX0klcEX+I+jaxJMqoYe1qcz3X8
+	 VSErOo53B5dcAp6kX4y5bClnwQK3pBtD5mDXsSefUcikGvSZBkLjS275Gp91YjRP2REHC
+	 z0uvG0jmtKOU4qb+8hdMeVOVlMmwGQConhgNXrLvthkh1M68z77T6vFRRkUzeUw5dAQcc
+	 +Wb1H6ewZ/QCIpnz9olsKtE86j+xCOtXps79Ac0Fj4yRnhBbc9+kO26tpIpmD4RNK5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QGeRoihD;
+	arc=fail smtp.remote-ip=209.85.160.177
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABFAF606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABFAF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1318C606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:53:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1318C606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=eGyaChAT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:From:Reply-To;
-	bh=PJxCsxLoda1k5+V93PXZRa0ldkZinddq3/bu/rJA/QQ=; b=eGyaChATJanuex/qC600cTJ6o2
-	3djck552UC0g9N00jXVCmahRo6POfhFza5a+S1RXMOwn1jPUXZ2GS2GQ5VMl8DGvxs2yb8kbaTX9W
-	8X0q/ll77Tb9hHQBx2PSvJBQi7w0fwy3UzSe4jqdqw8tnmRG1kWVNkKIpY7JYyarIsaRYhl0hyIkI
-	P3YoTTVbmImcIYrHyL2U3AWd31IILhsGhxVNkdHToRPj2r2VXJl/NOqM9Oc/mU5SFMcXAbtAAyh5x
-	RMMge2pIS4sOdT8GKHmknzBB/E37nB37qYl0SYT2r9Y4jUGeWm5p8ALLqnnhS3vJiDjXWBwCRUwnQ
-	ZZPU+bEA==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
-	id 1xJVoU-005dtM-Dj; Wed, 21 Oct 2026 14:53:02 +0200
-Message-ID: <bd59f9aa-b0d3-474f-8c95-f3763e320638@igalia.com>
-Date: Wed, 21 Oct 2026 13:53:01 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=QGeRoihD
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5365b48238dso6108351cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:53:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792587227; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YlFh5i5b/OAGusZjuBFvyTRwnBikVol8wTHieMrOiWgkGepP/MbOZlvD4qr6rezLOl
+         qrgSLtCObwA0l1Ac9/psOAyagm1opXSt8GQEaiTqGLm5bF26mpohSUuxmEHc0WmXAWFO
+         zD+ORhlJT56obUyfx6bcTlimZ65CJbLTxA+GI/ITg2fOOgetMr8//fL8zo04BqC7O0S0
+         iHzDpuh/aT1Sppm2bwChKhbysBPt0Fi70hkC5XXB1AbHnlKFWls+aV0BYc2V8trKe2GU
+         iFZOvptzWq8lLm22M01IBf4BWnf33GvYiH8r1L8IKNanNmV+8KItugyd4dGN1SQ7zC3D
+         bZpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=vVQV8bQ7dJZGlG+AnyXvGIO0abFwqKNBWUl84ZSQwZE=;
+        fh=qxjUgc8AaO48YAk33IHX+1KyfezlyCaHQ74yuH+9UqA=;
+        b=cplg1XeUur7du99DnQhi4SEv+ylFHMP5r2r4gCMlzXF/vZe6mBHcQ75zNCUmyCf+t4
+         r3wVC2pZJCkuH90FF4AZ5DjYoW17ydCKDuQqea5JAdbxbtEaM0ilobaeWyWOUVnRxcca
+         st4BSkNDSf5gXa27PABW/NFgeh9CspyKaEK8jHBXsAgcFtI8cX/kmP6Bv0h/hZG5dFxm
+         EDP9jpJQEIXq9g5BhJ4lCDP3J0B8WieEaq3pycEGGHUQTXq4gdy6LMLHH0V+SZ7hYAcl
+         JDfySoJTyITNDLzm+0b4wiAPvm/yI6atbnhpf4JsCdg+ZVIAaxXRpPRbmdD1Q7RePxJy
+         HOJg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792587227; x=1793192027; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vVQV8bQ7dJZGlG+AnyXvGIO0abFwqKNBWUl84ZSQwZE=;
+        b=QGeRoihD65FQdc8RvPozpgQSjV7yOWDU7rcZKasvivK+eBB4yUw8nHpwWFtGAsIy7n
+         8hlP8ZksN9BUyilV0cFLqYUE9yiEc2JIqwkFJ5/fnFcUL1b87UUOrYqcnHNMyJFeU3uf
+         EI5GaVjyB3nxUuKvKC9hCVvXt/J98q0dCLiYmupDCIRjPDv+4G/YtQgM4P87YebLDKuu
+         rnnCReSmi9jI35inLq4N511Uwijd2OPH5XmV3lJcBOvPlmoB7aEDxslrlRgSKHqef8o7
+         W8zc/Np8u04T1qU38zEOTtyeaIDz0NVYFsLdE8zTeSd+tewXXzGzVQ/q4IQhd7lv31XX
+         K0sA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792587227; x=1793192027;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vVQV8bQ7dJZGlG+AnyXvGIO0abFwqKNBWUl84ZSQwZE=;
+        b=rDWB4B13BupjQXnAXN/jM1+uksJa8EN8VKiN4kb52JBKr+PdEiUCSvy42k3Wn+KmjH
+         FghIxp2qArQAejLinLeZwiK7l4jarh5mWIqVGRtXbDRDdyO3iJK0VSzhXjZsCAQq7vmz
+         AMCHqZ+PrCsjXZG6lnxNH8VXph+RDDBV2AzpVci3kQ2f3WbTjLaPcQFwOFW3q8tWpnGU
+         6bZKEyn5jMM/sTYC0uc+2nMq9hwmYq27jT3HH/T7R0n1A0lTy0i5y+gRmcEf/326PbMa
+         3SgyF6QFgSQhWO7L0G8cFIV4qkBrooLE1pLsAffKSvK9O0PLpKcG6fVmvPyymHQfddeV
+         daeA==
+X-Forwarded-Encrypted: i=1; AKwUvBwyPcW4Hm4fh9uCfMUZeUsImRup154ikyj83HIcUl7IDlImR/P+PyX/k+JwOZTubE4jEGjpSjlnhr89tKA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7n3a47EtNh594rICoxmsgsTVlCAx0wRDv+qIm6RcW8YyCG8V7
+	wdZtJJ7L2mN1nx/odmvF6o99/xbhiwNoNBO/+9g/mqFCS3b+eqm1uZ9b8KLqhuhclEciCmdu+/r
+	H7NmgDUn/spEFvqTKGfN8OiffdMIxWS0j7ahRpbFy
+X-Gm-Gg: AYBFou15lCTTml81tlXN0WEVBiMWaNyKnMZpJMAVeOyTTsFYj/OhJoCtKPSlPHgMz5I
+	QH53jtCfsJasYSDWKjeLa1kA50kvY6ZeT7P6ns29/psX8UmXFsMIqbvoH1GHlBVK3DjaAhM1IoN
+	te7JYDMrwqi/c0PgQ3eQsPHdf7FMm3M8mFj6OfqZEd9qPRwMSLPIMD47OMOEWxEpoKW5Bgw8BG4
+	lLxOSs15egqE/InPtzJT5blbLrUFZ7n8WQ+kQam8AXtQp7YUt8CuYRiT0bASh3TaQXnLZyIJZ6W
+	8WMh7EtMGE3Y5Ob3j2MgPTZRmVlh6BJ2qWJR6EjIRhJyfKkZe6ki299Bo0ImpKHRkKvhMoN/K0u
+	TEYreOZ4vVEe/NuDh4DT2jxWPrvC5QAjJriSxmARrtaHvMXdFh4Y2ldrFu2zQLOulkLs=
+X-Received: by 2002:a05:622a:2298:b0:535:1cbe:375e with SMTP id
+ d75a77b69052e-5369b86a007mr26318971cf.59.1792587226044; Wed, 21 Oct 2026
+ 05:53:46 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:53:45 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:53:45 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20261020131447.122096-3-pbonzini@redhat.com>
+References: <20261020131447.122096-1-pbonzini@redhat.com> <20261020131447.122096-3-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,161 +110,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC v6.1 2/3] workqueue: Add support for real-time workers
-To: Tejun Heo <tj@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Boris Brezillon <boris.brezillon@collabora.com>,
- Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Matthew Brost <matthew.brost@intel.com>,
- Steven Price <steven.price@arm.com>, Lai Jiangshan <jiangshanlai@gmail.com>,
- Breno Leitao <leitao@debian.org>
-References: <20261001160711.59888-3-tvrtko.ursulin@igalia.com>
- <20261001184848.61776-1-tvrtko.ursulin@igalia.com>
- <3a139a32135c149f51bac4f2bd58ad56@kernel.org>
- <9bb46cf4-7982-463b-8289-06bbc319bba9@igalia.com>
- <cb60b6a0f8f35957d64c9abf240c2dbd@kernel.org>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <cb60b6a0f8f35957d64c9abf240c2dbd@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Wed, 21 Oct 2026 05:53:45 -0700
+X-Gm-Features: AclHuK_cQy3FIEKPEYLrrT0unEbP9o3cNdKisHPXC0klQRVgJdOZliD266c8PeQ
+Message-ID: <CAEvNRgGceF8m5GFV0aE2ALkVEY=mvWevGmaCrgoxcLznadOF4Q@mail.gmail.com>
+Subject: Re: [PATCH 2/3] KVM: x86: leave the legacy private attribute in for
+ TDX and SEV
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: Fuad Tabba <tabba@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Shivank Garg <shivankg@amd.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>, Sean Christopherson <seanjc@google.com>, vannapurve@google.com
+Content-Type: text/plain; charset="UTF-8"
 
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-On 20/10/2026 00:40, Tejun Heo wrote:
-> Hello, Tvrtko.
-> 
-> On Mon, Oct 19, 2026 at 11:02:08AM +0100, Tvrtko Ursulin wrote:
->>> apply_workqueue_attrs() is unrestricted, so a caller can hand a WQ_RT wq the
->>> attrs from alloc_workqueue_attrs() and turn it into a normal non-strict wq
->>> while the flag stays set. Maybe apply_wqattrs_prepare() should force prio
->>> and affinity for WQ_RT instead of restricting only the sysfs side?
->>
->> I am not entirely sure about this one. It could be done in
->> apply_wqattrs_prepare(), but it would end up redundant on the sysfs
->> path. Because currently there are two paths:
-> ...
->> Am I missing something?
-> 
-> The missing one is apply_workqueue_attrs() called directly with attrs from
-> alloc_workqueue_attrs(), which is what padata_setup_cpumasks() does for
-> its own wq. Forcing prio and affinity in apply_wqattrs_prepare() covers
-> all the paths in one place. Being redundant on the sysfs path is fine.
+> As of today, and presumably as of Linux 7.4's release date, there
+> is hardly any VMM that supports guest_memfd attributes.  Support the
+> legacy VM attribute for private memory if SEV or TDX are requested;
+> default it to disabled if only the software-protected VM is requested,
+> since it is only used by guest_memfd selftests.
+>
+> While in-place conversion is the best option, it is way too
+> early to enable it by default.
+>
 
-I've implemented something, but perhaps to check we are on the same page 
-before I send the whole series out, the crux of a solution is a patch 
-preceding this one (so new patch in series) with the important bit being 
-this:
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
 
-+static void
-+sanitize_workqueue_attrs(struct workqueue_struct *wq,
-+                        struct workqueue_attrs *attrs)
-+{
-+       if (wq->flags & WQ_HIGHPRI)
-+               attrs->nice = HIGHPRI_NICE_LEVEL;
-+
-+       if (wq->flags & __WQ_ORDERED)
-+               attrs->ordered = true;
-+}
-+
-  /* allocate the attrs and pwqs for later installation */
-  static struct apply_wqattrs_ctx *
-  apply_wqattrs_prepare(struct workqueue_struct *wq,
-@@ -5735,6 +5746,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
-          * every possible CPU and never falls back, so it has no default.
-          */
-         copy_workqueue_attrs(new_attrs, attrs);
-+       sanitize_workqueue_attrs(wq, new_attrs);
-         wqattrs_actualize_cpumask(new_attrs, unbound_cpumask);
-         cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
-         if (!(wq->flags & WQ_PERCPU)) {
-@@ -5757,6 +5769,7 @@ apply_wqattrs_prepare(struct workqueue_struct *wq,
-
-         /* save the user configured attrs and sanitize it. */
-         copy_workqueue_attrs(new_attrs, attrs);
-+       sanitize_workqueue_attrs(wq, new_attrs);
-         cpumask_and(new_attrs->cpumask, new_attrs->cpumask, 
-cpu_possible_mask);
-         cpumask_copy(new_attrs->__pod_cpumask, new_attrs->cpumask);
-         ctx->attrs = new_attrs;
-@@ -5919,24 +5932,6 @@ static void unbound_wq_update_pwq(struct 
-workqueue_struct *wq, int cpu)
-
-alloc_wq_std_attrs() is completely gone and alloc_and_link_pwqs() calls 
-standard alloc_workqueue_attrs() instead.
-
-Slight annoyance is I have to call it twice in apply_wqattrs_prepare().
-
-Could you please confirm (or deny :)) this is what you had in mind?
-
->>> alloc_ordered_workqueue() with WQ_RT passes this and ends up with a single
->>> pool spanning all CPUs because ordered wqs use dfl_pwq everywhere, while the
->>> doc and sysfs say strict per-CPU. Should __WQ_ORDERED be rejected too? The
->>> nested ifs can also be a single condition.
->>
->> Not sure - Tejun what is your guidance here? Is this purely an
->> implementation challenge because conceptually it should work, no?
-> 
-> Yeah, the priority part would work. It's just that an ordered wq has a
-> single pwq for all CPUs, so the per-CPU affinity can't apply. Let's reject
-> __WQ_ORDERED for now and allow it when there's a user.
-
-Done.
-
->> P.S. The nested ifs could be a single condition but I wanted to mimic
->> the existing style so it looks nicer:
-> ...
->> I can change if desired.
-> 
-> Your call. A single condition would read fine too.
-
-I've collapsed into one. I guess fewer WARN_ON_ONCE the better..
-
->>> The three stores check WQ_RT and return -EINVAL while nice goes read-only
->>> through is_visible below. Can all four go through
->>> wq_sysfs_unbound_group_visible() returning 0444 for WQ_RT? That drops the
->>> three store checks.
-> ...
->> Could do that if it would be acceptable for root to be still able to
->> write to them - Tejun?
-> 
-> Root can't write to them. sysfs sets KERNFS_ROOT_EXTRA_OPEN_PERM_CHECK, so
-> kernfs_fop_open() fails a write open of a file without a write bit even
-> with CAP_DAC_OVERRIDE. Can you make nice, affinity_scope and
-> affinity_strict read-only through is_visible? cpumask can stay writable
-> as narrowing where the RT workers run doesn't break anything.
-
-Done.
-
->>> Can we keep printing nice for non-RT pools? prio=120 is the internal
->>> encoding, sysfs and the pool dumps print nice, and the example output in
->>> workqueue.rst would go stale. prog['RT_PRIORITY'] would match the rest of
->>> the file too.
->>
->> We probably could if we wanted to. Tejun?
->>
->> Complication would be having to hardcode some priority conversion
->> helpers into the script.
-> 
-> Yeah, let's keep nice. It's just prio - DEFAULT_PRIO and hardcoding 120 in
-> the script is fine.
-
-Done as well.
-
->>> One more thing which isn't in the diff. The rescuer of a WQ_RT |
->>> WQ_MEM_RECLAIM wq, which is what panthor-drm-rt is, still runs at nice -20,
->>> so under memory pressure the RT wq's work items run as CFS. Should
->>> rescuer_thread() use sched_set_fifo_low() for WQ_RT?
->>
->> I did not think we should care much about latency when under severe
->> memory pressure. It should be enough to guarantee forward progress and
->> the latency restores back to normal once memory pressure stabilises.
-> 
-> Agreed.
-
-Ack, thank you.
-
-Regards,
-
-Tvrtko
-
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  arch/x86/kvm/Kconfig | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/x86/kvm/Kconfig b/arch/x86/kvm/Kconfig
+> index 01a683a9042a..4f7d75ec8c40 100644
+> --- a/arch/x86/kvm/Kconfig
+> +++ b/arch/x86/kvm/Kconfig
+> @@ -80,6 +80,7 @@ config KVM_PRIVATE_MEMATTR_VM
+>  	bool "Enable per-VM PRIVATE vs. SHARED attributes (for CoCo VMs)"
+>  	depends on KVM_SW_PROTECTED_VM || KVM_INTEL_TDX || KVM_AMD_SEV
+>  	select KVM_VM_MEMORY_ATTRIBUTES
+> +	default KVM_INTEL_TDX || KVM_AMD_SEV
+>  	help
+>  	  Enable support for tracking PRIVATE vs. SHARED memory using per-VM
+>  	  memory attributes.  Using per-VM attributes is deprecated in favor of
+> @@ -87,7 +88,7 @@ config KVM_PRIVATE_MEMATTR_VM
+>  	  CoCo VMs using a VMM that doesn't support guest_memfd memory
+>  	  attributes.
+>
+> -	  If unsure, say N.
+> +	  If unsure, say "Y".
+>
+>  config KVM_SW_PROTECTED_VM
+>  	bool "Enable support for KVM software-protected VMs"
+> --
+> 2.52.0
