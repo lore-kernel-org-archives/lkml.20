@@ -1,83 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563549;
-	b=HnuRQdVbuOxDQFXAwHFw65AZd/OZAUTsDAx/0tq9Lg1HSZjG9WY2WH9mq1M12rMI4uGk
-	 jzttl4DMB2ya2yVMRUUO1UFNj5Y5Vv1Jkvc2msKXM2tCawNhs3uhk8O95nudkVMvvR7dy
-	 ovafgl9OpU+Xgn1+ewMgw7hxbJEHq6p5fHqTFnCbtvJN5FT436V997NSsu+uBHssbPQFx
-	 VQ8O6r/w5Wr+jgY55tlhD1jV0ZHrhLxEjlyRHw7/FVvsi+pWctHnol4F54I6R1Fi0uwZj
-	 Zok7namKl90EFnZxBxL/+xgNhaX5GE5jPqjVyWPmlRaEZrRNXeVmRK2OJz+0bZTnvgg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563549;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=n2RVWOwtwVAdp5hN/dRfD4IYzXjvrWfHTyFtS6kDdI0=;
-	b=4SuNh+xK1XjH2XZNhgfxWr2DnbaXgmpMQM0xGwVdSANffK1QismjKrlUogbOZIZtSgR3
-	 /EtGr7Xj9Z8QdFoLv2sH/49ALlgwKhSZTqija/cW0LL9yNArKkV/fT4I6JERpJd2RkxxJ
-	 pJRyMh3hXltvOtLJVknnr17GHIA1cTcr+YNa64FI+JuKTuHBdSOGouZAmxvy3B+S+8hmG
-	 yRz5ULpQyuA3D/HIkhsJI+XM5821aUyQEA81opstRCveI5gbtHgsK3c6I5XRcP/jDi71u
-	 FUMuwg5tPACQ3jwhkED6tFi1bMIJmFg6S+gzcBSId2fpicnwSAzISiOllXdqaCkhy0w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TCCCxBkF;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792563593;
+	b=H0lvAsQFJboZlIX3tMbmE0TVQ3TZvIRB6mjI8NLNbcQCUn66dS008RhjiEFJfn9NsN/X
+	 QN6TjaUirM+QOAB6DI8rO3NXn4WKN/6Crjh6XtAeo30RrZCQu237rrITH4zKa+CM8MiLN
+	 adCR7pjJffJWiZorzGYV+3YWE8OarJlGjX+9wFhp9WWa+iRHa+pElQ3Tsz/FY9QYw31CK
+	 P7ZO+6ckUPXQTPLhkyWNCB/XnzWFBr0FdGM+FUtSjEkZURjVJ9kbrI4hXEo+STevVcGZv
+	 FhsEm/qIqjsxaBtdzlOYpfnYo3z45fBdMes8S2yzAS4aaCxasI04XzmTHOiMzkEyvtA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563593;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
+	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=qLCAbZhfCaIS/YcGdMpScL5pu9jysldF+JFjMTkV4/I=;
+	b=dda4REgZccHmNLRIT4PxrkOZyn77dwisSA0DceguxOBrSOVnmcjgAHhRpfHCggHrAXfn
+	 yHR08Gl5NcRt4QUOc0TBXNam+8zsCyK/E36RJW1Pab0zeW8HI0FPwP9dlZMtFMozjT/vd
+	 YE5G8gFPVLWQN/o4viHfPHFwRnHHcpDWV+uWuNwF9dv8PoMayPpFrP7T8VaMuvOsqRDPx
+	 YiS/5QK0EnWtqawSebbRhmN5cdnwsdwRzR7Nt+Z53sFojck7E2CcROPt2onwjRtXs9gmB
+	 K0IFkbPDpoGs3CB85Rxxjxo5IE0mtCjiIHORpQoP/RAzubDAaq3CsBgog0J5RlA8rCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pwlTuDrD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.32
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010032.outbound.protection.outlook.com [52.101.61.32])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3919D606A319;
-	Wed, 21 Oct 2026 06:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3919D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C21A606A31E;
+	Wed, 21 Oct 2026 06:19:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C21A606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=TCCCxBkF
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792563548; x=1824099548;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4hf/ZYCQEbLQdcQAHf2NLPCtHj3/Vk+yCaDqI6OH32Y=;
-  b=TCCCxBkFQzN/XRtFS6Q0csnAfvspgRCGTZx9zbuQ8x47KO5hkFIEzlNw
-   oHt9+0oKHKcv8W0wgRpzc8Ysbxh2S0OMERdtyMXOdzKb0eCa2bYX3Yh22
-   jyoItYSm8T/lvtG8kTQWeMEU9QBhzCHlGx8dfmH7HH82nMqR71zHhpl+1
-   TmHJQlzqUKdq7BKU13HaeRFBEEq/Zpy+rcWpiNXICpmxwQqp2ht0SpiCp
-   PHh+ar6UzkJlNBCcULm/hHXSK+upPO9/x6iu02Z7ixOjp+KxPOsgFcdRs
-   HujFKvU0jPq0r/uKKYBcx0LsNIDN4GDBqDLQQzL7Y5BD/Zs5dcsK35FlT
-   w==;
-X-CSE-ConnectionGUID: eazXc6fcTSKcKNzQFs8R1g==
-X-CSE-MsgGUID: kbwFHsvWRJutKf0Dgafv3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1259885"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1259885"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:19:07 -0700
-X-CSE-ConnectionGUID: GjxiM/qyQv2pNpRG6nwxfA==
-X-CSE-MsgGUID: vRjgnCvmQNyA5vhvOjzqAw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3406889"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:19:05 -0700
-Date: Wed, 21 Oct 2026 09:19:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: "Tsao, Bruce" <bruce.tsao@analog.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	"Sa, Nuno" <Nuno.Sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 0/2] iio: dac: add support for AD5413
-Message-ID: <athZVjaGYmCyuNrW@ashevche-desk.local>
-References: <20261017-ad5413-upstream-v1-0-61f40c8fef25@analog.com>
- <atXY4kLEXxmG-tnk@ashevche-desk.local>
- <DS2PR03MB84188FD41F8847EEB34759D9FB672@DS2PR03MB8418.namprd03.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=pwlTuDrD
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jaD/qg1IgG9f649N16Ed+2s65LN8RjQX9OPtSVYBFHiIsXdRLaRU7gAIWKgc5xjsiCU8U7nzypFRWHEiDYwU93K2OJoMpd0exYBelOkNvem/C0yQdtej+kSLaWXZRtyQp0VPkWWG+gwpMJhnEPvNNeza5VNBSoRC0NzT9HccWZ6EviMCni4GwoojxNkaJ6BjWxr2AQo+03evKR8LjLiwCFTEi4RTeTDjT2zNb0SCBX9DRoyrka2HsoZQgBgXcih1IBEYiBPP3Qs/WGQ9raxC57svWqUv4yT7VognoBFoLhSU4pd1YMQ4F+wO4xNMMJ0FjnboQEfkdsMLGFAyTPv2yw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qLCAbZhfCaIS/YcGdMpScL5pu9jysldF+JFjMTkV4/I=;
+ b=tgQcDCRxi0jo9je0jGVv1RwhnC5HbEkLgnqYhtTvZvLJDv4pVtwWmg/MsiYNnQ8scOdyKq2tEmukxL3vyn6CUyt6bI1MlejcilWcZW9lFT7JUql9cagisdesZ/SZT+wE44cwXy5PcgujFXC9pCKE6mYxChQ0430jju8+h4A0LXSp3YhtenjLw7CHvxu9v4/VnLqGebGO3WeGfC7ezZyq3dvNsMBqx44zRLZ3AEwxMXwcpOKI9I7WxVJmQj/7e2j92LnXYw1U/9pco827SJOztgsNMoEwAZdKQZWml/A5QRurdylQlh/ZezTqw2+vmpXnradNkvJkS5dnKKS6xAjcvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=gmail.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qLCAbZhfCaIS/YcGdMpScL5pu9jysldF+JFjMTkV4/I=;
+ b=pwlTuDrD/WzuE8dqVu1AuLLIYaUHdFT7TD1QWc+acIn82SRvahcgGs3PfQJNqD/AQTThJu8I+6Pz9eMyxtNHmVtyEF5PnFf9KuPgG6Qq2BHdYXXglCXtpVpBQB5LrcmDFCYcFVwL1UZa0HwyQy2rvLHyWYngw/fdnYTG2mw7BPzvx3d2YSNfx6wRE7V2VmHXHV/uDdZo8L4jPOwtE574NRmBcSK5tb1yGLLhhehMb/wH0JpAVTKn5cfSchCwvR3a2FLWV9O8PUVt9KDHhtoruBlWNLrF6+5mxvBSTtzyfzro+KS4eqO0Hgs56ZPlObSdsR9rTTEbqUmRyKJgGzzBpQ==
+Received: from BN0PR04CA0143.namprd04.prod.outlook.com (2603:10b6:408:ed::28)
+ by PH7PR12MB7378.namprd12.prod.outlook.com (2603:10b6:510:20d::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 06:19:49 +0000
+Received: from BN5PEPF0004698B.namprd02.prod.outlook.com
+ (2603:10b6:408:ed:cafe::7c) by BN0PR04CA0143.outlook.office365.com
+ (2603:10b6:408:ed::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
+ 21 Oct 2026 06:19:48 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN5PEPF0004698B.mail.protection.outlook.com (10.167.245.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:19:48 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
+ 2026 23:19:34 -0700
+Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
+ rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 20 Oct 2026 23:19:29 -0700
+From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+To: <jingoohan1@gmail.com>, <mani@kernel.org>, <lpieralisi@kernel.org>,
+	<kwilczynski@kernel.org>, <bhelgaas@google.com>, <linux-pci@vger.kernel.org>
+CC: <robh@kernel.org>, <thierry.reding@kernel.org>, <jonathanh@nvidia.com>,
+	<vidyas@nvidia.com>, <cassel@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-tegra@vger.kernel.org>, <mmaddireddy@nvidia.com>
+Subject: [PATCH v2 3/3] PCI: tegra194: Notify Endpoint functions on PERST# assert
+Date: Wed, 21 Oct 2026 11:49:03 +0530
+Message-ID: <20261021061903.1269605-4-mmaddireddy@nvidia.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261021061903.1269605-1-mmaddireddy@nvidia.com>
+References: <20261021061903.1269605-1-mmaddireddy@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,57 +114,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DS2PR03MB84188FD41F8847EEB34759D9FB672@DS2PR03MB8418.namprd03.prod.outlook.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-NVConfidentiality: public
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN5PEPF0004698B:EE_|PH7PR12MB7378:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47a496f2-9f4b-4c72-f2ca-08df2f3b4f25
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|7416014|11063799006|56012099006|10067099003|261009223027099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Og3+An7nZOuQ2i2AyOvYnzJTGtF+5jLDc9Py+VHwcmex8ZqXcpDxDHuuCSRaav7p/CxWfHJyY3XRxuGzQE7Phl12pcpny94uy6NYGd8UVpJT4h4TzOM1MGHOeD3cf9EwhmNUDEmjI5AHDJ2Yt0vl0gEvTDv84zEIr1PsyGC46NQFGDHYGjF+WAcyqmjo4g0Y5BpKa0kgC8KAOH0ZxpSFxEYU6sQ4V3xl2htVGRy/wQcBfOqWwtTymMM9YARBO8tnp/eUQEJgvjPbEA2YD2x6vOJevfJVXfd2sQaZ5PMjx68GjQz5vjgK8y8vYFH1wVcMDn029HYdEALc4irt1eMEFNIrBBNApvky2vhfq3vRYoh+ESfcYUTfy8PBTp+am/nU0NAPhjU1DHgQWtuNS531ib3zTYTdHTGgVh2EoE3Zj692JNoZ5NKTNLNYPjdtFX8tvYfwnK0X1eKb379ed8TxOd4ajUJJ9yV/a9LH4xVDcLpCfeZxPPj6aooytkfPqBJZJf/QcKN2Tj+HSe/r3YCxMljeaz/3VYhISJugMpFdfUIoRKM66XryrDQ36YZR/wcDR9lricJhsTd+6NpsWdPbdFuqCuqevdgIZh59+2GddeJbLGJn2myTN4lNCE6S382TXA8tNY/GRlPKyNdkvltUvCkeJ3lC97MCD+Rqe7/gkT0JOpiPV5C817aEXaeNI6m/okPqGaEga0cfVez8uD6AjQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(7416014)(11063799006)(56012099006)(10067099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	E5+NFAQPf5M0jXAiJs5F9TSdFwtT/Sjle7YLjgVBLspMg1fTcLxWisjdtiZOubm3+k+ud9cKeKbXZd7Qd6opKLc7v97Fu0msC4cCfSFXqfstxYdVDTWmn92jQL7ZMZH9+NryxwoRFymnMD1TIA810eYmv4GPPR9yc2tD2/tugBl3bfv8ClIjIsg8yRSAKnjOR67wZ1DPHigRFfUiwMRzCFickgS1fGBhfnvUftNUQghObgKaUiBu8e2KP9N6jbIW7DPJWwmu1elkYGhmghWYX2P4dm41JQ9DYzkdIQOCf7GG6yWykGMnffJiQ/t0FuNVsw14Y3D7iLtXZ6pvOW1LUBN/kZZqpi6zuWrQiQt5MWqBaEcNmwNcs+cQkG8IUHz+eidaZ+fhbspV33z5nCRnsZnhfwsn1jxBaiAU6Q6h6cmR+l+ni9GFRIwn9orHTU5h
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:19:48.5608
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47a496f2-9f4b-4c72-f2ca-08df2f3b4f25
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN5PEPF0004698B.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7378
 
-On Tue, Oct 20, 2026 at 11:53:53AM +0000, Tsao, Bruce wrote:
-> On Mon, Oct 19, 2026 at 11:46:26AM +0300, Andy Shevchenko wrote:
-> > Why in a brand new driver?
-> 
-> Thanks for taking a look.
-> 
-> The nearest existing driver is ad5758, and the two parts are closely
-> related at the register level (the DAC_CONFIG RANGE field, DIGITAL_DIAG,
-> the slew-rate block, the reset and calibration-refresh keys), so an
-> ad5758 variant is certainly feasible -- that was the first option I
-> considered.
-> 
-> The differences are a mix of hardware and current implementation:
-> 
-> - Hardware: the AD5758 integrates a DC-DC converter (adi,dc-dc-mode is
->   mandatory in its DT parse and currently drives channel selection) that
->   the AD5413 does not have; the AD5413 is also 14-bit rather than 16-bit
->   and supports a different set of ranges.
-> 
-> - Current implementation: ad5758 disables the SPI CRC at probe, whereas
->   the AD5413 driver keeps it on and computes a CRC-8 per outgoing frame
->   (CRC is optional on the AD5413 too); the two also use different reset
->   APIs.
-> 
-> None of this makes a shared driver impossible -- there's a genuine
-> common layer (two-stage readback, read-modify-write, the
-> reset/calibration/slew/output-enable sequences). I went with a
-> self-contained driver mainly to keep the change off existing ad5758
-> users and keep the blast radius small, at the cost of some duplication.
-> That's a tradeoff rather than a hard line, so if you or Jonathan would
-> prefer AD5413 as an ad5758 variant, I'm happy to prototype it; I'd just
-> like to agree the direction before spinning a v2.
+Tegra powers down the Endpoint controller when the host asserts PERST#.
+Notify EPF drivers of link down before disabling the controller so their
+link_down callbacks can quiesce outstanding work. For example,
+pci_epf_test_link_down() synchronously cancels its command worker.
+Without this notification, the worker can remain active after the
+controller is powered down and while EPC resources are later removed.
 
-I also would let David to comment as he has an expertise in the combining
-drivers (if I'm not mistaken). In any case he is also an official reviewer
-of IIO and might have some good ideas.
+Call pci_epc_linkdown() directly instead of dw_pcie_ep_linkdown(), which
+also reinitializes non-sticky DWC registers through DBI when the host
+may already have withdrawn REFCLK. The direct notification avoids that
+common DWC register reinitialization. It does not guarantee that EPF
+callbacks are register-free: they can access MMIO and must tolerate the
+hardware state at PERST# assertion, including unavailable DBI access.
 
-From my perspective sounds like there is not enough justification for
-a brand new driver. I remember seeing such a configurations (as per your
-item 1) just be provided via driver data depending on the compatible line.
-As for your item 2, I saw some development for CRC case in another driver
-and IIRC David driven that activity and he might give a better view.
+Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+---
+Changes V1 -> V2:
+- Clarify that the direct notification avoids common DWC DBI register
+  reinitialization, but EPF callbacks may still access hardware.
+- Add a comment explaining why dw_pcie_ep_linkdown() is not used.
+- Drop the unrelated pci_epc_deinit_notify() pointer cleanup.
+- Remove unrelated teardown and deferred-deinit discussion from the
+  commit message.
 
+ drivers/pci/controller/dwc/pcie-tegra194.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
+index 47a83a69533d..1eaefbbdd67a 100644
+--- a/drivers/pci/controller/dwc/pcie-tegra194.c
++++ b/drivers/pci/controller/dwc/pcie-tegra194.c
+@@ -1745,6 +1745,9 @@ static void pex_ep_event_pex_rst_assert(struct tegra_pcie_dw *pcie)
+ 	if (ret)
+ 		dev_info(pcie->dev, "LTSSM state: 0x%x detect timeout: %d\n", val, ret);
+ 
++	/* Avoid the DBI register reinitialization in dw_pcie_ep_linkdown(). */
++	pci_epc_linkdown(pcie->pci.ep.epc);
++
+ 	/*
+ 	 * Deassert LTSSM state to stop the state toggling between
+ 	 * Polling and Detect.
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
