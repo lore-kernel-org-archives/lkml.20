@@ -1,111 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590529;
-	b=Tts3nbrFzQEJdXNJh+5wkbaDt5l6KCn9r0kOxQ52b2F1tz/G4IgEBK1qqlgGKq2U6sbF
-	 MZqG210uu1QEupd0OV8qoV41oTOWp4j6mWmFkkzhixR8wkUNjXNWP8qNEHGXK7fVF+3re
-	 4zHDI0r6oQrmzElTJQAU+QbYqOsXD4m9Z6/t5RgHK4ozD09G+4G1A6vxTZ9Q+HUn6LiIq
-	 0niZEP6qJvFXBmee50uDI8gvtwpGFtPQ6EQG4s4giWulbtZUZV+zHC4tuujebD8ISr3Ok
-	 pOH21xMkqDAcfsenYkkOiEngxgvy330pnOEbWoyoibEXdJjBfWHt4l3o8aCOExcLErQ==
+	t=1792590540;
+	b=SGjKEBSJbDKgjT3ZLDX4wpUb5+ABt0TYeS2tAJI4gvynOr/VfgmRE01DFpvSyY9SXoJ/
+	 RE8a7bVmZ8m+PEbTAWfSzXnoEgzZWdGwB5wssRRjkcFJ2UE++Q/GPzVUiINGu0oH+MZfK
+	 HtI4LWOwvj8dMaKdULhb0u1xtVdsWxiXTA8gywfxlulD+/SGJW5ocwfCwzzBzlIfmDQJv
+	 m/OGZizOzUZOKf5MuQbGPAwAftFxVMsA5OQkA4npzCpoSqdRpHgrTvIbwRyARMThPPm02
+	 tVjThNzSHY12RtsOqAX4EK9mTTYrd/y8+jc67qD57Ty5PVSXGHanNlt+gS+AzkXKUmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590529;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=8mNXDJzEPLAkTirj2phYmas51ZDGCneGM9OsyGulW/4=;
-	b=UOtVqvX9eX+3HoOLFGdH1Umcmnu4MBtDVoSWLb9zd7Yd03SkHAODd5XZy9SPjAZW0jgj
-	 TYqQgk8t9siiHVOGLKe3v4RZrCNekGhbCTuP2SA8DVJBzTjKnxM3V7nD/twehlTXDTJwh
-	 rAfEy2vbLdPeZL3xbS4ojDWDSMxlJ1GzGfT0toIi5UA+e1Ok/wbHcFLLvY36rDNtoiKHW
-	 5OfsiDeRVGySjyB7spmDPEtLwgmBYTRzHLiQIPai9KkkXpuDTIZzKEUjtGya1QIPTCot3
-	 SrbNvcbSO7sRi5v8fDs9YltUbab29tMDB0Ng86lQ5m7dFThOApchCLEX/GayhZdjZJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590540;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=m6ie5JCyR2XxFwtvMIqypZ8n7/2BglhxkFeUrEWwt6s=;
+	b=A/t5mN5qdstTHim5yXKUxg7KpJXhBbFwcsc6mP0j8JpnfGJk9IrsHU1PsReEWefl5KkQ
+	 7MWf/6RIhzg3+MG29wFdUlyDtoNH5ZS6NH8pPQwuLJMpL//cnKv5qbwYpblwsqlw6tuOZ
+	 6Lytig65Tlgk1V85wgLHbQI6ZEGdzfHZRnTWNkCQlmuGqVqR3iDw7h1eLrsQwZxzMPFY8
+	 mK64AOHJkab/nvYynFc056gFHsY3jXNhlgfo8vZfhVIVVXUQE1hwgqW65LNdjlbp8hdF0
+	 R1SnT6DFQpABBWduvRDHvelj58mSprhIieh718jBrLupTIsmoCvUqXQhsn7xQ4dLKXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eeHmZHwu;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TyVawEib;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7YHU08uj;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDD24606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:48:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDD24606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498D606A320;
+	Wed, 21 Oct 2026 13:48:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D498D606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=eeHmZHwu;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=TyVawEib
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBg84G1568316
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:48:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8mNXDJzEPLAkTirj2phYmas51ZDGCneGM9OsyGulW/4=; b=eeHmZHwuumefcCq+
-	9Om0caRyw6TgR0Ueg2f0wP4Kw7z78dA7MDKTqPXxSJ8JeniikROzhDvSU8dphnsV
-	BLBIUX2ZIA/DNy2XOaA5ZL3uZ7VtTZuEzKSbqG1RiVieqN1ZzZe6qo8E0YYQ81HQ
-	CA7YqX9nz6OhWf8tGVi71IMxmxczDZqrApnf9uQR0ln+kR0rb+UDgV+A6rZ+/n0I
-	bDs3l4KYF+3NtdunvfcNxhxaqZ8Kt5GJ1JjwYBZST14HQgqw4ULgtXmu6i+goyOQ
-	DOf0N2VozTavvhu4e+0j0XKrbhIdgn1QhyOFiMXNbhBeQKqPbwwHem659865XvyA
-	wSNbzA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4v6yf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:48:48 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9178ba8eb30so1660376d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:48:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792590527; x=1793195327; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8mNXDJzEPLAkTirj2phYmas51ZDGCneGM9OsyGulW/4=;
-        b=TyVawEibZ/vEiJ3s/jg2bHQr+/bUevZefvM5bi6ITSnuUJJfzqCEssQe9M4yoGYn0w
-         GVg5phlm4egJhiV1O4PaXkWGdnArcvR5ithKWatLuVTUkIGv2PtyNjIEmsUZ8xsvVZUu
-         ntak0XZlh3YXdpsrg0FueOnkxlFkHb1HyTcYmU6b+wStRgVUO5NkHgPdpdLP2liBbth3
-         sSOcMp5VaneZrgrV4eLPwSkWxwFsj0yYz8mxYPjrY2HhFILOQydAjRts+UYi8/xzqtql
-         1kjCezKuaaOZ2kiZ8wIBvzpjGH2r0Wfg/BqmkZ1xG8qSZHWloPuAACvoZPx/0d86PMxo
-         qy/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792590527; x=1793195327;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8mNXDJzEPLAkTirj2phYmas51ZDGCneGM9OsyGulW/4=;
-        b=BGy8EQyl5s7E3otinjf7c1P35uQi7cWQFbi4QpJz40iLOnySRPepsX9aud12vLgbVb
-         NVJinu0INir3KD48PkAAUbj+4+UFSYovNWN3PFljtbPYh8jgjR4atEw6Unlg5IuUgoy5
-         3PXbI6S6iRMm/u0mwlH570uVlT+MTDhfGRA/tdv+MOeuh8csrPronOFHeA0mXHuoEJuv
-         dLTpoV5N3nb2O/yd6Sik+l/shh/An/QkXfrlZc5X04ro+XYKWgvIueIdVXwtMr8j5MWV
-         EbO51N/gQVcumU2vshfyHwKUFLb9jVjhcAs7exSvyn9bMlbksnbKuIJoPLufmRyfwx0U
-         3h6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwI4byYPEXa3jRb73E8Yn8nNGzPYDViCQ3ZJgla6GsECN0gw2niyGznIhxXgh3l7FsoFR6XMZNYtalbXqY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKiN1hRrnohzrMz5jdPtH+I1KGmiVjbtG1vuQF/A4AW+qCAHiWV
-	6Ck0yS/y8WOtSFNkxk+lmJZFV/j/HMgFhUGsAfm1pmiqKf6okRj+HfdgKlY9KXcmWK41/GCqFqa
-	AT4r5FBEC/8Nssrj7Vg4d3l9eOY6sxGg+ca1KFggur9DdpUXZ9igoBcO0ALbB3pxHDTs=
-X-Gm-Gg: AYBFou16AkqSw4rnuxrZzbPodmKD371VFcq/JpRq5YF+FYq3c9n16wTqNva5VOTSwgN
-	JjGdIg8jey4lTfRffbKzrW1PXcZ+7N5rHwQrPlIMXgv3Osv1ozlyQPAtG1sXMJqzo1eMSRVYCOa
-	RIObvoPDWOvxos7uArjAfAg06FTSv5CP3AqvlzoTTaM+cyDY1vdEVA/1jjdD2Uwmch7dOLgp38P
-	NkCn2hB2r1i4ZYW+bsK26kNZNeBIBLxJqSvLwimCrh0u9CV8c0bQTZPJVMc2Yz1wf9ck4A7plrD
-	I6S4vMW+yjoEM3/Qweun0VVJq9zZ9HInoDqPzwUSF39YO2EzL7OqXPAbgBFwWXLnfjXYhCJlov0
-	8qpTToNIYOo+HoqAb6zj62g==
-X-Received: by 2002:a05:620a:2913:b0:93f:a34:d9fa with SMTP id af79cd13be357-93f57e5e2cdmr501591985a.1.1792590526857;
-        Wed, 21 Oct 2026 06:48:46 -0700 (PDT)
-X-Received: by 2002:a05:620a:2913:b0:93f:a34:d9fa with SMTP id af79cd13be357-93f57e5e2cdmr501585485a.1.1792590526242;
-        Wed, 21 Oct 2026 06:48:46 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a1f0526sm7553266b.1.2026.10.21.06.48.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 06:48:45 -0700 (PDT)
-Message-ID: <c2b5f9de-d1f0-4131-82f4-396579520515@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 15:48:43 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7YHU08uj
+Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id 969F08048E;
+	Wed, 21 Oct 2026 13:48:57 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id 24FD32001E;
+	Wed, 21 Oct 2026 13:48:55 +0000 (UTC)
+Date: Wed, 21 Oct 2026 09:48:53 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Gabriele Monaco <gmonaco@redhat.com>
+Cc: Nam Cao <namcao@linutronix.de>, John Ogness <john.ogness@linutronix.de>,
+ Tomas Glozar <tglozar@redhat.com>, Alexei Starovoitov
+ <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Wen Yang 
+ <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>,
+ Viktor Malik <vmalik@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+Message-ID: <20261021094853.29b9f7be@gandalf.local.home>
+In-Reply-To: <a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	<20261001152042.124445-11-gmonaco@redhat.com>
+	<DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+	<b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+	<DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+	<878q3xtptq.fsf@jogness.linutronix.de>
+	<8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+	<87bj8s8ih9.fsf@jogness.linutronix.de>
+	<DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
+	<87v770uuyr.fsf@jogness.linutronix.de>
+	<DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
+	<87ik2zryzo.fsf@jogness.linutronix.de>
+	<0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+	<CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
+	<8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
+	<CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
+	<87pkx5q1w4.fsf@jogness.linutronix.de>
+	<0d4f11b1999588ddba9d855db43fc492eda32de1.camel@redhat.com>
+	<87h5ifqy6w.fsf@yellow.woof>
+	<a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,100 +82,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/7] i2c: qcom-cci: Factor out write command queue
- programming
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261016-cci-imp-v3-0-5ee7ec1ea1a1@oss.qualcomm.com>
- <20261016-cci-imp-v3-1-5ee7ec1ea1a1@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261016-cci-imp-v3-1-5ee7ec1ea1a1@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: nSuKJKjRz0YNzj9aoIKiqG1ORL0LVT_H
-X-Proofpoint-GUID: nSuKJKjRz0YNzj9aoIKiqG1ORL0LVT_H
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfX8bg9d67xTHKr
- x1HS0zLAMX3vpeB0dziGIxDd2vSnLOGYttxZFzd1KZ2w9824ulP/KGBu8zHIMW/S3RWN7HKxs02
- AdlqPXsYIi4OftwSbTtFeAaUTpUm/rk=
-X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad8c2c0 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=J2fI_2kDf8iagJYHrR0A:9 a=QEXdDO2ut3YA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfX15a9ROXzlmQi
- 1+oEaaqTh5XvVNcrZ36RR2Ul/Kl8n6N0OwCEOPfs4vh+IlL6+fiI4Fjo4M+fhCGSrdJcpVdl+Jd
- qRwQ3SVUIGf5M3/qiuNXBktHZ0bMSWnd0GN5FIoFEn4j9Lw0mSFBg0HXwZdqFVIovSFwH7n27HO
- DDhQBJmULY82nW/TLK8Kqv9Fiqf87FtrLei5l49nN845nW+EaAR7HleCZHRk5CBYpq2qobY5ufH
- jKlbcMIVaS5zv5ZkrCI/3nwHHTXvXBVKEcn9z/apy6PvLWn11LlhqRW+U6L24Jqs8OgmOxLrQ6h
- xLBKujCkVqMDxMwrQtkY09CEvASzXt0jXbKAySBh9/MnAX4YYLWXLqPWnARAdgl5YR4TMGw77bG
- JYDqt8TQfyHlfyJ6dynh62BC5W1BGtEpuLWA+PVt26yo09Gcwm0MDWrNV686/C/FO2wKiMUzyV/
- 0miyrfbGEDG4inQTZmQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210054
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 24FD32001E
+X-Stat-Signature: 3e8xkmsffyoz5tqfcbp5gzchn195ciz6
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/won3QmWO3Ea00n6TVtg5JObWY0ME+wXM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=m6ie5JCyR2XxFwtvMIqypZ8n7/2BglhxkFeUrEWwt6s=; b=7YHU08ujBNK3Sf9GcF9v9OOvNmoZOVKjeSWm26SiC+x4cOWhpKWxS1a/9z1wHgOFyKxv1kdprbIb47P01mLy5cPvZsfG+ZqEfdD12c0XrjkPry4Q5JKlxhi/kU0z9G2Wl7twvLDE/Qv3yxZuHhqBSdwAPdxkT/UgQnd8EVsi7WE=
+X-HE-Tag: 1792590535-35345
+X-HE-Meta: U2FsdGVkX19cWOGdLkWjMcDfb0lJuNUgOuDab930f5+fzedrDD+DDMLGOlqXXYTRezyRJSDSRbcp/sPe9rzQP2ZlFJouu9+AdFlD0BmJjPrI5dsfs05cDLCVt9LssZnEo3Elup4EVF002qnfwodRVkTdckUSITs1iu2IxBTxNAHDQ4QsWd6Eb0BuGVd3EVV0/vwPoHRirouMyDlnWXHe+XaxiAYtRM/vmpjd9pp6Crmvu7pEFJ3pvba/uutatAPOPGqTZZSUpPiuECwe/TkdqZ3ZVRs1e+N87Z+lkJq7sWkv15HyQDFdvOwBsSacKRQvzpwM24NidLL3NJszxlRmzBd3J7w/KeXZ
 
-On 10/16/26 10:00 AM, Loic Poulain wrote:
-> Factor out write-command queueing into a dedicated helper and replace
-> the manual byte-to-word packing code with iowrite32_rep().
+On Wed, 21 Oct 2026 13:54:04 +0200
+Gabriele Monaco <gmonaco@redhat.com> wrote:
+
+> > I vote 1, much simpler (but maybe I just haven't quite got the issue). I
+> > feel a bit ensure about adding RV kfuncs and would only go that route if
+> > there is no other way.  
 > 
-> The resulting code is easier to follow and will be reused by
-> upcoming burst-write support.
-> 
-> A command can only carry as many data bytes as fit in its words, so
-> validate the length before building one, and do so where an error can
-> still be returned. The I2C core already rejects a transfer longer than
-> the limit advertised through the adapter quirks, so this is only a
-> guard against building a command that would corrupt the queue.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
+> We can go down that route and see how it behaves.
 
+BTW, I'm curious if it isn't possible to keep both in-kernel and BPF
+monitors? That is, for those cases that do not change often and has a well
+known model, to simply keep those as modules and hard coded.
 
-> +static void cci_i2c_load_write(u8 *buf, u16 len, void __iomem *loadq)
-> +{
-> +	u32 cmd[CCI_I2C_WRITE_WC] = { };
-> +
-> +	cmd[0] = CCI_I2C_WRITE | len << 4;
-> +	memcpy((u8 *)cmd + 1, buf, len);
+But this entire thread started with people that wanted BPF type of
+monitors for more flexibility. I would argue that is an entirely separate
+use case. For them, it should be a fully BPF solution, with a few hooks
+into the RV infrastructure.
 
-LLM says this is no longer big-endian friendly, but BE arm64
-is going away anyway so I woouldn't really change it
+It currently is a big unknown if the BPF solution can handle all the use
+cases of the current module method. My suggestion is to not try to do so.
+Keep the module method for the more static use cases that do not need
+dynamic changes. And create a purely BPF method for those that need BPF.
 
-> +	iowrite32_rep(loadq, cmd, CCI_I2C_WRITE_NWORDS(len));
-> +}
-> +
->  static int cci_i2c_write(struct cci *cci, u16 master,
->  			 u16 addr, u8 *buf, u16 len)
->  {
-> -	u8 queue = QUEUE_0;
-> -	u8 load[12] = { 0 };
-> -	int i = 0, j, ret;
-> +	void __iomem *loadq = cci->base + CCI_I2C_Mm_Qn_LOAD_DATA(master, QUEUE_0);
-> +	int ret;
->  	u32 val;
->  
-> +	dev_dbg(cci->dev, "master %d write: len=%u\n", master, len);
-> +
-> +	/* This condition should be guaranteed by the caller (i2c core) */
-> +	if (WARN_ON(len > cci->data->quirks.max_write_len))
-> +		return -EOPNOTSUPP;
+This thread is sounding like there's different requirements between the BPF
+and module methods. If that's the case, let's keep them separate.
 
-Likewise LLM suggests this is an odd error to return and I agree EINVAL
-could be better
+I agree with Alexei's first comment about not adding BPF to the module
+method. But that doesn't mean we need to eliminate the module method
+completely in order to use BPF. Instead, just create a new BPF pure method.
 
-with that:
+Perhaps in the future the BPF method may make the module method obsolete,
+but I don't want users of the module method having to do all these
+workarounds just to satisfy the BPF method while it is in development.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-
-Konrad
+-- Steve
