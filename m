@@ -1,67 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569923;
-	b=oGLqaHxRbULuv7hjt7pVfpzQHUCNAoOo3R4goHkAzAQgLjsUkOgwmMB/IVCqv9V5htGM
-	 /ZLVRtsNQ+mW0OuPXaOLVsYCacU2JDv4vRVJ+1hVmj7eWNHhQxoVUJdOjcosKpHcNHrVy
-	 I4Lcs8MubQZ2dTrubmSFNV543ZTFYxFwiBosi6IONVu3QrfLMv2xXXNxypS6rSFYSA8hu
-	 t0tLc6emQM9zGgsixBlsqNuqz29cvl205cWQYpsHvrZaSNOAEH8VXeUeUWDHghPcUNplL
-	 CflkF28+lVJ2yPpQoEV+oFUpWICdd4V696Tzk+anU6qYWnfnU9ECEWz/ti7z0dgLB+g==
+	t=1792569929;
+	b=NpoCO5/smCHuS0W7C6dRy51jxfvKtI6tzZKKi2UWNGiPpCVuw3dipwK+zS630WAjbG1w
+	 X6VfYLnVA0G6DC3myXh1VFLYuXrdgnsEJ8NONU8PWIyjQEiCCLMYWb20piYHdHzhFUTNy
+	 7W9yuPbmQKIgohT+T883nUhHhGSM7z683i3HncV3vp2oSFXeT9b6ExsNoioXxJztKx7AA
+	 20KtC1DD2Si1niTMfcbQ7uxd9BCIWpIH6eIQ2t0EvnpkQO1u+vNyn4QMi6cAOnv0i5hTv
+	 HZymy44DTX04tu+kp9ZZ9p54LFG/Z5loA9Wg8cd7sWXN8PgXCMDX68y2UgoChvOXnRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569923;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=hDOMQ91uhDohJSZ7YqAbXMPKl28Jt5X94do2OgtHl1M=;
-	b=y1xnuGJnlwsHTpVFylxpKshcmr0Xnjo5METqZfO07ktD6+CKvdEIRoLocLaIYjSgZtTk
-	 KzscF95nNnAu+DaWrSGoiXzRpVsDGix3wBRP4hrARfOFoTygxIO35VO6PHCbidxupEGKh
-	 z/Qr/tMLf1RXOTftTz1CJljt4D90Uwmoq5Fb1jnB8l/CyaqKRSkyXZHEaOr6P6PBFpHwS
-	 YVevlitj26+cwOYQilX6LqDWSHVJooF2oYiwF0H09J1iXMUu3SExSKjQZwb62rRpdRmF3
-	 dhIEMsLjRKHryEp/5ErC+oGnNFSoYDzsNg5uaBKJOhEVHeftJ9/nxgTXIn6EkqfD4zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792569929;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ucrcGnxXyuYhogAmjNJch54rUpgpdnz/8hQqaKskjsk=;
+	b=5YqF9IP4Kkcs8EgKfDjw5G6wQ1biPlpUJOaflK/ISNA9JyXiW9jXs6F00uW2alONYXwB
+	 jv8+rTRCYVzUd6qY+jFSS3FmpVKIrR0jY0wF0EFbJZ1togQ0iJ48vJp5DIAbyWVUowiN5
+	 WKJk6E8LVgufnBOfmVrASqCcUt38ZrJdEgoFvdzN9APoTv2Wm7MG3JSJWjin+A1KGM3RQ
+	 CrFoWkzEbz88Kw+j5SUR8TS7qamNFwqvnMPtzvCguyk0+Fz10iqIzoFqmIChAuPrBMXvi
+	 VzBJ8yCOkJJPuj05EVprKSUQcQaxKk0gJkqHeW//e3lko+TCru4SI4UamQtuFga/I1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gAPZ6e0F;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jwG847XJ;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD883606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:05:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEED606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:05:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DEED606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gAPZ6e0F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDCD1F000C9;
-	Wed, 21 Oct 2026 08:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792569922;
-	bh=hDOMQ91uhDohJSZ7YqAbXMPKl28Jt5X94do2OgtHl1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gAPZ6e0FjFqyx/5EKk5EftjsDjjpWqCdZ4W4OoWg8evKclBA1AUU1Q+l6xq/s7FbO
-	 +C2oQ/g54n7vdYgi6BBBqe4obM+SWb2roYAaoUhCtCwTTAe1S4PrQ4f0F6RgR+m8nn
-	 Oru3ScwSh7sBTaeXMVnoYaNM3SVx2tQm6yzoS4G9x110yy3XY/shfEI31KoOw37ruT
-	 3UwwPteJst3WBGAi9/GSCsUKZQx1FV3Zp8SCK0AYBWl5URdqvM3AAmFvdj/JfHD9/z
-	 nXv8DRgUQmJtsfFO/J0GHFdkFLILMEfEYCSkTDSJRLoSIva/rfqS8ixrhf1Ud1ZjwQ
-	 V3faTezO/X8uA==
-Date: Wed, 21 Oct 2026 10:05:15 +0200
-From: Gao Xiang <xiang@kernel.org>
-To: "Friendy.Su@sony.com" <Friendy.Su@sony.com>
-Cc: Gao Xiang <xiang@kernel.org>, "chao@kernel.org" <chao@kernel.org>,
-	"linux-erofs@lists.ozlabs.org" <linux-erofs@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Yuezhang.Mo@sony.com" <Yuezhang.Mo@sony.com>,
-	"Daniel.Palmer@sony.com" <Daniel.Palmer@sony.com>,
-	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>
-Subject: Re: [PATCH v1] erofs: enable SB_I_ALLOW_HSM to support fanotify pre
- access event
-Message-ID: <athyOw_WoXy9-NDR@MacBookPro>
-Mail-Followup-To: "Friendy.Su@sony.com" <Friendy.Su@sony.com>,
-	Gao Xiang <xiang@kernel.org>, "chao@kernel.org" <chao@kernel.org>,
-	"linux-erofs@lists.ozlabs.org" <linux-erofs@lists.ozlabs.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Yuezhang.Mo@sony.com" <Yuezhang.Mo@sony.com>,
-	"Daniel.Palmer@sony.com" <Daniel.Palmer@sony.com>,
-	Amir Goldstein <amir73il@gmail.com>, Jan Kara <jack@suse.cz>
-References: <20261010094000.2036805-1-friendy.su@sony.com>
- <asqsNhtlXaEOrEky@XiangdeMacBook-Pro.local>
- <TY0PR04MB6191A63F6B79E4109D185F41FD9F2@TY0PR04MB6191.apcprd04.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jwG847XJ
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso2025445e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792569927; x=1793174727; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ucrcGnxXyuYhogAmjNJch54rUpgpdnz/8hQqaKskjsk=;
+        b=jwG847XJhJbV9MnwCiFohonUbKnj6JWHGBY63H4xDYKx9C8HSElWVEdTmW0dTxn5qB
+         sg+ehAJ1WM3rvjLZsCQAyeWcyIn+yGDKvq915orp0dRrGGSNEMqdlaUHwuIrPYs9YmT6
+         uinEITawyfHiGrsnhbTCBBwIZtLGAoDcVMadKyOc7LT0ycdfZZusmUyj53GLqnRHFaB2
+         4H6I+ZKSN4c7bynljJJHON45X1/mIBtXjHBmBFiE8aDfiJBB71OufeK4MVFGiyH6LSDR
+         PfXTgcOPZbpUcUyuE5ma1VNoCVyh6XnM+A7hD72MD0yxKr+OjxIxyJnZyh4dPNpuluyB
+         1HJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792569927; x=1793174727;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ucrcGnxXyuYhogAmjNJch54rUpgpdnz/8hQqaKskjsk=;
+        b=XxbtKPbdJXAFR99CpilNuVhWNgdaGwOAjn+YpoUi+dAzP0IFZAKn8591wyl7YXhbQ7
+         jLQljJQYsYqBJKqwYFvnxY/IyNoJMkA3mm/2dGANkGkcMnbamXriZnf95rM3t6iCwzva
+         IE7hEiNACvYfIm8Pw7tQI13bPUp2lPuCZh3IrbPfzeXflLN9Zm7dDdUIjqC0RbxrYP3L
+         RNrAZ0qab/+rEHJGPAos0mA/SyHe6f8Jtg26qnueEOnGVnsiNMtKpyC4bjgvOL+Srrz/
+         Bdd07/5oyvSVdfXzs2H1BnkJu2tOOHZAToAi4hj1bGI0AO386dSyQ0bAe1s2zeZh1RRl
+         2i0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzftZ6VMh2wSufcsojVkc8q3nUBgy1JpA1erKjLo3p2ulq9GuxSWI29VaKV79kRiOF4P4k8xazxdM82dEo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLzk2nrl7qIR8eI90KJrucvNhARPDJO0nvMfWpDxFUNWcm29njY
+	HV67vytkpN6Pfi1flOSviJm4sBLIsOJE2FkvRW6P4gjauzXjc/66wlEl
+X-Gm-Gg: AYBFou1XGfVtvXju3eI8huDcaSEiNH7dBT0vrlBLT9oGpHUeie51ZEXszY/CatIOB4Q
+	KhxUbnJzyZxD8WLBiWJosdIxbr6tjFDDiodgk79mUMEMppTAPubjtfORovwltj5ebLQIjTmOYMn
+	wbSoaPcIxS4UNLpoRKeT+pVEyowVsEETFhrrMN870Dy1CE+ELjRXos7J9YV6yrYsj+1xJ/+u4iN
+	VnioagdiCu12mOEmbyF6W0I4Qi9+poaE9PTORn1iIP2xSbKox339K2umnM6AJhUDRJX6KIwdL5f
+	f3LWPvPLAGHw+pmzlTTfQDiCBE3SlctjorTE/r800VvSeOUJwKnapG0oACpX0ZriqMFXgNDLbcb
+	huLGW3eIPgD0/6ewJMxdyz6Z0FxutMyc9dJL9zVxVN3zrHe+ensPU6I0fQuFUWIsW9zMvTdUb/8
+	wV3ghO8U7VXV+r1vf7lU5mW0Y+/ge0FeBukSs5MUm/hZCsgzX/X3JidPVo140JaCnRKb+5hsjXi
+	N7VkFpr+0j+bT1v/cWJ5zmvksrk2hNtjrd9eDxY0sMzmjqy4Mc0kC+9ndHi9PedpQ==
+X-Received: by 2002:a05:600c:c4a7:b0:4a1:d41a:afc2 with SMTP id 5b1f17b1804b1-4a1fd8cb7aemr24443845e9.3.1792569926424;
+        Wed, 21 Oct 2026 01:05:26 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.12])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a1fc1066cfsm38928165e9.1.2026.10.21.01.05.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 01:05:26 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Rob Clark <rob.clark@oss.qualcomm.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [PATCH] pmdomain: qcom: rpmhpd: don't clamp gfx and gmxc before sync_state
+Date: Wed, 21 Oct 2026 10:05:17 +0200
+Message-ID: <20261021080517.2161-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,158 +102,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <TY0PR04MB6191A63F6B79E4109D185F41FD9F2@TY0PR04MB6191.apcprd04.prod.outlook.com>
 
-(+cc Amir, Jan)
+Until rpmhpd's sync_state every vote is clamped to the highest corner,
+so that hardware the bootloader left running keeps the rail level it
+needs until its driver takes over.  Nothing the bootloader leaves behind
+runs on the GPU rails, but the clamp hits them anyway: the GPU clock
+controller's probe runtime-resumes and suspends its GFX and GMXC
+domains, and from then on both rails are pinned at their highest corner
+until sync_state.
 
-On Wed, Oct 21, 2026 at 07:18:06AM +0000, Friendy.Su@sony.com wrote:
-> Hi Gao,
-> 
-> Sorry for late reply.
-> 
-> We have considered fanotify in erofs-utils. I think it must be used with 
-> file-backend mount. It actually utilizes FAN_PRE_ACCESS on ext4 or xfs. 
-> Also file-backend mount can not support DAX mount.
-> 
-> But for our case, file-backend mount can not be used. Firstly, there is no 
-> ext4 or xfs file system in actual environment to put a sparse erofs image 
-> file. We have to mount a normal block device. Secondly, mount must be DAX.
-> 
-> The basic flow is file content is fetched from remote then filled into 
-> local erofs file on the DAX mounted block device in FAN_PRE_ACCESS handler.
-> 
-> "/dev/loop0" is just an example, not our actual use case. The actual block 
-> device is something like /dev/pmem0.
-> 
-> In order to make SB_I_ALLOW_HSM only set under block device backend, 
-> we can do like this:
-> 
-> if (!erofs_is_fileio_mode(sbi)) {
->         /*
->          * Allow HSM to support fanotify pre access event
->          */
+On Glymur gfx.lvl has 14 levels and the clamp holds the rail at the top
+one, 0x1d0, while the GMU's own performance table ends at level 11,
+0x1c4.  With the GPU driver and firmware built in, the GMU boots long
+before sync_state, and its CLX DCVS calibration does not survive a gfx
+rail held that high: the firmware gives up with HFI_F2H_MSG_ERROR
+0x007306c7 (ResMgrCalibrateDcvsLvl), the first HFI_H2F_MSG_GX_BW_PERF_VOTE
+times out and the first GPU init fails.  On the Lenovo Yoga Slim 7x
+Gen 11 this means the compositor cannot start at first login.  Pinning
+gfx at level 11 or 12 instead fails the same way, level 10 and below
+boot fine, and pinning gmxc alone has no effect.
 
-nit: single line /* Allow HSM to support fanotify pre access event */
-     according to EROFS code style.
+Leave gfx and gmxc out of the clamp: they have no bootloader-configured
+consumer to protect, and the GMU votes them through its own RSC.
 
->         sb->s_iflags |= SB_I_ALLOW_HSM;
-> }
+Fixes: 93b6c8d10fad ("drm/msm/a8xx: Enable CLX feature on Adreno X2-85")
+Link: https://lore.kernel.org/r/179248663855.32151.9955864156939592299@gmail.com
+Acked-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
+---
+ drivers/pmdomain/qcom/rpmhpd.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I am fine with that as long as you limits SB_I_ALLOW_HSM **only if**
-s_bdev is valid (IOWs, I hope we don't need to bother it with EROFS
-SB_I_ALLOW_HSM + file-backed mounts; it aligns with other filesystems).
+diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
+index fa8fed5bd3e5..2c9d4beeffbe 100644
+--- a/drivers/pmdomain/qcom/rpmhpd.c
++++ b/drivers/pmdomain/qcom/rpmhpd.c
+@@ -1006,7 +1006,7 @@ static int rpmhpd_aggregate_corner(struct rpmhpd *pd, unsigned int corner)
+ 	unsigned int peer_active_corner = 0, peer_sleep_corner = 0;
+ 	unsigned int peer_enabled_corner;
+ 
+-	if (pd->state_synced) {
++	if (pd->state_synced || pd == &gfx || pd == &gmxc) {
+ 		to_active_sleep(pd, corner, &this_active_corner, &this_sleep_corner);
+ 	} else {
+ 		/* Clamp to highest corner if sync_state hasn't happened */
 
-Also I think it would be better to add a testcase to check the basic
-EROFS SB_I_ALLOW_HSM functionality in erofs-utils (see
-experimental-tests). You don't need to add support for EROFS
-SB_I_ALLOW_HSM directly in erofs-utils; but a basic functionality
-testcase for this is needed.
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+-- 
+2.55.0
 
-
-BTW, for your use cases:
-
-> mount must be DAX.
-
-As for virtio-pmem, why not just use userfaultfd on the host for
-virtio-pmem lazy pulling? for example,
-https://github.com/firecracker-microvm/firecracker/issues/5740
-
-Personally I still don't think monitoring FAN_PRE_ACCESS of EROFS for
-this kind of usage is a good idea.
-
-But anyway, it doesn't matter to much if it applies only to bdev/pmem.
-
-> 
-> How do you think?
-
-Also please just adjust the patch subject to:
-
-erofs: set SB_I_ALLOW_HSM for bdev-based mounts
-
-Adjust the commit message accordingly to your use cases, and
-explain file-backed mounts are not your cases in the commit message
-as well.
-
-And since it enables SB_I_ALLOW_HSM, it might be better to
-Cc fsnotify maintainers in the following versions.
-
-Thanks,
-Gao Xiang
-
-> 
-> Best Regards
-> Friendy
-> 
-> ________________________________________
-> From: Gao Xiang <xiang@kernel.org>
-> Sent: Sunday, October 11, 2026 5:20
-> To: Su, Friendy
-> Cc: xiang@kernel.org; chao@kernel.org; linux-erofs@lists.ozlabs.org; linux-kernel@vger.kernel.org; Mo, Yuezhang; Palmer, Daniel (SGC)
-> Subject: Re: [PATCH v1] erofs: enable SB_I_ALLOW_HSM to support fanotify pre access event
-> 
-> Hi Friendy, On Sat, Oct 10, 2026 at 05: 40: 00PM +0800, Friendy Su wrote: > This patch makes erofs support a use case below: > > erofs file data are not available at local, but need be > filled at fanotify pre access event handler. 
-> 
-> 
-> Hi Friendy,
-> 
-> On Sat, Oct 10, 2026 at 05:40:00PM +0800, Friendy Su wrote:
-> > This patch makes erofs support a use case below:
-> >
-> > erofs file data are not available at local, but need be
-> > filled at fanotify pre access event handler.
-> >
-> > E.g. when format erofs to blob mode, meta data image
-> > is store locally, blob image size is big so it is stored remotely.
-> > At erofs mount, a loop device based on a sparse image file is
-> > used as blob device. The sparse image file size is equal to blob
-> > image size. Like:
-> >
-> > $ sudo mount -o device=/dev/loop1 /dev/sdb1 /mnt/erofs/
-> >
-> > Then at file access, need retrieve data from remote, then fill
-> > into sparse image at FAN_PRE_ACCESS event handler.
-> >
-> > Signed-off-by: Friendy Su <friendy.su@sony.com>
-> > Reviewed-by: Yuezhang Mo <Yuezhang.Mo@sony.com>
-> > Reviewed-by: Daniel Palmer <daniel.palmer@sony.com>
-> > ---
-> >  fs/erofs/super.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-> > index 0967aace9f7f..b92d3353319d 100644
-> > --- a/fs/erofs/super.c
-> > +++ b/fs/erofs/super.c
-> > @@ -659,6 +659,10 @@ static int erofs_fc_fill_super(struct super_block *sb, struct fs_context *fc)
-> >       sb->s_maxbytes = MAX_LFS_FILESIZE;
-> >       sb->s_op = &erofs_sops;
-> >
-> > +     /*
-> > +      * Allow HSM to support fanotify pre access event
-> > +      */
-> > +     sb->s_iflags |= SB_I_ALLOW_HSM;
-> 
-> Did you notice
-> https://urldefense.com/v3/__https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git/tree/lib/backends/fanotify.c__;!!O7_YSHcmd9jp3hj_4dEAcyQ!3EhQW78Lg9hjdjMscHBj-V19jmMX6nlYdkPVufSmwLJEM5yM0uTCOLuqwilIL3MGLDqMV8LkNo1Chg$[git[.]kernel[.]org]
-> ?
-> 
-> I am not sure why EROFS itself needs to set SB_I_ALLOW_HSM because EROFS
-> is an immutable filesystem, its data should be considered as a golden
-> one and it shouldn't be partially filled.
-> 
-> Instead, SB_I_ALLOW_HSM should be set on the backing filesystems (ext4,
-> xfs, ...), and if I understand correctly, combining EROFS file-backed
-> mounts (pls don't use loop for this) already implements what you said
-> above.
-> 
-> And this functionality is already released in the latest erofs-utils
-> and Nydus v3:
-> https://urldefense.com/v3/__https://github.com/dragonflyoss/nydus/blob/v3/docs/fanotify.md__;!!O7_YSHcmd9jp3hj_4dEAcyQ!3EhQW78Lg9hjdjMscHBj-V19jmMX6nlYdkPVufSmwLJEM5yM0uTCOLuqwilIL3MGLDqMV8IXHHnVqQ$[github[.]com]
-> 
-> Thanks,
-> Gao Xiang
-> 
-> 
