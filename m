@@ -1,86 +1,88 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792588399;
-	b=Qv/hSJqiB8vNvO2b1SALBguebDklsvQCJ7HUzFzreB8BR6Q11oBtiQuH0LlDqtEr01ny
-	 m5rDgVPXFtxUt228yPxlJk5HV9zRSPhSX66ceSFYxvL+8VGdwwe3cBJ2NEMmei/l1GfmQ
-	 nW56Uuz1zrK/gyKBj/GUztvoTMcnoHLlaIopl9//7g6yHNOktlUmn43XEpi+eSBp2cu6D
-	 dAW/q1pla22M89esei72d8Yxx9ojA7uUWoAnAm1ER1fQWFDCEjTAYDrORuqIGXrPN+0h9
-	 Pceilt3EjS5TyRgSkwDtNdEHn07zD2O8G7vPbIXyuFLuK2DF13qoxKyghwJJsF4xa/w==
+	b=hWWmdTbnAsJ8ZaCjTlaSfdxvuddl8vg+lITXx9DcL3GnYOdwFyPNQA2wZFx9rhTc5jm+
+	 ChElmdiMcfpihAQ40CfF1BuyBQjAr6nPs0qreUkUhDBXErIIo9tu8XnQWl46WXI52aXAO
+	 qFhP0hMLV4o3FjKaTPA4HzB2Y8wJ7tGu3zZ6Ec2t/EJrvmOSZ0Q6anxzpi0kYSwAbmjB6
+	 BZOnFJRHG6ex4E3W/KEIrKO/B9ITDten15HTYgpbk35+UVxy4lsUUQF0owsrRX76SVbmP
+	 tpwzIZkDWlL+B3RvMIPuY6tX7p0uUlfH+hYYEQ8Iek152sp0rYy/31SoUOAXWRWTPJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792588399;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
-	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=o6p3pCo7kCCnsjGIBt4vEqtv3jWVT9ZqbdZWvk7buQ0=;
-	b=W1as+UESBBcCpe90JQqZFQg7PRB71SpaeMX1OSOP9NN7coYbMAI+KByuWsuJ0FcIdsfW
-	 H5C87J1iG3FJcyjKFZaY0/mSkqXqmiZfJRFGYQfrvM2Zox36EXujnyR2TDYIXy/slK1de
-	 bXH7PGhWB+ZmqxUun/+G1N5MR49HFk51+8E8IRPjeaZxafy0fUSMm5X19O8gjjD2aQ/9U
-	 huJ8O7bmN/ysY2LlwFEkv9bYFLVofbyJ4Gce+aQzczP+kdAZzC9Dka9ObzSOdonlbluWV
-	 jcOCqHk6v0MU6vT6VzpLdTTxxmQ7m0gWNowfvy921NbrxUE1Xxo/rujijGZ+mIkRHBQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=XhDg8QClMZJOayDv8bj/xO5vbSdeZvK1hnpn/RI7Gj0=;
+	b=uK6RB9PuKQPXDB1WViFgbliN3H8IgdU72RfdYBXaexKXDDxrYYRgG3ZrQ12uolrdM6lR
+	 Hn+HpSFcNg3OpfIzNe+dt55moK1RnfXjmIl6u1aHPMmirQa5DIIJrxPNwX1aL5KFKB3SF
+	 fLGtZI+ij0CNCFALKP7Yxwm4HNxGVUEGMmIlKonUSX0I21yI6ral96YmS/bSRp96mPzcm
+	 Imlcv5YEu8mHszpgenJuSjhMyqPb4I94FWLdBjc7Oc2nlk0sGXuu+bd63fFuL45h5SUL6
+	 5Ugb4eV3qWSSCiOXDL2Be2Dl5Xp1gqgYwpfdwQbKmG+TAaAq1kPmcqOWKYZonOgXQGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fyhfHnL2;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FCEmyVSw;
 	arc=none smtp.remote-ip=209.85.221.54
 Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB14B606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB14B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8F7606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:13:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F8F7606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fyhfHnL2
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso569031f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:13:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FCEmyVSw
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48bbb06e746so408553f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:13:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792588397; x=1793193197; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=o6p3pCo7kCCnsjGIBt4vEqtv3jWVT9ZqbdZWvk7buQ0=;
-        b=fyhfHnL2vgB+Al2ATPFZaHH0oxN/5vfVtER8IQWKhOYBhNJT4FtRou7YxivrUyj3q/
-         /nwzcxONL7tsdzu6Con8f7CAM2xMdFNlVyJAqfTIW8sh39WNInede+Y4Eg5Zh69OrGiJ
-         IQM7UkpIOOctEq/2BwM7PDIPIPVVttoace+kvL4WGfc77/2A9+D6MtupCMTxRab/2Z8/
-         Q2XNYMeslEdmJm0KY049Qy7mSASaa7hbwVcH5y0T1XQlCBZZ4M8Dd7wVCZBZmvJEzzf0
-         fisK+iTfplb8kdiLOX/yhWZKbgqC3t4uWVJNU0xNe47VQ6+kMk8546NoIBfKmNiK2NI+
-         XwZw==
+        d=gmail.com; s=20251104; t=1792588398; x=1793193198; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XhDg8QClMZJOayDv8bj/xO5vbSdeZvK1hnpn/RI7Gj0=;
+        b=FCEmyVSwyMIhgeTMCMdf9r23TjhNj0veKXSrM/ESw4hf4Bz7ZIqD1y8TaEBp44tsoP
+         yRgWBIUPNTqNe8io8dF2Vv/JsYPX+h8UkBnn/pt7yV5z743+FGCRp89YZrZvfUoE9TZh
+         8PlaYsq2kAvy9foYDpeD5OHutjRLZbCax4NToL+sI0DJYrmhPV2TvrHMoBvAHmn6DfnR
+         9jWSOLCzWyT4SP8kWpzb/+q/rj7xtIf5tuJ8/VmA+MN9kvyJG09eQztgLD8TOihfKOM4
+         qH3gqr0qt3XyfFJ4XJPa8aVIgpPxKl8eSlcvlUTGPSJE4GG3gZtaJfZoCo23ocXN+Ktp
+         7KNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792588397; x=1793193197;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=o6p3pCo7kCCnsjGIBt4vEqtv3jWVT9ZqbdZWvk7buQ0=;
-        b=Yd/RsTusg+VvQD9fWrx3g6HCMnBzA49X38Vc20+zqvT0KhntsX/HqpDjke0X0paJaf
-         0725E5mOm0TWFMwXleaFeJ6wSQXKMFuG4VScAg453XwGyurojFW2v0M0vhUgIx6/uNLQ
-         RKlnJa2iMQ8UouSepoLMOCrKthQn1Wl3YaEzuHsQLRB4FmHSTqzs8NQIdUN6Mce8bXgG
-         FMscuyIeGYXMuMQ06/PALtg7hH61sIoe+ZuXETFYaUqVB8tol2oNwA4KhDu0QFlRGHti
-         X4kjbXFqoKoWOyVn6BsuusqOrX1Efwzj2E24G9Kyj6zwHk5VRjVXuzTMNk1fNHu/vUT9
-         fSOg==
-X-Gm-Message-State: AFq9FYJXI7PNQUtxZ4GdT3uOmklK+vREG7NdzLVLUbzUPXC3mpACf0gn
-	HiBsK4dEqQQgkfP+io5zPZrDG7ql+ph6ZW0Do14broimuJIJYcHVc9um
-X-Gm-Gg: AYBFou1/yUrE78/mulXap6ZqZ9VsEsr8IhPsp8eApkB2rJ0IrxN8GaTuXhIEwrVC9DK
-	I70uAfwTjhopwAh8QzgXa1NXpW4uXjCQL0V4cxDAL0TrZG2wA9sZ6hZh90mY0LNzvJOCMFP4lyv
-	nO9N7rgGovJiF9yqbt+jBb45U5LisGQr92p8X+v0jrwFbZz6UY6rHzprWq5d8hnZMc7u7rMlP1z
-	twl7O9pztYJ7HJMiCzwKhOmZY4VzI3N8tGQybi1KaRnjG1f54a9spxLso2QAgLgNUt165bexhxN
-	ssKSxcsK4o2vjAhFk/2NzJ+Ga69sfRfckIBbuHzWymo+aM6qow8hlQUKD0JFWpClDzEmOgRzn0D
-	p8kvxzIKEDq8iib+EdqNoHnWMMm7nHVPOMSQOQVrjSFlpI/tjCFJlrMfumghY0Jv1f7cC3mYEaX
-	+Fe8UBAnQlAlB8w0n6XsxEaMABhzXqo44xB+12nIH30CVYeYe2xWLq9dQ7wygAhaDq4colhv2pU
-	YktD4XH1PJhN3qKEbzGoYN3pmbfOZLaheuWg4lasZQda0pdFAU2GYVd+IHJwCCrMyKMotyfldnV
-	+RSK3Xd8iPXirqEy
-X-Received: by 2002:a5d:584d:0:b0:48e:28bd:e010 with SMTP id ffacd0b85a97d-48e28bde4b0mr2656500f8f.7.1792588396895;
-        Wed, 21 Oct 2026 06:13:16 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792588398; x=1793193198;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XhDg8QClMZJOayDv8bj/xO5vbSdeZvK1hnpn/RI7Gj0=;
+        b=ecisuweILWgopDpXhKPeuhSgEia62NV4NXCSlK1XJ0xhx1JOlM8LkAxnmK8ERQ+tjI
+         eYoqb87LLQ4dLZfrCR8z9RIVwI4t8hZXM4tq+Fk1XDORoYdp38vXXL84zQ+ecp21G/28
+         O0uQrYi4MuQjaJymVxe1GywofC558fkQvv4ddhshNSansSw5pfurmF90ND4LN1o26L88
+         7E7ttXcmmXZdcSXteKtA2WyFJ1rOT7/Q+xqfCTJHFc17d8oeu3HuqbqD0mAtd3m9vYh1
+         LqKJUpmh/nbTyHylnpw/w6jxl6/dOQE22sT0nANzTB9S0Bzy0MThbBkfltwQ1O2cMMix
+         O1Ow==
+X-Gm-Message-State: AFq9FYLqbt1ts0RHiIQDW16Z0WErtauxBw8XSgt0YPmXcGAFvvqAljk+
+	9cAyE2zfIbLJk+1Q9AOMhABagvZpICtRAydUeDA9VJsYUxs0AV3kDdQZ
+X-Gm-Gg: AYBFou3hUtzHSOpIWNd1LGMoHtgmJMwmlp9bZz4tQhh70lhZXbmmFykA1kRpal7GXkk
+	grO/ke3rtQ+2u1NKeGmr50Uw0Pb2DlOfz8ZMF2U7vSDgWKY5VfLu3pHh1TZiA8WpLSNYyfvbYt5
+	wOULuN+003T4zSUlnzhGjJvFtNTuu3Cjw7dFwpwEfLvSe8PfOIvYP/BMWRsbPzOy9jeUFt0USHC
+	WDVVqmHJBEdcpzBRTo3zjhsu/1JNgfDlfvgHvkCf24+iYF/8kQxPVtvdO1gGrHjunAc7zKh2twt
+	VCwq9PizLELF15OhtqPEJFg18FcRdcKSjrAr8z4t9/OUi8Asa1g6hypd6oqIQcJ5ngTmKgaRGZv
+	IHk6/fW7ypY3Q3rTZm3mIukGvdxw3qaNOwYlbToIQEsFXiytxjSloCm2kP3zJIjdSF6uc3WH1kL
+	ZFAe0NSFysXFKtOYjS8edbJtgB2UI8H/kpPejWUcpLptV16cbwPQrvBvrMve9NkifRFNbP2h0P6
+	jXM7+SkhT0QRP2F021ZKXFFfvgTJYIwztvnqMAu5dz4fsQgBayz/CjE6mD7RgYv2p9DEiFsPY0G
+	20tfldLprQ9t48wg
+X-Received: by 2002:a05:6000:178d:b0:48e:b8f:f7d9 with SMTP id ffacd0b85a97d-48e2644eba3mr4823249f8f.6.1792588397791;
+        Wed, 21 Oct 2026 06:13:17 -0700 (PDT)
 Received: from [127.0.1.1] ([2a00:23c4:a702:d301:39f4:e118:e272:79d8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258358c1sm5655560f8f.43.2026.10.21.06.13.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258358c1sm5655560f8f.43.2026.10.21.06.13.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:13:16 -0700 (PDT)
+        Wed, 21 Oct 2026 06:13:17 -0700 (PDT)
 From: Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 0/4] Fix transmit handling on SCI/RSCI ports
-Date: Wed, 21 Oct 2026 14:13:12 +0100
-Message-Id: <20261021-g2ul_sci-v2-0-b4e038220018@bp.renesas.com>
+Date: Wed, 21 Oct 2026 14:13:13 +0100
+Subject: [PATCH v2 1/4] serial: sh-sci: Drop TE disable at end of
+ transmission on SCI
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,10 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGm62GoC/y3Myw6CMBCF4Vchs7ZNW+TmyvcwxNAywhAF0hGik
- r67lbj8Tk7+DRg9IcMp2cDjSkzTGGEOCbi+GTsU1EaDUSbXyijRmeV+ZUfCRucqxyazGcT77PF
- Grz11qaN74ufk33t51b/1H9GVLpROK3ks0lKVQgtLwyLbhuXwOdtZehyRo9z0gDqE8AUHqvtvp
- QAAAA==
+Message-Id: <20261021-g2ul_sci-v2-1-b4e038220018@bp.renesas.com>
+References: <20261021-g2ul_sci-v2-0-b4e038220018@bp.renesas.com>
+In-Reply-To: <20261021-g2ul_sci-v2-0-b4e038220018@bp.renesas.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Kiryl Shutsemau <kas@kernel.org>, 
  Rick Edgecombe <rick.p.edgecombe@intel.com>, 
@@ -103,76 +104,56 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  linux-renesas-soc@vger.kernel.org, x86@kernel.org, 
  linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
- Biju Das <biju.das.jz@bp.renesas.com>, Au Dang <au.dang.jx@renesas.com>
+ Biju Das <biju.das.jz@bp.renesas.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792588395; l=2681;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792588395; l=1377;
  i=biju.das.jz@bp.renesas.com; s=20261020; h=from:subject:message-id;
- bh=UKJg4b3SfR4kpP4oWIhEOgnGd98EBh9C3fKOCKd2yt0=;
- b=1NJHANvhrv+QQW8+t8rXZ8HELSt/2/6SELbVExz3/VnizRqtcgP50eKAy6UNf7GUmJoRz4YZ+
- q/+dgXcBcwsClSnKfz2cjoBWXVbYCRRGKs/PsjrY89rZYZBKgXjI3nE
+ bh=3weoth6w6Xdl5b6WOfiDQxw3Mye7WCDgh2tqKrLoXnc=;
+ b=pfNldyHMgPcqhzkFa1o+cms2Op0v6z0MqVAr8fWkcLhT21/2XnwoWjrKs6qWVj5+gpFwTXWbJ
+ sRDd6avqjMtA8nT5XfTmxuB80Ps12Jq+DvQdSjgwz9YuPZJv0R/r4sM
 X-Developer-Key: i=biju.das.jz@bp.renesas.com; a=ed25519;
  pk=yzD2T1OLS3lEYflbk64xhLlxhk75lZ+NoOtkTOqrlVw=
 
-Hi All,
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-This series fixes several transmit problems on the SCI (PORT_SCI) and
-RSCI ports of the sh-sci driver, seen on Renesas RZ SoCs:
+Commit f06c2a9000eb ("tty: serial: sh-sci: Fix end of transmission on
+SCI") made sci_transmit_chars() clear SCSCR.TE and return early on
+PORT_SCI once the transmit FIFO is empty.
 
- - Patch 1 removes the code that disables TE at the end of a
-   transmission on SCI, which the hardware manual does not describe.
- - Patch 2 stops the TEI handler from turning the transmitter off
-   while the xmit kfifo still holds data, which could stall or lose
-   output. It also covers the TE handling that patch 1 no longer does
-   in sci_transmit_chars().
- - Patch 3 skips the software clear of the TDxE flag on SCI, since
-   hardware clears it on a TDR write and the extra clear caused a
-   spurious TXI and a duplicated last character.
- - Patch 4 forces a TE toggle when restoring SCSCR in the console
-   write path on SCI, so the TXI that restarts an interrupted drain is
-   generated. Without it the RZ/G2UL console can hang during boot.
+The hardware manual does not describe disabling the transmitter to end
+a transmission, so this special case has no basis in the documented
+programming sequence. Remove it and let SCI follow the same path as the
+other port types. A plain revert no longer applies because the driver
+now uses a kfifo, so the code is removed by hand.
 
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jiri Slaby <jirislaby@kernel.org>
-To: Kiryl Shutsemau <kas@kernel.org>
-To: Rick Edgecombe <rick.p.edgecombe@intel.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-serial@vger.kernel.org
-CC: linux-renesas-soc@vger.kernel.org
-Cc: x86@kernel.org
-Cc: linux-coco@lists.linux.dev
-Cc: kvm@vger.kernel.org
+Fixes: f06c2a9000eb ("tty: serial: sh-sci: Fix end of transmission on SCI")
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-
-Changes in v2:
- * Updated commit header and description for patch#2 and #3.
- * Take the port lock before reading the control register, so the
-   read-modify-write in sci_tx_end_interrupt() is protected.
- * Extended the pending-data check in sci_tx_end_interrupt() to cover
-   x_char and a stopped port, not only a non-empty xmit kfifo.
- * Replaced the PORT_SCI check with a has_tdxe_auto_clear flag in
-   struct sci_port, set from the new tdxe_auto_clear field in
-   struct sci_of_data.
-- Link to v1: https://lore.kernel.org/r/20261019170139.473808-1-biju.das.jz@bp.renesas.com
-
 ---
-Au Dang (2):
-      serial: sh-sci: Skip TDxE clear when hardware clears it automatically
-      serial: sh-sci: Toggle TE when restoring SCSCR in console write on SCI
-
-Biju Das (2):
-      serial: sh-sci: Drop TE disable at end of transmission on SCI
-      serial: sh-sci: Keep TX enabled on TEI while data is pending
-
- drivers/tty/serial/rsci.c          |  2 ++
- drivers/tty/serial/sh-sci-common.h |  4 ++++
- drivers/tty/serial/sh-sci.c        | 45 +++++++++++++++++++++++++-------------
- 3 files changed, 36 insertions(+), 15 deletions(-)
+v1->v2:
+ * No change.
 ---
-base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
-change-id: 20261020-g2ul_sci-b610606ea5b5
+ drivers/tty/serial/sh-sci.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-Best regards,
+diff --git a/drivers/tty/serial/sh-sci.c b/drivers/tty/serial/sh-sci.c
+index bd58bbfa65aa..9eb297dbc901 100644
+--- a/drivers/tty/serial/sh-sci.c
++++ b/drivers/tty/serial/sh-sci.c
+@@ -1036,13 +1036,6 @@ static void sci_transmit_chars(struct uart_port *port)
+ 			c = port->x_char;
+ 			port->x_char = 0;
+ 		} else if (stopped || !kfifo_get(&tport->xmit_fifo, &c)) {
+-			if (s->type == PORT_SCI &&
+-			    kfifo_is_empty(&tport->xmit_fifo)) {
+-				ctrl = sci_serial_in(port, SCSCR);
+-				ctrl &= ~SCSCR_TE;
+-				sci_serial_out(port, SCSCR, ctrl);
+-				return;
+-			}
+ 			break;
+ 		}
+ 
+
 -- 
-Biju Das <biju.das.jz@bp.renesas.com>
+2.43.0
 
