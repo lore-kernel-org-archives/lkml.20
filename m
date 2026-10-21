@@ -1,97 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792603060;
-	b=uc147oW69ruO5Knkz5taXGT/OQf61RTEgoPJ6stSOfSJ6z48RgfswZmhTN+zQm2ga9rE
-	 4bEbuPy1fy4Q+oFI2ncTkczCEgq7qTuoiaYX/daFZHPrem185Xnw9piedbMnb5aNnFCgc
-	 DEP4cXhADXcorIJ7E0OUpj2fOkDWoMoPV9kw5MCWwwcgsii4fRZdVOfKNDaDmGkn6oK7w
-	 I52UtTQGi5r43mkMB6yC1QRmt/RFoqLWOeRJIEEO6VOvHZABfNlS68tXsxEOTbyHiBpDB
-	 rx79xYPglat14UFSAKkVr3EuJfCWptv9t5RN6uynaNtuV1VrE7B438yTawgkGKYg2Lw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603060;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792603067;
+	b=yIW/Hud7ucEl1Q1Zy1x9/fdS9JTNNQx+cGPm69v3r8j/qgxiCu6aqn4u3y7XtRaFeDm5
+	 GWPoCipMn3HVZoYuJ1i1XvETplzAtVslSciriBmB5zd7F4zHfI5VDKzcnJt4xN7oEBNRO
+	 V5CSayBEEvcwteKZ0YLzTcYIr3AMa2nuNIt27EkQtlZ2Qw12BcVGEmlcjjNwMlfyzPm1E
+	 czyAeSpazcwoEH6Ob1A4sEcwQ0QbfP2vhoMqiQAmOOR0nosKMu5Trmx4AuJSFCfRl8iM+
+	 IpmWxIhj+GP0lL0zC9bU/kKHOV7qnKOY2dHn74hHH4KxKfcqHDQXUIGnpt+9RXKcRGg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603067;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XRup6C3XRPCSpEmzli28tq/JP1tN3ECHcE7lVuoPftk=;
-	b=3/ibpxRf2QmjXlnCKcc1/avBeV5oL2mPBYs2gfdjkA2zQIpmvamCJsh3TNAe8hDZ9gPe
-	 0GRYOfyLcncalzVTXPAewyOLhyPrm/DXvwXaS2w2YsnVaMPzk22eup5z1YZzHIQepI927
-	 prH2tRlrOtLlmoQIo3SIYSm3Wwj3RDLQgDfhmrjaLrgb8pvP+MaBU1OiU1+JpUFI/Fvii
-	 9Avvq++SQqKbpDEbUKvZrp02SGRCSdfc/a7cQGtCtevNnKvDDNcE80DpzeBFpMyAgPYr/
-	 YGJThFJ6HXSAnCmLQoepSb7PgIOuHO8/04afMkUf1zSeWlr0eSYkS8h28wAkKs7t1ww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=s18p6ABSRGJ/UxVSqWCBTz6bx2WQqcF10z8V9BS39Q8=;
+	b=sIdp5JPaPF5Kx1pIjMiFIgvNirz83qJ1jv5E/US1Ws7XOflETYvyCmLGX+ZqOIj4aZ+S
+	 W8PilQfPX7vQ/rhih7uqjfDlG+y9NW6qpv3g7MB30rbDmvBCdgOK2yfZR8yW98c8LFKSY
+	 fQy1jnXn3ms9muvqiGXga4cfbpEix7ASdT7calL7bVmKvhUDhEZUuIiaylaakY7Ijyghs
+	 Pp2S/f8p9npWge6CTEK3MITEqO8XC+SFc6+cjJWvkfaJ1DwfBeBH1flw5bncat8bghtsd
+	 r5slvpiT4nIWV+36CfSgxGJo/ynDZCEb7f3o+oasauJvIHmk1uRjFzjHWcnLHctJSxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=Jz5VKkJ5;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE54C606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:17:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE54C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso540a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:17:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792603052; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LR3M+EIj2i83V/obt5cQKDAbCk1HVlp25m2Ll6S5qYAL8qCTNtf+Vv/iEVnMtB/ao2
-         osJEhwx7q9xocS8qQKezutN/So6pY76D2k21bqX7RKFhTyPA4kegsnZDpZom/YRO3UKp
-         pzSzG3b02V9LguTgkldt2r8rX87/+Rfb7GA5uX8UQSrZmC6c6y+rOi7PBjCnvj5Hmkry
-         sJ1itmVT9mApcnfKChj1ur/HYXoUaWH0/MB+XhKMXstDmEBjNimTHW1YICCzXx/Dcw63
-         Plzh8eEUHf8xCKdBjn0Z+/TooxmLqX5ti3DMFmrCtQa3PnWgCncXKqFvAoj8QZcbSkbg
-         9VnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XRup6C3XRPCSpEmzli28tq/JP1tN3ECHcE7lVuoPftk=;
-        fh=2FJxTvVUunUbom0GLQTOc/vY/x3u9zD3YTargjYIf48=;
-        b=pNJpV6mIdPemeuFbH2ahNyJKS84cK1Al0bGcRBKscT8KvuQ1D88o989LRztLvU+nrE
-         AQAvGvTj7YdSeP/KyhaegzRjF7lHKo8Jk+xI3cGuIkSWhutaK8AEsiWztiE+0Xvrn3D/
-         rTCnoFJjcc1jmzhhjJQQtjFV3cloqxIgRRXKbx3AilOhYft/Zp6ZWIYCZJsDZWydZ9iN
-         I+VqXHFMQrYtP7x7+3WCGaTN6iizl3uDpDvzRoDEGhTEO+Br+XHm2JOiNafhv+WUdqLK
-         cGrS5jqk0HLXSAnSC777W+QbM92SKpcF6X0evr8u6TUaXtJoCrSWAPlZswtAfHKEhNRK
-         vNbA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15ADB606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15ADB606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=Jz5VKkJ5
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35ef6b49813so1285433eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:17:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792603052; x=1793207852; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XRup6C3XRPCSpEmzli28tq/JP1tN3ECHcE7lVuoPftk=;
-        b=HY/AavLi1D1D7Dx7qtYdLLnvUaSCh8Dyd0y5DqAqezDILat5p9bMgUFGCCZ/vLZSMw
-         a8i0kgwDVTP3m12FUGNvDYdeBYpUxCUCkRJEWSxS7fkV5ylYluUXalk76SU26plnsvjv
-         8XRVD9hrUmxNLgbY1iPmu1E11oDtZ9A/62t87hArGu6M3j+lXNRkPg9OcMv644OP2sTm
-         Q9iNzJOt17lcMYg/u9RXNViXDBtwDRYVSEd22fiBtfGGnbmZQ2AieoYDDYEmQsPrnj2J
-         Ajqa9ZfFo2Wt66sVRRdtAFvXmcOeAS0kZFaU6kjk0Qi6OaCdqUDwzTf1CrZD5FXaua3T
-         bInQ==
+        d=trailofbits.com; s=google; t=1792603066; x=1793207866; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s18p6ABSRGJ/UxVSqWCBTz6bx2WQqcF10z8V9BS39Q8=;
+        b=Jz5VKkJ5ki1POVc0ACWEJ+WCtbCo14qie6gLDrZc2KlkQLBROIfXQ8NuX66MUvAIlI
+         hq6wIPUQcbcO6fJy3Ob0V0Pa9PpzPmSkBKu1kP1y5NvredHIYviXEQqulk3f9TVbyBEC
+         m2W01IFBGi18VKS1/c0by3+YIjfTag07ELRegp9PeqQoQv/W1F9pHZ/BWn6FjTwWCrX+
+         6HFgJeL+6xhkHNYqhn3EGL7eMm0TSLBR4OPVFm73RQifYPTpdzhJp+0LyUJYxh+J+Rif
+         epCI1INPp9a3i+fgbkYpZYB0M64+dmY7wu411aRwVReuxRAEJ6WJCLDpAba3V3kot9EL
+         wxxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792603052; x=1793207852;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XRup6C3XRPCSpEmzli28tq/JP1tN3ECHcE7lVuoPftk=;
-        b=M7FSY6VCA2SmqAEglw7+QY+t3T6UDLesU9Wv1q2tOgekALtetEXnyiHtgS4cSvxnYl
-         Vh/GNMH3L/uQE4Jw1PH45GIeHtVcMdz5zuEL2ike7dTgNYTC7XKGvsIDHVmE89357BN2
-         IgOGNHokpE4WQ3e6vTlDL2D4Phng1mLLf+8yvwsS37ibXpJ7pyKjLtjtLCjAaTEwBwtl
-         81/k91mK/tSPDosiwAAvRrkn9ow6IoymVVJnkKieCjjTn2ZWhF+jWH6Qqi1Ak2gtn9gC
-         91+kO+hiH2Vr2kA9kLqmpDaWRmY7yNo1wqlNuCHMPmFiei3+1b0vaEUaFhDpcCoghoCq
-         qDTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbzga37+SLkHNMk3e8tWdeTTDgZrUcbVuafKXpumXyjW1uYEqCGE5MOdnJPF3axAh1u2u9Hsj1vG/Bdv4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDP38ZhTribZTfMnxNkQVSX8z1WgqQ/MDeKV6G7xk0jh2IegIU
-	nmM1eS7PGAkfSSqOcz4XqYUyKw81Cm1tA1X9dqD4nEHsUMagMI/k7OkbFXuc5HryghdSmAiVjrr
-	VtrUBTTzaGWZjXTOR0vVdz0iiVxZJgCNF5zDya8YG+lGuEApIebSzvxno09Y=
-X-Gm-Gg: AYBFou09MpfCT/zGFcWFYvHZI65j45L5kV9qikvd0+JC1RaiOIVv7rA+SpHLg4u5yIg
-	fWu2I47awqYVmSOQ0NiW2jlcBIlcjmKb8/gT/sNLQoSbNG/E2a2RoJ2DOojJUiB80dskk5wpw2C
-	I9KTgNJyvB2q3kyvvuj6cDQjPQ21ikmILcaQiLWia1IzIA4YIK4TcYeHdfWUrVDF9Vx8vHPsJU7
-	KDc3M/pYZ1x3cEjxqA3XORNxt931Mc/EcWjtz8kHBamJW5938mABeL08FxHK9cHtUxbovYyrcoj
-	whLcG/yLW3HvQfVUklu5OvP36v9i+HGFwArpwf12/QnfFxnCaClbRDmal7oAl7ryeseX2Bacmbl
-	9aOgPAetp87iRddZN0RmxX+ku0xgnECMzKMC9EZVWKQv/GJW+27JV00OsdIFcZGoGNmc=
-X-Received: by 2002:aa7:c2d5:0:b0:6b1:aa31:a627 with SMTP id
- 4fb4d7f45d1cf-6b3e8a7add7mr150972a12.4.1792603051505; Wed, 21 Oct 2026
- 10:17:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792603066; x=1793207866;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s18p6ABSRGJ/UxVSqWCBTz6bx2WQqcF10z8V9BS39Q8=;
+        b=XV+FU8UGdifBd/mkgjTmeYnT/bKfoeGJSeT/lsKsAbzAuvxa6g8wmhO1QZSkn8J/Mz
+         Z0bxhZe2J0FdStCJ9IHj8ih04ynzyOWlUgcgDU+a/hC/jJ4p4v+x9kYyovLZGZNCZhMb
+         MKSICm3RJ1LpsEM6fvvs5q2YmgKh+Cjh8tM5jsSQCGO1E3bqkN456rstKCmCFeDWFmlY
+         877qu2PsY4V434VqB5L0TrPYBnvYED4mxOyWpyjdcz4OfmWnzcVBM/Rj5aRZeEZGOhOx
+         YTf+cGolRD7qqUwquCgckAw4XN1tg5WWSvc56ZWvg00TZo2p6yaw51m44rHNJca/gFWR
+         ZveA==
+X-Forwarded-Encrypted: i=1; AKwUvBziArcld1PLmr6Gm+4DsW5iokxI2jtpK8nNV0FqH3vjksMOQyT/xf6y9EL5JlOQbBD2A/58T6OIBww64Bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ4oeXbfIfkOWySXr5excv2199TwQm6Rzq3cUqF9j2owvbKak5
+	FpkObovGeU5sB0o+GsJjE0edszpPnq1YWoXR+cazgaW/I82gtnjjfgM6XqOXhkM5FRg=
+X-Gm-Gg: AYBFou2Z0+prIrrLSdu9T6OQt2g4qyKkxi8V+SNl962w1l5SDraEcA6wehC17T19KpH
+	JR3lICWbWu2knjf3YzfA6+t1t2hujJWoZGEgJizPXSY6pm7k0IcEko2VDa5q7qK4SQamMr8mCOo
+	5qljBvqccxjpxmbl5dwLrvNMuzwRLGdic+nG76rYvfvKx4H8/4ME7FpbJkD4P0ewu4629vkkHTS
+	GTPs8pfTyFpq3j1DHfoEpAsfqq2MBGeRz+JXcqHoKi51wzZpu1hIgMhMndgZ3JawTWgRHi2M2UP
+	HEcscCe4ty8Pbz+OQw6PGk3RXVLozruj55/nkHSOMMXxKRt3MlKTOPCzBWZa/5L8/RwwvhQCN1j
+	ZnDe+JPdfLsUSdJxcPuQR9yVR5Ww2l57jMwDKrEXUHiTq0GN4mihTcA15sgidi8WO4WutyF21dh
+	ZMEjw7IeERr17EtGMh8nJuFrlFVJLKrGQ1TWuF+M4+aRfaFwAifusppsk0MsxH2aYBgFq2QoOvY
+	XUAyJh4fBUuASwCUg2ZoIL5Z1vAdnnZqSFyu9BIoOkhNWt/7tRKGgW1vhDzPGuRyer6HSh+wHA+
+	Biul141r+hQx7r/7yXLr+hMMbq9y9kyvVxDpqYg6ZxbPrJ0/c4ZybXym3Gc4cV54H47V/nSgPQ=
+	=
+X-Received: by 2002:a05:7300:a206:b0:35d:8c39:b314 with SMTP id 5a478bee46e88-3674f22497bmr3602008eec.37.1792603066175;
+        Wed, 21 Oct 2026 10:17:46 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367412b24e3sm7811387eec.19.2026.10.21.10.17.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 10:17:45 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	bpf@vger.kernel.org,
+	catalin.marinas@arm.com,
+	daniel@iogearbox.net,
+	eddyz87@gmail.com,
+	emil@etsalapatis.com,
+	fuad.tabba@linux.dev,
+	ihor.solodrai@linux.dev,
+	jolsa@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	mark.rutland@arm.com,
+	martin.lau@linux.dev,
+	memxor@gmail.com,
+	puranjay@kernel.org,
+	song@kernel.org,
+	will@kernel.org,
+	xukuohai@huaweicloud.com,
+	yonghong.song@linux.dev
+Subject: [PATCH 6.6.y] bpf, arm64: Force 8-byte alignment for JIT buffer to prevent atomic tearing
+Date: Wed, 21 Oct 2026 13:17:42 -0400
+Message-ID: <20261021171742.310-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,63 +113,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021015558.4124825-1-almasrymina@google.com> <03a741b8-f330-4d2c-9254-153934ef0960@redhat.com>
-In-Reply-To: <03a741b8-f330-4d2c-9254-153934ef0960@redhat.com>
-From: Mina Almasry <almasrymina@google.com>
-Date: Wed, 21 Oct 2026 10:17:19 -0700
-X-Gm-Features: AclHuK_EJKqmd9KTi_vMc4o-3Uq3hWi-8BHGxz9Vq_xc-8LR-KADjsUH5zxRkyM
-Message-ID: <CAHS8izPfDdqb+GLJu0sSPP4ZcwJ6xk_4p5ELCkjq4o98t6GAUQ@mail.gmail.com>
-Subject: Re: [PATCH net-next v1 0/2] netmem: rename non-pp ref helpers to *_inc/dec_ref()
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	John Fastabend <john.fastabend@gmail.com>, Sabrina Dubroca <sd@queasysnail.net>, 
-	Ralf Lici <ralf@mandelbit.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Pavel Begunkov <asml.silence@gmail.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	Willem de Bruijn <willemb@google.com>, Daniel Borkmann <daniel@iogearbox.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-I should have said this in the cover letter, but this was intentional
-Paolo. Jakub said that getting this rename in soon may be preferable
-so that we don't cause churn for backports:
+From: Fuad Tabba <tabba@google.com>
 
-https://lore.kernel.org/netdev/20261020151352.794bf03b@kernel.org/
+[ Upstream commit ef06fd16d48704eac868441d98d4ef083d8f3d07 ]
 
---
+struct bpf_plt contains a u64 target field. Currently, the BPF JIT
+allocator requests an alignment of 4 bytes (sizeof(u32)) for the JIT
+buffer.
+
+Because the base address of the JIT buffer can be 4-byte aligned (e.g.,
+ending in 0x4 or 0xc), the relative padding logic in build_plt() fails
+to ensure that target lands on an 8-byte boundary.
+
+This leads to two issues:
+1. UBSAN reports misaligned-access warnings when dereferencing the
+   structure.
+2. More critically, target is updated concurrently via WRITE_ONCE() in
+   bpf_arch_text_poke() while the JIT'd code executes ldr. On arm64,
+   64-bit loads/stores are only guaranteed to be single-copy atomic if
+   they are 64-bit aligned. A misaligned target risks a torn read,
+   causing the JIT to jump to a corrupted address.
+
+Fix this by increasing the allocation alignment requirement to 8 bytes
+(sizeof(u64)) in bpf_jit_binary_pack_alloc(). This anchors the base of
+the JIT buffer to an 8-byte boundary, allowing the relative padding math
+in build_plt() to correctly align the target field.
+
+Fixes: b2ad54e1533e ("bpf, arm64: Implement bpf_arch_text_poke() for arm64")
+Signed-off-by: Fuad Tabba <tabba@google.com>
+Acked-by: Will Deacon <will@kernel.org>
+Link: https://lore.kernel.org/r/20260226075525.233321-1-tabba@google.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Assisted-by: LLM
+[ Backport to 6.6.y: Request eight-byte image alignment from
+  bpf_jit_binary_alloc(); this target does not use the upstream pack
+  allocator. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please consider this backport of the fix for CVE-2026-23383 to 6.6.y.
+
+The backport requests the same eight-byte JIT image alignment from the
+older allocator. See the bracketed backport note above.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series: the ARM64 JIT
+object with BPF_SYSCALL=y, BPF_JIT=y and WERROR=y; no runtime testing.
+
 Thanks,
-Mina
+Artem Dinaburg
 
-On Wed, Oct 21, 2026 at 7:09=E2=80=AFAM Paolo Abeni <pabeni@redhat.com> wro=
-te:
->
-> On 10/21/26 03:55, Mina Almasry wrote:
-> > Rename the net_iov and netmem non-page_pool reference helpers from
-> > get/put_net_iov(), net_devmem_get/put_net_iov(), and get/put_netmem() t=
-o
-> > net_iov_inc/dec_ref(), net_devmem_net_iov_inc/dec_ref(), and
-> > netmem_inc/dec_ref() to follow the object_action() naming convention.
-> >
-> > Use *_inc_ref() and *_dec_ref() rather than netmem_ref() because
-> > netmem_ref is already the typedef for the generic network memory handle=
-.
-> ## Form letter - net-next-closed
->
-> The merge window for Linux v7.4 has begun, and the net-next
-> tree is now closed for new drivers, features, code refactoring
-> and optimizations. We are currently accepting bug fixes only.
->
-> Please repost when net-next reopens. There is some uncertainty
-> about how long this merge window will last, so please check
-> https://netdev.bots.linux.dev/net-next.html
-> before reposting. net-next _may_ reopen on Nov 2nd.
->
-> See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#=
-development-cycle
->
+ arch/arm64/net/bpf_jit_comp.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
---=20
-Thanks,
-Mina
+diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
+index 9fd0b658e4602bec2be466665d880a355e5bac1a..c5f7276ad1af7e32b69eb9bb5c0f14c3feaa74e8 100644
+--- a/arch/arm64/net/bpf_jit_comp.c
++++ b/arch/arm64/net/bpf_jit_comp.c
+@@ -1648,7 +1648,7 @@ struct bpf_prog *bpf_int_jit_compile(struct bpf_prog *prog)
+ 	extable_offset = round_up(prog_size + PLT_TARGET_SIZE, extable_align);
+ 	image_size = extable_offset + extable_size;
+ 	header = bpf_jit_binary_alloc(image_size, &image_ptr,
+-				      sizeof(u32), jit_fill_hole);
++				      sizeof(u64), jit_fill_hole);
+ 	if (header == NULL) {
+ 		prog = orig_prog;
+ 		goto out_off;
