@@ -1,64 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571798;
-	b=rlwSVO0ZCnRePMieEXUqgR5pGvrQ7rfXYALufTREtpVJWAHwAJHPLWumOx61EC8KuJM3
-	 AoCP15RKP7j9mVOY8uB0gGNYa/VhDnFBmnrclRnBSh7d1VwmkX/syLxiogT5sPTRzBIiK
-	 EANOsB8qOBHs9Y4JgOOh6mMGLl0SoNBqd2z7tjIkCik7PnLsg+sl7NrEhyJxWgAaF5eiC
-	 fWKKuwYF37PMWa3D01Lcn1d+dkuIF3T8+mITIMnOHQnG2O10dfbSc/YE0mykzGQ/tCHqT
-	 jobo765VekWNAk60iOe6ZmXVrbS9HI4sBprPh8abmxfe54ckez084U+s+Y/8jXatGCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571798;
-	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=9K9KRsEaxoM/l89/G7N6lVBzd9yD1GfxwhXMyc+Mzdk=;
-	b=Zsbao67LUzrULRszENB5/1leF/ODU47xKmH0dKXzBpaprVqdvJ0b4mXMyA+/9Q+6tbe1
-	 6G2uZAY6LovoHRMwGNtUbUUT6WMNnrlL3dxGgJhA1MCRYgopvaDNE18KmZdZMmd0BrGw3
-	 IxQcTZ34G9peyJwXxiQkM0SndHTZAkRYVeIV9x0H6IQyGb7bgWC/D03A4G/KNS9F9DX+3
-	 y3Gj/U3yXjBtwPbWZDLKFqCAS0er863G3rayxLCuU/XlrLRf1wrOtnUdCL5tJS7Jr3mrv
-	 8ctMV5vLL5TdclczNvOn8IeKXAEFP0CJ42OVj4XZGW3g8iENIoVWsiI//N2j3Xys+Ag==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyTAEOUl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.113
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792571852;
+	b=i0OlCsdfZnG7WWMq5FfW2bncrMbwsLAcby8LbMtBH0b2MKUeTu0E7L2U0We8nH43FbSH
+	 kTRgWZ9DG7IOdLMwtEqTDQ4I0rU9t8U0lJTt/HG53+yiRMaR+4bAXScZTv6SwHI3id6Zl
+	 i7eYPfs/IW8IZvlWrpMPE+m+OfYQxEe/FWoPOs3wzeCyIf4IXrBITQ3NYJwadNKUInuS1
+	 lr0j/gSoTfFbMVQ/WErotysolEIxyh+L1rOwvEbZ1Y9HK7EyMC4mpIJIGGNiPky0JdlJ4
+	 Veb+rtlC5j9MBsHy9M+OeX6HwRgwOXmwgHQk+K0kBeKRzhQ3Yy9sDYDaqGSrLFyhHKQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571852;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
+	b=KOzUiM58DTLv3cfa1n0SSuWTvuWgjBSF/0msD37rGC/4ypTt4lOdkjSEI8ImvI4Y0OzX
+	 t3avbIpnyVE2Klq7IYPSYBTfuSU4+B+Xq6mbv/h8JOfyAYAuF20JSUE0z0opgE5Sp+FBd
+	 bCx5TCd+mfcJlaMynpwhbysuajxntENb4geuDQeBiNS+MqFbx9drYtSy/glcJHzkF8epO
+	 Ir2R6Zj2Fv80rKnqmzA9NxgPckfaaC1/j6BDQK0lfbs8QlD5fyMRlr0Q3Yc5MwkRXbInD
+	 /OHlxNFtR+eg0C12VrHdjRbhYnVNgqdII1UdmzlOrs8l4XwPZN2KHtoiRB3D0rSi5wA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=starfivetech.com;
+	spf=pass smtp.mailfrom=starfivetech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.113
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2113.outbound.protection.partner.outlook.cn [139.219.146.113])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D1C606A319;
-	Wed, 21 Oct 2026 08:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hyTAEOUl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D01C1F000C9;
-	Wed, 21 Oct 2026 08:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792571797;
-	bh=9K9KRsEaxoM/l89/G7N6lVBzd9yD1GfxwhXMyc+Mzdk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=hyTAEOUlLJ/6crVLQzgFPw5YC+r+R5PbTBPw29STrIIYl2Cjfj+WPZsT/QLY5NUnu
-	 urFfRgJEQfsgwZnOQV8u9PGNchT8igPnjOfz/w1Qy3Jgyn9HJlpVMrYXSeOONeklbH
-	 Xj0kS2H2acSMiVJxLoxAqpEjUET8LaUL8UWCyPLd+GEsBSskNh8w/7I+TvaQwmPyri
-	 APQ0zQgHqoFxXSLTeJX48AWyUagcUZaiu8Zsaip8tMiG89VE/eNmTLqXAnng4UZWx7
-	 b/FDAEwBv0KglNmnfNdQkXU/MrQUO9sZQALThtBUm45H9CCpcRKzX+ZiFHLvlOEdFB
-	 GIxBg8zxlrUCw==
-Message-ID: <e7888169bdc76ea40fcfe782c2bc9b70e037dfc6.camel@kernel.org>
-Subject: Re: rds_wq UAF
-From: Allison Henderson <achender@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Joel Granados <joel.granados@kernel.org>, kernel test robot
-	 <yi1.lai@intel.com>, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
-	linux-s390@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	netdev@vger.kernel.org, wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
-Date: Wed, 21 Oct 2026 01:36:36 -0700
-In-Reply-To: <atdoGiW_sHlWgOwt@redhat.com>
-References: <202610190310.9737b2e3-lkp@intel.com>
-	 <atYB0bm9eEXp8A2g@redhat.com> <atYW0K3t57puHeLW@hobbes>
-	 <atYuE1xnVYe0BDG4@redhat.com> <atY42k00k0Waj6o4@redhat.com>
-	 <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
-	 <atdoGiW_sHlWgOwt@redhat.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4F2606A31C;
+	Wed, 21 Oct 2026 08:37:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F4F2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=n770tkNACWQlUU+OIYRdrWtsBXGkJTvUQ/TUiIm96B/MULVvdOVHjvZBQy9VobqRlbRmheCd+S4R6CyacRF8Q5UbVwgQRDRo42r5vZAFZcjnh4OBpRoEMhISkosfxNc1WjujGGX2CWAno3KC6XRj/yRR/E9Qt9hc5AVe6iNjV6/3u/GWkfkZK7z9DP2VGGc93Niolp293QDCrLp4cMQvXQQPLIOzex9DkOlVnHjVniB1TiJXvrX6hHGuwI17d+/Y4XEUSL88cRkRSmJKB7nLgE5ADItB3vBOXIPUOwRepGMPJ6IejsP9/BWkHvsbsQMk7n/SicWCjvwRHrDV+4N9sQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BYeiqVioAvu2AAjmCUZfwu6UVT2OJxDF97usFNixLAQ=;
+ b=Ep1fVwL02RN+ixPgnhfJl04LAjYBoidF5+b7nXuPnzuhISD1C0ukdcep6ouGqcd8R7Z5xKZhfmoOaf4ogDS4EpOilDO/Dwkqu1tmUUsBQmfMLiwJyX9JQQlGT5ng6i2pvWQjylmA/XPr1bqa9ZhM3XNrOX7g5YDGrodLAx3WPLgS5wIsdHcOMHwY0A69p7HUtrcTSrsD9tOyfxRj8Kk5pFMAMjI4k652LxzKYpNqJsStpRsVPdqETlq6PmmvLCmBfoH/qk0Bpovur0sZNWM1c/oz/blacqmalLmxas4eBtt2I62ZYEhM1BoiXkY3qvGqj0M4BE0a1ljMD7SXqFRU1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6) by ZQ0PR01MB1047.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:c::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 08:37:20 +0000
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 08:37:20 +0000
+From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: [PATCH v9 1/2] dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
+Date: Wed, 21 Oct 2026 16:37:11 +0800
+Message-Id: <20261021083712.3032-2-lianfeng.ouyang@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
+References: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZQ0PR01CA0008.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:5::13) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,91 +93,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1047:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ed4d2e5-ab3b-4910-784b-08df2f4e8585
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|52116014|376014|23010399003|1800799024|261009223027099003|56012099006|10067099003|3023799007|22082099003|18002099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	nIVttFC+KiZCfZcL6a/CzlJ9QHcwd2x9l1FMW4JuDeVtD3BxgHfVkYhg183EKVsVLja+ReommXg/0FPL3ZbvEE2zXzWexJrM5FUtq+dR9Dr6NrlkJAFAUmiblCeHSRnHvDq0ZS6YUk89vyVYE7NdHXhSCZHjXPK1w44WCq5DMM6y4TqhUlDUhlyAxx57X+Oy9hLdXTzr9R1gLjIFT+cbvJA6AK1zp1h6cGaf+vmD0L5zSGj/4TwMbKCfCdU9YCOrRcgpjqd0YUTkkClyYvL0KpWxdo9G+84R57dqgQP322+qpYxO3lLhGjRhU6eFCMmiaOm+3QObxmGIwVKZhGOFH2t0Eubtsz6vBPzjPYishVGOGklagA5c2hBNkySQN8uzk3EhXLmBFQKn1enigX3R+ZkNWWJFzeUqS+XVJfmiAAG7gY03Vp9uMi9DNsbN0LecISL7mn/hFo/FSe7j/zyM4w4EAh98ZYTED6WLEiA3q2J1zFB1yhXNqcVC9dIo/fYHh8mi/s23TxCgHdBIQBBkaadJQ5V+2ZXAjVppDgcnr96b4tH++3BKEM6QtOn6O5kU
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(23010399003)(1800799024)(261009223027099003)(56012099006)(10067099003)(3023799007)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?7BNYRV4W/6vDnymSiYsDs/7K/tYbHf7AX1hoLpYiH6MFWBTIfPak2NY3jcO4?=
+ =?us-ascii?Q?nm0GsvyaqOw0iLIjT3IobtkYpWTVppQ1N8dOFWQWHd5jiueWyPaEYpQFGjMy?=
+ =?us-ascii?Q?fkP4oe0dqgqh4Z1H/qavWHJosWvGwqD7uepsyOqoeHQ6O92/gD62LZbFbbEJ?=
+ =?us-ascii?Q?JcJwmyxVU4Z9snHyu3nqIkVdCRI+nFzVWhaN4PwrpDGCUloc5w0DU5wC0OMJ?=
+ =?us-ascii?Q?rW9Ra1ZzeRs6lbG9z2MDy9OpKxSpunZuohl2nRvueDwIT04+U6hNoAePoI42?=
+ =?us-ascii?Q?C+dD9rIc8kYAvp7hxqptWUfHD+PQ7U9xiZWbykca8e1qznDaFakUBwzJ2yw4?=
+ =?us-ascii?Q?ML1cn7kHPtZD3DI6hMROfOy13F+0IhD1JhsR+A5iz4oBnrpZ5pXb1WzPkJJs?=
+ =?us-ascii?Q?vRBWJ4ebhX0CNUVAg17RCO+y8Vprx569jLLH4RvggBEUsGO8PZYaI+rKVcwv?=
+ =?us-ascii?Q?z+2pfPMX6D6XFxclqpH3m0DGLxgDBK56ooLwpPmZZaFeUK+JBQRrgIn6FACU?=
+ =?us-ascii?Q?tNgQIhpot+2eJooqWZgth3BY7UNnp2d07vtVbtd5iaoPGyQSDQz/xS74/EYk?=
+ =?us-ascii?Q?CqmU33h5Zx4uTDTYAJMaCXGqjKCL+chbmypjtqwBSe5+e78ZPtH8HixMlPQ3?=
+ =?us-ascii?Q?5WXbww7lmOwmiloi6ePlKJsKDMqt5dBEuyshAIqIIBFaqw4x0HFxrbvzCttL?=
+ =?us-ascii?Q?0p8AahQg9mDqJqhmQ2gv+g4V2GlJTW3pinsAsNZnsJCxq3/qCITItkYa8spw?=
+ =?us-ascii?Q?t5kh4HGB9Xbmet2FXlcGeCNy/9aVx2s1Ko7LYhp5T4766x4SMJYtvfVBBKJH?=
+ =?us-ascii?Q?DDg8oE4FR/Qqd2FM+rGyO4Goe+DI2q1pHxjWIgzKqj9cwhZRtGSGyXPQAMbD?=
+ =?us-ascii?Q?jJgRB1OkyekM80g9bLQ1BiKJreoRr+i+o2dCn+rsD9uuGVgdWgo7rScb0FS+?=
+ =?us-ascii?Q?zjDdbMMyDwZoqF/gYM+ff3JfbMGcjjE0fkk0R+S8FiJe18282xQMKzfohKHs?=
+ =?us-ascii?Q?vTqsZ42GZE7Y4mHQiJHLN3ihQLJ+M18n1d/njmMTA2fUYeBwyWz62cFcRztd?=
+ =?us-ascii?Q?WuCisNHAkBPtShWHejDUuk4235tztVxvlvFJph3U3Xxw2DBosSssgygbdTiK?=
+ =?us-ascii?Q?mOlnbu6R9V8rHkFB7CmWMOIbm/dMZ0qn8YgJmo05hJxNLDBh8H2ZRoFjqJm2?=
+ =?us-ascii?Q?5I2RjD2I7eB4FUSNuT54GYwJE4dWMwdGSPpw1elga3IH+ZzWgSfRol0/E3OS?=
+ =?us-ascii?Q?vTf6vIXVbfcYjCgX+ihgWsQEuWM4QMPvoZS5Fd7FJgCxxpk9IPCukcgUW0jK?=
+ =?us-ascii?Q?sTAiKUPKdQLmsyt0ijF0h0r6K5pz4NOWboTRAwi1431+QcMDC71PlaQHnEM8?=
+ =?us-ascii?Q?3APsufIbfLjoSJ7/ERm0F8ULQ7xNSBMJJk8XksvGbohopnQ9SBDO3R0+V7GV?=
+ =?us-ascii?Q?aJBZsmGJV+505Kn/syWLrQkG9gl1Qzs6idWW1k2XmjPT/s/pJxtfDzSSjPlR?=
+ =?us-ascii?Q?OcH/HldG2Yaathb9L8Fk8OdWvl18oVG8Upiyz7LBhXRskk0WwLhH4ii6WLfL?=
+ =?us-ascii?Q?jWKvUl/sK5DFv7vXU21Huo3/ZdJk7r2CFrvVyduONhutyLM3WTulPqehvamw?=
+ =?us-ascii?Q?B9rvSDp5zO6XjIycb8KzCiCvZbAxL42xJbBaKzhF8/ofT6LytzWH7iLezMJ9?=
+ =?us-ascii?Q?uwgtrNQusSQihJ3mF5lJ3gjf1E7fYtgl1UB/Sh0dvf2Y9Web9dDaJi5N2Ki3?=
+ =?us-ascii?Q?DCMUGhrCs2/yXOOwc5iT+tnYdenlQrOgHnoFQfJqyqoFbDb/NXzS?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ed4d2e5-ab3b-4910-784b-08df2f4e8585
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:37:20.4898
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fne8mAzXMIOsKZlLMVLGFaiLVKdpBGese/sePwq68My6nWF8uPmcE5uSMqihKaozOtANkuW0je7Js7w0NrDVytJnORwFHmq/1CHmOHPEunNfewdm/1tAlYcxbSHXJD3s
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1047
 
-On Tue, 2026-10-20 at 15:09 +0200, Oleg Nesterov wrote:
-> (change subject)
->=20
-> On 10/19, Allison Henderson wrote:
-> >=20
-> > On Mon, 2026-10-19 at 17:35 +0200, Oleg Nesterov wrote:
-> > > >=20
-> > > > But. rds_init() can also fail even if CONFIG_SYSCTL=3Dy, after
-> > > > rds_sysctl_init(), so to me this looks like a bug in net/rds/.
-> > > >=20
-> >=20
-> > Yes that's a separate bug, so I'll send a separate fix for that.
->=20
-> Let me try to summarize.
->=20
-> If rds_init() fails after rds_threads_init() for any reason,
-> rds_threads_exit() will destroy/free rds_wq.
->=20
-> If rds_rdma_init() is called after that, and rds_ib_init() fails
-> after rds_ib_mr_init(), rds_ib_unregister_client() will try to
-> flush the already freed rds_wq.
->=20
-> But we have
->=20
-> 	module_init(rds_init);		// net/rds/af_rds.c
-> 	module_init(rds_rdma_init);	// net/rds/rdma_transport.c
->=20
-> and IIUC the order of these initcalls is not defined. So if
-> rds_rdma_init() -> rds_ib_init() is called before rds_init(), it
-> can do flush_workqueue(rds_wq) when rds_wq =3D=3D NULL on failure.
-It is sort of defined.  When built as modules the order is enforced by
-symbol dependencies. rds_rdma and rds_tcp need symbols exported by rds
-(rds_wq itself is one of them), so they can't be loaded unless rds_init()
-succeeded.  So the rds_wq =3D=3D NULL case can't happen.
+From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-What can happen is what was reported: built in, rds_init() fails,
-do_initcalls() keeps going, and rds_rdma_init()/rds_tcp_init() run against
-a core that has already been torn down.
+Update the StarFive TRNG DT bindings to reflect current SoC support.
 
+The obsolete "starfive,jh8100-trng" compatible string is removed since
+  JH8100 SoC is no longer supported. A new "starfive,jhb100-trng"
+  compatible string is added for JHB100 SoC TRNG support.
 
->=20
-> With or without CONFIG_SYSCTL. Right?
->=20
-> But it seems that rds_ib_init() doesn't need to flush rds_wq on failure,
-> so how about the patch below? Of course, I have no idea if net/rds has
-> more similar issues with rds_wq.
->=20
-> Oleg.
-> ---
->=20
-> diff --git a/net/rds/ib.c b/net/rds/ib.c
-> index 786f39169bc1..cde2d1bfabbd 100644
-> --- a/net/rds/ib.c
-> +++ b/net/rds/ib.c
-> @@ -619,7 +619,7 @@ int rds_ib_init(void)
->  out_sysctl:
->  	rds_ib_sysctl_exit();
->  out_ibreg:
-> -	rds_ib_unregister_client();
-> +	ib_unregister_client(&rds_ib_client);
+The maintainer entry is also updated to reflect current ownership as the
+  previous maintainer has resigned.
 
-This works for when there are no IB devices, as in the report, but the flus=
-h
-is what ensures rds_ib_dev_free() has finished before rds_rdma.ko's text go=
-es away. =C2=A0
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../devicetree/bindings/rng/starfive,jh7110-trng.yaml  | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-If there is a device,  ib_register_client() has already called rds_ib_add_o=
-ne().
-Then ib_unregister_client() calls rds_ib_remove_one(), which drops the last
-reference.  And then rds_ib_dev_put() does queue_work(rds_wq, ...) on the
-freed workqueue anyway. =20
-
-So I think the fix belongs at the transport init: if the core didn't
-come up, rds_rdma_init() and rds_tcp_init() should return early,
-before they register anything.  I can send that along with the
-sysctl change tomorrow.
-
-Thanks for working on this!
-Allison
-
-
-
->  out_mr_exit:
->  	rds_ib_mr_exit();
->  out:
->=20
+diff --git a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+index 4639247e9e51..d21769b7d54e 100644
+--- a/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
++++ b/Documentation/devicetree/bindings/rng/starfive,jh7110-trng.yaml
+@@ -7,15 +7,13 @@ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ title: StarFive SoC TRNG Module
+ 
+ maintainers:
+-  - Jia Jie Ho <jiajie.ho@starfivetech.com>
++  - Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+ 
+ properties:
+   compatible:
+-    oneOf:
+-      - items:
+-          - const: starfive,jh8100-trng
+-          - const: starfive,jh7110-trng
+-      - const: starfive,jh7110-trng
++    enum:
++      - starfive,jh7110-trng
++      - starfive,jhb100-trng
+ 
+   reg:
+     maxItems: 1
+-- 
+2.43.0
 
