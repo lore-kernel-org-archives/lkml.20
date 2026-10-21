@@ -1,72 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.63.66.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593377;
-	b=pM3/ZYwW0xiZir1DP2sWTZ3xbBKDkZQbYn0RWXPZWADfwmLGNDH1/2VL/RwHdWuGMv/a
-	 cAZQHRTtg2K3klxbaxjiT5wacTj2Y2mGfOQnOqko0fOrgGoNL2Ok2sJK1MkifUqZvUN4u
-	 yQZsga3UUyLnpOeOKbRw0of/aWr9ku0CNm3PbfiD5ylgVdBejTYxg6nVq275tgTcI89qc
-	 K0gplJbel93i5/mYaowDN5aCWCgvNiJzy4QI6t36aT+AzewidptYn+1HoCN1zx593TsFI
-	 YjaOzmeS5IOUu1WwEg69MdWNrCIljRT8FeLfed6XjNeo19LRpphogtQNUAFiyodfY1w==
+	t=1792593434;
+	b=4NdUrZqGx0bicAkrhkI027iaqQxoBibxnA2F6fnsk6lTNkxxPPj/IYl4djIrgrGnai3C
+	 euqldY7O5yQAp62QCzTvoG0E+OFePCASl70Xq43sIwUI65t+JJIbFfoky8pJE+uwbqCgq
+	 MtQP3rKBhR2P6HEIOVA7hgcTYDCsOcduW+aKZ5nExzSQf07Nm7pM5J/ix5eLWDNDR1RDk
+	 OrOxov8ad2eiPtanXBMTjJwI5zuzX+TvlumNJtwbzZ2hAJIub2q2QkquiTworz9Zucuov
+	 vacUPEVlX8NdE0b3wHJTiDxvlrcJQ7zk3YpoquBuaHAQ5IIVApWCm0mAswyQ5ijlpkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593377;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=5WML90FTlNEOOsPmxbYrmIoZ6tmw7E2NoNo6TqPXejU=;
-	b=ZvwDwhCcS3OYZsPUSB//l1GGnhBjUkn+byOAyc2BHGacSL0GH/nbk1RUBGZZ3wT6bkmv
-	 vK49docrqFLT979V2TWvXTkoQjfV4USsnn9I9EJTBwnmZ7azNND+8+Zh1FWLv/vCPKUA4
-	 efz6hjCZpRTTUN+OYb/WwyJ43abtfprLJLP+ZZZyEFdgpSOAwjVIFeyTKROda6gNezCYe
-	 E8y4MMFSvU+JSjwT8q+TGTgwRGgMs82LubEn3+iPABcKdOS0AXAeix5mvX9m14kvq/qOR
-	 rzbwqPqzc0K3sN1/A5I3uqzI1srgb9GI+YGwK3VOD0oPZ3BMdNgPCJVq9uDDvHcdNhA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593434;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:User-Agent:MIME-Version:
+	 X-SRS-Rewrite;
+	bh=/RAFHHQJUb9Y6m1wRoEvXKEtne2TTDb3cw4C9YRWr6o=;
+	b=gw6Qp421WRQ4RxyCOnmwXc2z5iKdpelauYzu51OfpwUbBFB/RbSNXZ+3ZeDQg0dFda7s
+	 T/vLk7ieqdZiwm4e2zIyabEP2IOjlU1Y0AjZNYsfNLrO0qJvwwFd69F/E8Z4EW25A5gAb
+	 +AZlgs639VOhbr8VRjZtHJHD3ybpdzB+crL4NgNRYnYdt3zoJVujZCJkkU3OlosGZBF3F
+	 dmX+kxdsiZKb9kYwp0kYzVp7MLw8BAs7QvShPRNDQ/dT3EpF0fu1e4+VlBfTJOcAjJo2n
+	 YN1SXsoNnR8kYoMFLctX6v4MW6aR4cx/l2xRAxTPq6570lGw5+Wl8kkeYKIDNaqM6/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hallyn.com;
-	spf=pass smtp.mailfrom=hallyn.com;
-	dkim=pass header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=rEAb+Fwg;
-	arc=none smtp.remote-ip=178.63.66.53
-Received: from mail.hallyn.com (mail.hallyn.com [178.63.66.53])
+	dmarc=pass header.from=infradead.org;
+	spf=none smtp.mailfrom=casper.srs.infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Qwf7nUBb;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 200C4606A31B;
-	Wed, 21 Oct 2026 14:36:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 200C4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hallyn.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hallyn.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E5D3606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:37:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E5D3606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hallyn.com header.i=@hallyn.com header.a=rsa-sha256 header.s=mail header.b=rEAb+Fwg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=hallyn.com; s=mail;
-	t=1792593373; bh=rWq/OiE5SzrFY1gR4q+rhR8IfEOL4yucbKNFEm0csus=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rEAb+FwgBDmyPZPDvdSyirUjU2Ri07Dima7QYsVPfcZn7smZLfm1zN199kCZnwJJI
-	 43cLFXI0eQXad45TjxeoV7FhwG1Afj3vJD3eTPPYt+78ZqfcxDQH7qmMjDa+O7HzNW
-	 pH47/+91IktUSyw3Q6sUiMYkFlGyQbhqbvq+s1C1ZKMuZVOMLIGWz5C7HV8TofkrYn
-	 h4YmA0kUyAeR7iqD1g+k3LbLzTmwybuzXggCoW6gnhxUFLHJ7yRk6nBysOjOY4C2uz
-	 eK/HfaWx/N1jMbde2sXVIqJcdUor/cF5prn025fNrVtxB4Y2fPyT7mAj2noi/xjbKO
-	 lkzBM+/VFMCXA==
-Received: by mail.hallyn.com (Postfix, from userid 1001)
-	id 0757F1CF7; Wed, 21 Oct 2026 09:36:12 -0500 (CDT)
-Date: Wed, 21 Oct 2026 09:36:12 -0500
-From: "Serge E. Hallyn" <serge@hallyn.com>
-To: Jinjie Ruan <ruanjinjie@huawei.com>, Oleg Nesterov <oleg@redhat.com>
-Cc: kees@kernel.org, akpm@linux-foundation.org, david@kernel.org,
-	ljs@kernel.org, liam@infradead.org, vbabka@kernel.org,
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com,
-	mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, paul@paul-moore.com,
-	jmorris@namei.org, shuah@kernel.org, brauner@kernel.org,
-	alexjlzheng@tencent.com, jannh@google.com, jaime.saguillo@gmail.com,
-	elver@google.com, blbllhy@gmail.com, bvanassche@acm.org,
-	pjw@kernel.org, broonie@kernel.org, debug@rivosinc.com,
-	tglx@kernel.org, aleksey.oladko@virtuozzo.com,
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, morgan@kernel.org
-Subject: Re: [RFC PATCH v2 2/3] security: Add PR_CAPBSET_DROP_MASK for
- process-wide bounding-set drops
-Message-ID: <atjN3JX7sWx9kpQ5@hallyn.com>
-References: <20260929130200.1638343-1-ruanjinjie@huawei.com>
- <20260929130200.1638343-3-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Qwf7nUBb
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=/RAFHHQJUb9Y6m1wRoEvXKEtne2TTDb3cw4C9YRWr6o=; b=Qwf7nUBbLY85c7P3aAm7Ki91UE
+	xzMFyfa9dIOcFN54fVmXwUVVZPTZVT+bvWpK1HWdNGw437NGRFoSbk+vmYV7gIoHaMiDQ/IFRIO+g
+	tj6lrYMDsQgLU6gGCdF+IFuKB3bduLrR2K7aaTMHf5aWejspAr+JW5mL8jfpKBdXlwK1R4CHTGE+x
+	xLOddNizroyEOVHS5JrREaighU/x3oYbUzaVdf5GSc0sWJy2+gd2UKmHupf/ZEXYNTWU2rX48VVJn
+	8LE/VBukQxYd8HmEOc9Q1wwCf93Hm8lrvFUwy9pUsuq7AmHhKivh6/gkAMfGju3XqKbEU0YpzkP2l
+	BatKYMew==;
+Received: from 54-240-197-233.amazon.com ([54.240.197.233] helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJXRC-00000009sUb-0ZOD;
+	Wed, 21 Oct 2026 14:37:06 +0000
+Message-ID: <8431ae22ee7c7a786c93d8c0bbc85366f39291bd.camel@infradead.org>
+Subject: Re: [PATCH 0/5] timekeeping: Reduce magnitude of ntp_error
+From: David Woodhouse <dwmw2@infradead.org>
+To: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>,
+  Rodolfo Giometti <giometti@enneenne.com>, Ryan Luu <rluu@amazon.com>,
+ Julien Ridoux <ridouxj@amazon.com>, 	linux-kernel@vger.kernel.org
+Date: Wed, 21 Oct 2026 15:37:04 +0100
+In-Reply-To: <20261001202134.33929-1-dwmw2@infradead.org>
+References: <20261001202134.33929-1-dwmw2@infradead.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-6OHAFwX89h9NLkUhL9dK"
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,301 +69,197 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929130200.1638343-3-ruanjinjie@huawei.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, Sep 29, 2026 at 09:01:59PM +0800, Jinjie Ruan wrote:
-> PR_CAPBSET_DROP only affects the calling thread. Process-wide capability
-> dropping requires user space to loop over every thread and every
-> capability, which is highly expensive. For instance, long-lived
-> multi-threaded processes (like gVisor's sentry) spend milliseconds
-> trimming the bounding set because the runtime has to coordinate
-> and signal every thread.
-> 
-> Add PR_CAPBSET_DROP_MASK, an opt-in prctl that removes a set of
-> capabilities from the entire thread group's bounding set in a single call.
-> The capabilities are specified via a 64-bit mask across arg2 (low 32 bits)
-> and arg3 (high 32 bits).
-> 
-> The drop is recorded in a per-thread-group mask,
-> signal_struct::cap_bset_pending, under sighand->siglock. This pending drop
-> is dynamically folded into the bounding set in critical paths:
-> cap_capset(), PR_CAPBSET_READ(), and cap_bprm_creds_from_file().
-> Running, concurrently created, or future threads within the group will
-> all immediately observe the drop. A forked child inherits this mask
-> in cap_bset_drop_fork() under siglock to close the race window
-> against clone().
-> 
-> The operation is drop-only, so concurrent callers commute and a single
-> atomic OR is the linearization point.  It performs no per-thread allocation
-> and only the caller's replacement cred can fail, reported synchronously as
-> -ENOMEM before anything changes.
-> 
-> In an arm64 KVM guest, trimming 41 capabilities of a multi-threaded Go
-> process takes ~8.5-23.6ms with the per-thread PR_CAPBSET_DROP loop and
-> ~11-14us with PR_CAPBSET_DROP_MASK, independent of the thread count.
-> 
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-Interesting idea, storing it in the sighand.
+--=-6OHAFwX89h9NLkUhL9dK
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Oleg, do you see any issues with that part of this?
+On Thu, 2026-10-01 at 21:21 +0100, David Woodhouse wrote:
+> The timekeeper's ntp_error variable tracks the delta between the ideal
+> time that the kernel *should* be reporting as CLOCK_REALTIME, and the
+> time that is *actually* being reported.
+>=20
+> A previous patch series in v7.3, up to commit 794ddd6e15cf ("ntp:
+> Remove tick_length_base, use tick_length directly"), fixed *errors* in
+> the accounting of ntp_error =E2=80=94 cases where the reported time would
+> diverge from the ideal time *without* the divergence being correctly
+> tracked in ntp_error for subsequent compensation.
+>=20
+> This series is the next step: it reduces the magnitude of the
+> excursions which are (now) *correctly* tracked in ntp_error.
+>=20
+> The ntp_error mechanism works fine when it remains close to zero. The
+> actual clock is steered back towards the ideal by a single =C2=B11
+> dithering of the per-cycle 'mult' period, changing between high and
+> low each time ntp_error crosses zero.
+>=20
+> This doesn't work as well when the value of ntp_error gets higher. In
+> some cases, 83=C2=B5s of ntp_error was seen. Draining that through the mu=
+lt
+> =C2=B11 dithering, at typically less than 1ns/s, could take days. And whi=
+le
+> it does, the precision of the frequency that can be effected by the
+> kernel's timekeeping is limited by the integer quantisation, because
+> it's permanently biased to either mult or mult+1 according to the
+> direction of the persistent ntp_error, and frequencies between the two
+> values cannot be achieved by the normal dithering. On top of which,
+> chrony was attempting to discipline the *reported* clock, even as
+> the kernel was attempting to steer it as hard as it could (albeit
+> not very hard) back to the kernel's ideal.
+>=20
+> There are two cases where during frequency/phase adjustment, the
+> change was effectively applied to the 'ideal' vs 'actual' rate at
+> different moments in time. This accounting for this in ntp_error was
+> self-consistent, but the better answer is for them to be conceptually
+> applied at the same moment, without contributing anything to ntp_error
+> at all.
+>=20
+> While the timekeeping code is applying a phase correction, that
+> applies an additional bias to the per-cycle 'mult' values. If a
+> tickless kernel goes idle while this skew is being applied, it can
+> continue to apply that bias *long* after it was intended to finish,
+> overshooting the intended phase correction (by 500=C2=B5s/s in the case o=
+f
+> adjtime). Fix this in timekeeping_max_deferment() by requesting a
+> wakeup at the top of the next second while phase skew is being
+> applied. (NB: Only for the core timekeeper, not aux clocks which
+> remain as they were).
+>=20
+> Finally, if ntp_error ever does get excessive, we can deliberately
+> apply a phase skew to return it to zero faster than the normal
+> dithering would permit. An equivalent mechanism was removed in commit
+> dc491596f639 ("timekeeping: Rework frequency adjustments to work
+> better w/ nohz") but especially with the timekeeping_max_deferment()
+> change mentioned above, this now works effectively even with (and
+> in fact especially with) tickless idle. But again only for the core
+> timekeeper... unless we want to wake for aux clocks too?
+>=20
+> Tests running at https://david.woodhou.se/ntptest-virt/=C2=A0on baseline
+> vs. patched kernels, both tickless and periodic. The effect is seen
+> most clearly on the tickless kernel, where the baseline experiences
+> much higher jitter around corrections that should be smooth.
 
-Overall, this seems ok to me.  That is, I think it addresses all the
-concerns I had with the previous version.
+Ping? Patches 1-4 of this should be ready to merge now.
 
-> ---
->  fs/proc/array.c              |  3 +-
->  include/linux/capability.h   |  5 ++
->  include/linux/sched/signal.h |  8 ++++
->  include/uapi/linux/prctl.h   |  1 +
->  kernel/fork.c                |  1 +
->  security/commoncap.c         | 91 ++++++++++++++++++++++++++++++++++--
->  6 files changed, 105 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/proc/array.c b/fs/proc/array.c
-> index f6f75d206762..f1cde26d079c 100644
-> --- a/fs/proc/array.c
-> +++ b/fs/proc/array.c
-> @@ -63,6 +63,7 @@
->  #include <linux/tty.h>
->  #include <linux/string.h>
->  #include <linux/mman.h>
-> +#include <linux/capability.h>
->  #include <linux/sched/mm.h>
->  #include <linux/sched/numa_balancing.h>
->  #include <linux/sched/task_stack.h>
-> @@ -318,7 +319,7 @@ static inline void task_cap(struct seq_file *m, struct task_struct *p)
->  	cap_inheritable	= cred->cap_inheritable;
->  	cap_permitted	= cred->cap_permitted;
->  	cap_effective	= cred->cap_effective;
-> -	cap_bset	= cred->cap_bset;
-> +	cap_bset	= cap_bset_effective(p, cred);
->  	cap_ambient	= cred->cap_ambient;
->  	rcu_read_unlock();
->  
-> diff --git a/include/linux/capability.h b/include/linux/capability.h
-> index 7921a0b3b04a..6413c7fedb69 100644
-> --- a/include/linux/capability.h
-> +++ b/include/linux/capability.h
-> @@ -38,6 +38,7 @@ struct file;
->  struct inode;
->  struct dentry;
->  struct task_struct;
-> +struct cred;
->  struct user_namespace;
->  struct mnt_idmap;
->  
-> @@ -197,6 +198,10 @@ bool capable_wrt_inode_uidgid(struct mnt_idmap *idmap,
->  			      const struct inode *inode, int cap);
->  extern bool file_ns_capable(const struct file *file, struct user_namespace *ns, int cap);
->  extern bool ptracer_capable(struct task_struct *tsk, struct user_namespace *ns);
-> +extern kernel_cap_t cap_bset_effective(const struct task_struct *task,
-> +				       const struct cred *cred);
-> +extern void cap_bset_drop_fork(struct task_struct *p);
-> +
->  static inline bool perfmon_capable(void)
->  {
->  	return capable(CAP_PERFMON) || capable(CAP_SYS_ADMIN);
-> diff --git a/include/linux/sched/signal.h b/include/linux/sched/signal.h
-> index d45a5476b97d..bda6f18b65b9 100644
-> --- a/include/linux/sched/signal.h
-> +++ b/include/linux/sched/signal.h
-> @@ -98,6 +98,14 @@ struct signal_struct {
->  	int			quick_threads;
->  	struct list_head	thread_head;
->  
-> +	/*
-> +	 * Capabilities being removed from the bounding set of every thread in
-> +	 * this group by PR_CAPBSET_DROP_MASK.  Read on capability-transition
-> +	 * paths without sighand->siglock, hence atomic64 (a 64-bit value would
-> +	 * otherwise tear on 32-bit).
-> +	 */
-> +	atomic64_t		cap_bset_pending;
-> +
->  	wait_queue_head_t	wait_chldexit;	/* for wait4() */
->  
->  	/* current thread group signal load-balancing target: */
-> diff --git a/include/uapi/linux/prctl.h b/include/uapi/linux/prctl.h
-> index b6ec6f693719..85ac71897070 100644
-> --- a/include/uapi/linux/prctl.h
-> +++ b/include/uapi/linux/prctl.h
-> @@ -70,6 +70,7 @@
->  /* Get/set the capability bounding set (as per security/commoncap.c) */
->  #define PR_CAPBSET_READ 23
->  #define PR_CAPBSET_DROP 24
-> +#define PR_CAPBSET_DROP_MASK 82
->  
->  /* Get/set the process' ability to use the timestamp counter instruction */
->  #define PR_GET_TSC 25
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 5ef413368912..bf671a85d39d 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -2504,6 +2504,7 @@ __latent_entropy struct task_struct *copy_process(
->  	 * before holding sighand lock.
->  	 */
->  	copy_seccomp(p);
-> +	cap_bset_drop_fork(p);
->  
->  	if (clone_flags & CLONE_NNP)
->  		task_set_no_new_privs(p);
-> diff --git a/security/commoncap.c b/security/commoncap.c
-> index 3399535808fe..3bec15d43731 100644
-> --- a/security/commoncap.c
-> +++ b/security/commoncap.c
-> @@ -3,6 +3,7 @@
->   */
->  
->  #include <linux/capability.h>
-> +#include <linux/cred.h>
->  #include <linux/audit.h>
->  #include <linux/init.h>
->  #include <linux/kernel.h>
-> @@ -19,6 +20,7 @@
->  #include <linux/hugetlb.h>
->  #include <linux/mount.h>
->  #include <linux/sched.h>
-> +#include <linux/sched/signal.h>
->  #include <linux/prctl.h>
->  #include <linux/securebits.h>
->  #include <linux/user_namespace.h>
-> @@ -30,6 +32,25 @@
->  #define CREATE_TRACE_POINTS
->  #include <trace/events/capability.h>
->  
-> +/**
-> + * Effective bounding set of @cred in @task's thread group
-> + * @task: task whose thread group's pending drop applies
-> + * @cred: credentials to read the bounding set from
-> + *
-> + * A drop recorded by PR_CAPBSET_DROP_MASK is authoritative on the thread group
-> + * and may not have been materialized into every thread's cred yet, so the
-> + * effective bounding set is the cred's own set minus the group's pending drop.
-> + */
-> +kernel_cap_t cap_bset_effective(const struct task_struct *task,
-> +				const struct cred *cred)
-> +{
-> +	kernel_cap_t pending = {
-> +		.val = atomic64_read(&task->signal->cap_bset_pending),
-> +	};
-> +
-> +	return cap_drop(cred->cap_bset, pending);
-> +}
-> +
->  /*
->   * If a non-root user executes a setuid-root binary in
->   * !secure(SECURE_NOROOT) mode, then we raise capabilities.
-> @@ -284,8 +305,8 @@ int cap_capset(struct cred *new,
->  
->  	if (!cap_issubset(*inheritable,
->  			  cap_combine(old->cap_inheritable,
-> -				      old->cap_bset)))
->  		/* no new pI capabilities outside bounding set */
-> +				      cap_bset_effective(current, old))))
->  		return -EPERM;
->  
->  	/* verify restrictions on target's new Permitted set */
-> @@ -849,7 +870,7 @@ static void handle_privileged_root(struct linux_binprm *bprm, bool has_fcap,
->  	 */
->  	if (__is_eff(root_uid, new) || __is_real(root_uid, new)) {
->  		/* pP' = (cap_bset & ~0) | (pI & ~0) */
-> -		new->cap_permitted = cap_combine(old->cap_bset,
-> +		new->cap_permitted = cap_combine(new->cap_bset,
->  						 old->cap_inheritable);
->  	}
->  	/*
-> @@ -925,6 +946,8 @@ int cap_bprm_creds_from_file(struct linux_binprm *bprm, const struct file *file)
->  	int ret;
->  	kuid_t root_uid;
->  
-> +	new->cap_bset = cap_bset_effective(current, new);
-> +
->  	if (WARN_ON(!cap_ambient_invariant_ok(old)))
->  		return -EPERM;
->  
-> @@ -1283,6 +1306,63 @@ static int cap_prctl_drop(unsigned long cap)
->  	return commit_creds(new);
->  }
->  
-> +static int cap_bset_drop_process(kernel_cap_t mask)
-> +{
-> +	kernel_cap_t pending;
-> +	struct cred *new;
-> +
-> +	new = prepare_creds();
-> +	if (!new)
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * Record the drop before committing the caller's cred, so that a
-> +	 * thread created from now on is guaranteed to observe it.  Apply the
-> +	 * current union, not just this call's mask, to the caller's cred.
-> +	 */
-> +	spin_lock_irq(&current->sighand->siglock);
-> +	atomic64_or(mask.val, &current->signal->cap_bset_pending);
-> +	pending.val = atomic64_read(&current->signal->cap_bset_pending);
-> +	spin_unlock_irq(&current->sighand->siglock);
-> +
-> +	new->cap_bset = cap_drop(new->cap_bset, pending);
-> +	commit_creds(new);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Propagate a pending process-wide bounding-set drop to @p, a task being
-> + * created by the current thread.  Threads sharing the group read
-> + * current->signal->cap_bset_pending directly; a forked child gets its own
-> + * signal_struct and must carry the mask itself.  Called under
-> + * current->sighand->siglock, which serializes it with cap_bset_drop_process().
-> + */
-> +void cap_bset_drop_fork(struct task_struct *p)
-> +{
-> +	kernel_cap_t mask = {
-> +		.val = atomic64_read(&current->signal->cap_bset_pending),
-> +	};
-> +
-> +	if (cap_isclear(mask) || p->signal == current->signal)
-> +		return;
-> +
-> +	atomic64_or(mask.val, &p->signal->cap_bset_pending);
-> +}
-> +
-> +static int cap_prctl_drop_mask(unsigned long low, unsigned long high)
-> +{
-> +	kernel_cap_t mask = mk_kernel_cap((u32)low, (u32)high);
-> +
-> +	if (cap_isclear(mask))
-> +		return 0;
-> +
-> +	if (!ns_capable(current_user_ns(), CAP_SETPCAP))
-> +		return -EPERM;
-> +
-> +	return cap_bset_drop_process(mask);
-> +}
-> +
->  /**
->   * cap_task_prctl - Implement process control functions for this security module
->   * @option: The process control function requested
-> @@ -1308,11 +1388,16 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
->  	case PR_CAPBSET_READ:
->  		if (!cap_valid(arg2))
->  			return -EINVAL;
-> -		return !!cap_raised(old->cap_bset, arg2);
-> +		return !!cap_raised(cap_bset_effective(current, old), arg2);
->  
->  	case PR_CAPBSET_DROP:
->  		return cap_prctl_drop(arg2);
->  
-> +	case PR_CAPBSET_DROP_MASK:
-> +		if (arg4 || arg5)
-> +			return -EINVAL;
-> +		return cap_prctl_drop_mask(arg2, arg3);
-> +
->  	/*
->  	 * The next four prctl's remain to assist with transitioning a
->  	 * system from legacy UID=0 based privilege (when filesystem
-> -- 
-> 2.34.1
+So is number 5 as far as I'm concerned, but I'm happy to entertain
+further discussion if anyone has an opinion they want to share.
+
+--=-6OHAFwX89h9NLkUhL9dK
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+EuiLPARd5kaEv7CQdoEtZ4AAAAAAAAA=
+
+
+--=-6OHAFwX89h9NLkUhL9dK--
