@@ -1,69 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.142
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792546337;
-	b=GMc6EcRlMVbsTQev9hbTwh2Sq7mWiuT6Sin3pKHjxEa3rGzZKWYwFRUFOPiHt13WB/Bf
-	 XDuQ8rDTG7zjR03EHk7UXRBbLKOhwJUvon1/bhpAp3eh71281TVb4FlYe6BQZMZtYn6Jf
-	 SfHvGA2aFzJUKrYwHV8zumC8w59UW3nF/KbHQRBMmo3Ttf9dJKO5rIk66ow9Mul2R1bYI
-	 X+g0add4jeTlBJN9lBMdZMpVZ0jHAZg6TFYZbNlpnPQz1mNBCWIRfgpGwkxFVwIRlnQ1r
-	 ohdyqBVLhPnpgpWNJuzeCs9uPyYO7+ztedgaDV0/5qSfg0VgulVzCH1KfNqBo38kRfQ==
+	t=1792546503;
+	b=o9p4i9oj/DsJc7IFSRlW4gx0Dm9M/svvJUTONKs+LTxNiW/ZtRFLy/1PvM2P9uU2m3fr
+	 vh2ktC1k4SJsMlASIJZSbVi37pciLUORYb6+q7rzJ2xarMzlnIK5hSLbKVt2uRsap6Wfj
+	 E1aXf4ztxRkTXgdgG2wFqyA2pGFerAzKauR8n9p5qTTjItOf0aHkeASoC+J4h5/iZ72WG
+	 lsFhdonVqdY5kWIwPPQtc+8dWSx771iu25TruEtV6fVW97onpYRQLp4lXbKLZbu+Re9UU
+	 3Czx7Fsyb6l3q0zpoTdDxyI3qxxxZSODUETLq3GLkcabWJVcepQzS7K5d74Hu7Cb0kg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792546337;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=viKjkxwm6w/datGgSuiR2vSrkOeCSUfzz8GH4AKZkPg=;
-	b=4zMRY+DN/kg56C6XGbTLs/m3EL47ebiOqv1bQwfwqQNm7mV3d+s88uWum26l9IRQ0LZD
-	 ghcZJb3k5Mib4txkniVQ/omPyrPZRLkXv8VPxmjDyUMF8PPxmCLeuJN02NpEI7KfHkJ55
-	 lRBwscpTEVR1eAk91HBEb5IZJqaB53HLVUpbskQY3gVDYtuV850rbqcEgZOAjybNF/WQc
-	 AJu033OxS/2WKv6C9U0M2ennPPxMHyDfozJGnWFiyAO2vUhsR/zo0bF3IR0wYKBsvfUCA
-	 FB6a2MCbEBG9kVQZE5BFppIZVilKstgA4MNQkO6RpRbiLj9UK4/NeLvzyDd522UDcrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792546503;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RrrCMgJ3wDXc/zCjSsVsylYamdUiiZGnBksOK3TkOQw=;
+	b=i1kVf8VFT1UdyTzoGTt9NcbtHvxHvQcO85Sz44gP5IUkkRXkW8KT1IVAbWCmomMRPWpN
+	 gC8CPxT5xhgoxSWaWG2lJMuCgfhRiisHOzV1MYE+O2wHFXdFK89fyGLKPiqbLbpjdMZtY
+	 4YV3yS+TYsJyKNtNESOujthvqOuAjRfPMLcom+KxpSi8ZR1AB5Plcm2sNn0RQH89ORHE2
+	 DWnOb1bPqCxyTY9+j8ppOS7NCy0H+F4HpmleJ3oVABXJf7o759HcfQsjUyICxmmM/tzPC
+	 kiVidrFfQrWiUeSNu4vYHDBIksGOjhhfCcsXaT97N973UA6zOLgBtJKxj22+hOPqx9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pRZOoeXX;
-	arc=none smtp.remote-ip=91.218.175.142
-Received: from mta0.migadu.com (out-142.mta0.migadu.com [91.218.175.142])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwgxXx23;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F3A606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20F3A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A67A606A31A;
+	Wed, 21 Oct 2026 01:35:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=pRZOoeXX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ZJaoww9Yi8saFthd8Kvxn1L7Jb1aehO9JTRyFYDD/lo=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792546331; v=1; x=1793151131;
- b=pRZOoeXXD90geBNE8Qj8axj8ytIe5gJDNYsa5XyrMoi47KcpUtiteOHeBNTa1qI/uQr2mCd6
- RhGWshmVxNoGxY0VTK+B41mnMiUKKgqu6XsqUGwdS5mlR3GZw20eBwUAlLbIJUTpr+VO4lLCvwe
- wZQyWG8GLNrKyypIRx5b6rZg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 987630b6f72007a2;
-	Wed, 21 Oct 2026 01:32:11 +0000
-X-Mizu-Trace-ID: 987630b6f72007a2
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 21 Oct 2026 09:32:00 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Lebrun <david.lebrun@uclouvain.be>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	David Ahern <dsahern@kernel.org>,
-	Hazley Samsudin <hazleycryilis@gmail.com>,
-	Stefano Salsano <stefano.salsano@uniroma2.it>
-Subject: Re: [PATCH net] seg6: fix transport header for inner IPv4 with IP
- options
-Message-ID: <atgWEBZ5J9LQyULx@fedora>
-References: <20261020023336.34-1-andrea.mayer@uniroma2.it>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PwgxXx23
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F1861F000CA;
+	Wed, 21 Oct 2026 01:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792546503;
+	bh=RrrCMgJ3wDXc/zCjSsVsylYamdUiiZGnBksOK3TkOQw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PwgxXx230dZhFycujY1r3ztRThXg4iwUxZDjYIVcBgrQUfJ1FGKjlkWTZriFTAND5
+	 /zeeA/coMcRyjwMezIZ4TbB8F3dMmDCtQYGKCTmQu64ZyMAYQLvzNWMv6Hf+UZDGzn
+	 7hjAtUHY2+aeQNkarZL3bKAt0tg5s1869fRe7/EurnAAvTs19T9rXzsBVeTSSpu3AV
+	 2q6iC5pTG4UYRJLCIOnG1/yoBO9l58FaawOAWiZoctzXnX4BtJNtAi8XfsZGpSEosc
+	 xwpi5RdHilx/IrkPV1kDYYJN8q+2ya45u8yIXPc7AOPWjyNV78MDtKMHg5ZUl3QhRw
+	 Tn1DC2CHPxJNQ==
+Date: Tue, 20 Oct 2026 18:35:01 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Bobby Eshleman <bobbyeshleman@meta.com>
+Cc: Stefano Garzarella <sgarzare@redhat.com>, "David S. Miller"
+ <davem@davemloft.net>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Stefan Hajnoczi <stefanha@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, Eugenio =?UTF-8?B?UMOpcmV6?=
+ <eperezma@redhat.com>, Shuah Khan <shuah@kernel.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Donald Hunter <donald.hunter@gmail.com>, Eric
+ Dumazet <edumazet@kernel.org>, <virtualization@lists.linux.dev>,
+ <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <sargun@sargun.me>, <jlinbox@meta.com>,
+ Bobby Eshleman <bobbyeshleman@gmail.com>
+Subject: Re: [PATCH net-next v4 0/7] vsock: assign the guest vsock device to
+ a network namespace
+Message-ID: <20261020183501.6c15777a@kernel.org>
+In-Reply-To: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
+References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,191 +70,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020023336.34-1-andrea.mayer@uniroma2.it>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Andrea,
-On Tue, Oct 20, 2026 at 04:33:36AM +0200, Andrea Mayer wrote:
-> The End.DT4, End.DT46 (its IPv4 path only) and End.DX4 behaviors set the
-> transport header of the decapsulated IPv4 packet at a fixed 20 bytes, the
-> size of an IPv4 header without options. They do not validate the header
-> length either. With options, the transport header points at the first
-> option byte. The effects include:
-> - ping -R sends an echo request with a 60-byte IPv4 header to a local
->   address through an End.DT4 or an End.DX4 SID. Since icmp_rcv()
->   computes the ICMP checksum from the first option byte, the request
->   fails the check and is counted in IcmpInCsumErrors.
-> - A UDP datagram can reach a port that an iptables rule drops. The rule
->   checks the UDP header after the full IPv4 header, while the socket
->   lookup reads it at the fixed 20-byte offset.
-> - With an inbound AH state, ah_input() reads the AH header at the fixed
->   20-byte offset, but copies the IPv4 header over it with the length in
->   the IHL field. A packet shorter than that length can make ah_input()
->   write past the end of the data, into skb_shared_info when the skb has
->   no tailroom.
-> 
-> Validate the inner IPv4 header length with the new helper
-> seg6_validate_iphdr_len() and set the transport header at that length. A
-> packet that is not IPv4, whose header length field is below 5, or whose
-> header is truncated, is dropped with a drop reason. The fix is limited to
-> the header length, which the transport header relies on. Other checks done
-> on IPv4 input, such as the header checksum, the total length and the IP
-> options, are not addressed here.
-> 
-> Found by code inspection while reviewing commit 44930446dde4 ("ipv6: seg6:
-> clear IPv4 control block on IPIP decapsulation"), as a pre-existing issue
-> that Sashiko also reported on v2 of that patch. Without this patch, a
-> bpftrace probe on ah_input() shows the reporter's reproducer packet
-> written into skb_shared_info. With it, that packet is dropped before
-> ah_input(), ping -R no longer fails the ICMP checksum, the UDP datagram
-> reaches its real port, and the SRv6 selftests still pass. These effects
-> reproduce on an unmodified kernel, without error injection.
-> 
-> Fixes: 891ef8dd2a8d ("ipv6: sr: implement additional seg6local actions")
-> Fixes: 664d6f86868b ("seg6: add support for the SRv6 End.DT4 behavior")
-> Reported-by: Hazley Samsudin <hazleycryilis@gmail.com>
-> Closes: https://lore.kernel.org/netdev/20260809221915.2ffc1ecd0f445fcb70270e31@uniroma2.it/
-> Signed-off-by: Andrea Mayer <andrea.mayer@uniroma2.it>
-> ---
->  net/ipv6/seg6_local.c | 56 ++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 48 insertions(+), 8 deletions(-)
-> 
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 53f7b2452575..c249f7751d41 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -1056,6 +1056,40 @@ static int input_action_end_dx6(struct sk_buff *skb,
->  	return -EINVAL;
->  }
->  
-> +/* Validate the length of the IPv4 header at skb->data (which must point to
-> + * the network header) and report that length, options included.
-> + * Only the version, the header length and the presence of the whole header
-> + * are checked.
-> + * The length is written only when SKB_NOT_DROPPED_YET is returned.
-> + *
-> + * skb pointers may change: after this call, the caller must evaluate again
-> + * any pointer into the packet data.
-> + */
-> +static enum skb_drop_reason
-> +seg6_validate_iphdr_len(struct sk_buff *skb, int *hdrlen)
-> +{
-> +	enum skb_drop_reason reason;
-> +	const struct iphdr *iph;
-> +	int len;
-> +
-> +	reason = pskb_may_pull_reason(skb, sizeof(struct iphdr));
-> +	if (reason)
-> +		return reason;
-> +
-> +	iph = ip_hdr(skb);
-> +	if (iph->version != 4 || iph->ihl < 5)
-> +		return SKB_DROP_REASON_IP_INHDR;
-> +
-> +	len = ip_hdrlen(skb);
-> +
-> +	reason = pskb_may_pull_reason(skb, len);
-> +	if (reason)
-> +		return reason;
-> +
-> +	*hdrlen = len;
-> +	return SKB_NOT_DROPPED_YET;
-> +}
-> +
->  static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
->  				       struct sk_buff *skb)
->  {
-> @@ -1085,14 +1119,18 @@ static int input_action_end_dx4_finish(struct net *net, struct sock *sk,
->  static int input_action_end_dx4(struct sk_buff *skb,
->  				struct seg6_local_lwt *slwt)
->  {
-> +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
-> +	int hdrlen;
-> +
->  	if (!decap_and_validate(skb, IPPROTO_IPIP))
->  		goto drop;
->  
-> -	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-> +	reason = seg6_validate_iphdr_len(skb, &hdrlen);
-> +	if (reason)
->  		goto drop;
->  
->  	skb->protocol = htons(ETH_P_IP);
-> -	skb_set_transport_header(skb, sizeof(struct iphdr));
-> +	skb_set_transport_header(skb, hdrlen);
->  	nf_reset_ct(skb);
->  
->  	if (static_branch_unlikely(&nf_hooks_lwtunnel_enabled))
-> @@ -1102,7 +1140,7 @@ static int input_action_end_dx4(struct sk_buff *skb,
->  
->  	return input_action_end_dx4_finish(dev_net(skb->dev), NULL, skb);
->  drop:
-> -	kfree_skb(skb);
-> +	kfree_skb_reason(skb, reason);
->  	return -EINVAL;
->  }
->  
-> @@ -1234,6 +1272,7 @@ static struct net_device *end_dt_get_vrf_rcu(struct sk_buff *skb,
->  static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
->  				       struct seg6_local_lwt *slwt, u16 family)
->  {
-> +	enum skb_drop_reason reason = SKB_DROP_REASON_NOT_SPECIFIED;
+On Tue, 20 Oct 2026 18:15:03 -0700 Bobby Eshleman wrote:
+> vsock network namespaces let a host put each VM in a namespace of its
+> own. A guest has no equivalent yet. It has a single G2H device that
+> cannot be assigned to a network namespace.
 
-Nit: We can use SKB_DR(reason) without the long definition.
+## Form letter - net-next-closed
 
->  	struct seg6_end_dt_info *info = &slwt->dt_info;
->  	struct net_device *vrf;
->  	__be16 protocol;
-> @@ -1246,7 +1285,9 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
->  	switch (family) {
->  	case AF_INET:
->  		protocol = htons(ETH_P_IP);
-> -		hdrlen = sizeof(struct iphdr);
-> +		reason = seg6_validate_iphdr_len(skb, &hdrlen);
-> +		if (unlikely(reason))
-> +			goto drop;
->  		break;
->  	case AF_INET6:
->  		protocol = htons(ETH_P_IPV6);
-> @@ -1260,6 +1301,7 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
->  
->  	if (unlikely(info->family != AF_UNSPEC && info->family != family)) {
->  		pr_warn_once("seg6local: SRv6 End.DT* family mismatch");
-> +		reason = SKB_DROP_REASON_NOT_SPECIFIED;
->  		goto drop;
->  	}
+The merge window for Linux v7.4 has begun, and the net-next
+tree is now closed for new drivers, features, code refactoring
+and optimizations. We are currently accepting bug fixes only.
 
-And maybe move this checking upper before switch(), then we don't need
-to reset reason.
+Please repost when net-next reopens. There is some uncertainty
+about how long this merge window will last, so please check
+https://netdev.bots.linux.dev/net-next.html
+before reposting. net-next _may_ reopen on Nov 2nd.
 
-No need to post another patch if you don't want.
-
->  
-> @@ -1273,7 +1315,7 @@ static struct sk_buff *end_dt_vrf_core(struct sk_buff *skb,
->  	return end_dt_vrf_rcv(skb, family, vrf);
->  
->  drop:
-> -	kfree_skb(skb);
-> +	kfree_skb_reason(skb, reason);
->  	return ERR_PTR(-EINVAL);
->  }
->  
-> @@ -1286,9 +1328,7 @@ static int input_action_end_dt4(struct sk_buff *skb,
->  	if (!decap_and_validate(skb, IPPROTO_IPIP))
->  		goto drop;
->  
-> -	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-> -		goto drop;
-> -
-> +	/* end_dt_vrf_core() validates the inner IPv4 header length */
->  	skb = end_dt_vrf_core(skb, slwt, AF_INET);
->  	if (!skb)
->  		/* packet has been processed and consumed by the VRF */
-> -- 
-> 2.43.0
-> 
-
-Others looks good to me. Thanks!
-
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
+-- 
+pw-bot: defer
+pv-bot: closed
