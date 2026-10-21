@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551734;
-	b=k/TBjVT19la8J4w7pJlWqbuYDGqqoWHFeL79FTWTcOrsuXfknsRvme6Fkcexbc5yIbT4
-	 8FOUjy7S21VI9dr0KszCijLXp0vpcjznYgrRtm/WfKTKcAqZHPy4ZI8YQbmbRX2U6vCHn
-	 y8+KwIj/iZWCdUsJlVP00TOFNzmHScCIcqFRG24hycZRKXcGTAOW+8stPU0uA7RBoSZU3
-	 s/dTw1zNZrX2EqcEnM5rQrvRkm8VAsJgOEASG7SF1tBSJqLnXoYdGSTcbXLZsBOzeTDZS
-	 3MzJ3cGefigbeNcRsSVP7nj/nJprE9ZWWAgnWwt4c4PTbafrjCwXg7TNdWToeRoVRfg==
+	t=1792551736;
+	b=yMiAISfbHcEalq9ENEN6Zt9CdZAgd4XGtW0WYUwvL3dA85JXz1qaXYMFHh2Nh/kT+u/Q
+	 d2HqOJ6FzXZBC+a9CGD4WoQzu9Hczva3s9VKZnyk0rDcV9YKJnRs0xCHN3SPYWZShWoET
+	 4nNBeV8h0mCXYJ+6b/w1eiPa6nUoD8eozMSONissZMbAoLbjFYBma0KJIsHb1bYOMiDAr
+	 zbMYkCC+f8fx2NjneuslfzYR/tDSDN5aijtpuCcMzSmXxh8DGa/M9mMKf147VKJPJYgQf
+	 ku4smAnuRaXv4sahJGP9ptWA0Bdr8ljwoqhljIK4i1EeTJBx+hJsSU0UMrC4Ewe4zaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551734;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551736;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=p4RNd2i8xpZ0CJfOEJKH1RTYHzI0AXnVPwuk8UaUecw=;
-	b=qzZs7BYFfV00MvdCUyDGDreZPcRElzq1q0hT4hwDWaxDGWEMOe5Gj+rHAq8ipSqBbgKr
-	 XvwjC47dHHJY/Q68nqLUJjtMhb71GEkE7cNFhqcHYg5jPjd1NOaa6V+R7NlBTGmMyJjHD
-	 LIUuXtTFVZrORCV1UbRlI1uk/bvd43rfO1a6gZQ4Q0YivaW2J+6H06wnF+8kX6TdbCMIf
-	 Z8wGPxWjKSNXPrUExBHI0OBV19Q0mN5ui36t6quBtvtvRq1dp1Yf9xZkBiLdYfX4xpKA9
-	 U8qu+T7aLl6S89WvR4m+0Rj9g82PO8rFZaMUqamtvAYEgyhJMd7szslq6U150cL09nA==
+	bh=yC+gZPV4aotNwixKHOtH5yvTfu3V/PuIgqyMW818p0A=;
+	b=bsdctey2UdsfRGgmxPeNYM4l59eTxMpLAodDDToTAVmxF4ROtJQwmwdMfxHlWaz7y3a+
+	 HIImUwWNq5w2+TQ4TqhwT3UEugRqgOZclkEBLQkrkDCMxnvTl1jl2BLg3gVE8AFF3c+D5
+	 MtgRCw9QzPnOpsSdsd0pncAtxMN0u6fD3qj2+Z7f4Mf8XaoSdasbFTOnZG5wpiIs9P9bT
+	 Z9FjYxX+XQlz1CiI9BYPrnL2ChG7Cf3YvSPARzRnkNQoIMElS4h+kjwcbtE9hFT2hZ8sl
+	 2+lgEIS8slCZEpNUGAAgd8/KwoRN8Tvpb8EjQeAsphj/tQauxAiZj5gi2f13Y1vg+RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nexthop.ai;
 	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=X8kWAAgG;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=RHMhcUl5;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44484606A32C
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:02:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44484606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D07D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:02:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D07D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=X8kWAAgG
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35ef6b49813so338379eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=RHMhcUl5
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-35b2c599f43so482732eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792551732; x=1793156532; darn=vger.kernel.org;
+        d=nexthop.ai; s=google; t=1792551735; x=1793156535; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=p4RNd2i8xpZ0CJfOEJKH1RTYHzI0AXnVPwuk8UaUecw=;
-        b=X8kWAAgGwp0SKv+CFS7ojR51KNSrqnta/qAkbfHkLtuT0riX+O6xGeNfLd/TJMB+kt
-         n//S5DfSTuB3UBax1bjyFY8/IedkMSGEBMUZDVleIyW9E4urbhooEfjcQcrDYB2UmeDb
-         KXJdCDF5wSU1ufbez/VijPdHZeBSZ41H+EOHQGlh1gTl6qIfJv8VTfND/LHVohkMF1SK
-         ScI+He46Fa3sLjoabRoa7RO5t95OBKUFWrkUzn9Xgglz6+Ua2q+pye8dDH5hpJ7ZPO85
-         5wJ+jvaQuRjgGQwXvGDv+8FXxSdf/OLIK6nthEo+ioQZeF+YFfcjXjLPkkSix8CrD0zB
-         8u0Q==
+        bh=yC+gZPV4aotNwixKHOtH5yvTfu3V/PuIgqyMW818p0A=;
+        b=RHMhcUl5A8hr72VA9IgonSsmVtWMrKoTFnFZ+J38+axHl/9ITRjuKat2kfGWHF/k40
+         KBujvkCkEEUgzBl7n3DXq93bOySak2VyYPPCpqKqVpLTWzLNGs8vSu42sbK7JMZayCr0
+         ac4Xj77hBf/iJG79oYuVe/hg761P4Oi8+e+cmCN9ukux96V/SL44Q1PP8o9uZzj1KK/x
+         8uYsS0zWZ/FNB0spnCPeb5017Y2BiGlQrmVyBWjWjyg113zvYD1yAwGJ/SLE16bAAnpy
+         o0YkhldtMFxWvmvXEQCkc9SCK7YmyUrNV6hgsdkdvhfHDAqIKOGquuze0HV2iWs/z18B
+         VxQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551732; x=1793156532;
+        d=1e100.net; s=20260707; t=1792551735; x=1793156535;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=p4RNd2i8xpZ0CJfOEJKH1RTYHzI0AXnVPwuk8UaUecw=;
-        b=K4PXcWJG8GsnNKkrlcvl3Er03PbIMEp8PmA1mQekxdBWw3hVHbAwboHMnhhtv+AnvM
-         R77xebBs4ZGsr11Jh8YqT5HIircaH2pwVQsI1fKPqhIkz6QCctYXxHkFN39B7/LvJtpW
-         xOLTgCLcd4ploaMY8zAtKhCxhmrJgEXu5Ek3H2vwQL2dxuklIOoao60FqXlRqw1mlIZw
-         YRK26rhTLe0hVuyTkle/BGz6fLQUOgeGUxtBZ9JNYlo8sGiGUIlJsCvYQP+Ly+j7pzNQ
-         8zDLSBA5UjKLS4nxWRuy5fMBYD6XJLEv6YAvki9LhRIkv73tZ4VZ4ENop18iRFWPdM5D
-         BQcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2Lddgku239xSpaB/xkhqMWrdEv44gGRddZkzNvdP16EwWsVr4rNI0zXuTI4r0l5Cz3VLRLhSQX6n6NVw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImY0YbFKXE3JmbhRsjVh7PItMCQM3WAVJEa5Jijvi4TMk8Ui5j
-	DOIYeh4pBOV2vO9rW/r89fRqnRk3buJSsuW02RR+h8Ho/MG2zRcOWEeo6HDOoBCta8o=
-X-Gm-Gg: AYBFou3W2lNPcAgWfM9UrNQDSzsLUoVpWzJdkpt96Qg4FtQI5dnzn4FH2CkdXAvbEP7
-	7lZ5lK6BOO1FEsLRqqmf/xTrwp2lRqZhbTqjIv3951Cg/3v5ARINUMWGWPhNXboCRhtdYU7jki/
-	i/X6gddynZHanFe03/zmZIoz4eo6leCrusZ2FdbyYXKQmHlZ7Eg826Jtr6D45Gj6AP+S/q2pMnP
-	BV5DMMLilAUJlI4vD3zIkTMKwgcCsny88sl5v8dxRmEJNWbbGRWMmX0/jBBxXXmOcjVMGsFEJpY
-	zVcbGm0kJEFwZABDBhh0TvWNsEMQ6+xGSH1JSli/4kM+jY6HCXWsYqrgMApecv62bT6lzpEUl9N
-	OqKGXvnFuWeEQ3QSAnBoJRjtaGXoEKx9TBbQH9d6I9DUgoTdkZEVeUO3f/cgxich6Wq116mwfIL
-	saZPgQN/aFaMpAdR0SpN56HMhBLrAl68b2iv9VkJEe6XeZAOCkwUOuNLeHDQDEi1lWjHPERK/K6
-	E1AWEpR1HN40jU4DGPGWjvtVrxVxuu+W9dfEut2qHwjLlrnmPU83gNyeANm5X84cQdar85uCcnf
-	YiaQ
-X-Received: by 2002:a05:7300:80d6:b0:35d:2c2b:215a with SMTP id 5a478bee46e88-3674f11d996mr1956331eec.35.1792551732270;
-        Tue, 20 Oct 2026 20:02:12 -0700 (PDT)
+        bh=yC+gZPV4aotNwixKHOtH5yvTfu3V/PuIgqyMW818p0A=;
+        b=cs3mVTSkqh10hJ6vDZ/To3uqazTYx1HTNGlzNOQNXPL1aggFEjH5mvbIvRuBMLZi0V
+         kRGJwrxDNHcAJ7jvYLtJiFyaLKMCjYq0UPJsohP3XmmZil0qeFT8bKrB+DIpe583KD4D
+         FsE0j/xeU+LsCgFMWzmFCMNkEja1pyqYDZEazxQIR8N+fhX2k17jzhEL4paLDE2SYD5o
+         +7gjmMdkc4laRc6+g06ATqLiy24H65QLDmY0h5W4W4x1P22eNot4vnfXSTYkdxJG7KY6
+         4Ip9CId/aO2kvQWsOCrzzIvE4LqplzaLTikXD5St4vsvhkwGaBW+FJwbE3i3H7rJmCi/
+         OT9g==
+X-Forwarded-Encrypted: i=1; AKwUvBwBpK2pQrHbeechW+5mtoaObLwiIG/ovEYAT1yCBbSpHoNyzNDqLMLgA3hFAP6/GGCwgbpA/YsG4nAUlB0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVHiMchEr7cVhdHP+SK9PHDPiDVylaCIBTUxnuidU41EIidMJe
+	22j4Fn9nJPiuozt+jn1jgjs+Ydy2eMjE2qfF82DQM5jfnFZW6zAEelpnYTU8Tatve7s=
+X-Gm-Gg: AYBFou2eShQFxwFZfrJAQ1HKH/yKKgh7Wpbt5ypV64h0z8soBgF1ZoAIS0ZzK4LR3U9
+	EhHeD0YrsH5b6b0EErJvidK4tnzQzNubMTknL6TPgduCua3tSqo4EAQwi/rPgvXXi/vLBGkQLnv
+	yiJqf/H4Nzm7LgeiV5Ac0cLVnA0lQXl8DRlduEigOhtqodrCtkxQgu8A7jHhalK8CIzIwlAzmRg
+	qcGgXM+iXjVVekn/BerlTTlDpF1PXpIweeyOtCv36xy/h9gmebPFiP72doHAoOJaYn/7qeGW8bg
+	WLVm1XfgLZJZmubGk7o21au5KxcEBN2crvCl/u7Wy/8Eowj4F2C1Ga5frfPG0S0kxBHTSVz7sj7
+	J5TcC2PQyMtEAiMowMWp6uxC8ngGaiX1jPdmUJ6ui21oAFwNy7aU4/4aozVq5KCC4ugsCOMqjnK
+	O4eEWX+ns4xa3zQuQ+AZ+JnQ8nUNpvj5CQYK6vjzmhgOfGENPuk6zkN2goiNceE9fjKJl7MV9sh
+	g3Eaaz5W6UHeACHEH+NIbJ5WhhWrTltYHBhRT+UeWCRudlVLny103FBZr4=
+X-Received: by 2002:a05:7301:860a:b0:366:6ada:a052 with SMTP id 5a478bee46e88-3674d84d319mr1455767eec.8.1792551733311;
+        Tue, 20 Oct 2026 20:02:13 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm4436294eec.2.2026.10.20.20.02.10
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm4436294eec.2.2026.10.20.20.02.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 20:02:10 -0700 (PDT)
+        Tue, 20 Oct 2026 20:02:12 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Tue, 20 Oct 2026 20:02:05 -0700
-Subject: [PATCH v4 1/4] dt-bindings: vendor-prefixes: Add TDK Corporation
+Date: Tue, 20 Oct 2026 20:02:06 -0700
+Subject: [PATCH v4 2/4] dt-bindings: trivial-devices: Add TDK FS1412 and
+ FS1525
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261020-hwmon-pmbus-fs1412-v4-1-27ece4e43d04@nexthop.ai>
+Message-Id: <20261020-hwmon-pmbus-fs1412-v4-2-27ece4e43d04@nexthop.ai>
 References: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
 In-Reply-To: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -104,39 +104,40 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>
 Cc: Lars Petter Mostad <lars.petter.mostad@appear.net>, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792551729; l=969;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792551729; l=1094;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=lNuNT+gSUpQSUsDkNUaVAjvOE/3h1o85CLNGkLI/j7o=;
- b=rko2sOAQYQ6YKmixqBcMieuEhqCema6ugmvbB19RSjqYLJ6NH3/YxenCEWl9qOkYndCiSaPqT
- niDkVQkKgGdD5uBHGU+odEvuQ/LIugQuoWlYefGKh2frpz7WWdi9J/6
+ bh=TihSnAyU+oM6Z6xKPg8XulncCvOA3Lsm7O7YZANDhAs=;
+ b=ZR+1jUcctG0ML9NJYbjTUXiZ8OahgDHMRTQAoKHG93om+tIlU/j0W9gBsUuED/bEbOC9JNX7F
+ VW+Hbti7lLVDZsu/l9Qg2XhvBk8KokV79WhdB/IsNbYhtchl42/JUIF
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-Add the vendor prefix for TDK Corporation, the maker of the FS1412
-point-of-load regulator.
+The TDK FS1412 and FS1525 are 12A and 25A uPOL regulators with a PMBus
+interface. They need only a reg property, so document them as trivial
+devices.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/trivial-devices.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index ba2002969373..a7c484d1113b 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1680,6 +1680,8 @@ patternProperties:
-     description: Shenzhen City Tang Cheng Technology Co., Ltd.
-   "^tcu,.*":
-     description: TC Unterhaltungselektronik AG
-+  "^tdk,.*":
-+    description: TDK Corporation
-   "^tdo,.*":
-     description: Shangai Top Display Optoelectronics Co., Ltd
-   "^team-source-display,.*":
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 2de8eb09cb7d..996e1eab52bb 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -469,6 +469,10 @@ properties:
+           - synaptics,synaptics_i2c
+             # Ambient Light Sensor with SMBUS/Two Wire Serial Interface
+           - taos,tsl2550
++            # TDK FS1412 12A uPOL regulator with PMBus
++          - tdk,fs1412
++            # TDK FS1525 25A uPOL regulator with PMBus
++          - tdk,fs1525
+             # Digital PWM System Controller PMBus
+           - ti,cd9200
+             # Digital PWM System Controller PMBus
 
 -- 
 2.54.0
