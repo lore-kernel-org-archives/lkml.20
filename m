@@ -1,97 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792593219;
-	b=5O+81KQpKR1yjiPE0NdhKQh4xNCelTFJjffrZVe4x6BPtpXzk5MImwUpv5X86SLJZgDu
-	 iBk0v/PjWOlrDl3btfz3PDssvNWc0mXbczDPQV/TXidbbvQUzUQ7EEn13yXkL+rTj1d/R
-	 UxBOpqQ+mFZyef/o2/VYdSb0szTLhUZf74MHWh3AE0VJejD8Kt1w8P/GKsUxuY0XniGPx
-	 6eNzY5UgS6CTyPsHsW9Nd3gr3aC2lJw94F4RxtHCKhWSYh8yiYYRFaalT4yktk7hLSeRz
-	 yHLV57Kvr4JEPs0XD7t2RpTSKpAj/Y1f77kOj0r1V6O5yvvRwnGnLQsMRIVPCNQ0Alw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593219;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7ik/oiVjdkHBo7ElMCtTnZcFSpE3eIORkZ9pgCcWcjs=;
-	b=piPD4XPgm2jIqYVecqmUhLqtYzwhd9rPCxTWBndmYz+YBw1KNWncXYJc186WM12XDddE
-	 xfmoUE9A0m5I2mBWLG0RxC0DyxxcoonKyOb7nGMq018hjJzNps5bg/X1C4td9JMCByvmi
-	 O4azBEt2dcU1yKFCVKfESZA2F8hbcUESmZuGhzPQ9pvpYVxmh2xZHqF1Cc/3r253YmimZ
-	 o3cK1+V1L6bxYbgL8NVUNqqg7mXwbSYOPxyR2M4+JjoYbsA4WdtYnXtCq8yjYlkBEc59k
-	 zEpt2QMK8J6cMokBAp2VR+z3kMALReYVrla4HPqHpGCn4vkZ7L7bxRz+343FNRKgGrw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SR+G0Fys;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792593242;
+	b=uYQU3GTRydbYgzFNcN2/z7qREjnhqO+A9AGvKpYujag9Yzjq7gsP8IgJ3m0Kmk/5dxm6
+	 QL3H3oVB34WFU3ey746Qzb0AtB8skujS5U8smwEbCd9E0hayxaGlSQ1F1li9V16JNqkQx
+	 lqgPL60yPLJzCTayNS4CJ5KHKHWjSbq7QqrsctPX4mNjTu1YY/XWwtWpt/PQqgWLhqh6J
+	 0jeTO1w3W/hbljBV8JYkZkN1Yvx9x7rGzq556IwJmpkw8112JIJ6rORrOhMfAFnQM69th
+	 15m0bvJkk9eC2sJCQP2dcB1v6N1GkDhDTSfIPJaPB0kTtJHCAm4kF8M0AC5yTWxhxXA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593242;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=slmqaWxrQQkrp1Tvb3tyQrJGfE91dG0et4e+bNJto10=;
+	b=1ufI8E+zruRjAiPuxoMeGVHGiyMvHnaEmjzUuT+c5js2dUrPPZy+MFpnSccNN/sAvYbS
+	 9EZe3Ga2FT+TuNr5GLGoWixbjCVBQNEs4352HYt7iDbX4tA3NzMGSOtk+28fJdMNj1Too
+	 SUcvjRaIvvnv3jlOJnhdWv6eBeLNKsVgUgQIvIhYZEAL5c7HjlZ8VYGBrPHKIZ+0VZ7+3
+	 tIjFQujSwuaxBdlzIVybQ69QfN5IGYTeANt2R7KuCUDktus4I20A0gStG+IsUDU3rBPfT
+	 Hbdx6jltk4d9rDe+UBc5eoBlQC7KpW4vmmA4YzCKPYeiA1Sqm6ySUpvR/jK0ZIYctvQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MDwfeGCK;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CAA606A319;
-	Wed, 21 Oct 2026 14:33:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06CAA606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1960606A31B;
+	Wed, 21 Oct 2026 14:33:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1960606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=SR+G0Fys
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C41F0200F26;
-	Wed, 21 Oct 2026 16:33:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792593210;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7ik/oiVjdkHBo7ElMCtTnZcFSpE3eIORkZ9pgCcWcjs=;
-	b=SR+G0FysfE69Ndd6CEhkgMGKnxVn/paFTue0PjcHJNquMB8fTFdJo5SCMvKardXtlAdiwW
-	08/RTqNo6+B8YX1zpM5oEeuZjYKR+uRmnVkf7qplxY10AK/PW27x6gqNYyIi7erygvX+IG
-	O1X9qg8dUpcXh4j6V5ITgWyYQ1XCKuzxxuU8Jgt5P1LnCwr1/FuItRv3NQnWNV5SVDekDh
-	OwKWI9bZAm7mZ9shFFYq418Rrj3Qji7HBvofBgJ0yDMMqO++IzMJGZzw8jallW9wZE0R8e
-	Q8MqzcvjuIIvMoxTn9fedIdgR+4jnco9oW4grbvXeSRXZpHojRBEd3Uk4abW8w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792593210; a=rsa-sha256;
-	cv=none;
-	b=D2Q49JIbbz1k8eZCfllgFBn6TfO7P7336B73LKtrwcfvmAuAXD28Zq+28nrPse8d4LcBnf
-	VqFduH4vvqCTJ7f0/DeRsU64l9r37siEatciIf+K+yXR3dvYpA4qGJnDdAKc9dSWb1O6yj
-	nC2uHd8Vb/pz23Bfci5yma2AyVI+eL0n0p/1UrrNGJ+aVz78vtlWvFybeStI9rXZXYRANz
-	FeUW9AG/ayV/BNM8L9dMInB4ZNeS/cRmJB/xWzU0hxah7ms0jdTAyf/72iRBcnbR16+Jqo
-	RC1E91SRu5lzGhblTZE5TiilmRtr8wyW62kg1lKFYYiWW4gXSAbtHv158skVyg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792593210;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7ik/oiVjdkHBo7ElMCtTnZcFSpE3eIORkZ9pgCcWcjs=;
-	b=HbMvErN723eYYnN2A8MoTNqQ3PKExALb26xuxTpG+P1ZivyIL3gVr0VDUW0uPFD4VIa7H8
-	cQq2b4IFGDEx2s5vIxjTbTidQDOU/fqmvj5OOZ/GfPZjFvW9wBai/HfKBBPRtVPqo21ek0
-	fSnWCfzjEeKPbFVGD/sLX/8pmo77TsdSD5ffwz2NOjAk/R+mntrioPsRPx9YLXOi0vRHnX
-	RzP6hjJmZjTgSPp4g9e5hYj9uQ9gu/HbP7mCmnrzEz7Q4k6nvPcFRHb1sK1BOYJzITxJMx
-	cWEBPcPN3ABu/masP2nPgrhr6E+YZQe9O5waE2hOQhwvFRd/3rzTBHtYBkuDJw==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xJXNi-000ZPe-2I;
-	Wed, 21 Oct 2026 16:33:30 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 680995D01AC;
-	Wed, 21 Oct 2026 14:33:30 +0000 (UTC)
-Date: Wed, 21 Oct 2026 16:33:30 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <stephane.grosjean@free.fr>
-Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-kernel@vger.kernel.org, 
-	=?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>, Liu Changjie <liucj1228@outlook.com>
-Subject: Re: [PATCH net] can: peak_usb: accept short uCAN end-of-list records
-Message-ID: <20261021-gopher-of-exotic-tempest-0ccc5d-mkl@pengutronix.de>
-References: <20261021-hospitable-gentle-sheep-a15164-mkl@pengutronix.de>
- <942111184.1248111675.1792578029862.JavaMail.root@zimbra65-e11.priv.proxad.net>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=MDwfeGCK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=sl
+	mqaWxrQQkrp1Tvb3tyQrJGfE91dG0et4e+bNJto10=; b=MDwfeGCKfin2swP6iR
+	Ctu63uFOlEQDTdWyjVxChrxd/1CoVc6wiGoq0Yv2R4+5GJoF09GTdLDQqCdw+OAA
+	fO82vN+CRwjMExIzIujXIxxhNBYr10RFpzcwdmx8FFEjvEzkWUA4PbhjigQnbZwc
+	twVCARLlVmR0J9A1FHPLEdNus=
+Received: from pc.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgDHt6Uzzdhqp3_gBA--.20120S4;
+	Wed, 21 Oct 2026 22:33:28 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	"K. Y. Srinivasan" <kys@microsoft.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 2/2] Drivers: hv: vmbus: copy dynamic IDs before dropping the lock
+Date: Wed, 21 Oct 2026 22:33:23 +0800
+Message-Id: <20261021143323.338146-3-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261021143323.338146-1-yaojiale02@163.com>
+References: <20261021143323.338146-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,63 +68,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tz7dh2zsqqjrego6"
-Content-Disposition: inline
-In-Reply-To: <942111184.1248111675.1792578029862.JavaMail.root@zimbra65-e11.priv.proxad.net>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgDHt6Uzzdhqp3_gBA--.20120S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GFWxKFWxtFWrtryxWryUKFg_yoW7GF43pa
+	1DWFWayrW7GF1Sg3s3Zry8AFyF9wnFq3WY9rnYkasxKF9IyryUXayxtFWYv34FyrWUGF12
+	yF1UtryrCFWUAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jcmiiUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbC8BhSjGrYzTiZzAAA3k
 
+Dynamic IDs are freed by remove_id_store() while holding dynids.lock, so a
+pointer into a dynamic ID entry is valid only while that lock is held.
+hv_vmbus_dynid_match() currently returns such a pointer after unlocking. A
+concurrent remove_id write can therefore free the entry before a driver
+probe dereferences it.
 
---tz7dh2zsqqjrego6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net] can: peak_usb: accept short uCAN end-of-list records
-MIME-Version: 1.0
+Copy a matching dynamic ID under the lock and pass the caller-owned copy to
+the probe callback. This follows the lifetime handling added for PCI by
+commit 3ffc4c9690c3 ("PCI: Fix UAF when probe runs concurrent to dyn ID
+removal") and for USB by commit ef8154d8b52d ("usb: fix UAF when probe runs
+concurrent to dyn ID removal"). Document that the ID is valid only for the
+duration of probe.
 
-On 21.10.2026 12:20:29, St=C3=A9phane Grosjean wrote:
-> On 19.10.2026 00:46:34, Liu Changjie wrote:
-> > A PCAN-USB FD v2 running firmware 3.2.0 sends a 16-byte status
-> > record followed by a four-byte zero-size end marker. These transfers
-> > cause repeated receive-buffer dumps while the interface is up.
-> >
-> > pcan_usb_fd_decode_buf() requires a complete 12-byte struct pucan_msg
-> > before checking the size field, so it rejects the end marker with
-> > -EBADMSG.
->
-> Right: the firmware may terminate a list of records with a short null
-> record, and it doesn't need to be a full struct pucan_msg. Only its size
-> field matters.
+Because matching and probing perform separate lookups, removal can also
+happen between them. Reject the probe if the second lookup no longer finds
+an ID instead of passing NULL to drivers which dereference it. Keep the
+hvsock exception because it does not use an ID table or inspect the ID.
 
-Thanks.
+This issue was found by static analysis of the dynamic ID lifetime.
 
-> The patch keeps all the record length checks added by 93fcab2c6968 and
-> only accepts the end marker earlier, so:
->
-> Reviewed-by: St=C3=A9phane Grosjean <s.grosjean@peak-system.fr>
->
-> Marc, since 93fcab2c6968 has been backported to the 6.6, 6.12 and 7.1
-> stable trees, could you add "Cc: stable@vger.kernel.org" when applying?
+Fixes: fc76936d3ea5 ("vmbus: add support for dynamic device id's")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+ drivers/hv/vmbus_drv.c | 38 ++++++++++++++++++++++----------------
+ include/linux/hyperv.h |  1 +
+ 2 files changed, 23 insertions(+), 16 deletions(-)
 
-Done.
+diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
+index 1037117e2d81..cc439d9295fa 100644
+--- a/drivers/hv/vmbus_drv.c
++++ b/drivers/hv/vmbus_drv.c
+@@ -661,21 +661,21 @@ hv_vmbus_dev_match(const struct hv_vmbus_device_id *id, const guid_t *guid)
+ }
+ 
+ static const struct hv_vmbus_device_id *
+-hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid)
++hv_vmbus_dynid_match(struct hv_driver *drv, const guid_t *guid,
++		     struct hv_vmbus_device_id *id_copy)
+ {
+-	const struct hv_vmbus_device_id *id = NULL;
+-	struct vmbus_dynid *dynid;
++	scoped_guard(spinlock, &drv->dynids.lock) {
++		struct vmbus_dynid *dynid;
+ 
+-	spin_lock(&drv->dynids.lock);
+-	list_for_each_entry(dynid, &drv->dynids.list, node) {
+-		if (guid_equal(&dynid->id.guid, guid)) {
+-			id = &dynid->id;
+-			break;
++		list_for_each_entry(dynid, &drv->dynids.list, node) {
++			if (guid_equal(&dynid->id.guid, guid)) {
++				memcpy(id_copy, &dynid->id, sizeof(*id_copy));
++				return id_copy;
++			}
+ 		}
+ 	}
+-	spin_unlock(&drv->dynids.lock);
+ 
+-	return id;
++	return NULL;
+ }
+ 
+ static const struct hv_vmbus_device_id vmbus_device_null;
+@@ -685,7 +685,8 @@ static const struct hv_vmbus_device_id vmbus_device_null;
+  * If there is no match, return NULL.
+  */
+ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *drv,
+-							struct hv_device *dev)
++							struct hv_device *dev,
++							struct hv_vmbus_device_id *id_copy)
+ {
+ 	const guid_t *guid = &dev->dev_type;
+ 	const struct hv_vmbus_device_id *id;
+@@ -697,7 +698,7 @@ static const struct hv_vmbus_device_id *hv_vmbus_get_id(const struct hv_driver *
+ 		return NULL;
+ 
+ 	/* Look at the dynamic ids first, before the static ones */
+-	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid);
++	id = hv_vmbus_dynid_match((struct hv_driver *)drv, guid, id_copy);
+ 	if (!id)
+ 		id = hv_vmbus_dev_match(drv->id_table, guid);
+ 
+@@ -843,13 +844,14 @@ ATTRIBUTE_GROUPS(vmbus_drv);
+ static int vmbus_match(struct device *device, const struct device_driver *driver)
+ {
+ 	const struct hv_driver *drv = drv_to_hv_drv(driver);
++	struct hv_vmbus_device_id id_copy;
+ 	struct hv_device *hv_dev = device_to_hv_device(device);
+ 
+ 	/* The hv_sock driver handles all hv_sock offers. */
+ 	if (is_hvsock_channel(hv_dev->channel))
+ 		return drv->hvsock;
+ 
+-	if (hv_vmbus_get_id(drv, hv_dev))
++	if (hv_vmbus_get_id(drv, hv_dev, &id_copy))
+ 		return 1;
+ 
+ 	return 0;
+@@ -860,13 +862,17 @@ static int vmbus_match(struct device *device, const struct device_driver *driver
+  */
+ static int vmbus_probe(struct device *child_device)
+ {
+-	int ret = 0;
++	const struct hv_vmbus_device_id *dev_id;
++	struct hv_vmbus_device_id dev_id_copy;
+ 	struct hv_driver *drv =
+ 			drv_to_hv_drv(child_device->driver);
+ 	struct hv_device *dev = device_to_hv_device(child_device);
+-	const struct hv_vmbus_device_id *dev_id;
++	int ret = 0;
++
++	dev_id = hv_vmbus_get_id(drv, dev, &dev_id_copy);
++	if (!dev_id && !is_hvsock_channel(dev->channel))
++		return -ENODEV;
+ 
+-	dev_id = hv_vmbus_get_id(drv, dev);
+ 	if (drv->probe) {
+ 		ret = drv->probe(dev, dev_id);
+ 		if (ret != 0)
+diff --git a/include/linux/hyperv.h b/include/linux/hyperv.h
+index 9e109d91aa14..0f0423e8a184 100644
+--- a/include/linux/hyperv.h
++++ b/include/linux/hyperv.h
+@@ -1264,6 +1264,7 @@ struct hv_driver {
+ 		struct list_head list;
+ 	} dynids;
+ 
++	/* The device ID pointer is only valid during the probe callback. */
+ 	int (*probe)(struct hv_device *, const struct hv_vmbus_device_id *);
+ 	void (*remove)(struct hv_device *dev);
+ 	void (*shutdown)(struct hv_device *);
+-- 
+2.34.1
 
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---tz7dh2zsqqjrego6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatjNNwAKCRDMOmT6rpmt
-0iMqAP9eWM8Tr67SpjlIHkyTipV1+jqYO1sroNw4iUH/4HlKlAD/QuI/NNqh3ADI
-PhMhp1kuSm7+eV2iV4qDvvetHTeizAo=
-=vLFc
------END PGP SIGNATURE-----
-
---tz7dh2zsqqjrego6--
