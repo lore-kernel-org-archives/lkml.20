@@ -1,72 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792604940;
-	b=FDhbwVr3K2My1a9FHIRazK67yXtHEmIzyZLgVA+CYhAmJeOmGGvjlsv5aznFUnMnwXpg
-	 qg9vu+Gw5IhZVckRjNQEDNmIghLYb6APiGXop87xHKODy2kXioM5v4rjioM9lgamZrYD3
-	 MLDikq9tzybpKUsVxQZQQSSq/7cqe3gI8RHwHzBSBEaVC0UJPJpST4m/LTbiTFEo1zfKc
-	 uh9ocM7MQEqjgwGJfEcJIEreaRcDJQMrS+N2o4yGqQh16gyS5BNDk5WmLuHBnrKpb0daK
-	 YGd1CC13QHj4dzG/4S93SSmvPU9taJ4LBl+NrAFs4kuD/aOwnndjnAUBhO5prUFWkng==
+	t=1792605012;
+	b=JvvjN/MwIFGFt1EOrb1DoxbjW+IwgramtrXNvI8abdyOMDkkL+sN8QkqzPsStqxDlQGi
+	 vvbxzxYP20AlMAjaAmnEsu05fmcI8vJx13eWL344hdcTpM3ICsCQ0L75HychU+sKd0uXc
+	 nlPOzwhp8EBwE3W1i+jO1KBf+oXVq5PlZ6G2fWT/4S0n06ZJHHqlcntARqjrgexZPhGdC
+	 H5qsfgiNMjInGgssUe86JpwfphUn9Pycym28wRejahGO0PjywLuDPjRCTwVMjc4uGYigX
+	 q8r+wlxGSXrzXSOB+nseqwm3NBQTS5sURRDKN3y9NL56YaJU98km2xO26LX0izG1JhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792604940;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=u21UTFmux6GWpsHxQyjMm4C7qQp2KgUxiXBHFByAtzM=;
-	b=NML1v3x9GqaW3Q6wHyUXtCMgM7UO2XE93b+OkEyZOt6jOtw4Y203vWPK5cfdKzl1n/tb
-	 DASu5zRsUhasBGxdW5gw8ZEEwkXuoOznfhvgK3QJVXvznnPUZbqTxKiTXGnMn7E7XSWPB
-	 jeuGuOWsO1QR4jsshvl/hY5KiWVw3XyfQk1SXx4mGfl/ccg+KhXc8+qEkqmMbkbFm3x19
-	 yWhDzKrJSBKBpJnh4FLhXan699jvi5/WJmOBcgEpK7sFLc4CZLFlrNO9Gldi5SSnx6nGK
-	 LaXHVIaMk7kR0uOFbtWebx8Ak7dUs9/JMU0q5kFedqCd+Lp6TRUQb3/JFMvGOLxJR9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605012;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=NCiFUlem6qW8F+mY1MeWMFDksPatkBHvYOmj1bKILX0=;
+	b=WMu4sILi4LOX5IAxYijsB6PiRtkOV9X9WjtNj4eFtvK84BWTiL8PBEPdS4P3FnKx7GAy
+	 lvz/pimm6ZTBnPRDx3HhOQlOeUv9qSBcP22p0Qqw6uKJcLURrQ36IyYhhsm5pGJmlHDib
+	 C7FyMqun4hJB4efw62/Efi6CP/VzGWhLiEmoHoHNHDrrd28vOrUepYzj2aq0c1uugAgrb
+	 ixRF6hVd7tQe6eLNBvygEvDXlK7lR8bJxMB4Xz4SxXPClb/WFCriZSUHY/i+rwEp0z0Qp
+	 7rKJmGzjZrcoxI3bj6h0N7GRXPwL9JrDYjgIaM63GneZ3+E29bG6tdeOpiXU3TetplQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jLO2LuVO;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDEC9606A319;
-	Wed, 21 Oct 2026 17:48:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDEC9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JknpP7YJ;
+	arc=none smtp.remote-ip=74.125.82.47
+Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7891606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7891606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=jLO2LuVO
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 55CF516F8;
-	Wed, 21 Oct 2026 10:48:54 -0700 (PDT)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 356E33F7B4;
-	Wed, 21 Oct 2026 10:48:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792604937; bh=bEa9giIeZfDBMDwMUgTW8YTFn1UnEm9XoYsTu1CX0h8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jLO2LuVONwtdmLRHFnELMpS1lxH3gZTntDBxAbGW9KjLlWgiBvkDKAp5Nw1YJcZxO
-	 lipPGRVxkc03dKFZUrIiHwM2M4wUyIatvCJAj5t3jkuQCxVl/GRwS4d4Pc/G49ZX0C
-	 argPPnBs8MRvzm4HMuckndnnPQaxYrK4eORDIYaI=
-Date: Wed, 21 Oct 2026 18:48:51 +0100
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>, kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev, will@kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org,
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com,
-	yuzenghui@huawei.com, linux-coco@lists.linux.dev,
-	gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com,
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com,
-	lpieralisi@kernel.org, enju.kohei@fujitsu.com, sudeep.holla@arm.com,
-	jonathan.cameron@oss.qualcomm.com
-Subject: Re: [PATCH v19 5/7] firmware: arm_rmm: Activate the RMM
-Message-ID: <atj7A1CV4paW3htS@arm.com>
-References: <a11aba04-eaaa-43fd-988b-a2581b1b2fdb@arm.com>
- <araketG70TIKeNuf@arm.com>
- <12e83d88-de4c-4230-aac2-1796123320ad@arm.com>
- <70d47475-e26e-40e1-b409-b0c16aecb8c0@arm.com>
- <195cdfe4-a55a-453f-9c34-620738eca244@arm.com>
- <arqrZ_Auk9BYOopa@arm.com>
- <0f68dcff-1dfe-4515-9912-515ca6457674@arm.com>
- <arudWVBPXcnUvYNh@arm.com>
- <5d487949-9195-442f-97af-acb9e3fdfb0d@arm.com>
- <86ld7ryvm8.wl-maz@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JknpP7YJ
+Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-15dd124bbe7so1819906c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:50:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792605010; x=1793209810; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NCiFUlem6qW8F+mY1MeWMFDksPatkBHvYOmj1bKILX0=;
+        b=JknpP7YJuHqK4K8JU+lEEevXFO0Z8hDPpOJEfVQ2tG7d2WjPMCUFv5PHYoIQSxw8WE
+         nG8/1T3sApIfPTKf6r5g1HqBks6vEK2p6thndOk0qY7sL1QECx3lhjqY3NwIQPs/+q2Z
+         rpwkpQFg6hXD/4u8LXJMUtXipenNIKBFmas3T1ToHPQ/HmS6XrqA0Jh4nmTX81FOR4gx
+         s4Syr3pjelkDiFT4JaghhJ2UJEBDGM3y3l9EvUQWmDF64TZB8aa0jarD9CqxI/lFeHVa
+         qoIE8Y2wsFXK4qdq8EloCuDg9Y6dSfKSWhpNK0q3l0zvjcGKOKJSitUaoyuPO3G2IlUj
+         GQog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792605010; x=1793209810;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NCiFUlem6qW8F+mY1MeWMFDksPatkBHvYOmj1bKILX0=;
+        b=ZiIxAAR+vriDTOkNGd9t2A2V5HJ488em++I45zqbK1hoTnGTyoYbTdfjEkEzvFWvzw
+         mjA2Hp51aYGoaDUXmRV/0DZDl+eIJ8veiSdRLAXSAXtEdpkbFgfk8dce6huZg3SsBmTX
+         YfBn9OBQMIQTcpiQA0eSMDI9BdMBKdX0ScYgHj5qWfhuJiKzxYVn0RoWUHKuUPVrFj5U
+         AncEtuhtOvMbR2cSQ1XEpAZgZTLRtbNUITvek11hZdVCn7aeN/+VDT7sHRWbJ3m61Nit
+         LaBgKU2/845eUTbZss58OGkrwwZR7J/bTMr9R2cw8uYizX7p4J9RrpGVDFIV+JxtOdem
+         5mrQ==
+X-Forwarded-Encrypted: i=1; AKwUvByChUKOFQWzCdWJqn8W5zkg+3iW2Dhw/PIrRF0CSHB6vqPByNDbA5vOsQrjBbP/UF5sB3gjg5GSXtFjh7g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdE4rYViap0Ui1yumqYjqmE7RqhywoJHnQsI6rYdzXQJ1xfW/M
+	vTaiYec4JkBywb0SIv5EtS/6SyVKo/M31O2M0FpsZYOsZubf08DCvjWn/piArYfgD0M=
+X-Gm-Gg: AYBFou3J2USVkUn7TwGNVkO4pYsp/k1DRZEaJ3sUVXm3FqW7WAUB+pCfysqo6+WjZJa
+	ST2bvy6u5fUFejItK+DsWbFnOfUMg9guwGA2f3TmUk0rmShBtEu70bjZLZVillQjymanOBiAHI5
+	lMh1ylZ4DMW3i0V45rEMwb6GBmq9UlmqMw97vPXECzJUyuRNt68y7Ur0RgUDSn3gR3KFJfBtZSH
+	PGtM0GA+GtFPep8VJpzivjM5hgN/dazYvfxq7UF+NGIVMXWZ4RV6Wa6cDUAlkRb6EhQ9bUykRK+
+	u6DiIlxdqSL3tA7mKihYYzg3y4h4tX/wl+3kFAARIj06fzmk5+Rj58wtsvaedgpDzCqLeOTjCnn
+	1a9xxrLyDliLMqCcOGSnTwXVhWeNENevSY4bK7NDJ5zLDkmWcs5TkyRgumRizsRzZWPq1lnA8+E
+	Ax0gfjUpBXkxGyyTq6oXANZHFuT+ADXM0WnaHtx3T0wQ8GlbjKB6KD5v9PKOXG2Qv2HmklpKAmh
+	GwyQYQ1I87KxKT0IUkKWZmNSex1hmGq35cay8FZdPjWRc6PmxRXeRkPYo5MHP38Dyrh2VTtJdoN
+	XDJupiOVZ4W9XuLqBqEdgNNWgjDoLR1KDQLpeeBSBEILSo31VxbO
+X-Received: by 2002:a05:701b:204a:20b0:164:8e14:4939 with SMTP id a92af1059eb24-190a4f0471fmr3741902c88.10.1792605009716;
+        Wed, 21 Oct 2026 10:50:09 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903ca044d4sm8226137c88.17.2026.10.21.10.50.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 10:50:09 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: andrii@kernel.org,
+	ast@kernel.org,
+	bp@alien8.de,
+	bpf@vger.kernel.org,
+	daniel@iogearbox.net,
+	dave.hansen@linux.intel.com,
+	eddyz87@gmail.com,
+	emil@etsalapatis.com,
+	hpa@zytor.com,
+	ihor.solodrai@linux.dev,
+	jolsa@kernel.org,
+	leon.hwang@linux.dev,
+	linux-kernel@vger.kernel.org,
+	martin.lau@linux.dev,
+	memxor@gmail.com,
+	mingo@redhat.com,
+	song@kernel.org,
+	tglx@kernel.org,
+	x86@kernel.org,
+	yonghong.song@linux.dev
+Subject: [PATCH 6.6.y] bpf, x86: Fix trampoline stack size for 128-bit arguments
+Date: Wed, 21 Oct 2026 13:50:04 -0400
+Message-ID: <20261021175004.1276-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,73 +112,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86ld7ryvm8.wl-maz@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 03:30:07PM +0100, Marc Zyngier wrote:
-> On Wed, 21 Oct 2026 10:58:13 +0100,
-> Suzuki K Poulose <suzuki.poulose@arm.com> wrote:
-> > 
-> > On 29/09/2026 12:15, Catalin Marinas wrote:
-> > > On Mon, Sep 28, 2026 at 07:28:20PM +0100, Suzuki K Poulose wrote:
-> > >> On 28/09/2026 19:01, Catalin Marinas wrote:
-> > >>> possible, to defer the RMM activation until the first user (still do the
-> > >>> RMI probing as an initcall). If we run on RME-capable hardware and
-> > >>> firmware but don't care about realms or TSM, we still get the normal OS
-> > >>> functionality.
-> > >> 
-> > >> Would you prefer this in the first drop of the RMM ? Or is this
-> > >> something we could add as a separate series ?
-> > > 
-> > > I think we could add the deferring as a separate patch, maybe together
-> > > with the KVM bits. An advantage of keeping it here if we merge this
-> > > first is that we still exercise the activation path without full realm
-> > > support or TSM. Otherwise a lot of this would be dead code until the
-> > > other series arrive. Either way, do it as as separate patch on top of
-> > > this series.
-> > > 
-> > 
-> > I have been looking at the "on-demand" activation support and came
-> > across the following design decision.
-> > 
-> > * We have KVM_CAP_ARM_RME which advertises that KVM can create Realm VMs
-> >   to the userspace. A VMM could check this before it creates a Realm VM
-> >   using KVM_CREATE_VM with type=RealmVM.
-> > 
-> > 
-> > Now, we could delay the RMM activation as late as the KVM_CREATE_VM and
-> > kick it off while we initialise the kvm as part of kvm_arch_init_vm().
-> > But if that fails, we would fail the KVM_CREATE_VM.
-> > 
-> > The question is, what should KVM_CAP_ARM_RME indicate ?  We could
-> > initially enable the cap based on the presence of RMM (but not
-> > activated). However, should we turn the KVM_CAP_ARM_RME=off when we
-> > fail to activate the RMM ? Is that senisble ? (i.e., runtime
-> > disabling a cap).
-> 
-> I think this sets a bad precedent. If activation can fail, KVM end-up
-> not delivering on the promise that it makes, and that's not great.
-> 
-> My take is that the least surprising behaviour is best. If you have
-> bought into the CCA kool-aid by enabling it on the kernel command
-> line, that's not by accident. You expect your VMs to reliably be
-> created when KVM tells you that CCA is available.
-> 
-> So KVM_CAP_ARM_RME should indicate whether the RMM has been
-> successfully activated, and nothing else.
+From: Yonghong Song <yonghong.song@linux.dev>
 
-Tying activation to kvm-arm.mode=rmm works for me, roughly similar to
-kvm-arm.mode=protected. It's still an eager activation (just
-conditional) and KVM_CAP_ARM_RME then only reports whether activation
-succeeded. We lose kexec/hibernation but that's fine, it was explicitly
-requested on the command line.
+[ Upstream commit 814cba835ef648e0c5eb79505c96c0493b29eea6 ]
 
-There's also the case of a host-only PCIe TSM (without realms). IIUC
-(grep'ing FIRME spec) on an RME system IDE key programming goes via the
-RMM, so this would need the RMM activated even without KVM. Not sure it
-makes sense without realms, so I think we can ignore it until there's a
-concrete use case (and add one more hook to activate the RMM).
+btf_distill_func_proto() accepts a function argument up to 16 bytes, so a
+128-bit scalar such as __int128 reaches the x86 trampoline with
+arg_size == 16. But the current implementation assumes an __int128
+argument only needs one register, so the register save area is
+under-allocated and save_args() overwrites adjacent stack slots.
 
--- 
-Catalin
+Compute the register count from arg_size for all arguments to fix it.
+
+Fixes: a9c5ad31fbdc ("bpf: x86: Support in-register struct arguments in trampoline programs")
+Signed-off-by: Yonghong Song <yonghong.song@linux.dev>
+Acked-by: Leon Hwang <leon.hwang@linux.dev>
+Link: https://lore.kernel.org/bpf/20260729050204.2586457-1-yonghong.song@linux.dev
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Assisted-by: LLM
+[ Backport to 6.6.y: Remove the struct-only guard from the existing
+  unbraced argument loop; count eight-byte slots for every argument. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please consider this backport of the fix for CVE-2026-90358 to 6.6.y.
+
+The backport removes the struct-only guard from the existing unbraced
+argument loop. See the bracketed backport note above.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+
+Thanks,
+Artem Dinaburg
+
+ arch/x86/net/bpf_jit_comp.c |    4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+index 8028a5a4ab64570022c15bfdf220c4033ad0d4ab..3d33aafa2cc26541e64b37960ce20a06ce5fd2d8 100644
+--- a/arch/x86/net/bpf_jit_comp.c
++++ b/arch/x86/net/bpf_jit_comp.c
+@@ -2467,10 +2467,8 @@ int arch_prepare_bpf_trampoline(struct bpf_tramp_image *im, void *image, void *i
+ 	u8 *prog;
+ 	bool save_ret;
+ 
+-	/* extra registers for struct arguments */
+ 	for (i = 0; i < m->nr_args; i++)
+-		if (m->arg_flags[i] & BTF_FMODEL_STRUCT_ARG)
+-			nr_regs += (m->arg_size[i] + 7) / 8 - 1;
++		nr_regs += (m->arg_size[i] + 7) / 8 - 1;
+ 
+ 	/* x86-64 supports up to MAX_BPF_FUNC_ARGS arguments. 1-6
+ 	 * are passed through regs, the remains are through stack.
