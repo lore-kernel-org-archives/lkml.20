@@ -1,94 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792559446;
-	b=pcOyJnCEA10T/4tH0YXAhGj7cEhN/0vJkkas9NDc2EI0eBbyxNT3dEz8Tg4nKOaLCT8v
-	 7tWSUiDxUO87RvsTkYpNHlBMETFSicKoFHnXKy3YZh2uAxfleng3+fugOntXNDpgJJH+Y
-	 llczEVPPmqugtmISHBo/r7ouohk/KuROsEg05RX+Bxbz6rsOluDDGv15ISM9gnS+y3Xkz
-	 qkhwiuc7Km4npz2qEw5xE4qHpvjhy6C952GWC+OtA1utCqNmOXLvhr1aCiZF7HyQ32bRF
-	 N6sQ0KhPaEbYKJtcnQ0/OhK/pFaeUTbbuAP9B8+ozM2hgESGYfpcOdr397PG9xgzvkg==
+	t=1792559668;
+	b=KR6VBFukv5bz3tI35PYPNeHUuzEz+VuQpG6pTmWP36cu1LKYY+bsTmMZfW+45LJOzzOf
+	 b9kK86qgqFiDUvLuqZfAKU1oAeur/gA6mDEABf88rpNfzns0c4qOlwYB9oBaAsZnBUUdn
+	 dTk1NoQi5ZpEO7hSVfrLI6VIJQnWR+vGyFkJMYwiCySowhMIofj2qwUdD2dYAUvescg0a
+	 OX1CUSCr6jBdsN9MJYVlbhn7rDDx0nAhvgj2sNKAJd2zzVjGxBu6WEy8Ct+ZANzJglBZs
+	 ZnW/Bet+xYOqBdt+mN9LGxWnB36EB7nTgr9M96zS6HaNs5VdctmB/wL1FNUGijtoi0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792559446;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
-	 Content-Type;
-	bh=sTPTsRHtbYLq72ECJQ925hco0GlZ0PsJDarHMzaGv6o=;
-	b=tmZShGaTKgl+22z2mHTLEQ8885Yu4lwGKmnDD0g55QmUJczZi/4luFPKh+m1r716NM/g
-	 zT+lKqqjZhwUYewmX2usy8anz0AZW1A+QjMMVYM4LTMY30aDhswgnq9/TWMVPWwyDU0HF
-	 aUUeCmpKSPf9vYrs/HroJ4bTzxA+lr3Zab+7BqIYs2Fqhi3RJFoAUdaiartrHJsGpWO6m
-	 JE6v6EVl/5TA81zYlRlCgwarwut2KanX6a7BLwkLiVdjJBiQcXky0Li75Zn2UlCdeMGZl
-	 y0UhcBT0/kwizhoroiAdBcGUfXjNKPQEO37gvKozHr/t108fU1LaPaKAchPQ5JMSDUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792559668;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=HGhqz+6jGv9mts8LxCfHA4tZcirjemCco6HqrDaX3HY=;
+	b=ovhmi9slI8CBbEOptjw/u9HzXTTAjDUeGVq4p6Wxih2paPcKzNgBtPDbwhO4mSx7Rr+n
+	 qkTURL2xiXs0Hj83c77GnY7BdY0IdEAJrcBHoW+4J9dq9b+GdVaILl3p75gEQzO1oVVa+
+	 bDdBqNLiqeF/jW56a5Sw/bsDTCh55H3+3b8o3tIGMG4FGTRPHjaduZ5TAPAvFP/w5TBmp
+	 0ruWJfkv4QgAdIRTMtTpdhFBTl6xDCVix2BYO0bApzhzaeBVpaV8kKtpOHUcSEzbzojAS
+	 JWbmVDPSBBLXyY5mTGOYsnBBKfciyIVOjotxLBdxkstOU6wf6NkKRjZEc9e7KjPMG7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HHFMppwZ;
-	arc=none smtp.remote-ip=209.85.216.97
-Received: from mail-pj1-f97.google.com (mail-pj1-f97.google.com [209.85.216.97])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KDdv5Mzg;
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31490606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:10:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31490606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0AF606A319;
+	Wed, 21 Oct 2026 05:14:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F0AF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=HHFMppwZ
-Received: by mail-pj1-f97.google.com with SMTP id 98e67ed59e1d1-3acb11973c3so280761a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:10:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792559445; x=1793164245;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sTPTsRHtbYLq72ECJQ925hco0GlZ0PsJDarHMzaGv6o=;
-        b=o7O3VB8h5tIwBoTK+WC9ggUp7ckeQDfRg70mWB82msuWGzucR/6LmJtrQx+4xjQip9
-         ykP4rXmr8wVbIfQBGX84/fYHSCqdsRECEqJ7IWGx8Y+DSA3lPqrB7W1EILZR3qDUnT2L
-         30OjrboS4YXR9m1OpCK1lxUxISfqlXb703CmXkGaZWgdssGU4B3vqTgvqhPX6lntZWWO
-         3VKkm4HUi+VSuFYDQlftPh03SQCZ7cqvBblL86QATC7uLjD9ft3ldawZHip2kPEDa2/r
-         Lnd8Kb4Ewxj4voImMkISwdTUoZdcqsYaTUbtF07xpiEiWbhT3hDpPHLPCCt3teshfQVB
-         wg5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwec+P357MVe1qd922NXgHZE99IQeFbpTRkfpHr9T1ASxVW5BZVttz/+3SUOHxPJ8lvEeYCB8dTt2oA45k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJiwITViHieVlkNg2JSSdba/HQGjSpZ30FSJ3gu+ZkaK+6d8AOQ
-	lPXIFdTd5aP17BuAjL2CZoSSrY6M8ZtOmGZ5yFSa4KOufOAVhfEKcU77FJZnFBSMuT/u3Ba0MpJ
-	+ftDnNsTlcd5iXX+tknkEDRL7x66jv0rni0JwmkWtmkZmlf9H6jRInQ/IYzaeE28ny2r7bue5b/
-	ZgY5+Ud+BpXxZys6LjEALP+QgVMSp7j/UfRzLD9oCrj+TnmgJFGPAjCqx64b+vRSwOtG87Wzztw
-	Ek5ZoVQ2Ff9sWSp
-X-Gm-Gg: AYBFou3x6+F3N/L3CBpJUCDhgbbDDmIY28EktqT9c2ivkn/NivBALWWGLHPvjI6do06
-	OQrMiOSSnHrMc+jXTTm72CMCuw3noNvJTxCHXbk5q1t+tEor6NiWkAgz7CgpJ6xqfiAsC2xW9EN
-	MtT0mnQiVNPEdjirs4YrQ+nw71Sy/nyV63FdkPkop9HpiPscJ+jw/hqDadlbzNgDHe0KDSM6tpm
-	emjzFCKbEM0sAEax4bySfGUxNdW66YvGQ33A7Oe7blWonIaOhxC5lBy7LnQB7/rZutzoZK7lMpx
-	9XevAFg5v7NR9vOVo8z0LIvyXvHLgZQUprXrk3DihaY4MEkqTq/LFD1bnhMhXuZIB0t0CBS/ffX
-	Yiy75/UQvZou2z7ihAujkTL34Auyoqp9loTIMrURLwMwkCU+BSS8PEIGBAFmiMDI6lkI66s+GRI
-	ymOepq3k8qXP5PGfCoxf0SpboVQRoe7Xdl
-X-Received: by 2002:a17:90a:dc83:b0:3ad:8769:8741 with SMTP id 98e67ed59e1d1-3ad87698883mr525619a91.4.1792559445401;
-        Tue, 20 Oct 2026 22:10:45 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ad85fd62easm307978a91.4.2026.10.20.22.10.44
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 20 Oct 2026 22:10:45 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lj1-f198.google.com with SMTP id 38308e7fff4ca-3ab442d8d13so1702751fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:10:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792559443; x=1793164243; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sTPTsRHtbYLq72ECJQ925hco0GlZ0PsJDarHMzaGv6o=;
-        b=HHFMppwZlBCLmPX9YubE0m6eAQVxLOehKHEVyjtXhQLrQxo7HmdRBuI35xcbqdZSSu
-         SEG4yLMuO25WPYeI8ZepnfRbYjX/808mqPvDBommPdogdYkYE3DWLpcw/FbWAumlDMxE
-         vsiXvo9zwdVoSNQ4qPWbA1qT/M+Fg357taRow=
-X-Forwarded-Encrypted: i=1; AKwUvByUHLQmwiRyZvfU70oiVewLNkRbPcQzPhMQOATzoizJxXOfAd650iC70DGw9KTjnGdS+eFhwNWvIkIyQbI=@vger.kernel.org
-X-Received: by 2002:a05:651c:19a0:b0:3ab:483c:9149 with SMTP id 38308e7fff4ca-3ac4418fec5mr2463071fa.17.1792559442767;
-        Tue, 20 Oct 2026 22:10:42 -0700 (PDT)
-X-Received: by 2002:a05:651c:19a0:b0:3ab:483c:9149 with SMTP id
- 38308e7fff4ca-3ac4418fec5mr2462651fa.17.1792559439547; Tue, 20 Oct 2026
- 22:10:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KDdv5Mzg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792559668; x=1824095668;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=teMU07WGBpqrvDeDqgeYEvqhHGQgB+waO627OeWqOSc=;
+  b=KDdv5Mzgqmg6412/uI6oH0uk8aOtMD9CcgfvRRIf2PrMDi1gRVVXofx+
+   xmuQX0Socy7taNGjvLU628jZK8xfFK46PpTCQO/Jnie2PhcGKb0pwcq1d
+   djwd1DjFkBL7v70KEFTupuh5exqfWk1mQmAYtmgRxjuB+l+S/7B9+/8If
+   P5xmFZ2JcWYRCCvx/aiegxeD21SzEpdNhBnyMmDUfhIFGegWgsngi+ENa
+   vIi4QsHkFJJ594pn8c089hIx9hp9SFcA2IGGPzH79xS0N3ftwidO2erKT
+   XCiDv6CMmAEtYHGe64EW68y84tN3rDQ80VDvFNtTfvVIj7Fc99I+XexVF
+   Q==;
+X-CSE-ConnectionGUID: KLIYupM2SR+CDOskzzwx4g==
+X-CSE-MsgGUID: Euwf5dXJSqKqb7nFqTSVyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1149143"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1149143"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 22:14:27 -0700
+X-CSE-ConnectionGUID: MQvJP9+JRKyGBhvk2juoLQ==
+X-CSE-MsgGUID: 31Wi+4JHR0aqWU7kFyHSiA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="2947631"
+Received: from spr.sh.intel.com ([10.112.229.196])
+  by orviesa005.jf.intel.com with ESMTP; 20 Oct 2026 22:14:23 -0700
+From: Dapeng Mi <dapeng1.mi@linux.intel.com>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Andi Kleen <ak@linux.intel.com>,
+	Eranian Stephane <eranian@google.com>,
+	Sandipan Das <sandipan.das@amd.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Song Liu <song@kernel.org>,
+	Ravi Bangoria <ravi.bangoria@amd.com>,
+	Ananth Narayan <ananth.narayan@amd.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-perf-users@vger.kernel.org,
+	bpf@vger.kernel.org,
+	Dapeng Mi <dapeng1.mi@intel.com>,
+	Zide Chen <zide.chen@intel.com>,
+	Falcon Thomas <thomas.falcon@intel.com>,
+	Xudong Hao <xudong.hao@intel.com>,
+	Dapeng Mi <dapeng1.mi@linux.intel.com>
+Subject: [Patch v4 0/5] perf/x86: Limit branch snapshots to valid entries 
+Date: Wed, 21 Oct 2026 13:07:06 +0800
+Message-Id: <20261021050711.4043703-1-dapeng1.mi@linux.intel.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,314 +96,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1790014793.git.zack.rusin@broadcom.com> <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
- <bc783856-9480-3944-67fb-675e4c11d8c2@igalia.com> <atdYIxwz8ksYNty6@pathway.suse.cz>
- <atd7GInNurGWLUha@pathway.suse.cz> <ateYxCu63pRY9EGq@pathway.suse.cz>
- <CABQX2QOKCpoUY_ObhFif7xN7OF-NzcxEM0JABAXo9n9KaacO7A@mail.gmail.com> <atgdwrSbsZD5iWsX@fedora>
-In-Reply-To: <atgdwrSbsZD5iWsX@fedora>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Wed, 21 Oct 2026 01:10:25 -0400
-X-Gm-Features: AclHuK-iY28m6pjHtDyV21Psf6QklV6qAb2sMO3JuJ86CJvhZdVHzSCgHwEVQLc
-Message-ID: <CABQX2QO6fwvKZwG34uOYDU_ae4M4_n2SMsYmqoLgOPnWkao02w@mail.gmail.com>
-Subject: Re: [PATCH v2 1/6] panic: Add a notifier chain for pre-kdump callbacks
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: Petr Mladek <pmladek@suse.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
-	Borislav Petkov <bp@alien8.de>, Andrew Morton <akpm@linux-foundation.org>, 
-	Mike Rapoport <rppt@kernel.org>, Ajay Kaher <ajay.kaher@broadcom.com>, 
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, Pasha Tatashin <pasha.tatashin@soleen.com>, x86@kernel.org, 
-	Joel Granados <joel.granados@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev, 
-	Dave Young <ruirui.yang@linux.dev>, bcm-kernel-feedback-list@broadcom.com, 
-	linux-kernel@vger.kernel.org, John Ogness <john.ogness@linutronix.de>, 
-	Steven Rostedt <rostedt@goodmis.org>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Pratyush Yadav <pratyush@kernel.org>, Kees Cook <kees@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Bo Gan <bo.gan@broadcom.com>, Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>, 
-	kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Stephen Brennan <stephen.s.brennan@oracle.com>, 
-	Michael Kelley <mhklinux@outlook.com>, Ian Forbes <ian.forbes@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="000000000000d996ed065e52c42e"
+Content-Transfer-Encoding: 8bit
 
---000000000000d996ed065e52c42e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Sashiko reported that the vendor-specific branch snapshot callbacks
+used by bpf_get_branch_snapshot() copy up to x86_pmu.lbr_nr entries
+from cpuc->lbr_entries[], regardless of how many valid entries the
+last LBR read produced. This makes BPF programs read stale or invalid
+branch records. Patch 1 addresses AMD and patch 2 addresses Intel.
 
-On Tue, Oct 20, 2026 at 10:04=E2=80=AFPM Baoquan He <baoquan.he@linux.dev> =
-wrote:
->
-> On 10/20/26 at 03:23pm, Zack Rusin wrote:
-> > Hi, Petr.
-> >
-> > First of all I really appreciate you going over this. Thanks!
-> >
-> > On Tue, Oct 20, 2026 at 12:37=E2=80=AFPM Petr Mladek <pmladek@suse.com>=
- wrote:
-> > > Approach B: Three lists: platform, smp_safe, and smp_unsafe()
-> > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > >
-> > > It is similar to approach A. We would just add an extra:
-> > >
-> > >      + panic_notifiers_platform_list
-> > >      + disable_panic_notifiers_platform_list
-> > >
-> > > This list would be used for smp-safe notifiers which are
-> > > required be some platform. It would be the notifiers which
-> > > are crucial. Which are currently the reason to set
-> > > "_crash_kexec_post_notifiers".
-> > >
-> > > It might be called also when __crash_kexec() is called
-> > > outside panic().
-> > [...]
-> > > This patchset, adding vmware_log_notifier, might implement just
-> > > the panic_notifiers_platform_list. The rest might be
-> > > added by another volunteer.
-> > >
-> > > How does this sounds, please?
-> >
-> > That sounds good to me. For v3 I'd do just the platform list:
-> >
-> > - One call in vpanic(), right after kgdb_panic() and before the first
-> > __crash_kexec(), whatever crash_kexec_post_notifiers is set to. The
-> > list runs before kdump and before the other CPUs are stopped.
-> > - One call in __crash_kexec(), after it has taken the kexec lock,
-> > found a crash image and saved the registers, for paths that enter
-> > kdump without panic(), like oops_end() or Hyper-V's hv_crash_handle().
-> > Once the early panic call has run the list, the guard makes this one a
-> > no-op. That removes the dependence on crash_kexec_post_notifiers you
-> > pointed out before.
-> > - A once-only guard shared by both, so the list also runs only once
-> > when a callback panics.
-> > - disable_panic_notifiers_platform_list as a boot and runtime switch,
-> > checked in the same helper, replacing panic_pre_kdump_postpone.
-> > - Kernel-doc with your definition: smp-safe callbacks a platform
-> > needs, which would otherwise be a reason to set
-> > crash_kexec_post_notifiers.
-> >
-> > Roughly:
-> >         kgdb_panic(buf);
-> >
-> >         panic_notify_platform();
-> >
-> >         if (!_crash_kexec_post_notifiers)
-> >                 __crash_kexec(NULL);
-> >
-> > and in __crash_kexec():
-> >
-> >         crash_setup_regs(&fixed_regs, regs);
-> >         /* Direct entry outside panic() */
-> >         panic_notify_platform();
-> >         crash_save_vmcoreinfo();
-> >
-> > I'd keep the second call in __crash_kexec() rather than crash_kexec(),
-> > because afaict crash_kexec() can return without a crash image, e.g.
-> > from the BPF kfunc, or from oops_end() before it panics. Calling the
-> > list there would use up the guard even when no kdump follows.
-> >
-> > crash_kexec_post_notifiers, the existing list and the kmsg dumpers
-> > stay as they are, and moving other platforms over can come later.
-> >
-> > The VMware log copy would be the only user, and it's still best-effort
-> > diagnostics: kdump and the reboot don't depend on it. It copies the
-> > log tail into an 8 KiB buffer. On panic() that happens after the panic
-> > message and any local backtrace; on direct entry from an oops, after
-> > the exception output. With the list enabled throughout, the copy
-> > precedes the later panic notifiers, sys_info() and the all-CPU
-> > backtrace step. The guest-crash report stays a late kmsg dumper that's
-> > skipped while a crash kernel is loaded, because the host can power off
-> > the VM inside that call.
-> >
-> > If that matches what you had in mind, I'll do it that way in v3.
-> >
-> > Guilherme, Stephen, Baoquan, does that work for you too?
->
-> Hi Zack,
->
-> Sorry I didn't check this series before, just trying to catch up.
->
-> I like the Approach B direction: one panic_notifiers_platform_list for
-> platform callbacks that must run before kdump. While I have one concern
-> about the long term.
->
-> Today the list has only the VMware log sender. Later, more handlers may j=
-oin
-> (for example pvpanic, Hyper-V, Xen, gsmi, SNP). When the list grows, some=
-one
-> will want to run only their handler, or to skip some handlers. The easy
-> answer is "add a new list for my handler". I think this will be a problem=
- too
-> in the future. Every new list adds a new global ordering rule and a new d=
-isable
-> switch. Petr already said we should keep the number of lists small.
->
-> Currently, atomic_notifier_call_chain() runs all registered callbacks. Th=
-ere
-> is no per-handler enable/disable and no filter. NOTIFY_STOP_MASK can stop=
- the
-> chain, but we must not use it here, because one handler could hide all th=
-e
-> later handlers. The list-level disable_panic_notifiers_platform_list can
-> only disable the whole list.
->
-> I have some rough though, just for reference:
->
-> 1. Keep one panic_notifiers_platform_list.
->
-> 2. Give each handler a small wrapper with a name and an enabled flag:
->
->    struct panic_pre_kdump_notifier {
->            struct notifier_block nb;
->            const char *name;
->            bool enabled;
->    };
->
-> 3. In the dispatch, skip a handler when enabled is false. Print the name
->    before calling it. This also helps when a handler hangs and we want to
->    know which one it was.
->
-> 4. Add a boot parameter to disable handlers by name, for example:
->
->            panic_pre_kdump.disable=3Dvmware_log,hyperv_crash
->
->    Parse it early. At panic time we only read the flag. We do not parse
->    strings in the panic path.
->
-> 5. Keep the list-level disable_panic_notifiers_platform_list. It is still
->    useful to disable the whole list for debugging.
->
-> 6. If the list is still too broad later, we can add a reason/class argume=
-nt
->    (for example PANIC, OOPS_DIRECT). A handler can then decide if it care=
-s.
->    This is better than adding a new list.
+Changes in v4:
+- Patch 01: Disable LBR if parsed x86_pmu.lbr_nr exceeds
+  MAX_LBR_ENTRIES (Sashiko).
+- Patch 05: New patch, which always snapshots live hardware LBR stack
+  for BPF path (Sashiko).
 
-Thanks for looking at it. I agree we shouldn't add a separate list for
-each handler, and named handlers with their own switch on the one list
-sound like the right way to grow it.
+Changes in v3:
+- Patch 01: A new patch to ensure x86_pmu.lbr_nr not to exclude
+  MAX_LBR_ENTRIES (Internal Sashiko).
+- Patch 03: Clean cached LBR stack when reseting hardware LBR registers,
+  which prevents stale LBR stack leakage.
+- Patch 04: Don't reset cached LBR stack if all LBR events are PEBS
+  events. This ensures PEBS captured LBR stack isn't cleared (Sashiko).
 
-For v3 I'd like to keep the series to the list itself. With VMware as
-the only callback, the list-wide boot switch already lets us disable
-platform logging. The sender also has its own sysctl,
-kernel.vmware_record_panic_msg. We can add per-handler selection with
-the next user, when there's an actual choice between handlers. I'm
-happy to help with that when it comes up.
+Changes in v2:
+- Include a fix for Intel LBR.
+- Add Tested-by from Dapeng to the Intel fix.
+  https://lore.kernel.org/all/eb6c7bda-0dcf-4fac-ad69-9f5b24abc21b@linux.intel.com/
 
-Two of your points do fit in v3 as documentation. I'll change the
-panic_notify_platform() kernel-doc to also say that:
-- callbacks must return NOTIFY_DONE, because NOTIFY_STOP would skip
-the callbacks after them
-- the notifier value is 0.
+History:
+v3: https://lore.kernel.org/all/20261019070836.2972403-1-dapeng1.mi@linux.intel.com/
+v2: https://lore.kernel.org/all/cover.1792064123.git.sandipan.das@amd.com/
+v1: https://lore.kernel.org/all/20261007181002.4005262-1-sandipan.das@amd.com/
 
-The VMware callback ignores that value, which leaves room to add
-reason information later.
+Dapeng Mi (4):
+  perf/x86: Disable LBR if x86_pmu.lbr_nr exceeds MAX_LBR_ENTRIES
+  perf/x86/intel/lbr: Reset the cached LBR stack in
+    intel_pmu_lbr_reset()
+  perf/x86/intel/lbr: Limit branch snapshots to valid entries
+  pef/x86/intel: Always snapshot live hardware LBR state for BPF path
 
-Petr, does keeping v3 to that sound right to you?
+Sandipan Das (1):
+  perf/x86/amd/lbr: Limit branch snapshots to valid entries
 
-z
+ arch/x86/events/amd/core.c   |  2 +-
+ arch/x86/events/amd/lbr.c    |  4 +++-
+ arch/x86/events/core.c       |  6 +++++
+ arch/x86/events/intel/core.c | 45 +++++++++++++++++++++++++++++++++---
+ arch/x86/events/intel/lbr.c  | 19 +++++++--------
+ 5 files changed, 62 insertions(+), 14 deletions(-)
 
---000000000000d996ed065e52c42e
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIMF6
-cfVTMB40S5IF5f7p2IPk3k2lmtUWWZilu1cE/8IdMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MTAyMTA1MTA0M1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAHRPPFldpDFxrSi0HbV6A3h8N1d+r7jMLhvc91aX
-Dfhsx4iwk+RV0l807vYFG/shDFkawo57yuiL6VqV5EgbpaoG1aZGpHbELJ3vsT5KL8mIto6BsFHB
-aXSuNkHLC45n0Z/6eV34ty0uUI02OxbrPZQ4+z0dbLLTESxwXJz1LS96sSjaDOe2Cnxwt6Cl/Sjg
-tsUrIiBp4AQnpQKPcrpxn7c5FbY/Jh49x8gPBt08T93a9AKyYwM9KpAJj8QkejCwINl7GmDqH7GB
-KtYX6ZRXBj0GxlQvTsJbz7DIBcrQtRSv7zg3pFVGqsGjQgmNQsRN0Vavp3Dygc60OnZAV+sYAoU=
---000000000000d996ed065e52c42e--
+base-commit: f5a78ecccd98a04c47cea1cd63c2a2fdce8a4b48
+-- 
+2.34.1
+
