@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792592156;
-	b=2TzLRHk1A7isPclMTFOZ09QG88pa5HI7NvMiIs6cTsBXsaiChaOUj3aNgFSfOwXGOAEY
-	 YBf/7BR4Z1sIt+/VOdxx4vRCKV8o5BzUK8J3ZnJD8c8kcD1REVgg3XVFAkoxMpTOaTWQj
-	 PBncGqx8AOlqeQu6T5r7LbgmukEIqgQXIQoYmJpidrbdecUEK0FlzzulOgu1K7AMRvVRj
-	 pHSj2Mv8gnyGAf2DLaOP6erA/EQht0OQDfyJSAlZ+5fOZbQ3O7wzCCgNurt8SdtJSl1l3
-	 MSmPY0XnkwMWfvVCcrg48/n10nej0dlfceLuAOR81mPbNn+w8b+7K//ouMOZWr15drw==
+	t=1792592151;
+	b=qc94Vn6h8hSHQH2Iidw42COlrn1j6z48yL2KITOG9r9tKput9+Ny7xaQjltLpkXFQfKQ
+	 1Y1RwzdUVCh8xrqHp8QyqOPVCFtP6noT4OOc98OL0qEJ5y3K9qk/4dkC7+PlY3vcj8ESP
+	 +FShLKmNv4q3gj/7B8xdAotHfgCgYGr30pJYpqcDbkh28j8SmKbwH4O05vaJKalp97kPS
+	 +tDqmzjQPNDeLft/H0KzfQfaora10iacPTZEribjv0gykGfcBXTGwBwr+z8luVWZ+szwx
+	 U+9ldK8RorKN9K1IMIcxcSbuDDvfExBvMEHIMy97e9+WgVs91rMgSpeNrm2XZQ3fdMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592156;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592151;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=V6OicTVbtcTLzSS+UWGSsMNxNz1ZsX9m5t8h/aO5CmY=;
-	b=Sj1E1+nkckxJyq1hQGf+bTQbcA5c+Yau7EL7jP2If+8PMrg+fL+KGhOuhpB5d5lFQqLP
-	 zo3hnFVApOlSiAebp8ctoippal+SN4qqyZmEfe3wTEm8Z0r/93YmGjDoa+eEgtaXPO2xO
-	 D8C1e8KOFkuWCR55aTN82r8OZLhA6kZxcGl40EEdYVDB9KsIU+CTVvZMqLz39zayBOZyq
-	 V429C7Tma60o+JQ/+TmrUNwNLTK0/K9gZDEw5kV5K8Bri9TZoMlvVCNH5/Q/m8zT+EnhV
-	 Sn7l0e++iiHhGHElVh7Gj38gU+kNHK6CxbiSG8LYd1lQ97nGX68VrcJCVPKBSwNV/LQ==
+	bh=STn/reUeroT2S0kL1cRx0++G+TaGCLq/vnG6pBGhH6s=;
+	b=4s7Q6OPcMtKau1EaWvR4xFHF5sYw+B15/CZzrgfa3B2CbupFczQTMSWbrYCz9OJ73g9k
+	 dR9ac/3Ir3ajrFldjhkib65MCoQB389K93FvnHHmkdNsPoJo8Chf94Yf8FNSm3mS8r/WB
+	 NKeCFM54keIHNU/4AeWEDtQr6Q3MuWPsdLLY1w4aTKMw2ycQvGq/2lYAkryq0435LdXCT
+	 /1auDpOz17OY/v7iyrWA3sSoi4m5diCoq+mohfvEVVdZDVk3B03MEQ0gmTC4FA03McCFR
+	 bDX3BIQhxQz4WCvrutlJrwulhVHk4kcDPBWLHkQgS7qZKsxvtQieB/iqWAZblHwNrkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYn2KVjo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DewKlNqx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A152606A33B;
-	Wed, 21 Oct 2026 14:15:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767A4606A31D;
+	Wed, 21 Oct 2026 14:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jYn2KVjo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F4D1F000D3;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DewKlNqx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 176C81F000C8;
 	Wed, 21 Oct 2026 14:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792592150;
-	bh=V6OicTVbtcTLzSS+UWGSsMNxNz1ZsX9m5t8h/aO5CmY=;
+	bh=STn/reUeroT2S0kL1cRx0++G+TaGCLq/vnG6pBGhH6s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jYn2KVjo7Z4y7FW3CtnSMVUkvWYq6S8KFPsgWkh2tLQSgKGhgofFfSRxou2It7VkE
-	 QiwYzAj/5Ob+k8X9rEZlFyVkDC6DiBkFJX1eFKnuESThD8ZxArYmCWIJM1XlPOWX4K
-	 I9+wVac09GCaZbENfFZKpqDVwbRYnvZwEjS+snU86S1/Y7SHz4cPK1cKVmWNn+8NDY
-	 0ba2K+HCNRwQqn/LQiR/p3Mkp3xPeLMHIOEN2gYR5uzHrvb0UttV7sQmaym9GI6nrR
-	 8FXFR8/s67vNtnrQs9dbCPwPUg12EEJmuh82R55AqcZZoRPM3hqICeN3no6HKNj8Eu
-	 r46kRMHL5Yk+w==
+	b=DewKlNqxekCOT0m2HJE8/ttdyUguk3gxIx1t3SWw/jQEJelgZP3zsU9ojt9Sbe44K
+	 KotH3Ad1EItUt277uh0BbtxtGHQ2IJYDKJVG2DtMhqYwdDx9WK0mV29wL7dr0Gbqsk
+	 yLbqQ4bKh4K0rH4Jvq6Tw2EFxgf5BxnuftWkSeIlrCDsd4s62ri0O9TGJV7vAEgTGe
+	 CKUQ0R9Hjtd+EypaaIr7HLszH8Xk9DOAhKG+DSkCFsCXjm4ZhimIJFxORWn//qeyDT
+	 NFmO1EJts8bBTqhtbYiClHEFYcpPw+t+c1RHWi8k/D8C25qHuFHqKtHw64OHlGIgKY
+	 yet+oNBGblgPw==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xJX6Z-00000009kqB-2L13;
+	id 1xJX6Z-00000009kqD-2Nes;
 	Wed, 21 Oct 2026 16:15:47 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Johan Hovold <johan@kernel.org>
@@ -50,9 +50,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 02/11] USB: serial: io_edgeport: fix potential fifo corruption
-Date: Wed, 21 Oct 2026 16:11:45 +0200
-Message-ID: <20261021141154.2324793-3-johan@kernel.org>
+Subject: [PATCH 03/11] USB: serial: io_edgeport: fix potential close() use-after-free
+Date: Wed, 21 Oct 2026 16:11:46 +0200
+Message-ID: <20261021141154.2324793-4-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261021141154.2324793-1-johan@kernel.org>
 References: <20261021141154.2324793-1-johan@kernel.org>
@@ -67,12 +67,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The device buffer size is determined during open() and the driver
-allocates a TX FIFO of corresponding size.
-
-Add the missing sanity check to prevent memory corruption in case a
-malicious device sends a second open response with a different buffer
-size.
+Add the missing locking when updating the port status during close() to
+prevent a racing interrupt completion handler from trying to submit more
+data for the port while its write URB and FIFO are being deallocated.
 
 This issue was flagged by Sashiko when reviewing a related fix.
 
@@ -81,51 +78,23 @@ Cc: stable@vger.kernel.org
 Link: https://sashiko.dev/#/patchset/20260714101316.823942-1-shpark061104%40gmail.com?part=1
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/usb/serial/io_edgeport.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/usb/serial/io_edgeport.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
-index cdf41e86ba44..0cc4f41299e0 100644
+index 0cc4f41299e0..a2410c063ffe 100644
 --- a/drivers/usb/serial/io_edgeport.c
 +++ b/drivers/usb/serial/io_edgeport.c
-@@ -878,7 +878,11 @@ static int edge_open(struct tty_struct *tty, struct usb_serial_port *port)
- 	}
+@@ -1089,7 +1089,9 @@ static void edge_close(struct usb_serial_port *port)
  
- 	/* initialize our port settings */
+ 	/* port->close = true; */
+ 	edge_port->closePending = false;
 +	spin_lock_irq(&edge_port->ep_lock);
- 	edge_port->txCredits = 0;	/* Can't send any data yet */
-+	edge_port->maxTxCredits = 0;
+ 	edge_port->open = false;
 +	spin_unlock_irq(&edge_port->ep_lock);
-+
- 	/* Must always set this bit to enable ints! */
- 	edge_port->shadowMCR = MCR_MASTER_IE;
- 	edge_port->chaseResponsePending = false;
-@@ -1750,6 +1754,7 @@ static void process_rcvd_status(struct edgeport_serial *edge_serial,
- 	struct tty_struct *tty;
- 	struct device *dev;
- 	__u8 code = edge_serial->rxStatusCode;
-+	unsigned long flags;
+ 	edge_port->openPending = false;
  
- 	/* switch the port pointer to the one being currently talked about */
- 	if (edge_serial->rxPort >= edge_serial->serial->num_ports)
-@@ -1793,10 +1798,17 @@ static void process_rcvd_status(struct edgeport_serial *edge_serial,
- 	}
- 
- 	if (code == IOSP_STATUS_OPEN_RSP) {
-+		spin_lock_irqsave(&edge_port->ep_lock, flags);
-+		/* reject stray open responses to avoid FIFO corruption */
-+		if (edge_port->maxTxCredits != 0) {
-+			spin_unlock_irqrestore(&edge_port->ep_lock, flags);
-+			return;
-+		}
- 		edge_port->txCredits = GET_TX_BUFFER_SIZE(byte3);
- 		edge_port->maxTxCredits = edge_port->txCredits;
- 		dev_dbg(dev, "%s - Port %u Open Response Initial MSR = %02x TxBufferSize = %d\n",
- 			__func__, edge_serial->rxPort, byte2, edge_port->txCredits);
-+		spin_unlock_irqrestore(&edge_port->ep_lock, flags);
- 		handle_new_msr(edge_port, byte2);
- 
- 		/* send the current line settings to the port so we are
+ 	usb_kill_urb(edge_port->write_urb);
 -- 
 2.55.0
 
