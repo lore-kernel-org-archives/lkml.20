@@ -1,103 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792540957;
-	b=ZO/LznGseY+Gs7oYaPQ140QJcXmN7q6wJCERvbB3BOZOlXXj0lWkkMqi31ax5sByXSNl
-	 donMPvcuz28DnWR1iAvcTyl5RaMBFiEl3xQUON3Mh8PJS09+gCNCK3+AcvddZ2vh+FFZr
-	 PueJrwLs2d3dMXso0MAUmI/ugSJu+rxkYDFhQrMLstjmJKtmkI0ORNzHJBDsoxoc9jYb8
-	 Va7cWRmsQZ4ZP/MmDJ+fURTeco+C3oJT12/PHVHKlyqv8emKGnGIA/SlJ+Ynowk5qXpjA
-	 8gs/M7oXrx4g3erK+ZHwM6hhtYphiB0BjtIt97lG01JGMLD25ralrAxjn7tOWET8Bug==
+	t=1792540950;
+	b=aSk8LF3a3RkM+qNXrnkTOFShkR3Yw3lV/l9bn1oKr/1mYy2Ye94C6iRn1IaPT67NfIhj
+	 icxr+WclPzS3n28OUIBbtAVJp9lDuqQeKXgwOivBEW5HiY43FlTrA78mCniLkd09MnBJK
+	 QAi/4Z09ItMaj2eEPnKOrkO5TOihcsncw/mV2GYlGs3Au+14B2rAYsEH7Pg3ksRhODcxK
+	 8ZX9//8IUVrYVpmaBUHLGQ17CaAv7/Nx873ifvxXR78kw0K6nCsgul6Q8So48UR7GtXaO
+	 tcrNUI/zKGbe37EbxB3PEy0LlZ6++oy+OriYsc5oUbSsf5loiRadXD13szgFnQkVbFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792540957;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=hZI2ljhmwoJ1V0BWfNbx3ZiTpuPjJL0odwQu02UU2Cg=;
-	b=xtv1pKOzUoJsTnjnavOOyL1+1LGTt0GGFYJpX8acvIJU9Urh318vCQJ4yZX4o9BUoCYe
-	 GAuHhZ02+v9sKyzpuxq/j6BUFY+JeThgECAlgJpaL+NecVAIrCFbkrejDB/dmv1n7gS7z
-	 fzEt5MtlwObJKXAwENIEHl9YejP7PN/il95PbM0iUm38B08RZj6nl6Sy0PY7eljz2OROK
-	 mG7WrPV0r+a18t7W29MB+19WQonqyd0Ke3zCchek/wiOhlO6fZrXMtcGTeQ4vqibfO/nk
-	 MEiASqd7MUtROo/dBUdTOmHkycKzsDs+0prqaTXKSNk9eBvvWF2VL2kKcvNPmSyQCwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792540950;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=L/iXX1PKqJsgt5/W9CiPqOLhRee36XHrCszd+bo5MDc=;
+	b=0FZ7JlGoNYGbudzrfnxbzWEwa/vrKVd6pll3lhSgXpIad9QvrqrnkWWvyUc+kHbVTEh7
+	 0YQJbxdV+KX3ti2OsjpuFkydtXN54I1g7s8Qz2HodWKN0R3PmVJPHbM5Vu9eAPW+yi0cf
+	 VSMM9tMO6a3gw/So5EPq8R3crgnx3i1EgZ72lecU9jyEYmIueT3lynnARg2omceyNIjdJ
+	 77ssXhW+QIzsa+sAZUaA9Q+3AVq7bAQhChzP2eAiFjr6dALAp0erh2VPxZv0zozLt5UDc
+	 hCNHNH3+KlfeHsG4uAVA9Cg4x9337XMVwWn9K3OmLm1+yuNHeImPdqryc+dm+386dGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s6j2cGoj;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DNhCiijw;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06602606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:02:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06602606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58F55606A319;
+	Wed, 21 Oct 2026 00:02:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58F55606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s6j2cGoj
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso126689a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:02:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792540956; x=1793145756; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hZI2ljhmwoJ1V0BWfNbx3ZiTpuPjJL0odwQu02UU2Cg=;
-        b=s6j2cGojYGSaduWgRZnY74y1Mj7EaQAS2MUqAPbrCO81gc8UTnFk6EjOfGEN3H7r3Z
-         4TwnXQqIrX4MlWzuOxgktI19j8uLAvX5Uxrww16C44hZHTkikR81UVcRGXtjjYUf71/l
-         CMigxG0Rx0SlEjMYji7Ka/Iu3IKAzLsXV6YHrXZ0oGnl2mm+pMELJr8ENEIKM1TpEquJ
-         1Ug4O3bKF5amZKyggPnan6da/B7WSHi+GpXzLLZL6dHTOSCf7llHmJXrcKlfHZsOpLrS
-         IUA1yQqWtE5Vz+w5FvQhPq2oVS9DK1rI3IEZyOp8tIUbPc9bYvkW7uSvJ29zHKfE/NG9
-         cidQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792540956; x=1793145756;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hZI2ljhmwoJ1V0BWfNbx3ZiTpuPjJL0odwQu02UU2Cg=;
-        b=pLH6Bc76VKl8CrSwG2YHCYI7nBM+9BkETLcIiT1yt88tD2+uoR9bJz88grICekWzF9
-         IjaF6tDCUSfb0XFggGgoJLfWlQf7rAgtRiIGSOLOsl1i7/lo8TWw+WrkS70I3d8F66m1
-         pB2Hg/JW2oNVQy4ewzgz55od7yCHm6/0cWajTmtWONW/xK0v7i6jMU1Aqwz+DHTF0HwS
-         ELH5LgRwTkZoWqzoQtqiNHIETLFXmhRtaNnuX+dEa0UcE5g1ADEuATkxqAWT6f2n7Jj2
-         9ooajxk/0ZoxZgfgOE5uFig/+ElqQn+TFSXlD0lmM4veFtEqoVr6IeGXeJtBoBuR5MKy
-         QtJg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzHteYW2Xr8Db24v+s7B1Nt0bxyZcaNcUQTtlbW054QarfKs27fpGowjXNPcbsnWTk8enAoK2YUl8hchs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoH8/8lQEApmKSdno/34zCYe31hkE9cnRWW6LhC037YEFlfb42
-	lnEiE4lmWvVmlx3ynLHgrUYYltZHn9I564ZV8JNPqueJ00jjhCrKu8m5
-X-Gm-Gg: AYBFou3P8qRF+HFK+2tI3OBDal62/vl9AkKzJ4sDktoD0NA5hhbN4TVpMCNLaTOIJ2N
-	HEAlWR940La6ZTbvkVI/Q7tz8E9tE1qWVVvQCuO7upcNA9xZNgAEePUfYi+UxhkDGn6X9fN/uSG
-	uxe3jhmeeY1NJnaduH8eQoCD94RKcNSJeM4Qxo3r0fuLliKNNVNzst+pneLKe12RSWC1Upr/KmD
-	fcQfjb6m78OVBMmybq8KBmaBpa5R8+S42EdokeaWJ/mvp+wRjYggKFUIwIVTrX1aaDVPu953txM
-	ousOa29Z1/raykGRJLy443376uIO/zOpsMuw5hJSpwN7lsPTEpuhW4EnUdFUKrLLKtfQjILP3/h
-	+gq4DN1TN/zUMu2uJpTtgJJsgcuPI0cNSxQaXQeuvi3iWLoE21gf7h4cZJbWRtCYQve1XrF9Ji3
-	XZCIwslklRzmuXnxzbaIMwxe/QzgS1UQaZxv713t8pTzYyEPubDNwV9ALG9IbOY5v+yxrteVel5
-	FEdxxJliNzgptPXfr7u4D+Ki9DEwkT2CMxC8r0cz4ey6WYFS+DDykO/90bLX6RdUB0ezspWvYHV
-	fUA3
-X-Received: by 2002:a17:90b:4b03:b0:3ab:be66:ddb6 with SMTP id 98e67ed59e1d1-3ad86e97e7cmr305334a91.20.1792540956165;
-        Tue, 20 Oct 2026 17:02:36 -0700 (PDT)
-Received: from localhost ([153.61.198.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm1388667a91.15.2026.10.20.17.02.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 17:02:31 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 00:02:27 +0000
-Message-Id: <DMA2QEUR2QCK.TYMC6ONTPOZB@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Qiliang Yuan" <odys.yuan@gmail.com>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>,
- "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- "Emil Tsalapatis" <emil@etsalapatis.com>, "Shuah Khan" <shuah@kernel.org>
-Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next] selftests/bpf: Drop the on_enter recursion
- check of task_local_storage
-In-Reply-To: <20261009-selftests-bpf-task-ls-recursion-v1-1-c3a3e3c41f8c@gmail.com>
-References: <20261009-selftests-bpf-task-ls-recursion-v1-1-c3a3e3c41f8c@gmail.com>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=DNhCiijw
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792540945; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=L/iXX1PKqJsgt5/W9CiPqOLhRee36XHrCszd+bo5MDc=;
+	b=DNhCiijw2Qhkm6O0SfsW+PRNH5zaSM1+up0Va9dsDb1uYCCofEoegYD24kGYr98YxSNAey+soKYgmKBxvfmpoDBKP90Qgm6qEuzczXppZJ/E1sEchSdDYmQsD9/SOmAgNA5ZBu89MoMx3U60rfAoeQG9+k1gHMsqSbNumu0bsl4=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XDERKvV_1792540943;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XDERKvV_1792540943 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 21 Oct 2026 08:02:24 +0800
+Date: Wed, 21 Oct 2026 08:02:23 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Jakub Kicinski <kuba@kernel.org>, alibuda@linux.alibaba.com,
+	sidraya@linux.ibm.com, mjambigi@linux.ibm.com
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>, davem@davemloft.net,
+	edumazet@kernel.org, pabeni@redhat.com, tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com, horms@kernel.org,
+	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 0/3] net/smc: fix link group scheduling,
+ registration and work lifetime
+Message-ID: <atgBD0t0xHnMlwjX@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
+ <20261020125849.67c40566@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,36 +67,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020125849.67c40566@kernel.org>
 
-On Thu, Oct 08, 2026 at 06:49 PM Qiliang Yuan <odys.yuan@gmail.com> wrote:
-> other tasks. On a preemptible kernel, a task can be preempted while it
-> runs on_enter, and a task entering a syscall on the same CPU then misses
-> the program. With other tests running in parallel, on_enter ends up
-> with recursion misses that have nothing to do with the test task, and
-> the check expecting none fails.
+On 2026-10-20 12:58:49, Jakub Kicinski wrote:
+>On Tue, 13 Oct 2026 17:17:13 +0800 Chengfeng Ye wrote:
+>> This revises the two-patch v2 series and adds a separate fix for the
+>> running-free_work lifetime issue identified during review.
+>
+>SMC maintainers, please review.
 
-Show the log of the failed run.
-How many workers and how often does it fail?
+Hi Jakub,
 
-> Drop the check. map_a holding 200, which only on_enter of the test task
-> writes, already shows that on_enter ran for it.
+Since we usually require Sashiko's review comments to be addressed
+before merging, and we now have many more patches than before, I prefer
+to wait for its review before stepping in. That's why I always miss some
+patches.
 
-The race works the other way too.
-When another task is preempted inside on_enter and the test task calls
-sys_gettid() on that cpu it's the test task that misses on_enter.
-Nothing is created and "lookup map_a" fails with ENOENT.
-enter_cnt == 2 in test_sys_enter_exit() has the same problem.
+However, Sashiko doesn't send any notifications when no issues are
+found. I was wondering if Sashiko could send us a signal (or
+notification) when it passes without issues so that we know it's ready
+for our review.
 
-sys_enter is only a trigger here.
-Make on_enter SEC("raw_tp") and run it with bpf_prog_test_run_opts()
-like you did in enable_stats ?
-Then no other task runs it and the check can stay.
+Are there any guidelines or mechanisms that can help with this?
 
-> Fixes: 387b532138ee ("selftests/bpf: Tracing prog can still do lookup under busy lock")
-
-Wrong tag. In 2022 the check was fine.
-Progs attached to sys_enter were running with preemption disabled until
-commit 439ebd5b5708 ("bpf: Add sleepable support for raw tracepoint programs").
-Say that in the commit log.
-
-pw-bot: cr
+Best regards,
+Dust
