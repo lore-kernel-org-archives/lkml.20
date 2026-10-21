@@ -1,49 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612387;
-	b=2xx4WzvPaSvCgF2923J3NINDLuBzBFQZZn4nRw5a4i6wg9jJhH5v/Jd98Y9hiCVGNsFt
-	 mlOZgx1In3O95o2KZ/FtQZS7sthtNRxdE2Gm+1jtudTVzgCP0JmXDb0aZyor0nlOuDV8H
-	 MhdY2oszkeMVUZR7+CqiwY4n66Z1z43edaHzuD6////m0aoBIrylBbAA/E35qlA6cjvtr
-	 UrfWQEZA4j/flnTr4Z++mP0Nm12nf7u96lRWUZssFogfmewQAfVY2JPz0YB7W02V6yIz6
-	 JLWo3zUK44dDkMfgtd+kcmhU/WVeVe/VD7dC79aUAVEHju0+2X2nCq/QfLPJvrn2gng==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612387;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=vpyYO6t9Oz2alllZ4KA6oNwx4ANakahJVZkjXrVLPyc=;
-	b=pTVx2hdtm8CPxbYZhN45rrOwCGVO5nwj375QLk6IFGkiDacldCvJGdBW0Z/jaEmKc/f/
-	 /cyT3riPDnvVv2deICK/Z2xbgO0CqKTr+A+E8ne1ISPIjyCUyVoYo+04m/q8H3H0/3fsS
-	 ntPv66rG6lcerQRKajGg4W6pmZOi9h+TlFsC9Uagq41dvXfXZPzVdy/d2nofi9fOjN6f+
-	 a0PFziE8IgJJYioAEHKeZn2bsowCUcwVwRBJ3Uc5X8DboPlSg+JZDFBl6pbvwSWqzEfl9
-	 eoLbK0RUC1MdV9jCBms4XeR/hOgwc/UWryPO9o8nh1z7pGwdQOFfWzbcCYqbmNiVIJg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=k4oXrjtR;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792612407;
+	b=bBqvhdQs1ui329TRfkS2A2V7kbKro89YrIbfvv58CQMf4WQPMfYNAyK+Is3pWbghaE/t
+	 QWbnOTag+oxAGGdgwbqaTOD+fzhQVeyrCvTN3JTx1z55UD7FrQxrMLUzaFMa8Fj9fWDYY
+	 UQrG1/HgpzJam13hkLLmS78zRVpnFk5aWANWltLeE0ygHyep6n4EfU2KAAFMMKYKYbARt
+	 pvegOyr5i9iWPbz1drLmjO/yMCdzOjoXmFYE5iBCvJy9HMS8+QJFyXogU+HkXfmk1pnS0
+	 UeDAYBiDzjO/NMa54Qb8DlTjczfyLK/0nnQy+4FCJXAgMrFHhO+1hxcDxPhQAdAMDXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612407;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=8zdkSy4S9d8mahCstou+MAd3++gCJOCaSRrb4UBEAWU=;
+	b=xfvXqm4ZJHS26n2gDKAmDURDZBQK/97fvBxXztCxm6DDTCWiJjSeiurngmvwIhScK7Dk
+	 6+DiohHn9ERmq4Tn9YHohpCUULGwmxTSt38Lqjm/aiK4aJ4Lq67YAXyg0h6cV7i+I2D5b
+	 WObHNA3RR6MLvznhdugzNQLovHkp1dMbxXec8nUuKJGPzFWbFyP8H8uYW+Vl4SGGW2n2R
+	 +pyteWwD+9v/yFu5+lnUVSfgbpGN65gydYGWxLTzM0fEpfNGBWN1uHr1RIZeHst86xR9u
+	 qPRUIYlkwUrSis/n4iBq044vted+HQxadNZ/4DHjOloDQSF2QdoOxodgAPfT0676mbQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxFEhNEm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEA5606A31D;
-	Wed, 21 Oct 2026 19:53:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BEA5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910B6606A319;
+	Wed, 21 Oct 2026 19:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=k4oXrjtR
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C74B9A0064;
-	Wed, 21 Oct 2026 21:53:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792612383; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=vpyYO6t9Oz2alllZ4KA6oNwx4ANakahJVZkjXrVLPyc=;
-	b=k4oXrjtRsoA2jeQBaAQ4UsGpKRwXldjdGzcTeBEHEx9PDrMonw40wohq1TIJbVZN1d3kED
-	GQ4a7DS0WXRhIqhz37WH8ezZ8UNDx97lU2Ex9CBTvBDXfrDgTdzZHXVBDdwSVELlAORbgi
-	/QnGIPLbVEwcdhhJ+jBbMs9dRcScW2Zr6fvML8XDYG6HMnppX4KbuKfBcqKpjkQPhxmbc9
-	ggik55hXCPHduEeNsAp5bBJrHX3K3iouD92UDa31H0PnV1J8cLhXKnl/thqXUJoYyJlJkW
-	RLO7WqHlF9eK03RL9sQs9o66m+jN3vSurjAiToHJniaJY+iFsDlXhqWaPg5e8w==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PxFEhNEm
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792612407;
+	b=tpHZZtq8klMJW4ex4gOgmJGXUAwd2inX19it5rVsLuP7zm6FPvhJNY6kEkkAH1M2NJlg
+	 iUXyQ2HYFFOK/lxI5PFznEHH9uloJJDEWOUCjPfNOMPtXiHT2bHGf+aCgKNWTpizueJyq
+	 Oma3RUxztJrczDBQFLrkTI2OlcNxXK9T15FPR5DIDl++WgRBAdi9aVvHM48xssw/rqzzu
+	 LSkorwRCBhr+LYRC3c1JeGXtJ96fOEpjxCyx3EWBQKQKuQAY6U2XMMizuqWsoNhsviaHI
+	 0YdGSdNK/p6Ad67lW/9Oh55U8Rhu89K5hCECR8JhDO4fSUY58rd71pUdhRiV+/U5G5w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792612407;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=8zdkSy4S9d8mahCstou+MAd3++gCJOCaSRrb4UBEAWU=;
+	b=KxGlpzeSrMMJU5Rp6vziFtgm/m3U68ouU59LiizCXoy2oZ7PwPWDECcaCDmHTP1qWuOy
+	 4hssL6SoDfNCKage+++FesHYC3KiOtPv0fefsONo16o8fty+9OfA099D6p1GklsBwu6/S
+	 X7G7srqnmZqfayqLixWq9Rd2i7rCrpsKhhnp/cP7BH1oup3+MzujlBssxuLukeE8hbdKD
+	 3Cil6CQpqYx9TIHcdnGkQxMxRK5Q0g6mfczHb5uBdSqzvS4FSxC8TZE+rCM7Cm3Cq8sku
+	 Jxs706Tj57uo3Acqr5Xv+syAEZPvYySggjqKXTjHjv9JGNyAQbTj1J5GbO3K6FXvltg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 63E901F000C3;
+	Wed, 21 Oct 2026 19:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792612407;
+	bh=8zdkSy4S9d8mahCstou+MAd3++gCJOCaSRrb4UBEAWU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=PxFEhNEmIopanfX4B/znryk3y85NsA0oa745b2Nym+GDWwkAyLhuYCidq3Xqc5+l9
+	 uXZqcebvqZFFIiEkDcr/KSfLBi0wbDctC9ET/Z8qkwTQZM69SSGaaxN+fI//+s8Vqu
+	 vWHVoI3jsAw62UHjWDk8E0+24nKI9rctOQgtmiPQE8d2ogno+MPgn3ZrOd/HuNwn37
+	 5TqMp/gMZ8S07+7etMHTedhhF4zXlSgMmHsWNKRtXUdUqOsg5n+66u8/JKwDgxWj+Z
+	 dubUQN8WnvEXkKtl00JYmQPA9VTOhm+3guPhs/ckv/dtgjPirXgDI2hACy6bEOnBNr
+	 9IOZjszGibY8A==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E7A424342F;
+	Wed, 21 Oct 2026 19:53:25 +0000 (UTC)
+From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
+Date: Thu, 22 Oct 2026 03:53:22 +0800
+Subject: [PATCH 02/18] riscv: add Zhihe A210 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,102 +82,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 21 Oct 2026 21:53:02 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Chris Babroski <cbabroski@nvidia.com>
-Cc: bryan.whitehead@microchip.com, UNGLinuxDriver@microchip.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, richardcochran@gmail.com,
- linux@armlinux.org.uk, maxime.chevallier@bootlin.com,
- Raju.Lakkaraju@microchip.com, davthompson@nvidia.com
-Subject: Re: [PATCH net-next v1 1/5] net: lan743x: reset DMA channels that
- fail to stop
-In-Reply-To: <bf487e5d01fe6352069d4314087f680fea717cc5.1792008404.git.cbabroski@nvidia.com>
-References: <cover.1792008404.git.cbabroski@nvidia.com>
- <bf487e5d01fe6352069d4314087f680fea717cc5.1792008404.git.cbabroski@nvidia.com>
-Message-ID: <ad9ebf0ebbb05424676b3d80b935f58c@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20261022-a210-init-v1-2-5e438f972d24@iscas.ac.cn>
+References: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
+In-Reply-To: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Anup Patel <anup@brainfault.org>, Icenowy Zheng <uwu@icenowy.me>, 
+ Drew Fustini <fustini@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
+ Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792612403; l=1013;
+ i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
+ bh=4BCg+toIRbmSQPVtgy4Q0XzWNjGrXKkDc5R8if2Rdc4=;
+ b=ABWPT2/vC2QfeXMG1/w9VVAjTJqqfTPVM/54tCmkLQLDLnCqT6XiKVKu6QeSqctxfeROaimly
+ ON8hQqfPoLCCyeZZG8KvXFMFwq3DHpbth19Te47OI7Ps3hU4AD7JxzN
+X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
+ pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
+X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
+ auth_id=1262
+X-Original-From: Han Gao <gaohan@iscas.ac.cn>
+Reply-To: gaohan@iscas.ac.cn
 
-On 15.10.2026 17:00, Chris Babroski wrote:
-> lan743x_tx_close() and lan743x_rx_close() ask the DMA controller to 
-> stop
-> the channel and wait for it, but ignore the result. If the channel is
-> still stop-pending when the wait gives up, the descriptor ring, the 
-> head
-> write-back buffer and the packet buffers are unmapped and freed while
-> the channel may still be fetching from or writing to them.
-> 
-> A TX channel has been seen to stop making progress, with its head index
-> no longer advancing while DMAC_CMD still reports it as started. A
-> channel in that state may not honour the stop request either, and
-> closing the interface would then free memory the engine can still
-> access.
-> 
-> If the channel is still stop-pending after the wait, or still reads as
-> started, issue a channel soft reset and wait for it before anything is
-> freed, and log when that happens.
-> 
-> Use the same helpers for the channel resets that lan743x_tx_open() and
-> lan743x_rx_open() already open-code, and log there too if the reset
-> times out.
-> 
-> Fixes: 23f0703c125b ("lan743x: Add main source files for new lan743x 
-> driver")
-> Assisted-by: LLM
-> Signed-off-by: Chris Babroski <cbabroski@nvidia.com>
-> ---
->  drivers/net/ethernet/microchip/lan743x_main.c | 64 +++++++++++++++----
->  1 file changed, 52 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/microchip/lan743x_main.c 
-> b/drivers/net/ethernet/microchip/lan743x_main.c
-> index 82d3ec20ba25..9e1276cf313c 100644
-> --- a/drivers/net/ethernet/microchip/lan743x_main.c
-> +++ b/drivers/net/ethernet/microchip/lan743x_main.c
+From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 
-> [...]
+Add the ARCH_ZHIHE option for the Zhihe A210 SoC.
 
-> @@ -2221,11 +2239,22 @@ static int lan743x_tx_ring_init(struct 
-> lan743x_tx *tx)
->  static void lan743x_tx_close(struct lan743x_tx *tx)
->  {
->  	struct lan743x_adapter *adapter = tx->adapter;
-> +	int ret;
-> 
->  	lan743x_csr_write(adapter,
->  			  DMAC_CMD,
->  			  DMAC_CMD_STOP_T_(tx->channel_number));
-> -	lan743x_dmac_tx_wait_till_stopped(adapter, tx->channel_number);
-> +	ret = lan743x_dmac_tx_wait_till_stopped(adapter, tx->channel_number);
-> +	if (ret < 0 || ret == DMAC_CHANNEL_STATE_STARTED) {
-> +		netdev_warn(adapter->netdev,
-> +			    "TX channel %d failed to stop, resetting it\n",
-> +			    tx->channel_number);
-> +		ret = lan743x_dmac_tx_reset(adapter, tx->channel_number);
-> +		if (ret)
-> +			netdev_err(adapter->netdev,
-> +				   "TX channel %d reset timed out\n",
-> +				   tx->channel_number);
-> +	}
+Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+Co-developed-by: Han Gao <gaohan@iscas.ac.cn>
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+---
+ arch/riscv/Kconfig.socs | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-While looking something up in the registers for the other thread I
-stumbled over this in AN2948 about TX_SWR_x:
+diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
+index cecbce0c4983..b9863ebd88c7 100644
+--- a/arch/riscv/Kconfig.socs
++++ b/arch/riscv/Kconfig.socs
+@@ -91,6 +91,16 @@ config ARCH_ULTRARISC
+ 	  This enables support for UltraRISC SoC platform hardware,
+ 	  including boards based on the UR-DP1000.
+ 
++config ARCH_ZHIHE
++	bool "ZhiHe SoCs"
++	depends on 64BIT && MMU
++	select ARCH_HAS_RESET_CONTROLLER
++	help
++	  Enable support for the Zhihe A210 SoC.
++	  A210 has four C908 and four C920 RISC-V CPU cores.
++	  Supported boards include the Melon Pi V1 and V2.
++	  Say Y here to build a kernel for these boards.
++
+ config ARCH_VIRT
+ 	bool "QEMU Virt Machine"
+ 	select POWER_RESET
 
-"This is an immediate reset and will cause any, in process, PCIe request
-to [be] aborted. This may likely result in a corrupt PCIe packet."
+-- 
+2.55.0
 
-A channel that did not stop is the one case where a request is still in
-flight, so this resets right when the datasheet says not to. Is there a
-sanctioned way to recover a channel that ignores STOP_T?
 
-Woojung, maybe you can say?
-
-> [...]
-
-Thanks,
-Nicolai
