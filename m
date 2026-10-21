@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.128.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792610088;
-	b=C42GqLCfrlLgBkrTw764mX9/bqoRu18fKhoMwl5P1mVcHWwXyczh/jXQYyOsjAjKkeKC
-	 1Geeu33a/ryvz3RaqwBUFNyvimr7UyV213/Au7G6BpkwkuFH/EIEDeC+IyScqqDK4W7vk
-	 XMBuvZfxyDbaRX3aSSePYiOmJz2f2XbocJX8ID8Qhzs2j1JcLO8nUMz8SVBZlB7igU5Za
-	 cu4qHLcaTc1AixkAspabPoPR0xuZng2euuntvlw+N+A/Saj7HRqmxpFAG0qi4MauR7U8S
-	 lQFX8Xb/QTpa70kEHOvDTvMNg6+EQWB+RFo3TVFutsaZevKfW17EAnY/yD82HsFokxA==
+	t=1792610183;
+	b=4J6l1cS2rr6gGY7YYCcXv90jsS2csbiuf7J79mWAaVxOT6Ky3+5lYVIMT6ysaCuI7cqk
+	 aP22bL0B/eYcSDcJbeP2SSQA+XTV8LxjlekZNT4OGSlqCHlyZO784mwibG86atIjjICe+
+	 BUxf2oAMGT432kRM5eFupcB2TJynmQlwrJsTcv26Kk/wR7uFYJzhe9f6PeOVJu+OCHOp5
+	 5xD2tras+UMzbm+vy/blbhKQuUGpY0Fb6Y7CRlw15FaESpSwJWV9/e8zisMT9JC4H7gmO
+	 y5OFvP5rrc7m6nkBPzl7JYUjKMidOTrzo2b36WWgGHxEDOf/rwt2ZshCLiP9wrZwRRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792610088;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=fvX/Q+HSZkDnareYTYW1vtbpFi0/voK9jxtB2w+Yfp8=;
-	b=QCMI+Xx+SIQjHHmj43zQDjqRRCGgfA8IpvkXotgSa0YfD2rkS7C4qExV8drfyra4583m
-	 7t9SimD90/rAurG7bBiTzyFqIYI2UgzvMQHmKqIP5OHqurgO5nACo3t2s361m/vyz+zse
-	 8ilguwLJmRr3Qr92/226VNDmNJCPcIHF3oMJpgkzfUcjTIwvnu/Jl1jlZAgaxGvr60Mgm
-	 DrxxiHH9fA02JRbONgPaK0bixYovKsTnBegoLx+GzsRsMrdqJCETCK5qjilZQZ9MoXBh6
-	 sN+PZMLj69A5vsBKhIrqcLaP37zeHf4p15VtkAFbHCcCl4HRPmC4djYmXl53WXVaMtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792610183;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=PX/0kvs4QlobqWwGN9vKI9fN7pNc+mhXK9E4ocGS1q0=;
+	b=xcupYZSh9/sTm/hGk24a9C7M58j0DUh9wnpFLtHxy0c7A9Hx4xl/Igg6WY/YJOQRck2g
+	 AqEzH98yW5KJY9wWDMHo49VmfeLAcrtFZAPOY7sk4llCwGlYsRH1LUEdrGxlNVQGwlx6+
+	 7rK8TOheg9xv8pLIbbSXwVikA5JiS7IaNGwvNKIwriF3RZ3Stkr0i1xQPh2fk26w4CI5j
+	 g9ZLrsrfT/8vp0FDZh/1eneCkEtQ06NP0D55DKTaTK3OPAcGsH3lat15GE9dEB5x7gpsy
+	 Blosr7XBxTSOkKXOE+/xwPDqiJqjC3b0ujJ4ZJz0cIl+yF0xhPxUU66zeWoUYw7SGTQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=schaufler-ca.com;
-	spf=pass smtp.mailfrom=schaufler-ca.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=aX+bu5ir;
-	arc=none smtp.remote-ip=74.6.128.89
-Received: from sonic312-27.consmr.mail.bf2.yahoo.com (sonic312-27.consmr.mail.bf2.yahoo.com [74.6.128.89])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAqwIth7;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51ACF606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:14:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51ACF606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=schaufler-ca.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3A9606A31A;
+	Wed, 21 Oct 2026 19:16:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=aX+bu5ir
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792610086; bh=fvX/Q+HSZkDnareYTYW1vtbpFi0/voK9jxtB2w+Yfp8=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=aX+bu5irS/pYE+5Nvx6/PSo0lpu72GtYglM1TRBramfQQo6wuPRybjHMsGswpRJ17Fu8u3Y4o0C8ZdNRLyD/RZFaGrYlZlFB4KW+ee+kGHXWVQXtwSyb81afNLsaSkch8R9ZnGrovHZAZb49lAMr/TpT17KKJAPhOQ8BO9JH3eKgf5gv/xc4qD2LOoHfmrSbnA9HQKV4CXoRyQpiF7EAa2bHVQsKlug9YYPpjJKkUoo/74ZtvKp9EfPeMQmr703f8d26PBTsOvkwtMY5Q4jXRuw87c+Aq/+C0c/TkW+J5ukLka0XbOZvYLsvdf6p1oNRP3PbfmnmSzKINDrqCC2jqw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792610086; bh=AC7mZVvXXkC0jGc51fQGLYYjfwjktj3zG0RIDl4ygn3=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=aotSkLCsWXaBoLqV8Q9TYPm+rOT2xj5peTyhwGWHnRv3NUkzueMMfoPuuUU4E9j8xxZFYOak6rwCJiJDcA/+1cchO1fqdYnVIuJWrnpEFAPzID21MXzdHYSLwYFPLCLOpoRvwxRFoQmXtsAjgW1oY/s+E2kmxJHT8RSYZxgh6XuDIgpJf+kMfPIO+vIBRx7HoqWUmTr/6WGyj7BMpgLR5ic5f49z5To4xSACpvLd1E9tyrWBSaIjJ756v2XMdjinnzAUBZx3+L5xPaGY/5sOhPGjkPIc+ohPF2i8uKrUFyKR6pGnv/4y9rSjbZYfPXfyBVIiW8etpnScbbcQ0F12cA==
-X-YMail-OSG: D1Lb96UVM1kJVLOv40.7KBova9aTAPdVOvhLYdXpYoso0L5aaLBQJaXu.gN_eUV
- BRfNL1vg6WDJAtVaQVVJSduJUa1kLtdd3ygVnXOa7qs9UKe3AOp6DqaDBh4t483wRhJDo19Ly03Z
- ybPYhjwaXN45UycYriccDxK9rIk.fiI2lfPp.4jv.flVTBH82EUotU5N6zB5WqRk2iyGLoZcguW1
- pGdRVC.Chfa_9hPSPu3WismlncClsscS8FPg2cWhwkKuafepMRXvt.6bU1UrHKCIgO043o8cS5.x
- EGBFpzY5uJPKMs5qRU4PXFJFvPf64L0Ae9Iylo4XDkXplftAvUle2O8o03L3HYqm83ffKOsDR6kX
- DW.Ee4Yzw3QSnELi5tSaK2W5JZ_qwOQZ3RdXhn0uHOHxDDC0aM3Qd53z3eUaPLLn0Jb9avybnQr_
- Bb6Qz_PkGOwIoszvFjO6bOuewi9qDB9fmr9vYyL8u76P.Z1bLglVZ5T2hWWJyuSjEFDeQc8exVJg
- 9Ym8rZSJnmUD8GUFvJ1bM8uBUId7m0hFrW0Fzp0IMr8p228GY4_r4o9H1dUngvLoL8uJwrEcUE7s
- JC2O0aR5XFzXQHdymYHmiJF50TgXyS59LO_pJeAxHJdsQ4_6Qe0DHx.uL7xSetf1YUeQ_E63WoPs
- oxusDqKspvX.70bIdUIDp5i7CvUB3YewQX6x0wDCQDYPNC7HkgMIDFZsj.yFctoN4g3tKR5PIzDI
- IR93YfR624itBALsaNEJ3jB.fpDfTRjQlPaFQKSr2eXhDRbI3pkxGST7z053sA22qcVoIoRcpIEf
- r9GcVZQ5ktSi6dDrEHFSJUw_88ky.uHGS04M.TMx3MVBTdDtJIitqdrAETfFd9QxhyKQYY8_HGpq
- 0PMKyP5suKQU3drj2Se2NHMf.PhBc.jTS_9XytTtEJhI9A01Zu9CXAbZznF6QpDPRmRaK3CiGQ21
- 1Ab9huYxWH8BsMObGIl1oZixf1cUrGrU8e4cHH1zhszIhCRBr7BTx.uaFgBP3lGDvtU2cMMiASlH
- RhIdM_i11JVL8YYLGQcoPkdkw0LvO5fyG08eMLtBSBSKI115WFnW22G099o7xMNyqrVl6jHC9uiC
- hCrUJ4p_eak_MtbRC0jcWU0M37qTH4FyZpDerFJYzPe3EeM8Q_XNQt8taVaReMvuPOJUEWlN6qqc
- 3Aos6.qOc0rjPwJYRs0dsJLIxGEoUmM5UQG.dShL1LPPsXnpJW_PPHNtFvRcyTLoOgdHz5NxeLuM
- k5fcBKoARDt87iHzsue4hFJiEUvbwUfHhhdV6oNoZDUIpzlEu1YIOhrTzv0oLwn3Tk49_.8kgyzf
- Ja1nVgnNL76C2aHxJDNhElGn8lhia20qerHj3fi.xZNaHAACmRizWnlhvdIQglriE.B8G_TeA1_H
- eOjfoZJZ_B4OYSAXhP.zBXsHEzcTUDojootgOdFapHHM0.ABMHKaqe2Paa4gLnPMnbgjsHfKetIO
- xdtICoYlIaczlPn6QXeYzw.SBKY4TTrT3mIQfUNBFmP0usCBVFIP.SMoczWtEnpCIOaIl9LR170m
- O6zxJTv_vcq9hFMFgb3JJ84Hel6ObctGrBB_sBu7RMg_hKblnxE2ziRsy7zOwDO9fcpCPCQcJIaX
- 4umW0gD0cZgEzZYGOJ9jeZ3Xtu9BaCi5Wwuc7TKz2LHXB.5zJGCIXA3zhscNDR.BzN9PU0lu4sqM
- rGhE_XUxrYukeiu35XuE8Bqn68Yq_MMhYVS8oNfAFyaar5WmGX31yG.sCqVltmgqXb8FbHp_eNZC
- aorThJhHmww5pA1S_OjzRrcODMu_9MxjwX_iBVd5f50GVnfZsOvkLWmQx.oWlB_qKUnnDZiuj2yf
- oPaoz7V3p8P3rshupMI7UWL6K2Z0l5eBDTGJPXonzJUZ4XzF6Mh8g6Z_zogaN_M9fIqz.QTF.Ana
- iIO57.zNJ27U8i3cKAob_QqlwK9g4n03AlaWXFIhopEQhXxx3IbmnyLiHAlujqyQ06VQw3Rk29Tw
- C5IYHcfyg.VMQAfD.SRidnUis2qldLgct8Vun4MZzOKOJ.DrW9bWJJNuB9SeMTPigg5ml.aEk6fy
- bXHqEn3hE9PFhbKtyAA4LNhdhriuQy7XxKG7NUXvqhqXgmyUlz4_o0.HkgqGVhfcFalW4gCXL5qh
- bhI_kLiOry3BmxgpMH3.xvJ72t.HknLH_Mxvifs7P_IfE4KY3b_lI6tuZ6QN8u8_sBQKl5fGQqtb
- QvyqXo7O8Lwh.CJtmhBLMM3fk8ui26cJ0UE_j_I9Y_8dMuArHuO6saqA08AV7qla8jg--
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: b807fcff-ce9e-4a1f-a5aa-2d0d8f37673e
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Wed, 21 Oct 2026 19:14:46 +0000
-Received: by hermes--production-gq1-fd7994565-nddcd (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 4149e187089f1702b1ec33331741c541;
-          Wed, 21 Oct 2026 19:14:41 +0000 (UTC)
-Message-ID: <fccc9441-1909-4988-802d-5c9d7829eacc@schaufler-ca.com>
-Date: Wed, 21 Oct 2026 12:14:39 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hAqwIth7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47581F000C1;
+	Wed, 21 Oct 2026 19:16:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792610182;
+	bh=PX/0kvs4QlobqWwGN9vKI9fN7pNc+mhXK9E4ocGS1q0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hAqwIth7FlP2IQIuXHwRpR8bQ6SELcmEvAlU0D2KJSjl39mZ376WVRxBZwnXnNew/
+	 Ro4wI3JUHgbD5N1ZdA6jpw7lrZQsQ9Sb7rE79yndBUmfKmaqpLoWEhGrzB2hN/Y0PD
+	 xqkg5Sv8oGnYQdGmmP4O3e21PdQYMrjsQbbL/6SPFV3CsjRMu1hcc7hsEil7WUuyXM
+	 DECziwzlmk8PjvT2JNd9/4VXjOm4lI23cTJesPOInOuTNRizPG4u50r6zHfvdyTiNG
+	 r+uIzaJ0dHb8vLu3qrLVQfG+QLBl9TVIvbo/jVVKRqIEufow4w1vEKbmAloxs9CU5m
+	 onFVPffYBm0xA==
+Date: Wed, 21 Oct 2026 20:16:13 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
+ nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v5 06/15] iio: adc: ad4134: Protect conventional device
+ access from debug accesses
+Message-ID: <20261021201613.3d7833b5@jic23-hlaptop>
+In-Reply-To: <ataF3Bpop9cAYuXW@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1792200021.git.marcelo.schmitt@analog.com>
+	<b05978468abb537f7fe5b1d0ed2753df9a69decb.1792200021.git.marcelo.schmitt@analog.com>
+	<20261017194707.48f6f242@jic23-hlaptop>
+	<ataF3Bpop9cAYuXW@debian-BULLSEYE-live-builder-AMD64>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,163 +66,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH slab/for-next 11/14] smack: specify SLAB_MAY_ACCOUNT for
- smack_rule cache
-To: Harry Yoo <harry@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Suren Baghdasaryan <surenb@google.com>, Johannes Weiner
- <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Roman Gushchin <roman.gushchin@linux.dev>, Hao Li <hao.li@linux.dev>,
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
- Muchun Song <muchun.song@linux.dev>, Hao Ge <hao.ge@linux.dev>,
- Pedro Falcato <pfalcato@suse.de>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com,
- Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
- "Serge E. Hallyn" <serge@hallyn.com>, linux-security-module@vger.kernel.org,
- Casey Schaufler <casey@schaufler-ca.com>
-References: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
- <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-11-096800aa3330@kernel.org>
- <0aeea80c-e3ac-4b6f-b1c9-ef18ea2964b3@schaufler-ca.com>
- <atkEXgQNK05PGTMG@thinkstation>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <atkEXgQNK05PGTMG@thinkstation>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26740 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
 
-On 10/21/2026 11:48 AM, Harry Yoo wrote:
-> On Wed, Oct 21, 2026 at 09:59:15AM -0700, Casey Schaufler wrote:
->> On 10/21/2026 4:46 AM, Harry Yoo (Meta) wrote:
->>> smk_copy_rules() allocates rules with the gfp passed from
->>> security_prepare_creds(), which is GFP_KERNEL_ACCOUNT. Specify
->>> SLAB_MAY_ACCOUNT when the object may be charged to a memcg.
->>> __GFP_ACCOUNT without SLAB_MAY_ACCOUNT will not be allowed.
->>>
->>> Path: fork() -> copy_creds() -> prepare_creds()
->>>   -> security_prepare_creds(GFP_KERNEL_ACCOUNT) -> smack_cred_prepare()
->>>   -> smk_copy_rules() -> kmem_cache_zalloc(smack_rule_cache)
->>>
->>> Assisted-by: LLM
->>> Cc: Casey Schaufler <casey@schaufler-ca.com>
->>> Cc: Paul Moore <paul@paul-moore.com>
->>> Cc: James Morris <jmorris@namei.org>
->>> Cc: "Serge E. Hallyn" <serge@hallyn.com>
->>> Cc: linux-security-module@vger.kernel.org
->>> Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
->> How was this change tested?
+On Mon, 19 Oct 2026 18:04:28 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-Brilliant response. Thank you. Add my
+> On 10/17, Jonathan Cameron wrote:
+> > On Fri, 16 Oct 2026 22:58:05 -0300
+> > Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
+> >   
+> > > Require debug access to acquire device synchronization locks before
+> > > allowing any transfer from the debug interface so to avoid disrupting
+> > > operations issued from usual (non-debug) interfaces.  
+> > 
+> > These needs more.  What sort of disruption are we talking?
+> > 
+> > A deliberate write to change state that breaks normal operation
+> > is a debug mess up that we don't guard against, but if a read
+> > is enough to break things, or there is an inherent disruption
+> > of other operations by using the bus at all then state that.  
+> 
+> A read is enough to break any ongoing buffered read because register reads will
+> cause the bus configuration to change to a state that invalidates any sample read
+> that happens afterwards. 
 
-Reviewed-by: Casey Schaufler <casey@schaufler-ca.com>
+ Capture that in the commit message.
 
-> From the cover letter:
->> Each tested cache was verified with the warning in patch 13:
->> I confirmed that 1) the warning is triggered without the conversion,
->> and 2) specifying SLAB_MAY_ACCOUNT resolves it. However I could not test
->> io-pgtable_armv7s_l2 and sun50i's pt_pool caches due to lack of the
->> hardware and emulation support. So they are compile-tested only.
->>
->>   cache                  tested  environment
->>   ---------------------  ------  -----------------------
->>   radix_tree_node        yes     x86
->>   maple_node             yes     x86
->>   buffer_head            yes     x86
->>   skbuff_head_cache      yes     x86
->>   fanotify_*_event       yes     x86
->>   smack_rule             yes     x86
-> Good, this can be reasonably tested.
-> Let me write down instructions to replay this testing.
->
->>   io-pgtable_armv7s_l2   no      compile-tested only
->>   thread_stack           yes     ppc64le (64K pages)
->>   pgd_cache (arm64)      yes     arm64 (64K pages)
->>   PGT_CACHE (powerpc)    yes     ppc64le
->>   PCI_DMA_*_tables       yes     s390x (zPCI + vfio)
->>   hostfs_inode_cache     yes     UML
->>   sun50i pt_pool         no      compile-tested only
-> # Pull the b4 branch from git.kernel.org and configure the kernel
->
-> $ git clone -b b4/memalloc-prof-dont-waste-slabobj-ext-metadata \
->       https://git.kernel.org/pub/scm/linux/kernel/git/harry/linux.git smack-repro
-> $ cd smack-repro
-> $ make defconfig kvm_guest.config
-> $ ./scripts/config -e MEMCG -e SECURITY_SMACK -e DEBUG_VM -e FUSE_FS -e VIRTIO_FS -e VIRTIO_MMIO
-> $ make olddefconfig
->
-> # Create a script to run in a VM
-> $ cat > repro.sh << 'EOF'
-> #!/bin/sh
-> mountpoint -q /sys/fs/cgroup || mount -t cgroup2 none /sys/fs/cgroup
-> echo +memory > /sys/fs/cgroup/cgroup.subtree_control
-> mkdir -p /sys/fs/cgroup/test
-> echo $$ > /sys/fs/cgroup/test/cgroup.procs   # non-root memcg; root is not charged
-> mountpoint -q /sys/fs/smackfs || mount -t smackfs smackfs /sys/fs/smackfs
-> echo 'foo bar rwxa' > /sys/fs/smackfs/load-self2
-> sh -c :   # fork -> prepare_creds -> smk_copy_rules(GFP_KERNEL_ACCOUNT)
-> echo "WARN count: $(dmesg | grep -c 'WARNING:.*__memcg_slab_post_alloc_hook')"
-> dmesg | sed -n '/cut here/,/end trace/p'
-> EOF
->
-> # Revert this patch, build the kernel, and test
->
-> $ git revert --no-edit HEAD~3 # Revert "smack: specify ..."
-> $ vng --build
-> $ vng --user root -a lsm=smack -- sh repro.sh
-> WARN count: 1
-> [    1.178905] ------------[ cut here ]------------
-> [    1.178913] WARNING: mm/memcontrol.c:3627 at __memcg_slab_post_alloc_hook+0x4a0/0x7b0, CPU#11: sh/434
-> [    1.178922] Modules linked in:
-> [    1.178925] CPU: 11 UID: 0 PID: 434 Comm: sh Not tainted 7.3.0-rc1-virtme-g121988b3e78d #3 PREEMPT(lazy)
-> [    1.178928] Hardware name: Bochs Bochs, BIOS Bochs 01/01/2011
-> [    1.178929] RIP: 0010:__memcg_slab_post_alloc_hook+0x4a0/0x7b0
-> [    1.178932] Code: 86 e2 e3 ff e9 2e fe ff ff e8 7c a3 e3 ff 48 8b 53 10 f6 c2 03 0f 85 53 02 00 00 65 48 ff 0a e8 66 e2 e3 ff e9 52 fc ff ff 90 <0f> 0b 90 e9 ff fd ff ff 48 81 c3 bc 00 00 00 48 8b 0c d8 4c 8b a1
-> [    1.178933] RSP: 0018:ff7dde988181bbf8 EFLAGS: 00010246
-> [    1.178935] RAX: 0000000000000000 RBX: 0000000000000000 RCX: ff4f87a042e55d00
-> [    1.178936] RDX: 0000000000400dc0 RSI: 0000000000000000 RDI: ff4f87a041828b00
-> [    1.178937] RBP: ff7dde988181bc80 R08: 0000000000000001 R09: ff7dde988181bc80
-> [    1.178938] R10: 0000000000000000 R11: ff7dde988181be90 R12: ff4f87a045b600c0
-> [    1.178939] R13: 0000000000000000 R14: ff4f87a04b95dc08 R15: ff4f87a041828b00
-> [    1.178943] FS:  00007f5efb4e0780(0000) GS:ff4f87a0de940000(0000) knlGS:0000000000000000
-> [    1.178945] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [    1.178946] CR2: 0000555ab8c2dda8 CR3: 000000000594e006 CR4: 0000000000771ef0
-> [    1.178947] PKRU: 55555554
-> [    1.178948] Call Trace:
-> [    1.178950]  <TASK>
-> [    1.178951]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [    1.178955]  ? __memcg_slab_post_alloc_hook+0x517/0x7b0
-> [    1.178957]  kmem_cache_alloc_noprof+0x3ac/0x3e0
-> [    1.178960]  ? smack_cred_prepare+0x84/0x180
-> [    1.178964]  smack_cred_prepare+0x84/0x180
-> [    1.178966]  security_prepare_creds+0x49/0xa0
-> [    1.178970]  prepare_creds+0x168/0x280
-> [    1.178974]  copy_creds+0x25/0x130
-> [    1.178976]  copy_process+0x6d4/0x2830
-> [    1.178981]  kernel_clone+0xd5/0x420
-> [    1.178984]  __do_sys_clone+0x65/0x90
-> [    1.178987]  do_syscall_64+0xda/0x4b0
-> [    1.178992]  ? srso_alias_return_thunk+0x5/0xfbef5
-> [    1.178994]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> [    1.178996] RIP: 0033:0x7f5efb5d30e8
-> [    1.178998] Code: 7d e0 e8 2b 58 f5 ff 45 31 c0 31 d2 31 f6 64 48 8b 04 25 10 00 00 00 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 70 41 89 c4 85 c0 75 31 64 48 8b 04 25 10 00
-> [    1.178999] RSP: 002b:00007ffce2898640 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
-> [    1.179001] RAX: ffffffffffffffda RBX: 0000000000000001 RCX: 00007f5efb5d30e8
-> [    1.179002] RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
-> [    1.179003] RBP: 00007ffce2898660 R08: 0000000000000000 R09: 0000000000000000
-> [    1.179003] R10: 00007f5efb4e0a50 R11: 0000000000000246 R12: 0000555aad43184c
-> [    1.179004] R13: 00000000ffffffff R14: 0000000000000000 R15: 0000555ab8c37740
-> [    1.179007]  </TASK>
-> [    1.179008] ---[ end trace 0000000000000000 ]---
->
-> # Revert the revert and run the same script in a VM
->
-> $ git revert --no-edit HEAD
-> $ vng --build
-> $ vng --user root -a lsm=smack -- sh repro.sh
-> WARN count: 0
->
-> Hope this helps.
->
+> 
+> > 
+> > What isn't regmap locking covering?    
+> 
+> regmap doens't cover IIO device direct/buffered modes.
+> 
+> > 
+> > If this is all about the mux stuff and backend usage,
+> > then move it to nearer that in the series and refer to that.  
+> 
+> We also need the mux usage to be synchronized which is why debugfs_reg_access
+> now also locks on device state sync_lock.
+> 
+> In practice, because every device access will select then deselect the mux state,
+> we are not able to have two operations going on simultaneously (not even two
+> register read can run concurrently due to the needed mux state care).
+> 
+> On v3, there was a dedicated mutex for mux access synchronization. In an atempt
+> to make things more simple, that second mutex was removed and sync_lock is now
+> also utilized to prevent multiple threads from changing the mux state simultaneously. 
+> It shall work properly as long as any device access first
+> claims IIO direct + get sync_lock or claims IIO buffered mode.
+> Is it okay to have it like that?
+
+That seems fine.  Just add some documentation on the requirements in
+appropriate places.
+
+Jonathan
+
