@@ -1,106 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575945;
-	b=TQ/AfVUlgRCZxJDqjiidRToH87qu6J9OlaEg+hstsxteTDgRFvYol0LUlTNCjXdM6H7P
-	 2lPyRw8LXyJ46wy6iujo+p24Yumr90CzwGU+5GinwuWODAvr6koaKA1xdERCMvr4RVAOi
-	 o+Tc53ptnYGIMewanmHUguGDRHNLQQk/HFrX2s9mtN38JhnsCzvTK/hH5R3j+zRnrE+Qc
-	 ChhdOcnpfh5okM5J2d+CI8tpJOETLWJiufYO3wRbOfJD6hqxkGWEpc22NnG0b4iHVp8Ci
-	 WqtMQ8jRApL1M3JwGaQa/znNwaq0KxiAOYtongL5ifI8/H/eluJpDpXymmG7ZiaE69A==
+	t=1792575964;
+	b=bfk1vQIqvCh6KlIYK4fDk4Ky+8jtMftymbbJQ040m1GEQ2vHkJVfcffz3U4GEMHvDk4i
+	 Pxa7WoYep/pX6+IC2FeMaDIAXEnD2wQB/qap+O5MLK8wOjaWa2damgeJvUQ6Gcyd+GrDd
+	 uyCcmdH5eKvNvU0i2U4uI68Q2hUaPvxeWT+4Luzq7HYQkZYvMW03eaQHdk1fi7C0jS8sG
+	 q47uwck7Vu3cLwgSngatvLJNN7Al5eyXGbjLlJNxaYM6e0K9GeSecEkQ59Ff58EfvznyY
+	 Bl3Lql2Wpe84jsQhskXN34imk8AT7cuIWDUNx+ClCViilKvMosl01rywtiBVMvGM8Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575945;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575964;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=6NbYVhDAgDjCXLKt6OUsnbPdCRFgrXF84XGBkdNmv0Q=;
-	b=lHag8HRDVA+Wrzk2XJWcykEnbMxxUhGI288+Tr40bU7T+tQePt68Flqzh/3zkkL7MVjZ
-	 YKNfUyB49enkcYO0do89PR9QM/wpUk5Gsi1Jq16LB7Q3cWxEeRpPjy0KgkJxbsNY4oYVc
-	 59Km/9TTh1xy01Su8MykErHE5ACIb37qboLNm+RLfgK4mPTIxfvcUnwNbeaKOXlTu/IFJ
-	 rxXzBiVUsTJcBJOpgJ3Gbc0q92K/IlQ7YxOl/iKdoeCzHQgRO/eIbwIpuOVpLlnvnyYDN
-	 eywV+Bi7hiIzanz7JMkA+NGAJ+cAyx1eHjz2ohIM4p2IR/gjF783d39Ll1uNDXB7ADw==
+	bh=24F/d8Z+ERFiE118WtTUpKViM5tZiEO9H1s/ycjWi/Y=;
+	b=cV0xvSACSRhDLkbAZHd8W07dJi+tQaFCcMzlmOPjWJWAw8GQ1ZLaVH1gCqjlLTDD7fBT
+	 nldutVnArQboKfReeqp+en1WH/OyX8gwsBRa69l7vkYKnXwUA06zpDWrv1v5gycbdCFY6
+	 TgPuXyjKNKOfKZuROOKRJgEBc5Is4HXOgL90j/1/3gu+42i1XQZrXlivMfOJNCGYbP4fM
+	 bVtN05MlaEgbLQq6w+fztTl3WyZ285/VX/c6MMSCyTDkAjbMyapjVgCHz0/79v8aSbaHY
+	 bLS0SjRG3SBbRBCvWS4/gcw6fuiGMqxOaP94v/IOk2f46iEm29/qdA2LsIncFbwou6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crusoe.ai;
-	spf=pass smtp.mailfrom=crusoe.ai;
-	dkim=pass header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=X1Uu7M9W;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PWoutujy;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0C92606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:45:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0C92606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD27606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADD27606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=crusoe.ai header.i=@crusoe.ai header.a=rsa-sha256 header.s=google header.b=X1Uu7M9W
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535a54bed9so674771eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:45:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PWoutujy
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1dec056ddso3045055e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:46:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1792575944; x=1793180744; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792575962; x=1793180762; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6NbYVhDAgDjCXLKt6OUsnbPdCRFgrXF84XGBkdNmv0Q=;
-        b=X1Uu7M9WYRfN40A4em3BmEdd/kW5CM43X9l3Q8QVg7uA38xjI8leIGQCgd+iBF23bF
-         SHlXHoJ1dHrzNDR2RjtHr5QL/T/VNJ4QEM82FmWbofBPq59UV2rJyNze+wVlYMWBXrPG
-         BOqDIcKJRTTpHAY0mbq6gpSrO1NQxZNPPr3P7vi7SfPZg+EHsszyykry2olxgPtGSf9E
-         xTlbX0p6OVS2jcjphRrJJvDYbxIf9hol325lg4x8HWnam38cFC10GykXKb3MdXKtmsL2
-         Rhyn7XMomj6y7Vdq587V34QUGYhpWBqxBsqzmEFmtrHyHa/Fj5rx+dB+nTVwsPni46HA
-         Hb2Q==
+        bh=24F/d8Z+ERFiE118WtTUpKViM5tZiEO9H1s/ycjWi/Y=;
+        b=PWoutujyIoRGuofHtTRZnHId0HXYZ+TiVKa3GHuxDc34OaszjKj6r1xqRfR8s4xocf
+         upF/LOGDzkzeq1/Vjd36KiK45m+8db/XqNDiKF6H/C4qkPUAwM7n/wjEa/FEPH9d71ri
+         G8ryHZU3RqC0X3P925JN+AqnPMyDVIdqU4Li0v//xBG/n2oGTmsj3NFAlpN9tYs3wW37
+         gpvHhUDv4Xuyf/KRijLrIjMFxHv8q4hw3CzrGJ/Yd+FuYs5NXonm6FlIXvbcgEjt844V
+         Gpgcf/qc/bsd9CQ7wcvg+dsn9dmEfj8LHga+yAdrjem5qNbPNCUiNO6wk6k9gGI36XgB
+         cpgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792575944; x=1793180744;
+        d=1e100.net; s=20260707; t=1792575962; x=1793180762;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6NbYVhDAgDjCXLKt6OUsnbPdCRFgrXF84XGBkdNmv0Q=;
-        b=Ly9y8djOH2z/vudBDZMkIf7YTA0dJvMsDEegcVlG+pXS5sC5PK/xcVjWW93zl7/6yT
-         026cqT7wGknGkZ2bAkQvsF7JT7rxnzlSs9ml8IJ+DpfRNXqft/iJcGlfJjJ2E5fFJkBX
-         tnZeHOS5a+RdKCE7BRiiGTmAC8bxYoPE0YjxD+OC5S8M0DTjSOnH7lvOLMUH+tVi16wJ
-         hYT8EePhpIY6pwDEdoDURYAg9Cu5isZp5U6wjAwuYRVGkK0QCwdHQMnFPRXBFltNsKMs
-         1ZsIzPQJaxDc/ApRHQWPk8uonJpvAgBxx1+rBSnUSD1hm4cfVrTQztAAHMiuhs5jN0Aw
-         HCrg==
-X-Forwarded-Encrypted: i=1; AKwUvBx4Sgu7UeLxCRDUQjes6dHrWFJkA9QhPtBAVHCBkv+iDx4DzfaGrhmee08khYpoFSlISsfl9UKeMqD/7qI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIlHv06zbboLdAj2MBNmda+iqQXhPpVBOGM0X3OEsQYhwCDpDX4
-	MiaSD0LlI+hn8fAgL1V0BS7jxx8KubuFRAGYpukIlZ4XiVdESziA4qNJCAFp1fwRLjM=
-X-Gm-Gg: AYBFou3CplrXp4lBAHyHvKWbmygtTIH4bRJzM3+vKaTwIjOVxrCUN0h8yb2cK8WJOyS
-	tgCHE8YRZ2q4BiUXR/oXEp1o6XZsKF/uQEXr4sefv8lRFhGUuNoOcqbMzB+H6zeiVPo92nqBcrD
-	23J4nvBgnQT66jeK43CZtFtMnyUz0T7UdcYqlzGWNpMl0EtowMYSPJht+TkSLNn0p/cunBOIcxx
-	Kz6EpyFgx7YAkC4PVsnmNBnVn2iXWjuUakPPwMWFdlhTAPie/Hft532MPca2e/p39EJvPaufxJW
-	LqBPNNJ7bQMObjwKMOxhGI4xo58gObwaKj74HYOYjZ/qL7PtVBbXloxY9Zkz6GE+e26HWRol3k4
-	LywUahiH7WVvQOS8QhWoI+JvGtY1PW/f12CJlB0zr9dVkGGoecyWte9VOW/ropigGa+dcEIj/ta
-	X3JIXKwcrpZXZkupqcOvRN/bRrjnAXRP2Jf+kwcpbW3rqbGsc8zV0b+CQd5S2RgX+nBDKT6D835
-	zIy+Cza8hqURZCOeuxh44rFrPAPs9W89YyPs4yrvav5vBOhgPMDIIu5EPT4U6GaRAjYc4/y+5Hk
-	kl21Ben9uZdPiDmP9AlOuxLXNyI67fHHbw==
-X-Received: by 2002:a05:7301:c004:b0:35c:ceb0:8bf9 with SMTP id 5a478bee46e88-3674de50911mr2681358eec.38.1792575943810;
-        Wed, 21 Oct 2026 02:45:43 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([2601:647:4381:36fd:9c31:126:4a90:466f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411b4145sm6750326eec.15.2026.10.21.02.45.42
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 02:45:43 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: sashiko-bot@kernel.org
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	linux-nvme@lists.infradead.org,
-	kbusch@kernel.org,
-	hch@lst.de,
-	sagi@grimberg.me,
-	axboe@kernel.dk,
-	nilay@linux.ibm.com,
-	dwagner@suse.de,
-	sgogte@purestorage.com,
-	hare@kernel.org,
+        bh=24F/d8Z+ERFiE118WtTUpKViM5tZiEO9H1s/ycjWi/Y=;
+        b=Yg9Ssp0S0Z2sXwOWg6WlgR/DcQZSt/BXnV/y/E0OFrbHMTYAtTBT+zEzJ3eEva8qmY
+         Phy4Vq9EUcZowpixCi7rqhzvjgPBMlVXLnzdDVTZY/uvBJxrMQ3aQAISNehcb3TfranY
+         VvvH7ayJkfao9ZMNlgdFn+Spkm5PjuI7SrDmjLFkXi3yBRRk2B3MRirU82xWVNWGtPdX
+         VUiqrTiURRrwiMj4nzyk7dLi/KXl78zIWxeiORvSozZDMpMsuaLYIZCKDI9DcvQed2Kt
+         2Z03Fe1wa1VdbtkUaNIorVQ+EKndFihZnAvtB1Uip8RcSRIMDqlUbj7RCCAwjuM2mD+l
+         6sKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzqFddvfqoZqz7Wv3iiBjno19ZpHWBp2vBR697V0mN+Mr2gc5EVFAWybjg6eBCT0EgPGJZxd1SH8DICUNE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0nB723CgRbarXNeeIor/zQqQDweP1iNlAto59rIpGwi31FqCS
+	80Rw4GgDSmdKDfu4KU46K+D13xAUgDmKr5piLvFsDgu8tWp4+CUnXeWw
+X-Gm-Gg: AYBFou127N3bb86XQ0pVMG6Ejh8rKV0vNTXwGr4fcf378PWwE6nXInVycaXomutNsM8
+	a2KT2mmsMCzoJciq5xmGEkJdTMiGFiCoY6c5wmLNfwJwqEKdEV0h4ZYxioEd+rKhnnMvvIBVx7o
+	+qAoWSruYnUsOr1XNPtOYqvUbKteZD4W0MDQSGIpV+UZcbSb05ulbm4/LrNnRfqvu5OOHXrK9vK
+	5g/CuBeWjkf0xnmsUZUyFK33eM9E4ierHCXdPV5nGp2lneRGmKTEHNvg33pwHos/VWtsQgoW4i4
+	mgny6Zq3DbAGoa//K2qzvUHXpCIjZp+lUYTIfQGjuWsNsmaYLMkaJ0o0XZLD7D0DV/Ks1NRyFIr
+	weQys+1fbE35/xcrAUKIflLbu+JxdD1b81zy4HmbtJ9zveWHzcdwtnCz5ZQlzWuBSoqcy4ZoyYb
+	3rYjAxZMhTEwx15mNJvG1EkLRPJz7Il7Z6hoJRTTUzpSPX6QWqdJCXZV9BY24/QrbNbAMneOBWj
+	Tc+raZbq1XCx3LM2J/e8bL9RdFjEEAlamQcA7V7DpesJDeNNEk=
+X-Received: by 2002:a05:600c:1f95:b0:4a1:6c0c:ab93 with SMTP id 5b1f17b1804b1-4a1fdd109camr28889945e9.28.1792575961841;
+        Wed, 21 Oct 2026 02:46:01 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258427cesm4320300f8f.52.2026.10.21.02.45.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 02:46:00 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: akkun11.open@gmail.com
+Cc: angelogioacchino.delregno@collabora.com,
+	bhelgaas@google.com,
+	bmasney+clk@redhat.com,
+	dakr@kernel.org,
+	jbrunet+clk@baylibre.com,
+	laura.nao@collabora.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-clk@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	iyamahata@crusoe.ai,
-	kiyer@crusoe.ai,
-	ganbalagane@crusoe.ai,
-	sjpark@crusoe.ai
-Subject: Re: [PATCH v5 2/2] nvme-tcp: allow setting per-queue io_cpu through sysfs
-Date: Wed, 21 Oct 2026 02:45:12 -0700
-Message-ID: <20261021094521.80335-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <sashiko-outbox-175868@kernel.org>
-References: <20261018010059.83120-1-saravanand@crusoe.ai> <20261018010059.83120-3-saravanand@crusoe.ai> <sashiko-outbox-175868@kernel.org>
+	linux-mediatek@lists.infradead.org,
+	matthias.bgg@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	o-takashi@sakamocchi.jp,
+	sboyd@kernel.org,
+	sjoerd@collabora.com,
+	u.kleine-koenig@baylibre.com,
+	wenst@chromium.org,
+	Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Subject: [PATCH 3/6] clk: mediatek: Reserve missing MT8167 clock ID
+Date: Wed, 21 Oct 2026 11:45:20 +0200
+Message-ID: <20261021094542.59417-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260921102522.1640072-4-akkun11.open@gmail.com>
+References: <20260921102522.1640072-4-akkun11.open@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,50 +114,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 01:15:14AM +0000, sashiko-bot@kernel.org wrote:
-[...]
-> [Severity: Medium]
-> In nvme_tcp_setup_queue_async(), nvme_tcp_alloc_queue() runs before
-> nvme_tcp_start_queue(), where nvme_tcp_set_queue_io_cpu() is called:
->
-> nvme_tcp_setup_queue_async()
->   nvme_tcp_alloc_queue()
->     if (!test_bit(NVME_TCP_Q_IO_CPU_USER, &queue->flags))
->       nvme_tcp_queue_change_io_cpu(queue, WORK_CPU_UNBOUND);
->     ...
->     nvme_tcp_add_queue_sysfs(queue);
->   nvme_tcp_start_queue()
->     if (idx) {
->       nvme_tcp_set_queue_io_cpu(queue);
->       ret = nvmf_connect_io_queue(nctrl, idx);
->     }
->
-> Because nvme_tcp_add_queue_sysfs() publishes the sysfs attributes in
-> nvme_tcp_alloc_queue() before nvme_tcp_set_queue_io_cpu() runs in
-> nvme_tcp_start_queue(), can a userspace control plane reading io_cpu and
-> managed as soon as the queue directory appears observe io_cpu as -1
-> (unbound) with managed=1 even when wq_unbound is false?
+I tested this patch on the Sony PlayStation Classic Mini (MT8167) and
+unfortunately it breaks HDMI output.
 
-Agreed. v6 adds the queue directory in nvme_tcp_start_queue(), right
-after nvme_tcp_set_queue_io_cpu(), instead of at the end of
-nvme_tcp_alloc_queue(), so io_cpu and managed only become visible once
-the selection has run. The directory is still removed in
-nvme_tcp_free_queue(), which the setup error path calls for every
-allocated queue, so a failed connect does not leave it behind.
+MediaTek HDMI PHY driver registers the hdmtx_clkdig_cts clock at runtime
+[1]. When this patch is applied, the following boot error appears:
 
-> Also, during parallel reconnects in nvme_tcp_setup_io_queues(), a queue
-> with NVME_TCP_Q_IO_CPU_USER set does not re-increment
-> nvme_tcp_cpu_queues[io_cpu] until it reaches nvme_tcp_set_queue_io_cpu()
-> after completing the blocking TCP, TLS, and ICReq handshakes in
-> nvme_tcp_alloc_queue(). If a driver-managed queue finishes its handshake
-> first, could nvme_tcp_set_queue_io_cpu() pick a CPU without accounting for
-> the user-assigned queue's load?
+10018300.hdmi-phy: error -EEXIST: failed to register clk 'hdmtx_dig_cts'
+  (0xffff0000018539a0)
+10018300.hdmi-phy: error -EEXIST: Failed to register PLL
+10018300.hdmi-phy: probe with driver mediatek-hdmi-phy failed with error
+  -17
 
-This window exists for every queue, not only user assigned ones,
-since a queue is counted only once its handshakes complete and it
-reaches its own selection. The selection is best effort, and the user
-assigned queue keeps its io_cpu regardless, so I'd rather not add
-accounting to nvme_tcp_alloc_queue() and its error path for it.
+The original problem is caused by having the HDMI PHY node disabled in the
+DTS, which is usually the dtsi default, but it does not happen if the
+HDMI PHY is enabled. If this is merged I think this error would show
+up on all the affected SoCs.
 
-Thanks,
-Saravanan D.
+[1] https://github.com/torvalds/linux/blob/a804c5742bff224d4cb4d25dd383554d598be32b/drivers/phy/mediatek/phy-mtk-hdmi.c#L140
+--
+Luca
+
