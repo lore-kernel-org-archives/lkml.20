@@ -1,121 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792575899;
-	b=NBv6NUm/PV14x/UUcwaxda3KD0XjaPyCNaBPZZnOKKkbzADswmchBVg5TKpsOnXLYgbL
-	 w5hI6z4zb916MAx99PNUDvrOmp52wNNNmAODNpzFUwzsuyH9jWdm1j1hDivo3Yby8WSim
-	 X1bzCFqiiLEHIqR7NMjZLdgzi6d5wK/hqkGd0FddhsmuQKSCoeZ0geGxfG+1sbhYA4gEF
-	 Dn052gZ7AyqeF1VaD6G+YSfO7iVqZ0t7DWBRCIsWzlwhXgMgl9nG+zUnS7rp/tmPmFGi4
-	 +GqYj/ImjFXyLxK4PtDzYgAbVY13/w5H+mLqEDr0iqZ8B8BgNDd3Qadx4SO2JQx9hlA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575899;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
-	b=Q3qFDR5RzBeFz1RbcS4ygssGBfHOFUw3VXbvJ63DMswDQ5o1HuV9gxI9d4lB+vpBRYi0
-	 dP+e7FSPOGS5i7p4Yqa115YwTyov4Q2vjNce9bXfVqZGn3TPZiPxWBfu9eKIX5nTmF6Wk
-	 D9iTeeb6y/O8svNDwP1AONKvpszO9yeF0OQCYVYgo9TBNCzTdRaxb7PyG0mLIRw7MAwVh
-	 hhylRdyUk4KVT1H99v2ckwMM71GaScBbaEIu9yufT004kgozgdB2KCNfBy1HdE0lZFPpF
-	 O/auBHDgC4dnJMufkvosQ9GgYgbhHVcwG9TylCzLzChJxfOvT+Aca2wtrcSlGja5dRA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HY24k0Xc;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZQi3KFiv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792575918;
+	b=H6Jq41LUM+tLo4X4gKyvECC6nxWfwarz5+gKWv69ZNYW4p1YZQ616zEv7dA4Med5u792
+	 TmhKpx+DoixspQsRWXdYo2DwfxWGX37g2FjvcYN9hNs16U/al6JOGb7QEqAyBR/Bg+3Se
+	 ZKpC5t9gS4d6ZYjzq61men5zONR4A6FJZ6opC9NE21kIcS3F1XaeDGETrtZbbwkVDlrHC
+	 WPRBre2hih0r4xPknDr69oBw6JdNIR+3gG7kJpQcSq3IA067taWfq6/b5QBadhXBDUVzE
+	 nIbNlC+XTSjSMWkFI/7VATUoGjafKOHBd6YptUqFy4Yzct9l1qk3p00McGQudL4zDvg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575918;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=7qrLUCoAybbCPIOjIm2Qh/M2gA0Bxoq5R80FYWxMk3s=;
+	b=m8t4CPQIiV+pekRrp+8A7E+H4iwjbv2B1dk6nWoKXSHXrpjH4krkffkFK+oS0k5jWh/z
+	 FG3+Z2erVgE+2RV7XugwNtnThwINfSb8ndSYz/BxFF7Th8lNvl3m5GmJ+/t1gYVF4gRm7
+	 v7T3FkM6WdUo0Suzm053xCJcZH04LYa49tMiriCSa4/3cnVY6DiToIrGrpptKitJV/Y8x
+	 69A7GAfXoECbCo2UT38tmEJUotJ3Ms5GFbI6xTmWcYFdqKmhBSJID/sW9fFUUbeudx6GJ
+	 5Vt6g1/IDh9g1OTY7SIgpTaZ4UdBaPkoVTH4wxHGfq/cq8PFIiwiyjckPGkmLp1x7zg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dl8FfbUE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC2606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:44:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFC2606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE0B606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:45:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HY24k0Xc;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZQi3KFiv
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792575897;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
-	b=HY24k0XcpN515UNGwDTIbHkzIJ6lk+joMEC9exHja2ROLze/730tr83eU9+oDLWEaqJunL
-	OtdXhyqGhAoImcdFRXUOT1ERJEV4YPWwCThSMld6YL4cyY2wdXtFObHhexq7Gfyw68axh2
-	s0WEsEdblxqsS6rDHuZ2/GtsKl4hrYk=
-Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
- [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-495-oHl0WSFiMK-yI0CZczkmHA-1; Wed, 21 Oct 2026 09:44:50 +0000
-X-MC-Unique: oHl0WSFiMK-yI0CZczkmHA-1
-X-Mimecast-MFC-AGG-ID: oHl0WSFiMK-yI0CZczkmHA_1792575890
-Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-6798fd97f3aso900926d50.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:44:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792575890; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AojCjR7hwidzF5xSyYIuTUYUKS5GcJrthCwr+jlUFwWMzPB+GNO8P7pJ8LNIwuQnGC
-         HWTTXYO37MgLTO6ihKol+Pt4TFyfMj4y+syK3R5Knm++1GARhPB7nLE2E4Vyo0yf5ZRI
-         5MS4aq1cCZ7HmUyjvWHjHhSVlYWpYgJ59RVUWf7fgcq2qk/RmDCtfAmZzDe1yj+BpSN9
-         6+AUsj08Vnoy+qiYE1o2Rr6IYPCpRaQlasf/9ZPcqDPolpczqWfBmy8ndu4j5idkrj+T
-         Maw3wrlbHUL5umvuPd/wHaFMiXkeYw0NYCtd+yMD/ZvZdmYXTBXLRwZFZ9xyMzgS5A3+
-         u03Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
-        fh=3N2+qAg/V0PAgce2hawfPMdi5SqN9U3E7EZtEqiPEf4=;
-        b=VKz670zrmLBiKR3RBKGqsorwhkA1iz25BhuHW3CKa2/Q+El/6zJe5bsWTt/cHEwrBy
-         0dqB9rvkFJkUEIMsmKz1z0CI5qZ0gZxk2CvJbAwRW0M0JHejyCcr3aPZN7u8uWA2t3iq
-         IbfV902NHG0AX+jaUYGFMx7MBQdkrvpx1lkh+j//szmVus3jiTsWWFM6HZV0EbhvLUZk
-         e3HrrZCTuhjorU0kg4/beLAL8+V1M1amF7jinKd5pljWCgW5TK+gLbWXW72uWXXrw/lK
-         81TatFM3P53tfa7+YppNA/gopNTq9YbsrpIvRAIhw6PFo9m4RKAJiG0qLE5lm3Gxaao+
-         uGuw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792575890; x=1793180690; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
-        b=ZQi3KFiv/3J2Zvya0ZRXissRXuB9mGcamaEpY5UnT/JT/TlfTAxHc8vL6aLGp9raKz
-         jaDqeW9q66l3unri6UhmdtfcmeywXvgRuEHEGNhzo7u10ClCRwnUcXCQv20zn8bBNNWp
-         x2ERsErrcpLX8gfQflr1o8UtpVU+dWgC7pk9D8AVTfLuUWwBeFw1px8AWmYDxeuaclaQ
-         sElWjQIt2FZO+w90nX1HR+fLqW5m5pKhytAZQhPGlk3LSBcTZPEXifhaeQcY539eOY+U
-         LEjCguWXmQU3L6jlvwG10Y5N19tPlW6kAZXsNa9eBCKqKtbff9+AcfG7nDeHFuW7xClN
-         PFNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792575890; x=1793180690;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
-        b=OrWXRv+4BkPzC4cXUWlraNH693VHliWnFnaGrnFpQgCL894bQcW76nTy4LcVmdbFm5
-         9pb+9hJvAbhOcK24Qe0lmFcF4xCokwKfesc91avYyJrjlYm9LMM5/xbl6qIlrFj7exdt
-         ema91D2FSZPTyrYnsvkLNi9BDVEXyp9HL4SHtvNZCcEuMMmURK9xkBe1FBQRJNvN3qaw
-         8DOeZc4iiCwgEnmzNMbA8X3s6RHAbqta2ptcJoVWNpfhDibuio90y3bwpTIDtR4HN6ln
-         G3T1W9YdlRSTIb53zz1O98+aA6ldWbXQ6x5NqhXVQLWP3zJMozO2BVY0dOQcvlakt5tc
-         jfzw==
-X-Forwarded-Encrypted: i=1; AKwUvBxwYMNeYZIuhJ1G+CySVMRSlqpsfHkl9zb2f8bryfy7xzeKobqN0cZpzGPItXd/YZxThtOm9CfYyY1ZvKo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLG3E0ACfmDmPczx+aP0Orpb2x73bNDAjEHW3LiGxA2yESaLyqt
-	bAq/DMsEhGcoKhFCOF62cg50C4iQnnhb3+Hnt5ieBYjkUc/ftYwSMR01KL1qFghrTWF/QKGcwy5
-	pJCz96hX1lqar/DmPqlpYq+PPFqmuG5jDHpBHKHhiVuGLDXcbKzp3bMGX6yi6A6zLvDmTK1mD2B
-	10vgeBR2jGkF/WRNnBWLrgeP1eMpQRYFATg5Csr3wo
-X-Gm-Gg: AYBFou1i9DLTIK6dQkGeSAZw7WbvtbILZm3GFn1ejOu/VlbsCN2sxtF+ohhxLLZqMAy
-	rThkMyZ/87EPxtxP7QDCMdfVyl1ZQ9KwOuJ6GU7gzMwoO3fYNaugaLAftjFWde5JWM6pJ0mO6+V
-	QbTD5n8YTFT8mC3Tpi3RGAp2NvcI/td8Oi0n79k+njNFc/GVOLjVt6aNn7jNvTNpBGBhZefVE3p
-	ul/ImepkBITRs92+5I7bnIyrU+/YlQ9TGjnChcNWTQ4T6L2cfPJ/CyRt2s=
-X-Received: by 2002:a05:690c:962:b0:8b0:acc6:8e89 with SMTP id 00721157ae682-8b133fa1bc8mr6189337b3.11.1792575890145;
-        Wed, 21 Oct 2026 02:44:50 -0700 (PDT)
-X-Received: by 2002:a05:690c:962:b0:8b0:acc6:8e89 with SMTP id
- 00721157ae682-8b133fa1bc8mr6189277b3.11.1792575889747; Wed, 21 Oct 2026
- 02:44:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dl8FfbUE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 347011F000C9;
+	Wed, 21 Oct 2026 09:45:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792575917;
+	bh=7qrLUCoAybbCPIOjIm2Qh/M2gA0Bxoq5R80FYWxMk3s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Dl8FfbUEEph/srB3oughhas0vq05lymkKS5IjuiUXP+TWb0Kp2Nz38DlPqyh3pEcK
+	 P2xvXI5JSz7zthaMiYRi4hPE1KVoO6SnF899jGCjL2pGaJkM2AtzTP9cKYRhBClA52
+	 NPFMEScx1jpvUhTxDiioZrDBdU2cByQicG23fkSXUM1p27kpA20KcAxrxaSzGSiXJs
+	 7GBAOjWOwiNnDkqScnL49tAkIoR5mBhlxZfZ+Tko932oSB0KjKVVzV4fQ+1A76Vbqj
+	 BwyE2d0Yi1EQkoWrc0yNzELJJeKe/io9siirov/+rV1nlVtGRnpgVUYuGi08jRYq1e
+	 jjsw5x4r7Bybg==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7EC8D198003A;
+	Wed, 21 Oct 2026 05:45:14 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:45:15 -0400
+X-ME-Sender: <xms:qYnYaufq1do0LiMjqUh_MVS5GpCTu8MsEBrUxXrtuEYmRQIiez4Fxw>
+    <xme:qYnYakkO9X2tqPtKQBq0QaTYASVnKG4i7bRJlJbH0gpHOcCDetx7dYYMBcIWWdy8h
+    swM-qFQT0yeqeuJWhqBDZ1Bvdk9DzVoD_l5EnSP9Efdqtnq5ByOW1y4>
+X-ME-Received: <xmr:qYnYaj88NIjHidgJaPHUmMHcKLobv2PmE6e73TvZdwCcTz96eGn54NFpN5c>
+X-ME-Proxy-Cause: dmFkZTEvSGxqsS/DCaPrggYcYAQK0UZ39j8LbajDADSnOtRkzscubUYfT4QG9YFwUmB4m/
+    kOLTZtPo7idkGfRZ64bg0kyTMrowCm5MlGyFhj2RDKk0JZOjsjyRhPqI+lFteJQkFUPNHn
+    LozYLAA0SEOuSdMjeSqqWrdzUl1ewAlBAh6qM/3JGoxsevh0EFDBO2dV7vgsbPTDNf3Pgm
+    79iw0I9pIorh5TKx/C2X5McT2BllFiKgTQ7VWpqSEgLzS90pqkNYD8KlcMrCH7Tj6OwscM
+    8X80pZLzvTMIfxe0yFhsWRlt5G7fqzGqFbrLNJ1wR+Xr9XyHSX32ddD5haUU/skkilnHUB
+    3zFtcBXirPMjfyxZGGrSpd251ZIIi7VPccrs9cRUe8lOjItkCBc+H7f1K5fISdK19Vfr/6
+    kevT2sr2dcWqR+C3h/lXltL9BmGAb4nhmuXnUch/YpHUh2RdsvPspYvBZag0Yd2UkcbUuc
+    FtaQusiN0eI3qmfzISC+tHyb/mTecI1Rth2pNEy1TregUSscp8U/3v+k2FCUScHm6lMd1O
+    0UPm5z3m8ijT2DNAQveiywpygsF+K2gX9NKhbRpqrA+mW2ovUShVy5ZStxmXxrCoxG5SBe
+    0O5j/SJUUf2+TGYNUEkfQoodCGzsjfBHxpC+G6mVSRXqylr6qqvqXvUvzTIg
+X-ME-Proxy: <xmx:qYnYaqFVp58x8BH9wMBODSM8NWmLihPyVegrbn3ZCkhbYqui9obYCA>
+    <xmx:qYnYanK7YIze1X7ly1Mkj6OL_FBM8cGAvE-Jxvqfn9DAHl8KJSL1Rw>
+    <xmx:qYnYaqlfF3IT31nnq3QmPN7Xt0VLohR4Xr2WGeF2ATGt_IbkTz3Taw>
+    <xmx:qYnYagyW3OXo_oHBKD8jZrok_-aFcP0eybriN1OV46m16eYMyEWX5w>
+    <xmx:qonYaksedfw28ySJuezGXN1KKRNzyi5bOkQSvHzBnt5Ewz2nHRa90uGL>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 05:45:13 -0400 (EDT)
+Date: Wed, 21 Oct 2026 10:45:12 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Zhijian Han <hanzhijian1991@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Nico Pache <nico.pache@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: khugepaged selftest: intermittent collapse_full(madvise:anon)
+ failure and low-memory false failures on arm64 64K
+Message-ID: <atiIEzFdd_sm4JG-@thinkstation>
+References: <20261020024116.2949892-1-hanzhijian1991@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,90 +87,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020032958.1930203-1-liam@infradead.org> <20261020032958.1930203-3-liam@infradead.org>
-In-Reply-To: <20261020032958.1930203-3-liam@infradead.org>
-From: Eugenio Perez Martin <eperezma@redhat.com>
-Date: Wed, 21 Oct 2026 11:44:12 +0200
-X-Gm-Features: AclHuK_jKi01q0VmVHTsa2S8ArDqG757g4K4BNVLj8KlbA8R5_nv2rY1xUcuj7A
-Message-ID: <CAJaqyWcBq4gyB3KCjjeGbrCbfsUenBWKZA+xTOOLPG-cxoHYnw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] tools/virtio: check posix_memalign() for failure
-To: liam@infradead.org
-Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261020024116.2949892-1-hanzhijian1991@gmail.com>
 
-On Tue, Oct 20, 2026 at 5:30=E2=80=AFAM Liam R. Howlett (Google)
-<liam@infradead.org> wrote:
->
-> posix_memalign() returns zero or a positive error number and does not set
-> errno.  virtio_test and vhost_net_test assert that the return is not
-> negative, which will always be true, and the userspace __get_free_page()
-> ignores it, so a failed allocation continues without setting the pointer
->
-> Assert a zero return in the tests, and return 0 from __get_free_page() on
-> failure, as the kernel's does.
->
+On Tue, Oct 20, 2026 at 10:41:16AM +0800, Zhijian Han wrote:
+> Hi,
+> 
+> I ran the khugepaged selftest (as of linux-next 20261019, tip 3d229ce89862,
+> which includes Kiryl's "run every supported collapse order by default"
+> series) across several QEMU configurations while setting up a test
+> environment for mTHP collapse work. Two observations that may be worth
+> acting on; full logs available on request.
+> 
+> Environment: QEMU virt, cortex-a76, 2 CPUs, khugepaged test run from a
+> statically linked binary inside a busybox initramfs (no distro userspace).
+> 
+> 1. Intermittent collapse_full(madvise:anon) failure on arm64 64K pages
+> ---------------------------------------------------------------------
+> With 6G of guest memory (so order-13 PMD folios are allocatable), over 7
+> complete runs I saw one failure:
+> 
+>   # Run test: collapse_full (madvise:anon)
+>   # Collapse multiple fully populated PTE table... Fail: Bad return value
+>   not ok 80 collapse_full
+> 
+> The other 6 runs were fully green (102 pass / 0 fail / 3 skip each). The
+> failing run did not report an allocation failure or OOM in the kernel log.
+> A minimal probe (mmap 512M, memset, single MADV_COLLAPSE) succeeds
+> deterministically on the same setup, so the failure seems specific to the
+> test's sequence rather than a plain allocation shortfall.
 
-Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
+A failed allocation would not show in the log: MADV_COLLAPSE allocates
+with GFP_TRANSHUGE, which has __GFP_NOWARN, and returns ENOMEM.
+collapse_full asks for four 512M folios after faulting in 2G of base
+pages; your probe asks for one.
 
-Thanks!
+Could you check whether thp_collapse_alloc_failed in /proc/vmstat moves
+in a failing run, or print errno?
 
-> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
-> ---
->  tools/virtio/linux/kernel.h   | 3 ++-
->  tools/virtio/vhost_net_test.c | 2 +-
->  tools/virtio/virtio_test.c    | 2 +-
->  3 files changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/tools/virtio/linux/kernel.h b/tools/virtio/linux/kernel.h
-> index 104abf9d1aee5..3497660c690a9 100644
-> --- a/tools/virtio/linux/kernel.h
-> +++ b/tools/virtio/linux/kernel.h
-> @@ -106,7 +106,8 @@ static inline unsigned long __get_free_page(gfp_t gfp=
-)
->  {
->         void *p;
->
-> -       posix_memalign(&p, PAGE_SIZE, PAGE_SIZE);
-> +       if (posix_memalign(&p, PAGE_SIZE, PAGE_SIZE))
-> +               return 0;
->         return (unsigned long)p;
->  }
->
-> diff --git a/tools/virtio/vhost_net_test.c b/tools/virtio/vhost_net_test.=
-c
-> index 566e15420bb65..3122ea0970568 100644
-> --- a/tools/virtio/vhost_net_test.c
-> +++ b/tools/virtio/vhost_net_test.c
-> @@ -197,7 +197,7 @@ static void vq_info_add(struct vdev_info *dev, int id=
-x, int num, int fd)
->         info->idx =3D idx;
->         info->kick =3D eventfd(0, EFD_NONBLOCK);
->         r =3D posix_memalign(&info->ring, 4096, vring_size(num, 4096));
-> -       assert(r >=3D 0);
-> +       assert(!r);
->         vq_reset(info, num, &dev->vdev);
->         vhost_vq_setup(dev, info);
->
-> diff --git a/tools/virtio/virtio_test.c b/tools/virtio/virtio_test.c
-> index 028f54e6854a8..9d61463f6e09b 100644
-> --- a/tools/virtio/virtio_test.c
-> +++ b/tools/virtio/virtio_test.c
-> @@ -116,7 +116,7 @@ static void vq_info_add(struct vdev_info *dev, int nu=
-m)
->         info->kick =3D eventfd(0, EFD_NONBLOCK);
->         info->call =3D eventfd(0, EFD_NONBLOCK);
->         r =3D posix_memalign(&info->ring, 4096, vring_size(num, 4096));
-> -       assert(r >=3D 0);
-> +       assert(!r);
->         vq_reset(info, num, &dev->vdev);
->         vhost_vq_setup(dev, info);
->         dev->fds[info->idx].fd =3D info->call;
-> --
-> 2.47.3
->
->
+> 
+> This is the same symptom family as bddffa2f9cbf ("kselftest: mm: fix
+> intermittent failure khugepaged test") — there may be a residual flaky
+> spot on 64K-page configurations. I was not able to reproduce it
+> deterministically; happy to run more instrumented iterations if that
+> would help.
+> 
+> 2. Low-memory runs fail without a skip guard
+> --------------------------------------------
+> With 2G of guest memory, six cases fail outright (starting with
+> "Allocate huge page on fault... Fail") because an order-13 (512M) folio
+> cannot be allocated. collapse_compound_extreme() already skips itself
+> with "PMD too large for fault-time THP construction" on this
+> configuration; the PMD-order cases have no equivalent protection, so a
+> low-memory or fragmentation-heavy environment reports what looks like
+> kernel bugs rather than resource limitations.
+> 
+> A skip guard along the lines of "cannot allocate a PMD-order folio even
+> before the test proper — skipping" (or a documented minimum memory
+> requirement) would make the suite's results readable on such setups.
 
+Generally, I don't think it is useful to run this selftest in a
+memory-constrained environment. It is not the focus of the selftest.
+
+Getting a reliable guard can be tricky, as we need not only free memory,
+but memory that can be allocated for a PMD-size THP. Fragmentation or the
+migratetype of the memory can also limit it.
+
+Let's just keep it out of scope for the selftest.
+
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
