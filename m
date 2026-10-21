@@ -1,91 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551056;
-	b=eG8zcy1IVkyncxbK6c4qrmuWLT5a4BvHWPJaGrSz3KUOlq8V9Z/7lsWqy3X1bAhVeKNV
-	 YT4n94WwkZpFRMv0ezi9aNfsQeP6pEntGpPyjX2SfKNwd9wU24QpEoRB9LW/C2HpFZI4/
-	 qThKyUlnD0omtvOSIY9TBq4+AB8404RK2Gz4h64CGLWg5LVTgkORntxMX1zEE/6lYlKTX
-	 nf3N7AZfWIvWO+Yc4QyFi/h/ZXdBA6SM08pabcFQR/U+TML+nTTR3TQGqbjvwp6MX2HOp
-	 MW8NVKC77dY790fIkBSm1ClGch6U7Qi63y0jvNMQV9Hi65mygKJVaaBRSs84YG1sT+A==
+	t=1792551057;
+	b=XvnnZUBeB2x5W5zrofquFgWy7/LXzU7yd/644jWtorSgnqLic7S8GnfZ/W7EaFsOTFCV
+	 xHpkUer4Za+VB5k4WL9pkY9jKNIGPMMEI4oiSjXdaPj2t9qP4c2n+3NKP3xPpXOZW6kNs
+	 bGPrA6uIpuU5d/HOHpZm8QZI4ObESD1/Ljyjx5KJMM984YIeXAJ4cboBXsZOoMcPWdwLp
+	 nkf55DYUCQrXYNSaPLJYsoWuv+e6wUJjr6HuHnkqEVcYSYLRuyyEyHFo8DARBJGqfx98W
+	 tvs/ckgdlrXdni1Wn+h4hp4s7RJj5E1BXn7g+vL5wxo3/i2hhUjbY3F849wG4aO4luQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551056;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551057;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=wZoEfE7hyPINcO4oEzH6Xm/UEuOnJmf4WzCd35Q4EqI=;
-	b=o/XOnwZg/emcHidwlZ36Xt7c7kBtBSWaYASh+HgV5s9zXrVjgBPVhoe3NglCD6R4oPnr
-	 0I22Twa3l7k/ctTJHzFknIFvrSzYsRdNXK0pjDNT92gT9SkDLjqsnW9rQHGQXPVTZwZTj
-	 G7D3+3Kcjf7zL7SmghQRFkVdznd5O/PT4cQ8s2PKpBgp1A43b5h4l6Q6STTmAr/1WMx9k
-	 0VunrrjgTbGRSvTTCyPpi2j56iJvqzV6+BLgBKVzBN27C752hRg+gi6F92LzkBzY3Idsn
-	 NLg5vQ8BCAhBO2oNcgdmaXLx9hr2IGujDe/GKhuUcMQLrvCl05nVbhhy3d8PBw20xzA==
+	 Subject:To:References:Cc:From:Message-ID:Date:User-Agent:MIME-Version:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=GHpCiXrobtjq+79vNH0JP2GJuLZO5PYviPAXuNKXvXU=;
+	b=AchpAhprh/C+IYGp9WwOEoEa3RHt3SzBgZ9/6U9kgCw4g21EZuUhbIxG2qOwulnAbzDb
+	 DdjYZUTvkK1ei425gQY4j1jruPNquBFePJNNMe6rsiXN7f/n8+r/F5ofOwX2aBEGbGs/8
+	 UbjmB59tRcw5ZW9rKOHFkusk8XOQn2R3AojrxRQVUt3L2kWRrxmLaho5VIVL/WKpYEaNs
+	 YyUeVZd08jrifZPPdWTtltdGrre7OuZ2H7lnr7xFcll2TV1GEG3BK63L9JgdRdwYKVPB9
+	 BT89bREy+dLfgoxaiA5TMnq4X5IP+JR6aphXp2FZS+lTh32XTZSlYEo4KOansGsn3VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hHjYrzFv;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rOOW0LFU;
+	arc=none smtp.remote-ip=209.85.214.179
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1397D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:50:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1397D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F206606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:50:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F206606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hHjYrzFv
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so611352eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:50:55 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rOOW0LFU
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9cf928dc9so6871885ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:50:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792551055; x=1793155855; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wZoEfE7hyPINcO4oEzH6Xm/UEuOnJmf4WzCd35Q4EqI=;
-        b=hHjYrzFvGja06AK5clILci44z6cRylDO7K4O9c0+fd4jLMi5LYN1soRxZ9YO3xmTM/
-         8LSFYg2XJuj+R4+q+fQeyJnnldsSwyrCvF6M3MpMYQa/yJzZ3IzxzFInDc5Eg+qAqHO8
-         ds4chpMAmBe0qyEY7bhw9NyRvcH59D6LHjyWI=
+        d=gmail.com; s=20251104; t=1792551057; x=1793155857; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:cc:references:to:subject:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=GHpCiXrobtjq+79vNH0JP2GJuLZO5PYviPAXuNKXvXU=;
+        b=rOOW0LFU9Nic3tkOfZ9safmfimFzgnPg9RA53cW9fNyVz/eMwOnmSZrIEBqalv//pz
+         glfYocPPfaEcDdpqjRwf0FRJQD+ue9nkh3LpNi7g2yH9UEOzhltZ5TLYsq/mLT8Cq+/x
+         81G2rNC+kc5IS/UzHptyk/JOiT9LzoIl8mDq5ggaQWsI8Bj4xxiiMhfQ0pECKDz3rEdt
+         4jz99mnn5mWI13md7lxwwiiEuDMn6z9bNj80RCcOW1jJHGnG2EO+Z2LCHIfsKgJQvCAG
+         2+tWDaGpfBXMEgwm53lxLVnb0oNsVIlFBPAK6JmfSk0M5+j29A8/K7es4FeeYvIjZ7ll
+         aW2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551055; x=1793155855;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792551057; x=1793155857;
+        h=content-transfer-encoding:content-type:in-reply-to:mime-version
+         :user-agent:date:message-id:from:cc:references:to:subject:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wZoEfE7hyPINcO4oEzH6Xm/UEuOnJmf4WzCd35Q4EqI=;
-        b=PXsB5Jf7SGFhDWHG+V5CxSzEp/r2tDrUxs56vzzUxL0xnicQPDcfHY/FmS/TLZIjUC
-         UgsIkprBIRoKx6YdrQlquWsBvY9S4rEQKME/+FiMS/LL2QBgI8N3aBFMjPOncGDzh4iE
-         XrqSLGMTWf/OCZGt8krx+MAgnur5/V3smfLjQHO1s0dXkT+y71dG/sGqwEfYXNsgfxti
-         dIYFXkr5BKyY+7GzFczYpkTGBsppFixDhVS4uWO668bPfYGtz2KFuAZzItSTKMogH2ZF
-         32H6/4eixJ/5MhURYaPOzdKqknFqQmaicK6rZ/h+DYz1SlPlv1kENk871WSBbBReWCAn
-         rtFw==
-X-Forwarded-Encrypted: i=1; AKwUvByC2Ae9au8dVEfpscQQi1apod7rbiPF0RpJRkppuc1Rpwx+osOCk/4/Fqi+NiumuDuot45pPxCvI2QqRyc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyMF/fRX9ie94qkacBjVaUEKLNSjBxeaI56dvOEeFIDzU18ft3
-	n+SXTA0n3FfyMAw2uI1umoRwnVXRdMKaCixBlLlxW/89UDm+whO0J+ZEMHqGhpgy9w==
-X-Gm-Gg: AYBFou1QevReSR/Hrhux7BXrklZStIuIUkxoUX/XGLlmhTdqnujTshuJyr2XASPtCXA
-	LNIlLOFGtLNrYT1RBqQRhYenYnKfOrOrF4+yAa4aQkvNOtrftt+T//nRHfO1TLLYgOqljteJOmJ
-	m3GOn7RQmc+1DUCXx1dNqv6S2LSKaKbhgbRVX0NpBcoQmkD68Q2j59dfd5dDx0ADrDGQITAERM2
-	MR6YcVgklY8JpSfCPmbt+5BOPEg0VlfIWzqlbPKEkKnjQV0MqzePle2UwAc6EFlqwGsc7gzI/I9
-	3HI7bVq414b1sJ54tzP3Jls57hKC0fzY8uRRjjhaBdyonoVDme9lS3uH5u93zoAxhMxI/vEWboG
-	JYWxd3SFg0Xr+lQIvVoh4hZQTWan/lV01g3Uis46QC9utfCQKJMlOnBvRcn8fG4HKRyropqK+XP
-	RjyKGLQtg/8hGqYoqj1C4z+amC+2o4jHN09T4zTNDlACzOdskBeLQER/AcBeuFQt011octuJyZ9
-	1e7ZaFc3HJxVzJoHZQLXQVcWqvppRJtFGy6oxqxKfwIKL6GkkTfjw902njp5+hUnTf9ZVhSH4l+
-	D/mu7YiCep6IY1A9R6yH
-X-Received: by 2002:a05:7301:144a:b0:35d:363b:c115 with SMTP id 5a478bee46e88-3674db4c591mr1276619eec.30.1792551055018;
-        Tue, 20 Oct 2026 19:50:55 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:97d1:a8be:236d:bf79])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm3819901eec.18.2026.10.20.19.50.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:50:54 -0700 (PDT)
-Date: Wed, 21 Oct 2026 11:50:50 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Tzung-Bi Shih <tzungbi@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Petr Mladek <pmladek@suse.com>, 
-	Douglas Anderson <dianders@chromium.org>, Tomasz Figa <tfiga@chromium.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] watchdog: Force console verbose when reporting lockups
-Message-ID: <atgoRCF8OCsD4keA@google.com>
-References: <20261007051726.4154849-1-tzungbi@kernel.org>
+        bh=GHpCiXrobtjq+79vNH0JP2GJuLZO5PYviPAXuNKXvXU=;
+        b=Vbb8vqgp/Iv2hehkha6lB6qdqPav/dZg+f4CV9SOirM7H5UJK7PiJOqWfKLZfnuy4k
+         iZr0CD50DVy7yvPpsA6ByCLuWf3J7ezrpy9IpYDUZO4fmQWIbGkIK9T0saCKE15EX6BE
+         i9igDmTImeIDIdZZD7JqHZILTfHb+y7Bb43fFTpPlXrRyJgSHKqvgUTGZdSTrroApsK9
+         yzuIKmQD7e0aoDb0tXk0TMeKcYB7FMi1T/Yo2SYEJAYsUmsn6RwIJHQ5dtWyxUPZLfwK
+         RcKdo0BggkYjcMkYTMV0u/Q1urV9I99Ds1WUZP3qlGC5lq03qlR+yxGJtcIWaR1maEAn
+         AubQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx4fvlfYr8OfdRBZb/gpC4Hz0/DnXBOXeaIqtdead2fGYyFviL146upJGQNaRwvLIuPExiXfo3ZLjdbsSo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8vEJ/i3en4VEjxEQyiMn+4S9OZS0o3slKEqnz8Qihf/bK2rRo
+	PzUrRrQLGn9i/Y23TnQ/wUHm8NlLja5Cxt34wUXvMRqDfXyt8HL7/frxBxcAwQ==
+X-Gm-Gg: AYBFou1/ctGdMfRnvzVHJ5dyOj76D6AkgKoZrDMe4JQHOXQcCUBP6ODEn0AN0Syzonf
+	yqTyZj5ByZ8rZXqjArSYR7qw9IIcutMbXoOQO8u62Kttp0l0dKHRtMa3fAr27FJ6aRBd5QyriAs
+	S/hURNNc++IdTyKlP4+qjvXH0ZBmmegM/l7QfMKHhNqFS46n3VJX6EHVx9YAWxArrKBz2/IkYyW
+	0NnTG/+dBRhK1fsEi3BkfVorsWkLbINFh+dOT83HRsXb0WEJ0A2dfFTX+4zrGSNETxZAztS4ZXZ
+	N6SsstwRH1mfD+PyiH7hKWbW5MevOACm5Lw2w9eYi5p3BbbgwfeeQKvIxkYSdH8Bc+fzWRmKj4H
+	QILveG4d/og3pr8A0DaScx+Y/6CuwvOfLCTnhWptsHhhp4CC4CuH3CktoaA0qTBjTzut+laWCn6
+	8LxPpU49OmQNo/fv7B/ZHZ67zNrEm5UQpCmkzACoqbuUqwW8PdnuGhSrABJtPorew+G5q/LX6CO
+	D+91OytrYAilzjk+6+a+cHBQD41K/WW2jcqj/xZl0JWv9wCxpoKqsovZlj21mAoEx5a40uCKOaF
+	Ih9WMKdRH8c=
+X-Received: by 2002:a17:90b:4e8e:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3ad86f28703mr395508a91.28.1792551056635;
+        Tue, 20 Oct 2026 19:50:56 -0700 (PDT)
+Received: from [10.1.1.24] (122-59-250-182-adsl.sparkbb.co.nz. [122.59.250.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80fc21dcsm1837926a91.7.2026.10.20.19.50.52
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 20 Oct 2026 19:50:56 -0700 (PDT)
+Subject: Re: [PATCH v5] m68k: Fix atari mouse movement
+To: Miro Kropacek <miro.kropacek@gmail.com>, geert@linux-m68k.org,
+ dmitry.torokhov@gmail.com
+References: <20261021000338.2160223-1-miro.kropacek@gmail.com>
+ <20261021022336.2232886-1-miro.kropacek@gmail.com>
+Cc: linux-m68k@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+From: Michael Schmitz <schmitzmic@gmail.com>
+Message-ID: <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
+Date: Wed, 21 Oct 2026 15:50:49 +1300
+User-Agent: Mozilla/5.0 (X11; Linux ppc; rv:45.0) Gecko/20100101
+ Icedove/45.4.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,35 +100,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007051726.4154849-1-tzungbi@kernel.org>
+In-Reply-To: <20261021022336.2232886-1-miro.kropacek@gmail.com>
+Content-Type: text/plain; charset=iso-8859-15; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On (26/10/07 05:17), Tzung-Bi Shih wrote:
-> When a hard or soft lockup is detected, the watchdog prints a header at
-> KERN_EMERG (<0>), followed by diagnostic details (modules, registers,
-> and backtraces) at KERN_WARNING/KERN_DEFAULT (<4>) and KERN_INFO (<6>).
-> If console_loglevel is quiet (<= 4), the console skips those <4>/<6>
-> diagnostic messages before vpanic() has a chance to call
-> console_verbose().  With the buddy detector, this leaves only the
-> detector CPU's panic stack on the console and nothing about the locked
-> CPU:
-> 
->   <0>[ 1535.991833][    C6] watchdog: Watchdog detected hard LOCKUP on cpu 7
->   <0>[ 1535.995960][    C6] Kernel panic - not syncing: Hard LOCKUP
->   <4>[ 1535.995970][    C6] CPU: 6 UID: 0 PID: 0 Comm: swapper/6 ...
->   <4>[ 1535.995997][    C6] Call trace:
->   ...
->   <4>[ 1535.996063][    C6]  watchdog_hardlockup_check+0x1e0/0x288
->   <4>[ 1535.996075][    C6]  watchdog_buddy_check_hardlockup+0xb4/0xc0
-> 
-> Similar to commit 168e06f7937d ("kernel/hung_task.c: force console
-> verbose before panic"), call console_verbose() before printing the
-> lockup report so the diagnostic output is not suppressed.
-> 
-> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
+Hi Miro,
 
-Looks good to me.
+Am 21.10.2026 um 15:23 schrieb Miro Kropacek:
+> Kernels are built with -funsigned-char since version 6.2, resulting in
+> the signed 8-bit position deltas reported by the IKBD being
+> misinterpreted as unsigned.
+>
+> The hook is handed a raw IKBD packet, so take it as a byte stream and
+> apply the sign to the two displacement values alone.
+>
+> Fixes: 3bc753c06dd02a35 ("kbuild: treat char as always unsigned")
+> Link: https://lists.debian.org/debian-68k/2026/08/msg00000.html
+> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
+> Cc: linux-input <linux-input@vger.kernel.org>
+> ---
+>
+> Changes in v5:
+>
+> - take the packet as u8 * and cast only the two displacement values,
+>   as suggested; this drops the call-site cast v4 needed, and with it
+>   the -Wpointer-sign warning
+> - add the types include atarikb.h now relies on
+>
+> The same cast of the two displacement values was tested on an Atari
+> Falcon030 with CT60 in v1 of this patch; v5 differs from it only in the
+> type of the hook argument.
+>
+> Michael's Reviewed-by from v3 is dropped, as the approach has changed
+> twice since.
 
-FWIW,
-Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Dmitry's reasoning makes sense to me, so we're back on v1 with no change 
+in functionality.
+
+Looks good to me, feel free to add my Reviewed-by if it helps get this 
+merged.
+
+Cheers,
+
+	Michael
+
+
+>
+>  arch/m68k/atari/atakeyb.c        | 2 +-
+>  arch/m68k/include/asm/atarikb.h  | 4 +++-
+>  drivers/input/mouse/atarimouse.c | 6 +++---
+>  3 files changed, 7 insertions(+), 5 deletions(-)
+>
+> diff --git a/arch/m68k/atari/atakeyb.c b/arch/m68k/atari/atakeyb.c
+> index 49a9a459bdf4..b715e2b8351c 100644
+> --- a/arch/m68k/atari/atakeyb.c
+> +++ b/arch/m68k/atari/atakeyb.c
+> @@ -39,7 +39,7 @@ void (*atari_MIDI_interrupt_hook) (void);
+>  /* Hook for keyboard inputdev  driver */
+>  void (*atari_input_keyboard_interrupt_hook) (unsigned char, char);
+>  /* Hook for mouse inputdev  driver */
+> -void (*atari_input_mouse_interrupt_hook) (char *);
+> +void (*atari_input_mouse_interrupt_hook)(u8 *buf);
+>  EXPORT_SYMBOL(atari_input_keyboard_interrupt_hook);
+>  EXPORT_SYMBOL(atari_input_mouse_interrupt_hook);
+>
+> diff --git a/arch/m68k/include/asm/atarikb.h b/arch/m68k/include/asm/atarikb.h
+> index 68f3622bf591..bdf67bff1472 100644
+> --- a/arch/m68k/include/asm/atarikb.h
+> +++ b/arch/m68k/include/asm/atarikb.h
+> @@ -15,6 +15,8 @@
+>  #ifndef _LINUX_ATARIKB_H
+>  #define _LINUX_ATARIKB_H
+>
+> +#include <linux/types.h>
+> +
+>  void ikbd_write(const char *, int);
+>  void ikbd_mouse_button_action(int mode);
+>  void ikbd_mouse_rel_pos(void);
+> @@ -37,7 +39,7 @@ extern void (*atari_MIDI_interrupt_hook) (void);
+>  /* Hook for keyboard inputdev  driver */
+>  extern void (*atari_input_keyboard_interrupt_hook) (unsigned char, char);
+>  /* Hook for mouse inputdev  driver */
+> -extern void (*atari_input_mouse_interrupt_hook) (char *);
+> +extern void (*atari_input_mouse_interrupt_hook)(u8 *buf);
+>
+>  int atari_keyb_init(void);
+>
+> diff --git a/drivers/input/mouse/atarimouse.c b/drivers/input/mouse/atarimouse.c
+> index b1219cc4d9a2..c5b794262e85 100644
+> --- a/drivers/input/mouse/atarimouse.c
+> +++ b/drivers/input/mouse/atarimouse.c
+> @@ -60,7 +60,7 @@ extern int atari_mouse_buttons;
+>
+>  static struct input_dev *atamouse_dev;
+>
+> -static void atamouse_interrupt(char *buf)
+> +static void atamouse_interrupt(u8 *buf)
+>  {
+>  	int buttons, dx, dy;
+>
+> @@ -71,8 +71,8 @@ static void atamouse_interrupt(char *buf)
+>  #endif
+>
+>  	/* only relative events get here */
+> -	dx = buf[1];
+> -	dy = buf[2];
+> +	dx = (s8)buf[1];
+> +	dy = (s8)buf[2];
+>
+>  	input_report_rel(atamouse_dev, REL_X, dx);
+>  	input_report_rel(atamouse_dev, REL_Y, dy);
+>
