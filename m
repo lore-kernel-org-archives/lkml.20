@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552592;
-	b=r5cEifnjQUtYphgq9ivo80XBNKZ9naS+L4v8qc0KwssdbMtPHZbJmyjx5hHkCBghrpR6
-	 Tq7EGmSnyKX7quV9O+Gqy7DWqbDvK/qk4CigI8B3d5lF86A0OtdFG8f+z8YD3EYVSLXUT
-	 90YEr3YJ5AIG2MTc/fs2eX68pkvcjqAvL+dGO6VKFTvbXT+EL1/DO2X+2LO55dNqpA2W1
-	 nbj5b4kj4otWNbILdUsWjPcBzFYmkMknBFRD7Cpn7R6ek4T8rxcXWz/FHx9OQ3DkfNud7
-	 bGXC755RUkW6fIYR6xVMI+6szlGccfsFPQoPY4fDl+lHD/mGf4zrCzfV5mzNbaUmHsA==
+	t=1792552609;
+	b=tuvzwwFaYT9bXoDLq4eXrznsJYIToZ4tnJrH9zqeB/zocppDHxhQtRXKXlo5aV0lgC+w
+	 a0QpUeNQmzlqBp+zaVz0smkNAl03rc7I7kR0/LFv1BVSIYh+Z34PoKq/nJbioTvyJusb6
+	 bVIvPF08Ssf7KmXskj9E8sJ6QbXYXFNCnYr/IVksuKjRzKuWfN7QTTw9hbKfYen6luhdB
+	 EODU0OXnI0UPYAbjaYUWrCNbex2UC3/Ov4XfvELxVBLWwLhZLEQXEYciyev7Zh6cM/fxf
+	 uBH0tkLop/zmA+QyGAwSz5Ula8oyiMGtav9d/BpBB5Zp60n+XklIoEDq3B/pej2sb+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552609;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:In-Reply-To:
 	 References:From:Subject:To:Cc:Date;
-	bh=d24OKph/dI3fMzhKO4dFLmk6VqPOISOSLJodM00CPtM=;
-	b=wks0OtGJZ37RAJwuBdPZ7vbMMm+UYyoHetoGTfW+UciR3sY1zwed2IQ0uvmD8y+XL+tb
-	 We1f9GSzQbiBfLN597tLjrwFrOVfB+s1RSCnvz0+Y97BTMeU3G1mEh8MouzSDSllVeZZr
-	 jPEqnqyJ0226HgOYh14y5Tv/4pJVZd68ijiJqQ7iHad2QUj5rN0PA3QrZBq7XEOwgWiQQ
-	 MSKsFzt9oWoLlH3TBarmJ3WDaBVzy+xffHKElD1Pn7ZBKVrvFltOt/LyDSS7wky5JAPOI
-	 Bcs4Spgad2mmyi/LwMhBPYPCRM7Iv+3KRbsSe6BeBvX7vFTyHzTrHcjpEyCVyBTMZYw==
+	bh=XPetBJfDkAzAZ8UTDQicbQRK+iH8jjbopwvCHr+wr6I=;
+	b=xlRKqqNnHr5O2yYiHYPDxlX6Xrp63nWY9XDVOY5Ly/pIbS6Gd0vm3t8GDN8qzivoNUEp
+	 B7pDyQdjxfIY81Vbx1f28QUtwUcva9WqSryJk2RYW+btwyeX5D6sOd/FUpJ96oEj8tAy2
+	 y3Bc9zo4hqIe+seRORQEDx56+tC+EaRd4iUwfNrUoGDPmntyqntd2sUQiSVveAzkUPiSu
+	 X0QEsMrjF2NcjuX+qUxUK9FXLkOZrUYPBGsHTBNjDwO6eILxgTsPP2pTChVZ2xkMZYoyk
+	 8sxHUX47lvcw+QXHIbaemqTOcX9NyNyvdbGUZYEshnbhYwkOUv3hM4BP82WbDBu1NKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=tuxist.de;
 	spf=fail smtp.mailfrom=tuxist.de;
-	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=hUEK9wC8;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=MvZnv28O;
 	arc=none smtp.remote-ip=173.212.254.19
 Received: from groupware.tuxist.de (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 890B3606DF4D;
-	Wed, 21 Oct 2026 03:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 890B3606DF4D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE5A607095A;
+	Wed, 21 Oct 2026 03:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE5A607095A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=hUEK9wC8
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=MvZnv28O
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tuxist.de; s=201705;
-	t=1792552589; bh=NMVDSDjOZGNY76Ujx4GCSRiB5GMdAmEKLefSrBeW47c=;
+	t=1792552606; bh=vR17OcW5DP2to57LMQkJCXz9sOVicwks2xNBVa+gK/c=;
 	h=In-Reply-To:References:From:Subject:To:Cc:Date:From;
-	b=hUEK9wC8c82hmaxN7GvfHjVqWGzMBUAXR9E6XpyiOtyZrcL4m/ZkPkpTKM98bUt8/
-	 hKmZeiz7ASHZjsZ24rEHvNw62WAJIiYExdUrg1ZkWb80RjyGYNZ0it3VZojohlLrCf
-	 EkbtvP35+SyrEjI0hPw5TptUiOGClrsLKhS6ov3hbCYlipn9uocHRy1VRnNaEVLms1
-	 ljCW4zBdndqEXuIIMmKnJLdgb2wvjjaPZY1212ZAwBJwC3b5fEgxLKLsFt2gNqGEdF
-	 e2JdRS+sQ9Y23aumuWLMZ0frLnwYf+kniL+syh9yD4TJ1GVZ0C0q/MoNhw9VIbWglF
-	 sSUYu3kf9JVFg==
+	b=MvZnv28OBDboO1Uckg4VHuK/UCnr5rurzSeDn9rh3CM8Oi+8NpNgWNtkIccYx5qyF
+	 ndW6QFNpKp4H1P/4JvmDSWzdVIoAEaNqTq0xoPzvfxt/e9z2vys6oMeRq/oKDBtAKX
+	 +aN+sOmHrfuEdV51ZZ2r9g7Wr8TdKTAbfDMuwOcjaJRjx2hJlcsYGzARDsqfxqV/ox
+	 pXIMjzH5sYuB/rluXQcqmrcXuXG3EFvM9A7sdlk/Mb+bGwKBVX2e/Nd0FT74brAjMl
+	 Uv8wqwMlruNGr/0anQBZWwG1U3ZR6i99bXdWRuTg5MYbLZTBKM77f30XEu7RAoTaFi
+	 ZGVDd4t4+1GaQ==
 Received: from [10.1.1.106] (unknown [10.1.2.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by groupware.tuxist.de (Postfix) with ESMTPSA id C1CFD8A07DE;
-	Wed, 21 Oct 2026 05:16:28 +0200 (CEST)
-Message-ID: <f96af98f97ff569f2556381499da586646273c3d.1792552161.git.jan.koester@tuxist.de>
+	by groupware.tuxist.de (Postfix) with ESMTPSA id B90608A096E;
+	Wed, 21 Oct 2026 05:16:45 +0200 (CEST)
+Message-ID: <1151adfbb3aeae57cb26df8723287857f8d0af57.1792552161.git.jan.koester@tuxist.de>
 In-Reply-To: <cover.1792552161.git.jan.koester@tuxist.de>
 References: <cover.1792552161.git.jan.koester@tuxist.de>
 From: Jan Koester <jan.koester@tuxist.de>
-Subject: [RFC PATCH v2 20/41] groups: add getgroups_r() and setgroups_r()
+Subject: [RFC PATCH v2 25/41] uidgid: parse and print ids in their text form
 To: Christian Brauner <brauner@kernel.org>,
     Alexander Viro <viro@zeniv.linux.org.uk>,
     "Serge E. Hallyn" <serge@hallyn.com>
@@ -69,7 +69,7 @@ Cc: Jan Kara <jack@suse.cz>,
     audit@vger.kernel.org,
     keyrings@vger.kernel.org,
     linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 05:15:40 +0200
+Date: Wed, 21 Oct 2026 05:15:45 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,159 +79,243 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-Supplementary groups as arrays of __kernel_gid_r_t, so they can include
-UUID and GUID groups. Unlike the set*id_r() calls, "no id" is not
-accepted in the list. getgroups() reports such groups as the overflow
-gid.
+Add helpers for interfaces that pass ids as text:
+
+- make_kuid_str()/make_kgid_str() parse what kuid_str() writes: a
+  decimal number, a UUID, or a GUID in braces,
+- kuid_str_munged()/kgid_str_munged() write an id as seen from a user
+  namespace, the overflow id if it has no mapping there,
+- kuid_str_signed()/kgid_str_signed() write a legacy id as a signed
+  number, for output that used "%d",
+- KUID_STR() and friends wrap them as expressions with a buffer of the
+  enclosing block, so that printf-like calls can replace
+  "%u", from_kuid(&init_user_ns, uid) by "%s", KUID_STR(uid) and print
+  legacy ids exactly as before.
 
 Assisted-by: Claude:claude-opus-5-5
 
 Signed-off-by: Jan Koester <jan.koester@tuxist.de>
 ---
- include/linux/syscalls.h |  4 ++
- kernel/groups.c          | 79 +++++++++++++++++++++++++++++++++++++++-
- kernel/sys_ni.c          |  2 +
- 3 files changed, 83 insertions(+), 2 deletions(-)
+ include/linux/uidgid.h |  19 ++++++
+ kernel/uidgid_r.c      | 152 +++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 167 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
-index 09fa1093a9..b4b9d5d76f 100644
---- a/include/linux/syscalls.h
-+++ b/include/linux/syscalls.h
-@@ -994,6 +994,10 @@ asmlinkage long sys_setfsuid_r(const struct __kernel_uid_r __user *uid,
- 			       struct __kernel_uid_r __user *old_uid);
- asmlinkage long sys_setfsgid_r(const struct __kernel_uid_r __user *gid,
- 			       struct __kernel_uid_r __user *old_gid);
-+asmlinkage long sys_getgroups_r(int gidsetsize,
-+				struct __kernel_uid_r __user *grouplist);
-+asmlinkage long sys_setgroups_r(int gidsetsize,
-+				const struct __kernel_uid_r __user *grouplist);
- asmlinkage long sys_open_tree(int dfd, const char __user *path, unsigned flags);
- asmlinkage long sys_open_tree_attr(int dfd, const char __user *path,
- 				   unsigned flags,
-diff --git a/kernel/groups.c b/kernel/groups.c
-index 3aa0651d7a..8eb8260fc7 100644
---- a/kernel/groups.c
-+++ b/kernel/groups.c
-@@ -8,6 +8,7 @@
- #include <linux/security.h>
- #include <linux/sort.h>
- #include <linux/syscalls.h>
-+#include <linux/uidgid_r.h>
+diff --git a/include/linux/uidgid.h b/include/linux/uidgid.h
+index ac7786f760..03ece8a4cb 100644
+--- a/include/linux/uidgid.h
++++ b/include/linux/uidgid.h
+@@ -190,6 +190,25 @@ static inline u32 kgid_hash(kgid_t gid)
+ 
+ char *kuid_str(kuid_t uid, char buf[KID_STR_LEN]);
+ char *kgid_str(kgid_t gid, char buf[KID_STR_LEN]);
++char *kuid_str_signed(kuid_t uid, char buf[KID_STR_LEN]);
++char *kgid_str_signed(kgid_t gid, char buf[KID_STR_LEN]);
++
++/*
++ * The text form of an id as an expression, in a buffer that lives until
++ * the end of the enclosing block -- for "%s" in place of "%u" (or "%d",
++ * with the _D variants, which write a legacy id as a signed number) of
++ * from_kuid(&init_user_ns, uid) in printf-like calls.
++ */
++#define KUID_STR(uid)	kuid_str(uid, (char [KID_STR_LEN]) {})
++#define KGID_STR(gid)	kgid_str(gid, (char [KID_STR_LEN]) {})
++#define KUID_STR_D(uid)	kuid_str_signed(uid, (char [KID_STR_LEN]) {})
++#define KGID_STR_D(gid)	kgid_str_signed(gid, (char [KID_STR_LEN]) {})
++char *kuid_str_munged(struct user_namespace *to, kuid_t uid,
++		      char buf[KID_STR_LEN]);
++char *kgid_str_munged(struct user_namespace *to, kgid_t gid,
++		      char buf[KID_STR_LEN]);
++kuid_t make_kuid_str(struct user_namespace *from, const char *str);
++kgid_t make_kgid_str(struct user_namespace *from, const char *str);
+ 
+ #ifdef CONFIG_USER_NS
+ 
+diff --git a/kernel/uidgid_r.c b/kernel/uidgid_r.c
+index d71aecddb2..9bba60f413 100644
+--- a/kernel/uidgid_r.c
++++ b/kernel/uidgid_r.c
+@@ -12,6 +12,7 @@
+ #include <linux/uidgid.h>
+ #include <linux/uidgid_r.h>
  #include <linux/user_namespace.h>
- #include <linux/vmalloc.h>
- #include <linux/uaccess.h>
-@@ -194,7 +195,9 @@ bool may_setgroups(void)
-  *	without another task interfering.
-  */
++#include <linux/uuid.h>
  
--SYSCALL_DEFINE2(setgroups, int, gidsetsize, gid_t __user *, grouplist)
-+static long do_setgroups(int gidsetsize, const void __user *grouplist,
-+			 int (*from_user)(struct group_info *,
-+					  const void __user *))
- {
- 	struct group_info *group_info;
- 	int retval;
-@@ -207,7 +210,7 @@ SYSCALL_DEFINE2(setgroups, int, gidsetsize, gid_t __user *, grouplist)
- 	group_info = groups_alloc(gidsetsize);
- 	if (!group_info)
- 		return -ENOMEM;
--	retval = groups_from_user(group_info, grouplist);
-+	retval = from_user(group_info, grouplist);
- 	if (retval) {
- 		put_group_info(group_info);
- 		return retval;
-@@ -220,6 +223,78 @@ SYSCALL_DEFINE2(setgroups, int, gidsetsize, gid_t __user *, grouplist)
- 	return retval;
- }
- 
-+static int groups_from_user_classic(struct group_info *group_info,
-+				    const void __user *grouplist)
-+{
-+	return groups_from_user(group_info, (gid_t __user *)grouplist);
-+}
-+
-+SYSCALL_DEFINE2(setgroups, int, gidsetsize, gid_t __user *, grouplist)
-+{
-+	return do_setgroups(gidsetsize, grouplist, groups_from_user_classic);
-+}
-+
-+/* group_info to a user-space array of __kernel_gid_r_t */
-+static int groups_to_user_r(struct __kernel_uid_r __user *grouplist,
-+			    const struct group_info *group_info)
-+{
-+	struct user_namespace *user_ns = current_user_ns();
-+	unsigned int i;
-+
-+	for (i = 0; i < group_info->ngroups; i++) {
-+		if (put_kgid_r(user_ns, group_info->gid[i], grouplist + i))
-+			return -EFAULT;
-+	}
-+	return 0;
-+}
-+
-+/* group_info from a user-space array of __kernel_gid_r_t; no "no id" here */
-+static int groups_from_user_r(struct group_info *group_info,
-+			      const void __user *grouplist)
-+{
-+	const struct __kernel_uid_r __user *list = grouplist;
-+	struct user_namespace *user_ns = current_user_ns();
-+	struct __kernel_uid_r id;
-+	unsigned int i;
-+
-+	for (i = 0; i < group_info->ngroups; i++) {
-+		kgid_t kgid;
-+
-+		if (copy_from_user(&id, list + i, sizeof(id)))
-+			return -EFAULT;
-+		kgid = make_kgid_r(user_ns, &id);
-+		if (!gid_valid(kgid))
-+			return -EINVAL;
-+		group_info->gid[i] = kgid;
-+	}
-+	return 0;
-+}
-+
-+SYSCALL_DEFINE2(getgroups_r, int, gidsetsize,
-+		struct __kernel_uid_r __user *, grouplist)
-+{
-+	const struct cred *cred = current_cred();
-+	int i;
-+
-+	if (gidsetsize < 0)
-+		return -EINVAL;
-+
-+	i = cred->group_info->ngroups;
-+	if (gidsetsize) {
-+		if (i > gidsetsize)
-+			return -EINVAL;
-+		if (groups_to_user_r(grouplist, cred->group_info))
-+			return -EFAULT;
-+	}
-+	return i;
-+}
-+
-+SYSCALL_DEFINE2(setgroups_r, int, gidsetsize,
-+		const struct __kernel_uid_r __user *, grouplist)
-+{
-+	return do_setgroups(gidsetsize, grouplist, groups_from_user_r);
-+}
-+
  /*
-  * Check whether we're fsgid/egid or in the supplemental group..
+  * Whether @id is well formed: a known type, reserved bytes zero, a UUID of
+@@ -278,11 +279,12 @@ int put_kgid_r(struct user_namespace *to, kgid_t kgid,
+ }
+ EXPORT_SYMBOL(put_kgid_r);
+ 
+-static char *kid_str(u32 type, u32 legacy, const uuid_t *b, char *buf)
++static char *kid_str(u32 type, u32 legacy, const uuid_t *b, char *buf,
++		     bool sgn)
+ {
+ 	switch (type) {
+ 	case KID_LEGACY:
+-		snprintf(buf, KID_STR_LEN, "%u", legacy);
++		snprintf(buf, KID_STR_LEN, sgn ? "%d" : "%u", legacy);
+ 		break;
+ 	case KID_UUID:
+ 		snprintf(buf, KID_STR_LEN, "%pUb", b);
+@@ -304,7 +306,7 @@ static char *kid_str(u32 type, u32 legacy, const uuid_t *b, char *buf)
   */
-diff --git a/kernel/sys_ni.c b/kernel/sys_ni.c
-index 01f14d7a4d..aa0b867925 100644
---- a/kernel/sys_ni.c
-+++ b/kernel/sys_ni.c
-@@ -113,6 +113,8 @@ COND_SYSCALL(setresgid_r);
- COND_SYSCALL(getresgid_r);
- COND_SYSCALL(setfsuid_r);
- COND_SYSCALL(setfsgid_r);
-+COND_SYSCALL(setgroups_r);
-+COND_SYSCALL(getgroups_r);
- COND_SYSCALL(mq_open);
- COND_SYSCALL_COMPAT(mq_open);
- COND_SYSCALL(mq_unlink);
+ char *kuid_str(kuid_t uid, char buf[KID_STR_LEN])
+ {
+-	return kid_str(uid.type, __kuid_val(uid), &uid.uuid, buf);
++	return kid_str(uid.type, __kuid_val(uid), &uid.uuid, buf, false);
+ }
+ EXPORT_SYMBOL(kuid_str);
+ 
+@@ -318,6 +320,148 @@ EXPORT_SYMBOL(kuid_str);
+  */
+ char *kgid_str(kgid_t gid, char buf[KID_STR_LEN])
+ {
+-	return kid_str(gid.type, __kgid_val(gid), &gid.uuid, buf);
++	return kid_str(gid.type, __kgid_val(gid), &gid.uuid, buf, false);
+ }
+ EXPORT_SYMBOL(kgid_str);
++
++/**
++ * kuid_str_signed - like kuid_str(), but a legacy uid as a signed number
++ * @uid: the kuid
++ * @buf: buffer of KID_STR_LEN bytes
++ *
++ * For callers that used to print from_kuid() with "%d".
++ *
++ * Return: @buf.
++ */
++char *kuid_str_signed(kuid_t uid, char buf[KID_STR_LEN])
++{
++	return kid_str(uid.type, __kuid_val(uid), &uid.uuid, buf, true);
++}
++EXPORT_SYMBOL(kuid_str_signed);
++
++/**
++ * kgid_str_signed - like kgid_str(), but a legacy gid as a signed number
++ * @gid: the kgid
++ * @buf: buffer of KID_STR_LEN bytes
++ *
++ * For callers that used to print from_kgid() with "%d".
++ *
++ * Return: @buf.
++ */
++char *kgid_str_signed(kgid_t gid, char buf[KID_STR_LEN])
++{
++	return kid_str(gid.type, __kgid_val(gid), &gid.uuid, buf, true);
++}
++EXPORT_SYMBOL(kgid_str_signed);
++
++/*
++ * Parses the text forms of kuid_str() -- a decimal number, a UUID, a GUID
++ * in braces -- with an optional trailing newline.
++ */
++static int kid_r_from_str(const char *str, struct __kernel_uid_r *id)
++{
++	char buf[KID_STR_LEN];
++	size_t len = strlen(str);
++
++	if (len && str[len - 1] == '\n')
++		len--;
++	if (!len || len >= sizeof(buf))
++		return -EINVAL;
++	memcpy(buf, str, len);
++	buf[len] = '\0';
++	memset(id, 0, sizeof(*id));
++
++	if (len == UUID_STRING_LEN) {
++		id->type = UID_R_UUID;
++		return uuid_parse(buf, (uuid_t *)id->uuid);
++	}
++	if (len == UUID_STRING_LEN + 2 && buf[0] == '{' && buf[len - 1] == '}') {
++		buf[len - 1] = '\0';
++		id->type = UID_R_GUID;
++		return guid_parse(buf + 1, (guid_t *)id->guid);
++	}
++	id->type = UID_R_LEGACY;
++	return kstrtou32(buf, 10, &id->legacy);
++}
++
++/**
++ * make_kuid_str - map the text form of a uid into a kuid
++ * @from: user namespace the uid is in
++ * @str: a decimal number, a UUID, or a GUID in braces; a trailing newline
++ *       is allowed
++ *
++ * Return: the kuid, INVALID_UID if @str is malformed or has no mapping in
++ * @from.
++ */
++kuid_t make_kuid_str(struct user_namespace *from, const char *str)
++{
++	struct __kernel_uid_r id;
++
++	if (kid_r_from_str(str, &id))
++		return INVALID_UID;
++	return make_kuid_r(from, &id);
++}
++EXPORT_SYMBOL(make_kuid_str);
++
++/**
++ * make_kgid_str - map the text form of a gid into a kgid
++ * @from: user namespace the gid is in
++ * @str: a decimal number, a UUID, or a GUID in braces; a trailing newline
++ *       is allowed
++ *
++ * Return: the kgid, INVALID_GID if @str is malformed or has no mapping in
++ * @from.
++ */
++kgid_t make_kgid_str(struct user_namespace *from, const char *str)
++{
++	struct __kernel_uid_r id;
++
++	if (kid_r_from_str(str, &id))
++		return INVALID_GID;
++	return make_kgid_r(from, &id);
++}
++EXPORT_SYMBOL(make_kgid_str);
++
++/**
++ * kuid_str_munged - text form of a kuid in a user namespace
++ * @to: user namespace the uid is wanted in
++ * @uid: the kuid
++ * @buf: buffer of KID_STR_LEN bytes
++ *
++ * Return: @buf, holding the uid in @to like kuid_str() does, overflowuid if
++ * @uid has no mapping there.
++ */
++char *kuid_str_munged(struct user_namespace *to, kuid_t uid,
++		      char buf[KID_STR_LEN])
++{
++	if (!kuid_has_mapping(to, uid))
++		snprintf(buf, KID_STR_LEN, "%u", overflowuid);
++	else if (uid_is_legacy(uid))
++		snprintf(buf, KID_STR_LEN, "%u", from_kuid(to, uid));
++	else
++		kuid_str(uid, buf);
++	return buf;
++}
++EXPORT_SYMBOL(kuid_str_munged);
++
++/**
++ * kgid_str_munged - text form of a kgid in a user namespace
++ * @to: user namespace the gid is wanted in
++ * @gid: the kgid
++ * @buf: buffer of KID_STR_LEN bytes
++ *
++ * Return: @buf, holding the gid in @to like kgid_str() does, overflowgid if
++ * @gid has no mapping there.
++ */
++char *kgid_str_munged(struct user_namespace *to, kgid_t gid,
++		      char buf[KID_STR_LEN])
++{
++	if (!kgid_has_mapping(to, gid))
++		snprintf(buf, KID_STR_LEN, "%u", overflowgid);
++	else if (gid_is_legacy(gid))
++		snprintf(buf, KID_STR_LEN, "%u", from_kgid(to, gid));
++	else
++		kgid_str(gid, buf);
++	return buf;
++}
++EXPORT_SYMBOL(kgid_str_munged);
 -- 
 2.56.0
 
