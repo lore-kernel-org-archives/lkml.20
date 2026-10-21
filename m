@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552589;
-	b=R0/B6pHChTxdan1OX9Ktw3LDtBYUyOeh8p5muhoTH2nUxnryCFuUBlJf27snrtDXdhww
-	 EHM2bhWHQXG8oT1WHSkGaSRi0UrX6RFmKs5YgiiNt82RbTlDJbN1EaZqU1ayZJOddyGBS
-	 nnrenHbX/tT7eNUDqztc4QJszHCU+a/7Z5P71QBMlkEh8M3v5/xv0s4qeCZyEJHtgZ62i
-	 GMg3j/9RtjoJOH9KpyIKmZ4rK4hoJ0hnW6c/eqRMegMkTi2ybXHBJvWWL7Qsk2ea1IDxd
-	 WBtOA/E1irf+KPuVjrcob0c6XAdlbKzis21f+ZL9zSurX6sIQBBie1aQy7Y6fjT+kMg==
+	t=1792552570;
+	b=V136J1YJZ+Ed/ebBH9NhrdkBEK7ghlBQEqpZ2r5FL1fUFrfGloUDRmwzKpoip2XjQHjN
+	 Qa4ddDY0lVkH7CTPB79JrMr7gL9q/rgs4aY8rr+Kokju/DHr6shu8xqee4NE/qgp/H8PS
+	 O2qnuEhYXube9HN3DB+zgp674lUFQv7B56bMR4bIe1hZK6bq288MFDu0g+OQWaLAxWx/U
+	 AMuYoBW6sWPnGgsFPYFj2aQ9nkinv2dGUI/e+vFAyv7mdeeRfmZywVGoTK94rvur1Sy40
+	 71oNzpOkJszEGZKYueV5IyDSuBI2gSeSwy20fJj1Xqf2uKmhIkZWs7pQP8Ar1DfePuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552589;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552570;
 	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:In-Reply-To:
-	 References:From:Subject:To:Cc:Date:X-Spam;
-	bh=DN63fcAbZOr4DzpoKQai8EJ/O3JjRyHa8in8Eg0V/nQ=;
-	b=2h6yM+r54tAkjckbPb+FexFSHB91sEirPc58gZ9uIPXcLMsYJOZ9TrX4GpGeAaEE3ll4
-	 2+MtSYMy/2U/PIXJZmRb/fCSDb1uz45WakTPGoRyzqXjBFSJ5a4aOwOGYj/A247SmV3br
-	 EOQ7yri/EZGl8kce1GxArBtjhFO+4Zv0kv9BkLf0rIhbKeVqDHBUc33Dqj/BwwZTSFKAi
-	 +WKFM6ZnM3SUBS9zEKAoXhnd/Y61oGAHv++VXW6c+cUGyIJe2fM2EUt5HU9gwyRhM8hN0
-	 YD1uUy0IVEIYxoiFg4Am2CwGDcTXPea5aNFd7yk7LZAPC0VXRG2U9MCh4u3934sdsQw==
+	 References:From:Subject:To:Cc:Date;
+	bh=qdX/if/Vks4LtHia0l+fUvYqJOpb6zoMHl+LWjeHHoU=;
+	b=1e5I8+6nP7xZ8KRc/y4FZHqxBBmcP6bl3hdtAPM26TsvssscJOfDPrUm6q0Cqp8QmiJd
+	 azfmFQZfIPxLkVbPg2y43lev0AT5GAwGkC/vj9epCsROuRyQUKBV/Uc6Rr1oqTsUWAYHV
+	 zcQJ+BUGhQGXwywaPpxCFqAXsplB/gAf56GJRMJHKP5AmJ6s7Q+8G43cU6NR8UWEUDZbN
+	 HTmdIVrj3HjrIDOoFj5u2pWB0KO4zIDSSG4YR6aDK9acbH2IOVi4tf/KvS/jcBtEt6wMS
+	 ZVKwKy5PbbxXeGamQWJzyCOKIPynEKeK3jIWJIla6l8czdHH7RDEc4tBy3qxn24ovVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=tuxist.de;
 	spf=fail smtp.mailfrom=tuxist.de;
-	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=C+Naquet;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=IE3zmQFM;
 	arc=none smtp.remote-ip=173.212.254.19
 Received: from groupware.tuxist.de (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C7F3606D3D0;
-	Wed, 21 Oct 2026 03:16:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C7F3606D3D0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8748F606A337;
+	Wed, 21 Oct 2026 03:16:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8748F606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=C+Naquet
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=IE3zmQFM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tuxist.de; s=201705;
-	t=1792552586; bh=0apaDegVOVFS5TwK2iAUEkqmdtB5hM5qhyDUWswSDSE=;
+	t=1792552562; bh=y6zy55wnqQPEYhv9B99usCt+PFRA22CLnDaPf4ccMxU=;
 	h=In-Reply-To:References:From:Subject:To:Cc:Date:From;
-	b=C+Naquet2wv50WDK1K3yEmAkRfq9pweBCGw49dajG8OaZ3t/XHVKGbVLaLE0I/Mad
-	 X9vhBVpNcQR2D7y1FAZx9bAxy1lSybABMr1AQ5BdKdKsyYou5cOZ41BbyBNjD8RaKp
-	 CwCBT0hChqRu9zx1uADZv1BrWIOz+4uzJd2IEzUyXGAO9dNRWbYgkXLE5PbFSFKDTE
-	 Wo33WKvsvtGFky606hCV3PVERALNrbiyFL6m7cBg2Q2HCD14kscOzijWjG9Ouz6Abp
-	 ZY2xPXxrY3JgEtZuiVH2lYhUcuHHXOhWEbX7Bxxfj9L2pz3YyG6tNBziSgMKr1CKVi
-	 KZfvejnwEzGXg==
+	b=IE3zmQFMMKAavC/e4BOe+uE+Gt9ga+95eM4Hx3E4t+4E1U9UsnGEswLeYkd+foUxw
+	 lsK80KaJc+Tb7ljhTDSvZT3hudkr+7Ff1IyK9GUwpSNiw2cwqRSjooG4tb0740ExhR
+	 fog+ikSME3zgm/TwqzYTQQL1bLGIgCPSYYFr0tLZdMQqQsBVtPdN3/oZ8xRlcsLTeq
+	 W8UrjomwsinTXdtG73C4FZBffZ3szS+KPrxRX9t6GHewiHXIGuc+QYKiXvIFlKirK8
+	 O+vn8/O/1CeaDg7a4IikJD6yHNLS6TimfkPpe4/asJuByWUHqL7RssB+uoRIWEK+E8
+	 H+357dO7W8+GQ==
 Received: from [10.1.1.106] (unknown [10.1.2.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by groupware.tuxist.de (Postfix) with ESMTPSA id B91E28A090D;
-	Wed, 21 Oct 2026 05:16:25 +0200 (CEST)
-Message-ID: <86c66380f2654c560e747b9075edbddd610975ca.1792552161.git.jan.koester@tuxist.de>
+	by groupware.tuxist.de (Postfix) with ESMTPSA id EAE048A0927;
+	Wed, 21 Oct 2026 05:16:01 +0200 (CEST)
+Message-ID: <54affe23a0160331a14a3e993ea30b0d5af7df1a.1792552161.git.jan.koester@tuxist.de>
 In-Reply-To: <cover.1792552161.git.jan.koester@tuxist.de>
 References: <cover.1792552161.git.jan.koester@tuxist.de>
 From: Jan Koester <jan.koester@tuxist.de>
-Subject: [RFC PATCH v2 19/41] cred: add the *_r variants of the get/set*id()
- system calls
+Subject: [RFC PATCH v2 12/41] keys: name per-user keyrings of UUID and GUID
+ users by the whole uid
 To: Christian Brauner <brauner@kernel.org>,
     Alexander Viro <viro@zeniv.linux.org.uk>,
     "Serge E. Hallyn" <serge@hallyn.com>
@@ -70,8 +70,7 @@ Cc: Jan Kara <jack@suse.cz>,
     audit@vger.kernel.org,
     keyrings@vger.kernel.org,
     linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 05:15:39 +0200
-X-Spam: Yes
+Date: Wed, 21 Oct 2026 05:15:32 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,833 +80,336 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-Add getuid_r(), geteuid_r(), getgid_r(), getegid_r(), setuid_r(),
-setgid_r(), setreuid_r(), setregid_r(), setresuid_r(), getresuid_r(),
-setresgid_r(), getresgid_r(), setfsuid_r() and setfsgid_r(). They work
-like the classic calls but take and return pointers to
-__kernel_uid_r_t, so a process can be a UUID or GUID user and group.
-The classic calls see such ids as the overflow id, like the 16 bit
-calls see ids above 65535.
+The user keyring, the user session keyring and the persistent keyring
+are found by name: "_uid.<uid>", "_uid_ses.<uid>" and
+"_persistent.<uid>", the uid in the caller's user namespace. A UUID or
+GUID uid has none and comes out as -1, so all such users would find
+and share the same keyrings -- each other's keys.
 
-To share the logic, the classic implementations are split into a part
-converting the arguments and a do_*() part working on kuid_t/kgid_t,
-in which an invalid id means "unchanged" -- what -1 converts to. A
-NULL pointer, UID_R_NONE or a classic -1 mean "unchanged" in the new
-calls as well.
+Name their keyrings after the text form of the uid (kuid_str()), which
+is unique; classic uids keep their names. Hand request-key the text
+form as well instead of -1.
 
-UUIDs and GUIDs have no mapping outside the initial user namespace, so
-only CAP_SETUID/CAP_SETGID there can switch to one.
-
-setfsuid_r() and setfsgid_r() differ from the classic calls in one
-respect: they return -EPERM when the change is not allowed instead of
-failing silently, and hand the old id back through a second argument.
-
-The system call numbers are assigned in a later patch.
+Also add KEYCTL_CHOWN_R, KEYCTL_CHOWN with __kernel_uid_r_t ids, so keys
+can be given to UUID and GUID users and groups.
 
 Assisted-by: Claude:claude-opus-5-5
 
 Signed-off-by: Jan Koester <jan.koester@tuxist.de>
 ---
- include/linux/syscalls.h |  27 +++
- kernel/sys.c             | 472 +++++++++++++++++++++++++++++----------
- kernel/sys_ni.c          |  10 +
- 3 files changed, 385 insertions(+), 124 deletions(-)
+ include/uapi/linux/keyctl.h  |  1 +
+ security/keys/compat.c       |  3 ++
+ security/keys/internal.h     |  3 ++
+ security/keys/keyctl.c       | 61 ++++++++++++++++++++++++++----------
+ security/keys/persistent.c   | 11 +++++--
+ security/keys/process_keys.c | 36 +++++++++++++++------
+ security/keys/request_key.c  | 12 +++++--
+ 7 files changed, 97 insertions(+), 30 deletions(-)
 
-diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
-index 8413b624ad..09fa1093a9 100644
---- a/include/linux/syscalls.h
-+++ b/include/linux/syscalls.h
-@@ -17,6 +17,7 @@ struct iocb;
- struct io_event;
- struct iovec;
- struct __kernel_old_itimerval;
-+struct __kernel_uid_r;
- struct kexec_segment;
- struct linux_dirent;
- struct linux_dirent64;
-@@ -967,6 +968,32 @@ asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
- asmlinkage long sys_rseq(struct rseq __user *rseq, uint32_t rseq_len,
- 			 int flags, uint32_t sig);
- asmlinkage long sys_rseq_slice_yield(void);
-+asmlinkage long sys_getuid_r(struct __kernel_uid_r __user *uid);
-+asmlinkage long sys_geteuid_r(struct __kernel_uid_r __user *uid);
-+asmlinkage long sys_getgid_r(struct __kernel_uid_r __user *gid);
-+asmlinkage long sys_getegid_r(struct __kernel_uid_r __user *gid);
-+asmlinkage long sys_setuid_r(const struct __kernel_uid_r __user *uid);
-+asmlinkage long sys_setgid_r(const struct __kernel_uid_r __user *gid);
-+asmlinkage long sys_setreuid_r(const struct __kernel_uid_r __user *ruid,
-+			       const struct __kernel_uid_r __user *euid);
-+asmlinkage long sys_setregid_r(const struct __kernel_uid_r __user *rgid,
-+			       const struct __kernel_uid_r __user *egid);
-+asmlinkage long sys_setresuid_r(const struct __kernel_uid_r __user *ruid,
-+				const struct __kernel_uid_r __user *euid,
-+				const struct __kernel_uid_r __user *suid);
-+asmlinkage long sys_getresuid_r(struct __kernel_uid_r __user *ruid,
-+				struct __kernel_uid_r __user *euid,
-+				struct __kernel_uid_r __user *suid);
-+asmlinkage long sys_setresgid_r(const struct __kernel_uid_r __user *rgid,
-+				const struct __kernel_uid_r __user *egid,
-+				const struct __kernel_uid_r __user *sgid);
-+asmlinkage long sys_getresgid_r(struct __kernel_uid_r __user *rgid,
-+				struct __kernel_uid_r __user *egid,
-+				struct __kernel_uid_r __user *sgid);
-+asmlinkage long sys_setfsuid_r(const struct __kernel_uid_r __user *uid,
-+			       struct __kernel_uid_r __user *old_uid);
-+asmlinkage long sys_setfsgid_r(const struct __kernel_uid_r __user *gid,
-+			       struct __kernel_uid_r __user *old_gid);
- asmlinkage long sys_open_tree(int dfd, const char __user *path, unsigned flags);
- asmlinkage long sys_open_tree_attr(int dfd, const char __user *path,
- 				   unsigned flags,
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 35b538ba84..fad5573234 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -410,21 +410,12 @@ SYSCALL_DEFINE2(getpriority, int, which, int, who)
-  *      operations (as far as semantic preservation is concerned).
-  */
- #ifdef CONFIG_MULTIUSER
--long __sys_setregid(gid_t rgid, gid_t egid)
-+/* Invalid ids (INVALID_GID) stand for "unchanged" */
-+static long do_setregid(kgid_t krgid, kgid_t kegid)
- {
--	struct user_namespace *ns = current_user_ns();
- 	const struct cred *old;
- 	struct cred *new;
- 	int retval;
--	kgid_t krgid, kegid;
--
--	krgid = make_kgid(ns, rgid);
--	kegid = make_kgid(ns, egid);
--
--	if ((rgid != (gid_t) -1) && !gid_valid(krgid))
--		return -EINVAL;
--	if ((egid != (gid_t) -1) && !gid_valid(kegid))
--		return -EINVAL;
+diff --git a/include/uapi/linux/keyctl.h b/include/uapi/linux/keyctl.h
+index 4c8884eea8..73ee0cb7b7 100644
+--- a/include/uapi/linux/keyctl.h
++++ b/include/uapi/linux/keyctl.h
+@@ -70,6 +70,7 @@
+ #define KEYCTL_MOVE			30	/* Move keys between keyrings */
+ #define KEYCTL_CAPABILITIES		31	/* Find capabilities of keyrings subsystem */
+ #define KEYCTL_WATCH_KEY		32	/* Watch a key or ring of keys for changes */
++#define KEYCTL_CHOWN_R			33	/* set ownership of a key, __kernel_uid_r_t ids */
  
- 	new = prepare_creds();
- 	if (!new)
-@@ -432,7 +423,7 @@ long __sys_setregid(gid_t rgid, gid_t egid)
- 	old = current_cred();
+ /* keyctl structures */
+ struct keyctl_dh_params {
+diff --git a/security/keys/compat.c b/security/keys/compat.c
+index 1545efdca5..c7acf7db59 100644
+--- a/security/keys/compat.c
++++ b/security/keys/compat.c
+@@ -52,6 +52,9 @@ COMPAT_SYSCALL_DEFINE5(keyctl, u32, option,
+ 	case KEYCTL_CHOWN:
+ 		return keyctl_chown_key(arg2, arg3, arg4);
  
- 	retval = -EPERM;
--	if (rgid != (gid_t) -1) {
-+	if (gid_valid(krgid)) {
- 		if (gid_eq(old->gid, krgid) ||
- 		    gid_eq(old->egid, krgid) ||
- 		    ns_capable_setid(old->user_ns, CAP_SETGID))
-@@ -440,7 +431,7 @@ long __sys_setregid(gid_t rgid, gid_t egid)
- 		else
- 			goto error;
- 	}
--	if (egid != (gid_t) -1) {
-+	if (gid_valid(kegid)) {
- 		if (gid_eq(old->gid, kegid) ||
- 		    gid_eq(old->egid, kegid) ||
- 		    gid_eq(old->sgid, kegid) ||
-@@ -450,8 +441,8 @@ long __sys_setregid(gid_t rgid, gid_t egid)
- 			goto error;
- 	}
- 
--	if (rgid != (gid_t) -1 ||
--	    (egid != (gid_t) -1 && !gid_eq(kegid, old->gid)))
-+	if (gid_valid(krgid) ||
-+	    (gid_valid(kegid) && !gid_eq(kegid, old->gid)))
- 		new->sgid = new->egid;
- 	new->fsgid = new->egid;
- 
-@@ -466,6 +457,22 @@ long __sys_setregid(gid_t rgid, gid_t egid)
- 	return retval;
- }
- 
-+long __sys_setregid(gid_t rgid, gid_t egid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kgid_t krgid, kegid;
++	case KEYCTL_CHOWN_R:
++		return keyctl_chown_key_r(arg2, compat_ptr(arg3), compat_ptr(arg4));
 +
-+	krgid = make_kgid(ns, rgid);
-+	kegid = make_kgid(ns, egid);
-+
-+	if ((rgid != (gid_t) -1) && !gid_valid(krgid))
-+		return -EINVAL;
-+	if ((egid != (gid_t) -1) && !gid_valid(kegid))
-+		return -EINVAL;
-+
-+	return do_setregid(krgid, kegid);
-+}
-+
- SYSCALL_DEFINE2(setregid, gid_t, rgid, gid_t, egid)
- {
- 	return __sys_setregid(rgid, egid);
-@@ -476,15 +483,12 @@ SYSCALL_DEFINE2(setregid, gid_t, rgid, gid_t, egid)
+ 	case KEYCTL_SETPERM:
+ 		return keyctl_setperm_key(arg2, arg3);
+ 
+diff --git a/security/keys/internal.h b/security/keys/internal.h
+index b7b622bc36..63874fa531 100644
+--- a/security/keys/internal.h
++++ b/security/keys/internal.h
+@@ -249,6 +249,9 @@ extern long keyctl_keyring_search(key_serial_t, const char __user *,
+ 				  const char __user *, key_serial_t);
+ extern long keyctl_read_key(key_serial_t, char __user *, size_t);
+ extern long keyctl_chown_key(key_serial_t, uid_t, gid_t);
++extern long keyctl_chown_key_r(key_serial_t id,
++			       const struct __kernel_uid_r __user *user,
++			       const struct __kernel_uid_r __user *group);
+ extern long keyctl_setperm_key(key_serial_t, key_perm_t);
+ extern long keyctl_instantiate_key(key_serial_t, const void __user *,
+ 				   size_t, key_serial_t);
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+index d14ace88e5..984c9c54a5 100644
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -946,26 +946,17 @@ long keyctl_read_key(key_serial_t keyid, char __user *buffer, size_t buflen)
   *
-  * SMP: Same implicit races as above.
+  * If successful, 0 will be returned.
   */
--long __sys_setgid(gid_t gid)
-+static long do_setgid(kgid_t kgid)
+-long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
++static long keyctl_chown_kid(key_serial_t id, kuid_t uid, kgid_t gid)
  {
--	struct user_namespace *ns = current_user_ns();
- 	const struct cred *old;
- 	struct cred *new;
- 	int retval;
--	kgid_t kgid;
+ 	struct key_user *newowner, *zapowner = NULL;
+ 	struct key *key;
+ 	key_ref_t key_ref;
+ 	long ret;
+-	kuid_t uid;
+-	kgid_t gid;
+ 	unsigned long flags;
  
--	kgid = make_kgid(ns, gid);
- 	if (!gid_valid(kgid))
- 		return -EINVAL;
- 
-@@ -512,6 +516,11 @@ long __sys_setgid(gid_t gid)
- 	return retval;
- }
- 
-+long __sys_setgid(gid_t gid)
-+{
-+	return do_setgid(make_kgid(current_user_ns(), gid));
-+}
-+
- SYSCALL_DEFINE1(setgid, gid_t, gid)
- {
- 	return __sys_setgid(gid);
-@@ -567,21 +576,12 @@ static void flag_nproc_exceeded(struct cred *new)
-  * 100% compatible with BSD.  A program which uses just setuid() will be
-  * 100% compatible with POSIX with saved IDs.
-  */
--long __sys_setreuid(uid_t ruid, uid_t euid)
-+/* Invalid ids (INVALID_UID) stand for "unchanged" */
-+static long do_setreuid(kuid_t kruid, kuid_t keuid)
- {
--	struct user_namespace *ns = current_user_ns();
- 	const struct cred *old;
- 	struct cred *new;
- 	int retval;
--	kuid_t kruid, keuid;
+-	uid = make_kuid(current_user_ns(), user);
+-	gid = make_kgid(current_user_ns(), group);
+-	ret = -EINVAL;
+-	if ((user != (uid_t) -1) && !uid_valid(uid))
+-		goto error;
+-	if ((group != (gid_t) -1) && !gid_valid(gid))
+-		goto error;
 -
--	kruid = make_kuid(ns, ruid);
--	keuid = make_kuid(ns, euid);
--
--	if ((ruid != (uid_t) -1) && !uid_valid(kruid))
--		return -EINVAL;
--	if ((euid != (uid_t) -1) && !uid_valid(keuid))
--		return -EINVAL;
++	/* invalid ids leave the owner or group unchanged */
+ 	ret = 0;
+-	if (user == (uid_t) -1 && group == (gid_t) -1)
++	if (!uid_valid(uid) && !gid_valid(gid))
+ 		goto error;
  
- 	new = prepare_creds();
- 	if (!new)
-@@ -589,7 +589,7 @@ long __sys_setreuid(uid_t ruid, uid_t euid)
- 	old = current_cred();
+ 	key_ref = lookup_user_key(id, KEY_LOOKUP_CREATE | KEY_LOOKUP_PARTIAL,
+@@ -985,12 +976,12 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+ 		bool is_privileged_op = false;
  
- 	retval = -EPERM;
--	if (ruid != (uid_t) -1) {
-+	if (uid_valid(kruid)) {
- 		new->uid = kruid;
- 		if (!uid_eq(old->uid, kruid) &&
- 		    !uid_eq(old->euid, kruid) &&
-@@ -597,7 +597,7 @@ long __sys_setreuid(uid_t ruid, uid_t euid)
- 			goto error;
+ 		/* only the sysadmin can chown a key to some other UID */
+-		if (user != (uid_t) -1 && !uid_eq(key->uid, uid))
++		if (uid_valid(uid) && !uid_eq(key->uid, uid))
+ 			is_privileged_op = true;
+ 
+ 		/* only the sysadmin can set the key's GID to a group other
+ 		 * than one of those that the current process subscribes to */
+-		if (group != (gid_t) -1 && !gid_eq(gid, key->gid) && !in_group_p(gid))
++		if (gid_valid(gid) && !gid_eq(gid, key->gid) && !in_group_p(gid))
+ 			is_privileged_op = true;
+ 
+ 		if (is_privileged_op && !capable(CAP_SYS_ADMIN))
+@@ -998,7 +989,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
  	}
  
--	if (euid != (uid_t) -1) {
-+	if (uid_valid(keuid)) {
- 		new->euid = keuid;
- 		if (!uid_eq(old->uid, keuid) &&
- 		    !uid_eq(old->euid, keuid) &&
-@@ -611,8 +611,8 @@ long __sys_setreuid(uid_t ruid, uid_t euid)
- 		if (retval < 0)
- 			goto error;
+ 	/* change the UID */
+-	if (user != (uid_t) -1 && !uid_eq(uid, key->uid)) {
++	if (uid_valid(uid) && !uid_eq(uid, key->uid)) {
+ 		ret = -ENOMEM;
+ 		newowner = key_user_lookup(uid);
+ 		if (!newowner)
+@@ -1042,7 +1033,7 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
  	}
--	if (ruid != (uid_t) -1 ||
--	    (euid != (uid_t) -1 && !uid_eq(keuid, old->uid)))
-+	if (uid_valid(kruid) ||
-+	    (uid_valid(keuid) && !uid_eq(keuid, old->uid)))
- 		new->suid = new->euid;
- 	new->fsuid = new->euid;
  
-@@ -632,6 +632,22 @@ long __sys_setreuid(uid_t ruid, uid_t euid)
- 	return retval;
+ 	/* change the GID */
+-	if (group != (gid_t) -1)
++	if (gid_valid(gid))
+ 		key->gid = gid;
+ 
+ 	notify_key(key, NOTIFY_KEY_SETATTR, 0);
+@@ -1063,6 +1054,39 @@ long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
+ 	goto error_put;
  }
  
-+long __sys_setreuid(uid_t ruid, uid_t euid)
++long keyctl_chown_key(key_serial_t id, uid_t user, gid_t group)
 +{
-+	struct user_namespace *ns = current_user_ns();
-+	kuid_t kruid, keuid;
++	kuid_t uid = make_kuid(current_user_ns(), user);
++	kgid_t gid = make_kgid(current_user_ns(), group);
 +
-+	kruid = make_kuid(ns, ruid);
-+	keuid = make_kuid(ns, euid);
-+
-+	if ((ruid != (uid_t) -1) && !uid_valid(kruid))
++	if ((user != (uid_t) -1) && !uid_valid(uid))
 +		return -EINVAL;
-+	if ((euid != (uid_t) -1) && !uid_valid(keuid))
++	if ((group != (gid_t) -1) && !gid_valid(gid))
 +		return -EINVAL;
-+
-+	return do_setreuid(kruid, keuid);
++	return keyctl_chown_kid(id, uid, gid);
 +}
 +
- SYSCALL_DEFINE2(setreuid, uid_t, ruid, uid_t, euid)
- {
- 	return __sys_setreuid(ruid, euid);
-@@ -648,15 +664,12 @@ SYSCALL_DEFINE2(setreuid, uid_t, ruid, uid_t, euid)
-  * will allow a root program to temporarily drop privileges and be able to
-  * regain them by swapping the real and effective uid.
-  */
--long __sys_setuid(uid_t uid)
-+static long do_setuid(kuid_t kuid)
- {
--	struct user_namespace *ns = current_user_ns();
- 	const struct cred *old;
- 	struct cred *new;
- 	int retval;
--	kuid_t kuid;
- 
--	kuid = make_kuid(ns, uid);
- 	if (!uid_valid(kuid))
- 		return -EINVAL;
- 
-@@ -695,6 +708,11 @@ long __sys_setuid(uid_t uid)
- 	return retval;
- }
- 
-+long __sys_setuid(uid_t uid)
++/*
++ * KEYCTL_CHOWN with __kernel_uid_r_t ids, which can be UUIDs and GUIDs. A
++ * NULL pointer, UID_R_NONE or a classic -1 leave the owner or group
++ * unchanged.
++ */
++long keyctl_chown_key_r(key_serial_t id,
++			const struct __kernel_uid_r __user *user,
++			const struct __kernel_uid_r __user *group)
 +{
-+	return do_setuid(make_kuid(current_user_ns(), uid));
++	kuid_t uid;
++	kgid_t gid;
++	long ret;
++
++	ret = get_kuid_r(current_user_ns(), user, &uid);
++	if (!ret)
++		ret = get_kgid_r(current_user_ns(), group, &gid);
++	if (ret)
++		return ret;
++	return keyctl_chown_kid(id, uid, gid);
 +}
 +
- SYSCALL_DEFINE1(setuid, uid_t, uid)
- {
- 	return __sys_setuid(uid);
-@@ -705,42 +723,28 @@ SYSCALL_DEFINE1(setuid, uid_t, uid)
-  * This function implements a generic ability to update ruid, euid,
-  * and suid.  This allows you to implement the 4.4 compatible seteuid().
-  */
--long __sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
-+/* Invalid ids (INVALID_UID) stand for "unchanged" */
-+static long do_setresuid(kuid_t kruid, kuid_t keuid, kuid_t ksuid)
- {
--	struct user_namespace *ns = current_user_ns();
- 	const struct cred *old;
- 	struct cred *new;
- 	int retval;
--	kuid_t kruid, keuid, ksuid;
- 	bool ruid_new, euid_new, suid_new;
- 
--	kruid = make_kuid(ns, ruid);
--	keuid = make_kuid(ns, euid);
--	ksuid = make_kuid(ns, suid);
--
--	if ((ruid != (uid_t) -1) && !uid_valid(kruid))
--		return -EINVAL;
--
--	if ((euid != (uid_t) -1) && !uid_valid(keuid))
--		return -EINVAL;
--
--	if ((suid != (uid_t) -1) && !uid_valid(ksuid))
--		return -EINVAL;
--
- 	old = current_cred();
- 
- 	/* check for no-op */
--	if ((ruid == (uid_t) -1 || uid_eq(kruid, old->uid)) &&
--	    (euid == (uid_t) -1 || (uid_eq(keuid, old->euid) &&
--				    uid_eq(keuid, old->fsuid))) &&
--	    (suid == (uid_t) -1 || uid_eq(ksuid, old->suid)))
-+	if ((!uid_valid(kruid) || uid_eq(kruid, old->uid)) &&
-+	    (!uid_valid(keuid) || (uid_eq(keuid, old->euid) &&
-+				   uid_eq(keuid, old->fsuid))) &&
-+	    (!uid_valid(ksuid) || uid_eq(ksuid, old->suid)))
- 		return 0;
- 
--	ruid_new = ruid != (uid_t) -1        && !uid_eq(kruid, old->uid) &&
-+	ruid_new = uid_valid(kruid)          && !uid_eq(kruid, old->uid) &&
- 		   !uid_eq(kruid, old->euid) && !uid_eq(kruid, old->suid);
--	euid_new = euid != (uid_t) -1        && !uid_eq(keuid, old->uid) &&
-+	euid_new = uid_valid(keuid)          && !uid_eq(keuid, old->uid) &&
- 		   !uid_eq(keuid, old->euid) && !uid_eq(keuid, old->suid);
--	suid_new = suid != (uid_t) -1        && !uid_eq(ksuid, old->uid) &&
-+	suid_new = uid_valid(ksuid)          && !uid_eq(ksuid, old->uid) &&
- 		   !uid_eq(ksuid, old->euid) && !uid_eq(ksuid, old->suid);
- 	if ((ruid_new || euid_new || suid_new) &&
- 	    !ns_capable_setid(old->user_ns, CAP_SETUID))
-@@ -750,7 +754,7 @@ long __sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
- 	if (!new)
- 		return -ENOMEM;
- 
--	if (ruid != (uid_t) -1) {
-+	if (uid_valid(kruid)) {
- 		new->uid = kruid;
- 		if (!uid_eq(kruid, old->uid)) {
- 			retval = set_user(new);
-@@ -758,9 +762,9 @@ long __sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
- 				goto error;
- 		}
- 	}
--	if (euid != (uid_t) -1)
-+	if (uid_valid(keuid))
- 		new->euid = keuid;
--	if (suid != (uid_t) -1)
-+	if (uid_valid(ksuid))
- 		new->suid = ksuid;
- 	new->fsuid = new->euid;
- 
-@@ -780,6 +784,27 @@ long __sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
- 	return retval;
- }
- 
-+long __sys_setresuid(uid_t ruid, uid_t euid, uid_t suid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kuid_t kruid, keuid, ksuid;
-+
-+	kruid = make_kuid(ns, ruid);
-+	keuid = make_kuid(ns, euid);
-+	ksuid = make_kuid(ns, suid);
-+
-+	if ((ruid != (uid_t) -1) && !uid_valid(kruid))
-+		return -EINVAL;
-+
-+	if ((euid != (uid_t) -1) && !uid_valid(keuid))
-+		return -EINVAL;
-+
-+	if ((suid != (uid_t) -1) && !uid_valid(ksuid))
-+		return -EINVAL;
-+
-+	return do_setresuid(kruid, keuid, ksuid);
-+}
-+
- SYSCALL_DEFINE3(setresuid, uid_t, ruid, uid_t, euid, uid_t, suid)
- {
- 	return __sys_setresuid(ruid, euid, suid);
-@@ -807,40 +832,28 @@ SYSCALL_DEFINE3(getresuid, uid_t __user *, ruidp, uid_t __user *, euidp, uid_t _
  /*
-  * Same as above, but for rgid, egid, sgid.
-  */
--long __sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid)
-+/* Invalid ids (INVALID_GID) stand for "unchanged" */
-+static long do_setresgid(kgid_t krgid, kgid_t kegid, kgid_t ksgid)
- {
--	struct user_namespace *ns = current_user_ns();
- 	const struct cred *old;
- 	struct cred *new;
- 	int retval;
--	kgid_t krgid, kegid, ksgid;
- 	bool rgid_new, egid_new, sgid_new;
+  * Change the permission mask on a key.
+  *
+@@ -1934,6 +1958,11 @@ SYSCALL_DEFINE5(keyctl, int, option, unsigned long, arg2, unsigned long, arg3,
+ 					(uid_t) arg3,
+ 					(gid_t) arg4);
  
--	krgid = make_kgid(ns, rgid);
--	kegid = make_kgid(ns, egid);
--	ksgid = make_kgid(ns, sgid);
--
--	if ((rgid != (gid_t) -1) && !gid_valid(krgid))
--		return -EINVAL;
--	if ((egid != (gid_t) -1) && !gid_valid(kegid))
--		return -EINVAL;
--	if ((sgid != (gid_t) -1) && !gid_valid(ksgid))
--		return -EINVAL;
--
- 	old = current_cred();
++	case KEYCTL_CHOWN_R:
++		return keyctl_chown_key_r((key_serial_t) arg2,
++					  (const struct __kernel_uid_r __user *) arg3,
++					  (const struct __kernel_uid_r __user *) arg4);
++
+ 	case KEYCTL_SETPERM:
+ 		return keyctl_setperm_key((key_serial_t) arg2,
+ 					  (key_perm_t) arg3);
+diff --git a/security/keys/persistent.c b/security/keys/persistent.c
+index bdab995393..2c4b32cd2f 100644
+--- a/security/keys/persistent.c
++++ b/security/keys/persistent.c
+@@ -83,7 +83,8 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+ 	struct keyring_index_key index_key;
+ 	struct key *persistent;
+ 	key_ref_t reg_ref, persistent_ref;
+-	char buf[32];
++	char buf[sizeof("_persistent.") + KID_STR_LEN];
++	char idbuf[KID_STR_LEN];
+ 	long ret;
+ 	bool created = false;
  
- 	/* check for no-op */
--	if ((rgid == (gid_t) -1 || gid_eq(krgid, old->gid)) &&
--	    (egid == (gid_t) -1 || (gid_eq(kegid, old->egid) &&
--				    gid_eq(kegid, old->fsgid))) &&
--	    (sgid == (gid_t) -1 || gid_eq(ksgid, old->sgid)))
-+	if ((!gid_valid(krgid) || gid_eq(krgid, old->gid)) &&
-+	    (!gid_valid(kegid) || (gid_eq(kegid, old->egid) &&
-+				   gid_eq(kegid, old->fsgid))) &&
-+	    (!gid_valid(ksgid) || gid_eq(ksgid, old->sgid)))
- 		return 0;
+@@ -91,7 +92,13 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
+ 	memset(&index_key, 0, sizeof(index_key));
+ 	index_key.type = &key_type_keyring;
+ 	index_key.description = buf;
+-	index_key.desc_len = sprintf(buf, "_persistent.%u", from_kuid(ns, uid));
++	/* a UUID or GUID has no uid in @ns: name it by its text form */
++	if (uid_is_legacy(uid))
++		index_key.desc_len = sprintf(buf, "_persistent.%u",
++					     from_kuid(ns, uid));
++	else
++		index_key.desc_len = sprintf(buf, "_persistent.%s",
++					     kuid_str(uid, idbuf));
+ 	key_set_index_key(&index_key);
  
--	rgid_new = rgid != (gid_t) -1        && !gid_eq(krgid, old->gid) &&
-+	rgid_new = gid_valid(krgid)          && !gid_eq(krgid, old->gid) &&
- 		   !gid_eq(krgid, old->egid) && !gid_eq(krgid, old->sgid);
--	egid_new = egid != (gid_t) -1        && !gid_eq(kegid, old->gid) &&
-+	egid_new = gid_valid(kegid)          && !gid_eq(kegid, old->gid) &&
- 		   !gid_eq(kegid, old->egid) && !gid_eq(kegid, old->sgid);
--	sgid_new = sgid != (gid_t) -1        && !gid_eq(ksgid, old->gid) &&
-+	sgid_new = gid_valid(ksgid)          && !gid_eq(ksgid, old->gid) &&
- 		   !gid_eq(ksgid, old->egid) && !gid_eq(ksgid, old->sgid);
- 	if ((rgid_new || egid_new || sgid_new) &&
- 	    !ns_capable_setid(old->user_ns, CAP_SETGID))
-@@ -850,11 +863,11 @@ long __sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid)
- 	if (!new)
- 		return -ENOMEM;
- 
--	if (rgid != (gid_t) -1)
-+	if (gid_valid(krgid))
- 		new->gid = krgid;
--	if (egid != (gid_t) -1)
-+	if (gid_valid(kegid))
- 		new->egid = kegid;
--	if (sgid != (gid_t) -1)
-+	if (gid_valid(ksgid))
- 		new->sgid = ksgid;
- 	new->fsgid = new->egid;
- 
-@@ -869,6 +882,25 @@ long __sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid)
- 	return retval;
+ 	if (ns->persistent_keyring_register) {
+diff --git a/security/keys/process_keys.c b/security/keys/process_keys.c
+index a63c46bb2d..6f275899f3 100644
+--- a/security/keys/process_keys.c
++++ b/security/keys/process_keys.c
+@@ -67,6 +67,25 @@ static struct key *get_user_register(struct user_namespace *user_ns)
+ 	return reg_keyring;
  }
  
-+long __sys_setresgid(gid_t rgid, gid_t egid, gid_t sgid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kgid_t krgid, kegid, ksgid;
-+
-+	krgid = make_kgid(ns, rgid);
-+	kegid = make_kgid(ns, egid);
-+	ksgid = make_kgid(ns, sgid);
-+
-+	if ((rgid != (gid_t) -1) && !gid_valid(krgid))
-+		return -EINVAL;
-+	if ((egid != (gid_t) -1) && !gid_valid(kegid))
-+		return -EINVAL;
-+	if ((sgid != (gid_t) -1) && !gid_valid(ksgid))
-+		return -EINVAL;
-+
-+	return do_setresgid(krgid, kegid, ksgid);
-+}
-+
- SYSCALL_DEFINE3(setresgid, gid_t, rgid, gid_t, egid, gid_t, sgid)
- {
- 	return __sys_setresgid(rgid, egid, sgid);
-@@ -901,40 +933,44 @@ SYSCALL_DEFINE3(getresgid, gid_t __user *, rgidp, gid_t __user *, egidp, gid_t _
-  * whatever uid it wants to). It normally shadows "euid", except when
-  * explicitly set by setfsuid() or for access..
-  */
--long __sys_setfsuid(uid_t uid)
 +/*
-+ * Sets the fsuid to @kuid, unless it is invalid; 0 or -EPERM. The fsuid
-+ * before the call goes to @old.
++ * The name of a user's keyring or user session keyring: @prefix and the uid
++ * in @user_ns, or for a UUID or GUID uid its text form. Those have no uid
++ * in any namespace, and as -1 all of them would share the keyrings.
 + */
-+static long do_setfsuid(kuid_t kuid, kuid_t *old_fsuid)
- {
- 	const struct cred *old;
- 	struct cred *new;
--	uid_t old_fsuid;
--	kuid_t kuid;
- 
- 	old = current_cred();
--	old_fsuid = from_kuid_munged(old->user_ns, old->fsuid);
-+	*old_fsuid = old->fsuid;
- 
--	kuid = make_kuid(old->user_ns, uid);
--	if (!uid_valid(kuid))
--		return old_fsuid;
-+	if (!uid_valid(kuid) || uid_eq(kuid, old->fsuid))
-+		return 0;
- 
- 	new = prepare_creds();
- 	if (!new)
--		return old_fsuid;
-+		return -ENOMEM;
- 
- 	if (uid_eq(kuid, old->uid)  || uid_eq(kuid, old->euid)  ||
--	    uid_eq(kuid, old->suid) || uid_eq(kuid, old->fsuid) ||
-+	    uid_eq(kuid, old->suid) ||
- 	    ns_capable_setid(old->user_ns, CAP_SETUID)) {
--		if (!uid_eq(kuid, old->fsuid)) {
--			new->fsuid = kuid;
--			if (security_task_fix_setuid(new, old, LSM_SETID_FS) == 0)
--				goto change_okay;
--		}
-+		new->fsuid = kuid;
-+		if (security_task_fix_setuid(new, old, LSM_SETID_FS) == 0)
-+			return commit_creds(new);
- 	}
- 
- 	abort_creds(new);
--	return old_fsuid;
-+	return -EPERM;
++#define USER_KEYRING_NAME_SIZE	(sizeof("_uid_ses.") + KID_STR_LEN)
++
++static int user_keyring_name(char *buf, const char *prefix,
++			     struct user_namespace *user_ns, kuid_t kuid)
++{
++	char idbuf[KID_STR_LEN];
++
++	if (!uid_is_legacy(kuid))
++		return snprintf(buf, USER_KEYRING_NAME_SIZE, "%s%s", prefix,
++				kuid_str(kuid, idbuf));
++	return snprintf(buf, USER_KEYRING_NAME_SIZE, "%s%u", prefix,
++			from_kuid(user_ns, kuid));
 +}
 +
-+long __sys_setfsuid(uid_t uid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kuid_t old_fsuid;
- 
--change_okay:
--	commit_creds(new);
--	return old_fsuid;
-+	do_setfsuid(make_kuid(ns, uid), &old_fsuid);
-+	return from_kuid_munged(ns, old_fsuid);
- }
- 
- SYSCALL_DEFINE1(setfsuid, uid_t, uid)
-@@ -945,46 +981,214 @@ SYSCALL_DEFINE1(setfsuid, uid_t, uid)
  /*
-  * Samma på svenska..
-  */
--long __sys_setfsgid(gid_t gid)
-+/*
-+ * Sets the fsgid to @kgid, unless it is invalid; 0 or -EPERM. The fsgid
-+ * before the call goes to @old.
-+ */
-+static long do_setfsgid(kgid_t kgid, kgid_t *old_fsgid)
- {
- 	const struct cred *old;
- 	struct cred *new;
--	gid_t old_fsgid;
--	kgid_t kgid;
+  * Look up the user and user session keyrings for the current process's UID,
+  * creating them if they don't exist.
+@@ -79,13 +98,12 @@ int look_up_user_keyrings(struct key **_user_keyring,
+ 	struct key *reg_keyring, *uid_keyring, *session_keyring;
+ 	key_perm_t user_keyring_perm;
+ 	key_ref_t uid_keyring_r, session_keyring_r;
+-	uid_t uid = from_kuid(user_ns, cred->user->uid);
+-	char buf[20];
++	char buf[USER_KEYRING_NAME_SIZE];
+ 	int ret;
  
- 	old = current_cred();
--	old_fsgid = from_kgid_munged(old->user_ns, old->fsgid);
-+	*old_fsgid = old->fsgid;
+ 	user_keyring_perm = (KEY_POS_ALL & ~KEY_POS_SETATTR) | KEY_USR_ALL;
  
--	kgid = make_kgid(old->user_ns, gid);
--	if (!gid_valid(kgid))
--		return old_fsgid;
-+	if (!gid_valid(kgid) || gid_eq(kgid, old->fsgid))
-+		return 0;
+-	kenter("%u", uid);
++	kenter("%u", from_kuid(user_ns, cred->user->uid));
  
- 	new = prepare_creds();
- 	if (!new)
--		return old_fsgid;
-+		return -ENOMEM;
- 
- 	if (gid_eq(kgid, old->gid)  || gid_eq(kgid, old->egid)  ||
--	    gid_eq(kgid, old->sgid) || gid_eq(kgid, old->fsgid) ||
-+	    gid_eq(kgid, old->sgid) ||
- 	    ns_capable_setid(old->user_ns, CAP_SETGID)) {
--		if (!gid_eq(kgid, old->fsgid)) {
--			new->fsgid = kgid;
--			if (security_task_fix_setgid(new,old,LSM_SETID_FS) == 0)
--				goto change_okay;
--		}
-+		new->fsgid = kgid;
-+		if (security_task_fix_setgid(new, old, LSM_SETID_FS) == 0)
-+			return commit_creds(new);
+ 	reg_keyring = get_user_register(user_ns);
+ 	if (IS_ERR(reg_keyring))
+@@ -98,7 +116,7 @@ int look_up_user_keyrings(struct key **_user_keyring,
+ 	 * already as it may have been pinned by a session, but the user_struct
+ 	 * pointing to it may have been destroyed by setuid.
+ 	 */
+-	snprintf(buf, sizeof(buf), "_uid.%u", uid);
++	user_keyring_name(buf, "_uid.", user_ns, cred->user->uid);
+ 	uid_keyring_r = keyring_search(make_key_ref(reg_keyring, true),
+ 				       &key_type_keyring, buf, false);
+ 	kdebug("_uid %p", uid_keyring_r);
+@@ -120,7 +138,7 @@ int look_up_user_keyrings(struct key **_user_keyring,
  	}
  
- 	abort_creds(new);
--	return old_fsgid;
-+	return -EPERM;
-+}
-+
-+long __sys_setfsgid(gid_t gid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kgid_t old_fsgid;
- 
--change_okay:
--	commit_creds(new);
--	return old_fsgid;
-+	do_setfsgid(make_kgid(ns, gid), &old_fsgid);
-+	return from_kgid_munged(ns, old_fsgid);
- }
- 
- SYSCALL_DEFINE1(setfsgid, gid_t, gid)
+ 	/* Get a default session keyring (which might also exist already) */
+-	snprintf(buf, sizeof(buf), "_uid_ses.%u", uid);
++	user_keyring_name(buf, "_uid_ses.", user_ns, cred->user->uid);
+ 	session_keyring_r = keyring_search(make_key_ref(reg_keyring, true),
+ 					   &key_type_keyring, buf, false);
+ 	kdebug("_uid_ses %p", session_keyring_r);
+@@ -186,7 +204,7 @@ struct key *get_user_session_keyring_rcu(const struct cred *cred)
  {
- 	return __sys_setfsgid(gid);
- }
-+
-+/*
-+ * The *_r variants take and return __kernel_uid_r_t, which can also be a
-+ * UUID or a GUID. A NULL pointer, UID_R_NONE or a classic -1 leave an id
-+ * unchanged, like -1 does for the classic calls.
-+ */
-+SYSCALL_DEFINE1(setuid_r, const struct __kernel_uid_r __user *, uid)
-+{
-+	kuid_t kuid;
-+	int err;
-+
-+	err = get_kuid_r(current_user_ns(), uid, &kuid);
-+	if (err)
-+		return err;
-+	return do_setuid(kuid);
-+}
-+
-+SYSCALL_DEFINE1(setgid_r, const struct __kernel_uid_r __user *, gid)
-+{
-+	kgid_t kgid;
-+	int err;
-+
-+	err = get_kgid_r(current_user_ns(), gid, &kgid);
-+	if (err)
-+		return err;
-+	return do_setgid(kgid);
-+}
-+
-+SYSCALL_DEFINE2(setreuid_r, const struct __kernel_uid_r __user *, ruid,
-+		const struct __kernel_uid_r __user *, euid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kuid_t kruid, keuid;
-+	int err;
-+
-+	err = get_kuid_r(ns, ruid, &kruid);
-+	if (!err)
-+		err = get_kuid_r(ns, euid, &keuid);
-+	if (err)
-+		return err;
-+	return do_setreuid(kruid, keuid);
-+}
-+
-+SYSCALL_DEFINE2(setregid_r, const struct __kernel_uid_r __user *, rgid,
-+		const struct __kernel_uid_r __user *, egid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kgid_t krgid, kegid;
-+	int err;
-+
-+	err = get_kgid_r(ns, rgid, &krgid);
-+	if (!err)
-+		err = get_kgid_r(ns, egid, &kegid);
-+	if (err)
-+		return err;
-+	return do_setregid(krgid, kegid);
-+}
-+
-+SYSCALL_DEFINE3(setresuid_r, const struct __kernel_uid_r __user *, ruid,
-+		const struct __kernel_uid_r __user *, euid,
-+		const struct __kernel_uid_r __user *, suid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kuid_t kruid, keuid, ksuid;
-+	int err;
-+
-+	err = get_kuid_r(ns, ruid, &kruid);
-+	if (!err)
-+		err = get_kuid_r(ns, euid, &keuid);
-+	if (!err)
-+		err = get_kuid_r(ns, suid, &ksuid);
-+	if (err)
-+		return err;
-+	return do_setresuid(kruid, keuid, ksuid);
-+}
-+
-+SYSCALL_DEFINE3(setresgid_r, const struct __kernel_uid_r __user *, rgid,
-+		const struct __kernel_uid_r __user *, egid,
-+		const struct __kernel_uid_r __user *, sgid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kgid_t krgid, kegid, ksgid;
-+	int err;
-+
-+	err = get_kgid_r(ns, rgid, &krgid);
-+	if (!err)
-+		err = get_kgid_r(ns, egid, &kegid);
-+	if (!err)
-+		err = get_kgid_r(ns, sgid, &ksgid);
-+	if (err)
-+		return err;
-+	return do_setresgid(krgid, kegid, ksgid);
-+}
-+
-+/* NULL pointers are skipped */
-+SYSCALL_DEFINE3(getresuid_r, struct __kernel_uid_r __user *, ruid,
-+		struct __kernel_uid_r __user *, euid,
-+		struct __kernel_uid_r __user *, suid)
-+{
-+	const struct cred *cred = current_cred();
-+	int err = 0;
-+
-+	if (ruid)
-+		err = put_kuid_r(cred->user_ns, cred->uid, ruid);
-+	if (!err && euid)
-+		err = put_kuid_r(cred->user_ns, cred->euid, euid);
-+	if (!err && suid)
-+		err = put_kuid_r(cred->user_ns, cred->suid, suid);
-+	return err;
-+}
-+
-+SYSCALL_DEFINE3(getresgid_r, struct __kernel_uid_r __user *, rgid,
-+		struct __kernel_uid_r __user *, egid,
-+		struct __kernel_uid_r __user *, sgid)
-+{
-+	const struct cred *cred = current_cred();
-+	int err = 0;
-+
-+	if (rgid)
-+		err = put_kgid_r(cred->user_ns, cred->gid, rgid);
-+	if (!err && egid)
-+		err = put_kgid_r(cred->user_ns, cred->egid, egid);
-+	if (!err && sgid)
-+		err = put_kgid_r(cred->user_ns, cred->sgid, sgid);
-+	return err;
-+}
-+
-+/*
-+ * Unlike setfsuid(), which returns the old fsuid whatever happens,
-+ * setfsuid_r() reports failure: 0, or -EPERM if the caller may not use
-+ * @uid. The fsuid before the call goes to @old_uid unless it is NULL; a
-+ * NULL @uid only queries it.
-+ */
-+SYSCALL_DEFINE2(setfsuid_r, const struct __kernel_uid_r __user *, uid,
-+		struct __kernel_uid_r __user *, old_uid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kuid_t kuid, old_fsuid;
-+	int err;
-+
-+	err = get_kuid_r(ns, uid, &kuid);
-+	if (err)
-+		return err;
-+	err = do_setfsuid(kuid, &old_fsuid);
-+	if (!err && old_uid)
-+		err = put_kuid_r(ns, old_fsuid, old_uid);
-+	return err;
-+}
-+
-+SYSCALL_DEFINE2(setfsgid_r, const struct __kernel_uid_r __user *, gid,
-+		struct __kernel_uid_r __user *, old_gid)
-+{
-+	struct user_namespace *ns = current_user_ns();
-+	kgid_t kgid, old_fsgid;
-+	int err;
-+
-+	err = get_kgid_r(ns, gid, &kgid);
-+	if (err)
-+		return err;
-+	err = do_setfsgid(kgid, &old_fsgid);
-+	if (!err && old_gid)
-+		err = put_kgid_r(ns, old_fsgid, old_gid);
-+	return err;
-+}
- #endif /* CONFIG_MULTIUSER */
+ 	struct key *reg_keyring = READ_ONCE(cred->user_ns->user_keyring_register);
+ 	key_ref_t session_keyring_r;
+-	char buf[20];
++	char buf[USER_KEYRING_NAME_SIZE];
  
- /**
-@@ -1048,6 +1252,26 @@ SYSCALL_DEFINE0(getegid)
- 	return from_kgid_munged(current_user_ns(), current_egid());
- }
+ 	struct keyring_search_context ctx = {
+ 		.index_key.type		= &key_type_keyring,
+@@ -201,9 +219,9 @@ struct key *get_user_session_keyring_rcu(const struct cred *cred)
+ 	if (!reg_keyring)
+ 		return NULL;
  
-+SYSCALL_DEFINE1(getuid_r, struct __kernel_uid_r __user *, uid)
-+{
-+	return put_kuid_r(current_user_ns(), current_uid(), uid);
-+}
-+
-+SYSCALL_DEFINE1(geteuid_r, struct __kernel_uid_r __user *, uid)
-+{
-+	return put_kuid_r(current_user_ns(), current_euid(), uid);
-+}
-+
-+SYSCALL_DEFINE1(getgid_r, struct __kernel_uid_r __user *, gid)
-+{
-+	return put_kgid_r(current_user_ns(), current_gid(), gid);
-+}
-+
-+SYSCALL_DEFINE1(getegid_r, struct __kernel_uid_r __user *, gid)
-+{
-+	return put_kgid_r(current_user_ns(), current_egid(), gid);
-+}
-+
- static void do_sys_times(struct tms *tms)
- {
- 	u64 tgutime, tgstime, cutime, cstime;
-diff --git a/kernel/sys_ni.c b/kernel/sys_ni.c
-index c8be0abaa4..01f14d7a4d 100644
---- a/kernel/sys_ni.c
-+++ b/kernel/sys_ni.c
-@@ -103,6 +103,16 @@ COND_SYSCALL(setfsuid);
- COND_SYSCALL(setfsgid);
- COND_SYSCALL(setgroups);
- COND_SYSCALL(getgroups);
-+COND_SYSCALL(setregid_r);
-+COND_SYSCALL(setgid_r);
-+COND_SYSCALL(setreuid_r);
-+COND_SYSCALL(setuid_r);
-+COND_SYSCALL(setresuid_r);
-+COND_SYSCALL(getresuid_r);
-+COND_SYSCALL(setresgid_r);
-+COND_SYSCALL(getresgid_r);
-+COND_SYSCALL(setfsuid_r);
-+COND_SYSCALL(setfsgid_r);
- COND_SYSCALL(mq_open);
- COND_SYSCALL_COMPAT(mq_open);
- COND_SYSCALL(mq_unlink);
+-	ctx.index_key.desc_len = snprintf(buf, sizeof(buf), "_uid_ses.%u",
+-					  from_kuid(cred->user_ns,
+-						    cred->user->uid));
++	ctx.index_key.desc_len = user_keyring_name(buf, "_uid_ses.",
++						   cred->user_ns,
++						   cred->user->uid);
+ 
+ 	session_keyring_r = keyring_search_rcu(make_key_ref(reg_keyring, true),
+ 					       &ctx);
+diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+index fa2bb9f2f5..48067bb73a 100644
+--- a/security/keys/request_key.c
++++ b/security/keys/request_key.c
+@@ -122,7 +122,7 @@ static int call_sbin_request_key(struct key *authkey, void *aux)
+ 	const struct cred *cred = current_cred();
+ 	key_serial_t prkey, sskey;
+ 	struct key *key = rka->target_key, *keyring, *session, *user_session;
+-	char *argv[9], *envp[3], uid_str[12], gid_str[12];
++	char *argv[9], *envp[3], uid_str[KID_STR_LEN], gid_str[KID_STR_LEN];
+ 	char key_str[12], keyring_str[3][12];
+ 	char desc[20];
+ 	int ret, i;
+@@ -152,8 +152,14 @@ static int call_sbin_request_key(struct key *authkey, void *aux)
+ 		goto error_link;
+ 
+ 	/* record the UID and GID */
+-	sprintf(uid_str, "%d", from_kuid(&init_user_ns, cred->fsuid));
+-	sprintf(gid_str, "%d", from_kgid(&init_user_ns, cred->fsgid));
++	if (uid_is_legacy(cred->fsuid))
++		sprintf(uid_str, "%d", from_kuid(&init_user_ns, cred->fsuid));
++	else
++		kuid_str(cred->fsuid, uid_str);
++	if (gid_is_legacy(cred->fsgid))
++		sprintf(gid_str, "%d", from_kgid(&init_user_ns, cred->fsgid));
++	else
++		kgid_str(cred->fsgid, gid_str);
+ 
+ 	/* we say which key is under construction */
+ 	sprintf(key_str, "%d", key->serial);
 -- 
 2.56.0
 
