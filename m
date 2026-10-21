@@ -1,78 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594382;
-	b=V2IOakUap3+rNeRouyl5jsAaomOMs3LFda39kTG+4/wxcvSlNMJKhX4xf5FrXzaynIMQ
-	 OB8SlZdr6nFS+Jks5AavDU0srayoO6ULrY0cfiswFUGnjgMjjigsV9kJFbMgMZgOVLKDd
-	 sTCUZCofEfDYCEjvnxRiuX+jJgBaLpFYUbdNoJvsKEXhU+vtSfOyziCgiJzMglFrQH/se
-	 v6OY661C7rryI53N31YVvMOHr95lh0lCEzhiVmwDldqQ7rbprpuDuYvLgM3lVMh22Qzst
-	 gFIUKeMPdjw0eB9i3r+5HLMMssKos+S4CsWQKEjmTwJvVbsdIVgx7dASPXNRNx7I4bw==
+	t=1792594425;
+	b=HFjsfLo/TRT5a86E8xmV0aYaeEyo74LFQkv4sHhbx34jJr1q0+e/gvagiyLnYPcDFanu
+	 0Buny1WP27hgtaeM/aXMQpgS7/wl+48IhyFD8Z+xqghRcORP/kmdDH3kVhwagFxPCrLxy
+	 7xo+U72glEFMeCmT5CTQYq62riaSTIQ8YQMrswa4mBBGb2272u1XQ6rbEJKSKIYF1qLge
+	 vSzQ04rb3rix4pAZkCFAdl/0XhV5Eg7gzZHzZc3pK6ACBNJF35VOgzMUxe1XE6EWGC5qE
+	 3aYZWyppfCorw8HJqWU6jCAtYm9w7ryz17hGweGlf1cITthS7gl0Mro4SzSMg4iRC8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594382;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=0BRUt1iojLuEcX+vMeK5+C49tlWQeMAcHtO6iWl2Ic0=;
-	b=C7mC4tsjXUUzCQb1BQNP2EhBN5CPAH+VaDJ+QqFJk3JOBo9usbjGkP9n4FDO7gfiA78X
-	 7nH7HgTsBNy1Qv5QvopzUhEeKhVCd6GiRnTGReAGxo3z966+37N14ElsUd9+gT4J3WpHA
-	 3h0b3uhuCumw1fVBn3SugBikvVgWLe5IAbB8WZxP7OzQGYJc+a5f9uL7aenKSkALekCZp
-	 JWuUvf1BGN4XRFA6/p0POuW/Ko61LU6MrSap4EB8n4I+Zfsi8Gd1RmFbXqPWmMrBxnM2T
-	 6Wqk/+30qEUD4tETPqCC3/UXxMHWcGuAcm4MtkzqqzC0Vz8c5I2q8p8uZ0YJfI3MsQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594425;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=k7ZGLplWFKaB8JY5T+15czx4UcwJP0brOC2Z4Smd6YM=;
+	b=HFBHFCouIL7rqRM1u4WQ4s52SYWzQ3C4DKuQVBlVfgCz7addew8x6k5xlROdE3AdFiR9
+	 04KcqjbmXP9MOJ0QaNjYobTRfjshuYW8Z4cdwVQK5bTK6ZTMBtQih2jefCIyXYtFIuaF/
+	 Flv7tzLJN7OULN4KXLMutGs+489jP2vPPvQV9xS2RX6WeINP1ZSYnRGk6Fr6n9Smhiulo
+	 Q0p9gznryDDlXXKNlRN6CEmDL9itAn4sUZFQbveugyExyjcyNWEZlV5Oe4ygroSoEfzrl
+	 HqxNcnvd1ibIET9IPCwLamNptL/2xAEy8YfKaWl4Bb6XtIrpX5O+6z0TwguC9/UTjRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Pg2H9YEW;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gs2WEUGm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDB03606A319;
-	Wed, 21 Oct 2026 14:53:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDB03606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8482606A31A;
+	Wed, 21 Oct 2026 14:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=Pg2H9YEW
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j8shp37xHzKm8D;
-	Wed, 21 Oct 2026 16:52:58 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792594378; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0BRUt1iojLuEcX+vMeK5+C49tlWQeMAcHtO6iWl2Ic0=;
-	b=Pg2H9YEWrURWx9bBhwK6Of1BcZIBk0WlQra9uAWuN3F2DTAVt2nCNiBCZ0TwHXp6gI0UyY
-	ir8kTFi2UhPaxD0YYf/aMgAtwnT4QjvwQYW9Y9Ya+asnQ4MwVgVmDt4cSu6j4A+vY4psJg
-	iPlql2LwurhtuXH/d5j0EQF5EZPjXbZgRJnzNcEaEL8Vm7YmkSpukHzuMG3/JU74RfEwZm
-	izojZsvOR0hmIxEeAq9Qh+3pAQ2UXBGVDkNWiKjSpPYzSuTa9ZMp+f2FbNKPlqKy4OkuIA
-	doRFgSNhDxFAUxETKfxOQ2s5RPamsm/smboXPahqqHsrwDfszq5he9p8qZQ4DQ==
-Message-ID: <0968fe5558e744f6f1ae2bddbbc075d016372e25.camel@mailbox.org>
-Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the
- signaled-bit properly
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Yury
- Norov	 <yury.norov@gmail.com>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Arnd Bergmann <arnd@arndb.de>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Danilo Krummrich	 <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, "Paul E .
- McKenney"	 <paulmck@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
-Date: Wed, 21 Oct 2026 16:52:56 +0200
-In-Reply-To: <ae7ae97d-cac9-451d-a0d4-bd52d0f063d4@amd.com>
-References: <20261021095512.1345191-2-phasta@kernel.org>
-	 <20261021095512.1345191-4-phasta@kernel.org>
-	 <ae7ae97d-cac9-451d-a0d4-bd52d0f063d4@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gs2WEUGm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F4F71F000C2;
+	Wed, 21 Oct 2026 14:53:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792594424;
+	bh=k7ZGLplWFKaB8JY5T+15czx4UcwJP0brOC2Z4Smd6YM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gs2WEUGm62ZAxSMTfnoYtXqKE0RhuPnkUxecvljB5l6U1FTMYeHfmrX+ob6l47l65
+	 Phc793AjwVhxmGPH8d3WaeGwXLv7NxRkYwv1n4PFOSXBWX1Job+eEpY06+4zuCWbRc
+	 0CakWSkKDyg/6CDnORverYc01G6GX1xDlEbCN81b/IJl9I4mpUri9X5nP5rCUHHx1A
+	 ihuwbN4yDcNUcP3Gt4ahNTPeK7otJ/+GxO2edRlMd1i8OTD389VK+ULVp8wa5Qe0aN
+	 3eEnu+XPxSw+wgmrknS/k1sIwutHZpmmPBdZNFDY+ZylESVpu3aGmVdBaObU/TSwrF
+	 CvVA8SIX36g6g==
+Date: Wed, 21 Oct 2026 15:53:41 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: David Cemin <dcemin@nvidia.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sudeep Holla <sudeep.holla@kernel.org>, linux-tegra@vger.kernel.org
+Subject: Re: [PATCH] firmware: arm_ffa: Compare notify_id when looking up
+ notifier callbacks
+Message-ID: <20261021-graceful-refined-lizard-1efaff@sudeepholla>
+References: <20261020220902.611138-1-dcemin@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,91 +57,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: 3mbci7q54gc3gc16qrngwixwcrgrpqn5
-X-MBO-RS-ID: e8dc92e6f44407bcc32
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020220902.611138-1-dcemin@nvidia.com>
 
-On Wed, 2026-10-21 at 15:47 +0200, Christian K=C3=B6nig wrote:
-> On 10/21/26 11:55, Philipp Stanner wrote:
-> > dma_fence_is_signaled() can return true *while* the fence is still
-> > signaling. This is fragile and has been involved in at least two bugs:
-> >=20
-> > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-> > 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
-> >=20
-> > The signaled-bit is set under lock-protection but read without it.
-> > Adding the lock has been rejected on the grounds of the lock-acquisitio=
-n
-> > shooting down cache lines of parties that merely want to check whether
-> > the fence is already signaled.
-> >=20
-> > Make sure the bit can only become visible as 1 once the callbacks have
-> > ran. To achieve this, read the bit with test_bit_acquire() and set it
-> > with set_bit_release().
->=20
-> That has been suggested and rejected before.
->=20
-> Background is that the signaling bit must be visible before the
-> callbacks are run or things like dma_fence_default_wait() (as an
-> example) just break.
+On Tue, Oct 20, 2026 at 03:09:01PM -0700, David Cemin wrote:
+> The notifier callbacks are kept in a hash table keyed by notification ID,
+> but struct notifier_cb_info does not store the ID and none of the lookup
+> helpers compare it. hash_for_each_possible() walks the whole bucket, so
+> any two IDs that hash to the same bucket are treated as the same
+> registration.
+> 
+> With the 64-bucket table, hash_32() maps IDs 2 and 36 to the same
+> bucket. A driver that requests notifications sequentially therefore
+> fails at the 37th request:
+> 
+>   ARM FF-A: Failed to register callback for 36 - -22
+> 
 
-dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long time=
-out)
-{
-	struct default_wait_cb cb;
-	unsigned long flags;
-	signed long ret =3D timeout ? timeout : 1;
+Nice catch. I dropped the exact same change before posting the support
+on the list. For some unknown reason, I assumed there will be no collisions
+for such small sized buckets, my bad.
 
-	dma_fence_lock_irqsave(fence, flags);
+> because update_notifier_cb() finds the node registered for ID 2 and
+> rejects the new registration as a duplicate. The same lookup is used on
+> the delivery path, so a notification for a colliding ID can also be
+> dispatched to the callback registered for the other ID.
+> 
+> Store the notification ID in the node and compare it in all three
+> lookup helpers.
+> 
+> This was found on an arm64 laptop whose embedded controller partition
+> declares 38 notifications: the EC driver failed to probe and every
+> EC event (AC, battery, lid, hotkeys) was lost.
+> 
 
-	if (dma_fence_test_signaled_flag(fence))
-		goto out;
+I will queue it soon and send it as fix at -rc1 or later.
+Thanks for finding and fixing the issue.
 
-	if (intr && signal_pending(current)) {
-		ret =3D -ERESTARTSYS;
-		goto out;
-	}
+> Fixes: e0573444edbf ("firmware: arm_ffa: Add interfaces to request notification callbacks")
+> Fixes: c10debfe7f02 ("firmware: arm_ffa: Add support for {un,}registration of framework notifications")
 
-	if (!timeout) {
-		ret =3D 0;
-		goto out;
-	}
+Is this because of rework we have 2 fixes tag. Need to check how backport
+would work, hence asking. I will also check before applying.
 
-	cb.base.func =3D dma_fence_default_wait_cb;
-	cb.task =3D current;
-	list_add(&cb.base.node, &fence->cb_list);
-
-	while (!dma_fence_test_signaled_flag(fence) && ret > 0) {
-		if (intr)
-			__set_current_state(TASK_INTERRUPTIBLE);
-		else
-			__set_current_state(TASK_UNINTERRUPTIBLE);
-		dma_fence_unlock_irqrestore(fence, flags);
-
-
-That function evaluates the flag under lock-protection, with full
-ordering. The bit is only ever set under lock-protection, with full
-ordering.
-
-So currently, the bit is 1 before the callbacks ran. It becomes 1
-before the callbacks ran, but dma_fence_default_wait() can only see
-that after it took the lock, and it can only do that after the lock is
-released after the callback ran.
-
-So behavior for this function is unchanged, unless I miss sth.
-
-Actually, this barrier makes things more robust, since things like
-
-if (dma_fence_is_signaled(f))
-  ts =3D dma_fence_timestamp(f)
-
-could misorder the accesses to the signaled-bit.
-
-
-Do you have another example of what would break?
-
-
-You see, the bit sometimes being locked and sometimes being lockless
-causes confusion.
-
-
-P.
+-- 
+Regards,
+Sudeep
