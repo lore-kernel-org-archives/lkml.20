@@ -1,97 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550682;
-	b=Beig3/yeGPlftFUESNYhaiyB1dE07CjDQO3FSeZtmbG31/oA5ScLBnVSAfemZEWZxRzV
-	 w2AYdv9FgViYTXoG2AKoImKIV1w+7bKbUALH7WNjm6KM253NJE1aKVwnut4XwxQrjz+19
-	 dPBpgqwTWJGRJxCy4fxeEYWsWLCYL4ckWiArW4gs41/aAou+f8C9ozBxH53fe2GlL02Vu
-	 AuLPsYC+NObqSyNk15LIrzooD/xK+3EGvpPZGX0fWC9ZzdrzMdzEGouRB6TY8MiGDD9NA
-	 kXoJNSBRjc8YumLVaC/47rWB7PpbtIQjZXOI4PaNuVcZIot9W/icTb3ArxVWyPuCFfg==
+	t=1792550711;
+	b=b5Pp3s4AfhkSgI4MtPJ0OQpvzMUMTPTMditXTcYCsvqOu6c68XINRcIw3hFPssfYZf96
+	 krtVZCPODlfp254yG2IjxdOZNOhEnmo6ptAaisZ/ahOEnrsCtMj3ssZGu7aQaPwRq1/Gy
+	 jPdChTMXrtXF+zEA6uAdcAiRZesyWWfcbzh64q43G72IZd8O0QL3NrWbCrQ9/BT7QQgBD
+	 +Uuk+Z7X2icgYEk7nUOliMOipxlXlx15oyqLGoemqa8TqK9WQ230EQobELnYQ0fvJy891
+	 HnnB02725V3AlCr0JvXXpDRv42aiLQQasPrVcWawpdVf9GlprjceB/6hPMcecYkz3IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550711;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=NLzlKEOsCi9w1u4q3xRYee71IKEIz7iOlD+JfCxLSYE=;
-	b=ZeaOCKRbBdvQ4y8n66IJSP6IFGBwzAxjarq97suLulatszba7BxOZzwWFGjVaq5GzPFV
-	 /pCCRDqTmGnSs/B5PIBWlmxC39gtjolEpb/Qm1Nj4Bey+iJlKEskA2rwDVWL2RFf+zamw
-	 pqikSS//TMvg81vOkuyXn8bhja8VIUFWUv0XC6XKtz3ozWx18S1nVhlg5Y91JepoQLv4b
-	 BPV6pSq+VfvI5vbbLs4yb7Oq4w9KaTWG4G0SBpeoQgty2luLc/xivnZYgo5B35QWs9ro5
-	 9u09mrISMJELY+UAgoEo2IO5cc4L4hytjdB5YSvRLb0YlGqEc3C7/VSiKzRcebBN0KQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
+	b=xOtCKLR0Fyk9wKfgqPQt0xBjF0FA/lM7PdgiSVDAyzkrTLWSPMxXWyQH6B5CFD1qNVyM
+	 nVW9okqn261fb1di0C6fpAOJx2CBszz8aNOWXN57IepDbrJRaWnPRdOBY+REQZ/9vW3Jc
+	 MkcscJ1YUCquLzGNpm1iqCu6cvYvYE8UH8PLe9KjRm5oJBUCaJmnKDJepkDhdGOy2Svak
+	 EdR8Yg0EbK1StLeG1HGzKNBleahlO2bZ9WYdY+k39rEFT/8JlMwtSXzfX3XPiDA2ApBPA
+	 mkTB28f1pjQWlqG2pzBo7PT+vMDsE0o7gKEJETN+l9hgTUCCEEIK/BLuBSaBoByv/dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y5mLSoKN;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="Y3J7ML/q";
+	arc=none smtp.remote-ip=209.85.215.200
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20AD606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20AD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4635E606A325
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:45:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4635E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Y5mLSoKN
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93f30660e69so17419085a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:44:41 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Y3J7ML/q
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd6788d8de3so113253a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:45:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792550681; x=1793155481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NLzlKEOsCi9w1u4q3xRYee71IKEIz7iOlD+JfCxLSYE=;
-        b=Y5mLSoKN1wf+TJ7KGubIjdn3WlM/DL/bPWbC0kwnpROcjNtXwpaJpuPzxEBokXuT7g
-         BZ6iWdkbX6kAOkFyY6lqoVxJXNRb9qJ/xGpgnMnpEllAc7mo05t4gpdzxzPSC6aSOIfQ
-         F4CsiTTM53I3F4PGtHIVrP7GxKFmHc40BZTl5mmDnlVv5Gt4ajOyfkaRy51E7U5iDdap
-         IUP79AkB5miV24Vw0I9767QosQoip5MeU7EZfXs3cfZk5DCfvXgW/HaDrBWveJfGJaUY
-         huOWeY6f86eBMB7/2hOi7PYB4WlFVM6HuKTC+zhZzLHjM8f3VfUsa74VkF8XWGd0XOLx
-         fb6A==
+        d=google.com; s=20251104; t=1792550711; x=1793155511; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
+        b=Y3J7ML/qSiRa8yGKn6sDXsTL2y3LJj5OOvbWixnOKoHZglzpbOZDP1Qq3dmMnDp6Cl
+         eZ3Z5Sq1ilz1hmcrk8qLQaSv5eEoU3wf7i4xVvh7i5tIREONjtu2qCyG+lDuD6wr5iug
+         tpkJQVNjwmdFz+6EjDJ3W6NVM42ZVaAjqp6hiQrF9RGDDrjOcPgUmT0q7W13e3b61FKl
+         EKiWhycpK2ogEsZWgzRj5c5kdPZsX0Lq3mw5hjTssyDRGIGNBULM/ZM2PP0znKDj6eQ7
+         Wd0WmXfqmIFkF/Er0/eIkg5g0hWW6IwcfnGQa3I3Kz/m2HVVNa3otD9IJlD3S8CqJJRA
+         GLZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792550681; x=1793155481;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NLzlKEOsCi9w1u4q3xRYee71IKEIz7iOlD+JfCxLSYE=;
-        b=minsVLF/RBOiZMNL13v+5hrE+3YXcYxXnHJfAhyP9Jwzxb35F4kyIMqPXjLn6V+X2y
-         30kNux2CqXWvtOcwpRAWOiEpCwUGv+ofnzs5+7+dqkHRPv7odLRxeidEfPA5SEggV51D
-         ssTNto7KX4CTswLSxvfdm6S4hjP53ESKGRNen2WlZSh7MfGbcFSU82qA/L8i2f7BZsXq
-         aF0r+wq6u+uzGLbjMdp9psjFWj1Xz1GJy8xCXV3VvZMugE9vnCuN5gPZQmJjeTeJm/O0
-         +VNRzqRv/iiITgGUZQxW2nMznQsrUL/+L0xkKlxlNZbHmB1xWGmLyJrKH2nW/kLpc8bc
-         u5Hw==
-X-Gm-Message-State: AFq9FYLPtHXm6ui4a0lbCH3C/qiPlIdLZ64DA2yraeXPrm1pzr0L0mej
-	wsavEvLtfd0IJ9q0GHGoUCbnmd9anocjhgz46WGdClR9FXgf9hTZTuHr7m+dkd/XkSo=
-X-Gm-Gg: AYBFou1ewMgKX56tTmONfkQwc5JEH+PgxY2Q6DJ5HGFo0TXb3m5IaKIo8N9daIg//Tj
-	Z7FaRKhMJNge5q4jkfkwt7CDFiGJ+ZZHqN28GSsh2My66afcmvo+s5TsZLk2BTujSo/u9+ylEko
-	XfIkvJGi96x6kGhENxkHhSWczlnz0AbFLEzarc2p3umkPtfohnvYroWjfqATVV//kW70JbQA5Vz
-	LxZOymRsgaTRmnuTXguIhAG1rljw2QV3jC31W23375snj4QmD9SLU2+jp6WbVNHa29TC0J0cfG2
-	qT6zoWV7rFZxkoWZrexu5YHDkYd/0mlccjKGw7C8QvJxOvq8+4Swkhvy78xlrlC2GaxoBzWB8Ij
-	Fvi+5tXqK4BpoupOpoqKu9IVVZwFR3czkZ6ni8x79shrPk4E9DKtWR7aKkgy6ellfp3y6ogCYxn
-	TTFIgmOHnqdKnBDK93DosHHSLKJ76cbLG/i9AsKcsJDi1i9z8OGhK+NgBcXzTu+JxNNPPLz4Sqb
-	Ui2WRKzgE0t6JlowLfRY66iMWhekK9uf22D92nKhClGvhY/TH7H3zIqvecigWcsfV6S8/HCCnoM
-	XS1wBRpO5KHkNINZSd/MVzxkJLh25A8Vl8Mlptkwkw==
-X-Received: by 2002:a05:620a:1a17:b0:939:c1d4:e2e1 with SMTP id af79cd13be357-93f57f0bd72mr216584085a.25.1792550680719;
-        Tue, 20 Oct 2026 19:44:40 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F.lan (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56dd0022sm140259385a.20.2026.10.20.19.44.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:44:40 -0700 (PDT)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	akpm@linux-foundation.org,
-	david@kernel.org,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	weixugc@google.com,
-	aneesh.kumar@linux.ibm.com
-Subject: [PATCH v2] mm/memory-tiers: reset demotion targets of nodes without memory
-Date: Tue, 20 Oct 2026 22:44:38 -0400
-Message-ID: <20261021024438.1942502-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1792550711; x=1793155511;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
+        b=JjgH73X2/JbcMUX3ocTwhjUTLRppkWM01/AJzc5td49vdqtNy9j0R1rLL0pJPsthJU
+         or1F08mzxKCnHn2lauyUILkRqZKqvS3GB2c4a7FS1WDldY+9daowyP7fz8HYc/AM/TDg
+         jEQEobrBSM1OlPW2zKfKi4vUGd9ggeL4+7fX5bxSUV47bHXnhVnTNes+c0rpG3sh9zxh
+         npM9LcBq5/AvFcczh1HP1bR2MfA09j2VTQ6bUIpsQ585i1wLGRLkQOYTymkukI0Vmoag
+         BHnwO1FTjHjVpcOYIBgptDo3q8Xfl955VUBkN40QYxjDecjmxHBtTKJfwm/yOj3BAROf
+         l6eA==
+X-Forwarded-Encrypted: i=1; AKwUvBx0A5w6PRVsRBLIFDOIhoq4PQBLd8BCp/J3vDYpOo3AluikDmRz/eQgpERLVi3NnOg6hO5gt1p5LTVnPFE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLU7yMoc9SWSzVfgPOkA+/UqRBN9c/rWg0Vwsa63CUoMOCFFmnC
+	2Mmr34R6J9skYv6es6dSXguJw/rN3itF1jRkll/4a1gBgTYHv+YIjWV6ONwVfPZJ3bYeQd3x5UM
+	zu7SrMQ==
+X-Received: from pjwx12.prod.google.com ([2002:a17:90a:c2cc:b0:3a8:cbf9:5e52])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1847:b0:3aa:fdad:7d6c
+ with SMTP id 98e67ed59e1d1-3ad86d675a6mr596941a91.58.1792550709934; Tue, 20
+ Oct 2026 19:45:09 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 20 Oct 2026 19:45:03 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,48 +76,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021024503.1732165-1-seanjc@google.com>
+Subject: [PATCH 6.12.y] KVM: x86/mmu: Preserve nested TDP shadow page tables
+ if they are used as roots
+From: Sean Christopherson <seanjc@google.com>
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-When a node loses its last memory, offline_pages() clears N_MEMORY
-before the memory-tier callback rebuilds the demotion targets.
-disable_all_demotion_targets() resets only N_MEMORY nodes, so the node
-keeps its old node_demotion[] entry while it has no memory. Before
-6c542ab75714, the reset covered every online node.
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-A reclaimer reads the stale entry only between the node regaining memory
-and its targets being rebuilt, and it filters the entry against the
-current allowed targets, so there is no user-visible effect. To see it,
-online and then offline a node's only DIMM: a debugger still finds the
-lower-tier node in node_demotion[nid].preferred.
+[ Upstream commit 7a2c70e777a00c32ebafd376a6fe31ebb91c5b20 ]
 
-Reset the targets of every node.
+kvm_mmu_zap_oldest_mmu_pages() excludes a shadow page whose root_count
+is non-zero from top-level reclaim, because such a page cannot be
+freed. The path in mmu_page_zap_pte() that recursively zaps a parentless
+nested TDP child has no such check. As a result, a shadow page can
+be zapped even if the page itself can't be freed; as the comment in
+kvm_mmu_zap_oldest_mmu_pages() notes, zapping it will just force vCPUs
+to rebuild the page.
 
-Fixes: 6c542ab75714 ("mm/demotion: build demotion targets based on explicit memory tiers")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+As in top-level reclaim, do not recursively prepare zapping of a
+nested TDP child whose root_count is non-zero.
+
+Fixes: 2de4085cccea ("KVM: x86/MMU: Recursively zap nested TDP SPs when zapping last/only parent")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[sean: resolve minor conflict due to lack of lockless aging in 6.12]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-v2: +comment
+ arch/x86/kvm/mmu/mmu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- mm/memory-tiers.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 1a4d5fa11922..9acd7225c0ac 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2500,7 +2500,9 @@ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
+ 			 * avoids retaining a large number of stale nested SPs.
+ 			 */
+ 			if (tdp_enabled && invalid_list &&
+-			    child->role.guest_mode && !child->parent_ptes.val)
++			    child->role.guest_mode &&
++			    !child->root_count &&
++			    !child->parent_ptes.val)
+ 				return kvm_mmu_prepare_zap_page(kvm, child,
+ 								invalid_list);
+ 		}
 
-diff --git a/mm/memory-tiers.c b/mm/memory-tiers.c
-index 25e121851b58..9d872404592e 100644
---- a/mm/memory-tiers.c
-+++ b/mm/memory-tiers.c
-@@ -378,7 +378,11 @@ static void disable_all_demotion_targets(void)
- 	struct memory_tier *memtier;
- 	int node;
- 
--	for_each_node_state(node, N_MEMORY) {
-+	/*
-+	 * When the NODE_REMOVED_LAST_MEMORY event fires, N_MEMORY has already
-+	 * been dropped from the node, so we must walk every node instead.
-+	 */
-+	for_each_node(node) {
- 		node_demotion[node].preferred = NODE_MASK_NONE;
- 		/*
- 		 * We are holding memory_tier_lock, it is safe
+base-commit: 7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e
 -- 
-2.56.0
+2.56.0.218.g1ec904b173-goog
 
