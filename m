@@ -1,106 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792565126;
-	b=Y6ni+6U/ZLcbBZp9GO1AJcl5sBNQx4dPzczCSv8MN3qjybaxdCWZzpGf3qpndqNOq/yG
-	 w3lr7LN79ArU7exTTWJ0zYcDcG7UHYo508A57dHFo5y7UBs+cCO5y39Lpq8RpYnPrU8e5
-	 QhUtO8S30EB9k+TPliaXJ4jpPdBGOnGxMhM7q76L2NGlxRXFE9P6JoLhgD0wIzc4bclMt
-	 USir6gk6ve1IFdkleuFrOdIQHtIHXwcoEri2nS70oCPZBnWbNj6KzyShYVNTs48vvGkeE
-	 gDY5hEcIP5T2DLukP0ZeEH9RibrWI7LHx7YCUqeJk8C/r3NJmI7sw/Xzq7jfR4SDMag==
+	t=1792565202;
+	b=NBe0SB23aFNNgIlTyWy2I8lcvncs4MlWQrwTf0rVLaqlGMfSs3Kmh311X/0p+mzCdD26
+	 1D29Qy+NmbYDjI2WOPOL4AhOQrd1cA69KxTcyLKWCSb3ZHnKpAiLEowG02z5R2jMwaGPb
+	 d+abty15qMt7B92g0ClpCmRqpwQhyplcOveoO6qCVCdZN8HjpYvhMqng8laLH449XfqJT
+	 mkLvYa991cD00MHWAhZr4u7DDwRa9uYhRds8I86abpKSCsBmNJV5mYsfAlISoftQVGFjJ
+	 yAakfljl7FzYssMHdmZOKo6JgSgR49lBSF9r+l2gQTkMSNBXGkrbkZUb/iymgF02MGw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565126;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=bK22br5gUxVkzFqqNv2xUfxvigTGevWZC5+h9zTzvM4=;
-	b=fLQgLYt/QvStfBFDv+1aagg5mGKyMZDJ5kyFlWLGqIX96Rk/yGya+eaPb+r+niqFFs+o
-	 uslGalXS2YI8YOanxxXtmt0uTt1quoXLgn4gsGmmoHWuDK+iHtIsVCI5d4rPu0LMqSA5b
-	 VxH60Yw4yqNJbDpowfaCF/JJHYlVjvR9/R1T8e0ystUmb1UevyyML+Q/ipxCXBqR6Ha3/
-	 IdvfkwK6E261GBZ4z55PF7OKx6XGAUDshREctta76ObPWgLg2hNxFoyY+M5/RB0MLz0aJ
-	 SfaZW7tRoXnCW1sff4guoVwcGzFiAiUusk6pPSV93ZznPTiwxpYefurwp+4rVts96sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565202;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+	b=eUGCplFSs5oXlLtSnjwVoySs6tpRhBfJkbZdaEMsomlV9pKDVNKZ5rV5JwrktUaG0vy8
+	 tvCUUrmj4szgxkbqtK2QrZ84RFTpEVMpQYoIRyOvs/Q0rihOwyBgM8CgZ7DfFkX0l+Q8D
+	 hnDLJYidiSrMMGA0s1LKcp+qV9UhwUBhb8z/2sqWGe03VRbQBbTDuIoWv2iPTpHUp+8Pr
+	 cWPEz3RsWWbuazSzR2kpYfRF75eC8DWsReHHmxj87cm/Kno0LmCAWcsw2l5GDKY3ls87c
+	 LQecEbX2tOdxZFTGx/cUcG35vlr8HrfQhgl4aS1f1e5j2ZzdwPhGPcqzbuFB/ntXB4A==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=BG1ECo7a;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhmxhi0T;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3909E606A31B;
-	Wed, 21 Oct 2026 06:45:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3909E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C584F606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:46:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C584F606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=BG1ECo7a
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5490F2022D8;
-	Wed, 21 Oct 2026 08:45:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792565122;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bK22br5gUxVkzFqqNv2xUfxvigTGevWZC5+h9zTzvM4=;
-	b=BG1ECo7a/eUGPHyzUDzpCIueDb20L/00R6W3OjQBPK79ljMYmwzIcfF/iyZnisj3mEunJF
-	edV7kmLFrKtZpJEsxMRfCelBPAFbu5KX+IWGufI2l2XukAxQwHW3uZ50vlTJSQf35j6Xp/
-	5SEQRGk0NBge/YiJ0DnY1ZnB9nY/b0fA2qJsUv+RCkfip/CkC4fWGJHrJCiP+ipOEMLhpp
-	b0NWcZkw+FNid20dGDT8FOc2vGG9XUd1EGNsWB/SzzarVjJp2H9GAUp2muMOkLpiTNR1tx
-	vdAf3eyOJduRAaMScf4nI4fhDelaC+4gYdYrUdERP5PPJc0nw9WPB3faRqIqOg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792565122; a=rsa-sha256;
-	cv=none;
-	b=UOyKV9kBE2PBMI0vpumPT7RSFX1Hxg1DhyN0epBwXEwSt3Cz2YgDhxwzbrOBEjVvrBSxU2
-	50yZcESH58Sl/3PojrLDm6XMK4nQtg6Co5CWkI7Rl+7R1QejbKggmicCPzU0kb4o5NVXGE
-	J60jUvgQJGOvWsqiD8Cgfduq+U4dBrwSnXC9n91q78Z6p9S3e9f8iaQlLDyQVaSuXdUhf8
-	33NGEHVmBPK6dPhVsncHe+sMfL6AZyE4KrnuR0TmyJnd6F1z2ehbeqmUMI7Po4I1GeCvt/
-	sdvtIDI6cYyk3mIV/Fc7oIdIylfEVGfMhVAPZklC6f7XKpiYIXUKCzR2YsRe+g==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792565122;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bK22br5gUxVkzFqqNv2xUfxvigTGevWZC5+h9zTzvM4=;
-	b=d96X3CdYWS/PSFREaAqdpJtOuk4Xow16CQ/cfuAz4y9+zZK0jntOllrrtO91c1dtT646dz
-	flCfe7hzGw4RWhJq4CU2AzFbfRApt1kbyB4UpXNn6cyx3ZMYFZgnbY5tbjNgSlgEacZ0nS
-	e5QumnMgF53RnjlNwaDx7aDaUryF9ceWAj+hQXTXlGpaIFhG4or00G9QraWrpmgfHEG/5C
-	8ZT3AFxd/CYeRFfHNPwfNIzmaiGUi88959Ij2QIXzvqQlx8qWG+mBKq3WqJAinvf8xQ9G+
-	bqt21GwL1MxVBzwJ9kvW62l++JTLyo7h6AEoDwX2KUi1/ziT6+jKUX83FSeduQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xJQ4g-000WDV-0k;
-	Wed, 21 Oct 2026 08:45:22 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id DBACD5CAC5C;
-	Wed, 21 Oct 2026 06:45:21 +0000 (UTC)
-Date: Wed, 21 Oct 2026 08:45:21 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: Ian Rogers <irogers@google.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Andy Lutomirski <luto@kernel.org>, Vincenzo Frascino <vincenzo.frascino@arm.com>, 
-	Stefan Kerkmann <s.kerkmann@pengutronix.de>, Christophe Leroy <chleroy@kernel.org>, 
-	David Laight <david.laight.linux@gmail.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
-	Namhyung Kim <namhyung@kernel.org>, Eric Biggers <ebiggers@google.com>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, "Jason A . Donenfeld" <Jason@zx2c4.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for
- ARMv5
-Message-ID: <20261020-groovy-chimpanzee-of-exercise-8a9174-mkl@pengutronix.de>
-References: <20261019201257.3805356-1-irogers@google.com>
- <31fe09f6-0a14-40fc-8ad8-c03998fb1f5c@app.fastmail.com>
- <20261020-succinct-zebu-of-vigor-6cb2cd-mkl@pengutronix.de>
- <d2afb4cb-145e-488b-8f6e-c83e38735526@app.fastmail.com>
- <20261020-nice-turquoise-dinosaur-3079bc-mkl@pengutronix.de>
- <a34133df-224e-4cea-b574-097ad37a791a@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qhmxhi0T
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35c76e9614aso705234eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:46:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792565201; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XX53hBuM1LlAua9dK0b0jJiUl2k61otjuiDL7EQl7OwN5eJZK/jOlfh2if/YJqvr5z
+         HUh+T6zdpPj/wxrDqVuthLvBWqOxwrFj4v0L4OP5AtWOADoc2SDJP9u6+RtSJR5z2Gdy
+         zXacXVcXdb9wSU4SrSihOh7cO81Crcbye9T235oGVa/X7/aLidYJrzNNqXZLgMhoNgWE
+         HAmvv1GCULmmkRexMBrex0ZLNzJfPw10NRaXe7bgHkomSHa0iLxiVfD1GVGlDGCbcnQN
+         K/xUuyRBB4oAk5wtmtRhJ9bUrgMfizT0LcYN+HjDQsncxBqhxK4b9nEekrOIRhOCSHtl
+         v5EA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+        fh=S8QLcv1PQRkU4P1YUWO7Ojy/EsxZQiPuWFHDAKLP0uo=;
+        b=nuKRcUvJ6h5nRNeDwtTUAXmYVfn9h+bdGGdAGKD1M75GTELpCh5vbom29+9eM9ydN8
+         bTsC97nU3Ia+f9TfrrgfOiSApy5ddNdSSknzX95BPrM7VZ3qeZSNrveCcBtZLtiIxks1
+         mP8q7kVh3ypvoY6cVCkrRoXMQFRx7keJv5+FQVo9il5SPRN+i4iOrSsirUH+CGWi+tMN
+         SkPPG715pASLjlwyj+BJuStE78ugW24jMB9WRduanHmGee92ixzRZOylRgf4dgxc7tTa
+         lp3wmrj1aZpArgxwQxJoLk697B5PARFLc75c/SBTTKNj44P7DpDujMmhNyVgsF3WTlBJ
+         W9kQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792565201; x=1793170001; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+        b=qhmxhi0TbMwtXBvTVlFY4f2LPpHPl8poznD9dAUHw8+/Z9wZhQBqqYwfND7kTtB/dj
+         BDT7fy1OHPOT3SsXcIJoCO2P5QWvHhSGsWpWrDlHwCxU3wdGdBZJo+CJDKK8hjNN6KtJ
+         ZTBEpRPZ/CzppBKznbLND/WVtTUpHxpIjv8l4Dszl6GShVbqspGQMSfdEn1YLZCusCt9
+         8XZUeUrLgiEXnrc9s2V2o2rhr6TPF2UsE6frYfs2vuDhFHmb1RIg6wUfaQGU2siObxeN
+         QZxhnIASpBqZUpMRUn6UfJAhdRPi9Cf8ml1LkjDPLUFZ1OJH0H7A3t4eraOGGpReFZps
+         J94w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792565201; x=1793170001;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MFx6RfKZoDg30I8aWbaaH8/QBhrTkiLCB5URy2j6R9Y=;
+        b=wkRiJdI81JkFB46LEwTePNaUWaToH32jrQfpqo9R/Hru4PNguHrjUPjBl1OES8C54k
+         3Wm3iJthyFOXda0/YXNIdC8DF/xtY4c4rV0wQ5ZvYyeW7pbPUBlnCLwIIK5TJaJHEZZ9
+         y7/q+8KbUJxCTeopaoIsUU3prPbgYeYf9Ezo89Uo7FniS7b0NLZxq8GUALyNvpG3g6aw
+         X54YqfaUuPvxH5/oLcVD8Hmfm/XYr06OEEz1HUgjtL2IUtCJWsxDa+jyiRJVpb2+sPpx
+         tcLDXmMdyF0GJjk2s0OgM8oG//5dP/Xl8GApwJGrhKZGQoGa8ehk0a/yzFFfnzR4fzOv
+         0i0A==
+X-Forwarded-Encrypted: i=1; AKwUvBz9qGVsf6B/ac3DakbTbi5Wcw+WXRpVolmW+i6oCpOx/Cs9acfBmwsRF74Y4wwNmW43dxr2kaJkJyuLVtY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJSejG9RnDqKtunNKyB376tLNKXH37qZUhhJDSMIUf+oDcW43Bo
+	JQ05klY3NOZVkbRLe5tsHJDtMRwVVHhwzBiqeudAB14YASxdGfud7Dw+yiBVJS14+bkNS51JPb0
+	ZIBlcVNB2Tje/Jtxo4LYvAU9NMK37fTE=
+X-Gm-Gg: AYBFou3ixk53qNOyB2AQKillKP/2wv4pSj6vFiD/V8i1DsB4itQZwOUprUKbCnR2qUW
+	g/kZwo5Ys1V3x8k2sBY0vWC3D3DJ+chgAXCffuYEfcUfIOlohyGtsRODMBR/a72e+/h16ES/4LU
+	OOBq59oG+LtWxpjlDxCQEKC9RZmTCaFopW9Ep14voL4xMX28HTcSisHeIVHGiiZijCvdSzeRWgF
+	Iw/q1uSxnCwi1YWL+ZauMFZ0TdCzCMaD204saY0FG3vlNsQ3/1gm4rYRREjYl/LOskgd5treisF
+	1zVTUm1zyibFcjGm7Mza3D4/MF18RW39ajHo7OcaOv3KOrmGTn2cOweveBgRsJiRXGLIS+TtCNq
+	qw7DGCECy7SGwsWKE4ePaRmK5xYB3QbLx41jP08G0IYpKWYzsinTjJE97lhA5xSJm7l2d2w==
+X-Received: by 2002:a05:693c:88c7:20b0:366:703c:5f0e with SMTP id
+ 5a478bee46e88-3674ef1f33cmr2092100eec.35.1792565200654; Tue, 20 Oct 2026
+ 23:46:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,116 +104,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ber3bezd7mvhap2o"
-Content-Disposition: inline
-In-Reply-To: <a34133df-224e-4cea-b574-097ad37a791a@app.fastmail.com>
-
-
---ber3bezd7mvhap2o
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+References: <20261019100406.103687-1-clamor95@gmail.com> <20261019100406.103687-4-clamor95@gmail.com>
+ <ate5K6ZdrSoBUI08@google.com>
+In-Reply-To: <ate5K6ZdrSoBUI08@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 21 Oct 2026 09:46:29 +0300
+X-Gm-Features: AclHuK9vSBGobmYgXVnmsJbAb2zJc_kKp_DYHLaIwx6A0bp9NGDYceSKiyk9FqE
+Message-ID: <CAPVz0n13NFbY1ChZRkc8_2CQd8HfjahA-gcRWzxsv7KbAxf5Ag@mail.gmail.com>
+Subject: Re: [PATCH v12 3/7] input: serio: Add driver for ASUS Transformer
+ dock keyboard and touchpad
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	Florian Krischer <florian.krischer@fkr.dev>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-input@vger.kernel.org, 
+	mfd@lists.linux.dev, linux-leds@vger.kernel.org, linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 1/2] vdso: Add VDSO_UNALIGNED_PACKED config option for
- ARMv5
-MIME-Version: 1.0
 
-On 20.10.2026 17:54:55, Arnd Bergmann wrote:
-> > When booted via NFS-root to the login prompt, we have about 570k System
-> > alignment fixups, all in the IP stack: :/
-> >
-> > __udp4_lib_rcv+0x78/0xc6c
-> > icmpv6_echo_reply+0x160/0x504
-> > ip_send_unicast_reply+0xf0/0x3f8
-> > ndisc_send_skb+0x15c/0x40c
-> > rawv6_recvmsg+0x114/0x3b4
-> > tcp_rcv_established+0x3ec/0xba0
-> > tcp_v4_fill_cb+0x70/0xec
-> > tcp_validate_incoming+0x540/0x868
+=D0=B2=D1=82, 20 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:0=
+4 Dmitry Torokhov <dmitry.torokhov@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> That is usually a bug in the ethernet driver, which should take care of
-> aligning the IP header in the rx skb. Many drivers do this using
-> netdev_alloc_skb_ip_align(), but I see that fec has its own buffer
-> management, so it may not be that easy to address here but would
-> boost performance quite a bit if you do.
-
-Thanks for the pointer - different topic though.
-
-> > Comparing v7.0.12 with mainline "unaligned.h" and reverting commit
-> > a339671db64b ("vdso: Switch get/put_unaligned() from packed struct to
-> > memcpy()") brings no difference with respect to alignment problems. But
-> > I see the increase in I/O performance (measured with "fio" [1]) on a
-> > UBIFS/NAND file system:
-    ^^^^^^^^^^
-
+> On Mon, Oct 19, 2026 at 01:04:02PM +0300, Svyatoslav Ryhel wrote:
+> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
 > >
-> > - v7.0.12 NFS root
-> >   User:           0
-> >   System:         573956 (tcp_measure_rcv_mss+0xe4/0x1e0)
-> >   Skipped:        0
-> >   Half:           4
-> >   Word:           573940
-> >   DWord:          0
-> >   Multi:          34
-> >   User faults:    0 (ignored)
+> > Add input driver for ASUS Transformer dock keyboard and touchpad.
 > >
-> >   WRITE: bw=3D272KiB/s (278kB/s), 272KiB/s-272KiB/s (278kB/s-278kB/s),
-> > io=3D32.0MiB (33.6MB), run=3D120532-120532msec
+> > Some keys in ASUS Dock report keycodes that don't make sense according =
+to
+> > their position, this patch modifies the incoming data that is sent to
+> > serio to send proper scancodes.
 > >
-> > - v7.0.12 NFS root, reverted
-> >   User:           0
-> >   System:         574214 (tcp_measure_rcv_mss+0xe4/0x1e0)
-> >   Skipped:        0
-> >   Half:           4
-> >   Word:           574183
-> >   DWord:          0
-> >   Multi:          27
-> >   User faults:    0 (ignored)
-> >
-> >   WRITE: bw=3D343KiB/s (352kB/s), 343KiB/s-343KiB/s (352kB/s-352kB/s),
-> > io=3D32.0MiB (33.6MB), run=3D95439-95439msec
+> > Co-developed-by: Ion Agorria <ion@agorria.com>
+> > Signed-off-by: Ion Agorria <ion@agorria.com>
+> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 >
-> Ok, so about the same improvement that you saw on ubifs.
-
-That test actually was running on the same UBIFS on NAND file system as
-Stefan's original test. Although I bootet the system by NFS root.
-
-> > Booting from UBIFS, so only the lab background IP noise...
-> >
-> > - v7.0.12 UBIFS/NAND root, reverted
-> >   User:           0
-> >   System:         164 (rawv6_recvmsg+0x114/0x3b4)
-> >   Skipped:        0
-> >   Half:           0
-> >   Word:           127
-> >   DWord:          0
-> >   Multi:          37
-> >   User faults:    0 (ignored)
+> Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 >
-> At least it seems fairly safe to assume that your original
-> finding is correct and my worry about adding more faults is
-> unfounded.
+> > +static int asus_ec_kbc_probe(struct platform_device *pdev)
+> > +{
+> > +     struct asusec_core *ec =3D dev_get_drvdata(pdev->dev.parent);
+> > +     struct asus_ec_kbc_data *priv;
+> > +     int error;
+> > +
+> > +     priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
+> > +     if (!priv)
+> > +             return -ENOMEM;
+> > +
+> > +     platform_set_drvdata(pdev, priv);
+> > +
+> > +     priv->ec =3D ec;
+> > +     priv->parent =3D to_i2c_client(pdev->dev.parent);
+> > +
+> > +     error =3D asus_ec_register_serio(pdev, 0, "Keyboard", 0);
+> > +     if (error)
+> > +             return error;
+> > +
+> > +     error =3D asus_ec_register_serio(pdev, 1, "Touchpad", I8042_CMD_A=
+UX_SEND);
+> > +     if (error)
+> > +             return error;
+> > +
+> > +     priv->nb.notifier_call =3D asus_ec_kbc_notify;
+> > +
+> > +     error =3D blocking_notifier_chain_register(&ec->notify_list, &pri=
+v->nb);
+> > +     if (error)
+> > +             return dev_err_probe(&pdev->dev, error,
+> > +                                  "failed to register blocking notifie=
+r chain");
+>
+> I think sashiko is right that we need to register the notifier first,
+> and in it check if serio ports are ready/registered or not. For that we
+> probably need a lock and set pointers or flags in serio's start()/stop()
+> or open()/close() methods.
+>
+> This can be done as a followup I think.
+>
 
-Yes.
+FYI, Sashiko likes to hallucinate. Initially notifier was registered
+after ports, then sashiko suggested to move it before. Then in v10 it
+fussed again and suggested to move after. Then v11 passed without
+regressions and now in v12 it fusses again that notifier should be
+before.
 
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---ber3bezd7mvhap2o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCathffwAKCRDMOmT6rpmt
-0tIAAP0dKhet7X01pv6Jrm8ojsxhxHRzlNFV5ftP9JAjAHmXVAEA7IQKE1OYnHIX
-RUf2A3flqLg1uXT4ilqnaAw0Jhg+3As=
-=eOTV
------END PGP SIGNATURE-----
-
---ber3bezd7mvhap2o--
+> Thanks.
+>
+> --
+> Dmitry
