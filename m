@@ -1,109 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586080;
-	b=rX016qJev8UMEeIZftyep1/tvjUe/ulKa5jVAS3gyn4zg5aV6B10l/+SdcPxEa3LrPT4
-	 +zAWNIfFoCyBs8VgqUK6im41Eav9Hsc9wOprM7QqcQDX5yVTTKGgmRa8MfJ7nbenh4uTR
-	 tac778R6Ppi5znaUr02CIE1AL60lc+Fjt8qAKbZNZDkz0thQpkkIPZxiXZcxe7ABJoIbJ
-	 ZFeTOWmAfCXWBU8q5NXMdJRygcIwqUFxpUZ+PNrEvPBV6z7zeW6MfgVNzOEpk9kfwzr6d
-	 ClIyWPNQ0ih+mBcmiDCMfS8mKerfFzx3Ejw95YjZ+1P9EpYrmSYZe3KTo3OjphEdDzQ==
+	t=1792586085;
+	b=Qkh2fLNxjP8KXtaTkatYXXVXWSo66cyziLFSafPmw409IMfCUigo82BkQs53joY9v3j3
+	 8OudiLexE0a3ILiiwp0mpEekfiX9zdXva3cG4QBBgfk+DAJg0WenQZ+RXPLuGZCKlKXbC
+	 XJjI1uJ8bV/Ez0C6SlfQpegikUk6zbFmwD2HGllKp3Ff4p44J8UJ+vU0sGpd8XaodL9F5
+	 PNxQMyjoJLcjJNPYGGjAdA4dqJDaozF06w6xpBPn7RKbx2hKWyZu3Gjs+FwAoJ96wa/g+
+	 zrONFvgmAJN7cgYWVuvgXWOnQJZawT4wvCNphPPX/G9jmjvqHnz+ijxOn/OYFeTAE3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586080;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=f4nusZtPfvxWEJGgkitB1nCWYQpN5wwU721sOcYgMrU=;
-	b=4WTXZKtmfkv7WpRQgC8FaX9Na63K5b1hNllJCAZ4ic3XPj1XOGjqTdun2sBbiPnFxPt/
-	 99cEVUCImJ6DGIeeFwn+y1oiZ8EBNPpWMDCnaZBfUPhSDyk5fYJ9/l1DzZlfaOYgD12a3
-	 VPZaDewlUtcpXvASjUXTe/7QwiRzzwndvyEErbq3q+yKQ8WkiyHQk6gzZ3/5zCAYVBM7d
-	 pmF+XNgUUXMvb7OKehNPJZJcOO88SOGeobrwpv1KxP9GO386R5MmHTxGmpnLstvRfhNfx
-	 24UYT5v3vzFgMFqa2qxToh41eyS2uPknFasmBTqmafytJ5EZDi7dJ6jt9o5miBNUnrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586085;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=YQK6CVJp2LKnOa9Ab80qPaliuqBiGmu+2pIqiPQQ6/k=;
+	b=VG+BMGX7gkg5eXuYSuG6rXjwd4LUA5zf6jrI6UdEzKjjv4LevNEH3q5lJgbxD/Y+E8/o
+	 iLhv035j3eZrkqpVbR55+BRzJx3QzKDUXZ++xoqQOBNYWKRfdWzhJNzdh2X2r9ZnMb/kT
+	 arPGFZJFx+y6kp6YyuyhEpYg/BEnsCXEMCf0H9xgaAJPyH0QbGCoOUK6g+NZPDldsiE89
+	 tjcH0a3O+HR0SeRNNGApaQ7xWq7QPIs/D0vCLEDkn8Yw2WG4citP9OVcPj4TW5J7Z79HX
+	 ByVRq7zkcX44P3ochR7jf7IX6MvGWevkGU+4eYwBmdtlkoB9T2zWXo7FehWSHNcgy2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qNv+xtka;
-	arc=none smtp.remote-ip=209.85.216.50
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLniGBo5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C68260A2616
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:34:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C68260A2616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391D2606A32A;
+	Wed, 21 Oct 2026 12:34:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qNv+xtka
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so602480a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:34:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586080; x=1793190880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f4nusZtPfvxWEJGgkitB1nCWYQpN5wwU721sOcYgMrU=;
-        b=qNv+xtkaj9e8fvQN/Lf6TTHgGBcsZ2dVz5uTfDNP5Zok9HBqV6y01ZfVzhk72M3MWG
-         vf1SUBBm8nMDULiTdREYrInujFA1RQe8ZqSY82qzea3WijkG0ULtWczetNnNIqEBWNUO
-         FzHVLBpiFs5FVWYW6zyLQks2a0yItZimoNIXbfzMI9Vy1gaU/DqecYfB4NkI9JGQFFzO
-         30kRCNTh2QRYQp6kYJ1U3ST4Kzm9w+BLbUl7X7rHIcCpwSoVC5gRCIGKUspLBEtR21wk
-         m/JELyWEmJohGFMvHJfLY1I24K+jxSwjKm0od0E/ZKf5I9F1+wEy+4LqbUpzwd31SfQp
-         lKuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586080; x=1793190880;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f4nusZtPfvxWEJGgkitB1nCWYQpN5wwU721sOcYgMrU=;
-        b=sdaUBKlMmd00MhQbX+0dn+PAF9QxxtJoz1nOyREtxgt3TrCUfoYvzRPSCdb0eHSIQv
-         +U3VNMyfVBgp4BQAhS5z60ZAHK+zimJGRMZL6iwV0h7YkuF6VbgNPalV0GJZ/30gZU/I
-         qHHOH2kXEznpJJa/6fUH/z6FWEbXqtfKzYuhOKaLw5nv9ICQlS1pUjM4+mk7tn6vOb+l
-         HapGLJ2+++B1ntP4KM6ExWrQE0HBCcHXwBhKmmaxpnBGctUPnulUcz9GXxGJA4qQdHyf
-         cKh8o3hLhK4Aapsp99Wpte51WMGWzFjbEB6uzDqD7nq/4rxB5fmCpTCbraTj8tHOq9Tt
-         1IOg==
-X-Forwarded-Encrypted: i=1; AKwUvBxu7pPU7p/y4yIyv2d74s00JFkfSX8VhIsgL0acMh/JGGp1OpTTxKZpj/l+wF7LwnJUgKesYmWI9uUcszg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcVe34JTXE377qZomPvD0cRSsP360qJMdd6rQm9jgaAE4RaHxA
-	ERBlc/waH7gMYuvTninIZ6MVhuYM1zfxKbVlWlgj/dxu9NzIqoF47618
-X-Gm-Gg: AYBFou0pfocaprjCXiteBz60LJeaO01EWyuFfGRqy3fkj/8Z8VgxggiAxiyid9+KCv1
-	gCMkz5ARXVAwZHTREU0kSypkLBEL8K7WmBgVp2asZp0cRNt5AZ2QVwQqJu1bLvBSB9hDrzqyPEh
-	sRluUes6TGBbTo7BGtDzBjQDh8sDzINECFrFOYCsGB+rUOp4KUQ2/7LusOiQuG5EBBcL9P/exn0
-	J7laAOU80S0/gB+SNvRKUZ/vz0i5oKL4b6wf7hdw8/vW9K8l6KyzwIgQ9QFXqmhAu31sz0gM0YB
-	Omk4BrhsHdv8C/6PFCA7QVwxwJmMITsplvlTXArsEkpDeSNIJDVApP9fr2WqzguLxD5DUDfA32G
-	id4WpiT/SLfh9VAFqWOOtu9z7JiKfobRvNa5RC463zQIAAaUpoK191xGcw8H5N1cze6svzCgGEx
-	efFTv1zzOlei/7f1FSIcyVztMEX1loVyxUJdZUZKEDSx64Cq9N8M3Go4kmvdXvDCDObzHPRhTtZ
-	v0zQQIDOQ9hpkIS2uZvTXNAcNmYPVkhA+UAFdWhL7RL6u9x0sHZtUvGKw==
-X-Received: by 2002:a17:90b:28c5:b0:3ab:be66:ddba with SMTP id 98e67ed59e1d1-3ad86f44cddmr1574310a91.23.1792586079881;
-        Wed, 21 Oct 2026 05:34:39 -0700 (PDT)
-Received: from qby-nixos-laptop ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1823615a91.3.2026.10.21.05.34.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:34:38 -0700 (PDT)
-From: Mingyou Chen <qby140326@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
-	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>,
-	Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Serhiy Shliapuhin <shlyapugin@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>
-Subject: [PATCH v13 1/7] MAINTAINERS: Add maintainer entry of bitland-mifs-wmi driver
-Date: Wed, 21 Oct 2026 20:34:08 +0800
-Message-ID: <20261021123414.25516-2-qby140326@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261021123414.25516-1-qby140326@gmail.com>
-References: <20261021123414.25516-1-qby140326@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lLniGBo5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B284C1F000CF;
+	Wed, 21 Oct 2026 12:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792586085;
+	bh=YQK6CVJp2LKnOa9Ab80qPaliuqBiGmu+2pIqiPQQ6/k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lLniGBo5Ti6cEUqm06S1v3LjcuiVwZ2xejpGXvox2201Kb5vvWKsDJNS5FWGKGp1o
+	 umjU7oqzwqCHaI+sjpw/f7TqzH9yE+RY7Bd3tdc9vXtPvch8joDOc9vkYQJLqK11rQ
+	 d4RSEIy+vPtSM1LWWTnY4q5EWQHp0rOUm97RL8iJkXHQncSII3jo966ptjipKwfDzU
+	 Qf56ZuQQyPjuFjjVp3ucIvabDJZE6aZKCkQujtR8xKRaIOUGa31UMHbwnEl97ElAWv
+	 a57uOBeQycgNJ3DsY5wfWEuH4wqIynV2UWoiaXoM/cmXwgunBlnraz2kAZuDz5Mg/n
+	 zV1v2b4qVHhqg==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Nate Case <ncase@xes-inc.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 05/21] leds: pca955x: Take a reference on the child firmware node
+Date: Wed, 21 Oct 2026 12:32:14 +0000
+Message-ID: <20261021123406.3163547-6-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
+References: <20261021123406.3163547-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,31 +64,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a new maintainer entry for the bitland-mifs-wmi platform driver.
+pca955x_get_pdata() caches each child fwnode in led->fwnode while
+iterating over the device's child nodes with
+device_for_each_child_node(), which drops its reference on each child
+node when advancing to the next iteration or finishing the loop.
+Because the LED core stores init_data.fwnode via device_set_node()
+without taking an additional reference of its own, dynamically
+allocated firmware nodes can be freed before or while the LED class
+device uses them.
 
-Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+Acquire a reference with fwnode_handle_get() when caching child in
+led->fwnode and register a devm action to release it when the device is
+unbound or probe fails.
+
+Fixes: 7c4815929276 ("leds: pca955x: Let the core process the fwnode")
+Closes: https://sashiko.dev/#/bug/linux-a78a30d3-e8c1-43eb-af6c-c26279dc21e7
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- MAINTAINERS | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/leds/leds-pca955x.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cfce3571ac01..63d2fec54e86 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23043,6 +23043,13 @@ L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	drivers/platform/x86/redmi-wmi.c
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index 273383351ba0..70043e0e6f08 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -530,12 +530,16 @@ static int pca955x_gpio_direction_output(struct gpio_chip *gc,
+ }
+ #endif /* CONFIG_LEDS_PCA955X_GPIO */
  
-+BITLAND LAPTOP DRIVER
-+M:	Mingyou Chen <qby140326@gmail.com>
-+M:	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-+L:	platform-driver-x86@vger.kernel.org
-+S:	Maintained
-+F:	drivers/platform/x86/bitland-mifs-wmi.c
++static void pca955x_fwnode_put(void *data)
++{
++	fwnode_handle_put(data);
++}
 +
- REDPINE WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
+ static struct pca955x_platform_data *
+ pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
+ {
+ 	struct pca955x_platform_data *pdata;
+ 	struct pca955x_led *led;
+-	struct fwnode_handle *child;
+ 	int count;
+ 
+ 	count = device_get_child_node_count(&client->dev);
+@@ -552,7 +556,7 @@ pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
+ 	if (!pdata->leds)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	device_for_each_child_node(&client->dev, child) {
++	device_for_each_child_node_scoped(&client->dev, child) {
+ 		u32 reg;
+ 		int res;
+ 
+@@ -561,8 +565,17 @@ pca955x_get_pdata(struct i2c_client *client, const struct pca955x_chipdef *chip)
+ 			continue;
+ 
+ 		led = &pdata->leds[reg];
++		if (led->fwnode)
++			devm_release_action(&client->dev, pca955x_fwnode_put,
++					    led->fwnode);
+ 		led->type = PCA955X_TYPE_LED;
+-		led->fwnode = child;
++		led->fwnode = fwnode_handle_get(child);
++
++		res = devm_add_action_or_reset(&client->dev, pca955x_fwnode_put,
++					       led->fwnode);
++		if (res)
++			return ERR_PTR(res);
++
+ 		led->default_state = led_init_default_state_get(child);
+ 
+ 		fwnode_property_read_u32(child, "type", &led->type);
 -- 
-2.56.0
+2.56.0.218.g1ec904b173-goog
 
