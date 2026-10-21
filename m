@@ -1,101 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.227.123
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792595089;
-	b=ty1xanr2S2EO0TEM+Nk+xc/o3rJpVSjOWrqyyIS0qJ0pcC/JswU5YU3zsSMXxHTKJ96Q
-	 whN+0Af/XTxkRQd1H8pGKMERWQm8FXLttERrk8Z1YGFrgkQnR3fEZObRbHsF5YTwkINVQ
-	 UzW3W7tvpKNVz8omxDNJwIECa9cQP9RuKXBD4xyje0QdCAX+IpAK4RRdzGqpm4GdK50AK
-	 //ZpbV7xSfyuYIqMPh9Q8oNPLJFtXyOrKVQBo1PJ6hf94Pkavw4tamBINrF3mJFyDUcU+
-	 Q7zYO6UewOsDHjjVrgldrwgz6GNnpC0cjVQONuBADdo0bNvYYhzwEDQCHMc1iqc5thQ==
+	t=1792595111;
+	b=Zq3SCtR1bnmkxPD6Kp8WqXszAAtI/0EifVMeaHFQze22jgRhaQyEbaJYZo3rqV+T0iAn
+	 YE7JOnZJ0Bux4hYj1GR6JW2qWO8MNP4tCDffwaqsbxJazOUyzLNFDhT4tEgk36ihvn1o0
+	 /qu3H48y+1Qp8mdCz3ngSGmWr+pWAAX4F8MybRjBaN38npehTFp0P0CgceVAaarfNgQas
+	 /uVhxDMEdJJBRwALucwcdDoikZx/VKfVINpqVe6js52gBy66U/gnoZ7IgG/HY3+1siuMA
+	 8+lqf0685q+kSQ3IJuwyh4PzSS0CmNFt0Z2PUR4FyCpo6Gk6BMXNrtiPhK02jCZjPcg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595089;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595111;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ld-processed:
+	 x-ms-exchange-senderadcheck:x-ms-exchange-antispam-relay:
+	 x-microsoft-antispam:x-microsoft-antispam-message-info:
+	 x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=dzuTLeaQKuRFlQK0YFsx1ESeTVWWU7D3TB6SunqFq2c=;
-	b=UbmHnG/cYSz3wRPLvokidIo9F2mYWSIEf3xVj/pi//vRd0pbMGacMXRn28dNZxMkUTds
-	 k0nbCLf8YVSi/tVEX2vJ1iUfSceaFe5Tz02XaPK/Go9kmeN2J5Fgssu4YjomBoNzryrb8
-	 apcwUKd0YC8JDwKbcZd/msscbRGUFlRH7Mcp+Bee3kSdeogD3qOUkidg2WZFaozriOijy
-	 iMIFXZHtIKyFkdM0ghAPpvS46xzhlKOcE9uBb1hwEnFF2Cw/qhucJhnw4dh69atLCacbb
-	 k+aGroBrc3i6v5357GzRwY5YSdZPFcz50PFdZN3yk8I9izPkCEdUr+cpv03jNmL1y1Q==
+	bh=CR3J+h/MwLeEglPrT0N300NMTP83/bpEjMXK9ZttVNQ=;
+	b=q2+X+RCASQ5TqfgfmNqLx0/RNjqOnPtvM8UQPMd4XVcE0iNkcAWGF6ZedeGjpI/SB8cn
+	 ly43cINSfaiX+YSl0OSjBdIK7GYx8m3sYk1ODM3nvya6lU8NJR8ZmDhfXHh7AwvwR0KDF
+	 Ww0X/Wy/9WZ7zqnFPNXVZnc5qEeNxNVfLxniMx7/rj2Qm98PKbddC5mh54RBYxn3ThwJW
+	 iGVurxNOJ93E1EGuoYY/gZHME4EA0NbF4WvsyOLveSBb1qaI7SlMPAU5MVSgOcCCcUlyL
+	 Gkq/mgu3MA7Hha8nH50ZmRVe98rCWnJ6rDjD+eVTtE/DLQ07ZPe4fUgYlpRMueXKodA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fAPOGKKJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.53
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012053.outbound.protection.outlook.com [52.101.43.53])
+	dmarc=pass header.from=siliconsignals.io;
+	spf=pass smtp.mailfrom=siliconsignals.io;
+	dkim=pass header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=dB9yFqHj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.227.123
+Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020123.outbound.protection.outlook.com [52.101.227.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373CF606A319;
-	Wed, 21 Oct 2026 15:04:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 373CF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F7C606A319;
+	Wed, 21 Oct 2026 15:05:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1F7C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=fAPOGKKJ
+	dkim=pass (2048-bit key, unprotected) header.d=siliconsignals.io header.i=@siliconsignals.io header.a=rsa-sha256 header.s=selector1 header.b=dB9yFqHj
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f82rNHIgfCxTIKYyuKzXWTtP6DFrxlp++uSjOyeMgj44sJ46X2YJPz7c+pl0JwcY2vw6BOiGigsIaiIhwqU1C5bR7gTg5/96+k3xnya5uz+2gnwHfKyTUZU8m+IMLSnw0nv+i87rrXZ0srWcoaTxqnOBS+c2gRtzGYk5rg0YUGe4bb91bi5qCpRoawFij+wRBdJSBjhQPMQDD5TcuWcXYZ2R9ozecdHzu31LG1OKP9ctrcKCTRDWJH3Dp2uf9XPnJ5WhRJN6iztjQG6ZPCXNvRm1UVlEmXUGcDFtkeb0sZ6yOgOQsKak+PVFhHLZQ6dXVME1GfKMxY03uJYMLvmoLQ==
+ b=QkDcpMzSL8a05dTCOiRgJBMWzWqkCh8GDmWFw7zFArCPwJPDawhEemjKno46y+rAlQmDzf8khONNaRJ/4x2fmv9kBOWapf4RxcMZJQCzz3Je45ARdO9y92yH8AB3v8zjxbFfQwxJaeor4s1tU0KtY3o3iPBOJ6VVcYjvz0h+DJtfRGCnktFbMbMMbtUX+iUKSzFeOTy1Iu7pCkF5y57G4bnNjCZl0Hf+wWeeUZDQPt6lqF2L/DAapwIAa3rtO91vJKg6FvRUeBBpzZdo/dt4mQdvcqXoRoVI0OYD/oDYDD9Fg67qvIAv9WCvq0fmdZq8L2g7/q6YMAsO73Bg1ZN9Hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dzuTLeaQKuRFlQK0YFsx1ESeTVWWU7D3TB6SunqFq2c=;
- b=HQveOluOhhRxvs6k8MtfOBm9dtdC3wN6ft77LcS02YIZseiviVIZm+hi4FRwB6joxxQSHzyNpnFyQqGqBZV3DoMQzeFQw68UyI7ofqSlV1TGKnqFTwuoTfZ/i+75kotms6m+jkokmJsSUimsdc3RsM6KJDdmz3m4v9shD+XCxyuLr7FpXVrd91HAiA/k19QPlaSJmLttkjrB5kxpAVIcTTll27S50DRqNZBsDB9BDzC5Lch87xTnTIPEDL9tz4ygJaP5UV+jAfEsuAB3e33wM1lA5E7fhm3dZWVTkBhTKsfsBF7Tp64+WE+rQCEwP8baRyJ8rpfmpKHwCx1GWNw0PQ==
+ bh=CR3J+h/MwLeEglPrT0N300NMTP83/bpEjMXK9ZttVNQ=;
+ b=KpPqQ3wM1N9rs2rFYl0G4j2r9E1DE5N/vbcApqHtRO9y2OMqfkHR1Tl2owPJY5yf7qIEhBfEYSFQjwUHPD44pevGRJ2Q0I0dnfJYKA3XVCjOArH542SHEnKzNVaL7iKVal+YfnM6ppbGrJEnwpv2vu9yow5XYMCtkeS/RA4MyKcZZ1f07bmHZ+rLz72jRHLjl26lmDf8bVt2kdUA/esc2p3zJpbQ1hfgJrdEi96hIRQsPk+9w0FjIQSs1lmWYKSl3g6iUFYLC6ll8iPOnC6JiEnv2z1/rFvexhbQDr/5HZcvysvjI953cjkxPYEZrSXu0YJfoj9XTfvXPznUr7aSOg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dzuTLeaQKuRFlQK0YFsx1ESeTVWWU7D3TB6SunqFq2c=;
- b=fAPOGKKJ+5qCfxBUkIPu97toe0Kg9R5HxaJDRPjQi4s4A0moCVNztfIt7poxXJl0QHU+6SgKBnVyp/PvE+ekCKldNFKwF8dhd9R39yFnCbMj6Y7nckFFNNY75+ldgFrRyjbbn9SlBxzYHEBg0IjGrsDzMIIwS2iUxfOJbNrcC+Q=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB6728.namprd12.prod.outlook.com (2603:10b6:806:257::13) with
+ bh=CR3J+h/MwLeEglPrT0N300NMTP83/bpEjMXK9ZttVNQ=;
+ b=dB9yFqHj7zHfGDACD53TqZa+dqZcJhmIE23pWcnTgjGsqh6UJLCxycuXPIpb2VRb9A4CW2+BgHiWKnZJX1IrPKGjRDAD9HBnjspYKuEGR5RwEsZvr+dKHDMXod248GyeANRZjtgMqf9MIOSvS90yVA2KMAorQx08OZ8U2V6P6899zkWTd+7rAzu8ba11FC5JuDVtKreyp5qjNybWj12m2ycdrod106HFFc/uVl4UZpOEkftxQaI7ZbD/yQksnLxe8d4WgGvtzYjgoeO/7e0HPf5ib4h22UUOBDAJaSqJjsGti+zUQhKT4gbDg4EcqgbYfBju4zEru092yYx3nrb/VA==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by MA5P287MB4174.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:162::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.18; Wed, 21 Oct
- 2026 15:04:46 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:04:46 +0000
-Message-ID: <feabcd15-0874-460e-bcc3-3c9dce29fd39@amd.com>
-Date: Wed, 21 Oct 2026 17:04:40 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dma-buf/dma-fence: Order setting of the signaled-bit
- properly
-To: phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, Arnd Bergmann <arnd@arndb.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>,
- "Paul E . McKenney" <paulmck@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
-References: <20261021095512.1345191-2-phasta@kernel.org>
- <20261021095512.1345191-4-phasta@kernel.org>
- <ae7ae97d-cac9-451d-a0d4-bd52d0f063d4@amd.com>
- <0968fe5558e744f6f1ae2bddbbc075d016372e25.camel@mailbox.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 15:05:06 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 15:05:06 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+CC: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus
+	<sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Kieran
+ Bingham <kieran.bingham@ideasonboard.com>, "jai.luthra"
+	<jai.luthra@ideasonboard.com>, Philippe Baetens <philippebaetens@gmail.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 2/2] media: i2c: mira016: Add driver for Mira016
+Thread-Topic: [PATCH v7 2/2] media: i2c: mira016: Add driver for Mira016
+Thread-Index: AQHdXKllr/0dSCh/EUCn7284MR8GGLb/+GFQgAf8/gCAACjPmA==
+Date: Wed, 21 Oct 2026 15:05:06 +0000
+Message-ID:
+ <PN3P287MB1829917DD2DAD9938F9E80658B662@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20261015-mira016-v7-0-828c931c5550@ideasonboard.com>
+ <20261015-mira016-v7-2-828c931c5550@ideasonboard.com>
+ <PN3P287MB182974880896B859770FEDDA8B9B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+ <atiuUGeAL45qkLEX@zed>
+In-Reply-To: <atiuUGeAL45qkLEX@zed>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <0968fe5558e744f6f1ae2bddbbc075d016372e25.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0125.namprd13.prod.outlook.com
- (2603:10b6:208:2bb::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|MA5P287MB4174:EE_
+x-ms-office365-filtering-correlation-id: 7c6300cd-b5ee-4ca9-9ca3-08df2f84b0f1
+x-ld-processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|38070700021|56012099006|4143699003|261009223027099003|10067099003|18002099003|22082099003|6133799003|3023799007;
+x-microsoft-antispam-message-info:
+ GsTDchw2b8uq761rwcM0aeq5I+B4UfBc66ViQ+ogaSQRiE25P/ZNEt0X1vG/4ayktW3Z3oLIMV0aiTnUMkr2arwZtv5fveVSeccKD0g4Ryj9jquf+aTnGbs6WzGjPPTc2m27K86L8mXuaKg3Jg5DD7H74X1gWKvselmLlK63IV3Y24bIj4aYzb9MZAshydSk8/TY2uUjm5oIlwZJV3Owky0QALcup6mR96b8gDZAwv6+DTBMQO4JADEHCAbgnHEItgqYR3D0iV3E9ZvXXDije/k3cUNp+U/crK0UZDQICOCwdLOlMR/N7KQOSnGMpUlr94+ZVrRd53yLY+Ebb+E9wfSs42Bbt4y+nOlwrJdKH1oL5fdR/es7al3HEZz60jGdqk6Nww7DLw5Wb0JUvvgAWQxEte/PzpAJzz9WirwWELiW/ifvHQSOZtPs1ww6ZYmVJU6b3K2JpsuzYFS2j0xUPel/JijwSOpqWbBhJKiFEP6iN5BLaRJmWQo7+UaCYn7ixftM1+M/7vooGfYE9JgRl8g3tX5nEuY5wFRxOYzKBNw5gLLEhEyon6waPinLa2FumPmQVU9eyV9ZRcOsl//8GdV4Ll7TgxeOEb8sqfyJOl5og5O+K/iCaejq6NMnl+2pIOh7O2FmSfqr4Xw49NR2uvghsmH+iOetO6/ozvn3vsRdXrafhgSbLoziAfhlrfA24QmwctFcpI2oDF3waTziGofRFECyeWFAHvjY8U7MPT4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(38070700021)(56012099006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?WWrAT7NSN5esubXhpAqH3zANGhSO1so9F6o7T1sYoxAy23jsUfTOrseaYM?=
+ =?iso-8859-1?Q?tSeTaggVInXRlNc3vc2POs51BnSgiIUCPygWqnd5A3uVyewNzDiYDXl6C8?=
+ =?iso-8859-1?Q?57rqAAP2Q9GpJ9vJNqGH8WA5X8w+BkgnHOegC/wsGxLqAfYHG522GlJkDQ?=
+ =?iso-8859-1?Q?zygzrbQGFh+8LgoytfID0NDWLQYZHlk0m/j29tjBceL/dtpBH53tx8+FUO?=
+ =?iso-8859-1?Q?xLm78gG0AUMjh3lBJL+cHFp0hkVqmP90UDwL07AGfLe80ZVCJFSW9IWi0Q?=
+ =?iso-8859-1?Q?7ztv0cfdpIqVL2op/s+l2wUdCJEOolWslqZBp2RgW5G7ju+vuNl4EZxCdt?=
+ =?iso-8859-1?Q?jxl8UR2/PpXlGSjadRrY/gRfeGvPYnToVVQbMqueggFPVpV7WD40TagQsy?=
+ =?iso-8859-1?Q?wtADh/Ojd18yeInYaj8curZ9RAhliWPpjc1reehvnn7bf12Qt+NS4Qy2/+?=
+ =?iso-8859-1?Q?L2F2fP+49Y4yOQ3tS58EzDDCcpNkkx4pi0HaIDklFvxsqd1PtFcBfHyBaP?=
+ =?iso-8859-1?Q?+lz1xWaKDmaXjoCXh+kEKG6jtf0tFWlHOK/X3AygQRbyLHb4rvgxAb9mF7?=
+ =?iso-8859-1?Q?1m0p9ssSyRzPewTDwa8BtXRAFG4haW1DbeuhzByk70LVKHVqx+rJvrTanb?=
+ =?iso-8859-1?Q?1CrNsoZc+7gJiY1t63bY5cPbU5GoIoJJWZN2lh55DbZQFELmHuNk0WN7EF?=
+ =?iso-8859-1?Q?2yMMoGeYhYChc/A0QizxkPsPl1P+vLVrb0muudgWJLG8/GcLqqhAVmfl+e?=
+ =?iso-8859-1?Q?67IZr42DzGUjLvsQqlKLHIx9mRhnrx/EfLaUldq29HLAxHKMfaIqGLp4/m?=
+ =?iso-8859-1?Q?sJK8zucScROeXlD/3ErW+xgvclABIXDDp2bYf5bsjDmFrSFx956Umo4fqL?=
+ =?iso-8859-1?Q?uOmAm3khfcr1np28IKF+C7nh4MqvDspSzDpEcNciHyJ2TwXHlXxxcRawih?=
+ =?iso-8859-1?Q?IAGoKNDfdfPk1HDaRElk6IPdf8GEJh96cE9MaNmiuM4jl/mT1GS/P0lFwM?=
+ =?iso-8859-1?Q?mpBpZKXiZnllOJsknjVuSEqdRVo/aAH7DmAOIex8xfxhW1XwM3yty3WX3J?=
+ =?iso-8859-1?Q?V5VpKEDg8zSlVMYsRSiym6NV1+GLtu/oxb2TFklDgcv+Ux3yzfICPLZamW?=
+ =?iso-8859-1?Q?qr5D4K8kleWNyW1Hb7OqpscGv7yJAo1sIgB9Ipe+LKW1jxaCw2se5kQsje?=
+ =?iso-8859-1?Q?sKWZsw4qUU5CYyq9GRoZIm6PYu/l5NeLupP7+bqiY0IYtkUi5d637Jl4ak?=
+ =?iso-8859-1?Q?8usEDgjFhWSjkHa/qH+MBNu9nLMPA3J64KgEw15GTFiQa4jNkZbbsb5Ani?=
+ =?iso-8859-1?Q?QbWB8WESw0I0uZfPvcsMAld9n5314uncbXFc6ODn7YLyyF7uQ2onPF7/UX?=
+ =?iso-8859-1?Q?Uq3vE78O4jClY4We4qX0Dd3zaH92ZsxvJ5PFRCBPrvPR+ljCbziL4m+HMY?=
+ =?iso-8859-1?Q?agMCiwZppaSCZasHnXU170Ht5eoWrH1CjyLL+F9QDTx+EYVsgT2zfEUI2F?=
+ =?iso-8859-1?Q?Kfpb0Kksy8X9s2KwgviHNVGI7usBEGe0cR9uOnWY+Cj2MtL6qpyxut8Cm5?=
+ =?iso-8859-1?Q?2RsVoY3fzVesngnsIc/FzamSklKrvoW/suOU+QMCnDk50HPZcVwoiksgYD?=
+ =?iso-8859-1?Q?eVx+wtvr1xvEh6s9esg+AJAhcnXBLub3mXqhuOY8+d3z6k26Ftm59q7rn5?=
+ =?iso-8859-1?Q?y4/u1HNpzj+PF4RJr00DIIYDCUYfcvUHWifQqejHByMbT4Ym8jVtPB/d8N?=
+ =?iso-8859-1?Q?uM34gD89yys7szFZ22mw7Bi+9W+64IYzXVE2IQGg5LmbkrocPSLijcDpSC?=
+ =?iso-8859-1?Q?KWhEiW73DnVK/ycH+inPWuNXi0hHfjI=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,162 +156,137 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6728:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2662f3f-ecd0-43c6-3485-08df2f84a4c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|22082099003|10067099003|4143699003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	q4uvE9GK9qCkIDmQcT/BF+L8J839Fa+kKU2Pe9H1WoIBH9XCZA1wo6uW5z965PPupXAX2sBI97LLZfl/DaROhrxIkmsNXlNPEZjm9m3ucXJ3pCB2UK5Bys+DQkNuamk7/NmZpz5oWTSPdjQPzSVqj+fGmNp/PiEVhtnEEy8ZWkXaoavC+bEkxJKsrs9rtsk1k9TzdbnIv4cD8Ch+DZoBFj00gZm//0xK48dw/KsSYekoFVn6UMt+xaAXRvbw6OmR892KMMiWVT8Ra6MHiT1+VNo37ebHRbjRjmP942MDbAAxIChPyFhPGrPZBqPUuejEs85cIY14A/B/j70rqgWQuHFjp6zNv0Hn33lrtGU4mYh2/dyJC1Mw9IT7PyW3RiZ60j2CwjGUNXwIDrVJTQrdd7F22HAd90UC/otEh/alYFClU3/MKuzTpAyShBlwc87AHF7gj/Olvas2qXCWjHiQv0Ts+lpTM2ZXHr6IQvG+ne7PPGGJoE27kG9AGNudD/oen6C/PKYP08eqDUTpeq5MdE8ZK7YFk+gtK5KTLDbAObB+kJI0WVDBzfVFn1A4QWLPFq/yxp0MDvnN8fRe/zPt58lTn/waJkLQ/QgxfyCGkbTLXid7m5uvg5dh5J1WgofPLktuUINqznDBye1XXRewiWcf7WiZQLHuHnFiAr9vIsY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(22082099003)(10067099003)(4143699003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OUVjdGZlYjF6bFpmenVwNnM3Zjk1dkMzY05yK2VRaUZad1RSY2J1TC9yUjRM?=
- =?utf-8?B?SWVkd0JkdDUwTnlUOGRhOVhmRjNSRmxHZjFHN2lOZkZSUHAzL3YxMENCNytq?=
- =?utf-8?B?d1N1QjlWQ09vM3NadVhzcFF3UXIyRGlwem9WSWxwSUx6OFFUVDd6MlNtWkUw?=
- =?utf-8?B?eUs0K1pXS0hYZ0plLzN4VEN1cDVrdnBzbUVGU016K2JTdnI0WTVORWM1SHJL?=
- =?utf-8?B?cFNaaDlTaHBIVFRNT3hQNnRKMXpiMmQ3RmdmL0w4UUk1bzFpOG50OFAyVjd1?=
- =?utf-8?B?WW5VdjBVNTRKZWRrK0hoY0prQVp1R29xTFJpNGsxNU5uaWxtWGQxMkxQMVVB?=
- =?utf-8?B?Z0FPODEvMGRCWmNZakFNRWhiZkd6blFKVnBLRXZrZkJMTDVkRkZxeVYyZUhZ?=
- =?utf-8?B?dlJwTzNpbVlBL0FmWVNiYTZWRjlSVzRHZm93dEN3elQ1d2ZhV3VrdGpYdTBY?=
- =?utf-8?B?NEw4bnVhODN4RFU3SncwS0dIRlp6SEJXVnA1ZVB1RVZ1K3lVazZLVEY1Tmho?=
- =?utf-8?B?QmZVaDVpaWhicFNaUkpCR0t4WWhjSk9URC9RSnpoTWd1eWVWOVFrcXBXamJp?=
- =?utf-8?B?aW9CSXE0ZVhldTJiQkZMSW0zcW9PdXVsZjZGTHZSZjdHUWFoOVFOUHMwNloz?=
- =?utf-8?B?YjE4STNnaDdiaGlZWndMdExRUkNYaGN4bDBrUzM1LzZwTmNpK1c1V2JlOHhK?=
- =?utf-8?B?TDZZMVYzWG9RUk5QdFNNYm9vdFFUNVpTZjR3WW4vdnYvTHlQelRnREZJZmF1?=
- =?utf-8?B?NWNKanpWZjBxcU5kK0FWeWhwTi9xVFVDcUxJbWhLb0Y2c3dtWTc5SlpwYXlF?=
- =?utf-8?B?eUx4eFY3KytMb001WDVRZmQ5OVFLVmF1dWUyRTV0TDRyNzdGWVptVFQ5YUZx?=
- =?utf-8?B?YlpaNUdzVXZkdDFxNWlrakFVSlMyUERoU3RlMDRDRVB0N09OTzlYQ0IxSTNo?=
- =?utf-8?B?b0dFcW1nU0NFeE1RcTdwWVhUQnp6NlFpK3NvdHVlU2kvN3dNVzlqNkNpY2tx?=
- =?utf-8?B?VDVpYlhSUVhKd0VWOHRQNG5oMXUxRTRJdUNoZjJWOU1JRHZmQTQ0eU5lYkdM?=
- =?utf-8?B?TEJUZm9tRXNlU1AvZ1hHVVRhRmN3WGV2S3RQUjB5d2dlYmlrZW1jN2dDV01X?=
- =?utf-8?B?S2xUa3I5b3BUcXBQbkk0TnRIdFp4TUFaK3pFWVBwUGsraFBPNEJIZVZ0enk3?=
- =?utf-8?B?cE5NbE53ZC9EK1MyWExIVFN6d0pUMGlneE5QUEc4dFdvckk2S3lxL0k5S1Vn?=
- =?utf-8?B?ODlCYkxlcU5heWU0Y2VCVG85ZjNFQ0N2SDJxcWlwcW1LQ2VOTklKb1dlTUZG?=
- =?utf-8?B?S0hMN0l3b0hXemE4bDhtSE9EL0hpeHZkU3RKUjhqSE1JcHorR3JHZG83dEFD?=
- =?utf-8?B?MklHc05vbGNyQlRGWmpCeWVYN0UzblFOV3dqd1RQWE9WSUdUclg0MGc1TnpX?=
- =?utf-8?B?U2p3cUdDd2pjVW5HUEdVV0Q2TGZwY3NibllzdEQxYlBNVDZ3dnFKbWJlMFdS?=
- =?utf-8?B?OWFZZEZ1SmltMTJ1bnRkOXUrdFFEZXNwaS9HU1IvaTlkQUE0bTRnR0I0WjBo?=
- =?utf-8?B?Nm5qdzhLNWhzbmkrMkNUSFN1c2p2dkZ5TkNRdXlLbG05K05LaUZ2Rm53ZG9a?=
- =?utf-8?B?S3hDUVdMSHZvN1llMGdrL2ZjaVJ0OHFOL0RJMDRlT3VHaWdpRldGVjFpMGpJ?=
- =?utf-8?B?TkJnWkF3ZE81amI3S2hOUlM3YXovNEtidGhjV0pKS1NnYWN1aitZUlJ1VDlq?=
- =?utf-8?B?ZUVwZmhwanBSckdqYXJNMy9oVS9NRmhMWmpaVDRCNEpRUEZuVHB1cytmNE83?=
- =?utf-8?B?d3pQck1NNUpmQnZSSDVVYTl0bSs4WEJpdjNYUkhSbGRKaDI0RVpMZitYUlNq?=
- =?utf-8?B?OXZXV09ERm80c0l3YzB1TUFTSXB3M3pBbG9wK0MyRE1LYXJOMzNrZ3hlcnlK?=
- =?utf-8?B?cE1YblAyNHpkRURwZ01Rdjd5cGZYWVNBR3FzNjNucE1JU2s4VG9RYXZqVEFz?=
- =?utf-8?B?eGEveTFyUjhxVE03dGQwKzY1VkJvWEhYRURPLzJtT1Z1M1IzRE1xbThVaVo5?=
- =?utf-8?B?aS8wWlZNRWVZQ01ZMGdUd25GWHlXUnl4Q3VDNmpWS1VGbVZ0SEVLanRQcDNq?=
- =?utf-8?B?cExkZ0hsSS9KZnFHNWJIM0ZLKzNjMVE1cFNibFJXZTIwWGgwMUZTV0VOekdD?=
- =?utf-8?B?N1dnTTFEUFBicDQ2ajVoa0d4aHphd3JwR3hjSjdFTWlsSG5VWCtHM09Lb0FL?=
- =?utf-8?B?T3huUkFQd3ZuYy9FcVp0THA0Q1FIaDV3MGRDeDllNUg5WCs0TkQvMHFia2s3?=
- =?utf-8?Q?S/SAFXU/EY7M0PLimk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2662f3f-ecd0-43c6-3485-08df2f84a4c9
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-OriginatorOrg: siliconsignals.io
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:04:45.9087
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c6300cd-b5ee-4ca9-9ca3-08df2f84b0f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 15:05:06.0164
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O9M9aas0mY5hoOPGWuwp2khD7Etj6ieEQxWubZQCCqvoDh9Y9KdLNKYOWFtuwJkB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6728
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: sN4PWVAvLuPtSB6UQ7UDLUevUJPEEDXxfqFhJTWaxSoaApYZIgzv+Y2LfPs5cSL96VHyKLrsyvBeKPvbggZRXnlA6ArrKhTWWO9SMopvgMA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB4174
 
-On 10/21/26 16:52, Philipp Stanner wrote:
-> On Wed, 2026-10-21 at 15:47 +0200, Christian König wrote:
->> On 10/21/26 11:55, Philipp Stanner wrote:
->>> dma_fence_is_signaled() can return true *while* the fence is still
->>> signaling. This is fragile and has been involved in at least two bugs:
->>>
->>> 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
->>> 	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
->>>
->>> The signaled-bit is set under lock-protection but read without it.
->>> Adding the lock has been rejected on the grounds of the lock-acquisition
->>> shooting down cache lines of parties that merely want to check whether
->>> the fence is already signaled.
->>>
->>> Make sure the bit can only become visible as 1 once the callbacks have
->>> ran. To achieve this, read the bit with test_bit_acquire() and set it
->>> with set_bit_release().
->>
->> That has been suggested and rejected before.
->>
->> Background is that the signaling bit must be visible before the
->> callbacks are run or things like dma_fence_default_wait() (as an
->> example) just break.
-> 
-> dma_fence_default_wait(struct dma_fence *fence, bool intr, signed long timeout)
-> {
-> 	struct default_wait_cb cb;
-> 	unsigned long flags;
-> 	signed long ret = timeout ? timeout : 1;
-> 
-> 	dma_fence_lock_irqsave(fence, flags);
-> 
-> 	if (dma_fence_test_signaled_flag(fence))
-> 		goto out;
-> 
-> 	if (intr && signal_pending(current)) {
-> 		ret = -ERESTARTSYS;
-> 		goto out;
-> 	}
-> 
-> 	if (!timeout) {
-> 		ret = 0;
-> 		goto out;
-> 	}
-> 
-> 	cb.base.func = dma_fence_default_wait_cb;
-> 	cb.task = current;
-> 	list_add(&cb.base.node, &fence->cb_list);
-> 
-> 	while (!dma_fence_test_signaled_flag(fence) && ret > 0) {
-> 		if (intr)
-> 			__set_current_state(TASK_INTERRUPTIBLE);
-> 		else
-> 			__set_current_state(TASK_UNINTERRUPTIBLE);
-> 		dma_fence_unlock_irqrestore(fence, flags);
-> 
-> 
-> That function evaluates the flag under lock-protection, with full
-> ordering. The bit is only ever set under lock-protection, with full
-> ordering.
-> 
-> So currently, the bit is 1 before the callbacks ran. It becomes 1
-> before the callbacks ran, but dma_fence_default_wait() can only see
-> that after it took the lock, and it can only do that after the lock is
-> released after the callback ran.
-> 
-> So behavior for this function is unchanged, unless I miss sth.
-
-Yeah that argument came up before and no it is not correct.
-
-> Actually, this barrier makes things more robust, since things like
-> 
-> if (dma_fence_is_signaled(f))
->   ts = dma_fence_timestamp(f)
-> 
-> could misorder the accesses to the signaled-bit.
-> 
-> 
-> Do you have another example of what would break?
-
-Please search the mailing list. We had the same patch like three or four times already.
-
-It was even applied one IIRC, but yes it immediately breaks things.
-
-Regards,
-Christian.
-
-> 
-> 
-> You see, the bit sometimes being locked and sometimes being lockless
-> causes confusion.
-> 
-> 
-> P.
-
+Hi Jacopo,=0A=
+=0A=
+> On Fri, Oct 16, 2026 at 10:29:51AM +0000, Tarang Raval wrote:=0A=
+> > Hi Jacopo,=0A=
+> >=0A=
+> > Sorry, I overlooked one point in my previous review.=0A=
+> >=0A=
+> > > Add driver for the ams OSRAM Mira016 sensor.=0A=
+> > >=0A=
+> > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>=0A=
+> > > ---=0A=
+> > >  MAINTAINERS                 |    1 +=0A=
+> > >  drivers/media/i2c/Kconfig   |   12 +=0A=
+> > >  drivers/media/i2c/Makefile  |    1 +=0A=
+> > >  drivers/media/i2c/mira016.c | 2358 +++++++++++++++++++++++++++++++++=
+++++++++++=0A=
+> > >  4 files changed, 2372 insertions(+)=0A=
+> >=0A=
+> > ...=0A=
+> >=0A=
+> > > +       struct {=0A=
+> > > +               u8 n;=0A=
+> > > +               u8 m;=0A=
+> > > +               u8 cp_div;=0A=
+> > > +               u8 otp_gran;=0A=
+> > > +               u8 gran_tg;=0A=
+> > > +               u8 lut_del;=0A=
+> > > +               u32 esc_h;=0A=
+> > > +               u32 esc_l;=0A=
+> > > +               u32 esc_period;=0A=
+> > > +               u32 byte_period;=0A=
+> >=0A=
+> > nit: pll.esc_period and pll.byte_period are never used, so you=0A=
+> > can drop them.=0A=
+>=0A=
+> They are anyway calculated based on the PLL configuration and will be=0A=
+> required to support multiple link frequencies.=0A=
+>=0A=
+> I wouldn't remove them if nobody really insist=0A=
+=0A=
+Okay, let's keep them for future use.=0A=
+=0A=
+> >=0A=
+> > > +               u32 data_rate_mbps;=0A=
+> > > +       } pll;=0A=
+> > > +=0A=
+> >=0A=
+> > ...=0A=
+> >=0A=
+> > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)=0A=
+> > > +{=0A=
+> > > +       struct mira016 *mira016 =3D=0A=
+> > > +               container_of(ctrl->handler, struct mira016, ctrl_hand=
+ler);=0A=
+> > > +       struct v4l2_subdev_state *state;=0A=
+> > > +       struct v4l2_rect *crop;=0A=
+> > > +       int ret =3D 0;=0A=
+> > > +=0A=
+> > > +       state =3D v4l2_subdev_get_locked_active_state(&mira016->sd);=
+=0A=
+> > > +       crop =3D v4l2_subdev_state_get_crop(state, 0);=0A=
+> > > +=0A=
+> > > +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {=0A=
+> > > +               s32 exposure_max =3D crop->height + ctrl->val=0A=
+> > > +                                - MIRA016_FRAME_INTEGRATION_DIFF;=0A=
+> > > +               s32 exposure_def =3D min(exposure_max,=0A=
+> > > +                                      mira016->exposure->val);=0A=
+> > > +=0A=
+> > > +               ret =3D __v4l2_ctrl_modify_range(mira016->exposure,=
+=0A=
+> > > +                                              mira016->exposure->min=
+imum,=0A=
+> >=0A=
+> > exposure->minimum isn't updated when a format change alters row_length.=
+=0A=
+>=0A=
+> I don't think the min exposure time changes with row_length=0A=
+>=0A=
+> It's actually computed as=0A=
+>=0A=
+>         mira016->timings.min_exposure_time =3D (151 + mira016->pll.lut_de=
+l)=0A=
+>                                            * mira016->pll.gran_tg=0A=
+>                                            * mira016->timings.seq_time_ba=
+se=0A=
+>                                            / HZ_PER_KHZ;=0A=
+=0A=
+You're right that min_exposure_time (in ns) doesn't depend on=0A=
+row_length, it only depends on the data rate.=0A=
+=0A=
+My concern was about the control value, which is expressed in lines:=0A=
+mira016_nsec_to_lines() divides by seq_time_base * row_length, so the=0A=
+minimum in lines is 7 with row_length 1062 (Y8/Y10), but would be 5 with=0A=
+row_length 1504 (Y12).=0A=
+=0A=
+Best regards,=0A=
+Tarang=0A=
+=0A=
+> And all the parameters used in the computation depend solely on the=0A=
+> output data rate which can't change at run time=0A=
+>=0A=
+>         gran_tg =3D DIV_ROUND_DOWN_ULL(data_rate_mbps * KHZ_PER_MHZ, 1500=
+);=0A=
+>         mira016->pll.gran_tg =3D DIV_ROUND_UP_ULL(gran_tg * 50, KHZ_PER_M=
+HZ);=0A=
+>=0A=
+>         mira016->pll.lut_del =3D DIV_ROUND_UP_ULL(7000, mira016->pll.gran=
+_tg) - 140;=0A=
+>=0A=
+>         mira016->timings.seq_time_base =3D 8 * HZ_PER_MHZ=0A=
+>                                        / mira016->pll.data_rate_mbps;=0A=
+>=0A=
+> >=0A=
+> > Other than this, the driver looks good to me.=0A=
+> >=0A=
+> > Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
+>=0A=
+> Thank you!=0A=
+>=0A=
+> >=0A=
+> > Best regards,=0A=
+> > Tarang=
