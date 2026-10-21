@@ -1,83 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591176;
-	b=ILrJvxKDjM/m7i0abhZl+mBXhB6BOUqVyX/tSztfv/vdYcjMitWjOmQ2BVcF7I54mSg5
-	 /aq/41lLZRn53NUKizUaAbolOazMWe3IIdAMUu8RmHYPHGFtHo96XB/4TUSTZ2po8k0h7
-	 nZ8/IwAYUCWvj3QZfZCsIwvR4YpKusfbobTjn7oLo1M/8QBdo6doLYhqFnrymZgcX3amn
-	 Cu1QTSD0W1vc3KCvDb0rydrde5qaki7IAMjQDsy44TjwHrwocsNhMSfl5faFXIzXPjSOX
-	 Snzmw3bhFdJPXcIAfwjVyET7vYGS8mkCHGSfKpBgyK7qtWEffUDaAygikCIx1m27v/Q==
+	t=1792591207;
+	b=Xpb7R8PQb0ngpK+/wDlNc8DzT6bzpBBVwp03EsBoxuh26ZEMrd3BbzFJ/xIbCfBWpUSd
+	 WV6XRVVqaI9QVm07Oj6/n+WHew+8Dpn4mGtth90B5B4DSD4yzGIW6RQu6qDlHWcEDshlj
+	 BGnCR8X0JkmeRXkpGH8MjBTL5UGD4u846WjCMvuiLmeB3hir0wedjM4sAVFyV/t54264F
+	 J16tL+fIvr5EoL202H7KtEzcPDFvFtr/Mx9tibPLvW6ITHQERYwjZQFGb9Xrba4HoN1O0
+	 ghKHqd3ayw8GH3E4RqQZDb/YB/ekgkf6ExCIq+RAdJSRu0c+0R7LFYPNgimE9y8o5Ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591176;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
-	 Cc:Subject:Message-ID:In-Reply-To:References:Organization:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=NQhy9wW8nhyq6MQKWRiRdzueZja0uHOS1G6c/Sc84ZQ=;
-	b=VAu3jRV1JUfUPkdysonwDqjeNAN2q6k6bS03Q3ZJFlotBLOWx1EoXizusmb2aH9fCSM/
-	 pNTOi7mmQ4c/yJJeilPwF0V0F6XXD0ZGt5PV/iSGaChc/jNEzZLvTrxybJ24S5zQW3HVb
-	 Y0dwqqhwcJmL+oGBYWhc4zp4fXgiMoA532RkQpOQB0aNTnk14M6diEZRoUmk1XRWVWvIp
-	 BH+JibOluLcuzHKYMUhJXfeoTL2AG9Ralf1cSK/9crOlVvy/KxMX2q8LK++RlGMZjmDEh
-	 0sHqVR8QX91HszC4lvNCaMkhlhlhUvsO91f6hTLIO5fglCakcKrCbA9x6phwa24OcOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591207;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Spam-Status:X-Rspamd-Server:
+	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=WXR6W2h/dyZK+RmqaIFVqYmeYGQdq0lkqTNQeZO+uao=;
+	b=dKH3Mk4SKXDUS7Vsvc+GSo5uc8v7oshnUm/4i9ToB+KTktDdsxMjTOnzBmDaPvflvo9z
+	 dtTOI1MELnMl5w7ku4ahZ3hYUv8oynm3jqmGwSScvZ0/m36b6smBVpPrxgeq2FkouQbYJ
+	 qVIinzz5/CcCtu745Np/+qI+Xjfd7BiycJc3uKRNmP/aFHk7vF6bIy+Qj0fnjMlLbllOe
+	 Bmd8nsjj4hQtvJOWhy9QXbR9t0t1f+mlgCGmP5LitPpFCfrEUEspbBlKJHiwLuyZH70Jk
+	 03C9xARLWh0Va5Fd/jnclU8sQYBfx10Lih/VhM84CYOt2yRe42q8rnnUqVW/wr6ru3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iHIOaPOq;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=vJDlW8Z5;
+	arc=none smtp.remote-ip=216.40.44.11
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225DC606A329;
-	Wed, 21 Oct 2026 13:59:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 225DC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62CE606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:00:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C62CE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iHIOaPOq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 81F8D1A12B1;
-	Wed, 21 Oct 2026 13:59:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45EDC606E3;
-	Wed, 21 Oct 2026 13:59:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EF149103289F5;
-	Wed, 21 Oct 2026 15:59:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792591172; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=NQhy9wW8nhyq6MQKWRiRdzueZja0uHOS1G6c/Sc84ZQ=;
-	b=iHIOaPOqEVBZwoRokN7RHOHpEcnnn3blik6c2oMTj3EAlacWRxSY4ML54Dv5oKzpG5WcXH
-	Ndn9o4UGfeYcH5XoMFAUtSDgz6UDKBvfwLxmnF12Vg6nJvYaLao6mrtVA0GICH6qCjqF7j
-	LyHJRXJ1RriTDgPT7agpAXVxb6Xs3FcBlS5HKupyHAtto3uHO/0YmtLEY81GAVCoAo14Aq
-	FCN00UQ5X+SNvALwr5U5panfny4qTrk56YpgVEdS/uKBXqOrRJlr60ynXJm2VlD1ipBYQ1
-	8p8znGPex61SdF0Tt+2UTMUpPQMZBwDdU9ZGghguMv72cG6iJ9jiDPJrc8UO4A==
-Date: Wed, 21 Oct 2026 15:59:23 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
-Message-ID: <20261021155923.55e48904@bootlin.com>
-In-Reply-To: <atgi4rMsw5W6kKkS@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-16-herve.codina@bootlin.com>
-	<arDMhoNNXcPi81sR@gractus.seuss>
-	<20260925152157.511dc65c@bootlin.com>
-	<as3ZWBr3wRonkxXF@gractus.seuss>
-	<20261013190347.4f1d9b9d@bootlin.com>
-	<atGzdxETQZ9ovJFh@gractus.seuss>
-	<20261019151121.26d99f30@bootlin.com>
-	<atgi4rMsw5W6kKkS@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=vJDlW8Z5
+Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay07.hostedemail.com (Postfix) with ESMTP id 04443160430;
+	Wed, 21 Oct 2026 13:59:58 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf07.hostedemail.com (Postfix) with ESMTPA id C73FA2002C;
+	Wed, 21 Oct 2026 13:59:56 +0000 (UTC)
+Date: Wed, 21 Oct 2026 09:59:55 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: John Stultz <jstultz@google.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Christian Loehle <christian.loehle@arm.com>,
+ Qais Yousef <qyousef@google.com>, LKML <linux-kernel@vger.kernel.org>,
+ Hongyan Xia <hongyan.xia2@arm.com>, Ingo Molnar <mingo@kernel.org>, Wei
+ Wang <wvw@google.com>, Patrick Bellasi <patrick.bellasi@arm.com>, Dietmar
+ Eggemann <dietmar.eggemann@arm.com>
+Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
+Message-ID: <20261021095955.0d06a754@gandalf.local.home>
+In-Reply-To: <20261021133430.GP2823843@noisy.programming.kicks-ass.net>
+References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
+	<20261020152933.16989549@gandalf.local.home>
+	<20261021113806.GE2823843@noisy.programming.kicks-ass.net>
+	<20261021092136.249e2d19@gandalf.local.home>
+	<20261021133430.GP2823843@noisy.programming.kicks-ass.net>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,58 +67,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout06
+X-Stat-Signature: ue6xqu4z8gfox4pzawfb61r3pfysas3m
+X-Rspamd-Queue-Id: C73FA2002C
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX183Q3TjqIpLggLVM1pINV6bZiqyyPvtDeY=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=WXR6W2h/dyZK+RmqaIFVqYmeYGQdq0lkqTNQeZO+uao=; b=vJDlW8Z5lCC+qfvzev5BZ9c+GDZ4YkCPNIlocPgKnLr8/3Tz8bEw3pwpaqJLPgkXKVrzTIx1g0cHH5bAx4W/RmAGM/RPNtaNNrtJr2X6g3/GBgYM6Oh3yadHyRXN+H7iIIDa624aCX9bLxQEQH/wHkN9VvpzxdKi/o+qDSDrH+8=
+X-HE-Tag: 1792591196-339773
+X-HE-Meta: U2FsdGVkX1861IrJGKHJrw2YUaPAEp+L5jIF8Xes2eztiCZCrcW5nI1T+UayyKSJrzCKUOBCm/vLjjyOse14Li4T9MqGNicBvXmeC90QOZ28xh8dsIQxjo1OGZ3jeUxNQY5daAZKUHu3BMk253d5lrHSulnjiaoDelEuYpF/LE5k7AR558mM9VvOvBMz3hiAB8O6PmlPe8q9ZHuANJ71KuJs5TZAjxtsIj3jnAyQl/qF+roOK5pxz+lcF9L4mCSsr0Xk5HWgBefxOARZgje9oLUbunxeUfZa/7SKQOllMto2V/8ferq+z01v5FF4NUSljGtFt9GGsYkzkD9MYVt0tLDJ0m09zVVeJrETHLAhp7c9mdZgGws+wp/bAJ41v0vY
 
-Hi David,
+On Wed, 21 Oct 2026 15:34:30 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-On Wed, 21 Oct 2026 13:26:49 +1100
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
+> That simply doesn't work.
 > 
-> Correct.  Btw, I know I suggested "skippable tag" as a term, but given
-> how that gets kind of misleading in the case of writes, I'm coming to
-> prefer the orignal "structured tag" term.
+> Even *IF* memory stores would propagate instantly (they don't) you can
+> still have the boolean swap while in the middle of this state.
+> 
+> ---
+> 
+> B = true;
+> 
+> CPU0			CPU1
+> 
+>  enqueue
+>    if (B)
+>      something++;
+> 
+>      			B = false;
+> 
+>  dequeue
+>    if (B)
+>      something--;
+> 
+> 
+> ---
+> 
+> Will still be left with something unbalanced, even if everything is
+> super duper magically atomic.
 
-Ok, no problem to switch back to "structured tag". On my side also, I prefer
-this term.
+Fair point.
 
-Now I think that the bit indicating if a structured tag can be skip or not
-should be kept. I know the we can use "old" tag format when a tag cannot be
-skipped but I thing that using structured tags for those tags can lead to some
-benefit. For instance, in fdt_tag_next() we can benefit of the data size
-encoded for structured tags for all king of structured tags (skippable and not
-skippable) and retrieve the next tag without the need for parsing data related
-to a tag. When tag has a string as data, without the length we have to scan the
-string to find its end. Of course we can add the length if the tag definition
-but this is automatically implied if we use a structured tag.
-
-So for structured tag, I can propose:
-- bit 31: 1 to identify a structured tag
-- bit 30: SAFE_SKIP bit (1 if we can skip, O otherwise)
-- bit 29..24: Data lendth encoding
-   0b000000: No data
-   0b000001: 1 32bit word of data
-   ...
-   0b111110: 63 x 32bit words data
-   0b111111: varlen encoding (1 32bit word added after the tag to encode the
-           data length in bytes.
-- bit 23..0: Tag id
-
-Without the SAFE_SKIP bit, all structured tags must be skippable. IMHO, we
-could regret this limitation in the future.
-
-The cost of the SAFE_SKIP bit is not a lot. When we check to see if an
-unkwown tag can be skipped, we are going to move from
-  if (tag & 1<31)
-to
-  if ((tag & (1<31 | 1<<30)) == (1<31 | 1<<30))
-
-IHMO, this is acceptable.
-
-Of course, if the SAFE_SKIP bit is re-introduced, I will also re-add the test
-checking that unknown structured tag that cannot be skipped leads to an error.
-
-Best regards,
-Hervé
+-- Steve
