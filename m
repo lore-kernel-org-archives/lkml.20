@@ -1,86 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792575885;
-	b=kQyeMi4jRlfy09HCqUwVSPtE++TVkaAPHTRZEvU+lMpI18kpvRUs0RMVs0SnS0k7ZBNP
-	 HNWlT6UEeB3CDeI1XoC0G0dW/ic+3WRICGQiFC65/PFrHoijoy0BnvHp7CFYwhfnEzd/7
-	 5n699lkDL7h6kAisk4ac90BfcK4epPG0h0JbBSvLlePCnHA3AMs0VAsnj1r6YfEAG47Tv
-	 g0PWGu7LF/je/5RolIrkZHq+QgodB90m+wbGk3/xpg+x9ckcjBpRxUPSCVb9//XmTnYyT
-	 4Au0wMR4Qlp81zOSwHJ5a5wvFUYlZaLPFs+S/jubolJsMh45+wuYz033QG+1ztt74XQ==
+	t=1792575899;
+	b=NBv6NUm/PV14x/UUcwaxda3KD0XjaPyCNaBPZZnOKKkbzADswmchBVg5TKpsOnXLYgbL
+	 w5hI6z4zb916MAx99PNUDvrOmp52wNNNmAODNpzFUwzsuyH9jWdm1j1hDivo3Yby8WSim
+	 X1bzCFqiiLEHIqR7NMjZLdgzi6d5wK/hqkGd0FddhsmuQKSCoeZ0geGxfG+1sbhYA4gEF
+	 Dn052gZ7AyqeF1VaD6G+YSfO7iVqZ0t7DWBRCIsWzlwhXgMgl9nG+zUnS7rp/tmPmFGi4
+	 +GqYj/ImjFXyLxK4PtDzYgAbVY13/w5H+mLqEDr0iqZ8B8BgNDd3Qadx4SO2JQx9hlA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575885;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Organization:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-ZohoMailClient;
-	bh=mXCjInahUZzrvNbEdQD0UbF7xlxKuOskZ4KoinzfWZ0=;
-	b=k16EhyORKXz9HglSnAtN9FRi26Ilu0DcesXR8yNGSBr7xsxxsNszb39U7g1BXPTV8bSt
-	 /+shIaJMSt9hEJFTnDDA+9N5QmTYp32U6So756KhL7AbKXCwasdmnLmA2HOR2m6UlRhBY
-	 cpJ9XS4cb2g7jAd6IHTJbCT8dp6Q9KNhzgZ4pGx6qdrBW8i4g905QIT55pOoZJa/u5XaW
-	 SCukpMQlhVbMhP0D2MFHjtU4ibQfUDphJDRtyh0AnugRXibNWrzihqY+djMGUsVJWkNgb
-	 xn5X21vVmWyFzUk1FMy1F5NsySCnUdNui39hD/Q9x7DfN8PMUMusJckoc5L0fdauVEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575899;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
+	b=Q3qFDR5RzBeFz1RbcS4ygssGBfHOFUw3VXbvJ63DMswDQ5o1HuV9gxI9d4lB+vpBRYi0
+	 dP+e7FSPOGS5i7p4Yqa115YwTyov4Q2vjNce9bXfVqZGn3TPZiPxWBfu9eKIX5nTmF6Wk
+	 D9iTeeb6y/O8svNDwP1AONKvpszO9yeF0OQCYVYgo9TBNCzTdRaxb7PyG0mLIRw7MAwVh
+	 hhylRdyUk4KVT1H99v2ckwMM71GaScBbaEIu9yufT004kgozgdB2KCNfBy1HdE0lZFPpF
+	 O/auBHDgC4dnJMufkvosQ9GgYgbhHVcwG9TylCzLzChJxfOvT+Aca2wtrcSlGja5dRA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=SsxZ7Fbn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.12
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HY24k0Xc;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZQi3KFiv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95835606A338;
-	Wed, 21 Oct 2026 09:44:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95835606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FFC2606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:44:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FFC2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=SsxZ7Fbn
-ARC-Seal: i=1; a=rsa-sha256; t=1792575827; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=RwqfJR0UKnXDM2nQGKfDxWc5W1Q8rzZpPDwwBbSN7y6k6cO14y0rK6TD4auVxwuN4Ye6IWvwYH3kqwP19SXzSDCc2qI5hBPGI6T1YHyE1MhTZvu6i0L+Uy2JI25qVRCRaGeu9Ic0LeCixfehl5fVC1E2ku3pK64aazZNJv+5vBM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1792575827; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=mXCjInahUZzrvNbEdQD0UbF7xlxKuOskZ4KoinzfWZ0=; 
-	b=Um008nR1oKe2GzJD3p7sHCnmYBrW4AZyl6i3v0k154SC6dYDX6zRounEamfKjE9E2FqeNdOfgctBEKgbwt3vwuJNGBeeWa7GtgXFWi3J86YchXVDjv6p8gYzf8s3DRZhvSWyFPFbK9NK1V+7mnbc9nF6xwm63QMrFuTfIbzCSPc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792575827;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=mXCjInahUZzrvNbEdQD0UbF7xlxKuOskZ4KoinzfWZ0=;
-	b=SsxZ7FbnSZ0pL7jhMYiiKetb/evo3A+4EYArjjfyertsyWoNFPko6EvE8G4iNXli
-	1T/VMwxzUwcHXUK4BhHB9ZUWPQNkQDHjXBAZCV15/Fp+giKx2rJENP3M5HrxP1NgQvO
-	qpV2w8HEo/yWdtMKrlFVOt97nfo8MzR35ElOD5+o=
-Received: by smtp.zohomail.com with SMTPS id 1792575825353726.5864194200229;
-	Wed, 21 Oct 2026 02:43:45 -0700 (PDT)
-Message-ID: <c53928fbb9da11b0f32a84592742e6a26e1aed32.camel@collabora.com>
-Subject: Re: [PATCH net-next v3 2/9] dt-bindings: net: mediatek-dwmac: add
- support for MT8189 SoC
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>,  Jakub Kicinski	 <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Richard Cochran	
- <richardcochran@gmail.com>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Biao
- Huang <biao.huang@mediatek.com>, Maxime Chevallier	
- <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>,  Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Eric Dumazet <edumazet@kernel.org>,
- kernel@collabora.com, 	netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 21 Oct 2026 11:43:39 +0200
-In-Reply-To: <b4950f82-0163-4482-9799-a5e3c6eb5964@lunn.ch>
-References: <20261016-dwmac-mediatek-mt8189-v3-0-25daf2bbcf35@collabora.com>
-	 <20261016-dwmac-mediatek-mt8189-v3-2-25daf2bbcf35@collabora.com>
-	 <b4950f82-0163-4482-9799-a5e3c6eb5964@lunn.ch>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HY24k0Xc;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ZQi3KFiv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792575897;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
+	b=HY24k0XcpN515UNGwDTIbHkzIJ6lk+joMEC9exHja2ROLze/730tr83eU9+oDLWEaqJunL
+	OtdXhyqGhAoImcdFRXUOT1ERJEV4YPWwCThSMld6YL4cyY2wdXtFObHhexq7Gfyw68axh2
+	s0WEsEdblxqsS6rDHuZ2/GtsKl4hrYk=
+Received: from mail-yx1-f70.google.com (mail-yx1-f70.google.com
+ [74.125.224.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-495-oHl0WSFiMK-yI0CZczkmHA-1; Wed, 21 Oct 2026 09:44:50 +0000
+X-MC-Unique: oHl0WSFiMK-yI0CZczkmHA-1
+X-Mimecast-MFC-AGG-ID: oHl0WSFiMK-yI0CZczkmHA_1792575890
+Received: by mail-yx1-f70.google.com with SMTP id 956f58d0204a3-6798fd97f3aso900926d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:44:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792575890; cv=none;
+        d=google.com; s=arc-20260327;
+        b=AojCjR7hwidzF5xSyYIuTUYUKS5GcJrthCwr+jlUFwWMzPB+GNO8P7pJ8LNIwuQnGC
+         HWTTXYO37MgLTO6ihKol+Pt4TFyfMj4y+syK3R5Knm++1GARhPB7nLE2E4Vyo0yf5ZRI
+         5MS4aq1cCZ7HmUyjvWHjHhSVlYWpYgJ59RVUWf7fgcq2qk/RmDCtfAmZzDe1yj+BpSN9
+         6+AUsj08Vnoy+qiYE1o2Rr6IYPCpRaQlasf/9ZPcqDPolpczqWfBmy8ndu4j5idkrj+T
+         Maw3wrlbHUL5umvuPd/wHaFMiXkeYw0NYCtd+yMD/ZvZdmYXTBXLRwZFZ9xyMzgS5A3+
+         u03Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
+        fh=3N2+qAg/V0PAgce2hawfPMdi5SqN9U3E7EZtEqiPEf4=;
+        b=VKz670zrmLBiKR3RBKGqsorwhkA1iz25BhuHW3CKa2/Q+El/6zJe5bsWTt/cHEwrBy
+         0dqB9rvkFJkUEIMsmKz1z0CI5qZ0gZxk2CvJbAwRW0M0JHejyCcr3aPZN7u8uWA2t3iq
+         IbfV902NHG0AX+jaUYGFMx7MBQdkrvpx1lkh+j//szmVus3jiTsWWFM6HZV0EbhvLUZk
+         e3HrrZCTuhjorU0kg4/beLAL8+V1M1amF7jinKd5pljWCgW5TK+gLbWXW72uWXXrw/lK
+         81TatFM3P53tfa7+YppNA/gopNTq9YbsrpIvRAIhw6PFo9m4RKAJiG0qLE5lm3Gxaao+
+         uGuw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792575890; x=1793180690; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
+        b=ZQi3KFiv/3J2Zvya0ZRXissRXuB9mGcamaEpY5UnT/JT/TlfTAxHc8vL6aLGp9raKz
+         jaDqeW9q66l3unri6UhmdtfcmeywXvgRuEHEGNhzo7u10ClCRwnUcXCQv20zn8bBNNWp
+         x2ERsErrcpLX8gfQflr1o8UtpVU+dWgC7pk9D8AVTfLuUWwBeFw1px8AWmYDxeuaclaQ
+         sElWjQIt2FZO+w90nX1HR+fLqW5m5pKhytAZQhPGlk3LSBcTZPEXifhaeQcY539eOY+U
+         LEjCguWXmQU3L6jlvwG10Y5N19tPlW6kAZXsNa9eBCKqKtbff9+AcfG7nDeHFuW7xClN
+         PFNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792575890; x=1793180690;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WTnrhlz2njHci/JTrFv5X7Hjh7ZdaN63OI8KvKNXce4=;
+        b=OrWXRv+4BkPzC4cXUWlraNH693VHliWnFnaGrnFpQgCL894bQcW76nTy4LcVmdbFm5
+         9pb+9hJvAbhOcK24Qe0lmFcF4xCokwKfesc91avYyJrjlYm9LMM5/xbl6qIlrFj7exdt
+         ema91D2FSZPTyrYnsvkLNi9BDVEXyp9HL4SHtvNZCcEuMMmURK9xkBe1FBQRJNvN3qaw
+         8DOeZc4iiCwgEnmzNMbA8X3s6RHAbqta2ptcJoVWNpfhDibuio90y3bwpTIDtR4HN6ln
+         G3T1W9YdlRSTIb53zz1O98+aA6ldWbXQ6x5NqhXVQLWP3zJMozO2BVY0dOQcvlakt5tc
+         jfzw==
+X-Forwarded-Encrypted: i=1; AKwUvBxwYMNeYZIuhJ1G+CySVMRSlqpsfHkl9zb2f8bryfy7xzeKobqN0cZpzGPItXd/YZxThtOm9CfYyY1ZvKo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLG3E0ACfmDmPczx+aP0Orpb2x73bNDAjEHW3LiGxA2yESaLyqt
+	bAq/DMsEhGcoKhFCOF62cg50C4iQnnhb3+Hnt5ieBYjkUc/ftYwSMR01KL1qFghrTWF/QKGcwy5
+	pJCz96hX1lqar/DmPqlpYq+PPFqmuG5jDHpBHKHhiVuGLDXcbKzp3bMGX6yi6A6zLvDmTK1mD2B
+	10vgeBR2jGkF/WRNnBWLrgeP1eMpQRYFATg5Csr3wo
+X-Gm-Gg: AYBFou1i9DLTIK6dQkGeSAZw7WbvtbILZm3GFn1ejOu/VlbsCN2sxtF+ohhxLLZqMAy
+	rThkMyZ/87EPxtxP7QDCMdfVyl1ZQ9KwOuJ6GU7gzMwoO3fYNaugaLAftjFWde5JWM6pJ0mO6+V
+	QbTD5n8YTFT8mC3Tpi3RGAp2NvcI/td8Oi0n79k+njNFc/GVOLjVt6aNn7jNvTNpBGBhZefVE3p
+	ul/ImepkBITRs92+5I7bnIyrU+/YlQ9TGjnChcNWTQ4T6L2cfPJ/CyRt2s=
+X-Received: by 2002:a05:690c:962:b0:8b0:acc6:8e89 with SMTP id 00721157ae682-8b133fa1bc8mr6189337b3.11.1792575890145;
+        Wed, 21 Oct 2026 02:44:50 -0700 (PDT)
+X-Received: by 2002:a05:690c:962:b0:8b0:acc6:8e89 with SMTP id
+ 00721157ae682-8b133fa1bc8mr6189277b3.11.1792575889747; Wed, 21 Oct 2026
+ 02:44:49 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,101 +125,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ZohoMailClient: External
+References: <20261020032958.1930203-1-liam@infradead.org> <20261020032958.1930203-3-liam@infradead.org>
+In-Reply-To: <20261020032958.1930203-3-liam@infradead.org>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Wed, 21 Oct 2026 11:44:12 +0200
+X-Gm-Features: AclHuK_jKi01q0VmVHTsa2S8ArDqG757g4K4BNVLj8KlbA8R5_nv2rY1xUcuj7A
+Message-ID: <CAJaqyWcBq4gyB3KCjjeGbrCbfsUenBWKZA+xTOOLPG-cxoHYnw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] tools/virtio: check posix_memalign() for failure
+To: liam@infradead.org
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	virtualization@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andrew,
+On Tue, Oct 20, 2026 at 5:30=E2=80=AFAM Liam R. Howlett (Google)
+<liam@infradead.org> wrote:
+>
+> posix_memalign() returns zero or a positive error number and does not set
+> errno.  virtio_test and vhost_net_test assert that the return is not
+> negative, which will always be true, and the userspace __get_free_page()
+> ignores it, so a failed allocation continues without setting the pointer
+>
+> Assert a zero return in the tests, and return 0 from __get_free_page() on
+> failure, as the kernel's does.
+>
 
-On Fri, 2026-10-16 at 17:40 +0200, Andrew Lunn wrote:
-> > Finally, update "mediatek,rx-delay-ps" and "mediatek,tx-delay-ps"
-> > property
-> > description to add MT8189 RX/TX delay stage divider values, as they
-> > differ from existing supported SoC.
->=20
-> These should be mark deprecated and the standard rx-internal-delay-ps
-> and tx-internal-delay-ps used in there place for new devices.
->=20
-I agree, it makes sense to use them to describe the RGMII internal
-delay configurations rather than the two existing vendor properties
-(mediatek,rx-delay-ps and mediatek,tx-delay-ps), and deprecate them, by
-adding a deprecated flag and the comments you've suggested. It would
-also need an additional patch for the driver to handle them (while
-keeping backward compatibility).
+Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
 
-But what is bothering me is these two vendor properties description
-says they can be used in MII and RMII phy mode cases. The driver uses
-them indeed also to fine tune the RX/TX_CLK (in MII) or the REF_CLK (in
-RMII) configuration.
-rx/tx-internal-delay-ps properties are limited to RGMII only ([1]).
-So they can not substitute them as it and with their description it
-would wrong to use them for MII/RMII.
+Thanks!
 
-At the moment, in the upstream devicetrees, there is no "mediatek,rx-
-delay-ps" use and the "mediatek,tx-delay-ps" use are very few and only
-for RGMII phy modes (either rgmii-rxid or rmgii-id), so no MII/RMII
-real use cases.
+> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
+> ---
+>  tools/virtio/linux/kernel.h   | 3 ++-
+>  tools/virtio/vhost_net_test.c | 2 +-
+>  tools/virtio/virtio_test.c    | 2 +-
+>  3 files changed, 4 insertions(+), 3 deletions(-)
+>
+> diff --git a/tools/virtio/linux/kernel.h b/tools/virtio/linux/kernel.h
+> index 104abf9d1aee5..3497660c690a9 100644
+> --- a/tools/virtio/linux/kernel.h
+> +++ b/tools/virtio/linux/kernel.h
+> @@ -106,7 +106,8 @@ static inline unsigned long __get_free_page(gfp_t gfp=
+)
+>  {
+>         void *p;
+>
+> -       posix_memalign(&p, PAGE_SIZE, PAGE_SIZE);
+> +       if (posix_memalign(&p, PAGE_SIZE, PAGE_SIZE))
+> +               return 0;
+>         return (unsigned long)p;
+>  }
+>
+> diff --git a/tools/virtio/vhost_net_test.c b/tools/virtio/vhost_net_test.=
+c
+> index 566e15420bb65..3122ea0970568 100644
+> --- a/tools/virtio/vhost_net_test.c
+> +++ b/tools/virtio/vhost_net_test.c
+> @@ -197,7 +197,7 @@ static void vq_info_add(struct vdev_info *dev, int id=
+x, int num, int fd)
+>         info->idx =3D idx;
+>         info->kick =3D eventfd(0, EFD_NONBLOCK);
+>         r =3D posix_memalign(&info->ring, 4096, vring_size(num, 4096));
+> -       assert(r >=3D 0);
+> +       assert(!r);
+>         vq_reset(info, num, &dev->vdev);
+>         vhost_vq_setup(dev, info);
+>
+> diff --git a/tools/virtio/virtio_test.c b/tools/virtio/virtio_test.c
+> index 028f54e6854a8..9d61463f6e09b 100644
+> --- a/tools/virtio/virtio_test.c
+> +++ b/tools/virtio/virtio_test.c
+> @@ -116,7 +116,7 @@ static void vq_info_add(struct vdev_info *dev, int nu=
+m)
+>         info->kick =3D eventfd(0, EFD_NONBLOCK);
+>         info->call =3D eventfd(0, EFD_NONBLOCK);
+>         r =3D posix_memalign(&info->ring, 4096, vring_size(num, 4096));
+> -       assert(r >=3D 0);
+> +       assert(!r);
+>         vq_reset(info, num, &dev->vdev);
+>         vhost_vq_setup(dev, info);
+>         dev->fds[info->idx].fd =3D info->call;
+> --
+> 2.47.3
+>
+>
 
-So, how to proceed then to make these bindings right?
-Use rx/tx-internal-delay-ps properties for RGMII and mediatek,rx/tx-
-delay-ps for MII/RMII or do you see another solution ?
-
-Best regards,
-Louis-Alexis
-
-[1]:
-https://elixir.bootlin.com/linux/v7.3/source/Documentation/devicetree/bindi=
-ngs/net/ethernet-controller.yaml#L251
-
-
-> > @@ -86,8 +85,10 @@ properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 or will round down. Range 0~31*170=
-.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT2712 RMII/MII interface, All=
-owed value need to be a
-> > multiple of 550,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 or will round down. Range 0~31*550=
-.
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT8188/MT8195 RGMII/RMII/MII interf=
-ace, Allowed value
-> > need to be a multiple of 290,
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 or will round down. Range 0~31*290.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT8188/MT8195 RGMII/RMII/MII interf=
-ace, Allowed value
-> > need to be a
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 multiple of 290, or will round down. Ra=
-nge 0~31*290.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT8189 RGMII/RMII/MII interface, Al=
-lowed value need to
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 be a multiple of 180, or will round dow=
-n. Range 0~31*180.
->=20
-> Please make this:
->=20
-> For MT8189 RGMII/RMII/MII interface, this property is not used, the
-> standard tx-internal-delay-ps should be used instead.
->=20
-> > @@ -96,8 +97,10 @@ properties:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 or will round down. Range 0~31*170=
-.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT2712 RMII/MII interface, All=
-owed value need to be a
-> > multiple of 550,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 or will round down. Range 0~31*550=
-.
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT8188/MT8195 RGMII/RMII/MII interf=
-ace, Allowed value
-> > need to be a multiple
-> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 of 290, or will round down. Range 0~31*=
-290.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT8188/MT8195 RGMII/RMII/MII interf=
-ace, Allowed value
-> > need to be a
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 multiple of 290, or will round down. Ra=
-nge 0~31*290.
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 For MT8189 RGMII/RMII/MII interface, Al=
-lowed value need to
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 be a multiple of 180, or will round dow=
-n. Range 0~31*180.
->=20
-> Same here.
->=20
-> =C2=A0=C2=A0=C2=A0=C2=A0 Andrew
