@@ -1,87 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.113
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792571853;
-	b=0/2hObiBjUHozctlhu/5PRw3lHQj+SI7MsT2hiQ2baKlxW10dEw9uYvl2E282hdDBx4k
-	 rWvswSgD2oAjNbOpqtZ1Hp0i8CXMh53Ttbt44WvkRmQNiFQu6zfKxfEY7sY1yN+rHyHcx
-	 ptgq+jukuH2QFZuoQ9chT3nwrpGNjmgBp+Ad69Q1PRhC52Y/wBecFWGUA5mapAhDzXfJR
-	 7zqDiiBKpo6Kb7U2Unv8QwRQD4SPVdvVLfAvBKJWMVDTwyrLk41trukhn0Xu7c2fkJrl1
-	 LWwx+cxR7xw3XtqNF5+ZXEvMfSGTEbo+nLenyimfBXk5dFIr+js90aO0aWjaAPoc6aw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571853;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=ZWuQ77O2wQGEOHnC5WnvlgHGpBhL0RBfmdFtdxQzCOA=;
-	b=B5L6N+UZcpQDZxml7QMd0YyBi+sl5Fro2Pam5GaXeqzLwwBaY0T3rCRZvZxpwNKW7jNe
-	 Xw1ikzOc0hvf6D1TOq7M2219B5Oz2IP1NOApLkoWwmzVzb++lK0npJNYqqlVD0RmXiHXD
-	 mpZAuDSgmQk++/4M3GHwEMSVS38oOHwBbGyTwpWcW0CRCXYNhEI0q8SrTyb3YI/SORqDa
-	 MkM+nBAk4cF9EKN0vmH+4nlY1lFdlyKMOAMqgmYpZWfIFTLSLi1FaTAc+gVgYTvvv/60G
-	 kDHA0YG96La+LOAU09qbTOJ1QTS/6xMnMNmWPyh4FMsuDJYWL5HbRBmk9nCWD6OdNWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=starfivetech.com;
-	spf=pass smtp.mailfrom=starfivetech.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=139.219.146.113
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2113.outbound.protection.partner.outlook.cn [139.219.146.113])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792571872;
+	b=E3bYKjEfdtT0wRM0wvvI7Sf2UrR9YhoDDbgwqn0F9yO+hKboFYaDWY0nWZU1GcTIHv1P
+	 5WCGvTWLZbpEEBWiMm+2jU9DfrJsR8ErZXjwVoBm0Hy5u3ebfvYjQSKu0GhaimBS+qg9S
+	 A6y/JYk5QfDObjiPtodNc48w2Vnwwf9eazBI1CkJ7IsuIzXBQomzT2ytEl9aC6FrgseCh
+	 qDjuv6i2mgmzCBL5n7HZnSYGRNbv+1OJ9b9Ti9WV34fC5U9yP1tH9eHGNsf85qK7DeElQ
+	 u0MDNpLr1mRiMJbzLt8elJjdq0+BwSu24JwbDXj35loY6utjS9jDnCZi5sbXn+N5JpQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571872;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=SZ3EviCYxMDcxcQqwdkGz4a9ADC55X4maOqxKmHiuIA=;
+	b=1OqwUqkpvGoOFycwgv3MBx8GTUzKpIQlAv2qgN7ICFgW/L5sn4GScvvmKxTckKJ+b6Su
+	 zc0yHszQgv+3WRUOuJkq6Ao9IdpuuUlG9zPXRx4Ttbc5RyS2vBn9z2eVclINExyuGRN2X
+	 1zHJxUNIS/m6MvPAV9OWDpkNflMvo9YtUWOcicBQXZv7twxZzmjxuUAaGqfgoLiz7vgeR
+	 9ATXyhFfvf8X5OBWTfeUjVla+B1731ZnuXlD4ULFylqj+q+yNvIXfw0kYAVvWbKo36net
+	 A03eaVLJ1e0SvfsrOkKTtS/mODsv3/IsGcKr6n0VORrAUw8UTT2jtso3fGeZIMCos0A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+cKpbzK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4AB606A319;
-	Wed, 21 Oct 2026 08:37:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F4AB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cSgSKZFM0oMxMVQOkXznQE/jziXkMPzonGlgrW+AZiaSvaDCjgQ/Xn9Sq+G9Z+s6valnOscHYJ6m2D8oHYyhMT96/t6y1waONZw/TXUc/BfsgkqWib+xmBtglIyA78PELfgI36D1OXtvxyzo7BAV24/tx/q6RRIt7rB7y36adFV4xHozYyV8+/d/uxpx/fhpQ3R7CF0cwd2SMDImaFFjcyHeYFd4tX7pgsnIlY4GPkBOvjF1qzUzYMuBvAEKraFBBNFN/OrpqKtOUI9zSMkfQaEzzXgjYjCl0ymgRnhfcrcn6fwLOv2Q4lwSqzyyFiPtVmRpDNoBHL+20jtOmePpQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZWuQ77O2wQGEOHnC5WnvlgHGpBhL0RBfmdFtdxQzCOA=;
- b=DxivnJh02lmHjE5nCvvEIpIHGQbDyqu8sxlPkFqLYthMTFrmhjyLgcgDdLJBW3PQsYo8cZJ+T0UPgVA6OEQjj4EA+Xx8iHYSAPZmX4aMXSOUhJs6b227WXilmrJ424bokv/Q5lRPLe2uuDKO0dhqgN9hAf6Nuv1FO2TtCkxTNoJbbkQQ8L0PKQqDdhlocP8a1RdmoSl23F3FO8MslfkbAoj24l4rOeBT+DmI9eM72xILiJzYEODHNrCoiVRBhtv8FuSU2t7ZDXoVuyeVVFhA1HlIhzaKKpYI99JljK1r0Q7TvWWejdErr+rt7oR6FZaNNV3ff4lbYe6KDV6p5nUjyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1335.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 08:37:19 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 08:37:19 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-crypto@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: [PATCH v9 0/2] hwrng: starfive: add JHB100 support and fix clk/reset teardown
-Date: Wed, 21 Oct 2026 16:37:10 +0800
-Message-Id: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0008.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:5::13) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973DE606A31A;
+	Wed, 21 Oct 2026 08:37:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I+cKpbzK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27A681F000CE;
+	Wed, 21 Oct 2026 08:37:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792571872;
+	bh=SZ3EviCYxMDcxcQqwdkGz4a9ADC55X4maOqxKmHiuIA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=I+cKpbzKX1NJJ+vV3Nf0xMc43gi4ozC2qu1m4Ircxn0vL1WBettiLwcFxk0f2Zk7m
+	 36hyR7/aePcxRJAnWMBei2+6ToqUej8aR+A7EAKCBm3fz1bLXzkpfI7BhoEbc+AJO3
+	 MrGhYQT/V2n2ViXB972cnyE8mcI7UoUCQ5QW6JrOzOs1XRwHDxzlJDGjFMXfY2GA2i
+	 q7o4gYrYg+OiQleCuWFTeREKMo3iuAk51O7BQ52KEfPtOzZf5CMRZbo1Wh9s/x5+7W
+	 ugnkO+geYfV8JQgNZKoYEx+5Bhy+TD7dXOH256AeeqslY0Y+BQITgPUjBMJv0B8C3F
+	 FcjEbATjabgLg==
+Message-ID: <973fd409-64b7-4c62-82e1-c75c784b80f7@kernel.org>
+Date: Wed, 21 Oct 2026 10:37:44 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,141 +51,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1335:EE_
-X-MS-Office365-Filtering-Correlation-Id: bc84fb70-cf58-4fe3-419b-08df2f4e84fe
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|52116014|1800799024|376014|18002099003|10067099003|38350700014|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	NRMuE1O2zZZIQmzU45mtARBjZYc+qboYq/B5l5FjBcCNp1NrhWCkkAQ8M6v1N6B4Lsca2esuE8VEi5wEbT4FAslbnmJaUVwyfDUgDcm79FB+4JwRFi9LoZydCwHo5Ft2x6uyvDCkgt32oosS3VfAyAGqAcMBH/k+zBC6z3t9kLNgo7REUo6mSyk1xC/XDTA1ExP8ruhr3tVhhWuCNqWxZp4fp6G+HwsmmTjJgheDbn1hnTLGE9yV36K/1YNfLzei3gcahcV47x64GX3p/BrfHXF1dVw9a3ThJ5DCCkyA6axpeCGBgvIyGO9X9alEoi1otxW06F8HCq/1atTuCSOlYjm3pTiR6pj5BmS31gofXxXeQyF5vW7H2bTKOX+mFGPTT3D5qiwAOMymMqzlzOQMC8Z02ltocWyXakB+jgXgFR4TRToXScy1FFTZvkS3SQj/v5aWuwP1EJmkBkfHFnbM8NPRdF/DjOxGhmCdQnCR0GhsB6nDFybnWKK5uBmQTMhUzjNP38KHbVApC/hEatdtizYCNOdaIDHPyZVUI5gP5drZYodqgNfpOKftaukIf+z9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(52116014)(1800799024)(376014)(18002099003)(10067099003)(38350700014)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Bu+133ywmiAGzy3yA5bjOuH3A0hCFFvSkjT1aWTNgV7Urq31bgozjdoLthiB?=
- =?us-ascii?Q?Nw2MxbonFP/0++JrzhXAxwjzP7+zRrcUBRy6WL+TXgamcpPIzOhjzHTSd9Iy?=
- =?us-ascii?Q?f4CF98p5RbV5rhLmJ088ZidU72yzh3ARHqrWt3HktGkdhFF5UIqQi2njI2Qx?=
- =?us-ascii?Q?x4A+4CuEG4LuOJowLAy6k5uYPndxUPvbdCNT73YNNuKrwNdrc3zqDWu/KURQ?=
- =?us-ascii?Q?i1TY0/8ibBKSyFUXOYtYbdL50s8RCFy2uuOMdAhPfHVwwVRK70eQ1K+4gzkV?=
- =?us-ascii?Q?RBhNqFDCPLZKAoqVc1lhLy47P/waSoz7Vp9DZtxWP7wEU8fnhr8hzPF21hME?=
- =?us-ascii?Q?X2mlAsJay/rqWGmpwNipOCEvDAyjxkuTQCFS718Jh4eWGZ7D/ydUW1/Ne+am?=
- =?us-ascii?Q?HC/e2a5zA2/2ceQrhLknbeimKEHA4Db+IeMMnGO6vu1EoUOUrz4AaWGgYxSc?=
- =?us-ascii?Q?YuIw23hWMQq94ldRgshWBCLbjUsL27aB27cCFc3nMgASRrZ1mOk7ix5cSfrN?=
- =?us-ascii?Q?7rFd0nDwPQGqROw/S6kXg5NkhFH+t2wK8PP7mDleB85SvKx3lLIFFa0K/Q8m?=
- =?us-ascii?Q?wd0+xMFUBPd1PdPXnS60pU2Q5dj2E5h/CsCsRslXZOo5yHJHxC6ubQ0m5ETQ?=
- =?us-ascii?Q?OVpT3NuDGI3AfpC971RB0kCLj0h6GxLwEhY3/n14DbyQyGBa+oMrlqZ3W2Db?=
- =?us-ascii?Q?UzMnE0ZUNe8mkV5b9fY3DxNCrSsgp45LBTBqLsqlwUQ5noDCJ/cG0EbOSPhv?=
- =?us-ascii?Q?UPrjP4eN7IS0TAw/+kYVVHpZCc4iZPz7TWMw8mbS9ydgJBQaiGjmCHgcz8Cs?=
- =?us-ascii?Q?Q6YGZKwgifRae30Qt8rMHF8LKWp60RTHyW3K8SJxl+kcSnXakN1D8aDKBGqZ?=
- =?us-ascii?Q?iW1KKpSyiAjidy1xusFF8Wlg7RaftxHfseU0beUbFPM0Mja0K9xPOrNGOgQy?=
- =?us-ascii?Q?ihCLwtKZQFD1EN8ltvzNZPQiApFW6cDouTnZojy0MuzCs7BTba7Da89qZ1oM?=
- =?us-ascii?Q?H2k9D+RS3cZ4S77P+/v2QBof4eCWiohIw8j7ePhfcav8BNTcaTL+rYl5mdpl?=
- =?us-ascii?Q?4cCPS9JaZpQc0VFkVhm5VcIOhmG2xZmRB4YJmD81JURel9KYQLtGZOVxsDvX?=
- =?us-ascii?Q?c9nuJQ0iM8rhttXOMaN2zd+8/onCggItt4SgZMKRX2tRm9bTLwZvDjH0pPQj?=
- =?us-ascii?Q?VwX5LIMjrg9y5PXC17vLdODL1oxFtfIDFfBfshZD07lfq6AljI0UFva6FSuJ?=
- =?us-ascii?Q?zwaT2lDxnKyOMghssfWz60jAoqSQe4+l2ZPWtRCzg0BxYBgJcZ9yR7asW3zw?=
- =?us-ascii?Q?UyoQ8AhBrphjvwMJOn7f+ypS+DZJ4xdU6MdzS4Bg8U9Acly3AUQmlUf7sk38?=
- =?us-ascii?Q?7LC7OiwkNg/1WCVrtK2wNMTcjl9gIhCS04bZq/iJi2Gj22JTYFzTEX4wMNr9?=
- =?us-ascii?Q?b5i4+uWMF+kQiCm4DzAb0+aBNHvjagLWJDUE+VrnAA3DgLgq28/SEj+AGewG?=
- =?us-ascii?Q?2eRsTz7+OTFJMz69EfZL8Qtt5W3J8y4CotxTQCWFkH2dPVF24FbVBrrnlbXR?=
- =?us-ascii?Q?H6PtrFlRZsU3eP5PcQhoikpScmk/7qUK+/VTMSEM/mjLspJu0dEoB38ky2XV?=
- =?us-ascii?Q?MYBoW4CUAWVe2xwpWHfT9/aqyL4WoDH6at8G81CEaYAN5AehKhP/rnbhELPh?=
- =?us-ascii?Q?VSumNZsgcFMV+rv++aQM5JUeRL+S7QECdIHbhhEIFGYTI56OYhNPeIsH1S8o?=
- =?us-ascii?Q?wx+uABefU+6F82Jeepngf7JCZ+iovH0cHvz+J9IZea6vxy1MKBJB?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc84fb70-cf58-4fe3-419b-08df2f4e84fe
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:37:19.7043
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sRAn0ZMc5Frx5mRoAj9dtRyHOjgd12IA7Ii63K9Y8nLVOKXiP/cEin03wzZ+S+WYKHcDfg/E3CPByaZGu1NtGevXnMKjI2DUImG0Xmjn8GbwSZHvG2Pw72G5wu7ugjJj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1335
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] mm/huge_memory: recheck a special PMD under the
+ lock in copy_huge_pmd()
+To: Konstantin Khorenko <khorenko@virtuozzo.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+ =?UTF-8?Q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>,
+ dri-devel@lists.freedesktop.org, Madhavan Srinivasan <maddy@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ stable@vger.kernel.org
+References: <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com>
+ <20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-1-85eaec8417f6@virtuozzo.com>
+ <5800bc6e-7671-41eb-bb09-7fbc8f2d085c@kernel.org>
+ <03a10e8e-f14e-4612-9c23-70f94137a29e@virtuozzo.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <03a10e8e-f14e-4612-9c23-70f94137a29e@virtuozzo.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+On 10/16/26 15:05, Konstantin Khorenko wrote:
+> On 10/15/26 16:14, David Hildenbrand (Arm) wrote:
+>> I would have thought that unmap_mapping_pages() is only called in
+>> corner cases when we would have concurrent fork().
+>>
+>> Like vfio_pci_zap_bars().
+>>
+>> But yeah, likely there is a theoretical race.
+> 
+> Agreed, it needs a zap such as vfio_pci_zap_bars() racing with fork()
+> of the mapping owner. I only hit it with a delay injected into the
+> window.
+> 
+>> TBH, I think we can drop this comment entirely. That's just simply
+>> the right thing to do?
+> 
+> Will do. I kept the comment on the CoW warning below it, which is
+> about something else.
+> 
+>> But why do we do this early copy dance *at all*? I think I
+>> complained about this vma_is_anonymous handling in the past.
+>> vma_needs_copy() is the one deciding whether something should get
+>> copied or not.
+>>
+>> So, can't we just get rid of the vma_is_anonymous() handling and
+>> perform the weird special-pte check (that I hate entirely) when
+>> already holding the PTL?
+> 
+> I tried exactly that first, see "try 1" below. The early
+> vma_is_anonymous() return is gone, the locks are taken for every huge
+> PMD, and both the special check and the skip of non-anonymous VMAs
+> run on the value read under the lock. The lockless read is gone, and
+> the race with it. The skip itself has to stay, as the anonymous path
+> cannot copy a file THP.
+> 
+> That makes fork slower when it walks a VMA full of huge PMDs that it
+> then skips. vma_needs_copy() sends such VMAs here, for example a
+> MAP_PRIVATE file mapping with an anon_vma. fork() of a process with
+> 4 GB of shmem THPs mapped MAP_PRIVATE and an anon_vma on the VMA
+> (2047 PMD-mapped THPs), median of 2000 forks, 4-vCPU KVM guest:
+> 
+>   v7.3-rc7     86-87 us
+>   try 1       131-148 us
 
-This patch series adds support for the JHB100 SoC TRNG and fixes
-  clock/reset teardown ordering issues.
+Perfectly fine.
 
-The first patch updates the device tree bindings by removing the
-  obsolete JH8100 compatible string and adding JHB100 support
-  while updating the maintainer.
+> 
+> That is about 25 ns per huge PMD, spent taking and dropping the two
+> PMD locks only to skip it.
 
-The second patch reworks the driver to ensure proper clock gating
-  before reset assertion for JHB100 to avoid reset-domain crossing
-  glitches, fixes RPM usage count handling, and improves error
-  path cleanup through devm actions.
+We should likely do exactly what we do in the PTE path: copy PMDs that reference
+file folios. See copy_present_ptes().
 
-Changes in v1:
- - Remove jh8100-trng and Fix the compatible description in .yaml
- - add JHB100 and fix clk/reset teardown logic code
+This THP/PMD handling inconsistency is annoying the crap out of me. We should
+just consistently do the same thing for PTE vs. PMD.
 
-Changes in v2:
- - Balance the PM via pm_runtime_set_active() in ->probe
- - Add devm_add_action_or_reset() to register a resource rollback function
+> 
+> So "try 2" keeps the early return, but decides it from the VMA flags
+> instead of a lockless read of the PMD: a non-anonymous VMA without
+> VM_PFNMAP or VM_MIXEDMAP cannot hold a special PMD other than the huge
+> zero one, as vmf_insert_pfn_pmd() requires one of the flags, and the
+> flags cannot change under the mmap write lock fork holds. Everything
+> else is decided under the PTL, as in try 1. fork() is back at
+> 86-87 us.
+> 
+> I also tried vma_is_special_huge() for that check, but its
+> vma_is_dax() test on every huge PMD made fork cost about 17% more
+> kernel instructions than v7.3-rc7 here, against about 1% for the
+> flags test.
+> 
+> Both diffs are against v7.3-rc7 and leave out the deposit fix from
+> patch 2, which goes on top as before. If try 2 looks right to you, v4
+> will be try 2 plus the deposit patch.
+> 
+> Try 1:
+> 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -1958,39 +1958,36 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
+>         pgtable_t pgtable = NULL;
+>         int ret = -ENOMEM;
+> 
+> -       pmd = pmdp_get_lockless(src_pmd);
+> +       if (vma_is_anonymous(dst_vma)) {
+> +               pgtable = pte_alloc_one(dst_mm);
+> +               if (unlikely(!pgtable))
+> +                       goto out;
+> +       }
+> +
+> +       dst_ptl = pmd_lock(dst_mm, dst_pmd);
+> +       src_ptl = pmd_lockptr(src_mm, src_pmd);
+> +       spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+> +
+> +       ret = -EAGAIN;
+> +       pmd = *src_pmd;
+> +
+>         if (unlikely(pmd_present(pmd) && pmd_special(pmd) &&
+>                      !is_huge_zero_pmd(pmd))) {
 
-Changes in v3:
- - Supplement .yaml commit message
- - Add pm_runtime_get_if_active() to check PM in irq
- - Balances pm_runtime_get/put calls in init, read, and cleanup paths
- - Add per-compatible match data for the teardown order
 
-Changes in v4:
- - Modify .yaml commit information to non point description
- - serialise the command sequences with a mutex.
+There is a vm_normal_page_pmd(). It should be used instead of all of this
+open-coded crap people added over the years.
 
-Changes in v5:
- - Run the reseed from a workqueue instead of hard IRQ context.
- - Balance the probe reset_control_deassert() via a ->cleanup flag in the
-   PM suspend/resume callbacks (was skipped when already suspended).
- - Use devm_pm_runtime_set_active_enabled() instead of manual PM enable.
- - Register the IRQ after clk/reset/PM setup; reuse
-    starfive_trng_release() on request_irq() failure.
- - Check reset_control_deassert();
- - drop of_match_ptr() from the match table.
+Again, take a look at how the PTE scenario handles it in copy_present_ptes() etc.
 
-Changes in v6:
- - check lock in starfive_trng_read() using mutex_trylock when wait is 0
+> -               dst_ptl = pmd_lock(dst_mm, dst_pmd);
+> -               src_ptl = pmd_lockptr(src_mm, src_pmd);
+> -               spin_lock_nested(src_ptl, SINGLE_DEPTH_NESTING);
+>                 /*
+> -                * No need to recheck the pmd, it can't change with write
+> -                * mmap lock held here.
+> -                *
+> -                * Meanwhile, making sure it's not a CoW VMA with writable
+> -                * mapping, otherwise it means either the anon page wrongly
+> -                * applied special bit, or we made the PRIVATE mapping be
+> -                * able to wrongly write to the backend MMIO.
+> +                * Make sure it's not a CoW VMA with writable mapping,
+> +                * otherwise it means either the anon page wrongly applied
+> +                * special bit, or we made the PRIVATE mapping be able to
+> +                * wrongly write to the backend MMIO.
 
-Changes in v7:
- - using mutex_trylock when wait is 0, otherwise use mutex_lock()
 
-Changes in v8:
- - rebase patches against the latest tree
+Nobody should be checking pmd_special() bits manually. Use vm_normal_page_pmd().
 
-Changes in v9:
- - Fixed the PM runtime reference leak in starfive_trng_read()
- - Drop redundant pm_runtime_get/put calls from the interrupt
-     handler (starfive_trng_irq).
- - Use DEFINE_RUNTIME_DEV_PM_OPS() and pm_ptr() for power
-     management operations.
- - Split clock/reset control into starfive_trng_power_on/off()
- - Track power state with clk_on/rst_deassert/initialized/need_reseed
-      instead of open-coded clk control.
- - IRQ now requested with IRQF_NO_AUTOEN and enabled only after init
-      succeeds.
- - LFSR_LOCKUP no longer schedules work from hard IRQ: set need_reseed
-      flag and let starfive_trng_reseed_work() handle reseed on a
-      freezable workqueue.
- - starfive_trng_cmd() takes timeout + wait args; read path checks idle,
-      reseeds on need_reseed, retries once on lockup, returns 0 for
-      non-blocking.
- - Protect ctrl-cmd sequences with mutex + lockdep_assert_held.
- - Cleanup/suspend disables IE, clears ISTAT, synchronize_irq() before
-      gating clocks/reset.
+Sorry that you'll have to clean up the mess people created over the years.
 
-Lianfeng Ouyang (2):
-  dt-bindings: rng: starfive,jh7110-trng: add jhb100, drop jh8100
-  hwrng: starfive: rework clk/reset teardown order for JHB100
+But it's all just waiting for more bugs to be discovered or introduces when
+doing stuff completely different for PTE vs. PMD.
 
- .../bindings/rng/starfive,jh7110-trng.yaml    |  10 +-
- MAINTAINERS                                   |   2 +-
- drivers/char/hw_random/jh7110-trng.c          | 559 +++++++++++++-----
- 3 files changed, 413 insertions(+), 158 deletions(-)
+-- 
+Cheers,
 
---
-2.43.0
-
+David
