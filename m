@@ -1,73 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.28
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612304;
-	b=wp42hVcQUW5Q0SqoP0RkGgj5EmmND7pS4rxsHNHbsPeUwPMXTUY9NZC7ANBK7x86rpKD
-	 0KfLEE+OeoHk9EIk1ROdOtgb9HHti1J8xBGQKUOMKjjB5S9QGgf4N2aQYZ8Lca0hb/k33
-	 R8SC1JvQroMHx797EfV9yNhI+i3l6wr9SfA0faQpSn/90sTQOJZQwTenISWUXSUidji6z
-	 Ut0RsqEJSzuSs7kSQ2jIjaFOy0nz+RrRPCvyuamx8kExS62E5vod6+sBiigEYtu7lVMVX
-	 4e/5KQ5sp+0A12LLe2Kv5oUGI/nMrIx/nJwnWY4CquAc4MvZv8u8SYg2Vi+FHdIXzWA==
+	t=1792612381;
+	b=2ZsdannZHi0jZ1FISZAimEbC8V9S1wofcU2yiCo9HdmhNmmEQ05hGaBPW7OjENIz06kx
+	 Dlpl8taFUOhW67h4x2Arfharq89R1L2doxVo6WclW0AtZ3utIc8ZAz8AzU/t31aic4NfF
+	 dMQnT2W8t2E0Q+WVHJQ77hupOiAqzOHKtzuwh2X3aaO+KcWa1uO+95VEBppyuM7PEpiDa
+	 dPLbDAc8QnMVFhQ+CHbRrpaGn8J4dNKc0a1YHey+ILUedSvGWEE16Fz1K9kgllyiKERr1
+	 eEBw8f95oR8xAHQJyXA5EMuCJ1deKslbJqXixcRgMk9FuCOeerqsr3Dt3fh2xb5SZkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612304;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Subject:To:Cc:From:
-	 Date:References:In-Reply-To:Message-Id;
-	bh=CMd/HW2pW0yVVi6pmIPRORmq6whHKPez7Zkei9lYWnk=;
-	b=i7fuBGwrlFVb+OVDHG5wcC7XFBz/ZjtQ2UeQIiaJpLB5JLnqoeehAsUyNB0L11CfyBGt
-	 9B5Dn5mkuSzcagzZk4TJN2bVymTD3mNzALR5H4RhJNanHYQWViihwj8wrPRQsBbFQrFn6
-	 MaOsIdslUR7dopTk7bU6TbaheUACKk78TyrOg72/UGvoaxYMpaj1OLQ8iBu4f1K4GKTx1
-	 NzJdzzYal5IVx1Su8Z1ptiBdT6mim7BpjzRVOUMlvA1cufcfEiYqpftoHLc1WRTY4fU8w
-	 RyvtJJfDjSPYOFikJFLSJY4JU8M9audgU6DgQsFg2c2TQ+61S2vI+M1K2tfQW39NTmA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612381;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=A7QHzyi7hILFsKIZgIskLbaHp/ycC6vPy0kZ2J0GHTc=;
+	b=E4fHNqv3ikmxwvkgppEqmWBRzRNS5GsS+5BhAnUc1u1zBTdcjx/RBxJHa1qmBh0z3tyk
+	 W6CDLA0GROdyRz0lZLhOHCqkQLoCRZxEJ29HoZPWSy+gocxZgVepByWuiYIv5T1tSvhbH
+	 APXI2SdQzQ4hizVWMjx0szYJgzzvoNCwokaEBurMV69OMnhvqleT2GcQbtHlaIKckk0rA
+	 FfL9ye2F9p4+57U7F38bYtJO50hz0uyrMT0EIfBlhwokvegJ7FtEaFst9pLNqZGZ5xXuh
+	 iSuxo6DT9DOLtiYdc/gjaAP77Oj0ooJtyhGMq0BRlpfRJ560kVm7ralhVC2SAYMiqOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eJvkyfF2;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Xswu2Ydn;
+	arc=none smtp.remote-ip=79.135.106.28
+Received: from mail-10628.protonmail.ch (mail-10628.protonmail.ch [79.135.106.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111B560A2602
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:51:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 111B560A2602
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B19606A320;
+	Wed, 21 Oct 2026 19:53:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1B19606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eJvkyfF2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792612304; x=1824148304;
-  h=subject:to:cc:from:date:references:in-reply-to:
-   message-id;
-  bh=D/CAo1/W8SnbOOrpFBj1NA9A9DSuO0dZpoccbJXxjJk=;
-  b=eJvkyfF2q3WbTKRok2TwpYatElVYgrHKrQSEGKcZAFkPGS887oU72GST
-   ShkiD52Lr0okoooXcvJ39uvMGvhjKKzmRg3oKqUkQ6+15L9oAFs7TW18M
-   nnXkbwnkJcNWl6tEWXY55olhHEGgJVQrjPSj70HT50PEjRK4E8Xg9e6/z
-   ZBMo17BmB6aoRA7IrJ2jyd6l4IS/OJWlJ4Ivaj3zPKFZ/sk7Q8d/KAjMl
-   2Z/OY4mBU19bOdze1PdHx5aP+JG3/UNvChf74Y/zqnNSbzLprFVDZ0ECP
-   QIfVSL2xIgWa9l5WWZJWL/ukqkneYa0G02sSNfAOyF9+OqfSHzBSKIJxN
-   g==;
-X-CSE-ConnectionGUID: Tt39cycXS7e9tqQLI36i0w==
-X-CSE-MsgGUID: bGAGCSS2Rwuaydlvy+K0yA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1230215"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1230215"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:51:44 -0700
-X-CSE-ConnectionGUID: okksbNhtTuasA2Jb2DD/eg==
-X-CSE-MsgGUID: QS0mwX57QC2+/kPEtsAAvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3092198"
-Received: from davehans-spike.ostc.intel.com (HELO localhost.localdomain) ([10.165.164.11])
-  by orviesa007.jf.intel.com with ESMTP; 21 Oct 2026 12:51:43 -0700
-Subject: [RFC][PATCH 17/24] x86/task: Context switch the kernel shadow stack register value
-To: linux-kernel@vger.kernel.org
-Cc: Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Edgecombe, Rick P <rick.p.edgecombe@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, the arch/x86 maintainers <x86@kernel.org>, Kees Cook <kees@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
-From: Dave Hansen <dave.hansen@linux.intel.com>
-Date: Wed, 21 Oct 2026 12:51:43 -0700
-References: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
-In-Reply-To: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
-Message-Id: <20261021195143.2C8D21DD@davehans-spike.ostc.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=Xswu2Ydn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1792612378; x=1792871578;
+	bh=A7QHzyi7hILFsKIZgIskLbaHp/ycC6vPy0kZ2J0GHTc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Xswu2YdneDkUW3sZ13DqHmzhPhN1bIb150LsFXEqoAgpPonbhTwzttFzmRMyqjhRQ
+	 zqhcdrmiz8QKpzSCjtGNtseoHsXOfmHt+q1me05ojSyF4pl7Z3bJ6u1Ku4p2O41kQf
+	 OtHSdLhwApb+KTi5ehH1W0L7Ygz3mU3iU9r1L9XN3C/0LvMsappxlqqgijezw6BMxu
+	 gV+9kCgqv1VXPZrnOd4bXht439dn3rsSdR8hOt8ak38Y8n4IAcIMR4xgf8OkdOm7kN
+	 zebEa/mZYhmUGRf3EicTS7IYarr+tx/rYw1xCbwZBZ8wsN/Xkvk21d5gjNHC7aUNnG
+	 vTHOyxFWdgi2w==
+Date: Wed, 21 Oct 2026 19:52:53 +0000
+To: Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>
+From: Birk Skyum <birk.skyum@pm.me>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3] pinctrl: qcom: Restore the pin configuration after hibernation
+Message-ID: <20261021195250.83540-1-birk.skyum@pm.me>
+Feedback-ID: 21326998:user:proton
+X-Pm-Message-ID: f392f4a5580105f9f2dd70105c80d2a9ee48be0f
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,230 +60,309 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+A hibernation image is restored after a power cycle. The TLMM registers
+then hold what the boot firmware and the kernel that loaded the image
+made of them. The restored kernel has the configuration it applied in
+memory only, and nothing writes it to the hardware again, so every pin
+that the loading kernel did not set up the same way stays wrong.
 
-This is the spot where things go off the rails. As I look at this, I
-think it may be a mistake to permit a shadow-stack kernel to have non
-shadow-stack tasks. It would just be too easy to leverage turn the
-ability to set kshstk_ssp=0 into a control flow hijack.
+On a Lenovo Yoga Slim 7x (X1E80100) the Bluetooth and Wi-Fi enable lines
+are two of them. Their drivers are loaded from the root file system, so
+the kernel that loads the image never touches the pins. This is
+/sys/kernel/debug/gpio before the hibernation and after the resume:
 
-This is also *not* the way the architecture intended context switching
-to go. Feedback here would be much appreciated.
+  gpio116 : out low  func0 2mA no pull
+  gpio117 : out high func0 2mA no pull
 
-I'll continue on describing what is here.
+  gpio116 : in  low  func0 2mA pull down
+  gpio117 : out high func0 16mA no pull
 
-The basic problem set:
- 1. SSP needs to be context-switched just like RSP:
-  1a. The kernel SSP value is discrete from the user SSP value
-  1b. The kernel SSP value needs storage space
- 2. At *least* the init task does not have a shadow stack mapping. The
-    expectation is that there will be other tasks. For instance, a
-    "permissive" mode after a shadow stack violation where the kernel
-    warns and keeps on running.
+The driver that owns gpio116 still believes it drives the line.
 
-== Solution ==
+Save the control, output and interrupt configuration registers in
+freeze_noirq and write them back in restore_noirq, the output level
+first, so that a pin drives the right level from the moment it becomes
+an output. Changing the interrupt configuration can latch an interrupt,
+so the status is cleared where the register changed, as
+msm_gpio_irq_set_type() does.
 
-First, establish and maintain kernel SSP storage at:
+Only the GPIOs the kernel uses are put back: those requested as a GPIO,
+muxed to a function or used as an interrupt, as pinctrl-intel does. A
+valid GPIO without an owner may be in use by firmware. The SDC pads
+after the GPIOs are configured without a mux function, so they never
+have an owner, and their control register is always put back.
 
-	thread_struct->kshstk_ssp
+msm_pinctrl_dev_pm_ops gets the two callbacks and x1e80100 starts using
+these ops. With that x1e80100 also gets their suspend and resume
+callbacks, which apply the sleep and default state of the controller's
+own pins where a board defines them.
 
-A 0 value means that the task does not use kernel shadow stacks.
-
-Second, drive MSR_IA32_S_CET from that value. If it is 0, then
-clear CET_SHSTK_EN|CET_WRSS_EN during the context switch. If it
-is non-zero set those bits.
-
-Third, save and restore the kernel SSP value. This is substantially
-more complicated than RSP switching because SSP is not directly
-accessible and needs to be loaded with RSTORSSP, which is picky.
-It's not picky for no reason. It is *intentionally* picky to foil
-stack pivoting attacks. Before it will write SSP, it requires an
-in-memory "restore token" be present on the shadow stack.
-
-Just like the regular stack, this switch *must* be done in
-assembly.
-
-== Optimizations ==
-
-    <<<
-    These are probably all silly to talk about at this point if a
-    over over to the more correct RSTORSSP/SAVEPREVSSP is made.
-    >>>
-
-First, TASK_thread_kshstk_ssp() will always be 0 when kernel shadow
-stacks are disabled. This could be ALTERNATIVE()'d out to a plain
-jump without the MOV and TEST.
-
-Second, the ENABLE/DISABLE macros could avoid the WRMSR when it is
-not changing values.
-
-It might be possible to move the assembly logic like the
-MSR_IA32_S_CET or restore token calculations out to C.
-
+Signed-off-by: Birk Skyum <birk.skyum@pm.me>
 ---
+Changes in v3:
+- Take the lock with guard() in both callbacks (Bartosz).
+- Link to v2: https://lore.kernel.org/r/179206391202.36987.1416057976823693=
+032@pm.me
 
- b/arch/x86/entry/entry_64.S        |   87 +++++++++++++++++++++++++++++++++++++
- b/arch/x86/include/asm/processor.h |    4 +
- b/arch/x86/include/asm/shstk.h     |    3 +
- b/arch/x86/kernel/asm-offsets.c    |    3 +
- 4 files changed, 97 insertions(+)
+Changes in v2:
+- Put a GPIO back only when the kernel uses it, as a GPIO, through a
+  mux function or as an interrupt, as pinctrl-intel does (Bartosz).
+- Save and restore the SDC pads after the GPIOs as well (Bartosz).
+- Allocate the save area under the same option as the callbacks,
+  CONFIG_HIBERNATE_CALLBACKS (Sashiko).
+- Clear the interrupt status only where the restore changed the
+  interrupt configuration (Sashiko).
+- Say in a comment that a both-edge interrupt emulated by flipping the
+  polarity is not primed again. No SoC with such pins uses these ops.
+- Rebased on pinctrl-qcom/for-next.
+- Link to the RFC: https://lore.kernel.org/r/179163141354.18006.80461347454=
+353634@pm.me
 
-diff -puN arch/x86/entry/entry_64.S~per-task-ssp-storage arch/x86/entry/entry_64.S
---- a/arch/x86/entry/entry_64.S~per-task-ssp-storage	2026-10-21 12:36:40.914886779 -0700
-+++ b/arch/x86/entry/entry_64.S	2026-10-21 12:36:40.948886844 -0700
-@@ -34,6 +34,7 @@
- #include <asm/percpu.h>
- #include <asm/asm.h>
- #include <asm/smap.h>
-+#include <asm/shstk.h>
- #include <asm/pgtable_types.h>
- #include <asm/frame.h>
- #include <asm/trapnr.h>
-@@ -169,6 +170,87 @@ SYM_INNER_LABEL(entry_SYSRETQ_end, SYM_L
- 	int3
- SYM_CODE_END(entry_SYSCALL_64)
- 
-+.macro SAVE_KERNEL_SHADOW_STACK
-+#ifdef CONFIG_X86_KERN_SHADOW_STACK
-+	/* kshstk_ssp==0 means no kernel shadow stack, skip handling */
-+	cmpq	$0, TASK_thread_kshstk_ssp(%rdi)
-+	je	.Lprev_no_shstk\@
-+	rdsspq	%rax
-+	movq	%rax, TASK_thread_kshstk_ssp(%rdi)
-+.Lprev_no_shstk\@:
-+#endif
-+.endm
+Tested with v2 on a Lenovo Yoga Slim 7x with v7.2 plus the patch. v3
+was not run on hardware again, because both callbacks compile to the
+same arm64 code as in v2. The kernel also carried the PCI change in
+[1], without which this machine does not resume at all, the smp2p
+change in [2] and a GENI serial change that is not posted. The
+Bluetooth driver had [3] applied. On pinctrl-qcom/for-next v3 builds
+without warnings with W=3D1 and sparse, with hibernation on, off and
+without sleep support.
+
+- Before the hibernation 45 TLMM pins have an owner, gpio116 and
+  gpio117 among them (wcn7850-pmu), and four are interrupts.
+- pm_test=3Dcore and test_resume pass.
+- After a hibernation with a real power-off the TLMM part of
+  /sys/kernel/debug/gpio differs only in the level read on two inputs
+  (gpio93 and gpio153), as it did with the RFC.
+- A suspend (deep) and wake still works.
+
+The Yoga has no SD card slot and its SDC2 pads have no owner, so this
+only shows that putting them back does no harm. I did not read them
+back.
+
+Not covered here: the LPASS LPI pin controller, whose pins also come
+back at their reset values after a hibernation.
+
+[1] https://lore.kernel.org/r/179181074907.22199.10556821368232442334@pm.me
+[2] https://lore.kernel.org/r/179158127177.70185.5691100900886332545@pm.me
+[3] https://lore.kernel.org/r/179163212446.46972.2306254853726299632@pm.me
+
+ drivers/pinctrl/qcom/pinctrl-msm.c      | 145 +++++++++++++++++++++++-
+ drivers/pinctrl/qcom/pinctrl-x1e80100.c |   1 +
+ 2 files changed, 144 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinc=
+trl-msm.c
+index 27f06bbc113c..8ddb4261bf89 100644
+--- a/drivers/pinctrl/qcom/pinctrl-msm.c
++++ b/drivers/pinctrl/qcom/pinctrl-msm.c
+@@ -39,6 +39,15 @@
+ #define MAX_NR_TILES 4
+ #define PS_HOLD_OFFSET 0x820
+=20
++/* Register values of one pin group, kept across a hibernation. */
++struct msm_pin_state {
++=09u32 ctl;
++=09u32 io;
++=09u32 intr_cfg;
++=09u32 intr_target;
++=09bool saved;
++};
 +
-+.macro ENABLE_KERNEL_SHADOW_STACK
-+	movl	$MSR_IA32_S_CET, %ecx
-+	rdmsr
-+	orl	$(CET_SHSTK_EN | CET_WRSS_EN), %eax
-+	wrmsr
-+.endm
+ /**
+  * struct msm_pinctrl - state for a pinctrl-msm device
+  * @dev:            device handle.
+@@ -58,6 +67,7 @@
+  * @soc:            Reference to soc_data of platform specific data.
+  * @regs:           Base addresses for the TLMM tiles.
+  * @phys_base:      Physical base address
++ * @saved:          Pin registers kept while a hibernation image is taken.
+  */
+ struct msm_pinctrl {
+ =09struct device *dev;
+@@ -80,6 +90,8 @@ struct msm_pinctrl {
+ =09const struct msm_pinctrl_soc_data *soc;
+ =09void __iomem *regs[MAX_NR_TILES];
+ =09u32 phys_base[MAX_NR_TILES];
 +
-+.macro DISABLE_KERNEL_SHADOW_STACK
-+	movl	$MSR_IA32_S_CET, %ecx
-+	rdmsr
-+	andl	$~(CET_SHSTK_EN | CET_WRSS_EN), %eax
-+	wrmsr
-+.endm
++=09struct msm_pin_state *saved;
+ };
+=20
+ #define MSM_ACCESSOR(name) \
+@@ -1583,9 +1595,131 @@ static __maybe_unused int msm_pinctrl_resume(struct=
+ device *dev)
+ =09return pinctrl_force_default(pctrl->pctrl);
+ }
+=20
+-SIMPLE_DEV_PM_OPS(msm_pinctrl_dev_pm_ops, msm_pinctrl_suspend,
+-=09=09  msm_pinctrl_resume);
++static bool msm_pin_has_own_intr_target(struct msm_pinctrl *pctrl,
++=09=09=09=09=09const struct msm_pingroup *g)
++{
++=09return !pctrl->intr_target_use_scm && g->intr_target_reg &&
++=09       g->intr_target_reg !=3D g->intr_cfg_reg;
++}
 +
 +/*
-+ * Clobbers rax, rcx, rdx, r8, r9. rdi/rsi must survive for the rest
-+ * of __switch_to_asm.
-+ *
-+ * Dumb and slow. Always does WRMSR, regardless of if changes need to
-+ * be made.
++ * A GPIO is only put back when the kernel uses it, as a GPIO, through a m=
+ux
++ * function or as an interrupt. Other valid pins may be in use by firmware=
+.
++ * The pads after the GPIOs (SDC) have no GPIO and are configured without =
+a
++ * mux function, so they never have an owner and are always put back.
 + */
-+.macro LOAD_KERNEL_SHADOW_STACK
-+#ifdef CONFIG_X86_KERN_SHADOW_STACK
-+	movq	TASK_thread_kshstk_ssp(%rsi), %r8
-+	testq	%r8, %r8
-+	jz	.Lnext_no_shstk\@
++static bool msm_pin_in_use(struct msm_pinctrl *pctrl, unsigned int i)
++{
++=09const struct pin_desc *desc;
 +
-+	ENABLE_KERNEL_SHADOW_STACK
++=09if (i >=3D pctrl->chip.ngpio)
++=09=09return true;
 +
-+	/*
-+	 * This should be just a:
-+	 *
-+	 * 	rstorssp
-+	 * 	saveprevssp
-+	 *
-+	 * sequence. But, currently, the previous task might not
-+	 * have a valid SSP, like the init_task. This needs fixing.
-+	 * But, for now, just hack a Prev-SSP token in.
-+	 *
-+	 * The right fix is to give all tasks a valid SSP universally
-+	 * and then initialize the token once at task creation time,
-+	 * probably near the spot that ret_from_fork_asm is also
-+	 * written to the shadow stack.
-+	 */
-+	leaq	-8(%r8), %r9
-+	movq	%r8, %rax
-+	/*
-+	 * Set type=0. Indicates a "Restore token" to satisfy RSTORSSP:
-+	 * Set mode=1. Indicates 64-bit mode.
-+	 * */
-+	orq	$SHSTK_TOKEN_MODE64, %rax
-+	wrssq	%rax, (%r9)
++=09if (!gpiochip_line_is_valid(&pctrl->chip, i))
++=09=09return false;
 +
-+	rstorssp (%r9)
++=09desc =3D pin_desc_get(pctrl->pctrl, i);
 +
-+	/*
-+	 * Discard the Previous-SSP token left by RSTORSSP.
-+	 *
-+	 * This will go away once SAVEPREVSSP is being used properly.
-+	 */
-+	movl	$1, %eax
-+	incsspq	%rax
-+	jmp	.Lshstk_done\@
++=09return desc && (desc->mux_owner || desc->gpio_owner ||
++=09=09=09gpiochip_line_is_irq(&pctrl->chip, i));
++}
 +
-+.Lnext_no_shstk\@:
-+	DISABLE_KERNEL_SHADOW_STACK
-+.Lshstk_done\@:
-+#endif
-+.endm
++/* Remember how the pins are set up when a hibernation image is taken. */
++static int msm_pinctrl_freeze_noirq(struct device *dev)
++{
++=09struct msm_pinctrl *pctrl =3D dev_get_drvdata(dev);
++=09const struct msm_pingroup *g;
++=09struct msm_pin_state *s;
++=09unsigned int i;
 +
- /*
-  * %rdi: prev task
-  * %rsi: next task
-@@ -191,6 +273,8 @@ SYM_FUNC_START(__switch_to_asm)
- 	movq	%rsp, TASK_threadsp(%rdi)
- 	movq	TASK_threadsp(%rsi), %rsp
- 
-+	SAVE_KERNEL_SHADOW_STACK
++=09guard(raw_spinlock_irqsave)(&pctrl->lock);
 +
- #ifdef CONFIG_STACKPROTECTOR
- 	movq	TASK_stack_canary(%rsi), %rbx
- 	movq	%rbx, PER_CPU_VAR(__stack_chk_guard)
-@@ -205,6 +289,9 @@ SYM_FUNC_START(__switch_to_asm)
- 	 */
- 	FILL_RETURN_BUFFER %r12, RSB_CLEAR_LOOPS, X86_FEATURE_RSB_CTXSW
- 
-+	/* Note that this clobbers tons of stuff: */
-+	LOAD_KERNEL_SHADOW_STACK
++=09for (i =3D 0; i < pctrl->soc->ngroups; i++) {
++=09=09g =3D &pctrl->soc->groups[i];
++=09=09s =3D &pctrl->saved[i];
++=09=09s->saved =3D msm_pin_in_use(pctrl, i);
++=09=09if (!s->saved)
++=09=09=09continue;
 +
- 	/* restore callee-saved registers */
- 	popq	%r15
- 	popq	%r14
-diff -puN arch/x86/include/asm/processor.h~per-task-ssp-storage arch/x86/include/asm/processor.h
---- a/arch/x86/include/asm/processor.h~per-task-ssp-storage	2026-10-21 12:36:40.927886804 -0700
-+++ b/arch/x86/include/asm/processor.h	2026-10-21 12:36:40.949886846 -0700
-@@ -532,6 +532,10 @@ struct thread_struct {
- 
- 	struct thread_shstk	shstk;
- #endif
-+#ifdef CONFIG_X86_KERN_SHADOW_STACK
-+	/* Kernel shadow stack register: */
-+	void *kshstk_ssp;
-+#endif
++=09=09s->ctl =3D msm_readl_ctl(pctrl, g);
++=09=09if (i >=3D pctrl->chip.ngpio)
++=09=09=09continue;
++
++=09=09s->io =3D msm_readl_io(pctrl, g);
++=09=09if (!g->intr_cfg_reg)
++=09=09=09continue;
++
++=09=09s->intr_cfg =3D msm_readl_intr_cfg(pctrl, g);
++=09=09if (msm_pin_has_own_intr_target(pctrl, g))
++=09=09=09s->intr_target =3D msm_readl_intr_target(pctrl, g);
++=09}
+=20
++=09return 0;
++}
++
++/*
++ * The image is restored after a power cycle, when the pins are back at wh=
+at
++ * the firmware and the kernel that loaded the image made of them. Nothing=
+ else
++ * writes the configuration again, so put back what was there.
++ *
++ * A both-edge interrupt that is emulated by flipping the polarity gets th=
+e
++ * polarity it had, which is not primed for a line that changed meanwhile.=
+ No
++ * SoC with such pins (one-bit detection) uses these callbacks.
++ */
++static int msm_pinctrl_restore_noirq(struct device *dev)
++{
++=09struct msm_pinctrl *pctrl =3D dev_get_drvdata(dev);
++=09const struct msm_pingroup *g;
++=09struct msm_pin_state *s;
++=09unsigned int i;
++=09u32 val;
++
++=09guard(raw_spinlock_irqsave)(&pctrl->lock);
++
++=09for (i =3D 0; i < pctrl->soc->ngroups; i++) {
++=09=09g =3D &pctrl->soc->groups[i];
++=09=09s =3D &pctrl->saved[i];
++=09=09if (!s->saved)
++=09=09=09continue;
++
++=09=09if (i >=3D pctrl->chip.ngpio) {
++=09=09=09msm_writel_ctl(s->ctl, pctrl, g);
++=09=09=09continue;
++=09=09}
++
++=09=09/* Set the level before the pin starts driving it. */
++=09=09val =3D msm_readl_io(pctrl, g);
++=09=09val &=3D ~BIT(g->out_bit);
++=09=09val |=3D s->io & BIT(g->out_bit);
++=09=09msm_writel_io(val, pctrl, g);
++
++=09=09msm_writel_ctl(s->ctl, pctrl, g);
++=09=09if (!g->intr_cfg_reg)
++=09=09=09continue;
++
++=09=09if (msm_pin_has_own_intr_target(pctrl, g))
++=09=09=09msm_writel_intr_target(s->intr_target, pctrl, g);
++=09=09val =3D msm_readl_intr_cfg(pctrl, g);
++=09=09msm_writel_intr_cfg(s->intr_cfg, pctrl, g);
++
++=09=09/*
++=09=09 * Changing the configuration can latch an interrupt. One that
++=09=09 * is latched with the configuration unchanged is a real one.
++=09=09 */
++=09=09if (val !=3D s->intr_cfg)
++=09=09=09msm_ack_intr_status(pctrl, g);
++=09}
++
++=09return 0;
++}
++
++const struct dev_pm_ops msm_pinctrl_dev_pm_ops =3D {
++=09SYSTEM_SLEEP_PM_OPS(msm_pinctrl_suspend, msm_pinctrl_resume)
++=09.freeze_noirq =3D PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
++=09=09=09       msm_pinctrl_freeze_noirq),
++=09.restore_noirq =3D PTR_IF(IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS),
++=09=09=09=09msm_pinctrl_restore_noirq),
++};
+ EXPORT_SYMBOL(msm_pinctrl_dev_pm_ops);
+=20
+ int msm_pinctrl_probe(struct platform_device *pdev,
+@@ -1663,6 +1797,13 @@ int msm_pinctrl_probe(struct platform_device *pdev,
+ =09if (ret)
+ =09=09return ret;
+=20
++=09if (IS_ENABLED(CONFIG_HIBERNATE_CALLBACKS)) {
++=09=09pctrl->saved =3D devm_kcalloc(&pdev->dev, pctrl->soc->ngroups,
++=09=09=09=09=09    sizeof(*pctrl->saved), GFP_KERNEL);
++=09=09if (!pctrl->saved)
++=09=09=09return -ENOMEM;
++=09}
++
+ =09platform_set_drvdata(pdev, pctrl);
+=20
+ =09dev_dbg(&pdev->dev, "Probed Qualcomm pinctrl driver\n");
+diff --git a/drivers/pinctrl/qcom/pinctrl-x1e80100.c b/drivers/pinctrl/qcom=
+/pinctrl-x1e80100.c
+index e4c0abcd95b9..bfe122fc7e79 100644
+--- a/drivers/pinctrl/qcom/pinctrl-x1e80100.c
++++ b/drivers/pinctrl/qcom/pinctrl-x1e80100.c
+@@ -1855,6 +1855,7 @@ static struct platform_driver x1e80100_pinctrl_driver=
+ =3D {
+ =09.driver =3D {
+ =09=09.name =3D "x1e80100-tlmm",
+ =09=09.of_match_table =3D x1e80100_pinctrl_of_match,
++=09=09.pm =3D &msm_pinctrl_dev_pm_ops,
+ =09},
+ =09.probe =3D x1e80100_pinctrl_probe,
  };
- 
- #ifdef CONFIG_X86_DEBUG_FPU
-diff -puN arch/x86/include/asm/shstk.h~per-task-ssp-storage arch/x86/include/asm/shstk.h
---- a/arch/x86/include/asm/shstk.h~per-task-ssp-storage	2026-10-21 12:36:40.943886835 -0700
-+++ b/arch/x86/include/asm/shstk.h	2026-10-21 12:36:40.949886846 -0700
-@@ -2,6 +2,9 @@
- #ifndef _ASM_X86_SHSTK_H
- #define _ASM_X86_SHSTK_H
- 
-+#define SHSTK_TOKEN_MODE64	BIT_ULL(0) /* Token created in 64-bit mode */
-+#define SHSTK_TOKEN_TYPE	BIT_ULL(1) /* Types: Restore: 0, Prev-SSP: 1 */
-+
- #ifndef __ASSEMBLER__
- #include <linux/types.h>
- 
-diff -puN arch/x86/kernel/asm-offsets.c~per-task-ssp-storage arch/x86/kernel/asm-offsets.c
---- a/arch/x86/kernel/asm-offsets.c~per-task-ssp-storage	2026-10-21 12:36:40.945886838 -0700
-+++ b/arch/x86/kernel/asm-offsets.c	2026-10-21 12:36:40.949886846 -0700
-@@ -43,6 +43,9 @@ static void __used common(void)
- 
- 	BLANK();
- 	OFFSET(TASK_threadsp, task_struct, thread.sp);
-+#ifdef CONFIG_X86_KERN_SHADOW_STACK
-+	OFFSET(TASK_thread_kshstk_ssp, task_struct, thread.kshstk_ssp);
-+#endif
- #ifdef CONFIG_STACKPROTECTOR
- 	OFFSET(TASK_stack_canary, task_struct, stack_canary);
- #endif
-_
+--=20
+2.55.0
+
+
