@@ -1,100 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792555009;
-	b=grB1hn6rw6WLv3bBWaYWLSxLhUWnOm0Onksx6rIGtUUMr//4zczsg4pzqeq16HVyzYRQ
-	 +ch7cbR0WwesuBCsqwCyqxCWLSlIQvsf/qOl7WYs03OlvoEf7FtNrPaRET5OsYzIlgseJ
-	 +hJLaadVyBVkfzkn6zagssptjIZ4MMVSY3pkGgpjqJE/6dURMFhMyCIx/Ewy5B096sax/
-	 G48NMy/VobEtyu/gfMZCFlkUz84R2BFkzietE6Qhz2OlcIo9xYWylhZETMjARUk7qffDY
-	 lGPtxs5a4TPJES+prsJVuDdVgo6ZkNxma6LY6B/2cs5c55ltAkGyGq+ecbeGFhV6q3g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792555009;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792555015;
+	b=4LZFtE594ewX0GaHCIaAGvZ8A0GE0BAk9htNPhTEQplezneF+NNX1ENDESuzNvlXKRas
+	 Es7xgpHEncqUwRLiBMfpQUjYKzhfo47FPlSL57GQTGySRtBYz+oAdkGaOC/Wcq/cNTN6G
+	 ayZpDkFDT02cRQB35wL5s+Y64l+FTm9Ryh/YUdsOVjfiFLhdQr7Qzf65r5s8tiFZlbfFk
+	 WZ2oDr5tZsXN+yjsWSfpG3qnHCQtm8iPKlxPh8b5sA3gHCFhB21LLh3ecNuPyedz1iWxc
+	 fwhCegCEpqcx72rFJ4e8HrsHwctycOxrrMw4iU/rDoq8Zedg9xNpAoWgRZwAqQ8YfZQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792555015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
-	b=kNurkipiCFwUdLh4VXptnR8ypb/vSVUqoVN4waXfeUiWIQA3ohMIAvDMgnt46Oq3hGRA
-	 OySCO7rcwfS06B36F0yuW0W7DwGzb9BkBzHAwrv5j/M6Q4yTlPPTDwyUZ2oSG93isfkb9
-	 Sajl3lJwmSYcZnlAGaDAjt8/50vvBXp43k9JAiJNoFxsLcvxMvvsuaB3Ro7GCfCIUIIyh
-	 vEfgFeM7uXNh+0YaL3rj23RiXMLaYfg2FrQeu0YI03r8Apuw0G6v3bv2DQnbQ7VzPooQS
-	 qjQzEq/mgo+TkdkLWYkRMtwY8Nzk/iiLAaa+sINd+fzk2c2Cu7HBqIWmKmrnF5c3aWg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aL+Eihkq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9hCF0mlcp/ziupFrj3DR7yTQMLI+9lDhDQnOx2f3Cow=;
+	b=J3MYe62QsjtaQ75V85D2O9573mig+BjKeYf7YUuShWDAwE6BlKmTZQAtaI+LJCW5q8jM
+	 njSUJDFNwuzefbmuBlq2oOtC3czJ8HvbXzKXfk1wELqjqyF4L6vedd5kHxp5mfCm2zYJk
+	 qWI8USi31qQEb59Xzk5XODQJYT3zADW+GMCAS/t7639tBd+xHav8RtsE/aA+9qHQfddky
+	 4UlPmaNDNaSYemuGKQFZxMSMyOVOcAdC0L3LW8+Q6p1eWdELmOeSb4r8EOxq25prSIukK
+	 uN1+c2wM3BY/cMUbyT7WPzSM8yVyin10aQGUwkhfhdlIwlOt8MB/0nvpHdduKVU2nTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t32U+W81;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6B2606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:56:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E6B2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B8E606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B8E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aL+Eihkq
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9178aabd30dso3080236d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:56:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792555008; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EA5BbZVEvKJfRezhYgtdhfla+GTawkZfZc3hTBTotZS57NiuQOzxgRyxovOopyHE3k
-         uGKFncywE5Jq36TVfVaP4U9KU545IWqzILZzucodFk6nbIhSk15wxIEOyYbteiuE2Vyz
-         Shn/w1MOBRZX1wddFzBaZPWF9q4IptS+5w0zUvviaPx6Zwb2tf26sg00Z6bpHOg4cxAt
-         TyxnoEpv3jnK2tihoBHBd3bDx8j5cvTWQ5LpOy/VpwRenI8Kc83sj83jL3Pm/OHrRdC7
-         4yOnMfNs1G8BJezZCG3NseZt/fpMG5U3fnXtfbHBL0skEwqjoC/i7q35ZmiCbpGG50ZR
-         6XaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
-        fh=ZeH2cOyAxh2X7ooP7ZUF0eGw4pPDBGbWta2hmP8nNWE=;
-        b=LxoDYPJ4QXbQ/8Zl73IgNxRq+iIYsQSBnRC8HBHr7tE6bkckPVIT7MCK5rIDHH6nYi
-         Ph13lxYEDpe7k2gNFsA/ps39lqAawj2IfzSSrzMpvxl5X48YPVEycnBMn7M956G2NrEH
-         yBIJG926YsTg7zs+RaNKmuDmlYXO0zO7mSkkV379zDY8YljLOOXA3WibyePb4E4pr/Ox
-         LMNU8o/6vBU6dKMYZvEQT5CyDX6vwsQ5PggYDUlK9lsjOkAUuh4yE1CdmqPllXQAwnjJ
-         djzJEbhhe1yYrI10OvMiJXyY/vXiyON8igQGHUCRpDTf6oSOvZoL7sHoPICCdAvlTxHt
-         hfKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=t32U+W81
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-36661f953e4so563895eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:56:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792555008; x=1793159808; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=linaro.org; s=google; t=1792555014; x=1793159814; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
-        b=aL+Eihkql5I2435do2UXmzZTjw8S+G0swn+RgK8kqDk4s/RGVdvrLOKwlYQjHWCTKK
-         MsRNMDi1OItJ+BfgUKb3N3JitUpNb/cxGLxqNjV/ujmsI2V/T5akTWrXpBaBvzsoaxWl
-         99WitaldvKWquvxj764wQpiTGzjEonBQgAomKgzssD7aCdqgq15zscQUoxQL7OPvK6cY
-         NQO7eUGA0y4UW6YWNifG2olaIlFHW/ylik680h7hZr2b/z7oQmFaOv7FhOxNGA3lT7w7
-         DLkN4USI4sjMYQYAOF5vEhP8CnE8VKRwzOEx2slax2gos05BXgN7g0wFbEeADwJhOZWl
-         9kuA==
+        bh=9hCF0mlcp/ziupFrj3DR7yTQMLI+9lDhDQnOx2f3Cow=;
+        b=t32U+W81DI+uRXHeY5SOqR6nLWkS2rbrPfnLWOYOVJoroMIPjGKr8szG4I8VAKLlEF
+         6ktTVtCI+TfbfWuHU08TpOsNiGTRo1QPR95hbyLxgtZSDlqN4RBb2zd4WPjKoNS1/iMI
+         Hv3CyDtwP0DE/Absgsqh1k8ylM1GvSMGh78wXZWxFYdxUOQf4TWUzgXSHkn9UTvl83hn
+         ggKZB66C5I1KNQOyzj+fAnslridvRWku2IQI+cxpmFVxYqRTz60h2F3UV0agDFFCs6bl
+         5NUinfyn75y91WkHVbmujPf9BorzkSucvQLSi6sZ6Gf3kUYk3W0IKpT2vOl5iobevJEv
+         vPqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792555008; x=1793159808;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792555014; x=1793159814;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
-        b=is+eJhovi9sY7jPBXH0UafC4dKvh+UuYBI+oDA5cFQpMatNDmPhjF2cl1l2vfTyFLq
-         /cCmWPFkz1bjM77zrr/VI+fE22V6y3g+WkAtFD03DlOBBX8Q+Bd8frnjPfQ//ZvCRP0g
-         Fm4oOpz7bIlJhC3U3D2xWWMfDHgmCkjIHX1vVe9cMRHxruw/wdEfVtBQF2gVBGKH2v/c
-         jNEPb8ulZ6x0hT/K42I5MC5UfmVvNX2RvGHSTveGIVB/bOitnRtsABZxNYWi2JTkk++y
-         R1X6+tzhNcN6hO8L8o9UeJ2DNJldwL/ETnIoQIBtTBesOlr4RdH1lG0hkSbsz1h2erA8
-         1/lA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7ZzM7zHIOU6BN7wNo0l2C6g4qYqSBM/5sSqH5N2yT4emiUq7bcstVUk81aD/9XjHmNoE7N94SoGZzqkQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCEnTaIpdrJGjfmfUaZiJGDpGRzUJ2E6p/45pJmDDB9B9TvXCW
-	THF2aMD+KC0pBZoEYc4GK8cvSqvUi67F8GPPzPFnxw2YrbOHYO/fz5868igDs08V2fBA+htQMvb
-	jwgW/GEEthSUiZwYz9vMDCXlAxusC3bk=
-X-Gm-Gg: AYBFou1v0xhAazx7zJ240wtVH3w7LRd0zYIH+s8/YCXmTVTjlDLObuYv1Kd4WjFXtxB
-	jrZLL9HY+evv3YBBaMo/1JRfoFlCIrug8gI07/KUZnsvdflGF+SuCOcNLowt/EowcAypGGAobMq
-	e3JvQeribj8nTZEIFhegi0Pa+d7KoOiPlg1e3I8SmzFINotsVY6x1a6WKPOlKZ0ODo96a6dASGl
-	DbYmaS4muW3smrksznvnIxCHjoWHDyNmWG3nCOzriXPOaO2HoKQ5TR6qUfbGAHBBt8fUMNgslPN
-	Z6CQhkU4A+ryvS8L9jw4vZpMc4kEG1gNpmX6qFuf1JHE1PYcJFhl2SB94S9370QUZCAp438LI2A
-	+NKBuCqch7f2vmvyKCUfg0oizHqV+EA9g0d0w9M8Y9dn7GbbMk9/9zEOwU7zVQsObVAga
-X-Received: by 2002:a05:6214:2b94:b0:914:4511:9271 with SMTP id
- 6a1803df08f44-91c12f031bdmr16014616d6.22.1792555008068; Tue, 20 Oct 2026
- 20:56:48 -0700 (PDT)
+        bh=9hCF0mlcp/ziupFrj3DR7yTQMLI+9lDhDQnOx2f3Cow=;
+        b=kEprKUCtD62TMiBnlPodMQ884/DOiG4gc+Ls3PE+iHIlzv39WSVvYfFzZvf5hCfs2Q
+         LxW90aC8tn2w4HBxShCmYPpPOWfajAugPvYQIAqTjeiwZqLkhXJpwmBLzhiY1+r8OlHN
+         JVCyOl0mfQHlNE+y/e3wZRtfWIFjv7JYGzyGdSurf7wYyqH0xwdkPZvXQ5lfaSWUnzpY
+         Vr0fuvJe67w3gjCWPH4SVW5Qzq2z57OdqQ5R8mTfIgLRq5DJUF4CPxF5axz0HMZUwZ3p
+         hvqwef7KsVOiJQDgWhY0a29OowgyjzXhNuFLD93OB+RKsOrLPW6DosKe1VtnqPhp3bPi
+         6Edw==
+X-Forwarded-Encrypted: i=1; AKwUvBwlwTaUBm9xWrHyVm3J6Ka/RpWMGg1K1GH1Qr7n7dzS9ObFGEWVIOgxhd+Jnqt8S9vlZiuMaWuLemaU50o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKj48ZANxYbAQJEio8qteudL55pL/JDh90OMM9zvwpqj1PwPPYD
+	RRCIFw2HIcbHXc76jRIfBzNpSMNEq06fyXXlI3sxqkjjW4+O0vOA8r+psMxneovhBBQ=
+X-Gm-Gg: AYBFou28UHmPZ9wRwIVonsNE9rTpiQhYE9aTN/+w9Xk/xCNgDkIU2YB3qYDMfkr4S9m
+	DcLclLKk5TpVHK5l9EDO77Y7jWL9gJaC0/+YltX3X38tjZiZdrIAHqrvix/jdpluWHdF+3rvXa5
+	R78XX4K9PdEbSH7G/ErA750vGxDSOWMZUKQa91vSrgOm1bxEFxk2zo0fR7CN0snUR7Q/kHXyu/M
+	tfCW/EJuVjM56tujpjPJaspU66LwQg693z9bZ8VIj5DSMKnPeTbSeLsycR9iUXQkgLa/h96xj18
+	ObYcLclIv/PxIcTyS4yNCTyf+BIvVQyavTnIaOy8dIwH6YmnRl6dZIixA7bUy1hJ9U8lRTk4TID
+	8tTnDm2c/oWoZOHfKC86bgWyNX8a/ItLIdeUY31U6EH00stBfeOZ0NYtOSs3rEcUGygA0X2fouz
+	nYG6w4qbZctb8RZvSD6HSGDsl4XfRozXe2ZkgFwcuyTEt7jyDUdV9ZS4I1glGzRaYw4zx8Xs34r
+	P0x+m8rRvBgSBzxfYLaqOPigH+ewYIa4O21EvDtxKJViB8+gWz4fI/4ug==
+X-Received: by 2002:a05:7301:d594:b0:35d:3370:d8e7 with SMTP id 5a478bee46e88-3674b53009cmr1815104eec.2.1792555013393;
+        Tue, 20 Oct 2026 20:56:53 -0700 (PDT)
+Received: from localhost ([122.172.82.240])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1cdsm3507906eec.25.2026.10.20.20.56.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 20:56:51 -0700 (PDT)
+Date: Wed, 21 Oct 2026 09:26:48 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] cpufreq: longrun: fix kernel-doc warning
+Message-ID: <atg4APgeoSHQWNeI@vireshk-B250M-D3H>
+References: <20261020071913.1677196-2-manuelebnerli@mailbox.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,92 +96,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020175254.900284-2-bestswngs@gmail.com> <CAKYAXd9nwp=X8AfzqTs9231i6SVoX7wuBqVvUfgBP2a8xrt+ow@mail.gmail.com>
-In-Reply-To: <CAKYAXd9nwp=X8AfzqTs9231i6SVoX7wuBqVvUfgBP2a8xrt+ow@mail.gmail.com>
-From: Weiming Shi <bestswngs@gmail.com>
-Date: Wed, 21 Oct 2026 11:56:09 +0800
-X-Gm-Features: AclHuK9edLT7Ue1NZq0Si5aKsqQpW65ATZGLO5S5vLoxrR-P6z-TcbrWHv5GkKc
-Message-ID: <CANgPUi1Tn8vvQTWNCXUB9qPmy-LqXk_G8YiwS4DMU2kei3eHaA@mail.gmail.com>
-Subject: Re: [PATCH] smb/server: prevent file publication after tree disconnect
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>, 
-	Hyunchul Lee <hyc.lee@gmail.com>, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org, 
-	co+d531129f2f9fbf88@bugs.sh
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020071913.1677196-2-manuelebnerli@mailbox.org>
 
-Namjae Jeon <linkinjeon@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8821=E6=
-=97=A5=E5=91=A8=E4=B8=89 10:06=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, Oct 21, 2026 at 2:53=E2=80=AFAM Weiming Shi <bestswngs@gmail.com>=
- wrote:
-> >
-> > TREE_DISCONNECT closes the tree's published file handles before marking=
- and
-> > removing the tree connection. A concurrent CREATE that already holds a =
-tree
-> > reference can therefore publish its file after the close pass. When CRE=
-ATE
-> > drops its reference, the tree can be freed while the published file sti=
-ll
-> > points to it.
-> >
-> > Mark and remove the tree connection before closing its files, and seria=
-lize
-> > both new-open and durable-reconnect volatile ID publication with that s=
-tate
-> > transition. An opener is then either published in time for the close pa=
-ss
-> > or rejected after disconnect with STATUS_NETWORK_NAME_DELETED.
-> >
-> > Keep a tree reference while a file carries its tree pointer. This prote=
-cts
-> > asynchronous users that can defer the file's final destruction past tre=
-e
-> > disconnect.
-> >
-> > The close pass can race the successful FP_NEW to FP_INITED transition.
-> > Take the opening request's file reference atomically with that transiti=
-on.
-> > This keeps the file alive until request completion even if teardown rem=
-oves
-> > the ID immediately.
-> >
-> >   BUG: KASAN: slab-use-after-free in proc_show_files (fs/smb/server/vfs=
-_cache.c:126)
-> >   Read of size 4 at addr ff11000101540f80 by task poc/153
-> >
-> >   Call Trace:
-> >     proc_show_files (fs/smb/server/vfs_cache.c:126)
-> >     seq_read_iter (fs/seq_file.c:231)
-> >     proc_reg_read_iter (fs/proc/inode.c:299)
-> >     vfs_read (fs/read_write.c:574)
-> >     ksys_read (fs/read_write.c:716)
-> >     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
-> >     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
-> >
-> >   Allocated by:
-> >     ksmbd_tree_conn_connect (fs/smb/server/mgmt/tree_connect.c:35)
-> >     smb2_tree_connect (fs/smb/server/smb2pdu.c:2819)
-> >     handle_ksmbd_work (fs/smb/server/server.c:368)
-> >
-> >   Freed by:
-> >     kfree (mm/slub.c:6801)
-> >     handle_ksmbd_work (fs/smb/server/server.c:332)
-> >
-> > Fixes: f44158485826 ("cifsd: add file operations")
-> > Cc: stable@vger.kernel.org
-> > Reported-by: <co+d531129f2f9fbf88@bugs.sh>
-> > Assisted-by: LLM
-> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
-> This patch does not apply cleanly to the ksmbd-for-next branch. Could
-> you please rebase it onto that branch and resend it?
-> Thanks!
+On 20-10-26, 09:19, Manuel Ebner wrote:
+> Replace kernel-doc comment with normal multi-line comment thereby fixing:
+> 
+>   $ ./scripts/kernel-doc -none drivers/cpufreq/longrun.c
+>   Warning: drivers/cpufreq/longrun.c:21 This comment starts with '/**', but isn't a kernel-doc comment. Refer to Documentation/doc-guide/kernel-doc.rst
+>    * longrun_{low,high}_freq is needed for the conversion of cpufreq kHz
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Suggested-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
 
-Thanks for the heads-up. I'll rebase the patch onto the latest
-ksmbd-for-next branch and resend it shortly.
+Applied. Thanks.
 
-Best regards,
-Weiming Shi
+-- 
+viresh
