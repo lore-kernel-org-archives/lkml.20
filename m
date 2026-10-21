@@ -1,116 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.24
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.173
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792605058;
-	b=N6a1wFoYIBosvhrHD+ZYHtwLF2lsnGdIO0Vt3knAWw+42C97s/SWYpb2BblYBj5SNmfv
-	 pFF2OFFqJTZrYU187NKpMr8p/2+PHmFEvEFRZ9fwDW7wh8b6OUKGK7wmxm9J/Cn3cb3T/
-	 BfVKEusLk4pMo6T615SuqKVyK9HfhBTF5JCP66xRCi57JCgsiwRs4QS+4IcuIhwRvSjyJ
-	 IwubJj36A7ic6uqCSQ2QqsOgq3EA0bWU1/Kw09m4RpCEg5LSWJ2ArhUh0sZgyYs0/u5eU
-	 hhXk5F3mbMyINP8mBw7XOpnlSO0BIyCPb1u0q33yULYVUtk5ToTVbByBVk8BlPhnl+w==
+	t=1792605094;
+	b=znhEorro2MES/qqWsMgezXJ0igyCMrKx2AzvAvaIla3IIvO9PAyiO4h2aS6f+/6CXda6
+	 Qi/l2aaRojkIe79Up82xD3WlHYQiPoSpjHzYFq6CClXx40SBrIG3rZl0sIlPzw75sxWQ5
+	 XpeHgaV476TN5nbyCD3Ygg3DRgFvjYF/bKQdCMPXWLP+ir1vGFQcP+qlGphrBeTSh43uf
+	 yfSCRvWCOB+Irg1ksQ/I8gBCrf/Dy+t2ey1JNMAUZJVovRJEVazf+ANBL1Wh+4Ba5Uki/
+	 Ch+TwKAgdel/YmfLMKLlDcJGux5L4+/4cg+DLPHH327UksP81+DufDayyrrHQSi+OlQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605058;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=PHkcXYm43iIBTgBURSR+DFhDb3VIIIxJdCmbYkMFwB4=;
-	b=Mm1Oto60C2M/LdYAqbeasAL6zIpNS+Jjcq1sJ04EeUfoV8XGzbrrQH0OAxS2VVRSA1F6
-	 LySEdLHwhyTfJxlzr6bngafoZ+xnfoslFK0D9qdFVUdWrsWx9rLq92v+hRAqag6VqXAx8
-	 7GKp3+dIm3A3gx3XoX51TQ6MjohHDZKDy3lwseYCFbKPflsVWdUil7rCE9UUr9zYAWPco
-	 sJTFE6XNRCwY0VDvRGdzF1xwqNzIBVRkvcgGPeuTl9VPLwUhEzTOyBwzi3GcBQCQUR+5s
-	 DvVdK6RwfExtZN82AteXilJYJfA7GgJa2dwznOEOrgfxCi5skN6psC4L9EXiGF2/QeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
+	b=5E72puaTSCmX4GWrgGl6AXoTnZzSC2Q0QlmWFaCsSreN4luLl9h6LyPwdFhg1bwqhXjj
+	 7nQBALhFbrCkaSDbdPhpzXaNdwt0sV4KfsU5IUtvrP7JBx7mbA0FreQd3cy2PfyldzyAF
+	 P4tMnILn/H6POk5rIh0o2AWLvjxAUxkTIanMLXKieKb2gVuQw73UiOVCRVTaiiH+XdjkE
+	 uO063IfjLgVkRH6BzJBtBLrVFmPhrV1FzZ5W8L1RXcSyPovruyAFfcy2+mCaMm0IcXCGw
+	 AWN9eQfzq1kONc5lLsn+tjaS2W+H07Ulsyx3MpZfYq427JuryFbrSFNkYygZHr7Hblw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=htBZ4kqy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.24
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013024.outbound.protection.outlook.com [40.107.201.24])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dtuZsezP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.173
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1DA606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:50:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C1DA606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B86E606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:51:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B86E606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=htBZ4kqy
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h7totHUcg1C8sKric6FbOCrb1E3clPsoIwj+5lyMBrSbECUmnws7ut7oXmWzch1dv4JdHY8m6iYLo0+ymSHiHbfVV0LCBCwYu3MCnLNgd9wECzS2Om3hfsHNKa28HrbTP8gUE88Zato+3XZLr8hi96c/0gp4A1+MRRy4vmnXFqOo/QWKFIWlimOTVjBrEtQrtusw+i9hVJkR+beDH8lD+1YQXLhJuyoKImzUzuZXOtlZNKQsskfptMx7y7OHcgDPacM/sTwU7QilZjjfU1euA5oy0Ht4nHZsbjJayQtd6PNc7aHKmzIJtnh6isNZAXQZ6szGOyHMmQo1e4sPZViCWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PHkcXYm43iIBTgBURSR+DFhDb3VIIIxJdCmbYkMFwB4=;
- b=cUpp6wuSq0pHk3tPoc3jnlBtePXXZStZsIW7pc3bOrNs3hIJ1mkLfoimqqYEXZZujp5n54dWpASxjtFphES1q0zFHa5iid0jWFCXXhV+GG62GV+XTZPO4oBZ9Vgq0rgFITLGywnK6skOPbvmTMuEKGJ8n/AZu+LExvhd9ALvEPJWzaSjjzPkwJhrOHvkukdzECxQl7qRud2emXLqmqsZo8aeaAhcYIvN9YwEiDbJx8YVqRtunWjmmisMXyaluqC3O4CvHQME/FbmkOX3TQyNGvOWrIWhzQMoQ/cWhVu/hJ6rwYu2YQfATC6D8TE0Xjj1tQZiT8s14BZ087c1S7jPyQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PHkcXYm43iIBTgBURSR+DFhDb3VIIIxJdCmbYkMFwB4=;
- b=htBZ4kqyPijeqRUE/NoT4hS+MLrXNWavmc66eGhR40kohpqygAqmw8lLcafnMOLsTi7x1DQfQMlsAHqUvx7EjF0pE4aEzMvsDUOpuhebmYiNW0m37+KqNPuMhqKau2ZvjgQlpQI5etA24vvyPoyHYEISv/LWr9o0QCNZ7D0QEJosHT+jg/0xzdxHRDhh5F2kTEuFa+VyKux/FXULrp3LPzFWBwQrU4BFYW/C4FaZDkvSIJrJ8+bcxGYliGdt+FxQnnIXyrSM+6HQZYh2vyuYvjHlAFwNPiKFkeUeDkNCQtLSbi14ayP1jbiaIyHSlVhJG77aG6ttxiqSTAhqESxhUA==
-Received: from SJ2PR07CA0021.namprd07.prod.outlook.com (2603:10b6:a03:505::23)
- by CH3PR12MB7596.namprd12.prod.outlook.com (2603:10b6:610:14b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.15; Wed, 21 Oct
- 2026 17:50:46 +0000
-Received: from SJ1PEPF000037A9.namprd03.prod.outlook.com
- (2603:10b6:a03:505:cafe::6d) by SJ2PR07CA0021.outlook.office365.com
- (2603:10b6:a03:505::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Wed,
- 21 Oct 2026 17:50:44 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.118.232) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ1PEPF000037A9.mail.protection.outlook.com (10.167.244.182) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 17:50:44 +0000
-Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 21 Oct
- 2026 10:50:24 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 21 Oct 2026 10:50:24 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Wed, 21 Oct 2026 10:50:23 -0700
-Date: Wed, 21 Oct 2026 10:50:21 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: John Garry <john.garry@arm.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
-	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
-	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
-	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
-	<leitao@kernel.org>
-Subject: Re: [PATCH v11 06/11] iommu/arm-smmu-v3: Add
- ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
-Message-ID: <atj7XTdjC0CIVDQY@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
- <9f500b81-792f-47b9-a8a9-1415ff11b699@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dtuZsezP
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eadf48fb2dso333043e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:51:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792605093; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DSfdNLgSs3mOCW42Q6iFm2vAB9KhJbftPKsyzxkywT3gNcqr31evTi/NEj0uWeqL8C
+         3AbqRmGuSwpUYI9pP7+gu1QW13PuCgi2XeHtUpb4sKqYR19Fl1JjX9a5c9IqqM6Nvgy/
+         HhzGJsna9Kq/eap5sRdG2TUnr6U8lxKZ13D4rcKDGWiAMz2mpW3U+FVoZo1ZkqkaOyWx
+         ZR4EL7oadg19bZYmDbZiXLxywUp000ISjPQPiD78K/IDuMBaQOorrQAAlaO+s3srrgy9
+         /qwU2NWZBNBlpuVaepn4s/mDOOHiLTn5kfhP+WD1ZfdBZF8WioPet3QzQ4NKCzswr/ER
+         W5NA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
+        fh=m6p4Awj7PH3B7aG/WJE0Wat2s9aOf2s89sLvIoBfQLs=;
+        b=seu8tCfmXZ4hz4MNkh8G8pBjjQqBnPqiiV9jXrlECkwcAodg5sF3w0OI5ZJD1mGDqC
+         Y8kTElGS1EKTlph42eOhz1G0XRXNu7KjDKke2EmGqZk/E7mKLBODbUqnZruSG9Y7y+3i
+         2g4lI7hI0Zn2Xg9tR6JKoNA8yGTFn2GIrEPMsf4OiScwS2GjeKCDdfw+jUxzFvrXIHuB
+         uU/EQq/vvUPd6NQodflGQsQ/jVTKAHL5F3Mn3H8aSBYpIiwRYMKWsBIbWpJaTUVKL2qj
+         otJAhhNoga5MjGSjaTs4CxDWoIuWT03I6gHBGeXaYwLv5HqFrx/X7gql5Ja3AUH1RiJe
+         qdow==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792605093; x=1793209893; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
+        b=dtuZsezP1THNiKON+Z+Lg0Kal6rVkc4EKw3GGI3IDivGz7UlmjuQuUEo53rDGwkJpI
+         08zUoNY/rsg1fUaCVa/ilQ/tgbncGgTi3ydeLPT3Kh7jXOmm/vYhtyq4Uy1faR3dcaUb
+         RMDbgkQVMIgvNKf2sAwME/RNI6G8M7ELa2IN61tVcYe7GxyFGATrG3n8i7CIpOCEwFel
+         LCJ1cdZvQ+TTwbpVmG4REU8N/AD/w8Ql4Go2sZEjaBHO8Kmom0KfSE81WSrEMFUMWdsM
+         ZNs5UANGWZ/GJXvqDzO8Hx3am8Buf4/K4on2OPn7kA2XDAARwKXpCgWjDCzpLByaHxNb
+         YhbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792605093; x=1793209893;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
+        b=Or5Ne4xfEjepRHBtuAR+93Gnd6qN1T/C8i9eLP+8ssfrN5t4X1nBgDzLbzPG08hRvs
+         NhFkPynWfbfIWf06jaQqT3Y+50J3oWD5bHV21oOcOjgIrHkSkftWWgHkpTe9ddxtTgip
+         Q7pdRGyc+NQEHSC1/X6kbpcZUwG9+ggNmQV41YE4x82NhSZ1zQK5rjlfGdV0CGD9K8dK
+         4n7PGipOqW0zsJwo5KkLv4nGDdlHNT83CfkLdrNnXe133ax9m0CRPTcwURMKStm+ShFW
+         FHDWPDSEqnleKgx0TbKtofAMN2jF1Y9902eL2UBgBPioFbJLEFMGZI+N55wprYemOq18
+         aqNw==
+X-Forwarded-Encrypted: i=1; AKwUvBzPKN3zGWj0mSjdRtkCzA862voNU7lk748xJL/mWG/diBGx6FXTWmNiFazAxHoSi1QMORxon/DxH4ehQl0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIdAKv7Z5HFEbB5KP1iKSmK6qUmYmA2duYRnouZuTY47YsAAGIA
+	p2kKOOLJwZs1xkRQkLgY2f9oeVGzqvE8FIgwcXCcnfda1WZX8v4uh6+MR+z/1x02XMls2IE2xVl
+	KdNcgzQfsCOo1gwV3gJVpTknsvP3l/JVHUI/fHSY=
+X-Gm-Gg: AYBFou2+SM3dcbkFnAJM3pWx7NvXkjBJAimcIFDuKuKXs01kkTXZfTVPnGMYXZZX2WN
+	Rw5r5Aaf5AmFzr/yBytuNztuN48OL+Rl2ifox4PtSo9WqKR49chktajV5cPn4klai/+fQvOEluV
+	o4Zhd+3eBY3iX7uZGFqg+/eZ1fPTFggQN8UIhZ2mN6M2AF5rmb5WaD+vMKBZ/vVgWSDe4X55Vvt
+	XUp83eIeCNRsV/ND85TMAhKaqyrd6MhEUc1Pezjcysg28apJCVFn2077UKku6PH3VM56Jr/NfgW
+	0norZ7QwuqYk2nweSTStBHWXmkDuYqYqSBNSOLdudOqcGPzDNAlOFLan1WGsAyVIKZpedguQda2
+	Z42sa63fsh5h2UMp7Mu4WImq0RG5v9JKDti6VyDEFGEvYSD9alIafjZzqVXnXf3EegVXMXotHcx
+	utB/y78ZM3CI/n+yQ9Y+T9vD03H7TgBFONH6iGiS/4Khmk1SU4ykqpL60tVzqNrZenJ37UoheYt
+	BYeQAJ3qdU1hydySNbe4e5djTCbWRRiBS2gn/2ifX/ILDmto2LvIOh/Nbeq
+X-Received: by 2002:a05:6122:1b8f:b0:5ea:91d2:32f8 with SMTP id
+ 71dfb90a1353d-5eaebdd09f9mr1192005e0c.8.1792605092656; Wed, 21 Oct 2026
+ 10:51:32 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,143 +106,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <9f500b81-792f-47b9-a8a9-1415ff11b699@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000037A9:EE_|CH3PR12MB7596:EE_
-X-MS-Office365-Filtering-Correlation-Id: b59a8f4f-05a0-4419-f481-08df2f9bd4b1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|36860700016|82310400026|1800799024|376014|6133799003|22082099003|10067099003|18002099003|261021121427099003|261021135927099003|11063799006|5023799004|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	j2KovAiqriZ+GYLlRuTL4yTZC5tAq0Mkbhp+xMrDnNv0jz7OXMITZ3Ym2/8Tf2INhQavnN7mGQUqik8KcH4WwdqmVCCKxP+yhc+mTpfNEXj0BNPSaYiS/BUBCcwKk9+sFloauDvNXr/Y0IEPANSE1gQrps0oBuYF4fVhH5Sj/sD2TzysbPKGiH0MGOkfjvM6dltQNtQdPbZa0EBbnVIsFFsxy6QthoDG5g/+bI9GPBhJaLZVuazSEYL8pFH6kFUuk8NOQHu9IbkNZlARXiYaUKxmoRNiG2KLJJGN4dlMUQ/XFOq3uJpA44iot0VA9X1eabkcjBT/2tkaEsswGCkfDQEXxlFmplb64VwY9RF7c31A47MAZ1b/JpvZSIKvbmIjxfqXT9ECo1uvcnDPe01O39UTlBHi1F3AMRGbNUgBCq+7Lwo25lCH8aEuZ/gS9F0jSNQTOz9cNubGZf5xm0DSCvxBeQmubpspp2VJGw27/r+RyAzUXLZ0pyeeWeGsYyn54NVihrza6JruUaXexmfpacgYJYG2x3WYDzMHIIYbyIsElyroYgKokpB9HuromIN714pQQ+hjWHdPl2kerJelpx1KuuGP5djK76HtQXj/6kedHzLRxG+en25Ry5kyCpvQE0TZo480+zPQVdIbx5JjH50lv/nAl5fLRMluq3sq7dOhTUTKrkx/y2bRn8kKielYishv9mlqz20Pdt+Xp8GL0g==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(6133799003)(22082099003)(10067099003)(18002099003)(261021121427099003)(261021135927099003)(11063799006)(5023799004)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HWIUnumeXP5uHw8N9SA2WkNJWoWPjlV03SCAKi53TPutevDF2xthl1YHVyKZnzEHu4GY3xrd3fZsLVTp1b6pJtJV5wg8oETbNvS4J1DEmNRBYSckyfEyGWqFOQEcnuLYCBW99BStjg0JhKD9wuHDXf0YriwJs6g2ALAXWJqJ7jzwSQ06kDphE2Nu4v85yqtXAyTFh4n9I6kaUgo4vI9OcXXIzS9gVZ3oKtNYPdrfYyID0kN5MGovCohYcBba95EkvUMyN/RO75FV7jVyY2n4b2i+rdqWGZTfgVoJ2jLjztJxyVrAlMucNh5wLALB3bP86NpbXVS0uq7FOzmLaRSWacf4xfp4uMbRkQohiyfs5Jor1XLUmZjILSyN7W4mmkZJz4PlmFjpGsz/ZbQNG7a85hAQCB3eDLsjWAFXG7+vXiNoqPK4gWO/U+qw/DSl7Zk7
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 17:50:44.4535
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b59a8f4f-05a0-4419-f481-08df2f9bd4b1
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000037A9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7596
+References: <20261019120332.553567-1-edumucelli@gmail.com> <undine-1792592451008617538-5620f2dc569b3038@undined.local>
+In-Reply-To: <undine-1792592451008617538-5620f2dc569b3038@undined.local>
+From: Eduardo Mucelli <edumucelli@gmail.com>
+Date: Wed, 21 Oct 2026 19:50:56 +0200
+X-Gm-Features: AclHuK_wu1PEBoMZwDUUmdaaxIzeIU5q0yaGhzPbnfzamDq0zX132z4TWUZdnWw
+Message-ID: <CAK0NWSMQasDdxYiWSexJk1sdxLfnLeDW_Us76go2fPdx_c8Gdg@mail.gmail.com>
+Subject: Re: [PATCH] tools/bootconfig: Quote CPU masks containing
+ comma-separated words
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 05:37:07PM +0100, John Garry wrote:
-> On 10/5/26 20:30, Nicolin Chen wrote:
-> > +int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
-> > +{
-> > +	u32 cfg_reg = readl_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE_CFG);
-> > +	u64 base_reg = readq_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE);
-> > +	bool was_2lvl = smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB;
-> > +	phys_addr_t base = base_reg & STRTAB_BASE_ADDR_MASK;
-> > +	u32 fmt = FIELD_GET(STRTAB_BASE_CFG_FMT, cfg_reg);
-> > +	int ret;
-> > +
-> > +	dev_dbg(smmu->dev, "adopting crashed kernel's stream table\n");
-> 
-> nit: "attempting to adopt ..."
+Thanks Masami!
 
-OK.
 
-> > +	if (fmt == STRTAB_BASE_CFG_FMT_2LVL) {
-> > +		/*
-> > +		 * Both kernels run on the same hardware, so it's impossible for
-> > +		 * kdump kernel to see the support for linear stream table only.
-> > +		 */
-> > +		if (WARN_ON(!(smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)))
-> > +			ret = -EINVAL;
-> > +		else
-> > +			ret = arm_smmu_kdump_adopt_strtab_2lvl(smmu, cfg_reg,
-> > +							       base);
-> > +	} else if (fmt == STRTAB_BASE_CFG_FMT_LINEAR) {
-> > +		/*
-> > +		 * The kdump kernel need not match the crashed kernel. An older
-> > +		 * crashed kernel that predates two-level stream table support
-> > +		 * may have used a linear table on 2-level-capable hardware, so
-> > +		 * enforce the same format here to match the adopted table.
-> > +		 */
-> > +		ret = arm_smmu_kdump_adopt_strtab_linear(smmu, cfg_reg, base);
-> > +		if (!ret)
-> > +			smmu->features &= ~ARM_SMMU_FEAT_2_LVL_STRTAB;
-> > +	} else {
-> > +		dev_err(smmu->dev, "invalid STRTAB format %u\n", fmt);
-> > +		ret = -EINVAL;
-> > +	}
-> > +
-> > +	if (ret) {
-> > +		arm_smmu_kdump_adopt_cleanup(smmu);
-> 
-> Why do arm_smmu_kdump_adopt_strtab_2lvl() and
-> arm_smmu_kdump_adopt_strtab_linear() not clean up after themselves, which
-> would be standard practice?
+On Wed, Oct 21, 2026 at 4:20=E2=80=AFPM Masami Hiramatsu <mhiramat@kernel.o=
+rg> wrote:
+>
+> On Mon, 19 Oct 2026 14:03:32 +0200, Eduardo Mucelli Rezende Oliveira <edu=
+mucelli@gmail.com> wrote:
+> > ftrace2bconf.sh writes the CPU mask without quotes. For a mask selectin=
+g
+> > CPUs 0 and 32, the output is:
+> >
+> >   ftrace.cpumask =3D 00000001,00000001
+> >
+> > Bootconfig reads the two comma-separated words as separate array values=
+.
+> > When bconf2ftrace.sh applies the saved settings, it writes those values
+> > on separate lines instead of restoring the original CPU mask.
+> >
+> > Quote the mask so the commas remain part of a single value.
+> >
+>
+> Ah good catch! OK, let me pick it.
+>
+> Thank you!
+>
+> > Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootc=
+onfig from ftrace")
+> > Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+> > ---
+> > This is my first kernel contribution, so I'd appreciate any feedback.
+> >
+> > Tested with the exporter, bootconfig parser and generated replay comman=
+ds
+> > using tracefs fixtures for 00000001,00000001, 0f,ffffffff and 1.
+> > The masks containing commas fail before the fix and pass afterwards;
+> > the single-word mask passes in both cases.
+> >
+> >  tools/bootconfig/scripts/ftrace2bconf.sh | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> >
+> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> >
+> > diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfi=
+g/scripts/ftrace2bconf.sh
+> > index 8eed445c2..f8f288f90 100755
+> > --- a/tools/bootconfig/scripts/ftrace2bconf.sh
+> > +++ b/tools/bootconfig/scripts/ftrace2bconf.sh
+> > @@ -238,7 +238,7 @@ instance_options() { # [instance-name]
+> >       fi
+> >       val=3D`cat $INSTANCE/tracing_cpumask`
+> >       if [ `echo $val | sed -e s/f//g`x !=3D x ]; then
+> > -             emit_kv $PREFIX.cpumask =3D $val
+> > +             emit_kv $PREFIX.cpumask =3D "\"$val\""
+> >       fi
+> >       val=3D`cat $INSTANCE/tracing_on`
+> >       if [ "$val" =3D "0" ]; then
+> >
+>
+> --
+> Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Well, the cleanup helper is needed here anyway. So, reusing it in
-the caller drops a few lines in those two adopt functions.
 
-> > +		goto err;
-> > +	}
-> > +
-> > +	ret = devm_add_action_or_reset(smmu->dev, arm_smmu_kdump_adopt_cleanup,
-> > +				       smmu);
-> > +	/* devm_add_action_or_reset ran the cleanup upon failure */
-> > +	if (ret) {
-> > +		dev_warn(smmu->dev, "failed to set up cleanup action\n");
-> 
-> devm_add_action_or_reset() only fails for ENOMEM, so I don't see a point in
-> printing this message.
 
-That's a good point. I will drop the print.
-
-> > +		goto err;
-> > +	}
-> > +
-> > +	return 0;
-> > +
-> > +err:
-> > +	dev_warn(smmu->dev, "falling back to full reset\n");
-> 
-> nit: "falling back to full reset after adoption failed" or similar
-
-OK.
-
-> > +	/*> +	 * Undo the linear adoption's clearing of FEAT_2_LVL_STRTAB so
-> that the
-> > +	 * full-reset fallback uses the hardware-supported format.
-> > +	 */
-> > +	if (was_2lvl)
-> > +		smmu->features |= ARM_SMMU_FEAT_2_LVL_STRTAB;
-> > +	memset(&smmu->strtab_cfg, 0, sizeof(smmu->strtab_cfg));
-> > +	smmu->options &= ~ARM_SMMU_OPT_KDUMP_ADOPT;
-> 
-> Earlier the event queue feature flag was unset - should we still be going
-> with that decision?
-
-Yes. EVETQ and PRIQ are disabled in kdump mode, even today:
-
-	if (is_kdump_kernel())
-		enables &= ~(CR0_EVTQEN | CR0_PRIQEN);
-
-> Did you consider to just re-probe the SMMU driver without trying this
-> adoption method when problems occur?
-
-You mean -EPROBE_DEFER? I don't think it would be cleaner..
-
-And it would retry the "adopt" mode again? This is a per-smmu
-option, no global flag. When it re-probes, smmu pointer would
-be reallocated. So it won't disable the adopt path during the
-re-probe.
-
-Here, we just have three lines to fallback immediately, which
-is much less expensive than a re-probe, IMHO.
-
-Nicolin
+--=20
+Eduardo Mucelli R. Oliveira -- http://eduar.do
