@@ -1,98 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792549223;
-	b=5sSSQQ/u4bEXZFOUaArNCmATrwDl/gV+hZt1bAHEMhLcSJEYJmk9APe9/57dPR23JOh5
-	 0ylHI4ZyMnxkfh3TbVetjPN7pQnPIOhX3lgV4vp9nQxZ2xyxBSOU/kYAddTvMFjhYZJhl
-	 n7igjUCaPKCTs8MhPcGNBljHsguhOKBSsrVORHSuqicoKB7DqchrqgZZHPbhxxMFEIY1j
-	 NIOCu+roWuBpytLu2HJy1Cc3UkEIG9Z5ofoLUjZCC8WRKAAj9lg5sLalrxmjSEDWN3vgq
-	 8y9qyZkm5ok1zxxTLFemp6FDRmd0nb8uJZ1twULZ9Rg4fSI4pCurLl0fs70EyNy9CHQ==
+	t=1792549213;
+	b=nD7LRjwEPVsyZLmXOlWdtldSz9gPtxlBDtVLHiDJ62h/nno7z1E4qVLE04FtAUArBPK8
+	 Pgp3//DmDr06qMYuFOsQCmW3WR11Bvsuiq4z4OpdI5DgcgL1kkYcqj+YJofDTNRetxTzl
+	 gpcUaUZzgj3eDKGGcK+FEiH6ZXBZ+EuFK9zHoH3j33SyBTPRZirEskp+LmBztwM8DL9HT
+	 6IerEd5LZ0GFXiqFrEDp4qtZjPCIoBVM+axGtruFCIKDftU+ta8+VD4oPY7fdOoqQcMGT
+	 ujsNYp4uUWy6a8qAv9nOZtn1QLkhS3jPr9Fcu6bSXGRqdHvpbL7nvsQ648aelAIEQ9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549223;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=R5ABPDAmo5azEmu7/mky1scPxil0XjKLikkEmkdrdYo=;
-	b=nRN09HXS7tySbLvWQahtffeC11gcfhI6qet9rAev/dQIPSfm3LDs21BatMO91oshfj+S
-	 jqLVcDVS22xKxxhYQfzITSYsmUzBgjGzJTRIkfegUNmt4ykiMBN9BEbT/Y7nBQvaCWh9g
-	 xt6lfxQgzpm9ppQKk+q3d10BcpPyRHpu00friQqT7+gmhs17JBu28X5pyT+pRYEIJbBjG
-	 ClO9Rz/xxhnf5Rqs/9tXpptMwJowGPhADvg0Zi5YOPtTqYR0Q5oe+saV2JFu4iWVDEKHQ
-	 Z3LtPm3Y6l0G9jAQigqqrJY3RO2xMqP5xI8R4MFExcDZ6vi9hAdKdSR4qtoz5mrDqjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792549213;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=xg9yaH8H8xLZd1UKEcsO65gQJWPuXeJQrjJyXmLGCL8=;
+	b=wLbB1NqhgvOfJw47MxQrgln7Waiv2x3exejCnJeOuidTxsex5K/f3Hi4DjYHdfympRo8
+	 HP+WAmPBnuFOoWmLhNTNoDcGH4UTANv1lDG8KcCwvurrCHyE3u1ND7QXlYNKzpbHb9NNP
+	 aMrInei1nkzGJIbPvHyQfv6Vd0j/mMM9q2tYC1JgndrKjQf4dEwkokMiYo69x9ge+LHec
+	 0IRN6kJ0IqTP3oheFkLNxBufuqCNQiqdJVM43inSuTGmYygSTkuhK+wE6PJYz3SwjkQuN
+	 +o90UbAVUPnAL6gpZ1k3u93/uxS+sw6F+TeN+2HM/xX5JKi9o1nrtEsM3ZKC018MoFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="EBv/bMGy";
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkVu3xqk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43917606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:20:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43917606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4075606A33C;
+	Wed, 21 Oct 2026 02:20:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EBv/bMGy
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3a0aaa0fd13so161696a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792549221; x=1793154021; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R5ABPDAmo5azEmu7/mky1scPxil0XjKLikkEmkdrdYo=;
-        b=EBv/bMGypR2npgmJLCUWcx3lu9HKsaMzuXOR0VtSOLu+i1JCf+PUB+wYHRl04p23IO
-         8JiytqtZA3biivPnDbWAgHpcXNouI6ERlFDIHcB+9q7/BUfRvNJ2Rf9cpd4n/zpzXH0+
-         BEi6N7S0DC9fU1r2YQcs3Ehuay5SmrnNRZQrjnJvirKS8YyMyk6trIufa/dUywSIauMK
-         6jdJxWoIMl8EwJQ2nf33l4bH8Ji3RlXojw2UrvqD3QdkZtYZKQ7Br9tHBVqKDK7xEFVM
-         DcL9/lvaQuCJ8rSymKS1Uq8QgkslafS+sHedWg2mCLvrD32Ls5FQIUjfBKsQE+dA5Osu
-         HDdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792549221; x=1793154021;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R5ABPDAmo5azEmu7/mky1scPxil0XjKLikkEmkdrdYo=;
-        b=qUxl47XwGctTGPCTQbx1F/ilke8V4m7iCC9oesS4EWxWtUYoqDmZWwMUWz84y0vx/+
-         sBQv6vTLGtFfJ6R+2ovn82UV5UZ9GMVDzFIyiJNXHV+DCFzlwxIJ8jTM5JQMkS/v8htv
-         8FFUwbz3kvvWOsCu3diY4tvZPoSDRJDn6DKtwcljNYbBeqHXNRvtf/7FlyDM017jEJKa
-         5L29ukjLwEsf8k16ycbWFlhUC+3TbcS66bFRfh8TCQ0DE8rPQpehZL/PKa2/TOYbe5wW
-         vKLF+W8545bxfnmB+L7BOAFRp9PvPSarggY7qfQwndrJ/LBTHkKTryDBf9Lf7tzzLsrV
-         XNaw==
-X-Forwarded-Encrypted: i=1; AKwUvByIkNU62zUFlmZitSjMxE5nOjIraxapCifODP3WudocJBJIvCi95qEFcj7NzvyMdQIgHd7aRzcdSBLPoSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIrn/9mHShnorb+OiQFP5P2jASgy1hp+PEhEwZOOkhQ6IJPUe2B
-	MVv9PXxbOLsDmbzKGmD8p8A/O++ZQvFVTTRzMihZ/iuRorr54YCrYHlC
-X-Gm-Gg: AYBFou0XognRJWhUxpNaA2aUsrSQGT8Z5i+6GKGIhVGguR5Sss8jFoVcpCiybRZHvBG
-	I92teqDCZkeiDLQ4jD7joSoRGzpzCdI+sA1z7TYxH4xnZQYVr7sFoNwrE6TsAtm8r+1oKgWscWJ
-	YbuwuqOpTvKVak2fGL2IUgQJtozaZpnWuXBRPHfqIBgK/2WJSY+0dZEUbcyGRTODiQFOgWQtFyI
-	tAk0Adw3sIPPcghuFF8EQxAVxCyLxBXjiH4bulqAYvAUPqQ20cLbZ7mX0j4ha9PAjMHKmlSxzaJ
-	12ncZOEfEPR9rZFGKVdaNWVzAtKXAABT2BH96Dkd0U9VxWJsvrct0Zcf+tjsTW4vnLte5vnQ4Ib
-	pJSJSQHZIWOLhVnjx6KQl3FXV4T+GzzslUFeebae5YCoj/ljywZSWf3jJdFRBQorAq8Cegor4kY
-	paQwZO8OwTrzIDzHuwFUgv5zs6ntWyfF+vZvUtoonSAS+mvn7NSazW9GOu9c1yw/MklV4EGTmmM
-	wFJ/9cx7oZDz3Xk7hxU0rkElxACAxmxf8ZoJowwWzGnZ3ZpO5s9iXCzqw+mnZ6ruLfErRK5
-X-Received: by 2002:a17:90b:4c49:b0:3ab:a188:b8b7 with SMTP id 98e67ed59e1d1-3ad86f1bbf2mr640265a91.22.1792549221435;
-        Tue, 20 Oct 2026 19:20:21 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad802917c3sm1979077a91.7.2026.10.20.19.20.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:20:19 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] tty: sysrq: reparse the reset sequence when its length changes
-Date: Wed, 21 Oct 2026 10:20:06 +0800
-Message-ID: <20261021022007.1717207-2-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021022007.1717207-1-zhanxusheng1024@gmail.com>
-References: <20261021022007.1717207-1-zhanxusheng1024@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gkVu3xqk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 810CC1F000CB;
+	Wed, 21 Oct 2026 02:20:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792549212;
+	bh=xg9yaH8H8xLZd1UKEcsO65gQJWPuXeJQrjJyXmLGCL8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=gkVu3xqkhp6Iz8zzZEX+CIklkpmCUsBhbetpvC/ak+vJaSOJG6riyVp8vKWUlbCIk
+	 /oDetgEz9UUBJW/U9bSiYLn+OOny5L6ZcJeLUGdJ0p0bSOPUglKMrgyTe7sNoyEufH
+	 1eo5x+1DOPJ0vWnGYCYx0UgDvtOP3aUGbxmYcXDqb0CzwsT82MDO2sJhX5O0KgWUM2
+	 A5sCPz0Fx1xX/+sBGHZlBHmd8WYwhbIB9vowDBw6GgbUdY8m1KCE+GVvYnbWzu8+ej
+	 Oe+diNKomtx1qPYZVDEHBQILI4xLIjILZVjE+c0mrAP/4ECyc2SuXlN01V++dsmETF
+	 ASQv2m6/SnyRw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 773C13809A0D;
+	Wed, 21 Oct 2026 02:20:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,97 +54,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2 0/2] net: pse-pd: si3474: probe error path
+ cleanups
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179254921103.330607.15303788784612434882.git-patchwork-notify@kernel.org>
+Date: Wed, 21 Oct 2026 02:20:11 +0000
+References: <20261020171134.852878-1-github@szelinsky.de>
+In-Reply-To: <20261020171134.852878-1-github@szelinsky.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ piotr.kubik@adtran.com, saikrishnag@marvell.com, horms@kernel.org,
+ kyle.swenson@est.tech, netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Hello:
 
-reset_seq is a module parameter array, so a write to it is handled by
-param_array(), which publishes the new length only after the element
-setter has already bumped the version:
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-	kernel/params.c:
-		*num = 0;			/* sysrq_reset_seq_len */
-		do {
-			ret = set(val, &kp);	/* bumps the version */
-			...
-			(*num)++;
-		} while (save == ',');
+On Tue, 20 Oct 2026 19:11:31 +0200 you wrote:
+> Two small changes to the error paths in si3474 probe. They do not
+> depend on the PSE fixes for net ("net: pse-pd: assorted lifetime and
+> error-path fixes" v2) and apply to net-next as they are.
+> 
+>  1  The error message after a failed devm_add_action_or_reset() reads
+>     the ancillary I2C client, which was just unregistered.
+>  2  Use dev_err_probe() for a failed controller registration, as
+>     pd692x0 and tps23881 do.
+> 
+> [...]
 
-sysrq_handle_keypress() decides to reparse purely on the version, so a
-keypress landing between the last setter and the matching (*num)++ parses
-a sequence that is one element short and then latches the final version.
-Nothing makes it reparse afterwards, so the device keeps the truncated
-sequence until the parameter is written again.
+Here is the summary with links:
+  - [net-next,v2,1/2] net: pse-pd: si3474: fix use-after-free in ancillary client error path
+    https://git.kernel.org/netdev/net-next/c/70c29b35fd87
+  - [net-next,v2,2/2] net: pse-pd: si3474: use dev_err_probe() for controller registration
+    https://git.kernel.org/netdev/net-next/c/569b57762694
 
-On a device that has not parsed before, a two-key sequence truncated this
-way leaves reset_seq_len at 1.  The parse runs before the keypress is
-recorded in key_down, so reset_seq_cnt is 0 and reset_canceled stays
-false.  A single press of the remaining key then satisfies
-
-	if (++state->reset_seq_cnt == state->reset_seq_len &&
-	    !state->reset_canceled)
-
-and sysrq_handle_reset_request() goes straight to orderly_reboot(),
-because sysrq_downtime_ms defaults to 0.
-
-Record the length the parse used and treat a change in it as staleness
-too.  The truncated parse then no longer sticks: once param_array() has
-published the final length, the next keypress reparses.
-
-Fixes: 154b7a489a5b ("Input: sysrq - allow specifying alternate reset sequence")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-173915@kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
- drivers/tty/sysrq.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
-index c2e4b31b699aa..4fd5b3ace9c40 100644
---- a/drivers/tty/sysrq.c
-+++ b/drivers/tty/sysrq.c
-@@ -676,6 +676,7 @@ struct sysrq_state {
- 	int reset_seq_len;
- 	int reset_seq_cnt;
- 	int reset_seq_version;
-+	unsigned int reset_seq_parsed_len;
- 	struct timer_list keyreset_timer;
- };
- 
-@@ -686,12 +687,13 @@ static unsigned int sysrq_reset_seq_version = 1;
- 
- static void sysrq_parse_reset_sequence(struct sysrq_state *state)
- {
-+	unsigned int len = READ_ONCE(sysrq_reset_seq_len);
- 	int i;
- 	unsigned short key;
- 
- 	state->reset_seq_cnt = 0;
- 
--	for (i = 0; i < sysrq_reset_seq_len; i++) {
-+	for (i = 0; i < len; i++) {
- 		key = sysrq_reset_seq[i];
- 
- 		if (key == KEY_RESERVED || key > KEY_MAX)
-@@ -708,6 +710,7 @@ static void sysrq_parse_reset_sequence(struct sysrq_state *state)
- 	state->reset_canceled = state->reset_seq_cnt != 0;
- 
- 	state->reset_seq_version = sysrq_reset_seq_version;
-+	state->reset_seq_parsed_len = len;
- }
- 
- static void sysrq_do_reset(struct timer_list *t)
-@@ -903,7 +906,9 @@ static bool sysrq_handle_keypress(struct sysrq_state *sysrq,
- 		/*
- 		 * See if reset sequence has changed since the last time.
- 		 */
--		if (sysrq->reset_seq_version != sysrq_reset_seq_version)
-+		if (sysrq->reset_seq_version != sysrq_reset_seq_version ||
-+		    sysrq->reset_seq_parsed_len !=
-+				READ_ONCE(sysrq_reset_seq_len))
- 			sysrq_parse_reset_sequence(sysrq);
- 
- 		/*
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
