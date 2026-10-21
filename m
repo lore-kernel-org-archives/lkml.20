@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550582;
-	b=EcdvxJqEYcoDp2dqpyRx0om1XjXFFLTZLiQDBXv6EpHouZCwn5RSnmerkQnOH961Ur/5
-	 HgG3OSeW7Y5Pk7+/j0HGEguKABhpy2EWO/060jRVF+GW8Y6I2PVo8dfN5B4MprzAH6ijo
-	 URquM7lurlW3bJ4pZWEWgt9X7yj9Vu+zcPzeu6nV6k+ccEMjcQBX2EFw2EVKNsnHSOg26
-	 YSNeg4U5Kp6I182vAs/KvJCJN+Nc8l2ZZUlpKVY48/Q7l5khs7YEXQ2X6paKi0wxqV+j4
-	 Sk1bNV61tIG0vB+AW/3hW1cmyHhhYJkc9w2lKuQV6fk9mH3YK85XPtQNHfb3lukBxKw==
+	t=1792550593;
+	b=WBrufRqiB6o5qn7A/tFubnaYxADNz2IkyPaGHTHy4f+4iQlvZOt26hsnHmpIeG0jBajO
+	 0U3xuCrOfBRS5npn3PsvPpTFFVf5k5mQcePD5+FkX36Q3bnf7xjjc3On8OzqjQnP0jmiv
+	 0j2+86Al4BqHh+IFpxOlFeVY+EsygddmMnJHEvxBQyJmRtUIwp8NYaNmD/0JDo9Lb+8JK
+	 ELOM8dkNS+nXHWSOlDIsQG0k1FX4X+DTqnaXQeykMsmubBnwa1/ufnEXHu5/m42M6GIpJ
+	 VHj50ywtnK7HO7u8FjiOp2jega3Y1odwScwYOlOVnaNdUTTExA/0GYqus9+Tq6M+V2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550582;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550593;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=iK8xJeVT2HjyR4JlAaVJiBB2ezLNdeGOL3THtl93coY=;
-	b=rIe/dhlc0JRh0iIcTg044x5qvVXFgqG+P8Ver+oEgPyBJ08KDT85NhRQi8BKWjyoedYm
-	 vbK0i3Vmu2pMeq7moDrjoxMelQkRKl13taJzwhevvJCc11zA/2n//L7XVquIcZC4I7H57
-	 qvIePSCLyQt5c0fnv3HqyyGLSKB3kixZ0AazID+xIk952UXwftrdsJTE6p+PGysVxIj0E
-	 jY/UKDbRFDpNDp5KLPVdyhThEtGh8ou1dt16s7K0SopKFAedRGHVoGyw3zgDzy68cFSA5
-	 G/a7a+QigeTwMVJqr6EOXKtbxO+u17C+PJja4QhBtEhW5bl7s+VQSEeD/gUMhdxXOUw==
+	bh=GMUHUG9mI8djbWDXUeIrwPM5WKtb93fhgTyjDqvX1u0=;
+	b=cOSVJMUVEnS/yylZpktZ/J07yOSHasO4cEpKGYaP2qJGAE7haoO/Mp7gT2hQxAx8cu/Z
+	 x1bfQfXE46UWcGPWV9JFEsHe0UmRMeAONIKLmAhtpt5+5ownvFy19K7X3BWDRk0RebsSP
+	 Tph32Q5sqsbfw2RW6rD0X1qSmkpr/UouXXK+qNE4I/8xD7Dnw9JrJK+ql/OVj3qu8x7IP
+	 6rttM73I6sT3u8fj217rz1ha9nD7KAUPPASwh8B1oLVUw8r3LQAYgMERsCf7w5uRiql9L
+	 XJVUUviY0IL60t5BXA+nG7SiDbA6W/cIdzVyvmbNDKFLoDMphqatMHQ6LUAx7oRSFjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TrQYpZtA;
-	arc=none smtp.remote-ip=74.125.82.46
-Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=c1OyjqNk;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B2C60A2627
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6B2C60A2627
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF75606A338
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:43:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF75606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=TrQYpZtA
-Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-15ea896ddc8so346952c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:43:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=c1OyjqNk
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514b90bb89so598098eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:43:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792550581; x=1793155381; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1792550592; x=1793155392; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iK8xJeVT2HjyR4JlAaVJiBB2ezLNdeGOL3THtl93coY=;
-        b=TrQYpZtAdhdUAHxLtUOlXS/NNMuGm56WCkDzVmerEs+RbcNCzVdvaMYSjbS8XruX0I
-         +xvo7u8prZh5yauRQgkNgcIxxjD1NQl2mrADpwU3HcYt+pUlyMHa48CjfzUL73vo00a8
-         ERM5RU0lqUktr1GowYh7nro3taLA9mXtpj2uw=
+        bh=GMUHUG9mI8djbWDXUeIrwPM5WKtb93fhgTyjDqvX1u0=;
+        b=c1OyjqNko5TSOSTZ6RiXzGIVyNFj+lvYBKJ6Z2hxWEnWQe/2J0W/YpvETCLx1V12nO
+         MtqCPLh9XSc/z4O3DBmYsOdNaXrFhrO2fQ1ZvuOhcUDhxUQ0XuVU4MlwO3ELDe5uuVrY
+         Md4sEKTC90U+LNY9RFP9Sy2enwMDe20SvCKIA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792550581; x=1793155381;
+        d=1e100.net; s=20260707; t=1792550592; x=1793155392;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iK8xJeVT2HjyR4JlAaVJiBB2ezLNdeGOL3THtl93coY=;
-        b=ouc/w3HEkTgm3wUK2uwgLegl1dZKYWcET+VZyvAMg462X6LWsOtwOFHlI7KGZRiEKu
-         XYBSkz6t8Rl9nHjkuqiElK9oflhLBH/nUCVUYjAHMvy/1X+bkn6MegtFY0XfpqwdGOiQ
-         0BrZEs9/3ej0YQZTlBEE9x/CbWySaV99LQulbYVV55ZOWs4S0A+kHrh2rZ7ic2hNSsNY
-         kodn8/mE3jQZnBGuAKEYOX/eoOeBzJ4qUFBjLyaSKWXYBOgOXKdxoGLfKN1r0q1VQP5f
-         bqZdiZWgpgGj9UU4RSbUEq0PEYRKoYIwkCXZu7XSac1rcYNUdjsPzEwAPRsaNVnW26wj
-         yy3A==
-X-Forwarded-Encrypted: i=1; AKwUvBxAor5CGjxAARBlvQwswosHtspD4MzNv1i1CnMUibJegEXDB6ARo/3qA30YZDxxlHujSe3u8Pwmn0zDS7s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/4rCF6XMAK9vIEbpZrcxPd+ZbRV1AO86oo8d5ltHoBI8DFtb3
-	d/VTP1D2+U8JQGkXtfo1XZRslCus81ZSfqtU6H1EnqeH7M5P+4YfFyjyTRaYatOJZA==
-X-Gm-Gg: AYBFou19kJ1o2rReUwYe+u6iBown6BFkARttxxqLPHzUSdZRG5TBj2sADL7ryMDzMOZ
-	Y/SY8o4AQ/Ib+LOGIACQIO6hupwzVdsnb1xorkf7auIyJGsn4U3VZ6xCAJBDmY/Vlrj9Kqok7o4
-	iJd1M8ZRk7sKwQ4rGCk8k11erUfc1GI0SQjW2OIq2fm0afiSNEAXcYOJECOOYErkEhJHNI6t/1w
-	l1m750RC8lRerbpV9YliNv/5+8KNTYUWxooHZfntJ5ETu2bBX8oIr9MCIfxEvhImZH8heizIdEU
-	KqL0xbe67q8YOaIQKIdi2Awz0Be8NLEtRy9FQtdIkaXmVDKuZ8rjX1NBxCGBewUQHsLp5wyQygo
-	Bmr6PDDH/Hr9hle8IbiWfM9+L59FxSWTQ3jvqWZfG19KBI3OvZTnA/D2EBRbtyfBxICAipUPKrY
-	TJefdChtQE+PaEBUOxB1Rg5tZOjySBROL6wHGkma4TDoysUm2FnW2p+QTROQ3A9y01OJ76brP8F
-	INCsMNES05dQ3gYrn8rwdpriaon3rd5qIRzaj95qD2MC8lg5EFkJbdYrB8xo7N0+d3++tylCcDg
-	g52xiRX0Bbc/HnZoEGLzKvBpARj744fbV771Ao7vY7sB
-X-Received: by 2002:a05:7022:b905:b0:143:2968:564c with SMTP id a92af1059eb24-190a67fa14bmr804644c88.26.1792550580717;
-        Tue, 20 Oct 2026 19:43:00 -0700 (PDT)
+        bh=GMUHUG9mI8djbWDXUeIrwPM5WKtb93fhgTyjDqvX1u0=;
+        b=NJ6QTugA5YqeAJP9LRGo8IAqEEB0BNQP2/GPztWeYWCZznk7ZmypIRwxFoCYuWP7ns
+         S9YjZc9YWEg7sg9dJfQ2UhTQPKWxshjl8Xq3vmUPnQhV7jrJcvHIeljwdKLd8kcHYLUK
+         SL86JZcPsKZR7bFkpd7Q/tDpb6cE8RsK3Yio0ogWMpF8EEe2ST55Ak+KQv/hpT7clJ0s
+         7jZl0V+yICuUZl+Zynp9h6dcJLxQc+gO9mqNszQObY/EghJfo3LQHjFEt+WySQBm3uGp
+         6kyyR/EU+yCha3PMeR6iNvIvf8Qe8XEh4elgfHLa6Jj+3YvQAemWqytYh9S2XRPuhwYG
+         C1rg==
+X-Forwarded-Encrypted: i=1; AKwUvBx7AOOWObG0eHprdMsUtZlpyhQqun0bHoIAAxVJYY5AR4wMQD4eT3YL2LSTdKX/624nn9nMMn4ctG77fO8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVSImoTWuBr5MORr7Xpi/FwoEnQLOORMvEBXIGNW0VMM8rqCw8
+	/jUIhG37dPk81Q9cbnhOZLyLeqOHd/+tVyJilbt8DAjkB6hS3hjXK7ilCKqRsRZI7Q==
+X-Gm-Gg: AYBFou1s3z26ujIEOsB4iQxBIeRJdw4TpIuAqMnNjiOJwH0prXx4IUJYyj41KG+njf9
+	4lvVAnMNCYlWBNxklgEFJyKbXNB34VT5s/VtdRYEYYNsqCXN5sZtXXsXZiMU4Peq0BxixxdRmAx
+	bnxpQMg2bkV0QrF3zqXINx5onbMEZUsra+hAHmqKjhXhhaFkFpSZUyShOA5B3zoB53Eq3EeRKwX
+	wvmqa7oVpD1m0YhXelWyi+St0PacbXzTLyb/IsfpiD3wIRFlrrLgUxv5i4vQyyhaHrdPWqnvM4S
+	KMvWjGOtzegpEw72KtMhur3yfmMP1VPGIa1iYc0ejfrlpPJb7TgKTmaxpqr0tNN3QhcwBzLjujr
+	U3YYcfujyZz3IkcLY8b8Su4NuWur8TbiaKeHYW0ly0JySFX5MX+g6hbXt4rLV3CGPh3f1o66bYu
+	ZnkU9b098kllOqqVisB3mzMr/2Pvn3KyddxR7B6jpInJqwbGK7WXxy0nD9TyhDbA/8+4GfLSwdx
+	VXitEEoS70MhKiou0ZHaPP5tHqNhIZphIH6hgLMWYEgTzWKsok+92Z5+fcefwNCDvC79qhpyQXV
+	EWbM+nPHP2uDNg6zNSvIskr35k4I101i5HtVYbUPQqfGUw==
+X-Received: by 2002:a05:701b:2051:20b0:16a:f5cd:365 with SMTP id a92af1059eb24-1909fd72082mr1003892c88.5.1792550592171;
+        Tue, 20 Oct 2026 19:43:12 -0700 (PDT)
 Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:97d1:a8be:236d:bf79])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm2392047c88.3.2026.10.20.19.42.58
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm2392047c88.3.2026.10.20.19.43.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:43:00 -0700 (PDT)
+        Tue, 20 Oct 2026 19:43:11 -0700 (PDT)
 From: Sergey Senozhatsky <senozhatsky@chromium.org>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: Brian Geffon <bgeffon@google.com>,
@@ -86,9 +86,9 @@ Cc: Brian Geffon <bgeffon@google.com>,
 	linux-block@vger.kernel.org,
 	linux-mm@kvack.org,
 	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v6 06/13] zram: lz4: use LZ4_decompress_safe_usingDict()
-Date: Wed, 21 Oct 2026 11:42:16 +0900
-Message-ID: <20261021024236.1787884-7-senozhatsky@chromium.org>
+Subject: [PATCH v6 10/13] zram: introduce shared decompression streams
+Date: Wed, 21 Oct 2026 11:42:20 +0900
+Message-ID: <20261021024236.1787884-11-senozhatsky@chromium.org>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 In-Reply-To: <20261021024236.1787884-1-senozhatsky@chromium.org>
 References: <20261021024236.1787884-1-senozhatsky@chromium.org>
@@ -103,164 +103,260 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use LZ4_decompress_safe_usingDict() in lz4_decompress() and drop the
-per-CPU dstrm allocation.  Store the compression workspace directly
-in ctx->context.
+Currently, per-CPU decompression streams use a mutex, so there is
+a chance for Reader vs Reader priority inversion - a low priority
+Reader can get preempted by a higher priority Reader, which simply
+will get blocked on the stream mutex.
 
-Using vmalloc(LZ4_MEM_COMPRESS) instead of kzalloc() for cstrm and
-dict_stream when a dictionary is configured also avoids power-of-2
-page rounding (~16 KB rounded up to 32 KB), saving ~12 KB per stream.
+Switch zcomp_dstrm to permit parallel usage.  However, things are not
+completely straightforward.  Many backends have stateless decompression
+and don't modify decompression context, so those can be used
+concurrently.  But then there are backends that do modify decompression
+context.  We also can have compressed object span across physical pages,
+which zcomp linearises using stream's ->local_copy buffer before
+decompression.  That buffer, clearly, cannot be used concurrently.
 
+Give zcomp_dstrm two locks:
+- ->lock (rw_semaphore) pins the stream against CPU hotplug teardown.
+  Every decompression request takes it in read mode, and only
+  zcomp_cpu_dead() takes it in write mode.
+- ->excl_lock (mutex) serializes access to mutable stream state
+  (->local_copy and ->ctx).
+
+When the backend has no per-stream decompression context (stateless)
+and zsmalloc object fits in a single page (zcomp_shared_decomp()),
+the request touches neither ->local_copy nor ->ctx, so it only takes
+->lock in read mode (ZCOMP_DSTRM_SHARED).  Otherwise, when ->local_copy
+is needed or the backend has a decompression context (zstd, deflate),
+additionally take ->excl_lock (ZCOMP_DSTRM_EXCLUSIVE) so exclusive
+requests serialize only against each other without blocking shared
+readers.
+
+A quick synthetic fio test for Reader vs Reader inversion on 24 CPUs
+(preempt=full, lz4, 48 low priority (nice 19) readers, 24 normal
+priority (nice 0) CPU hogs and 24 high priority (nice -19) readers):
+
+  Metric           Base               Patched
+  ----------------------------------------------------------
+  Read IOPS        857k               1,382k        (+61.3%)
+  Read clat avg    14.40 us           4.07 us       (-3.5x)
+  Read clat stdev  3,270.31 us        671.46 us     (-4.9x)
+  Read clat p99.99 1,500 us           24.64 us      (-60.9x)
+  Read clat max    2,430,200 us       1,022,758 us  (-2.4x)
+
+Suggested-by: Brian Geffon <bgeffon@google.com>
 Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 ---
- drivers/block/zram/backend_lz4.c | 76 ++++++--------------------------
- 1 file changed, 14 insertions(+), 62 deletions(-)
+ drivers/block/zram/zcomp.c    | 56 ++++++++++++++++++++++++++++-------
+ drivers/block/zram/zcomp.h    | 21 +++++++++++--
+ drivers/block/zram/zram_drv.c | 12 +++++---
+ 3 files changed, 71 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/block/zram/backend_lz4.c b/drivers/block/zram/backend_lz4.c
-index 158fd8b5e8a9..5f2e27805d75 100644
---- a/drivers/block/zram/backend_lz4.c
-+++ b/drivers/block/zram/backend_lz4.c
-@@ -4,18 +4,10 @@
- 
- #include <linux/kernel.h>
- #include <linux/lz4.h>
--#include <linux/slab.h>
- #include <linux/vmalloc.h>
- 
- #include "backend_lz4.h"
- 
--struct lz4_ctx {
--	void *mem;
--
--	LZ4_streamDecode_t *dstrm;
--	LZ4_stream_t *cstrm;
--};
--
- static void lz4_release_params(struct zcomp_params *params)
- {
- 	LZ4_stream_t *dict_stream = params->drv_data;
-@@ -24,7 +16,7 @@ static void lz4_release_params(struct zcomp_params *params)
- 	if (!dict_stream)
- 		return;
- 
--	kfree(dict_stream);
-+	vfree(dict_stream);
- }
- 
- static int lz4_setup_params(struct zcomp_params *params)
-@@ -42,14 +34,14 @@ static int lz4_setup_params(struct zcomp_params *params)
- 	if (!params->dict || !params->dict_sz)
- 		return 0;
- 
--	dict_stream = kzalloc_obj(*dict_stream);
-+	dict_stream = vzalloc(sizeof(*dict_stream));
- 	if (!dict_stream)
- 		return -ENOMEM;
- 
- 	ret = LZ4_loadDict(dict_stream,
- 			   params->dict, params->dict_sz);
- 	if (ret != params->dict_sz) {
--		kfree(dict_stream);
-+		vfree(dict_stream);
- 		return -EINVAL;
+diff --git a/drivers/block/zram/zcomp.c b/drivers/block/zram/zcomp.c
+index 1c9f6d5c8cd1..da122bf4dd15 100644
+--- a/drivers/block/zram/zcomp.c
++++ b/drivers/block/zram/zcomp.c
+@@ -165,7 +165,7 @@ struct zcomp_cstrm *zcomp_cstrm_get(struct zcomp *comp)
+ 		 * so then unlock and re-try on the current CPU.
+ 		 */
+ 		mutex_lock(&zstrm->lock);
+-		if (likely(zstrm->buffer))
++		if (zstrm->buffer)
+ 			return zstrm;
+ 		mutex_unlock(&zstrm->lock);
  	}
- 	params->drv_data = dict_stream;
-@@ -59,61 +51,32 @@ static int lz4_setup_params(struct zcomp_params *params)
- 
- static void lz4_destroy(struct zcomp_ctx *ctx)
- {
--	struct lz4_ctx *zctx = ctx->context;
--
--	if (!zctx)
--		return;
--
--	vfree(zctx->mem);
--	kfree(zctx->dstrm);
--	kfree(zctx->cstrm);
--	kfree(zctx);
-+	vfree(ctx->context);
+@@ -176,21 +176,49 @@ void zcomp_cstrm_put(struct zcomp_cstrm *zstrm)
+ 	mutex_unlock(&zstrm->lock);
  }
  
- static int lz4_create(struct zcomp_params *params, struct zcomp_ctx *ctx)
+-struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp)
++bool zcomp_shared_decomp(struct zcomp *comp, struct scatterlist *sg)
++{
++	/*
++	 * Shared decompression is only safe when the backend has no
++	 * mutable per-stream decompression context and the object is
++	 * contained within a single page (no ->local_copy bounce needed).
++	 */
++	return !comp->ops->create_dctx && sg_is_last(sg);
++}
++
++struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
++				    enum zcomp_dstrm_mode mode)
  {
--	struct lz4_ctx *zctx;
-+	BUILD_BUG_ON(sizeof(LZ4_stream_t) != LZ4_MEM_COMPRESS);
+ 	for (;;) {
+ 		struct zcomp_dstrm *zstrm = raw_cpu_ptr(comp->dstream);
  
--	zctx = kzalloc_obj(*zctx);
--	if (!zctx)
-+	ctx->context = vmalloc(LZ4_MEM_COMPRESS);
-+	if (!ctx->context)
- 		return -ENOMEM;
--
--	ctx->context = zctx;
--	if (params->dict_sz == 0) {
--		zctx->mem = vmalloc(LZ4_MEM_COMPRESS);
--		if (!zctx->mem)
--			goto error;
--	} else {
--		zctx->dstrm = kzalloc_obj(*zctx->dstrm);
--		if (!zctx->dstrm)
--			goto error;
--
--		zctx->cstrm = kzalloc_obj(*zctx->cstrm);
--		if (!zctx->cstrm)
--			goto error;
--	}
--
- 	return 0;
--
--error:
--	lz4_destroy(ctx);
--	return -ENOMEM;
+-		mutex_lock(&zstrm->lock);
+-		if (likely(zstrm->local_copy))
+-			return zstrm;
+-		mutex_unlock(&zstrm->lock);
++		/*
++		 * Pin the stream.  The write side of ->lock is only taken
++		 * by zcomp_cpu_dead(), so this never contends with other
++		 * decompression requests, regardless of their mode.
++		 */
++		down_read(&zstrm->lock);
++		if (!zstrm->local_copy) {
++			/* The stream has been destroyed, re-try */
++			up_read(&zstrm->lock);
++			continue;
++		}
++
++		/*
++		 * Exclusive requests additionally own ->local_copy and
++		 * ->ctx and hence can only wait for each other.
++		 */
++		if (mode == ZCOMP_DSTRM_EXCLUSIVE)
++			mutex_lock(&zstrm->excl_lock);
++		return zstrm;
+ 	}
  }
  
- static int lz4_compress(struct zcomp_params *params, struct zcomp_ctx *ctx,
- 			struct zcomp_req *req)
+-void zcomp_dstrm_put(struct zcomp_dstrm *zstrm)
++void zcomp_dstrm_put(struct zcomp_dstrm *zstrm, enum zcomp_dstrm_mode mode)
  {
--	struct lz4_ctx *zctx = ctx->context;
+-	mutex_unlock(&zstrm->lock);
++	if (mode == ZCOMP_DSTRM_EXCLUSIVE)
++		mutex_unlock(&zstrm->excl_lock);
++	up_read(&zstrm->lock);
+ }
+ 
+ int zcomp_compress(struct zcomp *comp, struct zcomp_cstrm *zstrm,
+@@ -223,6 +251,9 @@ int zcomp_decompress(struct zcomp *comp, struct zcomp_dstrm *zstrm,
  	int ret;
  
--	if (!zctx->cstrm) {
-+	if (!params->drv_data) {
- 		ret = LZ4_compress_fast(req->src, req->dst, req->src_len,
- 					req->dst_len, params->level,
--					zctx->mem);
-+					ctx->context);
- 	} else {
- 		/* Cstrm needs to be reset */
--		memcpy(zctx->cstrm, params->drv_data, sizeof(*zctx->cstrm));
--		ret = LZ4_compress_fast_continue(zctx->cstrm, req->src,
-+		memcpy(ctx->context, params->drv_data, sizeof(LZ4_stream_t));
-+		ret = LZ4_compress_fast_continue(ctx->context, req->src,
- 						 req->dst, req->src_len,
- 						 req->dst_len, params->level);
- 	}
-@@ -126,22 +89,11 @@ static int lz4_compress(struct zcomp_params *params, struct zcomp_ctx *ctx,
- static int lz4_decompress(struct zcomp_params *params, struct zcomp_ctx *ctx,
- 			  struct zcomp_req *req)
- {
--	struct lz4_ctx *zctx = ctx->context;
- 	int ret;
+ 	might_sleep();
++	lockdep_assert_held(&zstrm->lock);
++	if (!zcomp_shared_decomp(comp, sg))
++		lockdep_assert_held(&zstrm->excl_lock);
  
--	if (!zctx->dstrm) {
--		ret = LZ4_decompress_safe(req->src, req->dst, req->src_len,
--					  req->dst_len);
--	} else {
--		/* Dstrm needs to be reset */
--		ret = LZ4_setStreamDecode(zctx->dstrm, params->dict,
--					  params->dict_sz);
--		if (!ret)
--			return -EINVAL;
--		ret = LZ4_decompress_safe_continue(zctx->dstrm, req->src,
--						   req->dst, req->src_len,
--						   req->dst_len);
--	}
-+	ret = LZ4_decompress_safe_usingDict(req->src, req->dst, req->src_len,
-+					    req->dst_len, params->dict,
-+					    params->dict_sz);
- 	if (ret < 0)
- 		return -EINVAL;
+ 	if (sg_is_last(sg)) {
+ 		/* the object is contained within one page, read it in-place */
+@@ -277,9 +308,9 @@ int zcomp_cpu_dead(unsigned int cpu, struct hlist_node *node)
+ 	mutex_unlock(&cstrm->lock);
+ 
+ 	dstrm = per_cpu_ptr(comp->dstream, cpu);
+-	mutex_lock(&dstrm->lock);
++	down_write(&dstrm->lock);
+ 	zcomp_dstrm_free(comp, dstrm);
+-	mutex_unlock(&dstrm->lock);
++	up_write(&dstrm->lock);
+ 
  	return 0;
+ }
+@@ -306,8 +337,11 @@ static int zcomp_init(struct zcomp *comp, struct zcomp_params *params)
+ 	}
+ 
+ 	for_each_possible_cpu(cpu) {
++		struct zcomp_dstrm *zstrm = per_cpu_ptr(comp->dstream, cpu);
++
+ 		mutex_init(&per_cpu_ptr(comp->cstream, cpu)->lock);
+-		mutex_init(&per_cpu_ptr(comp->dstream, cpu)->lock);
++		init_rwsem(&zstrm->lock);
++		mutex_init(&zstrm->excl_lock);
+ 	}
+ 
+ 	ret = cpuhp_state_add_instance(CPUHP_ZCOMP_PREPARE, &comp->node);
+diff --git a/drivers/block/zram/zcomp.h b/drivers/block/zram/zcomp.h
+index 22be50dc51ba..bf41b27958c4 100644
+--- a/drivers/block/zram/zcomp.h
++++ b/drivers/block/zram/zcomp.h
+@@ -4,11 +4,17 @@
+ #define _ZCOMP_H_
+ 
+ #include <linux/mutex.h>
++#include <linux/rwsem.h>
+ 
+ struct scatterlist;
+ 
+ #define ZCOMP_PARAM_NOT_SET	INT_MIN
+ 
++enum zcomp_dstrm_mode {
++	ZCOMP_DSTRM_SHARED,
++	ZCOMP_DSTRM_EXCLUSIVE,
++};
++
+ struct deflate_params {
+ 	s32 winbits;
+ };
+@@ -47,7 +53,14 @@ struct zcomp_cstrm {
+ };
+ 
+ struct zcomp_dstrm {
+-	struct mutex lock;
++	/*
++	 * Pins the stream: held in read mode by every user, regardless
++	 * of the decompression mode, and in write mode only by
++	 * zcomp_cpu_dead().
++	 */
++	struct rw_semaphore lock;
++	/* Serializes users of the mutable stream state: ->local_copy, ->ctx */
++	struct mutex excl_lock;
+ 	/* local copy of handle memory */
+ 	void *local_copy;
+ 	struct zcomp_ctx ctx;
+@@ -99,8 +112,10 @@ void zcomp_destroy(struct zcomp *comp);
+ struct zcomp_cstrm *zcomp_cstrm_get(struct zcomp *comp);
+ void zcomp_cstrm_put(struct zcomp_cstrm *zstrm);
+ 
+-struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp);
+-void zcomp_dstrm_put(struct zcomp_dstrm *zstrm);
++bool zcomp_shared_decomp(struct zcomp *comp, struct scatterlist *sg);
++struct zcomp_dstrm *zcomp_dstrm_get(struct zcomp *comp,
++				    enum zcomp_dstrm_mode mode);
++void zcomp_dstrm_put(struct zcomp_dstrm *zstrm, enum zcomp_dstrm_mode mode);
+ 
+ int zcomp_compress(struct zcomp *comp, struct zcomp_cstrm *zstrm,
+ 		   const void *src, unsigned int *dst_len);
+diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
+index def5266679b0..a34859ff0461 100644
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -1373,7 +1373,7 @@ static int decompress_bdev_page(struct zram *zram, struct page *page,
+ 	sg_init_table(sg, 1);
+ 	sg_set_page(sg, page, size, 0);
+ 
+-	zstrm = zcomp_dstrm_get(zram->comps[prio]);
++	zstrm = zcomp_dstrm_get(zram->comps[prio], ZCOMP_DSTRM_EXCLUSIVE);
+ 	ret = zcomp_decompress(zram->comps[prio], zstrm, sg, size,
+ 			       zstrm->local_copy);
+ 	if (!ret) {
+@@ -1382,7 +1382,7 @@ static int decompress_bdev_page(struct zram *zram, struct page *page,
+ 		copy_page(dst, zstrm->local_copy);
+ 		kunmap_local(dst);
+ 	}
+-	zcomp_dstrm_put(zstrm);
++	zcomp_dstrm_put(zstrm, ZCOMP_DSTRM_EXCLUSIVE);
+ 	slot_unlock(zram, index);
+ 
+ 	return ret;
+@@ -2115,6 +2115,7 @@ static int read_incompressible_page(struct zram *zram, struct page *page,
+ static int read_compressed_page(struct zram *zram, struct page *page,
+ 				unsigned long index)
+ {
++	enum zcomp_dstrm_mode mode = ZCOMP_DSTRM_EXCLUSIVE;
+ 	struct zcomp_dstrm *zstrm;
+ 	struct scatterlist sg[2];
+ 	unsigned long handle;
+@@ -2126,13 +2127,16 @@ static int read_compressed_page(struct zram *zram, struct page *page,
+ 	size = get_slot_size(zram, index);
+ 	prio = get_slot_comp_priority(zram, index);
+ 
+-	zstrm = zcomp_dstrm_get(zram->comps[prio]);
+ 	zs_obj_read_sg_begin(zram->mem_pool, handle, sg, size);
++	if (zcomp_shared_decomp(zram->comps[prio], sg))
++		mode = ZCOMP_DSTRM_SHARED;
++
++	zstrm = zcomp_dstrm_get(zram->comps[prio], mode);
+ 	dst = kmap_local_page(page);
+ 	ret = zcomp_decompress(zram->comps[prio], zstrm, sg, size, dst);
+ 	kunmap_local(dst);
++	zcomp_dstrm_put(zstrm, mode);
+ 	zs_obj_read_sg_end(zram->mem_pool, handle);
+-	zcomp_dstrm_put(zstrm);
+ 
+ 	return ret;
+ }
 -- 
 2.56.0.212.g129ede20d9-goog
 
