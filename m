@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792609275;
-	b=nhwFnhb0GLETBaSeIDX4q5gtArGCr/Yb4HwXeIZ0RwYDis/t7PGyKhCpoxJj1GCatm/b
-	 6FKxG5yq0xTaMdk238m7Lmm9kT6Na6zGe/thLLyjho0iEXwrheTjnMe8IAPChibH/2QHl
-	 +DFgrmq+i1hWl2fj4dkc0aR8+RaYUC6vuTP9eu23X1MUYM91+9uriAMuLZvqbc6ncpEXw
-	 QZdwbjKpU4KeA2xCLphm3TwsmPdYAF7gr/+dqCPJRuNuFFpupBK6nRZSx796EYNibHKT4
-	 8S3K5t8IFxuh/HuxvOHCLZMTAGtILa17wPawL2IFxUNSh6gT/zbVda21ZuhPxFmHX0Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609275;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=9nl2HPUAB4GZROseu8b1E9yRA3CL1woLhHlCGGN68xE=;
-	b=wdnQ3kITMRUeXdhAQ/oVKknisTWSVVVzBkcrzgW1QFeyLqZhgPogdm+D6w5Sm4oFovbG
-	 IHHD1N+ZaVyq6emVb+Zgut2wl82ronyPRZWjamdeNxUMDUljNMMjU6E7nnkXmG7RH2Mz3
-	 Je2usEeV43jGrd44N8DswqpbczraGTTEMptt031uKkVAs9xvhf1DVromy5SCnB7z/S/Ii
-	 bPVqs2xBPteBB1pkBdUm2eUKnyXVDtrzBBEYU8jO14lAwGS3WcB5i1Y9P62Rx0RvtlTcx
-	 RKdp0OD/1tGN/okGD/EHcL/RPY9VdGD/QqzYS0UYkwRwTPRK1zY4rxvsGDU4dS09rHw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RQqtNIOq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792609289;
+	b=pG2IZumfpxYi+el7z8YLWOa300PglQsJUBZu9iv0QXYX6l41l59bTqvPxUiL0bOX5wZf
+	 nipvAtevf/p1GVf3N4/BnafeH4W+IWa98BbmqXxfk3SdnYUaPjIrORr+9wdh4A6W8yeRt
+	 bQs6i/3+eh3FkTjn7Xr5A75xNym5z2knax1YuFLQ9onNJsiJRztultlXhuC+JJZHn5+PR
+	 ko8Xj2hmr5Puu4M7cuFvR8WcGoEznPaHzXbi0xL0nDFs6jJ60c0UTsMpnqnr6Z1nkAeOh
+	 WmRXGa7WK8P6mh0iImAHSOzAFnPaEmEYcVdAaY6A7fM1Ibhwc/ODJHhf9yP8741sehA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609289;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PRe2NYJxuhncsR4aT3ffbxqidw3GkmS5s7J2yFuY5Wg=;
+	b=hH+isxh52xxapZ36OrU+k5MPPKigeWavw4a17WiCSIMwPCZFvidCAe3AOG6yBbRFnF9Z
+	 jKuMsDJsHDHFtvNqBD2Hm6XjLbkZUnKu6fgfqDTSZjqqflg9RWOjuSGKeMqtcSXbnAS6o
+	 y7WmMo2P2+O6izZ4sVgNt7Z8cWgEymwDtpDsbXRZkuObAPajQ1f3OFVcCaRm/53euEyOY
+	 d9tU5FQJqPJdxAe8dgB7Y1UAhNv2Pknzq4os6hs6GFt5pqwK/euaLtli/XjLNa/8Z8A3F
+	 Qz1T06UGIGusmTAkeW/n7hHeTcUrcNlTtuUD/njb5XIvbP3TCJabF8Xob/paJDy+D0A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOni2VZV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E4C606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:01:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E4C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8D9606A31A;
+	Wed, 21 Oct 2026 19:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=RQqtNIOq
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b0584ad71so770809f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:01:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792609273; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E0cd7+23py8qioYcbiYxN6pk4/37SD9MTga/LEjHdvN/MujzJgkXqLPdKMpVmvpBJa
-         wS+gV9mZ9mh2+CkkSG4b0NVzbohqvhr70tiOGbc5VgDLP0jDZxL+LHnYXm7SvZSI5TAB
-         TwVyQgNtn48XYqvkJKgmcBEss/aGjU0G5P1BBceoIOJMd7JYu9ZlzP2N4+Gqm5gPA7VE
-         ZWdAUa7DV5n6CTj/q25kOv2/uHpbGA2qScLfmv+8Y/rCM+VjDC+HJH3RUVvdsysAnHsi
-         XDwMrEgT6AHwK0ehCYEdPYmoHn2o+02iSG+s+dFphZtqAENp7KkiyDYm0q1/L60yoqA5
-         jqQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9nl2HPUAB4GZROseu8b1E9yRA3CL1woLhHlCGGN68xE=;
-        fh=5tHeo+qyuBymy2865jxijpMP5bAb/MWmCCxXCMwZVF8=;
-        b=mV3P/InGgxFsfKck57ifOR0NnQOYzRdsFlD+rfmZ0BAsBaoRNYr0zpuC7aqpFgtk3P
-         wpkN/kKTsmDCMw1a73lHBw23w4khFQI+bOF+dZmelh9EgyxaKZ4nuaqRQ52yYX4ZC1E7
-         RVKq+/SuYBKU9UfWI2jwYLNj6JVXU5z1+iBJuGsk/HFk23yEa6R4u2RCbIt7/ZSYYc9E
-         4ZXiio+/fLiajdtIFZEI6Aj8S6168MX6ail3OXCMB2iofk7PJtj2NVlbDihVi3r+cH/J
-         pW/dIPtDaxTDjQuVCr10ISjcpYIGekQN8GraSqJxYM0Ub+0+N6xggkjjszTiJeiJGWY9
-         atZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792609273; x=1793214073; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9nl2HPUAB4GZROseu8b1E9yRA3CL1woLhHlCGGN68xE=;
-        b=RQqtNIOqA//GnOjCWETa9euI+WWIqU441Mpi0i3x0QD5jjGdRQeLaq7+0RHIm+2k7p
-         QtBCuwo8U85OrnfAFiQdSXUVsCAut+AR/QV98LVB2MVIlbMP3zZ43c/pEjXb2o/bRRUK
-         JNDit0csLZtdn18/pie4Zg/Xhtw+eqkeqGDAm8Zp/1ZICDjUUs+44xKk7NHNUz5DeRza
-         OsYZ57EwSrJ5KfzbgjZfuu2Ky3P89kKB9XvLyiQRHAAH07zCS66bdHG/zFCMABgzLeyc
-         i9ba1DT39K49JCTiZIjQNRBYJk6UGWeJ/YAKFr68COcBJJnyTJPYh3JLdQMdebFsrPYc
-         QSHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792609273; x=1793214073;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9nl2HPUAB4GZROseu8b1E9yRA3CL1woLhHlCGGN68xE=;
-        b=xuOT7r1IsEWnYHhTAhAnTFlAJRYJxEVyQP6U41RYcbouDSHrPffFdRGb4hMUBzwCc6
-         a4/mibAyortLBBaxsRCkN57/2g45UZpq+KdsfgAfbM6YcRVvugwoXGKW8fwpHC48eDww
-         M+6fDMu1kZXN2sbS2MQMhK0ZVbSrqaWBiYJ6f7XUrcESwvWkRcyymdO05GrW8mhOup/P
-         s6Hr6skjwuhHAJhCm3sa/VxiIt8pJPdFfunGnChXngXRGiM1taJDPcbpgoDXtrCAoRW/
-         lStEGLdvSNxLx29cJY2RyS0RLGNssU7Unoq+3YBS5dkDsTgwKDUTJZVXgHftC26Tdlp/
-         cjJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxH2QSLyv5p/Yebv4gzG3+0igSkxZ5aaX4kda0m5h8XJ9QqM92s/GvTK590ptss62PDKzO3Lip28HNPTGw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDhnSTN0GkmCX+05wi+TduBMM1kId/2QmnCYHuipf5kmtYJJJo
-	p2yFy4rebA01yDQBFQ14xf2iKf/Xkmn+fg0lv3SMr76GpssKDMEWwYT+2g+YeMi8l+E8q2dxmth
-	hiI++HdUxC3lw+Ok3jeNofrK9Z2qL3u2OG9+eIEw=
-X-Gm-Gg: AYBFou2pAmOc2FRaICsfYDhn925c/NkhFh2joZbL3j9GdfqCl4fXo3ljIJzJM6emQkV
-	3uNnjpyh9wK+9jyP/N2+TlRVaHAamab/3QR0lCHVMPu2pUrP1zFJSeGmqa5CV6RrrJ7Uzeqgx6N
-	HtRBgB5rXKO6lK6uxoG011WYqgIgZFc91f5P0wF2oJE8MThtb7giPFnrPahzrvxhf7rmcsqagEn
-	xUOfu8OTsI0eeRBAVY5izMlI1RIEXqhteuOWWKsZYmFXjBS7Fsp7rSZA+SzxTWAdDgHBzPMSrKD
-	3C/wgy5gbdUxpGEKIPTJO8XF612AmPGBLRzM71H77E3qOdbQ6Av2+bvU+OcrO6ScRfg6C4A3R0C
-	5feveYdbX3l0Jy99Ut+RwTshWDSr0snWDQ32S38b4H65PHz/4k12SU3y1xy6i51JKMyUlJbeZOf
-	iqMJXFHrZkoY39mJlofPRNJmdVEOAay/8pTes3V5bgYrQh5HNu/pB89r279vEcFzK3DOJCVKsl5
-	1UJBBWcu9aKetrVYfmpw3AXhVFCT2RZQipjsXovh0t4TWI34if3IA==
-X-Received: by 2002:a05:6000:290c:b0:48d:c178:f6e9 with SMTP id
- ffacd0b85a97d-48e2649d796mr7104292f8f.20.1792609271764; Wed, 21 Oct 2026
- 12:01:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NOni2VZV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 147DB1F000C1;
+	Wed, 21 Oct 2026 19:01:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792609288;
+	bh=PRe2NYJxuhncsR4aT3ffbxqidw3GkmS5s7J2yFuY5Wg=;
+	h=From:To:Cc:Subject:Date;
+	b=NOni2VZVMGgGp5CQiYLq8aRma5CPEiWa9jfGg4tGj21+VVrnAq4ekmHJ8N+6isZ88
+	 +u324KOgg2yuKbJ9XMz9Qo1DkzwGYrPXO8X2GeAk0GVeG1IncLAzTI4thLuxviz/DN
+	 zjLpotDY/mXW5fMresvQF/sXsQJvj3+FIV7r8CM/gnyCanwFnjr5nRs3q1nhVb5GiA
+	 F03WNTWODGLYmONUi/fIBmiwcbyQSMUsbWEivQTV8Go8qFF89MvXjtPE8yjmCig9LO
+	 9c+ZANP4VH9YuAIKzjwlfBpdUu0XItygv3BmaJJ2CMEVAJPxEJQGnFeZvmJnel8moC
+	 D9hPJUbMPviCA==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] MIPS: c-r4k: Flush the cache error vector before writing it uncached
+Date: Wed, 21 Oct 2026 21:00:20 +0200
+Message-ID: <20261021190020.20954-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,120 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261001202134.33929-1-dwmw2@infradead.org> <20261001202134.33929-2-dwmw2@infradead.org>
-In-Reply-To: <20261001202134.33929-2-dwmw2@infradead.org>
-From: John Stultz <jstultz@google.com>
-Date: Wed, 21 Oct 2026 12:01:00 -0700
-X-Gm-Features: AclHuK-I-V7ry1L1GRBgZDPgyPKEAcSrfE_2GqQkMGC1rabLZyJUGN31XrbZG10
-Message-ID: <CANDhNCqY+RRCCXV+HfMNKf5Rmco7Y+kZ0RHv5sYC2dnw2U+V=A@mail.gmail.com>
-Subject: Re: [PATCH 1/5] timekeeping: Allow tick_length changes to apply mid-tick
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, Rodolfo Giometti <giometti@enneenne.com>, Ryan Luu <rluu@amazon.com>, 
-	Julien Ridoux <ridouxj@amazon.com>, linux-kernel@vger.kernel.org, 
-	David Woodhouse <dwmw@amazon.co.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 1, 2026 at 1:21=E2=80=AFPM David Woodhouse <dwmw2@infradead.org=
-> wrote:
->
-> From: David Woodhouse <dwmw@amazon.co.uk>
->
-> When the NTP tick length changes, timekeeping_apply_adjustment() applies
-> the accounting for the new rate to ntp_error retrospectively for the
-> partial tick which is currently in progress. So the ideal line of the
-> clock conceptually changes from the moment of cycle_last (which can be
-> almost a full tick ago), and ntp_error grows to show the difference
-> between that and what userspace actually saw already.
->
-> This can lead to a significant value (10s of microseconds) landing in
-> ntp_error which can take *days* to drain through the natural mult =C2=B11
-> dithering.
->
-> The slow-draining ntp_error then applies a consistent bias to that =C2=B1=
-1
-> dithering, meaning that the precision of the effective frequency
-> requested by userspace is limited to integer 'mult' values, since the
-> dithering is no longer effective to achieve the fractional parts.
->
-> Fix this by allowing the rate change to be conceptually applied at
-> 'offset' into the partial tick, rather than the start of the tick.
-> This means that the amount of delta which gets accumulated into
-> ntp_error remains low.
->
-> Rather than factoring this into timekeeping_apply_adjustment() which
-> already makes my eyes bleed, pre-correct it when the rate changes, to
-> adjust the 'intended' clock position according to the delta between
-> old and new tick lengths (but leaving skew as it should be).
->
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Assisted-by: LLM
-> ---
->  kernel/time/timekeeping.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
->
-> diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
-> index ea2e6e55f37b..e2f7e28dc16e 100644
-> --- a/kernel/time/timekeeping.c
-> +++ b/kernel/time/timekeeping.c
-> @@ -2444,6 +2444,8 @@ static void timekeeping_adjust(struct timekeeper *t=
-k, s64 offset)
->                 /* Revert to the base mult rate. */
->                 mult =3D tk->tkr_mono.mult - tk->ntp_err_mult;
->         } else {
-> +               u64 old_ntp_tick =3D tk->ntp_tick;
-> +
->                 tk->ntp_tick =3D ntp_tl;
->                 tk->skew_delta =3D skew;
->                 /*
-> @@ -2453,6 +2455,21 @@ static void timekeeping_adjust(struct timekeeper *=
-tk, s64 offset)
->                 skew *=3D NTP_INTERVAL_FREQ;
->                 mult =3D div64_u64((tk->ntp_tick + skew) >> tk->ntp_error=
-_shift,
->                                  tk->cycle_interval);
-> +
-> +               /*
-> +                * Rate adjustments are conceptually applied mid-tick in =
-order
-> +                * to avoid accumulating large deltas in ntp_error which =
-can
-> +                * take days to drain. Offset the ntp_error that will be
-> +                * introduced by timekeeping_apply_adjustment(), accordin=
-gly.
-> +                */
-> +               if (tk->ntp_tick !=3D old_ntp_tick) {
-> +                       u64 old_dividend =3D (old_ntp_tick + skew) >> tk-=
->ntp_error_shift;
-> +                       s64 old_base_mult =3D div64_u64(old_dividend, tk-=
->cycle_interval);
+On R10000-class CPUs, a store prefetch while copying the preceding
+vector can leave a dirty line whose write-back overwrites the uncached
+cache error handler. Flush it first in r4k_cache_error_setup() with
+r4k_dma_cache_wback_inv(), as dma_cache_wback_inv() is a no-op on
+coherent systems.
 
-Total nit, but splitting the math up this way makes it less clear to
-dim-old-me as to what you're calculating.
-Maybe instead:
-s64 old_mult_w_skew =3D div64_u64((old_ntp_tick + skew) >> tk->ntp_error_sh=
-ift,
-                                tk->cycle_interval);
+Fixes: e01402b115cc ("More AP / SP bits for the 34K, the Malta bits and things.  Still wants a little polishing.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ arch/mips/mm/c-r4k.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Might more obviously visually match the logic above where mult is
-calculated (or alternatively you could alter the mult calcualtion to
-match what you have here)?
+diff --git a/arch/mips/mm/c-r4k.c b/arch/mips/mm/c-r4k.c
+index d8aadd3dc057..ae31966ac65b 100644
+--- a/arch/mips/mm/c-r4k.c
++++ b/arch/mips/mm/c-r4k.c
+@@ -743,8 +743,6 @@ static void r4k_flush_icache_user_range(unsigned long start, unsigned long end)
+ 	return __r4k_flush_icache_range(start, end, true);
+ }
+ 
+-#ifdef CONFIG_DMA_NONCOHERENT
+-
+ static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
+ {
+ 	/* Catch bad driver code */
+@@ -786,6 +784,8 @@ static void r4k_dma_cache_wback_inv(unsigned long addr, unsigned long size)
+ 	__sync();
+ }
+ 
++#ifdef CONFIG_DMA_NONCOHERENT
++
+ static void prefetch_cache_inv(unsigned long addr, unsigned long size)
+ {
+ 	unsigned int linesz = cpu_scache_line_size();
+@@ -1684,6 +1684,14 @@ static void r4k_cache_error_setup(void)
+ 	extern char __weak except_vec2_generic;
+ 	extern char __weak except_vec2_sb1;
+ 
++	/*
++	 * The handler is written uncached. Copying the preceding vector
++	 * may have left a dirty cached line of it behind, through a store
++	 * prefetch or a speculative store; write it back and invalidate it
++	 * first, or its later write-back overwrites the handler.
++	 */
++	r4k_dma_cache_wback_inv(ebase + 0x100, 0x80);
++
+ 	switch (current_cpu_type()) {
+ 	case CPU_SB1:
+ 	case CPU_SB1A:
 
-> +                       s64 mult_delta =3D (s64)mult - old_base_mult;
-
-It might be useful to add a comment clarifying exactly what the
-mult_delta here represents vs the (mult - tk->tkr_mono.mult) value
-later passed to timekeeping_apply_adjustment?
-
-> +
-> +                       tk->ntp_error -=3D ((s64)offset * mult_delta)
-> +                                        << tk->ntp_error_shift;
-> +               }
-
-Otherwise, I think it looks ok, so with those changes,
-
-Acked-by: John Stultz <jstultz@google.com>
-
-thanks
--john
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
