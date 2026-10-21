@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792626094;
-	b=W1MzQ8aOkn6mlV1vO2jXniRPRjB6ugxUl+i7GGES5n90/yGTTncRNfq42pHbUL5A2pC4
-	 2zgqLbTud2YB62IqnpYidRl//0Xxwi6RO5xDG6aVvnCB/0u96GAoD3phfn54Huaz47QSg
-	 1ZEAebaUF1Q1Tz1YkUMZSUE/aZWYE6p+en4QjaSLI+XjChrYdKzLEqib6EI1ex6zz6/Hi
-	 Qj2DK0kQh0iwX6wDdLqnu9kdVCFcNTvAFn9vMgnNXEikhfzqKleLYlJNRO3SlDe+ikkMi
-	 bxQQdj1lfJo15bEgE91GSbf22VYr03CVCbTT1T4SYl1Z3YqpMEYkF4U+DSsB/K3DpPg==
+	t=1792626122;
+	b=BjhfKzrAOGWiBpDKN5i/600ibkeGLIB0hJNXoueGcDVpJ5RyhDGKgXgIqVRHaA/0tFLI
+	 bhNBz5/kK8Yz40wBn57zmYCAsSjz6RTYCZQu+4KJ0POX4omCx+oKVxrbvWUVvMQNtWbeL
+	 IPiqDlpv5vng1ostCEWzkYloSzpepcSVxU9mvTIQMjzB4dLH39rLJ0jye58+yTP8TOJD7
+	 909VYIHi9xisvxyIZGoPDASHTd6BaHL7FY36QL9Srk/Er85o8WWKfggYxB9f0hgTdtcD6
+	 Niq3nCPW5pFXbCLK69aRgSfYZyNhtThIyUsCPSiHZT6BzUwXrfkl+E6Zm6sFP4usZbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792626094;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9JQopFvN4rZM9m2R9xwMR2uSxRVpYkQzXBI5laTN/EA=;
-	b=hb49ymRIyOxtEEPUFVY53mjReiEy9s1vsx1KDnM+stZA993VcQT72hg5zRfEitMCqPG3
-	 GEKeS/5KrwOeFdBdTkJRBZ2+R5haIpy9jwSyJZQsJkkM8HuTO0DCzcO8n4OoXcM7cZ3Xg
-	 jFvPycGb0KYVzk0FywIECcSnke33BHZdkV4Nqa4SOvnUDFfrSlSGvVTvEMp5ZqL6HfDLQ
-	 iQcJtlEWJwuRKXQzmhcTOaQ8bvTPWzTIBW0zOeSyhSo7BJx7BhOQVPJKrmRAzerk/5r/B
-	 rUYLjd8UBTr4tNBpOaUxN/M5iXsLWImBzlIDnH8yAFwaexHpqWqonm/5ZCJFxiAETRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792626122;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=K40LssP8OiY0dgBWU9vMWrD915dStcY2HaoQYfdzEdQ=;
+	b=A4obT8loyw3H6Je1nnn8XazONyBebtibgWT1C+g6tJHmdWSnaZgx34YVrcZCPP64jXQC
+	 MIvzWPeIOpMB9o2xo03c51zgtshusDikcZxfln0AW3e3ccsPbaavAr/DuzKmqdo83geuO
+	 jYhB9E1DCZeg6yHXhokOV333vdjJeK3jc23hZ5N5vcyyr8gM1Z+t+Nhxdzae9oMFAfkah
+	 2Led/RD2nN3U7oi6MAGYTT8LN7KoWaleQEytB+igZJH0s8/ZOYwMnX2AH3/tyglJkvFJ8
+	 S7nhv0pggNjj+KYX8ry407C0NAToFOMT9ImVEf4D8nQOR69HEnRoso6R4uFcWeOyEKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZO1541My;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDP2AO6L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7046606A319;
-	Wed, 21 Oct 2026 23:41:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7046606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D419606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:42:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZO1541My
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=9JQopFvN4rZM9m2R9xwMR2uSxRVpYkQzXBI5laTN/EA=; b=ZO1541MyYrXR3d0HCh70sL9Ag7
-	j/PhX+nX6HnRL8ZvYOEGqdz6bPBm/o5ZsGQu5zHF+xJzERtSqE2HCBWlA5v5Qq0fpWXRUpvWGy8+w
-	lXGsMQQt7FRfle6OR30DQWCKLJqrC7nAtaNC402UoGK92qFxfI06uiWF46za9XIVo5tZBfZnzNDBW
-	AtGXnDs/55I/lHDPgGJT/qICvJlWbIEcC/BNxJHTJ2bAhC4Wgq9iycKfud/IKuljYM6U3WMiC62Pu
-	NlYyClYihgUmWe2il+mRcEp7dSzIRsFsI46PbumUAQuMyYM2jpgEbZZZu6rtoE9yLNYiW30/ugday
-	0EddCK0A==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJfw1-0000000D3IN-0kSw;
-	Wed, 21 Oct 2026 23:41:29 +0000
-Message-ID: <db4e46a6-1788-44a3-a3ab-4fded03591d7@infradead.org>
-Date: Wed, 21 Oct 2026 16:41:27 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eDP2AO6L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0E2B1F000C5
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:42:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792626121;
+	bh=K40LssP8OiY0dgBWU9vMWrD915dStcY2HaoQYfdzEdQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eDP2AO6L+kkKUnaU0JyIxD94D4aBvCW5MhhC3PF146cPgJU3lcPMltZ20OmUid+bo
+	 7P+HVDKuoFfSA2bAbtjF3SdQI2wMgw3YI91iRlfr832ZAzaxHdq1v6/uMKlMd+XOiq
+	 j/7J62vWj8zmnqaI5Oj+NwqcLaTimIGXrv67GiNtmPHXOQqNRoxcQC+OBuCUChj3al
+	 tA5ELvvXKHVJfAR8NOWAR2lu8NnSFw+9E9JLf4JUQPPuLNIShSpBdbWpLwa7EKYvGS
+	 C3tQQse7HtwZexAufMMWpy7uh1Xy0ql1d3Cigy3s2VXS2oDkqMlLVsDh/Nc4ZthCNx
+	 rRIItGpFXL5Ow==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1032136e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:42:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx0np2Nm1djBx7IC11iMdKULwYO7Ax0NX/vYpICYIivO5NdZEOmjvbmIv0gPaLjleJZ/8WT4yEWPGMsY+c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLI/PQJL/T54bpr/JlNOsb1f6SbH3VPE5vCltwUsXZytb6YCRza
+	z6U/+joIs/agbefqPkb6vnQGczn9r1+hOuyq13kmpB2AejxwDQ6H5+uOJTcpfh6YPMJVuad97xL
+	BqfAcDRfd0vHNJhnyBkWPtz5Fu6L3e3Q=
+X-Received: by 2002:a05:6512:158b:b0:5be:50d6:af8a with SMTP id
+ 2adb3069b0e04-5bfa1ceb37cmr1176705e87.33.1792626120440; Wed, 21 Oct 2026
+ 16:42:00 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,43 +59,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH] docs: security: Describe the Kernel Assurance Plane
- design
-To: Ketan Bhardwaj <ketan@armoriq.io>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>
-Cc: linux-security-module@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
- linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
- "HARIHARA SUDHAN . R" <harisudhan@armoriq.io>
-References: <20261021165748.19304-1-ketan@armoriq.io>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261021165748.19304-1-ketan@armoriq.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261021121245.3111563-1-lee@kernel.org> <20261021121245.3111563-7-lee@kernel.org>
+In-Reply-To: <20261021121245.3111563-7-lee@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 22 Oct 2026 01:41:47 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnXm3aJ4OnN8vNym2fVpU0PdQy1SBrPxLcc69hKA+K2wQ@mail.gmail.com>
+X-Gm-Features: AclHuK9mN2gA0wqDEHlNp4kMbBvt1v7fcpPP3f_rBZxENespfrI6p61sISoyu5U
+Message-ID: <CAD++jLnXm3aJ4OnN8vNym2fVpU0PdQy1SBrPxLcc69hKA+K2wQ@mail.gmail.com>
+Subject: Re: [PATCH 07/28] mfd: db8500-prcmu: Make AB8500 cell and IRQ
+ resource static
+To: Lee Jones <lee@kernel.org>
+Cc: Kumar Sanghvi <kumar.sanghvi@stericsson.com>, Sundar Iyer <sundar.iyer@stericsson.com>, 
+	Mattias Nilsson <mattias.i.nilsson@stericsson.com>, linux-arm-kernel@lists.infradead.org, 
+	mfd@lists.linux.dev, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-[just a small documentation warning:]
+On Wed, Oct 21, 2026 at 2:14=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
 
-On 10/21/26 9:57 AM, Ketan Bhardwaj wrote:
-> diff --git a/Documentation/admin-guide/LSM/index.rst b/Documentation/admin-guide/LSM/index.rst
-> index b44ef68f..4a299993 100644
-> --- a/Documentation/admin-guide/LSM/index.rst
-> +++ b/Documentation/admin-guide/LSM/index.rst
-> @@ -48,4 +48,5 @@ subdirectories.
->     Yama
->     SafeSetID
->     ipe
-> +   kap
->     landlock
+> db8500_prcmu_register_ab8500() declares struct resource ab850x_resource
+> and the mfd_cell descriptors on the stack and assigns &ab850x_resource
+> to ab850x_cell->resources.  Although mfd_add_device() deep-copies the
+> resource table via platform_device_add_resources() before
+> db8500_prcmu_register_ab8500() returns, the shallow MFD cell copy
+> attached to the child platform device retains a stale pointer to the
+> expired stack frame.
+>
+> Mark ab850x_resource as static and the ab8500_cell and ab8505_cell
+> descriptors as static const so the resource pointer remains valid for
+> the lifetime of the device.
+>
+> Closes: https://sashiko.dev/#/bug/linux-554f3a1f-ca41-4078-ae9e-66d0d7fb4=
+c9d
+> Signed-off-by: Lee Jones <lee@kernel.org>
 
-I wondered what this index entry was for and then running
-'make htmldocs' complained:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-Documentation/admin-guide/LSM/index.rst:48: WARNING: toctree contains reference to nonexisting document 'admin-guide/LSM/kap' [toc.not_readable]
-
-
--- 
-~Randy
-
+Yours,
+Linus Walleij
