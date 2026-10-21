@@ -1,57 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603361;
-	b=JnjRQ7+eOEH1S5e7GyvBtmVRp3QxTe5I0eKnxie6xNazUKRX4e8Bu4CKOAg4cX/mLY7p
-	 G8HtbtmH/z4U9+Vvq209dJQxBdARO/XdUyVqvaHtzEN9z684WLNc6uB8TXofaIaTX82Aj
-	 7p2sKuh7k3IIPccxJHzEJUwba3zmQ5xSLXqSq2VA12/dLVaJ2WQ9ELQIOqg5VAtgBOCE4
-	 FLoG+1unQPvGXhSKmk7/yeZc8PjjEBhYFE8OeS/J+Ef7yZOk3KI/HkQoy08V0X1FBQJUu
-	 Xg1Vd9KHAmBJV/KShUgH5LzL0vlLxKMB7zBROruKW9sFl8d5sbcP6o5HUKxN1cUh5NQ==
+	t=1792603430;
+	b=plcgujkQETEc5TOoHGc+9MabifWBxR0znRyeY7zH3HoE986AhBQa60F3GyxLNcdhk+1b
+	 9wcYRrRu+GjWlVBlxvnlq1W0ArFVrBYrtUM9Gi0rEMi/b9TKqjYvIfAWKQ2Kak3yJsWSh
+	 O//8HTAJH5krplvyP/IzDuDWuc7NytpvCN1IQ7yrxWrxx9W3ACM+UwLyS1Qb6UWC4EdXJ
+	 B1jOtJpQwzGtAxBLSlVm4WGpLP/4qukfQXjRL6Yt2rltxbXcd1dTyZLF5ihu/kdLUGFJv
+	 HelFkUvUdaU4mmlz7jDbMSoV5e5ou3z6vDTdFhcZOgf95EyE6TyCi8HYiVD4KlzNpRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603361;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=6LqR1VzY/7CZkjbT+gr5Y/FfDEr1ngYlH55EfU+izAs=;
-	b=5as2pPlyBny93kQ8AdWgsor0GKesQFOMDM+OvyKN5FrEcVIrc1An76ABmwJLO5+9pPgp
-	 AUL0+G5OX4lya6OB9+jXt50XtM3bSLvm8/dzWayNFvOzwKRJmnSxD/SCQIWzwxPb4eUuU
-	 vS4e65Z7fgoxoNfvyNvigFJPP7wMxxXjF1pT4BsFxPHVwcF/vgI5NyiohwEOOGWSdtzl+
-	 MPjh4phWaSPtpuhKvEFQL8rq4Ih1gUs4EcEsQ009tgzPClKS+dyCbC35cEVntdZaL+P/O
-	 8R+3rBDfKUgbFzCdKI4IMkcXlu1KxroJ0k4NiYyPMcQWdJqI9lxQZlvGFdd+10gBWmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603430;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Xq/Mntuw9H/QDRiWvp5bTN6HG/D1JEq1cQYOqHkRs9s=;
+	b=ZqsMAY04dZsKtITz/+BJoqLgHsRY1aYDMzywQH4SznH+9SOERyWcn1WtNmm5G/pkIemU
+	 05nNJocDShWcEqfGVTW+kn5G61OSpxvQE3MtE2G3cndjPCKeXePwz/Wc68tsZeYPbZ8bp
+	 xAlx4jzVlMBMSm65E8+7xjsgP1zuoRW6IWnhH8sD4RISkqE9M9DxWay4OHbnkdeUVw6zp
+	 JKodlrSzSJOsEskewofkyTAfVjbzZDsTjr3NTw40F/v36eoSzGXofaw1T/38L+IBtQP4p
+	 KqOWzOJSukVkROoZiAcoZebn0FTT4AZoSgHnsX7f97RArfqGVhSDaRz8lUjo6wq+d+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2rfc6jT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sGg2zhx8;
+	arc=none smtp.remote-ip=74.125.82.46
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BFA606A31A;
-	Wed, 21 Oct 2026 17:22:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C324606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C324606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2rfc6jT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618E31F000C1;
-	Wed, 21 Oct 2026 17:22:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792603360;
-	bh=6LqR1VzY/7CZkjbT+gr5Y/FfDEr1ngYlH55EfU+izAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=S2rfc6jTzi8rSn5ViYwDylfdCtbgIUsR9cMsl9JPmwcE2o7Shl124XcgoFdplNgUY
-	 GPvn7lOpmXk24mnVbuwXKEJuoFlSkh9CvOFLtv5Ydqnj9mLrVWdw1Uqer20V+Vrtt5
-	 70XBFTECdp07cRSdQvmKfaI9QNVcBMF9mAkdZVVh7Xyo3nhizBiuY0NaKiJbWLeQZc
-	 aG32N70AkZbF7TJUtzdJ5POtdgwYYyuBAEHVfC5AKiwK5hRb2cDDX1VPHZKoXJm6JK
-	 Owymr1kikulFhtwki7qcAxVGdjCwRSzwBQQLe2ZDGFPeIPNjWsjEXcIpfrgJ3Nix0Y
-	 1wOHycLudZl5g==
-Date: Wed, 21 Oct 2026 10:22:38 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Alex Markuze <amarkuze@redhat.com>
-Cc: ceph-devel@vger.kernel.org, idryomov@gmail.com, xiubo.li@clyso.com,
-	slava@dubeyko.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
-	jack@suse.cz, linux-fsdevel@vger.kernel.org,
-	linux-fscrypt@vger.kernel.org, tytso@mit.edu, jaegeuk@kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sGg2zhx8
+Received: by mail-dl1-f46.google.com with SMTP id a92af1059eb24-185fd3a4ca3so401665c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:23:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792603430; x=1793208230; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xq/Mntuw9H/QDRiWvp5bTN6HG/D1JEq1cQYOqHkRs9s=;
+        b=sGg2zhx8XpQ8Y5VWsNzVZmU+N+t47KA2UleuuqA+pv1bdRFdvq+jMtwQ/tTGUHHEdF
+         iwSdBVrtn5guZIGBqvqjI2TEM1KWoKWAafzY2dLUCwcnRt4U53jsa7f+gKX6b9N+HTd4
+         SBjX6aGM6nnwgR33oZLRdcXBG2MYVs6OPxvcNIcRnC43Mr0PvcjfN2zqUYJ7AjwZqIAJ
+         CcRcCll3/sl8aCkBOe6iKkQrmCH3jPlq/5YyJYkPJeVJJeX6bL1wPSFCkim1HL6vl1PF
+         jJFOfHsEQwRT8pGWVKX578gxCYZFA1M0/k7THKtPhhL4s3z8EbBp9+dWN+latvtZlZ2Y
+         7sjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792603430; x=1793208230;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xq/Mntuw9H/QDRiWvp5bTN6HG/D1JEq1cQYOqHkRs9s=;
+        b=UMteFBdphkM5JddTvCESavPl/ZF59h4oNxYRhV64rlUVyybrKpsFfafXwL7n3x+4yj
+         U1WDDCki3TyPsFb07rGXJ/Pk3XTNyjsGsysLwxWSy4HmcC/g+jRFTwWfO6f6Ellemlre
+         16PZed+8bWFmkIYTsdROBh17+SPMmGJpoKHOOHZjN/eJI6gdANPjHTfZLIL+Cgcp5ItH
+         adkRn9lFYlJ2l8ospy/pJ9FxZ0HjHASpJfFpiijA5NySoz3itPsFgA+m+T5c5glXMtOg
+         sFWDrWv73VQlJIJPw5tGyiHydrIqQHnxCZCcoBhUXf0R1JV7WVMcoTcCGd/DSJFbKusy
+         xUGQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxgbqWUQQlXpbrRmKuZdzfTaw68TuhX2nEMybddf9swApZIzQOPH1HYwUXsFIFAFTJ38S5D+L7HsNOex+s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8L1qso4kauhry/14PpGfX6gey9CN9Fdgi+JpN51YtvPDEUbYN
+	PP0+twggwNbu6vcxEd4JQ/mcdqNxozYn3gconkmR1QwUhNoGu+tqvhYo
+X-Gm-Gg: AYBFou1CP74e8tak94kzmvFVbp7LZw5+T4DwlrJgdLKBlbTWtSfHdr0Rb2RTcSn8IF9
+	PSRKAj3Jf1exLYMTwY3UxvHl2+o4qasV5yFupHJ9vtzqTaZAtQGczjE1bGh0UKo3XNtCahhbrCo
+	gCdAxEk4CFop7FWJgn/KgUs/zdwqq1vxFsCYTBY226//PE+Z3IBqjWc7QAt2Elkq8V1Sv9VcWsN
+	aEGmJzZSLRvRF87cOBTO8NpZrrcb62N+ISIpZ9RagDjC4/BFZsKn6kxVTz6kJuFxCQed/RkkukW
+	j1+cz16TZ5q2BhvCjkJ5OUzHJ2C395ph2db3Gffri4Vhtlexrec3+drSL+/wIWW/sjuewf+yhph
+	6dh1HWu8phgVrEytDBuBq/OF8Dfvwwf37tfITzq8/cE5ui3F355+4AxbKyH9sbzXSiyscL4lX4/
+	AAzfr3imvJVnksOTfuo/g/KMjltLcMTKafwqV30uJ6CmjPs6H+Hd/KaH5PeiX2qf0pA2Gyu6+Ps
+	1io/QBJzhC1940I3Ku3UCnChdtV2NRs4OMKfPf6lwDIM5VRBHuW3AqOLzDNVgwC2IGdgm7ukR+P
+	TwkJfOHLIJemmCV0EdH0akYWNci2i/gXJvK8KxwZs/8=
+X-Received: by 2002:a05:701b:4517:20b0:151:70a0:6bfd with SMTP id a92af1059eb24-190a6239183mr3020964c88.24.1792603429511;
+        Wed, 21 Oct 2026 10:23:49 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903aefe90asm7430112c88.9.2026.10.21.10.23.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:23:48 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:23:45 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Andy Shevchenko <andy@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 5/5] ceph: fail quarantined subvolume access with
- EACCES
-Message-ID: <20261021172238.GD1879@quark>
-References: <cover.1792527529.git.amarkuze@redhat.com>
- <345a4e8317cde90293b0d4ee9d8a3edfd229e204.1792527529.git.amarkuze@redhat.com>
+Subject: Re: [PATCH 3/3] Input: soc_button_array - convert to software nodes
+Message-ID: <atjzqdtaduFV6B7M@google.com>
+References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+ <20261021015004.1537738-3-dmitry.torokhov@gmail.com>
+ <atjypFBUGPzWv083@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,61 +102,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <345a4e8317cde90293b0d4ee9d8a3edfd229e204.1792527529.git.amarkuze@redhat.com>
+In-Reply-To: <atjypFBUGPzWv083@ashevche-desk.local>
 
-On Tue, Oct 20, 2026 at 08:26:50PM +0000, Alex Markuze wrote:
-> +/*
-> + * fscrypt can cache the decrypted target in ->i_link, allowing the VFS to
-> + * bypass this callback. Checking those cache hits needs separate fscrypt
-> + * support; this check covers only accesses that reach ->get_link().
-> + */
->  static const char *ceph_encrypted_get_link(struct dentry *dentry,
->  					   struct inode *inode,
->  					   struct delayed_call *done)
->  {
->  	struct ceph_inode_info *ci = ceph_inode(inode);
-> +	int err;
->  
->  	if (!dentry)
->  		return ERR_PTR(-ECHILD);
-> +	err = ceph_symlink_revalidate(inode);
-> +	if (err)
-> +		return ERR_PTR(err);
->  
->  	return fscrypt_get_symlink(inode, ci->i_symlink, i_size_read(inode),
->  				   done);
+On Wed, Oct 21, 2026 at 08:13:08PM +0300, Andy Shevchenko wrote:
+> On Tue, Oct 20, 2026 at 06:50:01PM -0700, Dmitry Torokhov wrote:
+> > Convert the driver from using legacy platform data to using software
+> > nodes for registering 'gpio-keys' devices. This allows us to
+> > transition away from platform data and use generic device properties.
+> 
+> ...
+> 
+> > +static void soc_button_remove_swnodes(struct fwnode_handle *parent)
+> > +{
+> > +	struct fwnode_handle *child;
+> 
+> > +	if (IS_ERR_OR_NULL(parent))
+> > +		return;
+> 
+> Isn't this redundant? Because the following has it inside already.
 
-The function comment seems out of sync with the actual code, as the
-actual code disables the symlink target caching.
+Maybe but it really is not obvious whether the latest flavor of some API
+handles error pointers or NULLs transparently or not and whether it will
+continue doing this.
 
->  	case FS_IOC_GET_ENCRYPTION_POLICY:
->  		ret = vet_mds_for_fscrypt(file);
-> +		if (ret)
-> +			return ret;
-> +		ret = ceph_quarantine_revalidate(inode);
->  		if (ret)
->  			return ret;
->  		return fscrypt_ioctl_get_policy(file, (void __user *)arg);
->  
->  	case FS_IOC_GET_ENCRYPTION_POLICY_EX:
->  		ret = vet_mds_for_fscrypt(file);
-> +		if (ret)
-> +			return ret;
-> +		ret = ceph_quarantine_revalidate(inode);
->  		if (ret)
->  			return ret;
->  		return fscrypt_ioctl_get_policy_ex(file, (void __user *)arg);
-> @@ -429,6 +439,9 @@ long ceph_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
->  
->  	case FS_IOC_GET_ENCRYPTION_NONCE:
->  		ret = vet_mds_for_fscrypt(file);
-> +		if (ret)
-> +			return ret;
-> +		ret = ceph_quarantine_revalidate(inode);
->  		if (ret)
->  			return ret;
->  		return fscrypt_ioctl_get_nonce(file, (void __user *)arg);
+This is not a hot path so I can think we can spare an extra check.
 
-Can you clarify why FS_IOC_SET_ENCRYPTION_POLICY doesn't need this too?
 
-- Eric
+> 
+> > +	fwnode_for_each_child_node(parent, child)
+> > +		fwnode_remove_software_node(child);
+> > +
+> > +	fwnode_remove_software_node(parent);
+> > +}
+> 
+> ...
+> 
+> >  	const struct soc_button_info *info;
+> >  	struct platform_device *pd;
+> > -	struct gpio_keys_button *gpio_keys;
+> > -	struct gpio_keys_platform_data *gpio_keys_pdata;
+> > +	struct fwnode_handle *parent_node;
+> 
+> Can it be one line down, so we keep reversed xmas tree order?
+
+Sure.
+
+> 
+> >  	const struct dmi_system_id *dmi_id;
+> >  	int invalid_acpi_index = -1;
+> > -	int error, gpio, irq = 0;
+> > +	int error, irq = 0;
+> >  	int n_buttons = 0;
+> 
+> ...
+> 
+> > +		child_props[prop_idx++] = PROPERTY_ENTRY_U32("linux,code", info->event_code);
+> > +		child_props[prop_idx++] = PROPERTY_ENTRY_STRING("label", info->name);
+> > +
+> > +		if (info->event_type != EV_KEY)
+> > +			child_props[prop_idx++] =
+> 
+> > +				PROPERTY_ENTRY_U32("linux,input-type",
+> > +						   info->event_type);
+> 
+> Make it a single line, you seem use 100 limit anyway.
+
+OK.
+
+> 
+> > +
+> > +		if (info->wakeup)
+> > +			child_props[prop_idx++] = PROPERTY_ENTRY_BOOL("wakeup-source");
+> > +
+> > +		/* These devices often use cheap buttons, use 50 ms debounce */
+> > +		child_props[prop_idx++] = PROPERTY_ENTRY_U32("debounce-interval", 50);
+> 
+> ...
+> 
+> >  static void soc_button_remove(struct platform_device *pdev)
+> >  {
+> >  	struct soc_button_data *priv = platform_get_drvdata(pdev);
+> > -
+> > +	struct platform_device *pd;
+> > +	struct fwnode_handle *fwnode;
+> >  	int i;
+> >  
+> > -	for (i = 0; i < BUTTON_TYPES; i++)
+> > -		if (priv->children[i])
+> > -			platform_device_unregister(priv->children[i]);
+> > +	for (i = 0; i < BUTTON_TYPES; i++) {
+> 
+> At the same time this can be transformed to
+> 
+> 	for (int i = 0; i < BUTTON_TYPES; i++) {
+> 
+> > +		pd = priv->children[i];
+> > +		if (pd) {
+> 
+> 		if (!pd)
+> 			continue;
+> 
+> ?
+
+Sure, why not...
+
+Thanks.
+
+-- 
+Dmitry
