@@ -1,59 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602335;
-	b=lVREe/m+9ra490sEVOHHysFU2xoj0bDY6kwWcxawfUOjc8sNh4boek8ufbowi8YBSKTW
-	 lFPWkZrx0GCMY0kTdNyqKWkMj3k+WqkUBJB/sakL4GY0U4ePZ+ESjIIcRbIQ7ozwgb5xx
-	 wTRJqLhUIgBDfjKLeFqLK8tCUVygdzyVIgpoFaauY8m0VobJsBdIvRKWt23hsUVChE8uR
-	 Scr/y4ImXhrTYobW5pdKnrSbzZrm8aWxJjLQj4GjDDFDBNmqGc4HSXFbB3ictBypsKR1t
-	 f0ShOZqbK4U9SnZYi+SDsHNNIXjhzlErbhI4meAPXWr44Zvr/hgGXsL9H74uuAA4yNw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602335;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 Mail-Followup-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=2m70qaMoVXLxe+eN5Q/od+n/UdaKlHhJXr7DkMg5Ui0=;
-	b=wu4f6mVz/b6LBYwauXHFf93WpF0VmMT5omYzqjmBCI4+1hC6ZGmcUJArM1zQWpKLeeN6
-	 DEl3rKzq/f8FPcKYFW6oAi2WD8XavLbeLXJ7lpkSqbiSkPfKQwwrgx5tAxerSvsZh8H8/
-	 0VgplKO6KBURgwji+IyxDwcSAZSOfq82OKW2BVyA7rN+Lvc+gT5kCiHw8ors+WtRcaDsY
-	 0CSkbCf8xYYgK9zgPbkkYxSzwJNaWBnmsE2/qKIqHKl7yoqvqaMUimJNcW+GDG30JD0HV
-	 QEkUkGisCgpnph7/Ay61qnhQP3ESg42yCSGI4MC2gKlvxfR+RvHO7/AXB6DtZnIHTlw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TiyGy8Wi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792602342;
+	b=xOyqomjoMEJKkqHaViC3NACPZkoIPNCqTN07Zvz36wd8i30CE5f/zF7TWz19Pmyk6Zms
+	 YROfWUMRoUvFenxEYhzU2mFaDUXGB+Dy/gpQkCJWmCNQH/8b+rPpOCGPRUSgUv/ENo3aJ
+	 i5FzDnWcU0yb6CVSe2oLOUD7EMfdSMLHzxdkX0Eat618Ltd5+LBbUqYErsXtpUMrmAseI
+	 mNE12JzF/PY6gLJoPfsvgPPu0yiGbuF7JQavuPjuHG1v96tyME4VndJWH7a3EOmyEGiCq
+	 6bmSAMbQmHJHC3Ag6MyY9yppIpNdoKUOjgkA5Bx6Oe+s4M1YoW28suNl7klXw7Et7hg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602342;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=TaJQy10qUkn5UXnUt+PE8npwWd12HoCLZl/LyY5c5tM=;
+	b=jyTilLAbrGUx1xMHh6wyimykTE13zo4kygGCORcdXi87kf9atmadPi+YI90fNBI29GvG
+	 mvK/UVtohcZK90uKb/E3dNO+czIrZjA8uDMtNHEN7Jn6g9mE1PPYlADJF0V8WmaSfno2x
+	 oCUEEQb/UTZ2utdAa6+Py21rh8sL8RcM214s5muokXdZcPqC8SQPatZCQc8j7TxYY5UMk
+	 Evj6qTUokBqjZfQh+/TVhnPIy27davnvG+TppNM762wirfaOUAeONse8nQmhgPDYety3v
+	 KLYk/VyWfITs2XuuazErMmvJxYnVkq5P3gm099zcJQYPDU/At3ZTFAnjUBcyOZoQisg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qzldUy8Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.4
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010004.outbound.protection.outlook.com [40.93.198.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id F05F1606A319;
-	Wed, 21 Oct 2026 17:05:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B40606A319;
+	Wed, 21 Oct 2026 17:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09B40606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TiyGy8Wi
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0682F1F000C1;
-	Wed, 21 Oct 2026 17:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602334;
-	bh=2m70qaMoVXLxe+eN5Q/od+n/UdaKlHhJXr7DkMg5Ui0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TiyGy8Wi3M7rdF0AEU56uX0TKFLyv8KNY5akytxGycf+Jz6YgFhLtbSEQ64a/WR0g
-	 kIYsAOFZm9UhEsL0Vr7HCSReoCJvl3D0Ll7SHpjNO0NnRVo2+weiTTo9BYakSgSf66
-	 vHSpSRHqVLwXiY8bTtgb2yofQYnd1oI/O4S6fSPWv4J5XzXMZUiIlc/2jOFShgpZLo
-	 DEJla4nfgBgW8Dg9qdJrNkwLLyJp2W+hpyB7yzMC6IvEKG85EVfsyqNf9nKKCMqDxM
-	 Wci45nLIGQQuz9QxJ3COgCNr3m41mo7nV3e7ShU2QTe4lcfdggFtTZ2PB+t6SSMYXw
-	 QL/yhLGmM6h3w==
-Date: Wed, 21 Oct 2026 19:03:05 +0200
-From: Nicolas Schier <nsc@kernel.org>
-To: Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>
-Cc: Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kbuild: deb-pkg: allow to set package name version
-Message-ID: <atjwSYKodxdVObA3@levanger>
-Mail-Followup-To: Nicolas Schier <nsc@kernel.org>,
-	Guido =?iso-8859-1?Q?G=FCnther?= <agx@sigxcpu.org>,
-	Nathan Chancellor <nathan@kernel.org>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-References: <20261019-deb-pkg-v1-1-7f8e60bbede5@sigxcpu.org>
- <atfI0Uc3iWSmR49j@levanger>
- <atfaLGt-46bVugss@quark2.heme.sigxcpu.org>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=qzldUy8Q
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qKkud/4Xka/1SVLhO26OuuWSCvvkWmmgITUUzIZSQKDnCTclZi8L14MTIyYpGO4THzbTvX1A0c65eSGdp7Brm0U5R6CeqNOcxTya2KVhKE1sOM89tLn3STzaitQ5WAjXVhCTlgrQqEnQY5Tu7rvzJpDvFTuTL55i1qqcJDyaa6N3KPSpm413yG70CKuGToyov8jYy08/8Cb4OjPY7zEMfBuv6Hn+QPg70H1ucSDtDhdXkLwV2RtoDeGDVBYbnGFNgk+W69WypncPZgjjFHdvCxDhW+kIsgzSj2ShVzDXF+PYqsbc01BWpTlpJEdN5yiBdrdY7DwurbpH4qUkcuElHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TaJQy10qUkn5UXnUt+PE8npwWd12HoCLZl/LyY5c5tM=;
+ b=BKU+WQh3m52f5Tz/G4nT5tWJLlzRJnSzT1LunB1xh27mm8fxgnexZFXmzQCwcbcNrLilo92kZIxkM37m+WgvpXz82n7p1Jf5a18UZ4jO7QsT3+xe6AVsHGjfETHXMVH+mfMqrStQjf2JJvulM5ntcf0OdogNaHgMo8RX6ncbFA0+Gg7CtouneKYMgE/5fojzdoMMBrx0fCM09W5n8SQrOloy344Ntq78r4nzFVooutdem8vpydfk+0Z9vOc3j8giTExJ3WpB/lJjuS6Pd06kODA+eCf/7aQeIYlfdAJMDd4AzjbMTIhq9PoblV2NAZ7Sm51vWRc2mIlpCB+YKsLwkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TaJQy10qUkn5UXnUt+PE8npwWd12HoCLZl/LyY5c5tM=;
+ b=qzldUy8QdQ992vZX6JYpaYeOxtegiYshLqp1RNqI8N9L2ZkYPmcRsh9aKiC//AMoh/urY6Ju3eX0Too2H1V5hRUw+OTiZ//4d23CYDXP/LiT2F8w4ouEu+Yiv9SDDPSrisB4sZyW2qfjcmzEPP3gG4iBF3Kc9iFDe6K+B4Xv2Gk=
+Received: from CH0PR04CA0096.namprd04.prod.outlook.com (2603:10b6:610:75::11)
+ by IA0PR12MB8748.namprd12.prod.outlook.com (2603:10b6:208:482::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 17:05:36 +0000
+Received: from CH01EPF000BE94F.namprd02.prod.outlook.com
+ (2603:10b6:610:75:cafe::d) by CH0PR04CA0096.outlook.office365.com
+ (2603:10b6:610:75::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
+ 21 Oct 2026 17:05:36 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH01EPF000BE94F.mail.protection.outlook.com (10.167.244.199) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 17:05:36 +0000
+Received: from speedway8455host.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 12:05:30 -0500
+From: "Pratik R. Sampat" <prsampat@amd.com>
+To: <mcgrof@kernel.org>, <russ.weight@linux.dev>, <dakr@kernel.org>,
+	<ashish.kalra@amd.com>, <thomas.lendacky@amd.com>,
+	<herbert@gondor.apana.org.au>, <davem@davemloft.net>
+CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<gregkh@linuxfoundation.org>, <rafael@kernel.org>, <chao.gao@intel.com>,
+	<aik@amd.com>, <tycho@kernel.org>, <nikunj@amd.com>, <michael.roth@amd.com>,
+	<shansinha@google.com>, <prsampat@amd.com>
+Subject: [Patch v5 1/7] firmware_loader: Stop pinning modules on registration
+Date: Wed, 21 Oct 2026 17:04:57 +0000
+Message-ID: <6247f59b5ac0bd04bbd68ae48f910046d4edeef2.1792599491.git.prsampat@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792599491.git.prsampat@amd.com>
+References: <cover.1792599491.git.prsampat@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,41 +110,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <atfaLGt-46bVugss@quark2.heme.sigxcpu.org>
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH01EPF000BE94F:EE_|IA0PR12MB8748:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8c13758-e2de-4ad8-06d1-08df2f958667
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|23010399003|7416014|376014|1800799024|36860700016|18002099003|10067099003|261021121427099003|22082099003|261021123027099003|260925021911599003|260925022911599003|260925021311599003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	W+vv0bJYo7W6Y2iBenfNahpIwyAcn4Snol5UtE+AG49QmTfxjWZVA30ekImb+PrGdGwNTh0ZsMTggOF/pFa8F8VId1aiCCk2zeEPXMrMSGQ9I42Qp654YR6dcr4lcpabDKjodgCPRt6nTCFMXBjsHGoSIOXwmxtGRlEZQfA0XX7PUCk/lnqbbMeAqkoBsW0ZGcVz/frwbF9VIINh8t9mDxe7MlsDLgSyGk3xyFiWu37lmakZPq5VNfQMiFolNQ8MQMCy8jQDvz4EVzqttnal/OpFw0CU2e06HvBpcEGkAALm3dhiUORjzDqv3mWZ87uHe02mxkEzoygqM590ftnATQ00lG6+zO01aSKHquxTk9bCvWcTRnaD1rVhWB/SOuMceMGSs3nRuLRCKkOv6g5mJglDa7ACPNJCph7I0CjDH925DzFCen65hf1bV/Opk8O9L3OZSbafhKH8KA0gcBiouY8XxbbVTjtz5Qcghp/FBwvzIrHcKI/36K/Y4BLJO/7ZCN/QRLNQ1yI/C6ZjkYUMK4/qLPit6aYbI385EoeVmiXOL69aYzu2aq82PKNkCHU+8Yc/fHxTGWYzg16Sf8Scfpv4GvZhdkr8qmdm3zVIoiwk5YSIzLAWoa3Dfx/RtUUqzP+1FQyfvKwmdlc7KSpDqQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(23010399003)(7416014)(376014)(1800799024)(36860700016)(18002099003)(10067099003)(261021121427099003)(22082099003)(261021123027099003)(260925021911599003)(260925022911599003)(260925021311599003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	JtaCiuObSuZLR3MnJwn7hBBKuphzarFtEOuYpriloExgiR/6IZlAwU6zuOzJ7EAmUJTG0ViVPgTXWYZYgk6otXaq60KScnlem8VS1wqEKr6HmKxJ1w2JdsbdHbA+CX6MlMZdOXoj3mR05FBuhIZ+n3wEJJVtXHhf3Dey05gaaYIvvg9pgFVv2pY8x0oubGydMUqJP0EmZznLXtg1oEmIKzCzgUSleFFMnC7x2wOwJEmNwkJ64PUWpqbrZ7lkxatgmy1zXyd3VK2ECZmlKT2u7WWI2p8nEfTFJNQW12bzmpEIOy5+8kr53eKjNzxlCfJmPWaJ4NsekzzngfwtR+34Z5p+OVnr1gxUb9K4cA0tlanCD5C7Ex3NUYeuW6bbQLJEfH0y+geCqQ2bLQQKeXAH7+v6uOYNbHr3yiSqUc1bvuI6EhicsyEUCEao4KOTJCwD
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 17:05:36.0866
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8c13758-e2de-4ad8-06d1-08df2f958667
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH01EPF000BE94F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8748
 
-On Tue, Oct 20, 2026 at 11:16:28PM +0200, Guido Günther wrote:
-> Hi Nicolas,
-> On Tue, Oct 20, 2026 at 10:02:25PM +0200, Nicolas Schier wrote:
-> > On Mon, Oct 19, 2026 at 09:16:14PM +0200, Guido Günther wrote:
-> > > Instead of hardcoding ${KERNELRELEASE} in the package name allow
-> > > the user to override this.
-> > > 
-> > > This can be useful if one doesn't want to accumulate different packages
-> > > for every commit or micro version bump by setting
-> > > KDEB_PKGNAMEVERSION=7.3 or even KDEB_PKGNAMEVERSION=stable.
-> > 
-> > I am not yet convinced, that this is a good idea.  Do you want to
-> > elaborate a bit more, why you think this is necessary?  Have you tested
-> > your patch?  I don't like that source package name and binary package
-> > name divert w/o good reasoning.
-> 
-> The source and the binary package names can already differ due to the
-> `KDEB_SOURCENAME` variable (and we're making use of that).
-> 
-> What this patch adds is the ability to control the suffix so we can
-> e.g. build a `linux-ng-foo` and a `linux-stable-bar` instead of having a
-> linux-image-7.3.17, linux-image-7.3.18 (or with git versions or …). It's
-> just about having a bit more control over the generated binary package
-> names so we can decide what replaces what on upgrades.
-> 
-> I have tested the patch with and without setting KDEB_PKGNAMEVERSION.
-> Without setting this variable nothing should change for existing users.
+From: Dan Williams <djbw@kernel.org>
 
-Ack, thanks for clarification.  I'll try to review this next week.
-Thanks.
+The module reference counting can result in callers pinning themselves in a
+circular loop. The module reference counting is unnecessary.
+firmware_upload_unregister() must be able to guarantee that all ops are
+idle at return.
 
+All ops are either called from sysfs or the workqueue, so unregister sysfs
+to stop submissions, cancel any started transfers, flush cancelled
+transfers, and then release the device.
+
+This also solves a theoretical race of new submissions starting between
+flush_work() and device_unregister(). The module reference was not
+protecting against that race.
+
+Cc: Luis Chamberlain <mcgrof@kernel.org>
+Cc: Russ Weight <russ.weight@linux.dev>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>
+Reported-by: Chao Gao <chao.gao@intel.com>
+Tested-by: Chao Gao <chao.gao@intel.com>
+Closes: https://sashiko.dev/#/patchset/20260326084448.29947-1-chao.gao%40intel.com?patch=10705
+Fixes: 97730bbb242c ("firmware_loader: Add firmware-upload support")
+Signed-off-by: Dan Williams <djbw@kernel.org>
+Signed-off-by: Pratik R. Sampat <prsampat@amd.com>
+---
+v4..v5:
+No change
+---
+ drivers/base/firmware_loader/sysfs_upload.c | 31 ++++++++++-----------
+ 1 file changed, 14 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/base/firmware_loader/sysfs_upload.c b/drivers/base/firmware_loader/sysfs_upload.c
+index efc33294212f..6f2123538682 100644
+--- a/drivers/base/firmware_loader/sysfs_upload.c
++++ b/drivers/base/firmware_loader/sysfs_upload.c
+@@ -312,14 +312,9 @@ firmware_upload_register(struct module *module, struct device *parent,
+ 		return ERR_PTR(-EINVAL);
+ 	}
+ 
+-	if (!try_module_get(module))
+-		return ERR_PTR(-EFAULT);
+-
+ 	fw_upload = kzalloc_obj(*fw_upload);
+-	if (!fw_upload) {
+-		ret = -ENOMEM;
+-		goto exit_module_put;
+-	}
++	if (!fw_upload)
++		return ERR_PTR(-ENOMEM);
+ 
+ 	fw_upload_priv = kzalloc_obj(*fw_upload_priv);
+ 	if (!fw_upload_priv) {
+@@ -361,7 +356,7 @@ firmware_upload_register(struct module *module, struct device *parent,
+ 	if (ret) {
+ 		dev_err(fw_dev, "%s: device_register failed\n", __func__);
+ 		put_device(fw_dev);
+-		goto exit_module_put;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return fw_upload;
+@@ -372,9 +367,6 @@ firmware_upload_register(struct module *module, struct device *parent,
+ free_fw_upload:
+ 	kfree(fw_upload);
+ 
+-exit_module_put:
+-	module_put(module);
+-
+ 	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(firmware_upload_register);
+@@ -386,23 +378,28 @@ EXPORT_SYMBOL_GPL(firmware_upload_register);
+ void firmware_upload_unregister(struct fw_upload *fw_upload)
+ {
+ 	struct fw_sysfs *fw_sysfs = fw_upload->priv;
++	struct device *parent = fw_sysfs->dev.parent;
+ 	struct fw_upload_priv *fw_upload_priv = fw_sysfs->fw_upload_priv;
+-	struct module *module = fw_upload_priv->module;
++
++	/* hold a parent reference while child is unregistered */
++	get_device(parent);
++
++	/* shutdown the sysfs interface to block new requests */
++	device_del(&fw_sysfs->dev);
+ 
+ 	mutex_lock(&fw_upload_priv->lock);
+ 	if (fw_upload_priv->progress == FW_UPLOAD_PROG_IDLE) {
+ 		mutex_unlock(&fw_upload_priv->lock);
+-		goto unregister;
++		goto release;
+ 	}
+ 
+ 	fw_upload_priv->ops->cancel(fw_upload);
+ 	mutex_unlock(&fw_upload_priv->lock);
+ 
++release:
+ 	/* Ensure lower-level device-driver is finished */
+ 	flush_work(&fw_upload_priv->work);
+-
+-unregister:
+-	device_unregister(&fw_sysfs->dev);
+-	module_put(module);
++	put_device(&fw_sysfs->dev);
++	put_device(parent);
+ }
+ EXPORT_SYMBOL_GPL(firmware_upload_unregister);
 -- 
-Nicolas
+2.43.0
+
