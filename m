@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792612126;
-	b=HrRykGcFY3PgtRAEgxZch7sBZeSy+aAuW5d23fKQW3CYF1d3bemg6U3NTSbGnWAESHlf
-	 2OY5m6q478GbV/wQIwqJbvxVWQyMZDWcz5+s1++imJk3gu/86ddGY0a42NkjccOWQ/4nf
-	 /tdHIbVynsWrRiIt8NKwWDnT1FiGcjHOFMCmueeX2IcFP/UnebAOQJmWzLE4VKAyjWcVy
-	 cHj/Hakh5+BqLtETROwi1ULg7mAdIQNvFV/aKI5sXM+wYWUYki+4RT02Tj5Ya/tlflEWU
-	 GBlzu0O79lxeWTLN5tfby/qICX9Pe3uejLthePtFF2jXZPFvzzsTIIZu8v1mzoXn0EQ==
+	b=xyfEc703j+jlzF9JX2CDB80HBQ62L2P12Xsml3lvg5YBYRt4DW7kPHyQni1YdsUidJTN
+	 QLUvPLEGDaGlXc1+JkGt0gsEPiuJgf9LSrTUI+G1TGgrrgWjYGM39ZQTztNyCtt/BrF8j
+	 FsYF+Mwe37MMVOWix7RTK8ay74GEd0403jVjJb2c+VYbTU5eg4Udl0aPltC8G0SMbQ2QS
+	 JJTxXbK8sRhBsQUq7vUbhZtRM67gWiJZXAzCShJsGGWsON794booGRKa+3BeksKV6sJhT
+	 U2BD2BkuJIDUuR92Dc9aWiq16RdI7Eq+bPLcsd7M/WeGStuKs8oytvR/b2LHExPZrdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792612126;
-	h=DMARC-Filter:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
 	 X-CM-SenderInfo;
-	bh=eWlBKL2FrSB99yvUJcyvTb/4uFs8JHzUkIHSRVTAqmc=;
-	b=BKxzlmodbQOuPmhwLSr2wX7N5tSqa1szIB+f8w3mHpmkwi+kTWaFp8xab6NE/QeT9cND
-	 KW9YVZFXMujwMeQfVidESSJc44dVb2lePciEgeUd2kooE9IU4nkh5fjnJ5MWFrlc7SxG/
-	 aQuPGOAQ1jH2a3FS91G7Zu2HNQwJYfVM391k40/EsMqgWj354H2oNvA0PMoX6+V4vly5d
-	 Mko5WcC0fAkgP1YOANK3Fcm2HU5EaMjS/7ld0OJLueyFM8CpuWCJsY+DWhkCwfz79gLI0
-	 2ukrhzjFA53cCCUmyruxiklhymVpnZMXQW5U7S8X+yjt1j20u0Xn86w69z9p06V62dA==
+	bh=5jNpHEGIOARW9WapfujE1Vqsw0H274pOqupm+3TjYwU=;
+	b=VTzZmvKdKsodpjQF8bbqNedrWXhPpmqnT7VGO2R1KuZeZj24MbrBbzwhqm41kOCjHXHM
+	 01j16w2ap51fpqiI0EvMpNi48cvS/vfX1ULR6M+z+kusI61xVqmDlgDMgqk/lVrcA8YDa
+	 Q6iEmdo/XLDdt7KjpJSTSHiIYtVzGiVINznCG+hXb2FKkUwiIqP28iAPZe2p5R0kk4B8C
+	 G9y4ezytqM0x0PIM7Q0AZePkGRpgKPjOTjdB2il5jqOquLnNT1KAO/6yIRaCK67UOSbNb
+	 KRb52cZs8MszYGMiiSJu/gy1UHcewVoKeiMTED5IXrFmE3Zp0Pb/u5JaRIclV8uq2pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=iscas.ac.cn;
 	spf=pass smtp.mailfrom=iscas.ac.cn;
@@ -26,19 +26,17 @@ Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA37606A322;
-	Wed, 21 Oct 2026 19:48:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EA37606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAD4606A327;
+	Wed, 21 Oct 2026 19:48:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AAD4606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from [127.0.1.1] (unknown [223.166.93.48])
-	by APP-03 (Coremail) with SMTP id rQCowAB3gT_6Ftlqxu5hCw--.4480S2;
-	Thu, 22 Oct 2026 03:48:12 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAB3gT_6Ftlqxu5hCw--.4480S5;
+	Thu, 22 Oct 2026 03:48:15 +0800 (CST)
 From: Han Gao <gaohan@iscas.ac.cn>
-Subject: [PATCH 00/18] riscv: add initial support for Zhihe A210 and Melon
- Pi
-Date: Thu, 22 Oct 2026 03:48:08 +0800
-Message-Id: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
+Date: Thu, 22 Oct 2026 03:48:11 +0800
+Subject: [PATCH 03/18] dt-bindings: clock: add Zhihe A210 clock controllers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,10 +48,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDVpBw2uIhZVg7EoaRGJuLti+
- ZKff0EgzxSgTi7wdHDgxUWoNAE7GTeS4D4aUKJWElEYVFKw4030WWm7inReaAOxXz0NfH6vpv0
- d9m4mu70DuO8Hf3JP0m0AAAA=
-X-Change-ID: 20261022-a210-init-d38cb9e6456a
+Message-Id: <20261022-a210-init-v1-3-09fb4d99da65@iscas.ac.cn>
+References: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
+In-Reply-To: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -71,100 +68,931 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
  Han Gao <gaohan@iscas.ac.cn>
 X-Mailer: b4 0.16.0
-X-CM-TRANSID:rQCowAB3gT_6Ftlqxu5hCw--.4480S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCw4rAFW3ArW8Zr4kCF1UAwb_yoW5Aw4xpF
-	srCrW3tFWUCr4aqr4fZF48Cr1fXF1rGa4aga9Fg347JFsxAFWUAwnxKFyvyr4kGrs3Cry2
-	yFyUG393ua4YvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJV
-	WUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0pRWv3bUUUUU=
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBggHDGrYxtWXvwAAsM
+X-CM-TRANSID:rQCowAB3gT_6Ftlqxu5hCw--.4480S5
+X-Coremail-Antispam: 1UD129KBjvAXoWfZF4UXF1ruFy8Zr47Xw4fZrb_yoW5XF1rAo
+	Z7t3WfAw1UJw4xArWDWw17Xr13ArW7Jry7JF18Jry8JF92qr1DCFn5JrW0qF13XryYgr98
+	Ar15trs8A3yYkrWDn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+	AaLaJ3UjIYCTnIWjp_UUUO37AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20EY4v20xva
+	j40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r1rM28IrcIa0x
+	kI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84AC
+	jcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr
+	1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_
+	Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6x
+	IIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_
+	Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8c
+	xan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCj
+	c4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
+	CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
+	MIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJV
+	WUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUv
+	cSsGvfC2KfnxnUUI43ZEXa7sRRwID5UUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBgQHDGrYxtWXyAAAs3
 
-This series adds initial support for the Zhihe A210 SoC and the Melon Pi
-V1 and V2 boards.
+From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 
-The A210 features eight RISC-V cores in two clusters: four C908 cores
-and four C920 cores.
+Add bindings for the A210 clock controllers, including register ranges,
+input clocks and clock IDs.
 
-This series provides UART, clock, reset and pinctrl support, together
-with the required bindings and device trees.
-
-It is based on Linux v7.3 and has been boot-tested on a Melon Pi V2
-with all eight CPUs online.
-
+Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
-Han Gao (6):
-      dt-bindings: clock: add Zhihe A210 AON clock controller
-      dt-bindings: timer: add Zhihe A210 CLINT
-      riscv: dts: zhihe: add A210 module memory
-      riscv: dts: zhihe: add Melon Pi V1 and V2
-      riscv: defconfig: enable A210 support
-      MAINTAINERS: add Zhihe A210
+ .../devicetree/bindings/clock/zhihe,a210-clk.yaml  | 231 ++++++++
+ include/dt-bindings/clock/zhihe,a210-clk.h         | 649 +++++++++++++++++++++
+ 2 files changed, 880 insertions(+)
 
-Zhiguo Zhu (12):
-      dt-bindings: vendor-prefixes: add Zhihe
-      riscv: add Zhihe A210 support
-      dt-bindings: clock: add Zhihe A210 clock controllers
-      clk: zhihe: add A210 support
-      dt-bindings: reset: add Zhihe A210 reset controllers
-      reset: zhihe: add A210 support
-      dt-bindings: pinctrl: add Zhihe A210 pin controller
-      pinctrl: zhihe: add A210 support
-      dt-bindings: interrupt-controller: add Zhihe A210 PLIC
-      dt-bindings: riscv: add Melon Pi V1 and V2
-      riscv: dts: zhihe: add A210 core support
-      riscv: dts: zhihe: add A210 UARTs
+diff --git a/Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml b/Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml
+new file mode 100644
+index 000000000000..a3546d2f5977
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/zhihe,a210-clk.yaml
+@@ -0,0 +1,231 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/zhihe,a210-clk.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ZhiHe A210 Clock Controller
++
++maintainers:
++  - Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
++
++description:
++  The ZhiHe A210 SoC contains several clock controllers spread across
++  different subsystems. Each controller manages PLLs, dividers, gates and
++  muxes for its subsystem. The register regions consumed by a controller
++  depend on the specific compatible string.
++
++properties:
++  compatible:
++    enum:
++      - zhihe,a210-clk
++      - zhihe,a210-peri-clk
++      - zhihe,a210-gpu-clk
++      - zhihe,a210-pcie-clk
++      - zhihe,a210-usb-clk
++      - zhihe,a210-vi-clk
++      - zhihe,a210-vp-clk
++      - zhihe,a210-vo-clk
++      - zhihe,a210-npu-clk
++
++  reg:
++    minItems: 1
++    maxItems: 9
++
++  reg-names:
++    minItems: 1
++    maxItems: 9
++
++  clocks:
++    description: Input reference oscillators.
++    minItems: 1
++    maxItems: 3
++
++  clock-names:
++    minItems: 1
++    maxItems: 3
++    items:
++      enum:
++        - osc-32k
++        - osc-24m
++        - rc-24m
++
++  power-domains:
++    maxItems: 1
++
++  "#clock-cells":
++    const: 1
++    description:
++      The single cell is the clock ID defined in
++      include/dt-bindings/clock/zhihe,a210-clk.h.
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - "#clock-cells"
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-clk
++    then:
++      properties:
++        reg:
++          minItems: 9
++        reg-names:
++          items:
++            - const: pll-wrap
++            - const: top-crg
++            - const: cpu-ss-clk-sysreg
++            - const: cpu-ss-cpu-pll
++            - const: ddr0-sysreg
++            - const: ddr1-sysreg
++            - const: slc-dual-sysreg
++            - const: top-crg-t
++            - const: cpu-ss-ccu
++        clocks:
++          minItems: 3
++        clock-names:
++          items:
++            - const: osc-32k
++            - const: osc-24m
++            - const: rc-24m
++      required:
++        - clocks
++        - clock-names
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-peri-clk
++    then:
++      properties:
++        reg:
++          minItems: 5
++          maxItems: 5
++        reg-names:
++          items:
++            - const: peri0-sysreg
++            - const: peri1-sysreg
++            - const: peri2-sysreg
++            - const: peri3-sysreg
++            - const: tee-crg
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-gpu-clk
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 2
++        reg-names:
++          items:
++            - const: gpu-ss-pwrap-clk-en
++            - const: gpu-ss-top-clk-en
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-pcie-clk
++    then:
++      properties:
++        reg:
++          maxItems: 1
++        reg-names:
++          items:
++            - const: pcie-clk-en
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-usb-clk
++    then:
++      properties:
++        reg:
++          maxItems: 1
++        reg-names:
++          items:
++            - const: usb-clk-en
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-vi-clk
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 2
++        reg-names:
++          items:
++            - const: vi-clk
++            - const: vi-misc-ctrl
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-vp-clk
++    then:
++      properties:
++        reg:
++          maxItems: 1
++        reg-names:
++          items:
++            - const: vp-clk
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-vo-clk
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 2
++        reg-names:
++          items:
++            - const: vo-clk
++            - const: vo-path-ctrl
++
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-npu-clk
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 2
++        reg-names:
++          items:
++            - const: npu-clk
++            - const: npu-top-clk
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/zhihe,a210-clk.h>
++
++    clock-controller@260000 {
++        compatible = "zhihe,a210-clk";
++        reg = <0x00260000 0x1000>,
++              <0x00250000 0x1000>,
++              <0x10141600 0x100>,
++              <0x10141400 0x100>,
++              <0x04810000 0x1000>,
++              <0x05810000 0x1000>,
++              <0x04900000 0x1000>,
++              <0x20250000 0x1000>,
++              <0x10140000 0xe00>;
++        reg-names = "pll-wrap", "top-crg", "cpu-ss-clk-sysreg", "cpu-ss-cpu-pll",
++                    "ddr0-sysreg", "ddr1-sysreg", "slc-dual-sysreg", "top-crg-t",
++                    "cpu-ss-ccu";
++        #clock-cells = <1>;
++        clocks = <&osc_32k>, <&osc_24m>, <&rc_24m>;
++        clock-names = "osc-32k", "osc-24m", "rc-24m";
++    };
+diff --git a/include/dt-bindings/clock/zhihe,a210-clk.h b/include/dt-bindings/clock/zhihe,a210-clk.h
+new file mode 100644
+index 000000000000..aa59d91a9ad0
+--- /dev/null
++++ b/include/dt-bindings/clock/zhihe,a210-clk.h
+@@ -0,0 +1,649 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++#ifndef _DT_BINDINGS_CLOCK_ZHIHE_A210_CLK_H
++#define _DT_BINDINGS_CLOCK_ZHIHE_A210_CLK_H
++
++// PLL_WRAP
++#define AUDIO0_PLL_FOUTVCO                                 0
++#define AUDIO0_PLL_FOUTPOSTDIV                             1
++#define AUDIO0_PLL_FOUT2                                   2
++#define AUDIO1_PLL_FOUTVCO                                 3
++#define AUDIO1_PLL_FOUTPOSTDIV                             4
++#define AUDIO1_PLL_FOUT2                                   5
++#define GMAC_PLL_FOUTVCO                                   6
++#define GMAC_PLL_FOUTPOSTDIV                               7
++#define GMAC_PLL_FOUT1PH0                                  8
++#define DVFS_PLL_FOUTVCO                                   9
++#define DPU0_PLL_FOUTPOSTDIV                               10
++#define DPU1_PLL_FOUTVCO                                   11
++#define DPU1_PLL_FOUTPOSTDIV                               12
++#define DPU2_PLL_FOUTVCO                                   13
++#define DPU2_PLL_FOUTPOSTDIV                               14
++#define VIDEO_PLL_FOUTVCO                                  15
++#define VIDEO_PLL_FOUTPOSTDIV                              16
++#define VIDEO_PLL_FOUT1PH0                                 17
++#define VIDEO_PLL_FOUT3                                    18
++#define TEE_PLL_FOUTVCO                                    19
++
++// TOP_CRG
++#define IOMMU_PTW_ACLK_DIV                                 20
++#define NOC_CCLK_DIV                                       21
++#define NOC_CCLK_MUX                                       22
++#define TOP_CFG_ACLK_DIV                                   23
++#define TOP_PCLK_DIV                                       24
++#define TOP_CPU_BAK_PLL0_CLK_DIV4                          25
++#define TOP_CPUSYS_PIC_CLK_DIV                             26
++#define TOP_CPU_DDR1_ACLK_MUX                              27
++#define TOP_CPU_DDR0_ACLK_MUX                              28
++#define TOP_CPU_BAK_PLL0_CLK_MUX0                          29
++#define TOP_CPU_BAK_PLL0_CLK_DIV0                          30
++#define TOP_CPU_BAK_PLL0_CLK_DIV1                          31
++#define TOP_CPU_BAK_PLL0_CLK_DIV3                          32
++#define TOP_CPUSYS_PIC_CLK_MUX                             33
++#define TOP_CPU_BAK_PLL0_CLK_MUX                           34
++#define TOP_CPU_BAK_PLL1_CLK_DIV1                          35
++#define TOP_CPUSYS_BUS_CLK_DIV                             36
++#define TOP_CPUSYS_BUS_CLK_MUX                             37
++#define TOP_CPU_BAK_PLL1_CLK_DIV0                          38
++#define TOP_CPU_BAK_PLL1_CLK_MUX0                          39
++#define TOP_CPU_BAK_PLL1_CLK_DIV3                          40
++#define TOP_CPU_BAK_PLL1_CLK_MUX                           41
++#define TOP_D2D_REF_CLK_MUX                                42
++#define TOP_D2D_SCAN_CLK0_DIV                              43
++#define TOP_D2D_SCAN_CLK1_DIV                              44
++#define TOP_D2D_ACLK_DIV                                   45
++#define TOP_D2D_ACLK_MUX                                   46
++#define AMUX_CLK_DIV                                       47
++#define TOP_GPU_CORE_CLK_DIV                               48
++#define TOP_GPU_CORE_CLK_MUX                               49
++#define TOP_PCIE_SCAN_REF_CLK1_DIV                         50
++#define TOP_PCIE_SCAN_REF_CLK0_DIV                         51
++#define TOP_PCIE_AXI_M_ACLK_DIV                            52
++#define TOP_PCIE_AXI_M_ACLK_MUX                            53
++#define TOP_PERI_SPI_SSI_CLK0_DIV                          54
++#define TOP_PERI_MST_ACLK0_DIV                             55
++#define TOP_PERI_TIMER_CLK_MUX                             56
++#define TOP_PERI_I2S_8CH0_SRC_CLK_MUX                      57
++#define TOP_PERI_I2S_2CH0_SRC_CLK_MUX                      58
++#define TOP_PERI_QSPI_SSI_CLK_MUX0                         59
++#define TOP_PERI_QSPI0_SSI_CLK_DIV0                        60
++#define TOP_PERI_QSPI0_SSI_CLK_DIV1                        61
++#define TOP_PERI_SPI_SSI_CLK1_DIV                          62
++#define TOP_PERI_HIRES_CLK0_DIV                            63
++#define TOP_PERI_HIRES_CLK1_DIV                            64
++#define TOP_PERI_TDM_SRC_CLK_MUX                           65
++#define TOP_UART_SCLK_MUX                                  66
++#define TOP_PERI_I2S_2CH1_SRC_CLK_MUX                      67
++#define TOP_PERI_PDM_MCLK_MUX                              68
++#define TOP_PERI_I2S_2CH2_SRC_CLK_MUX                      69
++#define TOP_PERI_QSPI_SSI_CLK_MUX1                         70
++#define TOP_PERI_QSPI1_SSI_CLK_DIV0                        71
++#define TOP_PERI_QSPI1_SSI_CLK_DIV1                        72
++#define TOP_PERI_MST_CLK1_DIV                              73
++#define TOP_PERI_EMMC_REF_CLK_DIV                          74
++#define TOP_PERI_PDM_MCLK_DIV                              75
++#define TOP_PERI_EMMC_REF_CLK_MUX                          76
++#define TOP_PAD_SENSOR_VCLK_MUX1                           77
++#define TOP_PAD_SENSOR_VCLK_MUX0                           78
++#define TOP_PAD_SENSOR_VCLK1_DIV                           79
++#define TOP_PAD_SENSOR_VCLK0_DIV                           80
++#define TOP_TEE_CLK_DIV                                    81
++#define TOP_TEE_CLK_MUX                                    82
++#define TOP_USB_BUS_ACLK_DIV                               83
++#define TOP_USB_DP_AUX_CLK_DIV                             84
++#define TOP_VP_ACLK_MUX                                    85
++#define TOP_VP_ACLK_DIV                                    86
++#define TOP_VP_G2D_CCLK_DIV                                87
++#define TOP_VP_G2D_CCLK_MUX                                88
++#define TOP_VP_VDEC_CCLK_DIV                               89
++#define TOP_VP_VDEC_CCLK_MUX                               90
++#define TOP_VP_VENC_CCLK_DIV                               91
++#define TOP_VP_VENC_CCLK_MUX                               92
++#define TOP_NPU_ACLK_DIV                                   93
++#define TOP_NPU_ACLK_MUX                                   94
++#define TOP_NPU_CCLK_DIV                                   95
++#define TOP_NPU_CCLK_MUX                                   96
++#define TOP_USB_USB20_SCAN_REF_CLK_DIV                     97
++#define TOP_USB_SCAN_REF_CLK3_DIV                          98
++#define TOP_USB_SCAN_REF_CLK2_DIV                          99
++#define TOP_USB_SCAN_REF_CLK1_DIV                          100
++#define TOP_USB_SCAN_REF_CLK0_DIV                          101
++#define TOP_CPU_BAK_PLL1_CLK_DIV4                          102
++#define SW_TOP_PAD_SENSOR_VCLK1_EN                         103
++#define SW_TOP_PAD_SENSOR_VCLK0_EN                         104
++#define SW_NOC_CCLK_EN                                     105
++#define SW_TOP_OSC_CLK_LOGIC_EN                            106
++#define SW_IOMMU_PTW_330_ACLK_EN                           107
++#define SW_AMUX_660_CLK_EN                                 108
++#define SW_NPU_SS_CLK_EN                                   109
++#define SW_CPU_SS_CLK_EN                                   110
++#define SW_DDR_SS_CLK_EN                                   111
++#define SW_D2D_SS_CLK_EN                                   112
++#define SW_VP_SS_CLK_EN                                    113
++#define SW_VO_SS_CLK_EN                                    114
++#define SW_VI_SS_CLK_EN                                    115
++#define SW_PCIE_SS_CLK_EN                                  116
++#define SW_USB_SS_CLK_EN                                   117
++#define SW_PERI1_SS_CLK_EN                                 118
++#define SW_PERI3_SS_CLK_EN                                 119
++#define SW_GPU_SS_CLK_EN                                   120
++
++// CPU_SS_CLK_SYSREG
++#define C908_CPU_TO_CDE_CLK_MUX                            121
++#define C920_CPU_TO_CDE_CLK_MUX                            122
++
++// CPU_SS_CPU_PLL
++#define C908_PLL_FOUTVCO                                   123
++#define C920_PLL_FOUTVCO                                   124
++
++// GPU_SS_SYSREG
++#define SW_PWR_WRAP_X2P_PCLK_EN                            125
++#define SW_PWR_WRAP_SYSREG_PCLK_EN                         126
++#define SW_PWR_WRAP_DFMU_PCLK_EN                           127
++#define SW_PWR_WRAP_X2P_ACLK_EN                            128
++#define SW_PWR_WRAP_CFG_ACLK_EN                            129
++#define SW_PWR_WRAP_CFG_AAB_MST_ACLK_EN                    130
++#define SW_PWR_WRAP_GPU_SYS_CLK_EN                         131
++#define SW_PWR_WRAP_MEMIF_AAB_SLV_CORE_CLK_EN              132
++#define SW_PWR_WRAP_DFMU_CORE_CLK_EN                       133
++#define SW_PWR_WRAP_GPU_CORE_CLK_EN                        134
++
++// GPU_SS_TOP_SYSREG
++#define SW_TOP_CFG_AAB_SLV_ACLK_EN                         135
++#define SW_TOP_X2P_PCLK_EN                                 136
++#define SW_TOP_SYSREG_PCLK_EN                              137
++#define SW_TOP_X2P_ACLK_EN                                 138
++#define SW_TOP_CFG_ACLK_EN                                 139
++#define SW_TOP_AFENCE_ACLK_EN                              140
++#define SW_MEMIF_AAB_MST_BUS_CLK_EN                        141
++
++// NPU_CRG
++#define NPU_CCLK_BUF_CDE_RATIO                             142
++#define NPU_CCLK_BUF_CDE_MUX                               143
++#define NPU_ACLK_BUF_CDE_RATIO                             144
++#define NPU_ACLK_BUF_CDE_MUX                               145
++#define SW_DROOP_PCLK_EN                                   146
++#define SW_DROOP_CLK_EN                                    147
++#define SW_DROOP_CCTRL_PCLK_EN                             148
++#define SW_DROOP_CCTRL_CLK_EN                              149
++#define SW_SEMA_PCLK_EN                                    150
++#define SW_SEMA_ACLK_EN                                    151
++#define SW_NPU_X2P_ACLK_EN                                 152
++#define SW_NPU_X2H_ACLK_EN                                 153
++#define SW_NPU_PTW_CCU_PCLK_EN                             154
++#define SW_NPU_PTW_CCU_CLK_EN                              155
++#define SW_NPU_PCTRL_PCLK_EN                               156
++#define SW_NPU_PCTRL_EN                                    157
++#define SW_NPU_LPE_C_PCLK_EN                               158
++#define SW_NPU_LPE_C_CLK_EN                                159
++#define SW_NPU_LPC_C_CLK_EN                                160
++#define SW_NPU_IP_HCLK_EN                                  161
++#define SW_NPU_IP_CCLK_EN                                  162
++#define SW_NPU_IP_ACLK_EN                                  163
++#define SW_NPU_DFMU_PTWCLK_EN                              164
++#define SW_NPU_DFMU_PCLK_EN                                165
++#define SW_NPU_CLK_CALC_EN                                 166
++#define SW_NPU_AXI_M2S1_ACLK_EN                            167
++#define SW_NPU_AXI_CCU_PCLK_EN                             168
++#define SW_NPU_AXI_CCU_CLK_EN                              169
++#define SW_NPU_AXI_ACLK_EN                                 170
++#define SW_NPU_AFENCE_EN                                   171
++#define SW_NPU_AAB_MST_ACLK_EN                             172
++#define SW_DFMU_ACLK_EN                                    173
++
++// NPU_TOP_CRG
++#define SW_NPUSS_AAB_SLV_CLK_EN                            174
++#define SW_NPUSS_FENCE_CLK_EN                              175
++
++// DDR0_SYSREG
++#define DDR0_PHY_DFICLK_EN                                 176
++#define DDR0_DDRC_ACLK_EN                                  177
++#define DDR0_DDRC_CCLK_EN                                  178
++#define DDR0_SBR_CLK_EN                                    179
++
++// DDR1_SYSREG
++#define DDR1_PHY_DFICLK_EN                                 180
++#define DDR1_DDRC_ACLK_EN                                  181
++#define DDR1_DDRC_CCLK_EN                                  182
++#define DDR1_SBR_CLK_EN                                    183
++
++// SLC_DUAL_SYSREG
++#define DDR_PLL_FOUTVCO                                    184
++#define DDR_PLL_FOUTPOSTDIV                                185
++#define DDR_PLL_FOUT1PH0                                   186
++#define DDR_PLL_FOUT2                                      187
++#define DDR_PLL_FOUT4                                      188
++#define DDR_PLL_CLK_SEL                                    189
++#define DDR_PLL_CLK_EN                                     190
++#define DDR_CBUS2DDR_ACLK0                                 191
++#define DDR_CBUS2DDR_ACLK1                                 192
++
++// D2D_CRG_REG_T
++#define D2D_SS_CTRL0_CLK_EN                                193
++#define D2D_SS_CTRL1_CLK_EN                                194
++
++// PCIE_CPR
++#define AXI4_PCIE_MST_PCLK_EN                              195
++#define AXI4_PCIE_MST_ACLK_EN                              196
++#define X2X_PERI3_MST_ACLK_EN                              197
++#define X2X_PERI3_SLV_ACLK_EN                              198
++#define PCIE_SS_DFMU_ACLK_EN                               199
++#define PCIE_SS_DFMU_IOMMU_PTW_ACLK_EN                     200
++#define PCIE_SS_DFMU_PCLK_EN                               201
++#define E16PHY_PCLK_EN                                     202
++#define SATA_MST_AFENCE_ACLK_EN                            203
++#define SATA_SLV_AFENCE_ACLK_EN                            204
++#define SATA_GEN3X2_ACLK_EN                                205
++#define X2X_SATA_SLV_ACLK_EN                               206
++#define X2X_SATA_MST_ACLK_EN                               207
++#define SATA_RXOOB1_CLK_EN                                 208
++#define SATA_RXOOB0_CLK_EN                                 209
++#define SATA_PMALIVE_CLK_EN                                210
++#define PCIE_DM_MST_AFENCE_ACLK_EN                         211
++#define PCIE_DM_SLV_AFENCE_ACLK_EN                         212
++#define PCIE_DM_GEN3X4_AUX_CLK_EN                          213
++#define PCIE_DM_GEN3X4_MST_ACLK_EN                         214
++#define PCIE_DM_GEN3X4_PCLK_EN                             215
++#define PCIE_DM_GEN3X4_SLV_ACLK_EN                         216
++#define PCIE_RP_MST_AFENCE_ACLK_EN                         217
++#define PCIE_RP_SLV_AFENCE_ACLK_EN                         218
++#define PCIE_RP_GEN3X1_AUX_CLK_EN                          219
++#define PCIE_RP_GEN3X1_MST_ACLK_EN                         220
++#define PCIE_RP_GEN3X1_PCLK_EN                             221
++#define PCIE_RP_GEN3X1_SLV_ACLK_EN                         222
++
++// USB_CPR
++#define USB_SS_AXI_MST_PCLK_EN                             223
++#define USB_SS_AXI_MST_ACLK_EN                             224
++#define USB_SS_DFMU_IOMMU_PTW_ACLK_EN                      225
++#define USB_SS_DFMU_ACLK_EN                                226
++#define USB_SS_DFMU_PCLK_EN                                227
++#define DPTX_I2S_CLK_EN                                    228
++#define DPTX_IPI_CLK_EN                                    229
++#define DPTX_AUX_CLK_EN                                    230
++#define DPTX_GTC_CLK_EN                                    231
++#define DPTX_PCLK_EN                                       232
++#define USB31_SLV_AFENCE_ACLK_EN                           233
++#define USB31_REF_CLK_EN                                   234
++#define USB31_SUSPEND_CLK_EN                               235
++#define USB31_BUS_CLK_EN                                   236
++#define USB31_PCLK_EN                                      237
++#define C10PHY_SUSPEND_CLK_EN                              238
++#define C10PHY_PCLK_EN                                     239
++#define USB2_SYSREG_PCLK_EN                                240
++#define USB2_AXI_MST_ACLK_EN                               241
++#define USB2_AHB_SLV_HCLK_EN                               242
++#define USB2_H2P_HCLK_EN                                   243
++#define USB2_SLV_AFENCE_ACLK_EN                            244
++#define USB2_X2H_ACLK_EN                                   245
++#define USB2_X2H_HCLK_EN                                   246
++#define USB2_WRAP_A2X1_ACLK_EN                             247
++#define USB2_WRAP_A2X1_HCLK_EN                             248
++#define USB2_WRAP_A2X0_ACLK_EN                             249
++#define USB2_WRAP_A2X0_HCLK_EN                             250
++#define USB2_WRAP1_HCLK_EN                                 251
++#define USB2_WRAP0_HCLK_EN                                 252
++#define USB_SS_PERI2_SLV_AFENCE_ACLK_EN                    253
++#define USB_SS_PERI2_CFG_ACLK_EN                           254
++
++// VI_SYSREG
++#define VI_DW_SCLK_EN                                      255
++#define VI_VSE_CLK_EN                                      256
++#define VI_DWE_CLK_EN                                      257
++#define VI_DW200_ACLK_EN                                   258
++#define VI_DW200_HCLK_EN                                   259
++#define VI_DECOMP_CLK_EN                                   260
++#define VI_COMP1_CLK_EN                                    261
++#define VI_COMP0_CLK_EN                                    262
++#define VI_VSEOUT_CLK_EN                                   263
++#define VI_DECOUT_CLK_EN                                   264
++#define VI_ISPOUT_CLK_EN                                   265
++#define VI_COMP_ACLK_EN                                    266
++#define VI_COMP_PCLK_EN                                    267
++#define VI_ISP_CLK_EN                                      268
++#define VI_VIPRE_ACLK_EN                                   269
++#define VI_VIPRE_SCLK_EN                                   270
++#define VI_VIPRE_I1_PIXCLK_EN                              271
++#define VI_VIPRE_I0_PIXCLK_EN                              272
++#define VI_VIPRE_PCLK_EN                                   273
++#define VI_MIPI1_CSI1_PIXCLK_EN                            274
++#define VI_MIPI1_CSI0_PIXCLK_EN                            275
++#define VI_MIPI1B_CFGCLK_EN                                276
++#define VI_MIPI1A_CFGCLK_EN                                277
++#define VI_MIPI1CSI1_PCLK_EN                               278
++#define VI_MIPI1CSI0_PCLK_EN                               279
++#define VI_MIPI0_CSI1_PIXCLK_EN                            280
++#define VI_MIPI0_CSI0_PIXCLK_EN                            281
++#define VI_MIPI0B_CFGCLK_EN                                282
++#define VI_MIPI0A_CFGCLK_EN                                283
++#define VI_MIPI0CSI1_PCLK_EN                               284
++#define VI_MIPI0CSI0_PCLK_EN                               285
++#define VI_REC_ACLK_EN                                     286
++#define VI_REC_PCLK_EN                                     287
++#define VI_FENCE_ACLK_EN                                   288
++#define VI_MIPI1CSI1_FPCLK_EN                              289
++#define VI_MIPI1CSI0_FPCLK_EN                              290
++#define VI_MIPI0CSI1_FPCLK_EN                              291
++#define VI_MIPI0CSI0_FPCLK_EN                              292
++#define VI_X2H2_CLK_EN                                     293
++#define VI_X2H1_CLK_EN                                     294
++#define VI_X2H0_CLK_EN                                     295
++#define VI_ARB_ACLK_EN                                     296
++#define VI_ARB_PCLK_EN                                     297
++#define VI_PTW_ACLK_EN                                     298
++#define VI_DFMU_ACLK_EN                                    299
++#define VI_DFMU_PCLK_EN                                    300
++#define VI_PRE_ISP_CORE_CLK_DIV_EN                         301
++#define VI_PRE_ISP_IF_CLK_DIV_EN                           302
++#define VI_PRE_MIPI1_PIXCLK_DIV_EN                         303
++#define VI_PRE_MIPI0_PIXCLK_DIV_EN                         304
++#define VI_ISP_IF_REF_SWITCH_SEL                           305
++#define VI_MIPI1_PIX_REF_SWITCH_SEL                        306
++#define VI_MIPI0_PIX_REF_SWITCH_SEL                        307
++#define VI_PRE_ISP_CORE_CLK_DIV_NUM                        308
++#define VI_PRE_ISP_IF_CLK_DIV_NUM                          309
++#define VI_PRE_MIPI1_PIXCLK_DIV_NUM                        310
++#define VI_PRE_MIPI0_PIXCLK_DIV_NUM                        311
++#define VI_PRE_DECOMP_CLK_DIV_EN                           312
++#define VI_PRE_COMP_CLK_DIV_EN                             313
++#define VI_PRE_DWE_CLK_DIV_EN                              314
++#define VI_PRE_VSE_CLK_DIV_EN                              315
++#define VI_PRE_AXI_CLK_DIV_EN                              316
++#define VI_PRE_DECOMP_CLK_DIV_NUM                          317
++#define VI_PRE_COMP_CLK_DIV_NUM                            318
++#define VI_PRE_DWE_CLK_DIV_NUM                             319
++#define VI_PRE_VSE_CLK_DIV_NUM                             320
++#define VI_PRE_AXI_CLK_DIV_NUM                             321
++
++// VO_SYSREG
++#define VO_X2H1_CLK_EN                                     322
++#define VO_X2H0_CLK_EN                                     323
++#define VO_PTW_ACLK_EN                                     324
++#define VO_DFMU_ACLK_EN                                    325
++#define VO_DFMU_PCLK_EN                                    326
++#define VO_ARB_ACLK_EN                                     327
++#define VO_ARB_PCLK_EN                                     328
++#define VO_DECOMP_ACLK_EN                                  329
++#define VO_DECOMP1_CLK_EN                                  330
++#define VO_DECOMP0_CLK_EN                                  331
++#define VO_DECOMP_PCLK_EN                                  332
++#define VO_MIPI_CFGCLK_EN                                  333
++#define VO_MIPI_PCLK_EN                                    334
++#define VO_HDMI_SFRCLK_EN                                  335
++#define VO_CEC_CLK_EN                                      336
++#define VO_I2S_CLK_EN                                      337
++#define VO_HDMI_PCLK_EN                                    338
++#define VO_AUXDISP_ACLK_EN                                 339
++#define VO_AUXDISP_PCLK_EN                                 340
++#define VO_CH2_PIXCLK_EN                                   341
++#define VO_DPU_ACLK_EN                                     342
++#define VO_DPUC_CLK_EN                                     343
++#define VO_DPU_HCLK_EN                                     344
++#define VO_CH1_PIXCLK_EN                                   345
++#define VO_CH0_PIXCLK_EN                                   346
++#define VO_PLL2_DIV_EN                                     347
++#define VO_PLL2_DIV_NUM                                    348
++#define VO_PLL1_DIV_EN                                     349
++#define VO_PLL1_DIV_NUM                                    350
++#define VO_PLL0_DIV_EN                                     351
++#define VO_PLL0_DIV_NUM                                    352
++#define VO_DECOMP_DIV_EN                                   353
++#define VO_DECOMP_DIV_NUM                                  354
++#define VO_DPUC_DIV_EN                                     355
++#define VO_DPUC_DIV_NUM                                    356
++#define VO_ACLK_DIV_EN                                     357
++#define VO_ACLK_DIV_NUM                                    358
++
++// VP_SYSREG
++#define VP_DECOMP_EXTPCLK_EN                               359
++#define VP_COMP_EXTPCLK_EN                                 360
++#define VP_VENC_RS_ACLK_EN                                 361
++#define VP_VDEC_RS_ACLK_EN                                 362
++#define VP_ARB_ACLK_EN                                     363
++#define VP_ARB_PCLK_EN                                     364
++#define VP_PTW_ACLK_EN                                     365
++#define VP_DFMU_ACLK_EN                                    366
++#define VP_DFMU_PCLK_EN                                    367
++#define VP_DECOMP_ACLK_EN                                  368
++#define VP_DECOMP_CCLK_EN                                  369
++#define VP_DECOMP_PCLK_EN                                  370
++#define VP_COMP_ACLK_EN                                    371
++#define VP_COMP_CCLK_EN                                    372
++#define VP_COMP_PCLK_EN                                    373
++#define VP_G2D_ACLK_EN                                     374
++#define VP_G2D_CCLK_EN                                     375
++#define VP_G2D_PCLK_EN                                     376
++#define VP_VENC_ACLK_EN                                    377
++#define VP_VENC_CCLK_EN                                    378
++#define VP_VENC_PCLK_EN                                    379
++#define VP_VDEC_ACLK_EN                                    380
++#define VP_VDEC_CCLK_EN                                    381
++#define VP_VDEC_PCLK_EN                                    382
++#define VP_DECOMP_DIV_EN                                   383
++#define VP_DECOMP_DIV_NUM                                  384
++#define VP_COMP_DIV_EN                                     385
++#define VP_COMP_DIV_NUM                                    386
++
++// PERI0_SYSREG
++#define PERI0_MBOX1_PCLK_EN                                387
++#define PERI0_MBOX0_PCLK_EN                                388
++#define PERI0_WDT0_PCLK_EN                                 389
++#define PERI0_TIMER1_PCLK_EN                               390
++#define PERI0_TIMER1_CCLK_EN                               391
++#define PERI0_TIMER0_PCLK_EN                               392
++#define PERI0_TIMER0_CCLK_EN                               393
++
++// PERI1_SYSREG
++#define PERI1_UART3_SCLK_EN                                394
++#define PERI1_UART3_PCLK_EN                                395
++#define PERI1_UART2_SCLK_EN                                396
++#define PERI1_UART2_PCLK_EN                                397
++#define PERI1_UART1_SCLK_EN                                398
++#define PERI1_UART1_PCLK_EN                                399
++#define PERI1_UART0_SCLK_EN                                400
++#define PERI1_UART0_PCLK_EN                                401
++#define PERI1_SPI0_SSI_CLK_EN                              402
++#define PERI1_SPI0_PCLK_EN                                 403
++#define PERI1_QSPI0_SSI_CLK_EN                             404
++#define PERI1_QSPI0_PCLK_EN                                405
++#define PERI1_PWM0_PCLK_EN                                 406
++#define PERI1_PWM0_CCLK_EN                                 407
++#define PERI1_MST_BUS_PCLK_EN                              408
++#define PERI1_MST_BUS_ACLK_EN                              409
++#define PERI1_I2S0_SRC_CLK_EN                              410
++#define PERI1_I2S0_PCLK_EN                                 411
++#define PERI1_I2C2_PCLK_EN                                 412
++#define PERI1_I2C2_IC_CLK_EN                               413
++#define PERI1_I2C1_PCLK_EN                                 414
++#define PERI1_I2C1_IC_CLK_EN                               415
++#define PERI1_I2C0_PCLK_EN                                 416
++#define PERI1_I2C0_IC_CLK_EN                               417
++#define PERI1_GPIO1_PCLK_EN                                418
++#define PERI1_GPIO1_DBCLK_EN                               419
++#define PERI1_GPIO0_PCLK_EN                                420
++#define PERI1_GPIO0_DBCLK_EN                               421
++#define PERI1_GMAC1_HCLK_EN                                422
++#define PERI1_GMAC1_ACLK_EN                                423
++#define PERI1_GMAC0_HCLK_EN                                424
++#define PERI1_GMAC0_ACLK_EN                                425
++
++// PERI2_SYSREG
++#define PERI2_I2S3_PCLK_EN                                 426
++#define PERI2_I2S3_SRC_CLK_EN                              427
++#define PERI2_I2S2_PCLK_EN                                 428
++#define PERI2_I2S2_SRC_CLK_EN                              429
++#define PERI2_I2S1_PCLK_EN                                 430
++#define PERI2_I2S1_SRC_CLK_EN                              431
++#define PERI2_I2C7_IC_CLK_EN                               432
++#define PERI2_I2C7_PCLK_EN                                 433
++#define PERI2_I2C6_IC_CLK_EN                               434
++#define PERI2_I2C6_PCLK_EN                                 435
++#define PERI2_I2C5_IC_CLK_EN                               436
++#define PERI2_I2C5_PCLK_EN                                 437
++#define PERI2_I2C4_IC_CLK_EN                               438
++#define PERI2_I2C4_PCLK_EN                                 439
++#define PERI2_I2C3_IC_CLK_EN                               440
++#define PERI2_I2C3_PCLK_EN                                 441
++#define PERI2_GPIO3_DBCLK_EN                               442
++#define PERI2_GPIO3_PCLK_EN                                443
++#define PERI2_PAD_CTRL_PCLK_EN                             444
++#define PERI2_UART6_PCLK_EN                                445
++#define PERI2_UART5_PCLK_EN                                446
++#define PERI2_UART4_PCLK_EN                                447
++#define PERI2_SPI1_PCLK_EN                                 448
++#define PERI2_GPIO2_PCLK_EN                                449
++#define PERI2_CAN2_PCLK_EN                                 450
++#define PERI2_UART6_SCLK_EN                                451
++#define PERI2_UART5_SCLK_EN                                452
++#define PERI2_UART4_SCLK_EN                                453
++#define PERI2_SPI1_SSI_CLK_EN                              454
++#define PERI2_GPIO2_DBCLK_EN                               455
++#define PERI2_CAN2_OSC_CLK_EN                              456
++#define PERI2_CAN2_HIRES_CLK_EN                            457
++#define PERI2_QSPI1_PCLK_EN                                458
++#define PERI2_QSPI1_SSI_CLK_EN                             459
++#define PERI2_UART9_PCLK_EN                                460
++#define PERI2_UART9_SCLK_EN                                461
++#define PERI2_UART8_PCLK_EN                                462
++#define PERI2_UART8_SCLK_EN                                463
++#define PERI2_UART7_PCLK_EN                                464
++#define PERI2_UART7_SCLK_EN                                465
++#define PERI2_PWM2_PCLK_EN                                 466
++#define PERI2_PWM2_CCLK_EN                                 467
++#define PERI2_PWM1_PCLK_EN                                 468
++#define PERI2_PWM1_CCLK_EN                                 469
++
++// PERI3_SYSREG
++#define PERI3_PAD_CTRL_PCLK_EN                             470
++#define PERI3_GPIO4_PCLK_EN                                471
++#define PERI3_GPIO4_DBCLK_EN                               472
++#define CLKCTRL_PERI3_TEE_H2H_SHCLKEN                      473
++#define CLKCTRL_PERI3_TEE_H2H_MHCLKEN                      474
++#define PERI3_TEE_X2X_ACLK_S_EN                            475
++#define PERI3_ADC_PCLK_EN                                  476
++#define AXI_PERI3_MST_PCLK_EN                              477
++#define AXI_PERI3_MST_ACLK_EN                              478
++#define PERI3_SDIO_X2X_ACLK_S_EN                           479
++#define PERI3_SDIO_X2X_ACLK_M_EN                           480
++#define PERI3_SDIO_OSC_CLK_EN                              481
++#define PERI3_SDIO_HCLK_EN                                 482
++#define PERI3_EMMC_X2X_ACLK_S_EN                           483
++#define PERI3_EMMC_X2X_ACLK_M_EN                           484
++#define PERI3_EMMC_OSC_CLK_EN                              485
++#define PERI3_EMMC_HCLK_EN                                 486
++#define PERI3_EMMC_ACLK_EN                                 487
++#define PERI3_EMMC_SDIO_REF_CLK_CG_EN                      488
++#define PERI3_DMAC_HCLK_EN                                 489
++#define PERI3_DMAC_ACLK_EN                                 490
++
++// TEE_CRG
++#define TEE_PCLK_CDE_RATIO                                 491
++#define TEE_AHB2_TEESYS_CLKEN                              492
++#define TEE_APB3_TEESYS_CLKEN                              493
++#define TEE_AXI4_TEESYS_CLKEN                              494
++#define TEE_X2P_TEESYS_CLKEN                               495
++#define TEE_EIP120SI_CLKEN                                 496
++#define TEE_EIP120SII_CLKEN                                497
++#define TEE_EIP120SIII_CLKEN                               498
++#define TEE_EIP150B_CLKEN                                  499
++#define TEE_DMAC_CLKEN                                     500
++#define TEE_DS_CLKEN                                       501
++#define TEE_OCRAM_CLKEN                                    502
++#define TEE_EFUSE_CLKEN                                    503
++#define TEE_KEYRAM_CLKEN                                   504
++
++#define CLK_DUMMY                                          505
++#define OSC_32K                                            506
++#define OSC_24M                                            507
++#define RC_24M                                             508
++
++#define TOP_PLL_REF_CLK                                    509
++#define AON_OSC_CLK_PHY                                    510
++#define AON_OSC_CLK_LOGIC                                  511
++#define PLL_OSC_CLK                                        512
++#define D2D_PHY_REF_CLK_100M                               513
++#define D2D_PHY_SCAN_CLK2                                  514
++#define TOP_PERI_TIMER_CLK_100M                            515
++#define PERI1_UART_SCLK                                    516
++#define PERI2_UART_SCLK                                    517
++#define UART_SCLK_100M                                     518
++#define GPU_TOP_SYS_CLK                                    519
++#define GPU_PCLK_CDT                                       520
++#define PCIE_SS_APB_CLK                                    521
++#define USB_SS_GTC_CLK                                     522
++#define USB_SS_PAD_OSC_CLK_1M                              523
++#define USB20_BUS_CLK                                      524
++#define USB20_CORE_CLK                                     525
++#define VI_PCLK                                            526
++#define VO_PCLK                                            527
++#define AON_RTC_CLK                                        528
++#define PERI1_PWM_CLK                                      529
++#define PERI2_PWM_CLK                                      530
++#define I2C_IC_CLK                                         531
++#define PERI3_SDIO_ACLK_EN                                 532
++
++#define PERI1_ZGMAC_X2X_ACLK_EN                            533
++#define PERI1_GMAC2_HCLK_EN                                534
++#define PERI1_GMAC2_ACLK_EN                                535
++#define PERI1_X2H_GMAC2_HCLK_EN                            536
++#define PERI1_X2H_GMAC2_ACLK_EN                            537
++#define PERI1_CHIP_DBG_PCLK_EN                             538
++#define PERI1_CHIP_DBG_CCLK_EN                             539
++#define PERI1_CHIP_DBG_ACLK_EN                             540
++#define PERI1_TDM0_SCLK_EN                                 541
++#define PERI1_TDM0_PCLK_EN                                 542
++#define PERI1_PDM0_PCLK_EN                                 543
++#define PERI1_PDM0_MCLK_EN                                 544
++#define PERI1_CAN1_PCLK_EN                                 545
++#define PERI1_CAN1_OSC_CLK_EN                              546
++#define PERI1_CAN1_HIRES_CLK_EN                            547
++#define PERI1_CAN0_PCLK_EN                                 548
++#define PERI1_CAN0_OSC_CLK_EN                              549
++#define PERI1_CAN0_HIRES_CLK_EN                            550
++#define PERI1_PAD_CTRL_PCLK_EN                             551
++#define PERI1_DFMU_PTW_ACLK_EN                             552
++#define PERI1_DFMU_PCLK_EN                                 553
++#define PERI1_DFMU_ACLK_EN                                 554
++#define PERI1_X2H_GMAC1_HCLK_EN                            555
++#define PERI1_X2H_GMAC1_ACLK_EN                            556
++#define PERI1_X2H_GMAC0_HCLK_EN                            557
++#define PERI1_X2H_GMAC0_ACLK_EN                            558
++#define DPU0_PLL_FOUTVCO                                   559
++
++#define PERI3_EMMC_SDIO_REF_CLK                            560
++
++#define VO_MIPI_PIXCLK                                     561
++#define VO_HDMI_PIXCLK                                     562
++#define VO_DPTX_PIXCLK                                     563
++
++#define TOP_CPUSYS_CFG_ACLK_DIV                            564
++#define TOP_CPUSYS_COM_APB_CLK_DIV                         565
++#define TOP_CPUSYS_APB_CLK_DIV                             566
++
++#define VI_MISC_CTRL_H0CLK_CLK_EN                          567
++#define VI_MISC_CTRL_H1CLK_CLK_EN                          568
++#define VI_MISC_CTRL_ISP_ACLK_CLK_EN                       569
++#define VI_MISC_CTRL_ISP_SCLK_CLK0_EN                      570
++#define VI_MISC_CTRL_ISP_SCLK_CLK1_EN                      571
++#define VI_MISC_CTRL_ISP_SCLK_CLK2_EN                      572
++#define VI_MISC_CTRL_ISP_SCLK_CLK3_EN                      573
++#define VI_MISC_CTRL_ISP_CORE_CLK_EN                       574
++#define VI_MISC_CTRL_ISP_FLEXA_CLK_EN                      575
++#define VI_MISC_CTRL_ISP_MCM_CLK_EN                        576
++#define VI_MISC_CTRL_BUS_CLK_GT_DISABLE                    577
++
++#define USB20_X2H_HCLK                                    578
++#define USB20_X2H_ACLK                                    579
++#define USB20_SLV_AFENCE_ACLK                             580
++#define USB20_H2P_HCLK                                    581
++#define USB20_AHB_SLV_HCLK                                582
++#define USB20_SYSREG_PCLK                                 583
++#define USB20_WRAP0_HCLK                                  584
++#define USB20_WRAP1_HCLK                                  585
++#define USB20_A2X0_HCLK                                   586
++#define USB20_A2X0_ACLK                                   587
++#define USB20_A2X1_HCLK                                   588
++#define USB20_A2X1_ACLK                                   589
++
++#define CLK_END 590
++
++#endif
 
- .../bindings/clock/zhihe,a210-aon-clk.yaml         |   58 +
- .../devicetree/bindings/clock/zhihe,a210-clk.yaml  |  231 ++
- .../interrupt-controller/sifive,plic-1.0.0.yaml    |    1 +
- .../bindings/pinctrl/zhihe,a210-pinctrl.yaml       |  206 ++
- .../bindings/reset/zhihe,a210-reset.yaml           |   56 +
- Documentation/devicetree/bindings/riscv/zhihe.yaml |   27 +
- .../devicetree/bindings/timer/sifive,clint.yaml    |    1 +
- .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
- MAINTAINERS                                        |   16 +
- arch/riscv/Kconfig.socs                            |   10 +
- arch/riscv/boot/dts/Makefile                       |    1 +
- arch/riscv/boot/dts/zhihe/Makefile                 |    2 +
- arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi |   55 +
- arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts      |    9 +
- arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts      |    9 +
- arch/riscv/boot/dts/zhihe/a210-som.dtsi            |   11 +
- arch/riscv/boot/dts/zhihe/a210.dtsi                |  645 ++++++
- arch/riscv/configs/defconfig                       |    4 +
- drivers/clk/Kconfig                                |    1 +
- drivers/clk/Makefile                               |    1 +
- drivers/clk/zhihe/Kconfig                          |   12 +
- drivers/clk/zhihe/Makefile                         |    2 +
- drivers/clk/zhihe/clk-a210-aon.c                   |   94 +
- drivers/clk/zhihe/clk-a210-ap.c                    | 2283 ++++++++++++++++++++
- drivers/pinctrl/Kconfig                            |   14 +
- drivers/pinctrl/Makefile                           |    1 +
- drivers/pinctrl/pinctrl-a210.c                     | 1206 +++++++++++
- drivers/reset/Kconfig                              |   11 +
- drivers/reset/Makefile                             |    1 +
- drivers/reset/reset-a210.c                         |  589 +++++
- include/dt-bindings/clock/zhihe,a210-aon-clk.h     |    9 +
- include/dt-bindings/clock/zhihe,a210-clk.h         |  649 ++++++
- include/dt-bindings/reset/zhihe,a210-resets.h      |  351 +++
- 33 files changed, 6568 insertions(+)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261022-a210-init-d38cb9e6456a
-
-Best regards,
---  
-Han Gao <gaohan@iscas.ac.cn>
+-- 
+2.55.0
 
