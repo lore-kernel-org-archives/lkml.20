@@ -1,69 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577745;
-	b=EerJeSp4DlmQO2J4bhnAvpyZCcQYXYSKQEiS4mAFlZM3f83T7Z+B/zirvKj9K3SZoYK/
-	 gQwD8AybfMQ3H5A8QypA3tk8sCpAYK/1EVf2xbtAv6r90cr4QnbMYqqrzyTRXgq/vTLJG
-	 JcamyVHKby0RfwNibPyUxCBfYcNO1ewFG6xPDc8TLj7JfJOWKkC97WoEIeEAgO0sjn/vx
-	 SY7g7c+7nCu6A9I+W36rE4WXqs4rCIyDP2mN+bhs/8zRA4BqwE1McBShzlUYvMqbLHkc2
-	 cRsfoGvAceoG3YMWNzfEK8wvWkHqLniBdjdIPnTd4BVYcmhQaMOLrECgHT1WSJ7YuVg==
+	t=1792577751;
+	b=cWTZd32B1izk05mBjuzB4+Uj2nAeuMzsGvHJqaFa4xAI9kHZZDAjoOWzjxh0TLRB4tPp
+	 PvRU9mbrE9h4fpz8WvWnus8XALpMPm9ajKJ7NPRk37LGzMVupqzOOQI7lcgb39tQlld5l
+	 4aidD4kEgPHUhPfkwGQjMrpG8CENmFhivp6MWY/TU6nnsZlK2CRsQKVB7UeE8TiO8aJ+T
+	 BjRbKG8aZ8Azy7fnBb06YfnRWs2rxIq/9Q5kfy3dIMx9B7SaqMHnu2V40SLCMeLu7TMSe
+	 ANsodMUIMhuMMF/fDWLMLUeelDLa6XwKzfh+kJzy5wLp6IrP5HARHwU+oSq+kMednaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577745;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=qID+dEtKjHnTB7zRrjAZ+x1ovn7794ILO31jRDajG3g=;
-	b=WCtjmPTUInfHP1Rj61PVTlfXbPhge2A6Uc9mPWlOWxtWQq+fSS/LUTyLwwFYZtJTvJOP
-	 yze0uGrx63LZ1eAybAzKPPCk7xLd6JkM8rq9QGsH4YYq5Vdt4yeS4I0frcaknVAL36ZpA
-	 FhQQWiR3CG06W0UU6uJhibTPKLyClWVYQ+2+Si5H0Ww/Yb1Uqm9gQORmdqyzkIQahhTBu
-	 0pxA/PR+Tu4gv5qoC3WGq0Qc4bP7n8BdXVSx5HBR60MxxuQuafsxG/vK5sOd8xDJ+a82+
-	 pI/5QixgTLnOjrdPeAEUBFSv5EIcDn9g3ro1tX5uiudzhYyv7l5RfBkoJuFTMG9IRmQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577751;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=8DP/MZB0fBPgzIkekTeOHpghkVXCO1d9ZH2ktreL8ZA=;
+	b=HMWH1ahtpeGRlOwj8zBpuMvEkwTijpLUGpWMiNZW009+pdBCIYrKaz4K8B06GdA6ydy9
+	 GyC0tIODxEqrXPXxuzQ9GF6SaY09s9OO7Q3j8WdHg8kIU3dARFXFGgJUHXDUNLimtOWE0
+	 hOT0qJT8PJPISpxxzTO9PBpv/8NMBEurJTEllhr/PbtBc+QJlgJmoezf/a+L4VTHqJVTN
+	 d/6NQS7aEo+E8qPAyGtjDqzUNgw85inJOQrz3NyAXv4cmDfylZ2hqdnkJh9AR9d5It8iW
+	 RKEBH38pkqpUWdLCB2Rq+w7dldOdQI2B6Zo6PWX1FEZLZX77JvDN8zo9ic8RKqHqD/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cknow-tech.com;
-	spf=pass smtp.mailfrom=cknow-tech.com;
-	dkim=pass header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=MzoRXlTX;
-	arc=none smtp.remote-ip=91.218.175.172
-Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nu0Gv38l;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5B1606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B5B1606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B2C606A319;
+	Wed, 21 Oct 2026 10:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=MzoRXlTX
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gsCMZZdvoKKiSu7dqO9JkNt1TMT38UkvVw1xwlAFKHE=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792577742; v=1; x=1793182542;
- b=MzoRXlTXc+JAtToIuPIerhcflb10/HaSykfPkyk9peAW+RP8wlgKsKIHjPMmynjgBKnzgFC9
- jp2IBpB2CbkGAKg+MEnPw4kXJyQY2aQaqHFgTix9HznEDdBq3Zh4/RFks6Ue/mIipL4qYZ4TpQU
- FpjjVtToQ3hFu5COTGPm30qRwdaJI7OftEDPaqFNDJBcAJ+GY5K315TPi/t8cAg14Ruf+bwRr54
- xTB2h0fi/4PspJ65z4lxfxAFyYkircfCMmMUNUT7xRNgeZQIzE/4phVfXsVgELWE5G7+ZP7IE1J
- 7zX2PrTFxEfv+XnqKhvDRSDqcV6psfzxUPOqfxqHmSisw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6805060a84a1d670;
-	Wed, 21 Oct 2026 10:15:38 +0000
-X-Mizu-Trace-ID: 6805060a84a1d670
-X-Migadu-Flow: FLOW_OUT
-From: Diederik de Haas <diederik@cknow-tech.com>
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	linux-pci@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH] PCI: dw-rockchip: Remove redundant dev_err()
-Date: Wed, 21 Oct 2026 12:14:57 +0200
-Message-ID: <20261021101533.609118-1-diederik@cknow-tech.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nu0Gv38l
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 191961F000C9;
+	Wed, 21 Oct 2026 10:15:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792577751;
+	bh=8DP/MZB0fBPgzIkekTeOHpghkVXCO1d9ZH2ktreL8ZA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=nu0Gv38l6a37pGTLMqhs645yg3oyDeOkh/XUs2wGR5+3sevlAeZUpFynqlPqbFq7o
+	 AZTdpKIDN/vfSa3PK/Py8IqHCilWPlSmG47+4GnxIg6uDXWmCJGdmi8YXDy4Rh3rVk
+	 /4oE/wJWmmpaSK8rbmypR9YyuNKiDrCWB1OqSMyLyOZ1aNHW2k5IZrHCDYUJmIyIcT
+	 pz9VmR3X0BCe7g32vQ+xPn49BotRx+nhKEnlPJsicMVZV97ueJNCRub//2Z0ejmC6z
+	 uKedhMuTeRH86yN/WShUk6DGCRGw0FQ7p4gb1GfOvfKS7qfZjpS1JzgYoFh+gQTNRP
+	 PlG5ettxmuCEQ==
+From: Christian Brauner <brauner@kernel.org>
+To: Omar Sandoval <osandov@osandov.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Nickolai Zeldovich <nickolai@csail.mit.edu>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>, 
+ Baoquan He <baoquan.he@linux.dev>, linux-debuggers@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261017034739.793431-1-nickolai@csail.mit.edu>
+References: <20261017034739.793431-1-nickolai@csail.mit.edu>
+Subject: Re: [PATCH v1] proc/kcore: advance the vmalloc retry by the last
+ copy, not the total
+Message-Id: <20261021-abgeurteilt-pinguine-eurem-93f8d494f0d7@brauner>
+Date: Wed, 21 Oct 2026 12:15:45 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,46 +62,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=920; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=RCzk9gNf4TjIK3xWO8ze8xq7ZGB32EECa5yJVQPrRgo=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdmHCJUdXjmrrvFMV26e9lEVKnnU+7i9/ebrpLcZOAh
+ 3ykkVJDRykLgxgXg6yYIotDu0m43HKeis1GmRowc1iZQIYwcHEKwEQW7GH4p/xHsHybenmwzM6S
+ 7GimgHuX1nxuDj+uXLtz6/Kc/NmTnjP8r7+cOlt6sW2GdPa15XOFjesV2aQLDOQzZ6q3b9YS2iD
+ EBQA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-The devm_request_threaded_irq() function already automatically logs
-detailed error messages on failure since commit
-55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
-So remove the now-redundant driver-specific dev_err() calls.
+On Fri, 16 Oct 2026 23:47:39 -0400, Nickolai Zeldovich wrote:
+> proc/kcore: advance the vmalloc retry by the last copy, not the total
 
-Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
----
- drivers/pci/controller/dwc/pcie-dw-rockchip.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-index 14976861f8ef..a4dbfc52c2f1 100644
---- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-+++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-@@ -718,10 +718,8 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
- 	ret = devm_request_threaded_irq(dev, irq, NULL,
- 					rockchip_pcie_rc_sys_irq_thread,
- 					IRQF_ONESHOT, "pcie-sys-rc", rockchip);
--	if (ret) {
--		dev_err(dev, "failed to request PCIe sys IRQ\n");
-+	if (ret)
- 		return ret;
--	}
- 
- 	/* LTSSM enable control mode */
- 	val = FIELD_PREP_WM16(PCIE_LTSSM_ENABLE_ENHANCE, 1);
-@@ -764,10 +762,8 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
- 	ret = devm_request_threaded_irq(dev, irq, NULL,
- 					rockchip_pcie_ep_sys_irq_thread,
- 					IRQF_ONESHOT, "pcie-sys-ep", rockchip);
--	if (ret) {
--		dev_err(dev, "failed to request PCIe sys IRQ\n");
-+	if (ret)
- 		return ret;
--	}
- 
- 	/*
- 	 * LTSSM enable control mode, and automatically delay link training on
--- 
-2.55.0
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] proc/kcore: advance the vmalloc retry by the last copy, not the total
+      https://git.kernel.org/vfs/vfs/c/499e14b44f0d
 
