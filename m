@@ -1,59 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577649;
-	b=RWLWn5E0Nby+xQg1dfUvgOJ/IyndL3iyU3QnW1nJWmQU6vK35Ue9RJnkclGBk0ds1Tx3
-	 abBGSxhw1+49thhVCJ06roD54fg+Z8cEL2snMfWfXYSvak1ljSCFL5dznddfktpfOJiTP
-	 R/3jTagXyubGQ8/5OYS6VcTJRSXNSBFiTpL9PYa0nm7T9HVUiENv97+JgZzAPrTedu+81
-	 Cv5DL4531Ri8FCrw5vBzx5tV1ZbSlOmNeleeyx/Gv3SrXvuGQ6jiQV2Fv/97CMh+axdhF
-	 PApDfWhA5m2TNm4mq75z3MJpDgwbCLCuVgUd0V2ji3Fhs1+Smj77edOobxXx4RHCaMQ==
+	t=1792577672;
+	b=1s/7SXGuVoh2DSHGj0oFhwXkikVicYCfT3jBX7COUa9j0UQCi6LKRwT/UFAXnAiSI3MX
+	 h+P3MdcCOmNZlPsEwZq4hh5wZmyO2fqwPv39fGX5NSXU8inI5oy0jeR8pmyzCSW7Uxxtv
+	 EBuz8jsqtkURgRScJBeMq613kYgL0O/apkhkNgpSyI5Yo6ywlXMqzCE1YWQNk+kJhT1Sb
+	 3iTA5Bs05aBKXkfVQTlamJv3wIqXWZKRRBLbbRggMhJRD5aFbu6pekWPLBYT55v5Q5E0v
+	 cCpvOmOJXMp29PMB3r32zwu2rzGbdlZxGa9FlJE50x3Kwr26D2HGds+4xEaCTb/Zrdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577649;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=LZVDv/ifhL0pps23IxWAzGyzN5pLImGVnvohaaA3ul8=;
-	b=aUpJEXi4PY2sxCvRMgIPvr9cxwij4pRNoXMqynGjvoEi/fNZg5Ec1PGC41G3nqy9wOns
-	 yTWGuPa73mkgCNj1gEX/BEOqScVfoYLa2MffYyyzwkCPoYfA6Ws7Q+tBimGDURinsnVmy
-	 hy0YnFkFYzF+eif8SmXdeKi0Mj7kIOY0Q8rQT8ZcR+GSlN9I3WFYGZ2MqNOgR3y7mS1iR
-	 6yVpnMv0ZxmSNsgxImyII5eGNS5RwbIjGoANYc4g9HLTD1jJKkCd5dpIvhzDBkVZlCGAQ
-	 sKGlbvVjqAHo6wEHY5Pa2eptfULd3M18QN8QRUATTcqXruC40HKdk4FCfwNZ3kiCOKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577672;
+	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-malware-bazaar;
+	bh=BDN+UiwX4dBEBh5y7D0QpWF83D3+WwbbbxuOce4C+bE=;
+	b=U+6FLcv2EbiD5HLN0DXxh+SWm9cET7sAqZnPzVvhBrV6JG+p0RgyNbX4jzFgpWdvE5oE
+	 5u8SjoMv8Lq2DTGEkPb43Sw9u0UP+pLKiC3+55aTNafxcGOqzacGmj2+aGAFcSe5uBR9Z
+	 DURJfBWg1DgkcvGzwZF6ot9qD2yVQlFtveUcVC2dJhAtLRa0Wbc7tQT90kSOoao0vlc6H
+	 xaUXVG2qbebdr178b5xmH+Aroacs173w4FxvlBAkdWJzYNF4z1eyVNEvV53fGDOtGJitN
+	 6FUCvg0E4kpd7Ih9zFxxUFGgUqepAql4FGcAfwH5oPvsaV4M6Vud3ky2BdXeeko7xvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yuw/Sekv";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=permerror header.from=sipsolutions.net;
+	spf=pass smtp.mailfrom=sipsolutions.net;
+	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=cZmE6n93;
+	arc=none smtp.remote-ip=168.119.38.16
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DA6606A31A;
-	Wed, 21 Oct 2026 10:14:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FB4606A31B;
+	Wed, 21 Oct 2026 10:14:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yuw/Sekv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066A21F000C9;
-	Wed, 21 Oct 2026 10:14:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792577649;
-	bh=LZVDv/ifhL0pps23IxWAzGyzN5pLImGVnvohaaA3ul8=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Yuw/SekvpA8wouPa4hXTPQKwya21oUto+gEM/H+kyCUI1ePM0O9xLhf64F1ydeCJG
-	 EbLxMGYgsMgA32wr5KFIuEmy+ANcyot2YtVFDubrJRR6/+9bBxaNDGonlxbu7a26Mj
-	 5wnShYj59Y0sQTUF8T25Dt4EMpvo2TK3nLPkOTcIH7YcOg8vSMMZrGz6PQTZxZ7L9H
-	 vt9LIC9NtJHUdD/Np28olfMhroxRhdWvSQeWSWK4cZmB0fT+hZiPMniZF5vsC3g+kr
-	 xHCUCftCuYkI58iO2N8teTFYWBHOFWOzLH6t03tpgXmZSKhoWe63wqTTe7Ejk4nZpj
-	 cGz9F3R0PsP4w==
-From: Pratyush Yadav <pratyush@kernel.org>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: linux-kselftest@vger.kernel.org,  rppt@kernel.org,  shuah@kernel.org,
-  akpm@linux-foundation.org,  linux-mm@kvack.org,  vipinsh@google.com,
-  linux-kernel@vger.kernel.org,  dmatlack@google.com,
-  kexec@lists.infradead.org,  pratyush@kernel.org,  graf@amazon.com
-Subject: Re: [PATCH v2 1/2] liveupdate: Add LIVEUPDATE_SESSION_FREEZE ioctl
- to freeze sessions early
-In-Reply-To: <20261020144710.4154339-2-pasha.tatashin@soleen.com> (Pasha
-	Tatashin's message of "Tue, 20 Oct 2026 10:47:03 -0400")
-References: <20261020144710.4154339-1-pasha.tatashin@soleen.com>
-	<20261020144710.4154339-2-pasha.tatashin@soleen.com>
-Date: Wed, 21 Oct 2026 12:14:05 +0200
-Message-ID: <2vxz4iefgy36.fsf@kernel.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=cZmE6n93
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID:Sender:
+	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=BDN+UiwX4dBEBh5y7D0QpWF83D3+WwbbbxuOce4C+bE=;
+	t=1792577671; x=1793787271; b=cZmE6n93awAVmHUc5kRk1v0ic68Nn213CA5wPqQUYN2EDJF
+	SpP18fACXepNjm4ZTRFkJAwkaJTlaAhOTlCTDvQcDFCAEggd6DWaLHJZ2RjKjN2mwL++qwYzSvl5c
+	rui7Hu0+l2O4Arc7jp3K8AbZSjWcfjdP62GUnIGQuvHbcK/DO3CKAuj5frlgWnQl1cIZbXr3on/Kr
+	wbAucCvsD6HLIrSNUtBbtmCiAIqykb1GFbP7YMusVu3mcbauL4Ska+Di/OrdFg70QoU+Hk3DFomk8
+	4cnGnuljg3QmyJcqT34zfhZ9mq8ZBEcS1Pm6SEbe0RwRmuEweJM7dBngJbSZLzvg==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1xJTL1-0000000243u-3m11;
+	Wed, 21 Oct 2026 12:14:28 +0200
+Message-ID: <e0875c5e3a36835a3d41aa99d0f4de66b721f9d3.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: zd1211rw: unwind failed interface additions
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Jiale Yao <yaojiale02@163.com>, "John W. Linville"
+ <linville@tuxdriver.com>,  Daniel Drake <dsd@gentoo.org>,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 21 Oct 2026 12:14:26 +0200
+In-Reply-To: <20261019013211.1489233-1-yaojiale02@163.com>
+References: <20261019013211.1489233-1-yaojiale02@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,140 +68,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+X-malware-bazaar: not-scanned
 
-On Tue, Oct 20 2026, Pasha Tatashin wrote:
+On Mon, 2026-10-19 at 09:32 +0800, Jiale Yao wrote:
+> zd1211rw stores the vif and interface type before programming the MAC
+> and receive configuration. If that setup fails, mac80211 does not call
+> remove_interface and the stale type prevents another interface from
+> being added.
+>=20
+> Clear the vif and type and restore the hardware MAC state before
+> returning the setup error.
 
-> Currently, LUO sessions are frozen automatically only inside the
-> reboot(LINUX_REBOOT_CMD_KEXEC) pathway, where luo_session_serialize()
-> iterates through all outgoing sessions under global write locks and
-> freezes them serially during shutdown. Allowing userspace to decide when
-> to freeze a session once it is done with it (and to freeze multiple
-> sessions in parallel, since luo_session_freeze() only acquires the
-> per-session mutex) avoids postponing this work to kexec shutdown and
-> reduces blackout time.
->
-> Introduce LIVEUPDATE_SESSION_FREEZE on session file descriptors to freeze
-> a session early. The ioctl runs .freeze() across all preserved files in the
-> session and serializes their metadata. Once frozen, no additional files can
-> be added to the session, and subsequent freeze calls return -EBUSY. Freeze
-> is only valid on outgoing sessions and returns -EINVAL on incoming ones.
->
-> During kexec, sessions that were already frozen early are skipped, while
-> sessions that did not invoke this ioctl auto-freeze as before. If an
-> early-frozen session is released before kexec, its files are rolled back
-> via .unfreeze() before being unpreserved.
->
-> Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
-[...]
-> @@ -218,18 +219,33 @@ static int luo_session_finish_one(struct luo_session *session)
->  	return luo_file_finish(&session->file_set);
->  }
->  
-> -static void luo_session_unfreeze_one(struct luo_session *session,
-> -				     struct luo_session_ser *ser)
-> +static void luo_session_unserialize_one(struct luo_session *session,
-> +					struct luo_session_ser *ser)
->  {
->  	guard(mutex)(&session->mutex);
-> -	luo_file_unfreeze(&session->file_set, &ser->file_set_ser);
-> +	if (!session->frozen)
-> +		luo_file_unfreeze(&session->file_set);
+This is completely crazy. "I have an LLM and it found something that
+doesn't make sense to it" is not a reason to send a patch.
 
-"Wait, this looks wrong. If session is not frozen then unfreeze it?
-Should be the other way round, right?"
+Does this actually matter at all? This driver only supports a single
+interface anyway - who cares about the hardware state when it's going to
+be shut down right away?!
 
-This was my first reaction until I realized that you only unfreeze
-_automatically_ frozen sessions. User-frozen sessions stay frozen. Which
-makes sense, but is not obvious at all.
-
-Perhaps rename this to session->user_frozen and add a comment here?
-
-With that fixed, feel free to add
-
-Reviewed-by: Pratyush Yadav <pratyush@kernel.org>
-
-> +	memset(ser, 0, sizeof(*ser));
->  }
->  
-> -static int luo_session_freeze_one(struct luo_session *session,
-> -				  struct luo_session_ser *ser)
-> +static int luo_session_serialize_one(struct luo_session *session,
-> +				     struct luo_session_ser *ser)
->  {
-> +	int err;
-> +
->  	guard(mutex)(&session->mutex);
-> -	return luo_file_freeze(&session->file_set, &ser->file_set_ser);
-> +	if (!session->frozen) {
-> +		err = luo_file_freeze(&session->file_set);
-> +		if (err)
-> +			return err;
-> +	}
-> +
-> +	strscpy(ser->name, session->name, sizeof(ser->name));
-> +	ser->file_set_ser.count = session->file_set.count;
-> +	ser->file_set_ser.files =
-> +		kho_block_set_head_pa(&session->file_set.block_set);
-> +
-> +	return 0;
->  }
->  
->  static int luo_session_release(struct inode *inodep, struct file *filep)
-[...]
-> @@ -267,6 +286,9 @@ static int luo_session_preserve_fd(struct luo_session *session,
->  	int err;
->  
->  	guard(mutex)(&session->mutex);
-> +	if (session->frozen)
-> +		return -EBUSY;
-> +
->  	err = luo_preserve_file(&session->file_set, argp->token, argp->fd);
->  	if (err)
->  		return err;
-> @@ -340,11 +362,40 @@ static int luo_session_get_name(struct luo_session *session,
->  	return luo_ucmd_respond(ucmd, sizeof(*argp));
->  }
->  
-> +static int luo_session_freeze(struct luo_session *session,
-> +			      struct luo_ucmd *ucmd)
-> +{
-> +	struct liveupdate_session_freeze *argp = ucmd->cmd;
-> +	int err;
-> +
-> +	if (argp->reserved)
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&session->mutex);
-> +	if (session->frozen)
-> +		return -EBUSY;
-> +
-> +	err = luo_file_freeze(&session->file_set);
-> +	if (err)
-> +		return err;
-> +
-> +	err = luo_ucmd_respond(ucmd, sizeof(*argp));
-> +	if (err) {
-> +		luo_file_unfreeze(&session->file_set);
-> +		return err;
-> +	}
-> +
-> +	session->frozen = true;
-> +
-> +	return 0;
-> +}
-> +
->  union ucmd_buffer {
->  	struct liveupdate_session_finish finish;
->  	struct liveupdate_session_preserve_fd preserve;
->  	struct liveupdate_session_retrieve_fd retrieve;
->  	struct liveupdate_session_get_name get_name;
-> +	struct liveupdate_session_freeze freeze;
->  };
->  
->  /* Type of sessions the ioctl applies to. */
-[...]
-
--- 
-Regards,
-Pratyush Yadav
+johannes
