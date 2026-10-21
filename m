@@ -1,78 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792615779;
-	b=GRFlLcmkSBxBEJVF+9vj24pQRciD/uUhNoZBKYYxijAoil+EW+fR/Kk4Da3kiKTgODCG
-	 8pOiXpupGT1e6lWS9fEdFxU0sU7VrIRd3qlWQnAB1GKE2W6HqWVpM1ITSCwB2fB7JzUE5
-	 UV/z5hgw+BsIH+ChhgIEHvpI0lgd14YmxzKAx9usEq6Uu3IqjjNXGGno5CkOpl/o1DnAt
-	 XkKc6keBPjou2EOLK4512QnZ0iXb3oCCdo+BLnew4ACKpvWBev6WdAZ5HtZ5QASr92Jr1
-	 +nBaUc/8rKBlP6btqoMccT8M0OQ4AJkz05VhhBQu2f2Yl3v3afaQvXxmecBB55nCgCw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792615779;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
-	 X-Originating-IP:X-ZEDAT-Hint;
-	bh=Uk8qAiG/IPrN36n5DqiO5Jj7nMXwV1HyK4QPffhcFj0=;
-	b=JyxAQQ/D8QtG5LyYxXVIvTklZZll+TLZDxwpXmCGyhNk9GnrgJHWYLKCl847uozxN4E1
-	 bz0+Uv/AXCbyUiQHIW5tByxkgS4GYz5BymN7lg/gkgIx/AVFwjD8sqcrtk3uSflUd0KkJ
-	 lVxGAQxuAU9cCnuLxZFxKOHjIjRLTTC0anS75W/MKrzRo04dfWDKCKsCVF6UpuoXm1Sse
-	 LBvMZregiHGwA+w/94nSZeSTqD6nh5uI8SQUgigTq6ehp4I3fCFkq/l6L3gDtOetPsfoW
-	 P9jmOg6hYFjAE1jFSUCWxfVd8CjR6UPFJ0v9CnFsSVa3pp35WYWmFF9Iy8t9n3D06/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=physik.fu-berlin.de;
-	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
-	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=WI6kfOTA;
-	arc=none smtp.remote-ip=130.133.4.66
-Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.59
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792615833;
+	b=m+8G9jLGgoC1smB397WU7U+dxYvc/FA0OK83x1BZVux4O77pge3pNWZ72M+dyC/Q/N4y
+	 3GcN8ZvIQ0KCXb18xMwBVXKYqXp6m38uUPqczYraRqz64j3o7OSOnD9sVLCZ2xNys6adj
+	 pRGq0j85d3+j5Zng40uz498XOBLhJuWA67oReMiuEWqvLifc2mGRwdiTuvjK1QeK4xAGk
+	 Jd014Tmt31wEJFVKompXMyIyPGjkXjiRG+SX0g0kBDrCCKEjyQvZ9jYWICcP7KenJMU5t
+	 m+patEn6ct8bX6UXh6ssKZR0kTNNd4M8BR2RjPNk/vQF0UQqcQ/UPTvgbtliyoJIqpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615833;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=vph2fLIMGOI4aHlOlYjSfK0JRT4ZYd8Aro96SXsQiwQ=;
+	b=veMWREkBYMi67jdbylecPlelyVViJAIOsgd/Ck1K+ZI2EJonzVDWobHk8SDOxkS0qnW8
+	 m/ym7HkSj6pCzSIr8R8A5lOE08QnpaBomC37CeOOhxj2VxIepE8OsJkKCzGDMDanzgHwE
+	 1ZJywpmCw0aeo45QoGAiSoPXB0b6qpPZmy4Poml03aIMxeT4xO0nV20lcDlKKrx8ll4DS
+	 K0F2ISPTVeeUYxfyCgz7IsKM4Cs2HBXre9abuHdVOrcknKkrkVNhixxNcdydJc6smaabL
+	 5h2F2wWI942j5Rooc187mc/mL1z5L5dqlOq52TbjGi7EU3ShCZdJXRYKePOmIuOwH3Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=m1ocyKLA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.59
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013059.outbound.protection.outlook.com [52.101.83.59])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28E4606A31A;
-	Wed, 21 Oct 2026 20:49:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A28E4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9CD606A31B;
+	Wed, 21 Oct 2026 20:50:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE9CD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=WI6kfOTA
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
-	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
-	References; bh=Uk8qAiG/IPrN36n5DqiO5Jj7nMXwV1HyK4QPffhcFj0=; t=1792615777;
-	x=1793220577; b=WI6kfOTAxWB/ImHoT3K2ZvjmxyqBHRbpBP18d7vVt6NWcEMIqIvYij2slhebm
-	7I/c+3NR5WW1yQzaZd/7C7FnyNUWl9WylE2bvNOGIRSfN4vOyUqVtbQ9oz/i4F6SbrO/e+6Gqlb/h
-	lVU7UaTBkx59ObjcY90JJYv8mX+8O8r3TiGSS3oiZxcU87qgo9qZR2tddfSTrbOlxevJuYdbLRFzp
-	qKd1uuQtAO/cEF+u30+cyIo9sg5zUwPVtDH+nP7aag4t78etSoM3qGnR/VJVHdkyE91sUF/9mU0NE
-	6feYhYfraYgAZehDTp9HX1/O9xpqk0ACYpzQK0wg7hiC8x17hQ==;
-Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
-          by outpost.zedat.fu-berlin.de (Exim 4.100)
-          with esmtps (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@zedat.fu-berlin.de>)
-          id 1xJdFX-00000001i8V-1euN; Wed, 21 Oct 2026 22:49:27 +0200
-Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
-          by inpost2.zedat.fu-berlin.de (Exim 4.100)
-          with esmtpsa (TLS1.3)
-          tls TLS_AES_256_GCM_SHA384
-          (envelope-from <glaubitz@physik.fu-berlin.de>)
-          id 1xJdFX-00000001hei-0jIT; Wed, 21 Oct 2026 22:49:27 +0200
-Message-ID: <0892a8803ca20869cd8cc76fcffc9f7543cffd2f.camel@physik.fu-berlin.de>
-Subject: Re: [PATCH] sparc64: Use relaxed ordering for DMA_FROM_DEVICE
- mappings on sun4v
-From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-To: Tony Rodriguez <unixpro1970@gmail.com>, Stian Halseth <stian@itx.no>, 
- Andreas Larsson <andreas@gaisler.com>, "David S . Miller"
- <davem@davemloft.net>
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Leon Romanovsky	
- <leon@kernel.org>, sparclinux@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 22:49:26 +0200
-In-Reply-To: <e8f08d9a-8b67-4c7a-8ef5-1ed38351e499@gmail.com>
-References: <20261013133731.1795299-1-stian@itx.no>
-	 <e8f08d9a-8b67-4c7a-8ef5-1ed38351e499@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=m1ocyKLA
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uCzxeWwPqfwkAamwfy7MtqC6o3E7m/v/41pNrzei6oll17WTeX9OcE47lJ1Q/uawIR3y9zUmazMdpWhFa/urKHDBQOd5bk+UYZ0hEJ2g/DXE7BmABDawJ02RR8guGxjTpfyEdxAbrdV7GPB3Rs8My6Z+gSQEEjGDIioGkXS70suBkmir4p/dUEmWFaAutzY7StDRI33RJQOx4X8+ZoguFaHklg8OVrR9Z5z82Y3sN++v4krwOaCONYuOsGZ5KRQ9E9pun3r9shlyinyGOkNVYzl+x0SoZGx+exG/YcOPijRifBCUlREr+tvU0TLIrpYfxN9XDDq74pEqZpTHPRd+Ug==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vph2fLIMGOI4aHlOlYjSfK0JRT4ZYd8Aro96SXsQiwQ=;
+ b=QYwlXykG/CQGV/ZiinDPhEBPV12jfhFMU4iHrWS4I0Bq0WOr3036ddTxfq5YZLKWFfO/F45O6Ah3bvJvFMmqrFAqLyqAwNsyZOcJcij3MinjlCiYdxArojZemf8f/8h4+Sc1ldxwknjaUL2ZJeemhQqr4dcTrBKQLmAvUlCij2KlCn5Y3eYoi2ucpYiMzX+BZpRBv2flAFXpnX2aQd0qxTpJZFolqrA9Vg++fg0Mf+Eyl2quacjb0pdt135uPAxPvEvb9n5mVkkJ9T7oxRqlD0hMm5rYQCzBf9sjg+eXrfw+cWHjtUPm4D3F0tJ8e10xezqnNMiCDn8tRDzxWO07IA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vph2fLIMGOI4aHlOlYjSfK0JRT4ZYd8Aro96SXsQiwQ=;
+ b=m1ocyKLAYUWI5rGewojTJ+xpm6phRc2gIXqBiSFlywTCFtAiNeDoHzVtAzUbFOlfGNqMix4QgADEsmLuzKpf+JDgVZm9SPlVagQzg2l+Hz7UJ7TFTWtzFFEKh70fJ1fHMGf5VoAU7HkAGhko6m0IPYNbdZ+G7Ljhb5a5P2Q+IjLDjgNhZEGHsSGswWYfrrKKqr2F3AWw5Zh1D9NQ7h94Hvn4iCyc/dl2cJb29uKcN/ijCd+KmFd722hSePlvGdG0sEdGbDj6UnVWa+KsM/Tsl5oBBDXgd/BXFGzMWBnoEvUgyvmNGNRol9CO043HkeyS/j4kZnhZioQS3+seTzinGA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by GV1PR04MB10273.eurprd04.prod.outlook.com (2603:10a6:150:1a5::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 20:50:28 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 20:50:28 +0000
+From: Frank.Li@oss.nxp.com
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Li Yang <leoyang.li@nxp.com>,
+	imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT...),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT...),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH 1/1] ARM: dts: ls1021a-twr: disable USB2 by default
+Date: Wed, 21 Oct 2026 16:50:15 -0400
+Message-ID: <20261021205018.4037171-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: DM6PR01CA0014.prod.exchangelabs.com (2603:10b6:5:296::19)
+ To MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,85 +103,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Original-Sender: glaubitz@physik.fu-berlin.de
-X-ZEDAT-Hint: PO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|GV1PR04MB10273:EE_
+X-MS-Office365-Filtering-Correlation-Id: da010d21-8f54-4b69-3384-08df2fb4f058
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|366016|7416014|23010399003|376014|261009223027099003|10067099003|261021121427099003|56012099006|18002099003|11063799006|921020;
+X-Microsoft-Antispam-Message-Info:
+	hT47UK4yFEYR9MBUdmHJJY54njajrBKVTIPhX6eXJc0tLRwL2szC7oCQZKG36Dg6z5Xn+20SgXw4gSJiD+M+rGnHrUb9/I0zmlQLYZYBARf7P4kmoAkH5RvwS8s4yAmNPQABCOd1UW1RgLJXrZ/1QTzBJx7Ta34NTjsSJkkLZVYbOUcR1J+uwCUJljankkgnQ4FLD4h+J3vsBZHW2CArJHi10NQ1RpdrclKCDE3NKYYGCysoS0Zxr2N/4ZkCjfxs6Y31rSocUfh86Sre+x1S5ydOFqrx9BjZYPciS2Ol1IHQHllnSVmJqwZc4zkxPmMv5eXUkSBDSqooUahR2S3U+gHi8R/507pZGvJ9byh0M4jwt/NTacASFkxmu6OYpQJP6EO2ss0Gk76Zsb2Wl+d4K1wsbly0BpPq2qRh7ILXL1apHlKfassJaEBM6itIipD8XqxxmHjGcIB9jx1INHwABO81gWGSLnTSJhMKDlTsEebx/vPBlDvsfTe4E9hedbJC5x3cZrrWjPDekGo+lASiBD1KuoB0deK2rE88UYwq8vXMrdw0JJx3PKQ3wHnqUwPkLeZ7lhimuF1MZ76jT3UBALt9kXjfj3oMZEPBy9vTnleznuBn8ex9DPSmCrTXJuKdQLWP18ab9FfE3gC1ZcWTHvNUV5hc/f03Uwq0T2ctDrd+sfvFlh/PiQHUh0MyMKhk1GR5N3k6cxjaYeIsgeaFJw==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(7416014)(23010399003)(376014)(261009223027099003)(10067099003)(261021121427099003)(56012099006)(18002099003)(11063799006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3pmK//9aJwt7R16g+XPyXINppsC2whoo8Cde5uR2rzcVm+Jc5tASEmR83EVU?=
+ =?us-ascii?Q?Ou5wAzPeC0KR3RdUSmQVQnZeM8dhtLi/i/RWz0ykXxm5zUckdekOPH7H7LtG?=
+ =?us-ascii?Q?QzhxPJP4XkmNXFuSrLmsRRzp34FIsQWJQKisz2wlHKtufNw8cppsDr6UF3sQ?=
+ =?us-ascii?Q?9thvlQEWi5Qwrugu1u6WKDtSI1arP5jmxgAilrCp2Tetd6EqdYEshaX/BNTj?=
+ =?us-ascii?Q?IK9hfaZuKCItMx6CKeOFJPJKMNeUnC1ayjUwdjw2bHL51ki3x2Q4m07jXOoE?=
+ =?us-ascii?Q?PA4QmWptGcdTw+OWiFg/Mvdt5VU6N+7Jb1P26zkWOpUhKJhqBYfOGYmArPDu?=
+ =?us-ascii?Q?jgiHe/j4jmTL4cCJsCnr3rxRnw5NWrnKV7yY8ITu/+fhAfFW+EJySW7jUqll?=
+ =?us-ascii?Q?a/1odAiU7tNavLWzTM6S+BeHQ8+lKJ89NZXowYkiBb4qvJdPtCKrta7GYY9H?=
+ =?us-ascii?Q?z7qP8Z2vmsL0Tc1VVFKR/4eHZE5O2ppAYWrYyybdYBdCE2raT1d0PTgiVLxg?=
+ =?us-ascii?Q?CX1Rf94ulUetsJCYSbsGyeJfDb2YICPEUu3uon81IxYg5F58Y+ZYeYzqyGKX?=
+ =?us-ascii?Q?u387AAqwYiNLGBd07/AGUrKMlZLfPk2Hrs5BMJ7F3/zbK1HqxOCzC59Mk5bd?=
+ =?us-ascii?Q?Yar7UlLACapp6blDD2mADUb8axE/bVXo6ZvSvlnxd6WkC3ORSdR5Z5x+ZPSu?=
+ =?us-ascii?Q?wxgkw+9CPOWGlAwcK81wZ8WSf81GhaKd27bsNkBGTYIJVijcuNZQcuQWtfZP?=
+ =?us-ascii?Q?2nMvB/TtmvXENiq0bIG1q17eqqngGV3pJssHHb5dZBtTAmodLD+UDbEh86hd?=
+ =?us-ascii?Q?Wmt5jr3zHEBuEDEWeB59fZ/4nkFI0Kim6rA72FPWTQhNpsyC0HUx2bc3LEhB?=
+ =?us-ascii?Q?3cwwP0AWLFsvxmWLUk8R+gNlJ2uxNLOzx6PpwlrxW5PAkocwpHJW56DAQN19?=
+ =?us-ascii?Q?Gx1jMcu/TEaWi+63+1K4QVvVCNBuUvnMd3zOQ4PXUCJBahwgOrTdplLmBFk/?=
+ =?us-ascii?Q?QXAecelihi38ndo3gdiZUw/ilJ4aKf9cvFIt+1kH9divOYJ9LAoYFqVp5ft6?=
+ =?us-ascii?Q?KL1JftSTaJLQJPFwaKA9ckyKV9+l/rpRq4ckTDl0EUgtlp3JYyTfCEfpKaD4?=
+ =?us-ascii?Q?v4hsk9t4wE1RxdHiMb5pM4ufG/g3u0J/E5aEUvBTlqr5NbdQD9HBO5PkJVpW?=
+ =?us-ascii?Q?kuMSzjQjvVvs+WGlsoxVm7flsemtGaVzHFzNxZGlHbEqJq+pqnRKAlcaRggi?=
+ =?us-ascii?Q?qAQhJTdBfJRvkkdJEpqg5LS2Xrpt+H/BqMmw09EAu03RP+8GDAf+AwnN5U6W?=
+ =?us-ascii?Q?B5RwMIAKwAVRg4Wk28cdlVdNKVUZuf1rDpc3C4dQdnOT48dJlFTDzK5CdtzU?=
+ =?us-ascii?Q?fmQuiAfIvI4qc9xDz3fpLgwd2SbtYYVktl34cyXu6DMpL0HoBJKCyCq+6PS6?=
+ =?us-ascii?Q?/k62zEYJnQ8/Pl8cVBvaNNZWGRbiVOyuww0XjV/v/2y1onk7t7vOIFdPoKra?=
+ =?us-ascii?Q?zU1QS6TRipZUdqDapnnrJkVHCiT5dTo0om2MrRNtOA2cdonq9XSF3n8ZSaoC?=
+ =?us-ascii?Q?UWIRSYecciMD0AeDutRWGv3jrzLDfcwq2oKIYTuLf85zKcVZlYOdjrtY8Vrv?=
+ =?us-ascii?Q?7Gyo/ng5BuzA7ly5rvM8F9aT5UtOeKhLQpW1MyYX0LtlGeN6obkxghCr3m2s?=
+ =?us-ascii?Q?M6KaYckaNnHZ2AkLBjoD4Cp0c1YjdEG3asT+LTIUF9QXkwclkCS/y1HJR98R?=
+ =?us-ascii?Q?R1rgIHJwRd7p3xUk538N2auu14YoYkE6cVaZ2oKQziRB2ALkh/mF?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: da010d21-8f54-4b69-3384-08df2fb4f058
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 20:50:28.4747
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LUbZfgvKA+G3c6lR6sRlYl7yrnB2tEModVRVVwDnSBIHLkGbMjDLK3ZyDrXGlc9zVgRuYWLJic1QU3AFcbGKkb6B4vl0rqVc5T5QyXVMOUcJT/eP0DvqjYSKGU+JsrfU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10273
 
-Hi Tony,
+From: Li Yang <leoyang.li@nxp.com>
 
-On Wed, 2026-10-21 at 13:30 -0700, Tony Rodriguez wrote:
-> On 10/13/26 6:37 AM, Stian Halseth wrote:
->=20
-> > sun4v IOMMU and ATU mappings carry a relaxed ordering attribute, but
-> > dma_4v_map_phys() and dma_4v_map_sg() set it only when the caller
-> > passes DMA_ATTR_WEAK_ORDERING. Some network drivers do, storage drivers
-> > do not. Without it every device write into memory is strictly ordered,
-> > which on a T7-1 (M7) caps DMA reads at about 280 MiB/s per PCIe device
-> > while writes run at full speed.
-> >=20
-> > Set the attribute for every DMA_FROM_DEVICE streaming mapping. Devices
-> > report completion through coherent memory or an interrupt, which stay
-> > strictly ordered, and a strictly ordered write does not pass the writes
-> > before it.
-> >=20
-> > T7-1, fio 1M sequential read, QD32:
-> >=20
-> >                        before        after
-> >    NVMe (PM1725, x4)   281 MiB/s     3169 MiB/s
-> >    SATA SSD (mpt3sas)  278 MiB/s      502 MiB/s
-> >=20
-> > Closes: https://github.com/sparclinux/issues/issues/114
-> > Signed-off-by: Stian Halseth <stian@itx.no>
-> > ---
-> > Tested on a T7-1 (M7) and a T4-1:
-> >=20
-> > - T7: fresh RAID1 on two NVMe drives, 192 GB fio crc32c write+verify
-> >    and md check: no errors, mismatch_cnt 0.
-> > - T7 and T4: file checksums on the SAS boot mirrors identical to a
-> >    strictly ordered kernel; no new messages in dmesg.
-> > - 4k random read and sequential writes unchanged.
-> >=20
-> >   arch/sparc/kernel/pci_sun4v.c | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/arch/sparc/kernel/pci_sun4v.c b/arch/sparc/kernel/pci_sun4=
-v.c
-> > index 61f14b4c8f90d..4dd17b65dd6cc 100644
-> > --- a/arch/sparc/kernel/pci_sun4v.c
-> > +++ b/arch/sparc/kernel/pci_sun4v.c
-> > @@ -403,7 +403,7 @@ static dma_addr_t dma_4v_map_phys(struct device *de=
-v, phys_addr_t phys,
-> >   	if (direction !=3D DMA_TO_DEVICE)
-> >   		prot |=3D HV_PCI_MAP_ATTR_WRITE;
-> >  =20
-> > -	if (attrs & DMA_ATTR_WEAK_ORDERING)
-> > +	if (direction =3D=3D DMA_FROM_DEVICE || (attrs & DMA_ATTR_WEAK_ORDERI=
-NG))
-> >   		prot |=3D HV_PCI_MAP_ATTR_RELAXED_ORDER;
-> >  =20
-> >   	local_irq_save(flags);
-> > @@ -503,7 +503,7 @@ static int dma_4v_map_sg(struct device *dev, struct=
- scatterlist *sglist,
-> >   	if (direction !=3D DMA_TO_DEVICE)
-> >   		prot |=3D HV_PCI_MAP_ATTR_WRITE;
-> >  =20
-> > -	if (attrs & DMA_ATTR_WEAK_ORDERING)
-> > +	if (direction =3D=3D DMA_FROM_DEVICE || (attrs & DMA_ATTR_WEAK_ORDERI=
-NG))
-> >   		prot |=3D HV_PCI_MAP_ATTR_RELAXED_ORDER;
-> >  =20
-> >   	outs =3D s =3D segstart =3D &sglist[0];
->=20
-> Tested-by: Tony Rodriguez <unixpro1970@gmail.com>
->=20
-> Tested on a Sparc S7-2 with a Samsung 2TB EVO SATA SSD.
-> No functional issues or major regressions were observed.
+The TWR-ls1021a board doesn't have the USB2 port natively.  However the
+USB2 pins are routed to the ELEV expansion ports and only available with
+TWR-SER2 board connected.  So disable the USB2 by default and users
+of TWR-SER2 board should update the dts to enable it or apply an
+additional overlay.
 
-Did you also see the vast improvement that Stian has reported?
+Signed-off-by: Li Yang <leoyang.li@nxp.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ arch/arm/boot/dts/nxp/ls/ls1021a-twr.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Adrian
+diff --git a/arch/arm/boot/dts/nxp/ls/ls1021a-twr.dts b/arch/arm/boot/dts/nxp/ls/ls1021a-twr.dts
+index ca5c66c066db6..e1daeaa093e0f 100644
+--- a/arch/arm/boot/dts/nxp/ls/ls1021a-twr.dts
++++ b/arch/arm/boot/dts/nxp/ls/ls1021a-twr.dts
+@@ -224,6 +224,10 @@ &uart1 {
+ 	status = "okay";
+ };
+ 
++&usb2 {
++	status = "disabled";
++};
++
+ &can0 {
+ 	status = "okay";
+ };
+-- 
+2.43.0
 
---=20
- .''`.  John Paul Adrian Glaubitz
-: :' :  Debian Developer
-`. `'   Physicist
-  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
