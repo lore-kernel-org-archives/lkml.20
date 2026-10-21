@@ -1,62 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792625704;
-	b=lthu0tORBAB6j38iY2AJNS/mkLoHy6MVBGZzsa5fpkDGXWQHLOR6xK5eZXUvKlq/n8FX
-	 ldFnnI2aTsbdS31NNsy8+ObgOqja3zbKXKGAh99ozC9oK/sBR27okJj7P1FrrtwdndoGU
-	 wAbXBnCyU2A8S1XQdjpdfWJ4u+/likOqZwkcX2r+8XKaie5jBX/OzZ1x1u6KeOAXyUKNt
-	 JQwL0pne/MYKyOhHRjRK2BORMqJKn7oM6F0mS4BgGnyTbziGfEir+xnHW9WciQqBGInXx
-	 iGmmAUN4sNpZsaAOSfZvlgXAIyN767J7LU2m8JUEoCiaqmJR+f8klf0m66xDH+0SG1w==
+	t=1792625804;
+	b=JOFC1g0/A01IlllTxvk2QBXFnZrtWya0P6tsi3Z8W/5/9Q0iR892LQcLxNXDVeZ91nHY
+	 ZJKLfhYKTCEHUGbGu3bjMtNshJReTv+7wemFgxRDJvTcJL+3Nqu4GjYo+SsXk9OVOPMEt
+	 pO9gy0U7CSdXOPvg3h3Xc0WKeRdPU/hHCC8GGu/AtttKPvnmksxdcT84a6rsej97NiOUX
+	 YN3jmCG8qPkxOWV4JoY2axyfeK6kQfqm0LH+9fjzws07OQTAv/BreKQTGoXJspM+qSPr3
+	 T6ESekYeB4L9/vEEB1ObKOMTJUZQhAEroR1c6TM2m9koURSzG0G+ONAUKNlj8MjogQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792625704;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DEOUCmLCD5QmSlPVT91FgaQC8nC2swbBcRqpaDjjQfI=;
-	b=L8TlgQWUghtoL2e4fcWBISEB1ifkzqZlNrkKTQJsWY/ZrxPXZDomc8C+4grdzHIXOq2Q
-	 CydYgFbrASYRk1kBdfT0CgeQnLNj4j7BdVR6/pXoEe7L5JMwklyHqSVE5+3wgniSBs/ei
-	 X/DPVmvyt5UE1AbCKu7U7kdtlGI5r1v0u3+zuDVzKhJWJqMl+85/0Foc7a/HSFo1N0uYn
-	 tEmKszJc/j2sXeOeXcaQA3O1Lq2SF8PI8dUDPZqjGXrQ2gWXSzWsLh6YP8GnIWsD4Vchk
-	 LaDFQQsH922DJ0Gl1sNDUEqniIHsIDpYsLCsjBQnUtLife1lohTGyVaWeaVmL/GTVOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792625804;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=RUXofh2aiHBxc0t6FZ0ii9SOkWt0pQWeow0Fu2BRDCc=;
+	b=qBIl9qtdGuwpLqHilc+fh5yZoapAQBaFDPXNYeMB4HE8N5rkxxr+B0mC83NImXvT2kDw
+	 MQu5vbvnYmj3rWBojjH8OwaSQHmZgcDOCiLHhT94XIdkDaXn4PiRxFKcRvlaNhXr3/pBp
+	 hT51DtcgluhFsk5DZZmg7biDqM+31X5sCcnZNxarLmKTiBzcuZJublPGKU8G1h93Vk8Jg
+	 BqxhVqmIarBPyfZjoBntQbOf+qx2GUx8484nw0kqKO/x4bMIO4080F3Xte5/GmJhFRX6L
+	 jOvfjwC35h6JZFwr36TePMYE2EL6F9LEG+BuZANGIFgkyxPXqcXs0ueHMBIS9Ea3dlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYOuMxLC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=sUJhJ15q;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50BA606A320;
-	Wed, 21 Oct 2026 23:35:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C410606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C410606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hYOuMxLC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1136D1F000C5;
-	Wed, 21 Oct 2026 23:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792625703;
-	bh=DEOUCmLCD5QmSlPVT91FgaQC8nC2swbBcRqpaDjjQfI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hYOuMxLCYjqvimZsnFLqsnr3/JOHhHgPWYktNKOG+xa58rA/PdajZ93TkVMaAE9u/
-	 z9wRqTy3u+ueUpn1AjkmWnuIiREYvygff12YHIlpDGJRkBqLF2CGRhYj0ncj+oXmNl
-	 LzcvebJMEjfbpM6b2VaBVlQ83xSjdC2YAEbS5eRPaPpZUkKOoXSr3nQWGM2ot83rwK
-	 GCFlL0IW+gillXAiO0AeOMcgiiiDbPU/aLiP08fQbq5A9ulC3iRYnDI0B4NnGt4Gy/
-	 MTaybh72CKj1z5smIElrxh74E0jVGtMDfTVB5XQwIVDbB1sOrh76/0j6SgpLB0VS5Q
-	 D0NkMloHM9pzw==
-From: Imre Kaloz <kaloz@kernel.org>
-To: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	"Mike Rapoport (IBM)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	stable@vger.kernel.org,
-	Stian Halseth <stian@itx.no>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Subject: [PATCH v3 3/4] sparc64: flush vmalloc ranges from the D-cache on map and unmap
-Date: Thu, 22 Oct 2026 01:33:39 +0200
-Message-ID: <55b4691ea87be7f4a679197bc2ec35b81b45d233.1792609488.git.kaloz@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1792609488.git.kaloz@kernel.org>
-References: <cover.1792609488.git.kaloz@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=sUJhJ15q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1792625333;
+	bh=53oA5zSc/hkMXzViH3OHqWQciU4m0/k2S2u2U8he8aE=;
+	h=From:Date:Subject:To:Cc:From;
+	b=sUJhJ15qoZL8M586Jh6DZKsdz2fIKJ3d+MTbEXM9RuvQJC3s4CLAVM3e+bQ8C7xpE
+	 ib384RqzKcGKMvFobBkM/cCyljl0Yw+ZJukr4Hyyt8oRbESOlpyZe5WP/mwWINCyGG
+	 Sqluj3NgJhdSyLkLJqLrjpngFMzByhz1yM9u/WNc=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id ED87B4014B;
+	Wed, 21 Oct 2026 16:28:52 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Wed, 21 Oct 2026 16:28:46 -0700
+Subject: [PATCH v3] sched/core: Use the scheduling context for remote ticks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,213 +55,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-remote-tick-proxy-v3-1-8c37c5b4d6f6@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAK1K2WoC/33NQQqDMBCF4atI1k3JjJjYrrxH6SLEUUOpkSSki
+ nj3RlctlC7/B/PNygJ5S4Fdi5V5SjZYN+YoTwUzgx574rbNzVCgBAGSe3q6SDxa8+CTd/PCsVS
+ dgVbL0tQs302eOjsf5u2ee7AhOr8cLxLs6z8tAQeOClWldCW0UE1PY3y5s/M927mEHwTCLwIzI
+ VR9EVKAVkBfxLZtbxF1Pmr2AAAA
+X-Change-ID: 20261016-remote-tick-proxy-237fc1da63c8
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Connor O'Brien <connoro@google.com>, John Stultz <jstultz@google.com>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ "Christoph Lameter (Ampere)" <cl@gentwo.org>
+Cc: linux-kernel@vger.kernel.org, 
+ "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792625332; l=3882;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=53oA5zSc/hkMXzViH3OHqWQciU4m0/k2S2u2U8he8aE=;
+ b=td/8FlnNNcabp/Jy0P7+U2tcxFIkS+1DJ5JoaRkNttCFixXx2B9CUU8uLLbSP1ymGUf3gU3YV
+ NG0/moa9m6eBE+LRkOF+MQtuWw1A+KBQbuqOIu8BaUZvypdxaNNr+U2
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-The L1 D-cache of Spitfire and Cheetah is indexed with VA bit 13, but
-flush_cache_vmap() and flush_cache_vunmap() are no-ops. Lines loaded
-through a vmalloc address survive the unmap, and once the page is
-written through the other colour, e.g. zeroed through the linear
-mapping, a later mapping of the old colour reads stale data. Anonymous
-user pages arrive the same way, as tlb_batch_add() does not flush them.
-On UltraSPARC III this corrupts BPF programs and module data.
+sched_tick_remote() assumes that a CPU in full dynticks mode has only
+one running task. It therefore assumes that proxy execution cannot be
+active and that rq->curr == rq->donor.
 
-Flush each page on every CPU on map and unmap, or the whole D-cache in
-one cross call once the range exceeds its size.
+However, sched_can_stop_tick() can stop the tick with multiple tasks on
+the runqueue. With exactly one SCHED_RR task, the tick is not needed for
+round-robin timeslice rotation. When there are no SCHED_RR tasks,
+SCHED_FIFO tasks do not require the tick because they have no forced
+tick preemption. Lower scheduling-class tasks can still be queued in
+both cases.
 
-flush_cache_vmap() also runs on the vmemmap, from sparse_init() before
-init_IRQ() sets up the cross-call mondo blocks. The vmemmap has no
-aliases to flush, so skip addresses outside vmalloc and module space.
-Now that xcall_deliver() leaves the trap block alone when there is no
-target CPU, this check only saves pointless flushes. Stable kernels
-lack that change and need the check, since without it
-flush_dcache_all()'s cross call from sparse_init() would write starting
-at physical address 0.
+Consequently, a SCHED_FIFO task blocked on a SCHED_NORMAL mutex owner
+can remain rq->donor while find_proxy_task() selects the owner to
+execute as rq->curr. sched_tick_remote() can therefore run with
+rq->curr != rq->donor.
 
-Link: https://github.com/sparclinux/issues/issues/29#issuecomment-5041121375
-Closes: https://github.com/sparclinux/issues/issues/29
-Cc: stable@vger.kernel.org # requires "sparc64: flush only the aliased page, not its whole folio"
-Tested-by: Stian Halseth <stian@itx.no> # Sun Fire V240, SPARC T4-1
-Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+The full-nohz state check in sched_tick_remote() is intentionally racy
+and can allow an extra or missed remote tick. This issue does not rely
+on that race: the tick can be legitimately stopped in the cases above.
+
+Use rq->donor for the remote class tick and its full-nohz tick-interval
+sanity check, matching sched_tick() and hrtick().
+
+Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+Acked-by: John Stultz <jstultz@google.com>
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
 ---
- arch/sparc/include/asm/cacheflush_64.h |  6 ++--
- arch/sparc/kernel/smp_64.c             | 18 +++++++++++
- arch/sparc/mm/init_64.c                | 43 ++++++++++++++++++++++++++
- arch/sparc/mm/ultra.S                  | 25 +++++++++++++++
- 4 files changed, 90 insertions(+), 2 deletions(-)
+Testing was performed on an Ampere Altra system with
+CONFIG_SCHED_PROXY_EXEC=y and CONFIG_NO_HZ_FULL=y, booted with:
 
-diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
-index 02c969417e7b..54a2d37008e6 100644
---- a/arch/sparc/include/asm/cacheflush_64.h
-+++ b/arch/sparc/include/asm/cacheflush_64.h
-@@ -42,6 +42,8 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
- #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
- #endif
- void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
-+void __flush_dcache_all(unsigned long size, unsigned long line_size);
-+void flush_dcache_all(void);
+  sched_proxy_exec=1 nohz_full=78
+
+On the unpatched baseline, 70dd4ee72eb2 (7.3.0-rc7), mutex locktorture
+with four writers pinned to CPU 78 and RT boosting triggered:
+
+  WARNING: kernel/sched/core.c:5895 at sched_tick_remote...
+  Workqueue: events_unbound sched_tick_remote
+
+This warning is WARN_ON_ONCE(rq->curr != rq->donor), demonstrating that
+a full-nohz remote tick can run while the executing task and scheduling
+context differ.
+
+The v3 patched kernel completed the same 10 minute workload
+without scheduler warnings or locktorture failures.
+
+Changes in v3:
+  - Rewrite the changelog to explain why full-nohz can stop the tick
+    with multiple tasks on the runqueue and therefore permit proxy
+    execution.
+  - Clarify that the racy full-nohz-state check is not required to
+    trigger the issue.
+  - Add Acked-by from John Stultz.
+
+Link to v2: https://lore.kernel.org/r/20261021-remote-tick-proxy-v2-1-07890601a71e@gentwo.org
+---
+ kernel/sched/core.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 0ab15f03cb947eb958ff9f97d890716346377889..729ebaca35e1a9a12cda59e96c650ee6b1576951 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5934,26 +5934,20 @@ static void sched_tick_remote(struct work_struct *work)
+ 	 */
+ 	if (tick_nohz_tick_stopped_cpu(cpu)) {
+ 		guard(rq_lock_irq)(rq);
+-		struct task_struct *curr = rq->curr;
++		struct task_struct *donor = rq->donor;
  
- void __flush_dcache_range(unsigned long start, unsigned long end);
- #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
-@@ -73,9 +75,9 @@ void flush_ptrace_access(struct vm_area_struct *, struct page *,
- #define flush_dcache_mmap_lock(mapping)		do { } while (0)
- #define flush_dcache_mmap_unlock(mapping)	do { } while (0)
+ 		if (cpu_online(cpu)) {
+-			/*
+-			 * Since this is a remote tick for full dynticks mode,
+-			 * we are always sure that there is no proxy (only a
+-			 * single task is running).
+-			 */
+-			WARN_ON_ONCE(rq->curr != rq->donor);
+ 			update_rq_clock(rq);
  
--#define flush_cache_vmap(start, end)		do { } while (0)
-+void flush_cache_vmap(unsigned long start, unsigned long end);
- #define flush_cache_vmap_early(start, end)	do { } while (0)
--#define flush_cache_vunmap(start, end)		do { } while (0)
-+#define flush_cache_vunmap(start, end)		flush_cache_vmap(start, end)
+-			if (!is_idle_task(curr)) {
++			if (!is_idle_task(donor)) {
+ 				/*
+ 				 * Make sure the next tick runs within a
+ 				 * reasonable amount of time.
+ 				 */
+-				u64 delta = rq_clock_task(rq) - curr->se.exec_start;
++				u64 delta = rq_clock_task(rq) - donor->se.exec_start;
+ 				WARN_ON_ONCE(delta > (u64)NSEC_PER_SEC * 30);
+ 			}
+-			curr->sched_class->task_tick(rq, curr, 0);
++			donor->sched_class->task_tick(rq, donor, 0);
  
- #endif /* !__ASSEMBLER__ */
- 
-diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
-index 6681f5263865..ed6900b5d562 100644
---- a/arch/sparc/kernel/smp_64.c
-+++ b/arch/sparc/kernel/smp_64.c
-@@ -924,6 +924,7 @@ extern unsigned long xcall_kgdb_capture;
- 
- #ifdef DCACHE_ALIASING_POSSIBLE
- extern unsigned long xcall_flush_dcache_page_cheetah;
-+extern unsigned long xcall_flush_dcache_all;
- #endif
- extern unsigned long xcall_flush_dcache_page_spitfire;
- 
-@@ -1034,6 +1035,23 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
- 	preempt_enable();
- }
- 
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+void flush_dcache_all(void)
-+{
-+	unsigned long size, line_size;
-+
-+	if (tlb_type == hypervisor)
-+		return;
-+
-+	preempt_disable();
-+	size = local_cpu_data().dcache_size;
-+	line_size = local_cpu_data().dcache_line_size;
-+	smp_cross_call(&xcall_flush_dcache_all, 0, size, line_size);
-+	__flush_dcache_all(size, line_size);
-+	preempt_enable();
-+}
-+#endif
-+
- #ifdef CONFIG_KGDB
- void kgdb_roundup_cpus(void)
- {
-diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
-index 8d01aab43cc3..d1f94b8d6312 100644
---- a/arch/sparc/mm/init_64.c
-+++ b/arch/sparc/mm/init_64.c
-@@ -27,6 +27,7 @@
- #include <linux/percpu.h>
- #include <linux/mmzone.h>
- #include <linux/gfp.h>
-+#include <linux/vmalloc.h>
- 
- #include <asm/head.h>
- #include <asm/page.h>
-@@ -234,6 +235,17 @@ void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
- 		__flush_icache_page(page_to_phys(page));
- #endif
- }
-+
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+void flush_dcache_all(void)
-+{
-+	if (tlb_type == hypervisor)
-+		return;
-+
-+	__flush_dcache_all(local_cpu_data().dcache_size,
-+			   local_cpu_data().dcache_line_size);
-+}
-+#endif
- #endif /* !CONFIG_SMP */
- 
- #define PG_dcache_dirty		PG_arch_1
-@@ -3072,6 +3084,37 @@ arch_initcall(report_memory);
- #define do_flush_tlb_kernel_range	__flush_tlb_kernel_range
- #endif
- 
-+/*
-+ * The L1 D-cache is indexed with VA bit 13, so lines loaded through a
-+ * vmalloc address outlive the mapping.  Stores through a mapping of the
-+ * other colour do not update them, and a later load through their colour
-+ * returns stale data.  Flush at unmap so vmalloc's lines do not follow
-+ * the page back to the allocator, and at map time since anonymous user
-+ * pages are freed without a flush (see tlb_batch_add()).  Past the
-+ * D-cache size, one whole-cache flush is cheaper than a cross call per
-+ * page.
-+ */
-+void flush_cache_vmap(unsigned long start, unsigned long end)
-+{
-+#ifdef DCACHE_ALIASING_POSSIBLE
-+	/* The vmemmap has no aliases and is mapped before cross calls work. */
-+	if (tlb_type == hypervisor || !is_vmalloc_or_module_addr((void *)start))
-+		return;
-+
-+	if (end - start > cpu_data(raw_smp_processor_id()).dcache_size) {
-+		flush_dcache_all();
-+		return;
-+	}
-+
-+	for (; start < end; start += PAGE_SIZE) {
-+		struct page *page = vmalloc_to_page((void *)start);
-+
-+		if (page)
-+			flush_dcache_page_all(NULL, page);
-+	}
-+#endif
-+}
-+
- void flush_tlb_kernel_range(unsigned long start, unsigned long end)
- {
- 	if (start < HI_OBP_ADDRESS && end > LOW_OBP_ADDRESS) {
-diff --git a/arch/sparc/mm/ultra.S b/arch/sparc/mm/ultra.S
-index 70e658d107e0..ff190670a235 100644
---- a/arch/sparc/mm/ultra.S
-+++ b/arch/sparc/mm/ultra.S
-@@ -242,6 +242,20 @@ __flush_dcache_page:	/* %o0=kaddr, %o1=flush_icache */
- 	retl
- 	 nop
- 
-+	/* Zeroing every D-cache tag invalidates the whole cache on
-+	 * Spitfire and Cheetah alike.
-+	 */
-+	.align		32
-+	.globl		__flush_dcache_all
-+__flush_dcache_all:	/* %o0=D-cache size, %o1=D-cache line size */
-+1:	subcc		%o0, %o1, %o0
-+	stxa		%g0, [%o0] ASI_DCACHE_TAG
-+	membar		#Sync
-+	bne,pt		%icc, 1b
-+	 nop
-+	retl
-+	 nop
-+
- #endif /* DCACHE_ALIASING_POSSIBLE */
- 
- 	.previous
-@@ -801,6 +815,17 @@ xcall_flush_dcache_page_cheetah: /* %g1 == physical page address */
- 	 nop
- 	retry
- 	nop
-+
-+	.align		32
-+	.globl		xcall_flush_dcache_all
-+xcall_flush_dcache_all: /* %g1 == D-cache size, %g7 == D-cache line size */
-+1:	subcc		%g1, %g7, %g1
-+	stxa		%g0, [%g1] ASI_DCACHE_TAG
-+	membar		#Sync
-+	bne,pt		%icc, 1b
-+	 nop
-+	retry
-+	nop
- #endif /* DCACHE_ALIASING_POSSIBLE */
- 
- 	.globl		xcall_flush_dcache_page_spitfire
+ 			calc_load_nohz_remote(rq);
+ 		}
+
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20261016-remote-tick-proxy-237fc1da63c8
+
+Best regards,
 -- 
-2.47.3
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
