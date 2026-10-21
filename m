@@ -1,101 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792592644;
-	b=FXd4fXL7detN7FSgyuIrvyCGDOX0mqZmP9tssZF8cQ0W4BHE4A/qkJhBylTUNjU6TK7Z
-	 YL/wC1iDeYRr4NemgdIpEAzgGeWuQT0y0nm2zDJK5FYJ3/N+TAPO088cnumjHk6nK9TfT
-	 5U8uHuIX18wCN/Q0S07JITsuX3jUmStTTHit929/OYTeQ+HXqrJ219kUvqFRahmcrop0s
-	 lqVWyACzXyQfsH4ZQF+Pwznj/mom3oTUcqBUYGwvFP2pK2HKHQpQjdb2Gkg9hwJUktoII
-	 6Mqj3oT4eOA395xQcGpIIllVavyXr7JfLFd9tXzOoU8Jh65htSe/anVoB9vX0lLefbg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592644;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=CH6oHG3/Qp34ti4yckIWOW65CjO9OEZZdj56Vscx/3g=;
-	b=LIzUJgUc3BFEYHmAWDoJzSlinzpyNc5Qs1cDWNmlMg5xUSgsXww6Q85sNjqWhsLYaV1L
-	 dhit33qxG/IV5dPht4R1eJySHtGnwT4CYjE12dS+uNDdjoY6h3H365skxOVxaC7HiHnEk
-	 qWo0e9+E7vgkz8bT6yscsxMgebd47iboM3EUVUCmWi0EhawSbPdnLAUxfMCS0OLRRvaxR
-	 koO+qTaxK4YP9nUwquO4Y5oJgJG2sslNrElmIJMuxOEh9nF656IXKZFl4o6s7Nz+rf9oR
-	 t5/kl81NPVS8uOcfOAU5Na8v9bnHdIutQ6gfHxw7xZ8WUwmWlWOQfbdnrMSwEiqSXFQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mVeuAnoF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792592656;
+	b=mkLFioUaE6m1dmgFQ56B6BT35rOpMdQPr1J62eF8I3iNvYZ3q3lRAxiqBFqVdbTRgYgV
+	 Qh+wRql2mZ6mlXdyKz1pdhkEpkNyIMc/OTszNNeDW+tbPFhkXBV12WHAq5iqqiSnlW8iN
+	 5F7rwxcPnnyiQvvaQodh7TnHWhuNJQURjPOXgGZhQFoIVPaow9hzDANhnRUp7oa6bL9ia
+	 /Ojh+igZlcSRS64oVwEg3/+cR0KyrN9RcbYeulp/lWULshnTfppAKA7hek+8Lgkgndknz
+	 Gn4T+z7EjmoHsIc27S1DaEQssC2+U51gqCA1eUVIYrfrHA2ub1YW2BZCWv+aMOsYPmw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592656;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Yzr929GwM2SJa7VYVOmz341tWRyOOoNw+NqHJyg5xWU=;
+	b=oDtwXINUYpGdJQp9/FUTgbnmEwa90xMVNEzZFCGjNxU+yvb4750apbgFb5pKe/U+9pHo
+	 QW43FhOwbT+cAUYttcRhdAl3K31NFxcqy5/sErVgx8NUeBo8lI05yH7aC5QhiMZn6w+0F
+	 GHWJdzywGUQrv4fqsC/Di89MtREjYyMfO8tvQTyzGvsiSz1TGCUbNfiuX8+/XyWSG28F/
+	 RG/Z5E85ZP+GSqZoM2bQakZAQHsNutjfQ+9vhBIA7Vj5Wx1yWE9YlAdmaKcl84YUbucck
+	 RB8RjOoZyZGd6+B5ufP/KGiAzURHWhNZU+2X+RHeHMan69xI/A8x2qOqny0szYzfI3Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lj7pPRdg;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Opiii4UU;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60369606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60369606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2349660A2623
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2349660A2623
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=mVeuAnoF
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b06c0794cfso8797477b3.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:24:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792592643; cv=none;
-        d=google.com; s=arc-20260327;
-        b=SXSykPucQDQ6QnDijhs8W75W0p4rLz4vywyBPxIEk964Sse5hJ7H+PxnzWk1CspKk/
-         WHxKgL46czv/6JsUf3uOrtyFRY0qpwAKbt4Qhi1ftMNTi2GP3lwVA+ZaWMBpXp9Hqfz1
-         xOlQjbv4SMBRaDCF+pXagGl6nilecxKOT3cs/FyPd9kSnu1VATkhi6BSbIzJ+l2YwoUI
-         xtxlyUisHqthMXEj8jIoJd0lpbgB0xI2CvKdFwkC2Uz2H6lXzNqRqIBZWdjGdsM3Jikv
-         eB4Q64iSZVKyaFUdnJmojzIxl4S+17cpQimwMaeFgWGR7wCjfI1fCWSGB/8Xc92GlBGU
-         YM5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CH6oHG3/Qp34ti4yckIWOW65CjO9OEZZdj56Vscx/3g=;
-        fh=Xf1SEmt8kzhFvQhZiQ+3Sz+wTJqHCH/vYhNKcBH/8Pw=;
-        b=WFt4++KAW05wAKll2n0e+jER/vmr0UsNBnQQMwuUVedgM8sFMJBwUWNnEZopxNMsP4
-         lV/UF40NO0yBkrz3GmarmnYk2i/gxv3jUdtWJmsuTDwIwRv1+EuRmehazaJ9upIx7t+z
-         5lKhitYXqpTiEjVB/S5kkE0OJqYfsX+Udi78+hUudbJmKUHGTC0LMnmWe71rOIQ+ZNSF
-         r2apeGRV+siOnPl4G8rI6I/7d/DH93rU02INTNNWTsy/o9OspEGsVJlaBQiqyr09q6eW
-         VjtcSfs2nPCvw8lvbLXi4uQVxdHdG7z/FhaCCGgMf8QA+riFP4TuHuj6L+Lbjd1jAiZQ
-         jJkw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Lj7pPRdg;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Opiii4UU
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEEvWs657183
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Yzr929GwM2SJa7VYVOmz341tWRyOOoNw+NqHJyg5xWU=; b=Lj7pPRdg6/l4jXtY
+	+xQWggV3ZuLswnslJYWksBhcAa21McnlRZi/uEQi4nPV353Wp2apNpGtzcFnU83n
+	/SbWep4e6Fx4MDSq6AFM5FkvjV+4ivRrXrbXhwlhUZee6kgTab2LNU2UHxTekhYo
+	aEWZbNyYCwiqX8x7o6KvxySCPszVVNjWNZd3ql1SfvMGQ3DVCo9Z0QqGkNHt+PXX
+	x3kM7uSG6CQ2O9s+mR8v6hCLQSvx2hJM2mNOmbOKmPabA33PRKreu/BuFEszlGYK
+	ndnjV8eGDc2crcKVvaxJxadcFx8X7KrH9tr3Jw28KihyK7gJOXANPBjnJJBGwK+k
+	o45Alw==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com [209.85.222.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v4cq5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:13 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id a1e0cc1a2514c-99081ea787eso567599241.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:24:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792592643; x=1793197443; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CH6oHG3/Qp34ti4yckIWOW65CjO9OEZZdj56Vscx/3g=;
-        b=mVeuAnoFaOFhfQvLiTtQZZmds+N4yQc3zn1YhqdWZun1Ga2c060+QgCj5oa3Vpievy
-         W8h5lVHAmxwkk0w0uAndhgGUG1iTbAaNoHea7bm3PH3xe7Ck0crjFjM5EHNcYHzVn/x+
-         oqrKnkuYtOGcMXYMJLW5DRotaFfiSySwwMm1eSgHxzMLXGzQmIYEk3lXuYl6YuuK2b4G
-         /FESwOM1mLoiV0BgPtBDNktm8XVaDhb8GSNrJpnUWpVymDUzus5YThDdL7k+Fez3bDkA
-         LuCVCtCXN09raHfO8/VVqyW9wSGP0iWa+kxocdr265hovuU+Dwa0MVEXTu160uYy6Euf
-         XrlQ==
+        d=oss.qualcomm.com; s=google; t=1792592653; x=1793197453; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Yzr929GwM2SJa7VYVOmz341tWRyOOoNw+NqHJyg5xWU=;
+        b=Opiii4UUX0a+CW1Avdv27wYZZqHy4vkKuuRMfPe0ElBcbKjS+UVcnwZ1KpHWH/FEC+
+         WFeyvoFvRaKtZ9V+9AcTWzelCQPVnaZqOQ0OeNRbiVd/nsp6Behi3idfq5Q15YWHDl2H
+         ijDL/PizjmJl3kMdb3SgmnZnJZcDKUqTLbA9ICfJr8zsWh9K5dF8qAoEgTBexI4U3qYR
+         JO4C/Gqko4LW0LXxMaq4JVK4SIEhpvWfQIRxapeDuVmgYQoc2sUCvTasAB5vGY4llc3t
+         UilOhTPRRonRB7v9G3Xf4RDJtChUzKiN+lCI0QVFWzvzR/YsUIu/pRAIthI12uudJA0r
+         e9jQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792592643; x=1793197443;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792592653; x=1793197453;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CH6oHG3/Qp34ti4yckIWOW65CjO9OEZZdj56Vscx/3g=;
-        b=RUgIkG7DvfBM4sgyM+cU4bq9NDrQZqq+yWZp1L9Tsl2R+FiTR82vbkoiwnx3Eq4a0n
-         CBRAjUfVZfpkGwT9Nihfr0rrJYotPVLrinSV8xxK3/A9U0T91Aljbr4zE3nmRCiDExAH
-         91cNVtLK+pmu76J3BJZx+s2USHn9oXJcKUPI9dE94gz5Z8UZdZwsDn4n/CFAmphbgFgx
-         ZaTGdlqfG99YNQ6fHp3MeGr7udd8c189/aCUf2yqNFeeEoRXAmKyOgoE/KZJbvQb1FgY
-         LWZ0Moz26vQlxTEDXDXYBLeQL86rfLr3Y1scwotKDsvaSZNdr+QbhHHpyQpokQNwfXgR
-         44Ig==
-X-Forwarded-Encrypted: i=1; AKwUvByGEeZlVFEd34XY97DvEXK3hE5CgdQfFPpYMPDL6rgYLTXsurPMAhKkl+XgROJbYcy5Csg/eY+HH7IAoqE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLf2kWPXd0e8ppx59aDIOJ3+QuKIPyqi17oYYvp7Ku2Pu1QXrt2
-	PMh/ah/RMupl5ExiTjBht0JsjbXM1hbWYnapcbWFw2yTIj5JlT1BibZ5buXOhw9mitKGcDHnTan
-	nPx7MByPsBHCDjsnoZ3UeLkRIYpZ2k68=
-X-Gm-Gg: AYBFou3+dBZGZGiZ3XYxDZBpLHPp7Y1JnBo5EoF4vSsmimcKLJIuyVqE/HwzJeyWH24
-	uBK9CDRh9qQdZd+suioYKqXLlIgmm8MSSfiShDJqaEy/z6QuLqbvcHoqsYr3BlrIGfm/5TGPj0L
-	ZkvSKH4SGD9dn7cnb1OYV+e3D/LPpnqSFMAEquWabUnmaeICW2k2YXUAwWCDUWfwHm1mUx+6x4/
-	DGaa1TIZGacaj1bvdIx1fpEpZcx+nWXV8svRFaZyJHc5DA7Wej8wo0ISYUSrNuW5xRDGEHw4Fny
-	LQOX+r4iFyPjO314Oh1d6KYZwSKUkKhvRBflMmH6XR0cbtme7dmqtTUY3LjSRIY97VygYjzb5Yg
-	JhFgBnpjYzLQxZ9+KOdrkFjXbqrQ26u3awIuniaWAk/QkBBJGRfQMUXJziLkel+QSPuv8AGMnCS
-	bbupwO/4CovJGngT7DDi2m
-X-Received: by 2002:a05:690c:e146:b0:8b0:aba3:a3e2 with SMTP id
- 00721157ae682-8b133d39371mr7017367b3.37.1792592643275; Wed, 21 Oct 2026
- 07:24:03 -0700 (PDT)
+        bh=Yzr929GwM2SJa7VYVOmz341tWRyOOoNw+NqHJyg5xWU=;
+        b=GD9+8w5xvecGO79O0RKAW/XW1uUjUgbljSE8idQaSzcXv/AUShPW6WYFtu65Osd7RU
+         w4JhN0++WoZc90D9j/7AstZ5d+QjUrii5uB8rttnIMlRuGfNoGNwz4aEjUwikHwwX5JX
+         dFugnLHgEkVo7i/Epg/aNzekDBr6GdpnmaWtDJt7WDiF8Mxx00itdBPllVarNZFk5pWe
+         g7/eKGTaqlsJEuODHBCqBIVaUmzs4XRDUtkoj9S/qRk0PvpaJxf0E0cZMAsmCMkzJsqW
+         jDmhOC+CGL9fCHadV+2BZpIXpkM64MCn0PFZ0nGP2ooNj4fs4pT3TpjqipD3P4MVwUuq
+         HaQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx53IWYGJZk5gRAbCvjQIoPN51xYQp26xsB9VKYggf2lsH3hYSsY0lYiOMJf9jfUcFkG8IInAA5smd6Zlk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLfC6H01Hg6k/uVVfgXqKjrSK1A7wWmYjLULulgfuaCprHomBN
+	2BgQfju2AvnwDxAJVxtbi4eD1P/D7zjP6B56v6OBMonthsp2lIqHUy8SpQ3WTinJ0oZgv6307gl
+	lucP1hL81+c4IgSkxIkyRQy0JENj2m4DpDp8R/ae/loBWAzzLVCc0/2KyPPwcxlCKOFaiZ2x1kM
+	Q=
+X-Gm-Gg: AYBFou3EACsa4PBjTI0XpskKNio+ymO/B67Ns6BWMneiKRnw+GIwouMMcuz085WdrkO
+	7d1cIZzvzEJN61TYtznizqvtYaJgaZPvXxoNtUSTuhA2imgIjp9PY+/wx+9SaNEZ0yWHjRkIjt7
+	v+9HJQgtidktJwpwe10cnFFlxOtdl++Sgncbyy9l4MP3gROgqbl0DaepLSbkKx5mwgBuH1hpRS3
+	4Xb0yRHQqMFvegpEtHxmwgSozD5TAQHKq3YKfMC6QU9v/UO3GH4PooKo/A31+sNQmJ26HKPDS/3
+	BZEqNSIKs/0PvroGS5zgA3MVY6HUhzln3Sp955z2Z0QAKD9bYcwZvuO90VWCsfVHnPW1FLfewud
+	7QOAKHTfKGTZM2KHEVfYRjRom7Xu8
+X-Received: by 2002:a05:6102:418d:b0:7a7:198a:c2bc with SMTP id ada2fe7eead31-7cc92753c77mr855482137.36.1792592653125;
+        Wed, 21 Oct 2026 07:24:13 -0700 (PDT)
+X-Received: by 2002:a05:6102:418d:b0:7a7:198a:c2bc with SMTP id ada2fe7eead31-7cc92753c77mr855456137.36.1792592652638;
+        Wed, 21 Oct 2026 07:24:12 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fb83ff0dsm103760055e9.7.2026.10.21.07.24.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 07:24:11 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 16:24:00 +0200
+Subject: [PATCH v6 2/5] gpio: shared: factor out per-entry setup helper
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,81 +116,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021084337.1515468-1-chris.lu@mediatek.com>
-In-Reply-To: <20261021084337.1515468-1-chris.lu@mediatek.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Wed, 21 Oct 2026 10:23:51 -0400
-X-Gm-Features: AclHuK8FmV1TdL0_oevKDcXRfpa4yUifRgu3gHeeFUqDijVRdFDfONErTdM1fR0
-Message-ID: <CABBYNZKqAa+3V1k3U-NBodfAhYRV3ZqX4V7bp5NFrXY0ndgL7Q@mail.gmail.com>
-Subject: Re: [PATCH v3 RESEND 0/3] Bluetooth: btmtk: fix ISO data reception
-To: Chris Lu <chris.lu@mediatek.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg <johan.hedberg@gmail.com>, 
-	Hao Qin <hao.qin@mediatek.com>, Wenlong Tian <ot_wenlong.tian@mediatek.com>, 
-	Sean Wang <sean.wang@mediatek.com>, Will Lee <will-cy.Lee@mediatek.com>, 
-	SS Wu <ss.wu@mediatek.com>, linux-bluetooth <linux-bluetooth@vger.kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	linux-mediatek <linux-mediatek@lists.infradead.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-gpio-shared-fwnode-lookup-v6-2-6af7d8eefd25@oss.qualcomm.com>
+References: <20261021-gpio-shared-fwnode-lookup-v6-0-6af7d8eefd25@oss.qualcomm.com>
+In-Reply-To: <20261021-gpio-shared-fwnode-lookup-v6-0-6af7d8eefd25@oss.qualcomm.com>
+To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4264;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=uuM5n1/ji5JC6EPQ7kRmGdBjzEkAbSpadsEf1ipKIMs=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBq2MsGZKhc89cQ/LqtfxZCVpyusVYyEHkYteSbU
+ DbLKPLh8UyJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCatjLBgAKCRAFnS7L/zaE
+ w2XxEACvaawuFOIfyN+W1UrkqEZRKjc4vQPqyEp+v9K/mcV4cerTwfK7bAVramWn/hY6GjaZW3a
+ pMevNfpaOp8ZUPRtcysmU5pZDaVM7Aoh38BQXW6TOfOGAH2aSR2uR0dnQSjRlcdwCiZRS05TMXG
+ BD7a0Js3m8fOABEAishX0IE9fikib4m2H5HmUUcePA8lLNDF1VXWG4ziJCmExMF78xv/emoMigC
+ m+2OVlHY8+8hUukJb6Lthf3E8/S3ZkDxRMrTdkO7sF7PC0EEmnnHSAw+y9BibaPITZnuFYbkx+L
+ M+HxaTdMVmsPUWDYKMqDtotpg5CEw4/QN4pfsVBl/wr3KuGTndEC6eGYgplQeRWpWpSYPyZN7pG
+ 9zYQ5iAY2h6RW9EagULvbMVk/B3dEZSUQ2zN5epbGnsU7j7udNDUBB6yAZx3JcsalxwZZJ5Na5S
+ 3/jMkZiywRX3KVA3RMCQWalDh/ybnaoH5LyyUpD0BthxSnEczn6v9X3blx0nlN4H6tuI4qevo8h
+ 5agsbGP/3Ti0PoLljnwmTdrPJ8EHq3Ho1krTfVdMINSi2XVdmdDXss1rPZwHCHRDXND/+GFe5sK
+ dSlxfPvlo+d23PRmohe/A8tiUdg9lWMSrqZPavyOQNj92epbmXuYfDBp9v8qqnKSDt9S6ZEBbRT
+ PdBsc7I5tfX1+rA==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NyBTYWx0ZWRfXxn5f9BysQUKi
+ Gj4s8lDxhsGQOjq6N3lPVuTU+gv+/P3RNDI8is3umBrsPwEKWn2kU0vwgehEmOthZ3Wpqq0OXuD
+ VeHp7P76hC0XYPx5s07vOcE1PNY8+oo=
+X-Proofpoint-ORIG-GUID: zmWZziPQdxqaV-yGy7nckNpc3MUnnU42
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NyBTYWx0ZWRfX7gZYP2mIVGYi
+ bIPZAd+TnLIKvCILgLSBECWfjAprWuVCusC67v/JO7VaJ9fCpNx1hg56Zk4YyKwxeSdOwYBOnVU
+ PsJZsu/+MPpWpI7FLzycG6wAnegcgzakly8+dNSwzzMK//UROOqGuHjBzMY/Tq+vScHEsWoKtyh
+ O6z+1EPVl/RJ7N0sbhTw7PYTSBIY7IxZaOz5LkCnVppzaS45Rsfw2TTiaiKxohFECEw4BFF8lKF
+ GE65LDDNSTBljfPcUL49kG+1bwvF1orWTGLF43SkZvQUhYOaqCdqSjWDC0KZmOOfrcYsharSy+f
+ aTrBF55EgUA3ZWdpU3QJuM4s5E3OXFyIQaBtkjoWLwtHdD4NCrWRYXZtHit5+rdwKkZEcB/6UJ3
+ V5pnsTXwUU26JxWvf6Z47ULvPSpalCq1nYwMt4fn+AZlAJ1Gi7oc0iS0AZO0SQ0/i1JytnSLIQd
+ ncMBFEZsQ9BlmYSzrXg==
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad8cb0d cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=Fseb4n8Ag5KZzSNL8SAA:9 a=QEXdDO2ut3YA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-GUID: zmWZziPQdxqaV-yGy7nckNpc3MUnnU42
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210057
 
-Hi Chris,
+Move the per-entry part of gpiochip_setup_shared() into
+gpio_shared_setup_entry(). This is a preparation for making the setup
+all-or-nothing, which requires handling the failure of a single entry
+in isolation. No functional change.
 
-On Wed, Oct 21, 2026 at 4:43=E2=80=AFAM Chris Lu <chris.lu@mediatek.com> wr=
-ote:
->
-> Resend due to rebase: the base this series was previously posted against
-> no longer exists in bluetooth-next's history, which is why it failed to
-> apply. Rebased onto current bluetooth-next; no content changes from v3.
->
-> Two fixes for btmtk_recv_isopkt(), found while debugging LE Audio on
-> MT7925, plus an update to the ISO data transmission setting. The function
-> is shared by every MediaTek USB controller that supports ISO data, so non=
-e
-> of this is specific to that part.
->
-> Patch 1 drops the zero padding that the ISO interrupt IN endpoint appends
-> to each transfer instead of parsing it as ISO packets.
->
-> Patch 2 bounds Data_Total_Length by hdev->iso_mtu.
->
-> Patch 3 updates the mt79xx ISO data transmission setting.
->
-> The three hunks do not overlap, so any prefix of the series applies on it=
-s
-> own.
->
-> Changes in v3 RESEND:
-> - Resend due to rebase. No content changes.
->
-> Changes in v3:
-> - Patch 1: instead of dropping a packet solely because Data_Total_Length
->   is zero, also confirm that the rest of the transfer is zero-filled
->   before treating it as padding.
-> - Patch 2, 3: unchanged.
->
-> Changes in v2:
-> - Patch 2 reworked and retitled.
-> - Patch 3 added.
->
-> Based on bluetooth-next.
->
-> Chris Lu (3):
->   Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
->   Bluetooth: btmtk: bound the ISO payload length by the controller's MTU
->   Bluetooth: btmtk: derive the firmware ISO setting from
->     MTK_ISO_THRESHOLD
->
->  drivers/bluetooth/btmtk.c | 44 ++++++++++++++++++++++++++++++++++-----
->  1 file changed, 39 insertions(+), 5 deletions(-)
->
-> --
-> 2.45.2
->
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+---
+ drivers/gpio/gpiolib-shared.c | 112 ++++++++++++++++++++++++------------------
+ 1 file changed, 63 insertions(+), 49 deletions(-)
 
-Sashiko is still flagging a problem:
+diff --git a/drivers/gpio/gpiolib-shared.c b/drivers/gpio/gpiolib-shared.c
+index 64bb450f0a8461d214a45aa97e2474ff0d1857ce..47b434db72f1ebd35ec36ebdb35f30809f4522f2 100644
+--- a/drivers/gpio/gpiolib-shared.c
++++ b/drivers/gpio/gpiolib-shared.c
+@@ -538,12 +538,71 @@ static void gpio_shared_teardown_entry(struct gpio_device *gdev,
+ 	}
+ }
+ 
++static int gpio_shared_setup_entry(struct gpio_chip *gc,
++				   struct gpio_shared_entry *entry)
++{
++	struct gpio_device *gdev = gc->gpiodev;
++	struct gpio_shared_ref *ref;
++	struct gpio_desc *desc;
++	int ret;
++
++	scoped_guard(mutex, &entry->lock) {
++#if IS_ENABLED(CONFIG_OF)
++		if (is_of_node(entry->fwnode) && gc->of_xlate) {
++			/*
++			 * This is the earliest that we can tranlate the
++			 * devicetree offset to the chip offset.
++			 */
++			struct of_phandle_args gpiospec = { };
++
++			gpiospec.np = to_of_node(entry->fwnode);
++			gpiospec.args_count = 2;
++			gpiospec.args[0] = entry->offset;
++
++			ret = gc->of_xlate(gc, &gpiospec, NULL);
++			if (ret < 0)
++				return ret;
++
++			entry->offset = ret;
++		}
++#endif /* CONFIG_OF */
++
++		desc = &gdev->descs[entry->offset];
++
++		__set_bit(GPIOD_FLAG_SHARED, &desc->flags);
++		/*
++		 * Shared GPIOs are not requested via the normal path. Make
++		 * them inaccessible to anyone even before we register the
++		 * chip.
++		 */
++		ret = gpiod_request_commit(desc, "shared");
++		if (ret)
++			return ret;
++
++		pr_debug("GPIO %u owned by %s is shared by multiple consumers\n",
++			 entry->offset, gpio_device_get_label(gdev));
++	}
++
++	list_for_each_entry(ref, &entry->refs, list) {
++		pr_debug("Setting up a shared GPIO entry for %s (con_id: '%s')\n",
++			 fwnode_get_name(ref->fwnode) ?: "(no fwnode)",
++			 ref->con_id ?: "(none)");
++
++		ret = gpio_shared_make_adev(gdev, entry, ref);
++		if (ret) {
++			gpiod_free_commit(desc);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
+ int gpiochip_setup_shared(struct gpio_chip *gc)
+ {
+ 	struct gpio_device *gdev = gc->gpiodev;
+ 	struct gpio_shared_entry *entry;
+ 	struct gpio_shared_ref *ref;
+-	struct gpio_desc *desc;
+ 	int ret;
+ 
+ 	list_for_each_entry(entry, &gpio_shared_list, list) {
+@@ -571,54 +630,9 @@ int gpiochip_setup_shared(struct gpio_chip *gc)
+ 		if (list_count_nodes(&entry->refs) <= 1)
+ 			continue;
+ 
+-		scoped_guard(mutex, &entry->lock) {
+-#if IS_ENABLED(CONFIG_OF)
+-			if (is_of_node(entry->fwnode) && gc->of_xlate) {
+-				/*
+-				 * This is the earliest that we can tranlate the
+-				 * devicetree offset to the chip offset.
+-				 */
+-				struct of_phandle_args gpiospec = { };
+-
+-				gpiospec.np = to_of_node(entry->fwnode);
+-				gpiospec.args_count = 2;
+-				gpiospec.args[0] = entry->offset;
+-
+-				ret = gc->of_xlate(gc, &gpiospec, NULL);
+-				if (ret < 0)
+-					return ret;
+-
+-				entry->offset = ret;
+-			}
+-#endif /* CONFIG_OF */
+-
+-			desc = &gdev->descs[entry->offset];
+-
+-			__set_bit(GPIOD_FLAG_SHARED, &desc->flags);
+-			/*
+-			 * Shared GPIOs are not requested via the normal path. Make
+-			 * them inaccessible to anyone even before we register the
+-			 * chip.
+-			 */
+-			ret = gpiod_request_commit(desc, "shared");
+-			if (ret)
+-				return ret;
+-
+-			pr_debug("GPIO %u owned by %s is shared by multiple consumers\n",
+-				 entry->offset, gpio_device_get_label(gdev));
+-		}
+-
+-		list_for_each_entry(ref, &entry->refs, list) {
+-			pr_debug("Setting up a shared GPIO entry for %s (con_id: '%s')\n",
+-				 fwnode_get_name(ref->fwnode) ?: "(no fwnode)",
+-				 ref->con_id ?: "(none)");
+-
+-			ret = gpio_shared_make_adev(gdev, entry, ref);
+-			if (ret) {
+-				gpiod_free_commit(desc);
+-				return ret;
+-			}
+-		}
++		ret = gpio_shared_setup_entry(gc, entry);
++		if (ret)
++			return ret;
+ 	}
+ 
+ 	return 0;
 
-https://sashiko.dev/#/patchset/20261021084337.1515468-1-chris.lu%40mediatek=
-.com
+-- 
+2.47.3
 
---=20
-Luiz Augusto von Dentz
