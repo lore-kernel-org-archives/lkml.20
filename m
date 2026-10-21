@@ -1,110 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.63
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792594992;
-	b=IiA7HUGm4eMCs8GgNHupZYAFZsqAB+xVhwU29FDUMVcCM0wveCMTS2Uy3hO75HUAUKvQ
-	 pe7LViT+QcIQ/hXeA7HcCLBs7wr2Yy2ufZg99mRG/U57v+q7xtsBbld7ot3o40aFXVMKg
-	 FYCPcgg+Ddegm5BBgC5Sd0dIXmXpEVMgIFei76XVJ3NuQMIJGyHmybt7vJrbXi3lYYYgD
-	 vqF7LYQNnAeLUgWzcG+QAW2gqEbZ2l3MOaW0nP/fg9g0nORdDoUeg6SEqOuqbWKgfdGgh
-	 uZybpyPKaQAGMJdlnGx2YmL4jRyhs+JIRisRbY/5GisGM1pAurqzxlmGkEEx9T0UKKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594992;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=DnU2Uw1Rw+wTtO/YIJQzgsXD4e0OCo9FgakRQ+6Wsms=;
-	b=NHtf8B6cuAJ5tfX7EliWSYAk7myN3UgXI/5vvCqVk6Q6S7NVh1lOEbIokR0O4bX+vChm
-	 Uwucx4Tj+18F+/9fUzTTGsEkxszl3jiw2oqICg6f60K4Qr06dMQAUQ6wu8DVAZCgomY65
-	 /w1fZUkUdTZHbX5ae+525arQGwxsV4VFrXLcZrGGfxduvuzLZ5YK8Gfysc3GKwFGCNnOL
-	 NWb8BH5OVC7QwVBmh/YU1Ox9A1DJJYZziq9zb/VtqvH0RHtbis4cIQTaaWn5LBwy/Nh1v
-	 M6yrM9s0TL5phPImmrFJ5Yp0fMv1M4Z+kSKj+ySHIWmf0LGxXoDPsCSbIgkeQBJHejw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RmmxbwFW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.63
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012063.outbound.protection.outlook.com [52.101.53.63])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792595002;
+	b=EbBAMMepE9m3fzL6rCAqLmXTGSpSYmvo2x6xJ2M4SQxer683Z1m8Ow1e8z3PK0foMjBQ
+	 67GumgZAlsaNk15ILiYGBE9zp1MeZBR+Rx9Nh9ujb7zPuykbp1wzr8VS5PivqpEoFVBar
+	 +FXN0xRM1ncUwKn4NSdylSER3JYY1aPWQJkYZoKOBL+XXD5Xgy/Yvl/5KAR5+sFwgzpmH
+	 S4RGSOPl3YcdB54xpqn9pyZRYjERe0GyLl08G3EL9nyAu3n+4YOMZaQC88Z/MdqLu5DM8
+	 KeWvIhoG/f0w9robs/gSbBJe44ElsMVkOUrscU6LwBVjPXgxQYBswlLdp42U5fDBdJw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595002;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=GxeHVT2qL6sGRauX1063cDj44dMqPtepnr8lk8BOP1U=;
+	b=fIAjl31JSLzBiT1dbQLaRtQQyZZVEx58iSQ+VeItTaQOMwy5oUvJYiiBSTn8IOg99DWS
+	 wU5GcsJENdUlGfV61+1a3aeRDa7cJAQDY/EpAV+w7QotJnA8q1pgyrQsJ9h5fMyhB1rmo
+	 kZBSF/sHtc/f7uItRy+i27ct/wwiEcDIeQhqt/cdCf04fyNxJJLYCgjpQ2noWRXJc63KD
+	 6UH1Bp1b+q7hRwV3X4Z8f7MX6TBEKTsMBKp4ObX9ow1HCHAnl2cOF5DKYu66Yh/gJv2t3
+	 0RPwBe6b0UzOL6TuO/yqsrdcLPbnnzVG21Cc9cCquBi9kveM1OHF0SlBlKO2QjtH41A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=NsyeGYvZ;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="WkEjL+/F";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=NsyeGYvZ;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="WkEjL+/F";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9929606A319;
-	Wed, 21 Oct 2026 15:03:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9929606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F009606A319;
+	Wed, 21 Oct 2026 15:03:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F009606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=RmmxbwFW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mmAxSbg0GNIOXdJwunI//XF+C34bPRsAge0pXaNbaWF/Y2VFcSg2xQCcvue9QpN5saaki5w2PcacqcmigCK3TDDA+j87YReiiO2/RiM7za9r3feLXNS0TsvN3kn39e1AS2m8igtNiYlC0JT2HTJUSadCj6JoC3hFb2sy565/SpMasezxGwJXxwVnEaHW8FnDVEMY7G4kgdWHHFtM2TYa55LBBPvHnmJ8GD6vwPEzvEP215dCZZlaO+Sz5qTrJARr1fPnz3UYzS0bTZZ2oxYutwUyKf6Ai6tZhdL+ZvenHo7fbWvel+AZelvPFbvgQIOEIcNKjapBJjI1L/A2HjzJag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DnU2Uw1Rw+wTtO/YIJQzgsXD4e0OCo9FgakRQ+6Wsms=;
- b=QhdwFHk20qxQitzYBEGFLeU4DyeCwR1WC/iL1Lh4hdOmzrJLW6hu4XcDYwUzAzhelKbOjY6sdXG6zKgaP8d/dj0buuHaOl81YjuXkTDAGKbzCufXLo3hGyU3PAIFFN8oud/vDq3CHrfzSisGx/Eyk3jKfyq5nkLiAJfFfuY11QiDw0zRKwOKMSvv1TlVy+YRNlC6YI/Hc48uBsmH0pOQE4rxM+S3Gg9Grmz+vJ7fT+fOvu7GpZNp64n5eo4ruzG7NXKyr0mSvDjl8ckBn4vel1sSfruSjd3Z/tgjynJEJO6SSinYDnN+6+Tgx9WyMa3CltlW2TdJtrRA0Jrb5hsF/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DnU2Uw1Rw+wTtO/YIJQzgsXD4e0OCo9FgakRQ+6Wsms=;
- b=RmmxbwFWblnaT0RDUBnz07wbLxcWzW7PMS/cNzWe34qH0Gs4KgKYA73kk5SiI6J9lYWJ7KAy2AqlCQ9xCcDOd0LktmqMcj6JSNkbkK9HBr7tlTMeHNFhe2O0IO0SxbvbPqMHpX0iZv2gikNZgrs8MbxafkSMmS3FwV9Jxxbdjtk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com (2603:10b6:208:314::17)
- by MN0PR12MB6152.namprd12.prod.outlook.com (2603:10b6:208:3c4::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 15:02:59 +0000
-Received: from BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1]) by BL1PR12MB5320.namprd12.prod.outlook.com
- ([fe80::1876:4a6d:2cf5:b8d1%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:02:59 +0000
-Message-ID: <71285fd5-6094-4114-a0f0-7d55c049edd9@amd.com>
-Date: Wed, 21 Oct 2026 10:02:54 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 13/18] fs/resctrl: Deactivate kernel mode associations
- when a group is removed
-To: Reinette Chatre <reinette.chatre@intel.com>, tony.luck@intel.com,
- bp@alien8.de, ben.horgan@arm.com
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
- x86@kernel.org, Dave.Martin@arm.com, james.morse@arm.com, tglx@kernel.org,
- mingo@redhat.com, dave.hansen@linux.intel.com, hpa@zytor.com,
- fenghuay@nvidia.com, kas@kernel.org, rick.p.edgecombe@intel.com,
- akpm@linux-foundation.org, rppt@kernel.org, dapeng1.mi@linux.intel.com,
- elver@google.com, enelsonmoore@gmail.com, jlayton@kernel.org,
- kuba@kernel.org, ebiggers@kernel.org, seanjc@google.com,
- ewanhai-oc@zhaoxin.com, binbin.wu@linux.intel.com, peterz@infradead.org,
- ashish.kalra@amd.com, superm1@kernel.org, chang.seok.bae@intel.com,
- prathyushi.nangia@amd.com, kim.phillips@amd.com, ackerleytng@google.com,
- elena.reshetova@intel.com, naveen@kernel.org, darwi@linutronix.de,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-coco@lists.linux.dev, kvm@vger.kernel.org, eranian@google.com,
- peternewman@google.com
-References: <cover.1790867441.git.babu.moger@amd.com>
- <e9a2b05b2322acf51e16571d07bc7ee297613b3c.1790867441.git.babu.moger@amd.com>
- <08e1de88-cab0-4caa-87f2-94db0f698ba7@intel.com>
- <cabf7da5-e5ba-4a49-9edf-f801f344ded6@amd.com>
- <f7a56c83-b732-4959-9f31-6273d25963d1@intel.com>
-Content-Language: en-US
-From: Babu Moger <babu.moger@amd.com>
-In-Reply-To: <f7a56c83-b732-4959-9f31-6273d25963d1@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CH0PR03CA0078.namprd03.prod.outlook.com
- (2603:10b6:610:cc::23) To BL1PR12MB5320.namprd12.prod.outlook.com
- (2603:10b6:208:314::17)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=NsyeGYvZ;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WkEjL+/F;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=NsyeGYvZ;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WkEjL+/F
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C29D11FAB6;
+	Wed, 21 Oct 2026 15:03:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792594999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GxeHVT2qL6sGRauX1063cDj44dMqPtepnr8lk8BOP1U=;
+	b=NsyeGYvZgXGRuSzTYFo6f7/4ZEAoE35zzAVXVeL8Z+4CA+uwuMlB9S6DG9twr/ufPzCgT7
+	4+mYaRa7H7kanVNXIj2338pLTfL5AmhTVVzINE+NHQ7OtpLpciwR4NXzSKRVCFAKy3xwT4
+	b11QQHX1YYdAjQCwaDyndsgmTKcPmc0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792594999;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GxeHVT2qL6sGRauX1063cDj44dMqPtepnr8lk8BOP1U=;
+	b=WkEjL+/F/uB0cunI/gv/AUmolfNRDua1+0eh+Qp84i5BMpuAzAu6wA5aEOgz4GJ+Tr0v+2
+	xlz1L4mPYeglq5CA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=NsyeGYvZ;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="WkEjL+/F"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792594999; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GxeHVT2qL6sGRauX1063cDj44dMqPtepnr8lk8BOP1U=;
+	b=NsyeGYvZgXGRuSzTYFo6f7/4ZEAoE35zzAVXVeL8Z+4CA+uwuMlB9S6DG9twr/ufPzCgT7
+	4+mYaRa7H7kanVNXIj2338pLTfL5AmhTVVzINE+NHQ7OtpLpciwR4NXzSKRVCFAKy3xwT4
+	b11QQHX1YYdAjQCwaDyndsgmTKcPmc0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792594999;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=GxeHVT2qL6sGRauX1063cDj44dMqPtepnr8lk8BOP1U=;
+	b=WkEjL+/F/uB0cunI/gv/AUmolfNRDua1+0eh+Qp84i5BMpuAzAu6wA5aEOgz4GJ+Tr0v+2
+	xlz1L4mPYeglq5CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 97F0E134A5;
+	Wed, 21 Oct 2026 15:03:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id QaLlHDfU2Gq+dwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:03:19 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 22A10A13C6; Wed, 21 Oct 2026 17:03:19 +0200 (CEST)
+Date: Wed, 21 Oct 2026 17:03:19 +0200
+From: Jan Kara <jack@suse.cz>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] fs: let a mount waiting for the old superblock to
+ die be killed
+Message-ID: <mti6fpzjrw7xjvzn7j6cdoljtjpltuzdr4x6l7uvldiv6pe3rr@i6bplnpyrqsz>
+References: <20261021-b4-super-lock-dying-v1-0-2b35e86706ff@toxicpanda.com>
+ <20261021-b4-super-lock-dying-v1-5-2b35e86706ff@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,151 +114,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL1PR12MB5320:EE_|MN0PR12MB6152:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8086df74-027b-44cf-ee97-08df2f8464df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|7416014|366016|18002099003|22082099003|10067099003|4143699003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	USELC3FRD1EvcSri5OvQ0V9TcU7Tb1/hp6XMPVYw8Q2B9rDlX4Hw5kG8OZ36dfzx5jCuPfrEZqXBLVIkyKwbmTfjp5MyJh91EOVzxeTDCAohitm6KZFwZAtyQ5Rf+qws1im9MQge6Wvp48j4g5wjUdxS0C6wCUxRVVprXLuEekZdEvht/VC4dhLWwIqG6WRIOY9WnrQPaBX2Lg4i5Ko2MYir6T4TSqZ8KVJIJtHqcFiyxbsU/3OsofKLDVbInhO1G74/IC/itg4+JwheQ3U4vdpgpgghTB+oIxNC5/l3UWRVfTDZbuA6gA3dlN7mHjTk5JnpYXTx12H4MWQ7PL/YzlITl2jPWf/4xMq03uZ9d3c28Turba0TTjmcIJh5T8lk4ODFclpogpytUnRfnkVLeLdcU0iW2OGejtspAgnmvh8jObYmPREQsmGTfsWUR4D/C1Hb7P/q03iBrrv4VJ3DIJw7k2oiUUgkLheJc3AW3rg/96aTx41DI6f4eHXlhB2cXvkpKLt2S0+Ydngjr2f0cyQYLl7y2JtAguedJaCkJdw3xycUR8lxb43yUwNvhSm9Yoh3bQRZcmEN2Eb8embv4qJqDRnWcpVqz1MPRivgcB7vtvF1CdIcJu1KZB7SWEYqTPrTCqd87AIg/gC3TxR4D8J/c5K1TokLFUHgoVpWT4Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5320.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(18002099003)(22082099003)(10067099003)(4143699003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SFBzSFNJOU0vL0FYb3d5Y3B0ckp3WVFXWnBGT0FNMWU4UC84bFRTOUFnYW1h?=
- =?utf-8?B?TnMvMTFPVTlCVzE3dStyOUFiQ3o0VGxxN3VtazVzZ2RORy85TW9zUWo5QTE2?=
- =?utf-8?B?Y0ltcW5OSG1kN1N1bmVlcVNGaytvOTBGVWYrdW5BN1M3dmFkdXZFZzUvazZW?=
- =?utf-8?B?NDlYdVNBTXV5Y0E3ZG02QVllVWhlc1pOUWwvZjV3QXdUOGZ0SERaS2g5dVA1?=
- =?utf-8?B?MmVsQkFvbTlaazlkSjJRSUxtcWdoWVpqcE9hK2gzeHpBVzBlZkZmV3NaWlk0?=
- =?utf-8?B?YjhyeEN1d3ZBVVd5aDZDSXNGUHoyQUZLUFB3dU1uUDVIZkxXc0s1OGZTQkFD?=
- =?utf-8?B?dTlmWm9FTGY0NEw5c1IyM1BXRUczR1VybFF3VnlpS1FNYk4yVmo5Tm5sWWJF?=
- =?utf-8?B?NTNpUGE0MU1NUzM0Q0YwUlhtOFF6OTVaZnMyY0QyUDlDZnRXbnFsaVJsdnM2?=
- =?utf-8?B?aHB6djF5TnljVFh4a0E2SU52UHRqcUp0N014VWlCWjFnUlh1VFpuU3djTzg5?=
- =?utf-8?B?eUZnYTlXdXVtYy95cWVnejNRMUNCbXZQbSthWWJEVzcwV3VRSnIyM3Zlbm40?=
- =?utf-8?B?SmV6RTF2ZTVqdEZmdG5oS3ZQamlMQW9TN3pha01wMU1TWTVVRWZOYVpRMDFr?=
- =?utf-8?B?WGZGUHUrWERsZ01OcVFQMjFMbDZXL3VyZXVDb0NtT0NCakppMit5MUlPTUdx?=
- =?utf-8?B?UTFZUFlxZ2I2bWREcUlTbUhlNGZmN3MwYTRNUm9xV2Y4WGpkYWhhdjFyNHZo?=
- =?utf-8?B?ZXJRSnloZVpCUjA2SGJ2SzVMMzZsbnVzQ1NJVU1pb3M4WFVSMzFzbmM5VXlY?=
- =?utf-8?B?cWV1MDVqQ1hUajRYSmhDdVFUK3h2VnZrMnp0TE0zUHJzS1NTbUhnNGMyU3hB?=
- =?utf-8?B?L3dMTFhURm5hVElkOEFCV1ZqNjFSZ3dVbFEvb1FlQzh5ejVlQWlJeWk5SDlD?=
- =?utf-8?B?cWJnZitqRDZyeTZrSlUxZUl1NEw0am1MT2F0OG1GSVppSEdSQTZnSmQ5cFA3?=
- =?utf-8?B?R0lZbVA1SnJROGYvWGpESnNlMndycmdDT1pWUXJVbnBOY05PR2Z6U1hiVEU0?=
- =?utf-8?B?WjY5U3JmOUp5TUl6cjFmR0gzWkpadUdGODF3UVpucEhxWThkcmpINGZqcFhx?=
- =?utf-8?B?aENsZVREVXdTZ1BKVldiKytoMkVBaWVOdENneDE0WEZIQk9tMFpjRC9FbURx?=
- =?utf-8?B?M1FuaHNkWWgyZDVqdkFiajVCY2Y4dFpmc2lEUXREN1BxeTJBWWtrWTZtY2NV?=
- =?utf-8?B?cGJQTGFoOGVtamxhZmFLSUQ5UjZabFJUb2x5dUdrUSttMU1NOGZEUlUxeXBJ?=
- =?utf-8?B?QlIzZjJMYjBsNW5oWlhZTVluZUg1OG4vZThyNDRGYmpuNitFV1V0WXRSOERF?=
- =?utf-8?B?aWs2Uk0xN2RabUVHZnVhaW9KK1lITjNOT3JiNU9JVEdhOWZVSVI2Z2tnUEt2?=
- =?utf-8?B?b2djcU5SQUl1SDZncVQ3dW9LeExaUUc1ejRlRi8zWmp1RlF1dSsyV0EyWjZt?=
- =?utf-8?B?WEJFUkZmMEtDSmdLMFNTUjZGOUovTGdidGovQmpjdlVWdUp5akpPSmZPUWl1?=
- =?utf-8?B?QTYzZGxqc0t1NU9ZcTkxZlRmTmdEb1JZcmlMUnlsYjY3dkxMQU14bEJwcjRK?=
- =?utf-8?B?TFljRGdsYWRlczdNMVAwTGlETnczRUYrSy9MVlU2c21WeUVrdHdrUzZuZlEx?=
- =?utf-8?B?Mkp1elVhQVVRbTdNMEdyZm84cURGYU1Zd09ZbXRkM2tNd2crbkpuaXZuaFVu?=
- =?utf-8?B?K2gwbWo5d0c5TmRNYXdUSTlEL1ZsVy8zbGdLMzI1ZjFTYXpBRDRUcWNEWWlq?=
- =?utf-8?B?dkFpeWxLbC9KdVZXQ2lnU2RuNnBWSTllcGx0Nk12aHBhOHhaT2cwMWFFNHdM?=
- =?utf-8?B?aDNNbXNFSGlkNDBIbVdtNjJIQlVQdVo4NExIYy83K1prNlFFWUVhaTRpbENJ?=
- =?utf-8?B?WTcyT2Jhb210cFB4V05uVU40a3JKaUtRWVRzUlJhd2VlNng1RkwzbkxiMWQ1?=
- =?utf-8?B?ZVhMbGdhd3ltWDdZdzY4SFVXeTY1SU1heXhuMDQvVnZUOGdNQlBRS09vT3lC?=
- =?utf-8?B?Y2l3aDNRNlhRWFRhM1NBRTZRU3JEbmxlMEpOdm1QVy9nU1pPM1dMb2paZTEr?=
- =?utf-8?B?YWR4am1TZEhuTEU5VFpEbytZRWp5OVNzZFNwK3kwSkFGZVZzWHRIZzRyVnZs?=
- =?utf-8?B?OW1tY0tJYmtjb0hlSlM0SVlaVFN3SkFyZE1Fb0tnTnZLN2dvbGpSUzhVYkxR?=
- =?utf-8?B?N3phZkx2ZWpsRnMySVpROUhRZ3RXUEZYMFFRUUhTWTlKaHpBYzNXc21wY2wz?=
- =?utf-8?Q?C3OmHFssaI1nCEDKiK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8086df74-027b-44cf-ee97-08df2f8464df
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5320.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:02:58.6099
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: PN8ViIWUzC7qUW4g6/xDN55g0L+TGU5b5U98qkvoOd8V+wE1PMiKvvpYL8GTnN/X
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6152
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-b4-super-lock-dying-v1-5-2b35e86706ff@toxicpanda.com>
+X-Rspamd-Queue-Id: C29D11FAB6
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,suse.com:email];
+	RCVD_COUNT_THREE(0.00)[3];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Score: -13.01
 
-Hi Reinette,
-
-On 10/19/26 11:37, Reinette Chatre wrote:
-> Hi Babu,
+On Wed 21-10-26 00:56:39, Josef Bacik wrote:
+> When sget_fc() finds a superblock for what is being mounted and that
+> superblock is being shut down, grab_super() waits for SB_DEAD and sget_fc()
+> then looks again.  This one does have to wait: the old superblock owns the
+> device until ->kill_sb() is done with it.
 > 
-> On 10/19/26 8:47 AM, Babu Moger wrote:
->> On 10/15/26 10:43, Reinette Chatre wrote:
->>> On 10/1/26 8:10 AM, Babu Moger wrote:
->>>> The active kernel mode association is backed by either a CTRL_MON or
->>>> MON group.
->>>
->>> This context does not reflect the code at this point in series but what
->>> behavior will be after entire series is applied. It is also written as
->>> general but specific to the global per-CPU kernel mode.
->>>
->>>> When the backing group is removed, or when resctrl is unmounted, clear
->>>> the programmed association and restore the default settings.
->>>
->>> Please provide more context to user and help reader to understand what the
->>> patch does without needing to decipher the patch.
->>
->> "The global per-CPU kernel mode, RESCTRL_GLOBAL_ENABLE_PER_CPU, allows kernel work to use allocation and monitoring associations that differ from those of the originating user task. When the mode is active, "info/kernel_mode" displays the backing mode. If the backing group is removed, or resctrl is unmounted, the association becomes invalid.
->>
->> Clear the programmed association and revert the kernel mode to the default "inherit user" behavior. This ensures that kernel work continues to use the allocation and monitoring associations of the originating user task until a new kernel mode association is configured.
->>
->> Document this user-visible behavior in resctrl.rst."
->>
->>>
->>> For example, "restore the default settings" is a very vague way to
->>> describe that removing the group backing the global per-CPU kernel mode
->>> automatically switches the kernel mode to "inherit user". Please explain
->>> at high level what the code does and why. As a hypothetical, why not
->>> keep the kernel mode as "global per-CPU kernel mode" but switch the assigned
->>> group to the default group? This would match most other similar resctrl behaviors,
->>> no?
->>
->> My assuption, you are not asking me to change it to "global per-CPU kernel mode" when the group is removed.
+> It doesn't have to be uninterruptible though.  If the unmount is stuck, so
+> is every attempt to mount that device again, and none of them can be
+> killed.  mount(2) and fsconfig(2) can fail at this point, nothing has been
+> set up yet apart from a spare superblock which sget_fc() frees on its
+> other ways out as well.
 > 
-> Not specifically, but since the behavior is different from the typical resctrl behavior that,
-> for example moves a removed group's tasks etc. to the default group, it would be valuable to
-> know *why* this behavior was chosen.
-
-Sure. Will add explanation for that.
-
+> Make the wait killable.  grab_super() now has three outcomes, so have it
+> return 0, -EAGAIN for "look again", or the error from the wait.
 > 
-> ...
-> 
->>>> + */
->>>> +static void rdtgroup_kmode_global_deactivate(struct rdtgroup *rdtgrp)
->>>> +{
->>>> +    resctrl_configure_kmode_global(&rdtgrp->kmode_cpu_mask, rdtgrp, false);
->>>> +    cpumask_clear(&rdtgrp->kmode_cpu_mask);
->>>> +}
->>>> +
->>>> +/*
->>>> + * rdtgroup_kmode_global_detach() - Detach @rdtgrp from the global per-CPU mode
->>>> + * @rdtgrp: Resctrl group being removed or torn down.
->>>> + *
->>>> + * If @rdtgrp backs the active association, disable it, clear kernel mode
->>>> + * state, and restore RESCTRL_INHERIT_USER.
->>>> + */
->>>> +static void rdtgroup_kmode_global_detach(struct rdtgroup *rdtgrp)
->>>> +{
->>>> +    if (resctrl_kmode.rdtgrp != rdtgrp)
->>>
->>> Please do not use tests on resctrl_kmode.rdtgrp as synonym for
->>> resctrl_kmode.active == RESCTRL_GLOBAL_ENABLE_PER_CPU.
->>
->> Not really. This was a check to make sure kernel mode is pointing to correct group that is being removed.
-> 
-> The problem is this "global per-CPU kernel mode" specific function is called without ever
-> checking if "global per-CPU kernel mode" is active. Instead it uses one of the parameter
-> values as synonym for whether the "global per-CPU kernel mode" is active. What is a future
-> developer to understand from this? This implies there are two *interchangeable* ways to determine
-> whether "global per-CPU kernel mode" is active ... sometimes
-> resctrl_kmode.active == RESCTRL_GLOBAL_ENABLE_PER_CPU is/should be used and sometimes the value
-> of resctrl_kmode.rdtgrp is/should be used. How should somebody interpret this? Are these
-> two interchangeable tests (and thus making one redundant) or is the test dependent on the scenario
-> (which is not explained anywhere).
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-Understood. I will try to fix in the next revision.
+Looks good. Feel free to add:
 
-Thanks
-Babu
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
+> ---
+>  fs/super.c | 19 ++++++++++++-------
+>  1 file changed, 12 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index 9f76b399f3fb..36fdf88ef88e 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -673,12 +673,14 @@ EXPORT_SYMBOL(deactivate_super);
+>   * superblock to either become SB_BORN or for it to pass through
+>   * sb->kill() and be marked as SB_DEAD.
+>   *
+> - * Return: This returns true if an active reference could be acquired,
+> - *         false if not.
+> + * Return: 0 if an active reference could be acquired, -EAGAIN if the
+> + *         superblock is gone and the caller should look again,
+> + *         -ERESTARTSYS if the task was killed while waiting for that.
+>   */
+> -static bool grab_super(struct super_block *sb)
+> +static int grab_super(struct super_block *sb)
+>  {
+>  	bool locked;
+> +	int ret;
+>  
+>  	refcount_inc(&sb->s_passive);
+>  	spin_unlock(&sb_lock);
+> @@ -686,13 +688,13 @@ static bool grab_super(struct super_block *sb)
+>  	if (locked) {
+>  		if (atomic_inc_not_zero(&sb->s_active)) {
+>  			put_super(sb);
+> -			return true;
+> +			return 0;
+>  		}
+>  		super_unlock_excl(sb);
+>  	}
+> -	wait_var_event(&sb->s_flags, super_flags(sb, SB_DEAD));
+> +	ret = wait_var_event_killable(&sb->s_flags, super_flags(sb, SB_DEAD));
+>  	put_super(sb);
+> -	return false;
+> +	return ret ? ret : -EAGAIN;
+>  }
+>  
+>  /*
+> @@ -960,9 +962,12 @@ struct super_block *sget_fc(struct fs_context *fc,
+>  			warnfc(fc, "reusing existing filesystem in another namespace not allowed");
+>  		return ERR_PTR(-EBUSY);
+>  	}
+> -	if (!grab_super(old))
+> +	err = grab_super(old);
+> +	if (err == -EAGAIN)
+>  		goto retry;
+>  	destroy_unused_super(s);
+> +	if (err)
+> +		return ERR_PTR(err);
+>  	return old;
+>  }
+>  EXPORT_SYMBOL(sget_fc);
+> 
+> -- 
+> 2.55.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
