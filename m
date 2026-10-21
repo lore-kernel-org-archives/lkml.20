@@ -1,67 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792624904;
-	b=PLMkO3K7NbAs8jkOg+mmmCO+OanG4VGXvLMm2LKX4o6He/Mq6dLXJ0Ov7tRr35Z93S09
-	 2Fb0oTRjJqxaxLEUyPMUZM3Lzg0GNhPVzXt5PEb4cBwweq9q2LZqaV8Ol85mlZp+IgvP7
-	 X6kG59YcdLZ9kjHywCFcdfJC8OUj5aCy+Q6bI5OUz+9d/X9k+fw+YSIWKDPHw7IoMYEfb
-	 Xh4FXTq9rQkOQmPXJzo8leJ1lwrbRCtLwGRtgHPQEXyfddZQNGribtWtvY/nBZszKUw28
-	 TcgupOm3Vfx8/i0kV7CQmE6yHeTMzaucnMDgZJJKY38e3/uAx86+U3r6gKTrL0S55Lg==
+	t=1792624963;
+	b=yZfVB1RRPea2Id7kPyi4Jv8OFfR0E5SZCQ7yBTCYzefnABLcKcHsBtfn3Rk7XxJrZjk6
+	 eitL++ACQQPkwlBoLzQpU5t487rqO321X6adSwQyr9Hau0Tbaivx3tmslg4HcwuZvwnop
+	 PqwpTC73jkSCyX1JCdLL4/AJQ4Bdy2DAbFTkl6Nc16cyhC4dQOkcgd2B22FiZ+SLwl4Kj
+	 lf9QQwxyUjDNXcy5SvfbZE8A8ZTt7IDUO0MdJQzDrEeQMs5CpmV4yM1LAD0JZCUNMa4D/
+	 +WADN/thtdg7tNdghpn1oRIcfOTKr3xVNPEOuW4Tq76G5f3EGQMv1GoiKfEioW1zKpw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792624904;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=lPG6V1ghBuG8rTEvN/M3Qly5oWIEdqplCPxBQkS7sVE=;
-	b=U5IwbSEW5ZuN+7vDF7EvFjyJWlTEiDoCL3IqW0BQUa1+rBIfH87W2estbESI2djY8fWb
-	 WNEsfektehDChYluClAlJwbmc+xXIzE6FHqlQMrIwfXoNc2fum6nj2B4ecA0c9jfANRsh
-	 uGP1Nqho0VkZGupdiBle/4ONhkT71qHpksWTG6ASoTaxW/UO/ts7ces83HIL0pFWanzSS
-	 CVbciz9c64CxgzNTM4W8Gfhux/jbAiFthJbWRThfe1vX2Bf+vmapSXyoullSEPDgSEVgC
-	 L+0WPyzBWnZJJSWV8xTXzUbQ1xKImwTl4QMd4R+I4isEqsrtDu2WuM5qbLvsOkTWJxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792624963;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=W6XIwPfFpbeL4de4MB4+vslMMPf8d2gDcxbsmH203TM=;
+	b=nurNwn8yipBacz0PhTg7Rh0GWvGgWbLr8oxypnXGHZjvbgWSViKX4RXsgeAYPG+URaGz
+	 SADzFiVHnsx2rd2LUOAuL5rmGhXs4Yw1xhu5B00P0/QTj82kcc3svim/n8JyegNhPp68W
+	 EyX3J9GktqC7bqWHBBaChWID7SMIwJfuWQXb1r7lmXL7aLJB7EJJ/mzSK63eH3BZhjFUP
+	 T4kMxJgJH4ZS7So9jbl9bqik2vBJdb+mvMJ4xezjddp/bFEIBOV6+0J47PakgrVEZ6Wfi
+	 Hna25LQ7lbKd3WMb4vcfYz9rxgSrQbuDmOPgBV3zLHf5q/2htW1YK7HJW0hayA1R8ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gentwo.org;
-	spf=pass smtp.mailfrom=gentwo.org;
-	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=c+kSGzsj;
-	arc=none smtp.remote-ip=62.72.0.81
-Received: from gentwo.org (gentwo.org [62.72.0.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILWMgllE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77B8606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:21:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D77B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 34DE9606A319;
+	Wed, 21 Oct 2026 23:22:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=c+kSGzsj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
-	s=default; t=1792624367;
-	bh=NhncZNOJbD4ToJsbO/WSMSq1VdJNFZgNrsDoBWmkVr0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=c+kSGzsjwnPMjaOFljmo5JQGgHTxLMurNBIKDa1XPm4Ztpr3Tcc860enj8tacznI9
-	 3/fa2VUlvcvlorbTPTiCPPvPaKRm9IwDZXbsIKPDr80YsTuAHSrpPmpXucyKTEpD9R
-	 Mjll8XyyjxyiwxbdMN+HM/ZF7rd639VAs8rrTcO8=
-Received: by gentwo.org (Postfix, from userid 1007)
-	id CA0D4406DB; Wed, 21 Oct 2026 16:12:47 -0700 (PDT)
-Received: from localhost (localhost [127.0.0.1])
-	by gentwo.org (Postfix) with ESMTP id C75954014B;
-	Wed, 21 Oct 2026 16:12:47 -0700 (PDT)
-Date: Wed, 21 Oct 2026 16:12:47 -0700 (PDT)
-From: Shubhang <sh@gentwo.org>
-To: John Stultz <jstultz@google.com>
-cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-    Juri Lelli <juri.lelli@redhat.com>, 
-    Vincent Guittot <vincent.guittot@linaro.org>, 
-    Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-    Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
-    Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
-    K Prateek Nayak <kprateek.nayak@amd.com>, 
-    Connor O'Brien <connoro@google.com>, 
-    Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-    "Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched/core: Use the scheduling context for remote
- ticks
-In-Reply-To: <CANDhNCptx=Sqyb82XG6c5fQ-nW4V7LA6GxTMQqzfwoE-+q_9Dg@mail.gmail.com>
-Message-ID: <dddbfac1-0d95-a94d-e413-5d497b7fc482@gentwo.org>
-References: <20261021-remote-tick-proxy-v2-1-07890601a71e@gentwo.org> <CANDhNCptx=Sqyb82XG6c5fQ-nW4V7LA6GxTMQqzfwoE-+q_9Dg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ILWMgllE
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4FA131F000C1;
+	Wed, 21 Oct 2026 23:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792624962;
+	bh=W6XIwPfFpbeL4de4MB4+vslMMPf8d2gDcxbsmH203TM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ILWMgllEK8Gvsg4DEMa7laV/hkuoyKY43q7Ve3QIsUzKumWSvyUOGZy8aHZgZ7P1r
+	 PPh+oGm1l/5u4M+sZ0dyYwjv0aLSYhaQslIhA3haYdw5kdLXMh98QP2AdkTDfpU8BN
+	 q3DUsuFyLQky6Ad9PKluFO4ZxbvN4Ammm1IVGY/+RRRL61VqxwFrWaNM5JbFjGK8yt
+	 KM45UisgAX0T6YVopVM1Hxjupl4B2nWxXE1x3NRNKFwRqTWgLOh35Pm+nCzbdLYc4u
+	 Kv/t7gozZACsF5mpCFaiUk5nC8psMoSUDJF3d33bN5afEcrRWxogVC/84EqrYu7BHE
+	 rt3Z/BUdQuifQ==
+Date: Thu, 22 Oct 2026 02:22:38 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct
+ keyring_index
+Message-ID: <atlJPhTqLaa0EEDa@kernel.org>
+References: <20261016215326.4110064-1-jarkko@kernel.org>
+ <20261016215326.4110064-6-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,92 +62,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1618735823-1792624367=:135615"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261016215326.4110064-6-jarkko@kernel.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Sat, Oct 17, 2026 at 12:53:03AM +0300, Jarkko Sakkinen wrote:
+> Linux keyring would be better off without struct assoc_array given the
+> overhead caused by sole ownership of it. Linux has multiple popular choices
+> for key-value store and there is nothing special in lib/assoc_array.c that
+> would make it stand out enough to be ratiaonalize the time spent on
+> maintaining it.
+> 
+> A keyring has a sparse data population, making rhashtable a plausible
+> choice. Multiple subsystems rely on it, and best of all, rhashtable has
+> dedicated maintainers.
+> 
+> Replace assoc_array with struct keyring_index, allocated for a keyring on
+> its first link attempt. Initialize its ht member with rhashtable_init()
+> to store links indexed by key type, domain tag and description.
+> 
+> Maintain two linked lists in the index:
+> 
+> - all: enumerate committed links without retrying hash table walks when
+>   the table resizes.
+> - keyrings: visit nested keyrings during recursive search without scanning
+>   links to other key types.
+> 
+> A key can belong to several keyrings. Represent each link with struct
+> keyring_link so it has separate hash table and list nodes and holds its
+> own key reference. Traverse the lists under RCU and defer freeing removed
+> links and dropping their key references until after a grace period.
+> 
+> Assisted-by: LLM
+> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
 
---8323329-1618735823-1792624367=:135615
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8BIT
+In addition to addressing Eric's and David's comments, I'll align the
+change with Kyle's fix (and rewrite the commit message).
 
-Hi John,
-
-On Wed, 21 Oct 2026, John Stultz wrote:
-
-> On Wed, Oct 21, 2026 at 10:15 AM Shubhang Kaushik (Ampere)
-> <sh@gentwo.org> wrote:
->>
->> sched_tick_remote() invokes task_tick() for rq->curr. With proxy
->> execution, rq->curr is the mutex-owner execution context while
->> rq->donor is the blocked task that supplies the scheduling context.
->>
->> A mutex-blocked task remains queued for proxy execution. If that task
->> is SCHED_FIFO, or the only SCHED_RR task, sched_can_stop_tick() permits
->> the full-nohz tick to stop. find_proxy_task() can then select its mutex
->> owner as rq->curr while retaining the blocked task as rq->donor.
->>
->> sched_tick() and hrtick() already invoke task_tick() for rq->donor.
->> Like task_tick(), the remote tick's full-nohz interval sanity check
->> currently uses rq->curr. The proxy owner in rq->curr can have a stale
->> se.exec_start before the accounting path updates it.
->>
->> Make sched_tick_remote() use rq->donor for both the class tick and the
->> full-nohz tick-interval sanity check.
->
-> Hey! Thanks for chasing this down!
->
-> Apologies, as full nohz is a bit of a blind spot for me, but it seems
-> the commit message gets a little lost focusing on the proxy details,
-> which makes it a bit harder to understand how the underlying
-> assumption was broken.
->
-> Maybe can I suggest reworking it to something like:
-> ---
-> In sched_tick_remote(), when adding proxy-exec support, an assumption
-> was made, which was: we're in full dynticks mode, so there can be only
-> one task on the rq.  With only one task, we can assume rq->donor ==
-> rq->curr.  So there wasn't a need to switch rq->curr reference to
-> rq->donor when proxy logic was added.
->
-> However, the full nohz rules are more complex. If a SCHED_FIFO task is
-> running, even if there are multiple tasks on the rq,
-> sched_can_stop_tick() allows the tick to stop since there is no forced
-> preemption of SCHED_FIFO. Similarly if there is only one SCHED_RR task
-> the tick can be stopped even if there are other lower-sched-class
-> tasks on the RQ.
->
-> This means in sched_tick_remote(), there may be more tasks on the
-> runqueue, which means we could be proxying (if a SCHED_FIFO task is
-> blocked on a SCHED_NORMAL task) and and rq->donor may not equal
-> rq->curr.  This earlier assumption doesn't hold, and the references do
-> need to be switched to use rq->donor so the accounting is handled
-> properly, and to make it more consistent with rq->donor useage
-> elsewhere in the scheduler.
-> ---
->
-> Also looking I see the comment at the top of the sched_tick_remote()
-> function "The [full dynticks mode] check is racy by nature" which
-> makes me wonder if that might also be involved here, and worth
-> mentioning?
->
-> The code change itself looks good to me though, so after tweaking the
-> commit message, feel free to add:
-> Acked-by: John Stultz <jstultz@google.com>
->
-
-Thanks for the review, agreed.
-The full-nohz assumption is the important part:
-sched_can_stop_tick() can legitimately stop the tick with multiple
-tasks on the runqueue in the SCHED_FIFO and exactly one SCHED_RR cases.
-A blocked SCHED_FIFO task can then remain rq->donor while proxy
-execution runs its SCHED_NORMAL mutex owner as rq->curr.
-
-The racy tick-stopped check can allow an extra or missed remote tick,
-but is not required for the issue; the mismatch can occur while the
-tick is legitimately stopped. I will clarify both points in v3 and add
-your Acked-by tag.
-
-Regards,
-Shubhang Kaushik
---8323329-1618735823-1792624367=:135615--
+Br, Jarkko
