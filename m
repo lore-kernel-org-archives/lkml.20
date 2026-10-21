@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562837;
-	b=epHnWSjiO2ZEVxSUcBxtMWvdQO6sKWKelx2GSCGwDZb/7zKYuP9GDl5wbcurPQ1eq0B7
-	 odVGbGI46LNqtm10pszC7pG23+qxvSG4aNbKS65ley/A3qXIWx1ouhCxtxnWFOuVqIQaw
-	 S1cFALIOIZcAMGoLmBj33HRj2+/SpH59GadUslYQ8lOxa9i1xYOkL0LSFHXDjQ4ZGC0mx
-	 d67qdmoEAIpjSGbjqM+9kG786hXqz8sObdVc0nsVzSM21HihwD9NQKuXeDMpKg7ZJvzzd
-	 aJlTavuWDURY3Fpmm88Op4IXlwjqEQ1ACi01Z0EkwVn8m25BEkxLtkdCNGSKWNpeaog==
+	t=1792562829;
+	b=kjoPS1Ab/xgtcuX0KeyLmyYlY41nqr3wUP5WED9Flmj5q2cEQ3DjH79o3nxtfK9Z8Nnw
+	 rXObJPTNnpJqrsXOZTwE4eRHgpAYDNA5yLDx5zq/HiGBMVE0YwoO2xnF2VjrFcVTmOjnZ
+	 buB/cvhiXCgYFs1x1f9z96t2DyaNp7Mz6g1EsbQyewAaFD3t2KuMd3gMxZX84cNZ6XzHD
+	 M6sg3mTiGa77ljegoSqxytNF9FwaUwxwphEO4krDOWUR7ik1Uin7b3t5Oqaxess30bh9R
+	 IPu8CZiZy/U2oIyskjaJn1sPGowou1YEDLz1B1P/l7tqxz7yBFzUaB5MTwga5oAY7GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562837;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fKaDERhzPbkXN7Gq1dg6sjNw7qQA/V1PTTySjHjN2d4=;
-	b=eesDmju4BEyOIHedVciF0gcH/AwQLe0wlD9D8N3WrYpl4nbZiFiYirpmnX39OXbkUht6
-	 hLhocfSDqAotoGUq6VLBWS9DMgxlzWYEkx4kT7Kd5/4fqGlU60LVOd/+xOJ76yYS+fBQU
-	 QUIUFLuiFXMulfIRT8aEv05BQT77K7AO6Rt7CX/2NyLIT5Ps1SPcWLD2ZnGn3YO2n6UWY
-	 ZFBNYgv0WsXX8uqNuBcC+EaeNeaEbJAjFLmiUZ8iAKhof/oXpBWlkNL2MzGVX9AjIT6YW
-	 L9LpJPzvUm5iJJG+cEFhk4Vsn98Eop9oQfSAH/NlmiLw253uJM6Wu9SG0FP7YvNbgLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562829;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=RWXu4jpq1GrCvUDpKd/ed8T68hCMT6wRiDitfxefxoY=;
+	b=g8e/XiR8G+XfzpZtNK0MS+rcHMfty3GY/+4c2xobOwMo7FhZnipFUf4D9L5Rexxmh5JV
+	 o88Z78YFPJvJOrjasSn5ErW3HZKqLagzcdAO9Sd2/0Ow35P427Yeez/MGFttgYWJCPM7+
+	 ftaLJHEISt56XpUcc0h7lE9FajI9ElD9MnfMGWtcZanoHUkvTCZjxN6ccg1GWnJzcULAa
+	 K4d3aeFdGWvP7sA9vT0mmv2cWB4QHR1fclsAgQZR2atUlh4ZtFjbXmAYUi1TsCXyUlysC
+	 5f4/wAb2s+LOtEAbdMM2bPoRvm5zJxJZ8bDMDmWla62IA76C6lS0j0DoF58Z0nCoq6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gmPsU5A0;
-	arc=none smtp.remote-ip=74.125.229.135
-Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=UFtZhN0F;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06AD460A2613
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:07:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06AD460A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD58606A32E;
+	Wed, 21 Oct 2026 06:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAD58606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gmPsU5A0
-Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-13985f8229aso340838c88.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:07:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792562836; x=1793167636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fKaDERhzPbkXN7Gq1dg6sjNw7qQA/V1PTTySjHjN2d4=;
-        b=gmPsU5A0udQnjW1Kk0RVwWRDw1aGaaWBl5groR9VnSYKEnmFFRbNIZ8vk8OI+w/gFs
-         OfHFHESQOQRlKcAd5c12KWmNuTupXgcf3tk0YSkkRfW3QmA3o9PFqKyGXdScEmt4AFa+
-         P96V452jEG4+bTEN52okYDYh87RDYuEFt9LpDELgL9Nj36iC39moEROlZh8zVw/aXAHe
-         NYD2TAKMMoRtnsFsSzTFvpT0OCvuIjJZrywmDeslm0NS15QS4RnQvPhEK+9A4gsONefN
-         W25LiRMSXTSOPj5JiPA0VT7+vWNtT8qBdewth11rD/S/3diFP5RwEMIAxCKhnkbnVTSs
-         3OAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792562836; x=1793167636;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fKaDERhzPbkXN7Gq1dg6sjNw7qQA/V1PTTySjHjN2d4=;
-        b=mWhemWbPcUE5KHf83zByjinemT0Y56dHmcAlG+mn1Sb0zVzCK81s9WYJbT74xde4a0
-         LVeJrk1PTqwnNzcR42Zal0oPRmofnXRAIQ6Pkt5NGshNAHe7rBkCJsZSYP8KlvzJcpc0
-         DCu4Om6/oRw+pUQK/1c95xTMgqBQBWPAymmNFa+/nfd0ka1VXhT5iqXU4c1r9kvoOlbK
-         RWKVgzdx+MhwAUstb7jj+fbzwGe7YGxawHIRB5bc6rDq7I4emdgiJWl0f89j1UHUiRCa
-         yX0nHvIj0wFOrZi8aFqaW6IYRmIEOleH/VaKZQoaN4pijxCZO0fIYwIEsrl8iDcJ9TG5
-         opEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzsuh4tOl2u7zMdxM1wS0ky+otY986xMeZoJKZ8wHkWCqDVw305GNcfpZsYSDdUBuUAWcBsa+0iQZUFOkE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCvE8lpe2S89qCTw6SdZkQvyRuOHoBn75t8caU7vWnj0f2va4v
-	idHBZ/8+fvJOhfkgScZdPbVYdeXvciuy4+CgFF6EpapDhhAs6+xgBUN/
-X-Gm-Gg: AYBFou2ANIWBppJ9P6EMAw+LCVgRYBeSh3iFVl+5ragFY9/dPh0z5w8UkS3EtiC9FYc
-	bWpE/rZfy8ON2dfMX3ak+Uheg9fI0oAGNJknWvSe9oeYD0rX5g5OJnTNOSCvMmtWmZDj0BLLBQR
-	ApuYIpnzu/Q3YiACmI0kSACpkq1OJJyqPPtK86VO8lXS9oFLmYsvhPkQPbGH0ZOlPdTYIl2/1ch
-	H9hWha0jjt/JR+tVAfTKKdAQnZ0OsDWfm3kZnUjuhD6R52iXB2VESkVNUWcKn54gUoXaSOPeGbn
-	632COVwrpHO77lHxZ0OdP4j4Rq3ANeM+bsGVSiCMnQ5FiUQKQL3Lt++cU3ch0b7pjYq4srJvoxq
-	0jXq7G8jUjL0vbAyzT7kAt+YCBH8c5ON5pO9MHnkpg+D21hth6fAhwgBDA2ColWAMue995rGCVq
-	eeCT3gVMmLiescS+ICrAwEAYzbZdF9wLMCXfs/O9Bo7RyxRYpULBJBQnO1+5BQihkHd8W1S5nTT
-	eWe3NP25SEF6C9EwQm8dxaxc6CSjVFqAZBetNwkJquupVHLISAYmidPwZSpjPve6CprHfIjUUFg
-	18u4x34=
-X-Received: by 2002:a05:701b:2608:b0:144:c127:dd1b with SMTP id a92af1059eb24-190a7f02797mr1363525c88.39.1792562835846;
-        Tue, 20 Oct 2026 23:07:15 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm3504720c88.3.2026.10.20.23.07.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:07:15 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: akpm@linux-foundation.org
-Cc: willy@infradead.org,
-	jack@suse.cz,
-	shr@devkernel.io,
-	linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH v2] mm/page-writeback: avoid 32-bit overflow in dirty threshold shares
-Date: Wed, 21 Oct 2026 06:06:54 +0000
-Message-ID: <20261021060654.27855-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=UFtZhN0F
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=RWXu4jpq1GrCvUDpKd/ed8T68hCMT6wRiDitfxefxoY=; b=UFtZhN0FIOqU8GkqMum6PS8cia
+	29pzu+E8MdtpMRhmvTkW+y/+wnbCl3gvk+Ti9uP2mgnAy6fFYhgOPcKceYudFmmaovR/r0ohoeCbH
+	+WWQEA6+mh8DS40Ol/MwsXAicv9u+wCTOd9QhV7GEFPXCy9SLAIOFx71IzvsG0zh84we/tJocRtMU
+	mh+x3J6OFOVsxWUzLizi4QwnObOvNXB6C4xJGij9buyYY8Oq9Hz1NKtCE+96NoP9ojqUW3AmmFa1h
+	GbuI3Onm7hnbTnjhwjmZhAuRvF6XzCuEuM0STnJAf5F60yTcjE4f3PmiqrsuFMq/uvoQqFI66Ay4c
+	Za1Bmn0A==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJPTd-0000000B8H8-2CWa;
+	Wed, 21 Oct 2026 06:07:05 +0000
+Message-ID: <f6d6d8d2-03ca-498d-b5d2-578aece560d9@infradead.org>
+Date: Tue, 20 Oct 2026 23:07:05 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,70 +58,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+ Eric Biggers <ebiggers@kernel.org>
+Cc: linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kernel@vger.kernel.org
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <20261020-brown-potoo-of-relaxation-3e9a72@lemur>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261020-brown-potoo-of-relaxation-3e9a72@lemur>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The ratios used by __wb_calc_thresh() are scaled to parts per million,
-but the threshold and ratio operands are unsigned long. On 32-bit
-kernels, their multiplication can wrap before the result is assigned
-to u64.
 
-For example, with a threshold of 25600 pages and the default maximum
-ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
-The shared threshold and minimum share calculations can overflow in
-the same way, producing incorrect per-writeback dirty limits.
 
-Use a u64 threshold for the three ratio multiplications and div_u64()
-to retain the existing division order and rounding.
+On 10/20/26 3:07 PM, Konstantin Ryabitsev wrote:
+> On Tue, Oct 20, 2026 at 09:22:35PM +0000, Eric Biggers wrote:
+>> Many patches still don't include base tree information and can't be
+>> applied.  Such patches can't be properly reviewed or tested, nor can
+>> they be accepted.  submitting-patches.rst already describes how to
+>> include base tree information, but it's characterized as optional,
+>> appears only towards the end of the document, and is missing details.
+> 
+> I'm happy with this change, but I'd disambiguate the title a bit. With b4, we
+> started providing both a base-commit and base-tree footer, specifically
+> because often times the "base-commit:" line by itself is not sufficient.
+> 
+> Imagine this scenario: a developer is working on some code in a feature branch
+> and come across a pre-existing bug. They create a fork off of their feature
+> branch to fix the bug and send it in. In this situation, the "base-commit"
+> footer would be meaningless, because it references some transient commit-id in
+> their feature branch. In an ideal scenario, the developer would rebase that
+> bugfix branch on a known tag, but that doesn't always happen.
+> 
+> This observation doesn't really preclude this patch from being accepted, I'm
+> just recording my own experience that, by itself, base-commit is often
+> insufficient.
 
-Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v2:
-- Use a u64 threshold variable instead of repeated casts, as suggested by
-  Andrew Morton.
+Yeah, I was wondering about specifying tree as well as commit, so thanks
+answering before I even asked the question.
 
- mm/page-writeback.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Most of my patches are made against linux-next.  So: is this going to be
+acceptable?
 
-diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-index eeab25d6ce36..1d6aab8781a5 100644
---- a/mm/page-writeback.c
-+++ b/mm/page-writeback.c
-@@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- {
- 	struct wb_domain *dom = dtc_dom(dtc);
- 	struct bdi_writeback *wb = dtc->wb;
-+	u64 threshold = thresh;
- 	u64 wb_thresh;
- 	u64 wb_max_thresh;
- 	unsigned long numerator, denominator;
-@@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
- 			      &numerator, &denominator);
- 
--	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
-+			    100 * BDI_RATIO_SCALE);
- 	wb_thresh *= numerator;
- 	wb_thresh = div64_ul(wb_thresh, denominator);
- 
- 	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
- 
--	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
-+	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
- 
- 	/*
- 	 * It's very possible that wb_thresh is close to 0 not because the
-@@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
- 			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
- 	}
- 
--	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
-+	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
- 	if (wb_thresh > wb_max_thresh)
- 		wb_thresh = wb_max_thresh;
- 
+(for linux-next-20261020:)
+base-commit: 053966c344dbd346e71305f530e91ea77916189f
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+
+linux-next how has over 400 trees in it. That's a tad prohibitive AFA cloning is
+concerned.
+
+
+thanks.
 -- 
-2.43.0
+~Randy
 
