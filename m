@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792575001;
-	b=e1iH8FdwWh/Me8FhlgL8c9eBAwlTTzUqrAvZ8NK1QmNq/CiW7+A5O/BhYQkHGLIt/eUA
-	 /EG6JHzD8guzWRM9PlExhHWCwG5XRbEtxOqWsIr12qNdhmXdkfronGV6LL5aNzMG6VpTa
-	 ws9SRZMtYbefodu4WGh+lbZt4LGGVufSVKNO6domevavwMY6OUq5PGnBiNGoMNnSzFsy5
-	 7PqnBDqV8tRsSSegk+4TNiM/h6yq9eKlkKkt9WAfm48HZMim/OZmo/Vrcw0DM78YupwGi
-	 lGoyl5Z7q9wld2HBFaOXS5pFXXEC8CnxVwKg7w/FxwSw9VE/1vnmdOD67AR+LDVhNNQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575001;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=talS54amiPg/yZGwEbzg0hMRny1RlU7saCiWAuyBxB4=;
-	b=fZyxdDjMOdJz4Bjypm9fYJSoNPk+tyluEFBKIsG/J58MB7rJQIKGFy/4fW2+NRRwdGy4
-	 PkKFvnEqFrzLU8VQ5XLini+a6U5t2FLVSgnJxWObKvIIbWGEsZHidCeM+2PMRNFTvp52F
-	 mQpAs8BYN2fC5cPGGZMOrwHgvEK26gMKEa1uz/3u4wz4HXskcRUh6o960d21ZBKHSSuhg
-	 tpfMRTIS4gnmHsdzI5zaBdbpRUI8YVOKZzBV6xxwMItmT8jKhBF9ErEtajiD+0Ka7V52Q
-	 ZfjQFey1laZLTs6YrlHvFWXpLh0sKTcTqF/LlYmYP546Bq+jV3MFAkwXcAf/oLlBuAg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZY49XlYv;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792575064;
+	b=OY6xtyQ+z0k3xMYChpTBsnCkHqKOxQLfHa890EW8MmR7GqlW8FZTVzLQ2Gp9qJW/fgUm
+	 PsTtJx9tKILgQCjlg3axw46tl+nvDUeiZfH5m9hm8IQVMVJ0D7FdeN6+q1eTP2UADrld5
+	 8kLmHa+HzTs08LkIpQ8H4SjdC4EhhE6eE5glQ9x59O7nLrKjAPAe6BhygCiXhtH9+3Zj+
+	 GfOS4wwo4UQM+pfBl3sJWWjRQStsfehUBKVoxitCUsYM8L+34/YKcqlN5ObTazuVSMRjS
+	 THe1VHLipmlgE1ecEK/ZloOFaNmkGH7YIrIvMZPHaN/W2GiICl62w2BBX3Me6CNEH7g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575064;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=Smr7Z/3piMyOza0AUKfxwXfspyKbzW8yZL1Hru6qUxo=;
+	b=bvkWAO+RGkbO5KRdnfDwoEpt5n/xf9iqD4p5XeBw6aT1HbYue8XJyiJ8GAqs6fqoCnZa
+	 2a3/i6/0BkE8KzRIGNmu8f8JzaY91VKLSM5KotZgsW3yK8NcwvvDTYtnrUlpPJBRpniVJ
+	 PmrUzVnKqE2NSSTjkjWEOUzgoJfAThNNevJhqrFxGEWsCH6h0IW4BD9rN5y7hK/eqLlt7
+	 hY6gSJizJka6UFJx5IkWQHrix5DNF4oV0Voj6GH97SZlrIaIm1T70CfJheRlFdTBNcoO+
+	 6ahUoHgkHWQ2R561pKsF1jNVq7RJTmET0Kt7khTJj6Fzug34qrBT6DG0JG3WeNEuRcg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cyF1QSRL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cytphHjt;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE96606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:30:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DE96606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300E2606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:31:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 300E2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZY49XlYv
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2af2ae1258so3041266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:30:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792575000; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IU393hBXaCvAhrA0y2zCmFoDH03muG19Re8XY35sHrOFTHZ23UtCiyLFhzWsLMQX1m
-         b/U7wwdI5ETAQqvrg767LvuHxuJexOCB/OWa6gXC48su8AC6toAYQE/+xsKW2AzvxfOY
-         r2sY2mwnpTzuP0aoIEEXE5Fk9RDpY38z/nrV0RfK9TxVrqlhBLhTDnUHoey3JX1rKlTl
-         BhXULiCSgktQmPUJPxiFJIZMpEoIQy1WPOqy4fY3X+DWiSn8M5DP+4U7cnjhyuY2v+06
-         Z9JIZuioW2CJR69Eah6pxBHT2wdVmxbq4g569a6AzW2Pny6JUw1BQ0c8EkvTUXvExsL5
-         iDfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=talS54amiPg/yZGwEbzg0hMRny1RlU7saCiWAuyBxB4=;
-        fh=2q5Hy54w+EeekoiaGCCS4CpzWHgHBWLf4z68Q/bHm5w=;
-        b=Xh5lIksXD7bO8tcKAnpkelmwPYUgr7QonaqJvZDu8BdQ/cmqRauDbtgjiNU4DnBPRS
-         OGnl7fe7roe2ZIB8G8apMzJ73S4FrTVbiMjunbIRzchBpMKUOzoqZuavWZGzwnWrFxAw
-         8JNttsjGmq83h8X9JifTwSmfXYy1cnvubkMIcGFx4gV4HgfxjQXelDylyImomsp32yMS
-         Gp4fDPMW+SGubdBCg2ED6VZdahTYBGYiRxr9oiLN/wfHY2Qxn6LuFcf9/4Rn0OeJeEb8
-         g5uexx+hX1oSXcB1bKjGDelkz5/O6FVJJFFririRFhBf1pSn8Ddg2T4aQ1GVuxi6fWX0
-         6a4A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cyF1QSRL;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cytphHjt
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L8VSXH2795069
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:31:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Smr7Z/3piMyOza0AUKfxwXfspyKbzW8yZL1Hru6qUxo=; b=cyF1QSRLF8ir22kL
+	23SSE8mJBUhI8j8RI5KZQ31i/WFwX9cHa5K3VruoNYQOMbwZq//tqdhQf4Uyoefz
+	yn7vPPgQL0jEvDPIznsOri1mhsClaq4cQMYkBrEuCZmBHkNpDNYk/iiz4wp9k3kI
+	yLfJmZNiKiZFPD+1JjwrLvH1O+zRs5MtNhT4YjTS1ikDx4Wpmcb/GZY0zjzbdkG3
+	N8KZ4UNIkSqug6pCn49RWjF9pQzaee8V0Rh8tDvI2zhIEW5BGC5NV7hALU6eFytb
+	B8Coy1WRVZ9ja/9+Kqqw3JYYT24yGwr29D87kPjxKXZZ7e/1ubnsSmkGiIPx6N6n
+	COizoQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hesy78cre-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:31:03 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-536708d1a3eso1622261cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:31:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792575000; x=1793179800; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=talS54amiPg/yZGwEbzg0hMRny1RlU7saCiWAuyBxB4=;
-        b=ZY49XlYvkhICPRBe2JG4Q3PM7VqkH7EG6aWGw/ZuNk0oUOs8k3O7wWU8gJrbbBLO1W
-         xIUqM8WwjtI6eXZv1Vz2y+zaIjU3c9IaYq5p+fTBB48GvldKdsG+JFqeUdASzQ9vTVgl
-         vXAU04XQZcEZrylEHAqa17XOoHzJ9kiYCYcS6Wh4ygI53TrhyVSb1iXAtfAzq5UcPYks
-         q5KSDXCbjHUpCLpYPUeaVPEnZf3JG7mQeQGd32h+JmesYw7eGG43aNflptWoZSFJZQD6
-         W4HOelzmZUvi8wp7pOkKNa0hjH5cd9SOfqqu8bHMokG3mnui7hwuH6VE5aF7T/LUUfgE
-         6G6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792575000; x=1793179800;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792575062; x=1793179862; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=talS54amiPg/yZGwEbzg0hMRny1RlU7saCiWAuyBxB4=;
-        b=fClZEB8TKnLqG11NlDQQV8lBFOLr6RomiRSdavZ0IbowDTyYZAf/SN1VclsmafOwNn
-         YYLr2QYB3sCeoAC3TsRcz56v6gakVELTWOWBW7D27eR95yKCxEATG+ANvPcHrk/xv5Dn
-         KZxeF4MUViCH0S4jTb+6WSDrT+BszgGJp8l0jpQdNx7Xkwm+0zGWc3tX7JZUrj8KadoE
-         t2QvP/1hzZJvOHXgfol2cARcimXa31ovINsdjJliNC1M25YJikLS1WStGc0DY0q2UjFz
-         B6oB7LKExOo5zSESggA4sqbglAM0koqHSekFFx47Kfwx/nbycdWcdxMrr2rt9h3VW8nO
-         DKgg==
-X-Forwarded-Encrypted: i=1; AKwUvByVGtM/BGEDUbDL85fnN7Duke1JRlazci9jqMSSNx4NyF5hsWDTsxALcbzv8V6j4E6C5RvXtfMdlnO7VCA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKXJig72a0JVD7JNk4aEWt2rUyr8bQAB37XWj3S7mpxfH8IKL3d
-	W6Rzwpg2geVafPfyFOR6fNaHSrCdt6lD1sQr4dXzIaYfFWgCHm10D5GQhtwiETmCfPr2TGnj7h/
-	k0P19Qq6Th9slFI+kdwZ89dHHNUcLvkY=
-X-Gm-Gg: AYBFou0H9wX4SZfygSgm0HyS3cGaMeeEb3N1/dbKGmJaACNsfI2lLqTa1toOx8y10U4
-	j5L5ROAfFtHfiH92wgtijJsVAI8WkDQVZH4HsNzVBOsTP5LctW4WRIg/QIiz0vLLohK8FSIR1tG
-	UeY/7fCv/YqcPBZ8gR5LxK0wRLuu7GAM3NkkEmODBZqwCfe0rMiCT28sb1xSbkej7b1NmPZYXpN
-	3tT14XRstXP/H4eydBQZWQ56fbIUt1k3wqOQm5GuEF6ptBAiBdStnH7zZX09cN3mhgrJ2kdTKa5
-	5Av9DwZlyzvGaS8YCPOCFsgfBFDbM+ZsYfiWoQHjYEapYa8u5LHBC4mYXR47RkgYToAGR4VYTjF
-	/lbImKkcTzUFVuhIeNdIOwfMBDp3z0m1mbr9gYJQpzI3BuJYFaA1GV2QhQJNoUpuZmwlw0KvMyz
-	6MwVwI+0BCAcM=
-X-Received: by 2002:a17:907:3e19:b0:c25:3ec4:9e43 with SMTP id
- a640c23a62f3a-c4678f61921mr142113866b.0.1792574999375; Wed, 21 Oct 2026
- 02:29:59 -0700 (PDT)
+        bh=Smr7Z/3piMyOza0AUKfxwXfspyKbzW8yZL1Hru6qUxo=;
+        b=cytphHjtwYMY7TDyr7YPRCahv9QPlg2sU5eu2k22fDGYEY2VBNciD7L5d4+oiVtT6h
+         6pGuWytNzBAh6WvTmzqeBt8AKV7ox4xKD2mF7tDJ2TW804F2WCnzLz/qMmYB9NYKfrKH
+         muPJS2E9EY7lQpeLRcUN83JSXHbv5WmAJ0L5HwfG9FSynUJ9HrVDxCA1bRPflxKraJUC
+         MbH6IXDfukRjG3aCywhfu2uGZ39sqnNFGV9lGJ73uxcQcCpRsRgNQHCj804ebzfNNcUP
+         A7znUCG214dWbz+cS/6gbVNLhNNz1lFjJuCsG+e/0EF0UNrFb5UIOfET6+fSHUN+0qC3
+         vayQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792575062; x=1793179862;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Smr7Z/3piMyOza0AUKfxwXfspyKbzW8yZL1Hru6qUxo=;
+        b=faNoIOytLvabnwcmNVYagGwH2UB0xWMBrratYJwYsz3V4II2zaVkkyciag5e/Zscq2
+         TGA68Goe2NYvuOJxu2a0wV9Mx4mMvFKE6t+XCv25HVMEfFligYhFMLgViLyukrB6XZlP
+         Q8GJYQFNnmidKN4mVfmMTUyDFniffhAEnKcFnhlmcdlWa6IlpvsTT240ErywdTVtuBVu
+         FU5c4Uhy6/NGkofq1q9vrEGAIYDV4/k3p0TKv8kUgLJ6YruGNq6hHyAJ4saSPqv0PlAT
+         4fF0sVb/b+HyrxuG14lpM+KboOTiy+0Aw5gSainyU4yTqvq79/uPN+AbJgM0Qdon9ft3
+         5njw==
+X-Forwarded-Encrypted: i=1; AKwUvBx331uNJN9QVdmG7IaepWwhUYhDLFKhlMMB5MelmJkAqn2fevL2GIqxojM8qLrmsCyd/BYKTaEpAgWCJi4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJl7lWTVBzV1suPoF5X8HmoPrSDKkr948VDepe5lpMfdv1zRxj0
+	9rJZZkuXmq1Ix6egwYC33OrFOJgeOy/byzrN1cKnN5hEmX+hlVVLhCYaLanC09afEnT6/gsWgYA
+	8+auH+58Aaz2vmhw+hSioHwAHg0Uv1oTBTpEHNn2XOGRlOQSEBZEGmt7rIALicPr6AjA=
+X-Gm-Gg: AYBFou1Rz9l0UaHH6UElLmZXonBcLJbzSs4VfAyLLIOoDMDnf8WMXwqSfI4Y9gB1YBX
+	g5ej5h6AyscC4Am/rlGFGLvcduvEqAhj4VdEEw3EuG/307a+nkm4zbmgi6aWj3HUTp8bIn07Z6o
+	QgABPyMVM/Eku5waihcM9LiFFCQXO4GLkHxIK3Pjw4BM/wnmf4C7Dhtfdv52KJk72VfPI4n75ne
+	H3ftd7B5Y+zk/NPjecfNWAlOS6Sk3uapLqY+PKP5U/W/j2GxaUhi6qgCLlDqjxxff5/R/67VZri
+	xlejqtEXs+XUhVdEt+gDqbAdIds2vn6lhQbSYm5vYC8OaXlHmzH0gASAeYlomcnxSPqjFWoXsbx
+	Dqu9+B3TbaGH1ZzWTAYOFxg==
+X-Received: by 2002:a05:622a:1a94:b0:51c:2324:666 with SMTP id d75a77b69052e-5369b7b364cmr27185251cf.3.1792575062256;
+        Wed, 21 Oct 2026 02:31:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:1a94:b0:51c:2324:666 with SMTP id d75a77b69052e-5369b7b364cmr27184921cf.3.1792575061742;
+        Wed, 21 Oct 2026 02:31:01 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678fd700asm56543566b.52.2026.10.21.02.30.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 02:31:00 -0700 (PDT)
+Message-ID: <4ad0d837-dbbb-4f93-8c1c-8d2b1e4f5ba8@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 11:30:58 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,188 +115,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021065517.198322-1-theodorlarionov@gmail.com>
-In-Reply-To: <20261021065517.198322-1-theodorlarionov@gmail.com>
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Wed, 21 Oct 2026 17:29:47 +0800
-X-Gm-Features: AclHuK_hzep8ZH3TrnvsmRxGfKoygxUVcd_QNcavMfo3m4kxyL8buVoj_sOJOoc
-Message-ID: <CAAo+4rURfY514Adv6Qg8SsoRofANzAeY2c-qUYOhmr_r4U_o2Q@mail.gmail.com>
-Subject: Re: [PATCH net v2] fou: reserve headroom before pushing the encap header
-To: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	stable@vger.kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] power: supply: qcom_battmgr: implement battery charge
+ control on kodiak phones
+To: Federico Amedeo Izzo <federico@izzo.pro>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, Sebastian Reichel <sre@kernel.org>
+Cc: luca.weiss@fairphone.com, val@packet.cool,
+        ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <DM7V9WDDVQ2I.3THP2TDPTP994@izzo.pro>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <DM7V9WDDVQ2I.3THP2TDPTP994@izzo.pro>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Gnz7Pqp53cavHee9VjhwzSSFGG03roNO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX6JgxgQ9JOtfP
+ ZPsRPkGtB/aIgFdKhl+mm1Bcdbrk9MbRvYnKPuSonyFHPoaDa6QI0d5YauBbO7/3NLclqCGIxOO
+ mW5KKJ5ZuL0KKPcBEGH602Vx8O8JyZjgGIhU8wDiKEGlnn8GPbZ3lMChytwCak4b+SFaTVuiZ9i
+ 1+GaobKWAZim2W8FvznzIe5m3f/0jKY0RFPfQptV9FeHqQRNA/qcEp/B5pYDSzOjvq32Z+JpeYc
+ SZuEV49by2X5fK4+KaADgdVhQzIDZo/6BvcWjm8ZmJQD4o3d02dcfD6gCOufCrvvVpPDq6B3Doi
+ t4u3nqDjytNGosa6pYh4/lzYxBuG8ghJ2l2RDzDuxTi8BxtAx4UncnpRVqQBNSK53oPxvCOKZSj
+ o7LXB0oLAsaLN2KMlvuzDDcn/nkFomB941FDJj8BAAHJs05t3q8Mtq1etiXqFgVsMNd2ROTJaeX
+ 1DTMh9/Rdic+16yKH/g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX/ZgIrz+9ly0j
+ mhMj29r5LflR1qXfLzRJSYTazVVSX1wpXCfy60hrpdW+ALhJysozYfOhAMHcc8HMx0mI7E2K5OP
+ XMkax6LeYEgCS9O05hni+1MshmbNifI=
+X-Proofpoint-ORIG-GUID: Gnz7Pqp53cavHee9VjhwzSSFGG03roNO
+X-Authority-Analysis: v=2.4 cv=IPaXmQvG c=1 sm=1 tr=0 ts=6ad88657 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=IUnBqQRzFFqqQajOH8UA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210037
 
-On Wed, Oct 21, 2026 at 2:55=E2=80=AFPM Theodor Arsenij Larionov Trichkine
-<theodorlarionov@gmail.com> wrote:
->
-> ip_tunnel_xmit() and ip_md_tunnel_xmit() call ip_tunnel_encap() before
-> reserving headroom. A packet redirected into the tunnel (tc mirred, nft
-> fwd) has only the headroom of its original device, so fou_build_udp()
-> hits skb_under_panic(); with a mirred mirror the push overwrites the
-> Ethernet header of the original packet.
->
-> Reserve the headroom in fou_build_header() and gue_build_header(). GUE
-> sizes and builds the header from one copy of the encap config, which
-> can change concurrently. As the skb head may move, ip_tunnel_xmit() and
-> ip_md_tunnel_xmit() reload inner_iph after ip_tunnel_encap(), and
-> ip_tunnel_xmit() reads tnl_params before it: for GRE with header_ops,
-> tnl_params points into the head.
->
-> Fixes: 56328486539d ("net: Changes to ip_tunnel to support foo-over-udp e=
-ncapsulation")
-> Fixes: ac931d4cdec3 ("ipip,ip_tunnel,sit: Add FOU support for externally =
-controlled ipip devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Theodor Arsenij Larionov Trichkine <theodorlarionov@gmail.=
-com>
-> ---
-> v2: move the headroom reservation into {fou,gue}_build_header(), reload
-> inner_iph after ip_tunnel_encap() and read tnl_params before it, which
-> the Sashiko review of v1 pointed out.
-> v1: https://lore.kernel.org/netdev/20261010223601.1193655-1-theodorlarion=
-ov@gmail.com/
->
-> Chengfeng Ye posted an earlier series for this bug; this takes the
-> builder approach Paolo suggested.
-> Link: https://lore.kernel.org/netdev/20260904165544.1362052-1-nicoyip.dev=
-@gmail.com/
+On 10/18/26 11:46 AM, Federico Amedeo Izzo wrote:
+> Hello,
+> 
+> I want to implement battery charge control support on two kodiak phones:
+> motorola-dubai and fairphone-fp5. I kindly ask your feedback on my 
+> implementation proposal below.
+> 
+> This feature also known as "charging limit" or "battery health" lets the user
+> limit the battery charging range to 0-80% tipically, in order to extend the
+> lifetime of the battery. It can also be used with a lower range 0-50% to
+> prevent battery degradation on devices always connected to a charger.
+> 
+> Newer SoCs like SM8550 and X1E80100 implement charge control in the battmgr
+> firmware, but kodiak (SM8350 in qcom-battmgr.c) does not support that (I tried
+> using the same property ID as newer SoCs with no luck.
+> 
+> Looking at downstream implementations, both dubai and fp5 implement the ability
+> to stop and start the charge with custom extensions to the battmgr firmware,
+> while the actual charge control logic is implemented in a kernel driver (dubai)
+> or in a userspace java service (fp5).
+> 
+> My plan is to expose the start/stop firmware capability of the two phones using
+> the charge_behaviour sysfs property, then implement the charge control logic
+> (start/stop charge depending on current level vs thresholds) in the qcom-battmgr
+> driver itself and expose the sysfs properties charge_control_start/end_threshold
+> to let userspace change the thresholds. The scope of this "software"
+> implementation would be limited to SM8350 in qcom-battmgr as later SoCs can
+> already do this in firmware.
 
-My v1/v2 [1][2] reserved the headroom in gue_build_header(), close to
-what this patch does. Ido objected to that [3]: the caller of
-ip_tunnel_encap() is expected to reserve encap_hlen() bytes, and an
-skb_cow_head() in build_header() forces every caller to refresh
-pointers into skb->head. I moved the fix into ip_tunnel_xmit() for
-v3/v4 as Ido suggested, and wait for the IPv6 part [4] to be accepted first=
-.
-That patch is changes-requested, and Paolo said the IPv6 side should become
-an RCU conversion targeting net-next [5].
+I suppose this is something that could be introduced at the framework
+level (+sre) - using a "stop charging" command to implement a charging
+level cap.
 
-I'm fine with either approach, and will drop my v4 if this patch is taken.
+For battmgr, I see there's a BATTMGR_SET_CHARGE_RATE (0x6) command
+with the following arguments:
 
-If this version is applied, I'd appreciate a Reported-by, as I first
-reported the bug in [1]:
+struct {
+	struct pmic_glink_hdr hdr;
+	__le32 battery_id;
+	__le32 charge_rate;
+	__le32 charging_path;
+}
 
-Reported-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Closes: https://lore.kernel.org/netdev/20260801060115.3538849-1-nicoyip.dev=
-@gmail.com/
+charge_rate being the % of full charge current that is allowed.
+Maybe that could work. Or maybe there's an existing mechanism that
+I failed to notice.
 
-[1] https://lore.kernel.org/netdev/20260801060115.3538849-1-nicoyip.dev@gma=
-il.com/
-[2] https://lore.kernel.org/netdev/20260821145908.2829132-1-nicoyip.dev@gma=
-il.com/
-[3] https://lore.kernel.org/netdev/20260824075011.GA858321@shredder/
-[4] https://lore.kernel.org/netdev/2ce8f3e4bbed6060afb0aee33dc4e1d9ae021280=
-.1788262122.git.petalzu987@gmail.com/
-[5] https://lore.kernel.org/netdev/e651fe9e-2d84-4320-99a1-6fddcfc00889@red=
-hat.com/
-
->  net/ipv4/fou_core.c  | 15 +++++++++++----
->  net/ipv4/ip_tunnel.c |  6 ++++--
->  2 files changed, 15 insertions(+), 6 deletions(-)
->
-> diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
-> index 076fdca44f51..896e63adf698 100644
-> --- a/net/ipv4/fou_core.c
-> +++ b/net/ipv4/fou_core.c
-> @@ -1059,6 +1059,9 @@ static int fou_build_header(struct sk_buff *skb, st=
-ruct ip_tunnel_encap *e,
->         __be16 sport;
->         int err;
->
-> +       if (skb_cow_head(skb, fou_encap_hlen(e)))
-> +               return -ENOMEM;
-> +
->         err =3D __fou_build_header(skb, e, protocol, &sport, type);
->         if (err)
->                 return err;
-> @@ -1071,16 +1074,20 @@ static int fou_build_header(struct sk_buff *skb, =
-struct ip_tunnel_encap *e,
->  static int gue_build_header(struct sk_buff *skb, struct ip_tunnel_encap =
-*e,
->                             u8 *protocol, struct flowi4 *fl4)
->  {
-> -       int type =3D e->flags & TUNNEL_ENCAP_FLAG_CSUM ? SKB_GSO_UDP_TUNN=
-EL_CSUM :
-> -                                                      SKB_GSO_UDP_TUNNEL=
-;
-> +       struct ip_tunnel_encap encap =3D READ_ONCE(*e);
-> +       int type =3D encap.flags & TUNNEL_ENCAP_FLAG_CSUM ?
-> +                  SKB_GSO_UDP_TUNNEL_CSUM : SKB_GSO_UDP_TUNNEL;
->         __be16 sport;
->         int err;
->
-> -       err =3D __gue_build_header(skb, e, protocol, &sport, type);
-> +       if (skb_cow_head(skb, gue_encap_hlen(&encap)))
-> +               return -ENOMEM;
-> +
-> +       err =3D __gue_build_header(skb, &encap, protocol, &sport, type);
->         if (err)
->                 return err;
->
-> -       fou_build_udp(skb, e, fl4, protocol, sport);
-> +       fou_build_udp(skb, &encap, fl4, protocol, sport);
->
->         return 0;
->  }
-> diff --git a/net/ipv4/ip_tunnel.c b/net/ipv4/ip_tunnel.c
-> index e6bcf01411d0..742c2b309608 100644
-> --- a/net/ipv4/ip_tunnel.c
-> +++ b/net/ipv4/ip_tunnel.c
-> @@ -606,6 +606,7 @@ void ip_md_tunnel_xmit(struct sk_buff *skb, struct ne=
-t_device *dev,
->
->         if (ip_tunnel_encap(skb, &tun_info->encap, &proto, &fl4) < 0)
->                 goto tx_error;
-> +       inner_iph =3D (const struct iphdr *)skb_inner_network_header(skb)=
-;
->
->         use_cache =3D ip_tunnel_dst_cache_usable(skb, tun_info);
->         if (use_cache)
-> @@ -749,6 +750,8 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_d=
-evice *dev,
->         }
->
->         tos =3D tnl_params->tos;
-> +       df =3D tnl_params->frag_off;
-> +       ttl =3D tnl_params->ttl;
->         if (tos & 0x1) {
->                 tos &=3D ~0x1;
->                 if (payload_protocol =3D=3D htons(ETH_P_IP)) {
-> @@ -767,6 +770,7 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_d=
-evice *dev,
->
->         if (ip_tunnel_encap(skb, &tunnel->encap, &protocol, &fl4) < 0)
->                 goto tx_error;
-> +       inner_iph =3D (const struct iphdr *)skb_inner_network_header(skb)=
-;
->
->         if (connected && md) {
->                 use_cache =3D ip_tunnel_dst_cache_usable(skb, tun_info);
-> @@ -799,7 +803,6 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_d=
-evice *dev,
->                 goto tx_error;
->         }
->
-> -       df =3D tnl_params->frag_off;
->         if (payload_protocol =3D=3D htons(ETH_P_IP) && !tunnel->ignore_df=
-)
->                 df |=3D (inner_iph->frag_off & htons(IP_DF));
->
-> @@ -821,7 +824,6 @@ void ip_tunnel_xmit(struct sk_buff *skb, struct net_d=
-evice *dev,
->         }
->
->         tos =3D ip_tunnel_ecn_encap(tos, inner_iph, skb);
-> -       ttl =3D tnl_params->ttl;
->         if (ttl =3D=3D 0) {
->                 if (payload_protocol =3D=3D htons(ETH_P_IP))
->                         ttl =3D inner_iph->ttl;
-> --
-> 2.34.1
->
-
-Thanks,
-Chengfeng
+Konrad
