@@ -1,103 +1,152 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606621;
-	b=vItGPmdkgnwcfmV/lDLirA1oUTl20Akzx/5eaaLXBEkBVFNpEZzREBnuu2WE9nNS+w0s
-	 gp1u+HRmZjQ4yXENiL+0SF9aH/RXX0zbnAJo+oLGAtkDfY3xU6h+APHbqLhKCp6SnLpNv
-	 ti/8k7zUkYzpr8gVXM2x59MeF/lSrcD2rFyTK95VUood3DKSUZCsf+4bhAuefhnR7nMyQ
-	 w9hUrF36nsPP1H5FNj1vpYBriGjoLSmB3zEz91rj2O8nkt4cBvRAUZQvxHD9ocHldLmA5
-	 rKvxNdNpnqU1N5u3wnDIWwu3Ed9Dx8v274V/2Y3zktj5e5lhAqDIXiOSaZ32US+HaAQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606621;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Mmr/IR1zCY9h4L4dj3m8FpWvL2EHS7s4xmQLBcny3D4=;
-	b=FZ+3OUB07ahyFWUfbbW/GH7U18NKylIbepdkA0xX76GVCidP72t4c8J+u2U4Tu3qz+UC
-	 V7CvRYWJR4hwhNXfycm8cmJew0MKn5Eern15N2GuxW1AeYPFdu7/nJy0QPGSWw1kQyhkQ
-	 wBfC9dhs8eRr4MZgzkzNE9QAK5s2JOKFObMMG6wpI1ITiJn9xwvGctKI/PH1rfLsOQxbd
-	 vEcziuTSf47OffXnRtBtD3+KeA6K6GDM+ECVdUgkW20H9TquiAY22SQRykqkZ/9/DdLju
-	 NZzjW69M+5wn5vVwa7E9i5YRk0qR8kO/KkWO8gigby5SahGUemyj5Cfy3a+JzC1Bucg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=JVptMShM;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.82
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792606693;
+	b=Hu8r8VG+HLZX6qE6QkgrI3hsym9RocBfVaslVrvi1jyF87m7fD0BTG72niqZToSCSV2+
+	 hI0wIxOiA/JwUylYVz7Pjen+iik1z6YrJcGnieNYuqMRNH/2p9cKrAiFxgupVPGjleAmm
+	 yTx7DUCsoXusGMmnw4wHpSotvjK38mndJP0968wKVxAH/Fi17NRokXUG194bnAt/TsZ6u
+	 Gc6h9sNSZKfUuUXphfTiKFIofNc3NWnc5vC5sywgkY8Yq4jEAY2Pm8ujTZiywl+UR37Yt
+	 vlOJ0EbRHss4kh+eB4GXdDneyMnWxPJyYGa9a2d1WMvBfth+bn3tC2E5AY88I49xP1w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606693;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:
+	 x-ms-exchange-slblob-mailprops:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=YsVBv70gasaMvhBOBgE74GigNOjvYXoN58icmABjKt8=;
+	b=dsjdaSiVYYl/NXXBSgtUL4Rdx7ebph9ewcHY/qTAiZHh5eI6JhkTucRmZufKEo8vC9Bv
+	 13JE3pRI4cioe0W8r4WunHj5YAzCy/txyl9K48OFOP9FCaeJ1rfc88RCCTG0e9adIf9ui
+	 El1U1eVoIbE+yLQJRBBWUubh5irKnxmHKu/6cFtrVF25kEkhgY85UqW0RGHxwHzofdddk
+	 ovXqJ/2nnI/B2W50yD2dkQgws3MayEhcVHF3ut03HtwW82KBZ3e8qBS+A0lFybRyBygWp
+	 YSh5xVQyiuhF3okBav0+RG73WHzfBGiuSZIn8K7hDwx4By4sqs+NBbZnof98vNn1+OQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=ppErAAFK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.7.82
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazolkn19013082.outbound.protection.outlook.com [52.103.7.82])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA01606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:17:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCA01606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E95606A319;
+	Wed, 21 Oct 2026 18:18:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92E95606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=JVptMShM
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3514b90bb89so2819296eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:17:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792606620; x=1793211420; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Mmr/IR1zCY9h4L4dj3m8FpWvL2EHS7s4xmQLBcny3D4=;
-        b=JVptMShMD3lOCav6lLV1cSuKUNsMSZ/4tlwfHZEYmxdDzEKjsU63xcZG1pKs/01+gF
-         A0TIkF1+Nf6jSYSFlBlLqj2S/3D6aiGpRcgMSqFU6RjFriYsv6JP0IV1sHq541JAM8zm
-         0BK6NJOCXuHoVgG/aOWc25EJYVJLMl7/1mcLw87pAQt/3yGP/1b8of+LVO/UIeUotSmi
-         dRF4sr+Rn7nY1V7Iehcbu3kOE5UcRZ5Vlw9DcBPpo71sQDfqbt340CRaxBU8W9R1O+iJ
-         38oWk87PT6v8gE+SZ9z4Ovvl5lFUcSPrvP36mYf5muqI0ArpqJg04uNh5FKpCDf4JUJX
-         P0wA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792606620; x=1793211420;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Mmr/IR1zCY9h4L4dj3m8FpWvL2EHS7s4xmQLBcny3D4=;
-        b=ZCycqmbl45Dt/JcZuu/qTBja4bLPnRCfqF6lPUHZd8WWY/BQcq+i4gOAGDIaGOfXal
-         HCXiN1EPZqtzBggDUm78Mr1GyFexDMhvF2XQnCuD1lfmUuQdcJVpVh3450C72VTIOWt5
-         24P9Xt5tnFQOZ5Bg3TO8Hg4eirVWM0DP4876uG8OJzdnwL7O29V0DBrw1P2+6JillutM
-         HU/bz9I+PubVl1esZkniWPpH33d6LoPRLjEs88z9+A7cOVoOdLnsT5cm3rjaSYCJRgzQ
-         t/6UK/Q+ngqc6bzMH+HbF3k0rDcxpiSgpXXptWEi/ZgGVRAPksNuJHmErIoDRmvaGiaX
-         HbnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzH99d+SRzIH9oMOvWBu365xBIHTF/38rj6kEC/kByYHokjKqJ2Ernj7XidJKr9yovbHrhfQUfKpwTcMTI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8I+R4YM6dYTPzu54SVJ4xbDDshGn5H3vYReXWDQq7r8p0uV5e
-	baor/Gq1AD1DUmyq4d/MH+3KVkd1SwQc5ThEjzPgOYcmZ+zedzaqxCErkX75tWku3Ts=
-X-Gm-Gg: AYBFou3JBvo5kaIkH/t6LltCxKC/zNsNz9sot7TmIi/w3VglijjETFvvXZPE75rYbe+
-	aP7GYNjblIEZkbwkZSdkvsc6CCD16lb+DDidtEm3rXm/ejgEED943w2y+g0D7EH2UeKN1080GOi
-	ojZFZOYih2E8De8btYpTzusY+3RLfYEQBzU0YEwWzyHn5p+fjIv4UyMhjeMJ+RaKGK/AzKsVxrV
-	b2V1q7N0UlvmvUmafmodn1mnZHmQUrrNIpwmyM8ELy9QYFxLgzyftxbHKRYdz30/qwDHTzNpEi+
-	OCmakY8HceS/vP8iKfiIYFMHs9G4lY1KJJimHQpKywaoY3SbAMtzaQCvxTGThuANReoZTB/xhm+
-	BxyJmfFDLt0ZTz6quFjFGe79VoQ69t+Inp72p0WcD2OwX+AnmqpHYzq6phr+CzGrPjqtVfbxzL2
-	okjo0qEG6HRyPMmSe5Y/VRcBsgc9eG/pAOV2QtvH3GLHmBCHXJ5tcNLvJMchyW97vhsSOOS87jQ
-	CIrj9Qj+VJHBsRSZANynxhveqtPtAmCtTABIH+5K9CBZCbS7AI8dVC7VdxNBxZf1iwybO/SIqos
-X-Received: by 2002:a05:7022:eb46:10b0:14f:5cd:f286 with SMTP id a92af1059eb24-190a61447a2mr3916698c88.34.1792606619346;
-        Wed, 21 Oct 2026 11:16:59 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id a92af1059eb24-1903a180b9esm12244049c88.4.2026.10.21.11.16.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:16:58 -0700 (PDT)
-Date: Wed, 21 Oct 2026 11:16:56 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 09/18] nvme: Implement cross-controller reset
- completion
-Message-ID: <20261021181656.GV2931-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-10-mkhalfella@purestorage.com>
- <207f5a00-7fee-4ea5-b541-38424d4766bd@flourine.local>
- <20261021010438.GR2931-mkhalfella@purestorage.com>
- <02c2a904-2264-46b8-b49f-6f7109913da6@flourine.local>
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=ppErAAFK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wqf01pFSuLQ03UmDtAxjmoxNfte+qSkAALs2JWplHh0FbYuqNtB6mzSwdjdN3Jg8i3hXr8CsV2izd2WuyHYsNMkEUonF9/+haNEut0A+m1X4fWKcx6QuRlWaUu81d33q9B7lxNyHWA0cxvFG7T9rFTbPv+YOt/it9dUrjFinilymWrl1XjGfwmYBBtb7WgJDQ0KsBhWLpDusfvYPec07xrXD7HODC4wreeSQP8XH/XofGDUW7YAZU3avWRyXALX5/1tUzA/xuIpQLSvXMY8Dg3s27Yptd9b1ZWUHP71VzQBE3B6cjTuHwrWwYyUeBgeXYoSxZHLWeKaWihzrReJtOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
+ bh=YsVBv70gasaMvhBOBgE74GigNOjvYXoN58icmABjKt8=;
+ b=d3y12oBs2mDsLEdMFa6YInT99jxUhiYZSJEjzb2Vw/S883LjZJ4NyC+a2kuEecv/7MihoyPTd8vTRW/PjmbS7h65B3w6vFxf626X2nN3LNH+40CsV3GfE9WDoatpIFNJa1LJTJf57KKx/UPZ8Sl+4LD756mI9E8Pc2J6hVN2HmcDt30WlHJdjT79XCZWmgoq4rPcQTjxSkTn4furSmQmHx+2kLBJNlSwMX0CkCc9/7dTSq1agDY3rwtOnkmCTy7ApI76abMaiRdUq0IFXbgFyHviPgaj3HO9Don+zbPg5LbzB3MEA/hHa8z98+C2r4a+EEYyxuSG4orCee0O4VUM/A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YsVBv70gasaMvhBOBgE74GigNOjvYXoN58icmABjKt8=;
+ b=ppErAAFK1RQmaoOnSSZy6QWQ7FYVGQNmuu0DXtk4y08J7u5SeYMFQPUOrezmmZ4KXCCPlx3bB/AzGjP/fEamgGyAWB4Sq8k81/ab/oV4o11DTKQcOcTeNSyaePC6ZwX8aoKwFsr/8BSwb+vvMrH8U4KjTx0fbRkEkO9KpjvIOjseon47+4mk2Dj8EJdp0dOaeY5Nbeb7fKNBqop5rl4++fEg1ShabJegU0imRewq948xJ9SSAJY4EfhMMfwWWeIVlFUZTQblxQ8Zt1GevJ+tn1cg+H3qC7TPwQxNVEUpQmh+TizIPrxIJmz9agIILxkDtxH0ZmVbYfROBL5A3f0ysA==
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ (2603:10b6:806:39d::17) by SN7PR05MB9769.namprd05.prod.outlook.com
+ (2603:10b6:806:34c::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 18:18:09 +0000
+Received: from SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d]) by SA3PR05MB10385.namprd05.prod.outlook.com
+ ([fe80::e22f:a0f5:fcb0:9b0d%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 18:18:08 +0000
+From: Wang Yingjie <x-professor@outlook.com>
+To: "mkp@kernel.org" <mkp@kernel.org>, "axboe@kernel.dk" <axboe@kernel.dk>
+CC: "bvanassche@acm.org" <bvanassche@acm.org>, "fujita.tomonori@lab.ntt.co.jp"
+	<fujita.tomonori@lab.ntt.co.jp>, "James.Bottomley@HansenPartnership.com"
+	<James.Bottomley@HansenPartnership.com>, "linux-scsi@vger.kernel.org"
+	<linux-scsi@vger.kernel.org>, "linux-block@vger.kernel.org"
+	<linux-block@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v2] scsi: handle out-of-range SG_SET_TIMEOUT values
+Thread-Topic: [PATCH v2] scsi: handle out-of-range SG_SET_TIMEOUT values
+Thread-Index: AQHdYYiFy+2t1tHIoESjUbICwwGunQ==
+Date: Wed, 21 Oct 2026 18:18:07 +0000
+Message-ID: <20261021181804.136336-1-x-professor@outlook.com>
+References: <9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.org>
+In-Reply-To: <9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.org>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SA3PR05MB10385:EE_|SN7PR05MB9769:EE_
+x-ms-office365-filtering-correlation-id: a5efb948-eef5-40a8-e1a4-08df2f9fa854
+x-ms-exchange-slblob-mailprops:
+ V85gaVfRD4/uZtbPKQiHMaRLDxOOyjp2OadIj0sEcOcEaymq1w8jtV8nqSku0tzVKoXWJmN99M+mtwCRYp2ph+RF+xmGff1g1ohsCsZgqisPdiKkXW57YkEfZHnVF/jPfHJV66EYPKHccRIv1RFRdP/435O83Z2cx4ADE0Dr9LBzMG6vvC3Qt3W49PBnAb71SBIpS9P/KCjFUhP7L+tnSSWsCBkkNQe5CBXTR48SEgHHu8UJPv5Xqo/bZ+c4Zh9sdLt8ffZRXzwGM9ETryVnd8GcQTgPwEh6X22C3i0GN7hZ1owKkaGPfQqoHbdiiFInQUgCsXRL9OdrjcJRjtCUzveTPeDdvVD29VTDIdqmZbmqIFMVUKr+6fHAe+r+yp30MWURNYbCeBRMBrP3VvRylK6SqzGiXyJdUN6zBEl1fg7/IuO4cWvJu7sB+FLlJPnsblBnXo8XSRCuv/tV3KGs0FDTXzmjFCjK7VW2brRz1IBNHv30cdx7VUODJj3AaqxUjBCD6tHE0tGkqn+5Oq5jtyqdTD2jSqoM7s20d2OMnHA8lyP+FCLYpozzbHf/1mkuQTyFSJPv6kCp05szQr0HYCBgTDC1k6Io2elVu9WRLOBdT8U77lvJ2EEhKMXIaDIEYxgtIcH1Kdggfs6iTAwkymjacb2OtDVd7YgN8RwzDxTKPvqjf1lLrRzN/ffieIFZ560AvhUMVOwZdyewajOCTNjko0MA02NbCziuDUD3ftTExDviAcSkJOoqv7uGHPpZLu8JVC4tOOk85n7dalcP419yZTaGwxEt2mjTV+D82vdZDdMSF+vt2hqj88yKw4w8iRN3iGzhut2vIJTVUhEiZQ==
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|22141099003|19110799012|31061999003|39105399006|15080799012|24121999003|22091999003|24021099003|8060799015|25010399006|8062599012|4140399003|38102599003|41001999006|4302099013|3412199025|440099028|102099032|1602099012|26121999007|10035399007|40105399003;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?4HnmTYnGkxX1xBLf+unQtjkjzxxYxOcmex7ajfWC/mPE49Gwj18F6/HEBX?=
+ =?iso-8859-1?Q?ow8ipyV5XrPYPoTBw9atjprTVz9d9J6wO+6T9hyLh1Pc2G5IK7HBpbi7Ov?=
+ =?iso-8859-1?Q?3aro5BNoqQSLZuj4xgqyfv9LprakaWGgwG/IVvB3b8QRlBYXbhe03CVOmC?=
+ =?iso-8859-1?Q?4cJ9zVe7yI7xQWP8KSEUnLzCi9JgRhvzxVcbFRogul3hPXbjsMPsJQoC97?=
+ =?iso-8859-1?Q?ecTDA4fl3p7u11Oah2En92j+P4Gw3VVgzEB8V1pWxmbed2BBPHN2aLJhxR?=
+ =?iso-8859-1?Q?XRAa71kQNd/kGl8P/I+8Y9IAE4xwqUnkR4IBKKVxGU7aE+5T0jJon0Fq/u?=
+ =?iso-8859-1?Q?q9JkSF2RLzY9MkG3pYz/2s6qM4HXTA2Lo0yY8ZFtAfiyoGHvjNH/gTcH56?=
+ =?iso-8859-1?Q?v/hpp9rs6453Bf/I8x2u9oypujQ25PjkC2OvOLp3BB1yOjDIQLjyjCvl5n?=
+ =?iso-8859-1?Q?CHR4ALgNl/2lAL6clcRoF585KeYpESuhE1YCfLtRu6ExhKvtMktKfQ6Wtn?=
+ =?iso-8859-1?Q?vYz2PuLlpLo8uWGHKIJgnGtnpogB7K/T1MvfytZ9k6hF7jz5y6kDiXz1LI?=
+ =?iso-8859-1?Q?wWjE1XZY/ckrWbY9YQoHD8Gteg3bTM9eANpHjqFuIUlwLm0KNwDheJPjJv?=
+ =?iso-8859-1?Q?/IxOKaXr3bB4x2GKDldzO5RqU1/vrF77t7rF2NaJH6B3iarC6RxfZJtsdT?=
+ =?iso-8859-1?Q?CFqzx5FJqGCbYPDpW+2Cd3054Hi9T8PWd84F4dxj/NRpqzs1pAk8Bkv/Wo?=
+ =?iso-8859-1?Q?tKLnNUTGNh8hKgc4RgP/eWMK3LegnNujC6Q5tXItxWUxBWzwyl8lAFx7Of?=
+ =?iso-8859-1?Q?KyqW4sfw44v0RLQEgmTLRwcrdgJ4+Ulw5rdAzNwroNyFbBnlnkcvgxO0Cz?=
+ =?iso-8859-1?Q?f9IwHuNMh5JJF9n6uGJ3nx1sUY3mBgAeyJ85Oou+9KvwSyoC6mYlZ03rZw?=
+ =?iso-8859-1?Q?lS1HnOtqIFq1wrNvVVU/2P6TWH0vahThKUE2wqt9q+j0ajaJVAp6iSHeTE?=
+ =?iso-8859-1?Q?DeGJWDP16dRalQdsFYwW63K5we+UlRGxOlRIPvvXbZ3lLFe6ZlnX2xACMq?=
+ =?iso-8859-1?Q?UFh2yZpyOXiUCYPs0DbAxhUziWoCSGO1UVCFM75PV5wj4/Zce/j1uPEi0+?=
+ =?iso-8859-1?Q?4rf48ytjPsAMU6/5op4oIbSD1P/mPujlAQqQjSoE1lXx4KRr0Cff/GXxCc?=
+ =?iso-8859-1?Q?ixMYRzmEZkCYgb9CfxBr1cm4dp/tKogFHx0=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?HO1wDrN9LtSahE3LAKu79sfDinms+oTFLwXWNC32HCtp8litLW0buHz3ks?=
+ =?iso-8859-1?Q?M8QBxI0YaXsJnUkNwRVyy5mWRO6ALlg7tqwPhB40jlG9o/4TuMIBlqn9AZ?=
+ =?iso-8859-1?Q?CBgdzN6HXffhL+qqBcNNbbv4MSgdLcRFDfRQRZyXZoBcmMXbf1o04pONpP?=
+ =?iso-8859-1?Q?TsLYYcbycYid6N8/ZRK/1PWtRos5QqTxSTqGAIR71zgI5QD2ArW7mDHRWS?=
+ =?iso-8859-1?Q?JvWAYrCd3mOxjdc/1sD0CDi60e7F7YwEx5BVlSyJgnzTO97uESrjPnPcoN?=
+ =?iso-8859-1?Q?Msv0A2OR5I1qo+5SZ7q85zbbTy2WKHZwo2RvHCdtjzbMoDBcx9h5gyInUG?=
+ =?iso-8859-1?Q?1uR4GPKJT/Dl58HIWwTxkG0rAJQhtqIOsgCoex1Uh1Gh2/MyzjsZt43fzU?=
+ =?iso-8859-1?Q?s1npb4PcDbhfn3aweaGGWXuBb1r9lDkBqUKjlJ1Tycy7cKrohA3JPNbwtg?=
+ =?iso-8859-1?Q?jg250UbsBWahuG7Uiqx3GIYlmqotAmZx2sawQf5s1RR9Zq+/GPbeqO9L0M?=
+ =?iso-8859-1?Q?agLeQygpIHvxGPCs+E1qTQbTzTx78YH5kFQVI0CYKcO1uJY8Z2aX6gZ/qL?=
+ =?iso-8859-1?Q?AAe7dsHlBpGZ2wycmadhb7ohIVPeZxpqjZq6ejfGt/3MA9b34CJeHNyS+Q?=
+ =?iso-8859-1?Q?WPpgylWc3QkIkNDFsNeFJF+Z2VuOKKZubF5Ty+z1dP0hE1gTAPASfq1D18?=
+ =?iso-8859-1?Q?NOlumKvxEmeImJhm8d1suGS0FNjy+lf3RgJlXxy3+fslclOH0Ic2try99Z?=
+ =?iso-8859-1?Q?+FD1jWOHOHjHIs+JJkWRWYLAQHP5OIpYWeCtMVp8ByWWKRTFEg/LAQp6Ze?=
+ =?iso-8859-1?Q?dMyhCfe7JSia3Iui/dlcEX0sZz/eHXACTadQDZ2JAfKH3nGOEnKgcqSgry?=
+ =?iso-8859-1?Q?dmIFUazNPR4Ic8CKTF/01KIUMX+dWhInZgaeN+xXw5BH5VMo/lLDZvwqQn?=
+ =?iso-8859-1?Q?oAwbnJndjWMoIkA98KOMXrsut5CBflZAH7pGm1olNxnghmn2Cvci8ovbtJ?=
+ =?iso-8859-1?Q?T2tfhfwe9pff+ii7GOfI1digg67xO+ZsY2aFQ+9HBzaSKaJYp0yVmYh2vc?=
+ =?iso-8859-1?Q?tu3agL+2OfU1YKH49Pw4vCAjSS9a7OjDYj5kiE6JjwPHdq1c8pgVmpke/g?=
+ =?iso-8859-1?Q?NA+mkOjHtsItWR/ZSv9HMfw6lGe5G5ihR4+sURMMSGtZAf0YcI8XnESms0?=
+ =?iso-8859-1?Q?cPdFFNHS+YYVsGYQnyR5HPoqmf0/FPv5PrQ9Rz14z07RCYYWHMDmpMP8Up?=
+ =?iso-8859-1?Q?pg7+VQxL4Fp3BvoG6KQcyYoSf5Dwej6/i/41v+EB6o6nGvRIpWgsMx7pow?=
+ =?iso-8859-1?Q?xAKuqYOpnl+j6FC9VRa1CLH72RH6bAsC89/uyUUNbJElxUfKes4O683Jhv?=
+ =?iso-8859-1?Q?zfRNRWRaS4L4am/TQBv0Ty7GM009S7+b0WINSmyX32TQeewgOkhOruxRgI?=
+ =?iso-8859-1?Q?+AIlPtNzc8viV/5r?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,106 +156,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <02c2a904-2264-46b8-b49f-6f7109913da6@flourine.local>
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SA3PR05MB10385.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5efb948-eef5-40a8-e1a4-08df2f9fa854
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 18:18:07.9923
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR05MB9769
 
-On Wed 2026-10-21 10:43:03 +0200, Daniel Wagner wrote:
-> On Tue, Oct 20, 2026 at 06:04:38PM -0700, Mohamed Khalfella wrote:
-> > > What happens to the waiters on sctrl->ccr_list when the source
-> > > controller enters error recovery while a CCR is pending?
-> > 
-> > You already answered it below :)
-> 
-> I tried to figure it out, but I'm still not sure if I really understand
-> all the conditions. So bear with me.
-
-No problem. Take your time.
-
-> 
-> > > As far as I can tell, ccr_work itself is fine. The reset path cancels
-> > > it via nvme_stop_ctrl(), and in the error recovery path the Get Log
-> > > Page just fails once the admin queue is torn down. But the target drops
-> > > all CCRs issued by the old association when it frees the controller,
-> > > so the CCR completed AEN for them will never arrive. Nothing on the
-> > > host side walks ccr_list when the controller leaves LIVE, so
-> > > nvme_issue_wait_ccr() sleeps until min(kato, deadline - now) runs out
-> > > before nvme_fence_ctrl() tries the next source controller. In the
-> > > worst case that eats the whole fencing window.
-> > 
-> > If the remaining of the fencing window (deadline - now) is less than
-> > kato then I am fine with this scenario wasting this time anyway. If we
-> > hit the deadline then we consider fencing done anyway. If it consumes
-> > kato from the deadline then we retry another path.
-> 
-> Okay, this might be something worth documenting? It seems like a case we
-> will get bug reports in the future.
-
-I do not think this behavior worth documenting as stable behavior. We
-should be able to refactor/change/optimize this code in the future
-without worrying about breaking a documented behavior.
-
-The main point of CCR is to speed up controller fencing in order to avoid
-CQT delay. I think of it as a best-effort process attempted in a bounded
-amount of time. If it succeeds we skip the CQT delay, otherwise we spend
-the time we will have spent in CQT delay anyway.
-
-Can we do better within this bounded amount of time? Sure, this is what
-is being suggested here. However, I prefer not to do that part of this
-patchset. Also, do not like to clutter the code with comments about
-potential changes.
-
-> 
-> > > Would it make sense to fail all pending entries (set ccrs to a failure
-> > > status and complete them under ctrl->lock) when the source controller
-> > > goes into error recovery, so the fencing code can move on to another
-> > > path right away?
-> > 
-> > Failing pending CCR entries that we know we are not going to complete
-> > will help in this case. The question is where to do that. A LIVE
-> > controller might hit an error and transition to FENCING, or manually 
-> > reset and move to RESETTING, or deleted and go to DELETING. Do we need
-> > to consider all these places to fail the pending CCRs?
-> 
-> I'd say yes. Anyway, I don't think this needs to be addressed right away
-> if the current code is functional correct and we are just not as fast as
-> possible. 
-
-Agree, the goal of the patchset is to add the initial support for
-CCR/CQT. If there are functional issues they should be addressed now.
-Known gaps and optimizations can come in later patchsets.
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index ca7f083702f5..6c0703fba8ff 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -863,6 +863,9 @@ bool nvme_change_ctrl_state(struct nvme_ctrl *ctrl,
-                wake_up_all(&ctrl->state_wq);
-        }
-
-+       if (changed && old_state == NVME_CTRL_LIVE)
-+               nvme_fail_pending_ccrs(ctrl); /* TBD */
-+
-        spin_unlock_irqrestore(&ctrl->lock, flags);
-        if (!changed)
-                return false;
-
-One way to fail pending CCRs is to add it to controller state machine.
-Something like the diff above.
-
-> 
-> > You might have also noticed that nvme_issue_wait_ccr() calling
-> > __nvme_submit_sync_cmd() might consume the entire fencing window if the
-> > CCR command gets held because the source controller hits an error. This
-> > is another area be optimized. I am inclined to leave the code as it is
-> > today. What is being described here is an optimization that can come
-> > later on.
-> 
-> Yes, I was actually about to ask about __nvme_submit_sync_cmd in this
-> path next. Since my questions are about optimization, I don't think we
-> should make the current version any more complex than it already is. We
-> can handle optimization later, but please document those cases in the
-> meantime.
-
-Hannes also raised this point. It is on my todo list to add timeout
-parameter to __nvme_submit_sync_cmd() and use that here.
+SG_SET_TIMEOUT accepts a signed int in USER_HZ units. The sg character=0A=
+device rejects negative values and limits positive values so the converted=
+=0A=
+timeout fits its destination field. The block SCSI and BSG paths instead=0A=
+pass the value to clock_t_to_jiffies(), which accepts an unsigned long,=0A=
+and store the result in an unsigned int.=0A=
+=0A=
+Negative values are converted into large unsigned timeouts. On 64-bit=0A=
+systems, large positive values can also exceed UINT_MAX after conversion=0A=
+and are truncated on assignment. With HZ=3D1000, for example, 429496730=0A=
+clock ticks become 4294967300 jiffies and are stored as 4 jiffies. On=0A=
+32-bit systems, an overflowing conversion becomes ULONG_MAX, which is an=0A=
+unsafe relative interval for the block timer comparisons.=0A=
+=0A=
+Reject negative values with -EIO, matching drivers/scsi/sg.c. Saturate the=
+=0A=
+converted value at the smaller of the destination field limit and=0A=
+MAX_JIFFY_OFFSET. This preserves successful ioctl behavior while avoiding=
+=0A=
+both narrowing wraparound and an unsafe 32-bit timer interval.=0A=
+=0A=
+The block SCSI behavior predates Git history. BSG has exposed the same=0A=
+behavior since it was introduced.=0A=
+=0A=
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")=0A=
+Fixes: 3d6392cfbd7d ("bsg: support for full generic block layer SG v3")=0A=
+Cc: stable@vger.kernel.org=0A=
+Reported-by: Bart Van Assche <bvanassche@acm.org>=0A=
+Link: https://lore.kernel.org/r/9321a59c-c560-4742-8b71-5b0ec1f30c2f@acm.or=
+g=0A=
+Signed-off-by: Yingjie Wang <x-professor@outlook.com>=0A=
+---=0A=
+Changes in v2:=0A=
+- Add the pre-Git Fixes tag for the block SCSI path.=0A=
+- Saturate large positive conversions at the smaller of UINT_MAX and=0A=
+  MAX_JIFFY_OFFSET instead of allowing narrowing wraparound or an unsafe=0A=
+  32-bit timer interval.=0A=
+- Expand the commit message and boundary testing for the positive and 32-bi=
+t=0A=
+  cases.=0A=
+=0A=
+Tested on x86-64 with HZ=3D1000 through both /dev/sr0 and BSG. Values 0,=0A=
+1, and 429496729 round-trip unchanged; 429496730 and INT_MAX saturate to=0A=
+429496729 USER_HZ ticks; -5 returns EIO. Zero-timeout SG_IO requests still=
+=0A=
+complete after setting the timeout to 1.=0A=
+=0A=
+Also tested on an actual i386 HZ=3D1000 QEMU kernel through both /dev/sr0 a=
+nd=0A=
+BSG. Values 0, 1, and 107374182 round-trip unchanged; 107374183, 429496729,=
+=0A=
+and INT_MAX saturate to 107374182 USER_HZ ticks; -5 returns EIO.=0A=
+=0A=
+v1: https://lore.kernel.org/r/20261017084547.2880694-1-x-professor@outlook.=
+com=0A=
+=0A=
+ block/bsg.c               |  6 +++++-=0A=
+ drivers/scsi/scsi_ioctl.c | 12 +++++++++---=0A=
+ 2 files changed, 14 insertions(+), 4 deletions(-)=0A=
+=0A=
+diff --git a/block/bsg.c b/block/bsg.c=0A=
+index 82aaf3cee5825..632b3f6d98b29 100644=0A=
+--- a/block/bsg.c=0A=
++++ b/block/bsg.c=0A=
+@@ -132,7 +132,11 @@ static long bsg_ioctl(struct file *file, unsigned int =
+cmd, unsigned long arg)=0A=
+ 	case SG_SET_TIMEOUT:=0A=
+ 		if (get_user(val, intp))=0A=
+ 			return -EFAULT;=0A=
+-		bd->timeout =3D clock_t_to_jiffies(val);=0A=
++		if (val < 0)=0A=
++			return -EIO;=0A=
++		bd->timeout =3D min_t(unsigned long, clock_t_to_jiffies(val),=0A=
++				    min_t(unsigned long, UINT_MAX,=0A=
++					  MAX_JIFFY_OFFSET));=0A=
+ 		return 0;=0A=
+ 	case SG_GET_TIMEOUT:=0A=
+ 		return jiffies_to_clock_t(bd->timeout);=0A=
+diff --git a/drivers/scsi/scsi_ioctl.c b/drivers/scsi/scsi_ioctl.c=0A=
+index c14f81403a09e..8277e6adf497e 100644=0A=
+--- a/drivers/scsi/scsi_ioctl.c=0A=
++++ b/drivers/scsi/scsi_ioctl.c=0A=
+@@ -9,6 +9,7 @@=0A=
+ #include <linux/blkdev.h>=0A=
+ #include <linux/interrupt.h>=0A=
+ #include <linux/errno.h>=0A=
++#include <linux/jiffies.h>=0A=
+ #include <linux/kernel.h>=0A=
+ #include <linux/sched.h>=0A=
+ #include <linux/mm.h>=0A=
+@@ -195,10 +196,15 @@ static int sg_set_timeout(struct scsi_device *sdev, i=
+nt __user *p)=0A=
+ {=0A=
+ 	int timeout, err =3D get_user(timeout, p);=0A=
+ =0A=
+-	if (!err)=0A=
+-		sdev->sg_timeout =3D clock_t_to_jiffies(timeout);=0A=
++	if (err)=0A=
++		return err;=0A=
++	if (timeout < 0)=0A=
++		return -EIO;=0A=
+ =0A=
+-	return err;=0A=
++	sdev->sg_timeout =3D=0A=
++		min_t(unsigned long, clock_t_to_jiffies(timeout),=0A=
++		      min_t(unsigned long, UINT_MAX, MAX_JIFFY_OFFSET));=0A=
++	return 0;=0A=
+ }=0A=
+ =0A=
+ static int sg_get_reserved_size(struct scsi_device *sdev, int __user *p)=
+=0A=
+=0A=
+base-commit: 58161ead29e50d70a317ea26b472e0c7508e69da=0A=
+-- =0A=
+2.43.0=0A=
+=0A=
