@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792556418;
-	b=hetP1Pvfm26dobwzXG2nkYyCks2KmbI5mH/lkTSZnvrHUFlJGlDsao3duSW7w7joFVle
-	 HiHs1VZyTC3Iozf1wze6YkV9ilvZwPnWE2yjAuYJ1Ckw9FpUKFnGg6MqwK6L4JiWVmKN2
-	 OUjGC12VBi5HtIiY4z3izJH7awZ+ph3hIHqX+y5MXwTgAnGDRf0wzTFngkUOTaex4/71v
-	 w2t3w2VFMojqz0vDjt/LS4pD0tDextlrayG4fgl/SVfqlW4zsJDT+6SUt3MpCbtvdQ9tn
-	 y/ZwLa6UBimY+OEzQ5mnX80wV4uKg+MJVX9P6Dlj4VclaQUQ2R5Pk7iLl7Yw0KOyOng==
+	t=1792556442;
+	b=CJxoWGYRqU5VB1M8x5Sd3g5la6m00IBAlQ0Bb27DtwwAg3z85nTikptBdlpxBJOzKRL9
+	 zIcyBNuBrK/bYdOO4QnmD5oLPSIyjkx4dg7EBp0NT8pSow/bq3Crdoqry1LaLxAe2Z+ym
+	 NWT9kfscmJ5FXDMxssuZs8Nf90poMjvsZxp775e0y32tiX80T9VTThh7mNOMT4tPQYlDF
+	 rMhTRiCTxRjBAuzJhQegUsbcVg/o2iTb0Q2qMcYkvbtryVvC5bf7s272cEdb+6k8uJqr4
+	 UnZFTNaJh1Dwy5IX3FahwyII99Kji25aiqwLYebuFfOf5hNjQiLT40vV59gY+ADNVKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792556418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792556442;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=F6nqS7mcyLguqD1PJrlyheTLjJilKtOGHy8lXcshPXw=;
-	b=LWUw03tqBkg3jXLlKXgj1qcVUtcZGxGGwXWW13oWepf24B9eXriEdXDFN+dhijIxDuts
-	 YRdTWw+1wesxjhx5/QiinfGjkzyKgZFoWRtKTeQ22N+aOW8Jcr6E2Epf4HpuvGAaZ/AZR
-	 KmFfbzm3gFwG5YVsfekvnZRnvTmGX+7soaUrP92xpCVUpez2wD4JOih16sVDoIVfWNflI
-	 h+XUy948R9yU7hEjnAlKnBFggO1qTwdUfibzmW6bWOJcZyE2SFvtCR3rxuWEBv95cgfFL
-	 jwt/10w16YlG9BaFPuJGlsc4jFMnb2WUIGmlPOZ54Z205k1SAgMywgU9bWmqoWVCaZg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5kWZEq95rr3xlJQdM3Zsq/uwItEBf5utbCoiS0ERH1o=;
+	b=Ux7lQwKia9qch22iLd3WogB8uRJIdA/uK7v3QyKWXVgMbKdrDWwI1m17mNLJDDNh9A07
+	 bXqAR76HpLlCjoAySZ/GY7ENwlbw6dz8FGZ3qrSB89dAV/mD2GG222lvGey2Miae1kyv/
+	 JcqsKT3pIna+fiFqloPcxzKhU0n/zqhlQ9zcPQm04WjXLveXET5nHZ5IV6wQ/fCTaSDOY
+	 zdLbyBylWH6OMfRZP88jF2t1no1YKZ+uKNpfFG4xIU1PJMH9Iy5gBUb+YXukkzYaJ6FaQ
+	 9peKBEeDYoYD+yUkeEZjYkkAkLoWEjsh2QJNbKqLTrvWoYLrTpscxpa4PExk8QqMb7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E0vtz86b;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NyEPvden;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478D2606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:20:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 478D2606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDE7606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:20:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDE7606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E0vtz86b
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so334609eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:20:18 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NyEPvden
+Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c1c8so1043605ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:20:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792556417; x=1793161217; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=F6nqS7mcyLguqD1PJrlyheTLjJilKtOGHy8lXcshPXw=;
-        b=E0vtz86bT9ZOmK72ci7NpUjiT/4Cz0eu3NewGqtSC+asMbbObRHth0PaZfKucY3Ng0
-         WsvfkmOIFz6ivmf0d1j6AfMqCzQsttn8eKATdaA+5ojCWD3BkokZ9L24mUAGcQpPJzEh
-         typX5CCxSigal7DNhwcmW2NRtN+pKqJ3plWcZhq1JKVknkvZQXra8pu0NOuRjx2oAnt3
-         JgNvSP/roCv17hex7+rThL6sfQxIPw7/emdqQTxje8B3vCUb2iaJ5F1xdK6V1V77arpS
-         GukqE53SjlvemDJ6Vn7Ic8hA4NdrOxjKypbLmS5kS5t/XjhOYqWbYiZBZenQ83ZRNRci
-         80JA==
+        d=gmail.com; s=20251104; t=1792556441; x=1793161241; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5kWZEq95rr3xlJQdM3Zsq/uwItEBf5utbCoiS0ERH1o=;
+        b=NyEPvden8y7CjWZefZBy9Osn9CTzUVCiUmeVgovzu1SgWiHiW2HhnKuqH/XfxvuzZC
+         xGnW3DrvoZYw/Wq9gTSVFxRw46a1yj6Pdt8nBq1+C6bGmlgcEwm+ieagze1lVvNGjNKO
+         PXt9IZ2npE6Z9AWOBbO/XpVbqLzXG35dx+b+B5MfJ6Arvp64apM+DghgUTlqfTmX0qcu
+         j8/pNmC92RUx5C6GXiMzJCMyyCqCVrbvHpxDA+pHrseckQ6zrAKIHv3zH0jbnNkNQTNA
+         wah/JLTp5ORKj5g+RZSaxDKjYu+WYP8FJZYcN3MOxxJ6n8ZVzDBofDw6NosbWojigcVr
+         kkkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792556417; x=1793161217;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=F6nqS7mcyLguqD1PJrlyheTLjJilKtOGHy8lXcshPXw=;
-        b=pe5fkKI8mD+uRugzEzJr19p5oboqeDucDjX0Qr/XReOVnN+UHHWdBW17i32u1dwdiM
-         T2zVSDYC4h4+lF2+ENWyT9JfIy3CJzo/hq2NNa0Sn+g6YVKterK51hPIdImRJXQn0zER
-         fMC8KY5B9qPA/kc/p4zlbjd9CKj26lkQeGARgRn0ZJK/eLjUk3ZfTEhOafmytsZrqLKq
-         YMp+alqGg5784PWEks5IionfeEONNDHLNM6HNrLH0P0+IkoFUyt7YSlE7s79iN9Bpd4M
-         eo6OslKfZ58s0si/+M9IBIZQ/cIEZ+5cPGflErtdIh58yys7RLdlCIFTh7FpCSNJOfks
-         e4GA==
-X-Forwarded-Encrypted: i=1; AKwUvByiVJkmV8xxqC46jMbImd56xJIYA+uk4Fy5VXZniR0KcUfuk5jYhC0bdAFVqZxs5x5ClZNrLRz2PJDA3H4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLW+zmv2Qsdqat4F6jaCZ1HBEAVE/9E8A5JJxQAEzUp8dBwkV4L
-	AuM1luPwJst10SsDGA0elPCAJxzYb1qgO9DcFXejCP/uogpMUYgE68TE
-X-Gm-Gg: AYBFou1KQHd8CdLfQYHoepiuFAMjGn3mLtYADGsscnyXD9ClTpNdYEb3qWQPH0ysUeM
-	ie3hzGuTpOdwIcVHACSRqSSczKC0JW6EoCepK7oYDtYMr+ywE28/0XkQC2cLrnE5zHadF0a4N5g
-	stpWCML6yw4j1L4EsW75Bo7izls07UopKwMcS1bpPo6RKTQ7ntXw/tgS8UVSSTc7AbYG5EZwYwV
-	x42GxfFTLnzYbnK0/JrMJNBa4V+p5czGXB1mTqwL0v5BDkzZ6qzElYNkFeBgAV+4CoWrQ+QNDQV
-	Ehm75+Xlopo/jMLzR6ufk5bP0Fnmst9v7vSMe0+xa+hYFipgk7m7bOYqmdQrunc0e9b5PtoqJoQ
-	BbzgXL0rM8LRaul7CekLLjkWYOeqLn6+fT9x+juyMHZc43drMHhdXkCnQPevzSOZmhxVXJXS2Dg
-	KTdRcIrehD6H1awQHHw8teyAUlp4wLbAN8LfFARpRxBA/yGLLkqWXB1t6EVrqBCIt+YHXcYELR4
-	eAzNCidu1Q73km+F6AXBbuCzufR0i6ECrFnmyGSExDWbKntJgDknKB8I/9d
-X-Received: by 2002:a05:7301:db83:b0:35b:cb8a:8d0e with SMTP id 5a478bee46e88-3674cb387admr1757579eec.16.1792556417222;
-        Tue, 20 Oct 2026 21:20:17 -0700 (PDT)
-Received: from user ([2405:201:c052:b00b:2b85:4f59:7505:fbbf])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ed2absm3682269eec.5.2026.10.20.21.20.12
+        d=1e100.net; s=20260707; t=1792556441; x=1793161241;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5kWZEq95rr3xlJQdM3Zsq/uwItEBf5utbCoiS0ERH1o=;
+        b=sHDC/jKR6kBsrSkGry3okhtHFPZViVW15nX8aDO307U3jAKxrRpaEi3Sdhw0PH4M8p
+         M5WnhsQykKdQUdcBY4b8EbRGR1b74476g3eS/FrmeGoXFHhG0DC2xnFW42o8e0cuQYtP
+         98FKgjtpZ80IMv3ZNucPdzHJi3Xs2wwAF1eEmUkoD+LUmb1xKRv6YVxOOL2DKBEW3NCt
+         lnM2V0qUvuEc5/yS074FNLNp88zAQXXTpxNS1QjVKDQf3awgoEsND7LOtouks9Ew/ZqQ
+         620NYZRUgOBYu8O9FwlzcV5kszbt6S60piuWSh2JJobHJ9PCiCT9WHsmXs7qSk/yu+De
+         wdUQ==
+X-Forwarded-Encrypted: i=1; AKwUvByaR88E5l1mpHl/7MbjLc3eE6R8oOXlEjnkAcBKHedfV5PZWDkEHWd9+1cmWCXoji6F+ZHrUF+Rud8tg0U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8Pv1r0fiQVf5fidD1M7nj3Gynnn/kXgEwltR/zKHzQRn2jeGH
+	5MByjZ+K5PtRob53KtNPqfwplUPCR6d7WHCybEP9p1wb1JdbliyYA2WK3u5R1ULYrU+4RDG5z94
+	=
+X-Gm-Gg: AYBFou3v8oClUolMPz9epHGy9HGt3poAv6vStGOBAV/bmF41YljAJMjx6sjsfI7GKjU
+	vxR8r0u/H5NVnfwDN00nLG/v3+P5EVOe+2uUhNDI3AdItNBJdw5hXj/lk4eG9Nm1uHvxUtB0KQg
+	IOZ50jvR+MGGE8Tm34/lGYu4wxlWCf+LfKrKmru6Zw5LOR8cGhmOxj2uDtlgbGWhXFAkDRkXlbK
+	Q9v28Oi8DlUSF7d1Ch/qcPaBzx6IQDXGvgsZu89l1PyV86SYnrM+3NGK0hyePHjSgPC4sroKp2F
+	NmnMTIJnyjh/3vP1en9IFrupdzJVe6bFhxYAXMjayECOiArQrBEngtPQHbo/VAeWrVVs1krg6dC
+	yr5hki1EWb2TnIn/b+2OzRJhueFU2nrhUpI3TEYrFeA12LjB83G8R1MVI6uiKfQ2Lh5C+U5p08R
+	ydZcmJ3/Om//5DEyMSQ3u9Jb9fpeI9UD04aDlOwrUNnihmTNYEyR68mv0HREs/q0LvYiuXSxjJo
+	wecM52CdFaiGQx3gvhqlA6+pQISXZmatT4rg9FACD4CLDqqNGcHmp41FFpDiocecgb12KyWliml
+X-Received: by 2002:a05:6a21:b95:b0:3e2:76f0:ac27 with SMTP id adf61e73a8af0-3e287dd61f3mr772979637.40.1792556441505;
+        Tue, 20 Oct 2026 21:20:41 -0700 (PDT)
+Received: from AERO17.taila7786d.ts.net ([152.175.65.42])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a08933aec9sm318936b3a.2.2026.10.20.21.20.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 21:20:16 -0700 (PDT)
-Date: Wed, 21 Oct 2026 09:49:51 +0530
-From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-To: Alex Elder <elder@ieee.org>
-Cc: gregkh@linuxfoundation.org, outreachy@lists.linux.dev,
-	pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org,
-	rmfrfs@gmail.com, vireshk@kernel.org, greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
-	ethantidmore06@gmail.com
-Subject: Re: [PATCH v2] staging: greybus: Align function arguments
-Message-ID: <atg9Zwie6-Dva-Xb@user>
-References: <20261017084441.12123-1-pavankumaryalagada@gmail.com>
- <7e71d57b-f3c7-48b7-bcdf-75254ee87cdd@ieee.org>
+        Tue, 20 Oct 2026 21:20:39 -0700 (PDT)
+From: Pufan Jin <cyan2254650260@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next v3] net: phy: realtek: Add support for JLSemi JL2101 and JL2121 PHYs
+Date: Wed, 21 Oct 2026 12:20:29 +0800
+Message-ID: <20261021042029.44853-1-cyan2254650260@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,98 +100,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7e71d57b-f3c7-48b7-bcdf-75254ee87cdd@ieee.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 09:00:03AM -0500, Alex Elder wrote:
-> On 10/17/26 3:44 AM, pavankumaryalagada@gmail.com wrote:
-> > From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> > 
-> > Align the function arguments to follow the coding style and
-> > improve readability, addressing the alignment warning reported by
-> > checkpatch.pl
-> > 
-> > Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
-> 
-> This patch is OK, and it's a good kind of thing to do for
-> getting your feet wet with sending out patches for review.
+JLSemi (JingLue Semiconductor) JL2101 and JL2121 Gigabit Ethernet PHYs
+are register-compatible second-source alternatives to the Realtek
+RTL8211F. They share the same paged register layout (page select at
+register 0x1f), RGMII TX/RX internal delay registers (page 0xd08
+regs 11/15), and specific status register (0x1a). Wake-on-LAN (WoL)
+events (page 0xd8a regs 16/17 and page 0xd8c reg 16) and LED control
+registers (page 0xd04 reg 0x10) match RTL8211F.
 
-Thank you for reviewing my patch.
+Unlike RTL8211F where PHYSR (0x1a) can be read directly on page 0,
+JL2101/JL2121 requires reading PHYSR from page 0xa43 via
+phy_read_paged(). Reading 0x1a on page 0 yields 0x0000, which causes
+rtlgen_decode_physr() to erroneously downshift to 10Mbps half duplex.
+Introduce jlsemi_read_status() to read PHYSR with page 0xa43.
 
-> 
-> But I encourage you to try to really *read* and understand
-> the code, and see if you can find anything you think is wrong,
-> or some bit of code or comments that you think could be more
-> clear.
-> 
+Extend the Realtek PHY driver to bind JL2101 and JL2121 by their PHY IDs
+to the RTL8211F-compatible driver operations, and add their PHY IDs to
+the MDIO module device table.
 
-I will try to understand the code better and look for ways to
-improve it.
+Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+---
+Changes in v3:
+- Drop standalone driver drivers/net/phy/jlsemi.c and extend the Realtek
+  PHY driver directly as suggested by Andrew Lunn.
+- Add jlsemi_read_status() to read PHYSR (0x1a) via phy_read_paged()
+  from page 0xa43, avoiding false downshift to 10Mbps half duplex (verified
+  on physical ALINX AX7Z020B board).
 
-> I just scanned through "loopback.c" and one minor change (to
-> *code*) you could try is using fsleep() in one place that
-> uses other functions to delay.
+Changes in v2:
+- Drop redundant phy_interface_is_rgmii() check in jlsemi_config_init()
+  (Andrew Lunn)
+- Change speed check in jlsemi_read_status() to '>= SPEED_1000' since
+  JL21xx only supports up to 1000M and 100BASE-TX does not use Master/Slave
+  clock resolution (Andrew Lunn)
+- Check device_can_wakeup() and configure wakeup capability and wake IRQ
+  in probe() when 'wakeup-source' is present (Andrew Lunn)
+- Drop redundant .features = PHY_GBIT_FEATURES (Andrew Lunn)
+- Use PHY_ID_MATCH_VENDOR() for generic driver and mdio table (Andrew Lunn)
+ drivers/net/phy/realtek/realtek_main.c | 61 ++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-I will look into this and work on it.
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index 177b62a7b..36c8f2529 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -259,6 +259,10 @@
+ #define RTL_8261C				0x001cc890
+ #define RTL_8261C_CG				0x001cc898
+ 
++#define JLSEMI_JL2101_PHYID			0x937c4032
++#define JLSEMI_JL2121_PHYID			0x937c4030
++#define JLSEMI_STATUS_PAGE			0xa43
++
+ #define RTL8261C_CE_MODEL		0x00
+ #define RTL8261D_MODEL			0x81
+ #define RTL8261X_INT_AUTONEG_ERROR	BIT(0)
+@@ -1731,6 +1735,23 @@ static int rtlgen_read_status(struct phy_device *phydev)
+ 	return 0;
+ }
+ 
++static int jlsemi_read_status(struct phy_device *phydev)
++{
++	int ret, val;
++
++	ret = genphy_read_status(phydev);
++	if (ret < 0 || !phydev->link)
++		return ret;
++
++	val = phy_read_paged(phydev, JLSEMI_STATUS_PAGE, RTL_PHYSR);
++	if (val < 0)
++		return val;
++
++	rtlgen_decode_physr(phydev, val);
++
++	return 0;
++}
++
+ static int rtlgen_read_vend2(struct phy_device *phydev, int regnum)
+ {
+ 	return __mdiobus_c45_read(phydev->mdio.bus, 0, MDIO_MMD_VEND2, regnum);
+@@ -3192,6 +3213,44 @@ static struct phy_driver realtek_drvs[] = {
+ 		.led_hw_control_get = rtl8211f_led_hw_control_get,
+ 		.led_hw_control_set = rtl8211f_led_hw_control_set,
+ 		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
++	}, {
++		PHY_ID_MATCH_EXACT(JLSEMI_JL2101_PHYID),
++		.name		= "JLSemi JL2101 Gigabit Ethernet",
++		.probe		= rtl8211f_probe,
++		.config_init	= &rtl8211f_config_init,
++		.read_status	= jlsemi_read_status,
++		.config_intr	= &rtl8211f_config_intr,
++		.handle_interrupt = rtl8211f_handle_interrupt,
++		.set_wol	= rtl8211f_set_wol,
++		.get_wol	= rtl8211f_get_wol,
++		.suspend	= rtl8211f_suspend,
++		.resume		= rtl8211f_resume,
++		.read_page	= rtl821x_read_page,
++		.write_page	= rtl821x_write_page,
++		.flags		= PHY_ALWAYS_CALL_SUSPEND,
++		.led_hw_is_supported = rtl8211x_led_hw_is_supported,
++		.led_hw_control_get = rtl8211f_led_hw_control_get,
++		.led_hw_control_set = rtl8211f_led_hw_control_set,
++		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
++	}, {
++		PHY_ID_MATCH_MODEL(JLSEMI_JL2121_PHYID),
++		.name		= "JLSemi JL2121 Gigabit Ethernet",
++		.probe		= rtl8211f_probe,
++		.config_init	= &rtl8211f_config_init,
++		.read_status	= jlsemi_read_status,
++		.config_intr	= &rtl8211f_config_intr,
++		.handle_interrupt = rtl8211f_handle_interrupt,
++		.set_wol	= rtl8211f_set_wol,
++		.get_wol	= rtl8211f_get_wol,
++		.suspend	= rtl8211f_suspend,
++		.resume		= rtl8211f_resume,
++		.read_page	= rtl821x_read_page,
++		.write_page	= rtl821x_write_page,
++		.flags		= PHY_ALWAYS_CALL_SUSPEND,
++		.led_hw_is_supported = rtl8211x_led_hw_is_supported,
++		.led_hw_control_get = rtl8211f_led_hw_control_get,
++		.led_hw_control_set = rtl8211f_led_hw_control_set,
++		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
+ 	}, {
+ 		.name		= "Generic FE-GE Realtek PHY",
+ 		.match_phy_device = rtlgen_match_phy_device,
+@@ -3420,6 +3479,8 @@ module_phy_driver(realtek_drvs);
+ 
+ static const struct mdio_device_id __maybe_unused realtek_tbl[] = {
+ 	{ PHY_ID_MATCH_VENDOR(0x001cc800) },
++	{ PHY_ID_MATCH_EXACT(JLSEMI_JL2101_PHYID) },
++	{ PHY_ID_MATCH_MODEL(JLSEMI_JL2121_PHYID) },
+ 	{ }
+ };
+ 
+-- 
+2.56.0
 
-> 
-> Another thing you could look for is printf-style format
-> specifiers.  I see more than one place where an unsigned
-> value uses %d (which, for large values, produce misleading
-> results).
-
-I will also check the format specifiers and make sure they
-match the variable types.
-
-> 
-> These suggestions aren't especially complex, but my hope
-> is they lead you further into understanding the code and
-> not relying heavily on checkpatch.pl to find things.
-
-I will keep these suggestions in mind when working on future
-patches.
-
-Thanks,
-Pavan
-
-> 
-> Anyway, this change looks fine to me.
-> 
-> Reviewed-by: Alex Elder <elder@riscstar.com>
-> > ---
-> > v2:
-> >   - Rebased onto staging-next.
-> > v1: https://lore.kernel.org/outreachy/C560A15E-6F28-4FC8-8BE2-277B503340AD@inria.fr/T/#t
-> > 
-> >   drivers/staging/greybus/loopback.c | 3 ++-
-> >   drivers/staging/greybus/spilib.c   | 3 ++-
-> >   2 files changed, 4 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
-> > index fe48a687377a..efc69c10cffe 100644
-> > --- a/drivers/staging/greybus/loopback.c
-> > +++ b/drivers/staging/greybus/loopback.c
-> > @@ -652,7 +652,8 @@ static int gb_loopback_request_handler(struct gb_operation *operation)
-> >   		}
-> >   		if (!gb_operation_response_alloc(operation,
-> > -						 len + sizeof(*response), GFP_KERNEL)) {
-> > +						 len + sizeof(*response),
-> > +						 GFP_KERNEL)) {
-> >   			dev_err(dev, "error allocating response\n");
-> >   			return -ENOMEM;
-> >   		}
-> > diff --git a/drivers/staging/greybus/spilib.c b/drivers/staging/greybus/spilib.c
-> > index e4d1ae8308aa..c1982f3fb931 100644
-> > --- a/drivers/staging/greybus/spilib.c
-> > +++ b/drivers/staging/greybus/spilib.c
-> > @@ -160,7 +160,8 @@ static struct spi_transfer *get_next_xfer(struct spi_transfer *xfer,
-> >   /* Routines to transfer data */
-> >   static struct gb_operation *gb_spi_operation_create(struct gb_spilib *spi,
-> > -		struct gb_connection *connection, struct spi_message *msg)
-> > +						    struct gb_connection *connection,
-> > +						    struct spi_message *msg)
-> >   {
-> >   	struct gb_spi_transfer_request *request;
-> >   	struct spi_device *dev = msg->spi;
-> 
