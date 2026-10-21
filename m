@@ -1,94 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599277;
-	b=oRiqO2xXPrdliijO968EIFsGzf9jywFoqGim2pRfE9BchUUwvBDQ1FIOW47azxW6ZLBF
-	 aZwh4cZblgorQGMNrFj43ciTEVmOQcm68CfSMjLtXi2KSr+Q4o8CRDD6hPP+NlITmk8en
-	 cdSHNFzmOvQx3iQS47WGn05RuaWJS2iIGLFd9JgJAEnOcDzp9yBfvBDyVwBEMV9lmIRZo
-	 G+tmH6Rz35uyqcK0RGMLZCbbygMHqpTZQ5rp7gM1JAH7lgMzxw2QZbg3Uh1ZMheJ/NR8o
-	 NuZyco5MOBbcleAMUOdxD5lw4B+iP4INsDG0FC5CuWTwqJWhu74CPsgeD3ujhFbZ2Jg==
+	t=1792599394;
+	b=HEGVDjdHpv5Z6m6f2o2WkhT/VSp0HYEItbmOUBOFocYl2BJdr4VTlr82E2xPetDS/uNv
+	 +9Rs6W8JWmwpF9HA5huAzQoeQDR56nGstI3XKntUxOUBIvoe8HJ9dLC/IDy4llX5040QS
+	 d2F90BV+uQ7CeCgkxLEGOpZCDJy4BPC2U0rWndQEKl4Xk+FwlKdvrSU20yKhxGBXjE3tz
+	 r2yKcxEmJAiv761I+mv+MshgW1qYrBC3ZDlHOy6D9n9IwSXAJVq2MuZlksRg+Pqg4Ssoe
+	 0TTPMvyE8oJSfmF8RbQLltR9Ala/n0hZeq+HT3/PMolXxzJcOH5xwPEhY6ZA9TwHmtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599277;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=EYfi7okTi0CauQZlFNuFbrUJBFVpuaI/7/o4adTAMHk=;
-	b=Jq9+IBgspx8FTV7LJ1pQezvzjdm6NCVJyXx/XmzdkxHcQsI10oJPXkWbukc2JkrgEZWP
-	 GplkN2+KRnbGIaF0GTq6+oLA49Bd+YcyfyPKTeuAWW7qT1f9jo783SytbrCwEEUM4Z0pW
-	 P2Et9hGguodv3MXUTPsoflbef5EmN8dO29pV+TadnSM91e5YAg0dfHrDwIMQ9iYfCgZd+
-	 7AadtXJKJpWFYqwyTifVdlw+WDdXD/hkl7dRNDleMzwY+H/MZegSIXpCHsepqz9LY4IYg
-	 yzKW/xLNYMulhZK9kczMAc86DWiWp5rh8wcHfuStcntAIEwS5/jd51i2YXRkwFiI9iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599394;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=I4fExWWHQfHqyUEeP/lXCLS3UZaAlkJ5mBxOj4iktHE=;
+	b=AkgMurB+0Yi4Q5s2yOLal9coUwT6fB09cEqKkoWrlP3PVfS0q3Z+pLBFpQ9kGdGSn67D
+	 CKw1Zfg2PJLNWWgqkv+STYyDK+XHhjfe92T6p53oKp9bgkOhIpiRIxAfMVKxKNI4gaXwm
+	 zsZfsYkQ8EjwAMzNEgQb4S0cY0yL3bS/5dLzW1yj9xiFtrAuNf2daCiMuyoLeRmJlsCUq
+	 4qO91/tjkczrt8Zv0Mv2irplruPl5QvC7jQ1EilgI9AoVTaOz9b9utqturoLt1bF/juHT
+	 W0k6zJxNJ/3XWjalSGja/2/vloPvT72kH7KljEQK0YOduWGZpvlhVb6IGSdGF2cOmLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	arc=none smtp.remote-ip=209.85.221.44
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGCPpxsU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26BA4606A578
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:14:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26BA4606A578
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48df8fe8513so884408f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:14:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1792599264; x=1793204064; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EYfi7okTi0CauQZlFNuFbrUJBFVpuaI/7/o4adTAMHk=;
-        b=YCvufwYMMCbR6JgJ7YV8qJiqV9S9KJVzrgAdjuqJJRWbg1Y31t8jMfajRYqEpvfdlc
-         ACuyzdCAY65Mi7chBCIqIZEezxMU6H7bdQXFJ54h6WxVNQH7Exhz12cuQaK9Bs1TyK9Y
-         un3TXpt14Wd+S+LOv7k0HrFzvDr4MmODYzBTky2uEGUvzSGcnxvD2jOfcdkvn7rD40m3
-         IENOmr/NVpSqgPeCf8w0px+hCvFR3CGqZIo1qVCglnfVbWE06Sv3gce11o//6VMpRz2C
-         ywHkVfiwIlPXiFQMbRMbwuIcpzmdF401Ys3BkVF1O4ZzU/7RRKQX+iCsXZ8avL9XOA3w
-         oLJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792599264; x=1793204064;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EYfi7okTi0CauQZlFNuFbrUJBFVpuaI/7/o4adTAMHk=;
-        b=po6Fmn5CXcwDQW+m/F7QNtKhsicLiOZfi/BehIkbAhvDcMKo5p2f3VHimf2GXFVnhG
-         pxa2NTHkX5yWGeaRAJLuCctqKUw/GnZp6jziQVODGnfDdPz4+dWmoly55tUOGYoGFPNh
-         SRA2glOd+Ri+3HuqqvfMS8qkYx7L/oRd7DhPfaAPp0KnHXplFsQKpAEBE5UgF2OMjDj5
-         aazXs7cvHD25VeoCaH+0uJpq1vASdvoK8tZXMKxXniACeMVjeOkKCR2hBgYlcP8HLSp0
-         2AsjVYvZkijBE4BlmOydm38lpge0yDEgRzsgjS7JWTKlZBVlS6LfG66kNLMRvKyNva1Y
-         K27w==
-X-Forwarded-Encrypted: i=1; AKwUvBxA0s5hxjvr4SZxHwvOCOiGT6PIDI9DSRdST3GhzflF4brJ66sP79tX2hBlkVcS96AR2ieV7O1lFJZglHw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKesbyzFYtb7Fpjc6lDiX9mIzYIBdqLvF6FThpCu/msCXoLZhC+
-	qHVeVQLFtX+b7NT9iWtgYMvSGnolpckVLfnkSAJFIcPJVzYk1r6sI93ZorfjJsFt4U8=
-X-Gm-Gg: AYBFou2/sJGMs+NkZSskEHnbESCDj/OOOMYs2Nag///mURuj1kouA5p/0uZnXRfo5sG
-	sxiSRLHJH/qHg22+p96c6KvZ/5lVMXN1GabhcnWyjFMdymBNpxqMRT+FabGTb7CZ34o7j91+03b
-	8r0aNw/gZO7hV/WV5Fru96zDvyebwLwHypUZS3J5gwBYfCdN5mJQXtKztkGysMsHyaJQArg8ac9
-	sAPc6Cy/tqCaGtDkNb+n7XVf9irTu3Yo444ldgESS2GRkk3LZlpEf5egD3mEICBn9PEt/gw2q/L
-	ZfF6taeHgSVnGsrzr+UEgaP8jX0POpagsQTRsIzPctKvJ/p+5HiUBfPTW/xaRcychUdxCw9qs0C
-	g5FnrKYglmrLQtczjj7I9lrRPovhQqJJvostg/5PuHu1Pi726Vb+vYK9ngkEVi+tmqo4OdYVs9k
-	FF6d/lGwNMSHU50fR5AyOonliwA7lKUeCALmQT8ekmzFeXGadsqDAfK0P6EGwHpglO3p4mDr12G
-	+nO8sGsyXjA1DV9OGLlOpFIeHBm6Mh7M8cpHI68zjXzOzFJ31m0A8aK6IBdtO29hbD308NiNlHI
-	PaaWnMDCTmjLMnhWpSM+Xb++zuXW0bei4KJtmZGa2TA=
-X-Received: by 2002:a05:6000:2dc9:b0:48d:fbdd:4132 with SMTP id ffacd0b85a97d-48e264a6345mr5617302f8f.18.1792599264403;
-        Wed, 21 Oct 2026 09:14:24 -0700 (PDT)
-Received: from localhost (p200300f65f19a904634661a51962f5e0.dip0.t-ipconnect.de. [2003:f6:5f19:a904:6346:61a5:1962:f5e0])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e25841fe4sm6698401f8f.53.2026.10.21.09.14.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 09:14:23 -0700 (PDT)
-Date: Wed, 21 Oct 2026 18:14:22 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-Cc: Olivia Mackall <olivia@selenic.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-crypto@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Message-ID: <atjkINr76NvWasY8@monoceros>
-References: <20261021083712.3032-1-lianfeng.ouyang@starfivetech.com>
- <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0306E606A552;
+	Wed, 21 Oct 2026 16:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGCPpxsU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BF81F000C1;
+	Wed, 21 Oct 2026 16:16:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792599393;
+	bh=I4fExWWHQfHqyUEeP/lXCLS3UZaAlkJ5mBxOj4iktHE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nGCPpxsUs4AvaWFhNU3hCDoWDL+/491Ja1Ge+UAeHCAMLn+P65iDIBcQIIBP9d4Ap
+	 bMYEeRz4pgVCIGqpqh4+MKCZ+a4he9z2d84c9tcRQZ9vssLTGdLVpORCNxcVWIKnv2
+	 dd0YyPrvKWsmKsp9Sv3eZ5Tfw+EwwuMRfr4L7Txdr0VZe7crztysVmyciYjBbkyqLd
+	 Ps57Smw9NLgfrfnAeDoWftW1myB8xt6bVXXSk9f2ZaLSR854azFasI64ryNttTYhKz
+	 lsCfX92+OT3Ym5tCTthLZn/1YA3mWXXBSBM+tCh3Ri8TfQru8lokx4F/zoXJbrXa3D
+	 6EW2a22re4f4Q==
+Date: Wed, 21 Oct 2026 19:16:24 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Ashish Kalra <Ashish.Kalra@amd.com>
+Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	luto@kernel.org, peterz@infradead.org, ardb@kernel.org,
+	akpm@linux-foundation.org, arnd@arndb.de, thomas.lendacky@amd.com,
+	shivankg@amd.com, linux-kernel@vger.kernel.org,
+	linux-coco@lists.linux.dev
+Subject: Re: [PATCH v2] x86/sev: Apply the RMP table e820 fixups before
+ memblock is populated
+Message-ID: <atjlWMlcVsaHJOmd@kernel.org>
+References: <20261020202818.368416-1-Ashish.Kalra@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,92 +61,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n5t7utkqknwcdicr"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021083712.3032-3-lianfeng.ouyang@starfivetech.com>
+In-Reply-To: <20261020202818.368416-1-Ashish.Kalra@amd.com>
 
+On Tue, Oct 20, 2026 at 08:28:18PM +0000, Ashish Kalra wrote:
+> From: Ashish Kalra <ashish.kalra@amd.com>
+> 
+> When the start and/or end of the RMP table is not 2MB aligned,
+> snp_fixup_e820_tables() converts the 2MB chunk containing it from RAM to
+> reserved in the e820 tables, so that it is never used by the kernel (or
+> by a kexec-ed kernel) and SNP_INIT marks it HV-Fixed.
+> 
+> The fixups are done from mem_encrypt_setup_arch(), which runs after
+> max_pfn has been computed and after e820__memblock_setup() has populated
+> memblock from the e820 table. The RAM part of those chunks therefore
+> remains in memblock.memory. Commit 88a921aa3c6b ("x86/sev: Ensure that
+> RMP table fixups are reserved") dealt with one consequence of that, the
+> chunks still being allocatable, by additionally reserving them in
+> memblock, but memblock still describes them as memory.
+> 
+> That trips up the direct map setup. init_range_memory_mapping() maps the
+> memblock.memory ranges, so the RAM part of a chunk gets mapped. When a
+> subsequent, lower range is mapped, the trimming in phys_pmd_init() or
+> phys_pud_init() consults e820 instead, finds no RAM in the 2MB (or 1GB)
+> slot and clears the already populated entry. At boot this goes through
+> set_pmd_safe()/set_pud_safe() and triggers:
+> 
+>   SEV-SNP: RMP table physical range [0x000000bf77900000 - 0x000000c037efffff]
+>   SEV-SNP: Reserving start/end of RMP table on a 2MB boundary [0x000000bf77800000]
+>   SEV-SNP: Reserving start/end of RMP table on a 2MB boundary [0x000000c037e00000]
+>   ...
+>   init_memory_mapping: [mem 0xbf60000000-0xbf778fffff]
+>    [mem 0xbf60000000-0xbf777fffff] page 2M
+>    [mem 0xbf77800000-0xbf778fffff] page 4k
+>   init_memory_mapping: [mem 0xbf40000000-0xbf5fffffff] page 2M
+>   WARNING: arch/x86/mm/init_64.c:89 at phys_pmd_init+0x389/0x4b0, CPU#0: swapper/0
+>   Call Trace:
+>    phys_pud_init
+>    phys_p4d_init
+>    __kernel_physical_mapping_init
+>    init_memory_mapping
+>    init_range_memory_mapping
+>    init_mem_mapping
+>    setup_arch
+>    start_kernel
+> 
+> and leaks the page table page that hung off the cleared entry.
+> 
+> None of the fixups depend on memblock: the RMP table is probed and
+> CC_ATTR_HOST_SEV_SNP is set from early_cpu_init(), and the segmented RMP
+> case only needs early_memremap(). They do depend on the e820 tables,
+> which are only built in e820__memory_setup() (which also populates
+> e820_table_kexec), so the fixups cannot run any earlier than that.
+> 
+> Move them into a new mem_encrypt_fixup_e820() called from setup_arch()
+> right after trim_bios_range(), before max_pfn is computed and memblock is
+> populated, so that both are derived from the final e820 table, and
+> finalize the table with e820__update_table(). mem_encrypt_setup_arch()
+> keeps the SWIOTLB sizing, which needs the memblock-derived memory size and
+> stays after e820__memblock_setup(). The memblock reservation is then no
+> longer needed and is removed.
 
---n5t7utkqknwcdicr
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-MIME-Version: 1.0
+Although the commit message is a bit hard to parse, the idea makes sense to
+me.
 
-On Wed, Oct 21, 2026 at 04:37:12PM +0800, lianfeng.ouyang wrote:
-> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
->=20
-> Rework the StarFive TRNG driver to address hardware-specific requirements
->   for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
->   ensures clocks are gated before asserting reset during teardown for
->   JHB100, while JH7110 retains the original reset-first sequence.
->=20
-> Add per-compatible match data (struct starfive_trng_data) describing the
->   clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
->   select the ordering from it.
->=20
-> Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
->   paths, manage PM and the clk/reset teardown via devm so all error paths
->   unwind correctly, run the SEU-triggered reseed from a workqueue instead
->   of hard IRQ, and serialise the command sequences with a mutex.
+If we anyway have a range marked as E820_TYPE_RESERVED, just keep it
+consistent with other E820_TYPE_RESERVED that never make it into
+memblock.memory.
+ 
+> Fixes: 400fea4b9651 ("x86/sev: Add callback to apply RMP table fixups for kexec")
+> Co-developed-by: Shivank Garg <shivankg@amd.com>
+> Signed-off-by: Shivank Garg <shivankg@amd.com>
+> Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
 
-This sounds like three commits, with at least the third getting a Fixes:
-line.
-=20
-> +#include <linux/bits.h>
->  #include <linux/clk.h>
->  #include <linux/completion.h>
-> -#include <linux/delay.h>
-> +#include <linux/container_of.h>
-> +#include <linux/device.h>
-> +#include <linux/devm-helpers.h>
->  #include <linux/err.h>
-> +#include <linux/errno.h>
->  #include <linux/hw_random.h>
->  #include <linux/interrupt.h>
->  #include <linux/io.h>
->  #include <linux/iopoll.h>
-> -#include <linux/kernel.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/lockdep.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mod_devicetable.h>
+FWIW: 
 
-Please don't add <linux/mod_devicetable.h>. <linux/platform_device.h>
-already provides of_device_id, so just dropping
-<linux/mod_devicetable.h> should work fine.
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
->  #include <linux/module.h>
-> -#include <linux/of.h>
-> +#include <linux/mutex.h>
->  #include <linux/platform_device.h>
->  #include <linux/pm_runtime.h>
-> -#include <linux/random.h>
-> +#include <linux/property.h>
->  #include <linux/reset.h>
-> +#include <linux/types.h>
-> +#include <linux/workqueue.h>
+> ---
+> v2:
+>  - Route the fixup through a new mem_encrypt_fixup_e820() wrapper instead of
+>    calling snp_fixup_e820_tables() directly from setup_arch().  This keeps
+>    the memory-encryption specifics out of setup.c (no <asm/sev.h> there) and
+>    alongside mem_encrypt_setup_arch() in the mem_encrypt layer.  No
+>    functional change.
+> 
+>  arch/x86/include/asm/mem_encrypt.h |  2 ++
+>  arch/x86/kernel/setup.c            |  1 +
+>  arch/x86/mm/mem_encrypt.c          | 14 +++++++-------
+>  arch/x86/virt/svm/sev.c            |  9 ++++-----
+>  4 files changed, 14 insertions(+), 12 deletions(-)
 
-All that header rearrangement is worth pointing out in the commit log.
-
-Best regards
-Uwe
-
---n5t7utkqknwcdicr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrY5NsACgkQj4D7WH0S
-/k67hAgAkskrK7Zfzy1Ye0Z3TqK6UQV0vrDBR6LB4bRpA7K5fC2zxEHV3jjN6CwO
-+k+1d2C/DKYEQ8arf67BX3wqGKW6KjqqSfbEbUM9trV0jIZwLPAHlyDSGxiVPKDn
-z28jyuNDMjmVJfTZXUyD0/JRnyLo20evi9pEFGI0OB80CLwg3nWf+g0hnIVaJg0b
-n2HZO8PF42OzET7+9gVski9Rh3qdq0kEBZgVDAe57ybfSKFM7pFDelzMwXYKxX65
-zfSYB1qImYb0Y8oe3TA3mDYTdWXrh56+fLIWUAMAkBIfVu34qf8WfAdIuCcmcd40
-lm14jNAcwCHd0U308PYpap0aWDIFjw==
-=S1vP
------END PGP SIGNATURE-----
-
---n5t7utkqknwcdicr--
+-- 
+Sincerely yours,
+Mike.
