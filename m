@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.205
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.212
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601551;
-	b=bUwC4GhRMaMO6qu1xAeAYX8Z4JqbDqezrop/BtUv+AxSc0UCrcwwg/eXhH08TgLTU16l
-	 YmFp0ylwNK66v6ScvOcQ5xo5oyYCLwcDoanIqxXXgcdUbUhrfXA/dy7w/SZAgrCY9GQv2
-	 fp/T2Fj8/5vsPkr29NWc6u4R/zRRuJ79fjjvBsEHf6WamisUtnIYMIhc/Hab3jUNFSV6f
-	 0RxmxAtGenlPdkHZWA8341DXZo3JoMKrioFaNmeUZnmFbCfaWgRYHsqNlGkuoSMJC6U5w
-	 f/dR+JliydDDpPO6syDZA008mKo8htuq4/yBsxTKUzziysixw1A8QFcybQ1/epdW4OA==
+	t=1792601564;
+	b=nJgniPytdwDd65ZQsbUTnEyLewhXI5GcWgztUZl3ttUh0lVS7E578mN2G7iaxetqn1Lm
+	 tSebv1OTl825v2xuC+o52Tn65FGw7yaF4kfpNhxUIQ3addRWZQj5Ot6cIIK/gD2SQKaX7
+	 OzWnbBQwyOr69IdM1zWNKcxhRmAzAW3W/6wuEiiKBXXNgvBoM32v4r5gS9jJsTZUoStm9
+	 iH4/5p+fc1TmzegJhlYN8nYata4BWfp5RyIH4Q8//aWPlJQQj07SqrBl0vUqM8LC3hso1
+	 4eeVXwrZZK0owvaZNo713cmPEaKlo3zWmzEcyGVo6zJ+5vqT+alVcXVVcpP9u5/bQOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601564;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Vik1txR8yivD6KvNH2HN+sPNUeut5oqfpgd+51Xfx8M=;
-	b=4E+T+MwNhj5N/9M37DXrLW5VDFhfBgtN9Aoox58NVL8NWYEItSNpO5ZlcMaLKr8mgKr7
-	 SilF3oKVFDn4jx1MmF+VQCh/svdBiSQMz68JCiQbhXj01KJrUEwQRl1ol+KpiURd6g+EA
-	 ElpUJKhXQ8mWuUmtoFvDKsyjLZRnSFdKkuOShG4rudZfCD+9TXBHfkyWL000i9uBF4k5n
-	 ico7RFeM/X21Q1YKrl5L0RxoUQTUxHAbcUPV2n3dit1i7RxE6EgAdVWjwtQNq/sYUHzHD
-	 sMfuMbTj6IpIAW5l0DqOHegUDqwHo+DVcClDfFfNU01vNjFwVGlIxmjp48EDPG/cUOA==
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=C5514rfBdcc369oaOgCRKH1VWmrGbODGqjctAwVvvUg=;
+	b=4XILahwAH4kdglFD2l/Gl8+H6XrY5iPSjpItC6ZYGs51GgNLQm5lixzgmZT1O4L4qsy7
+	 jhV2Fv8AeRTl66/1X/8Sth76fwxAL0Gzw4ZuUEHggW2PTLRprrs8kmXP4uaOEqzVtd8ya
+	 uy8Q/vbutO+VFT3gCa3WN8ePrSATqsu107dmXEjZgl7+j5hZXmumu5Qqnl2uBSkmnUO4X
+	 AvmZUjwEj7e32jllGwce6ShlaOrzmfYsv/AB8fy4vRqEL5euW6/4jn2rZ7/c1dicsuE/r
+	 U24obH1LqlyzaUn8XPbKKyrmZ8yrRJ5jy3Vc/VnW39ZK3y2FwizXzKsEdTQqHAc/pRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FNrpXLza;
-	arc=none smtp.remote-ip=91.218.175.205
-Received: from mta0.migadu.com (out-205.mta0.migadu.com [91.218.175.205])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L8ls7cce;
+	arc=none smtp.remote-ip=91.218.175.212
+Received: from mta0.migadu.com (out-212.mta0.migadu.com [91.218.175.212])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB98606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:52:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DB98606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85970606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:52:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85970606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=FNrpXLza
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L8ls7cce
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9/ZZeZVK9bE+Sv6yU7J5zHSa0wnK7nI+V6j0mEaWDBI=;
+DKIM-Signature: a=rsa-sha256; bh=q+P7zs7+ecDaVW4B978U7c6XK/QOMKCkLr1CJdTiFXQ=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792601547; v=1; x=1793206347;
- b=FNrpXLzadtKrr8wZTKchM40gevYsnDNNLz+hr239D2xSKmiqbBf4Hjewl0fKbwPSO2g5aTxD
- xle4vVHrVU74lz/KNlGFQhAflMmMuqhIN9jtbj7jMoqwfyteSieBmi0bugVErt2O8ohYyfjidvS
- furS0pd+1E9/r1WZdSpPlm1A=
+ t=1792601561; v=1; x=1793206361;
+ b=L8ls7cceRza9IZFuvTEaRO3sOEaC8Z8N9rtrsdfWJEMXfDI70uIR1GlEMSLOw7ul8kIAHU4H
+ fzH/1sxIffzgHnQuduecunF/Rk9od0xmJR2HNr5aYM090SBViUaV+qjbu3kppwfL8fYwfVC7Z78
+ GvnxahlG6gfnaHl4VSFq4LsU=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id fc4f0bb13bd8d6bd;
-	Wed, 21 Oct 2026 16:52:27 +0000
-X-Mizu-Trace-ID: fc4f0bb13bd8d6bd
+Received: by smtp.migadu.com with ESMTPS id 5520683f3422318f;
+	Wed, 21 Oct 2026 16:52:41 +0000
+X-Mizu-Trace-ID: 5520683f3422318f
 X-Migadu-Flow: FLOW_OUT
-Date: Thu, 22 Oct 2026 00:53:12 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Jemmy Wong <jemmywong512@gmail.com>
-Cc: Chen Yu <yu.c.chen@intel.com>, mingo@redhat.com, peterz@infradead.org,
-	tim.c.chen@linux.intel.com, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] sched/cache: Remove the old cache group footprint on
- exec
-Message-ID: <atjt-Hp-AMBIQpGe@three-body>
-References: <20261015053604.29927-1-jemmywong512@gmail.com>
- <atiP8TwaDDtbImRn@chenyu-dev>
- <A81AB6C4-6821-454D-9C2D-716A3D0DFE6B@gmail.com>
+From: Igor Korotin <igor.korotin@linux.dev>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, Danilo Krummrich <dakr@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?utf-8?q?Nicol=C3=A1s?= Antinori <nico.antinori.7@gmail.com>,
+ Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Subject: [GIT PULL] rust-i2c-next for 7.4
+Date: Wed, 21 Oct 2026 17:52:39 +0100
+Message-ID: <179260155969.2966.15552703862037914616@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,72 +67,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <A81AB6C4-6821-454D-9C2D-716A3D0DFE6B@gmail.com>
 
-On Wed, Oct 21, 2026 at 08:50:52PM +0800, Jemmy Wong wrote:
-> > On Oct 21, 2026, at 6:12 PM, Chen Yu <yu.c.chen@intel.com> wrote:
-> > 
-> > On Thu, Oct 15, 2026 at 01:36:04PM +0800, Jemmy Wong wrote:
-> > 
-> > [ ... ]
-> > 
-> >> @@ -3965,36 +3974,6 @@ static void task_numa_placement(struct task_struct *p)
-> >> ng->total_faults += diff;
-> >> group_faults += ng->faults[mem_idx];
-> >> }
-> >> -#ifdef CONFIG_SCHED_CACHE
-> >> - /*
-> >> - * Per task p->numa_faults[mem_idx] converges,
-> >> - * so the accumulation of each task's faults
-> >> - * converges too - Given the number of threads,
-> >> - * it cannot overflow an unsigned long.
-> > 
-> > Above comments can be kept for future reference, with minor adjustment:
-> > 
-> > s/it cannot overflow an unsigned long/it cannot overflow an atomic_long_t
-> > 
-> > I launched a full hackbench test on a Xeon with multiple LLCs per node. There
-> > is no obvious difference except for some false-positive regress with large
-> > run-to-run variance. This patch looks good to me in terms of turning the
-> > footprint into an accurate counter. Feel free to add:
-> > 
-> > Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-> > Tested-by: Chen Yu <yu.c.chen@intel.com>
-> > 
-> > thanks,
-> > Chenyu
-> 
-> Hi Chenyu,
-> 
-> Thanks for the review and testing.
-> 
-> For v4, I've restored the convergence comment next to the batched
-> footprint update, changed the type to atomic_long_t as suggested, and
-> rewrapped the text:
-> 
-> 
-> + /*
-> + * Per task p->numa_faults[mem_idx] converges, so the accumulation of each
-> + * task's faults converges too. Given the number of threads, it cannot
-> + * overflow an atomic_long_t.
-> + *
-> + * Apply the net change once per placement pass to limit cache-line traffic.
-> + */
-> + sched_cache_footprint_update(p, p->total_numa_faults - old_faults);
-> +
-> 
-> Does this wording and placement look fine to you?
->
+Hi Andi,
 
-Yes,  it looks good to me.
+One fix for this window -- a real use-after-free (KASAN-reported, GitHub
+issue linked below), not a cleanup.
 
-thanks,
-Chenyu 
+Thanks
+Igor
 
-> I'll also include your Reviewed-by and Tested-by tags in v4.
-> 
-> Thanks,
-> Jemmy
+The following changes since commit 0f6be986ad0eb6fe7338d963a14eaf0dee87677d:
+
+  i2c: imx-lpi2c: remove dmaengine_desc_free() (2026-10-13 15:55:40 +0200)
+
+are available in the Git repository at:
+
+  https://github.com/ikrtn/linux.git tags/rust-i2c-for-7.4
+
+for you to fetch changes up to e7755b5f29ccbfd1222dd52dc2d6eebf39d02289:
+
+  rust: i2c: remove TryFrom<&Device> implementation for &I2cClient (2026-10-2=
+1 17:47:21 +0100)
+
+----------------------------------------------------------------
+rust: i2c: remove TryFrom<&Device> implementation for &I2cClient
+
+A single fix for the Rust I2C abstractions, targeting 7.4.
+
+Removes an unsound TryFrom<&Device<Ctx>> conversion whose input and
+output reference lifetimes were not tied together, letting safe Rust
+upgrade a short-lived &Device borrow into an arbitrarily long-lived
+&I2cClient that could outlive the underlying device's removal
+(use-after-free, reported with a KASAN reproducer). The conversion
+had no users, so it's simply removed rather than lifetime-fixed.
+
+Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
+Signed-off-by: Igor Korotin <igor.korotin@linux.dev>
+
+----------------------------------------------------------------
+Nicol=C3=A1s Antinori (1):
+      rust: i2c: remove TryFrom<&Device> implementation for &I2cClient
+
+ rust/kernel/i2c.rs | 21 ---------------------
+ 1 file changed, 21 deletions(-)
