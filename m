@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792560291;
-	b=5gYSbtIqCWqL5rV+16l/TOdt11e8HY7Qfi3kp40/WEUG/5GJgZTUKMM35QRl1dquHn4S
-	 FIkiE+7EYQuyFyuqXecOQkPhoAL3ph8CZ0+mLtpLbx506Z1S0OZiJUCeb/Yp11nSG9caU
-	 HX7S8JKyILPIPPbsHttMTJ7esDX5iCSCBdG5O1M34Ry9zH9MVTPV2dCMup0hYdP58zne7
-	 Nwm73FtafSfHt3pZ02+ra0XE3TXmDeNAM72dZVLiSfryWVcwFPX4kMqZRuMMRhZtMn/kn
-	 ZUaGnBL8tGvAnHGiHDu6sdR7UtqlyKWi9mci9P8/NiYIi1GBpf6rdufg5cJJuY2dQcQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792560291;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=mdCek0oxCcyTlPnZVu1SO/eHUbe8nS9fLK85pXi/sPk=;
-	b=xUmxME/dlWiOh9ws+QflxW7nsb99nNR2tEe/Us0vtCYYc7VQBTMeWqeLXjvskMjrVqgC
-	 6iQcekjeYsqaFpEwUZCXXEbaLthy/qK8/5Qywsx5l08VuPltOf9Q+v7RzDKFs81U86jP8
-	 AVyA8v2GprCNcwly4sLyiDyQ2nXqokLiw/rPBO3zs5Kn6XzJa7jndG9zPuy/vkhFKCB+v
-	 HAsvgQtzdlAmxoabUKkENfh8ZFlWqzl1EmH888v5u0tcNM9mko/UOxt8YnH+6EZn0dtdU
-	 aHkaPiIJySf5nx/7ccV6nPT3aD+FeqkEbljNEDtNlTNDXVX6DvGEdUBjdZMT+P5KQ2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NCQZ+xRS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792560305;
+	b=jc1vCzxKg//REYkQlHAJgO/P3I7BQqoqJj/a6ZCX4jGfIYFA/NYVnsjl7yHiJO0tgiQM
+	 79FlEOEQrVAln0biBws/+bkX9ueuoo/jDSx3VU29gbwbOsvR1gUJ9FyH4mh35mPzbvYOh
+	 aJk6BY9drLzuuDZOvkE+PmzeazR+yJU8OhwHnisvSupihH3okfTEzWmvOg6VcgsEX2LHR
+	 2+yJ2F2+Y5ZZNODJFT/pmlReWbOnZXAu+Cw3XUpBAycCf3NgIcrQLtJUuIT/yrM3lD7Hs
+	 qSldvHptIet8/Qj/cIbSv8cMg+xioEmr/HqH0dSTFallEmJGD1DC8zftn5pD2+fu4gA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792560305;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QO11p1cdvBfNgfWBeER77MVqw8qS2d4+wBk/vDSDlTM=;
+	b=cGeJmt8Ap3RKFYRDwZD5xIuxAv2m3EYEeGUl64nHTeVH/Fy14gdGV54r+DkXs5NStbae
+	 rTfiLwZEdy1On9rUWYy/NvuLqdGTizZmCf0F/cKrEtJtGu4DshmWMHLM/loiB6DAXHMtF
+	 Wv4kf9yWpuSlX+ijXBFvt673fX0ePOwjKUnrwxIYF6Y95jog/w7C6VsgeHO6Td1z5a/FR
+	 JejoAdtwtm1ma1JtWXOy1qr9HNyg1CzJ1WdS+fZh7W0okIQzf2rm2lrKmNihTExnle3KB
+	 91qtpqtf5hdiOtjQeBWA8U1JBg8AOgeMFPOoikBa/O8K1qkMP3PUndALyexIoe7qkdw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gExZuUhk;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A18606A31A;
-	Wed, 21 Oct 2026 05:24:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2A18606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD292606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:25:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD292606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NCQZ+xRS
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D74AC200F60;
-	Wed, 21 Oct 2026 07:24:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792560287;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mdCek0oxCcyTlPnZVu1SO/eHUbe8nS9fLK85pXi/sPk=;
-	b=NCQZ+xRSUaXSO+Timj/m5HSSwib0jQ32qyk2sxNRd13vgRILFW74v4HW3XN4taqPzVTrwF
-	PvD3JgDGxPCh2OtNH3VKO4Wg/zLBHvH5vFeiZvtahRHAzkLs00A6eccfErxMNmnflbehmm
-	/R50UiWU5wLBt7NwB6M2jnvvV9SJLCCxzeN3et7QKMRGczYdx6t/R2cOiR3rCtuiW1OZyT
-	99fiNqEcPAkSXxMCQWuJQ5i/2o3AFhURAgDZ+vcEOUJHZhFlZSdtJCAMwWeOgNagrkszEn
-	tfuNhQ+efRl6uj+mZwDXPL/i9Y6T3IEE5VMMccKbLz/XyZFuhwqfK25r/zHihg==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792560287; a=rsa-sha256;
-	cv=none;
-	b=HnHWKp9ZAN1BRGReMe1NIjCnzDGqsN1rjSflSnLXHKJz0M4lQiObdMVDi2l1Cz2DVDcYet
-	0JbJ6JJzu7vc0UIE76aZ41lsuLLBgvPwx1Fl3EDqqkc5o1JH3eyFfIFQURfimAvfLegnMh
-	8Ii82Zg5O4bvOcrBtAN4mnIdpJYUOxrX0itNHJmx0ThY0/LIKyFltaHtc8vqimfnt4bkSv
-	jgkqdl3oTsEUhUgJBJysI66Fe1fAUPiRFVJTZB/xYtMCt/GiwTzVlZ6+YhEKdJZgxBLGuz
-	9BdiPhhU+D3k3bD7zitjwhlnHQtJ0qmN3/EkH5LuFZt2rxbkbrJ/KpcIMBVAKQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792560287;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mdCek0oxCcyTlPnZVu1SO/eHUbe8nS9fLK85pXi/sPk=;
-	b=WbMB1QyRYzqmi3xaKySROmwOgaLvNiseQaAwBKz136kJEujtCog9MVNOqYrlYoFIfyZMg6
-	eLdDYMelPLm7vHkDLUCwoWImwEPApAEcExUjaX5SJfX6aNaRM6hpU5+OcmhC32aOU88Y8Y
-	p7zVtCcIXUPGadGNSTkmV+9Cg52wjHk661KbjWg7/uTBcK85g20uJVbjECWe23jrLNPQia
-	x3vwnBxJifKgSVrRT9EErZTZVH9uDSedvd/8lXDEpCAVlxi7CtszVBsewU3giUKDGx81T1
-	yZMGX5GshrpB5QCk3hsCE+hssEAZZiIaSb5M6G07IAhNWZdHv9p/R/CXppLs/Q==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJOoh-000Vlx-2a;
-	Wed, 21 Oct 2026 07:24:47 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJOoh-00000006d2w-2ut7;
-	Wed, 21 Oct 2026 07:24:47 +0200
-Date: Wed, 21 Oct 2026 07:24:47 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
-	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 03/14] net: pse-pd: fix module refcount leak in
- pse_control_get_internal()
-Message-ID: <athMn_ER3xhaOJT1@pengutronix.de>
-References: <20261020171249.853085-1-github@szelinsky.de>
- <20261020171249.853085-4-github@szelinsky.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gExZuUhk
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5be469d4f9fso262740e87.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:25:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792560303; x=1793165103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QO11p1cdvBfNgfWBeER77MVqw8qS2d4+wBk/vDSDlTM=;
+        b=gExZuUhkSHZ8RiSOZBDjxhHa6r4jx4Y4hhffO2HQqZCp2azJr/32CTUe+2ixB/ngsB
+         l6nIgYyhfn+N1GQPLcSJUwmK4VGvOcG6SP/WfxqGuVjADDPIA6dScBH78LLRk+YalCk9
+         d0U8oIdYI8kCZUclwapRe6Tqes48kUpKNhEQwRd8jCUW5NW/1FeIUzGDDDc23NLjg16D
+         amdTdepRbt+fO8zyhfAyVofoJ+ncQVyCsTNyFv0M0+DgRaR/lPXQESqcDTcqFe+BF3mR
+         83cuVQy/WWMmsToaMZluNvmr9LHjhC+hBm0zPdQiqzbcJriPKalP35h2uPcjWITcyAvV
+         7aYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792560303; x=1793165103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QO11p1cdvBfNgfWBeER77MVqw8qS2d4+wBk/vDSDlTM=;
+        b=KhVSFvAWPJShjIjoldLUr0REPlIZQZ7YW7XzGFLqtTjmtMJWuSv2eSudRi9fzeENzf
+         uWf2gQBJm88BHdWab5fBM+7qeLfg4WLlHcXgmMf9SRvYaZDSdJLyzMHkJWhRaDmKmF7U
+         LeNf0fffOOLNlLYM7RqwUUPxPW6cN57rP70eoA6ZHBJVrNVKot61S3LW8XOVw+8iuwij
+         XDpoXfYEghk+XU11ipfd4pxXEj3uRjHgfcAvELpX4ivCsym1CJhUhER1cUn60eqfkyCR
+         Ni+TyODHvHKOHF4TcU6cN3Xygv3YI0j3yNkwfd2DrHt50KDx+Zlm5PB0R406cPYShbhK
+         rrbg==
+X-Forwarded-Encrypted: i=1; AKwUvBwSBJSIrxwEq2whlfVnbgjmY4uFC1Nb68zWOWhpVZqwd4wXR7U5HzJKxTVpz+Af1QK7pzdsi9L5MZJ+JRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVV5uVGQs1qWAKNfoArMsWKefZs2nCOVzJy/UWxrS3h1NLHGZ/
+	ACdmE2QZpVIR52Tu1x84Cnkj/sMwOH0LRpNgLAzHy+KUOeTYWVjRLSYq
+X-Gm-Gg: AYBFou1rpAejUdgEj6ntXAARmO+auP2lYNGXh9p0/LdlnW4fpunWcgwij1LwVgUnfB0
+	iWHx/kgPlbwj/ZnEJbXxblLK/W0BIJSqAC6gJsHGzj/GxJVp7iweccAkL0n1WGv8ONL4NWjAMw3
+	RltEclY1do/BVtgdrRlJhzJL79OKR+39npWCkaT5WcvDcWEMnucwAb75/znC+w1vjd60ptcWTsv
+	dJwK3bJrgavr/Yzdbx5C23SzSAJ7F0xBWozr3/qpfgr3fCtc+A8K+TwAKxFNvzVoA2t0/c5A/0k
+	ztxWgeGuu7sV+n+WM/aGcfe6pXJC9jhWNHx3mcZV6FBKchHf2BQBdA625qdkWUvGuba4TxiIk0D
+	1Pm6s5M7h2JonI2vUagq9F4V29vHtAHcb/p5G75cAoLc5lYYG8fuFZWh7yprfpQtPcMhVIqh/1E
+	VNaaXf9ZhaUIhfiny3mERE5ig234/cy1ncexv0ug0QL2X7WzTq/Re0GukQ306/zBV0rmUg+cSso
+	PsKoq2WyvAHfdVmFTgvbFkGBIIDpN3UFwa2dvR0OJVk+oXHSExK0Z8h2VdyMZibEY5UV2y7eEqQ
+	IBX5je+0BIZ4IGtuzmprI8QuQZBoYwlbz3ZsYmUQ0qYHaVTzIDYrZasTfO+mKUHc
+X-Received: by 2002:a05:6512:6686:10b0:5bf:a2b5:b1f8 with SMTP id 2adb3069b0e04-5bfa2b5c70emr124342e87.0.1792560302719;
+        Tue, 20 Oct 2026 22:25:02 -0700 (PDT)
+Received: from yantra.. (nekmmqvnobjree8k203-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:ed79:febf:8fd2:e723])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa11f6dddsm284385e87.18.2026.10.20.22.25.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 22:25:02 -0700 (PDT)
+From: Rupesh Majhi <zoone.rupert@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	Marco Elver <elver@google.com>,
+	Bart Van Assche <bvanassche@acm.org>
+Subject: [PATCH v2] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on mutex helpers
+Date: Wed, 21 Oct 2026 08:24:35 +0300
+Message-ID: <20261021052435.112686-1-zoone.rupert@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,34 +102,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020171249.853085-4-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 07:12:38PM +0200, Carlo Szelinsky wrote:
-> pse_control_get_internal() takes a module reference, but when
-> pse_pi_is_hw_enabled() fails, it skips module_put(). This happens on
-> any I2C or UART error. Each time, one more reference leaks, and the
-> PSE driver can no longer be unloaded.
-> 
-> Send this error path to put_module, like the regulator_get_exclusive()
-> error path.
-> 
-> Found by code inspection. Not reproduced.
-> 
-> Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-> Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+Since commit 5b63d0ae94cc ("compiler-context-analysis: Remove Sparse
+support"), __acquires() and __releases() only feed context analysis.
+Their argument is parsed before the function body, where only dev is in
+scope, so with analysis enabled for this file the build fails:
 
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+  error: use of undeclared identifier 'adc'
 
-Thank you!
+These helpers take and drop the lock for the ADC_TM driver, which only
+sees their declarations in the header. Naming the lock there would
+mean exposing struct adc5_chip, and with no annotation at all the
+analysis flags the unbalanced locking. Mark both __context_unsafe().
+
+Fixes: baff45179e90 ("iio: adc: Add support for QCOM PMIC5 Gen3 ADC")
+Cc: Marco Elver <elver@google.com>
+Cc: Bart Van Assche <bvanassche@acm.org>
+Assisted-by: LLM
+Signed-off-by: Rupesh Majhi <zoone.rupert@gmail.com>
+---
+v2: explain __context_unsafe() in commit message (Andy)
+v1: https://lore.kernel.org/linux-iio/20261003214516.128573-1-zoone.rupert@gmail.com/
+
+Found by building with CONTEXT_ANALYSIS_qcom-spmi-adc5-gen3.o=y, which the
+driver does not set today. Build tested only, no hardware here.
+
+ drivers/iio/adc/qcom-spmi-adc5-gen3.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+index c68c6c5f6aca..6a3cabedf4e8 100644
+--- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
++++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+@@ -663,7 +663,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
+ }
+ 
+ void adc5_gen3_mutex_lock(struct device *dev)
+-	__acquires(&adc->lock)
++	__context_unsafe(/* returns with adc->lock held */)
+ {
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
+ 	struct adc5_chip *adc = iio_priv(indio_dev);
+@@ -673,7 +673,7 @@ void adc5_gen3_mutex_lock(struct device *dev)
+ EXPORT_SYMBOL_NS_GPL(adc5_gen3_mutex_lock, "QCOM_SPMI_ADC5_GEN3");
+ 
+ void adc5_gen3_mutex_unlock(struct device *dev)
+-	__releases(&adc->lock)
++	__context_unsafe(/* releases adc->lock */)
+ {
+ 	struct iio_dev *indio_dev = dev_get_drvdata(dev->parent);
+ 	struct adc5_chip *adc = iio_priv(indio_dev);
+
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
 -- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+2.43.0
+
