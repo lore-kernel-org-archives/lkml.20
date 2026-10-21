@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584792;
-	b=Hv33oWnMHFbkHCz0ee8cYHj27pUVu/41060EC4ggNLiczXLqijgEu0H4H1vSbzN6bFsY
-	 WoQU6i0J27OSMhL2DWFDAMLzY9VaaFGQ0fT40IJthc9Tpi2J8L/GcamL4E+LkQAYz0pAj
-	 jdX8N0mUhAn1z1slOToKzF4lmUZy7yjRErgY524Lj7hHYDAKeauRjSd2XIE0hp7BBaEhF
-	 DXPcsxv6d4/eDv+URMvFuxfLlmrl6WytEPiDFJjl2c5GziDxZ5LdA9kPCc7GliD5/zinL
-	 0hmF3EMIRyQ4svQN4TI2MEPgJ9GFDb++8ethnxpObdADfQiJ5TRa1zIwCnQoDiaBqBA==
+	t=1792584843;
+	b=pV3xRE/IRkQnjz0znWovC5H2QgdN6Csw/iM7Pn3DBvWJIMf+f3sEh2BeSnIEAcTRRGbd
+	 2k666REYXBbmh5pE05bV5HIAH8zfTEd63W++GmVv2P0uHpvRoIU2E2xJhZJesjQmfvRhl
+	 iApaKGY6nx4bb9+Cq4QCe04qrfzm/I3SKIz9UfWDksZXNbMl2TibrAm78tN1dge/SRhgS
+	 O4ETQ4byf+5urlfbhvhlqPmtpfbu6iE+s6OmYroVxjhAt4iFWozbKlCZs3ujXnfdZJD29
+	 Y/WUt2dU27bf0xmcT7RhsI8Lh5W+Ptyz6vXARorZ4bJr2ct6H22z/jBxJuylpYEYYQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584792;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
-	 Cc:Subject:Message-ID:Reply-To:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=qHrtSmupKaWVw2UfmtmjwnVbsnSdj5SnjRXClja/+Ms=;
-	b=wV7P4rNBuYnD8bGx2eAdTAZVksnfw1JfcxEfMle62PSvwLSsT2iqL75KJd9fTFMdp/2m
-	 ssn/hkg3gxwgNXsnvrzSY50kxS+GFNTAdJw/HGzlDbhvc39FvNo+M/hIZ5GVJBwn0gRGF
-	 5SJWmO3YIpdmPfk12oVC5L2zLhSY9EXik3isq28wyA/aAd2uqgmt/CrKpvmeTwjHhbiqZ
-	 XfBWPOK/HXpo79JWRrV0OOBmsMIg749+4TTgQXy6k+RP5NsAI51mTlyEgkRSyHGVi6YcI
-	 cIqSknTTDeYQphexdR7g6lnNJfbr7XZyUQVmAJGZ0ICgn6mq/ux1iivFtUWYO1SWhHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584843;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pYbff7YL9r4gfyuxiKyz5UCHkFgNrqOk1gWb3l2d508=;
+	b=EsIddNja+TMmk9tg5muJHxyEmlK0IJnLQNb+h6fTIXP/xJmPooHONG4YSR8162I1jQbw
+	 s7iSYIPgJ6ZsYXdsYWzf42XQaTqogg9wwP1v6C87hj0QYXO/7H+wO7vbSO7p7ZVuVpfUa
+	 uyTWm/BQtHb2RO/at36c0WQHmIUjsFYJkVCT5XgmERz+od6qMhQpJhAu1SDz1vUDNRbnL
+	 CfRq4cAAJsEHvVfCc3n8hGgl57IQLwbHgk3eXSEXRmuoHXKqpgiwHACzvVMJ4vwEiLGrG
+	 YZVBkTT60hnIUzyBaiFXrrt0rWvD4DOMXiMP4ABtNuYrcsXH6/p/ZNeT76/XQvE2FOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b="Z2I/WGBE";
-	arc=none smtp.remote-ip=115.124.30.113
-Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+uQ4a4y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30EDF606A31A;
-	Wed, 21 Oct 2026 12:13:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30EDF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C075606A31D;
+	Wed, 21 Oct 2026 12:14:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Z2I/WGBE
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1792584787; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
-	bh=qHrtSmupKaWVw2UfmtmjwnVbsnSdj5SnjRXClja/+Ms=;
-	b=Z2I/WGBEcLqV/0fiJzgZ0wLMP0Ki3XWG8rPiaM5Qw8eTgaRIEwTaB1PaISda5+asFw1nTol584goS70z2GNrFho4dLXcg4xNIA6XncLm4qeU7oLY0NVoTc4BTNgkgLBoiSwedt3wlqW+MRbD7gCCnOW7TWKKpzTNvNXW6BLpqRA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XDGOERK_1792584786;
-Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XDGOERK_1792584786 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 21 Oct 2026 20:13:06 +0800
-Date: Wed, 21 Oct 2026 20:13:05 +0800
-From: Dust Li <dust.li@linux.alibaba.com>
-To: Chengfeng Ye <nicoyip.dev@gmail.com>, alibuda@linux.alibaba.com,
-	sidraya@linux.ibm.com, mjambigi@linux.ibm.com, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com
-Cc: tonylu@linux.alibaba.com, guwen@linux.alibaba.com, horms@kernel.org,
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 2/3] net/smc: serialize early link group cleanup
- with termination
-Message-ID: <atisUaV2eIC2yTvX@linux.alibaba.com>
-Reply-To: dust.li@linux.alibaba.com
-References: <20261013091716.1210420-1-nicoyip.dev@gmail.com>
- <20261013091716.1210420-3-nicoyip.dev@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T+uQ4a4y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41981F000C4;
+	Wed, 21 Oct 2026 12:14:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792584842;
+	bh=pYbff7YL9r4gfyuxiKyz5UCHkFgNrqOk1gWb3l2d508=;
+	h=From:To:Cc:Subject:Date;
+	b=T+uQ4a4yeeNWm61J/FEV4BYlT2ASVSdvVpjsd5maVrgEPFUUkFPkowkmFDHn25mcf
+	 5qHofvI5fJgV0QNR2w2qmpqSgHRRJqZpmY+Z/rWKRej5dsCz7rUvGOuWwTwZ7J+Mtg
+	 fBiI2SxhWfbznc4pkyfkc2YaIMd29jrOL6cdWynZOYPzwijXRJk3xnV2OJt0nM9cFs
+	 lL6FW7U9Sf9FWujpbRpAF27vdw9e8KbCr/7OYmzjGxCXfOZUDZk4HigdKvAALRw+yf
+	 N5XzHaWUS10yrSf+e7uD7Rc0CeuPC1dILTxcpuoIeJxof7y/Av/N2JRWarJvWNmGJX
+	 zhACoOC+q7a3A==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Ming Yu <tmyu0@nuvoton.com>,
+	mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 01/28] mfd: nct6694: Allocate USB DMA buffers with kzalloc_obj()
+Date: Wed, 21 Oct 2026 12:09:23 +0000
+Message-ID: <20261021121245.3111563-1-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,155 +58,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261013091716.1210420-3-nicoyip.dev@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-13 17:17:15, Chengfeng Ye wrote:
->smc_lgr_cleanup_early() enters __smc_lgr_terminate() even when another
->teardown path has already claimed lgr->freeing. Both callers can observe
->lgr->terminating clear before either sets it, then tear down the same
->link group, causing use-after-free and duplicate resource release.
->
->  BUG: KASAN: use-after-free in __smc_lgr_terminate+0x393/0x3a0
->  Write of size 1 at addr ffff8880bf2c0300 by task poc/106
->  Call Trace:
->   __smc_lgr_terminate+0x393/0x3a0
->   __smc_connect+0x2e3d/0x4930
->   smc_connect+0x42c/0x580
->   __sys_connect+0xfc/0x130
->   __x64_sys_connect+0x6d/0xb0
->
->Check freeing under the link group list lock before unlinking the group
->or entering termination. The existing locked freeing transition then
->claims exclusive teardown ownership; an early cleanup that loses the
->claim leaves teardown to the existing owner and does not remove the group
->from a device teardown's private list.
->
->Keep a temporary link group reference across smc_conn_free() and early
->cleanup in smc_conn_abort(). Once the connection is unregistered, a
->termination worker can finish without taking its socket lock. The extra
->reference keeps the allocation alive until the ownership check returns.
->
->A new group is published before its first connection is registered. Hold
->it before publication until registration or failed-registration cleanup
->finishes. The reference keeps the allocation alive, but teardown can still
->destroy the group's resources before registration. Take the list lock
->around the freeing check and first registration, nesting conns_lock as in
->the reuse path. Reject a group already claimed for teardown and clear
->conn->lgr, since that connection never acquired a group reference.
->
->On success, acquire the connection reference before dropping the temporary
->hold. A later terminator sees the registered connection and must acquire
->its socket lock before removing it. On failure, keep the temporary hold
->through early cleanup and then release it. Reused groups retain their
->existing reference protocol.
->
->This depends on "net/smc: serialize link group free work scheduling" for
->the standalone freeing bool and the locked early-cleanup transition.
->
->Fixes: f9aab6f2ce57 ("net/smc: immediate freeing in smc_lgr_cleanup_early()")
->Cc: stable@vger.kernel.org
->Assisted-by: GPT-6.1-Sol
->Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
->---
->Changes in v3:
->- Serialize first registration with the teardown claim under the group list
->  lock, nesting conns_lock in the same order as connection reuse.
->- Reject groups already being freed and clear conn->lgr on that path.
->- Document the scheduling fix prerequisite in the permanent commit message.
->
->Changes in v2:
->- Pin newly created link groups before publication, covering the
->  registration failure handoff to early cleanup. Drop the temporary hold
->  after cleanup on failure, or after the connection hold on success.
->- Send after the free-work scheduling fix and reuse its standalone
->  freeing bool and locked early-cleanup transition.
->- Pin the link group across the smc_conn_abort() early-cleanup ownership
->  check.
->
->v1: https://lore.kernel.org/r/20260927063607.3691520-1-nicoyip.dev@gmail.com/
->
->v2: https://lore.kernel.org/r/20261003183237.2284245-3-nicoyip.dev@gmail.com/
->
-> net/smc/af_smc.c   |  8 ++++++--
-> net/smc/smc_core.c | 21 ++++++++++++++++++---
-> 2 files changed, 24 insertions(+), 5 deletions(-)
->
->diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
->index e9f93b3ab435..97b0a0b51066 100644
->--- a/net/smc/af_smc.c
->+++ b/net/smc/af_smc.c
->@@ -1011,12 +1011,16 @@ static void smc_conn_abort(struct smc_sock *smc, int local_first)
-> 	struct smc_link_group *lgr = conn->lgr;
-> 	bool lgr_valid = false;
-> 
->-	if (smc_conn_lgr_valid(conn))
->+	if (local_first && smc_conn_lgr_valid(conn)) {
-> 		lgr_valid = true;
->+		smc_lgr_hold(lgr);
->+	}
-> 
-> 	smc_conn_free(conn);
->-	if (local_first && lgr_valid)
->+	if (lgr_valid) {
-> 		smc_lgr_cleanup_early(lgr);
->+		smc_lgr_put(lgr);
->+	}
-> }
-> 
-> /* check if there is a rdma device available for this connection. */
->diff --git a/net/smc/smc_core.c b/net/smc/smc_core.c
->index 660cd41ec720..c1bb284c4233 100644
->--- a/net/smc/smc_core.c
->+++ b/net/smc/smc_core.c
->@@ -693,6 +693,10 @@ void smc_lgr_cleanup_early(struct smc_link_group *lgr)
-> 
-> 	smc_lgr_list_head(lgr, &lgr_lock);
-> 	spin_lock_bh(lgr_lock);
->+	if (lgr->freeing) {
->+		spin_unlock_bh(lgr_lock);
->+		return;
->+	}
-> 	/* do not use this link group for new connections */
-> 	if (!list_empty(&lgr->list))
-> 		list_del_init(&lgr->list);
->@@ -999,6 +1003,7 @@ static int smc_lgr_create(struct smc_sock *smc, struct smc_init_info *ini)
-> 		lgr->buf_type = lgr->net->smc.sysctl_smcr_buf_type;
-> 		atomic_inc(&lgr_cnt);
-> 	}
->+	smc_lgr_hold(lgr); /* lgr_put in smc_conn_create() */
-> 	smc->conn.lgr = lgr;
-> 	spin_lock_bh(lgr_lock);
-> 	list_add_tail(&lgr->list, lgr_list);
->@@ -2049,15 +2054,25 @@ int smc_conn_create(struct smc_sock *smc, struct smc_init_info *ini)
-> 		if (rc)
-> 			goto out;
-> 		lgr = conn->lgr;
->-		write_lock_bh(&lgr->conns_lock);
->-		rc = smc_lgr_register_conn(conn, true);
->-		write_unlock_bh(&lgr->conns_lock);
->+		spin_lock_bh(lgr_lock);
->+		if (lgr->freeing) {
->+			conn->lgr = NULL;
->+			rc = SMC_CLC_DECL_SYNCERR;
+nct6694_usb_probe() allocates the USB transfer buffers usb_msg and
+int_buffer using devm_kzalloc().  Because devm_kzalloc() prepends
+internal devres metadata to the allocation, the returned buffer pointers
+are not guaranteed to be ARCH_DMA_MINALIGN cacheline-aligned.  Mapping
+these unaligned buffers for USB bulk and interrupt DMA transfers risks
+cacheline sharing and memory corruption on non-cache-coherent
+architectures.
 
-This should not be SMC_CLC_DECL_SYNCERR, maybe SMC_CLC_DECL_INTERR or add
-a new error code.
+Allocate usb_msg and int_buffer using kzalloc_obj() to guarantee
+DMA-safe alignment, and free them on probe failure and in
+nct6694_usb_disconnect().
 
->+		} else {
->+			write_lock_bh(&lgr->conns_lock);
->+			rc = smc_lgr_register_conn(conn, true);
->+			write_unlock_bh(&lgr->conns_lock);
->+		}
->+		spin_unlock_bh(lgr_lock);
-> 		if (rc) {
-> 			smc_lgr_cleanup_early(lgr);
->+			smc_lgr_put(lgr); /* lgr_hold in smc_lgr_create() */
+Fixes: 51dad33ede63 ("mfd: Add core driver for Nuvoton NCT6694")
+Closes: https://sashiko.dev/#/bug/linux-6f9e5ba3-714e-41ad-b6cd-3a17c665b87f
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/mfd/nct6694.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-smc_lgr_put() may call smcr_buf_free() -> vfree(), which may sleep.
-And you put it in the spinlock.
-
-Best regards,
-Dust
+diff --git a/drivers/mfd/nct6694.c b/drivers/mfd/nct6694.c
+index 308b2fda3055..e2957e587d1b 100644
+--- a/drivers/mfd/nct6694.c
++++ b/drivers/mfd/nct6694.c
+@@ -284,17 +284,21 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 	if (!nct6694)
+ 		return -ENOMEM;
+ 
+-	nct6694->usb_msg = devm_kzalloc(dev, sizeof(union nct6694_usb_msg), GFP_KERNEL);
++	nct6694->usb_msg = kzalloc_obj(*nct6694->usb_msg);
+ 	if (!nct6694->usb_msg)
+ 		return -ENOMEM;
+ 
+-	nct6694->int_buffer = devm_kzalloc(dev, sizeof(*nct6694->int_buffer), GFP_KERNEL);
+-	if (!nct6694->int_buffer)
+-		return -ENOMEM;
++	nct6694->int_buffer = kzalloc_obj(*nct6694->int_buffer);
++	if (!nct6694->int_buffer) {
++		ret = -ENOMEM;
++		goto err_usb_msg;
++	}
+ 
+ 	nct6694->int_in_urb = usb_alloc_urb(0, GFP_KERNEL);
+-	if (!nct6694->int_in_urb)
+-		return -ENOMEM;
++	if (!nct6694->int_in_urb) {
++		ret = -ENOMEM;
++		goto err_int_buffer;
++	}
+ 
+ 	nct6694->domain = irq_domain_create_simple(NULL, NCT6694_NR_IRQS, 0,
+ 						   &nct6694_irq_domain_ops,
+@@ -352,6 +356,10 @@ static int nct6694_usb_probe(struct usb_interface *iface,
+ 	irq_domain_remove(nct6694->domain);
+ err_urb:
+ 	usb_free_urb(nct6694->int_in_urb);
++err_int_buffer:
++	kfree(nct6694->int_buffer);
++err_usb_msg:
++	kfree(nct6694->usb_msg);
+ 	return ret;
+ }
+ 
+@@ -367,6 +375,8 @@ static void nct6694_usb_disconnect(struct usb_interface *iface)
+ 	ida_destroy(&nct6694->gpio_ida);
+ 	irq_domain_remove(nct6694->domain);
+ 	usb_free_urb(nct6694->int_in_urb);
++	kfree(nct6694->int_buffer);
++	kfree(nct6694->usb_msg);
+ }
+ 
+ static const struct usb_device_id nct6694_ids[] = {
+-- 
+2.56.0.218.g1ec904b173-goog
 
