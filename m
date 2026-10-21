@@ -1,68 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.19.144.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792609650;
-	b=EkT5kKoTKZBOENyKvKEw19f4FLBuGcjZ/EtUP6ahWII4bTS6mOVGODncX/ADAqW2a4n/
-	 2DNMxNppAr3kgR5tzWqOvWHbkIynVzPTcIQ0jwecuau27ro4ay257lxsHoWKe0qAjJaey
-	 P7saBrShpk5yWFQcFtoPBz0naNGy/nN7ENkhGXjjD7BDdJRqAOY4KLbSPVYeKbq5KgrCG
-	 p3dpdjXwlcoZ0a9M+lhw2B8lxB4eZ3u33bJmNPDuytEDde3iR+cYQFeeZsP6LxBfB4Ddy
-	 P5y5aNO9vw7H7O+tgsNfIkCSJjvXO5cw8698hcpaLEgYOY1pdvoUN+cq5VGwsCOHwWQ==
+	t=1792609852;
+	b=Pre8ckhVT7y2a2mG3PNapO30aSDXep4jB/bYt7jp0U5En2MOGlNNRF+Zerzi2mp5CJhE
+	 oGxyGT+yMewvjRexn9GJH8ZD+1NnKj07CFlgjLDYh877Yh1qpsong1CUklh0bkjxIi5S+
+	 Ltof1Z5CRe2Cn/1vEfQE1hUN5mTPVFKaBMO7mj1/xszK/Et4DdyPXycYshWc0yVdPbWSJ
+	 wlJPV15zfYoA1RtG0Hb9A9rS1tm39uqWK+dFqQdXsxAw3nVBeoWz9KFisIGxI1VAoZy2h
+	 lwvWRZ4aVJQfujdKcVT+9brjGzNEOpWJ7ULUX1QpKt/v3QyAjBRI/XKB3B8mVtvEz/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609650;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References;
-	bh=7FMfhnSAl6K553trS90hbpNrDLMIboWhRP3ah5uLrY4=;
-	b=Uj3SSOUaWevQCf7bSFjoUjyHdgxDSCe4OoEg2wmBoR3HwDxeRYeesbARTWW42HbvIDTv
-	 vXyvqk6mTtlUa9ORfpgbC8iWGZYbLYufDbqBR7JVnPQ8S0KAhyFIDpSsNfx0D1XY5q0hb
-	 nya7lxAbCknuYzL9cZuUVeYbkf+0CHOixgCqGwyAeEGoifZbTr6q9+SF3EUi7bXUnHA+Q
-	 aPOb/VYapaEvdgUSe1eHQUTnTzz5Z05QHS6h0WlSFUBD+Ku7ksOIZyo9ffzLLodSOxtJH
-	 6E54b09C+l5KDH4w6ut144dwjA97Swt7f4JCpIkZOijwbJpbwZ68MPHvGQj/iVcgluQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609852;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mZnLYWYthQyH/1Q08I94hYQu+8M2DcuSm/l3CvY+1vI=;
+	b=BmlZrlk+CSwt2f87KkyAxcqxmA6CUVmzrs6vz0aSfXpnpta0jt5fvOTPN8T0esCMU1/R
+	 XsZe3A9TBuDUiMu9ETIJakAtvRpIzHRkDFZKBEt1MHKuyWgryq7IeT+dWADSLJRYCa4Su
+	 mSUFzvmmRMdXR9g3wuWqgDOtMTdi78rmuL9Uz/c0QgdBSxEBRzpzfP+VjCN9u7/g3RWl/
+	 NaDbolzdRh+3m+5NTawa65tq3gbK7RLtyypIbwnkOuK2jsJh8NKBwEzko9b5GeOTBWPNj
+	 +rgkAu+ZBw4x2qnaBDck5GFrfuOox0d55LCR+pVj6GoGZVHDJBNTvEgzF9Whc/tQBPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoGPb5Op;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=FPEFi5sf;
+	arc=none smtp.remote-ip=192.19.144.205
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D00606A319;
-	Wed, 21 Oct 2026 19:07:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73796606A31A;
+	Wed, 21 Oct 2026 19:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73796606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WoGPb5Op
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ADDD1F000C2;
-	Wed, 21 Oct 2026 19:07:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792609649;
-	bh=7FMfhnSAl6K553trS90hbpNrDLMIboWhRP3ah5uLrY4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WoGPb5OpWYOgL4N8Iyb1W3FoopprR6C9DyBk0RzvBvvfAL+fJuYJfKLTVdjT2Jf+e
-	 zri4+C2811yBDVjrQGKEQcnnde4aSyejWPjdmy/adZrFQbTkpe/fuYxspIRd8wd0K9
-	 vzt7+pJAeooV8S7jtPszv6ct/rygWf1n7jRziKXAC7ghmQTVRb+OT+HYwAfOkAaAg7
-	 nPk/OHIrw2jpWLV3mPcRZ8BVjHPQp1jqba5kgU1N/S+C3EMhKgncWLabTsfa8AvEPk
-	 coqIISr2TkJZCMbdS+wzTbRrOTjakqhaN9hspaOjylpTuLsoWVUOjZg8hHuE589xKl
-	 7Svk8NdJGaU7g==
-Date: Wed, 21 Oct 2026 09:07:28 -1000
-Message-ID: <7350d12ddf2d800823dfc1366e91ff2d@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	David Vernet <void@manifault.com>,
-	Changwoo Min <changwoo@igalia.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	John Stultz <jstultz@google.com>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	sched-ext@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH sched_ext/for-7.4-fixes] sched/core: Avoid requeueing a
- singleton balance callback
-In-Reply-To: <20261021070535.1256337-1-arighi@nvidia.com>
-References: <20261021070535.1256337-1-arighi@nvidia.com>
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=FPEFi5sf
+Received: from mail-lvn-it-01.broadcom.com (mail-lvn-it-01.lvn.broadcom.net [10.36.132.253])
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 3089DC0003E6;
+	Wed, 21 Oct 2026 12:10:50 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 3089DC0003E6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
+	s=dkimrelay; t=1792609850;
+	bh=/A5oZYXNQMjUMploRdqR03mvQq8qWvVx5LgB4bTZe0A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FPEFi5sf/RkgD70EOa8WjoESgD0XOeNY19+1DZFYld6W6j4wvXWzpjz5Du+G7LLz/
+	 5jzaT7JiYcHY0qjfEEmb6mtf8FYFQCKzNktKeMQCJjTO4k/MDXHQf/qzbOjciJaYCR
+	 dlBwBzHtZBaj2kNZIHIEygsp8a9oUc9sPqwXgToY=
+Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail-lvn-it-01.broadcom.com (Postfix) with ESMTPSA id BF9E0A88;
+	Wed, 21 Oct 2026 12:10:49 -0700 (PDT)
+From: Florian Fainelli <florian.fainelli@broadcom.com>
+To: netdev@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonas Gorski <jonas.gorski@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Jon Mason <jon.mason@broadcom.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH net 1/2] net: ethernet: bgmac: preserve forced 2.5 Gbps link speed
+Date: Wed, 21 Oct 2026 12:10:34 -0700
+Message-ID: <20261021191035.751684-2-florian.fainelli@broadcom.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261021191035.751684-1-florian.fainelli@broadcom.com>
+References: <20261021191035.751684-1-florian.fainelli@broadcom.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,12 +80,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Applied to sched_ext/for-7.4-fixes with the following tag added:
+Northstar and Northstar Plus use a 2.5 Gbps internal link between the
+AMAC and the switch.  BGMAC_FEAT_FORCE_SPEED_2500 makes bgmac_miiconfig()
+configure that speed, but bgmac_adjust_link() subsequently replaces it
+with the synthetic fixed PHY's 1 Gbps speed.
 
-  Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Use the forced speed when processing link changes so the MAC remains at
+2.5 Gbps.  Together with configuring the switch IMP port for its 2 Gbps
+mode, this eliminates the output queue discards that caused approximately
+1000 TCP retransmissions per second during an iperf3 transmit test.
 
-Thanks.
+Fixes: f6a95a24957a ("net: ethernet: bgmac: Add platform device support")
+Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+---
+ drivers/net/ethernet/broadcom/bgmac.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
---
-tejun
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index 1835266fdd09..7079228e70c0 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -1415,11 +1415,15 @@ void bgmac_adjust_link(struct net_device *net_dev)
+ {
+ 	struct bgmac *bgmac = netdev_priv(net_dev);
+ 	struct phy_device *phy_dev = net_dev->phydev;
++	int speed = phy_dev->speed;
+ 	bool update = false;
+ 
++	if (bgmac->feature_flags & BGMAC_FEAT_FORCE_SPEED_2500)
++		speed = SPEED_2500;
++
+ 	if (phy_dev->link) {
+-		if (phy_dev->speed != bgmac->mac_speed) {
+-			bgmac->mac_speed = phy_dev->speed;
++		if (speed != bgmac->mac_speed) {
++			bgmac->mac_speed = speed;
+ 			update = true;
+ 		}
+ 
+-- 
+2.53.0
+
