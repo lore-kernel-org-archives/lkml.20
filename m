@@ -1,96 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792580164;
-	b=3qZmukp81tGAAKSYmFSVa0li3JpExqRJuZi8sNP+u5uPfRjsgV9cWkkAGQdQiXWc5sdF
-	 Q05ETEY2Y7HxwywHDpqky7r2Q9kYhxsaa7oSc3CEr0zyEg7MIhk9cCMq3iFX8F68Xl7k/
-	 PDqA5UlG+TR1RaGxx0ZPH1FQ/jQ67bwe8GlBol6zo/qtUP5D1hHrTGzrN6jtrs94AG7ZC
-	 s9AAkkdLpu3DiHv61Ih/KzdZQHVqh1einw0QGLEhnRBVpg5vNWUBY1YJpnXCgKeS6EhGH
-	 0nEcU1/64mUrT3Zu2WSd7xVl7Danr2DQsC+M9YDNrBDFBjGPQnyMZ5smwGHNTJrDLfg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580164;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=4dkFwPF8mYUAaBh9IOGYKB+nWS60kkd0r3c1QMBo9hw=;
-	b=tf4gzf4d4DNhvaDE79l8AkhCkQqFu4HfzpoGa4pdkZINGgE3U6Iqaj/H1e83s7EVgENi
-	 l8bPk8yESvtOkWUzXzJnRBasGCQGXfubFOYPBf4Q3neALp1KobbMoVhdkRE4TCpPvxYbq
-	 9T6VzQ/nIx6ZeO52hLjZejI8+JApoNjhMU/9Ny01eqICZ3HK3dpbJzuZCxWeL+uPd4NIY
-	 pY51uLkJGsvxPnWk3h5G2PhbMnCcFQUGuwT2LXyNnp9ZHZA+5vsx92X1Y31FXrThQl4i3
-	 nIO2/NEfc8DV32BoInbhdpS8K4J/NeLst5Vrl7FicetZrAuyQhA7mvoA95X9eeJOXgg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=0x0f.com;
-	spf=pass smtp.mailfrom=0x0f.com;
-	dkim=pass header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=LStKsrBA;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.175
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.99
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792580168;
+	b=CQ6nEyiPUNDo8DtIlCH6y/TcASrOqZhPKRKkX6Uv1dkgEZ21N6MUCjgYsZZksL3PMZRz
+	 z1ULnNbSskyTQ4mlLiEJklTxAIUQUSOHZGX3T64sth4Ce8UesyAHcqoPUdWUDIkW2xBrn
+	 n48HSHEE2prH7LJKxQp1R9doOdUmI2iChcpAe166TLMMwAa4UqnKp0zh5DTiS2ZAzwE6N
+	 DWEMjHygvp+l9kEvaHjnhuoNf0A98vxF80OG+nJoWpf+8Gd3Cwkd7eYGKbQouUT7/hOzL
+	 ORnrYpbV6uLwgV1XmOMqhpg1h0K2SE810viQ7lWhwCpjSW6JvpQDNWRNJLcTnVGYo/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580168;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1awJR/cIwunF3OYLn6iH249UFQKC6nkambq2EgaI6ro=;
+	b=n5H499lOsSIvRkXC3FAiXx2iPZa6Fxry0uukoxuIjYoCOwPY+0DU7/6j8AenvQZeNIni
+	 XAevvTxl1lpvKMz/hBrnbQ+JQjf12eB+ISvz2Clg4UglvPD+JeT25npertBTQUA0DDjAF
+	 vcT2wPGvODhdnfB4eyUq6R7/IsglHZt+/fpIa7vQ0GRDbYxkTxTjzv6yUQQi6M+ESV81c
+	 0a517esZ/XC7vkp1qdA6HeGJfHowwp0zF5SKJcDVyGUpBsVHONGBH4nsKsD2qqrTcyrps
+	 4pOt7Mxj4H7DhLVfcK7e7LZ8Fl3PH2eerqtQAn+sw8+7UQ7zWJmrn0Kh4WRiSm08qAw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=wTJYdyrb;
+	arc=none smtp.remote-ip=115.124.30.99
+Received: from out30-99.freemail.mail.aliyun.com (out30-99.freemail.mail.aliyun.com [115.124.30.99])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA05606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:55:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CA05606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AE2606A32A;
+	Wed, 21 Oct 2026 10:56:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63AE2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=0x0f.com header.i=@0x0f.com header.a=rsa-sha256 header.s=google header.b=LStKsrBA
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8acda240937so4774697b3.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:55:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792580157; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rz2sYxbgKSkw1goXhYpWnV0W3gV2s8Ij8+QWXi06A9n/D/YNU6J8EXdW64SLmhdyhn
-         5NMk5sdIpAWyjtbxEmGQlGtJ+Zhwmkmx7Un7o83sPIoJvwR7kFtd15om617d3jqrHfJz
-         np7H80w+0+m+OwMMuSEcd5jiPhXQNHDgkJxK3Tm6Kk3SZ1UiZ5zxnVuM/6OF9km883pg
-         M1XuDX8WMLTVAn1XpxzMeECFhSPh2vmXjsmPHt4gORVaMmIXTHzXzKKoOaHCVKjD3rcj
-         tnlPfCGOUvrm51axm4M6010KRkvuq+E8IPLuErhQ6J6vtUl9KjbXdFOB9f+Yw3o1Fbs9
-         F2Pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=4dkFwPF8mYUAaBh9IOGYKB+nWS60kkd0r3c1QMBo9hw=;
-        fh=/l+uV2VLQZSprlHmn1I4e6Uhfu26IMFDKnsxccSGxXM=;
-        b=U7/HiYDmjIfixbyo+c6N/CnWq99b9eZq3d6lBM7pAV2r5fHg3cL1LmZQmTU5d3Ij0x
-         /rrj1ttw7A4q7C21PVlzFxwMe2G00b/Kyn6n+UTBgBmsRZIDOiznW5kObomLWV1Hu+h5
-         4p8qQ62y+3NWnUCmphtbtVQ6JuaP8vMPx+owV8sHf9Fs3cLbidXxnUnJMIEQwU3Ocsec
-         OycTAjxtQwiaRp1FIuLzFG5vpgIYi5AKq2xhw56PqGv3jdhCeSSgm84y292PJ32qdpc+
-         7LKcI7hFKyzapvfPMMZbQP5poIQ6oLJIy/hjKjtwNwRVTIEY6nku8x4p1y20FqaY5ZsI
-         qOCg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0x0f.com; s=google; t=1792580157; x=1793184957; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4dkFwPF8mYUAaBh9IOGYKB+nWS60kkd0r3c1QMBo9hw=;
-        b=LStKsrBAmkLyaIDo7eVvgJ/m9vUfRWLRIyJ6OihLsx6GHpMB7F8VmhEb9hY54nkHT+
-         XAsvZTrvDT3kC7e7pHIkkp1p0svg27WFaKT5upHJaufLe0yv7syM14crajjJrwyX9cB9
-         RXQCO8tRKSb7PW0WqE9heGNj6QsK/hQ7AT/K8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580157; x=1793184957;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4dkFwPF8mYUAaBh9IOGYKB+nWS60kkd0r3c1QMBo9hw=;
-        b=smUQP50Cb7XzZjK+Yldt7OZ8oCujDcp+k1MJDhLj0GlSFT0hhG0ey+Wj6ZekLQ4dOd
-         RXFjmISQzxaOEKKhN+rqZW9hZ5JH2HH9YJxtg837z6dibadLTDuUkmvMsryRhVScYlXr
-         9BAuIaU4saw/AOhfKqowYkEMA4Jr6Wz2+hvLqNVcSZZIfAatvofnmWPdz2221xd0Gb+M
-         +Ou31muzp2ivGO/16NRRzIW+q6peHDiRPl1lYialD690TvDXciY5V3IVbZtKJZ/sG+FV
-         EdcC/u0wyYK5hvR6srBnTC+OzK4F8ZyWfF0aylgO1jJMGjsnrGkOvVY9RceeZcwr//jc
-         SpPg==
-X-Forwarded-Encrypted: i=1; AKwUvBw3X6lefTapvuioELIbs/CllDCKnN7odkY1eOiLEpVgiSA6gsDlwa87gCr1RfgPDnRfvUSVleqtig3dtO8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHdBLrQ772AAFkS/zwIJ0z5vJfb8QZjdHTwccsWXnjB1rEJFQZ
-	donCYyN7OcRqu3L9zxZhiiUNCu9r65I1vWb3Mj1PT4j7sV/2qN/KWkyisWsYkNhMmZ3PC06h8R5
-	bRR9hy1NLDQRe8kgYa1YL41ja8ORKH37Z/xh0KqLBLw==
-X-Gm-Gg: AYBFou0EWsOuz/kRNyk5t8iMu9DadgNTCOuuJvDq9JCePaWVAvg0YtOdANjmOJ2RVZ8
-	PjwTOVl1IvpbFrB5nx+gv3YyLP9f9TUiBXzt5yy65ME+CNnBbuJNULhwtXlhvJIyxxg8h2jWB5o
-	JfYv6mRCQAX0Xw6as+Xwcd0FvO+vNsR62Wz1KskimlLpJEAOUwdjGGsVa0MjJh32Lu4lYtrS52r
-	V484xA5Sv0OonTbhjJJMStr3PMjeKb9bKwh970b+3gTsfMtVeVA53vPeBSSLE7mAJYI1OGLhudh
-	huil0ryhj+HwXMUtYvsLs3o/OIqmwl6C2+IU/dob1co3GY5/ozQxLSrx8PTyyVOh3DgZH5BwKeU
-	fEhjhO0uv1mQdjXNHxoOVuurTa+F9iD5es/9hte0=
-X-Received: by 2002:a05:690c:e1d1:20b0:8b0:ad90:98c6 with SMTP id
- 00721157ae682-8b134013d3cmr5679527b3.35.1792580157475; Wed, 21 Oct 2026
- 03:55:57 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=wTJYdyrb
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792580163; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=1awJR/cIwunF3OYLn6iH249UFQKC6nkambq2EgaI6ro=;
+	b=wTJYdyrbKZItmkDakTkijPvVTsBvzwcLWxLd+HMcS3IBSaslGs/8ODsaJ9N/BfgcIdOpB7XJIh3QViZ5F7wUTu6MXmIniUoKkp1SX5mxCEDpWa8bmXbqZXE2jdmJOKjV3C4jjsHrK3wWoVnXwg9SzZKjweIK0B/DmxbY/PSeizg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDG8Q0F_1792580162;
+Received: from 30.221.149.139(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDG8Q0F_1792580162 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 21 Oct 2026 18:56:02 +0800
+Message-ID: <1baa76fc-4fc8-4943-816c-cc04e4dfec21@linux.alibaba.com>
+Date: Wed, 21 Oct 2026 18:56:01 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,37 +53,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017041419.311921-1-daniel@0x0f.com> <CAJpaz4abKAkDznoi3gczYHNQMF-j5cSajtG07Jws8LkFY9DZFg@mail.gmail.com>
-In-Reply-To: <CAJpaz4abKAkDznoi3gczYHNQMF-j5cSajtG07Jws8LkFY9DZFg@mail.gmail.com>
-From: Daniel Palmer <daniel@0x0f.com>
-Date: Wed, 21 Oct 2026 19:55:39 +0900
-X-Gm-Features: AclHuK-tt_OVDrOG_j7NK25609Kp5bxH3a2aysFucE6vALWwnla60mO_ZldS66Y
-Message-ID: <CAFr9PXmntwx06iMc200d9HPoOeCE7XURpS9jiWhB3ud_+QQggA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] sh: Fix IDE on landisk
-To: Colton Pawielski <colton.pawielski@gmail.com>
-Cc: ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
-	dlemoal@kernel.org, cassel@kernel.org, linux-sh@vger.kernel.org, 
-	linux-ide@vger.kernel.org, geert@linux-m68k.org, linux-kernel@vger.kernel.org, 
-	fuchsfl@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ocfs2: drain quorum work before removing the cluster
+To: Cen Zhang <zzzccc427@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0064-v5-e3870bf6571b80b07b52@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0064-v5-e3870bf6571b80b07b52@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Colton,
 
-On Wed, 21 Oct 2026 at 10:05, Colton Pawielski
-<colton.pawielski@gmail.com> wrote:
-> In testing I could often lock up the board when transferring data over
-> SSH. I don't believe it's related to this series and am fairly sure it's
-> in the 8139cp driver. I have a candidate fix that I plan to send in
-> a couple of days once I've tested it further and there's no more
-> lockups on my hardware.
 
-There seems to be two issues: One it interrupts for every packet when
-the 8139cp can hold off and not storm the processor, and there is some
-issue with the chip refusing to send small skbs so the network layer
-starts locking up/timing out. I was planning to send fixes this
-weekend but if your fix is one of those, send your version, cc me and
-I'll test it out.
+On 10/20/26 11:45 AM, Cen Zhang wrote:
+> The configured cluster must remain available until an in-flight quorum
+> decision has finished using its fencing method. o2quo_make_decision()
+> drops qs_lock before calling o2quo_fence_self(), which marks heartbeat
+> regions for unclean stop and then reads
+> o2nm_single_cluster->cl_fence_method. Cluster removal clears the
+> singleton without waiting for this independent system-workqueue item.
+> 
+> When a failed-quorum decision overlaps removal of the heartbeat regions,
+> nodes and cluster through configfs, the worker can be preempted after
+> marking the regions and resume after the singleton has been cleared:
+> 
+>   Quorum worker                     Configfs removal
+>   select fence; drop qs_lock
+>   o2hb_stop_all_regions()
+>                                     remove regions; join heartbeat threads
+>                                     remove nodes; stop o2net
+>                                     clear singleton; release cluster
+>   read cl_fence_method
+> 
+> The resumed read dereferences NULL instead of applying the configured
+> fencing method. The heartbeat thread's dependency protects the local
+> node only until the thread exits, and draining o2net does not wait for
+> qs_work.
+> 
+> Add o2quo_flush_work() to drain pending or running quorum decisions
+> before clearing the singleton in o2nm_cluster_group_drop_item(). By
+> this point the heartbeat regions and nodes have been removed, so their
+> work publishers are stopped. The worker can finish while the cluster
+> and its configured fencing method remain available. It does not acquire
+> the configfs mutex held by the removal path.
+> 
+> Keep o2quo_exit() as the counterpart of o2quo_init() for module teardown
+> and initialization failure, and have it call the same drain helper.
+> Cluster removal uses only the explicitly named drain operation.
+> 
+> KASAN report as below:
+> 
+>     Oops: general protection fault, probably for non-canonical address 0xdffffc000000011b: 0000 [#1] SMP KASAN NOPTI
+>     KASAN: null-ptr-deref in range [0x00000000000008d8-0x00000000000008df]
+>     CPU: 0 UID: 0 PID: 72 Comm: kworker/0:2 Not tainted 7.3.0-rc4-next-20260921-pmb-ocfs2-functional-v1+ #1 PREEMPT(lazy)
+>     Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+>     Workqueue: events o2quo_make_decision
+>     RIP: 0010:o2quo_fence_self+0x65/0x200
+> 
+> Register dump omitted.
+> 
+>     Call Trace:
+>      <TASK>
+>      o2quo_make_decision+0x345/0x3a0
+>      ? __pfx_o2quo_make_decision+0x10/0x10
+>      ? process_one_work+0x834/0x1b40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? lock_release+0xc8/0x290
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      process_one_work+0x9a8/0x1b40
+>      ? __pfx_process_one_work+0x10/0x10
+>      ? lock_acquire+0x190/0x300
+>      ? lock_is_held_type+0x8f/0x100
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      worker_thread+0x65c/0xe40
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __kthread_parkme+0x177/0x220
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_worker_thread+0x10/0x10
+>      kthread+0x351/0x460
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork+0x659/0x940
+>      ? __pfx_ret_from_fork+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __switch_to+0x74f/0xf70
+>      ? __pfx_kthread+0x10/0x10
+>      ret_from_fork_asm+0x1a/0x30
+>      </TASK>
+>     Modules linked in:
+>     ---[ end trace 0000000000000000 ]---
+> 
+> Fixes: f6656d26d17b ("ocfs2/cluster: Make fence method configurable - v2")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 
-Thanks,
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 
-Daniel
+> Assisted-by: LLM
+> ---
+> Changes in v2:
+> - Add a dedicated o2quo_flush_work() helper and use it before clearing the
+>   cluster singleton, as requested by Joseph Qi.
+> - Preserve o2quo_exit() as the counterpart of o2quo_init() and make it call
+>   the shared drain helper.
+> 
+> Link to v1: https://lore.kernel.org/r/pm-ocfs2-objects-candidate-0064-v4-51daf51db746eedf7533@gmail.com
+> 
+>  fs/ocfs2/cluster/nodemanager.c | 3 +++
+>  fs/ocfs2/cluster/quorum.c      | 7 ++++++-
+>  fs/ocfs2/cluster/quorum.h      | 1 +
+>  3 files changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/ocfs2/cluster/nodemanager.c b/fs/ocfs2/cluster/nodemanager.c
+> index e08850a5d736..ced4fe6d3b59 100644
+> --- a/fs/ocfs2/cluster/nodemanager.c
+> +++ b/fs/ocfs2/cluster/nodemanager.c
+> @@ -12,6 +12,7 @@
+>  #include "tcp.h"
+>  #include "nodemanager.h"
+>  #include "heartbeat.h"
+> +#include "quorum.h"
+>  #include "masklog.h"
+>  #include "sys.h"
+>  
+> @@ -740,6 +741,8 @@ static void o2nm_cluster_group_drop_item(struct config_group *group, struct conf
+>  	struct o2nm_cluster *cluster = to_o2nm_cluster(item);
+>  
+>  	BUG_ON(o2nm_single_cluster != cluster);
+> +	/* Drain quorum work before it loses access to the cluster. */
+> +	o2quo_flush_work();
+>  	o2nm_single_cluster = NULL;
+>  
+>  	configfs_remove_default_groups(&cluster->cl_group);
+> diff --git a/fs/ocfs2/cluster/quorum.c b/fs/ocfs2/cluster/quorum.c
+> index bfb8b456876c..ab5b3d4fd0e8 100644
+> --- a/fs/ocfs2/cluster/quorum.c
+> +++ b/fs/ocfs2/cluster/quorum.c
+> @@ -318,9 +318,14 @@ void o2quo_init(void)
+>  	INIT_WORK(&qs->qs_work, o2quo_make_decision);
+>  }
+>  
+> -void o2quo_exit(void)
+> +void o2quo_flush_work(void)
+>  {
+>  	struct o2quo_state *qs = &o2quo_state;
+>  
+>  	flush_work(&qs->qs_work);
+>  }
+> +
+> +void o2quo_exit(void)
+> +{
+> +	o2quo_flush_work();
+> +}
+> diff --git a/fs/ocfs2/cluster/quorum.h b/fs/ocfs2/cluster/quorum.h
+> index d64bf4482a4a..1ce5fc2a8ca9 100644
+> --- a/fs/ocfs2/cluster/quorum.h
+> +++ b/fs/ocfs2/cluster/quorum.h
+> @@ -8,6 +8,7 @@
+>  
+>  void o2quo_init(void);
+>  void o2quo_exit(void);
+> +void o2quo_flush_work(void);
+>  
+>  void o2quo_hb_up(u8 node);
+>  void o2quo_hb_down(u8 node);
+
