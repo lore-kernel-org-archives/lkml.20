@@ -1,93 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792622079;
-	b=FrTc8BakhDOFoAtxQ38QhW6FYSltFJvp0HszEXOQIKiEmELqoNTNG2gGpRu5KwQUtdZj
-	 rAd+B9c49czHM0HUv50Sh/sE9VADsE1JClOlKJ9SO3kQ7gMNlCByW7mea3tCQiikaMVd4
-	 UGmY4XAQOfKI6gxbu4LyQXh2hwUqByfZWagyTMKE9YOBvK0DGQ9Rcj6ib0QSgiOym4gdt
-	 R06sruU/A1XeCtSpH+3+wJDFzR1fPx9qShGEgF6LMb5s8LNylhlQX6tnp6LzKOwVB+AIw
-	 HIyehMwcJ2isiahTsJ7qw9Bq+I5YyhAcaYaZdmxRguKVwDNOM2sovIBecCfOaM6woxQ==
+	t=1792622269;
+	b=VcAlOFRF7mrj2+j6lPMfFPhHGY11PSWTGBE2/DYsCPRcdoKyY6SkMHZIP4VK7znS4WKj
+	 30AaGruo/R54kEdv7pBk2uHoxTKmqScXFrOl4vyYXhTF51TJgkOTA3J1syeu3avreVVVZ
+	 QGKjar7ai8WClAH5yLMkN3r003utmEjOsVKKIWHHkkKanSHnXJghpspOH4MiReBO6c2gM
+	 WOg1cTUqKw8RKz8jAXG7nBeOtyoV7phg9CsCA6szEwMkomh239Vum6Hl69ua6vgTf/iq+
+	 qQm7VFuYh/QDBenIYu77dGjTKSwapFqo8k33CACZytNyz5q24h5QticYsqmFyL/jBhw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792622079;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792622269;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=gZoi50CU8duaJY0qeyDAUF2hNEQ0g+BDDJdFh73HKoU=;
-	b=vvzyvX551Zimqy+ZhS1t0awtrLXl89ydXcTU9SNOGJh4xMuY2B0jOt+1UBO4uXVqVsZM
-	 uZO2/Z19I9+UWyI/SWgb2NVzz0BBmK/yMEfCOfPDmKgIm53EIKn5mma7MwKH6kgL/Stzn
-	 Yhb8aS7cBpsRq9ikkN7KYq2FPdyLQNj+ap/BT8O32SrDtPl1y1OdJAtX56JhBnCR3tleH
-	 6wyYKGeR2kOiukMIxCsY6GluTT//VUE17m4uL9hLWxr3iT5SFf2EtGDWfoIGXWoMMNRaC
-	 4yuU2YPwO8wZ4RkgmLf3uL1s01jGP4VOHl0IHLI9IbIugkSLojLVcdacWWen0DNfkdg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=0wP5I5Jhcbwyv568wbMd4NHu0ctYeOKtwMrn8vLgYrE=;
+	b=wKrB0enlDVOOMAIGmE6kiz0h2kyObt8PoZo5sUwFpw1bl7onyS2tCAYWq+eZIHekP1ro
+	 eGlADWa00EpFoDaS2DUFHqA84q4UP8zRN/3vEFxdOz78lRxf7ap+WVX5r3AL8E8+t4aiu
+	 ybJHjbtPI3q0usf/yBXR3Cr/4UICSkisXJNEMF60FhIpAaNcDM8aXIGb3xDHEPdSn+p3x
+	 SexAd46LmPgQEsEiXoQtx21h1vukf8/2cBE1BWO2Ezz2Fuugy9e2F8rhFQYAloUiWVFcf
+	 TSQe6kETiBnRnsMFSmgQH3ldfsRjyyj/ldpYQaqnm9l7TSGYEcHj0sQJr3lI0P3sVAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TqyyZwxs;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NYUaD0Nz;
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5FC606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:34:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F5FC606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD01606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:37:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BAD01606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=TqyyZwxs
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1133223f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:34:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NYUaD0Nz
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-84e513877a3so111788a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:37:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792622078; x=1793226878; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gZoi50CU8duaJY0qeyDAUF2hNEQ0g+BDDJdFh73HKoU=;
-        b=TqyyZwxsrH3FM9EerDE9wCxSyDymTB3iGm5QLWBZ+qPbpQlpFjca43QK+9c6ioT8WF
-         IcJBQy7EeLkHaEzmEab7d05RJF9vi6jDxdpS2a+bkqhaRalWGiTEL/LcABClHcxDjESZ
-         KKF2t+DZSlYzfFHL8QFVboA4HGlL9alUlt+z1Vgk1lCnsyr3srd+rdwG7hI4VCcm0zNg
-         NdWqvgsGKE08tOBTkqsXcpZ/QAYfH7eOnsk9V8Yp65B1xAGlVaqUASu63ulnG7cCMwek
-         GoSY6ui8IECYz1UXyyn9FBRaNGylEZd5MwotX5i134uF27VshLh97ut7Mcavj6zvpG1e
-         An0g==
+        d=gmail.com; s=20251104; t=1792622267; x=1793227067; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0wP5I5Jhcbwyv568wbMd4NHu0ctYeOKtwMrn8vLgYrE=;
+        b=NYUaD0Nzct+fMrgf8/gyouUqIY4INZ28n0ECbaivbn5kFbe7NPPnvO40kbWZInHPlz
+         Z+SxQRz5tFQjjxzBocyGyJ6Si1UBXVjnAfPW9mWjwpemZ8mf4gWrhF0zdDeVmEXl3FsK
+         QMv8oOZ6FJHQDZBP/q1F/P0O1Qw3RjiqzA47lOTepdJ3ve1gIh1J4RZljM9ighXUXi+S
+         g089KaFhEmaMDvOF/PlL7RkCHMUqsTDnD09JbBZnUb6XgwOnAfNa6vmlv0j9nFPecKaI
+         z52DE1K/i7V62DxJbMsXSmtsZu/s+d18MD5fyMmuDFom++xdjwNNXMspj36K0HSkeTby
+         cHgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792622078; x=1793226878;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gZoi50CU8duaJY0qeyDAUF2hNEQ0g+BDDJdFh73HKoU=;
-        b=nSroHNyzxo08CVoL4t2O76WA/Fzt1eeXaeVLgnRDNgqhjMRtD7ffw0KSnI73/FWlpS
-         OyEt2jxNdj8gvEajXlM84Yyp7GtOYAeX3pZU2nXwohvh3i5/Nhl+8850RoUuQcFbiucl
-         oQGUlQi6z/VvJqDOO6b4tlZhHisuqKGovdIdLNzGvTbkjCfZM18FRBfaibLOAbhuw35a
-         kLfb7xamlJxKA0wC3fptDewd6CPgy1puoDvR6SZyESypz0YhBvDUn1vh9nX4JWDtcIib
-         1phJdSFgHKV2yu3k9hevjd27m5UuOKY/9mJsKb3rKTk9n9eT2nvmXHI8EwfQy5CmGK2T
-         lFIA==
-X-Forwarded-Encrypted: i=1; AKwUvByjSENytrcR5Z8U346vp90s8141fl+iV8GYOTz0KysDMc7zmgVAZn20JUt+IPXvnPnYQJP0StQulUAbFCE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKyejFSL0EtogWNhmA11hwZYXiQfC7/h38oo97fNHEWPIHDHBpK
-	pqBRl5mo6bywomibTI874mw2uqOzJSnjpV0IFJNfDPCbRGAc/tXP3h2E
-X-Gm-Gg: AYBFou3+yZwiFr/vDyE2pGFbclxiUbetBV1OqNZQDHN/nQtbWgTiY0Kt1+5pyDabR6D
-	fDTe5a9U2q0fOEAuL+9agCDmux477xRepB794jd26yT96kEaXLjq2+LK7xlMXHNAFD76J7Y2POj
-	XtcEdYa3qReIYjA+PA+k4H2oDM+xXhTGuTCNNB5MPwkKUIpUpplT6lCnryVk+rSkvaqCnX06mDG
-	7ixxe0M4WDylcMuwXQuVJ1jEFj5DpDRb2SnkRePcEHpBayZ/r//4TlynRRN+uUzNS7CmNoD05iN
-	XGQRDpWldmmc4JCb7/j3ih7+hS8TMa24Oi73C05QR+1CnhdDBSmrJHgEwkDlzsYPtxFBhbx/Q9j
-	2TgExoYp0BQugPRblh/MgGcH1K09moRzSwju5uvoCbhvy5TFUtSdq3W0U8VSxS3akvKfBTWvYVP
-	zedG8E0RiLn2J7ngp3LohOkXvZZSGq4dESvaPVCG3SIQybQAx3g5DzR/0O54TDdxOoNbZqQY6qc
-	YCw+cY16WJXw1Pyt5+ElGzji4rnrkVPztojj4X7c7K2tDTE+hCFK0ntoeF3jsnmlVkRcnSQ/QuG
-	BabPmP2QqvUe6ywGhXB62Mz75abpQkCvtCg=
-X-Received: by 2002:a5d:5f92:0:b0:48d:eb6b:9d0f with SMTP id ffacd0b85a97d-48e2647cf56mr7748471f8f.11.1792622077705;
-        Wed, 21 Oct 2026 15:34:37 -0700 (PDT)
-Received: from hp-omnibook-14t-fm000 ([5.112.131.255])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254efb2csm8744742f8f.2.2026.10.21.15.34.35
+        d=1e100.net; s=20260707; t=1792622267; x=1793227067;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0wP5I5Jhcbwyv568wbMd4NHu0ctYeOKtwMrn8vLgYrE=;
+        b=egYh/WQFMacjjaF/J11jHhpQG09cpCbmeM97cMikcDEPDzbA3DBhbxLSFHVYSLswoT
+         3MqFpVryqFGzjePZuKcAgQqK90q75iq7vgIxDGg2fUyWo9x2JJkyfXO+396vbSwK1LEi
+         iiKM8iiUpQFh/SQNMNKmLpx7ldxeb/eyxPkAJ9dJh+cqbN3z4dueWc/c8C2ZKaQB6Fi8
+         M2eMjWrIDNT+sgr3FV5JFsUqdF/h5w8pN/AEDqjXByhz/aKzRvr+VC2X9duMJuwdPV0s
+         9CMWiWA4RNLRXK5jGHoRWzA7IeRDlOlfuug9Tm0eKFO3F8GmPHL/qnJ6GDhlZaPncnNZ
+         y6pg==
+X-Gm-Message-State: AFq9FYLxr9kE+3Jg6pkSm37cWE7JgyoWMUXiaItcSBrxYm0x7uFzsxB6
+	/3mrNnRJbyU80eOkLqbFzm2Li8AuA2vwmoofnqFGQgyQk6EsBUlHhIGV
+X-Gm-Gg: AYBFou2m+PJTbPWscjVdoc5Rw4o4C9QqdLTLHravO1wqoYHvrw0mEnCKqu5w6GtfnGF
+	0YZd6J9t4P1o+nJ4oeb/FS1gTbZcDFv/e5AoV5eKpkFzTALKndKhdcDNwNkEGr0/e1PoZxs0VVM
+	BcPXvxT4EkUs1zRv4zLn9eVnmv9VUWe2gX4OCe1Oo5SWX8uKTDU7z3GzcEY7C3uIqaZCPcHkqTI
+	CJMhi8SF/1bMkCz1HrFcm5qtMilD5UGCtNJy99O6iFZbxHVYwFeZeGQ/Ot+FaSc6+0Kegz5BIQl
+	1XZiXBRHNbusT0KtC4kS6LeKYdej8/9gLZUYizArTc/BDsnY1QMYipW5Uy07e5xyvMALfJ/YTbW
+	BBemDmd3bfavwjx1dxw/Oy4SrFPzj9awdmXjkJf09gHC8MUtVkOS8u4UPk0Ua8ISnAdNHm2XJ2O
+	Y7W11Ygbm5sr0yN+PqlbjufjlFpYWuIckYJ1PtDQTT7x4fNfzZfl/pyDhWyizgSqyKyxgoLy2gR
+	cdjAs5XGXUOiOpUdMYr3nCfNYH48fAH4mhv5kXvsuaSSOiUc7esOb32p1JEVkoHtV/C+naFJqKs
+	PNsXfHVsYo03Ot4nxmnS9rAjhZCyO/Fr9vEhctZFp87iS2BBXJFdkQcRC8O24rQhfu4b3WkybC3
+	FcTnhn7KFIGjxB7/m59xVSi/jf3HQMfHw0TEoczDxfAFh18PM6CeEPNvqIbOxCMUum2wAggV+04
+	HtaQ==
+X-Received: by 2002:a9d:6e83:0:b0:845:d6e7:22b6 with SMTP id 46e09a7af769-84e348eedecmr337297a34.34.1792622267629;
+        Wed, 21 Oct 2026 15:37:47 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbddc7100sm3538837a34.24.2026.10.21.15.37.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 15:34:37 -0700 (PDT)
-From: Alireza Ahani <alirezaahani1386@gmail.com>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	krishna.chomal108@gmail.com,
-	Alireza Ahani <alirezaahani1386@gmail.com>
-Subject: [PATCH] platform/x86: hp-wmi: Ignore status bits in thermal profile query
-Date: Thu, 22 Oct 2026 02:04:30 +0330
-Message-ID: <20261021223430.26229-1-alirezaahani1386@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Wed, 21 Oct 2026 15:37:47 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH 0/2] serial: 8250: serialize DMA cancellation with buffer
+ reuse
+Date: Wed, 21 Oct 2026 16:37:42 -0600
+Message-Id: <20261021-submit-serial-8250-dma-cancel-v1-v1-0-efe2b89f2303@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,73 +93,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WQzW4CMQyEXwXl3KhxNj8Or1JxcBK7bFWg3V1QJ
+ cS71wu9cOhxoplvxrmamaeRZ7PdXM3El3EeT0cV8LIxbU/Hd7ZjV2288wmcBzuf62Fc7BqjT4s
+ +OtsPZBsdG3/aC9jqHQoGxtLAKOZrYhl/7hVvu4dWxge3ZeWujkoz2zopYb8+qWHi79d/G/6g6
+ jnr3OVBfkDa6aDjdD5gEMzsc3GMJKXyAJAkOeyeMdWQi++531G0tL1eud0MyYUqRANB8xBKyZ1
+ BQIO+IlCIAUgi1edULr27MojUIbKPgbWzq0LELOqHmoKUkJ9T6Ci6BB1DczFSCi0n/WIUrtwhl
+ 5Yw11LE7G63X65MLAOlAQAA
+X-Change-ID: 20261021-submit-serial-8250-dma-cancel-v1-b208f84e89c1
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-On the HP OmniBook X Flip 14-fm0xxx (board 8D9F, BIOS F.20) every read of
-the platform profile fails:
+Keep canceled transmit and receive buffers reserved until the provider's
+completion callbacks have finished. The TX fix also separates the DMA
+source from the serial core's kfifo, which is reset before the driver is
+called to flush a transfer. The RX fix keeps partial-buffer delivery ahead
+of the PIO fallback while the canceled descriptor is retired.
 
-  platform_profile: Failed to get profile for handler hp-wmi
+These changes repair the existing finite-transfer DMA path.
+DMA providers must honor the existing terminate/synchronize contract;
+fixes for providers that do not are separate DMAengine work.
 
-and /sys/firmware/acpi/platform_profile returns -EINVAL.
+Based on tty-next with the posted shutdown guard [0], channel
+configuration error handling [1], and RX TTY accounting fix [2].
 
-The firmware handler for HPWMI_THERMAL_PROFILE_QUERY (\_SB.WMID.GTPS)
-returns a 4-byte buffer: byte 0 is the thermal profile (EC HPTP - 1),
-byte 1 is a set of status flags and byte 2 is derived from the EC MODE
-register, which defaults to 4. hp_wmi_read_int() returns all four bytes
-as one integer, so the value never matches HP_THERMAL_PROFILE_*. On this
-machine the query returns 0x00041000, 0x00041001, 0x00041002 and
-0x00041003 for performance, balanced, cool and quiet.
+[0] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-shutdown-v1-v1-1-3d3ce383c614@gmail.com
+[1] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-config-errors-v1-v1-1-c067587d1ef2@gmail.com
+[2] https://lore.kernel.org/r/20261021-submit-serial-8250-dma-rx-accounting-v1-v1-1-c11795914ab4@gmail.com
 
-The same value is passed back to thermal_profile_set() by
-thermal_profile_setup() to sync the firmware's OEM variables. The
-firmware's set handler (\_SB.WMID.STPS) only accepts 0-5; an ACPI method
-trace of STPS during probe shows none of its cases matching, so that
-write is silently ignored.
-
-Only use bits 7:0 of the query result as the thermal profile.
-
-Tested on the machine above: /sys/firmware/acpi/platform_profile now
-reads back each of performance, cool, quiet and balanced after it is
-written, the "Failed to get profile" errors are gone, and the STPS trace
-during probe now shows the matching case updating the EC.
-
-Fixes: 4296f679ca50 ("platform/x86: hp-wmi: add platform profile support")
-Signed-off-by: Alireza Ahani <alirezaahani1386@gmail.com>
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/platform/x86/hp/hp-wmi.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+James Hilliard (2):
+      serial: 8250: drain canceled TX DMA before reusing its buffer
+      serial: 8250: retire canceled RX DMA before reusing the receive buffer
 
-diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 0eac5e1d9..8f8a1165f 100644
---- a/drivers/platform/x86/hp/hp-wmi.c
-+++ b/drivers/platform/x86/hp/hp-wmi.c
-@@ -110,6 +110,11 @@ enum hp_thermal_profile {
- 	HP_THERMAL_PROFILE_QUIET			= 0x03,
- };
- 
-+/*
-+ * Some firmware returns status flags in bits 31:8 of the thermal profile
-+ * query; only bits 7:0 hold the profile.
-+ */
-+#define HP_THERMAL_PROFILE_MASK				GENMASK(7, 0)
- 
- struct thermal_profile_params {
- 	u8 performance;
-@@ -2116,7 +2121,13 @@ static int platform_profile_omen_set(struct device *dev,
- 
- static int thermal_profile_get(void)
- {
--	return hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
-+	int tp;
-+
-+	tp = hp_wmi_read_int(HPWMI_THERMAL_PROFILE_QUERY);
-+	if (tp < 0)
-+		return tp;
-+
-+	return tp & HP_THERMAL_PROFILE_MASK;
- }
- 
- static int thermal_profile_set(int thermal_profile)
--- 
-2.53.0
+ drivers/tty/serial/8250/8250.h      |  20 +++-
+ drivers/tty/serial/8250/8250_dma.c  | 205 ++++++++++++++++++++++++++----------
+ drivers/tty/serial/8250/8250_dw.c   |   8 +-
+ drivers/tty/serial/8250/8250_mid.c  |   6 +-
+ drivers/tty/serial/8250/8250_omap.c |  26 +++--
+ drivers/tty/serial/8250/8250_port.c |   3 +-
+ 6 files changed, 191 insertions(+), 77 deletions(-)
+---
+base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
+change-id: 20261021-submit-serial-8250-dma-cancel-v1-b208f84e89c1
+prerequisite-patch-id: 3604bfaa3a1c214997de1f11162b81a4541af5ab
+prerequisite-patch-id: 79dd093ffb35e254e790dffb8887faf51b64f947
+prerequisite-patch-id: 80a5061d84c055a64c760268febed179c687b99f
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
