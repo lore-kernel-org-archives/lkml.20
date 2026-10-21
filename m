@@ -1,102 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567714;
-	b=lX/RO+8sCev6PRvCHSZ/mXZ7x6qiToPbR5g7JJCivBlhuJUPeD5ZnACidXvNOq9Z2GkI
-	 HciqOvmvQYGBLF2cV1IJ9wBDTOW3v9uuqNGxHip+imPv3Wl65Hy/LMLVHIXK/AvD64lse
-	 ODoxrCf6DQaixbMt/KgTuAsNW6GP13+SO/J6wEcQ0iKE0cGeEfVtOfbwN0WX1XK1sYeUV
-	 bpuC9X5XYky0wuCMW7NeY1yyFIbKlKL5fwNqjinZZzMWvSU06lUgCmlGtwXVM2awLpZMH
-	 yXASZsBmFBKRvsT2z5P4sm/rqS0yJ5jStLXyrOLfIhBBRj9oOD4/L8G8EHIq2UsHEtA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567714;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spam-Flag:X-Spam-Score:
-	 X-Spam-Level:X-Spamd-Result;
-	bh=5B9ES4Cuga5d46FA/ZJ9kE82qZN2VgEmNEjHqLKKDfU=;
-	b=KieztalFFy+nSZNsw4iTK2aOOLlYDGcVup1Hkm7QVhst6QarvvQMUb6w35qRkI8Fa5EU
-	 /9oaR8P61QKXSBpHiyvOJPr63LwVzNyd8YMiQFNyt3d8uSPMkyak0EhbdcTtAscWepZb2
-	 ujVVovK2W1r+qUcKKpwCrn722v7fY6las+DxYpzxqZfPEBF1Ziz5hTUF58pmVnkqoLniK
-	 TWLnKhmowJzbfIes2edrqB/SdVe4US+TE11PJjZu186WIqltl2Z5CD9GJzKbvdaox9Ni5
-	 BtTe6kc9y1s2JS/k92V6oWSMuVvy5vfIOeSXBX11tY3NxabG2S6K1OZY0BEZKX7X7JQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LrDfFC6G;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LhU2iDvu;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=11FW+dR+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PgKju0FE;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792567808;
+	b=HbOFDFd1RNmVBimhM4z3/6KqehGsxh5KzM9Nz7NwnlmCVkEA4raHskWJ2fZ9JJ3mrlJ6
+	 MKCFZL4p5/jskksaVbENF10B2iNjA2P/zQ4x79VuRpWMxRW1J9/B8UrwelAUSUM5lP1Ul
+	 VLnlougx+qtxwsq3xa2eWufDvRI/TRlupxhprfKBh9wQ4lV9JsMf2VNXZhDxKar2AZ9t5
+	 VZqv2QzCr8+egD65YIth/gSFmPXPnggUb5FuqOo7P4KKCnloV6QFEPwZb9d1w/TpS00Ho
+	 iqSROIK669zvHKZl5RqWVrO/Hx7GIHR/NFIloGXTOsLgV9pcWY6MSM/cdlIxv4Wt0hA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792567808;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
+	b=R3XdwlrxBpLgF9dyaL+gaFVzGuSerSYkAxmJs64pTA9ice2sRpxxBmefKSad94kWHRjJ
+	 OJODGcjLntLghCLS5QGxDPvniiTkN4jCMqFKe72iFsO5av/Xh69CMT42+bK1ODdAKVRMO
+	 pqICZSkzibC2dU35aScGS3MxKr1I25Agw900e3nFHOiUxZjIrnJSYWbP61OQH18uqG6kG
+	 rlWZIIYdoqIGmC5FgS+M9R5egGOvt4n6fk7UuHqG82bjMeiHAQKcPJrj33zOFn1Jv7fu9
+	 bibkLJYNFsb5+HJYE9CVQTHaUn8a9IRoDE8fB89fRp0hNW6wuWXqhhkF0ElEFfF9dLA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iSbFvEFP;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=iPKj99OK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D15606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:28:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31D15606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8C1606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:30:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A8C1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LrDfFC6G;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LhU2iDvu;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=11FW+dR+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PgKju0FE
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 3501C1F461;
-	Wed, 21 Oct 2026 07:28:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792567712; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iSbFvEFP;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=iPKj99OK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792567807;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=5B9ES4Cuga5d46FA/ZJ9kE82qZN2VgEmNEjHqLKKDfU=;
-	b=LrDfFC6GIqvEXpDrEoIQ3KvRqGlxLzxswE+yRI4PwkPBg20wvWYWNQDxuyfTwfLG6Gt+5q
-	tYqtchb8qqUNgD8UwV/RZYxqAGzGscMu4sckq/F9C+cdgvZ8RxMFH3roB2SRm7JAl/UKCJ
-	55dxirGdzMIEDB9ALkLG53q3avNjgxg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792567712;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5B9ES4Cuga5d46FA/ZJ9kE82qZN2VgEmNEjHqLKKDfU=;
-	b=LhU2iDvu7UAVGO6zLjYd1QyCVR/aJyo2Nk+IVqvNnEB36cJ0KYsB1c7IrMM5bQC19TY83Z
-	tvIVusXE+Wn62RBg==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792567711; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5B9ES4Cuga5d46FA/ZJ9kE82qZN2VgEmNEjHqLKKDfU=;
-	b=11FW+dR+Dt76i6nWWELictlfogsecOo6BEjRu2AFvwbLCd5t1P08GMx0bDP6bhmnmOal3t
-	bMz3RbLKNiVY1Dh3+40okms3sra2xraIozoDDuFg0AnNynU50ccprEuSsRSkuZWtozxc63
-	Mhci80XPBJpI9bqLprvfjrqLC9SOhZ4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792567711;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5B9ES4Cuga5d46FA/ZJ9kE82qZN2VgEmNEjHqLKKDfU=;
-	b=PgKju0FEv8Ec4+Hxc6/Q7FAXOu52akbdd2Iijvcp1iS+kTfQMd+1FouImjMMcCem9VqO9R
-	a20anfRfAfzhkUCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B6047134A5;
-	Wed, 21 Oct 2026 07:28:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id lPxMIp5p2GrMFAAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 21 Oct 2026 07:28:30 +0000
-Message-ID: <378a9456-35ac-4a18-8c1e-80cc754dcbfc@suse.de>
-Date: Wed, 21 Oct 2026 09:28:30 +0200
+	bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
+	b=iSbFvEFP3jYrOvDjujAZL/JHLZ0nHSPvWkMtEdoZ+hf30gLgNkUfk5WMwi4pQZ0QoXIeh6
+	tvFZHcwvc7PiBlFvEpVRZ+6F3M0UTYob6Cdi+1Tv8Zzkgf7jE/x/qAVYGjXmeYn21z+wtC
+	1WRBw/qwGmsHRZ9njMErbqQr84C94Es=
+Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
+ [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-458-ysBFTMrKM-yjATWAdjEeUA-1; Wed, 21 Oct 2026 07:29:59 +0000
+X-MC-Unique: ysBFTMrKM-yjATWAdjEeUA-1
+X-Mimecast-MFC-AGG-ID: ysBFTMrKM-yjATWAdjEeUA_1792567799
+Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8afde3fe132so7411597b3.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:29:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792567799; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sd0ars33Y5uHRm2cC/zNnrinYxH+a8DSpWmazk3Apaz4LGXuW+NKJK/8RYmbG9ahDw
+         X/OOrAXxROuQNr2Bxs6WC+kmomRfI5LRs8p2X5EDRbO4nR1SB98a1I7TKnD30wEgYZf6
+         IoXAl0V5Dd7hmGKjBySW7lzQLnJaJ/hwfx4UVL/Xv1YNNu3NWXET7o/EnR8KniQ1Ckir
+         16EtaFfN1mnbrwZkzJZBSTKxmeVj2AsiCJPKldRiLL8LwH4/du2YeokpNmSc7paBaUR0
+         2fgYJOAhIMGxrfMDoEyj/DiOHfl2e5J4lGFEx+Z+4MFppw+S57/CfTAUYiB7sUtWMkY1
+         pqwg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
+        fh=65MXG1RHxTZdW9cWY8XxCbV613VHptnd2j04Wyml7aM=;
+        b=M7RbLVSs5xLt0GIgB1J5CgIIP7QTTs5ATAJ+Tp0kRtFD7cWKEmrknsGX7DKNVG1ARj
+         afmFkFMo/wV/WT6kw99aw0pFKNpX1I5W3FwseI00IcWH8gSn3nOLhPUtUmz+udxZ7Cj8
+         64n7nYmNa2E5jLThQJFr27pkxGytFSuD0eSjTJOhD6I7PrPUfm+mCkZ8dst/WHTnqqk8
+         GAunsypA+fp1rqDsCQtA5mivHsPzk4Y0likkU7lmb6nlNL3uckmq2D962SC60w1VktS2
+         c/ypfMqZxcS3dgZe0dl3Zb6pAN2GFy1Y6h7ptJFwsc0n4CnsoxBE4TFjRi3K2QZseLr/
+         8TtA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792567799; x=1793172599; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
+        b=iPKj99OKCYBLxKoFRZQf2Hg6XfmZny80yGZlMAmrHp5kx5XGo0TgWwOm1D8U1+QkFs
+         UERYQore2pDeV1iNLK/bRlznsPf785W4T+NrHK/BAf18mYAiDfpZM/nVmxT27tawAbFd
+         XsQVcFDBnTpT0wR8MAtQ9B/oS0eK085+i7rMB0YbRIyFnv7lD6qH+ZNDHWZeuKxmXnri
+         EboiCCaMxHi9C1T91+RZpQUHX2EfDuCBuWDo7KFZ7OLZdbcK5IpbHsC4PpR5r5GXnYzx
+         rT1z5IzF+foNu4wQnWwAjH9ek8D/VK41l8kXhSuAsNfYzEv/SS3IVpywD7hRuiA9z/rL
+         AJIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792567799; x=1793172599;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ruNbPegljZ2HSbDe2VgJL7losQAaVxHulyE93NG9OdQ=;
+        b=gnAUTjdK9zv8T61CB+7Q9ZaqveGd+4+xFJIgkeAtgp2S99GZsZ3RqiB5VF2pZ7w37v
+         HcDmpYAJDRDtI1U0C/ztVkBhQIr0e69VIE7aJDIUmWXrAKxLSOVXPJI4RJIFu93IvTwT
+         4dnWqdaG9+GgixjWnAsGLopMQ7Nzjp9NnUcGrBFT8rNGjKEzqYSJl2S0qkfIzWm82S5C
+         70EsKsM26QnQuRqzn7lxa1L86spn9ppz6hUGeKA9ZtId80DS+rFqQvRYK7O9LcX4pBen
+         DWE5Tt/sEZ4Uk8PsG7Bj8Ybx9g6swbXjOSldV6WV4OQ/1msK1oK8az3bStt60V8OalyN
+         QhuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzsz4apegacI68FMG8GAVoNQMcSiUWogjUSpTS7NBhPskwzkGw9F8PkQ86c3djMRUoc05kVnp8dD4UvLcE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIpICbC8ZDGssQAgsTL+T9ba2x+yZxDdjBbvLWkSFVHs9PCJxK/
+	W63rPSbv2GM30mmeU+WDKLKESRlAqG6D52WoPx/57lV+pAjsQicSiDiHBBEfbpet2WAkAiKrXFH
+	rOPEo2e9MkIRcpqNHKwXMgalCLu5Y6cmfLYZOfso+hmhPaA0XeNNLT6MA852d5fxGHpa28odwc3
+	0LvH4KYSEeMArq1xcGJnFYhuWrh4T2biHB/DUJdIcY
+X-Gm-Gg: AYBFou2vZLLvd02iBUrgml1T3Ibg3zNq8nknx9aWt8ec1vgJW5Irdqkkcxf6TrQbQfT
+	I1oQHtjWoESSe20LFGl+XfFp0s+bePUt5EWbwCTpcwpakfcZUL9zlXgr7cpt/MiLw48Odkjg6nH
+	krNZfErh3TMNrUXQAxVxWyyWP+OtFaPiaVSQ3PdrYyJJa1nykIMBvHXs+yPoH7AVXArAqS9VmDa
+	mcqd+X43OO8lfGl7cN9LDEXYqelCbAt6uzgQeUYdXlpHbrlr+L9TM+mAzk=
+X-Received: by 2002:a05:690c:a909:10b0:8b0:e238:2719 with SMTP id 00721157ae682-8b133fff1d6mr5006387b3.31.1792567798913;
+        Wed, 21 Oct 2026 00:29:58 -0700 (PDT)
+X-Received: by 2002:a05:690c:a909:10b0:8b0:e238:2719 with SMTP id
+ 00721157ae682-8b133fff1d6mr5006297b3.31.1792567798485; Wed, 21 Oct 2026
+ 00:29:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,106 +125,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] nvme-tcp: allow setting per-queue io_cpu through
- sysfs
-To: Saravanan D <saravanand@crusoe.ai>, linux-nvme@lists.infradead.org
-Cc: kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, axboe@kernel.dk,
- nilay@linux.ibm.com, dwagner@suse.de, sgogte@purestorage.com,
- hare@kernel.org, linux-kernel@vger.kernel.org, iyamahata@crusoe.ai,
- kiyer@crusoe.ai, ganbalagane@crusoe.ai, sjpark@crusoe.ai
-References: <20261018010059.83120-1-saravanand@crusoe.ai>
- <20261018010059.83120-3-saravanand@crusoe.ai>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261018010059.83120-3-saravanand@crusoe.ai>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spam-Flag: NO
-X-Spam-Score: -4.29
-X-Spam-Level: 
-X-Spamd-Result: default: False [-4.29 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-0.999];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[crusoe.ai:email,imap1.dmz-prg2.suse.org:helo,grimberg.me:email,suse.de:email]
+References: <20261020232956.99970-1-fangxy@xiaopeng.com>
+In-Reply-To: <20261020232956.99970-1-fangxy@xiaopeng.com>
+From: Eugenio Perez Martin <eperezma@redhat.com>
+Date: Wed, 21 Oct 2026 09:29:21 +0200
+X-Gm-Features: AclHuK-PqFWCN8ST8zFxglfpmVJtYh8ceAExLMaLATIvJ8UfZfghlr_8jg8ahUM
+Message-ID: <CAJaqyWdoQXHiWEh6aCGt7T+U4U4S8Z79hhp5=QYzzkODeDVyOw@mail.gmail.com>
+Subject: Re: [PATCH] vhost: fix used ring index wrap in vhost_add_used_n_in_order
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@redhat.com>, 
+	virtualization@lists.linux.dev, kvm@vger.kernel.org, netdev@vger.kernel.org, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Weibin Liu <liuwb@xiaopeng.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/18/26 3:00 AM, Saravanan D wrote:
-> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
-> as the least loaded CPU in the queue's blk-mq map group, and all socket
-> work runs there for the connection's lifetime. This decision falls
-> short when the host partitions its CPUs after connect time. On a 384
-> cpu multi tenant host with 128 queue controllers, blk-mq folds three
-> CPUs into every map group, some groups straddle two tenants' cpusets,
-> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
-> cpuset, seen by the neighbor as steal time.
-> 
-> Expose the io_cpu in each I/O queue's directory
-> 
->    /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
-> 
-> so a control plane that owns CPU placement can set it directly instead
-> of relying on the driver's heuristic. The attribute accepts a decimal
-> cpu number, -1 or "unbound". A user assignment, unbound included, is
-> marked in the queue flags, persists across reconnects and is never
-> reselected by the driver. The read-only managed attribute reports 1
-> while io_cpu is driver managed and 0 once the user assigned it. The
-> accounting of nvme_tcp_cpu_queues applies regardless of who set the
-> io_cpu.
-> 
-> A queue's directory is added when the queue is allocated and removed
-> when it is freed, before the queue is torn down, so a sysfs store
-> never runs on a freed queue. The queues directory is created before
-> the I/O queues are set up in parallel. All io_cpu writes, from sysfs
-> and from the driver, serialize with the accounting under
-> nvme_tcp_cpu_queues_lock, while the I/O paths read io_cpu locklessly.
-> The queue stop now clears NVME_TCP_Q_IO_CPU_SET under that lock, since
-> a sysfs store may move io_cpu in between.
-> 
-> nvme_tcp_free_queue() now clears NVME_TCP_Q_IO_CPU_SET and drops its
-> count, because a queue can still be counted when it is freed. A sysfs
-> store may have run after the queue stop, or the connect may have
-> failed, and the setup error path frees such a queue without calling
-> nvme_tcp_stop_queue(), where the count is normally dropped.
-> 
-> Suggested-by: Sagi Grimberg <sagi@grimberg.me>
-> Link: https://lore.kernel.org/linux-nvme/13c160d0-0657-47ce-9a16-58d348267ab0@grimberg.me/
-> Assisted-by: Claude:claude-opus-5-5 [Claude Code]
-> Signed-off-by: Saravanan D <saravanand@crusoe.ai>
+On Wed, Oct 21, 2026 at 1:30=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
+rote:
+>
+> vhost_add_used_n_in_order() advances start by nheads[i] but wraps it
+> with a single subtraction.  If start + nheads[i] >=3D 2 * vq->num, start
+> can remain outside the ring.
+>
+> With used-ring logging enabled, start > vq->num makes (vq->num - start)
+> underflow.  log_write() then sets bits beyond the dirty-log bitmap,
+> potentially corrupting adjacent userspace memory.  This is reachable on
+> the vhost-net TX path with VIRTIO_F_IN_ORDER: done_idx can reach
+> VHOST_NET_BATCH (64), triggering the issue with a 32-entry ring.
+>
+> Wrap start with a mask to keep it within the ring.  VHOST_SET_VRING_NUM
+> enforces a nonzero power-of-two ring size, allowing start to be wrapped
+> using & (vq->num - 1).
+>
+> Fixes: 67a873df0c41 ("vhost: basic in order support")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
 > ---
->   Documentation/ABI/stable/sysfs-nvme |  29 +++++
->   drivers/nvme/host/tcp.c             | 173 ++++++++++++++++++++++++----
->   2 files changed, 182 insertions(+), 20 deletions(-)
-> 
-I think the 'managed' sysfs attribute needs to be per controller, as it
-would be extremely awkward to allow some queues to be managed from the
-admin and some queues automatically placed.
+> Reproducer (verified on a kernel containing commit 67a873df0c41 with a
+> temporary WARN_ON_ONCE probe in log_used(); the probe is not part of
+> this patch):
+>
+> With VIRTIO_F_IN_ORDER, num=3D32, and used-ring dirty logging enabled, th=
+e
+> TX batch reaches done_idx=3D64.
 
-And I think you need to check for interactions with the existing 
-'wq_unbound' module option; both claim to do similar things so we
-would need to clarify the details here.
+Can you send the reproducer? I'm very curious about how vhost_net
+reaches to done_idx=3D64. It seems some bound needs to be added there
+too, isn't it?
 
-And should be we able to specify a cpu _set_ here?
+The patch itself looks good to me, even if we will need to modify it
+for packed vqs, so
 
-Cheers,
+Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+>  In the observed run, the initial index is
+> 3, so the single subtraction leaves start=3D35.  The resulting length
+> calculation wraps to 34359738344 bytes, as confirmed by the log_used()
+> probe.
+>
+> A 64-byte canary immediately after the 512-byte log bitmap changes from
+> 0xA5 to 0xFF, confirming the out-of-bounds write.  The used-ring canary
+> remains intact because vhost_put_used() runs before start is advanced;
+> the demonstrated corruption is in the dirty-log bitmap.
+>
+>  drivers/vhost/vhost.c | 3 +--
+>  1 file changed, 1 insertion(+), 2 deletions(-)
+>
+> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+> index 44cac11b68d2..0226c4c59709 100644
+> --- a/drivers/vhost/vhost.c
+> +++ b/drivers/vhost/vhost.c
+> @@ -3172,8 +3172,7 @@ static int vhost_add_used_n_in_order(struct vhost_v=
+irtqueue *vq,
+>                 }
+>                 start +=3D nheads[i];
+>                 new +=3D nheads[i];
+> -               if (start >=3D vq->num)
+> -                       start -=3D vq->num;
+> +               start &=3D vq->num - 1;
+>         }
+>
+>         if (unlikely(vq->log_used)) {
+> --
+> 2.50.1
+>
+
