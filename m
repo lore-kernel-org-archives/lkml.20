@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606274;
-	b=EfizN+zw7Ig5Jll/YDo5gye2AHfHoYcbeW3HjmCU/r5ISbiuDjhbPLxa2EAV2Azc//4+
-	 nPNazTGlFqs97xMgdX26z6hCgJd2fMlhMK9g38BJSdIKSplQ1y++kuUAODaGQnHHXy9j5
-	 T1rWnRW7kNOOhe6pI0NvUfvAHf/714RwzQj3cltPRjbjXPduG50+lbupriCAXQTT1uO4c
-	 +L5OUI59rvSop98fVB5BIhLDkb/46vs3u360IA7StuZ2dRgnnvzTqzm8GWSCPV4hhb9p4
-	 +5UKnXOQc7ili8a2qPWTMsg1HYetl+R1OP/cuYEVOrM8wJjchK9VunFx5B5IrWofViA==
+	t=1792606323;
+	b=iamsJCDaTmb5+khAaQo40o4R2H3oDJ4UTUSii7UzqRgqcsH5wjYFusIx64GzOWwM98OV
+	 9oK88VtPY05vAh/tvuFVsbMoLH0DFkDgi17fLHDdKPkoFeleUsjtdDBTx+eSII8cA7TSp
+	 jPbzvUxKNPqXI2iGD9SLxacuWhjajWzqrb9QjdkA6pbdJkWN4/0gIqxrqkNTU9j3jO+QJ
+	 3KR66hNY6hVt/IEkE+5+6qVVDtX8BwsLPd+Wllerx4WPPHh5PHK0JFJ2opt8CmSkUhKQ9
+	 TvztNRLDX63eqxdaHL42mPFWxpUTWiP7Ho9ifkroDJ0qT5Qn/xdxVZhxSuag5rBTBWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606274;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=SBcAfdk1AvTqfXhE/cLVYMH0/26jRBw6wDx068f64L8=;
-	b=VACkkpfC8ac7TrkRvqidGY/oIlozWWyA6EfD1xY4u6jcsYkl+6fPd9DlRJoWxvG9EHwH
-	 jQwmzL8xkQxrK+JKl+VMPycf6QwGnsfwImxuvf2+/RZS9Vt5HzkI+dP4DrD4XzJ9KN+YU
-	 NFsiRPkwJdr3h+jc8L0NgKG5EjPjnGTq7nYzc8HCmFT3F8KUeOWYmr/QN6tlzhW3HRYP5
-	 rKnxl97y3Mj+9jLcLFnPqjlNqY+WbQQGbsEZBzkSgY47YHVlkgLzWvzN598FSqgk7nOQH
-	 TMq4yv//d4pzqp7Kl+wXNdLEozfEewHVY4YnooFTdQZtD4F98geewTTce9qlshXlJ1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606323;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=+TbJY6n57LgNUxMots103uQ9dat6DVlFqW38S0+rh00=;
+	b=AwlT6D2tHNZoFlcqb5Oik18fz/qGD09YrwCRT613/MZoZFp2PwwFxxp6uijzxxsI6gAV
+	 9amXsAKJx+nkxzpgX5aL6hXLCzleLoWmQtGrgcO8yhAn2JJI3xTyDTwlOUD0hLMd3ZTYr
+	 ZpHC1mHPXh7dxgtKJMkpNOk6CMFgVxh3uverfjJBQZfgau30b/EyzhP+S4UJnxCjLCQud
+	 oQ4G0YvgkM3y/6TjXToep3tqQe856AbQQ2+kW8FF6vclElF+aVNpEPtu+IOW1d8VV2b3W
+	 psozs3e7oCWl2o4O0EF+O2PvzRqXXI5x3U0SiebjThFzHRGMvgyD4xANS9c58TfP4aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Y0nGvAzD;
-	arc=none smtp.remote-ip=130.117.225.111
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b="p/3CsATK";
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 636DD606A31D;
-	Wed, 21 Oct 2026 18:11:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 636DD606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D2BE606A31A;
+	Wed, 21 Oct 2026 18:12:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D2BE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=Y0nGvAzD
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=p/3CsATK
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Content-Type:MIME-Version:Message-Id:Date:Subject
-	:From; bh=SBcAfdk1AvTqfXhE/cLVYMH0/26jRBw6wDx068f64L8=; b=Y0nGvAzD9q/QlX076wT
-	H2f//OoLXdbANexbqcrmpWSPR9oNkB2XZrtg3dQZ8y6KGI0BdpYPef7z2Ujb2z17R8ODE4V+DSrO5
-	tQUXQC8uEKqI0mFKvHnexfbZdrKcepz4y9BniXxAqTq6ynhhPsZPsDoAtf5/DaxO5Nq0k+R4mZxmL
-	/NZlV5D8yyq+YS+7AxmP2s1/zi0GcK7GDnNGarXWPNCoXA3Fvu0eV6ZXJzSBLXa2TSpJtjVmqS0Ww
-	a1OvwhBIqvdJqudA8D5dJrfDxBEhdgCyvE3slHgCYGHijsAI07Rzk2YdKzYHmvJzKUD84Wn0vPcmL
-	YiDq4MV/zjlikIg==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xJaif-00ANvl-0p;
-	Wed, 21 Oct 2026 20:11:04 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Subject: [PATCH 0/2] mm/huge_memory: take a reference on a device DAX PUD
- copied by fork
-Date: Wed, 21 Oct 2026 20:10:52 +0200
-Message-Id: <20261021-vstor-150143-copy_huge_pud-folio-refcount-v1-0-8bd88551f9be@virtuozzo.com>
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=+TbJY6n57LgNUxMots103uQ9dat6DVlFqW38S0+rh00=; t=1792606321;
+	x=1793211121; b=p/3CsATKIRa6bsnmF+gIml9CI3r39zQe0JseAaQ5lEAW1GLEitBd1UTRkFstP
+	U2vi27b7NZJ3ZcyXsc7q39xakbOUkm1FSqfBgOVLqFpdmGzqTSr6zc5zP3tIp1YmBgZUsz/DTP3Yk
+	1Uu2+aXCTMCaNkyfvNI5Umf6kbIOXg/x1J4XP7I3FqA6no3JFM/NL2tb331hCtu9zc7FLxANR0HcG
+	rzQ/EEHItkR26rUsZxqlFcaeVrp6yQ/rcDeHSMyzWFgjOQMV/oHrsz/c5pnOh6Zh6Fh4/lN52aUmn
+	cPZJJf4WgQLMvSdOOLTWADt6LjNNfSlacKZgqtaJ6ufiPzMLwQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xJan7-000000019DS-2hcs; Wed, 21 Oct 2026 20:11:57 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=suse-laptop.fritz.box)
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xJan7-00000000x1o-1JeM; Wed, 21 Oct 2026 20:11:57 +0200
+Message-ID: <f5dc8ecb3f7ed091a4deb6447bd9e7c2c801b847.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 1/2] ata: pata_artop: read the ATP865 mode register
+ through pci_iomap
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Daniel Palmer <daniel@0x0f.com>, ysato@users.sourceforge.jp, 
+	dalias@libc.org, dlemoal@kernel.org, cassel@kernel.org,
+ linux-sh@vger.kernel.org, 	linux-ide@vger.kernel.org
+Cc: geert@linux-m68k.org, linux-kernel@vger.kernel.org
+Date: Wed, 21 Oct 2026 20:11:56 +0200
+In-Reply-To: <20261017041419.311921-2-daniel@0x0f.com>
+References: <20261017041419.311921-1-daniel@0x0f.com>
+	 <20261017041419.311921-2-daniel@0x0f.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,100 +81,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACwA2WoC/yXNWwrCMBCF4a2UeXYgiRovWylSajptRyQTcilK6
- d6N+vhx4PwrJIpMCa7NCpEWTiy+Qu8acHPvJ0IeqsEoY7UyGpeUJaI+Kn3Yo5Pw7uYyURfKgKM
- 8WTDS6KT4jNQbeyFrz+akoP6FuvDr12pvf6dyf5DL3wBs2weyRX6cjQAAAA==
-X-Change-ID: 20261021-vstor-150143-copy_huge_pud-folio-refcount-ea269e668270
-To: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Dan Williams <djbw@kernel.org>
-Cc: linux-mm@kvack.org, nvdimm@lists.linux.dev, 
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konstantin Khorenko <khorenko@virtuozzo.com>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2640;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=u9/28GqAiRcjxN3gSB/+og/EEsQKnoWl2BqSCLQbuXw=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq2QA38h+Jm/HpSxjoZpvbreseAaPuYo90VD7VG
- Wcb5XtQjcqJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCatkANwAKCRBRlgpH+WFc
- Kg4lEADGj9dohxRIf7msa+ab+qR251KQGQWsoZ160OAxzAbbcuxLeuNED8iLrada1ekOGqlIALq
- 9TeT8csTn+1QtEppLfRD3T7G9aM7gSGsdfe7u0qgXj8d37mer0svdAirPkw97VXbAf8nVEtuH2i
- 5+Dj1pBnuIUG3oRyLz7Lvmp7WNGmNFlfjnT8NpSMoAc6b7b+2Ws2EVokRSwghtZ5L0ufxWQ+uzr
- 7Pe7/Lm4sTM6C9EwY6W+8xP7epOz/wm7d/RiMDd6zkAww7CZvU8lPXW3ZRm0FAza0YgWa3oqQE5
- lZ8uPyun37txmrB/e/3kngt3VLlpwnphMBYYWqoSs3LJfGh4JfWsRM7c4lHwP4uvRi3CfXfZTAq
- RaNeTW1IXsIJP7edjxZb2LcadEhXbq7gbmgE+ix9l3kAOPtXdyL+5re75E9o0QF/uAh28AFDNYD
- 0dfO53P/W3BcEsRwCaUP/QoLPHwX+b44oONpstxfEGeN76Ho52xzm9HGVNijxF/sFcPh8zbYUyI
- X1OdK/NYrbs8hRsjwRRS0xdOcW6vZnG0/tJUpH/nGT3cinC88aIuGwV7b3uv6Y9mCmIDu9zTFdQ
- RB96wlBCgdyrUwX0UC7Itu172JsXEcaUXbCkitF71D4WJ1oJDp+G/XYHa3p2lWg6Bq05MRSY9gc
- B7qrnxk3a0hPLUg==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-copy_huge_pud() copies a device DAX PUD into the child without the
-reference, rmap and counter that vmf_insert_folio_pud() took, so the
-child's unmap takes them from the parent. fork copies a device DAX VMA
-once it has a guard region, so it takes no more than:
+Hi Daniel,
 
-1. map a devdax instance with 1 GiB alignment and fault in a PUD;
-2. MADV_GUARD_INSTALL a page elsewhere in the VMA;
-3. fork, and let the child exit.
+On Sat, 2026-10-17 at 13:14 +0900, Daniel Palmer wrote:
+> artop_init_one() probes the 6280's "fast" bit with inb() on the raw
+> start address of BAR 4.  That address is a PCI I/O address, which is
+> only a usable port number on platforms whose I/O port base maps PCI I/O
+> space one to one.  On an SH7751 LANDISK (identity io_port_base, PCI I/O
+> window at 0xfe240000) the resource starts at 0x1400 and inb(0x1400)
+> dereferences that address:
+>=20
+>   BUG: unable to handle kernel paging request at 00001400
+>   PC is at artop_init_one+0x10e/0x170
+>=20
+> Map the BAR with pci_iomap() and use ioread8(), as libata-sff does for
+> the BMDMA registers later on.
+>=20
+> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+> ---
+>  drivers/ata/pata_artop.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/ata/pata_artop.c b/drivers/ata/pata_artop.c
+> index 9f8d41639a62..351ff4c8e48e 100644
+> --- a/drivers/ata/pata_artop.c
+> +++ b/drivers/ata/pata_artop.c
+> @@ -405,13 +405,21 @@ static int artop_init_one (struct pci_dev *pdev, co=
+nst struct pci_device_id *id)
+>  	case 1:		/* 6260 */
+>  		ppi[0] =3D &info_626x;
+>  		break;
+> -	case 2:		/* 6280 or 6280 + fast */
+> -		if (inb(pci_resource_start(pdev, 4)) & 0x10)
+> +	case 2: {	/* 6280 or 6280 + fast */
+> +		void __iomem *bmdma =3D pci_iomap(pdev, 4, 1);
+> +		u8 cfg;
+> +
+> +		if (!bmdma)
+> +			return -ENOMEM;
+> +		cfg =3D ioread8(bmdma);
+> +		pci_iounmap(pdev, bmdma);
+> +		if (cfg & 0x10)
+>  			ppi[0] =3D &info_628x_fast;
+>  		else
+>  			ppi[0] =3D &info_628x;
+>  		break;
+>  	}
+> +	}
+> =20
+>  	BUG_ON(ppi[0] =3D=3D NULL);
+> =20
 
-Patch 1 is the fix, patch 2 a selftest for it. I found it while
-reworking copy_huge_pmd() for fork after David's review [1]; it is
-independent of that series and applies to v7.3-rc7 on its own.
+Since neither of the two maintainers of this driver has responded yet, I ca=
+n't
+take this patch through my tree. Either Damien or Niklas should ack this ch=
+ange
+(according to ./scripts/get_maintainer.pl drivers/ata/pata_artop.c).
 
-Testing
-=======
+Adrian
 
- * v7.3-rc7 x86_64 KVM guest with CONFIG_DEBUG_VM
- * pmem from memmap=3G!4G
- * devdax made with "ndctl create-namespace -m devdax -a 1G":
-
-  kernel              fork_dax_pud   log
-  7.3-rc7             not ok         BUG: Bad rss-counter state mm:...
-                                     type:MM_FILEPAGES val:-262144
-  7.3-rc7 + patch 1   ok             clean
-
-A variant that writes to the device and forks three times also hit,
-on 7.3-rc7:
-
-  WARNING: ./include/linux/rmap.h:159 at
-  __folio_large_mapcount_sanity_checks+0x90/0x150
-
-The selftest only runs on a device given in FORK_DAX_PUD_DEVICE or
-argv[1], as on an unfixed kernel it leaves that device's folio with a
-mapcount below zero. On pmem emulated in RAM, with
-CONFIG_X86_PMEM_LEGACY and CONFIG_DEV_DAX_PMEM:
-
-  boot with memmap=3G!4G
-  ndctl create-namespace -f -e namespace0.0 -m devdax -a 1G
-  FORK_DAX_PUD_DEVICE=/dev/dax0.0 ./fork_dax_pud
-
-[1] https://lore.kernel.org/linux-mm/20261014-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v3-0-85eaec8417f6@virtuozzo.com/
-
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
----
-Konstantin Khorenko (2):
-      mm/huge_memory: take a reference on a folio PUD copied by fork
-      selftests/mm: test fork of a device DAX PUD
-
- MAINTAINERS                               |   1 +
- include/linux/huge_mm.h                   |   2 +-
- include/linux/rmap.h                      |  22 +++++
- mm/huge_memory.c                          |  13 ++-
- mm/memory.c                               |   4 +-
- tools/testing/selftests/mm/Makefile       |   1 +
- tools/testing/selftests/mm/fork_dax_pud.c | 136 ++++++++++++++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh |   1 +
- 8 files changed, 175 insertions(+), 5 deletions(-)
----
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
-change-id: 20261021-vstor-150143-copy_huge_pud-folio-refcount-ea269e668270
-
-Best regards,
---  
-Konstantin Khorenko,
-Virtuozzo Linux Kernel Team
-
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
