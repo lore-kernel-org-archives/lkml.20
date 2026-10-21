@@ -1,55 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.19.144.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.19.144.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603714;
-	b=NQCz7cjswR9crfBJYK6P0jUZT1VnHfaPRBxJ21rZ2lIECJU3bozPAOY2FVaFsqS2IZp7
-	 gaDYRqcZj+lykN9amWN8M/xPyMpC8lkVTt7kglZ5Fe80HX7ApJEpQ6D3AxIDnCv0YetJS
-	 zQMCu+wbV9Q29XS41esRMhyFr8B4UENu+Bm0E+i9Ah1Jgjago6gG3vVNlmx7ty8rQT5Gy
-	 KQk+6Q2A2XN+B70dRtuQkO79AhQgma/s8csRFh7rUFS5311wazMc4MKRkXXMjdWRfvmDt
-	 szsIHkZ7nVmtrCVSZ7xXEa/axAmDXa5CT0aLC7J4ecglqVvfZ4PAZ0E9G9Da0oLeo5w==
+	t=1792603717;
+	b=2qnpxXVdVN3yg1j6qcf7NxzJW6tGSu2PHxwvcyUKwbn9k3iXmNpEcAJJyIV296X98/Z0
+	 p+OTvJBSHf4b9Y3kpG4DDeZ5zudxAZjKgMvS+YE4zxfqLV6xSFWs3hKw+opAur6PVNOis
+	 6BszSJxYQJ9nFQZM2DhCGHZCAEUwq1tw8Cmn9eD0WHo0fIpigNR+ImSh3NRMP99YPNlqZ
+	 HaU1+FkfBjGytTPtKWYMb+S8N7wJxeqPGivirxnAElQOv4hCeQoHTLjkfsy+8dUiCjRn7
+	 9Gtkj1bsvvgV+oVwxi0g3fti3SkDr4hNHikOpWCUb8A5T9OZuDj7yxmjrf+1xRl+CDQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603714;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603717;
 	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zyXSnCfTEpnOWhw29g/QqZpDVx5J0zovKESBV3rbdb4=;
-	b=jRMtdfTXA/NES/p8f6hmV+Yqeb7vxkgu4WPm4eFVFivwuPtbRdAzJ6K3+sNW54+4wn3i
-	 Cmvz3nI1g2CHbsaGfC9zNSO7arjDSMSyagt5QKnxzqBTFNCxeCY3pBx09XjDcvjR8JfRo
-	 kRTtejV1HPi9fpteAyh/BB+1DKQcvHYCsxerYH4k86X1uGbC3hL9pwoJXlubx5p/u5R2R
-	 G+JyYkSW/T9sJG1lXYKlGKyqgHiIl5NjZOlPKqj1zbaK/pb0iz8XattCZfgDcBlEMWFjd
-	 ORkejfM8d+ZosJPR0leC0+J2672XwFpDaO7cW0O3P9NQoNwizEjItO5i4dbtKWiFidw==
+	bh=i5y9Wn4Q8THM2bDdoKlwdiambKkhALCwKJfsk0HKSgc=;
+	b=4zP9llRPapB2TXoameczglKEaWBL3CaL9LLf8zPYVgocNLnYca4auwTU4svJqov+5VX6
+	 aST/UhBgoYev8+itXbn9JrSeGCOLgGxhBlWJdDNCnRkOaOo6n61PS0M3x0oBj1xM3oD9T
+	 wW53npZyAwdbsK/Z4tqtWSnE9hEgmk81YhK8e1wpn3HOJ7zUBjwEipVAjfpdXtt++eZp0
+	 nqgedG403O2ybIYP/H/PkggqiNxDT4aS9nraxtx/91aVhsXZI6KiI9zvhOFYFlcE0xzLb
+	 vdskFSrYvD57NrQjDFzBcLwmsjGVN2HYKmfbfwYGq/7XcoxVjMF5FuBeegBHnzbHJDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=DW7hxfy0;
-	arc=none smtp.remote-ip=192.19.144.207
-Received: from relay.smtp-ext.broadcom.com (relay.smtp-ext.broadcom.com [192.19.144.207])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=ZAW7RLwH;
+	arc=none smtp.remote-ip=192.19.144.205
+Received: from relay.smtp-ext.broadcom.com (lpdvsmtp10.broadcom.com [192.19.144.205])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EEA360A262C;
-	Wed, 21 Oct 2026 17:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EEA360A262C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3740160A380F;
+	Wed, 21 Oct 2026 17:28:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3740160A380F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=DW7hxfy0
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=dkimrelay header.b=ZAW7RLwH
 Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net [10.35.36.83])
-	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 2A884C0003E5;
-	Wed, 21 Oct 2026 10:28:33 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 2A884C0003E5
+	by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id 3D950C0003DA;
+	Wed, 21 Oct 2026 10:28:36 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com 3D950C0003DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
-	s=dkimrelay; t=1792603713;
-	bh=dHCSdMsKqyCCI6GLMa/Jp4jpFOGO85lAaVNk+lmmcVU=;
+	s=dkimrelay; t=1792603716;
+	bh=juJmb3giRDQiI6RF7yM2p8q0loJJuWRb19tphTj3ShI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=DW7hxfy0ofs1btHVKM726OVnB2rSKN1VroBvKVgv/qpcubeKZWhtxeMCXl6sk/E/o
-	 xu3uKJIMz/5ye8udxYsDFGH1OZtovNNq7SzswI8U0TaHDJyTxANJcnbJszD+kc/xqT
-	 PXApdyECN0+q/RuhHmvKQmVbVDgnov6VP5zZzzMU=
+	b=ZAW7RLwHNMSk0voMvsDayy3hczNulS5nYCZWZGgbr94SPc0mIRXzpqsaBm8xTiSOO
+	 ogPMtJb6co1VGRcC4CgUPTsqpg1DTBVvCWIWD/y/IzQYLMp8AjrmQqVwJjc472VSMX
+	 ptycaSPhJjoT7fjiCcjc6xCApMChr2txpor/8vtE=
 Received: from fainelli-desktop.igp.broadcom.net (fainelli-desktop.dhcp.broadcom.net [10.67.48.245])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id BCFADAEA3;
-	Wed, 21 Oct 2026 13:28:31 -0400 (EDT)
+	by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id D00CBAEA3;
+	Wed, 21 Oct 2026 13:28:34 -0400 (EDT)
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
@@ -71,9 +71,9 @@ Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
 	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
 	linux-kernel@vger.kernel.org (open list),
 	linux-usb@vger.kernel.org (open list:USB SUBSYSTEM)
-Subject: [PATCH 7/9] usb: host: ehci-platform: Set the FIFO threshold on NSP
-Date: Wed, 21 Oct 2026 10:28:16 -0700
-Message-ID: <20261021172819.668120-8-florian.fainelli@broadcom.com>
+Subject: [PATCH 9/9] ARM: dts: broadcom: Use noncoherent USB DMA on BCM958625HR
+Date: Wed, 21 Oct 2026 10:28:18 -0700
+Message-ID: <20261021172819.668120-10-florian.fainelli@broadcom.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261021172819.668120-1-florian.fainelli@broadcom.com>
 References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
@@ -88,31 +88,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NSP SDK programs the EHCI INSNREG01 FIFO threshold to 0x00800040.
-This is the same setting already applied by ehci-platform for the
-brcm,xgs-iproc-ehci compatible to avoid problems with large transfers.
+The USB hosts on BCM958625HR fail when using the dma-coherent properties
+inherited from bcm-nsp.dtsi. xHCI aborts commands, while EHCI and OHCI
+report fatal errors during enumeration and stop servicing their shared
+interrupt.
 
-Apply the existing workaround to the NSP compatible as well.
+Removing these properties restores high-speed USB2 device enumeration
+and SuperSpeed USB3 operation on the board. Use noncoherent DMA for all
+three hosts so the ARM DMA API maintains their descriptors and buffers,
+as in the downstream SDK. Limit the override to the tested board.
 
+Fixes: 56e2ff0346a3 ("ARM: dts: NSP: Add dma-coherent to relevant DT entries")
+Fixes: bbe526f55b60 ("ARM: dts: NSP: Add USB3 and USB3 PHY to NSP")
 Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 ---
- drivers/usb/host/ehci-platform.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/broadcom/bcm958625hr.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/host/ehci-platform.c b/drivers/usb/host/ehci-platform.c
-index f61f095cedab..9b7188d9c288 100644
---- a/drivers/usb/host/ehci-platform.c
-+++ b/drivers/usb/host/ehci-platform.c
-@@ -77,7 +77,8 @@ static int ehci_platform_reset(struct usb_hcd *hcd)
- 	if (pdata->no_io_watchdog)
- 		ehci->need_io_watchdog = 0;
+diff --git a/arch/arm/boot/dts/broadcom/bcm958625hr.dts b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
+index 0105afeca748..c896c390f042 100644
+--- a/arch/arm/boot/dts/broadcom/bcm958625hr.dts
++++ b/arch/arm/boot/dts/broadcom/bcm958625hr.dts
+@@ -86,6 +86,7 @@ &amac2 {
+ };
  
--	if (of_device_is_compatible(pdev->dev.of_node, "brcm,xgs-iproc-ehci"))
-+	if (of_device_is_compatible(pdev->dev.of_node, "brcm,xgs-iproc-ehci") ||
-+	    of_device_is_compatible(pdev->dev.of_node, "brcm,nsp-ehci"))
- 		ehci_writel(ehci, BCM_USB_FIFO_THRESHOLD,
- 			    &ehci->regs->brcm_insnreg[1]);
+ &ehci0 {
++	/delete-property/ dma-coherent;
+ 	phys = <&usb3_phy>;
+ 	phy-names = "usb";
+ 	status = "okay";
+@@ -130,6 +131,7 @@ partition@4000000 {
+ };
  
+ &ohci0 {
++	/delete-property/ dma-coherent;
+ 	phys = <&usb3_phy>;
+ 	phy-names = "usb";
+ 	status = "okay";
+@@ -255,5 +257,6 @@ &usb3_phy {
+ };
+ 
+ &xhci {
++	/delete-property/ dma-coherent;
+ 	status = "okay";
+ };
 -- 
 2.53.0
 
