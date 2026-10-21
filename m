@@ -1,73 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550711;
-	b=b5Pp3s4AfhkSgI4MtPJ0OQpvzMUMTPTMditXTcYCsvqOu6c68XINRcIw3hFPssfYZf96
-	 krtVZCPODlfp254yG2IjxdOZNOhEnmo6ptAaisZ/ahOEnrsCtMj3ssZGu7aQaPwRq1/Gy
-	 jPdChTMXrtXF+zEA6uAdcAiRZesyWWfcbzh64q43G72IZd8O0QL3NrWbCrQ9/BT7QQgBD
-	 +Uuk+Z7X2icgYEk7nUOliMOipxlXlx15oyqLGoemqa8TqK9WQ230EQobELnYQ0fvJy891
-	 HnnB02725V3AlCr0JvXXpDRv42aiLQQasPrVcWawpdVf9GlprjceB/6hPMcecYkz3IA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550711;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
-	b=xOtCKLR0Fyk9wKfgqPQt0xBjF0FA/lM7PdgiSVDAyzkrTLWSPMxXWyQH6B5CFD1qNVyM
-	 nVW9okqn261fb1di0C6fpAOJx2CBszz8aNOWXN57IepDbrJRaWnPRdOBY+REQZ/9vW3Jc
-	 MkcscJ1YUCquLzGNpm1iqCu6cvYvYE8UH8PLe9KjRm5oJBUCaJmnKDJepkDhdGOy2Svak
-	 EdR8Yg0EbK1StLeG1HGzKNBleahlO2bZ9WYdY+k39rEFT/8JlMwtSXzfX3XPiDA2ApBPA
-	 mkTB28f1pjQWlqG2pzBo7PT+vMDsE0o7gKEJETN+l9hgTUCCEEIK/BLuBSaBoByv/dg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="Y3J7ML/q";
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792550726;
+	b=GEf4OU5MPnY7JtKPx/dtN+IkXN4jJrZnsMozV/kPlflNgkqjLq5wKzfPNFvClIffz8jx
+	 6Z0UMQ4h1WXyVJlWU8LX2T+8VCHRM+P7pQI98B0IPM2WPa+hRlXX9aE783g6RG9joCcKo
+	 KM2EkrkKHkjcx0mJ790JY6LJ6zaNSeZWIuaCJNebDgOon4aoG9zmZ13SSOSCc3Dd8x4Hr
+	 5V3WrvQsmeaLCmUUY/4t5ef0MMgNx+ouVijIKJ5UysGk3AWRUY/0fvWIpHCTxE09vg07+
+	 Vjn6X93Uom9OtfxSgzpcZEcwYzS5beUNEP7lS/93P88Gqf9IaCR6l6OuM/3r14Ui4RQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550726;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:X-MS-Reactions:X-ClientProxiedBy:
+	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=oOpoeVuO/9jTshhRRhF89REB+rSHYkmJew0M6PFaFxE=;
+	b=W5RiamTvn6OHJsApkmOuEwMO/EwdFlHyOC0AZ+qsjE48c+q8WgpyCVRdBPpOdsz0uXAn
+	 dDl2D27AIvRV+MnsCuqz7KbL6NOwNVVRx1PEkVuqeFsLdR8aQiHs+xVskKArOYbMVdAuo
+	 wajKqUkDPRnSvtc70c/iQ6Q4leSeYlSsvKv2LJiA2d4zXcNo0ZpPbu0bvSwJL7AQAHsUH
+	 1AhEGDpkMGudpjDXckGRnmoHAbW9469qpRETqQr5lEHkP4JDEqRuRFK6LScWZI2SlpMEn
+	 aYEKl5VPFL31f94QctHTbt7ujWRFNn25lmrfzLWVGj1wjUZZ2ymOUH98Nio1QNc+jXw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ctFntLdm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.33
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012033.outbound.protection.outlook.com [40.93.195.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4635E606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:45:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4635E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D873B606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:45:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D873B606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Y3J7ML/q
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd6788d8de3so113253a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:45:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792550711; x=1793155511; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
-        b=Y3J7ML/qSiRa8yGKn6sDXsTL2y3LJj5OOvbWixnOKoHZglzpbOZDP1Qq3dmMnDp6Cl
-         eZ3Z5Sq1ilz1hmcrk8qLQaSv5eEoU3wf7i4xVvh7i5tIREONjtu2qCyG+lDuD6wr5iug
-         tpkJQVNjwmdFz+6EjDJ3W6NVM42ZVaAjqp6hiQrF9RGDDrjOcPgUmT0q7W13e3b61FKl
-         EKiWhycpK2ogEsZWgzRj5c5kdPZsX0Lq3mw5hjTssyDRGIGNBULM/ZM2PP0znKDj6eQ7
-         Wd0WmXfqmIFkF/Er0/eIkg5g0hWW6IwcfnGQa3I3Kz/m2HVVNa3otD9IJlD3S8CqJJRA
-         GLZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792550711; x=1793155511;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+tauiOqnCXDgcbvvq5Bl94S/eGCeAxzqV2Ktb1RLFsI=;
-        b=JjgH73X2/JbcMUX3ocTwhjUTLRppkWM01/AJzc5td49vdqtNy9j0R1rLL0pJPsthJU
-         or1F08mzxKCnHn2lauyUILkRqZKqvS3GB2c4a7FS1WDldY+9daowyP7fz8HYc/AM/TDg
-         jEQEobrBSM1OlPW2zKfKi4vUGd9ggeL4+7fX5bxSUV47bHXnhVnTNes+c0rpG3sh9zxh
-         npM9LcBq5/AvFcczh1HP1bR2MfA09j2VTQ6bUIpsQ585i1wLGRLkQOYTymkukI0Vmoag
-         BHnwO1FTjHjVpcOYIBgptDo3q8Xfl955VUBkN40QYxjDecjmxHBtTKJfwm/yOj3BAROf
-         l6eA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0A5w6PRVsRBLIFDOIhoq4PQBLd8BCp/J3vDYpOo3AluikDmRz/eQgpERLVi3NnOg6hO5gt1p5LTVnPFE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLU7yMoc9SWSzVfgPOkA+/UqRBN9c/rWg0Vwsa63CUoMOCFFmnC
-	2Mmr34R6J9skYv6es6dSXguJw/rN3itF1jRkll/4a1gBgTYHv+YIjWV6ONwVfPZJ3bYeQd3x5UM
-	zu7SrMQ==
-X-Received: from pjwx12.prod.google.com ([2002:a17:90a:c2cc:b0:3a8:cbf9:5e52])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1847:b0:3aa:fdad:7d6c
- with SMTP id 98e67ed59e1d1-3ad86d675a6mr596941a91.58.1792550709934; Tue, 20
- Oct 2026 19:45:09 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 20 Oct 2026 19:45:03 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ctFntLdm
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T30huldDyAJwcrvZ5GfBO4LtQ5wkhTJSZQNzx6WR/AXnUpem5Y9JC//Ou6KVUN0EIV/PkQQ/eKs+En2YYPMIAaNuQRpwXOmz6UqIl3zOmIAegYw2DdSzDeNmmyUZVrB3RbhIJBtkJ8O2e3NPPQgsuWm9zjyaiE6FUCRHpqeH3iCq5WCKEQ47OYMOpsjvW0NFP63Ybg/Sa2Vj3073Bsve8fyII94Mncg9LzEr0Gz/762bKSW1lo9A0jVtvbJwSU+mgncBn0NizGryMuqKXmSGajBClne6MZgsZ6In3WNj98mA+sLy2F4v3tOHIfdVKcaMNHONZUN+Fti+pxli6YSjHA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oOpoeVuO/9jTshhRRhF89REB+rSHYkmJew0M6PFaFxE=;
+ b=IoVc+Stjzm0LULRIRoc/pH2WHdy2R6CuJi8T7hIC/cayR+9j3LORXejJ58/OVvJz+mFLptZDwSAkTuGQgHLXrJZ47LmV45dS0EnX7Hq9+rmSfNBL9njcAuVm6sxUd2gbj6GnKojPEOhsUfJFWXP0LhOKLzRXWENIlDWdoWq6ecJ00pxzNjlq6LZHXIIvgOlwPct+tvOvGqZdaSNtL25U8bCkUFIXBdvLHYjX1Ylgr5Yxk31jRc2UVYqDW1BPE9rPNyUeLUp6BH2Bb448p5AnWdjE422nTaBUFp76JIRWeH4mlPaGI4FDAaot2d9UqSJqn3sXlhkbUJyvUYEVMw116w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oOpoeVuO/9jTshhRRhF89REB+rSHYkmJew0M6PFaFxE=;
+ b=ctFntLdmLc2nLe5yFOrHg+//3B8Ua4ALTq0Rkf5jNV12wiudHXP9kXO7c9DbS7D5cT9i8cwIZGHUL2N1rSwal2W4WYaDixccT7RKlP61L9oUX70/UAskYqg3HX41aWkZhAihiHSLVtwnsYBbnpNPhMPKtnXpneQY6MMvXjg9dBP1YEoJJVYYjPCNixOR9wCR42in407GiCzUkptawEUfjOjiwwu5pQp4TsqE+bh2ABWcpMDzwyZ3B5jpzRhF1VUs5XDsoRy1nEeAA9p4ZfGsPuXWmZwsbXgnDuVOxmWrhx9pdyclmc7gtlYpgBIdEFKcEoVefLzULS7DyX3UtJSNHA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by SJ2PR12MB9008.namprd12.prod.outlook.com (2603:10b6:a03:543::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 02:45:21 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0522.017; Wed, 21 Oct 2026
+ 02:45:21 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Joanne Koong <joannelkoong@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Barry Song <baohua@kernel.org>,
+ Usama Arif <usama.arif@linux.dev>, Lance Yang <lance.yang@linux.dev>,
+ Hugh Dickins <hughd@google.com>
+Subject: Re: [PATCH v3] mm: unqueue deferred split folios outside the lruvec
+ lock
+Date: Tue, 20 Oct 2026 22:45:18 -0400
+X-Mailer: MailMate (3.0r7032)
+Message-ID: <EEAEAD85-40E5-47D1-92BD-25B96FD5CE4D@nvidia.com>
+In-Reply-To: <20261019230646.3510790-1-joannelkoong@gmail.com>
+References: <20261019230646.3510790-1-joannelkoong@gmail.com>
+Content-Type: text/plain
+Content-Transfer-Encoding: quoted-printable
+X-MS-Reactions: disallow
+X-ClientProxiedBy: MN2PR08CA0014.namprd08.prod.outlook.com
+ (2603:10b6:208:239::19) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,60 +108,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021024503.1732165-1-seanjc@google.com>
-Subject: [PATCH 6.12.y] KVM: x86/mmu: Preserve nested TDP shadow page tables
- if they are used as roots
-From: Sean Christopherson <seanjc@google.com>
-To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SJ2PR12MB9008:EE_
+X-MS-Office365-Filtering-Correlation-Id: e95c7d6f-26f9-43cb-2ae8-08df2f1d5940
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|23010399003|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003|6133799003|4133799003;
+X-Microsoft-Antispam-Message-Info:
+	TDR2R3OT2/P5IRP98dDj2Bg3nClsWzKaQiLrsZ5PbDFNC2NcxfsS/+uX0BRC/Jr61aRpZIfuH/RCeSCuPKk43BIj1Ns2waO23NBD4TsIzYKs/aDua8kVr+vpezd97QirEplm1KdD0PPv1MTujfP4mxN7mK+8wxSNx0iLccYdvduRzeWcX4OfLw97ftV4fNJIMtMfwDU1cukOA6mtlsuZI9gy8NCv6ScAI7/IzcEIdJ3Sjzu1iUBtvQoDe+E03QQYuFrNDmGhPnolgr1vn1Y1ysBlHm2n5zJRqlvpMgfVyoPYMNdufXAvlSlBvh4x7KZ6AznOwz27stf59Ru5GaOPLiYzYoDQDgLzBvBuX9IwtkupO6dS/XGsyetBIbkbgGkIk8LvSdZGvZA2vtnJ1Ry32K5c+3HpmkJKPB3ORI24uAUBZ5VPkmcLTiI1736pdqrs6LYZzOakFJ+JRE3MlAECDSuh5IH4Z2jDcc+6KrLwBvrtigqPcqlxUsjg8LqAze5HxwZelRuT7vGjMuVSxanTPRhVQBzpWs16SISGOMAvDwS38lgSPm4nZ4MvgB0ewv0yb/fu1vU5qtQNg6xZJ2DPhG7Ic6JI+NmB+zCfYJq6zljihAD4dGAjmecNzoC8coax71j1Mrv4ZiIlffLCKxd+YULWEDSdMfPqkEVAY5ls3B0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003)(4133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Dm301+454Q4jpMShjshD4PotYsR7Hv0BZiQyKQMMuMQ5c5bieVZZgiBUwSIt?=
+ =?us-ascii?Q?2tA9dHDTxIfBOwptEwGGB5mz3WaJguyDMCtAaX/7zJSrJw9KMZh0vxXe/E7u?=
+ =?us-ascii?Q?e2RUYrzqDTSOVmbLDxJcmgiBSc/bR43vlPgqtIp34i5SnohLgjsSHqk85Rld?=
+ =?us-ascii?Q?2MOYKAo8u4SAlcUDRWOzg9UexASgYYNMlwnZv91BMqiCOWJ+2SwR+e08kY0Q?=
+ =?us-ascii?Q?7gE4ZBrV32om4kmxRrtzwZWzGOXfgLTkz2V1BZvy0Um/T55/XMe+fWGAgYDC?=
+ =?us-ascii?Q?++Sq7FMdtbkCOKNFtmy/+ihi63GMHRadaBCCCgeybAsU64HaWGpyoJLoUJg1?=
+ =?us-ascii?Q?sUhhDqOpNcotFkBZzDr74U7cymTrHKRbyduZA3+mQ7zyXpUCaocSkH0PZU4W?=
+ =?us-ascii?Q?fk69mjZYpCrkg0LyLaE8lcjVR1kOjt8ZqsyOYXwdgKAeNRnbxTy9orLoBpB6?=
+ =?us-ascii?Q?m2xM0OEDbJNLBeUas3w0NXy7bUTTH2bQmWy4tR6fTKBoPSKXl+YowdpfOU5K?=
+ =?us-ascii?Q?bx+CZ/DDSLZHiDW8/xfZrBfKOXuf7m3SS0/hbnHrcEdzcWFc/FdUE2UZacP0?=
+ =?us-ascii?Q?/Ed2KFIxZ+OSiURzZ4MvSztY3w44m7HjGpxUc63VXza7yVv+Z7UHY3HKfDA+?=
+ =?us-ascii?Q?jv7PPNFxotmy5tDyJ+Eh/1XweToAe0JX+RjfuhgyHnx9EeZRLjkT8IOmqSRp?=
+ =?us-ascii?Q?+rJL6LmUI6BzelihFkW9dAkVewUrtpQ8MsFSbbTCFomJ9bOsHlgPE5JVi2rk?=
+ =?us-ascii?Q?SUxd4WGC3T5hCJcLbeJLfVFv2DGrx+2QHhPOsKH4AR1s29uiO3sAlLRnOD/g?=
+ =?us-ascii?Q?79IIAWJrXwJBhLRd36ygT05rFF5mp0r2i16MBIxvY6c5+pM9vub02rFJk5nF?=
+ =?us-ascii?Q?33eJH9/FJaZSZWr6qFpKXOcdZUj259+fwUIWX0A7FnjfYCDPiREBCBE19n0J?=
+ =?us-ascii?Q?N2BBriApQtRqHvHEUHHFvIH/wNkuOJbaFc6+a9QJJQSiyEbXVeS0Ya9L4cKS?=
+ =?us-ascii?Q?vpqCvmbwpfcEzAKLTBqnUGIvKnVuvJdBMLb2X99KMAiw429Zy1VSSjmje3xO?=
+ =?us-ascii?Q?txbWlQuO4GCC6BDmV81Fr2VSm6ANwJx87+Vrjun6WeylMdNDZUzIUYVCgmUY?=
+ =?us-ascii?Q?GDbs79fXVxPcvcEGVrzUK3bHCdnc0t8eJ+3zBzmp8Qf1djl8JnSi6z4n7h4x?=
+ =?us-ascii?Q?LR2pW61TdJwHUV73mdj/94CVY7Z6ySslSfoU4m0TuTlJFPHofXlteukA0msc?=
+ =?us-ascii?Q?XTat9/CZudSEm6tj2qrkxqtHujHSA9ZrOrFVcuqkCC7kNqTYArrScajNwQU3?=
+ =?us-ascii?Q?+9lplr6PGHsaetP7d3VuYo+gLAFtqqO9dwLet/CceZZHCU6Z43yOlCLc/K7d?=
+ =?us-ascii?Q?o+SAA/q8cb9nL7NO9qYFDVwa6pQrWENWI/5fMh08ovxr/km2OqOuUlHPPGCu?=
+ =?us-ascii?Q?ZVhG7jJdMOdGoAzrc+4HFnYZ/LK6A27zNaGCSqL6zrPobFOZmR1VXrEzw3gc?=
+ =?us-ascii?Q?39kzKekevmll0CPqA3hZ4B3zEsaAkLa3eOmX0sjEIZSZT8902bVxah80lTDL?=
+ =?us-ascii?Q?04LF5DBzYbkVgizMl2sYJcp8yA9wgEa/TmTwJ2QiumADcKLqQfj8/Fig2IA4?=
+ =?us-ascii?Q?SlZ7BOInY8JmunNb7jF9frG7wXULAD0N1OAfXYPxU7p9hOE0s/iDFK72KVpz?=
+ =?us-ascii?Q?Wg9yZXGIXc51DymQaZxFjjHOhTeo1rCaabU5nXUcD+xQ/eNL?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e95c7d6f-26f9-43cb-2ae8-08df2f1d5940
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 02:45:20.9795
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wTUAK69kD85RqjiQhyqSfQ15i1HuAYLX0UTaJ1NESJq1WdKZaboIE3XmVGqDrRaA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9008
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
+On 19 Oct 2026, at 19:06, Joanne Koong wrote:
 
-[ Upstream commit 7a2c70e777a00c32ebafd376a6fe31ebb91c5b20 ]
+> move_folios_to_lru(), folio_batch_move_lru() and folios_put_refs() call=
 
-kvm_mmu_zap_oldest_mmu_pages() excludes a shadow page whose root_count
-is non-zero from top-level reclaim, because such a page cannot be
-freed. The path in mmu_page_zap_pte() that recursively zaps a parentless
-nested TDP child has no such check. As a result, a shadow page can
-be zapped even if the page itself can't be freed; as the comment in
-kvm_mmu_zap_oldest_mmu_pages() notes, zapping it will just force vCPUs
-to rebuild the page.
+> folio_unqueue_deferred_split() on folios where the refcount has dropped=
 
-As in top-level reclaim, do not recursively prepare zapping of a
-nested TDP child whose root_count is non-zero.
+> to zero. In these paths, folio_unqueue_deferred_split() is called with
+> the lruvec lock often held (move_folios_to_lru() always holds it and
+> folio_batch_move_lru()/folios_put_refs() usually hold it for every foli=
+o
+> in the batch except the first). However, it's not needed to hold the
+> lruvec lock.
+>
+> The lruvec lock protects folio->lru and the reclaim LRU lists whereas
+> the deferred split queue lives on folio->_deferred_list in
+> deferred_split_lru. The deferred_split_lru is a list_lru with its own
+> per-memcg per-node lock.
+>
+> There are already other existing callers that call
+> folio_unqueue_deferred_split() without holding the lruvec lock (eg
+> __folio_put(), shrink_folio_list(), __folio_migrate_mapping(), ...).
+>
+> Add folio_batch_unqueue_deferred_split() and use it in
+> move_folios_to_lru(), folio_batch_move_lru(), and folios_put_refs() to
+> unqueue each batch of zero-refcount folios from the deferred split list=
 
-Fixes: 2de4085cccea ("KVM: x86/MMU: Recursively zap nested TDP SPs when zapping last/only parent")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[sean: resolve minor conflict due to lack of lockless aging in 6.12]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/mmu/mmu.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+> after the lruvec lock is released and before
+> mem_cgroup_uncharge_folios(). This helps shorten the lruvec lock's
+> critical sections, which run with IRQs disabled and are highly
+> contended.
+>
+> This came out of the discussion on v2 of the mTHP shrinker series [1],
+> where queueing small mTHP folios on the deferred split queue was found
+> to regress Barry's fault microbenchmark. With [1] applied and
+> khugepaged/max_ptes_none=3D0 so that every folio is queued, perf lock
+> contention showed that the extra cost came from waiting on the lruvec
+> lock in the free path.
+>
+> Test setup: 2-socket Intel Skylake, 40 cores / 80 threads, memory bound=
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 1a4d5fa11922..9acd7225c0ac 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2500,7 +2500,9 @@ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
- 			 * avoids retaining a large number of stale nested SPs.
- 			 */
- 			if (tdp_enabled && invalid_list &&
--			    child->role.guest_mode && !child->parent_ptes.val)
-+			    child->role.guest_mode &&
-+			    !child->root_count &&
-+			    !child->parent_ptes.val)
- 				return kvm_mmu_prepare_zap_page(kvm, child,
- 								invalid_list);
- 		}
+> to node 0 so that all threads contend on one lruvec, with each of 80
+> threads faulting in and unmapping 16 MB of anonymous memory 200 times.
+> With only 16K mTHP enabled, this patch reduces the queueing cost from
+> 15% runtime to noise, and lruvec lock wait time (summed across threads)=
 
-base-commit: 7fdb7c1824a1f9979d648d7ae28ac446bcee9c6e
--- 
-2.56.0.218.g1ec904b173-goog
+> drops from 491 seconds to 38 seconds. Most of the remaining contention
+> moves to the deferred split list_lru lock, but runtime still drops back=
 
+> to the unqueued baseline. This test uses a worst-case configuration ([1=
+]
+> is expected to only queue folios of 2M and larger).
+>
+> [1] https://lore.kernel.org/linux-mm/CAJnrk1a2PpUGTsCgS7jct2KET4K2zAL+_=
+h+te8G1MaU9bXs99w@mail.gmail.com/
+>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
+> ---
+> v2 -> v3:
+> - Move benchmark results into the commit message (Lance, Barry)
+> v2 link: https://lore.kernel.org/linux-mm/20261017004555.2890038-1-joan=
+nelkoong@gmail.com/
+>
+> v1 -> v2:
+> - Reword comment in folio_batch_move_lru() (David)
+> v1 link: https://lore.kernel.org/linux-mm/20261013221307.850803-1-joann=
+elkoong@gmail.com/
+>
+>  mm/folio.c    | 24 +++++++++++++++++++-----
+>  mm/internal.h |  1 +
+>  mm/vmscan.c   |  3 ++-
+>  3 files changed, 22 insertions(+), 6 deletions(-)
+>
+LGTM.
+
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+
+Best Regards,
+Yan, Zi
