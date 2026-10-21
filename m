@@ -1,47 +1,69 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792614151;
-	b=OyhehYO31ZHbb8bdVLkfCNas3Qyu2x4Pqq3I1pCPbSVSlzpvPuqOX93UR83qMKKaZXQL
-	 nJX4UwSf/uWr6r0+lxTh+I+BV9uCbHASAlmF0ezU9kxCE7e9siVOJgKGAYecd0LsfPw5W
-	 y/szEY6KKgW0BIOKuPYSokGj1h392VpFgldfIq9iactE5oqF9aXkb3Ni2BaALtZHdIOvS
-	 bR+AUhlKIbildgV/59dEpo55ymjSqmiiSZCiQYG4WSnJ0Jtny6AiBAy4wNzB1vOjgnOui
-	 gL+vwaXfVHdy0CfEgUi9qWkiR2WGdMuFG1j1zXlIvG21hfv6k+af1xAc77kJw0ar67w==
+	t=1792614187;
+	b=XTcSMrpMaa96WqBXlVx95x/+Qmvf6iMsEdIkClJTOFTIvV0JrG7RqS9X4j7QdOW0HaEm
+	 fvO2kBVoGFyH3gHSfZ5dkyBjhSW5WMm+4ISpCzGBhxTlMHw1twddi2gJ02SWiVc8VrHgh
+	 3qLQKOBcszjfmkAPCjfEVlnmTkbUj/zG6qjsU1M1MF1KXjyKGaxBff3vYGNnByLNMhHPF
+	 GbHz1qfQCph495Im1mvITQQN/ZNlGIrhNK+yOrTmV01DxRF8FrK4f6Ot/gemkyeUYeFPj
+	 Au9BCPw2iCGWw/P+D2C17RS7cwJYdwVJuUx5gc+8lCs8+sJzp8PP7Qb3WhVqHRQ47Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792614151;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Content-Language:From:To:Cc:Subject:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792614187;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=AhmVF6xP7L02ZOn/A5X4vZcbE692f/yDQ/fpvt5dPIw=;
-	b=vyDAuRVjmIkwAfXHw0dz2qS7/aeMLY63PKTy+Q6X1TRn7xmxxDsDhxS5iOkA1cntShaQ
-	 8/BgyDBaMHxBWidJWsxmKap47iRiX5zETkp6W8yxkQ1rDTy4EdtAcSmOm596Yh7FrYf6l
-	 JnidUIWtL+jwxlu0F/Y1bF70b79DXnpl0Q02bmJ9u27l6HxW/xCoFa6mnq13MYjAicWKM
-	 G7ulSxzTbCyeQYhvBbLihGH37qQKq3LXIdlMhckHnmSEsWK46y/z6v35K2QOoczzdUpKA
-	 rvwobiazdhD9T4Uqy0NkE3F+ykOJk0urQ54u+11pKsJ7q0olNS/6CxbxaZ7TzKsdCfQ==
+	bh=svbLHawCS4fbgc8FgUAE9dACgxqB99TX/pf/aIWHxmw=;
+	b=PBJPg4b0JVgLwyKdh28vgga5MJOeA7Tc3tYumhhrH/iE+RFYyPnjn4vjdL1DnTX5JtKv
+	 MfGu1o0TzgMYVVADOGijIcusH/nxgJF8WhKxCKyCzX51alqpJsTbeKanSMnaCIpFOrbY4
+	 jPNk8DtA+xkuvrUZD2yjpzMmYVcGeMEUDtXCy8QwuOLoJ82Eczo+W8rFaZJZ383xWfbtI
+	 Y+/jXYs6S8MuRo1qWBSjHP0Ux29xmrCAbv66IRWPu32Hl+7K7As3toIEBDnr0iO52W9wa
+	 LwY82LqhIe6FNs40q3ruVp/qkPKquctBjVt2g9naj0LtyZesSXrAMHarL3j+WjoW4/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUGtCKR5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Xt6/atqy";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC486606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD5BC606A31B;
+	Wed, 21 Oct 2026 20:23:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUGtCKR5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0805E1F000C1;
-	Wed, 21 Oct 2026 20:22:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xt6/atqy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7038B1F000C1;
+	Wed, 21 Oct 2026 20:23:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792614150;
-	bh=AhmVF6xP7L02ZOn/A5X4vZcbE692f/yDQ/fpvt5dPIw=;
-	h=Date:From:To:Cc:Subject;
-	b=XUGtCKR5VWDDjSs/f0yXdVEXPoE+BfHFp+l/9K6AEGFYxZk2x3lq1sh8nde5hxcIr
-	 7ZKiWKV3qHIxTtJikv0YfJNstXIpufQ8TdA+/hLEOBkkdjvmBLhhs5OP+lCM2hXhQ+
-	 HKGh2PlBgsf9ZXYfSU77cgE89LMj26KnwGUfgPOVdP1pI3lw+I9/Bu2dUQGbUF2abt
-	 2buWXw0EDiXMCjltkbsVC21FAtzfqK8DfNXejAfJq/AiM1B+qvE02wyPsHvAXCdwL7
-	 KM6QznSXTt6xD8ZmDuMVh5tiGjo1cMSewAt++RIV4uLQh5kmj/mZ2GneMWNJexX98w
-	 3bFkq8/KnMf+Q==
-Message-ID: <d7086f73-9398-448a-834c-69e2ffca8563@kernel.org>
-Date: Wed, 21 Oct 2026 14:22:14 -0600
+	s=k20260515; t=1792614186;
+	bh=svbLHawCS4fbgc8FgUAE9dACgxqB99TX/pf/aIWHxmw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Xt6/atqypGAD9faryuoH3pgi4bQyVVE+O07lp7aASyyT+FjnI8XTnoivNgxAwDhec
+	 Xfo3gi2XcyeLmjrLYvmosrThi+PoBZYzkwjHAo0eRu+Vlc9DI+00/VrcYgSCZrPdHb
+	 JOGx4pQdXWFUq8yH3QQEzSRu6hrI+GjfUedgt53bUyqFAQV7XQZTF0LwdsCb1sHWuM
+	 moz22KoG1vi7VY4g0aCEA7fdlfYla+rzgWwRFk5/9HUG5gPMTqGokYS6omzjbIT0O/
+	 ZNvHAn9mKMOD9soFx/Go9d98JombmkpZrOCi4rh36dgn9CTej7Xb6ItJQmx50xcWcQ
+	 suBfY00yvRSqA==
+Date: Wed, 21 Oct 2026 13:23:04 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Pavel Begunkov <asml.silence@gmail.com>, David Wei <dw@davidwei.uk>,
+ Stanislav Fomichev <sdf@fomichev.me>, Taehee Yoo <ap420073@gmail.com>,
+ Paolo Abeni <pabeni@redhat.com>, Kaiyuan Zhang <kaiyuanz@google.com>, Bobby
+ Eshleman <bobbyeshleman@meta.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, Simon Horman
+ <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Dragos Tatulea <dtatulea@nvidia.com>, Nikolay
+ Aleksandrov <razor@blackwall.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Tariq Toukan <tariqt@nvidia.com>, Kaifeng Wang <kaifengw@google.com>
+Subject: Re: [PATCH net v4 3/4] netdevsim: support devmem RX and TX bindings
+Message-ID: <20261021132304.23e0a4e7@kernel.org>
+In-Reply-To: <CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
+References: <20261015163915.1166043-1-almasrymina@google.com>
+	<20261015163915.1166043-4-almasrymina@google.com>
+	<20261020121858.3b9107c5@kernel.org>
+	<CAHS8izPwWT+vbgAe49m5vXsRxT3unbfjLTkVZBScgAPdQTo2dQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,46 +73,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Shuah <shuah@kernel.org>
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Cc: "conduct@kernel.org" <conduct@kernel.org>,
- tech-board <tech-board@lists.linux-foundation.org>, shuah <shuah@kernel.org>
-Subject: Code of Conduct Committee report for April 2026 - September 2026
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Linux Kernel Code of Conduct Committee: September 30th, 2026
+On Tue, 20 Oct 2026 23:17:34 -0700 Mina Almasry wrote:
+> But on the other hand the test coverage is nice, and maybe one day if
+> we add enough devmem support in netdevsim we'll be able to fuzz the
+> data path or something. Is there a way to get the best of both worlds?
+> Like put a comment on top of netdevsim that this is test simulator
+> device and any missing functionality and/or bugs in it should be
+> medium criticality max or something? Or is it too much trouble and I
+> should drop the netdevsim support and tests?
 
-In the period of April 1st, 2026 through September 30th, 2026, the Code
-of Conduct Committee received the following reports:
-
-Reports received: 3
-
-Code of Conduct scope and enforcement related reports: 3
-
-    -- Publicly coached and educated an individual who wasn't part of
-       the kernel community about the CoC, advising them to follow
-       the code of conduct when they interact with the community. The
-       issue was resolved without considering other enforcement options.
-
-    -- A public report to the CoC about technical discussion was resolved
-       on the mailing list without any response or action by the CoC.
-
-    -- A dispute about copying code had been resolved by the maintainer
-       asking the developers to resolve the issue between them before their
-       patches get reviewed and accepted.
-
-We would like to thank the Linux kernel community members who have
-supported the adoption of the Code of Conduct and who continue to
-uphold the professional standards of our community. If you have
-questions about this report, please write to <conduct@kernel.org>.
-
-Please visit the following Code of Conduct link below for information
-about the Code of Conduct Committee and previous reports:
-
-- https://www.kernel.org/code-of-conduct.html
-
-thanks,
--- Shuah (On behalf of the Code of Conduct Committee)
+I already strip Fixes tags and apply the patches to net-next.
+But it's still a burden. If you're signing up to fix the issues /
+review the slop we can try.
