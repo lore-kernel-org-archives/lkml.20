@@ -1,92 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587642;
-	b=Ei23c7CCtar52ajXeiZ0EtsqBcS1NBCwo9jqh/R24Ka/6znf3MuTVS2ZlNQUcl7jiYJO
-	 yiCs//NkaXlirK93ABhQHNh1xLnASCRuU4vn4cwtm3p9X0FD/H4JwPOIIEqtyxnSCVQOg
-	 DnbH+FWJmlm6t1dsiVN5F8wcpwGzpOx2Bbhky6r6M6ocFH9+oynLx5sQxdOrBSUFrJnFE
-	 z2xD4Q8ViIrAuUINQfxV8nDkj8I2Rj6YdAwG6ZNM7Y2eFkOkOHoREme5oybYalU/3MvB0
-	 qcCR+h6jgZEhl66PZgcIKd6RuguXKHIlcyHnI1oze+64ZJ/xTVg6+vj6hbIVi11dIjA==
+	t=1792587634;
+	b=BtX2TsJKeivE7ukHvWaHxKluilMTaCMPNHY/yeUtzUi4NyquaE4nseqL6PP5TLRAwiLt
+	 2GNSqWEmFDGQVZmrkjCDcbJcG77whC8RF2vcI3ihsAia1VVaFihZ6J20jbQOEuyWz7wco
+	 uFEVJlg8l4fMwaQsvjCGJl6auyTXZ2a8nbf2CzfAzEieAdGyPu9cwiij3j+ECWWBiwb4D
+	 8Xqaw7fDT4KrsWQ0psx6nZEEbef/qiK9dyhPr2ttX/Sobk4bBEMTTs6SEWn6pW3tPMZ2U
+	 QzzusDApQ0Vppk+rNnwG+YP3Ina3AkmnJ1h8MAGH3RyauTNXYAGNRe0LjVNNPIMeFLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587642;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=sZK5FmtMRARt/lzAz2jQ15vSUaGamCy2dbU//Pdja9I=;
-	b=dq46nPqcVRCKOy0k2KFXDVWwBg5KfjdGiKuyhoIdVcdl2m1qwNVdGaq/o9QqID+zxUx+
-	 jwnzhA1BdZb2jIOrUoj6G4QvfP807zlt7Cq5XCWFIbcU4g5Ki0gXVD7q0tgrVBPSz5bjO
-	 7G+sJPCrwFECCa/ty3x8hyF47ydd3LdqjgORfOuWkE8sL6S70bw4MbJToNqrR8LqaH+1H
-	 rqNiTr+5pkyx9NNIFIjkY1y2HqHZRnZLtUPOKz0XeqXhiHuKZdgfKexo4UBzbLAGPdKFW
-	 psLoHeAQmIRPi+yeF+TFyYiyvHrOvIfdOiyeGjsrMeQKxXigcXgJCkMfbmCrnWD4tAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587634;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-TM-AS-GCONF:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=rHjaZRWoDqZfL1B/WVCh5qFm2xeIH11ASh6m0wHP0LM=;
+	b=OZ2x4kJHZZKc72BtY9Bs+YPTQqGgjBQl71/fqw6DjKByNIzpyH7IvRVuXghnAE7vVyKb
+	 f/ILtZe91p2ReCX/fIchMOwikeBYiN51OdPiXRd6qjo6tzKjtoYS8JNMI3cLbDyEfyArv
+	 /7xq+0QMIztAepngrMIkfOSaz/96RF5T5CACrwGgOjanM2BGgzjrZODlNnPpG+FVYyixM
+	 MV4Y7bS6wRDsrykB7bmzsXv3d9bEFNDlQN+D5XEzQl5lQkcnVoN4Z6dLpDKgxTx72t1EX
+	 Uhzatt6v2ZkMKX2T18l9BjSBzcnNE9zt8FXg5N0DHBUYrvRjOnslLfyN/cMGlnlR/Bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="MiDvAB/M";
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jaQU28wK;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B9C6606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:00:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B9C6606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21930606A319;
+	Wed, 21 Oct 2026 13:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21930606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=MiDvAB/M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792587641; x=1824123641;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wndod1zwL//u+Fa4ut5BTg4Fd5ihG9eNKTPtT6UL+fM=;
-  b=MiDvAB/MBuzY7GrbgtsEs2FQEJJ+eeK/VDbEJcLuZwDm7cHoRSVabD+L
-   uUJzVbV0SzMbjumGoFfKKV+raiW3Ahr5Lr/jWGL/B3Oqk8DCOpqi0+xV/
-   0d1j//qJL1vAHsFNMCRYlq4vkFgRyC3sYMSpoVo1eALAudIh3FZ+QBOaa
-   bHybIt65NACViEpT30eTu77GG7VIrMZiSKz349lbxAHILVIm0cbdJjZN+
-   OJrtgQPbyFC7F3qcYAKLWDefGeAy5Ca6IYUalORptW9iC/exSEKMLbJQv
-   PlzHMLgpo2kqZAK2qM4I6kzzg7q1w8/COWe7WHNodeQZLpdLqgODrUC2H
-   Q==;
-X-CSE-ConnectionGUID: BDdrF3AoTwOPzsoEoAarBA==
-X-CSE-MsgGUID: +48e8HP4RKC6PuZMBY+Ncw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1320723"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1320723"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:00:40 -0700
-X-CSE-ConnectionGUID: jefNf2lmQsOdJLmQDsucpg==
-X-CSE-MsgGUID: kHQHxRSwQXuetHdHnxE0lw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3551112"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:00:37 -0700
-Date: Wed, 21 Oct 2026 16:00:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Sam Agazaryan <samagazaryan@google.com>
-Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-i3c@lists.infradead.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Meagan Lloyd <meaganlloyd@linux.microsoft.com>,
-	Vitor Soares <vitor.soares@toradex.com>,
-	Oleksandr Shulzhenko <oleksandr.shulzhenko.viktorovych@intel.com>,
-	Boris Brezillon <boris.brezillon@collabora.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] i3c: add i3cdev module to expose i3c dev in /dev
-Message-ID: <ati3c2JBNLGRnPen@ashevche-desk.local>
-References: <20260921230603.2518652-1-samagazaryan@google.com>
- <arY6DfVf_9tZ_TCu@black.igk.intel.com>
- <arZTphXbVF5wagy2@shikoro>
- <CAHreonFzhYk6fDswn7OVZfL3ybUHU15G3_q9+1sDhe8h670r3A@mail.gmail.com>
- <as487H8-0Gc77mXI@ashevche-desk.local>
- <CAHreonHiesGbR4VB+3sRxoLDmNHXFFEB=6_o6TNedm-N6VksEQ@mail.gmail.com>
- <atXmovzepBLP8Mqo@ashevche-desk.local>
- <atXnS1ZKGVfHDNEK@ashevche-desk.local>
- <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jaQU28wK
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBiXS91092544;
+	Wed, 21 Oct 2026 12:59:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=rHjaZRWoDqZfL1B/WVCh5qFm2xeIH11ASh6m0wHP0
+	LM=; b=jaQU28wKH9AkbkSAjShUx8Noz6SUHCtzRY/T8d+4GhZK2eMqMsLB1xLFr
+	M9U8GLLuADr5i8SPnUDUoEl0+mpK4I4laaCoyZ0FgsMP47Ut8kCspO9bjFShc3gB
+	5DAUrY7deaealu34JsJYs6F+heK1PickyPPIPmCzV1Gts1jtuzRPaIpqZXxUljKV
+	gLtbQ7K5lpQxywnKhwbC810qq1kWWwMV6JeffVcW52UO3rnJ0YhsyLy0RtLel1ci
+	Lr1yvVVIgmFvaIywVumkGe9SvOyD3Q7K79HOCfyCe6uT1CV7oIJhWBI/Mj0/pyAF
+	Ckgs8ruitIHjsyBEGv6fKuCPvzrSg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5a0t9c-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 12:59:16 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBntpB3044442;
+	Wed, 21 Oct 2026 12:59:16 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4he6gqde75-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 12:59:15 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (smtpav07.fra02v.mail.ibm.com [10.20.54.106])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69LCxCHe47513862
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 21 Oct 2026 12:59:12 GMT
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 36CF62005A;
+	Wed, 21 Oct 2026 12:59:12 +0000 (GMT)
+Received: from smtpav07.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 135682004D;
+	Wed, 21 Oct 2026 12:59:12 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav07.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 21 Oct 2026 12:59:12 +0000 (GMT)
+From: Heiko Carstens <hca@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>,
+        Sven Schnelle <svens@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Oleg Nesterov <oleg@redhat.com>,
+        =?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
+        "Dmitry V . Levin" <ldv@strace.io>, Renzo Davoli <renzo@cs.unibo.it>
+Cc: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org
+Subject: [RFC PATCH] s390/syscall: Sign extend system call number retrieved via syscall_get_nr()
+Date: Wed, 21 Oct 2026 14:59:11 +0200
+Message-ID: <20261021125911.1550331-1-hca@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,127 +93,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHreonFnUSKJMUpR0rmsnSMHEhcJ_W332_NTcGfTKiRkkPse_w@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1MCBTYWx0ZWRfXxxFA8w3xOy5q
+ BOciB3/5p/JD7spVHgzNZuNWl4UZJYqwgeUpAXWgCIhh2CRRJ2fIvMUK1xS+hLNOiwKhmguu+Iz
+ YJeXVkseQmvib7DeZDTszVBqkZ0hWHfHFxQOtpa0DsLBt2g5K7he80ZyoEQYHv9xuJb5RwP2a58
+ ufMsLvU+cktuZyaYWnhQHLKrUtdVhT/RLcZ8jDNEz4RzmQqVucbO64HqpsIrqYKvtH9PS8gOFGn
+ kFCwbgX3vpg3PnB4ppKjdiU5wDd6jdW9XIOnkOSnzGgSqciPLukN6hPyswxVdTG3XToZ2h+HBBW
+ mPRUDWFa7NhpcyRoGshHYlkBxw9eKeouDX4P7hzAvbOUaaWhEDP7KXbUHaO8JthsdpSjvES/koA
+ JHV2rRVHMCLeMWvX+nGmPN5i39v2qLsyqN6lSMjq3iXVAWEZAQCql+WZp9dTMECE9SnmAPT75gw
+ wV3LKcMTjJlkct7aNQg==
+X-Proofpoint-ORIG-GUID: FiMhRsIxayww1GfQUnZHMQbvdkXSZG7N
+X-Proofpoint-GUID: FiMhRsIxayww1GfQUnZHMQbvdkXSZG7N
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1MCBTYWx0ZWRfXwDS9YT9Uebra
+ 2cA2xbNOzbhBacjQ+TPvZh096CJbwztpEMLjYkYT1tjPeijhQY54ahFvZSwQMQtnUYbgUU/G+G7
+ KyucodkXwNJP4anEgDBi4FdXf0MB5TE=
+X-Authority-Analysis: v=2.4 cv=ZfSIpcVA c=1 sm=1 tr=0 ts=6ad8b725 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=b7FEdbnEW2k4qxqQiRAA:9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
+ clxscore=1015 phishscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210050
 
-On Tue, Oct 20, 2026 at 02:20:16PM -0700, Sam Agazaryan wrote:
-> > Did I miss this in the initial explanation? If not, please add it next time.
-> 
-> That is just how the existing I3C core enumerates targets during DAA,
-> not something added by this series. I will add a sentence to the
-> cover letter and Patch 4 commit message in v6 contrasting it with
-> i2c-dev to make that context clear.
-> 
-> > Do we have such use cases IRL? Do we have tooling support (at least pending)
-> > somewhere? Why does it require user space interaction in _this_ way (meaning
-> > IOCTL and /dev node)?
-> 
-> Yes, this is used in real systems today:
-> 
-> 1. Tooling & production users:
-> 
-> - i3ctransfer (Patch 5/5 of this series, and carried out-of-tree in
-> AspeedTech-BMC/i3c-tools and vendor OpenBMC BSPs for several
-> years).
+s390 is the only architecture which supports only 16 bits for the
+system call number. Furthermore the system call number returned via
+syscall_get_nr() is not sign extended.
 
-So, nothing in production, meaning we can design that in kernel differently.
+This makes s390 also special: if -1 is passed to syscall_set_nr(), and then
+syscall_get_nr() is used to retrieve the system call number, the returned
+number is 65535 instead of -1, like on all other architectures.
 
-> - OCP Secure Firmware Recovery (DCR 0xBD) [1] and Caliptra Root-of-Trust
-> recovery agents on OpenBMC/gBMC platforms (e.g., AST2700 / Caliptra
-> MCU recovery tooling and BMC recovery daemons). Because Vitor's
-> original i3cdev series was not merged in 2019, multiple silicon
-> vendors and OpenBMC trees have been carrying out-of-tree forks of i3cdev;
-> upstreaming consolidates those diverging implementations.
-> 
-> 2. Why an ioctl is required over a read and write:
-> 
-> - In the OCP Secure Firmware Recovery v1.1 specification (Section
-> 8.4, "Recovery I3C Interface Block Read via Private Write and
-> Private Read"), every recovery command read is a combined transaction
-> consisting of a Private Write with no STOP, followed by a Repeated START,
-> followed by a Private Read, and finally a STOP.
-> 
-> - Because write() and read() only submit a single transfer at a time
-> (nxfers = 1), the controller emits a STOP condition on the wire
-> at the end of write() and drops the bus lock. Submitting multiple
-> i3c_ioc_xfer descriptors in a single I3C_IOC_XFER(N) ioctl is
-> required so i3c_device_do_xfers() queues them together under one
-> bus lock acquisition and the controller emits a Repeated START
-> between messages (as well as passing HDR mode/cmd parameters).
+Address this by handling the 16 bit system call number as signed value,
+like on all other architectures. This reduces the maximum system call
+number to 32767 for s390, but that shouldn't be a problem.
 
-Thanks, probably I was unclear, my specific question was why this needs a user
-space to issue those recovery flows. And why it needs to be IOCTL-based and not
-some higher level one.
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+---
+ arch/s390/include/asm/syscall.h                   | 2 +-
+ tools/testing/selftests/ptrace/set_syscall_info.c | 4 ----
+ 2 files changed, 1 insertion(+), 5 deletions(-)
 
-> [1] https://www.opencompute.org/documents/ocp-recovery-document-1p1-final-pdf
-> 
-> > So, imagine that someone submits a kernel driver for a simple device, while
-> > another person already uses the driver for multi-functional device where the
-> > former one is driving only part of it. Strictly speaking the kernel driver
-> > submission becomes a user space regression. Which effectively means that whenever
-> > you open i3cdev, no other kernel drivers may appear. Yes, I understand that
-> > a poor victim of such an unlikely course of events may recompile the kernel,
-> > disable driver, et cetera, but this still raises the same question, why do
-> > we do that to the mere users?
-> 
-> Note that a user does not need to recompile the kernel if a kernel
-> driver binds to a device they wish to access via i3cdev. Because i3cdev
-> handles BUS_NOTIFY_UNBOUND_DRIVER, unbinding the kernel driver at
-> runtime via sysfs:
-> 
-> echo <dev> > /sys/bus/i3c/devices/<dev>/driver/unbind
-> 
-> automatically triggers i3cdev_attach() and exposes /dev/bus/i3c/<dev>
-> without rebuilding the kernel.
-
-Oh, that's quite a dangerous "feature"! Can we avoid doing that? Otherwise it
-means any missed guard against unbind for the system controller related chips
-may lead to real HW damage. I'm totally against this feature to be in any way
-of an ABI. If you want that, do it exclusively via debugfs with a big fat
-warning that this may lead to HW damages.
-
-> Also, I3C drivers match against a
-> target's MIPI-assigned DCR or 48-bit PID (Manufacturer ID + Part ID),
-> so a driver for a simple device will not accidentally match a different
-> chip's PID or a dedicated DCR like 0xBD.
-
-Yes, but we are talking about opening a Pandora's box in user space, aren't we?
-
-> > P.S> Still not convinced, that this has to be an ABI. For debugfs and something
-> > like this, no objections, but ABI.
-> 
-> Production BMC recovery daemons cannot rely on debugfs, which is
-> optional and restricted or unmounted on production builds. A character
-> device in /dev/bus/i3c/* provides the stable ioctl those tools need and
-> integrates with udev so non-root daemons can be granted access to
-> specific target nodes (e.g. matching on DCR 0xBD), similar to spidev
-> and hidraw.
-
-But why recovery mechanism can't be kernel-driven? With some sysfs
-(just as an example) knobs to say "I want to run now a recovery flow
-on this bus", et cetera.
-
-> > Forgot to ask, but do they interfere?
-> 
-> Is this in reference to i2c devices on the i3c bus? No, I3C transfers
-> and legacy I2C transfers on a mixed-mode bus do not interfere:
-> 
-> 1. Both i3c_device_do_xfers() and i3c_master_i2c_adapter_xfer() acquire
-> i3c_bus_normaluse_lock(&master->bus), so I3C and I2C transactions on
-> the same bus are serialized by the I3C core.
-> 
-> 2. Attached I2C client addresses are marked as I3C_ADDR_SLOT_I2C_DEV in
-> the bus address slot table, preventing DAA from assigning an I2C
-> device's address to an I3C target.
-
-Can i2c device require an i2c recovery flow on the bus? If so, how would
-it be combined together with the i3c recovery flow(s)?
-
+diff --git a/arch/s390/include/asm/syscall.h b/arch/s390/include/asm/syscall.h
+index 5f310caad1fc..c67eeca3f33a 100644
+--- a/arch/s390/include/asm/syscall.h
++++ b/arch/s390/include/asm/syscall.h
+@@ -20,7 +20,7 @@ static inline long syscall_get_nr(struct task_struct *task,
+ 				  struct pt_regs *regs)
+ {
+ 	return test_pt_regs_flag(regs, PIF_SYSCALL) ?
+-		(regs->int_code & 0xffff) : -1;
++		(s16)(regs->int_code & 0xffff) : -1;
+ }
+ 
+ static inline void syscall_set_nr(struct task_struct *task,
+diff --git a/tools/testing/selftests/ptrace/set_syscall_info.c b/tools/testing/selftests/ptrace/set_syscall_info.c
+index 1cc411a41cd6..2c5fab4a4c41 100644
+--- a/tools/testing/selftests/ptrace/set_syscall_info.c
++++ b/tools/testing/selftests/ptrace/set_syscall_info.c
+@@ -72,10 +72,6 @@ check_psi_entry(struct __test_metadata *_metadata,
+ {
+ 	unsigned int i;
+ 	int exp_nr = exp_entry->nr;
+-#if defined __s390__ || defined __s390x__
+-	/* s390 is the only architecture that has 16-bit syscall numbers */
+-	exp_nr &= 0xffff;
+-#endif
+ 
+ 	ASSERT_EQ(PTRACE_SYSCALL_INFO_ENTRY, info->op) {
+ 		LOG_KILL_TRACEE("%s: entry stop mismatch", text);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
