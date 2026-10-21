@@ -1,62 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584925;
-	b=jTURgFZAnpHQUAATTW8bXtGEtZ0yGbad70HcZ6SVII0NPrGcASXFi8K2Pt0CCxwBthWM
-	 +tSi6svt8nlhDKE6IKdS9j3Hf03aS5Fn6Ts2Nel9cSj5tV0nyNlx3VjtLtYmTxrWn0dyI
-	 Vw+bApgeZJRZzIRXIyrWC2mXoC/lBtrKrgsU6VTKD8N0RPKwm8WdlhKsUDVI1fXRCb380
-	 Qv75uhE9FGCXuWKC06m73UOoYWcztQkiGvjK00emhOE8qS+TtVOA/jpRAVAExMENIFXEq
-	 P3WsORrMlcU0PUYlj3jFi6WlrS+OHklQUIOzz3UrmHnfBDZJYfe7TVojpyt2txkB80g==
+	t=1792584937;
+	b=PKIKpcF2frtEik2gyxIP5UB8eLY+PCbyGznTmb9eFopgw6ZsJkTAlPBo0OXC1R+BtYh/
+	 1bIWgk71dPRYZ4MdeuYTOv7Uo8B2UT61yZfMBVvp1hqNJ0hcvWHiDPZOu7N3xoXPo3wSI
+	 wIitPuK/+ymUmbD0KpY5PF854eWiyuhkWI25NGBpcEKyg7FVuHKYOasHG/v+EsxDD//g1
+	 twnCx1nhDANIUu7HgcWMVwtYZ/B8nYCtIFcc9TS41t2HohhbRlTrv+d2XOM1N4oq+FvBk
+	 F7qKv9L9CxhN1EaAGKm0iESibCU/HQhGJg1obzvV5eWm9W8t9UsXfNE2Eu3uzcoFKFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584937;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CeKuOGKuwAuAMezw1s10+HeI/EWg/OQKaDbbMqvL/ZA=;
-	b=B2JW3CIT8TYE8zGlZNh1IU0wVvaCpFYHbLVDJToJ5PBaClk62h4HEx2z+8B1KSnE0nrt
-	 m2rKDkPpC1aZKKNkg16tU3DfGZqfJlYpJyBZvqLoaA8xI+w/Q6WimLRurmD97MTX140zv
-	 Xpz+XSvx6ga4vbyixN3mWsuAandVbvgn0MYilg2URzWbhqAhMeILuSpICE9zDdvdBWZnx
-	 qD+ZI3n5ibGcjWNH7acSQpxHzu+71yBYcTMXx6bFPRvaUrYtIkNM2MxhrOFo0Hup+XwSE
-	 VQa9HH/D+K6jOijAX9FDM7354Td+vqHMo7ZAa8FILRSeJ7oe7qwQMq6Vw9Y7nOQfWxA==
+	bh=93EmsKWixLB2KPvdZzjAuggREVPcs9WaZPMfQhaLIaQ=;
+	b=J0Yv2LZTgaKyjTlOZ4TOuCMImgfmW8G4wuhNBmMjlOo0Tp0/VVKTjlPfYvZf6EX8TIkM
+	 z2MXUyc8Ebb9RVtbFSeRfP/1EQCCo4dLXQkydSflV5RF3wX1s4i9wZ75HGiUK8yrOxE5f
+	 sZLFNT7U253kNL6BqKgt49oGDVNi7WsADcNJ6ITf3eLcXKqf+0dl9WDpy87naghMOT0Bn
+	 5cQtlLRJnKInY9AdKVM2ET5mPZizWlzD5+pplaL0L7/BaQm3K2EkYfgdt6yVnWFs5EDAO
+	 zFPOH2hv6fIHZFiIqnBIFVUjZBgnC+CPZI8+JsjbIb+ga5KtEevJV3vnQoUacxPkOtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQZsBKi8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kBFEDZcV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CFD606A328;
-	Wed, 21 Oct 2026 12:15:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1786B60A380F;
+	Wed, 21 Oct 2026 12:15:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQZsBKi8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9A71F000C4;
-	Wed, 21 Oct 2026 12:15:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kBFEDZcV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9701F000C7;
+	Wed, 21 Oct 2026 12:15:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584924;
-	bh=CeKuOGKuwAuAMezw1s10+HeI/EWg/OQKaDbbMqvL/ZA=;
+	s=k20260515; t=1792584936;
+	bh=93EmsKWixLB2KPvdZzjAuggREVPcs9WaZPMfQhaLIaQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CQZsBKi8i4v5ejsOMyF3Enj1WGyF5VDdqsvv7brQZsFjq+CDEmQxmNE7K6Hx8ozqn
-	 1Aj7zsw/T+rVRO4wPRZQbpJgU1TPonCSCp17k3ak2sGX82Tg4JnKhqdPsA4iFdb833
-	 8JDq1Vkda2a82dOVxsQs8a1yyE03GAOlA0TPx5ROKwPVEwzJZE7x9vCqBaChg8C8lz
-	 ofAnwwMLiVMgO3djzKJscVTcoUkAMLjF5ehilSBcc/2Lqzt4yZ0tPr6R4zeRAWVQdx
-	 YfyOLOeyNnL9P/nJRRacI6w75Hl32kMFgy2I10/wUN78xvTouFoppWO/IAeeljf7wg
-	 aw0F12Gl8CMvg==
+	b=kBFEDZcVNrUWoOv05Hh2muxrzI0wXFCWU3ib4MutRAuaBlzINyFIAYYv7obYpf6M+
+	 xnzDbGUYFVty7jUsQPsXZtI3tLGZYmdt6Lx8Ayjx8ZzPvq0zHDkuRj8ar58OxyohN0
+	 J0qu2d1IVzLjHP3MT3pvXkoC0mrbpraDwIPEJ6CwyEfc11FgJNdPN6qFw4VpuFMJ51
+	 qfQXs9T586El0sN7Nn5LokrmwnQ7Uq1BwtOrET/UnA1nkv7zQcGyrNMXsHZ48W+0Fv
+	 aQRWDaJHwCmrxa0H37nSzSSl8kMOA81tNu/eUBTQoq9wz5dzaV66CYPlMRqO1tzbPn
+	 mf0Co8jz2skJg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Kai Svahn <kai.svahn@nokia.com>,
-	syed khasim <x0khasim@ti.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	Peter Ujfalusi <peter.ujfalusi@ti.com>,
-	linux-omap@vger.kernel.org,
+	Qunqin Zhao <zhaoqunqin@loongson.cn>,
+	Yinggang Gu <guyinggang@loongson.cn>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	linux-crypto@vger.kernel.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 14/28] mfd: twl-core: Clear twl_priv pointer on teardown and probe failure
-Date: Wed, 21 Oct 2026 12:09:36 +0000
-Message-ID: <20261021121245.3111563-14-lee@kernel.org>
+Subject: [PATCH 16/28] mfd: loongson-se: Zero-initialise controller command structures
+Date: Wed, 21 Oct 2026 12:09:38 +0000
+Message-ID: <20261021121245.3111563-16-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -71,79 +65,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-twl_probe() allocates the file-scope twl_priv state with devm_kzalloc()
-and checks for a non-NULL twl_priv at entry to reject multiple device
-instances.  However, twl_remove() and the early error paths in
-twl_probe() never reset twl_priv to NULL, a failure when adding MFD
-child devices bypasses twl_remove() by jumping to free instead of fail,
-and twl_remove() tears down the IRQ domain and dummy I2C clients before
-child devices are unregistered.  After devres frees the underlying
-memory on probe failure or unbind, twl_priv remains a dangling pointer,
-causing subsequent exported API calls to dereference freed memory and
-blocking future probe attempts with -EBUSY.
+loongson_se_init() and loongson_se_init_engine() declare struct
+loongson_se_controller_cmd on the stack without zero-initialising it
+and only populate a subset of its fields before
+loongson_se_send_controller_cmd() writes all eight 32-bit words to the
+controller MMIO registers.  Zero-initialise the stack command structures
+so that unused words do not leak residual kernel stack contents to the
+hardware.
 
-Unregister DT-populated and MFD child devices at the start of
-twl_remove(), ensure mfd_add_devices() failures unwind via fail, and
-reset twl_priv to NULL in twl_remove() and on probe error exit.
-
-Fixes: 80a97ccd33be ("mfd: twl-core: Collect global variables behind one private structure (global)")
-Closes: https://sashiko.dev/#/bug/linux-73e82f84-94de-4d08-82a4-f22d42a1dedf
+Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
+Closes: https://sashiko.dev/#/bug/linux-b81dca3d-6812-43b6-9ad9-912727674154
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/twl-core.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/mfd/loongson-se.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
-index 64b45fe79159..21fc0acb827b 100644
---- a/drivers/mfd/twl-core.c
-+++ b/drivers/mfd/twl-core.c
-@@ -689,6 +689,11 @@ static void twl_remove(struct i2c_client *client)
+diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
+index 8dcb90a067b3..485ee4a6ca5e 100644
+--- a/drivers/mfd/loongson-se.c
++++ b/drivers/mfd/loongson-se.c
+@@ -93,7 +93,7 @@ struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
  {
- 	unsigned i, num_slaves;
+ 	struct loongson_se *se = dev_get_drvdata(dev);
+ 	struct loongson_se_engine *engine = &se->engines[id];
+-	struct loongson_se_controller_cmd cmd;
++	struct loongson_se_controller_cmd cmd = {};
  
-+	of_platform_depopulate(&client->dev);
-+
-+	if (twl_class_is_6030())
-+		mfd_remove_devices(&client->dev);
-+
- 	if (pm_power_off == twl6030_power_off)
- 		pm_power_off = NULL;
+ 	engine->se = se;
+ 	engine->id = id;
+@@ -162,7 +162,7 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
  
-@@ -706,6 +711,7 @@ static void twl_remove(struct i2c_client *client)
- 		twl->client = NULL;
- 	}
- 	twl_priv->ready = false;
-+	twl_priv = NULL;
- }
+ static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
+ {
+-	struct loongson_se_controller_cmd cmd;
++	struct loongson_se_controller_cmd cmd = {};
+ 	int err;
  
- 
-@@ -880,10 +886,10 @@ twl_probe(struct i2c_client *client)
- 			num_cells = ARRAY_SIZE(twl6030_cells);
- 		}
- 
--		status = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
--					      cells, num_cells, NULL, 0, NULL);
-+		status = mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
-+					 cells, num_cells, NULL, 0, NULL);
- 		if (status < 0)
--			goto free;
-+			goto fail;
- 
- 		if (of_device_is_system_power_controller(node)) {
- 			if (!pm_power_off)
-@@ -900,8 +906,10 @@ twl_probe(struct i2c_client *client)
- 	if (status < 0)
- 		twl_remove(client);
- free:
--	if (status < 0)
-+	if (status < 0) {
- 		platform_device_unregister(pdev);
-+		twl_priv = NULL;
-+	}
- 
- 	return status;
- }
+ 	cmd.command_id = SE_CMD_START;
 -- 
 2.56.0.218.g1ec904b173-goog
 
