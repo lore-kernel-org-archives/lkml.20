@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792619723;
-	b=h9PJ1f6UG5aQJAQg1aeJdqBxb6ybzCOO/g4VM7BM7cGpla6sKrTd1S71PbLyEAtZY+hc
-	 LZckbeI6QBFKpqi74u7rzVfaF5Ltkl/ycQvkVoWfnAizlG9icqBkQx0K1p2gXKYH9Zx17
-	 d05n61SUsIn2s/+J7Um/M1iTUdIrwnEVx/s+96shvjvqt2wTL6S74Y7M2crfXwC1oSUKr
-	 SAkYssHVOO1VJQyyEA31kIxscF0a0PXO5A6qlY+R4PAQ1dUW52fpnaCo5tF13SwbNWFaV
-	 BpkGDVArepjeAtG6I+EL9OY/nmKqBgTIkRQ+t+QPh1L+7PmZtsGr9E1pYsKVzoxl1DQ==
+	t=1792619728;
+	b=yMVyf2+XUj+FxgvrAXw49/Ye8wlqQ4vcqHt+80OskTr1UxS+5y0X8zmmYHOaY51Sd/kW
+	 6TZ2vTuOA0/Ap2V5SWw165i0AOS+NWSWlNhglK1H8c3+DpnT+T0kgak2t6ZC0Vm0hTw1x
+	 1yNNRh3JJo9Nx+3jdd0MAOCCJc3dxVS7ithE4eQA/+JquqFZY6BklcqWZFGleFjvcDyPl
+	 ZMupUVu3woWu6hfq1kF0NweG11XSzw2JQBhOUPYxsZoLbIPOtVObkaw7qGi+e+5Ax2Kry
+	 vTgyuXMwJP38yqWXkB3X8poetvfFDCPJu3CM3I4dnwpZYJhh5SAsTR8ssOnjn3NXRag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792619723;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=XbblKzcGrmO5Ko5Ulj3O9NpL7GMqStGr4Qlbbk//Src=;
-	b=GOr0/n7XkrG3mkepvPGT8QNIQtnBcyt9HYKw7jpxuWFa6UY9d94oZR1mnGSRmT9202BR
-	 vToxKjkNgGO/+ZldJFPmsMwtBd0AaQz+IpWiHzA+0SRZhKQhVhM3iPHy8qLAcz6FH9mDy
-	 bpjAJX16ameWvW0ZgD05LU196JruUM1oAH1L7DmPGAF9KmR4WKHv6ooYrUnQkiPBGzyBd
-	 JTvMDfGDiIs0wsbANxeaBHRX6/24FAn5gWR256M32bIBy/vBGS8C9Al3TOkYq8tkhwsjb
-	 xCczDHpSr+c1aThMzp0q0NaDM3w/vgQ8BW+u+NhcncdSXmlVtS07RBbPlfZJM7HsDAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792619728;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7uvnNu55LPxsE6Gptb/+zdNR3IAgjEJMH78SWGNREho=;
+	b=t4l4M4lix/kGkDak2t+LmqbGjjBWZP5ri0PDTNcKjKAwqzqhd+5WtiL43pvsu7bY0AKx
+	 MB99ddFbB6cMKCaJm9V/fFlbH5SWxWF2zbKh9UI6vaGm+HQR+FGo3lKDTTmuqBZPzInKa
+	 j3YyOuEaXPmSg3Xb0lDrIxrojgXySVDBsqXFN1wcN69MRNFTq9ilsPltIfAD+56Nyvee0
+	 dAOy6R6ZcfgZO1uGlO8RzykJNjZsKVpX69OzosIfguThKtbXWpWJb/sLGQ9vZ8DMhaco9
+	 zVZ8OptEVXHu8D039IcWZkozNghayp4Djh99gCG83TYAxmSOdM//cXeJ8HhDJHlj1tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IISonUq6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sik8nT0k;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB344606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:55:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9068F606A31B;
+	Wed, 21 Oct 2026 21:55:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IISonUq6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FE71F000C2
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:55:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sik8nT0k
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1888C1F000C5;
+	Wed, 21 Oct 2026 21:55:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792619722;
-	bh=XbblKzcGrmO5Ko5Ulj3O9NpL7GMqStGr4Qlbbk//Src=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=IISonUq6PPuILhouWjN3XrAW4TyXV7DF3zaY8rj73hwsu87lHUbm7/wCuPYWIUUGN
-	 8ZftC/Ff2TTDpONhLu53ut7cLLqdIqZXBwzAdvxWQbq47jwrPovWDAE/Tt76Zq3T5R
-	 kPm51HL6vRRV7QXn5fQxZSOcFr6oAhKA4BvHrs/R0/8n/liPhhLQ9FR4A3qg67Xchq
-	 TZtOu2d0rvMJQZbiV/Zy+ZGvKvlQ2V4IWyIN4Yv+EJeVZ4vZuu+bCZeoooHC41Tdzt
-	 WFWQNjX0tLWsmxdqi/N4N/E3qYkmaoctEzucIXURHvImXewhcFnRyuQABNJytfwpLt
-	 uefPyP0cEaZZQ==
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f36c18b75so84748785a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:55:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJSkXvSmKC+CzmzPbBL7LfAR3XUNhhfIx4ek2CpQKtZSc7E+oEuvkFEh1mhNd7hHi87OyNrzzhZgIkOPM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFQcI3GmflL4pNugmbCNhOYyVTrzzuYPf18XJvZHoiWcK5+alF
-	eubu1B6gtgl84n2KDBrDTV/xNSHqKkoW83nBj97BV4KYYmTdUpsHJCZlTGit+2y7o3hF+I61/KQ
-	cA9HD9j2jkVmCRTVIaE/GjQpZObVP+To=
-X-Received: by 2002:a05:620a:4113:b0:93e:48fc:aa88 with SMTP id
- af79cd13be357-93f57f81db1mr689549385a.44.1792619721658; Wed, 21 Oct 2026
- 14:55:21 -0700 (PDT)
+	s=k20260515; t=1792619728;
+	bh=7uvnNu55LPxsE6Gptb/+zdNR3IAgjEJMH78SWGNREho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Sik8nT0kQ0G1LyuiOruEIOsXwp2GzIqm6OxmljmOu6Bl7HeW74fi7CRy2jS9J4HGn
+	 NRU3tCyrnMqUq2KHddCWSVgAotl+iGRraqDvfB6LvjcqHK7AdfWaEhgthBLncniPEU
+	 w9gwLyVYMFvSWVMtbt5ERSu38tn+DDXnmkjB+0hau8cBwSt0RnOEXhX5a7y8oj/qFn
+	 796TACgNDIEulfu0FVcM/tVMnODmQZbiMYpNNcWrMa7c+hG59Dl15Hyc5QUxbKPsLc
+	 XOAqXe9srSBg+4UB8JRUV/lP/q33dRqX3ViFYW1OXZUCaleAEGKP3/qmO/V6rJ4yhd
+	 TNKIkSsyJMDKg==
+Date: Wed, 21 Oct 2026 14:55:24 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Mathias Krause <minipli@grsecurity.net>
+Cc: Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kbuild: prevent building single targets twice
+Message-ID: <20261021215524.GA627677@ax162>
+References: <20260923123936.2227924-1-minipli@grsecurity.net>
+ <5836ab69-cfa6-41cc-a28b-5bd3ecfaea03@grsecurity.net>
+ <atjwobCk-mdeIlkd@levanger>
+ <20261021190311.GB2611266@ax162>
+ <aad229bb-27c2-4c5f-bfce-73d2a0d04996@grsecurity.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,88 +60,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <179248830836.1744016.8424217811286616919.noio-mglru-rfc-v2@bytedance.com>
- <7f4daafd-a3c5-4ccc-80bd-05a7ac09e4ab@linux.alibaba.com>
-In-Reply-To: <7f4daafd-a3c5-4ccc-80bd-05a7ac09e4ab@linux.alibaba.com>
-From: Barry Song <baohua@kernel.org>
-Date: Thu, 22 Oct 2026 05:55:08 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wV8A5snz-XE+5ht931=07SvCs_k4xvUCE1yphKyQd8tw@mail.gmail.com>
-X-Gm-Features: AclHuK-Lm3ETeKvlfdxyvGOhePGX8_fdCxCFPiSQfmBetlKnWoeOhvEVMJZjPbw
-Message-ID: <CAGsJ_4wV8A5snz-XE+5ht931=07SvCs_k4xvUCE1yphKyQd8tw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with
- low swapcache in MGLRU
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Xiang Liu <liuxiang.277@bytedance.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aad229bb-27c2-4c5f-bfce-73d2a0d04996@grsecurity.net>
 
-On Wed, Oct 21, 2026 at 3:28=E2=80=AFPM Baolin Wang
-<baolin.wang@linux.alibaba.com> wrote:
-[...]
+On Wed, Oct 21, 2026 at 11:25:13PM +0200, Mathias Krause wrote:
+> On 21.10.26 21:03, Nathan Chancellor wrote:
+> > On Wed, Oct 21, 2026 at 07:04:33PM +0200, Nicolas Schier wrote:
+> >> On Wed, Oct 21, 2026 at 08:53:56AM +0200, Mathias Krause wrote:
+> >>> Ping! I know, it's the merge window but this patch may have fallen
+> >>> through the cracks as there was no response so far. Just trying to take
+> >>> care it doesn't get lost.
+> >>
+> >> thanks for the ping.  The patch is in my review queue for the upcoming
+> >> cycle.
+> > 
+> > Same, I will try to review it this week or next once I clear my tip of
+> > tree clang regressions backlog and Kbuild merge window madness.
 
-> >   static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_cont=
-rol *sc)
-> >   {
-> >       unsigned long total;
-> >       int swappiness =3D get_swappiness(lruvec, sc);
-> >       struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
-> >
-> > +     swappiness =3D get_scan_swappiness(lruvec, sc, swappiness);
-> > +
-> >       total =3D lruvec_evictable_size(lruvec, swappiness);
-> >
-> >       /* whether the size is big enough to be helpful */
-> > @@ -5249,9 +5265,10 @@ static bool try_to_shrink_lruvec(struct lruvec *=
-lruvec, struct scan_control *sc)
-> >       bool need_rotate =3D false, should_age =3D false;
-> >       long nr_batch, nr_to_scan;
-> >       int swappiness =3D get_swappiness(lruvec, sc);
-> > +     int scan_swappiness =3D get_scan_swappiness(lruvec, sc, swappines=
-s);
->
-> IMO, 'swappiness' and 'scan_swappiness' are really confusing. Why move
-> this logic into get_swappiness()? In get_swappiness(), we already have
-> some similar logic to adjust swappiness when there is no available swap
-> space.
->
+I forgot to mention, it looks like this is a known corner case in Kbuild
+that has come up before:
 
-Yes. It is very confusing. we can't do that in get_swappiness() as otherwis=
-e,
-we will get cold/hot inversion due to GFP_NOIO. for a real swappiness=3D0,
-we allow cold/hot inversion for anon, but for GFP_NOIO, this is not the
-case.
+  https://lore.kernel.org/7b663b86-4df0-c3df-18a7-e4f47f900be4@kernel.org/
+  https://lore.kernel.org/CAK7LNAQhORSPEuB=XFa_i5EcQfsJ6uXy0MM5YWo_84eLGcoxNQ@mail.gmail.com/
 
-static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
-{
-        ...
-        /* For file type, skip the check if swappiness is anon only */
-        if (type && (swappiness =3D=3D SWAPPINESS_ANON_ONLY))
-                goto done;
+This patch might be the fix that Masahiro could not figure out but it
+might be better to just forsake drivers-y here and use obj-y properly,
+especially since it looks like core-y is not even used for x86 anymore
+(but maybe these objects still need to linked towards the end of the
+kernel?). This diff appears to resolve the reported issue but I did not
+try running the result.
 
-        /* For anon type, skip the check if swappiness is zero (file only) =
-*/
-        if (!type && !swappiness)
-                goto done;
-        ...
-}
-
-So the trick here is that Xiang is doing scans by tuned swappiness but does=
- age
-by the original swappiness.
-
-IMHO, this is confusing but this is a possible way to fix it before we
-land something
-like:
-mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO allocation
-
-https://git.kernel.org/pub/scm/linux/kernel/git/baohua/linux.git/commit/?h=
-=3Dkairui_scanbalance_0.4
-
-Best Regards
-Barry
+diff --git a/arch/x86/Kbuild b/arch/x86/Kbuild
+index 36b985d0e7bf..bd0621207c0c 100644
+--- a/arch/x86/Kbuild
++++ b/arch/x86/Kbuild
+@@ -36,5 +36,12 @@ obj-$(CONFIG_KEXEC_FILE) += purgatory/
+ 
+ obj-y += virt/
+ 
++obj-$(CONFIG_PCI) += pci/
++
++# suspend and hibernation support
++obj-$(CONFIG_PM) += power/
++
++obj-$(CONFIG_VIDEO) += video/
++
+ # for cleaning
+ subdir- += boot tools
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index b7e08519b8c1..9a872bd9520e 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -279,14 +279,6 @@ archprepare: $(cpufeaturemasks.hdr)
+ 
+ libs-y  += arch/x86/lib/
+ 
+-# drivers-y are linked after core-y
+-drivers-$(CONFIG_PCI)            += arch/x86/pci/
+-
+-# suspend and hibernation support
+-drivers-$(CONFIG_PM) += arch/x86/power/
+-
+-drivers-$(CONFIG_VIDEO) += arch/x86/video/
+-
+ ####
+ # boot loader support. Several targets are kept for legacy purposes
+ 
+-- 
+Cheers,
+Nathan
