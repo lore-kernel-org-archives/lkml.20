@@ -1,62 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550305;
-	b=0LZ5xCMQ8ly1bd4s7cX8v9+NNFSuLCsjKlju8vQWgZwPNj9qUTgw7qjp1Wg74byvMwIV
-	 Jc1EivmYj9/jZgpQzGEKePD68Jb7EIE7TuIB0xyHM2l7M+OHWXKC58ABvtQWETBZfck8/
-	 45IpIi4Lmtsz/oQjVRUqM3voha/ZdIqhWVnDzuhvpSr3/6Z+RMR3sqW9hlCIYIenc79iW
-	 Ggo1MKabO9vPLsOZgUCnoU/dhWxVqF1bnkG4U2Ww/hpZ3sdncCpL8aYZUXzcHmQpPAThm
-	 5NsVL1gWN25EmcmSb7+GwYklAw83yw7tjuC4V+gwMBibfw8W6EwouDYtuQ5zkYLIPrw==
+	t=1792550364;
+	b=kp39t/2DIBHMg7SCaYPMiUxB2uAnJT0g2VLxAcC1c9M55OL79c2lH9vmbdsVyvd++kQ6
+	 00jNrms0lAhSHT3w3Dz3EBiM2D/KL/m0OEcgo3y1YgZW/5AhXcgYf+ahFgN6jC3gmY/i1
+	 hkDAz5rheh+Z7DHBMVXh3KqEarXSp3N/dxjb6qw07SZ4f9JDY4VDx/3HzKj6fPdpZoCz/
+	 QZ7RIfoYwqp52MsGpXsqjC7I/20vt0lbKqtv2jiJckE88TOxUpAJ9tOjPtfsu+XWZ6Qsx
+	 mpl2yGNP41QPogr3cIETB8uUozNAP+oDA5u7PJy5dmXUIw/ady5NK+VvnHwxIuc8q/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550305;
-	h=DMARC-Filter:DKIM-Signature:From:Subject:User-Agent:In-Reply-To:To:
-	 Message-Id:References:Content-Transfer-Encoding:X-Original-From:
-	 Content-Type:Cc:Date:Mime-Version:X-Lms-Return-Path;
-	bh=3um0oSkFchI+VCovec//CZdEMgzXeLCw0E3DOZkZLFM=;
-	b=cGoSHz1GwzjvRJflBDOLJ14zTgFUYz3kFyNwL6AFhQ0573F15vzPhvMsTHjOzZz0ssds
-	 CjDcKmej/ZA2ifflBJ4xnDLxRBXI4lm1D9hv2Tpidx77ek7SJAWWAbtjh6uaDABxvn8Np
-	 y4FQsP1p9BVjjJ/kI4eP6yQGhuZ9/HfE0mV5IZzOarmtB5wjE9qFy1k4AinzyVhU4sDFP
-	 QKg8dgbDQMBjE6221h1wwg9a5lVATf6peIVg0SfLrRQPd1LtVQKxtd+rrhUkATzRtX4xL
-	 y9rTGGApoDKaxDfDRf7MA09YbEwCVXxfeN/a6IwYvor7VmEfusdhRR51ZczxLq7bplg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550364;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	b=lodPzF5K0TWMm2XZtn6Y2ZrbtyODQ8Qo7LaECiOwhyTGjvAt/NNMtH6G5kN+bKf166IS
+	 A5VC5rYhGHor5c1tQxREvIQyneDKk+22zL1mIlR0ojJzffA1ZclvrdPxLZRocRbTngHvh
+	 0bmZrxJ8VGFOc9/na2N1r4AeOtLIs1mNPDjRp1Gwe7q7uwJUBaofBZWeafZiE1md0drPh
+	 nysQ8AQLIaCtMOsaWsb29R64qm83Xk65h4oD9/BCpHgXW6SVTt4LLVskPcPGCVh+Jn6le
+	 x/OuRlHldpuD6las86pcpf9eor60eLYS/I132t2+A5h6u2encwUib/atjYfXzbJvMtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=KnZygorN;
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inyxHeGD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB5D8606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:38:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB5D8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E20606A319;
+	Wed, 21 Oct 2026 02:39:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=KnZygorN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792550298; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=3um0oSkFchI+VCovec//CZdEMgzXeLCw0E3DOZkZLFM=;
- b=KnZygorNvUDC31e41SbkkHNOHcDVkQUtxHE7QIaAilN+Xrtg3MOGhJQCGd1244FNHb4DxH
- fSkgJcPeHQi82+1mU/8C+c4EXFi6x5kXcPXuo6bou3hhpgvrPXdvEoE4gaYvlzPAPGfOLD
- NjdtSP2xjfggH/Ka+CAIyQOv+K0FRoJ2afLebGYlDqrCuO+QU5BCrrFVHG8uYdBYnwb1r6
- clEoByIUdJHgOqMus528jYmuPVojq8n1aFZCs3+ZkdrNo7KVYzJTYU6yurak56Tf4Kq3fi
- 1iBhu1buvWkPvgk/vUfH/f4r3wZDc7Wltpm2Gg7rBMPCaixhAhrLIsmC5xIC+A==
-From: "Li Zhe" <lizhe.67@bytedance.com>
-Subject: Re: [PATCH V2 1/3] mm/hugetlb: fix mremap move length truncation
-User-Agent: Mozilla Thunderbird
-In-Reply-To: <b6d4de88-cf2c-444d-8050-da2a9b22c7b9@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>, <muchun.song@linux.dev>, 
-	<osalvador@suse.de>, <akpm@linux-foundation.org>, <rppt@kernel.org>, 
-	<peterx@redhat.com>
-Message-Id: <6d3aafde-9082-4c74-bf50-a440671632bc@bytedance.com>
-References: <20261019113034.97690-1-lizhe.67@bytedance.com> <20261019113034.97690-2-lizhe.67@bytedance.com> <b6d4de88-cf2c-444d-8050-da2a9b22c7b9@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=inyxHeGD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526D51F000C9;
+	Wed, 21 Oct 2026 02:39:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792550364;
+	bh=ZCAoLYZlSrLohEk+mBrzJi43HvKosm2TxiN/tMhp9/s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=inyxHeGD34CUTKiqzw3ZhWbqSxFr/FNn3PsBkoJoNXHg4Hwgnrn7dLhrvk1VKuVgj
+	 OjKjv2UQW89Wl4ALLCav7OAdcX7KOAZi92W9LnVXsA5qw8pirzZFlQ4A9PNU9hKuVj
+	 BAcST1HRy0VXzfMxAzwLv36jL8aZhQRivH3iBqGy2jHg6e7qvHz+qfagWsM8cOupfT
+	 IW0SyseeMw/wv3q1TOx18jyXHa+JJopCn0bzkErAVRlQPd4HJw8sprKk9jcBUsIMd9
+	 m1JCb4Q3n14KVcocYEDRNFgEywXrxy0bTbG/Lbt3x+UK+vPL3MvlbaB6z2JQ6LoHQh
+	 GnMcElDZyNNXQ==
+From: netdev-bot+sinfo@kernel.org
+To: Qingfang Deng <qingfang.deng@linux.dev>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Breno Leitao <leitao@debian.org>, Kees Cook <kees@kernel.org>,
+ Taegu Ha <hataegu0826@gmail.com>, Tom Parkin <tparkin@katalix.com>,
+ linux-ppp@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, James Chapman <jchapman@katalix.com>,
+ Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH net] ppp: linearize bridged packets when required
+Date: Wed, 21 Oct 2026 02:39:22 +0000
+Message-ID: <179255036282.3290.8488375760281728576@kernel.org>
+In-Reply-To: <20261021023608.55867-1-qingfang.deng@linux.dev>
+References: <20261021023608.55867-1-qingfang.deng@linux.dev>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>
-Date: Wed, 21 Oct 2026 10:38:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,59 +66,22 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26ad82598+312907+vger.kernel.org+lizhe.67@bytedance.com>
+MIME-Version: 1.0
 
-On 10/20/26 4:18 PM, David Hildenbrand (Arm) wrote:
-> On 10/19/26 13:30, Li Zhe wrote:
->> move_hugetlb_page_tables() returns the number of bytes moved, but
->> its return type is int while the generic move_page_tables() path uses
->> unsigned long lengths.
->>
->> A hugetlb mremap() move length above INT_MAX can therefore be
->> misreported to copy_vma_and_data(). The out-of-range conversion to int
->> is implementation-defined; on common 64-bit builds, for example, a
->> 4 GiB move can be reported as zero, making the caller treat the move as
->> a failure and use the wrong length for rollback.
-> Sounds like we want to CC stable here, right?
+Hi!
 
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Thanks, I will add Cc: stable@vger.kernel.org in v3.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
->
->> Return unsigned long from move_hugetlb_page_tables(), matching
->> move_page_tables() and preserving the full byte count.
->>
->> Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
->> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
->> ---
->>   include/linux/hugetlb.h | 18 +++++++++---------
->>   mm/hugetlb.c            |  8 ++++----
->>   2 files changed, 13 insertions(+), 13 deletions(-)
->>
->> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
->> index 16c4c4caa126..cc12040e4032 100644
->> --- a/include/linux/hugetlb.h
->> +++ b/include/linux/hugetlb.h
->> @@ -121,10 +121,10 @@ void hugepage_put_subpool(struct hugepage_subpool *spool);
->>   
->>   void hugetlb_dup_vma_private(struct vm_area_struct *vma);
->>   void clear_vma_resv_huge_pages(struct vm_area_struct *vma);
->> -int move_hugetlb_page_tables(struct vm_area_struct *vma,
->> -			     struct vm_area_struct *new_vma,
->> -			     unsigned long old_addr, unsigned long new_addr,
->> -			     unsigned long len);
->> +unsigned long move_hugetlb_page_tables(struct vm_area_struct *vma,
->> +				       struct vm_area_struct *new_vma,
->> +				       unsigned long old_addr, unsigned long new_addr,
->> +				       unsigned long len);
-> While at it, can you convert all these to use double tab indent instead?
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-
-Thanks, I will fix the indentation in v3.
-
-Thanks,
-Zhe
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
