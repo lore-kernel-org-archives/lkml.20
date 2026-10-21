@@ -1,76 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573601;
-	b=YBhq+x/Z3XfPZwd9BbqaeAvMh9xlr5fi1tV2XLNhy0oU2OMaWWIu5xIhh6BxE697Vibk
-	 rmEAN63By0K9uKaF7H0o8asP4atTfVwPOm5Kqztmshunbe/3VbwAQjQGg7aTaWyvmTwXU
-	 knFN4L3mPmwbEifGYsqs6rbbCf9TeR5irqTvk2Wbt8J/1gkymNX3srxrVSIpPeQsFXB+1
-	 vpn46j0w8c8RAZTBAvu00FXK/upnjsMHlSInfSa7h9Mz+E+jrY045R+L+AWpt08mx1/jU
-	 roVPA9JQ9v8W7V8k3h/8yoehMJ6hZwHtxFpa5S7RI8rum5grUz9ozsJJmHSRWHxbbPg==
+	t=1792573622;
+	b=VtZEpOeJFh3hZkydTwQ8YH7JJI5VeOtLoFoA4nqFRYZVn4rra7wtgYBhcM1GhMEk8Det
+	 hvNUOoFgN5ZCaZLNfbwc6QeaP1EBzalDCzlrBL29PR0xCMZyK++0RO1XMxXFwYO97MIBi
+	 VKdFWE/ItV8/3V9/AhZyENEWuR05mZDofUgC1jiS8zEvB+gw8u/X/QlCIiP99jAAsQfv1
+	 g4RQMKPxLiDJmQ+eunNnJ8y47CNyjs4nOktltWai5aX8gnNoj0eCBM/Gm4K+/T8V99+ng
+	 oeZFOBLAmA3rvxe/FM5k+uBvewTsu1E8LEtNmhXi7s8prkzaoYcqo+OmHF41IioAtnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573601;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=vSS1WWn/ggetKOBLUbWaNnFFsMjByCm0f95BaaBVfMk=;
-	b=rqtgRWh9hj7V4V3a6njR5ImWLlv45iBkQ05RJxA+LZ/N43uItbULYPTE1SwjDWgyyrzr
-	 okzVJpb98TXZ01ar4OQlBoIHIcCC0haZocaUGwq25kWWpwGsJ73+BDfi9567Sw97V3TNt
-	 lf8zlh16rYmgxZVmscv0IQtKbxqHCrtRjGab1nxt4FdZTVU5vsRBOtZ74NizD6NiKqy7S
-	 +sFR2hpnVDBgs8D6Zd0XBRk+M30YkT6J6mcBvlFxPHfhA7lXQjzd0i2QcLhAwcJKcf7nX
-	 VJa4y0V0MFTPvsyGkdVakHU2tHHlNSKTCO0JFEVt0UCF5O4jXhFWAIuMItQirF9gG8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573622;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rLVfg9ErNOee48O9lnXUz0AflcGEv9NaDJ2S46e/6zg=;
+	b=FkVvqyfUbzlSBZzejEMa9Lqjeu3+9g6S9ZvTQ0Ee8OxnoPviMypyuAM31jksG9G1GSPj
+	 md51D73lK02p6TiFcX8cC7aDVz2Oz3TtOyRAfz+GayLMrnBRxnkDdlqDalb/KAr5JqUN+
+	 F6me0EJ21Fdmpw1CRUK8/OptbegrU444t3R8fh0blC8XBF8s/MbOGBZvGy8rhFP04nrEx
+	 hHi646eAcWL7/S+Nqd808+mO2/KXstysq970kccO5e97E1g805fPyySZVgVNFE8tFcdNL
+	 m/EY8fqEcRZrsHq5hXXos8qXzkZHuhl9S/T56VQCeHPvUe43Kkm3lW/Gwy6fJo1JT4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSEshD96;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MmaluNyX;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DA3606A319;
-	Wed, 21 Oct 2026 09:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5966606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:07:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5966606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSEshD96
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D3D1F000C9;
-	Wed, 21 Oct 2026 09:06:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792573600;
-	bh=vSS1WWn/ggetKOBLUbWaNnFFsMjByCm0f95BaaBVfMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lSEshD96KlFwImuJmXbsSDz9RmF0KKXIJsHAGH+hysJab6kr07dWIyuLKc296ew57
-	 exkHOAROwJYlBTZmHlyYSpSU5zCOeBEkyLFSr/4fEAYLWjf1UU+ICQVij7n/FuiRxp
-	 3rAhTZccZFhIuwT45vXWRDE+M43MDdkseb1l9brVVIQf0tE17wR7KC7PV1324QKOW9
-	 R8Xyn/7+c2fXU/4sLvGaCo3++d1704GiODuR9neuTZPbh4jSOVZXsWdtbpoIMpd51l
-	 OYUsH9tHVeNuWg7EZFY01nlyljTDYStuTyRUK+eSrdGJoFAx5EJT3CapxbkRqFn0lv
-	 F9o1DAxACZqyg==
-Date: Wed, 21 Oct 2026 11:06:33 +0200
-From: Lorenzo Pieralisi <lpieralisi@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
-Message-ID: <atiAmZSPiRNBAO5O@red-moon>
-References: <arZNL9BnTGK0Klwc@red-moon>
- <arZS4vwxps01dGb7@ashevche-desk.local>
- <arqSqcoWAkhy-8do@red-moon>
- <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
- <asieTvinZ7c2QpQm@red-moon>
- <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
- <atXyIadz1TEKSodg@red-moon>
- <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
- <ateI-JcExDyfXKrs@red-moon>
- <athimRqtDvQu1ZzA@ashevche-desk.local>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MmaluNyX
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a018dc1f98so3858195e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:07:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792573620; x=1793178420; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rLVfg9ErNOee48O9lnXUz0AflcGEv9NaDJ2S46e/6zg=;
+        b=MmaluNyXBeOxDQPT+Syg3TI5+nimVLhp94T4I9JExxUquckJDUZoLM6XZYVouYUHs2
+         Zgs2g8VE4r8ydHhEzjbvvSYkyN+z0Zedl1XuDJNU6vUxVLKLJIYMK9HG1BVmkS2YZTB9
+         wXxN+iy4H5xJoHwu5CgECZCpw58GHia8IseqM5lsO8fZ0dUL2SdXSEB8meOAEkkcLRpH
+         0KpDo8bcOHjAgt11aPPoLLHIp/GndtXGxUuqZUcn3hml+ZZoSqgcaMcMRXKd9okbr1Ic
+         J7AYwU/AvD9v1zMt8pTErk1pcm7553ROXGF3p0v/sT4UFdYXfAyUIZ9XR/m2bpPqWr0B
+         w3rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792573620; x=1793178420;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rLVfg9ErNOee48O9lnXUz0AflcGEv9NaDJ2S46e/6zg=;
+        b=sSDf829st8Z7XGkKSd5oyCcJuBOy2mDN4hET/p46P0R1+kUoEbnT8/Hunr0Z6BxJKl
+         PPIVDCUU0pmObKyJq5CbAP/Y9+XgqY7tw2CHFWZ9ekfcyqJeHU9v2Lgo8cTjwhzhS9Nc
+         3K8GzfQlQxQHjy97ttSW7LlyDhFTWk50O2c2uMwFdFP7oHI0jCfE5FKhNmF10Cx2PHOc
+         rl1/8dMp/TQfuwgjhYHt5/ZFEaeOZlRfEteNjoFHdKRjW9dDXTzBQIC9D1Ak+QNEnROL
+         CLgrTfwkV3p0TMJZLFjiI9Pdegvc4OXCmW2ArZ4GAFYPnBjus2WmpLiHP3XMOUFFOdJg
+         yx2g==
+X-Forwarded-Encrypted: i=1; AKwUvBzEiG0GOupzhrzoVCProhgqFz3x+3Migdf6f72NI033FzZmCJCB0U/B+YDk8ZgB/sP61bS1zc1K8w4d9mU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDYbsVUVk+m9WSO0NbOwsX2OoNx0kWhzXuvvezF7oX3vfRtDDV
+	+BBwYHS3VgdciC0LQBg8B149mYiVrbZp9G+APkoJZVvpn2MQmIoUciGf
+X-Gm-Gg: AYBFou3YOwE9KD72Sdot0lqKKLHSPUrFIEWNVAOdQ1H+F2G3ziSXXGF8Jcqty3VaPfP
+	LjGu2fL8AZ7my2vNXeHIlCtAVewv1gvJk+9WI4alwYzSGe+/ak191FKtHrl/fdwKxOXs4Au3d1S
+	d0MgTEEaEYx7cgUUmhk7JcWHjk0LXicR7cTI/pCyJX2G0va6KUDkJE8lKkQNPzHrjoDpdB3Q0DV
+	tdYzL6u2hiUcGDBfAnKpcnvtQmdowt7jTs22lsAFsscizncCiZIwYbUHVwiG8YybJA32NdGFnvl
+	yeU23icIBU6o+74ob0FwwlEA3iyOCeHNd9bswGodObno8Q+ljGmZW5OWqDgn+2yVUX69k0nCEmd
+	isORqxr2ChSidnDr0xa7q4a1QZSeBmezqvkkqzDpm+1d7xeyCvqy43a/w02nw57EppUVYcUOE0L
+	Jn0caC49rSnpIkA8u76NRJ7cmtCt7ODOmEpj/eAEKVFKEyO8WbghCeeskHaU0n/1cxAx4+VfEDv
+	osNA5r26DAUIwx8/lsNkn3fsO/ouIW/WtCxGGC5zWh2DvEyvnKj1qqaaMCuVeN3lcbeBcp4PN5+
+	LjqLB+n+rEsesU6Bix3nRj7v
+X-Received: by 2002:a05:600c:4743:b0:4a1:d992:9476 with SMTP id 5b1f17b1804b1-4a1fdd460e0mr25240115e9.23.1792573619791;
+        Wed, 21 Oct 2026 02:06:59 -0700 (PDT)
+Received: from andreayoga.wind3.hub ([151.76.51.95])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm41757565e9.0.2026.10.21.02.06.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 02:06:59 -0700 (PDT)
+From: Andrea Parri <parri.andrea@gmail.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
+Cc: Andrea Parri <parri.andrea@gmail.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Bradley Morgan <brads@mainlining.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC -rcu/dev] hazptrtorture: Release all deferred hazard pointers before stopping
+Date: Wed, 21 Oct 2026 11:06:51 +0200
+Message-ID: <20261021090652.20333-1-parri.andrea@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <3e7abe29-df1f-4cb6-884f-dd0a70c5311f@paulmck-laptop>
+References: <20261019162005.12888-1-parri.andrea@gmail.com> <3e7abe29-df1f-4cb6-884f-dd0a70c5311f@paulmck-laptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,83 +110,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <athimRqtDvQu1ZzA@ashevche-desk.local>
 
-On Wed, Oct 21, 2026 at 09:58:33AM +0300, Andy Shevchenko wrote:
-> On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
-> > On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
-> > > <lpieralisi@kernel.org> wrote:
-> 
-> [...]
-> 
-> > > Basically, yes, the idea is to defer the creation of the platform
-> > > device until the dependency is met.
-> > > 
-> > > > till the dependencies are cleared but then, without a _CRS, where will
-> > > > the consumer driver find the platform device resources ?
-> > > 
-> > > Well, good question.
-> > > 
-> > > > There are multiple facets in this issue and possibly some of them have
-> > > > been already solved but I need to pull them together.
-> > > >
-> > > > > Note that the dependencies can be added to acpi_dep_list after
-> > > > > creating a struct acpi_device with acpi_add_single_object() and
-> > > > > acpi_scan_add_dep() is not really suitable for that, but it should be
-> > > > > doable if the dependencies can be found.
-> > > > >
-> > > > > > I need to have a deeper look into this next week but I wanted to ask first
-> > > > > > whether there was something I missed - most likely.
-> > > > >
-> > > > > Well, it is not really straightforward.
-> > > >
-> > > > Yes it is getting messy. This RFC, with all its flaws, does not transparently
-> > > > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
-> > > > dependencies - though it does so by adding more stuff into ACPI static fwnode
-> > > > that to be honest I'd rather see gone.
-> > > 
-> > > I think what you need is a notification mechanism that will trigger
-> > > when a specific device (enumerated via the ACPI Namespace) becomes
-> > > operational.  It doesn't look like any of the existing ones (platform
-> > > device probe deferral or ACPI device dependencies tracking) is really
-> > > suitable for your use case.
-> > 
-> > Yes. It might just be a notification from ACPI core to say "the driver for
-> > this ACPI device probed, go create platform devices that depends on it".
-> > 
-> > We can check and track the dependency in code that does create those
-> > devices today.
-> > 
-> > I will think about this to see how bad this might look like.
-> 
-> Don't we do something similar in drivers/acpi/x86/lpss.c?
+On Tue, Oct 20, 2026 at 11:49:08AM -0700, Paul E. McKenney wrote:
+> On Mon, Oct 19, 2026 at 06:20:03PM +0200, Andrea Parri wrote:
 
-I suppose I can add a notifier that checks whether the device whose
-companion represents the ACPI device a given platform device IRQ depends
-on was bound to its driver and then map the IRQ and add the platform device
-_then_ - after all that's what acpi_dev_clear_dependencies() does (similar
-at least).
+[...]
 
-There is still the question - where the GSI number, flags should be
-stashed so that the notifier can grab them in a uniform way. We
-could simply attach platform data storing those values to a pdev, either on
-a per static table basis or generalize the data so that a single notifier
-would be able to deal with it.
+> > -		if (!torture_must_stop())
+> > -			torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
+> > +		torture_hrtimeout_ms(kthread_do_pending_ms, USEC_PER_MSEC, &rand);
+>
+> Is the theory here that a kthread_stop() will wake up this sleep anyway?
+> And if so, would that work if the kthread_stop() already happened?
+>
+> (I do recall adding the torture_must_stop() checks due to delays at
+> kthread_stop() time, but perhaps things have changed since then.)
 
-That or I can just piggyback on acpi_dev_clear_dependencies() and add
-a separate dep mechanism to acpi_dep_data that instead of being acpi_handle
-based the consumer is fwnode based (something Rafael mentioned before).
+Yes, that is the theory.  torture_hrtimeout_ns() does
+set_current_state(TASK_IDLE) and then schedule_hrtimeout(), and
+kthread_stop() sets KTHREAD_SHOULD_STOP before wake_up_process(),
+which wakes TASK_IDLE sleepers.  So:
 
-I will have a stab at this and see what's the least bad solution I can
-come up with.
+  - If kthread_stop() comes while do_pending sleeps, or between its
+    set_current_state() and schedule(), the sleep ends right away.
 
-I suppose we are scrapping the -EPROBE_DEFER solution (ie this set),
-what we are talking about above won't need to defer anything other
-than the time when platform devices are added.
+  - If kthread_stop() has already happened, i.e., it comes between
+    the kthread_should_stop() check and set_current_state(), the
+    wakeup is lost, but KTHREAD_SHOULD_STOP stays set: do_pending
+    sleeps for one full period and the loop then exits.  That is
+    kthread_do_pending_ms plus up to 1ms of fuzz, so 3-4ms by
+    default.
+
+For comparison, without this patch do_pending leaves its loop at
+torture_must_stop() and waits in torture_kthread_stopping(), which
+sleeps in TASK_UNINTERRUPTIBLE for HZ/20 at a time, so it has the
+same lost-wakeup window with a 50ms bound instead.
+
+The next version says this in the changelog, which in the RFC only
+says "kthread_stop() wakes it".
+
+> >  		// Omit stutter_wait() because this function needs to do cleanup.
+> > -	} while (!torture_must_stop());
+> > +	}
+> > +	/* The readers have stopped, so nothing new can be deferred. */
+> > +	for_each_possible_cpu(cpu)
+> > +		hazptr_torture_do_one_pending(cpu, &rand);
+>
+> Very good!
+>
+> But given these two lines, do we need the changes to the loop?
+
+I believe so, at least for the loop condition.  The readers are
+stopped after the writer, so during the writer's kthread_stop(), the
+writer can be in ->sync() on a hazard pointer that a still-running
+reader deferred, possibly from the iteration it was in when
+torture_must_stop() became true.  If the loop still ended at
+torture_must_stop(), do_pending would make that final pass right away
+and then wait in torture_kthread_stopping(), so a hazard pointer
+deferred after that pass would leave the writer in ->sync(), as in the
+hang above.
+
+The other two loop changes follow from that one: the unconditional
+sleep keeps do_pending from spinning while the writer and the readers
+are being stopped, and the all-CPU pass once torture_must_stop() only
+bounds the writer's wait to one period, instead of up to nr_cpu_ids
+periods.  I'm happy to drop the latter if you prefer the simpler loop.
+
+> > +	/*
+> > +	 * Stop do_pending only after the writer and the readers: the writer
+> > +	 * may be waiting on hazard pointers that readers deferred.
+> > +	 */
+> > +	torture_stop_kthread(hazptr_torture_do_pending, do_pending_task);
+> > +
+>
+> And this change looks good.
+
+Thanks.  In the next version, I'll keep the original (longer) comments
+as you suggested in the other subthread, and post this patch in one
+series with two patches that make hazptrtorture catch the slot-owner
+race, as you asked in the slot-owner thread.
 
 Thanks,
-Lorenzo
+  Andrea
