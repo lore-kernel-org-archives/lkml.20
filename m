@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594771;
-	b=s1dTKnqxvnaYTrOeAQrGIrGNR886uz2v9Z4hypQq/vyZYrXbAH7E2aiA/8vJiF1zdbaN
-	 oa4hhcXzESHbtOUyKha2wQGuzlAAoJQ8DDPtBAm7/LTBbAAg5wqs4Yygl7pVwNTrxVgXO
-	 B8PNX2C5zqjTmiKWvD2suz8DJojWo1cGCjuM4r/PkdrSYO1oEE+DGcbFS3zujX9agIhE6
-	 EB97Rn5P+8+j7LEAKZko9HBv+skyR8iV6vzjwRvE7SbLqSOSRw3aiIovWiTVM5fzrHGPP
-	 ijSgjPxBbG0hIKjgxK/+lg1dzBEjQ25k2ajwAx33Du0gr4PDwJu6KPY36xm2IwTNGgQ==
+	t=1792594826;
+	b=NDhOsnuBkumHDKLFVImBQ8VBcPWkJAAMSZh+5LIQ0kPIZSvCZuOG1Lty8BWZ64HdOV8N
+	 W3VNo46jpP0fR6eI1F6e3ZTt3kxVFtgh2ek552ycyB8QksCb2shOjVOJ6az0EvKDt5zS5
+	 2JgSbHLQMmjmN5NQjKDE/wRj0wg0/vY2QtlEUBBTX6xWO5ev4oZjA1xRK2cX2p8oP04fU
+	 +TXi+BCL+bkK7xR0Q1bf7ZFWb4zJseEozTeGWtcTohq0z/Vw0r6iDLeju1FfGgsePrG94
+	 SZti504Htcb7OaYLVwOBuus3gYqKuCTQLxNqf86JrvupJF117/rg9wfjRDPZiy3Qq5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594771;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=o7mWMmn0y6OE7cAZuYYIUBrV66g2IAm+RrH+ZQQFxok=;
-	b=U7cnOBKHLErpPKPAjBFOpolwes34eO+2AHN4vZOtVKFrpXIVyTL6tAfkAWoXyBtIav+4
-	 kiJbboeBx143mgt9BmZxaILKJny7GUXPa14Z968+k+5lqpoWFyIy4tUTu/OaU842ievEi
-	 Ou8XW3GbDuP2trv0Y2uckoQG0V3onCzmbUOCqchqmhbGddn50oGi+2qUpUEe/kSpSqlDD
-	 NKI+xcW0jVYewHHNpnOcekUTYQnMZCi7QVxImAqpccr4efn6cFtihOQgDlut4r/WxiyUq
-	 cku4q2PRBgKL37Yj7kH+o45WwwfE3WORz/qzWaK0NOXnxEmy8gKqY58HP/laFVZhy7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594826;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=J2oZ2Pffx6RFmL4hZYGK3DF77UUAFY+CBcj5PPYK2gw=;
+	b=UmnYHffYyVzHziL7y06o6AAkac0OIX9B2IwbD1jWHQHORdgdtbuoCEYvEbMXJvKoKHsp
+	 FMhLPoYZ1FdiKsVAxvueCP2wgEIvUDbbgTfGm6Tg9duqH8TeYUcPh0vFBc7BcOw+uE0i3
+	 jRE2YwfNl7tQbVOswWBRwkW9Ca4BgByxS5lLJ85McA2sRofj09YmBEeVHvUoNhqGxL9ji
+	 BtmFv6MOPW0V6BNcv1yhwdiVNKiGuAGi6tTuAgfUJDzaQGF0JMLKL7ZTpDmJ0XccQwxbR
+	 ynMbGIWz8RW2sGOrzVztXL0hFLVeOmslAUqKQgQXGsdF7K3WC/npI/uAntJXHRDmmSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=clWbjGJC;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjJXaQcb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8DB606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F85F606A31B;
+	Wed, 21 Oct 2026 15:00:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=clWbjGJC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808961F000C6
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:59:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WjJXaQcb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E137A1F000C2;
+	Wed, 21 Oct 2026 15:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792594770;
-	bh=o7mWMmn0y6OE7cAZuYYIUBrV66g2IAm+RrH+ZQQFxok=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=clWbjGJCxxVLFJ3LvpsN1aOnBJIsx6leHLMO13p7eRGlF2MKV8FEKUDJCn/ozcJOW
-	 9XgjqKIDuRgCQ1XNHM3TAfhOy396e8lhmNUmuVecjwjFkHVLsQqLAVOYh9CgeW/kKd
-	 GRebasXy9HFuDAY5+HZAq2+VF3kOWBwqF7Nh9L/ePAnP9/Dqr56ctuKdkmkMWtveE3
-	 3qC6Wq1Y65YzXwXVmKoASCOFnkWmPsX8uWaRzZpJX00mRvRxS9M2JxoDAo4OUJ+9GU
-	 fba4ZiWZ0gxJrvwzUuOEP1pEnLI1z2/VqE/ZsQkREv0I5k2CJSo5kbkG6KhXutemyR
-	 deMTgketoSr1w==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so745811e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:59:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz4PLI03aaAsBq6FcurEJrKjQjwjpImRw8m6doYEgIJxd25lK7DQ3KEsYid0FlWdKje5SVZ05g0f7fey4E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQ+QtFwywTLAzUgqr//2Sz/nVRj/aUuFeATj/1DvxStH+aUCdN
-	waGU4o7kHv9VOI31zY2F4isuN4ADk9vf1m8SVgKkdibcEP9/11gCUqJro0aikyslQfJkq4pbk2S
-	MJ5Irgj79yAWokVrn1Oe1ShX0/qC1jdI=
-X-Received: by 2002:a05:6512:3f08:b0:5be:4ed3:95a5 with SMTP id
- 2adb3069b0e04-5bfa1bf964fmr1050554e87.42.1792594768911; Wed, 21 Oct 2026
- 07:59:28 -0700 (PDT)
+	s=k20260515; t=1792594826;
+	bh=J2oZ2Pffx6RFmL4hZYGK3DF77UUAFY+CBcj5PPYK2gw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WjJXaQcbrfAY9BxH6maCYdJfdDk0EmgTU4q7mbf09sUaFYw6kDhu2XUpCL3HjA+e+
+	 /DoHHdy5zKsCXWoDfvl5lK4SBdOHROKmUwXtuXCA795C8w1jSEvivIzACxyKNozs7j
+	 GgK4f7f7vBavwniHn4d4YV4l1tG96hX569TYT018lc7WgSrrm+JcorZTfq+oVttLJE
+	 TDLF0jpRcaB8lJKDInnlgf1B/SFNNr4KzvydubeTWwSFjGHzipsUNlfUvky90n3nAf
+	 tQHdLZGsTviUE50YB2BmFxg9Vr1Ah6gmHCOgDplbSL7fy9ujozutpyr2R+lQI6G8E7
+	 /lFOpZ2oJGQYA==
+Date: Wed, 21 Oct 2026 10:00:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
+	Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Aaron Kling <webgeek1234@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: gpu: nvidia,gk20a: Allow a fuse clock
+ after the reference clock
+Message-ID: <20261021150025.GA254364-robh@kernel.org>
+References: <20261013145210.103565-1-sashal@kernel.org>
+ <as5N73fHztX8hVWh@orome>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,45 +71,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021134243.35103-1-daniel.lezcano@oss.qualcomm.com>
- <CAJZ5v0g5a+0eaULxGG=RFm=JN8Gh3_A=7mGUTmFUiXsxVKvpDQ@mail.gmail.com> <f223c867-fca5-44f2-9cc8-dd3ca99e1387@oss.qualcomm.com>
-In-Reply-To: <f223c867-fca5-44f2-9cc8-dd3ca99e1387@oss.qualcomm.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 21 Oct 2026 16:57:09 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0gdciXBVLVkg+61uf295KT04z=te36rYR-p+18M96p9=A@mail.gmail.com>
-X-Gm-Features: AclHuK_mfzmSMd0d7MFDzlfylep29Qo2bx4v9s1XyfNDjPJ7gnGjkHsawtfNplo
-Message-ID: <CAJZ5v0gdciXBVLVkg+61uf295KT04z=te36rYR-p+18M96p9=A@mail.gmail.com>
-Subject: Re: [PATCH] thermal: Share THERMAL_NO_LIMIT between kernel and DT bindings
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, rui.zhang@intel.com, lukasz.luba@arm.com, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <as5N73fHztX8hVWh@orome>
 
-On Wed, Oct 21, 2026 at 4:47=E2=80=AFPM Daniel Lezcano
-<daniel.lezcano@oss.qualcomm.com> wrote:
->
-> On 10/21/26 15:48, Rafael J. Wysocki (Intel) wrote:
-> > On Wed, Oct 21, 2026 at 3:43=E2=80=AFPM Daniel Lezcano
-> > <daniel.lezcano@oss.qualcomm.com> wrote:
-> >>
-> >> THERMAL_NO_LIMIT is defined separately in the thermal core and the DT
-> >> bindings, using different expressions for the same no-limit sentinel.
-> >>
-> >> Define it as 0xffffffff in the DT bindings header and include that
-> >> header from linux/thermal.h. Remove the duplicate kernel definition so
-> >> both interfaces use the same unsigned 32-bit value while preserving
-> >> the existing DT encoding.
-> >>
-> >> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> >
-> > But THERMAL_NO_LIMIT is also used by the core on systems without DT,
-> > so why is defining it in DT bindings not confusing?
->
-> Yes, you are right. I missed ACPI relies on the THERMAL_NO_LIMIT default
-> for the cooling spec
+On Tue, Oct 13, 2026 at 05:36:09PM +0200, Thierry Reding wrote:
+> On Tue, Oct 13, 2026 at 10:52:08AM -0400, Sasha Levin wrote:
+> > GM20B needs both its reference clock and the fuse clock while it is
+> > powered, so allow "fuse" as a fourth clock after "ref".
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > ---
+> >  Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml b/Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml
+> > index 4d856a8b674c..ecbc20e6adec 100644
+> > --- a/Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml
+> > +++ b/Documentation/devicetree/bindings/gpu/nvidia,gk20a.yaml
+> > @@ -44,6 +44,7 @@ properties:
+> >        - description: GPU clock
+> >        - description: Power clock
+> >        - description: Reference or fuse clock
+> > +      - description: Fuse clock
+> >  
+> >    clock-names:
+> >      minItems: 2
+> > @@ -51,6 +52,7 @@ properties:
+> >        - const: gpu
+> >        - const: pwr
+> >        - enum: [ ref, fuse ]
+> > +      - const: fuse
+> 
+> Technically this now allows:
+> 
+>     clock-names = "gpu", "pwr", "fuse", "fuse";
 
-Well, in principle not just ACPI, but anyone whose .should_bind()
-leaves the struct cooling_spec as is.
+No, it doesn't. There's a 'uniqueItems: true' in the common schema (via 
+a $ref).
+
+> 
+> I think we may need a very explicit version to cover this now, something
+> like:
+> 
+>     clock-names:
+>       oneOf:
+>         # for GK20A, GP10B, and GV11B
+>         - minItems: 2
+>           items:
+>             - const: gpu
+>             - const: pwr
+>             - const: fuse
+> 
+>         # for GM20B
+>         - minItems: 3
+>           items:
+>             - const: gpu
+>             - const: pwr
+>             - const: ref
+>             - const: fuse
+> 
+> We may also want to leave out the minItems property because it turns out
+> the FUSE clock is indeed required, so we'll need to add it to all device
+> trees anyway to fix this hang.
+
+Please make this kind of change as 1 applied series so we don't get 
+transient warnings.
+
+Rob
