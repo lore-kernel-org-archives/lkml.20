@@ -1,83 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579009;
-	b=1vGjkGBqyuwtz0VGRopLH7/JyUCWZt37nogC6YEwtLBr03PxA98xjvHBkq9v29VhEvgL
-	 IgpK9SiUURSxMMwDPVjxCztkcxQunK5dwWywELBAyRj1R/lnkUbLGD7xtqInzMSlUUsYY
-	 TzrMTmjbjgFANIXYGgfA0aA9a4b6ev5RmYmf89igDsHUfEiQFifzzKFj4qA6ZcRYI9Izr
-	 i8Q7zFvgXYXktjfKm3mEWF7oWVnGoJrv/8705dhnOmcTxshCBdB3PVv24l4fNrQiAzGMs
-	 n1qsOxcq09ATGgagTbuMUKFgiNiLycJcITSKCJasuGyDHI0HIKyC3JZG3XETbU/CsZg==
+	t=1792579019;
+	b=ey6XNZtJl3jto83YQw8rla3s4rO+vNUazhME4n2BYpP0TIMlhpcn6kszZOApIkzgj53c
+	 0q2oMnvPJSuY22duCg3RrhjCygmycJpoF1Le6O6MUtw4fvd7Y7aSbv76DHNdY4xwvoqg6
+	 VjovCOU1XsG7C6heYWNYIw8bLNNxH5JCBg8xGq7UnNuigHMzciEILdtj/6cjxOsaOWeLG
+	 G4ipWN7BLgIN7xey+xK2ichl1hiXqlBN49/3/hoC9E7ZpszvtF3iulGjYTbJppqZPcAp4
+	 y8N9sYn/MmMJJeAclJaB997VRRUFdSaPxenUqFsgmhxeGq+Dk4EcFz4EsQYy5hbzS0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579009;
-	h=DMARC-Filter:X-UUID:X-CTIC-Tags:X-CID-P-RULE:X-CID-O-INFO:X-CID-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=4a8dTd8W549kARPYgxWqM4QrBiNO4UU5WeCrYJf8hzI=;
-	b=5Aad20dmr13aQLUyRsD0uVqyIFRaDRKXxMpX079sWZ+MViLCzPGgkxZAWft6pPgg7P5A
-	 O2EeNwg8iWJsXxENJ67a42gnpwRQEhzPPahNUCRRcod9a7kbQfREYF//pbFNNWrfaGM79
-	 mlebJIgycYiCEUPR2HT9h5R1G94whqtRGlO4Vmi/uLRTPWOLwvZA0Ozn1+u1nTYEipt4Q
-	 hVhSOg26cnJi/IZJO3IKfMoiRnlWlcopsvbIx+joDqLSRzNYWj4nBql/Wzqv6Rk8T+u/w
-	 vaMVOuyrBzm9s+mHTS275nGhKWbw8VqzVbksbDJiqZIcc0jf2mIG8W4U90vqn0qFhAQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579019;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BDJTCmz6NRGzzDUbjjpAqfjpVYc95zSzfV9UFDFGTpI=;
+	b=Rr0CmqJVcWEFFazYuLBjypsJYBRH7Komz8kFIJ1LW4NTb81d1JIGtBgef0gTXnIj5jwB
+	 HaZXJ8A4T56Vvf/oN0Dc0vt6W/FN1Zg1HiTi19wg0tONIOWZrNroIm9fTezK5k65KB1ad
+	 SZxmgHCb6jqkdKtr77iWRKD0umh3J0WU5RYzMXKr9z/u6jh1wvSVqi6nVQpfKKNTgAxuc
+	 UtRARdhAL3pcn1+0kC9VHaz8AE+tOA5bl9ZKSgVkKz8o3zvaTY5xDmcqRZCWlURf1l7EG
+	 oaQ0Y780pb9+tdRIZhdAOZ0J7QIG++TpUl9w/Ao/LbzfCai04KfTP30A6fB94Me8Siw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Vp4iHIH/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CYyl33Ca;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D64E606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:36:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D64E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 4ab90578cd3b11f19a56ed5b684f684d-20261021
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NO_NAME, HR_CTE_8B, HR_CTT_TXT
-	HR_DATE_H, HR_DATE_WKD, HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG
-	HR_SJ_LEN, HR_SJ_LETTER, HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN
-	HR_SJ_PRE_RE, HR_SJ_WS, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME
-	IP_TRUSTED, SRC_TRUSTED, SA_TRUSTED, SA_EXISTED, SN_EXISTED
-	SPF_NOPASS, DKIM_NOPASS, DMARC_NOPASS, UD_TRUSTED, CIE_BAD
-	CIE_GOOD, CIE_GOOD_SPF, GTI_FG_BS, GTI_C_CI, GTI_FG_IT
-	GTI_RG_INFO, GTI_C_BU, AMN_T1, AMN_GOOD, AMN_C_TI
-	ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:5cdad1f0-615d-41c5-809a-f2fe534bd61e,IP:20,
-	URL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:20
-X-CID-INFO: VERSION:1.3.19,REQID:5cdad1f0-615d-41c5-809a-f2fe534bd61e,IP:20,UR
-	L:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
-	elease,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:1bd38fda213d37dd9cd1ec9cf075d221,BulkI
-	D:261010210608FCZ9WBJC,BulkQuantity:7,SF:10|64|66|78|80|81|82|83|102|127|1
-	36|841|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3|-100,IP:-2,URL:1,File:
-	nil,RT:nil,Bulk:40,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:
-	0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 4ab90578cd3b11f19a56ed5b684f684d-20261021
-X-User: duanchenghao@kylinos.cn
-Received: from localhost [(223.70.159.239)] by mailgw.kylinos.cn
-	(envelope-from <duanchenghao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1052165201; Wed, 21 Oct 2026 18:36:36 +0800
-Date: Wed, 21 Oct 2026 18:36:33 +0800
-From: Chenghao Duan <duanchenghao@kylinos.cn>
-To: Luca Boccassi <luca.boccassi@gmail.com>
-Cc: jianghaoran@kylinos.cn, avagin@gmail.com, linux-mm@kvack.org,
-	kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
-	systemd-devel@lists.freedesktop.org
-Subject: Re: Question about obtaining LUO session FD for non-systemd-managed
- service
-Message-ID: <20261021103633.GA1324331@chenghao-pc>
-References: <6ac99eb9.6b935c14.1905ce.7c50SMTPIN_ADDED_MISSING@mx.google.com>
- <CAMw=ZnTTUxO2ZCobEDTQUY7OZxmyJUQxg4DkhC9gTWXaDaK1dQ@mail.gmail.com>
- <20261013110237.GA836401@chenghao-pc>
- <CAMw=ZnTksVT1wuQwAjzz_2tYSCvLSxeUBa3mYQvCFuKUtcydaA@mail.gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D119606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:36:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D119606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Vp4iHIH/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CYyl33Ca
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LAJUrf1422119
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:36:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=BDJTCmz6NRGzzDUbjjpAqfjp
+	VYc95zSzfV9UFDFGTpI=; b=Vp4iHIH/b9Q8rswfYPYJsKAo6rBa1Z4J48mcAa+Q
+	7qjgUJF3HlevIxTNDJ6IzOuDTRRTW+HYytEVjAvPmGrA4QLm8/YxZygJNCoyURIr
+	WdXV1Jajnj1hTDzjjZ6AR8Qz4KSPs7iOOVrJmOi+qkZ+4+IgryNPxvFAOYbSxzOK
+	e8T6lXC4sa+xnzpXYbQUjAtgNsnCOG5ChtmkpTWNpxo8PCBFjkALaWrFQFhwje4E
+	D2UQ8vXIsYHNvCqWwUQLQZ4nGK/sR513htDylgxhGCAuHCD1orw0nzZWOBYK/A7Y
+	2gMDj6ZiKgnrkxY2JSCYeTNH61VBFTSQzRT00P3C8ejLqQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heuhug1tq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:36:57 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93dd3c3badbso125609285a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:36:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792579017; x=1793183817; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BDJTCmz6NRGzzDUbjjpAqfjpVYc95zSzfV9UFDFGTpI=;
+        b=CYyl33Ca8WDKE51GLV/8NaGnmzXbXbbc65iseYZf94hhlDUEO1gD6zbllAHeMWHwcC
+         /7by7whn3uTE6/r1le3wHIj3DgfUbwAppFQ8RTgvV0euDROxZ7aAc71VWobSLpePvIqU
+         hi3kWGVBohXG0Uem7BN+Y3PtwDq4Ct/8L/56yrUS+gVmWwjTd6AmnK160A7B7RI6hy5u
+         dgTTY3H253fu1ivRxy7PhlhXAWe0ER8qSpuiFOH63bWQjTXUXUhnigwoSjSyESOVh7ts
+         y72yYpTwZ62NNwpOTf9W9XJJlW8Zj9ES7MO65izExkZJGTeOabLncY0S/pmkM7Rd/vQe
+         Fo7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792579017; x=1793183817;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BDJTCmz6NRGzzDUbjjpAqfjpVYc95zSzfV9UFDFGTpI=;
+        b=Ly0qgfwwbqWr3yhsqcrilVuSTa0eogQeSLVQv5ZFZOKxo6UvJ1Ul69LR1owJf3dbLn
+         sNYbD58pSRWX7URHIZyWmQgU3khrKwCk6wg7Gr/OH6r9NU/AnxdUNWAe5+ZK/h9AIMyW
+         8Sq9+8sPZKF2ZyIDvb5mruHRAIVNJAn52MRppzaMbEciFjJd3M3xjQWxoNJK4gpULgCE
+         lwLFaP4FJoOTPxCzVzUubm+FTzdjFt1bJmnMiCYd+KZhLt2ZFl7oDXuT9OcreqKKrrqK
+         lADFIQpbSQB0GQ/CoF4enALNQbnqEoaB++T4ir5KvvT0mEQ4mqsIYA6QaBCv8krNcxRy
+         FvhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzEh8FmOWSdg6bWacY6XacghPGLme0khrBKgZIX5JAckm2x5V6GPONL9RCe4E1n3UZgwpKUifCsM/UyJPU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ4Zvv+ju4jp7rf/CRAWMLlnVKW0jd0zCDzcG94tvQ1OiL6rsD6
+	qENf0Du1OkXg/AhHJrnDSYOy7djfKiY6MW480UEqKgLe4ttqI7Kt1MLhu61ZVldR4U/Yednf2pJ
+	wlGbDw7xPPmqZ/rQIq7fACXItzVvHR/1nPYi3e4ZSuclXfSsbQOrADU8oPaJHmiJD18I=
+X-Gm-Gg: AYBFou3UjD4he9adm00KiPkRDei3d9GbaGdnq6Bt9fSoB5pg2m4ByN6piZ+eJKcvfwf
+	/51ci32qz9lmajalrLvAg1G2TEy6a54BFZY0MTwD0RbSS6WJH4b4uPjimL0weNhhqvADy29cvAJ
+	mkKXhRLhpPPODH6k3GzSKY9G5QqQzD5aAqSYOoICZFZ0CAwj2WCm8rl1lbJwpCQlgPHaV+yZN9O
+	kZ9OkQrHOkAPogfsHrUEH4sOd52OfNHdeN0kT6AJZBP651LxHrqJiUtDj4lS23gfDTHDDgx8c65
+	SSVkeXqVo9c9OWCcedzLynpuHsw7Tn5RWvzvzid3sPLpUpruX0VNnqxO4mO8s+I7C6U48UvHBkF
+	FtC588GsMOILLPLMk
+X-Received: by 2002:a05:620a:4452:b0:93e:f97f:f245 with SMTP id af79cd13be357-93f57f4ab04mr324735185a.30.1792579016760;
+        Wed, 21 Oct 2026 03:36:56 -0700 (PDT)
+X-Received: by 2002:a05:620a:4452:b0:93e:f97f:f245 with SMTP id af79cd13be357-93f57f4ab04mr324733285a.30.1792579016246;
+        Wed, 21 Oct 2026 03:36:56 -0700 (PDT)
+Received: from oss.qualcomm.com ([188.27.161.187])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a20049941dsm20742025e9.11.2026.10.21.03.36.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 03:36:55 -0700 (PDT)
+Date: Wed, 21 Oct 2026 13:36:54 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: fabricioakio@gmail.com
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>,
+        Martin Botka <martin.botka@somainline.org>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] clk: qcom: mmcc-sdm660: enable the parent when
+ pclk0_clk_src changes rate
+Message-ID: <mi4c3ld7yjptbubswccnzoq4xrlbj6yj55fkgwofnoaukzbmlc@l664p3rhjcmd>
+References: <20261002-sdm660-pclk0-parent-enable-v1-1-d6ff889144e4@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,110 +125,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMw=ZnTksVT1wuQwAjzz_2tYSCvLSxeUBa3mYQvCFuKUtcydaA@mail.gmail.com>
+In-Reply-To: <20261002-sdm660-pclk0-parent-enable-v1-1-d6ff889144e4@gmail.com>
+X-Authority-Analysis: v=2.4 cv=d4JgWhjE c=1 sm=1 tr=0 ts=6ad895c9 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=NuZgWczD4kNqo5kl0xoA:9 a=CjuIK1q_8ugA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MiBTYWx0ZWRfXwQXOY3wbbdjf
+ tF1StksnBvnFnHdVMR5g91JvLSK97b33pAxRG0jIqZlELkTuHHNfVj/fgFL+xqSGbogFbqcDyBB
+ d9i18F+c7+mXerCQn55ArAxddndUIpM=
+X-Proofpoint-GUID: wVRoKhUGHOlOjYmZ5XsnkuRZ_ulNse7V
+X-Proofpoint-ORIG-GUID: wVRoKhUGHOlOjYmZ5XsnkuRZ_ulNse7V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MiBTYWx0ZWRfX9ZWgL+zc4gVu
+ 5Wm+7+cQnIF7xigulekfV0AnVj8fcas4K7nudCvJapszx/EjEyAdxAhJhBh9/t80+5QcCDW5tVZ
+ vq1YHyuWyfX84Q8+avaLYaZ98Wk5kyFCmheXGMk8mANDArfvfQZnUx7SRArPYJKpDHsCGAM68xJ
+ iXBMJL36gdDau72VPlxuKWhGKNaEpa3P5R0AwxlyLfI8M4iJExU3SP5Ph94BxjmRSTup96Fjg8o
+ iiwA7+Q6zDWtjTuVNwLf7vgtSIboYDyDhkDMM+Nk7PqtiVV9yhQcZ0b7yLhZk81B2ilgzsSFTT8
+ DK+tBgOiv/Xckm8LTUmpJFtKnIDEiwfYoPrRqiQuOYX4Z4XlVgEe48vC3IYJa7+pNC2oFChFKIx
+ GKjBUQodRcQAALab9k26wqfsD4YawKWhJh2XUJxYeP1hbwSHDHnb3J1oQTHW0z+rxarrMTQVEti
+ GRpIFwOT6WmrQ60PN9w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ adultscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210042
 
-On Mon, Oct 19, 2026 at 01:13:28PM +0100, Luca Boccassi wrote:
-> On Tue, 13 Oct 2026 at 12:02, Chenghao Duan <duanchenghao@kylinos.cn> wrote:
-> >
-> > On Sat, Oct 10, 2026 at 03:05:40PM +0200, Luca Boccassi wrote:
-> > > On Sat, 10 Oct 2026 at 04:11, Chenghao Duan <duanchenghao@kylinos.cn> wrote:
-> > > >
-> > > > Hi Luca,
-> > > >
-> > > > I watched your excellent presentation from the LPC conference in Prague.
-> > > >
-> > > > I have a question I’d like to consult with you.
-> > > >
-> > > > I am currently working on the `memfd_luo` feature in CRIU. My goal is to
-> > > > leverage the LUO capability to store checkpoint images inside memfds.
-> > > > After a kexec reboot, the image data will be retrieved directly from
-> > > > memory instead of from disk.
-> > > >
-> > > > Here is my pull request on the CRIU GitHub repository:
-> > > > https://github.com/checkpoint-restore/criu/pull/3152
-> > > >
-> > > > In the PR discussion, avagin suggested using systemd as the CRIU daemon
-> > > > to centrally manage LUO sessions and access to `/dev/liveupdate`. I have
-> > > > watched your talk and read parts of the systemd source code.
-> > > >
-> > > > From my understanding, systemd currently provides a unit‑based solution
-> > > > where child processes can inherit LUO session file descriptors. However,
-> > > > this approach requires the target service to run as a child of a systemd
-> > > > unit. As far as I know, CRIU does not run as a systemd‑managed service.
-> > > >
-> > > > So my question is: for services such as CRIU that are **not systemd‑managed
-> > > > child services**, how can they obtain LUO‑session‑related file descriptors
-> > > > managed by systemd?
-> > > >
-> > > > Thank you very much for reading this email. My knowledge of systemd is still
-> > > > limited, so please feel free to correct me if I have misunderstood anything.
-> > > >
-> > > > Thanks & best regards,
-> > > > Chenghao Duan <duanchenghao@kylinos.cn>
-> > >
-> > > Hi,
-> > >
-> > > At some point up in the stack, everything runs as a systemd unit, so
-> > > it's only a question of figuring out in your setup how to pass the
-> > > FD(s) up and down the stack.
-> >
-> > Hi Luca,
-> >
-> > Thanks for your reply.
-> >
-> > The `LUOSession=` configuration only takes effect for services managed
-> > by the system manager. If I run the CRIU command from an SSH login shell
-> > as I am doing now, the environment belongs to a transient unit under the
-> > user manager. In this case, we cannot use `LUOSession=` to obtain the
-> > LUO session fd via systemd. Does this mean the process needs to open
-> > `/dev/liveupdate` by itself to create the session fd?
-> >
-> > Below is the attached service of the process found via `systemctl status`.
-> >
-> > [root@localhost criu]# ps -ef |grep criu
-> > root       57589    7729  0 18:25 pts/2    00:00:00 ./criu/criu dump -D ../test -t 52922 -j --memfd-images -v4
-> > root       57784    7571  0 18:27 pts/0    00:00:00 grep --color=auto criu
-> > [root@localhost criu]# systemctl status 57589
-> > ● session-5.scope - Session 5 of User root
-> >      Loaded: loaded (/run/systemd/transient/session-5.scope; transient)
-> >   Transient: yes
-> >      Active: active (running) since Tue 2026-10-13 10:03:55 CST; 8h ago
-> >       Tasks: 4
-> >      Memory: 148.9M (peak: 1.3G)
-> >         CPU: 47.000s
-> >      CGroup: /user.slice/user-0.slice/session-5.scope
-> >              ├─ 7712 "sshd: root [priv]"
-> >              ├─ 7724 "sshd: root@pts/2"
-> >              ├─ 7729 -bash
-> >              └─57589 ./criu/criu dump -D ../test -t 52922 -j --memfd-images -v4
-> >
-> > I'm not sure whether my understanding is correct. Could you please
-> > provide your feedback?
+On 26-10-02 10:55:35, Fabricio Akio via B4 Relay wrote:
+> From: Fabricio Akio <fabricioakio@gmail.com>
 > 
-> That's a user unit, and as per the documentation LUOSession= is only
-> supported for system units. So yes you have to provide your program
-> with privileged access to the character device and create the session
-> yourself, and then stash it in the FD Store as normal.
-Hi Luca,
+> pclk0_clk_src is fed by the DSI PHY PLL, which
+> dsi_pll_14nm_vco_set_rate() resets and only clk_prepare() restarts. The
+> DSI host sets the link rates before it prepares the PLL, so the RCG is
+> updated against a stopped source, and if it is enabled at that point
+> the update times out:
+> 
+>   pclk0_clk_src: rcg didn't update its configuration.
+> 
+> Seen on a board whose simple-framebuffer node lists the pixel clock:
+> the RCG then reads enabled at msm's first modeset.
+> 
+> Set CLK_OPS_PARENT_ENABLE so the core prepares the PLL around the rate
+> change, as dispcc-sm8250 does for its pixel clock sources since
+> commit acf7a91d0b0e ("clk: qcom: dispcc-sm8250: Enable parents for pixel
+> clocks").
+> 
+> Fixes: 5db3ae8b33de ("clk: qcom: Add SDM660 Multimedia Clock Controller (MMCC) driver")
+> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 
-Thanks for your clarification.
-I now have a rough idea for the implementation: CRIU will leverage the
-FD Store facility to deposit the memfd into systemd’s file descriptor
-store. As FD Store is tied to a service unit, a criu.service is
-required. The unit file I intend to use is shown below:
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-FileDescriptorStoreMax=10
-FileDescriptorStorePreserve=yes
-ExecStart=criu command
-
-Does this setup conform to the original design intent of systemd FD
-Store and LUO? Please feel free to point out any mistakes.
-
-BRs,
-Chenghao
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
