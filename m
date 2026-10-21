@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792570879;
-	b=Lo8E3KcPcjvanJ6FWcrKM2eSI4PkqBOhSFkDSo1EID80tfnGdFdsmbRKFzxMo+u322PX
-	 xpvhgSrCl2IrWCP8oVrkdYVnUzCMesGuQP6fEkXq+GOqFklCt0q2xdk0kiaUv/qIGx8/H
-	 fMzIvBbuGxVrrEvO5TQ9NN7qV6SG7kbdI8iJUWHo5y2EmiSXc2H+aJjFMG3RBobCi9amG
-	 USAUuSBYtjoiLIEfQfiaAEJWdsYvXTdhoj61N7HufcNQVmfEeFDiC+IYbx1jWzzBZ8adp
-	 WgpDaLzqKTVHhr2nLia054WSCIIj2tlgKAqORA5plqJw05H+Pst4fIVHuCat2aluX2g==
+	t=1792570918;
+	b=s2m4iKu5lppusvi9oADN4PZ1jbRG3urMfwoKpFQPBNivRwJl1GYtnZr3AbQp/3a7Pof3
+	 wDeUDqr+uKJ+91/wVL2mnYVB//l05DKNmbbOciNiZ3FJrwQ1qxGaK2ncaFAZZmR/nwO8a
+	 1uZyTSRNN1muNYDhZGyisYpCiGvsDncoe2F2eTclzacp4ZKmlvWv6VrUFhePkh0AdmoV8
+	 euXmaLgUeoPolvYzYUrpwCEuUHgHHPS0os14DaaJp7XDJBFNRiMYzNYvoXlQPdwEZaUoB
+	 MDHo+wSTTrrcE321lQWNn7/S3nWLxPBeNz+cx4WNMuDHhEFumekrVioAOPnKuAkWfow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792570879;
-	h=DMARC-Filter:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=0961khO16PkdzOShYW1kFf3MmaVSSQ4+4dmHU+OQtRA=;
-	b=DG3RdizixaWaJcgr1zLrv5+6JttmWZuybumli30d4+2uJdGBUC/f9d5gBsEhhSdlnUFK
-	 o7a6dFhzBtC/G3nnZfEYT5XRkABhfbNJ/6hqZZRCzx9ZfxUpHk2Yd3Uv46PQDno8Xr5fg
-	 id5aEO1ndvSEzLaWcnBrUgbBxbMJHHMcGoeF6aqtNbRmgisSJtHyLDDwGoJ8lrrBVczLK
-	 81hBquYEHJ42+vqZwZ/ui3EGrORXR3npwmFD1HzEJfLUrqrKYB5wtse7uTADKyCFfB+TI
-	 5Ftea2otNnNBJnHcttjS5lQbbOd3+3WFTrg/5SDMLb8zp/up9HDjruS2M8rsWEl7/3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792570918;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=eKJ8A+o8IpNbD03Ii9Xprch/mNMzpL/05Y7zRrPcQVo=;
+	b=r/be1ASGdHxWl7auqwgczk5mlaobgf2eP3ppTmPbgTN7aAk7RlWKAJmWy9ZCfGZc616B
+	 Y5s1psf2PpwJQYUVOItaPW+c3yUWl8GPMi2kG4g5z1jlOjBZ5Ew4UtrEXBcQArnkvEvLw
+	 P3oKWlynSFcqzRxlcIYjq1iTnG6hvaaV99r8g1Emt/d4QSS5lIfWZ1MtV/3ni2hX3lseR
+	 Fu8in8+pytw0VkpgCimEatpAtZt89kqO/wjCm/kUY1yNd16kOVaANJA8i3Tw2AIDOUtzS
+	 t+3qPNu6WaCTJSO0epR7OOAeu8dxNdNKJJSYo9MsfWvGBhzcnqh7vv8N5qnyMXBLwzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=Qx+Ai6JE;
-	arc=none smtp.remote-ip=220.197.31.7
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.7])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9AKER0x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49039606A31A;
-	Wed, 21 Oct 2026 08:21:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49039606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784D4606A31A;
+	Wed, 21 Oct 2026 08:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=Qx+Ai6JE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=0961khO16PkdzOShYW1kFf3MmaVSSQ4+4dmHU+OQtRA=;
-	b=Qx+Ai6JEFX2UmZU/hmO7oEhJBviTZLFFvJd5qi1XUfoF058nyoS8dF7anvcKif
-	+f5Zd2MXQIcNp3/daxTw1pGmgbW7A5RYnZBPf8eqEaJmOx0w8mPfxyyAP8FzcdXL
-	2KjTroJvNfwEagAjIg7mavn4ck5pNciHM541Re727hr0U=
-Message-ID: <62b3a378-f911-4c2f-85c7-53aa3f51ee43@126.com>
-Date: Wed, 21 Oct 2026 16:20:19 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9AKER0x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1341F000CA;
+	Wed, 21 Oct 2026 08:21:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792570918;
+	bh=eKJ8A+o8IpNbD03Ii9Xprch/mNMzpL/05Y7zRrPcQVo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D9AKER0xD7Kbyst88Kckbv8qUgnelLQ/7HJT4N37dMWUUEBKjd8IfOAKvbgDVtQnQ
+	 HS6nsDejSBSCuybh4RkOE9kS+JmsRRXkO0GgaG/ZI8MGwUKymloYnPlRNyJXQCwpyU
+	 PW7XANt6UuYKYogYoNqZo/8+AEHNzkjofFHAJwqTatjz42f68N3Qn/dCNFuKNshK0K
+	 ystYSMrzWQCdOszrv+wYOWPi3ffkfSsWL0TateeyYAVB6O5A0agzwvMizMEtoCy4/h
+	 Kv8374hTKYtgtrMXUfJIlW6j4DMPYc760OSnCmx4Iv+dKK61gcc7dUoOvLBoxeIe/g
+	 Ty/oKIAx1avQw==
+Message-ID: <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
+Date: Wed, 21 Oct 2026 10:21:53 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,116 +52,158 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH iwl-net] ice: do not report success for a VF setting that
- was not applied
-To: Jacob Keller <jacob.e.keller@intel.com>, anthony.l.nguyen@intel.com,
- przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Linkui Xiao <xiaolinkui@kylinos.cn>
-References: <20261012082910.283229-1-xiaolinkui@126.com>
- <2b9f2117-1bc0-4d83-a30d-1c8f7b295ab2@intel.com>
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+To: Lance Yang <lance.yang@linux.dev>
+Cc: samarth.colleges@gmail.com, akpm@linux-foundation.org, xu.xin@linux.dev,
+ chengming.zhou@linux.dev, peterx@redhat.com, kas@kernel.org,
+ rppt@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+ <20261020055518.36087-1-lance.yang@linux.dev>
+ <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+ <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <2b9f2117-1bc0-4d83-a30d-1c8f7b295ab2@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3dyHDddhq9iGuBg--.32140S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxJw1ktryrWr47trWrWr1UAwb_yoWrKr48pa
-	93KFn0kr4DGrWIv342vr42vr1FkrWrKF43Jr15Gr90ywn8WrWIvF4rKr4qva48Aw4fG34a
-	vFsxXw4DZrWDX3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uuv38UUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlARfNmrYdcT5nQAA3e
 
-Hi Jacob,
-
-thanks for the review. v2 follows your suggestion, with one adjustment.
-
-On 2026/10/21 03:10, Jacob Keller wrote:
-> On 10/12/2026 1:29 AM, Linkui Xiao wrote:
->> From: Linkui Xiao <xiaolinkui@kylinos.cn>
->>
->> __ice_set_vf_mac(), ice_set_vf_trust() and ice_set_vf_port_vlan() all
->> check that the VF is ready for configuration, take vf->cfg_lock and then
->> call ice_reset_vf() to push the new setting into hardware. The result of
->> ice_reset_vf() is not looked at, and it could not be: it returns 0 both
->> when the reset ran and when it bailed out because the VF is disabled.
->>
->> The check runs before the lock is taken, so a reset can disable the VF
->> in between. ice_reset_all_vfs() raises ICE_VF_DIS in pf->state before it
->> walks the VF table, rebuilds every VSI and clears the bit again. An
->> ndo_set_vf_mac() that passed ice_check_vf_ready_for_cfg() just before
->> that then waits for cfg_lock, stores the new address in vf->dev_lan_addr
->> and vf->hw_lan_addr and calls ice_reset_vf(), which sees the VF
->> disabled, stops its queues and returns 0 without reprogramming anything.
->> __ice_set_vf_mac() reports success, so ip link and the devlink port
->> function now show a MAC address the hardware never got, and the switch
->> keeps enforcing the previous one until something else resets the VF.
->>
->> ice_set_vf_trust() and ice_set_vf_port_vlan() have the same shape: the
->> port VLAN lands in vf->port_vlan_info and the trust flag in vf->trusted
->> before the reset is skipped.
->>
->> Re-check ice_is_vf_disabled() once cfg_lock is held and fail with
->> -EINVAL, the same code ice_check_vf_ready_for_cfg() returns for a
->> disabled VF. The VF is being reset or removed at that point, so the
->> caller should retry rather than be told the setting is in place.
->> Changing what ice_reset_vf() returns on that path is not an option, too
->> many callers rely on it meaning "nothing to do".
->>
->> The race was found by code inspection of the ndo VF handlers, it was not
->> reproduced at runtime and no error message was observed.
->>
-> Hm. My recollection is that we should set something on the PF side that
-> stores the new address so that the VF would get that value when next
-> configured.. But I guess that isn't how ice works.
-
-It is how ice works, and that store is why one of the two interleavings 
-is harmless. __ice_set_vf_mac() already keeps the address in 
-vf->dev_lan_addr / vf->hw_lan_addr, and every rebuild replays it through 
-ice_vf_rebuild_host_mac_cfg(). The bug needs a window where nothing 
-configures the VF again: ice_reset_all_vfs() rebuilds VF n under its 
-cfg_lock, drops the lock, moves on, and only clears ICE_VF_DIS after the 
-last VF. If the ndo handler takes cfg_lock in that gap, it stores the 
-setting, its own reset is skipped, and the PF-wide reset is already past 
-this VF, so no rebuild ever replays it. If the handler instead wins the 
-lock before the rebuild loop reaches this VF, the follow-up rebuild does 
-replay the store. That is why v2 fails the request rather than trying to 
-re-arm a reset of its own.
-
-Worth noting the ICE_VF_STATE_INIT half is not what catches this window: 
-ice_vf_set_initialized() has already run for the VF by then, only the 
-PF-wide ICE_VF_DIS bit shows the reset is still in flight.
-
-Two things I would like your opinion on:
-
--EINVAL is what ice_check_vf_ready_for_cfg() returns for a disabled VF, 
-so v2 keeps it, but -EBUSY would say “retry” more clearly. Easy to 
-switch if you prefer.
-
-ice_repr_ethtool_reset() has the same shape and also reports success 
-when the reset was skipped. It stores no setting, so I left it out of 
-this patch, but happy to fold it in.
+On 10/20/26 15:29, Lance Yang wrote:
 > 
-> Why not just move ice_check_vf_ready_for_cfg() inside the mutex though?
+> 
+> On 2026/10/20 21:03, David Hildenbrand (Arm) wrote:
+>> On 10/20/26 07:55, Lance Yang wrote:
+>>>
+>>>
+>>> Right.
+>>>
+>>>
+>>> Haha, yeah, I stared at the code a bit. Say we arm RWP on an existing KSM
+>>> mapping, then do MADV_UNMERGEABLE. We're just replacing the shared page
+>>> with a private copy. That shouldn't count as an access to the mapping ...
+>>> no?
+>>>
+>>> But the protnone check sends us to do_uffd_rwp() before the
+>>> FAULT_FLAG_UNSHARE handling. No FAULT_FLAG_ALLOW_RETRY here, so sync RWP
+>>> gives us VM_FAULT_SIGBUS. Then break_ksm() does this:
+>>>
+>>> static int break_ksm(struct vm_area_struct *vma, unsigned long addr,
+>>>         unsigned long end, bool lock_vma)
+>>> {
+>>>     vm_fault_t ret = 0;
+>>> ...
+>>>     do {
+>>> ...
+>>>         ret = handle_mm_fault(vma, addr,
+>>>                       FAULT_FLAG_UNSHARE | FAULT_FLAG_REMOTE,
+>>>                       NULL);
+>>>     } while (!(ret & (VM_FAULT_SIGBUS | VM_FAULT_SIGSEGV | VM_FAULT_OOM)));
+>>> ...
+>>>     return (ret & VM_FAULT_OOM) ? -ENOMEM : 0;
+>>> }
+>>>
+>>> So we report success with the page still merged. Async RWP does unshare
+>>> it, but only after clearing the uffd bit.
+>>>
+>>> I'd let FAULT_FLAG_UNSHARE skip do_uffd_rwp(). We'd still need to carry
+>>> PAGE_NONE over in wp_page_copy(), though. That PTE is rebuilt from
+>>> vma->vm_page_prot, so the uffd bit alone won't stop reads.
+>>>
+>>>
+>>> Tested, this is what I had in mind:
+>>>
+>>> ---8<---
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index 976cd03954e3..d99f5ef1dd8c 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -4119,8 +4119,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+>>>           if (unlikely(unshare)) {
+>>>               if (pte_soft_dirty(vmf->orig_pte))
+>>>                   entry = pte_mksoft_dirty(entry);
+>>> -            if (pte_uffd(vmf->orig_pte))
+>>> +            if (pte_uffd(vmf->orig_pte)) {
+>>>                   entry = pte_mkuffd(entry);
+>>> +                if (userfaultfd_rwp(vma))
+>>> +                    entry = pte_modify(entry, PAGE_NONE);
+>>> +            }
+>>>           } else {
+>>>               entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+>>>           }
+>>> @@ -6656,9 +6659,12 @@ static vm_fault_t handle_pte_fault(struct vm_fault *vmf)
+>>>            * VM_UFFD_RWP VMA, a protnone PTE without the uffd bit is
+>>>            * NUMA hinting and must still fall through to do_numa_page().
+>>>            */
+>>> -        if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte))
+>>> -            return do_uffd_rwp(vmf);
+>>> -        return do_numa_page(vmf);
+>>> +        if (userfaultfd_pte_rwp(vmf->vma, vmf->orig_pte)) {
+>>> +            if (!(vmf->flags & FAULT_FLAG_UNSHARE))
+>>> +                return do_uffd_rwp(vmf);
+>>> +        } else {
+>>> +            return do_numa_page(vmf);
+>>> +        }
+>>>       }
+>>
+>> Looks like a reasonable direction (without looking into all the details).
+>>
+>> I've been also wondering whether KSM should simply skip these uffd regions, they
+>> it never worked properly ... but I'm sure we'd run into issue with leftover uffd
+> 
+> +1. Did it ever actually work there :) Why not just skip them and
+> call it a day :D
 
-v2 moves the flag tests inside cfg_lock, but not the sleeping half. 
-ice_check_vf_ready_for_cfg() starts with ice_wait_on_vf_reset(), 40 x 20 
-ms of msleep polling for ICE_VF_STATE_INIT, and the resets that clear 
-that bit set it again from ice_vf_post_vsi_rebuild() with cfg_lock held. 
-Under the lock the wait could never observe the transition, it would 
-burn the full 800 ms and still return -EINVAL, while stalling the reset 
-and the VF mailbox that ice_vc_process_vf_msg() serves under the same 
-lock. So the wait stays outside, and the flag tests are repeated inside 
-by ice_check_vf_ready_for_cfg_locked(), which replaces the three ad-hoc 
-ice_is_vf_disabled() tests of v1.
+I think QEMU just always sets MADV_MERGABLE and later activates uffd. So that
+needs some care to not disable them. So let's rather try to get it fixed properly.
 
-v2 is posted as “[PATCH iwl-net v2] ice: do not report success for a VF 
-setting that was not applied”, rebased on top of 0a01e1df137f (“ice: 
-skip unnecessary VF reset when setting trust”):
+Can you send out proper patches? Thanks!
 
-https://lore.kernel.org/netdev/20261021081248.261762-1-xiaolinkui@126.com/
+-- 
+Cheers,
 
-Thanks,
-Linkui
-
+David
