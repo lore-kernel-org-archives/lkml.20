@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576270;
-	b=WYFDHmqw87C+JQm/ravIeCpc9iFt/c+mHzch2GuqzPpPEz7f0hnDvvhrl6YU7a8Wdj42
-	 YQSaqQlTKJJberQXf50ZQF3gWDVryWL3Jdv/u7JKjSfCkWyWBDyX8no+oNmA0hC4FD7Z2
-	 mZ7KPv0VmAPVbXBB/Vy8xF2JM2D+b+vb0FfvE4Vz4phA1IA3ugtcid9EowoN67gykIYj3
-	 +v1tw4J7C0j5CLvrnbBmjKZleQeTEJW/L0NzESgrF0Hj/K9GEv9bkAhTOdvmZ5Jizj3ut
-	 /J9czvIAZH419afyKpmd9bU6fdkBFsTwuuBf2zywlgXAps2hBiX1ewrg1LBx8bkxfyQ==
+	t=1792576275;
+	b=F9P+IgDYtrxm9/fgD/tbk4DNClyqmDnnWW28T/diEeEN1tosBLlXvP5x1TTpFaEdwlv/
+	 dfRTIyYhDWbzfr8IDYihVEyl3OqrOA0Jxj154exCSbBFS5ZG60a5wdwEs9tCk8D7Z2P0S
+	 IHJrTJuGxhRrwmRxHgPra774fiZ7ewJYFg8wQWE+E7iTf8mURNJdHC512urpRfWe3VCl6
+	 9TIL20R66g2H0VzU/shpyrhdq4ILMJA786u+4Jl2BBKjeR3G7DsNEX6GRgFy6/lSP5tBK
+	 0UVM6wbl0kF/wb9Eng5Y/wEZhLo/gC+Q8SarsX2K/O/M3K49+0vBHDjgsQ/nM44Ssig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576270;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576275;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:References:
 	 Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=z51dyGQmENr/eCL/hqO6oBazougG7M2MjaqKBrJtzis=;
-	b=k6YnsqKbg9csUR0n0UJMvrqJvaFJICq9kQbBRhjALeflRKO4wjwjvapsZOrly6fQ0XtU
-	 r9MvSPRUIwV9euDBkSDBZ6ILFXLJkAARzkl3UmzP9Sa+kpWEJy8PTr/xu/ieWe2zP3ZQ9
-	 1yaEbNDBDc31BvJ1UZperMw0plYu60k8WKO4cJjLXYPH+cG89gAYrhS2aSSNedhgwxpRK
-	 QoR4h6hXRcs3/IQS7/233E99p86z6BnOGvfydl2D8xhJwhwypJJM8n0jODgsWswib6Dbm
-	 Wb4cSkhy4YJxGpWLnZry2aCf/J1DPvBCaX2qnmE36G02BiyIV3KAEfxXNQPxdxehEJg==
+	bh=dJ7sd0SrByne7vRnlQQWq3Cuij7RQa/ffFboOR+c+1k=;
+	b=MxCv4QFfxdZjlNNtZPRUSSfFqtsyiId6Ecm/1rMOhJJ0jQ6rR1lZs0achr6aEXNxZMb9
+	 +tFhamtllAig0MjyUnNNcj2ujFGRjTwIk9am3U8hEHoFy3JWsyl2yrwpmvVBCkkj8vMSX
+	 ybdMyO5buq+RMoumqNc/yxdF0t2e41SFTu2IBUr3btJL0+EUq6xUAFjDNZpQ94Zld+HJE
+	 Mbx+flh6fGplFE+tDLRHxBPX3N8uFAcNJjBPsjog7/4lr+0ndVXCusy1yvlk+Tqk7mhWl
+	 lYnV5OHlnbr2OcrzO6R6Z0aRDf0wS/eXYVuvxJ4oFix3n8kdZC6DZVCYA9//cNJLlqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRzviMkD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW++o5yZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB023606A329
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:51:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7571D606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:51:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iRzviMkD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CD001F000C9;
-	Wed, 21 Oct 2026 09:51:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gW++o5yZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D871F000CE;
+	Wed, 21 Oct 2026 09:51:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792576269;
-	bh=z51dyGQmENr/eCL/hqO6oBazougG7M2MjaqKBrJtzis=;
+	s=k20260515; t=1792576274;
+	bh=dJ7sd0SrByne7vRnlQQWq3Cuij7RQa/ffFboOR+c+1k=;
 	h=Date:From:To:Cc:Subject:References;
-	b=iRzviMkDI3HHwiXZxBrp5Nqih1DDhQf+ggADl55E3nSHmAEz9dvEGh4gqiStE1vX0
-	 uXxn161Te9RUn45xy1ed+8R+P6AJbUwgjlszZ50hCbd3jKZUE+G4YKox1+XyUypVT6
-	 qQqZ/sqnI67jTmmMS2LZeN/sL3RqHTv9h1ZyUn3NPeBVYF8+tU6TDYnt2i1DWFXc/V
-	 R9GdwJvGRMCEsFU/M3vm2nCBKV5ePDyxYSbRXDzE4rid3EwcrW3tXe4PwK8UegCPke
-	 Qi8JNB2LXB4oS8Mr1cUpECnKcKMtQ//d95JeMSkYrusp7xNiCLdcVs8KnWgj4VM1p5
-	 DKwXaFGzC4nbA==
-Date: Wed, 21 Oct 2026 11:51:06 +0200
+	b=gW++o5yZeyacvwIfVPw+tacC0ZZDl5/4RnXxUzAjUK8ybugTPBYCnlOGvGVJlBXrb
+	 8aAW8UReqF1m5fSvS3Co7AckJU3+9o88rtto8iZW6zzCN3cxNeY97ageX1Brt5kdec
+	 oSbp9YG3e5KQdLlC6yFyoF3m3kcG5e7DRo0F2sjnzetxcl0C23X8PIeRTXMnnmsjcr
+	 DZNc/ZkOX4f0/znDfNH+RSaAYeNsgoKceQMHVmSa8/X4+4m1in/+pjxKGXMYGMgTgT
+	 rE1aloEqk9a06PedU1jytHze7A2jgMlngUZePYcizOIjD90pYQvgpRMkgbAcAqeTTJ
+	 VFYz+IKlfY2Ag==
+Date: Wed, 21 Oct 2026 11:51:11 +0200
 From: Thomas Gleixner <tglx@kernel.org>
 To: Linus Torvalds <torvalds@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org, x86@kernel.org
-Subject: [GIT pull] timers/clocksource for v7.4-rc1
+Subject: [GIT pull] timers/core for v7.4-rc1
 References: <179257622431.804100.15107946105101279363.tglx@fw13>
-Message-ID: <179257622675.804100.14134557707707993781.tglx@fw13>
+Message-ID: <179257622796.804100.5245716298409954290.tglx@fw13>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,1169 +60,1069 @@ MIME-Version: 1.0
 
 Linus,
 
-please pull the latest timers/clocksource branch from:
+please pull the latest timers/core branch from:
 
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers-clocksour=
-ce-2026-10-20
+   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git timers-core-2026=
+-10-20
 
-up to:  5bbd49a96e04: Merge tag 'timers-v7.4-rc1' of git://git.kernel.org/pub=
-/scm/linux/kernel/git/daniel.lezcano/linux into timers/clocksource
+up to:  348f54c435bf: selftests/timers: clocksource-switch: Fix unchecked ope=
+n()/read()
 
-Updates for clocksource and clockevent drivers:
+Updates for the core timekeeping and timers subsystem:
 
-  - Support for the Renesas RZ/N1 timers
+  - Futher cleanups for the POSIX timer exit/exec related code to simplify
+    the code flow and to make it more robust against future changes.
 
-  - Rework of the per CPU and per cluster MIPS GIC timers to improve
-    performance, sched clock precision and to add VDSO support.
+  - Prevent tearing of timekeeper::ktime_sec which can be accessed without the
+    sequence count protection.
 
-  - The usual assorted pile of small fixes and improvements all over the
-    place.
+    The timekeeper is updated by memcpy() with an uneven sequence count to
+    force readers into the retry path. On 64-bit machine the ktime_sec
+    member can be accessed atomically without the sequence count
+    protection. That is only correct when the update side memcpy()
+    guarantees atomicity at the 64-bit granularity. That's not guaranteed
+    due to debug options, compilers and instruction availability. If the
+    memcpy() does not provide the atomicity then the unprotected readers
+    can observe store tearing.
 
+    To prevent this write the ktime_sec member before the memcpy() so that
+    a non-atomic memcpy() will write the same data. A similar fix has been
+    done for the xtime_sec member, but the ktime_sec equivalent was missed.
+
+  - Prevent time64_to_tm() day truncation on 32-bit kernels
+
+    The function receives a 64-bit seconds value but stores the quotient of
+    the computation in a long, which truncates the result for large input
+    values. Cure this by using div_s64_rem() which stores the quotient in
+    s64 and only leaves the seconds-within-day reminder in a long, which is
+    guaranteed to fit. This fix comes with a corresponding kunit test to
+    prevent further mishaps.
+
+  - Mark data-racy accesses to the hrtimer_sleeper::task member.
+
+    The recent updates to KCSAN flagged these benign races. Annotate them
+    with new helper functions, convert all existing usage sites and mark
+    the task member private after that so that future users which fail to
+    use the helpers can be detected automatically.
+
+  - Address similar benign KCSAN flagged issues in the hrtimer, timer and
+    timer migration code.
+
+  - Fixes for a few selftest issues
+
+ =20
 Thanks,
 
 	tglx
 
 ------------------>
-Beno=C3=AEt Monin (2):
-      clocksource/drivers/mips-gic-timer: Simplify gic_next_event() for per-c=
-pu timer
-      clocksource/drivers/mips-gic-timer: Use local counter on synced multi-c=
-luster systems
+Eva Kurchatova (2):
+      selftests: timers: Count what tick is worth in the drift estimate
+      selftests: timers: Measure the CPU timers on the clock they count
 
-Herve Codina (Schneider Electric) (3):
-      dt-bindings: timer: Add the Renesas RZ/N1 timer
-      clocksource/drivers: Add support for the Renesas RZ/N1 timers
-      MAINTAINERS: Add the Renesas RZ/N1 timers driver entry
+Karl Mehltretter (2):
+      time: Prevent time64_to_tm() day truncation on 32-bit
+      time/kunit: Add time64_to_tm() case beyond 32-bit day count
 
-Jiale Yao (1):
-      clocksource/drivers/timer-ti-dm: Handle runtime resume failure
+Paul E. McKenney (14):
+      hrtimer: Mark data-racy accesses to hrtimer_sleeper ->task field
+      aio: Use accessor for hrtimer_sleeper ->task field
+      wait: Use accessor for hrtimer_sleeper ->task field
+      io-uring/rw: Use accessor for hrtimer_sleeper ->task field
+      futex: Use accessor for hrtimer_sleeper ->task field in waitwake.c
+      timers: Use accessor for hrtimer_sleeper ->task field in sleep_timeout.c
+      net: pktgen: Use accessor for hrtimer_sleeper ->task field
+      rtmutex: Use accessor for hrtimer_sleeper ->task field
+      futex: Use accessor for hrtimer_sleeper ->task field in requeue
+      hrtimer: Update hrtimer_resolution only if value changes
+      hrtimer: Mark the hrtimer_sleeper structure's ->task field __private
+      hrtimer: Apply READ_ONCE() to lockless base->running loads
+      timers: Mark racy updates to hlist_node::pprev field
+      timers/migration: Mark racy updates to tmigr_event::ignore field
 
-Luca Leonardo Scorcia (3):
-      clocksource/drivers/timer-mediatek: Fix random crash at boot
-      clocksource/drivers/timer-mediatek: Convert to OF probing
-      clocksource/drivers/timer-mediatek: Request and enable the bus clock
+Qingshuang Fu (1):
+      selftests/timers: clocksource-switch: Fix unchecked open()/read()
 
-Markus Schneider-Pargmann (TI) (1):
-      clocksource/drivers/timer-ti-dm: Register clocksource/event only for am=
-654
+Thomas Gleixner (6):
+      posix-timers: Move posixtimer_exec_cleanup() out of exec.c
+      posix-timers: Move POSIX timer group exit related code out of do_exit()
+      posix-cpu-timers: Move inlines out of public header
+      posix-cpu-timers: Use PF_EXITING to indicate exit
+      posix-cpu-timers: Prevent enqueueing when PF_EXITING is set
+      posix-timers: Handle exit in do_exit() completely
 
-Slavin Liu (1):
-      clocksource/drivers/dbx500-prcmu: Check timer register mapping
-
-Wentao Liang (3):
-      clocksource/drivers/fttmr010: Fix clk reference leak in error paths
-      clocksource/drivers/digicolor: Fix clk reference leak on request_irq fa=
-ilure
-      clocksource/drivers/timer-econet-en751221: Fix clock reference leak
+Thomas Wei=C3=9Fschuh (1):
+      timekeeping: Use READ_ONCE/WRITE_ONCE() for ktime_sec to prevent tearing
 
 
- .../bindings/timer/renesas,rzn1-timer.yaml         |  74 ++++
- MAINTAINERS                                        |   7 +
- drivers/clocksource/Kconfig                        |  11 +
- drivers/clocksource/Makefile                       |   1 +
- drivers/clocksource/clksrc-dbx500-prcmu.c          |   2 +
- drivers/clocksource/mips-gic-timer.c               | 138 +++++-
- drivers/clocksource/timer-digicolor.c              |   2 +
- drivers/clocksource/timer-econet-en751221.c        |   1 +
- drivers/clocksource/timer-fttmr010.c               |   2 +
- drivers/clocksource/timer-mediatek.c               |  47 +-
- drivers/clocksource/timer-rzn1.c                   | 483 +++++++++++++++++++=
-++
- drivers/clocksource/timer-ti-dm.c                  |  10 +-
- include/linux/platform_data/dmtimer-omap.h         |   2 +
- 13 files changed, 753 insertions(+), 27 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/timer/renesas,rzn1-time=
-r.yaml
- create mode 100644 drivers/clocksource/timer-rzn1.c
+ fs/aio.c                                           |   2 +-
+ fs/exec.c                                          |  13 +--
+ include/linux/hrtimer.h                            |  10 +-
+ include/linux/list.h                               |   6 +-
+ include/linux/posix-timers.h                       |  39 +-------
+ include/linux/sched/task.h                         |   1 -
+ include/linux/wait.h                               |   2 +-
+ io_uring/rw.c                                      |   2 +-
+ kernel/exit.c                                      |  13 +--
+ kernel/futex/requeue.c                             |   2 +-
+ kernel/futex/waitwake.c                            |   8 +-
+ kernel/locking/rtmutex.c                           |   2 +-
+ kernel/time/hrtimer.c                              |  23 ++---
+ kernel/time/posix-cpu-timers.c                     | 103 +++++++++++++++++++=
+--
+ kernel/time/posix-timers.c                         |  26 ++++--
+ kernel/time/posix-timers.h                         |   3 +
+ kernel/time/sleep_timeout.c                        |   4 +-
+ kernel/time/time_test.c                            |  16 ++++
+ kernel/time/timeconv.c                             |   6 +-
+ kernel/time/timekeeping.c                          |   4 +-
+ kernel/time/timer.c                                |   2 +-
+ kernel/time/timer_migration.c                      |   6 +-
+ net/core/pktgen.c                                  |   4 +-
+ .../testing/selftests/timers/clocksource-switch.c  |  23 ++++-
+ tools/testing/selftests/timers/posix_timers.c      |   7 +-
+ tools/testing/selftests/timers/raw_skew.c          |  12 +++
+ 26 files changed, 227 insertions(+), 112 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml =
-b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-new file mode 100644
-index 000000000000..7218c0c2671d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-@@ -0,0 +1,74 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/timer/renesas,rzn1-timer.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Renesas RZ/N1 timers
-+
-+maintainers:
-+  - Herve Codina <herve.codina@bootlin.com>
-+
-+description: |
-+  The Renesas RZ/N1 SoCs timers block controller is composed of 8 independent
-+  timers.
-+    - 6 are 16-bit timers
-+    - 2 are 32-bit timers
-+
-+  Each timer has its own interrupt line and can work in either one-shot or
-+  periodic mode.
-+
-+properties:
-+  compatible:
-+    items:
-+      - const: renesas,r9a06g032-timer   # RZ/N1D
-+      - const: renesas,rzn1-timer
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: APB internal bus clock
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+
-+  power-domains:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 8
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - power-domains
-+  - interrupts
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/r9a06g032-sysctrl.h>
-+
-+    timer@51001000 {
-+        compatible =3D "renesas,r9a06g032-timer", "renesas,rzn1-timer";
-+        reg =3D <0x51001000 0x200>;
-+        clocks =3D <&sysctrl R9A06G032_HCLK_TIMER0>;
-+        clock-names =3D "pclk";
-+        power-domains =3D <&sysctrl>;
-+        interrupts =3D <GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 115 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 116 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 117 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 118 IRQ_TYPE_LEVEL_HIGH>,
-+                     <GIC_SPI 119 IRQ_TYPE_LEVEL_HIGH>;
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 72294ddfa5b7..7bdacc8feeed 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23295,6 +23295,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
- F:	drivers/rtc/rtc-rzn1.c
+diff --git a/fs/aio.c b/fs/aio.c
+index d78acc69f487..8130d9e637ea 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -1402,7 +1402,7 @@ static long read_events(struct kioctx *ctx, long min_nr=
+, long nr,
+ 		w.min_nr =3D min_nr - ret;
 =20
-+RENESAS RZ/N1 TIMERS DRIVER
-+M:	Herve Codina <herve.codina@bootlin.com>
-+L:	linux-renesas-soc@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/timer/renesas,rzn1-timer.yaml
-+F:	drivers/clocksource/timer-rzn1.c
-+
- RENESAS RZ/N1 USBF CONTROLLER DRIVER
- M:	Herve Codina <herve.codina@bootlin.com>
- L:	linux-renesas-soc@vger.kernel.org
-diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
-index d9c76dd443f8..da83483296d5 100644
---- a/drivers/clocksource/Kconfig
-+++ b/drivers/clocksource/Kconfig
-@@ -152,6 +152,17 @@ config REALTEK_OTTO_TIMER
- 	  RT8391, RTL8392, RTL8393 and RTL8396 and chips of the RTL930x series
- 	  such as RTL9301, RTL9302 or RTL9303.
+ 		ret2 =3D prepare_to_wait_event(&ctx->wait, &w.w, TASK_INTERRUPTIBLE);
+-		if (!ret2 && !t.task)
++		if (!ret2 && !hrtimer_sleeper_task_get(&t))
+ 			ret2 =3D -ETIME;
 =20
-+config RZN1_TIMER
-+	bool "Renesas RZ/N1 Timer"
-+	depends on HAS_IOMEM && COMMON_CLK
-+	depends on ARCH_RZN1 || COMPILE_TEST
-+	help
-+	  Enables support for RZ/N1 SoC timers.
-+	  A timers block in RZ/N1 SoCs is composed of 8 timers
-+	    - 6 16-bit timers
-+	    - 2 32-bit timers
-+	  Two timers blocks are available in RZ/N1 SoCs.
-+
- config SUN4I_TIMER
- 	bool "Sun4i timer driver" if COMPILE_TEST
- 	depends on HAS_IOMEM
-diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
-index b46376af6b49..464ec6690ab6 100644
---- a/drivers/clocksource/Makefile
-+++ b/drivers/clocksource/Makefile
-@@ -96,3 +96,4 @@ obj-$(CONFIG_EP93XX_TIMER)		+=3D timer-ep93xx.o
- obj-$(CONFIG_RALINK_TIMER)		+=3D timer-ralink.o
- obj-$(CONFIG_NXP_STM_TIMER)		+=3D timer-nxp-stm.o
- obj-$(CONFIG_RTK_SYSTIMER)		+=3D timer-realtek.o
-+obj-$(CONFIG_RZN1_TIMER)		+=3D timer-rzn1.o
-diff --git a/drivers/clocksource/clksrc-dbx500-prcmu.c b/drivers/clocksource/=
-clksrc-dbx500-prcmu.c
-index 2fc93e46cea3..1af223b0e896 100644
---- a/drivers/clocksource/clksrc-dbx500-prcmu.c
-+++ b/drivers/clocksource/clksrc-dbx500-prcmu.c
-@@ -52,6 +52,8 @@ static struct clocksource clocksource_dbx500_prcmu =3D {
- static int __init clksrc_dbx500_prcmu_init(struct device_node *node)
- {
- 	clksrc_dbx500_timer_base =3D of_iomap(node, 0);
-+	if (!clksrc_dbx500_timer_base)
-+		return -ENOMEM;
-=20
- 	/*
- 	 * The A9 sub system expects the timer to be configured as
-diff --git a/drivers/clocksource/mips-gic-timer.c b/drivers/clocksource/mips-=
-gic-timer.c
-index 1501c7db9a8e..fc97b31f0adb 100644
---- a/drivers/clocksource/mips-gic-timer.c
-+++ b/drivers/clocksource/mips-gic-timer.c
-@@ -6,6 +6,7 @@
- #include <linux/clk.h>
- #include <linux/clockchips.h>
- #include <linux/cpu.h>
-+#include <linux/delay.h>
- #include <linux/init.h>
- #include <linux/interrupt.h>
- #include <linux/notifier.h>
-@@ -21,6 +22,9 @@ static int gic_timer_irq;
- static unsigned int gic_frequency;
- static unsigned int gic_count_width;
- static bool __read_mostly gic_clock_unstable;
-+static bool __read_mostly gic_use_local_counter =3D true;
-+static unsigned long *gic_synced_cl_map;
-+static struct work_struct gic_promote_work;
-=20
- static void gic_clocksource_unstable(char *reason);
-=20
-@@ -52,18 +56,13 @@ static u64 notrace gic_read_count(void)
-=20
- static int gic_next_event(unsigned long delta, struct clock_event_device *ev=
-t)
- {
--	int cpu =3D cpumask_first(evt->cpumask);
- 	u64 cnt;
- 	int res;
-=20
- 	cnt =3D gic_read_count();
- 	cnt +=3D (u64)delta;
--	if (cpu =3D=3D raw_smp_processor_id()) {
--		write_gic_vl_compare(cnt);
--	} else {
--		write_gic_vl_other(mips_cm_vp_id(cpu));
--		write_gic_vo_compare(cnt);
--	}
-+	write_gic_vl_compare(cnt);
-+
- 	res =3D ((int)(gic_read_count() - cnt) >=3D 0) ? -ETIME : 0;
- 	return res;
- }
-@@ -82,6 +81,7 @@ static void gic_clockevent_cpu_init(unsigned int cpu,
- {
- 	cd->name		=3D "MIPS GIC";
- 	cd->features		=3D CLOCK_EVT_FEAT_ONESHOT |
-+				  CLOCK_EVT_FEAT_PERCPU |
- 				  CLOCK_EVT_FEAT_C3STOP;
-=20
- 	cd->rating		=3D 350;
-@@ -106,10 +106,71 @@ static void gic_update_frequency(void *data)
- 	clockevents_update_freq(this_cpu_ptr(&gic_clockevent_device), rate);
+ 		if (aio_read_events(ctx, min_nr, nr, event, &ret) || ret2)
+diff --git a/fs/exec.c b/fs/exec.c
+index 819643408e6d..1fc567155f34 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1115,17 +1115,6 @@ static struct file *bprm_identity_file(const struct li=
+nux_binprm *bprm)
+ 	return bprm->file;
  }
 =20
-+/* Number of iterations to synchronize the local GIC counter */
-+#define GIC_SYNC_ITERATIONS 4
-+
-+/* Delay in us to check if the local GIC counter is still in sync with clust=
-er 0 */
-+#define GIC_SYNC_CHECK_DELAY 100
-+
-+static void gic_sync_counter_64(unsigned int cluster)
-+{
-+	unsigned int config =3D read_gic_config();
-+	u64 t0, t1, t2;
-+	s64 offset =3D 0;
-+
-+	mips_cm_lock_other(0, 0, 0, CM_GCR_Cx_OTHER_BLOCK_GLOBAL);
-+
-+	for (int i =3D 0; i < GIC_SYNC_ITERATIONS; i++) {
-+		write_gic_config(config | GIC_CONFIG_COUNTSTOP);
-+		write_gic_counter(read_gic_redir_counter() + offset);
-+		write_gic_config(config & ~GIC_CONFIG_COUNTSTOP);
-+
-+		t0 =3D read_gic_counter();
-+		t1 =3D read_gic_redir_counter();
-+		t2 =3D read_gic_counter();
-+
-+		if (time_in_range64(t1, t0, t2))
-+			break;
-+
-+		/*
-+		 * Compute the offset to apply to the local counter
-+		 * so that (t1 - t0) equals (t2 - t1).
-+		 */
-+		offset +=3D (s64)(2 * t1 - t0 - t2) / 2;
-+	}
-+
-+	mips_cm_unlock_other();
-+
-+	if (!time_in_range64(t1, t0, t2))
-+		return;
-+
-+	udelay(GIC_SYNC_CHECK_DELAY);
-+
-+	mips_cm_lock_other(0, 0, 0, CM_GCR_Cx_OTHER_BLOCK_GLOBAL);
-+	t0 =3D read_gic_counter();
-+	t1 =3D read_gic_redir_counter();
-+	t2 =3D read_gic_counter();
-+	mips_cm_unlock_other();
-+
-+	/* If so, mark the cluster as synchronized */
-+	if (time_in_range64(t1, t0, t2) && gic_synced_cl_map)
-+		bitmap_set(gic_synced_cl_map, cluster, 1);
-+}
-+
- static int gic_starting_cpu(unsigned int cpu)
- {
--	/* Ensure the GIC counter is running */
--	clear_gic_config(GIC_CONFIG_COUNTSTOP);
-+	unsigned int cluster =3D cpu_cluster(&cpu_data[cpu]);
-+
-+	if (read_gic_config() & GIC_CONFIG_COUNTSTOP) {
-+		clear_gic_config(GIC_CONFIG_COUNTSTOP);
-+
-+		if (cluster && mips_cm_is64 && !gic_clock_unstable)
-+			gic_sync_counter_64(cluster);
-+
-+		if (gic_synced_cl_map &&
-+		    bitmap_full(gic_synced_cl_map, mips_cps_numclusters()))
-+			schedule_work(&gic_promote_work);
-+	}
-=20
- 	gic_clockevent_cpu_init(cpu, this_cpu_ptr(&gic_clockevent_device));
- 	return 0;
-@@ -158,11 +219,6 @@ static int gic_clockevent_init(void)
- 	return 0;
- }
-=20
--static u64 gic_hpt_read(struct clocksource *cs)
+-static void posixtimer_exec(struct task_struct *me)
 -{
--	return gic_read_count();
+-#ifdef CONFIG_POSIX_TIMERS
+-	spin_lock_irq(&me->sighand->siglock);
+-	posix_cpu_timers_exit(me);
+-	spin_unlock_irq(&me->sighand->siglock);
+-	exit_itimers(me);
+-	flush_itimer_signals();
+-#endif
 -}
 -
- static u64 gic_hpt_read_multicluster(struct clocksource *cs)
+ /*
+  * Calling this is the point of no return. None of the failures will be
+  * seen by userspace since either the process is already taking a fatal
+@@ -1171,7 +1160,7 @@ int begin_new_exec(struct linux_binprm * bprm)
+ 	 * timer would not remove an enqueued timer because the TID lookup
+ 	 * of the old TID fails.
+ 	 */
+-	posixtimer_exec(me);
++	posixtimer_exec();
+=20
+ 	/* see the comment in check_unsafe_exec() */
+ 	current->fs->in_exec =3D 0;
+diff --git a/include/linux/hrtimer.h b/include/linux/hrtimer.h
+index 29072d89e5cb..cad8482337cb 100644
+--- a/include/linux/hrtimer.h
++++ b/include/linux/hrtimer.h
+@@ -72,7 +72,7 @@ enum hrtimer_mode {
+  */
+ struct hrtimer_sleeper {
+ 	struct hrtimer timer;
+-	struct task_struct *task;
++	struct task_struct *__private task;
+ };
+=20
+ static inline void hrtimer_set_expires(struct hrtimer *timer, ktime_t time)
+@@ -320,6 +320,14 @@ extern int schedule_hrtimeout_range_clock(ktime_t *expir=
+es,
+ 					  const enum hrtimer_mode mode,
+ 					  clockid_t clock_id);
+ extern int schedule_hrtimeout(ktime_t *expires, const enum hrtimer_mode mode=
+);
++static inline struct task_struct *hrtimer_sleeper_task_get(struct hrtimer_sl=
+eeper *sl)
++{
++	return READ_ONCE(ACCESS_PRIVATE(sl, task));
++}
++static inline void hrtimer_sleeper_task_set(struct hrtimer_sleeper *sl, stru=
+ct task_struct *t)
++{
++	WRITE_ONCE(ACCESS_PRIVATE(sl, task), t);
++}
+=20
+ /* Soft interrupt function to run the hrtimer queues: */
+ extern void hrtimer_run_queues(void);
+diff --git a/include/linux/list.h b/include/linux/list.h
+index 77fb62f79928..e3753695e76c 100644
+--- a/include/linux/list.h
++++ b/include/linux/list.h
+@@ -1172,7 +1172,7 @@ static inline void hlist_move_list(struct hlist_head *o=
+ld,
  {
- 	unsigned int hi, hi2, lo;
-@@ -194,6 +250,14 @@ static u64 gic_hpt_read_multicluster(struct clocksource =
-*cs)
- 	return count;
+ 	new->first =3D old->first;
+ 	if (new->first)
+-		new->first->pprev =3D &new->first;
++		WRITE_ONCE(new->first->pprev, &new->first);
+ 	old->first =3D NULL;
  }
 =20
-+static u64 gic_hpt_read(struct clocksource *cs)
-+{
-+	if (unlikely(!READ_ONCE(gic_use_local_counter)))
-+		return gic_hpt_read_multicluster(cs);
+@@ -1189,10 +1189,10 @@ static inline void hlist_splice_init(struct hlist_hea=
+d *from,
+ 				     struct hlist_head *to)
+ {
+ 	if (to->first)
+-		to->first->pprev =3D &last->next;
++		WRITE_ONCE(to->first->pprev, &last->next);
+ 	last->next =3D to->first;
+ 	to->first =3D from->first;
+-	from->first->pprev =3D &to->first;
++	WRITE_ONCE(from->first->pprev, &to->first);
+ 	from->first =3D NULL;
+ }
+=20
+diff --git a/include/linux/posix-timers.h b/include/linux/posix-timers.h
+index 9a1a0c61361c..00767acbc111 100644
+--- a/include/linux/posix-timers.h
++++ b/include/linux/posix-timers.h
+@@ -66,38 +66,6 @@ struct cpu_timer {
+ 	struct task_struct __rcu	*handling;
+ };
+=20
+-static inline bool cpu_timer_enqueue(struct timerqueue_head *head,
+-				     struct cpu_timer *ctmr)
+-{
+-	ctmr->head =3D head;
+-	return timerqueue_add(head, &ctmr->node);
+-}
+-
+-static inline bool cpu_timer_queued(struct cpu_timer *ctmr)
+-{
+-	return !!ctmr->head;
+-}
+-
+-static inline bool cpu_timer_dequeue(struct cpu_timer *ctmr)
+-{
+-	if (cpu_timer_queued(ctmr)) {
+-		timerqueue_del(ctmr->head, &ctmr->node);
+-		ctmr->head =3D NULL;
+-		return true;
+-	}
+-	return false;
+-}
+-
+-static inline u64 cpu_timer_getexpires(struct cpu_timer *ctmr)
+-{
+-	return ctmr->node.expires;
+-}
+-
+-static inline void cpu_timer_setexpires(struct cpu_timer *ctmr, u64 exp)
+-{
+-	ctmr->node.expires =3D exp;
+-}
+-
+ static inline void posix_cputimers_init(struct posix_cputimers *pct)
+ {
+ 	memset(pct, 0, sizeof(*pct));
+@@ -224,14 +192,15 @@ struct k_itimer {
+ } ____cacheline_aligned_in_smp;
+=20
+ void run_posix_cpu_timers(void);
+-void posix_cpu_timers_exit(struct task_struct *task);
+-void posix_cpu_timers_exit_group(struct task_struct *task);
+ void set_process_cpu_timer(struct task_struct *task, unsigned int clock_idx,
+ 			   u64 *newval, u64 *oldval);
+=20
+ int update_rlimit_cpu(struct task_struct *task, unsigned long rlim_new);
+=20
+ #ifdef CONFIG_POSIX_TIMERS
++void posixtimer_exec(void);
++void posixtimer_exit(bool group_dead);
 +
-+	return gic_read_count();
+ static inline void posixtimer_putref(struct k_itimer *tmr)
+ {
+ 	if (rcuref_put(&tmr->rcuref))
+@@ -259,6 +228,8 @@ static inline bool posixtimer_valid(const struct k_itimer=
+ *timer)
+ 	return !(val & 0x1UL);
+ }
+ #else  /* CONFIG_POSIX_TIMERS */
++static inline void posixtimer_exec(void) { }
++static inline void posixtimer_exit(bool group_dead) { }
+ static inline void posixtimer_sigqueue_getref(struct sigqueue *q) { }
+ static inline void posixtimer_sigqueue_putref(struct sigqueue *q) { }
+ #endif /* !CONFIG_POSIX_TIMERS */
+diff --git a/include/linux/sched/task.h b/include/linux/sched/task.h
+index e0c1ca8c6a18..90ed5bc3c7af 100644
+--- a/include/linux/sched/task.h
++++ b/include/linux/sched/task.h
+@@ -94,7 +94,6 @@ static inline void exit_thread(struct task_struct *tsk)
+ extern __noreturn void do_group_exit(int);
+=20
+ extern void exit_files(struct task_struct *);
+-extern void exit_itimers(struct task_struct *);
+=20
+ extern pid_t kernel_clone(struct kernel_clone_args *kargs);
+ struct task_struct *copy_process(struct pid *pid, int trace, int node,
+diff --git a/include/linux/wait.h b/include/linux/wait.h
+index 7e215330199c..c2af98b0074d 100644
+--- a/include/linux/wait.h
++++ b/include/linux/wait.h
+@@ -556,7 +556,7 @@ do {										\
+ 	}									\
+ 										\
+ 	__ret =3D ___wait_event(wq_head, condition, state, 0, 0,			\
+-		if (!__t.task) {						\
++		if (!hrtimer_sleeper_task_get(&__t)) {				\
+ 			__ret =3D -ETIME;						\
+ 			break;							\
+ 		}								\
+diff --git a/io_uring/rw.c b/io_uring/rw.c
+index 432820f86251..d9b1e096f07b 100644
+--- a/io_uring/rw.c
++++ b/io_uring/rw.c
+@@ -1295,7 +1295,7 @@ static u64 io_hybrid_iopoll_delay(struct io_ring_ctx *c=
+tx, struct io_kiocb *req)
+ 	set_current_state(TASK_INTERRUPTIBLE);
+ 	hrtimer_sleeper_start_expires(&timer, mode);
+=20
+-	if (timer.task)
++	if (hrtimer_sleeper_task_get(&timer))
+ 		io_schedule();
+=20
+ 	hrtimer_cancel(&timer.timer);
+diff --git a/kernel/exit.c b/kernel/exit.c
+index 424c44a42a4d..06a1eb1fdfcd 100644
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -167,12 +167,6 @@ static void __exit_signal(struct release_task_post *post=
+, struct task_struct *ts
+ 					lockdep_tasklist_lock_is_held());
+ 	spin_lock(&sighand->siglock);
+=20
+-#ifdef CONFIG_POSIX_TIMERS
+-	posix_cpu_timers_exit(tsk);
+-	if (group_dead)
+-		posix_cpu_timers_exit_group(tsk);
+-#endif
+-
+ 	if (group_dead) {
+ 		tty =3D sig->tty;
+ 		sig->tty =3D NULL;
+@@ -966,13 +960,12 @@ void __noreturn do_exit(long code)
+ 			panic("Attempted to kill init! exitcode=3D0x%08x\n",
+ 				tsk->signal->group_exit_code ?: (int)code);
+=20
+-#ifdef CONFIG_POSIX_TIMERS
+-		hrtimer_cancel(&tsk->signal->real_timer);
+-		exit_itimers(tsk);
+-#endif
+ 		if (tsk->mm)
+ 			setmax_mm_hiwater_rss(&tsk->signal->maxrss, tsk->mm);
+ 	}
++
++	posixtimer_exit(group_dead);
++
+ 	acct_collect(code, group_dead);
+ 	if (group_dead)
+ 		tty_audit_exit();
+diff --git a/kernel/futex/requeue.c b/kernel/futex/requeue.c
+index b3f4a4bccb12..842d852302dd 100644
+--- a/kernel/futex/requeue.c
++++ b/kernel/futex/requeue.c
+@@ -744,7 +744,7 @@ int handle_early_requeue_pi_wakeup(struct futex_hash_buck=
+et *hb,
+=20
+ 	/* Handle spurious wakeups gracefully */
+ 	ret =3D -EWOULDBLOCK;
+-	if (timeout && !timeout->task)
++	if (timeout && !hrtimer_sleeper_task_get(timeout))
+ 		ret =3D -ETIMEDOUT;
+ 	else if (signal_pending(current))
+ 		ret =3D -ERESTARTNOINTR;
+diff --git a/kernel/futex/waitwake.c b/kernel/futex/waitwake.c
+index d4483d15d30a..cf18309e5770 100644
+--- a/kernel/futex/waitwake.c
++++ b/kernel/futex/waitwake.c
+@@ -383,7 +383,7 @@ void futex_do_wait(struct futex_q *q, struct hrtimer_slee=
+per *timeout)
+ 		 * flagged for rescheduling. Only call schedule if there
+ 		 * is no timeout, or if it has yet to expire.
+ 		 */
+-		if (!timeout || timeout->task)
++		if (!timeout || hrtimer_sleeper_task_get(timeout))
+ 			schedule();
+ 	}
+ 	__set_current_state(TASK_RUNNING);
+@@ -539,7 +539,7 @@ int futex_wait_multiple_setup(struct futex_vector *vs, in=
+t count, int *woken)
+ static void futex_sleep_multiple(struct futex_vector *vs, unsigned int count,
+ 				 struct hrtimer_sleeper *to)
+ {
+-	if (to && !to->task)
++	if (to && !hrtimer_sleeper_task_get(to))
+ 		return;
+=20
+ 	for (; count; count--, vs++) {
+@@ -590,7 +590,7 @@ int futex_wait_multiple(struct futex_vector *vs, unsigned=
+ int count,
+ 		if (ret >=3D 0)
+ 			return ret;
+=20
+-		if (to && !to->task)
++		if (to && !hrtimer_sleeper_task_get(to))
+ 			return -ETIMEDOUT;
+ 		else if (signal_pending(current))
+ 			return -ERESTARTSYS;
+@@ -725,7 +725,7 @@ int __futex_wait(u32 __user *uaddr, unsigned int flags, u=
+32 val,
+ 	if (!futex_unqueue(&q))
+ 		return 0;
+=20
+-	if (to && !to->task)
++	if (to && !hrtimer_sleeper_task_get(to))
+ 		return -ETIMEDOUT;
+=20
+ 	/*
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+index 4728631ae719..5a9534c715b8 100644
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -1644,7 +1644,7 @@ static int __sched rt_mutex_slowlock_block(struct rt_mu=
+tex_base *lock,
+ 			break;
+ 		}
+=20
+-		if (timeout && !timeout->task) {
++		if (timeout && !hrtimer_sleeper_task_get(timeout)) {
+ 			ret =3D -ETIMEDOUT;
+ 			break;
+ 		}
+diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
+index cbf1693c86b3..17dd38a6cee7 100644
+--- a/kernel/time/hrtimer.c
++++ b/kernel/time/hrtimer.c
+@@ -780,7 +780,8 @@ static void hrtimer_switch_to_hres(void)
+ 		return;
+ 	}
+ 	base->hres_active =3D true;
+-	hrtimer_resolution =3D HIGH_RES_NSEC;
++	if (hrtimer_resolution !=3D HIGH_RES_NSEC)
++		hrtimer_resolution =3D HIGH_RES_NSEC;
+=20
+ 	tick_setup_sched_timer(true);
+ 	/* "Retrigger" the interrupt to get things going */
+@@ -2003,7 +2004,7 @@ bool hrtimer_active(const struct hrtimer *timer)
+ 		base =3D READ_ONCE(timer->base);
+ 		seq =3D raw_read_seqcount_begin(&base->seq);
+=20
+-		if (timer->is_queued || base->running =3D=3D timer)
++		if (timer->is_queued || READ_ONCE(base->running) =3D=3D timer)
+ 			return true;
+=20
+ 	} while (read_seqcount_retry(&base->seq, seq) || base !=3D READ_ONCE(timer-=
+>base));
+@@ -2040,7 +2041,7 @@ static void __run_hrtimer(struct hrtimer_cpu_base *cpu_=
+base, struct hrtimer_cloc
+ 	lockdep_assert_held(&cpu_base->lock);
+=20
+ 	debug_hrtimer_deactivate(timer);
+-	base->running =3D timer;
++	WRITE_ONCE(base->running, timer);
+=20
+ 	/*
+ 	 * Separate the ->running assignment from the ->is_queued assignment.
+@@ -2099,7 +2100,7 @@ static void __run_hrtimer(struct hrtimer_cpu_base *cpu_=
+base, struct hrtimer_cloc
+ 	raw_write_seqcount_barrier(&base->seq);
+=20
+ 	WARN_ON_ONCE(base->running !=3D timer);
+-	base->running =3D NULL;
++	WRITE_ONCE(base->running, NULL);
+ }
+=20
+ static void __hrtimer_run_queues(struct hrtimer_cpu_base *cpu_base, ktime_t =
+now,
+@@ -2323,9 +2324,9 @@ void hrtimer_run_queues(void)
+ static enum hrtimer_restart hrtimer_wakeup(struct hrtimer *timer)
+ {
+ 	struct hrtimer_sleeper *t =3D container_of(timer, struct hrtimer_sleeper, t=
+imer);
+-	struct task_struct *task =3D t->task;
++	struct task_struct *task =3D hrtimer_sleeper_task_get(t);
+=20
+-	t->task =3D NULL;
++	hrtimer_sleeper_task_set(t, NULL);
+ 	if (task)
+ 		wake_up_process(task);
+=20
+@@ -2354,7 +2355,7 @@ void hrtimer_sleeper_start_expires(struct hrtimer_sleep=
+er *sl, enum hrtimer_mode
+=20
+ 	/* If already expired, clear the task pointer and set current state to runn=
+ing */
+ 	if (!hrtimer_start_expires_user(&sl->timer, mode)) {
+-		sl->task =3D NULL;
++		hrtimer_sleeper_task_set(sl, NULL);
+ 		__set_current_state(TASK_RUNNING);
+ 	}
+ }
+@@ -2388,7 +2389,7 @@ static void __hrtimer_setup_sleeper(struct hrtimer_slee=
+per *sl, clockid_t clock_
+ 	}
+=20
+ 	__hrtimer_setup(&sl->timer, hrtimer_wakeup, clock_id, mode);
+-	sl->task =3D current;
++	hrtimer_sleeper_task_set(sl, current);
+ }
+=20
+ /**
+@@ -2432,17 +2433,17 @@ static int __sched do_nanosleep(struct hrtimer_sleepe=
+r *t, enum hrtimer_mode mod
+ 		set_current_state(TASK_INTERRUPTIBLE|TASK_FREEZABLE);
+ 		hrtimer_sleeper_start_expires(t, mode);
+=20
+-		if (likely(t->task))
++		if (likely(hrtimer_sleeper_task_get(t)))
+ 			schedule();
+=20
+ 		hrtimer_cancel(&t->timer);
+ 		mode =3D HRTIMER_MODE_ABS;
+=20
+-	} while (t->task && !signal_pending(current));
++	} while (hrtimer_sleeper_task_get(t) && !signal_pending(current));
+=20
+ 	__set_current_state(TASK_RUNNING);
+=20
+-	if (!t->task)
++	if (!hrtimer_sleeper_task_get(t))
+ 		return 0;
+=20
+ 	restart =3D &current->restart_block;
+diff --git a/kernel/time/posix-cpu-timers.c b/kernel/time/posix-cpu-timers.c
+index d73d31c7994f..9f90500894dc 100644
+--- a/kernel/time/posix-cpu-timers.c
++++ b/kernel/time/posix-cpu-timers.c
+@@ -438,6 +438,38 @@ static void trigger_base_recalc_expires(struct k_itimer =
+*timer,
+ 	base->nextevt =3D 0;
+ }
+=20
++static inline bool cpu_timer_enqueue(struct timerqueue_head *head,
++				     struct cpu_timer *ctmr)
++{
++	ctmr->head =3D head;
++	return timerqueue_add(head, &ctmr->node);
 +}
 +
- static struct clocksource gic_clocksource =3D {
- 	.name			=3D "GIC",
- 	.read			=3D gic_hpt_read,
-@@ -213,8 +277,28 @@ static void gic_clocksource_unstable(char *reason)
- 	clocksource_mark_unstable(&gic_clocksource);
++static inline bool cpu_timer_queued(struct cpu_timer *ctmr)
++{
++	return !!ctmr->head;
++}
++
++static inline bool cpu_timer_dequeue(struct cpu_timer *ctmr)
++{
++	if (cpu_timer_queued(ctmr)) {
++		timerqueue_del(ctmr->head, &ctmr->node);
++		ctmr->head =3D NULL;
++		return true;
++	}
++	return false;
++}
++
++static inline u64 cpu_timer_getexpires(struct cpu_timer *ctmr)
++{
++	return ctmr->node.expires;
++}
++
++static inline void cpu_timer_setexpires(struct cpu_timer *ctmr, u64 exp)
++{
++	ctmr->node.expires =3D exp;
++}
++
+ /*
+  * Dequeue the timer and reset the base if it was its earliest expiration.
+  * It makes sure the next tick recalculates the base next expiration so we
+@@ -596,6 +628,7 @@ static int posix_cpu_timer_del(struct k_itimer *timer)
+ 	}
+=20
+ 	if (!ret) {
++		WARN_ON_ONCE(cpu_timer_queued(&timer->it.cpu));
+ 		put_pid(timer->it.cpu.pid);
+ 		timer->it_status =3D POSIX_TIMER_DISARMED;
+ 	}
+@@ -628,18 +661,50 @@ static void cleanup_timers(struct posix_cputimers *pct)
+ 	cleanup_timerqueue(&pct->bases[CPUCLOCK_SCHED].tqhead);
  }
 =20
-+static void gic_clocksource_promote(struct work_struct *work)
++static inline void posix_cpu_timers_exit_work(void);
++
+ /*
+- * These are both called with the siglock held, when the current thread
+- * is being reaped.  When the final (leader) thread in the group is reaped,
+- * posix_cpu_timers_exit_group will be called after posix_cpu_timers_exit.
++ * Invoked from posixtimer_exit_task() after PF_EXITING was set in tsk::flag=
+s or
++ * from posixtimer_exec_cleanup().
+  */
+-void posix_cpu_timers_exit(struct task_struct *tsk)
++void posix_cpu_timers_exit_task(void)
+ {
+-	cleanup_timers(&tsk->posix_cputimers);
++	posix_cpu_timers_exit_work();
++
++	guard(spinlock_irq)(&current->sighand->siglock);
++	cleanup_timers(&current->posix_cputimers);
+ }
+-void posix_cpu_timers_exit_group(struct task_struct *tsk)
++
++/*
++ * Invoked from posixtimer_exit_group() after PF_EXITING was set in tsk::fla=
+gs.
++ */
++void posix_cpu_timers_exit_group(void)
+ {
+-	cleanup_timers(&tsk->signal->posix_cputimers);
++	posix_cpu_timers_exit_task();
++
++	guard(spinlock_irq)(&current->sighand->siglock);
++	cleanup_timers(&current->signal->posix_cputimers);
++}
++
++/*
++ * This function validates that POSIX CPU timers can be safely enqueued on t=
+he
++ * target task.
++ *
++ * Enqueue is allowed when PF_EXITING is not set. If set then it is only all=
+owed
++ * for process shared timers (type =3D PIDTYPE_TGID) as long as tsk::signal:=
+:flags
++ * does not have SIGNAL_GROUP_EXIT set. PIDTYPE_PID targets are not allowed =
+at
++ * all when the task has PF_EXITING set.
++ *
++ * This guarantees that after the POSIX timer cleanup in posixtimer_exit() no
++ * POSIX CPU timers are queued on the task or in case of a group exit on the
++ * process.
++ */
++static inline bool task_can_enqueue_timer(struct task_struct *tsk, enum pid_=
+type type)
 +{
-+	if (gic_clock_unstable || READ_ONCE(gic_use_local_counter))
++	if (likely(!(tsk->flags & PF_EXITING)))
++		return true;
++
++	return type =3D=3D PIDTYPE_TGID && !(tsk->signal->flags & SIGNAL_GROUP_EXIT=
+);
+ }
+=20
+ /*
+@@ -652,7 +717,13 @@ static void arm_timer(struct k_itimer *timer, struct tas=
+k_struct *p)
+ 	struct cpu_timer *ctmr =3D &timer->it.cpu;
+ 	u64 newexp =3D cpu_timer_getexpires(ctmr);
+=20
++	lockdep_assert_held(&p->sighand->siglock);
++
+ 	timer->it_status =3D POSIX_TIMER_ARMED;
++
++	if (unlikely(!task_can_enqueue_timer(p, clock_pid_type(timer->it_clock))))
 +		return;
 +
-+	WRITE_ONCE(gic_use_local_counter, true);
-+
-+#ifdef CONFIG_GENERIC_GETTIMEOFDAY
-+	gic_clocksource.vdso_clock_mode =3D VDSO_CLOCKMODE_GIC;
-+#endif
-+
-+	if (mips_cm_revision() >=3D CM_REV_CM3 || !IS_ENABLED(CONFIG_CPU_FREQ)) {
-+		sched_clock_register(mips_cm_is64 ?
-+				     gic_read_count_64 : gic_read_count_2x32,
-+				     gic_count_width, gic_frequency);
-+	}
+ 	if (!cpu_timer_enqueue(&base->tqhead, ctmr))
+ 		return;
+=20
+@@ -1197,6 +1268,20 @@ static void posix_cpu_timers_work(struct callback_head=
+ *work)
+ 	mutex_unlock(&cw->mutex);
+ }
+=20
++static inline void posix_cpu_timers_exit_work(void)
++{
++	/* Canceling the work is only valid for exit() but not for exec() */
++	if (!(current->flags & PF_EXITING))
++		return;
++	/*
++	 * current->flags has PF_EXITING set so this can be done lockless and
++	 * with interrupts enabled as PF_EXITING prevents the interrupt from
++	 * scheduling the work.
++	 */
++	if (current->posix_cputimers_work.scheduled)
++		task_work_cancel(current, &current->posix_cputimers_work.work);
 +}
 +
- static int __init __gic_clocksource_init(void)
+ /*
+  * Invoked from the posix-timer core when a cancel operation failed because
+  * the timer is marked firing. The caller holds rcu_read_lock(), which
+@@ -1327,6 +1412,8 @@ static inline void __run_posix_cpu_timers(struct task_s=
+truct *tsk)
+ 	lockdep_posixtimer_exit();
+ }
+=20
++static inline void posix_cpu_timers_exit_work(void) { }
++
+ static void posix_cpu_timer_wait_running(struct k_itimer *timr)
  {
-+	unsigned int numclusters;
-+	bool synced =3D false;
- 	int ret;
-=20
- 	/* Set clocksource mask. */
-@@ -226,14 +310,32 @@ static int __init __gic_clocksource_init(void)
-=20
- 	/* Calculate a somewhat reasonable rating value. */
- 	if (mips_cm_revision() >=3D CM_REV_CM3 || !IS_ENABLED(CONFIG_CPU_FREQ))
--		gic_clocksource.rating =3D 300; /* Good when frequecy is stable */
-+		gic_clocksource.rating =3D 300; /* Good when frequency is stable */
- 	else
- 		gic_clocksource.rating =3D 200;
- 	gic_clocksource.rating +=3D clamp(gic_frequency / 10000000, 0, 99);
-=20
--	if (mips_cps_multicluster_cpus()) {
--		gic_clocksource.read =3D &gic_hpt_read_multicluster;
-+	numclusters =3D mips_cps_numclusters();
-+	if (numclusters > 1)
-+		gic_synced_cl_map =3D bitmap_zalloc(numclusters, GFP_KERNEL);
-+
-+	/*
-+	 * Mark cluster 0 as synchronized (with itself), and all clusters
-+	 * without cores since there is no local GIC counter access on those.
-+	 */
-+	if (gic_synced_cl_map) {
-+		bitmap_set(gic_synced_cl_map, 0, 1);
-+		for (unsigned int cl =3D 0; cl < numclusters; cl++) {
-+			if (!mips_cps_numcores(cl))
-+				bitmap_set(gic_synced_cl_map, cl, 1);
-+		}
-+		synced =3D bitmap_full(gic_synced_cl_map, numclusters);
-+	}
-+
-+	if (numclusters > 1 && !synced) {
-+		WRITE_ONCE(gic_use_local_counter, false);
- 		gic_clocksource.vdso_clock_mode =3D VDSO_CLOCKMODE_NONE;
-+		INIT_WORK(&gic_promote_work, gic_clocksource_promote);
- 	}
-=20
- 	ret =3D clocksource_register_hz(&gic_clocksource, gic_frequency);
-@@ -292,7 +394,7 @@ static int __init gic_clocksource_of_init(struct device_n=
-ode *node)
- 	 * change performed by the CPC core clocks divider.
+ 	cpu_relax();
+@@ -1473,7 +1560,7 @@ void run_posix_cpu_timers(void)
+ 	 * posix_cpu_timer_del() may fail to lock_task_sighand(tsk) and
+ 	 * miss timer->it.cpu.firing !=3D 0.
  	 */
- 	if ((mips_cm_revision() >=3D CM_REV_CM3 || !IS_ENABLED(CONFIG_CPU_FREQ)) &&
--	     !mips_cps_multicluster_cpus()) {
-+	     READ_ONCE(gic_use_local_counter)) {
- 		sched_clock_register(mips_cm_is64 ?
- 				     gic_read_count_64 : gic_read_count_2x32,
- 				     gic_count_width, gic_frequency);
-diff --git a/drivers/clocksource/timer-digicolor.c b/drivers/clocksource/time=
-r-digicolor.c
-index 559aa96089c3..46e0c329957a 100644
---- a/drivers/clocksource/timer-digicolor.c
-+++ b/drivers/clocksource/timer-digicolor.c
-@@ -190,6 +190,8 @@ static int __init digicolor_timer_init(struct device_node=
- *node)
- 			  &dc_timer_dev.ce);
- 	if (ret) {
- 		pr_warn("request of timer irq %d failed (%d)\n", irq, ret);
-+		clk_disable_unprepare(clk);
-+		clk_put(clk);
- 		return ret;
- 	}
+-	if (tsk->exit_state)
++	if (tsk->flags & PF_EXITING)
+ 		return;
 =20
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksourc=
-e/timer-econet-en751221.c
-index 4008076b1a21..1859335345b5 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -181,6 +181,7 @@ static int __init timer_init(struct device_node *np)
- 	}
-=20
- 	econet_timer.freq_hz =3D clk_get_rate(clk);
-+	clk_put(clk);
-=20
- 	for (int i =3D 0; i < num_blocks; i++) {
- 		econet_timer.membase[i] =3D of_iomap(np, i);
-diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer=
--fttmr010.c
-index 308f94bfbaed..c2553851e8d6 100644
---- a/drivers/clocksource/timer-fttmr010.c
-+++ b/drivers/clocksource/timer-fttmr010.c
-@@ -292,6 +292,7 @@ static int __init fttmr010_common_init(struct device_node=
- *np,
- 	ret =3D clk_prepare_enable(clk);
- 	if (ret) {
- 		pr_err("failed to enable PCLK\n");
-+		clk_put(clk);
- 		return ret;
- 	}
-=20
-@@ -432,6 +433,7 @@ static int __init fttmr010_common_init(struct device_node=
- *np,
- 	kfree(fttmr010);
- out_disable_clock:
- 	clk_disable_unprepare(clk);
-+	clk_put(clk);
-=20
- 	return ret;
- }
-diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer=
--mediatek.c
-index 7bcb4a3f26fb..842d6ee4259e 100644
---- a/drivers/clocksource/timer-mediatek.c
-+++ b/drivers/clocksource/timer-mediatek.c
-@@ -9,10 +9,14 @@
-=20
- #define pr_fmt(fmt)	KBUILD_MODNAME ": " fmt
-=20
-+#include <linux/clk.h>
- #include <linux/clockchips.h>
- #include <linux/clocksource.h>
- #include <linux/interrupt.h>
- #include <linux/irqreturn.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
- #include <linux/sched_clock.h>
- #include <linux/slab.h>
- #include "timer-of.h"
-@@ -215,8 +219,7 @@ static irqreturn_t mtk_gpt_interrupt(int irq, void *dev_i=
-d)
- 	return IRQ_HANDLED;
- }
-=20
--static void
--__init mtk_gpt_setup(struct timer_of *to, u8 timer, u8 option)
-+static void mtk_gpt_setup(struct timer_of *to, u8 timer, u8 option)
- {
- 	writel(GPT_CTRL_CLEAR | GPT_CTRL_DISABLE,
- 	       timer_of_base(to) + GPT_CTRL_REG(timer));
-@@ -277,12 +280,13 @@ static struct timer_of to =3D {
- 	},
-=20
- 	.of_irq =3D {
--		.flags =3D IRQF_TIMER | IRQF_IRQPOLL,
-+		.flags =3D IRQF_TIMER | IRQF_IRQPOLL | IRQF_NO_AUTOEN,
- 	},
- };
-=20
--static int __init mtk_syst_init(struct device_node *node)
-+static int mtk_syst_init(struct platform_device *pdev)
- {
-+	struct device_node *node =3D pdev->dev.of_node;
- 	int ret;
-=20
- 	to.clkevt.features =3D CLOCK_EVT_FEAT_DYNIRQ | CLOCK_EVT_FEAT_ONESHOT;
-@@ -298,14 +302,19 @@ static int __init mtk_syst_init(struct device_node *nod=
-e)
-=20
- 	clockevents_config_and_register(&to.clkevt, timer_of_rate(&to),
- 					TIMER_SYNC_TICKS, 0xffffffff);
-+	enable_irq(timer_of_irq(&to));
-=20
+ 	/*
+diff --git a/kernel/time/posix-timers.c b/kernel/time/posix-timers.c
+index 436ba794cc0b..188dbedbffca 100644
+--- a/kernel/time/posix-timers.c
++++ b/kernel/time/posix-timers.c
+@@ -1077,13 +1077,9 @@ SYSCALL_DEFINE1(timer_delete, timer_t, timer_id)
  	return 0;
  }
 =20
--static int __init mtk_gpt_init(struct device_node *node)
-+static int mtk_gpt_init(struct platform_device *pdev)
+-/*
+- * Invoked from do_exit() when the last thread of a thread group exits.
+- * At that point no other task can access the timers of the dying
+- * task anymore.
+- */
+-void exit_itimers(struct task_struct *tsk)
++static void posixtimer_delete_timers(void)
  {
-+	struct device_node *node =3D pdev->dev.of_node;
-+	struct clk *clk_bus;
- 	int ret;
-=20
-+	clk_bus =3D devm_clk_get_optional_enabled(&pdev->dev, "bus");
-+
- 	to.clkevt.features =3D CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
- 	to.clkevt.set_state_shutdown =3D mtk_gpt_clkevt_shutdown;
- 	to.clkevt.set_state_periodic =3D mtk_gpt_clkevt_set_periodic;
-@@ -334,8 +343,32 @@ static int __init mtk_gpt_init(struct device_node *node)
- 					TIMER_SYNC_TICKS, 0xffffffff);
-=20
- 	mtk_gpt_enable_irq(&to, TIMER_CLK_EVT);
-+	enable_irq(timer_of_irq(&to));
-=20
- 	return 0;
++	struct task_struct *tsk =3D current;
+ 	struct hlist_head timers;
+ 	struct hlist_node *next;
+ 	struct k_itimer *timer;
+@@ -1120,6 +1116,24 @@ void exit_itimers(struct task_struct *tsk)
+ 	}
  }
--TIMER_OF_DECLARE(mtk_mt6577, "mediatek,mt6577-timer", mtk_gpt_init);
--TIMER_OF_DECLARE(mtk_mt6765, "mediatek,mt6765-timer", mtk_syst_init);
-+
-+static int mtk_timer_probe(struct platform_device *pdev)
+=20
++void posixtimer_exit(bool group_dead)
 +{
-+	int (*timer_init)(struct platform_device *pdev);
-+
-+	timer_init =3D of_device_get_match_data(&pdev->dev);
-+	return timer_init(pdev);
-+}
-+
-+static const struct of_device_id mtk_timer_match_table[] =3D {
-+	{ .compatible =3D "mediatek,mt6577-timer", .data =3D mtk_gpt_init },
-+	{ .compatible =3D "mediatek,mt6765-timer", .data =3D mtk_syst_init },
-+	{ /* sentinel */ }
-+};
-+
-+static struct platform_driver mtk_timer_driver =3D {
-+	.probe =3D mtk_timer_probe,
-+	.driver =3D {
-+		.name =3D "mediatek-timer",
-+		.of_match_table =3D mtk_timer_match_table,
-+	},
-+};
-+module_platform_driver(mtk_timer_driver);
-+
-+MODULE_DESCRIPTION("MediaTek Timer driver");
-diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer-rzn=
-1.c
-new file mode 100644
-index 000000000000..25ebebff3c63
---- /dev/null
-+++ b/drivers/clocksource/timer-rzn1.c
-@@ -0,0 +1,483 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * RZ/N1 timers driver
-+ *
-+ * Copyright (C) 2026 Schneider-Electric
-+ *
-+ * Author: Herve Codina <herve.codina@bootlin.com>
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/clockchips.h>
-+#include <linux/clocksource.h>
-+#include <linux/cpuhotplug.h>
-+#include <linux/interrupt.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/sched_clock.h>
-+
-+/* Per-timer register offsets */
-+#define RZN1_TIMER_LOAD_COUNT_REG	0x00
-+#define RZN1_TIMER_CURRENT_COUNT_REG	0x04
-+#define RZN1_TIMER_CONTROL_REG		0x08
-+#define   RZN1_TIMER_CONTROL_INT_UNMASK		BIT(3)
-+#define   RZN1_TIMER_CONTROL_ENABLE		BIT(2)
-+#define   RZN1_TIMER_CONTROL_AUTORELOAD		BIT(1)
-+#define   RZN1_TIMER_CONTROL_PRESCALER_DIV25	BIT(0)
-+#define RZN1_TIMER_CLEAR_INT_REG	0x0c
-+#define RZN1_TIMER_STATUS_INT0_REG	0x10
-+#define RZN1_TIMER_STATUS_INT1_REG	0x14
-+
-+/*
-+ * 8 timers are available. Among those 8 timers, the first 6 timers are 16-b=
-it
-+ * timers and the last two ones are 32-bit timers.
-+ */
-+#define RZN1_TIMER_BASE_INDEX_16BIT_TIMERS	0
-+#define RZN1_TIMER_NB_16BIT_TIMERS		6
-+#define RZN1_TIMER_LAST_INDEX_16BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_16BIT_TIME=
-RS + \
-+						 RZN1_TIMER_NB_16BIT_TIMERS - 1)
-+
-+#define RZN1_TIMER_BASE_INDEX_32BIT_TIMERS	6
-+#define RZN1_TIMER_NB_32BIT_TIMERS		2
-+#define RZN1_TIMER_LAST_INDEX_32BIT_TIMERS	(RZN1_TIMER_BASE_INDEX_32BIT_TIME=
-RS + \
-+						 RZN1_TIMER_NB_32BIT_TIMERS - 1)
-+
-+#define RZN1_TIMER_IS_16BIT_TIMER(_i) ((_i) < RZN1_TIMER_BASE_INDEX_32BIT_TI=
-MERS)
-+
-+/* Total numbers of timers */
-+#define RZN1_TIMER_NB_TIMERS	(RZN1_TIMER_NB_16BIT_TIMERS + \
-+				 RZN1_TIMER_NB_32BIT_TIMERS)
-+
-+/* Offset of registers related to the timer number _i in the timers regs are=
-a */
-+#define RZN1_TIMER_REGS_OFFSET(_i) (0x20 * (_i))
-+
-+struct rzn1_timer {
-+	void __iomem *base;
-+	unsigned int width;
-+	unsigned long rate;
-+	unsigned long hz_period;
-+	struct clock_event_device ced;
-+};
-+
-+static int rzn1_timer_config(struct rzn1_timer *timer, u32 period, bool is_p=
-eriodic)
-+{
-+	u32 ctrl;
-+
-+	ctrl =3D readl(timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	/* Disable the timer */
-+	writel(ctrl & ~RZN1_TIMER_CONTROL_ENABLE,
-+	       timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	/* Set the new period */
-+	writel(period, timer->base + RZN1_TIMER_LOAD_COUNT_REG);
-+
-+	/* Prepare the timer mode */
-+	if (is_periodic)
-+		ctrl |=3D RZN1_TIMER_CONTROL_AUTORELOAD;
-+	else
-+		ctrl &=3D ~RZN1_TIMER_CONTROL_AUTORELOAD;
-+
-+	/*
-+	 * Enable the timer.
-+	 *
-+	 * This automatically resets the CURRENT_COUNT register.
-+	 */
-+	ctrl |=3D RZN1_TIMER_CONTROL_ENABLE;
-+	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	return 0;
-+}
-+
-+static void rzn1_timer_disable(struct rzn1_timer *timer)
-+{
-+	u32 ctrl;
-+
-+	ctrl =3D readl(timer->base + RZN1_TIMER_CONTROL_REG);
-+	ctrl &=3D ~RZN1_TIMER_CONTROL_ENABLE;
-+	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
-+}
-+
-+static void rzn1_timer_int_enable(struct rzn1_timer *timer)
-+{
-+	u32 ctrl;
-+
-+	ctrl =3D readl(timer->base + RZN1_TIMER_CONTROL_REG);
-+	ctrl |=3D RZN1_TIMER_CONTROL_INT_UNMASK;
-+	writel(ctrl, timer->base + RZN1_TIMER_CONTROL_REG);
-+}
-+
-+static irqreturn_t rzn1_timer_interrupt(int irq, void *dev_id)
-+{
-+	struct rzn1_timer *timer =3D dev_id;
-+
-+	/* Ack the interrupt */
-+	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
-+
-+	if (timer->ced.event_handler)
-+		timer->ced.event_handler(&timer->ced);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int rzn1_clkevt_set_next_event(unsigned long cycles,
-+				      struct clock_event_device *evt)
-+{
-+	struct rzn1_timer *timer =3D container_of(evt, struct rzn1_timer, ced);
-+
-+	return rzn1_timer_config(timer, cycles, false);
-+}
-+
-+static int rzn1_clkevt_shutdown(struct clock_event_device *evt)
-+{
-+	struct rzn1_timer *timer =3D container_of(evt, struct rzn1_timer, ced);
-+
-+	rzn1_timer_disable(timer);
-+	return 0;
-+}
-+
-+static int rzn1_clkevt_set_periodic(struct clock_event_device *evt)
-+{
-+	struct rzn1_timer *timer =3D container_of(evt, struct rzn1_timer, ced);
-+
-+	rzn1_timer_config(timer, timer->hz_period, true);
-+	return 0;
-+}
-+
-+/*
-+ * This global lock is used to prevent race conditions during global timers
-+ * test and set operation in case the driver is using the async probe option.
-+ */
-+static DEFINE_MUTEX(rzn1_global_timers_lock);
-+
-+static int rzn1_timer_instance;
-+
-+/* scheduler and clocksource */
-+static struct rzn1_timer *rzn1_sched_clock;
-+
-+static u64 notrace rzn1_sched_read(void)
-+{
-+	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
-+}
-+
-+static u64 rzn1_clksrc_read(struct clocksource *cs)
-+{
-+	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_REG);
-+}
-+
-+static struct clocksource rzn1_clocksource =3D {
-+	.name =3D "rzn1_timer_clocksource",
-+	.rating =3D 200,
-+	.flags =3D CLOCK_SOURCE_IS_CONTINUOUS,
-+	.read =3D rzn1_clksrc_read,
-+};
-+
-+/* Timers table where 16-bit timers will be assigned per-cpu */
-+static struct rzn1_timer *rzn1_tab_timers;
-+
-+static int rzn1_local_timer_starting_cpu(unsigned int cpu)
-+{
-+	struct rzn1_timer *timer;
-+
-+	/* We assign the first and second 16-bit timer as per-cpu timers. */
-+	if (cpu >=3D 2)
-+		return 0;
-+
-+	timer =3D &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
-+
-+	timer->ced.cpumask =3D cpumask_of(cpu);
-+	irq_force_affinity(timer->ced.irq, cpumask_of(cpu));
-+
-+	clockevents_config_and_register(&timer->ced, timer->rate, 1,
-+					GENMASK(timer->width - 1, 0));
-+	/*
-+	 * Time to enable the interrupt even if no interrupt can be fired yet.
-+	 * Indeed, the timer is still globally disabled.
-+	 * It will be enabled when rzn1_timer_config() is called
-+	 */
-+	enable_irq(timer->ced.irq);
-+	return 0;
-+}
-+
-+static int rzn1_local_timer_dying_cpu(unsigned int cpu)
-+{
-+	struct rzn1_timer *timer;
-+
-+	if (cpu >=3D 2)
-+		return 0;
-+
-+	timer =3D &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
-+
-+	rzn1_timer_disable(timer);
-+	disable_irq_nosync(timer->ced.irq);
-+	return 0;
-+}
-+
-+static void rzn1_timer_init(struct rzn1_timer *timer, unsigned int index,
-+			    void __iomem *timers_base, unsigned long clock_rate)
-+{
-+	timer->base =3D timers_base + RZN1_TIMER_REGS_OFFSET(index);
-+
-+	/* Disable the timer */
-+	writel(0, timer->base + RZN1_TIMER_CONTROL_REG);
-+
-+	/* Clear potential interrupts */
-+	readl(timer->base + RZN1_TIMER_CLEAR_INT_REG);
-+
-+	if (RZN1_TIMER_IS_16BIT_TIMER(index)) {
-+		timer->width =3D 16;
-+		/*
-+		 * Enable pre-scaler for 16-bit timers.
-+		 *
-+		 * Timers are fed by a 25MHz clock. With this pre-scaler (1/25)
-+		 * enabled, the 16-bit timers resolution is 1 microsecond.
-+		 */
-+		writel(RZN1_TIMER_CONTROL_PRESCALER_DIV25,
-+		       timer->base + RZN1_TIMER_CONTROL_REG);
-+		timer->rate =3D clock_rate / 25;
++	if (group_dead) {
++		hrtimer_cancel(&current->signal->real_timer);
++		posix_cpu_timers_exit_group();
++		posixtimer_delete_timers();
 +	} else {
-+		timer->width =3D 32;
-+		timer->rate =3D clock_rate;
-+	}
-+	timer->hz_period =3D DIV_ROUND_UP(timer->rate, HZ);
-+}
-+
-+static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const char =
-*name,
-+				       int irq)
-+{
-+	timer->ced.features =3D CLOCK_EVT_FEAT_PERIODIC | CLOCK_EVT_FEAT_ONESHOT;
-+	timer->ced.set_next_event =3D rzn1_clkevt_set_next_event;
-+	timer->ced.set_state_shutdown =3D rzn1_clkevt_shutdown;
-+	timer->ced.set_state_periodic =3D rzn1_clkevt_set_periodic;
-+	timer->ced.cpumask =3D cpu_possible_mask;
-+
-+	/*
-+	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
-+	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
-+	 * with to a 6.25 MHz clock.
-+	 *
-+	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
-+	 * timers have a higher resolution than the ARM CP15 one.
-+	 *
-+	 * Use a high rating for the 32-bit RZ/N1 timers.
-+	 */
-+	timer->ced.rating =3D timer->width =3D=3D 16 ? 200 : 460;
-+	timer->ced.owner =3D THIS_MODULE;
-+	timer->ced.name =3D name;
-+	timer->ced.irq =3D irq;
-+}
-+
-+static int rzn1_timer_setup_timers(struct platform_device *pdev,
-+				   struct rzn1_timer *tab_timers,
-+				   unsigned int first_timer_index,
-+				   unsigned int last_timer_index,
-+				   void __iomem *base, unsigned long clock_rate)
-+{
-+	struct device *dev =3D &pdev->dev;
-+	struct rzn1_timer *timer;
-+	unsigned int i;
-+	char *name;
-+	int irq;
-+	int ret;
-+
-+	for (i =3D first_timer_index; i <=3D last_timer_index; i++) {
-+		timer =3D &tab_timers[i];
-+
-+		rzn1_timer_init(timer, i, base, clock_rate);
-+
-+		irq =3D platform_get_irq(pdev, i);
-+		if (irq < 0)
-+			return irq;
-+
-+		name =3D devm_kasprintf(dev, GFP_KERNEL, "%s-%u", dev_name(dev), i);
-+		if (!name)
-+			return -ENOMEM;
-+
-+		rzn1_timer_clkevt_init_ced(timer, name, irq);
-+
-+		ret =3D devm_request_irq(dev, timer->ced.irq, rzn1_timer_interrupt,
-+				       IRQF_TIMER | IRQF_NO_AUTOEN,
-+				       timer->ced.name, timer);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret, "timer%u: Failed to request IRQ\n", i);
-+
-+		rzn1_timer_int_enable(timer);
-+	}
-+	return 0;
-+}
-+
-+static void rzn1_timer_register_clkevt(struct rzn1_timer *tab_timers,
-+				       unsigned int first_timer_index,
-+				       unsigned int last_timer_index)
-+{
-+	struct rzn1_timer *timer;
-+	unsigned int i;
-+
-+	for (i =3D first_timer_index; i <=3D last_timer_index; i++) {
-+		timer =3D &tab_timers[i];
-+		clockevents_config_and_register(&timer->ced, timer->rate,
-+						1, GENMASK(timer->width - 1, 0));
-+		/*
-+		 * Time to enable the interrupt even if no interrupt can be
-+		 * fired yet. Indeed, the timer is still globally disabled.
-+		 * It will be enabled when rzn1_timer_config() is called
-+		 */
-+		enable_irq(timer->ced.irq);
++		posix_cpu_timers_exit_task();
 +	}
 +}
 +
-+static int rzn1_timer_probe_first(struct platform_device *pdev,
-+				  struct rzn1_timer *tab_timers,
-+				  void __iomem *base, unsigned long clock_rate)
++void posixtimer_exec(void)
 +{
-+	struct device *dev =3D &pdev->dev;
-+	struct rzn1_timer *timer;
-+	int ret;
-+
-+	/*
-+	 * Each timer instance has 6 x 16-bit timers and 2 x 32-bit timers.
-+	 *
-+	 * Probe the first instance. In that case, timers are assigned as
-+	 * follow:
-+	 *   - First and second 16-bit timers: clock events per CPU
-+	 *   - Last (second one) 32-bit timer: clocksource and sched_clock
-+	 *   - Other timers: clock events for all possible CPUs
-+	 *
-+	 * First step, perform all operation that could fail without calling
-+	 * clockevents_config_and_register(), sched_clock_register() nor
-+	 * cpuhp_setup_state(). Those operation don't have unregister nor
-+	 * teardown counterparts and so, once called, we cannot remove the
-+	 * related resource.
-+	 */
-+
-+	/* First step for 16-bit timers and the first 32-bit timers. */
-+	ret =3D rzn1_timer_setup_timers(pdev, tab_timers,
-+				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
-+				      RZN1_TIMER_BASE_INDEX_32BIT_TIMERS,
-+				      base, clock_rate);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Second step, almost all operations that can fail have been called.
-+	 * Timers are ready to work. Start with the last operation that can fail,
-+	 * installing and invoking hotplug callbacks
-+	 */
-+	rzn1_tab_timers =3D tab_timers;
-+	ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-+				"clockevents/rzn1/global_timer:starting",
-+				rzn1_local_timer_starting_cpu,
-+				rzn1_local_timer_dying_cpu);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "Setup CPU hotplug state failed\n");
-+
-+	/*
-+	 * At this point, no more operations can fail. Perform remaining
-+	 * operations. Starting by handling the last (second one) 32-bit timer
-+	 */
-+	timer =3D &tab_timers[RZN1_TIMER_LAST_INDEX_32BIT_TIMERS];
-+
-+	rzn1_timer_init(timer, RZN1_TIMER_LAST_INDEX_32BIT_TIMERS, base, clock_rate=
-);
-+	rzn1_timer_config(timer, GENMASK(timer->width - 1, 0), true);
-+
-+	rzn1_sched_clock =3D timer;
-+
-+	sched_clock_register(rzn1_sched_read, rzn1_sched_clock->width, rzn1_sched_c=
-lock->rate);
-+
-+	rzn1_clocksource.mask =3D CLOCKSOURCE_MASK(rzn1_sched_clock->width);
-+	clocksource_register_hz(&rzn1_clocksource, rzn1_sched_clock->rate);
-+
-+	/*
-+	 * Register clockevents for 16-bit timers (except the first and second
-+	 * ones) and for the first 32-bit timer. The first and second 16-bit
-+	 * timers clockevents are registered by CPU hotplug startup function set
-+	 * previously by the cpuhp_setup_state() call.
-+	 */
-+	rzn1_timer_register_clkevt(tab_timers,
-+				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS + 2,
-+				   RZN1_TIMER_BASE_INDEX_32BIT_TIMERS);
-+
-+	return 0;
++	posix_cpu_timers_exit_task();
++	posixtimer_delete_timers();
++	flush_itimer_signals();
 +}
 +
-+static int rzn1_timer_probe_other(struct platform_device *pdev,
-+				  struct rzn1_timer *tab_timers,
-+				  void __iomem *base, unsigned long clock_rate)
-+{
-+	int ret;
-+
-+	/*
-+	 * Probe other instance(s), i.e. not the first one. In that case,
-+	 * all timers are used as clock events and available for all possible
-+	 * CPUs
-+	 *
-+	 * First step, perform all operation that could fail without calling
-+	 * clockevents_config_and_register(). Unregister counterpart does not
-+	 * exist and so, once called, we cannot remove the related resource.
-+	 */
-+	ret =3D rzn1_timer_setup_timers(pdev, tab_timers,
-+				      RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
-+				      RZN1_TIMER_LAST_INDEX_32BIT_TIMERS,
-+				      base, clock_rate);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Second step, all operation that can fail have been called. We can
-+	 * register our timers.
-+	 */
-+	rzn1_timer_register_clkevt(tab_timers,
-+				   RZN1_TIMER_BASE_INDEX_16BIT_TIMERS,
-+				   RZN1_TIMER_LAST_INDEX_32BIT_TIMERS);
-+	return 0;
-+}
-+
-+static int rzn1_timer_probe(struct platform_device *pdev)
-+{
-+	struct device *dev =3D &pdev->dev;
-+	struct rzn1_timer *tab_timers;
-+	unsigned long clock_rate;
-+	void __iomem *base;
-+	struct clk *clk;
-+	int ret;
-+
-+	tab_timers =3D devm_kcalloc(dev, RZN1_TIMER_NB_TIMERS, sizeof(*tab_timers),
-+				  GFP_KERNEL);
-+	if (!tab_timers)
-+		return -ENOMEM;
-+
-+	base =3D devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	clk =3D devm_clk_get_enabled(dev, "pclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk), "Failed to get pclk\n");
-+
-+	clock_rate =3D clk_get_rate(clk);
-+
-+	scoped_guard(mutex, &rzn1_global_timers_lock) {
-+		ret =3D !rzn1_timer_instance ?
-+			rzn1_timer_probe_first(pdev, tab_timers, base, clock_rate) :
-+			rzn1_timer_probe_other(pdev, tab_timers, base, clock_rate);
-+		if (!ret)
-+			rzn1_timer_instance++;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct of_device_id rzn1_timer_of_match[] =3D {
-+	{ .compatible =3D "renesas,rzn1-timer", },
-+	{ /* sentinel */ }
-+};
-+
-+static struct platform_driver rzn1_timer_driver =3D {
-+	.driver =3D {
-+		.name =3D "rzn1_timer",
-+		.of_match_table =3D rzn1_timer_of_match,
-+		.suppress_bind_attrs =3D true,
-+	},
-+};
-+builtin_platform_driver_probe(rzn1_timer_driver, rzn1_timer_probe);
-diff --git a/drivers/clocksource/timer-ti-dm.c b/drivers/clocksource/timer-ti=
--dm.c
-index 6787acac9a43..8012d3f3e1a3 100644
---- a/drivers/clocksource/timer-ti-dm.c
-+++ b/drivers/clocksource/timer-ti-dm.c
-@@ -1095,6 +1095,7 @@ static int omap_dm_timer_write_counter(struct omap_dm_t=
-imer *cookie, unsigned in
+ SYSCALL_DEFINE2(clock_settime, const clockid_t, which_clock,
+ 		const struct __kernel_timespec __user *, tp)
  {
- 	struct dmtimer *timer;
- 	struct device *dev;
-+	int ret;
-=20
- 	timer =3D to_dmtimer(cookie);
- 	if (unlikely(!timer)) {
-@@ -1104,7 +1105,10 @@ static int omap_dm_timer_write_counter(struct omap_dm_=
-timer *cookie, unsigned in
-=20
- 	dev =3D &timer->pdev->dev;
-=20
--	pm_runtime_resume_and_get(dev);
-+	ret =3D pm_runtime_resume_and_get(dev);
-+	if (ret < 0)
-+		return ret;
+diff --git a/kernel/time/posix-timers.h b/kernel/time/posix-timers.h
+index 4ea9611dd716..79fd7ea71046 100644
+--- a/kernel/time/posix-timers.h
++++ b/kernel/time/posix-timers.h
+@@ -51,3 +51,6 @@ int common_timer_set(struct k_itimer *timr, int flags,
+ 		     struct itimerspec64 *old_setting);
+ void posix_timer_set_common(struct k_itimer *timer, struct itimerspec64 *new=
+_setting);
+ int common_timer_del(struct k_itimer *timer);
 +
- 	dmtimer_write(timer, OMAP_TIMER_COUNTER_REG, value);
- 	pm_runtime_put_sync(dev);
++void posix_cpu_timers_exit_task(void);
++void posix_cpu_timers_exit_group(void);
+diff --git a/kernel/time/sleep_timeout.c b/kernel/time/sleep_timeout.c
+index 3c90574bd904..ad8c415851ae 100644
+--- a/kernel/time/sleep_timeout.c
++++ b/kernel/time/sleep_timeout.c
+@@ -212,7 +212,7 @@ int __sched schedule_hrtimeout_range_clock(ktime_t *expir=
+es, u64 delta,
+ 	hrtimer_set_expires_range_ns(&t.timer, *expires, delta);
+ 	hrtimer_sleeper_start_expires(&t, mode);
 =20
-@@ -1475,7 +1479,8 @@ static int omap_dm_timer_probe(struct platform_device *=
-pdev)
+-	if (likely(t.task))
++	if (likely(hrtimer_sleeper_task_get(&t)))
+ 		schedule();
 =20
- 	timer->pdev =3D pdev;
+ 	hrtimer_cancel(&t.timer);
+@@ -220,7 +220,7 @@ int __sched schedule_hrtimeout_range_clock(ktime_t *expir=
+es, u64 delta,
 =20
--	if (timer->capability & OMAP_TIMER_ALWON && !IS_ERR_OR_NULL(timer->fclk)) {
-+	if (pdata->system_timer_capable &&
-+	    timer->capability & OMAP_TIMER_ALWON && !IS_ERR_OR_NULL(timer->fclk)) {
- 		if (!omap_dm_timer_sched_clock_counter) {
- 			ret =3D omap_dm_timer_setup_clocksource(timer);
- 			if (ret)
-@@ -1585,6 +1590,7 @@ static const struct dmtimer_platform_data omap3plus_pda=
-ta =3D {
+ 	__set_current_state(TASK_RUNNING);
 =20
- static const struct dmtimer_platform_data am6_pdata =3D {
- 	.timer_ops =3D &dmtimer_ops,
-+	.system_timer_capable =3D true,
+-	return !t.task ? 0 : -EINTR;
++	return !hrtimer_sleeper_task_get(&t) ? 0 : -EINTR;
+ }
+ EXPORT_SYMBOL_GPL(schedule_hrtimeout_range_clock);
+=20
+diff --git a/kernel/time/time_test.c b/kernel/time/time_test.c
+index 1b99180da288..8b718767b3ba 100644
+--- a/kernel/time/time_test.c
++++ b/kernel/time/time_test.c
+@@ -87,8 +87,24 @@ static void time64_to_tm_test_date_range(struct kunit *tes=
+t)
+ 	}
+ }
+=20
++static void time64_to_tm_test_wide_day_count(struct kunit *test)
++{
++	/* 2^31 days: the first count that does not fit in a 32-bit long. */
++	time64_t timestamp =3D (1LL << 31) * 86400;
++	struct tm result;
++
++	time64_to_tm(timestamp, 0, &result);
++
++	KUNIT_EXPECT_EQ(test, result.tm_year, 5879680);
++	KUNIT_EXPECT_EQ(test, result.tm_mon, 6);
++	KUNIT_EXPECT_EQ(test, result.tm_mday, 12);
++	KUNIT_EXPECT_EQ(test, result.tm_yday, 193);
++	KUNIT_EXPECT_EQ(test, result.tm_wday, 6);
++}
++
+ static struct kunit_case time_test_cases[] =3D {
+ 	KUNIT_CASE_SLOW(time64_to_tm_test_date_range),
++	KUNIT_CASE(time64_to_tm_test_wide_day_count),
+ 	{}
  };
 =20
- static const struct of_device_id omap_timer_match[] =3D {
-diff --git a/include/linux/platform_data/dmtimer-omap.h b/include/linux/platf=
-orm_data/dmtimer-omap.h
-index 726d89143842..b78ee4676b98 100644
---- a/include/linux/platform_data/dmtimer-omap.h
-+++ b/include/linux/platform_data/dmtimer-omap.h
-@@ -57,6 +57,8 @@ struct dmtimer_platform_data {
- 	u32 timer_errata;
- 	int (*get_context_loss_count)(struct device *);
- 	const struct omap_dm_timer_ops *timer_ops;
-+	/* always-on timers can be used for clocksource/clockevent */
-+	bool system_timer_capable;
- };
+diff --git a/kernel/time/timeconv.c b/kernel/time/timeconv.c
+index 59b922c826e7..aed3af950fa0 100644
+--- a/kernel/time/timeconv.c
++++ b/kernel/time/timeconv.c
+@@ -49,8 +49,9 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm=
+ *result)
+ 	u32 u32tmp, day_of_century, year_of_century, day_of_year, month, day;
+ 	u64 u64tmp, udays, century, year;
+ 	bool is_Jan_or_Feb, is_leap_year;
+-	long days, rem;
+ 	int remainder;
++	long rem;
++	s64 days;
 =20
- #endif /* __PLATFORM_DATA_DMTIMER_OMAP_H__ */
+ 	days =3D div_s64_rem(totalsecs, SECS_PER_DAY, &remainder);
+ 	rem =3D remainder;
+@@ -70,7 +71,8 @@ void time64_to_tm(time64_t totalsecs, int offset, struct tm=
+ *result)
+ 	result->tm_sec =3D rem % 60;
+=20
+ 	/* January 1, 1970 was a Thursday. */
+-	result->tm_wday =3D (4 + days) % 7;
++	div_s64_rem(days + 4, 7, &remainder);
++	result->tm_wday =3D remainder;
+ 	if (result->tm_wday < 0)
+ 		result->tm_wday +=3D 7;
+=20
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index ea2e6e55f37b..d54c4d303db6 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -861,8 +861,10 @@ static void timekeeping_update_from_shadow(struct tk_dat=
+a *tkd, unsigned int act
+ 	 *
+ 	 * Write xtime_sec first so that even if the memcpy() tears the store
+ 	 * data integrity is provided for ktime_get_real_seconds().
++	 * The same goes for ktime_sec and ktime_get_seconds().
+ 	 */
+ 	WRITE_ONCE(tkd->timekeeper.xtime_sec, tk->xtime_sec);
++	WRITE_ONCE(tkd->timekeeper.ktime_sec, tk->ktime_sec);
+ 	memcpy(&tkd->timekeeper, tk, sizeof(*tk));
+ 	write_seqcount_end(&tkd->seq);
+ }
+@@ -1169,7 +1171,7 @@ time64_t ktime_get_seconds(void)
+ 	struct timekeeper *tk =3D &tk_core.timekeeper;
+=20
+ 	WARN_ON(timekeeping_suspended);
+-	return tk->ktime_sec;
++	return READ_ONCE(tk->ktime_sec);
+ }
+ EXPORT_SYMBOL_GPL(ktime_get_seconds);
+=20
+diff --git a/kernel/time/timer.c b/kernel/time/timer.c
+index ae9abf14688e..42afdcb229d8 100644
+--- a/kernel/time/timer.c
++++ b/kernel/time/timer.c
+@@ -890,7 +890,7 @@ static inline void detach_timer(struct timer_list *timer,=
+ bool clear_pending)
+=20
+ 	__hlist_del(entry);
+ 	if (clear_pending)
+-		entry->pprev =3D NULL;
++		WRITE_ONCE(entry->pprev, NULL);
+ 	entry->next =3D LIST_POISON2;
+ }
+=20
+diff --git a/kernel/time/timer_migration.c b/kernel/time/timer_migration.c
+index 059d43355e65..f920e73fff51 100644
+--- a/kernel/time/timer_migration.c
++++ b/kernel/time/timer_migration.c
+@@ -715,7 +715,7 @@ static void __tmigr_cpu_activate(struct tmigr_cpu *tmc)
+=20
+ 	trace_tmigr_cpu_active(tmc);
+=20
+-	tmc->cpuevt.ignore =3D true;
++	WRITE_ONCE(tmc->cpuevt.ignore, true);
+ 	WRITE_ONCE(tmc->wakeup, KTIME_MAX);
+=20
+ 	walk_groups(&tmigr_active_up, &data, tmc);
+@@ -1258,7 +1258,7 @@ u64 tmigr_cpu_new_timer(u64 nextexp)
+ 	ret =3D READ_ONCE(tmc->wakeup);
+ 	if (nextexp !=3D KTIME_MAX) {
+ 		if (nextexp !=3D tmc->cpuevt.nextevt.expires ||
+-		    tmc->cpuevt.ignore) {
++		    READ_ONCE(tmc->cpuevt.ignore)) {
+ 			ret =3D tmigr_new_timer(tmc, nextexp);
+ 			/*
+ 			 * Make sure the reevaluation of timers in idle path
+@@ -1362,7 +1362,7 @@ static u64 __tmigr_cpu_deactivate(struct tmigr_cpu *tmc=
+, u64 nextexp)
+ 	 * or CPU goes offline.
+ 	 */
+ 	if (nextexp !=3D KTIME_MAX)
+-		tmc->cpuevt.ignore =3D false;
++		WRITE_ONCE(tmc->cpuevt.ignore, false);
+=20
+ 	walk_groups(&tmigr_inactive_up, &data, tmc);
+ 	return data.firstexp;
+diff --git a/net/core/pktgen.c b/net/core/pktgen.c
+index 7f81aed46672..784d8398fb7a 100644
+--- a/net/core/pktgen.c
++++ b/net/core/pktgen.c
+@@ -2346,11 +2346,11 @@ static void spin(struct pktgen_dev *pkt_dev, ktime_t =
+spin_until)
+ 			set_current_state(TASK_INTERRUPTIBLE);
+ 			hrtimer_sleeper_start_expires(&t, HRTIMER_MODE_ABS);
+=20
+-			if (likely(t.task))
++			if (likely(hrtimer_sleeper_task_get(&t)))
+ 				schedule();
+=20
+ 			hrtimer_cancel(&t.timer);
+-		} while (t.task && pkt_dev->running && !signal_pending(current));
++		} while (hrtimer_sleeper_task_get(&t) && pkt_dev->running && !signal_pendi=
+ng(current));
+ 		__set_current_state(TASK_RUNNING);
+ 		end_time =3D ktime_get();
+ 	}
+diff --git a/tools/testing/selftests/timers/clocksource-switch.c b/tools/test=
+ing/selftests/timers/clocksource-switch.c
+index db62a764c29e..2e86f56d953e 100644
+--- a/tools/testing/selftests/timers/clocksource-switch.c
++++ b/tools/testing/selftests/timers/clocksource-switch.c
+@@ -40,16 +40,23 @@
+ int get_clocksources(char list[][30])
+ {
+ 	int fd, i;
+-	size_t size;
++	ssize_t size;
+ 	char buf[512];
+ 	char *head, *tmp;
+=20
+ 	fd =3D open("/sys/devices/system/clocksource/clocksource0/available_clockso=
+urce", O_RDONLY);
++	if (fd < 0)
++		return 0;
+=20
+-	size =3D read(fd, buf, 512);
++	size =3D read(fd, buf, sizeof(buf) - 1);
+=20
+ 	close(fd);
+=20
++	if (size <=3D 0)
++		return 0;
++
++	buf[size] =3D '\0';
++
+ 	for (i =3D 0; i < 10; i++)
+ 		list[i][0] =3D '\0';
+=20
+@@ -74,11 +81,21 @@ int get_clocksources(char list[][30])
+=20
+ int get_cur_clocksource(char *buf, size_t size)
+ {
++	ssize_t len;
+ 	int fd;
+=20
+ 	fd =3D open("/sys/devices/system/clocksource/clocksource0/current_clocksour=
+ce", O_RDONLY);
++	if (fd < 0)
++		return -1;
++
++	len =3D read(fd, buf, size - 1);
++
++	close(fd);
++
++	if (len <=3D 0)
++		return -1;
+=20
+-	size =3D read(fd, buf, size);
++	buf[len] =3D '\0';
+=20
+ 	return 0;
+ }
+diff --git a/tools/testing/selftests/timers/posix_timers.c b/tools/testing/se=
+lftests/timers/posix_timers.c
+index a92d4b957747..52b7289e1450 100644
+--- a/tools/testing/selftests/timers/posix_timers.c
++++ b/tools/testing/selftests/timers/posix_timers.c
+@@ -113,9 +113,10 @@ static void check_itimer(int which, const char *name)
+=20
+ 	done =3D 0;
+=20
+-	if (which =3D=3D ITIMER_VIRTUAL)
++	if (which =3D=3D ITIMER_VIRTUAL) {
++		clock_id =3D CLOCK_THREAD_CPUTIME_ID;
+ 		signal(SIGVTALRM, sig_handler);
+-	else if (which =3D=3D ITIMER_PROF) {
++	} else if (which =3D=3D ITIMER_PROF) {
+ 		clock_id =3D CLOCK_THREAD_CPUTIME_ID;
+ 		signal(SIGPROF, sig_handler);
+ 	}
+@@ -148,7 +149,7 @@ static void check_timer_create(int which)
+ 	struct itimerspec val =3D {
+ 		.it_value.tv_sec =3D DELAY,
+ 	};
+-	int clock_id =3D CLOCK_REALTIME;
++	int clock_id =3D which;
+ 	timer_t id;
+=20
+ 	done =3D 0;
+diff --git a/tools/testing/selftests/timers/raw_skew.c b/tools/testing/selfte=
+sts/timers/raw_skew.c
+index 0c87a8fb0d7f..dfca3e2d50d2 100644
+--- a/tools/testing/selftests/timers/raw_skew.c
++++ b/tools/testing/selftests/timers/raw_skew.c
+@@ -91,6 +91,7 @@ int main(int argc, char **argv)
+ {
+ 	struct timespec mon, raw, start, end;
+ 	long long delta1, delta2, interval, eppm, ppm;
++	long tick_nom;
+ 	struct timex tx1, tx2;
+=20
+ 	setbuf(stdout, NULL);
+@@ -129,6 +130,17 @@ int main(int argc, char **argv)
+ 	/* Avg the two actual freq samples adjtimex gave us */
+ 	ppm =3D (long long)(tx1.freq + tx2.freq) * 1000 / 2;
+ 	ppm =3D shift_right(ppm, 16);
++
++	/*
++	 * The tick value holds the coarse part of the adjustment, a
++	 * microsecond of the tick length per unit, and time sync daemons
++	 * do put part of their correction there. What it is worth has to
++	 * be counted in as well, or a clock disciplined through it looks
++	 * off by a hundred ppm a unit against what the two clocks show.
++	 */
++	tick_nom =3D USEC_PER_SEC / sysconf(_SC_CLK_TCK);
++	ppm +=3D (long long)(tx1.tick + tx2.tick - 2 * tick_nom) *
++	       (USEC_PER_SEC / tick_nom) * 1000 / 2;
+ 	printf(" %lld.%i(act)", ppm/1000, abs((int)(ppm%1000)));
+=20
+ 	if (llabs(eppm - ppm) > 1000) {
 
