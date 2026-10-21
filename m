@@ -1,86 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588994;
-	b=BNgK+YIlWvePytqWK0onF5tP3tR3UhKDQDK6e98aohZDg3A3ggaDY7s3erYotazFLpeI
-	 JupUzFKPF29AoJIFljpQdGyiC3wpp7jmWzQIC1aDxjCiBxp6FaZoAq73IpxJiOGlXaSQ+
-	 2t7xktnM3mAdyexvD4Td6CUpjQszm5PtUAFXzbe/3BFEM+eG4JiesxRIAG+DTy5/5gfTk
-	 VDG+KcnmifeZNt4Nys69lP5GCZSPB3K2zICsLDE36u8lz+ujfw5mQlKdo1T1J7XpuHEcb
-	 +UKueKFuEUP/7xzmEVhHRyaQUCfZhc7RHPDarP0ctBeLOM0tQFHre24qIyd6jvKbrPg==
+	t=1792588981;
+	b=Uu+XaKgnfigMcfD7//hEN5fnC1lt8liVvOCacB61cS8X+ikpq++N5gGQb8kO/JAXocuk
+	 LFj24+US7/vLqexgNneMFKUZGs7bKHAw8kuP7t9pRISFe0zr//duXV+BgGBqgowtRoCGk
+	 XS79pYa0E8FL5OPX2GixIskKI22oB8KQ1qC4+It8rC2SyqTAcGKogjHME5eoEsRKruaCn
+	 UVTUDqxzSj738j3l9ozYqcBr9Wuh2he4mUT3ICDJ23gvRg2rQ+1hZ4lnZwchCyA2LO5tA
+	 KEmBXtHUPrSAygQ49wP2/b7TUavbj06JQyk9E5fixGaVirF9MOY/G2lPYdbdTkvQ1Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588994;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:Organization;
-	bh=3H+LKjSf/NCPSTee+0b2Xv1F9bOZnSXFKKZAMNNuix0=;
-	b=m8QqcAGElxvIE4wvtUFTsibXTw71x55XqKJg7E/XX75upyXMqQ+FVEma3/w7OpvRFh67
-	 ocslf5qlXsJUNcgJazgwcX5V51sUpvlc/xju+MxAvfzCU8C+CQ5+4HyrS/1RNdcdCkdJM
-	 k5jP1EqL3tOdHMoR2Oi1TEo9wYYv+Ml/uQUV8ycwUtsg3NkmBf8+t8RJW7Ef/YtaGxeHk
-	 qsKlrqDI4CeLsHs3SLrUdaY1U7m57yVPQJCqXs1gT4V/v4mwh6p7Zf0r+NbalnfOkBgo3
-	 mA778unjHTCcS+r0tSuMpMNMsNZtU27O0mHJ976Z0U7lWUBmz6YVQ7o161p1mzdpkew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588981;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=aeKCpXddBPM3zqxLSgWii91zWsk60vmmQFyoSuWzZOY=;
+	b=ypHyNphkRI0Od2CG/MXDLNGV8QLmhQaayuPa25K1NkTwJEdiKig7rVuEFh5rNKApNntt
+	 DJ/WrC3YLNUGzFsRINrAaBqGabE6J6WIhV+huhwcA0ccG67fY24YIuKiLWSHdjK1yc6Wo
+	 WI7O+JFB8i+mzJecDaArh3M3Ko7mprQq1mEYlD6wc4BYbSknpz6bQFWpUnpc7yI2oyoWd
+	 au1Z3S1lPGHjsRIyDZ9iO/HJvGssXZb4O25/8JsC//5g25IDNLjmd1jT4RBzjtFu/qnIL
+	 c1VVngw2/ahIG65BSX8A0SVLHNaE8MGqiS8JR/iXi6e3M/cabk5L2eCc/2LW2in0KbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cTWMh1cb;
-	arc=none smtp.remote-ip=192.198.163.10
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=C11IswdM;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 949A660A2600;
-	Wed, 21 Oct 2026 13:23:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 949A660A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2712606A31D;
+	Wed, 21 Oct 2026 13:23:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2712606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cTWMh1cb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792588993; x=1824124993;
-  h=date:from:to:subject:message-id:references:mime-version:
-   in-reply-to;
-  bh=0PIM/WlSKU/1sNBZpagcrdl6dMbbUa/CVra/KaUcxSA=;
-  b=cTWMh1cbDsOftguS+k+QG+J1qm5IDJfy2MU11bmGQE0J9kFNGREljLdb
-   s4Bo9MKdRAjABu9vT4H3Yj60FWBB3XRS7rm4a3QIU0XvMlSppzUBNWQSF
-   IieSv9nAH/TivYlC2Vp5KL/J9j0dFLJhCmnCcqn2lK7caaGm1lZQpIf9V
-   WMBGPSa7TbNRAC5HBIpbqxrvG2+kdczHwEKraxw+6aL0ebBKjnNx2NeMN
-   KGA14Sy4S6eDYbRJwt71/FBWEbH6r6ANU991BnKkaIP28foH5CCe2J4BT
-   pIXWboR21RcGwn1y58j8Fv9ew6ca/BROAocgGwoAVsbIUcBno2Vshal1r
-   Q==;
-X-CSE-ConnectionGUID: Z/rgQ4G8Qye7bGLiqppHpQ==
-X-CSE-MsgGUID: fZ+7nd1RQRqnGBXStJ8nNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1209905"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1209905"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:23:12 -0700
-X-CSE-ConnectionGUID: 6gFptDBxTkKNtVIXOHrtJw==
-X-CSE-MsgGUID: Mt1CA/iXTQSu03IuNs6zjA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3487562"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:23:09 -0700
-Date: Wed, 21 Oct 2026 16:23:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, martin.triska@mycroftmind.com,
-	Jan Remes <jan.remes@mycroftmind.com>
-Subject: Re: [PATCH v2 0/4] iio: light: tsl2591: fix lux calculation and
- precision, add I2C ID table, report saturation
-Message-ID: <ati8u6-OUEi7KOHw@ashevche-desk.local>
-References: <20261014141650.259929-1-ciakval@gmail.com>
- <atEdM6wi_FAGFjrr@ashevche-desk.local>
- <20261017031411.05dee323@jic23-hlaptop>
- <atXSBHbOPYYltHUW@mm-ntb-00805>
- <atXZwm5DzCK8S0_K@ashevche-desk.local>
- <atdRJ3JqAyGWOnxf@mm-ntb-00805>
- <athxOKkugAYL62F9@ashevche-desk.local>
- <ati5lzd2KotvmMC6@mm-ntb-00805>
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=C11IswdM
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4j8qhx6W67zMlQQ;
+	Wed, 21 Oct 2026 15:22:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792588977; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aeKCpXddBPM3zqxLSgWii91zWsk60vmmQFyoSuWzZOY=;
+	b=C11IswdMW66PBv57woN4BR138fbl8UqPdy5vgOb/POLi5vvUN54B1ov9C0naIXTNoKbZJZ
+	YS1ge7w4y9zhhoQD90rahE3TKOgkOssTIFisbSd6M+H5X995cG2A21ppf52MLZKt2UGtJR
+	1FfQJ4jvb6v3jjs2PcgD95L2/dd3qTRZ338U7OYxHrs9f24wQeNvdpKP+ZFhF1F+opZZFa
+	Tn07Y72ckXqIp/VZRfkggpsRM4XrcgLonHk+M2bcrsQc64hu8FYp55g+nsJkW4PCBhOhHS
+	OCVS6FDnN+/U4DQQu9ARnwvq+wMYHuQs2qjamRtJOkO3NbquCmfM3+ZGpJuHHw==
+Message-ID: <d305166f022bd567cb03f8fb5c8b9f2aa9e6b5fd.camel@mailbox.org>
+Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Gary Guo <gary@garyguo.net>, phasta@kernel.org, Sumit Semwal	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
+ Villemoes	 <linux@rasmusvillemoes.dk>, Arnd Bergmann <arnd@arndb.de>,
+ Tvrtko Ursulin	 <tvrtko.ursulin@igalia.com>, Danilo Krummrich
+ <dakr@kernel.org>, "Paul E . McKenney" <paulmck@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, linux-arch@vger.kernel.org
+Date: Wed, 21 Oct 2026 15:22:54 +0200
+In-Reply-To: <DMAIIIJ57A3N.GXLM3L5IOAPL@garyguo.net>
+References: <20261021095512.1345191-2-phasta@kernel.org>
+	 <20261021095512.1345191-3-phasta@kernel.org>
+	 <DMAI50AJ10UC.16G4TCC3VAM0J@garyguo.net>
+	 <56108c0554e92191d2678a407d7d8102b9b304b3.camel@mailbox.org>
+	 <DMAIIIJ57A3N.GXLM3L5IOAPL@garyguo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,63 +83,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ati5lzd2KotvmMC6@mm-ntb-00805>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MBO-RS-ID: 8522d2698eb6890de26
+X-MBO-RS-META: aac61pah6chuy1w8d71zjmx86m7o33op
 
-On Wed, Oct 21, 2026 at 03:09:43PM +0200, Jan Remes wrote:
-> On Wed, 21 Oct 2026 11:00:56 +0300, Andy Shevchenko wrote:
-> > On Tue, Oct 20, 2026 at 01:31:51PM +0200, Jan Remes wrote:
-> > > On Mon, 19 Oct 2026 11:50:10 +0300, Andy Shevchenko wrote:
-> > > > On Mon, Oct 19, 2026 at 10:17:08AM +0200, Jan Remes wrote:
-> > > > > On Sat, 17 Oct 2026 03:14:11 +0100, Jonathan Cameron wrote:
+On Wed, 2026-10-21 at 13:24 +0100, Gary Guo wrote:
+> On Wed Oct 21, 2026 at 1:17 PM BST, Philipp Stanner wrote:
 
-...
+[=E2=80=A6]
 
-> > > > > FWIW, I don't think it to be very urgent, as people probably don't use
-> > > > > it on x86-64 (seeing both as it had only DT probe support and that
-> > > > > impacted users are likely to have noticed the oops).
-> > > >
-> > > > What do you mean by the second part of the sentence? It's as easy to use on
-> > > > ACPI platforms as on DT, we have so nice trick called PRP0001, which allows to
-> > > > enumerate "OF-only" drivers on ACPI platforms via SSDT overlays (or other means
-> > > > of DSDT/SSDT provisioning).
-> >
-> > > I did not know about the PRP0001 (thanks), so please disregard that
-> > > argument. Still, I believe x86 users to be few if any, since the oops is
-> > > quite easy to trigger
-> >
-> > True.
-> >
-> > > and AFAIK most x86 distro kernels ship without CONFIG_OF.
-> >
-> > How is this relevant? This driver doesn't use any #ifdef CONFIG_OF or alike,
-> > so most likely the driver is available for x86 as well.
-> 
-> I thought that CONFIG_OF was needed in order to be able to probe a
-> device using the driver's OF table. TIL that missing CONFIG_OF prevents
-> only manual probing (`echo "tsl2519 0x29" > .../new_device`) but not the
-> ACPI mechanism.
-
-Actually not really. The manual binding relies on i2c ID table and
-the OF ID table is a fallback.
-
-> So:
->   1. Please ignore that argument
->   2. The wording of my Patch 2 commit message is not correct ("cannot
->      be probed on a kernel with CONFIG_OF disabled"), I can send a v3
->      if that's preferable.
-
-Yes, better to send a new version with better wording in the commit message.
-
-> Thanks for getting me to learn a bit more.
-
-You're welcome!
-
--- 
-With Best Regards,
-Andy Shevchenko
+> > static __always_inline bool test_and_set_bit(long nr, volatile unsigned=
+ long *addr)
+> > {
+> > 	kcsan_mb();
+> > 	instrument_atomic_read_write(addr + BIT_WORD(nr), sizeof(long));
+> > 	return arch_test_and_set_bit(nr, addr);
+> > }
+> >=20
+> > Where does the "full ordering" come from? I suppose implied barrier
+> > then means it comes from the architecture's implementation. But what's
+> > then the purpose of kcsan_XX ?
+>=20
+> It's from arch_test_and_set_bit.
+>=20
+> KCSAN doesn't see arch code, so the kcsan_mb() and in fact
+> instrumnent_atomic_read_write() both are annotations to indicate that thi=
+s is
+> conceptually a mb() + STORE for instrumentation purpose.
 
 
+We (i.e., someone who's got the overview) could probably document where
+and why our atomic instructions are a bit scattered.
+
+Why is test_bit_acquire() defined in include/linux/bitops.h, and should
+set_bit_release() be defined there =E2=80=93 or here?
+
+
+P.
