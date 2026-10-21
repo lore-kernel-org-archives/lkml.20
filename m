@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792623533;
-	b=stkL/4XskZNObYi+Ebh834irqz4lzp0VLJERCnnbaNcjusxmZ6lYdQDdnmIQkAQ4mxcD
-	 VHttVtZiDxT4Vs9eAkFEtfToMjN84QZ0SD/NVO2FcJkjcr+zuxUC6gr7JfB0fj1+NluQB
-	 l2kF2Eed7ivo3ArqhCZlqFLxxdDRAgCKQra44Uj2d0Z3n4CQxG2uR8mpLRtIUDqSM1NIz
-	 3SXlqPqHdKKBxdnO2sUpwM20USqr3Q/e0a0EvFQ4KOPsexqlk94nskfTNCr8yQzIB3mM5
-	 84EQO1I/0lA/WUCN6VxdNDzwx37b4pl2ZSg2sEpV+39GTVnNef9kEuLokCXVY8AVmZg==
+	t=1792623532;
+	b=Z9xtWjd9zB8eZZ4zd9pPqQ1wzwoaj3wE2B563ZWGSd9QdfLBoNcPTp3KDGk3igDseNRs
+	 i4WNWRHfxfB9LBSzMZPm3+kS/3vueY36NCwMxR1hziAcQZ3bY9XrB57275xQ03tqG9188
+	 dTleexIxo0lGBIleSE6IzqjK8N3VOyJ8naqrml6OiDFtuKjK7qH/f0D9r60eaoytLtusU
+	 ooRv7aL8k+mo3v57JNNyH6zhkzIPo3BrHrGxvlHa6iD+CErNfoD6eNuschlCEdXMdKeDw
+	 Mzq5JW/nhNIvGKqcYh17XuYLPku3IgqpRB1L5UseFqtSwiemZVr0LEHvP+kJ8Cl/3OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792623533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792623532;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=zhwllRRX2sUYTNO4VtuzaJQU7Au3DiF+92vgYmQFd5g=;
-	b=QKFW2L2R39CNNXQ85HdGhYL+2M+aPmxpjQWuhb3sxjuRE94qd+CmdOWeJlRTbNQdvyG+
-	 K1dqvcxWMmMmB78NBha+E2S/fDn1HwPz4J4sivLK5UE5SAHcfnzZgdvgC5sg7w6QakIRq
-	 bz64+BNiWtB0yiy8srYEkAgEJZAdxQ31cbPlqSvJ6fVHRwifIs6Y8NLwrWaQPzTeJdgw5
-	 w9b43WLZSaOClKqse5PPzK3Q+r4scULOr9ujpCzLuXVgwKSTx4n1HFIzCJ7gio0yP9jli
-	 Tzwql7D6TFDEEUefQSeBdyM/MfNbA9B+yG5fmFGyQ4b9CX7o4gaG8lSQWoHSAsjn+5w==
+	bh=Qrw0QTI4Cx2Pl9bMSUFk83e+oqBDqQpK6OC1OOm7cuU=;
+	b=cV8B4qDExEJXxc89DAOpbzJrFDpPBaSjhHauFu1oCPutPuhP314PPzyuj3GRwDcflRlW
+	 sJWvt0K1d9/uzaRKRiL7gpYynNF3iPfoB4QZfQSxxFU27MfqbgEIh7ag5N/aoWmc5pDDb
+	 4V1UeFiHbz9hn/CCI5j7kx7fdZZ7kTP6dWCeDbx1erXBx4VoUS3zJ1cC8AUlLdosYhR25
+	 4t1W03dlAkCQ8kOLo748ugFpUmWItHsNeXe7nZhH2gQDZ/z0LU5s1xrFJYRxcmICnmWbd
+	 4nq+y1q3QB44z25mloXMMaw9QvMfNMjSvVFnO0SuejeS0uVAWhD3x+r/1yeLou25agg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oa+BWPwM;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaxNiRGE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDF5606A31D;
-	Wed, 21 Oct 2026 22:58:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oa+BWPwM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6DB21F000C8;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546F7606A325;
 	Wed, 21 Oct 2026 22:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NaxNiRGE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A184D1F000C2;
+	Wed, 21 Oct 2026 22:58:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792623533;
-	bh=zhwllRRX2sUYTNO4VtuzaJQU7Au3DiF+92vgYmQFd5g=;
+	s=k20260515; t=1792623532;
+	bh=Qrw0QTI4Cx2Pl9bMSUFk83e+oqBDqQpK6OC1OOm7cuU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Oa+BWPwMhcrOa3HJraNQ4sX01st2Vl99BUM8jK/csC9GmSiFkzuE6GVVNqfnH+5pr
-	 0dqRfBfIg29IkSGYAdoarYGkcF8knj2Hyj09MHlnb/ZPLRJOXA3+GTWU7ypWa4boz2
-	 f2tg+ylh4V6nY6Sthv27ICSJQud4Ji+TznyVEDI8Ttz/moxh2taBAVw9BnFzhbm+5D
-	 yI/fLPxWo3eawgfMSuNUMd8wjL/G+hJt+PKxEeewUJGQGjgsFET30AV21mgqk9qs47
-	 0VUi92g4c3ekJLO5YCxPQXwNVmJyI1iQjnodu+C35w02bBZYlj0miIs1UkoW7C4GAr
-	 i3A+KNKugP97w==
-Subject: Re: [PATCH v3 08/10] can: peak_usb: reject records for unset channels
- in PCAN-USB Pro
+	b=NaxNiRGEsz1LdRQV13UUqpjgN+3aQplIMY/lkTQ3mvOlxYQrg6sHE/SV0Dgv+5fOC
+	 rDeKxAujpFeIzW3U4Fd+NPtAeVWghsa78UBh5nnQkYl6NPk9ocvm/Zje/6u4bBXdkg
+	 wp4q0LC1XH82dtdkFTZqz0DNEDMkyJM2UkXnDZeB3zzWfkNkQzaiySOkFeF5cJzR9x
+	 NdaQsckws1hD+WD/jcMXEI2Tcpf78J1o0TBhiiniuJWT9fixCC4ureJb1VTRt+c9gm
+	 CjXI6uUUE3JnXxShkU2Dl87BLdpTDZPvU3FhiOIENVzKoVuyhDxfPjNMKCnqjZc+uo
+	 BmZ9RUDnj6I6g==
+Subject: Re: [PATCH v3 07/10] can: peak_usb: fix RX cursor desync for
+ self-received RTR frames with SRR
 From: netdev-bot+sashiko@kernel.org
 To: stephane.grosjean@free.fr
 Cc: mkl@pengutronix.de, mailhol@kernel.org, error27@gmail.com,
  wg@grandegger.com, s.grosjean@peak-system.fr, linux-can@vger.kernel.org,
  linux-kernel@vger.kernel.org, kuba@kernel.org
-Date: Wed, 21 Oct 2026 22:58:52 +0000
-Message-ID: <179262353226.3131.5986483071938580034@kernel.org>
+Date: Wed, 21 Oct 2026 22:58:51 +0000
+Message-ID: <179262353124.3131.13235647451945152794@kernel.org>
 In-Reply-To:
- <20261020-canfd_check_channel_idx-v3-8-74d17c5a599e@peak-system.fr>
+ <20261020-canfd_check_channel_idx-v3-7-74d17c5a599e@peak-system.fr>
 References:
- <20261020-canfd_check_channel_idx-v3-8-74d17c5a599e@peak-system.fr>
+ <20261020-canfd_check_channel_idx-v3-7-74d17c5a599e@peak-system.fr>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -72,237 +72,136 @@ you want to address the nit picks below when you respin.
 
 Low priority / nit picks for your consideration:
 
-- [Low] The fix for the stale slot after a failed probe of channel 1
-  relies on core code from an earlier patch, and the commit message does…
-- [Low] In pcan_usb_pro_handle_canmsg() and pcan_usb_pro_handle_error(),
-  a record for a channel whose slot is still NULL now returns -EINVAL.
-- [Low] The header comment on pcan_usb_pro_free() still reads 'called
-  when PCAN-USB Pro adapter is unplugged'.
+- [Low] The rx_bytes counter in pcan_usb_decode_data()
+  (drivers/net/can/usb/peak_usb/pcan_usb.c) can now count bytes from a…
+- [Low] This patch is tagged `Cc: stable@vger.kernel.org` with `Fixes:
+  3a7939495ce8`, but it is written against the tree after the earlier…
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  peak_usb_create_dev() calls register_candev(netdev) (line 1001) before…
-- [High] At this commit, if dev_set_bus(dev, 0) fails while probing
-  channel 0, the adap_dev_free path in peak_usb_create_dev() calls…
-- [High] This problem wasn't introduced by this patch, but
-  pcan_usb_pro_handle_canmsg() trusts the DLC nibble from the device.
+- [Medium] This problem wasn't introduced by this patch, but
+  pcan_usb_encode_msg() and pcan_usb_decode_data() use different payload…
 
 --
 
-can: peak_usb: reject records for unset channels in PCAN-USB Pro
+can: peak_usb: fix RX cursor desync for self-received RTR frames with SRR
 
-This patch makes the PCAN-USB Pro RX decoders reject CAN and status
-records whose channel slot in usb_if->dev[] is still NULL, instead of
-dereferencing it. The slot is published with smp_store_release() in
-pcan_usb_pro_init() and cleared in pcan_usb_pro_free(), so a failed probe
-of channel 1 no longer leaves a stale pointer behind.
+This commit moves the skip of the SRR client private id byte in
+pcan_usb_decode_data() out of the non-RTR branch. The byte is now skipped
+whenever PCAN_USB_TX_SRR is set. This matches pcan_usb_encode_msg(), which
+appends the writer id byte for both RTR and non-RTR frames.
 
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-> index cbc23953ce610..151c5ea2859be 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb_pro.c
-> @@ -543,7 +543,12 @@ static int pcan_usb_pro_handle_canmsg(struct pcan_usb_pro_interface *usb_if,
->  	if (ctrl_idx >= ARRAY_SIZE(usb_if->dev))
->  		return -EINVAL;
->  
-> -	dev = usb_if->dev[ctrl_idx];
-> +	dev = READ_ONCE(usb_if->dev[ctrl_idx]);
-> +
-> +	/* reject records for a channel that is not (or no longer) set up */
-> +	if (!dev)
-> +		return -EINVAL;
+> Fixes: 3a7939495ce8 ("can: peak_usb: PCAN-USB: add support of loopback and one-shot mode")
+> Cc: stable@vger.kernel.org
 
 [Severity: Low]
-Should an empty slot count as a fatal decode error?
-pcan_usb_pro_decode_buf() treats any negative return as fatal:
+Will this apply cleanly to stable trees? The hunk removed here is the
+braced form that includes the mc->end bounds check:
 
-		case PCAN_USBPRO_RXRTR:
-			err = pcan_usb_pro_handle_canmsg(usb_if, &pr->rx_msg);
-			if (err < 0)
-				goto fail;
+	if (can_id_flags & PCAN_USB_TX_SRR) {
+		if ((mc->ptr + 1) > mc->end)
+			goto decode_failed;
+		mc->ptr++;
+	}
 
-The goto skips rec_ptr += sizeof_rec and leaves the rec_cnt loop. That
-drops every remaining record in the same bulk-in transfer, including
-channel-0 CAN frames, channel-0 RXSTATUS records (a BUS_OFF transition,
-for example) and RXTS calibration records.
+That bounds check comes from the earlier patch in this series, "can:
+peak_usb: harden PCAN-USB message validation", and that patch is not
+tagged for stable. Stable trees that have 3a7939495ce8 but not the
+hardening patch still have:
 
-The fail path then dumps the whole buffer with pcan_dump_mem(), which is
-not rate limited. peak_usb_read_bulk_callback() dumps it again. A later
-patch in the series rate limits only that second dump.
+	if (can_id_flags & PCAN_USB_TX_SRR)
+		mc->ptr++;
 
-Before this patch, -EINVAL here meant a malformed record (ctrl_idx out of
-range). An empty slot is an expected, temporary state for a well-formed
-record, in exactly the window the commit message describes. The default
-case in pcan_usb_pro_decode_buf() skips records it does not handle.
+The hardening patch has a Fixes: tag, so it may get picked up anyway.
+Even so, should this patch name the prerequisite, for example with a
+"Cc: stable@vger.kernel.org # <prereq>" annotation as described in
+stable-kernel-rules? Or should the hardening patch also be Cc: stable?
 
-This is still better than the NULL dereference it replaces. Would
-skipping the record (returning 0) fit better, though? The same question
-applies to the new check in pcan_usb_pro_handle_error().
+> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> index 93da0fd4f10e7..4c8cfed31634a 100644
+> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
+> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
+> @@ -697,16 +697,19 @@ static int pcan_usb_decode_data(struct pcan_usb_msg_context *mc, u8 status_len)
+>  		memcpy(cf->data, mc->ptr, cf->len);
+>  		mc->ptr += rec_len;
 
-If stopping is intended, could the commit message say so? It only says
-"Reject records", while the sibling FD commit says the decoder stops
-processing the rest of the URB.
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch. Can
+the RX cursor overshoot here when the DLC nibble is 9..15?
+
+pcan_usb advertises CAN_CTRLMODE_CC_LEN8_DLC. In that mode rec_len is
+status_len & PCAN_USB_STATUSLEN_DLC, which can be up to 15, and
+can_frame_set_cc_len() caps cf->len at 8. mc->ptr is then advanced by
+rec_len, not by cf->len.
+
+On the TX side, pcan_usb_encode_msg() writes the raw DLC into the
+status/len byte. It then copies only cf->len data bytes before the SRR
+writer id:
+
+	/* status/len byte */
+	*pc = can_get_cc_dlc(cf, dev->can.ctrlmode);
+	...
+	/* can data */
+	if (!(cf->can_id & CAN_RTR_FLAG)) {
+		memcpy(pc, cf->data, cf->len);
+		pc += cf->len;
+	}
+
+Suppose the device puts only 8 payload bytes in an RX record with a DLC
+of 9..15. The cursor would then skip rec_len - 8 bytes of the next
+record. That is the same kind of desync this patch fixes for RTR+SRR.
+
+This depends on the firmware's RX record layout, which I could not
+confirm from the code. The mc->ptr += rec_len line dates back to
+46be265d3388. The len8_dlc handling came with 4c01fc87675e ("can:
+drivers: add len8_dlc support for various CAN adapters"), which carries a
+Tested-by.
+
+>  
+> -		/* Ignore next byte (client private id) if SRR bit is set */
+> -		if (can_id_flags & PCAN_USB_TX_SRR) {
+> -			if ((mc->ptr + 1) > mc->end)
+> -				goto decode_failed;
+> -			mc->ptr++;
+> -		}
+> -
+>  		/* update statistics */
+>  		mc->netdev->stats.rx_bytes += cf->len;
+>  	}
+> +
+> +	/* Ignore next byte (client private id) if SRR bit is set.
+> +	 * Note: this test must be done even when the frame is an RTR frame.
+> +	 */
+> +	if (can_id_flags & PCAN_USB_TX_SRR) {
+> +		if ((mc->ptr + 1) > mc->end)
+> +			goto decode_failed;
+> +		mc->ptr++;
+> +	}
+
+[Severity: Low]
+Can rx_bytes now count bytes from a frame that is then dropped?
+
+Before this patch, the SRR bounds check in the non-RTR branch ran before
+the rx_bytes update. Take a non-RTR record with PCAN_USB_TX_SRR set whose
+URB data ends right after the payload. pcan_usb_decode_data() now does:
+
+	memcpy(cf->data, mc->ptr, cf->len);
+	mc->ptr += rec_len;
+	mc->netdev->stats.rx_bytes += cf->len;
+	...
+	if ((mc->ptr + 1) > mc->end)
+		goto decode_failed;
+
+decode_failed frees the skb, and rx_packets++ is skipped. rx_bytes is
+then out of step with rx_packets by up to 8 bytes. Hitting this needs a
+truncated URB from a faulty or malicious device.
+
+Would it make sense to move the rx_bytes update after the SRR check, next
+to rx_packets++?
 
 > +
->  	netdev = dev->netdev;
->  
->  	skb = alloc_can_skb(netdev, &can_frame);
-
-[Severity: High]
-This is a pre-existing issue, but since this patch hardens
-pcan_usb_pro_handle_canmsg() against untrusted channel numbers, what
-about the DLC nibble from the same record?
-
-	can_frame->len = rx->len & 0x0f;
-	...
-		memcpy(can_frame->data, rx->data, can_frame->len);
-
-can_frame->len can be anything from 0 to 15 and is not checked against
-CAN_MAX_DLEN. can_frame->data and rx->data are both 8 bytes.
-
-The DLC is also not checked against the real record size.
-pcan_usb_pro_decode_buf() only checks rec_ptr + sizeof_rec > msg_end,
-using pcan_usb_pro_sizeof_rec[]. That is 20 bytes for RXMSG8, 16 for
-RXMSG4, and 12 for RXMSG0/RXRTR, which carry no data.
-
-So a broken or malicious device could:
-
-(a) put an RXMSG0 record with the RTR flag clear at the end of a full
-1024-byte transfer. It passes the bound check, and memcpy() reads up to
-15 bytes past the kmalloc(PCAN_USBPRO_RX_BUFFER_SIZE) buffer allocated
-in peak_usb_start().
-
-(b) send a short record with DLC <= 8. This copies bytes from beyond the
-record (stale kmalloc contents past actual_length, or a neighboring slab
-object) into a valid CAN frame, and CAN_RAW delivers that frame to
-unprivileged sockets.
-
-(c) use DLC 9..15. This writes up to 7 bytes past can_frame->data, which
-FORTIFY_SOURCE reports as a field-spanning write.
-
-Should the DLC be clamped to CAN_MAX_DLEN and checked against the record
-type's payload size? No later patch in the series touches
-pcan_usb_pro.c.
+>  	mc->netdev->stats.rx_packets++;
 
 [ ... ]
-
-> @@ -933,7 +943,8 @@ static int pcan_usb_pro_init(struct peak_usb_device *dev)
->  	}
->  
->  	pdev->usb_if = usb_if;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but pdev->usb_if is only set
-here, and pcan_usb_pro_init() runs after the netdev is registered. Can
-pcan_usb_pro_start() dereference a NULL usb_if?
-
-peak_usb_create_dev() does:
-
-	err = register_candev(netdev);
-	...
-	if (dev->adapter->dev_init) {
-		err = dev->adapter->dev_init(dev);
-
-Once the netdev is registered, a privileged process, or a network
-manager reacting to RTM_NEWLINK, can set the bitrate and bring the
-interface up. peak_usb_ndo_open() only checks PCAN_USB_STATE_CONNECTED,
-and that bit is set before registration:
-
-peak_usb_ndo_open()
-  peak_usb_start()
-    pcan_usb_pro_start()
-      if (pdev->usb_if->dev_opened_count == 0) {
-
-For channel 0, the window covers the synchronous USB requests in
-pcan_usb_pro_init() (firmware info, bootloader info, drv_loaded). The
-oops happens under rtnl_lock, so RTNL is never released.
-
-The new slot check does not cover this, because the NULL pointer is
-usb_if itself. The series does not fix it either.
-
-> -	usb_if->dev[dev->ctrl_idx] = dev;
-> +	/* publish dev to the decoders */
-> +	smp_store_release(&usb_if->dev[dev->ctrl_idx], dev);
->  
->  	/* set LED in default state (end of init phase) */
->  	pcan_usb_pro_set_led(dev, PCAN_USBPRO_LED_DEVICE, 1);
-> @@ -981,6 +992,9 @@ static void pcan_usb_pro_exit(struct peak_usb_device *dev)
->   */
->  static void pcan_usb_pro_free(struct peak_usb_device *dev)
->  {
-
-[Severity: Low]
-This isn't a bug, but the comment above pcan_usb_pro_free() still says:
-
-/*
- * called when PCAN-USB Pro adapter is unplugged
- */
-
-The slot clearing added here exists for the other caller, the probe
-failure path in peak_usb_create_dev(). pcan_usb_fd_free() uses the same
-slot scheme, and its comment was updated to "called when the USB adapter
-is unplugged, or when probing a sibling fails". Should this comment be
-updated the same way?
-
-> +	/* clear this channel's slot: dev is going to be freed */
-> +	WRITE_ONCE(pcan_usb_pro_dev_if(dev)->dev[dev->ctrl_idx], NULL);
-
-[Severity: Low]
-The commit message says this handles the case where "probing channel 1
-fails after its slot has been filled". Is clearing the slot enough by
-itself?
-
-A channel-0 RX completion that loaded dev[1] before this WRITE_ONCE()
-can still use the channel-1 peak_usb_device after free_candev().
-
-What closes that window is the peak_usb_stop_rx() call in the
-adap_dev_free path of peak_usb_create_dev(). It poisons channel 0's RX
-anchor and waits for running completions:
-
-adap_dev_free:
-	...
-	peak_usb_stop_rx(dev->prev_siblings);
-
-	if (dev->adapter->dev_free)
-		dev->adapter->dev_free(dev);
-
-That helper and this call came from the earlier commit "can: peak_usb:
-harden channel handling in PCAN-USB FD". Its subject only names the FD
-adapter, and its Fixes: tag (a6921dd524fe) differs from the one here
-(d8a199355f8f).
-
-A stable backport that picks only this patch by its Fixes: tag would be
-incomplete. Could the commit message mention the dependency?
-
-> +
->  	/* last device: can free pcan_usb_pro_interface object now */
->  	if (!dev->prev_siblings && !dev->next_siblings)
->  		kfree(pcan_usb_pro_dev_if(dev));
-
-[Severity: High]
-This is a pre-existing issue, but what happens to usb_if when
-dev_set_bus(dev, 0) fails while probing channel 0?
-
-For channel 0, dev->prev_siblings is NULL, so
-peak_usb_stop_rx(dev->prev_siblings) does not touch channel 0's own RX
-URBs. pcan_usb_pro_free() then kfree()s usb_if because channel 0 has no
-siblings. Only after that does the adap_dev_free path call
-unregister_candev(netdev).
-
-If userspace opened the netdev during probe, an RX completion in that
-window would use the freed usb_if in pcan_usb_pro_decode_buf():
-
-	struct pcan_usb_pro_interface *usb_if = pcan_usb_pro_dev_if(dev);
-
-Then unregister_candev() reaches pcan_usb_pro_stop() through ndo_stop,
-which reads and decrements freed memory:
-
-	pdev->usb_if->dev_opened_count--;
-
-It looks like the later commit in this series, "can: peak_usb:
-unregister the netdev before dev_free() on probe failure", fixes this.
-It calls unregister_candev() before dev_free(), so the final state of
-the series is not affected.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-canfd_check_channel_idx-v3-0-74d17c5a599e%40peak-system.fr
