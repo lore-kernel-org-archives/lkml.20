@@ -1,100 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.103
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792571068;
-	b=Jz2OGzwuJPV+LTtOLbpTx80zvnws0LFls0FEFobX4WYdaudEOquTKZZ2vsYXVStksaPC
-	 VA5kWljjnqhhu9vX2qXzsycjMk2Q7gfoa09pK1JY08vyKkplsqSbZa/FYa4gzK1436//m
-	 wRpfzJOXCWBa7PQ4cM4n1RfIX6+cv9v3tY88NDYq2SxthPOZoyxpuPMeOEBAeD67WrLr8
-	 zzsRPsk/9UZZouuVcBEb36aq9xd1ttPuKifySFLTkGJEGup+mugYLxXe5syyGPPyItWOS
-	 wW1WWyCC3z5UWZmTyH25y6mGq7gXaCu6Ge06e11O4iZUtjaatrdjPnhef39vbZbYWjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571068;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=u4X22pOlQx5Bgxq3jw6Ct6xdBht+f0DBK+2jqPgnbaw=;
-	b=xz/gX4ijn0a2PULEPTFxhAnnkzCWR5Cj8KtmrFI2ATREC/GrXGwQfvfU5u6VFFwRFqVY
-	 65/pWRCsa4xDRPip7e+QzQK8FVGW3v9KnE+pg5+WQtJXaUwdlq0tDBznue8uHHkoWxgkB
-	 jH4ai7e/Jre+Jpvainnqn9l3YrNKLK5ZJ9FnDZ9sQpcokVsT0+WAmg2cJm+QJGf+42THq
-	 aQk97dmL0PNVpU1VR2JmbHN3JWALqCwhm//6c3wo6U6XpEcwcLV8j4sz2CAH9nNPwnoMH
-	 59gS8gEYYFGMxtM4p6lVOqjbQWmTcPvne1LYXr+tc5j56JsjQNWscTwHSc0gbjNGFTw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amlogic.com;
-	spf=pass smtp.mailfrom=amlogic.com;
-	dkim=pass header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=lO0RRqbx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.103
-Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022103.outbound.protection.outlook.com [52.101.126.103])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792571098;
+	b=A8ZA6QsOLONwCK/je3behnvLWdkbLqn4101IeX/8sefqoHWB6S1yyOupiIn85DlFvX1A
+	 r+LDhU13Egl2vLdedeXsZHFquMHnV29mKjjnDjfsZeLQ6JsORoOwtUbYnjhSlmoEuW75p
+	 PsyE4/NvmmfVwEfQNrNVFad0s3REw1SYeGBnxCN8yVq+Pu+D+yGcn1VSZEZRsuHbmOcsn
+	 EffQ2O6ngFGa1kiehvX/jsHzvomwQKakTERw2LrZSodd8juh8w+PKBM5qwizUOUYT+qUd
+	 mYsceC1OeByzDask/TDQEOkGyU1TYX9u537s2sndoqfwOK+GyjaTgcxU6elAxG02JTA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571098;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=J+wlJA0rtb40EYpHl8bU9DDEGkk4vMgjHF45RyGHlDQ=;
+	b=OH+29TL5A93as0VNqdWDEQp4d04fQAuJAbnj7hnBzmK/GLSwFUjEzmLhKoDlgqFnroMf
+	 xuun8VwkKCYuQy8EFyZaN0d1ENCmj6MTEYK5ir15S3kR4NHT9cEmf6eXajgXqxxy3Mg95
+	 mLYV5LfmwhSo52Ov6Xd85fTp1XBjbqAs8+Jr2G/VNvDtqKi51Ldl8dRHInm1GVRRYZ6Oc
+	 Scx4T1oSN6FzPoXrh9u3mCwlvi/QdpTP89cd3B9O31dz258pOIrygAhsofg/3l8DPEiXI
+	 doRUsF5iuokk6bxSAigw04xpOWwyztF9SWFEgNx+ncH0HNolCo2528hFqq/JBl74ugg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJp41Fmi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6200A606A321;
-	Wed, 21 Oct 2026 08:24:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6200A606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A66E606A31B;
+	Wed, 21 Oct 2026 08:24:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amlogic.com header.i=@amlogic.com header.a=rsa-sha256 header.s=selector1 header.b=lO0RRqbx
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ku2huw1pnw41IJcVbIr9qbHu2vI0Ht+gbARF0kWiJTxY6xh377Tkj8AU1iUCiQ455930Sp4Lj8+CaGxCePdmgc97xzQP76G8yvAtp0fIf8n/eVkRWCIcCqou1YJToNa2Z7WglEAwl1UpgmsGaw0EWYUuQqh/ew/fF954lbkqMwA9Uw9W3FPXa/W2q7hqPHTKvFGZNFP7sebZcAVzd6tJ0QjkCrElr77N1dWKIQAMGYu23y+/aga2F8s6S90WRmm4yYS7RAB3GLHWZeCs3MCMB7o+CuKpf5ZH6pVMfsy1gpjRs+pjZv07u9PngKBLTS4IxtxyF7KWAQoRlTPE1VtgaQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u4X22pOlQx5Bgxq3jw6Ct6xdBht+f0DBK+2jqPgnbaw=;
- b=GD5S/m6fgYhKVN0lrEYBF9QekN9oky1aFsJ3wX4gbxtFL3oZnGKuz8ngWZ7nuGJeddxHMl5fWklkOmM7+ZokVkoYtCyxjXJgv0uiMNsItZtRSvbjeYulSkvOdvbd3CZgbDKdWxn2PQUW1VU1CavelDgu9JZo6hJaSg/yH6ScTYuTxTCMhKiGazlQL8ldeJiPTdFvYyewXtxDPQrkLo29DRkfVUo9H2zK0HBVbXlMLvBvR283IaFkvD1wdd9SzBDGOsFmwdPXx+P9W4E0gU70+EwPgVmUTib5m5QJ3EzoT9vhOfj1hfIny8Sa16fFWYvX06OzTTzYSmWqP6k0kIYJHA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u4X22pOlQx5Bgxq3jw6Ct6xdBht+f0DBK+2jqPgnbaw=;
- b=lO0RRqbx4jtdkbciUrrxODYLQLzoEoNKlDSSnQhv3u6rDG8Zi90uPRP9lJG5ESpT+YeSDJFdHCg1V1jIXgpzRrNSWXBEFstFjSF5jDdgQ++u93SBN6c92Nae4f+WfbbBkMUCrNNLGRZaeYO18SIfHgNUZU8MugjcwkvUez/U0ViyQi4Q6ImCUSZVbCZQV013TiXlf/E4ROac1q1oR8cCj0Le8v3WxzNHciZUymXP7Ve9rYuUN0u8/SVptET4Fzstx7w1Wbu4LR5jnngWM0d4SqsJ1f9WkY4oEvFiLaCmB8RgVnr4uqmM3AD50tjXYTQXsUEVu7TJM9ybscpV12QhQA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com (2603:1096:820:6d::13)
- by SI4PR03MB10101.apcprd03.prod.outlook.com (2603:1096:4:2b2::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 08:24:24 +0000
-Received: from KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e]) by KL1PR03MB5778.apcprd03.prod.outlook.com
- ([fe80::e1e:5c95:a889:828e%4]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 08:24:23 +0000
-Message-ID: <55844de7-efa2-42b1-8d5e-94e826ee27fb@amlogic.com>
-Date: Wed, 21 Oct 2026 16:24:20 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/4] clk: amlogic: Improve the issue of PLL lock
- failures
-To: John O'Callaghan <johnocallaghan@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20251031-optimize_pll_driver-v3-0-92f3b2f36a83@amlogic.com>
- <20251031-optimize_pll_driver-v3-2-92f3b2f36a83@amlogic.com>
- <20261021060005.2947837-1-johnocallaghan@gmail.com>
-From: Chuan Liu <chuan.liu@amlogic.com>
-In-Reply-To: <20261021060005.2947837-1-johnocallaghan@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: JH0PR01CA0012.apcprd01.prod.exchangelabs.com
- (2603:1096:990:56::17) To KL1PR03MB5778.apcprd03.prod.outlook.com
- (2603:1096:820:6d::13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HJp41Fmi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2551F000CA;
+	Wed, 21 Oct 2026 08:24:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792571097;
+	bh=J+wlJA0rtb40EYpHl8bU9DDEGkk4vMgjHF45RyGHlDQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HJp41FmiOp267MHOYY4JXF4ir7F268Bt+49x/nO1nk3Pp17O2Wsc48uRaeSYy1Eac
+	 P3iFcJnNmiAeWMQ/wuyjlmAqIxMfBsrIm41S9CMGj2uSsGaQtb+K2OAc7z0lPZCeeI
+	 EIShLpBVHHdWBXEl/8avMjDhbesel7q47a6bYWbEJhFWXNI10J41d3gp8RMAwR6hVd
+	 sKKabIM4kGFu8Lb8iRDohmtJEpmtu0S+H8OFTA5F5JTZPUAwM6rY+dqTiP6KnNA5HI
+	 NbsqF/QEfSMiDkxwTQAnE5/BZMJMJ4qWojLXAz84e12I1L4tTSEiKKB5qr4ZCdTyyH
+	 cdWuvu0BX/7DQ==
+Message-ID: <63521469-3829-4895-a7d9-a0f7806c58a1@kernel.org>
+Date: Wed, 21 Oct 2026 10:24:48 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,135 +51,294 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5778:EE_|SI4PR03MB10101:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68e30c47-bb1f-463c-c891-08df2f4cb67a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|56012099006|260925021311599003|260925022911599003|260925021911599003|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	bCsWt5lWfpT1PKMb/lbjIQbBesOdPMGl7bsmIoxPIKl66GdaqCgfnyOBIoe0L12PzvA4ILi106aHITXVxBQnXf8e4dfkmPEImGvt6lmQgbTxAOJAHLkZWdPKxBhimSueFzq2Xs2ZSFTwDYGNmkBW9KsDhKQjDxxomlMc2Bs0CohnmDlasgUrxnlUJBP5bcmxVWX96yUnIILGnhIU79psqScdO5Bpyb7uVPhKt0KC4jSASkIRdXu96NRi9gvIsN73Ng1CR/akqWe+WKmsmx0Zk6szciK67txkIFVH+khOvhDiHkShW6bCbSgz+/6x0X1J1gRJn/dwOcXVk7tQu3WYKg7yl95uXnFrl4cVov3CBMuLQ8PJHMdGVP53EfUQ5Zsv0nId+jxz8sgzqMC/Q4XzKySqHRlEfoLzNh3V6M0S3pFKyCXJhwKnheaLW9E9IdhJHx3g/FvgRGPAL+LpPbW+dpY79X7BRqLUiPAo+BeNk7yp4Ld9SPD+lZp672lTebG1M/6DNIFLkMfeLtvljqgwZr4pPmMuRhgyOEZfFC4pDmzQV7f8tWIPHSgayuEUQv7CA8HR505VXVVCNEJCxhQDdL5NGgBCeKqfurhfwGG4b+nU6ZismrxCptZlhdvOBxaVbalg+PqUc6SqoR8NJDLq3pEl+a2qnPcPeZUmriLT1hc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5778.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(56012099006)(260925021311599003)(260925022911599003)(260925021911599003)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QUxxeU9qNXl1MlhVQWtOWVM0SnpJRkFxZjA1UmlTM2VIZStIYldjRWxyNngy?=
- =?utf-8?B?aVRVN05QZGxzano3bjRoMHA1NXFQNys1UDZiL3B1K1QwMit5SE9pejNReVVD?=
- =?utf-8?B?TTZGRDhoS2h5dU8vKythdk1ud1BVd25pdzJYTVdpT1ZhN0IyRDlYYTl4N2s1?=
- =?utf-8?B?VStmT1NyVzYwSFdCSlJqVThRc0hxOTBCeHZ1WXJRQitvWjR6YTMwWUMzdk9W?=
- =?utf-8?B?eUorQUNXelBRTE9kV1NReVFSa0VsWlo3enduL1V3V3BYQzlOODNyTmxWeVl5?=
- =?utf-8?B?MjJBZjFNK1FWNWVDYjBhME9yUVpUQzN5MDd6TEwxenk5K3RYc0gvTWU0czV0?=
- =?utf-8?B?NVVrQStWVnpBdSt2OFI5VVRFREgyYk1tdzFjdEhnVllmd05GUXZOZ1RMN1li?=
- =?utf-8?B?MmlyM3JaclNXYVJ6UlI1eks2VFFRdCsxZUd4Wk1wQ0d0T3Q1bGJjdVBuWVgy?=
- =?utf-8?B?VUFZRDFudVloRWh6cUpqSVJsL3BQdVdZOGNMWFc4cVp5TWlzUlhGOFJXREpC?=
- =?utf-8?B?TmltL2VhaWNMWGNOOUNPUkxId3YyL3ZmdXNNQWRqY1VGaWlLQ0tHVXF6MnBz?=
- =?utf-8?B?a3cvdXo4SFV0VWFuam5MT2xXM1g0dFdURlFxc2ZyaUtxNjRZNkUvelRiSDE5?=
- =?utf-8?B?djBqaEpsUXpPblFlVzZkZzNHME9KdFBrVldKbTdoWW5wVTk2cVRIVWhKb2RX?=
- =?utf-8?B?eGVrZ1phVmE4dGhldXJrRHZkTDFUcEFaYW9MZWphb1RYSjVkMkM1NDlQa0NY?=
- =?utf-8?B?dTJoNElXR2V2aU1rd2Y5cXZyVHdIZ2xJYmpqMnUvRHRYQVBJQm9rUlBUSmM0?=
- =?utf-8?B?UUMraFNwWHJsN3RDM2lHUUhOSXJ5Tm1YTTdtR3JUbVNJdVpXUkFva2hNWTFH?=
- =?utf-8?B?NlZab3VBY214RmtVbGk3aThlbEhyc0ltNlIrQlhuaXFIY0psaG16bDFjUlVB?=
- =?utf-8?B?TmtsNER2WXpaWTY2R3FjZUt3SmZhR01uU2JUcnZUVzF2YjgvL01IYi92RzJD?=
- =?utf-8?B?NjN5YXphR2thalo0bjh5M0JBTFJzWHRkVmZkVEUvRGg5akZEVjMyYStnYnhQ?=
- =?utf-8?B?Uko1MUZlbTdDUjN5MzN1MHpMdnJOa0h5NUd5OHJSeDRoV0VDaTNabmNrRjZG?=
- =?utf-8?B?WXFLSFc2WXNNeENodmVxanhmbHNvbW0rSVlrYjM1OXNzWGNITEpqMFJ6NU56?=
- =?utf-8?B?ZDV0eG1DWFZ3a0h3VHRjblgvM3Q0Mi9nMDNkUXRIb2M4TXhsSzZVRGN5V2hr?=
- =?utf-8?B?citRZnY4WlJSR2kwRVRLVVdOak55Q3Bpays1b2RmL3R5ZEY2azlCSXdmc01Y?=
- =?utf-8?B?L1ZoTitPZmc1WVdsN3Q1MS9QdlpIcmhxRm9sK2dnTTdCYzlOZEoweHVNV2wr?=
- =?utf-8?B?djBieW1CZFRHUWMvaTlaV2k1YmJTNzM1MU5nb1F3blBFWFd0TkFLT2lyUkVl?=
- =?utf-8?B?b3ZmalpzdlJaUWhGdlFsZlBSQ3pOeXh3d1lPb0VIanRNbEw5bTVDdmNkV3l2?=
- =?utf-8?B?UUUxaWtZT0tPc1BXck5hbDR5U0ZRL1JmTW1CVGV5NlJIS28yYnZyV2luSmpm?=
- =?utf-8?B?Yk5zZUxkRWQyQ2ZVb2F1ZkNmS3F2UitVWEFDY1BPdGRuTVJWL3F0alJpcWpZ?=
- =?utf-8?B?QkwrVEduUlBCTW5ZR3JVb25qYVg0NEc4eStxZE95RlFnS1BhQWRIL0pnOWsz?=
- =?utf-8?B?bFZGNmh3Q21jb29RZk1jTVlWekZ5ZmFnWFpNWjd5K3ErTklZb1I1SmRWTkU0?=
- =?utf-8?B?c1hlQng5SUxPd1g1ak1WS3c3cWd4MVdFMXB0TERtZ2NFZE9NVGgvMG1Od1ZJ?=
- =?utf-8?B?ME53dE5mb0Fia0tyRE1sTVF4YXk2a1FvVFFXMEFZZW15MXpmWHZRdHNHSitU?=
- =?utf-8?B?bEhoS05pYWlHMDZscndoeU4ySDdsZE1CUHNmRURuQTR1NkxLcnlxaFJGRTNH?=
- =?utf-8?B?dkFrK1h4UzBSWnJacmhWYjgyNmF2L3g1UllSbEF4NUx4VUd4cTBKQ25EekRp?=
- =?utf-8?B?Z0hhY2tONm56Nkx2Nmd6cWlVQWpXRVVmRVBtcnp6blI5Y1I4aDZicTlMQVhR?=
- =?utf-8?B?Znl3a1lvVmRnYWV2cktGeWNHR2VCcXpPU1g5cFd5TG9ReXdsRlEvU2ttb1Rz?=
- =?utf-8?B?TUlHcms5eGxjZzUyOWdnSEJQaTlTS0dpY05hUStnUFp5T3F4akhEdGtFWEFD?=
- =?utf-8?B?a1BNa0xxTlhYT0h1eDhaSVk4V002YW5jTFltU2hmWHRMZHgvU256SDN4bVA0?=
- =?utf-8?B?L0w1Yjl4Vi8xSmhaTitMcVhpZkx5MWtkOWgyTmRFWkJxTTlZcDh2YnZyZVV3?=
- =?utf-8?B?WkhjbS9tdmhFaWFrZmlEOEJ0blViSXRsRDAwTmhmN2w0Qjg0aUVYUT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68e30c47-bb1f-463c-c891-08df2f4cb67a
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5778.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:24:23.7195
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: BQYB4ylB1r6XjfIBmCrzjTlDjQD9mMGBFNRi8V9ss0WEoExcquumEjWODM1IV9P2NEK/vlvoeD11+9QYgE5Pbg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI4PR03MB10101
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/8] mm: fix allocator races with memory hotplug
+To: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, kernel-team@meta.com,
+ akpm@linux-foundation.org, mhocko@suse.com, rientjes@google.com,
+ shakeel.butt@linux.dev, rostedt@goodmis.org, mhiramat@kernel.org,
+ mathieu.desnoyers@efficios.com, muchun.song@linux.dev, osalvador@suse.de,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
+ ziy@nvidia.com, bigeasy@linutronix.de, clrkwllms@kernel.org,
+ mgorman@techsingularity.net, anshuman.khandual@arm.com,
+ Bessel.Wang@huawei.com, jiang.liu@huawei.com
+References: <20261021023940.1940971-1-gourry@gourry.net>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ xsFNBFXLn5EBEAC+zYvAFJxCBY9Tr1xZgcESmxVNI/0ffzE/ZQOiHJl6mGkmA1R7/uUpiCjJ
+ dBrn+lhhOYjjNefFQou6478faXE6o2AhmebqT4KiQoUQFV4R7y1KMEKoSyy8hQaK1umALTdL
+ QZLQMzNE74ap+GDK0wnacPQFpcG1AE9RMq3aeErY5tujekBS32jfC/7AnH7I0v1v1TbbK3Gp
+ XNeiN4QroO+5qaSr0ID2sz5jtBLRb15RMre27E1ImpaIv2Jw8NJgW0k/D1RyKCwaTsgRdwuK
+ Kx/Y91XuSBdz0uOyU/S8kM1+ag0wvsGlpBVxRR/xw/E8M7TEwuCZQArqqTCmkG6HGcXFT0V9
+ PXFNNgV5jXMQRwU0O/ztJIQqsE5LsUomE//bLwzj9IVsaQpKDqW6TAPjcdBDPLHvriq7kGjt
+ WhVhdl0qEYB8lkBEU7V2Yb+SYhmhpDrti9Fq1EsmhiHSkxJcGREoMK/63r9WLZYI3+4W2rAc
+ UucZa4OT27U5ZISjNg3Ev0rxU5UH2/pT4wJCfxwocmqaRr6UYmrtZmND89X0KigoFD/XSeVv
+ jwBRNjPAubK9/k5NoRrYqztM9W6sJqrH8+UWZ1Idd/DdmogJh0gNC0+N42Za9yBRURfIdKSb
+ B3JfpUqcWwE7vUaYrHG1nw54pLUoPG6sAA7Mehl3nd4pZUALHwARAQABzS5EYXZpZCBIaWxk
+ ZW5icmFuZCAoQ3VycmVudCkgPGRhdmlkQGtlcm5lbC5vcmc+wsGQBBMBCAA6AhsDBQkmWAik
+ AgsJBBUKCQgCFgICHgUCF4AWIQQb2cqtc1xMOkYN/MpN3hD3AP+DWgUCaYJt/AIZAQAKCRBN
+ 3hD3AP+DWriiD/9BLGEKG+N8L2AXhikJg6YmXom9ytRwPqDgpHpVg2xdhopoWdMRXjzOrIKD
+ g4LSnFaKneQD0hZhoArEeamG5tyo32xoRsPwkbpIzL0OKSZ8G6mVbFGpjmyDLQCAxteXCLXz
+ ZI0VbsuJKelYnKcXWOIndOrNRvE5eoOfTt2XfBnAapxMYY2IsV+qaUXlO63GgfIOg8RBaj7x
+ 3NxkI3rV0SHhI4GU9K6jCvGghxeS1QX6L/XI9mfAYaIwGy5B68kF26piAVYv/QZDEVIpo3t7
+ /fjSpxKT8plJH6rhhR0epy8dWRHk3qT5tk2P85twasdloWtkMZ7FsCJRKWscm1BLpsDn6EQ4
+ jeMHECiY9kGKKi8dQpv3FRyo2QApZ49NNDbwcR0ZndK0XFo15iH708H5Qja/8TuXCwnPWAcJ
+ DQoNIDFyaxe26Rx3ZwUkRALa3iPcVjE0//TrQ4KnFf+lMBSrS33xDDBfevW9+Dk6IISmDH1R
+ HFq2jpkN+FX/PE8eVhV68B2DsAPZ5rUwyCKUXPTJ/irrCCmAAb5Jpv11S7hUSpqtM/6oVESC
+ 3z/7CzrVtRODzLtNgV4r5EI+wAv/3PgJLlMwgJM90Fb3CB2IgbxhjvmB1WNdvXACVydx55V7
+ LPPKodSTF29rlnQAf9HLgCphuuSrrPn5VQDaYZl4N/7zc2wcWM7BTQRVy5+RARAA59fefSDR
+ 9nMGCb9LbMX+TFAoIQo/wgP5XPyzLYakO+94GrgfZjfhdaxPXMsl2+o8jhp/hlIzG56taNdt
+ VZtPp3ih1AgbR8rHgXw1xwOpuAd5lE1qNd54ndHuADO9a9A0vPimIes78Hi1/yy+ZEEvRkHk
+ /kDa6F3AtTc1m4rbbOk2fiKzzsE9YXweFjQvl9p+AMw6qd/iC4lUk9g0+FQXNdRs+o4o6Qvy
+ iOQJfGQ4UcBuOy1IrkJrd8qq5jet1fcM2j4QvsW8CLDWZS1L7kZ5gT5EycMKxUWb8LuRjxzZ
+ 3QY1aQH2kkzn6acigU3HLtgFyV1gBNV44ehjgvJpRY2cC8VhanTx0dZ9mj1YKIky5N+C0f21
+ zvntBqcxV0+3p8MrxRRcgEtDZNav+xAoT3G0W4SahAaUTWXpsZoOecwtxi74CyneQNPTDjNg
+ azHmvpdBVEfj7k3p4dmJp5i0U66Onmf6mMFpArvBRSMOKU9DlAzMi4IvhiNWjKVaIE2Se9BY
+ FdKVAJaZq85P2y20ZBd08ILnKcj7XKZkLU5FkoA0udEBvQ0f9QLNyyy3DZMCQWcwRuj1m73D
+ sq8DEFBdZ5eEkj1dCyx+t/ga6x2rHyc8Sl86oK1tvAkwBNsfKou3v+jP/l14a7DGBvrmlYjO
+ 59o3t6inu6H7pt7OL6u6BQj7DoMAEQEAAcLBfAQYAQgAJgIbDBYhBBvZyq1zXEw6Rg38yk3e
+ EPcA/4NaBQJonNqrBQkmWAihAAoJEE3eEPcA/4NaKtMQALAJ8PzprBEXbXcEXwDKQu+P/vts
+ IfUb1UNMfMV76BicGa5NCZnJNQASDP/+bFg6O3gx5NbhHHPeaWz/VxlOmYHokHodOvtL0WCC
+ 8A5PEP8tOk6029Z+J+xUcMrJClNVFpzVvOpb1lCbhjwAV465Hy+NUSbbUiRxdzNQtLtgZzOV
+ Zw7jxUCs4UUZLQTCuBpFgb15bBxYZ/BL9MbzxPxvfUQIPbnzQMcqtpUs21CMK2PdfCh5c4gS
+ sDci6D5/ZIBw94UQWmGpM/O1ilGXde2ZzzGYl64glmccD8e87OnEgKnH3FbnJnT4iJchtSvx
+ yJNi1+t0+qDti4m88+/9IuPqCKb6Stl+s2dnLtJNrjXBGJtsQG/sRpqsJz5x1/2nPJSRMsx9
+ 5YfqbdrJSOFXDzZ8/r82HgQEtUvlSXNaXCa95ez0UkOG7+bDm2b3s0XahBQeLVCH0mw3RAQg
+ r7xDAYKIrAwfHHmMTnBQDPJwVqxJjVNr7yBic4yfzVWGCGNE4DnOW0vcIeoyhy9vnIa3w1uZ
+ 3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
+ CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
+ qIws/H2t
+In-Reply-To: <20261021023940.1940971-1-gourry@gourry.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi John,
-   Thanks for your testing and feedback.
+On 10/21/26 04:39, Gregory Price (Meta) wrote:
 
-On 10/21/2026 1:59 PM, John O'Callaghan wrote:
-> [你通常不会收到来自 johnocallaghan@gmail.com 的电子邮件。请访问 https://aka.ms/LearnAboutSenderIdentification，以了解这一点为什么很重要]
-> 
-> [ EXTERNAL EMAIL ]
-> 
-> Hi Chuan,
-> 
-> Jerome asked what was tested; here is a G12A data point.
-> 
-> On a Radxa Zero (S905Y2, G12A) running v7.3, sys_pll_dco occasionally
-> fails to lock on cpufreq transitions, at room temperature:
-> 
->    meson_clk_pll_set_rate: pll sys_pll_dco didn't lock, trying to set old rate 6000000000
-> 
-> It happens with all the sys_pll OPPs (old DCO rates 3216, 3408, 3600,
-> 4800, 5592 and 6000 MHz) but, here, only while the video decoder is
-> busy. 
+Usual reminder to slow down a bit :)
 
-I understand there should be no direct connection between the video 
-decoder and sys_pll lock failure. Perhaps it's due to increased power 
-consumption when the video decoder is active, causing higher power 
-supply ripple? Have you conducted comparative tests on the ripple 
-conditions of various power rails after enabling the video decoder, 
-especially VDDAO_1V8 (which supplies power to the PLL)?
+We have
 
-The operation of the video decoder may also cause more frequent load 
-changes, leading the sys_pll to re-lock frequently and thus increasing 
-the probability of PLL lock failure.
+	Documentation/process/submitting-patches.rst
 
-Reproducer: the userspace governor, random writes of the
-> 1200-1800 MHz OPPs to scaling_setspeed (~700 transitions/s), with a
-> GStreamer v4l2 decode loop (meson vdec, H.264 + VP9 1080p) running
-> alongside. 46 C SoC temperature.
+Saying
 
-Previously, we encountered similar PLL lock failure issues during 
-low-temperature burn-in testing (at -10°C to -15°C) with G12A, and we 
-had previously pushed a mandatory patch to customers. This patch 
-significantly improves PLL lock failure scenarios, you can first apply 
-it locally.
+	"Wait for a minimum of one week before resubmitting or pinging reviewers
+	 - possibly longer during busy times like merge windows.
 
+A lot of this here was broken forever, so there is no need to rush.
+
+(thanks for the fixes ;) )
+
+> Eight fixes for allocator paths that can act on state another CPU is
+> updating: zonelists rebuilt by memory hotplug, and the pagesets of a
+> zone that offlining empties.
 > 
->                                         transitions   lock failures
->    v7.3                                     500290        33
->    v7.3, no decoder running                 250056         0
->    v7.3 + this series (1-4)                 500089         0
->    v7.3 + patch 2/4 only                    500066         0
+> I've packaged these together because they're all related to hotplug.
 > 
-> So on G12A it is the 20 us delays of this patch that make the
-> difference.
+> *** Backport note - Patches 5-7 build on patch 1: without it, their
+>     retry is compiled out when CONFIG_MEMORY_HOTREMOVE=n.
 > 
-> Tested-by: John O'Callaghan <johnocallaghan@gmail.com> # Radxa Zero (G12A)
+> Most of these race conditions stem from zonelists being re-ordered
+> in-place at runtime during hotplug.  The result is a mixture of failed
+> allocations, NULL dereferences, incorrect placement (GFP_KERNEL in
+> ZONE_MOVABLE), node misplacement, or incorrectly allowing hugetlb /
+> contig allocations on a node/zone otherwise not eligible.
+> 
+> Most of these are incredibly narrow race conditions, but since the most
+> likely impacted machines are VMs with memory hotplug, the narrow
+> condition can more easily occur when a vCPU takes a long interrupt / VM
+> exit of some kind.  I've made all of these race conditions
+> deterministics with a kprobe reproduction module described below.
+> 
+> Reproducers
+> ===========
+> 
+> All eight races were reproduced on unmodified source in a QEMU guest
+> with three NUMA nodes:
+>    node 0: 3G, CPUs 0-1
+>    node 1: 1G ZONE_NORMAL, CPU 2
+>    node 2: 1G ZONE_NORMAL, CPU 3
+> 
+> And a 512M pc-dimm cold-plugged on node 1, left offline at boot
+> (CONFIG_ACPI_HOTPLUG_MEMORY=y).
+> 
+> Patch 1 needs CONFIG_MEMORY_HOTREMOVE=n to show the failure
+> Patch 3 needs mm/mmzone.o built with -fno-inline -fno-ipa-sra,
+>         without which the two reads are merged.
+> Patch 4 needs the reclaim_retry_zone tracepoint enabled.
+> Patch 7's hugetlb case needs a 64G guest (node 1: 4G) so that one
+>         memory block is 1G, with a 2G pc-dimm on node 1.
+> 
+> The windows are a few instructions wide, so I used a test module to
+> widen them with kprobes that stall one CPU inside the window. This
+> emulates an interrupt or vCPU preemption.  The vCPU preemption is the
+> more likely event to cause this at large scale with memory hotplug.
+> 
+> Patch 1 (zonelist):
+> 
+>   Online node 1's first memory block as ZONE_MOVABLE, which rebuilds
+>   node 1's zonelists.
+> 
+>   Stall the rebuild after it writes ZONE_MOVABLE into the first entry
+>   but before it writes ZONE_NORMAL into the second.
+> 
+>   On another CPU, allocate GFP_KERNEL | __GFP_THISNODE from node 1.
+> 
+>   Before: the allocation fails, 3/3 runs.
+>   After:  the allocation waits for the rebuild and succeeds, 3/3 runs.
+> 
+> Patch 2 (preferred zone):
+> 
+>   Online node 1's block as ZONE_MOVABLE, so node 1's local zonelist is
+>   [MOVABLE, NORMAL].
+> 
+>   On another CPU, allocate GFP_KERNEL | __GFP_THISNODE from node 1,
+>   whose preferred slot is NORMAL, and stall it after it loads the zone.
+> 
+>   Offline the block, which rebuilds the list as [NORMAL] and moves the
+>   terminator into the preferred slot.
+> 
+>   Before: NULL dereference in get_page_from_freelist(), 3/3 runs.
+>   After:  the allocation succeeds from ZONE_NORMAL, 3/3 runs.
+> 
+> Patch 3 (slot reread):
+> 
+>   Online node 1's block as ZONE_MOVABLE, so node 1's local zonelist is
+>   [MOVABLE, NORMAL].
+> 
+>   On another CPU, allocate GFP_KERNEL | __GFP_THISNODE from node 1
+>   with nodemask {1}, and stall it after __next_zones_zonelist() tests
+>   the NORMAL slot for NULL but before it reads the slot again.
+> 
+>   Offline the block, which rebuilds the list as [NORMAL] and moves the
+>   terminator into that slot.
+> 
+>   Before: NULL dereference in zone_to_nid(), 3/3 runs.
+>   After:  the allocation succeeds from ZONE_NORMAL, 3/3 runs.
+> 
+> Patch 4 (tracepoint):
+> 
+>   Online node 1's block as ZONE_MOVABLE, so node 1's local zonelist is
+>   [MOVABLE, NORMAL], and enable the reclaim_retry_zone tracepoint.
+> 
+>   On another CPU, allocate GFP_KERNEL | __GFP_THISNODE from node 1, with
+>   its get_page_from_freelist() calls failed so that the slowpath reaches
+>   should_reclaim_retry(), and stall it in zone_reclaimable_pages() for
+>   node 1's NORMAL zone.
+> 
+>   Offline the block, which rebuilds the list as [NORMAL] and moves the
+>   terminator into that slot.
+> 
+>   Before: NULL dereference in the tracepoint, 3/3 runs. With the
+>           tracepoint disabled, no oops (1 run).
+>   After:  the allocation succeeds from ZONE_NORMAL, 3/3 runs.
+> 
+> Patch 5 (zonelist slots):
+> 
+>   On one CPU, allocate GFP_KERNEL with a nodemask, and stall it after
+>   the iterator approves its first zonelist slot but before the
+>   allocator loads the zone from that slot.
+> 
+>   Online node 1's first memory block as ZONE_MOVABLE, which inserts
+>   ZONE_MOVABLE at the front of node 1's zonelists.
+> 
+>   This was run for single-page and bulk allocations, and for a
+>   single-page allocation whose fast path is made to fail so that the
+>   slowpath's walk races.
+> 
+>   Before: nodemask {1} gets a node 1 ZONE_MOVABLE page and nodemask
+>           {2} a node 1 ZONE_NORMAL page, 18/18 runs.
+>   After:  nodemask {1} gets node 1 ZONE_NORMAL and nodemask {2} gets
+>           node 2 ZONE_NORMAL, 18/18 runs.
+> 
+>   The check adds 5 instructions to an order-0 allocation on x86,
+>   counted with a hardware counter on a non-debug build.
+> 
+> Patch 6 (hugetlb):
+> 
+>   Reserve hugetlb pages on every node. On CPU 1, fault a hugetlb page
+>   bound to node 2 with mbind(); the pool walk uses node 0's zonelist,
+>   where node 2 follows node 1. Stall the walk after it approves
+>   node 2's slot.
+> 
+>   Online node 1's first memory block as ZONE_MOVABLE, which shifts
+>   node 1's ZONE_NORMAL into that slot.
+> 
+>   Before: the page comes from node 1, 3/3 runs.
+>   After:  the page comes from node 2, 3/3 runs.
+> 
+> Patch 7 (alloc_contig):
+> 
+>   Write 1 to node 1's 1G nr_hugepages, and stall the gigantic page's
+>   zonelist walk after it approves node 1's ZONE_NORMAL slot.
+> 
+>   Online node 1's first memory block as ZONE_MOVABLE, which inserts
+>   ZONE_MOVABLE into that slot.
+> 
+>   Before: the 1G page is allocated from ZONE_MOVABLE, 3/3 runs.
+>   After:  the 1G page is allocated from ZONE_NORMAL, 3/3 runs.
+> 
+>   Calling alloc_contig_pages() directly with GFP_KERNEL in the first
+>   guest, as in patch 5, nodemask {1} gets a ZONE_MOVABLE range and
+>   nodemask {2} a node 1 range before, 3/3 runs each, and neither after.
+> 
+> Patch 8 (pagesets):
+> 
+>   Online node 1's block as ZONE_MOVABLE, then offline it.
+> 
+>   Stall the offline before the zone empties, and stall the vmstat
+>   worker on another CPU (kicked through /proc/sys/vm/stat_refresh) in
+>   decay_pcp_high() for that zone. Let the offline free the pagesets,
+>   reallocate the freed percpu area with a known value, then release
+>   the worker.
+> 
+>   Before: decay_pcp_high() runs on the freed pageset, 6/6 runs. In
+>           1/6 the area was reallocated before the worker resumed, and
+>           decay_pcp_high() rewrote the new object.
+>   After:  the pageset is not freed, 3/3 runs.
+> 
+> All eight reproducers also pass on the series tip, 3/3 runs each.
+> 
+> Changes in v3
+> =============
+> - Replaced v2 patch 2 (zonelist_zone_valid() recheck) with patch 5,
+>   which checks zonelist_update_seq whenever an allocation succeeds
+>   (Vlastimil). A raced attempt's page is discarded, so a stale preferred
+>   zone can no longer affect the result (Sashiko).
+> - Moved the NULL dereference fixes ahead of patch 5.
+> - Added patches 6 and 7 for the hugetlb pool walk and
+>   alloc_contig_pages(), which have the same slot shift.
+> - Added patch 4 for the reclaim_retry_zone tracepoint's re-read.
+> - Fixes: tags on patches 2-6 now name the stop_machine
+>   removal that made rebuilds run concurrently with zonelist walks.
+> 
+> Link: https://lore.kernel.org/linux-mm/20261014222456.2318284-1-gourry@gourry.net/
+> Link: https://lore.kernel.org/linux-mm/20261015210539.3243563-1-gourry@gourry.net/
+> Link: https://lore.kernel.org/linux-mm/20261019172346.3344005-1-gourry@gourry.net/
+> 
+> Gregory Price (Meta) (8):
+>   mm/page_alloc: detect zonelist rebuilds from memory hot-add
+>   mm/page_alloc: snapshot the preferred zone against shrink rebuilds
+>   mm/mmzone: read each zoneref slot once when filtering by nodemask
+>   mm/page_alloc: pass the zone, not the zoneref, to reclaim_retry_zone
+>   mm/page_alloc: retry allocations that raced with a zonelist rebuild
+>   mm/hugetlb: retry the pool walk when the zonelist is rebuilt
+>   mm/page_alloc: retry alloc_contig_pages() when the zonelist is rebuilt
+>   mm/page_alloc: keep a zone's pagesets when it goes empty
+> 
+>  include/trace/events/oom.h |   8 +--
+>  mm/hugetlb.c               |  13 +++--
+>  mm/mmzone.c                |  11 ++--
+>  mm/page_alloc.c            | 106 +++++++++++++++++++++++++++++--------
+>  mm/page_alloc.h            |   3 ++
+>  5 files changed, 107 insertions(+), 34 deletions(-)
+> 
 
-Thanks!
-
-> 
-> The testing was scripted with the help of an LLM coding assistant; I
-> ran it on my board and checked the results.
-> 
-> Thanks,
-> John
 
 -- 
-Best regards,
-Chuan
+Cheers,
 
+David
