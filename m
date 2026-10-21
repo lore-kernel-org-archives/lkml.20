@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792614966;
-	b=0ea+aAaoRGOnoWsCBGHvsSRqOqUI17xeVHbuDyfufVEu1MPdTs9UT0uABth7K04Qg26Z
-	 RmJxBE13O6PhDPFpGfHFXFwKSn8hRuzF42DlxUz25EEskPsDwqAQTFqHEG+acSVj+wXa4
-	 GtfqWa1OWNUvFz4mvRc+pykltjOCp31mWaxdhI+UYlFkJiqE3OUnSM/gJy7Jjp4aArzRj
-	 QOf1rzZQdsRYRFifKvtQxmOjQKSMcSTXDlBAB6BckJvJ/Ifhpnk/som3WNCarnOJrxewZ
-	 3yjFJ/PYxm2XtdJkzOi0zYLl0w0v94ZWoJaAhLnHQkkbmVk45oCo/geDxhxLAq3mfTQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792614966;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oy4zjwK75VgDvDbhZpZwtwVldXeZthwDfbAOOHS22Sg=;
-	b=P7pe3AmSN/2Efdpq9KT5fmnmWF9P4tqreapDEDUIf1Vh8W9tjSW7aUuTTkBjAPlxNWpF
-	 7qZxURlLn7PgQdGMTLVFyUByDgR8JB1r1ikhkieAc6gxPILz0ZR1f3UIjj6063fGepD+g
-	 Tk60Txo2L5PG7Ldqmmw39WeXJGMWWUL4JFxGecjVT10O65WSGqJZbnhXACVq8R7V4H+nQ
-	 HtJwU1vLGxj/hEuz04jMnN05A5xp0pDCd+DFeMe5qFIFzsCK71hDCM6VtAmSwexAj2MPP
-	 sDWz6RHhVV8HoxtYBiaf9mARVdroESQ4lN2wZdTnauKgmwFQok1S/juez0nb6P6AFJw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b="ndeD/gk6";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.48
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com [209.85.222.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792614984;
+	b=lLk/8G8Uo5Pok1lVtpvfVcj2ajMApj5Is78doI6yF7yoHhqR3YtVM6Sl4lcXPpqy3Bux
+	 MZtCR4O/axTlVJggsqvv48QUo5wOc8u8qTrT+aFVL6XuNwl/kruD7QNKHT5ZpckvuxAOP
+	 7bBG+d6a6HKgEgpF0Ay46iho5GdCYNiNL4F3l6yPQcJlIAkTgYxzot+dhVRQGC5rVhwg+
+	 7wD+R3Jnc1qecN8L3ttk2ZxJ+jQ338dv0IhzwkFB1j4ZtU9gBH2eclnusAdd3w6D3c2F9
+	 Lr/3fswb1KfsRTwOz+T7g2CHQjw/75pBejqfLaut9Eyh6GzRRozie09Dteq6WGbqwGQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792614984;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=tbceIaRF0sAuckuiO6cyxQdP9/vX0G/uVvpCY2YPfrc=;
+	b=D+SAFNoDSfh0S3Lr/uGrmvcDzDeGC0Sf/BI4Bnzv5MlkcD91j7aBY71pkk9QiCWYldHr
+	 vSwuh/NKU+PVcvv6G/DTo4qaG9tXjXev60oUf+EGyyyNmRvnCsH7XaZ5O5otylFaF3RiG
+	 qP7O2/TRYj4qysMz+ZauPDN/HmlXvp3DSd/tbM6GSQ4nzb5N+abe+YSrBIhgYLDGvvj0Q
+	 zGLE2faHIbnqSbw3GwTxNl01xXNFQ5ypooXWK60h3beVQdEKqOInBQl40F7a4xK7XHbNS
+	 0XUiYHZHN7kN1z5+bdHeb66U80LrLn0dA1L/evM/kInEIfgYSuc7c1yVXBJFbOeK4jg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=virtuozzo.com;
+	spf=pass smtp.mailfrom=virtuozzo.com;
+	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=ShpT2mht;
+	arc=none smtp.remote-ip=130.117.225.111
+Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F12C6606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F12C6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53AEB606A31F;
+	Wed, 21 Oct 2026 20:36:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53AEB606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=ndeD/gk6
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-98c78660542so746325241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:36:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792614965; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bKicWchaq6doJF6ldqcecHgj4zoinVA2uLFdMVFCsNCPiM8ECi6pNaMkPT+mADgCBa
-         55KQSqsNenFjtBWDjmghE6O14n+2jZdlPbPQFLwDRjpjDKNFpbGRmXT4s28RWzUeoMnF
-         xegUoYbjIdNt2aBQ1GB3Ugi0Kar/33dv+0NA68xUYTXeToFzXX//NzoDntryO/kax5Ye
-         wQyt2RZiyvRq6X14bQeAqY4boHPC6Xk8T04dyXxbx6fJgdNo2snCvC4q+hXGz/T7xQi2
-         rEQ8wEgQlAXMeLZaVegWNeMjFSQnqh3KATO8fwfTPS+Wgp6oI0LPduy2MgDSz0+cyo9R
-         T0pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oy4zjwK75VgDvDbhZpZwtwVldXeZthwDfbAOOHS22Sg=;
-        fh=Ezf6TVKsSf59Z/u7znxdhmNBehO1dS+lmObJ0uQlj7s=;
-        b=hqwKkDoX9Ek5+bCk5DDfJYoh8z8TstCOEIWL4T2gsWHTNppAJYrJLBtsUjCwXF+Cv7
-         5dJ35bSkT0Y8jv2h04C5Q4S/fLHssOCrgGaQhdJdBNX5+C4AeiLuASp/j/nk0fg80UY1
-         9uETdziPYh3DuE03U9kXE4R3znAWRs6asbwFDoDw4Stq2fTkP2RsShTrzZMI4f8IJ9dK
-         AT8xugYM4NmvEpRk+B1EvriOtwYqbx4WnfyYFMfB9ewbfP3ZCjjz4uiuwMog3HC/wrw+
-         I8HaIZ95qdy0EizhGNUUI/GgIlgCw8FaCDlzOSq3ApEFfsUb0BUKQWkuSKoq30SaH2ek
-         lXMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1792614965; x=1793219765; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oy4zjwK75VgDvDbhZpZwtwVldXeZthwDfbAOOHS22Sg=;
-        b=ndeD/gk61dUIGTsi+ssDmR7jaxWuv3m7jEmQb9UXXK5zKQEtE5i5wjS9+f/L+y0+1U
-         H+ewZIqp11oA/XagIfpYv8RNVRRc6g47DXR9C6ir8/r9j5csgn7XRcoTE5EuQI8BJYVH
-         A0sHMw42pdvCn2koHeDAwzgpsfdUMl1xI0ubf1ItPepuBFK+wW7ifvUdek60qvWZ+9mO
-         b8RFbB7d6VYduRC/U5mIPbCKHz/6o7+X+kJbE0AdfZo2HBN8i0e/u97UM+/91FkZThyx
-         jqbvTStU1g68+mMLpU1/axo4UBUVklNSOzAv1Es1sm3ewIVZj+Ke8VJQWqYeS0MhnyJI
-         AnBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792614965; x=1793219765;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oy4zjwK75VgDvDbhZpZwtwVldXeZthwDfbAOOHS22Sg=;
-        b=VGB91fVOp+NFNrOV9JAhzbDIPo97j4QPBxAnHV6fy3ziGNbs/C/aGWHmrxSWjWgjeD
-         XsjcIA2lcT3wo2OYTor5tP5ip1KjMWcIuIz8P1RWEimtpbQ1Eh7c73RdHKgUm1dSNpUC
-         mlunEuIN9/w8w7TIe1HikMt4IbXYD+DYGpEoYdaDMAgGmDf+Gfi0snaj+xXpz8qDrl4W
-         tn0O8Gmuh/HP+jwNwRZdDNBVhxgXScDIDWBccVNSIC4DL+389Vnd1wTEmPhaak0f3Q8J
-         ayWkZB7Tbuj6S3SqyboASn5AL20cGHFNaVkmQ9+egKq9beKBRCEPd3SdBr01KHRQxIgO
-         rOig==
-X-Forwarded-Encrypted: i=1; AKwUvBweicbGxRjb4S+3Ov+ym+4SrIS7rVqQgR7zcO2Rz4PL8dixHeSw/oFQiyD6RWurTSXNOBni+WyGcY2vJ7k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7J64I7PuTSsdtDdm2NrT0sgluZ7eFLT6iSG8yYLboZGCqpsqo
-	ujmfkjrPhHUL1NxQVQUqLFAadXwwzrgD5/yBtkenCKZPm/+0ZhnHotLfxq7JZOk5Nf8buLU6vi9
-	kwcbZrh4rYJ6Ce31L0wMczoYPYM2zfSkbTHLJTAAThQ==
-X-Gm-Gg: AYBFou1zeGP7ln9Ah0jYJ9TTvbi3vd+H7IcA2dsPyOv9/8llBHb1w4oxVprkRcK0AB5
-	QD9bsT/MW0LeoxB6vLamwENBd1J3tF2hFIkl/nDbAybqYawg/BqpQoorUtdbjDqUON506XXjmLB
-	cvmittPDWJl41irQ/RyJJHlBc1lqR3QEutN+v7b4nzEuvrcbGUdwDtH9pPEDjA7gZM0IxBRycha
-	+h/QZezQhp21BfcpR+RSZxZkHkPdrDfi+2HRoUDtuW1SB+AHeJxZXJPPqacWxT8vGuh+FWCN1/E
-	bR/S87lxRQgzGTfRE9fi8z4MzDr9+GY1E9bCARym8CVqECUUNZXnAQ9qKvlI7H0+3H9NHJrf/hU
-	98Q/+q8jUouO8P7tBqkRBk6u2pAuW5/AyykqqxmvsyQYHMuw2Xijmwng02MglnL+LOscoufYyJj
-	fGvD7gPUsUlHH1lnE7/2xCI5FUOeONkE+jdvFUyqWwfm02La1FIY7CqyX//hx5+yXVUu2XndTJf
-	q36dpS/KOkAFNXYz4Y4Tcw41ZPmIMP3mPeGdOfimkoTfUA7
-X-Received: by 2002:a05:6102:2c81:b0:7cc:32ce:4c5e with SMTP id
- ada2fe7eead31-7cc92697b15mr1554069137.16.1792614964729; Wed, 21 Oct 2026
- 13:36:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=ShpT2mht
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
+	:From; bh=tbceIaRF0sAuckuiO6cyxQdP9/vX0G/uVvpCY2YPfrc=; b=ShpT2mhtcIjao9HMfss
+	jXF7S4rKU1qxrdXq/oerjb+AA9xKx86xQW4rVJcpTdwN6GZi3Ko03fok6bTdeQmb9HLFJhC/LurPW
+	1vQvll05taTdW0NaVp8f8eYgYZe+1epvUyhyliWeJsPezDRk3ikw09d6PCLoOfsOIvbJnLtepWDc7
+	770hBdGBt5KnoFXUorGIvPN4bqx6So+zy2P1wOKtrmnLIHwIBZjXTG8O3dnlK/61VVFjzmJad2pU6
+	uuZzEx1oTR8I+jU8m2RTFniKH0ugGCrSddrm0qHfJ1vCBbLSvq8/mQ5Qr0H1zCbcujPoWNMgHY7+g
+	nBKgoTqn5gaSY7w==;
+Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
+	by relay.virtuozzo.com with esmtp (Exim 4.96)
+	(envelope-from <khorenko@virtuozzo.com>)
+	id 1xJcz4-00D9zC-2y;
+	Wed, 21 Oct 2026 22:36:09 +0200
+From: Konstantin Khorenko <khorenko@virtuozzo.com>
+Date: Wed, 21 Oct 2026 22:36:00 +0200
+Subject: [PATCH v4 1/4] mm/rmap: duplicate a PMD mapping as one in
+ folio_dup_file_rmap_pmd()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,60 +59,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020214500.972308-1-rjethwani@purestorage.com> <179253294887.3290.487147499123330924@kernel.org>
-In-Reply-To: <179253294887.3290.487147499123330924@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Wed, 21 Oct 2026 13:35:53 -0700
-X-Gm-Features: AclHuK-06qlNphl58sn3XBv3twfkYeXTvJ37ATa60uY5jUtBM_A9R8-5LVb5nMI
-Message-ID: <CAKaoeS31KH2vkRdxxXE31UNbJMwYJ6mU8P7z3CuinyHmgY0M5Q@mail.gmail.com>
-Subject: Re: [PATCH net v2] tls: keep TX and RX hardware offload on the same device
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Boris Pismenny <borisp@mellanox.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-1-66f00b7a564c@virtuozzo.com>
+References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Peter Xu <peterx@redhat.com>
+Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
+ =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+ linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1546;
+ i=khorenko@virtuozzo.com; h=from:subject:message-id;
+ bh=zhntYNSyNOhAa1ZPHwaiFUV3wOk6ing6WAMJ8CgrgUQ=;
+ b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq2SI3kTt0eGcvGYVZkf1nokMQHDfejBZY7fajV
+ 0TyI+y7YxiJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCatkiNwAKCRBRlgpH+WFc
+ KgnAD/4ojtuF4NBnUvfl/Psk86uzqUN1kVtoLEKMaMThvlqW1s3hK5DewNJbbtEf8Kazy+pGsy7
+ 2MNBKYRUNiZDEhZn/2DHUE1gt+A1tVbizNXBa/MWAiM0mHN4ngFsKzIt8G4YzVFPRIiFTv47n4W
+ UzZ9V4zYqU+0s0nv2SkSdgabyHn+IOd37dsdB1FOWbqkMfFafvXpi338tn8jdGLrv9NurDGPBXa
+ JZN7A4rUTj1hDfc6KXc2+NthJvKbdfaeHECDDIrCgp96JMX4YtV1Oq6Vo4PNsA+spLXB6gm22vs
+ bt8zKJcN2+rdAim5R+CHKro0V0Fp0XAZp4Xj82XaDXiCzDfPcKc8FDuP9RDDvxj6RzW+X2RIO0E
+ 612Fj+ImIt3/D5SW82Dj9MLXESvv7BYtG4DMGFZ7XcgRqlHZpzwiWRnWvsGrxcJKt2wKFFMBlJH
+ cuLulc+7fr3I4ndV99zx4sbup7C77YzhIsIspwXhd6cDjs9nPaznCZrSIcs5vKegskyHFrqx+Db
+ rqe+t05922C0eCwL1UxqL2hupnKSl4lwMd1mwvKy9yhaHtuSKLRavqalIHyXq5zh+tUCFdTvAP+
+ kEDIzV2/fARqYVLPRiGeTeSch5+t8I9q8grSh7VIqydeFZPMIov/cihVtwGD8oOVUOK0w5eQsBw
+ F++lxfRANMnnNdQ==
+X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
+ fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
 
-On Tue, Oct 20, 2026 at 2:49=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
-:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+folio_dup_file_rmap_pmd() passes PGTABLE_LEVEL_PTE to
+__folio_dup_file_rmap() for HPAGE_PMD_NR pages, so it adds HPAGE_PMD_NR
+PTE mappings to the folio instead of one PMD mapping. Each unmap of the
+PMD removes one PMD mapping:
 
-This issue was discovered during code review and subsequently reproduced
-on hardware using mlx5 and TLS 1.2 AES-GCM-128.
+- the folio's mapcount never returns to zero, and removing the folio
+  from the page cache reports "Bad page cache", or hits a VM_BUG_ON
+  with CONFIG_DEBUG_VM;
+- the first unmap already counts as the last one and drops the
+  PMD-mapped statistics while the other mm still maps the folio;
+- the second one drives the entire mapcount below zero and drops them
+  again.
 
-Changing the route between TX and RX setup installed the second direction
-on a different device. Driver traces showed successful adds on both devices=
-,
-but both deletes at socket close targeted the first device, leaving an orph=
-aned
-context on the second. Both setup orders reproduced the leak,
-even though all current core TLS context counters returned to zero.
-No crash was observed.
+The helper has no caller yet, the next patch adds the first one. Pass
+PGTABLE_LEVEL_PMD, as folio_try_dup_anon_rmap_pmd() does.
 
-With the fix, the same tests correctly fall back to software for the second
-direction and leave no orphaned hardware context.
+Fixes: d8ef5e311d7b ("mm/rmap: convert page_dup_file_rmap() to folio_dup_file_rmap_[pte|ptes|pmd]()")
+Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+---
+ include/linux/rmap.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/linux/rmap.h b/include/linux/rmap.h
+index 0b332770abeed..7562017416094 100644
+--- a/include/linux/rmap.h
++++ b/include/linux/rmap.h
+@@ -558,7 +558,7 @@ static inline void folio_dup_file_rmap_pmd(struct folio *folio,
+ 		struct page *page, struct vm_area_struct *dst_vma)
+ {
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PTE);
++	__folio_dup_file_rmap(folio, page, HPAGE_PMD_NR, dst_vma, PGTABLE_LEVEL_PMD);
+ #else
+ 	WARN_ON_ONCE(true);
+ #endif
+
+-- 
+2.43.0
+
