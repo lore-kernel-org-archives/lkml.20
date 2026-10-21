@@ -1,59 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598927;
-	b=iUzYsZS6gQL0EMl0pBaRY938ZsVPxBnQ/hRfK5AkJvHUHb7wvqo2XbGbvH2QTpuDO7Gm
-	 oLoAwGrCYL33AR3yumpVSlkrH2j7YVKnQghuGULexxkQm22vJ9gBjEr6/dFBvcDE6nsp0
-	 4VDPhPS3FBaQ21388rkQ4Yj4lfTf53DUpN/scpJomHzn8yx76YPk7okgGHPcVvzTs9OCF
-	 J+g7bHShbAMxXVmlx3cJDHX0cxJ4iAUGwRjSI+vkVMKPsRcI3l5j9+KWOkBEeGqpyGD4b
-	 RtNQxm4c4gpXlNalwVyLSEELUlQWRwNPdAHnuVdpErFL8xqxX6HKhmC4Pqf1VCo5XtA==
+	t=1792598935;
+	b=MS8TYY0lJaJ4K1UjvOwlhDm1vjJLxaI6gCvDtbgRq/2EzwjQR+D+6owcLAT8fiFCGsUQ
+	 EblgJQDIkXtNFv88ZLGl6RXQ3YJMH1P74OlV3UnMWh2dg8A2RNEa6JsjVVOyLdNwZFBCh
+	 JNw8wkpgfsbY9KLS+UONijaHQ98OpHBSW/wlxI7yL6Ej7/L/YPcs3JZjyxg9FxBrbP2cx
+	 mPouvogR4MLP5uxDHPaj3B1vmwplW1RL6F7+PZqC8FKBXOohvzbcAe6FUnqPheFV6YDjs
+	 uj0+oZR0+vHJOPeL82k94waGObOLIQEuD7HlOL1UW+IGlZ6OLvmgCyY3kXxIJkOVweQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598927;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=OEJmC1fFv8S7z8NwMiScdSijf14THAuxH59eqNfgV1U=;
-	b=R9fZHjoXAR4SzlJ6wvZIMnHB6Gsk+unix7X0efFrQcnFW+hn9EgWJ95+CMJgW6oOcJZk
-	 lh53hZGHjgT44BEBb6z/lKqntGmFQXqXM5uDQ5qSDLwVtIwvQsradymo+y/BDMpfWlm/l
-	 EYFAITnmiRi59jEoF8tC55U1nYFxc958VaqK/bSSBPdG+fXffI/Ju1WyO+jCB0bLNCLmf
-	 DSGCSSAy18Ypt3md+wVHQ/8/OTQAmuc2q4bvtFp0b6etSWdbsas4F2XT6lanZ/7lhrc0q
-	 oIiYk0mViiorr8EuJsdRpxXIVrO6g2sOOrs9Si8H/yPTzdQLH9OotkwB6tELuvH22cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598935;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=xlUjPkBFZR5E69M180zZ7SvybteIZBcwvq7YyxzDeRI=;
+	b=TzsMaHOQUbqr24OakkMsB0UwxLZ3Dv86w7KaW44/WYXS1d+dYYNWnSd/C91t4kSC0mDi
+	 aU+QHA1Lo76GPlxkEzKVlXYchbOHgmUwPeaQ/B/IvRrqbjyXOFaCG37UGVyaz6GvQSJpB
+	 YRzam80F6RqJTM1lMgwP46xnLuYw8qfChWSN+gLGzKvQANyt5fU0+OVJYl5iAS24n4EVE
+	 NZ/GlcWhCTVJtFGx3Zop8T5mxdyj6+OlZsScv0iPPIldVKEgqZIItt9SN4+487KZOupCh
+	 KkdwfV7rkWBRMVaY69vuT+Yticx6szLL+TxY3hIocKQJN0imugqGUBp6lqC0K/jF3hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LzVorcfh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HmkvCJ0v;
+	arc=none smtp.remote-ip=209.85.222.44
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A565D606A31B;
-	Wed, 21 Oct 2026 16:08:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558B3606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:08:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 558B3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LzVorcfh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DBC31F000C1;
-	Wed, 21 Oct 2026 16:08:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792598926;
-	bh=OEJmC1fFv8S7z8NwMiScdSijf14THAuxH59eqNfgV1U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LzVorcfhuI+BT7kiF+DhCKC9yTZ5BsUrIjRVN78Hjn1E0m7JrY6tIbJjvKLdA0+6K
-	 WnvoE3uJWlbCXEOl+nC+6RieLTR/VupnK+ufz6OEQVJeFLIqHiAKvsVNlp2FVpK2yr
-	 XEaudClAucD+roJoBNGv6vSTK5m/kBHmObf5O8BZY9tEDBsxC3IKIKjLQn2SapHVtG
-	 55pPPZXRHvuVzk/0OBHuXntduo1J2z+zKSGsICzQYAfKWvdujWtdcjgoEAmoy2RX1a
-	 t5PTFkAjWhhxxqnZlIm2T7Wd40qchukieMF4aJrGyu0npZDUS8F2p5DXUzg0JSrz91
-	 SskYiyTmWwCmQ==
-Subject:
- Re: [PATCH net v1] bnx2x: Close the VF when loading it fails after INIT
-From: netdev-bot+sashiko@kernel.org
-To: oss.patchbox@gmail.com
-Cc: skalluru@marvell.com, manishc@marvell.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 16:08:45 +0000
-Message-ID: <179259892503.3135.1020842170103430745@kernel.org>
-In-Reply-To: <20261019041122.1054520-2-oss.patchbox@gmail.com>
-References: <20261019041122.1054520-2-oss.patchbox@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HmkvCJ0v
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-9902a746546so29193241.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:08:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792598934; x=1793203734; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xlUjPkBFZR5E69M180zZ7SvybteIZBcwvq7YyxzDeRI=;
+        b=HmkvCJ0vaUoa3UQ9+bVmx9GYBeGHPBtlOLf0CTWX9WnMkwRafYNyOSLx/EqFn7xC0z
+         FeBLtVw9Bz3lADjseMfn9oWHJIVBJFAk99ataSjSPJQ4In6UetErxE16KChScPekSOyw
+         MjpI/XW4ARjyQ8uPN8cvX8u8hYvhwIw4umZj2dxBiVOtWqSaa9fwYG3a201xAy+AR3CY
+         3AVX/nMuip49a0S77opD1Ad+JdBVu/RlOSXBN/Vb0/zuJ8lHgUed1jUyiMv492+qc6lw
+         5BvuP1Yi5jTt7Y3apvAZncY2fEhGdxDTG0tcV24vI3so6jisVt42aq9HO4FLaNKopDfA
+         kgFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792598934; x=1793203734;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xlUjPkBFZR5E69M180zZ7SvybteIZBcwvq7YyxzDeRI=;
+        b=o2XKG6qmINoaoBtLqmnWtL/kJgcx5TYJxn73RXhl5XGPGRdOXfCO0WVk3bJEkIC+9b
+         o0ngGwgAMOWiWk2XNHlKyu2C4DEc4LaKRmTerrf76XBm/zk4G9sgqySI+1dQSZciAbRe
+         HOiRSfNTYj0iVEA/fEC3Rnh0gw+/nw4rK85tEK3Wk8FWpKDJK9YEB+5rJG1+hkTIUWsd
+         6W0B2MsPG/Q3O71roiMc3PHvNESZcI0McuHGel4aFo57RTMhdIu6DfEcvcvqimsNEn2A
+         qI680LDpl+yZ2k8LDV9QTRxEr0vfz3bnV/FPILvgMfDeE7qa/4vye12oQlvQv2s/UV1A
+         49hw==
+X-Forwarded-Encrypted: i=1; AKwUvByziXjClYTdnLhPDuEZ71fw6dlRCDtmhaH+YQM5isgGXiR/u9enxCuldluOUZQTLIHTnZhhxSbNzB/oK90=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1rYIUr8KCc6cxZzOntvUo5CGpeNd9mpnB9LXxVVS1ceMWf1Rg
+	aE1Er+5s5FVnH9japSSQPGj8HOUEP4z85asmNZYP941yFm8mwCfwOFc/
+X-Gm-Gg: AYBFou2Vgw/SSnccCU0KjrNxYcyIlM/S2jgPIH+r1j8fFvHM6WvOus9ulnnA0ZF5dMZ
+	MNX2R4fx8vqEffKxVGzXxISYTYX5t1wGvVKjGi95FwIieE/+C0jZflHNQHJDh4mquMmCvPNhLsk
+	H+s/nCR+fmOCsH9hv6W/weKcSqND+1Prbcu1Hy63fhCE6lE5R0UUgoMg6oR3y8u7ZbV7Q0XvaRT
+	baTxqRFX2kuBIgHpuJipStzXsRqBTvxfrG2gcV7tFgLPvc8uplGAqv/RDAfPTP84ZW1FQZV3VN7
+	xqiD7Axiwz9NO8vct3nKMEOEIcK9hd/j+H5DGWB5aOKY9EZyZioEsB7vjH3ExxD4/gfM5AT71kq
+	dlJZisNYg5ATJO19QQeU9YZcMqcKGGDCKfJDYZOzBS8frvCKf08ecg6KZKND0P31/yho1wxremz
+	LMBGp0WDbA2ToZqK1DEjjsHyIzeTyTs79ERtHmPmBhszYM5yHYBRTnJRrVF1EYg+m69jRjl1UMF
+	aeFAyvMg9ZZkIw0x1Y+F4HnjkNkn0FwdAK+x4VX3//pf+JIvllY7CHXo7hKF1HnJ2sVbuQHq17L
+	RVSNjqbIlhLglXREjQv+o97gsIVmL47OL66PU/k+nTotj9To7JDJ3RIEDilOWuG0Wh8MG88z5JA
+	+0cVQ/pvOrq/B6MUwQ64=
+X-Received: by 2002:a05:6102:21cd:b0:7ca:9674:a58f with SMTP id ada2fe7eead31-7cc7bcdf51amr1136476137.32.1792598934205;
+        Wed, 21 Oct 2026 09:08:54 -0700 (PDT)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d0e0ba56sm3638029241.1.2026.10.21.09.08.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 09:08:52 -0700 (PDT)
+Date: Wed, 21 Oct 2026 12:08:52 -0400
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>, 
+ linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Chris Arges <carges@cloudflare.com>, 
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
+ Phil Sutter <phil@nwl.cc>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ netdev@vger.kernel.org, 
+ virtualization@lists.linux.dev, 
+ Max Krasnyansky <maxk@qualcomm.com>, 
+ Rusty Russell <rusty@rustcorp.com.au>, 
+ Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ linux-um@lists.infradead.org
+Message-ID: <willemdebruijn.kernel.186235776c7fc@gmail.com>
+In-Reply-To: <26741a9a64c28e8de6d13e04972d296d89e1c95d.1792565282.git.mst@redhat.com>
+References: <be251d104f881a309cfef150455efa128ebb101d.1792565282.git.mst@redhat.com>
+ <26741a9a64c28e8de6d13e04972d296d89e1c95d.1792565282.git.mst@redhat.com>
+Subject: Re: [PATCH net v4 2/7] um: vector: trim skbs before verifying the
+ header
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,250 +119,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+Michael S. Tsirkin wrote:
+> The vector receive path over-allocates the skb and only trims it
+> to the received length after the transport header is verified.
+> 
+> A follow up patch will complete the packet checksum in software within
+> virtio_net_hdr_to_skb so we need the packet trimmed (otherwise the
+> checksum would be computed incorrectly over the unreceived tail of the
+> buffer).
+> 
+> Trim first, so the import sees the packet as it was received.
+> 
+> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 0 (1)
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] This fix is incomplete when a VF load fails at load_error3.
-- [Medium] The new close_vf in the load-failure unwind can wipe a valid
-  guest MAC.
-- [Medium] The new unwind in bnx2x_nic_load() frees fw_stats, the status
-  blocks and the fp memory at load_error0 (bnx2x_cmn.c:2979) whether or…
-
-Pre-existing issues:
-- [Low] This problem wasn't introduced by this patch, but
-  bnx2x_vfpf_init() failures in bnx2x_nic_load() still go to load_error0…
-
---
-
-bnx2x: Close the VF when loading it fails after INIT
-
-This commit adds a bnx2x_vfpf_close_vf() call to the bnx2x_nic_load() error
-unwind. The goal is for the PF to stop using the VF status blocks, queues
-and statistics buffer before they are freed. It also moves bnx2x_vfpf_init()
-after bnx2x_set_real_num_queues(), so that failures after INIT go through
-load_error1.
-
-> diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
-> index 5a9742fd3ddfb..5463de650f703 100644
-> --- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
-> +++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_cmn.c
-
-[ ... ]
-
-> @@ -2706,6 +2699,13 @@ int bnx2x_nic_load(struct bnx2x *bp, int load_mode)
->  		LOAD_ERROR_EXIT(bp, load_error0);
->  	}
->  
-> +	/* request pf to initialize status blocks */
-> +	if (IS_VF(bp)) {
-> +		rc = bnx2x_vfpf_init(bp);
-> +		if (rc)
-> +			LOAD_ERROR_EXIT(bp, load_error0);
-> +	}
-> +
-
-[Severity: Low]
-This is a pre-existing issue, but what happens when bnx2x_vfpf_init() itself
-times out? That error still goes to load_error0 and skips the new
-bnx2x_vfpf_close_vf().
-
-bnx2x_send_msg2pf() triggers the PF before it starts polling. On timeout it
-returns without cancelling the request:
-
-drivers/net/ethernet/broadcom/bnx2x/bnx2x_vfpf.c:bnx2x_send_msg2pf() {
-    ...
-	writeb_relaxed(1, &zone_data->trigger.vf_pf_channel.addr_valid);
-	/* Wait for PF to complete */
-	while ((tout >= 0) && (!*done)) {
-    ...
-	if (!*done) {
-		BNX2X_ERR("PF response has timed out\n");
-		return -EAGAIN;
-	}
-    ...
-}
-
-The PF may process that INIT later. If it does, bnx2x_vf_mbx_init_vf()
-records vf->fw_stat_map. bnx2x_vf_init() then programs the status block
-addresses with bnx2x_init_sb() and sets vf->state = VF_ENABLED.
-
-By then the VF has already freed those buffers at load_error0. Every later
-INIT is rejected, because bnx2x_vf_init() requires VF_ACQUIRED.
-
-Actual DMA seems unlikely here, since no queues have been set up yet. Still,
-the phrase "every failure after INIT" in the commit message doesn't seem to
-cover INIT itself timing out.
-
-Sending CLOSE after a timed out mailbox request would race with the
-outstanding request. So this may be a general limitation of the VF/PF
-channel.
-
-[ ... ]
-
-> @@ -2967,6 +2967,15 @@ int bnx2x_nic_load(struct bnx2x *bp, int load_mode)
->  	/* clear pf_load status, as it was already set */
->  	if (IS_PF(bp))
->  		bnx2x_clear_pf_load(bp);
-> +
-> +	/* The PF may still use the status blocks, queues and statistics
-> +	 * buffer it got from bnx2x_vfpf_init(). Close the VF, as
-> +	 * bnx2x_nic_unload() does, before they are freed below.
-> +	 */
-> +	if (IS_VF(bp)) {
-> +		bnx2x_clear_vlan_info(bp);
-> +		bnx2x_vfpf_close_vf(bp);
-> +	}
-
-[Severity: Medium]
-Is the VF closed early enough when a failure lands at load_error3?
-
-For a VF, load_error3 is reached after SETUP_Q. That happens when any of
-these fail: bnx2x_setup_leading(), bnx2x_vfpf_setup_q(), bnx2x_init_rss(),
-bnx2x_vfpf_config_mac() or bnx2x_vlan_reconfigure_vid().
-
-That label still runs this before it falls through to the new close:
-
-load_error3:
-	...
-	/* Free SKBs, SGEs, TPA pool and driver internals */
-	bnx2x_free_skbs(bp);
-	for_each_rx_queue(bp, i)
-		bnx2x_free_rx_sge_range(bp, bp->fp + i, NUM_RX_SGE);
-
-	/* Release IRQs */
-	bnx2x_free_irq(bp);
-
-So the RX BD buffers, TPA pool and SGE pages are unmapped and freed, and
-the MSI-X handlers are removed. Meanwhile the PF/FW RX clients created by
-SETUP_Q are still alive.
-
-The VF IGU status blocks are also still enabled. The PF only calls
-bnx2x_vf_igu_disable() as part of CLOSE.
-
-bnx2x_nic_unload() does it the other way round: it calls
-bnx2x_vfpf_close_vf() first and bnx2x_free_skbs() later.
-
-The window covers several VF->PF mailbox exchanges. Each one can take up to
-about 10 seconds in bnx2x_send_msg2pf().
-
-Could the FW place an RX frame or TPA aggregation into the freed pages
-during that window? Could it raise MSI-X on vectors that no longer have
-handlers?
-
-Every load_error3 exit happens before bnx2x_set_rx_mode_inner(). So the
-client is probably still in drop-all mode, which may limit this.
-
-The commit message says:
-
-    Close the VF in the unwind before the memory is freed, as
-    bnx2x_nic_unload() does.
-
-This seems to hold for the fw_stats, status blocks and fp rings freed at
-load_error0. It doesn't seem to hold for the RX data buffers and IRQs
-released at load_error3.
-
-Would it make sense to send TEARDOWN_Q/CLOSE for VFs before
-bnx2x_free_skbs() and bnx2x_free_irq()?
-
-[Severity: Medium]
-Can this new close wipe the guest's MAC address when the PF never set up
-the leading queue?
-
-Take the first open after probe, with no MAC assigned by the host. INIT
-succeeds, then bnx2x_setup_irqs() fails and jumps to load_error2. That now
-reaches bnx2x_vfpf_close_vf(), which sends a MAC delete:
-
-	bnx2x_vfpf_config_mac(bp, bp->dev->dev_addr, bp->fp->index, false);
-
-On the PF, q->sp_initialized only becomes true in bnx2x_leading_vfq_init(),
-when SETUP_Q for the leading queue is processed. So
-bnx2x_vf_mac_vlan_config_list() returns early:
-
-	if (!bnx2x_validate_vf_sp_objs(bp, vf, true))
-		return -EINVAL;
-
-That early return also skips the kfree(filters) later in the function. It
-looks like the PF host leaks the filter list each time this happens.
-
-The -EINVAL turns into PFVF_STATUS_FAILURE. The failure loop in
-bnx2x_vfpf_config_mac() on the VF then does this:
-
-	while (resp->hdr.status == PFVF_STATUS_FAILURE) {
-		...
-		/* copy mac from bulletin to device */
-		eth_hw_addr_set(bp->dev, bulletin.mac);
-
-It doesn't check whether the request was a delete, or whether
-MAC_ADDR_VALID is set in the bulletin. With no host MAC, bulletin.mac is all
-zeros, so the netdev address becomes 00:00:00:00:00:00.
-
-Wouldn't the next open then fail in bnx2x_validate_addr() with
--EADDRNOTAVAIL until a MAC is set again? Before this patch, a load failure
-never sent a MAC delete.
-
->  load_error0:
->  	bnx2x_free_fw_stats_mem(bp);
->  	bnx2x_free_fp_mem(bp);
-
-[Severity: Medium]
-What happens to the memory freed here if the PF does not complete CLOSE?
-
-bnx2x_vfpf_close_vf() returns void and only logs failures:
-
-	if (rc)
-		BNX2X_ERR("Sending CLOSE failed. rc was: %d\n", rc);
-	else if (resp->hdr.status != PFVF_STATUS_SUCCESS)
-		BNX2X_ERR("Sending CLOSE failed: pf response was %d\n", resp->hdr.status);
-
-On the PF, bnx2x_vf_close() can stop before it moves the VF to
-VF_ACQUIRED. That happens on the first bnx2x_vf_queue_teardown() error. It
-also happens when bnx2x_stats_safe_exec() returns -EBUSY because the
-stats_lock or stats_pending wait timed out:
-
-	for (i = 0; i < vf_rxq_count(vf); i++) {
-		rc = bnx2x_vf_queue_teardown(bp, vf, i);
-		if (rc)
-			goto op_err;
-	}
-	...
-		rc = bnx2x_stats_safe_exec(bp, bnx2x_set_vf_state, &cookie);
-		if (rc)
-			goto op_err;
-
-In either case the VF stays VF_ENABLED, so later INITs are still rejected.
-If queues survive a failed teardown, stats ramrods can still DMA into the
-fw_stats buffer that was freed here.
-
-The new unwind also adds a way to hit the teardown failure. After a
-bnx2x_setup_irqs() failure, CLOSE is sent even though the leading queue was
-never set up.
-
-bnx2x_vf_queue_teardown() still posts an rx-mode ramrod for that queue,
-without the sp_initialized check:
-
-	if (qid == LEADING_IDX) {
-		rc = bnx2x_vf_rxmode(bp, vf, qid, 0);
-		if (rc)
-			goto op_err;
-		/* Remove filtering if feasible */
-		if (bnx2x_validate_vf_sp_objs(bp, vf, true)) {
-
-The FW may not complete that ramrod for a cid that was never initialized.
-Would both TEARDOWN_Q and CLOSE then fail, and leave the VF in the same
-stuck state this patch is meant to fix?
-
-Ignoring the return value here is the same as in bnx2x_nic_unload(). The
-rx-mode path for an unset queue was also reachable before, through RELEASE.
-So the worst case may just match the pre-patch behaviour.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019041122.1054520-2-oss.patchbox%40gmail.com
+Reviewed-by: Willem de Bruijn <willemb@google.com>
