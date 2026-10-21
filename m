@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792602514;
-	b=n+v5DvbpzfAg2Y3fDGWSw6IA7J3ru2+f+rsb/HZ+5ARXNT3xJRUwpsCwjKiRjJ4VIssy
-	 4uKSiMr2VJeEFH4WYpEhhL/fcyOcvWwzQo8Rwn/MFBBNP4K0EK+aMe3De8/dGCwFyWNll
-	 iGEGTGZwDweMI8B/62DqVtw9skRScaIX5yKa75gyAx21m/682hPIsDtgE+vY07yVb6d+y
-	 39FaE5aQsAJERbdqeBkGGRrXlxTQu9nfRrEyFd3yqV5JRdD0DCdmhdq7T1N0+86gqoW3z
-	 VXrf1j7wPZtQjVTooSZyHhUehREvwYX/ZRgn/0AyFcVWbqIad3M9V87yv5KvfHnIAkg==
+	t=1792602515;
+	b=E0YVXxDjTbLLY4ZP6AJQc1C3qDR+dtH9mCNKaLOKknQUcmkU1dZmHuvd1AsHwHTXwgJP
+	 xtSZ5qx+sTtkcK+tLp8yu996lt7CUau0cVoMRkWLQBnImSMHSP5Vyxaxgw7VlU4nVizEi
+	 99cJaA8Moh6O09m97HWsfScsrsBedP8Z+CFFtEmVuK8pfscS+srD4AKnxg0repgVhQtG5
+	 MpZVd1BdKrEIwnW0OC1pDI704QGhfLa9U61Hwu3KTxGLguTR3vsDAYZqfPFrz9nadvRP/
+	 F/iU0qoiZtWMctHdz8MR2RIMFzpBAMRi/kK07j6BopZXh4RZ1l7xT+qyme9bQU64tzA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602514;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=fGCGePjfI8XXuGHsrc0ohceeeEG6k7P8lw+rhpyAdzM=;
-	b=SD8hkkG3vibGYzjzlnaa85YJord0H9dghh5GQc3wDCzliVE8qtQ9XCqm3m/bDqSrqoyl
-	 EtdWT7mh1i6rfmumcoJYsQVTPNleiZjAmZNecEtow8Kw2RY1eMnlRai1Yp/7uKjNGVZyo
-	 JLEfmHPvwHfdPvIHaIJL18oppAd7rZ0GUq3T+UJeoO+cugCVKfXrV3UtP1nlJYzabCDcj
-	 PUUGm8kx2enhvSqstHohwigI1Asgr4weYNTPLNenUq0r/DOV40ZFtfNQmGbKRr10XIKQS
-	 KDrTzEuId55HKXbtnFqDpZXOlV/jHGx/WW9tsHe9scXSRJlW1oQ1AQCqI+q88uHmqvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602515;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=SpeOiKGmueTw3TsTXSAJpn9bI2PcB926uv7ozXrY3UA=;
+	b=ftnbV6zsk/i1pzOKGg4JGCiz1sQG4LmCpVw5aVoh5X95B3kzhhOeCvy4XPdmJB/+a5iV
+	 plngqNe/DuLMXrNK/qXlcKZF0hW2L8VpD4RK5uvp9zS8DqV9LRL6uTlpNszZHJbLvLyZZ
+	 AyRQ/zmwQVuBMNbBqG/XAE3e4sj1loi7DY8m8qoBYqpttQmP2dlagIkVss50UyjdrRCol
+	 B2gMJM13Bm1tgYhxX5/837Y/FVlFgWMb/upRlXq/wjYf16sLa8tXi2IIhKxhzl8e56RuL
+	 Aw273kepuT6qPP0So5MhULIdypdA7QELBarX9BM+4dqimVhiN8/oDiEM5A3ynogyyDg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Zv9mNbCB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.182
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VCGxrWoW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AC3606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:08:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20AC3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4BD0606A31A;
+	Wed, 21 Oct 2026 17:08:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4BD0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Zv9mNbCB
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a5a26c8412so10077691fa.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:08:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792602512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l6Bt8W7jqfVSSsYScLUNdmaZjTWGX48KtOTWTh0BKi5xQAgoCj+apsRLGjomLf4otd
-         kJY7rBcOIB26b1ErhUIvkQeZoDNYvmgndQ4I3D3Yz2jmHyOisScfBg8u2JVEJnWr3x1g
-         GsMXxmmm7imtAln1pVfcgj45ch1gDSRB8EA0V7FGR0ffmamJvkggAH6jLgWv7RTsBScD
-         b4wG1rGPfytKfxRpIpEYQ2BgAIvQdzAQgDbAclZ4o7T02h90qRhWKnaetoGMUf1l1JNc
-         L/x4Zt1nArxCm2Cglxmk1UY3NMDy9nB+X+le0bX3jhVF+/WnMjDWgcvD44YSZQJMZFqX
-         fR2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=fGCGePjfI8XXuGHsrc0ohceeeEG6k7P8lw+rhpyAdzM=;
-        fh=qaNID5GRMHhPG5ibVCufCxPdiJm6UWwbXVSvYBiFdkA=;
-        b=ETezGm8rbCgmzeCZG6Dt6xLEhaViAjEbR22TkeM3tFotzSyPI9EwY3QHJtbbC7Ojcf
-         aUbrLgLEVjYlRw0MtSQaQJRMZhpfqyg+g+0VA1JJvQqvGq3iYLrIavbDyYfmEA2/Ric5
-         R106WGLikaF/Cfhma2IztwqUp7Ca1nJ4D+gs6avC/tDlt5cFa0iXmbqQJilp/TehKTbn
-         55Yd8VeePU93DYs1UoN6HVzYv0oyJpkZZz1ESNl8W7FkhZcr87IjBnNBkMOwNdNo8mOe
-         sMTMSq7fyCLUK+iOCZ6felZ8EHP5uqoX+otlo60GfA0RyUwBpDr2iVZR+53xgYa23L/T
-         kuLg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792602512; x=1793207312; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fGCGePjfI8XXuGHsrc0ohceeeEG6k7P8lw+rhpyAdzM=;
-        b=Zv9mNbCBqDhn0djUp1ft6TyzbbWXWgYiBxpOGnriI2ekUCE+VtPTgnJI0nj5538Qty
-         nWC+VbfES4c9ruBxf+x1AAJnm+GxvBw3P8GPFCbMMXwFxnhPH0BEoTCYg4oBdw0t+AUw
-         o23nnSkwr0OpaxOpHrO7q7+6ElPDKIjw46lzhiJYoh07wmir4/IiHMjcYHGAzePGOJG1
-         kUCnH8QPnexeoB3qxfm1A3ucseoXQ3M8oOQYh7ol2nxONOg/ajPzMyk/btIpNdDhJXup
-         u1++3vUUJAGiqv/qQX9siWJtQ0cBrLyo4f2PjhX0mcDbsVZJFOeiD/H+f8RzvJ66C2DS
-         SGOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602512; x=1793207312;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fGCGePjfI8XXuGHsrc0ohceeeEG6k7P8lw+rhpyAdzM=;
-        b=SiOpaWSOJW9lEv0pmf/DYtQ3Y1wBDMjQMNdQ1/KkjaClFzi3oEJPLoNVjgeaNGV9dv
-         ySlJJjqk+7WK7gZ9gd+GH84ruvkC2ib+ZQ8rzAYnU5p/dyNtmy0u0CGU2Va/I2xyK1qw
-         ftS8N2ai4yLqSeAeOyhgvb9hwuLee8VtahCUlpZ+yMdR5ouP2OmmgVo316JChTp9azLZ
-         Rohdfo4j3OgQr49lp8oUxJPCwZ6AeAEkljCXjas7P2SRy/2fTqGFKfw2duU8FdPy09XZ
-         wfT7mJjbij6C3kA8jY9qvuhSs7X7wOjhEqwSnkoAWG9DtRm3MPzjjQqOZ9XfuyzYnhCN
-         9VwQ==
-X-Forwarded-Encrypted: i=1; AKwUvByp4kC+v5uD8DsYTSQzz4IpfiyCP02U4qbK5yU+/AHqZrjuJjTsEa3pfXYZn6AJzcAL0w5+Dd32eKdYeBk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJUI3dFzXBb9BtiuK5x8DTN1OIU9Cv/Z0XdHvhMLpbT2PXdljOn
-	yP3+o/ehaKCpOP3Jjqu319WIy5g8GpHUBGCt+89NHXI4bHt+V9E/Kml6AHf+/vqw+HhP69Rg9eE
-	7EzpkU36axtmuiSLRLsPwt8Wy72OJOWs=
-X-Gm-Gg: AYBFou2NcOOJMnbchnmNGrNgRHn1UrR/hOc6c8AWdtwWHKurVWwXomItbR5yATR8AXD
-	DQF0/Xz1/ZjM1cs81zxIT/JaRLvCi8icV9xPHi82XzTRSGFys5m5xms3LDZ4xyau2LAob2Bubil
-	08GamKPRyO65DWVcrPP1Dt/TCPqcwbGKjKhEcyfmZ2eOaOg4tejBqTsmRKFzBjtsKslmC3OgrNu
-	n3cUVXvjNgwfO+yktqWWbDeOmI5tfpHBKA9u61nbN4sRIKKX9vpNDiE9zhZ8SvcosgxXzGI4a1G
-	Vh0lLPpBqHOutZq5Pl+fF8TgZcqv+MqcIOw0bw0yFR+UKrqd5tGxkbAQ+odD0HN4jjsez/xM1tK
-	X4HJWj5l++wjdFxKBOmgZ0Rm41QtcYWCdz2yG
-X-Received: by 2002:a2e:b8c7:0:b0:3a9:d9db:61b0 with SMTP id
- 38308e7fff4ca-3ac441b9da4mr7661721fa.24.1792602512104; Wed, 21 Oct 2026
- 10:08:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=VCGxrWoW
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D85D720177D;
+	Wed, 21 Oct 2026 19:08:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792602508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SpeOiKGmueTw3TsTXSAJpn9bI2PcB926uv7ozXrY3UA=;
+	b=VCGxrWoWgTUjDjORA45qF3qS6wf3jwTtY8gzIzA1/D72bU9K2YWamp0Dl0xpWEsXEZalqU
+	D35SFqBMa3eoOqU3yMt/rmjBL7f3CWkyKKi4Q/+ydTRTKIHZH//wtRANTtxF/s5R9qPfBM
+	I4PCKYysNNLeSbC3yj3bmcjVbFqS/peEA8LyB4AoaPrV3D1RqcFBOPa7lYScn7pF3q1KDh
+	8etwdl/cAgpMp1M5W0cLQ5nUjEa3z++niJmlwF+DcKpYWakXQG5BbHx7d9irbAPkm6L4FK
+	VRvfgJ2Q3HQ8mwg3kPeUkr1sQsQPX6+HK6keN/zqhXxOscjx3q0uAYS6QeTV/w==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792602508; a=rsa-sha256;
+	cv=none;
+	b=ZILVKHMlxR7eau+K20ZpgiWwOZdXUCTwonG3B/g463//+Yp65H2RK2RjnN+Mj3n6W3BuhZ
+	W3E7XAJXsuFoJXklAA/LY31b7TheRJgYIFZWfxmMUzdQPavnG430+Ayd0VH2y6HKrnvD1g
+	FU+dQI9zKwufO/+8eaTWzysPPH0vAsHprpb7fOBMX9aETikMiwCaJ0T14DdbGkMjwlzJri
+	Db6FbeqMaAkgTMUpgsfTWyBkHOp3Xp6exh3qwBtbhBPt/qoFYzNXqDPfz3F0aTNM4aDxV4
+	GQ1+TG6wc4oBsuQ7TT7dWBkC2isyDIW1O2/LpYHOlTOG0ypWHNI03TW8rWsY5g==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792602508;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SpeOiKGmueTw3TsTXSAJpn9bI2PcB926uv7ozXrY3UA=;
+	b=QR7EevQzxrI7i6P91RkNd3zCJqr7Dj6dJpRUGtplvQtNDyJA87VJDe9wwjbdmyMQW3bR0Y
+	RW5NZOenSw1h6aBM5UNzIn3He3YCGOXJxVM5XAgb1ujaXEs48MvifEZicJi2xAPT347Eto
+	o0GnwpyBrKh+3FEiNDEN2p9TFQQMvXe3MHVHfyyKINfxcqrI4yhHR+cSOi+MJeXvs3Ko0T
+	cz3d6ivGi9/yxjX9F+I20FpwQfRqIdVcBaVqUzbbK7B+WhnSACmsBhjhQGDAF+aenfMM54
+	8WllGXurWIknbuy0uzQylmi/0/ZsvGtGXfFaMKrKt2p2Yxb2z7sw9247BYz1zw==
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xJZng-000aUx-2Z;
+	Wed, 21 Oct 2026 19:08:28 +0200
+Received: from hardanger.blackshift.org (195-200-20-154.mclarenap.oninferno.net [195.200.20.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 04FA15D0407;
+	Wed, 21 Oct 2026 17:08:27 +0000 (UTC)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,30 +94,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012042851.389128-1-oss.patchbox@gmail.com> <20261021071853.GF851443@liuwe-devbox-debian-v2.local>
-In-Reply-To: <20261021071853.GF851443@liuwe-devbox-debian-v2.local>
-From: Yuho Choi <oss.patchbox@gmail.com>
-Date: Wed, 21 Oct 2026 13:08:19 -0400
-X-Gm-Features: AclHuK_5n4DvXcr46txfd26PyChDfZ8Vzl1LcIm1g1VksjW8svHx4dm9Csz8zzw
-Message-ID: <CAGG=RgAxjGkcMC9NjxqrCQmbgordQeZ9vqAFayuRo5q1sY9ZxA@mail.gmail.com>
-Subject: Re: [PATCH v1] mshv: Don't free overlay pages after a failed unmap
-To: Wei Liu <wei.liu@kernel.org>
-Cc: "K . Y . Srinivasan" <kys@microsoft.com>, Haiyang Zhang <haiyangz@microsoft.com>, 
-	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
-	Jinank Jain <jinankjain@linux.microsoft.com>, 
-	Nuno Das Neves <nunodasneves@linux.microsoft.com>, 
-	Easwar Hariharan <easwar.hariharan@linux.microsoft.com>, 
-	Praveen K Paladugu <prapal@linux.microsoft.com>, Tianyu Lan <tiala@microsoft.com>, 
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH net] can: netlink: fix IFLA_CAN_BITRATE_MAX attribute
+ sizing
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: Zhu Ling <zhuling0805@qq.com>
+Cc: linux-can@vger.kernel.org, mkl@pengutronix.de, mailhol@kernel.org, 
+ nsekhar@ti.com, faiz_abbas@ti.com, s-anna@ti.com, fcooper@ti.com, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <tencent_D1C873B86B0E92011A264B0E196B911D5308@qq.com>
+References: <tencent_D1C873B86B0E92011A264B0E196B911D5308@qq.com>
+Date: Wed, 21 Oct 2026 19:08:22 +0200
+Message-Id: <179260250294.2007736.11072636488246144106.b4-review@b4>
+X-Mailer: b4 0.17-dev-d58fe
+X-Developer-Signature: v=1; a=openpgp-sha256; l=584; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=PiJw0VSpx8dA4BHXBBD/ydOSpYUXczQ7nTrc1l3W80w=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsi68bHDiS/rQGiN7vf2fRLzdH7O/ryX6ZTNOtNP/+avP
+ 66XLadT1lHKwiDGxSArpsiy9McJRYFAh9LelwmTYOawMoEMYeDiFICJKGxgZJgo3GUez6s4y/fj
+ 0bPXFt74wpPb/K9in/vyr5dnStYHZd5l+KcmE3h6zdvL50qs8jnt1OccqGF5q9f065JBiu4Ty7f
+ zs/kA
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-On Wed, 21 Oct 2026 at 03:18, Wei Liu <wei.liu@kernel.org> wrote:
-> I would like to get an error or a warning here, too. Can you send v2?
+On Sat, 05 Sep 2026 00:20:58 +0800, Zhu Ling <zhuling0805@qq.com> wrote:
+> can_fill_info() emits IFLA_CAN_BITRATE_MAX with nla_put(), which consumes
+> space for both the attribute header and its aligned payload. However,
+> can_get_size() accounts for the payload only. The resulting underestimate
+> can make filling the netlink response fail with -EMSGSIZE when the skb has
+> no remaining slack.
+> 
+> Use nla_total_size() to account for the complete attribute.
+> 
+> [...]
 
-Thanks for the feedback.
-I will add an error/warning log to hv_unmap_stats_page()
-as well and submit v2 shortly.
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 
-Thanks,
-Yuho
+-- 
+Marc Kleine-Budde <mkl@pengutronix.de>
