@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611469;
-	b=KVCtMrltMqXqHqlM/+lr7iaRhE7uwcgohejjWSmXeWmw9W/0psBx0NZiUSVewvuRXhxG
-	 jH/TIfd6WhwpBu8RPaG91gvz8esmgBpKR+WeSBjojdt0sSN1THfd2Z5X/4V3fMS2/x6xm
-	 PG48i6PI4khTvR67kdSTb+u/O0joVAu1O0Q55kJlBfugkNxpaJPF1cMviK7rUEM2VB5rU
-	 PS6T8HwYfRI4/81oUZA8nweUaasYlVURsgroMFs/uu0R3k6pjAVKejp/h0FrEvX93jlUA
-	 41Ima7Ih/Prwgp9fQlqqmZwVQmWfnuQKcbC4Xw3XlcZUCtlL2L8yhBSMJ3/IDMDPNtg==
+	t=1792611502;
+	b=I/ucdtmYEbO9ARlLpXH7GDqCK4+lQv28mpVpA6dwj7fDZXHKtlo5NshF/Tln5+DNqXlJ
+	 xn9jTo+HfZEnonIZmHVXt6KsXW0b+2GqYfxXZhsP8NYPH5iaHctjOGidIqkl4ggnUq7aD
+	 JObaK9RYeAysfAxvYsaIiWhP/j+5L9NvbI6PNNDgGioAIVwoudAJcKeKpi7m3tkPnWn+m
+	 kVYcNu5OJeK00eZ11MuSqHorBWng8jj4ZNcf1Zwm76cZDjBGIU8720mfv3ySpFOLrAmU9
+	 M4d9WNRBIglBVcFLxLZSm5F0m8zKQo+U1ZV7RYzZDFttpqmb6JrxNtg6rhQ/ng24rvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611469;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=kJt+ydyRTixeKLbA+0l2aYt6ojWzKdTKUDAlmkzXSx4=;
-	b=3U6eqSMP9wo57E6RcXK02ZGpahea5bpPjAbjvZoGhU7cd4p90DgCdjnJin4Y8gw8LMKx
-	 59HY4+cStL6Yt7WNKibH+6YdoeEkqcGLAy96UH0cGfRu9FaT1z4L9PWzg2tWFeOwW2eso
-	 l8XdPksy9RU+8vgvnudS72J5Z3G6zRJOfQ2dKhlcqDkfbfX9cltiALVaneMH7Y2j4vg4Z
-	 lpIeSqsukS53MN8yyIQc2oXTJTgpI7Sh9CSFV1xWtU8iyu/hIgZTWPZiZvuwEGJWGlI56
-	 v2bv9vbzxQL0i4D5IDW84dLUFl/UbzAuz7E6l7j7XwhFdqos56pk4JQwHshE37eIMYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611502;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=CkYQgiQUTNjWzLvekhzWBPzyb+2FoArIfMxMunavEW3uSskh7F6NpkAEYsPgD/i3OCTJ
+	 bOWW6UGuewi2l/jTjkQYmtatQnATTPzVipeQRxvP5FuIKhTxkTkls9UbrVHYj1e8syWFA
+	 JfSxNF0gvOsnsUztDGXYIE6O38CiFZJ5RgNFt9RCzELaiY6d6LCVq44GCRnZQwlh0TRzI
+	 eW0YC2W6puiDt+3rOYUUt3xQcD5ACycqWObyav7Lbi0ArtO7ZrXndEtt1gFr47VJSpDyW
+	 q/Q+snkClEIDm8Dv/gCXj0Ukwc+SkXAVwaU2EPGcpO6RbG1zYmTy4U453ezqePQ1okg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b="btu/aT+w";
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJGF4hzI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073B8606A31B;
-	Wed, 21 Oct 2026 19:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 073B8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237FE606A31A;
+	Wed, 21 Oct 2026 19:38:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=btu/aT+w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792611466; x=1792870666;
-	bh=kJt+ydyRTixeKLbA+0l2aYt6ojWzKdTKUDAlmkzXSx4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=btu/aT+wzkBryud6j710GW2QjsH7PZsuAMMGFC03bMG6WMUh4kg8rY7zrsrIQmkvQ
-	 X+pkc+4eiYHuH9aeaP/Pn6wC3aBgNkWqvAD0ajLwQ/vLNzhfZ+KRmi4wD5GowoqJ1V
-	 lZH1sCNs9UconzRk/A1eyIrRWEomHz+F0WyGUzAABzVrsqNWKd1hqhBBe6t12j+cuQ
-	 nQLF9WU8D9DnhUPKudM0u5W6I4+Mc9cBmQsxbciPnIQK3kiEny9F5JW5dPvOvnRuvY
-	 UQfIOgKAsFe4pLG+bCfwrWPeV/T40InKAUQJFKenpNmqYULxeYkgTBtFoNNn7bBFf5
-	 AMC3GeVPtG2bw==
-Date: Wed, 21 Oct 2026 19:37:42 +0000
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>, Saikiran <bjsaikiran@gmail.com>, Mark Brown <broonie@kernel.org>, linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] i2c: qcom-cci: Reset the controller when it resumes
-Message-ID: <179261145907.36927.12230352776394948067@pm.me>
-In-Reply-To: <CAFEp6-3s9ER_V_B89W5f5PVkRnLrgSwnUwE+tmftbUGB-1_BdA@mail.gmail.com>
-References: <20261020193946.51478-1-birk.skyum@pm.me> <20261020193946.51478-2-birk.skyum@pm.me> <CAFEp6-3s9ER_V_B89W5f5PVkRnLrgSwnUwE+tmftbUGB-1_BdA@mail.gmail.com>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: ff5736803f5461e1fbf86162dae562ba1f05d144
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kJGF4hzI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62EFC1F000C1;
+	Wed, 21 Oct 2026 19:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792611501;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kJGF4hzIvMEd9ibKNlucw7rb8beXp8+vQC5N8G6LlEUM0PQ3mH7TxEHSdtsHgtWB2
+	 nhndT+PkAeIxAyjQ83Hhf6b2KiQ6bspPRVLRwsqzMoXY1Sm8YXI/IHoyNBKptGEZuj
+	 hKyNUSXW8zuz/DLPXZbPpe8ctVfqfYWWwnoLXex8DuOWkujFqYBs11HdJeOtQkHmQy
+	 PsPXAYqg5i9L4c5oVz0XUJVXj2aeOZ6Fhu5fzSqs45FVTep3If65mVyOFbYMlR3r8Z
+	 gpeQyv0DWwU0h/QqYYqb48o8qwcZj1DbRmbo8VTiX9oFWFMuUiGYs4VH0XGtcJ+Ypa
+	 5MkHElctjm9Pw==
+From: netdev-bot+sinfo@kernel.org
+To: =?utf-8?q?J=C3=A9r=C3=A9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: Eric Dumazet <edumazet@kernel.org>, Neal Cardwell <ncardwell@google.com>,
+ Kuniyuki Iwashima <kuniyu@google.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: 
+ Re: [PATCH] tcp: fix authentication bypass via unsupported TCP auth options
+Date: Wed, 21 Oct 2026 19:38:20 +0000
+Message-ID: <179261150089.3290.10796131741281208278@kernel.org>
+In-Reply-To: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +63,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 9:20 AM Loic Poulain <loic.poulain@oss.qualcomm.com=
-> wrote:
-> > +       ret =3D cci_init(cci);
-> > +       if (!ret)
-> > +               ret =3D cci_reset(cci);
->
-> If we don't know the state, it's probably better to just
-> unconditionally cci_reset().
+Hi!
 
-Right. I kept cci_init() first so the reset-done interrupt is unmasked
-after a power collapse, but cci_reset() alone works there too. On 7.3
-with only cci_reset() on resume, all 30 camera restarts after 2 s
-pauses started, with the controller suspended in between and no reset
-timeout. v2 calls just cci_reset() on resume.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
