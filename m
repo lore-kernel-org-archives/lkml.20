@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575572;
-	b=UNHt0omh9w5oqlVs+x/t4Vi9Wsy5553FRLY7ePdwJgxe52ICcJYSpl2bYx1Ce9k6+cl2
-	 xYX0Lj/bmASqjwN4ynGLcRn3tNVS1CDQdrPOg1Znxdi4ChPm/NKlyUw7rPUQrIwWnOQQ8
-	 bRqzQcHq7sw94bzhth4Mavv7TGGJdi/ytp8JRoeyFMuZ+hEAO4/nPvYoCZN2U0Nl8vB2G
-	 W5mgueCvbSzpVPup7lW23ednLV1Q1KjCSHnJZZYFRYkKiJLdRflbgQ06UwWHSlbyBSpSI
-	 Ke3DD/DHnWxgbujxYGVWjwdoEbahDyYwEf6VUv4UaFuhqbAqrlT7Y6wYIvnIOJKrG6w==
+	t=1792575620;
+	b=JyRANlY/2bL+yoi/2gkgUjSFSmJjuNuAcO3LE0YY0k0/XLEknu5i0H7FaWOL/OOEM+zS
+	 kc93zrfYUkM1QRQ/pFDaHpgJKzrBAvIKKhMYmwTmNXVuKLQ/JwDULYzDz7pyo4XXtVjvd
+	 F7N8E4GKUIl1ipIz0R5xQ2pS0LALLSmxQpseijCEz1xYIyfBYbKtZXt4/WKJCG3O7DQG8
+	 oK9+2uDQSQMCRHo0yYOGblooCIz1iS1ettic+qnZ3WvyGyQMvpXWUrMH5jn8vaGFynWQI
+	 LK+HZ5dnkBRWWiR7a1nrADTifbJJ4Q90PHiGf+n73iSiZXZemMV+X5bIqK2TI5At6DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575572;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=70XoP1PPly+GjGagYXdlQ+dXmkE7+Msm/jKOrxVn7O4=;
-	b=I1xdplttpkgpthwb1F2uOiYvd6ILzDXji1uTcMsSTahuq/qvjobXO/JA22daP1TANpho
-	 FIKSY4hW7oySNT81xN0xP2rECQZM/+90TOqDX7g2VE34U6K4hw9GBm14QG0gazqNTyVnT
-	 Sm7iXQRW/J2hneof51Icibr90EjFEMmOLNCUmwFUL9/bm9RopAnKvKeQqBK+Dg/lzV3h/
-	 dPTcKl/TtSyF5LEtuZBNpltP9hSS1vkRVTVYzxqxtzMDwR1mtGmHZBTtV3ZqbbQLjoSBC
-	 hbe2PCDqsD97YxUaNYfBqI3N10CT8GbYtpujSTp9rREnKohAPaxut4M8Nw5wvIbvJDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575620;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=1PRsQpweqoI38/fF67s+Y9rXztf6TeEe9ZXZ//e/0Zc=;
+	b=e8TiBUXw6OvU2Imqnr35laDg6826PDwn877XhQPCH3kPqegCuWN/eJmZX/LoXi62Uq9y
+	 x+JEQM1xKB/eO3KpM/E8HxQqMYtV8VjyN6s0d+JXeQ2NyoMi/CMeunYuzxqO1HjsfxS45
+	 LwqYBEVWDrNI2siKXaPBB0e6W3xkn8J26r89RzOv9k//ptQoiZ3DkxtMbtkqHT9hBF1SP
+	 D9GdxtmTknm0QpahFsJVPynOTnghvUvfv3NF6iSkvY4UdRN/roXO03CThTM1lsIzwP7S2
+	 aVfjjSdmzyEEyVmxKbeqKsykaXmglWgu9E/uMdL0K91xV5+uPZN4+2ywEL9WiuWkMJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYrMRrXO;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3+BxfqW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBAF606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:39:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE601606A319;
+	Wed, 21 Oct 2026 09:40:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYrMRrXO
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A51621F000CD
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:39:31 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j3+BxfqW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0051F000C9;
+	Wed, 21 Oct 2026 09:40:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792575571;
-	bh=70XoP1PPly+GjGagYXdlQ+dXmkE7+Msm/jKOrxVn7O4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dYrMRrXOZVPwE87XkUPFnPIL4zmTNwGQTmXPTW1tGLjj5zzr/JSEZi9/JeI5ucKDS
-	 +3hxNVxIymcCknzQICkVDEGBJyq/CxOzkShV0eu9eH+67dguFCjW0XJMyy9xb25Zgh
-	 8P+8LNu4JL29pzGpphMN8Dl8RxsjFJyYGdv8mylCzqyyfaA7NjutYmOSntu8NTut51
-	 Ak4aQYFHnHrbuXSiK/CRqS7jdeXM2OmB89fB4UpJq4DP7Cdq7uL5gMs1Ycwj3HfcFE
-	 8qulKn4mhHeVYQw7OZxua1Kaa8AsAyNrCnPLpCRIYhhAKUUJoOSjTuDtkf0UkrI3hd
-	 RY/msqjehUlmA==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3ab27b4924aso3966681fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:39:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzk62NoAZRUm4+W/bxCJ/e1IkMBw9NeI8z7U91aR6lECt37coJwOYY+sWo6Fhlopar06+aCSRr9EpT0ruU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyf7SOk8MS+tZQ3cjNlx+lOBKFxTf/a1a8pkciNeOFo7lCiGEg
-	dON1dC8JLYzVEOxM2JfMpWUINHMTCEnwMP4WksolCDwPnIQzAvEGw6q7VrBeEgb/pFHu6kZY14A
-	hCYVRwqnH24dIXRKwLMb0kKLKazdKOY1z8r+QRE0rmg==
-X-Received: by 2002:a05:651c:1986:b0:3a9:f130:aaa8 with SMTP id
- 38308e7fff4ca-3ac441c09e6mr4586711fa.8.1792575570271; Wed, 21 Oct 2026
- 02:39:30 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 10:39:28 +0100
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 10:39:28 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261021022921.2053957-6-shengchao.guo@oss.qualcomm.com>
+	s=k20260515; t=1792575619;
+	bh=1PRsQpweqoI38/fF67s+Y9rXztf6TeEe9ZXZ//e/0Zc=;
+	h=From:To:Cc:Subject:Date;
+	b=j3+BxfqW08J4KaRbNdude1zO+7/YwLpbBZ5jQAHNc4GNW0hWVboc+mDt18JRxgBuL
+	 4YDN05h72J/oMJKHm1S3MNh/FWuQm0l15lyvpxoaHVJbWo8ZNow8EjVN+QZNVCspB2
+	 8lJ7Hr5/VKp9bl/DiZ312M1PWjIZjsJLHsaAhmEuvJ/mc1guaMDZdZ7LcSg3jwLTNM
+	 1jkwr5d/DEubOSgiAZa+CG27LKwy0OidLpRturQEQhmJIghgVbV+PGlKbqDruDoZPP
+	 HQ5WY5XHzi0EQkHNFt5Qv5w8+ZCSteJFaHouv+lTMIZlGBML/4cM5jRdMl03MZ18EV
+	 KfWBjsc1qDwCQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: Thorsten Blum <blum@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hiface: Use scnprintf() in hiface_chip_create()
+Date: Wed, 21 Oct 2026 11:40:01 +0200
+Message-ID: <20261021094002.114508-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,86 +59,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021022921.2053957-1-shengchao.guo@oss.qualcomm.com> <20261021022921.2053957-6-shengchao.guo@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 10:39:28 +0100
-X-Gmail-Original-Message-ID: <CAMRc=Mc=to49PpyCf0Lj=07uuv0CirRcTSYbUHvHyQy0SgKe6g@mail.gmail.com>
-X-Gm-Features: AclHuK8rSP_D9_qUQP4SAxDy4Yr9zguQHwEm5ilA5D5ZiTUzh7Xtkyk4UtmqBsg
-Message-ID: <CAMRc=Mc=to49PpyCf0Lj=07uuv0CirRcTSYbUHvHyQy0SgKe6g@mail.gmail.com>
-Subject: Re: [PATCH RFC v3 5/5] arm64: dts: qcom: nord-ride-embedded: Add
- WCN7850 Bluetooth support
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, 
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Yu Zhang <yu.zhang@oss.qualcomm.com>, 
-	Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bjorn Andersson <andersson@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1701; i=blum@kernel.org; h=from:subject; bh=zmAS+g5bfNQXAOcoeuT3g4BmPttUc9Fi7CxHYTMss0c=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFk3Ooo+vXt7udh2d5zZ3dCIVu1V/08qFT7/PeVmrfEds /s896z2dZSyMIhxMciKKbI8mPVjhm9pTeUmk4idMHNYmUCGMHBxCsBEZHUZGa7sjbjwoczQtmih W5FWy99y91DW/8YVZj8mf/m16/bc104M/3RSdVY39t5OZH66oltgm3DR4b/PfA7UPtz3JvwO22I /Hm4A
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Wed, 21 Oct 2026 04:29:20 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
->
-> The WCN7850 module on the connectivity adapter card exposes its HCI
-> interface on UART17, and BT_EN is routed to pmau0102_e GPIO9.
->
-> Hook that GPIO up to the WCN7850 PMU, enable uart17 as serial1, and
-> describe the Bluetooth controller consuming the PMU outputs.
->
-> Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  .../boot/dts/qcom/nord-ride-embedded.dts      | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> index 916f583b882a..6dc405ed7ef5 100644
-> --- a/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> +++ b/arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
-> @@ -18,6 +18,7 @@ / {
->
->  	aliases {
->  		serial0 = &uart15;
-> +		serial1 = &uart17;
->  	};
->
->  	chosen {
-> @@ -102,6 +103,7 @@ vreg_wcn_core_vh_1p95: regulator-wcn-core-vh-1p95 {
->  	wcn7850-pmu {
->  		compatible = "qcom,wcn7850-pmu";
->
-> +		bt-enable-gpios = <&pmau0102_e_gpios 9 GPIO_ACTIVE_HIGH>;
->  		wlan-enable-gpios = <&pmau0102_e_gpios 10 GPIO_ACTIVE_HIGH>;
->
->  		vdd-supply = <&vreg_wcn_3p3>;
-> @@ -583,6 +585,23 @@ &uart15 {
->  	status = "okay";
->  };
->
-> +&uart17 {
-> +	status = "okay";
-> +
-> +	bluetooth {
-> +		compatible = "qcom,wcn7850-bt";
-> +		max-speed = <3200000>;
-> +
-> +		vddaon-supply = <&vreg_pmu_aon_0p59>;
-> +		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-> +		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
-> +		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-> +		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-> +		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-> +		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
-> +	};
-> +};
-> +
->  &ufs_mem_hc {
->  	reset-gpios = <&tlmm 181 GPIO_ACTIVE_LOW>;
->
-> --
-> 2.43.0
->
->
+To prepare for removing strlcat() from the kernel [1], use scnprintf()
+instead. Since scnprintf() returns the number of characters actually
+written, drop the length check before usb_make_path().
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Also drop the explicit size arguments from strscpy() since they can be
+inferred from the destination arrays.
+
+No functional change.
+
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ sound/usb/hiface/chip.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/sound/usb/hiface/chip.c b/sound/usb/hiface/chip.c
+index bce28f683666..41a43bc59397 100644
+--- a/sound/usb/hiface/chip.c
++++ b/sound/usb/hiface/chip.c
+@@ -63,18 +63,15 @@ static int hiface_chip_create(struct usb_interface *intf,
+ 		return ret;
+ 	}
+ 
+-	strscpy(card->driver, DRIVER_NAME, sizeof(card->driver));
++	strscpy(card->driver, DRIVER_NAME);
+ 
+ 	if (quirk && quirk->device_name)
+-		strscpy(card->shortname, quirk->device_name, sizeof(card->shortname));
++		strscpy(card->shortname, quirk->device_name);
+ 	else
+-		strscpy(card->shortname, "M2Tech generic audio", sizeof(card->shortname));
++		strscpy(card->shortname, "M2Tech generic audio");
+ 
+-	strlcat(card->longname, card->shortname, sizeof(card->longname));
+-	len = strlcat(card->longname, " at ", sizeof(card->longname));
+-	if (len < sizeof(card->longname))
+-		usb_make_path(device, card->longname + len,
+-			      sizeof(card->longname) - len);
++	len = scnprintf(card->longname, sizeof(card->longname), "%s at ", card->shortname);
++	usb_make_path(device, card->longname + len, sizeof(card->longname) - len);
+ 
+ 	chip = card->private_data;
+ 	chip->dev = device;
