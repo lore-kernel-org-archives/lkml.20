@@ -1,111 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.78.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792582999;
-	b=2O7qU249yPnZW4bL6qMKMiia8CpDqsgoQBSn/zkT8Pdfd2xyMu2gVCkfMltyRyW8UaWc
-	 YYxaoKVlFy4TqbnHMUecMlhLSiY1IpcdYr7Zq0amuzEZ42xqTPPkraZbvwNaTtXDSJ8Y0
-	 qxW9rlWCSflKiBmUKrNIrFJ1W3nWe1HdPeXGuxVKpJsdQ/2pEghX+1mOB91CIZ+Prhmva
-	 4kWtOhGMX2KuuVBrCbqTAHi5ZSt0tX1QaNHE0d7i8KDc9QYvPNFgbD4l1JA8V3MnXBD+S
-	 Cf4lH2zbuGUaUKzIItMW5YMWvqYHrKdRJOO6bhKhCluljD8JNxuDX8iBVWJL4dWIfqQ==
+	t=1792583011;
+	b=Bkek6tZ8LhpPRGzxhvVijCjRXdC5vjUXb4VPWVw+GDgR5OJPigCEhfH48MZFBC7QjUzN
+	 ULmMWAI+b+5tl0iUwhaovNS5SSN5JJSTzmvy92TN1x22NH0SX9iqlDUgCa/lg845pGN96
+	 rHzG13Osp5yduHjruoEmYZQjbtLxEdzpbRe/Wn61HQugD9LVr0lYREEVbG3ya8S7qq2JL
+	 P/fz31Ur00Y6rmwLTm4Om/z4YxrVjCcD8FbXh/JQDbg7oy8xH7Kx4zTgHL+giyYxhFjv/
+	 oqCaO/6pMTecL2glX4gpIjgatlgRPGhpgkrxQwTSPozFtGru9dGbp+Ljrm3hxnuYgsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792582999;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=szT7R0YzuZX1qTMEMRParGqBDqrMMKC51Pm7xdc1ARg=;
-	b=0q5x2exp943oIyujQP1EDdC+VyUhjnghw4/fOrwp4zOSay3hDm5orBrJ2xC+YUK3RXJY
-	 qsr5aY68SrOnWJdrWelKFbm3XwmFZiQpmH6eLh/CA8fTXVprqT67Pxctj2jvqbx0dp690
-	 uuitaIn4rCSf8cKBjdhaj+quZUwyGjC1zzNHzRqULKnyeU9QAm4/860tDbuAgcvj3Y6Pm
-	 lwudhCMrjEGyfPv3wgmrP80hg7lzWAWHIgM0shBckn1kMAkYImsGke0yuPw4AfQUvckip
-	 aSB2FLANtMyuj+KUZphUCks1ZwsG5rBBXs2nG+XAeCW69o/NR/xhICXArNSOddEho+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583011;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Info-Out:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-JNJ;
+	bh=Sw5Eir+xy65c9AYKBeuz0upxYVB/n3ogNv/58XRlDuU=;
+	b=NdHIY+iktadZ7eQhAX/+DRzUDkSgxkQCKKBPo8nOfIR+opYV6Rgj65R6tKcVhI7bq6Ce
+	 qKoT9I0aZZWKMcp6MOjPJxYhETYBsvhDgId9YoVCiUfTNIOfpJ3JZ2kqkIqTqsybIXXK/
+	 2as+t0Rm/Qu9I0pA1gG4dXWy4xS8x/tFfOHkkp0RiMQdo+NjOYgzh49Dz3qFAWItASQl/
+	 PKcREYQzl/oCxAJu6ppSxcVrB0lM8HxSkRHuhn2Cx+X5rVujFajLuUhLavvqY5Hk/sqOi
+	 xK86tdzRVaXtJUdqd0iLS1gm9zgx6cjHFcNDkE5E2uawBa35b5IsjtVmrUEUeEGEBUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z2KcKJq7;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Lx1TyV5u;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=aV3Q2gGB;
+	arc=none smtp.remote-ip=57.103.78.221
+Received: from outbound.st.icloud.com (st-2004i-snip4-11.eps.apple.com [57.103.78.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EA80606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:43:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EA80606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A2D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:43:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76A2D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z2KcKJq7;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Lx1TyV5u
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBg3q2325031
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:43:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	szT7R0YzuZX1qTMEMRParGqBDqrMMKC51Pm7xdc1ARg=; b=Z2KcKJq7vXJv2y2B
-	fFzmT08AW3F8iWUZKU8ie5DEC6mgbsOQ8IoJNkwLzbXdotk238qhJSGvQCVVNjaK
-	8CV/a4D/Luy3ioji1LqMop80x1JkS+3+CilCN16lfPe5WAI7ShYh1PJt47zDlaQb
-	j9RerYum6ac3T9KXZJSsmmRzf7BdfBBZDUaAwaOmj4TRhwN1scEHrxisg1oCPLFv
-	xVh/QSbJy7R0zJz47epLLQ8DThbPHG2JB7KyChbiKVR4Q+j1/uVM+eb0M5P+VIv9
-	RVQ/13ub9ggdPva4ClGQ50TUr8UUbM5KV5fRqglTJc84uBMRhWhnqciAuL4NU2zl
-	M2Gp/A==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v3rsy-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:43:16 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93cc50fb0d2so10918785a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:43:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792582996; x=1793187796; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=szT7R0YzuZX1qTMEMRParGqBDqrMMKC51Pm7xdc1ARg=;
-        b=Lx1TyV5ub184NY2NLehkWddRm6kClnHc3hNwcHRIP7nyPz/DTwRZi608HTlZoKSNyJ
-         AHTP4GI9G1su0mZCE0p7IgeEzsyBZvOPMLz3DrqxYGGozaRmmggq5QkmO1RyIyUwSe1e
-         pRX6/bLJ7LfRgXVD55WFYqe5MDeC6CYW07qpVdbv2w+fRWa36LmORZAhNvdPJPvotTNe
-         Dl7aSc53QE9LoUNR8QR/eLZmEj3WuGWZ/dUnDYYmSJWNY485H7rWFxpApS9vCD9Fiar8
-         rwVW0hL9mAm5+gHz3WYCKoXnEFQGycgzCi2PYYLcYV/qPZLMlyB4vyGSD9NGX9+dylRO
-         /yPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792582996; x=1793187796;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=szT7R0YzuZX1qTMEMRParGqBDqrMMKC51Pm7xdc1ARg=;
-        b=zxGfo4tz7usVi+xnsqlW9ofAd7CSticUYQbkkox8Alp6ox+D5MeBnD8TkunFcUTzMU
-         bOhsX+prAffTfnyCaCPDsk9sdmRegVZtSQQ3/8B7w0la1SEQWcRY+4c286HlGK7vXBYz
-         jSc26pmfgqsaBwBuXpEzMu6LpyludV3k0anUYKsWKpjIk+Y0s/NO4fxi3wjY5Stve4Zj
-         jJ/MS+B0KVkfwuPfvoxjjDeEyh44nSYR+NBT8XAxsvIgREIf8ueRU04VsCee84S6uGV6
-         GmGrZs4GlmI6QP8D7mUmUNhXbf1hu2YQqee+Dy8kakylYiFTMbEhd2yEWl0la/SD7HQk
-         vKBg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQSYjclL1UOrU19LR7gOB38kXNL6e9EUSiWMbyGMV/ycAAOoGICd88IUCAryTD8Qs8lL2FPDLhwyeUgjw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJhP3mzPK7PYZ0qwAYKCgxD/H/P5QM/z4zmPquzh8rwVmvbsfG
-	uxdi5d5e15urLreerk8E0UoDluKSAkHOWJWODNLyQ7vvkoNx6YCzFEIv5/Zczn6c2Iv9BoFMp4L
-	17QDjCuW+gXkxOEQ75yQfhB1mJUSE8B+Ra0vrAQ1eT1jb7WDQZiHJbfIzwT9Yu+1Sbss=
-X-Gm-Gg: AYBFou259Km9CuYvxMdcm21p/ibfq/XV0mvk4XQiLj0lHWGCj4WXF+XF4LK4dHT1W1D
-	dwWw+ughYcdMlQepp3p5eY+OiP4aRsGHiWhA1w4wk6N8QyixvkPt46FD4qVKAWxE7dtQet35IdS
-	IlpYI7irTpNI2w2GsVLpSP/c9ZWDclLC8kYNUlzjkjFuLQnaVj69txtAOJ7xX/I4MvLpzb/HHRc
-	sBtNB73b5oXRFqJE5YhSmhUh4FU4mIesZIJPzUIfXIPjpCRcH3kqddaOqLy6QvH91t84BZzQeEg
-	FgJPv6AgnCCVrk7whYWO2VaTH6mL5aSkkGMmLxrPTN5rhmg+oSudflCIXTDkfssD2BvHjoPzVbh
-	j4ufPrFScX1ee+5D4FRph1w==
-X-Received: by 2002:a05:620a:17ab:b0:93e:54d2:2283 with SMTP id af79cd13be357-93f57fd125bmr396917085a.6.1792582996123;
-        Wed, 21 Oct 2026 04:43:16 -0700 (PDT)
-X-Received: by 2002:a05:620a:17ab:b0:93e:54d2:2283 with SMTP id af79cd13be357-93f57fd125bmr396912485a.6.1792582995665;
-        Wed, 21 Oct 2026 04:43:15 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4679006ffdsm68757666b.77.2026.10.21.04.43.13
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 04:43:14 -0700 (PDT)
-Message-ID: <8ff6ecdb-59d0-4c6d-90d6-5169a7393d32@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 13:43:12 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=aV3Q2gGB
+Received: from outbound.st.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-10 (Postfix) with ESMTPS id E4CB51800112;
+	Wed, 21 Oct 2026 11:43:28 +0000 (UTC)
+X-ICL-RepId: 01a15e46-0268-78d5-8cd7-027a83f8e2e5
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQFIHV8EWxxCDFYCVARLVxQEHVcaVhlWHVgUWgYOXnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXAdLWhVVFw4CQh9QH0wWV0NEHxwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALXQVCX0gFDAUIVkBbGgBVBw1TFlwZUA4CDQNHCklWXFFfAkMJHgBfDkVREVQdXy1eCF4fTBwdDlgGDFBNAUMICgJRHFYNVw==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792583010; x=1824119010; bh=Sw5Eir+xy65c9AYKBeuz0upxYVB/n3ogNv/58XRlDuU=; h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version:x-icloud-hme; b=aV3Q2gGBkAbE+s+j4VBqtqB5tMNqTRzXYwQVyyGpbfV222wg6MAUsQCBykjxjR2Lifd9uSl6J92EcYvtYRQtf914Eya/AXz/W4sXAAce42jz9F5zhMEbTG2vU3SU0Z6NdFfZ5TyCW7HhrOd88Rkh1ampUTVK5Ydzabjkv2siU27tvZLLSxV5/d8Jq/LjaOxG9YElNN6OQiteZnX5zVNfBjcfIUofh/X4y6MSHcUawKyqXnp1j549miBCYhfKgCcF8UZxEDCxhPQBFulO2QtwQL2LP1p74t4QxzbGaOvmwNElLmLA3H4q20CEyw706hpELEE6V6lDRQXJ2T+ia9xxyA==
+Received: from archlinux.lan (unknown [17.156.216.30])
+	by p00-icloudmta-asmtp-us-east-1a-60-percent-10 (Postfix) with ESMTPSA id A0B6B180061B;
+	Wed, 21 Oct 2026 11:43:26 +0000 (UTC)
+Message-ID: <672f06a2cd0bb380fafeacc5f1731e1f4030f329.camel@icloud.com>
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with
+ no link
+From: Edward Malik <edwardmalik95@icloud.com>
+To: Thorsten Leemhuis <regressions@leemhuis.info>, Andreas Wild
+	 <andiwild@gmail.com>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, Bjorn Helgaas
+ <helgaas@kernel.org>,  Bjorn Helgaas <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, M M <restafvalendergelijke@outlook.com>, blaat
+ windows <blaaaat@hotmail.com>
+Date: Wed, 21 Oct 2026 14:43:22 +0300
+In-Reply-To: <f9ab8a2d-966f-4e96-b905-116919c5ac7b@leemhuis.info>
+References: <20260801201244.4421-1-andiwild@gmail.com>
+		 <20260917233355.GA1115024@bhelgaas>
+		 <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info>
+		 <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk>
+		 <1b2cceea-8da4-4239-a955-e0c6b475a227@leemhuis.info>
+		 <87c93553-d74d-4588-bd54-0ccb2728f327@leemhuis.info>
+		 <20260929080109.53944-1-andiwild@gmail.com>
+		 <c5ee9a34c6b7d3ca96538c9cc2914b603b0dce7e.camel@icloud.com>
+		 <f9ab8a2d-966f-4e96-b905-116919c5ac7b@leemhuis.info>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,112 +78,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] clk: qcom: smd-rpm: Skip proxy votes on clocks for
- QCM2290
-To: Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>, Georgi Djakov <djakov@kernel.org>,
-        Ajit Pandey
- <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260910-clk-smd-rpm-skip-proxy-v1-1-1cb5694a99d9@oss.qualcomm.com>
- <dab99b27-ebc2-477e-b56a-26250aceee23@oss.qualcomm.com>
- <ad4aff4f-2d66-425a-a358-6cefaaa1319e@oss.qualcomm.com>
- <bbf2e7e8-42cf-4146-a2ec-b5182a161109@oss.qualcomm.com>
- <asOZdcWpfEtEm-5X@linaro.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <asOZdcWpfEtEm-5X@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NiBTYWx0ZWRfX1wFhOSA+DXHj
- tJ7YmrmxWAi9HK8XURVdZYrxwftyTf7SPdORqV+y+U2NzQf0uXIOb8PfmjVvnSj8vkDZZWb9l0c
- ZE8KOSsodJf3yv2w1Um/Lz+LjOCL3Rk=
-X-Proofpoint-ORIG-GUID: iwEOtDaPJeU2S_qb7Hn9YC9Tt2dXGD4e
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NiBTYWx0ZWRfXzgihrsJZXJIi
- LZm5NP8Wqh/kCYlBRdTX+i23lgurNCqYU/tfDdDZW7rvEwdIG4P8wtJrYXKeLWyvqHT+bN7fjPo
- M2Q16SpewViWRJBb/hPWum/9YKtAt6H/NjL+d3QGbQuDkKmFEQl6G8OuT8zZJSp05dRThg7yPuo
- y8XBI7yPD8Ln2LwNxadB3ctT0PcwaxZND72gbMaZ7aE1BQP+DxD8N38UI90574j7FatTF93LEwI
- UQX5EHnNGPT8eXtEbbO0U9iJ4GoOP5P8wmLLeokyumIeyUJ7MYEUC28yXy8cTiUPxZhdMOC8AM7
- iGNalCy04AiZICpnaxMEwGyHz65Xg+evPXL9wVccuHBUaRnkdXR+xEHxumo4ENsli/aZ+yviEpo
- fDBVZrChxoPGQSHghKtgI3u6kBrfMSFSZAJpmNyCIkMoYNPHzLwJ/kKYvneriLuYNmvfF6+XQ/I
- +7N9i+x5JFM5KO0Rbzw==
-X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad8a554 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=20KFwNOVAAAA:8 a=EUspDBNiAAAA:8 a=Kn0s5oqq2MaH7NdAuvcA:9
- a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: iwEOtDaPJeU2S_qb7Hn9YC9Tt2dXGD4e
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210046
+X-Proofpoint-ORIG-GUID: jfvug_hKU7GqZHd4w8hhxoltUhobAMOP
+X-Authority-Info-Out: v=2.4 cv=Kf/fcAYD c=1 sm=1 tr=0 ts=6ad8a561
+ cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
+ a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=x7bEGLp0ZPQA:10 a=U1xsJXor1XMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=mehdgkVfAAAA:8 a=EYuV28GwPtMp2H73JGAA:9 a=QEXdDO2ut3YA:10
+ a=J1pP9gvGZaT0y92QayzM:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NiBTYWx0ZWRfX/QDSnfPWwh3f
+ EMf/j+r7ReIulNjkJWcQ9z2EOuZPJ9Z8B3z7HXu/sLGC+BlM6HfWXIh+Ndpi2d5u4QGiBSOYKe9
+ OOpWZq3IycFehpOFDx24Z5oEWqz8dfFFa8kchqNxMYVBL+BdX9nrg0YJnTDG1uZ/0JoESS1g+3B
+ Pahw0nzVOEistB+xe/MvHPdf4p4W14pKzx+xgYVPhcinyz9fSGvX6XQLpi4BMhMSkq+quoXVRTI
+ tvwq1JuXDcEuHvoykW3byfdtUL9yFHx/JbtfDlUNz0hnUDt2UROn1GD4jPkI01MC3NjFqTGz1J9
+ FWRyx619b9jxmJuP+92C4LAePMilO1J5RZ+EPzRbUOq/lfyKsG1kBw9P08zTlE=
+X-Proofpoint-GUID: jfvug_hKU7GqZHd4w8hhxoltUhobAMOP
+X-JNJ: AAAAAAABAd/xUgKloXi36jrVhjDyGBkGJf4zI4bjApuQCd7QYEZ2/UXt9UYj+94eu2We7wFCs4QcGUUAf85mhDavELQT2cD+qZGfquZw8jLB6DYUWoNbI5Fa7ERoYDUAEYEx914B7hhQThVS8sHsRt+8C3ILXo7fdXTd+zgmsYBV5Co15KaHrEQhp90rImk7ti1GKgqy1edKtuPfJimXmZltUA8Iq8Z5zqzG/K6BramBeH2WGO+N61cluBYe3pF7GPSq/2rRftRBsSdAV/aUP5cqMBnCrej4M6JwKNH5H8pFfJVp8hygC82wdO9OeVq24LwVvyAFdE2cpWvyhvlhvsUxjwVHRJkbUb83zPusxEHhMi6vvrIq2CBz6RUewgtDO5u3J4NsqOF7/3dO0dKSKHRzbaBms0mIgBg/v3UM3vRtXhrsb2iRQcUp7wSDbcnAS8//Wpwxt4/2G1t+3rQds/T23SQ6HFkRynvuLS/sgDN0q5Wxpb4uGU+5IJmfljn6td6laboptso0wF243Ip86H+7Qt8DP0Ax3cj0+vFpZtnTthW40kJWNOQiDENtvn75QGlW4PciO59N9+NhOEeqscmKE1srBJOcPwdwa1M39JrFtWpVFdywFGp8RfoZmH/XxsggH3y8ehCOCqD5BOPgR8yyHXLntV7Q4/CJAYIyFPYX/qEeE9DcYpB6LwKKe2PCsvSapiWO4w5c4ctYd4yhJbTls+cmK6MJ3jnvjOLoyPsE4QiIeg9qVUjR15TGducroQZRWPPySl9dAjR1an+xr2gG+epF9I91sW5hFrfGvXhyhBC7A8CoOfsmwAqXv4+gx2wca3Lh1rx5Wh+Z0HhPx6Rqqp/vCFRq3nTTx/gIEoNf3PLt9gSV6+vQ39lx6HadqX+KsHmwGPZB1soZbjjqvk1QQukl7802NWc+bbPp8lGjtOZAm90uabgN6fLYbhrvlOBCnxBZLGIBx/Rkw3alCbf4+H2oXHJ
+ yGiYlCSuIMUGEOdI2oielJ+ORLnf/fhWZKbrA4M9sloOWdT2MX60e18RY1YZZkrtN0w9Gtp0U9fTn/1W0AYghNaqwMqa6q+jtOUQv0eNBi3tAZ4QWsojn1ZJ/XsfXAo7B36tvYmpukW6zEdvMsgdRmvrcvnj3zDVcgoPUWtxPZh/e2566MyEUTKmmYkPXuwgtFVYEN4Io5/gh9uHHG3xJAW7rK8GJH1v5K8FKpSl+n9yW+R78dJx3/LuweyWFkVFJNORRTTeQmq45WG0KgTAYkX2K8uTjsLGJr1Mv0Fo7yuwRxtFCHh2eAVAFLwxC77EmoRlflrXaEYcj4XNL/UZ9RUJeDL0HpaQe6WyKeve2vtwOyweeQs9Q9LkxgV7T/EdcTGXqSxFjykVpE5PUbRXu1OOPTQ==
 
-On 10/5/26 2:35 PM, Stephan Gerhold wrote:
-> On Mon, Sep 21, 2026 at 10:53:40AM +0200, Konrad Dybcio wrote:
->> On 9/16/26 1:05 PM, Imran Shaik wrote:
->>>
->>>
->>> On 11-09-2026 02:36 pm, Konrad Dybcio wrote:
->>>> On 9/10/26 3:44 PM, Imran Shaik wrote:
->>>>> clk_smd_rpm_handoff() votes both active and sleep RPM resource states for
->>>>> every clock, keeping them non-zero until a consumer takes over. If there
->>>>> is no consumer, those clocks will remain active in the idle scenario as
->>>>> well, and the sleep vote is never cleared, blocking XO shutdown.
->>>>>
->>>>> Introduce the skip_clks_handoff flag to handle this on QCM2290 clocks,
->>>>> keeping other targets unaffected.
->>>>>
->>>>> Fixes: 00f64b58874e ("clk: qcom: Add support for SMD-RPM Clocks")
->>>>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
->>>>> ---
->>>>
->>>> Are you booting with clk_ignore_unused?
->>>>
->>>
->>> No Konrad, clk_ignore_unused is not present.
->>>
->>> Irrespective of clk_ignore_unused, the proxy votes are placed to RPM
->>> during handoff. If no consumer takes over, those votes remain active,
->>> keeping the resource ON in idle and preventing XO shutdown.
->>
->> I re-read this and yeah you're right
->>
->> Is the handoff functionality necessary at all for non-icc clocks?
->> I'm suspecting that this was just a port of the ancient msm-3.10
->> logic where the (modified) clock framework had a handoff mechanism
->> similar to today's sync_state, except the toning-down of these
->> clocks was never added
->>
-> 
-> The purpose of the handoff functionality is to sync the RPM vote state
-> with the Linux vote state. Since we don't have any "read status"
-> implemented, we do need to make a vote for every RPM clock to guarantee
-> it is in the expected state.
-> 
-> Simply skipping the proxy/handover votes does not fully solve the
-> problem, since you will still leave unused clocks enabled by the boot
-> firmware always-on.
-> 
-> I don't think we need to force on all clocks though, we could probably
-> also unconditionally send a "disable clock" after sync_state (once/if
-> the clock unused cleanup is actually managed by sync_state).
-
-Yeah this sounds like a solution too.. And it seems like sync_state is
-coming?
-
-https://lore.kernel.org/linux-arm-msm/20260626-clk-sync-state-v1-0-4156d8196dc8@redhat.com/
-
-Konrad
+On Wed, 2026-10-21 at 10:24 +0200, Thorsten Leemhuis wrote:
+> On 10/21/26 04:23, Edward Malik wrote:
+> > I noticed another reported incident on the CachyOS Discord server:
+> > [1.278083] pci 0000:00:1c.0: retraining failed
+> > System information:=E2=80=A8https://paste.cachyos.org/p/35d9bd0.log
+> > I'm sharing this in case it helps with investigating the PCIe
+> > retraining regression maybe there is a common denominator among the
+> > hardware=20
+> >=20
+> > Probably will see more now that ubuntu has moved to the new kernel
+> > i
+> > think
+>=20
+> I don't known about the others, but if you ask me this thread always
+> was
+> confusing, as we ended up discussing two different problems; over
+> time
+> it became even more confusing.=C2=A0 And one of the issues was fixed for
+> 7.3
+> iirc.
+>=20
+> So if you ask me I think it's overdue someone tests if *vanilla* 7.3
+> (not a vendor kernel) is still affected and reports any remaining
+> problems separately anew (e.g. in a new thread) in a way that can be
+> read without reading this thread -- while still briefly dropping a
+> link
+> to this thread for completeness. Afterwards reply here with a link to
+> the new thread.
+>=20
+> Ciao, Thorsten
+i think i understand you want to seperate the threads between the patch
+itself and the original quirk which was introduced by commit
+72780f7964684939d7d2f69c348876213b184484 correct ? just to clear it up
+the patch still works for me it's worth noting i don't think i
+mentioned in my original report but the retrain failure happens to me
+on my empty pcie slots it detects as me having 6 slots the 3 taken ones
+it reports them as gpu, nvme, and ethernet controller=20
