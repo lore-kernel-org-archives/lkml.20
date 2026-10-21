@@ -1,88 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792621337;
-	b=2HrC00Esy+tsmcuwx5+f5UBILGPNchErRfW6HY/8rePvWa2HqMFgjdnNm8o6HoOp4sPJ
-	 pQ5wVWsAh1tDYA/EzfLDezNvLeWExK4eOSHGUQXLUAsEXR57cwYiRZBe/W6oq50idkK/P
-	 BQ+ycxvdE002VRX3/LA+TyyTcrdcc3cpOMCUPGhKF7zVzmU30UWVExemdoj0c3ZSYiwjm
-	 DS5mlLn/KBcn9mT0UrDWMh9I/W/CQt5amM5mM2CafcNqgQ/BO58nMie5kGrKMzFG8XRfh
-	 WjyPoicv17WW10Ke081zEUb8dzsjr0FKTSsTb5tRKg8i8OixpWMQ632Ki5pTDTgev+A==
+	t=1792621344;
+	b=mavfFRSdLQz58wHrS1MNKst2yX3hDZgtX4FodA7CqrSJGlnRTKApK3C7EnQJXQPWW14w
+	 3qNQOHLEpQ4ri9TJzHuHxdY9Gj/hZ2M9drax7nSVrUnvtkQp9M2T8Z5Fl1EP/qUQoDyMh
+	 XIRy1n17MCQA76JNP6Fj/+y2DpOmcexoY+qfm9kJXvNAUUFmv5C2Q5iMnc7QgNhp2tP/R
+	 3DAwlGPkpKjVJhKluAfslANQb0NOw7VGKSW3Uz1N+H0MJDt9P9OoCMvFV1difNeewbLtc
+	 E5demmwimFfOrIl4Aodov9gqEZ1/dYhLTnBAFCEkuHUWnglFcxxrhbZqQPdSHoxU7Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792621337;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792621344;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xrsD24iqP9BcnJ+m4SyhgJDWqDe/xNX2cexHWZXcXLQ=;
-	b=RM6Y3R7jxgbDmRAUH0f4R1LRie++Ug6/+/7MYsoSuoVt8Dpk8CM90I5Sh1OaWsaITvmG
-	 bOrRkqvAZMS2ACYXpn/lpDUSciePT0Mf1/8I380dY2dqCQHOKWUaYIoYH8jbb2LhFGYY0
-	 PF8WsRiJfEtgPbw2Rj+oxT0FqhKRs+ie9TUbBzjBqowsQa63J1EeCRReTQPEsT+SggJB+
-	 eSeCWKnsn0vE8J8jRxnBlNUWb86Nr8czv5DZDT/rqSQhrFMEN9BSfspDWwUipMN7XunZQ
-	 zv6w0Ng+qXQNh6McG+LY5s1Yc/1xc8gNPtJsq77gD4k+Yp2hPVSxJiWhSkCnlpjQcig==
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=fiUM6JnMHmA5Ov/xErJ0AuJ15Kfyu9ttUsUZNXK5l38=;
+	b=FHCDbNqjw4p2QXDoZKRqB8pFXNIqKJ0cekIqI0g07YHw5yX9i1E+HOvPOJCCQZNajnjf
+	 2GhH9+rjgdHOMP+e+oE4C8+gkE2wUgeGCRJysv55wqw/5oNY96RK9hBAgD75F8Mbpp9ae
+	 Dd+rvup9XBHoZekwVq7B7CUBkgmUqb7Uf/BtYnSaE2uOusH+QpKw7l8iPeEhI/2M/jlwO
+	 Sdz1D9XFyzxB6NnOonbUYWfO+OKIsUIbPJGU+nVhSjd/cCaVIHORg6C3fq4rW5rLgMLle
+	 2MY/LfJzzpGanEYSSFnhR4+/EpdxUEpOpYUiCDQuAylDgP3YpyInaFSmernpDdhJH5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SiicTOQ3;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKEmHpaZ;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1762606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:22:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1762606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EED606A322;
+	Wed, 21 Oct 2026 22:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EED606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SiicTOQ3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKEmHpaZ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792621336; x=1824157336;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=DmYRawRuj7bsQmnCYT62WbVrUFTA/FdRxfX6js16pZo=;
-  b=SiicTOQ3/2406TV1EYCyKoeToPz9RAE4MGkoWrRdJhCPJ8LTRTP0h95K
-   6evAcXt0DVkT1GjBVSih5G1HBHFSF5lqhfMhFkWkz90HKvRb4Bj4Vw0Fn
-   cL3JLdDxz9LTGK5gLSP8g9rXfsz+NpXnKuPZ0xVOaGCIiN5BlaMhjJQD6
-   OhOyEXRCwSKhZYAsPmFFnpdQHdbcVPmh6/XhYkMEnK4h9aYIBAsfIOHMX
-   W1NNvjCBjlu6u/TuRtd3hPChVkxoVjZi+ocTcZQwC8VJWqovqIhZqW7XT
-   GUcjFZsllyV4o4kGs4MUiQ48tX9fnaQZXuA8J4AktAtyliPnYdTIwqiA/
-   g==;
-X-CSE-ConnectionGUID: a09PEcPaRcGwLvz27gdUFg==
-X-CSE-MsgGUID: FTj2iqAxR4SDTBhXRUrGrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1346499"
+  t=1792621343; x=1824157343;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rPUtyuFnWu82Z984Cm8dRmoMlFt8wbeuLLGVVyrRq0o=;
+  b=cKEmHpaZAKll5ufRzLNbx8vm9dLyATaoh+4zoO5lEvRwSyFifsB5myjG
+   BfYgR9YwPovf+b3wvCckH9nxhyVz0e92Jbcmes6d2C+pUwDv+kju3perM
+   fwO/twEYqL4MZKrM6OLacdc271eL1z/5FsQW4NkRCJhvbXZQW3KCLontU
+   5ao8WD62uVFySHNiyF85Mgna5sdZYaCTVRkMDRUlZhbL01ZBrLtbgnqKt
+   vsVX36kolWEPkn7FGhT+o1ju2HkJA+dtI8ROhBSqwP+PdKFqdPFJfup8O
+   +ZZALEuJ9FkoO1OV9CeSspHlr/cVJOp+YKmu5AadCMFeb7iDtkgjXDKgV
+   Q==;
+X-CSE-ConnectionGUID: 202Bar4aRBulGHiWzjFgZg==
+X-CSE-MsgGUID: WlSygMDEQCixWwklwGkVLg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1373155"
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1346499"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 15:22:16 -0700
-X-CSE-ConnectionGUID: PoABvuNHT06unKb5OzN5Pw==
-X-CSE-MsgGUID: FYhdS9y+T8KwCY5iIXyMwQ==
+   d="scan'208";a="1373155"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 15:22:22 -0700
+X-CSE-ConnectionGUID: jERSXTrpQ4mmahGGAlw3dw==
+X-CSE-MsgGUID: Fu/9SPr7QIiN0bURyZL7vA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3127900"
-Received: from rodrigoa-mobl1.amr.corp.intel.com (HELO agluck-desk3.intel.com) ([10.124.220.213])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 15:22:16 -0700
-From: Tony Luck <tony.luck@intel.com>
-To: tony.luck@intel.com
-Cc: Dave.Martin@arm.com,
-	babu.moger@amd.com,
-	david.e.box@intel.com,
-	dfustini@baylibre.com,
-	fenghuay@nvidia.com,
-	hch@infradead.org,
-	james.morse@arm.com,
-	linux-kernel@vger.kernel.org,
-	maciej.wieczor-retman@intel.com,
-	patches@lists.linux.dev,
-	peternewman@google.com,
-	reinette.chatre@intel.com,
-	x86@kernel.org,
-	yu.c.chen@intel.com
-Subject: [PATCH v14+ 20/24] x86/resctrl: Export interface to report telemetry unbind/remove
-Date: Wed, 21 Oct 2026 15:22:08 -0700
-Message-ID: <20261021222208.16324-1-tony.luck@intel.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261019205031.16977-21-tony.luck@intel.com>
-References: <20261019205031.16977-21-tony.luck@intel.com>
+   d="scan'208";a="3258258"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa006.jf.intel.com with ESMTP; 21 Oct 2026 15:22:20 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xJehM-00000000Q94-2Qb6;
+	Wed, 21 Oct 2026 22:22:16 +0000
+Date: Thu, 22 Oct 2026 06:22:03 +0800
+From: kernel test robot <lkp@intel.com>
+To: Lee Yongjun <jun85566@gmail.com>, stern@rowland.harvard.edu,
+	gregkh@linuxfoundation.org
+Cc: oe-kbuild-all@lists.linux.dev, digidietze@draisberghof.de,
+	xiehongyu1@kylinos.cn, linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	syzbot+7317196294d50d6e55c3@syzkaller.appspotmail.com,
+	Lee Yongjun <jun85566@gmail.com>
+Subject: Re: [PATCH v2] usb-storage: option_ms: bound probe-time bulk
+ transfers
+Message-ID: <202610220624.5aofbefV-lkp@intel.com>
+References: <20261021081616.89976-1-jun85566@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,194 +88,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021081616.89976-1-jun85566@gmail.com>
 
-resctrl obtains the addresses of the telemetry MMIO regions from the
-pmt_telemetry driver at mount time and holds a reference on the module
-until unmount, so the module cannot be unloaded while resctrl may read
-the counters.
+Hi Lee,
 
-The module reference does not prevent a telemetry device from being
-unbound from the driver, or removed. Either tears down the MMIO mappings
-that hold the event counters, and a subsequent read of an event by
-resctrl faults on the stale address.
+kernel test robot noticed the following build errors:
 
-Provide an interface for pmt_telemetry to report that the mappings for a
-package are about to be torn down. Stop using the regions of that package
-and serialize event reads with the notification so that no read uses an
-address once it has been reported. Events of the affected package then
-read "Unavailable".
+[auto build test ERROR on usb/usb-testing]
+[also build test ERROR on usb/usb-next usb/usb-linus linus/master v7.3 next-20261020]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Update AET enumeration to handle races between enumeration and device
-unbind/removal.  Count invalidations in a generation counter protected
-by aet_lock.  Sample it before calling get_feature() and, under aet_lock,
-check that it did not change before enabling events and publishing the
-copy. If it changed, drop the copy and retry. The new copy reflects the removal.
+url:    https://github.com/intel-lab-lkp/linux/commits/Lee-Yongjun/usb-storage-option_ms-bound-probe-time-bulk-transfers/20261021-171616
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+patch link:    https://lore.kernel.org/r/20261021081616.89976-1-jun85566%40gmail.com
+patch subject: [PATCH v2] usb-storage: option_ms: bound probe-time bulk transfers
+config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20261022/202610220624.5aofbefV-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261022/202610220624.5aofbefV-lkp@intel.com/reproduce)
 
-Signed-off-by: Tony Luck <tony.luck@intel.com>
----
-v14+
-	Handle races between enumeration and device unbind/remove by
-	adding a count of invalidations that is updated & checked
-	while holding aet_lock.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610220624.5aofbefV-lkp@intel.com/
 
- include/linux/intel_vsec.h              |  2 +
- arch/x86/kernel/cpu/resctrl/intel_aet.c | 87 ++++++++++++++++++++++---
- 2 files changed, 80 insertions(+), 9 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/include/linux/intel_vsec.h b/include/linux/intel_vsec.h
-index c04b1d0f3143..bcbf4937c71c 100644
---- a/include/linux/intel_vsec.h
-+++ b/include/linux/intel_vsec.h
-@@ -262,11 +262,13 @@ void intel_aet_register_enumeration(struct module *module,
- 				    struct pmt_feature_group *(*get)(enum pmt_feature_id id),
- 				    void (*put)(struct pmt_feature_group *p));
- void intel_aet_unregister_enumeration(void);
-+void intel_aet_invalidate(u8 package_id);
- #else
- static inline void intel_aet_register_enumeration(struct module *module,
- 						  struct pmt_feature_group *(*get)(enum pmt_feature_id id),
- 						  void (*put)(struct pmt_feature_group *p)) { }
- static inline void intel_aet_unregister_enumeration(void) { }
-+static inline void intel_aet_invalidate(u8 package_id) { }
- #endif /* CONFIG_X86_CPU_RESCTRL_INTEL_AET */
- 
- #endif
-diff --git a/arch/x86/kernel/cpu/resctrl/intel_aet.c b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-index 4ba27586fb50..589666e12b78 100644
---- a/arch/x86/kernel/cpu/resctrl/intel_aet.c
-+++ b/arch/x86/kernel/cpu/resctrl/intel_aet.c
-@@ -339,6 +339,8 @@ static enum pmt_feature_id lookup_pfid(const char *pfname)
-  * Serialises AET's view of pmt_telemetry:
-  *   - pmt_module, get_feature, put_feature, pmt_in_use
-  *   - every event_group's ->pfg
-+ *   - the telemetry_region::addr entries reachable through ->pfg
-+ *   - aet_invalidate_gen
-  *
-  * Lock ordering with pmt/telemetry.c's ep_lock is ep_lock -> aet_lock.
-  * AET therefore must not call get_feature() (which takes ep_lock) while
-@@ -356,6 +358,30 @@ static void (*put_feature)(struct pmt_feature_group *p);
-  */
- static bool pmt_in_use;
- 
-+/*
-+ * Detect MMIO invalidations to resolve races between device unbind/remove
-+ * and mount or resctrl file system.
-+ */
-+static unsigned int aet_invalidate_gen;
-+
-+/*
-+ * Confirm that no MMIO invalidations occured before adding the feature
-+ * group to the event group.
-+ */
-+static int aet_publish_events(struct event_group *e, struct pmt_feature_group *p,
-+			      unsigned int gen)
-+{
-+	guard(mutex)(&aet_lock);
-+
-+	if (gen != aet_invalidate_gen)
-+		return -EAGAIN;
-+	if (!enable_events(e, p))
-+		return -ENODEV;
-+	e->pfg = p;
-+
-+	return 0;
-+}
-+
- /*
-  * Request a copy of struct pmt_feature_group for each event group. If there is
-  * one, the returned structure has an array of telemetry_region structures,
-@@ -373,24 +399,36 @@ static bool aet_get_events(struct pmt_feature_group *(*get)(enum pmt_feature_id
- 	struct pmt_feature_group *p;
- 	enum pmt_feature_id pfid;
- 	struct event_group **peg;
-+	unsigned int gen;
- 	bool ret = false;
-+	int err;
- 
- 	if (!resctrl_arch_system_max_rmid_idx())
- 		return false;
- 
- 	for_each_event_group(peg) {
- 		pfid = lookup_pfid((*peg)->pfname);
--		p = get(pfid);
--		if (IS_ERR_OR_NULL(p))
--			continue;
--		if (enable_events(*peg, p)) {
--			scoped_guard(mutex, &aet_lock) {
--				(*peg)->pfg = p;
-+		do {
-+			/*
-+			 * get() takes ep_lock, so it cannot be called with
-+			 * aet_lock held. Sample the invalidation generation
-+			 * first and retry if a telemetry device was removed
-+			 * before @p could be published.
-+			 */
-+			scoped_guard(mutex, &aet_lock)
-+				gen = aet_invalidate_gen;
-+			p = get(pfid);
-+			if (IS_ERR_OR_NULL(p)) {
-+				err = -ENOENT;
-+				break;
- 			}
-+			err = aet_publish_events(*peg, p, gen);
-+			if (err)
-+				put(p);
-+		} while (err == -EAGAIN);
-+
-+		if (!err)
- 			ret = true;
--		} else {
--			put(p);
--		}
- 	}
- 
- 	return ret;
-@@ -416,6 +454,35 @@ void intel_aet_unregister_enumeration(void)
- }
- EXPORT_SYMBOL_NS_GPL(intel_aet_unregister_enumeration, "INTEL_PMT");
- 
-+/*
-+ * pmt_telemetry driver calls while holding ep_lock. This is for unbind/remove
-+ * operations that will invalidate the virtual addresses of MMIO registers
-+ * provided by intel_pmt_get_regions_by_feature(). This simple interface may
-+ * be overly broad if there are multiple telemetry devices per-package. An
-+ * unbind/remove operation on one device will stop resctrl from reading
-+ * event counters from all devices on the same package.
-+ */
-+void intel_aet_invalidate(u8 package_id)
-+{
-+	struct event_group **peg;
-+
-+	guard(mutex)(&aet_lock);
-+
-+	aet_invalidate_gen++;
-+
-+	for_each_event_group(peg) {
-+		struct event_group *e = *peg;
-+
-+		if (!e->pfg)
-+			continue;
-+		for (int i = 0; i < e->pfg->count; i++) {
-+			if (e->pfg->regions[i].plat_info.package_id == package_id)
-+				e->pfg->regions[i].addr = NULL;
-+		}
-+	}
-+}
-+EXPORT_SYMBOL_NS_GPL(intel_aet_invalidate, "INTEL_PMT");
-+
- bool intel_aet_pre_mount(void)
- {
- 	struct pmt_feature_group *(*get)(enum pmt_feature_id id);
-@@ -491,6 +558,8 @@ int intel_aet_read_event(int domid, u32 rmid, void *arch_priv, u64 *val)
- 	void *pevt0;
- 	u32 idx;
- 
-+	guard(mutex)(&aet_lock);
-+
- 	pevt0 = pevt - pevt->idx;
- 	e = container_of(pevt0, struct event_group, evts);
- 	idx = rmid * e->num_events;
--- 
-2.56.0
+   drivers/usb/storage/option_ms.c: In function 'option_rezero':
+>> drivers/usb/storage/option_ms.c:49:18: error: implicit declaration of function 'usb_stor_bulk_transfer_buf_timeout'; did you mean 'usb_stor_bulk_transfer_buf'? [-Wimplicit-function-declaration]
+      49 |         result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
+         |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                  usb_stor_bulk_transfer_buf
 
+
+vim +49 drivers/usb/storage/option_ms.c
+
+    30	
+    31	static int option_rezero(struct us_data *us)
+    32	{
+    33		static const unsigned char rezero_msg[] = {
+    34		  0x55, 0x53, 0x42, 0x43, 0x78, 0x56, 0x34, 0x12,
+    35		  0x01, 0x00, 0x00, 0x00, 0x80, 0x00, 0x06, 0x01,
+    36		  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    37		  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    38		};
+    39		char *buffer;
+    40		int result;
+    41	
+    42		usb_stor_dbg(us, "Option MS: %s\n", "DEVICE MODE SWITCH");
+    43	
+    44		buffer = kzalloc(RESPONSE_LEN, GFP_KERNEL);
+    45		if (buffer == NULL)
+    46			return USB_STOR_TRANSPORT_ERROR;
+    47	
+    48		memcpy(buffer, rezero_msg, sizeof(rezero_msg));
+  > 49		result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
+    50							    buffer, sizeof(rezero_msg), NULL,
+    51							    OPTION_MS_PROBE_TIMEOUT);
+    52		if (result != USB_STOR_XFER_GOOD) {
+    53			result = USB_STOR_XFER_ERROR;
+    54			goto out;
+    55		}
+    56	
+    57		/*
+    58		 * Some of the devices need to be asked for a response, but we don't
+    59		 * care what that response is.
+    60		 */
+    61		usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
+    62						   buffer, RESPONSE_LEN, NULL,
+    63						   OPTION_MS_PROBE_TIMEOUT);
+    64	
+    65		/* Read the CSW */
+    66		usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
+    67						   buffer, 13, NULL,
+    68						   OPTION_MS_PROBE_TIMEOUT);
+    69	
+    70		result = USB_STOR_XFER_GOOD;
+    71	
+    72	out:
+    73		kfree(buffer);
+    74		return result;
+    75	}
+    76	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
