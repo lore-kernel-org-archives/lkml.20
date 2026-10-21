@@ -1,129 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575429;
-	b=hMTotnWTgh7ZCz+lDLjz8XQOvlOPHtERU2TSKBagBnmDz/wElLw4x8sqp0hNUxlduOs6
-	 mHO0CDUZ9lz+nvL0TG+HZHccDqCb3xpflvFuH7/PlRnriwP9vxvKSkq1GwMvVL7OLl+fh
-	 W6l2d06qvJomySlO7sarVsoPuQD6tkI8i9KffLSPbxyTqLIF9X8bN35/9ZWy0YllCxu4k
-	 IPlhxW5zHaPtauYgMp6Q/B9ZtkcXPnnOj+XsGTyqqjqwoxaNOfP466Jhu5Lfkh2C5NkcK
-	 k7z15IJu9UKQPUV0+vEb8cMSmO8GoqH2Va2nBlByfvS0+FpdEbRPefhZPHwm1v6g0aA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575429;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=8heTw56+56MtWgyiyJVoY9nFbneoWRtwTFW2KanxM/I=;
-	b=dg/UdMS1jW9z929CtrNDZ3c03KyWJef8JKv3PFbxOCO150Xio/ppXS1vDlnwfXTfYdrA
-	 AN4pyFgrVuMTsZFjKpxqjRF82fqlaDnuu3JgBje84Q52pUl399idbRnWrznFEgiKFR7oA
-	 tUhUAS41SH9t3/x0MThyuou8iiFMtIlB/uzrgCjWl7U18wQvG+2zRGVlcAKX3H3QRjsR6
-	 9GR2cXrcYFhwmrg+z6cjb4REO6P1Y8hG4DAsw+t+wpOpIzqZMHw8WWkMs47hBvQMyfgYn
-	 +QCuI2gtwGVOrNUC2p9vL8jDGudzDNbPnO4zqSRuG0Pk4t7Hp2Bo3B6AIWq/Ebg9kjg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=dGO3wKCC;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vGKoi2wj;
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792575460;
+	b=wxmLpELETCNjvQPRvM6gVX6Bkf1NbuMyVMJ3oPoPtE8YOncn8gDzJ7gb/ueoDhfzD1oL
+	 ZWC0Ip8+b+qa8bvNgXwy/Oxriia5GDf4C0GnzNgTn1KpulUiVJ2uLrwRpkbveGvJA6gvN
+	 E5VuHKlCTmt5vBVNa3Y7Ac7TrMIXRtIFdXtWIn9uEB7nri/h/mTnQxHlhTr73kndh0apI
+	 OJdusCpo4suo7HIiC963YQI3FiJBHDPIReiCq8dJYFM6Fsb6oPB8RewOPowU5KoXd0mEC
+	 /RESFVDs2Fuu/76fAcDpd1w31WfySrqClkjavw7pSzD1/uh2jXCBL3znh+ZRX9jf8RQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575460;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=dsPOGTQLoi0rzKoAlOG8d1lYBQg1OW1oD1gG87PYcdQ=;
+	b=2YgMcrKTonVCmKBquOJce1Wbu/3KaKB7RFFyoQ9RYbEbpvAaKkCG7tWzRWEJ3go+t3HW
+	 UaOSixseJQymFq1Wnx+cN6pIq8O5u5uC5GdXeWIp2qsmhuG5qPya5UK5L5NlbXVSqvVMn
+	 qLH62jjkD+XmpLbzFCzxRX0WYkM2nG2F1pl11SHL6Lx3SHRUAgworkUNjq6wsrXGZ85/5
+	 x7fzZpBgEm5RmhMmdr0DcLyZzeSC6TdKOelr4mUk/IJvKOT2Rn2v4Af/JIWvFYrTg2CJE
+	 sojH99aUmq67j6epEAy6mky7Db/cfrzgKtIV/CsQDz7ob7YnENGgyMeT/N1/EqzEHzA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="lyO39/h3";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E4F606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:37:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7E4F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC261606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:37:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC261606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=dGO3wKCC;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=vGKoi2wj
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 15647140013D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:37:08 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Wed, 21 Oct 2026 05:37:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792575427;
-	 x=1792661827; bh=8heTw56+56MtWgyiyJVoY9nFbneoWRtwTFW2KanxM/I=; b=
-	dGO3wKCC4EXAhuS66Bxn9f60R/sWDyw7UIfHXqjGoVa1Ah0ELM9tSFhkQg/HIr13
-	41B0ckDrTzMV3PZGqEh9dy8fqCccvPiiKmAVNKOwiR+At4yhEQoyiq0j5Ft470e6
-	Cqy5OGOA/MSMxfk0h1OI8onDEDBZLJjm4IqnkEcOFLtT15iI6MNN5dcd4t/cn5ir
-	AyGpbOrsHfqqLTul8FyEDQB7EhacULcpukfBnfFDs4jw9+vDHmpovuZU1wRl6t+f
-	VbjCUceK3nqAOM4XMjcNaziy2HhgJnsbJpdy18buP8/1vPjgXbaV9NRxtoBmMNAs
-	0+0pIoymYRyQLF3mI5yjFw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792575427; x=
-	1792661827; bh=8heTw56+56MtWgyiyJVoY9nFbneoWRtwTFW2KanxM/I=; b=v
-	GKoi2wjdM9yOWaw/oMGpwg9z87QbnAQzP5aYQL9f0tj03vjxeOh99sp7o+eXpMiQ
-	nTrYXbZkZtRPpKdPJrMNYF5dbzy+Se640ZJ7633jtSc12NTFPmENIMLrmu0HmsVw
-	SpQUMbdg3vOk8RZ8BVSXgRKUkQMeIlK5lV6tie/1186jkIgRxvWKXl1WtZ9TQtog
-	ETWZoohT9cxWd3aYI4z9tcs1rZo+QqOJjd2IUoHMc9K6HrlphDEYLNhBX8dhdqBB
-	iOiaO6i21+Lkoffi83YW+GVOgsKDUoJhlzucm6hw44Zyazo7Oz2N3AG4dGpzm2sF
-	eEZf/iDFYc48XGZBaCboQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792575427; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:pAfz+KKqrkeWtfJ3NZmfdDVJxtr0GdD4KNJD2xvgP6nF+En
-	/M06RVPWgWiYA8/Npp3z9wHFh68+tbPoiWPA8lxeIgRDweJxrHy7QXeS7nZ8WJMR
-	n5SAdNl7AvFw0KeSRqRzM6mvugz+KhIYezyWmziUt0DlW/P8v0Az2vMf8VugeCdS
-	56djTVdyK3IfimqLgbbEtPvNFhjXWcxSSHEW/105Vg0I31g3KYgn6LKLKGOEFmSV
-	fpH9r0hSGoApn0ZJ1cUdyXX9oanu5jqd4TGgqN4umZDDceioi8OXbJXDEPI28paO
-	1yVRcA+cyJeEZKqmcSMxdGY7hl7aIa3NSbTxj6A==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:6XO1KeyWU3i2v78yzLgczQa0EBpcmSBqmiOBqd1U+oA=:qqvF6PieulX8dhtkAMmeXWW60A263BnuwhSiiJOX7Xw=;
-X-ME-Sender: <xms:w4fYatASLkIOFanZStNTUlWDmPfdKykhBfbOEs0o3-S1YaFci_yphw>
-    <xme:w4fYatN9od2E_5QyeGSJThGSUOg-jOS96vqCRKj-_EwgkegdKOUlLxc3aDCSOsMht
-    1-tZOUcLA87nftTI0MHEb4_hKoRDwla3u039ki1db5VUTGMg5c1TA7Z>
-X-ME-Received: <xmr:w4fYasDVUGrT8DTZDDv9IOSif5Zy-MQhLLL0HKEVE5at3SPBI-QWhueqUAjkCs0TjQKAzUs9MKaeEv9lR-mUCq1v>
-X-ME-Proxy-Cause: dmFkZTGBPO6HAytZQzbZu7Pl5RKMdqLuhU8DfonQ0oW+zWKecnh1F/BjYXZDcNC1LpCSWh
-    sKW7hXfvc6MDZzlLB1ZQzq3eDt2kXWCsfOLEB99gf/K4h4fumRBdyHeATmC7R0AhFjYrBM
-    N4LT5PDoMIH6Dpx7GgbTK1lQ9m+KIy88Wd8pOxS7IVzYGq+sA7cPhZlDDy13mhx98vC9mO
-    7zlR8+1tEm0KcuQguPkcEvA/Q5GqshUCgN1aZYiR8GOb2Pyr2x08E0P53fti5d5OpkIncH
-    6GTTcLtqiP4YDrHJK3kQkg1p0Om5n9HY7+diIqn8UmFwVsLuImkL7buVhamZl9hRwxKDa2
-    oHuf+sHvBUG+lwrzXxqIqZpm0rH3pSOJkvNqyRalZGvY/+XP05+GqX3BoME/LlTgDf7knw
-    CVTfJFXMnAkBbk+jqVMOho7PgnkkXPAIEbtYRD0MXBq8V7IDY47l8za2VCDnwLpLMpWRH2
-    KMx2nT6iv5tT1FhT+5d/vSHBWN9q4dIHe25lthrCV7WtfBbNjIgWt8w2xG1/VTZTcdc6SO
-    p2/Z56synrAHb9Rw2b4e7jtZ9e1LZbiuZyWtJDBC7AIOpvlqgEuVvNp3NJjqzSP6h9e9m3
-    BeVJjoYJsqnYTCs6OxRhIjnQUD7cTQ6bSjXupkO051NqntsgtCMlyHdBjz+g
-X-ME-Proxy: <xmx:w4fYanl45Mq66htDCk8rsZXNNlXb-u2QdxgGYrjiXU15dffVXloXrQ>
-    <xmx:w4fYaopefKkyMH4ELNDkM1as-N_0AxIXuvokEuID5JPe2t5Pn6vv8Q>
-    <xmx:w4fYaui7_tqEKyUtymSNDjNWgJqpK4yb7fBEtmwNBpX0647zZIHJyA>
-    <xmx:w4fYaqh4ANxi5YVquDW3ZcGhmpSPW7PfZOJo0P6aHme-Qfn0UE2nBQ>
-    <xmx:w4fYavS51Z-FTtC03bqwGXjrOjkcwtV9V4-4c1b3x9B7wlplYZ9y7rnl>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 05:37:02 -0400 (EDT)
-Date: Wed, 21 Oct 2026 18:37:00 +0900 (JST)
-Message-Id: <20261021.183700.735437784476089878.tomo@flapping.org>
-To: chenhan0017.work@gmail.com
-Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
- boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
- georgeandrout13@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] rust: math: add signed division and remainder
- helpers
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261017111134.22546-4-chenhan0017.work@gmail.com>
-References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
-	<20261017111134.22546-4-chenhan0017.work@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lyO39/h3
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35159e0092aso62866eec.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:37:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792575459; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R0mBnG2K47gBlzwjfPAsk1gcTCSXecXK6J8fKUZZeBsQYpAU8wqveX2Dnq1SLunWRA
+         cEfEhi2HH8dShC4XU68Zb6ivLZNJRZYLy2nUHctYejC73/KvI/CdkN55kW01Cc6lMP/y
+         Pj3zrdnKGvapeK19JeDmmHVYi9QPVDFKjcaOAvp9SAD7ZYfMw2+lN9rTpCrDyUcGYq0p
+         HTBooc4+2y5wCpVVf6RRb9bl/Z2dIGfowjEpV8ZH6fZY4v3nS0G8xRhjUnaUNMN51tnL
+         faqHIB8vB5M0i83JLOLDOpae3kL9HAMlXsEGcLcY+g2ahRA0Bxm1Dfalt3zxUxoj8WUR
+         rXBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dsPOGTQLoi0rzKoAlOG8d1lYBQg1OW1oD1gG87PYcdQ=;
+        fh=YUKDSHPWOm33Ss+Zg05FxQvmTShcj0DpM/grcAkJVqY=;
+        b=eGwH5EmX2MvwUohcJbfiUcmTxcnJd+GHNorjYNE5VXEDeU374Wg9z/GxN14K2wEEO4
+         8+0/Xo65pKFyMCG1phlRUYE9tEqBdt+jFgtfzO3RHbiFsc7ScC50bo/E2Nw1rPbC5tmw
+         de5lHgDOq+8wq/GR7J1hWaafYD4AD65WcmpQ9LTHze0y/d2NmGN8QDhYoy23viUs3pGt
+         S7LlWU/oSAfCUcJxLmR7cwNvs9maNLCgmnyG+ii2aArTqXxw5ZQ8BgezUl313e9xdQVM
+         763Zv04QaGfeZ9ryMwqEWZBoMNsuzAKsERXePrdADEyAjBU9AI2JChQBWm0/ps+8U4GT
+         TDpw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792575459; x=1793180259; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dsPOGTQLoi0rzKoAlOG8d1lYBQg1OW1oD1gG87PYcdQ=;
+        b=lyO39/h3vadAbBZSnxYCit8UCqhKByj3p1OZchONWtumyOeThw3cT3lwMfjPxtfgd0
+         bG2Usxr8cE22Zo8HfabO4FT/03vXSSydHSuyY2D0WgY0tnmLUI4nbMrqOg5UZ3os/UI0
+         4qvQY5u6llpem2dRN8mTxc3StQBPt65iWq22mEbb0ISCu68sXssRk4mxdcCr8927pN2+
+         dwS+VIU2B21RGJDDXcs1U7dgFIRyYGh40Ok4aVeExP2uoMUfxRuAtGRDA3zetTDVNKnW
+         HmzY0RCR0TGTNUbF0SbTp0fd1/iV4qxp3a4idwO0wQRt7TfZ04pRTcPCLwsJfQa8sVTP
+         mwHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792575459; x=1793180259;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dsPOGTQLoi0rzKoAlOG8d1lYBQg1OW1oD1gG87PYcdQ=;
+        b=Ua7BxfFHuRP8+1T9nqOjZvKbuSGKGrOLN1UFKNAchwxJffOeNT+jjV+mQ/aovEv+0K
+         F4s1x85NBRCE/IVNmWXV3vWyJd+fSEVxMtHL26rDmn+CNSp6mYzozjtsz31AzitoBFyq
+         PCCBBNCyfVq4lOIYTjmVXR9rbIK8HAYidFwrR21Rm+wgIdm9TxX+/Iwl9cm5J3+pQ2EL
+         PYKKhep6ZWniQWGNFvFwCDsze0iDp88quD/BolIX7yOZCv12AZm/T+nZinpgcsLVDUsp
+         DiAwjPLQN7ugEllpCLOgOWxdDVlqXRyzkbsS8U0C3kw+BzI++OmoFrhqCTqSdeornT/R
+         PAeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByBpvOn+KBBuAkj7WECPeBO9e9Pdcm9XRt4H5S0XM8Q9pXHbnoCqHjFE4FwBtvW+3VD6wl6K75meYUVEWY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLnU/ic+jLoHCheMSxYrKuoHQNqckwSDu4WhPtXrBJPyZJVajV
+	8RHvHxA8VIA3CLpRNLVOmsEGBR2ukbqm2EVDWcxJ9HPaaWIMR79G9Uq8kifBAP0rVeTjOkgiZMp
+	6Ybephox/lzcaEVY8AVePHlypInMfvV0=
+X-Gm-Gg: AYBFou3VBSAewST/HN7vtpVwCgMnXrpoELA6xGdwfBXLmGWoYuIsgZbKw3ojlqdVfIy
+	8+8a0Q4FtPe45KfgxnPxQAgdELqCeTYMWUsMPmvIs78S5MG4oXyB3dA/pGJwHAGS3zfDjXOpdpI
+	45ojZcOyawijUmGJHrfXuYtgfZzNEO2JpmKxLQq99Nl3DXP0AJLF8dosBYsHyz4WOv4T3tdffaH
+	Y4bbSVynXCuk5cxjTys46kuw39k68JSODshHm0HvZb1Cd1Tcf1V5OXcjAToE2QDO1eFprpvcqZy
+	YSc4SYZwn6on6uvDDOrQQVtUJmyeMgaG3G01cUFtwCK6v0CVwGKuVgKje8+O7HrHFT1f+pv6oyM
+	BFmcmw4XLoVFF8YmNGmCHAa+9c/eSP6men3Lt2pqh3In9KaehKjAznbdNBHqkpt27z29VxvbiOy
+	3eowVqG4dRdUWEt7UbApLplpltG+AfLFDefHM+RLYbC2Lz0/p85Fh1x7NkMRS21+b3YYQkvBznY
+	IZ9BaEdMiCRiVPxxn5IGEWg45wOLFy1wIMH
+X-Received: by 2002:a05:7301:18a5:b0:35c:492b:e310 with SMTP id
+ 5a478bee46e88-3674866f609mr4050794eec.0.1792575458743; Wed, 21 Oct 2026
+ 02:37:38 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,72 +105,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+References: <2026101318-stingy-crescent-b47e@gregkh> <20261021033257.1359428-1-cmllamas@google.com>
+In-Reply-To: <20261021033257.1359428-1-cmllamas@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 21 Oct 2026 11:37:26 +0200
+X-Gm-Features: AclHuK_gezHx8SH1bijhxHoa8Dbdh-lfkQe2cyS2NLO-bLn2HecxYdxDJWtCp4A
+Message-ID: <CANiq72nHP4qiHE1=y2nhF5en2r9XAR40AnTUNWMK3uPmGuENWw@mail.gmail.com>
+Subject: Re: [PATCH v2] rust_binder: add state_hashed and transactions_hashed files
+To: Carlos Llamas <cmllamas@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Alice Ryhl <aliceryhl@google.com>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 17 Oct 2026 19:11:34 +0800
-chenhan <chenhan0017.work@gmail.com> wrote:
+On Wed, Oct 21, 2026 at 5:33=E2=80=AFAM Carlos Llamas <cmllamas@google.com>=
+ wrote:
+>
+> v2: open-code the %p behavior in MaybeHashed: No "0x" prefix.
 
-> Delta's division and remainder implementations operate on integers and
-> do not depend on time units. Move them into a math module to provide a
-> common home for arithmetic helpers, with Delta as the initial user.
-> 
-> Expose div64_s64() and rem_s64() so driver crates can use these operations
-> without constructing time values. The division helper takes two i64
-> operands; the remainder helper takes an i64 dividend and an i32 divisor
-> and returns an i64. Both keep Rust's signed operator semantics, including
-> the unconditional panic checks, and use the existing C helpers on 32-bit.
-> 
-> Keep the Delta API and its panic documentation unchanged. This is separate
-> from the preceding behavior fix so that introducing the math module is
-> not required for a backport.
-> 
-> Assisted-by: LLM
-> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
-> ---
->  rust/kernel/lib.rs  |  1 +
->  rust/kernel/math.rs | 64 +++++++++++++++++++++++++++++++++++++++++++++
->  rust/kernel/time.rs | 49 ++++------------------------------
->  3 files changed, 70 insertions(+), 44 deletions(-)
->  create mode 100644 rust/kernel/math.rs
-> 
-> diff --git a/rust/kernel/lib.rs b/rust/kernel/lib.rs
-> index 4d5c96ddc49c..60c2af705b47 100644
-> --- a/rust/kernel/lib.rs
-> +++ b/rust/kernel/lib.rs
-> @@ -98,6 +98,7 @@
->  pub mod kunit;
->  pub mod list;
->  pub mod maple_tree;
-> +pub mod math;
->  pub mod miscdevice;
->  pub mod mm;
->  pub mod module;
-> diff --git a/rust/kernel/math.rs b/rust/kernel/math.rs
-> new file mode 100644
-> index 000000000000..34ca097caac9
-> --- /dev/null
-> +++ b/rust/kernel/math.rs
-> @@ -0,0 +1,64 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +
-> +//! Integer arithmetic helpers.
+Thanks! I think we may want to have an easier way to do this non-`0x`
+formatting later, centrally, even if not as the default (which I am
+ambivalent about -- I didn't hear more opinions on your other patch).
 
-//! C header: [`include/linux/math64.h`](srctree/include/linux/math64.h).
-
-?
-
-> +/// Returns the remainder of an [`i64`] dividend divided by an [`i32`] divisor.
-> +///
-> +/// A non-zero remainder has the sign of `dividend`.
-> +///
-> +/// # Panics
-> +///
-> +/// Panics if `divisor` is zero, or if `dividend` is [`i64::MIN`] and `divisor` is `-1`.
-> +#[inline]
-> +pub fn rem_s64(dividend: i64, divisor: i32) -> i64 {
-
-How about matching the C function? Something like:
-
-    pub fn div_s64_rem(dividend: i64, divisor: i32) -> (i64, i32)
+Cheers,
+Miguel
