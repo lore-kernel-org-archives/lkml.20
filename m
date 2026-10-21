@@ -1,54 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580747;
-	b=YjHw/1RSEUPkpj+4f2yJulA7MwahwTJXkc28n3n6foY2Iph5vWOt9t0+wN+SHtKtYwk9
-	 1vpk/UVpoWuYali4JNsQKxKxkLuBQLW2Hz1nsWswsuAAKzAnO5qpegd+JkHaei1WIydaz
-	 XHWCsaVCvRLhaSaV7EO5BNJrDSdo19nAQ0R72awUFHu4KEJQTy61ylmQBa1eCUyQ9ibCO
-	 ws+g1pYO3vBYaSmiMxduu9ve3Ysa8gqaa+Xk6bgZRm1IkrM71LH8VLqbyGWNfKCQS3vdN
-	 KGfodZKXQTsceeAxGjzBNFxQvXbmMdgmYTV/cyCQSwbzGAWRvbPBDnynGrHPE/2nsbg==
+	t=1792580828;
+	b=Fn/uvoC2wBc/cSgQDDhVM34fG0DmLWSKuKFelcts6U1skMqvlUAIMX9qSATxSGxdniF4
+	 AClvnIUoRr+g1wFfopJIuUUCq/ra8gtgs5hgCqgDjCIzHzpZVPhtHh+1AmqHKp14fBVMe
+	 kcdyfmofP/n+yH9KHIWmX/3bVbFHRicHQ1DOt/XKonkqlztWNc9RvW2mJdLPtEwKmhi4M
+	 HKdaFobEDDWldYq80GdsOZbb/RKt3bfA10ovoAWp9z3GzFPIg4WFbQ0p3Hwd3ZVZouakF
+	 F5jWTYzM5QMvl/G9Af/N0uTrNx6FDEaVCEn1PTuE9fkzcC1PN3STJp++NGijMa/Sqkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580747;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=i91IextAwQtyto3JwcboWuxOtr/zAylf2Na72nZI7O0=;
-	b=rei9suD0p1dk6GtZBxYLAwI8c4FPEmCctIFVJpK9JVSiCsIfWZoFY+aEWVO0cYpdFjXZ
-	 6yf1T77UAp3WftimnxwZfqQbzT86B5nXqz+CktsQVFGuLork5N50PQCtXCcxQrWjCzJoc
-	 OWGP5HfiG43uc1l6UopRS9wXqkp3a2K/JWi6TtEEtYnf+enGYDZ7ivIgEGkvTD8GyPTnJ
-	 Fy+gb7rg6Z+VR3qaCNWPNyeb3ltA+P5hENqdHEonp/rP5N2Icn4hYO83IRXM1v3sKFfus
-	 KjN7oQq2pVI2qhm3E9POMLtiyknlVHXst/EBC5d/sKd4mDC1dim3itr90Z7AlTKK8Vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580828;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=/Lx6DShk9reJacpbaAFxTHNuqC347ivhuY9XrUZ9h1Q=;
+	b=MyImWMRjkVZL5uIHihyeREYiDLMaWDxMngsAvO5bcysGZ+ASVHJSwtrpIZd8K3pyJ96K
+	 lM2rn8yXt78cB8CzBxLDgDP9G0ZQWIW6RBxAUUEySLUiD5O8Ek4M/o4hZSdnWFAxmcCbP
+	 WgczrfivBQtGVqTSpZ6f2H4Bam5Uxr02VyDIoj/nq2SrUwKqRwxTAZxgnJXf3PZQ3nV+K
+	 c5mHThK14qw/+ID65qUKSAiJa9RR9DAZ9ZOg4la2/rUMa16x6KHuawl6p83ExSiUlq6vl
+	 Rei+wvNy1k9phBDrwj2W31Az4MJSUdCRmbftmpfAVcI9k2BLZtOrD4GgVq/626iOTQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRsYJxy0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eWdl5Unh;
+	arc=none smtp.remote-ip=91.218.175.232
+Received: from mta0.migadu.com (out-232.mta0.migadu.com [91.218.175.232])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898A6606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA83F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:07:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA83F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BRsYJxy0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39EA01F000C9;
-	Wed, 21 Oct 2026 11:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792580747;
-	bh=i91IextAwQtyto3JwcboWuxOtr/zAylf2Na72nZI7O0=;
-	h=From:To:Cc:Subject:Date;
-	b=BRsYJxy0ddiNNztlu6kyvRrER9QbtcgazOA6hA99gQ3SG73+FRQm8x7JT3oIOMvyR
-	 akC6qM9Q7iyVfbKzemGmXqP2ZFjk6ybymk9XU2+xZwEKcHPj8uX1y7jr+HlHcKu03N
-	 8+ZtHaAFhtDKYU/4MZYmhtN8W65VS1Utc4Auygcl8WnC1Hrun0kQizIDSno5fS4UeU
-	 kBrgSCOFUuOOFIFiWSj+sWEqeSD3wfFMQn/k78jOPDRyNtvRDUw/zV62ue2jhEhvYk
-	 2dzhPAdG8izSVb9bTqjiXP1djoCHqr9ug1U8wi9nHn7h2od9yfNwHvttfl59oPKOLl
-	 An5h0boK+0CXw==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>,
-	stable@kernel.org
-Subject: [PATCH] f2fs: compress: don't overwrite populated compress cache entry
-Date: Wed, 21 Oct 2026 11:05:38 +0000
-Message-ID: <20261021110538.746063-1-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=eWdl5Unh
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=S4bD+01K5/KhrqQzm+KUd+2uczOY+o8D7HdNxOh0FzY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792580825; v=1; x=1793185625;
+ b=eWdl5Unh0QbJSum1DTWrzU1OMHs8bda11JkV+h6l6Da8OvokmBxGo1PhZy5KN67+4V2/I4kY
+ gNhAOMFoznERIl+V2tAzu0/supNaU3ILKAUx1Wz+Zuih7ZCLE1vtzbJGvEsORoi33IUlAE7fvij
+ 4pxhHsCB0gsJvE5KAcf2PMCM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5ddc05ed2452df9;
+	Wed, 21 Oct 2026 11:07:04 +0000
+X-Mizu-Trace-ID: b5ddc05ed2452df9
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: Joey Gouly <joey.gouly@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Steven Price <steven.price@arm.com>,
+	Yang Shi <yang@os.amperecomputing.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/4] KVM: arm64: Fix stale MTE tags reaching a guest
+Date: Wed, 21 Oct 2026 12:06:56 +0100
+Message-ID: <20261021110700.493315-1-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,66 +79,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chao Yu <chao@kernel.org>
+Hi folks,
 
-f2fs_cache_compressed_page() looks up the entry of blkaddr w/
-f2fs_find_cache(), and then grabs it w/ f2fs_grab_cache() and
-F2FS_CACHE_LOCK_CREATE. If another reader populates the entry in
-between, f2fs_grab_cache() returns that uptodate entry, and we will
-overwrite its ino and data.
+Changes since v1 [1]:
+  - Added patch 4, mte_clear_folio_tags(). (Lorenzo)
+  - Moved patch 3's sanitise_mte_tags() call into the
+    kvm_pgtable_stage2_map() branch. (Lorenzo)
+  - Patch 1 loops with folio_page() rather than reusing page, and its
+    comment now matches patch 2's. (Lorenzo)
+  - Collected Reviewed-by from Lorenzo on patches 1-3. (thanks!)
 
-Before the compress cache was converted to the generic cache,
-add_to_page_cache_lru() failed w/ -EEXIST in this case, and the
-existing page was left untouched.
+Three fixes for hugetlb and THP pages that reach an MTE guest without
+their tags cleared, so the guest can read whatever tags the pages'
+previous owners left.
 
-Normally, the racer is a reader of the same block of the same inode,
-so both copies are the same, let's just back off, as
-f2fs_ra_meta_caches() does.
+The first clears the whole of a hugetlb folio before marking it tagged,
+rather than only the pages being mapped. The second does the same when
+KVM_ARM_MTE_COPY_TAGS copies tags into a page. The third sanitises when
+a permission fault installs a THP block, and runs the VM_MTE_ALLOWED
+check on permission faults too. A VMM that maps guest memory with
+PROT_MTE isn't affected, as faulting that memory into its mapping clears
+the tags first. QEMU and kvmtool map it without.
 
-A block address can only be owned by one inode at a time, the block
-can not be freed and reused by another inode during population, since
-the reader holds the locks of the cluster's pagecache pages until
-decompression completes, and truncation must lock these pages before
-freeing blocks. So if the uptodate entry was cached by another inode,
-it's a bug, and one of the copies must be stale, let's report the bug,
-and drop the entry, then readers will load the block from disk.
+The fourth is a cleanup: it factors out the first two patches'
+folio-clearing loop into mte_clear_folio_tags(), which mte_sync_tags()
+now uses too.
 
-Cc: stable@kernel.org
-Fixes: 6a78d0488116 ("f2fs: cache: use compress cache")
-Signed-off-by: Chao Yu <chao@kernel.org>
----
- fs/f2fs/compress.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+I have a reproducer that reads the previous owner's tag from 511 of 512
+pages in each case. With this series applied, it reads none.
 
-diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
-index 747141c79900..9cc77d4dc63f 100644
---- a/fs/f2fs/compress.c
-+++ b/fs/f2fs/compress.c
-@@ -1928,6 +1928,24 @@ static void f2fs_cache_compressed_page(struct f2fs_sb_info *sbi,
- 	if (IS_ERR(entry))
- 		return;
- 
-+	/* someone else has populated the entry after f2fs_find_cache() */
-+	if (f2fs_cache_test_uptodate(entry)) {
-+		/*
-+		 * a block address can only be owned by one inode, if the
-+		 * entry was cached by another inode, one of copies must be
-+		 * stale, drop it and let readers load the block from disk.
-+		 */
-+		if (unlikely(entry->ino != ino)) {
-+			f2fs_bug_on(sbi, 1);
-+			f2fs_warn_ratelimited(sbi,
-+				"%s: blkaddr %u was cached by ino %u, current ino %u",
-+				__func__, blkaddr, entry->ino, ino);
-+			f2fs_truncate_locked_cache(entry, false);
-+		}
-+		f2fs_put_cache(entry, true);
-+		return;
-+	}
-+
- 	entry->ino = ino;
- 	memcpy(cache_address(entry), folio_address(folio), sbi->blocksize);
- 	f2fs_cache_set_uptodate(entry);
+Based on Linux 7.3-rc3 (fd73f4a665989; also applies to kvmarm/next
+dd0bc00e3e920 with a three-way merge).
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/20261019132103.3836646-1-fuad.tabba@linux.dev/
+
+Fuad Tabba (4):
+  KVM: arm64: Clear the whole hugetlb folio when sanitising MTE tags
+  KVM: arm64: Clear the whole hugetlb folio when storing MTE tags
+  KVM: arm64: Sanitise MTE tags when a permission fault installs a
+    mapping
+  arm64: mte: Add mte_clear_folio_tags()
+
+ arch/arm64/include/asm/mte.h |  4 ++++
+ arch/arm64/kernel/mte.c      | 15 ++++++++++-----
+ arch/arm64/kvm/guest.c       | 11 +++++++----
+ arch/arm64/kvm/mmu.c         | 13 ++++++-------
+ 4 files changed, 27 insertions(+), 16 deletions(-)
+
+
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
 -- 
-2.49.0
+2.47.3
 
