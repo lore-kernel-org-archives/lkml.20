@@ -1,102 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792545662;
-	b=lGxGw0/3A7C0Ircxl1CHwWq7299mbLw1DgdAcJYuF/Nhb9PGSXdHcGJh3zTB+PVV3YkM
-	 e3iX0b1ecglAQBNQpKdXmKP/gg8AiMUrGvVdy5kDXUZMiLIcvlqiC3KYeeNXwlc3BPjVA
-	 UsHa6IX/F3bbaoD6vzA6YYKmsDqLSzOQt9r2x1/0JmY53fmRi5IdAX7s/e9Qu4+CYqAlY
-	 SM0NVwvEdX3jDho75SvtPjSL3dhNsxld8EyQnXFSVIBdA+huA+Xz5rr83yWgsNJ8kocy7
-	 qjuIIWqovtTS8JktZTaKVkWolPvQTzZIqoMd32P7PidbX4rA2WK0oXLaA8KabquaYNA==
+	t=1792545743;
+	b=QHK5gAVeOPnxJiuIdBA60gLwwaNaZWYMZDE3xOOJR4I/B4RtrtPAOO92y8d94bj/73D8
+	 K/s1XFis/MEwFff1z0fBesJorlMN8WdEiTEEbq2k0VgNWdMfUJ+peI+brBSQ1uhjS8R6p
+	 ya72H4R1dtGGw4jxdLQgJCyPCQHUZ2BElHd6SEv7CI0g0k5joYNYiDQsBYN9DsaGyxFjM
+	 3UCpSHfU7DzoZuoluKctpMjRWCoJ5R3H0FMMCPpU13rY5jGMf8csAMGi1z2JFAH3D1/HC
+	 LujKcacaIoRtk6aC+g3ZhlBqp9vysbkh4QiMnnZmT3uo8n3zGkrXwvFeL3t5AzjiIYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792545662;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792545743;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=uIy+JtJ16TtxbVm/PfwhUZa+19M2uMfSlcIIrSZi7Tg=;
-	b=m/J2KySvqISnc+4VMDnSoTTvgmwseAdWnhMGVUPStxorMaWsZ9WgzlftCifj8MeHY03l
-	 aLNC7vrVGfDNRXp1fYXcfKLmdTcz9L8R+gJFSTvbKmSm38Hy1qm4seQcDLsRFNsb/iqJf
-	 djAzan1APQNRMOJq7tKaaD5O1C8u+SLzMApOivWax7i/5/WLAOnt/dvEC4nqPMweODhNk
-	 Fy1k4aVEOkKolVptg8CH8gM/6ryKDjWHudT0I26s3C6COnj1O/Ecl4y0FOINTOMfxUF3D
-	 SPI1VHmkyD4b7YL5zzslyuXf+Rax1Uc/DUDOdyyipfpVwlpU4dHzbDJ+5xo1ohDHAcw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/06k/OCF8qTJ0wBVY/M8ek9mzAGmnWdgB2kFs8X3vhc=;
+	b=LMCGZpjvqm2nEVHTrF8cIDk+0T0CsykYA43XYQp73SQQKy9QJIwYjuw2GwJ4/Zvr0Ixa
+	 1p08Xw2U2FPt/Ds8y1pfuyW+wp0ZGsmZZdt6RBh8RL9tpQe+pufq/EevBTa+jdByic+q7
+	 +R2S7EPdJE9uxVnd9QfeQeNfr7J0/P5TFmzGVZRoEXM0ipqAgV+0Ti8X+WhrFJzW2sXzm
+	 4IyxpsZwY7nSIFdnvNBRa/r35+E5uEYxjx+iy4CyK7qbR/2RPERwd2n18oE+v0E5gYp7Z
+	 00mB8fWd+PPj/8rGtgvTNL2vDlAf8ZMGeD+NglT70mNdMN5MsHMCCmTETKiCHIi/6xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eNicd16b;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=obwkoVec;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10D5606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:21:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E10D5606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12BD606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:22:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B12BD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=eNicd16b
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso608958eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:21:01 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=obwkoVec
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-15354aa70e8so615990c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:22:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792545661; x=1793150461; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uIy+JtJ16TtxbVm/PfwhUZa+19M2uMfSlcIIrSZi7Tg=;
-        b=eNicd16bJjsqIMQqpN39bBS3CzlUCG/+54YXqkMOCNH6ojizbb2geuFtl9sjMBKVAD
-         LPU9XHKhr7W1DQCmaqhhsK/3Npg6OT//u2Jq/nOKslAqXyYE3L7P73cy54Zo9Rq54mWG
-         m7c/IYas9FbBg7gUM75hJ2T8UzJ4CZKN65zy42jpZsd50tvFOJ9M2VP5y+EHn92Ci/Zz
-         i0KQVsbnJ7zeSsVJd+Y2YPEQ9qLgNFSqQs33GfJspKEVqc3f1YEiGJ6YI8+ue6b3Znu7
-         rzI21aAE6Q81HOE0EiVsLQ4cHU2IWbc4yBVFVuyKcL2dCkHhpstrzq4wnmdxEtyjX9D9
-         +2kA==
+        d=gmail.com; s=20251104; t=1792545742; x=1793150542; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/06k/OCF8qTJ0wBVY/M8ek9mzAGmnWdgB2kFs8X3vhc=;
+        b=obwkoVecAkYYZz8g4jFcYK7AYWGEYr4NK+xZTIJYXNVAMhuNsmp4RnYr8Sc8c3FFa3
+         co7DEXC5uG6TP9+Kmah33xHb3viiK3hRgqddzXyLBLSnVlAcZ2lb/kShvIzYXEU8tkX9
+         5RVRiGkYAX3cJFFbDl7YyBFl7AnP8ZJcuNCNEjVznRvZ/cM4SsnS+c83NRNyHqMEkzzn
+         wEW6InOM8DXK7nyLH4WZIV6/9eu0YP0JqNTqoKviXrACHl3qhE/6uG3jP9bjYRZ6YYRB
+         F9i8S4nmlcu1xnrkIrK5498J3RfErA2Uo61d6DH6+vX/vqZvXTBCt1lGuHDqplU9FQnS
+         5yDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792545661; x=1793150461;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uIy+JtJ16TtxbVm/PfwhUZa+19M2uMfSlcIIrSZi7Tg=;
-        b=qnDDQdmAO1JV01k5OWBnL7uWniddFMwfdofLF6D3osP+ixz1NMXtaaNSGco+i7RNcO
-         CPmBnZ+H6dYOii8BrDxBbDUsj2cIy8kM82jFSYK96AbIML7/IC0pXyMCgy/SqxSMcI/o
-         63XjARVRayUOeTAM8VmYzgYFQ4BmeXEqxIUIwF/hdTxfikZWwg2IhSZillRiU6mijRIl
-         2t+sEKGS7IMBLJL86jhkczvmYRqLTU2lJIbqUeEBVg/yOKfLRtPcHors3P4+oOh55qRX
-         HPBYK5OKWqIbxDTcfNsBYP992x31g66H1Tmui8OWi8n8ZUwHARxwQkLrusEdODRXXeRK
-         GlsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzM7VBXm51gYLQ6J3aC1V9CbdF7dXZrg6u9G5PnnMqra0jcvoP3nZHpaSL36ouiOwB6Amtyc4oaJ8Evm2Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLiRvrpLBbtfGpWPnnhi+kjgEmxmK6Dz0SwOepYdY+b0Xc/RjpG
-	JsbGiqBRDrtOkxONK6B8gh4Af2EiucFMk0g0C1x+3YylDUvkL4DZg4k3kDGIKepqN8UArytJnW8
-	VZy1nxpc=
-X-Gm-Gg: AYBFou1f+lI7XjyC/ludLnpRjG4aWq35KjIFYFJmELwrEsOAirudZb+vtfY3qGQGm6B
-	4BUWz5UDnq8BUUlzMVJfwKYDSim/3/IJ21kMxNhQvKfIEZjPP/US7iCGCxqmtUAHKvscIyFy+HI
-	/4FdMBi+JQ76durUQ6heAeDkbSJGDDNCAs+7kq6stsOjbbmsS/eEXIyQFsCxkQUnUSaFvXyuN4m
-	deBDNihj9UPffPnfty1aeq/eDXoyZf21DUP+dMRLZ6e4RqIztHUCaKbpjNjP6FLne1n28fPnBBc
-	3Co5qbYJTE+T2D4yp7Bc03OHKuvScmoekm/iYZmk9u1U5ie/B/OTzsMAtNl4il6Hv4FXn4npRdt
-	Ruo1n+ldBvRw6ueGz5LXq2mqGDiL8shS91ZlcG/EdCPT/R1+QF7aKrjzlaEWIw9gh93t9KmxdHu
-	LI+JgHzZodIuYVVItbnKxKYP5kZeLuSTyq2w2qAXLY8uQygc/qQXKsKf0DZeofcPq4+9sempvvS
-	YtWRSRXVuHJptGA9Y1naufj5LrDKLpUOoMajEewt/t+iRDKK0lviyQageVU/xNSL1CoZUndKjJ1
-X-Received: by 2002:a05:7301:a07:b0:366:913f:4d27 with SMTP id 5a478bee46e88-3674fa0d640mr1022322eec.30.1792545660473;
-        Tue, 20 Oct 2026 18:21:00 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm3211171eec.18.2026.10.20.18.20.59
+        d=1e100.net; s=20260707; t=1792545742; x=1793150542;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/06k/OCF8qTJ0wBVY/M8ek9mzAGmnWdgB2kFs8X3vhc=;
+        b=qgoqlD9IX056XSVtnwCTc1s9VypxOxfFX4n8Z4Hip6lWsBBvx48By1HUD2PMlTFNLX
+         Te2PSoM8IfhqkXUeozWE82fUn6jcCeAHiI8RdkNOQMOCrB9DdfakUo3HthiZEfYsdjtA
+         KrmbQo3sA7LFI+W94yXrxJOQUkjdcic96uWY427fxf7tiKMlGSOvegBuoSCng4b1Es2Y
+         WxJ6YyRjIlJK2lH0oj2x2yfrgz69LvaZB/ctoyc8/2Q5W0Z4XR4Rs5j2GufEDaATbXW3
+         zfGeGsHDfdEUntHndIx7ucDvOwkb8XROEQkamlWBTIxBfT0hji42wVU2T4pCkTDPDiq5
+         WPkg==
+X-Forwarded-Encrypted: i=1; AKwUvBySYJ+cFRZiHH6LwBnNLL5ewACS+vA9cluFQ2mqg2jb/igImf8hThsL0aT76IoiZA80MpphMySiq60OcQA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgyn+AOESW6G6zjVSBQOc1ETCOZixL8EqORO29TZehdIMrX6+U
+	4683XTxZrSVXNyZskNidNFFwWWkgXLuBeHltCA8W7BkZ0vO+tayWGVcg
+X-Gm-Gg: AYBFou0ArHnWX1O0hIliNbPRO9VerdX9KBKoAIXvedMWEQGYAJP2JIawgsgAPk/haWE
+	tTyJlHFX+wFVWk7uGgMCTg9Sbk6n7LUufUVWdSFKh2HH3bgPAe1lEg6nso2xDzlvILipQS3Y1Ea
+	r5fuk3328sqkgqn6cZCrU3BL160J5obdfjsFCh5JyKakcz+oDO8JwDBADpbxthwi2W4CANfsd6Q
+	WrbAa14kJu6akzFpNv1an595TleZykonV9AFrhRueIzGnNXcC4sXcbiM3PxRnqIXSqJJUQBchAs
+	u9aMsF49w0CeU3EEaIIus+LFFGqx0pN6lo6sShjBzuPRSOx8Ii2bw4tBzdAimCbmHDsiFcj+B7K
+	btQK3JQ1zAM6y/e9fAI7rKGgENM1X8jBtJffKhv5XkU6HgcGCYVt+dTf66qR8W9+i/uLJoC7JM3
+	0M/x6kDiz9qoPc6pDYwGes99k14NNqOMfBEK/ob1m3OOZwVxWYKYxh1dhRigQFbxCfizj69Vv5a
+	PDxbz7jEgjqVsHZt0xY0P8a4EkgU96R+kI5ElRAjGPnVHrePYUhFvdBl+vR
+X-Received: by 2002:a05:7022:b90c:b0:14d:baf5:c40f with SMTP id a92af1059eb24-190a465c250mr649391c88.14.1792545741421;
+        Tue, 20 Oct 2026 18:22:21 -0700 (PDT)
+Received: from CachingPlasma ([45.117.246.230])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a275026sm2935541c88.5.2026.10.20.18.22.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 18:20:59 -0700 (PDT)
-Date: Tue, 20 Oct 2026 18:20:58 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 10/18] nvme-tcp: Use CCR to recover controller that
- hits an error
-Message-ID: <20261021012058.GS2931-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-11-mkhalfella@purestorage.com>
- <d1e6b53b-3d14-4cc0-8153-dffd5da7673b@flourine.local>
+        Tue, 20 Oct 2026 18:22:21 -0700 (PDT)
+From: DragonicRage13 <ajaneshlal3@gmail.com>
+To: tiwai@suse.com
+Cc: perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	DragonicRage13 <ajaneshlal3@gmail.com>
+Subject: [PATCH v2] ALSA: hda/realtek: Add mute and mic-mute LEDs for HP ENVY 16 (103c:8be5)
+Date: Wed, 21 Oct 2026 13:22:05 +1200
+Message-ID: <20261021012205.9431-1-ajaneshlal3@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,58 +95,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d1e6b53b-3d14-4cc0-8153-dffd5da7673b@flourine.local>
+Content-Transfer-Encoding: 8bit
 
-On Tue 2026-10-20 11:36:19 +0200, Daniel Wagner wrote:
-> On Sun, Sep 20, 2026 at 11:28:08AM -0700, Mohamed Khalfella wrote:
-> > @@ -2731,13 +2755,15 @@ static enum blk_eh_timer_return nvme_tcp_timeout(struct request *rq)
-> >  	struct nvme_tcp_cmd_pdu *pdu = nvme_tcp_req_cmd_pdu(req);
-> >  	struct nvme_command *cmd = &pdu->cmd;
-> >  	int qid = nvme_tcp_queue_id(req->queue);
-> > +	enum nvme_ctrl_state state;
-> >  
-> >  	dev_warn(ctrl->device,
-> >  		 "I/O tag %d (%04x) type %d opcode %#x (%s) QID %d timeout\n",
-> >  		 rq->tag, nvme_cid(rq), pdu->hdr.type, cmd->common.opcode,
-> >  		 nvme_fabrics_opcode_str(qid, cmd), qid);
-> >  
-> > -	if (nvme_ctrl_state(ctrl) != NVME_CTRL_LIVE) {
-> > +	state = nvme_ctrl_state(ctrl);
-> > +	if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
-> >  		/*
-> >  		 * If we are resetting, connecting or deleting we should
-> >  		 * complete immediately because we may block controller
-> 
-> The documentation should be updated, maybe something like:
-> 
->           state = nvme_ctrl_state(ctrl);
->           if (state != NVME_CTRL_LIVE && state != NVME_CTRL_FENCING) {
->                   /*
->                    * If fencing has finished or we are resetting, connecting or
->                    * deleting we should complete immediately because we may
->                    * block controller teardown or setup sequence
->                    * - ctrl disable/shutdown fabrics requests
->                    * - connect requests
->                    * - initialization admin requests
->                    * - I/O requests that entered after unquiescing and
->                    *   the controller stopped responding
->                    *
->                    * All other requests should be cancelled by the error
->                    * recovery work, so it's fine that we fail it here.
->                    */
->                   nvme_tcp_complete_timed_out(rq);
->                   return BLK_EH_DONE;
->           }
-> 
->           /*
->            * LIVE state should trigger the normal error recovery which will
->            * handle completing this request. In FENCING state the request
->            * must not be completed before fencing has finished, so just
->            * rearm the timer and let the error recovery pick it up.
->            */
->           nvme_tcp_error_recovery(ctrl);
->           return BLK_EH_RESET_TIMER;
+The HP ENVY Laptop 16-h1xxx (PCI SSID 103c:8be5) uses an ALC245 codec
+with CS35L41 I2C speaker amplifiers. No LED fixup is applied for this
+subsystem ID, so the speaker mute LED and the microphone mute LED are
+never driven and do not follow their keys.
 
-Good point. I updated the comments.
+Add a fixup that calls the existing ALC245 mute LED COEF helper and the
+GPIO mic-mute LED helper directly, then chains to the CS35L41 I2C
+amplifier setup so the speakers keep working. Use it for 103c:8be5.
+
+Tested on an HP ENVY Laptop 16-h1xxx running kernel 7.2.11: the
+hda::mute and hda::micmute LEDs appear and follow their keys, and the
+speaker amplifiers still bind (CS35L41 Bound in dmesg). The mic LED
+GPIO pin and polarity are not verified on other hardware.
+
+Assisted-by: Claude:claude-haiku-5-5
+Signed-off-by: DragonicRage13 <ajaneshlal3@gmail.com>
+---
+Changes in v2:
+- Resend with intact whitespace (tabs); no code changes.
+
+ sound/hda/codecs/realtek/alc269.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
+index e98cc42e1..850a15801 100644
+--- a/sound/hda/codecs/realtek/alc269.c
++++ b/sound/hda/codecs/realtek/alc269.c
+@@ -1572,6 +1572,14 @@ static void alc245_fixup_hp_mute_led_coefbit(struct hda_codec *codec,
+ 	}
+ }
+ 
++/* mute LED via COEF bit and mic-mute LED via GPIO, called directly */
++static void alc245_fixup_cs35l41_mute_micmute(struct hda_codec *codec,
++					      const struct hda_fixup *fix, int action)
++{
++	alc245_fixup_hp_mute_led_coefbit(codec, fix, action);
++	alc245_fixup_hp_gpio_led(codec, fix, action);
++}
++
+ static void alc245_fixup_hp_mute_led_v1_coefbit(struct hda_codec *codec,
+ 					  const struct hda_fixup *fix,
+ 					  int action)
+@@ -4230,6 +4238,7 @@ enum {
+ 	ALC245_FIXUP_BASS_HP_DAC,
+ 	ALC245_FIXUP_ACER_MICMUTE_LED,
+ 	ALC245_FIXUP_CS35L41_I2C_2_MUTE_LED,
++	ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED,
+ 	ALC236_FIXUP_HP_DMIC,
+ 	ALC256_FIXUP_HONOR_MRB_XXX_M1020_AUDIO,
+ 	ALC245_FIXUP_HP_ENVY_X360_15_FH0XXX,
+@@ -6859,6 +6868,12 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
+ 	},
++	[ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc245_fixup_cs35l41_mute_micmute,
++		.chained = true,
++		.chain_id = ALC287_FIXUP_CS35L41_I2C_2,
++	},
+ 	[ALC236_FIXUP_HP_DMIC] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7361,7 +7376,7 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x103c, 0x8be1, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be2, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be3, "HP Envy 15", ALC287_FIXUP_CS35L41_I2C_2),
+-	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
++	SND_PCI_QUIRK(0x103c, 0x8be5, "HP Envy 16", ALC245_FIXUP_CS35L41_I2C_2_MUTE_MICMUTE_LED),
+ 	SND_PCI_QUIRK(0x103c, 0x8be6, "HP Envy 16", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be7, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+ 	SND_PCI_QUIRK(0x103c, 0x8be8, "HP Envy 17", ALC287_FIXUP_CS35L41_I2C_2),
+-- 
+2.56.0
+
