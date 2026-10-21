@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584969;
-	b=5RJ0BOzjgcPJs+nH6SrenXYjp3XoumSvfO+cU5JCwnl503HXtvYUVpXDV0/6yoxL0JTI
-	 zf6yaK672hhm0mjIGYD/PAWkxuQBA1q14hsnERqjTqM/EmmZ6ATUDIKAGLuUm4o5q3SUt
-	 wZsjMqCTwDttMFOEIEeQAlm2sb2T6U4H123EjdLsuY0pNxWC2NoEQ+ofR2vxgf0d2x3d5
-	 sS58dje22y9b5Wa/l8FhagVKh/lypt21afVhnQA2X0vBQwML2HwNmYP9JmcKTtCGxRLFO
-	 /Rh1GDhmvKALId7emT0ErSkiZ4CqVAk7D1Aw3FdvXrc65h3h1iwZ7G1qFcWu15Xby8w==
+	t=1792584980;
+	b=5LkMcKsMCsLvh3GGlLBQ8ild8K4y8mbKjI1R4wZepgTmIlLFoUTD5vkE+HE/DkNc2Os7
+	 HYgnRgMw8KWkAmk/CqS16mjgLt1X8Mrrq1jVwowuuOX17Eo8RPM76VlhD34JFoLdXum/Z
+	 JNFxDARlo7AM9wM0US4hDwHruPPCGEFXbptTJmf808ZXMML0IJ2HwQJISExmesa0bhXvo
+	 pKSLiReLnWcqsy4akRcnG4G9Mj1nug1YQCKYBbU6Uc7buTdfTpJ8S9AlYFH7LPbijQj0Y
+	 jP9m3N42LpK6o+nXhiPWbaGDz39oJIVqzuy4m1ybalKnfqkoQntq8MeV9ioSqlUB3eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584969;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584980;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Sf9fJdSyPeRmn/1W4deZFEkwuU0Kwy1ZCNgzXzfL19o=;
-	b=5rxwqUgw7ABtS2oSGV6ZKdm4oUm0aHgj4ma/Qu8VJMbdcAhsfQ40bMpK+bnz4HYiig+d
-	 AT/8uAGegTYGyb2WX7/hnKTH6hMUBpVACsJfUSmT7EAsvJLfA66k5FwIp4IJuGACQ6eu3
-	 hc6flTjvjdeFVpj1e5r4JG+hLQ0Kd2YhR4+MkYDHk2rhiP5X6VblHfyNn617LeQOs76A6
-	 f8pR73yJlPm8sVunyIobajs9Izxr9FvHDJpzIDTnZTvHLf9YJJrepheuX6x3ga+Di2ES6
-	 N+QI1wm3NQCoC7aJoFatenVeY+rAv5BQrwDt/TCT/6pTtMFWcS4O/tW77r7JX6AWBjw==
+	bh=3sV2BVll+rmA+nzXI9MkZz3cUVSsRVhz3ZropH017dE=;
+	b=cdrdy3yPv9mvbzUstP64gIQwuKj6JOnrwWUKT7qtR4PMdmjkB47vmwfMXVYb4BfegXfY
+	 8kPXAD0CkzT33w49+a+W4GuIVH4oN+f9FGf7dNVWXam1W72JL4sfbAYXGZF8jFd6omieq
+	 v76zukE6Cwh//w82iqJyO9GOq1JHUkDGZAly+I5HisoTqghVXsBoe4F7uxA7zEQNN+bDu
+	 BhMZ186uEiK8gSS5Pdp7aT/ptqryhUAmCRdMGLTF+QcuT5Mf3NqLvcAk4fLhrlx0TZiif
+	 FK4ZV3WgxgHusKsm4fPvmDRrDAfkopbxGnroYISWc69UdTtoc5qenR3R206TGzxGiYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCtTa8Ae;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="XgQaPU/t";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6AC8606A33F;
-	Wed, 21 Oct 2026 12:16:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C81A1606A31B;
+	Wed, 21 Oct 2026 12:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cCtTa8Ae
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75F041F000C4;
-	Wed, 21 Oct 2026 12:16:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XgQaPU/t
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 267711F000C4;
+	Wed, 21 Oct 2026 12:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584968;
-	bh=Sf9fJdSyPeRmn/1W4deZFEkwuU0Kwy1ZCNgzXzfL19o=;
+	s=k20260515; t=1792584979;
+	bh=3sV2BVll+rmA+nzXI9MkZz3cUVSsRVhz3ZropH017dE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cCtTa8Aear95HeH0E4hgjpI9jvlI+CTZtaksUKqFR9/BvJKBh0jNnmn6xD1shNQ5V
-	 Yp3IFW3bWSOy40C0+odXwuVtp5f+iukJNSNNMihZ+QxeN48Mo0t3y+43D+/QGXfase
-	 eEJ4dQYdxW0jlNlGHEODI4SSSDS5Bzso44SjHhZGh/ACsO72Fa+vsAUH4CKz4iG5EO
-	 OIkWjpeWAMlGQmJd0Az0uBDKCcoy/7w/O+1Ue1BqvuM3t46/U/h4s930CycbzIc3wR
-	 MbEA/BNKTroRPJWkb/uuy9fVDhRlXLY1Oh9y1D7ckQkXzjAlivVFTfMQqQ5aqVq4fr
-	 qUw4zaeGLVwSg==
+	b=XgQaPU/tHQ9qG5+iV9rAw//oA7KdsmgdtJivOyAzjRyPRZhJyaUG8Qmo7JlBY5qTu
+	 nrTF6ZrnMzc5lpbtM2AwahvSfgGOFd/7DXE3cyMAJywI9mm5dfP9dJWWX8Nr9sl7iA
+	 rDxHBhN1UJDOsEFqj8feYfo5Xs8GFo+yfoqTCDsPzLph07QM3Zp5JKv4mcKtFT4OIe
+	 Nvxpvz3MrQVhSAjwNYErptApnZNz5Wj3egVYqWoTOsBicl06purDm7MYA2HL6BB1BU
+	 aMfM/E2CHHg1ZjCX3ERNx7fMVSBk+eZrG+nT+iS7Sdki1LWfiuSZJhdJyILcnKpgBq
+	 0aMsEnmmmHnqA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Qunqin Zhao <zhaoqunqin@loongson.cn>,
-	Yinggang Gu <guyinggang@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-crypto@vger.kernel.org,
+	Linus Walleij <linusw@kernel.org>,
+	Mattias Wallin <mattias.wallin@stericsson.com>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	linux-arm-kernel@lists.infradead.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 20/28] mfd: loongson-se: Stop controller and mask interrupts on teardown and shutdown
-Date: Wed, 21 Oct 2026 12:09:42 +0000
-Message-ID: <20261021121245.3111563-20-lee@kernel.org>
+Subject: [PATCH 22/28] mfd: abx500-core: Unregister device ops on devm release
+Date: Wed, 21 Oct 2026 12:09:44 +0000
+Message-ID: <20261021121245.3111563-22-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -65,153 +65,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-loongson_se_probe() enables hardware interrupts before registering IRQ
-handlers and starts the controller via loongson_se_init(), but provides
-no teardown or shutdown handler to stop the controller and mask
-interrupts.  If probe fails after loongson_se_init(), if the driver is
-unbound, or during a system reboot or kexec transition, the controller
-remains active with DMA configured to memory that is reclaimed.
+abx500_register_ops() allocates struct abx500_device_entry via
+devm_kzalloc() and links it into the global abx500_list without
+registering a devres cleanup action.  If a caller's probe function
+subsequently fails, devres frees the entry while it remains linked in
+abx500_list, causing use-after-free and list corruption on later
+traversals.
 
-Clear pending interrupts before requesting IRQs, unmask interrupts only
-after IRQ handlers are registered, clean up on failure inside
-loongson_se_init(), register a devres action after loongson_se_init()
-succeeds to issue SE_CMD_STOP and mask interrupts on teardown, and wire
-up the platform driver .shutdown callback.
+Register a devm_add_action_or_reset() callback in abx500_register_ops()
+to remove the entry from abx500_list before devres frees it.
 
-Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-Closes: https://sashiko.dev/#/bug/linux-15511672-7569-4eac-96a0-c08581925710
-Closes: https://sashiko.dev/#/bug/linux-e6ed8d33-d641-4969-a5ea-959f21ae3696
+Fixes: c211b6b9c014 ("mfd: abx500-core: Convert to managed resources for allocating memory")
+Closes: https://sashiko.dev/#/bug/linux-6a9c6b8b-8f89-4af5-8cb1-102822e44e6e
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/loongson-se.c       | 51 +++++++++++++++++++++++++++++----
- include/linux/mfd/loongson-se.h |  1 +
- 2 files changed, 46 insertions(+), 6 deletions(-)
+ drivers/mfd/abx500-core.c | 29 ++++++++++++++++++-----------
+ 1 file changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-index 10af13c3b7cc..bdbab4b91729 100644
---- a/drivers/mfd/loongson-se.c
-+++ b/drivers/mfd/loongson-se.c
-@@ -169,6 +169,23 @@ static irqreturn_t se_irq_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
+diff --git a/drivers/mfd/abx500-core.c b/drivers/mfd/abx500-core.c
+index e896531d0354..5873e335c395 100644
+--- a/drivers/mfd/abx500-core.c
++++ b/drivers/mfd/abx500-core.c
+@@ -5,6 +5,7 @@
+  * Author: Mattias Wallin <mattias.wallin@stericsson.com>
+  */
  
-+static void loongson_se_stop(void *data)
-+{
-+	struct loongson_se *se = data;
-+	struct loongson_se_controller_cmd cmd = {};
-+
-+	mutex_lock(&se->engine_init_lock);
-+
-+	cmd.command_id = SE_CMD_STOP;
-+	loongson_se_send_controller_cmd(se, &cmd);
-+
-+	spin_lock_irq(&se->dev_lock);
-+	writel(0, se->base + SE_S2LINT_EN);
-+	spin_unlock_irq(&se->dev_lock);
-+
-+	mutex_unlock(&se->engine_init_lock);
-+}
-+
- static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
- {
- 	struct loongson_se_controller_cmd cmd = {};
-@@ -176,15 +193,23 @@ static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
- 
- 	cmd.command_id = SE_CMD_START;
- 	err = loongson_se_send_controller_cmd(se, &cmd);
--	if (err)
-+	if (err) {
-+		writel(0, se->base + SE_S2LINT_EN);
- 		return err;
-+	}
- 
- 	cmd.command_id = SE_CMD_SET_DMA;
- 	cmd.info[0] = lower_32_bits(addr);
- 	cmd.info[1] = upper_32_bits(addr);
- 	cmd.info[2] = size;
- 
--	return loongson_se_send_controller_cmd(se, &cmd);
-+	err = loongson_se_send_controller_cmd(se, &cmd);
-+	if (err) {
-+		loongson_se_stop(se);
-+		return err;
-+	}
-+
-+	return 0;
- }
- 
- static const struct mfd_cell engines[] = {
-@@ -192,6 +217,13 @@ static const struct mfd_cell engines[] = {
- 	{ .name = "tpm_loongson" },
- };
- 
-+static void loongson_se_shutdown(struct platform_device *pdev)
-+{
-+	struct loongson_se *se = platform_get_drvdata(pdev);
-+
-+	loongson_se_stop(se);
-+}
-+
- static int loongson_se_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
-@@ -225,12 +257,12 @@ static int loongson_se_probe(struct platform_device *pdev)
- 	if (IS_ERR(se->base))
- 		return PTR_ERR(se->base);
- 
--	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
--
- 	nr_irq = platform_irq_count(pdev);
- 	if (nr_irq <= 0)
- 		return -ENODEV;
- 
-+	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
-+
- 	for (i = 0; i < nr_irq; i++) {
- 		irq = platform_get_irq(pdev, i);
- 		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
-@@ -238,10 +270,16 @@ static int loongson_se_probe(struct platform_device *pdev)
- 			dev_err(dev, "failed to request IRQ: %d\n", irq);
++#include <linux/device.h>
+ #include <linux/list.h>
+ #include <linux/slab.h>
+ #include <linux/err.h>
+@@ -33,6 +34,21 @@ static void lookup_ops(struct device *dev, struct abx500_ops **ops)
  	}
- 
-+	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
-+
- 	err = loongson_se_init(se, paddr, se->dmam_size);
- 	if (err)
- 		return err;
- 
-+	err = devm_add_action_or_reset(dev, loongson_se_stop, se);
-+	if (err)
-+		return err;
-+
- 	return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE, engines,
- 				    ARRAY_SIZE(engines), NULL, 0, NULL);
  }
-@@ -253,8 +291,9 @@ static const struct acpi_device_id loongson_se_acpi_match[] = {
- MODULE_DEVICE_TABLE(acpi, loongson_se_acpi_match);
  
- static struct platform_driver loongson_se_driver = {
--	.probe   = loongson_se_probe,
--	.driver  = {
-+	.probe    = loongson_se_probe,
-+	.shutdown = loongson_se_shutdown,
-+	.driver   = {
- 		.name  = "loongson-se",
- 		.acpi_match_table = loongson_se_acpi_match,
- 	},
-diff --git a/include/linux/mfd/loongson-se.h b/include/linux/mfd/loongson-se.h
-index 2d0a8b1e5c9e..dbe5992bd435 100644
---- a/include/linux/mfd/loongson-se.h
-+++ b/include/linux/mfd/loongson-se.h
-@@ -11,6 +11,7 @@
- #define SE_SEND_CMD_REG_LEN		0x8
- /* Controller command ID */
- #define SE_CMD_START			0x0
-+#define SE_CMD_STOP			0x1
- #define SE_CMD_SET_DMA			0x3
- #define SE_CMD_SET_ENGINE_CMDBUF	0x4
++void abx500_remove_ops(struct device *dev)
++{
++	struct abx500_device_entry *dev_entry, *tmp;
++
++	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
++		if (dev_entry->dev == dev)
++			list_del(&dev_entry->list);
++}
++EXPORT_SYMBOL(abx500_remove_ops);
++
++static void abx500_unregister_ops(void *data)
++{
++	abx500_remove_ops(data);
++}
++
+ int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
+ {
+ 	struct abx500_device_entry *dev_entry;
+@@ -45,20 +61,11 @@ int abx500_register_ops(struct device *dev, struct abx500_ops *ops)
+ 	memcpy(&dev_entry->ops, ops, sizeof(*ops));
  
+ 	list_add_tail(&dev_entry->list, &abx500_list);
+-	return 0;
++
++	return devm_add_action_or_reset(dev, abx500_unregister_ops, dev);
+ }
+ EXPORT_SYMBOL(abx500_register_ops);
+ 
+-void abx500_remove_ops(struct device *dev)
+-{
+-	struct abx500_device_entry *dev_entry, *tmp;
+-
+-	list_for_each_entry_safe(dev_entry, tmp, &abx500_list, list)
+-		if (dev_entry->dev == dev)
+-			list_del(&dev_entry->list);
+-}
+-EXPORT_SYMBOL(abx500_remove_ops);
+-
+ int abx500_set_register_interruptible(struct device *dev, u8 bank, u8 reg,
+ 	u8 value)
+ {
 -- 
 2.56.0.218.g1ec904b173-goog
 
