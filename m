@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792575471;
-	b=gLTJzlxSTZxHwsKzQO5/RSzBwgRWo4E5Iu6zBFS7QzSulnP9TbWdan2FFYpHGBzcrCWu
-	 xkcfF6dkNgqc4qCKL64bve3e2mtnIGY+uLPFzf+uLQYoSWtiBqTRtsWkUwq5rrGRuPG6K
-	 C+6gdykw+hUMkoI8gzZuFf2YsvX9NQvVwb5d8h0Rc404U3UwHGOLo4OerY/DqjaxshwJ+
-	 B3ZurY7kCYul03nvP6bhf9Hk0say+t9iTbsMHXWiMcNS4OiqzcCSYB76ZU5JJksYBDZ5S
-	 ZzZZgtbk1yR3pPp/vnJccWo8uvPP/X/VshJ252D5fKba5ZFYSzsgPpIXBYlAmZfqaOQ==
+	b=aO7POjCnSc71RM/BLq2aTXHTj6t1ceapb+QtjfOUvg7XbHiqfgb5JMdWyX35C7CVjWvg
+	 ygYeA8vFN8uLZdL9RemyU7jrvl6Nq9D/NYznvP7C8wk9HXB+Ioth83CrYw565kXEdwyaf
+	 DL/HxUyl/YFQ2fhfJJW9eBy+sHrAkfZ1OUtv9/7lv5e3xKOyZnmtdSFqiT5V+oRN3JFvV
+	 73DLXdtOtpcBjvGXQI7OHw+iRgWN6aQozFbZFVDT+O4vfdop6F7uixjBmR5a052PJJi9P
+	 PV1lz7Qi6sXoibVNr951zTlvNNb6kwp6t2wt67s/UacPtvU1ZpT5x89FSqHLBnGnHeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792575471;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=PO++a8z3xVSOrsSCzcnJsYBIAhxcpwS/rPUxumQkRLA=;
-	b=zFbAi+mTKquVkeEH9gNrKnDjTMXCeU4A209WTO/+W4g1fvC47eWooPN0n+9t+Tsfaza4
-	 xq/+IR6nyc5GCvL6xi7UfgR/3tlv+/7WmNKEglJVEy7og1hieP9VmrARuIWAQ6X29xwnc
-	 S2aFS0Ise8cuqnDwDkA3J/7prTxlMcfjg9sC15cb520ie3B5S4DxrIZsd1Yf1odTKRO3j
-	 P2Rk8mUyPwDQvtsth6Qn/Qv4v9b5RhhiwHXCBILq4LX8Ijr2xv4VAsMPMwJXsoX0+eKxW
-	 OnWTF3EgebRxDJUTi+9q6Ih6qukqXug1+n54QSKXnDfcw+8+uCNC3XqA+VCD1hahlZw==
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=zYYaJ3Cx83d1i6W0tWGXSMXeldqRUTYijFYdQSWTCqk=;
+	b=VWWARsxDFUIkJOv6UKzHuExURzP01C0/+CO7yRtXnhEDj03NBGYdLI/hWK1vrr2tvBJh
+	 Jxu//calZ/z8D5aCJivDTnI5VvCA8ki/3736yraH+Mj/zUe1QFurpFZnPTyt+ZL3Ap03u
+	 yVCRVRmFKxzSO78fbK4AG2cuzoBlqVwigqdpTBwnZq3NANzzWivABaEdgSQ1YeOkYWqcD
+	 7VtYUPu8fd3Ezux6g7zXFF6REeC/02Wo3nJg3dnpbRSwq7q4/8BG1xssrWpfudC73wwy7
+	 HQTP0OYJDbwwsb/mO7xeq59MVfWacXZZWr/hHXMWzC6WZKAff1oYL2utpT2sL/j9Tgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CGBoqbwp;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cgHOGJgN;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A59606A321;
-	Wed, 21 Oct 2026 09:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01A59606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C07606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:37:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C07606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=CGBoqbwp
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 17F8EC5CD74;
-	Wed, 21 Oct 2026 09:38:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2D741606E3;
-	Wed, 21 Oct 2026 09:37:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35856103289A8;
-	Wed, 21 Oct 2026 11:37:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792575466; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=PO++a8z3xVSOrsSCzcnJsYBIAhxcpwS/rPUxumQkRLA=;
-	b=CGBoqbwpj9xTkVn6WWXitamQrNNLf19slUfZI+4ruQfN9t8GL0sXg2fjd33/7/B/r/nLx+
-	N0hPE5qWOIoKnNnB1H5M6PQkd5KlM50V8HHwmo5bUv+6MMnib5DVJtVkPZn2tLCsLgE5+P
-	x7H9zgf5loFIPZfCEYJwx978WollkDP2OLlX39sLtG6aM6+IyT4wZPtQRHozYz9BOb40u2
-	siBiQJtBpzaJiyky/qAXNiAHvGquswO4Qd0V96veXxMaWU656/vhNOmNjF/+AIjIHJbIkT
-	mFWCzR+DuU3ZXnvja4CayAQ4MzwH3LIYpaD1blGXGJ0R8A+mu6103BOYzVH0wg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: Michael Turquette <mturquette@baylibre.com>,  Stephen Boyd
- <sboyd@kernel.org>,  Maxime Ripard <mripard@kernel.org>,  Alberto Ruiz
- <aruiz@redhat.com>,  Brendan Higgins <brendan.higgins@linux.dev>,  David
- Gow <david@davidgow.net>,  Rae Moar <raemoar63@gmail.com>,
-  linux-clk@vger.kernel.org,  linux-kernel@vger.kernel.org,
-  linux-kselftest@vger.kernel.org,  kunit-dev@googlegroups.com
-Subject: Re: [PATCH v8 3/8] clk: introduce new helper
- clk_hw_get_children_lcm() to calculate LCM of all child rates
-In-Reply-To: <8733u0u22z.fsf@bootlin.com> (Miquel Raynal's message of "Tue, 20
-	Oct 2026 11:57:08 +0200")
-References: <20260327-clk-scaling-v8-0-86cd0aba3c5f@redhat.com>
-	<20260327-clk-scaling-v8-3-86cd0aba3c5f@redhat.com>
-	<8733u0u22z.fsf@bootlin.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Wed, 21 Oct 2026 11:37:42 +0200
-Message-ID: <874iefs8bd.fsf@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cgHOGJgN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792575465;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zYYaJ3Cx83d1i6W0tWGXSMXeldqRUTYijFYdQSWTCqk=;
+	b=cgHOGJgNDHQVftR29sZ0Y8W3uymfxOZ+PpcOBOJTkNNPmFV5j/ClsawhkJkyJi3YkR0sLZ
+	P9dKxHC+Ax7IMn0ckxA+pUEX+iIAPQuKXXjVjJEyrQzDAuWnsBsbTBZfGX7A7G1nigD6Rx
+	Xp3PEQNmZ+pv8WLEqclCCFdGIIS3MHc=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-613-_u7xX48KOf-yVVlOyNLt4A-1; Wed,
+ 21 Oct 2026 09:37:41 +0000
+X-MC-Unique: _u7xX48KOf-yVVlOyNLt4A-1
+X-Mimecast-MFC-AGG-ID: _u7xX48KOf-yVVlOyNLt4A_1792575460
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 826651800847;
+	Wed, 21 Oct 2026 09:37:39 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D87471956087;
+	Wed, 21 Oct 2026 09:37:35 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Wed, 21 Oct 2026 11:37:39 +0200 (CEST)
+Date: Wed, 21 Oct 2026 11:37:34 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Allison Henderson <achender@kernel.org>
+Cc: Joel Granados <joel.granados@kernel.org>,
+	kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
+	lkp@intel.com, linux-kernel@vger.kernel.org,
+	linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org,
+	wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
+Subject: Re: rds_wq UAF
+Message-ID: <atiH3sYO8XvnP-Vn@redhat.com>
+References: <202610190310.9737b2e3-lkp@intel.com>
+ <atYB0bm9eEXp8A2g@redhat.com>
+ <atYW0K3t57puHeLW@hobbes>
+ <atYuE1xnVYe0BDG4@redhat.com>
+ <atY42k00k0Waj6o4@redhat.com>
+ <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
+ <atdoGiW_sHlWgOwt@redhat.com>
+ <e7888169bdc76ea40fcfe782c2bc9b70e037dfc6.camel@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,114 +89,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e7888169bdc76ea40fcfe782c2bc9b70e037dfc6.camel@kernel.org>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-On 20/10/2026 at 11:57:08 +02, Miquel Raynal <miquel.raynal@bootlin.com> wr=
-ote:
-
-> Hi Brian,
+On 10/21, Allison Henderson wrote:
 >
-> On 27/03/2026 at 15:31:58 -04, Brian Masney <bmasney@redhat.com> wrote:
+> On Tue, 2026-10-20 at 15:09 +0200, Oleg Nesterov wrote:
+> >
+> > Let me try to summarize.
+> >
+> > If rds_init() fails after rds_threads_init() for any reason,
+> > rds_threads_exit() will destroy/free rds_wq.
+> >
+> > If rds_rdma_init() is called after that, and rds_ib_init() fails
+> > after rds_ib_mr_init(), rds_ib_unregister_client() will try to
+> > flush the already freed rds_wq.
+> >
+> > But we have
+> >
+> > 	module_init(rds_init);		// net/rds/af_rds.c
+> > 	module_init(rds_rdma_init);	// net/rds/rdma_transport.c
+> >
+> > and IIUC the order of these initcalls is not defined. So if
+> > rds_rdma_init() -> rds_ib_init() is called before rds_init(), it
+> > can do flush_workqueue(rds_wq) when rds_wq == NULL on failure.
 >
->> Introduce a new helper that recursively walks through all children and
->> their descendants, calculating the lowest common multiple (LCM) of their
->> rates. For the requesting child, it uses the requested rate; for other
->> enabled children, it uses their current rate. This is useful for
->> determining what parent rate can satisfy all children through simple
->> integer dividers.
->>
->> Link: https://lore.kernel.org/linux-clk/aUSWU7UymULCXOeF@redhat.com/
->> Link: https://lpc.events/event/19/contributions/2152/
->> Signed-off-by: Brian Masney <bmasney@redhat.com>
->> ---
->
-> Thanks a lot for this proposal, it is very interesting.
->
->>  drivers/clk/clk.c            | 54 +++++++++++++++++++++++++++++++++++++=
-+++++++
->>  include/linux/clk-provider.h |  2 ++
->>  2 files changed, 56 insertions(+)
->>
->> diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
->> index 47093cda9df32223c1120c3710261296027c4cd3..bb602c07df9a2b523a72e1e0=
-5cc3a27956e7198b 100644
->> --- a/drivers/clk/clk.c
->> +++ b/drivers/clk/clk.c
->> @@ -14,6 +14,7 @@
->>  #include <linux/err.h>
->>  #include <linux/hashtable.h>
->>  #include <linux/init.h>
->> +#include <linux/lcm.h>
->>  #include <linux/list.h>
->>  #include <linux/module.h>
->>  #include <linux/mutex.h>
->> @@ -838,6 +839,59 @@ void clk_hw_set_rate_range(struct clk_hw *hw, unsig=
-ned long min_rate,
->>  }
->>  EXPORT_SYMBOL_GPL(clk_hw_set_rate_range);
->>=20=20
->> +/**
->> + * clk_hw_get_children_lcm - Calculate LCM of all children's rates recu=
-rsively
->> + * @hw: The parent clock hardware
->> + * @requesting_hw: The child clock that is requesting a rate change (ca=
-n be NULL)
->> + * @requesting_rate: The target rate for the requesting clock
->> + *
->> + * This helper recursively walks through all children and their descend=
-ants,
->> + * calculating the lowest common multiple (LCM) of their rates. For the
->> + * requesting child, it uses the requested rate; for other enabled chil=
-dren, it
->> + * uses their current rate. This is useful for determining what parent =
-rate can
->> + * satisfy all children through simple integer dividers.
->> + *
->> + * Returns: The LCM of all non-zero rates found in the subtree, or 0 if=
- no valid rates.
->> + */
->> +unsigned long clk_hw_get_children_lcm(struct clk_hw *hw, struct clk_hw =
-*requesting_hw,
->> +				      unsigned long requesting_rate)
->> +{
->> +	unsigned long lcm_rate =3D 0;
->> +	unsigned long child_rate;
->> +	struct clk_core *child;
->> +
->> +	lockdep_assert_held(&prepare_lock);
->> +
->> +	hlist_for_each_entry(child, &hw->core->children, child_node) {
->> +		/* Use requesting rate for the requesting child, current rate for oth=
-ers */
->> +		if (child->hw =3D=3D requesting_hw) {
->
-> This is not working on my end (imx8mp) because the clock requesting the
-> rate is not identified correctly. Here you use the hw clock, but in the
-> imx8mp case there are many composite clocks which are made of inner
-> core clocks (like gate, divider and mux). I believe we should iterate
-> over
+> It is sort of defined.  When built as modules the order is enforced by
+> symbol dependencies. rds_rdma and rds_tcp need symbols exported by rds
+> (rds_wq itself is one of them), so they can't be loaded unless rds_init()
+> succeeded.
 
-I meant "made of inner hw clocks" here. Just to be more clear, if my
-understanting is correct:
-- requesting_hw is the hw clock associated to the composite clock
-- child->hw is one of the inner composite clocks
-So the comparaison cannot work. Iterating over the core clock therefore
-solves this incompatibility.
+Yes, somehow I forgot that rds_rdma depends on rds ...
 
-However, while trying to understand better the values of the pointers
-there, I realized the initialization of the various inner hw->core
-pointers are made all over the place (?) and in certain cases, they are
-even not done at all. For instance, a composite clock with a single
-parent would not go through __clk_hw_set_clk(), at least not during
-registration. Either this never happened before, or maybe some
-recalc_rate() spuriously set it by chance (because __clk_hw_set_clk()
-calls are made a bit everywhere), or maybe because this problem was not
-really a problem without the v2 rate parenting Brian is proposing.
+> So the rds_wq == NULL case can't happen.
 
-Anyway, I think this situation can be fixed easily, so I will propose
-something on top of this series.
+Well, in theory rds_threads_init() -> create_singlethread_workqueue() can
+fail too and leave rds_wq = NULL. Nevermind.
 
-Thanks,
-Miqu=C3=A8l
+> So I think the fix belongs at the transport init: if the core didn't
+> come up, rds_rdma_init() and rds_tcp_init() should return early,
+> before they register anything.  I can send that along with the
+> sysctl change tomorrow.
+
+OK, thanks.
+
+Oleg.
+
