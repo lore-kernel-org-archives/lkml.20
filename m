@@ -1,102 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792574702;
-	b=4IUtj/7VsoFUca919OdZSj2Wpn5rF49YgqKzQCV8ioLicJzTvr72rU0tnZIFdzpHdQHa
-	 yqbOKOE3hcPCG072QN2F84J634pG7EQlkAP5pD0Y1ySs65s6Oco97XUVjlPUCkQwHHh4y
-	 aJxsiHBIeLRpUI+eWPLsqCSRNBrc54ZF8ek7yQ3Vl3vH1GbjZMKHnWFuTiJgbtS/hAY0r
-	 XDKc8U9Wbi0e5Gfc7XPqczipGblfDb3bjviVfsD2BLwi9OyMttYnEzsCxStOS2GuIpJ5q
-	 9YAtMeqChyGA/Ov0T6IeGKvk/FPS3eLyMmTA4zVtMwbu2VAXtuqtb0gYj48IY8KP08Q==
+	t=1792574763;
+	b=Rj+01FFs83BmibvJV5fI50nhXLeVmiBFmnr+bTD1ji4JGM2suVMjI3s6nAjxTleY7MIf
+	 qo0KyrmMlfHL2EenTZLrc7JCBzdWH0T3eBRlayIc0HGmxHeaVNefA3CkQK8Jsl8PIN76i
+	 eUW4J4ZgHMEQGcLhldWXY54GGmdERskNzurfelWswcxnVKLoev48MGQ6I2P9JhE2xJX6M
+	 8csShOFlVGwIs/qFvBZjS63QxwaLTAUmMcbg2Vd5TzUd4YuaM7PCuNSRtcMGT9o6Xwodw
+	 QDZMRoP2ldvOLuvTEC9aZ0Q9Aul85/OXp2iC7sTP4pnYIgR9+ivcQo5AJprj4chbzSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792574702;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=uaqSg1SlCXfDpsE5/FtzM0QxJkQtdiSMMrqW33UTt04=;
-	b=Q4MFPoILGoZot4z6KdOaXk/bvrrj5rXaD8y9/vSrDNiz4XgeNjASfndp5y0EVWA34oZA
-	 10ycy2flVhGqfbjpx2+UrCSE9qIjo4dkbqUbTW/nOoKMCfuPHGoGIIv9qJFDLFYLAefRM
-	 B1ckRhpwBK+8WZHWFw1YJaBtq+el+qKw6bUOervM8l+yJRi1U2DvfeAQD2OdWycJXVsDw
-	 /HvRkiZIh7v+SdO7EXvf7+1/BFoHBU9gHcHxbxAuQp8kjHtVaFZ+8QCKKU+SchbDY+wMw
-	 ZVEvhUsIkJ2JZUmkbNdJrGofRpngpixv44F0c9RACiwjIP1nVsKeslzDC2S8ufl2x6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574763;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=uSuitGcPNAp6kDNTkufpaC9Ibk/iwsakxpW63Y9HaYg=;
+	b=u5njd/pM4mQIJiw35IXNXBIf6bDCtmfwUnbRkKbJeNzg54u5CMmtsQ0O7pWGRl8kdihi
+	 /TvuHc46i4kBYXIX867G4dtX0PZa+Xd1d5/Tp2Lk/4Ogsi3X5NZZnDtz77AuZKmpU4ieJ
+	 62CTqolIEsUx5gWhT8wf24i19TMG9a4OleKv3dG/55FyyIADFB8kiKnt1W5ixRMaTR0px
+	 cWo/UtkriV6VzrTvyug88fTpA6flkziT3Oa4QwtdsZsDx4S0wzU2bJSSqnnCzfwEmcr5b
+	 IOcYYizlxZIEVv19iXiu/DkUeqTPMIRvyvorra3YewZ8MhH1bNqAS/eBWjt7ZzPDtWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lcy0WJ1B;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jORInsZr;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=v5mi7gW9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=elejB6yO;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PG9bddMN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NHDEnhaf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 238ED606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:25:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 238ED606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E29F606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:26:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E29F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=lcy0WJ1B;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=jORInsZr;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=v5mi7gW9;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=elejB6yO
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0851D21CC7;
-	Wed, 21 Oct 2026 09:24:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792574700; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uaqSg1SlCXfDpsE5/FtzM0QxJkQtdiSMMrqW33UTt04=;
-	b=lcy0WJ1BqDCEjeAB+DnlxghFjYwEg8yI8SGWuv/G6QwibmjmA0X9+JqFggaAD36NvGzff/
-	M6tDlpS/JvwIXBwr9j+dj1vcE+kWljnflYPyon7xUMG3F63OX30k2SCX1GP9qza7cQYtBB
-	8zhEE6chKMXONvsSLO+mMovNcLRcHMs=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792574700;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uaqSg1SlCXfDpsE5/FtzM0QxJkQtdiSMMrqW33UTt04=;
-	b=jORInsZrpxEWYRPm+qip5iLwV+q+RwEEnJ1lbSfpph5+JXPELUoMh9s8TIdAkWMuqiN/TH
-	Z+6Oaps5SGzznKDA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792574699; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uaqSg1SlCXfDpsE5/FtzM0QxJkQtdiSMMrqW33UTt04=;
-	b=v5mi7gW9+u95hrkvLamXAOkmE/JqTcE+FjW5bpptmYtCMroPLsTHA5pAgDfgtquYiY7DXX
-	8MCSKf7fo+GXFaRYBDovijvKz4BU3WqGbAqo3IHH/Fj5ONEyybroFVKC36kbW6NSM37X1N
-	P2pmPQgeGX1dMnTmF5zlMy3FLTjk5qQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792574699;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uaqSg1SlCXfDpsE5/FtzM0QxJkQtdiSMMrqW33UTt04=;
-	b=elejB6yOFg2iX4EZrPOkkWGS31jNTqHRWzT4ZeP3a6mgibyNDzzZRuuyyv7xPrXhiJvIp0
-	xOqEiDigFCaXAfBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C999C134A5;
-	Wed, 21 Oct 2026 09:24:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id FcqZKOqE2GpuEAAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 21 Oct 2026 09:24:58 +0000
-Message-ID: <fb66fd1f-a3e5-41a5-ae7a-8f518fb87d95@suse.de>
-Date: Wed, 21 Oct 2026 11:24:41 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=PG9bddMN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NHDEnhaf
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L9CKJr214423
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:26:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=uSuitGcPNAp6kDNTkufpaC
+	9Ibk/iwsakxpW63Y9HaYg=; b=PG9bddMNbfwdNRNZcxRiCjIpHPEo/YxS4lJGou
+	QEPVRmelHHTCme7Q2rXbEWszwab0GPsntV6umf+3G5wVQLdP1qjjt+NV6YTttFH9
+	lGWoojt0ML3ujWkizVmmKiRrlYUGPMrU8cfuITIBYfKojpBAAdU06oHEkncUXJS+
+	EVWAk8BiW7TytSefN4iBTDK0BSkhyWXWxvaFRBLeEK9mSlVig+1VouRIiPUw5nCK
+	Dp59hIgbW/4IfwPne6wKlKUetwXy/KYyeLQRQA5Ws4NTDx4pIhLjwGqknvrm7a0g
+	OgeoKCdUHFM+HKwPEw1Ym9TOWU9LpxuTKIiLZ2YfiynIQmJQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hetj481ps-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:26:01 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso814971eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:26:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792574761; x=1793179561; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uSuitGcPNAp6kDNTkufpaC9Ibk/iwsakxpW63Y9HaYg=;
+        b=NHDEnhaf/eNal9ZqmE+oCcbccBXzxPAL0TPv3tHBuE5l2jvaoQbxsMocwmiY//54Q3
+         iPIBnb//xMAxb3dGhYJGFqoxrjBzZK6DC5QmB4Kn/LTLOrtKsd1BfweKWM+Dzt9IZUEV
+         qAoXz7YEfdx9vYFbwq4tJ6qihUr0fIHsPlUAmh+o7byBZNjuAsV/3IjNgQ/Bcc9bMUcp
+         cZd/dfovwwGR2vkp2SoM7+PXYOBbGjRlehTu3aFPfxZ+fAT58NP6C3Tbcc6GidTtvkWJ
+         4VkMriMUepqLQF6cdigb0F6xI3vFwLiq1fYWxOZSeAvm/XrmNAxoAPDXMDnJtJaYq68W
+         nqhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792574761; x=1793179561;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=uSuitGcPNAp6kDNTkufpaC9Ibk/iwsakxpW63Y9HaYg=;
+        b=26m7kQlD5tsLRDfTItsOQAEt7gv0RwMmCDwfPOFita2Jd2XU2xxErBZ/cHBJDMQXg1
+         u4v1kGA6IRdploWAeChB/0F5JxaRUhJWBO77mvFOR3GdkZ5yLQA/5OIjskgi8Lc/QA+c
+         yKNrZuuV4gDgCsDeTLx6GIFwriqYCZgMVXWxxEjOGCQ/fP7XODpGVX+zxQikyGwMfyGf
+         QNdW7vDgQiyFaEF/Zv30HTgCGYesvDE7UOAT+uiDqe0OI3o1CWGDYzJ4oI4yteeTkzm9
+         hqxivs9aLwaS7LEHCV8djxvbbZ5ObIRasen0CPXLKX56xEilnJEQi6Yt9VGeOfZZStWb
+         8aHA==
+X-Forwarded-Encrypted: i=1; AKwUvBxRltS1k+TDKbuvACjeQMSbuR6vJF1eDUXE5r1IkT5Sm+OjF4Mv200s5Dar7+hjLDEAJsyETeaFruBN5ek=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIj6G6o9R2ISZ8fSFEPEOInODqJbknh0b9JTwLpvwSdb4HkY8m8
+	AnwOziAjD6UUp03ko1RPiqjOG+1qZzLY8dzqPPSW7sAX+Vu/JQASmaR57l3K6BQssl3wEz/6pPp
+	faPxH4uipQGPCaFV1DC1OHNy2dVUyakZlE2/dbcRHjF9gcMk8FIjGJ13bJeA2hgEUFQw=
+X-Gm-Gg: AYBFou31Lp6q+aBYKzoCPwubNwEzgLqOqZRwmesQGKjT/UNZzU8mGfjiMQVZmKmRy3I
+	3lgV/5ZTv9BTRZ7VjQudmtofem4Xryg22i7vbdgL1p+/36WOReOcHh6jMdmdMN59n+V+EJEHtzx
+	qDRpJQG3ONmZW17UzPyf5FxJw+BYte3F94zy+hIPK1ztydYvXH3a86WtBafMCRoWRHpZIh5V98G
+	aCXrD0+B3vfOl/SZlyX3vYm8JonCNA80yliaZZJ8y1wjeca81HdLFHLplkHalrXHsyQJjYA4c/6
+	QPJ4EcvJBROuEb2A+h7CNiyz3g+Pay+nitCSK3+x1U1CUrVFBw+vn6zqg0EewTS3euCkOBRY12P
+	lVShG8Uva0p43KFDuQL34ouPLI3RQGiI6
+X-Received: by 2002:a05:7300:6a9e:b0:35b:c271:df19 with SMTP id 5a478bee46e88-3674ec2eac8mr2651361eec.32.1792574760824;
+        Wed, 21 Oct 2026 02:26:00 -0700 (PDT)
+X-Received: by 2002:a05:7300:6a9e:b0:35b:c271:df19 with SMTP id 5a478bee46e88-3674ec2eac8mr2651315eec.32.1792574760195;
+        Wed, 21 Oct 2026 02:26:00 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc8439sm6155671eec.11.2026.10.21.02.25.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 02:25:59 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH v6 0/3] misc: fastrpc: fix ADSP duplicate session creation
+Date: Wed, 21 Oct 2026 14:55:46 +0530
+Message-Id: <20261021-dup-sessions-v6-0-578ab52ba66c@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,93 +114,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] dm zoned: back off when reclaim finds no
- destination zone
-To: Kyrylo Biryuk <illofspeed@gmail.com>, dm-devel@lists.linux.dev
-Cc: agk@redhat.com, snitzer@kernel.org, mpatocka@redhat.com,
- bmarzins@redhat.com, dlemoal@kernel.org, linux-kernel@vger.kernel.org
-References: <20261011175450.952-1-illofspeed@gmail.com>
- <20261011175450.952-2-illofspeed@gmail.com>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20261011175450.952-2-illofspeed@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.29 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,lists.linux.dev];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -4.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABqF2GoC/3XMwW7CMAwG4FdBOS8ocdJQ78R7IA5O4oxIg7IGK
+ hDquy/l0qlafbD0/7K/lyjcZy7ic/MSPQ+55O5Sg/vYiHCiyxfLHGsWoMApp1DG+1UWLtNdkUx
+ AgShoRCvqy7XnlB9v7nCs+ZTLreufb33QU7sCDVpqCQ6NJe8xkdl3pWx/7vQduvN5W5eYvAFmY
+ 6fahQFSyUhWJQzYEvgVw8xGC3ZhmGpYrzRGTpbVmmH/Gm5h2GqYpk4EnzjaFaOZDQSzMJpqMDZ
+ GG0O6hd0/xjiOv9PJ6RK/AQAA
+X-Change-ID: 20260609-dup-sessions-ea2acaac1994
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Amol Maheshwari <amahesh@qti.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        devicetree@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792574754; l=2894;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=Znw6rBmsrPLmZf1Xm4uaqF5JIwWwc/6CAx2/Oc7scWg=;
+ b=xghwgq5+GYh7ydwRMy0+qeIwLDWK5mN9QP//SG9fG+vHyBfoekIfEE3Z+y1A9En8xk8nlljSp
+ I06rkL2HJYoA40vi3w6fx+Nrw5d1iVbtFWuwz5aVF4Scqe/HcrZ4aG/
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-ORIG-GUID: NHywsRWmon3i_wu95tgsQx1HUNpGfyDv
+X-Proofpoint-GUID: NHywsRWmon3i_wu95tgsQx1HUNpGfyDv
+X-Authority-Analysis: v=2.4 cv=N768hG9B c=1 sm=1 tr=0 ts=6ad88529 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=YTpWxnxjnte_hGW78hkA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfXzSOEzjt0g+We
+ ha43WHJ4rLNIK7+YJxKm64dPbjBzhYjeeE1OG85po8kDCVZDPSDqPaNwd0I6Wduulht4qAWqs/n
+ IFuAOmOi0wMkal35L1mhVUgslxT0zX7cj9kI4tCT0Ir6DnlJwbG1yNOjJSVvYY+6MRI4YTUWja8
+ B3brwGh9hH1vZrwR9sv/9usuFLoluL1o8v069RNfrcVmF9TmD5OSDi+YJ1THl39UjU+d39zQ/nX
+ DmQpOp6KEvm+hdN8K6dU5Vf8H61RWmDQHLT2UASaiYjEIAjEXCwbluzsy8j8osynsQhrEyPQLc3
+ iFuoYC8tEhUccIrttkZg+5Vr8eaFWCumQrVoTmYXJKWd3K4OxufXOCkjq/GpdPXCRyQwnuCbcq0
+ 1oqn4SQ8VAS1iu7lGnWWst084rbnYMMoa8liAXc785grzUXrT7euRv8tCKxu6KXxmc16plM4iOC
+ qzuvFex3fjjvD/HV4Zg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX9Cdyk3EQDbUU
+ quw3KvCUqXUfOmEVq1di1locwgWim57P1q5bf24qjDLF4iE5FiT6F4oWIf2sLywAogcjDx4eDrZ
+ Qyr19XHn/609Z73rDvl/zK/oyUAOg8Y=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 malwarescore=0 suspectscore=0 phishscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210037
 
-On 10/11/26 7:54 PM, Kyrylo Biryuk wrote:
-> When dmz_do_reclaim() fails with -ENOSPC because no free zone is
-> available to copy the data into, dmz_reclaim_work() still ends with
-> dmz_schedule_reclaim(). If the target is idle, dmz_should_reclaim()
-> keeps returning true, the work is queued again with no delay and the
-> worker spins on the same failing pass.
-> 
-> Re-arm the idle poll instead, so that reclaim is retried after
-> DMZ_IDLE_PERIOD. The next patch makes -ENOSPC the expected result when
-> an idle target has random zones but no free sequential zone.
-> 
-> Tested on a 7.2.6 kernel as an out-of-tree dm-zoned module, together
-> with the next two patches, on emulated host-managed drives (tcmu-runner
-> ZBC handler) and on three 27 TB host-managed drives used as md RAID5
-> members.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Kyrylo Biryuk <illofspeed@gmail.com>
-> ---
->   drivers/md/dm-zoned-reclaim.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
-> 
-> diff --git a/drivers/md/dm-zoned-reclaim.c b/drivers/md/dm-zoned-reclaim.c
-> index c041413c729..315f0da99f3 100644
-> --- a/drivers/md/dm-zoned-reclaim.c
-> +++ b/drivers/md/dm-zoned-reclaim.c
-> @@ -540,6 +540,14 @@ static void dmz_reclaim_work(struct work_struct *work)
->   	if (ret && ret != -EINTR) {
->   		if (!dmz_check_dev(zmd))
->   			return;
-> +		if (ret == -ENOSPC) {
-> +			/*
-> +			 * No zone to copy into: nothing can progress now.
-> +			 * Rescheduling immediately would spin; poll instead.
-> +			 */
-> +			mod_delayed_work(zrc->wq, &zrc->work, DMZ_IDLE_PERIOD);
-> +			return;
-> +		}
->   	}
->   
->   	dmz_schedule_reclaim(zrc);
+For ADSP, only a limited number of FastRPC context banks (CBs) are
+available. Each CB supports a single session, which means only a few
+processes can run on ADSP simultaneously. If all sessions are consumed
+by fastrpc daemons, no session remains available when a user application
+starts, causing the application to fail.
 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+To work around this, some DT set:
+  qcom,nsessions = <5>;
+which duplicated sessions inline during context bank initialisation.
+Upstream feedback indicated that this policy does not belong in DT and
+should be handled at the driver level instead.
 
-Cheers,
+This series iterates over CB child nodes directly and synchronously,
+replacing of_platform_populate() and of_platform_depopulate(), and moves
+the ADSP session duplication to the driver. The qcom,nsessions binding
+is deprecated in the same series.
 
-Hannes
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Changes in v6:
+- Drop unused dev_set_drvdata() from fastrpc_cb_init()
+- Use device_for_each_child_reverse() to destroy CB devices
+- Return -ENODEV when of_platform_device_create() fails
+- Add a comment for FASTRPC_DUP_SESSIONS
+- Link to v5: https://lore.kernel.org/r/20260923-dup-sessions-v5-0-e953133a1827@oss.qualcomm.com
+
+Changes in v5:
+- Introduce fastrpc_cb_devices_create() and fastrpc_cb_devices_destroy()
+  for symmetric CB device lifecycle management in probe and remove.
+- Replace module_init/exit pair with module_rpmsg_driver().
+- Link to v4: https://lore.kernel.org/r/20260826-dup-sessions-v4-0-35555d2bfed4@oss.qualcomm.com
+
+Changes in v4:
+- Rebased on latest linux-next (a8406e6c0b79, 2026-08-25)
+- Link to v3: https://lore.kernel.org/r/20260824-dup-sessions-v3-0-4b019def4e0b@oss.qualcomm.com
+
+Changes in v3:
+- Add patch to fix async probe race with of_platform_populate().
+- Rename fastrpc_cb_probe() to fastrpc_cb_init().
+- Reorder series: sync fix, nsessions, binding.
+- Collect Reviewed-by tags.
+- Link to v2: https://lore.kernel.org/r/20260708-dup-sessions-v2-0-da40f9c98a2b@oss.qualcomm.com
+
+Changes in v2:
+- Added patch to deprecate the qcom,nsessions dt-binding.
+- Kept the logic unchanged; only split into two patches.
+- Link to v1: https://lore.kernel.org/r/20260609-dup-sessions-v1-1-26934abb9fa3@oss.qualcomm.com
+
+---
+Vinayak Katoch (3):
+      misc: fastrpc: iterate CB nodes manually instead of of_platform_populate
+      misc: fastrpc: move ADSP duplicate session creation to the driver
+      dt-bindings: misc: qcom,fastrpc: deprecate qcom,nsessions
+
+ .../devicetree/bindings/misc/qcom,fastrpc.yaml     |   2 +
+ drivers/misc/fastrpc.c                             | 128 ++++++++++-----------
+ 2 files changed, 64 insertions(+), 66 deletions(-)
+---
+base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
+change-id: 20260609-dup-sessions-ea2acaac1994
+
+Best regards,
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
