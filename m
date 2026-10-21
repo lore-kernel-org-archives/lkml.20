@@ -1,75 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792559789;
-	b=4II/0iOYEAuxr29Abcb1dCjdqGQumRH6XvPoGx3jKYvm996WXGiauKyfU+IsHrS/Po51
-	 9RsmzM02t+ql9kTIe6xd1LUc+EWApty44SUzdm2soKBC47G/3U3wGdb6Rappa/Lx5W1Jr
-	 7sHSH7bRhiySrxaWmHCWHm6j36iZHQM5129N8nUpE0vKxq3qlUqiuXHos3FLjoRRVwx61
-	 seTkqyz5EQM0/pQ9IbQSjQ10tXnhecQFg0ppQxdSJf0zpHhRpRzkLP7y3pwtnP24THKKe
-	 66XLBgh4g4N+tnUMjPdNQ3houUTZYJUrKVhJZUaWOC8ecPIzzRbhVUNYf9gOHJ2t8IQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792559789;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Jwo5sz/tBtLbI2Uv00DIF9t3b00XSGJggTsCmZnslnE=;
-	b=R3+/1X2l4Qz0HL2NdEKWiJmNUnGGUvMwNOoV+jZTH6WdF70LdVFOpGo6+FAcvG314b1x
-	 +lf1hC4eGhkdmuMDhxU2k1rtXzQinsu76InKxwjiOWKNo2hTYO4ikJ7iPgdttxhllBz1B
-	 Du0Mdb5CmxnOJxACSHEJHDueK8z9YsFTUajay9HBBkAbGClAhYR4Eyamr7rDEaaPPu61E
-	 Hfkum+BVn7o+exAOfBoQzw/CZrIEMR8+uUv/DRUaKADF+6HdMuG6H8Ev2EKU79ibBtDuP
-	 T8uiGgZIU+l+5YqmOQjBjEqGAD3BTtf009BVqvdnrPqZSvsNYFUCwZ0JCGPIsQrCTrg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BP523HED;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792559868;
+	b=2SGDfmnwnqzVc+fHuOCMNrdxdPOIM9V0ghdhO1+LBMQnpRJX0mWP2YNHo46ymQbN6aOx
+	 UwYQv1g/PkGKIhpe8F5Ziv0qeaNGhkwEjJl5zY4laMBx2ppeb6NmrYFSZrJ7PuWgM2oku
+	 Wmsun3OST0ivh3DfxmEw4gSiVcwNeycL8wYVs7VjiEgeSP+B6l5W67MINZ5S4R20G//xV
+	 S5pjo4O7dw2Upy4NLvqMJGMhc2cNELeaInnOO90MAmhxYYFcRlJLGeYmFuh97cnjjQbMx
+	 U8MhgxZ9W7pZRJNkPf9DgCzaUVAK1ZGUVKmhwn9bPsB7FNDsStdeCTPeym5drmbDkYQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792559868;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=YlxKBCa2wFXBNqaUVZfW61G5tni5rV4zLZ5eUhzpkhE=;
+	b=BLP9oBl0fMovPVNf7JVkoif/d6k5tpwbkHqgOL+wNwMPSb9uMKdqOrs7cbkMIAyL/h82
+	 0V4oerKZpzCOLbQ1ZiHOp2Q6BdLKFlsXeHWtm6ZOkhONYYs+p50yNjxnSNyb866MtKCqA
+	 GGdkOyxpg0iKgsp+4oTcSclNyWF4yNzYADg/H5sjklL76wa6HTXh/4+shWJdo27VdqcQ6
+	 WylZmkN1UgKhJ7E/0fuT/fmVxQsCoQ2m+KrG3fUBORzkTu/zQCGuEDi5NkpZXtV+zJ2ZA
+	 cmnJDRIYtXGaIP1SdREMSuDShs7i6T49JSME1R/P7mDshxVQjZzrNC95Pm70Jsr8pVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GmtKw3H9;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC502606A31D;
-	Wed, 21 Oct 2026 05:16:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC502606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D62606A319;
+	Wed, 21 Oct 2026 05:17:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D62606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BP523HED
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792559787;
-	bh=UtaOkbC6oXF9PskgOOgEz+UJHHl5feMuA4mZgvwvzBM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BP523HEDNrJsiOVl2bsRi8tXl2BwI1YXjPDFHRr7aRMYeeyjCG3qwDlPR21Eo+ghD
-	 B5yevWX+hUpQnGX0kSsyt9uUyEgBdpqSLBQkciS9oZ7EvIgK0aW+yaOPYl4uWPZXSI
-	 ZswhaSoV2QYV/P+JRCLZ4CkaZqK5TQNFnTq4JgUdDAmPrvd036tRfuK8rB9brLLBkV
-	 Uo0JOyLgnpSQJsoQESQ8K+zGheit6g4m9bJJRafCRUtAZTBbH8IEF1nGrVn0IJfy/i
-	 ii6ZAH/B2OJEgfetM1hfHTzV7t8mACrQVF4fMxgz9Y37nQlFTz0OEahi8dkkjBOnsc
-	 SdzOxcm6GrYsA==
-Received: from vignesh-thinkpad.. (unknown [100.64.0.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: vignesh)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E97C017E0EBF;
-	Wed, 21 Oct 2026 07:16:24 +0200 (CEST)
-From: Vignesh Raman <vignesh.raman@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: daniels@collabora.com,
-	helen.fornazier@gmail.com,
-	airlied@gmail.com,
-	simona.vetter@ffwll.ch,
-	dmitry.baryshkov@oss.qualcomm.com,
-	lumag@kernel.org,
-	robdclark@gmail.com,
-	robin.clark@oss.qualcomm.com,
-	valentine.burley@collabora.com,
-	linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org,
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GmtKw3H9
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 92687202013;
+	Wed, 21 Oct 2026 07:17:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792559858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YlxKBCa2wFXBNqaUVZfW61G5tni5rV4zLZ5eUhzpkhE=;
+	b=GmtKw3H9cDtaUr4URxH0LXNKxMVLyUXRfEjm5/HtHJUujnOOz3GYQF0OhLbh24FcYJoEts
+	I0L8Ec6MeNSWEPihwmNuHcVv+33QxhXUmzVswZMnhJOc7mM9dkfV1PBQrfIG3h3191qsYt
+	lA/CbDhOgI/gOqCLOYDe6hDlIkI0NNyRC/rZ0IRWySWbuM3Q7b3DLGeDpEpt++EomlK3xz
+	+yDDiRHnS4vZtjK1/ppbr7j0NfXAFZHKVJGmBwOugYNjTKD+8Wypphs0L7k/PD318fHSqA
+	GPuSgoqaZSgFD+EKvuV/JFpDK0FMWaoq5XDoSZLLO43P7QaVh/vFid8BGCLU8Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792559858; a=rsa-sha256;
+	cv=none;
+	b=f+vPYwi4+kMpZBVP68kL/sMVpbocUl+WhY3OeObbLp/685bd1BiYe4y+Mp5zS3o93sEmMI
+	5Uf0Yl6Lw/i6/CZxO9U44UIbWAEDXxlpQZw/H77cWlRPHqTw6Pinw1FwHkNZ4RNeiTWJ3L
+	OKJJxat5OiqL/UDb9FAlKaYNDndWpMtXjaqsdMevBoepE7DJMJxKUCUB4oujfoqA/pMmyS
+	8TA6EWgc6BMm/ZfVU3WiJp6xPmrX4Bl2jCJiMaCJTuTUEmtq9SjWGmlaR1uk0CcQcZ031g
+	2APPdAl16k+cDu30IF+QHnFF1BpeiN25XwOEb32QH3hZbjY/DElz9MlHX8p4DQ==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792559858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YlxKBCa2wFXBNqaUVZfW61G5tni5rV4zLZ5eUhzpkhE=;
+	b=aRBukfI8hV3LGVxkN86mNvlleQ6FzRskvHoCRFy4Cca+ImAWDNIt5DTmr+i65aaYl1xRRE
+	KyMV2uFBMK+oehPPI5M6WF0rRF8AwoeWvKdx3R/T/d3ocvyscXuGvqT7fPX4o2gqPST0zG
+	LE0Ilh14SsLzg/BFF/E8VQ/UHraIByJkZqnjpVTryemhi8lXS+HXzVhIzx7qowx8XgW4nk
+	w6iKSTZz0DVcfOkr702u5vTKbPqqpYi70PEwpldk9pjsi343Mujkd0HYkpuYaXn1dr/eVE
+	dFywSTC/4ygZZ/vyeMFnsXuyrN+yBl59LNvf86Ru8EiXgh+Ki4GRadJPflvwzA==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJOhm-000Vln-1f;
+	Wed, 21 Oct 2026 07:17:38 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJOhm-00000006d0z-1gJH;
+	Wed, 21 Oct 2026 07:17:38 +0200
+Date: Wed, 21 Oct 2026 07:17:38 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
+	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/3] drm/ci: update xfails for sc7180 trogdor devices
-Date: Wed, 21 Oct 2026 10:46:07 +0530
-Message-ID: <20261021051611.3328351-3-vignesh.raman@collabora.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021051611.3328351-1-vignesh.raman@collabora.com>
-References: <20261021051611.3328351-1-vignesh.raman@collabora.com>
+Subject: Re: [PATCH net v2 01/14] net: pse-pd: size the notification kfifo
+ after defaulting nr_lines
+Message-ID: <athK8pD1fOINOAV6@pengutronix.de>
+References: <20261020171249.853085-1-github@szelinsky.de>
+ <20261020171249.853085-2-github@szelinsky.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,75 +106,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261020171249.853085-2-github@szelinsky.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-Some tests were skipped on sc7180-trogdor-kingoftown because
-they hung, timed out or broke other tests.
+On Tue, Oct 20, 2026 at 07:12:36PM +0200, Carlo Szelinsky wrote:
+> pse_controller_register() allocates the notification kfifo before it
+> turns nr_lines == 0 into 1, and kfifo_alloc() fails for a size below 2.
+> So a controller with nr_lines 0 or 1 cannot register. pse_regulator
+> (podl-pse-regulator) never sets nr_lines, so its probe has failed with
+> -EINVAL ever since the kfifo was added.
+> 
+> Apply the default first, and allocate at least two entries.
+> 
+> Triggered in QEMU (arm64) with a test-only PSE controller with
+> nr_lines 0: its probe failed with "failed to allocate kfifo
+> notifications". With this patch it registers.
+> 
+> Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
+> Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
+> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
 
-Suspend tests now pass, and the other tests no longer hang or
-affect other tests. So drop those skips and update the expected
-failures.
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
 
-Signed-off-by: Vignesh Raman <vignesh.raman@collabora.com>
----
-
-v1:
-  - New patch in the series
-
----
- drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt       | 12 ------------
- .../xfails/msm-sc7180-trogdor-kingoftown-fails.txt   |  2 ++
- 2 files changed, 2 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
-index 154b047787b2..8d1768de90cc 100644
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-skips.txt
-@@ -1,6 +1,3 @@
--# Suspend to RAM seems to be broken on this machine
--.*suspend.*
--
- # Skip driver specific tests
- ^amdgpu.*
- nouveau_.*
-@@ -19,20 +16,11 @@ kms_dp_link_training.*
- # since core_getversion also fails.
- core_hotunplug.*
- 
--# Timeout occurs
--kms_flip@2x-wf_vblank-ts-check
--
--# Hangs the machine
--kms_cursor_crc@cursor-random-max-size
--
- # IGT issue. is_joiner_mode() should return false for non-Intel hardware.
- # https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/162
- kms_display_modes@extended-mode-basic
- kms_display_modes@mst-extended-mode-negative
- 
--# It causes other tests to fail, so skip it.
--kms_invalid_mode@overflow-vrefresh
--
- # sc7180 does not have APRIV, so memptrs is not protected.
- # (Preemption is not supported on devices that do not have
- # APRIV, so this is ok)
-diff --git a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
-index 2daf4ab879a9..96743acc399d 100644
---- a/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
-+++ b/drivers/gpu/drm/ci/xfails/msm-sc7180-trogdor-kingoftown-fails.txt
-@@ -9,10 +9,12 @@ kms_color@ctm-red-to-blue,Fail
- kms_color@ctm-signed,Fail
- kms_color@gamma,Fail
- kms_color@legacy-gamma,Fail
-+kms_cursor_edge_walk@256x256-right-edge,Fail
- kms_cursor_legacy@cursor-vs-flip-toggle,Fail
- kms_cursor_legacy@cursor-vs-flip-varying-size,Fail
- kms_flip@flip-vs-modeset-vs-hang,Fail
- kms_flip@flip-vs-panning-vs-hang,Fail
-+kms_invalid_mode@overflow-vrefresh,Fail
- kms_lease@lease-uevent,Fail
- kms_pipe_crc_basic@compare-crc-sanitycheck-nv12,Fail
- kms_plane_alpha_blend@alpha-7efc,Fail
+Thank you!
 -- 
-2.47.3
-
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
