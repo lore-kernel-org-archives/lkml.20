@@ -1,112 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585928;
-	b=rdebyrbTbhkLq4Y5TktWYiuuDtQqWW5ZNGN3vEkCHLc6zPj22u4mBKPvYwoBwbLUDovf
-	 4bpTif+I71/g2nH2PLnHZilCE2CHgkR1PuwTotb6fjdUdyJfv+xjTQ6B5y13PrlkGP4Ik
-	 ut1IUCeCj45fqi/wCtPO6zo+K0avTDgATS72Kk2tK2NSeT1+kygHXNQdpBJGW8y3ferCw
-	 vaDJqmaikFwtB62EeuLxuzUgbxzubb0QO0JP6ppmfFxVS99uC6KFtcTKZv8eJfwOnE62Z
-	 Xt9WNnj7NPOOqGV8sULmfaHYSFJg2a+vDxFU+o9w+1E2M6dnyRGkkwcoX8JJd2BpStg==
+	t=1792585930;
+	b=gbeq4xi+Qt0zS+f2jeadMqQ0OKMcCMf5BMCpw0Hitf5o+iEH2NcgMZMtyHY0nmU+5FbY
+	 VNdSj8OQcz5aVuQY7Rgnn3aiIZMMKFx137kBmxXirE0lgpakyXxKfZ6An27WPR6dimnil
+	 bNXkWQ3xchQJ3PrgCmJy7xOokqENnEuFekXXmdpVpEuMv9QOgAr5qwxRoFM5f6TNl6CGL
+	 x/QYU1V2PzmbYMMfmuSXBnPdt/FkPv9B487zNOjG+IVcq91BWd3RMjRpplx4jzUAGqKOW
+	 yx47gnDEk/SV5tnyZYH40Ec2c1Wv9E99FlJ1xHjw2q2Jst3oJcdEzILCdwIEWlKUe4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585930;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=/ce1C2Fjg1s3ZxxFhfwNc4CspMfGOZG4qRjZvIxl9lQ=;
-	b=fzXF4XgP5A9IUWI+vlzHFSeh51zXYvzID5qR8WXE+qYMI3IwXIMKey37Ud5PX+PNoXG0
-	 BfAjC2WpVsOm6mOGpwpdwpDiwgg68MjfhquG7FJgwvmqWOpafA8iCdY+fiLQAc7bGSGi1
-	 r09ijbLg3+Ms/EYd/vdTJ+YyXoaBHF0Ndl08CsHvlTSsh4k21oE6AYAkqsOhkMHpFMmiV
-	 3ndG3XlMEfMjouG1zO03iM8ToFPFEjhdMIUEoqTpIOSJ2Ogj1H0mBVQGfMEcIJ6ZIOSFy
-	 9V0yaMsEVDkCgZXwxiJ9oaiYZ5XMelC42ZDKbjhu1is67ruhPCxlynSN+ZsIHXyZ6nw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=nnZ0MwCj80U+rG8upbc3A6/J8KNZsuBJGtpG/de36Io=;
+	b=cDGu7WIRSp7E9qTQ8vzq/pUCcIQkN5+nC0OR2AIoG/gDhrKFjHdNG8EZVnQX3y2hQrLn
+	 Npfs/SArzKiOXP+JS1pT7LzistQ2h48JEnDxpQLxxzBPjyWZWYjy805AAQaZi8a/fF+1o
+	 RXavuNOW+zom25O2hS4TxyPbEhPLaQlAdTX9XHxng6wcK64AizoxvRkXLESThNnZJZKmc
+	 yBs0kQMIMdeFAFPTnOBj4x2ygXKZaZLF+dzkhP8XcL5JCQJNYh3LA1UIqTLRV6jDMZtmF
+	 ukZn9w1CuySRy2BPgtNns98PKl9dD4grhl/I8kOFjbs0GvVbcB1NCtDBzyMGocgrImg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nxPwO+jo;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AVWGBqbZ;
+	arc=none smtp.remote-ip=74.125.227.134
+Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F1C60A3809
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:32:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3F1C60A3809
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B4E60A2608
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:32:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85B4E60A2608
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nxPwO+jo
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-15dd124bbe7so1202502c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:32:07 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=AVWGBqbZ
+Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3ad41dad3faso478882a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:32:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792585927; x=1793190727; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792585930; x=1793190730; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/ce1C2Fjg1s3ZxxFhfwNc4CspMfGOZG4qRjZvIxl9lQ=;
-        b=nxPwO+jokBpaCZh7UaLwZ1FqQbIF0wHv8IQUUbdMOBeamRl+xzBBk/v+kiOrbUurk+
-         uEi+EsWed9uWdaJezMLAdkfFD2jTlERXr1eNdprvX4dVcpdAxMGGv2fNjFz/QEmb2M+x
-         Qww6TJI+jE8dc2Ohht0PvSdIKz87PtjKtOhsdOCdsPU4mxlnfi2MEORY+bI2Mr+PqEUH
-         UoPV8nU4L3oLeTRFH84CU96jPeYbFDK8O2Z8r4wWAEFzjevWMDLG5tYKbj3cefURXeRv
-         qPi/oofwvEYMMk+y9dQ8HbWaP1mOsWnHruznm+2lOm/XU0o9mMniGoVFKRr6j4oedL/u
-         xIfw==
+        bh=nnZ0MwCj80U+rG8upbc3A6/J8KNZsuBJGtpG/de36Io=;
+        b=AVWGBqbZm8mWQ0SX6qcDJWcEz6XBHV1d9prbvQRJGTmm5yb+X2NvUUJ8goV7+XPFa0
+         xmUN0WtDouocr/yQS0X5Z1DQ5CX0AmWrk+5VDSaels87fAdzTJxWuAnC7yjKC68XqVQo
+         XKpfLfyfc8ZM3yJhNdIiwdryMn4+kU45oZFOxtrr/KT91sk4CHPMV2FZLbdcDopo1BLb
+         7ZGtDTj/6e2cCYEC0avqz/JaV4eOZ6mYoK2yf4KhEi7cNgoRm5JqBzBZVZr9v9/zoyYz
+         sDIzTzpbVEW8/oixX/q2mJ/YfB4hms0mFcik/SXYxuik35ud2Go1zvaz2Cj9dO9gs3O+
+         ++7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792585927; x=1793190727;
+        d=1e100.net; s=20260707; t=1792585930; x=1793190730;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ce1C2Fjg1s3ZxxFhfwNc4CspMfGOZG4qRjZvIxl9lQ=;
-        b=fYhvOMXJyachbY0NLXmFheqpJj/l54YRqehXXyGHy1qIyHFHzWatvy72OGxKm0wFIp
-         MvMF42x0bt5HtBKGVQ3BV5/iNEcsnlIgARj6PG5tDpZNfpjrjqS2cokfySdjhsCFKzEY
-         RmSjKG0FKd4wtJNMjGkv/c9pSmh5t3zFAb2e4Jg5KN8lnjHT35Jk3EVjSCOHOXNfGGQP
-         UpQmXEwjLzM/FlZkwn4xiblKEntP/tCa+lo/3R5a1oMLH6/9ImJePxiXnILCYKKQOSkT
-         zrFVXJjpTPULmNDhxrMJPodaStDjcqmAqwY+strCTjHZCUnRXuv3+TXLcmimJDl7KQSx
-         GRDg==
-X-Forwarded-Encrypted: i=1; AKwUvBzd/JXXs3+U8JeHLnPF93Q3W+dzCQX3nnT9nCpzCZAhUKRG9/vGR1EIs3kdZuVm37+1zoXBjTGLnEvrQDk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJegfZiLSPuE7GX42enRx/nd6FjSen4kk3Q7IwlCNY4waXM6Epg
-	k+lGgXkXrqMnAOe12e+LJL4o/4nlaqGQ/UIFvdeKgOLN8f7+xX5UIsWV
-X-Gm-Gg: AYBFou2+t3l8OBt3RMpLe9CM7btTtqAo5YbxKapA2Xswr6gcs/o4t/7UAWUgEPbgfJV
-	K2X699LOje+eMb70mXoJgC66Wkl66rvGMQ7iwYnR8FwRQ9TNjE8K6n665ZlZcijoYDWmYkd0sa0
-	a6gclfDOyGdNS7zk8k0xW4oE9JihxjRvluY70RxY9lLGGhnVLmGFEeZ6unDcWvzn/z5WLK5KoaT
-	xJD0LMFUsQNLafnGbm1SxOjGR6RvOIkBfDNgMVEjmMc6VoE9xWC67M0CJ3JmXSWv+hu/UQQpG0n
-	0vkK0HLAMnp8/iDheQyWTvQLZUg6Kfx02rfid6/ZAYn1DHMGR0VtoPTj9wJLBPxpBEY7EMRBtPd
-	Mwp+BcpHWRziSX0IOBikRv9t59Qws6cjtw7RTSZG1dTChLX1SK2zwhBX6IVMOx9f/1XR9oJigkR
-	baCe+GJi1q3j2N37VpJWtWiAxhoB1LQUp8p04vgVKQTgPStBrcahQrOtibde2x/HWx4Gc036m3t
-	hyhH1+60X68OFPJKw25cfo2cZq+V7bppDw/ETLvgQ6btZcbZLqXdLeeZQdfMB/BDKqhQVY/qg==
-X-Received: by 2002:a05:7022:5f1b:b0:14d:baf5:c419 with SMTP id a92af1059eb24-1909f5c8400mr1785476c88.6.1792585926762;
-        Wed, 21 Oct 2026 05:32:06 -0700 (PDT)
-Received: from zhangbo56-PC.mioffice.cn ([43.224.245.235])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm6268475c88.22.2026.10.21.05.31.58
+        bh=nnZ0MwCj80U+rG8upbc3A6/J8KNZsuBJGtpG/de36Io=;
+        b=PH/CBA4thOIocxp6HjAuMpcqGxbb29S85IeEpET+LxqdjjW4ObevPmdaDoVChvXJ1e
+         zRK12GPKjmkBUnYgUiR0KUaLrE1prIw+PuzMXKeQDpBaSU/KNnaJNsfSgAadRowv4K2R
+         0zTtwM8ZL/SCrPJSVSgpkrVgzmdF6L3Vqxj62D+hUmh7FBd1KgpvcDYtuw8E+uIq5E7V
+         YeuFqmw51TLFtrcMh8iCAOBEsK4QwO5Z+z8gP8Zi2NP9rvIx32zTLKOVvfgTXDPXAvl9
+         29hEg7CAZOmlPNjcfb3VEjGR2Mez5nj3EAIXsK4uG+C/bRbiFXIlv0VSonKHxpe2Ekwf
+         RVGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxAp40axbQFB491N6r5/aaOi/7eWaZNp4j5Z7dJhXfqAAQrLLeTVXruijl+hUCrRO9CHfzh/4mjREwGhLM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLn+kL08kmN6xAYOaZmhoDN1FpChESdFF6J7zA8ixTKxYufRLri
+	OPyoRBJlrv6smWFtBHCPE/5JLELJ+lQNrbiwndKX28FvPVv5fiJd1nul
+X-Gm-Gg: AYBFou2tNWGNJRZsCctxl/ZNqNfN0xtfr60in3Bbhaom0zaBPwK88xwGb0QmmdY4vh8
+	zr9WrrGkEubivKQn9u9vbWB+e3oD5P+A5ESzHH+viDT876AfeGQM2VBnUv9y/CZxRu2p/j89BpC
+	PHG5+o6nJMgwPKIQUN/2/usbpwzMr/DjZF80ZhXHiA/GmDndovp1Ih8i5pvFaUMCa6WI6xNXlV2
+	A+RoGrYLIpPUifcG2YzoukuZYDNpH7reSFJGdLvuTwK0Dm985DLh+etYgj5V7RSKnJ93vGUE+eH
+	Hknou15eu2DTZoKNQst8aW0uMrAsFL09wlySioTbX5OZL1NHjizK1Nx6s4hfAnTUttWNTGudaaC
+	OBy/PGHJsVksr2eAEC8ECfEB731N3zB0g7gRBNHkI/YAPw2+bZgtx6l0vHBBmuFHeFH0s0NWOgS
+	+/6RcSWb5K7obnRkY2dvbCXExSGom1QiZ2pd3OSFGrpczaQgkRDK7cPeK0R98AsEdqr1HdYEj4f
+	mHVo//N+xHc3iy5AniiJVmQ3Mfi89vTexkMTacCpQnNGTWTVRVhMjgA/UV94yVM88VcyrkhGBsj
+	OZcGjmsZutzX4N04fvA=
+X-Received: by 2002:a17:90b:57e8:b0:3ac:dd28:4621 with SMTP id 98e67ed59e1d1-3ad86f57070mr1515425a91.51.1792585929882;
+        Wed, 21 Oct 2026 05:32:09 -0700 (PDT)
+Received: from J4f-Laptop.localdomain ([183.36.237.113])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm4229523a91.15.2026.10.21.05.32.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:32:04 -0700 (PDT)
-From: Bo Zhang <zhangbo0325@gmail.com>
-X-Google-Original-From: Bo Zhang <zhangbo56@xiaomi.com>
-To: vbabka@kernel.org
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	ljs@kernel.org,
-	liam@infradead.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	zhaonanzhe@xiaomi.com,
-	lipengfei28@xiaomi.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/4] mm: compaction: mTHP-friendly memory compaction
-Date: Wed, 21 Oct 2026 20:31:55 +0800
-Message-Id: <20261021123155.2295447-1-zhangbo56@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <e6ba0e36-c0b6-4cd0-b2fb-fc288468bce4@kernel.org>
-References: <e6ba0e36-c0b6-4cd0-b2fb-fc288468bce4@kernel.org>
+        Wed, 21 Oct 2026 05:32:09 -0700 (PDT)
+From: Shihuang Liu <shlomojune6@gmail.com>
+To: linux-input@vger.kernel.org,
+	linux-hardening@vger.kernel.org
+Cc: Marcus Folkesson <marcus.folkesson@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Ville Syrjala <syrjala@sci.fi>,
+	Henk Vergonet <Henk.Vergonet@gmail.com>,
+	Henrik Rydberg <rydberg@bitmath.org>,
+	linux-kernel@vger.kernel.org,
+	Shihuang Liu <shlomojune6@gmail.com>
+Subject: [PATCH v2 4/6] Input: mouse - use usb_make_subpath()
+Date: Wed, 21 Oct 2026 20:31:44 +0800
+Message-ID: <20261021123146.17202-5-shlomojune6@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261021123146.17202-1-shlomojune6@gmail.com>
+References: <20261021123146.17202-1-shlomojune6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,33 +105,65 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On 10/21/26 11:31, Vlastimil Babka (SUSE) wrote:
-> I'm not going to answer your LLM's questions for you.
+The appletouch, bcm5974 and synaptics_usb drivers build their input
+device physical paths by appending "/input0" with strlcat() after
+usb_make_path().
 
-Sorry for the previous mail, which polished my English by AI.
-Let me put it in my own words.
+In preparation for removing the deprecated strlcat() API [1],
+replace each pair of calls with usb_make_subpath(). The
+helper formats the USB path and the "input0" subpath in
+one call, avoiding a separate buffer scan and append operation.
 
-Last mail you advised me to use cc->order to pass the target order,
-however /proc/sys/vm/compact_memory and kcompactd work could
-only be distinguished by order. Because in both cases the variable
-direct_compaction and proactive_compaction are false.
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+---
+ drivers/input/mouse/appletouch.c    | 3 +--
+ drivers/input/mouse/bcm5974.c       | 3 +--
+ drivers/input/mouse/synaptics_usb.c | 3 +--
+ 3 files changed, 3 insertions(+), 6 deletions(-)
 
-Without adding new members to compact_control, it's impossible
-to use the bool instead of is_via_compact_memory to achieve the 
-same goal (Or maybe I missed something)
-
-For skip_isolation_on_order, I want the new logic to take effect:
-with a real order it will skip folios already >= the target order.
-This is what patch 3 does.
-
-I will keep the original behaviour for fast_isolate_freepages,
-suitable_migration_target and compact_zone functions. I will use
-the bool variables to express the same logic.
-
-But in compact_zone, should we exit the compaction when the order
-is already satisfied by the watermark? That is I want to discuss.
-
-Thanks
-Bo
-
+diff --git a/drivers/input/mouse/appletouch.c b/drivers/input/mouse/appletouch.c
+index eebeb57515e1c..b536dfae427de 100644
+--- a/drivers/input/mouse/appletouch.c
++++ b/drivers/input/mouse/appletouch.c
+@@ -874,8 +874,7 @@ static int atp_probe(struct usb_interface *iface,
+ 	if (error)
+ 		goto err_free_buffer;
+ 
+-	usb_make_path(udev, dev->phys, sizeof(dev->phys));
+-	strlcat(dev->phys, "/input0", sizeof(dev->phys));
++	usb_make_subpath(udev, dev->phys, sizeof(dev->phys), "input0");
+ 
+ 	input_dev->name = "appletouch";
+ 	input_dev->phys = dev->phys;
+diff --git a/drivers/input/mouse/bcm5974.c b/drivers/input/mouse/bcm5974.c
+index e772bac3b64c0..0732bf3a97adc 100644
+--- a/drivers/input/mouse/bcm5974.c
++++ b/drivers/input/mouse/bcm5974.c
+@@ -989,8 +989,7 @@ static int bcm5974_probe(struct usb_interface *iface,
+ 	dev->tp_urb->transfer_flags |= URB_NO_TRANSFER_DMA_MAP;
+ 
+ 	/* create bcm5974 device */
+-	usb_make_path(udev, dev->phys, sizeof(dev->phys));
+-	strlcat(dev->phys, "/input0", sizeof(dev->phys));
++	usb_make_subpath(udev, dev->phys, sizeof(dev->phys), "input0");
+ 
+ 	input_dev->name = "bcm5974";
+ 	input_dev->phys = dev->phys;
+diff --git a/drivers/input/mouse/synaptics_usb.c b/drivers/input/mouse/synaptics_usb.c
+index 880a0c79148cd..7da22118ce576 100644
+--- a/drivers/input/mouse/synaptics_usb.c
++++ b/drivers/input/mouse/synaptics_usb.c
+@@ -353,8 +353,7 @@ static int synusb_probe(struct usb_interface *intf,
+ 	if (synusb->flags & SYNUSB_STICK)
+ 		strlcat(synusb->name, " (Stick)", sizeof(synusb->name));
+ 
+-	usb_make_path(udev, synusb->phys, sizeof(synusb->phys));
+-	strlcat(synusb->phys, "/input0", sizeof(synusb->phys));
++	usb_make_subpath(udev, synusb->phys, sizeof(synusb->phys), "input0");
+ 
+ 	input_dev->name = synusb->name;
+ 	input_dev->phys = synusb->phys;
+-- 
+2.43.0
 
