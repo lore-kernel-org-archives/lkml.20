@@ -1,57 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792592151;
-	b=VPXdvjwR9YwWywkSl75Ev0doDRpMEwCDZTVtMAc6pcY1KQzgXCTSUkTmdjf4QnN1LHfN
-	 eRNh3zP5g0KPTp1/C+jH2ObLhRI4uy30FnicXgdpMMy5cM/JO+TEimFkGbTejG6621O0G
-	 TDlRlEXfm2HNlABekKu3eIYR/h8IbzYIUDf0lqvqP0w2Cu/9sZmBwkhCHLMG8226v8vbu
-	 T51FN3S/XGjWBR7Adte3+3bLA4kAQOkszL0Bs+C/JB114yRAdSkkjU1Z2OaZ/GG4gmoPs
-	 j04AEbzkGNkucfd+DLgkdnVwAvuWtKrtzSs7x6rd8YzKZXR/RL01inuA+zq+3r+Owgw==
+	t=1792592152;
+	b=k9Oa6mjOT+C2rZcGx4glfnLf3zp3pC8CwAXbLuMw+GiIMGqbhZymWtWGsoSyJ8ZqOjvg
+	 70+8RLKjkWRRH983nD6HIWERdWqax/0BmAk+gcn23OJBJOHWxPn2BvxuWlpq0AgA3nGla
+	 FV6LOaFQsz5YWJxcXp9SH8IQHB33zmWM30RJaG9SVCMiLbbf2Ag3qrys6yHedudPUwOm4
+	 7pB7OUz5At+QLbmdYAhWxoJouA4lEUxVytWUixcnB0YRG/ffDq1rDtqDASCAEOUZfoHVd
+	 lRelYtYSSeOrSKoo5kuf/mAwKngmS1K6h/nnEMo6+vrvBdVNGmRYJF09bVIXGK5Sgig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592151;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592152;
 	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=ecGvVV01uT5Sh/RVAiXSzTk8F9z1lk/dbcT05h9/buU=;
-	b=ViO5c1+frL1RV881SYJBV2Wox4PHMFBLktXAdyp76btfW3r5LZrtIDrDw7XVfLgGb5va
-	 dzVc/SWKdTvfwg4W6QuivlCvRi3mmfHFrmU+1nJXsU7tfuKHFOwpZysZdI8EwVgUOOMnN
-	 upC8Lbk7b7/b7Want3kvL8VKQFZQsd5YYx/YuGZ2F26hoFm0p8KojPiyNlbQrbc/kghTo
-	 mcmHcwlhZdQ6eAAVnySntzIUW0YT4boQCaLArDq0wDPLPlhXuu6gfwZCsl2eBW3v4BXIE
-	 EQ4CEDlC9znmN9LvY3T2lCOdN8z/LkudP0RacmQ0Mvee0AQNoBC/gC4ij8Mqi5X1/zQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=eitBYZdwgfEn4Q+Iq3mIK9U7o899rtaXia/72WAA8LE=;
+	b=sanxKlht0pF2DnDK4H39vC0wuOd/gVH8ldkYYvY7HMRbiMN56NYwIOjgp77llOuUWjlo
+	 FXECuRctYJqQWldlWhy7CJR9t8aEwQGrM9i3llS1mfMZLSepz76FIBBmHRJgSurJK6G2L
+	 qD2oJ2evKO8WKFOfslk43NkTbBIjyMdROX5PvhPxk89MIkSlfY0XdtW6WMN8dz9Pm8ajV
+	 1rWVG2AoDwCUMffR4Vt/3yc62GCJirbbcQkMME87m6NvzfaiwvY9HEDZuSLoeUniIoSDh
+	 FI2V9W16HbE2D/GeIypO9WAitkbErAdZhfOGjRq2kbouzIRNdVbx/u+UALHs8AVPsHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mMbyWy/9";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OGLuu/IF";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DF5606A327;
-	Wed, 21 Oct 2026 14:15:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49772606A32F;
+	Wed, 21 Oct 2026 14:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mMbyWy/9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30A6E1F000D2;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OGLuu/IF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34ED31F00ADB;
 	Wed, 21 Oct 2026 14:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1792592150;
-	bh=ecGvVV01uT5Sh/RVAiXSzTk8F9z1lk/dbcT05h9/buU=;
-	h=From:To:Cc:Subject:Date;
-	b=mMbyWy/9cl6m5PdTOepdti/E0iJmzbF3HhX2Iy6h4+kO5TF47Z1ShT0W8aJzcqM65
-	 PXBmyYsg2/Lrvaarxvy3/I1GyG4M1dL1xYn3jgKaILGv/4bKJFqttip1NA2ZQYFSFV
-	 7/hdTMrrrgALBzz5AJ0j49V3QQfU1aYLhoS4pfmC+l++PgFgtuDl3F7hZCXqvd4BPT
-	 TO7ZxnUbYk+S8zJuVLfDjMXbkdJxKKC/Dz8OyL8pctisP96TQffP80NTy64z7PffGF
-	 KQPSZ7HbMTZRoDbZN+p1B1Fl8fySW5/+HY+ZsofCaRhMG9bzy/l4rTH84deOBqJhrX
-	 I4/3faCtPmxdw==
+	bh=eitBYZdwgfEn4Q+Iq3mIK9U7o899rtaXia/72WAA8LE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OGLuu/IFXUH/7LvOKld8kQUUVqRDa6P94q4ahO5WBueVVpkUKIrmkeE3lahLm6QGH
+	 ULoTZPYFtPQbSMuO/OFbk73XVCZBA+92D8gYtsQYoEhDU+10lFbOgQg2gUicX0/ClJ
+	 dVOxuXkpH1hZLGL+rVxciZyhPo3xxLP2LEKeoRNl527SMXxLLoV52AoOajcMk6xUMA
+	 fDBddX27mA/D+LmekYH4E18yNGxpJlcJJsAWtpL9bj9b2jiTe6x2PM5Xgcz9rpQp5Z
+	 F5vp/SmN5EUJ5g77Pk7N1I4vRL193CMdGuxSOq7idUbwMxhNSA9Dc+1RiyGSyNQEJl
+	 4JdRQWrtSFmlw==
 Received: from johan by xi.lan with local (Exim 4.99.5)
 	(envelope-from <johan@kernel.org>)
-	id 1xJX6Z-00000009kq7-2CBu;
+	id 1xJX6Z-00000009kq9-2Hrp;
 	Wed, 21 Oct 2026 16:15:47 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Johan Hovold <johan@kernel.org>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 00/11] USB: serial: io_edgeport: fixes and sync commands
-Date: Wed, 21 Oct 2026 16:11:43 +0200
-Message-ID: <20261021141154.2324793-1-johan@kernel.org>
+	linux-kernel@vger.kernel.org,
+	syzbot+763813d65c7e18c1b6d5@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH 01/11] USB: serial: io_edgeport: fix NULL-deref on early status
+Date: Wed, 21 Oct 2026 16:11:44 +0200
+Message-ID: <20261021141154.2324793-2-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261021141154.2324793-1-johan@kernel.org>
+References: <20261021141154.2324793-1-johan@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,33 +68,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes a NULL-deref triggered by syzbot, a memory corruption
-and a UAF flagged by Sashiko, and another NULL-deref found through
-inspection.
+The driver submits the interrupt-in URB during probe or on first port
+open, which on completion may submit the bulk-in URB before all ports
+have been opened and their waitqueues have been initialised.
 
-Also add the missing serialisation for MCR, drop the modem lines on
-hangup and close, and switch to synchronous commands so that operations
-are serialised as expected.
+If a (malicious) device sends a status message for a port that has not
+yet been opened this may lead to a NULL-pointer dereference in the
+bulk-in completion handler when attempting to wakeup blocked tasks.
 
-Johan
+Move waitqueue initialisation from open() to port_probe() to address
+this.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+763813d65c7e18c1b6d5@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/6a8818d8.ae6ddae5.3da009.0031.GAE@google.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Johan Hovold <johan@kernel.org>
+---
+ drivers/usb/serial/io_edgeport.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Johan Hovold (11):
-  USB: serial: io_edgeport: fix NULL-deref on early status
-  USB: serial: io_edgeport: fix potential fifo corruption
-  USB: serial: io_edgeport: fix potential close() use-after-free
-  USB: serial: io_edgeport: fix potential NULL-deref at open
-  USB: serial: io_edgeport: serialise MCR accesses
-  USB: serial: io_edgeport: drop redundant sanity checks
-  USB: serial: io_edgeport: drop redundant open sanity checks
-  USB: serial: io_edgeport: move initial termios update to open()
-  USB: serial: io_edgeport: deassert DTR/RTS on close() and B0
-  USB: serial: io_edgeport: replace atomic command allocations
-  USB: serial: io_edgeport: switch to synchronous commands
-
- drivers/usb/serial/io_edgeport.c | 277 +++++++++++--------------------
- 1 file changed, 93 insertions(+), 184 deletions(-)
-
+diff --git a/drivers/usb/serial/io_edgeport.c b/drivers/usb/serial/io_edgeport.c
+index eaa8f00716c8..cdf41e86ba44 100644
+--- a/drivers/usb/serial/io_edgeport.c
++++ b/drivers/usb/serial/io_edgeport.c
+@@ -877,11 +877,6 @@ static int edge_open(struct tty_struct *tty, struct usb_serial_port *port)
+ 		}
+ 	}
+ 
+-	/* initialize our wait queues */
+-	init_waitqueue_head(&edge_port->wait_open);
+-	init_waitqueue_head(&edge_port->wait_chase);
+-	init_waitqueue_head(&edge_port->wait_command);
+-
+ 	/* initialize our port settings */
+ 	edge_port->txCredits = 0;	/* Can't send any data yet */
+ 	/* Must always set this bit to enable ints! */
+@@ -2965,6 +2960,11 @@ static int edge_port_probe(struct usb_serial_port *port)
+ 		return -ENOMEM;
+ 
+ 	spin_lock_init(&edge_port->ep_lock);
++
++	init_waitqueue_head(&edge_port->wait_open);
++	init_waitqueue_head(&edge_port->wait_chase);
++	init_waitqueue_head(&edge_port->wait_command);
++
+ 	edge_port->port = port;
+ 
+ 	usb_set_serial_port_data(port, edge_port);
 -- 
 2.55.0
 
