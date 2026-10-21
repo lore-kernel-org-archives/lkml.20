@@ -1,94 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567466;
-	b=ZMFX+YQhxUpHCsiVjLZRZjptzFSqJIX9gQHtXtJTic3jL2mvpUfD2Dlx8UnrmFf5hj0M
-	 EXTYoFYh+LKPTwJLGpyrpGq13bRqeKMLZlRjqWq50chY+DfIf2quPG9/WcW8YiO5TVHV/
-	 6uSGTZ5SgEqTc4vg2v4Xmuf5tq4GGnUY+Svbll033tKMfWYRJGZoJruXO92l1OS1a47bx
-	 ltyijZVqRKyH0C6q54NTpLiYPmkTCLklGGUnHpGzy1NoWmM+yzJXBgqJnpKSW/zD1EHyd
-	 zJ2bxOb6Zd8Dw5C8nWSODTh6rWiP3kPPxp5vyFGwEAn4R8FEZ+spbvQu81ChaDeUd8g==
+	t=1792567450;
+	b=HXIzQT5R11dq7mkv6BMtnj7ixP4lTtElAXEcmsLQ3IA6mrlUHiaUxMbnXRbSPSRORCgO
+	 EEJ8G9mNg+Pvoiq6GJKhv2RPS4wsqEoryPwx29NnfU7dA+iPm1GTTBjsss26zd/jSRRcM
+	 3wQVjOcAAxa9T5XQ8VHnAuQgOVJ660J6ArdawdPRRpklKWV9nTNFjUkWq+SERLVU2A0Zl
+	 5o4sQu3SUYzZOG+1TBcXARYenQJ2cY8lwDGJHGzUprM3UtoEu1YeF3JN+u2qN/V5wn3wA
+	 bEunP/tg/l3CvmIRhMwbK0DSypplu0CWDD5uaGiBu/N/ju2gjcQiDTbcGhhGpy41DOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567466;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DfpMKp5SVl95BmunPA3+9Zd5WUKrXPlkJ5zT+lTuasw=;
-	b=oArviHogVo0QMU6CTTqRmFyKpJwbFKLEcFoQET05DUvgt2If5DfYN9H6OlQjBl/v/yFR
-	 dqzWVIM0P7GH+BCEVGyh5jpRVM6jeSx06DLi7NUJSVpsjiiF4Oed8Ik7EHcXrW+dnhgab
-	 3/v9pkXjr01K8Z49DyvY7mk1pqA85v1hv1QegcxtjwlV2uC3JXQvyxP/y8GTw2JFID25r
-	 tPyfp0P7JIkjY5GhqTvPN2DJrOY894xqRCYyd/KrrH0r8Ebu/wyX85cytcYDonB7UXvzK
-	 JJUmK+9DkebFaSZCU7msMJO11xz4lk2X4F0XFzgNNLzOTwRrCQDHJd3//aXl/OlBQJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792567450;
+	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
+	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=chrw1hPEAXslp3rluFtq2rLUShveUHrd6nw3XOyN/VQ=;
+	b=jqp876gOy6/C/2B6QQ8xcBhMOQsDkFsy2SnMmhNGhn10uCOdzMw3M6r2VDC/CkPVPFUJ
+	 wBAfV6XSG6ZwIpyTXr0aTm8Etm8keHu0etKfB4b1NfsQwiWqRhVVm9KeUEyw+Oo7VsyQO
+	 Rd/te03aHrKEzEs16EQoXLgrCz4Yog/QqcDX2UoynyQUQhmPRhHRqk/y+cMpCX10Oas49
+	 ISvCvGpPWZKnSvjN41hlAYJBLVWU8K7c/Qa6x5T13AagIeTlIljanEkFRe2bhYXJg0PgQ
+	 xUy2h2jHcNcaB2tHb79tDGgoTfLre1g3XkTwFg9CisNQaNlzlfgGMlhA0YteB4jaD6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N0EN+m+U;
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mediatek.com;
+	spf=pass smtp.mailfrom=mediatek.com;
+	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=iegglWyc;
+	arc=none smtp.remote-ip=210.61.82.184
+Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ED29606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:24:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1ED29606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78906606A31B;
+	Wed, 21 Oct 2026 07:24:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78906606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=N0EN+m+U
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48df54150dfso212716f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792567464; x=1793172264; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DfpMKp5SVl95BmunPA3+9Zd5WUKrXPlkJ5zT+lTuasw=;
-        b=N0EN+m+Ug4+56UzGDul5oSi9w3tJ3rrroIcexOwfn4C4foBx7DZkOLmXYt8zL48D40
-         FERKbM4L8aY4l2IrIRpfhoUUdsLtYMVJo7b0XssQykAEIXjQoYPzPvVTFJ4lIc9N3x2m
-         JY2tCRtXPXfgq5qRr/w7M/VqsLKrWoi7let/egIeed7wVWJgWdGVsGV3F/GWzScwSQzx
-         31PN9RxZS8XW68zslWFbSRV1PpJ8nC/Osl9I7Kl05SROynybG47tYYw0/OYMuGr3OYFA
-         tocXwMER93nadiUfbUjOvUol1rNpvJ53DcCN6wQKBtj8tfD3S6cCFgw2cx/pRDTZ0PkX
-         4Trw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792567464; x=1793172264;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DfpMKp5SVl95BmunPA3+9Zd5WUKrXPlkJ5zT+lTuasw=;
-        b=IARXDTft9g9816UviFBakMzQjrBCqmmYe9zPqEfLNmWybJk4wWeH4qbU0x5DAIyj6N
-         9toUCT//jErGeQ9LZkv/NIkBZ0lHFKiQIpmLTxWaKoab3PnxN33cf3d3Dy0tPeWTXiZ6
-         dQRQX/PScHx+fQaBhFc4K1KE/dlgdVJd5XnV+VlSpfUScMI6Rrs8i313it5zZMAyUTvr
-         hSKIhdxNCb9f5Fn48GgC4K9+kM66guNsqq1cBS4xRs1WznFaU17hRH3lVvWGgkzrwk6g
-         YlWoqE6ilC6FjcYQeV8pA8htY7O1R2PDR9cYgh0HNpXQgakU3IJCI0uanWG40xAJXYQz
-         1p/g==
-X-Forwarded-Encrypted: i=1; AKwUvByj/S/arBae9KGKqQcMVNC1guo/1ygoK8v6D5ACfMGD/Prj2MI+sI3DD4wAEEVeoAMdlgDs4OUVzrLDQHY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFzgO9ImxciINGxHmwy5ue9xyWjS6fKiFVBcfPahe9Y9Qj3Nm2
-	ag6dAvZ6welGRRLJgW4tFuV7S77x5/5hclo8dq5S26hGrvZo8IXopT/w
-X-Gm-Gg: AYBFou0KUJ9+ajc6jbYhUIER+d+fk3cf1aeQaKqc+cE0UndwyxQUN2HGtjMwunnFo2I
-	tlkLdOf8kpO8MS9re2EsDYXR5xzE8klYNQJo1uT3KRCYmcwxIxKwrzjAlcbCp+i+SbC7U8if83b
-	DEEemoFRNB7UYTnYh3YtFbRiHXYSiRoHi91dyCqmMtW/wDiShjgQQReiHfT2iOYsTsMXke8bGmZ
-	RFzu3ugyZ0q8KT590ptXI9gnC2RAfAT935oWHtZUgQQa9o+QPGS/N9g318REqL8JbN4umWQFyHK
-	THjx4z9aNMWVTclxzK8EQnXhDVEt5nKetMoSrvATRqeR0q13MBRSH2FAEPStYox2eEdkDooafZ5
-	VQeIbqsbtNtT8pUOjw6c31VFmlxI4zza9z++QL18SUlfMv7mfllJHhlEOW1Qu0FFo1VnZlIVO8e
-	o7m/FwVlKxgYCJWZj9DsAOTG2wo7+JwwRqfHB3tIuDdpgzDfKLxzHkNBghvHlFgNm9OuTGo7dpt
-	3scrIJgdlsPmET7WMrAm5BcaWZrQsfii9vp4PUiJR+5HjN8bS/HCEDYQWRWfkM=
-X-Received: by 2002:a5d:584e:0:b0:48e:f07:160e with SMTP id ffacd0b85a97d-48e264f32edmr1993337f8f.38.1792567464375;
-        Wed, 21 Oct 2026 00:24:24 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25827087sm3687052f8f.21.2026.10.21.00.24.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 00:24:23 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: Re: [PATCH rtw-next v7 3/3] wifi: rtw88: time the countdown downloads from the TBTT
-Date: Wed, 21 Oct 2026 09:24:23 +0200
-Message-ID: <20261021072423.4006833-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <f61cfbcd59cd441da59a16db52512897@realtek.com>
-References: 
+	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=iegglWyc
+X-UUID: 61f525b6cd2011f18dc8c9802ae25ab1-20261021
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=chrw1hPEAXslp3rluFtq2rLUShveUHrd6nw3XOyN/VQ=;
+	b=iegglWycb6azoeEj4m4grN/0cJSAWPhfuJkadCw9M0HOu0aWjU1VSGZ6ln9P+Jxyqv78CVJtf4sg6Gf5uNlg1M1lKZs9xy8xDNta97YA8ZRi4B5bA0JFn0Xd4ju78OJURyb6j4WUytfq0GsBUizqx485qBP4TuzF+OA5kECAnAg=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:4a250098-4aef-4e38-bce8-68f6149d93b4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:291e20b,CLOUDID:453cdeba-4006-44bb-949c-6e25a7b8dad4,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 61f525b6cd2011f18dc8c9802ae25ab1-20261021
+Received: from mtkmbs09n2.mediatek.inc [(172.21.101.94)] by mailgw02.mediatek.com
+	(envelope-from <chris.lu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 405971583; Wed, 21 Oct 2026 15:23:59 +0800
+Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
+ MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Wed, 21 Oct 2026 15:23:58 +0800
+Received: from mtksitap99.mediatek.inc (10.233.130.16) by
+ mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Wed, 21 Oct 2026 15:23:58 +0800
+From: Chris Lu <chris.lu@mediatek.com>
+To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
+	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
+CC: Hao Qin <hao.qin@mediatek.com>, Wenlong Tian
+	<ot_wenlong.tian@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, Will Lee
+	<will-cy.Lee@mediatek.com>, SS Wu <ss.wu@mediatek.com>, linux-bluetooth
+	<linux-bluetooth@vger.kernel.org>, linux-kernel
+	<linux-kernel@vger.kernel.org>, linux-mediatek
+	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
+Subject: [PATCH v3 3/3] Bluetooth: btmtk: derive the firmware ISO setting from MTK_ISO_THRESHOLD
+Date: Wed, 21 Oct 2026 15:23:55 +0800
+Message-ID: <20261021072356.1449539-4-chris.lu@mediatek.com>
+X-Mailer: git-send-email 2.45.2
+In-Reply-To: <20261021072356.1449539-1-chris.lu@mediatek.com>
+References: <20261021072356.1449539-1-chris.lu@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,35 +88,51 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Hi Ping-Ke,
+The ISO data transfer size is spelled out twice: as a raw byte pair in the
+vendor command sent by btmtk_usb_isointf_init(), and as MTK_ISO_THRESHOLD
+for the padding in btmtk_isopkt_pad(). Build the command payload from the
+macro so the size is stated once, and update the setting for current
+MediaTek controllers.
 
-On 2026-10-21, Ping-Ke Shih wrote:
-> +/* the beaconing interface is always on port 0 */
->
-> Move into function? Or just mention this in commit message.
+Fixes: ceac1cb0259d ("Bluetooth: btusb: mediatek: add ISO data transmission functions")
+Signed-off-by: Chris Lu <chris.lu@mediatek.com>
+---
+ drivers/bluetooth/btmtk.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-The commit message says it already, so v8 drops the comment.
+diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
+index d60e9db0d463..147db716d538 100644
+--- a/drivers/bluetooth/btmtk.c
++++ b/drivers/bluetooth/btmtk.c
+@@ -25,7 +25,7 @@
+ #define MTK_SEC_MAP_NEED_SEND_SIZE	52
+ 
+ /* It is for mt79xx iso data transmission setting */
+-#define MTK_ISO_THRESHOLD	264
++#define MTK_ISO_THRESHOLD	342
+ 
+ struct btmtk_patch_header {
+ 	u8 datetime[16];
+@@ -1354,7 +1354,7 @@ static int btmtk_submit_intr_urb(struct hci_dev *hdev, gfp_t mem_flags)
+ static int btmtk_usb_isointf_init(struct hci_dev *hdev)
+ {
+ 	struct btmtk_data *btmtk_data = hci_get_priv(hdev);
+-	u8 iso_param[2] = { 0x08, 0x01 };
++	__le16 iso_param = cpu_to_le16(MTK_ISO_THRESHOLD);
+ 	struct sk_buff *skb;
+ 	int err;
+ 
+@@ -1369,7 +1369,7 @@ static int btmtk_usb_isointf_init(struct hci_dev *hdev)
+ 		return err;
+ 	}
+ 
+-	skb = __hci_cmd_sync(hdev, 0xfd98, sizeof(iso_param), iso_param,
++	skb = __hci_cmd_sync(hdev, 0xfd98, sizeof(iso_param), &iso_param,
+ 			     HCI_INIT_TIMEOUT);
+ 	if (IS_ERR(skb)) {
+ 		bt_dev_err(hdev, "Failed to apply iso setting (%ld)", PTR_ERR(skb));
+-- 
+2.45.2
 
-> How about setting a retry limit? Consider if hardware goes wrong
-> suddenly returning random number, I'm afraid it becomes infinite
-> loop. As my thought, at most it needs one time retry.
-
-Agreed. v8 reads the high word once more and, if it changed, the low
-word again; no loop.
-
-> an empty line
-
-Will do, all three.
-
-> The csa_tbtt is just read from register and adjusted to what you want,
-> but in rtw_fw_csa_queue() it reads again and adjust. Can you reduce it?
-> How about adding an argument to tell rtw_fw_csa_queue() that this is first
-> time to initialize csa_tbtt (like the restart case)?
-
-Yes. In v8 rtw_fw_csa_queue() takes a start argument and reads the TSF
-once: on start it takes the next TBTT, or the one just passed within
-the margin, and the countdown work adds an interval as before.
-
-Regards,
-Mehmet
