@@ -1,65 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.167
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792560668;
-	b=2BW3D+CMGp6yIDTFJ6nSCqiZoYmYTXcdjET7etfNayBww6dHmERZggTF+8+tIqe/GHx8
-	 i97Yx/Mpwnmo77vNAKrz9X/HpKnPrvqQNFs7BbDbL0KiFIzrLnMUQteKNQ148hQs2mbZ2
-	 ZmO5QTiynxlhxvaxZmMQmyhNU3qT8YGeOt7g5fOnzdN7lj6hghZ5mNOrQOwOI5LktLAk3
-	 peRA1o5hDczbpzxBdb/0KVvLgbT9YMNAaXxOxcygNZESiuZl1RH57ilrh/Ba4vO9AFvTF
-	 pcMxlgyM0GayIGEux1zTt+8cIhVOSzt8IzW2wbfpSGwx+BZkxUFv80q5iLtxCBgWd5w==
+	t=1792560986;
+	b=tjZSAKcxIZZpGTHJqt8CPUDKgm7U6Bk5zoOm/m7xYs+cGQAZvJrgebXbGICzaKMZsL1/
+	 ST0pRoioXZbxC1g9DUbhbVpA2VF5LTWjoO2+QnsU6XbgEkIarPl2KYX6KtmWROsD5cTnb
+	 lteoo8fgLXpqgm6O/d7z1NXhBroKN63YR12uCDwADo0sJhEsFy/cw47HR1hEx/tVmIHoS
+	 58ORIE/9fqFx+dfmox3xhXhSjj5JEfrKIr5o7r1hdcLECmU2R4g9F+DXuVdZxxXGW8CBs
+	 lrwMMEQuY0YeRTs0MfVDOyJT422FzQlkc3laMgPmZZkeOzTm9/WMDOnNYKdwSVrPQ3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792560668;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ky2NpRR2wA3rI5JofH0oPOu2Ap9UfVO+8mvTU5ilZnc=;
-	b=Ee5ENCEY/tXCjl8tHdi9lBWgwCjRhVEJc5aQ/f3hrZha97UVnJXkTFgyTYBScuytpGix
-	 thUiRo0fabA3F8PC4etukxUHgRJyqQBePsKgDj0W0O7VI/3h7t6zeFKQJEibfjECfF+Tm
-	 blfGhkVBTtOUpOrjo6B3sOiCe0b03xCKRvZlzIvDGnGkUWQm4iVyG8aa8Jk/a0p5IkF3M
-	 gqF2XTfGfbVywohxB0QhN92ywPAhWtFYORc9qOPT8vBIb+PXscu2weoAWL3hZjYXKmbYs
-	 ktPfhW90bZX04sAOupyD176xbaqQ8j3qyeVcyzzwybFZZVaVvJ6Ypbnt5jpo5aLVEQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792560986;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=o3QDH4GHZKZklfz0YvP98XXlcOQ9C0e/UzN3/wc5PoU=;
+	b=uJ9zu/maywBrUaXoTNJyTWlNK0MVWGtisRqbm/y4F7mtlIPnp5aCQ/qP0dnGdvdS0Frj
+	 g0mmy/GexPhzMPMkTnqs3Pd63X6cvQDS9RByFtdhN9V7Jb+Cic94ZLolm5P1q6UlsljPs
+	 AQpz4Rptoza6j6PZ+Xqw9kEY+mhQ7ECTFAmbRGeoi1PV2TrzkXA795Lh+vBV8MYGMlSrB
+	 SLmZjpo+sLUBkjj8prM5yU2g6cHoIpD+2FXSCygbRKk3H/qCg4CNZjRe8NjVfJtdBrRgc
+	 5389wbuR1xB1blxI59NO1yL1HRz9r2HH/onG/81nEuIQi2dVymS50M4rlVIvd7Z9oBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=xej6Vdz6;
-	arc=none smtp.remote-ip=202.108.3.167
-Received: from mail3-167.sinamail.sina.com.cn (mail3-167.sinamail.sina.com.cn [202.108.3.167])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=luoyeHPH;
+	arc=none smtp.remote-ip=91.218.175.97
+Received: from mta0.migadu.com (out-97.mta0.migadu.com [91.218.175.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5712C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:31:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5712C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB56606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADB56606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=xej6Vdz6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792560665;
-	bh=ky2NpRR2wA3rI5JofH0oPOu2Ap9UfVO+8mvTU5ilZnc=;
-	h=From:Subject:Date:Message-ID;
-	b=xej6Vdz6x7Ot3NyND7ikFS47e8wZNqSMhcO4dcHgCoDBZ4IcVZlhjgHPwG2482bKW
-	 MKMIPEhAEQcUF04YXeF2JFwvYEBk4CZ2M8NWeO1kd5qIFt/AL7l4VQF3/truT/DkiJ
-	 8YjojnxpdN+YzagjTHocEGILZBRT960Dy+I5L2mQ=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AD84E0D00006B73; Wed, 21 Oct 2026 13:30:56 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 8399316685400
-X-SMAIL-UIID: 094CBD41D6DC47BD8ACA3DD8161A78B9-20261021-133056-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] kernel BUG in create_default_group...
-Date: Wed, 21 Oct 2026 13:30:53 +0800
-Message-ID: <20261021053053.50220-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
-References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=luoyeHPH
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=WRus9dGBDYjUeT/LwFm/stq6NmRjNXUQhGme5JxIkOY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792560982; v=1; x=1793165782;
+ b=luoyeHPH6x3yhOyE2QrOEiKTsuLBH2bb4PQiEdYqtGEvh0MnnaAj9tJrZ1HAb9qYsR/qASIa
+ 5/u3IENo3j1lgFPUZgjyzZXsf8dzM+USSkRXGxSHBywXQcifyHvlfirzE0YNM/BfclNUKNi3lAs
+ zpgrmirXOdkoONjWDJweCQ/k=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 3d92309cb2c66050;
+	Wed, 21 Oct 2026 05:36:22 +0000
+X-Mizu-Trace-ID: 3d92309cb2c66050
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,48 +57,124 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 1/4] mm/sparse-vmemmap: map shared vmemmap tail pages as
+ read-only
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261021045744.93554-1-lance.yang@linux.dev>
+Date: Wed, 21 Oct 2026 13:36:00 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ akpm@linux-foundation.org,
+ david@kernel.org,
+ osalvador@suse.de,
+ maddy@linux.ibm.com,
+ corbet@lwn.net,
+ ljs@kernel.org,
+ liam@infradead.org,
+ vbabka@kernel.org,
+ rppt@kernel.org,
+ surenb@google.com,
+ mhocko@suse.com,
+ mpe@ellerman.id.au,
+ npiggin@gmail.com,
+ chleroy@kernel.org,
+ ritesh.list@gmail.com,
+ sshegde@linux.ibm.com,
+ skhan@linuxfoundation.org,
+ rdunlap@infradead.org,
+ qi.zheng@linux.dev,
+ linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org,
+ linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <F19AE41A-8150-4444-B18D-824BB0CECB82@linux.dev>
+References: <20261019090830.1917657-2-songmuchun@bytedance.com>
+ <20261021045744.93554-1-lance.yang@linux.dev>
+To: Lance Yang <lance.yang@linux.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-From: Edward Aadm Davis <eadavis@sina.com>
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 58161ead29e5
 
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index eda80c2a2d38..45a955b8ab36 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -313,7 +313,6 @@ static int configfs_create_dir(struct config_item *item, struct dentry *dentry,
- 		goto out_remove;
- 
- 	inode->i_op = &configfs_dir_inode_operations;
--	inode->i_fop = &configfs_dir_operations;
- 	/* directory inodes start off with i_nlink == 2 (for "." entry) */
- 	inc_nlink(inode);
- 	d_make_persistent(dentry, inode);
-@@ -930,6 +929,10 @@ static int configfs_attach_group(struct config_item *item,
- 		inode_unlock(d_inode(dentry));
- 		if (ret)
- 			d_delete(dentry);
-+		else {
-+			struct inode *inode = d_inode(dentry);
-+			inode->i_fop = &configfs_dir_operations;
-+		}
- 	}
- 
- 	return ret;
-@@ -1430,8 +1433,13 @@ static struct dentry *configfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 
- 	if (group)
- 		ret = configfs_attach_group(item, dentry, frag);
--	else
-+	else {
- 		ret = configfs_attach_item(item, dentry, frag);
-+		if (!ret) {
-+			struct inode *inode = d_inode(dentry);
-+			inode->i_fop = &configfs_dir_operations;
-+		}
-+	}
- 
- 	spin_lock(&configfs_dirent_lock);
- 	sd->s_type &= ~CONFIGFS_USET_IN_MKDIR;
+> On Oct 21, 2026, at 12:57, Lance Yang <lance.yang@linux.dev> wrote:
+>=20
+>=20
+> On Mon, Oct 19, 2026 at 05:08:27PM +0800, Muchun Song wrote:
+>> Both early HugeTLB HVO and device DAX use the common vmemmap =
+population
+>> path for shared tail mappings. Map these pages read-only so that =
+illegal
+>> writes fault instead of corrupting metadata shared by multiple tail
+>> pages.
+>>=20
+>> For early HugeTLB, this moves existing write protection into initial
+>> population without changing the final mapping. Device DAX gains the =
+same
+>> protection.
+>>=20
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>> Documentation/mm/vmemmap_dedup.rst | 3 +--
+>> mm/sparse-vmemmap.c                | 3 +++
+>> 2 files changed, 4 insertions(+), 2 deletions(-)
+>>=20
+>> diff --git a/Documentation/mm/vmemmap_dedup.rst =
+b/Documentation/mm/vmemmap_dedup.rst
+>> index 8c287ae3f86c..76f903975a40 100644
+>> --- a/Documentation/mm/vmemmap_dedup.rst
+>> +++ b/Documentation/mm/vmemmap_dedup.rst
+>> @@ -193,5 +193,4 @@ There's no remapping of vmemmap given that =
+device-dax memory is not part of
+>> System RAM ranges initialized at boot. Thus the tail page =
+deduplication
+>> happens at a later stage when we populate the sections.
+>>=20
+>> -Deduplicated tail pages are not mapped read-only. The mapping layout =
+is the same
+>> -as HugeTLB.
+>> +The mapping layout is the same as HugeTLB.
+>> diff --git a/mm/sparse-vmemmap.c b/mm/sparse-vmemmap.c
+>> index 40eba70c0048..ba0496daf4de 100644
+>> --- a/mm/sparse-vmemmap.c
+>> +++ b/mm/sparse-vmemmap.c
+>> @@ -295,6 +295,9 @@ static pte_t * __meminit =
+vmemmap_pte_populate(pmd_t *pmd, unsigned long addr, in
+>> return NULL;
+>>=20
+>> 	entry =3D pfn_pte(PHYS_PFN(__pa(p)), PAGE_KERNEL);
+>> + 	/* Map the shared tail page as read-only to catch illegal =
+writes. */
+>> + 	if (vmemmap_optimizable_pfn(pfn))
+>> + 		entry =3D pte_wrprotect(entry);
+>=20
+> LLM pointed out that an AO MCE before bootmem gather could still reach
+> TestSetPageHWPoison() on a shared tail, since the head isn't marked
+> hugetlb yet.
+
+Compared with the RO problem, a more serious issue may be
+that the struct page has not yet been initialized, and the
+MCE preprocessing flow may all be problematic, performing
+various operations based on an uninitialized struct page.
+However, this problem is not specific to hugetlb; the same
+problem exists when CONFIG_DEFERRED_STRUCT_PAGE_INIT is
+enabled.
+
+>=20
+> Wouldn't that trigger an Oops ... Anyway, I wouldn't expect to hit =
+that
+> during boot.
+
+Therefore, I do not think this kind of problem during the boot
+stage is a problem, because we have no way to prevent it.
+
+>=20
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+
+THanks.
+
+>=20
+> [...]
+>=20
+> Cheers, Lance
+
+
