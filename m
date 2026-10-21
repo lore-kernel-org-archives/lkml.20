@@ -1,96 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792556442;
-	b=CJxoWGYRqU5VB1M8x5Sd3g5la6m00IBAlQ0Bb27DtwwAg3z85nTikptBdlpxBJOzKRL9
-	 zIcyBNuBrK/bYdOO4QnmD5oLPSIyjkx4dg7EBp0NT8pSow/bq3Crdoqry1LaLxAe2Z+ym
-	 NWT9kfscmJ5FXDMxssuZs8Nf90poMjvsZxp775e0y32tiX80T9VTThh7mNOMT4tPQYlDF
-	 rMhTRiCTxRjBAuzJhQegUsbcVg/o2iTb0Q2qMcYkvbtryVvC5bf7s272cEdb+6k8uJqr4
-	 UnZFTNaJh1Dwy5IX3FahwyII99Kji25aiqwLYebuFfOf5hNjQiLT40vV59gY+ADNVKA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792556442;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5kWZEq95rr3xlJQdM3Zsq/uwItEBf5utbCoiS0ERH1o=;
-	b=Ux7lQwKia9qch22iLd3WogB8uRJIdA/uK7v3QyKWXVgMbKdrDWwI1m17mNLJDDNh9A07
-	 bXqAR76HpLlCjoAySZ/GY7ENwlbw6dz8FGZ3qrSB89dAV/mD2GG222lvGey2Miae1kyv/
-	 JcqsKT3pIna+fiFqloPcxzKhU0n/zqhlQ9zcPQm04WjXLveXET5nHZ5IV6wQ/fCTaSDOY
-	 zdLbyBylWH6OMfRZP88jF2t1no1YKZ+uKNpfFG4xIU1PJMH9Iy5gBUb+YXukkzYaJ6FaQ
-	 9peKBEeDYoYD+yUkeEZjYkkAkLoWEjsh2QJNbKqLTrvWoYLrTpscxpa4PExk8QqMb7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NyEPvden;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.96
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792556561;
+	b=qgqr1QUGwUjrDzu1ngULYcyZJdRnp+oF4Apz46b3xqIxMe94l6hZ/FGQtklAu8J5pS/8
+	 YhERPm5NX0lY56nY/LjFhWDOFhhdbHI2t0avyrb3anmQh86hB0qb5zkJh+GSG5ro8Nmri
+	 wJH9fUL9cJE+x0LmHNcOUNu2LBKX2N/vny4Tp6feI76MgahMOH6n+ujd8weOC1GyxagY/
+	 nM8GQ0xfWsJ4dq1XXmZWYDdZ1rqDM5pY6cJmgEJTqADh66GoGmticJxWng0cX/Z/MMsGk
+	 gpqiNt+2r0maKa9n0ESLYkQEkaVsAPe8PlfWRFMH9HxBZ/khhf4CNUuxtz8nMUWtcOw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792556561;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=YtPvspNOvm3SIc7NpGLLK6Z4260uWc+6kpi5pVuCzI4=;
+	b=I1cQ+k8VCglCucIkbvsWEsRipNLDlH8VDPnA+rA2JQQwAEETAQ9XtIe6E2soO3kibzAM
+	 Wk/MLzU/8wvnaM7q7h/Wrpx5gDNC/g7oaBJ6RSk6KxuctJzD7II06GIPzC5tKdkonhbnr
+	 YbTSWJ3vWagqO9JxJqXNTozjubyZSWKbalmhnVjl/zqDGhRcURXCOZChE0Z6VCqGQfF5O
+	 qu6HdOYUvQfDCE2EiVP4ASuxpK013WWhqRVbnhPpJU+UHIMeuxIrFlOSPjzNiwahevNVr
+	 wIgo6vJGqBGNVqS9tERIqYjfq6Khte/ICTqtR2CajQGph5dq6HZgEWXidkO+lhoStVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=LaCFAFCG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.96
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021096.outbound.protection.outlook.com [40.107.74.96])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CDE7606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:20:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CDE7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA25606A31A;
+	Wed, 21 Oct 2026 04:22:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA25606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NyEPvden
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c1c8so1043605ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 21:20:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792556441; x=1793161241; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5kWZEq95rr3xlJQdM3Zsq/uwItEBf5utbCoiS0ERH1o=;
-        b=NyEPvden8y7CjWZefZBy9Osn9CTzUVCiUmeVgovzu1SgWiHiW2HhnKuqH/XfxvuzZC
-         xGnW3DrvoZYw/Wq9gTSVFxRw46a1yj6Pdt8nBq1+C6bGmlgcEwm+ieagze1lVvNGjNKO
-         PXt9IZ2npE6Z9AWOBbO/XpVbqLzXG35dx+b+B5MfJ6Arvp64apM+DghgUTlqfTmX0qcu
-         j8/pNmC92RUx5C6GXiMzJCMyyCqCVrbvHpxDA+pHrseckQ6zrAKIHv3zH0jbnNkNQTNA
-         wah/JLTp5ORKj5g+RZSaxDKjYu+WYP8FJZYcN3MOxxJ6n8ZVzDBofDw6NosbWojigcVr
-         kkkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792556441; x=1793161241;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5kWZEq95rr3xlJQdM3Zsq/uwItEBf5utbCoiS0ERH1o=;
-        b=sHDC/jKR6kBsrSkGry3okhtHFPZViVW15nX8aDO307U3jAKxrRpaEi3Sdhw0PH4M8p
-         M5WnhsQykKdQUdcBY4b8EbRGR1b74476g3eS/FrmeGoXFHhG0DC2xnFW42o8e0cuQYtP
-         98FKgjtpZ80IMv3ZNucPdzHJi3Xs2wwAF1eEmUkoD+LUmb1xKRv6YVxOOL2DKBEW3NCt
-         lnM2V0qUvuEc5/yS074FNLNp88zAQXXTpxNS1QjVKDQf3awgoEsND7LOtouks9Ew/ZqQ
-         620NYZRUgOBYu8O9FwlzcV5kszbt6S60piuWSh2JJobHJ9PCiCT9WHsmXs7qSk/yu+De
-         wdUQ==
-X-Forwarded-Encrypted: i=1; AKwUvByaR88E5l1mpHl/7MbjLc3eE6R8oOXlEjnkAcBKHedfV5PZWDkEHWd9+1cmWCXoji6F+ZHrUF+Rud8tg0U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8Pv1r0fiQVf5fidD1M7nj3Gynnn/kXgEwltR/zKHzQRn2jeGH
-	5MByjZ+K5PtRob53KtNPqfwplUPCR6d7WHCybEP9p1wb1JdbliyYA2WK3u5R1ULYrU+4RDG5z94
-	=
-X-Gm-Gg: AYBFou3v8oClUolMPz9epHGy9HGt3poAv6vStGOBAV/bmF41YljAJMjx6sjsfI7GKjU
-	vxR8r0u/H5NVnfwDN00nLG/v3+P5EVOe+2uUhNDI3AdItNBJdw5hXj/lk4eG9Nm1uHvxUtB0KQg
-	IOZ50jvR+MGGE8Tm34/lGYu4wxlWCf+LfKrKmru6Zw5LOR8cGhmOxj2uDtlgbGWhXFAkDRkXlbK
-	Q9v28Oi8DlUSF7d1Ch/qcPaBzx6IQDXGvgsZu89l1PyV86SYnrM+3NGK0hyePHjSgPC4sroKp2F
-	NmnMTIJnyjh/3vP1en9IFrupdzJVe6bFhxYAXMjayECOiArQrBEngtPQHbo/VAeWrVVs1krg6dC
-	yr5hki1EWb2TnIn/b+2OzRJhueFU2nrhUpI3TEYrFeA12LjB83G8R1MVI6uiKfQ2Lh5C+U5p08R
-	ydZcmJ3/Om//5DEyMSQ3u9Jb9fpeI9UD04aDlOwrUNnihmTNYEyR68mv0HREs/q0LvYiuXSxjJo
-	wecM52CdFaiGQx3gvhqlA6+pQISXZmatT4rg9FACD4CLDqqNGcHmp41FFpDiocecgb12KyWliml
-X-Received: by 2002:a05:6a21:b95:b0:3e2:76f0:ac27 with SMTP id adf61e73a8af0-3e287dd61f3mr772979637.40.1792556441505;
-        Tue, 20 Oct 2026 21:20:41 -0700 (PDT)
-Received: from AERO17.taila7786d.ts.net ([152.175.65.42])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a08933aec9sm318936b3a.2.2026.10.20.21.20.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 21:20:39 -0700 (PDT)
-From: Pufan Jin <cyan2254650260@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3] net: phy: realtek: Add support for JLSemi JL2101 and JL2121 PHYs
-Date: Wed, 21 Oct 2026 12:20:29 +0800
-Message-ID: <20261021042029.44853-1-cyan2254650260@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=LaCFAFCG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HHdW7yygpVlbEfD7NKadNX0M60CqmCc/gwpKdJ2LSOvGZErlA5cL0jLMDWcInT2NMMVsO2Fd6MFIOHWzktcAO0kpt08btLJN0QuzGnLnSGhf1ECWMY18UUCtMKeILrebAwZv+HlHBkG2kwvLx+Tz9Y5lkKLX5zGjqFXnUKT7KE1isyI9YjwQ3EbuGQQYyzHnQL1KD3zuKlGzZM/8SRTTqDNXgEnkqfx617qqo7e7mS/vk3MhBmKP9TNdUQmKs/ODpdm0hz0WD0C7/HPNAttIPXZ8i3rO1Cb2NlyVcc2U/7UZuB5sn3wpvkDPak0eBAvj3UNWvAzoXwlEJuTu8xnjsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YtPvspNOvm3SIc7NpGLLK6Z4260uWc+6kpi5pVuCzI4=;
+ b=LC5WU5QmqAfqTQcXqwqsgmsC0fifbqSMyCRRf7tS6r2Ur0Mqziz4ho6voQbLZzcbMnD3HTuHLJm/OCGeg1vd77jahXg/gnXnH97xmhejeQphMsUPsVsN92ghoH4HcQVZ0zMWoNa56YKnZ7UnWxDPK2wVlIluXq7/aqxADctR6GRoFJRRv4IIrflMejVzr9/QQolZHgUsIRqy4N8DapblRmfvYIeGzzewcuDhFIshT84Zp1IKjIt+OkBdcmnQxoHFI8g58fL/551oQYAlsAaEB7QFdBYAn5hwomWbnewF7oUmQTG41aL+TCROH0+z3OF6et7ePteGjK6ZyezwtKkDHA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YtPvspNOvm3SIc7NpGLLK6Z4260uWc+6kpi5pVuCzI4=;
+ b=LaCFAFCGlzchLysAofBDZK3zf3NoCyVg2/jXXYeTtHvYgpYPBtphc+Cbgn9PaAChoihuK3Ahwg/d5f4K0JRKDbM/LXre1FHC3GnkOSbsaXiOlMKhuuJU1ayRUvmlJVsMDCqz+LfKOe5cRiaqJ3rEwrrvIF43U5RH57xc6GaUjDo=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS3P286MB3180.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:20c::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 04:22:35 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 04:22:35 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.Li@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	linux-pci@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ntb@lists.linux.dev
+Subject: [PATCH v7 00/10] PCI: endpoint: Remote DMA support via vNTB
+Date: Wed, 21 Oct 2026 13:22:19 +0900
+Message-ID: <20261021042229.2280937-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.54.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: TYCP286CA0303.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:38b::11) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,141 +111,200 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS3P286MB3180:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6ad8d0fd-0608-4b2d-f77a-08df2f2aeeff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|10070799003|23010399003|56012099006|261009223027099003|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	ASSHnX/UejbyLar9sGsy/aC2Te6R3x9zhxIPTZ4l69jvoWiJJwU9O4mSlIKOr3i5YGiVt9tDJJxzbvSwU3WhHEjDuwHVB7e5aYL49JUDNHOxkxzBXu4OW6XgJ6YpOg7NoW7gzX3GB8MuQmxhB84BgGOylqlJEn+U2bD9lrMFuL6E1vv7MlBwfDA2j0ZbPCvzFFQqsDnYpfDCtIPNYkAPdld8t8LZsArJQ9JPXzi6f+ddu+jtrXxtvR+B2f5l2Mul9WCsG0uShBlfq98Py1cE4uu7636NiLkLJ2HPDQUAWuV2urUgTZ2NNcr/mEw5WlClsadKbO1WO+8njev8Ut91C5ZyVC25/Kpuv2QbiR3kuGZvPcFE1SBFldo09a5ULquQMVsDRUYuxnflg/UVKENVHbOE5DAwWdITYGK3BfAT4wD5GFDCeIf7lJLCs+VIaKyeJ9lMko75Zu0hhHXVQEovlLikQo1e4Bqk7VFYNGkPjwQfj1gon3QZIywAUfPIVSamn1dKXe83EruK+75mlkc4wYxtWO8xllazQw5cscYJ/NzveumTaazbziAD0v1Twrs0sdEg3AB69IH83FFbTPEUZEngGV9CB/KRTdY0eutQMP3CK+J7yN8J+9bgb5t1PBhB
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(10070799003)(23010399003)(56012099006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?u/n4/xtyoWj/CFxpVXxfUEKDFhhHbmAD9Tr8bC5/K9L/wzukuKZ72Op3dSNi?=
+ =?us-ascii?Q?MkV+scO2IuEn0CIXw+bsMjyIWYNHQDW0H39kNHldvPu1Pl4pAM+P+HrprA8a?=
+ =?us-ascii?Q?DGsbgGB+8MzrVgN1d7CiuD9y3gbafuHqcxBllGWc+JUGd18vndwD2Gy46Ydk?=
+ =?us-ascii?Q?+Nn1iT6mBQHDrl6jYS0B4GT98bFuN5+ZK2HCviL3ISZJ8vpxAmlpSDXi8AlJ?=
+ =?us-ascii?Q?XoCMOCAmGfr5d4EihtGmPoCXJsGAVxFACHM/KZClMpQGSYrvQubcmSps219C?=
+ =?us-ascii?Q?ey7MO+PBymoQrlTAUTC5oxgAW8fs/J87n43YntIPJAEwD6SlLm7Dw5zDZruc?=
+ =?us-ascii?Q?cYcQ2L7dqvlCZLIa4LGLyly416xU11AeWX4FPk+Rz+7QAbDrMwdIdYHF1KAq?=
+ =?us-ascii?Q?D56ucaPKB2A05c1QbMI3THYamFR7px+/gsNUzF9c5yhOjmzKTY1FbYihUJhr?=
+ =?us-ascii?Q?BnLlQCOjhyWlMx7D7d7ivny8s7HFOFfzmfgcwaiNYLKRFvxqOi85oEKyMpWo?=
+ =?us-ascii?Q?iPPn28bft5TCKLKXF26nyUfvQBAImeMFeCZ9sVWq4zxNu1n6Gp8ukDpwXjZs?=
+ =?us-ascii?Q?WVu3GtzPYi5kOLfsSMcoW6LZtrJPhxfRfKLw1rRypR/LEADF6Zc5aJ7JgXWN?=
+ =?us-ascii?Q?Su4njhYCQxGrdwdWibFtDAk2jfdmu4oh8yk3BMTK3UhPI6DjSsezHLUOp+xO?=
+ =?us-ascii?Q?fEt73AhEmTVzKTSIPI2QuIgm7U0FEU7Vh0wo9QIQp27xC3mIEjvN42S5OpF9?=
+ =?us-ascii?Q?5nH5VQxZrbH/ItMisetfwoDbmLlIqUOr6Lxmih9FZ3O1sFQZ1RsteFgg9XvI?=
+ =?us-ascii?Q?7Fjcq+42N0ZT4uXkvPFPP763RH4HnH9QIKDWbp67H+pKMlDCIAZ/8LeyfV5d?=
+ =?us-ascii?Q?LmXma+Fwq+sE48GGh3eBjRaRNMBA1cdjjMkZsrkjSufXOAgLvVEbXfg9Vgar?=
+ =?us-ascii?Q?5UevP4L8Osl0KvuvE8wJidxLkINtc4s3LF4HT2yeT0oGax15RfJn6jQOst+B?=
+ =?us-ascii?Q?4vhc5C/0yjePyPV2jCnFOstSX4IYriVMf4C8jaWHsRFohiZdIEzqReAAAfNj?=
+ =?us-ascii?Q?Kj8rcD6ddB5vpaAA+mrFyXK5nqpMHOtEVH2JMsdmnP6KSuCxLG+qM3CfwbTd?=
+ =?us-ascii?Q?5gfehm9/dOKFDgaWV4z6+lBigdv6pCj9Lzh7/jDojZOr0IlR/NRY+7KwQt1C?=
+ =?us-ascii?Q?J16GtG92iVs/lZg1xRvjHlSiadf7Z3mVahtkkJyjF1SkhB7dAC4KUlWKRUs7?=
+ =?us-ascii?Q?3J5P11LJHKpwB1L8bkTlrPbdSSMWvitPjQ/jWDe0P/fcyCR/mwlEacSTrxYf?=
+ =?us-ascii?Q?492v1Jgvun19XnBFGDg8HMPJ15JGyPjRfe5NqmUZw2zsat6pC4uhrXks9ACG?=
+ =?us-ascii?Q?VM4zwRqMTBWl1rHv1X18oB1Znc0NJhbseU2oQfqSlDayog82RZR0UFn6gPCn?=
+ =?us-ascii?Q?1tIld9rFNDcUNp9+ZSAfHpPL8K/glB2obpJjifePU4L6qVHmW84pGZ8/Brf/?=
+ =?us-ascii?Q?qZbj9PfhmHOpiIlCP/3V89XROhh933Bu+obgV88rqgRSBh/pVcQLREcZ34/o?=
+ =?us-ascii?Q?/yF1yTtQPtj8jAz4PzzqNs57NDVwapVtFykZb3yM03NcIw6Z+k07iNuHm9lS?=
+ =?us-ascii?Q?OYLb+lPkwRWF8SNg2Lrw5C4enU+POQ0NLSQhTvNXhydCBhpZbpL7WNg/Dezq?=
+ =?us-ascii?Q?JZHycZNkgVI+7+kHD+FQ0rtj+RpYOOc1Vr7Ocwgrvi6ma7gMvuRFDrAAt91C?=
+ =?us-ascii?Q?P0LSCnEfBNyZzBzpdz+agLVS0sY/w9SktP3dJqxSX3FQsRTTpkh+?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6ad8d0fd-0608-4b2d-f77a-08df2f2aeeff
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 04:22:35.6183
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TQe514xB+tSKy7440NzrSusf9sNnohjwZ1ph2btY7+3YkjufFtJ9zl9x1Tn34ZjGfV6Y1I4w1+EUxza1Hnbr9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB3180
 
-JLSemi (JingLue Semiconductor) JL2101 and JL2121 Gigabit Ethernet PHYs
-are register-compatible second-source alternatives to the Realtek
-RTL8211F. They share the same paged register layout (page select at
-register 0x1f), RGMII TX/RX internal delay registers (page 0xd08
-regs 11/15), and specific status register (0x1a). Wake-on-LAN (WoL)
-events (page 0xd8a regs 16/17 and page 0xd8c reg 16) and LED control
-registers (page 0xd04 reg 0x10) match RTL8211F.
+Hi,
 
-Unlike RTL8211F where PHYSR (0x1a) can be read directly on page 0,
-JL2101/JL2121 requires reading PHYSR from page 0xa43 via
-phy_read_paged(). Reading 0x1a on page 0 yields 0x0000, which causes
-rtlgen_decode_physr() to erroneously downshift to 10Mbps half duplex.
-Introduce jlsemi_read_status() to read PHYSR with page 0xa43.
+This series lets host Linux use EPC-local DMA read (RC-to-EP) channels
+through vNTB. I also tried a separate PCI DMA EPF, which reached v7 [1],
+but came back to this vNTB-embedded approach after discussion.
 
-Extend the Realtek PHY driver to bind JL2101 and JL2121 by their PHY IDs
-to the RTL8211F-compatible driver operations, and add their PHY IDs to
-the MDIO module device table.
+An EPC-local DMA engine can use host DMA addresses (IOVAs when an IOMMU
+is enabled) as PCI addresses to reach any host buffer mapped for the
+endpoint. Letting the RC side drive its read channels also gives the RC
+a direct path into endpoint-local buffers.
 
-Signed-off-by: Pufan Jin <cyan2254650260@gmail.com>
+A major motivation is direct TX in ntb_transport. Both sides could use
+the same dmaengine-based TX path (ie. symmetric), sending directly to RX
+buffer DMA addresses supplied by the peer. This would avoid MW bounce
+buffers and per-transfer MW remapping for payloads in both directions.
+
+This assumes both sides trust each other. The RC side still programs DMA
+over PCIe MMIO, so this is expected to pay off for large data transfers.
+
+DesignWare eDMA is the only supported dmaengine backend for now. Other
+EPC-local DMA engines can be added if there is a need and they have a
+suitable programming interface.
+
+This series does not include a consumer for the dmaengine channels exposed
+to RC Linux. Native HDMA support is also left out to keep the series from
+growing too large.
+
+Setting pci-epf-vntb's 'dma_bar' configfs attribute enables DMA export.
+The default is -1, which leaves it disabled. pci-epf-ntb only switches to
+the shared control layout header and is functionally unchanged.
+
+
+Dependency
+==========
+
+(Re)based on next-20261020, which includes the following dmaengine series
+needed to build these patches:
+
+  [PATCH v4 0/3] dmaengine: dw-edma: Prepare channels for remote use
+  https://lore.kernel.org/r/20260912174023.1227397-1-den@valinux.co.jp/
+
+
+Proposed merge plan
+===================
+
+Patches 1-7 are for the PCI tree, and patches 8-10 for the NTB tree.
+The NTB patches need the shared header as updated by patches 4-6.
+
+
+Compatibility matrix
+====================
+
+Below, "Old" means next-20261020 without this series, and "new" means with it
+applied. The table describes expected (and tested) behavior.
+
+  EP                              | Old host     | New host
+  --------------------------------+--------------+----------
+  Old                             | OK*          | OK*
+  New (dma_bar = -1)              | OK*          | OK*
+  New (dedicated DMA BAR)         | OK*          | OK
+  New (shared MW/DMA BAR)         | Rejected**   | OK
+
+  *  NTB works without DMA.
+  ** LINK_UP is rejected with an error message. In v6, an "Old" host
+     could mistake the entire shared BAR for an MW and overwrite DMA
+     registers or descriptor memory.
+
+
+Testing
+=======
+
+The existing MW-based ntb_netdev path worked with DMA export disabled
+(dma_bar = -1) and enabled with the following EP-side BAR settings:
+
+* Dedicated DMA BAR configuration on RK3588 Rock 5B:
+
+  ctrl_bar = 0
+  mw1_bar  = 2
+  db_bar   = 4
+  dma_bar  = 5
+
+* MW-shared DMA BAR configuration on R-Car S4 Spider:
+
+  ctrl_bar = 0
+  mw1_bar  = 2
+  dma_bar  = 2
+  db_bar   = 4
+
+I also tested a v7 EP with a shared MW/DMA BAR against a next-20261020
+host. LINK_UP was rejected with "Host does not support MW/DMA BAR sharing".
+
+
+Best regards,
+Koichiro
 ---
-Changes in v3:
-- Drop standalone driver drivers/net/phy/jlsemi.c and extend the Realtek
-  PHY driver directly as suggested by Andrew Lunn.
-- Add jlsemi_read_status() to read PHYSR (0x1a) via phy_read_paged()
-  from page 0xa43, avoiding false downshift to 10Mbps half duplex (verified
-  on physical ALINX AX7Z020B board).
+Changes in v7:
+  - Split and reorder the patches for the PCI and NTB trees. (Frank)
+  - Reject LINK_UP from hosts without MW/DMA boundary support when
+    a BAR is shared. (Frank)
+  - Rebase on next-20261020.
+  - Link to v6: https://lore.kernel.org/r/20261020054948.1218370-1-den@valinux.co.jp/
 
-Changes in v2:
-- Drop redundant phy_interface_is_rgmii() check in jlsemi_config_init()
-  (Andrew Lunn)
-- Change speed check in jlsemi_read_status() to '>= SPEED_1000' since
-  JL21xx only supports up to 1000M and 100BASE-TX does not use Master/Slave
-  clock resolution (Andrew Lunn)
-- Check device_can_wakeup() and configure wakeup capability and wake IRQ
-  in probe() when 'wakeup-source' is present (Andrew Lunn)
-- Drop redundant .features = PHY_GBIT_FEATURES (Andrew Lunn)
-- Use PHY_ID_MATCH_VENDOR() for generic driver and mdio table (Andrew Lunn)
- drivers/net/phy/realtek/realtek_main.c | 61 ++++++++++++++++++++++++++
- 1 file changed, 61 insertions(+)
+Changes in v6:
+  - Add a prep patch that moves the control region layout to
+    include/linux/pci-epf-ntb.h, shared by pci-epf-ntb, pci-epf-vntb and
+    ntb_hw_epf. (Frank)
 
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index 177b62a7b..36c8f2529 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -259,6 +259,10 @@
- #define RTL_8261C				0x001cc890
- #define RTL_8261C_CG				0x001cc898
- 
-+#define JLSEMI_JL2101_PHYID			0x937c4032
-+#define JLSEMI_JL2121_PHYID			0x937c4030
-+#define JLSEMI_STATUS_PAGE			0xa43
-+
- #define RTL8261C_CE_MODEL		0x00
- #define RTL8261D_MODEL			0x81
- #define RTL8261X_INT_AUTONEG_ERROR	BIT(0)
-@@ -1731,6 +1735,23 @@ static int rtlgen_read_status(struct phy_device *phydev)
- 	return 0;
- }
- 
-+static int jlsemi_read_status(struct phy_device *phydev)
-+{
-+	int ret, val;
-+
-+	ret = genphy_read_status(phydev);
-+	if (ret < 0 || !phydev->link)
-+		return ret;
-+
-+	val = phy_read_paged(phydev, JLSEMI_STATUS_PAGE, RTL_PHYSR);
-+	if (val < 0)
-+		return val;
-+
-+	rtlgen_decode_physr(phydev, val);
-+
-+	return 0;
-+}
-+
- static int rtlgen_read_vend2(struct phy_device *phydev, int regnum)
- {
- 	return __mdiobus_c45_read(phydev->mdio.bus, 0, MDIO_MMD_VEND2, regnum);
-@@ -3192,6 +3213,44 @@ static struct phy_driver realtek_drvs[] = {
- 		.led_hw_control_get = rtl8211f_led_hw_control_get,
- 		.led_hw_control_set = rtl8211f_led_hw_control_set,
- 		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
-+	}, {
-+		PHY_ID_MATCH_EXACT(JLSEMI_JL2101_PHYID),
-+		.name		= "JLSemi JL2101 Gigabit Ethernet",
-+		.probe		= rtl8211f_probe,
-+		.config_init	= &rtl8211f_config_init,
-+		.read_status	= jlsemi_read_status,
-+		.config_intr	= &rtl8211f_config_intr,
-+		.handle_interrupt = rtl8211f_handle_interrupt,
-+		.set_wol	= rtl8211f_set_wol,
-+		.get_wol	= rtl8211f_get_wol,
-+		.suspend	= rtl8211f_suspend,
-+		.resume		= rtl8211f_resume,
-+		.read_page	= rtl821x_read_page,
-+		.write_page	= rtl821x_write_page,
-+		.flags		= PHY_ALWAYS_CALL_SUSPEND,
-+		.led_hw_is_supported = rtl8211x_led_hw_is_supported,
-+		.led_hw_control_get = rtl8211f_led_hw_control_get,
-+		.led_hw_control_set = rtl8211f_led_hw_control_set,
-+		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
-+	}, {
-+		PHY_ID_MATCH_MODEL(JLSEMI_JL2121_PHYID),
-+		.name		= "JLSemi JL2121 Gigabit Ethernet",
-+		.probe		= rtl8211f_probe,
-+		.config_init	= &rtl8211f_config_init,
-+		.read_status	= jlsemi_read_status,
-+		.config_intr	= &rtl8211f_config_intr,
-+		.handle_interrupt = rtl8211f_handle_interrupt,
-+		.set_wol	= rtl8211f_set_wol,
-+		.get_wol	= rtl8211f_get_wol,
-+		.suspend	= rtl8211f_suspend,
-+		.resume		= rtl8211f_resume,
-+		.read_page	= rtl821x_read_page,
-+		.write_page	= rtl821x_write_page,
-+		.flags		= PHY_ALWAYS_CALL_SUSPEND,
-+		.led_hw_is_supported = rtl8211x_led_hw_is_supported,
-+		.led_hw_control_get = rtl8211f_led_hw_control_get,
-+		.led_hw_control_set = rtl8211f_led_hw_control_set,
-+		.disable_autonomous_eee = rtl8211f_disable_autonomous_eee,
- 	}, {
- 		.name		= "Generic FE-GE Realtek PHY",
- 		.match_phy_device = rtlgen_match_phy_device,
-@@ -3420,6 +3479,8 @@ module_phy_driver(realtek_drvs);
- 
- static const struct mdio_device_id __maybe_unused realtek_tbl[] = {
- 	{ PHY_ID_MATCH_VENDOR(0x001cc800) },
-+	{ PHY_ID_MATCH_EXACT(JLSEMI_JL2101_PHYID) },
-+	{ PHY_ID_MATCH_MODEL(JLSEMI_JL2121_PHYID) },
- 	{ }
- };
- 
+For earlier changes, see v5:
+https://lore.kernel.org/r/20261009045949.1109871-1-den@valinux.co.jp/
+
+[1] Superseded approach, PCI DMA EPF, v7:
+    https://lore.kernel.org/r/20260813063757.3131865-1-den@valinux.co.jp/
+
+
+Koichiro Den (10):
+  PCI: endpoint: Add DMA auxiliary resource metadata
+  PCI: dwc: Expose endpoint DMA resources
+  PCI: endpoint: pci-epf-vntb: Move epf_ntb_is_bar_used() up
+  PCI: endpoint: Add pci-epf-ntb.h for the shared NTB control layout
+  PCI: endpoint: pci-epf-vntb: Export endpoint DMA channels
+  PCI: endpoint: pci-epf-vntb: Allow DMA and MW to share a BAR
+  Documentation: PCI: endpoint: Document vNTB DMA export
+  NTB: ntb_hw_epf: Use the shared NTB control layout
+  NTB: ntb_hw_epf: Discover vNTB-embedded DMA
+  NTB: ntb_hw_epf: Support DMA and MW sharing a BAR
+
+ Documentation/PCI/endpoint/pci-vntb-howto.rst |  31 +-
+ MAINTAINERS                                   |   1 +
+ drivers/ntb/hw/epf/ntb_hw_epf.c               | 410 +++++++--
+ .../pci/controller/dwc/pcie-designware-ep.c   | 107 ++-
+ drivers/pci/endpoint/functions/pci-epf-ntb.c  |  85 +-
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 790 +++++++++++++++---
+ include/linux/pci-epc.h                       |  34 +-
+ include/linux/pci-epf-ntb.h                   |  90 ++
+ 8 files changed, 1272 insertions(+), 276 deletions(-)
+ create mode 100644 include/linux/pci-epf-ntb.h
+
+
+base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
 -- 
-2.56.0
+2.54.0
 
