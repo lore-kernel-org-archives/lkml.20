@@ -1,96 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.68
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581962;
-	b=zjS9va28MSfJe7b0p88t09q33t7Z0GNBvmYtXrY2FmasaSrK/h9uPeQUv9XUE43WnRxU
-	 CjJyePeWqYsHlvjJ7lJmhm4qf8JopDQ+8nG5VEPZhi/Jjeb+2331092e0e3+08VK74pB7
-	 WKp0bo6yJtrmzaFE2W1dPuZTIr2udsvgNxC0Lh6hZPTAUymM8S5JksyFCDIuJh5rq8Tji
-	 PdayodSLi05ND49xozwYhwrCUFIIU5ePaCdNld1WcBaHzsyJvfu5bISZOAI9eUPhW2xjr
-	 BoZjzbjwBTA9j4RddK7rkJpktaB1qIXx9XPZjeY3scZhMTbLervaVG0Fp2rO8o3gnRg==
+	t=1792582244;
+	b=ftXtbzCtbreSE2CnaxiDDQDnsmJOy7S+WlQFwpeIaOSGWPlhFSaQN25NPJJX/eg/QlGf
+	 d8rYTf7hqhKKJwzPfIYeI0fecR8VqOLqQ4+TN6gxZIxTFYzFko6DLXrzoKAa355iH+2SI
+	 5ViEE4GPZkd2UFxdJOaJUx77TZ5Hit2Iihr3NHKfXiNz48Ydi8pQDYP9HHtGBpHOY6/lp
+	 1E1tYSVc7Ef9IspiYJSAFfKg6LS4LgDFTXmxlMc/pYilOVsAqBgwP5tmo1VbC4W19Zo3Z
+	 jyzB/CmiJ1x/TyxbvTntBbkdaafxMpMo9aGALPouU6wmWYvZEH+EysPs/dhmdyiIL5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581962;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792582244;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=uSgU66UvvSwylDygU94JyWQL1mKuGXT9QBuCeFw9T5Y=;
-	b=V24SBIr45dD/qbm24lc/s02xvxAqcagpa09ZRsETW7VSjPCpGA7hA93/9/KvBavhN6pn
-	 Cc5oiNICkOKtXZEfEqcUwhd9Sp8PptRC3fOB+N4sC9uzDvZnxnQ2ZhUXCSZSsFXZOU3ia
-	 7QbAc5vbtGl+S3NtucBQyti7lU/TMzUraqn6wVNRLRVbVMcnCWRnMR9mCmLuXa2ZoYmWS
-	 UkjopMFxAAWWyRMFQeOE2EC428AdoTGj5TlnYlYgSKt8IBU1U20Kuumubq38hXerbxPnv
-	 y7TadtupFCp47G1hoHWha8tKWlGoAAwYssVWPFDbrq0PSPwxXh8nbZ/j4JbE04acFtw==
+	bh=U+xSPnvmF/tO+Fgf3pJ9qhNAxgNa/gXXKtkwmbQs8oM=;
+	b=NxKN0HfWV2NIQc149DREay4DwRDMW16qXd7bWYjdukTxSsk5PSS2bWWLIungMuwdOOYs
+	 OAzK4eLmBQoFdPnmHrBrcYI0EPuKBfH8f5/+PMuNmcKSWBpY2MkxCXslzTvkQPPAgiewt
+	 rCvf/9EYy9Ac0gptVSFTB/TqeVUYhgI9MHVdYwDcB1Z1OgCvPV8dyQ//aITRoweflXHoX
+	 MxrdDdXLO94uFKgiAsKj7RsNkA+7QykQA0ByqcVDB+gmZ/J6tk6cbIjosPnAo3Rm9H1EC
+	 G6YoM8U7EzE2K0TUVCAFRl08hksLd8/2//3QwFgavnUpQ/jCzTqtn++XH/nQjYXi4VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KkLC7HeY;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.68
+Received: from mta1.migadu.com (out-68.mta1.migadu.com [95.215.58.68])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17C2606A322
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:26:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D17C2606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KkLC7HeY
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-18cdcfc05ffso579617c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:26:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792581961; x=1793186761; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uSgU66UvvSwylDygU94JyWQL1mKuGXT9QBuCeFw9T5Y=;
-        b=KkLC7HeYFLkHWL6a/YJIjripfrp8Tlbapk9ls0aJmQSlRiHSs3GU0Xa2g9vkueejnn
-         WGepQ0sG8Mu4CLV8tsdpkkx5sVuMVlnWNE3BU7BnRQNGMqEdP+T9wl40+sYZIT9BZjA8
-         akn2KMFElAh6pXjn86N+wFie2wmntjE5RYBkBxqwaHx5kamu8DjWGrwqgPHrU1RMrSIb
-         kUeX40BH0ZXQ9y92VNIusYxBx+5sp60OUrmIX3dojenW2z0AyyH+N4nd8CpixI/EQqK3
-         ft3iATIbj+/QXBxEUpGMwDSOs9powJaopfl7VRpwByD1k6ZQZitxxiSW/J1EHUeC+TJc
-         C57g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792581961; x=1793186761;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uSgU66UvvSwylDygU94JyWQL1mKuGXT9QBuCeFw9T5Y=;
-        b=JEvWZB5OM6IiD+RmkfDw+AR8kaue+iWHQkEhFz4Xru5Fwon0L5wbdeNYZ4wCfFN4Gm
-         BwpwN4W5+ogKxs4gTmKcHnVUj67scT+vZyYrXAuO9DnP6YoLTmnV+D6TqsdAXhjOFpDF
-         vTbZeACvZ0FkxrICQrLmLssnKuU40vDVVC8bPENTfqOK218qU5FYvXdUDuNqkV37BANF
-         eXrMithWaBY6xu11jT8M5ScfEw+w6S4MD0Rmshfjql9hc9xSfQ0J6aVC8qAmWQIotb8b
-         7qK1bpP6n3zt7cCnwPzBeD7zjQZF7aMvfvuWyE82zpsS3g1xx0AvUYgyLBEaYmQ+Nrnb
-         i+gg==
-X-Forwarded-Encrypted: i=1; AKwUvBzUI4uDyZ2EXeUFtmnfzaeWaws5LwW7ZRDnMyXnwD7dVCBAdQ3o2jEci6IPzYuevCg4OV+2bqwbtNBVul0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2Yz80lrqeQD/cBRIBqemsi9Or4W6acWAOXKHaE469OHgId2YF
-	Ywfh+M0mJj2ZmHG7NPX68gv9xilBoG0NRJcg4oTf8sngH9ObhpbTgLNs
-X-Gm-Gg: AYBFou2nSGZfTGVLzl38w470KNf0KPPCcD1h7vvrxXYBOd6czyIzPTD6B5sYTRLCESQ
-	eyVTnK7hMU7kvh3t9yLy/ES85jULxsEOtUVwtoBlWas1mnYbwT3iNluAADbR2qTV9WqlSfs3bY6
-	xXpMy5Ert05JL8DKBxONmsqp3GkjmDcusTYViDKWJbBKpvjUlSFFYwdZBBWiLnC7RgZZoLV3izN
-	/1ID4b5i+gQzZbTK1cj9THI0HYeC8xd8gJH6QVz/QcJqnmSB94faYhHpUaJybERBM1x7Clzma0I
-	cWmKtYE6tfQe1qj4holsqVuFdDp8VYtE4Q735317Nr8FctaqJTC3KJx5+i6qOaRJkxw+M92DhAF
-	i/3Gcd7iMhPt58xLX1IHJCMyPcSbmGq5KxjhL8N8qMaNIEj0h+UWthvt++fGGGCdOSZLpPF24Ey
-	qaJvrMl30S1QDbSoHlWsexq6nHmq5ZoPLD9AQ3Lzt8jUA7+fAYhrYIWGo0UrVSy/hcj4sGSEcgK
-	JTsXCgrsjtatPoMHDCcqTcS8NPj7F1Gst4Zy5uAff46rvBxzHwUur4emusbmKmWqjMnrb/jVh4q
-	yeCRXv7b0d4RGINmTx54j4di6+bBI3+0+hMEt8rfGtw0L8jUUwXnjOKOgAbF8ke7zzk=
-X-Received: by 2002:a05:701b:2051:20b0:18a:d0b5:fa42 with SMTP id a92af1059eb24-190a604f7f6mr2326894c88.19.1792581960622;
-        Wed, 21 Oct 2026 04:26:00 -0700 (PDT)
-Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903ca044d4sm5810344c88.17.2026.10.21.04.25.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:26:00 -0700 (PDT)
-From: HyeongJun An <sammiee5311@gmail.com>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B14E606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:30:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B14E606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ajoLYE5AD2heyAC44s3QWW8/SJdTozUgA/AhWcBRkvo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792582235; v=1; x=1793187035;
+ b=peV2frh87rolLVSFnvECmmtCIKSTBix8AHi94IGRwH2+Zplz/8TmlcfbFbtgWK++PPc/FcIX
+ LF4vX1JfVq8eQAPn3Km9B4spHNUfS/5G43hyqiZ3M2xqyrStXmaDXJ780crtyJQOZLG9IS6I3x8
+ kHbmK8qsFXefL7HyACclAzCE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 591aea82344d2dfa;
+	Wed, 21 Oct 2026 11:30:20 +0000
+X-Mizu-Trace-ID: 591aea82344d2dfa
+X-Migadu-Flow: FLOW_OUT
+From: Jinyu Tang <jinyu.tang@linux.dev>
+To: SeungJu Cheon <suunj1331@gmail.com>
+Cc: Jinyu Tang <jinyu.tang@linux.dev>,
+	anup@brainfault.org,
+	atish.patra@linux.dev,
+	tjytimi@163.com,
+	inochiama@gmail.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	andrew.jones@linux.dev,
+	pbonzini@redhat.com,
+	seanjc@google.com,
+	kvm-riscv@lists.infradead.org,
+	kvm@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH] selftests: ALSA: pcmtest: Compare all captured bytes in ni_capture
-Date: Wed, 21 Oct 2026 20:25:54 +0900
-Message-ID: <20261021112554.4037107-1-sammiee5311@gmail.com>
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: riscv: Set Accessed bit in dirty-log write fault fast path
+Date: Wed, 21 Oct 2026 19:30:10 +0800
+Message-ID: <20261021113010.2476783-1-jinyu.tang@linux.dev>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261016101458.221648-1-suunj1331@gmail.com>
+References: <20261016101458.221648-1-suunj1331@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,33 +80,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ni_capture test reads rate * time frames into each channel buffer
-and then compares rate * time bytes. A frame is sample_size bytes per
-channel, so with S16_LE only the first half of each channel is checked.
-If the second half is wrong the test still passes.
+On Fri, Oct 16, 2026 at 07:14:58PM +0900, SeungJu Cheon wrote:
+> @@ -591,14 +591,15 @@ static bool kvm_riscv_mmu_dirty_log_write_fault_fast(struct kvm *kvm,
+>  			dirty_marked = true;
+>  		}
+>  
+> -		if ((pte_val(old_pte) & (_PAGE_WRITE | _PAGE_DIRTY)) ==
+> -		    (_PAGE_WRITE | _PAGE_DIRTY)) {
+> +		if ((pte_val(old_pte) &
+> +		     (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) ==
+> +		    (_PAGE_WRITE | _PAGE_DIRTY | _PAGE_ACCESSED)) {
+>  			new_pte = old_pte;
+>  			ret = true;
+>  			break;
+>  		}
+>  
+> -		new_pte = pte_mkdirty(pte_mkwrite_novma(old_pte));
+> +		new_pte = pte_mkyoung(pte_mkdirty(pte_mkwrite_novma(old_pte)));
 
-Compare rate * time * sample_size bytes per channel.
+I tested this on QEMU 10.2.1 with Svade enabled and Svadu disabled.
+With dirty logging enabled, the test clears A through page-idle tracking,
+write-protects the page with KVM_GET_DIRTY_LOG, and resumes the guest
+write. The unpatched kernel times out after 10 seconds, while the same
+test completes with this patch applied.
 
-Fixes: 10b98a4db11a ("selftests: ALSA: Add test for the 'pcmtest' driver")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
----
- tools/testing/selftests/alsa/test-pcmtest-driver.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Reviewed-by: Jinyu Tang <jinyu.tang@linux.dev>
 
-diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-index e025a7bac26b..18ee72d5d4c9 100644
---- a/tools/testing/selftests/alsa/test-pcmtest-driver.c
-+++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-@@ -265,7 +265,7 @@ TEST_F(pcmtest, ni_capture) {
- 	snd_pcm_close(handle);
- 
- 	for (i = 0; i < CH_NUM; i++) {
--		for (j = 0; j < params.rate * params.time; j++)
-+		for (j = 0; j < params.rate * params.time * params.sample_size; j++)
- 			ASSERT_EQ(chan_samples[i][j], patterns[i].buf[j % patterns[i].len]);
- 		free(chan_samples[i]);
- 	}
--- 
-2.43.0
-
+Thanks,
+Jinyu
