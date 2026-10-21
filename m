@@ -1,121 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584289;
-	b=BVRCx/KCkUm4AhF8oFWOVBfv0RDY0SBSmot51ErKOPsXMVjK4YNNX+eI2lDlKxo5kPYt
-	 PBOorOTF2/M+tjhfDjMvhD/NlN7+khb0s6sWpnv0rHfM6JjBQDWDhvFRgOhOCUDXKFA2s
-	 wWk0W6H0K99eleVDYrdrbq2wy/Nu48HzG7eiJqXzT/ZMHU9y1CQQGyX+T56XJH9353shl
-	 P/atVqow0jLYpTcN0ST4927DH2AWYA0HXyL8JVJYGZt4XPACQW5wZpW5PMPiehFN1EbtF
-	 zVVPAkgdyP5dNs5r+96MyRhuydmhnIdZncqV1AopEJ0EMAo69TN78lq8bkSvl1NtyPw==
+	t=1792584279;
+	b=LFON9x5ojHdNA5IbbEZdiEzs3plRz2n8sNMbfdHH8PN+cvhsxNl6mqCPOl5HdbswfWbs
+	 PAcWW/ghd0sp2RMDvOFmItGrIpHLFlF1GfrKp9mfZmhCykAyZj8mXSO7CPuOOXd2vQLoi
+	 2v3FZ/kvmNqmKE6h/9L485XnAHpaI5FJkmX/ncjV0xd9AltchroiRTCkfekFBtOBfj8MZ
+	 R7dizofP+dopAxXlUOxU6wptPsAxiDMAd/AfkCJn6XJSzjfsnWmZjRM5iRwDCXClRR+LJ
+	 b6qrfUPDNyEeVY6eLnq7OHZo0eVyylyCmvk4PvEfnngeLZqdx+2Ga2cl7t17nph1LwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584289;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lVnw2USx2TyzNv+Sffbcxp/BIiUfguSBZbsmuhMg8fY=;
-	b=F5sbToP9+YP5U8quX29XUvyx/VVpYG63uLDDxfVwWJmXrl++Zul6fjN0DKGibPSqeHOB
-	 P8y6HwNehSqkZNrnp7PL92gV4DJf3rV3EWVRTdOKugiHR/+cNuyo5MmlMrKWpoP0n16xM
-	 eHZ98a9cq4zG9lPdU7YlJH0FlSwQjSFdcpXTjxzGgWCzaP4ZyD+K50h3KIBHv8OvzgLJ6
-	 aLTaYiw8hwQ8UNt+xobvs4ZZaL9xee97daLU3345391N5su5qiJh3v1RyWgIkUWpCtkdz
-	 x2tIVIXgWTEhwXSaITS6qTAJ3M4UO3bblhSCfYXenDaJo+P6JTJQXFlbgWBfVHAgwkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584279;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=AwtIHnGzW3tKZfbYrcOGSQoJdi/ADFfIlP9FOFh7OYA=;
+	b=eANwNxhkniDWlvCOLAdAN7kANPDZairebtBXx7cevppJ9lfKGd9xoeGX1fInpGiSMZJ9
+	 efTWbRLX4DrGgSmwuECS5KvvXirk/bqS8kfmfaRaNIbqmzqN9NTWio86YNf9KNtfyr4De
+	 OWy0yEc40ZukG1bFWwgIrcuLTq+p/gcColUwu7G1Vvwwl+eGY0mkXOrKu+dZmaAqj6/pV
+	 76P8Yi6Corc8Jwqu7ODoPNVFHO7V6ot75pkmuOY5qsSJwhePt8UQq1RORXoOXnEePP6jw
+	 KsbHf4qd5z9P+oJ+dMDFB0LeE7vTDIzTBBcIdGYEFKnjozQo9ff1vQEPiQttWg4EqUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U+cERM6H;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M5Qjc4a8;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BeNh1aud;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76384606A328
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76384606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFCD6606A319;
+	Wed, 21 Oct 2026 12:04:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFCD6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=U+cERM6H;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=M5Qjc4a8
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBfxnh1568124
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:04:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=lVnw2USx2TyzNv+Sffbcxp/B
-	IiUfguSBZbsmuhMg8fY=; b=U+cERM6Hs7kMYYj8l8dw1V3O4BY5C+TYCPX6f1hY
-	X9lgC1EeLQazoPLr2w2ihUiLPTciOw0kaXObHyNrclw2NDtNfvJ/03p04DsOqmK1
-	DnnGJDu/KuTAvYG/+VvwDSEvkztpXs7awKI6kzSwU7arHuxAwSd2J7oPntrYiZTD
-	vq4tXzZrqrdPXOmlYTmksaKmLlKwHydNMKvJaVUFs7NC5XPuWZMgEMNk8X0BZB9s
-	TbJXgimEDbqV5lL/k+9vgrnwnvGeYOWnoOFhfnMa/qlEzKze+z+/oD+Q/V33WNMD
-	2LKcytcOJOi9BDbsQQ4FNrNNiGff1WhWi1DzUg6DG2axTw==
-Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4us97-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:04:48 +0000 (GMT)
-Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-99076c676cbso117321241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:04:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792584288; x=1793189088; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lVnw2USx2TyzNv+Sffbcxp/BIiUfguSBZbsmuhMg8fY=;
-        b=M5Qjc4a8UG51DaMRFb5V9VoztEffd8h86i6+HQ3Zfo8pG2a4gA64gN2BeQ1lGJoKMo
-         zyRVBxCQ1tlcOC8XLxHuFhYcwoeXjA1dw4QWezOA4+P18CmU8MlxOTsDIiHtPa8C8AKs
-         AllNqs3m0TbPTAe/Y0eh7D4h0him72apCtsRuZuMvruBT++8XjZQyryJHe86Yem+Yw2G
-         odlYzE/H+Iao4jWCNgaVDeFJU064EhhvUthj8lWWDg14O1wIudt1gHO0Q0TJqy3x8dFf
-         oR6SVFfd28VPaVh36Fa2o8Z4mdCfv0bN6EjFBjOrXsB3WTukdlLpRjZTpGkZ51515/no
-         EEtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792584288; x=1793189088;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lVnw2USx2TyzNv+Sffbcxp/BIiUfguSBZbsmuhMg8fY=;
-        b=P0cUP0sI8yuYRJI9mK1pQLfTOgU/RSZVBn9yKi4YOZ/kTJJx62u1l2jENtsBtXIkov
-         PyanWo8EWMbu9SldO6rAZ1Ln3tSjrU/ts+LeN22f5/eg8HcHf7qRNO/zpP5NqqF0wr6s
-         bjp/0JO20IzG+Bwx32GjXlWfkdAcxhY/eE62xNzhGph0wVJRU+aQ5antgIpZw/SV2+Iv
-         diCh9xbjPVTcqADIMSbrgZAa/iQZPz+6RMRRGqE5fn7uuDQ/bVwOHw2Zevl1HmlxS4gN
-         A+0VqqYmhO9Ni47UBF505PKqUGTMR44xJ3Re5vXoMM0fxT6t+PHN7cT8qu7S8j5j+FSF
-         VXPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxN7w+7X77XTph2D2RbdQ0ex3qbVweyfbFeMEL65kUx7JQ1G6WbjQydpm3hsOeFRfUolz1bmSlaSwO33bU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAkPFY77pP5nRjhgEPRjdK3Ys3ct+7Ry78+yEVBxbt6mOu6OXg
-	CTuoXcCEfyGY8fHfhb1MfQxUPXTFT7i50poatVN5GEfm81Yrawgs71/rLcitzOUeKRRvDqQcnFC
-	3jZ6Nte/g6+1nu3RNSual1Jh6K/lxcXdVt2rfpWmlPPovqFHFLzHe77aI+6lO1CSq+Oo=
-X-Gm-Gg: AYBFou3YEAH3858i3JUu2IWQ5tMeC9KaZHMv/slM9ZWDPwpTe8uTwGW7P4S+GlTP2c1
-	p9r/nvsCq+hM1Fz34/ML0Jc/C7KRX2xE+0aWJIH9QbpsC/UTUJAqHrh4rcfm8p+gqavtsm4nw44
-	n1RLGdo3IS1e3S3E7LWkoYWGxkXwm07vcSV+4krEhWIG/x7Nxt+Ro/K2ldLbZ0+TSfJVZ+8PqqA
-	cO6VS2nuEOJID+DKF6ZMfrFX+wRUEI+PQN5Zcy7H+o1uePxMSVc82CpR1mDruIVBBWg4xLfLk9u
-	ZkNPBFvYuc1EXZ8xj93Pyo5Z70d26T0Vy2yuJ2p12VEtoC0ZWEnkd7GNRLU359X7pZMiseg4Mth
-	2m/DCyYrm0Sv7mfuA
-X-Received: by 2002:a05:6102:688b:b0:7c1:8aa5:36d6 with SMTP id ada2fe7eead31-7cc925e0fecmr559550137.11.1792584287282;
-        Wed, 21 Oct 2026 05:04:47 -0700 (PDT)
-X-Received: by 2002:a05:6102:688b:b0:7c1:8aa5:36d6 with SMTP id ada2fe7eead31-7cc925e0fecmr559538137.11.1792584286653;
-        Wed, 21 Oct 2026 05:04:46 -0700 (PDT)
-Received: from oss.qualcomm.com ([188.27.161.187])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm44223715e9.3.2026.10.21.05.04.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:04:45 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:04:44 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: hawi: Add memory-region for audio PD
-Message-ID: <yzgojjbovtrbbz3lomoe5qiooh4e6f5dtrjpogvoj2kv6cjm5l@jdvh5nq6fupz>
-References: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=BeNh1aud
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Aw
+	tIHnGzW3tKZfbYrcOGSQoJdi/ADFfIlP9FOFh7OYA=; b=BeNh1aud3QJiybpaL8
+	6BvRSQxrZ5uKr4tLK01heBjW6dx9K+jpbhFth6n7bfU2k3phCed9AMuzvFo7lTrH
+	vi+AaGZfJKbzGUg/abXqUgyan+bX2aCxpPGtuZ0m/qALns5tL/81hI/e2NaRHJDc
+	zvH7RhA4o8uJZnzzXH/P8s+qs=
+Received: from pc.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3n9U5qthqkt7RBQ--.900S2;
+	Wed, 21 Oct 2026 20:04:10 +0800 (CST)
+From: Jiale Yao <yaojiale02@163.com>
+To: Aleksa Savic <savicaleksa83@gmail.com>,
+	Jack Doan <me@jackdoan.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] hwmon: (aquacomputer_d5next) reject short status reports
+Date: Wed, 21 Oct 2026 20:04:07 +0800
+Message-Id: <20261021120408.48495-1-yaojiale02@163.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,43 +62,229 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: TDTAZJ5Zv34xae96oDZwu8YomMu5l9sO
-X-Proofpoint-GUID: TDTAZJ5Zv34xae96oDZwu8YomMu5l9sO
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX9fOdMrVkaZAM
- 9C+1Pc/HaJ8OGEefB9ycleD0XaVBe0luhuhvXApU8Ogj6osNUHi9rpdJ0VHx6aOSFPmvgzvoS2a
- y9hT7EG7FGfv22Befoj94MoKaaWgl9s=
-X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad8aa60 cx=c_pps
- a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=Qvngrl3H0rQgGg+94q4QgA==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=qltNFNbxueZ9_HQRUAkA:9 a=CjuIK1q_8ugA:10
- a=1WsBpfsz9X-RYQiigVTh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0OCBTYWx0ZWRfX/r0EU+aNqtA9
- 7v7uwGkCkGHVjTHd7TYhxpBq4iXzS7SJuVAIXPHWNJeJ1H43Hl4w84SILTf6yFhuZLvIUCQ8ie/
- VoAjvcVUswxbQSMCROlGyVA9Aax0uCGioKdnGPbsKFmYzxpi3oVsEWwsmc2uRpCIvxK5b1iZrPM
- /L4p7z7HCj5a0/H6jfzWqS6pN7kkLpsFIZXDzOKxZG0WwK4QNhXSainISzyqsaN/eYjOckHHIoc
- fvi3WEdy+Mc51AFngwosdaLEB2cqw5JIXrznSK8Io9tZMP5JSwyo7bbaezkO5FUzcmVzmTLTVMT
- fPi7oX1+rJALBbAL7MzxfPHZNBx6As7ifH1yDa9ZB/RLP9sbpgudNTSWPK77uUWpSAgUJxJSyrH
- 3YDmsv6rejw/st7zxdyGmORGwpV2o+cZSxKoimqOlXrLER3rVOW5qEKwjGHnt/ldmtCq0bowann
- RUYds6qSrys5RhT37wQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210048
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n9U5qthqkt7RBQ--.900S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWfJr45Aw15Wr15ZrW7ArykAFb_yoWDAF4Up3
+	4DAF9xtFWUKFWI939xJFs8uw4FyrZrKa1UXrnrGw40gF98W34UCFWIvayqvryrZrZ5trZ8
+	K390qrWDAasxWF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jOJ5rUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzhqJw2rYqjoydwAA35
 
-On 26-10-21 17:15:02, Ekansh Gupta wrote:
-> Reserve memory region for audio PD dynamic loading and remote heap
-> requirements. Add the required VMID list for memory ownership
-> transfers.
-> 
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+The HID raw_event callback runs before HID core validates the received
+report length. aqc_raw_event() reads device-specific status fields at fixed
+offsets, including multi-byte values, without first ensuring that the
+received buffer contains every field. A truncated report can therefore
+cause out-of-bounds reads and update hwmon state with unrelated data.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+The required length differs between supported devices and cannot be
+derived from the HID report descriptor. Define the minimum length needed
+by each asynchronous status format, select it while configuring the
+device, and reject reports that do not contain the last field accessed by
+that format. Keep the published length zero until probe configuration is
+complete, which also excludes legacy devices whose status is retrieved
+through feature reports.
+
+Suggested-by: Guenter Roeck <linux@roeck-us.net>
+Fixes: 0e35f63f7f4e ("hwmon: add driver for Aquacomputer D5 Next")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+---
+Changes in v2:
+- Replace the HID descriptor length check with per-device minimum lengths
+  derived from the final field accessed.
+- Select each minimum length in the existing per-device probe branch.
+- Keep the published length zero until probe configuration is complete and
+  exclude legacy feature-report devices from the asynchronous parser.
+- Drop the inaccurate hid-asus comparison from the commit message.
+
+ drivers/hwmon/aquacomputer_d5next.c | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/hwmon/aquacomputer_d5next.c b/drivers/hwmon/aquacomputer_d5next.c
+index 1ca70e726298..341cce4347e2 100644
+--- a/drivers/hwmon/aquacomputer_d5next.c
++++ b/drivers/hwmon/aquacomputer_d5next.c
+@@ -132,6 +132,7 @@ static u8 aquaero_secondary_ctrl_report[] = {
+ #define AQUAERO_FAN_CURRENT_OFFSET		0x06
+ #define AQUAERO_FAN_POWER_OFFSET		0x08
+ #define AQUAERO_FAN_SPEED_OFFSET		0x00
++#define AQUAERO_MIN_STATUS_REPORT_SIZE		(0x18B + AQUAERO_FAN_POWER_OFFSET + sizeof(u16))
+ static u16 aquaero_sensor_fan_offsets[] = { 0x167, 0x173, 0x17f, 0x18B };
+ 
+ /* Control report offsets for the Aquaero fan controllers */
+@@ -155,6 +156,8 @@ static u16 aquaero_ctrl_fan_offsets[] = { 0x20c, 0x220, 0x234, 0x248 };
+ #define D5NEXT_5V_VOLTAGE		0x39
+ #define D5NEXT_12V_VOLTAGE		0x37
+ #define D5NEXT_VIRTUAL_SENSORS_START	0x3f
++#define D5NEXT_MIN_STATUS_REPORT_SIZE	(D5NEXT_PUMP_OFFSET + AQC_FAN_SPEED_OFFSET + \
++					 sizeof(u16))
+ static u16 d5next_sensor_fan_offsets[] = { D5NEXT_PUMP_OFFSET, D5NEXT_FAN_OFFSET };
+ 
+ /* Control report offsets for the D5 Next pump */
+@@ -179,11 +182,14 @@ static u16 d5next_ctrl_fan_offsets[] = { 0x97, 0x42 };	/* Pump and fan speed (fr
+ #define AQUASTREAMULT_FAN_CURRENT_OFFSET	0x00
+ #define AQUASTREAMULT_FAN_POWER_OFFSET		0x04
+ #define AQUASTREAMULT_FAN_SPEED_OFFSET		0x06
++#define AQUASTREAMULT_MIN_STATUS_REPORT_SIZE	(AQUASTREAMULT_PRESSURE_OFFSET + sizeof(u16))
+ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
+ 
+ /* Spec and sensor report offset for the Farbwerk RGB controller */
+ #define FARBWERK_NUM_SENSORS		4
+ #define FARBWERK_SENSOR_START		0x2f
++#define FARBWERK_MIN_STATUS_REPORT_SIZE	(FARBWERK_SENSOR_START + \
++					 FARBWERK_NUM_SENSORS * AQC_SENSOR_SIZE)
+ 
+ /* Specs of the Farbwerk 360 RGB controller */
+ #define FARBWERK360_NUM_SENSORS			4
+@@ -193,6 +199,8 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
+ /* Sensor report offsets for the Farbwerk 360 */
+ #define FARBWERK360_SENSOR_START		0x32
+ #define FARBWERK360_VIRTUAL_SENSORS_START	0x3a
++#define FARBWERK360_MIN_STATUS_REPORT_SIZE	(FARBWERK360_VIRTUAL_SENSORS_START + \
++					 FARBWERK360_NUM_VIRTUAL_SENSORS * AQC_SENSOR_SIZE)
+ 
+ /* Control report offsets for the Farbwerk 360 */
+ #define FARBWERK360_TEMP_CTRL_OFFSET		0x8
+@@ -209,6 +217,7 @@ static u16 aquastreamult_sensor_fan_offsets[] = { AQUASTREAMULT_FAN_OFFSET };
+ #define OCTO_SENSOR_START		0x3D
+ #define OCTO_VIRTUAL_SENSORS_START	0x45
+ #define OCTO_FLOW_SENSOR_OFFSET		0x7B
++#define OCTO_MIN_STATUS_REPORT_SIZE	(0xD8 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
+ static u16 octo_sensor_fan_offsets[] = { 0x7D, 0x8A, 0x97, 0xA4, 0xB1, 0xBE, 0xCB, 0xD8 };
+ 
+ /* Control report offsets for the Octo */
+@@ -229,6 +238,7 @@ static u16 octo_ctrl_fan_offsets[] = { 0x5B, 0xB0, 0x105, 0x15A, 0x1AF, 0x204, 0
+ #define QUADRO_SENSOR_START		0x34
+ #define QUADRO_VIRTUAL_SENSORS_START	0x3c
+ #define QUADRO_FLOW_SENSOR_OFFSET	0x6e
++#define QUADRO_MIN_STATUS_REPORT_SIZE	(0x97 + AQC_FAN_SPEED_OFFSET + sizeof(u16))
+ static u16 quadro_sensor_fan_offsets[] = { 0x70, 0x7D, 0x8A, 0x97 };
+ 
+ /* Control report offsets for the Quadro */
+@@ -248,6 +258,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
+ #define HIGHFLOWNEXT_CONDUCTIVITY	95
+ #define HIGHFLOWNEXT_5V_VOLTAGE		97
+ #define HIGHFLOWNEXT_5V_VOLTAGE_USB	99
++#define HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE	(HIGHFLOWNEXT_5V_VOLTAGE_USB + sizeof(u16))
+ 
+ /* Specs of the Leakshield */
+ #define LEAKSHIELD_NUM_SENSORS		2
+@@ -263,6 +274,7 @@ static u16 quadro_ctrl_fan_offsets[] = { 0x37, 0x8c, 0xe1, 0x136 }; /* Fan speed
+ #define LEAKSHIELD_FLOW_IN		111
+ #define LEAKSHIELD_RESERVOIR_VOLUME	313
+ #define LEAKSHIELD_RESERVOIR_FILLED	311
++#define LEAKSHIELD_MIN_STATUS_REPORT_SIZE	(LEAKSHIELD_RESERVOIR_VOLUME + sizeof(u16))
+ 
+ /* Specs of the Aquastream XT pump */
+ #define AQUASTREAMXT_SERIAL_START		0x3a
+@@ -554,6 +566,7 @@ struct aqc_data {
+ 	const char *name;
+ 
+ 	int status_report_id;	/* Used for legacy devices, report is stored in buffer */
++	u16 min_report_size;
+ 	int ctrl_report_id;
+ 	int secondary_ctrl_report_id;
+ 	int secondary_ctrl_report_size;
+@@ -1333,6 +1346,8 @@ static int aqc_raw_event(struct hid_device *hdev, struct hid_report *report, u8
+ 		return 0;
+ 
+ 	priv = hid_get_drvdata(hdev);
++	if (!priv->min_report_size || size < priv->min_report_size)
++		return 0;
+ 
+ 	/* Info provided with every report */
+ 	priv->serial_number[0] = get_unaligned_be16(data + priv->serial_number_start_offset);
+@@ -1518,6 +1533,7 @@ static void aqc_debugfs_init(struct aqc_data *priv)
+ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ {
+ 	struct aqc_data *priv;
++	u16 min_report_size = 0;
+ 	int ret;
+ 
+ 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
+@@ -1585,6 +1601,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_fan_power;
+ 		priv->voltage_label = label_fan_voltage;
+ 		priv->current_label = label_fan_current;
++		min_report_size = AQUAERO_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_D5NEXT:
+ 		priv->kind = d5next;
+@@ -1610,6 +1627,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_d5next_power;
+ 		priv->voltage_label = label_d5next_voltages;
+ 		priv->current_label = label_d5next_current;
++		min_report_size = D5NEXT_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_FARBWERK:
+ 		priv->kind = farbwerk;
+@@ -1620,6 +1638,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->temp_sensor_start_offset = FARBWERK_SENSOR_START;
+ 
+ 		priv->temp_label = label_temp_sensors;
++		min_report_size = FARBWERK_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_FARBWERK360:
+ 		priv->kind = farbwerk360;
+@@ -1636,6 +1655,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 		priv->temp_label = label_temp_sensors;
+ 		priv->virtual_temp_label = label_virtual_temp_sensors;
++		min_report_size = FARBWERK360_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_OCTO:
+ 		priv->kind = octo;
+@@ -1665,6 +1685,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_fan_power;
+ 		priv->voltage_label = label_fan_voltage;
+ 		priv->current_label = label_fan_current;
++		min_report_size = OCTO_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_QUADRO:
+ 		priv->kind = quadro;
+@@ -1694,6 +1715,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_fan_power;
+ 		priv->voltage_label = label_fan_voltage;
+ 		priv->current_label = label_fan_current;
++		min_report_size = QUADRO_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_HIGHFLOWNEXT:
+ 		priv->kind = highflownext;
+@@ -1711,6 +1733,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->speed_label = label_highflownext_fan_speed;
+ 		priv->power_label = label_highflownext_power;
+ 		priv->voltage_label = label_highflownext_voltage;
++		min_report_size = HIGHFLOWNEXT_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_LEAKSHIELD:
+ 		/*
+@@ -1730,6 +1753,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 
+ 		priv->temp_label = label_leakshield_temp_sensors;
+ 		priv->speed_label = label_leakshield_fan_speed;
++		min_report_size = LEAKSHIELD_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_AQUASTREAMXT:
+ 		priv->kind = aquastreamxt;
+@@ -1760,6 +1784,7 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		priv->power_label = label_aquastreamult_power;
+ 		priv->voltage_label = label_aquastreamult_voltages;
+ 		priv->current_label = label_aquastreamult_current;
++		min_report_size = AQUASTREAMULT_MIN_STATUS_REPORT_SIZE;
+ 		break;
+ 	case USB_PRODUCT_ID_POWERADJUST3:
+ 		priv->kind = poweradjust3;
+@@ -1833,6 +1858,8 @@ static int aqc_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		break;
+ 	}
+ 
++	priv->min_report_size = min_report_size;
++
+ 	if (priv->buffer_size != 0) {
+ 		priv->checksum_start = 0x01;
+ 		priv->checksum_length = priv->buffer_size - 3;
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+-- 
+2.34.1
+
