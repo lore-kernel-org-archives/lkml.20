@@ -1,73 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792557603;
-	b=ca5L00D47pegcXYiYKIoXvSha5WC8Eq3HcBBDF5Tm8KWTZ9uRIC4eS7HpbGRCNlpR8+4
-	 SHpFITXxnvFMio152r2bp7DxuHg+znkTJbzmqhPrjyfXJz6UYOEb3adys6sIFKmIL8lFH
-	 7VxxLyuT4FAngSlJv8DDEEGuBhNJnWHAeNUPutzGPvv/C6eKoHkBZvBQVDL5u2IXvLce7
-	 Ku65YFBG5t7S/49n0KAsaGsaOtrVQa/u6sc+zl4A1GrQ4cCsl/1avoJxLADowFOlYjrQ/
-	 DVWts5WtHDU7vHu8mgCCQijCA1Xh3Mw2JjmB4C/br76Vly4kpSi2NGaJr03uRIFp3ZQ==
+	t=1792558193;
+	b=m5WLFqy/s6d2LS3fF4QDQI97H7+0NpKrn4eL+EA8a3daIGerihphlF5nkeY4zQ501+kT
+	 /SpREkupePNQvxnWF/kN5gNvpIE/mvUCGKLaXf0bH9IrdIf0oRimJHi/YWTYdlRnr5fo6
+	 ZdmBWED8wA95tHTaLQh0Pvq7aCh5XmDQO8Yzpxe8uOfdG+IOKY3pE3A6L3fjU8h4LIiGT
+	 vwNBBnkk/3WMK74egOYqAlVu5laPz6eErK2i4q9Q56gN03KfKKoRsbILB+eAFQOOJKr+a
+	 dT2KAogA/QY4kbiemJkh05152qsgNFfK8ejU51nNZS1j3497Jk+QI9YqJ7OxzNRH2Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792557603;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=ICN4qWOEmtPabgUyqMtpHLixpwuhgee+VseSm1muU2s=;
-	b=4wLZeRZSjm/CZYjLzAvKiN0QmABXxetedHy1EqyQGLs29Fgsvbvr6lwmVJKoIsQQzgzi
-	 aTEkV4F6AgJ6XRRYx4G8CKyosSIZzthV4AOP4Q9wNe1z4YgWg3TNCsONjz1KAumnB6rMq
-	 eEzQTVxzd8Vlhn9L32K9CMAQt2hK/xktH2jd+nysMEFLLCxIdwr+kSeGuSCDQfYbi74Qd
-	 lIO4U7D8P3hPmVk9ATeslcM1Ebi33cf1+gciCWFxtzEtDXZNywrjd775ntMamisiHIFzu
-	 p+FhEOp55gxbIzOIvco804LRVR/NENW04NRua0nHZ+M54nmOiX88EZ7m+EeIar62Hqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792558193;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Content-Language:To:Cc:From:Subject:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=7oaTt4Ln2aGDPNKw4Gdo/Lhjck9YtGnDde/QeKvPTws=;
+	b=jV9Nr2WuErfmKrS9p/KAJuXJAeXbx5rzkVF2SUsgaE4Qi0w22muC7tsfZ0IAPkvWZ2ZW
+	 /n9Z8f7QfzBNyt75hXqBbE2AVUIMYQIyyeZQBA7gg5PdPjWvn0fPlERnM+w/fR17HbZZo
+	 0R7TOBzZkFobG7c08VyT79cMUVbcBU6rbJ9u0GeFD86GA2cys8QAo3VEAHj3t5piJs9K0
+	 GczAi6k7LzOPCufuozyiHyde6mOE9Q5eFrggbMVpKt4TQChodeu0X4WzhVlY2tnw3CT6+
+	 fjQ8o7IUCr00KqzCtSMb6rLYWP6Mif+QT8cgoyqwqKMD+IEX/D+Dkmhqq84m4NOu2nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lcR264ll;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rlZBEJi4;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEEA606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:40:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDEEA606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81DF7606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:49:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81DF7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=lcR264ll
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID; bh=ICN4qWOEmtPabgU
-	yqMtpHLixpwuhgee+VseSm1muU2s=; b=lcR264llTw7LFlWS9KVforp6EgeFyhW
-	ZQ6XGBQhOoYqexwAwyEhm2lcaSITQWQA5UA72NxVKqL4N6tuSQQnr+59MqVRSfH5
-	yy8x8xwjVPKOXKlvMi1PPCO9lnr/6p/0CS2ccYCOpDp4LHjsoIOMlbECtcJvqUpB
-	XE5NEVl+rC8Y=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3F3zCQdhqvvmABQ--.7810S2;
-	Wed, 21 Oct 2026 12:38:27 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	Barry Song <baohua@kernel.org>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Yicong Yang <yangyicong@hisilicon.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] sched/topology: Balance cluster static-key updates
-Date: Wed, 21 Oct 2026 13:38:20 +0900
-Message-ID: <20261021133820.1140331-1-sh_def@163.com>
-In-Reply-To: <62a7530f-ffe7-490e-8d0a-3bed170e24d3@amd.com>
-References: <20261021034314.864713-1-sh_def@163.com>
-	<62a7530f-ffe7-490e-8d0a-3bed170e24d3@amd.com>
-X-CM-TRANSID:_____wD3F3zCQdhqvvmABQ--.7810S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUjcTQUUUUU
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gNRsGrYQcNwWwAA3T
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=rlZBEJi4
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L2ExMm2449468;
+	Wed, 21 Oct 2026 04:49:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pp1; bh=7oaTt4Ln2aGDPNKw4Gdo/Lhjck9Y
+	tGnDde/QeKvPTws=; b=rlZBEJi4LaPkyf/FFMPQ+8iibpWk3Der+Z63EkLpHd8L
+	eU0NkYOmyWVYedl/5WoIh0AXX+UgdMPqj8RBkY7lcHK4lzZxcxTJaU7l3ygQtIYR
+	5ZwqZlvakK4wMRewst4NRyn+UNTtW/cRicr7g89/L9WKaE8D2WmzTylOESS8mbRK
+	iSPGCtjhYkJxIeASHtrIvL7faEjqt0qIdfmQHIkiO93a0qgCX4sqM9XxRQJjIc2q
+	PN+O7CiqRpNFdqcHSkXdQqWXOYvnU4y+V2u36Wpns0vx3W0phdBRILhobiew4u7h
+	SucJl05apr8UlF3EjYlLtQYWB0CpwPk1L8P7yyKZrA==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw5bey08-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 04:49:23 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69L2JudM2374709;
+	Wed, 21 Oct 2026 04:49:22 GMT
+Received: from smtprelay01.wdc07v.mail.ibm.com ([172.16.1.68])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4he7bs3jnv-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 04:49:22 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay01.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69L4nKOv57934110
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 21 Oct 2026 04:49:20 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 5C59858045;
+	Wed, 21 Oct 2026 04:49:20 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id EC93758052;
+	Wed, 21 Oct 2026 04:49:09 +0000 (GMT)
+Received: from [9.43.124.72] (unknown [9.43.124.72])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 21 Oct 2026 04:49:09 +0000 (GMT)
+Message-ID: <2331292e-1a40-44ef-8776-9155e8e41f03@linux.ibm.com>
+Date: Wed, 21 Oct 2026 10:19:07 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,17 +83,253 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: adubey@linux.ibm.com, amachhiw@linux.ibm.com, blum@kernel.org,
+        christophe.leroy@csgroup.eu, dmitry.torokhov@gmail.com,
+        gautam@linux.ibm.com, gbatra@linux.ibm.com, hbathini@linux.ibm.com,
+        kaylovefoss@gmail.com, kmehltretter@gmail.com, linkmauve@linkmauve.fr,
+        linux-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+        mkchauras@gmail.com, mpe@ellerman.id.au, naveen@kernel.org,
+        npiggin@gmail.com, shivangu@linux.ibm.com, srikar@linux.ibm.com,
+        sshegde@linux.ibm.com, ssrish@linux.ibm.com, venkat88@linux.ibm.com,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+Subject: [GIT PULL] Please pull powerpc/linux.git powerpc-7.4-1 tag
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: yzreIHjv_1zo5byFWxo_enJvkCMN-weV
+X-Proofpoint-ORIG-GUID: NmScilQInxlo1E6dsLgESBIpBZP5WD0j
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAxOCBTYWx0ZWRfX6oYaHQRd26TI
+ /mC3odd1m8mjJBnOJwXlaVA6pky0PVStKwF/4fql5O0rQWIJjWkiUlgZRpew8MGuqEbeEdAUM0t
+ uN/9IFIm41MbowORxwvupSUJU/zLk40=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAxOCBTYWx0ZWRfX+xUFMTPzdWSH
+ JRg4yvHFskXOBz5CGTxccqHTYfbVjKjWwYV1rmGwSAU1ka9j7bWwyaTMqHdRH3kHR4uHzF/yK+m
+ /xHQNrFlszaVGPzlYkj2pgeJKq12kudQDAFcVAWvugKg7/nAiCjIGj096Dev+IuVBElgzpQJde/
+ bWFF45SscUSOhmY2pes+JpzcJKz/vhcoG5u0UFEt7eyZYIpR4GuUrZpLJAAD5MP+A89lYg4WFbK
+ cbfLjCD/WWjKEkMS0Z+abFn07yU7AhFaiOT65S6CJUB+H+TPGC4kVbDwlRyzC1KYarAycpvRH8o
+ CL0OO8ozGk9h2FCXzTSmiyFFW9uzoSdkMHWeMiIG8XNfaL7OLhsvWThiFKAKLmEVO2C1s9OXJTG
+ 86gTP4GGH3GUnnWc3wJ6GpIqQl4cOmYhkkyDRy5805JK09o/OE1GazhlI6XxRYseTohLFAM2tlT
+ 95sjle54gRu+fmQsHDQ==
+X-Authority-Analysis: v=2.4 cv=Gb2CDgXL c=1 sm=1 tr=0 ts=6ad84453 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=_wwuUL6Yo3K-ZoUOV3AA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_01,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 adultscore=0 malwarescore=0 spamscore=0 phishscore=0
+ clxscore=1015 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210018
 
-> nit.
->
-> This should be done only when sched_cluster_active is enabled to
-> avoid the extra loop on systems that don't have any cluster domain.
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
 
-Agreed. v2 guards the SD_CLUSTER scan with
-static_branch_unlikely(&sched_cluster_active), so systems without cluster
-domains skip the loop entirely.
+Hi Linus,
 
-Thanks for the review!
+Please pull powerpc updates for 7.4:
 
-Hui
+Notable out of area changes:
+   Documentation/ABI/testing/ppc-memtrace        # cb3502d2e57a
+   update PKS documentation and MAINTAINERS entry    # 0499ab96527a
 
+Thanks
+
+The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+
+   Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+
+are available in the git repository at:
+
+https://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux.git 
+tags/powerpc-7.4-1
+
+for you to fetch changes up to 129f5d395fd66b6587a5ac156b232cca060d6512:
+
+   powerpc/numa: Support coregroup on PowerNV (2026-10-12 11:24:19 +0530)
+
+- ------------------------------------------------------------------
+powerpc updates for 7.4
+
+  - powerpc/numa: Support coregroup on PowerNV
+
+  - powerpc/irq: Move __softirq_pending out of irq_stat
+
+  - powerpc/512x: Remove pdm360ng platform setup in favor of mpc512x_generic
+
+  - powerpc/ps3: Simplify control flow in ps3_{virq,irq_plug}_setup()
+
+  - KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode HPTE 
+bit-lock users
+
+  - powerpc/syscall: Avoid atomic test_and_clear_thread_flag on fast path
+
+  - pseries/plpks cleanup and fixes
+
+  - Misc fixes and cleanup
+
+Thanks to:
+Abhishek Dubey, Amit Machhiwal, Anushree Mathur, Bui Nguyen Nhu Quynh,
+Christophe Leroy (CS GROUP), Dmitry Torokhov, Gaurav Batra, Gautam Menghani,
+Geert Uytterhoeven, Greg Joyce, Hari Bathini, Harsh Prateek Bora, Karl
+Mehltretter, Link Mauve, Michal Suchánek, Mukesh Kumar Chaurasiya (IBM), 
+Nayna
+Jain, Ritesh Harjani (IBM), R Nageswara Sastry, Saket Kumar Bhaskar, Samir
+Mulani, Shivang Upadhyay, Shrikanth Hegde, Sourabh Jain, Srikar Dronamraju,
+Srish Srinivasan, Thorsten Blum, Vaibhav Jain (IBM), Venkat Rao Bagalkote,
+Yeswanth Krishna Tellakula,
+
+- ------------------------------------------------------------------
+Abhishek Dubey (5):
+       powerpc64/bpf: fix compare instruction emitted for tailcall
+       powerpc64/bpf: fix percpu private stack leak on JIT failure
+       powerpc/bpf: fix buffer overflow in JIT for large BPF programs
+       powerpc/bpf: fix alignment of long branch trampoline address
+       powerpc/bpf: Move out dummy_tramp_addr after Long branch stub
+
+Amit Machhiwal (3):
+       KVM: PPC: Book3S HV: Add SRCU protection for virtual-mode HPT hcalls
+       KVM: PPC: Book3S HV: Add preempt_disable() around virtual-mode 
+HPTE bit-lock users
+       KVM: PPC: Fix get_d_signext() 12-bit displacement for 
+paired-single D-form
+
+Bui Nguyen Nhu Quynh (1):
+       KVM: PPC: Fix callback check in kvmppc_gsm_refresh_info
+
+Dmitry Torokhov (3):
+       powerpc/dts: mpc5121: Move GPIO controller properties to SoC dtsi
+       powerpc/dts: pdm360ng: Convert ADS7845 touchscreen to DT bindings
+       powerpc/512x: Remove pdm360ng platform setup in favor of 
+mpc512x_generic
+
+Gaurav Batra (1):
+       powerpc/pseries/iommu: Add TCEs for 16GB pages when RAM is pre-mapped
+
+Gautam Menghani (2):
+       KVM: PPC: Book3S HV: Add missing mappings for tracing exits
+       KVM: PPC: Book3S HV: Free the queue pages in error path
+
+Karl Mehltretter (1):
+       docs: ABI: Fix powerpc memtrace Kconfig symbol
+
+Link Mauve (2):
+       powerpc/sstep: Consistently use one define to check arch bit width
+       powerpc/sstep: Don’t define variables we won’t be using
+
+Mukesh Kumar Chaurasiya (IBM) (3):
+       powerpc: fix NMI exit ordering: restore soft masks after 
+irqentry_nmi_exit()
+       powerpc/kasan: fix r2 corruption in mem*() on GENERIC_ENTRY with 
+old compilers
+       powerpc/syscall: Avoid atomic test_and_clear_thread_flag on fast path
+
+Shivang Upadhyay (1):
+       powerpc/fadump: collect dump when CPU_STATE_DATA is less than 
+reserved
+
+Shrikanth Hegde (4):
+       powerpc/irq: Move __softirq_pending out of irq_stat
+       powerpc/irq: Make irqstats array based
+       powerpc/irq: Suppress unlikely interrupt stats by default
+       powerpc/ftrace: Don't restore r13 during ftrace_regs_caller
+
+Srikar Dronamraju (3):
+       powerpc/numa: Simplify find_primary_domain_index
+       powerpc/numa: Allow cpu_to_coregroup_id without PPC_SPLPAR
+       powerpc/numa: Support coregroup on PowerNV
+
+Srish Srinivasan (12):
+       pseries/plpks: fix error handling in plpks_read_var()
+       pseries/plpks: fix error code for wrapping key reads
+       pseries/plpks: validate input to plpks_signed_update_var()
+       pseries/plpks: clear sensitive PLPKS buffers
+       pseries/plpks: clear sensitive buffers in wrapping operations
+       pseries/plpks: clear signed update authentication buffer
+       pseries/plpks: clear SED key data after use
+       pseries/plpks: fix self-reference in plpks_var initializer
+       pseries/plpks: hide wrapping_features when unsupported
+       pseries/plpks: make narrowing conversions explicit
+       pseries/plpks: rename the default wrapping key macro
+       pseries/plpks: update PKS documentation and MAINTAINERS entry
+
+Thorsten Blum (2):
+       powerpc/ps3: Simplify control flow in ps3_{virq,irq_plug}_setup()
+       powerpc/sysfs: Remove redundant wait time clamps
+
+Venkat Rao Bagalkote (1):
+       powerpc/interrupt: Use early_radix_enabled() in NMI real-mode guard
+
+
+  Documentation/ABI/testing/ppc-memtrace         |   2 +-
+  Documentation/arch/powerpc/papr_hcalls.rst     |  16 +--
+  MAINTAINERS                                    |   2 +-
+  arch/powerpc/boot/dts/ac14xx.dts               |  13 --
+  arch/powerpc/boot/dts/mpc5121.dtsi             |   6 +-
+  arch/powerpc/boot/dts/pdm360ng.dts             |   8 +-
+  arch/powerpc/include/asm/hardirq.h             |  31 +++--
+  arch/powerpc/include/asm/interrupt.h           |   7 +-
+  arch/powerpc/include/asm/kasan.h               |  15 ---
+  arch/powerpc/include/asm/string.h              |  21 +---
+  arch/powerpc/include/asm/topology.h            |  15 ++-
+  arch/powerpc/kernel/cputable.c                 |  14 +--
+  arch/powerpc/kernel/dbell.c                    |   2 +-
+  arch/powerpc/kernel/irq.c                      | 131 ++++++++++----------
+  arch/powerpc/kernel/prom_init.c                |  10 +-
+  arch/powerpc/kernel/prom_init_check.sh         |  15 +--
+  arch/powerpc/kernel/syscall.c                  |   6 +-
+  arch/powerpc/kernel/sysfs.c                    |   4 +-
+  arch/powerpc/kernel/time.c                     |   6 +-
+  arch/powerpc/kernel/trace/ftrace_entry.S       |   6 +
+  arch/powerpc/kernel/traps.c                    |  11 +-
+  arch/powerpc/kernel/watchdog.c                 |   2 +-
+  arch/powerpc/kvm/book3s_hv.c                   |  76 ++++++------
+  arch/powerpc/kvm/book3s_paired_singles.c       |   7 +-
+  arch/powerpc/kvm/book3s_xive.c                 |   4 +-
+  arch/powerpc/kvm/guest-state-buffer.c          |   2 +-
+  arch/powerpc/kvm/trace_book3s.h                |   4 +-
+  arch/powerpc/lib/copy_32.S                     |  10 +-
+  arch/powerpc/lib/mem_64.S                      |   7 +-
+  arch/powerpc/lib/memcpy_64.S                   |   4 +-
+  arch/powerpc/lib/sstep.c                       | 111 +++++++++--------
+  arch/powerpc/mm/numa.c                         |  85 +++++++++----
+  arch/powerpc/net/bpf_jit.h                     |  20 ++-
+  arch/powerpc/net/bpf_jit_comp.c                | 100 +++++++++++----
+  arch/powerpc/net/bpf_jit_comp32.c              |   7 +-
+  arch/powerpc/net/bpf_jit_comp64.c              |  15 +--
+  arch/powerpc/platforms/512x/Kconfig            |   3 +-
+  arch/powerpc/platforms/512x/Makefile           |   1 -
+  arch/powerpc/platforms/512x/mpc512x_generic.c  |   1 +
+  arch/powerpc/platforms/512x/pdm360ng.c         | 126 -------------------
+  arch/powerpc/platforms/ps3/interrupt.c         |  22 +---
+  arch/powerpc/platforms/pseries/iommu.c         |  67 ++++++----
+  arch/powerpc/platforms/pseries/plpks-sysfs.c   |  20 ++-
+  arch/powerpc/platforms/pseries/plpks.c         |  51 ++++----
+  arch/powerpc/platforms/pseries/plpks_sed_ops.c |  12 +-
+  arch/powerpc/platforms/pseries/rtas-fadump.c   |  18 ++-
+  46 files changed, 544 insertions(+), 572 deletions(-)
+  delete mode 100644 arch/powerpc/platforms/512x/pdm360ng.c
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEqX2DNAOgU8sBX3pRpnEsdPSHZJQFAmrYQ6wACgkQpnEsdPSH
+ZJTPDw//QGC0T2n98V0QtOQDcRKCHWKORfXtAcuzK9c50tR8fIpqW9/Xox8DAdG6
+AJtSWqGDnTahpQg4O2bjq3NgE5yYW4ghmAWVqCwL8P/j97YM436123EUTEw6M5ai
+kk1rjswxMltyGAVlNrVbYxJ5edCmqUE2oYKxioy7UAgKtO9gSGgsBgoogCB/0tq0
+Z1BqmTmPrlkcVkY0hTXgqF+Q0JELVR0IZ5Jivk++jUWVBOLvMSHVYMWFKR5l5K5D
+vk+ffkzS69xVtOXQcAb6smpaTpb4PSG0QSWe90vXNOAkQCFRg3P+o6bgO57C0ZC8
+AETdvsBjMl3cMq/bhZGREqareSX+kI/3gP0lto8lQ1DDpbHePwrYcrOqOCk/TPnZ
+rum6AXhHwpLZmMsIqk1K3Q9px1ghcnyjnl7GVAwfB4OrKPa8IzL4+X2b2X/EBlTt
+tA5SKrL4z8CNkqI7ibFYAEB8UliYkG3kD3qvLo+W+rNFzCcsRI/O4VEu2keetQUF
+lRE+HwUEZOEJgD5MhGSziJkq/IqErvyEIUINvTCuT6aEylGL0JSRLpZ0Jcse/8LG
+wiJP1blocWHLHzSr2ZfGbhmSyEzKgLYV8a/QhmZV/FZCkWMN7OL2JvwYAPpNC/rp
+C6RZLQwS06xAPZJOzKCfsBDyHPByQUKO/XSz5BqVlU9a3rF1ZZY=
+=9+Nb
+-----END PGP SIGNATURE-----
