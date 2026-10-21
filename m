@@ -1,65 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.108.41.231
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585777;
-	b=GOhte5OORcK2hJ1yByBv/twMCNOn9Ly7yF2Gat5f9klZD6shN2qBH4slTzuuT8Pvx3D+
-	 wChLSgQTHknRcnJNKfGFg5Ebavy6Y0//b5CVqjIhz7IHWKouIBHwOwE/COZiHqpBMoA/M
-	 eQ9oBVvWlC+1I47cyoBHhmZBvFG+1khSUMvT1ZVhkWdbR0vcUaxS6SalvszPnrkhe0a5L
-	 vzsmQbHCLF7eCujJOVlrS4Sj+mXV0ErZmrAJfRITSKmcsNSQRTIvo7fUTBOsiqYYwQUK/
-	 4+v6l6pLwm+tT6M5/fwBxXTtZHbG4qpYjZWPVCRd3tNMZ8TuQrvGfz/KzlydtgSSAiQ==
+	t=1792585785;
+	b=WSt1YRXN132UuMDbbWycP1eBdQaHZiwBrgI/ALlplJPRzys2UNVvWBxvhNtCnVydetnT
+	 N+0ihirf9qf6351MDCgrXgTztIVDlXkLn0kvIC/vSzwTZNHIfi4vzaU1KTlilhh1CZZAf
+	 bfWwrY8MdzHXvebe0sE2HntcOmtXX+qiMqgHUHJAln0Jp6m22rfqw96mrMBMm9AwR1qqU
+	 JZsD2jojAN6JBHwJfsJZ7k+58wvGtDyReePHOuNQQyg2ThdNYPxCva/iixgHxtWgBQC+M
+	 lTnd44jcFgFKOmxOYR4b8rv+oafa+9Nvg5c2knNz8jrsUykrMGmGaDR+E140Rw6WDyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585777;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:Sender:
-	 X-CM-SenderInfo;
-	bh=ALL6UWpxChP2qKHJAg1/hi5H4UckoPojIx6atEGve9I=;
-	b=JgLXHkEn0Nq1J1c9lrMCVUwmvH/y2dgoasFgFcHCfQXaiRNe7peIOEduJb0i3gvzxeq0
-	 RsvNJMnKop+2usFYOAnzxPob6Gk6Sk9Qnoj2yUO0FNl6uFj0O/h4ULSkkuEz+lsIhMqhe
-	 oLXJG7fVV4cIDTlgRs3asGiFV9PEKedkjg+NLu/L9u8wYrBGpctaUHr93fT6K02GYLZLu
-	 SqWNSmtFeS4U+6jMw8iEGvaQQ2HXzdCpl56GjY2Y+j6yeUl2uaAFZTo7pZ3pTHX2L6kLt
-	 WhS8zEl9BShHY+N5/A9vWwukvwVq1KovCz0DZpeDMeFM5mCTBtkDaJ4B84wv8oJnnDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585785;
+	h=DMARC-Filter:Received:Received:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
+	 From:Autocrypt:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-PPP-Message-ID:X-PPP-Vhost:X-POWERED-BY;
+	bh=pv4vAOfMeLWLsM9ahdk5vDfcsMcW1ciiFDbHu5/SBQ8=;
+	b=pP236tEZi2MQaZ4jS5zY6jDnSvrdvq1ggw+HLCjwUb/S+VAAIR18DcbbygC0jENQLJ/u
+	 OpWqfZvDfaUjskKSP9Y5ezWfDCiy4XSeD8OqqxKv/cw38D53uy153JB3WGNTU63bBLoa0
+	 DlxMepvbUx+mcrGsEIDiuKsppPtL6W8D7/VcfhEuvpmkwv92f6KTEPI86iNQY2bU1Uw6j
+	 CCD14XmjKJq89z+M6HU7625dFy/CCilL3aTtKIuU5NZD+LLs+u7rKqq9GqKB9V7U8yX19
+	 WL6oR1Bs2rT+jI0sR3xXvRMy6vmole9v9Z8xBdoiIt37EPXdqc0BqrutAKxLbYLYW0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="Q1/VoNY1";
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=kiener-muenchen.de;
+	spf=pass smtp.mailfrom=tldhost.de;
+	arc=none smtp.remote-ip=62.108.41.231
+Received: from mr02.mx01.tldhost.de (mr02.mx01.tldhost.de [62.108.41.231])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11CF4606A319;
-	Wed, 21 Oct 2026 12:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11CF4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Q1/VoNY1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AL
-	L6UWpxChP2qKHJAg1/hi5H4UckoPojIx6atEGve9I=; b=Q1/VoNY1IzJHQMHBzC
-	+tvRmlXqZQxj1xzZoNsvv5Zf1R7l4tJGXi/6rIAs7E1fSjB5zh5hDT0Gl2JrD2xQ
-	/qbgGWFQfdwkSmWbtxiWYo+KSALgq4WxkES+lbOVr22AhuiVQsJC6I4oO/fHs9As
-	/mRsiSl+NxHjCDCbJgerGEaY8=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3v7D+r9hqCVq1BQ--.8535S2;
-	Wed, 21 Oct 2026 20:28:46 +0800 (CST)
-From: Wei Tao <taowei@kylinos.cn>
-To: kuba@kernel.org
-Cc: netdev-bot+sinfo@kernel.org,
-	jhs@mojatatu.com,
-	jiri@resnulli.us,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net/sched: cls_fw: allow filter replace without re-specifying mask
-Date: Wed, 21 Oct 2026 20:28:46 +0800
-Message-Id: <20261021122846.358290-1-taowei@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261020135321.21517b1d@kernel.org>
-References: <20261020135321.21517b1d@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98AF7606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:29:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98AF7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kiener-muenchen.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tldhost.de
+Received: from mx01.tldhost.de (localhost [127.0.0.1])
+	by mx01.tldhost.de (Postfix) with ESMTP id 4FC2E122E91;
+	Wed, 21 Oct 2026 14:29:40 +0200 (CEST)
+Received: by mx01.tldhost.de (Postfix, from userid 1001)
+	id 439F7122E65; Wed, 21 Oct 2026 14:29:40 +0200 (CEST)
+Received: from mailout.tldhost.de (mailout.tldhost.de [84.19.26.10])
+	by mx01.tldhost.de (Postfix) with ESMTPS id 3F405122E12;
+	Wed, 21 Oct 2026 14:29:38 +0200 (CEST)
+Received: from mailout.tldhost.de (localhost.localdomain [127.0.0.1])
+	by mailout.tldhost.de (Proxmox) with ESMTP id 293E681E9A;
+	Wed, 21 Oct 2026 14:29:38 +0200 (CEST)
+Received: from server12.tldhost.de (server12.tldhost.de [84.19.26.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by mailout.tldhost.de (Proxmox) with ESMTPS;
+	Wed, 21 Oct 2026 14:29:37 +0200 (CEST)
+Authentication-Results: server12.tldhost.de;
+        spf=pass (sender IP is 93.104.90.53) smtp.mailfrom=guido@kiener-muenchen.de smtp.helo=[192.168.13.48]
+Received-SPF: pass (server12.tldhost.de: connection is authenticated)
+Message-ID: <ccc73234-743d-4161-abf9-2ba1f301b55a@kiener-muenchen.de>
+Date: Wed, 21 Oct 2026 14:29:36 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,33 +61,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
+ on xHCI
+To: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Michal Pecio <michal.pecio@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Steve Bayless <steve_bayless@keysight.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
+ <20261020184244.69b78d5e.michal.pecio@gmail.com>
+ <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
+ <d702d2b3b66d6229855515c2eed09636@kiener-muenchen.de>
+ <bcb7b29468175cd13f08bdd363b8c733@tipi-net.de>
+From: Guido Kiener <guido@kiener-muenchen.de>
+Autocrypt: addr=guido@kiener-muenchen.de; keydata=
+ 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
+ 367l2lvnrwgkpj9ug6CmNuE929AH2iQD
+In-Reply-To: <bcb7b29468175cd13f08bdd363b8c733@tipi-net.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v7D+r9hqCVq1BQ--.8535S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7XFW5XrWDJF47Zr1DtFWxCrg_yoW3KFcEka
-	n5XaykWa1UXa1kXF1xKF4YvFZ7G342yFyUAryqqw13Za4DGrnxu3sakwnYvr1rCFWvqFW5
-	tFn5Gw1rAwsxujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU0TvVtUUUUU==
-Sender: cs_taowei@163.com
-X-CM-SenderInfo: xfvb3tprzhxqqrwthudrp/xtbC4h77PWrYr-5DQQAA3b
+X-PPP-Message-ID: 
+ <179258577743.508294.11951329127478998559@server12.tldhost.de>
+X-PPP-Vhost: kiener-muenchen.de
+X-POWERED-BY: TLDHost.de - AV:CLEAN SPAM:OK
 
-Hi Jakub,
 
-> You are expected to reply to these questions. If this is an LLM-based
-> report please be more considerate of maintainer's time. If you actually
-> use this feature please include the response to the question above in
-> the commit message and repost. The repost should not carry a Fixes
-> tag, it's not a real bug.
+Am 21.10.2026 um 09:46 schrieb Nicolai Buchwitz:
+> Hi Guido,
+>
+> On 20.10.2026 23:12, guido@kiener-muenchen.de wrote:
+>> [...] Therefore every manufacturer of USBTMC devices should
+>> comply with the specification and cannot expect bugs in device firmware
+>> to be fixed by patches to the USBTMC driver on Windows, Linux, or macOS.
+>> [...] Otherwise I cannot support adding device‑specific patches to a
+>> class driver.
+>
+> I agree, it would be a better world if every vendor stuck to the specs.
+> Unfortunately reality is often different, and we are the ones stuck
+> with the devices on the production line.
+>
+> Anyway, I get your point about keeping quirks out of the driver. It
+> looks like the maxpacket part can be fixed in xHCI instead, since ehci
+> and dwc2 already accept HS bulk endpoints below 512 bytes (see the
+> discussion with Michal). The ZLP issue of the Rigols can be worked
+> around in the application. So I'll drop this series. 
 
-This was found during an LLM-assisted review of the classifier
-->change() replace paths, then verified manually and reproduced in a
-QEMU VM.  The hint came from the cls_route in-place replace fixes
-(41e85e54e564 and b72e025ac556); auditing other classifiers showed that
-cls_fw has the opposite problem: fnew->id is inherited correctly, but
-fw_set_parms() treats a replace like a create and rejects it when
-TCA_FW_MASK is omitted.
-
-I will drop the Fixes tag and post the v2 once net-next reopens.
+I'm happy that you found a better way!
 
 Thanks,
-Wei Tao
+
+Guido
+
 
