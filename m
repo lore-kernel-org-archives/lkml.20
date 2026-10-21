@@ -1,49 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.116.240.228
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591391;
-	b=jaU/SbkJH4TxTIdjIWw7zofHMO7r7aGoK7cULfkMJL8xVPc1tKXjoSwunHyeq+aX8wTo
-	 /dMA1VKY35ZdtqYsd8Ok/b9dKwEDb6vgpQ8C1si7zD0re7dFbeQBtFqe5h5Jylff7kfuN
-	 Z6p68BL//L5oBYqMfiC49zKY/V4CKplYRA6hDgxxJ4hjHIYCs9AYaVhzTZaSFLf2coSe0
-	 ZeD/OVaEkupaMuH6l212V8L0vrus0TKE/q6ygy1A6U3ttAmifG+wsIA/ZFPQfSJrVJV9/
-	 DW2Pg7zqNs3IXRfKFoJADxN3IJ3QUiOltemQY3UZ1n+a2AhKPexFW5UdAatV1ovUxeA==
+	t=1792591494;
+	b=NXNJwlwyUdVTymemT5RTCdhEIqOBZhkM+ZQDPy2ZPr5Hhmc/PctIvBG5VCU/dJN8Ll0W
+	 kLlw1FSc5PmyVLl3G9ikvjnkVjlDyCBtaH030w0t8YLGYiFTo1ZsBJsWWreEZJ8F/oq73
+	 WxG5yTEn1JV1IBlEp8JIS216zCzur7tCwG4BUUaiWE0slRTufRAfAi3Z9eOkpyScSQRWa
+	 7mZpBdyGojwIlgOyMI4WYFCXDY0eJAiEXFpvZpCx8glqyBHAka24vuOkhhyXjzv0TCsOz
+	 IPUSNEhEAYth3jPCJFkG+kjpD3KSNHFg+iWBoQWr7yNLTVrJQhX/tDKuYQHz/nz1WJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591391;
-	h=DMARC-Filter:DKIM-Signature:Received:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To;
-	bh=/r0AxVVWGLZRXANdtf3mhSCkftv12XEmvpE4y1kyZFE=;
-	b=bltoNOXjNuBwCXT4aUDdVwaRvUEOY6azJitLTYdlBQ4fUv5nE/SmW0z3BfmZJRiNGdAa
-	 DOzJCszNrTvXWRIlCj3DaISDmUE48/HQuD2mhg3v67vhawaOfzk6tD23bXmLlUhULYzYK
-	 KmofFsscEz7OB5b7kHitlxWvpD5KUTmfM3F696B6cgif9yw5vNP9KKQ4ZiFRMLe5MYaaV
-	 wfhBcVkCqUMFLqXcL5yDCQabC2OSt5OxlNrD7lvz1KsRfxW6Xcyn88h9ryeHVd3FICo+s
-	 eSXzNjMpZ2EAIzEJuklgkvbDMyDNrEQVu9wUKLfJ5/QfjSDBS71LYXBZz1y4RPH9q4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591494;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=yA/d7xHCvimeiSgT5X9qinEfD4f+i9hf+y7HDZY8TE0=;
+	b=4srHYibEpUGb37QoOiHF3T2nAXrwr/PLQzj7yAroGvZXv5B2wyvyfgZ1cywwhuw5rfOy
+	 RUqudQIzRNvdl7rNbZu7OY5S0eYuGa6J9J9he80LNLTLIfrTGjHHxt85wC188Z9WaYhFW
+	 Em9Z0K1d5hx91nrp/DttatE2ospgz5J6m8BaZm17QhRtVJvt+wtbu01MRJzKaSLiuBGiB
+	 SC489Z0AiH1yFNqhUPUqh9j8DKL0GVmnQgoAquHEuXOWqKKKuBq9x/8G9I3Q6nP5mGVnX
+	 QCRHmpYMps3lrIg1VaWleA3PFvyooIuJe1C4SLF9u1EigAD4givsA2E/0NVX3m9dGyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arkamax.eu;
-	spf=pass smtp.mailfrom=arkamax.eu;
-	dkim=pass header.d=arkamax.eu header.i=@arkamax.eu header.a=rsa-sha256 header.s=mail1 header.b=ZM9s7tSx;
-	arc=none smtp.remote-ip=128.116.240.228
-Received: from arkamax.eu (128-116-240-228.dyn.eolo.it [128.116.240.228])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZT563FZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2346606A325;
-	Wed, 21 Oct 2026 14:03:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2346606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=arkamax.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamax.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 841E9606A31D;
+	Wed, 21 Oct 2026 14:04:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arkamax.eu header.i=@arkamax.eu header.a=rsa-sha256 header.s=mail1 header.b=ZM9s7tSx
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; s=mail1; bh=Uke4Cy4YCZOUDu
-	A/rCbWYHMHT4sU8wffe55QX/Y+8xk=; h=in-reply-to:references:subject:cc:
-	to:from:date; d=arkamax.eu; b=ZM9s7tSxTTv5A2+xzTaxDhNjGwuY60LWr+mDKEuV
-	3tFbZ9hCuAfZK0JdhVKuhpkcXGe4xJUz7+MpPPyv+1xn3ULEyKva9tTkMpKuozcrOtDCTW
-	73++HmX0V3WieEGS3KbZmlvuAjSynJonGlPuTP3tBcRV6a3zVKyYnqfEqILdapOuKH+Y5j
-	/twF/IbCZM3XNFEpwOMsrB5HHucm11sW6fOmjtpfzBiZw/i23vifHsHvaeQQrlDHtOvWvE
-	06t8mi68kFz45nB0yJuCUPrCxQmzYWa9wDGNBeBZfdO6b/Ex/NnUVGIGMz7iATgzhpG4tK
-	T57zI2rM36uhvjYMFggs3w==
-Received: from localhost (128-116-240-228.dyn.eolo.it [128.116.240.228])
-	by arkamax.eu (OpenSMTPD) with ESMTPSA id 9a5ef087 (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO);
-	Wed, 21 Oct 2026 16:02:56 +0200 (CEST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZT563FZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585A91F000C4;
+	Wed, 21 Oct 2026 14:04:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792591494;
+	bh=yA/d7xHCvimeiSgT5X9qinEfD4f+i9hf+y7HDZY8TE0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UZT563FZdUGP4XEOxzleadiPXVItt+IukRA8Q0pvDTxGiRM352eYfiFV3ZpR+mAVS
+	 TOQjs7SZu0k5T4qA1b3jK/KenlsAX5Z/ktvQeei+NBo+GiJYMU1Zjl7ApteFHRINEI
+	 hSq9E9Ev9QMZzgUGPeHOlyrcDVwA8fX+4LWiRb554HkCtBIupo0D0UlBbWpJXsszA8
+	 fqCSms+YgllcSe8692GwRRjbTBNRea9tv5t7GhH9rz0zx+k55jhqDusib5AfuhpXlz
+	 uJSq+QtrtEsYVgA4KaAFAP6JAc1qfAqd9zwfAXk21T1y+5S8qY4UOCdilEeKp0VqcD
+	 I1xsQEQ7V0lVQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xJWw0-00000005dRI-1xo7;
+	Wed, 21 Oct 2026 14:04:52 +0000
+Date: Wed, 21 Oct 2026 15:04:51 +0100
+Message-ID: <86mrs7ywsc.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+In-Reply-To: <ati3_lymW0zaBsSU@sirena.co.uk>
+References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+	<ati3_lymW0zaBsSU@sirena.co.uk>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,85 +80,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 16:02:55 +0200
-Message-Id: <DMAKLXGB0BLV.1S3CO480V3JJM@arkamax.eu>
-From: "Maurizio Lombardi" <mlombard@arkamax.eu>
-To: "Yu Zhang" <yuz08559@gmail.com>, "Keith Busch" <kbusch@kernel.org>,
- "Christoph Hellwig" <hch@lst.de>, "Sagi Grimberg" <sagi@grimberg.me>,
- "Chaitanya Kulkarni" <kch@nvidia.com>
-Cc: "Maurizio Lombardi" <mlombard@arkamax.eu>,
- <linux-nvme@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] nvmet: take subsys->lock while force-reconnecting in
- nvmet_subsys_attr_qid_max_store()
-X-Mailer: aerc 0.22.0
-References: <20261014054727.53183-1-yuz08559@gmail.com>
- <20261020025047.88297-1-yuz08559@gmail.com>
-In-Reply-To: <20261020025047.88297-1-yuz08559@gmail.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: broonie@kernel.org, fuad.tabba@linux.dev, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, ljs@kernel.org, tabba@google.com, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Tue Oct 20, 2026 at 4:50 AM CEST, Yu Zhang wrote:
-> nvmet_subsys_attr_qid_max_store() sets subsys->max_qid and then walks
-> subsys->ctrls to force every controller to reconnect, but it holds only
-> nvmet_config_sem (for write).  subsys->ctrls is protected by subsys->lock=
-:
-> nvmet_alloc_ctrl() adds an entry under subsys->lock, and nvmet_ctrl_free(=
-)
-> removes it under subsys->lock with list_del() + kfree() (not kfree_rcu).
-> The free path takes no nvmet_config_sem, so the two locks are independent=
-.
->
-> A controller teardown (host disconnect, keep-alive timeout or fatal error
-> -> nvmet_sq_destroy() -> nvmet_ctrl_put() -> nvmet_ctrl_free()) can
-> therefore list_del() an entry while qid_max_store() is iterating the list=
-,
-> corrupting the walk.
->
-> KASAN, concurrent "echo 128 > .../subsystems/<nqn>/attr_qid_max" racing
-> nvme-loop controllers connecting and disconnecting, panics in seconds:
->
->   BUG: KASAN: null-ptr-deref in nvmet_subsys_attr_qid_max_store+0x10d/0x1=
-b0
->   Read of size 8 at addr 0000000000000090
->   Call Trace:
->    nvmet_subsys_attr_qid_max_store+0x10d/0x1b0
->    configfs_write_iter+0x1a7/0x250
->    vfs_write+0x5df/0x940
->    ksys_write+0xfd/0x1e0
->
-> (also seen as a general-protection fault dereferencing a LIST_POISON
-> pointer at the same instruction.)
->
-> Take subsys->lock around the list_for_each_entry() loop, matching every
-> other subsys->ctrls accessor.  ->delete_ctrl() only queues asynchronous
-> controller teardown, so it does not re-enter subsys->lock under the loop.
->
-> Fixes: 3e980f5995e0 ("nvmet: expose max queues to configfs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-> Tested-by: Yu Zhang <yuz08559@gmail.com>
-> ---
->  drivers/nvme/target/configfs.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configf=
-s.c
-> index 2b69ffc..23418fa 100644
-> --- a/drivers/nvme/target/configfs.c
-> +++ b/drivers/nvme/target/configfs.c
-> @@ -1684,8 +1684,10 @@ static ssize_t nvmet_subsys_attr_qid_max_store(str=
-uct config_item *item,
->  	subsys->max_qid =3D qid_max;
-> =20
->  	/* Force reconnect */
-> +	mutex_lock(&subsys->lock);
->  	list_for_each_entry(ctrl, &subsys->ctrls, subsys_entry)
->  		ctrl->ops->delete_ctrl(ctrl);
-> +	mutex_unlock(&subsys->lock);
->  	up_write(&nvmet_config_sem);
-> =20
->  	return cnt;
+On Wed, 21 Oct 2026 14:02:54 +0100,
+Mark Brown <broonie@kernel.org> wrote:
+> 
+> It would be nice to have it be more obvious to the VMM and/or it's users
+> that it messed up, as things stand features it thought it had set will
+> just silently vanish from the guest - they'd need to know that this is
+> something that might happen and check after finalization or similar.
+> That's probably more a documentation/education thing than anything for
+> the patch.
 
-Reviewed-by: Maurizio Lombardi <mlombard@redhat.com>
+The VMM is an integral part of implementing the architecture. If the
+VMM doesn't cooperate, that's its problem.
+
+	M.
+
+-- 
+Without deviation from the norm, progress is not possible.
