@@ -1,86 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588209;
-	b=PXVfFc4XQ62WDQKn4GuDsrN+2JO6NIYIY1w1mKF84Gc1bsCxni+oaJRWb6qSfX10jKbR
-	 lTSolw1xQrGn+Sbf1N/nDI0pkhE4qv7NS413WFz7ILoUVY4VtusBV638pXP8BXbX31pW9
-	 WOGadQtN35SfjOeckgyT3zMR+ZzFSu1u37GIMrcUzPVhe4YwrfeuT+gC1XW4K7o9Ubtnx
-	 CbWbd8ksJahSFrCk6jYyJINDom4zmJxzWCw8QpDh48GZdaXqFZ/WI/6rYPvB4AeiXg3pK
-	 bE8OqAo3jpdZ5rQ+ECLqbH99OFbiKIdq37/MY8k+MSuHEcx1Gg+gCGNBwpZPvtPlzvg==
+	t=1792588225;
+	b=JUwu+ckn44Cfg1faYK5RVjIgNI44qenbGVZMvFdJwlN3cCrw7OuwMAgo3oEwAyxzCuTT
+	 TIZvc5vc9VG4vdMeoX8A2ybcDs18+m4aDM02OiMXOMZgqYyMQk8IJrd86AkE030Z4fRQq
+	 OYm0ycd37ovlU79IsFMTK0krko2FWsTmtJIOBEB1qZOi/SK1tMeETQxZPAzF+AeBMMC00
+	 rNJjA4dfRA49CysfI+Gr6yiqvf2XV8pQ1f+AHmq3wqu9KpR2Qzf0lD+KEtkVJ/OHt/xHo
+	 jGMOYY9Od7F1ecjTNPUhrejr2Qdq/sJSGLrt6me8/2Im7Gtu9EhhoaU3NyuKkNswhBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588209;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=PS/twxFacQXAoiWN1rP01NeV2b6MFLIvq5Qi7h+ZC8U=;
-	b=n8V3Q4pW5DBnIdxX7pbMKOKyTrk1XTZeXCjk+ZH59EscwP6Y4p++qOPnE50qH1E9bORv
-	 yi8FGJuPYKCg2OPVdhKHZ0LwXtB5h+JA8xPuK7l0PUjXvehyt4K0dHIxF+ZFbvYB1rDfg
-	 IG4gmsKXRQ06Y3wvv6R5tYMqT2dQNeTqUrtitntFjspm0MTNI2ctPo5LsDXwrcVdJLXc8
-	 bIskpxLctfhTPirVTrnFmz6ZdKTy8ypSWqfB71fRd4mA7ECqkh/OUpX6CqkmL39Ki5bRU
-	 GiSJGVhqbgoeCRCSnPZ7O9DlXF9SKh5OjXJz38qgmZJm5bwZ4s76WQINCRqJgv24IYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588225;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=4ST0S09FqoMhYeE6cyXYxn/H30wuNQQmvIaLab0ur0Q=;
+	b=A6ShWxlPLLqNmdHtXfE5R6lJYXU/GWaqlHjxT9nY2d7gUxm47thrgsFDCjqyBzsOoPkE
+	 13st9dyYliB7aLf58Gk02lw0p6krFFYDkbmfApzNOBjIXiaMzClYTdQzW9Q0NYySp17sS
+	 jzoILKZV5VsGO4BKvm0Clv3X2cFguh7k3LtptkQoHtbLTccn8VGx4W/beoGSAUw++bQG0
+	 OM4Ae8GenrlqECdmMvK/cf6L+Zmlbqb9w0n57tLhMeGMoou1j68VNMDzQenGLsCT0kVOA
+	 7Htn6kVOA2Vdb82Nh/4XvSpZiaz2yYoBadMNvykX5e4H74WQrxdi/mxyIHSqXnoAGVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=RKP4649W;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QVDszHTp;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C132606A31A;
-	Wed, 21 Oct 2026 13:10:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C132606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B181606A329;
+	Wed, 21 Oct 2026 13:10:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B181606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=RKP4649W
-X-UUID: ba421fbecd5011f18dc8c9802ae25ab1-20261021
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=PS/twxFacQXAoiWN1rP01NeV2b6MFLIvq5Qi7h+ZC8U=;
-	b=RKP4649W6j0WGfJKD4toZcznAEG9ZUUNfEfMZkCppEAD1XDxZwh9GJfFBREnJdHTuVxlbShzSG1yQ9M2PIIpvzxdKxHDHQaFOYhVdRZcfkG4zoc61w+N0+kOoycyi6X7nHvfw3GQdD6NoLTt58ZrMLqQYjHolERtoFwFqLQ7xlM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:888f8b78-7778-4c86-8e75-a49c574b1832,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:1863e68a-9b15-4dfd-88b6-b4385d95ae05,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|136|836|865|888|898,TC:-5,Cont
-	ent:0|15|50|99,EDM:-3|-100,IP:nil,URL:99|1,File:130,RT:0,Bulk:nil,QS:nil,B
-	EC:-1,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ba421fbecd5011f18dc8c9802ae25ab1-20261021
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 338125444; Wed, 21 Oct 2026 21:10:03 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 21 Oct 2026 21:10:02 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 21 Oct 2026 21:10:02 +0800
-Message-ID: <d286f784b3aa4d90e151a195b316613fa282fd02.camel@mediatek.com>
-Subject: Re: [PATCH v4 6/6] scsi: ufs: core: Do not release a reserved
- request in ufshcd_abort()
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
-	<mkp@kernel.org>, <linux-scsi@vger.kernel.org>
-CC: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, "Bart
- Van Assche" <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, Bean
- Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Wed, 21 Oct 2026 21:10:02 +0800
-In-Reply-To: <20261021040615.3566831-4-stanleyjhu@google.com>
-References: <20261021035450.3488805-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-4-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QVDszHTp
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 651B44E41296;
+	Wed, 21 Oct 2026 13:10:21 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 31886606E3;
+	Wed, 21 Oct 2026 13:10:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 46490103289F5;
+	Wed, 21 Oct 2026 15:10:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792588215; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=4ST0S09FqoMhYeE6cyXYxn/H30wuNQQmvIaLab0ur0Q=;
+	b=QVDszHTpvMd0uArH8cax+y7uc7PR6lDDUG/ztuFY19H7Sm6xsZbZkqjfIALPe5dUq/UHo0
+	GkoauflJLjv0jy5182Pp8dtZsnH60ZOGBKxxienme64ueeB0KHyebhiikeN6dHfekffbzS
+	IWDMPkMz0MKNWKKM0u0JJzqyZMJp6DKxEyeaMDwAbdx+yMJW72Z3jA2RWH05AsrRDGpnDV
+	E96iuOBE0nnG60ZPRTGYd+7ULhKzfyEi2aa914baO7L0vC6hSo/RxCNguUv4FBPijXmIcg
+	U9LoHjJ299KCHt6zJFmOKf3W2oWBAetv6D2rFEtA0DPg6lEfeLq6y3GgHFZS6Q==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH 0/5] clk: Use v2 rate calculation on i.MX8MP
+Date: Wed, 21 Oct 2026 15:09:56 +0200
+Message-Id: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,35 +62,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWOywqDMBREfyVk3ZQ8MIqU0v8oLm5uooYabRMrB
+ fHfG3V5BubMrDS56F2iNVlpdItPfhoziAuh2MPYOeZtZiq51IJLwXKCw4sNGJjhthItAoAoaS6
+ 8o2v975A9m5Oj+3yzcz5DGlxKcDhrctuVXMny8CWEwY8dWyrGWaXRcjCgsGgf0dke5itO4b6PG
+ Ej5wRSCn2uiBGolUUssDG227Q/gN0fWzwAAAA==
+X-Change-ID: 20261021-ge-clk-lcm-b0d81fcaaa17
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Abel Vesa <abelvesa@kernel.org>, 
+ Peng Fan <peng.fan@nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Ian Ray <ian.ray@gehealthcare.com>, 
+ =?utf-8?q?Herv=C3=A9_Codina?= <herve.codina@bootlin.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-clk@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 2026-10-21 at 12:06 +0800, Stanley Jhu wrote:
-> In SDB mode, aborting a timed-out device management request drops a
-> clock hold that the request never took:
->=20
-> 1. ufshcd_dev_man_lock() takes one ufshcd_hold() for the whole device
-> =C2=A0=C2=A0 management command. ufshcd_queue_reserved_command() submits =
-the
-> =C2=A0=C2=A0 request without taking a hold of its own.
-> 2. The request times out and ufshcd_abort() clears its slot with
-> =C2=A0=C2=A0 ufshcd_clear_cmd().
-> 3. ufshcd_abort() claims BIT(tag) in hba->outstanding_reqs and calls
-> =C2=A0=C2=A0 ufshcd_release_scsi_cmd(), which calls ufshcd_release() for =
-a hold
-> =C2=A0=C2=A0 the request never took.
-> 4. When ufshcd_dev_man_unlock() drops the hold from step 1,
-> =C2=A0=C2=A0 hba->clk_gating.active_reqs goes below zero.
->=20
-> Release the command only if it is a SCSI command.
->=20
-> Fixes: 08b12cda6c44 ("scsi: ufs: core: Switch to
-> scsi_get_internal_cmd()")
-> Cc: stable@vger.kernel.org
-> Link:
-> https://lore.kernel.org/r/2060a8da-581b-46d1-a510-779f4df716cd@acm.org
-> =C2=A0
-> Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
+Hello,
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+Thanks to Brian's series, we can finally solve the problem of rate
+calculation faced with the i.MX8MP LDB/PIX clocks. I've tested this
+series using a v7.1 mainline kernel with a lot of unrelated DRM
+patches. I then re-applied it on top of clk-next after fixing the few
+conflicts when applying Brian's series, but that means I cannot (yet)
+run a 7.2/7.3 kernel on the platform (and applying this series with b4
+will fail due to Brian's series no longer applying on top of clk-next).
+
+The DTS patch is there for reference, I don't mind if it's not picked
+up.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Miquel Raynal (5):
+      clk: composite: Initialize inner hw clocks during registration
+      clk: Fix v2 rate negotiation with composite clocks
+      clk: imx8mp: Allow adjusting the video PLL rates for the LDB clock
+      clk: imx8mp: Set v2 rate negociation to LDB and pixel clocks
+      arm64: dts: imx8mp: Drop VIDEO_PLL1 assigned rate
+
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi |  6 ++----
+ drivers/clk/clk-composite.c               | 34 ++++++++++++++-----------------
+ drivers/clk/clk.c                         |  2 +-
+ drivers/clk/imx/clk-imx8mp.c              |  6 +++---
+ 4 files changed, 21 insertions(+), 27 deletions(-)
+---
+base-commit: 31c632c62c5b98fd965ef5cff3c3fc1ffff02913
+change-id: 20261021-ge-clk-lcm-b0d81fcaaa17
+prerequisite-message-id: <20260327-clk-scaling-v8-0-86cd0aba3c5f@redhat.com>
+prerequisite-patch-id: 8f4664c519b38f0c34e388104f9a75e0946c27f7
+prerequisite-patch-id: 041b5fbc0014b25795f8eda6b89b6b61131d51ca
+prerequisite-patch-id: 2b9d8038fb1733a94291248ce9042139275fb4d1
+prerequisite-patch-id: dcf50f042320b672cabff74bcb861e5ddf26bf6b
+prerequisite-patch-id: 3539877187131dae288e6bcfb204d047e5768f84
+prerequisite-patch-id: e55a07d726e3caad4508b8f200a8a8c17327c8aa
+prerequisite-patch-id: f09cbe9bc44cc58bf47aae239c3558b4e6f6233e
+prerequisite-patch-id: 272e0710fba77dd768e6312aacef5a3e9addebc0
+
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
+
