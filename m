@@ -1,111 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591343;
-	b=ub3/u4hsKUXovwBpvOyz6S5qJPU0tOvd8LpLbn0TleJ5xsF9CKZlZVXIi09wJ5J868se
-	 S+jmQ9RvJ5lRw09a+Gxl7hyArdFfTr/IHbmUvgsmXRDxmX4CFljVMWa12GpcLmXT3NxMG
-	 iXUJz3Z0tGj8JBYb+bRQnkId11VeBqG8dGBMwTNeLkehiMI5Z4yMPtD7Ov9GU9nSJGvqR
-	 g8EoMxz03tgmMHW4djpgEtdHq24yWexcz/SKXkDfttwfED/BL1IKRmG4hx0LTQHH5yIxB
-	 wvD7JO6y+md70ytNcKsBJ1T7EWdScbTqa0HVMgQXexWRmw/75WEjiqwytaDKa20AyXg==
+	t=1792591350;
+	b=Mxue6D569n/iYDBzNhCyYg/PLxVF/iK0L2hrvP7ClU9PjJb/cCKeAYKuDFgDe0POSoWl
+	 IJ1OGWX+dx/0tg/57bXFL0VxVFQnZnAp66tNPoo++ARz2/Y43lfUMBUNt+aHOMvlxTocu
+	 uaRWv5GP7NCBy8vuHq7SjNjw4m7L1aRNcD0duVBr7X07wDAoRUHUj5IC9Os0CDVcSawiH
+	 aUNEHRrO+bIURBNI4NxwfxDbPio1VZ6OJkaV3OU4S4wwf2ajp8JeHj3F/HcVIVUtgb66C
+	 E/VzOTUj5EKxEmNsybMrkZpgaMm/ByzFRvjQdM0TR2Dk0S3CnBydSykp/V/OHXarsqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591343;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=;
-	b=zT877xuCeJhrVvuhFFykDWBBuJWU9hdWkfYer8Ft6ShvXHxPLq0DCTo+QSHyKm64b63b
-	 NzVmQj4CJYah9NxDBqHhtpEGFXRzFLfxKZiIttI+oL7u9YYZYQKREH7QllpCmG9B7WC8e
-	 1kLx8+HxxM3mNZgiCj9mUU43fuPxQgX1sB/aW3iRnWt+qjykIHTSPL5eO52ha2Wz1yIak
-	 QSKJd7TFWrRX3DgmdnXEXwjMbEVsOrIZTFXQupgbb7MuiqqgzX4cynXFDzVkUdPiMdZ8H
-	 OFnlpoPmZl1vBEiXsfhopEtc4bIKP9nFBX3/e2YJjQJqc4MplBBR6srv7AGr7qlib/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591350;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=cjoVJNoB5AVdY0dFkBp7jx6Y4AzZznyz3fzLLbO/PbY=;
+	b=tUtb3eZJST9SQPcfCBWvWBIeMEy8guzRw3UG8peqIo06pVMLhSzLlG3mrwewPy4Nn2Ny
+	 wjE8EhasjJQO0zNoummfY2E2jrB41c/dTHjqAyg3ozzm1os5J4d9l0GLsF3M4g+om1hTU
+	 7ltaOfU9hV1r/EoemHzd7dSsn4F09Gb/CbTmCzaowsTemrzzQLnNON8FN0F7F/zm4QEi8
+	 YisO94IwRmYiPMvwpMEeg3zDUQFtPAfaclPGZdtHyIHfXcntJ2ScB3VwiBJXcMZRqxdS2
+	 ZGIm+gPnlflf7Z0nFy7llMXHgVr4Hn3ZWDR4jz2uCK4g/8YTjybXHqgXtZGv1tnbphg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=di2bf290;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YnYgPett;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20251104.gappssmtp.com header.i=@layalina-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=NJgR+yNG;
+	arc=none smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672ED606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:02:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 672ED606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1367606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1367606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=di2bf290;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YnYgPett
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LDN1XW402428
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:02:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=; b=di2bf290CClcfrhc
-	jKzh/qb1Tyb2Dez0KXF5lHo78AqpupmhKBvOqSewBsyOdqxvu8biDiIOPyNpDgNn
-	d2H+AVDxpSzD6SSAi48DYV6INTM+aWRzxMRvYt7zzVaJR0YrSzKd0NqQb2s1Koxw
-	khCwHPAmM+fkf3iov2OpGJ1FNwprBNQDSN5/a7u4BlRwjlXAxBBzWu0fN2Z8bRWD
-	eoWHsFeawCoo70HcizOlBf/b2NwqNtygHmlwUS0W5ZZ86SFNhcWOzi15TcM8z7iL
-	Fwe6fRKCa50MEhq1XertPSk1M3PByLk2NwK0C1sjzRa/I4/dAS9HCOySsLp9qVqY
-	lRPUHQ==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hex7vr5f0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:02:22 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8250e0f6ec9so199313a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:02:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20251104.gappssmtp.com header.i=@layalina-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=NJgR+yNG
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5ba328513b9so684710e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:02:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792591341; x=1793196141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=;
-        b=YnYgPettYe3RxdQG9r4/qhTs2eKwPOLdC6Zxq/RveeV2Zov6UiKlbawF9muxkq1E5a
-         OvyPyzANNyv1v+NYqWm0LotFp7BYa8VkXIIV6O4Ciud5WueCaWgcn/TZkCWWpE//ek5q
-         /9tYIutHlofKlUEUA/mvIkNXKHxAYc834V0fuu9jLcwgL4Zj8KozA8fomjlLha1ciKYl
-         KSPBCrWYnx6kDUPVwdSZax0uhdX4rKoWmoe03D2OMvBYO50VQt0MaBO1KrUGfH9izYmV
-         qF8iQ9JhP9qfeIxF7codRTaesY0y6JnattSV5/1OctaueqiS3zH7R0J4/VD28fZ5BmVt
-         uICQ==
+        d=layalina-io.20251104.gappssmtp.com; s=20251104; t=1792591348; x=1793196148; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cjoVJNoB5AVdY0dFkBp7jx6Y4AzZznyz3fzLLbO/PbY=;
+        b=NJgR+yNGq8QJP1LnciSxI9Y72k47oAz2eDZKjooMVhw/8gLq9jJUR8ScfmhTR83XeM
+         m2oP7XgxDJIHjLiR6ljHsuHJB4DZh9UvNCkp4N9GRPwzBh7XeOLCPbrXMNSuffpkj6i9
+         EODrZEx4bev/Ad8XS3tjpAHCapDsMis/Md3U8JG7c6cFo2Dm/T5xqG9n/6yjPljT8yD0
+         UZb+N1CaND0uPd0dgxJsR2T8NrriD8faa6YHTCBCpXtyC3Ruv4qD/RLamUWVBnvxePTi
+         Z/M52VILNr7t5gbb0Ty3mt2z5u7W4ZmYjxjuf29QEDp3gZnOPNKav+XRJqybPeWOO+II
+         hCCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792591341; x=1793196141;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HdQ2R3se5w8ic9Lfj8qGSYTbGzQ/J+m8NimOyWriIrM=;
-        b=qsn6QQfSslpNih1EtKxXbRO81OMHAzbGGpUwUQvWIAhDw09Ma4eqRJWxqad1L9mjzg
-         yD4Z4KbGKgY/ThwVeT1U+PUXa5kxB3Ihbp0kvO1UCLNbJBFKFbAX6cFWcGaPNea5xjd3
-         uLC3oBqmEllTAEIBlbZ7zBTTv5vdivtn1IcZ0XCNccxR+Xo27HjV923ISA3nHpngeeVV
-         K1ZOE2FrVbZZ4UbXvWhROnvydLur8EWYTBKCb+8VNfTXcxl3jjgg5atr7wM9jH15PbNf
-         cD+pw3GgQNNCa2M0OtEd9tf4fIzRPAgN702VWpoM28wE9fW3TTRdISJlxfu0LN/TdP/S
-         Sjog==
-X-Forwarded-Encrypted: i=1; AKwUvBxBJQR5CS8UZbQOksF/asmcupf6TbX2YCx/yf79ArZ4G2i/EnY/IMB1gGGbjSvC6TSC1Ml1DhAX8PbvaQs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcesgqSr3jPTMuohRrHhZB5zwwhWQK+03OKltPU2x6buAquiUH
-	H8TAQeLYz93Hcpivx2glSbPrLBF8MjQmGy0kADF8HySQzfal3mE+Xmnfd5y50KLa3MG1U0/14Eu
-	9kzr5aEHoqAeHzbTsG5dnEWgXFTsck9OuAgWSj6uHaN2kFsh49rI70DuXU14E4yZwTwc=
-X-Gm-Gg: AYBFou3Q1M32T7Gp9JBo7+0tKkGNDIkbE4jVT+rtvDaQnFk0TU2mapqE7UGKwDPZ2L8
-	zeBJk6A0wmoj8awusz9/G+Db7WQcoAFVUt3KX7kqQ9L9noqZ1+5ZbQw6BaUntJQbNMz2CkBeOLu
-	bmpdsfTVP7RVX3esaJsHkTYA2ZBAWubbNu/Y19UGvcJ/Fgf54CeHrJVyJ0voM/0RJOMiAy4J0f7
-	LWGrHeEh3R7MxmCkvuenfKJnkHW5L0qpyccRs7Stq0222GWlbVPhYsgfWzr7RHH279pxOEGARZg
-	MZySTy+688/7fcoYVSKExmM+j7uJL3E7CnR/ofpNDxkGhP47mBurFajISbM1lmNT3x7Ciqt4zLP
-	9Ltw7jTG1NF/ua2TzC8kqcA==
-X-Received: by 2002:a05:6808:1914:b0:4f3:890b:5fd3 with SMTP id 5614622812f47-55362b28972mr2213763b6e.6.1792591340810;
-        Wed, 21 Oct 2026 07:02:20 -0700 (PDT)
-X-Received: by 2002:a05:6808:1914:b0:4f3:890b:5fd3 with SMTP id 5614622812f47-55362b28972mr2213659b6e.6.1792591340150;
-        Wed, 21 Oct 2026 07:02:20 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40316a2b3sm856108a12.35.2026.10.21.07.02.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 07:02:18 -0700 (PDT)
-Message-ID: <92bb95d5-946e-4169-8382-487ed9ed2254@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 16:02:12 +0200
+        d=1e100.net; s=20260707; t=1792591348; x=1793196148;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cjoVJNoB5AVdY0dFkBp7jx6Y4AzZznyz3fzLLbO/PbY=;
+        b=Sf9yNSPyJCgZx86fdiXURFP1B/UzsA3/E86a8DQ6fzt8PL3c2IVw9A/Umyl92WF8Mp
+         PlxOlSFgly0dXwhmVPdhh5p8jmzQ5YUmTp0YJGyog0IzhorIQ2mT/XUixLZ9Cjhv9FSm
+         9iJkNeaQck8R7OCfBLCPhgYz/i3wt4fSQ/DHzsUlVmK6a+2ND93vDL1+QCZWpfYwL6JF
+         thSdzRlecauFFbBi50vYeub3Snlniafq6dLeh17g2n3JeaPLJ85D+eTNKbnvZ4h5/2Yn
+         miAzzUBgYSnCK++DADewhGZx7RDS/fJzE821ckZbeEtsebKjRzx4ABH2G2XBKsgOvR4r
+         Xq8A==
+X-Forwarded-Encrypted: i=1; AKwUvBwtMz/fWI8RZObg4TCSrGDLvdz6WTktmI2dfr8X4QLuSBGtfepUuD/WDWvm0TsuWH8giKwbrGT/Oyg1WTc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpgzS13rHbu7ItYMYw0pnelBILShfNfmU4IS/Idl0mIOPi1RGJ
+	DvEQH1dx1IIoaYZ98ev1k4aM2pWIIfBVWVoiFLRWZX0shycRDtDohPO9kRmjGDGuRjQ=
+X-Gm-Gg: AYBFou3OJ+vmGz0LrFFhLJrygkKX2VPrb2hcEPteE2AAnZqY0Pku7pDYYCSct9TxWBe
+	W0EHUsz++2AjrZ0z0trnSlJRRtLUpZYvQnDaPuW0eeNwHwRekDOyENHbUzzH/HBWi7/ShhjgoGF
+	wI/53nAOYTH1B6i3aoDD+x9tFRSDw8GFBfZlhIo/GY/RY8ZDmSOCTaBnXWdpS9r6gtMWgkXmMPz
+	cTM5su7oYsRvG1NpeTvXIvZW2K5LMdG0HDPBuvhC7Zo0fAH+/U25B/e2gZ32hfMyEVjI2e69MKS
+	cbfc1c44Kf15B3qxfp9hjes7roAfgpbsUwTEJfJS1hwKr1bz2EVIcXBjkStGaFRGlJfbl9Av/Tc
+	M6j4d8XS9egPFky4YPssSKR6xKmMT9QIZCla+QIpRz6P/UPtwiWNqH7ptPA1XEzA9Gg5nR0a7f5
+	zqI6DwUXt7P+6AC1vG3FizfHJkkYIyoGSCeNqXao0zq4ld4+QhBQV1Wuti6EC0qxXsRSe1VBf7+
+	X9f+BzfvPvkiTtiPWuMa7AaNiZDTTGxPkLW3BKsmIQ6do/ITROouR6TDg6SAuTNhjl37E8=
+X-Received: by 2002:a05:6512:3187:b0:5bf:a191:4458 with SMTP id 2adb3069b0e04-5bfa1c4e893mr892758e87.55.1792591347746;
+        Wed, 21 Oct 2026 07:02:27 -0700 (PDT)
+Received: from airbuntu ([149.40.63.150])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258213cesm5645984f8f.11.2026.10.21.07.02.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 07:02:26 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:02:22 +0100
+From: Qais Yousef <qyousef@layalina.io>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Christian Loehle <christian.loehle@arm.com>,
+	Qais Yousef <qyousef@google.com>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Hongyan Xia <hongyan.xia2@arm.com>, Ingo Molnar <mingo@kernel.org>,
+	Wei Wang <wvw@google.com>,
+	Patrick Bellasi <patrick.bellasi@arm.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>
+Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
+Message-ID: <20261021140222.tazz6aw4j5pvqwox@airbuntu>
+References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
+ <20261020152933.16989549@gandalf.local.home>
+ <20261021113806.GE2823843@noisy.programming.kicks-ass.net>
+ <20261021132058.kxzyumgxzir4jzi2@airbuntu>
+ <20261021132956.GO2823843@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,108 +106,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v21 14/14] arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5:
- Add DT overlay
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>
-Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        jeyaprakash.soundrapandian@oss.qualcomm.com,
-        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
- <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261011-kaanapali-camss-v21-14-04fd28d815c6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: McD1gF8Ce1OV9vJPod4R1XK2FVboNy9m
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfXxK3onVo/zO6M
- 5qR2pyXr5v/5EbOshXRqsjsamQ4tWMvUtprtRHxGoIYdc3d+fHzymgz2+8Ltot5qnEks6wABEcl
- feMagdfaONM/UJpqp46HrZphDvj2hQQ=
-X-Proofpoint-GUID: McD1gF8Ce1OV9vJPod4R1XK2FVboNy9m
-X-Authority-Analysis: v=2.4 cv=e4uT2qp/ c=1 sm=1 tr=0 ts=6ad8c5ee cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=g0yJHs1RHlB3dt4QKcIA:9 a=QEXdDO2ut3YA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfX1SQ1MQOZAnk1
- PERfquBhl2mwCgpbfCVR4f3pODkjf0MGlnpuyZ4BR5wDLGIfrGJ7p6txq1zlbGSyY5Ido0YOVXs
- eI/WANhSZ7Stk1nNFogsyeLc491aC82enQmYeGD6FwIuGhVMo62VXNDQVj9I4TOZqMvIC+njE8+
- vXVyYAvXU8UsyIwAVW7F24tn4cC8wluYOQdR5ORPIQJWTQBbE1tJLNYk9lggvzn3PlpD+ZDysKF
- xnCXy0MkiM05tk1ZTaau5ZSf97R9iL5+3YMXyOmdxRA5l0Pq+3krs2glIafzKx9aIHl/C4TzE97
- uJ3MXk7Aea6Jgr0NqfcW/cMF4QnUUETSBWebKVabxdqxEGPGCe6WT/zlx+mKsoSmVeXdo3rxQQE
- UZ0Rfvud0iVUm3THvrQYzrbNbThEJ/eLq2PRBUwIDoaUWc4VgvJFWUbvuCW5/k0aEl80/PIl9zC
- 5XDckRbPY6g89apwXEw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210055
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261021132956.GO2823843@noisy.programming.kicks-ass.net>
 
-On 10/12/26 8:45 AM, Hangxiang Ma wrote:
-> Enable the S5KJN5 image sensor via CCI on Kaanapali MTP board.
+On 10/21/26 15:29, Peter Zijlstra wrote:
+> On Wed, Oct 21, 2026 at 02:20:58PM +0100, Qais Yousef wrote:
 > 
-> The Kaanapali MTP board connect S5KJN5 with QUP I2C bus by default. This
-> DTBO enables S5KJN5 on CCI-0 interface connected to the CSIPHY2 in four
-> lane mode on a rework camera module.
+> > > Also note that a simple global boolean has the exact same problem.
+> > > Adding runtime conditionals isn't going to fix this.
+> > 
+> > I have something in my memory that could be complete garbage that tells me all
+> > cpus should see the new update after a grace period, did my brain invent this?
 > 
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
+> This is true; rcu_sync() implies a memory barrier on all CPUs, and
+> therefore all CPUs must observe the prior state upon completion.
+> 
+> The thing is that a grace period is of 'arbitrary length' and during
+> that you can still have some CPUs seeing your variable set while others
+> will not and you get into the very same problem.
 
-[...]
+Maybe this arbitrary length what contributes to the size of the race window
+otherwise I struggle to see this being a problem practically.
 
-> +&camss_csiphy2_in_port {
-> +	camss_csiphy2_inep: endpoint {
-> +		data-lanes = <1 2 3 4>;
-> +		remote-endpoint = <&csiphy2_out_ep>;
-> +	};
-> +};
+> 
+> > If not invented, can we do synchronize_rcu() once on any cpu seeing the code
+> > enabled for the first time to ensure the rest of the cpus has seen the newly
+> > enabled path?
+> > 
+> > eg (not even compile tested):
+> > 
+> > 	diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+> > 	index 7d2ec527b8a2..a6093ec88103 100644
+> > 	--- a/kernel/sched/sched.h
+> > 	+++ b/kernel/sched/sched.h
+> > 	@@ -3715,7 +3715,16 @@ unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id);
+> > 	  */
+> > 	 static inline bool uclamp_is_used(void)
+> > 	 {
+> > 	-       return static_branch_likely(&sched_uclamp_used);
+> > 	+       if (static_branch_likely(&sched_uclamp_used)) {
+> > 	+               static bool do_once = true;
+> > 	+               if (unlikely(do_once)) {
+> > 	+                       do_once = false;
+> > 	+                       synchronize_rcu();
+> > 	+               }
+> > 	+               return true;
+> > 	+       }
+> > 	+
+> > 	+       return false;
+> > 	 }
+> > 
+> > 	 /*
+> 
+> This cannot work; two immediate problems:
+> 
+>  - the do_once needs re-evaluating for every switch
 
-Please define the endpoint in the SoC DTSI like the glymur submission:
+I think uclamp can only be turned on, but yeah for a generic solution this is
+a problem and the do_once will need to be reset on switch off.
 
-https://lore.kernel.org/linux-arm-msm/b5734dac-1285-452b-8107-9164e6a3e5fa@oss.qualcomm.com/T/#m55a2d04f3fe573dbbc86fe89a874514494eca345
+>  - you cannot do rcu_sync while holding rq->lock ;-)
 
-[...]
+Uh-oh, right :-)
 
+> 
+> > The other alternative is to just accept this race can happen and do some sanity
+> > check and reset/cleanup on going to idle - which should be pretty cheap and
+> > straightforward.
+> 
+> This seems the sanest option.
 
-> +&csiphy2_in_port {
-> +	csiphy2_in_ep: endpoint {
-> +		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +		clock-lanes = <0>;
-> +		data-lanes = <1 2 3 4>;
-> +		remote-endpoint = <&s5kjn5_out_ep>;
-> +	};
-> +};
-> +
-> +&csiphy2_out_port {
-> +	csiphy2_out_ep: endpoint {
-> +		remote-endpoint = <&camss_csiphy2_inep>;
-> +	};
-> +};
+I think the below should do
 
-likewise for these two
+-->8--
 
-With that:
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index d7c3b43158de..c6780358a797 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -2111,7 +2111,7 @@ static void uclamp_post_fork(struct task_struct *p)
+        uclamp_update_util_min_rt_default(p);
+ }
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+-static void __init init_uclamp_rq(struct rq *rq)
++void init_uclamp_rq(struct rq *rq)
+ {
+        enum uclamp_id clamp_id;
+        struct uclamp_rq *uc_rq = rq->uclamp;
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index 76f3c84ca684..64ea91b743bb 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -502,6 +502,14 @@ static void set_next_task_idle(struct rq *rq, struct task_struct *next, enum snt
+         * lost_idle_time of clock_pelt
+         */
+        update_idle_rq_clock_pelt(rq);
++       /*
++        * Due to a race condition when enabling sched_uclamp_used static key,
++        * we can end up with imbalance where uclamp_rq_inc_id() has happened
++        * on a CPU without uclamp_rq_dec_id() on another CPU that hasn't seen
++        * the static key flipped. The race condition is unlikely, but ensure
++        * the uclamp_rq() state is set properly on each entry to idle.
++        */
++       init_uclamp_rq(rq);
+ }
 
-Konrad
+ struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 7d2ec527b8a2..6d7be3e3b36b 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -3704,6 +3704,7 @@ static inline unsigned long cpu_util_rt(struct rq *rq)
+ #ifdef CONFIG_UCLAMP_TASK
+
+ unsigned long uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id);
++void init_uclamp_rq(struct rq *rq);
+
+ /*
+  * When uclamp is compiled in, the aggregation at rq level is 'turned off'
+@@ -3802,6 +3803,8 @@ uclamp_eff_value(struct task_struct *p, enum uclamp_id clamp_id)
+        return SCHED_CAPACITY_SCALE;
+ }
+
++void init_uclamp_rq(struct rq *rq) {}
++
+ static inline bool uclamp_rq_is_capped(struct rq *rq) { return false; }
+
+ static inline bool uclamp_is_used(void)
