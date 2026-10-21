@@ -1,91 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792540932;
-	b=oCjN/4YLPaHKpCE6lU9uHCENuoC+wtdaiIucsVbmogNV1h9DULukUIPSadrRCgEdxULJ
-	 7WsaAp1pq1OT9Qq0TOiF6Z6DASsf3ot/rrn8vudusWF6IRnWFta7Vyz/8YOcQo21QKrpK
-	 +kuniTuO4oyZGFFlKRQAhnwZonwJukEKXkVzwdP8dxV/v0ubMwo22lniZFyL8ANnr+0sS
-	 RjUFCNCpzLdb31WVrGYb0j3gHmofq/uadxyyT2sUQs58UGM1TXjUhCQ6zzJKIx1f6F5or
-	 tBx4aQjR0uzSxIDd+LFObdix6uRqvOB1C2uinLbRan83yR41TSg0+DpYAmYK6Qm4C/g==
+	t=1792540957;
+	b=ZO/LznGseY+Gs7oYaPQ140QJcXmN7q6wJCERvbB3BOZOlXXj0lWkkMqi31ax5sByXSNl
+	 donMPvcuz28DnWR1iAvcTyl5RaMBFiEl3xQUON3Mh8PJS09+gCNCK3+AcvddZ2vh+FFZr
+	 PueJrwLs2d3dMXso0MAUmI/ugSJu+rxkYDFhQrMLstjmJKtmkI0ORNzHJBDsoxoc9jYb8
+	 Va7cWRmsQZ4ZP/MmDJ+fURTeco+C3oJT12/PHVHKlyqv8emKGnGIA/SlJ+Ynowk5qXpjA
+	 8gs/M7oXrx4g3erK+ZHwM6hhtYphiB0BjtIt97lG01JGMLD25ralrAxjn7tOWET8Bug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792540932;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792540957;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
 	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=0Sjn0SBxkFVS93olNVmryUIhxh3i95NSdeHhlcsU76k=;
-	b=dGldPrMOsnJG3MJaDX/7dXuCjGRgBwZ/1E5ZHuTZK4HwmI6Kb5Z09AKuebvWTldf4593
-	 9rNyI6Dz5EVUvvKFATLIShxyum3wlF00RKimJoRAmgu+VWPpZJNs94nWJClYCEH8ulx49
-	 YJ/pdfD9c6QzBfBhTghUPwLo/Bi0HbizfRN3mis9ak+dm58YQ2ViHz9V1w7fyva1eym/5
-	 Zn3qHmnABvJAONLMkyw1Ky6GWg5N7nVEr+7nrBRD+gHDlIQYGh9a5kssu+OYl35KjJ+2z
-	 9iVtmIQ8glrkWN+X6OaIOXGCq8ZtNyC/L2skO0nQJFOEYK2y/zalCAdrdXXGBZ7LymA==
+	bh=hZI2ljhmwoJ1V0BWfNbx3ZiTpuPjJL0odwQu02UU2Cg=;
+	b=xtv1pKOzUoJsTnjnavOOyL1+1LGTt0GGFYJpX8acvIJU9Urh318vCQJ4yZX4o9BUoCYe
+	 GAuHhZ02+v9sKyzpuxq/j6BUFY+JeThgECAlgJpaL+NecVAIrCFbkrejDB/dmv1n7gS7z
+	 fzEt5MtlwObJKXAwENIEHl9YejP7PN/il95PbM0iUm38B08RZj6nl6Sy0PY7eljz2OROK
+	 mG7WrPV0r+a18t7W29MB+19WQonqyd0Ke3zCchek/wiOhlO6fZrXMtcGTeQ4vqibfO/nk
+	 MEiASqd7MUtROo/dBUdTOmHkycKzsDs+0prqaTXKSNk9eBvvWF2VL2kKcvNPmSyQCwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jx1UBEEX;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s6j2cGoj;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2708606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:02:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2708606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06602606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:02:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06602606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Jx1UBEEX
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso634175ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:02:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s6j2cGoj
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso126689a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:02:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792540931; x=1793145731; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792540956; x=1793145756; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=0Sjn0SBxkFVS93olNVmryUIhxh3i95NSdeHhlcsU76k=;
-        b=Jx1UBEEXHx6Oxwwq3C+Ozk6aZBesuBt1JF9Acfs7Sqc85fhjRuuTPa0DI14ykGtP7u
-         z6y7XjtyC65SxC60AjvrqvzpdzMLLSaNqp4cHP5cL1Z6kw/nS6JL4a3l7fhQYoMoPLuv
-         k+h3yLDgjr3marUDfgTWNRXQOIwqnl3hOe19U5txNfWf9uKMsZld9oZmEmSgghSSDOkd
-         k5hbdrtzZXwPFjNzjrHq+RdinmezTPRybN3V8LJGDMbuBo65rU9mbMlBz9zO53E6sI8x
-         czAiQI1UnJzeshMQ91MrXryaPdKetz1ANCjYbdq40Wtl1PPtrixVbjyrn0hmOAiLbvAp
-         krKA==
+        bh=hZI2ljhmwoJ1V0BWfNbx3ZiTpuPjJL0odwQu02UU2Cg=;
+        b=s6j2cGojYGSaduWgRZnY74y1Mj7EaQAS2MUqAPbrCO81gc8UTnFk6EjOfGEN3H7r3Z
+         4TwnXQqIrX4MlWzuOxgktI19j8uLAvX5Uxrww16C44hZHTkikR81UVcRGXtjjYUf71/l
+         CMigxG0Rx0SlEjMYji7Ka/Iu3IKAzLsXV6YHrXZ0oGnl2mm+pMELJr8ENEIKM1TpEquJ
+         1Ug4O3bKF5amZKyggPnan6da/B7WSHi+GpXzLLZL6dHTOSCf7llHmJXrcKlfHZsOpLrS
+         IUA1yQqWtE5Vz+w5FvQhPq2oVS9DK1rI3IEZyOp8tIUbPc9bYvkW7uSvJ29zHKfE/NG9
+         cidQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792540931; x=1793145731;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1792540956; x=1793145756;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0Sjn0SBxkFVS93olNVmryUIhxh3i95NSdeHhlcsU76k=;
-        b=Otpqn3YSmyvOPXUAdTwb8j6YL7j767Valmmpgnp4LTuSB1aX35gyX2eCzGCiXqjib7
-         ZB7Fvr35stzlQQ/cuLPS8jeEQXMz8n1b2vllaRnTk2B0DNWutLIIfUPSqAupkqQhLrIX
-         iAWsyff3Q64eHjMxXHFkn6N2IMXwcw+dWoEL6xWyhte/UOmvYGdVjHyxPub7yyhUH16O
-         iYlRMqlco07sLfd7+cCHtMNeTN6Ib022849ELBIKW+Zm4kfTXHGHtenRcpGKSHoOiUH5
-         NaR0DCp3uTFrrNbhVtofbumho+At3Vk3fkOIYVyRmDMVA+RHC6aIyt+p2/+VXw/puSYC
-         M+uA==
-X-Forwarded-Encrypted: i=1; AKwUvByppXGLfNy29d9kylfTKpliRBFm8VTWsj1uIb/tEWzSJiMbg0o5xOGEfGrceFRYRFnnZMTjn49yQAGiCbc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLtmxw4E0jHIxk44vbHytoC4mes529TYLE85Q2ZpoiiWsFEbwvR
-	ky9ohQy+5qDPF+Ih/0a5SUttL4xFL0AnTLA9ePINBQ7nPNlljt/Ut8+5
-X-Gm-Gg: AYBFou2nGgxoTMxsmQPMShkgkrUaXiwyfbJEQKKvp0jw/2xJcFRrN32vQzNX6pmjE/v
-	sHOItytKJucem9n+66GBrXqiKVAy/a4QC36obpXwj1q80txF+MDMH+LTWBLC3eTno/PRrh/DC+n
-	dqLDlbyC9xy8kKNG7vUSV8fam8O5dE4vEb/doHeo7Fh0eFJY07k0qt4pcFa2ZgnGHjhfJeRdKwR
-	/9Nb77qwYRwb7J36QV0l+Vq2/465aPkjM+UweK8lqi+xbJMBe+2r4fZRJH6EHEo17h7jYQrzFKz
-	1dbdhT+JxYyFGNxW0uX9kMM54zSTVehWz11IdcW+dIwSHFBFKxMwXg8RkVen4kWeCM7Gtf+e6iQ
-	UGxWNDjVOhaGTKAd3Gm3Sy5Tigy8H8uFRw8WChqal9B0PbOjsjg6qswdlA0enMbao/3Hi9aAPIr
-	OJ6LD9kgTVQ1TgaXG5izUONVXbWTd3O8SB2NVFyrXEmE8FaHEqMKePsXuH3dP1Z3Zaf6ZVFldHy
-	am6u2Q1NXGg9DGvkedDQHSu2hVmIjLZmzpwW/a/Hwd66znKM/0LHauWmasY+BjeURKfuMHgdLef
-	czBdlEWlg/O3pNYIeTZzdrYAQEsnYhAVjnUefUvV2iZLBGwsENy5H5ixpGI3zQ==
-X-Received: by 2002:a17:90b:164b:b0:3a4:6e84:e7f6 with SMTP id 98e67ed59e1d1-3ad86c2e5e0mr406559a91.5.1792540931285;
-        Tue, 20 Oct 2026 17:02:11 -0700 (PDT)
-Received: from localhost ([153.61.198.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad802957d3sm1538729a91.8.2026.10.20.17.02.05
+        bh=hZI2ljhmwoJ1V0BWfNbx3ZiTpuPjJL0odwQu02UU2Cg=;
+        b=pLH6Bc76VKl8CrSwG2YHCYI7nBM+9BkETLcIiT1yt88tD2+uoR9bJz88grICekWzF9
+         IjaF6tDCUSfb0XFggGgoJLfWlQf7rAgtRiIGSOLOsl1i7/lo8TWw+WrkS70I3d8F66m1
+         pB2Hg/JW2oNVQy4ewzgz55od7yCHm6/0cWajTmtWONW/xK0v7i6jMU1Aqwz+DHTF0HwS
+         ELH5LgRwTkZoWqzoQtqiNHIETLFXmhRtaNnuX+dEa0UcE5g1ADEuATkxqAWT6f2n7Jj2
+         9ooajxk/0ZoxZgfgOE5uFig/+ElqQn+TFSXlD0lmM4veFtEqoVr6IeGXeJtBoBuR5MKy
+         QtJg==
+X-Forwarded-Encrypted: i=1; AKwUvBxzHteYW2Xr8Db24v+s7B1Nt0bxyZcaNcUQTtlbW054QarfKs27fpGowjXNPcbsnWTk8enAoK2YUl8hchs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoH8/8lQEApmKSdno/34zCYe31hkE9cnRWW6LhC037YEFlfb42
+	lnEiE4lmWvVmlx3ynLHgrUYYltZHn9I564ZV8JNPqueJ00jjhCrKu8m5
+X-Gm-Gg: AYBFou3P8qRF+HFK+2tI3OBDal62/vl9AkKzJ4sDktoD0NA5hhbN4TVpMCNLaTOIJ2N
+	HEAlWR940La6ZTbvkVI/Q7tz8E9tE1qWVVvQCuO7upcNA9xZNgAEePUfYi+UxhkDGn6X9fN/uSG
+	uxe3jhmeeY1NJnaduH8eQoCD94RKcNSJeM4Qxo3r0fuLliKNNVNzst+pneLKe12RSWC1Upr/KmD
+	fcQfjb6m78OVBMmybq8KBmaBpa5R8+S42EdokeaWJ/mvp+wRjYggKFUIwIVTrX1aaDVPu953txM
+	ousOa29Z1/raykGRJLy443376uIO/zOpsMuw5hJSpwN7lsPTEpuhW4EnUdFUKrLLKtfQjILP3/h
+	+gq4DN1TN/zUMu2uJpTtgJJsgcuPI0cNSxQaXQeuvi3iWLoE21gf7h4cZJbWRtCYQve1XrF9Ji3
+	XZCIwslklRzmuXnxzbaIMwxe/QzgS1UQaZxv713t8pTzYyEPubDNwV9ALG9IbOY5v+yxrteVel5
+	FEdxxJliNzgptPXfr7u4D+Ki9DEwkT2CMxC8r0cz4ey6WYFS+DDykO/90bLX6RdUB0ezspWvYHV
+	fUA3
+X-Received: by 2002:a17:90b:4b03:b0:3ab:be66:ddb6 with SMTP id 98e67ed59e1d1-3ad86e97e7cmr305334a91.20.1792540956165;
+        Tue, 20 Oct 2026 17:02:36 -0700 (PDT)
+Received: from localhost ([153.61.198.252])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad813eb9casm1388667a91.15.2026.10.20.17.02.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 17:02:06 -0700 (PDT)
+        Tue, 20 Oct 2026 17:02:31 -0700 (PDT)
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 00:02:04 +0000
-Message-Id: <DMA2Q4DGMWPS.33II3DPA4RW0L@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf-next] selftests/bpf: Wait until the .data map of
- test_mmap is freed
+Date: Wed, 21 Oct 2026 00:02:27 +0000
+Message-Id: <DMA2QEUR2QCK.TYMC6ONTPOZB@gmail.com>
 From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
 To: "Qiliang Yuan" <odys.yuan@gmail.com>, "Andrii Nakryiko"
  <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Ihor
@@ -94,8 +90,12 @@ To: "Qiliang Yuan" <odys.yuan@gmail.com>, "Andrii Nakryiko"
  "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
  "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
  "Emil Tsalapatis" <emil@etsalapatis.com>, "Shuah Khan" <shuah@kernel.org>
-In-Reply-To: <20261009-selftests-bpf-mmap-wait-map-free-v1-1-96d066daea2d@gmail.com>
-References: <20261009-selftests-bpf-mmap-wait-map-free-v1-1-96d066daea2d@gmail.com>
+Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf-next] selftests/bpf: Drop the on_enter recursion
+ check of task_local_storage
+In-Reply-To: <20261009-selftests-bpf-task-ls-recursion-v1-1-c3a3e3c41f8c@gmail.com>
+References: <20261009-selftests-bpf-task-ls-recursion-v1-1-c3a3e3c41f8c@gmail.com>
 X-Mailer: mkdraft (claude review draft; edit before sending)
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -109,37 +109,34 @@ Precedence: list
 MIME-Version: 1.0
 
 On Thu, Oct 08, 2026 at 06:49 PM Qiliang Yuan <odys.yuan@gmail.com> wrote:
-> The map goes away only when the program that uses it is freed, which
-> happens in a work item after an RCU grace period. With other tests
-> running in parallel, that can take longer than the polling, and the
-> test still gets an FD for the map ID.
+> other tasks. On a preemptible kernel, a task can be preempted while it
+> runs on_enter, and a task entering a syscall on the same CPU then misses
+> the program. With other tests running in parallel, on_enter ends up
+> with recursion misses that have nothing to do with the test task, and
+> the check expecting none fails.
 
-Pls include the output of the failed run, the number of workers
-and whether it's a debug kernel.
-It's not one GP. sys_enter is a faultable tracepoint.
-bpf_link_free() does call_rcu_tasks_trace() and only then
-bpf_link_dealloc() drops the prog.
-Then call_rcu() in __bpf_prog_put_noref() and then the work.
-Also test_mmap has no .data map. It's data_map.
+Show the log of the failed run.
+How many workers and how often does it fail?
 
-> Poll until the map ID is gone. The watchdog of test_progs kills the
-> test if the map is never freed.
+> Drop the check. map_a holding 200, which only on_enter of the test task
+> writes, already shows that on_enter ran for it.
 
-It doesn't.
-watchdog_timer_func() does pthread_kill(SIGSEGV) once.
-The timer is not re-armed after that.
-crash_handler() prints the backtrace and returns.
-Nothing faulted, so the thread goes back to where it was.
-That helps when a test is stuck in a syscall. It gets EINTR.
-Here usleep() returns and the loop keeps going.
-If the kernel leaks the map the test spins forever instead of
-failing with get_map_by_id_after.
+The race works the other way too.
+When another task is preempted inside on_enter and the test task calls
+sys_gettid() on that cpu it's the test task that misses on_enter.
+Nothing is created and "lookup map_a" fails with ENOENT.
+enter_cnt == 2 in test_sys_enter_exit() has the same problem.
 
-> -	for (i = 0; i < 10000; i++) {
-> +	while (true) {
+sys_enter is only a trigger here.
+Make on_enter SEC("raw_tp") and run it with bpf_prog_test_run_opts()
+like you did in enable_stats ?
+Then no other task runs it and the check can stay.
 
-The get_map_by_id_after check below is dead code after this change.
-Keep the loop bounded.
-See wait_for_map_free() in tramp_prog_detach.c. It waits up to 10 sec.
+> Fixes: 387b532138ee ("selftests/bpf: Tracing prog can still do lookup under busy lock")
+
+Wrong tag. In 2022 the check was fine.
+Progs attached to sys_enter were running with preemption disabled until
+commit 439ebd5b5708 ("bpf: Add sleepable support for raw tracepoint programs").
+Say that in the commit log.
 
 pw-bot: cr
