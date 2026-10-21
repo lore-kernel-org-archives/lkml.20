@@ -1,138 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572378;
-	b=OBilExyA0o+v/GTxb8LIop6IzbjT0v2cVIvNzaLPnfkUVBcprzIjpA/b0zwMNj26rxXO
-	 P2joGPZJtYX2ixTBLfWc0lvwUU96OULQ96qPquomIJJZPhSXUHWvH91FS9TuI+G5uH1lc
-	 KBQc+kSpO6VjsvXmfyO4QY4EbqLaEVRLVnIK8Yyw8HkSLRyt+QJnytiZPY97ley+n+0QT
-	 yfo0vG4pSNosrgtk+ApcIF2EmsTlnz/O7XmcCOZafV/Ec7OhAsvpM1Lr5d4upcfh8fai4
-	 r3+j/aAeIqtEuGlQvn8ViveTxW6pZP+ISyeE5Pt6x4uy50gxqS+GEV4wudKNNlQ3gJw==
+	t=1792572405;
+	b=RhMl6KMknUZsJay+ZeHdfvYsaCaoB/ikCLwYiJo35GSZvRMOC0CbLKosPRW/VSJsZi0z
+	 VWt9gpwDagq7qjdVChdRXdUA3mVw2BpQEkFMMkKQ2tN94q1RoPhIXkKcOM0VLTIjsb3Dc
+	 oU3fI1z8+ig++ruZY2iQBniyryO6W9uJ6BysoPScZTog80IGqHKLmQSKwaYeWUfY3RQPR
+	 adTjW57hiIC2gkA4BqGifgFRQ9mkv9WOUSZXMviPz8OgR3p9zW2ocesxubNvac6jFYDp+
+	 8Jy4Ow9K78oF3nexe5ViygL3yJ7KlkVsLwv6e/9//YZL9fb/n/xZTGuf6g6J+rbPmTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572378;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
-	b=aEa3O/tYBinabp4AwnSpnJGNQJGY2+/fc2HWZ7VPMVQ/3zUCkUC5OJ5MRI826ZAX7l0g
-	 8wLqoiNTvZ4oGyiKTSqdS2ePUbLhjyizbOwNZ+M0La9TDjDcIVFMA3hmAT5dKkAd3i7Ps
-	 m2/r4aA7UXY/oLeTCG5iFPz9epCeNOtid9akTp+dqocFm11j9N46hWGZUENRt5z7Qw0V8
-	 P1SYL0BWz9jK+Q7J+FNrlE1gaFp39P1EyynJ0KvTwRvxOhRfAVBUJ1Vb+2mtXcki7bKpp
-	 k25SXET8Ukus6B8LoV1SzjwZsHwp5/6L0D4eHMHKWcUi6B8o7OGjDd1ezc7UkRzcnSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572405;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xl8/MTzN2+I/MVnHgcoN8EUCTEKjttRF+oiHNcSuKJs=;
+	b=AVhqLyhjbrwPaAlemdCpb3U8Td3NIinTQjSuyFBsJfLwEWk7+oMtEwu0th7jUMTowvEI
+	 1cAQ/Q4NxGeqLPSSJhh+y7QtSb5vkCARcVy6ivJ/b6KagYVv3jJsQ+nAzNWChcdBa8v0O
+	 Nari7TCpPskfsNt5dYB/o3kSu+5i3ikIJCglT2ZWJNFB7FeTXrdRUbRCRs5JWbvYn/uxK
+	 lm8u8jQmveBfKDtvIjGeiD5qdWJL7hSRQ1IUB6vXmqaEgNWXftyCMyiA141rnALk6XFSt
+	 MmAYy9SPtrldqSO/eNjNCF2kLNiQysnXIldgMCcCDZPqrBbbnvfn3Kf0cdyzj+YR5TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WYuxZlXv;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qvvuyH4D;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mf2yPZx+;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C63E606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:46:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C63E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85C0606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:46:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A85C0606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WYuxZlXv;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qvvuyH4D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792572377;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
-	b=WYuxZlXvJ+rKt1yZ1R5jH89Cs6WSpZooooJKR3KMuju3Wvzr7DL6xYUcAXUSdVMLbhkavB
-	CXXRYLIOj/K2PkAIfWHMtFzgN3F+q0p/VVEEMNz4VAcpYOSh/SsL93QplinPhW7DNokPjL
-	kt+CsiaHPkdE3m0z4c2gGWk4bpm7eGA=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-10-iOmBIHYtOyuWD3hs4zDAaA-1; Wed, 21 Oct 2026 04:46:15 -0400
-X-MC-Unique: iOmBIHYtOyuWD3hs4zDAaA-1
-X-Mimecast-MFC-AGG-ID: iOmBIHYtOyuWD3hs4zDAaA_1792572374
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e0ef019a4so397046f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:46:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792572374; x=1793177174; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
-        b=qvvuyH4DPZ7mbqZw0+o84tLAY4eSfF2Pr/CMSCe+wX3HfFTPkjAfEsoikWc1gy3Qho
-         nf+VEkwdNyZ+cO5kCiYgov7ERaZpwgjLxTKN7qHvwpIPFwYiLjdum/eeOxdnhOCfee/k
-         bPXJlJHBLzGBzo0KGhxxmVB8XShaKfaJepnitPhm+0kKP53STmWFbIcEeDMpkth6SULS
-         wehdWoCi/dGDR5450s764PZxBiGIQtkVulytIWsz/6kwmJ6VUkt94bRJi5/KexrgyhXN
-         KtAKzoykAlxkOsNoqjgVXHYmjuu4zVERuqNpRxeROMBqZ9oxug5GxzBgtDI4sj+Q+gyU
-         avsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572374; x=1793177174;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
-        b=SHixSx1nTeSlPxGyzuW6jmrptWq8IfWcQbvj0aLxm6o8P1gLCgcM1j1SSDKV1Rt/Ve
-         eZjO5frHmBwr6LHvS1hPMheOjgb280RYxulCkut7+mlaAIws7GUbxGPnM7c8pWRFVxpX
-         MsTUny1BjckiQxZIeobW53kIDimyzXmXua6tx2Yb57JHC6/B4+XX9hrGnSueelVEqe5B
-         LfaLj6lZ6EdtWopojnA5neXB5cr2lekf/f9XLJmhH6hnL8J6PevVKBRMptDRB0rB9D8K
-         HhP9/iykAMThlXk/OxK7WPpbbgUqeHFMm/pc3jX5cBEN8AQFFw+xvAVHOJN9dGYkhyxO
-         Xj/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz6HcGG9ebrZNMG8oc6MSYC9HHFh03gtqigbiPabF5D8WyO0LSzw829v0X6z0+Z0r3/1frCUewuLG9diyg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK62yBd9yOeoLTvnyIdPlYsRsv/gCDPorxXQyxm126qJKrcc+1U
-	+ZiwzBWw53dPlGeb4jCgTWWJP6pt08nq0uHrRmLzcaSlQ83/PdykNcJpZNlNclajXP19hDkJnP/
-	EMxvAp7qQpRFxATKPHSu1qYTeuxp4kcLoZy1v0yMVJlBzjpoMxj1UPUUwNPmESQTV/w==
-X-Gm-Gg: AYBFou1Lb2ac2I5OLkB2l3teE506Ryzsl8VM108XT5gctdAa9q49FglC9OWhaLgIkDG
-	os86p1RWgAbtqdla3Qs1hebpEC0W+RFtNlMFZglc3fD9NIRWCXekDrIvfh/3NnB0VNfh4wWP+WD
-	YaxfQR4bAYxI2gnfhs79gFUjrbsU8pXbVU2k3MiEAfKMdMUad0VY4v0oakQDExzF1ngL7+OiZNI
-	wqOUgu7XufWgMyZ99fH4jAjfY5/47oz32WKepyFpJkK1kr+fIyNYD9HMFWdJ9OwH3ONzZEdvG4x
-	okGYb2PkzDJ0yKlm4I7nlyEiem+4IGZd0JWIj2Nqek/7i26/8PyzgSonOzz/OKxZJUg6WkdvMZs
-	mvIQj2QuDtpL4o6Ozlhjtnbb35wM=
-X-Received: by 2002:a05:6000:2001:b0:48b:1c:d6e1 with SMTP id ffacd0b85a97d-48e264dd0e4mr2661919f8f.43.1792572374352;
-        Wed, 21 Oct 2026 01:46:14 -0700 (PDT)
-X-Received: by 2002:a05:6000:2001:b0:48b:1c:d6e1 with SMTP id ffacd0b85a97d-48e264dd0e4mr2661878f8f.43.1792572374010;
-        Wed, 21 Oct 2026 01:46:14 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.34.203])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2583ffa8sm4205103f8f.51.2026.10.21.01.46.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:46:13 -0700 (PDT)
-Message-ID: <631896ae8e44ed6356c3b79598a2facee8af9770.camel@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Nam Cao <namcao@linutronix.de>, John Ogness <john.ogness@linutronix.de>,
-  Alexei Starovoitov <alexei.starovoitov@gmail.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>
-Cc: Wen Yang <wen.yang@linux.dev>, Tobias Schaffner
-	 <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
-Date: Wed, 21 Oct 2026 10:46:11 +0200
-In-Reply-To: <87ecdjqxnr.fsf@yellow.woof>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	 <20261001152042.124445-11-gmonaco@redhat.com>
-	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
-	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
-	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-	 <878q3xtptq.fsf@jogness.linutronix.de>
-	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
-	 <87bj8s8ih9.fsf@jogness.linutronix.de>
-	 <b76dfd3e5a118e30ab25910f243db1cbcedc1c00.camel@redhat.com>
-	 <871p9mqcn2.fsf@jogness.linutronix.de> <87ld7trgzg.fsf@yellow.woof>
-	 <87mrs9q1d3.fsf@jogness.linutronix.de> <87ecdjqxnr.fsf@yellow.woof>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=mf2yPZx+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792572405; x=1824108405;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Jjuwx9ARMFdR4PdJdOhnBCXsug8WT423elVugN7nRJw=;
+  b=mf2yPZx+wLErxJDm0heGe6KbYj1q1Gr+sehNLQYI2BYZVYxA4yYw12Ot
+   Ly2ur7W/NWVyluGGR8b6MiRH9Pb/MM6meDDeHEuCNuruSdltjXPaIFOub
+   dH3v/4xgMODd5X8ZW+mMrDstOkawL3whWi4TJQWy1R2vF9E5WuLMFQci9
+   hLzgIodjVnndTzZ2ei7m0nHTyTPxlV+3iFDNGIjqGbWPB7jySQoOLa5Tk
+   r9noxIsIhRhLz9jlOKP/Fz0nfusmya4/zK13IwIg6gJJGME78O8aUTFaa
+   Eq1F49McEWw5FsmblQSRU/tzAtneEbAxUxiFXX6l1p9xPswLimiKZLWlb
+   A==;
+X-CSE-ConnectionGUID: vhznhMZoROKRf88BEqU38w==
+X-CSE-MsgGUID: nCz5ttYuQN+teysimH6Njw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1179538"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1179538"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 01:46:44 -0700
+X-CSE-ConnectionGUID: +6taVgm4Q72o2/VoXIX2LA==
+X-CSE-MsgGUID: UCK8kT6BRz+H0i9o3WwDYA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3352944"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 21 Oct 2026 01:46:43 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 452CA99; Wed, 21 Oct 2026 10:46:41 +0200 (CEST)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Cc: Felix Kuehling <Felix.Kuehling@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 1/1] drm/amdkfd: Do not use internal implementation of tolower()
+Date: Wed, 21 Oct 2026 10:46:39 +0200
+Message-ID: <20261021084639.251366-1-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -142,40 +86,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-10-21 at 10:13 +0200, Nam Cao wrote:
-> John Ogness <john.ogness@linutronix.de> writes:
-> > On 2026-10-19, Nam Cao <namcao@linutronix.de> wrote:
-> > > John Ogness <john.ogness@linutronix.de> writes:
-> > > > @namcao: Maybe you could chime in if you want the transitions as ev=
-ents.
-> > >=20
-> > > No. Those are only useful for debugging RV itself and do not need to =
-be
-> > > upstream.
-> >=20
-> > Sure, but debugging RV itself _is_ a use case. Especially when RV moves
-> > to eBPF and lots of people will start writing their own RV monitors.
->=20
-> Right.
->=20
-> I wouldn't enable those by default though, it's way too much noises. As
-> it's for debugging the model, we can have some sort of compile-time
-> switch to turn it on.
+ctype.h provides tolower() macro specifically for the cases
+that might be architecture-optimised. Using __tolower(),
+which is internal implementation, needs a good justification,
+as this driver is the only user of that and there is no evidence
+it's required.
 
-That's almost what's happening already, in-kernel use tracepoints, gated by
-static branches. Those are the closest thing you can get to a dynamic compi=
-le-
-time switch (assuming such a thing can exist), it's patching the code.
+Note, currently it's no difference as the macro always defined
+to the internal implementation, but it might change in the future.
 
-BPF gets even closer to the concept, we use a volatile const flag, which is
-constant for the JIT runtime but volatile for the compiler (not compiled ou=
-t
-when generating byte code). Before loading we set the value we want in the
-object and the JIT compiler wipes away the unused branches.
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-But technicalities aside, we probably want tracepoints for events too, so
-bpf_printk or whatever else.
-
-Gabriele
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 35b3abe57b80..1ef4d26a0ac6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -2091,7 +2091,7 @@ int kfd_topology_add_device(struct kfd_node *gpu)
+ 	 * needed for the topology
+ 	 */
+ 	for (i = 0; i < KFD_TOPOLOGY_PUBLIC_NAME_SIZE-1; i++) {
+-		dev->node_props.name[i] = __tolower(asic_name[i]);
++		dev->node_props.name[i] = tolower(asic_name[i]);
+ 		if (asic_name[i] == '\0')
+ 			break;
+ 	}
+-- 
+2.50.1
 
