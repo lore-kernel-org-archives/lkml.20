@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792612411;
-	b=Od8NCgwD7xxMZ9sD8xuD9S3q8Xh232Rlk4StMTz2yoFP1pJvfgZmREC7DUqBQOfnVdut
-	 6m8C4DwNpRFW3lqu4ye1gVKzCZZ3i3pFDwvPara27RtvHOSpKG9GXbMRTDiPkhzC/pIAM
-	 rsGBsCDCQyzfVjEBUrWoppggbeR+ddt4ll/ucuH18vO7yOv3gOXQHUz4egzLMapsoYvrU
-	 NCjJ1OCaO8Tl1HwtFxEaYGuUMdBdGZSTmt4I7igAyhsXYSDy249Nihyy216Wul1HEstgE
-	 dVu/Agd+Gr1OSAd4JcCKHlXNj32JglHc8wsDKzWeZmqYMYEcHF0YxUQ7P7ulrM6bW+w==
+	t=1792612413;
+	b=itzSPiYtcr7Lo8Gy6z35qB8L6MfqSZsGKNBqCWvIDwYLAGrGZ7INuAPPLlKGzWNnoUi+
+	 R2e1oOFcAZ8n3F5AgV7+15hhz/Jq/QJGS5f2TNNdCYJQoaj2dfyHjXqE3BWXU37AT1Zkq
+	 3AqcEEsY2gcFdcHduMvrnKYrs0GiOBXCBwq2k0YmWm3IM3FDJIsdXYWMXebE6CL0dC/3+
+	 62m0By0dCgqp3tfrkAB4BUP7M0mSrVd4hxdIiLDrp/eaXA6ySe4vLWKkE/Xbnz6PYwtpE
+	 lkUBch5HzrXa8ZXulZA03GIexCUGuMWbrk7mk4wMSTHlA4ax5dTWiXLrsH+VDo/A0aQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612411;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612413;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=0eVpjhdCNea5ASatZPPwAEkV3nbhcxmbfG8NNTr8rCg=;
-	b=TA3UkG0P8yXAw/IFrgDz499F8xoLcIlGVP8JCHeBw46iIztN42WPYrZotPhUbf5uKX0x
-	 mhPNsFAvrTaf2QbhAT7xhthQtwW2QgO475Qvo4Tv1fp0mZp4RHo7yeAL+z+Bnqd6A7RzJ
-	 fiU+DvpmFPnGhQiyrNVyWBrVRKHp1N0Z0PvsRAxkOH4edZl+da+sJJC681Lcy1Lc/klzX
-	 xGcmxdub4G4SSPNFwp2uKQJ41fm3WSjoF2mUAxS1+X9qoJwBFh1y4h5gqaDBq8HnVwWtu
-	 0EoY7UGqUG5LrEssQqIij8GNTCF5b5z3AHifhrE6fUCHKxIlexOTtA1o6YCQOsvVgJA==
+	bh=55Zai5vUFJF6y42H3h7fFkdKOBlnA3DVBhVDRli/qYQ=;
+	b=u72A4e9/71/uVNcV3S82KaEcAfrooEAGqGbzH2WxGtk4/isgDPtTylEaZ8lVsLKl/O5v
+	 0tpYsWHUNbLAIFHoskiqUhRcYbI9yzay6FWn249fnf1YF4cPOZRdjCHBVjHF8iEwEaAE4
+	 u8tR32OBqEQfrlmobG1MwClfuty5uqMCAI5izSXaWToQUnJ1YMoRaNEjBA7j0lNOkp3os
+	 M8/l09bzO2pI9ZDsWAeeoerNxZyvqynSYaS2EH1x/u3qwWiNKqSeq7PWy+/ZSchEXeVIJ
+	 1NojllkP7FZ82t5QM39ScuhM/6jU/v19nz7BUYT+zrKttDUC2WpPQ9zmFIIASNk77tA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQSsbex2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftcL7VxV;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2EAA60A2608;
-	Wed, 21 Oct 2026 19:53:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD1C260A2622;
+	Wed, 21 Oct 2026 19:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQSsbex2
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftcL7VxV
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792612410;
-	b=y3PwQu88qDfajJMTJsv8tYTbtIxBXsYmhU4aRHLx3k7mZrv9HA58l9vQBeXFEVPPUokc
-	 D5yQ4anb8ciXc/oF8J0AVldZkJrORopsDl6K92yXbfq31BIfd08yq14VQecK/JmyXBRJr
-	 xM8lurjKLkrnqATYuS4Lpvg3LJkqSzwuR5vX/TMZchDmN0ts+hU81wssbLoiEf5X6uC6W
-	 t54ky64Zta3RcDzhVIWkvF/JnMwQ6qYsxrlpRSwXgZ8EMQNGyyfZQtnwuyChiKl5XCbh3
-	 vgDt698fYYyd0Jc29N7K00VHExyAvMUT96aEd9YNJZPb2He87wWlTYXbxTFBQZXiYzw==
+	t=1792612412;
+	b=SJfIOSQQahB7IytLcf86xdD49Nm467rgdzjpA2xHsLL8KAirVjpk0b/1G6wyYSO+ypau
+	 VU0LcYy+GwD/E1qWXoh6Fzf0p+VypZJI2J5a66hC1L/PEEKGDfsYz8J00S+0W0e1lesGW
+	 VKX2vL9C8HZpOuw9Z3Z98UKUiziTFH9QSVjmPHyGCvFuN4cqVo+rpsqf+M9PuIhO13nM8
+	 13dIVY4eYzW3XCVYH/kL7HXViAHA24jluZWwck7XmMGtzX68WF3bYaz3B5kHgpQCSUxgC
+	 UPM9QZaEf5WPsG9hejQ9YhrYVe+texqwyJmzC6P7hrUDO891CptR6YX9IC2+d+CWKpw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792612410;
+	c=relaxed/relaxed; t=1792612412;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To;
-	bh=0eVpjhdCNea5ASatZPPwAEkV3nbhcxmbfG8NNTr8rCg=;
-	b=vENxcP0S7mwN1T5oFdZlY6osdU2OdETlN9bb43fITXl7Ic2w6oPG3z+w3d4yZXmyTTPp
-	 Bap1wNSH4aQm5CkzrSoZ/PKFaVADyvbdkoprMiBuKdWTRTef65g0HPMb6bXqsEo9t2zkF
-	 JyMu5+eWSVCYG5kiDaI8C8jYUojBj9FCyBtUld6Z8hqZvzersxz+eRokcTMcxHJqlxefy
-	 BHAEst0+fxWtGLEvSnmxGvOrS/EVIHNRNhyeeoY8G484HRj5xCCneXoyafm7qgaRK2obn
-	 0vTP2JO6greOAHMpLwiVcKSR4hK1Htc5O6fDsrtLRxx5fTu/yWgJLdKkq+Gd8j7C8Wg==
+	bh=55Zai5vUFJF6y42H3h7fFkdKOBlnA3DVBhVDRli/qYQ=;
+	b=y4YfmSsu5mXf4+3sea7BXS78G44VdKZHdldQ2XdG7cHWBLK3+nQikwzBzyr9GvDjM8bf
+	 3bIK+cE+0R/4dy8FDfATO/qSfmhMarZYyhFFkBJk/jdE3NLlerMrdfUHezkZNPaGkED+h
+	 ze9ZS/Mh37oFU/ABkMGHW0h1VQTraklbVRHxXKRZqGaCxR7BAaSEJ+Wk2Yj0flOS/vOMk
+	 n9KU3pqGbMFPKJibrHgCax4JyZXV08bga9LgppSc4rZdv8bm3VsR+fO+O1A619vOqflJN
+	 8QQX2xT61h1GlrpQzbHL/9gTFaoVufM8iaH3lKFMiMqJ5C6rkggp+iOcs+//jgVvFYg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 77C871F000C7;
-	Wed, 21 Oct 2026 19:53:27 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 00C6E1F000C3;
+	Wed, 21 Oct 2026 19:53:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792612410;
-	bh=0eVpjhdCNea5ASatZPPwAEkV3nbhcxmbfG8NNTr8rCg=;
+	s=k20260515; t=1792612412;
+	bh=55Zai5vUFJF6y42H3h7fFkdKOBlnA3DVBhVDRli/qYQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=DQSsbex2FOLoQyBatvZ3yQy+33TnAY4VxiGocYYXQqgCyLWq0zz2JJVomf6sBgIhr
-	 cSgu6C50ryVquGR6TV74ymZ0ottMcKn0tG9l4FBXKeoaH5tkF+9ZIYoYys5XxAnAVA
-	 huHHwptkhmu62/Vf/H7pzGCHH0zFYfMk5acoEryN5+D4OOn/JN2XuMeLNAWOJoFHc5
-	 wpJyuW6f5t5u1OsHk+Neo1DjzCgHsXlOdLgEVQp+4ZoT9WLQrb1o7Q87lAqzmRFOb9
-	 nlOwGcmxHvckp8BSUk+vEZG1P5PtOh8RAg7Xqf3rmIP2aZCAe8xYDDAlt3jym3Pgfe
-	 r/BtGKTocug3w==
+	b=ftcL7VxVWOj3v2EH8pRMOV0OqqQrHsONZvF8PBkrAxMg3jI9YSrP+oK3EhPGHWkQ3
+	 5t1X41qyWPjmmbX6ad7TlU2ixaaXtHQJGDdjVf7EQ4gIfmKj90kEnRK54cbhmHZSlR
+	 EmqT+q9+c2hsS8RDW1H9P0EcmUGIZGHEU6SWMPCRGZNIm7gnY4IJdi/4hY8/XUbdKM
+	 WbGWq85uH0PYrJyqCTHMpJHHhOMl+N94B6Nl5zQLFurb2+1At8vNCH6ykMuLg2CNSu
+	 ZWRUU0w0Y3d/OEE8lfVRz1D09St6kmiuJS/RE4H2krFC7J/zy3ncTKUzEPWbanZtKI
+	 i2z8aT16VaYbg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 150F04343F;
+	by lkml.kernel.org (Postfix) with ESMTP id 2615743448;
 	Wed, 21 Oct 2026 19:53:26 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Thu, 22 Oct 2026 03:53:26 +0800
-Subject: [PATCH 06/18] dt-bindings: reset: add Zhihe A210 reset controllers
+Date: Thu, 22 Oct 2026 03:53:28 +0800
+Subject: [PATCH 08/18] dt-bindings: pinctrl: add Zhihe A210 pin controller
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-a210-init-v1-6-5e438f972d24@iscas.ac.cn>
+Message-Id: <20261022-a210-init-v1-8-5e438f972d24@iscas.ac.cn>
 References: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
 In-Reply-To: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -104,11 +104,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
  Han Gao <gaohan@iscas.ac.cn>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792612403; l=12824;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792612403; l=6873;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=QQMThKS/O1WKp2BeqIiVr0QDDnLDOpXgcmQ2rChrXdA=;
- b=RiCe3SILdnTTqAR1vz0jJUjnUosSS3KCb40+hGCd+chsGzM2ZW01S4w9fQKkiv3vBffdOVKo9
- HfrJBr4Dy7vC7G271mCwCQ3frsAVUPw/zeSHafNPnUcY/PJ4qe2gQFN
+ bh=UjyMLJHv24b1f1K2PwMfqU3RXI4khSvr/rvgT5wb0RM=;
+ b=qH9Md8y4uPL6GMtnPMahiXVxkkXKZosnteylMj1yxR6VvnUb6Xb4zumNbJsvcC3hQIEPRBsTH
+ dho8VK7k+RpCcxJ+AQR7N9lz9cxEDGv2o0WGQodBLwQE/TMMpN0AMrD
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -118,434 +118,227 @@ Reply-To: gaohan@iscas.ac.cn
 
 From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 
-Add bindings for the A210 reset controllers and their reset IDs.
+Add bindings for the four A210 pad controllers. Describe the shared
+PERI3 SDIO mux and per-pad bias controls.
 
 Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- .../bindings/reset/zhihe,a210-reset.yaml           |  56 ++++
- include/dt-bindings/reset/zhihe,a210-resets.h      | 351 +++++++++++++++++++++
- 2 files changed, 407 insertions(+)
+ .../bindings/pinctrl/zhihe,a210-pinctrl.yaml       | 206 +++++++++++++++++++++
+ 1 file changed, 206 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/reset/zhihe,a210-reset.yaml b/Documentation/devicetree/bindings/reset/zhihe,a210-reset.yaml
+diff --git a/Documentation/devicetree/bindings/pinctrl/zhihe,a210-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/zhihe,a210-pinctrl.yaml
 new file mode 100644
-index 000000000000..708cb49444eb
+index 000000000000..51cbb0189f47
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/reset/zhihe,a210-reset.yaml
-@@ -0,0 +1,56 @@
++++ b/Documentation/devicetree/bindings/pinctrl/zhihe,a210-pinctrl.yaml
+@@ -0,0 +1,206 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/reset/zhihe,a210-reset.yaml#
++$id: http://devicetree.org/schemas/pinctrl/zhihe,a210-pinctrl.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Zhihe A210 Reset Controller
++title: ZhiHe A210 pin controller
 +
 +maintainers:
 +  - Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
 +
-+description:
-+  Reset controllers for the Zhihe A210 SoC. Each subsystem exposes a
-+  separate reset controller register block and has its own compatible.
++description: |
++  Pinmux and pinconf controller of the ZhiHe A210 RISC-V SoC.
++
++  The pads of the A210 are split into four groups, each managed by its
++  own pad controller with a separate register range:
++
++    AON pad controller     -> zhihe,a210-aon-pinctrl
++    PADCTRL0 (peripheral1) -> zhihe,a210-peri1-pinctrl
++    PADCTRL1 (peripheral2) -> zhihe,a210-peri2-pinctrl
++    PADCTRL2 (peripheral3) -> zhihe,a210-peri3-pinctrl
++
++  Each pad can be muxed individually to up to 8 different functions,
++  though for most pads only a few of those configurations are valid.
++  A few pads in the AON group do not support muxing or configuration
++  at all.
++
++  AON, PERI1 and PERI2 pads support configurable drive strength, bias,
++  input enable, Schmitt trigger and slew rate. PERI3 has a separate pad
++  layout: its six SDIO pads share one mux bit. Select their function with
++  the "sdio" group. Per-pad bias can be configured independently.
 +
 +properties:
 +  compatible:
 +    enum:
-+      - zhihe,a210-vp-reset
-+      - zhihe,a210-vi-reset
-+      - zhihe,a210-npu-reset
-+      - zhihe,a210-vo-reset
-+      - zhihe,a210-peri0-reset
-+      - zhihe,a210-peri1-reset
-+      - zhihe,a210-peri2-reset
-+      - zhihe,a210-peri3-reset
-+      - zhihe,a210-pcie-reset
-+      - zhihe,a210-usb-reset
-+      - zhihe,a210-tee-reset
-+      - zhihe,a210-gpu-reset
++      - zhihe,a210-aon-pinctrl
++      - zhihe,a210-peri1-pinctrl
++      - zhihe,a210-peri2-pinctrl
++      - zhihe,a210-peri3-pinctrl
 +
 +  reg:
 +    maxItems: 1
 +
-+  "#reset-cells":
-+    const: 1
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: pclk
++
++patternProperties:
++  '-[0-9]+$':
++    type: object
++
 +    description:
-+      The single cell is the reset ID defined in
-+      include/dt-bindings/reset/zhihe,a210-resets.h.
++      A pinmux group referenced by a consumer's pinctrl phandle. It
++      contains one subnode per set of pads sharing the same pinmux and
++      pinconf settings.
++
++    additionalProperties: false
++
++    patternProperties:
++      '-pins$':
++        type: object
++        $ref: /schemas/pinctrl/pincfg-node.yaml#
++
++        description:
++          A pinctrl node describing the pinmux and pinconf settings of
++          one or more pads.
++
++        properties:
++          pins:
++            $ref: /schemas/pinctrl/pinmux-node.yaml#/properties/pins
++            description: List of pads that properties in the node apply to.
++
++          groups:
++            items:
++              - const: sdio
++
++          function:
++            $ref: /schemas/pinctrl/pinmux-node.yaml#/properties/function
++            enum: [ aouart, aouart_ir, aogpio0, aogpio1, aoi2c0, aoi2c1,
++                    aospi, jtag, reset, por, pmic, dvs, uart0, uart1,
++                    uart2, uart3, uart4, uart5, uart6, uart7, uart8,
++                    uart9, uart0_ir, uart1_ir, uart2_ir, uart3_ir,
++                    uart4_ir, uart5_ir, uart6_ir, uart7_ir, uart8_ir,
++                    uart9_ir, gpio0, gpio1, gpio2, gpio3, gpio4, gmac0,
++                    gmac1, spi0, spi1, qspi0, qspi1, pwm0, pwm1, pwm2,
++                    can0, can1, can2, i2s0, i2s1, i2s2, i2s3, i2c0, i2c1,
++                    i2c2, i2c3, i2c4, i2c5, i2c6, i2c7, i2c7_smb, sdio,
++                    isp0, dptx, usb31, sata_p0, sata_p1, hdmi, zmac,
++                    bsel, dbgm, cdbg, pdm, tdm, pcie_x1, pcie_x4,
++                    sen_vclk ]
++            description: The mux function to select for the given pins.
++
++          bias-disable: true
++
++          bias-pull-up: true
++
++          bias-pull-down: true
++
++          drive-strength:
++            enum: [ 1, 2, 3, 5, 7, 8, 10, 12, 13, 15, 16, 18, 20, 21, 23,
++                    25 ]
++            description: Drive strength in mA.
++
++          input-enable: true
++
++          input-disable: true
++
++          input-schmitt-enable: true
++
++          input-schmitt-disable: true
++
++          slew-rate:
++            maximum: 1
++
++        oneOf:
++          - required: [pins]
++          - required: [groups]
++
++        additionalProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: zhihe,a210-peri3-pinctrl
++    then:
++      patternProperties:
++        '-[0-9]+$':
++          patternProperties:
++            '-pins$':
++              properties:
++                pins:
++                  items:
++                    enum: [SDIO_CLK, SDIO_CMD, SDIO_DAT0, SDIO_DAT1,
++                           SDIO_DAT2, SDIO_DAT3]
++                function:
++                  enum: [sdio, gpio4]
++                drive-strength: false
++                input-enable: false
++                input-disable: false
++                input-schmitt-enable: false
++                input-schmitt-disable: false
++                slew-rate: false
++              if:
++                required: [function]
++              then:
++                required: [groups]
++    else:
++      patternProperties:
++        '-[0-9]+$':
++          patternProperties:
++            '-pins$':
++              properties:
++                groups: false
 +
 +required:
 +  - compatible
 +  - reg
-+  - "#reset-cells"
++  - clocks
++  - clock-names
 +
 +additionalProperties: false
 +
 +examples:
 +  - |
-+    #include <dt-bindings/reset/zhihe,a210-resets.h>
++    pinctrl@2026000 {
++        compatible = "zhihe,a210-peri1-pinctrl";
++        reg = <0x2026000 0x1000>;
++        clocks = <&clk 0>;
++        clock-names = "pclk";
 +
-+    reset-controller@6b20400 {
-+        compatible = "zhihe,a210-vp-reset";
-+        reg = <0x06b20400 0x200>;
-+        #reset-cells = <1>;
++        gmac0-0 {
++            gmac0-pins {
++                bias-disable;
++                drive-strength = <13>;
++                function = "gmac0";
++                input-disable;
++                input-schmitt-disable;
++                pins = "GPIO0_0", "GPIO0_12";
++                slew-rate = <0>;
++            };
++        };
 +    };
-diff --git a/include/dt-bindings/reset/zhihe,a210-resets.h b/include/dt-bindings/reset/zhihe,a210-resets.h
-new file mode 100644
-index 000000000000..2845c0e9e5ed
---- /dev/null
-+++ b/include/dt-bindings/reset/zhihe,a210-resets.h
-@@ -0,0 +1,351 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (C) 2025 Zhihe Computing Limited.
-+ */
 +
-+#ifndef _DT_BINDINGS_RESET_ZHIHE_A210_RESETS_H
-+#define _DT_BINDINGS_RESET_ZHIHE_A210_RESETS_H
++  - |
++    pinctrl@542000 {
++        compatible = "zhihe,a210-peri3-pinctrl";
++        reg = <0x542000 0x1000>;
++        clocks = <&clk 0>;
++        clock-names = "pclk";
 +
-+#define VP_VDEC_PRST		0
-+#define VP_VDEC_CRST		1
-+#define VP_VDEC_ARST		2
-+#define VP_VENC_PRST		3
-+#define VP_VENC_CRST		4
-+#define VP_VENC_ARST		5
-+#define VP_G2D_PRST		6
-+#define VP_G2D_CRST		7
-+#define VP_G2D_ARST		8
-+#define VP_COMP_PRST		9
-+#define VP_COMP_CRST		10
-+#define VP_COMP_ARST		11
-+#define VP_DECOMP_PRST		12
-+#define VP_DECOMP_CRST		13
-+#define VP_DECOMP_ARST		14
-+#define VP_DFMU_PRST		15
-+#define VP_DFMU_ARST		16
-+#define VP_ARB_PRST		17
-+#define VP_ARB_ARST		18
-+#define VP_VDEC_RS_ARST		19
-+#define VP_VENC_RS_ARST		20
-+#define VP_COMP_EXTPRST		21
-+#define VP_DECOMP_EXTPRST	22
++        sdio-0 {
++            cmd-data-pins {
++                bias-pull-up;
++                pins = "SDIO_CMD", "SDIO_DAT0", "SDIO_DAT1",
++                       "SDIO_DAT2", "SDIO_DAT3";
++            };
 +
-+#define VI_MIPI0_CSI0_PRST	0
-+#define VI_MIPI0_CSI1_PRST	1
-+#define VI_MIPI0_FIFO_RST	2
-+#define VI_MIPI1_CSI0_PRST	3
-+#define VI_MIPI1_CSI1_PRST	4
-+#define VI_MIPI1_FIFO_RST	5
-+#define VI_VIPRE_PRST		6
-+#define VI_VIPRE_I0_PIX_RST	7
-+#define VI_VIPRE_I1_PIX_RST	8
-+#define VI_VIPRE_ISPIF_RST	9
-+#define VI_VIPRE_ARST		10
-+#define VI_ISP_RST		11
-+#define VI_COMP_PRST		12
-+#define VI_COMP_ARST		13
-+#define VI_COMP_ISPOUT_RST	14
-+#define VI_COMP_DECOUT_RST	15
-+#define VI_COMP_VSEOUT_RST	16
-+#define VI_COMP0_RST		17
-+#define VI_COMP1_RST		18
-+#define VI_DECOMP_RST		19
-+#define VI_DW200_RST		20
-+#define VI_DFMU_PRST		21
-+#define VI_DFMU_ARST		22
-+#define VI_ARB_PRST		23
-+#define VI_ARB_ARST		24
-+#define VI_X2H0_HRST		25
-+#define VI_X2H1_HRST		26
-+#define VI_X2H2_HRST		27
-+#define VI_REC_PRST		28
-+#define VI_REC_ARST		29
-+
-+#define NPU_AAB_MST_RST		0
-+#define NPU_AFENCE_RST		1
-+#define NPU_AXI_CCU_PRST	2
-+#define NPU_AXI_CCU_RST		3
-+#define NPU_AXI_M2S1_RST	4
-+#define NPU_AXI_RST		5
-+#define NPU_CLK_CALC_RST	6
-+#define NPU_DFMU_ARST		7
-+#define NPU_DFMU_PRST		8
-+#define NPU_LPC_C_RST		9
-+#define NPU_LPE_C_PRST		10
-+#define NPU_LPE_C_RST		11
-+#define NPU_ARST		12
-+#define NPU_CRST		13
-+#define NPU_HRST		14
-+#define NPU_PCTRL_PB_RST	15
-+#define NPU_PCTRL_PRST		16
-+#define NPU_PCTRL_RST		17
-+#define NPU_PTW_CCU_PRST	18
-+#define NPU_PTW_CCU_RST		19
-+#define NPU_SEMA_ARST		20
-+#define NPU_SEMA_PRST		21
-+#define NPU_DROOP_CCTRL_PRST	22
-+#define NPU_DROOP_CCTRL_RST	23
-+#define NPU_X2H_RST		24
-+#define NPU_X2P_RST		25
-+#define NPU_LDIP_RST		26
-+#define NPU_SRAM_RST		27
-+
-+#define VO_X2H0_RST		0
-+#define VO_X2H1_RST		1
-+#define VO_DPU_HRST		2
-+#define VO_DPU_CRST		3
-+#define VO_DPU_ARST		4
-+#define VO_AUXDISP_PRST		5
-+#define VO_AUXDISP_PIX_RST	6
-+#define VO_AUXDISP_ARST		7
-+#define VO_HDMI_PRST		8
-+#define VO_HDMI_MAIN_RST	9
-+#define VO_MIPI_PRST		10
-+#define VO_DECOMP_PRST		11
-+#define VO_DECOMP0_CRST		12
-+#define VO_DECOMP1_CRST		13
-+#define VO_DECOMP_ARST		14
-+#define VO_ARB_PRST		15
-+#define VO_ARB_ARST		16
-+#define VO_DFMU_PRST		17
-+#define VO_DFMU_ARST		18
-+
-+#define PERI0_TIMER0_CRST	0
-+#define PERI0_TIMER0_PRST	1
-+#define PERI0_TIMER1_CRST	2
-+#define PERI0_TIMER1_PRST	3
-+#define PERI0_WDT0_PRST		4
-+#define PERI0_MBOX0_PRST	5
-+#define PERI0_MBOX1_PRST	6
-+#define PERI0_TIMER0_RST	7
-+#define PERI0_TIMER1_RST	8
-+
-+#define PERI1_GMAC0_ARST	0
-+#define PERI1_GMAC0_HRST	1
-+#define PERI1_GMAC1_ARST	2
-+#define PERI1_GMAC1_HRST	3
-+#define PERI1_GPIO0_DBRST	4
-+#define PERI1_GPIO0_PRST	5
-+#define PERI1_GPIO1_DBRST	6
-+#define PERI1_GPIO1_PRST	7
-+#define PERI1_I2C0_IC_RST	8
-+#define PERI1_I2C0_PRST		9
-+#define PERI1_I2C1_IC_RST	10
-+#define PERI1_I2C1_PRST		11
-+#define PERI1_I2C2_IC_RST	12
-+#define PERI1_I2C2_PRST		13
-+#define PERI1_I2S0_PRST		14
-+#define PERI1_MST_BUS_ARST	15
-+#define PERI1_MST_BUS_PRST	16
-+#define PERI1_PWM0_CRST		17
-+#define PERI1_PWM0_PRST		18
-+#define PERI1_QSPI0_PRST	19
-+#define PERI1_QSPI0_SSI_RST	20
-+#define PERI1_SPI0_PRST		21
-+#define PERI1_SPI0_SSI_RST	22
-+#define PERI1_UART0_PRST	23
-+#define PERI1_UART0_S_RST	24
-+#define PERI1_UART1_PRST	25
-+#define PERI1_UART1_S_RST	26
-+#define PERI1_UART2_PRST	27
-+#define PERI1_UART2_S_RST	28
-+#define PERI1_UART3_PRST	29
-+#define PERI1_UART3_S_RST	30
-+#define PERI1_X2H_GMAC0_ARST	31
-+#define PERI1_X2H_GMAC0_HRST	32
-+#define PERI1_X2H_GMAC1_ARST	33
-+#define PERI1_X2H_GMAC1_HRST	34
-+#define PERI1_DFMU_ARESET	35
-+#define PERI1_DFMU_PRESET	36
-+#define PERI1_PAD_CTRL_PRST	37
-+#define PERI1_PDM0_MRST		38
-+#define PERI1_PDM0_PRST		39
-+#define PERI1_TDM0_RST		40
-+#define PERI1_CAN0_IPG_PE_RST	41
-+#define PERI1_CAN0_IPG_RST	42
-+#define PERI1_CAN0_IPG_SOFT_RST	43
-+#define PERI1_CAN0_IPG_TS_RST	44
-+#define PERI1_CAN0_PRST		45
-+#define PERI1_CAN1_IPG_PE_RST	46
-+#define PERI1_CAN1_IPG_RST	47
-+#define PERI1_CAN1_IPG_SOFT_RST	48
-+#define PERI1_CAN1_IPG_TS_RST	49
-+#define PERI1_CAN1_PRST		50
-+#define PERI1_CHIP_DBG_ARST	51
-+#define PERI1_CHIP_DBG_CRST	52
-+#define PERI1_CHIP_DBG_PRST	53
-+#define PERI1_GMAC_CRST		54
-+#define PERI1_X2H_GMAC2_ARST	55
-+#define PERI1_X2H_GMAC2_HRST	56
-+#define PERI1_ZGMAC_X2X_ARST	57
-+#define PERI1_SPI0_RST		58
-+#define PERI1_I2C0_RST		59
-+#define PERI1_I2C1_RST		60
-+#define PERI1_I2C2_RST		61
-+#define PERI1_GMAC0_RST		62
-+#define PERI1_GMAC0_X2H_RST	63
-+#define PERI1_GMAC1_RST		64
-+#define PERI1_GMAC1_X2H_RST	65
-+
-+#define PERI2_CAN2_IPG_PE_RST	0
-+#define PERI2_CAN2_IPG_RST	1
-+#define PERI2_CAN2_IPG_SOFT_RST	2
-+#define PERI2_CAN2_IPG_TS_RST	3
-+#define PERI2_CAN2_PRST		4
-+#define PERI2_GPIO2_DBRST	5
-+#define PERI2_GPIO2_PRST	6
-+#define PERI2_I2C4_IC_RST	7
-+#define PERI2_I2C4_PRST		8
-+#define PERI2_I2S2_PRST		9
-+#define PERI2_SPI1_PRST		10
-+#define PERI2_SPI1_SSI_RST	11
-+#define PERI2_UART4_PRST	12
-+#define PERI2_UART4_S_RST	13
-+#define PERI2_UART5_PRST	14
-+#define PERI2_UART5_S_RST	15
-+#define PERI2_UART6_PRST	16
-+#define PERI2_UART6_S_RST	17
-+#define PERI2_PAD_CTRL_PRST	18
-+#define PERI2_GPIO3_DBRST	19
-+#define PERI2_GPIO3_PRST	20
-+#define PERI2_I2C3_IC_RST	21
-+#define PERI2_I2C3_PRST		22
-+#define PERI2_I2C5_IC_RST	23
-+#define PERI2_I2C5_PRST		24
-+#define PERI2_I2C6_IC_RST	25
-+#define PERI2_I2C6_PRST		26
-+#define PERI2_I2C7_IC_RST	27
-+#define PERI2_I2C7_PRST		28
-+#define PERI2_I2S1_PRST		29
-+#define PERI2_I2S3_PRST		30
-+#define PERI2_UART7_PRST	31
-+#define PERI2_UART7_S_RST	32
-+#define PERI2_UART8_PRST	33
-+#define PERI2_UART8_S_RST	34
-+#define PERI2_UART9_PRST	35
-+#define PERI2_UART9_S_RST	36
-+#define PERI2_QSPI1_PRST	37
-+#define PERI2_QSPI1_SSI_RST	38
-+#define PERI2_PWM1_CRST		39
-+#define PERI2_PWM1_PRST		40
-+#define PERI2_PWM2_CRST		41
-+#define PERI2_PWM2_PRST		42
-+#define PERI2_I2C3_RST		43
-+#define PERI2_I2C4_RST		44
-+#define PERI2_I2C5_RST		45
-+#define PERI2_I2C6_RST		46
-+#define PERI2_I2C7_RST		47
-+#define PERI2_SPI1_RST		48
-+
-+#define PERI3_DMAC_ARST				0
-+#define PERI3_DMAC_HRST				1
-+#define PERI3_EMMC_SDIO_CLKGEN_RST		2
-+#define PERI3_EMMC_RST				3
-+#define PERI3_EMMC_X2X_ARST_M			4
-+#define PERI3_EMMC_X2X_ARST_S			5
-+#define PERI3_SDIO_RST				6
-+#define PERI3_SDIO_X2X_ARST_M			7
-+#define PERI3_SDIO_X2X_ARST_S			8
-+#define PERI3_AXI_MST_ARST			9
-+#define PERI3_AXI_MST_PRST			10
-+#define PERI3_ADC_PRST				11
-+#define PERI3_TEE_X2X_ARST_M			12
-+#define PERI3_TEE_X2X_ARST_S			13
-+#define PERI3_TEE_H2H_HRST			14
-+#define PERI3_GPIO4_DBRST			15
-+#define PERI3_GPIO4_PRST			16
-+#define PERI3_PAD_CTRL_PRST			17
-+
-+/* pcie common */
-+#define PCIE_X2X_PERI_SLV_ARST			0
-+#define PCIE_X2X_PERI_MST_ARST			1
-+#define PCIE_AXI4_PCIE_MST_ARST			2
-+#define PCIE_AXI4_PCIE_MST_PRST			3
-+#define PCIE_DFMU_PRST				4
-+#define PCIE_DFMU_ARST				5
-+#define PCIE_E16PHY_PHY_RST			6
-+#define PCIE_E16PHY_APBS_PRST			7
-+#define PCIE_X2X_SATA_MST_ARST			8
-+#define PCIE_X2X_SATA_SLV_ARST			9
-+
-+/* sata */
-+#define PCIE_SATA_ARESET			10
-+#define PCIE_SATA_RST_PMALIVE			11
-+#define PCIE_SATA_SLV_AFENCE_ARST		12
-+#define PCIE_SATA_MST_AFENCE_ARST		13
-+#define PCIE_SATA_RST_ASIC0			14
-+#define PCIE_SATA_RST_ASIC1			15
-+#define PCIE_SATA_RST_RXOOB0			16
-+#define PCIE_SATA_RST_RXOOB1			17
-+
-+/* pcie0 */
-+#define PCIE_DM_GEN3X4_APBS_PRST		18
-+#define PCIE_DM_GEN3X4_POWER_UP_RST		19
-+#define PCIE_DM_SLV_AFENCE_ARST			20
-+#define PCIE_DM_MST_AFENCE_ARST			21
-+
-+/* pcie1 */
-+#define PCIE_RP_GEN3X1_APBS_PRST		22
-+#define PCIE_RP_GEN3X1_POWER_UP_RST		23
-+#define PCIE_RP_SLV_AFENCE_ARST			24
-+#define PCIE_RP_MST_AFENCE_ARST			25
-+
-+#define USB_DFMU_PRST				0
-+#define USB_DFMU_ARST				1
-+#define USB_AXI4_MST_ARST			2
-+#define USB_AXI4_MST_PRST			3
-+#define USB_DPTX_APBS_PRST			4
-+#define USB_DPTX_VCC_RST			5
-+#define USB_USB31_APBS_PRST			6
-+#define USB_USB31_VCC_RST			7
-+#define USB_USB31_PHY_RST			8
-+#define USB_USB31_SLV_AFENCE_ARST		9
-+#define USB_C10PHY_PHY_RST			10
-+#define USB_C10PHY_APBS_PRST			11
-+#define USB_USB20_BLK_X2H_HRST			12
-+#define USB_USB20_BLK_X2H_ARST			13
-+#define USB_USB20_SLV_AFENCE_ARST		14
-+#define USB_USB20_BLK_H2P_HRST			15
-+#define USB_USB20_BLK_AHB_SLV_HRST		16
-+#define USB_USB20_BLK_AXI_MST_ARST		17
-+#define USB_USB20_BLK_USB2_SYSREG_PRST		18
-+#define USB_USB20_BLK_USB2_WRAP0_PRST		19
-+#define USB_USB20_BLK_USB2_WRAP0_HRST		20
-+#define USB_USB20_BLK_USB2_WRAP1_PRST		21
-+#define USB_USB20_BLK_USB2_WRAP1_HRST		22
-+#define USB_USB20_BLK_A2X0_HRST			23
-+#define USB_USB20_BLK_A2X0_ARST			24
-+#define USB_USB20_BLK_A2X1_HRST			25
-+#define USB_USB20_BLK_A2X1_ARST			26
-+#define USB_USB20_BLK_USB0_PHY_PON_RESET	27
-+#define USB_USB20_BLK_USB1_PHY_PON_RESET	28
-+#define USB_PERI2_SS_RST			29
-+#define USB_PERI2_SLV_AFENCE_ARST		30
-+
-+#define TEE_KEYRAM_PRST				0
-+#define TEE_DS_PRST				1
-+#define TEE_EFUSE_PRST				2
-+#define TEE_OCRAM_HRST				3
-+#define TEE_SYSREG_PRST				4
-+#define TEE_CCU_PRST				5
-+#define TEE_CCU_CRST				6
-+#define TEE_EIP150B_HRST			7
-+#define TEE_EIP120SIII_HRST			8
-+#define TEE_EIP120SIII_ARST			9
-+#define TEE_EIP120SII_HRST			10
-+#define TEE_EIP120SII_ARST			11
-+#define TEE_EIP120SI_HRST			12
-+#define TEE_EIP120SI_ARST			13
-+#define TEE_DMAC_HRST				14
-+#define TEE_DMAC_ARST				15
-+#define TEE_X2P_TEESYS_PRST			16
-+#define TEE_X2P_TEESYS_ARST			17
-+#define TEE_AXI4_TEESYS_ARST			18
-+#define TEE_APB3_TEESYS_PRST			19
-+#define TEE_APB3_TEESYS_HRST			20
-+#define TEE_AHB2_TEESYS_HRST			21
-+
-+#define GPU_PWR_WRAP_RGX_HOOD_RST		0
-+#define GPU_PWR_WRAP_DFMU_RST			1
-+
-+#endif
++            sdio-pins {
++                function = "sdio";
++                groups = "sdio";
++            };
++        };
++    };
 
 -- 
 2.55.0
