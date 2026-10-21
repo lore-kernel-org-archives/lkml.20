@@ -1,84 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551281;
-	b=3kiB09ObT0TvOW9vNaSNtALmowqMoPkVBaZ3XHdM0gp6N1kEogB/SJeyZhCesD6QbrHD
-	 Qz0Tpk2EDS58OjE1CUzUeF5iGhcD/Vh2G70rF7PBULuoNYBx9HOM9NEHlRpHoQuaOQ6mj
-	 a7c3RTjzQadw1LY3+0y7jBK7CBIULYlgQ5M3Rk76wgG6EOM6l9ucbMxy0Y+SRkNLMmzMl
-	 nhbYKnNIe8xECfUiTz4IzL5JRD0RMmUWfrcHCNW/Fqu3RixqUrhaNB8CrR6K30oqQnYSD
-	 xvI+tm5JLMoYxXybBRMkrUbqXv+wU/+TwtbYJ10LTyDCoiUJEi/JDbL19XTHSBD7MyQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551281;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=dSA8sP/l7jXaX7+Oajvaq7NlGy6nqeA0l/fafopK+Hk=;
-	b=xcH57REZovffxlLS6n/9XKP6SMVUXaPpGn1M0Y6qRNCTtbgJRgYYqmAMpnpBZ63olJ5K
-	 KFs+sUVZaw65qy4OdBBbWpY076tvAsJFHllyfWgrM0rBYp1T1jM+Gxf4+L0JMbh8b1qZ7
-	 MbXvH2z8HHzamXOleWQ/0q9HO3Xb1hyVJlfDJUy5rUac3mPbpVSi8GflABDN4kMJBTi5e
-	 k5qt665RkfYjBu6u1DLRSVjwDILH3VDbCFiVjRDgSmwBOMr4Vqwfxt74CRh6WbWxU8Xzv
-	 wNCPXWizxTozMZyGPbAZoPgEAc719Tb8rGGko8+1yu1TjzVi0cMfbLrGi1WPs7sJiMw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TPB7P4wT;
-	arc=none smtp.remote-ip=209.85.160.181
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792551382;
+	b=yTJMINKO2R3CoLQdnNy4SU2IWe27V+nzHnydipZV8NUTLYs6Ue9G2aKbZi4Tc86kiFDR
+	 UuAnuOe1sH+mNEoVNrafW8zya0Me6ybaV881s6dddaH8252FIERgvLgP5vyfMnoEP6uCi
+	 Gkf4+0MgNkLXHlZcsL9fKcxvseWFrYOfJYBV60tkFhlTAZYFDYnhz8syHYbnGrZGSGs+C
+	 2hYo5RQHksr7yE1AI8vU9WPGfxkwrWzQimY9WgD4s9sfmC+ofHhFmX+snKb6PKDXjmkjP
+	 5aDHPOgY53p98HsdWdODx+JtKwUdLcOiJ2Ig6oFdB9nIn516l8jBsf7N1ryJeUxLqkQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551382;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qNlJqB1SXmnFwDnsWVszeKxrpqpw9LC2VveqiRkIhpE=;
+	b=opUKYFzyex3ZgUgeKUEMg32pjt36kGdDL2iprc+lebtAgJ9fISo0P1++G8eTESIE4IBA
+	 npFE97evcSWmJw1DciDjRCGaFfYouPnj1/UnYwnDW4pvb98fAoHjDAtW7PUXBNAbz4zEa
+	 LlgKulMxVUB2LQeDpNTRHhWQeVS6Txn2Rokwjm+dOEBoYjok0Hym3uBXUxSt82sh16MMR
+	 TR9dQu8fwgTfAzsGA4MDwCHga8dBDsgMH0gMRofTpewvMJ0CK6TZQbUFwC4iydxZh9Z8v
+	 UVlnT6I5052PHi2NWGwTFjqQvEO8/95PyfrUa93Z/iwjuMLkxPlEoBe7fT+XDzBbC0A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UMRHbb6Z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92653606A31A;
+	Wed, 21 Oct 2026 02:56:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UMRHbb6Z
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792551382;
+	b=wvaRl8NI7m0RTSAI0Ygf2b+iyqly8kKY8R4dd6YGVCgBzCCwRSatr0e8jGGxXT/1v71k
+	 bysjAJFNZkqgJZIEinJ/IP4BjjVwDd5kjklB73SQV3Jn2nyQWxQxMS9LBymSyxbJEBI5K
+	 wGRHT6zJkgJy8ICCiyqZVLAu+ucKsNpQPr5Dl1/b4BjROxCVk9e9gWRTGgjQeML3ZZoDN
+	 2b59x0wQjyNp8GqFacxGl6hTUShTOeE7r3zUXDLSdzR7WFyewsuYlT39h68EJl8G9+KCk
+	 AWi3Gwl8b87JE0iQfDUhlp+TPcXQHwRlIRgxpA6V2cvUqD8zgnm2O3vPmNPqXnRjwfQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792551382;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qNlJqB1SXmnFwDnsWVszeKxrpqpw9LC2VveqiRkIhpE=;
+	b=zkKNSw2pNaKXYl7+F/Y1HvSGtCG45Md4PTSlKecj4rKZowTHhrF89VTfwl+hYU0KZsvS
+	 4LJqv+TFOmHIeC6DgOsp+6ZGgH+UoVzfm3aEbS4WaUyQiy88EQs9ATHmp+MO01YWUG6xT
+	 Xtx6fvuVt+5C6UG1pctXGS6GlDxStlHf9alwjBMPh50LtMfRjzL/+84I49SveYavp1/NT
+	 +GBae3jGDp21D/Pl5LnWJ3dz8XvpIIkvclc6ks9twKtjzUATBMcMywrbICky76Y1rHL7T
+	 48HDE8oWIxd8INsTTUdFAmjRRQ3xJkzyPIqlc3DN/o8gvBtqYCEBAilo0jrd+kySw5g==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E39606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:54:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E39606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TPB7P4wT
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5367cc15121so4189221cf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:54:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792551280; x=1793156080; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=dSA8sP/l7jXaX7+Oajvaq7NlGy6nqeA0l/fafopK+Hk=;
-        b=TPB7P4wT3ZpwzDc0H04y1xO6RW40hKiUdingtfVzBENRbJUby8lnyQDabNyMR9ryZb
-         L6ryR7ZIQsu9H+R3Vi5l0CGRbA4/5DA0YJ7uLGiig0guGyBmFgIFx/kc1bje644633/H
-         GioqQ5BmGmcy33d0lUUfqjyR5Opgnl7gQQRSOJaz3HA02O9hD8oLsE9zTtQAYgNnnfJg
-         UkrKGKeR/Nwh+Kvr7jeACX6I9OoprwZ88EDhKPF3VZxiPIadPxqRkzbuaZz2zb+GvEBE
-         RqCPDkjelW3nmag27k7NIfFh6E7B0+5WYqfNQknjejpqzqrBvmceLFo3n+8fvN1x4bLP
-         v20Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551280; x=1793156080;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dSA8sP/l7jXaX7+Oajvaq7NlGy6nqeA0l/fafopK+Hk=;
-        b=1siA5zT/i7oYmoGcs8AzlOE06TKx/eiUHqOKACmzlHfLLFfPjjzp1R9DnHtQGc6fMB
-         tQ6mtOUbq/HGCruSdmkG6uyl7OZBiCQ90gXIQ9RJg0KGcmTi2UOer/loSadF6uan0MhN
-         TV1QJ/hmqtbf04Q201XV5WNgvI0wUGFKC5bBcSRbZkh9uo3sPlthhBwisIvh1jCJ+bKb
-         YTckhgGo/FFblKOWxArwAwjGXMrarVqs+4c3cOKJ5zoCN+/PMgnxI/McexvqR3ce6tcS
-         VJNTF07zyqdMK0bwg9ELlST70lQa4NnooFoWF3Z7VrYKV+/mPyFvC+9eci4LlH6jviWP
-         eZLw==
-X-Forwarded-Encrypted: i=1; AKwUvBywepdQ4jqAD7TnNB32ILCM024ZHAaMtyaOD17N9nvLir41m9iHbpmO9G2kHytVXEQoBSSsbm6khzBr7H8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDUZiXPlR87Jp4kYATzLopThTacu/PjIjaMc+NB33ujgFx7lYi
-	webGVQbYA0E/SrwgPjkpCSoU8ifaWQ+joEyab81IcAWWRlSn6ieJvizcF4r6GfycD9w=
-X-Gm-Gg: AYBFou196mBFPxmXr1u4v984lsmgvqKSaFcb+BIUyig5MBx4iGdx+LH9CiaF1xOEbLq
-	hxGn/t8V6tgL4PVJtfKkxb0LlW4sLaqX6a4D1u4u/RrSAPis1GZY83ZK6wuuFOnzLv42najp8oW
-	7nmDnmrgM7LDWdJn2NuD82sH4mjgyZMaXxHDOfO+tQXptX5scbKmw2c506CBINy59KyKiUGXC6S
-	xkPHKrGleQfa/2RCKWLPeUoutNQ+ZckUMDUhZUpuclli5Ai7AvyAWAAjj1Smcs87yZZCnkvD4wB
-	JnpuFtfDrHuyuh4V1lIqm6JBzlBZi05D6Fp8Wl4PaIPW8/prwUgBEMrewBmfKSMzPscoMM8CsjI
-	3w6tBT3FF8mArPVgvkiinS/UbHRist8H9f+HvlNispJH9BayjDBCwzd+kAoOYA2zf1keuwrXJKB
-	uMWdR7TzyK02HY69eWvuzdDEhQs8KEQgY/MU6wNczugnT5gGQRAts7HRCXeSp6OpUX2HzSvWGta
-	GNCXkp3MnP1//U3FOdnaEARgQ0X32bF/KkOpUqXSTFbxOgnG9vrT1DMqDl7obyhkI+usXHGYGOE
-	PuTAi3Ci/8/BMkbKQ+bf/7CHc04=
-X-Received: by 2002:a05:622a:a15:b0:535:a5fb:645b with SMTP id d75a77b69052e-5369b8fb767mr11805941cf.70.1792551280390;
-        Tue, 20 Oct 2026 19:54:40 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698b290c4sm9952991cf.12.2026.10.20.19.54.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:54:40 -0700 (PDT)
+	by smtp.kernel.org (Postfix) with ESMTPS id 8B5F51F000CA;
+	Wed, 21 Oct 2026 02:56:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792551382;
+	bh=qNlJqB1SXmnFwDnsWVszeKxrpqpw9LC2VveqiRkIhpE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=UMRHbb6Za3JxZbSlOcS3Amw8VlU9uCxANY9NTwHBg6qwPeXLjjBc3Yd88FqiH+28R
+	 n9lanlEB1opAvYpP2r7LOoNkq5+qSTX5failJrCkO08471/iEVzdhcNEr6DyQcMz6t
+	 muMfVfgJwO1J9sia0d82pqSZyNIOd/h8/h4YS/NAcIpzdjalQvm+o2Tbl1+epGs4Sa
+	 EQt7RQLyXJYUw68pp+8mIplYpEz6ZtgKJY0bgZl+hUFRtf2zsX5WvhcN32u0jKu6T1
+	 CXt484RPfWRJiG+LFbLhnKgJYEv8sZZ/TLML6dkd+bjcUdmL14j6J6cw5XjaWN5Sc1
+	 jEcdden2YgJcw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id DE33A400AB;
+	Wed, 21 Oct 2026 02:56:20 +0000 (UTC)
+From: Hang Zhengyang via B4 Relay <devnull+hang.zhengyang1010.gmail.com@kernel.org>
+Date: Wed, 21 Oct 2026 10:56:19 +0800
+Subject: [PATCH] perf timechart: Fail IO recording when no syscall
+ tracepoint is available
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,56 +84,133 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-timechart-io-no-tp-v1-1-71779e7db01e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23IKP6PUr0UFsqz2koRKB+O9Jx
+ 2GYyRApMEWYmwyBHo7sXQXZNmBP4w5C3iqDEqqXQklMfFE1ISF7dB7TjZ3UgzWDHu2koIZ3oJ3
+ ff7qspXxbF1oWZAAAAA==
+X-Change-ID: 20261021-timechart-io-no-tp-4137ca738c92
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Stanislav Fomichev <sdf@fomichev.me>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hang Zhengyang <hang.zhengyang1010@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792551380; l=3030;
+ i=hang.zhengyang1010@gmail.com; s=20261008; h=from:subject:message-id;
+ bh=oqWV2I1IZHKBOUj20ITS6+0GsuHEqAmhyLX9MrxOjlE=;
+ b=VkXSHYDY5SISGSSN5JPI6RK0QVYT1vneV932Dk9h/zRPHKY/kbK/9Y/eMYCtXYqNMU2TvW7fv
+ BVQgX75/DEhDyiBl4M9QFWhykVlU5Gn8wa/7+ZvLdMgacPCdffRyIsb
+X-Developer-Key: i=hang.zhengyang1010@gmail.com; a=ed25519;
+ pk=5drRny3PqRPLhKVB0YIQXN5YyD8miKCpXWhnEPvafAI=
+X-Endpoint-Received: by B4 Relay for hang.zhengyang1010@gmail.com/20261008
+ with auth_id=1133
+X-Original-From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+Reply-To: hang.zhengyang1010@gmail.com
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] selftests/mm: merge: reserve the far mremap() targets
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
- linux-mm@kvack.org, linux-kselftest@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261021011929.89150-1-danishkhateeb03@gmail.com>
-References: <20261021011929.89150-1-danishkhateeb03@gmail.com>
-Date: Tue, 20 Oct 2026 22:54:36 -0400
-Message-Id: <179255127693.1919196.16421147648649712106.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 
-On 2026-10-20 20:19 -0500, Danish Khateeb wrote:
-> The merge tests map their areas at fixed addresses within a 30-page
-> PROT_NONE carveout. Several mremap() tests move an area 1000 or 2000
-> pages away to separate it from the others, but those targets are outside
-> the carveout, and MREMAP_FIXED unmaps whatever is mapped there.
-> 
-> Under virtme-ng, the shared libraries are packed right above the
-> carveout and the dynamic linker starts about 4 MiB above it. The moves
-> then replace part of its text with an anonymous mapping, and the test
-> crashes in its next lazily bound call:
-> 
->   merge[6980]: segfault at 7f7ebb3c1e60 ip 00007f7ebb3c1e60 sp 00007ffd35fbaec8 error 14
-> 
-> Two to four of the mremap() tests then fail with "Test terminated
-> unexpectedly by signal 11", depending on the exact layout. On a host
-> where libc is mapped at a 2 MiB aligned address, the targets happen to
-> land above the dynamic linker and the tests pass.
-> 
-> Make the carveout large enough to contain the targets.
-> 
-> Fixes: 4e25f85b9f85 ("tools/testing/selftests: add mremap() unfaulted/faulted test cases")
-> Signed-off-by: Danish Khateeb <danishkhateeb03@gmail.com>
+From: Hang Zhengyang <hang.zhengyang1010@gmail.com>
 
-A better improvement would be to tweak the tests so they don't use
-magic numbers like (page_size * 1000) and it matches more statically
-to what the mmap'd region size is.  Otherwise it'll get copy/pasted
-again later.
+'perf timechart record -I' skips the syscall tracepoints that are not
+available.  When none is, e.g. tracefs is not readable or the kernel lacks
+CONFIG_FTRACE_SYSCALLS, perf record falls back to its default event and
+succeeds, and 'perf timechart' later fails with a misleading message:
 
-(e.g. please don't just update the mmap, please update the tests as
-well)
+  No trace sample to read. Did you call 'perf timechart record'?
 
-~Gregory
+Fail at record time instead, reporting why like parse_events() does.
 
+Fixes: b97b59b93d10 ("perf timechart: Implement IO mode")
+Assisted-by: LLM
+Signed-off-by: Hang Zhengyang <hang.zhengyang1010@gmail.com>
+---
+Found because the IO-only case of 'perf test timechart' fails as a
+normal user; it is now skipped.  Tested as a normal user and as root
+(all three cases pass).  The fix and changelog were drafted with an AI
+assistant; I reproduced the issue, reviewed and tested the change.
+---
+ tools/perf/builtin-timechart.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/tools/perf/builtin-timechart.c b/tools/perf/builtin-timechart.c
+index 9eb335d9db16..69cc89232d6c 100644
+--- a/tools/perf/builtin-timechart.c
++++ b/tools/perf/builtin-timechart.c
+@@ -9,8 +9,10 @@
+  */
+ 
+ #include <errno.h>
++#include <fcntl.h>
+ #include <inttypes.h>
+ #include <stdlib.h>
++#include <unistd.h>
+ 
+ #include "builtin.h"
+ #include "util/color.h"
+@@ -28,6 +30,7 @@
+ #include "util/header.h"
+ #include <subcmd/pager.h>
+ #include <subcmd/parse-options.h>
++#include <api/fs/tracing_path.h>
+ #include "util/parse-events.h"
+ #include "util/event.h"
+ #include "util/session.h"
+@@ -1793,6 +1796,30 @@ static int timechart__tui(struct timechart *tchart)
+ 	return ret;
+ }
+ 
++/*
++ * None of the syscall tracepoints can be used: find out why from the
++ * syscalls event directory and explain it the way parse_events() does.
++ */
++static void timechart__io_record_error(void)
++{
++	char errbuf[BUFSIZ];
++	char *path = get_events_file("syscalls");
++	int err = ENOENT;
++	int fd;
++
++	if (path) {
++		fd = open(path, O_RDONLY | O_DIRECTORY);
++		if (fd < 0)
++			err = errno;
++		else
++			close(fd);
++		put_events_file(path);
++	}
++
++	tracing_path__strerror_open_tp(err, errbuf, sizeof(errbuf), "syscalls", NULL);
++	pr_err("No syscall tracepoints available to record IO events\n%s", errbuf);
++}
++
+ static int timechart__io_record(int argc, const char **argv, const char *output_data)
+ {
+ 	unsigned int rec_argc, i;
+@@ -1922,6 +1949,14 @@ static int timechart__io_record(int argc, const char **argv, const char *output_
+ 		*p++ = filter;
+ 	}
+ 
++	/* With no event, perf record would silently use its default one */
++	if (p == rec_argv + common_args_nr) {
++		timechart__io_record_error();
++		free(rec_argv);
++		free(filter);
++		return -1;
++	}
++
+ 	for (i = 0; i < (unsigned int)argc; i++)
+ 		*p++ = argv[i];
+ 
+
+---
+base-commit: 1c90f0a3c8a1c4e38f9edd97af9e20848805a7fb
+change-id: 20261021-timechart-io-no-tp-4137ca738c92
+
+Best regards,
 -- 
-Gregory Price (Meta) <gourry@gourry.net>
+Hang Zhengyang <hang.zhengyang1010@gmail.com>
+
+
