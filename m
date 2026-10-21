@@ -1,107 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595276;
-	b=pxV12KH2auRBMOROjLlDkIiAi8gPb2xuwKzANnLtQ+Drchs2tYxt4nunC1ckOLfQ+XUn
-	 ILW14ezccWO8+7inid8KhljRFAiQOR2/TYnFWitRAEtpKqM5xabaFJ8ChrdPQbFGLwf+/
-	 EjNzt/ypLe6hjDUvzFHLHNj9UzE7poMIiHAJBdWMp6yOw3pq5OB/mCb8ZBjblsZ8iUhqH
-	 meZWK9aRrMjh5giCSAXcCFWSzjClzC33mMQSNasDvKy1IeNdDPlQYsD6C01buuUuu3IcZ
-	 2pjj887se4oEd6R5uIR4Z2E2oz0WDAVq/WrAKrvNB6AFWIahtHtgnL9yL07JVN/UHkA==
+	t=1792595289;
+	b=hgSFDRydeVd3aWyl/0vv0Z7ZOAEM8SEFMxyZ4rRWRgqAcAzlTUklpi19AkQqA7l1uuWx
+	 pTNviVa2natAeNYaMgu2CwgElbjrA0ojAAsA/gAYOxCShkhsMrl8cAQPmSExY71L50aTD
+	 2qLATU0NfQWXr9x6cMaON2rRx/zstMq3aoQjmGAN4h92YHX/246aDLw8njNpvC1aRh+G+
+	 IsyCxzLDmKv8fF8CUqZo08QswzzqpbQRWKPJ7E46QuO8iwrXoxpTBpfsy7+c+4lAj+t4t
+	 /0vTKlZeggx8ByKNzzswDMbuX+IcYhzZYswNQfd5IeCQzZKV6pR4g4hSU73lnhEyl8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595276;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
-	b=4QpnFbZ9dVgdiuvmzkn3JEpsZ41tIgJ8p3f5gaTJJfZE/kk31ykYgOE52tGO9LNIQ6yx
-	 wf9VHjrEWIHdKspw4YTaNbw9a16B7rCzDvSppK7U3BmVfWNvDYmlqEv0PlB2JpDG+MoQw
-	 j+fk4QeJu4QrTw4XEY2yL0O24RDntfWNtfWpUxa6qjPoTETXavz5+2KluylEYqUVVEXGi
-	 /FuuXoKzN0r3BnKYedeAR2IDqNfl9/1hwLhifzUkIwsLw8/d4YODtT8WyudN6kgjqMj7P
-	 xnBs76eQ9RNjtdJ4cj/mNSKixY8wmHbEeV55pxDHAUeZ7XKobNKvUhQ70cwgEzTBrdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595289;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=60+aLJkPR4YWegHTCgfpjSiZEIO4fqrwRh1gtixdgrw=;
+	b=ebahJgX5NpzDtjmMVI7Db86c4e0VS7Q6Llz9/aTkfN1wct/2mK2ISihax90UdRcqi8FM
+	 MmJuhB08bUpT69dkaKC56gobIlmh+wEHmmcrzZx0cHnsHUoY/OkGgJqp18ROpVJKnvQcK
+	 inOgnt2oYRgS+8m/d/b6pvEsdaQKQHgKCqkVCAAqr4YCiBATN26WSRDHxDudtLRIZxtxP
+	 pkvXobmCtaiRFDkEXrU3hSyGrdx4ei0sR0kzUphUM3pNEjfYr/+ev+eMvXkudMLlX3zTR
+	 lu+6EctoU7wEpO3LetzP4eMNAm04Vosub9Tm4nzC6mJV3IobeiuXH2lP8RRUjgRRjBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kFdhW9k8;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fjGwKxnF;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Afx3HhuS;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=41gz4xnp;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nZdPsMwY;
+	arc=none smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8E6606A319;
-	Wed, 21 Oct 2026 15:07:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE8E6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE314606A321
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE314606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=kFdhW9k8;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=fjGwKxnF;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Afx3HhuS;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=41gz4xnp
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 04DAA21F93;
-	Wed, 21 Oct 2026 15:07:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792595274; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
-	b=kFdhW9k85lZxkLuQFkoMN1Di1Ys1mAf090DUb/Ji7ixNmKq/7S+1NpATauaLFaNpF2ZyKE
-	tXYT4LFJFLCQW6Wl5eY6+3oDi5TVAEBQBS+HK0BUM8yMIN0itndeky0yVmXyMcz0xLZERu
-	JjA5PGnQ6zMwRZ3Avq2mAccSo0Trsew=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792595274;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
-	b=fjGwKxnF9K6US9y2Fxt0YOsr+du6LfzBFo8MYsB1tqkvVrOz6L1nti9tJZ0e46/PicKWhJ
-	UkJp5qKsFSvUBUAQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1792595272; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
-	b=Afx3HhuSSFNpkakRqGh9I0RnIMjicwBbxKLXHp6MhGJOvuIdqA/BJL7AlsjoNTaBsB/05H
-	z0sM9DHquMUjpDCt6FqUdatEvbRv/JdU/JxnuhdM7WMYaWmTW4LW2MuC06qcQYUS2xxWnX
-	3ZCc8J8qQq6KJ/QMrwNHb9GahepSSYQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1792595272;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4IL+wAUg2YMioNglotQqAajEtIi50oQ+jrWGTenLzTU=;
-	b=41gz4xnpCASbZfXud9a6C7Kcx7fCf3dbp8s0+8/xXgef7skC4pF/NTncrOEb2ewFJVQE7M
-	AI7f5EUdBu7Y/pAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CFF70134A5;
-	Wed, 21 Oct 2026 15:07:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id ixtZKUbV2GrnfAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:07:50 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 59E92A13C6; Wed, 21 Oct 2026 17:07:46 +0200 (CEST)
-Date: Wed, 21 Oct 2026 17:07:46 +0200
-From: Jan Kara <jack@suse.cz>
-To: Hungyu Lin <dennylin0707@gmail.com>
-Cc: akpm@linux-foundation.org, willy@infradead.org, jack@suse.cz, 
-	shr@devkernel.io, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/page-writeback: avoid 32-bit overflow in dirty
- threshold shares
-Message-ID: <n6sci6hug3mywpnhcylk5b3fldm3xjekiexwugqgmxx35sotsc@wcdhaetb23jr>
-References: <20261021060654.27855-1-dennylin0707@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nZdPsMwY
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-8490a7d6696so511585a34.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:08:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792595288; x=1793200088; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=60+aLJkPR4YWegHTCgfpjSiZEIO4fqrwRh1gtixdgrw=;
+        b=nZdPsMwYAC0lDw+E+CCxWUq+R8F+hRu+j9rpKUHSrA1H/LgV+UV5lyUdwCZ10kfl5/
+         EG+1/ClCIWRNCcBVzjniqo18h+Eq60wHV1fPnBZdRXCzN6y2rvBzAMBis310HRART4NY
+         UZieC6ImFdXfnCiCuhtIUk9d9pJqjTEpHPkXs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792595288; x=1793200088;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=60+aLJkPR4YWegHTCgfpjSiZEIO4fqrwRh1gtixdgrw=;
+        b=2bogYGDPUR3OtAhWnDAL5+upxm+mUK1ELlkCq22KHVnFr1f+T7qCC3TuWS8LOGPuWA
+         4qjt4gcoGKsyPpTJOMovEzGRs9XGyhh+czYZd61ImsmKFXbvQcJHSydvHtg3YqThZNYK
+         Mkui0V6lYR44BZ6qZDkXzAHk9EJYqN0O5zzSGGvyAVqypeADFa4cZLAjwvFuWE515vgV
+         SAlDa8po2Xg2LEaQXza0TcfD7gg5Ice6nD1sWTXsKOA0UyJr82Rrs8KIRj19HiyTsLR5
+         rgmnELUhZETfIc7gmfua1zqnvVzokqfgvB06Jg4l1RhKWwXfF/yDBJBoPQUL5Z2nrXHG
+         5NAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBza+hs6OM2WQRHOYYDaExQNpbfZWFp4MsLZ5DHFc/koz7ZbxZMJt6BAgIpdXn4G+IA66pnVywJgdlpcUU8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKspPTJpv14R0AJZOoFq+Kz8oVTGP9GLDURafuIPujrOZzS9fON
+	ORBUkUrb7f9MqHQI8AirABbHM9VLt2sB6/4UBbjyryD9q5mueoJ2UO1CNqnsgnGxPg==
+X-Gm-Gg: AYBFou126h0LjHKi+2+pGf78S6YChNeuGbU8EV6Be3Jg68BW59urqloxjGX6I0teiFA
+	u3mlEdClk9QyM/5Nch4DQB8LwNiJk0uh7LEh2iPq70J9sFlBhcUUg5cotnVBw4JKRcqIUcjflU4
+	zOhcukpwuNdWOKasMSJnmI5QGg059A8DE5bKSu9ZMKN9pbmSymbayjaj5GfTlwHHaeBw9niAMiv
+	v8hAsQLkhAVugylsH+3XOG4rJQj14KxCCM7hMsohr7tgTv3uxeIkawPDwE41n//QKECyRtyn0sn
+	91LuuXmisGlCGh2USep6895Yt65msEP19V4XBqpzFsnjulgG6Mr3UinpDmPzwAaengv9aDK0QUz
+	tViep8bzuzmaukZkJMb7skO6zmJBZPSnuMK2sWKlR11gk1yDAlD1eWVTG2eOaTK4vHdDXDzvYe1
+	+eSfEtADfUFpoxN1UYakYEmQs4vbDeQgOxOWqT/eGpDwAI3K2nqpvzKtbKqy1dZfn41EWI6f8ZK
+	L3yWbOfRkRitlxwGgLEtywHUF8UydTaA6E26CdZQEgBe7krZX9sE5jRcPMK0QJsmijLKFr5ABoD
+	XIPZMnsSNS7pGqUyn0rmHmeHp7qXF2MwN+fePQ8obH802g==
+X-Received: by 2002:a05:6808:181f:b0:53a:6769:c35b with SMTP id 5614622812f47-553597021ebmr1486139b6e.12.1792595287778;
+        Wed, 21 Oct 2026 08:08:07 -0700 (PDT)
+Received: from rrangel.c.googlers.com.com (202.168.136.34.bc.googleusercontent.com. [34.136.168.202])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 08:08:06 -0700 (PDT)
+From: Raul E Rangel <rrangel@chromium.org>
+To: Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Hongren Zheng <i@zenithal.me>,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Raul E Rangel <rrangel@chromium.org>,
+	Anirudh Rayabharam <mail@anirudhrb.com>,
+	"Brian G. Merrell" <bgmerrell@novell.com>,
+	Suwan Kim <suwan.kim027@gmail.com>
+Subject: [PATCH 0/6] usbip: vhci_hcd: fix URB giveback leaks and disconnect races
+Date: Wed, 21 Oct 2026 09:06:55 -0600
+Message-ID: <20261021150704.3129446-1-rrangel@chromium.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,108 +98,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021060654.27855-1-dennylin0707@gmail.com>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Score: -12.80
+Content-Transfer-Encoding: 8bit
 
-On Wed 21-10-26 06:06:54, Hungyu Lin wrote:
-> The ratios used by __wb_calc_thresh() are scaled to parts per million,
-> but the threshold and ratio operands are unsigned long. On 32-bit
-> kernels, their multiplication can wrap before the result is assigned
-> to u64.
-> 
-> For example, with a threshold of 25600 pages and the default maximum
-> ratio of 1000000, wb_max_thresh becomes 4125 pages instead of 25600.
-> The shared threshold and minimum share calculations can overflow in
-> the same way, producing incorrect per-writeback dirty limits.
-> 
-> Use a u64 threshold for the three ratio multiplications and div_u64()
-> to retain the existing division order and rounding.
-> 
-> Fixes: ae82291e9ca4 ("mm: use part per 1000000 for bdi ratios")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+This series fixes a set of URB lifecycle, locking, and disconnect
+teardown bugs in drivers/usb/usbip/vhci_hcd that can orphan pending URBs
+and wedge usb_kill_urb() and usb_hub_wq in uninterruptible D state when
+a virtual USB port disconnects under concurrent transfer/unlink load.
 
-Looks ok. Feel free to add:
+Patch breakdown:
+  1. Protect urb->hcpriv accesses in vhci_urb_dequeue() with
+     vdev->priv_lock inside vhci->lock (matching vhci_urb_enqueue() and
+     the cleanup helpers), and add a !portnum || portnum > VHCI_HC_PORTS
+     bounds guard to both vhci_urb_enqueue() and vhci_urb_dequeue().
+  2. Track whether an URB has been moved from vdev->priv_tx to
+     vdev->priv_rx via priv->submitted under vdev->priv_lock, and
+     complete unsent (!priv->submitted) URBs locally in
+     vhci_urb_dequeue() instead of queuing a CMD_UNLINK PDU. This
+     prevents vhci_device_unlink_cleanup() from freeing the unlink entry
+     and orphaning an unsent URB on priv_tx, and prevents CMD_UNLINK
+     from being transmitted before CMD_SUBMIT on an active connection.
+  3. Clear vdev->ud.tcp_socket under vhci->lock and vdev->ud.lock in
+     vhci_shutdown_connection(), reject vhci_urb_enqueue() once
+     USBIP_EH_SHUTDOWN is set or tcp_socket is NULL, and drain all
+     remaining URBs on vdev->priv_tx and vdev->priv_rx in
+     vhci_device_unlink_cleanup().
+  4. Move the URB_DMA_MAP_SG clearing from vhci_recv_ret_submit() into
+     pickup_urb_and_free_priv() and also clear URB_DMA_MAP_SG in
+     vhci_urb_dequeue() and vhci_cleanup_priv_list() so USB core does
+     not call dma_unmap_sg() on unmapped scatterlists on any giveback
+     path.
+  5. Allocate struct vhci_priv with mem_flags before acquiring spinlocks
+     in vhci_urb_enqueue(), and return 0 (with VDEV_EVENT_ERROR_MALLOC
+     triggered) if struct vhci_unlink allocation fails in
+     vhci_urb_dequeue() after usb_hcd_check_unlink_urb() has already
+     marked urb->unlinked.
+  6. Serialize vdev->udev clearing in vhci_device_reset() under
+     vhci->lock and ud->lock (dropping old usb_device and socket
+     references outside the spinlocks in both vhci_device_reset() and
+     vhci_urb_enqueue()), and reject URBs from a stale usb_device
+     (including address-0 requests from an already-registered
+     usb_device undergoing USBDEVFS_RESET) if the same rhport is
+     re-attached before usb_hub_wq finishes disconnecting the old
+     device.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Testing:
+  - Built at every commit in the series with W=1 (0 warnings, 0 errors).
+  - Verified under User-Mode Linux (ARCH=um, UP with CONFIG_PREEMPT=y,
+    CONFIG_PROVE_LOCKING=y, CONFIG_KASAN=y, CONFIG_DEBUG_ATOMIC_SLEEP=y,
+    CONFIG_USBIP_VHCI_HCD=y, CONFIG_USBIP_DEBUG=y):
+    * Test 1: Abrupt server disconnect mid-transfer while client threads
+      loop 32 KiB scatter-gather (num_sgs=2, URB_DMA_MAP_SG) SUBMITURB,
+      DISCARDURB, USBDEVFS_CONTROL, and USBDEVFS_RESET (5/5 cycles,
+      0 D-state tasks).
+    * Test 2: 500 rapid SUBMITURB + DISCARDURB + REAPURB iterations on a
+      live connection, plus deterministic verification with a stalled
+      tx socket that unlinking 40 unsent URBs on priv_tx completes them
+      locally with 0 CMD_UNLINK PDUs sent on the wire.
+    * Test 3: Immediate detach + re-attach on the same rhport while a
+      client thread submits URBs on the old usbfs fd, confirming all
+      stale submits fail with -ENODEV and 0 stale CMD_SUBMIT packets
+      reach the new server.
+    * Test 3B: Deterministic reproduction of the field deadlock sequence
+      (unsent URB queued on priv_tx while tcp_socket != NULL, followed
+      by concurrent USBDEVFS_RESET and server socket close), completing
+      with 0 D-state tasks.
+    * Test 4: Lockdep (debug_locks = 1) and KASAN clean across all runs.
+  - Built and soaked for 18.5+ hours (280 cycles) on an SMP gLinux host
+    (7.1.6-1rodete1-amd64) where the original usb_disconnect() /
+    usb_kill_urb() deadlock was captured, completing 125,000+ EP0
+    control transfers, 21,000+ async URB unlinks, 8+ GiB of
+    scatter-gather USB Mass Storage bulk reads, 1,000+ mid-transfer
+    SIGKILL client aborts, and 850+ live USB/IP socket disconnect
+    teardowns and port re-attachments under active load with 0 kernel
+    warnings and 0 hung tasks.
 
-								Honza
 
-> ---
-> Changes in v2:
-> - Use a u64 threshold variable instead of repeated casts, as suggested by
->   Andrew Morton.
-> 
->  mm/page-writeback.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/page-writeback.c b/mm/page-writeback.c
-> index eeab25d6ce36..1d6aab8781a5 100644
-> --- a/mm/page-writeback.c
-> +++ b/mm/page-writeback.c
-> @@ -883,6 +883,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
->  {
->  	struct wb_domain *dom = dtc_dom(dtc);
->  	struct bdi_writeback *wb = dtc->wb;
-> +	u64 threshold = thresh;
->  	u64 wb_thresh;
->  	u64 wb_max_thresh;
->  	unsigned long numerator, denominator;
-> @@ -894,13 +895,14 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
->  	fprop_fraction_percpu(&dom->completions, dtc->wb_completions,
->  			      &numerator, &denominator);
->  
-> -	wb_thresh = (thresh * (100 * BDI_RATIO_SCALE - bdi_min_ratio)) / (100 * BDI_RATIO_SCALE);
-> +	wb_thresh = div_u64(threshold * (100 * BDI_RATIO_SCALE - bdi_min_ratio),
-> +			    100 * BDI_RATIO_SCALE);
->  	wb_thresh *= numerator;
->  	wb_thresh = div64_ul(wb_thresh, denominator);
->  
->  	wb_min_max_ratio(wb, &wb_min_ratio, &wb_max_ratio);
->  
-> -	wb_thresh += (thresh * wb_min_ratio) / (100 * BDI_RATIO_SCALE);
-> +	wb_thresh += div_u64(threshold * wb_min_ratio, 100 * BDI_RATIO_SCALE);
->  
->  	/*
->  	 * It's very possible that wb_thresh is close to 0 not because the
-> @@ -916,7 +918,7 @@ static unsigned long __wb_calc_thresh(struct dirty_throttle_control *dtc,
->  			wb_thresh = max(wb_thresh, (thresh - dtc->dirty) / 8);
->  	}
->  
-> -	wb_max_thresh = thresh * wb_max_ratio / (100 * BDI_RATIO_SCALE);
-> +	wb_max_thresh = div_u64(threshold * wb_max_ratio, 100 * BDI_RATIO_SCALE);
->  	if (wb_thresh > wb_max_thresh)
->  		wb_thresh = wb_max_thresh;
->  
-> -- 
-> 2.43.0
-> 
+Raul E Rangel (6):
+  usbip: vhci_hcd: protect urb->hcpriv with priv_lock in
+    vhci_urb_dequeue()
+  usbip: vhci_hcd: complete unsent URBs locally in vhci_urb_dequeue()
+  usbip: vhci_hcd: stop enqueue and drain all pending URBs on disconnect
+  usbip: vhci_hcd: clear URB_DMA_MAP_SG on all giveback paths
+  usbip: vhci_hcd: allocate vhci_priv outside lock and handle ENOMEM
+  usbip: vhci_hcd: reject URBs from stale usb_device after port
+    re-attach
+
+ drivers/usb/usbip/vhci.h     |   1 +
+ drivers/usb/usbip/vhci_hcd.c | 236 +++++++++++++++++++++++------------
+ drivers/usb/usbip/vhci_rx.c  |   6 +-
+ drivers/usb/usbip/vhci_tx.c  |   1 +
+ 4 files changed, 162 insertions(+), 82 deletions(-)
+
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.56.0.212.g129ede20d9-goog
+
