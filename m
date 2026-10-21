@@ -1,96 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567150;
-	b=WlG7tJcSFukjZbzzIBz5c7nemkgevyKHUu0SDIVrwkeUggDbqkjB7xhxCgRT2olxOGbZ
-	 QpijaEBppsLBSNJDx1b9PJnt3z/9Tr7OvcYuUlDH/yy4+nU4GwUpOSgbIQgaTO35j5vhJ
-	 1eVWKWgyY7l3OwIhzfbkJFYH6g128zwKqfiSVPy3H89nySWOLAK7abR1HuSVYBs54Wzw1
-	 7rBgVr4zQ7ykwolpjkABrReQOq+1HQ9pD5WcVGIMTvtCnud0ZGDfLMYmqqbqIBx6b6Lma
-	 D67Q0CQ0w4UW4SjlryGB72Oe3+ZmYXKT/JFJsdicerx4Sjz7RWuQ6macb71wpL3HSAQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567150;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=lZp92o2ypA6mUomnWY8/aTISVyqFvde5Tqae7zZYQp8=;
-	b=cRrQaFSYTMTyrg6ONTP1dPxKJmEVrMElM9HLOZHB0wj+EOS33jg6u6qLfzfjEMhwiINB
-	 qFFFYT57L0oPF39rlrgd9xAce0nuAhMQ+HxZMkKYBH2y33WUYQo3oWGmrVwEp2EeozVjV
-	 l4OtpCuZ32zDQFtwDkkgiaDcJlg1dODqA+VfKFovENmpWGJPy+TyBh5TTzmWz17mJDPDF
-	 98To5I8hOy1JTT3E4cQtaTH86+Q4MBerTEyhPqOao7ebTB5DstLVoIP4VasG95Zqkx+qJ
-	 rMV7+ztnL+hCmbMpHzz40CHafhNT6vkQ93KC3L8ABEjC0TJgbf+Hj6ILADfbxTSdYbQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T27bLdqm;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792567223;
+	b=uaNuhpXKCX3LsU36C0MNDmfl2qrZCLvhPnYN+3F6tW1iMM75ZX6e/i+fxoYv+0YjfkkK
+	 WMdzsMML+jQE4vKhfMchZ4DiAbHojAYJ6FeLqrGVTbsqStmU3/F0UriyAaQv56cVSG0kP
+	 Tyrh/ozp6XOh4fmggNNN1rzyZoRL1vHb4wTJdSj4W5+iT6nw2GgC1bU7ofvCwnkhIgCNu
+	 1jVLtbNeB/rb1/1t63WYoKxudGUqMuDCuPn1RJadqcp8OoAYLce6RbInkAyk2F4p2bqDc
+	 iG1NjD4sjkdGpFlbuVxqs5tIgIaW7bVzZnhOggXGnPUCjGZC+CjqhpPq+DP2VryXhOw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792567223;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Vyw8xlAE2+V3gWsuPQfIkm8MHQNj4BK+dYXwJch3hNE=;
+	b=0FkM5kYYe7lIAGwlwITAvLeyIKYgFag2eU697SYU0UDbRt6c9T6Ugtgsoc6DFG0iVejK
+	 MkgqW4yTq79vWzJafTyODXDpPsUoR1nntRYIFSVD2h0nueftGHzLwHiFEK3/V/qdVkWyo
+	 YDpFyE22OQCCWE+rj9/QlFN7TkYsVYxB/2/qGrmrKekZ6c2e0res7xUSD8d5T755CNqJi
+	 3XDhaGs/cq3rv5aj6YLDYJxZnSXfAQzpg7nUitoQs04UYDtnjLOUnhzZnAsICM7Fjvkzu
+	 3RyuU847jd+dw928Gq9ZU0RdpcjPrym7p3+d6Pt4zkYEY8xUTJG6m7kiQ4YWiL/jE7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hGTqGpQT;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eI6HWg1A;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0670A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:19:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0670A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1EF7606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:20:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1EF7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=T27bLdqm
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48df160bb9cso8117f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:19:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=hGTqGpQT;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eI6HWg1A
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jLpI2848640
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:20:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Vyw8xlAE2+V3gWsuPQfIkm8MHQNj4BK+dYXwJch3hNE=; b=hGTqGpQTnyw3Y/zm
+	HjoYc5lye/Mu900AVh1RHHDLmp1qkre8mvTF4kXSMbvJRu3/K+FO3PwEeamjsCqL
+	hcHK9qyyCJPtnQo1ZHphKccJW+rpkYRztarOXRmsE1NH7v6wJszC+1WzC8QKmrkx
+	0KUTGEMiYAWUFDk1QxYmNf8supa3K39VcUZAplUI0IGRgQcyW63/h2sjsjt5Q9ot
+	zOZ+DeCrpqbpmnph33ykoRUC0TEKFgOw+CEx6JTpw9zWOwEO7Y2IWHu+K0mwZLWV
+	+XtuY9LFnOM8A3qKEumUO76tSg0mPIH9DtSAVGXecsLznVLygzUJjYGRDfnvgIig
+	PT9SQw==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9aae1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:20:21 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ecdc701a2so53807485a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:20:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792567221; cv=none;
+        d=google.com; s=arc-20260327;
+        b=npWfl9MNHBw6qU/8pUvQ9iXzybHGNlNWRnOGxp0OMWF8yaT17UnBb1r7bE6i5sX9Dt
+         4Bk3jDrcCXmabsIYggv4u8T54TeYURhZcajSKoEAAjiZTjz+e9eqKs8+tdcDtFqfemOK
+         2HZqkSM+zNWj+ncFlsayyADwEUHCodEL/LObD6Qd1G82kw+lilgKBxh1ozn0Ga88Cj2N
+         X5XtEECBDM2H9pSmGLsO/jhdXo26SyDzzHDKSpm3BA69eiGiGMCzoPRXCdf0cRC5Ynj9
+         ztMcwdO/5JwVQoj0S0iXSZuPiGb+BCQZa4Y6E0AEvd4+oR1E40ruK32tdZz9twjBz9Ik
+         wL4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Vyw8xlAE2+V3gWsuPQfIkm8MHQNj4BK+dYXwJch3hNE=;
+        fh=s2WKVaJToTbDzj4V8703BxSJvVJagG/Cq2bZ97mmXZg=;
+        b=BMeUPok0rC3HLRGXywTxbUVVMLAwBs+iSSfrVmCO44asMhWQcU8GpxEYrd8oH8pWE4
+         4YXVd7IUrJxoufKM1UZSicNroONK4rY4NhDT3qXaAWhB+JfZf0R4dRpuvfwx/UpftT0A
+         s72rU4eLedpZCljVP+LiWKse+Nys5FYea7E6khuBh4GBAYVBjl8hbJcKGx7t/MPIZQv6
+         Wo03TY7aUOHVd6Vey3/+VKKI968rnG/SsxMCnxLamTlsYz+jat7okmc/gsC7mPBOjDZo
+         /rTXSXj/LWkVbDmSJv7DnH9Qsq9fP3nRX61RiL/d6taqKNv59BTZEef7TDPcrhGmP6XZ
+         cIeQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792567148; x=1793171948; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lZp92o2ypA6mUomnWY8/aTISVyqFvde5Tqae7zZYQp8=;
-        b=T27bLdqmIG5OoMtqxzRK7XQelB13l+qAZbEz86BaLPglRfGRQtnafKS11gDv/5llOO
-         MPR1n8LaO0yQsmsZc389tz2pzOUW10zBtkt6mUYWDeTIJ7+3nzVvKKjIWC01CZ/NOLjA
-         addkf6PCZWaajuQHLHUaqinPOOUyGLYBle8MKQMkXJqazEG/oa7p79xKuK624vlm1do/
-         WWDreLZ8o+ndZCSWr/3WiK3/pFGSG3EXW3dlNd5X3C8vLJF1ErphZjkNZPIRC3GTb14s
-         b036IC0n+ecv65vFyKeqChULoVKR5m2FgZfPcCWoF99228CqkLUWXi5vWYmJvGqTSODM
-         P52w==
+        d=oss.qualcomm.com; s=google; t=1792567221; x=1793172021; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vyw8xlAE2+V3gWsuPQfIkm8MHQNj4BK+dYXwJch3hNE=;
+        b=eI6HWg1AmnRQa9/t7EIYa9FGcaUYXuj2QoMymB4mB0PpTRjbOo/PeY1viyijmkcGMQ
+         BtADHNWFC8OZyHpubyUlRs0wg0hKv1y8XyDPfMhZ+p8KYg2bS/L5iciYST417kP7xX5f
+         rGYcp2ZaVnXnBY0lcjqWEY04e8IVTcTVt/MllZ1LxkiLHwRsX2xuWnsXlMYIjcluJvF9
+         LzYElWzOQWEPWB+Ry8CrY5wTMZtuHlUO7IBUcJbJLf2pFqGhUn0aQsV53VLIKQ6LoHnO
+         Oqmfjz/i8NsWlUFVPDPpZlrzRvmwVc+s33lEl3V0mi5W2+JAQqz6oB/JLKQL1I0OXvEd
+         FYYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792567148; x=1793171948;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lZp92o2ypA6mUomnWY8/aTISVyqFvde5Tqae7zZYQp8=;
-        b=k4KUxNeXB2uBV3O5oaiKCLOoGKgD59IH+B+qw2HiZXT64SQQm2/Sah8hIvPz2vL1aA
-         Ki51i9F36YFDfRzP9XxqFQ/nV4nSn8gMu4mwLgvaeqj0nPVplVs6m8Bb0nKNOArF5fwY
-         enAyzdP0OomaBTvewuLAy/WyB0DkTHe/GLTjDThycGZzZbaaAdxyjsPI8lm+Dy9Tr530
-         C4F4BlSJe+uVewOMThasFLXWV0/fGqc1pWD1Edut0foCCOP5195mnNQfFf+35BwNXBw+
-         JYfoRNTHnUmZcU9ynqVzsC5XwLg2SXzvgntuIAAvQUANBGDgDxyJQMvk1p15TYFIW8hi
-         xfDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxKyRAOgwdiExEXlP+8Sf3drO7bfeYsxzQpQZ/msQ7x3zALRD98Uti4eW6cF7fkMe94b4dG5Nm7VV3b9MQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIybrE6yl5GScfwd1Dz2G9w58vFPOfKMvoBeGs/SAQAOK7nrT0C
-	b6IosCEtJV4XEjpPJzBQlmpXG3zaTOySovNKce4AJfidK9Eem7smxjbA
-X-Gm-Gg: AYBFou0D0dFPQTq/mcs41t5FtxG8x/Hwoe6LGWIRQbvGF/Sx63doisKnvYD1JPs5kb8
-	CKolckZJ3oDUg4psw2gB+esQGQk0inBt29o3TzUbz9lkqLIqbaTiO7mNSyeYKItUFLPx4vezkrC
-	Fe6X4l2dm7a0UH6xBGuPsfcpN1c4e14/KImMGe6efRQuOVmcYt2zfZHFr2MoOaBBe08PE4yxRSG
-	QfXDXhDCa5NnBLMhzgvOsG90xcao+7BCykfaCTG/hpgSOiGv4bncOtxSKYY3RyUWth+nMPPCRWE
-	G6XNyDkKOejuGkvUN8tt24Z/ziaq3ZMC02cUb7mwkeFW1rW7ecdnK4K5zm1PPgmMgRVw2BiZFQg
-	5V7okEwTt8uEAQuNn+uNFTr3CwW67lR5FZoKywNNoZtwlgvN6RVHHsgWKrvHlSjBRwFYIsthQ8D
-	to5F/9nTwEaxbkrWeXtQ+Q7QNmVjFXA1HMdtFpriwVIwXPyoZWtVYnWXFxINItnNxK98x4Mg+Es
-	bnXx2UU+zNt0jf1VgQ3TcyNg9D16oWH5wE4nvHJTel70Xlap/bQwM3JwbjG1EGSqMM8aUPvSTDk
-	JHap31o=
-X-Received: by 2002:a05:6000:4a08:b0:48a:f4c1:4301 with SMTP id ffacd0b85a97d-48e264df908mr1913032f8f.6.1792567148094;
-        Wed, 21 Oct 2026 00:19:08 -0700 (PDT)
-Received: from scheduler.schedules ([85.100.66.184])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581f15esm3985576f8f.20.2026.10.21.00.19.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 00:19:07 -0700 (PDT)
-Date: Wed, 21 Oct 2026 10:19:04 +0300
-From: Kayra Cizmeci <kayracizmeci@gmail.com>
-To: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, linux-kernel@vger.kernel.org, 
-	jakub@okonski.org, longman@redhat.com, tj@kernel.org, hannes@cmpxchg.org, 
-	mkoutny@suse.com, cgroups@vger.kernel.org, jstultz@google.com, qyousef@layalina.io
-Subject: Re: [PATCH v2] sched/eevdf: Fix sched idle task group preemption
-Message-ID: <athWto0oZJvFzJ-w@scheduler.schedules>
-References: <20261019182622.1584454-1-vincent.guittot@linaro.org>
+        d=1e100.net; s=20260707; t=1792567221; x=1793172021;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vyw8xlAE2+V3gWsuPQfIkm8MHQNj4BK+dYXwJch3hNE=;
+        b=ahyUycLucr6dFvoIEqsrysYhOdCUbSKL8aDaTXkznvY8zj12LRo/h1pZwni8/RA/cr
+         l4M5QP8HHyv20zc/njusPEJjt5Hw1g5+09Bu9e9wYeaEJ23/Tb/gsQUjhR1ffhdxMcXs
+         0jPRNdAdTPHI4h9Ifh2rZGtgpSamKg7GnJyJ8mIPsL1NIGmZpoWpr0i+BkbRkDdbVlOe
+         iauNfcPwun0rQfNHfwpbjFMZSi6n4d4b/o1llUZgYXOM31jO5ojYCbaglUCOv9IWZEZP
+         1csQTKqK2VG/WpFtlqPFIBgktDxXK2hri7iEE2Lc4NgQtRFG9B9QxyrpZ216vXUK2Sv4
+         Avww==
+X-Forwarded-Encrypted: i=1; AKwUvBxmX5GH9Ig+bsaTRrJt2PTkIEoJlUIZUcSe7SO9TuTRLgjtzmRgBr6Pk1Yx6sPMYV4vMSP2M1YcSCzg7vc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ9zsKyLOxEPe0kEH8L0TpyPO+dvy10l22cswwfXpzMiCLaO51
+	ONCURAIf0CSxwFVij5w8p/TdVy/BOaQyUXgqY4Ou6Xv9BHNx8tVbuz17mnBjPtLyvJOIyFNvETa
+	iciFDWYzRBUG705ylSeOP/VhfDxJiYqCqEiQd5lUR7x6+nW6KW2Y7fdHrrAr7S02obcUQFxPr2O
+	bSa/LvoTpjfLV5omgLs3CPPff84Rm4RQdZZYkQRzDyhA==
+X-Gm-Gg: AYBFou0jsn35ecxviBNPDnZdm6M7h/gXWMPFcX/4RvvyRDDTL6wb3a/EL4GkOlAaLtl
+	cBjfiOdtHOXw2JkoJVtsOvw01Jt7Wf0qsBbTciCQEub3qfM1HuBz7euKG/lWfPe0LNQO1W/VuJy
+	fvXMgdR43q0H+2whlxJwj7+NpvQZAAdJEiWut6YItd8NWKOJDQxjL87NMwbe/DVNmf3G86RVc7c
+	keRrbSEa0xQUU4qqnrudvGkRb8UhNbwoO5FxPAV/T4yVDFrACBcIJGB/Xrn+SbL+i87lFwXFuY=
+X-Received: by 2002:a05:620a:4010:b0:93f:3576:d428 with SMTP id af79cd13be357-93f57f65fedmr280273385a.22.1792567220731;
+        Wed, 21 Oct 2026 00:20:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:4010:b0:93f:3576:d428 with SMTP id
+ af79cd13be357-93f57f65fedmr280271585a.22.1792567220118; Wed, 21 Oct 2026
+ 00:20:20 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,194 +128,117 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261019182622.1584454-1-vincent.guittot@linaro.org>
+References: <20261020193946.51478-1-birk.skyum@pm.me> <20261020193946.51478-2-birk.skyum@pm.me>
+In-Reply-To: <20261020193946.51478-2-birk.skyum@pm.me>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 09:20:08 +0200
+X-Gm-Features: AclHuK9V7aVQiTOHc0vqWeOOfVJ0Ma-H2IE8l1YY-5LJtcIK6v0ZsdlpKcyDMMM
+Message-ID: <CAFEp6-3s9ER_V_B89W5f5PVkRnLrgSwnUwE+tmftbUGB-1_BdA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] i2c: qcom-cci: Reset the controller when it resumes
+To: Birk Skyum <birk.skyum@pm.me>
+Cc: Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Saikiran <bjsaikiran@gmail.com>, Mark Brown <broonie@kernel.org>,
+        linux-i2c@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAyOSBTYWx0ZWRfXzsf7JLlMQ+TH
+ 5ey9LwxRcTx2nqur6yDztQQPhv/1H39oSrpMw8nZaHXsxzGPkG98nEbaG61dJG+VCE7PH+6bgIU
+ J5VLQycz3LCTYGCB+GayXxy3IhuNDDM=
+X-Proofpoint-GUID: bAo7e_Q0itcyhzcOshdfRTJ9-Wb2jCmo
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAyOSBTYWx0ZWRfXz11eJsqEQJ1V
+ jYzY3Po9in742zjmoFuNrT+JyBodnwMgNUN7hnOiXF8Jb5C+kXp6WD+RhUDMZw6MueZNuRSzXcf
+ 4mIGi25qEKd2rIW/kPk4Koi8+rGpyDxQRloxF6vBuW21s0ffyzREiB9vQo4xw11aMX1uSBz8dCf
+ c6aDPCu4F7UoGIvoyZ5duyQ6nRx3qJYUOOIKabfmQSK0SlE0JD78NtbeBn5MCjLWSdXWYCRqmYA
+ iXuFvILkOdgZtOEpOihvGnf58NMhJBEyJSQBXaKkZfZ8aKv1PNjOLNFxbPJPxf9Uzi/gW0Usn92
+ OAI5YRSA5KzpvmPoXjVaSEWJDvytavLXYrHtRv/zFYHiHzEHTDDZDA85sN50gis2yBw4mWJzPh/
+ QUFFWP39xJjN3YtcB+ETgD5uTkXI2D3AllfhMvUMCUYiqzG3L96wsL+aJe9OlDLbUAxfDA45sqV
+ c+X85nW+cDuYjB51EyA==
+X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad867b5 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=o4kKvnnIlv_pODaOlxoA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-ORIG-GUID: bAo7e_Q0itcyhzcOshdfRTJ9-Wb2jCmo
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210029
 
-On Mon, Oct 19, 2026 at 08:26:22PM +0200, Vincent Guittot wrote:
-> Even with flat hierarchy which puts all runnable tasks in the same cfs rq,
-> we need to parse the hierarchy to check for sched_idle task group.
-> 
-> Reported-by: Jakub Okoński <jakub@okonski.org>
-> Link: https://lore.kernel.org/all/58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org/
-> Fixes: 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
-> Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+On Tue, Oct 20, 2026 at 9:40=E2=80=AFPM Birk Skyum <birk.skyum@pm.me> wrote=
+:
+>
+> A CCI master can stop starting transfers after a target on its bus was
+> powered down and up again while the controller kept its clocks running.
+> The next transfer's queue then stays on its first command, neither
+> CCI_IRQ_STATUS_0 nor the queue's report status changes, and
+> cci_run_queue() times out after 100 ms ("master 1 queue 0 timeout").
+> Only the controller reset in that error path, or the controller's power
+> domain collapsing while it is runtime suspended, brings it back.
+>
+> On the Lenovo Yoga Slim 7x (X1E80100) the OV02C10 front camera is
+> powered down whenever it stops streaming, and the unpowered sensor
+> holds SCL and SDA low: both read low at the TLMM pins with the internal
+> pull-ups enabled. The queue registers at the timeout show the stuck
+> first command (CUR_CMD 0x08010339, a write of 03 01 08) with the bus
+> timing registers intact and no error or halt interrupt before it.
+>
+> cci_resume_runtime() only programs the interrupt mask and the bus timing
+> again, so a controller that was runtime suspended without its power
+> domain collapsing keeps the stuck state. With the camera's TITAN_TOP
+> GDSC held on and the controller suspended between camera starts, 3 of
+> 40 starts failed this way; with a reset on resume, 0 of 40.
+>
+> Reset the controller on every runtime resume, as the timeout path does.
+>
+> Signed-off-by: Birk Skyum <birk.skyum@pm.me>
 > ---
-> 
-> Changes since v1:
-> - fix prototype and cleanup unsued variable
-> 
->  kernel/sched/fair.c | 82 ++++++++++++++++++++++++++++++++++++++-------
->  1 file changed, 69 insertions(+), 13 deletions(-)
-> 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 0f2364479f9d..27ce3eb467a0 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -433,6 +433,38 @@ static inline struct sched_entity *parent_entity(const struct sched_entity *se)
->  	return se->parent;
+>  drivers/i2c/busses/i2c-qcom-cci.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/i2c/busses/i2c-qcom-cci.c b/drivers/i2c/busses/i2c-q=
+com-cci.c
+> index 76a5ded..51ce174 100644
+> --- a/drivers/i2c/busses/i2c-qcom-cci.c
+> +++ b/drivers/i2c/busses/i2c-qcom-cci.c
+> @@ -651,7 +651,20 @@ static int __maybe_unused cci_resume_runtime(struct =
+device *dev)
+>         if (ret)
+>                 return ret;
+>
+> -       return cci_init(cci);
+> +       /*
+> +        * A master can stop starting transfers after a target was powere=
+d
+> +        * down and up again while the controller ran, and keeps that sta=
+te
+> +        * over a runtime suspend unless the power domain collapsed. Rese=
+t
+> +        * the controller, with the interrupt mask set first so that the
+> +        * reset-done interrupt also arrives after a power collapse.
+> +        */
+> +       ret =3D cci_init(cci);
+> +       if (!ret)
+> +               ret =3D cci_reset(cci);
+
+If we don't know the state, it's probably better to just
+unconditionally cci_reset().
+
+> +       if (ret)
+> +               cci_disable_clocks(cci);
+> +
+> +       return ret;
 >  }
->  
-> +static void
-> +find_matching_se(struct sched_entity **se, struct sched_entity **pse)
-> +{
-> +	int se_depth, pse_depth;
-> +
-> +	/*
-> +	 * preemption test can be made between sibling entities who are in the
-> +	 * same cfs_rq i.e who have a common parent. Walk up the hierarchy of
-> +	 * both tasks until we find their ancestors who are siblings of common
-> +	 * parent.
-> +	 */
-> +
-> +	/* First walk up until both entities are at same depth */
-> +	se_depth = (*se)->depth;
-> +	pse_depth = (*pse)->depth;
-> +
-> +	while (se_depth > pse_depth) {
-> +		se_depth--;
-> +		*se = parent_entity(*se);
-> +	}
-> +
-> +	while (pse_depth > se_depth) {
-> +		pse_depth--;
-> +		*pse = parent_entity(*pse);
-> +	}
-> +
-> +	while (!is_same_group(*se, *pse)) {
-> +		*se = parent_entity(*se);
-> +		*pse = parent_entity(*pse);
-> +	}
-> +}
-> +
-
-So in a hierarchy like:
-
-    ROOT
-     /\
-    /  \
-   /    \
-  GA    GB
-   |    /\
-   V   /  \
-  TA  GC   GD
-      |    |
-      V    V
-      TB   TC
-
-Where GA is idle, GB is not, GC is idle and GD is not.
-
-1. TA == se & TB == pse:
-pse_depth > se_depth is true, so we goto GC. Now pse = GC.
-Then we enter !is_same_group() block where we go up one more
-time, so now se is GA, and pse is GB.
-
-
->  static int tg_is_idle(struct task_group *tg)
->  {
->  	return tg->idle > 0;
-> @@ -476,6 +508,11 @@ static inline struct sched_entity *parent_entity(struct sched_entity *se)
->  	return NULL;
->  }
->  
-> +static inline void
-> +find_matching_se(struct sched_entity **se, struct sched_entity **pse)
-> +{
-> +}
-> +
->  static inline int tg_is_idle(struct task_group *tg)
->  {
->  	return 0;
-> @@ -10129,7 +10166,35 @@ preempt_sync(struct rq *rq, int wake_flags,
->  }
->  
->  /*
-> - * Preempt the current task with a newly woken task if needed:
-> + * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-> + * in the inverse case).
-> + */
-> +static inline enum preempt_wakeup_action
-> +wakeup_preempt_sched_idle(struct sched_entity *cse, struct sched_entity *pse)
-> +{
-> +	int cse_is_idle, pse_is_idle;
-> +
-> +	find_matching_se(&cse, &pse);
-> +	WARN_ON_ONCE(!pse);
-> +
-> +	cse_is_idle = se_is_idle(cse);
-> +	pse_is_idle = se_is_idle(pse);
-> +
-> +	/*
-> +	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-> +	 * in the inverse case).
-> +	 */
-> +	if (cse_is_idle && !pse_is_idle)
-> +		return PREEMPT_WAKEUP_RESCHED;
-> +
-> +	if (cse_is_idle != pse_is_idle)
-> +		return PREEMPT_WAKEUP_NONE;
-> +
-> +	return PREEMPT_WAKEUP_PICK;
-> +}
-> +
-> +/*
-
-
-2. In here, cse_is_idle is true, while pse_is_idle is false.
-So we return PREEMPT_WAKEUP_RESCHED. If these are inversed,
-we return PREEMPT_WAKEUP_NONE. If they are equal, we return
-PREEMPT_WAKEUP_PICK.
-
-
-> + * Preempt the current task with a newly woken task if needed.
->   */
->  static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_flags)
->  {
-> @@ -10137,7 +10202,6 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
->  	struct task_struct *donor = rq->donor;
->  	struct sched_entity *nse, *se = &donor->se, *pse = &p->se;
->  	struct cfs_rq *cfs_rq = &rq->cfs;
-> -	int cse_is_idle, pse_is_idle;
->  
->  	/*
->  	 * XXX Getting preempted by higher class, try and find idle CPU?
-> @@ -10174,22 +10238,14 @@ static void wakeup_preempt_fair(struct rq *rq, struct task_struct *p, int wake_f
->  	if (!sched_feat(WAKEUP_PREEMPTION))
->  		return;
->  
-> -	WARN_ON_ONCE(!pse);
-> -
-> -	cse_is_idle = se_is_idle(se);
-> -	pse_is_idle = se_is_idle(pse);
-> +	preempt_action = wakeup_preempt_sched_idle(se, pse);
->  
-> -	nse = se;
-> -	/*
-> -	 * Preempt an idle entity in favor of a non-idle entity (and don't preempt
-> -	 * in the inverse case).
-> -	 */
-> -	if (cse_is_idle && !pse_is_idle)
-> +	if (preempt_action == PREEMPT_WAKEUP_RESCHED)
->  		goto preempt;
->  
->  	update_curr_fair(rq);
->  
-> -	if (cse_is_idle != pse_is_idle)
-> +	if (preempt_action == PREEMPT_WAKEUP_NONE)
->  		goto update;
->  
->  	/*
-> -- 
+>
+>  static const struct dev_pm_ops qcom_cci_pm =3D {
+> --
 > 2.53.0
-> 
-
-This only changes where we look, not what we do
-with the results. AFAICT. I added my review notes too. They are not
-essential but I still did wanted to add them IDK why tho.
-
-Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-
-Thanks,
-
-Kayra
+>
+>
