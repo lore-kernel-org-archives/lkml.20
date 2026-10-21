@@ -1,96 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792573994;
-	b=I0N5ndYIjGgFj1bIFtsWerDoBP8tldd6v7jCCJ3MXsmqShtl3ZKaWcbeKxF0yikoUbFa
-	 RkibSaKJjx7Lmwhbr0vDWRbC9Kqi9ydYJQD/xGbatgR+DyOzkvvKSfXjlwW88QVZPc9DF
-	 V1NdUUkhBxUZGJ7686sZ4/ytoKZr4GhpiyXPEYKvxVWVK05rWMFyV6jmzvo+U/KrW1pzc
-	 0y7AibhhGDgxLuPHSi0Pqpxjxc2GWPNd6YSZHezswyuveK2GYNUUBHBZOGRXQ9vstFK/1
-	 JhzZXNglSBnf1dQ2+cSbH7p+KS6yqBpfklhM2CAy2R5JT5JVrZaxtrzAs3sE3UNWQ7Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573994;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6UnyTE8YdVqXXHsmAqFhz9bW7tDaewkdAEnQTcsP4jA=;
-	b=o3LKrsjUy7oKfiMCVbCzs+qMT5w4+proAqpEW+RRa/AtbJArTB47+MXYx50OJRqbY8v+
-	 hvaZbll6lHpgMZPRh0BbBOT0gar3WUB767ejnCrA3EHr2sZPclt3hdB+wNOfR/GmEs4De
-	 kGYnnFMX/fTv5fZBKSREKXfAeZuZAN0WOV5+FPji11ioesvxvx5xVk3zrkco60BetO62e
-	 K30/VVIJHXCyTxqMCpst5LJtZ2RULcy8Ah4TiI3mmJJgKY4cN2O+P4sibLQQgRWdGZGRD
-	 HT/BQMs/yv6Jc2Jcj9tWQwpqNWMZQJ8qLhHRr8aoEwiQxbfygUIUcZqlGl/YlOKCMUQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="Kc/pkpd5";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792573995;
+	b=ypkUsdMZtk3a2rlU1mYUnS4Hm3umKjEdHCjaVErVOGgoxuxua/bUn6yhnYPaZQM1xz+s
+	 HaeXmBg4FHaHIlIoOAXQQMDoQCqQmqozxvaksOpiUUpQeu+miOrC6GM2+c4tLpFrvajMb
+	 vShYa+WIdppd1pk7nWi14F82MlMrKaL0K/kJAF0DSYmSvbkAD1i5VW+Z4LHvxEZwVC+D/
+	 MCaqQlk9GlP3e48CBzX2BR0wD9tedwyEWS+OfNzEL+RBkXQR2xGD4FtJGpdYdrB5fzgw8
+	 5W0dLeMjXF4lLbCSN0/os3QEM8Q/ttuyRlqwT5zN9978j9dYE/ekgjO9KSj6waj/PKw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573995;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
+	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=TdukyCPcl9fUvggoegFEcLQWHoHKZ12f0CCAVKT3rYg=;
+	b=QFOY3MxUWAEfZfs+oiR91IXcsRae17KHOsL9Ydq3C9lI/WujKmCMv9sT4UG9nYm5J8Da
+	 TDdBqfD3xN1rgXsBl7RN0Ba72zXD1I5LmbS1n5YJCmm5W68q9Ma1hFJd+cY0p4AXQCt2G
+	 4rvJvIjiesgtPSlBbD5hSw4XPftGYXvMpSmI7lPCV/sJtVeIPwM2rtWGbT2AkcUCs4xy+
+	 yBjrYKgFUzTIcFcBJZAjPlpu28cvIaVUBsTs4HQZKKpW9X9XklhavryvbzJ3Y+YhSrvIM
+	 S842jyoexjJ6e2rejS1Yr2qNWQvP2Jjqqp5rLtWrygc2TMA37QV8G4TkHPpTuR6FspQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-m68k.org;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.179
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 962B5606A323;
-	Wed, 21 Oct 2026 09:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 962B5606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Kc/pkpd5
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 14CF7201E7D;
-	Wed, 21 Oct 2026 11:13:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792573992;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6UnyTE8YdVqXXHsmAqFhz9bW7tDaewkdAEnQTcsP4jA=;
-	b=Kc/pkpd5fZPJQ112+cJHKX1dwaPC3ZEVtIXBY8DW0g6XP/XiiGPhqxKrM5j9szpvNwc+DX
-	BxCSFT13PSB5RUUo1nhfPKyLrSRofwOl1Qr1JCV9dz6IUFOINm4L6d0aGqhIdQsJ2E/54w
-	GdLjx1NExDYBWlF88DGvxYJXbZAscAUR29ALm/1YqKyxfx852rbHr4uPyK5dSQfJ+80LRe
-	lNQBJv764E+5GujXjXdjslBCnXHgO9tnqKOBnT4fBc+WI3Tr4n72jIQq2XKoIC47MaZN34
-	UkF58gar0UoMGjSY0COWzU5636jWppYwyoMTGvfOKHFnMrTWUEkb/aBZ9QC4QQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792573992; a=rsa-sha256;
-	cv=none;
-	b=KCGDzIgrUov/aAz3NIyhjSnr+cVEI+jR+14wdbGXsp8p3ApxSgfI0y3fN2dQKIdYic1Te+
-	C+yiVJ+xYMnwYVDwMYjQr/zpFEB0reeQP2e8YbDBqw7xQgN7NO31Hae2wsdeDI0usyARaI
-	FgbF2aVc5x8RUKWcio+tZ2RixJ3gje+ma3878Y8IX8IfJxVI4siFNP3x126nPf8Q3h+m7b
-	gbmo4f9nBfZrTlLRWagRQCsDANmzMqqvUjtucvHQGNgwvQq9dJ31Q2QJBqVDfI53pqjStM
-	PGHUxKVXGM11Rhz86549xGPsA6PLQm92v5vrEgQa8ulCPA4KeixsUIfQ2O7ttQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792573992;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6UnyTE8YdVqXXHsmAqFhz9bW7tDaewkdAEnQTcsP4jA=;
-	b=Rs0OrXdeKpB/W6cXPVygQD53L1ewBoLTCYgJEyS/rWyIdIcq08rhfs5jCZvnRt1/Tkoa/2
-	oHDdLCjYmB/8Da6I2Q5epTGqafCRgXlUc6/V9yO48u5Kiyoz1OOE5c6ugZTPwRkPD2SayG
-	vjOdQSPgK3je8cSx8iFcf01hTW/1rXWdbwIFHjxLu5IWGk0CGhRW1cOW5wY2IOUzm2kadN
-	MSuqIFz92GMNnHqktzorJ0JVLSyce2AQGaoz4224S982MjEgxTQUfx7JJpxPq8XfrSEwwR
-	TOcLOFDHDJheox8oiT1dL1c6nMaCsXVlhj1JgQdR/wTjNqBt05g4ivJE1zi1jQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xJSNj-000XIv-3B;
-	Wed, 21 Oct 2026 11:13:12 +0200
-Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id AC3B55CAEC4;
-	Wed, 21 Oct 2026 09:13:11 +0000 (UTC)
-Date: Wed, 21 Oct 2026 11:13:11 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: =?utf-8?B?U3TDqXBoYW5l?= Grosjean <s.grosjean@peak-system.fr>, 
-	Liu Changjie <liucj1228@outlook.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] can: peak_usb: accept short uCAN end-of-list records
-Message-ID: <20261021-hospitable-gentle-sheep-a15164-mkl@pengutronix.de>
-References: <CH5PR19MB997156AB3BE253C3BE445223B0AC992@CH5PR19MB997156.namprd19.prod.outlook.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959CB606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:13:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 959CB606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eac9db5905so155775e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:13:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792573993; x=1793178793;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TdukyCPcl9fUvggoegFEcLQWHoHKZ12f0CCAVKT3rYg=;
+        b=M2muS4kPLmDT+zurIcWURx1Z0ALPBRQ7ZcnxPVidD6dGoUQUuSwLA7zdNQj2w758aY
+         D7eh905HZtHZt4qbx1yq1tRfUgSKqie1mrwckPePccDJ0DmxIF1fniBonTji1LK4Kqyr
+         enfqM+l23TFidqNIRqB4fpMmSIAzMq+6+Swaqm1OwUszBymGof0m2gKSy1kEo3nEm5KL
+         dim7kf/TUU8RRdwPn/h4puSWMlzQiemTShmAUkKKqVdJJPefOw84rXn8ZO7OJuJj3ftO
+         4G6EiDcqHiEEcsJNhavQmXVoVqDySTD9h5FaxpMdlIjvZVzsd8Ix90lQLkuLddFi+7xq
+         dqyw==
+X-Forwarded-Encrypted: i=1; AKwUvBzsmTnHPel/r6/uR8oyIDnqL0HN7+6KQbw/q2nUGJpUoV82vNiwwoa3q4dh2uIA9WaF0DG0bZ4xH8OT62k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIBOruOmkIBE2SJ5mge32f1EHy2HPknrErceq6pjMtXRrOnZEy0
+	srGKQcYeq/4Ebdcj3cUdV9KORKel2eeYLPVH0weAQ5dYph5ExweDElaiPTZajDS3AJM=
+X-Gm-Gg: AYBFou2rERN581v0O006/l42ytFm3x1JsDtQG/f+KAH13EdEFfE27cYItZgKNdaK4fA
+	rVBpvxhpMyTjfGGwev6js+Up6SzV5nQbYWF8lmX6e46dMbjQImToF3pE635oFhwi7RGI4/FBl1n
+	FHK47cGzsNfnctvXv2udCCtZw+czXQYRPsaCX4g92+B1v4NbNVum7gR7mBhANUaY8n/r24pLFq0
+	11/zUHaBnF7D0dkI1JvM/Yv4qbzIV0qnMe07Cckh7l/YL38UkOm0bPzknCfMNelVCu4ohVurkTt
+	CkJgxv+WiasEE4aHewtKd/w3B9NGwW1LcuuVo/8I/ejqlQYJlGt0NbF1A7EUG2JyuvRwK0QA1lh
+	slJxOxtVulXts/h2UgQyo7VfsjcISaf+4xP9RHlpuaUpApd2V4Uedm/cox3Ecj1Qw82iki5zhKR
+	XJqL0c4omOyGHKjj7IWzZvA6IPtz9hSf/SuaTZRKWQEs9Xu9W6z1kh1vtHH5aGL32/U6wFyP1vD
+	fVHpD0rhrGPaeKolGVkBuvA3eUyODPmmjQtP1NPYY+iwrG5gLDqPq3egqafYa5ofmAWOyR6H0rp
+	R7mOINaGD1vU1GbILH+YM2nAHZaAKPJ5k6sSYTJfdUI=
+X-Received: by 2002:a05:6122:4d86:b0:5e5:1be6:e12c with SMTP id 71dfb90a1353d-5eaebe75a61mr546051e0c.21.1792573993503;
+        Wed, 21 Oct 2026 02:13:13 -0700 (PDT)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae980f64esm2456873e0c.13.2026.10.21.02.13.13
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 02:13:13 -0700 (PDT)
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaaa9b1591so268566e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:13:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz+i/T226SAPhKQ2kyopNgFsU8QwgfoC+C40dZkFO3ls1oixpnn9GxiJAkH+MehByt+UnrkUfb46CIFLG0=@vger.kernel.org
+X-Received: by 2002:a05:6102:c4b:b0:7cc:306:d3ab with SMTP id
+ ada2fe7eead31-7cc92473061mr657933137.5.1792573993049; Wed, 21 Oct 2026
+ 02:13:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,58 +80,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="x7zd6t4z5njwzgor"
-Content-Disposition: inline
-In-Reply-To: <CH5PR19MB997156AB3BE253C3BE445223B0AC992@CH5PR19MB997156.namprd19.prod.outlook.com>
+References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+ <0605a3c99b55124d1be71c9939f636e2@perches.com> <ate3lqnWlk9zLZC5@mit.edu>
+In-Reply-To: <ate3lqnWlk9zLZC5@mit.edu>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 21 Oct 2026 11:13:01 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVmmRWFJpE=A18w+Jg+9T46Aeomc9NeCCtZR-MzaJW+Dg@mail.gmail.com>
+X-Gm-Features: AclHuK-q1FSczAVmbAF3hXa82KzgGcPPTlNy2rnoWV3tKHuYqGppXvTDvgYY5ZM
+Message-ID: <CAMuHMdVmmRWFJpE=A18w+Jg+9T46Aeomc9NeCCtZR-MzaJW+Dg@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
+To: Theodore Tso <tytso@mit.edu>
+Cc: Joe Perches <joe@perches.com>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org, users@kernel.org, 
+	Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, 
+	Carlos Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, 
+	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
+	Dongliang Mu <dzm91@hust.edu.cn>, Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, 
+	workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
+	Petr Pavlu <petr.pavlu@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 
-
---x7zd6t4z5njwzgor
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH net] can: peak_usb: accept short uCAN end-of-list records
-MIME-Version: 1.0
-
-St=C3=A9phane,
-
-can you have a look at this?
-
-On 19.10.2026 00:46:34, Liu Changjie wrote:
-> A PCAN-USB FD v2 running firmware 3.2.0 sends a 16-byte status
-> record followed by a four-byte zero-size end marker. These transfers
-> cause repeated receive-buffer dumps while the interface is up.
+On Tue, 20 Oct 2026 at 20:52, Theodore Tso <tytso@mit.edu> wrote:
+> On Tue, Oct 20, 2026 at 08:53:04AM -0500, Joe Perches wrote:
+> > > This issue came up during the 2026 Maintainer Summit and the consensus
+> > > was that "always include linux-kernel for every patch" was never the
+> > > intent.
+> >
+> > That's not actually true.
+> >
+> > Lkml was the default mailing list and other lists were specific to their
+> > interests.
 >
-> pcan_usb_fd_decode_buf() requires a complete 12-byte struct pucan_msg
-> before checking the size field, so it rejects the end marker with
-> -EBADMSG.
->
-> Check that the size field is present before testing for an end marker.
-> Require the full header for nonzero-size records and keep the remaining
-> record and payload length checks.
->
-> Fixes: 93fcab2c6968 ("can: peak_usb: validate uCAN receive record lengths=
-")
-> Assisted-by: LLM
-> Signed-off-by: Liu Changjie <liucj1228@outlook.com>
+> Historical practice for decades before the change was made that plenty
+> of patches only went to the subsystem list (e.g., linux-ext4,
+> linux-scsi) and it was *never* intentional that LKML was supposed to
+> be cc'ed for all patches.  That didn't match historical behavior, and
+> as far as I know no one was asking for that change.  If someone
+> managed to slip that into submitting-patches, that was either a
+> mistake by the submitters or the people reviewing the change.
 
-Marc
+Historically, not all subsystem mailing lists were as well-archived
+as lkml.  Nowadays, as long as a patch ends up on lore, it's fine.
 
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+Gr{oetje,eeting}s,
 
---x7zd6t4z5njwzgor
-Content-Type: application/pgp-signature; name="signature.asc"
+                        Geert
 
------BEGIN PGP SIGNATURE-----
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCatiCJQAKCRDMOmT6rpmt
-0mpJAP9CGxn+/gDUYPSmZfAVorMBfXjvzX4ku2tz5nVgLW75FAEAuaWUX7qzKKt1
-si/m+wrSKSGM1sc7dPlGti8onwzwqQs=
-=rZgf
------END PGP SIGNATURE-----
-
---x7zd6t4z5njwzgor--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
