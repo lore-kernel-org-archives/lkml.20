@@ -1,83 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572230;
-	b=oJc3tU6zV8iBNtiTUGp8GjL+3o2BSmxAe39CiUCuqHGj4VkXJsm+eChNGLsWm8udsr0z
-	 S2Fi8gzQuPvb2v4NMOKZvLvGBYQsvCwBDIlmXzP5p1JYPvvuP/1B3i7SAJ3noQrdLazh0
-	 yeogyb1WRCz+uP/qAzxiFjT0YsaaDXEhr9H104pSVja3dcyI01VroGzfBaHN+gh6XJzjB
-	 BSJ0xS7+p8ZKpCA0MLLStTuMz2LJQVtFK6F9lootFc5A+7akUQ5JYJv/r7Dg7ZU8g7lPT
-	 84eoFOg7LuATQPa7NUxwbA6qLjOEGyTfpkKfYrBBozppdznqZ9HhfswSsEsnwud+eMQ==
+	t=1792572231;
+	b=bBLcSkgx2sgN1TnLlanT0HT4R9YedIS+aH6UBmWywRll0tzx3Mf9mkLVeXF7GjFcm7fR
+	 Pp6zwjjWAYP1ws6lOOCPr9zuEIYkhSyENMeWNQq2SJ9mWbRIcfP5iQ2MZXqXvVL3bm72H
+	 N0p9COAoE92tBxanH0/l5h6X88oDvH6jy1G3fCAK/gqua+88/Xjwg7/UbtTQd3uw26t1P
+	 J6PaoG21Hs8rVMypa3LEBlgi47xkwWoDRFcTglnuNIEK+iuQXNuxD6eU5Ym8iZ9C1abRa
+	 2Ytg/WKlHHzIHBWJl0Ofgktc+0FtOpneFItgg7DuzCDeNiXSjWCfb00yZcKwH6XBQ6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572230;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=1Q/Gh3x6yW6P8XJJtj/UojJ6c3+w9rN4cOin2QaMhHA=;
-	b=A1sBrnfvgEbnX9e3DnDZxAmrLyZkRsQCUz4ucsy9qkKBzR9cLFHK/I74t86JLJSKABUV
-	 eWQQ0Ff7rTd1aQRT8PFGblqMMJeiCN5EozTkCHm0g1YlNPY0NxJ2UMFudONTX4Z8cZSZT
-	 yPxoyx2sT3+uvK1UQZvxLcVsrzymLm+BqV8Jlvba9nCSwKSmUjI4F4O7J8UafB3NgLUDy
-	 MC3RT52gxUV7fqOAL1hbu3FZygywtihJSKPAvyBBef6ofXza7XvmtH8bfDSCLZEG8Oonr
-	 WNDVrhZJx/jf0XCi36ztzEGQSfoObn8wKHpxC9DBriDIKPOiGMNyAx2D/lfuQZdutSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572231;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=;
+	b=04QFhX9Gpqgp4Mbif/Q6cKJJkxQZ5CMf/d1tp1LVgXgin8KYePbnI3Jq9wM8r6XndlxU
+	 h4NGXqK2bvJPmQdbtmL6t91IlIvzjgUSKJIZjSjAZ+Q2jQ1Bygq4qpsvLthKMizstfjXZ
+	 fx/jMIqhPJIKLZquwZEPYxWVevnKWF5rpj97UFyak6fV4GDi/iIrKneWTLWXz3gVg/mPU
+	 VWB0UkIkc390tNKf3G1/I6FpbMDcant5wkHui3GNvkvtPcc5GmYYS14+8bA7kdSdtvF3E
+	 ULN2xQqyutGcd54QcWjZukw40uFF3pUoQM+YeNSrsUbJTEDN3czmm707+2zJBFvE8sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=rqAn8pPK;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YFeyapOX;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JWryMSqz;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BFF606A31C;
-	Wed, 21 Oct 2026 08:43:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4BFF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19ADC606A32C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:43:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19ADC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=rqAn8pPK
-X-UUID: 8392621ecd2b11f18dc8c9802ae25ab1-20261021
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=1Q/Gh3x6yW6P8XJJtj/UojJ6c3+w9rN4cOin2QaMhHA=;
-	b=rqAn8pPKB0iyuKLzBykHj4aYMK4YjFWLHFSJ3mDOvTOk8BPCuKrUKTLStLtyeIW/RwVm17eLKD1SM9gNybAWFQ3MU63166M6wqs9vnSuV5V0qexUhWHfjE3CAYKmutMZqEgt898fgkPSwYCU7B2cE+ELoe00J2iQaB2gerPPVaI=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:c2968529-cbcc-40cf-a9f1-f06a68204b3f,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:e1f81e3d-b757-4b4b-8cbf-eac98f8734fd,B
-	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
-	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
-	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 8392621ecd2b11f18dc8c9802ae25ab1-20261021
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by mailgw02.mediatek.com
-	(envelope-from <chris.lu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 225957092; Wed, 21 Oct 2026 16:43:39 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 21 Oct 2026 16:43:38 +0800
-Received: from mtksitap99.mediatek.inc (10.233.130.16) by
- mtkmbs13n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 21 Oct 2026 16:43:38 +0800
-From: Chris Lu <chris.lu@mediatek.com>
-To: Marcel Holtmann <marcel@holtmann.org>, Johan Hedberg
-	<johan.hedberg@gmail.com>, Luiz Von Dentz <luiz.dentz@gmail.com>
-CC: Hao Qin <hao.qin@mediatek.com>, Wenlong Tian
-	<ot_wenlong.tian@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, Will Lee
-	<will-cy.Lee@mediatek.com>, SS Wu <ss.wu@mediatek.com>, linux-bluetooth
-	<linux-bluetooth@vger.kernel.org>, linux-kernel
-	<linux-kernel@vger.kernel.org>, linux-mediatek
-	<linux-mediatek@lists.infradead.org>, Chris Lu <chris.lu@mediatek.com>
-Subject: [PATCH v3 RESEND 1/3] Bluetooth: btmtk: drop zero-length ISO packets from endpoint padding
-Date: Wed, 21 Oct 2026 16:43:35 +0800
-Message-ID: <20261021084337.1515468-2-chris.lu@mediatek.com>
-X-Mailer: git-send-email 2.45.2
-In-Reply-To: <20261021084337.1515468-1-chris.lu@mediatek.com>
-References: <20261021084337.1515468-1-chris.lu@mediatek.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=YFeyapOX;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=JWryMSqz
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5j06v3355556
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:43:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=; b=YFeyapOXeANzacnB
+	szxZleI6tSL08EA4Qqe6SA4H9Qdi9M3gPWiGhCerNVfs8RWmEBq6lbjmPxXbdgpG
+	YSAHIYgWfJHpP36f6PsJ1rbbx6/5Ssjz0ms8xIoZXbau1+/wo42WyuoT3OjrjWP9
+	9VpHnKbciMtFeGqM+2RACKtv4BO9jmVnVSdjhkFxcuaRf1QS0ZfTM2gjg+TNYI+Q
+	SYFzOqqjZiLgMNMrTVj4GNLEDcnw+zD3fkJDnHTRuV4aAliTWXP8lcJEcZhTq7xJ
+	yoBxyidb8SyRylC6Rv36g9SyrJyv6u+ja6894uQFNCT0djALRqrDzv9uzRq62aNx
+	zjUxUA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda0jys7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:43:49 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9179ef12a03so2794046d6.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:43:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792572228; x=1793177028; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=;
+        b=JWryMSqzkgixv0Ipbd3JjPKPiMv8sWC3/09FnP8yIj5KDxoUlfKSkzEEA4iiH3JJih
+         nhgalPUa2g4Ixmq0RPSbBd7jd6r3afc4lcsMCjrATxMwnCUN4wKogVZJDwxbTElVkejQ
+         e/ABBCuUZ+lB6H/ltIoj+K5xWeZ7tj6vuURthMCx5NCL58uR5n2yBDYNBnVbVXVqgcpW
+         G5imxGMapYNbi7LZakAzc9y3zgijb6BcQmGLVK9JPv1mOlNxpgE8kT6Pe92FviJKl/lP
+         s87PwNB5TxUMrSluhZ0kuVF0EDl7E/Ny5U4fvA4RHFBNoMAXJXU0PgV/lsoTNAjwccWb
+         1MIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792572228; x=1793177028;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sIzv+OVRF10962nsg6GhGljzRZ3rl013V2T6GKgjf4Y=;
+        b=SGGcgkavGcC8b4OITHYqn4ofWslJ6a7OhAUabg8Q2j3uosW2PwOBsRETvLoxfdDtTP
+         WE0maDURoztu6waHkH2lW5RVKaKPiAYxh3oEgUWhhUgZLeyJbce5l5RN9RXwY9LkqyDx
+         upt3s2YmRYZMAcshSF/E+Holhy1Whsg4LVumP5GROhkCLLN0LC9LKQd5dBGKnD7yh/DL
+         N0q/MVEDdhAgSaCa7ZGJxIR5IWty5TC1/E2fif9JMMXahQ4LUJe+yZzvpC+5elaSloIk
+         HrZSLN0AOOTJL0eO3+KyleJxNwVehq9H2HORldUlVttCDi9V3SmWke+AVYeDrtpGEBQn
+         bDBw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDFRsyRzj1rpBq/q5wenv3ozHawluiE0Uvm3al9TEEnD38Y4XvplyenifDfgUF08AV6Nq/Do10vFTj1WI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKjweJYG7vxGAddMQmhYSnHuMHdgxg4vevwaFQTtEMrEO9YAPVE
+	n945l4jksEMWr8SnqP1LCVfx1sQJrHQMawFPSEOZUDE2Yk9bSz/3Yuzu5f0SUACoXLUCSApHBfv
+	8vxzaxipQnX4fQxj6KaqE2V/RvtHH1nCTfGWCckPTlJ1ULVmFHDwoAkMRIkwxpYK3b4s=
+X-Gm-Gg: AYBFou0uEY3eahHZJU/M9adfYq6Zo33VBtDIo9wnDno2AIMGRv6WfE7jI67+GJDtfHE
+	mhY+su0uhAgdCyQrrSYVPT0ntOfP1Wvl2zoFpTPOJSR0o0Ml7QOH+9r+b0QtAewqC2ayW5Lu2uH
+	TKf5YT5i2CNNY4hUXIJXqP4KBaoqqvinw8YauKYGtvLH3Ia0mOFlaUKG/nyYfiTw/eDrb7c349F
+	gqNKjLMW+S6LixtQddaq3JKwicVyUnKOUFa0eRqZ6CjibHxcMGNle0ugrtlCRCjY3LhYTwxMOFY
+	ntOjx53YC6CyZT8oO128m67ofxnR/WXGUZeVKvVedC3LGM/xIAtei+iA6hwTcxC679JSuxvDmRV
+	ygLFm0Rjl163ATi9+hxNNIg==
+X-Received: by 2002:a05:622a:a884:b0:531:2663:2cd with SMTP id d75a77b69052e-536a75ce176mr415951cf.1.1792572228222;
+        Wed, 21 Oct 2026 01:43:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:a884:b0:531:2663:2cd with SMTP id d75a77b69052e-536a75ce176mr415691cf.1.1792572227794;
+        Wed, 21 Oct 2026 01:43:47 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c467900686dsm52393866b.74.2026.10.21.01.43.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 01:43:46 -0700 (PDT)
+Message-ID: <72009e19-fe51-4340-9378-46eedd71f151@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 10:43:44 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,77 +115,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 10/12] drm/msm/a8xx: Switch to generated nonctx regs
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
+ <20261020204728.28844-11-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261020204728.28844-11-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX1qC6iYse0cYQ
+ fCJaDohwE1Mjw9fUr2bh7NAOr2sDAYvILqE90HHdE4QOVeeksMoARRmULz0t2JXVZoJgXiIDhqd
+ GQYHtvsRF30IFtk9sPo9XPlgm/OJaIv2Zx4QJATKHn6yubVZeoTslUBjLp/c/HCqsVfQr4qzJKF
+ EQvjsLlfpQ/ywecDohBLy0iDrRR8J0xlnX71NukIgGOjHtJgxeZNxQuZlrDo/I6PPwxhegnxC7G
+ 6dMKS5kP4MltDaorRAehvuyfd9aBZPEElPMxUlN+3DQdj3uSZtHlpjrbPZ2KS4LwD0qxpcZOHoE
+ RuGNV71mz2aycanpLORs66009G8x6I2ZOYFbHZaNS6Dze0Y1vm0iGdgX5R1sxOI03CboTkdzx5V
+ m2C1MohAS2IBit5g1eu3Y6agZxUFsTrtpiO72/SQGKW1yn7s8mbV4CvYy5D4TWWZhw4yjYpXAvo
+ OVyuncORShH+dplDn2Q==
+X-Proofpoint-ORIG-GUID: LDEd8bP2sb0edP7GrJq71FCo3Er7fprp
+X-Proofpoint-GUID: LDEd8bP2sb0edP7GrJq71FCo3Er7fprp
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX4068irNh17Y2
+ HcSy1nGnaR+S2DRCh7EKNbPLOaM84jBNpTwTRfk8htepHJSWbyJ4mLQwpRIZ6TGyYjPaP4nozLG
+ +5POOJXyzTTCMahtmfBca2t7DsW0fgw=
+X-Authority-Analysis: v=2.4 cv=HL5WhYtv c=1 sm=1 tr=0 ts=6ad87b45 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=Uo0wf__DB8OGiezfqlwA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210034
 
-The ISO interrupt IN endpoint delivers a fixed-size transfer that holds
-one HCI ISO packet and zero-fills the remainder. That padding belongs to
-the transfer rather than to the stream, so it has to be dropped instead of
-reported to the host.
+On 10/20/26 10:46 PM, Rob Clark wrote:
+> The generated headers contain the current (at time of generation) hw
+> recommended values.  Using these directly makes it easier to stay up
+> to date.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-btmtk_recv_isopkt() keeps parsing it: the zero bytes read as an ISO header
-with handle 0 and a Data_Total_Length of zero, and each one is passed to
-hci_recv_frame() as a complete frame. A single transfer yields a long run
-of them, which is what fills the HCI log with malformed ISO packets, and
-iso_recv() drops the SDU it is reassembling whenever handle 0 belongs to a
-live CIS/BIS.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-A zero Data_Total_Length carries no ISO Data Load, so such a packet is
-never part of the stream. Confirm that the rest of the transfer is
-zero-filled before dropping it, since the padding runs to the end of the
-transfer.
-
-This was observed on MT7925, but btmtk_recv_isopkt() is shared by every
-MediaTek USB controller that supports ISO data.
-
-Fixes: ceac1cb0259d ("Bluetooth: btusb: mediatek: add ISO data transmission functions")
-Co-developed-by: Hao Qin <hao.qin@mediatek.com>
-Signed-off-by: Hao Qin <hao.qin@mediatek.com>
-Co-developed-by: Wenlong Tian <ot_wenlong.tian@mediatek.com>
-Signed-off-by: Wenlong Tian <ot_wenlong.tian@mediatek.com>
-Signed-off-by: Chris Lu <chris.lu@mediatek.com>
----
- drivers/bluetooth/btmtk.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/bluetooth/btmtk.c b/drivers/bluetooth/btmtk.c
-index 75483d8230e1..90463208385b 100644
---- a/drivers/bluetooth/btmtk.c
-+++ b/drivers/bluetooth/btmtk.c
-@@ -7,6 +7,7 @@
- #include <linux/usb.h>
- #include <linux/iopoll.h>
- #include <linux/overflow.h>
-+#include <linux/string.h>
- #include <linux/unaligned.h>
- 
- #include <net/bluetooth/bluetooth.h>
-@@ -1588,6 +1589,25 @@ static int btmtk_recv_isopkt(struct hci_dev *hdev, void *buffer, int count)
- 			/* Complete ISO header */
- 			hci_skb_expect(skb) = __le16_to_cpu(dlen);
- 
-+			if (!hci_skb_expect(skb)) {
-+				/* The interrupt endpoint zero-fills the
-+				 * remainder of the transfer after the one
-+				 * packet it carries. Confirm that is what
-+				 * this is before dropping it.
-+				 */
-+				if (!mem_is_zero(buffer, count)) {
-+					kfree_skb(skb);
-+					skb = NULL;
-+
-+					err = -EILSEQ;
-+					break;
-+				}
-+
-+				kfree_skb(skb);
-+				skb = NULL;
-+				break;
-+			}
-+
- 			if (skb_tailroom(skb) < hci_skb_expect(skb)) {
- 				kfree_skb(skb);
- 				skb = NULL;
--- 
-2.45.2
-
+Konrad
