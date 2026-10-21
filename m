@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590298;
-	b=JD72CI3XdsJ/n3/mAb+SLtnVEccNlHF6HC5p3+3TWJBga3hOPUlVWm+DqqB4ZMrTPy+R
-	 lJge0B45IR9PUVwqm/xiDz6eq6R+Zzd/IRVRvZ2Z2E9W4UM5KRNy0zPaSupsZBCH0SpMw
-	 lqMAg6E2vNVTWfDSoXlVSkvOVSVaPLxcTjLOaeG3FnV3yHfh2cKYfezlCBRWTjnwaWWZ7
-	 C7xEegRiBtbKUpylU+SmegVnTQ1zfrrPY1HCB96NGv+dxLPLCsH0RuqdPh00Vk5AJCusO
-	 GIjrT3ueQwTgt6drwLnu9pzdSBKXTJEfcS8L0MH/Wk1hzbEGxx/egusbLR1R7Hq4cpQ==
+	t=1792590310;
+	b=FIBvENBuyplULY9PoMZxoDaRcjaD07yt756Z4449Z1fyJM4PovvfeXzemV002FXxbKd/
+	 pgae4+pi4PrqrDxb3k1c6eFHeK/m0KS5pXe0CEMWwgnhGmhhc53/CcaNniwrjkOd4wP90
+	 rKHug7BRXHGCsQLCjNAIjrbGoh8GxaSg8LuHhPZ36yb6I3Rk1zNH/A8CnVAlDaXRPwVXD
+	 6LobO2dA/ayd59k8EL/pTj5uksnxNnqBUM7/XgeErbafifC0tz7L9RU66TzzW+FkbwCjk
+	 NbFYwB2qOQ3e4z8ALLZ6xza37fR61SLe4XqRHtxy5pJ1wQZTx094TpTcGJ4irkf0LKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590298;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=4HFJLn83kygPNb4chE01mOHDBkV5We/MxsvCuFn6o6U=;
-	b=au9Sm2ODLUSc5TFW40QAmhU4ZcUAFnoLTxtIV0rUVTrNiuV6ENog0ZWyuZe0JXPlY+et
-	 LKQgQVRjg7MGTVU3uo0rM0tROeOWMHNViV/cbrCtw18yULcfbvzYJXalMM3yOgZj15wwy
-	 wYEaEhqEiVj+ct3Tl3ojCPH2ZWwkOGrMFtamESDeUvssLFBDosxbJHoxehwd9dgVFwvHy
-	 I1enwc/ygWVnNU/GLEETVfqtM6GOX4mCX9bjWDAXa9xfkzQgQyXWbbuAC1bOrMjgF1cUv
-	 ot3fcQ1sSH6XhAj2o6jaoqAavcfu1/HUjWaknjGGA7mGvuQB6AqhNyE2FSM2Jp07v8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590310;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=14kePxaJgvrh0ObJmhms1Rosb4Wt+rKX1sH/AFcKt3s=;
+	b=jpI61PrAF2NJlxlIzXcK/vevu7k37RLQR5nEn4AIT5HOtYlrk0gnMu7GXTb2ovN5wK+u
+	 rXruTPdP4PY1VEJ+CaeIjcq9LGmmwJk/TkWikzA9il8jlMuS5Zx3bA6yvCfGukl5vEGg+
+	 RCodvXdCgaHYeYJlGOdNrf+9PKLiP9MEIv9W87JwI2OJsEO/fCLNYmxB/wEfSFaJA/29i
+	 0mubGj8uUINvUpYapS+ptIVPeMhI1cGe12+fdPR9KbHyhgpCycdN5tEMdKwIj6MQsGttX
+	 DYRlwYWG++4j3cS1dWZk4bkEUgsOhH9o/syiAax+thr+7JG5tvtAQULHYCVp4xLWj2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fUxQwyQc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hIQPDwi4;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=P35ASx2J;
+	arc=none smtp.remote-ip=209.85.208.54
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE7E606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:44:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE7E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF4E3606A328
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:45:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF4E3606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fUxQwyQc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hIQPDwi4
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBfx3C1568124
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:44:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4HFJLn83kygPNb4chE01mOHDBkV5We/MxsvCuFn6o6U=; b=fUxQwyQcb1/73HkE
-	hHGrufBLfRzLHURFpHedf2eLTNvdvRIEdUh26bdpVFAnaRqfFFuVyKAo2adWD80N
-	JDkdtOtajuJYoeYPZjpUZtIEONH4emz+p1UZ/dygS2NMJi7GRC8OV8RXeggGUHWj
-	9z8H09Sefd/RRvLUJgui1wN8hrP82AnWjrBlzS/HJmGXqoruEqrRTuXvQm6nSM/v
-	ChRw0TNb/w49QEWr327yWiXq21MtWkZ3BlNDza/lzCBT724oMZDJesmjjQlBUkl1
-	aMZh5rxyFNXqsbhoJJLsGY6JbGrIY91CZJpoI6OdONcKFM5QHDVNlDBkNfuqhIX8
-	eXMNcg==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda4v6ee-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:44:56 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f1440e081so17630885a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:44:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=P35ASx2J
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b1aa36fc0eso13167a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:45:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792590296; x=1793195096; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4HFJLn83kygPNb4chE01mOHDBkV5We/MxsvCuFn6o6U=;
-        b=hIQPDwi4OS6dLClXV33BIspcr4sidgyFCKs4COUUsc8aCkVg7ep8HxVKna94TNiLOW
-         qiC3sHxsSASByLIgmD4BeIHSuePvop87TnZWXZtXaQlbTATfuMGYYyQxyf2MZ3BX5lZs
-         lfTw8CduIUQ0DnCcx3rpHG1CeZZuKCtxzByWTfhJKkEgcElM36WvZVjGIm7hTrAYyrdZ
-         wWnkbTmOYSCwkBr4wKZtvo7Uwzhzb6CQ2MltjdEJLReDtRgsTuv33crPldVNfthoxg3v
-         WiFzZmKd+dKzwCFAzWziPUe8cpjKNl/trVXPiGEjvur87XTPU/qkLt0FkAk4/AmvDdtA
-         I8Kw==
+        d=google.com; s=20251104; t=1792590308; x=1793195108; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=14kePxaJgvrh0ObJmhms1Rosb4Wt+rKX1sH/AFcKt3s=;
+        b=P35ASx2Jo9Do5+SMlGWjDrNn9yrkfwigEzooIzyae1URWlmgrxZ0haUJYvsvZbgd7Z
+         olal293b4D0MsWvwXs54txROi9WxYZqQ/oj96PtPfys8sju1+JGxqFMu5bADyUdyVzJ7
+         70eIcqTOkvLSOr1PwSsN/Rq0iDjFuDC3AHAPKY7y8MljnuRDR8mGlzoNuw5ZWyQTwjWz
+         BFx2C3TuMU3xe7LkdTgss2pnqNuQoqry2vSxWJEzdW+K/usfuCgAEyLYaIVoMbNx3vpM
+         RAIQDlWPbUGyPVW5uv1myNs7VyB8W4NXLN/spOUQNdN96S4vzuui5oeebJC7DqyD3rzx
+         rYYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792590296; x=1793195096;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4HFJLn83kygPNb4chE01mOHDBkV5We/MxsvCuFn6o6U=;
-        b=YhnkN/zs9xrUiGX/JgTH80ThqSJIz8IbScaaYWMflF2lddmLbEbEWu81UC0GXMdYPj
-         GCvGp6cmbiW3O1qqKjeo49PIqKAapmB4hP5tNN3fwfd2AqZ3DZaBcC21dMT0DzpeQoZA
-         9auRsp4eAPLX5HbJrk89ASU7yO1pAT6jqCPBK62TBTRFRrOFrbyRNlG4dkmxptQr1o9j
-         zuURZ23V/mx/dhiWruRuFeEKYCxLV0YmHDps1NXRNgKjQ/XCGIiADvM0yQu2yUZRAdzl
-         KkfE8Vbc58tq8yDTcTuSoE19p+f+7WExkpR25gbgWHwSv9jJ8S/b06qlhMCfYXxq09YF
-         Y8HQ==
-X-Forwarded-Encrypted: i=1; AKwUvByPzad85wBqyDQhtAJNovlvRqNbGcZUY5KNVybb1oAToxt0qfO8jZ821wTZe5Xe+R7zo8tbLXspQI2RlFo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/s/JRZ0861cMgwcT59Ku8DhPnnGLWenVLLsPdvjRkYN4dR8Ll
-	qutO0/icgCaYoa1h5pTQfa07h7aoCuFH1cvlAZJYm/p21Uikck7Tl4NtoM0W7agivlw+/RB+uGg
-	U0MOLD6X1VL4oifFFKCMEI8VeoQtG2Axqh1v48UlVdhdH2eM0vyK/9NFoexoWZ/1RxvU=
-X-Gm-Gg: AYBFou32gxDz/CjcJWUPSRMiMNAR9uSMiXTYTWrThq697yvURCHCfj8U14y7gF8Plk9
-	IBQkF6ukCqnPunRG46EgcEG7/Mg/legWszPZRIE+2kvvJXvO2BLrajo5LC/x6uNLgWfP9170j7D
-	/1uus0k6ODkz+BY89bEc78EXMEUHmng0Z57YPILJjrdNnjF78vBpie+vg/BQpM4dYbPFzsqk7Zo
-	5pBjpPqrcOTTUg8BJ1Z9KLxEghbhQnbd5HcsFct635CciOHG9sclRb8hj4/cE99B7Fz1LJ2VkW6
-	fggBSUkBZlPQecenaXivPaQJGLhOeIYfsSzq0yGohcfjEwHPcoX4BW26BeeWe7dq4tKkzuCbMdM
-	3v5fBiz4o3I4mVXEHEbZTpA==
-X-Received: by 2002:a05:620a:2a08:b0:92e:6485:f640 with SMTP id af79cd13be357-93f57fa2115mr496122085a.4.1792590295722;
-        Wed, 21 Oct 2026 06:44:55 -0700 (PDT)
-X-Received: by 2002:a05:620a:2a08:b0:92e:6485:f640 with SMTP id af79cd13be357-93f57fa2115mr496114885a.4.1792590295090;
-        Wed, 21 Oct 2026 06:44:55 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a59d61esm6097366b.56.2026.10.21.06.44.53
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 06:44:54 -0700 (PDT)
-Message-ID: <7eb8f0f7-9e5b-44e9-971c-54bfdab23c30@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 15:44:52 +0200
+        d=1e100.net; s=20260707; t=1792590308; x=1793195108;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=14kePxaJgvrh0ObJmhms1Rosb4Wt+rKX1sH/AFcKt3s=;
+        b=lnFqGOS5Ys2wMygNJVlQhLEj90AlJR2Xk9D9qDk4o3FU7nEP+WfStmlUyRBbap2Y+d
+         K+zNOcuuZlSQMxBkX64fRarxh9MjfoXtx3E86gmS4Y2y+YbNbfG18tPlOvpeD3RDrlgv
+         0TiDWYknqj3BSKJ6So5QUbJpPp4c41IlaYoDK3WJlYByWIS55sUb4US0mB2o3ZgsQhmr
+         53+cjTL+GfoD0+BfQB7PUc5d67EXB1NGsGKRB0JWnPMCBlA80xFLYOm8azc7gwaw2blx
+         ZjRJkOQ9cM70MJIAL+VEOrCO/Hf3kFdaosTpF+xItaSRnCHszVck5C71uj+HVceLeJ75
+         K/Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBxf3PdO1EWVij9+tm/SEQBnPMTf/3LC/+Lnx6d4QzhVWwaolUft/pbMZYSU6oQkGLg/GhTVPLYLYbNOCvU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYBGdfHXbfJwdBkgGNylZtFHBGdRq2kZt+kGx7OOKhwAeriHm9
+	OD1DngXM/xyuGqmlhnwnO4sDsrE4IjRNoSNEo8Yt/3tXVa6towTfbGJAB4Irn8UeXg==
+X-Gm-Gg: AYBFou0sdsqhZTSjelKlJvdx8w+77HoczwQqWzsumExcx8uqKRUMWJTWh23dGhARzvX
+	zY3m0vSgzu37+8Kyr6AduSn+HfDEFZPkjxFk+UyTqdjwUMAuSjHQtwJQK72LDePHsb3tc/cmwCa
+	nStoa/GHI8rlvCHN3YPow/mGlY+5fLU9gEbOptJxjv4Ip7JRlcezxsIukkFfux/6R0HJ3k6Vk1Z
+	AAK1L/2jEhzk4B7Ye5Mzjj9cPjY2M9Wo+DQKKJ8fAidommvWxEeasOej27ghLMXhyIHw0mXH/XJ
+	0Btk+zNvlqVJq1PB9DhpkruBN5TOYjMAGcLQnYTGVVt9wAj0xsH41Lc5JkhMUgO1DOzHG+7vJFh
+	VbV9RxB/gqZDLPmp1aNAiI+mNhNX9d7oA/Brfm9dwhUsOuxGzOtdLEIYNFp3hyFBH9ZNQ1DHtkd
+	OOzul9A7INOeayz0CT6vQ07iEyojk2v0k0UW0/W4i45vxS9qJ5bD8Ggl2WhJijFBY0R9U43ffUm
+	n+1pT2vHg5Ld/WX2vULBb1CumodsAB202Tqr/B0ylmW5IcE2aMjWykg3IPmMDKYMaidEdYplBP0
+	zI0A7AG3z7wuAMcIgSxAHF3McKwaIW9fBsdRB0UnhBA=
+X-Received: by 2002:aa7:cf8c:0:b0:6b1:d80d:396b with SMTP id 4fb4d7f45d1cf-6b3e9c11a49mr111990a12.14.1792590307609;
+        Wed, 21 Oct 2026 06:45:07 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a61b2aasm5475966b.86.2026.10.21.06.45.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:45:06 -0700 (PDT)
+Date: Wed, 21 Oct 2026 13:45:03 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: will@kernel.org, robin.murphy@arm.com, joro@8bytes.org, jgg@nvidia.com,
+	praan@google.com, kevin.tian@intel.com,
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org, jamien@nvidia.com, kas@kernel.org,
+	Cristian Prundeanu <cpru@amazon.com>,
+	Breno Leitao <leitao@kernel.org>
+Subject: Re: [PATCH v11 06/11] iommu/arm-smmu-v3: Add
+ ARM_SMMU_OPT_KDUMP_ADOPT for kdump kernel
+Message-ID: <atjB34tvJySp9abz@google.com>
+References: <cover.1791226953.git.nicolinc@nvidia.com>
+ <ee4257b62324aa75d7140f1f4a49aa0f78586fff.1791226953.git.nicolinc@nvidia.com>
+ <atdSrRwrphdI9ZQA@google.com>
+ <atemgT/67JPpdk57@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,63 +104,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] usb: dwc3: qcom: Check for L2 only when suspending a host
- with wakeup
-To: fabricioakio@gmail.com, Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Wesley Cheng <wesley.cheng@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-References: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260928-dwc3-qcom-l2-check-v1-1-43c5c6e97922@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 76Tyqkphi45WSnKxHd9e89w5-ui2-yrT
-X-Proofpoint-GUID: 76Tyqkphi45WSnKxHd9e89w5-ui2-yrT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfX2qTzEWo+9o3H
- YQeYKjMawETEYUSpUyE8n1r0B57EPhvc181SXRT9sHCyzRhKY/WRdH+o8lcHsXenEe6V0rga1+I
- yvzHHJWZLW4ysjepJvRBMwMk14z4AZA=
-X-Authority-Analysis: v=2.4 cv=R7aWitRX c=1 sm=1 tr=0 ts=6ad8c1d8 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=QFNGBFAix9GFkXGs:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=pGLkceISAAAA:8 a=0a4RfB2vrMYbvN3io2kA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NCBTYWx0ZWRfXyoHKVp96T6Ho
- Fki3vEdYkGWG3PZ1RDdd41YLc5l/fooQ3mTM88LKtvxqGgEmLf1ngbN2fIqGJA9ydrMXxcQT4J2
- twyPxKKbWlSEg/2fGYTfwuKr35tW3HRwKjhx70L9iUrz+cKn10KVUj+l0Qfd/F1KHUU4+W8hPdh
- hKZVbUTXDJgQtbttjV94zkb0X4N3GpNYjkUeMAIxo4JWxnAzF5fXyVppYpisJAGn34a55bvdHp9
- IHYb1DLFfTraxQkMZekGHAYJErFLzTez20sc77pL1J/hwZeLIXvuAnu7o79jdm2fUWpV41xInKP
- N3Hdc9CxiFlSp5VtjLpatqZcQsKfVAYxKtz1KLWdPzHZiCkS79C6x0ETaQanSNxdNGjL775JNvt
- Kp2KYegosJp+T3Jh+QVLc10SrTMZA2mgBhYpJbx9z5RLTxtw3ycL5nWnxaffdQ6EGZfe4qQL7nV
- FRJOK4CLTSeXcHX0rAg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 bulkscore=0 spamscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210054
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atemgT/67JPpdk57@nvidia.com>
 
-On 9/28/26 8:16 PM, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
+On Tue, Oct 20, 2026 at 10:36:01AM -0700, Nicolin Chen wrote:
+> On Tue, Oct 20, 2026 at 11:38:21AM +0000, Mostafa Saleh wrote:
+> > On Mon, Oct 05, 2026 at 12:30:49PM -0700, Nicolin Chen wrote:
+> > > +	/*
+> > > +	 * According to spec (6.3.24), HW aligns the base down to the table size
+> > > +	 * and ignores the low bits, so an unaligned base would make this kernel
+> > > +	 * read a different table.
+> > > +	 */
+> > > +	if (!IS_ALIGNED(base, size)) {
+> > > +		dev_err(smmu->dev, "unaligned stream table base %pa\n", &base);
+> > 
+> > I understand these are best effort, but what happens if the address
+> > corrupted and happens to be aligned?
 > 
-> In peripheral mode the core disconnects and powers the PHY off before
-> the glue suspends, so the link never enters L2 and every system
-> suspend logs "HS-PHY not in L2". Check only for a host with wakeup,
-> the one case that parks the PHY in L2.
+> This is a basic sanity so HW wouldn't immediately fail. A corrupted
+> address would be trickier to test out; also we don't have a perfect
+> way to do that. Earlier versions had some address range check. I've
+> dropped it, following Jason's comments.
 > 
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
+> This is also in the kdocs of the whole smmu kdump functions:
+> 
+>  *  - Only a coherent SMMU (ARM_SMMU_FEAT_COHERENCY) is supported, as the stream
+>  *    table adoption is done by memremap with MEMREMAP_WB, which is verified on
+>  *    the real hardware. Callers of these functions are responsible for gating
+>  *    ARM_SMMU_FEAT_COHERENCY once during the probe.
+>  */
+> 
+> > > +int arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu,
+> > > +					    u32 sid, phys_addr_t base, u32 span,
+> > > +					    struct arm_smmu_strtab_l2 **l2table)
+> > > +{
+> > > +	struct arm_smmu_strtab_l2 *table;
+> > > +	size_t size;
+> > > +
+> > > +	/*
+> > > +	 * Retest the span in case the L1 descriptor has been overwritten since
+> > > +	 * the adopt. Reject this master's insert; panic or SMMU-disable would
+> > > +	 * either lose the vmcore or cascade aborts. Do not try to fix it, as it
+> > > +	 * would break all other SIDs in the same bus (PCI case). The corruption
+> > > +	 * blast radius is already bounded to that bus range.
+> > > +	 */
+> > > +	if (span != STRTAB_SPLIT + 1) {
+> > > +		dev_err(smmu->dev,
+> > > +			"L1[%u] span %u changed since adopt (was %u)\n",
+> > > +			arm_smmu_strtab_l1_idx(sid), span, STRTAB_SPLIT + 1);
+> > > +		return -EINVAL;
+> > > +	}
+> > > +
+> > > +	size = (1UL << (span - 1)) * sizeof(struct arm_smmu_ste);
+> > > +
+> > > +	/* Same live-corruption check as the span; reject an overwritten base */
+> > > +	if (!base || !IS_ALIGNED(base, size)) {
+> > > +		dev_err(smmu->dev, "L1[%u] bad l2 table base %pa\n",
+> > > +			arm_smmu_strtab_l1_idx(sid), &base);
+> > > +		return -EINVAL;
+> > > +	}
+> > > +
+> > 
+> > Those are a bit similar to arm_smmu_kexec_parse_strtab_2lvl() is it
+> > possible to have some helpers instead?
+> 
+> Sure. I can do that.
+> 
+> > > +int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
+> > > +{
+> > > +	u32 cfg_reg = readl_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE_CFG);
+> > > +	u64 base_reg = readq_relaxed(smmu->base + ARM_SMMU_STRTAB_BASE);
+> > > +	bool was_2lvl = smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB;
+> > > +	phys_addr_t base = base_reg & STRTAB_BASE_ADDR_MASK;
+> > > +	u32 fmt = FIELD_GET(STRTAB_BASE_CFG_FMT, cfg_reg);
+> > > +	int ret;
+> > > +
+> > > +	dev_dbg(smmu->dev, "adopting crashed kernel's stream table\n");
+> > > +
+> > > +	if (fmt == STRTAB_BASE_CFG_FMT_2LVL) {
+> > > +		/*
+> > > +		 * Both kernels run on the same hardware, so it's impossible for
+> > > +		 * kdump kernel to see the support for linear stream table only.
+> > > +		 */
+> > 
+> > STRTAB_SPLIT which influences ARM_SMMU_FEAT_2_LVL_STRTAB is a SW choice, so it is
+> 
+> I missed that.
+> 
+> > possible to get such mismatch if STRTAB_SPLIT of the newer kernel is larger than the
+> > older kernel.
+> > However, I agree that in that case it's better to refuse the adoption.
+> >
+> > > +		if (WARN_ON(!(smmu->features & ARM_SMMU_FEAT_2_LVL_STRTAB)))
+> > > +			ret = -EINVAL;
+> 
+> I can replace the FEAT guard here with
+> 
+> 	if (WARN_ON(FIELD_GET(IDR0_ST_LVL, idr0) != IDR0_ST_LVL_2LVL))
+> 		ret = -EINVAL;
+> 
 
-I think we should be able to retain the link in L2 in device
-mode too upon suspend, but that needs more plumbing on the
-clock/gdsc side? (+Cc)
+That makes more sense with the comment about for structural validation,
+although.
 
-Konrad
+> > > +		else
+> > > +			ret = arm_smmu_kdump_adopt_strtab_2lvl(smmu, cfg_reg,
+> > > +							       base);
+> > > +	} else if (fmt == STRTAB_BASE_CFG_FMT_LINEAR) {
+> > > +		/*
+> > > +		 * The kdump kernel need not match the crashed kernel. An older
+> > > +		 * crashed kernel that predates two-level stream table support
+> > > +		 * may have used a linear table on 2-level-capable hardware, so
+> > > +		 * enforce the same format here to match the adopted table.
+> > > +		 */
+> > > +		ret = arm_smmu_kdump_adopt_strtab_linear(smmu, cfg_reg, base);
+> > > +		if (!ret)
+> > > +			smmu->features &= ~ARM_SMMU_FEAT_2_LVL_STRTAB;
+> > 
+> > For simplicity, it is better to enforce the same table formats between
+> > kernels as the rest of the file, for example,
+> > arm_smmu_kexec_parse_strtab_2lvl() refuses different STRTAB_SPLIT.
+> > Some checks can be removed and the was_2lvl error path. It's
+> > very unlikely to hit such case anyway.
+> 
+> Sashiko pointed out a corner case that a modified kernel kdumps
+> into a vanilla kernel. It is not really a big effort to support
+> it. So, I would rather keep this.
+
+I see, I have no strong opinion, but I think we can just ignore sashiko
+here, and this can be a limitation as long as it fails gracefully, it
+makes the patch slightly easier to reason about.
+
+> 
+> > > +	} else {
+> > > +		dev_err(smmu->dev, "invalid STRTAB format %u\n", fmt);
+> > > +		ret = -EINVAL;
+> > > +	}
+> > > +
+> > > +	if (ret) {
+> > > +		arm_smmu_kdump_adopt_cleanup(smmu);
+> > 
+> > Probably easier to inline the error handling after each call and remove this?
+> 
+> I don't quite follow this. The clean function is used by three
+> sites. How can we remove it?
+
+I see, I missed it is also used in devm_add_action_or_reset()
+
+Thanks,
+Mostafa
+
+> 
+> Thanks
+> Nicolin
+> 
