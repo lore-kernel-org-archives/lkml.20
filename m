@@ -1,96 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551057;
-	b=XvnnZUBeB2x5W5zrofquFgWy7/LXzU7yd/644jWtorSgnqLic7S8GnfZ/W7EaFsOTFCV
-	 xHpkUer4Za+VB5k4WL9pkY9jKNIGPMMEI4oiSjXdaPj2t9qP4c2n+3NKP3xPpXOZW6kNs
-	 bGPrA6uIpuU5d/HOHpZm8QZI4ObESD1/Ljyjx5KJMM984YIeXAJ4cboBXsZOoMcPWdwLp
-	 nkf55DYUCQrXYNSaPLJYsoWuv+e6wUJjr6HuHnkqEVcYSYLRuyyEyHFo8DARBJGqfx98W
-	 tvs/ckgdlrXdni1Wn+h4hp4s7RJj5E1BXn7g+vL5wxo3/i2hhUjbY3F849wG4aO4luQ==
+	t=1792551062;
+	b=DR2L0nhT0j5eYBJ01UZO6HRr5xemiHbV8McXGihgCo7z5fuWMKpc7lm73Zr4R9uHzSjL
+	 JoiXSdTATdYB7CR8qrlf5Xdg8xd3pEpU1Sh/tdXaeSqkFhUgBVxrQ/dRj7E4h9dnz72PV
+	 Ioo6TApx6U9dm9uV+6nQVVf+NvuJj37oujJi64Q3TX5P7mH/8Cl7wSUiSlm91f+kEitYH
+	 F5Cw47WuXa7TowqES4vePWRypiGfzoxrUas/vdcKnbCzwXmhZI+wadm9SOmaYn+rkBn9v
+	 uNf2LkSGP5JOgx3isHBIVGBO3wotAAFux4M3m+Z4O/QCX1+SEfmFjgeHdj3aLe2Jksg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551057;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551062;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Subject:To:References:Cc:From:Message-ID:Date:User-Agent:MIME-Version:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=GHpCiXrobtjq+79vNH0JP2GJuLZO5PYviPAXuNKXvXU=;
-	b=AchpAhprh/C+IYGp9WwOEoEa3RHt3SzBgZ9/6U9kgCw4g21EZuUhbIxG2qOwulnAbzDb
-	 DdjYZUTvkK1ei425gQY4j1jruPNquBFePJNNMe6rsiXN7f/n8+r/F5ofOwX2aBEGbGs/8
-	 UbjmB59tRcw5ZW9rKOHFkusk8XOQn2R3AojrxRQVUt3L2kWRrxmLaho5VIVL/WKpYEaNs
-	 YyUeVZd08jrifZPPdWTtltdGrre7OuZ2H7lnr7xFcll2TV1GEG3BK63L9JgdRdwYKVPB9
-	 BT89bREy+dLfgoxaiA5TMnq4X5IP+JR6aphXp2FZS+lTh32XTZSlYEo4KOansGsn3VQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=TRrUu+6otZ1MrISxoN37o96DSURfs40tWglYbeE1Glg=;
+	b=DYUqIism4Ql+9deFSXluoBCGLtFH4yWi1mFOL76J/ogWloU33g08llxbvbEYsf2z5ngC
+	 Ec0jWPQWwl1fAqRT1Ml19BJUl7rpI+bv3rA6mKvi/Ptr+h7eTvinTeAqg1Zd3uK32rp3D
+	 fudnyAfMaSHLK+c/8eKyvO1I0sbmdt/JQz8MeTkLL/2l5b2/Tw+5Yecu8Jk8zZBeZxlwu
+	 S87iedRk6oT6AjPaw+Z31iBf0ffusk2bdLJG4iQI7RhBF1EXCEy3aofNYlr2XhJn40o04
+	 inCKaND/1PX5uSkA62bXDI2CfSJ5ta3g4tRZ/vC5Dmnv/AzmxDviAzLY2gbFyfGFKtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rOOW0LFU;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XIQjfX32;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F206606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:50:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F206606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F261A606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:51:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F261A606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=rOOW0LFU
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e9cf928dc9so6871885ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:50:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XIQjfX32
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3aaf955db5fso508144a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:51:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792551057; x=1793155857; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:cc:references:to:subject:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=GHpCiXrobtjq+79vNH0JP2GJuLZO5PYviPAXuNKXvXU=;
-        b=rOOW0LFU9Nic3tkOfZ9safmfimFzgnPg9RA53cW9fNyVz/eMwOnmSZrIEBqalv//pz
-         glfYocPPfaEcDdpqjRwf0FRJQD+ue9nkh3LpNi7g2yH9UEOzhltZ5TLYsq/mLT8Cq+/x
-         81G2rNC+kc5IS/UzHptyk/JOiT9LzoIl8mDq5ggaQWsI8Bj4xxiiMhfQ0pECKDz3rEdt
-         4jz99mnn5mWI13md7lxwwiiEuDMn6z9bNj80RCcOW1jJHGnG2EO+Z2LCHIfsKgJQvCAG
-         2+tWDaGpfBXMEgwm53lxLVnb0oNsVIlFBPAK6JmfSk0M5+j29A8/K7es4FeeYvIjZ7ll
-         aW2g==
+        d=google.com; s=20251104; t=1792551061; x=1793155861; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TRrUu+6otZ1MrISxoN37o96DSURfs40tWglYbeE1Glg=;
+        b=XIQjfX32oJFj/ebKgzHO6OhbnSMlESzNivhvsQ5Nn+s3FCLO+894uYKuNslrFC1K1X
+         KCayLxDollMC32NA0B3G5opyOmkTPMBV+qnwuBUJMNAWrCik+i1x1FoS7yWNReYfr4Kz
+         YMJR+rUCn7ZR+mgyfUNFvrNS4nPuEGoeudG2bCeriSU2z6Jqj//RYeDtJceKcqt7QB+p
+         0tfxEkR2gxjNCPaD5Lkgow9OeKWGNPVIeuH6mANwIPR0Rwk9auq/Ot2Lj1IOaxNsNrod
+         cuJnVzpRPvHHTABc5SA/sjG5j18VMUgGQ7NqfvCrqu1vCd7JnCr0C1XFybXxZJWO5dlW
+         Vxaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551057; x=1793155857;
-        h=content-transfer-encoding:content-type:in-reply-to:mime-version
-         :user-agent:date:message-id:from:cc:references:to:subject:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GHpCiXrobtjq+79vNH0JP2GJuLZO5PYviPAXuNKXvXU=;
-        b=Vbb8vqgp/Iv2hehkha6lB6qdqPav/dZg+f4CV9SOirM7H5UJK7PiJOqWfKLZfnuy4k
-         iZr0CD50DVy7yvPpsA6ByCLuWf3J7ezrpy9IpYDUZO4fmQWIbGkIK9T0saCKE15EX6BE
-         i9igDmTImeIDIdZZD7JqHZILTfHb+y7Bb43fFTpPlXrRyJgSHKqvgUTGZdSTrroApsK9
-         yzuIKmQD7e0aoDb0tXk0TMeKcYB7FMi1T/Yo2SYEJAYsUmsn6RwIJHQ5dtWyxUPZLfwK
-         RcKdo0BggkYjcMkYTMV0u/Q1urV9I99Ds1WUZP3qlGC5lq03qlR+yxGJtcIWaR1maEAn
-         AubQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx4fvlfYr8OfdRBZb/gpC4Hz0/DnXBOXeaIqtdead2fGYyFviL146upJGQNaRwvLIuPExiXfo3ZLjdbsSo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ8vEJ/i3en4VEjxEQyiMn+4S9OZS0o3slKEqnz8Qihf/bK2rRo
-	PzUrRrQLGn9i/Y23TnQ/wUHm8NlLja5Cxt34wUXvMRqDfXyt8HL7/frxBxcAwQ==
-X-Gm-Gg: AYBFou1/ctGdMfRnvzVHJ5dyOj76D6AkgKoZrDMe4JQHOXQcCUBP6ODEn0AN0Syzonf
-	yqTyZj5ByZ8rZXqjArSYR7qw9IIcutMbXoOQO8u62Kttp0l0dKHRtMa3fAr27FJ6aRBd5QyriAs
-	S/hURNNc++IdTyKlP4+qjvXH0ZBmmegM/l7QfMKHhNqFS46n3VJX6EHVx9YAWxArrKBz2/IkYyW
-	0NnTG/+dBRhK1fsEi3BkfVorsWkLbINFh+dOT83HRsXb0WEJ0A2dfFTX+4zrGSNETxZAztS4ZXZ
-	N6SsstwRH1mfD+PyiH7hKWbW5MevOACm5Lw2w9eYi5p3BbbgwfeeQKvIxkYSdH8Bc+fzWRmKj4H
-	QILveG4d/og3pr8A0DaScx+Y/6CuwvOfLCTnhWptsHhhp4CC4CuH3CktoaA0qTBjTzut+laWCn6
-	8LxPpU49OmQNo/fv7B/ZHZ67zNrEm5UQpCmkzACoqbuUqwW8PdnuGhSrABJtPorew+G5q/LX6CO
-	D+91OytrYAilzjk+6+a+cHBQD41K/WW2jcqj/xZl0JWv9wCxpoKqsovZlj21mAoEx5a40uCKOaF
-	Ih9WMKdRH8c=
-X-Received: by 2002:a17:90b:4e8e:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3ad86f28703mr395508a91.28.1792551056635;
-        Tue, 20 Oct 2026 19:50:56 -0700 (PDT)
-Received: from [10.1.1.24] (122-59-250-182-adsl.sparkbb.co.nz. [122.59.250.182])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80fc21dcsm1837926a91.7.2026.10.20.19.50.52
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 20 Oct 2026 19:50:56 -0700 (PDT)
-Subject: Re: [PATCH v5] m68k: Fix atari mouse movement
-To: Miro Kropacek <miro.kropacek@gmail.com>, geert@linux-m68k.org,
- dmitry.torokhov@gmail.com
-References: <20261021000338.2160223-1-miro.kropacek@gmail.com>
- <20261021022336.2232886-1-miro.kropacek@gmail.com>
-Cc: linux-m68k@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Michael Schmitz <schmitzmic@gmail.com>
-Message-ID: <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
-Date: Wed, 21 Oct 2026 15:50:49 +1300
-User-Agent: Mozilla/5.0 (X11; Linux ppc; rv:45.0) Gecko/20100101
- Icedove/45.4.0
+        d=1e100.net; s=20260707; t=1792551061; x=1793155861;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TRrUu+6otZ1MrISxoN37o96DSURfs40tWglYbeE1Glg=;
+        b=kqeW7cIrPEbJdnrHz6t2saGfktJf5vnsFAgZiWXX74gpBmafYCvoHzL7axg5vHGW9B
+         XhU+nkLMACs6Pk4MeAfpOyeRt2ShUfka1WKOnOg/eg1ZAewCM+Yzd6YoRVuiIsqcXM6w
+         Zt9dAsPFl0hhDmbHg9FvXBt6DYyOC+1sK4J++dvx7AJoGZxdlWGfY7BvHEw7pQg/jk0X
+         4EyTULqgfCMWakVSuESfUwHnleOml8l5m135Se7JiaTXdyDGekgttsOaeDRyk5eIYz3a
+         xXsSe6xFokdFbprk7iSyCdEPeP930p6NJfbpuh9ZaeAy+qNSpO4Hqt0+LxnJmPbBIqOA
+         aWMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxX796yrIOmrTqG/LQRaIXDWRc1EbOmIgSDUxXlQ2mYVd8OS5ABbsQvQv+J23vX4X7ixHGnbRWk1pymnBU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJytxvhPW6u1K7LtfC96ac1a1cMPSVhOG61WMkwO/7HdUbPinCD
+	53krbUwGmetUdkuLOUzHSD2gdcXrrjFNYyVJDMT0fCXouXxFf4G657+yzzNgsSuD4tbWE2UJQFc
+	Xyy1Luw==
+X-Received: from pgp5-n2.prod.google.com ([2002:a05:6a02:62c5:20b0:cd3:da0f:775b])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:ba06:b0:3ad:870d:1bfa
+ with SMTP id 98e67ed59e1d1-3ad870d1c45mr410921a91.23.1792551061087; Tue, 20
+ Oct 2026 19:51:01 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Tue, 20 Oct 2026 19:50:59 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,116 +76,60 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-In-Reply-To: <20261021022336.2232886-1-miro.kropacek@gmail.com>
-Content-Type: text/plain; charset=iso-8859-15; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021025059.1736339-1-seanjc@google.com>
+Subject: [PATCH 5.10.y] KVM: x86/mmu: Preserve nested TDP shadow page tables
+ if they are used as roots
+From: Sean Christopherson <seanjc@google.com>
+To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Sasha Levin <sashal@kernel.org>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Miro,
+From: Hyunwoo Kim <imv4bel@gmail.com>
 
-Am 21.10.2026 um 15:23 schrieb Miro Kropacek:
-> Kernels are built with -funsigned-char since version 6.2, resulting in
-> the signed 8-bit position deltas reported by the IKBD being
-> misinterpreted as unsigned.
->
-> The hook is handed a raw IKBD packet, so take it as a byte stream and
-> apply the sign to the two displacement values alone.
->
-> Fixes: 3bc753c06dd02a35 ("kbuild: treat char as always unsigned")
-> Link: https://lists.debian.org/debian-68k/2026/08/msg00000.html
-> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
-> Cc: linux-input <linux-input@vger.kernel.org>
-> ---
->
-> Changes in v5:
->
-> - take the packet as u8 * and cast only the two displacement values,
->   as suggested; this drops the call-site cast v4 needed, and with it
->   the -Wpointer-sign warning
-> - add the types include atarikb.h now relies on
->
-> The same cast of the two displacement values was tested on an Atari
-> Falcon030 with CT60 in v1 of this patch; v5 differs from it only in the
-> type of the hook argument.
->
-> Michael's Reviewed-by from v3 is dropped, as the approach has changed
-> twice since.
+[ Upstream commit 7a2c70e777a00c32ebafd376a6fe31ebb91c5b20 ]
 
-Dmitry's reasoning makes sense to me, so we're back on v1 with no change 
-in functionality.
+kvm_mmu_zap_oldest_mmu_pages() excludes a shadow page whose root_count
+is non-zero from top-level reclaim, because such a page cannot be
+freed. The path in mmu_page_zap_pte() that recursively zaps a parentless
+nested TDP child has no such check. As a result, a shadow page can
+be zapped even if the page itself can't be freed; as the comment in
+kvm_mmu_zap_oldest_mmu_pages() notes, zapping it will just force vCPUs
+to rebuild the page.
 
-Looks good to me, feel free to add my Reviewed-by if it helps get this 
-merged.
+As in top-level reclaim, do not recursively prepare zapping of a
+nested TDP child whose root_count is non-zero.
 
-Cheers,
+Fixes: 2de4085cccea ("KVM: x86/MMU: Recursively zap nested TDP SPs when zapping last/only parent")
+Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[sean: resolve minor conflict due to lack of lockless aging in 5.10]
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/mmu/mmu.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-	Michael
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 13cad4becfba..d2428c76d940 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2237,7 +2237,9 @@ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
+ 			 * avoids retaining a large number of stale nested SPs.
+ 			 */
+ 			if (tdp_enabled && invalid_list &&
+-			    child->role.guest_mode && !child->parent_ptes.val)
++			    child->role.guest_mode &&
++			    !child->root_count &&
++			    !child->parent_ptes.val)
+ 				return kvm_mmu_prepare_zap_page(kvm, child,
+ 								invalid_list);
+ 		}
 
+base-commit: aca95a35f1bcc0626c4fa4d1252bf2d4c990a1a2
+-- 
+2.56.0.218.g1ec904b173-goog
 
->
->  arch/m68k/atari/atakeyb.c        | 2 +-
->  arch/m68k/include/asm/atarikb.h  | 4 +++-
->  drivers/input/mouse/atarimouse.c | 6 +++---
->  3 files changed, 7 insertions(+), 5 deletions(-)
->
-> diff --git a/arch/m68k/atari/atakeyb.c b/arch/m68k/atari/atakeyb.c
-> index 49a9a459bdf4..b715e2b8351c 100644
-> --- a/arch/m68k/atari/atakeyb.c
-> +++ b/arch/m68k/atari/atakeyb.c
-> @@ -39,7 +39,7 @@ void (*atari_MIDI_interrupt_hook) (void);
->  /* Hook for keyboard inputdev  driver */
->  void (*atari_input_keyboard_interrupt_hook) (unsigned char, char);
->  /* Hook for mouse inputdev  driver */
-> -void (*atari_input_mouse_interrupt_hook) (char *);
-> +void (*atari_input_mouse_interrupt_hook)(u8 *buf);
->  EXPORT_SYMBOL(atari_input_keyboard_interrupt_hook);
->  EXPORT_SYMBOL(atari_input_mouse_interrupt_hook);
->
-> diff --git a/arch/m68k/include/asm/atarikb.h b/arch/m68k/include/asm/atarikb.h
-> index 68f3622bf591..bdf67bff1472 100644
-> --- a/arch/m68k/include/asm/atarikb.h
-> +++ b/arch/m68k/include/asm/atarikb.h
-> @@ -15,6 +15,8 @@
->  #ifndef _LINUX_ATARIKB_H
->  #define _LINUX_ATARIKB_H
->
-> +#include <linux/types.h>
-> +
->  void ikbd_write(const char *, int);
->  void ikbd_mouse_button_action(int mode);
->  void ikbd_mouse_rel_pos(void);
-> @@ -37,7 +39,7 @@ extern void (*atari_MIDI_interrupt_hook) (void);
->  /* Hook for keyboard inputdev  driver */
->  extern void (*atari_input_keyboard_interrupt_hook) (unsigned char, char);
->  /* Hook for mouse inputdev  driver */
-> -extern void (*atari_input_mouse_interrupt_hook) (char *);
-> +extern void (*atari_input_mouse_interrupt_hook)(u8 *buf);
->
->  int atari_keyb_init(void);
->
-> diff --git a/drivers/input/mouse/atarimouse.c b/drivers/input/mouse/atarimouse.c
-> index b1219cc4d9a2..c5b794262e85 100644
-> --- a/drivers/input/mouse/atarimouse.c
-> +++ b/drivers/input/mouse/atarimouse.c
-> @@ -60,7 +60,7 @@ extern int atari_mouse_buttons;
->
->  static struct input_dev *atamouse_dev;
->
-> -static void atamouse_interrupt(char *buf)
-> +static void atamouse_interrupt(u8 *buf)
->  {
->  	int buttons, dx, dy;
->
-> @@ -71,8 +71,8 @@ static void atamouse_interrupt(char *buf)
->  #endif
->
->  	/* only relative events get here */
-> -	dx = buf[1];
-> -	dy = buf[2];
-> +	dx = (s8)buf[1];
-> +	dy = (s8)buf[2];
->
->  	input_report_rel(atamouse_dev, REL_X, dx);
->  	input_report_rel(atamouse_dev, REL_Y, dy);
->
