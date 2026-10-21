@@ -1,55 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606842;
-	b=JnQSPOZhijWDht8KRwHmY+aTwc9R0DxhDUP5LyBlEA/5V4r2SGJq1c8H6gNT0xOvtiHV
-	 6OpL9bKa4BpwTn+3xR+7HHcN6kJkDhqcFsPL1OIaprQ+qOEjROXPAfm/YOx+iNRag15Oa
-	 H4G0HUbSjpKyiJ/B3ZoEB9BP8dzblqCEiccM+EaAHH1KBrAlBNbs1JoQI8JqrDLMGW7hI
-	 jqU5EuyfA5wxt2dDEgfNmjm84RIYa3s0XYeNlA8hu+xuCUwTA91wDy4jez7lRuMr/HSqS
-	 378KnO3Q2uMYkpgLphUuEwopX4ANExFloHuFjfC4s2xTUOz3dFjMR3Qx44uxzNn0zpg==
+	t=1792606919;
+	b=jM+CLmnNm0zYjcZIHXg00FTJ9g3zvZhF6EM8Hrp/RO603AVlQQKvDTQ5J0ihV55I+Mb5
+	 8cHFd9oVrsMt4TOL/+RSYndRPNxgfOh2HMqb79otqcg4mtpclFW+ZI4L/5NiDwG7nJrCy
+	 CPkHQ2TEv6FpKFpFrO/vj+czOdfwZXhZVzT5ZVVZi4ZEPwyZ1LisTnhEoMrXFuPmoz/ci
+	 6bJskR4Kd8zQuRHLM5IRF0XsG3dYF8GMWyJzUscGdTlTpl6C1kDF03omxEuMoYPST4fus
+	 ZdlXHbgcZOEHFPFQTHdfXFcQ4KDteBCEx1L9P6XZfMIs2CnGKARJIlaS6Z4u875GbcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606842;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3RB8pGqoFevwjpm7hqYDh3Z0YhJECl+wf0Lwr/YiYQk=;
-	b=Num8BvtveeofgwxdQP/lvLoecFFDz5SaND2qN61egpjPuDNlOVohqhkUq22Y7pv9nG4j
-	 TzCVmmgYpV/6N7QSFjyOCdlr2s66Ym5tvfpJIxEQ+L9kuzpneRxl5dLotU/Rmx9whvMqB
-	 xVyuExEKwU2FU55ZAjZZtSDK/fFnGk/CCzbj7Ay1UGbM1mMGT6nu9Sy06FqhIuoP3bTpw
-	 LM7sfg51dy1ItIq+JqpdFh52jw+wPPa9/TqY7JgRTFvOMM65NzyLGRauv/4AtmZEnkvt4
-	 DYiKV8tIv/y8nrpSbE46DPD9FlChG0P7k/oMqOBU/QaJ7LOj8XDyWfHbcEN+VpLmGnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606919;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=0Xi0GKbMN2Oqdu7m+YBVdZb5sclpnnu0dtiqv8V8WVI=;
+	b=tHHbKmAKDeA9pKsL5HmZ18LvbRuaqHZqjqjqWMGtsGW0+yuT5S5SFimlErZzuIC51I+5
+	 xGLW3Y32kYX10imaYw0dqIHRbpQVBeZFTn7O61X7Wc2xzbKOYmxNHWk8KrHaE5mvvBfTs
+	 D2S9lsXhbrXDCSP4rKvmixn0kp299oCZ2woSmkqR2m39YSMPgIMrzNa84B0mHvZD3UbAH
+	 gCpCkWMPPfg4nrFdqT5UjF+HWk7GvxlFsR6P+NyJa/czeaEb3h5QvdY7o/v2zWJKJuFdj
+	 xHA0ObJyh34Npm1q5HL7P6eEnW07wE1vwD6qlm/WfmETIJa8H3XlLqfbSpufOLGxKXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XorJYn+h;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CnzU1iGG;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41DE606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:20:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89540606A319;
+	Wed, 21 Oct 2026 18:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89540606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XorJYn+h
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD571F000C8
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:20:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792606841;
-	bh=3RB8pGqoFevwjpm7hqYDh3Z0YhJECl+wf0Lwr/YiYQk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=XorJYn+hh8+QV5j9kCCSgIJ80rJZGdHc4PL2XqIIDp/VAJ5pSgngbEND2Elg2a2MK
-	 +ZI27Xx62nRMhJ/KqbqvsnoNAjY+2Neg/8GumCtLZ8XAiYDCmDl6AYdpmecQXtT6st
-	 0kRAwIBtir6Iz6uSatsX1p1inuOlWAELZcT//pjCMmJoCYPweyH5vqWyGZwLKWoMd9
-	 qt5uSyRl2qmK7OudqFGY3WeSbMseSnzer7MPX9QqZJbF13ssu2Ma5e2s1Ed0EYkjSl
-	 xz0EjZru7Hk1gliznBNz9U9fz03jD4Un1xHEIubRmbrIVwwt5swT5hP/Anji4bsld7
-	 dw5EGSw9SO6mA==
-Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a6f2825dd6so295365fac.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:20:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzpiV58n+b3UQcREW3mo/yJ7jWvUkM+dxZBlF+zuwcbsmnyFfqf85iZmp6/lSmlhVQXs5S6GUx4/svGMI8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLuOozAWdEZ0pPonjcsBn65YIwPFhPPUMkBHiXYjXjg0nSDQ+bf
-	NEA5cfSel7ibh7gp1qyOH80mICWW7gcLY0yna5YXZPGZR9gPA6f5FjYQdN2m5qvgBGhQNPPaiM5
-	fbyoLwF2UEK3llXVdx2adtceFPlQ9Dic=
-X-Received: by 2002:a05:6870:7097:b0:4a6:f0b3:79b3 with SMTP id
- 586e51a60fabf-4a7dbf3b81bmr1643703fac.8.1792606840868; Wed, 21 Oct 2026
- 11:20:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CnzU1iGG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792606918; x=1824142918;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YqEW9tVezdaoJ8G/XXWCUZ3u3M0v5a2gt+v3QGHcdkM=;
+  b=CnzU1iGGfBCFldp2qcxkxhg7MsgPFzTdHtfaaL9RJiXMKyD+v3x6eGlD
+   bzN+XvePYX652/CTX9JiAtzA7YPxc/0jXyPmP7tugQh+yRdduxM4QSDpj
+   gqO6iyRKxNZF38tFHml/bveGQgwutT6sKFta2D5CG52Jh9fogwWgcQRoj
+   8eghIGgexky9u95sYlerdz8idKu3XmHCxY7F1Y8BGvsp1u22UMgxBcsPw
+   XMhO0EC7BS0kPDZDfWuOq3ikvHZIR2+VxFHDyJb//VZswEJ+xT4n1+YHI
+   ZBQxx9AO+18kGxs8kiMPDL4F07pmEfy6DXbblby0WQQZw/XPvWi23V47J
+   A==;
+X-CSE-ConnectionGUID: PPDsYtnRSyCqKYs6EmtTSw==
+X-CSE-MsgGUID: rcGzBuCKTRa04W8DEvKsDQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1437979"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1437979"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:21:58 -0700
+X-CSE-ConnectionGUID: gj6my4CVQ+i+jFfC0jgiHw==
+X-CSE-MsgGUID: Zk07A7/XRMyswhzHp96dQQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3225895"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:21:54 -0700
+Date: Wed, 21 Oct 2026 21:21:52 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>, Andy Shevchenko <andy@kernel.org>,
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] Input: soc_button_array - use __free() cleanup
+ facilities to free memory
+Message-ID: <atkCwCXRcobOI9J2@ashevche-desk.local>
+References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+ <20261021015004.1537738-2-dmitry.torokhov@gmail.com>
+ <atjw4b-ICVGH3-2a@ashevche-desk.local>
+ <atjyyqxnlqEvwNxh@google.com>
+ <atj5pgIU0VCcrHHX@ashevche-desk.local>
+ <atj71VUZdpHO4aBT@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,79 +86,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021180329.26358-1-nick.simo@gmail.com> <20261021180329.26358-4-nick.simo@gmail.com>
-In-Reply-To: <20261021180329.26358-4-nick.simo@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Wed, 21 Oct 2026 20:20:29 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiiq6Jy1XPtkrA-Ge2N+voJrE86DWPJp_jXwHJG3ZgMvPaQ@mail.gmail.com>
-X-Gm-Features: AclHuK92ROo2GQDUw7T4ShtS9Gq30MtN5yysthtRvbBAH8cdJS4sBr7rxyIL9QU
-Message-ID: <CAL4Wiiq6Jy1XPtkrA-Ge2N+voJrE86DWPJp_jXwHJG3ZgMvPaQ@mail.gmail.com>
-Subject: Re: [PATCH net 3/3] ipv6: validate checksum_start before fragmenting
-To: Nick Simpson <nick.simo@gmail.com>
-Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, David Ahern <dsahern@kernel.org>, 
-	Ido Schimmel <idosch@nvidia.com>, Stanislav Fomichev <sdf@fomichev.me>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
-	Phil Sutter <phil@nwl.cc>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, Willem de Bruijn <willemb@google.com>, 
-	Jason Xing <kerneljasonxing@gmail.com>, Song Yoong Siang <yoong.siang.song@intel.com>, 
-	Rusty Russell <rusty@rustcorp.com.au>, Max Krasnyansky <maxk@qualcomm.com>, 
-	Sridhar Samudrala <sri@us.ibm.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
-	bpf@vger.kernel.org, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atj71VUZdpHO4aBT@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Le mer. 21 oct. 2026 =C3=A0 20:05, Nick Simpson <nick.simo@gmail.com> a =C3=
-=A9crit :
->
-> ip6_fragment() and br_ip6_fragment() complete CHECKSUM_PARTIAL skbs with
-> skb_checksum_help() without checking where csum_start points. After
-> reassembly by nf_defrag_ipv6, the IPv6 header has moved forward by the
-> 8 bytes of the fragment header while csum_start has not, so a
-> CHECKSUM_PARTIAL skb from an untrusted source (tun/tap or packet sockets
-> with a virtio_net_hdr, or AF_XDP TX metadata) can have csum_start inside
-> the IPv6 header, and the checksum is then written into a header that the
-> forward hook has already accepted. When csum_start lies before the
-> network header, skb_checksum_help() warns.
->
-> Add the IPv6 counterpart of ip_check_csum_start() from
-> commit 6785011f8b16 ("ipv4: validate checksum_start before completing
-> checksum") to the two IPv6 fragmentation paths: refuse to complete a
-> checksum that starts inside the unfragmentable part of the packet (the
-> IPv6 header and the extension headers before the fragment header) and
-> drop the packet instead.
->
-> For IPv4, ip_check_csum_start() is also called from nfnetlink_queue,
-> xt_CHECKSUM and xfrm_output; their IPv6 counterparts are not changed
-> here. A reassembled packet that is not fragmented again, such as an
-> atomic fragment, and an unfragmented packet whose checksum is completed
-> at egress are not covered either; those have to be handled where the
-> CHECKSUM_PARTIAL skb is created, or by a check at reassembly time.
+On Wed, Oct 21, 2026 at 10:53:06AM -0700, Dmitry Torokhov wrote:
+> On Wed, Oct 21, 2026 at 08:43:02PM +0300, Andy Shevchenko wrote:
+> > On Wed, Oct 21, 2026 at 10:15:43AM -0700, Dmitry Torokhov wrote:
+> > > On Wed, Oct 21, 2026 at 08:05:37PM +0300, Andy Shevchenko wrote:
+> > > > On Tue, Oct 20, 2026 at 06:50:00PM -0700, Dmitry Torokhov wrote:
 
-Then let's do that, instead of adding checks to every consumer.
+...
 
-A CHECKSUM_PARTIAL fragment is meaningless: the L4 checksum covers the
-whole datagram, and our own stack completes it before fragmenting
-(ip_do_fragment(), ip6_fragment()). Only untrusted injectors produce
-them. Yet inet_frag_reasm_finish() keeps the reassembled skb
-CHECKSUM_PARTIAL when all fragments are.
+> > > > > +	const union acpi_object *desc __free(kfree) = buf.pointer;
+> > > > 
+> > > > Rafael added 'acpi_object_free' for __free() (pun wasn't intended :-).
+> > > 
+> > > Not sure why it is better... It goes through ACPI_FREE() ->
+> > > acpi_os_free() wrappers which might be nice for ACPICA code, but has
+> > > limited utility in the rest of the kernel code...
+> > 
+> > Today it might be similar, tomorrow it might be different. ACPI objects should
+> > be freed with their proper APIs at least for the sake of consistency, no?
+> 
+> Fair enough. I'll add a todo to switch once it hits mainline.
 
-Downgrading CHECKSUM_PARTIAL to CHECKSUM_NONE in inet_frag_reasm_finish()
-covers IPv4, IPv6, nf_defrag_ipv6 (and the bridge path) in one place;
-the bogus L4 checksum is then verified and the packet dropped.
+I believe it's pending for v7.4-rc1. Are you planning to push this series
+to upstream before that one is out?
 
-Also, reassembly does not move the L4 bytes, so a valid csum_start stays
-valid; the "header moved without adjusting csum_start" framing is not
-the bug.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Finally, this patch is described as defence in depth and not for
-stable, but carries three Fixes: tags. Please drop it.
 
-Nacked-by: Eric Dumazet <edumazet@kernel.org>
-
-I am so tired of these LLM patches working around the issues instead
-of fixing the root causes.
