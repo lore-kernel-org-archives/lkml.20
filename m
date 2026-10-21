@@ -1,109 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594732;
-	b=kFzYYAYhV0zLEcCQP6nOwiFkQhUPYxqH3J8ax0x9TiKJhA8KwuScoOrztx6iXnkttb0c
-	 WDh+lmt4F1Jagq7uuHx24YiXjNGjSlvLmtRTS+ynvPF/bjoVzSnkORZaCdAxPQipFGY+b
-	 X6gPDbd/le3fiqNiG1wiQHb/CsvzyhfgmZ7qL5UZvm/oLXs4AMoCAh/UB0qGb+ZS/yD46
-	 7xaOY9jOAu7MGRw0vkoFZQqHQ8IKTI+iyfJU7lAFYzhSLKbqXfCn45TUhhBEmcC1bTqMh
-	 IIyG84STo505yf1A3BIxyYM2fWLXXmxl3XvwCRBv02VatGuLrQVtdBic6Ta2YZtzbdA==
+	t=1792594761;
+	b=XL9nvUeJ3FX5tM9t3vThPLSJ5pMPyHFMOcp3DhKgCtSWSat+rvRxh2e52MT8lIzF5Yfw
+	 qHfVsljs/MOufDel8C1oK3Zd8icnW1C2K3xgntkFB9hew2iMs6v8o70q0FQLUL/i4x1Ou
+	 1cMwWV+NABBKJHcc7OrkFNdpDeBGRETgBA5qe1EGjRtGDVRXjyGFACfM4bdujn7d9Y+X3
+	 dFiXtnN7TsQgPPB/l/jsavfTHtba0FNIFh5TloDU5QiVvyI5WrQgymNHON9F/jHQwFfhE
+	 4uUhD/OQqMA3ZvG7UxZzXwONwLBPhkPegMiGj0n8ZB+IzRN1SqUqKjNzNgF2S8wNPQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594732;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
-	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
-	bh=WRCoEq90OxUV9ZxcUAEaVJ83BjwryOyU5b8zNnCpwbU=;
-	b=k1N857hJd7E8WR/ruVZSooKtF6EkwMXH5FTFyhwIpeIZfFF7SbZ8a4IsqvFlEPHWzVPq
-	 PJqf/jexkcgol2hqSTtVGmQvQZ15G4HqO5do0I0f9c5BvO0L5rSE1PRx39BWjUv5/PY0W
-	 xnxr6J5bQf4lS1+RuuZbqwAFM8Um/9Qb5hrCh23n9KekFEzgFUwX4t/83hOOkZHGke9Cq
-	 ZmtRAiTXODeTyxKW6pGUrkaGEUwvS/q2ufEwGAgpSFZLeEInHkd4ynrpgMJAoMHxZvmUA
-	 NKNYrAYGV3uw4MF0sCeRBvJGL4ZrhWxdLwT/aN9iuSdvE3wQ2Mb3nhAMoUdbYe6gscA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594761;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=hObvmucUS6t1rWR1L9u3AvYVQ+Nq1snLbT3mu1kE8f8=;
+	b=UPI5dztsAzjMJk5Gaq7iVRDZtf5JLKjntqmjU6TsNSaJRyu8OJHOpn/9zZpQiWF/oahj
+	 QnjB609uWEcCIx1qnuem001bjOIXaOK4+dtcibWiG+m0FcESm4svRWaP8oRR4ARJtdiQq
+	 Q2PMTpCfRGTw9zpvltzPgdcpj5Sxm03oDj2cBvHSBX2J8vNi/VZUo67dIoJxL2tOcMdrn
+	 xg2Rsmd5aftMdCrDd9qgekRjYvLffcByAfTdJE1nNcO6pnmcJWWipizZQPgV35MUAkDS/
+	 9gexNjM+Mv/GIQJw3lvYYzwVUAUoP3I/v33yw70CaTmxjcbifFVhtMQhZt8O+5RCnjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FcbOwEqS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mVn5Q2+f;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FcbOwEqS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mVn5Q2+f;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WO9+EzJK;
+	arc=none smtp.remote-ip=209.85.208.177
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1BCD606A31B;
-	Wed, 21 Oct 2026 14:58:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1BCD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3DD606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:59:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C3DD606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FcbOwEqS;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mVn5Q2+f;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FcbOwEqS;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=mVn5Q2+f
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C7A421F67;
-	Wed, 21 Oct 2026 14:58:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792594730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WRCoEq90OxUV9ZxcUAEaVJ83BjwryOyU5b8zNnCpwbU=;
-	b=FcbOwEqSG+jmsc0rII5sUvrBVfsAHJyh/v4pf1jRRzHQtU2NghfCubPpEAfDbA8M9PyIYT
-	KscNJzXuHNC3Ppb5/Za5AsKR2PTwjmKDsfR38z47IXFi1AlFnwiQ80yG8tZVOYjUHQSJIB
-	WwBvelIX6DHUAvUgLDhwThazoMOsLqo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792594730;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WRCoEq90OxUV9ZxcUAEaVJ83BjwryOyU5b8zNnCpwbU=;
-	b=mVn5Q2+fnqjxxr7iwCcUn9euoJqPNVFdQcn4bFFeZWEGPRuwcgGnRRqzbk4MluNDCPCNpx
-	Prt0W69eeDaSgSDg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=FcbOwEqS;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=mVn5Q2+f
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792594730; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WRCoEq90OxUV9ZxcUAEaVJ83BjwryOyU5b8zNnCpwbU=;
-	b=FcbOwEqSG+jmsc0rII5sUvrBVfsAHJyh/v4pf1jRRzHQtU2NghfCubPpEAfDbA8M9PyIYT
-	KscNJzXuHNC3Ppb5/Za5AsKR2PTwjmKDsfR38z47IXFi1AlFnwiQ80yG8tZVOYjUHQSJIB
-	WwBvelIX6DHUAvUgLDhwThazoMOsLqo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792594730;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WRCoEq90OxUV9ZxcUAEaVJ83BjwryOyU5b8zNnCpwbU=;
-	b=mVn5Q2+fnqjxxr7iwCcUn9euoJqPNVFdQcn4bFFeZWEGPRuwcgGnRRqzbk4MluNDCPCNpx
-	Prt0W69eeDaSgSDg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E0F58134A5;
-	Wed, 21 Oct 2026 14:58:49 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Oh8dMCnT2GrqcgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 21 Oct 2026 14:58:49 +0000
-Date: Wed, 21 Oct 2026 16:58:49 +0200
-Message-ID: <87fqxzdrrq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ajanesh Lal <ajaneshlal3@gmail.com>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ALSA: hda/realtek: Add mute and mic-mute LEDs for HP ENVY 16 (103c:8be5)
-In-Reply-To: <20261021142453.177174-1-ajaneshlal3@gmail.com>
-References: <20261021142453.177174-1-ajaneshlal3@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WO9+EzJK
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-3a9e87ba7f2so7376761fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:59:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792594758; x=1793199558; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hObvmucUS6t1rWR1L9u3AvYVQ+Nq1snLbT3mu1kE8f8=;
+        b=WO9+EzJKvDZCAa4i5HUJlbg7DqPjyFHR5FavlN/kFq2BTKdu4v3gy6HlWq9kDt/vnd
+         z4Zq7rZBRF75tNqrVEnK+W+VsEjahiudmwOkz6xukmkjENYYIF3q5UJkG2TBsIeg4Ppj
+         qHrsk102jqTowe8j/4IwuJraQEFLzymsvR7k5v3xdgkk0wr99EreFczLMgXXFwE2PvX/
+         RtEnsVVhev7EUxg+dOyvq54UZ9qIEJmP+nPM9zr63JQ9oSgxFXDMormbGbSdwHhwHwoc
+         NaebjomKS4GyMem9+GbsBBTGVE5CSDtf/w/M3BSBPxhCPMnhO8s6arY959PR/M8oVxMa
+         YSWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792594758; x=1793199558;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hObvmucUS6t1rWR1L9u3AvYVQ+Nq1snLbT3mu1kE8f8=;
+        b=N8PZ9uHZpCVIS0cDhShw89xmV3X895psNVdj1gZ9DcIqArBeaQSLDlFpMYAIINBxaC
+         3dxrSDt5ZuhQjosM40NZ4iL4Av/ujjudcvSoT+TgmorDHfmn1oltEdF+0dLJv8CdXp6R
+         ztvVLEHDs8tGNuprBI5IlqgCT508V2iwLfQUZbK8J5sfe5LuPaeaf/x++MqoAwQp8avZ
+         a6JnfYXgc2D1z75lLp8hBem0I6tfbUNVauRNKuTMVGN+uDyJFzuKOY82cRm7xputhx4o
+         i6GOjSae0/r965mE29EcokNUup5g5G/UqdZM9+bLLK0ZQn0eopUliEF9f2419MpQ5ahi
+         06LA==
+X-Forwarded-Encrypted: i=1; AKwUvBwgQ7XaUGMsCshJ2I5FzIAPWgU+3kWIOj0hV1bzzJoa6u0FxR1yQ/FB6C3tbNZhffkDmL7f4nKNj6lZH0s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMzWuhcn9s/pM5TOMcNkjASXLLdDdW5LICeAtJWQc11QO8W9yY
+	DZBORxF00VbdtbXhuMEUZDBIwX784esxIcpzgiMMYYsS9ktAMGOG4Hur
+X-Gm-Gg: AYBFou2Uj0521lStSUe2pMR3J4B0bNkoYrwQ5vRPOYdv2HZ62niSel8coCDSJyVZgfR
+	R+p/1Qb/pi0qSth5v2t0IUaf0kfba5AcOEAUx4WTGxxmDt8FrgxGm8dbzAHxIxjjhotrvH4s0OL
+	ThHDr8ZG4pXGzkfmwm2myNbV60y025ecpPw8PcJ81IXGaZsWdICM11Jlru1g6A4yoo2hKxc4Uas
+	+oEKGJi0txem2dfJdxjjWbKoq1BLN2uVBSRyUJv41Ieor+X6/gUwp8o9fmYShdiArgCQcH9Fgwa
+	n1GuTzx9uKp081e4DHhTTlQI5maCTOieu0kDdpRSo9c0r8walqaMwcJhUSYc0dqL9MF+e0owBOv
+	9TJo6WlEkofta+ml77V6J7UzPBM/pdEwLsyVX3YMLgjCgjXeGr3wl+UZctmQoQ28zlKygpHGmIR
+	FD9i25isu56ly7Fqhc/X0f5CpOoHT+mjYR8kAJAoNjSReOdUZvGAJQsnUgECi4E3UV22lCFMVM8
+	oskLhwPwnCZZWOo3DA0DMGYYlmLr8Zpcsmsw6hX7V7MbaeymTFfL2c81NfDyvQFn8m8AhqIyPNr
+	kqAhaqA+FoMEexMe
+X-Received: by 2002:a05:6512:65c9:10b0:5bf:a34f:b94d with SMTP id 2adb3069b0e04-5bfa34fb967mr478168e87.9.1792594758106;
+        Wed, 21 Oct 2026 07:59:18 -0700 (PDT)
+Received: from [127.0.1.1] ([85.249.168.112])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa4b90999sm128327e87.68.2026.10.21.07.59.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 07:59:17 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: nbd@nbd.name, lorenzo@kernel.org, ryder.lee@mediatek.com
+Cc: shayne.chen@mediatek.com, sean.wang@mediatek.com, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, Fil Dunsky <filipp.dunsky@gmail.com>,
+ netdev@vger.kernel.org
+Subject: Re: [PATCH] wifi: mt76: dma: run threaded NAPI kthreads with
+ SCHED_FIFO low priority
+In-Reply-To: <20261020-b4-mt76-napi-fifo-v1-1-ac8a24e2062a@gmail.com>
+References: <20261020-b4-mt76-napi-fifo-v1-1-ac8a24e2062a@gmail.com>
+Date: Wed, 21 Oct 2026 17:25:53 +0300
+Message-ID: <179259275334.35963.15413466304986880275@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,64 +102,35 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Rspamd-Queue-Id: 1C7A421F67
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_COUNT_TWO(0.00)[2];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.51
+MIME-Version: 1.0
 
-On Wed, 21 Oct 2026 16:24:53 +0200,
-Ajanesh Lal wrote:
-> 
-> The HP ENVY Laptop 16-h1xxx (PCI SSID 103c:8be5) uses an ALC245 codec
-> with CS35L41 I2C speaker amplifiers. No LED fixup is applied for this
-> subsystem ID, so the speaker mute LED and the microphone mute LED are
-> never driven and do not follow their keys.
-> 
-> Add a fixup that calls the existing ALC245 mute LED COEF helper and the
-> GPIO mic-mute LED helper directly, then chains to the CS35L41 I2C
-> amplifier setup so the speakers keep working. Use it for 103c:8be5.
-> 
-> Tested on an HP ENVY Laptop 16-h1xxx running kernel 7.2.11: the
-> hda::mute and hda::micmute LEDs appear and follow their keys, and the
-> speaker amplifiers still bind (CS35L41 Bound in dmesg). The mic LED
-> GPIO pin and polarity are not verified on other hardware.
-> 
-> Fixes: aa8e3ef4fe53 ("ALSA: hda/realtek: Add quirks for various HP ENVY models")
-> Assisted-by: Claude:claude-haiku-5-5
-> Signed-off-by: Ajanesh Lal <ajaneshlal3@gmail.com>
+Adding netdev to Cc, as suggested on the GitHub mirror of this patch [1],
+since it touches the scheduling policy of threaded NAPI kthreads.
 
-Applied now.  Thanks.
+For context on why this is done in the driver rather than left to the
+admin (chrt / sysfs): mt76 already does exactly this for its other
+rx/status and tx workers (sched_set_fifo_low() for the usb and sdio
+workers and for the tx worker), so the dma napi kthreads were the only
+mt76 rx path left at SCHED_OTHER. A userspace chrt also has to race
+the creation of the napi threads at boot and module reload.
 
+Numbers from the setup in the commit message (MT7621 + MT7612E as 5 GHz
+client, 3 runs x 5 min each, ~200-280 Mbit/s rx with userspace load):
 
-Takashi
+  stock:                  ~500 full-ring events / 5 min, watchdog
+                          resets and MCU timeouts, occasional hard hang
+  this patch:             0 resets in 3 runs, rx 276-288 Mbit/s
+  stock + chrt -f 1:      0 resets in 3 runs, rx 249-273 Mbit/s
+  napi_threaded=0:        0 resets
+  rx ring 1024 (stock):   800-1300 full-ring events / run, more resets
+
+A similar restart pattern is reported on single-core MT7620 at much
+lower rates [2], which fits CPU contention rather than throughput as the
+trigger.
+
+[1] https://github.com/openwrt/mt76/pull/1164
+[2] https://github.com/openwrt/mt76/issues/457
+
+Thanks,
+Fil
+
