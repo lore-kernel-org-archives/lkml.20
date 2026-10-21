@@ -1,107 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551925;
-	b=vzLCsn9xhFTbBzu9nF7GFMzaEc50nJD0XAODa+ZBSp55W8WeHCwOcaILImDZ8HRKCapk
-	 G9GKstd+rPUaOEWDcJtQTWzZ+YHkQJf8P8ItCF/koQnLjbllJmZ3d0B30LmGp1Ctg2CYh
-	 gpsjiXx9rDckLdQBXwcMwz1FMAvSZYeIgmN+HR30IsKqRA4iRofxqVEMrwEt8lHMlsllK
-	 dXMqayhUuMiBxkFAz7MJ75iZERh7n+inv635cmwP5MfcPd/S84N2mF1DofvoBGdTRgaLj
-	 jcBUA+8cDMWNAJba+4l9aI5A0KS8dOppm9sL+hMOgi+ikeZxoJrl7G9e4B8Fu1wYrGA==
+	t=1792551948;
+	b=sMBK0UhFnmksMhdbsRaNJ5U8l1lm5oJekibHXdLhD4uE7nocWL4i49WhnutIREwr84F4
+	 54Q0IRwZZxLVBP+Ot0UaXItTMqxnjdG/bq4aMflNk6sDpi6yCZ/d0vXd4u4DrXgWTnmCR
+	 qX+w2/NZvrj2qcEQZYkldXnK9BEv1BBkInai6iNbYDsxWwl068Z+8SKeOrskmFkmd1Pk+
+	 qGTZBESyabS2P+ZWXSNdc50DiHjoZEo55hpb+OQhOsMtx8QZLZ0rOkhUmI5EqGq9u6kEk
+	 WiHw1T9lHruVnU6Os9wElPi77IQrdeM4jzofXHuWHartKsx8rCQ5wSKjFn+jOChw+Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551925;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551948;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=aSbx+2JIYEzrqnyu5Jxh+14HH5G/iqzw/BzmiivGbiQ=;
-	b=hi8UI8HtkLGXd0+AXqWwPlLEE080ExMkBn69Y4jlYTpbBayfOdMZ5lcVHpGniqn8AEzF
-	 VgpFuhBJ7S0kVNf2uJiv/pz/GWVdppoBfFeDzctNal/8/r/NV74bYBbxaLcJBb/XR1I2B
-	 60mkOpRAPQqrEawAaROHhMgmE0UQ/u/nUS2y3w1kcat+2XMaBB4fzQqfn8iWxR9PhNQbM
-	 NGO3wRyj48Y7SWGaV58oGO0AM5til9vKGF7nbC5mGeKKA+srwGkBS/NOB5qVehUQxwRgj
-	 MvqLMHBKYscpH/bK85CZ7ZjoppOBJPvmuSjeVinUuxRRnSBnGtKVOnJQtF0bzYl99mA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=gDndSD0GZIvZyUTYE/Z9F/DZP122ym6cCPQpCZSHgLk=;
+	b=GfcGoB+SwsR6m1g5j3MHonBF/aPCaHbQ1W6JN2ArzYaHHysukalrrBIQ/1Pl4vfHreS/
+	 cShbzkp+jCAJ4PZY3mjmbnHVXLTya8MT4X/HuhK+AQdK3M6NDaRoLT4htD+xZNxyXNHMN
+	 DxjdTOJGTTNGBxR8ohcvpgDuqiEffCmlgXgU0AEGVa923uf1dN0mxiImim19mbj43hNsf
+	 ORbYHUcwGtgR3+xbWKalit+Pehz8qENMrROCA0IIx/RcP5E+rasvrTsdkxRN9axJE0/fd
+	 +7N1j7al8+5dadnYf7KzbZEbIAshl+REC7XogrLgL2qrbyvjVLZFo9NhKt6V32Dx7Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jTUhIXqc;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iyEoV8X7;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 976E8606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:05:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 976E8606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F219606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:05:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F219606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jTUhIXqc
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so270240a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:05:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iyEoV8X7
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48afbd35952so23709f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:05:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792551919; x=1793156719; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792551946; x=1793156746; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aSbx+2JIYEzrqnyu5Jxh+14HH5G/iqzw/BzmiivGbiQ=;
-        b=jTUhIXqcHD5paioHMBgpX/nNDFeI6GefwrBU5JCZ9L6hQkgDCCR5V9qDyK90TWxB63
-         BUeHPqsNqUAWjxsKRzhiYWN4gg/2tWiSqAFA02QpOTMVZ8HDrd/73VlSzZ/z6Q6Zcjmb
-         y/SpBz7FnPTQZRm1MiEuoSZnfDeQH8kZYfIu4tSt+PzCSc9QM3JzSGKAPbcRqH35wiGt
-         iIVaNSX1r/6k7vkTPWGRrKb3k7KNyal3wwC2/NRW0KdNFdIthL0IVESKxGtAtYSu8Cn8
-         cBxQ9fMunJcJn3KmG5zDQHXwvhba1VSFsi76J/0MovajXPhER5CLkwBZRb//TPZDUhXi
-         dl9w==
+        bh=gDndSD0GZIvZyUTYE/Z9F/DZP122ym6cCPQpCZSHgLk=;
+        b=iyEoV8X7OnT+MoWdag8gC0LlhSjG7fzgL/q3idOwMs/rP3y1qFo81s/SJIcmiuci0l
+         JW3akbq18jxuXt1DhdQIkCEJ0PjMVP3Qz8Bz0rntL/+Bgo+LklOQ3JlRFtkGq3NK/vzF
+         7QoPp9ApQZpD9f+xyJvxbas5mgubXjROp7Lpilj8ZihGbffu6fYjpyQbEKxwQ4SzaOv6
+         mwuIMtSVVhl5qgeHNW24LzzX00EWYzh/op64Y2O0Yq4o5rWgYq6ezPlrOlLEiJpCX3hA
+         6EaK/HTlFVvVxwgQH5qj3852iR7qUcXJjMGerXZgpcN/ax9CaojSVLA+IewPINQoiwD1
+         BIfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551919; x=1793156719;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
+        d=1e100.net; s=20260707; t=1792551946; x=1793156746;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aSbx+2JIYEzrqnyu5Jxh+14HH5G/iqzw/BzmiivGbiQ=;
-        b=K5j7Z5lWUV8rvfqPGhVrFGWcZFOc6TrNwd5IU4YY6jBqHF4j+4qwqmRXdT8tcwlDOz
-         ADWBGawbMCWxykdmn0yilBJVnVwQkzHGDiRQh18jyZXEaz/Ft1U87rzOX5Yn9iOWJx2Q
-         X6lGxP30GyhJNnALiAlgW1ejA8J1xwRhapx8HRDkRu1YPWph/lujEXhGZ3BdeZwr+3hg
-         S8vpZLxBnQ4zIMuUHImQWj2mg0atmIHubz6hLM2U/TqRYNZ40H0BcqJO0LwObIkqVU6R
-         RrstT0ZoIF/WtoVu2G7l/mIdTjTBSQ9LZmIfxmBoE0xvo4u0mgj20KaEj2dOnjSN1EQT
-         WtFw==
-X-Forwarded-Encrypted: i=1; AKwUvBxn19MraBrw9RgFvoedp+Yybidy5JtYStg05MMZUsnUA1JYLAQfnNt00y4rdD8u5bP1uOkr2NmeFYr8Gik=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3yAYpUXvqPBXUR0G5GPNDrEGsOl5dWOulAPvWDa4exokT0J2V
-	0vldJh/75gL2fXtktiSolOAJpI/WR435ilOf59Arwar9oFhSBTvmg0C+
-X-Gm-Gg: AYBFou1Aq96g3xdbZ1MFIHexZm85YvapM9qgOx36DJSIRpgtxgJAtt8ro3dtwpzgofg
-	qbx1dYvb3BIYCrQsrmGnDf3p/oci0JPWqP86JBoNyHgWqMVE6/Wlj7H94SeqfOdvZ0xa0IeYj2H
-	dYAPWoJWhl0vBVyCh+JEzuPViwjhYPsOgdLRoKmdUawnwEWK8dhUGaHf4WcrKGSUpc6sQu7PGRH
-	Gzojb20+ZcRMsQ8A28KhNCm8e5DvUhBjvmNXdehwNejWLECKdOgceraxbolip94MjB88mskaDp9
-	akL7+6Qk/feImzflol4osXvrc5qqIigZnkieJ+BipbyhdWhunNyFDohwePNnGKddKneE7ghQgh4
-	GUM99XAU8WpKawYBY80tchTUyLx2RhCIQn5chOsYlrwRH8LOq1f8cSA2VmGU4F8meuypswlQOB6
-	4itMv/Ee+EqkgQElBSDMOlWDDG7EZx0UPSjyHryYAC8ZxnyTsAwPkbtYlWBsiAVjM60zL02uKb6
-	bbw5sZufiGV0x2/OkEjHWyg4MrLDr4N4FzXy8/ratMN3ik8UPYF19+ou9eY7jgy3uAKcCu4owyL
-	NMhezc6VZ9W0Am2jGXhgqCSo2N7rwxpzQXyC4nJuFb0PQfTpxFQLkxUrSlWK
-X-Received: by 2002:a17:90b:2710:b0:3ac:7556:8ed9 with SMTP id 98e67ed59e1d1-3ad86c79924mr698658a91.10.1792551918978;
-        Tue, 20 Oct 2026 20:05:18 -0700 (PDT)
-Received: from localhost ([153.61.198.249])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad812c565esm1924550a91.10.2026.10.20.20.05.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 20 Oct 2026 20:05:17 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 03:05:16 +0000
-Message-Id: <DMA6ME9P5EQG.3EI83DBIFMBDE@gmail.com>
-Cc: "Leon Hwang" <leon.hwang@linux.dev>, <bpf@vger.kernel.org>,
- <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
- <pabeni@redhat.com>, <horms@kernel.org>, <daniel@iogearbox.net>,
- <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>,
- <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
- <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
- <hawk@kernel.org>, <john.fastabend@gmail.com>, <sdf@fomichev.me>,
- <rostedt@goodmis.org>, <mhiramat@kernel.org>,
- <mathieu.desnoyers@efficios.com>, <shuah@kernel.org>, <kuniyu@google.com>,
- <liuhangbin@gmail.com>, <mkarsten@uwaterloo.ca>, <masashi.honma@gmail.com>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
- <linux-trace-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>
-Subject: Re: [PATCH bpf-next v3 0/6] bpf: Add syscall common attrs support
- for xdp link_create
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Jakub Kicinski" <kuba@kernel.org>
-In-Reply-To: <20261020182700.655edf14@kernel.org>
-References: <20261020152804.39863-1-leon.hwang@linux.dev> <179253001886.208021.6536312952037292688.git-patchwork-notify@kernel.org> <20261020182700.655edf14@kernel.org>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+        bh=gDndSD0GZIvZyUTYE/Z9F/DZP122ym6cCPQpCZSHgLk=;
+        b=Xj459m7gs+UvszYSTY8a/otNuqCZRGV/nnwVg+RRmmzDHRRuClesFOcniQLb/9uZFn
+         oBn3YfZVpGO5uwzR1FYNjk8hBUnYvokxwdzV/eH1fM5Z/R8sAQqdVc0je4PjgK2moswm
+         btJdpZqeEeNu4DvfwbMSHBFh5j+gtyLLjPZKTV6zJuqjb609tmHNEKawmB+qJ34d1oV6
+         gUKLOyP9denwu+FB+oPeGktkZWyRypNbDgNJsvRrELEhkmk282AOd4TSQc9bV4veyMmx
+         Vo7WL8f7CXnp75OCyq1ArTkJYVMPcHjOh4vqFJKnb/5HWkwsKrqEpNr1PVTptJbeSvxf
+         I1nw==
+X-Forwarded-Encrypted: i=1; AKwUvBzM+EMQ2Oj0sZ1B+jObS+Q3g8DuolbkFuvWeCBEBYLRIGDhV42FWf/fZDolN5GujKfwjoHYKChaCACOf94=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMGgqwPz9NMPvxRzx/tTEwEHHKU4b2CShGlYWpiLuUWJT10Jg2
+	WJvIvMMaeqD3rY1egkIOIsZ1ZkD2zsAuLHHkzsEWev6jiHalI1SOH2Jv
+X-Gm-Gg: AYBFou2p66yruie95E/oX9A0TVLWWnATVGCCwpgq05mqFucXovIfWGZjsiZoLnQ71Rn
+	BdXRMS+caD/GbnydfSg5sHvUM/GnCgGoSifnNobCBejlysKMDzhEBCwgdfrVpBXnmMtiYQqVT5Q
+	I7OcjB6zpLEX70cB6ebkUldfbCiLkXal5W4t/R9W8+nVXKzLZSCU+SgveIlY1Sfy8t28BMwhe2L
+	40/+QPBBeRL529Bx8RgxlcjlCmBTo/EuuO/JcnFg19t/ysd0CX3M35r0Zj7f5eT3AgWtOABf1ri
+	ecr6U1HxGLJDHmNQoH2ky6No0v18sK1L9VfA60DspBkNHdb7YiBcjN6bb+A4BRwAsrguLkxzDMQ
+	GRi9hWSDexfOt+uDBvhz0yjf6q3gb3h96SwB9jm9neb6V4ItjFyeey5Ij/50UOPEWjjA5+Iqc/S
+	QZngqndLxpgH4lScFp4Eletd7JUqc5BvCeQpKgun3tGUB9SKyx7Ps6Y8226qAmtDUN/VNukSsFM
+	9fdAxqmXIK2CmjqKXbW/Hyv4TVSyxN/0cvPUKAJcwFIGIAtTB2727ZeAH1msJWerxwvnKRYim1H
+	T0ADWEYgZfm6wSgkTm38CRTbNfXgG7TJRGTU
+X-Received: by 2002:a05:600c:3e87:b0:4a1:d899:b633 with SMTP id 5b1f17b1804b1-4a1fdae0e9cmr9334205e9.1.1792551946307;
+        Tue, 20 Oct 2026 20:05:46 -0700 (PDT)
+Received: from localhost.localdomain ([194.36.104.180])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2e8daffsm131033835e9.4.2026.10.20.20.05.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 20:05:45 -0700 (PDT)
+From: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.6 0000/1651] 6.6.160-rc2 review
+Date: Wed, 21 Oct 2026 05:05:42 +0200
+Message-ID: <20261021030542.1434603-1-yaroslav.voytovych@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261020075535.084584701@linuxfoundation.org>
+References: <20261020075535.084584701@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,14 +115,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 06:27 PM Jakub Kicinski <kuba@kernel.org> wrote:
-> Please don't merge changes touching core networking without an ack from
-> networking maintainers. I haven't even finished mopping up all the ways
-> the XDP link bypasses normal XDP safety checks :/
+On Tue, Oct 20, 2026 at 09:57:46AM +0200, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.6.160 release.
+> There are 1651 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Thu, 22 Oct 2026 07:53:04 +0000.
+> Anything received after that time might be too late.
 
-Fair point. Will wait for an ack next time.
+Built 6.6.160-rc2 (c578c158a368) and 6.6.159 for x86_64 with BlueZ's
+doc/tester.config (KASAN, lockdep) and ran the BlueZ CI TestRunner
+suites on both in QEMU/KVM (emulated controllers, no Bluetooth
+hardware). Four of rc2's fixes show up as intended:
 
-Leon,
-pls send a follow up asap.
+- "Bluetooth: hci_event: fix simultaneous discovery stuck in FINDING":
+  mgmt-tester "Start Discovery - Simultaneous Inquiry Late" fails on
+  6.6.159 (Start Discovery answered Busy) and passes on rc2, 3 of 3.
+- "Bluetooth: MGMT: Fix status of pending commands flushed on power
+  off": a vhci reproducer gets Command Status 0x00 for Start Discovery
+  on 6.6.159 and 0x0f (Not Powered) on rc2, 2 of 2.
+- "Bluetooth: MGMT: fix crash in set_mesh_sync and set_mesh_complete":
+  mesh-tester "Mesh - Enable 2" hits KASAN stack-out-of-bounds in
+  set_mesh_sync and then a GPF in mgmt_pending_remove on 6.6.159; on
+  rc2 it passes.
+- "Bluetooth: L2CAP: fix out-of-bounds write in l2cap_ecred_connect":
+  l2cap-tester "L2CAP Ext-Flowctl Client - Defer limit" fails on 6.6.159
+  and passes on rc2, 3 of 3.
 
+No other case that ran on both kernels passes on one and not on the
+other: mgmt-tester (rc2 465 passed, 37 failed, 6 timed out; 6.6.159
+464, 38, 6), mesh-, iso-, sco-, rfcomm-, bnep-, smp-, ioctl-, userchan-
+and 6lowpan-tester, and l2cap-tester up to "L2CAP Ext-Flowctl Server -
+Accept 2 Close 1", which hangs on both. No kernel warnings, sanitizer
+or lockdep reports were found on rc2 in these runs.
+
+Tested-by: Iaroslav Voitovych <yaroslav.voytovych@gmail.com>
