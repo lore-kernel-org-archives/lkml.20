@@ -1,78 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.72.0.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611545;
-	b=ve4eBKyplIXmZiHUJhgXlifKxuMW3HS9EVmok9pmTrkjgYMM+EErugq5jg6OngR93F1K
-	 MdLJ2Ql8VizPIsTbHKjLFbRz49UIs19WikrBEd9Ft1Bw/tPIadvi+h9T9O0pEgXkac6l0
-	 wBrGDofAHblic2EeCgm7yEzbiNSeUWb9biUmGuVA+ob/P/VaWlEQmHqJS50yWSlAqZ6we
-	 EPp1tHj1szRFrj/y6hSH0wtPrRChUbHVJbgDm9+Tw22MkE6VDgralnAyUfifcaS7tDX6m
-	 IA6XukOMLwIy0CS+3qhgW576CKz/cMYOYlMi+y9idvcVd6utBNAoyUeXNyKPBc7Ul8w==
+	t=1792611703;
+	b=LWD5/e0Z1UJ52QKW+O31iO8XMlVhJuOvychXbGKR4DVb08dfEg/p8LmpE0TCWtVXQh5v
+	 jBs0z/iqoKlohYnUE2zH62R55qk6XjKQPU+QqV0zMmCuUWrpMN3YZ1YI3CMOwVkfF2lQZ
+	 6eejQ0JT+W9eO5LxvV0Bu0Y//H9yIHE2T/g4Tg8SUviBmoUxpFmqUZQVOxfQ4mjknbEAS
+	 SDatmZJefC0SD3lpE6XIN3yRtUaDhwZ6GDrcHPOc4IzKGw8PVWvr6Q1BT9htk/H7sAO4a
+	 aV8Fnto83jr2YIM6SJVJKnEY2aCAvjMjjQsS+7buJgrvY1ohR3jz7wLcULZPiXHbfeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611545;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=EAudJtfIl2mHFM3jFtcJt/aQq4b9shbjJE2uG6/SfJI=;
-	b=15iyLikkZHJbHRPpWUQtrZukiCmZMsrM1PaUXagDYpaUThszjzuindnfYJehTqQdf3jg
-	 7q/z6KddE/HY+J9NFF6+ODqVA47rQy5GARfgs4m3K9AwiL3cuCGjTeJsCE5can9ihNn8w
-	 LvyzBKw3XC1+/aaSo72sKkkDK1wsZ6bAXpQEymLiSMRRrlzaeTI594Umb/SwZdAh5BM3m
-	 hYLL7QlOPyN7gJHjQ9nSBumUTMelXVaLO+itItXyvaTynnLzRr578AfXVhvEMXGu5HDe6
-	 F7eTkxvRCKoDwWahJH3+lwmAiDMGdU5HwllEqypa1NIP1/2km7okxMXZbj5S9TN+FvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611703;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=NgkQoXkgpK2sGjYpbm2KHffmsrL6QXfO4giZc0eF7UA=;
+	b=eybrmTErXVr53OnB8sXwQIdv5TBobHl7bWjaUx+rU1GDcIqtrQH9ROQ2NKJvDgxdBrB8
+	 cYftwEiFt9wGNa90kl8BkJk9PYyivWxVeD6COLLeoES6Yw9cRAFXhExjJBwjkCtsBC1OZ
+	 ddpqD1naZ62zt82Aa4/yPHeHq/D8zPYp6PLbw8NXBfF+RlMhzh5TzSiwNini88laYyzLc
+	 y8QJlQ6nIcNA/gegDwDiAtOaQAYpMWKZfAV9u10EBLjMYRBmMDvzCDrZPGE8THHmiNKO1
+	 NLn0XP8wfdJx3LPgAxcKwXQSS9RPNqaP461vrXnk/ECV5LQip9uLhGHJYJ364pEirdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKhWRu3A;
-	arc=none smtp.remote-ip=198.175.65.12
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gentwo.org;
+	spf=pass smtp.mailfrom=gentwo.org;
+	dkim=pass header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=YYaPHnv+;
+	arc=none smtp.remote-ip=62.72.0.81
+Received: from gentwo.org (gentwo.org [62.72.0.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E34A3606A31A;
-	Wed, 21 Oct 2026 19:39:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E34A3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCC1606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:41:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FCC1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gentwo.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gentwo.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKhWRu3A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792611545; x=1824147545;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WdvXq+M4q0WutpSz5CeVBuDiF9vCDXwxpaim1fX+7aI=;
-  b=cKhWRu3APmvnRXP2snIIIyV2hnAOQCfJNy8mbSUnbl9R8Q6KD9ji624f
-   X+rbpEe4t/AvOShLIc5X/LZSV7pT/yzmPuslomrlI/VRqdWv60nlA4qnN
-   h5m97TvA/9l4RdlGg4oce7glCZbNoQSlgT2B5E7Acb9QnsJNaP5VQMhyq
-   TIDzz9bjSn5/S/Z2S1nnWzNqNoaKE3IQQ1sVj0pc2l4wXt1jsA/eoRAiv
-   uVileq2PK/WIs8qGDwNwyPtR41Mhk2YnuOaV1SGVKYmB6SWRkPWBPUuBT
-   QBKDOIguEf9TPeAAjWYawIw/2Hynx7Bq2vUZiehqnar9tJd+huJcLbvkb
-   g==;
-X-CSE-ConnectionGUID: awBlGOObQbK7hdde9Ed7fQ==
-X-CSE-MsgGUID: EyjbDwMqRHmh3/UiJpiUYA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1228968"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1228968"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:39:04 -0700
-X-CSE-ConnectionGUID: 7PucqCaBRwSC4CF/lB3Z8w==
-X-CSE-MsgGUID: lmCgCVdpTgyhczMJGAwPpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3089203"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:39:03 -0700
-Date: Wed, 21 Oct 2026 22:39:00 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andy Shevchenko <andy@kernel.org>,
-	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/5] gpiolib: avoid krealloc() in gpiod_get_array()
-Message-ID: <atkU1BKblQsuCPSn@ashevche-desk.local>
-References: <20261021190212.2237804-1-dmitry.torokhov@gmail.com>
- <20261021190212.2237804-5-dmitry.torokhov@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=gentwo.org header.i=@gentwo.org header.a=rsa-sha256 header.s=default header.b=YYaPHnv+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gentwo.org;
+	s=default; t=1792610988;
+	bh=Q3+HsUdu3d/EUxk8By48lCwrk1lztJ3pfJKy4nwymFY=;
+	h=From:Date:Subject:To:Cc:From;
+	b=YYaPHnv+RQQH61lelvthtAzl7/+8rQrgNUbbRdiBBGBbQ2YTLI0lm2gFsCgxmp8ao
+	 9cEJ2YA1HH3Tl0XhsqQs7QsLgtcQ1y6zvWKD3YtmpzeAmymal50dPQj130KzD9S21W
+	 T4XuKrPYUyJ+1YqNSzD6E3A2U3j0p7mEzi9aWWbI=
+Received: from sut02sys-r112.scc-lab.amperecomputing.com (localhost [127.0.0.1])
+	by gentwo.org (Postfix) with ESMTPS id 917C54014B;
+	Wed, 21 Oct 2026 12:29:47 -0700 (PDT)
+From: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+Date: Wed, 21 Oct 2026 12:29:45 -0700
+Subject: [PATCH v7] sched/fair: Preserve wake-affine CPU for non-SMT
+ reciprocal sync wakeups
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,82 +56,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021190212.2237804-5-dmitry.torokhov@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-b4-sched-sync-wakeup-v7-1-91995ba5b596@gentwo.org>
+X-B4-Tracking: v=1; b=H4sIAKgS2WoC/4XQTWrDMBAF4KsErauikcaS3FXvUbLQz8gWBTtYq
+ ZMQfPcqWbQuxnT5BuZ7w9xZoSlTYW+HO5toziWPQw3m5cBC74aOeI41MymkFkYC98hL6Cnychs
+ Cv7hP+jpxgRFF8OQhOlZXTxOlfH2yH8ea+1zO43R7tszwmP4DzsCBx9BiAoskTXrvaDhfxtdx6
+ thDnOVakTuKrEoC0Nho4SX6jaLWitlRVFVaERJaiD7aZqPgr2KF2lGwKo1USvlKedNulOZHASH
+ sjtJUBVxqk/NoW729Ra8U2PuLropzRoRIgKjVH2VZlm++y+KqFwIAAA==
+X-Change-ID: 20260721-b4-sched-sync-wakeup-04d40cbeb1da
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Christian Loehle <christian.loehle@arm.com>, 
+ Madadi Vineeth Reddy <vineethr@linux.ibm.com>, 
+ Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: "Christoph Lameter (Ampere)" <cl@gentwo.org>, 
+ Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
+ linux-kernel@vger.kernel.org, "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792610987; l=3961;
+ i=sh@gentwo.org; s=20251010; h=from:subject:message-id;
+ bh=Q3+HsUdu3d/EUxk8By48lCwrk1lztJ3pfJKy4nwymFY=;
+ b=HROFmQFT9tLpwZkIWpeJxIoyLlCEFqR7668Kcho9yvqTOVQouIPtr5un1XmH9s2oK9hiWvXuF
+ VwCBUk4GG66Ce4QC+wAGmwCl+CHoGm5Ng8O8pgpn0jAGyiZMKf3b9bB
+X-Developer-Key: i=sh@gentwo.org; a=ed25519;
+ pk=jc8YIRvxPSyJaBRe5y+a4N0RXKBUEcAh8+OFhlROXPY=
 
-On Wed, Oct 21, 2026 at 12:02:10PM -0700, Dmitry Torokhov wrote:
-> Instead of allocating descs before the loop and reallocating it via
-> krealloc() when candidate hardware array matching is detected on the
-> first iteration, defer allocation of descs until the first descriptor
-> is retrieved.
-> 
-> Factor descriptor allocation and fast-path validation into helper
-> functions gpio_descs_alloc() and gpio_descs_check_fastpath(). Inside
-> the loop, acquire the descriptor using __free(gpiod_put), allocate
-> descs once on the first iteration, check fast-path candidate
-> suitability, and transfer descriptor ownership using no_free_ptr().
+For WF_SYNC wakeups, wake_affine() may select or retain the waker CPU,
+but select_idle_sibling() can subsequently move the wakee to another
+idle CPU.
 
-...
+Pipe-style ping-pong workloads exercise the following handoff:
 
-> +static void gpio_descs_check_fastpath(struct gpio_descs *descs,
-> +				      struct gpio_desc *desc)
-> +{
-> +	struct gpio_array *array_info = descs->info;
+  A wakes B
+  B wakes A
+  A wakes B
 
-Split the assignment. It's robust for long-term maintenance to have assignment
-coupled with a validation check.
+When A wakes B for the second time, B last woke A. record_wakee(B)
+records B as A's last wakee; together with B.last_wakee == A, this
+identifies the reciprocal handoff.
 
-> +	unsigned int idx = descs->ndescs;
-> +	unsigned long dflags;
+Within the existing non-wide wake-affine path, on non-SMT systems, keep
+this reciprocal WF_SYNC wakee on the waker CPU when wake-affine selected
+or retained it and the waker has no other runnable task. This preserves
+the direct handoff instead of searching for another idle CPU.
 
+Record last_wakee history only in task context. In IRQ or softirq
+context, current is the interrupted task rather than the logical waker.
 
-	array_info = desc->info;
+This does not introduce a generic WF_SYNC placement rule. SMT systems
+continue through select_idle_sibling(), which can choose an idle sibling
+or idle core. On asymmetric-capacity systems, continue to require that
+the wakee fits on the waker CPU.
 
-> +	if (!array_info)
-> +		return;
-> +
-> +	/* Unmark array members which don't belong to the 'fast' chip */
-> +	if (array_info->gdev != gpiod_to_gpio_device(desc)) {
-> +		__clear_bit(idx, array_info->get_mask);
-> +		__clear_bit(idx, array_info->set_mask);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * Detect array members which belong to the 'fast' chip
-> +	 * but their pins are not in hardware order.
-> +	 */
-> +	if (gpiod_hwgpio(desc) != idx) {
-> +		/*
-> +		 * Don't use fast path if all array members processed so
-> +		 * far belong to the same chip as this one but its pin
-> +		 * hardware number is different from its array index.
-> +		 */
-> +		if (bitmap_full(array_info->get_mask, idx)) {
-> +			descs->info = NULL;
-> +		} else {
-> +			__clear_bit(idx, array_info->get_mask);
-> +			__clear_bit(idx, array_info->set_mask);
-> +		}
-> +		return;
-> +	}
-> +
-> +	dflags = READ_ONCE(desc->flags);
-> +	/* Exclude open drain or open source from fast output */
-> +	if (test_bit(GPIOD_FLAG_OPEN_DRAIN, &dflags) ||
-> +	    test_bit(GPIOD_FLAG_OPEN_SOURCE, &dflags))
-> +		__clear_bit(idx, array_info->set_mask);
-> +
-> +	/* Identify 'fast' pins which require invertion */
-> +	if (gpiod_is_active_low(desc))
-> +		__set_bit(idx, array_info->invert_mask);
-> +}
+Signed-off-by: Shubhang Kaushik (Ampere) <sh@gentwo.org>
+---
+Testing was performed on an 80-core non-SMT Ampere Altra system.
 
+  perf bench sched pipe -l 1000000, 30 runs:
+
+    baseline: mainline at a804c5742bff
+
+    default:
+      4.030 -> 2.366 usec/op mean,   about 41.3% improvement
+      4.110 -> 2.334 usec/op median, about 43.2% improvement
+
+    taskset -c 78,79:
+      4.200 -> 2.348 usec/op mean,   about 44.1% improvement
+      4.294 -> 2.316 usec/op median, about 46.1% improvement
+
+Changes in v7:
+  - Record the wakee before testing the reciprocal wakeup relationship.
+  - Explicitly require both directions of the current <-> wakee history,
+    making the reciprocal handoff visible at the placement decision.
+
+Link to v6: https://lore.kernel.org/r/20261012-b4-sched-sync-wakeup-v6-1-aa70cde14463@gentwo.org
+---
+ kernel/sched/fair.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index b5546cd27dba08603fad190ba78f4bc1811c8452..0d7fb30170aa4850c2430c4747fe66499c636e3e 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -8470,6 +8470,10 @@ static unsigned long capacity_of(int cpu)
+ 
+ static void record_wakee(struct task_struct *p)
+ {
++	/* IRQ/softirq current is the interrupted task, not the logical waker. */
++	if (!in_task())
++		return;
++
+ 	/*
+ 	 * Only decay a single time; tasks that have less then 1 wakeup per
+ 	 * jiffy will not have built up many flips.
+@@ -9145,6 +9149,22 @@ static inline bool asym_fits_cpu(unsigned long util,
+ 	return true;
+ }
+ 
++static bool can_stack_on_waker(struct task_struct *p, int cpu)
++{
++	struct rq *rq = cpu_rq(cpu);
++
++	if ((rq->nr_running - cfs_h_nr_delayed(rq)) != 1)
++		return false;
++
++	if (sched_asym_cpucap_active()) {
++		sync_entity_load_avg(&p->se);
++		if (!task_fits_cpu(p, cpu))
++			return false;
++	}
++
++	return true;
++}
++
+ /*
+  * Try and locate an idle core/thread in the LLC cache domain.
+  */
+@@ -9953,6 +9973,19 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 			if (cpu != prev_cpu)
+ 				new_cpu = wake_affine(tmp, p, cpu, prev_cpu, sync);
+ 
++			/*
++			 * record_wakee() established current->last_wakee == p.
++			 * A reciprocal wakeup also requires that p was last
++			 * woken by current.
++			 */
++			if (sync && !sched_smt_active() &&
++			    new_cpu == cpu &&
++			    in_task() &&
++			    current->last_wakee == p &&
++			    p->last_wakee == current &&
++			    can_stack_on_waker(p, cpu))
++				return cpu;
++
+ 			sd = NULL; /* Prefer wake_affine over balance flags */
+ 			break;
+ 		}
+
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20260721-b4-sched-sync-wakeup-04d40cbeb1da
+
+Best regards,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+Shubhang Kaushik (Ampere) <sh@gentwo.org>
 
