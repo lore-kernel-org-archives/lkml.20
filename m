@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588237;
-	b=beo2VH7D58Pzy62Smy1hpzSHswZHlZNrAEFCyPT5/V3EZNXqbsS2kgaolz2sFXnN9qGC
-	 uzUyKrwaIoVpmQgmQJK8GJQ3QQtm5/5dQdLtrNxR4J6+1yQwKhj8RB4uSq2wpRwXQkGqZ
-	 3RmsVHSJfwSvYoihW97pzjUkeGC7hDd1DbSUZbzlXo/Fj20uWNztad55/u/qFXP4SHQyI
-	 1Zywry0dZ6YPdcYbYsk4kJYcPb8AqsOcaWs/rNaAYVxvX/x3XxgRllgkJaEuGBhFGNpio
-	 1Up/OZzMiuE+jVQlhsCOfVWVeSSSwkkIE1ZKREt/KrC36MJvQTBwQ2YFfSjlHNLnu7w==
+	t=1792588244;
+	b=4afVB/V2EcM4lG40KR8bakZYyQCH8U21M1KOsVMw2QclGXJoBzz/7KlfnBBAO72BcNKU
+	 qaqZO4Il1L8hZUKUxm8wa+TdZBuABJGAF4ujhmRKraXMF3Sf8ZPytDoLp/H1Tm1/hKCqu
+	 fsnKDDAGGhypmFjBlRDTODny1AY+DDiRIvW2c4Aj+/b13ZSZ1FpdDd6pP6lgz2EM/xTp/
+	 q7lHIU1nvVpXGG019oyS74OJ0QZ2usMrG8m4vcyNFCrRA5N4+b9bfMxOIDTgtALvi2fBT
+	 GiThgZf1HzNIsr1fQfuit+bULCeH4w0egNIqUnhnb/7fX06E6LypxiqG8RFJtgWQZzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588237;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588244;
 	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=mgG6TBxDwbeRtYdiTnG6B6y0Z6rj+qf4kbhWt/XsMyE=;
-	b=oTx8CsXUVd8JGYoc8lerJP9OzZZy0tnpHoDWj07AJyHwO8s9TnTld58xuJrW7oH3zF6W
-	 2VNVcVunEKmc8RfS76muZt9hD3uvfQ+otCe2GXup8UshlIeWInd4NorI79v2YD86eUE8o
-	 BHFDKtLN08XG/lom1+PIAbpuyNrn3ZUWPyNuXRLDJ+JEi30kx9ywgkwoykse5qEOlTvLl
-	 MT9lDa3Zf4bLieWhQtN5Znj0Y/57F9Wr8i4dLNqWxEMk6Nm9XA8N3jh/iOME87GudI7fS
-	 vhMbaLmUIe3Z+kEXlmmG4+vWjCRwsuFUZb6EuPl/hmtziXlTITmqzyyoJTn2uVFdP3g==
+	bh=p45uZWS6r+fa4kUICgrgUA0w8yqag3p0NNOZUwZi7wM=;
+	b=nwTOFW0b+odGIRMAlSEse47E3yPqtCsWSI2UU2UY/qyPZp/tSNmOrnPetCgPYi3sTePy
+	 dRdmmraAAhYsxxvLFu8lZvQAnXZPuOMkjYAYB4/EFtenj1UMlJw90iygvnxcA7dTZThyx
+	 H3/KA1EBRpQgvgopElqQjRKdARcq0akFT2tPYnQP3GtP/1XC1Foerbj9kIGzBiUdLDAI1
+	 dkbnQwPWPvLL4mk1v9ejqMLsnhxYfCH4fhOiIAFk77EDQyjuIT9MuYdkI2VuaGF+BvjIR
+	 0SYLmJg6D86wRb+RRUqOEObS5KdmTs1Lq4m+Q2U+ZEqqPSBeYbwhJKULGXc4YM0gmqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DpvqKVGj;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=s7X35nOR;
 	arc=none smtp.remote-ip=185.246.85.4
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BDD60A263A;
-	Wed, 21 Oct 2026 13:10:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1BDD60A263A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77098606A31A;
+	Wed, 21 Oct 2026 13:10:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77098606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=DpvqKVGj
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=s7X35nOR
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 87F2C4E41296;
-	Wed, 21 Oct 2026 13:10:35 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5678A4E41296;
+	Wed, 21 Oct 2026 13:10:42 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D389606E3;
-	Wed, 21 Oct 2026 13:10:35 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E1B1810328A96;
-	Wed, 21 Oct 2026 15:10:30 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C21D606E3;
+	Wed, 21 Oct 2026 13:10:42 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6A2FA10328E6F;
+	Wed, 21 Oct 2026 15:10:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792588233; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1792588240; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=mgG6TBxDwbeRtYdiTnG6B6y0Z6rj+qf4kbhWt/XsMyE=;
-	b=DpvqKVGjzwtgRuC8fwanDNB6XemXqJaYptXaxsfEcXsQGsUMyu6JQPrrV5zGKj79/fFp4q
-	126kpNHLh492AsfZeGxSIKuEF+fa0Fu6FGyYmMdcz9CbI1CSg9m47R7GBl8Y3Nik+749dD
-	iskX48x5RMCqYpchjOm/eWZCANTMvQlM7rG/lNVV2JCjiRwjvczv7GYh8WDjzEiW+Lk7Xa
-	jAVlE0spxz2x8Do+Z4VOFovTe+AVD1w8s4u+P8ti3PlXO5QOOcI/VlJNDNdwURv8K80Yxr
-	HNYpbmdxJxn/gJtn4qkz8kp/7/Rh/uZ/RvkKcuxPZsWa2NWE+R2YZZp9N/if5g==
+	bh=p45uZWS6r+fa4kUICgrgUA0w8yqag3p0NNOZUwZi7wM=;
+	b=s7X35nORMe3Plo0FxJ0tkB4CXl/lwHTWKBepyvGE63ClvLCIp67QxZoey2tZr4lk1I1Wmo
+	o009ruqSpHMbMQh0IsTCVUoppBnioyuNRhrxlJAY1nyqtrS3didIKN1Yrq9K4H1d23q/Mq
+	EiNkXupk7zHjab9dPnamiwd5VGzLux+Q/RLvYrCeW4dMEphJmr5LvI0HVy0IUIywws+Cu8
+	dfys6SBPs/GrGOb3BsojDn+Ef7g5ldmvWstngxdqAK2KlfSw1cI2RUKjlnpPJSr5NsE7qx
+	dT/rHjpA7g5EFuqdSOvQ+Bimd75AqgTMZJZ78hLj//hCkjaQegi/nAvuVkMxKQ==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 21 Oct 2026 15:09:59 +0200
-Subject: [PATCH 3/5] clk: imx8mp: Allow adjusting the video PLL rates for
- the LDB clock
+Date: Wed, 21 Oct 2026 15:10:01 +0200
+Subject: [PATCH 5/5] arm64: dts: imx8mp: Drop VIDEO_PLL1 assigned rate
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,7 +65,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-ge-clk-lcm-v1-3-246cc35b5ffb@bootlin.com>
+Message-Id: <20261021-ge-clk-lcm-v1-5-246cc35b5ffb@bootlin.com>
 References: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
 In-Reply-To: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
 To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
@@ -87,30 +86,50 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
 X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-There must be a x7 or x14 relationship between the LDB clock and the
-pixel clocks feeding the LCDIF blocks. There must be some negociation
-happening between the two and that may only happen by using the upper
-video PLLs. Allow this by setting the CLK_SET_RATE_PARENT flag to the
-LDB clock.
+This rate has never been assigned for good reasons. It was assigning a
+frequency only adapted to the panel of some evaluation board, while
+allowing a rate division by 7 and 14 for the needs of the LDB.
+
+Linux now has an LCM-based divisor calculation that allows us from
+dropping that inappropriate assignment.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/clk/imx/clk-imx8mp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clk/imx/clk-imx8mp.c b/drivers/clk/imx/clk-imx8mp.c
-index fe6dac70f1a1..3540992b8940 100644
---- a/drivers/clk/imx/clk-imx8mp.c
-+++ b/drivers/clk/imx/clk-imx8mp.c
-@@ -753,7 +753,7 @@ static int imx8mp_clocks_probe(struct platform_device *pdev)
- 	hws[IMX8MP_CLK_MEDIA_MIPI_PHY1_REF] = imx8m_clk_hw_composite("media_mipi_phy1_ref", imx8mp_media_mipi_phy1_ref_sels, ccm_base + 0xbd80);
- 	hws[IMX8MP_CLK_MEDIA_DISP1_PIX] = imx8m_clk_hw_composite_bus_flags("media_disp1_pix", imx8mp_media_disp_pix_sels, ccm_base + 0xbe00, CLK_SET_RATE_PARENT);
- 	hws[IMX8MP_CLK_MEDIA_CAM2_PIX] = imx8m_clk_hw_composite("media_cam2_pix", imx8mp_media_cam2_pix_sels, ccm_base + 0xbe80);
--	hws[IMX8MP_CLK_MEDIA_LDB] = imx8m_clk_hw_composite("media_ldb", imx8mp_media_ldb_sels, ccm_base + 0xbf00);
-+	hws[IMX8MP_CLK_MEDIA_LDB] = imx8m_clk_hw_composite_bus_flags("media_ldb", imx8mp_media_ldb_sels, ccm_base + 0xbf00, CLK_SET_RATE_PARENT);
- 	hws[IMX8MP_CLK_MEMREPAIR] = imx8m_clk_hw_composite_critical("mem_repair", imx8mp_memrepair_sels, ccm_base + 0xbf80);
- 	hws[IMX8MP_CLK_MEDIA_MIPI_TEST_BYTE] = imx8m_clk_hw_composite("media_mipi_test_byte", imx8mp_media_mipi_test_byte_sels, ccm_base + 0xc100);
- 	hws[IMX8MP_CLK_ECSPI3] = imx8m_clk_hw_composite("ecspi3", imx8mp_ecspi3_sels, ccm_base + 0xc180);
+I believe most of the users of this DTS set their own frequency in their
+downstream DTS, just because the existing assignment won't fit their
+panels, so while in theory this change could break bootloaders/other OS
+pulling this file, in practice it is unlikely it will. I don't know if
+we really want to do that cleanup or not since at most it is an
+incorrect and useless assignment, but at least one should know that it
+can (should?) be removed.
+---
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+index 9cf9f6f08654..7691d917646e 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+@@ -1988,16 +1988,14 @@ media_blk_ctrl: blk-ctrl@32ec0000 {
+ 						  <&clk IMX8MP_CLK_MEDIA_APB>,
+ 						  <&clk IMX8MP_CLK_MEDIA_DISP1_PIX>,
+ 						  <&clk IMX8MP_CLK_MEDIA_DISP2_PIX>,
+-						  <&clk IMX8MP_CLK_MEDIA_ISP>,
+-						  <&clk IMX8MP_VIDEO_PLL1>;
++						  <&clk IMX8MP_CLK_MEDIA_ISP>;
+ 				assigned-clock-parents = <&clk IMX8MP_SYS_PLL2_1000M>,
+ 							 <&clk IMX8MP_SYS_PLL1_800M>,
+ 							 <&clk IMX8MP_VIDEO_PLL1_OUT>,
+ 							 <&clk IMX8MP_VIDEO_PLL1_OUT>,
+ 							 <&clk IMX8MP_SYS_PLL2_500M>;
+ 				assigned-clock-rates = <500000000>, <200000000>,
+-						       <0>, <0>, <500000000>,
+-						       <1039500000>;
++						       <0>, <0>, <500000000>;
+ 				#power-domain-cells = <1>;
+ 
+ 				lvds_bridge: bridge@5c {
 
 -- 
 2.56.0
