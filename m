@@ -1,89 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576517;
-	b=eU2kKHU2fHp+n2woZ6nzByZu2eOeJaql2pWaugLThMjRBoajEFdf4r087BFUiv+hJyV3
-	 b2lr9jorDN46MfGjXAE6XdqO32lc58/S92Wti9Sv29cbL2rzjZPhFDpeEYu4NymzbMKcK
-	 9bashq/0OX7Ym+5dQ5D2q0a3nH1VeimRuwX8DeClZP4U1ThrWogt2euYNmeq0pHDBgDf9
-	 c1G7JeB+0XPQWtU4I0rPPlBEUL3PkVNWN4DmXqV81629o8AnoL9YlJT3FF5e75ojdV59r
-	 26j+HvAOwKK7HxIrvhZPht389XnvqNp6aEPHPenmjQ2x3Mfpo8AKS8rSy3MI4JaScUw==
+	t=1792576510;
+	b=tdGsho0m/Y/2JpytN8G4rRKCII+IX52UE+fkM1YkGkzYQG72+FuzjUwOMeNV5wzOF2+n
+	 UYYfKNq/RrPdz1SP733JZ3OneZypaChZTjIoeexVXPrxEyY31WPwCtDps6eaC2GW/U9gg
+	 e34YrTfIkWQ7o1suEopHuJiKlDBL4/VogElNqatrq4yVNKBrTDUWx8mV0bK/S/df6MyW+
+	 ax8EnAsG554OlkhrqF2EeIT7dPXByb33YE8hnmrfGSD5YqdLlgDgcbEsTdLvee/AJ+F2q
+	 2D7pttGiTQsTV6lUs2BsAuRvP41OFC0ry3FE7BgTPQ0oArsuT6OXIaoFc4rHF6jLhMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576517;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6PIMmiOU1qXyYQfk2Fo4+uPH8S3U7ef69opGGoBfNoQ=;
-	b=4fpfTyj1BEemzc2WbX2fzguxRQTh22ilFgDzO3wT+qaJ0188NECFTdf5WbK9D3SvPxa4
-	 aB2GWT7aJsmPPHr39+GimOoeMfZhhud3mgWBWwssEbPaQK/bNdRHy9cDcYcwmel5+YN7R
-	 viMh9akXex1UI+/Pg4xootxFMnonN133mmJ06TEWOKf5M4RUCpJu2+3lVod2gqRYbqKrL
-	 iGRCCt403uupyrV8VC093mQD60deGMHfnj4IKDRuoIJ4Cto1/GUS7iNwj4lXV9GYfS6Sw
-	 LcgmHnRMBNI+N+TjPDfEYs2ogoego8rZrcI38BUMcS0umCzgoImtTXYmGDtSLTRVMuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576510;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=ZWnlvenSrWTUdWlcb6RYZMAc7Hr8u885gkQoD0ExKWg=;
+	b=EQC/g1fgB/YgSQMl+AbMAQclPKtGWDBeEdFtsI7v1CBtRUvbJbXv1gMmQYYUlzEkXTup
+	 54gowFMRbxT15iPLx85iuD2XxZUtAyEXROcblKv/v9t8Vp5f5gv0q7vLShnwGdRo3PrRD
+	 Y1t8xVrsQ3RVQTW1GOriEPAsdbItMg/zV3JhukZbSCj/gU2TiVMjkAWmVI3rtNVpDrLoz
+	 rH44ZJn1oKZvrG1Q5zimZFR1Hct19t+O8hOHuzgsG7yaCLRzvMZJVDghoiu1zin/HrxkO
+	 CTSbwwobfQa4UGRVh7/NsqkkEeNm2lkCGmf6eq6RyX62kKEYLst6tkHA9b30n57ib6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="geNkT5/H";
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+pAeIj8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C26606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:55:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3C26606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1BC606A31A;
+	Wed, 21 Oct 2026 09:55:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=geNkT5/H
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792576516; x=1824112516;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7XaWVNlZkzhLjy2X7YQLJZ55nLrLsjLuUCefqlPCRyY=;
-  b=geNkT5/HkrP8pCphhgCX4yc89lfSdSGD4FFR2r3qQjVcA7IQaWDJNklN
-   g4OvXeeNz7XFQJITSTKwhf8WgjxK+8jrZTmWi9BybMuzPePvC7FYq7MD8
-   tHxOB7nL6YvDpLsvlHCgCmXX+XBwS6/rEJpdLIkIZ96cfmVNglAirgZp7
-   YosyblwUhvJfjXTDFcSC2FDTrcWG1RSmXJj8cIpwlgAsF0o7kAuTEVZyA
-   EdndyqN5ZK9+jXyl7JqrDwmdt3+V3C0r7V4irespSYyxnWjL3SFgmooI/
-   pd0QXKjEiXV1IG9Qtra2Ift6gUmhICC5IOAIiU7HottkBmvNa39VTqKV/
-   A==;
-X-CSE-ConnectionGUID: 1F5Hu3YvSE+jq2PSQkEBKg==
-X-CSE-MsgGUID: i0eL1SdLSHq9tnrCW4w8Fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1198659"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1198659"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:55:16 -0700
-X-CSE-ConnectionGUID: St5ELqOKQymMwmjBcEIoQg==
-X-CSE-MsgGUID: +XokYbnPSwSHS3ozA7+Elg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="3476125"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 21 Oct 2026 02:55:11 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xJT2J-00000000PHW-3X6A;
-	Wed, 21 Oct 2026 09:55:07 +0000
-Date: Wed, 21 Oct 2026 17:55:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: David Woodhouse <dwmw2@infradead.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	Guenter Roeck <groeck@chromium.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Christian Brauner <brauner@kernel.org>,
-	David Woodhouse <dwmw@amazon.co.uk>, Jann Horn <jannh@google.com>,
-	Kees Cook <kees@kernel.org>, Breno Leitao <leitao@debian.org>,
-	chrome-platform@lists.linux.dev, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>
-Subject: Re: [PATCH] kthread: Teach lockdep about kthread_flush_work()
- dependencies
-Message-ID: <202610211757.UM0pu0Gh-lkp@intel.com>
-References: <6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel@infradead.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+pAeIj8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E63D1F000CA;
+	Wed, 21 Oct 2026 09:55:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792576509;
+	bh=ZWnlvenSrWTUdWlcb6RYZMAc7Hr8u885gkQoD0ExKWg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=U+pAeIj8z9oR6fSpTIgn/CYa1uFw9OwXyJVbP2HjE9MBB/74sJt9ZeDD/oxPN84DE
+	 24j8t3iL7ufsJ8pUR79OIsb5PnzZnGTbTx9BE+Pe7LVAqZY9x/CjPqfC1C9JVOLma3
+	 KHBuxYT5KKjGecXrSLyzYzA9Oc7oycuG82uWkYZfzXnprfIOmARaf1Nlfhr3MFCTek
+	 Vxke94MBh1UPrHveiPQiSwrWF0CM9YnRsxJqRtFZ1+/X5biCyFZ374A43PTekrWHqV
+	 pwGmXW+i0bjUyMnC2ZvoYEvjjTx65uZImdWJSz2g/ZXP8EsF8bbmfJM3ULk+tCWVip
+	 rMLvy9329df5w==
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org, viro@zeniv.linux.org.uk, jack@suse.cz, 
+ Matthias Goergens <matthias.goergens@gmail.com>
+Cc: linux-kernel@vger.kernel.org, hch@infradead.org, djwong@kernel.org, 
+ david@fromorbit.com, amir73il@gmail.com, ansgar.loesser@kom.tu-darmstadt.de
+In-Reply-To: <20260926043836.3301898-1-matthias.goergens@gmail.com>
+References: <20260926043836.3301898-1-matthias.goergens@gmail.com>
+Subject: Re: [PATCH v5 0/2] vfs: add FILE_DEDUPE_RANGE_REPORT_PROGRESS flag
+ to FIDEDUPERANGE
+Message-Id: <20261021-rente-privat-mitfiebern-1b76f4650038@brauner>
+Date: Wed, 21 Oct 2026 11:55:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,65 +60,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel@infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1423; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=GOaRj3Gv5NlsKeckjn5SooRjdUT+GiHvGJ855DmMAns=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd6P751arzdhPbe6kpNldd1apVTh4+4DNV3J+pqFZtw
+ zm+z1xpHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABPx/8rIMNHm9HVB/8sl53uK
+ 0+f8OKS48cH+ivOmefZqAZxbMzl8BBkZNv2J2FHlkZLPt6dmBoPkU6tbMTN0/5hPW918YGl+84k
+ eVgA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Hi David,
+On Sat, 26 Sep 2026 12:38:34 +0800, Matthias Goergens wrote:
+> vfs: add FILE_DEDUPE_RANGE_REPORT_PROGRESS flag to FIDEDUPERANGE
+> 
+> Dedupe tools advance their file offsets by bytes_deduped, but when the
+> kernel shortens a request to a block boundary it still reports the
+> requested length. Patch 2 adds a flag under which bytes_deduped is what
+> the filesystem actually deduplicated. Patch 1 fixes the DAX comparator,
+> whose return value would otherwise surface through the flag.
+> 
+> [...]
 
-kernel test robot noticed the following build warnings:
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
-[auto build test WARNING on chrome-platform/for-next]
-[also build test WARNING on chrome-platform/for-firmware-next linus/master v7.3 next-20261019]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/David-Woodhouse/kthread-Teach-lockdep-about-kthread_flush_work-dependencies/20261020-160400
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git for-next
-patch link:    https://lore.kernel.org/r/6dee36e290c2a3b85dcd7cdba2cab72fe57b25c4.camel%40infradead.org
-patch subject: [PATCH] kthread: Teach lockdep about kthread_flush_work() dependencies
-config: s390-defconfig (https://download.01.org/0day-ci/archive/20261021/202610211757.UM0pu0Gh-lkp@intel.com/config)
-compiler: clang version 18.1.8 (https://github.com/llvm/llvm-project 3b5b5c1ec4a3095ab096dd780e84d7ab81f3d7ff)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261021/202610211757.UM0pu0Gh-lkp@intel.com/reproduce)
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610211757.UM0pu0Gh-lkp@intel.com/
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-All warnings (new ones prefixed by >>):
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.misc
 
->> drivers/vdpa/vdpa_sim/vdpa_sim.c:71:2: warning: unused variable '__work_key' [-Wunused-variable]
-      71 |         kthread_init_work(work, vdpasim_mm_work_fn);
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/kthread.h:219:32: note: expanded from macro 'kthread_init_work'
-     219 |                 static struct lock_class_key __work_key;                \
-         |                                              ^~~~~~~~~~
-   drivers/vdpa/vdpa_sim/vdpa_sim.c:234:2: warning: unused variable '__work_key' [-Wunused-variable]
-     234 |         kthread_init_work(&vdpasim->work, vdpasim_work_fn);
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   include/linux/kthread.h:219:32: note: expanded from macro 'kthread_init_work'
-     219 |                 static struct lock_class_key __work_key;                \
-         |                                              ^~~~~~~~~~
-   2 warnings generated.
+[1/2] dax: return the comparison error from dax_dedupe_file_range_compare()
+      https://git.kernel.org/vfs/vfs/c/1922bdb0b9bb
+[2/2] vfs: add FILE_DEDUPE_RANGE_REPORT_PROGRESS flag to FIDEDUPERANGE
+      https://git.kernel.org/vfs/vfs/c/847f74d6293b
 
-
-vim +/__work_key +71 drivers/vdpa/vdpa_sim/vdpa_sim.c
-
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  65  
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  66  static void vdpasim_worker_change_mm_sync(struct vdpasim *vdpasim,
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  67  					  struct vdpasim_mm_work *mm_work)
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  68  {
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  69  	struct kthread_work *work = &mm_work->work;
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  70  
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04 @71  	kthread_init_work(work, vdpasim_mm_work_fn);
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  72  	kthread_queue_work(vdpasim->worker, work);
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  73  
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  74  	kthread_flush_work(work);
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  75  }
-4bb94d2de2fa90a Stefano Garzarella 2023-04-04  76  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
