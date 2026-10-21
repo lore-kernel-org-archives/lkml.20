@@ -1,61 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577213;
-	b=1tz9sbwrzTwXUG5rKRbeK1uERvf4hrv8VQKie653jT3MBwq6QjkZBB8W7t8vCSKUoEIQ
-	 d8BehOeRBKIYELIVLiz0bxc4Ql5u4Rfq/VMxasbCAUpxyfBTCelkDuMEzg2GDV706+f/R
-	 VyUb7Wy6+61t7lPITetlDZKX6eR92pzUz3Bu6zqjwrPAvVNoCQWGOWA/avIzZvcvfKRwY
-	 gweuDvIn9xw+/9Lf9bhqw+1eLJ6HK49VWL/PM/o49ZKKupL+DDpey2hhLV/jqfrYXtio/
-	 irZFXZfx+ziBiWfML95K9i63UpJEoDLHf0/htagwWmryUPmv4DmIaG1eMrNIQ1wMpbQ==
+	t=1792577223;
+	b=UUkNLW2VkRmR1SyXDZS4bGfvglNlrV/U6m9DqveCPvENDPSybH6JjqgrixxAIQgWG9gc
+	 yVdb2JOVv8lQB86srunhD46r2ftSmQyxwAurU7Q84v9pOtXEgkP1aUHXYzfZnViUIjruS
+	 WXe8Fp1JgpTZJOL91qm8n7E4WmIpLCVSvzMeuSj3qCqND/v0NSqHk1ewADeA4tM+jfWp4
+	 XIq+izEj7Wkz0v48kGAvZ9I6U37WMgAdLJXCbhABzuMlQHW2BkaiCM6myF64OsIdVXqaB
+	 N1h1TwgJMqjpjFyNN6IZgTPdAtHiH01IdvtgDZCoL9o2fFKHDpc+uNBe2+dxsu7Fp4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577213;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=ZIeabLWc8/+X+ra1sWD8SHeL20genn2WdJFRc0Rla+4=;
-	b=ZMii7ay3QYC/LJ5r6ZT20Vl/GbMzb8YuSLL2Ny4vsYu9zWAVOatkJ+/W8N2afpL3eaum
-	 jPTDmA/qHAZczZuMRHLcs3UcoHJhwNH9ETaO9sfnnE1NHzWvyOycqxoo+TGiIlr1q1ZUA
-	 VCDFGb/cavCjk1ikWIU9Co97FCUQYl5skl3+e46xITPRN7xv5E8ocbDCPy7U3QlU9kfip
-	 tD7tvKVAHaG4lt0P7lSu+qB2hca5fU3Ci0QFshXzYnlPXs5ojl3edfWFV4PIu+aT86UZ+
-	 Tw2tyYQYjQpFueIwwiT9L7Lh7pTcTtkEltVLJ28knV1bdHJ14a4F7g7Gymc68QafRTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577223;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=QvPThFQs7CPNFPQ+vkGx4arKK/k402cnRQc1S826sqI=;
+	b=vmJuANQIXcAdFqYDv7A6YL0PGSNzkGfjOP9q7aEa1Oqw2ieEDCt3FzduCwoTCRB1qFgb
+	 b4Lx9xAxZkU3akP6SFT40YZGxyVZ00OpRz85OBfCT1cTQv7WBgw6ECxl1E3fLxw4jn5yl
+	 xmTl7fgdZvFbgCdAQRnrmm2CCqoSWBiiPAQpnMgHQocDwnAQw/QDW6Mx4xYNNSVXH7BNp
+	 i3CtuEuaxbk73yEF6zzxnTItAihnLFl4IzHgK9cR+tndZWLH1DCVtZyR5d00P8+UdmeSP
+	 Xv2c5euMLVikUaCfPcN9S01fgfD4pPzpvdlLnOISKEFgMdNfqScJgvDx+xWtv2DqYtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=My+NPPXd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lRuA7Ht1;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CC08606A32E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:06:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518A2606A319;
+	Wed, 21 Oct 2026 10:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 518A2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=My+NPPXd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3778A1F00AE3
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:06:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792577212;
-	bh=ZIeabLWc8/+X+ra1sWD8SHeL20genn2WdJFRc0Rla+4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=My+NPPXdZzilgi8OU5XGXQa2QWI7Agq9xVcLjDqT6xp/zKF547A6W94nmbklZWwjg
-	 rzBYhnKsaVPSSAGbOgdsXGrP5foSTo4jaqPw3swymrzkIYZiq25uiokhyDz+bSCBjB
-	 oUTwulDO68uwZXx2+PsfP3JfvtsBH5J7e3Qk/7/x6eGCTzvO5RWW7yjWnNW8u3O7t0
-	 gEdGgVqZf7yj9QrugZUbIkrJpTESFLpgW3wyTawItnYm3knuCb7X9MqZA/Wx5ICUyB
-	 +WUn/IXuq2OHQFDWydtYc8PPlzEFiYP/iNH7+nlEqBM9ueY5CRR8b66TUuHpOGi8c3
-	 tOZxLwWVHvCkQ==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5be4d648aacso401845e87.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:06:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx5uuUwYg0d0K4QkAUcCtTwp+qng1ASenA5C/IZRrO2o4Vm2YoQdIDnqC+riFPv9WMFbcdvtjezCMnN7VQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/IK6xN/2GW29HpzBZ+Pz00EyIuZst/TaS8XpSuP+m/FQVliLJ
-	cfKD4ZwxstHq8qAd9DsdGIGeKkYi8kol60z6KrfqjFVZudAAFxR9Dib3kZnWVUSAA+1zmm19rPH
-	Emw7cEpZRkuyOqazCr+eEUaF/Z9cVVkcDbGKJ0dbQYA==
-X-Received: by 2002:a05:6512:3d25:b0:5be:54c7:75f5 with SMTP id
- 2adb3069b0e04-5bfa1be93b6mr617058e87.18.1792577210780; Wed, 21 Oct 2026
- 03:06:50 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 06:06:49 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 21 Oct 2026 06:06:49 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261021015004.1537738-2-dmitry.torokhov@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lRuA7Ht1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792577223; x=1824113223;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=NL0lYY9NdoNlkvR0pbijV4vrZONetomEaQ/12rrA3+A=;
+  b=lRuA7Ht1QM8eJLT/O0+R9QKc7IA3JosZ2O1mFINlIAZf08Mkkt+QlurF
+   34xcTeduMXYSl/phY9FVVo5F1zHvYctIwnAveKjcbAadaswTaZuXXeYf9
+   8BBasjihGOKLut4K6/0Grg3TavWOt8hDWT00S8jt75uHtu2LWjs+yEqsM
+   qVZ5xPO0CRElMlr0sHKgo8QuaJBY2duJw46Idw66q+Gn2xYXoW4qGTKnc
+   oRogkdEB0SbcY1AFoGctRB2m1hmNOoHLV1/RZ/T9SQtmfPF3hmtHoyrV3
+   zBqwjpHmn90mdnOCbVB6jglpnWzLKHOFh2zlHLsuwxddvsHViycTTGeyx
+   A==;
+X-CSE-ConnectionGUID: wrUdAa5wR0OWsPDc4ERrGA==
+X-CSE-MsgGUID: n129C2gLR3GdBhiNuZtTKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1185900"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1185900"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 03:07:02 -0700
+X-CSE-ConnectionGUID: F+zXWec0Q4WsP2rH6Z+pjQ==
+X-CSE-MsgGUID: PiqTdiP/SbScuA9fo7BX6Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3373794"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 03:06:59 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+ Junrui Luo <moonafterrain@outlook.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261021064012.457870-1-tiwai@suse.de>
+References: <20261021064012.457870-1-tiwai@suse.de>
+Subject: Re: [PATCH v2] platform/x86: ibm_rtl: Fix potential OOB read at
+ signature search
+Message-Id: <179257721467.10359.5031455063414547974.b4-ty@b4>
+Date: Wed, 21 Oct 2026 13:06:54 +0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,26 +80,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com> <20261021015004.1537738-2-dmitry.torokhov@gmail.com>
-Date: Wed, 21 Oct 2026 06:06:49 -0400
-X-Gmail-Original-Message-ID: <CAMRc=McawKQvXKPHzrSsbjxm3nSmiy5gEGEjfeitBwDX=jBDyg@mail.gmail.com>
-X-Gm-Features: AclHuK-DUw-TDKgIDp7kls7bG6fjPSgpfM8RhNNzpQbvwml0tw0TvFN9P4v7edE
-Message-ID: <CAMRc=McawKQvXKPHzrSsbjxm3nSmiy5gEGEjfeitBwDX=jBDyg@mail.gmail.com>
-Subject: Re: [PATCH 2/3] Input: soc_button_array - use __free() cleanup
- facilities to free memory
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Andy Shevchenko <andy@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, 21 Oct 2026 03:50:00 +0200, Dmitry Torokhov
-<dmitry.torokhov@gmail.com> said:
-> Switch to using __free(kfree) cleanup facilities instead of doing manual
-> cleanup or abusing devm for allocations that are only needed during
-> probing.
->
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
+On Wed, 21 Oct 2026 08:39:55 +0200, Takashi Iwai wrote:
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> The loop for signature search fetches 22 bytes of struct ibm_rtl_table
+> at each check, while the loop count is calculated in 4 bytes unit,
+> which means that, at the last entry, it fetches over the limit.
+> 
+> Rewrite the loop to use the byte offset and correct the boundary
+> condition check for avoiding the potential OOB access.
+> 
+> [...]
+
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
+
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
+
+The list of commits applied:
+[1/1] platform/x86: ibm_rtl: Fix potential OOB read at signature search
+      commit: f1d81af2521ad504a20481fef12c358d26e6c3a6
+
+--
+ i.
+
