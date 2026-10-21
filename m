@@ -1,56 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.132.180.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577234;
-	b=iVLc31gwpaRR+UkddnAVS1srcH5LjMrpmsf8440OCmUY9xudeUPQrHkHSSMzP7eb1yKP
-	 jjIgdCk4+WRoSwe7+wdjjC6li8BsTyIs0lvEqyYYEtDGjP1P/bOWV1UCCnONf5GZk2e9P
-	 H8sE8gosBHqFyq/sidkvaQbwrYFDmmSwSrisLust4NXoGoX4+lvJMG+nqT4J54xnXr7JM
-	 xC33jx+OVD//2meq0NyuOKnTSjvey1yov1jyFgI0Oo15HRCbh43N9DJu0jtqLNhdsMzTS
-	 IB5K0S7YC76lVYlZ8ANWIbtAGoW40FZU0ooFD5wHkDCWhP7JQ8YfBJmP13Wy2QqMDXQ==
+	t=1792577283;
+	b=IJW2LYSts6Jaybw4gMNz4GMTiiiz2Wc0+dvKUxM40zWi4iXqnRgSeseCS/iXq487xb45
+	 7pqQvjlFVOtEFRvyLZKr20ABLf6x29oQPnP4vuDKLsczHnI0Qd7fRNjTRmXosRNLp9Vqv
+	 nIQbBbYh7xHgevbePzMyPXeWABVhav/BBJ00SLWFFbohWPZP2ndsqkeQ7il0SNyAQddz0
+	 PuRiBCjg5J+RWLFKU7jsncc7hpfB4qKfJ4WXVAqxFgRMHfXqSmtrFjaT3AsQPnmchWXLo
+	 m4pu4eTGolBh+kvgVwVu290F9w1YmlcgrYPFcRYdRQWf8sOD4BrQy9fgpVwol9LqAoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577234;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Fk9BUgVP3kFs8DaV6RE1g5NRNic25h7mvyC2Ggzh2Ms=;
-	b=Asc2szViPzzIkLsO4DZN7dIXDcAyqzV/VyEsQ1OGWtBApPN5hzSDeZb6cpoY03Ugr5KG
-	 C49mfmnoLBvWplHhsCdMavpIQKcHBPv2PJBS1ZdbRRqcrvgkGd3WBWXyJR9mCku9xCu3R
-	 PGMWNSIwsCNV0DQDnGKnaZv6JFpI5z4Yj9zofd20DSxGSUBNTgmRqodoSZAG3Vd2NqU5W
-	 3RmpQZtcPw/QCmI0JKmsOUSe/NltO6yCguqBN8XEx+HODYmoORztw8ELONUDk/c2ER+H4
-	 NdVtF84fdr+2AZxnlQpLIGVPfngGApbd0AkdDTxqtVmzz7A9lch/pdCV2nz06CslvBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577283;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-Originating-IP:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis;
+	bh=jXm9xLCKcJdiijo1krCekhMqSFULWJOFFkyzDCZrNCU=;
+	b=aI15ql/HH1uR0MJ4dMwYUcqlVxsOseahL5QP6qiVPemrB/0vbEWx7BquyBpi7esPAvkO
+	 YVSLeODM2aq+UVmyPT/J0TidI3Gto/Hr7FOjFuUOYDv89DUfBo0Q3yBPSY8d6UCp1ycF5
+	 r7mLljDr0NXZuK9JwmOfc3ZJWPVP/ClokfQ41XoQzLEor/VayjVI/K3toN9W+uzSr7LPm
+	 RxJYJKmoYPteRnyZK9PlcQ+B7giinbjKCU7NXrUHAvboR9fSRnqI1PoaonqyzCwySvg3W
+	 1+uZiPkzLWIV1acCj8jNjL9PDU1oq0xVPc54xZOTrEOSnx61ZfEDb3b/gA6GPVxw28w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2gaiVid;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=imgtec.com;
+	spf=pass smtp.mailfrom=imgtec.com;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=d+wZ1XqP;
+	arc=none smtp.remote-ip=185.132.180.163
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD05C606A321;
-	Wed, 21 Oct 2026 10:07:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FE3606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:08:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77FE3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2gaiVid
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4EDF1F000D0;
-	Wed, 21 Oct 2026 10:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792577233;
-	bh=Fk9BUgVP3kFs8DaV6RE1g5NRNic25h7mvyC2Ggzh2Ms=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=T2gaiVidMkdJYfFZMzgA0HSwLCLUxR+CmrFY5tBi3INv/m8BgcZfhEZ75oNOpiO1K
-	 BMe0pHXTtQlWZnAQp8FJfJb6Kasy+VDEbXDsWf/njZqHL831nsin6gZl0FOrZot4eW
-	 /c5qnNXx+phD4OgxDAFFQF8mERyQc7Oednop6Mz2W4uhw21mwZb7oeIV0YMZjH7/gk
-	 6GB3cDYdbaTZxae9h1HfE7ChT86Ny5kab5LoDJKthSdHAOv7FBg0reGFfkbiHCyP29
-	 24oTIhrh+Q9zTEUayK8lffXu8hv38h7Cipv+mDwuZSDqoB/jc7CeUf6I0UP2of6yDG
-	 1dkx200fytxFQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Hungyu Lin <dennylin0707@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Joel Granados <joel.granados@kernel.org>, 
- Luca Vizzarro <Luca.Vizzarro@arm.com>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261020152857.48989-1-dennylin0707@gmail.com>
-References: <20261020152857.48989-1-dennylin0707@gmail.com>
-Subject: Re: [PATCH] pipe: reject oversized pipe-max-size sysctl writes
-Message-Id: <20261021-hemmen-puten-annonce-fd4c4f71c8b3@brauner>
-Date: Wed, 21 Oct 2026 12:07:08 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=d+wZ1XqP
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA6Tge2674780;
+	Wed, 21 Oct 2026 11:07:43 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=j
+	Xm9xLCKcJdiijo1krCekhMqSFULWJOFFkyzDCZrNCU=; b=d+wZ1XqPcKObbQryY
+	z/iuJx1UuQDZZu8Z0uplwSu3oFkFKB6AKtx8pKEhbgkXHoEpRGSPWp7V2ltcyShV
+	oDTEpzBiI88IlPj44YU3tWSZRCbNE1BdB0wqkfqJjf8P0p0bG4SG4tBxRD2dfh6B
+	xD/qZNbd5EFOvsUDe0CE9A80rKUNYZPuayMFUyejh9cZSNP/UGQrLrKfRmUqVSJZ
+	GCm5gBMgnVud2h8HZ8wwTpSLLxv3PMAebMJLqY5zzAL8DyM+VDce5AdA9iBe8dGH
+	Q4ZIgUkJrCW3FSIH2Orn1qpNdlnU+0leHAzYc7RJjg/g0Cw0Ejp5z3CJHivpPI0/
+	g1hMw==
+Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4hdvkahcfb-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 11:07:43 +0100 (BST)
+Received: from [127.0.1.1] (172.25.128.158) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 21 Oct
+ 2026 11:07:40 +0100
+From: Brajesh Gupta <brajesh.gupta@imgtec.com>
+To: Alessio Belle <alessio.belle@imgtec.com>,
+        Luigi Santivetti
+	<luigi.santivetti@imgtec.com>,
+        Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Alexandru Dadu <alexandru.dadu@imgtec.com>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+        <linux-kernel@vger.kernel.org>
+In-Reply-To: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
+References: <20261009-b4-improve-logging-of-unknown-freelist-ids-v2-1-5e6c3f63370e@imgtec.com>
+Subject: Re: [PATCH v2] drm/imagination: Improve logging of unknown
+ freelist IDs
+Message-ID: <179257726029.217387.271775620928362253.b4-ty@imgtec.com>
+Date: Wed, 21 Oct 2026 15:37:40 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,34 +86,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=883; i=brauner@kernel.org;
- h=from:subject:message-id; bh=HCLVhoCs/ougNunOEXYScB4Ue6L47tWUWzfXCm/Hyvg=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd6DvLfWC6YpXIO22T5xbz/u8V/izZvcLZ9djKi2+nb
- Uy8prHlYkcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBEVk1jZJiybCP/0vVn5HJW
- mXKkFl6+9XKH7+pXlv84j05cmfTh2/l1jAyHwo7/FOiSvJP0eOrBmudNciXnPhe+rPtmdfHHPs0
- 6iX5+AA==
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-Mailer: b4 0.13.0
+X-Proofpoint-GUID: lW888u5C85wJ0PvoSeXjr4cJV74dWny0
+X-Proofpoint-ORIG-GUID: lW888u5C85wJ0PvoSeXjr4cJV74dWny0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX9X4j6TUK5GTe
+ V591XMq0jChzTl+gzhsqpBzVdcPty+J3/hSg0Pr5FkhqLpQ7hhWRLGyxNHOUM3W6ADMm2jVrvhX
+ Ofc/gM8O4npFKNrWQfJtX9WEUaUaB8YLZVl3c8M4XFtJAFpYGNqbI0kWufN/xFc05dmynFECnlQ
+ M7gIHQUtnIi0bUdLGEkB2Tv2hdB0cyHk6vwalZOk2MTwF2UZwNp6e/2Q+caL8Hq17+/A0cevGSv
+ TBEearyqp0O/p6aqrDqxpXPD7PXIso+ot9n5BgSwqOfNMVuYAYByZc7Fq32ekzs7UWmbBfmM430
+ tT0i6HjvgSNv4p0cTL0QJbwNUKARqQ4prccTL6cmxcbg34ARSrzoVPgJWLlmOLw2YcbhvaSFQa4
+ HTI6AeMdW5aW3hG5Zvz/j6vOxENFe10+D02kwPnW3YtlymqCOfWdW7fuwnwgMbEVzTA4jdI1Pzx
+ 12qzgk6nU5D4MILC3hA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MCBTYWx0ZWRfX5r646lanVyG8
+ 1XDa3gCk6Rfw3kJRYGg+FJwN3Ny6uM7GkSRjBtk7tnV16ARNM7c/xqvoSQE4t93Y2Mw6h1fDJVa
+ 98O43SId0PCC7F4PilwdJcBB+qOS5+o=
+X-Authority-Analysis: v=2.4 cv=eO+GH3p1 c=1 sm=1 tr=0 ts=6ad88eef cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=x1VBDH5lXswA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=wyhv_oTX6gE_ehOD5bEA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
 
-On Tue, 20 Oct 2026 15:28:57 +0000, Hungyu Lin wrote:
-> pipe: reject oversized pipe-max-size sysctl writes
+On Fri, 09 Oct 2026 14:04:35 +0300, Alexandru Dadu wrote:
+> Log freelist IDs not recognised by the driver when processing freelist
+> grow or reconstruction requests from the firmware.
+> 
+> In the freelist grow request path, remove a WARN_ON() which is not
+> particularly useful since it is known where the request came from.
+> 
+> 
+> [...]
 
-Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.misc branch should appear in linux-next soon.
+Applied to drm-misc-next, thanks!
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+[1/1] drm/imagination: Improve logging of unknown freelist IDs
+      commit: f4fbf95c82ea6c3673bd5de38931f02474a38e51
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+Best regards,
+-- 
+Brajesh Gupta <brajesh.gupta@imgtec.com>
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.misc
-
-[1/1] pipe: reject oversized pipe-max-size sysctl writes
-      https://git.kernel.org/vfs/vfs/c/823a9699a475
 
