@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583818;
-	b=LQpP93/lk0P/ydsnkIQcPvwVBbnG8voNvxatTZcyMbx8Hi0M9uxNA4hcrQ5fCCqIaw9I
-	 FBWHSG5fMIk4b69/21RRTaBqSloJVO2ST+7YFzxGTm1Q3oQeO/McHo4DMYb6MkSmXX5eC
-	 gn3LVSScN2+j+sSPUGpRz2gXGQ40NfChEAzUNfcXirc3HHebKB28YdvbXGoInDM51SBmO
-	 aRUr+tCVZErhB5RkiUp74fIrLivamj+e64Q2jzWP86HxyEXs+Hs2tAPSmdux0Iq5/pUD/
-	 afJxzkSWivY0RhDwYelemST3GdOpY2kdqgmCpu0TBdDsTXc8k5WIJnqUieb8PCxl1vw==
+	t=1792583838;
+	b=mE/wSB2/zKTRo2zzqbfAFw3rRQAc4DZre6UrKREfmAC1HEls6069NWlwl3p8oSP7Xrul
+	 gIHfh0FrI1X1nGGJTZHvoIF/l5IMF9Hg+XDqyCc1YhfzFWXX+yjchP0CaJjwKPBeWugnQ
+	 ejrSVVDYOOaJpKN3R22+kUBTsajdLbS+lZiRTQQ5vpx61+J97mxFVTg0sdBfYrRC1G8fy
+	 y8xAi37FOT9UxYHdoyxRsqwB9iiD9/FDn+R3ZVT0l0cO/cNxP5z/Qqa4Wx40F+OE8opmR
+	 HIsgfHm43wlMI3CgQLslsFbHNfPu6aJmW4Rmz9saYJ36MP4ylUYPioAk/vmaKUqkY1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583818;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=y3Cc8X3faZNr+lrlR0PCJw4R41q5ZFzAd48ZePxA2zI=;
-	b=MN151s2JQqG5ixdUXaYprZbQGi9fNq+xFhc0qsPY7ueLBuJdVehLg+UZacnBUSKpgKWY
-	 L9awRGhlCadhfloJEBZm5GKuLn8VyWaYudFEM/qUpj6+Zs6BGX3W231bLE8WCuWHAZpw2
-	 3vzU68hbhwvofBiBgZ1oaUZJCbPjqTzKhUFJ3xBJBbgbXIkmZN68/qG7wp8plY8zTNPVb
-	 3T4hZQB2HJZlJBZift3J/y7uWymCI2nK/6ZnFn1NVnKBII3Ffkhr+w+kve64FH3bYfyua
-	 ZXHKR7zYtKcdrNr77Ljw0R1hYOxiGo0Yb2yEu4pcLdtfnb4yhXOvhqM8/e/2xZgd7RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583838;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=+UMytylQ6mrojiHLcj3je07Z0OFvxutj7+E3X5FQ4SU=;
+	b=DRIjAqIhYdCFz1v/VWxgDKc8SW4XnvQUzOdOoNAhj38zh/MFHfo363fJ4KBvELiYcvRR
+	 EFa4KK89Kgwmn8a98mhcibIVjDFZw+g0UcpnJ7BTRppfln99VF8oV4dSOBH+Zc5kBSRAC
+	 D1oRJynyOGk4GRwsV3juN65k131+LcLzYPaS6AUxZl1dlvZ91gLyJOl3fKHMHyCKa1NhO
+	 HKTDCzw1XufM8v3bcg7uehc5fgeUQMXSt9d2+30fcd4XCyKWQgRr5a5iKNEafJs2jnkDB
+	 ugZIjeJqje/7L+ir+Z5quo0e/IZJd5ACyBCOMeHYZegJdt7+Se3FM+MCnk2MOTq4dPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Jg5Xm/01";
-	arc=none smtp.remote-ip=192.198.163.17
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oOWLmY5b;
+	arc=none smtp.remote-ip=115.124.30.130
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71170606A339;
-	Wed, 21 Oct 2026 11:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71170606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEFF606A31A;
+	Wed, 21 Oct 2026 11:57:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEEFF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jg5Xm/01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792583818; x=1824119818;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ByEZCJarc35j8etN817/zawqOpUCF7BCj7+jhbOovh4=;
-  b=Jg5Xm/01qsRhU3+tuuPoEfxbVJP7qvUh/utjebEsPjKdXll24YmhkOCn
-   lpA5zWtbIQgxaYTifOWfO99KY7+eFRsh4uz0zE2qAxUDIvpjxOcW8kYxo
-   bPLYL14DvGs7klscCxR2/rhBZleboTYJ9pH8CagD3Zishx0Wz15z5dtHy
-   3XzCk6GobQGHJpWcs8TrnWPAyBj5BXHPv4P8mMAOGsLhKiRog2EQiwLcp
-   gfXyunrzTwntuBf3JhkCfgvt6glcfGEBRHVr9UtHJ5E9ODe6hmV6e7Cdd
-   zt3mrms/Zf2GHRKRw8pyAQ9WJgWl33lwtKKImq+Z4ufUTcKD4s44Xu4em
-   A==;
-X-CSE-ConnectionGUID: /DEbY/DWSdGQJh06CjtLng==
-X-CSE-MsgGUID: aBAIa6wWRyW6VEJ582RB5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1308322"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1308322"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 04:56:57 -0700
-X-CSE-ConnectionGUID: 1gT5+YYCS9aXRy9tOfDgUg==
-X-CSE-MsgGUID: 472FMWH4Tamdlnmo78nZfQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4868026"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.43])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 04:56:53 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B2E5C121BC4;
-	Wed, 21 Oct 2026 14:56:50 +0300 (EEST)
-Date: Wed, 21 Oct 2026 14:56:50 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
-	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
-	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
-	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
-	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Message-ID: <atiogo14sCFw4xlT@kekkonen.localdomain>
-References: <20261019014720.2635-1-lachlan.michael@sony.com>
- <20261019014720.2635-3-lachlan.michael@sony.com>
- <atdGr8S2sf1kZFUw@kekkonen.localdomain>
- <20261020125630.GA158670@killaraus.ideasonboard.com>
- <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=oOWLmY5b
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792583827; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=+UMytylQ6mrojiHLcj3je07Z0OFvxutj7+E3X5FQ4SU=;
+	b=oOWLmY5b19CixnXCwVq5DDikCvFckGDWo7X0h5PljUP6odrNhMMBwc1cqU7lfxDGNsQR6HQFFshVmOLMTL4Lig/vSush55RHXrBtlXv6Qkuqr4+D+twg3/bSeL4EdIZzExn7/2Eq9f8oICqnVk9j5++iDFytlM0rNa/URQchS7A=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R221e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XDGHZKw_1792583825;
+Received: from 30.221.149.139(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XDGHZKw_1792583825 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 21 Oct 2026 19:57:06 +0800
+Message-ID: <9e071e7d-ae86-4b55-8609-1f00a0deb913@linux.alibaba.com>
+Date: Wed, 21 Oct 2026 19:57:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,70 +53,252 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] ocfs2: snapshot dentry names in file-operation
+ traces
+To: Cen Zhang <zzzccc427@gmail.com>
+Cc: mark@fasheh.com, jlbec@evilplan.org, heming.zhao@suse.com,
+ ocfs2-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, baijiaju1990@gmail.com, jjzuming@gmail.com
+References: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-0@gmail.com>
+ <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-1@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <pm-ocfs2-objects-candidate-0088-v6-d3056754af7e660155d9-1@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Dave, Laurent,
 
-On Tue, Oct 20, 2026 at 03:50:09PM +0100, Dave Stevenson wrote:
-> Hi Sakari and Laurent
+
+On 10/20/26 11:43 AM, Cen Zhang wrote:
+> The open, fsync, read, write and splice-read trace calls pass the live
+> dentry name and length to the shared ocfs2__file_ops event class. A
+> file reference pins the dentry, but not the external allocation backing
+> an individual name. The event needs those bytes when sizing its
+> __string field and when copying the string into the trace record.
 > 
-> On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart
-> <laurent.pinchart@ideasonboard.com> wrote:
-> >
-> > Hello Sakari,
-> >
-> > On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
-> > > On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
-> > > > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
-> > > > output interface. The driver supports RAW10 and RAW12 output formats,
-> > > > exposure and analogue gain controls, image flipping, blanking controls
-> > > > and test pattern generation.
-> > >
-> > > The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
-> > > 2, for which Dave (Cc'd) is working on a driver (see
-> > > <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
-> > > The register defines in the two drivers appear to be quite well aligned.
+> With the relevant event enabled, a caller can be preempted after
+> evaluating its name argument. A concurrent long-to-short rename of
+> the same dentry can replace and reclaim the external name before
+> the trace callback uses it, provided no other snapshot retains it:
 > 
-> Asked and answered at v1
-> https://lore.kernel.org/linux-media/TY6PR01MB17839FF48671E744E7E23A93E92D42@TY6PR01MB17839.jpnprd01.prod.outlook.com/
+>   File-operation caller                Renamer
+>   ---------------------                -------
+>   load d_name.name
+>   <preempted>
+>                                        vfs_rename()
+>                                          ocfs2_rename()
+>                                            ocfs2_dentry_move()
+>                                              d_move()/copy_name()
+>                                        release rename name snapshot
+>                                        RCU reclamation completes
+>   trace callback sizes/copies
+>     through the old name pointer
 > 
-> > The current version of the driver implements very few features of the
-> > IMX908 sensor, as crop support has been removed pending the raw camera
-> > sensor model, and Clear HDR3 is being developed. I expect more
-> > differences to appear when those features will be merged, so I believe
-> > it makes sense to have a separate driver here.
-> >
-> > In the future, I expect the raw camera sensor model to open the door to
-> > more code sharing and more drivers supporting a wider variety of
-> > devices. We can decide then if the imx908 should stay a standalone
-> > driver, support other sensors as well, possibly across the Starvis 2 and
-> > 3 families. I'm willing to help with the refactoring at that point if
-> > needed, the maintenance burden won't be on you (and I'm sure that
-> > Lachlan and his team will of course maintain the code base).
+> The pointer argument is evaluated before the trace wrapper protects
+> probe execution, so that protection does not cover the old name
+> across this window. Inline names and separately read lengths can also
+> change while the event is being recorded.
 > 
-> Agreed.
-> I have compared the datasheet for imx908 against the Starvis2 ones,
-> and when we start looking at HDR modes they diverge a reasonable
-> amount.
+> Take a dentry name snapshot around each of these five trace calls and
+
+Seems ocfs2_setattr() also risks the same race, and it is missed in last
+review comments.
+
+> pass both the string and its length from the snapshot. Inline names
+> are copied and external names stay referenced until the trace call
+> finishes. Check each event-enabled flag before taking a snapshot so
+> disabled tracing does not incur snapshot work. The trace event class
+> and its format stay unchanged.
 > 
-> Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
-> to the earlier ones, so adding Starvis3 would need some care.
+> The report below is from the read path; the other four call sites
+> have the same unprotected name argument.
+> 
+> KASAN report as below:
+> 
+>     BUG: KASAN: slab-use-after-free in strlen+0x85/0xa0
+>     Read of size 1 at addr ffff88810a5b2b18 by task python3/496
+> 
+>     [CPU and host details omitted.]
+>     Call Trace:
+>      <TASK>
+>      dump_stack_lvl+0x93/0xd0
+>      print_report+0xce/0x630
+>      ? strlen+0x85/0xa0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __virt_addr_valid+0x20e/0x420
+>      ? strlen+0x85/0xa0
+>      kasan_report+0xe0/0x110
+>      ? strlen+0x85/0xa0
+>      strlen+0x85/0xa0
+>      trace_event_raw_event_ocfs2__file_ops+0xf0/0x480
+>      ? __pfx_trace_event_raw_event_ocfs2__file_ops+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? pmbd_probe_hit_cookie+0xe7/0x1c0
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_pmbd_probe_hit_cookie+0x10/0x10
+>      ocfs2_file_read_iter+0x6cd/0xb30
+>      ? __pfx_ocfs2_file_read_iter+0x10/0x10
+>      ? selinux_file_permission+0x11d/0x540
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? security_file_permission+0x26/0x80
+>      vfs_read+0x7d2/0xc20
+>      ? __pfx_vfs_read+0x10/0x10
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? __pfx_do_sys_openat2+0x10/0x10
+>      ksys_read+0x111/0x200
+>      ? __pfx_ksys_read+0x10/0x10
+>      ? irqentry_exit+0xbe/0x820
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      ? trace_hardirqs_on_prepare+0x11d/0x150
+>      ? srso_alias_return_thunk+0x5/0xfbef5
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>     [User register dump omitted.]
+>      </TASK>
+> 
+>     Allocated by task 489:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      __kasan_kmalloc+0xaa/0xb0
+>      __kmalloc_noprof+0x2de/0x780
+>      __d_alloc+0x5fc/0x8c0
+>      d_alloc_parallel+0x106/0x11d0
+>      lookup_open+0x3ff/0x13e0
+>      path_openat+0x95e/0x2020
+>      do_file_open+0x21e/0x470
+>      do_sys_openat2+0xf4/0x1b0
+>      __x64_sys_openat+0x136/0x1e0
+>      do_syscall_64+0x114/0x620
+>      entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> 
+>     Freed by task 0:
+>      kasan_save_stack+0x33/0x60
+>      kasan_save_track+0x14/0x30
+>      kasan_save_free_info+0x3b/0x60
+>      __kasan_slab_free+0x5f/0x80
+>      __rcu_free_sheaf_prepare+0x65/0x2a0
+>      rcu_free_sheaf_nobarn+0x1d/0x50
+>      rcu_core+0x6be/0x1ed0
+>      handle_softirqs+0x1fa/0x8d0
+>      __irq_exit_rcu+0x113/0x1e0
+>      irq_exit_rcu+0xe/0x20
+>      sysvec_apic_timer_interrupt+0x6c/0x80
+>      asm_sysvec_apic_timer_interrupt+0x1a/0x20
+> 
+>     The buggy address belongs to the object at ffff88810a5b2b00
+>      which belongs to the cache kmalloc-rcl-192 of size 192
+>     The buggy address is located 24 bytes inside of
+>      freed 192-byte region [ffff88810a5b2b00, ffff88810a5b2bc0)
+> 
+>     [Page and shadow-memory dumps omitted.]
+> 
+> Fixes: 468eedde23d6 ("ocfs2: Remove mlog(0) from fs/ocfs2/file.c")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+> ---
+>  fs/ocfs2/file.c | 79 ++++++++++++++++++++++++++++++++++---------------
+>  1 file changed, 55 insertions(+), 24 deletions(-)
+> 
+> diff --git a/fs/ocfs2/file.c b/fs/ocfs2/file.c
+> index d6e977ba6565..3c4637b32c09 100644
+> --- a/fs/ocfs2/file.c
+> +++ b/fs/ocfs2/file.c
+> @@ -85,10 +85,17 @@ static int ocfs2_file_open(struct inode *inode, struct file *file)
+>  	int mode = file->f_flags;
+>  	struct ocfs2_inode_info *oi = OCFS2_I(inode);
+>  
+> -	trace_ocfs2_file_open(inode, file, file->f_path.dentry,
+> -			      (unsigned long long)oi->ip_blkno,
+> -			      file->f_path.dentry->d_name.len,
+> -			      file->f_path.dentry->d_name.name, mode);
+> +	if (trace_ocfs2_file_open_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_open(inode, file, dentry,
+> +				      oi->ip_blkno,
+> +				      name.name.len, name.name.name,
+> +				      mode);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (file->f_mode & FMODE_WRITE) {
+>  		status = dquot_initialize(inode);
+> @@ -174,11 +181,17 @@ static int ocfs2_sync_file(struct file *file, loff_t start, loff_t end,
+>  	tid_t commit_tid;
+>  	bool needs_barrier = false;
+>  
+> -	trace_ocfs2_sync_file(inode, file, file->f_path.dentry,
+> -			      oi->ip_blkno,
+> -			      file->f_path.dentry->d_name.len,
+> -			      file->f_path.dentry->d_name.name,
+> -			      (unsigned long long)datasync);
+> +	if (trace_ocfs2_sync_file_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_sync_file(inode, file, dentry,
+> +				      oi->ip_blkno,
+> +				      name.name.len, name.name.name,
+> +				      (unsigned long long)datasync);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (unlikely(ocfs2_emergency_state(osb)))
+>  		return -EROFS;
+> @@ -2392,11 +2405,17 @@ static ssize_t ocfs2_file_write_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_write_iter(inode, file, file->f_path.dentry,
+> -		(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -		file->f_path.dentry->d_name.len,
+> -		file->f_path.dentry->d_name.name,
+> -		(unsigned int)from->nr_segs);	/* GRRRRR */
+> +	if (trace_ocfs2_file_write_iter_enabled()) {
+> +		struct dentry *dentry = file->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_write_iter(inode, file, dentry,
+> +					    OCFS2_I(inode)->ip_blkno,
+> +					    name.name.len, name.name.name,
+> +					    (unsigned int)from->nr_segs);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  	if (!direct_io && nowait)
+>  		return -EOPNOTSUPP;
+> @@ -2542,11 +2561,17 @@ static ssize_t ocfs2_file_read_iter(struct kiocb *iocb,
+>  	int direct_io = iocb->ki_flags & IOCB_DIRECT ? 1 : 0;
+>  	int nowait = iocb->ki_flags & IOCB_NOWAIT ? 1 : 0;
+>  
+> -	trace_ocfs2_file_read_iter(inode, filp, filp->f_path.dentry,
+> -			(unsigned long long)OCFS2_I(inode)->ip_blkno,
+> -			filp->f_path.dentry->d_name.len,
+> -			filp->f_path.dentry->d_name.name,
+> -			to->nr_segs);	/* GRRRRR */
+> +	if (trace_ocfs2_file_read_iter_enabled()) {
+> +		struct dentry *dentry = filp->f_path.dentry;
+> +		struct name_snapshot name;
+> +
+> +		take_dentry_name_snapshot(&name, dentry);
+> +		trace_ocfs2_file_read_iter(inode, filp, dentry,
+> +					   OCFS2_I(inode)->ip_blkno,
+> +					   name.name.len, name.name.name,
+> +					   to->nr_segs);
+> +		release_dentry_name_snapshot(&name);
+> +	}
+>  
+>  
+>  	if (!inode) {
 
-There's quite a bit of this in the CCS driver, due to the variance it
-allows for implementors. I don't see this being a problem as long as the
-foundations are reasonably similar, albeit we can see whether this could be
-further extended later on to other sensors.
+This looks wried, the inode is dereferenced above in OCFS2_I(inode)->ip_blkno,
+but checked below.
+file_inode() returns filp->f_inode, so it seems inode is never NULL here.
 
-I'm fine with having a separate imx908 driver for now. Dave's driver also
-exposes the variant information through the media entity name so that
-should be done by the imx908, too (at least if there can be multiple ones).
-
-I'll review the driver properly soonish but I reckon it's in a pretty good
-shape already.
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks,
+Joseph
