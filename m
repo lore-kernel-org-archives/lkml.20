@@ -1,96 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792591811;
-	b=cTs6i/jFpX23V51zQXijJgdHL6va53tYgKLd8BfCB5TZRgEjVdO0mKfwaFdkpNtdRtnz
-	 bil9hKpr2PVk+sk0Ymi0Hs5FVcawPR0UyIZSelqX6WysoplGsfmwzwU/P24SC/U9IToED
-	 IaJx1qOG2VOnLC34dR+/oCT5Y+wfTNCrI25q9vDpImqvz6eNLifIUA3c7SD1GfxifU8hY
-	 iHMTGEyBjIsnp4KDh3k4l4nkgfDmLuejWB6YEPjnBCL6eU8ZC4DIERtE+fD250VnZR/we
-	 oli/5LL3td22+wVT5cCpjvggrQjG386fOYYaEgYSX2MR/IgPzxdmaWrgCe1Jha4W1MQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591811;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UT/UObBqqMf1T2P5pITZb+stYTNInYacJJuKE5k0x9s=;
-	b=T2HQg6hymfYVSuyFBpbau2/5ssAoCNXLAQ8u5ZXvNwU/7HYdh/XVJ2tOq8BpD2xlyK81
-	 DQko1NeinCkwcWGN7PQvjaOrlcikTphWwvZBmMxuo8bQIfu1IaEZ79Q/T3p4uT/ZXOLkm
-	 irDursEI0DQ2H6jlZSfm68d9tbJMs1xNfGDLlIDi7+ZzVsGBdDxFeN2Ufuj9Ocx8SyG7J
-	 Ek78OK67q0R+yF/4NirmsolCnQw/C63zN9GkBAUhCLKJld3rI1SR5kYSkkj+nfLtEYSYg
-	 mlLGpVgX3pIJuUYqnGylQDXIMKfwwoX8MkMygcS05Vqcu843GwHuseqn2ypszRdZ9qg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sEmHWx14;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.43
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010043.outbound.protection.outlook.com [52.101.201.43])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792591912;
+	b=3STycOQ9UWhGns7ihjRZC9ZLyZT0CPINW56+U3bdpKyleOiS6iDHxCHFPwfjGZb8f67s
+	 SAhMt0FknWKZP/fM8KgQWIkUm3vuyMTb+L2uIAU5yokeBc9gIKLa4D3dlcBlNkU+LeB77
+	 0r8CfWJ4sY49Xlvvh2z5UObfxqwsZMKwcLVJ93DzjfI/syLeRAI9F2525RmENIF0GVGvy
+	 cWCJoHHm/zPVds0DJUB9HE9zxtyP3wOJ2uFGEj1Wgz8Y/7MgwGhoNIKjfUXameoIZ+/sT
+	 9W4xtILi80DdrqYutiX5msAl3SoMQ2XDVsA/y4d5Ul4DP9rVbxuuoPe/hT3dmgos6+Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591912;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
+	bh=DQoRVtL1rIECgPFKDyXfClZIANIPEM74LIvbEMBMv+s=;
+	b=BLT57dRppcre/CIS4iFUD5PpUrpwWAWgg5bT4UWByvhhzQSgsXrmZB/io+GszZwFSL5T
+	 hhwwX95bp6Jn4sWbdNmeRM0jsyo2BVyxl2zPHfntWk9YYXfP+rJv24PdI3Nx2i32RFLF+
+	 ueRagHJWoPnk3+DpFYunxBVW/mTN0v2Zlp+L+fnbgPN6/8dYvDK44quFrYWN4WKTEpjrS
+	 aEU9YuVATiXYXqFOxvTSBYBYYFrFnyT3tKjRIoD5EKBLe5QhYoEo2AD6Qx81Eii4y0c6q
+	 IRb6s9vT+l8HsVSDurphI3hw2UhvDRMYOb4w3CpqlkENPIPajx/WOGUFU2lqQQnapuA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="b5/gtSJ3";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pss0aYuc;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E42606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:10:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8E42606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47888606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:11:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47888606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sEmHWx14
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JYyBsN9Ez2EAa1yw+34tm8zqtjulOhPMxbnlPrr/gaIdULGJpNgtE6C/8DOInQ1ivI0YrGzII1LNqQwlZqSuvVrGS4Qoct7QSgNdaVAxXjOAtoUol8RmDV5nS5GKfdeqR2b4n7i8VXV1UzUHdRstZyzx0ZbEQdTlYgIAlABjRm3fURah0qCcaE5j5uy+ftasBpGPj5Wb1F2k/pL2EsVURuTsZLBJjIFNYLwyBeIihTFG/xKMtHsTBA+dn53/2NeNDcsdVJPeQDFrrVACOzC0N83G9404uNQlzwmAAHbO2Dy0L4BRW1Gzl2R3U5i4qSjow5Spu5vJYwH7KX749q7hpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UT/UObBqqMf1T2P5pITZb+stYTNInYacJJuKE5k0x9s=;
- b=BDxQsisVOlQLhAnHxIH/EYovayl8AkqUemQC0OZTA3mf4ULqfay31iFkEU0Y1gzb4gbc8GB4JMWly2yoOYjVu+EX6DI4Gi012qQQOBp6sDitbGgQGpL3oEqfHwqx/fxe8RSZyORnnE8+G9ZJ7dYsPhvUZeFrggqIETSbif67qXfl9Eu5udOfq9LR2PGCFimkam5a2aIVvkJJ2YXsUZdr3TLYQs/PfI1J92TTZCtffcfh25quaNhsD7pD6grdv6RcZQDdqdTwESWhVLjrcLusZrY2+BmbVWK5s7Sv9hzPc1ZmQ8Uqc7VEXwn24kMkk3dAhlFO6pSV2+HYZ1rpO/PWMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UT/UObBqqMf1T2P5pITZb+stYTNInYacJJuKE5k0x9s=;
- b=sEmHWx145CdEFT0ohHqKa5B1Sj5UJbyHeb+Oz/nJoyAmj4Px/2DawQi/9CXIzRCTANPUph8d7NS1SM4MrihtBUpiHVbExYQcE8WXiLIBabnwufi4X29rLRAUEdMrpAxkjf5uBaniZf6N66StbArzqMTPBn6Saoz+zeP4g+nMjEs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LY0PR12MB314516.namprd12.prod.outlook.com (2603:10b6:404:212::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 14:10:08 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 14:10:08 +0000
-Message-ID: <8c60afb2-cb0b-4aec-9237-2ea3404d2793@amd.com>
-Date: Wed, 21 Oct 2026 16:10:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/radeon: fix VCE1 encoding on SI by handling the
- VCE interrupt
-To: Matheus Tagliari <mptagliari@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261021114122.94008-1-mptagliari@gmail.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261021114122.94008-1-mptagliari@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0145.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:98::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=b5/gtSJ3;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=pss0aYuc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792591911;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DQoRVtL1rIECgPFKDyXfClZIANIPEM74LIvbEMBMv+s=;
+	b=b5/gtSJ3x7PfqMK29ljS4m4zElRPFT+HnR3KNaKta0CaHazB4OduyCH71r8ZrNsUNDx0RE
+	KoDSfEKAqTg3ITzmVy98xO7P0b3DdIAIYIqeXM8xWUXl9UrIpmjj9lhYetM5IjRSxZ/qu3
+	jsWjrpYA1qKklEy1Q6uYsaxQtW0XQJ0=
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+ [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-616-4CeBJO1IMeWkoyQ_q2jU9w-1; Wed, 21 Oct 2026 14:11:49 +0000
+X-MC-Unique: 4CeBJO1IMeWkoyQ_q2jU9w-1
+X-Mimecast-MFC-AGG-ID: 4CeBJO1IMeWkoyQ_q2jU9w_1792591909
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91b937ecbb4so16324366d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:11:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792591909; x=1793196709; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=DQoRVtL1rIECgPFKDyXfClZIANIPEM74LIvbEMBMv+s=;
+        b=pss0aYucAiSo81W8btFkKaqfv1i2414u1+VymcNjolAJT8GPgnaXRRWz8KmJbsyuu0
+         YTeDyNBulnjt/vBcwA2pSgsXt9DOnwmx9D2aU+dpuuGTRZV/B3rFHhtQqH6n1nM/DqwD
+         FJH/rly/RStrZFTMzShMWAZdudz4B1MT3OZwahi7Xrsfyb7Q43CkPIphfxn+fQau9f37
+         WfOU/bHECiKqLdXgDW+gAH/Rcdk1O0BeBE/t5JK7+hm19DIJwy8mZ4SwOM6kuP4fHD4O
+         DZzF212z7T70g3REF9wyRxivfQ72fBHPYyRJNG8955unsDGDuIqcZTmKFO4/jn8JbQ+m
+         WByg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792591909; x=1793196709;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DQoRVtL1rIECgPFKDyXfClZIANIPEM74LIvbEMBMv+s=;
+        b=MfYyHcBKPrrvNdvLbWF+azw1IyUjP4KeJyuUJ4xHR/kdzOBfhgX1APl4UjToeHaQ49
+         7CtShYskqtVrf5f9ggl6uj5TC5V9P3eLQxglVIfOZkVY/rSJxX3qQiFXQzhw5S3DWpBl
+         kTdzVT4A25QZM1KrugwQvj4Ee6lup1g0Bv7h1oNFCD3rW2sIQHUyI7dpz31muW4JP9gi
+         dcX72uaq17hi+WLWFuHVOhHC1vgCq73YQJ/Ue0dg+U6AIW3JpoWvu0RvnR7Y6imcm0wk
+         SmrGFlEWckdrQo/NoutRfhz256ZzEW0pQA88nKAMt8AiSRuf4RxD1QGmR/a2RdTF/jpI
+         fTZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwzLXDMy2y24wQEdnkrKGYOCrrTkpzwg7fGX7zODAmNAB+FKvLxxxJTozonSX0tNjY/E1YVneQbE7u4Wn8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9rPzPqYvVWoZ2NPslTdZZ10LV2HQ6Xha22Zyw5GYyd+Jkndb/
+	67e6seyC77gMZux/Gv46iNT9bcoGZ117XD0oOyd8bS4XAlanVXmjCyJ/8fWx1TcRlDrU6WiniZs
+	i+5BKLYH7mk3FFQMd7+GLJlVPxreeoIzCwi4LDJIBN+zZBi2qD/e95NozgHG4Twt/0g==
+X-Gm-Gg: AYBFou09ZFqIk5KXXijJr+s33euwwXJQ0aGL50OkXpPt6zmfnYMqp1RLxdY+CjfKI4f
+	VLMJbJcITaEgNsfP/6zE+ImgWNVv6n4gShSdflT0Wd657Cs2rmjMtCA4ObEEgqe5CCpr8tUmNz+
+	/wvaJJ3nTB5FC6KG+l29op272+axSCO2BaOIFWLlzWFdB8G9Gr7hMqunTRLCNuhBHAfj5q4dW0d
+	J0OZycxUhBMp+bQtUj2iHmN6LPMxaVDMfn0PSkcr+Fc2x2Ou3ThUg1k/1Zeemb8SG3qCznTkTz3
+	bk54mcnOFKldDunfWF9O/wXu/3zm1m0HzZkLUlDHoGD7cIO3jY9vC2z1qxS8LuR3g0YPW+QBkYK
+	20CGugi9owj2Vk1uPtF/i7m8gVu6D1mwW4jL65YlHM5IMU0pUcqk/DJRwjQ1TZlLlNFw=
+X-Received: by 2002:a05:622a:888b:b0:536:8ac7:3936 with SMTP id d75a77b69052e-5369b8e6a57mr31496941cf.61.1792591908946;
+        Wed, 21 Oct 2026 07:11:48 -0700 (PDT)
+X-Received: by 2002:a05:622a:888b:b0:536:8ac7:3936 with SMTP id d75a77b69052e-5369b8e6a57mr31496191cf.61.1792591908163;
+        Wed, 21 Oct 2026 07:11:48 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10f38a6asm24903486d6.29.2026.10.21.07.11.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 07:11:47 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:11:44 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Jerome Brunet <jbrunet@baylibre.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+	Peng Fan <peng.fan@nxp.com>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	=?iso-8859-1?Q?Herv=E9?= Codina <herve.codina@bootlin.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/5] clk: Use v2 rate calculation on i.MX8MP
+Message-ID: <atjIIHkoNwBVDO5b@redhat.com>
+References: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,133 +127,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LY0PR12MB314516:EE_
-X-MS-Office365-Filtering-Correlation-Id: a6bcb459-3ebc-476c-f4b2-08df2f7d0314
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|56012099006|11063799006|261009223027099003|18002099003|10067099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	5QeLOhadCAoJUmufYfCwCtraZIZIz4DOOzJRNjl2PtPtFjuhCmpbKrj9UYcoOKkC3OXA7O8jjMBXTY3+fCmbg8krJ4BJ5FiTIswPMbeSxX3P+7QrMxSLLzWHhfIptKf7Gt3pIaIZD9JG2mNhTcN/4DyCCW9jnCqLGUdGhij7E22o96c2cm7f80wL6liACtiXsc76D3BdGV+XLm1LbkYP2k12xH2+BGy0EwLFI+os/xbnwBQpiSGxJDeZRmUgJZjovd1kiCefYUnezOuKNhcS1QRTwLUPEPUEhHYt9fu5DVrS4OXVMjqZVRrZw0Pi0IuMUFyObYnatmoszoy8zw/hfjDWvtKM4DCU90dN91FvTTDKXehzX7QHjAgqqCnow7JrEs6hnOl9Prt0zyYvvVU5MZoL2nE0hwRYPS0iPtf9f5gYVzwF56UyurVCqGeccBPxHspOg8CUGAGJFC4QQNvo7qYs0vvyku3xr0ji1jykE8W6YLdtzuNXkf9j+vQa1StnZDiiVcQX+YDsgyZ42gJRzkGIbicsZJCdwnRWBCMhUMkimRhQvL1x8FaTnQJoOxbaATv0BklNMX0J4BZDM6NlDt39Nlph9FAGS/q0JaEXcW/8I2ZFheofOTscxRv2MCo2fkxBIm3P5qe+loH4g7D/SVY7Ld/plpoGJuvqAdLwK8I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(56012099006)(11063799006)(261009223027099003)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eVM4b3M4S0pZQlQyK2Nwc3dYVDlycG9JNExYdHpXdDNsWjVQVDk3YnVUbExq?=
- =?utf-8?B?OFNIdkh6a0FwUk4rSE9xMUlSSnVKN2MzUUtiZWxvZERPMTZUMUlHK0IxTFhL?=
- =?utf-8?B?a0g4eEtDR2tFMGNjamF1ejd2TmlzZlF5UWRqVlBaTkN5S0V5SGYyNExONkpW?=
- =?utf-8?B?bWlRUW9FdHVIa1VBL1JjOU9kTHNDZXZ5WHoyYnQ4VEFadStIcHV4dW9BSWF0?=
- =?utf-8?B?NVVLK1V2UGhTSWVGRVZQL3E3QTZLUjc0NS9CRFE3cGRIQXoyZ0pSazVvRWxh?=
- =?utf-8?B?MTBQQzhuK0hYUVEyZUNHRlk4WHFhWUJhVTdad0hVTEh4b0hVMGc0MlZDaklr?=
- =?utf-8?B?aDJOcjdLNDhJbmd5WW5SdytuTnp5U01OTDBETThUYkJTUmhld1lOeDVVZFBL?=
- =?utf-8?B?WjNUNXJIZGFnbC9LQ2o5VVNvVkRJbGxLc2l1ZVVNMHU1cWVLeFZMNEU4S3Ro?=
- =?utf-8?B?NUlXSDRtS0U4N2ZFY0hvWTMxbStIZnNFZXZ4MUFBd2J6SG01N0ZFbUxibXVt?=
- =?utf-8?B?OE5jUjR1YW5QSE1GNWxtUks4cjN0TjhGVGxOdnVNcytuYlRybGtsc0dLa2Rs?=
- =?utf-8?B?LzJBSm5sc3FjR2ZmT1c2N3Fmc0wxVTVEa3pFdUMxbUU1Z2RvSDFaY1VGMkd6?=
- =?utf-8?B?VEp4ZTIvaC9wQzdUT24vVzB6S1E2SzZIU2dxMGY4NHg2dUM2WllTYURWZExS?=
- =?utf-8?B?alBaNkF2M1RLaENNUVBYNGF1ekh3WnBPVGp3TlZPZFpMWW43Z1ZxMncxTkpW?=
- =?utf-8?B?WUhuWmVkS2F0NytZWHVwWnVwVXl0Vm8rU2RXUEprem13blhSb3JzU3RWeVBS?=
- =?utf-8?B?QitVY1UwVSt3N1grL0J4Mm11akN6NlVhdkZDbXFVa1Bnd3Zmd0lRMWljcFF0?=
- =?utf-8?B?TVZGeFFJYkZsWjNFL1VBeURTSm9BNHdiT3UySVIwMm9aWnFxeWtINXRNT21S?=
- =?utf-8?B?ZzM1YjRZemNnSTRUMWlCZzVsbXlmNG9RNlFwc00xWHZGSG9zdGIzdkpPUFFu?=
- =?utf-8?B?TTdZZk81SklqNDl2Nkd5anhtR05YZ0RsYTNmVVB3RnZPVTdWbDN2c1ZkNlB4?=
- =?utf-8?B?RHQ5NHdJYnFuUXFlZTl3dzhGMFZ2ZS9qdEYveFc3dm1nZGxVNWpXWVhOM0lq?=
- =?utf-8?B?Y0ZQWXdydklUcmpJZTV3R3poQkhKS1drdllFeUNoTlBuSGgzQUlTTE4zMzBo?=
- =?utf-8?B?WTNsQnZrTFNvay9pLzNKNEpVK2FqaE9IaVN4bXl5ZlBnRXUvZzlPSUYxclpD?=
- =?utf-8?B?Nm5YZFkrMW5BN3dpQkkrVjlUeU4xMmtMTEswbHVVODNENjVPcTY0TDFIMFpJ?=
- =?utf-8?B?bmlzTTR5QkVwaXk1ZnFlNjZIT01FaUpkMVNldXU3Y2dwUHRramZacS9tWHNH?=
- =?utf-8?B?L09MdWxubDJ5Y1hUaVFYM2NYY1F6YUxkaTNEcng3VmFDZGp4aWRPMCtuUTRH?=
- =?utf-8?B?K3VDQTB4MEJtVDhQcFZpelhkYVMxeDEwZVhPNHlhQlIzbkZKUVo1REk0eXVS?=
- =?utf-8?B?Q0pMd2dXaTNNZDNFUjU2MnYvMzg2TU1UMXJOUzNKMDlTQ1ArNzBMSW55aFRu?=
- =?utf-8?B?U1RqaWxreE9HNkdDYUVUeS9OK3p2M2NJYjBkQVNlTTdKZDFDZnJ5LzN2QzNG?=
- =?utf-8?B?S0J1MVR0YTc0T0NoZGhQWE1hTDRkUWpMUEc2VUFFRUV2SU51TEVwQXdhcWZL?=
- =?utf-8?B?eTlXQlArcStCT25TWXJQTWVvd3VhTHovQjlES0pLMVN2SFN1K3JNVHFFMTlB?=
- =?utf-8?B?dWRJUGNwa2J3dHA3SXo3NElRekZDcEY5OVpWU0gwcysvNHpJUzFZUVZuZ0Z5?=
- =?utf-8?B?RzVRc2toeFlBMU1hYXEyV0xGRlB0NXBwd0t5aTFyVWNSSzVzSGM2TUUxU3Uy?=
- =?utf-8?B?TXRRNC83T3I0VTJsQzBkVlBucHZqMGkwR1Baa0UyNDl2UzF4NlR4K3AxMGxH?=
- =?utf-8?B?bStudkNSWUwrTm1vS3AvSzRaS1NPei9jbE9VQ1lEbjVwOEg4aE5keWFpWk5h?=
- =?utf-8?B?U1JMWnB2aEVZczc0b3Rrc0YxL0dpb1dodjNBVk9WcVJGSmduWjR4NklXRkN2?=
- =?utf-8?B?dGhZNG5OQWMyT2tDaGk2ekZLays5OERuVVZYNlJLYUg2b3UwTHExQkpNYXRB?=
- =?utf-8?B?czhnaWp3dDRQWHltUHY0MmM4QVk0cjdxL0pDOCtqNG1YV3hJOEZtM3oxQ2l1?=
- =?utf-8?B?M0h5WUhzMGFESjFwQlVzZkJYaGlmU2tLYnNjekNhaU8yc012NWJBNFRIRVZI?=
- =?utf-8?B?c2wycHcwV3k0cXc1YzRYRXRTZENMR1RybGV0Rjl1UitQR1BlYnZQT3B3Rm5D?=
- =?utf-8?Q?htbct3iLSYKImaMq6l?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6bcb459-3ebc-476c-f4b2-08df2f7d0314
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 14:10:08.3026
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ql3206QjDWabWyPxzQCPAVNYYg2gabRhSMFk/hSi6gh21Pzrst0p+Y9PkznQXO5U
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LY0PR12MB314516
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-ge-clk-lcm-v1-0-246cc35b5ffb@bootlin.com>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-[Adding Timur on CC]
+Hi Miquel (and Jerome),
 
-On 10/21/26 13:41, Matheus Tagliari wrote:
-> Hardware H.264 encoding with the VCE block on SI GPUs (radeon driver)
-> hangs the GPU after a few dozen frames.  I hit it with the KDE Plasma
-> RDP server, which encodes through VAAPI, and reproduced it with a
-> plain "ffmpeg -vaapi_device ... -c:v h264_vaapi" test on a Radeon HD
-> 8870M (Cape Verde).
+On Wed, Oct 21, 2026 at 03:09:56PM +0200, Miquel Raynal wrote:
+> Hello,
 > 
-> The VCE1 code never enables the VCE trap interrupt and the SI (and
-> Trinity) interrupt handlers do not process it, unlike the CIK code and
-> amdgpu.  Patch 1 adds the handlers, patch 2 enables the interrupt.
+> Thanks to Brian's series, we can finally solve the problem of rate
+> calculation faced with the i.MX8MP LDB/PIX clocks. I've tested this
+> series using a v7.1 mainline kernel with a lot of unrelated DRM
+> patches. I then re-applied it on top of clk-next after fixing the few
+> conflicts when applying Brian's series, but that means I cannot (yet)
+> run a 7.2/7.3 kernel on the platform (and applying this series with b4
+> will fail due to Brian's series no longer applying on top of clk-next).
+> 
+> The DTS patch is there for reference, I don't mind if it's not picked
+> up.
+> 
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-Oh, I do remember that I intentionally never enabled interrupts for VCE on radeon. But I honestly absolutely doesn't remember why (that was ~12-13 years ago!).
+Thanks for testing and posting this!
 
-Timur hammered out most (all?) of the UVD/VCE bugs on SI, CIK and partially Polaris hardware as well for amdgpu and we are strongly considering just dropping SI/CIK support for radeon.
+I know that Jerome would like to see some changes to my rate change
+series before it can be merged. I'm going to probably poorly describe
+his concerns here, so apologies in advance if I miscommunicate this
+Jerome. I'd appreciate it if you could clarify.
 
-The fence handling on radeon should work completely without interrupts since those have been rather flaky on really old HW.
+- Currently the latest version posted (v8) to the list has the LCM
+  helper (clk_hw_get_children_lcm) in drivers/clk/clk.c, and the LCM
+  helper should be in clk-divider.c. I agree that it should be in the
+  divider code, but we'd have to export some additional APIs to allow
+  that. In the future if we went with what's in v8, and wanted to fix
+  the fractional dividers, then it would need a similar type of helper
+  in clk.c, which is not ideal. I initially went with this approach to
+  limit the APIs that are exported from the clk core.
 
-So no idea why that actually crashes for you if the interrupt is not enabled, my educated guess is that enabling interrupts actually doesn't fix the crash but makes it less likely because of timing change.
+- I have a draft v9 series that I haven't posted yet that adds two new
+  helpers: clk_hw_get_num_children() and clk_hw_get_child_by_index()
+  similar to the existing functions for the parents. This allows moving
+  the LCM logic into clk-divider.c where it belongs, however the
+  downside to this approach is that it expands the clk exported APIs so
+  that providers will be able to fully walk the clk tree. The concern is
+  that providers may abuse this in the future and it may limit future
+  changes / cleanups to the clk core. For example, if we wanted to clean
+  up the way locking is done, this may potentially limit the available
+  options.
+  https://git.kernel.org/pub/scm/linux/kernel/git/clk/linux.git/log/?h=clk-divider-scaling-v9
 
-Would it be possible to just switch over to amdgpu instead? Or is there any support still missing there?
+- He would like to see it where each clk consumer sets the min/max rate
+  that's acceptable, and the clk scaling in the provider takes those
+  ranges into account when rates are negotiated.
 
-Regards,
-Christian.
+Anyways, please chime in Jerome if I got this right / wrong, and any
+additional concerns.
 
-> 
-> Results on Debian 6.12.113 (see patch 2 for numbers): hang before,
-> none after, and 34 fps instead of ~4 fps for the workaround that avoids
-> the hang.  The KDE RDP server (KRDP) itself, driven by a local FreeRDP
-> client, now encodes on the VCE ring for several minutes (about 40
-> fences per second on ring 6 in the radeon_fence_emit tracepoint) with a
-> clean kernel log.
-> 
-> Two caveats:
-> 
->  - I have not worked out why the missing interrupt turns into ring
->    lockups instead of only added latency.  What I know is that the
->    hang needs the VCE ring to wait on a hardware semaphore (disabling
->    only the waiting side, or both sides, of radeon_vce_semaphore_emit()
->    avoids it) and that handling the interrupt makes it go away with
->    the semaphores left enabled.  If someone knows why, I would be glad
->    to improve the commit message.
->  - The Trinity/Richland change is compile tested only.
-> 
-> The series was developed and tested on Debian's 6.12.113 with the
-> radeon module built out of tree.  It applies cleanly on drm-next
-> (fad06cf), where drivers/gpu/drm/radeon builds without warnings (W=1,
-> allmodconfig) both after patch 1 and with the whole series.
-> 
-> Matheus Tagliari (2):
->   drm/radeon: process the VCE interrupt on SI and Trinity
->   drm/radeon/vce1: enable the VCE trap interrupt
-> 
->  drivers/gpu/drm/radeon/evergreen.c | 14 ++++++++++++++
->  drivers/gpu/drm/radeon/si.c        | 14 ++++++++++++++
->  drivers/gpu/drm/radeon/sid.h       |  2 ++
->  drivers/gpu/drm/radeon/vce_v1_0.c  |  4 ++++
->  4 files changed, 34 insertions(+)
-> 
-> 
-> base-commit: fad06cfaf385787b9ffa2f73f049d42dbe1de57f
-> --
-> 2.47.3
-> 
+Brian
 
