@@ -1,113 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792541717;
-	b=lliq7D320w+dNQh93k9tMuqpEypXp428VtDjQq3HF+nMWLCLNl8bGtMeZj2NxuRqrCze
-	 aCvjpF6awoBXi418r2oTI8B/AOzjfktySHvuo73PWrixBqQYRCxFobXkvVVzzqFxaP3L/
-	 c5fhyIrVUg5JbNq3eQi6XDrCijcxBGgLsK9FDfskdP6nZ0gE3lJyh2qKi6ID0f3K6GQH+
-	 d0Ji6r09yl8dOIWCX6I9p/oYr8LHGg8h+zF67eycd3eu4Dh451HEmpTdy7EgZzPa4dV+g
-	 GQBCS+2/gRyNqDWfelOtbOPQ2XCeI+3l3dPBCLbF3nwfyapfAy4vSkTrKcTcKKdyFcg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792541717;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792541784;
+	b=0k2CDLd+nEDr3ifyeEbC/1pUqsozYT/TGRTUVBf4JRHRm+zHwf6rxR3GRf+lDOKnjH7q
+	 zomLMmpq5LkntC6BxYoyz0pN62nKu95m9j+JUQvQZXvLKWessqO39aKWH3y0t3q0oHdX1
+	 b595SRt1OURZLKZ9vyOnz0z8zxhMR+t1MP3yKnizSP3MEuXqg3dzBjJKwHZ6OufOFrrmb
+	 KhVg0dSHWOKhp2SWwMcBGOWium3uSUzgaNKVHyCcyKOMq3amqMZJxaDMwrcxUkGZKUyCm
+	 +IEtdcB++kBfc0/WtmavcIWuZincwNQU2GRgkjB/TJuQiRA/UeHfI8vg5Gbz6y1xBKg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541784;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=buJFybofRKAj6f/cOm3YyhAusR+wZtUZbjqKpPWA0mE=;
-	b=LZj7RMWvHZovS9UGlFRCN/y0Eb9G5xg2dfMTHiYA4VLFFam602C0NrvuEkP6wgYel65Z
-	 bXZGu2MOdtqnGXpmkoHpavhkfM/DvCz/IuWp02Q+LgYxqS23mF5xQo4fcTyImFB8xaglQ
-	 Az0Rz2OBJuomJDViH4hxLsilLYqCc3PW/0sLievDpmYDMUpdKfwWHlW1jYRlFdYw4YZqQ
-	 JjDA59pT/rHFlwiHKafKsnrgl4CgfMJEadj6MjQ2zBvBiLxhNVFIkHWcgsuDgjVUiB/vP
-	 u2NqvKwJQ6trl7nsblgnJDT7ULDROKyBbXiZZNC0tHun98VW6+3v2tp0j/R1DOXoJkw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=jclark.com;
-	spf=pass smtp.mailfrom=jclark.com;
-	dkim=pass header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=WQHE19US;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JUSir2q5BLuFZXQHqg/6Fwc618wXrCwtXkLVpmVntcg=;
+	b=lR5txQ6g05LSTvMP7ytpWadNBN5e7npJT3vts7x5ngKiWWKswIIf0JdA1SZv1fjykpCK
+	 G8/yu/mgFbFqCjWN7uic9YJDeO/qrF7SFfZYbImqz/SkSW/S6BFAWw6MDbXV11BbQ0jXl
+	 JCIBQjUQlFEByr29TX9K/X+mbTjPVhs5WKGUawr6RB5vU5TtGXEGMmRE4LnfXvRxwvrGF
+	 YyAtiH2idhELxZuD5Dq6SNbK1xXbUteibZivMIXdacVLltOs7f7+JuKctODQkTTTyDQa6
+	 0X6+sbqZyU8xjQfI/9r9dxtCvyVIkeQIcxEJFh1nQPO+0pd77hR7nWU2U1QcehiFspA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j1laCVTL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265D6606A31C
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:15:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 265D6606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jclark.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jclark.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587E7606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:16:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 587E7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=jclark-com.20251104.gappssmtp.com header.i=@jclark-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=WQHE19US
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-157fe9d771bso199402c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:15:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j1laCVTL
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8acda240937so1582487b3.3
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:16:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792541783; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PLqLnRuBlekqoBXjiqkleXaZNRMQqF1KUHVNolhFQIEBhFIHkDEYNJ5v7tb6etamSR
+         pCpkUnKImeLmN04t7OR1xCz0rTw/i/Lad292LcEXNe1q7jpyDQvIyN8ohLveVo8/5eup
+         ip/ZSqWTHupZJYP2/T1fxWeVfbXt8c0YWQMlWHW7p3nqdKQ5JAnEU7Co7Se77SeNpsZr
+         jSksgqxxSKn7af+2K/897UoTiLmuEj0FY7BcrXIZr1Ks9KjRVTn7LXtkmlftifXBibgM
+         /BHuxjW2UV5HZ2vPDwWwXSX2Q+tHB30pxvcv/IV+8QRbVjily2Bhw1+NWYokiXl27Xqe
+         30cA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JUSir2q5BLuFZXQHqg/6Fwc618wXrCwtXkLVpmVntcg=;
+        fh=0fryV3Z8t2SvBmSegWYy1sg4ypuFoVeDF8EiNmjrrH8=;
+        b=mDx+BZjihvUm9E8F2eGn1juxfYA+o9DU/GEdt2KKKs4Z8JZrJu2/dsQY8Y8sGDSL39
+         XcEZg8tiLf1+9v/mt7eoAQKqcVLsUXH0snp57bTx1pZEcCFklV2NoKfz0EFjPYJy1Bdy
+         2asq6n22gsHxLD5hwvnveK36eJj8W6PpSl8/B14eVVJ124ib6Qql5yO/YDDB12w7febu
+         zp7qHYXIvdi3MoLDRjvh5DKGvtiKaHFF4JvFomDY8yFWjBy91GW98dWnHq7o2UpwsVrf
+         aEXR9m5UN92suiNeT+fFUaMoNrBefcrWxtkjP2fr+3zELLbTTa603vbvV+TAC8jDvkjj
+         JOew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=jclark-com.20251104.gappssmtp.com; s=20251104; t=1792541711; x=1793146511; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=buJFybofRKAj6f/cOm3YyhAusR+wZtUZbjqKpPWA0mE=;
-        b=WQHE19USH9U5cqIX3n4xGtsapTcnXA1cYUxwTQybJpgn4ep6GizDYqpEZd9oBDaz6f
-         njxHGyduIJy2iqKwNaylf/2dYUHgft2NGKq5v1O9UXJHXg4v2uvBD+j3KOQbfLAjHOkh
-         14iJNsV9LjBxcLkO9PRDdCbzAkyQigooeZedUkJzfCtVmRON5LpfsVJIQwa56Ugf4HrY
-         yJVSDbz+WhjcplLhGmLPM9tERkVlUScsHm1hk3RhZh2QKjmMxKwY4nnnuHoMbLXdoEGf
-         BKvZs753EsG74jDXDCM/zrodfTmUYi3D0aHCwXcs+lpsv5Hm/U8IMt5qm9EasCRAd0wH
-         f1NA==
+        d=gmail.com; s=20251104; t=1792541783; x=1793146583; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JUSir2q5BLuFZXQHqg/6Fwc618wXrCwtXkLVpmVntcg=;
+        b=j1laCVTL3txBPYjWWVpjMIQ2W6tC6XgY1+TRm+wL33VlkQbBtqK8U7eyHWJBWr0ZTC
+         PkqKCrkqaA/NjCIYOCiDEoru2HXRs6UQv6hZ/RazF3rEYzZuTyOpoHT1dyeizutAMBNf
+         t/J4PRb+Tb03cJsc/ZIn2j7ZcYVn+g0v0QErf9Cb0V1ioCd54BwWkxiKI5cSu+fY56tp
+         ZXtD8eqwlrmtIigiiFGvEwHk2mAp3USp44VwQisPJ/AGz4np8T1iyCUuuVmyvdvUmBog
+         fS9JwiS7jsfQGtpenWyZOyzzGB7g2PnyQoi1qj1lrC2WRatcz2F3vbgY4iVvMMWPEpsE
+         2/Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792541711; x=1793146511;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=buJFybofRKAj6f/cOm3YyhAusR+wZtUZbjqKpPWA0mE=;
-        b=lHeBJ9nYa0fhcTIQjM4PRVdm17ioStxJJSC+K3SaLn1f5LmHw5nbdbxQ1/tu845YTB
-         L0oFcXxmVU31AdL1ygPna/eHxEO2jmDLUzcYp6o25K9zICfrLuMy2LiB59MPrqJ9NHTo
-         6e2pUX5TDmQVVdr740tzXNqKTsF5UgRTzfSv6HPq25sc0FGd9fIT28OogoLqp4+3E0Zp
-         9JBNGpUFqIN7aK64jKZa1Asik/cxonxo4Gqlgc6GEcEI+9mvPF4lQ+0vNAxQKP3hIgVG
-         f87jMF73RyoeKyaN1J2/oVcy3/7bVwmqBsTFwu+x5+eKqK06JI45V8QikVGZofmYGxWy
-         9Pzg==
-X-Forwarded-Encrypted: i=1; AKwUvBz6e2L50YHdSC3s61RyEK2Pdq5Xnfmfcy76Us3FdJYh7fCcUiBWAxDp9FZpTdvZRcQahtiiceB5FS3wErs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIkrR4hGRNP89N+VUYdC9eUHk1Bc8jo1N0k44WtadAYR7tFMz66
-	NIYlXEVu20KH8R3SZxTAjocOXJxvQpMto81k9drKUda7twFKbdWNmPnuLpiJmy5n5w==
-X-Gm-Gg: AYBFou2ixvgo+fL6u1+/5YMpvvKZHc3y8TuZFGNCiNdIkYv5mwE6tWO5S2AWYQ7xpM1
-	k9a6ViIkok5LdtIwxvhScjLs2RwFrjeqg88wvrOPY/0moNTPliygL1FSZymzJLVnEHu5igbYgo0
-	VqPUAKRhQC1M6jO6LzT5fJucrrYtvPeGBcCC5lslXvF8KF0qmIXYKeGtND2V38XQ6Xs4ZqNvtbG
-	04Mx/Dtd6sa0PJ4Aa+Fe4lQtF9x9C5vuVPc2GHbXyxHln/OFpvLXBbJg/vHiEEwaTBT0k6ej3Cg
-	iBbEsqtq/GJthp/vFlFyfBp0w8ry/zUL0BJy5h5Ehz1nO10hoDmQiCnAXSUm1D8jf0jkNy4p0YW
-	kSekqUP0Q0x2DjeVVcpp5EfSvi8xdj9tulJteef9m0TBiuqE5mPgomf1QqLWA1+K9zi3ZuHi68w
-	fNfd9x96NJ0jWP/i6WWRtItcBI8BLhSbHAo7In3YX1rVVPZpv7RbdYTzy8BOMddw6cwLcHz+fsP
-	C0ArZFVQ5RTfBbLNxdFklcwuK7o4ZuKH7nnqmX7eMsRhz+a8eV7X4PCVTjPoMomp9vyDZ8dIrQ=
-X-Received: by 2002:a05:7022:ea59:b0:182:94d7:f76a with SMTP id a92af1059eb24-190a728a66dmr496799c88.43.1792541711094;
-        Tue, 20 Oct 2026 17:15:11 -0700 (PDT)
-Received: from cantal.lan ([58.136.73.153])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1cdsm2249259eec.25.2026.10.20.17.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 17:15:10 -0700 (PDT)
-From: James Clark <jjc@jclark.com>
-To: netdev-bot+sashiko@kernel.org
-Cc: davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	richardcochran@gmail.com,
-	florian.fainelli@broadcom.com,
-	opendmb@gmail.com,
-	nb@tipi-net.de,
-	theo.lebrun@bootlin.com,
-	andrew@lunn.ch,
-	linux@armlinux.org.uk,
-	conor.dooley@microchip.com,
-	bcm-kernel-feedback-list@broadcom.com,
-	tglx@kernel.org,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	mlichvar@redhat.com,
-	olteanv@gmail.com,
-	h.feurstein@gmail.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 6/6] net: mdio: bcm-unimac: implement timestamped MDIO writes
-Date: Wed, 21 Oct 2026 07:15:02 +0700
-Message-ID: <20261021001502.1306545-1-jjc@jclark.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <179240607580.3135.9897216542640862141@kernel.org>
-References: <20261018100257.566267-7-jjc@jclark.com> <179240607580.3135.9897216542640862141@kernel.org>
+        d=1e100.net; s=20260707; t=1792541783; x=1793146583;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JUSir2q5BLuFZXQHqg/6Fwc618wXrCwtXkLVpmVntcg=;
+        b=acSiokqAZ9VOt502APqY14L2+5dKU2wowaZuV4TH+AI8O/yVXAkc0ZyN16l2DFrQhg
+         DN9TOzR0GgH2T9iYJPDXGMKH855wQLg7sH69/4c3vObjHAy7Ng+gPIKuRc847/zUQ+Z7
+         9AQlYNVyG5JuxbsQpUrM25PY1I5t1GZ7Nx4pgIV5FvkT8KGIc/x4QZryf8ZzmxiqpM5V
+         0siSL8Pc0m2VUGzfhFQ7yXYVI9PQXueJOB4a4awmEuF2uxWhyDNvKOfICJsdh1IcvoZy
+         rG9x6G5Cx6oQqN9BoY2dkT3W9+8XhXj1W9fVd0a9JOZ5wcoZY5/P25/FlDg5a6Kh7JlM
+         XTiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwI16LBxYSLlDZNW8Z/Rn5+Q3OO1XQPNGc6r515pUduQzPOoO2fPSNLO5JYOFKhVOam97XCvZPIX1Prjzs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/03x91WkV4rEiECuu2wxvjuuAiPakzFATLM5SqhZyoHjOqal9
+	nEYfhc2vLfejSmUNi57XyKF4CK1p23UMuir+f5aWVfnHCDAV21j9A+qF+0nsrD1nW/bviby9x2W
+	8G3etYrXzBrkqAWBtJRB04fIHWZnzFwg=
+X-Gm-Gg: AYBFou2k/kX+SL6nk2JCXz/1wd+4iHy6O7xecA0r+7XMjV/t1I4MXj33l6jrGC5XqvC
+	IDbrERBbhOv9rnNLskCe9CfLiraxlYVLDkeQX7iC55gJ7BtU89OL91j6/frO4b5YokjEozWtOdl
+	7f1scvzip4XOXG6MYb97EzgzcllEXoPe/nXQ8WW+XpREBcti6742HbBCjXexoyamWZiS7AixLCC
+	Eyw/Dxidj+FkYAhtFL6pBqgNaBP3rOA3qEn9A7jx9HhNrJAwd5Pwt48KqWSy3hLkzYrzxvi6BhG
+	B2H6qP1PVnqC644KqGQ/uqtEx01inImtnfPO1DdkFPY5gHf9xEfi6/x/3QY1SSEEQuYDOLhbx/w
+	k82DSuDpZv+d+tVTlC81rQMelm51AfDhCu/qiBJOuVHtmY358F5MzEZ1DjI/UpAGE18KjCg==
+X-Received: by 2002:a05:690c:660c:b0:8b1:ce5:be42 with SMTP id
+ 00721157ae682-8b133fe3435mr2771807b3.28.1792541783308; Tue, 20 Oct 2026
+ 17:16:23 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,63 +104,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261013181932.1739238-1-listout@listout.xyz>
+In-Reply-To: <20261013181932.1739238-1-listout@listout.xyz>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Tue, 20 Oct 2026 17:16:10 -0700
+X-Gm-Features: AclHuK_gZWAJUCU0Ubmw8jXYAFhpzdlBus0Vb1Ad3mAeDSuigAmuyURzHqelNUE
+Message-ID: <CAADnVQJ5s1MaFhFQ7Djz0a_ABumiEs9NKCCmGAbkeE8TfuZNZA@mail.gmail.com>
+Subject: Re: [PATCH bpf-next v4 0/2] selftests/bpf: Add tests for memcg kfuncs
+To: Brahmajit Das <listout@listout.xyz>
+Cc: bpf <bpf@vger.kernel.org>, bdas@suse.de, Andrii Nakryiko <andrii@kernel.org>, 
+	Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
+	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+	Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	JP Kobryn <jp.kobryn@linux.dev>, 
+	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> [Severity: Medium]
-> The comment says the reference rate is taken to be fixed. Is anything
-> actually keeping it fixed? There is no clk_rate_exclusive_get() and no clk
-> notifier, so the rate cached at probe can go stale if another consumer or a
-> parent change alters it later.
-
-[ ... ]
-
-> Could the driver take clk_rate_exclusive_get() at probe to enforce this
-> assumption?
-
-The clock this is for is BCM2711's GISB clock, the SoC's register bus
-clock. The firmware sets it, and nothing in Linux changes its rate.
-clk_rate_exclusive_get() would also protect its parents, PLLD_PER and
-PLLD, which other clocks use, to guard against a change that doesn't
-happen.
-
-> [Severity: Medium]
-> The commit message says a deferral of the clock lookup is passed on
-> so the MDIO bus waits for the clock's provider. Does that work on the
-> GENET path?
+On Tue, Oct 13, 2026 at 11:19=E2=80=AFAM <listout@listout.xyz> wrote:
 >
-> There the UniMAC device is not bound from DT. bcmgenet_mii_register()
-> creates it and calls platform_device_add(ppdev), and the probe result
-> of unimac_mdio_probe() is not propagated back through device_add().
-
-[ ... ]
-
-> write_sts is optional, so would it be simpler to treat -EPROBE_DEFER
-> like any other error on the pdata path and not offer write_sts? The
-> cost is that write_sts would then depend on probe order.
+> From: Brahmajit Das <bdas@suse.de>
 >
-> Alternatively, bcmgenet could look up the MDC reference clock itself
-> and pass it in struct unimac_mdio_pdata. A deferral would then happen
-> in bcmgenet_probe(), where it is actually honoured.
+> bpf_get_root_mem_cgroup(), bpf_mem_cgroup_usage(),
+> bpf_mem_cgroup_memory_events() and bpf_proactive_reclaim() have no
+> selftest coverage. Patch 2 adds a memcg_kfuncs test for them, plus
+> verifier tests for their acquire/release, NULL and program type rules.
 
-We chose to pass the deferral on because the alternatives seemed worse:
-treating a deferral as no clock would make write_sts depend on probe
-order; looking up the clock in bcmgenet would hold up Ethernet for an
-optional feature, indefinitely if the clock's provider never binds. On
-BCM2711 the provider is clk-bcm2835, which is built in and probes before
-GENET, so in practice GENET doesn't come up without its MDIO bus.
+I don't think we need to test them.
 
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but the new comment makes it
-> more visible. unimac_mdio_clk_set() still computes the MDC divider from
-> priv->clk, falling back to 250 MHz:
-
-[ ... ]
-
-> Now that ref_clk is available, should unimac_mdio_clk_set() use its rate
-> for the divider too?
-
-I agree it's a bug, but it predates this series and is unrelated to it:
-unimac_mdio_clk_set() is unchanged, and the write_sts bounds don't
-depend on it, since they read the divider back from MDIO_CFG.
-
-James
+pw-bot: cr
