@@ -1,71 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551543;
-	b=KIAb5hFTrmcwcTiO/j5mpI4LnLjcloZ9KJ+cxebR029fSuzezRuoBkZ2tej6IWRt1hyl
-	 PseVm4Htx2Hs4S1CcjIdOhKTOPS9sd6e9sEzKr4nLciwLQM7sPED9kES6lTrm+VDTINpb
-	 izzdzTE/Xr+dfW3IwlrcxYhz1dX9fBrgS1PhTdZPxvOEfGw64JtoPTjV0qtgw4wPXYTRZ
-	 VrFgCyJuWlPHGYI1EKn+lt6TgH4c/2lfokjv51e59yINyYTy95FjSmMya+nr+yRX6Z9rY
-	 TMIlCGkHVgDlHOKrWuxMuAWMJUL/qGeECv/6SEpc4/mmHYo3dXKfdQ01+LNkNC3jGNw==
+	t=1792551591;
+	b=IxZwFNq1QiQMQo6RXdwh6ASwghKJmxCsRZMlQexA164Y8j2WYLOJuF941Q5XQU/vPk1s
+	 E8KIBNdbcSfYPpPlFk7IUR4Dw057RZhJupRSQ/2Qd9X+kI0+IQgbUhhwe06yqyTG0lN/U
+	 xV5SRPXrauDF0MCFgTQAni7d79sQdBdO0zLFmTEnes3u8To5DFLWtFBTXxjoAdkhZfvt2
+	 vU1pPfYkuCX6phqy41SHSv8eUVpr3obDla8hbkls7lEi2nvgvhCCr+b7FFB7OPPiGkoPv
+	 Uw3INY5zecaKY1HIXCWUVIeWIlKzTytytrYLDF/ANVyqNZ98FKjCkbPa+mDoMG7yjXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551543;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type:
-	 X-Rspamd-Queue-Id;
-	bh=9irHhHnCujc5RAVXrKbQ14J5j6Rz+ul2vccLXkSCxdk=;
-	b=vKcgvAYRekFH8BSP4F4zULAO4SB/NUbXOn0XLL3b2OLWMFA8MlgmIxbKJqzuCXAN13Hc
-	 UpN6Jg9ulFIRJX/xrSzZ4UDmUAD7h5h0x7F+312q+ZEbgWW9PfmTvT9tOQi6yO/yvoxGF
-	 vOtHLVwdwmJrXsRL2KTa+fJlhhBigP73e26IAcsWYGrurA8oi38QH8zpupBxnqOjUfM7T
-	 TAgtAp5J7wrV3+8r4x73FICJWPdgzAnDoU8lbQhBTyWeTuJ9F9N9CdUQGeng2244FDg/I
-	 JBOqSEZmr1LDFt0A8YkplV053LM6bA9X57DfgrIeFek7/FZx86Emx4bHwk/vLrgCLtQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551591;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3miW+UELaQXIIU1FExjNvxPdt80IkqVQtDA5m6KCekE=;
+	b=VWLfa2srmyGApzwXvF4op/SlIxbRDysmn/u7N8h16zhq6lrbP90G1SoZ5rriaofx0vc2
+	 7Jadoo1gN5JMdzs0pS5+9Hs7DRU/gXrtrVuF1kOBG5NL/o7k9hxcVp173e941bARS5cYR
+	 plYWs5e7whW0O1f5HBXKKvJcmkyXhvUnKamvwFWKWnZSrPk4oQ46agAYPuypfW8LYEMjq
+	 FLwC5CnMA/tnr6+g+bbRHWfyESHNjmXyupLt4N+KaXEL8aox+3Ni1u++inffmRaHPA3hX
+	 i620iEWFXCkrsSgnhYUCq2E+no+yOyo18UyHYScp8ZayA+Y/1DUHkjr9iuthqxJXEBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amieiro.net;
-	spf=pass smtp.mailfrom=amieiro.net;
-	dkim=pass header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=Nd5xfZ8K;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FgpBC/ha";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE438606A319;
-	Wed, 21 Oct 2026 02:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE438606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amieiro.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amieiro.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE88606A319;
+	Wed, 21 Oct 2026 02:59:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amieiro.net header.i=@amieiro.net header.a=rsa-sha256 header.s=MBO0001 header.b=Nd5xfZ8K
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4j8Yrr5TXfz8vb3;
-	Wed, 21 Oct 2026 04:58:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amieiro.net; s=MBO0001;
-	t=1792551532;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9irHhHnCujc5RAVXrKbQ14J5j6Rz+ul2vccLXkSCxdk=;
-	b=Nd5xfZ8KAPJN00NYRGcHUve+BpneGqZBqKfhUD/yUWiA45/6aWyleEc6OsAD3cve8YcXMN
-	gsBSbIFZeuW7cCDeI4J2aC1pBBfoWw1Pu8/7ovh4tFtn15naIK5G12RL3IVnKx1nPevO/a
-	px2PfjNT2SmbSGl4bQNgcV6Zb/h47BFbzKV33LKYDPQfCFCU3tDL9wPx+CVJ2c6Gjsh3A/
-	fNiMCVJBF4liQhE3WJyXC7xQDgkm5LDYTT10SKg53i1g0OQ2uvkm515nT1lWYscIvBlVGi
-	+y1BP8hhEdHgWQPItIADYnyYeoym8liouca59AkhG8M1h1GMkoa5stx3YTW6mg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of flavio@amieiro.net designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=flavio@amieiro.net
-From: =?utf-8?Q?Fl=C3=A1vio?= Amieiro <flavio@amieiro.net>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] leds: is31f132xx: Add support for is31fl3206
-In-Reply-To: <179198370454.839288.5327794631276643738@kernel.org>
-References: <20261013-add-is31fl3206-support-v3-0-66a762a3c12f@amieiro.net>
- <20261013-add-is31fl3206-support-v3-2-66a762a3c12f@amieiro.net>
- <179198370454.839288.5327794631276643738@kernel.org>
-Date: Tue, 20 Oct 2026 23:58:38 -0300
-Message-ID: <87bj8noj35.fsf@berlin>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgpBC/ha
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E5681F000CB;
+	Wed, 21 Oct 2026 02:59:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792551591;
+	bh=3miW+UELaQXIIU1FExjNvxPdt80IkqVQtDA5m6KCekE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FgpBC/haNXrAVx6ArnTgIFQZMlJ31jhqBCn+1nUeqPpYbsRejydE4qHj8bBK8gH/p
+	 cAw82wk3EmRwMrNwPZqKgyTILx8qTWJF9jlcW5vjATD28V0Kvax69QSxTSuc+ddS28
+	 fVtqRWK4KiMswcsU9VO3dwjLV4kFLHP2pd9cgXskUj2tSFUrFItjDIicwWoBx1C2P9
+	 Isb/OVvfSy26ZRNxSuAAaJxhrpz46RuNjcxQjGvw75DAZv4QBhtKAWeMFp7xT325eH
+	 xeUaNY3gKVflIhVqveHvCOBnx/8oxIZy7UR8oPQxIkKCCwql2NSJIGcnGFtsoCLUqb
+	 duh43LIvU0zFA==
+Date: Tue, 20 Oct 2026 19:59:49 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: patchwork-bot+netdevbpf@kernel.org
+Cc: Carlo Szelinsky <github@szelinsky.de>, o.rempel@pengutronix.de,
+ kory.maincent@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, pabeni@redhat.com, broonie@kernel.org,
+ lgirdwood@gmail.com, corey@leavitt.info, kyle.swenson@est.tech,
+ horms@kernel.org, netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/4] net: pse-pd: core fixes ahead of the
+ controller notifier
+Message-ID: <20261020195949.47d2e9da@kernel.org>
+In-Reply-To: <179254921255.330607.5425473501621725490.git-patchwork-notify@kernel.org>
+References: <20261018081853.47484-1-github@szelinsky.de>
+	<179254921255.330607.5425473501621725490.git-patchwork-notify@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,69 +64,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Rspamd-Queue-Id: 4j8Yrr5TXfz8vb3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Lee Jones <lee@kernel.org> writes:
+On Wed, 21 Oct 2026 02:20:12 +0000 patchwork-bot+netdevbpf@kernel.org
+wrote:
+> Here is the summary with links:
+>   - [net-next,1/4] net: pse-pd: unlink the controller before freeing its PI data
+>     (no matching commit)
+>   - [net-next,2/4] net: pse-pd: unwind allocations when controller registration fails
+>     (no matching commit)
+>   - [net-next,3/4] net: pse-pd: si3474: use dev_err_probe() for controller registration
+>     https://git.kernel.org/netdev/net-next/c/569b57762694
+>   - [net-next,4/4] net: pse-pd: check the PI vpwr supply before registering the controller
+>     (no matching commit)
 
-> --- checkpatch.pl (1 issue) ---
-> Line 172: WARNING: DT compatible string "issi,is31fl3206" appears un-documented -- check ./Documentation/devicetree/bindings/
->
-> This true, or is it documented in this set?
->
-
-It is documented in the first patch in the series[1].
-
-
->
-> New for() loops should initiate the variable.
->
->   for (int i = 0; ...
->
-
-I will make sure to initialize the variable in the loop for any new code
-I add in v4. Some of this code, though, was old code that simply moved
-around (and by changing the approach in v4 it might not move anymore).
-
-Should I add a patch to the series to fix this in portions of the code I
-move to another place?
-
-If it is helpful, I can also change this in the entire file, just let me
-know if this is welcome as a patch in this series or if it better to
-send it in a different one.
-
->
-> Spaces around '+' please.
->
-
-This is the same as the for loops: I'll make sure to take this into
-consideration for code added in v4.
-
->
-> I detest pointers to functions at the device driver level.
->
-> Please find another way to do this.
->
-
-I'll find another approach for this but, since this is my first patch,
-maybe it's better to align on it before sending in a new version
-unnecessarily to the list.
-
-One option that comes to mind is to use the approach taken in the driver
-for the is31fl319x[2]: have a boolean flag named is_is31fl3206 in the
-chipdef, which means this is a special case, and we should initialize
-the LED Control Register specifically for it. This has the added benefit
-of still alowing us to set the current in the future (even if it's not
-supported now). Does that sound like a good approach?
-
-There are, of course, a few other ways I could do this if that doesn't
-sound good.
-
-Also, if it is preferable to discuss over actual patches, please let me
-know and I will implement this and send over a new version of this
-series.
-
-
-[1]: https://lore.kernel.org/linux-leds/20261013-add-is31fl3206-support-v3-0-66a762a3c12f@amieiro.net/T/#meb963e4bcc9943bde08cbe679a59f553c2184bcf
-[2]: https://git.kernel.org/pub/scm/linux/kernel/git/lee/leds.git/tree/drivers/leds/leds-is31fl319x.c?h=for-leds-next#n112
-
+bot got confused, I applied v2
