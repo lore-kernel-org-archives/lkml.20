@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792544613;
-	b=c6rrfRIuu3AFq/KrSQxXbgPblRIvjusIX4kgxD/E2DIe1AAv6CUpjf3PfvPhM8AkJ9as
-	 UWqB3TQG68pecD2rPJnUcWhHYH7x33K8BXsDHP0Iloyq+0DNVJ0KKiX3PePsQsQvN9nOQ
-	 FI5WJVjbmupQ56rnkq937EByM6BT9tpnIJeVW9Vc4oXLHEn0+iNLXv1+2cIlQKKbATyGx
-	 dO595vWQGCNopuw1m3hOeMv9XEDzrTCfVl0D4EWMl4zUc5y7l0aNGe/0nGJapOg6zuF6b
-	 4On+rywLAU7WM0o7UPLMegPGoDhEElnmEmTGKBNuTeMSra5jy9GkXlIRtje3bb7Px5Q==
+	t=1792544682;
+	b=xLjbwJuol3W+mvfm/O4AZRg25V7junS3IxOj5nu9sPVRMp2XNBJr9TzMel74AMxxW+QO
+	 y1th4pbUUrpyWa177WAUW6rnuvjjwJ2gnGt79HcV7yWDrOvdTZY6r7pklGG64uOWJkWLV
+	 /fOPKOtamfo2JkkK3W+qggYAgO0CCE2Os5PN5zSIxs9j/0ex9Fl6+UZOkbezCU7+he1Hz
+	 52zAinj1WmMLCCE0A2A37d3TUfKQe41qglbWmKZ9TFhKzIu1d9PuVk0cfYcQV6rIUs6q5
+	 C4AOHDRvJR2GHk2nVMZzWktH9gA2vKOcnR+l3KjTrfz6CmG+gQ+g1j/32Z0BnZYW8Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792544613;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=26ckmdUGF7QTnv8n0/aMUKoRme42kauVoRprvIKYDLU=;
-	b=mNcI6XAGGSrauVHEUu/dN7G4wzyFVzUKsQh63t8e+siI6eGcxnmUEJhv41/tQFZJaJ9X
-	 MqPK+s03VGDcR1o+UkTTGhm8ySMM3nmNJ+YflMcYnCVb9xi0MmvnApBzF19suJFNJz/Kl
-	 Ayv5xRHipFceOLUIqMJpIR2tTq38I1Oic6Ydd8xXCR36uHtZrDPbtStSdmtRiw5XzKuZ6
-	 f9Ten6iZY+wB/oVFqwe2wn5cftsJe1DuIhmieTu5p7Ar/6522AX5U2UH+ay1OnSxC0RMW
-	 67UB5fy76c8ZZFdO0ZpFqvNNQqwfXGlD+CaAvQjXine42HgJSqDjzKUmPkxdz0UCYkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792544682;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=/PJGvGsvZzfQUIwK+EXgT6f9qDwJ50a0sNaG7aFniiQ=;
+	b=gzrZ5UQxNt2g4ubryV9Pyq2sO90clQXtRNt8zOJT5jzgaR7dIiu7fo62Dhfe8nrC18Ba
+	 RDEkio39ALSCu1+AARpwDvQYTQUttaQGhuGwMvuDT7uaHxuPZdG6YGMjO1VzADzbPAOYB
+	 NzT3k2OmiONeN3sXDtGM+62Z2/ee9OrNkyq5i3Jw3TrWLdR9r8edD/RNUwe56zkIHWWNT
+	 EbywCInq2Xkds8RJk8WgDr0CdLYpTscwV9CtQcvdbkLg/cqyijkZV8Uek8vu7iPMww4Al
+	 Cwb+hNTasXdehYUeYdkkN7lU4SUshQe3dBCiQala136sc3IC4GxwlJnPTg8vrMEKemQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=dzCVfkyF;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E93606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:03:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E93606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so326094b6e.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:03:33 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97FD3606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:04:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97FD3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=dzCVfkyF
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-35b2c599f43so322915eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:04:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792544681; x=1793149481; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=/PJGvGsvZzfQUIwK+EXgT6f9qDwJ50a0sNaG7aFniiQ=;
+        b=dzCVfkyFIUkdmqBO9mFo8MWWi0izqgLmA+yywjdNUlRDDeBfjD7BT7Ke/TwBRWBWcu
+         129uMeiEd9cXMVLuKOq3k+qoXd1etG1O2OwnZjJod6HRPJrWUR5lEk62m/gqZYkvMzPX
+         WY5zovbmrpqrDohp4ytEMoRCY8n5ork1F5jOsiIJ623oI70Cggp6FdiiKeGVwwDUxsxK
+         CVdr46rbp9cGAEJQ/JXTTyiDNTH97bd+oG8BB2Un4KdkSPdqFYFca8BX2d1qH4aGJBAh
+         m7pMw9sdSm+bS7M9DE1cyaWFxyL0XoK1d6LyrC8LQ/tx0oGgsOjs7SkPmKRAlTodilfP
+         ZK/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792544612; x=1793149412;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=26ckmdUGF7QTnv8n0/aMUKoRme42kauVoRprvIKYDLU=;
-        b=KLKoPmJWwamV9YwurSfeG/vT637hIBonUtlfWzn283mBWHLb/QpuN0LGW8BtnaX9SC
-         ycvG0B5N1kIWGgKB7ht8AIibJd4plEtB3CVrOMgzVnvsZmseVOL+p+NJlKQWY4Wh43kG
-         smE/uBV763fLpSAvCOuYEoh8PwyCwIHhp/XkRoGO188P1rszs5gdcXXLS9QrW980QwQM
-         JsYaKd2TRoOEiDi84VPAZBb62kweKUnfdXxSxcT4gOrQuesi2Ckam4K5DHBUZQTyneLj
-         +4S72dnclAMf41J7w6RtiIW3lnOr1zeL2dqdNxm7yAMf1ds26et+UTGc6NIg+QIKnsFi
-         XgRg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpJSOcbgg41PhbiDzA6MZfR+FZ8ZfQFQHWqQ5ObW5UgZ2bbpq7MC9xa8Mms6SQdNiHc42a6mHlg2Vi7/w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL70Ju+gZ928v4otOxlYTk/qppZhhyMYyq5z2a3CxoTC0Ybqm3r
-	J4kj26//p/uuaNqs/8EciNLispgdSesr7q/HU8AkKABRGKEZy5NL0MZzQH1AHQZyNcoJ1O5e514
-	tNwnXjAoDlHEu2ujepjmS07mR2EGHjO6GsreenmkDIbA7tLg2B+r/cnfC5B8=
+        d=1e100.net; s=20260707; t=1792544681; x=1793149481;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/PJGvGsvZzfQUIwK+EXgT6f9qDwJ50a0sNaG7aFniiQ=;
+        b=PEKk+xos6PohrexW8aNMoTu2yd9lIILcIOIDiLo1g2KoZePJp4G81moN6cOldi0/2j
+         KOQ1whqUn3JuLhxW6UUpm6/ckEGI4Ng46+QOM2b332k4OW3A+YyLw27zF583NZ1xXxft
+         7B5k7e8bjx0cE3wceXtbaH/u2+x/laAGsS91iK5QyCeBePBAW8sxMZAuKbQdNRruBRPm
+         a5H3sTCNYyHw9nmGckoMB7bz/3e6oZS5ZiiTGIrunuVfvxzQLzyl7udR18GkBMZ5qCdR
+         J5+71BlRIAqsraDmKwwN0URzGfhfw86yHc8zdrVXB4sFb8ripF2qSI98M+GHQE/sBspu
+         b06Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwkuYghtDcbP+KrM4J2+cFCWrT0gp67irD0BS4F3DkrP0vdSlTrYvniNjIdIKdMtN+5DdVCVpTd6CSPy24=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjOtxSslohzrDyiya2qOcQ5KwYekhzOnibMoByfdPFhgGglv0d
+	zAMYWt1N4FVqgKYYxqp2XNlOlhP7MXGVLRB47n6Myv2MCvgRwgBzzS6a9e8Ehgn2LCY=
+X-Gm-Gg: AYBFou3YkzOu/dwgx49A2+ppoIJEu6viBw1YT+Dun2jQjlAOuZexaJGKafb4zvMVc++
+	qKnNgIoMmLZftobqDBGd7q1mgcnOR2Nfj8kLtANee9M+6zZIsUQEe9lIZvkEEUQo1szRneaoKv0
+	Xn18HRFQP4GI8qXG0jMBjv67V+va59grXMMoNbfOeW77pN5xgsSXM4P0WEMr+HfusJ0wBSXAVZa
+	1Ohovk+jMCpV7ZLuRS5XkaV7WaJfUuq37Ap/E79FPeO+4kOj1w7VQnXZbzbyqbdRVv5cniDvSbM
+	xKTYRisCaf6gC1rq1+pOl58W8rR/mupK9qjfxoZzdOBT7aPJTD/hqOPfsAjbdXB9s1fzrpyBW2K
+	/CmW87YyR1f1HKjNmORaxTXNfSWEuZB6JGiPd7HkQDzn7BISOnj1sSxfpZs47aK0cadqQa1jyQv
+	s8Mks1o5hLDCpOi7dHLDdu28B3SNsiLc3YHnCRWVf5v951sKsSy7Nf+RR0ULKd9L6DzT9k9AP3z
+	xAn0aTKLn4vMA8mZRPcyz08yPZMpC/cyIfglYyV9ga8Hf47qya9wBfJlniyDlgmvHJnhwiuV3NZ
+X-Received: by 2002:a05:7300:e9c5:20b0:35d:f7f4:bc1c with SMTP id 5a478bee46e88-3674d84d341mr1307105eec.6.1792544680127;
+        Tue, 20 Oct 2026 18:04:40 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3674198fb21sm2176572eec.23.2026.10.20.18.04.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 18:04:39 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:04:38 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 09/18] nvme: Implement cross-controller reset
+ completion
+Message-ID: <20261021010438.GR2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-10-mkhalfella@purestorage.com>
+ <207f5a00-7fee-4ea5-b541-38424d4766bd@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,127 +105,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c224:b0:4e6:76eb:b991 with SMTP id
- 5614622812f47-54d950c7a3emr2372052b6e.29.1792544612365; Tue, 20 Oct 2026
- 18:03:32 -0700 (PDT)
-Date: Tue, 20 Oct 2026 18:03:32 -0700
-In-Reply-To: <6a6be82b.77639fcc.3d4fd0.0014.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ad80f64.46bc089a.3217e3.0039.GAE@google.com>
-Subject: Re: [syzbot] [net?] possible deadlock in __netdev_update_features (3)
-From: syzbot <syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com>
-To: andrew+netdev@lunn.ch, andrew@lunn.ch, davem@davemloft.net, 
-	edumazet@google.com, edumazet@kernel.org, horms@kernel.org, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <207f5a00-7fee-4ea5-b541-38424d4766bd@flourine.local>
 
-syzbot has found a reproducer for the following issue on:
+On Tue 2026-10-20 11:18:04 +0200, Daniel Wagner wrote:
+> On Sun, Sep 20, 2026 at 11:28:07AM -0700, Mohamed Khalfella wrote:
+> >  static void nvme_fw_act_work(struct work_struct *work)
+> >  {
+> >  	struct nvme_ctrl *ctrl = container_of(work,
+> > @@ -5099,6 +5142,9 @@ static bool nvme_handle_aen_notice(struct nvme_ctrl *ctrl, u32 result)
+> >  	case NVME_AER_NOTICE_DISC_CHANGED:
+> >  		ctrl->aen_result = result;
+> >  		break;
+> > +	case NVME_AER_NOTICE_CCR_COMPLETED:
+> > +		queue_work(nvme_wq, &ctrl->ccr_work);
+> 
+> What happens to the waiters on sctrl->ccr_list when the source
+> controller enters error recovery while a CCR is pending?
 
-HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=14b5b831580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
-dashboard link: https://syzkaller.appspot.com/bug?extid=c6c86a1c56b5131f2d97
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15311081580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=159e0481580000
+You already answered it below :)
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/296cd4b77dbf/disk-7a19f0cc.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/e57669ed895f/vmlinux-7a19f0cc.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c679c1ad76d4/Image-7a19f0cc.gz.xz
+> 
+> As far as I can tell, ccr_work itself is fine. The reset path cancels
+> it via nvme_stop_ctrl(), and in the error recovery path the Get Log
+> Page just fails once the admin queue is torn down. But the target drops
+> all CCRs issued by the old association when it frees the controller,
+> so the CCR completed AEN for them will never arrive. Nothing on the
+> host side walks ccr_list when the controller leaves LIVE, so
+> nvme_issue_wait_ccr() sleeps until min(kato, deadline - now) runs out
+> before nvme_fence_ctrl() tries the next source controller. In the
+> worst case that eats the whole fencing window.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com
+If the remaining of the fencing window (deadline - now) is less than
+kato then I am fine with this scenario wasting this time anyway. If we
+hit the deadline then we consider fencing done anyway. If it consumes
+kato from the deadline then we retry another path.
 
-batman_adv: batadv0: Interface activated: macvlan2
-============================================
-WARNING: possible recursive locking detected
-syzkaller #0 Not tainted
---------------------------------------------
-syz.0.17/4904 is trying to acquire lock:
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock include/linux/netdevice.h:2864 [inline]
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock_ops include/net/netdev_lock.h:42 [inline]
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_sync_lower_features net/core/dev.c:10983 [inline]
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: __netdev_update_features+0x988/0x1894 net/core/dev.c:11153
+> 
+> Would it make sense to fail all pending entries (set ccrs to a failure
+> status and complete them under ctrl->lock) when the source controller
+> goes into error recovery, so the fencing code can move on to another
+> path right away?
 
-but task is already holding lock:
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock include/linux/netdevice.h:2864 [inline]
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock_ops include/net/netdev_lock.h:42 [inline]
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: __dev_ethtool net/ethtool/ioctl.c:3627 [inline]
-ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: dev_ethtool+0x384/0x1a98 net/ethtool/ioctl.c:3669
-and the lock comparison function returns 0:
-
-other info that might help us debug this:
- Possible unsafe locking scenario:
-
-       CPU0
-       ----
-  lock(&dev_instance_lock_key#23);
-  lock(&dev_instance_lock_key#23);
-
- *** DEADLOCK ***
-
- May be due to missing lock nesting notation
-
-locks held by syz.0.17/4904: 2, last CPU#0:
- #0: ffff80008aa8ec80 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_lock+0x20/0x2c net/core/rtnetlink.c:80
- #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock include/linux/netdevice.h:2864 [inline]
- #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock_ops include/net/netdev_lock.h:42 [inline]
- #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: __dev_ethtool net/ethtool/ioctl.c:3627 [inline]
- #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: dev_ethtool+0x384/0x1a98 net/ethtool/ioctl.c:3669
-
-stack backtrace:
-CPU: 0 UID: 0 PID: 4904 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
-Call trace:
- show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
- __dump_stack+0x30/0x40 lib/dump_stack.c:94
- dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
- dump_stack+0x1c/0x28 lib/dump_stack.c:129
- print_deadlock_bug+0x2e8/0x2f0 kernel/locking/lockdep.c:3085
- check_deadlock kernel/locking/lockdep.c:3137 [inline]
- validate_chain kernel/locking/lockdep.c:3939 [inline]
- __lock_acquire+0x2404/0x2b08 kernel/locking/lockdep.c:5288
- lock_acquire+0x13c/0x320 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/mutex.c:646 [inline]
- __mutex_lock+0x164/0x1078 kernel/locking/mutex.c:821
- mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
- netdev_lock include/linux/netdevice.h:2864 [inline]
- netdev_lock_ops include/net/netdev_lock.h:42 [inline]
- netdev_sync_lower_features net/core/dev.c:10983 [inline]
- __netdev_update_features+0x988/0x1894 net/core/dev.c:11153
- netdev_update_features+0x78/0xf4 net/core/dev.c:11210
- macvlan_device_event+0x530/0x778 drivers/net/macvlan.c:1883
- notifier_call_chain+0x1a4/0x4cc kernel/notifier.c:85
- raw_notifier_call_chain+0x3c/0x50 kernel/notifier.c:453
- call_netdevice_notifiers_info+0xb8/0x120 net/core/dev.c:2275
- call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
- call_netdevice_notifiers net/core/dev.c:2327 [inline]
- netdev_features_change+0x84/0xcc net/core/dev.c:1612
- dev_ethtool_locked net/ethtool/ioctl.c:3576 [inline]
- __dev_ethtool net/ethtool/ioctl.c:3634 [inline]
- dev_ethtool+0x165c/0x1a98 net/ethtool/ioctl.c:3669
- dev_ioctl+0x284/0xc88 net/core/dev_ioctl.c:745
- sock_do_ioctl+0x198/0x254 net/socket.c:1339
- sock_ioctl+0x55c/0x7ec net/socket.c:1446
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __arm64_sys_ioctl+0x154/0x1cc fs/ioctl.c:583
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
- el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+Failing pending CCR entries that we know we are not going to complete
+will help in this case. The question is where to do that. A LIVE
+controller might hit an error and transition to FENCING, or manually 
+reset and move to RESETTING, or deleted and go to DELETING. Do we need
+to consider all these places to fail the pending CCRs?
 
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+You might have also noticed that nvme_issue_wait_ccr() calling
+__nvme_submit_sync_cmd() might consume the entire fencing window if the
+CCR command gets held because the source controller hits an error. This
+is another area be optimized. I am inclined to leave the code as it is
+today. What is being described here is an optimization that can come
+later on.
