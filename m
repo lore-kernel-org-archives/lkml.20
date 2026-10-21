@@ -1,62 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580117;
-	b=LfPagpAXBEtg3R5NJLFnCx+RW7X2mMUd0Kcg3UOFyl3dvsYISbnUT0+olWtmkkxVFc7J
-	 1I/ZStXpzkElPnmoWEJejbWKxFhdlA559KNOb0hs8/5vnu34oZrE0OKPEpNt6nQ7egQdd
-	 bDxlV51ngx1uFR8B4weIarEcOST6WmHnqC9gO5rQjKm95+F9HlRKMGtmc9V8QKQKPdWob
-	 CcydFDSIQeM8+etW0idF+dLAQagXTfvcCWNPO2BBXX7nz9svspwkZvtk9rdliS/FjJ049
-	 +2T07fwEHhmT/TdL+IRzvmGhNa2xqBV6eJ5jCFgJ3ceRT64B/i8zhDSioDhuNNg3dTg==
+	t=1792580146;
+	b=C0Z6E4SsO0/v7ErDKaKGgiqgoM5MBtakRRIdi6Sn1R1+HODJsMjJhQlzAZ58PR1077Uu
+	 SNrX9PENScTNFcPG9zC+rYB2AMb0hmoMyfpOG+DxOYExm5yPQGmsNvfm+GjJ0BfugNHSX
+	 rVpv5E4ATLnjQwD35HKJFI43ZfLJQLeLQYzBzE+IntciGs8MaqBAHMJk7MZxe4k7l4g+N
+	 LztIjnLFf1qf4womcr/fz39fP9wEapUUehdKyjvdQQBYVMBQuiepkcy5WJ0MG5t0TMOUk
+	 heOQ7UE7qCICcqj7/0f9+4j7/CG7kn4asBJUvqe9AntMBxKTiELgW9bi75PYi9fbigA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580117;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=hylB7Q5s6aIIrh9STmuiAIGnIKZCFLhCVkXWbPnn+4U=;
-	b=cPm6KZypTc3Nm90dRqbh/Nw0V0d5+18I/BKBbzSdi2xGlA0NhXaLTqsA2PFZ+RgroN/T
-	 nNLNJ8acj7yU7F/jzUvv4GzGgTk2beBlfbHNdPFouMxHE4cnsZn6SdqLjaSRn7fhi37CD
-	 wUitTuUZ24lALAxCGcUCCPHJEdTTSDhUjYgComPTDnvQqveptzcAU9cxRKgUFPk6AulnL
-	 jDl4nCmfc2lNa0OKWIXwd2u5ow4/AaJ4wj20bae3SDGTq16Ay9DwC3m8s527t6kOgj207
-	 fcXk2WeiMP7m8WkPhCAAnLyAf4l8xKiTgXT/OqlS6SNTrUbrobWcAJN95oShlpmsZ5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580146;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=v57om+yRBBLGkth/qkaWXe1xFS8Ee5MlrK9nAsKl+LI=;
+	b=3bPCBoRDFVjSJqodG1AAkbTXjXHTojpnJpPwNXo8ZqUIF5m8SoASSJbhu2H3P42qURFH
+	 zEx4QceZKH4kjRCblKNqdSndtCq0J7o3oBOw/cPRRWV8aEDkW2l7SNN4txjGgrU8ZNHg3
+	 U1yD71PUjzxEjatv/t/u4UdjvYhAG6bWYLFdu3NUgSgLUkUVdajNrBbDWs4QQ4FOBzt+s
+	 mSFU6zeHdg5uFbN4ua/4hUBgQk1VVi7LbfMfEtn/cI8jMhODhNM4ChRQuu3ZGs5F7HsNW
+	 tm8TvQtGEKhsq+wC3zePfgQRXUiF0k/A3VZtUfuMosSPy3WKKAzw35Z7XcAUuqN4ssQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WnGUsFZ4;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="A/Yi32Jk";
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81205606A31A;
-	Wed, 21 Oct 2026 10:55:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81205606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBE4606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:55:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CBE4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WnGUsFZ4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hy
-	lB7Q5s6aIIrh9STmuiAIGnIKZCFLhCVkXWbPnn+4U=; b=WnGUsFZ4arwK11llxk
-	5yF+HvDN9+CBevVjvvjcIRyH6HmpPzKBSBEzQCTX8peAm4WkP1Z+mlZrAZEorNWB
-	UyxM/ryUuLSr2i+NB+LH3AChMfq9mBzcRWhrA6n54QKeXJz90hnYncgm3ChJWJRb
-	zqc8siQ4z9Iv23dO5HE5Swklc=
-Received: from jbd-ThinkPad-X1-Carbon-Gen-14 (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDX_wPwmdhqxCoxBw--.10772S2;
-	Wed, 21 Oct 2026 18:54:41 +0800 (CST)
-From: Slark Xiao <slark_xiao@163.com>
-To: mani@kernel.org,
-	jeff.hugo@oss.qualcomm.com,
-	krishna.chundru@oss.qualcomm.com
-Cc: loic.poulain@oss.qualcomm.com,
-	val@packett.cool,
-	mhi@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Slark Xiao <slark_xiao@163.com>
-Subject: [PATCH v3] bus: mhi: host: pci_generic: Update the default autosuspend_delay_ms as 5000ms
-Date: Wed, 21 Oct 2026 18:54:34 +0800
-Message-ID: <20261021105434.29897-1-slark_xiao@163.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=A/Yi32Jk
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a021c28046so34915e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:55:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792580143; x=1793184943; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=v57om+yRBBLGkth/qkaWXe1xFS8Ee5MlrK9nAsKl+LI=;
+        b=A/Yi32JkF3naJeUCEEUhBf0qYu9qLo6LrzJyZy22pJUlRBjF6x6I7Q9dmbNnS5wbwP
+         MmGjif4wqUZH8+H5EGly9IbdUm3tYhf6jN6PXCUr4Cql3djj/mzc397L9Wkoky5oJqLE
+         wJ7kzf8WA7xsP4XAVUgQb+Xa2quo/l9El0SuQPQQp6CZ4i8GZZJAg4tbebG6uaV8XD34
+         QSTvlnYlBy3i8HHP0lujJFrCanJGjaZgVU8nk3jQlmglxokLdIdzo7AfpDQv4qVEzB14
+         SB1Q/nWhJVhPis832gFZCI/er/vPii68mAANNBr9xPM8tkAvhFfnh9PRo3hwaWvKMdDc
+         VtAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792580143; x=1793184943;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v57om+yRBBLGkth/qkaWXe1xFS8Ee5MlrK9nAsKl+LI=;
+        b=hHogrPFJLolyeNNdxd9YSlv2Wg/uLPhS0UPml158SpOHZQVspCQjEVB/BZvI5l2mcc
+         BMIpWmrDoiyH2kFcm+k42yN68sDwi/UKQ8HFjom+9sFBgKeJ26yPT3LLAyrQFAdYIDe+
+         biU/5ahzT+O6oU9Z94uphIywYuZGilZRCVChTCBneh5CDkedUe3Nv1unvRIao3YrvX/1
+         KiV/NEnZDoAVXzHCUOGZrcP4TV0bORGM2jL5yea0irB7eXD9AdEaPueBTembNXs1FxTo
+         tRHXK5KJ2t1dJY3820nyQX8c6QxyFprnE/AzvQhoTiZ0SV1LZqo9KreObSUOTG6lVH7k
+         12GA==
+X-Forwarded-Encrypted: i=1; AKwUvBwavbh3DE66sJYrhp29rqLDcJo4Ttz+Q5tQjno7G8GK2YKfgMMM9F+iKiVUFf26OkeQF6cU4YuX5yD5lnk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQtMj83etAU+OdBA96iZlxtrhSpY2yDrXfuypR/FAdnMT16Wyk
+	DlQlVDJ0tVwhCdFbDEV8PXRINUBaZ208BIwnkfHbUeDdRUMJzlNDukumfI9+HQdxkA==
+X-Gm-Gg: AYBFou1eCn6n98uhp63Du3XgeJWC0rRLMPsyQB21vHy9c9gbpVbBmtSoruOByGRopXn
+	oMTLoq4Wln/wj4kD/5lCYx7s1eb9C2UPSaBB3V4GzNY5qvi1oMuTO77qSXoaqlQdOVq2Y+W0hAl
+	xgVks9UCJCd3RV8AZwmWZc3thWMfNxpvjGqNIFs79+vqPZ0v89w88pHR5/KwjtMZzrTaCWFSqRF
+	UyFTEoWC9+6MOAJi67Uw1eIjqvBLo22AHkBn8DVvJFavQwtUCT9KaRD/siJUQCjTCcnf1/Zzlo3
+	GMl5d+AASEN0a2HogQoPbDCycED/Z2ei8BHrxMv85DX7f7M8R6zyTgIluWQYF3GZcMiVMZ5xf9S
+	fO23AzcX7bG7Yj02gLAkx+o4jJRB41LaYHeZlUg/TJ5eRGKzlM87DOOKheRbJ18vtoZ1ZFnTAVu
+	2raWgb4bh+ngMVktfajCv/MkPLu68ZJ4Ro7dTg0JHDsPpXGGiOVrUsWBcjeX18i18mhISQJiV0m
+	nmRb31BW1Fk8pKCUMQdC8042FJsmhc1U8sTXQ4wZynoG9+725hvIxjD2YW8PJXGz6AwQoIO+NjA
+	BnfFHzuufz3f5hbbaXSK+Vk=
+X-Received: by 2002:a05:600d:848e:20b0:4a1:fb0b:1c9c with SMTP id 5b1f17b1804b1-4a1fb0b1f11mr791075e9.10.1792580140669;
+        Wed, 21 Oct 2026 03:55:40 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258427cesm4668452f8f.52.2026.10.21.03.55.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 03:55:39 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:55:36 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jacob Pan <jacob.pan@linux.microsoft.com>
+Cc: iommu@lists.linux.dev, Jason Gunthorpe <jgg@ziepe.ca>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Kevin Tian <kevin.tian@intel.com>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>, Wei Liu <wei.liu@kernel.org>,
+	"K . Y . Srinivasan" <kys@microsoft.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>,
+	linux-hyperv@vger.kernel.org, Joerg Roedel <joro@8bytes.org>,
+	Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+	Vasant Hegde <vasant.hegde@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+	linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+	Mukesh Rathor <mukeshrathor@microsoft.com>,
+	John Starks <John.Starks@microsoft.com>,
+	Souradeep Chakrabarti <schakrabarti@microsoft.com>,
+	Yu Zhang <zhangyu1@linux.microsoft.com>,
+	Easwar Hariharan <eahariha@linux.microsoft.com>,
+	Alex Williamson <alex@shazbot.org>
+Subject: Re: [RFC PATCH 0/9] iommu/iommufd: Add hypervisor external attach
+Message-ID: <atiaKG86qcifKzBT@google.com>
+References: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,63 +112,292 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDX_wPwmdhqxCoxBw--.10772S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF47Xry3AF1xKr1xZr4UXFb_yoW8uF4DpF
-	WF9a1Fqr1rJrWUK3Wkt34kXFy5W3y3GrWjyrykCa4Fk3s5t3sYgryvqFy5ta4qkrZ3Za9x
-	Aa1jq3y5Xr1jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_YFCUUUUUU=
-X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5xFz12rYmfEaPgAA3s
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260925190742.1575380-1-jacob.pan@linux.microsoft.com>
 
-For some MHI devices in some specific scenarios, the default value
-of autosuspend_delay_ms may not be enough to handle the last wake
-event, potentially leading to device timeout or link drop issues.
-This can lead to a runtime resume failure and a subsequent system
-error:
+On Fri, Sep 25, 2026 at 12:07:33PM -0700, Jacob Pan wrote:
+> Hi,
+> 
+> This RFC supports guest VM device assignment from a Linux host using the
+> Microsoft Hypervisor (MSHV). The goal is that a common set of flows
+> and infrastructure can be applied for Xen and other type 1 hypervisors.
+> 
+> Background:
+> 
+> The IOMMUFD/VFIO stack used for device assignment has largely evolved around
+> the KVM/QEMU model, at least as the first enabling target. In that model, the
+> Linux host owns the host-side physical IOMMU programming as well as the
+> physical PCI devices.
+> 
+> Architecturally, MSHV and Xen differ from this KVM/QEMU ownership model.
+> At a high level:
+> 
+>   +------------------+
+>   | Guest VM         |
+>   | virtual IOMMU    |
+>   +--------+---------+
+>            | vIOMMU ops
+>            v
+>   +------------------+    external attach     +------------------+
+>   | MSHV             |<-----------------------| Linux host       |
+>   +--------+---------+                        +--------+---------+
+>            | programs                                  | owns
+>            v                                           v
+>   +------------------+                        +------------------+
+>   | HW IOMMU         |<---------------------->| PCI dev          |
+>   +------------------+          DMA           +------------------+
+> 
+> For MSHV, the specific ownership model is as follows:
+>   1. The Linux host OS owns the physical device and exposes it through
+>      VFIO/IOMMUFD, but it does not directly own any of the IOMMU hardware.
+>   2. The device node (/dev/mshv) owns the VM partition file used by userspace.
+>   3. MSHV owns most of the physical IOMMU programming, including stage-2 I/O
+>      page tables.
+>   4. The Linux MSHV root pvIOMMU driver bridges IOMMUFD/VFIO UAPIs to hardware
+>      IOMMU programming through MSHV hypercalls.
+>   5. Guest virtual IOMMU emulation is done in MSHV rather than the userspace
+>      VMM.
+>   6. Stage-2 IOPT may be shared between CPU and IOMMU. It is managed by
+>      MSHV and abstracted from the Linux host, including TLB synchronization.
+> 
+> These structural differences from the KVM/QEMU model create several needs for
+> IOMMUFD support:
+>   1. Move a device to a guest whose I/O page table is externally managed. This
+>      patchset refers to that operation as external attach. Unlike conventional
+>      IOMMU vendor drivers, where translation is managed within the driver
+>      through paging domains, external attach means that translation is managed
+>      outside the driver, such as by the hypervisor.
+>   2. Identify the guest-visible device across VMM, host pvIOMMU driver, and
+>      hypervisor namespaces.
+>   3. Identify the guest partition in the host pvIOMMU driver for device attach
+>      hypercalls.
+>   4. Tie the device-attachment lifetime to the hypervisor partition.
+>   5. Coordinate guest-memory pinning and mapping for DMA between MSHV and the
+>      external IOMMU domain attachment.
+> 
+> External attach has a few caveats compared with KVM/QEMU, where nesting is
+> typically handled by the host IOMMU driver in one transaction after the
+> userspace VMM uses IOMMUFD to form nested domains:
+> 
+>   1. MSHV creates a temporal split between host and guest device-domain
+>      attach. The host first attaches S2 through a hypercall; later, if virtual
+>      IOMMU is present, the guest
+>      allocates S1 and establishes nesting with MSHV directly through a pvIOMMU
+>      or emulated vIOMMU.
+>   2. Guest-memory pinning before mapping is covered by the MSHV/userspace VMM
+>      contract, not by the VFIO/IOMMUFD pin-and-map DMA flow.
+>   3. Device capabilities such as ATS and PASID need a contract among MSHV, the
+>      userspace VMM, and the host pvIOMMU driver. At the time of host external
+>      attach, only S2 is attached, so the guest's later ATS/PASID usage is not
+>      yet known. For example, whether to expose and enable PASID in the device
+>      could depend on whether the userspace VMM creates a guest virtual IOMMU.
+> 
+> This RFC proposes an IOMMUFD external attach model for those cases. The normal
+> Linux-managed paging or nested domain is not the object that ultimately owns
+> the translation context. Instead, userspace identifies a VM/domain object,
+> binds a physical device to a VM-visible device identity, and asks the host
+> pvIOMMU driver to attach the device to an externally managed address space.
+> 
+> The series makes that relationship explicit in IOMMUFD. The model is anchored
+> around a hypervisor vIOMMU object that represents the per-VM partition
+> abstraction. It introduces:
+> 
+>   1. IOMMU_DOMAIN_EXTERNAL for externally managed translation domains.
+>   2. IOMMU_VIOMMU_TYPE_HYPERVISOR for the file-backed VM partition.
+>   3. IOMMU_HWPT_EXTERNAL for user-visible external type IOMMU domains.
+> 
+> It reuses the IOMMUFD vDEVICE object to carry the guest-VM-scoped logical
+> device ID visible to the hypervisor.
+> 
 
-  [ 8749.089545] mhi mhi0: Resuming from non M3 state (SYS ERROR)
-  [ 8749.089573] mhi-pci-generic 0000:73:00.0: failed to resume device: -22
-  [ 8749.090218] mhi-pci-generic 0000:73:00.0: device recovery started
-  ...
-  [ 8752.940324] mhi-pci-generic 0000:73:00.0: reset failed
+This is very similar to pKVM on arm64 also, where the IOMMU is managed
+by the hypervisor, and for device assignment, the host doesn't control
+it for the guest, but the hypervisor (in EL2), and there will be a
+channel between the guest and pKVM directly after the guest runs. 
 
-Following Qualcomm's recommended settings from Windows and their
-suggestion during case discussions, update the default autosuspend
-delay to 5000ms for MHI devices.
+The host only sets the virtual to physical topology (how many vIOMMUs,
+vSID -> SID mappings) and describes that for the hypervisor through
+hypercalls.
+In Android, we have an out of tree uAPI through KVM/VFIO bridge
+IOCTLs that proxies those hypercalls.
 
-Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Slark Xiao <slark_xiao@163.com>
----
-v3: update the commit message and the comment of the define
-v2: define a autosuspend delay timeout and explain the reason
----
- drivers/bus/mhi/host/pci_generic.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+In that case, the host just creates a virtual IOMMU and the guest sees
+a paravirtual one which runs with single stage collapsed translation,
+although I don't see a difference on the host side if nested translation
+was used beyond an argument change to the hypercalls.
 
-diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
-index 7193a384cca4..17d51964b55f 100644
---- a/drivers/bus/mhi/host/pci_generic.c
-+++ b/drivers/bus/mhi/host/pci_generic.c
-@@ -21,6 +21,9 @@
- 
- #define MHI_POST_RESET_DELAY_MS 2000
- 
-+/* Timeout to accommodate a potential 'late wake-event' issue */
-+#define MHI_AUTOSUSPEND_DELAY_MS 5000
-+
- #define HEALTH_CHECK_PERIOD (HZ * 2)
- 
- /* PCI VID definitions */
-@@ -1483,7 +1486,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 
- 	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
- 	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
--		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
-+		pm_runtime_set_autosuspend_delay(&pdev->dev, MHI_AUTOSUSPEND_DELAY_MS);
- 		pm_runtime_use_autosuspend(&pdev->dev);
- 		pm_runtime_mark_last_busy(&pdev->dev);
- 		pm_runtime_put_noidle(&pdev->dev);
--- 
-2.53.0
+My goal is to converge to IOMMUFD and I believe this series is the way
+forward, By relying on the vDEVICE virtual toplogy uAPI and the external
+attach introduced here.
 
+I will try to prototype something based on that to prove that it
+works. However that work has a dependency on the host SMMUv3 support
+[1] which needs to land first.
+
+[1] https://lore.kernel.org/all/20261015200903.2735565-1-smostafa@google.com/
+
+Thanks,
+Mostafa
+
+
+> Roughly, the VMM flow is as follows:
+>   1. iommufd = open("/dev/iommu")
+>   2. vfio_fd = open("/dev/vfio/devices/vfioN")
+>   3. dev_id = bind_vfio_device(vfio_fd, iommufd)
+>   4. create_mshv_partition(&mshv_fd, &vm_fd)
+>      // Creates the guest vIOMMU and configures guest-memory pinning policy.
+>   5. alloc_hypervisor_viommu(iommufd, &viommu_id, dev_id, vm_fd)
+>      // Uses the hypervisor vIOMMU type.
+>   6. alloc_vdevice(iommufd, viommu_id, dev_id, vm_device_id, &vdevice_id)
+>   7. alloc_external_hwpt(iommufd, dev_id, viommu_id, &external_hwpt_id)
+>   8. attach_external_hwpt(vfio_fd, external_hwpt_id)
+> 
+> Step 4 may be completed before steps 1-3, but it must precede step 5 because
+> the partition file is required to allocate the hypervisor vIOMMU.
+> 
+> The attach_external_hwpt() operation enters the MSHV root pvIOMMU driver's
+> external-HWPT device_attach path:
+>   -> resolve partition ID from hypervisor vIOMMU
+>   -> resolve logical device ID from vDEVICE
+>   -> invoke the partition prepare_attach callback to force pinning if policy
+>      requires
+>   -> MSHV attach-device hypercall
+> 
+> Object lifetime:
+>   - The hypervisor vIOMMU takes a reference on the MSHV partition file and
+>     holds it until the vIOMMU is destroyed. Closing the userspace copy of the
+>     partition fd therefore does not destroy the partition while the vIOMMU
+>     still exists.
+>   - Each vDEVICE and external HWPT holds a reference on its parent vIOMMU.
+>     The vIOMMU cannot be destroyed until these child objects are removed.
+>   - An attached device holds a reference on the external HWPT, so userspace
+>     cannot destroy the HWPT while the device is attached.
+>   - Closing the IOMMUFD fd destroys the object graph from the leaves upward.
+>     Once the child objects are gone, destroying the vIOMMU drops its partition
+>     file reference and allows the MSHV partition to be released.
+> 
+> Thus, the external-attach lifetime is anchored directly by IOMMUFD object
+> references and the partition file. It does not require a separate
+> VFIO-hypervisor bridge, such as kvm-vfio: the MSHV root IOMMU driver's detach
+> operation directly tears down the hypervisor-visible external-attach state.
+> 
+> The root pvIOMMU driver changes in this RFC address the following concerns
+> received from the older version[1]:
+>   1. The target partition comes from the fd-backed hypervisor vIOMMU created
+>      by userspace, not from the thread issuing the attach.
+>   2. External attach is represented explicitly, avoiding paging-domain hacks.
+>   3. Guest memory is pinned exactly once. In the older model, the same memory
+>      could be pinned once by /dev/mshv and again by the VFIO DMA map ioctl.
+> 
+> This RFC builds on the MSHV PCI passthrough/root pvIOMMU base work [2]. The
+> mergeable MSHV driver changes should be added on top of a future version of
+> that base root pvIOMMU driver.
+> 
+> Feedback would be especially useful on:
+> 
+>   1. Whether IOMMU_DOMAIN_EXTERNAL is the right IOMMU core representation
+>      for an externally managed translation (Xen, perhaps TSM [4]).
+>   2. Whether IOMMU_VIOMMU_TYPE_HYPERVISOR/VDEVICE can be common to MSHV,
+>      Xen, and similar type-1 hypervisor flows, and whether it can cover the
+>      semantics in CoCo TDISP that would otherwise require tsm_bind() [3].
+>   3. Whether a file-backed VM/domain reference is the right way to anchor the
+>      external attach lifetime.
+>   4. Whether vDEVICE virt_id is the right generic source for the
+>      hypervisor-assigned logical device ID.
+> 
+> At LPC 2026, I will be presenting this work and have open discussions.
+> https://lpc.events/event/20/contributions/2520/
+> 
+> Future work:
+> 1. ATS/PASID policy integration with the root pvIOMMU driver.
+> ATS/PASID policy is intentionally left as a separate contract issue. I do not
+> think the root pvIOMMU driver should blindly enable or disable PASID/ATS on a
+> device without knowing the guest configuration or receiving acknowledgment
+> from MSHV, which owns the device-TLB flush for S2 changes.
+> 
+> 2. Live update support
+> The current LUO proposal preserves DMA mappings through IOMMUFD-owned state.
+> External attach requires a different preservation model because the S2 IOPT
+> is managed by MSHV rather than IOMMUFD.
+> 
+> 3. vDEVICE lifetime during external attachment
+> An attached external HWPT does not currently retain the vDEVICE used by MSHV
+> to resolve the guest logical device ID. We can either let the core retain
+> the vDEVICE identity for external attach, or provide an opt-in mechanism
+> to the vendor IOMMU drivers as needed. I am not sure if all type 1 hypervisors
+> require a vDEVICE identity.
+> 
+> 4. Revokable dma-buf support for P2PDMA
+> Now that MSHV, instead of IOMMUFD, manages the S2 IOPT, we need to reconsider
+> how revokable dma-bufs are handled. Perhaps MSHV can be the importer of
+> revokable dma-bufs for P2PDMA and unmap them when the dma-buf is revoked.
+> 
+> [1] https://lore.kernel.org/linux-iommu/20260731223427.2554388-1-mrathor@linux.microsoft.com/
+> [2] https://lore.kernel.org/all/20260902235609.GG2890729@ziepe.ca/
+> [3] https://lore.kernel.org/all/20260921225028.4007330-1-mrathor@linux.microsoft.com/T/#t
+> [4] https://lore.kernel.org/linux-iommu/yq5a33uxka2g.fsf@kernel.org/
+> 
+> Patch groups:
+> 
+> IOMMUFD core and selftest:
+> 
+>   1. iommu: Introduce external attach domain type
+>   2. iommufd: Introduce hypervisor vIOMMU type
+>   3. iommufd: Add external HWPT support
+>   4. iommufd/selftest: Add hypervisor external attach backend
+> 
+> MSHV:
+> 
+>   5. mshv: Add partition file identity helper
+>   6. mshv: Add prepare callback for external device attach
+> 
+> MSHV root pIOMMU driver:
+> 
+>   7. iommu/hyperv: Split root IOMMU declarations
+>   8. iommu/hyperv: Add fd-backed vIOMMU support
+>   9. iommu/hyperv: Add IOMMUFD external domains
+> 
+> 
+> Thanks,
+> Jacob
+> 
+> Jacob Pan (9):
+>   iommu: Introduce external attach domain type
+>   iommufd: Introduce hypervisor vIOMMU type
+>   iommufd: Add external HWPT support
+>   iommufd/selftest: Add hypervisor external attach backend
+>   mshv: Add partition file identity helper
+>   mshv: Add prepare callback for external device attach
+>   iommu/hyperv: Split root IOMMU declarations
+>   iommu/hyperv: Add fd-backed vIOMMU support
+>   iommu/hyperv: Add IOMMUFD external domains
+> 
+>  drivers/hv/hv_common.c                  |  91 ++++++++++++++++
+>  drivers/hv/mshv_regions.c               |   6 ++
+>  drivers/hv/mshv_root.h                  |   1 +
+>  drivers/hv/mshv_root_main.c             |  71 ++++++++++++-
+>  drivers/iommu/amd/iommufd.c             |  10 +-
+>  drivers/iommu/hyperv/Makefile           |   2 +-
+>  drivers/iommu/hyperv/hv-iommu-iommufd.c | 135 ++++++++++++++++++++++++
+>  drivers/iommu/hyperv/hv-iommu-root.c    | 102 ++++++++++++++++--
+>  drivers/iommu/hyperv/hv-iommu.h         |  40 +++++++
+>  drivers/iommu/iommu.c                   |   2 +
+>  drivers/iommu/iommufd/device.c          |   9 +-
+>  drivers/iommu/iommufd/hw_pagetable.c    |  88 +++++++++++++--
+>  drivers/iommu/iommufd/iommufd_private.h |   7 ++
+>  drivers/iommu/iommufd/main.c            |   4 +
+>  drivers/iommu/iommufd/selftest.c        | 120 +++++++++++++++++++--
+>  drivers/iommu/iommufd/viommu.c          |  37 ++++---
+>  include/asm-generic/mshyperv.h          |  42 ++++++++
+>  include/linux/iommu.h                   |  17 ++-
+>  include/linux/iommufd.h                 |  11 ++
+>  include/uapi/linux/iommufd.h            |  42 +++++++-
+>  20 files changed, 790 insertions(+), 47 deletions(-)
+>  create mode 100644 drivers/iommu/hyperv/hv-iommu-iommufd.c
+>  create mode 100644 drivers/iommu/hyperv/hv-iommu.h
+> 
+> -- 
+> 2.43.0
+> 
+> 
