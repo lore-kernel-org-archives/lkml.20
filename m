@@ -1,96 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572939;
-	b=K6cbRbYtR1FtpuzCzE4o+cfWz9T8PPxvkKJghxT6ug+pieKvfAHPjAmzYCSMal+50yU7
-	 PZPy07/mWt7fwaP/1WaBOHbikVlLeOHxTt5BCezl/qdR7Y+sW2FCa6IOp6otUbZPHRUZL
-	 epoHGZmdvC97fSIl9jmFsoYeA14fNxrHoRtmECZTRgC67cq4ECLo81X4JSDKOgOFuEF3A
-	 o4rNCFcI+6LfK+PqgmI/nKB/Azx5aDY6KPphve80Ztq/k3AznUAGVHgos+vwJmJb+RGSc
-	 JcYQXQoEg+HvhBpE1JrGEw9X26Lcr7QE1rKKJxk8UefvFyM5uQZm1yvR2XznS6Tfy4g==
+	t=1792572957;
+	b=veNAyKIUHZzT5QS/MA6rFUeK8IuRoiGT41ddtzlA/9E2aY9sCzHNhtwBx1BrAjrRdDlj
+	 sOSJ60vHVhLtFGQNJQ6ByLsSXwcP+ROZO6S/JJlW1w1WvPffPxvuSBWKTJqoWjQb6Jjq1
+	 V5bFCaDWuCsVJf7DloXywwsU6XrmSOyieKT3zve08xNY9lKx12EK7AfIVR2H4E04yxsqB
+	 jidzCvpOGehfI5RrT/2vlh1kfmnMoc0tfRLc73OxGRkp92YFNrXrGUnoWK0oXzn9DJmCN
+	 6+dEEyz7CKh+wtk+CAunEh+Yej60Y5DMMyxxI0/oScDyuPt1Oumc+KGBnZQo3Mcko9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572939;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ZlzMMtlOMt0j7sxnZGkr7qkygcFA8MGAgcH9bAVX7Kk=;
-	b=n6pWvJyui+tAVEa11WuU5XVSckpNj9gg3IgG8t1q5uTLLnwZ1Xu8qquJP9SjxwvKmcKr
-	 oAEHIFz7miskyi6o5MhhoNM70VyTt4nI/hq/7rMBxBNmfCu3GsN4e8sOifbsnMnR505SR
-	 VAwIBHeSkVPVCPdtJd5uJyK+DN5oK6z2q0yVjqizmCe8nzIRCx3BbmHlZz4RkplDS6n8u
-	 uHafEmz3N3AO5ROmSJjSqiaywHcoIqaHWRowHAkkHsCsevSMx3MfciOLYzWw1qTgqsXS7
-	 qr2j+1HckHf/YKjy9ezMim8AITgpRWhdZUjTOUdIiwEIfP3dXSibm3sEd6Lw0dtZ8/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572957;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=kBfmRD+HTUM5tLd6gOgOmsCqpMWEseYJOLoe2SuJ4F0=;
+	b=FRgBY4nCueoxO92aPYFnr6UKdIvzOBfnC2amsTde5HYdiryba4dAj3r5FSIP0ua3dtMm
+	 zgAuU4QcBgK6h3rmvHiXLBtddGtyXBlKJcqZrtOku5TDsYv7qbSVLVHEN/zR+8EqZgtl0
+	 n7PqCn4P5mrdfSPpRJiinO5TBrt3O3MU8QS6RYWiCvcKHZKqO7WbIkwgUPCTPhMT+7F6b
+	 FSg/OnJ1XyRTdIhjjgz2OFVbDvKAW3AYG/anY+9p6M/zidvW0gvS0XT6R+Uw01KKM7rzk
+	 jyQE0k2YGJbqoqyt4lghbazK+9EL0jcxb2wQZiC2qgsdEhA3kP4MxJwJ1svHRKrFBtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Q63ZWMYw;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc2Z88ul;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B960606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:55:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B960606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D98606A319;
+	Wed, 21 Oct 2026 08:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Q63ZWMYw
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so275568a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:55:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792572939; x=1793177739; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZlzMMtlOMt0j7sxnZGkr7qkygcFA8MGAgcH9bAVX7Kk=;
-        b=Q63ZWMYwY2xiEcGgxNT+yzrIlSaw9gGr5WmMgDxgjgm7sxXVG3yzck52PqI5GprMdC
-         0YqC8fY/9VYDsWb6Mw+YnkSo0Q5zzMuwZTqwk99O1vHcqh4zIyKbb13+fHmmKwH2O1bT
-         TjC06GLD1Bf2MvZiPAj0Yb4RkP468nRt4HZtclmCnhYNMF/XcJXxaC/d3cGHUvx3U1Uf
-         phMYsUrcDAVSoLAs5Yp2Av74cYiwVpLJzASoz3MHKVTzRKP+5wqpnvI4sAPOGZRpzV/z
-         ZBdICmaDUU+/c0Wx8a+ojZ9sm+P+Z5cjrFzRe9YC726WzvQgEIgmpAPgKlO+mvbbj7Qt
-         2UjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572939; x=1793177739;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZlzMMtlOMt0j7sxnZGkr7qkygcFA8MGAgcH9bAVX7Kk=;
-        b=bNTKYURjzoKYv7/ebNC4ghKzWnLwovsqIrtB5JWrbcR5yC83UetcpEAdYnHsP7O+O2
-         +5O2IIhz8zLuz2+4KEU/Z/BjHZtR7m9xiWDNjK1l4YNFYWU6XGL00QN8s0xJfwnNOsEo
-         aQaCsy7OgrLHyxeVn07Z2i+9FzgDw1p3dAf66XMeKH1YD7DiEPZM3vfwhNMHE9r4Jcuf
-         gb67AIgSs6gKPN/O2o9zX3hU5Up2MCjEG+1pxJHo8TMGZRkYc9vNb5HVRp+H+h8rX4IT
-         rqpF8m0D+6d36hRwTKJoEjqMi3Yk1LFG0Kpa5r8Z27vESHmizL6nL9Q1r/dr0sW1K7HV
-         83FQ==
-X-Forwarded-Encrypted: i=1; AKwUvByoPR51KVEUrwJ47qBbTZ6qiR2I5IQ7zM42z8zqqG2hNzKv1tNMxJmh22YSKZXzJ3lMwaoyKk0TtiQDejA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZUynBH/dsXLLyWurfuL0u64TKtYia+o91RikzQMHqyfMw6bA1
-	/wz6H6xyDpsL/ETYv07QUATaB4mSuWWAXyCq4x1FStIzqfq7On7RYW4d
-X-Gm-Gg: AYBFou2rxmI/djGpGn/4nlRCYXD5iQXEAGpanyImNdZ1PUUn/7qHzrUdOxX5Q800gAt
-	9hPT9Cqn2+Og1vuJVQQAXdoJzVIScoikTnp0QHBMp007H48FbZSk4YT7S0JJScyONRmy3MqF0P1
-	GWN9rtSNaR2P9ABKl92UGp7g06OAoTiSWHb9PR/M6zjPKuvGoKoXvtV7MS211hex7Zv4HR8UjK3
-	kjCELE732t1RUVZs/kvAEG9rqGwy95KX8TzxkDsnF/M6f794Jpz6sDe5/tb6I8ltRdzmr6PsRlE
-	bYS/vB3OPSxpexmuVMHpo4MWUZX7FQJgNEhjymX788pjOXMOzWHR2yEA29Ol8liP8CL1H5KtGFQ
-	uky2/tiWKYQuFCZmBQ0A+V86XebF7eBCs7V7eJG65iEWgaFzDt3SRa/llG4mrkGoeVq/ZNwRKw6
-	sXfzTO2bPLyJo77iiCi3HWmy0swKvjuXea1sJ3p9MZXjNDrZsLxFjIw2twyxFVpSp1sjvX4Re1n
-	NWcgp9gNDzViN0SglH45c2DXzYBcnLYeKQGUhL/v9onKRQqOpEkmyo=
-X-Received: by 2002:a17:90b:2f8b:b0:3ad:6781:da66 with SMTP id 98e67ed59e1d1-3ad86c79915mr1116703a91.23.1792572938794;
-        Wed, 21 Oct 2026 01:55:38 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1398207a91.3.2026.10.21.01.55.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:55:38 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: Mike Christie <michael.christie@oracle.com>
-Cc: "Michael S . Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] vhost-scsi: fix page reference leak in misaligned I/O fallback
-Date: Wed, 21 Oct 2026 16:54:58 +0800
-Message-Id: <20261021085458.196742-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bc2Z88ul
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 971571F000CB;
+	Wed, 21 Oct 2026 08:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792572956;
+	bh=kBfmRD+HTUM5tLd6gOgOmsCqpMWEseYJOLoe2SuJ4F0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bc2Z88ul+Wdi6ex8pvF8klzjJkZsyRycNpC+fqEvZwhpSTog+Ws2CFQaP7yf81qtW
+	 MlF5pKgAruT5Om3ovBjx44c0A70egnsrKIO5PXmJriv5wruyxcu1ATvCF4uo7MVz46
+	 Dy+zxHutfuPBzrqPb0FoGLtDlaOcoUyHjJskAGpEDsJ5UJznKmNWRagAV4Jv0O2yWl
+	 7ppdJbz9WyJH42i9yzbxnzJ5mGb9feE5OT1f8UZC+Un/U2hU9fL8BfMjSAtVpw6d3P
+	 rZqVPie6kTOAcEB0CN+suPI8nN6r1XWueiS4WFG8NI50i35KImYKUN3ykMhzYnGVoI
+	 DmmVcaxMgVkKg==
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7613E1980050;
+	Wed, 21 Oct 2026 04:55:52 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Wed, 21 Oct 2026 04:55:54 -0400
+X-ME-Sender: <xms:F37YaojVWrsR83031gVvpnRvGNk3M7OQ1i3nUtjEzGX-YPIOqn8LaQ>
+    <xme:F37YahfiUUY-rLQahuAvVVp5w7RN08Az6vZm-EFeLqSvV14sox0ci1ARP_Jboml1W
+    _bYBoANT1M0V4wDtgzP51clRTAyk2pt91gpFeuQvhxg01ryFCp_FWnw>
+X-ME-Received: <xmr:F37Yalgx8LUjo11qIaCHCUxkODdZMuxBbjSrKJdpCTGR_Gisu8Eoo1tNlsE>
+X-ME-Proxy-Cause: dmFkZTEBD829IPSJldAEeV8g8TjtY4+wpWNFDE0//6V1zbMXwfqkzjCBJM7vp2VnYyE6BQ
+    cTG8ugeY95ZXs8su3YTJNRFD11qFtvPEio1QgBsUIQ5MzQ5NIRzzqPV+LhiBOZzB0IJOEv
+    Is/kA+k7tTRpZsr4rhd2iYJlPa0vuel/YvFTzqFS7o8miy9srjNIAq5rA5ZhmXr1sADhki
+    1PTJLYfs7YUNH9EZd0xT8DRRkGoeaROyYcl+3dMeasHllZRtdvYyk4Fbo+movVzd29ywrI
+    xYfvHgmBtENvnnIcfdcD+ZXF33LQbfElVQbTvW9VoPNNtmzzsLfi0bbZ0ZnXfMF5I+C0VP
+    VHCICwVqm0BmTISx2nQVYmvAVLhuJk0im+xr9PddCYXwiSGbxyjonOBq7evO49Rso05MmK
+    IrT+nF21YP9Qm3+s1G4YASJaEqnQnpvRSA44fptB+MZOkV+hoA5xekZKOtzWHBSKt89pOT
+    Qel+zTlMzKw0gcXBBOJC6YO8g+Al53ByXP+SV2kmUk3aaJdE4eVFmc541llE/QOdi7ESlN
+    hc+SFGehm1l6OTHDB1JFCrOkD1oiOGIdkZhPHZovdo5EhMGShA+pfe3bb5sKVkGSl6/wYm
+    CJNmydURXKNowlpHRLaTOldiFULdXb8VwADQNQ2bUihguy531D770kU++SPw
+X-ME-Proxy: <xmx:F37YanNp8iZN7MgTJnXmEO6YgONTNgwcdzR7Lu91iWqMbktXcr4HRA>
+    <xmx:F37Yapmwr0fJV5Ayegmk3VllttZe5TyWEKW3_tzsUHCVOlnjFKFOgA>
+    <xmx:F37YameuTO_lVWqrg6KFFAbgZKzU66sgfRSXVk7jlI8Gy_qS0o9ctg>
+    <xmx:F37YajuxDEhv9S9oaw20FiWHqZQrDhGlZJbJspcnqW7M3Mqn-JmyAw>
+    <xmx:GH7YagAfGGfDD_kD5-HU6L1DbNvJxou9v2XGXi5OXt9Ou0SkxkuroWhh>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 04:55:51 -0400 (EDT)
+Date: Wed, 21 Oct 2026 09:55:50 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, samarth.colleges@gmail.com, 
+	akpm@linux-foundation.org, xu.xin@linux.dev, chengming.zhou@linux.dev, peterx@redhat.com, 
+	rppt@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
+ page
+Message-ID: <ath8JTlITYcXsyLg@thinkstation>
+References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
+ <20261020055518.36087-1-lance.yang@linux.dev>
+ <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
+ <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
+ <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,59 +92,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
 
-iov_iter_get_pages2() returns a byte count that excludes the offset
-into the first page, but also returns a reference to that page in
-pages[].
+On Wed, Oct 21, 2026 at 10:21:53AM +0200, David Hildenbrand (Arm) wrote:
+> > +1. Did it ever actually work there :) Why not just skip them and
+> > call it a day :D
+> 
+> I think QEMU just always sets MADV_MERGABLE and later activates uffd. So that
+> needs some care to not disable them. So let's rather try to get it fixed properly.
+> 
+> Can you send out proper patches? Thanks!
 
-On the misaligned-I/O fallback,
-vhost_scsi_revert_map_iov_to_sgl() puts pages already added to the SG
-list.  The cleanup loop starts at pages[npages], but accounts for its
-first page as PAGE_SIZE bytes rather than PAGE_SIZE - offset.  If the
-remaining data starts at a non-zero offset, it can finish one page
-early and leave a page reference behind.
++1.
 
-Use PAGE_SIZE - offset for the first remaining page and clear offset
-for later pages, as in the mapping loop.  Without this, each affected
-request leaks one page reference.
+Lance's direction is right. Unsharing is not an access: do_wp_page()
+already skips the uffd-wp fault on FAULT_FLAG_UNSHARE, and RWP should do
+the same.
 
-Fixes: bca939d5bcd0 ("vhost-scsi: Dynamically allocate scatterlists")
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
-Testing:
-
-- Four fileio vhost-scsi test instances repeatedly issued affected
-  writes using recycled backing pages.  After about 1.33 million
-  requests, MemAvailable fell from 5.3 GB to 13 MB and swap was nearly
-  exhausted.
-
-The affected fallback is reachable from guest-issued virtio-scsi I/O.
-
- drivers/vhost/scsi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/vhost/scsi.c b/drivers/vhost/scsi.c
-index 4f8c0260bc9e..b7e41c0a91d4 100644
---- a/drivers/vhost/scsi.c
-+++ b/drivers/vhost/scsi.c
-@@ -883,11 +883,16 @@ vhost_scsi_map_to_sgl(struct vhost_scsi_cmd *cmd,
- 	vhost_scsi_revert_map_iov_to_sgl(iter, *sgl, sg);
- 
- 	iov_iter_revert(iter, bytes);
-+	/*
-+	 * pages[npages] is the first page not added to the SG list.  The
-+	 * remaining data starts at offset in that page.
-+	 */
- 	while (bytes) {
--		n = min_t(unsigned int, PAGE_SIZE, bytes);
-+		n = min_t(unsigned int, PAGE_SIZE - offset, bytes);
- 
- 		put_page(pages[npages++]);
- 		bytes -= n;
-+		offset = 0;
- 	}
- 
- 	return -EINVAL;
 -- 
-2.47.0
+  Kiryl Shutsemau / Kirill A. Shutemov
