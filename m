@@ -1,99 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583806;
-	b=nGuYZbaV2ytc6vbWTubXFWkOde2BgG5yAftusHbVpGPXthZ12J3YcSBNI/JI7bLCiJgK
-	 nPHuVeDHRWk4aAEdWAVep7QSPqTsy+RmZCRPT0JtuotC2uSHNDtPw6XHBfpStrxIkjTTM
-	 jIJviHUSOmbNC2eH6PBAxwz2XbmDG9RVXGpWjRG1ghyUdufKukyfQ2dXGGXSpY459WVTm
-	 4vcDzsg5MrcfFQNoRgV7ntf06xo94jxnGtxh5uXbE6wNERdiWRv8TqFGJrhPOHBFfrIrs
-	 wbj0UTu03HdU4n+ePEovhXtjvSBUtNUfS+C8DLjw864t+jQufSiJ8LPCBfak2pRVwvw==
+	t=1792583818;
+	b=LQpP93/lk0P/ydsnkIQcPvwVBbnG8voNvxatTZcyMbx8Hi0M9uxNA4hcrQ5fCCqIaw9I
+	 FBWHSG5fMIk4b69/21RRTaBqSloJVO2ST+7YFzxGTm1Q3oQeO/McHo4DMYb6MkSmXX5eC
+	 gn3LVSScN2+j+sSPUGpRz2gXGQ40NfChEAzUNfcXirc3HHebKB28YdvbXGoInDM51SBmO
+	 aRUr+tCVZErhB5RkiUp74fIrLivamj+e64Q2jzWP86HxyEXs+Hs2tAPSmdux0Iq5/pUD/
+	 afJxzkSWivY0RhDwYelemST3GdOpY2kdqgmCpu0TBdDsTXc8k5WIJnqUieb8PCxl1vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583806;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=25HQcasjSxqCf6dqX+3PCt7YydgfJ0RpprQQR2JRC/4=;
-	b=mHMfp+pPX6uxC/XTbTFzUbXwKm2WSz4EVWttXm1nV4iG1wIcF3r2ygpQGvSSKEK8OC9+
-	 ORfJkkF9BqE55AsW+wYwq1i1LA//kT24pqfPWx94VsbzK/cM0O52+z3O581v51p+LhRcu
-	 eG8LSuP4wesvh/lDx/TsaDfdOV5owCMH51+eZx7+/S6iRqz1VFGsL2c7SLYUSxCNeSELM
-	 GaeSURtppNlKr2VcaR1eejjEYWu/v54+K0HvYPUtmzTJNlQ5o8Hjq8rpJJRUTTp5U/d51
-	 K7UIGZqKiBx9cbMZXwvGdVJU6HEGOn++bnj/Vhvi02ElO2wHvzYOoU0OwCbHZYKjYGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583818;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=y3Cc8X3faZNr+lrlR0PCJw4R41q5ZFzAd48ZePxA2zI=;
+	b=MN151s2JQqG5ixdUXaYprZbQGi9fNq+xFhc0qsPY7ueLBuJdVehLg+UZacnBUSKpgKWY
+	 L9awRGhlCadhfloJEBZm5GKuLn8VyWaYudFEM/qUpj6+Zs6BGX3W231bLE8WCuWHAZpw2
+	 3vzU68hbhwvofBiBgZ1oaUZJCbPjqTzKhUFJ3xBJBbgbXIkmZN68/qG7wp8plY8zTNPVb
+	 3T4hZQB2HJZlJBZift3J/y7uWymCI2nK/6ZnFn1NVnKBII3Ffkhr+w+kve64FH3bYfyua
+	 ZXHKR7zYtKcdrNr77Ljw0R1hYOxiGo0Yb2yEu4pcLdtfnb4yhXOvhqM8/e/2xZgd7RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXCRWMs0;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Jg5Xm/01";
+	arc=none smtp.remote-ip=192.198.163.17
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF455606A32A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:56:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF455606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71170606A339;
+	Wed, 21 Oct 2026 11:56:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71170606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXCRWMs0
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-157fe9d771bso800720c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:56:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792583805; x=1793188605; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=25HQcasjSxqCf6dqX+3PCt7YydgfJ0RpprQQR2JRC/4=;
-        b=pXCRWMs0l3QRpaBSy14qZql0Lx3jKYNNyZ1lfjPRWlIng2vmo024sDDXSZ+ux57lN2
-         Wf+mMi+agWX7TfzNVhoXmnifhbWVxU6vQHMMbJg8FoIGVfaupMgJBAafWXrQDcz4NseG
-         vQ9GKUWJ8dN5+s63g0JdWb1lZzdDEti++QAkjOPPv/wv60Ajf+llkwXRZTPq2iD+bEId
-         CxlhH4h/KOi2BUdwra4TKTlejg29OQfYKA4Bi7aPcLL2CGHtlYRF7NxnMy2vmAp9y6QQ
-         ivc31XiWscm1hjaCscVFQU3ksqNQHyKyZeW3EqJiAnl+bh3F9WXtohJUBbuzXZKdhaX1
-         qTGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792583805; x=1793188605;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=25HQcasjSxqCf6dqX+3PCt7YydgfJ0RpprQQR2JRC/4=;
-        b=HnnS8DRcJiVeqBvHoByGLSc0sqWxosRXn5Z2Fz6EDsahA1Ztrh9pKs7wokoWJMtQz9
-         AkZ3uvLfamNNSVS3yYoWKpsc3dZXg7rXh9Tx7JQgt66HPs55GtHy7rlfMACZFuR0uxlh
-         VTnuMMbrkwvHN1ocB4FKVKvvZ3EdaBW30HKdkBrDWmXQ38hNnj753vbwDUeh0Tapv+RK
-         gbD8G3iDrGURLmtg0UPE6SNPbQTJciE9M9PFwCzEKgTYkmIsjpugKlVh1hVNiF5Pp1DO
-         rNN++VIFjwhcuBVX81c1xT/cvwWM/vNh8Z3D7JPQLlpLXBZDziszh8gL7+E6mgnTqZuM
-         7YBQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzVgpWtfZMjXSX77bS9WSDEGuoCYeq2Tm+en3zWNiShOHdVJ8MQ+Lvr1F40+4b4PSIPPNsYuE3BOOGRRMg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVNi8LtV7cn6eWFCIlWTzrE8+LpZUfTSVBXD1yMaiaXvGQv+w1
-	YKjO41UrhlZwMVxg+gcPw6dwmyFurVwhGfzOwUmxR2vOZCvnK013rD+v2PFGzKGb
-X-Gm-Gg: AYBFou2AVq4yyK3fYShY/RhVVSn9Qtf6M6cRldLoZbC7igdB7MvoPfM7xk9N8ySH/w7
-	14BA6dUkj7obwT9vjFuE1icPgNEfg0C/tN9lUQk6qGzavGHFcZPzWmIpltI2++q/PWtfTi4zcRv
-	2hWbv3KfgDPWPU1t4RWZiHo34ocHf4bkvfwoP1t9iFJDVAGhuonRhqJ1Xkj3s4Yc9jxrpyP9pbU
-	NUc1rmFBQ7TSmMveRux9+/Jug8/KBtMY4yMvdkemE/erZZMVav49qtBukZhomiLtY9f20iFcLUi
-	STG9Xz1FMkH1gBIF5XOJG+pJeD+mbEoxfEQPmKtMxvo0wHkpiIOAHOkiejtZT3ReTJYeta5zta4
-	YmppHPlsLFjGdK8Q+e10m20+v1AR0hy6j4UQSA0sI9aRTiBtWaJ2d3SEsXJt21qkfwxTpMgjrCw
-	tdT6DH6f0p5u2+UwMHmZb44hMhtymC+tvI6Ru4kJ5Kcd8vryQaGGyMDBCbNnzzucxEUt4OdGKgW
-	1HAisN4kmobbk1VgTp6T02WTJGAYiflQdiXw6fbl3wVSMaH
-X-Received: by 2002:a05:7022:2507:b0:151:ece6:b16b with SMTP id a92af1059eb24-190a4c1fa2emr3350163c88.7.1792583804543;
-        Wed, 21 Oct 2026 04:56:44 -0700 (PDT)
-Received: from dev ([163.43.243.221])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm6055020c88.22.2026.10.21.04.56.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:56:43 -0700 (PDT)
-From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
-To: Andrea Mayer <andrea.mayer@uniroma2.it>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gabriel Goller <g.goller@proxmox.com>
-Subject: Re: [PATCH net-next v3 1/2] seg6: skip the route refcount in seg6local IPv6 lookups
-Date: Wed, 21 Oct 2026 20:56:40 +0900
-Message-ID: <20261020031413.seg6-lookup-noref-v3-reply-5f2735b7@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261020010429.eeffd6f140ec6157609c310a@uniroma2.it>
-References: <20261015-seg6-lookup-noref-v3-0-6d51a60a67d3@gmail.com> <20261015-seg6-lookup-noref-v3-1-6d51a60a67d3@gmail.com> <20261020010429.eeffd6f140ec6157609c310a@uniroma2.it>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Jg5Xm/01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792583818; x=1824119818;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ByEZCJarc35j8etN817/zawqOpUCF7BCj7+jhbOovh4=;
+  b=Jg5Xm/01qsRhU3+tuuPoEfxbVJP7qvUh/utjebEsPjKdXll24YmhkOCn
+   lpA5zWtbIQgxaYTifOWfO99KY7+eFRsh4uz0zE2qAxUDIvpjxOcW8kYxo
+   bPLYL14DvGs7klscCxR2/rhBZleboTYJ9pH8CagD3Zishx0Wz15z5dtHy
+   3XzCk6GobQGHJpWcs8TrnWPAyBj5BXHPv4P8mMAOGsLhKiRog2EQiwLcp
+   gfXyunrzTwntuBf3JhkCfgvt6glcfGEBRHVr9UtHJ5E9ODe6hmV6e7Cdd
+   zt3mrms/Zf2GHRKRw8pyAQ9WJgWl33lwtKKImq+Z4ufUTcKD4s44Xu4em
+   A==;
+X-CSE-ConnectionGUID: /DEbY/DWSdGQJh06CjtLng==
+X-CSE-MsgGUID: aBAIa6wWRyW6VEJ582RB5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1308322"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1308322"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 04:56:57 -0700
+X-CSE-ConnectionGUID: 1gT5+YYCS9aXRy9tOfDgUg==
+X-CSE-MsgGUID: 472FMWH4Tamdlnmo78nZfQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="4868026"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.43])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 04:56:53 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B2E5C121BC4;
+	Wed, 21 Oct 2026 14:56:50 +0300 (EEST)
+Date: Wed, 21 Oct 2026 14:56:50 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
+	hverkuil+cisco@kernel.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
+	Kengo.Hayasaka@sony.com, Tim.Bird2@sony.com, Kazumi.A.Sato@sony.com,
+	Yuji.John.Takahashi@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Message-ID: <atiogo14sCFw4xlT@kekkonen.localdomain>
+References: <20261019014720.2635-1-lachlan.michael@sony.com>
+ <20261019014720.2635-3-lachlan.michael@sony.com>
+ <atdGr8S2sf1kZFUw@kekkonen.localdomain>
+ <20261020125630.GA158670@killaraus.ideasonboard.com>
+ <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,39 +92,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPY8ntBUncMWB2DqFG+iS9gFgW2aaeyMrD6x-c_4Da7rJDv6Mg@mail.gmail.com>
 
-On Tue, 20 Oct 2026 01:04:29 +0200
-Andrea Mayer <andrea.mayer@uniroma2.it> wrote:
+Hi Dave, Laurent,
 
-> After a noref lookup, the "out:" branch still takes a reference on
-> ip6_blk_hole_entry and then clears RT6_LOOKUP_F_DST_NOREF.
->
-> This branch can be taken at steady state.
+On Tue, Oct 20, 2026 at 03:50:09PM +0100, Dave Stevenson wrote:
+> Hi Sakari and Laurent
+> 
+> On Tue, 20 Oct 2026 at 13:56, Laurent Pinchart
+> <laurent.pinchart@ideasonboard.com> wrote:
+> >
+> > Hello Sakari,
+> >
+> > On Tue, Oct 20, 2026 at 01:47:11PM +0300, Sakari Ailus wrote:
+> > > On Mon, Oct 19, 2026 at 10:47:20AM +0900, Lachlan Michael wrote:
+> > > > The IMX908 is an 8.39 MP (3856x2176) CMOS image sensor with a MIPI CSI-2
+> > > > output interface. The driver supports RAW10 and RAW12 output formats,
+> > > > exposure and analogue gain controls, image flipping, blanking controls
+> > > > and test pattern generation.
+> > >
+> > > The imx908 appears to be a Starvis 3 sensor. How close is it to the Starvis
+> > > 2, for which Dave (Cc'd) is working on a driver (see
+> > > <URL:https://lore.kernel.org/linux-media/atdAsDGw_jvhaydM@kekkonen.localdomain/T/#m0c50ea017ef9ae0d3d76a36b840db9b6f7ac296c>)?
+> > > The register defines in the two drivers appear to be quite well aligned.
+> 
+> Asked and answered at v1
+> https://lore.kernel.org/linux-media/TY6PR01MB17839FF48671E744E7E23A93E92D42@TY6PR01MB17839.jpnprd01.prod.outlook.com/
+> 
+> > The current version of the driver implements very few features of the
+> > IMX908 sensor, as crop support has been removed pending the raw camera
+> > sensor model, and Clear HDR3 is being developed. I expect more
+> > differences to appear when those features will be merged, so I believe
+> > it makes sense to have a separate driver here.
+> >
+> > In the future, I expect the raw camera sensor model to open the door to
+> > more code sharing and more drivers supporting a wider variety of
+> > devices. We can decide then if the imx908 should stay a standalone
+> > driver, support other sensors as well, possibly across the Starvis 2 and
+> > 3 families. I'm willing to help with the refactoring at that point if
+> > needed, the maintenance burden won't be on you (and I'm sure that
+> > Lachlan and his team will of course maintain the code base).
+> 
+> Agreed.
+> I have compared the datasheet for imx908 against the Starvis2 ones,
+> and when we start looking at HDR modes they diverge a reasonable
+> amount.
+> 
+> Even the later Starvis2 sensors (IMX585 and IMX676) have minor changes
+> to the earlier ones, so adding Starvis3 would need some care.
 
-Agreed.  With a local next segment, every End packet goes through the
-"out:" branch and takes a reference on a shared entry, which is what
-the series removes for ip6_null_entry.  On v3, 20000 such packets made
-20000 more dst_release() calls than with your suggestion applied.
+There's quite a bit of this in the CCS driver, due to the variance it
+allows for implementors. I don't see this being a problem as long as the
+foundations are reasonably similar, albeit we can see whether this could be
+further extended later on to other sensors.
 
-> For a blackhole rule, __fib6_rule_action() picks ip6_blk_hole_entry and
-> takes no reference on it when the lookup has RT6_LOOKUP_F_DST_NOREF. The
-> "out:" branch could do the same, for example:
->
-> 	if (!dst) {
-> 		dst = &net->ipv6.ip6_blk_hole_entry->dst;
-> 		if (!(flags & RT6_LOOKUP_F_DST_NOREF))
-> 			dst_hold(dst);
-> 	}
+I'm fine with having a separate imx908 driver for now. Dave's driver also
+exposes the variant information through the media entity name so that
+should be done by the imx908, too (at least if there can be multiple ones).
 
-v4 will do that, and will set RT6_LOOKUP_F_DST_NOREF before
-fib6_get_table() in the table branch, so that a missing table takes no
-reference either.  The oif branch will keep the flag clear.
+I'll review the driver properly soonish but I reckon it's in a pretty good
+shape already.
 
-> Nit: seg6_lookup_any_nexthop_noref() and seg6_lookup_nexthop_noref() can
-> attach the dst without a reference. They rely on being called under RCU. A
-> one line comment about this, like the one ip6_route_input() has, could help
-> the next reader.
+-- 
+Regards,
 
-v4 will add one to both helpers.
+Sakari Ailus
