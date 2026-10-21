@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587081;
-	b=mEygAU7NR0QYISPccvXHPo5I4sg/u3jEoUFrLRMXmTIecN2kNO1fWq/p0jVYlAwHuu9z
-	 +b7fP7oVEdt66bbp8UnuZtNT21bXjbiDQb2+lpFoEe8sqNQD0wLERJJa6c+zz/koRfW+/
-	 Miw45jV4segr6FQDs4G4Mj0CcUb1X2ZcDrnZGozyNB71pOShzgH+i+MxYToyo6g36wBHd
-	 Gga8ihGT9MIKBQAtkqCRGCBk83KVivG7gMnkkwUGVwjC0ivrmKKEOA6tK6HZsS/FR+O6O
-	 DaO/ybfKHrxfyICi4yk3Hup46rEKKw0+1GSEVXHhkQ9eyAXtDVYFHuDTgnLKWZf9AoA==
+	t=1792587089;
+	b=5U6MyNPfNCZReqptct59NqxemN9Of//ewCiCgOaCdTy0nEZhxyxNwB1BFnETytHe5Las
+	 u5ejnKyyjpOklRbnHKfKWs90i+pjLVVNm1krg6a4cT0nuoffQPrJlZfXL65bktsvtNIST
+	 /fCRUsyIEBmA8EEGb2QkhIjNZCt/ERd/YuqElF7nOihqwtsF0FJHcg3C0nitWhD7TeqP1
+	 cCd8WEInj+e47vwmZgq86SSv+UsKxCz89Fp4CdjNvPsnevhVn5LmzzCfhKB30wi2ahZNh
+	 hoK0QLaSQQseCl2cC/I+9duvdfCLrfNlE0PrrURdVtHL7B9C29s38djr16GvqN8+Lmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587081;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=aTH0PmxbbxC55ROBWOOZo8z909XjE3QcvaLlFOsDK4U=;
-	b=uaesHmkrWq9BQ5cTr45IlZQKVkLnOCV9ohDHVSSmxVCD7lBmqSbotEOO8EHIY2T+JyQp
-	 fpavHy8ofXx0HqEK4e0AiTrY7WLI6VOFFH88yVIsWNk0VAjZAhZO1BwTpLtIL5y9zZfXv
-	 OrosPbuiPtWdOCjrxWNeqtNSib+wX2lD648Mak7Kz1krI1ycENot8ihOUFQLQ8Hq3P+9Q
-	 in44HLtRVmuRzD4c7bL4BIsu71yXuwQnMD4Hcz/Yqgh3Kt07BK7zcJwLGu7pEnxqbG3nF
-	 C5XMFsiIVL73/ZOQhq7FJ7dcslL+2fE+oXrK3gJex/AjPw417lBGa9hqSHqlz2u7N1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587089;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
+	bh=3ErFwJVbogXRtuieiIGkh2IlFtMeZm+e0ItbHfs/jEA=;
+	b=f/YRy7qpPl/BQyH6Q/KfTVk99s88IWV0NFAlP770VWn5NhDKFnHRsmhuRd6YPBPCAcU8
+	 aNIsphwSKZd35Y/rLSz9wLc2vJ+Mrdfv3kioVCOWdQ3I0PeQlPWSNH8UsqL3Rmx4tBn6q
+	 Wl7UcuCIoHxEfIzE5O3rGwrw3F9aWONucvjA+16+TiHEYnPBwJrKZat1A4FTAi3ufzYTw
+	 o1W7h4h5d5qFnD7fMmsOT1tK92GfeNPD38DVHvo80LHFid2NjK55UHXLRe72GhAhnpEha
+	 KEiYZ4wZTzlFiLTeItXyi7olZHgSrhHRjKe/wCUYNyfdrPBHPATSyR0LCX0cTrXNqlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JJKugwND;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="B/fq2MJF";
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A6C606A322;
-	Wed, 21 Oct 2026 12:51:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2A6C606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD3606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:51:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CD3606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=JJKugwND
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792587081; x=1824123081;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=c/QEOOLyncZHREMfGdMjnu+W3S4VLUTYWjMAqrSAl8s=;
-  b=JJKugwNDAI9ikJKPgtQIDYFTPd43NeelXdMWifyECZZlF/LluYbppv0o
-   TjlhlE8ihortraMHkf7OBL/fUDHM2/P+f9w7/PpcfTVIo033bOj6HgeWc
-   e+RoepmCY9RgYuKCWpzguDnFVA2ilskKeQCuVyQRUAGrFr3JB7PlITxI4
-   +WcmpEWPnpKwwoL9P2D6LaVVp2DAEFZ0M+6EFNDo9LN8wvAGxv+KdeBMy
-   FSTkMo3avtmeSdvl01XSA7U/cJ3VgaZ7NkOPrc82OrNkWia9VywuWbBNJ
-   zerLcM6ko4M58xFymCy3fQWm8dLcudgMuDLMNJebYiZxiMN/Mm0t5kaOX
-   w==;
-X-CSE-ConnectionGUID: 8RWUd9t5Qaqj6Ob/s+/zPQ==
-X-CSE-MsgGUID: Y672gsOXTG+XRkuDzQhWEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1319920"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1319920"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:51:21 -0700
-X-CSE-ConnectionGUID: n8pjYNxITUu4b8AwqNaEsg==
-X-CSE-MsgGUID: Mz28nd1fRAyVp1H9/8Y7HQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3423036"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:51:16 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
-	Nikolas Joshua Britton <nbritton@exabit.io>,
-	Geramy Loveless <gloveless@jqluv.com>,
-	Eric Auger <eauger@redhat.com>,
-	Alexey Fomenko <alexey.fomenko@intel.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linux-pci@vger.kernel.org,
-	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
-	linux-kernel@vger.kernel.org
-Cc: Bradley Morgan <brads@mainlining.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: [PATCH v4 5/7] linux/log2.h: Add 64-bit roundup/down_pow_of_two64() variants
-Date: Wed, 21 Oct 2026 15:49:50 +0300
-Message-ID: <20261021124956.4250-6-ilpo.jarvinen@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
-References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B/fq2MJF
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd5e6f0a22bso232652a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:51:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792587089; x=1793191889; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3ErFwJVbogXRtuieiIGkh2IlFtMeZm+e0ItbHfs/jEA=;
+        b=B/fq2MJF0aOZ6qXvGZ+mGKEAHDFHEpg24+yRfHM2QD4B0fbT3Qx0ZXNWMX4NX4p8PK
+         x/exbF9CYe7m7EMzYwRCz0GwUF6FA4pAFyJnFoyguTw3gLBhBPcdyGbqGFYbI57rSJsG
+         yxqOFONEbNsFhmzlrxSFAHwN7V7+Cc9oD5TiX2jRda5uk2SFdNaaaSYnGkegGeehSlYF
+         I8ljJrKTOKAQRhVhaeE66Gq6R6xxOB6gxiph5tKYdf33x70e+q1dso4UAcCmpjrPLw6/
+         jCC9P8slzH1ABqPfWWNyt7CZQh2bwhl0/B49bnOMfSAbSuLgiIn7PDSohEdv5fqrEa/e
+         ALgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792587089; x=1793191889;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3ErFwJVbogXRtuieiIGkh2IlFtMeZm+e0ItbHfs/jEA=;
+        b=Fe3mc/4sWzZj4S8OsSb4PNxaS821xbzz/vuKrTJDRydv8/0Q9btBgbLppKrk+IZH1/
+         mQ8az8v2h6O6PgrFOvJprM5fh65Sd+AbBbh7MOuj0UoC+7VlkOsOrtwGOPvqh6AEOr+4
+         00tPvTFJESB5EbBFcntaPe9Z4bu6yxnNrd81gsyy9flrJY0cXCJE255Z1yBa8DqATw9h
+         LFoOnUoFHlRMJmxKZqCsXhteoplsnNegdDHH4RUy+4Lqn3k2T7ICjtpBh+3fKlmrk3fO
+         oX+VdkSGsEuoLXEIr22tWC+845AxtntXAovTGY+6Y2B+0Gil4E1A/i6aHc0vFZ6TarGD
+         waiw==
+X-Forwarded-Encrypted: i=1; AKwUvBwb0DNL0Uwt8iQL+S59p//pJDnCx93Gwu55IAlm7+pgo47+D93UbJnEdpPJ5M8RCOYk4UxumJCFYSBmDBA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHfwCzKJ3DCwSxbQwSOThkBwgo7yJJXyIDDIxOHLAmQ4ZHfvc5
+	1vu2Mw4yQf2/pjpbsBfEYR8B06b8VKnWa66p3RzchLwvUhi/osddo7lD
+X-Gm-Gg: AYBFou3DQ95AKVM4LjzToN6rqZfupIk8CsZVEBuxa0+CLHMcpbtO11ZOUUvZGoXt2Sy
+	bv/pdj1zZMVK8LFGI5zVdjM22YwiYWn3WUjyHvYhFgS0pGPEmzoC9o0vS8AdBfRStKhm5xz3kD9
+	WRFXyMFcMZOvJJvhoOHrUP0qJjEHFQKGJgX3EH2Mk+vHmHT7s9LITiJgA8HWTs95OZzEp4Tox5B
+	VVigsv/vWQCN9E1zjkvMwaOJe6TGeyoOzCNKJq18SbnZaGv66rSUVgT4LpdiJMMZUSqu+UKhHzi
+	EBvs08BUbuvK8T7zRUb96sLfqGgJr/pLE7ow45RKC1YFAEdpLwHFoclU2waaimYaCWBaYPsyOVf
+	+gVkBPnPWIJsJy025TQqZ3j3XfjshzmR71c/4uR1ufVWDjsuXGZlvhYapEZwqgly9+z1R5YVUaR
+	fSKU4yxSeqBf0XET8JfLb2Z8VsqH7yxIHpTJDxEaGNQvhI3TmKHD1oiLb55AOeNWkSbkuB4J7hk
+	R2wDVstj9wVJ+UF4mH7hG2DZCD8wx2IMeeJtFgIs1mVDtalpMnp6skFOX7s/l3WSSnS
+X-Received: by 2002:a17:90b:4d09:b0:3ab:2c2b:1030 with SMTP id 98e67ed59e1d1-3ad86e9e4f4mr1535342a91.22.1792587088600;
+        Wed, 21 Oct 2026 05:51:28 -0700 (PDT)
+Received: from smtpclient.apple ([2401:c080:1c00:2343:5400:5ff:fe7d:3dd1])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6a859c4d6sm769392a12.7.2026.10.21.05.51.16
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 21 Oct 2026 05:51:27 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,115 +88,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v3] sched/cache: Remove the old cache group footprint on
+ exec
+From: Jemmy Wong <jemmywong512@gmail.com>
+In-Reply-To: <atiP8TwaDDtbImRn@chenyu-dev>
+Date: Wed, 21 Oct 2026 20:50:52 +0800
+Cc: Jemmy Wong <jemmywong512@gmail.com>,
+ mingo@redhat.com,
+ peterz@infradead.org,
+ tim.c.chen@linux.intel.com,
+ chen.yu@linux.dev,
+ juri.lelli@redhat.com,
+ vincent.guittot@linaro.org,
+ dietmar.eggemann@arm.com,
+ rostedt@goodmis.org,
+ bsegall@google.com,
+ mgorman@suse.de,
+ vschneid@redhat.com,
+ kprateek.nayak@amd.com,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <A81AB6C4-6821-454D-9C2D-716A3D0DFE6B@gmail.com>
+References: <20261015053604.29927-1-jemmywong512@gmail.com>
+ <atiP8TwaDDtbImRn@chenyu-dev>
+To: Chen Yu <yu.c.chen@intel.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
-Generic sounding roundup_pow_of_two() and rounddown_pow_of_two() are
-internally based on fls() that limits types to unsigned long. The type
-limitation is unexpected and undocumented.
 
-Worse yet, the typing seems also inconsistent between
-__builtin_constant_p() and __roundup/down_pow_of_two() branches, the
-former using full 64-bit size and the latter truncating type.
 
-The most sensible way seems to be eventually changing types such that
-the return type for roundup/down_pow_of_two() is same as input but it
-requires auditing all the existing callers that have mixed input/output
-types.
+> On Oct 21, 2026, at 6:12=E2=80=AFPM, Chen Yu <yu.c.chen@intel.com> =
+wrote:
+>=20
+> On Thu, Oct 15, 2026 at 01:36:04PM +0800, Jemmy Wong wrote:
+>=20
+> [ ... ]
+>=20
+>> @@ -3965,36 +3974,6 @@ static void task_numa_placement(struct =
+task_struct *p)
+>> ng->total_faults +=3D diff;
+>> group_faults +=3D ng->faults[mem_idx];
+>> }
+>> -#ifdef CONFIG_SCHED_CACHE
+>> - /*
+>> - * Per task p->numa_faults[mem_idx] converges,
+>> - * so the accumulation of each task's faults
+>> - * converges too - Given the number of threads,
+>> - * it cannot overflow an unsigned long.
+>=20
+> Above comments can be kept for future reference, with minor =
+adjustment:
+>=20
+> s/it cannot overflow an unsigned long/it cannot overflow an =
+atomic_long_t
+>=20
+> I launched a full hackbench test on a Xeon with multiple LLCs per =
+node. There
+> is no obvious difference except for some false-positive regress with =
+large
+> run-to-run variance. This patch looks good to me in terms of turning =
+the
+> footprint into an accurate counter. Feel free to add:
+>=20
+> Reviewed-by: Chen Yu <yu.c.chen@intel.com>
+> Tested-by: Chen Yu <yu.c.chen@intel.com>
+>=20
+> thanks,
+> Chenyu
 
-As a stop gap solution, add roundup/down_pow_of_two64() that do not
-unexpectedly truncate 64-bit input.
+Hi Chenyu,
 
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
----
- include/linux/log2.h | 52 ++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 52 insertions(+)
+Thanks for the review and testing.
 
-diff --git a/include/linux/log2.h b/include/linux/log2.h
-index e17ceb32e0c9..180e5702f677 100644
---- a/include/linux/log2.h
-+++ b/include/linux/log2.h
-@@ -57,6 +57,16 @@ unsigned long __roundup_pow_of_two(unsigned long n)
- 	return 1UL << fls_long(n - 1);
- }
- 
-+/**
-+ * __roundup_pow_of_two64() - round up to nearest power of two
-+ * @n: value to round up
-+ */
-+static inline __attribute__((const))
-+u64 __roundup_pow_of_two64(u64 n)
-+{
-+	return 1ULL << fls64(n - 1);
-+}
-+
- /**
-  * __rounddown_pow_of_two() - round down to nearest power of two
-  * @n: value to round down
-@@ -67,6 +77,16 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	return 1UL << (fls_long(n) - 1);
- }
- 
-+/**
-+ * __rounddown_pow_of_two64() - round down to nearest power of two
-+ * @n: value to round down
-+ */
-+static inline __attribute__((const))
-+u64 __rounddown_pow_of_two64(u64 n)
-+{
-+	return 1ULL << (fls64(n) - 1);
-+}
-+
- /**
-  * const_ilog2 - log base 2 of 32-bit or a 64-bit constant unsigned value
-  * @n: parameter
-@@ -163,6 +183,23 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__ilog2_u64(n)			\
-  )
- 
-+/**
-+ * roundup_pow_of_two64 - round the given value up to nearest power of two
-+ * @n: parameter
+For v4, I've restored the convergence comment next to the batched
+footprint update, changed the type to atomic_long_t as suggested, and
+rewrapped the text:
+
+
++ /*
++ * Per task p->numa_faults[mem_idx] converges, so the accumulation of =
+each
++ * task's faults converges too. Given the number of threads, it cannot
++ * overflow an atomic_long_t.
 + *
-+ * round the given value up to the nearest power of two
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
++ * Apply the net change once per placement pass to limit cache-line =
+traffic.
 + */
-+#define roundup_pow_of_two64(n)			\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		((n) == 1) ? 1 :		\
-+		(1UL << (ilog2((n) - 1) + 1))	\
-+				   ) :		\
-+	__roundup_pow_of_two64(n)		\
-+ )
++ sched_cache_footprint_update(p, p->total_numa_faults - old_faults);
 +
- /**
-  * roundup_pow_of_two - round the given value up to nearest power of two
-  * @n: parameter
-@@ -180,6 +217,21 @@ unsigned long __rounddown_pow_of_two(unsigned long n)
- 	__roundup_pow_of_two(n)			\
-  )
- 
-+/**
-+ * rounddown_pow_of_two64 - round the given value down to nearest power of two
-+ * @n: parameter
-+ *
-+ * round the given value down to the nearest power of two
-+ * - the result is undefined when n == 0
-+ * - this can be used to initialise global variables from constant data
-+ */
-+#define rounddown_pow_of_two64(n)		\
-+(						\
-+	__builtin_constant_p(n) ? (		\
-+		(1UL << ilog2(n))) :		\
-+	__rounddown_pow_of_two64(n)		\
-+ )
-+
- /**
-  * rounddown_pow_of_two - round the given value down to nearest power of two
-  * @n: parameter
--- 
-2.47.3
 
+Does this wording and placement look fine to you?
+
+I'll also include your Reviewed-by and Tested-by tags in v4.
+
+Thanks,
+Jemmy=
