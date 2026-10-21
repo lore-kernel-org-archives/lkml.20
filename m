@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792547134;
-	b=sbD+g408RpG+yrqmk8T7lYzOeP4QsE78jUJGJyPvG2wW4t1G3ayMJrATg5dBTbesgbzJ
-	 7vyVV+9rm5J3rGZiouIUh6ngu8jUZ15s+4hyMp03E93vTb8RkdCpxYp32ZezLGFcTxtqV
-	 ll+RH4W5y0CoTXvqluvY8FI9pmVGZePK5l6iRX2GQB+P912HPLSxldi6mRicfjuqoo7l0
-	 LKMxf/8oR0px4Ler+4ia6ZbWABhLlzcOM5GrKDQYWHx2I/9WcVs9M33VIxnIRnh6dtBJS
-	 5YwgCqmcDZi2cQJkpwZUS2BL9WqQxC1PGKu47kXkTAqaWkijrFPDSG2MZ6+Swn4oTEw==
+	t=1792547153;
+	b=qqnDXDmTDS8sXQHtgs/xiOkHptCXJrp1VP5m8LyUY7toN+MDosK6LgNgCKvzhsO7Tqln
+	 7FHvmy2gPndGF5Hav6dnXB3XvvEuOx4IdzmwtrbJ8wog0VfywaSNDVPOuvr5qPqr/U4eX
+	 54Bbtl7n2H8Hr2y29Kx/06GXdtxgLvSfJOWyISXiLNYuj/Cnh+PnHDck47PxDwtUZMi7E
+	 SkQhFtpgapAJtcBOSaQuWHL1RG/VLaziH6WlAf5ELmBzYxsmSZY88tT4HI5XrBPEkPpT5
+	 E52+GxtY4irAHHNSp3AnKgMENIEA8GJ65LzJLMO2gER1z0KIlcpmQrj+RPcgxdxKicA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792547134;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:Mime-Version:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:X-Mailer:References:
-	 In-Reply-To:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=Db6MSaWC1nph+iBpAayOp34joceEe7XbWXKE1ts0440=;
-	b=iKOZrfkfeQkaDqC5DzzLnkJGO33kLelocXmKTWLczPBnNFV5s1+bGikAUDb1HX0bqzFN
-	 WU6f05Odrbbja4FfGdgNXDeHUMTetQZ3Q2f42TuoEirWi9YyHYhNTnYf67xdshDVa4zO1
-	 aOOX6h4QaASctag/9LN/J1z7obHJQbYMXeIqlaMOL+JZzcVTqd+cCPo2XUfzDwiGOUdio
-	 P2pg/D9BxVc01P/U7LxP2ftmF0S1w0yB+UMOtyjjpqkv8DTG6x9UZZEwfuucWjwQH6n9Z
-	 gEdoNqVF2iF6zRPXo2rk1Uvb76O2ddKkEfsawUdRXKHzZqZ54heYP4uykds2Ib8KxRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792547153;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=N685GSgBsocOGOaVWgwO0dJAiPky3e+vK7Q06g1oPm0=;
+	b=mDJwZSxAFGl4FOWQCk/xpf5I+SVsekyQ1lPgo9HEmE0NysdI+iNRlE+W57aaobnlrozg
+	 XHPtj7qSWaEbqhoN4E5EWr/FUAT+yvWhQzxSifceNsJJFzWIB3ZHsnqTDHfOEqbKtliJo
+	 XvApwy38jruF/UzridtMcKc5bCVnbVDBBbgFVKmd5mr4MMvAV9yKvcUTe46nWpKZ4wRso
+	 nVq798X1Y7A4ymzQSmLlgGSvnwOAur8LEH/J0JYA++41qPnVOifdvJzLkPx5vaTn6Zki3
+	 yKvUJISEdOis0+eLFxSyyt5qeYHl8bNngc3ijWBjpzSLB/5sFI/G/BBe51Os0YfGx+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=bLC0fOxy;
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WzAyKkQI;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FF9606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:45:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92FF9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2B7606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF2B7606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=bLC0fOxy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1792547065;
-	bh=Db6MSaWC1nph+iBpAayOp34joceEe7XbWXKE1ts0440=;
-	h=Mime-Version:Date:Message-Id:To:Subject:From;
-	b=bLC0fOxyaX4MKdSENu7e9+j03/YTx3BooYzV1evUyuPG2Hzikk9N/ehFJYq4T+Fyu
-	 3rplGtmnIALJ/0ZXTlPYtAuvtqaF5unngnsLZsrYJJ+bEra3YNHv2CSp/lZlBl32YX
-	 RzbNb+wnbn7eIQJnRLVKBrwYavlGCckMkCiA5JTk=
-X-QQ-mid: esmtpsz19t1792547059t267944fd
-X-QQ-Originating-IP: wkbnyrRUZdB1FtN4w3MkwVwE+Bk+3i/yyO+zNhr61Xo=
-Received: from = ( [58.254.68.16])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 21 Oct 2026 09:44:18 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17375456752936230907
-EX-QQ-RecipientCnt: 9
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WzAyKkQI
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1e477fe16so866315e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:45:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792547151; x=1793151951; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N685GSgBsocOGOaVWgwO0dJAiPky3e+vK7Q06g1oPm0=;
+        b=WzAyKkQIvP9jsHhriZZX2+NqaSKHWEKR32z2b8t/JWsBJhI9LmHVIAXIBLYTkAYA/r
+         3TGyWsXWtYwy8KpoOhpjH1fl9t0x4k6khmQIJL92JvLawBrNY7VRYtODbZfszkWfDtlk
+         HS0nv1yw2o3ojEl/F9RuwBcjrzTj35JtlKNkAkhlvMWTSlXyVZ0NbGvSXNaCYhh3lowr
+         8K0sT7LNm0C5SEtYt1ojPcHQSTBf7euz4WpBK9GJv7QbGxr3yWS8zNzfRz3gj0S6JFTW
+         mufD344rkM56yUSSjQ5vawwRV2ICenp24WFiu8fR5gwCnnlj0z9aDx00NOzWNERUlClx
+         vtIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792547151; x=1793151951;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N685GSgBsocOGOaVWgwO0dJAiPky3e+vK7Q06g1oPm0=;
+        b=Xr0To5I6t9mhFKa+U6XmhWRV9wDbgMz+48KnzumUaumoJhUtEvITjNfBp3zX/MwvMe
+         G1RxER1hKy7yWPg2aQPUhvsU8xa7XibaRjjLyFyFvtRxW/Siv5xSkoISRii3DwPa4y1P
+         s99XVAaNMRvPBmcsZHoKDa4GaC/gOLfwMMB/7ZfUHJ6XbdLjwQEAmFmrJJoGIHzggg6b
+         D/HSYpaPHPxNrskykX+xP1hfYBsWqmHhmRMTy4nHgUWunkTyExlhSEk6gzccJqlANH/k
+         d3e0FUzAMh0Y6kuqfM62ZPFijViEYPThq0Qb/ay8X4j4ewvKm04x5ESml1jx0L9Ya8Hz
+         ur9A==
+X-Forwarded-Encrypted: i=1; AKwUvBzAXqhWmXXlhAcFgMN4F5ayv+hJQlmwM6Eb+qerBz6ONt5p9v964fy7v/RYEjZ870jn6JZkS5fLnf42T2o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7/PPc8FMi/XcK2ntFMPqe4zinhTB6vlZtliW0v86OHvaBY9EU
+	i7zukmK+pDqq2YkVM47g0p4z3biC/DSZaZJJUnXM+Z/f8F9EJZliHzc3
+X-Gm-Gg: AYBFou1DIYtHInQCMLVqB2T5D4Z8K1F17PLsiKywOkp3q7nvrz+0Uk91DCiF32Mizvl
+	tOXDEDByXtq/fDsVUddZyzpWn4c0/0v6n/8hoDnyycxN/vI+Z3tvr0Tq5uPyojJNT825A208fc0
+	slsAHHRBd3TOtseRClcD/aFAsUILc64iTot+coC2Q3igdbCtNivSEy8pd43ZgON8p5hkeK8iIZw
+	RH317lmghWkmGs6swv1YP9450V9eoJjmvH+EWdc6y7OSU4kRwOe2Y95fscJZ00ntDmbeHGuQxPm
+	XpWXn5ZCi29u89JkFExBfE4zSA/X6X+0o6fiXwDayVDVjRmJh8XqYFxMSraqjGPqtB976TN2IVY
+	QehbgzmhrTIwEFWOgIvSgwLtBXD9aB8Re01ZBA4GvowUMvkDOSa/k3aC/sYL0Htd4LUEHMelG5i
+	5t8zOl9n6V/bi4uB5y85da1TvlIY9KaM7xtIMhodI6gPc8zuJXlci1s6tDuG8gujElEa0BebP5R
+	iioNboD3bTro07GyGiq55NSJPyToyGecOiIyxNFvLDIxCsVg3Gw6B/Ru/BK5UNFqN5KEsD+LwTY
+	XXMT0+AfS4x8DrUMZ8Xmh3pxo/9M8j3myqHWKumfnp4e6TZNaM3VLeV5o14bsD4YSHggqQeuGBB
+	wzT8E+/+HNQJRcQU=
+X-Received: by 2002:a05:600c:8714:b0:4a1:d97e:cd60 with SMTP id 5b1f17b1804b1-4a1fdd1604fmr8629335e9.16.1792547150977;
+        Tue, 20 Oct 2026 18:45:50 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-095-117-105-001.95.117.pool.telefonica.de. [95.117.105.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2ca3666sm118638605e9.1.2026.10.20.18.45.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 18:45:50 -0700 (PDT)
+Date: Wed, 21 Oct 2026 03:45:14 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alistair Popple <apopple@nvidia.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+	Thomas Hellstrom <thomas.hellstrom@linux.intel.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>, 
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [RFC PATCH 0/6] iommufd: harden DMA-BUF PAL setup and release
+Message-ID: <atgWXLYKOFj5cZ0F@gmail.com>
+References: <cover.1792477872.git.kmehltretter@gmail.com>
+ <atdKZpEJVZY0enR2@nvdebian.thelocal>
+ <20261020182029.GH3008132@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,89 +103,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=387db457841ae1fd42730632a579d6a003c01250388a01279b4ff735ccb5;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Wed, 21 Oct 2026 09:44:15 +0800
-Message-Id: <DMA4WD1NGNRQ.1RNCFNAJJEZCB@linux.spacemit.com>
-To: "Hung-Chun Tseng" <alan.tseng.cs@gmail.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>, "Guodong Xu" <docular.xu@gmail.com>, "Yixun Lan"
- <dlan@kernel.org>
-Cc: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>, "Alex Elder"
- <elder@riscstar.com>, <linux-riscv@lists.infradead.org>,
- <spacemit@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] reset: spacemit: Fix the RCPU2 PWM reset registers
-From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261017140805.3278709-1-alan.tseng.cs@gmail.com>
-In-Reply-To: <20261017140805.3278709-1-alan.tseng.cs@gmail.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MgQY1K25Ph0mNDr4xcVxjLikQJuk4JQTwcOknv0vsVAIeviAuFkWrD+H
-	NXgq0XsbcTTGQ/eg4aJ88KsNcPwQ6SjhNRV16TUac05BDf2BhtEc0eLI4l93rxHhTL3NzEW
-	avKlTx57PX1pNy++LVh5A7GFphSINJBCB22kQTduAPN03VGSWfskk+paIka3kon2M+xeZTA
-	MF1vnhI6d2sM33P2qr3nvJpMiYh98OSIbaZirMtv15Bh8MvUfbzcBxUtsiIO8vWnY16zRh4
-	oV6eflV24iJ/5BDuiW4HpWgvv1jRZDa9wklzHDLN101342rJAKH3SvQD5rvmMAa14qOJU5u
-	gTWrBv6jnJsm7Ie793yuXJdifK9S6U2clAnO+ONDyGMeH4cI6lSuv1OJz/BoUj3vSEslE9j
-	znmCKlfJZxK2pg6Mgfp+cctW62jKZcdCuW2c7e6PFRCjiXZT6JvoEwVzSgt3BW8IlKYMeXW
-	IyQlFU5yYn7lXZ0QpoTdak4M3RaTX5xyqBwsO9ZMin/sk7w8kxLO5PNMoNEGHpxSZa8O7l6
-	U8Fd+n7y2Q18bfDHp51XUD/HqFViJ6gnI32YL/Cy3j2SH9cIAtwcAOOXW2vc9AYTgBUxQvH
-	yCDmtlU8KQRpyhD5uSTAi0s1B/cdTujDYryKzhZ9slZOoqTiCrpWXbtSXDbNOJT0SRhLFmK
-	7NkF5cvZuher7IRRyoPcWDTeu4ls4eyYHbdyiU6hgvTNKjqclUxW57Dzy4IgazNYDK/HO9X
-	+jSq21qjgvhOMVqiO+6yHyWs2dk73imEf3XTDl292QxdH+DGc9OCeC1KTH4g2cNVn62WWya
-	r63yna/3tDaiNdthsLZnHror2nCs5QwapOoxtbHBi3PMCq7ziUSTL5UH1W+hY4FZOxA8EeZ
-	5i8oqggQwAw3weWqZzpkI5s85RZ1M1kPmy6akQcZPb20s5IvFfY/Nhb/xQEACBL95eASHvH
-	IgIEwqAugMIf4jf+fMTQ+nldIxYRizqvfNAd+10ymVdrzZgIKARpLamBkqwuJQOBSNuFD9k
-	vGWirlEV2HSzSYtvIvqo4KF5sRv3PRO3t8GU9TW02B/ILfgqUjHTLNfxYibjabDMpu6Ovdv
-	UxYSngSZpHy
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020182029.GH3008132@nvidia.com>
 
---387db457841ae1fd42730632a579d6a003c01250388a01279b4ff735ccb5
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+On Tue, Oct 20, 2026 at 03:20:29PM +0100, Jason Gunthorpe wrote:
+> On Tue, Oct 20, 2026 at 10:16:26PM +1100, Alistair Popple wrote:
+> 
+> > I haven't had a chance to look at these patches yet, but if some of them are
+> > fixing bugs in Jason's series it might be best for us to fold them into that
+> > series, with correct attribution of course. Anyway I will take a closer look in
+> > the morning.
+> 
+> Are any fixing bugs in tree right now? I think one of them is already
+> applied from someone else..
+> 
 
-On Sat Oct 17, 2026 at 10:08 PM +08, Hung-Chun Tseng wrote:
-> Every entry in k1_rcpu2_resets[] uses RCPU2_PWM9_CLK_RST, so asserting
-> or deasserting the reset of any RCPU2 PWM from 0 to 8 acts on PWM9
-> instead. Each PWM has its own register, RCPU2_PWMn_CLK_RST at offset
-> 4 * n, as k1-syscon.h already defines.
->
-> On a Milk-V Jupiter running the vendor kernel, which uses RCPU2 PWM2
-> for the fan, the RCPU2 registers read:
->
->   0x00: 0x4  0x04: 0x4  0x08: 0x1  0x0c: 0x4  ...  0x24: 0x4
->
-> Only PWM2's register has its reset deasserted, which matches one
-> register per PWM.
->
-> Use the matching register for each reset. No in-tree device tree uses
-> the RCPU2 PWMs yet, so this has no effect on current boards, but it
-> would break the first one that does.
->
-> Build-tested only (riscv defconfig, W=3D1); the fix could not be tested
-> at runtime, as mainline has no RCPU2 PWM node to exercise it.
->
-> Fixes: c479d7cf06c3 ("reset: spacemit: add support for SpacemiT CCU reset=
-s")
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Reviewed-by: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Good catch. None of these fixes a bug in the current mainline tree. I
+based the series on the stale c37cf2824740d topic and missed two fixes
+that landed in mainline afterward:
 
---=20
-Troy Mitchell
+- patch 4 is already covered more broadly by f2d70dbd3dce
+  ("iommufd: Destroy the pages content after detaching from dmabuf");
+- patch 5 duplicates Ankit Soni's e745cd2c749e
+  ("iommufd: Take dma_resv lock before dma_buf_unpin() in release path").
 
+Patches 1-3 address lifecycle issues introduced by the PAL conversion,
+and patch 6 tests those paths.
 
---387db457841ae1fd42730632a579d6a003c01250388a01279b4ff735ccb5
-Content-Type: application/pgp-signature; name="signature.asc"
+My main goal with this RFC was to put the concrete lifecycle issues and
+tests on the table and get the discussion moving.
 
------BEGIN PGP SIGNATURE-----
+I am not concerned about preserving these as separate commits for
+attribution purposes. Please fold or rework any useful pieces into the
+mapping-type series as makes sense.
 
-iHUEABYKAB0WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCatgY7wAKCRCYCe+A+TM0
-L1PbAP4pf6L7pzMnGbBsuKt7Kk9qD8b3b1bwtWQ0vmzVlbKVCAEAhGu+FJgNIwDK
-GXteQYRh4Sb+q6X0GtcsqP9JAvvtVgw=
-=aoHn
------END PGP SIGNATURE-----
-
---387db457841ae1fd42730632a579d6a003c01250388a01279b4ff735ccb5--
+Thanks,
+Karl
