@@ -1,64 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792546279;
-	b=D4wItD6C5Cl5WXbDLCD8VZuDmCEgZ/xYXzGxCXBRhSzqZuCoQvpQFoZ8ZvJckX3gVqyQ
-	 nU/JtrmvI0H51okbYjbjv/IW9opYmcO7aiHDNkXB0nxud2WI4rRBQNBjLGwBS0/Ks+H1+
-	 e46igisWuUTEu1SMjHTlAW0hSGsTULaDLAIa+JjfwGJ8oqblc3k7cUDs2fB0Geq/idBsO
-	 Py4UDR+Gsc7Ihu23QRjQn+7pYICs2541ubXA7kph6td3OR4xz8G0AuaFZJUNXkdgB21TB
-	 QRgiM3757FGEQOaHvhKe/UFOE5MxwaD4BAD1LxSWmGsyKn1LqiKDKvpwkKFC+1CtveQ==
+	t=1792546295;
+	b=QPkY4Yw4ZYu6bix4EHY6wGls0XPXlG24msyBhUrRY9kOZLSIz0c04B0AcN5IUonNRaRw
+	 EROhPqWNAN1aR/otJTwfCbp+SZJOooBoF8bywN9IDEJ8KusP5rSWNG0t654r+4TVeiCdP
+	 Xx66vRdmVby/Z/4E2tWG1bJ+TnQjoy+PC+JWf+FZGxfUdXF+XF8GYO4raj2Mv//OExugz
+	 ONygcCVXvbGR/fZZutlO1yJVbaR3c7BjwsnJ2SryNSopxfpbIzPj4f4ea/2EbnKTjjwwO
+	 7yOjpRUuRBBFVFxxFs1eJmFZWki6WUscpl2yCVPAUYro7tu17Qi3IC+XeyMxTVbWQxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792546279;
-	h=DMARC-Filter:Received:X-Originating-IP:Date:X-CM-HeaderCharset:From:
-	 To:Cc:Subject:X-Priority:X-Mailer:In-Reply-To:References:
-	 Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	 X-Coremail-Locale:X-CM-TRANSID:X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=37mEmZ2kuAIZnGixdO+VWrkP6WNItUUTvWC50ph2N/Q=;
-	b=UOLtJaL1K9AYU10vujVN9aIHhAsY7y342cTWiH5CnXc9mxmkt4L8uG9gu+qjZvbvXgkC
-	 Pp6fL4nvoJ/bqWMA8Y2awMoXqRM8mDug76HGFHUHBw1AM8+UQRUhEI2CW59FmVKBjAxGO
-	 jzHjBhlBjRsA0dXrN6o+V5p91eNmImyD8Cbm1RX5upahXR4oT16bSrJepFGblNfArK5Fc
-	 wkONkgl8QJ9BTrIo8zO9E/YRmbWpQsPMEOa6n/eApkmi/Zp5PC2AX1laZurMGZ00qlHfc
-	 DLKSEjFL/ZxbZTHsh7NfQue2bbfg4Oa1wL/Bex+DmK5ODoLxOn9VIrcgVzp2t4/SoTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792546295;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=1Oyr8CX2pbnGJ3Q3gjNqYHBW2ZoYGQd/yYe9ksgRu8M=;
+	b=3R0FZbBD4F91mBkIdL8IwnmDlcz3tWFKiVPnwiDrbPpkcVqjD8cQ+0Ktx43DufIOUBc1
+	 SFnkFU09zw5BFySrUAYcqs6rLSrsboekBPogsj13fWI85J5EbLrZI7tuTOf7EMsbVBAFC
+	 4UVewt1wGyaBO5eo7MQ9MTznPw8M/F6X1olgXWE9NJHQuTFfwXGZIEmsQfd5m0jxLuZ7l
+	 3jaQEU0C5H4TMbEKr8/S9jLEb5kW7pSbfOC/6U/Qg8l/mnbJZcmwvIKTn9q1BYVv9QM/q
+	 n5rqoNzPp9XxBxiwnpjjKdaYKvxkjtgLVDcI0xzUmB4mvBab8GcTtBmkPRtWIIgErBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mails.ucas.ac.cn;
-	spf=pass smtp.mailfrom=mails.ucas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.23
-Received: from cstnet.cn (smtp23.cstnet.cn [159.226.251.23])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DCgAow+D;
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE4A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:31:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEE4A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
-Received: from xujiakai24$mails.ucas.ac.cn ( [36.110.52.2] ) by
- ajax-webmail-APP-10 (Coremail) ; Wed, 21 Oct 2026 09:30:37 +0800
- (GMT+08:00)
-Date: Wed, 21 Oct 2026 09:30:37 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: "Jiakai Xu" <xujiakai24@mails.ucas.ac.cn>
-To: "Thomas Gleixner" <tglx@linutronix.de>
-Cc: "Peter Zijlstra" <peterz@infradead.org>, 
-	"Ingo Molnar" <mingo@redhat.com>, 
-	"Juri Lelli" <juri.lelli@redhat.com>, 
-	"Vincent Guittot" <vincent.guittot@linaro.org>, 
-	"Dietmar Eggemann" <dietmar.eggemann@arm.com>, 
-	"Steven Rostedt" <rostedt@goodmis.org>, 
-	"Ben Segall" <bsegall@google.com>, "Mel Gorman" <mgorman@suse.de>, 
-	"Valentin Schneider" <vschneid@redhat.com>, 
-	"K Prateek Nayak" <kprateek.nayak@amd.com>, 
-	"Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH] sched/mmcid: Bound the CID allocation busy wait
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
- 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
-In-Reply-To: <87mrs8bhp4.ffs@fw13>
-References: <20260918013454.1850369-1-xujiakai24@mails.ucas.ac.cn>
- <20260918104349.GL776954@noisy.programming.kicks-ass.net>
- <877bjiem45.ffs@fw13> <87mrs8bhp4.ffs@fw13>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AE5606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:31:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95AE5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=DCgAow+D
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35f036b17easo483593eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:31:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=purestorage.com; s=google2022; t=1792546294; x=1793151094; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1Oyr8CX2pbnGJ3Q3gjNqYHBW2ZoYGQd/yYe9ksgRu8M=;
+        b=DCgAow+DTuKsAMSquP11aG5unXYCUwzB+p8ksyQ0i+RigRmPbcnLoabj7dujhZ5mUT
+         FapHrB8YK8D2Pr1f2bfx81e2DFzR3OaN2hlVq3av6gI5kGBrDJhX7RtdYS1smVfrs9Nu
+         IbqLtXx8Hm1ooWiiUhmlgvvmHH2L1WDM6cX3jk7xX9alir1oW5RU8DQq6mtW+t5EgbLn
+         bclzu62thItdzOUvDTnN7RAz82vqWXSkY3L/ahkaHSol1gEnd7EDo7yz14/dY/2YrL0j
+         aKSq3W9H0KN+dzEO9HdIxu/uspEtuCCGo46oyeRwkzDCjiAn9YWzF91XyPfOdH3xM+Oz
+         JaPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792546294; x=1793151094;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1Oyr8CX2pbnGJ3Q3gjNqYHBW2ZoYGQd/yYe9ksgRu8M=;
+        b=YyyHKg0fZynde/B+UrXU0cLh2WzIGNMdBwwhT5OztwSaj7qeaek1ssP5XKNdP7LYlz
+         62NUhbBotcG/kDc5/yHr/HnlpXQ+WL+hFd5TZ07SvvpPsTcWWXQ5UyAqLBz4zXMxiT5K
+         is7xOmqHzqZw/BALNi4iTIybc6eIzYJQFJezqHQ4aHCrmG2FSqx6uF5iMytRD85Y/Qr3
+         A5h+iT8AnnWH9GQ9Gu85ClF/0Nkt1pjrEgvDXNLfhleIbSrdSWX4PCOoal8758DXex1K
+         pOxGkxYmzxd5ET4+Uw4PBnsK89sxo2QNmC98VYvIp2O6GngCb1VRVdcGq7IYoHI0SvN0
+         RSgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLrpIlklOGtfHFsexgde9fh2NN1RSwal6ScFiNiiYe5lJGSjpNYXLaZdtVoIpmsjeeoY4YNpXZTiTXoo0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrY03+Qucdhsd7kicOIi/SfYiHFfLpAWMN4B0u5G9DGPRk//jt
+	aR25kJpLoeJQ79v9x/wq7ezuIYzkDa17Uub/jWWAdHYjn7qsgKpfaOF2cZCPtJzkQ/Q=
+X-Gm-Gg: AYBFou11IpACneb649UEICuDS48SgLg+aNYIowAq6Fd/59uZJr0CjKOH60Ey0e8PBx/
+	1/EK5pbj7LJ6ASTq0rNLJWXpDAkm723IsswJa7lTFYOKWcrq2IG6IYooT0t37THa4QKGjtUwzsa
+	FtjPSzkDkGfanB8j57YnRQZKNqcKhbpn96MG5SOJgipXdEPkSx+Be0gsoot9xw/X5T31ZcwgLcQ
+	uTod5lxLpzU7c73B7pW3Rw1vJvbvO4rQxng7jKs+ow5VVioKvKfZcvzliE93hj0xlGTlhZvBADj
+	kwstH3T0wRsstI8U6yFcKThPubbr3NC5mqCEMu5PKGFjlM1fqOeNemnMK9fW44Dso+OLJIbPQ6Z
+	o8RLnxo2KUyvqhCZyr7enq1+Irx5yGXijIhfc/n2jcZIw4zJUOAmGKn056cxAId/W5VUghXjD4u
+	2G4uhQJMQr0qbVu4garp7I+aWiB/1ISTY0yMOjRGSeK3nLB21w1/SbGWPNrIo5BmJ2NPIJc0ait
+	pEHLfj8ytC8FvdCaMgVbLTvEj09te89GSOcS/1UZ2bP1XllaXwvrYj8iMpTg4z49dT8U0/0XNE/
+X-Received: by 2002:a05:693c:8807:20b0:351:207d:bff4 with SMTP id 5a478bee46e88-3674b525236mr1312379eec.4.1792546293260;
+        Tue, 20 Oct 2026 18:31:33 -0700 (PDT)
+Received: from medusa.lab.kspace.sh ([208.88.152.253])
+        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-3673b1d0ab7sm2567638eec.0.2026.10.20.18.31.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 18:31:32 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:31:31 -0700
+From: Mohamed Khalfella <mkhalfella@purestorage.com>
+To: Daniel Wagner <dwagner@suse.de>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	James Smart <jsmart833426@gmail.com>,
+	Randy Jennings <randyj@purestorage.com>,
+	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 14/18] nvme-fc: Use CCR to recover controller that
+ hits an error
+Message-ID: <20261021013131.GU2931-mkhalfella@purestorage.com>
+References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
+ <20260920182936.2317916-15-mkhalfella@purestorage.com>
+ <32d5f56f-285e-43d8-b5a7-490492270e51@flourine.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,77 +105,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <4e6dda6c.4dd0b.1a15c14eb2d.Coremail.xujiakai24@mails.ucas.ac.cn>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:tACowABnbay9Fdhq2I4UAA--.3563W
-X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/1tbiBgkGE2rXdVSB-QA
-	Bs7
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkCw
-	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
-	daVFxhVjvjDU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <32d5f56f-285e-43d8-b5a7-490492270e51@flourine.local>
 
-PiBPbiBUaHUsIE9jdCAxNSAyMDI2IGF0IDIyOjM3LCBUaG9tYXMgR2xlaXhuZXIgd3JvdGU6Cj4g
-PiBPbiBGcmksIFNlcCAxOCAyMDI2IGF0IDEyOjQzLCBQZXRlciBaaWpsc3RyYSB3cm90ZToKPiA+
-IFRoZSBzdGFsbCBtYWtlcyBubyBzZW5zZSBiZWNhdXNlIG1tX2dldF9jaWQoKSBpcyBpbnZva2Vk
-IGZyb206Cj4gPgo+ID4gICAxMDk2NyAgICAgICAgICAgICAgICAgLyogRmlyc3QgdXNlciA/ICov
-Cj4gPiAgIDEwOTY4ICAgICAgICAgICAgICAgICBpZiAoIW1tLT5tbV9jaWQudXNlcnMpIHsKPiA+
-ICAgMTA5NjkgICAgICAgICAgICAgICAgICAgICAgICAgc2NoZWRfbW1fY2lkX2FkZF91c2VyKHQs
-IG1tKTsKPiA+ICAgMTA5NzAgICAgICAgICAgICAgICAgICAgICAgICAgdC0+bW1fY2lkLmNpZCA9
-IG1tX2dldF9jaWQobW0pOwo+ID4KPiA+IHdoaWNoIG1lYW5zIHRoaXMgaXMgdGhlIGZpcnN0IENJ
-RCB1c2VyIG9uIHRoZSBNTS4gU28gaG93IGNhbiB0aGUgYml0bWFwCj4gPiBiZSBleGhhdXN0ZWQ/
-Cj4gPgo+ID4gSSBoYXZlIGEgc3VzcGljaW9uIGJ1dCBpdCBkb2VzIG5vdCBhZGQgdXAgKHlldCku
-Cj4gPgo+ID4gVGhpcyBpcyBhIHR3byBDUFUgVk0uIEFzc3VtZSB0aGF0IHRoZSBwcm9jZXNzIHdo
-aWNoIGludm9rZXMgZXhlY3ZlKCkgaGFzCj4gPiBtb3JlIHRoYW4gdHdvIHRocmVhZHMuIFRoYXQg
-bWVhbnMgdGhlIE1NQ0lEIG9mIHRoZSBwcm9jZXNzIGlzIGluIHBlciBDUFUKPiA+IG1vZGUuIHNj
-aGVkX21tX2NpZF9leGl0KCkgaWdub3JlcyBhIG1vZGUgY2hhbmdlIHdoZW4gdGhlIGxhc3QgdXNl
-ciBnb2VzCj4gPiBhd2F5IGFuZCB3aXRoIHR3byBDUFVzIHRoZSB0aHJlc2hvbGQgdG8gc3dpdGNo
-IGJhY2sgaXMgd2hlbiB0aGUgdXNlcgo+ID4gY291bnQgZ29lcyBiZWxvdyBfT05FXy4gU28gdGhl
-cmUgaXMgcHJvYmFibHkgc3RhbGUgc3RhdGUgdGhlcmUsIGJ1dCB0aGUKPiA+IGxhc3Qgb3V0Z29p
-bmcgdGFzayBzaG91bGQgaGF2ZSByZWNsYWltZWQgdGhlIHBlciBDUFUgQ0lEIGFuZCBkcm9wcGVk
-IGl0LAo+ID4gYnV0IHRoZSBvdGhlciBDUFUgc3RpbGwgaGFzIGl0IGFzc2lnbmVkIHRvIGl0LiBT
-byB0aGF0IGZpcnN0IGFsbG9jYXRpb24KPiA+IHNob3VsZCBzdWNjZWVkLi4uCj4gPgo+ID4gSSds
-bCB0cnkgdG8gd3JpdGUgYSB0cml2aWFsIHRlc3QgcHJvZ3JhbSB0b21vcnJvdyB3aGljaCBjcmVh
-dGVzIGVub3VnaAo+ID4gdGhyZWFkcyBhbmQgZG9lcyBhbiBleGVjdmUoKS4KPiAKPiBIbW0uIFRo
-ZXJlIGlzIHN0YWxlIHN0YXRlLCBidXQgdGhlcmUgaXMgYWx3YXlzIF9PTkVfIENJRCBhdmFpbGFi
-bGUKPiBiZWNhdXNlIHRoZSBsYXN0IGV4aXRpbmcgdGhyZWFkIGRyb3BzIHRoZSBwZXIgQ1BVIENJ
-RC4KPiAKPiBBcyB0aGUgbW9kZSBpcyBUUkFOU0lUIHRoZSB3aG9sZSBzY2VuYXJpbyByZXNvbHZl
-cyB3aGVuIHRoZSBuZXcgZXhlYwo+IHNwYXducyB0aHJlYWRzIG9yIHNjaGVkdWxlcyBhcm91bmQu
-IFRoYXQganVzdCB3b3JrcyBieSBjaGFuY2UsIGJ1dCBJCj4gY291bGRuJ3QgZmluZCBhIHdheSB0
-byBleGhhdXN0IHRoZSBiaXRtYXAgZm9yIHRoZSBpbml0aWFsIGFsbG9jYXRpb24uCj4gCj4gU28g
-SSByZWFsbHkgbmVlZCB0byBzZWUgdGhlIHJlcHJvZHVjZXIgZm9yIHRoaXMgc3BsYXQuCgpIaSBU
-aG9tYXMsCgpVbmZvcnR1bmF0ZWx5LCBJIGRvbid0IGhhdmUgYSByZXByb2R1Y2VyIGZvciB0aGlz
-IGlzc3VlLgoKQmVzdCByZWdhcmRzLApKaWFrYWkKCj4gCj4gVGhlIHBhdGNoIGJlbG93IGNsZWFu
-cyB1cCB0aGUgc3RhbGUgZGF0YSBhbmQgZml4ZXMgYSBjb25zaXN0ZW5jeSBpc3N1ZQo+IHZzLiB0
-aGUgYWxsb3dlZCBDUFVzIGFjY291bnRpbmcuCj4gCj4gVGhhbmtzLAo+IAo+ICAgICAgICAgdGds
-eAo+IC0tLQo+IC0tLSBhL2tlcm5lbC9zY2hlZC9jb3JlLmMKPiArKysgYi9rZXJuZWwvc2NoZWQv
-Y29yZS5jCj4gQEAgLTEwODgwLDYgKzEwODgwLDEwIEBAIHN0YXRpYyBpbmxpbmUgdm9pZCBtbV91
-cGRhdGVfY3B1c19hbGxvd2UKPiAgCSAqLwo+ICAJbWMgPSAmbW0tPm1tX2NpZDsKPiAgCWd1YXJk
-KHJhd19zcGlubG9jaykoJm1jLT5sb2NrKTsKPiArCS8qIE1pZ2h0IGhhdmUgcmFjZWQgd2l0aCBl
-eGl0KCkgKi8KPiArCWlmICghbW0tPm1tX2NpZC51c2VycykKPiArCQlyZXR1cm47Cj4gKwo+ICAJ
-bW1fYWxsb3dlZCA9IG1tX2NwdXNfYWxsb3dlZChtbSk7Cj4gIAl3ZWlnaHQgPSBjcHVtYXNrX3dl
-aWdodGVkX29yKG1tX2FsbG93ZWQsIG1tX2FsbG93ZWQsIGFmZm1zayk7Cj4gIAlpZiAod2VpZ2h0
-ID09IG1jLT5ucl9jcHVzX2FsbG93ZWQpCj4gQEAgLTExMDE5LDYgKzExMDIzLDMzIEBAIHN0YXRp
-YyBib29sIHNjaGVkX21tX2NpZF9hZGRfdXNlcihzdHJ1Y3QKPiAgCXJldHVybiBtbV91cGRhdGVf
-bWF4X2NpZHMobW0pOwo+ICB9Cj4gIAo+ICsvKgo+ICsgKiBzY2hlZF9tbV9jaWRfZXhpdCgpIGRv
-ZXMgbm90IGhhbmRsZSB0aGUgbW9kZSBzd2l0Y2ggZm9yIHRoZSBsYXN0IHVzZXIKPiArICogYmVj
-YXVzZSBmb3Igbm9ybWFsIGV4aXQoKSB0aGF0J3MgYSBwb2ludGxlc3MgZXhlcmNpc2UuIEJ1dCBp
-ZiB0aGUKPiArICogcHJvY2VzcyB3aGljaCBpc3N1ZWQgZXhlY3ZlKCkgd2FzIG11bHRpdGhyZWFk
-ZWQgYW5kIHRoZSBsYXN0IGV4aXRpbmcKPiArICogdGhyZWFkIHN3aXRjaGVkIGJhY2sgZnJvbSBw
-ZXIgQ1BVIG1vZGUgdGhlbiB0aGlzIGxlYXZlcyBzdGFsZSBzdGF0ZQo+ICsgKiBhcm91bmQuIFRo
-ZSBpbmRpY2F0b3IgZm9yIHRoYXQgaXMgbW1fY2lkOjptb2RlIGhhdmluZyBNTV9DSURfVFJBTlNJ
-VAo+ICsgKiBzZXQuCj4gKyAqLwo+ICtzdGF0aWMgdm9pZCBzY2hlZF9tbV9jaWRfY2xlYW51cF9l
-eGVjdmUoc3RydWN0IHRhc2tfc3RydWN0ICp0LCBzdHJ1Y3QgbW1fc3RydWN0ICptbSkKPiArewo+
-ICsJaWYgKGxpa2VseSghbW0tPm1tX2NpZC5tb2RlKSkKPiArCQlyZXR1cm47Cj4gKwo+ICsJV0FS
-Tl9PTl9PTkNFKG1tLT5tbV9jaWQubW9kZSAmIE1NX0NJRF9PTkNQVSk7Cj4gKwltbS0+bW1fY2lk
-Lm1vZGUgPSAwOwo+ICsKPiArCXVuc2lnbmVkIGludCBjcHU7Cj4gKwo+ICsJZm9yX2VhY2hfcG9z
-c2libGVfY3B1KGNwdSkKPiArCQlwZXJfY3B1KG1tLT5tbV9jaWQucGNwdS0+Y2lkLCBjcHUpID0g
-MDsKPiArCj4gKwliaXRtYXBfemVybyhtbV9jaWRtYXNrKG1tKSwgbnVtX3Bvc3NpYmxlX2NwdXMo
-KSk7Cj4gKwo+ICsJbW0tPm1tX2NpZC5ucl9jcHVzX2FsbG93ZWQgPSB0LT5ucl9jcHVzX2FsbG93
-ZWQ7Cj4gKwljcHVtYXNrX2NvcHkobW1fY3B1c19hbGxvd2VkKG1tKSwgJnQtPmNwdXNfbWFzayk7
-Cj4gK30KPiArCj4gIHN0YXRpYyB2b2lkIHNjaGVkX21tX2NpZF9mb3JrKHN0cnVjdCB0YXNrX3N0
-cnVjdCAqdCkKPiAgewo+ICAJc3RydWN0IG1tX3N0cnVjdCAqbW0gPSB0LT5tbTsKPiBAQCAtMTEw
-MzUsNiArMTEwNjYsNyBAQCBzdGF0aWMgdm9pZCBzY2hlZF9tbV9jaWRfZm9yayhzdHJ1Y3QgdGFz
-Cj4gIAo+ICAJCS8qIEZpcnN0IHVzZXIgPyAqLwo+ICAJCWlmICghbW0tPm1tX2NpZC51c2Vycykg
-ewo+ICsJCQlzY2hlZF9tbV9jaWRfY2xlYW51cF9leGVjdmUodCwgbW0pOwo+ICAJCQlzY2hlZF9t
-bV9jaWRfYWRkX3VzZXIodCwgbW0pOwo+ICAJCQl0LT5tbV9jaWQuY2lkID0gbW1fZ2V0X2NpZCht
-bSk7Cj4gIAkJCS8qIFJlcXVpcmVkIGZvciBleGVjdmUoKSAqLwo+IAo+IAo=
+On Tue 2026-10-20 13:56:38 +0200, Daniel Wagner wrote:
+> On Sun, Sep 20, 2026 at 11:28:12AM -0700, Mohamed Khalfella wrote:
+> > +static void nvme_fc_fencing_work(struct work_struct *work)
+> > +{
+> > +	struct nvme_fc_ctrl *fc_ctrl =
+> > +			container_of(work, struct nvme_fc_ctrl, fencing_work);
+> > +	struct nvme_ctrl *ctrl = &fc_ctrl->ctrl;
+> > +	unsigned long rem;
+> > +
+> > +	/*
+> > +	 * Tear the association down now so the LLDD can finish unregistering
+> > +	 * the remoteport/localport while the fencing this controller.
+> > +	 */
+> 
+> 
+> Maybe:
+> 
+>           /*
+>            * Tear down the association before fencing starts. Fencing can take
+>            * a long time and the LLDD can't finish unregistering the
+>            * remoteport/localport until all associations on it are gone.
+>            * Inflight requests are held and only completed once fencing has
+>            * finished.
+>            */
+> ?
+
+Yes, this is better. I updated the comment just like suggested above.
