@@ -1,99 +1,184 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588134;
-	b=sQ05qbJ33VpCHiOiispAemqGDWz3bHe0A2N5YpWLQraWNptGCOPyOe1gJaKuVpfdaIaB
-	 HDxypZoAxix/8OtzSHFdWGx0l9itY0tZ0ElXBBArsnsZKtimgvb7I4SmDNrgAbinxBMRH
-	 DZETQwyxs0VzSo8ODnxVKo/jRWe4dyfp52kzWxD3vLs6I+IQ8tmHLFWxf75Fhp0kIhDS/
-	 Qkd8/SlgIMJFJbeu4ZfSfFIfghvsA7Wu0qZlV10u3jFPZckUq8XtLGam6Rycloj80b7VW
-	 FPqEw2IecVYHWd7kSpS994IpC825AkEl54cwg/Qqid7KoZGN30IqaH646gjUeQHe9aw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588134;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7Ve8ZNksPYVItMCXMNZb+IruVuyPRZOJDuAdFAJU5Yk=;
-	b=tLaO+vZY0JY9+q5APzCpZ1wBjEptP0CgnXJIWg0BhLyQ8vSw1k0MusIZ5/14Xknl5rHT
-	 e5/bYBvGB6n7CgA7WZx+u3KZAAUQr8Lj7nzHE804KcA02WXicaWrJ13Kd3w/foH1R1zvh
-	 L9Lty76evffc6Fs2kT9vJmsgVwPBj764vPMW+jk/l+6YbMv5xkXF7U84Lve2+vQc7Ek8D
-	 VxIwQe9077F9OrlTpyzSKkeo/TCJVM6slAKXOXZyA2XNJZKsUUs+Jfcq10sP5A1N13WQX
-	 zR5k/RwAr+FCNyYEkFW5WjtOrCXReXTCEvEdKr8jmiiDXkKjc3qXcInNy0w9K6GP0dw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=isslab.korea.ac.kr;
-	spf=none smtp.mailfrom=isslab.korea.ac.kr;
-	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=S4gwn3cy;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.17
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792588129;
+	b=d3BQcF1dFmHESVpS13W9Isjo6xCsQoJ+C+hSOAvWTXpg5HVbIYycJRPt0IfDfeQY+VJ4
+	 5Jy4F/hv2FLT1H138OutVxJBZQ+PIGUWtmX86duPIkVWVlNQ437LaqxhdLEBnYw+wy+HQ
+	 lPpGvJuvea4J34Sbzih7cWL6geCnQTN/dUxvDq/PMzv0F8D++j0lecz3cU5KEm1EVbec+
+	 35AyBQsXg4DYw+vFqMPoWqomNaHzs/QToAYZ1yBT19pTB8caD6LG9vMXDZcsfSYKhO7nT
+	 FmsS6kzLW8MoJARpW/AoluiZ/fSVgdPSlIOJTSYsIOWRZbOcaW5Ef14UQPnnMh1feIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588129;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
+	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=TK/aNdfcyF8NqgIqOzjG1Fjv3nvKXPnX3NEXFX9vopY=;
+	b=a9X3QT0AEypOW+SPzVhN4cEdJgx0gp9N67Cd2+PFoTvOxCICFDZtsfujGJQsLMUdhUcd
+	 yx08KBrDYs0Q4tFRZsltp48ZiKiAZi8g/9lP81ixLKtM+TPpbF79EQ8RuwrZrIFtTMUli
+	 LvsUN5F4FfNKMw3yyqiViHI+NxmdZo29i/zOttJT10vSeMVxHWUa4Skrl/v6r2cShXlgK
+	 UCg/99JF3U6HdWqssQ0kXFaaooE3akVodF5AvvM8+LbTHyPDSCnM6bAATLBiRzt9bioJq
+	 nqOJPAO6hz3NeYqGq8YIDm4U+EEFjv4HevogSwuz41+d6m2HRE22bp7DzPZUVRsUDQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6qbVrQT;
+	arc=fail smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA47606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CA47606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBAA606A31B;
+	Wed, 21 Oct 2026 13:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCBAA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=S4gwn3cy
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35c76e9614aso1246579eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:08:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792588131; x=1793192931; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7Ve8ZNksPYVItMCXMNZb+IruVuyPRZOJDuAdFAJU5Yk=;
-        b=S4gwn3cyFGOKzCs0BoufHQqIDvW0Fn6fef5tjun/OK0UuOvXJornzAJHMw7QQJN8FG
-         pAkpmZUfjE4vJohYdBe8MqR4sm9s1Zt3mud3Fk2Wg/SMc6LdWPJO0oeceiYhZn5iD4hd
-         gAdKs7e9bX6OyOjIVQuWc02WWF0fPqBnnWj3OZRA/8bP01/WNbvCBroPSCKSQx5OSdiS
-         7/JSzmvC4bN1+T/+P4C/1idY46gVoUmTIhmv0IGP9AXnLTnEEGSNlMyu9s3Z3fD98gYh
-         G1Q21d/1rmgXdiMzLJogsAlgSFbyIzsGON0W/g76CcDKbYwxIx8p/hygQO5JOTK4abxn
-         73KQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792588131; x=1793192931;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7Ve8ZNksPYVItMCXMNZb+IruVuyPRZOJDuAdFAJU5Yk=;
-        b=F0ovKHf5+OLw5lk3Ns4P6wt7j4s5sgOOnMpVu+OCGcueVQJpYFMGtxAPRLD0ZZPxUO
-         zhnokMwDxKLGm2ew5qNpm8INUKgBxncw4QzbCf6sBs13kWiaK+BWjDrvOa4Inh7u4fs4
-         8j7/+FxMzh3nOo8rPVSCWVrJevkPMW9tZWmW8xSYFXac1gel0R/V/7wp8xYYzUuHV8kR
-         2ltzFAhW3WUbAoQcjgnGlyZ6dfdER1g+YOyXSPCXmGu65wy/patUkY7XtKlxaxnYf1qB
-         n/I5a4kPjqIR18JC24dAJEPvtg6xYr9jiqFLDFtnSOBL7XYxmHC/V2WSpjIKV8+aikel
-         8UGg==
-X-Forwarded-Encrypted: i=1; AKwUvBwiSkFkSYkIBHKWps7ZgGu/7EhuOynAQYXjNkTA3CNb+3Ih2eO/wdO4Gh6Id5lgCSDNnY05Mszrh6Lw6qI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWL89O8lmI4hq4z0nroU6+pSc0OgcyWoWAA5QZXS9HYPZx5maE
-	Vufhr/7g3LBzbqKLAW5EREYKEjs679hhc4qpmM9tHlfl/1maq88RR3pS+UVqh4aJkL8=
-X-Gm-Gg: AYBFou07x3fZw5Icc7j7wERhNPAjZ6Uv0RXobFoc9bY++t5OUl0At6rvUoj2x5Paa0j
-	7t8eR9Uwr3lq0aotnfBEg6rXGViui6dQ3iH8mluadE0bMHHAWYVGmNEjWr26zvti9rc41CCa5tE
-	MHb5nidN7aPctHMj6V7DGMg444y5VSezm+LXybcuRgmYLCfZwP27k60Ysiya9HUHycvaR7+xMiN
-	QJMHBLWLfrhFz3Nl52gpT/mQ8eetssjiYYr9M1kSb1f1PMKRM8UKp2k+SgizhAwwz9HIlxlg5Qi
-	BvSBPzhAj3NEbWGoUTIhyVXl7zzrJOZzzk2RQJYQBLJjTpP+RemxM82vHAjvGqNet+IOhfyt9dK
-	PfUz+l4GIEjtC9L2j8spvjsEFocdls3inT1tMso4RHN8pzfTSsIOYrAMq6OM0L87rvl7lt2eacW
-	Nm8RmIAohwRsnY7uOPEfGpfkfR6vjRFOi00GtR6xwggXxi00YWiAyhyMLj/I7ZmKNYHWhf8xC/z
-	Sl3aBwr5wPynGJ0K5KAr8GdLYbDZ34ZZuoaKuBPM4vrrY7kyAxYhfyHbePuUUkS2iVS9d6vP4d/
-	mfKgBZk7eMa3/iw+xUSG9DY=
-X-Received: by 2002:a05:7022:4092:b0:18a:3911:ec1 with SMTP id a92af1059eb24-190a7ff8258mr2087001c88.39.1792588130972;
-        Wed, 21 Oct 2026 06:08:50 -0700 (PDT)
-Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:e416:85ef:f22:6c5d])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm5923746c88.3.2026.10.21.06.08.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:08:50 -0700 (PDT)
-From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-To: Ram Vegesna <ram.vegesna@broadcom.com>,
-	Daniel Wagner <dwagner@suse.de>,
-	"Martin K . Petersen" <mkp@kernel.org>
-Cc: James Smart <jsmart2021@gmail.com>,
-	Hannes Reinecke <hare@suse.de>,
-	Mike Christie <michael.christie@oracle.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yhlee@isslab.korea.ac.kr
-Subject: [PATCH v2] scsi: elx: efct: fix target session lifetime against node teardown
-Date: Wed, 21 Oct 2026 22:08:02 +0900
-Message-ID: <20261021130802.2691833-1-yhlee@isslab.korea.ac.kr>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X6qbVrQT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792588128; x=1824124128;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=4K4kE+ge50trDdHaj2GhRDCmsM7441memdjZcW8XaIk=;
+  b=X6qbVrQTUO6kbbBzOOi9nY8Em91mwxAc4VDBOC+daNp3OSdLI0J4TnV1
+   ROY3tjqCCl1Q7IWZDUxLlaKZdMnr0275rBTKMRsOJCk4sOt6HrQWvDVon
+   s/opmzRwU9zMlFk0izTWDDc2YH9O+2LYf4uB4s+H7xbIGGLGXPm7HI95K
+   fAfOe+MMDxYgYAdMcL/0pulg94hyaPE5LicnrBaqnBQJ+IFxA5LS2mexl
+   5PfGj144mRFWSh52916RfkShIysynrvnxZUTBPbC+J7CYsJYYdVQSLBrK
+   2e780snf/ScehwC5pbCkYAoVPcsZ46IX9tEmOVC6X8FFKCWZ5ojxMJ0VY
+   A==;
+X-CSE-ConnectionGUID: pdf2Qc+4S+uUUYYStVN4MA==
+X-CSE-MsgGUID: DAnqaxdESW2Z7Pnq0xhoZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1329761"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1329761"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:07:48 -0700
+X-CSE-ConnectionGUID: rE9Vux/5SOmr/8YZLnpAfA==
+X-CSE-MsgGUID: pVMLDPcKQZ+htlzZFo82xw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3430248"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa009.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:07:48 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 06:07:47 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 06:07:47 -0700
+Received: from BYAPR05CU005.outbound.protection.outlook.com (52.101.85.17) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 06:07:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pk/Ywd/kLEFp21tAg0tu7KeQHkO5gr8VNrVGI/WgYzcIvV695qplOEv/KgPm5281hKODxTuqEch1LPpSpPxazzvp3whZOAZ6GLnCsfSrwfayN+FvJZHjfUclwGLlThVvowhagQ+0yfHU4/asqlNOjhRsAWKgETrELhHdNRWsxfREADri2J0oqdlM4mw41nvkB2LsHhlEKqQitlZKx81ndSEQeAyT3J8OiUW41w1dEYVPfV5ed2LCdciOrhrLRgRhZ1vZjo/KDnldq0C+6yIQGImk4cPHePDiPK9tjkeWLjHrlXf5Kzdk6qiQrtFHIfhoXTBBRyYYEI3Bt0TDLRV7Qg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TK/aNdfcyF8NqgIqOzjG1Fjv3nvKXPnX3NEXFX9vopY=;
+ b=AJCJ5T+EDolfG+IrYvkDo5QIJXwe4XCAkxK+hJUoiurVm1/iYDYc24KtV9w1vdSkYeNL9F04pKO53nk4kG7EKnpWjFi0dhiclkkYM5Hf1/1EKak4KHWVQAoyLGEw0jzs3lJFcNpwqGFiiNplgkjSl8v5el6joC8QD6w3ZsJF+XJ0BwYFiCgf9+QiyMTzucf+XLY2HYx0QJqVOS2M4oEq8WadTUnBBNSHpRIMVFXprMhuvmGbjHoMIjjI0Q5Eew1PabwniXzRrcwp2ciWG1SoRV20CFmhC6K4b2jG2gDylRB/Juat4duCinJRoA+cvOenjqNmPY8ArR6OhLL5P7ACAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from LV2PR11MB6070.namprd11.prod.outlook.com (2603:10b6:408:179::22)
+ by IA1PR11MB6097.namprd11.prod.outlook.com (2603:10b6:208:3d7::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 13:07:38 +0000
+Received: from LV2PR11MB6070.namprd11.prod.outlook.com
+ ([fe80::4c84:af62:dc60:fd9]) by LV2PR11MB6070.namprd11.prod.outlook.com
+ ([fe80::4c84:af62:dc60:fd9%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 13:07:38 +0000
+From: "Popov, Pavel E" <pavel.e.popov@intel.com>
+To: Leon Romanovsky <leon@kernel.org>
+CC: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
+	<logang@deltatee.com>, Lukas Wunner <lukas@wunner.de>, Jim Chow
+	<jim.chow@broadcom.com>, Radu Rugina <radu.rugina@broadcom.com>, "Alexey
+ Makhalov" <alexey.makhalov@broadcom.com>, Wei Liu <wei.liu@kernel.org>,
+	Michael Kelley <mhklinux@outlook.com>, Nathan Ciobanu
+	<nathan.d.ciobanu@linux.intel.com>, "bcm-kernel-feedback-list@broadcom.com"
+	<bcm-kernel-feedback-list@broadcom.com>, "virtualization@lists.linux.dev"
+	<virtualization@lists.linux.dev>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-pci@vger.kernel.org"
+	<linux-pci@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server CPUs
+Thread-Topic: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon server
+ CPUs
+Thread-Index: AQHdYLm3Eu3+F6ITg0+VFiHnE2F7qrcGw2EAgAAN8iCAAMqAgIAAXNZg
+Date: Wed, 21 Oct 2026 13:07:37 +0000
+Message-ID: <LV2PR11MB6070DF223EAED1186B710017B2662@LV2PR11MB6070.namprd11.prod.outlook.com>
+References: <20261020173736.81755-1-pavel.e.popov@intel.com>
+ <20261020184002.GO64621@unreal>
+ <LV2PR11MB6070E19D3A0CCA50943D7499B2672@LV2PR11MB6070.namprd11.prod.outlook.com>
+ <20261021073443.GP64621@unreal>
+In-Reply-To: <20261021073443.GP64621@unreal>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV2PR11MB6070:EE_|IA1PR11MB6097:EE_
+x-ms-office365-filtering-correlation-id: 675dd3aa-b800-4daf-b320-08df2f7447fa
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|7416014|38070700021|4143699003|11063799006|56012099006|261009223327099003|261009221227099003|261009220027099003|261009221727099003|261009223027099003|10067099003|22082099003|18002099003|6133799003;
+x-microsoft-antispam-message-info: W1+X3B+u3aCWgJdZ8SlLDh9RwwkCOi73T70cH02O4YJPFaCPar5bY7Rt8Kh0p9YGH5hvF3oeGWYK4gmuCRN+OlSMwmb8EM7Jm3ThWwlyfUhklITYjYtyFmhBy6FioslTL/rAcd54APk0Hg/A6d8wGcSLaT+RuURPd42LqMCGijC/mkGr8WbhTUE+foUQUVh73Yl6Wm1qFk3KsPOIjVP++9u6KtyhnV9H9G1bnTwtalkjsPh1X/AxiJbcVX5XXhfQQroNTNsqqi+9KcVFBO/AaCkKd3DneSlNKQ/9GphXPLDO9R6dk317ZgfBNYD3L4fdYALSrqexeo+368eHDE853MEZc9/u9EmqWslXySB5n9nlrjJLsh76+rwO+XY2m+cQQHuscF2NwOT4JZKN2eQYvP9oD8VubItrt3jEoK8jw08KS9/PQfpJwZhWlxLbsTcAX6L+uiaRiApAL8SlKJymgHISPatibsziPsuHFPQx9g/CcjNg/czlt9zV1O5GrkkeVEvH29Xl9LJTHE1G81A1d0lw7D8n4GC8ruLt74ozhg7e41KLUuQwYnh9gSahnPThPAR+SwHzi4Kus3oinSU/cmhU5v9kZ53fkax2/CZIsS+LRzBi5Ha4kLk8Bebi9EDvAAWI3lh2Olu+zhf9dJEqtghEJBIB40jSHSXJe0MhdEXPyCswlO6sEsmzhd5Iizw/
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR11MB6070.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(7416014)(38070700021)(4143699003)(11063799006)(56012099006)(261009223327099003)(261009221227099003)(261009220027099003)(261009221727099003)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?PoyjfeP2AS7Z2zBQ5r0CPmZtRxGsUBajLhV3MLbxCB5PKMUumd+vZUIEeUE1?=
+ =?us-ascii?Q?fRNpEEk0iKK6sF/mdocb3qQwe2MyJkRVyMWBFDiJP1MS+PNIXeMsblAgVLuu?=
+ =?us-ascii?Q?bYoneu5FA5sL+nhKGv80Z8ZfGmRxavDBanIJffYGlroER1DBfizgztRVREiU?=
+ =?us-ascii?Q?mKAJPsFeN1lSxC1EO+weovxjCSTTaC6wAeQ+Rrg1ijRNYiVFQmwK8mPQF2at?=
+ =?us-ascii?Q?CYe+APASwGBSzZUzfZjMtrEC1jCSX5yzVr66ItdzxDtYZco97XuBiMhVQyES?=
+ =?us-ascii?Q?GmXdiey/Uvt1oJPbQ1ut4whfqBgUlUDOkQnSRRI4G5kcn3oU+Pk9mT6bBkhe?=
+ =?us-ascii?Q?3raCHfZcnh4ovPXCSKPivCeLJnO92f3axVmY7GqpDJQzMkO/pcDCkpE/USlC?=
+ =?us-ascii?Q?6cBJie2604J5+diExX+AY6cXLv4PI460RiQ0uqRaXayJfwBu3q2TNl8KmswT?=
+ =?us-ascii?Q?OEbzSQz5x0qGYqn56qOZIuGXzz13jQ8z0NgoqBQ3/0ecKbvsFZDiq01akX7c?=
+ =?us-ascii?Q?bO6gBPrOXR8pNcKy1p47B/OQwOmphfIkQB1bBMsztL5sGflnS6yF7jL+kczK?=
+ =?us-ascii?Q?TqtwXENoO9SH5ng9zlFk55iCoPleiohiW87luj/aFWmgL0whcLy9ra9PeMEx?=
+ =?us-ascii?Q?3gSYbuhhhKkrTxW+nIrgFTe0HiMybFUPUxbbD09cEecfsZNQ6XATyXNfS86J?=
+ =?us-ascii?Q?mR01Rqya9hbJ/zZWPfLojqfWZ0g2SRzqggAdsJvKAgcb46lljecfVJd+5YWz?=
+ =?us-ascii?Q?mISVRRzt/U4kjy2Nv4GWUNYgIptZXv71LK2UgmZai4LHx1h9ZcpCVnjK6AXV?=
+ =?us-ascii?Q?NKWpAvqwUOLJ1LtIhDNzB/8wxKC8c8oh1RiEwEwjoMiswBf8ylaAMJIpmmxS?=
+ =?us-ascii?Q?eM4xoXzL7KUGzAUllhdIMly5yN8A18SGVEWk1oYu5zTnaLEcAu+3bk7OJrwX?=
+ =?us-ascii?Q?tzbqS3oA3PQerrxNSUY1fweoz2fKur8lsfPhxnfKM2hcG/W33/B+uTopcE0V?=
+ =?us-ascii?Q?6MXUP/P5UstDr+4qLe9t0do8SqUBMRQDKSA/NznuULl7oaYyRh0E68s9iSgE?=
+ =?us-ascii?Q?z98TwbVtE2Ep6jHsbaf05dK0DRzJ4Z6WL9iF+AoqLmE+sa9wR2m+dyZ1AmBs?=
+ =?us-ascii?Q?YhxBsTIiWeP8hAmD8N4e7adjerLLvBpzMYcaqCl08d8rKtafNiRV7mYDMsYD?=
+ =?us-ascii?Q?KGoSw0rOnCEpbVSM4sizlcJaYNJDMeKMVrE4pb09FlNuPm/KZdDr1UWUFnUB?=
+ =?us-ascii?Q?rWcSp7K/ZAaGAo94CPHbjGo5dHtfCGaZ67qKxTucU6quqNV6A/iBH3ZNx0OZ?=
+ =?us-ascii?Q?P2nsQFqkl1FpJpDC+kMIZbfL5xmWQ0sDVA0mbUepInBStGaO8vXNFBfgxdGp?=
+ =?us-ascii?Q?rX7PxTwyV87mnla/sOV7DoEa6mxhvYlH9kH+skImES7iPFMWjAH8H6q50Hjn?=
+ =?us-ascii?Q?FyXuClCPogJi/KDsbnos57WSt1E4gPFWxxdAP/flwCoZbf7l2AwYWhOXPGmI?=
+ =?us-ascii?Q?p5fpnkqDCBpef0kiV+ug5M57CLERjoD+fv4+BeSy4vee5SwNUuel3Qnz+mPS?=
+ =?us-ascii?Q?GGTh/AirUcUfkKn6KrxxXXiMxCUr1hWXo/udSClaPHB31u2yk3m5yRz5plA4?=
+ =?us-ascii?Q?hhJapvDZDtBqnrqhQyut1KjOVmM5CNge6JrGF36ax1UDzM62i5XMySCO/AP4?=
+ =?us-ascii?Q?spN41uP/danG4uPArQUUezKS16AmgKN+2SjSH0mu2WoS6WtLH+VN7O2hq0h8?=
+ =?us-ascii?Q?hIL7nYmy8g=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,385 +188,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: 4xbi/Na5wE/RjgF3hqtKfrcHYEBCBvvDL8P4RMUJqDIoTHj5M5P67vzrAeVsaLcdBrXkIrvakMM/I6Ly8knxU9u0EVQfBBCrHS+MBZmHLMFy3dLoDnoP3vOcCNs5jWXsfxSMLkLtJCuEFWVUvo0NV/5pDNp/Xq2jKTf2ltXH7EZZTMh+2XIY2TIuyuHbKGTmDQk+EJCepF7CLyURM5IY/kDo4Q5B3ssVlkVPjHpVNTkbf2Loo+6ioqiJ60W7AoaMVkDEfZVb/CyMesnAqxE8jiOBDE6UhME55ToWH0dgp3VMYKhRSDLvpdJA7drp93hRUbe7pRfBlgLiQYkt6ZhWSA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB6070.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 675dd3aa-b800-4daf-b320-08df2f7447fa
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Oct 2026 13:07:38.0018
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PW1YTT31znI9nJusKJYLnpEsibvzL6gZMNX+8eMqWjSSdzipQ6AlKvS34L2Cyn2a3qHQ037OSbxoXecXJYt9lg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR11MB6097
+X-OriginatorOrg: intel.com
 
-efct_scsi_new_initiator() hands a bare struct efc_node pointer to lio_wq
-and returns EFC_SCSI_CALL_ASYNC, so the node state machine keeps running
-while efct_lio_setup_session() is still queued. Three things go wrong
-over that window.
+> Once the header files are properly exposed, clean up these other areas
+> as well.
 
-The node itself can be freed under the work item. efc_node_alloc() takes
-a single reference and efc_node_free() drops it as the last step of a
-node shutdown, which a peer LOGO, an FC link down, a domain or fabric
-change or target teardown can all start. efct_get_vport_tpg() reads
-node->nport before target_setup_session(), efct_session_cb() reads it
-from inside that call, and node->tgt_node is read after it returns. The
-node pool is created with curr_nr == min_nr, so mempool_free() calls
-kfree() rather than refilling the reserve and the work item reads freed
-slab memory:
+Agreed, that would be a separate change, for the x86 maintainers to
+decide.
 
-  BUG: KASAN: slab-use-after-free in efct_lio_setup_session+0xc44/0xde0
-  Read of size 8 at addr ffff888002d538a0 by task kworker/u4:0/12
+Thanks
 
-  CPU: 0 UID: 0 PID: 12 Comm: kworker/u4:0 Tainted: G                 N  7.3.0-00342-gbe448252d3e7-dirty #4 PREEMPT(lazy)
-  Tainted: [N]=TEST
-  Workqueue: efct-kunit-wq efct_lio_setup_session
-  Call Trace:
-   <TASK>
-   print_report+0xcd/0x620
-   ? efct_lio_setup_session+0xc44/0xde0
-   ? __virt_addr_valid+0x208/0x3f0
-   ? efct_lio_setup_session+0xc44/0xde0
-   kasan_report+0xfb/0x130
-   ? efct_lio_setup_session+0xc44/0xde0
-   efct_lio_setup_session+0xc44/0xde0
-   ? __pfx_efct_lio_setup_session+0x10/0x10
-   ? lock_acquire+0x100/0x2d0
-   ? process_one_work+0x835/0x1c40
-   ? process_one_work+0x735/0x1c40
-   ? lock_release+0xc3/0x250
-   process_one_work+0x88b/0x1c40
-   ? __pfx_process_one_work+0x10/0x10
-   ? lock_acquire+0x100/0x2d0
-   ? worker_thread+0x2c7/0x11b0
-   ? lock_is_held_type+0x84/0xf0
-   ? __pfx_efct_lio_setup_session+0x10/0x10
-   worker_thread+0x649/0x11b0
-   ? __pfx_worker_thread+0x10/0x10
-   kthread+0x3aa/0x550
-   ? _raw_spin_unlock_irq+0x23/0x40
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork+0x493/0x940
-   ? __pfx_ret_from_fork+0x10/0x10
-   ? __switch_to+0x22/0xdc0
-   ? __pfx_kthread+0x10/0x10
-   ret_from_fork_asm+0x19/0x30
-   </TASK>
-
-  Allocated by task 33:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   __kasan_kmalloc+0x8f/0xa0
-   __kmalloc_noprof+0x23b/0x580
-   mempool_alloc_noprof+0x143/0x230
-   efct_kt_node_alloc.isra.0+0x38/0x4b0
-   efct_kt_uaf_after_cb+0x7a/0x370
-   kunit_try_run_case+0x1ca/0x4c0
-   kunit_generic_run_threadfn_adapter+0x7b/0xe0
-   kthread+0x3aa/0x550
-   ret_from_fork+0x493/0x940
-   ret_from_fork_asm+0x19/0x30
-
-  Freed by task 12:
-   kasan_save_stack+0x33/0x60
-   kasan_save_track+0x14/0x30
-   kasan_save_free_info+0x3b/0x60
-   __kasan_slab_free+0x43/0x70
-   kfree+0x119/0x490
-   mempool_free+0xbc/0x100
-   efc_node_free+0x311/0x4a0
-   efct_lio_setup_session+0xa4a/0xde0
-   process_one_work+0x88b/0x1c40
-   worker_thread+0x649/0x11b0
-   kthread+0x3aa/0x550
-   ret_from_fork+0x493/0x940
-   ret_from_fork_asm+0x19/0x30
-
-  The buggy address belongs to the object at ffff888002d53800
-   which belongs to the cache kmalloc-1k of size 1024
-  The buggy address is located 160 bytes inside of
-   freed 1024-byte region [ffff888002d53800, ffff888002d53c00)
-
-Teardown can also run while the session does not exist yet.
-__efc_d_initiate_shutdown() moves the node to __efc_d_wait_del_node and
-only then calls efct_scsi_del_initiator(), which finds node->tgt_node
-still NULL and returns -EIO without queueing the removal work. The node
-waits there with node->nport set and node->req_free still clear, since
-req_free is only set later in __efc_node_shutdown(). The setup work
-therefore sees nothing wrong, registers a session, and nothing ever
-removes it: the se_session and the struct efct_node leak, and
-se_session->fabric_sess_ptr keeps pointing at a node that is freed
-moments later.
-
-Or teardown can run just after the session became visible.
-efct_session_cb() publishes node->tgt_node from inside
-target_setup_session(). If efct_scsi_del_initiator() runs between that
-and the end of the setup work it erases the efct->lookup entry and
-queues the removal work, and the tail of the setup work then puts the
-entry back. efct_lio_remove_session() frees the struct efct_node without
-erasing the key a second time, so efct->lookup keeps a freed pointer
-that efct_node_find() returns, and takes a reference on, for every
-inbound FCP or BLS frame. That is the case the comment above
-efct_node_find() states cannot happen.
-
-Give the node a reference for the life of the work item, and give the
-backend an explicit session state, read and written under efc->lock,
-which is the lock the node state machine holds when it calls in. The
-work claims EFCT_TGT_SESS_SETUP before it is queued and reaches
-EFCT_TGT_SESS_REGISTERED in the same critical section that stores the
-lookup entry. efct_scsi_del_initiator() now decides from that state
-rather than from node->tgt_node. While a setup is in flight it marks the
-node EFCT_TGT_SESS_DELETE_PENDING and reports completion instead of
--EIO, and the setup work unwinds the session it built instead of
-publishing it. Once the session is registered the existing removal path
-runs unchanged, and because the state transition and the lookup store
-share one critical section, a store can no longer follow an erase.
-
-The same state closes a smaller hole next door. An initiator that
-repeats PRLI while registration is pending used to get a second session
-for one node, which left the first one unreachable;
-efct_scsi_new_initiator() now reports completion rather than building
-it.
-
-An earlier version gated the work on node->nport and node->req_free
-instead, which is not enough, because req_free is only set well after
-efct_scsi_del_initiator() has already run and returned.
-
-Fixes: 692e5d73a811 ("scsi: elx: efct: LIO backend interface routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
----
- drivers/scsi/elx/efct/efct_lio.c | 90 +++++++++++++++++++++++++++++---
- drivers/scsi/elx/efct/efct_lio.h |  9 ++++
- drivers/scsi/elx/libefc/efclib.h |  2 +
- 3 files changed, 94 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/scsi/elx/efct/efct_lio.c b/drivers/scsi/elx/efct/efct_lio.c
-index 67d686dd6fb33..634200c1a61b5 100644
---- a/drivers/scsi/elx/efct/efct_lio.c
-+++ b/drivers/scsi/elx/efct/efct_lio.c
-@@ -1062,17 +1062,33 @@ _efct_tgt_node_free(struct kref *arg)
- 	kfree(tgt_node);
- }
- 
-+/* True only while a setup is in flight. The caller holds efc->lock. */
-+static bool efct_tgt_sess_may_register(struct efc_node *node)
-+{
-+	return node->tgt_sess_state == EFCT_TGT_SESS_SETUP &&
-+	       node->nport && !node->req_free;
-+}
-+
- static int efct_session_cb(struct se_portal_group *se_tpg,
- 			   struct se_session *se_sess, void *private)
- {
- 	struct efc_node *node = private;
- 	struct efct_node *tgt_node;
- 	struct efct *efct = node->efc->base;
-+	unsigned long flags;
- 
- 	tgt_node = kzalloc_obj(*tgt_node);
- 	if (!tgt_node)
- 		return -ENOMEM;
- 
-+	/* target_setup_session() sleeps, so the node may be in teardown now */
-+	spin_lock_irqsave(&node->efc->lock, flags);
-+	if (!efct_tgt_sess_may_register(node)) {
-+		spin_unlock_irqrestore(&node->efc->lock, flags);
-+		kfree(tgt_node);
-+		return -ENODEV;
-+	}
-+
- 	kref_init(&tgt_node->ref);
- 	tgt_node->release = _efct_tgt_node_free;
- 
-@@ -1086,6 +1102,7 @@ static int efct_session_cb(struct se_portal_group *se_tpg,
- 	tgt_node->port_fc_id = node->nport->fc_id;
- 	tgt_node->vpi = node->nport->indicator;
- 	tgt_node->rpi = node->rnode.indicator;
-+	spin_unlock_irqrestore(&node->efc->lock, flags);
- 
- 	spin_lock_init(&tgt_node->active_ios_lock);
- 	INIT_LIST_HEAD(&tgt_node->active_ios);
-@@ -1157,15 +1174,26 @@ static void efct_lio_setup_session(struct work_struct *work)
- 		container_of(work, struct efct_lio_wq_data, work);
- 	struct efct *efct = wq_data->efct;
- 	struct efc_node *node = wq_data->ptr;
-+	struct efc *efc = node->efc;
- 	char wwpn[WWN_NAME_LEN];
- 	struct efct_lio_tpg *tpg;
- 	struct efct_node *tgt_node;
- 	struct se_portal_group *se_tpg;
- 	struct se_session *se_sess;
-+	unsigned long flags;
- 	int watermark;
- 	int ini_count;
- 	u64 id;
- 
-+	spin_lock_irqsave(&efc->lock, flags);
-+	if (!efct_tgt_sess_may_register(node)) {
-+		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
-+		spin_unlock_irqrestore(&efc->lock, flags);
-+		efc_log_debug(efct, "node %p torn down before session setup\n",
-+			      node);
-+		goto done;
-+	}
-+
- 	/* Check to see if it's belongs to vport,
- 	 * if not get physical port
- 	 */
-@@ -1176,8 +1204,10 @@ static void efct_lio_setup_session(struct work_struct *work)
- 		tpg = efct->tgt_efct.tpg;
- 		se_tpg = &tpg->tpg;
- 	} else {
-+		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
-+		spin_unlock_irqrestore(&efc->lock, flags);
- 		efc_log_err(efct, "failed to init session\n");
--		return;
-+		goto done;
- 	}
- 
- 	/*
-@@ -1186,14 +1216,43 @@ static void efct_lio_setup_session(struct work_struct *work)
- 	 * ConfigFS NodeACLs.
- 	 */
- 	efct_format_wwn(wwpn, sizeof(wwpn), "",	efc_node_get_wwpn(node));
-+	spin_unlock_irqrestore(&efc->lock, flags);
- 
- 	se_sess = target_setup_session(se_tpg, 0, 0, TARGET_PROT_NORMAL, wwpn,
- 				       node, efct_session_cb);
- 	if (IS_ERR(se_sess)) {
- 		efc_log_err(efct, "failed to setup session\n");
--		kfree(wq_data);
-+		spin_lock_irqsave(&efc->lock, flags);
-+		if (!efct_tgt_sess_may_register(node)) {
-+			node->tgt_sess_state = EFCT_TGT_SESS_NONE;
-+			spin_unlock_irqrestore(&efc->lock, flags);
-+			goto done;
-+		}
-+		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
-+		spin_unlock_irqrestore(&efc->lock, flags);
- 		efc_scsi_sess_reg_complete(node, -EIO);
--		return;
-+		goto done;
-+	}
-+
-+	spin_lock_irqsave(&efc->lock, flags);
-+	if (!efct_tgt_sess_may_register(node)) {
-+		tgt_node = node->tgt_node;
-+		node->tgt_node = NULL;
-+		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
-+		spin_unlock_irqrestore(&efc->lock, flags);
-+		/*
-+		 * No kref_put(), because efct_scsi_del_initiator() already
-+		 * reported completion. tgt_node never reached efct->lookup
-+		 * and node->tgt_node is cleared above, so nothing else can
-+		 * reach it and its count is the one kref_init() gave it.
-+		 */
-+		efc_log_debug(efct, "node %p torn down during session setup\n",
-+			      node);
-+		target_stop_session(se_sess);
-+		target_wait_for_sess_cmds(se_sess);
-+		target_remove_session(se_sess);
-+		kfree(tgt_node);
-+		goto done;
- 	}
- 
- 	tgt_node = node->tgt_node;
-@@ -1202,8 +1261,10 @@ static void efct_lio_setup_session(struct work_struct *work)
- 	efc_log_debug(efct, "new initiator sess=%p node=%p id: %llx\n",
- 		      se_sess, node, id);
- 
--	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_KERNEL)))
-+	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_ATOMIC)))
- 		efc_log_err(efct, "Node lookup store failed\n");
-+	node->tgt_sess_state = EFCT_TGT_SESS_REGISTERED;
-+	spin_unlock_irqrestore(&efc->lock, flags);
- 
- 	efc_scsi_sess_reg_complete(node, 0);
- 
-@@ -1215,7 +1276,9 @@ static void efct_lio_setup_session(struct work_struct *work)
- 			efct->tgt_efct.watermark_min : watermark;
- 	atomic_set(&efct->tgt_efct.io_high_watermark, watermark);
- 
-+done:
- 	kfree(wq_data);
-+	kref_put(&node->ref, node->release);
- }
- 
- int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
-@@ -1223,6 +1286,10 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
- 	struct efct *efct = node->efc->base;
- 	struct efct_lio_wq_data *wq_data;
- 
-+	/* a repeated PRLI must not build a second session for one node */
-+	if (node->tgt_sess_state != EFCT_TGT_SESS_NONE)
-+		return EFC_SCSI_CALL_COMPLETE;
-+
- 	/*
- 	 * Since LIO only supports initiator validation at thread level,
- 	 * we are open minded and accept all callers.
-@@ -1231,6 +1298,10 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
- 	if (!wq_data)
- 		return -ENOMEM;
- 
-+	/* the work outlives this call and undoes both of these */
-+	kref_get(&node->ref);
-+	node->tgt_sess_state = EFCT_TGT_SESS_SETUP;
-+
- 	wq_data->ptr = node;
- 	wq_data->efct = efct;
- 	INIT_WORK(&wq_data->work, efct_lio_setup_session);
-@@ -1287,17 +1358,22 @@ int efct_scsi_del_initiator(struct efc *efc, struct efc_node *node, int reason)
- 	if (reason == EFCT_SCSI_INITIATOR_MISSING)
- 		return EFC_SCSI_CALL_COMPLETE;
- 
--	if (!tgt_node) {
--		efc_log_err(efct, "tgt_node is NULL\n");
--		return -EIO;
-+	if (node->tgt_sess_state == EFCT_TGT_SESS_SETUP) {
-+		/* hand the session being built back to the setup work */
-+		node->tgt_sess_state = EFCT_TGT_SESS_DELETE_PENDING;
-+		return EFC_SCSI_CALL_COMPLETE;
- 	}
- 
-+	if (node->tgt_sess_state != EFCT_TGT_SESS_REGISTERED || !tgt_node)
-+		return EFC_SCSI_CALL_COMPLETE;
-+
- 	wq_data = kzalloc_obj(*wq_data, GFP_ATOMIC);
- 	if (!wq_data)
- 		return -ENOMEM;
- 
- 	id = (u64) tgt_node->port_fc_id << 32 | tgt_node->node_fc_id;
- 	xa_erase(&efct->lookup, id);
-+	node->tgt_sess_state = EFCT_TGT_SESS_NONE;
- 
- 	wq_data->ptr = node;
- 	wq_data->efct = efct;
-diff --git a/drivers/scsi/elx/efct/efct_lio.h b/drivers/scsi/elx/efct/efct_lio.h
-index 569a0d4b1894c..8f550ad0e349b 100644
---- a/drivers/scsi/elx/efct/efct_lio.h
-+++ b/drivers/scsi/elx/efct/efct_lio.h
-@@ -65,6 +65,15 @@ struct efct_scsi_tgt_nport {
- 	struct efct_lio_nport	*lio_nport;
- };
- 
-+/* Target session state of a struct efc_node, kept under efc->lock. */
-+enum efct_tgt_sess_state {
-+	EFCT_TGT_SESS_NONE = 0,
-+	EFCT_TGT_SESS_SETUP,
-+	EFCT_TGT_SESS_REGISTERED,
-+	/* teardown raced setup; the setup work must unwind it */
-+	EFCT_TGT_SESS_DELETE_PENDING,
-+};
-+
- struct efct_node {
- 	struct list_head	list_entry;
- 	struct kref		ref;
-diff --git a/drivers/scsi/elx/libefc/efclib.h b/drivers/scsi/elx/libefc/efclib.h
-index 57e3386128127..7c00a3fd79ad6 100644
---- a/drivers/scsi/elx/libefc/efclib.h
-+++ b/drivers/scsi/elx/libefc/efclib.h
-@@ -336,6 +336,8 @@ struct efc_node {
- 	struct list_head	els_ios_list;
- 	void			*ini_node;
- 	void			*tgt_node;
-+	/* enum efct_tgt_sess_state, private to the target backend */
-+	u8			tgt_sess_state;
- 
- 	struct efc_remote_node	rnode;
- 	/* Declarations private to FC trannport */
-
-base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
--- 
-2.43.0
-
+> -----Original Message-----
+> From: Leon Romanovsky <leon@kernel.org>
+> Sent: Wednesday, October 21, 2026 12:35 AM
+> To: Popov, Pavel E <pavel.e.popov@intel.com>
+> Cc: Bjorn Helgaas <bhelgaas@google.com>; Logan Gunthorpe
+> <logang@deltatee.com>; Lukas Wunner <lukas@wunner.de>; Jim Chow
+> <jim.chow@broadcom.com>; Radu Rugina <radu.rugina@broadcom.com>;
+> Alexey Makhalov <alexey.makhalov@broadcom.com>; Wei Liu
+> <wei.liu@kernel.org>; Michael Kelley <mhklinux@outlook.com>; Nathan
+> Ciobanu <nathan.d.ciobanu@linux.intel.com>; bcm-kernel-feedback-
+> list@broadcom.com; virtualization@lists.linux.dev; linux-
+> hyperv@vger.kernel.org; linux-pci@vger.kernel.org; linux-
+> kernel@vger.kernel.org
+> Subject: Re: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon
+> server CPUs
+>=20
+> On Tue, Oct 20, 2026 at 07:37:32PM +0000, Popov, Pavel E wrote:
+> > Leon,
+> >
+> > The #ifdef CONFIG_X86 in cpu_supports_p2pdma() came with the AMD
+> check.
+>=20
+> This is due to poking at `struct cpuinfo_x86`, which is not ideal but
+> understandable.
+>=20
+> >
+> > Would it work for you if I move the includes into that single #ifdef
+> > block, next to the CPU check? Some multi-arch code does the same:
+> >
+> >   https://git.kernel.org/torvalds/c/c7be64355fcc (drivers/acpi/mipi-dis=
+co-
+> img.c)
+> >   https://git.kernel.org/torvalds/c/7f3cfb7943d2
+> > (drivers/cpufreq/cpufreq_ondemand.h)
+>=20
+> Once the header files are properly exposed, clean up these other areas as=
+ well.
+>=20
+> Thanks
+>=20
+> >
+> > Thanks,
+> > Pavel
+> >
+> > > -----Original Message-----
+> > > From: Leon Romanovsky <leon@kernel.org>
+> > > Sent: Tuesday, October 20, 2026 11:40 AM
+> > > To: Popov, Pavel E <pavel.e.popov@intel.com>
+> > > Cc: Bjorn Helgaas <bhelgaas@google.com>; Logan Gunthorpe
+> > > <logang@deltatee.com>; Lukas Wunner <lukas@wunner.de>; Jim Chow
+> > > <jim.chow@broadcom.com>; Radu Rugina
+> <radu.rugina@broadcom.com>;
+> > > Alexey Makhalov <alexey.makhalov@broadcom.com>; Wei Liu
+> > > <wei.liu@kernel.org>; Michael Kelley <mhklinux@outlook.com>; Nathan
+> > > Ciobanu <nathan.d.ciobanu@linux.intel.com>; bcm-kernel-feedback-
+> > > list@broadcom.com; virtualization@lists.linux.dev; linux-
+> > > hyperv@vger.kernel.org; linux-pci@vger.kernel.org; linux-
+> > > kernel@vger.kernel.org
+> > > Subject: Re: [PATCH v4 0/2] PCI/P2PDMA: Allow P2PDMA on Intel Xeon
+> > > server CPUs
+> > >
+> > > On Tue, Oct 20, 2026 at 10:37:34AM -0700, Pavel Popov wrote:
+> > > > VMware and Hyper-V expose passthrough devices to guest VMs without
+> > > > an explicit host bridge device. Consequently,
+> > > > host_bridge_whitelist() cannot automatically identify the
+> > > > underlying host bridge structure, causing Peer-to-Peer DMA
+> > > > (P2PDMA) requests to be rejected unless the device IDs are
+> > > > explicitly listed in pci_p2pdma_whitelist[]. To enable P2PDMA on
+> > > > Intel hosts, this series extends cpu_supports_p2pdma(), which so
+> > > > far covers AMD Zen and newer, with an explicit list of Intel Xeon s=
+erver
+> generations.
+> > > >
+> > > > Patch 1 moves the CONFIG_X86 #ifdef out of cpu_supports_p2pdma().
+> > > > Patch 2 is the v3 patch rebased on it, with Logan's Reviewed-by
+> > > > carried over; the Xeon list and the check are unchanged.
+> > > >
+> > > > Changes in v4:
+> > > > - Add 1/2, moving the CONFIG_X86 #ifdef out of
+> cpu_supports_p2pdma()
+> > > >   (Logan Gunthorpe, Leon Romanovsky)
+> > > > - Keep the #ifdef around the asm/ includes, as these headers exist
+> > > >   only on x86 (Bjorn Helgaas)
+> > >
+> > > I'm confident that this is wrong usage of asm headers.
+> > >
+> > > Thanks
