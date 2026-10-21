@@ -1,86 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792564952;
-	b=27kinaX3vXBEj8Yzqs6XOnGIQdt7byTOTtNh4ES9URsTWi5flJiK/aKhZpMADvJak/v3
-	 rTw+0Po8vkdWTefjI9kZa1JQCORxjaivAH9fEaOaQNLB+1K0RP0MZwtHwVRyMPFmHeqQv
-	 OCMMZeqvJfwkPJzQUJWs/0uuDYDsujQkxXDLxqLanj724x8NDw0VZDCItQ4TvkcdTB6gB
-	 SKFIA43mQzU3Hlb9QqzOESoUX8X50nB7jeFs1Ucq9vXFlTrqkoQ0017GhfVfwqkfE38Wj
-	 EDA3Q2ozTp3lFXGaOWLFNxzFKEMg05FcEfZX2ZFd14C9Uf3Gin0nSfqAcFMwclDSUzA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792564952;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=xKvnDsvcrUclI7bmfx6XSwXsJ6fBbrciYsjEvfxco8Y=;
-	b=IMmW4PmB/KiWw4LvDuyl7JXGP9C9Oqk7syiz23m+kmBQHireDNeWtNx79I2GS0RgzV6S
-	 WrW/nBo9/H9Qk8ynOFXDoGqLYT94pRdi8Tz9whP5JecwXLNKIe2YOunsUGIjAeZVMjNDr
-	 qvyyM7BDRAzHl9vL7aAoJn4U9WqSKObE4kg5/RmGZa6CIruNnnMz9lxpvOwewkR0qP06w
-	 zecP4hm7ygZAQWxq/2UIw0DqMjH71bajTS4YGwEM0sADSo/zp5elH0hCOETiuU1KMtj4v
-	 HXeAEnfxkmLTLa3E2Ns8edUteBgIG9yTK+hsBQ5lI+Ps9cHZXP89HH7izLuTpMapjtA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="gm9Zci/5";
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792564989;
+	b=koHSrO7iA9tzQthobpe7lrgjg+IjpDbT56m+D4i7YlYhE0DWaECHHgZD+TvMXuZTbPQJ
+	 V/UpxFfwiwsO9fjIOXqmRt0nPJoUOxzGzyBCG8Yq0Z6VWwfmEU7UNndmGReOh4AEwbHk0
+	 +Blp2s6Wl72sBSDswNJno+BpTxJByMMRQjFAfKz8B003VLt/vIVE7LNXVv0qljXQd3MBr
+	 m+zsnqVOORZS/cSmvzqIk53RJV+XY6DpJH4E9nKF8N2t8PKCkqVYXZffqIVMCuejarQor
+	 LlVECYrm2z0faOL1ZOaDjOCnres7V8Z/sMQN13wBfSx6qxGvJCWrYFqakBAza914x/g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792564989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
+	b=tpUoFL6RPVJgUIpoHkxtqiha7qfiQgePCSlq81bcyNFFFhOHDRas259uc2Y71Cxjrz6r
+	 etA0rYwRwhzjiGNUjW2xOLdVPGA8+HHbiWyRah1sC2ZptCvBjzrU8MWrUmnPNWhbgtq7u
+	 voL6KkFCSpoHS6cWKWBK3fopk36i3ugZ2LnKZDJrUR7ScFx8c66Y1mv1f2Fq1V1WW1Ahh
+	 KkEqPF7pv3xWuPNxjeaGLGNYDZdQCRQvf8XFldnLEPG1oIeGQ7ZEWrqohKjYxtWjgNFOC
+	 PhU3OixDpYi1b6wHsyB9aZRYdTH2VkOeq9GdqTHXyzgTTO5X9QdD0+TqNhCeLKkfsHw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="W/GZzHF2";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB8BC606A31B;
-	Wed, 21 Oct 2026 06:42:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB8BC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16396606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:43:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 16396606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gm9Zci/5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792564952; x=1824100952;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=u83JnWYhV8tXdA0VeD7wuq6PNl1DjfWmUWC3duEyOH8=;
-  b=gm9Zci/5WaqFocMzIscm17zBUWD1Q8qgP7xmT49eFc9s7CkglkN9viWF
-   7bV3BBTnHdFHn9HEfIZYGvlmDwiVHGs582FAkfCl/COCxJWC1jxMetUx4
-   39X0H342Y9CoASbiC80hMuajN9ZAXQS/qlzmh00zMcV/Ag0di50TVXj42
-   0uzGVDaHGY+aJBn7yn05jLwlD1RoCH1AssKUwFiQQcZTPUVNtOAdTaPr6
-   wkvQ0o80+vwAIHJMDmh7KcXw1zuHb2xi9/BEbOYTrszwmpt0zXtxaoS/g
-   BSdFWybWQOOrLh5Yp+yBNpB7sU0bY072odaoeMQM3KJnr72y306IYSLzc
-   Q==;
-X-CSE-ConnectionGUID: ooLIIyOSTEyNqVtrdYIqxQ==
-X-CSE-MsgGUID: vi4dXOAJTBO27ClPI85w/A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1261929"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1261929"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:42:31 -0700
-X-CSE-ConnectionGUID: a+ZzgIexTNKCA3Xwk92Tug==
-X-CSE-MsgGUID: kakhjIkcTQSPqoihcgSIvw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="4809657"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:42:28 -0700
-Date: Wed, 21 Oct 2026 09:42:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <athe0QikG2mzCAtd@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <atcrpTI_R4kRM8pb@ashevche-desk.local>
- <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=W/GZzHF2
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67921b515a7so319363d50.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:43:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792564988; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oyI9p0KoK8oxRd4rlZ1FynMhK8sKLKQl7EM4jOJ3b6ITYKkp0U0Pvg61Nx0EngZIWW
+         BfuCb7Jguvbp9/1658C2iIJCueGztDWL1K0HxWJE+T+29TAWfpijvwbgJwo+HKuAK8jx
+         r4IqJoWt/khX1APQnmnITgk/S+IOky6/8RQ6pMFE7TqtU5FHSzQmtc9gdHS3z39SIV/Y
+         I5xqtBIjJ4ThZ8kPTE02EOdQlk09CmbNkfDTck0KoetGTI5z3y0KN8fEVH6+WcAKevI3
+         95nFt2z6yWYElMgcWXOKi+MeTYZlLUKHiir/Fqsg5uULZkjEyqSm5OciNSHb9NsY/dar
+         0Kvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
+        fh=e0CxAONvle/vfa+UIfhkUxmXQ3RBgComegKs5xiZ3hc=;
+        b=dg2SBhjvrxzyaNdbd9z+9XeiHxQZ+DC2/Vler4TETbpqwRu4z3FcvEInQRGeqrgCx0
+         /qQCDohHo0eJQarnJXA09Q+PKEqeONnD+ZDq/7+igQzhjX3FV3677iA4/I1afewxgLIF
+         Fquc0jURxAXOGrfa07EAeS2ykfQ72FsiAGTw8RMtEW73fMn6hwz/yLdcnUExqsks+B0P
+         m6H6Tv+HnM78KFctX/YM/rGTyVeJws65y1fnWi0ewE652n+9HIX5A/XWCKWVgVf0zRxD
+         g15KD+ZJsUgGMAqpDObhwDKuRnL2cGww+fUM/0C75/mBYWcFgfoBJcJk2nrRnh9IeYL/
+         87/g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792564988; x=1793169788; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
+        b=W/GZzHF2NY06v+oXZlgyivPlfoDTpJKe9CZuhEPaTuP3Qidpu3yorDYA41xB4bcPSC
+         /M1QCIYeBX3/6FCyGJwl0TF8pFqTe88oUv3XwwvX1E5VlPp1911HfPcH3d5saDWQgsVU
+         Nsll9UVTXZZuBMTm2Nwc2f03wOSjF5w+FPenbmn78a8sK+qlNzx+w1Y60DCOuAWUn1OR
+         UDv5dhCVm0SZxFlLUR/YUHiWZCrrR8+FOmbCrNDyDDz8KnODQNNH/R7qPMfSPlYd8n0k
+         Jxr2ymTOX88uWC8p/jyO/uN1fBbx888FwDve3IgT2GsonRNMcqXLmqB0eWi26eXiw5YH
+         ZjJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792564988; x=1793169788;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=75HaQkKBv/s4TtNxkrkKWGdW1y+fNkvn+Rmd7D3S10U=;
+        b=FqlxkRruOpweWmCUco7klAaqBaR+eIzKYmYWB9o+GmxAbVaaR/zgXxAjYFnVP8IIWv
+         2ybvmHSJTz16XfsMoquRcLT9mDUXg1P8dcrnJKcoGKfLK3hPBuSA74nfFF6tBQnasa3e
+         ZlMmts41R38FM2YtHaZUnk9AKKda8lfIZsXwhEu5hviFuWAwvanoYKYubp1RWoIByfeb
+         B0YruFr8S+QxIUGkWyiEL3CW1SBg2R5JyFg3gUpLbqVFMetvoZ/uocrxbCqywmk5BOSg
+         VWRyR8n3Dm8gIvmV29ptugm6X1aP3I/Ix0J+lil9j2tnrnO0/bf4NAldGkK94zWtfMo8
+         NWbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzjfchV2PmlqGApljMBB6fF5Dkui+YpzGr3KSxSxUwPWAhTTnpAgDiaYndAbmFSx9VFuN4VdyUPiCJFHRk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ10oZm4ZAEfZtpbFZ7ep/DkJoCTFFli4lY2i3ZOGSwC8SYOS0k
+	TM/xeB1VCkDOWhXriGEtzKqP0BLsrRYDvmm4FWrGlMQ3uYZdl3ZYy+mSoX2Fe2SxqRo+1oTNw+/
+	Gvww9W6I5HcExU8RN0/jbVRmJVFcV9MY=
+X-Gm-Gg: AYBFou0wr450E+p5tj3S5KMUNJxaE+HWXhvJz/DZ+koSqH9nyFjwyoT0d52E5TuoX8z
+	L6c/E/giHFV8VuAMv8CWsvk8QTO88w8vfOpEGebnuH0iX47tN1NO2BIkTn9UlqwFJEMRmnK8/Gw
+	VnEAEeJFX3zdMWxSiQBLlqAnwMPrO05RAXMeApi0/v34JcJ1er9WVHVJ1xly5osQVVPN0Ava+8f
+	HzrrxP4JnzBCb+Ah5L7mCCqz21vYrO6V6Xh2GxZ4n4lRJ//f4NUnMyOu1pv1Adjh/1xQ1VhRuwz
+	MMAZT+fntraD34cbOuoqLrIIZtoF+iUL5fnHmAn+i8lLa9a9+CdaM0xB+aN7HadWVv/LaTeTEDt
+	Ix6gklwWROGk0xjJeg9ytk/6a/XXOAmYtHfU=
+X-Received: by 2002:a05:690e:b48:b0:677:db69:cc1a with SMTP id
+ 956f58d0204a3-67a0e02fb85mr644184d50.7.1792564987934; Tue, 20 Oct 2026
+ 23:43:07 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,55 +103,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20261020173556.632798-1-l.scorcia@gmail.com> <20261020173556.632798-2-l.scorcia@gmail.com>
+ <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
+In-Reply-To: <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Date: Wed, 21 Oct 2026 08:42:54 +0200
+X-Gm-Features: AclHuK9RBvE_tu1JJML2kndZnV_iY7Vg0PVQd2A9ECqRfA0-uzrQqgVwLULojEo
+Message-ID: <CAORyz2JaJ40+F1oyrvY_0WdqH=fritbPuuQaZ98sXagVayZPLA@mail.gmail.com>
+Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-mediatek@lists.infradead.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>, 
+	Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>, 
+	Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>, Fabien Parent <parent.f@gmail.com>, 
+	Akari Tsuyukusa <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>, 
+	linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Oct 20, 2026 at 07:47:53AM -0300, Vinicius Pedrosa wrote:
-> On Tue, 20 Oct 2026, Andy Shevchenko wrote:
+> And here you write clear note about dependency, once you fixed
+> bisectability.
 
-...
+Just to confirm, would the same text I put in the cover email be ok:
 
-> > > +		/* Keep a hook the driver has already installed */
-> > > +		if (!p->set_divisor)
-> > > +			p->set_divisor = dw8250_set_divisor;
-> >
-> > On top of my previous reply, why is this hunk needed?
-> 
-> dw8250_probe() installs the BUSY-safe dw8250_set_divisor() before
-> dw8250_setup_port() runs. Without the !p->set_divisor check, detecting
-> DLF replaces it with the dwlib setter, which is the BUSY problem
-> described in the commit message.
-> 
-> > In the case of existing _set_divisor, do we want to keep the possible set
-> > _get_divisor as well? Shouldn't we introduce a respective _get_divisor in
-> > 8250_dw.c?
-> 
-> 8250_dw.c doesn't install a get_divisor, so there's no existing getter
-> to preserve.
+"Please note that patch 0006 and 0008 depend on patch 0005 as they need the
+registers.h file, but belong to different driver areas. Patch 0009
+also depends on
+patch 0003 because of mt6392-regulator.h."
 
-Right.
+or did I misunderstand which dependency you are referring to?
 
-> The dwlib getter is still needed when DLF is present,
-> because it computes the fractional part used by the preserved BUSY-safe
-> setter.
-
-Right, but have you read my second question in the above paragraph?
-
-> > But now I see that we have same function name in two files. Can we rename
-> > those in dwlib to, for example,
-> > dw8250_get_divisor --> dw8250_get_dfl_divisor
-> > dw8250_set_divisor --> dw8250_set_dfl_divisor
-> 
-> I'll also clean up the naming in v3: dw8250_update_dlf() with a frac
-> parameter, static inline after dw8250_writel_ext(), and the dwlib-local
-> helpers renamed to dw8250_get_dlf_divisor() and
-> dw8250_set_dlf_divisor().
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Thank you
