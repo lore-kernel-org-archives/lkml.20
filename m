@@ -1,113 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792592580;
-	b=JRj0dFa8CPKKJyL/62vUaFI7bIlD4KIsUVIfAcSqoPT6wb19CjYXR6Os3hTCpioWGgqi
-	 l5v8NU//MgrXP07CtyEghWyqCNWu0UWTqB+1k82fotvQ83foPK8O4ttzYE/WynJni5fYP
-	 7mYSkeQdBCYy8ZlPUlq4lXQ9Kap5hlQjscPnEZOjxSgA/5bSDglulklderLw55r6rIfiY
-	 Wu4CV16Yyc0hXzcsTmfB5JgMWgdYtpuIGy+I7GUFRvcKDuRQvyGRhovHiQst999lixXeK
-	 huowneLrH2pJjLuwgh0Dj+nIoxHYf6M5wz0gUMEskpnHfLVaWlweQ00jIAdDARET6eA==
+	t=1792592604;
+	b=q1X8+MtiSq5l8WNyRwMvW6Im7868ChcJponqNRsrqfd7jzRF3wdf+PyhMbXNjYzjCrCP
+	 MNOnbn+LxH+23Z6hizMp4lUAo2HDhl9aBr4FQc8XG7s/bmxf3kIPsuWCodwMetWnuiJ5S
+	 S6Cym5PuWSVHUgV2pzCP+AwhT/zK0HSLNT6fXau2wbq5ULR7WQoXcT3KOuyAEmzmTNmRl
+	 zp134Fu+TTyCL2dKALoG8Ct780dkd/vPwW2aty8kRlQiDC7KfGueH7X0eEe+nEdX/AZDx
+	 zRSa6HrPD0x+mj5UnyHSDihZozf75REWQHxkICE3DGXIq7Jk6jU3jPi9/lS5cU6mcUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592580;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=PhU2gllAfWGF/TwnX0sK3IcbsZoD1YNF/SKwStBqd+k=;
-	b=ZZbPN+mziaSzRjF5MPuyGERv4DLzt6SA5Qxl75jHuA40GiDEY4w7tEz4dAKacXFeseuc
-	 OlkjpZlnszyoN9mOQcw4v6tdR7kFe0qhCjYSmK+8ybZf1BWaFgIa5un2Rg0bESzJKmvo5
-	 4zGV6DNQLHWEZOXsdQF+YZNJ09vcnDTjtWvU86AMX8/cLWtawm9zI1kQxYfFNr83tlUcs
-	 AXunmAl9+zkU3aV5XvVB7P4G9HybqtqS4TKbYV9OPTENCEI2GpEHtxutoZYt5wFNshULk
-	 BDBdU9wAl7aVIyYqmgecItvKomSGSWGapk/QMjKJ6B3UZjy4hDvFYKBs5iz9pjI6MjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592604;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=iuEnBt+F5UUTH/XMt7g5zZaMh5IRL3eqw/WM+8xQBzo=;
+	b=UAeqQCn8ANZqfBR7gFQxfOnShqclrROfXIrgfVbE7Xg97J0+QQAtAHqLQRxloNkikomJ
+	 rPsxFZYFtNZQ9vG+u0p0jT3QhEH9/+pnKGFvzo88EC2AdnwT1tCmqMAf0AF7qmPLcGYqx
+	 jckoUp9No8JzVys8Z80yea3dloBh+7olxx3qKJuYABvcjIlgZHy0A5iAv4DhIrnT7Apsc
+	 qsgJVMjo2cdQE47EvLJ1EoJjyyqFSYtV8iHOmcTAJv7IxMfx82+TVESDhnt1R48UHx/1A
+	 aBEdxN/razeKh+bGLfvCtQnpaRCXUR4P93uq0yMPl4KeA2dNJgdJoZnyCJl3wBkA0oA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UvGsiVpK;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cOI+JHqM;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=lRO8F5To;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0A060A3823
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:22:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC0A060A3823
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6482260A2609
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:23:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6482260A2609
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UvGsiVpK;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cOI+JHqM
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEFL8D3560450
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:22:59 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PhU2gllAfWGF/TwnX0sK3IcbsZoD1YNF/SKwStBqd+k=; b=UvGsiVpKDkcm10qz
-	U4bRC9zRp05bOWOYEbTOs8DnVk0RSsBKSwZn05DT/AkZ8UADVuoUOJhKav12MgOq
-	lfsZ98959ZLhgyOqm806rGvj/RGinHWiVqLqZ6sBaQdcAxkKoHwtrFHMz/Z+uuxO
-	VuXYvH75KDK8/sK3tgsiiv+tHz+yeB9W63rw7iJWdBA8BJL8pdbVPdk90YR+VRzQ
-	mY1/zTIu58nnWJK1Xr6ZhRp2pZPejlIOqqqBwmH9V/G9s1MsBrAoer89zlZunqqi
-	jIoqmfcMZ9V37nALgs2zFSgg3Awp4WzE9rqJxP0HB3vhA1y99ShIKVjiJzDwnk5J
-	lq8kTQ==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hesy79gbs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:22:59 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c58d35c0aso111187eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:22:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=lRO8F5To
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so3658525e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:23:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792592578; x=1793197378; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PhU2gllAfWGF/TwnX0sK3IcbsZoD1YNF/SKwStBqd+k=;
-        b=cOI+JHqM18ORSBwD4eyCpKJUIOf2t+h7kN03NQ21nvVL8fDpx4VD5t6Yn5xtHLvyHp
-         N6XSNISBqwbcjqa8WZlLok6y0+my4TEF3jTJzYIay1J0UgwjAakHwOEVGMdPoj6lLilf
-         jZqS6+MZ2HVuMkhrNg0BLas51dqUi8FM9balO/pMpYO9G68121CrijO2Jssqu6EMquOW
-         n55NFoZPU0iGmHxYHW8YlYoegishmO6gTod3TrMbG8t/ihobUsrKYfNxjfFGlQnz/cST
-         qBedeQmRoDW6PJ4EGGUAZSl3ht7S/H9EKW5E98QAxH+kBDKiU4h+vlavH81UgxU/BnbU
-         A1Tw==
+        d=resnulli.us; s=google; t=1792592601; x=1793197401; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iuEnBt+F5UUTH/XMt7g5zZaMh5IRL3eqw/WM+8xQBzo=;
+        b=lRO8F5Tonb0fO9kBhT+OjVxqKHq7W25RqDneWw+tUyeNLumT9KScOZNy2w/FzmaINf
+         7qiimuf67Tn3mw32bxXqH68nac4TdiAmgd+Nr47zwioRs+Y/qEjnhKaoh0qJj3wLU+BJ
+         FHthIDlTBhXoP5lbH069nMTwekEThH59TyqijKFwiAB/Vr7ZjoADS5UaR4mX6SL/g4wR
+         J763ibplfLgCzilMHMYttNMRdFgK0EA6Ya+w6Xm2BfWrzmFI1nVDfRJ/3mQukTQeb+5Z
+         MtIte2sAajOMqSrn2P2p0me7cSCApmw74vuMqrYukr/ieOgINJFBn9Vy1B0gow6x0b+S
+         CeEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792592578; x=1793197378;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792592601; x=1793197401;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PhU2gllAfWGF/TwnX0sK3IcbsZoD1YNF/SKwStBqd+k=;
-        b=Olb+7rLV9aZ0bzF+9X//4yhC+7OdR8JHcUi59G0EbVNJJvrMnB1kejWhVkZF/U19Hg
-         aIthP6IIFdgfDiXS3yfQzRwDzfd8ZY9+lzbVsXZbf/1K3I4kCS/Y0WqRnLH5xLD5C5oy
-         OcecmeooUWFg9YLemGHybkCs56FtqsNkcayurzNzQrizfcPotzseUjNWzmKSGAxseL1Q
-         P3F3koF1x8ff2PeJkmub4PfgysxDnqWCfaJKROjOdsSd4ZuMiwbn6JROOJvAOLb7VBbN
-         FJ3wSjEL+eMKa3LTKIq01i0aWbDOeTD+sNc66FTJ3VR1sqmVvzfPLh+64DeRNwPcPI78
-         seXg==
-X-Forwarded-Encrypted: i=1; AKwUvByoooBwWabx+fCVmViimGu3McAbQDkuqAETnu3XAMToPd4GEwrMAdd7B9HSB1ThbXxnTg64LbwFP7ZWfwc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqkuxuD81rE8ufxTstgZehfY7nViyYs2UkCLAzQjKW66ORf3pX
-	Npsd70v4vcX7F5V3HQuFF/1WwgNx6kuDu+d1zAkSsjFlgBAg/5rDO7EysuVhDF7Y/Bt27YfsWMu
-	323g05qCRyjKAy0004PDrPkdNm2lRsFaQcM0RsKNrtphDuzsLoprwA0frpepuP+N5Q5U=
-X-Gm-Gg: AYBFou0IwnSbfv2S6754wc4wBhSkCvV1uFlncuCafYEw+XZ3RBJSOe36dxPZxBjkdeb
-	vPAHr7FGp/DPl5O1iZFJYxkDFSr3pO16qQpJF1LFYCY8sDBDa98pmSF7Stu90pJ7qgrvEqO9UV7
-	/N1ryyBSBDw8+ku95QbuFsbdwDV6DiV8Lffrv4CLwx4r2K0NpWAAz4zSJKBEkzBqk1m8+g+cVMG
-	Lg4XzczZkQrcXVti6KhBkevjjmj/ryO/hHJzh5SMubzrxx/8A2H21RWmD/l6PwN4nLBQQJu0HYH
-	g2FEiL9klP9oveT1PvkBNaCGSSBUsRLIHuKHop1CiBKhWOorKza3DB3xx33ZrCl9R9b+2lb0aOB
-	rtG1KNxBYTholFY7IVX328WJNhGqqv2TYge8Req6alRKJeT4M13kAwozWTXYVzKVAQ8nYCg9jBl
-	JlUUnNZ6U1Jh5HfI5hBgrue3Uci8Z7fJaAkV/JlPFLHhfScpwEfDo=
-X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id 5a478bee46e88-3685522022emr645176eec.0.1792592578382;
-        Wed, 21 Oct 2026 07:22:58 -0700 (PDT)
-X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id 5a478bee46e88-3685522022emr645109eec.0.1792592577677;
-        Wed, 21 Oct 2026 07:22:57 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc88b5sm8074818eec.10.2026.10.21.07.22.52
+        bh=iuEnBt+F5UUTH/XMt7g5zZaMh5IRL3eqw/WM+8xQBzo=;
+        b=kSwC01viC/+KMomzWSx9sstMsMBjdT6b+n4It1tb26JvEoMSDvfXI/49R0JWgsrPON
+         jUchzTUEBPh1ks6mKIukTlsJnje0AVdTkESEaQ7hDkyGhJHdh5z7nPkRhK1JyfbRaFip
+         MtNEQGel0B6DvJDKa/HgQxdFXCdwAtUJmpKJwOswufOyebdD9nZ84XtZaWIRywMRjPS+
+         CuBUwmkg/Vaa9RasZV1SP5tbjT3zW48/lKSSVKSDt9irBXwtOin14df4Tj0+lFk42Ebe
+         m93TfKZTLGBnJ9HGqSNwjJvHwD/gXJk25YdyPRz1Ea+t+F7xuJmPQP1ZFZYmaYfHVsbb
+         I2Yg==
+X-Forwarded-Encrypted: i=1; AKwUvByZRIUC23DprBBaqCZfyubEIhgqFI+3geX931YU3/DuXTm/XLWlE/oYVCu3YOpqlJgsIgHCYAixYbIiXw0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/z0X3B0BYmpuni+mAaY2F/kN40SDMQrGUzMOPi6wqCHt9pQTR
+	6YSFqOcrK95KU5S9NR1rAo0+OAcSm2rZHIK06t03Wra1lDqpU92zrnED89iLFtzqEkc=
+X-Gm-Gg: AYBFou0jeDJf8ncq37ePHumYCY20oDoyPNJoDNQhF/c2YafWOJNyt4bPUhdw0gMc7D7
+	zY+ZwH4maYCw6fDsJpreivOgg95a2kdy87fn6DJxCdQTxUwhas63ssA+XBuMn2ogWFpMmIBKiLJ
+	JCdXBMa9pvvcS8xGI/LjwaPNQCgx6EsH4EI4SRf0u7GE0zRpgFr3mMD2kKxLZbOGXRRxrBbXPCD
+	fzHiVHsK+dj4dmvlZF9hiU8O6r+tYz1naa4+MDRsxcJ/5KxAsOw+JT2LvkYcy+ZwWUpxzWKFwDG
+	3Ten5kB2Bk3hhNFsolivsKYhB+Yo3nRc9dKeOPS4ryvSCh6fog06AsefEGPUnZ+xNT8hnAz6wqc
+	UjWYJ/CPvB8Rs2+toFI/oxMYTo9SD63Au96Xkif3W0IhpkJ+CDSkSO7HxemnN/c3IVxXqBrpi5O
+	5qt5+J9LA9V1VOvCPMtF7YIsjb7nua1lvFjmHm89994ls5245pHAF4F/HNL0S9sohFs+p0bOp4x
+	VU2iWVnNStHiExsk3Nt4r7/PFEGSmpcahf9pb9VJ4v/Zyk09kkJl+AQ1Bj2MS0hOwzfIYuQU3gV
+	omoFQZLM9nQG
+X-Received: by 2002:a05:600d:4447:10b0:4a1:d459:db4b with SMTP id 5b1f17b1804b1-4a1fdd32773mr37078515e9.24.1792592601425;
+        Wed, 21 Oct 2026 07:23:21 -0700 (PDT)
+Received: from localhost ([140.209.217.212])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258424bcsm5744427f8f.55.2026.10.21.07.23.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 07:22:57 -0700 (PDT)
-From: vishnu.saini@oss.qualcomm.com
-Date: Wed, 21 Oct 2026 19:51:50 +0530
-Subject: [PATCH 7/7] arm64: dts: qcom: shikra-iqs-evk: Add Waveshare 8-inch
- DSI panel overlay
+        Wed, 21 Oct 2026 07:23:21 -0700 (PDT)
+Date: Wed, 21 Oct 2026 16:23:17 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 13/20] Documentation: ctlv: Describe how to write a
+ family
+Message-ID: <atjEgLYpgbZNzfkZ@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-14-jiri@resnulli.us>
+ <179245258505.58760.3972297562218204862.b4-review@b4>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,185 +106,277 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-shikra_display_overlays-v1-7-adaea735999f@oss.qualcomm.com>
-References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
-In-Reply-To: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Florian Fainelli <florian.fainelli@broadcom.com>,
-        Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-        linux-arm-kernel@lists.infradead.org,
-        Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
-        venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792592515; l=3852;
- i=vishnu.saini@oss.qualcomm.com; s=20251113; h=from:subject:message-id;
- bh=UtMVjHRombnci1ObQ7ST3ZaP9JWmZT8/3KRuats5gMA=;
- b=C6gZaY6cbD4x+C+mcjef+RVS4qVqqHkTqnGC6IOb/LFg2ed19PeZybw3NdlOh9qE9frNR0fDn
- 20+NX8Q02+JDOX6QlaGXswMEKYWt4atEbMfIh1kXi/ljtid0ZtcWwTQ
-X-Developer-Key: i=vishnu.saini@oss.qualcomm.com; a=ed25519;
- pk=8hlXlF8j/3GeOaDK3w2LYhkv9FanCQru0c7kRH/It7k=
-X-Proofpoint-GUID: 0oKlefB3haiQPFdYMCe2M0z0lZ0QMkrk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NyBTYWx0ZWRfX2Y0XpTeAF31h
- AbIlXbWRwNNcLwn+kKi0L2A6Y6ZNIKn8y5JcP10go+vN/2jrzcYqPykMFo5UIAkCAcHnzfcK2ZE
- sjg2/NSfQm9VydZMBcuoUH0r6Qm2UCUN45GvXz6sJKaOpsGCyD5x07bpySWXyB9sDXXnlJ+fHL2
- wAXkPWL2YX80wlsWxH5rV6GUbWDkuWJzjlItEjgttEbnBJw2IZY0xshnp/QISngqcgWG59GvLHe
- 6VEzO2xLT6XTo8/EkAbjyI4wu2o4cCL0LMj1sw2zofbmvTdt9Cbd422HRFUzV2LZnN6a6/q3r5G
- iUCGTnH4fIbh2OKvgT8AVA0bnZI0Q2mOfEskUC5+cnJkaqPfo4N+ZNmt1Nc1UJFlXHjNxy1vy5N
- F4Dg4YthB+jhfZrPEQHoh6FFvKIPAG10bBBsA2bn4zMESHvEqsd8YH0z8TEHnW6dxGSIhIJ0psI
- dkpTdo9orcIxEgJZvIw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NyBTYWx0ZWRfX2pBOXwQ9tQVQ
- irKpVi3KPCRqAFeLvz3LtGWZtk9lLWCtNg3K1/T3UfkiZua13+wk/wEC/z3+TwWHR7iPAolD05y
- akw0IKm1pw5vpI/RY+Ud3YLnATQrV60=
-X-Proofpoint-ORIG-GUID: 0oKlefB3haiQPFdYMCe2M0z0lZ0QMkrk
-X-Authority-Analysis: v=2.4 cv=IPaXmQvG c=1 sm=1 tr=0 ts=6ad8cac3 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=qEeDTSk_RORxmtoI1doA:9 a=QEXdDO2ut3YA:10
- a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210057
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <179245258505.58760.3972297562218204862.b4-review@b4>
 
-From: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+Tue, Oct 20, 2026 at 01:29:45AM +0200, jgg@nvidia.com wrote:
+>> [ ... 34 lines skipped ... ]
+>> +Add the specification, registry entry, and output manifest entry in one change::
+>> +
+>> +    Documentation/ctlv/specs/ctlv-example.yaml
+>> +    Documentation/ctlv/families.yaml
+>> +    Documentation/ctlv/generated-files.yaml
+>> +
+>> +``families.yaml`` is append-only. Its array index is the family ID and is part
+>> +of every generated attribute and operation ID. Never reorder, remove, rename,
+>> +or reuse an entry. ``Documentation/ctlv/abi/families.registry.yaml`` is the
+>> +checked-in registry ABI. The output manifest selects the generated UAPI,
+>> +kernel and userspace paths and generation modes.
+>> +
+>> +Generate and verify them with::
+>> +
+>> +    make -C tools/ctlv regen
+>> +    make -C tools/ctlv all
+>> +
+>
+>Maybe mention to inspect git diff and ensure nothing unexpected
+>changed?
 
-Add a DT overlay to enable Waveshare 8-inch DSI panel connected to DSI
-22pin on the carrier card.
-DSI0 from SOC is routed through MUX which can be selected by DIP switch
-S1016.5 ON, for enabling this 22-pin JDISP1 DSI0 connector.
+Okay.
 
-Add the JD9365DA-H3 panel, GPIO expander at I2C4 address 0x45 for
-panel power, reset and backlight, and the Goodix GT9271 touch
-controller.
 
-Disable the default HDMI bridge and connector in favour of the
-Waveshare DSI panel.
+>
+>> +Never edit a generated output. Change the YAML or generator and regenerate it.
+>> +Optional RST reference pages are written to
+>> +``Documentation/output/ctlv/families`` by::
+>> +
+>> +    make -C tools/ctlv docs
+>> +
+>> +Write the specification
+>> +=======================
+>> +
+>
+>Before introducing the YAML, write out in a more plain text form
+>exactly what system calls the example is aiming to create with. I came
+>up with:
+>
+>For an example, define two system calls from userspace that look like this::
+>
+>    item_set_action(u64 index, string label?, blob data?) -> status;
+>    items_dump_query() -> { u64 index; string label?; }[];
+>
+>And one event::
+>
+>    item_changed_event -> { u64 index; string label?; };
+>
+>``index`` is 0..4095, ``label`` is at most 63 bytes excluding NUL, and ``data``
+>is at most 1 MiB with 8-byte alignment.
 
-Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile                  |  2 +
- .../qcom/shikra-iqs-evk-waveshare-dsi-8inch.dtso   | 77 ++++++++++++++++++++++
- 2 files changed, 79 insertions(+)
+Okay.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 6d64e7ce197e..2d25e3cc81f4 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -383,12 +383,14 @@ shikra-cqs-evk-hdmi-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-cqs-evk-hdmi.dtbo
- shikra-iqs-evk-dlc-panel-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-dlc-panel.dtbo
- shikra-iqs-evk-lvds-auo,g133han01-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-lvds-auo,g133han01.dtbo
- shikra-iqs-evk-raspberrypi-dsi-7inch-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-raspberrypi-dsi-7inch.dtbo
-+shikra-iqs-evk-waveshare-dsi-8inch-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-waveshare-dsi-8inch.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-hdmi.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-hdmi.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-dlc-panel.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-lvds-auo,g133han01.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-raspberrypi-dsi-7inch.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-waveshare-dsi-8inch.dtb
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-waveshare-dsi-8inch.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-waveshare-dsi-8inch.dtso
-new file mode 100644
-index 000000000000..d0aa115681ff
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-waveshare-dsi-8inch.dtso
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	model = "Qualcomm Technologies, Inc. Shikra IQS EVK Waveshare 8inch DSI Panel";
-+
-+	panel_avdd: regulator-panel-avdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "panel-avdd";
-+		gpios = <&wsgpio 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
-+	panel_iovcc: regulator-panel-iovcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "panel-iovcc";
-+		gpios = <&wsgpio 4 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+};
-+
-+&hdmi_bridge {
-+	status = "disabled";
-+};
-+
-+&hdmi_connector {
-+	status = "disabled";
-+};
-+
-+&i2c4 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	wsgpio: gpio@45 {
-+		compatible = "waveshare,dsi-touch-gpio";
-+		reg = <0x45>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+	};
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt9271";
-+		reg = <0x5d>;
-+		reset-gpios = <&wsgpio 9 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&mdss_dsi0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	panel@0 {
-+		compatible = "waveshare,8.0-dsi-touch-a", "jadard,jd9365da-h3";
-+		reg = <0>;
-+		reset-gpios = <&wsgpio 1 GPIO_ACTIVE_LOW>;
-+		vccio-supply = <&panel_iovcc>;
-+		vdd-supply = <&panel_avdd>;
-+		backlight = <&wsgpio>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel_in>;
-+};
 
--- 
-2.34.1
+>
+>> +.. code-block:: yaml
+>> +
+>> +    # SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
+>> +    %YAML 1.2
+>> +    ---
+>> +    family:
+>> +      name: ctlv-example
+>> +      inherits: ctlv
+>> +      post-init: true
+>> +      pre-fini: true
+>> +
+>> +    attr-groups:
+>> +      - name: item
+>> +        attrs:
+>> +          - name: index
+>> +            type: uint
+>> +            max: 4095
+>> +          - name: label
+>> +            type: string
+>> +            max-length: 63
+>> +          - name: data
+>> +            blob:
+>> +              direction: input
+>> +              allowed-backings: [ va ]
+>> +              max-length: 1048576
+>> +              alignment: 8
+>> +      - name: list
+>> +        attrs:
+>> +          - name: item
+>> +            attrs: item-reply
+>> +            max-occurrences: unlimited
+>> +
+>> +    attr-sets:
+>> +      - name: item-request
+>> +        attrs: item.index
+>> +        optional-attrs:
+>> +          - item.label
+>> +          - item.data
+>> +      - name: item-reply
+>> +        attrs: item.index
+>> +        optional-attrs: item.label
+>> +      - name: items-reply
+>> +        optional-attrs: list.item
+>
+>I haven't quite figured out what attr-sets is about. I think these
+>blocks should have some # comments with more guidance what is going on.
+
+"group" defines attrs with all the description once. "set" just puts
+together multiple atrrs from multiple groups. Will try to document it
+more clearly.
+
+
+>
+>> +
+>> +    ops:
+>> +      - name: item-set
+>> +        type: action
+>> +        optional: true
+>> +        request:
+>> +          attrs: item-request
+>> +      - name: items-dump
+>> +        type: query
+>> +        availability: dynamic
+>> +        pre-post: true
+>> +        reply:
+>> +          attrs: items-reply
+>> +        suggested-reply-length: 4096
+>> +      - name: item-changed
+>> +        type: event
+>> +        reply:
+>> +          attrs: item-reply
+>> +
+>> +An attribute has one payload form: ``type``, ``enum``, ``flags``, ``attrs``, or
+>> +``blob``. An attr set names one message level. ``attrs`` are required and
+>> +``optional-attrs`` are optional. Its bounds and membership are ABI.
+>
+>The attribute first point of view is maybe a little too netlinky, I
+>prefer to think of this as a system call first, with a first class
+>'query' to get a list of things
+>
+>Alot of stuff this is going to deal with won't be the netlink esque
+>'dump a table, set a table' kind of flow, but a bunch of different
+>system calls with arguments.
+
+
+Can you elaborate a bit more about this please? I'm not clear about what
+you mean by this. "'query' to get a list of things" sound cryptic to me.
+Are you talking about doc or about family yaml as well?
+
+
+
+>
+>> +
+>> +Inheritance and extension points
+>> +================================
+>> +
+>> +A descendant implements only the operations it declares. Inherited operations
+>> +keep the callbacks and operation hooks of their declaring family. Every module
+>> +therefore depends on the module containing its parent implementation.
+>> +
+>
+>This section seems hard to understand, it is missing something
+>explaining the purpose an intended usage of this mechanism. I think I
+>get it.. 
+>
+>Maybe structure this to be an improvement to the first example solving
+>a specific problem 'like the HW driver need to add per-driver
+>things to the scheme'
+
+Okay.
+
+>
+>Also please use a more neutral term like "HW driver" not vendor
+>throughout.
+
+Okay.
+
+>
+>> +A parent reserves an extension point with an empty stub set:
+>> +
+>> +.. code-block:: yaml
+>> +
+>> +    attr-groups:
+>> +      - name: device
+>> +        attrs:
+>> +          - name: details
+>> +            attrs: details-extension
+>> +
+>> +    attr-sets:
+>> +      - name: details-extension
+>> +        stub: true
+>> +      - name: device-reply
+>> +        optional-attrs: device.details
+>> +
+>> +A child fills that same set:
+>> +
+>> +.. code-block:: yaml
+>> +
+>> +    family:
+>> +      name: ctlv-example-vendor
+>> +      inherits: ctlv-example
+>> +      pre-init: true
+>> +
+>> +    attr-groups:
+>> +      - name: vendor
+>> +        attrs:
+>> +          - name: serial
+>> +            type: uint
+>> +
+>> +    attr-sets:
+>> +      - name: details-extension
+>> +        optional-attrs: vendor.serial
+>> +
+>> +The parent implementation opens the physical nest and delegates its members:
+>> +
+>> +.. code-block:: c
+>> +
+>> +    if (ctlv_example_device_details_start(reply, &details)) {
+>> +            ret = ctlv_stub_fill(ctx, request_details, &details);
+>> +            ctlv_nest_end(&details);
+>> +            if (ret)
+>> +                    return ret;
+>> +    }
+>> +
+>> +The generated child callback fills it:
+>> +
+>> +.. code-block:: c
+>> +
+>> +    int ctlv_example_vendor_details_extension_fill(
+>> +                            void *priv, struct ctlv_op_ctx *ctx,
+>> +                            const struct ctlv_cursor *request,
+>> +                            struct ctlv_cursor *nest)
+>> +    {
+>> +            ctlv_example_vendor_vendor_serial_put(nest,
+>> +                                                   example_serial(priv));
+>> +            return 0;
+>> +    }
+>
+>I suppose this like RDMA and each HW driver using this gets its own
+>full scheme tree that only has its own stuff in it?
+
+It's the "family". Each child inheriting a subsystem family. It fills
+up the subsystem family defines stubs/extensions. It can add ops too.
+
+
+>
+>What about userspace, it "knows" somehow what to do?
+
+Userspace sees the family chain. It also has ability to do introspection
+seeing right away which op supports with attrs in which nests.
+
+>
+>> +
+>> +An unfilled stub contributes no nest or message length. Neither side names the
+>> +family on the other side.
+>
+>One of the things I feel strongly about from iommufd is that it should
+>be really obvious what HW drivers is being affiliated with these
+>operations that have a HW driver struct linked to them.
+>
+>So, like, if userspace does a query and gets back an item that has one
+>of these extended structs it should have a trivial way to branch to
+>the right handler for it. Inspecting the attributes doesn't seem like
+>a great way to go about that?
+>
+>Is there some place to put an ID of 'ctlv-example-vendor' someplace?
+>Like in the nest start somehow?
+
+Already there. Each attr including nest contains family id. So a fill
+of a parent stub/extension by HW driver contains a family id of that
+family.
+
 
