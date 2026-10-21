@@ -1,112 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.37
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792563349;
-	b=Rhv7WFMFj9KOrClzTWh3Q1V/CZdWb/YSanos0Edd/xa5KFlvsqwxxLbs3WL31mm45/kc
-	 38Uw3tpBX565bmuaf2jrOoBdNdmvllYDG9u18sTqp2mKCxtZiZHhsJoh33H1UydBmkcI+
-	 V38NE3MT9mwUltNsbfKYAIwR9bx+scE/DtiVjF20QmjgHeL2Wo4XZ7nzOsw2qVVHx69fX
-	 AtzEkp0Ck4S3CDl2drQvRMlyejqh7pU5+8e4tkoNKceuQAF+2fZR2aW5bX3Ou7l00DXmc
-	 AtBE8YDDN0MUlzRjTkuXapJ8XQg5G1jgBK3V28kTHrUCChFU6I2xh11LJdktf4/F3vw==
+	t=1792563366;
+	b=LlfFmOyUeCzx/yJAN3UykoDWT3rYkZgdFzMCHoV8ZSVIeEXoq+NsUxUBXkGeMdBiH6L+
+	 rdRChmzaPO1grbJAEcs9rCBEewnbeowLxIN79CLyGs4Oifs3PLEcg4ep1oBPZV0upTD22
+	 Q+1u4sqdaUfOdgRMhxATTzyyrQQZmrpWZkQTpxRJcVVFKnZ7YqB+N8syMtcgzcrP1ZcDE
+	 f7aSi3RZ+j1CZvKkI0/w5Fk7fVX4VPgttmweaQFDYMZKd2cuoBwDYsKSlbQvJIVf0H9sf
+	 B8PAh50csZfDOMBZuiHTN7X+lvc19bVxUUiXDNy+r8YcvIEeBccekW8dH9vZ7CEo/xg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563349;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:X-NVConfidentiality:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563366;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YCKXYZHHdxpxUxOS9hlggMSPa8UnaDPAKYuT0qM9RwM=;
-	b=m9cBrC6en/puYL7ir708bVpBiDQuvQ7dSsq/7LRHMpmjNDONPpuJM5oqECXWgt3wYtxp
-	 xjGaHCXZ3UoLpu7rHSw/jDa0FmOOq4ivADkDfeSlALcvT2I6myC9HTAbLIKYA13rngyfp
-	 X3Tg3y+T7OlBTipZU4IMMr998KZZOY5z5rDoy2f1Mk/dd++ujoONVIIvbMD36+BMxQLEV
-	 2WiUvcHHT7wS0K0v/VOWO+CwX/vMbdmRUtwBZ8/h6IPxcWf1+NmbJ7/u3Aa/NqiR/j2Kl
-	 d46lQAxV42kBDYU7cwFkoUuNPNgSCvaDcz7h1TQC9WgiVESe7uswjnGcOgcLmAli7Ug==
+	bh=auwuHFr2K6/g9MscSHi5wXxfS8KALsiDENNQDsdnuMc=;
+	b=RaKA4ubWXsY+vywX14AF5eLmCdfHaBYGFB7kG+MPisfGy1v1N3DpeGBTIZz7gQhS+FB7
+	 7goN6CxJcRcHDQfnRKcDeBCpWMB+Zuf7bmCQ5XOU7G8IxyRfv87ulEt9ehB6Q9OsOQd0y
+	 5uwSFKmtQlXtsMisgNT5m8NdroFB7A8SUmU62o50nY+9IZCWoxDXTRaW7M4wamp10hleX
+	 AOD0MuDuzOHPXYsbK41gHZ247xiwDavtCFauOSdJJHpPSaQW6h/eUEnfnP7oTbB9CfZbf
+	 PGmRQXnTcfTeMAeHcypFsuGhxW/BmHCruIifHI/7jjxRkeMM2ijoMEs9+a9xEAyo06g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=D17VbyHh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.37
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010037.outbound.protection.outlook.com [52.101.61.37])
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=i2KT+gXb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.13
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011013.outbound.protection.outlook.com [40.107.208.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E25606A321;
-	Wed, 21 Oct 2026 06:15:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30E25606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AF59606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AF59606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=D17VbyHh
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=i2KT+gXb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=argV2B4KvYcOismFNAP9S4SqtJgiNeERPOdxm27QOxQ7R8cLF6M9L8dKTs3XSJIjlE1NTrLPHX9FdQlPgyBXco3j2lRD00wCL57gQHKbOozlRBjSGAMymnAaySngyMevfOpfI4swgKgz6AfmTTjfzNJiKCIH6VEcEczt/7csyJAbV4CHpmT02pjsmWr0Hoj9hCeZ/QPwuopoAeSeVdIBsm6hAV13z49GehdKb/kQY6WW/rZ3+gE02CGH3Eo087iPKVMlP63PXndQyy5BX/VYO9HeLIUd69AxQeQWCx3UK8axgKQSMWc01DEfvT01FcNd886ABjgmxoC2EBVGy1B5lg==
+ b=uQ7tW8muC3zoAeKbU2q9y3knIxIWx5wkLBKJ5BFwxW7LFfwUuPaUIBduXzjqhh1+nLkOl9XJtGEk6Cp2gQl5j03udUixr8YT4+oAy7Aw9iMefqI6zB3SZ0fEXqfBdI9SJJ0z9Y8a8oiE8iyhCPE4t0d7Kcpd4yKZELu5XiMtZECWIYFZ5zJmAQ9maV9tdvrA2oRg38sCt11Lc2b78B7X9xL1y5bs3bSYjeDiKhFPMF8zF7yvPRKarMJwdUqZEdeoHVw/eRrW5lRO35XFB+PEZdZFhCXTyrmWqS1YmIv6hB98NCwMwxjNevHUy5Frovq+gylhXKdGMSSdKJplruPErA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YCKXYZHHdxpxUxOS9hlggMSPa8UnaDPAKYuT0qM9RwM=;
- b=LBBqGub6Jbrli7KYhikzT0ScQpZwxEkY1fHZMwn+NC3Ob2DAkZWK1EsItPiHnekK9GkyfNES+RlE1rkaOYAzRMeezrOZB1Ub9QJl7h3qIWPr/3GthIDSK8vdXgDQurpFbEMdfiPwC9pHgEfd2r2x3L1OPCZYx7qgpIO1lu3/pXLujj6B4dSoO/Gl1c8oNnboD/qdJ4di6y3NOuH62ULxnUOgGTqsZCLbUArt/dzvtPRL+HNLo2w1w6lUo7VjYXXpEgQAFP1//d5sDgtDDpGuSCEKonkNchgpISkZlnhx8KL45DmEByshSlCcv/8gxyXL32PQhYF3lhmEDLLwGSa+RQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=auwuHFr2K6/g9MscSHi5wXxfS8KALsiDENNQDsdnuMc=;
+ b=lVdlaeuNPNoKaCGhk0lXWFpHFcoAmT26dq2VmS0yOHyAoU7bfGaNMALZKHhmBcPA01/xOrDf3bwzg95JyGC7I4467i/GJbqZvnsizgyPho6CQgeMbmZ6V68YwPM9Ol0tO44H+/3MBHg5/ewa90Vk+cPndq3NIi9comMBgg/zmF5jrvagFGrbWqpBlYqkbJDXXrvN6z8mabd3YBX7uzeUCx3fUlzpJ6jbd5o5VZOlScrv9KAfNyaS0pPBKOJAc19dKPMxxoI4E+aLBkC3JCmR9ZiLMf0SiMyLTz4rbQ4Z/JJUnJ5aN8FJjhfh/5q1puMijVqItnqoZBBC+cDrouiQ7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YCKXYZHHdxpxUxOS9hlggMSPa8UnaDPAKYuT0qM9RwM=;
- b=D17VbyHhraXA3VV0D2bGaJgSpkN4GrTGj42FtA6oDx2ObNyt0VMwu5XOOLkNcrx0xyGeQwBBkhNwqauu/3cl8+kTiZQXWJifFwQkXL7dwNBJioZZByP87N++KKyTcI8bkXEE7Zn0vYwl3A+wui4RtzDTznf0MJLCCmmeVSkDTpwsrm4R/0CG8PcAjU7YjOaN24sG7b21IafMS7W5rQz3y1ZOoGQlFbKCXnAwlmomTgQQ79RA0DoPvCOnJMz67WNKuVpS9ZzuTj4v29LKqJ11fnN60NdXJcG5eO25e/sTa+lHYARNwT4svrR6YeMIdiqDS1Od9CSnn5T1x56JrhMoEQ==
-Received: from SJ0PR13CA0047.namprd13.prod.outlook.com (2603:10b6:a03:2c2::22)
- by IA3PR12MB773567.namprd12.prod.outlook.com (2603:10b6:208:706::10) with
+ bh=auwuHFr2K6/g9MscSHi5wXxfS8KALsiDENNQDsdnuMc=;
+ b=i2KT+gXbahR+r34C0jyLutB1JeASruqmkkZfHb4V08zKiwgBhNbXRMtj5PJJX80+bKXDx/vfAOPt1ZLsbA32D4SfiKYKwPolVx0NfE+6rlhA82GBarKKU500ml/VuMEY/O61QXGUEqnOH2zNIPzlGRAaEiIZlLthqXTLFCoJdqc=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by IA5PR12MB999325.namprd12.prod.outlook.com (2603:10b6:208:603::23) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 06:15:15 +0000
-Received: from EA8PEPF0000000B.namprd05.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::a3) by SJ0PR13CA0047.outlook.office365.com
- (2603:10b6:a03:2c2::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.15 via Frontend Transport; Wed,
- 21 Oct 2026 06:15:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- EA8PEPF0000000B.mail.protection.outlook.com (10.167.249.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 06:15:14 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 20 Oct
- 2026 23:14:53 -0700
-Received: from mmaddireddy-ubuntu.nvidia.com (10.126.231.37) by
- rnnvmail201.nvidia.com (10.129.68.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Tue, 20 Oct 2026 23:14:47 -0700
-From: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-To: <lpieralisi@kernel.org>, <kwilczynski@kernel.org>, <mani@kernel.org>,
-	<bhelgaas@google.com>, <linux-pci@vger.kernel.org>
-CC: <robh@kernel.org>, <thierry.reding@kernel.org>, <jonathanh@nvidia.com>,
-	<kishon@kernel.org>, <Frank.Li@kernel.org>, <vidyas@nvidia.com>,
-	<cassel@kernel.org>, <den@valinux.co.jp>, <marco.crivellari@suse.com>,
-	<andriy.shevchenko@linux.intel.com>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <mmaddireddy@nvidia.com>
-Subject: [PATCH v2 08/10] PCI: tegra194: Guard Endpoint PLL-off error path
-Date: Wed, 21 Oct 2026 11:43:47 +0530
-Message-ID: <20261021061349.1265704-9-mmaddireddy@nvidia.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
-References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
+ 2026 06:16:02 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Wed, 21 Oct 2026
+ 06:16:02 +0000
+Message-ID: <75e9510f-1dfb-4c59-b2db-48feda7631c1@amd.com>
+Date: Wed, 21 Oct 2026 11:45:51 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 21/24] iommu/amd: Add translation DTE and VFctrl
+ TransDevID helpers
+To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
+ jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
+ guanghuifeng@linux.alibaba.com
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+ <20260930092344.5616-22-suravee.suthikulpanit@amd.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260930092344.5616-22-suravee.suthikulpanit@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0026.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:178::7) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,68 +104,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-NVConfidentiality: public
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail203.nvidia.com (10.129.68.9) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: EA8PEPF0000000B:EE_|IA3PR12MB773567:EE_
-X-MS-Office365-Filtering-Correlation-Id: 714b3f1b-ab70-4c34-2986-08df2f3aabb6
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|IA5PR12MB999325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 637b5aba-1a86-43d2-aed5-08df2f3ac82c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
+	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|4143699003|260925021911599003|260925022911599003|260925021311599003|261009223027099003|11063799006|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	/qhWsc0p98+UNM/qXieTxygsMRgpPwaZGQTjjhGwjgcerLDM8EHgTwWhjfohWzwNv2xN6Jsc3eYiECvByjeTLGJKC+Q3zzN9Yh/Cc9RgSI8+y6tRvK/6VuxOBHHlfc9xYKE6fiZqQlbP0Q2hyKrSCQOU/WtPKnO12qrFTLTY9EBCQfgN+OGnnaP4QRmJNSWzqh2R3P0jiIV2LLPpz+OONBE3e3IqyBp1SHpdyfYpJ7ZVEiS7Vq+8zj7wzp0SODvlfsbiD9LjIb6zqWZQjB0AFYtTKueZ7BKPwGHcfUhH6F7C3kz+IS6NqB9zSM52dIoYVtXxcpV54rn5sZqiDr3ojdkndutm+k+vq/Dnydy+HLVKBmAmPDSH34XM9+XXLx/HSQ010sf4HkpPlZ7uUZ45ExLX+gmyh6kJyAIxBRlSL3ZrRdXpn2bnvX7y94TqPR0RCwY3Ds0SpwceQ8dVD3ZMSoNAJReV6PtWww2giL5Yw8SW0rT/MDdJdd3qtGm8YXRmdTW7VQfbYB+azfPH3Dr88eHDnhhWujJzFj6IykqXuILfRhlcAK7Y/uGtGTM7mxGSKzodwI+hd3YBOJb8RqtKA+A4qRJSFmdqyW+6BafyB1iuU1wY7iknTFPdDiDjL78NP1LoRpNpOIEHsZ/MOTH3//4uMlczFK+LO4cjEbbW+i/DsdrmdhtEHNKwXer20n1a47yf2QYUC+r3s2Kbm//8Pw==
+	+igUmGEauiV0T1JGSvIZ79N/bY3rWy45Lce22loj7Ja33HxhREyffmz06K0hb7Pkna9PmnSwgP1u4UJkLgirFCg1WS+uyMjMNVMp7OHBdDa9+wxRWQc+5YhGt69jNLxRzyY12Fx9SL8F08cCkRlC5Gv9fozA5ZTjYF0HarhA8nrDc3pFHlergJoapOlMvU/vHQw6PD4wwZtKCD1DnKTJvmo/KcGZ8MD5lwTMmaJKq+W20+qwvCtFYakMBGx++mYOlCpYjQlrKXETrIo4705SSdwh7lLHatHZJrmyPtuLvBgzf3462s5m2c/K5iPwiXg5i/dMyHNeiq3Hp/12NA0J2ioPUGow1/yE5KVctSfICXb08E2iuwlHD/VWzJM4t63iRNuYWCBWpYdOpAFpl107GnFVkruEgzfRL9KQpkyXz1XRdK93RiLmm58T1b0Z42UKiJ5hoOR83BpAkslJDxwBodCbNzUAaNoWQx0WcqpsajtUYS7lA9kyFoVTaU7C7kGnVq5L6msnf+h9XwUhlnlpDwqz7zFOIhurWqPcQgn2F/ur2lEGhniMc9zw95K7Ubi3Z91WkHH7FsAjMJ7yHaVEPR6r3r8wZWKSoFfq+HMKEgjGcmF4JqlR5G7861XjGbiFRgXNusfnpN9bjOkuTzkO+5mnMT+GeyyiX3yYAMsAS5I=
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ktf/5BrQO69/aYwNnvrHjxcSpixmiLV2EPK45KJN7tV+IOGFbTwCZbSe9I24IUvW8q8ku2SGKce0NB12afNSWu9wRezb2tRzE5eOSKXZS3dMFSDcErLCGFkn3Hxz4DRcqaRc3v2EAXPx9COvS1oqTUL7vL/eLBMvutC059xp2Wg4ue3FvoBHuY8mTZJkqXSUHjfbgKj0x4tRiFxz5KelzSQDWw+nzPFan4B0l2mcWXSoRwkpP+DzY0r/Vqsp8y6LGAkW8VYryKSYLm9DgIeU7lI9lkKVX+TVCua/+4iELpjOb9hDxhx8qIO92I1pA6X3yZi0M1Bvr927UMglya7+xKEfqH0nIdLkFxsupdIa1uDmVmPq8THsqcdLnT6slYH+NNjTSPRgbUa255rqB4jrDSFMDsUgkAVf3ofIvARkUcR2UkW5wzwkspInp3osptlL
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:15:14.4406
+	=?utf-8?B?NDgxMHdWMHNtMUxUSGtYVG5UTkpjTU01OXg4TDdIa215dzdVVlRES3piOFpq?=
+ =?utf-8?B?emhuU0U2RW1aS2IyLzhkZ0hhSG5wRjU4b1RTMlpSYnFubHBUUVlxb2RTajFj?=
+ =?utf-8?B?UXIrUDdzWEQ0U2w4WHI0anNvYS9Pb0ZRNlR5MW9Xb0VmOWpMNk9nbVl4dWdn?=
+ =?utf-8?B?aFZ6b2hCRmNkeFB4ejZ2Nko1YXZaeXpqWDg5ZEYxSUVQd0JxQjF0eTFBQXk3?=
+ =?utf-8?B?L2lIeHBzSUh0eDFFZU94WjlMeHZpaWduZ0U2aEN4TXBRT1g0ZU1KQTBSZFhT?=
+ =?utf-8?B?alowb1B3MWdFYmFxeDZwdXVDTDFXdWNyaFhJL0hKYm5VOCtDNGRsL0NBWGZM?=
+ =?utf-8?B?bUxOSHFtdXMrWHNvWmp3TmJQN2taSWpuZ2FVVHRsakNlTkJ1Z2NSVmNRbGJz?=
+ =?utf-8?B?bjNxUVV5cWZxa0tUSGxvMDV6TFArT0FMbnNVUDVSVnpLRU1UZHhFa1ZFcXJN?=
+ =?utf-8?B?Qjk5NFVaejh6bElhbFJsY1lYSXNHVkUxSkpudkRNSlA4Si9ER3FsdHhGOWZ6?=
+ =?utf-8?B?VXU3UEZhZmpvUTEyYnE5NVRVcU1zTzQrTjQwQ3NacmdVZzh6dkNkV3ZFaGlV?=
+ =?utf-8?B?VVdsY3k5UllpMFFsYlhza290dkREcDkzdjBRZ09tMlJ5RDBnTDh2WTE5VWxp?=
+ =?utf-8?B?Q2k2djZHVGtudzM4WjNycHNxTndGd0VwLzdsaEk5c2pHWkxFZDVhakdheHJK?=
+ =?utf-8?B?OFZkclJKN0drYnZUTnRBRW5XU25Na2dsaEVRYW9raUFYa1VNNUtBZ0pyRm5n?=
+ =?utf-8?B?K0hzQS9XQUtidkRDNzdBM3Z1NEt3SGNOUk84Vk1icytCc25FUm52YnNaNk9a?=
+ =?utf-8?B?K1NKRXhlY2UvUnlmRTJ0TE5EWi8xZkVYU25yQkVpR1BiTmR2dzk3d3dqQUlK?=
+ =?utf-8?B?NG92aUlBbWlLMHJUejRHY0tocjZNQWZGVEs3T2ZoQnpJbWtWUjE2T044bk1E?=
+ =?utf-8?B?YXIrMFNlcE9IbmlhZjVBWnJGM3Z3WERjenRmUW9rcEt4Si9oM2JvMmg5cWd6?=
+ =?utf-8?B?V09YazBCellsdXM5OXo2ZC9BY3JYSk5GWk9mL0RDWHN0WHhiU0g4MDl0cm1k?=
+ =?utf-8?B?ZjZ1QWl2WElCNWIveSt0MVMxM09ZZzM0YXhFSjhQOEl1aVFVYjRPSWxhZm96?=
+ =?utf-8?B?bWE3bzJXNmNGSWRYNnVnSDFqODM4OGVzVWh6aWUrT2RmNVhzWU4wTkh1UWMy?=
+ =?utf-8?B?WDdNUDVDZTdDQkU2eHNvMHlPSmNoMjhVblRZbndqSEFsTVorcnd4WjBIZDVr?=
+ =?utf-8?B?L0dMVEdkTXVLSTQzbDF2R3NQVjQ1aUtyNlI3ZkhkNjR4bDEzVXZ1eFlTMzhu?=
+ =?utf-8?B?TzkvSEExQVJhWFdJUmFzN3NHREx0cDFBSEUzdDRKamxXRWk5aC85NDhPM1NO?=
+ =?utf-8?B?ei9sREJicVhlZ0IxYkx4U0szelJiRDBSMzV6RG1tdzFPSmR2cHJsWTBZK0lD?=
+ =?utf-8?B?azVtdXp6SHY2b1JFZkRyRmZmak1YMkdXTlBuKy91SXJTdlZ4Q1lRdUJEWjRL?=
+ =?utf-8?B?K0FxYzlmNnVjNkJTbW1oc1RRUStzcHhieTJkemM2V1hPdXZFbzZPVXBDWG4v?=
+ =?utf-8?B?WnNSZDQ0WkhxdUdyeXVQQ0F2c0JITWdSWTA3dXZNclBHSUFnYnBmeGE2S2Vn?=
+ =?utf-8?B?amlYVnJzVTNuczg5T1JjRU5iVUlVcit0d1RyZDdIWjFweDJMWnFvTHUyc0F3?=
+ =?utf-8?B?dVJFVTh1SnpqOVRqczg4a21EWDY5MWVTalVYMVRGVi9MU2VVaHZqR0tiMDVO?=
+ =?utf-8?B?VVA0Um5FODdtR0hkS09xd2VpcDh6Q3QwZXJNNXlSNWEvaUhtVk8yVmFDaU1R?=
+ =?utf-8?B?K2drcnlvTm5Yc1UxTDVTVVBqQ05uWklpTysrRXkvVjErVmJaNXA0eU4vTWZI?=
+ =?utf-8?B?Q0dka1ZKSkx2MnVuNituUWNZaTJ5aXcrRjV2bHZ4aGlIZUNzL1NuQjY4ZHZ4?=
+ =?utf-8?B?Y3RUU3R2Z29vN0Qya2V6SWVMV3BwWkhzWGU0UlIyams3Z0NMOUhUc2xoZWpV?=
+ =?utf-8?B?M0pxYUFqTG4vV0krMDhORG43Q25Td0dSSCtzeTBvN21mZnlVdndSZ3RMZ1pZ?=
+ =?utf-8?B?NmJsSFRwcTQxbGRLU3lVLy9Pa3ZzYWpGbU1SWWNuUTNtZ2ZtVm9YQTN4akdQ?=
+ =?utf-8?B?K1V6WktLMUt4ZXNsM2N0eFhQU3VRZjdFWHgvTkJvYVc1Q24wMWdDaHV3VGNk?=
+ =?utf-8?B?dVJsZWdodGR2YStyME9ZTnJjb0JsNnd5Tk82eGdjTTA1MWxYU3JpZk1TYTky?=
+ =?utf-8?B?TzBJVjcrNlNHbWdSQ09XbVQ3cG91SEpQVHBBNElXWlJkQnFQbDdyQmsrVTQw?=
+ =?utf-8?Q?MtiIDPeXERdM/MgNiC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 637b5aba-1a86-43d2-aed5-08df2f3ac82c
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 06:16:02.4540
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 714b3f1b-ab70-4c34-2986-08df2f3aabb6
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	EA8PEPF0000000B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR12MB773567
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GyjxTJJPUPE3CJuvHqPoTD1twrCKCo2kmyf3LirDbiR5+z2XXo0J7t7BOlWlHn9GrEFUykr8ZbPvsogAnLprwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR12MB999325
 
-The Endpoint PERST# deassert path initializes the external-refclk PLL only
-when enable_ext_refclk is set, but the error unwind always sent the PLL-off
-request.
 
-Guard the PLL-off request with enable_ext_refclk so Tegra234 Endpoint
-configurations that did not enable the PLL do not send a spurious BPMP
-PLL-off command.
 
-Fixes: a54e19073718 ("PCI: tegra194: Add Tegra234 PCIe support")
-Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
----
-Changes V1 -> V2: None
+On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
+> vIOMMU GPA->SPA walks use a per-vIOMMU TransDevID: VFCTRL guest-misc
+> names the slot, and that host DTE points at the nest-parent v1 table.
+> 
+> Add amd_iommu_set_translate_dte() and amd_iommu_clear_translate_dte()
+> to program that DTE, owned on amd_iommu_viommu.trans_dev_data rather
+> than pci_seg->dev_data_xa. Rewrite it from amd_iommu_change_top() via
+> pdom->viommu_list when the nest-parent table grows.
+> 
+> Add amd_iommu_update_vfctrl_mmio_translate_devid() to publish the
+> TransDevID in VFCTRL guest-misc MMIO.
+> 
+> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> ---
+>  drivers/iommu/amd/amd_iommu.h       |   7 ++
+>  drivers/iommu/amd/amd_iommu_types.h |   4 +
+>  drivers/iommu/amd/iommu.c           | 153 ++++++++++++++++++++++++----
+>  3 files changed, 142 insertions(+), 22 deletions(-)
+> 
+> diff --git a/drivers/iommu/amd/amd_iommu.h b/drivers/iommu/amd/amd_iommu.h
+> index 6ac64524208b..4aede6f6d489 100644
+> --- a/drivers/iommu/amd/amd_iommu.h
+> +++ b/drivers/iommu/amd/amd_iommu.h
+> @@ -213,6 +213,13 @@ void amd_iommu_update_dte(struct amd_iommu *iommu,
+>  			  struct iommu_dev_data *dev_data,
+>  			  struct dev_table_entry *new);
+>  
+> +int amd_iommu_set_translate_dte(struct iommufd_viommu *viommu);
+> +void amd_iommu_clear_translate_dte(struct amd_iommu *iommu,
+> +				   struct iommu_dev_data *dev_data,
+> +				   u16 trans_devid);
+> +void amd_iommu_update_vfctrl_mmio_translate_devid(struct amd_iommu *iommu,
+> +						  u16 gid, u32 trans_devid);
+> +
+>  static inline void
+>  amd_iommu_make_clear_dte(struct amd_iommu *iommu, u16 devid,
+>  			 struct dev_table_entry *new)
+> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+> index 6b3a43952797..5f84f25e3f37 100644
+> --- a/drivers/iommu/amd/amd_iommu_types.h
+> +++ b/drivers/iommu/amd/amd_iommu_types.h
+> @@ -489,6 +489,7 @@ extern bool amdr_ivrs_remap_support;
+>  /* VIOMMU stuff */
+>  #define VIOMMU_VF_MMIO_ENTRY_SIZE		4096
+>  #define VIOMMU_VFCTRL_MMIO_ENTRY_SIZE		64
+> +#define VIOMMU_VFCTRL_GUEST_MISC_CONTROL_OFFSET	0x10
+>  
+>  /* Host ioremap/request_mem_region sizes for VF / VF_CNTL BARs */
+>  #define VIOMMU_VF_MMIO_MAP_SIZE		0x10000000UL
+> @@ -551,6 +552,9 @@ struct amd_iommu_viommu {
+>  
+>  	u64 *devid_table;
+>  	u64 *domid_table;
+> +	u16 trans_devid;
+> +	/* Synthetic DTE; not stored in pci_seg->dev_data_xa */
+> +	struct iommu_dev_data *trans_dev_data;
+>  
+>  	/*
+>  	 * Serializes VFCTRL Guest DID map CONTROL0/CONTROL1 doorbells
+> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+> index 65550b070a12..8943863105b6 100644
+> --- a/drivers/iommu/amd/iommu.c
+> +++ b/drivers/iommu/amd/iommu.c
+> @@ -148,11 +148,11 @@ static void write_dte_lower128(struct dev_table_entry *ptr, struct dev_table_ent
+>   * So, only consider control bits related to DMA when updating the entry.
+>   */
+>  static void update_dte256(struct amd_iommu *iommu, struct iommu_dev_data *dev_data,
+> -			  struct dev_table_entry *new)
+> +			  u16 devid, struct dev_table_entry *new)
 
- drivers/pci/controller/dwc/pcie-tegra194.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Why this change? dev_data always contains devid right?
 
-diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-index 0e6224b6751d..de14a23f9a4d 100644
---- a/drivers/pci/controller/dwc/pcie-tegra194.c
-+++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-@@ -1973,7 +1973,8 @@ static void pex_ep_event_pex_rst_deassert(struct tegra_pcie_dw *pcie)
- fail_core_apb_rst:
- 	clk_disable_unprepare(pcie->core_clk);
- fail_core_clk_enable:
--	tegra_pcie_bpmp_set_pll_state(pcie, false);
-+	if (pcie->enable_ext_refclk)
-+		tegra_pcie_bpmp_set_pll_state(pcie, false);
- fail_pll_init:
- 	tegra_pcie_bpmp_set_ctrl_state(pcie, false);
- fail_set_ctrl_state:
--- 
-2.34.1
+>  {
+>  	unsigned long flags;
+>  	struct dev_table_entry *dev_table = get_dev_table(iommu);
+> -	struct dev_table_entry *ptr = &dev_table[dev_data->devid];
+> +	struct dev_table_entry *ptr = &dev_table[devid];
+>  
+>  	spin_lock_irqsave(&dev_data->dte_lock, flags);
+
+.../...
+
+>   */
+>  static void update_viommu_self_dte(struct protection_domain *pdom,
+>  				   phys_addr_t top_paddr,
+>  				   unsigned int top_level)
+>  {
+>  	struct pdom_iommu_info *pdom_iommu_info;
+> +	struct amd_iommu_viommu *aviommu;
+>  	unsigned long i;
+>  
+>  	lockdep_assert_held(&pdom->lock);
+> @@ -2884,6 +2893,17 @@ static void update_viommu_self_dte(struct protection_domain *pdom,
+>  		set_dte_entry(iommu, iommu->viommu_dev_data, top_paddr,
+>  			      top_level);
+>  	}
+> +
+> +	list_for_each_entry(aviommu, &pdom->viommu_list, pdom_list) {
+> +		struct amd_iommu *iommu;
+> +
+> +		if (!aviommu->trans_dev_data)
+> +			continue;
+> +		iommu = container_of(aviommu->core.iommu_dev,
+> +				     struct amd_iommu, iommu);
+> +		set_dte_entry(iommu, aviommu->trans_dev_data, top_paddr,
+> +			      top_level);
+> +	}
+
+These two are operating on different page table. So its better to have it in
+separate function.
+
+>  }
+>  #else
+>  static inline void update_viommu_self_dte(struct protection_domain *pdom,
+> @@ -3463,6 +3483,95 @@ static bool amd_iommu_enforce_cache_coherency(struct iommu_domain *domain)
+>  	return true;
+>  }
+>  
+> +#if IS_ENABLED(CONFIG_AMD_IOMMU_IOMMUFD)
+
+why not move this functions to trans_devid.c ?
+
+> +
+> +void amd_iommu_update_vfctrl_mmio_translate_devid(struct amd_iommu *iommu,
+> +						  u16 gid, u32 devid)
+> +{
+> +	writeq((devid & 0xFFFFULL) << 16,
+> +	       VIOMMU_VFCTRL_MMIO_BASE(iommu, gid) +
+> +	       VIOMMU_VFCTRL_GUEST_MISC_CONTROL_OFFSET);
+> +}
+> +
+> +int amd_iommu_set_translate_dte(struct iommufd_viommu *viommu)
+> +{
+> +	struct amd_iommu_viommu *aviommu =
+> +		container_of(viommu, struct amd_iommu_viommu, core);
+> +	struct amd_iommu *iommu =
+> +		container_of(viommu->iommu_dev, struct amd_iommu, iommu);
+> +	struct protection_domain *pdom = aviommu->parent;
+> +	u16 gid = aviommu->gid;
+> +	u16 trans_devid = aviommu->trans_devid;
+> +	struct iommu_dev_data *trans_dev_data;
+> +	unsigned long flags;
+> +
+> +	if (!aviommu->trans_dev_data) {
+> +		aviommu->trans_dev_data =
+> +			amd_iommu_alloc_dev_data(trans_devid);
+> +		if (!aviommu->trans_dev_data) {
+> +			pr_err("%s: Failed to allocate dev_data for translate-device-id %#x\n",
+> +			       __func__, trans_devid);
+> +			return -ENOMEM;
+> +		}
+> +	}
+> +
+> +	trans_dev_data = aviommu->trans_dev_data;
+> +	trans_dev_data->dev = NULL;
+> +	trans_dev_data->domain = pdom;
+> +	/*
+> +	 * Leave off pdom->dev_list: this is not an IOMMU-API attach.
+> +	 * Hold pdom->lock so change_top() cannot grow the nest-parent
+> +	 * top between the sample and the DTE commit. Publish devid
+> +	 * under that lock; it is the live TransDevID for
+> +	 * update_viommu_self_dte(). If this vIOMMU is not yet on
+> +	 * viommu_list, add it before dropping the lock so a concurrent
+> +	 * increase_top() cannot miss the new DTE.
+> +	 */
+> +
+> +	spin_lock_irqsave(&pdom->lock, flags);
+> +	trans_dev_data->devid = trans_devid;
+> +	set_dte_entry(iommu, trans_dev_data, 0, 0);
+> +	if (list_empty(&aviommu->pdom_list))
+> +		list_add(&aviommu->pdom_list, &pdom->viommu_list);
+
+Already updated in amd_iommufd_viommu_init() ?
+
+> +	spin_unlock_irqrestore(&pdom->lock, flags);
+> +
+> +	pr_debug("%s: gid=%#x, iommu_devid=%#x, devid=%#x\n",
+> +		 __func__, gid, iommu->devid, trans_devid);
+> +	return 0;
+> +}
+> +
+> +static void amd_iommu_update_dte_slot(struct amd_iommu *iommu,
+> +				      struct iommu_dev_data *dev_data,
+> +				      u16 devid, struct dev_table_entry *new)
+> +{> +	update_dte256(iommu, dev_data, devid, new);
+> +	if (dev_data->dev)
+> +		clone_aliases(iommu, dev_data->dev);
+
+We know there is no alias device for translation dte right?
+
+Actually why not call amd_iommu_update_dte() . It calls device_flush_dte(), but
+for translation dte we are not setting ats_enabled flag.
+
+-Vasant
 
