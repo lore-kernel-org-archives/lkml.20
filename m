@@ -1,100 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792591259;
-	b=wO9s+Z177wwlvByEV+R9AYIhzEBHkYJptaNSiRM9nJXVlEbCA0eqYG1mGOfmlN9QiDzk
-	 f8m9bxWJ1o8LZLIEjw/0SHtRAxPpUXArDueJ1L0M4uB9kGy++Ru1h1dInsUCp3Piaz1Kj
-	 6CO/Bq0FJLQKRBN3hO1FWe2J51hQc1ebOS08SSDgaXpNCnv3yAKs61cjtKLwpi9PnB96h
-	 1dRRs2gWuRXjthF31aTC5OaOzrrRBDZJT/EFvhr6B/2ToDZU5DG6pb7+losidN7bm7Tsn
-	 8d445ftOajyip9iOomKFLZbDShWjsuya/1OrSP9aNJXtcHfv8qNjJfWjjPMu99LhRhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591259;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792591281;
+	b=vsaVbqCJFlnfTkYov0BpBtc0WBDOC/ASpivouqEbiEKccMuua/UbuYe9sCjLLvXy+Url
+	 wQdLz+5oBfVGevvzaMwGwIPIUMpfVjYFxH0CREzSGrlPKlJs0LGcmb3i/f1wCuhsrZE5G
+	 7y6wyGfvCFiLd0VhzS1LvyaXmBVWLQamIbiyIAtyiTcFcFgGfOAY2IKKNaay2y8H9aeuW
+	 OJbVaZZZCxvXbx4RvEr+4q3coKxqwtqHd5FXlpTpqctxO60nwDCDBkmYdrIi6SAGdloMW
+	 md+kayfMb18i1seHm6v2Pc08tjC5LVZztK2AiaDGYthcPV/K7NZiNbbzCR/VNBDQ/dA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591281;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FdVCBZfpYOZXVIwiE/Xpz5oZYVnx0Z/FsH1U5IHm83c=;
-	b=Ag5/biGrbU2oy1s9xFeC0Jc6xj7FM9ksxuDyg0jL77Xc3x6HawMnucQ7vxp8gUwywVAs
-	 IEl5sRNOC2/28qP4ifPpJYcHJh7x9vHm+7UCFwphc3hSkpvJhPA6xHmDEnFD62oRNUkZC
-	 Rfhn5Y6HRZwxj3IflZhcpbvRzZenUqThJDNCpd62HWB3aJpcqw0VFgT8Lbajo36/4uq2j
-	 sWgvyu3gPLG76nyaRGUBmTFRpETu0cJWNku8+BUrlUUUNSpWEyv9uoRQHDyhppTHt7TY2
-	 LKOaaONG8GCK+MJLeoJlivxtsgtEspNApGMUOJl77d49xWkKHjD+NP7fFBSe03k/+CA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=DWiQMc0yS3XQq0TvbZM+Yred0vSvNUmYKHsb0aPbvUI=;
+	b=x8nlK95jZOEGen3xnr0nACPiBt9ifF8knh3uYlytcw7B/8zWKdoxIBrHoM+Qwq6XHzzz
+	 xj2rWR7Pr8f9herrC940uTcQDvHqi2FM8eFip44w7/Qeb9MpaQLp6T3Qe3n0z3SwFsOzu
+	 cU7KOu6apnE3eqnTpj/tMPknrDp22KWs80DUFOPjPLtk0UXlebZ3vgC81vKnfCtgaRtY4
+	 ehmFEqUOA+yijMOv+Ig9Kng1xvzxv1eF0zi/654e5TajAqf0RV0J+Hf1r6Beh+gbb8MdS
+	 lcKExdlXyHpDzIoSP2Zz09bvtCiGPIXY1mQ3W0EfPnk7vQibs7qsnFpFCDWlyqeQ7tA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=roeck-us.net;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HZ1gLhql;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.176
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NshcGPsL;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE935606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:00:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE935606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44989606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:01:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44989606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=HZ1gLhql
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8aea7b7ca0cso6651937b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:00:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792591258; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nMySOrNNf+NbWz96BaC/WG+91hahXGvLXLwmPAUO1jbbjn9VrUgz4GnZGtn9IOsh5e
-         sXo4vvzLDq85W4rAFLbBpDj39zWe5a7I51vN3e5faB4wIXRzZ+w7wWNVrIAywn07sgP7
-         6HgrnJvSaoic1dWnzZZop0pvg6AivSDIFhZ8ZmAZuxRtwQsD/oGf8ss6t3xKL8v3HfEq
-         BEeZTQsD/iYXalAmF2vIyuXcLnkEj8ICKdxkb2VUwAOa8uRviGSL4L1boEt9R+DsTdgy
-         b1Hp7sm96ClPEY/5YaBk1A76nWjmA2fASlhCLEBI6SlyG42JjmD2BduKLMk7mLGEd2Yh
-         BDKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=FdVCBZfpYOZXVIwiE/Xpz5oZYVnx0Z/FsH1U5IHm83c=;
-        fh=hBgoWM4JE+c4M31Q7N65yrg/ATGcOfOM6sIZm4MPtLM=;
-        b=QbFFzZlv7F4xTTrwYZXO+lEwdtsm2bo+f85EvdW/HWf6afS7hhpa9O2FKMrC5W1zK5
-         YLs7fybc2AjZg0UFwXAyWysIPyNhJRsOOyKce/7OCCnpAvvWQiktL1IPHWXAExuEULZZ
-         9UJlIoM/+DvKpBwwItiAKzXaOoBmKpqQB/m2MIuXFZAJFeH83zYIa/W4jvWdvu3OhPyg
-         Kf+7wwoRLF3q9f1NP1/EoV86fXlT+N+UI0HQdHUG6BFLNOqvhntqVW+usgl0Z6J3Tvi8
-         MHoUGhlegsTJb1mv/NjpdWfarVhFWYQHeLAGtOd2gGT740ITfySFpiScf6Rcx1GnxcJS
-         pMRw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NshcGPsL
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so647091a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:01:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792591258; x=1793196058; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FdVCBZfpYOZXVIwiE/Xpz5oZYVnx0Z/FsH1U5IHm83c=;
-        b=HZ1gLhql6N+gklXAjjUUDwVl35mWU0cIK8IMcVFumBzOC8upIWjfAFLoLUuWd6BFdk
-         JR+yuiSYLlfj6dqkBN8C7xRiEkmFabiwvq7xPPvn+YoAs8SGtMUO37u47GTGcpzyAXIV
-         PspO7M8qdHM5lsQsTb3Vkj0Du//Lw4u3PaHUv70DA0O0JWZi8mxkK9HdmN+2NE5T6V+5
-         832/eYsWMNEq/232HOpTKmpRQ9FHEj6E9XFUDdzrWzGzSnvUd3UYHdWnIp9Pi9QDUEch
-         ZtyaI/j7DeedwmqgtPyEJLjewcWYXlUxyGOiIILw5h8+zoO7KYSmKL1HoFNxK1IQHtU1
-         zurg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792591258; x=1793196058;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792591280; x=1793196080; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FdVCBZfpYOZXVIwiE/Xpz5oZYVnx0Z/FsH1U5IHm83c=;
-        b=gBUNYMNiF5cqCNYTPgaztptru41okTiTV8wGWgwY11ZD1/kyCIYeMsvo8XdVYfz3j/
-         SE0r2PXsYwxkRjpZjQ+QDm6kBvTRilAcjhNFqF5XDqi+N8AUvihrAmuxK5mGWaSL2psH
-         Zym4cZcQO4AwBxz1sHepKgqBmBnrh5N5zf4GKA3MO11a6Q6xBUhAPndsz1V8pNNMpHMo
-         A3S2KLKX6QHQOEYc4FmTEZR5029M55Y6BkbU5hRAhozKon10TF895GmFCOcMPW2PYvt4
-         TT4tUSOc0NXPsknd7zWBJ5xMXdrRrGkJA6aZn3VFTvoAtV/su3MWVEDvcH6l5cge/kAI
-         2slQ==
-X-Gm-Message-State: AFq9FYKnFgN+9PanNfBj5cxc0o+d5gGejygr5aDMaeTo5FRK69fo0+vE
-	S1dV2Ayg1YxQSSt4/jdFL6+g8g71yclSDcXgsDWFMyyk0N0q+46V4oFIfchCzxhMFj5OBTLP7mg
-	tsJRD6n8xu9QjiqNn+eh25rxAstqdqqE=
-X-Gm-Gg: AYBFou2Y5ZhlmBhimsF6RjVNoqIGMCEaLOyL3P8d+Lc/vGhZuuTqE61v4cilBrjyU6U
-	VxleG7qQKI1SdsAAxKM1bQKjQ1UjuDn5t14cjoTvH1Y+5H02NHMUahaotVF6ZwesBmc4yAqoiLX
-	W2gZcCP2gA+EryExNLWxNeyD+IqQ3MQ9aOcg7z+U21Q0/C8/UxaCHhHuGLjz3U+YrgBh06sjOXO
-	nWTv+eTtF9agpuWXVxg6dLcpUvq7XUhaZqTfwPXCxpU6myWW5azJtIaGXO1tqL48r4jd0hqPvwI
-	Kg6Hhgs0EN5rU+8tnT6kM3lShO9N08gq9JLwpFehxMyboE8ULC3PoHBmkkewuf4/1XANNY9xWvk
-	MCqiJ9VPZ6WaldC1kz/xyu4V+Sk3xyPTpvmmyFnFA+G7RBboAsQ6mbA3iepKsquKa7z/hBuqDZu
-	o6ulWJKlXyZeLutloVuLf9q/g=
-X-Received: by 2002:a05:690c:102:b0:8b0:5847:8829 with SMTP id
- 00721157ae682-8b1340b4359mr10303147b3.56.1792591253005; Wed, 21 Oct 2026
- 07:00:53 -0700 (PDT)
+        bh=DWiQMc0yS3XQq0TvbZM+Yred0vSvNUmYKHsb0aPbvUI=;
+        b=NshcGPsLQpHkQJPBseBKZ7zPWrtA4Olj1652AoNpZgt9B1kmPpjAEOlgOEa8P7Wdrt
+         yuYbiH0dY25mNt+iPZGTBA4A2QvNA2aAM1tPNVIcgQkx9CS+9xo4T23BlkEOxLCr14DJ
+         kqlneNUYr1bemcloYSqb8jjoC/5/rwremHKUNebclu9b0cF0QIClThp6UaG3IUdstjax
+         NUYQpVMLu6u3GFyLYIkpr5mL6D5Iyw3TEvHm8WSc2l/H5C1SP/h6JlhDASzj0qsC0GNK
+         eRMP0vrHULHF7mysmaEwQudXObXx9sOeWH+JPKt66fj9C+20/8ulXDtStFGp9NDpqDvv
+         ymiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792591280; x=1793196080;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DWiQMc0yS3XQq0TvbZM+Yred0vSvNUmYKHsb0aPbvUI=;
+        b=Bu8kzwXOsYAfhYuxyl/moMpEZB0hvk8rWGQCC0kHN9Khn+HdkL9aMiygFy+GqnpCOO
+         FI7XxD+coihWBeGnxfSFwQdOaodVSW0zt5OUj1x3+2dACJq4desFykLAtiHkw8OoqUPw
+         Mtl7+uNWqo8Ci9ttgcRBhDEpz/DrHUJFBYyKyxb72hGKAgvwVF2FoDsegihygSMwZ29K
+         sJBqc/aO0AI4hClN3PB3Oi+G2UB5mkTeD3IX+OZrJmvS9cIMy4XaAotz74jm9N03V0xo
+         RRIsENDz8UjkXBIyv9WD3uO5r1sDPQ477R+QxTwOyRVmYLc2PikILHsXIdt5ZH/Hopr1
+         oEmA==
+X-Forwarded-Encrypted: i=1; AKwUvBxGgXmLlU4GGv2vtv/enNKs7vI7+Jn9JhUCicpAm7iUOiRv0B2rz4qgjOeH25sXiNtZifm1OEGhTxHwxDs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCuLeM/sADAiA1imK94EHpGJ7Nwf44kBF18eDPnskQP5mgIKwH
+	toAivXRpsgcTuFyHp4pS9gXPvnz0EM1P2bpStPZaPs54PLuuCOmgKImc
+X-Gm-Gg: AYBFou18o+9340xj2+E4tUb20iLqI1eLDVIM98/Z7fDi5XoivvQ8ESiBk87yretajjU
+	Nu6rENJelNsMN/yV7hAG6t023pnK/8Yn9loVZ74XFpjnoFRAdG1ldj8N4yzGjSgQ4g+c3TIrAk+
+	goOjR8FRGfiHsQNdy6CDQoxePo7hFznjzhDTZweReuADgdorRZ6YdmzOWFfhB0S10SeD4jJQOe7
+	QzbUuarLtU8EGMR53hCzQ9ShpiJmLse3nIQ85UZaF0ypiYTGm7MdPeD9tzIjEYTjw46mhtAvutP
+	AEa2S/BnhMT8LkqZ2yN54xXNVZj18GJejH3Cb25JokmIrTGKLvJJxsRDvVAPzx9KpNvqLzNMOAf
+	u7ew158GJBFq8LTZwvMTlSGdvbL7//zPAo8c3D6zVuBob1uq3G76ox8ZG2WSZlMnUff1jWl9REi
+	C5ViVq4eSIzXtiaUuRfiUJsN/jOueI8AWLlfTSShLP8zGbeIsWjfE7hIDNMRAnOr2cB39H4NznA
+	GiGODQbAo5xk/U8Fk86VyR48ISP4T38YR1+W5TJNI/BqXWY0k6xlxdbk5TANZYMzt/BrEBokvR6
+	M6w9lMSwCbJKCziAgl35s+4BNBGpWg==
+X-Received: by 2002:a17:90b:5550:b0:3ac:450b:164c with SMTP id 98e67ed59e1d1-3ad87089230mr1937944a91.47.1792591280175;
+        Wed, 21 Oct 2026 07:01:20 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad82e08f1esm2260065a91.0.2026.10.21.07.01.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 07:01:18 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <9ae11521-6c1e-4c0e-aa89-0a9c0a5a7346@roeck-us.net>
+Date: Wed, 21 Oct 2026 07:01:16 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,97 +93,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021093522.3536051-1-jlee@suse.com>
-In-Reply-To: <20261021093522.3536051-1-jlee@suse.com>
-From: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Date: Wed, 21 Oct 2026 10:00:41 -0400
-X-Gm-Features: AclHuK_pJcfVEZxvIrbjkfK0WdK1MAInOAt5cac-VrQ-ZEp57W-cMFA67ddroTs
-Message-ID: <CABBYNZ+7ro4EHt8DXL-Oo_tgN1bn5av_KkGtaXXU7YqoQ0vDxQ@mail.gmail.com>
-Subject: Re: [PATCH] Bluetooth: SMP: Fail if the X coordinate of remote and
- local public keys are identical
-To: Chun-Yi Lee <joeyli.kernel@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	Chun-Yi Lee <jlee@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] hwmon: (coretemp) Retry failed sensor creation
+To: Ximing Zhang <xzhangjr@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261020-coretemp-retry-sensor-creation-v1-1-7dd4851a34dc@gmail.com>
+ <42ee0ffb-c0f0-4426-a568-28be267e4a93@roeck-us.net>
+ <CALurWnHeNBKVdVbsrZ17OjZ09TM1bCseK=R6MDgjz4Sg0CiWYw@mail.gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <CALurWnHeNBKVdVbsrZ17OjZ09TM1bCseK=R6MDgjz4Sg0CiWYw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Chun-Yi,
+On 10/21/26 05:28, Ximing Zhang wrote:
+>> Is that a theoretic or a real problem ? "Test-only fault injection" very
+>> much suggests that it is a theoretic problem. Have you observed it on
+>> a real system (without artificial fault injection) ?
+> 
+> It is theoretical. I have not observed the failure on an unmodified
+> system. I found the unretried error path while auditing the driver and
+> used fault injection to verify the existing behavior and the proposed
+> recovery.
+> 
+> I agree that the fault-injection test establishes the behavior but not
+> real-world impact. Please disregard this patch.
+> 
+Please refrain from submitting similar patches. As it is, I am already
+overloaded with patches fixing real problems. Patches like this result
+in me getting even further behind, and real problems are not getting
+fixed.
 
-On Wed, Oct 21, 2026 at 5:35=E2=80=AFAM Chun-Yi Lee <joeyli.kernel@gmail.co=
-m> wrote:
->
-> The 6d19628f539f ("Bluetooth: SMP: Fail if remote and local public keys
-> are identical") patch be introduced since v5.13. Looks this patch can
-> handle the CVE-2021-37577 issue. However, it only checks if the full
-> 64-byte public key (X and Y coordinates) is identical, which is
-> insufficient.
->
-> In CVE-2021-37577:
-> Bluetooth LE and BR/EDR Secure Connections pairing and Secure Simple
-> Pairing using the Passkey entry protocol in Bluetooth Core
-> Specifications 2.1 through 5.3 may permit an unauthenticated
-> man-in-the-middle attacker to identify the Passkey used during pairing
-> by reflection of a crafted public key with the same X coordinate as the
-> offered public key and by reflection of the authentication evidence of
-> the initiating device, potentially permitting this attacker to complete
-> authenticated pairing with the responding device using the correct
-> Passkey for the pairing session. This is a related issue to
-> CVE-2020-26558.
->
-> And base on spec, the remote and local public key should not have
-> the same X coordinate:
->
-> Bluetooth Core Specification Version: v5.4
-> (7.1 PHASE 1: PUBLIC KEY EXCHANGE)
-> "If the two public keys have the same X coordinate and neither is the
-> debug key (see [Vol 4] Part E, Section 7.6.4), each device should fail
-> the pairing process."
->
-> Bluetooth Core Specification Version: v6.0
-> (7.1 Phase 1: Public key exchange)
-> "If the two public keys have the same X coordinate and neither is the
-> debug key (see [Vol 4] Part E, Section 7.6.4), each device shall fail
-> the pairing process."
->
-> Update the check in smp_cmd_public_key() to only compare the 32-byte X
-> coordinate of the public keys, making the validation strictly compliant
-> with the specification and effectively mitigating CVE-2021-37577.
->
-> Fixes: 6d19628f539f ("Bluetooth: SMP: Fail if remote and local public key=
-s are identical")
-> Link: https://nvd.nist.gov/vuln/detail/cve-2021-37577
-> Signed-off-by: Chun-Yi Lee <jlee@suse.com>
-> ---
->  net/bluetooth/smp.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/net/bluetooth/smp.c b/net/bluetooth/smp.c
-> index 2df303f6a38f..80128b31e631 100644
-> --- a/net/bluetooth/smp.c
-> +++ b/net/bluetooth/smp.c
-> @@ -2734,7 +2734,7 @@ static int smp_cmd_public_key(struct l2cap_conn *co=
-nn, struct sk_buff *skb)
->          * not in use.
->          */
->         if (!test_bit(SMP_FLAG_DEBUG_KEY, &smp->flags) &&
-> -           !crypto_memneq(key, smp->local_pk, 64)) {
-> +           !crypto_memneq(key, smp->local_pk, 32)) {
->                 bt_dev_err(hdev, "Remote and local public keys are identi=
-cal");
->                 return SMP_DHKEY_CHECK_FAILED;
->         }
-> --
-> 2.51.0
+Thanks,
+Guenter
 
-Sashiko is flagging a problem:
-
-https://sashiko.dev/#/patchset/20261021093522.3536051-1-jlee%40suse.com
-
-That said I do wonder if the check is only truly valid as an
-initiator, since as a responder, this could be checked before
-responding in the unlikely event that the X coordinate happens to be
-the exact same as the initiator's (if that is even possible).
-
-
---=20
-Luiz Augusto von Dentz
