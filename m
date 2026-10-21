@@ -1,104 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792594870;
-	b=qp596DziVXYCfePXNh8uBd8x27LAeNFlX8Tam7hPcqZMrQ1gsBkcFt0+sO+TOBYwodcL
-	 KPWVJ3GdPPMC6iLNri+DVblRT3gGneV3Ebio1APXD/snBHw/gUdQxC6X8FvxPSNRXj0yl
-	 Sjzy72eCO5avAW9RUZXWzX5XPRANqvaAmAR8Fs48EV91cGGjxVrpmL6zzy+/kRoNR8+5Y
-	 RkZS2f+nCnJ/46UQjLCZ/570RWMEpCaR+AFbHZqTeOUTZlWXYAs/jZm9OH2i0Fu+d2nPt
-	 Fe063MROOq+3Z7ATOChlQFWGW3aVTixls9C2Zh0UsyNEOoKpqTJYLKy+LSpqTQTvrpQ==
+	t=1792594893;
+	b=4djRa0W2nUsP0/O+hA1QZ1ZK9+ZugWSpI7T7ITM0YkBL2WUuW4gSvx0GveRbRJs0FU9J
+	 QIKnvCeL+Ri39m2W7QWQpnmL7f1tQjQSlYfoKVWTEiaNa76dHmZecTFCr6QQ/jtSnq5rK
+	 Glz4mzbPbL/PfdicjldDiLzPNUy320WQYypEDoBk6i4Z35+4y/aGEPnRbeP8LUNCPsMIi
+	 gpuf5jSRqSvvkFxxLKV02hnyUHd/tFOJJVRKvxrsNd/1Ya6XGX1LSLekFkwvCJ/yrSzM8
+	 s6nmK+FaZlfsBWie1CP89tb9jzYPwTxnZx3yyL/rswE7ZQJthYLxPWyVwMNf2BS3D2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792594870;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=l5YmJOrwJgNdPors4hwaMvEw7jPwZ//sTr6muol287w=;
-	b=BdVz52OftI42iDTGpCFQYr8gewRjuhJQfbeIFRtE1bc89LwUmI/hrAcw4F4vHZ0CtR9n
-	 ePPeiEvGlyf9dcjOYpi6lK/SL+0ADgGd+oM5xlu86ini3vDPw3cSIHPJpSN6yHUA01NHQ
-	 p+rT7fwSJvsJL0PWPwPHCTJ0vF2Zpx/aT1G8VOs+2N/gy+WI510HBou/IRhBY7FtpKxmp
-	 h+jG97zMTIaMFJsaW4rzv7Rbc6RSRRPDJkJa+CvYfHzqYats1TC/nwNe2CebBq7o3MeLG
-	 MEwk/IuYSEgMIghonAdXcSDUBoFRxWYnvHYiKp9zMeYyb8zShOOnsWtYl+hDsKzpsEA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792594893;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=A4guUMc9i9ehpF1G8jQSt60WOuL8gly2/KcblJXhFIY=;
+	b=14jUndmvLiJ9nbv0C6j7Q7s+jLr5XV01Gk+YYpeKgCUC6oyxlqeQS77mqUP3A273AaSq
+	 +EET/QFhqO7BbQ8oTHUshIlDhfrlUQM4b0XHNxyF5oOyF0HIcfE4lM6glzHezPrtk96kj
+	 aTfDtu0Jm/NGfCkX15Bo+QN8uAtCSfV1CQ4iQqdcY2Vssg/HzlBa3QBWxQqbxc9AjslZv
+	 gC95FekYagLnfIqF22HSYOmmnqdokq3heeoMEVXtV2tF5vubt6V7a+wwRA+PRTkvZJj+K
+	 a/yX1Pzm2NwaXvTAtpaEL7CW12+Y/yvHf/mat5GjS9gkm6PlI3IABG/Dw+2oxY7p2wA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ziepe.ca;
-	spf=pass smtp.mailfrom=ziepe.ca;
-	arc=none smtp.remote-ip=209.85.219.49
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xba3Sfr2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96F2F606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:01:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96F2F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-917bab38b14so9366766d6.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:01:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1792594867; x=1793199667; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l5YmJOrwJgNdPors4hwaMvEw7jPwZ//sTr6muol287w=;
-        b=SNfikhEbH9QUIAPD8zgF6gBEb3YRzM7HYTihFKf5TM3kPasOVzdC7DuU6I5nJZHW1A
-         iomGNjKUYhQ+HiDPKGRa/M8EyF3FMnkdDth17W2AfTclhZqdUAiqO76yQ+rrk6ey93GU
-         D/uoieoGan7l0u8KWOrSbaxT79Ps6th+14rW6Tc5hUaPjKXgS1uWSzUF+jeEf1tr6d2R
-         Ehk+YWVWiQw6shc9Jxm7sagMIDEvlZf0dPUv0nXDSdHgKsC1CTgrpPQdv3mQP0VXgGhV
-         S+mmifHdwVkelVZ4pSbh4EGpZ+08yJFeJQD0P7eUu51B2J47VQlKqA1fH1ZYOGUVs9rW
-         IECA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792594867; x=1793199667;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=l5YmJOrwJgNdPors4hwaMvEw7jPwZ//sTr6muol287w=;
-        b=Wk1kaJyEBqHtEP2DOc6geZkPz7FBcearPm58gESOhE8zapMTHzdgw8hbLX64dWGEUP
-         HtNo/L6dcVBwzuBhoIlGSOiu/Sot4quFHreXQqHuin5Mrj6RBqpmsc13k+mkuCac0Anm
-         kwYlYA0R3S+toxa26S5PJiS9bEAUttrJMpddqUY8TOQFOIdKLy/XRxEJ+wclt27vwIUY
-         rHVTTsP6qMaGJIWu9JF0aihSoQAO+bkfpnU2Z3oB3D8SGTIxjVE9xrLNBEI/6r2zf6fc
-         cylORbg+MR7N6vGJMlTY0wmwnc8ZUvvkcwyc5/7hu+jrm/Qffii3sxntqupf2tDK1bVh
-         MpUg==
-X-Forwarded-Encrypted: i=1; AKwUvBwh4Nj75Bp7lAPNoExnCODMPK4Kfp8hR0atBNCeIJc0n+myyFhLDp6BgiRjLpNQSWDOVBoZHqgW3enndTQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYICPJdQ0D2yJ6XwKhNojoUHaYMC0qVZogHJtvq/nO0+gJge1t/R
-	jNP/9ytXXm/1xxcRKJzMa+B7j9Bo76nGE7ZHag2I5U2wdIpOhDstGXuB0zo0KOw4njvssR0j0LA
-	VNS7V
-X-Gm-Gg: AYBFou0/BqfrAtQr3IY5wHkpCbbDrBIWmFwJfHtPrc6h5qWEodxx24zZAEI5q6e1Sbw
-	n7b+djZSKc/MjgQzk5smbP2fL3eGWItiwks0PRsV/hpSt2sKtIrAIjACZ3nU/1MrJ6PllUSVHK2
-	egWAGQktJK8s2GDdYPR6GtOQgxkAgi/R1G+Xx73IhNVnxzBRRQ+ps9fKyyB05tvqtqlBaVJHWZv
-	q++GKj5Vy1L/nqE0oCLlrrp3c5Xwn2SXWSOnHekhgeQTKvLjQTebfrbqLxTryzHq550+1zZzUgd
-	DtPHmZFxLmAwKEpCUg+shYfvG4gYMiG/l2urbGKBGyccjFg8nhFHM7mwQxGFg9rYfMFdhBB3S/e
-	evQSK8sWRVwhuZT/kRDyDt0wicD24yAqiGHhJRZt9FPEOYkTMJJ0rzq0CIi5ecaFIsOuquIrfBu
-	0MZAMTJL5CVKnSVuuRDYyNdYDHGH9owbsHRk1M4aPgObzLEFGy9YkZiGFtiUX8Bc2+H8fINhEmK
-	FgAkpJMZq+U3+fZZq0ugAoHoTj7Mk/XHMu5VY1Od3tAC24bQVP4xswQAGSor5IGt4UDnf6Xma6O
-	WINOAirJVtFV5xqNsDgXWJUOzxw2CPsluHbDbg==
-X-Received: by 2002:a05:620a:29c6:b0:93f:3863:268a with SMTP id af79cd13be357-93f57f23259mr459988385a.37.1792594866402;
-        Wed, 21 Oct 2026 08:01:06 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56c6e030sm276704185a.1.2026.10.21.08.01.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:01:05 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1xJXoO-0000000DwuG-2ayD;
-	Wed, 21 Oct 2026 12:01:04 -0300
-Date: Wed, 21 Oct 2026 12:01:04 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alex Williamson <alex@shazbot.org>, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dma-buf: Restore the scatterlist entry count before
- freeing
-Message-ID: <20261021150104.GT14213@ziepe.ca>
-References: <20261013-dma-buf-fixes-v1-1-0e2d9ca41f3a@nvidia.com>
- <20261019183146.GH64621@unreal>
- <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA86606A319;
+	Wed, 21 Oct 2026 15:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Xba3Sfr2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EC2F1F000C1;
+	Wed, 21 Oct 2026 15:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792594892;
+	bh=A4guUMc9i9ehpF1G8jQSt60WOuL8gly2/KcblJXhFIY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Xba3Sfr20Kz5gusDKlhGPB3CawV7BST+aPzpn6mJzugFRMC+iYEF0//1hJzhbhn5B
+	 FpgprOld7c3FBThNJEx6YKXfgUWaXn73oa7/WoC6aQu97ASe6/crpYX+EXseyo/tfj
+	 nh9yvk54UUA9/Jqpzbb1Y2OvJkbnXn6oqsu8W9B93EawaCC3uz5o9Ns19Bs8dcq66r
+	 W5QSNhK3dUxYpMMFtCIdBs6EIFBx8gtGp7sEp5WlZWLmY3fWTPtCxZ1lLjIHPYGeNH
+	 rfMdw2Cxm6lDO2ECHr+MtIu10ADMmsFvc0tAIuubT+nmA8XSiOMjp6vT2qvi9uXRN5
+	 +H7iCZ4kynszw==
+Date: Wed, 21 Oct 2026 16:01:26 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Oliver Upton <oupton@kernel.org>, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+Message-ID: <atjSmLQbm7-_oRPv@gremlin>
+References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+ <atc2Y4gHwtGlffns@gremlin>
+ <CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
+ <86o6cnywvb.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,67 +63,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <dc91d903-139d-4253-83f7-51a78dd4530b@amd.com>
+In-Reply-To: <86o6cnywvb.wl-maz@kernel.org>
 
-On Tue, Oct 20, 2026 at 08:42:18AM +0200, Christian König wrote:
-> On 10/19/26 20:31, Leon Romanovsky wrote:
-> > On Tue, Oct 13, 2026 at 02:46:24PM +0300, Leon Romanovsky wrote:
-> >> From: Leon Romanovsky <leonro@nvidia.com>
-> >>
-> >> dma_buf_phys_vec_to_sgt() clears orig_nents to mark the returned table
-> >> as DMA-only. Since sg_free_table() uses orig_nents to walk and free the
-> >> scatterlist, dma_buf_free_sgt() leaks the allocation on every successful
-> >> map/unmap cycle.
-> >>
-> >> Restore orig_nents from nents before freeing the table. The helper
-> >> allocates the DMA list directly, so nents retains the allocation count,
-> >> including for chained scatterlists.
-> >>
-> >>
-> >> The reported kmemleak output was:
-> >>
-> >> KMEMLEAK LEAK: 2 driver-related leak(s)
-> >> KMEMLEAK LEAK: unreferenced object 0xff11000125ceff00 (size 32):
-> >> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295031027
-> >> KMEMLEAK LEAK:   hex dump (first 32 bytes):
-> >> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> >> KMEMLEAK LEAK:     00 00 01 00 28 38 00 00 00 10 00 00 00 00 00 00  ....(8..........
-> >> KMEMLEAK LEAK:   backtrace (crc 4e8077f2):
-> >> KMEMLEAK LEAK:     __kmalloc_noprof+0x451/0x8b0
-> >> KMEMLEAK LEAK:     __sg_alloc_table+0x2a0/0x4d0
-> >> KMEMLEAK LEAK:     sg_alloc_table+0x24/0x170
-> >> KMEMLEAK LEAK:     dma_buf_phys_vec_to_sgt+0x84f/0xed0
-> >> KMEMLEAK LEAK:     0xffffffffa1ad21a8
-> >> KMEMLEAK LEAK:     dma_buf_map_attachment+0x138/0x690
-> >> KMEMLEAK LEAK:     ib_umem_dmabuf_map_pages+0x249/0xc90 [ib_core]
-> >> KMEMLEAK LEAK:     0xffffffffa138f8d2
-> >> KMEMLEAK LEAK:     0xffffffffa1396abe
-> >> KMEMLEAK LEAK:     0xffffffffa1331a5f
-> >> KMEMLEAK LEAK:     0xffffffffa13320dd
-> >> KMEMLEAK LEAK:     0xffffffffa1ad696d
-> >> KMEMLEAK LEAK:     0xffffffffa1acecc7
-> >> KMEMLEAK LEAK:     0xffffffffa1acfd17
-> >> KMEMLEAK LEAK:     __x64_sys_ioctl+0x72c/0x11f0
-> >> KMEMLEAK LEAK:     do_syscall_64+0xa1/0x4f0
-> >> KMEMLEAK LEAK: unreferenced object 0xff1100016dbf3a80 (size 32):
-> >> KMEMLEAK LEAK:   comm dtr, pid 4432, jiffies 4295034705
-> >> KMEMLEAK LEAK:   hex dump (first 32 bytes):
-> >> KMEMLEAK LEAK:     02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-> >> KMEMLEAK LEAK:     00 20 10 00 28 38 00 00 00 10 00 00 00 00 00 00  . ..(8..........
-> >>
-> >> Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-> >> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
-> >> ---
-> >>  drivers/dma-buf/dma-buf-mapping.c | 2 ++
-> >>  1 file changed, 2 insertions(+)
-> > 
-> > Reminder, thanks
-> 
-> I'm waiting for anybody familiar with the code to review this.
+On Wed, Oct 21, 2026 at 03:03:04PM +0100, Marc Zyngier wrote:
+> On Tue, 20 Oct 2026 20:30:56 +0100,
+> Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> >
+> > >> @@ -59,6 +59,7 @@ struct reg_feat_map_desc {
+> > >>         const struct reg_bits_to_feat_map feat_map;
+> > >>         const struct reg_bits_to_feat_map *bit_feat_map;
+> > >>         const unsigned int                bit_feat_map_sz;
+> > >> +       const unsigned int                idreg_idx;
+> > >
+> > > This field feels a bit hazardous - 0 is a valid index and now things that
+> > > don't declare it are setting a valid value.
+> >
+> > idreg_idx is only read for the descriptors in idreg_feat_maps[], which
+> > all come from DECLARE_IDREG_FEAT_MAP(), so the 0 in the others is
+> > never used. Storing the encoding would work as well, I'll leave that
+> > one to Marc.
+>
+> I don't think we should baby-sit people who hack this code. If you put
+> something that is not the output of IDREG_IDX(), you get to keep the
+> pieces. If you use this out of context, it will blow up in your face.
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+That's fair enough, I did worry a bit about identifying the idreg variant
+vs. not from a reg_feat_map_desc instance though?
 
-Jason
+> > >> +static bool idreg_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
+> > >> +       for (int i = 0; i < r->bit_feat_map_sz; i++) {
+> > >> +               if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
+> > >
+> > > What if it isn't a CALL_FUNC feature?
+> > >
+> > > Could this loop just be replaced with compute_resx_bits()?
+> >
+> > It's skipped, so a dependency written as a plain field match would be
+> > silently ignored. Both entries today are CALL_FUNC, but
+> > compute_resx_bits() handles every kind of entry and would also give
+> > the res1 line something to set. It'd mean moving idreg_deps() below
+> > it.
+>
+> I really do not want to drag compute_resx_bits() into this. None of
+> that stuff is RESx. It is bad enough that we use the same structures
+> to represent different type of dependencies. I also want to add new
+> ways to affect ID registers that really do not fit the RESx handling.
+
+I wonder if it's worth breaking out the resx stuff into something separate
+that both call? As a follow-up obviously.
+
+>
+> > Marc, compute_resx_bits(), the rename and the loop rework are all fine
+> > by me. If you agree, I can respin with them, or you can fold them in
+> > when applying, whichever is easier for you.
+>
+> I don't care about the name, but I don't want the rest of the proposed
+> changes.
+
+Fine with me ;) the logic all looks fine so these were nits.
+
+As you are indifferent on name, do you mind having the two functions one
+calling another? That is a lot clearer to my eyes. But also not a
+showstopper, obviously!
+
+--
+Cheers, Lorenzo
