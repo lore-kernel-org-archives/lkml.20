@@ -1,82 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586114;
-	b=uAxe8qvCHn4tJMjxZq6c+h6L32O79zGM6CAqbIdJ/P9Dj/p+wKhgmueEIGptT62hLE+j
-	 ZiLjIgiVDQUS3Uogi8LHspzrbIF9VYp8q6ktQdpPnU5Vai/eimVI1PS2CzCMgV18R5VrB
-	 UQl65gSAccCyeJ5yTfR0wMGKUtzZ5k8kopTYQpci/FA5ukZ+7u1xkGPenqiykDjt4fix8
-	 iOdciZp6Esx3OD1ly/ZYbOMDNBUm0JwcFC9LGjDhnB/R2RqUNlj67+z77oihVKw/N8Tku
-	 ZYjjJkIWr2HcYa0+I6K8tKEXBHAEImv3W1QuOVSRSW0I7kRGbJePtrj2x5ckP4ny5xw==
+	t=1792586122;
+	b=NUKznX9B2prkcttk/poKAu5DQ387mIV4QXXhBF7Lxj9lSN7TumiX+H5Kxgfk3Ekqec//
+	 9IM9TS2aJVa2pRGc2Hg710s9AyA3zxJAhKsgRdxoX+P9oC+x8U7Ru7pUXy4LTVDiQ7c0m
+	 DMvnsqyUkb1B8q6WkPJ/hqvX47C+tp00Nug9NhroIJ0FUnktNy/kIDKBW/kIlMQnHPblj
+	 dVO2ajivOaWjpgQYMuUOS+rLz3Uo9ytf14p3IY2hGGdQ98d18hI5BMWWemTODHY8QB/FB
+	 JYuC8y05TuTadDAJiPScmW3gtn2Fnmt4uA7b129U/ddIKVR+ky1YFPhhsQVXyyAnl5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586114;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586122;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=k34ieup5pE8aTDUteztI7s/TYpflGq9NMqf7xE7uTwQ=;
-	b=UEene+NQyaL779Is6qRJCwv6JnNQnIw9N/uYW5jkSsODLlqpAv/x0y/UDP4+OUuI6Ng6
-	 CB4z+4B5AlqVlJGpc8j7DMv7vrMX0oLqmaeGXshN/tq9L9OLz6TVYLb87dIqdTsnrowiM
-	 spu5dKXB64ZWuxwdyEuWIfqnIUDbh0jOoDqNgT8VHSgF4Ad2RfcGYghNnlRFKL6aNL1km
-	 0C8CIij5u8k+CZCnTDYs0sOVlY95jCDG3oyf1PtUMJkcP/7SMsuaVwruJD2oFmmQfUhyA
-	 olIAm+k2gc+M8mFaisJ7uhSib9MIXP7eOOxR2wMK/fqjWjsU5TERZa8K1NCvFbP4QZg==
+	bh=uVtw8U6rcnazFJXWapfAKo/5JBSTjKE2HoWBd7UBtGo=;
+	b=mZgZ+Pc3nyjYfmPD9rvzlVKN5BXT/VcIoa6MhWArHtSNEaWWJ42Cc1+Wa3WLa39O4XsQ
+	 yhJTCWLZHvN2QSEndoMezW4KnT7ySPHFhNs09zKDih/zg9s+UMbqTAPe6emPKCyeeLRj4
+	 TInGNSE16HoP/aqTU+g1/aAQhRDk5FAUv8+fU7Z0D+ugY2LgOTgux6plGRXuvzgcp7aBF
+	 ERMKKHps+op70Dzun3GrkGK/Cjn/u33YtmCnWiFX1peqzen4zBhnZj2iYx0qhHduHBv3T
+	 B75DjMMnLDHTPmf8mjN7OiVLG+2H3PBetOeV3D1GqeTlvkw2psB1b/nytBNyXm582JQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SdrUVYtA;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q2X0HcmN;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3618760A2601
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3618760A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F0A4606A32D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F0A4606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SdrUVYtA
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3acc96a256dso455685a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:35:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=q2X0HcmN
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so252169a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:35:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586113; x=1793190913; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792586122; x=1793190922; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=k34ieup5pE8aTDUteztI7s/TYpflGq9NMqf7xE7uTwQ=;
-        b=SdrUVYtALpIzhnjLve0J+ImVtojvyHUDqAfvyZCNdAGVMSA9fvQO6XNWOiqSqTDPpm
-         8KnLxIPpCyIPKzWH9ZLUF8Vk8uRa5CQFkXyy88UcQNaP5c8eNV3zjt9nLzY9Fi5JxJ8A
-         WYplMkcgP2wDjYmOeDyS4ImKT/6HhCdondBHTonIe2x7dJQVXKs5Zp66vj01s3RSTEJQ
-         p/56j40cvIyP/pVQi1Y77KvoDo1Rg3sQ8PjDwcxoaJ+TZ/SA4doIO91KWutBDBkmIB6u
-         vTSZ1x6DKICyYDJdhBEgj94mJN4KToPgAW7nfenNlJ0bVAIAuErqlyBCTB5JAvmO/A49
-         /AQA==
+        bh=uVtw8U6rcnazFJXWapfAKo/5JBSTjKE2HoWBd7UBtGo=;
+        b=q2X0HcmNYB4LJEBMLYmKcYD5f7vBKgYYqCdDPMP1NmbE4mUp0nc23ZbES5Yztwgozn
+         Tb5aiXWxWtFEaCBf89pakmottmBXCak3vbPC3Rw4WdixUdnMSx2qvC+dOmLKpFbirzMz
+         /KrKQs4WJreTIPYPsgzWrSlapJDjnCQbROFqa3e7I9OjhVBn0yeQOb5tSQ49qwDKIN4L
+         0Y31CaMQCPAJ879ufkwJOPcYrQpV3ZJEY5UyuJaFVas4B83AOKT5d05RnwD6xqROfg0k
+         2qy9DXKNoG3OEaR548/lscZ/cvB1peyDZO09LimDtfRBMgPeL7JVYQMNVI9Id1IkVRBH
+         rf2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586113; x=1793190913;
+        d=1e100.net; s=20260707; t=1792586122; x=1793190922;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=k34ieup5pE8aTDUteztI7s/TYpflGq9NMqf7xE7uTwQ=;
-        b=dmZvDXqB8ZCGwZh/1LxC+s6afcC6bdopHHDeCv+JudHiQOT027VitlKjFhw4dBhMbu
-         cEUOp+7ti5pyrTuORgFWFNoSbQ67WFBDH+1e+30xBs99Ux184vx1CpfkM0Nk4gkch6uR
-         UXtxNZMB7CZDt6iZkD6pRYaj/NqFTQtUYePg/XfFR59AaSPnGvhrLO9IFxULqMzhfSDN
-         3ez45Hb1hCFEcnr65widBjl9eYTVMJ5HUR1R0BHPtOvq26PhDxlUa7wHz/85a9fDsub8
-         D7zLMeaRWijYhmXqB8VfeaKJgFPYWvgz+kpSSgt5pE2WqM8H69ibNumycov9EfKWNTkI
-         +5Vw==
-X-Forwarded-Encrypted: i=1; AKwUvByz6cuwHb4RBcJr+eY3iQ5JhOGopAO3NRidWXG0ThbxsktmLLbBE+q+5adTr1PFu9UfZvJMonSuFu+QlP0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJ6wYXBJYpjODxJbZWaCd9VcqMS2IXcLIOhXJUVetm7NEbtB0V
-	kVY05y13bIVoqG63O03jmz3t+EOlajr+v5PH+sswH0gUpts+YPonhDRt
-X-Gm-Gg: AYBFou3pnTP8/TXRhkZ6UXdHWRDNdSf8QvFqGQMWPcxDQV8YIA1famMhfqbaVWwEpA3
-	IzSf61thheKk1KjH3TAeF2/eBBt6mg7dO9fkXwz+zxDWlg/ervRsgsZqlRum854EYe4OsPOVPLH
-	A0gRPpkYBvJu2IXLmIP0ACP9ovaM9iAZq9/opFYHNAgHXuvEr87PET4zMAjxnODgbLrtZ++VXtu
-	B9IdF1Yf2eeAnNYBXCWx1czhrf6WsPNiec1w7JpQAETCtvUketyv9jkLVJmqk0w7AnzHvvpza3A
-	aB/stDXqTAYXLZES232huQeq0uuMjKckz2SSQ1FCVPyGK4G/uxS5szGaRADcvaBnfBNkEZr8Xwj
-	/OEuemGf0tgTSMTsAryGfjPmhw+BpoCBBuciIIJZNqYwUWyDFFWBuWBbK7wuIIbmo5JOLFObT/R
-	qGdp6McfgCAXbpRqPQmHvDL/4L+Zo0RMZYi4PmWpzB2Vb0c/ldGSisqvJq0czc5YpXC700khDaP
-	yqEqrfKaicRNvsnMxKsJfoZnOPXlaB6rEIS0XJLEGiYGGOg8QFfFGTj
-X-Received: by 2002:a17:90b:1c8e:b0:3ab:33b6:2c27 with SMTP id 98e67ed59e1d1-3ad86e9d931mr1787586a91.23.1792586113198;
-        Wed, 21 Oct 2026 05:35:13 -0700 (PDT)
+        bh=uVtw8U6rcnazFJXWapfAKo/5JBSTjKE2HoWBd7UBtGo=;
+        b=udQK2VDDOJoTMyF0OceMU4uboRBNmHZxNnjLkN8x/hQ8pL0SXpQmPDzMtzT0wvn2EY
+         fQAntmhPMC01Ngjrux3nWEylJ8gk1YAPQ1yMQn3LUjdeA/QXJDKRFwHwJlFgMxKVJJsW
+         +dhkvWEmkIGjTO6x6/X6u5eXYbUPTuPnwBKT94TqbU49fdVNKOjSEy1bvIEUEA5Lbf/Q
+         fdfL0OHOqWhAsBYJ3GHyMy8voOSC4Zvtyw5K38Wsxw5ERrn0QIK/lAb1fNjArGU35TGd
+         tlFxokpqvoloNY16nthkVdtw/XnhLt/JoFBNYjyMIyrhohxW0SJn8FD+tYrAHvGguUwN
+         SVig==
+X-Forwarded-Encrypted: i=1; AKwUvBy7zY8+hYJoE0Eq2mTL8v0PRsmOOdXuV9AXZ7+jFFDVL0ZAhmRaRZNYDT7/GiyqnRRuVy1nDdI/khBD64w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5NVPA7nkMsLk/wgUkdmg277WS0Q1u3SFf9jHtlrkPAb+jOx2s
+	YZ6GMLBYW/mJsnxuyg+Hpq9R3xbFHTT8+hojeg5qCmP4/hgwpKumCoVL
+X-Gm-Gg: AYBFou1evB5ymwW+XiiXR6VWMvwB9wspyDanDyeKd23HWjLy4+8SqMYkBGQB69zBgdh
+	KdhCGKAG/ZinGSS5tsPvb8jcHJ50u85tiRMTIINQ9LSsBDFy7HtYHgnHVEvEAdtoI/pF9nGlZzE
+	8/eKYjUMnAidssw+xukoYRus7qTKE+iNXPWO/tY859310DDxZv8ylTP9WE+c0ZMNEeLW18dE3nj
+	la/4Q9ayvXVeYJP5XDo3fYLcwzt1BG2I1PnVT0jKDqiBikyHm+r1dZTnQXSse2N/FgvUzrcDApg
+	sRTViUvUATHaqnD7p0SxCg7+ZLYMFmIYL1c8BvGYp5LRjW12CCEVRuDP/B3Z+y7wgwYjny1BnHh
+	cYGpOE4Ie1zI4P/lMVgcbmncF3diYf9qgyE/I8eCfweyiRxpDwYtzgwr6juvbQI+eNCQCHs6MFP
+	LzLNSNHcqHgb5JMFw1l4syN8aL60NSiIo4ZBmRMEg20kSDWxn/9ITcq9Hay3BIIqZlW3xLoog1i
+	LG3sdd76qyuG0YjRanJPfpGmcyqHVnnhaJ5sh9/WJQpJyG/pX0kkpWN
+X-Received: by 2002:a17:90b:1dcf:b0:3ac:4e18:238c with SMTP id 98e67ed59e1d1-3ad86f10199mr1431595a91.49.1792586121968;
+        Wed, 21 Oct 2026 05:35:21 -0700 (PDT)
 Received: from qby-nixos-laptop ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1823615a91.3.2026.10.21.05.35.05
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1823615a91.3.2026.10.21.05.35.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:35:11 -0700 (PDT)
+        Wed, 21 Oct 2026 05:35:21 -0700 (PDT)
 From: Mingyou Chen <qby140326@gmail.com>
 To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -98,9 +98,9 @@ Cc: KentoNion <kento@kekto.ru>,
 	Jame Jao <jaojame6@gmail.com>,
 	Serhiy Shliapuhin <shlyapugin@gmail.com>,
 	Mingyou Chen <qby140326@gmail.com>
-Subject: [PATCH v13 5/7] platform/x86: bitland-mifs-wmi: Add quirks table
-Date: Wed, 21 Oct 2026 20:34:12 +0800
-Message-ID: <20261021123414.25516-6-qby140326@gmail.com>
+Subject: [PATCH v13 6/7] platform/x86: bitland-mifs-wmi: Fallback to balanced platform profile if last performance profile is not available
+Date: Wed, 21 Oct 2026 20:34:13 +0800
+Message-ID: <20261021123414.25516-7-qby140326@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261021123414.25516-1-qby140326@gmail.com>
 References: <20261021123414.25516-1-qby140326@gmail.com>
@@ -115,351 +115,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The MIFS WMI interface is shared by several Bitland ODM laptops which
-differ in the layout of the performance mode values of
-WMI_FN_SYSTEM_PER_MODE and in the capability checks.
+On Bitland laptops, performance profiles require an external power
+supply. If the system enters suspend in a performance profile and the AC
+adapter is unplugged while the machine is asleep, laptop_profile_set()
+fails with -EOPNOTSUPP during resume when attempting to re-apply
+saved_profile.
 
-Introduce a quirks table to support multiple machine families without
-sprinkling model checks over the driver.
+Returning an error from the resume callback simply because the power
+cable was removed during sleep is undesirable, as the device is
+otherwise
+fully functional.
+
+Gracefully handle this condition by falling back to
+PLATFORM_PROFILE_BALANCED
+whenever restoring the saved profile returns -EOPNOTSUPP. Update
+saved_profile accordingly and notify user space via
+platform_profile_notify() so daemons such as power-profiles-daemon stay
+in sync with the actual hardware state.
 
 Signed-off-by: Mingyou Chen <qby140326@gmail.com>
 ---
- drivers/platform/x86/bitland-mifs-wmi.c | 180 ++++++++++++++++--------
- 1 file changed, 122 insertions(+), 58 deletions(-)
+ drivers/platform/x86/bitland-mifs-wmi.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-index 0d7815c2faf9..a54eb5bba1e8 100644
+index a54eb5bba1e8..f4f37ae2f424 100644
 --- a/drivers/platform/x86/bitland-mifs-wmi.c
 +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-@@ -12,6 +12,7 @@
- #include <linux/bits.h>
- #include <linux/container_of.h>
- #include <linux/dev_printk.h>
-+#include <linux/dmi.h>
- #include <linux/device.h>
- #include <linux/device/devres.h>
- #include <linux/err.h>
-@@ -84,6 +85,41 @@ enum bitland_mifs_power_profile {
- 	WMI_PP_FULL_SPEED	= 3,
- };
- 
-+struct bitland_mifs_wmi_data;
-+
-+struct bitland_profile_entry {
-+	enum platform_profile_option profile;
-+	u8 wmi_val;
-+	bool no_set;
-+};
-+
-+struct bitland_mifs_quirks {
-+	const struct bitland_profile_entry *profile_entries;
-+	size_t num_profile_entries;
-+
-+	bool return_code_at_end;
-+	bool skip_ac_type_check;
-+
-+	/* Accept return value 0 on SET wmi functions */
-+	bool accept_zero_function;
-+};
-+
-+static const struct bitland_profile_entry default_profile_entries[] = {
-+	{ PLATFORM_PROFILE_LOW_POWER,            WMI_PP_QUIET },
-+	{ PLATFORM_PROFILE_BALANCED,             WMI_PP_BALANCED },
-+	{ PLATFORM_PROFILE_BALANCED_PERFORMANCE, WMI_PP_PERFORMANCE },
-+	{ PLATFORM_PROFILE_PERFORMANCE,          WMI_PP_FULL_SPEED },
-+};
-+
-+static const struct bitland_mifs_quirks default_quirks = {
-+	.profile_entries = default_profile_entries,
-+	.num_profile_entries = ARRAY_SIZE(default_profile_entries),
-+};
-+
-+static const struct dmi_system_id bitland_mifs_dmi_table[] = {
-+	{}
-+};
-+
- enum bitland_mifs_event_id {
- 	WMI_EVENT_SWITCHVIDEOMODE	= 1,
- 	WMI_EVENT_SELECTIVE_SCREENSHOT	= 2,
-@@ -131,12 +167,24 @@ struct bitland_mifs_input {
- 	u8 payload[28];
- } __packed;
- 
--struct bitland_mifs_output {
-+struct bitland_mifs_output_head_rc {
- 	__le16 return_code;
- 	__le16 function;
- 	u8 data[28];
- } __packed;
- 
-+struct bitland_mifs_output_tail_rc {
-+	__le16 function;
-+	u8 data[28];
-+	__le16 return_code;
-+} __packed;
-+
-+union bitland_mifs_output_buf {
-+	struct bitland_mifs_output_head_rc head;
-+	struct bitland_mifs_output_tail_rc tail;
-+	u8 raw[32];
-+};
-+
- struct bitland_mifs_event {
- 	u8 event_type;
- 	u8 event_id;
-@@ -166,27 +214,41 @@ struct bitland_mifs_wmi_data {
- 	struct input_dev *input_dev;
- 	struct device *hwmon_dev;
- 	struct device *pp_dev;
-+	const struct bitland_mifs_quirks *quirks;
- 	enum platform_profile_option saved_profile;
- };
- 
- static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
- 				 const struct bitland_mifs_input *input,
--				 struct bitland_mifs_output *output)
-+				 struct bitland_mifs_output_head_rc *output)
- {
- 	struct wmi_buffer in_buf = { .length = sizeof(*input), .data = (void *)input };
- 	struct wmi_buffer out_buf = { 0 };
-+	const u8 *payload_data;
-+	__le16 return_code;
-+	__le16 function;
- 	int ret;
- 
- 	guard(mutex)(&data->lock);
- 
- 	ret = wmidev_invoke_method(data->wdev, 0, 1, &in_buf, &out_buf,
--				   sizeof(struct bitland_mifs_output));
-+				   sizeof(union bitland_mifs_output_buf));
- 	if (ret)
- 		return ret;
- 
--	struct bitland_mifs_output *result __free(kfree) = out_buf.data;
-+	union bitland_mifs_output_buf *result __free(kfree) = out_buf.data;
- 
--	switch (le16_to_cpu(result->return_code)) {
-+	if (data->quirks->return_code_at_end) {
-+		return_code = result->tail.return_code;
-+		function = result->tail.function;
-+		payload_data = result->tail.data;
-+	} else {
-+		return_code = result->head.return_code;
-+		function = result->head.function;
-+		payload_data = result->head.data;
-+	}
-+
-+	switch (le16_to_cpu(return_code)) {
- 	case WMI_RETURN_CODE_SUCCESS:
- 		break;
- 	case WMI_RETURN_CODE_UNKNOWN_FUNCTION:
-@@ -195,11 +257,16 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
- 		return -EIO;
- 	}
- 
--	if (result->function != input->function)
--		return -ENOMSG;
-+	if (function != input->function) {
-+		if (!(data->quirks->accept_zero_function && function == 0))
-+			return -ENOMSG;
-+	}
- 
--	if (output)
--		memcpy(output, result, sizeof(*output));
-+	if (output) {
-+		output->return_code = return_code;
-+		output->function = function;
-+		memcpy(output->data, payload_data, sizeof(output->data));
-+	}
- 
- 	return 0;
- }
-@@ -208,45 +275,41 @@ static int laptop_profile_get(struct device *dev,
- 			      enum platform_profile_option *profile)
+@@ -392,13 +392,27 @@ static int bitland_mifs_wmi_suspend(struct device *dev)
+ static int bitland_mifs_wmi_resume(struct device *dev)
  {
  	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
-+	const struct bitland_mifs_quirks *quirks = data->quirks;
- 	struct bitland_mifs_input input = {
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
- 	};
--	struct bitland_mifs_output result;
-+	struct bitland_mifs_output_head_rc result;
-+	size_t i;
- 	int ret;
++	int ret;
  
- 	ret = bitland_mifs_wmi_call(data, &input, &result);
- 	if (ret)
- 		return ret;
+ 	/* Skip event device */
+ 	if (!data->pp_dev)
+ 		return 0;
  
--	switch (result.data[0]) {
--	case WMI_PP_BALANCED:
--		*profile = PLATFORM_PROFILE_BALANCED;
--		break;
--	case WMI_PP_PERFORMANCE:
--		*profile = PLATFORM_PROFILE_BALANCED_PERFORMANCE;
--		break;
--	case WMI_PP_QUIET:
--		*profile = PLATFORM_PROFILE_LOW_POWER;
--		break;
--	case WMI_PP_FULL_SPEED:
--		*profile = PLATFORM_PROFILE_PERFORMANCE;
--		break;
--	default:
--		return -EINVAL;
-+	for (i = 0; i < quirks->num_profile_entries; i++) {
-+		if (quirks->profile_entries[i].wmi_val == result.data[0]) {
-+			*profile = quirks->profile_entries[i].profile;
-+			return 0;
-+		}
- 	}
--	return 0;
++	ret = laptop_profile_set(dev, data->saved_profile);
 +
-+	return -EINVAL;
- }
- 
--static int bitland_check_performance_capability(struct bitland_mifs_wmi_data *data)
-+static int bitland_pp_check_capability(struct bitland_mifs_wmi_data *data)
- {
- 	struct bitland_mifs_input input = {
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 		.function = cpu_to_le16(WMI_FN_SYSTEM_AC_TYPE),
- 	};
--	struct bitland_mifs_output output;
-+	struct bitland_mifs_output_head_rc output;
- 	int ret;
- 
-+	if (data->quirks->skip_ac_type_check)
-+		return power_supply_is_system_supplied() > 0 ? 0 : -EOPNOTSUPP;
++	if (ret == -EOPNOTSUPP && data->saved_profile != PLATFORM_PROFILE_BALANCED) {
++		dev_dbg(dev, "Cannot restore profile %d (likely on battery), falling back to balanced\n",
++			data->saved_profile);
 +
- 	/* Full-speed/performance mode requires DC power (not USB-C) */
- 	if (!power_supply_is_system_supplied())
- 		return -EOPNOTSUPP;
-@@ -269,47 +332,42 @@ static int laptop_profile_set(struct device *dev,
- 			      enum platform_profile_option profile)
- {
- 	struct bitland_mifs_wmi_data *data = dev_get_drvdata(dev);
-+	const struct bitland_mifs_quirks *quirks = data->quirks;
- 	struct bitland_mifs_input input = {
- 		.operation = cpu_to_le16(WMI_METHOD_SET),
- 		.function = cpu_to_le16(WMI_FN_SYSTEM_PER_MODE),
- 	};
-+	size_t i;
- 	int ret;
--	u8 val;
- 
--	switch (profile) {
--	case PLATFORM_PROFILE_LOW_POWER:
--		val = WMI_PP_QUIET;
--		break;
--	case PLATFORM_PROFILE_BALANCED:
--		val = WMI_PP_BALANCED;
--		break;
--	case PLATFORM_PROFILE_BALANCED_PERFORMANCE:
--		ret = bitland_check_performance_capability(data);
--		if (ret)
--			return ret;
--		val = WMI_PP_PERFORMANCE;
--		break;
--	case PLATFORM_PROFILE_PERFORMANCE:
--		ret = bitland_check_performance_capability(data);
-+	if (profile == PLATFORM_PROFILE_PERFORMANCE ||
-+	    profile == PLATFORM_PROFILE_BALANCED_PERFORMANCE) {
-+		ret = bitland_pp_check_capability(data);
- 		if (ret)
- 			return ret;
--		val = WMI_PP_FULL_SPEED;
--		break;
--	default:
--		return -EOPNOTSUPP;
- 	}
- 
--	input.payload[0] = val;
-+	for (i = 0; i < quirks->num_profile_entries; i++) {
-+		if (quirks->profile_entries[i].profile == profile &&
-+		    !quirks->profile_entries[i].no_set) {
-+			input.payload[0] = quirks->profile_entries[i].wmi_val;
-+			return bitland_mifs_wmi_call(data, &input, NULL);
++		ret = laptop_profile_set(dev, PLATFORM_PROFILE_BALANCED);
++		if (!ret) {
++			data->saved_profile = PLATFORM_PROFILE_BALANCED;
++			platform_profile_notify(data->pp_dev);
 +		}
 +	}
- 
--	return bitland_mifs_wmi_call(data, &input, NULL);
-+	return -EOPNOTSUPP;
++
+ 	dev_dbg(dev, "Resuming, restoring profile %d\n", data->saved_profile);
+-	return laptop_profile_set(dev, data->saved_profile);
++	return ret;
  }
  
- static int platform_profile_probe(void *drvdata, unsigned long *choices)
- {
--	set_bit(PLATFORM_PROFILE_LOW_POWER, choices);
--	set_bit(PLATFORM_PROFILE_BALANCED, choices);
--	set_bit(PLATFORM_PROFILE_BALANCED_PERFORMANCE, choices);
--	set_bit(PLATFORM_PROFILE_PERFORMANCE, choices);
-+	struct bitland_mifs_wmi_data *data = drvdata;
-+	const struct bitland_mifs_quirks *quirks = data->quirks;
-+	size_t i;
-+
-+	for (i = 0; i < quirks->num_profile_entries; i++) {
-+		if (!quirks->profile_entries[i].no_set)
-+			set_bit(quirks->profile_entries[i].profile, choices);
-+	}
- 
- 	return 0;
- }
-@@ -366,7 +424,7 @@ static int laptop_hwmon_read(struct device *dev, enum hwmon_sensor_types type,
- 	struct bitland_mifs_input input = {
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 	};
--	struct bitland_mifs_output res;
-+	struct bitland_mifs_output_head_rc res;
- 	int ret;
- 
- 	switch (type) {
-@@ -455,7 +513,7 @@ static enum led_brightness laptop_kbd_led_get(struct led_classdev *led_cdev)
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 		.function = cpu_to_le16(WMI_FN_RGB_KB_BRIGHTNESS),
- 	};
--	struct bitland_mifs_output res;
-+	struct bitland_mifs_output_head_rc res;
- 	int ret;
- 
- 	ret = bitland_mifs_wmi_call(data, &input, &res);
-@@ -480,7 +538,7 @@ static ssize_t gpu_mode_show(struct device *dev, struct device_attribute *attr,
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 		.function = cpu_to_le16(WMI_FN_GPU_MODE),
- 	};
--	struct bitland_mifs_output res;
-+	struct bitland_mifs_output_head_rc res;
- 	u8 mode_val;
- 	int ret;
- 
-@@ -534,7 +592,7 @@ static ssize_t kb_mode_show(struct device *dev, struct device_attribute *attr,
- 		.operation = cpu_to_le16(WMI_METHOD_GET),
- 		.function = cpu_to_le16(WMI_FN_RGB_KB_MODE),
- 	};
--	struct bitland_mifs_output res;
-+	struct bitland_mifs_output_head_rc res;
- 	u8 mode_val;
- 	int ret;
- 
-@@ -712,6 +770,7 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
- 		.default_label = ":" LED_FUNCTION_KBD_BACKLIGHT,
- 		.devname_mandatory = true,
- 	};
-+	const struct dmi_system_id *dmi_id;
- 	int ret;
- 
- 	drv_data = devm_kzalloc(&wdev->dev, sizeof(*drv_data), GFP_KERNEL);
-@@ -726,6 +785,11 @@ static int bitland_mifs_wmi_probe(struct wmi_device *wdev, const void *context)
- 
- 	dev_set_drvdata(&wdev->dev, drv_data);
- 
-+	drv_data->quirks = &default_quirks;
-+	dmi_id = dmi_first_match(bitland_mifs_dmi_table);
-+	if (dmi_id)
-+		drv_data->quirks = dmi_id->driver_data;
-+
- 	if (dev_type == BITLAND_WMI_EVENT) {
- 		/* Register input device for hotkeys */
- 		drv_data->input_dev = devm_input_allocate_device(&wdev->dev);
+ static DEFINE_SIMPLE_DEV_PM_OPS(bitland_mifs_wmi_pm_ops,
 -- 
 2.56.0
 
