@@ -1,67 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792566767;
-	b=rdwPt37S6kvMtEB+CEzryjwQvjjwdROB7cH3h7nXO2IVvlXHH3+Iwa/L1QMye3HWnKRt
-	 ocgtT0mNIFwAfrzORoO4s0BjNv2GxAL3NAJz7+Sfhq8uXRpr8yYYkRkdmGDH/soE/gVpW
-	 VYZUBkM2vHGyXJzS7SV1nLf/1D+ISqx6Uzmzo7nEjHwYQo3cPFV2dx51ngcCin21RAmN3
-	 ulARZTRrax6DaJ8GFsgm943d/A+y77+hAUD5ddOoL6jQ0zIzACDKuOmY7pXFKfIOX6t3S
-	 RUeViTZjQhI4RzdduvTDRzCtBRgsj1fucKTdoJBPXO4meS5tJIu06Ac9uNPIAI3GckA==
+	t=1792566840;
+	b=QbV/cjBHIeV2oJpa5ExxDcPJ1Ualv59TLpNdbs1Nw7bIYEhaxS38tSb1HhZ6IEe7ai2g
+	 qeRIf1gbZkjpI/KPeMIrf30crjcnKmvOD7YeXQmy0lZRjnsX8+MoKwjyk7E/WwnPVRLo8
+	 /SQG0yYFnr0puKeHl4nu9/jLvodNchZzLINfn9e2toL6abbqzgegJrU9GMOCwVBWG56jW
+	 72o0OJrDZg0Q5rESNgTNcQyEI6Jid7E67Bvj/hwFftFBGazbz+jCmFWMHFb6urDb3+cH3
+	 Hjc2hEN/GXGSg7JcLrR3LZ33E9Y7YwrKg/ilVuFGYSmwPxuFh63qRTBD20V/6B4YBMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792566767;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Scanned-By;
-	bh=EajleJOtenlzMbnwK3jgHms3N/ii5fGEf5fCWPLn9SI=;
-	b=f0RF6Q0CmJrfgeCPvYKB7zi4V+IqUNwLBkafbsDmAqv/CyT6wHE2vwtwSqyth1Kr+vVS
-	 o0yuAiAnL0+7AEAXxJeZvnOHLUDCn2n49oQH/6mroEzFzEPfpSYQIE6ss3DOr6aO1ek68
-	 Jq2V/NUOdwJbNQafSs/xo6/WtJqpMxm7OqzMLhSTNfzN0s3vIe2jBJpQvdJCBXoHpPG2C
-	 vNnFvKZyD2uAq0yWU9c/OyuTIhFKCpifQyNbacZPrqoibpGTHsqtQrVzViqmOnTSBGHNH
-	 hy+j7dx7EZwHv1FzRHKSkwSx1NQ2wtw84s/GfBlsKbxDUP4G+A3Vd+ud/E5EhCw2H9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792566840;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Last-TLS-Session-Version;
+	bh=BWwjQzcNdHdkRB5j/U4h6P+LV+nTL5ji/UH06kwPew0=;
+	b=tRf3jovIA18NDXqVtrUnfv5ywGJ0osZDqYrKaCv9Z2D69uMX7643liAR72DLSeSiDE9h
+	 3N/WgiKYzSvTK4viNga/mLv0h6e9VLiXHmVd29Zf4mT3wBUI1QYOxrbuqzANSQF0HLujH
+	 h7wchhS0tUf4hTw6IuJiqirAKh8QJ33zmhdQRzATiTu1DO+iAfEI6oLUXOfaCGvaa0+7F
+	 w+vc7soa6m+CPhSZdZESTxk3PHYOz+TGwkESQqQw/7d3/4og137rz7C9uGU0Lr1ryYPT/
+	 ddinZ2/EFOF3Lr74VdcTsU8uwqd3Q7p9ZQxYneKiuHGg5+YotULKPeCW5suJah3BIaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HAe2LS7K;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0ovLg2Nr;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3EE606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:12:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D3EE606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C617D606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C617D606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=HAe2LS7K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792566766;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=EajleJOtenlzMbnwK3jgHms3N/ii5fGEf5fCWPLn9SI=;
-	b=HAe2LS7KIazmyBoXa0o8O4Wsro7viciHZMozqXNCMIf/SPDETC2MgUVBq0K3x6+bu7qn9H
-	K75YeorDvyeTddva0Qq7BGOKLFySkCWScfe2niDCz0HguedwH/jTfcyKjUdihrI1HUvffO
-	PczNMBhAJU5LpaUf3F3olNlWI38+WlQ=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-349-gg2P2V2tP_65n4zfHdOmzg-1; Wed,
- 21 Oct 2026 03:12:40 -0400
-X-MC-Unique: gg2P2V2tP_65n4zfHdOmzg-1
-X-Mimecast-MFC-AGG-ID: gg2P2V2tP_65n4zfHdOmzg_1792566759
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A462C18007E7;
-	Wed, 21 Oct 2026 07:12:38 +0000 (UTC)
-Received: from [100.90.56.12] (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4C9A61956088;
-	Wed, 21 Oct 2026 07:12:36 +0000 (UTC)
-Message-ID: <4ddec6f4-1db9-4efc-9e43-b26104505174@redhat.com>
-Date: Wed, 21 Oct 2026 09:12:34 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0ovLg2Nr
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 0FBA14E4125C;
+	Wed, 21 Oct 2026 07:13:56 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CEB2B606E3;
+	Wed, 21 Oct 2026 07:13:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3306310328D20;
+	Wed, 21 Oct 2026 09:13:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792566834; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=BWwjQzcNdHdkRB5j/U4h6P+LV+nTL5ji/UH06kwPew0=;
+	b=0ovLg2Nr8xmCZ0LDSoNViWsGYL3O1202DVoW2TUVpZYdWbSdLaVVsDFMM0MDevQ/07q6ZT
+	bF2k/6WOQZsEwQX5p0FD+37dL/dauwCXK/0O4O20UR192LPY3RHdV8+kqKFyd2oAjvw1cX
+	SzjYKnsHSCaRnUY6ngRYU2Stz+URQDSX1pz63PtStS5R4zGQA63miLGq0PUOyFyRr98a/5
+	2tU9ULZ0wgk2tbPqU2H/lV/xc2c1vuZikq81wkAehZ/vtjru7QF10KNqQuU4QusQMt4U6x
+	x3KcCtLQBdp8RpvzuSlwPUoJ7GzNLOjbm+L8p7ohapDXirHbVCLLaUxxNwfliw==
+Date: Wed, 21 Oct 2026 09:13:51 +0200
+From: Alexandre Belloni <alexandre.belloni@bootlin.com>
+To: Akashdeep Kaur <a-kaur@ti.com>
+Cc: praneeth@ti.com, nm@ti.com, vigneshr@ti.com, linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, sebin.francis@ti.com,
+	s-tripathi1@ti.com, vishalm@ti.com, k-willis@ti.com
+Subject: Re: [PATCH 0/2] rtc: Prevent hctosys from using invalid RTC time
+Message-ID: <202610210713515313f800@mail.local>
+References: <20261021042435.3895543-1-a-kaur@ti.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,77 +67,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] KVM: always make in-place conversion a compile-time
- constant when possible
-To: Xiaoyao Li <xiaoyao.li@intel.com>, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org
-Cc: Ackerley Tng <ackerleytng@google.com>, Fuad Tabba <tabba@google.com>,
- Binbin Wu <binbin.wu@linux.intel.com>, Shivank Garg <shivankg@amd.com>,
- Yan Zhao <yan.y.zhao@intel.com>, Sean Christopherson <seanjc@google.com>
-References: <20261020131447.122096-1-pbonzini@redhat.com>
- <20261020131447.122096-4-pbonzini@redhat.com>
- <4217cec4-2988-41a9-b6de-cce0708ec830@intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Content-Language: en-US
-Autocrypt: addr=pbonzini@redhat.com; keydata=
- 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
-In-Reply-To: <4217cec4-2988-41a9-b6de-cce0708ec830@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021042435.3895543-1-a-kaur@ti.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 10/21/26 09:07, Xiaoyao Li wrote:
-> On 10/20/2026 9:14 PM, Paolo Bonzini wrote:
->> Remove the unnecessary static call indirection and make
->> gmem_in_place_conversion a constant if CONFIG_KVM_PRIVATE_MEMATTR_VM
->> is false.
->>
->> Require that CONFIG_KVM_PRIVATE_MEMATTR_VM is y only if
->> kvm_arch_has_private_mem is also defined.
+Hello,
+
+On 21/10/2026 09:54:33+0530, Akashdeep Kaur wrote:
+> The kernel's boot-time RTC synchronization blindly trusts the RTC 
+> value when setting system time, but RTCs may have invalid time 
+> depending on the boot path:
 > 
-> This reads like the patch is going to make such a requirement. However, it doesn't.
+> - On first cold boot: RTC may have lost power, time is invalid
+> - After low-power mode (RTC-only) cold boot: RTC retained power, time 
+>   is valid
+> 
+> On normal cold boot where bootloader or NTP has already established 
+> correct time, boot-time sync (triggered when RTC driver loads as 
+> module or probes at boot) can overwrite it with invalid RTC data, 
+> causing time rollback to 1970. However, on boot from RTC-only power 
+> mode, the RTC has valid time and boot-time sync should work to 
+> restore system time from RTC.
+> 
+> This series adds a flag that drivers set dynamically per-boot to 
+> indicate whether RTC has valid time. Drivers check at probe if RTC 
+> retained power through this specific boot. Boot-time sync checks this 
+> flag before setting system time. This enables correct behavior for 
+> both boot paths while keeping PM suspend/resume compensation 
+> unaffected.
 
-It does in the sense that, if you set CONFIG_KVM_PRIVATE_MEMATTR_VM=y 
-without defining kvm_arch_has_private_mem, you'll get a useless 
-gmem_in_place_conversion module parameter.
+The proper way to do this is to return -EINVAL in read_time until you
+know the date is correct. There is no need for an extra flag for the core.
 
-Also, if CONFIG_KVM_GUEST_MEMFD=n, you'll get an undefined symbol 
-kvm_gmem_is_private_gfn().  Previously, you wouldn't get the undefined 
-symbol if kvm_arch_has_private_mem was not defined.
-
-Paolo
-
+-- 
+Alexandre Belloni, co-owner and COO, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
