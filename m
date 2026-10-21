@@ -1,92 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.107
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792590624;
-	b=KFiWo+mUve4HZGsC7YokWiZi2WAc6txRhnkxQuio43z8cCtXIfb+dg8fVTuq2KZo8LEg
-	 rsY5AyJTPqQ3w1oYCUfuut/1dld9OZ0u5vCLwU+xhGHm2kK232HWld1IIUxrGMfH0cb2z
-	 aIPzXfth6pZUTTV/20Ug7IR0qE7CGwAairCPJDOExhvhncjBolxdaf27Zsrr2F+uK2YyP
-	 7C88+VUFrif+pivirkFah6djMk4ITJZXqHHR4w0RH+TTfn0s/itj/ctstv0O/lmOcapop
-	 QTG6beVShzpDIsT3F4vHhOKRuAlbkVxCV0ufkiJNe9tHOYgSZWC7SkRvjKpRbka6n2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590624;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=cMR0hmTVgLU3ksdmk22976ItkNRIxkjEi1bsA62j3OI=;
-	b=YrvK+xvYGTnvdzGoL349BbsjyyfpWihGqv6tZt82AgdI15ScLiORkLSET9bDmpNrxABJ
-	 geek8vGT2V47GtAcFXPzHT5eFGywo8IOH3HJ7S8TeX7mBVUwlW9ei59S6MgWiJSW4lg+R
-	 3rKgILBxeG5bkcnqZLmNKYy1uf0QbBLHX5AQ9sEdeQihoBgIiJzsOu4bki+Bk6gbuEKhq
-	 pVlltEb6R0/vztiH73ZI0l4T3GUoMyOhC7IWFWNSMjucPrGsCqwlvbnDzLVUfjRGGFpFl
-	 XglkcO+iZXxtHprjbVeec6tDuML9f4CMca+7ZFJRxF/Uboo6EIEpoijXWYvC/ijQ5hA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ebytelogic.com;
-	spf=pass smtp.mailfrom=ebytelogic.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.57.107
-Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021107.outbound.protection.outlook.com [40.107.57.107])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABEB606A33B;
-	Wed, 21 Oct 2026 13:50:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EABEB606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GGOkGnOQYpQt1JuwqVy4ENUEpJ7CEgLlin7e2/GFgEV2aAwht7jusWsoMu513hZxpEFO0Ji8w2xLcqfV/zFyQD2ltZOnZiH/eF4npJmeBILuMUI7B5Ymhc7XoqIwnpxP5Kd83otx6tXNbD0NMH4uyIQ8kOPWe9tLRSibtXjBT1eyNXIQFgMVHSoFfGebT1nN3IMnvK/uwnfDV51AijoF2eEzLnBeNqBuCmdCKWtcGuX6dn+5dgfLOoYyyVHCyJyojukm4tLWYTqzKlWUAw9t3pWXJMBIWjbc7pz2ppSe+A/p9wSKiAsv7OB2rRgfv3jp0fmERAcHnyuepf9cHrfSKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cMR0hmTVgLU3ksdmk22976ItkNRIxkjEi1bsA62j3OI=;
- b=eG+K4KHuxMw2sgRFz06xtsbzdBNhoUBcXa7lPU4i4xZVvRijMG+cfImvNzlS5sVmK9wd7l7dms6t6IyeFn2/SRsMT5G8ZNCC11IcnngqjXss364Npfq/7uLvdf9r0/fsKf1vCNvpNuDSIWLoDXJnaYykys+mQhoOMsILk9tkX89rzhv0Bh5Aatlv1ATlhpAb4jfN5ueqk/ghkIfFvv/oak0TRhkaJQzAO9YJIp5iBS+iy0J0hcFYnZGZA19dVb+HQ7zzyjVIhVeerK8rolfULuSaq+QYcX/S3d2YiU5d6AjPDTkOiFx90vVl2vYd9r6GCwACkjcDJ0XZn49G0fq0IA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by MA5P287MB4418.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:167::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
- 2026 13:50:20 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::4cf2:bb74:999f:d6b8]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::4cf2:bb74:999f:d6b8%8]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 13:50:20 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com,
-	Hitesh Patel <hitesh@ebytelogic.com>
-Subject: [PATCH v6 3/4] media: qcom: camss: Enable the streams API on SC7280
-Date: Wed, 21 Oct 2026 19:19:58 +0530
-Message-ID: <20261021134959.2599575-4-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021134959.2599575-1-hitesh@ebytelogic.com>
-References: <20261021134959.2599575-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN3PR01CA0030.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:97::21) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792590646;
+	b=r1FYW5DU0bxxP2D/n+IQzYX3yO0/lbrfa3vUgeJkvftkTDjhDBQXPslw3klg2ukU26rk
+	 Ut2BYwIRwii0ITkQ9N8u7XSt106lyDwNW022b47KptF+AynOttmq7ZaIejr3FAQlDg2dI
+	 ZLQYV3xDQChfUmaQX1xeILs1jTZTCn1LSWkYQNmWnd9lsODqQ2GhkzOpR9jq7iuKJkIZ4
+	 4tp986168EMqtYTqnNc7MJv4E0mm2nFyOKHCrII6zMoz705A+ShrsNJ+2k+fTmI/YJO3k
+	 w/i2rHF3fjoUiuYJYeHqW1Sx7+OgBBAcRinEHp5IvTaN7LbJ2p59j/Lnd6d0js5tPiA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590646;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=q/QkqYTtgy2bufWV4QHDyITEHcwRUY/+ZRaQQhogM7Q=;
+	b=Y4JJN4CR/XPMQ3fMGgYChK84SQhd3x/G6e6yfh0q/u6tZ4vSNpj93AMRK3YO7xhStRWO
+	 7rElpHxk5JjP3BOuMhQfiXQLmiN3lsNZBibVxB32SviSOQdvuKbq3wvNTfLajCU/pYYNp
+	 TJ6tQWN8VzOFNYdfVpkM/gRnAsCa095lbyxDGy8U649ZtZCwSSeuR9WIaAjp20wAKxok+
+	 ln5fXK/oi8IZhiS8fuIG7YuaBnlJF4LJWYo9fB6xwAnO+mjlrc3NcaZ76ka+cTyAmLfWn
+	 Cik49JcuoJC6aYJh5xqqduOAmkwSNCfFnUmc79XkIFZfByzk459Xfp1+gijPWHuWmsQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LabB0NAn;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 03CD4606A321;
+	Wed, 21 Oct 2026 13:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 03CD4606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=LabB0NAn
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C5A2B16F8;
+	Wed, 21 Oct 2026 06:50:40 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A08C3F7B4;
+	Wed, 21 Oct 2026 06:50:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792590644; bh=H9BbNKD9GkEe6o0jC5JSixuXsP4WuXXgnjCc42nbGrc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=LabB0NAnebFRInTcBUa9BOCZ/lgn/jjoDQSRA2s/axBNi6xZLE+nRkYJaxSJVdXT5
+	 +HIcagw6CFCMIU0JVEmsn7LwC0FiKLgN9v68cikBBU1nB/zBKt8zztUuhdjYPxABV1
+	 rFHuoIbwz6brT0EOV+VRC0mLMGw15Y0xr/OiLM8w=
+Date: Wed, 21 Oct 2026 14:50:36 +0100
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: Mimi Zohar <zohar@linux.ibm.com>, Jason Gunthorpe <jgg@nvidia.com>,
+	Yeoreum Yun <yeoreum.yun@arm.com>,
+	Dionna Glaze <drdeeglaze@gmail.com>, Jiri Pirko <jiri@resnulli.us>,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+	linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+	ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+	sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+	roberto.sassu@huawei.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <atjDLOTJE7-L711K@e129823.arm.com>
+References: <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+ <atX9fugGUsI0hGcA@FV6GYCPJ69>
+ <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+ <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
+ <20261020140655.GV13920@nvidia.com>
+ <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
+ <ateSly15N5mLrM1m@e129823.arm.com>
+ <20261020165251.GG3008132@nvidia.com>
+ <ae372ed03da3cd2d57c922850b3b017bcb83ca07.camel@linux.ibm.com>
+ <ati7na9OJjN9FA1u@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,91 +81,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|MA5P287MB4418:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b4d4ca6-f026-43e6-ad58-08df2f7a3f3a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|10070799003|23010399003|376014|52116014|1800799024|18002099003|10067099003|22082099003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	T4WCcoGf12qcWfb7/1hZiNJLlb6g1JfQjMESGs75hFAvvcSW/Xu0+8CYcANUKemhC7t3wqtiL1z0CSkUWwRK5hyqxyaK4b6hTDKOyvhQhdEtVtt9u/cGufp2PZYRFbvYdi86RBeJrB5hfqRLtV/YYhOrnZlfwIvSI1PRBAN5VHj/ziPTnH+/XaspMGDmcWvf+R0L58NumnDjvSgVMg6kCTpch0NEl/mqjHA2/VpMy3RqfEk5R8fGJtkTAOCUTp9sBcTKXdlhjjTDpnUBOnqNj8TL8s44N4By5EYQINg+INpg0TK1vHeyLC8SyneWydhOB16zYZVhjodO9q4xEwe6rB+NGiU6WMxmP6Co6anu3WwFPBUtfrj7hUUjsA15YWmK9nrDTM5CjzG7qr+yqdK1WrteZHAFzxz0EsENMa56+unLJ61lrRq++STcavBgtqwzSo3/kkUJFNzif2/kCpR3r66c3/bwLHTR4BwXDye4x1v2v0ufkJeOwDZH8iqaYl/Zl/D87ZQAHKQdbqisufcPUtb0w7gHAEiVPbTfYAipFeN6FhhmQfO6tmvGC0uYPPOUcf4WDJRTvAgZ7f0YZqU8OJ+ntmtcfYATxZ0B6XeNXGc11fJx3GDNnERHTPcpAZzos/rwoeMow1kfQmIFQFbDPDYI/Stah0CcsidWvrnqLj8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(23010399003)(376014)(52116014)(1800799024)(18002099003)(10067099003)(22082099003)(261009223027099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cBUaQJkBZa9neRazgTaRoStO8+ENUhDj2jfN8PA8CXT9bPyWevR0UrL01b42?=
- =?us-ascii?Q?+YRVkuGC/nQxUIKphR9G5CUlxxkJHnawDVGbZQH3S+ePoWtSvNI6NW7B3iUB?=
- =?us-ascii?Q?zl6nE3oqdssuzpXAlW540x9llJqDh5zmVH8ZAtOI5/gIb/7wb6LGZYVI7B9C?=
- =?us-ascii?Q?7TxR3LGZgemV4ADV1E1EUvR9HuCu9H1uyKDh/64bOmjpggznf5bBOv2kSsDx?=
- =?us-ascii?Q?jHE3OPcLrfuD+5MAkwoT5Tk1m1KNAtRY8p9oCbMkNGy7ISd+MzWxQwRWettc?=
- =?us-ascii?Q?aB0X0pGgkXAaq+SVEsNbh2Et40PrTC0J+b6SiPdQ33+s/WiwmluppEIATERV?=
- =?us-ascii?Q?uYxeCkrjOb2LiWUu4qAO7nEKaJjowjx7G0bJ/j5i+4ctM4lGRi9vOG8Nraq3?=
- =?us-ascii?Q?qi3jOXFFsDM11tlz1Mqt2xp8QP1L3gAD+khAKuBwLvMnY4OUZxdXqg8FL3De?=
- =?us-ascii?Q?s7lvdNzCpqrX81sVNfuZ7TXkjbOc0XaYm8hWjLEqPxQR6sLCz54coIL59gAa?=
- =?us-ascii?Q?Y6WvHe3LdO4LWInjhxD9G1BMjXvF6UePbf266M04Azk1WDit5rE7KBH+pl30?=
- =?us-ascii?Q?w27y9HOwQNQc2kNMsa/AjhSEKdGOVU3/ZffLANOBAb2RnmGU/kblhSF5Y6BZ?=
- =?us-ascii?Q?6PvFrorhdtEhMoCtUyRRO/rE39ykhaWVx+F9d1jG/GkDgV8Yq1k/h1/tUR+O?=
- =?us-ascii?Q?J8Ei26jIDxfU8AUUkSU5X6KqzbAEHuUqPJDFh7onaz87HpvYoZEAu1QhkdiP?=
- =?us-ascii?Q?++3VZ5JQ4rYNDcOK+iSpCL8fyaN26P5UGF9tLjHusoqkAHgAZ9MyKaQlEfDN?=
- =?us-ascii?Q?OBd/Z81a5QBEEzvMqVyGb691YUWhRPlN58uKwkjrlhcIS/Z31JEeEEGE11BD?=
- =?us-ascii?Q?XJmKl/VmGG9G39H6vilciihvSIYx60/wxlMruw0iYxzJ960IiRxdXeRe7EjC?=
- =?us-ascii?Q?VfubWhyvwTj+9XVIHa4nGT3DIPzYNIliN5GgbOhkkM1zBrAKmJvW42EkN3TW?=
- =?us-ascii?Q?6qE1euOaG090Ur26kKHIHPg1PJUAhQUPkcFLyJs888EJvhX/gSSVn74N8WUJ?=
- =?us-ascii?Q?WYyyZax5tRlZbc6aeMvX+DZXkYy4NDcPbq1anrCiGi7jZheObbNglxOGAYls?=
- =?us-ascii?Q?NvJQs/avrI5YXZhgH2ZtT3M4jO+7EeCkNWsKwm2VBHLu6pDZBHFOTXGGOA/U?=
- =?us-ascii?Q?bt7QaYsHJ8tno278oZNpyMYQ9641WghArU7lkocFv9//WnUmoopoiewPHKeV?=
- =?us-ascii?Q?NHZA67ilXpfZo0YXqIeALKnaG4NHdVyfK8Vp7yal4pPgOPhqv4BaSIL5CT0S?=
- =?us-ascii?Q?MHIngMltO55oQFzdYq8jWag/nPvtXVdE8GZD6xgXtD5lfHICDQ1mKqsYtVDo?=
- =?us-ascii?Q?/SrYDJAXyFpuqcYmdbl6mNT6ki0QY/+ZJayTE8KCeJkyupwHX7y8QiVW9k51?=
- =?us-ascii?Q?l9mzasYzZHttdLXQR/F+Rpa88e1xOOLU25UqWksQkNDYk6D2zGFzgW161yIi?=
- =?us-ascii?Q?kqa+ggjgpgTqvugObFgkelIpZIiAfHpqfOF1Ki4BWyZI9uCil8gGZWNmA8QI?=
- =?us-ascii?Q?IvYdidXGwHmIVVeQ8Dk6JO19ON6MJeYiQRodQWLL9wZC4fIIaCMSCRzd3T/Z?=
- =?us-ascii?Q?mVBaHTZNpxfaeBihVlkfkGnmJdGniAvMkcVfU2usz/Se8T0CQzflsk6uZneY?=
- =?us-ascii?Q?sRfiuCFLaEY+bwwD67k7DHXzdA4udckq6Ao9w4oRzJ65rCNZmjqSbf/h+JsV?=
- =?us-ascii?Q?xrxAQmGm2H973HS/LUETOKh1X5K2359ysSsCA1M4IpbGqWsXsysZjNbMLvsp?=
-X-MS-Exchange-AntiSpam-MessageData-1: c72YINEmaXRcXA==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b4d4ca6-f026-43e6-ad58-08df2f7a3f3a
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 13:50:20.5321
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LDaWcWum0ECimpl1R0lDB+nJYChBEJxINKKhl0DpNNkB9S+qLdpLwwEvfOdVAWHGLVVCDkp4S6RInRJX85qDdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB4418
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ati7na9OJjN9FA1u@kernel.org>
 
-Tested on RB3 Gen2 (QCS6490) with two GMSL cameras behind a MAX9296A
-deserializer, one camera per CSI-2 port, so two independent pipelines
-share the deserializer subdev: both cameras stream concurrently, and each
-can be started and stopped repeatedly while the other keeps streaming,
-without the WARN in call_s_stream() and without the second pipeline
-tearing the first one down that the legacy s_stream path produces. The
-CSID test pattern generator keeps working.
+> On Wed, Oct 21, 2026 at 08:23:05AM -0400, Mimi Zohar wrote:
+> > On Tue, 2026-10-20 at 13:52 -0300, Jason Gunthorpe wrote:
+> > > On Tue, Oct 20, 2026 at 05:11:03PM +0100, Yeoreum Yun wrote:
+> > > > But, I have a related concern about deferred probing of RoT devices.
+> > > > 
+> > > > For example, if TPM probing is deferred until after the attestation
+> > > > subsystem has been initialized, how would the subsystem handle the
+> > > > TPM becoming available later (This is reason for
+> > > > IMA_INIT_LATE_SYNC).
+> > 
+> > FYI, this patch set initializes at module_initcall(), not even late_initcall().
+> > 
+> > > I don't think it would be any different, the mechanism for TPM would
+> > > become generalized and apply to any attestation driver.
+> > > 
+> > > This series doesn't attempt to do that flow yet, moving ima over and
+> > > dealing with this is another series :)
+> > 
+> > When TPM device initialization is deferred, it is retried during
+> > late_initcall().
+> 
+> I don't remember when but I recall that this has been debated a few
+> times and the idea of deferred TPM initialization has never been
+> successful.
 
-SC7280 has no camss child node named "phy", so camss_detect_legacy_phy()
-puts it in legacy PHY mode; the streams path dispatches the lane
-enable/disable accordingly.
+Yes. That's why handle the IMA at INIT_LATE_SYNC according to platform.
+and when TPM RoTs is added, unless the the attestation module with is
+initialised at late_initcall with IMA_INIT_LATE_SYNC option, platform
+where TPM initailisation is deffered, this seems get failure to
+recognise the TPM  RoT attestation according to current code example.
 
-Signed-off-by: Hitesh Patel <hitesh@ebytelogic.com>
----
- drivers/media/platform/qcom/camss/camss.c | 1 +
- 1 file changed, 1 insertion(+)
+Might the TPM RoT attestation module would require some handling.
+but I'm not sure with what fancy way.
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2c9c4ce5098e..a9bd79ca3f11 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -5760,6 +5760,7 @@ static const struct camss_resources sc8280xp_resources = {
- 
- static const struct camss_resources sc7280_resources = {
- 	.version = CAMSS_7280,
-+	.streams_enable = true,
- 	.pd_name = "top",
- 	.csiphy_res = csiphy_res_7280,
- 	.csid_res = csid_res_7280,
 -- 
-2.43.0
-
+Sincerely,
+Yeoreum Yun
