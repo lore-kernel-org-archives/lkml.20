@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576358;
-	b=ehOOzMXNalNs/6nRHzIl24V/D3+J+IHoWYlvm+cDo6H/U0E14J93LSeSGfUP8ZiQZDWX
-	 gYiDRiZaZDvNULN38pRt3cSWr0tyT2kDZmytHC5JwRA9nLfVsv8JDRvwtAEhXzUx4Eljj
-	 yMNxKrBFsqbBmPDgfT/osqIkVpH7Jooo/QS+mJOouJCQ/JpsmYOtCNG9Rw0kaYElliXV/
-	 byMeS8Tfk2JZfYleV/uFp0p5UBD3ApXh5juczcpp03YvJwfwH7jfBxjzb+W4ezT6knDOl
-	 jTrIPKFtOMdZlZwnyjg0kRm+ApgCVlkplbb3kFy+d6AaO18IP8t0zAWyiBPlMWeCQ8g==
+	t=1792576395;
+	b=5VsSV5BXoO/Ls3EFQYIBohucBtW0Dp5N2gSUxWWGH1GJv9TV362HkflaTOectL/Q/Y3T
+	 TQ8IWXND4XkRFFEQgh6EcriLCt3EOs+6BGEqKuXlrJMCWiqHP17i5MkDC0o6H5MmhoQpH
+	 vshAL1wtMWoHbalvlt7mcbAmcpSJj7iOc6ZWPf+njQM78xfHG2lzDOu+fQzBGGzNSSFJo
+	 icwBh+EkWm61Zmv90RRdTc0ZgvF/eEY3QGW+w4Yzz/St5FppnMe/+FpMbejP74MCZzvbx
+	 vootiLNVVMX88hjQqEo1RO2B+r+i3I/eTcDjAZIP0DF3axm6hcNN784i3umcOhxoRFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576358;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Jh8LWRqw7DncpLM61emszsrjL10lzFZXGuGfzebDIgs=;
-	b=YVsmW0dO2zSwjqvD14yWZL9sngJdqtxQkqo9xMsO9TCp8EZpL0prViP6Yun/PcTy6U3z
-	 xQjEw8j160xwKOWMkWUwIUc9Cu+RTljTfhNnzwjpEi/e9g0IKuew+wKOulI6ExWyg3B1X
-	 Sf86gTNPBwMutgmigP3wWkCvaHO6mYDjA6v1JPPefN1Zf+PUlThYxlUQYVX/Pki9PaL2C
-	 0q+wUPBYL06yg6oGeu8Pset8+iI9KGLkUuEXJeYFqOX0C+ScwVqpGvwavE1eSL3nqAfsP
-	 BTrU2JSdECB4ocrT4XE1vllug8t0cI56x7lnoVfOIIVHgqou2s30uPEHa/F1H2gd0Ig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576395;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=IcAOJtu2GeH5NVoG/ptuKUpX9Xs6ODaL48XYm6Cio7U=;
+	b=n3EcYrkp81Ff3Z47Xhme8NiwCtRLVkeCe0Z1bXFQCZxJ9mxUWG0p14JxI0wPcbtihwCO
+	 macgRLXKEan54KDaHjId1fz9bv3MCZpA6z6geEYVqxHLwS7qD0hPeAXeq2AGOt5oif/Q0
+	 +C/pMqS71CaQNETf+Dx+Tw054nS2HL+c5k382hSBC4x/ySOdOKAU4peGoXaq144YL6dv4
+	 DDZVAl3JhZV75jx/KaCZwdFGRyr/qrQzj6xVwkgsAzozJQqqMIlKXGazWp9Kv4fCoPEhy
+	 /Dbk+GlhFoJ5dzxR7SAM/ryqdFHYOxWMDnO5/yO+4j+1cjKAZln/Bcuv0sqU933ce3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kZqkc8zU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pPr4pjhQ;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Cw34eXGY;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7CE606A319;
-	Wed, 21 Oct 2026 09:52:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5253606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5253606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kZqkc8zU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520C51F000C9;
-	Wed, 21 Oct 2026 09:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792576358;
-	bh=Jh8LWRqw7DncpLM61emszsrjL10lzFZXGuGfzebDIgs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kZqkc8zUyjzFXA7B/p0KIOS2HwclJEbuItJ8ll5qV1ajq+85AHwHEMeqOBtuxN8PC
-	 m1I/PfMVpGUfH+fA4Xq2dEBkQxGwbauGNf3LCUk71iDdpqYXf9KaANCAiWaFZcBN7B
-	 sNa1r2e+ce5ZYE37tTORR7TIfowh6t1nZL0CwpSxz7hWtiAZmSNDDVJXmOi/9GlgjV
-	 ODYRvSb82KJz7brGR6Zizid+HYEuQMhTAI+8wnbf4n1+O24t85biAOd3bTPPFxECjO
-	 xMHrkwW7KopACTixVN7yQBbfrk+EhVU2AbWxQOYwOYNpteYmFccJ7YRxG+Nv+3SfoC
-	 7+g94nh5J2tnA==
-Subject: Re: [PATCH net] net: sparx5: don't reuse the last DCB in fdma xmit
-From: netdev-bot+sashiko@kernel.org
-To: daniel.machon@microchip.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Steen.Hegelund@microchip.com,
- UNGLinuxDriver@microchip.com, jensemil.schulzostergaard@microchip.com,
- horatiu.vultur@microchip.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 09:52:36 +0000
-Message-ID: <179257635682.3135.3561272765367316822@kernel.org>
-In-Reply-To: <20261020-sparx5-fdma-last-dcb-v1-1-fb9a956196dd@microchip.com>
-References: <20261020-sparx5-fdma-last-dcb-v1-1-fb9a956196dd@microchip.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pPr4pjhQ;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Cw34eXGY
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jApq3711619
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:53:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IcAOJtu2GeH5NVoG/ptuKUpX9Xs6ODaL48XYm6Cio7U=; b=pPr4pjhQYBxV1zbN
+	Io+tfTY3aIU4h+rNUlm2Bgb+i20Xtk27am3eRWVDXyZ2KGopsRK/aQnEWROox1W3
+	eh1hbEnIdwO5HQBOp2IQFeoj1+PpTMNJh1sw246qsUoz6k8mT8pS8OUpOXrTmy5V
+	dJFG9dXjULkrBCfruRXzPxpoQ8qm34I+lcVZ1sl4AUiWlxso8J7oBYBdvDvjNl3q
+	6kEpL8WngQxbdbTPpurbURVglZ1G9vh1vOfUka4W0Xd22KkXZQjt/3ZqWjTkkycZ
+	dGnjfKy/BAGoLGlRtexIz0gPJfLppo1TCx0s9zBbGhjzosqFS+8JpdLLguVRbhNy
+	SgezXA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v3d0x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:53:13 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93ea8a9cfe6so15488885a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:53:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792576393; x=1793181193; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IcAOJtu2GeH5NVoG/ptuKUpX9Xs6ODaL48XYm6Cio7U=;
+        b=Cw34eXGY17ZiDWmbUU0yZZBBMmN84P2t40AknRo5FL6giuAPpWN3PYI8YoL+LN1aHP
+         7MD4OEx6BNIz+L/PEvue4n0LhlZ/+ud3Lzknukl0Gnrb8EPu0LiMFCGFd+K/ojLBmRoy
+         ZdN+TFGUHs8L63wS9T/rYlzpzWCj8Yu9+IdRyUhRqvflZBPiuXzYuPw6BQFpWZcajSsr
+         eGHjoL+rg+jGTJ6oqJ7+H9gROu/BSZye0T+GMiIFfl9ewcgwr+DWANhOyarhjfiF86c3
+         OCpjE+C3Z3F1bDkQtsvCLhhmXG7lgx6nKzI2YyWnqN/7cXeW2riW2LaEEMU8P0QKpMe8
+         jILg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792576393; x=1793181193;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IcAOJtu2GeH5NVoG/ptuKUpX9Xs6ODaL48XYm6Cio7U=;
+        b=ZNqtimO6WY+otzOu+O8fwrRdZx2qYEVPxzPdfoty2EBxGab/2dxYr7a7jiCSVEs4Jr
+         Zq39QbCffGEe8KfDEq0VbUmBHPYkHD9+MeFiwZMcUxzL4jNo8Y3iWcBU64zA57NM/hd8
+         StJedvv0y6h12d8/mJaDjroNVzMlpuMAKBEMvIEL3jcMkYMFDbQfmQHygLaHo6xQxr5/
+         grPkxWLPm2e5ARJao7jrjhYvwqqjQP/EpSlFotmQ0qtfoexGXEhZkf1la75+6T3/6zDJ
+         vL7lwsXgFv+thJJWNq7ABGkyVnuBkdmQCbozOeeozpBl55waEp3cUwg81pO1zONFS1/B
+         YrdA==
+X-Forwarded-Encrypted: i=1; AKwUvBxm/26aTYLHrP9eSljB5erBHoQrSWzKY9e9uN0iGZf2z7RJee86J7zVBxOifRWHk3RO1qG9y2PD1CUpcvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLcLc/xNug8poOjsjOepBWAII9vMoaUixvkhvnIRO9wfL90v9Uf
+	KAjGqfUpXMfPSa1AOZXUVuWNCg9rlDFAdYYCnr/uISK31gsGX39OCCnP7ftJbwgFWzARbSPfA3a
+	EnEPnwcqN104HhpiCZ8cQsVD8q3psLtb2WHua7sbDyNuCwTdTwB3psTV+yxeCtj6sxc0=
+X-Gm-Gg: AYBFou1ceiQp8SWiHUMf//CUiByC1efgchL4B9fklQ5JWXqe0h5wjtGboWR7jC1UK5j
+	Ob5On2gAd6O0p+SPn+aukgw47xgysISi2v86B2UK4PWESb8Q57lzzRnqXlnXiUaROzHhovCoJI1
+	cbF2LORb0+6b8gjNqh6ZzZ3R8lVUgfGtdHLHNHGxveV/Q7AUpNTEm8rVQcLpAr56uyqBsUMH2B6
+	aef89d6G4NKLzwZgZXmYU7tDfL19j1tzDY/hKePJZh5IzHew+mJJWLYF5jzPbKNgd0PXVdE/ThA
+	MX5u08ZIC1OVd9ENgkHLbt7uUdzJWR0mthXwFxASEu6loZVIHIH8oHBgkpRQU2BzyCaOVfTuPaG
+	PAs/zRRNWYuR8WYJTGqXMfA==
+X-Received: by 2002:a05:622a:1343:b0:534:f411:a5ab with SMTP id d75a77b69052e-5369b7db1a1mr26406801cf.4.1792576392976;
+        Wed, 21 Oct 2026 02:53:12 -0700 (PDT)
+X-Received: by 2002:a05:622a:1343:b0:534:f411:a5ab with SMTP id d75a77b69052e-5369b7db1a1mr26406641cf.4.1792576392508;
+        Wed, 21 Oct 2026 02:53:12 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678f783e8sm58910966b.13.2026.10.21.02.53.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 02:53:11 -0700 (PDT)
+Message-ID: <c8911f7e-851a-4083-b166-ac2358ce081f@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 11:53:09 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,159 +115,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] phy: qcom: qmp-combo: hold a runtime PM reference
+ in the typec callbacks
+To: Oleg Keri <okerixx@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Bjorn Andersson <quic_bjorande@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+References: <20260916133814.3977-1-okerixx@gmail.com>
+ <20260916133814.3977-2-okerixx@gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260916133814.3977-2-okerixx@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzOSBTYWx0ZWRfX/QwGCHz4ZmtT
+ zBuCgoQ38ngZc7+OUlyCwXNFFb8aS/60CiOrq6Trq7MMTQEIgm56pCxkdjDnzoLuwT3LN4O0Y7E
+ Gc6hNBDfCzoLNKWzuTL1ffIXXDq6r28=
+X-Proofpoint-ORIG-GUID: 8DkQ1kq_HopjFOF0kRTW7iGtZk1AN4OU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzOSBTYWx0ZWRfX5BC6HO7M9vho
+ cVQOmACgPiM1P18CueQoX099JOiWDOB6X1OKZOIoIr86Oo3gOMM+DMCbyzInqv73EQ/m5gf6lap
+ /YWUDEWQ2vB4JhdRrtSkmb2ZGWDWVf9EHoZWl8X9yUB5CWkIYysFBYDrxyXYKpO9taP8i6cGCSB
+ nm8hRGBiTa2O9aNWFBV/vub1yFFWadKe/y5NOyOIdVKsSW3AeEHPduIu1ma3k82j0Pd4T5cI4z1
+ deB8Txycq2ak/gjjRBHJLIN6AJsgkPyLIkkVZtV2pVrL8S1qQpXt8xqNGAu87z1PmmYN1WgwN9Q
+ ElofkIhX2+O3TM52mJPQQkVyU3zDkiQ4vrb8tYEaukLZammKpk76jjljxDI04Kt9GJHALM67/8N
+ K963GU2Rn46CWrVyMaG5Ce2agUfHuTvZhT9Zc3BzpDsyYmW3qV5+eZLG3Go8YVxBEDKIuwMyajb
+ 3Zhy6yMtznCZJ8ruI6g==
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad88b89 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=k-ca5NtP-HZlscmxgwYA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-GUID: 8DkQ1kq_HopjFOF0kRTW7iGtZk1AN4OU
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210039
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On 9/16/26 3:38 PM, Oleg Keri wrote:
+> qmp_combo_typec_switch_set() and qmp_combo_typec_mux_set() tear the common
+> block down and bring it straight back up, calling qmp_combo_com_exit() and
+> qmp_combo_com_init() with force=true.  Both release and re-acquire the PHY
+> clocks.
 
-Critical: 0 (1) · High: 1 · Medium: 0 · Low: 0
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] net: sparx5: unguarded fdma_dcb_advance() in sparx5_fdma_xmit()
-  breaks tx ring
-
-Pre-existing issues:
-- [Critical] This problem wasn't introduced by this patch, but the patch
-  adds a new way to reach it.
-
---
-
-net: sparx5: don't reuse the last DCB in fdma xmit
-
-This patch adds a check to sparx5_fdma_xmit() so it rejects the next tx
-DCB when that DCB is fdma->last_dcb. This uses the same !fdma_is_last()
-guard as lan966x and lan969x, so the tail of the chain is never re-added
-and the frame is not lost.
-
-> diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> index dbe86f937b21..221b2f1932f6 100644
-> --- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> +++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-> @@ -218,7 +218,8 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
->  	void *virt_addr;
->  
->  	fdma_dcb_advance(fdma);
-> -	if (!fdma_db_is_done(fdma_db_get(fdma, fdma->dcb_index, 0)))
-> +	if (!fdma_db_is_done(fdma_db_get(fdma, fdma->dcb_index, 0)) ||
-> +	    fdma_is_last(fdma, fdma_dcb_next_get(fdma)))
->  		return -EINVAL;
-
-[Severity: High]
-Does this fully fix the drift described in the commit message? The
-underlying problem looks like it is still there: fdma_dcb_advance() runs
-before the done check, and fdma->dcb_index is not restored when
-sparx5_fdma_xmit() returns -EINVAL. The new fdma_is_last() test only
-covers the moment dcb_index lands exactly on last_dcb.
-
-When the ring is full, a failed xmit leaves dcb_index on the oldest
-in-flight DCB. The next call advances again before checking anything,
-so if the FDMA has completed that DCB in the meantime it is skipped and
-we test a newer DCB that is still in flight. Each failure moves
-dcb_index one step further, so a burst can keep dropping frames while
-completed DCBs sit unused behind dcb_index.
-
-If dcb_index ends up just behind last_dcb and the FDMA then drains the
-chain, every DCB is done and the ring is idle. The next xmit advances
-onto last_dcb, hits the new fdma_is_last() check and returns -EINVAL,
-which sparx5_port_xmit_impl() treats as a drop:
-
-	if (ret == -EBUSY)
-		goto busy;
-	if (ret < 0)
-		goto drop;
-
-The lost frame becomes a counted drop, but it is still a drop on an
-empty ring. lan966x_fdma_get_next_dcb() and lan969x_fdma_get_next_dcb()
-don't hit this because they use !fdma_is_last() inside a loop over all
-DCBs and pick another free one, rather than failing on a single index.
-
-The previous tail is also still unsafe. Say the FDMA has halted on
-last_dcb at index L and dcb_index is at L - 2. The first frame advances
-to L - 1, which is done and not last, so it is linked from
-dcbs[L].nextptr and becomes the new last_dcb. __fdma_dcb_add() does not
-clear the done bit on dcbs[L], so if a second frame comes in before the
-FDMA has fetched dcbs[L].nextptr after the reload, it advances onto L,
-which is still done and no longer last. Re-adding it rewrites
-dcbs[L].nextptr to FDMA_DCB_INVALID_DATA, so dcbs[L - 1] is cut out of
-the chain. Its frame is lost, and since the FDMA never visits it again
-its done bit stays clear, so later xmits that land on it fail too.
-
-The drift itself dates back to f4aa7e361ae2, but since this patch is
-meant to fix it, would it be cleaner to fix it at the source, by only
-committing the dcb_index advance once the DCB has been accepted (or
-rolling it back on failure)? Then dcb_index always follows last_dcb,
-the next DCB is always the oldest one, and the fdma_is_last() check
-should not be needed. Alternatively, sparx5 could search the ring the
-way lan969x_fdma_get_next_dcb() does.
-
-[Severity: Critical]
-This is a pre-existing issue, but this patch adds a new way to reach it.
-What happens to a two-step PTP skb when this returns -EINVAL?
-
-For a two-step PTP skb, sparx5_port_xmit_impl() first calls
-sparx5_ptp_txtstamp_request(). That function links the skb onto
-port->tx_skbs and does not take an extra reference:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c:sparx5_ptp_txtstamp_request() {
-    ...
-	skb_queue_tail(&port->tx_skbs, skb);
-	SPARX5_SKB_CB(skb)->ts_id = port->ts_id;
-	SPARX5_SKB_CB(skb)->jiffies = jiffies;
-
-	sparx5->ptp_skbs++;
-    ...
-}
-
-When ops->fdma_xmit() returns -EINVAL, the caller jumps to the drop label.
-Only the busy label calls sparx5_ptp_txtstamp_release():
-
-drivers/net/ethernet/microchip/sparx5/sparx5_packet.c:sparx5_port_xmit_impl() {
-    ...
-drop:
-	stats->tx_dropped++;
-	sparx5->tx.dropped++;
-	dev_kfree_skb_any(skb);
-	return NETDEV_TX_OK;
-busy:
-	if (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP &&
-	    SPARX5_SKB_CB(skb)->rew_op == IFH_REW_OP_TWO_STEP_PTP)
-		sparx5_ptp_txtstamp_release(port, skb);
-	return NETDEV_TX_BUSY;
-}
-
-That leaves the freed skb linked on port->tx_skbs. On the next two-step
-request, sparx5_ptp_txtstamp_old_release() reads the freed skb's cb and
-then frees it a second time:
-
-drivers/net/ethernet/microchip/sparx5/sparx5_ptp.c:sparx5_ptp_txtstamp_old_release() {
-    ...
-		if time_after(SPARX5_SKB_CB(skb)->jiffies + SPARX5_PTP_TIMEOUT,
-			      jiffies)
-			break;
-
-		__skb_unlink(skb, &port->tx_skbs);
-		dev_kfree_skb_any(skb);
-    ...
-}
-
-sparx5_ptp_irq_handler() walks the same queue. It also reads
-SPARX5_SKB_CB(skb)->ts_id from the freed skb. On this path the ptp_skbs
-slot is never given back either.
-
-The drop path has been like this since commit 121c6672b0191. Until now it
-could only be reached through the !fdma_db_is_done() (ring full) case.
-Before this patch, the case where dcb_index landed on last_dcb returned
-NETDEV_TX_OK, so the PTP skb stayed queued safely. With the new
-fdma_is_last() rejection, that case now goes through the same drop path.
-
-Could the drop path call sparx5_ptp_txtstamp_release() for two-step PTP
-skbs, the same way the busy path does?
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020-sparx5-fdma-last-dcb-v1-1-fb9a956196dd%40microchip.com
+Konrad
