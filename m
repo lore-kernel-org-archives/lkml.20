@@ -1,99 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567066;
-	b=nIfT0hsh+goBaP59+8Eh6SPuH+LfU9cApm03FvRCZ1yBkLxemQjvgTn3FpUOmeRRuVCh
-	 So48hAhzEvfMYHagNxJlqCNpwRJ8FNzVUtw15OUsX/Yxp/WyJbuMY8mM/Itdyvv0nve43
-	 j/0ZCEPGf0ZAu/V/pGA0hKMKx2Us06wc7xgUhGhWwzGaXrw3LVoSq3c+PoUrJs5SlwFBU
-	 V/7VOTN0ZQWaPoLW7g+fYeAnlbGs67j45FBsBKWjGxh9ZgCZoQf2r4uJf6/in/D9Shwy1
-	 nS3w1w47fvDcAw5FJJUbzk2H+L/yGUl+AHTVAmQOnD4wImd/PVKBC77jsS1LFFhNRqQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567066;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=dNHkp3TMA906yoOavuetpAdxfHJXR2U43F8kVqwiTi8=;
-	b=vGL6GheoTN02xRgnJfGOJohIRoo7suy+MvBq18E44XNMpFwXLtd7ZpkrcQ1WTi07MQuS
-	 5QL8nNGGG3rvcFx09Nw17J4e494aJm8MzejzENFNcbd9NobXtjX773XEdNKnhyJhEzi1K
-	 Slaixze7SGwuioNmds1K73Q4ZwDL8e6nc/fEJKx6tqfn2d8KWorqpSmaxyrhxaM+UMhi5
-	 VjudgdqLfWksW6SwwCBUGJ+TLcJw03bOTPphSza6YQbO6NxXnKLgwGu3Rz3AnaZ54kQiT
-	 OuzXPxMxGCnuKIa/jNkNsLffqwyX95ARpXEwjZBp49/kHOlC+Dor6ENrMacqNL1gS7w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DtxOQrFp;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.26
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792567083;
+	b=Ia3fYO40jycEhC6qTjOKcQwKtZTHEIyTC6dDyafu/FsUU1jVkz4bVLWQ30O+U8wxOck0
+	 LciE125e/p7bjoeRZ73+2spezTE9P87PWl8k9AyBRELtnNKDgdgw9cG4VwPw8QKR2q+OI
+	 7lbKvaE99/wMIefaxr5oLaaAPjSrKeSxYCfrzGWC6TNPyVDktzLmKXcOMhbLKBFMFgQUJ
+	 QqtMBEc25e3RS3VAyzkVYAk6JzWj4LpywjJhRcTXfrxLj9H2gnZvmHJpZIFT78lOnlzai
+	 A03wpnIZZ7FiOK0Vw2Fju3fueb60GVzHBoKwVGoUpYGY/zpE8rqBJcX5falZh0FNqFQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792567083;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=CfVlp/U84Ek1YAWH2BfUTwRSlofgxtqwRgKxpRacTng=;
+	b=YvaQVgRdXtgycV75WM1zuw+mwoK/SAPAL+xEut3Ni2zv/Q/SrtRxdykVWfCc56xDQEPk
+	 QO6gvU8FDJBbYVjagogHZt5e8/dAE+bjIETCGeC7Ab/9tU3T31g4HMz9IOJjDIG92NuNF
+	 qVsOmXyn2Sn3euUaY065HF3Eqf+UMFu+338B3jM1Atm2dSp7BgEGkfx2Dn9T9Yw/yM6SF
+	 iENlCPmdVJ2bdvD1/s1cL4V+Q4wxH63MEFudp8qqPAC9EgozUvgs/5wM9jT73Ssc6I5sl
+	 RNLeHo09SyeX9r0zK/ix/BnlsOX272/TPxs2CREVYfhZem5QiX9kILkjrqce1mO+HZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KHnyO1uX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.26
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013026.outbound.protection.outlook.com [40.107.201.26])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4E4606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:17:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD4E4606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FFA7606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:18:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FFA7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DtxOQrFp
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so351714a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:17:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792567065; x=1793171865; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dNHkp3TMA906yoOavuetpAdxfHJXR2U43F8kVqwiTi8=;
-        b=DtxOQrFpABODuBqZHktKfaG9mogyVwJ/X9apkJfNc93fFijX+7IDDADjrEbAttqXdg
-         yGr7DkVKbkZtAbZmgOiE/QCq8oj/iJL3T7bykDizeTn0yy6zJIgidw8uxcfSue4kkm9h
-         UerIYqo+6C0Qz3YjRScg8evQNvd1PVwW7Zl6Pz5o8FuQ8yRbETjrPdDskwtePIe/QLlj
-         qnB2w6dgr6KUlRf513wzDTCyd8g0Ji4EDk3/d2bI3RHAEAMEXBUeTvyqvPta09mguq3A
-         4mLn9dBAWk1gUFCsEHAAEBkYPYU9zY6xaXuZ/RG8Sj8tLP3drNdpNyNu18JHCzkSuDkr
-         MUUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792567065; x=1793171865;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dNHkp3TMA906yoOavuetpAdxfHJXR2U43F8kVqwiTi8=;
-        b=Zl2L+PCU8dofCxtfrurlj6i6oZyJ+l8/tLzeYgKUbgChKj5EFzc9jldprI4hIaFqD9
-         Vy1JWy0wevPwEVcOs5VWJj0RFyvW4eIYEIFP9IOlte9ieq5MkvNFi1obosym6XhhYVMz
-         NocEI0h1v+rbkBrJvIv2/1nDsnpuk4SsUCs4I/kXwG4vDg/geamPOELXl4rv2KbX+MLK
-         uVcqps264UkzEcw1GDmcrIhLtOcSXt+qcAtJCZwayPoKQsF6CUqot1SRGVp3qnMy/9EA
-         Bo3uu4MqphVxrGVHchi6SpGSllq0LtFTq5vYcJKaLIR7GiU1UWpDYVdL37AewpDeEngy
-         zrMg==
-X-Forwarded-Encrypted: i=1; AKwUvByq4evBj2jSQI9XTMMb4S+PBXkXHbb4zT07UrTzmlrlpKihB9KhOzvt4dgF8fGIG3ecZtr0PwY1w9wdIoo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHVHX3wvfUgFNWmfDiqunyvFurZ4SwPAw/iBtT0Hx9Beno4Ek2
-	jsGVvuWTCB+uRub2JWY7VVfdO22VPtPpTfAWTLaEJTFfW6bqM4ZkT4or
-X-Gm-Gg: AYBFou2osDrV73FXvgBj+G6s6tIjR2Ps0lzTyjvMuSo+BWyo3vJky3eruUAKgQnuft5
-	U3Tz/o982OSeayD8w2jrJs5BI6f3HN+ZEaKVzlGb5GHGRiIoIIOZRIRVcJ0j20sUnl6Tp6E2gyn
-	1+cmoImHkByx3FOEYu4eltHcNcPqq1eGw/PSAWgSL75f4BZq3cmTeSdgTdObZ8D+gbqIjBP4FEn
-	/RkYMSTs/nzOOVL3VSdvnCe1UMpwrbW1KMwdId17FpySu6DqyZfcPXxzzTZy/9a87iNo9YueFiW
-	r6+sXa2enuuQayXIncmaINriv6SfO0AVThEv7syDA91DqivkuZwk0RJtqc9BtnLVqMdUHi0fvop
-	OaxMV0dbRyw2Y94L1OdgnxcZmUS27DwJdlfWoyvvFysUdkhHGyLNYCa1gvrhODyf5/AjyEtq7CO
-	YUMWF7qx/R0A3+K0nwGSzc1rewOxy3f/cBAH8V6WBXuft/11opA5bTE+bE++vlYrl161xWF5Hio
-	755gEdQPsni9zZPOP2mlDezpQ5cHPv9+Mom0KbdeNalShTjLF9uIbAJVn+U5oIrxztz5ji1AOd6
-	ssEd7w7cKjQuatq6Q+eVNTWK
-X-Received: by 2002:a17:90b:2886:b0:3ab:188b:c5bf with SMTP id 98e67ed59e1d1-3ad86f4519bmr1005499a91.18.1792567065115;
-        Wed, 21 Oct 2026 00:17:45 -0700 (PDT)
-Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad7fb165a2sm3270457a91.0.2026.10.21.00.17.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 00:17:44 -0700 (PDT)
-Date: Wed, 21 Oct 2026 12:47:36 +0530
-From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-To: Renzo Davoli <renzo@cs.unibo.it>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Davide Berardi <berardi.dav@gmail.com>, 
-	Nicholas Piggin <npiggin@gmail.com>, Christophe Leroy <chleroy@kernel.org>, 
-	Michal =?utf-8?B?U3VjaMOhbmVr?= <msuchanek@suse.de>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	Thomas Gleixner <tglx@kernel.org>, linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
-	Oleg Nesterov <oleg@redhat.com>, "Dmitry V . Levin" <ldv@strace.io>, 
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH] powerpc/syscall: Return the preset value of skipped
- syscalls
-Message-ID: <athm2nYVnq6vYBY3@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
-References: <20261018151539.440213-1-renzo@cs.unibo.it>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=KHnyO1uX
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P76pzTuXnAbIXIkiExULskXscKI6oaNBZvjrc8jtD1+buM5ZUKh/T1nsRLX4qXCs0N+ImRNEvnpgn6NiV3mCfEBAk8j+M/P4K1vKJ9UrSnogBe44LL8yS1m9j54sJIuMIpkaJQb8C2LaJOxuA90iNxupLQL3g5iIfBq0SfI527zpVijWGJXgZKYX+MzzaZJlAXLiQUqN3ydq6c2/S1PIzyApMsu8OmPXJE7N5rG7Ap3nsTO8V0NIhw3tKgbLYVb6IbLgkbgibWsFbHu2iNrJx4AsENM7NgxM97PCFoyPEb5T3v74q0Hpds0X2GZndEVyPG7Ndo53tCxYVdauh6v+fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CfVlp/U84Ek1YAWH2BfUTwRSlofgxtqwRgKxpRacTng=;
+ b=NLiBbruD9qzzjnxzQyjd1h5F7GaV/wrA9ceTvry69o57O3cAGCUthEH9R4dRqpAtIAotVyaE7Zcm6nU2tCx+JZfg/6CXu4Ac64lQl4bqQYOcWBj7wb2hyXNpsAOrskTVKfw1RVG5csV6ZcVrc7g7Z/irq5dhBVFLbScQW0uLPIRe3fBK825uqVsRQFds+S/juHCmB/42vVXukMjBqF9u/xBiCFC4XeRVQfhn1TbwlMncYSqHoZgWWUD2sLNsuWFhrhnSA5Cd7/tDeDq03GFc7c7NoPPvVzCkylaW+Xh1T2rxgk9CMEEzzp1XdcEyYulCwu1dbwnGsYRAOLtfW7+dLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CfVlp/U84Ek1YAWH2BfUTwRSlofgxtqwRgKxpRacTng=;
+ b=KHnyO1uXkmxvCakoNtwV727ugHZfYq3Z+fLXJ7BLui2KZaQ0zfiwX3trQSmRW90PNg5KLRRx32eG19uLGdBu1/X0jw6Pt637TZLS4uTDZGznAwVzYjOxkRIW8Kq3h8LKvPz4pbU0SNJtmwpnc4l8vfgZ3nCNPG5UBDmZCxree6r09lFwIuZ5bkMd9s8s37h0jKqCe+gJq/2Iq2y30Ox/QZw/2K3ujktPBzCgRW+xY3+JhSI3mdzhibGG+jjWJzNOycFpLcaiqNxejK2k+U6zEQdMnMNSgRekLuk3Tp8POrBcBGs4ACmmVaTTQ5hNdtNSYv5j2JrDgpVWzXsOXxAr9g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com (2603:10b6:610:253::9)
+ by SJ2PR12MB8738.namprd12.prod.outlook.com (2603:10b6:a03:548::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 07:17:58 +0000
+Received: from CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128]) by CH3PR12MB9730.namprd12.prod.outlook.com
+ ([fe80::843d:c1f0:b2ed:4128%4]) with mapi id 15.21.0522.016; Wed, 21 Oct 2026
+ 07:17:58 +0000
+Message-ID: <017202b1-1c48-4fb1-a951-6d909fb30016@nvidia.com>
+Date: Wed, 21 Oct 2026 18:17:48 +1100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 03/12] mm/hmm: preparations for HMM to participate in
+ migration
+To: mpenttil@redhat.com, linux-mm@kvack.org
+Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
+ <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
+References: <20261021060506.2377545-1-mpenttil@redhat.com>
+ <20261021060506.2377545-4-mpenttil@redhat.com>
+Content-Language: en-US
+From: Balbir Singh <balbirs@nvidia.com>
+In-Reply-To: <20261021060506.2377545-4-mpenttil@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ME0PR01CA0071.ausprd01.prod.outlook.com
+ (2603:10c6:220:20a::19) To CH3PR12MB9730.namprd12.prod.outlook.com
+ (2603:10b6:610:253::9)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,150 +107,402 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261018151539.440213-1-renzo@cs.unibo.it>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH3PR12MB9730:EE_|SJ2PR12MB8738:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5f98694c-7d06-4b2a-40ab-08df2f436f2a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|56012099006|261009221227099003|4143699003|11063799006|261009223027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Ya6pgCv5DLF5doseikTllR8jrceUxOL4nZ0TMrjjUy2a5MR9lnXKBfdjTgLc0SjbuuXA2EjaKdiOxL2B2JQJ6v7PNSBkdap4hlSomFZHe7D5CUekexQEQuuK/I7Jlqs85Yo8B2iDEJrHUMpn7ZK4+chwghY/Aif5etGuV/vmw6wItftbjRwmLONFGeshPlqf+xw6pKa36MXvEO3UY/M51bbyywqKNHcf66TqRNhMJu1xh6vdGLQeruV1agoG2s3oAL209M+d9MJzX0iCX+7Dj5y2NQ2Y1mvgPnpQ94Fj/wnRqaam+aM3WG2F2pQpLcRrQB0nUJSwcaoNas2USlNIaJ688VQbGN+fJApaXXwNM+CiZ/2mnASo8xE52tPXup/sArSggRjNIpQF+F2nmWA/b4hKXs7iX9xkCohxbBuXTvz84CAzb3xmegdxk67Ye1o7xstPLASg6P73isZ9qlrFtqqZnvVYvb/x2dGxppSeQht5lBiAw+/a/rCqIkWMGUjI7H2nzEVSh/OXOIHgm/8OSImo6yCx4xwl0EfXWcoGJSHN8Ekj3lRU6MuwFPj4g3QDRu6O8c6y+9A5hTpNWq+mAnUOvONNyY/G4g8iGrE1bWBS426RJ7GxN/kFHuEGY/S2SY9kxM6+MlYvzZCtXUXGQXzUiWMz+fLgc43kDXwMwYM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR12MB9730.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(56012099006)(261009221227099003)(4143699003)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OUpQQTJsTWlnSWVXRDZHTzdycllJMTE0QlI4bkFsU2pLUVpKSzYzN011OUFx?=
+ =?utf-8?B?OGF2TWlxcEo2Sm5NUmN5TEw2WktzREhzRWoybEVRN2F5TExQaFRiSmJTVkVU?=
+ =?utf-8?B?cWk1c1FUU0ZRTWlUZ2JMaXRDNjNUY05Cc3lmZ0RRSFlJSFNzSS84cFcydmF1?=
+ =?utf-8?B?azBwTG9CQkR5eUFKM1FsZ29sMHc1QWNGYjZSUXhJYUxCSWlVYkY5S3l5eXVX?=
+ =?utf-8?B?KzUwbVZKNy9sc1dWY2R5MHNuS2pmczJhZXVCOS9Ocnl2bUszLzI3SEhaeXFU?=
+ =?utf-8?B?VXo5RlczeXI3TWswbXhXTVM4QU9KM0w2RnJ6cDgvUDBUc0ZhdWcycjdGVjFD?=
+ =?utf-8?B?aWVjc2tGaFpNaWZmKzJQQTdHeFNIWUZyMFo3UlZhcjFNQ1M2NmFtQ1Eva3pN?=
+ =?utf-8?B?ekMrT0ErYnZpdGRzZ0J3cENJbkVuYnNDSjlzdVhZck1lMXcyMk5LMkh1bnk5?=
+ =?utf-8?B?NitiR0lZL1o4RndmU1ZzYlBVdm5hQzhiZzVQYjUrWGF3Vk1ZdHhLUWs0b204?=
+ =?utf-8?B?WXhsSm45c0IxSjR6WjJxTndqd0QxZmsvdHV2bFVLYnBvRWYxSDdJOEZQVCtq?=
+ =?utf-8?B?YmNnSFdERGJkUC80MjNTbGF3eHJZSkFIeUdzOXRLdEo1cmV6YURJMTRTZ0pt?=
+ =?utf-8?B?bTZVRldRU2VJZTVzYUNWbUxhVXlNWVRCRFI2dzV6ajBmQ0UxWEM1c3FNZVZu?=
+ =?utf-8?B?UlVUa3FIQWI3SDJSMTlvMzByeURDWHhKN2NuemNWTW1Ya1plZlExL1lYNE8x?=
+ =?utf-8?B?eXA2Y1Nua1dub1FkRkg1VDJsTTJrd25ZTm1tM1h6REFQMU1XNHhWMW1xZ1pt?=
+ =?utf-8?B?bmlObERwdzZ0S1pnckhnajdlbTEwVHZhd0gxQnk5RnNjUVNJWTQ2R281WEZ0?=
+ =?utf-8?B?RFVucnlwNm00TnZ3YXl6dG1xeENISGlhREJyVVJjUWJML1pOalR6MjFNdHU5?=
+ =?utf-8?B?aTN2NzdVMjM4MUFVcmw5bDEvL0x1UHF5dURpSTNlenBXVnpadm9EYWNwTm1l?=
+ =?utf-8?B?cFlGb0VQSC94emxkZ3BWN2tXSmI2THF3akFicUJaUTI0S0kxUVlNaWt6aW1a?=
+ =?utf-8?B?TFBQMjFCYzluWkVmNW1XV1ZqWlZCU1BLUmd6aUFqVVN4L3U0NkRwOUFrUm11?=
+ =?utf-8?B?SzRibG1CKytQNlhjWU1HZE9Cd05aRmFJZ1ltODdFQXphb2RKNnk5Y1NpWmhS?=
+ =?utf-8?B?ZDhDelR3OVM3MmtNcHZVZFVYRkZvUEZkSFcrV2poLzlGTmpuMmxJcWNCU21N?=
+ =?utf-8?B?encyOEk3amNvUWY4by9lRDhEMWlQMS9VS1BQeEplVks0NGJ3R3ErUUtSNzg4?=
+ =?utf-8?B?SjI3YTlpSVoxaTdKK1pBSHROd3ptQ0lmL0g3VytZc2dSMnZsRGMyQVIyR1Bt?=
+ =?utf-8?B?MWdJenFFS0tmZDA0c1J4dUlqQ2toUWVNcEdPN1hpQkp5VkpHUkNIMzY1WXVL?=
+ =?utf-8?B?SEVCWFZDVUMvY0VmY282SysvaEZhaVpPdGVYMU4wcjV3N2NEcUYzSVRjdFVG?=
+ =?utf-8?B?OFhiazRzRVlnbGxHaHYzVmdiZERNQ21MdVhEV3pwOXRzWHVGT3VWTlBuS09Y?=
+ =?utf-8?B?UlFBK2Z6TThxbjB4WGRQNzZuUnduRk9uazRoTS9KWEg3djR5VDNua3dkUlVo?=
+ =?utf-8?B?a3RjUnhkZG1KdUFMVXRwWHZ3SnBEdFZ5VDRnNFRtTUtzRDZkcVczT3g4YWJk?=
+ =?utf-8?B?L0hYdHl5emVXQlpXU0F0aHVRRHFkVVNYcTcrYXdoOE92U2E4d0Ixb3VHbHpt?=
+ =?utf-8?B?Tlh6NnZUZGlnaUFvZ0RSaE9ackN2bzlJVkVOWWhpbVZiVUdRTVphOUJrTkxx?=
+ =?utf-8?B?eUlRMnNkUEQydDFud1NMNkFMVnRKUFQyaElHM0NIaE5yVm9zT3NCRWtrc1kx?=
+ =?utf-8?B?UWRRS1VFL3J1Y2ZWSnN6KzVLa1FsbUpyVXBzY0JYbWRJS1h0ZEhhOW5iUEk0?=
+ =?utf-8?B?dTFPZ0FIR0RhSlJOYjdUL1piZXJOMC85RlFGYUhTOGoxUVBOajVPZHhxdUd6?=
+ =?utf-8?B?OFA2SStJcTZHVU5nZmFLOGljTkJjVmV1ZnR2cXNxSHM4VVlTdlJTMHdCREwr?=
+ =?utf-8?B?WnZ6TVhacGpGLzZqQmxHOGFYMlB6aUV2TU9UUDEzMis5bFMvT2liSDJNWllx?=
+ =?utf-8?B?d0M5dnNVdnpjWi9EbVJZZmREbnVhUHUxTWRwZnJEWlJuZkl3UFZBK2YvN0pp?=
+ =?utf-8?B?NzZCaWJaUDhlaDNyYksvL29ibDlOR1NFNlQyZ1pneDYwYmthOG9WZ1hDVHZD?=
+ =?utf-8?B?dXU3RGd3SUNxN1hWcUkwbS9mUnl2N2VhWEgzTytYS0V0aDB2ZnJRd1EyN2c5?=
+ =?utf-8?B?UHhIZVNyQmhJWGJjRFNtTTI3MlR5cnkzTXI2eU02K0dKeWhtRVhsdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f98694c-7d06-4b2a-40ab-08df2f436f2a
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR12MB9730.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 07:17:58.5129
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RhsIes3p08tBAsbhuh+bzDx0w/VMcHR3tNO8PvrnMChMsTgxKi1JETZUV9b01Ce/Y+hseWlCOh5+PqQxHX0Syw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8738
 
-On Sun, Oct 18, 2026 at 05:15:33PM +0200, Renzo Davoli wrote:
-> From: Davide Berardi <berardi.dav@gmail.com>
+On 10/21/26 5:04 PM, mpenttil@redhat.com wrote:
+> From: Mika Penttilä <mpenttil@redhat.com>
 > 
-> When ptrace or seccomp skip a system call, the return value they set in
-> regs->gpr[3] gets lost or the tracer is affected, since two recent
-> changes:
+> For migration to happen after hmm_range_fault(), the vma has to
+> retrieved. Luckily, pagewalk already resolves that for us, so
+> just have to save it for further use. For migration, mmap_lock
+> has to be hold for the whole operation, so vma stays stable.
+> In case lock-drop behavior is requested, return an error while
+> migrating. Also, rename some struct hmm_vma_walk fields to solve
+> namespace collisions, and we are later introducing more
+> xxlocked fields so be unambiguous.
 > 
-> 1. Commit 05c033db7e9a ("entry, treewide: Make
->    syscall_enter_from_user_mode[_work]() indicate syscall execution")
->    made system_call_exception() return syscall_get_error() for a skipped
->    system call.  syscall_get_error() is 0 for any non-error value, so a
->    success value set by a tracer at a PTRACE_EVENT_SECCOMP stop (e.g.
->    with PTRACE_POKEUSER), or by a SECCOMP_RET_USER_NOTIF listener, is
->    replaced with 0.
+> Take care also of firing the mmu_notifier when migrating.
 > 
-> 2. Commit 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for
->    seccomp and ptrace") made syscall_set_return_value() set
->    TIF_SYSCALL_RET with set_thread_flag(), i.e. on current rather than on
->    the task passed in.  When the caller is a tracer, as in
->    PTRACE_SET_SYSCALL_INFO with op == PTRACE_SYSCALL_INFO_EXIT, the flag
->    ends up on the tracer, and the next system call of the tracer is
->    silently not executed.  Setting it on the right task would not be
->    enough either: at a syscall-exit stop the flag would then skip the
->    next system call of the tracee.
+> Also, prepare for differencies of how mm_struct * is retrieved
+> in fault and migrate_vma paths.
 > 
-> TIF_SYSCALL_RET is not needed anymore: after the change described in 1.
-> the generic entry code tells whether ptrace or seccomp skipped the
-> system call, and every in-kernel caller of syscall_set_return_value() on
-> the syscall entry path (SECCOMP_RET_ERRNO, SECCOMP_RET_TRACE without a
-> tracer, SECCOMP_RET_USER_NOTIF) also makes it return false.  A user
-> calling syscall(-1) without tracer or seccomp still gets -ENOSYS.
-> 
-> Remove the flag and return regs->gpr[3] for a skipped system call, as
-> done before the conversion to GENERIC_ENTRY.  The syscall exit path
-> already converts a negative error value to the "sc" ABI, and
-> syscall_set_return_value() keeps CR0.SO in sync for positive error
-> values.
-> 
-> Fixes: 69cb2be898be ("powerpc/syscall: Fix syscall skip handling for seccomp and ptrace")
-> Fixes: 05c033db7e9a ("entry, treewide: Make syscall_enter_from_user_mode[_work]() indicate syscall execution")
-> Cc: Michal Such�nek <msuchanek@suse.de>
-> Cc: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
-> Cc: Shrikanth Hegde <sshegde@linux.ibm.com>
-> Cc: Thomas Gleixner <tglx@kernel.org>
-> Assisted-by: claude-opus-5-5
-> Signed-off-by: Renzo Davoli <renzo@cs.unibo.it>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Jason Gunthorpe <jgg@nvidia.com>
+> Cc: Leon Romanovsky <leonro@nvidia.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Suggested-by: Alistair Popple <apopple@nvidia.com>
+> Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
 > ---
-> How this was found and tested: QEMU pseries (TCG, -cpu power9), ppc64le
-> guest config, v7.3-rc6 (7b63ef2d55f2), with a small reproducer
-> (ppc_skip_repro.c, available on request) which
+>  include/linux/migrate.h |  50 +++++++++++++++++-
+>  lib/test_hmm.c          |   2 +-
+>  mm/hmm.c                | 110 ++++++++++++++++++++++++++++++++++------
+>  3 files changed, 145 insertions(+), 17 deletions(-)
 > 
-Hey,
-Can you share the reproducer?
-
-Regards,
-Mukesh
->  - sets the getpid() return value at a syscall-exit stop with
->    PTRACE_SET_SYSCALL_INFO, then makes a syscall in the tracer;
->  - skips getpid() at a PTRACE_EVENT_SECCOMP stop with PTRACE_POKEUSER
->    (r0 = -1, r3/CR0.SO = return value), with both "sc" and "scv 0".
-> 
->                                              v7.3-rc6      with this patch
->   tracer syscall after SET_SYSCALL_INFO      returns 0     correct
->   skipped syscall, success value, sc/scv     returns 0     correct
->   skipped syscall, error value, sc/scv       correct       correct
->   selftests/ptrace set_syscall_info test    FAIL          pass
->   selftests/seccomp/seccomp_bpf              11 failures   all pass (*)
-> 
->   failing in v7.3-rc6: user_notification_{basic,child_pid_ns,
->   sibling_pid_ns,fault_recv,addfd,addfd_rlimit,sync,fifo,wait_killable},
->   TRACE_syscall.seccomp.syscall_faked, plus the timing-only one below.
-> 
-> (*) user_notification_wait_killable_after_reply (100000 notifications
->     with a 1 ms itimer) can hit the 30 s harness timeout under emulation,
->     with and without this patch.
-> 
-> Build-tested with W=1: ppc64le guest config, ppc64_defconfig (BE),
-> pmac32_defconfig.
-> 
->  arch/powerpc/include/asm/syscall.h     |  6 ------
->  arch/powerpc/include/asm/thread_info.h |  1 -
->  arch/powerpc/kernel/syscall.c          | 15 ++++++++-------
->  3 files changed, 8 insertions(+), 14 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/syscall.h b/arch/powerpc/include/asm/syscall.h
-> index 32be22b995cc..4b3c52ed6e9d 100644
-> --- a/arch/powerpc/include/asm/syscall.h
-> +++ b/arch/powerpc/include/asm/syscall.h
-> @@ -98,12 +98,6 @@ static inline void syscall_set_return_value(struct task_struct *task,
->  			regs->gpr[3] = val;
->  		}
->  	}
-> -	/*
-> -	 * Mark that a return value has been explicitly set by seccomp or
-> -	 * ptrace so that system_call_exception() can skip the syscall
-> -	 * unconditionally, even when the user requested syscall(-1).
-> -	 */
-> -	set_thread_flag(TIF_SYSCALL_RET);
+> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+> index 280ec9a866c7..dd7dd7ec6995 100644
+> --- a/include/linux/migrate.h
+> +++ b/include/linux/migrate.h
+> @@ -5,6 +5,7 @@
+>  #include <linux/mm.h>
+>  #include <linux/hmm.h>
+>  #include <linux/mempolicy.h>
+> +#include <linux/mmu_notifier.h>
+>  #include <linux/migrate_mode.h>
+>  #include <linux/hugetlb.h>
+>  
+> @@ -108,6 +109,29 @@ static inline void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *p
+>  	spin_unlock(ptl);
 >  }
 >  
->  static inline void syscall_get_arguments(struct task_struct *task,
-> diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
-> index 1e069a2e7ce8..0487e94d3416 100644
-> --- a/arch/powerpc/include/asm/thread_info.h
-> +++ b/arch/powerpc/include/asm/thread_info.h
-> @@ -120,7 +120,6 @@ void arch_setup_new_exec(void);
->  #endif
->  #define TIF_POLLING_NRFLAG	19	/* true if poll_idle() is polling TIF_NEED_RESCHED */
->  #define TIF_32BIT		20	/* 32 bit binary */
-> -#define TIF_SYSCALL_RET		21	/* syscall error value set */
+> +enum migrate_vma_info {
+> +	MIGRATE_VMA_SELECT_NONE = 0,
+> +	MIGRATE_VMA_SELECT_COMPOUND = MIGRATE_VMA_SELECT_NONE,
+> +};
+> +
+> +static inline enum migrate_vma_info hmm_select_migrate(struct hmm_range *range)
+> +{
+> +	return MIGRATE_VMA_SELECT_NONE;
+> +}
+> +
+> +static inline void hmm_fill_migrate_vma(struct hmm_range *range,
+> +					struct vm_area_struct *vma,
+> +					unsigned long start,
+> +					unsigned long end)
+> +{
+> +}
+> +
+> +#ifdef CONFIG_MMU_NOTIFIER
+> +static inline struct mm_struct *hmm_range_fault_mm(struct hmm_range *range)
+> +{
+> +	return range->notifier->mm;
+> +}
+> +#endif
+>  #endif /* CONFIG_MIGRATION */
 >  
->  /* as above, but as bit values */
->  #define _TIF_SYSCALL_TRACE	(1<<TIF_SYSCALL_TRACE)
-> diff --git a/arch/powerpc/kernel/syscall.c b/arch/powerpc/kernel/syscall.c
-> index fbefe1927b10..52ceff4ef41b 100644
-> --- a/arch/powerpc/kernel/syscall.c
-> +++ b/arch/powerpc/kernel/syscall.c
-> @@ -18,13 +18,14 @@ notrace long system_call_exception(struct pt_regs *regs, unsigned long r0)
->  	long ret;
->  	syscall_fn f;
+>  #ifdef CONFIG_NUMA_BALANCING
+> @@ -151,7 +175,8 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
+>  	return (pfn << MIGRATE_PFN_SHIFT) | MIGRATE_PFN_VALID;
+>  }
 >  
-> -	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0))) {
-> -		clear_thread_flag(TIF_SYSCALL_RET);
-> -		return syscall_get_error(current, regs);
-> -	}
-> -
-> -	if (unlikely(test_and_clear_thread_flag(TIF_SYSCALL_RET)))
-> -		return syscall_get_error(current, regs);
+> -enum migrate_vma_direction {
+> +enum migrate_vma_info {
+> +	MIGRATE_VMA_SELECT_NONE = 0,
+>  	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
+>  	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
+>  	MIGRATE_VMA_SELECT_DEVICE_COHERENT = 1 << 2,
+> @@ -193,6 +218,29 @@ struct migrate_vma {
+>  	struct page		*fault_page;
+>  };
+>  
+> +// TODO: enable migration
+> +static inline enum migrate_vma_info hmm_select_migrate(struct hmm_range *range)
+> +{
+> +	return 0;
+> +}
+> +
+> +#ifdef CONFIG_MMU_NOTIFIER
+> +static inline struct mm_struct *hmm_range_fault_mm(struct hmm_range *range)
+> +{
+> +	return range->notifier ? range->notifier->mm : range->migrate->vma->vm_mm;
+> +}
+> +#endif
+> +
+> +static inline void hmm_fill_migrate_vma(struct hmm_range *range,
+> +					struct vm_area_struct *vma,
+> +					unsigned long start,
+> +					unsigned long end)
+> +{
+> +	range->migrate->vma   = vma;
+> +	range->migrate->start = start;
+> +	range->migrate->end   = end;
+> +}
+> +
+>  int migrate_vma_setup(struct migrate_vma *args);
+>  void migrate_vma_pages(struct migrate_vma *migrate);
+>  void migrate_vma_finalize(struct migrate_vma *migrate);
+> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+> index 6911daa9f854..cd88e8177d0a 100644
+> --- a/lib/test_hmm.c
+> +++ b/lib/test_hmm.c
+> @@ -145,7 +145,7 @@ static bool dmirror_is_private_zone(struct dmirror_device *mdevice)
+>  		HMM_DMIRROR_MEMORY_DEVICE_PRIVATE);
+>  }
+>  
+> -static enum migrate_vma_direction
+> +static enum migrate_vma_info
+>  dmirror_select_device(struct dmirror *dmirror)
+>  {
+>  	return (dmirror->mdevice->zone_device_type ==
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index 2f1e98c6b644..4e9542aedc25 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -21,6 +21,7 @@
+>  #include <linux/pagemap.h>
+>  #include <linux/leafops.h>
+>  #include <linux/hugetlb.h>
+> +#include <linux/migrate.h>
+>  #include <linux/memremap.h>
+>  #include <linux/sched/mm.h>
+>  #include <linux/jump_label.h>
+> @@ -28,15 +29,23 @@
+>  #include <linux/pci-p2pdma.h>
+>  #include <linux/mmu_notifier.h>
+>  #include <linux/memory_hotplug.h>
+> +#include <asm/tlbflush.h>
+>  
+>  #include "internal.h"
+>  
+>  struct hmm_vma_walk {
+> -	struct hmm_range	*range;
+> -	bool			*locked;
+> -	unsigned long		last;
+> -	unsigned long		end;
+> -	unsigned int		required_fault;
+> +	struct mmu_notifier_range	mmu_range;
+> +	/* Set once mmu_range is armed with mmu_notifier_invalidate_range_start() */
+> +	bool				mmu_armed;
+> +	struct vm_area_struct		*vma;
+> +	struct hmm_range		*range;
+> +	unsigned long			start;
+> +	unsigned long			end;
+> +	unsigned long			last;
+> +	/* fault and lock drop related fields */
+> +	bool				*mmlocked;
+> +	unsigned long			fault_end;
+> +	unsigned int			required_fault;
+>  };
+>  
+>  /*
+> @@ -95,7 +104,7 @@ static int hmm_record_fault(unsigned long addr, unsigned long end,
+>  
+>  	WARN_ON_ONCE(!required_fault);
+>  	hmm_vma_walk->last = addr;
+> -	hmm_vma_walk->end = end;
+> +	hmm_vma_walk->fault_end = end;
+>  	hmm_vma_walk->required_fault = required_fault;
+>  	return HMM_FAULT_PENDING;
+>  }
+> @@ -400,6 +409,58 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
+>  }
+>  #endif  /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
+>  
+> +static int hmm_vma_capture_migrate_range(unsigned long start,
+> +					 unsigned long end,
+> +					 struct mm_walk *walk)
+> +{
+> +	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+> +	struct hmm_range *range = hmm_vma_walk->range;
+> +
+> +	if (!hmm_select_migrate(range))
+> +		return 0;
+> +
+> +	if (hmm_vma_walk->vma && (hmm_vma_walk->vma != walk->vma))
+> +		return -ERANGE;
+> +
+> +	hmm_vma_walk->vma = walk->vma;
+
+I don't quite follow the check for -ERANGE, it checks for hmm_vma_walk->vma !=
+walk->vma, but then set's it later to be the same?
+
+> +
+> +	if (end - start > range->end - range->start)
+> +		return -ERANGE;
+> +
+
+Have we established that end > start and same for range->end > range->start?
+
+> +	if (!hmm_vma_walk->mmu_armed) {
+> +		hmm_vma_walk->start = start;
+> +		hmm_vma_walk->end = end;
+
+Does the walk range matter here?
+
+> +		mmu_notifier_range_init_owner(&hmm_vma_walk->mmu_range, MMU_NOTIFY_MIGRATE, 0,
+> +					      walk->vma->vm_mm, start, end,
+> +					      range->dev_private_owner);
+> +		mmu_notifier_invalidate_range_start(&hmm_vma_walk->mmu_range);
+> +		hmm_vma_walk->mmu_armed = true;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void hmm_vma_post_range_fault(struct hmm_vma_walk *hmm_vma_walk)
+> +{
+> +
+> +	struct hmm_range *range = hmm_vma_walk->range;
+> +
+> +	if (hmm_select_migrate(range) &&
+> +	    hmm_vma_walk->mmu_armed) {
+> +		/*
+> +		 *  The migrate_vma path has the following initialized,
+> +		 *  so take care of fault path below.
+> +		 */
+> +		if (range->notifier) {
+> +			hmm_fill_migrate_vma(range,
+> +					     hmm_vma_walk->vma,
+> +					     hmm_vma_walk->start,
+> +					     hmm_vma_walk->end);
+> +		}
+> +		mmu_notifier_invalidate_range_end(&hmm_vma_walk->mmu_range);
+> +	}
+> +}
+> +
+>  static int hmm_vma_walk_pmd(pmd_t *pmdp,
+>  			    unsigned long start,
+>  			    unsigned long end,
+> @@ -594,6 +655,11 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
+>  	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+>  	struct hmm_range *range = hmm_vma_walk->range;
+>  	struct vm_area_struct *vma = walk->vma;
+> +	int r;
+> +
+> +	r = hmm_vma_capture_migrate_range(start, end, walk);
+> +	if (r)
+> +		return r;
+>  
+>  	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
+>  	    vma->vm_flags & VM_READ)
+> @@ -646,12 +712,12 @@ static int hmm_do_fault(struct mm_struct *mm,
+>  			struct hmm_vma_walk *hmm_vma_walk)
+>  {
+>  	unsigned long addr = hmm_vma_walk->last;
+> -	unsigned long end = hmm_vma_walk->end;
+> +	unsigned long end = hmm_vma_walk->fault_end;
+>  	unsigned int required_fault = hmm_vma_walk->required_fault;
+>  	unsigned int fault_flags = FAULT_FLAG_REMOTE;
+>  	struct vm_area_struct *vma;
+>  
+> -	if (hmm_vma_walk->locked)
+> +	if (hmm_vma_walk->mmlocked)
+>  		fault_flags |= FAULT_FLAG_ALLOW_RETRY | FAULT_FLAG_KILLABLE;
+>  
+>  	vma = vma_lookup(mm, addr);
+> @@ -670,8 +736,8 @@ static int hmm_do_fault(struct mm_struct *mm,
+>  		ret = handle_mm_fault(vma, addr, fault_flags, NULL);
+>  
+>  		if (ret & (VM_FAULT_COMPLETED | VM_FAULT_RETRY)) {
+> -			if (hmm_vma_walk->locked)    /* needed by sparse */
+> -				*hmm_vma_walk->locked = false;
+> +			if (hmm_vma_walk->mmlocked)    /* needed by sparse */
+> +				*hmm_vma_walk->mmlocked = false;
+>  			else
+>  				WARN_ON_ONCE(1);    /* broken fault handler */
+>  			return HMM_FAULT_UNLOCKED;
+> @@ -694,19 +760,31 @@ static int hmm_range_fault_locked(struct hmm_range *range, bool *locked)
+>  {
+>  	struct hmm_vma_walk hmm_vma_walk = {
+>  		.range = range,
+> -		.locked = locked,
+> +		.mmlocked = locked,
+>  		.last = range->start,
+>  	};
+> -	struct mm_struct *mm = range->notifier->mm;
 > +	/*
-> +	 * If ptrace or seccomp decided to skip the syscall, regs->gpr[3] holds
-> +	 * the return value they set (or the unmodified first argument, e.g.
-> +	 * for PTRACE_SYSEMU). Return it as is, the exit path takes care of
-> +	 * the error encoding for the "sc" ABI.
+> +	 *  Could be serving a device fault or come from migrate
+> +	 *  entry point. For the former we have not resolved the vma
+> +	 *  yet, and the latter we don't have a notifier (but have a vma).
+> +	 *
 > +	 */
-> +	if (unlikely(!syscall_enter_from_user_mode_randomize_stack(regs, &r0)))
-> +		return regs->gpr[3];
+> +	struct mm_struct *mm = hmm_range_fault_mm(range);
+>  	int ret;
 >  
->  	if (unlikely(r0 >= NR_syscalls)) {
->  		if (unlikely(trap_is_unsupported_scv(regs))) {
-> -- 
-> 2.55.0
-> 
+> +	/* Migration is incompatible with mmap lock drop */
+> +	if (locked && hmm_select_migrate(range))
+> +		return -EINVAL;
+> +
+>  	mmap_assert_locked(mm);
+>  
+>  	do {
+>  		/* If range is no longer valid force retry. */
+> -		if (mmu_interval_check_retry(range->notifier,
+> -					     range->notifier_seq))
+> -			return -EBUSY;
+> +		if (range->notifier && mmu_interval_check_retry(range->notifier,
+> +								range->notifier_seq)) {
+> +			ret =  -EBUSY;
+> +			break;
+> +		}
+>  		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
+>  				      &hmm_walk_ops, &hmm_vma_walk);
+>  		/*
+> @@ -732,6 +810,8 @@ static int hmm_range_fault_locked(struct hmm_range *range, bool *locked)
+>  		 * output, and all >= are still at their input values.
+>  		 */
+>  	} while (ret == -EBUSY);
+> +
+> +	hmm_vma_post_range_fault(&hmm_vma_walk);
+
+Have you checked to see if we could end up with notifier start/end inbalance?
+For example if hmm_select_migrate returns false?
+
+>  	return ret;
+>  }
+>  
+
