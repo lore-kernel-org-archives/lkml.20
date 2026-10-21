@@ -1,76 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576006;
-	b=ikNi7/Glm0ppuL1CUj/AvVTqOpbDsmdsTC2DOqm5QlP5krtGnXTqpeaaorkvg9GTYQ78
-	 8ocPPJRs8Xhp2fXACWb5cxUlhmNPUP0e7EQLXfhlYXz8b5q3/7g+Akw/KAOTZCrPG6ax2
-	 zTpgQx3d6AKemOGL0Cj8ZlRELSaoADbpu3SQMq6NoFJ91Xxl0bmzQWtEJvJfmoSqqhjG/
-	 X1i6g8JX0uTF19PKz3gUfUE34QRtcAIcHjsLg4OCr24AD/7IS5ITNLB2R5aYVmIaKkYZ/
-	 il7atqQlRQwlCLv9t4TAXIoLP3orCp6KdHMHrb9XSjjoFSsZTeiVtmA4GsNrQ5w4Zrg==
+	t=1792576050;
+	b=48L/l9XVFHual7yKdP+IRCT033jViF3FhgIdlDGJ/LhcSZxkNn5oq2zixaTNmMI+2XH6
+	 0KBOGJLXxZvEeEgs2NmWTMkNLsja9XIymCUvQDQuC5YnAW+1bBf7q/xanGrrKV/Y22COa
+	 kj9M9fJctbTjiimYoqSNcIWfXZB9GsUJ+SiJX/ZsLt1umjn4D3yzM3p6k7wWtiyyRal7I
+	 yQj1cyJYNPhSybMvnO6X1J5mcn/jOQae7a+TNJMkIZSO0LIXu1cTNSHCDtjNBAPcnbTqg
+	 r9pZuHeRuIkMji8lgvs13E+w0Skuk6yFg4FVt+LFVsrbOx/JX2633bBQ5LbWE3jXHkQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576006;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UZHr8KaXPzKePXeT1gi88PdV3hmG6tA9tT4jti5k8hg=;
-	b=BJ8MpUGx6UAGNUhGqAjUf6ZrZor1Enrq++ktAeaKHanwikY2aODlZ8BryZvM5RgcaSJ6
-	 m+uTMQxNwkkxkF+KhrzaIYVedsnBwmrcqgyEvxtcUQ7NU4NET2R0rVKO7//kcVvyoeYTm
-	 rnoE8JZm/w256ClOKBfc9Uf8Txz7sc9s/ivgJMGvY0KFk+ZV3HEqalKBbB1EG0d1v6wvX
-	 Y4g1QOUSl6JZMr8Sbo9WjJMX0FhEOhjeKkgUCDm6eRd5BW4khM5IEtPdQLdOxjK5TKTwm
-	 awK7hWLG9YI3uJdMuFFNX+cGi576yv26HjpoVQucsOxYOD9ZP/TtQIOXIMDDfT906Iw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576050;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=V2A2SjsEBDtbNNGNZqLRA6EbJCTC8KfylpwfOOFsjsE=;
+	b=ifMbkcRRBcSE7JsFKH38HLp4Nzy9LMRCy8zI+OX7J9gWZgeeilbIz/7yiJTSRAT9k1IH
+	 Gi2lWawyavzbO5wPRslobbIr8gKMkqSrkZ1CtZM9VxatKjjOkiPwKJw3p5/7ohgBPnlcD
+	 Ty/xjCD+RFDoASRLM2FaiTPR0FnE/Pz/vVEnoc1uABHIyfAk3GfYo4Tomicif7Ciq4cMh
+	 Un4lS2+Au6ifGBUqUdqArQMsw6gkBFNzKc3TZGaYC99FoHKuFEAUNbTDlKSOLt9cb76GS
+	 s2+/GciGRlSVSaNImMMP1f6k3ji5t99rvGk/FVlYWywYu5XU+vwnTlzg+ljO7ZP0srg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=d16DGRW6;
-	arc=none smtp.remote-ip=209.85.128.71
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=h0wodTqI;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EC2606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:46:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8EC2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D03606A31A;
+	Wed, 21 Oct 2026 09:47:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70D03606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=d16DGRW6
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a1de9dac94so4986825e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:46:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792576004; x=1793180804; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UZHr8KaXPzKePXeT1gi88PdV3hmG6tA9tT4jti5k8hg=;
-        b=d16DGRW6ofJsB2xWwhvic/Qso6qUGR65IA/IDsPThfIfCF5cITHxyxge3y/nfQRkQp
-         lpMwZJXWC4Cikck8FY8O07l8VhExksbpZW1R6OihHG9nl3YMAAz7S3XYgrITcqKoF/WG
-         JEvrlofHxtO+vWfPWHnd6H3srHTWclVwKOdWRw2cVn3ZQpGp+xm5iseggMc0QNtwlWpY
-         YmONLuj7aagKZCqLsiowTuzkO8kr9v5yqqsVc45ZgzYhqIIwyI+DKy+DmBPXVfu6NUDE
-         XI0st7dYDC91ivBQbhs8nLe3B8eb7vmKLFSdJxLkImAf6k24jOPP7nSg/jPaTtZG3+ao
-         64kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792576004; x=1793180804;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UZHr8KaXPzKePXeT1gi88PdV3hmG6tA9tT4jti5k8hg=;
-        b=mFENC/OFc+94RvCtHwzFCa4n5tS95d3GSQU7PTNsMCSySaBfwyh6HfhMRpSFHyKToX
-         SIVE58ciW7wtHK8iOVd91hRoYgf+rUiCaM46UhDyvOhNCS5mAm0VZp3fluvuXMKFY8N5
-         +2gkCwZGklEnD8npSTG1G0jUCQjITnqPiy0h6PmX6B93evS+QeQD7unr2QoTi71ElwrV
-         6ejsqm4OSHm6HrXGPsv0pQolUMhtQAiH2LoKwTxLCDo9QMfEuY5aSERfMWBDdsoHIsD1
-         FQFdiXHhKmgbWpivfS/FWn7ITKhegSa7aj3icFazDWBdUDIoIdKedc0FqiN1FPGa7An6
-         vMKg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXXPgB9Dxg4Jfb82K0vgVkaB6aEpxqnSNAhqijeBKGCiH9A1sZOzliRC2LYM+rMiwAdGGUvmT8vifguMk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhE3il8dQF80e+iMjEmUNSU1+sTspfd2kdrMhLxSlfc1cvshpN
-	SiqtE7fOeOhtB3bxldYDIs8oCX9lP+yZc14JMbAYKfhNV5MQ7pAzS9/cdmYgeR2wwTslpFEUFP0
-	sotGtILEp5rPgBF7PMQ==
-X-Received: from wmik21.prod.google.com ([2002:a7b:c415:0:b0:4a1:e474:4213])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:4:b0:4a1:825a:56fd with SMTP id 5b1f17b1804b1-4a1fdd39eddmr23675595e9.32.1792576003837;
- Wed, 21 Oct 2026 02:46:43 -0700 (PDT)
-Date: Wed, 21 Oct 2026 09:46:42 +0000
-In-Reply-To: <CANiq72nHP4qiHE1=y2nhF5en2r9XAR40AnTUNWMK3uPmGuENWw@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=h0wodTqI
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id C50261A12AD;
+	Wed, 21 Oct 2026 09:47:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 83748606E3;
+	Wed, 21 Oct 2026 09:47:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0A8BA10328934;
+	Wed, 21 Oct 2026 11:47:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792576044; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=V2A2SjsEBDtbNNGNZqLRA6EbJCTC8KfylpwfOOFsjsE=;
+	b=h0wodTqIz2tp/FsrB/CjwzC+YrOz6Q9mYoZWxDpBT30w5ZSLzjrwPHT9n7xKEpzbvEVufr
+	ku3pzPKiYlTVunEjYt/vG98kwkcrSvuqGt4nRpEpe7jpaIDHnfpWgn9LfEHAQ+Wtg12gCK
+	H9c7qhE9I8zhLPDd9PFCBmdh3CLj9e7T4wc7AEnfOVd3JkPHg4rJyhPjcIZnswGYNcN6sH
+	srZlkpH4ni4OQSOnZC4uJP387gDLEE2qvdWlW8Py+RV+/YOkS9R901IX/dxccUDvVv2R56
+	FH0P4vMgUPchXILxzDQ2LCs03Cb3UL1TLhEgDadUEufNtqw32vWQkhNuWifYUA==
+Message-ID: <65a821ad-e219-4f1e-b76d-6cc8502eb117@bootlin.com>
+Date: Wed, 21 Oct 2026 11:47:12 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,38 +61,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <2026101318-stingy-crescent-b47e@gregkh> <20261021033257.1359428-1-cmllamas@google.com>
- <CANiq72nHP4qiHE1=y2nhF5en2r9XAR40AnTUNWMK3uPmGuENWw@mail.gmail.com>
-Message-ID: <atiKAh5e4BjYgHSu@google.com>
-Subject: Re: [PATCH v2] rust_binder: add state_hashed and transactions_hashed files
-From: Alice Ryhl <aliceryhl@google.com>
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Carlos Llamas <cmllamas@google.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?B?QmrDtnJu?= Roy Baron" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"Onur =?utf-8?B?w5Z6a2Fu?=" <work@onurozkan.dev>, kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, 
-	"Arve =?utf-8?B?SGrDuG5uZXbDpWc=?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v19 06/10] net: phy: phy_port: Store information
+ about a port's upstream
+To: Paolo Abeni <pabeni@redhat.com>, netdev-bot+sashiko@kernel.org
+Cc: davem@davemloft.net, andrew@lunn.ch, kuba@kernel.org,
+ edumazet@google.com, linux@armlinux.org.uk, hkallweit1@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, christophe.leroy@csgroup.eu,
+ herve.codina@bootlin.com, f.fainelli@gmail.com, vladimir.oltean@nxp.com,
+ kory.maincent@bootlin.com, kabel@kernel.org, o.rempel@pengutronix.de,
+ nicveronese@gmail.com, horms@kernel.org, mwojtas@chromium.org,
+ romain.gantois@bootlin.com, daniel@makrotopia.org,
+ dimitri.fedrau@liebherr.com, frank.wunderlich@linux.dev, p.ameruoso@live.it,
+ f@lex.la, chleroy@kernel.org
+References: <20261016133107.54054-7-maxime.chevallier@bootlin.com>
+ <179241678791.3135.1638003219102257102@kernel.org>
+ <130d9b15-238e-48c6-a293-f48e7d1ada06@redhat.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <130d9b15-238e-48c6-a293-f48e7d1ada06@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Oct 21, 2026 at 11:37:26AM +0200, Miguel Ojeda wrote:
-> On Wed, Oct 21, 2026 at 5:33=E2=80=AFAM Carlos Llamas <cmllamas@google.co=
-m> wrote:
-> >
-> > v2: open-code the %p behavior in MaybeHashed: No "0x" prefix.
->=20
-> Thanks! I think we may want to have an easier way to do this non-`0x`
-> formatting later, centrally, even if not as the default (which I am
-> ambivalent about -- I didn't hear more opinions on your other patch).
+Hi Paolo,
 
-The version that open codes it is probably what we will cherry-pick to
-Android's kernel branches for now, but we can definitely look into how
-to best support non-0x prefixes in a better way.
+On 10/21/26 11:24, Paolo Abeni wrote:
+> On 10/19/26 15:33, netdev-bot+sashiko@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 2 potential
+>> issue(s) to consider.
+>>
+>> Critical: 0 · High: 1 · Medium: 0 · Low: 1
+>>
+>> If you believe none of the issues are legitimate, please reply to each
+>> issue of Medium severity or higher and explain why the AI is wrong.
+>> If any of them are legitimate and you plan to respin, please let patchwork
+>> know by including "pw-bot: cr" as a separate line at the end of your reply
+>> (one such reply per series is enough).
+>>
+>> - [High] net: phy: UAF in upstream_port when connect_phy fails
+> 
+> I think this concern has not been reported nor answered in previous
+> revision?
 
-Alice
+Well it's been reported as low on v17, but this issue isn't correct from
+what I see from the bot's analysis. The bus->phydev pointer is correctly
+cleared, and for the upstream_port part, it's also not correct. the case
+explained in the report can't happen :(
+
+> Same for the ops-lock related in the next patch.
+
+So for the ops-lock, for now we simply don't use phy_port when using ops-lock,
+and there's a separate series that has been sent that addresses the ops-lock
+crash when phylink_create is called prior to the netdev ops being set :
+
+https://lore.kernel.org/r/20261008022656.3592191-1-mmyangfl@gmail.com
+
+> 
+> I understand that the high prio comment on patch 9 still relates to
+> PHY-in-SFP unbinding and should be addressed separately, am I correct?
+
+Yes indeed :)
+
+> 
+> The problem is that the net-next PR should be coming very soon and
+> the backlog is still very long, we need a fast clear-cut.
+
+Sorry I didn't aswer sashiko's feedback sooner, it's getting a bit
+overwhelming sifting through these, and when I tell sashiko that an
+issue isn't correct on vXX, it comes back with a similar comment on
+vXX+1, with a different severity :(
+
+I understand your point as a maintainer though, I'll make sure I reply
+faster :(
+
+I've done my best to test this series in and out on various HW, including
+the MAC -> PHY -> PHY setup that sashiko is concerned about, and I did
+not reproduce its reports.
+
+Maxime
+> 
+> /P
+
