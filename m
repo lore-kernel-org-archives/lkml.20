@@ -1,101 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792549534;
-	b=ifbqkBKUcDlaBxBeK56v9j6Q1owH0rCn6HyfO9/i5/8VGpRm7EdeuU33aps3+lAkYbTz
-	 Kf73XphZSnlPK9C2iId8Y1LtCAUwqQbnEI7afFWd4MwAPaJkJwwRysxFMVWgGf2D9V2AM
-	 RzYj6DmOW73rVdwSnEj8zW+flCR6Fc3tQ2kq5fT8bfpr71mAOPwNMArdyXukZIOW4+GZu
-	 S3Bx8zps7BSVs7iptoHlSljMDDE71bZyvFRynXW7oAtDBW5UF2G+F5ZadKH12ald4+VnU
-	 Nzw6EJzMoo8Or68EHbzs86CIANkb1h9QJap8YMXisreTr8ULT0rtWj8gNxDqFDhoqnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549534;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GVRjqnqrO1TkJYy/+KOYddRQ6BdsaJ0o8sfMv9oU1Tg=;
-	b=iTUtXMMJUpJvIZVVyg4uJQZgHMJf4K4KH84kfcCOv6sty+suz3UJebz8bFGfRVvWUYDB
-	 ccEd/zCBcfTEV0J1OfuWwOHmInEXwxa91fvxnj9XAzhGwGK2p9n7s+CxdwOQTlji9xllQ
-	 /GQljBtOqj52I6elAAX+OkGLvoVnPnpFG+iatiTxuvo80UHwwsAmNbq/794t241Zu3/dt
-	 ixenY2eu0RAWAjIdMI0BZywCvoocBdzO/TJeq5BHm2mNPqNW+hfO9NcrMJ9xAnkKBpI24
-	 LC5GaNOLT2fuepwWGhYE2Trl8FpbH6AS0/JqmE874OPKU8uu7MbzzOfhTUbKAjs18TQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jlEKSHfU;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.249.212.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792549548;
+	b=2IdZBfJh5ILAV40AEsar/Qz2wRmwwDN+dwC7r0Q9vkvTMTbmtoIhXKof5pUOAA8Ly5Pm
+	 QJJpL3YngDmrif4Yyy8rzBB7ysGL3bgq/qU8oAtyQZ4t0LsYnZervsadd2xg8Lc1MCejB
+	 1PlyQLbegEgoYg0oEgwUY8RUzFwxUy/iX1HPZnSGNQ+sXm9LIkfJkA54xARVbB4TCakOK
+	 cpVC9VpLqIxqc3jG3aXmOxhlsZYv2kAHCrl959TS72ORO7+5nC50az0Ou4MV0uDacluxe
+	 juWJn301xTOIlgXIcLvNcS06f/eHdvU2qkMyyLYLyxAn2uo/7Kg7zSWHq+SA78NOrZw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792549548;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=bUpuMLN+Hzel+rwIg8x/V4c7BZp7NFus4wb/KBKZts8=;
+	b=5pAtrLzP3kYQogTVFaUQMFOVd04vSg7IvxrNbdWslKtZDIFF0u80sg4HSELoJj4d994N
+	 Yb/ERSF88rr61Ynmxyu/p7vLSrT5oPyiLdNOX0/4JxFb6azT1pd8XGugMTHJb2a9t6p6w
+	 tOjkmV03nKMbNM9gsTjRC6lFtVV1Bc9mll35TVk1n6Ml1f6eFHmwRA/DapKqCKJvsWRl2
+	 Fxk3JDYgpM+kDH9CJiwg8mc027x+rPo33qQytbTtvkkMhE07rBm7HaD+7JRhNyYaQK7fQ
+	 PdGUmHWBxDvDGA97y4CrerixdHbUYyIJKi/NgS53aF6Jm8AHPsYedw68QIBdkuuhFOw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=45.249.212.51
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com [45.249.212.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6457E606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:25:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6457E606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jlEKSHfU
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab3b29a1d0so2126831fa.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:25:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792549532; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Y2dMk9+wHcSm2s33tkv1Fthf6f0SLBBi2GUCTmDg+KFVn2/bzKs095x+cis56mEEYW
-         Qx8y+hVr+LjDULG6XvCeSmnx+muzMX151EBm9XVPHtFqExA6s54+4chm+ByO1f1ij6h2
-         P+NWCw5lI16QhGw8drsFBfyNn67HidDS7KLLTzO5q5U94289z+zGVbTgFaJMW9Mi54+y
-         BcO6h3+MTkDSXmMV/SWOuYSZAafB048+PBGFzrY0fUZYn/JHgUSAO7Qvpoz22D/RiYRj
-         MwkEC/2DTdEH9BE6BkiuR3tZrh726ChCQR22LCM7UJithA7UGjh1Hp2O1FVA3+e8tfeF
-         29Rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GVRjqnqrO1TkJYy/+KOYddRQ6BdsaJ0o8sfMv9oU1Tg=;
-        fh=oXd8hkTyIzEf0cNMP/iJ+Gw3WfCmj6FwOPlalGCy9/4=;
-        b=BOk4hqDmMSpw4SgExFumIoOaC/E5is+pzRhAyfXqGzzdHWx4igbGf3kMuRlZYB27RO
-         rb+FZggJAKrJzuwyLWIJwqtNAemTAAhqRYltRrBreOnrEFKMxkEDDf+L/w2Uf9IyU9sT
-         Vk58T1EEgYhdaCjEYlp8w/4uMuFI1VgcoDGKviwoc8I2DDuNC0nuU7atUVbycfOJBmSC
-         JQfJt1xjFA28f/y7LQpto4tffgqxPzdv0RSyPXYE2J1XkvC5+miBGIAcJr4ielLlIfHC
-         uxaGF4V+CKWfObDrO2nLyeYct/M2cpZNOSzJUzQQLzbefcqAUm8M2oA8ZC314t4fCo1C
-         Qc3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792549532; x=1793154332; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GVRjqnqrO1TkJYy/+KOYddRQ6BdsaJ0o8sfMv9oU1Tg=;
-        b=jlEKSHfUzDaU2aIXp7vI+X3ST5g/eOC/d0xVQlixnmhH7uOedsgkpMYdnsRQdN3D8t
-         guMQMrZ9GfqdV4kS1JjF6suFiIB6B6a8+lh+TKJs+gbrxiyCb11TWCbFB4XnEM3qkY2q
-         BU4vXuNj2RBvutSiMizZQ8is+G4ngrKbdeQcHVxwGxzsSoYltbO4AP7DbV53NHr7fo+l
-         zIrsBBO7ysoZo7+Ys/3XlddEqR5X8AulGJGqTBy9uAfnC1okMlyFOYGX/455IPeFNgZ8
-         ySN7V+ZRcrcm2e8hECWjYLt4zwCy76DltgONvGmpZcAVaPLkUy6AOsh70je6+TL5+9Za
-         d+0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792549532; x=1793154332;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GVRjqnqrO1TkJYy/+KOYddRQ6BdsaJ0o8sfMv9oU1Tg=;
-        b=WLwM/1hXRzYY0ptXT5CXuv9yR17Xr7BQWgRvO0rzoSneM/Wnm7kOOSr3IWGJKdn5vL
-         wmNkeX8PAYGX8iXDFkZ32m6xXnNM4oGjHaFB31RnuHr1HT9agiIqNxenycVf3vzUlYoT
-         OHTrjatbzxqXaQka8c6RE8Bt/+/nDe+HPr8kjUnJDM2lrwZjt8cECgZhtyCGVIJNRk40
-         agQXZIzkkU/fPrE1754lFcIbl4lZRfBBZcmHJJSLMmp1lHSOBIxRs8YewYhtCp8mCRzT
-         7nWCL+auC5CWuif10+RhzYV74hLMZ3pd2VWGL0kDVKYnvA2mj01hbalVvvIV2N1Ez97z
-         qiAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwm/LFd99UAh7DcleKKJccT5jEkhy/hjxM4oyIHdRQ8t3Moffuxu3wJ38C9w5E0/9KJK9PM3Wb9kLOspeY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLB5UaJ0DRZhAbvZvgyQI/gc90gJzlQgKLpD2Tzm+bOCS0fV8K3
-	dwlXjt579kqkN/6Nag1PQSFTMJrFvvTkyLfiLEndPPQlj/MucwxYq4hEuwHKgeqDtjgxKn0x60e
-	cPv6AhFrieCgetz/0gozSrQdEAaxqEaU9N/AQTTdMNfIVbtA=
-X-Gm-Gg: AYBFou2nNdMnXCKD6xPqFG35eyG+iF7CQiAS1ZqnQWAY3ZngUYc7q9R4AunryayOIYy
-	9JpuRK0FOeDZktiZdUunLjxXo10S/eUINmMRspcipJctAl6IsRWGRS4p78sEVmkDY7sm0JVtUk/
-	JnYi28nvSLCEJ+on7L63Hf1DXvpyMxp1wegJDFYvC4oCJV9D5M83oRm3Im/HUf7GR5TVv5jZUga
-	tgB7NIsYoZcAFfk+3iZpyk/F3BKW2fqlI2WhoqS7wGipP2efys6f8YPIncZpqrmL2Ov3j9T1mXI
-	lc5vtMQBObC1vn1B5XvknlqMh3cU5dtWgORZADubIX23IVs1y9dLgEK3lWIyxj6oEExq9DmQgR6
-	Rpz+w6s4enO4i3gxPEt7lWgCh5YoH3Yu9z46X3uy51Aly/FEwD1r2XFsTvMJ80MqnzQlLRH8sPz
-	eDNXWf+7WjjMDqfNUsuA==
-X-Received: by 2002:a05:651c:a10f:20b0:3a9:740d:51cb with SMTP id
- 38308e7fff4ca-3ac441641c2mr1409611fa.14.1792549532251; Tue, 20 Oct 2026
- 19:25:32 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7C0606A31C;
+	Wed, 21 Oct 2026 02:25:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F7C0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4j8Y6W4dywzYQtt1;
+	Wed, 21 Oct 2026 10:25:39 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.75])
+	by mail.maildlp.com (Postfix) with ESMTP id 839F1409D2;
+	Wed, 21 Oct 2026 10:25:42 +0800 (CST)
+Received: from [10.67.110.36] (unknown [10.67.110.36])
+	by APP2 (Coremail) with UTF8SMTPA id Syh0CgBnMeekIthqMcbiBA--.26564S2;
+	Wed, 21 Oct 2026 10:25:42 +0800 (CST)
+Message-ID: <18de9e8f-3709-4bc9-b11b-3813e1ba98b7@huaweicloud.com>
+Date: Wed, 21 Oct 2026 10:25:40 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +51,186 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020234434.318-1-rand.sec96@gmail.com> <20261020181122.53fd0c79@kernel.org>
-In-Reply-To: <20261020181122.53fd0c79@kernel.org>
-From: Rand Deeb <rand.sec96@gmail.com>
-Date: Wed, 21 Oct 2026 05:25:20 +0300
-X-Gm-Features: AclHuK_0eTtTegQTW-Jyoth0ZOCcpaLSxzE2h0YEB9H2Dv6Vkek-tei8FaPf1fY
-Message-ID: <CAN8dotn+f4Cpf6WPzzRhxmgRjViJp10c+qK6TSQWLhtreC9Qdg@mail.gmail.com>
-Subject: Re: [PATCH net] net: sundance: fix sign extension of the octet counters
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Denis Kirjanov <kirjanov@gmail.com>, Paolo Abeni <pabeni@redhat.com>, 
-	Eric Dumazet <edumazet@kernel.org>, "David S . Miller" <davem@davemloft.net>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, deeb.rand@confident.ru, 
-	lvc-project@linuxtesting.org, shda@confident.ru
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 00/15] perf annotate arm64: Support instruction
+ tracking for data type profiling
+To: Namhyung Kim <namhyung@kernel.org>, james.clark@linaro.org,
+ xueshuai@linux.alibaba.com, Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, leo.yan@linux.dev,
+ Li Huafei <lihuafei1@huawei.com>, Ian Rogers <irogers@google.com>,
+ Kim Phillips <kim.phillips@arm.com>, Mark Rutland <mark.rutland@arm.com>,
+ Ingo Molnar <mingo@redhat.com>, Bill Wendling <morbo@google.com>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Zecheng Li <zli94@ncsu.edu>,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev
+References: <cover.1792411435.git.wutengda@huaweicloud.com>
+Content-Language: en-US
+From: Tengda Wu <wutengda@huaweicloud.com>
+In-Reply-To: <cover.1792411435.git.wutengda@huaweicloud.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:Syh0CgBnMeekIthqMcbiBA--.26564S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuFyDuw43AF4rWrW3AF4DXFb_yoW7KrWkpa
+	93uw1fJryUtr4j9rnrJrZ7Xr43Wa1rXa4UGryrt34Syr12yF9YyF97K3WFyFWfAr98Cr17
+	Jw4vyFn8Xayj9aDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
+	0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+	6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+	Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS
+	14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWr
+	XwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0
+	s2-5UUUUU==
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-On Wed, Oct 21, 2026 at 4:11=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wr=
-ote:
->
-> We don't take LLM slop fixes for ancient hw
+Hi,
 
-The change itself is a simple cast, so I was surprised by the "LLM
-slop" remark. The same kind of fix was applied in 2776d2320ac1
-(net: dsa: fix unintended sign extension on a u16 left shift), which
-you committed in 2020. If it was the commit message that gave that
-impression, I can make it shorter next time.
+On 2026/10/20 21:44, Tengda Wu wrote:
+> This series adds arm64 support to perf's data type profiling by
+> implementing instruction tracking for the arm64 architecture.
+> 
+> The main changes since v7 include:
+> v7: https://lore.kernel.org/all/cover.1791629326.git.wutengda@huaweicloud.com/
+> 
+>   * Patch 02: Minor optimizations to update_insn_state_arm64 to facilitate
+>     future extension, including:
+>     - Encapsulating call instruction handling into update_call_insn_state()
+>     - Encapsulating invalidate dst regs handling into invalidate_unhandled_insn_regs()
+>     - Renaming is_readonly_branch_or_cmp() to is_readonly_insn()
+>     No functional changes.
+> 
+>   * Fix issues raised by Sashiko:
+>     - Patch 06: Complete the status register invalidation logic for
+>       exclusive stores.
+>     - Patch 13 & 15: Complete the lifetime invalidation logic for adrp
+>       and mrs instructions.
+>     Regarding the status register invalidation issue for instructions
+>     such as cas/swp as well, we plan to support this incrementally
+>     after the relevant instructions are refined; this patch temporarily
+>     ignores and does not handle it (a TODO marker has already been
+>     reserved in patch 02)
+> 
+> Patch organization
+> ==================
+> 
+>   Patches 1-3:   Shared infrastructure. Extract invalidate_reg_state() as
+>                  a common helper, add the arch_get_reg_offset() helper for
+>                  computing operand base offsets, and wire up the arm64
+>                  entry points (arch_supports_insn_tracking(),
+>                  init_type_state(), and update_insn_state_arm64()).
+> 
+>   Patches 4-6:   Core instruction tracking for arm64: function return
+>                  types after calls, load instructions (ldr/ldp and their
+>                  addressing modes), and store instructions (str/stp).
+> 
+>   Patches 7-9:   Shared data structure improvements and an x86 fix.
+>                  Expand type_state_reg.imm_value to u64 so 64-bit
+>                  addresses can be tracked, preserve imm_value for stack
+>                  variables, and delete stale stack state on store of an
+>                  untracked register on x86.
+> 
+>   Patches 10-15: Remaining arm64 patterns: stack variable tracking,
+>                  'mov' (register and immediate forms), 'add' member
+>                  address calculation, 'adrp' global variable tracking,
+>                  per-cpu variable access, and 'mrs sp_el0' to resolve the
+>                  'current' pointer.
+> 
 
-The issue was reported by SVACE static analysis, on architectures where
-ioread16() returns u16, the high word is promoted to int and sign
-extended when it is added to the unsigned long counter, so
-tx_bytes, rx_bytes end up wrong on 64-bit.
+Just a quick note that this version of the patch series has addressed or
+clarified all the Sashiko review comments. I would appreciate it if you
+could take a look when you get a chance.
 
-The issue is theoretical and the change was not tested on real
-hardware, as I don't have the hardware.
-If you don't want changes to this driver without hardware
-testing, that's your call. The issue is real and the fix is correct,
-it is not security related, but it is still a bug on those
-architectures.
+Thanks,
+Tengda
 
-Regards,
-Rand
+> Each patch's type profiling results are as follows:
+> 
+> Patch | Feature                    | no_sym | no_var | no_typeinfo | bad_offset | insn_track | ok(%)
+> ------+----------------------------+--------+--------+-------------+------------+------------+------
+> base  | baseline                   | 6      | 493    | -           | -          | -          | 56.2%
+> 0002  | enable insn tracking       | 6      | 42     | 437         | 2          | 12         | 57.2%
+> 0005  | support 'load' insn        | 6      | 42     | 398         | 1          | 52         | 60.7%
+> 0006  | support 'store' insn       | 6      | 42     | 398         | 1          | 52         | 60.7%
+> 0010  | support stack variable     | 6      | 42     | 391         | 1          | 59         | 61.3%
+> 0011  | support 'mov' insn         | 6      | 42     | 372         | 3          | 76         | 62.8%
+> 0012  | support 'add' insn         | 6      | 42     | 318         | 7          | 126        | 67.2%
+> 0013  | support 'adrp' insn        | 6      | 42     | 238         | 8          | 205        | 74.2%
+> 0014  | support per-cpu variable   | 6      | 42     | 233         | 8          | 210        | 74.6%
+> 0015  | support 'mrs' insn         | 6      | 42     | 230         | 8          | 213        | 74.9%
+> 
+> Testing
+> =======
+> 
+> Tested on arm64 (all passed):
+> 
+>   # perf test -v "perf data type profiling tests"
+>   81: perf data type profiling tests                                                                  : Ok
+> 
+>   === Test Summary ===
+>   Passed main tests : 1
+>   Passed subtests   : 0
+>   Skipped tests     : 0
+>   Failed tests      : 0
+> 
+> Tested on x86. The profiling results show no change before/after applying
+> this patch series:
+> 
+>   before : total 880, ok 711 (80.8%), bad 169 (19.2%)
+>   after  : total 880, ok 711 (80.8%), bad 169 (19.2%)
+> 
+> Changelog
+> =========
+> v7 -> v8:
+>   - v7: https://lore.kernel.org/all/cover.1791629326.git.wutengda@huaweicloud.com/
+>   - Encapsulate invalidate dst regs handling into invalidate_unhandled_insn_regs()
+>   - Encapsulate invalidate dst regs handling into invalidate_unhandled_insn_regs()
+>   - Rename is_readonly_branch_or_cmp() to is_readonly_insn()
+>   - Complete the status register invalidation logic for exclusive stores.
+>   - Complete the lifetime invalidation logic for adrp and mrs instructions.
+> v6 -> v7:
+>   - v6: https://lore.kernel.org/all/cover.1789521520.git.wutengda@huaweicloud.com/
+>   - Invalidate lifetime in propagate_load_reg_state().
+>   - Remove the has_reg_type() guard in update_store_insn_state().
+>   - Fix the issue where TSR_KIND_PERCPU_BASE fails to retry as expected.
+> 
+> Please let me know if you have any feedback.
+> 
+> Thanks,
+> Tengda
+> 
+> Tengda Wu (15):
+>   perf annotate-data: Extract invalidate_reg_state() as a common helper
+>   perf annotate-arm64: Enable instruction tracking support
+>   perf annotate-data: Add arch_get_reg_offset helper
+>   perf annotate-arm64: Track return type after call instructions
+>   perf annotate-arm64: Support load instruction tracking
+>   perf annotate-arm64: Support store instruction tracking
+>   perf annotate-data: Expand type_state_reg imm_value to u64
+>   perf annotate-data: Track imm_value for stack variables
+>   perf annotate-x86: Delete stale stack state on store of untracked
+>     register
+>   perf annotate-arm64: Support stack variable tracking
+>   perf annotate-arm64: Support 'mov' instruction tracking
+>   perf annotate-arm64: Support 'add' instruction tracking
+>   perf annotate-arm64: Support 'adrp' instruction to track global
+>     variables
+>   perf annotate-arm64: Support per-cpu variable access tracking
+>   perf annotate-arm64: Support 'mrs' instruction to track 'current'
+>     pointer
+> 
+>  .../perf/util/annotate-arch/annotate-arm64.c  | 774 ++++++++++++++++++
+>  tools/perf/util/annotate-arch/annotate-x86.c  |  38 +-
+>  tools/perf/util/annotate-data.c               | 209 ++++-
+>  tools/perf/util/annotate-data.h               |  14 +-
+>  4 files changed, 987 insertions(+), 48 deletions(-)
+> 
+> 
+> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+
