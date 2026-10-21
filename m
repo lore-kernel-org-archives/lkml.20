@@ -1,77 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602793;
-	b=wPo97eAWLHchx+sk8rMpOpkVBcX7G0se4IN7tEhshqo0kmlHzyh18lbDpc7wriIE0ykd
-	 cL1Vcr0RQ0/SCP25MWnQU4OGPaMUd4WmvZ8uccZaPxxquBZPMj0zAH03psehn+AQNjXX4
-	 lQiZR1u9/UXwWXrZeKyvMC+5T/f1sj0Br2zevo1xsRqxK7RpwtDOmeXcY6nEmsbDe1swF
-	 4YEQwZVCki0rgpocEbVdu6uA/cF5BT220tWRGdWon9Gc+3UFJ+/4tuLvTOUfHYRYYwuXJ
-	 sfySU9+0YDD7CDrZ1T4kwWaZZ305ajt0u37EtCDtBTN+OrQEeTRgKb0fHgW8r9s9x1A==
+	t=1792602809;
+	b=KX6p7+bzv9DOGuZDwhY01inTXif0f5RQusS+s6h2U3V0aPsJSP0WejVeiXsvmBWRa6ai
+	 nU/Xu/o/fy/U9OqMojbfvQWPl97fxi2lc0KMS2agTo/4i6kPbYA+RK4iUMGYr/8CwMLIC
+	 RyFIN9KvXT+C5ho9QWrB3eGx2Kch9QBts1lG+kBwNCKq3EU+EJv8upTZsU8d62BWcMiPD
+	 ZzpdqHD2lCqw6UVOcHkUo35lAXGLHAbWaLKXYEMwNi/iLm5AZvsWA8aJGFohxGbCwmySv
+	 tlGKmglUAm4sQHw7eGVgubmmcCNHT8VpppPHIymaC7CF//9cclEytXtAYN7Yl4drHcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602793;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=rkKvJMcNlYtK4WgVFyqLjlbKR7Ee577Xp+OAr33Prtw=;
-	b=oZnN5KiU/keu8/RJ36yvloZjW9n5UQBXZ4ZBxHYnp4VqtpezT+YWm+SasY078uPFZ7sJ
-	 lCsEVvp3JtGXxNvCxNM+Suyq5z64BXqmFtpjsc56tNCfUJgjQyxTCThEBtORNcQi/nNWn
-	 RE7Brp6FuT20gDb4uLmYDZwK8ekxzdMQEdXt9foGHRUKnVQivDdYRMnpq+9lsNXOAmykD
-	 EDrNVeH+wNC7EtpzGYTEZir9qI6ZFQhQNmztoO/+SfvDCq5/raUuwNtA3Otk96MFFEHWT
-	 1Pqv4FMo4OW/w0L08/r/fTp3KPDxuqm4sAGjgfYWDjD7mRENE0kLIHRvVmiCpYKkd2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602809;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=TFjFXEQ8daX1SDzZ+zKTu3JqP3e56krBVno7avFksg8=;
+	b=ZQi0waqIAu7qwvKj8NtAzHIOczpw8NWdY3jzgggYearSRqnIiilbDUWPZlDIyCMLoLN7
+	 5J9/IrJrPd1rCWk3QifPQgoCxuXPdgWwGCV+uiR45gBRmndkwa6RSAINmXS6TtVqd+DEB
+	 g7ULzRfV9MrRzqj5WCEPSM68d47aMmqscoLIdV+XjqInpmIgrVrC39pNO9viDvAEtMuUQ
+	 ASqJLZE2+0pG9K/EKT6CITcN6r5EX+MsmJ3zUh7yOcaLK4VW7ZAzmWLYULv4AAwFawg7j
+	 rsyGZEESrTuf5l84VaRgC55E6oZTdyT+3HWwo/0eGzltIW4Q/XDYvzZiYMRF3BfxV5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DEsxE467;
-	arc=none smtp.remote-ip=198.175.65.13
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=soWqeg8C;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE14D606A31A;
-	Wed, 21 Oct 2026 17:13:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE14D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2C4606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:13:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B2C4606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=DEsxE467
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792602793; x=1824138793;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hoR1fALggNIJg7ge3SbfZZWzt3TtjBehebEjM7ZQRUA=;
-  b=DEsxE467UvLKTS4M5cPysxwqU/CK5V+A+K/314k59tU0t8Sk9RifOW7z
-   q83MeWnt1jiw2Jq0smzj2MAezEF6wKseigBXunUz/vQ5aw1G3taP8zO9l
-   N3OTRvtQnHszM2GqVoboh8UzY/LczMicep8GI1+qleZLkBfaNz7r9THXy
-   EMgIqKO2c8iIdLIGrCGxtIKNGhZyOcNRdQReR/ir/NgmDW/0xXNTMkzJz
-   TGBjxGu2Oea1wUYCnpznPRb1SAiJN04tSThWtHIPfEL/WsRTFComPNA2H
-   DXwefbMCJuTXMv6djdRme7r20l6xJ5R9DWGQLwyD7KPELIdpIsfq5jnxX
-   A==;
-X-CSE-ConnectionGUID: vtSJ4R2zShO/rIs+6Tl0og==
-X-CSE-MsgGUID: slAXG2ifQE6Jf769ncnKrQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1211229"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1211229"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:13:12 -0700
-X-CSE-ConnectionGUID: C5utkEkyRKWpEVmugHT44Q==
-X-CSE-MsgGUID: k1Fvf6UJTjyGNUPT7isgPA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3196404"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:13:10 -0700
-Date: Wed, 21 Oct 2026 20:13:08 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, Andy Shevchenko <andy@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] Input: soc_button_array - convert to software nodes
-Message-ID: <atjypFBUGPzWv083@ashevche-desk.local>
-References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
- <20261021015004.1537738-3-dmitry.torokhov@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=soWqeg8C
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35b2c599f43so2104718eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:13:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792602808; x=1793207608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TFjFXEQ8daX1SDzZ+zKTu3JqP3e56krBVno7avFksg8=;
+        b=soWqeg8ClTWjGsUdU6T/pu3svwM0Pfxg2zZh/n9lNcDLCmLtKefWVOKifpL0zHAq1Q
+         D6LtACxIh9ec8/1K2mp5qmfBvdxKMULxhe/jNV/dPtt5jFHja1SYX0/Qk340szBict3V
+         QuZ38mRsn87CyEawQEZkkBVayuKUAZhkj9wst3LID72z3mWvw7f1HlpsHuR4B29d+rrF
+         xNjBWHfVxPKiYyPiUwPc9mgdKoaBp28JqcNrF0lORvsQqW6BEXnCaE6rPU0vEBprTg33
+         XKoK9jeF5X1sV46+j/eReNTBzPEMozvHY6FOKd82RD7CTFY/OSL1i7R6qF84ZAZO5HpP
+         YEGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602808; x=1793207608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TFjFXEQ8daX1SDzZ+zKTu3JqP3e56krBVno7avFksg8=;
+        b=bdE1ILptArcKiFQuIq3nprQ6jgAsrBbkZIoEBTYt51A9SAicMkwUQPh1l0wudlClrg
+         YkJwQb99gXeJkEsT9ApEdNsAcGQsQEFJCQeWvn2++FpSBHr8hzWw5s2HSmfA1udXCkG7
+         YSxE+/O6Xy82mFaiTCiakisIjclT8YYZmo6UMhSFGiAdAJuuJUKo7gmuuxxSTNABvs7V
+         KdpG+uQX72dx2nAxxGB1SvrxG1TEnWC21i+EQJFErwpyrS0IIXZxCxbxKOHXyKWPkiOb
+         OpgWe2KTxE39u7sIK0lukHKSFA/WwWOAs3SDy95z8R4ytw8MhUxkSfUHtTfYivgHyY5x
+         U4Cw==
+X-Forwarded-Encrypted: i=1; AKwUvBx7Q4XlEfYTnHI48W+7lLtX30oVMUUBZkYUeNqF2hiRoFUD4LlmNQF7CeuPEIhhpLdeSgzj2pZZFwvX+00=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJo5zfQ9Z9rIzKqJxIlIapjDvh9sGH+t3UMiV/RnsGNCzoDC59I
+	gTuEKqL4gBrOVsHBUGt7s2gDdLqEEu4E7vB2fyFQgZYAQgnlT0zNGWR8
+X-Gm-Gg: AYBFou2nFPFgGneqNB3q4q7HESLuOii6CI1GhdGZzW4o89kfyc9oAHDXWcUGRdhhe+P
+	1Uv74WjWZXaconpfYM3ABVY+qDIZWv8DTejrlLtfOkYxgjyaV6Qdiy/ffI2hZcaCC5NlMW3bgTR
+	Qh2kK7TFEuSNxQxm3uCNTdy+bBFUDuWbMmwvocu2Gx0+nvlrWJk6XX6VpRPe+wTCu8pUqxQ0HC9
+	nyrmqiY1DfjoUmdvGA5/eJh5Cm7ow42BPuBJG4bttUdCrOHwbnv5FhfVWhNxJZmTT/DRVnCGG9Y
+	e9TMFZTQBrjDo16MBBW9Fm28xFkrRopL2XM6B48hZzsZ58emxR3nIhdmDNbfYcWpfabr51Of7NB
+	JwtCqqiYycTugnxcDPljTCV3aSZDUfs90V+E4rStDPs+giRcU9idmjIJIQnpcd3mtou8s+UFcnU
+	VuzX/Qjio9iX4bD8+bctRCBZVAVAja20ga0uQSe15hS0+IgHzjB+4yFV0Ibfe6lnGy/CwEL24BP
+	g9Ar8DvVwLCxhnRaRYfR4RolH6JFwoOtjPLTVWyG4roq044GOgz+0W4hTz4YXqzbucNhzb6ZYZ7
+	4VhNNB/dWrOj532wSyzt45c1FnOA0w==
+X-Received: by 2002:a05:693c:60cf:b0:353:8205:8558 with SMTP id 5a478bee46e88-3674b82ad86mr4897440eec.5.1792602807507;
+        Wed, 21 Oct 2026 10:13:27 -0700 (PDT)
+Received: from Terra.tail0ac356.ts.net ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1d8sm12947635eec.24.2026.10.21.10.13.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:13:26 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: "D. Wythe" <alibuda@linux.alibaba.com>,
+	Dust Li <dust.li@linux.alibaba.com>,
+	Sidraya Jayagond <sidraya@linux.ibm.com>,
+	Mahanta Jambigi <mjambigi@linux.ibm.com>,
+	Tony Lu <tonylu@linux.alibaba.com>,
+	Wen Gu <guwen@linux.alibaba.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>
+Cc: Ursula Braun <ubraun@linux.ibm.com>,
+	Karsten Graul <kgraul@linux.ibm.com>,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net/smc: reject CDC messages after connection teardown
+Date: Wed, 21 Oct 2026 10:12:57 -0700
+Message-ID: <20261021171256.166870-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,106 +111,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021015004.1537738-3-dmitry.torokhov@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 06:50:01PM -0700, Dmitry Torokhov wrote:
-> Convert the driver from using legacy platform data to using software
-> nodes for registering 'gpio-keys' devices. This allows us to
-> transition away from platform data and use generic device properties.
+smc_cdc_rx_handler() drops the link group's connection lock after looking
+up a connection. Concurrent close(2) can then set conn->freed and release a
+registration-failed receive buffer before the receive handler obtains the
+socket lock. The handler subsequently dereferences the released descriptor.
 
-...
+KASAN reports:
 
-> +static void soc_button_remove_swnodes(struct fwnode_handle *parent)
-> +{
-> +	struct fwnode_handle *child;
+  BUG: KASAN: slab-use-after-free in smc_cdc_msg_recv (net/smc/smc_cdc.c:376 net/smc/smc_cdc.c:431)
+  Read of size 4 at addr ffff8881064a4720 by task kworker/u48:2/233
+  Workqueue: rxe_wq do_work
+  Call Trace:
+   <IRQ>
+   smc_cdc_msg_recv (net/smc/smc_cdc.c:376 net/smc/smc_cdc.c:431)
+   smc_cdc_rx_handler (net/smc/smc_cdc.c:503)
+   smc_wr_rx_tasklet_fn (net/smc/smc_wr.c:445 net/smc/smc_wr.c:459 net/smc/smc_wr.c:498)
+   tasklet_action_common (kernel/softirq.c:961)
+   handle_softirqs (kernel/softirq.c:645)
+   do_softirq (kernel/softirq.c:546 (discriminator 19) kernel/softirq.c:533 (discriminator 19))
+   </IRQ>
 
-> +	if (IS_ERR_OR_NULL(parent))
-> +		return;
+  Freed by task 209:
+   __kasan_slab_free (mm/kasan/common.c:285)
+   kfree (./include/linux/kasan.h:235 mm/slub.c:2748
+          mm/slub.c:6508 mm/slub.c:6801)
+   smc_conn_free (net/smc/smc_core.c:1244 net/smc/smc_core.c:1283)
+   __smc_release (net/smc/af_smc.c:322)
+   smc_release (net/smc/af_smc.c:361)
+   __sock_release (net/socket.c:735)
+   sock_close (net/socket.c:1526 (discriminator 1))
+   __fput (fs/file_table.c:512)
+   fput_close_sync (fs/file_table.c:617)
+   __do_sys_close (fs/open.c:1560)
 
-Isn't this redundant? Because the following has it inside already.
+  The buggy address is located 32 bytes inside of
+   freed 128-byte region [ffff8881064a4700, ffff8881064a4780)
+  Kernel panic - not syncing: KASAN: panic_on_warn set ...
 
-> +	fwnode_for_each_child_node(parent, child)
-> +		fwnode_remove_software_node(child);
-> +
-> +	fwnode_remove_software_node(parent);
-> +}
+Both smc_conn_free() and CDC message processing run under the socket lock.
+Check conn->freed after acquiring that lock. Discard messages which passed
+the lookup before teardown. This keeps the existing lock order and prevents
+access to receive buffers released by smc_conn_free().
 
-...
+Fixes: a6920d1d130c ("net/smc: handle unregistered buffers")
+Cc: stable@vger.kernel.org
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ net/smc/smc_cdc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
->  	const struct soc_button_info *info;
->  	struct platform_device *pd;
-> -	struct gpio_keys_button *gpio_keys;
-> -	struct gpio_keys_platform_data *gpio_keys_pdata;
-> +	struct fwnode_handle *parent_node;
-
-Can it be one line down, so we keep reversed xmas tree order?
-
->  	const struct dmi_system_id *dmi_id;
->  	int invalid_acpi_index = -1;
-> -	int error, gpio, irq = 0;
-> +	int error, irq = 0;
->  	int n_buttons = 0;
-
-...
-
-> +		child_props[prop_idx++] = PROPERTY_ENTRY_U32("linux,code", info->event_code);
-> +		child_props[prop_idx++] = PROPERTY_ENTRY_STRING("label", info->name);
-> +
-> +		if (info->event_type != EV_KEY)
-> +			child_props[prop_idx++] =
-
-> +				PROPERTY_ENTRY_U32("linux,input-type",
-> +						   info->event_type);
-
-Make it a single line, you seem use 100 limit anyway.
-
-> +
-> +		if (info->wakeup)
-> +			child_props[prop_idx++] = PROPERTY_ENTRY_BOOL("wakeup-source");
-> +
-> +		/* These devices often use cheap buttons, use 50 ms debounce */
-> +		child_props[prop_idx++] = PROPERTY_ENTRY_U32("debounce-interval", 50);
-
-...
-
->  static void soc_button_remove(struct platform_device *pdev)
->  {
->  	struct soc_button_data *priv = platform_get_drvdata(pdev);
-> -
-> +	struct platform_device *pd;
-> +	struct fwnode_handle *fwnode;
->  	int i;
->  
-> -	for (i = 0; i < BUTTON_TYPES; i++)
-> -		if (priv->children[i])
-> -			platform_device_unregister(priv->children[i]);
-> +	for (i = 0; i < BUTTON_TYPES; i++) {
-
-At the same time this can be transformed to
-
-	for (int i = 0; i < BUTTON_TYPES; i++) {
-
-> +		pd = priv->children[i];
-> +		if (pd) {
-
-		if (!pd)
-			continue;
-
-?
-
-> +			fwnode = dev_fwnode(&pd->dev);
-> +			platform_device_unregister(pd);
-> +			soc_button_remove_swnodes(fwnode);
-> +		}
-> +	}
->  }
-
+diff --git a/net/smc/smc_cdc.c b/net/smc/smc_cdc.c
+index 32d6d03df321..499a2473b79b 100644
+--- a/net/smc/smc_cdc.c
++++ b/net/smc/smc_cdc.c
+@@ -428,7 +428,8 @@ static void smc_cdc_msg_recv(struct smc_sock *smc, struct smc_cdc_msg *cdc)
+ {
+ 	sock_hold(&smc->sk);
+ 	bh_lock_sock(&smc->sk);
+-	smc_cdc_msg_recv_action(smc, cdc);
++	if (!smc->conn.freed)
++		smc_cdc_msg_recv_action(smc, cdc);
+ 	bh_unlock_sock(&smc->sk);
+ 	sock_put(&smc->sk); /* no free sk in softirq-context */
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.56.0
 
