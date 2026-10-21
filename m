@@ -1,112 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571397;
-	b=rG895B8porDHLoQYAKWaJ7Y7nbxjnoK+kkgyvGOm1SuxxykY0aq1kBHuaFZoGvfthdiJ
-	 QFqzKtus9Oyj5LH78glaMIws9OJcZi0DvY0p/PBsF4aneYHUFui9jCGoDVjAhem96uZdI
-	 y29w1FUyRd1yZ8/w4Nl4oqhwpTSlEuTavWZRyHkR57WHdd/DBSBEYNdQEmvz5RvL59Gm3
-	 3q+KD+bEggqs1LToK2qnx0GX5nAY/GhCnBdZywqimvAuCIviNYGc64ZHVYNZTdKJVg426
-	 rlNuLGEmnBE8FvOAOpVZNgcCCsrUaiThYhK3Q+HVdjI+fdYklZbh2eYYi15fCQzhkYw==
+	t=1792571431;
+	b=n5n+b6r71W+4C2/VE0AJGEhFuNYUBdbVjphB4ODPJY645PhPgILK5VK0Et6gCgCHqHsT
+	 cLjUT+n36k/PZIap+bALMRN3ees+XsWy+mO46JnNLLfqEj1ryZzY7RkPhu2KD6NUPXakA
+	 ao0p84Imyg6B+i5+oULnEgNA+vew6DKKAp3D7Vi3TL9nZVgXne9xG6PXS7tGqiYhg/IN0
+	 Gag3yl46IPcnT1g0zmO+pSeXDV9E4vAFgSojWLIwxViXBxk3EpOZ2B1D5SE3Vg3M/cTpH
+	 TaZITnoSmivxgUQ9ofrJuwTjObLYDw/WHXO5O+pyR3WrmBVZKfdangh4TQbESJkq0Ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571397;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Rspamd-Action:X-Spam-Level:
-	 X-Spamd-Result:X-Spam-Flag:X-Spam-Score;
-	bh=m1owvKF5GUqL0M9P4jkFUzj6aV11RPSJnJ/xdbSfMNg=;
-	b=OBSPJtNmxCZp2YsKbfli/QYiwHvqjCnwCUzNQnt1N+GP2iFpySdJStY/WWS3lRtg44+i
-	 d8z/ddf9gMYZEjiifgkvJaLT9/a5ZpSfiI01Br7+0fhgWHszoL8R4xH+MYRZ7G0cSogbO
-	 8+CrCPrR7XNcDmlymlP/0BWwoa2i/4A+ReHU9JiWZO9wZcX8lzHOrHylF1tqjMj4ICvCl
-	 pbXtUn8UiL49hNTXoBcRPmLoXzxJ/HYmnmO1GkS+JXFciLflZQWlKdSGLKvyd2vdzXbdP
-	 Y2qkelMqTzdPvpOd8DRPN6lCsXOKsdiGj0vNiTMCi5t7kzJ6fWxBrvX4beARFsqkHHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571431;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z2i7Do+cloqJgPeb5aYLDs8IqOGcJVVvWxpYdA4Y6+Q=;
+	b=USPvxfaSN/lYk3z4+Au441O7h3MK5sDNVQjFe8xzFVbMcK9Gewn8CNwLNdIYKWtuGONT
+	 r8AS5P6W4fsuZ7NhTYvyo6L8Du/QMUq0fjQayMoApwcUBdADKoM8b/q0Gj76IJe1/U65g
+	 hUaztv8C1AFZ1yQr86UIQu3MES5izJFlD0A2+mV2bkUlc3aLi8xu6+Rpi+d0Fb8qv182g
+	 S7VDKTiFi6fTd753nCe3/BHXM09SzfEOKCnUkX2av9kGjHvyOjQzdFVpNHNxjG5mt2hFy
+	 vooOlhKUa/fc32sjnCQi4CjapVU0E0wYs72kglDzPS/FkgDDIgQ8ayQu3McqHeCImRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AFCeqoyq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PtRo0kYc;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LeHPOiZF;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RSpEkotT;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hnkMDzMG;
+	arc=none smtp.remote-ip=74.125.228.6
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADAF8606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:29:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADAF8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F89606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:30:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9F89606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AFCeqoyq;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=PtRo0kYc;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=LeHPOiZF;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=RSpEkotT
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A00DC1F7A8;
-	Wed, 21 Oct 2026 08:29:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792571394; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m1owvKF5GUqL0M9P4jkFUzj6aV11RPSJnJ/xdbSfMNg=;
-	b=AFCeqoyqYjFYzQCDI7Hl4K3chgNdJEopDVQULex2hcbPl7bH0yL3pcI0eOIX74ri9LvorZ
-	E+X+N5e+qcPaVO7diQ3pDa8DlMZr/yH1HoPrllgwLgi9ful+3O35hj/GlLzAyxQaKizM6l
-	suW3I2kclCNFnt7xLNgAFY6hV+UMMLY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792571394;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m1owvKF5GUqL0M9P4jkFUzj6aV11RPSJnJ/xdbSfMNg=;
-	b=PtRo0kYcc1OvNGTCWg6qhwQsUtK1YiQTx6Mj7JjQWJPuNpWN7HVu0zpXmTM0SKA+RYntVX
-	+R/M+V35mmg0Y0BA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=LeHPOiZF;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=RSpEkotT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792571393; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m1owvKF5GUqL0M9P4jkFUzj6aV11RPSJnJ/xdbSfMNg=;
-	b=LeHPOiZFnLL37OuE20dQtE7TOdpQ670dVpOlmXuBwfYv+vepBfqc/lep8oIlFjRfHZdas/
-	DUOmxP9nCIsEYZPFYKz8UkHYs2JAg9a7DuO4l8RQqodI9AeIs4X8wtoWlJNxOejEf+sdr6
-	ByZHWFzeCEEVFIsyhMn1PbIbuZ1eMno=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792571393;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m1owvKF5GUqL0M9P4jkFUzj6aV11RPSJnJ/xdbSfMNg=;
-	b=RSpEkotTRCtW3bg80V61ePHDplK4AZtZYWw2lLBxkNsEiW9463FY5+mrz5sGEiN2FYbvzi
-	7y9SAuVzY7lHGECA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 66334134FD;
-	Wed, 21 Oct 2026 08:29:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OJ+bEAF42GqSVQAAD6G6ig
-	(envelope-from <dwagner@suse.de>); Wed, 21 Oct 2026 08:29:53 +0000
-Date: Wed, 21 Oct 2026 10:29:52 +0200
-From: Daniel Wagner <dwagner@suse.de>
-To: Mohamed Khalfella <mkhalfella@purestorage.com>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, 
-	Justin Tee <justin.tee@broadcom.com>, Naresh Gottumukkala <nareshgottumukkala83@gmail.com>, 
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>, 
-	Chaitanya Kulkarni <kch@nvidia.com>, James Smart <jsmart833426@gmail.com>, 
-	Randy Jennings <randyj@purestorage.com>, linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 08/18] nvme: Implement cross-controller reset recovery
-Message-ID: <5f52d97f-dd27-48b5-8502-1a3b5ccf4d92@flourine.local>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-9-mkhalfella@purestorage.com>
- <6e0b4de0-b030-47cc-84ce-3f021a5c75b0@flourine.local>
- <20261020235624.GQ2931-mkhalfella@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=hnkMDzMG
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cd613507bd1so29353a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:30:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792571430; x=1793176230; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z2i7Do+cloqJgPeb5aYLDs8IqOGcJVVvWxpYdA4Y6+Q=;
+        b=hnkMDzMGd+RR0t0wSvMoYCKnZWGmdS838KdZLqGb03rGS6n5hh10MnciXr2GsJkbGq
+         1VbjnPGzr5abqOyDd8YhBXAybcYDmTJcDpODLfBp7aQFRIr+tRPA9SFNbODb5o8EMI89
+         cYuQ4rN0KoKeQ5BL/+TJhs/VPSwSsIZRk3h9re4rpwFsst6yODRVPd5dfhOXcFSygKea
+         zWzPu6ncxMXTNWZ3HT9tnd0p06hUyH8czgUmpqmARR5mmYIfKVHr5wkXl1VIiG7Cj70Q
+         ANBWoBay4O9x09K1UAuqzweTPIYs0OAzY2+SIoRgwZhkNuxVbZMZYK7x4ynXydZ2EE3f
+         2lJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792571430; x=1793176230;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z2i7Do+cloqJgPeb5aYLDs8IqOGcJVVvWxpYdA4Y6+Q=;
+        b=cUNEhHo9Jg2v0thFQh7Z29QCeGrCcK5AUGB47p7zOe9rzriYFFr9RZbDlo42tfnTrW
+         SdFccLnyCbzBvvN7CCkWLWIoIHdZFhMY42CvsLCa2x/87AU+ozKYl3mURDLtOB2Bjbyd
+         sjGry7xFYOIjP8Kph0eXVb8LoQhGZeE5aagyiWFu+4daMc4eyfyPifzuCgcXgps6YYYm
+         RVl+2IlpdVb6jwId+K1xwV5dy8Nwy5P1rnzKBckcOIJfKjERa1U2UIRRSP5cKWQtGshN
+         xWoEMYe2FbSpnubGl4v5mF3TUhaA3M73ZRCKbeTnQzkB5Dxt36RoFKllWkU8MWa72kAQ
+         tmHg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRZp5GhKsus78oiycLHooKGFk457yJrBpJ2D/p/ELA0Jvr5V9oycLkHXeRu24c7Ui8NKk4TN7EormCGuY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLHj04LZrcb0v0BRaoEv54Y8yYQrIS7ommgU1CkcD0AQWVZPmXS
+	GxyeAGU9tTNGu2YWk2PWLfHd9xiMPdS9V2RmrtY3RY6MuNH6ftXXCx/y
+X-Gm-Gg: AYBFou0zzJfeGfkcI1Ib98CrCt2G1FPMqLB786hdMFV2JMQy5RUOkCeboIYAeI/Hb3b
+	AP8/p0Nu+rQ/O1DdzhLSX7Vcvdz+bRsSprfCAAqBM1htxPyD+U1pOlnCDMUwOgqhTiMeeXtsutr
+	vMStI1u93m+y5KUlTy/ervb1oMbxvuntnj3Ss3jEWq8ZPIX77HJfGsg5Rgz6HzPpgts1A4xWF7g
+	+tgVEbBUYzEgp7UYM1CQmjFp3NGY3NlTS1DUh3L9FRjQdbOSfN84VAnbG2ssVdYu5R0ovbAiw7r
+	lUuXGZqX+bW4zMpM6eomn6Dl7SqOt3gImJEGT8n8r6anhEeo13EtNPFEOWMjzw+TSmOnsa1nzEq
+	Q/U6Us3o5ORGB0Ghjx322TuOvSLciJOXRPCc2ez8aAfYjF6Yc7Ls7ZhXUJj19znPSbvKQ/yApdU
+	S1kuvlC/3AbR5NcnFEMr5JHIHMriTOclpOYlIqLdnaNDUeOHcWARQjn9FKlkQ+qi3H9m+Us3MDA
+	+loOhhxawx3he3d5w6JEsQcuJd641qylXiGGg+8HeQsrkJAI7Po79xnUqnrrqV+Z6ni
+X-Received: by 2002:a05:6a00:918c:b0:8a0:2344:c44b with SMTP id d2e1a72fcca58-8a089d5de3cmr958437b3a.40.1792571429981;
+        Wed, 21 Oct 2026 01:30:29 -0700 (PDT)
+Received: from intel.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895e273bsm600653b3a.41.2026.10.21.01.30.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 01:30:28 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: robh@kernel.org,
+	baoquan.he@linux.dev,
+	rppt@kernel.org,
+	m.szyprowski@samsung.com
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	mark.rutland@arm.com,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	robin.murphy@arm.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	linux-mm@kvack.org,
+	iommu@lists.linux.dev
+Subject: [PATCH v9 0/8] kdump: reduce vmcore size and capture time
+Date: Wed, 21 Oct 2026 16:30:03 +0800
+Message-ID: <20261021083011.2170525-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,67 +123,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020235624.GQ2931-mkhalfella@purestorage.com>
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: A00DC1F7A8
-X-Rspamd-Action: no action
-X-Spam-Level: 
-X-Spamd-Result: default: False [-5.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	DWL_DNSWL_LOW(-1.00)[suse.de:dkim];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,kernel.dk,lst.de,grimberg.me,broadcom.com,gmail.com,nvidia.com,purestorage.com,lists.infradead.org,vger.kernel.org];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Spam-Flag: NO
-X-Spam-Score: -5.51
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 04:56:24PM -0700, Mohamed Khalfella wrote:
-> > This part could be made a bit simpler and there is no need for the local
-> > completed variable:
-> > 
-> > [...]
-> >         if (!wait_for_completion_timeout(&ccr.complete, tmo))
-> >                 ret = -ETIMEDOUT;
-> > 
-> > out:
-> >         spin_lock_irqsave(&sctrl->lock, flags);
-> >         list_del(&ccr.list);
-> >         spin_unlock_irqrestore(&sctrl->lock, flags);
-> > 
-> >         if (ret || !completion_done(&ccr.complete))
-> >                 return ret;
-> >         if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
-> >                 return 0;
-> >         return -EREMOTEIO;
-> > }
-> 
-> You are right, this is deleting "completed" local variable at the
-> expense of checking the ccr.complete again. I find the current code
-> easier to read and reason about. I prefer to keep it as it is.
+From: Wandun Chen <chenwandun@lixiang.com>
 
-The point is that with the local variable, the reader has to track back
-and work out where it is set. I had to do exactly that while reviewing.
-Putting !completion_done() in the condition makes it self-documenting
-and ties it directly to the wait_for_completion_timeout() above.
+On SoCs that carve out large firmware-owned reserved memory (GPU,
+camera ISP, ...), kdump currently dumps those carveouts as part of
+system RAM even though their contents are firmware state that is not
+useful for kernel crash analysis.
+
+ACPI systems already filter reserved memory out of the vmcore through
+their existing path: firmware reports those carveouts as unusable in
+the EFI memory map, they get MEMBLOCK_NOMAP set in memblock.memory
+(is_usable_memory(), efi-init.c), and the ELF header builder has
+always skipped nomap regions; only DT-based systems currently fail
+to filter these regions, which is what this series addresses.
+
+This series introduces a MEMBLOCK_NODUMP flag (suggested by Rob) in
+memblock to filter reserved memory on DT-based architectures. A new
+flag is needed because MEMBLOCK_NOMAP can only express regions without
+a linear mapping, while MEMBLOCK_NODUMP can filter regions that are
+linearly mapped. Reserved regions are marked MEMBLOCK_NODUMP by default
+so kdump omits them; reusable CMA regions are different because their
+pages are handed back to the buddy allocator and may carry crash-relevant
+data.
+
+Since the reserved memory regions are filtered out, the vmcore is
+smaller in size and faster to produce.
+
+The series is based on linux-next and is organized as follows:
+
+Patches 1-3: Preparation and bugfixes: switch riscv crash_mem to
+             memblock, fold the duplicated per-arch memblock walks
+             into the weak defaults, and serialize crash header
+             preparation against memory hotplug.
+Patches 4-7: NODUMP infrastructure: switch crash_core to
+             for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+             flag, add a dumpable flag to struct reserved_mem, and
+             mark /reserved-memory entries with MEMBLOCK_NODUMP.
+Patch 8:     Skip MEMBLOCK_NODUMP regions when building the vmcore
+             ELF header.
+
+v8 --> v9:
+1. Patch 7: Avoid a potential boot panic on SH when NODUMP marking requires
+   memblock resizing before it is allowed, found by Sashiko in [1]. SH supports
+   neither CONFIG_KEXEC_FILE nor CONFIG_CRASH_HOTPLUG, so skip marking when
+   both are disabled.
+
+v6 --> v8 (v7 mainly tried to fix the initrd issue on release in v6,
+that approach is superseded here):
+1. Stop marking /memreserve/ regions with NODUMP. v6 marked
+   /memreserve/ regions with NODUMP. But a bootloader may specify
+   a /memreserve/ entry for memory that the kernel later frees
+   (e.g. the initrd), and those pages would then be wrongly
+   filtered out of the vmcore after being reused as normal memory.
+   The v7 fix (clearing the flag in free_reserved_area()) caused
+   a lockless runtime mutation of memblock.memory [2]. Better solutions
+   exist but need extra preparation, so temporarily dropped the patch
+   that introduced the problem to keep this series simple in v8.
+2. Fix a build failure in patch 2 with both ARCH_KEEP_MEMBLOCK and
+   MEMORY_HOTPLUG are unset. There the memblock arrays live in
+   .init.data, and the weak defaults referencing them create section
+   mismatches, which turn into build errors when SECTION_MISMATCH_WARN_ONLY
+   is also unset.
+3. RISCV recently gained crash hotplug support, so adapt its handler
+   like x86 in patch 3: use __crash_prepare_headers() instead of
+   crash_prepare_headers() to avoid self-deadlock.
+4. Update the cover letter per review feedback: describe how ACPI
+   systems filter reserved memory and why a new flag is needed
+   instead of reusing NOMAP.
+
+v6 --> v7:
+1. Fix a stale MEMBLOCK_NODUMP flag issue [3]. Memory reserved and
+   marked as NODUMP may later be freed (the initrd, for example),
+   so the NODUMP flag must be cleared accordingly. Since the fix is
+   part of the NODUMP infrastructure introduced by patch 5, it has
+   been folded into that patch.
+2. Drop the "generic" related description in the cover letter.
+3. Collect the Acked-by and Reviewed-by tags received during the v6
+   review (thanks to Baoquan, Mike, Rob and Marek). Patch 5 is the
+   only one without a tag, as its Reviewed-by was dropped when the
+   fix was folded in.
+4. Drop patch 1 of v6, which has been merged separately.
+
+
+v5 --> v6:
+1. Serialize crash header preparation against memory hotplug to avoid
+   out-of-bounds or use-after-free issues.
+2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+   avoiding a panic from too few regions before resize is permitted.
+3. Reordered the patches, put pre-existing bugfixes earlier in the series.
+
+[1] https://sashiko.dev/#/patchset/20261016061549.4181390-1-chenwandun1@gmail.com?part=7
+[2] https://lore.kernel.org/lkml/20260922090252.B01541F000FF@smtp.kernel.org/
+[3] https://sashiko.dev/#/message/20260917220750.GA4013814-robh%40kernel.org
+
+v5: https://lore.kernel.org/lkml/20260806093519.2907771-1-chenwandun1@gmail.com/
+v4: https://lore.kernel.org/lkml/20260630074715.4126796-1-chenwandun1@gmail.com/
+
+Wandun Chen (8):
+  riscv: build crash_mem ranges from memblock instead of resource tree
+  crash_core: fold duplicated memblock arch hooks into the weak default
+  crash_core: serialize crash header preparation against hotplug
+  crash_core: replace for_each_mem_range() with for_each_mem_region()
+  memblock: introduce MEMBLOCK_NODUMP flag
+  of: reserved_mem: add dumpable flag to opt-in vmcore
+  of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+  crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+    header
+
+ arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+ arch/loongarch/kernel/machine_kexec_file.c | 27 -----------
+ arch/riscv/Kconfig                         |  2 +-
+ arch/riscv/kernel/crash.c                  |  2 +-
+ arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+ arch/x86/kernel/crash.c                    |  2 +-
+ drivers/of/fdt.c                           |  1 +
+ drivers/of/of_private.h                    |  1 +
+ drivers/of/of_reserved_mem.c               | 18 ++++++++
+ include/linux/crash_core.h                 |  2 +
+ include/linux/memblock.h                   |  9 ++++
+ include/linux/of_reserved_mem.h            |  1 +
+ kernel/crash_core.c                        | 53 +++++++++++++++++++++-
+ kernel/dma/contiguous.c                    |  1 +
+ mm/memblock.c                              | 16 +++++++
+ 15 files changed, 103 insertions(+), 94 deletions(-)
+
+-- 
+2.43.0
+
