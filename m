@@ -1,73 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612308;
-	b=bQehw4PdFeTdrubOxZM53bv1MQJOZi/KMxfNbr78trgbiGoo1f40EFXbftMyWtiRuY8K
-	 WhOxpVgAfUh3W2evwZsUP9YqRZ7vLy4v6pggi8ZGP/97KNg0MlYPbGhfSM4SilaajLKQi
-	 jErobUx+6WI+cIGB2nzi+lr02DVYm+/yDBC3cQNwvGPT1d5aXSSPn5liAQsuN6CpJj3k5
-	 BwA3vBGiobF0+bEvS+se5MP9Dp+En2vbEohdlCBLjc3hFNtNXB8UxXIoNbbG+uFXSFMBL
-	 E+wsPXz/MW1dABBMGd94mrvcNFkySIknz5BolYxTDk488RensfgZ4mzFK77mgvz2YQg==
+	t=1792612309;
+	b=tJF6bk62+niIlbUEPmEffsSRPkmKmThVGkzmkasaoGeso65TrNR5UqLPNqwMArtUIKTA
+	 Y9foj4K7XfMOLbe7LLnCUDVAfuyXDhL4Mp24ahVOyMKVKluYxTZKRDsphH93NgKDWD+zW
+	 ujaCYDHtMcnDrUgTr6GPWswjpINITzDnW33okOcV7vZBowhEbSSIBQlFKBfIspiNQBej0
+	 tVHjG6UlZ8w1+swG9tcCfcCCNaxnr0z7BHbTL7FFpFjrqxlZ9zadMB95Bz4+5UlGUnu3v
+	 1MiL/gfPm+SkO6RqLYDu0NziEUz5omwu3ktZCmrehBZWeZ3v2lupb0L84Ak7S/EPoQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612308;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612309;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Subject:To:Cc:From:
 	 Date:References:In-Reply-To:Message-Id;
-	bh=aPxt8e/lamI9P2AXwyh7UPyw2CRSJmGqsyEUFkb5bh0=;
-	b=LE7prsOiVtxL/FTP2/wEd5uz1njOLo2Ye39MR/1WokHG/C81TUePzM7YE1s/91oOJTnk
-	 BAx013BaQtqLa1PESVABZN6b9RPN9Efk4uHdKejDOwZQvd5UCuabYqCQAtdVZvt3DfFZC
-	 GAlF8xXIRMcXDd52pFwsyJ3QoyYkdDAvNIRtbXpjrnNivjFSwEWNJWzTAMFjToBir4yQ7
-	 fDegONet10QhkibGyEbJHpU2iYQeSy+8glA61ClRzFULWD6R9klSpW3CHwS0o1id4Pb/E
-	 dJlySp1DwEQCaw8gpQJ+lJ2cJPZ6WcWxCzj5i4olqXqjnNjcARaT7ZdK+kRstouwW4g==
+	bh=FZ9+k9ouvHhHUlk2AIJJKXInlqQvA8diqXLTlJ6hSzU=;
+	b=Mb2Z4v87N9scKLu6Yr17hu0zSLWDNcCfr9JCgbV/9aQGoouAPX7dPTbSDGdbXmZKEPOT
+	 XNGwpKbfMis0FRNzKyKN9pkB1sGt/FpzmV/dbVQBH3EyiWJg1KOM/RLsz+4nDWJivBtGK
+	 r/YgbXb7fqe6rF53XvlUr7bwxSKE/MsTZlNOQWwVdqhJ/HvavsglDDmcBwntWrGZ0oZPV
+	 LPnXsvPvLUtYd11WuyhIYerDIwNIQG2Ro0R3lskI4opf6b6vosIXZseMsFKwK4jRryDde
+	 M0bevmuXmaQyGOREn93ESwM9QLiIDUTigp/Dzt8eqVh05FPkpl/nyl/Wac64DywDzsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.intel.com;
 	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZSHz0UaH;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KE2IHzVd;
 	arc=none smtp.remote-ip=198.175.65.12
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2478260A5BE0
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:51:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2478260A5BE0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6152A60A6F43
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:51:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6152A60A6F43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZSHz0UaH
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KE2IHzVd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792612308; x=1824148308;
+  t=1792612309; x=1824148309;
   h=subject:to:cc:from:date:references:in-reply-to:
    message-id;
-  bh=Ao5yajaMxugMQCEuI5KQUm6kZhXCBl6h+t8DN1NRfS8=;
-  b=ZSHz0UaHkQwPqqsXBdc+GoZfHsoywtPx2BS/Wzfg85YZ/lq1L96O5cKP
-   AbhbNb/11dQTiQpUeQp8jKAKiXBlOz+NWMyR3Byg8yg0iqydV9AQKRZk8
-   0deBwwxU4+rHK+GLursbXhwbOzJCxokVTQ/zsqWvjJ9/nTquHDAKuaxK8
-   fidJXCpXO3Eg6mpj44bWL6uFUEDrPSL6NSQqu+kALq543LlW6pfIPVXzJ
-   5VEkj+SwV4X63U7eu0ayoB09DgIsygAGpXQw6wVYcOMttxD6Ejcsq6rnh
-   UEAvbYUfrJEXNvnLTHTVHhQ3eSNPFfUjaUJX9dRZ4iLrRsrcL8AOjj40D
-   Q==;
-X-CSE-ConnectionGUID: btmndi/sTMG0K70IzsMtUw==
-X-CSE-MsgGUID: ADS/e317S8GmgV9fY0Tj+w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1230248"
+  bh=Ab43Qr4vfczLfB1FduwwybiDMe2hYpM/T6am14QM4B0=;
+  b=KE2IHzVdR6lJVnVTRjWXgaTBSzwWH5TA42MFLBYko/OHAWZl7Ve21KjA
+   fxdG1rjNFERBSu5Jm1wkFfzmSd8jU6k05PGjLzdLNFjh75lAjNNuiJpCG
+   saalqqSUtUgJ6Gl52J/MVCAdMFDTmDWqRfOYrgKAjv9xhiyLZJzKTBt/8
+   oWEUUy7fhXz11ObJbXyH2aRbNOnAuf1BbgygxF9taeFQ3o1iFmdQkGFPI
+   70MC4k8n/w6zQ1Qq20ZP9OsckhqW2idDqqYQFVbNUcyq2DPFwrQc6PaVR
+   VeAsmJ8IZGIkyQIw9l8SSBQUKYqHHbwXY+8tU0OHPFv3qScCwdvkGBi3i
+   A==;
+X-CSE-ConnectionGUID: ANJBxydnTjyXUEtiIYPcDw==
+X-CSE-MsgGUID: 60v2Oo7JQxqo4dTllCowEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1230259"
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1230248"
+   d="scan'208";a="1230259"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:51:48 -0700
-X-CSE-ConnectionGUID: 29zOquGwSGakzfV8puxw8Q==
-X-CSE-MsgGUID: uMiiC0OYTg6uN67qYE4RGw==
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:51:49 -0700
+X-CSE-ConnectionGUID: XLIMiv1FQaCrx2hXXfdzYQ==
+X-CSE-MsgGUID: IiW1DXqjRHGXDFnsutDTSA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3092238"
+   d="scan'208";a="3092245"
 Received: from davehans-spike.ostc.intel.com (HELO localhost.localdomain) ([10.165.164.11])
-  by orviesa007.jf.intel.com with ESMTP; 21 Oct 2026 12:51:48 -0700
-Subject: [RFC][PATCH 20/24] x86/entry: Stash kernel SSP on FRED entry
+  by orviesa007.jf.intel.com with ESMTP; 21 Oct 2026 12:51:49 -0700
+Subject: [RFC][PATCH 21/24] x86/extable: Update shadow stack entry frame during RIP overwrites
 To: linux-kernel@vger.kernel.org
 Cc: Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Edgecombe, Rick P <rick.p.edgecombe@intel.com>, Andrew Cooper <andrew.cooper3@citrix.com>, the arch/x86 maintainers <x86@kernel.org>, Kees Cook <kees@kernel.org>, Pawan Gupta <pawan.kumar.gupta@linux.intel.com>, Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>
 From: Dave Hansen <dave.hansen@linux.intel.com>
-Date: Wed, 21 Oct 2026 12:51:47 -0700
+Date: Wed, 21 Oct 2026 12:51:49 -0700
 References: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
 In-Reply-To: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
-Message-Id: <20261021195147.3B42C03D@davehans-spike.ostc.intel.com>
+Message-Id: <20261021195149.174475BA@davehans-spike.ostc.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,74 +78,143 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
 
-Kernel shadow stacks are intended to preserve control flow integrity
-across all kinds of RIP transitions, not just strict CALLs. One of
-those transitions is when there is a kernel interrupt or exception
-and the kernel stops what it was doing and jumps over to
-asm_fred_entrypoint_kernel.
+Previous work stashed the entry SSP value on the regular (RSP) stack.
+Use that stashed value to locate the FRED entry frame on the shadow
+stack. Update the "LIP" value in that frame to match the updated
+regs->rip value.
 
-On those jumps, FRED hardware writes a special frame to the shadow
-stack. That frame includes the return address of the interrupted
-kernel code. When returning from the event via ERETS, the hardware
-compares this shadow stack frame with the return address on the
-regular stack to ensure that they match.
+The now-matching values will keep FRED happy during ERETS.
 
-The kernel munges event return addresses for lots of reasons. But,
-with shadow stacks, it also needs to munge the corresponding
-shadow stack frame contents.
+Also include a stub function for non-CET builds.
 
-Make it easy for RIP-munging code to locate the shadow stack frame.
-Stash off the shadow stack pointer so it sits adjacent to pt_regs.
-Without this, anything wishing to locate the special shadow stack
-frame would need to walk up the stack. I'm not opposed to doing
-it that way, this just seemed simpler for now.
-
-Note, since RDSSPQ is a NOP with shadow stacks off, this assembly
-is safe either way, although it does a unnecessary push/pop.
+This "rewrite rip" infrastructure will get used in quite a few other
+locations. The extable site is the most critical. Do it first. A
+normal kernel won't boot without it because it allows kernel
+exceptions to be "stepped over" for "safe" variants like wrmsr_safe().
 
 ---
 
- b/arch/x86/entry/entry_64_fred.S |   22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ b/arch/x86/include/asm/insn-eval.h     |   12 +++++++
+ b/arch/x86/include/asm/special_insns.h |    7 ++++
+ b/arch/x86/kernel/cet.c                |   54 +++++++++++++++++++++++++++++++++
+ b/arch/x86/mm/extable.c                |    2 -
+ 4 files changed, 74 insertions(+), 1 deletion(-)
 
-diff -puN arch/x86/entry/entry_64_fred.S~fred-entry-ssp-stash arch/x86/entry/entry_64_fred.S
---- a/arch/x86/entry/entry_64_fred.S~fred-entry-ssp-stash	2026-10-21 12:36:42.552889917 -0700
-+++ b/arch/x86/entry/entry_64_fred.S	2026-10-21 12:36:42.555889923 -0700
-@@ -16,6 +16,26 @@
- 	.code64
- 	.section .noinstr.text, "ax"
+diff -puN arch/x86/include/asm/insn-eval.h~fred-entry-ssp-muck arch/x86/include/asm/insn-eval.h
+--- a/arch/x86/include/asm/insn-eval.h~fred-entry-ssp-muck	2026-10-21 12:36:43.032890836 -0700
++++ b/arch/x86/include/asm/insn-eval.h	2026-10-21 12:36:43.041890854 -0700
+@@ -82,4 +82,16 @@ static inline void insn_assign_reg(unsig
+ 	}
+ }
  
++#ifdef CONFIG_X86_CET
++void regs_set_return_ip(struct pt_regs *regs, unsigned long ip);
++#else
++static inline void regs_set_return_ip(struct pt_regs *regs, unsigned long ip)
++{
++	/* This is only for changing kernel return addresses: */
++	WARN_ON_ONCE(user_mode(regs));
++
++	regs->ip = ip;
++}
++#endif
++
+ #endif /* _ASM_X86_INSN_EVAL_H */
+diff -puN arch/x86/include/asm/special_insns.h~fred-entry-ssp-muck arch/x86/include/asm/special_insns.h
+--- a/arch/x86/include/asm/special_insns.h~fred-entry-ssp-muck	2026-10-21 12:36:43.034890840 -0700
++++ b/arch/x86/include/asm/special_insns.h	2026-10-21 12:36:43.042890856 -0700
+@@ -303,6 +303,13 @@ static __always_inline void tile_release
+ 	asm volatile(".byte 0xc4, 0xe2, 0x78, 0x49, 0xc0");
+ }
+ 
++static __always_inline void wrss(u64 val, u64 *addr)
++{
++	asm volatile("wrssq %[val], %[addr]"
++		     : [addr] "=m" (*addr)
++		     : [val] "r" (val));
++}
++
+ #endif /* __KERNEL__ */
+ 
+ #endif /* _ASM_X86_SPECIAL_INSNS_H */
+diff -puN arch/x86/kernel/cet.c~fred-entry-ssp-muck arch/x86/kernel/cet.c
+--- a/arch/x86/kernel/cet.c~fred-entry-ssp-muck	2026-10-21 12:36:43.036890844 -0700
++++ b/arch/x86/kernel/cet.c	2026-10-21 12:36:43.042890856 -0700
+@@ -4,6 +4,8 @@
+ #include <asm/bugs.h>
+ #include <asm/msr.h>
+ #include <asm/traps.h>
++#include <asm/insn-eval.h>
++#include <asm/special_insns.h>
+ 
+ enum cp_error_code {
+ 	CP_EC        = (1 << 15) - 1,
+@@ -160,3 +162,55 @@ DEFINE_IDTENTRY_ERRORCODE(exc_control_pr
+ 			do_unexpected_cp(regs, error_code);
+ 	}
+ }
++
 +/*
-+ * Kernel-mode events: save the SSP of the shadow stack frame FRED
-+ * pushed (old SSP, LIP, CS) just below pt_regs. See struct
-+ * fred_kernel_frame.
++ * FRED hardware pushes this frame on to the shadow stack for
++ * kernel=>kernel entry. First (lowest address) in this struct
++ * is the last entry pushed by the hardware.
 + */
-+.macro PUSH_KERNEL_EVENT_SSP
-+#ifdef CONFIG_X86_USER_SHADOW_STACK
-+	xorl	%eax, %eax
-+	rdsspq	%rax		/* nop if shadow stacks are off  */
-+	pushq	%rax
-+	UNWIND_HINT_REGS offset=8
-+#endif
-+.endm
++struct fred_shstk_entry_frame {
++	u64 ssef_ssp;
++	u64 ssef_lip;
++	u64 ssef_cs;
++};
 +
-+.macro POP_KERNEL_EVENT_SSP
-+#ifdef CONFIG_X86_USER_SHADOW_STACK
-+	addq	$8, %rsp
-+#endif
-+.endm
++/*
++ * The kernel=>kernel entry code pushes SSP on to the entry stack.
++ * This only occurs for kernel=>kernel entry. Not userspace.
++ *
++ * SSP is pushed on to the frame below pt_regs. At the point it is
++ * pushed, it points to a special FRED entry frame.
++ */
++struct fred_kernel_frame {
++	struct fred_shstk_entry_frame *ssef;
++	struct pt_regs regs;
++};
 +
- .macro FRED_ENTER
- 	UNWIND_HINT_END_OF_STACK
- 	ANNOTATE_NOENDBR
-@@ -54,7 +74,9 @@ SYM_CODE_END(asm_fred_entrypoint_user)
- 	.org asm_fred_entrypoint_user + 256, 0xcc
- SYM_CODE_START_NOALIGN(asm_fred_entrypoint_kernel)
- 	FRED_ENTER
-+	PUSH_KERNEL_EVENT_SSP
- 	call	fred_entry_from_kernel
-+	POP_KERNEL_EVENT_SSP
- 	FRED_EXIT
- 	ERETS
- SYM_CODE_END(asm_fred_entrypoint_kernel)
++/*
++ * Change the return IP of an event. Use this instead of directly
++ * manipulating regs->ip.
++ *
++ * The hardware saves a special FRED entry frame on to the shadow
++ * stack. It contains the RIP of the interrupted context. ERETS
++ * ensures that this matches regs->ip.
++ *
++ * Update the FRED entry frame in addition to regs->ip.
++ */
++void regs_set_return_ip(struct pt_regs *regs, unsigned long ip)
++{
++	struct fred_shstk_entry_frame *ssef;
++
++	regs->ip = ip;
++
++	if (!cpu_feature_enabled(X86_FEATURE_KERN_SHSTK))
++		return;
++
++	/* Only kernel-mode events save the 'ssef' pointer. */
++	WARN_ON_ONCE(user_mode(regs));
++
++	ssef = container_of(regs, struct fred_kernel_frame, regs)->ssef;
++	if (!ssef)
++		return;
++
++	wrss(ip, &ssef->ssef_lip);
++}
+diff -puN arch/x86/mm/extable.c~fred-entry-ssp-muck arch/x86/mm/extable.c
+--- a/arch/x86/mm/extable.c~fred-entry-ssp-muck	2026-10-21 12:36:43.039890850 -0700
++++ b/arch/x86/mm/extable.c	2026-10-21 12:36:43.042890856 -0700
+@@ -38,7 +38,7 @@ static bool ex_handler_default(const str
+ 	if (e->data & EX_FLAG_CLEAR_DX)
+ 		regs->dx = 0;
+ 
+-	regs->ip = ex_fixup_addr(e);
++	regs_set_return_ip(regs, ex_fixup_addr(e));
+ 	return true;
+ }
+ 
 _
