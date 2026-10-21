@@ -1,119 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552359;
-	b=tPJHUAsVbPbTaIIENsKzE5xPyYHdaF6/r4lT9gJazT5XDVAR0JweTmD94jQFy6NpPpX4
-	 cxy7zhY45GehD79zVlAtoEUMYf0d0hf6KWcufAc/fBewOSd5hFSebuxHeGl75hBdMu6wI
-	 N8hcI9ehiXna0EKV3dCnENGR2Rho8YynF9/oLKEAl792wLPBD17TQFPqfRl3lUtlGVcMD
-	 43i+uv53lvTdiv5a4YR+jKTQUpit6a6a9NCCXjEmPxgobAD7uIUK9mvsqTV3IOgn0SKzz
-	 dOLVDnxTXPBMeGyWySWKjplfbG3pvFP/XboahbXCjGJsGZXGHM+D2qexFCQZdyhxNGw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552359;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=MfRkPM22ZaiSo4hToB8MNzjEQGDixsa8Pt0dtjpR+tE=;
-	b=Hhb9BSVHbssK+uAcPccSDDdPu8QJFOyDddVRJZVGfjxgh3KwiucK+k+YGj1q4Z357QAV
-	 bPdzPQsVq+COimXTNCEbVo0gbmH0pAivFUOaaLGXl5odT5JqP27RCKIdYs4Ykj4RSKz4q
-	 qH2f6iJBbZdh13hOM3+12h0+J40YSedJTK4M/kFfJWDkRoDnVTQ3Mm0nJ2KlHKqnYWu3b
-	 rpKiwrPGTppXzWVjPtLwAUJDgE7AmBHzRy+x6HdUQNebd9Y5SIHQmsVfN9HkHppMTR9Tv
-	 MBs95RxmsYawXhuPtG6Glyst/EtsF/5L0b9p+u1oUUYypV3YH0f1q8ikeAKZajRCG9g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="TW/c3KC2";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kcRlWfwk;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792552387;
+	b=gVk/whcHsVCLO4NISY6zs5qCZH7hZC2Mc+7l05+R1v+yyPAwJgKTXqkMYdgZBxKmp6lF
+	 JUEjIFvBi+SC92kcFm/ZjPTNPTe4ctjiIJvzA2V4Ya631OkpxHSUyiCswS3vzeK4lCXyo
+	 mHxyz/zJE8Gh6tik0Bq3qRkcut08zWmRI4wbmhYrhutYNTDL4DP3+QNLq6yGFE6VrVU3u
+	 Fzt67SNCcJI+hYugeBYj/NEocc2ectWDFpDp0K8IdZ7GyymtPdMdP6f1BvmQ3bkdXK941
+	 8bZgw/rXbYPy8usto/rI+3xcpcOZyLFQ2XEe+AEQ+wghTM/Z2ucXceqZ6MFFuC5f71g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552387;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=0031MfSyWJ86sGKHs0Uq6ld3LLkY7XXgkGqA2txCHwE=;
+	b=LMh8t5hbtg41YyQ6xDfdWYdBbzJHciEXDIzUf3VqRkL1fobH3wnsdvGVCNwfTWxKLviB
+	 UsjFOrmTLJXXh87gBbvd14RRSAkO3oFjv+dcPosnuzYneeBzITchsnu2z5CuMAz2w1GiC
+	 +XvPiPo6cqoz+7CsmpI8S9DutgYT38kaeg326ZJ3GIxnlvksns8os4tywzSE/Zv2TsyRf
+	 ftDlzi05dP4KEcSqD5vDtUc2vKX9792pZTLWVmhaQTJ4oshbhMeQ0d2I0MUvwfip8W/cV
+	 0GTMXsplkcPw881dwmayJX071e9fs3J6uaR9O8TSxKDqpiIL5EupRIAw/2u8c1gp+yw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UxHJGdSK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.7
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012007.outbound.protection.outlook.com [40.107.209.7])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54682606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:12:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54682606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3C7606A319;
+	Wed, 21 Oct 2026 03:13:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE3C7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=TW/c3KC2;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kcRlWfwk
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L2EwAX3469315
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:12:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=MfRkPM22ZaiSo4hToB8MNzjEQGDixsa8Pt0
-	dtjpR+tE=; b=TW/c3KC2RXH+WX8/W8l6bonpOlRiIOTiIeM7mZdbTYw82wG+osM
-	NdY8A4jMC5DqCrN6ZR9NgDZFyCLKllr4b4u4qs4cD1gW9MDgsFNiungu4EuvJe1w
-	yqnVJdYYzjJHOri/Xsqq//dGlfA6aeBx0aLSergksdcHZ9mt3BChahMNGOFmoj2l
-	no9vhTEXKyNRVNmNIfWuG4hXDzo5QtmoAgWKs1dj3D0bRD0Z7q7n9pCKl6lvKtaY
-	jOnh8uv/8eqZsABuisLVIq8nmIMHHciQj23B7EkjF4OUr1c+Vvis/WLIfSKgFcS3
-	K8oxWvSI3Rk6twyakkCZtzTrXgDlE6N0Opg==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4he7h2b9w2-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:12:38 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-154e9d2d94fso685010c88.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:12:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792552358; x=1793157158; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MfRkPM22ZaiSo4hToB8MNzjEQGDixsa8Pt0dtjpR+tE=;
-        b=kcRlWfwkRAvsCeiNTLIdRIElZBNcg+DbzmW62dUkSwnaUJA27lhrltUO998ZOWvgay
-         CV8xg4zvu9c0SKHsy+SsA3kdQw3ty1LPpeGyelgPq+xvDCH9DpgS+XnKfMrXzIgN4K2L
-         do9kBEjujwi3HU25pFC+Q/VsGskkqieRdQTopwtDxYmtDJXv7arTqx08aSBkUgu7zzf1
-         xH+ubV7ST3T5aGU76bUi2q1Y57ul4t5ShLdnH4lV6Agl3WWhIiVqWhFxuf8jD/bEq+0J
-         qsuQqO5ahTDB/h8TRhSC87xTSZOngtuT3mXo0cJUht3m6HoOEPy+TrhfphXz2tdopLEb
-         gDlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792552358; x=1793157158;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=MfRkPM22ZaiSo4hToB8MNzjEQGDixsa8Pt0dtjpR+tE=;
-        b=c+8wHCacbytqr7S57yj/GHfl7Lj1uK74JoSg3Va5ILy3h/3E6+GRXPht7l6JSUApWk
-         1qd3k/ft1JOSLFy1p51JbxrrVSU9jSXVAGSRwcMQL5o4PAl0Wo9uYbsQjIWCVwpe6v0g
-         RnIXv00RF0LgJf8zpUMQ4v70Hx2/DO7tOvcMEXYfTCt8emJU+5QST2bXU+ZUQp6w7CUX
-         TMFxxsPWVIwOFGALLXM19/p4jTXi84KSQ3FTOBjnmbTONFTaKGjBISJGdxwWtj1wDKuD
-         BR5QES0Ae3MRje4cj+gsMs9/vUWUL06krm4/RXWDFjLeYxBtyesUKJxtTJC1swXgxSo5
-         +hOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYbFeWFy9l15ZHAO/m0jRwSr/rWGO+rjD5RP23UqmkjzZIJClO3Vp42WV5plz2jgkhBwk7WOLTue84AzU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJjfMzrPtOImDurO2yK7AHppPoIbdpG38I0EZ6zQjp4n/btDTtf
-	19SWZ3yjPMyhyaDwKlVisqcOXQlmDStigFYsvMKaLmS+zcL11lC6w+Y3EaDsPa4VG84JjjFabau
-	gLEo5WHaJcrntFgY/mTHaW2TMI1WaoPUSUeKjrm0maYzdTnSruOcf6TPoOuKWdaf889E=
-X-Gm-Gg: AYBFou3nyiX4TC8vGWSRmO6Dwz2YAJyBf2kyfr+ycnfQPUv5EFlfAfy9cYV/dGreehH
-	9W0w7QVjjvrPUZ388wKW7ZRFzwMdq06GcvIRcRG6GW1rvpAdTXr2mWt0G9J+DZhtig25mJk9I5r
-	305IC0tdne3t8OZhcpcy6msS66eAcyb+bYhiuo5mT5r0S76i1yTp/KI9Tcd3d5UWWHRYfWXUN7l
-	s/+8cnMSYE6Ewv04emb1Gi5z6pBOe/4yRpptHh3qXBtfRGipG3eUNjBTO//dj7PZJevNcxZ7fcc
-	1hfJ+QvnWxhpl/bEZ2TDNsgQGLRsfGY6Dy97F9R7QLW7YQf2iEQCvTO+vtl6XRJ/WmJzA/hYXpn
-	ybgJZzfC5nLqBIiIWFdPvARwJRUPqplaqAaFmJTvA9CvS2PazRemBUzOCFrs=
-X-Received: by 2002:a05:7022:698c:b0:17b:fed6:7449 with SMTP id a92af1059eb24-190a7c21166mr1390120c88.47.1792552357381;
-        Tue, 20 Oct 2026 20:12:37 -0700 (PDT)
-X-Received: by 2002:a05:7022:698c:b0:17b:fed6:7449 with SMTP id a92af1059eb24-190a7c21166mr1390070c88.47.1792552356642;
-        Tue, 20 Oct 2026 20:12:36 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a180adasm2517518c88.8.2026.10.20.20.12.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 20:12:36 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Shenghao Ding <shenghao-ding@ti.com>,
-        Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>,
-        Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH] ASoC: codec: pcm1681: Acquire sck when bound to a card
-Date: Wed, 21 Oct 2026 11:12:28 +0800
-Message-ID: <20261021031228.2074402-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=UxHJGdSK
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I+QAHZA2nlPAifjUPdPrJZUS5Vrq0dU5e7w2vncNK1bjKJnhlojo3kAsqO2iMf7xMaJQ4Y0KypLRdBcvz8tKJL1XLAnUjmjPDvf+Rgdf/ZyVamH8MJOXEB7uWCpQVSsEq4i/LlECpY3cff4PILwvoIPg3wZ1NdTlW80D53j0mCNBTuwra90corf4SgnpkUSmN3ZN7MfinWWhDb/5QIn7vrF5ujhLVMZUW4ZvHKA3wL6rap17NMvBG5lqf/mNDyJHjpnOlzVbtxOPDmRkcP+dkQaOu/E/zKnlZ6ujQ/s58GyGfb+qwx2kWSY1VdUsnbaJ6IxsVg0Y4yayYN0vTPqjww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0031MfSyWJ86sGKHs0Uq6ld3LLkY7XXgkGqA2txCHwE=;
+ b=CXJx9W7kXiH5VVEZWizRf60hJlARCzBaIFthpnDsJa/2bZt4KOFA7T9X0f34+3wu61xVDx0MsuiIJlZaU9gTVLNs6OUcTcvCvYdhZ/Ousc8MtaoNA1GcWsaXKWllIGcAejilr7fc6/zEPA6V1rhx2C4JOak1RLIzLuTkOQRzsLJKHyZbuar6i2Q81TU2KwG126/3yUVLSu0xovznygss/cNGwe9rwVut3OzVuTjkGPbrD95N7FGyrPlA1iZXGzRRfTR2Nt5M0oK/qSZDj21hBmaF461so+oc0+STTIce2n0marPBqVlUIGgGDuHfSRDqbmd4VfRjai6Fg+HoZlsGBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0031MfSyWJ86sGKHs0Uq6ld3LLkY7XXgkGqA2txCHwE=;
+ b=UxHJGdSK5NwIJyjsUVelRoR9pPVfCcxwXRrKsMatn66xuXqVe4h5slUwYiYkf42FZdVtvM1ghidVjX/f3sqXbZhRjvzb9nVwHb9+LYY0EWDcm/Vrvi5ueR7Dc7+bTT0iCkgZVmYg5yzqsVz6zXKzsZr1NNADOMhto0awXXzZuaLirAFukPFl5IsFy0Vo8VtDEvPmVum5i98U5iK4pK32Q3IHj650vSL7lV2Trx0IBnXPfoxlrGwTJDy/L83vDVZj78huRCWzPPsfREfTyW3stm+DeUO7LAKHbVpH/V+h/y1V45nvuPFAL55ivpNnnVR9eU6EV+H8aOKblRIi6S3v8g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 03:13:02 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 03:13:02 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Russell King <linux@armlinux.org.uk>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Krishna Reddy <vdumpa@nvidia.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, linux-tegra@vger.kernel.org
+Cc: Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Yong Wu <yong.wu@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ Robin Murphy <robin.murphy@arm.com>
+Subject:
+ Re: [PATCH v2 07/11] iommu: Let 32-bit ARM drivers opt into a DMA API default
+ domain
+Date: Wed, 21 Oct 2026 12:12:58 +0900
+Message-ID: <E_MBcemRRcCDkgXfDjIcWg@nvidia.com>
+In-Reply-To: <be6cd787-8502-4499-ad62-597c1b9b7702@arm.com>
+References:
+ <20261016-b4-arm32-iommu-dma-cookie-v2-0-b06842a01938@nvidia.com>
+ <20261016-b4-arm32-iommu-dma-cookie-v2-7-b06842a01938@nvidia.com>
+ <be6cd787-8502-4499-ad62-597c1b9b7702@arm.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP301CA0006.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:400:386::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,239 +116,225 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 9jfcWNrXDcrjM_nrImwFHodgjzybQ19X
-X-Proofpoint-ORIG-GUID: 9jfcWNrXDcrjM_nrImwFHodgjzybQ19X
-X-Authority-Analysis: v=2.4 cv=EuJHPicA c=1 sm=1 tr=0 ts=6ad82da6 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=7YZ_7jEC5wYdKgbzYxcA:9 a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAxMiBTYWx0ZWRfX4V2ScrHiHsZz
- QX7A9XumphJ0NB5UstRkclGTL7w0wssU9Kvj0cz9/gR/CKjd7OoMEejc01UPbSeTsH6pdvKABcm
- Jr7kDSmZ9ls3pVAMPV2C3/LE0wT8wS0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAxMiBTYWx0ZWRfX+/XtEl++jJ+N
- tIsghdko3i35G8zcXY3Bwad5ySb/zLQpYR0dP+LM2LinHBpAku//jYWKmR+1ErWTr6GMfrRwL3t
- B116S5jIuF/0uwUsw97gtoCIf8S3m4VrX9dmJjKM2Xgau3DWtBJRqO199+RO49VXoFUvbKaZNeV
- Yramc1Z8PhMTZeaqILZa9ofI31aUZmqVTHM/B4RP8cDmxWkCP620PgjC7WriPZ2D4AkEb4hst1l
- miPZfRXyLvj6xsKxNYetsRQaEQ30hyKPvc5DpimrLYYAg8aDBHN5aW4LnJ+9n5i1F4rZYFc88Xe
- FKZVRFjZTEF5hJ8K4wB9MEqOc0jpjis+6+5xN7MTOmzCL04nHWEKJWdk2FwUlSYyF6M+2lBJZ4f
- M5REfWI73+3ppGezFUQuhS6ulCUvxSIXqyrPwjIM1Uv2JS9Vrv3GKqlOe1dgTirylQoXLz3il45
- U8ipFcgN/vOaEo8DCjQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_01,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
- priorityscore=1501 lowpriorityscore=0 suspectscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210012
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH7PR12MB7794:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a1bff62-f7cd-4fc5-682c-08df2f21376a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|1800799024|366016|23010399003|376014|7416014|56012099006|4143699003|921020|11063799006|5023799004|261009223027099003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	DEOUpIQQU+X6sFVmI72CCKyv1Hm3eBPAb+2lWlSWttUsyzsb2eNs5vbuWD/724Lwlrfr/N8k7zFQ9p4L9SzKqgw+gby6UfO3wMEMAl4fy3J+KDxeEtG3mhqpnckuTodOEwS5xrrZ1dkIW0TN38dU3rm1oXXXm3XZ5W70WqHB0KrQQY2Efh/1P49UdI9QawsGBTJaLnbC1i9O8BE9jQVku/aXWdgEkmwU4OY+4TIrj8A7PtAgDNdHc4hzyWyFurCTZ3yTDk5AwdOSc0G1ha2CPhQLBULY/Aot0TxpHbfdLFRnm3rIwvmFy1gL1OYl6ipDi1MBeIRi7lOtGPkVXKdOYe+an/9OyHgwz/ccU5s89IOXpwnAtW9zOJ6PptGuwkIJAZkyqQpsi72yR3bCH9jiYRQuP18TQGE2QZ69NGZ7L8/+YCV/pqY8BpXTfwonBVyo6FEk0uQi2cXB+wONqo/svA05Y0WE+Lwh/ca5gmYPZwqg0g7M223YizJ4KJcmnToQBq5ioTkszkrgNKbUwPZaUePVBLP+JgOYms5FvXJufcwr/ymuRFjxbpWokLLnFEL2gGzAeBNh7nZp60XTwZfSxTNo3ulZJon6DwFx6vG5ItXXgvSsCEEjSl0/zKQqP8uvfBSL9ypFouKKUjhNapMXEPxiSAsmbNljRFQt2nep9L1m5Nwx4EwwIuF/04dyLRIr0BV7ybCOKm7uHuuIivrk1w==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(23010399003)(376014)(7416014)(56012099006)(4143699003)(921020)(11063799006)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZWM4clIxcTdUSlNsVi9SVExhL3AxS3Q1aFY0a0U0cDByRTA3QlJiVXVsT3RG?=
+ =?utf-8?B?ME52a1lEZlVsQjRiTHdmNFdFWkFSWGNGU2pFQm1EMFlkL1gyWjdIaTdJL3hh?=
+ =?utf-8?B?a0ZVQkp6K2QzT015VVBiUS9raUF2RFFzTGFUcE9mRm5CYmtHMFo1a2hXSytF?=
+ =?utf-8?B?ZEh2SERsbzZWUkNEM1JOb0ZubUNJMzFHeDdPTHdZeExUUUczaFdXY2M2aTVq?=
+ =?utf-8?B?Ny9UNG5JVkE1VnNkdXl5SWEyOFFGY0cxOUxtaDV4S2dEbmdpOUlvazZXODFm?=
+ =?utf-8?B?eEU4cmlBUjFtaE9FTzVySG5EbUh1RWdYV3haTFIrLzRTaURsZytqNEN3eXdh?=
+ =?utf-8?B?SXdYSWRpTGpmcTQrQld2MmxHeGplYkcrdTVwZTZ4N0NBVjRiQVBsS0x3YUdJ?=
+ =?utf-8?B?ank0dWp1eDFwSmsvQVJUcVZGbEdubjBwazRLbkh4bDB3OTc4ajZVeGFGVDV6?=
+ =?utf-8?B?Z0FhcTJDc0g4S25nR1Y3SVdFeWlCQWJXZmRKMEVobENxY3JQbVFJV3p0eGhO?=
+ =?utf-8?B?dTZRZWc5aDg3WlJNQWdDMy9hZ2dRdmRpV1pKS0sxOWU5VmQ0TFBldkVKUGZn?=
+ =?utf-8?B?YzVkM3NuTSsrQVFXNnhabFBWakh6MGRpL2NFYzdjM2hwcXR3cGZFblJDUkpi?=
+ =?utf-8?B?RzlUTHNyMWpzdUhKaFVrTzYzbkwxR0RTaG5LT3NrSFl5YmtveGlHUW5kYkdW?=
+ =?utf-8?B?L01tbWJyYWR0Q05MSG1lclluNnhRNzcrYlVKa2VmMTBOdGttcW92aTBveTcr?=
+ =?utf-8?B?RVE1MDdGS2k0ME50WHhyT1VmOHpLZ2Z2YXRvR0lkRmFNODFHY0RiK3lBeGls?=
+ =?utf-8?B?ckhVT0NYWGdHdEpmaVpSL0YzbkM2MUNLbzZzN2ZDUHZ1UVphT2lyUEhPUy81?=
+ =?utf-8?B?NHYvejhCdmxpbG4vRG5NUFVOd1grcjBUSGx1ZkVqVTk2NldOWjU4V2R2cFd1?=
+ =?utf-8?B?Y21VQnVzKzVlOTNxcE9XSEVvNlRpVE9rYmUvZnZQbnA0OTN3dnNJVnF3WHdL?=
+ =?utf-8?B?dnVjNDdKMHl3bGxLR243UmVlTTJLbkowd2hHeFE3ejRONXRKLy9UQ09laC9y?=
+ =?utf-8?B?ZlhsMWJscm1jMS91Wm15bVdWWEFQRkxoSlVHYjh6RE40bVI4MVRhSG0xaUJZ?=
+ =?utf-8?B?NHRqK0tPSTMzQkpOU0dlVjUxdGFzN015Z3A5b05YQUYrSWpBdFRxSVNiVitI?=
+ =?utf-8?B?MjBMVGQvUWhZelE4RDJtdUJRekFGWFQwZGlKNWRaM2N1MzA1aW15d1cybGFV?=
+ =?utf-8?B?MHdIeFVzamxLOWxMNWk4eHZRS1FXYjdqY2hzUmx4R05oVHZZNGRpZmpEK285?=
+ =?utf-8?B?MDRwNE5yZU5lZTcwTW03aTJCQ0NIdDhKQWs1YU9uTFZyU2dRdllVQXBZdkY1?=
+ =?utf-8?B?dkJGVUlrT3JwNlhySm9IOFdEUVBabGhFZjMyZk10V0lCdW5SdFBBWVpYRFl5?=
+ =?utf-8?B?UzkvcGRWc0FxL2NOdFhNdHVJMXNINERmelhJYXRrUlNBcjF0Qy9kV2pSdklj?=
+ =?utf-8?B?YXh6REtCNGNRQkZkU3pCMjBDbXhYTkNabkhnUXRjL3FZUHplUGhmN3VDSTBa?=
+ =?utf-8?B?UnJvSEx6a0FuUHdXUVdsVlRnN0FYNVNrelIvaGZNTTY5OWF3dU9XM2xieGdv?=
+ =?utf-8?B?WDFuQUZvRTQ5RHUwb2ZkdnBZZlhvZUcvUEZaRTc5RE1nbWJ5c2x5Zk52eVM2?=
+ =?utf-8?B?a1paY2ROVk1PUk5HRjN2VmF2MjFtZytEeWtxQlQxRXEweUZYUDdWMmhKMGFr?=
+ =?utf-8?B?Z09jTWFzYk10NGI0dU0yN3FlS0t1YjNRNk5TWFpBZUZ4OG9zOFYyRlZob2VU?=
+ =?utf-8?B?RTlwOWJ5VU85Mkl0QnlpSEhkSGpZeUZCL1VvVkRvS25raGJsb2ZuSW9zSnFy?=
+ =?utf-8?B?dklnL3ArM09BcEYxanJxOHRPSVhsMW9MVVRCUjkvYnA1cFdNeUYyOTc2TFdn?=
+ =?utf-8?B?ZW5ESStDRmJBZ1p5ZWFLRUxWdDFoaFBSMStNaGpiams0TUpuOS9aY3p3L0to?=
+ =?utf-8?B?Q3pDT1AxZUNBTmdMV0NnZjBQQjdWMmFMN0dDQUdIMi9BNjlZTjZabCtrVktp?=
+ =?utf-8?B?R2w0bTNsQ1gzWnhDZGMyZmtGNFJkT1ZONitNWS9sZDJyTUtuZmxNWWc2cUlw?=
+ =?utf-8?B?aHpoU1RoNHN1TEdsU0NtTVR4RUVHeDZOYXFvUHdZV3o5ZFova3J6RlFEYm50?=
+ =?utf-8?B?bGlXekpaOUU3MmVsWGUybkZKZjgzTkZ0NWp6YVNvM3A2cjdJN3FFc0JCQ21L?=
+ =?utf-8?B?TkpHUjdURExuRjIxZkx4b1VSM2pRcFFvWFZBT20yZTlJMVJBbmhFMm5sc0RZ?=
+ =?utf-8?B?dWcyQzFnVEFQZnY0WGd1U3hIL0NYVTRhTE1GZy81clhnYUpLelpVLzNXN3RJ?=
+ =?utf-8?Q?aGNDayAuO0sRFXY40kuYZZkqEO5DhR7LLFgDJog+K1xmO?=
+X-MS-Exchange-AntiSpam-MessageData-1: OCxhtc/+vwRS9Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a1bff62-f7cd-4fc5-682c-08df2f21376a
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:13:02.2281
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NmQHowU7VPV1QwyczpVs2YrecxzVTSZfKZYimDVsjv7Xw2i2jAA5nFLUllPOG/5H7LRMB3Vbtz/RBW6Jw/5I6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7794
 
-The sck clock is taken once at i2c probe and held for the lifetime of
-the device. On Qualcomm boards it is an LPASS clock exported by the
-q6prm clock controller, which lives on the DSP and is unregistered and
-registered anew whenever the ADSP is stopped and restarted. fw_devlink
-cannot tie pcm1681 to that provider, since the provider node only gets
-a device once the DSP is up, so it falls back to the remoteproc device,
-which stays bound across a DSP restart. pcm1681 is therefore never
-unbound and keeps a clk handle to the dead provider.
+On Tuesday, October 20, 2026 8:28=E2=80=AFPM Robin Murphy wrote:
+> On 16/10/2026 7:46 am, Mikko Perttunen wrote:
+> > iommu_get_default_domain_type() unconditionally forces IDENTITY on
+> > 32-bit ARM as ARM_DMA_USE_IOMMU installs its own UNMANAGED domain on to=
+p
+> > of whatever the group already had. Now that the ARM DMA API state is an
+> > ordinary domain cookie, IOMMU drivers can ask for a real
+> > IOMMU_DOMAIN_DMA default domain instead. Drop the override so that
+> > ->def_domain_type is honoured, and let a driver-requested DMA domain
+> > through the !CONFIG_IOMMU_DMA guard when ARM_DMA_USE_IOMMU can back it.
+> >=20
+> > IOMMU_DOMAIN_DMA stays strictly opt-in on 32-bit ARM and is never the
+> > fallback to avoid unexpected changes, as drivers today return 0 from
+> > ->def_domain_type while expecting the legacy behaviour.
+> >=20
+> > Behaviour is therefore unchanged for every existing 32-bit ARM IOMMU
+> > driver:
+> >=20
+> > - exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu, ipmmu-vmsa,
+> >    mtk_iommu*, sun50i-iommu and qcom_iommu have no ->def_domain_type,
+> >    so iommu_get_def_domain_type() returns the unchanged cur_type of 0,
+> >    which is forced to IDENTITY as before.
+> > - arm-smmu returns IDENTITY for legacy bindings and 0 otherwise, which
+> >    ends up in the same place.
+> > - tegra-smmu returns IDENTITY explicitly, and keeps doing so until a
+> >    later patch.
+> >=20
+> > Also move the static_assert on the two DMA API implementations being
+> > mutually exclusive to drivers/iommu/dma-iommu.h, next to the
+> > declarations that depend on it.
+> >=20
+> > Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
+> > ---
+> >   drivers/iommu/dma-iommu.h |  3 +++
+> >   drivers/iommu/iommu.c     | 20 +++++---------------
+> >   2 files changed, 8 insertions(+), 15 deletions(-)
+> >=20
+> > diff --git a/drivers/iommu/dma-iommu.h b/drivers/iommu/dma-iommu.h
+> > index 71b23cb698c0..24fa4165450f 100644
+> > --- a/drivers/iommu/dma-iommu.h
+> > +++ b/drivers/iommu/dma-iommu.h
+> > @@ -12,6 +12,9 @@
+> >    * IOMMU_DOMAIN_DMA default domains. Only one provider can be compile=
+d in at a
+> >    * time.
+> >    */
+> > +static_assert(!(IS_ENABLED(CONFIG_IOMMU_DMA) &&
+> > +		IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)));
+> > +
+>=20
+> Don't the first couple of patches already make this redundant, since=20
+> such a build would now fail anyway due to multiple definitions of=20
+> iommu_setup_dma_ops() etc.?
 
-After an ADSP restart the first runtime resume fails with:
+That is true. I'll get rid of this.
 
-  pcm1681 0-004c: Failed to enable sck: -6
+>=20
+> >   #if defined(CONFIG_ARM_DMA_USE_IOMMU)
+> >  =20
+> >   #include <asm/dma-iommu.h>
+> > diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> > index 5fbb76d44a1e..0d812c4b9f08 100644
+> > --- a/drivers/iommu/iommu.c
+> > +++ b/drivers/iommu/iommu.c
+> > @@ -1884,18 +1884,6 @@ static int iommu_get_default_domain_type(struct =
+iommu_group *group,
+> >  =20
+> >   	lockdep_assert_held(&group->mutex);
+> >  =20
+> > -	/*
+> > -	 * ARM32 drivers supporting CONFIG_ARM_DMA_USE_IOMMU can declare an
+> > -	 * identity_domain and it will automatically become their default
+> > -	 * domain. Later on ARM_DMA_USE_IOMMU will install its UNMANAGED doma=
+in.
+> > -	 * Override the selection to IDENTITY.
+> > -	 */
+> > -	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
+> > -		static_assert(!(IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU) &&
+> > -				IS_ENABLED(CONFIG_IOMMU_DMA)));
+> > -		driver_type =3D IOMMU_DOMAIN_IDENTITY;
+> > -	}
+> > -
+> >   	for_each_group_device(group, gdev) {
+> >   		driver_type =3D iommu_get_def_domain_type(group, gdev->dev,
+> >   							driver_type);
+> > @@ -1913,11 +1901,13 @@ static int iommu_get_default_domain_type(struct=
+ iommu_group *group,
+> >  =20
+> >   	/*
+> >   	 * If the common dma ops are not selected in kconfig then we cannot =
+use
+> > -	 * IOMMU_DOMAIN_DMA at all. Force IDENTITY if nothing else has been
+> > -	 * selected.
+> > +	 * IOMMU_DOMAIN_DMA at all, unless this is ARM32 and the driver asked
+> > +	 * for it explicitly, where CONFIG_ARM_DMA_USE_IOMMU provides the
+> > +	 * implementation. Force IDENTITY if nothing else has been selected.
+> >   	 */
+> >   	if (!IS_ENABLED(CONFIG_IOMMU_DMA)) {
+> > -		if (WARN_ON(driver_type =3D=3D IOMMU_DOMAIN_DMA))
+> > +		if (WARN_ON(driver_type =3D=3D IOMMU_DOMAIN_DMA &&
+> > +			    !IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)))
+>=20
+> This ends up looking a bit odd, and not clear that it's still more or=20
+> less the same special-case workaround seemingly being removed in the=20
+> hunk above.
+>=20
+> At this point I'd rather push any remaining identity special cases into=20
+> the relevant drivers, however I'm somewhat more confident that there may=
+=20
+> not actually need to be any:
+>=20
+> - exynos-iommu, omap-iommu, rockchip-iommu, msm_iommu: AFAICS these all=20
+> only ever have a single client device, so the per-group implicit domain=20
+> should be equivalent to the per-device explicit one, so they should not=20
+> be impacted by switching (provided the "throw away the ARM domain" idiom=
+=20
+> in some of their client drivers becomes non-destructive as mentioned)
+>=20
+> - mtk_iommu, sun50i-iommu, qcom_iommu, arm_smmu: While Kconfig might=20
+> allow building them, I'm not sure we really support the first 3 on=20
+> 32-bit at all, but again since these all have no special CONFIG_ARM=20
+> group handling anyway then either they must work out as above or they're=
+=20
+> already broken, and thus at most the change might un-break them.
+>=20
+> - mtk_iommu_v1 and ipmmu-vmsa probably wouldn't care given that they end=
+=20
+> up attaching to their own shared domain anyway - they just can't wait to=
+=20
+> be able to use a proper singleton group to rip all that out :D
+>=20
+> The main reason for forcing identity was to meet the expectations of the=
+=20
+> existing ARM DMA ops setup, but if we're now touching the ARM code to=20
+> properly tie that in to the IOMMU flow, then I think we can just do the=20
+> right thing.
+>=20
+> Thanks,
+> Robin.
 
-and there is no playback through the DAC. Even with a fresh handle the
-DAC stays silent: the new provider registers its clocks at their
-default rate (19.2 MHz), while assigned-clock-rates (12.288 MHz) was
-only applied by the i2c core at probe time.
+Very well, I'll give it a shot! You're right that it /should/ work :)
 
-The sound card, however, is torn down and re-created on a DSP restart.
-Move sck handling into the component probe/remove callbacks: get the
-clock, re-apply the assigned clock rates and enable it each time the
-component is bound, and release it on removal. The i2c probe now only
-sets up supplies and the regmap, keeping the cache in cache-only mode
-until the clock is running, and the cache is synced once sck is up.
-Runtime PM is enabled and disabled together with the clock.
+Thanks
+Mikko
 
-Fixes: 8987e9a24f45 ("ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support")
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- sound/soc/codecs/pcm1681.c | 122 ++++++++++++++++++++++++++-----------
- 1 file changed, 88 insertions(+), 34 deletions(-)
+>=20
+> >   			return -1;
+> >   		if (!driver_type)
+> >   			driver_type =3D IOMMU_DOMAIN_IDENTITY;
+> >=20
+>=20
+>=20
 
-diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
-index 6002da3a5666..2cc34561aa83 100644
---- a/sound/soc/codecs/pcm1681.c
-+++ b/sound/soc/codecs/pcm1681.c
-@@ -13,6 +13,7 @@
- #include <linux/regmap.h>
- #include <linux/of.h>
- #include <linux/clk.h>
-+#include <linux/clk/clk-conf.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <sound/pcm.h>
-@@ -321,7 +322,87 @@ static const struct regmap_config pcm1681_regmap = {
- 	.cache_type		= REGCACHE_MAPLE,
- };
- 
-+/*
-+ * sck may come from a DSP-hosted clock controller that is torn down and
-+ * re-registered when the DSP restarts, which also rebinds the card. A clk
-+ * handle kept across that would point at the dead provider, so only hold
-+ * sck while the component is bound to a card.
-+ */
-+static int pcm1681_component_probe(struct snd_soc_component *component)
-+{
-+	struct pcm1681_private *priv = snd_soc_component_get_drvdata(component);
-+	struct device *dev = component->dev;
-+	int ret;
-+
-+	priv->sck = clk_get_optional(dev, "sck");
-+	if (IS_ERR(priv->sck)) {
-+		ret = PTR_ERR(priv->sck);
-+		priv->sck = NULL;
-+		return dev_err_probe(dev, ret, "Failed to get sck\n");
-+	}
-+
-+	/*
-+	 * A re-registered provider comes back at its default rate, and the
-+	 * driver core applied assigned-clock-rates only once, at i2c probe.
-+	 */
-+	ret = of_clk_set_defaults(dev->of_node, false);
-+	if (ret) {
-+		dev_err(dev, "Failed to set assigned clock rates: %d\n", ret);
-+		goto err_put;
-+	}
-+
-+	ret = clk_prepare_enable(priv->sck);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable sck: %d\n", ret);
-+		goto err_put;
-+	}
-+
-+	pcm1681_sck_settle(priv);
-+
-+	/* The DAC lost its state if sck went away while unbound */
-+	regcache_cache_only(priv->regmap, false);
-+	regcache_mark_dirty(priv->regmap);
-+	ret = regcache_sync(priv->regmap);
-+	if (ret) {
-+		dev_err(dev, "Failed to sync regcache: %d\n", ret);
-+		goto err_disable;
-+	}
-+
-+	/* The clock is on, so hand the now-active device over to runtime PM */
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+
-+err_disable:
-+	clk_disable_unprepare(priv->sck);
-+err_put:
-+	clk_put(priv->sck);
-+	priv->sck = NULL;
-+	return ret;
-+}
-+
-+static void pcm1681_component_remove(struct snd_soc_component *component)
-+{
-+	struct pcm1681_private *priv = snd_soc_component_get_drvdata(component);
-+	struct device *dev = component->dev;
-+
-+	pm_runtime_disable(dev);
-+	/* Runtime PM may already have gated the clock */
-+	if (!pm_runtime_status_suspended(dev)) {
-+		regcache_cache_only(priv->regmap, true);
-+		clk_disable_unprepare(priv->sck);
-+	}
-+	pm_runtime_set_suspended(dev);
-+
-+	clk_put(priv->sck);
-+	priv->sck = NULL;
-+}
-+
- static const struct snd_soc_component_driver soc_component_dev_pcm1681 = {
-+	.probe			= pcm1681_component_probe,
-+	.remove			= pcm1681_component_remove,
- 	.controls		= pcm1681_controls,
- 	.num_controls		= ARRAY_SIZE(pcm1681_controls),
- 	.dapm_widgets		= pcm1681_dapm_widgets,
-@@ -359,11 +440,6 @@ static int pcm1681_i2c_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, ret,
- 				     "Failed to enable supplies\n");
- 
--	priv->sck = devm_clk_get_optional(dev, "sck");
--	if (IS_ERR(priv->sck))
--		return dev_err_probe(dev, PTR_ERR(priv->sck),
--				     "Failed to get sck\n");
--
- 	priv->regmap = devm_regmap_init_i2c(client, &pcm1681_regmap);
- 	if (IS_ERR(priv->regmap)) {
- 		ret = PTR_ERR(priv->regmap);
-@@ -371,53 +447,31 @@ static int pcm1681_i2c_probe(struct i2c_client *client)
- 		return ret;
- 	}
- 
-+	/* No sck until the component is bound, serve access from the cache */
-+	regcache_cache_only(priv->regmap, true);
-+
- 	/* Must be set before runtime PM is enabled, the callbacks use it */
- 	i2c_set_clientdata(client, priv);
- 
--	ret = clk_prepare_enable(priv->sck);
--	if (ret)
--		return dev_err_probe(dev, ret, "Failed to enable sck\n");
--
--	pcm1681_sck_settle(priv);
--
--	/* The clock is on, so hand the now-active device over to runtime PM */
-+	/* Runtime PM is enabled from component probe, once sck is running */
- 	pm_runtime_set_autosuspend_delay(dev, 100);
- 	pm_runtime_use_autosuspend(dev);
--	pm_runtime_set_active(dev);
--	pm_runtime_enable(dev);
--	pm_runtime_idle(dev);
- 
- 	ret = devm_snd_soc_register_component(dev,
- 					      &soc_component_dev_pcm1681,
- 					      &pcm1681_dai, 1);
- 	if (ret) {
- 		dev_err(dev, "Failed to register component: %d\n", ret);
--		goto err_pm;
-+		pm_runtime_dont_use_autosuspend(dev);
-+		return ret;
- 	}
- 
- 	return 0;
--
--err_pm:
--	pm_runtime_dont_use_autosuspend(dev);
--	pm_runtime_disable(dev);
--	if (!pm_runtime_status_suspended(dev))
--		clk_disable_unprepare(priv->sck);
--	pm_runtime_set_suspended(dev);
--
--	return ret;
- }
- 
- static void pcm1681_i2c_remove(struct i2c_client *client)
- {
--	struct pcm1681_private *priv = i2c_get_clientdata(client);
--	struct device *dev = &client->dev;
--
--	pm_runtime_dont_use_autosuspend(dev);
--	pm_runtime_disable(dev);
--	/* Runtime PM may already have gated the clock */
--	if (!pm_runtime_status_suspended(dev))
--		clk_disable_unprepare(priv->sck);
--	pm_runtime_set_suspended(dev);
-+	pm_runtime_dont_use_autosuspend(&client->dev);
- }
- 
- static int pcm1681_runtime_suspend(struct device *dev)
--- 
-2.43.0
+
+
 
