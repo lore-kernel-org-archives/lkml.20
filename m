@@ -1,66 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792592391;
-	b=zLZWPMPA1Gvt9/JuZQvAzpYTTyN/T+UZdTgxC0PuHQlrwedONNbZIp5czyBdKtfHGYJv
-	 vZewfNRCzaqnTFu5TXlsc9C+kZYTiUb62G0t3vcPnrv2v3vtGbramO64wWr38guKzprFf
-	 1cZgoppoAoDItKPToEiX8VcHjp8rVT2nJtSsvBvaPd4m0Iv4MJ55vxm2mII6LfhMCvNHY
-	 eqfpQxHcvRdrjaC+Thu546eBLwo7DwCY9rkZXFms5HbJ5RstImnQHG/Ha15PhfC6RxJMi
-	 LCvyaO855JTyMgKuaDqET+bkLHh66BDa9Ue8odd8yRn362wXeOkrN9HZQYq5OY/fS0w==
+	t=1792592454;
+	b=MDgVQceSymWIdca96l/JeNYyC9xx2R3UVa38cUyyvMpb0synYgEyTcZvbHz7/KgPp8K7
+	 bEpVnWkVI1ilI5/9hnJgaXLFfmrkx8yCaqEoCLcPtRRtutLidd3JngSTlWhq0meyINiKN
+	 apQSzFNhOgukBip6NuMxBGB1Ey3/+dP35Hl7Jzj2f0kAcRkZQ/1wk/NT1L1Grbz/nDaoy
+	 3LWHFZ+ZyXLocVxU7HeETG32/C8je6QuxHx3d82qzNnQFuVv+14y/D9kgqKr+Bpio+3BN
+	 ks5ZacpAXZEXHMRLbIsRWbCkhF//enV8v11pvlr7zG4pDOKH8I2/SIUYi6D3UUbIXwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592391;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=rEX5V43c4D3SEE8/QjnF2l3+QYXk5M1z/X/WgzWok2s=;
-	b=Y/qgg7KTkHEF/ffjd8uqv9q7wPPFwqA7PIPMvpR6ZtznB7DBVr5utnTtFwHebMjT71Kn
-	 3jNXpnaWLq+TzokDO9OCkuZAvFOHNnkV61Xczr07LrTntd/pFi718AXuiFss31wIdouzS
-	 X4NQcSOye9IB0UcPiloJ4Z1++7WH9Etp6MFlmNpW+IUBrqm9GJcLVTdLlupWDZwO4LmDn
-	 XfIubTnehWD4OHWFXDRWAPeCw2yCqjradCvcbByWXq5M6HhkI3pxjZ3xmE+Sjvz9AbEgg
-	 3f7123jOaWbTqURlC4MyLTpwRCrEm8+vjS0reFW5QNq+7C4IEgdukljbfgZ2RmkLNPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592454;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=il9Cp27d643gcWMcqV/gyhk68gchoGQ2Hu2FDC7dH4E=;
+	b=z+s+ufKEfO6Hmg9GEt6J0dwSjvnX/+SRBSdAngrqFcDZp9OCr6rqrOUjRNm7Ny/HqHg/
+	 VJAEZgUIVNpgBzHK3p6ngYvcmthDu4Rsa/oCOowwG5Z/Ac3aYKwJHw3BDWRWNry+5m8UJ
+	 q8tlkZq7PjPEyNZlTyL9+kHXxjXL2rVhKLXlrwJufnQwhfrK6iMoLowhKKQZwcKx/B8fI
+	 qIBOnEhTT4In2TSVQLRWoGw63WnbN6+NbNwAVMuzFjoDbo4hnGD+PaFYb1zdexrNuThtD
+	 b7hk08KnF3NrPAFbPHFLkFHd34/hJK6m74buHv2vuZ9jeSIPPdhVawwFCrE71d2AcUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=OVFF+11s;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acz8icf8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AEC060A2625;
-	Wed, 21 Oct 2026 14:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AEC060A2625
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39EF5606A31A;
+	Wed, 21 Oct 2026 14:20:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=OVFF+11s
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 9C12440904
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1792592389; bh=rEX5V43c4D3SEE8/QjnF2l3+QYXk5M1z/X/WgzWok2s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=OVFF+11s0uCeT/ElNSlUuPoj3uVq7dUx2pYO6gBCOMeuXR/m2U6cdGcZ6tkAE4y9W
-	 SUeC9MmM9Rnu5q+dwo3gg/UUwBnSlKf8nl9qAbZnWbolM2fL0iM7BVKZZjuYKRxR62
-	 jwlU3Ry2EI3UUQAlA2Rl2PT2lm0tcSjBL7hNkHfX0VZ805zux0D+77f8XU2xrzVGpB
-	 JNP7f9PhSDd51iRzzsANa6gxykcLhqM0qbJxXxlWLEVxkZjKuT5Mz01U4c2SII0GDE
-	 TZ7AE5Y0zR3cT174anBGu8WfVyq6atJyUo0Bb5d+efgGQ3YoeUNX3Cdbs7GwiwupkL
-	 BcPNbrhGizS0A==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 9C12440904;
-	Wed, 21 Oct 2026 14:19:49 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Krzysztof Kozlowski <krzk@kernel.org>, Eric Biggers
- <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
- workflows@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, Randy
- Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, Konstantin Ryabitsev
- <konstantin@linuxfoundation.org>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-In-Reply-To: <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
-Date: Wed, 21 Oct 2026 08:19:48 -0600
-Message-ID: <87y0br3zln.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=acz8icf8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD3211F000C4;
+	Wed, 21 Oct 2026 14:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792592453;
+	bh=il9Cp27d643gcWMcqV/gyhk68gchoGQ2Hu2FDC7dH4E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=acz8icf89S6fKqtpuFO5cccr/lrjrnTcc7FyqljPBhWst7D9VH8hmSp0IE7voR8ST
+	 oXb69tInphf/YolsZu0OlMBLXc6jR2nP0Do3S22CHG5ChkjjkigU4B0gJqM/9Q36qt
+	 h7zO0FuDUw5iw6hbj2AoLLNTctxyk18mIuaaFPeLxzmwVk2bEq6gwsOBrFWVx1QVJA
+	 WpEfOmDrmPJyE3qBMT7UY0geaAQgq0fBGN76HpX0CVWo5LD0ZzY4SxJxQ+VdAs5KYq
+	 bGowKlfRH52EjhiabkREhWEJriAnz4vboGYjLDhgWfto+NOmyc+vUzk8P2sj6E3HY8
+	 nqTwidP9BG70Q==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] tools/bootconfig: Quote CPU masks containing comma-separated words
+Date: Wed, 21 Oct 2026 23:20:51 +0900
+Message-ID: <undine-1792592451008617538-5620f2dc569b3038@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <20261019120332.553567-1-edumucelli@gmail.com>
+References: <20261019120332.553567-1-edumucelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,27 +58,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Krzysztof Kozlowski <krzk@kernel.org> writes:
-
-> For many of my contributions base is obvious and not needed to be
-> explicitly defined. For all the patches I accept, answer is the same -
-> base is either obvious or if not and patch does not apply, then the base
-> does not matter.
+On Mon, 19 Oct 2026 14:03:32 +0200, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
+> ftrace2bconf.sh writes the CPU mask without quotes. For a mask selecting
+> CPUs 0 and 32, the output is:
 >
-> Requiring it is just bureaucracy without actual benefit.
+>   ftrace.cpumask = 00000001,00000001
 >
-> The only benefit would be if maintainer COULD change its base to apply
-> some patch with odd base... but this cannot happen. Maintainer base is
-> fixed - it's the HEAD of his development branch for given category of
-> commits (e.g. DTS branch for SoC maintainers).
+> Bootconfig reads the two comma-separated words as separate array values.
+> When bconf2ftrace.sh applies the saved settings, it writes those values
+> on separate lines instead of restoring the original CPU mask.
+>
+> Quote the mask so the commas remain part of a single value.
+>
 
-I fairly routinely get docs patches that don't apply to docs-next; when
-I'm in the mood, I'll try to figure what they *do* apply to, then
-cherry-pick them over.  Base information would make that process easier,
-and even automatable.
+Ah good catch! OK, let me pick it.
 
-Thanks,
+Thank you!
 
-jon
+> Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootconfig from ftrace")
+> Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+> ---
+> This is my first kernel contribution, so I'd appreciate any feedback.
+>
+> Tested with the exporter, bootconfig parser and generated replay commands
+> using tracefs fixtures for 00000001,00000001, 0f,ffffffff and 1.
+> The masks containing commas fail before the fix and pass afterwards;
+> the single-word mask passes in both cases.
+>
+>  tools/bootconfig/scripts/ftrace2bconf.sh | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+>
+> diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfig/scripts/ftrace2bconf.sh
+> index 8eed445c2..f8f288f90 100755
+> --- a/tools/bootconfig/scripts/ftrace2bconf.sh
+> +++ b/tools/bootconfig/scripts/ftrace2bconf.sh
+> @@ -238,7 +238,7 @@ instance_options() { # [instance-name]
+>  	fi
+>  	val=`cat $INSTANCE/tracing_cpumask`
+>  	if [ `echo $val | sed -e s/f//g`x != x ]; then
+> -		emit_kv $PREFIX.cpumask = $val
+> +		emit_kv $PREFIX.cpumask = "\"$val\""
+>  	fi
+>  	val=`cat $INSTANCE/tracing_on`
+>  	if [ "$val" = "0" ]; then
+>
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
