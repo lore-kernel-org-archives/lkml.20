@@ -1,60 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=116.203.31.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590377;
-	b=vcNb8+G7mveHp0mwL1tdwU7t2adxJ7zNoLv8jmXxDmlym1u+wrd6/yE7k8D9MA6unzcW
-	 yetn8jOjtnDucmyKhPFIKiYbnaQWEUfQue0Us+0msuP0BbP+POCvDYpOKOvHCzirwNe/H
-	 3kjGVlELZPrIACdXlTlNjQRifJSw9XaDFfGR4pD0bttRu3c4vf9RpJ4QYtOghgWOzNcfy
-	 FzbLMcLcY52ZiF5W/TKvT2kWyE4uLKSQupNxIpjcGZHZHkQhbCKRsa0AuM9WqasDPSlLW
-	 G2/InW6D4eikiKMSa5aWOJg6pI1RBIcM4XLk0dFAsKrtJPB+YUXGFQ9RJd+6OV8gk0A==
+	t=1792590406;
+	b=e13nh+dGGhdmteNHg5xFr3XCyesqokw/+ylmszJO4e+i+vzjcttPLbQ34TZZNYmcQdXA
+	 6izUn1iR5ZDnen3Y+4wjnHHSkmbyrcrtK3gsPe0Xa8xZPa/IR1AKKQSOQlNHV9fMSyO2k
+	 I+fNsm7ckTBVAFEMpkhCiTcZN2ctTWzlAHHm6qExiRErFAhdNsKgrPtN+4bOEChtuYrFZ
+	 oa93LHBAh8VrRZ/dBfWcklO0y8TA1BC996nBJvaW6CjFQoa2mGIAhpTRzbNy78XnrnM58
+	 78BJYYsoO5seXx9qE0h0eDvJ/KQbf55+ymTpgHTHXQCuLh0pMSXwg3XQyaOgBZjLeag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590377;
-	h=DMARC-Filter:DKIM-Signature:From:To:CC:Subject:Date:Message-ID:
-	 X-klartext:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type;
-	bh=TYPJKV6ncVk8Zsl1Bqc1Zv80DmTa8a6mXCW+pbyQVRY=;
-	b=QxoE2qqA93v4aM5NLDVstjYPoC2/VNmy67m8grM3Et6HiQ1ElE8hve7C1IGi54t7gWJo
-	 S7NKTXqjuaOyg0dIlKHgHerE6NPpG1deYJgFr9ILXoVrg6jVGsJVNpyDovhXHdtiNCF0+
-	 hVsusOZ1oeDdg6CW5LLcfm5C7kn9GPs+vRIrrzawMTsbG4VgwKj9l7W8vr3y6fOy0igpY
-	 gBfzzlkVUU1YQyVHTiv5h7b+QpfKqIE/J27gexK0JdkPqCfPi15ifgJM/reNU+K8khEVU
-	 4O6G7z7VBHrKDIbUQ2Xf3COV31ggsCaihjlY3DN70hPUz2DCi3wqEZnqk+G0+kK99ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590406;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=I6/6Uh41IoFFgszk2IKERpMB2eQaR/juRRrRaVzRT8U=;
+	b=bgHDhwqIdAxFEiaPtvCzsGjYqKVq6GoHp4HdZuYNp36o9Q8Qrb0YmYISaRto6qQZ9+4b
+	 omplV14t8zUox0ly8TCgNHzK1p76RysoeMWpqKc3sd2i3xk0YiyQHZrAwwgNNviLhuumb
+	 G2DAnGs38x5wofR0czON34ZNk6BI4xzPAsOpqXzAcWABW4N75esrpzfgXmzjVFBPh17Ew
+	 EkJfLINAf7OKzU3AFh98055fEtWf5BeB2372ysKlX8nQzyLtParKptvPwFtFwSSKhOUy/
+	 RkiHBZBsxRW9efjPQxJ5fO2JBbry/1a0EFI1g2tg42iivCj8mq2xC6kzrUtcZZz4xwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=dh-electronics.com;
-	spf=pass smtp.mailfrom=dh-electronics.com;
-	dkim=pass header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=IqhKyvlK;
-	arc=none smtp.remote-ip=116.203.31.6
-Received: from mx3.securetransport.de (mx3.securetransport.de [116.203.31.6])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 54106606A319;
-	Wed, 21 Oct 2026 13:46:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54106606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=dh-electronics.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dh-electronics.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F/AOx3/J";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55A3606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:46:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dh-electronics.com header.i=@dh-electronics.com header.a=rsa-sha256 header.s=dhelectronicscom header.b=IqhKyvlK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dh-electronics.com;
-	s=dhelectronicscom; t=1792590302;
-	bh=TYPJKV6ncVk8Zsl1Bqc1Zv80DmTa8a6mXCW+pbyQVRY=;
-	h=From:To:CC:Subject:Date:In-Reply-To:References:From;
-	b=IqhKyvlKq3QxvQovUy793NIdVfJJw/FZqBdC1L2o/tf+t0nJTfwlx2kzgcXWoMXR4
-	 t4PjOC88ZGEmtPFGqCwXeKXfBOhjp3EU3MAtYvaf/txY1Ax4EbdyehJWKQkjOr0DsM
-	 +IJl3jRWJsTgzeEUPQIpShY70bPdGD3LvzyuEPOymd/4gkF9Lb+bIaTpwlmUOpIFlu
-	 bNq+PwFNBA2zcGPH2j2kdybrcveL75nH3xwH3+PuO+a+BsD3Gz94gIEVV3UF7N7oHK
-	 d7cBgpkZu56+Od1OHQuAlC7+Eqsnv8janyz/PlM1edhgmpRqk/BP2fom1drklyVQlZ
-	 DPM0H6IwR2cCg==
-From: Christoph Niedermaier <cniedermaier@dh-electronics.com>
-To: <linux-arm-kernel@lists.infradead.org>
-CC: Christoph Niedermaier <cniedermaier@dh-electronics.com>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Marek Vasut <marex@nabladev.com>,
-	<devicetree@vger.kernel.org>, <imx@lists.linux.dev>,
-	<kernel@dh-electronics.com>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] ARM: dts: imx6ull-dhcor-maveo-box: Correct PCB number
-Date: Wed, 21 Oct 2026 15:44:35 +0200
-Message-ID: <20261021134435.17350-2-cniedermaier@dh-electronics.com>
-X-klartext: yes
-In-Reply-To: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
-References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F/AOx3/J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F2D71F000C4;
+	Wed, 21 Oct 2026 13:46:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792590405;
+	bh=I6/6Uh41IoFFgszk2IKERpMB2eQaR/juRRrRaVzRT8U=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=F/AOx3/Jog33ScxCxlq+5+4HxMoV4Z08KC2K1rBxWvZe+v2xOVWr/8TPVo3MTWTVO
+	 4KUuChie2CH+0+tUU5SRJKYv07zGoNvVMc8RMzkuTQGR6x+XwLGI7HB2UX0eRTwFQi
+	 xAv/CKZKENTse/QbXZeP2dsjh0HBp3qwApo5bJ5ccD0YwxdIf2AR0jW/m2igSKIXA9
+	 NLrNTCnd5oAdOwMp1PZtToZcSLH7RaQOz31f+tsNqKsW+oa9v88IvR1vP8NXbWibJ2
+	 pcjvYcKLVdGbjItpFZTse03buxHlBlExzHwrNMzTtWioK1jxySn43Mx/su3V59illP
+	 3vxDVcQpBb5+A==
+From: Christian Brauner <brauner@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>, Avi Weiss <thnkslprpt@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Eric W . Biederman" <ebiederm@xmission.com>, linux-kernel@vger.kernel.org
+In-Reply-To: <20261020181101.1605736-1-thnkslprpt@gmail.com>
+References: <20261020181101.1605736-1-thnkslprpt@gmail.com>
+Subject: Re: [PATCH] signal: skip blocked signals in
+ dequeue_synchronous_signal()
+Message-Id: <20261021-montag-zugnummer-hellt-6b4a39703efe@brauner>
+Date: Wed, 21 Oct 2026 15:46:42 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,44 +59,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-The PCB number of the maveo box isn't 525. Change the
-number to the correct number, 625.
+On Tue, 20 Oct 2026 21:11:01 +0300, Avi Weiss wrote:
+> dequeue_synchronous_signal() checks whether an unblocked
+> synchronous signal is pending, but its queue scan can select a
+> different blocked entry with a positive si_code. This can deliver
+> a signal while it is still blocked.
+> 
+> Check the blocked mask for each queued entry. Forced faults
+> are unblocked when necessary by force_sig_info_to_task(), and the
+> existing pending bookkeeping is unchanged.
+> 
+> [...]
 
-Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
-Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
----
-Cc: Rob Herring <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: kernel@dh-electronics.com
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-index eb0b91040110..bb82d97f9d84 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
-@@ -6,7 +6,7 @@
-  * DHCOM iMX6ULL variant:
-  * DHCR-iMX6ULL-C080-R051-SPI-WBT-I-01LG
-  * DHCOR PCB number: 578-200 or newer
-- * maveo box PCB number: 525-200 or newer
-+ * maveo box PCB number: 625-200 or newer
-  */
- 
- /dts-v1/;
--- 
-2.30.2
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] signal: skip blocked signals in dequeue_synchronous_signal()
+      https://git.kernel.org/vfs/vfs/c/2e835d0af134
 
