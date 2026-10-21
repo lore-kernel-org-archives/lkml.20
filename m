@@ -1,129 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792574206;
-	b=a0hATwYIqD6PndHvMxOIoIqLyy6qVaRG8v/xILQqfUFNDZHUIiWoN72TKxYWv28ld2bv
-	 vqFfXpa8KSRm5JBfyNGh36kMnu+rsvf3FVxhQslFuWod08lXpIoGYc0JK+ymMRSicoLRp
-	 MC0uMZ0XOjUeYNTxDJCs9Utt1lgsoEQCV2acq1gfEDLVXpu0vc2UhqGuGb5A8aiDeK6+w
-	 Qx0nfZpVyl6BXYP6N8Y7MAB4DR9iQo1HBkmSmypJDt4LoDaRKyXKKHmrguTaTl4iS7EfB
-	 VStiEoFf9WPx15bcnyLEkLwHYT4AQg2S6AGzcWElmV4XuFByaMhKYIhDZA2O0QxW5iw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792574206;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UjhycloSVwN/MsXqslqJcrsVG4Tc+E2r56Jl+uN09fI=;
-	b=0N5ug98PAhP25VQFkjSgxAY71eSLCbmq4oagglpTZr3X3ISXs7GmT5WPtB+O32x9IQWj
-	 8DZvrEw3wYitMHqSsE+N5zO9hT7DX8rhlHw+oEGlBw5yfTZa3Cq9jN1wjUJ5e7B+KrTlC
-	 Bbs6QdD/Vpb/49WrJx5KOyDplwKPo0wNfIwy6QewrQWZaJhGVrn+U7961psZsDe6A+kRg
-	 898Piz2OvDassR0sZti7Zh8wWAmsG36FYYdWnaWnro1ftW/OrKMmBHSiK3qnkaQ8X42/q
-	 AFaSOhZB2n4l7uWUB6VfmcfucLyF3CKaCl7mcYaiyhKW6vPRWG7ZSeWUYVFyqeC3nHg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=sWZ+27OJ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=xpqD8259;
-	arc=none smtp.remote-ip=103.168.172.159
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792574230;
+	b=gbQPtsyriJFzEvAPHSjF7lKOqPd9hSDklBs9S3XavyYSuHDejrqLdIS9pZ+f9ojJpre7
+	 CI5IL/dVQ2Yk72zTOM065038sCyXZWO07EVPgBLLkUT/XhWlavMBhCgKKgb3ymN7gq5ci
+	 StwsMtn/KHP5MNZxQU3Ihzk2V4Tj0n4unqMxBZp2FSIupoBcPp5RZ/ukMMYgubQ/2qQ5C
+	 oVT7pJYkJog+QO5IfOwiwPnTdWLXAwNVhUduHiYJfpmCfw2RPkMl4qnqghO2SjpntHVpn
+	 6awTqt9lKbSK5hi10OJYsNFcRyPNHLHH50Hj6dt6aZMspfiKgsy9AYDnOBjyUt662jg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574230;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
+	 X-Accept-Content-Type;
+	bh=9EKReBFykn7zhpEX3hn+iTvsvnnuD91vc8SRQOGYI+4=;
+	b=xQT/uMpniZ8Uft4af25u0hecVEQ6wuV7SUnvfYGvhxHZdmXUVbpy7iSlWz1JtXo5kpEB
+	 YVxTmbVm3g6mItIdqxqv3V+hu8FqWOnVTa9eowPeq0ATUN8ONn+Rj+dZv5yWSa/wUydde
+	 Q5cDOQqK9coPNSXmU0KkIlIY9v7WJynIe25hsKjayNjrFWQGor0NIUwSQEVZXBcLW/dLX
+	 XIo1+MJ1d71v3c+TnFi/D8gZJ2qSnpFqbobRkrCUNq+lvKgNFpgMre1eQz+a9peqyyqvm
+	 sktzTnUNAuMn7ts2sA8mnBpdhOFCIxwCGGgGWKCAOAgo3W2rhmML5JSV30kKsx47iSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XI+rK7Qm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FD2606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:16:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60FD2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF953606A31E;
+	Wed, 21 Oct 2026 09:17:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF953606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=sWZ+27OJ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=xpqD8259
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id BC2C4140013D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:16:45 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:16:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1792574205;
-	 x=1792660605; bh=UjhycloSVwN/MsXqslqJcrsVG4Tc+E2r56Jl+uN09fI=; b=
-	sWZ+27OJD63e/ltTZ0iTd2ZOlpkBeqWZzo0aybnnWxEoLJ7obx+cqIgOI8Zhu4I3
-	J44hEYkOl8QmttT0pnnuY1BFlMv5j/hSp1GMAsWpBogRj/NHWntU60Qoaabn/Ac0
-	3SbloHRTlFGKzMdF8PRMYu27II3wM8XBh4I8KzHQgwnTu0tEwwnEqH0TS6Hf2tGy
-	ZUIiqIuq8VHTHWOQi1V0BS1sPy4xW509asKMMR1yOf4GmFfAXCl5ELN19JrXG7Ls
-	V5kGLlcC61y2bDL0pfcP40esCkXsUGxQ5+dP//2XGqBlItKP/shOamjpeP4Fp4dC
-	oJ9DaxT4xVSqoCZCvRArFg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792574205; x=
-	1792660605; bh=UjhycloSVwN/MsXqslqJcrsVG4Tc+E2r56Jl+uN09fI=; b=x
-	pqD82590tRKDDt49Y1uY3YoHPm1dCRX4MIWDGDOpCdNDckmGMcHlLXMlSwbhvVIU
-	Vi/7qd4VXVcPOYP0sej7jf1JlRUbudilEgpk8IU/10vHwNH3jhjtxx3+jbuWQxI4
-	Ffcqyltw6mcYLJwgRHw6QLACqU4XDfabN4lFR0JrKaViK4INGAHSGVWVhgj+Kl1x
-	i1ayFjOYKqm/o47xeGXE0rX6L4MHwWtkQNjUEhIdpxHVYGXWgOFEHxJ7PkGZF37n
-	5qAz3Deli78Bbiftmu4CUHko7Jh6cr5R/yYx1Y7HUoEWsokUCJcudyqD+hJekNX0
-	KqTieRkf1ib4JUrpqHP0Q==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792574205; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:bNE4gd2cUTmu6YeBrNkv9H17XgOLqO6RjTmPx9rg/HswDVL
-	4S/LQrwwBXqxHt+TrUPP9IIWXHluVxciQ33H6lv+hQXEEyuJ5r4gePent5muHAtj
-	0DtdutMZSWYIYlk3xRquUTbRBUE6fzKdW8LHV0406kABwS8GkBu7HvmdlHs92ve7
-	pGCsdiy5h/aBGQA6DT6hgn0A5RwhOoZ9n9BxugjiLvsfnSWjmn0Ix/ljY9G0Xn/O
-	DxUPiIO2SiDmUlLeBUeF+52I15ADKAqFfSYTFX+okmyQ9IXjhRbZ84XMtWxW73jY
-	6wPrwFYLnOoQONWeXxHLCaiYOvkSGFoyrn/mWsg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:ZwMDi4rAti1uu51xzIBBJztq/4lgEcvp8W3Mckc3dcU=:uXV0Pgga/E/hgbUqGADZ4JQfpuFz3auNsY49xtYlPdQ=;
-X-ME-Sender: <xms:_YLYanXhOjMvwrSy-IJElg6rozn-mdq4dLms4f8c5Jx-GYhF192EjQ>
-    <xme:_YLYarrNewEtcIPZafRTyKwnBGRRgXN3vHWedsEkMr3J4YcyhLkvPa9xXcGQ7it9S
-    _-WNUPn1QcUGOFjsPcDyDvWXt4eYolh9Sl-W8djU9dZ0gJQesOKDxyR>
-X-ME-Received: <xmr:_YLYauupcimTS4D6_md0ZuiifoKwCNdGFXqV_uHC-dUoDAP2DRXu5jBd7bZvI4ANl97JgzlwR0nYMxKpc0bsrSYA>
-X-ME-Proxy-Cause: dmFkZTG0LX2vhbvH7Fb2TvHCFcsQyHPcJmPOPD0Y8sf8J1GVaCtaKhE01c93ZTwa3Uf/QI
-    qc9WxXA5QVYuYFZWPQDnYCX4C0Hwl7L8/WKqhvfOhxH/vA8zYcWgbg4LJamXbPTC+V5iGg
-    r1k3PZ8S6oiIUEChtYSky6D9HZThaAe4T6YG2qUgTjjjV8IXR2BQg9gA/HnkKUBSPfsggi
-    bS5wzFV5oXcSJiuWZE074Js8D3D4YkrE8rSZAv9XqN0gNvZYA35xTVMTFMKgINKtDQhKpw
-    XRsdF+rFgWMsqVUeDW8LD82HG7k7tusdPh52FkvC7oLk5Pre0BXu39FhbvbB2DO2AtCkpA
-    vh4fw0bGMECeNqgZcMQWZBft2aDMD8ZbG3lDwDxMTAptKER2gz8IGvs+p4LDTFM/5LzdSk
-    jA4CzWPGKKoxEJ6PqjJwcD2oo1XIbDmzVc1SI9P7oIYyfUu7td1mzBWOs2w9MxAalmHR+e
-    7FRYSdaQi+zvkRIeEO1xXWqJemVmfnfH9gr5oBUGa1KQVQsmgJ4poEBiJbIc8lfAuEz1Hf
-    qwJUYbJHa7zT80Zxw17S299qjPYBj95JEYzGA72gBltKYn6v0BbvBJn/oP/irHsRoiTj7e
-    /J8P0fmtcH9BAwXDdNimOJkhVmHitLd1zg/jObIO7NhElcZdlZ1hM9vFymUw
-X-ME-Proxy: <xmx:_YLYahTYix0bQqMVnA_pTR8lJrOst0Wlw4JAy4MHclMTOyPyz1JMHA>
-    <xmx:_YLYaqp3_-MlsTdLKbAiReHiAbqVi0vme4yhP6fopYzmoy3ZUOABkQ>
-    <xmx:_YLYakK22Kzu03e63Zwvz1MwlaICd4Xyd9gWzDy_WAEItI4WmsPl5Q>
-    <xmx:_YLYalOdjXS7B0vb5XN6V1gEKS9c4ptSH6q5lHj4JjhruBYvIoKSSw>
-    <xmx:_YLYap5jG1pncBa1nZcBUh-ypRbAu0seXjKI4EvsUcUgMHqFhC5Cy19I>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 05:16:39 -0400 (EDT)
-Date: Wed, 21 Oct 2026 18:16:37 +0900 (JST)
-Message-Id: <20261021.181637.954248793010611824.tomo@flapping.org>
-To: chenhan0017.work@gmail.com
-Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
- boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
- georgeandrout13@gmail.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] rust: math: add signed division and remainder
- helpers
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261017111134.22546-4-chenhan0017.work@gmail.com>
-References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
-	<20261017111134.22546-4-chenhan0017.work@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=XI+rK7Qm
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 1B9DA201EF3;
+	Wed, 21 Oct 2026 11:17:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792574227;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9EKReBFykn7zhpEX3hn+iTvsvnnuD91vc8SRQOGYI+4=;
+	b=XI+rK7QmMxHtwwrzd8K6EvVXzUXwEaBp83ZVI/e2MCiXmYrnn+uGOLo/2ytCPW6VB5LQJs
+	dTf5OCQ4sBWAXDKxT7TH0r1aNrz+ECTkK60pULRBbYpiK+C+iilS7od/ea6Cxj6O+Ry0SS
+	nfrW7Nh3PWP/KeqvlXzF+koHmM9X9PDrPNiuE82Ywc7T/s4Uaad6jnHXalRl7+u1AK8RQC
+	7guFprqNXEQY/GOn9zH8DLd4h3QbcTVpxS1yHe40Ob/h9P5VKzMHXWefLjOgg2ihLxdohj
+	GBc6aXXlmuF/7WDnerFzeOHWiSbhWGM4c3+RLikPFQCgyzNo4W0ND8L9o/CJbg==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792574227; a=rsa-sha256;
+	cv=none;
+	b=HG37pnBOBiCsCwqKm+nxbY+6/CpDS/Lfmzl83u79VnDQOkx7e6ew+poPoDFnRtg2r0HAvW
+	sjOreQbP8Zg2et2ZTrseRT1eeG6TpPx1CUdewM2EnyIWkYuKF2LdQoSNBNxCcb9Ha7UyO9
+	xItLAMT0ZWRtZFWof7X7rxmLOJmkUZAUl+tDJmIq5PjZII57mDli71syIn26jeczC1Hfh3
+	+AkIEUcxb61p5LMK1C4P6zxxGZPt0v+Tg2na7l7BkPFw2Okw+18dxtnjbwu3P6074Q04dc
+	HkdH3B2YOfDQsZ8Q3dW00bf33+iM73yMK+9bt4YOwJtIoFuLEGtIDnWfzqz2Rg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792574227;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9EKReBFykn7zhpEX3hn+iTvsvnnuD91vc8SRQOGYI+4=;
+	b=GO3itgvn0pGddeD2kw1+ZfaPEclmudj86AefK5zHTu0uFi7fra5vfwuwkQn9KbXP7q2wQU
+	E4Pf7wi2/QIwRO/rLJWarEhQ5wHg63rS5pqRAjj4lnAnX05c+W9yS+pFwKWHTs6OgGGX1p
+	EiiuVom9+nEoqAVnePlv7+egXBvtqOnaV+m0vTQvl/zqXuNiTO3JF6ot7CRQSxkPtSR98o
+	x+0aqwpKwyHULrgU3ynXQUcI3TG/irvS6yWvn3HiyUuTl4xwLqC9HdhqFgChkPyFQRRRVg
+	4JktSCZfh20K1g91NhWUs9Y3ChdNTGgPOUa45oE+1jY8pYlk+By1E4Eqpe8QJg==
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJSRX-000XJw-05;
+	Wed, 21 Oct 2026 11:17:07 +0200
+Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <ore@pengutronix.de>)
+	id 1xJSRW-00000006ejd-3pcm;
+	Wed, 21 Oct 2026 11:17:06 +0200
+Date: Wed, 21 Oct 2026 11:17:06 +0200
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+To: Carlo Szelinsky <github@szelinsky.de>
+Cc: Kory Maincent <kory.maincent@bootlin.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
+	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH net v2 05/14] net: pse-pd: do not reach a freed PHY from
+ the notification worker
+Message-ID: <atiDEviXh3A5jwzp@pengutronix.de>
+References: <20261020171249.853085-1-github@szelinsky.de>
+ <20261020171249.853085-6-github@szelinsky.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -132,28 +106,48 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261020171249.853085-6-github@szelinsky.de>
+X-Sent-From: Pengutronix Hildesheim
+X-URL: http://www.pengutronix.de/
+X-Accept-Language: de,en
+X-Accept-Content-Type: text/plain
 
-On Sat, 17 Oct 2026 19:11:34 +0800
-chenhan <chenhan0017.work@gmail.com> wrote:
+CCing: Maxime Chevallier <maxime.chevallier@bootlin.com>
+for phy_port part.
 
-> Delta's division and remainder implementations operate on integers and
-> do not depend on time units. Move them into a math module to provide a
-> common home for arithmetic helpers, with Delta as the initial user.
+On Tue, Oct 20, 2026 at 07:12:40PM +0200, Carlo Szelinsky wrote:
+> The notification worker holds a reference on the pse_control, but not
+> on the PHY that psec->attached_phydev points to. If the PHY is removed
+> while the worker runs, the pse_control survives and the worker reads the
+> freed PHY. The same happens without a race when two PHYs share one PI:
+> attached_phydev keeps pointing at the first PHY after it is removed.
 > 
-> Expose div64_s64() and rem_s64() so driver crates can use these operations
-> without constructing time values. The division helper takes two i64
-> operands; the remainder helper takes an i64 dividend and an i32 divisor
-> and returns an i64. Both keep Rust's signed operator semantics, including
-> the unconditional panic checks, and use the existing C helpers on 32-bit.
+> pse_control_put() unlinks and frees a pse_control under pse_list_mutex,
+> and phy_device_remove() calls it before the PHY is freed. So instead of
+> taking a reference, let the worker look the pse_control up and use
+> attached_phydev under pse_list_mutex. This nests pse_list_mutex inside
+> rtnl; nothing under pse_list_mutex takes rtnl.
 > 
-> Keep the Delta API and its panic documentation unchanged. This is separate
-> from the preceding behavior fix so that introducing the math module is
-> not required for a backport.
-> 
-> Assisted-by: LLM
-> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+> For a PI shared by two PHYs there is no single netdev to report to, so
+> clear attached_phydev when a second PHY takes the pse_control, and warn.
+> Events for that PI are then no longer reported, even after one PHY goes
+> away. Failing the second PHY instead would fail its whole MDIO bus.
 
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+A PI shared by two PHYs on one connector is a rare setup and no in-tree
+DT has one (prtt1c gives each PHY its own PI), so dropping its events is
+fine for this fix.
+
+If this is ever lifted, the PI should hang off the port rather than a
+PHY: a PI powers a connector, and with phy_port
+(Documentation/networking/phy-port.rst) net-next already has a port
+object to attach it to. That is net-next work, not for this series.
+
+Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+-- 
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
