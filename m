@@ -1,90 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792598447;
-	b=dyCvnRC/BE8PpEU0t//m1xWf1hpJOMyoquh0iQyuM//TrvuNb3y0nA+aWMjsLTdrLBCU
-	 zglh68sqpbBZR5B5M2YucMdDpXV0XuUk+nBg3G5b4qRri05ct/FgZMDrok7p0kxq8dlDo
-	 H14IH72Z1gEBlO4UgYPKqm2lHbJhC6avKZZ6U3Ekr16nLaStwlUYHm1XZfK9X76b6X7Kz
-	 2QTMdXxuDp/ylWwt6I3IyMnwaeBXMf7TYoPxLwKZtKv/sLQ7PiQk0rbb+mm8UhhWrh4j4
-	 w5SvRIc7uHV89lckdJ2njrkWV+XlHBtGqVQx7/58qjrheViSJogltmwJDuzNTJMAplw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792598447;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792598491;
+	b=lwGFJRS6oXZokLRaByXn167mvvd7/ttVg2Hqnhe2F/y2yTYYeDIuk/xztg+uHOSoQb5P
+	 tPproQkct+xBDuZgMOfkpVjmA8EmQfVSMS7b3UytBCaon9zixJxoBzCL2BBqiWKnPK9an
+	 Rt1OGYffVP8io0BL7KDeqmXAYJTdHwMcSFZVAvZTQTmanScDm5uPxhdKUIM5oP3AA6Tz0
+	 tWd36eG58+Hfy0j1nn/r0hgJ/F8Yri0ZbNFYX3ipr43HdQWXuE4vfejMyempsy/20IHl9
+	 KpfhLYDz84nQYZKnCuL0FnsNaGIPkKGmILoSJfPNCs7sXNX3MeMKvbUqvrTeLOWCt0A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792598491;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5W0wO5ApY1ruwZkrfuprI8pGOadn8UJEcw8Q72azQTg=;
-	b=aC8zaI6xRJyO2N7YpAFPNS8hlf7dPwjZDfYVXvJbqG8o4AYCfP6yjo4/lIGiREYrAuX5
-	 KSgZ4KSXt2wokZPZEIBpdICYY/XnhwVVkVIuueFWbIipGydAVptgRQF4T63pD/8Rxfc18
-	 9kBe3JwN+VspBAVkkjySwXqedDiSq9VqVBsh5fao8wCDMZX3qG5Uw/GPrnQmIcGCe6iVo
-	 72LURyXErHg1TzB7x2dZosZADC+gwgdmO2asQKegV20eZwD+WM4iaof09RS+folTpLQDO
-	 HGLw8nYbGP2OPLay5BzfLJnv+v8zkaPz0kczXOhXJwcFCxw88F3/0GFj118/RsSwTyw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Da1j54ML;
-	arc=none smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
+	bh=BLygPznvNDCGhWPjkkO7YV+Kzr/dVFaecnXDSmhqgWM=;
+	b=XKjmje6c3u3DW3tSJed71P6/38C9uOTAqUiXLz8jkwFrURo0ff4h8TD+HQFKRL4IsotD
+	 c8K7B4P+/sI7lyg4mf1YJVx30IJL7f8RCWkG4GAZUG3d/ExLE2Fqa3OJj2bmK45roAFdR
+	 08YDnetEsQLpQolnM8B03XI064UGfGo2v6/lwNzy34yskU6mr9iiSPWdCytyP/rjrHzce
+	 EOXYGfjET7+K9egQAJq+vALBvPzOoorYUqk33ZTXEJb3yAPtnaKIG/L7OMS0DVHHXGfjy
+	 rdyqb/fPWT7bJYaPVL95alcWnbApifoTU+8UO+DbMyGXpKHBwKHGWiRRzk+EQbI567w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MtamBLQ4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD3C606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BD3C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F96606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46F96606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Da1j54ML
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6afbc363efeso1431565a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:00:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=MtamBLQ4
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bb5afa736so109005eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:01:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792598490; cv=none;
+        d=google.com; s=arc-20260327;
+        b=L/FplH7Cn9dv26NqSWJ0p/qy/g7kH5SjXlOrvc7yChCW1sxmwbfWHqStFSeKMJD954
+         /h/+BtxPOWsv1J+d2JgHaAyoasffLZ7FGYk0x1qXJA0E/LxQ/yGe1pFdTfBDqdTAm5xJ
+         TJM1Ki/6GbX/bZYovDs3FqTRlxko4Uqmh7urfUx5r+vP1a0Ui9ErFix8WfeEUeU50ZUd
+         WM/iiNh8MDcHKCJ7QwG3Id5JjFAYyIK1kSNS1sa31Q3N47Q0jw4xsQBxN3OGKqVA5XwK
+         oPcr1Y+o2GJUw4UQMetkcoX7yRrVsRFoSkpi46IauBsetXyaMbTF9bdaHEnyzOVZPmq9
+         H8eg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BLygPznvNDCGhWPjkkO7YV+Kzr/dVFaecnXDSmhqgWM=;
+        fh=yKLNwVPjGNx4OUb4KI1u9isLrCJHohewzztKzfBk0rs=;
+        b=EloagwozOf8LzFMV+Ynq3YqrAtWGfaK71N4yBCQsJPB0MmlfiyhaAiziM+TQ/HlWmD
+         kgYwUl7SBmloT90P1yqjkC988u6tp3/XeiMit6H4TbpDTyafCZlzCQ4unDnoMZQzMTQE
+         ZBoeeFCZmPDvDoSLpqOR6o7xM0FJcJQNC+JNumd0tFvbFOrp45z9KjP36s7fwN3RwLOG
+         Jf+Zxl9pip3Zq1sGI0SQ3XBhJC559nHeGh70wXlZY8GLNvQQBDMjhLOVMNBVvDEfIcEf
+         jrN8fwxEBJDc3mVhqpqE/w7I2VJO8+xJsESkZFSVNred7RRtjEApxgZLpxTDMloqyK7t
+         qz7A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792598446; x=1793203246; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792598490; x=1793203290; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=5W0wO5ApY1ruwZkrfuprI8pGOadn8UJEcw8Q72azQTg=;
-        b=Da1j54MLWXzMDCGdsiTtXHdyLIMS/sLY0ALdYu5+yEuOj2cF+9wHeDEkFTUPs47ceo
-         VUR9DthWpwi++NojMWx4zaZgvG+TOYts2pUHpt+C5S4zMXyV3lxOVyrqA7tezl4TWiNz
-         s/eys0/jgJMmQN1wUqMQTZSmzrmvmJiEVv7xE=
+        bh=BLygPznvNDCGhWPjkkO7YV+Kzr/dVFaecnXDSmhqgWM=;
+        b=MtamBLQ4vbQlF3Vf1ayIwNBCQnv5anrXyt0vGB64hXVUdWxJYi3lRPd1JaTujgWAWH
+         FXeav/csdXu64hzX9sZhzfejNuak0LbZlBGiVaHqCeeJA8R19HyGznJOxtyET9uzA4lq
+         hrAyypCIcDzvtAzf8alpWYz4HX/3aI7W61UqezBAx6faw9xZPq+dVsRdnXrrVYw/q88i
+         b/XKjYxLYS9OqCM8JH1/jD8NWzfOW8It9qvksoiQCO0Gr/7zcnmGnBmGoNBzzz18esht
+         0/oOWWfrDJOuS2fD5QbfZ3Jc8b4Wk+81wmwZxM/6E5lqXj2XkDeU97s7wAgmdO7APA3O
+         lEfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792598446; x=1793203246;
+        d=1e100.net; s=20260707; t=1792598490; x=1793203290;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5W0wO5ApY1ruwZkrfuprI8pGOadn8UJEcw8Q72azQTg=;
-        b=CsowhwGj+0wDdPoPaTz1ckWfrNu12agQ9VwfFoqz5IRULvDdG77dmsYaXndMvtEX3o
-         C3Yr+FF4ge/MWNdw5TELl1PJfXiRQwuFJVvNx0fdfiF69PzUncYigQCDOUfFIKvQfKJ8
-         xQTDjaOC51Xe+obgRtUgeb010ru6i1Q32Ojrop1IcjKNd+8yi+5iUwqvlT1ZW/76lreV
-         SGJ0COtSAyffd657doR2mBV3CfGXlPDeUVQIMn0H7EWpd9aUfRVcltNhkHdThhdAkeVG
-         5uh3hkX6dNL1lrrvcsUX36tsd9s/Ve6zyPfBe4E7xekzR1thi2wbPE+E4vwNC8RfwJHm
-         1tyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwAgh9tht2+3/nCWZMhN6a1lRn/x6jZwwBrpKd7INKNiMAG+TXfjeXls7PDmti8XRzOChTVQMhNd/GbUH4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCfQEuJ6//Y/3RBVuQ6LdlorWyncqM8r/9xmCQy5BihgznGoi/
-	xqq7yiq3UeKdK08T9ZyZpQJLROLq++UM7a/Yqmm8q0LchR9hPIFqvUT0jGGb/rt2WKcx6zGXaYM
-	seqICluAZ
-X-Gm-Gg: AYBFou0U5X0HTAtnOICM2MsNzjXC8MPGiB+vCN4YZXsqvyXbMUYw+aOLaTOLhu86j1T
-	noJI/w1gbrRY8xXacW7eW6GGT5BfMEulbw0nbvBaXZEIXsyAB2XXEAengZTgJqJAsG7r9XRF+/Q
-	GJHEJTrJz8xSvZES3PBvue3EKJ353OzuyBs5tTplnU7e1uniqLykgDKFhre3Ke6sni7BjKL2N8h
-	J7LXer3T/EiTlaByVmEL0EH1Kzr9JUotJyWqgsirTV6mGDxHPHqR9jvKh8saE6zTJHQiHFfM69a
-	pYAjYFfP1NjWRIdf+BlECv6oZ5lbnrbGIcp8mhvncmHoOjYyeHZ+YCtJaDo52g4ZiR/dAAO7aoY
-	Uimu2vd5MXuSEcxrS9QouOJoQnd6PrbOY5rXeEIQPg7lSfMwJOSzpnFiHZ06yPr7kS4nZD5uhO/
-	Vwn01awmWcgMuAnpdYsLIhpRFl3eSt8HieqA2DxLzUbsPMQyWkKBBi0pByc7fzMk5gZYlIuKV/2
-	8Ao8I23b7iVH1GiOBhWZGsrBXkfZ6N+PeYLHhy0r2ivhHlCHyjLDMuInoYVfj0butTjsw/ZhCR2
-	DNxziOeRFbRDjUA=
-X-Received: by 2002:a05:6402:c4e:b0:6b3:f840:59b5 with SMTP id 4fb4d7f45d1cf-6b408ebfce3mr1757802a12.27.1792598444133;
-        Wed, 21 Oct 2026 09:00:44 -0700 (PDT)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com. [209.85.208.47])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40315506bsm983074a12.29.2026.10.21.09.00.38
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 09:00:42 -0700 (PDT)
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6afac79b3a3so11931a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:00:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzkg2Eh3kTpYSjQxIFuWK9fFwZQwQ45lviN/n9t8sx8sy0XmK8626dBGPn9lSg55Z6DczRqURsD7j3+okc=@vger.kernel.org
-X-Received: by 2002:a05:6402:c181:b0:6b4:124b:da30 with SMTP id
- 4fb4d7f45d1cf-6b4124bda8emr34019a12.12.1792598437038; Wed, 21 Oct 2026
- 09:00:37 -0700 (PDT)
+        bh=BLygPznvNDCGhWPjkkO7YV+Kzr/dVFaecnXDSmhqgWM=;
+        b=wCrilnmjDZzuU2GdaCUVyOGK+JZ/iPoh55UuxRMa0zBbtK4/WpGes8aK4rwwKt34K5
+         I6NPRazaLrObRE4p58Q74pozvWT2suD+wdfo338/sfjXXpV/QUUJTnqRqAwuXabEbxM3
+         LZ11Tc0Wa8eoG5CSK4h6zRFkNSeaJa+92Ty6/GPTXB/PPE35c+VYyrCO6iYDXt9YPN93
+         FPvHkCeLWV7yN+GlnKJZLlNe3Z+nMorXv4Shlyq5imsYv0hkjtz2V/ESSw3yAm3dx9/F
+         7kONlCU9Aga9SpPa245EToElIEOzjnsRhcQkDDsvXW9EdSZMyW0B13NzVbkfcNxb7Rnp
+         h12A==
+X-Forwarded-Encrypted: i=1; AKwUvBzWF0aImV/xqNXy7ggj6AQwmiqhOtGF7WHtXX0BDh6geDTWdfKxPNXHGfbrDl1aXTjHePHC1FCuEmlMiRg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItrv14vN0FMX+kZ5mVJ259nYJZIdyIqobpUmCrsO3O6RHshgbl
+	3dquNncEImd4HU7poBjmVSL3VDYkS7hpVU+l1JlKd0CBn9HGDzsF+I12uQ3a1kDKPXyYWYm25RD
+	UwrctFI3ZE/BuqE7zqhbt4PDFZ8pbEjI=
+X-Gm-Gg: AYBFou2tLsv52bfhMoatcivqafl4aeV8iB+ChEe7uquFWWZeJ9iP9Q53cYEyGRcLH28
+	qlat+MLSONdtxZUo0no1VSN7oZ+7H/2Ucx4XGdMaXx0UQ3TkcocZ3loAnBcQ4JFYibe9IZXrUhr
+	WKMyr2IT5MrWu8c41RejXL0fhW2dsed1GPfh1lsR26n5IV5XAbA/4TbA+MDjMuLyFH1onXupOnL
+	C1NpYYdlJWPd+scghf1LLkzzgIWCgOoWbhCR/gQSafqqY/KSFCqDEw9C7s0Fsz8Ii6RG5oX6cqE
+	7W8DLQ55/wHwTZgfkIyecL+Rs9zi5t3cLapzdpaaU5EDZC5mzm5+7AhJGYx9icnARxCOR6BQjHG
+	DGRGsi1tPkjJkv1OAtFETSPrD0tkp2Q4nph8gnQObYxP567P8Z+SZpJ2nJe03rGVKrVmPX3y4pn
+	QY+7OmGXR86UlTG8gk3M8gSLanx+8zDXuZwXX9TDrZgvpQKjSe9yuo4fAi0EuO6/4GFZBnRX8As
+	a3nM6FDT66i00rBofiTyNxzCbCCHYmC37Ch
+X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id
+ 5a478bee46e88-3685522022emr1029856eec.0.1792598490193; Wed, 21 Oct 2026
+ 09:01:30 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,92 +106,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1792392288.git.kmehltretter@gmail.com> <f2258d73562e0ebf2efd793b646706ba0dacb2c7.1792392288.git.kmehltretter@gmail.com>
-In-Reply-To: <f2258d73562e0ebf2efd793b646706ba0dacb2c7.1792392288.git.kmehltretter@gmail.com>
-From: Tomasz Figa <tfiga@chromium.org>
-Date: Thu, 22 Oct 2026 01:00:19 +0900
-X-Gmail-Original-Message-ID: <CAAFQd5CDPG4RxUwPDbPUJSCxVZE1cEeYEZvQ25Sy4CuJR861Yg@mail.gmail.com>
-X-Gm-Features: AclHuK9e58N_Im_zhkbxzzSKI3JdeU-CBpj5GNDyWEt5aL7nKqE3jFXgtXMdHNo
-Message-ID: <CAAFQd5CDPG4RxUwPDbPUJSCxVZE1cEeYEZvQ25Sy4CuJR861Yg@mail.gmail.com>
-Subject: Re: [PATCH 1/4] media: videobuf2: finish prepared buffers in VIDIOC_REMOVE_BUFS
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: linux-media@vger.kernel.org, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Tomasz Stanislawski <t.stanislaws@samsung.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	linux-kernel@vger.kernel.org
+References: <atit3cSBFwe9cDY7@sirena.co.uk>
+In-Reply-To: <atit3cSBFwe9cDY7@sirena.co.uk>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 21 Oct 2026 18:01:17 +0200
+X-Gm-Features: AclHuK_NMe7TYkrsYT8Zbia7tLLYKdTL0S8C6euBBNsuQv8WglAhivXlWPCE8VE
+Message-ID: <CANiq72=fy3XAqXCBCwQ8AhWRNPSruDe4fxDAdzaUhUw94FAS-g@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the rust tree with the kbuild-fixes tree
+To: Mark Brown <broonie@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Karl,
+On Wed, Oct 21, 2026 at 3:57=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
+te:
+>
+> Today's linux-next merge of the rust tree got a conflict in:
+>
+>   init/Kconfig
+>
+> between commit:
+>
+>   f85147b291e35 ("kbuild: move the toolchain checks into scripts/Kconfig.=
+toolchain")
+>
+> from the kbuild-fixes tree and commit:
+>
+>   3504d1bce9920 ("rust: kunit: use `file!()` inside `kunit_assert!`")
+>
+> from the rust tree.
+>
+> I fixed it up (see below) and can carry the fix as necessary. This
 
-On Mon, Oct 19, 2026 at 4:14=E2=80=AFPM Karl Mehltretter <kmehltretter@gmai=
-l.com> wrote:
->
-> VIDIOC_PREPARE_BUF leaves a buffer DEQUEUED after calling buf_prepare()
-> and the prepare() memory operation. VIDIOC_REMOVE_BUFS accepts that state
-> but frees the buffer without calling the matching finish operations.
->
-> With VIDEO_ADV_DEBUG, vivid reports:
->
->   unbalanced counters for queue 000000009fa716f8, buffer 0:
->        buf_prepare: 1 buf_finish: 0
->        prepare: 1 finish: 0
->
-> Finish prepared buffers before freeing them, as queue cancellation does.
->
-> Fixes: a3293a85381e ("media: v4l2: Add REMOVE_BUFS ioctl")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  drivers/media/common/videobuf2/videobuf2-core.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
+Seems fine, thanks!
 
-Thanks for the patch. Please take a look at my comments inline.
-
->
-> diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/me=
-dia/common/videobuf2/videobuf2-core.c
-> index b0a6084f17573..460eaf4e82f78 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> @@ -1746,6 +1746,19 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsi=
-gned int start, unsigned int c
->                         goto unlock;
->                 }
->         }
-> +
-> +       /* A buffer can be prepared without being queued. Finish it first=
-. */
-> +       for (i =3D start; i < start + count; i++) {
-> +               struct vb2_buffer *vb =3D vb2_get_buffer(q, i);
-> +
-> +               if (!vb->prepared)
-> +                       continue;
-> +
-> +               __vb2_buf_mem_finish(vb);
-> +               call_void_vb_qop(vb, buf_finish, vb);
-> +               vb->prepared =3D 0;
-> +       }
-> +
-
-__vb2_queue_cancel() does much more than that, especially all the
-media request handling. In addition, this open coded handling just
-causes code duplication.
-
-Would it make more sense to refactor the relevant part of the buffer
-cancelation loop from __vb2_queue_cancel() into a helper function and
-call it here instead?
-
-Best,
-Tomasz
-
->         __vb2_queue_free(q, start, count);
->         dprintk(q, 2, "%u buffers removed\n", count);
->
-> --
-> 2.47.3
->
+Cheers,
+Miguel
