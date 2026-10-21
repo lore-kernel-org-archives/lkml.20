@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585730;
-	b=gQNLlRNAzrz62Y82HH1TblVqb8efdGnBbKsVhfOM2vLLjZKmfw09viWjMKmP68wDYGPy
-	 PXmNGKNd46Oo8jgss8hsvdXFNQN1XSG8WQA5Mc7c2EkcpkahANCjyppqHJjiKalDR1P89
-	 5Q9uBUbV9qV3YmTDATDhhcGvchsJv2R6v64goYswApTWn+qwSkEeq/BjgSP8WfOoJv/Sa
-	 DxbXq7Y3qj+JLk3wsVvo5MPZh5F9e6avwvMltKWgxJ9BDKAvPqHvCjPy11y+9x7IT+p47
-	 TsbqIhFMsMjlT39MCzMDnQzeNtoV9/VcEXa6FvzqW6qPAAMBJRhC7LIiwhGcw0qHxDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585730;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=x7YCZmHpFRCHFyGPTyhGucE8A4eYFXcryDMfwgdgRZc=;
-	b=leRExGcUaLLi677z9WFYZyUvuKUJGI8/NrkjRTu/ENd2zBQlLreJFflgUz+w2vkOfY9j
-	 0tsCjOeauDkZo7LNy9k+NDX07yHK/uTfdUkoZ+Bd13PFKhRlZYGnh4elUCMEHWWvXvpDQ
-	 0QK4hlyUd9VPS6RbIGviLgDlacpSgadLYNOM9ZWDbIKUZHf3Kufw7F0KrKyNTfoF2sOa7
-	 +hIfVupasqikOacikuLHScX8QHU0B+77sBi6aaIw1VI9CM4gxp1+SgL9OiSK4vfK1y4F3
-	 JE0MoxrboAGJoTBrvpwdQtyEcFkYWvCTFQTYJITgpIYQ0yx878VzxkE8xZq2FmUnvZw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hm22FjB9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792585740;
+	b=w8pRSawUqB5mqZqco6FvgFKa7zU4xWHW9a+ryIWEQFaTwQS/i/WMW6TiszCJTg/65edc
+	 mVvzAvCvViAvUyj/piqgz3JzEBT+zSW9ax/xZh1GnRb+0Iw59X1A2zZiDq+eR9ImAKKwo
+	 1v9xlAZ3hWqyyMWdNvYjulcldn5QabwbGXpuLdXov4+HCmbZtdsWBmZ/6U0BcEDbOliJc
+	 VYicy3gMgNr0ysQZ9uM7O2dhmuBgyHNOO28THlAOlNunsdWoL9Nka/hmwJvcQBL0SnpcB
+	 /2/A8S9Ige0eQXKtO0DGsoHgqQ1b+FqIa4oKe56CEceHCKCQdaL4MPT2fFVrGU2MqMA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585740;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=WYe1mgIsbtZAkiHfhqQLQbYjxMDJ6inx/P5LgKJJRk8=;
+	b=SdLTBXWrhgASULaeyRXui2OQPAyVlR6CdBol8Pvy3olF+qaRg6GlPeRlmJKxj06VCN3h
+	 QZbdb4K4FNOVM3UUWvOg0hSIjBNT7ehVF1HRfSI296GarXEZegyoe9aMl6YVznBiWHcok
+	 ZXpKnGwhCn1ouiPWVdYZpDG0esQL1XUXRJDdQ251EOr8wjNtfAjGybKmUWvrh35XtcgUk
+	 LJl3vHh61sT8Wyy0HxgdEI8DuWKky5CEGFceBpbNBTM0CUDxh2dniI2oajAHXrfr17BqJ
+	 NUck3BmrSTbTl4GHyK/NHbCsPSd+T1E0l5KSkdsFEoc9NUB5KQiZkw6+jZE7kM68tsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bpz6G8QZ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC37B606A319;
-	Wed, 21 Oct 2026 12:28:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590C4606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:29:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 590C4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hm22FjB9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DE21F000C4;
-	Wed, 21 Oct 2026 12:28:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792585729;
-	bh=x7YCZmHpFRCHFyGPTyhGucE8A4eYFXcryDMfwgdgRZc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Hm22FjB98pQQqDEUKzhBwrhVIvZRBkT9Uo5aEGJEM9c1lNfcoEvpHGBEGnblB5GQv
-	 NHiub28gA6QMTNzNCefGTjrfOoccMxUQ4R79JsznGZvZ/V2BDI7CA2iT+hq+Zn2FaE
-	 waw4hVMX3VITTXm5347EF70HjF9l+WNqRfQfLI5FIKUb59SlugRL98f8qWFCdsJaNr
-	 r72i0ZV7YAX4/DKecqUMhHfOscT8fKpLFi0oFHBubU1JmDVzmPK60bCKmCdftc9NSm
-	 wLRBqzORgHDGCTp/FgTETDkGK7HcIQDVpNx6SLEGgpcx1ikViAvR8WPWGjovOV07pB
-	 5cPW0d+FrRvFQ==
-Date: Wed, 21 Oct 2026 13:28:42 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Steven Price <steven.price@arm.com>, 
-	Yang Shi <yang@os.amperecomputing.com>, David Hildenbrand <david@kernel.org>, 
-	Fuad Tabba <tabba@google.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] arm64: mte: Add mte_clear_folio_tags()
-Message-ID: <ativTPb95ZxK2_ho@gremlin>
-References: <20261021110700.493315-1-fuad.tabba@linux.dev>
- <20261021110700.493315-5-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Bpz6G8QZ
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso6555785e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:29:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792585739; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WGMAUkO0WkGrWe+SWASRB0XFc7DZSdUafx2pG6EGIMNmKfQMZET8q/KFD3f06+cOEH
+         0DmagUGSi5lcdd55vErYPakhOxfp34APagq8jzIE0YD6MG8F0XAT2FQqGqvr+Dt4EfB1
+         v8zUNX8H3BaN0R/qlvcFO/7WtvhR98HqHuEE94URN38+MufaoLC6kFhtpGIU59CRLB62
+         vkXvukLOI0vwqkmnDlH3h3zxz429o6ieTeQJYey05xC9XFRCLhARPIlezEZsiplX2MM8
+         BZbGeV7sXVBDrQArkrDhbv5b2whK1DfC0kE/AxR9SvXzDu5jNss553k3iIi6NKuTcdjP
+         2IQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=WYe1mgIsbtZAkiHfhqQLQbYjxMDJ6inx/P5LgKJJRk8=;
+        fh=Wdv8EzlKRnEPOlCAocZop547gM1g/Aha8KISdFsoeRI=;
+        b=eYTBKQVTmvXzviaPKacdQa2maFHjNeXNG9Yet9hwFfnwCn/uCTb540BTHor1QXbAqe
+         IPDfhHOgF1+1VFMqst6rQMvbE2/FN/WFx5JUMesSuSSGLjTu+3yvjMRsWbdwQqGK6bhV
+         33INz/Vug9hfQlWKfbt+8Ey9smGeyYKQy2nWtTZl+mNBpeEdvY+6ISFeS2Wo8+5dSlr+
+         anwL3kiL1Us7VVygKHOUFTWgyJvAJGF+XAuNqrOcW1A96g6qBHwKVRYSN2MYty3cAnsb
+         9UEveSP/MGRAFfNyTYCiKGElx3Ygp3U25HUy5I7IPbZ1GOoBJ4ZHBPwApMSWuYtW4c8V
+         xskQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792585739; x=1793190539; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WYe1mgIsbtZAkiHfhqQLQbYjxMDJ6inx/P5LgKJJRk8=;
+        b=Bpz6G8QZmb/JGEgcjfwYuXE00RMfr7JbARsssfTOFZvsHr69zWAd04aGeL9wGUd1pZ
+         kUTXyeMt0xIaLnG9FbkQAhKCZ6OfA+wdCpsO4GdcUL3nUZuYKFKcycoXBKL4jAF9QqZ9
+         9UHbi2qsHP3kES7QIUqmVTHRFIf12Dmm+1t7A4oJKyAgk/ZHaf0XS5ZVZIDC2Mxo7COg
+         3sqWeeLWgJKWS2YYXHC1g1peoEJSFbw/X3DfPoAvbXqBE/AV7ttWDaTWoGE39TAWqfan
+         D+cL4iNFmc5+AqxJkCAzxZcGNVqoO4rlS5uKjtyNbPiVQ9SXgtZsUvXi2WCFyyUiysg6
+         mwZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792585739; x=1793190539;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WYe1mgIsbtZAkiHfhqQLQbYjxMDJ6inx/P5LgKJJRk8=;
+        b=ubclvwpaysYWRhK63CLDY5sgX6PUXu012qcifuH9NqrWR4WNMzCnlD4TYf5ILNwLUD
+         03pLeksHZMPZUKxKGqlC4CjrXR8Ip2w3GQvTtnCO0RjKkyXhtl2z8NzzyfHOLNj9eTbc
+         A16mFK8RjyVDTp1O1WPrLusVr6gzcsmy9B6jj57zf2rqKg8mGIStSs3H2T64nOpyBt/b
+         Fh/0Geney1K9Vr30D4n7QD2gBHqesGRiHRMTTss/IMi8NuC59/PXqW8DFkvXvnjYSBu+
+         MrQoomZs5ayqTLu2j2/3zluxQnAiyPwa77Eq8gQGrlgNUk01JEYL4ojeoB7U8lhfswtD
+         zOLg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4WDwN1HY2NLP/Db/s+6sPm067txLpmmoHFBCkYb1RSw/OfHZ/q2Z+QgYKEiX/XOvuPArwgkCowY3dJJo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKIXu9GxrtOetCkeSwnm/sVClIiaJuGCDHtd0JWj4y/0n7KLKzs
+	Xm9K4ZaRa7xkl4KfuViIRQE/kzjNEH7aA/yUiAadlMEp78cPcV4QqHPHXgEjDm+v3PVCBKCS5+G
+	zQ3V0FQjE+pGNM9ryiVIY5WUTaGP62dU=
+X-Gm-Gg: AYBFou2OxxZ/UZdwfSOMU/k0FQcl/wnLmqPB2wDQ50leZoXUKzF4MyneO9i7G2Hq763
+	cWumyglaqc5II4gEnGK0vMxJ6UFBinsVycyz+9ggu50tE9UXRm271At+hR1CPc3q+LZvwzBhnqr
+	Vxrof5enUQ5iIx7MM05sVC0UseoGcLbNgofZYbZiGqtMMRZKcJ0AjdV71OFRc7MNyBg7MSGCj16
+	SRNwlFHBbgoNsrYjc7o1TPRGf/3feA2hF3bi5YNu8uuFtGBYyaYQ7mQtiQ2T6/ghCTlPU2Qqt/Z
+	WIUsGEr8/QN3859lM3R298ulC2qagJy76HCMDK4FTL8aG86ChtbF0dR9X/Ey7BOR/iotfqijBq+
+	s+MhmN1Vk8cz2iZGPtKEiefyB47zkdOyo12ypQm4=
+X-Received: by 2002:a05:600c:83c7:b0:4a1:d087:f6ab with SMTP id
+ 5b1f17b1804b1-4a1fdd22df7mr39936915e9.18.1792585738531; Wed, 21 Oct 2026
+ 05:28:58 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,135 +103,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021110700.493315-5-fuad.tabba@linux.dev>
+References: <20261020-coretemp-retry-sensor-creation-v1-1-7dd4851a34dc@gmail.com>
+ <42ee0ffb-c0f0-4426-a568-28be267e4a93@roeck-us.net>
+In-Reply-To: <42ee0ffb-c0f0-4426-a568-28be267e4a93@roeck-us.net>
+From: Ximing Zhang <xzhangjr@gmail.com>
+Date: Wed, 21 Oct 2026 16:28:46 +0400
+X-Gm-Features: AclHuK-iEbUqEIt_S5oAy6Zr908EnDTOfZaCdztoawpS9OjtMxpFrmIspAezEAM
+Message-ID: <CALurWnHeNBKVdVbsrZ17OjZ09TM1bCseK=R6MDgjz4Sg0CiWYw@mail.gmail.com>
+Subject: Re: [PATCH] hwmon: (coretemp) Retry failed sensor creation
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Oct 21, 2026 at 12:07:00PM +0100, Fuad Tabba wrote:
-> mte_sync_tags(), sanitise_mte_tags() and kvm_vm_ioctl_mte_copy_tags()
-> each open-code the loop that clears the tags of every page in a hugetlb
-> folio. Add mte_clear_folio_tags() and use it in all three.
-> kvm_vm_ioctl_mte_copy_tags() then tests for hugetlb first, as it does
-> where it sets the tagged flag below.
->
-> No functional change intended.
->
-> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Is that a theoretic or a real problem ? "Test-only fault injection" very
+> much suggests that it is a theoretic problem. Have you observed it on
+> a real system (without artificial fault injection) ?
 
-Great LGTM so:
+It is theoretical. I have not observed the failure on an unmodified
+system. I found the unretried error path while auditing the driver and
+used fault injection to verify the existing behavior and the proposed
+recovery.
 
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+I agree that the fault-injection test establishes the behavior but not
+real-world impact. Please disregard this patch.
 
-> ---
->  arch/arm64/include/asm/mte.h |  4 ++++
->  arch/arm64/kernel/mte.c      | 15 ++++++++++-----
->  arch/arm64/kvm/guest.c       | 10 +++++-----
->  arch/arm64/kvm/mmu.c         |  3 +--
->  4 files changed, 20 insertions(+), 12 deletions(-)
->
-> diff --git a/arch/arm64/include/asm/mte.h b/arch/arm64/include/asm/mte.h
-> index 7f7b97e099968..5a2d2814c0416 100644
-> --- a/arch/arm64/include/asm/mte.h
-> +++ b/arch/arm64/include/asm/mte.h
-> @@ -96,6 +96,7 @@ static inline bool try_page_mte_tagging(struct page *page)
->  }
->
->  void mte_zero_clear_page_tags(void *addr);
-> +void mte_clear_folio_tags(struct folio *folio);
->  void mte_sync_tags(pte_t pte, unsigned int nr_pages);
->  void mte_copy_page_tags(void *kto, const void *kfrom);
->  void mte_thread_init_user(void);
-> @@ -128,6 +129,9 @@ static inline bool try_page_mte_tagging(struct page *page)
->  static inline void mte_zero_clear_page_tags(void *addr)
->  {
->  }
-> +static inline void mte_clear_folio_tags(struct folio *folio)
-> +{
-> +}
->  static inline void mte_sync_tags(pte_t pte, unsigned int nr_pages)
->  {
->  }
-> diff --git a/arch/arm64/kernel/mte.c b/arch/arm64/kernel/mte.c
-> index 1a9aad6ef22a0..fb2598f8c0ccd 100644
-> --- a/arch/arm64/kernel/mte.c
-> +++ b/arch/arm64/kernel/mte.c
-> @@ -36,6 +36,14 @@ DEFINE_STATIC_KEY_FALSE(mte_async_or_asymm_mode);
->  EXPORT_SYMBOL_GPL(mte_async_or_asymm_mode);
->  #endif
->
-> +void mte_clear_folio_tags(struct folio *folio)
-> +{
-> +	unsigned long i;
-> +
-> +	for (i = 0; i < folio_nr_pages(folio); i++)
-> +		mte_clear_page_tags(page_address(folio_page(folio, i)));
-> +}
-> +
->  void mte_sync_tags(pte_t pte, unsigned int nr_pages)
->  {
->  	struct page *page = pte_page(pte);
-> @@ -43,12 +51,9 @@ void mte_sync_tags(pte_t pte, unsigned int nr_pages)
->  	unsigned long i;
->
->  	if (folio_test_hugetlb(folio)) {
-> -		unsigned long nr = folio_nr_pages(folio);
-> -
-> -		/* Hugetlb MTE flags are set for head page only */
-> +		/* A hugetlb folio is marked tagged as a whole, so clear every page */
->  		if (folio_try_hugetlb_mte_tagging(folio)) {
-> -			for (i = 0; i < nr; i++, page++)
-> -				mte_clear_page_tags(page_address(page));
-> +			mte_clear_folio_tags(folio);
->  			folio_set_hugetlb_mte_tagged(folio);
->  		}
->
-> diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
-> index cda655fbff657..c75466384f8ac 100644
-> --- a/arch/arm64/kvm/guest.c
-> +++ b/arch/arm64/kvm/guest.c
-> @@ -1012,7 +1012,6 @@ int kvm_vm_ioctl_mte_copy_tags(struct kvm *kvm,
->  		void *maddr;
->  		unsigned long num_tags;
->  		struct folio *folio;
-> -		unsigned long i;
->
->  		if (!page) {
->  			ret = -EFAULT;
-> @@ -1046,11 +1045,12 @@ int kvm_vm_ioctl_mte_copy_tags(struct kvm *kvm,
->  			 * tags. A hugetlb folio is marked tagged as a whole,
->  			 * so its first tagging clears every page.
->  			 */
-> -			if (!folio_test_hugetlb(folio))
-> +			if (folio_test_hugetlb(folio)) {
-> +				if (folio_try_hugetlb_mte_tagging(folio))
-> +					mte_clear_folio_tags(folio);
-> +			} else {
->  				try_page_mte_tagging(page);
-> -			else if (folio_try_hugetlb_mte_tagging(folio))
-> -				for (i = 0; i < folio_nr_pages(folio); i++)
-> -					mte_clear_page_tags(page_address(folio_page(folio, i)));
-> +			}
->  			num_tags = mte_copy_tags_from_user(maddr, tags,
->  							MTE_GRANULES_PER_PAGE);
->
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index 6e10aa9913d71..f8139c0a54deb 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -1514,8 +1514,7 @@ static void sanitise_mte_tags(struct kvm *kvm, kvm_pfn_t pfn,
->  	if (folio_test_hugetlb(folio)) {
->  		/* A hugetlb folio is marked tagged as a whole, so clear every page */
->  		if (folio_try_hugetlb_mte_tagging(folio)) {
-> -			for (i = 0; i < folio_nr_pages(folio); i++)
-> -				mte_clear_page_tags(page_address(folio_page(folio, i)));
-> +			mte_clear_folio_tags(folio);
->  			folio_set_hugetlb_mte_tagged(folio);
->  		}
->  		return;
-> --
-> 2.47.3
->
-
---
-Cheers, Lorenzo
+Thanks,
+Ximing
