@@ -1,67 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569227;
-	b=eI6Xwwg/bT2049Xu/sq3HBsAdyQ07XrsRZf7vu2FtKp4AWwGqiXLZ9gjjNVcgphotSMD
-	 10JTaB/IQX7DhrHntRAQstTbu3zVKNwz2ZYJKyZQMsJ97tnsMF4SBFmxhV9kSvQadqmnr
-	 JHhAwkUU80z25GYZdJOXnAqYv84qg42u4iahVEOI2VOl9eAYtOoQWVAQq5yizvrqz3AGr
-	 VJqbJw1g1AgopG63aR0zXvIOuC3431V6s3WYyF/B8j0Nf22Zb6B9wn67nTh4xzVtj1DOy
-	 j1mYbuSYwnbCdaPiBDEpsVzMgsDMS6ILkfNn1HryACMuMrtg8oGUpinUQ2FN2O9q6Qg==
+	t=1792569239;
+	b=UruytLLskzNBM346mMuuyL3/HdBDuZmSomlkmc18vwF1Llzm/zutWtKvgmv/n6hxIZgK
+	 atOnWJxpQG8K+sQfo/K4p5fqJo3tbcswMfxkh2dxT4d+wgalW+IZsqI4GTtdtJduz/uwX
+	 HAY2bos5G1oSiYFyPXvdG3b5Kt8bqSykSgeu58QsSsj3V4Ph0mtBN0ZGSP+gw4tK2UHr1
+	 CcjIG5QDTOKe5HvuVY7mAPiHQk09u5VhpqWjLbrx8cpSBZMPdhGpk47NMcXTBcFvNBkMd
+	 45VLsAOqWTCw0dkTBYKXjOfMjdtCJaVWPEJgGzRGXdDX7oJ0YZx6Oca/xhdB1BASl1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569227;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bhy0oyRetX168I3CYw/iHInrZZxLMV6KJR6cfcucIJA=;
-	b=fL0fedBs+aoiEOS3wOag8DTLKELG1wmm71Lp2JBsdBBwOZlOxWA74zEavyFYfEjUP3n6
-	 22+4gwpuFAT1wTQtXsLkJbPHwxwhHzfiurpnKpvKiXBrcjhd+CtXaK/wpwzBqdg9WBs2p
-	 Qt/sv8Kj384dD6sIUJelQqO3i+36VxANy2970wP0VObG9LnwHwkQYw1cOmPGlCJiuWToH
-	 zA1AuNwVl0EdZ+vkx7kZ0CGdjGwwdW9HzsLpZdCEWQcTV9NRcHq81OCe6tBj4Y+oeLOhY
-	 NSTjeU/+ydPkapF056rgAp1Zvy+MR2sK6hnwE+NxKF15QgOYu9af4og7xZT2fXfSxiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792569239;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	b=mAJavTvE/zVdaAH4O3JJKVKCoOpomz2QYKI8ORazYv3l8bz6u/iBqmTnZE5i4IvzYrV6
+	 XtDLog8G/e9mJ0WNIrltndPhQPid1maJGoLXDpvveGl15jJGZ1eB9P3EcpaGVHxEeqv5t
+	 VJHcK3cupO9RMfS9Hq4O+zkaMhjjcwxfj2Jx1Mj9i5grtfCQJMDHucwSK8Ug+TameIwtw
+	 FcoNlhGGhf2RsM+It1/BTVCVTUXlssslBgihbmVk/Pe6vi7Oh5ViVOmCwKKE5S5IxVf8k
+	 bgqTd3bFteoG9/2/Unb5IDFtQrwMH4nMvrLqjRiNP/i1vtZJkHX1A04eS88Ue1oH7UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=AaMspNBc;
-	arc=none smtp.remote-ip=61.135.153.163
-Received: from smtp153-163.sina.com.cn (smtp153-163.sina.com.cn [61.135.153.163])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGcqdc+r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F714606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:53:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F714606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F109C606A319;
+	Wed, 21 Oct 2026 07:53:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=AaMspNBc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792569222;
-	bh=bhy0oyRetX168I3CYw/iHInrZZxLMV6KJR6cfcucIJA=;
-	h=From:Subject:Date:Message-ID;
-	b=AaMspNBcAlZYeSyktyDx6+smnysTeA8pUlNL4bDy+pkZ3Tj/sv6bU5pIykUobAdPs
-	 UZiEVlhHHx0qoEG9325QJ6kO0YY2e1Yd8X2sVcLx8U/SLJwf34Ye1ZP9r0i8RszLUQ
-	 5kZPssj5SjdKxQzyR/WFfun6XD4+kwgiQKk/g9tE=
-X-SMAIL-HELO: localhost.localdomain
-Received: from unknown (HELO localhost.localdomain)([114.254.3.56])
-	by sina.com (10.54.253.32) with ESMTP
-	id 6AD86F7A00002678; Wed, 21 Oct 2026 15:53:33 +0800 (CST)
-X-Sender: hdanton@sina.com
-X-Auth-ID: hdanton@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=hdanton@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=hdanton@sina.com
-X-SMAIL-MID: 5760734456874
-X-SMAIL-UIID: A986B4A8D67249C0A2750D2D5F8A8120-20261021-155333-1
-From: Hillf Danton <hdanton@sina.com>
-To: Sergey Senozhatsky <senozhatsky@chromium.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Brian Geffon <bgeffon@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH v6 09/13] zram: split zcomp into separate R/W streams
-Date: Wed, 21 Oct 2026 15:53:21 +0800
-Message-ID: <20261021075322.923-1-hdanton@sina.com>
-In-Reply-To: <athFf0kXopUKh2-V@google.com>
-References: 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGcqdc+r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F1B61F000C9;
+	Wed, 21 Oct 2026 07:53:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792569238;
+	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oGcqdc+r/lbAvimEPgmLHYcBozq1kF4RzvnB/6T5NZkr7zbetu8VpVJ7dNr9NAMio
+	 EQbOoM55camCNlZFgeEg9lvKVClnVlvZwaZacgwve7PtnnD8pWA3BcXP/mXxJtypeL
+	 y5Xatyay1IFRQUDjE8k+qdnHpOdiLqXcZe3tvXRDAXdCtngnP8OBs3+vciNswT4NE+
+	 83XrGhb/5KRbnoJbJNoeIuuwjps1cz3/ETx9bkvl3BpYxdENOxAtxs8Cgdiqq7IciO
+	 vwviyWulXzQbQzRXvn0vYx29eDZ5s241W9vMx8u25TkJ/Ll19rsahuaOyb7+5SEPLR
+	 doqw+otHB2kOw==
+From: netdev-bot+sinfo@kernel.org
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Alexandre Cassen <acassen@corp.free.fr>,
+ Alex Vesker <valex@nvidia.com>, Erez Shitrit <erezsh@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Itamar Gozlan <igozlan@nvidia.com>,
+ Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
+ Moshe Shemesh <moshe@nvidia.com>,
+ Prathamesh Deshpande <prathameshdeshpande7@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, William Theesfeld <william@theesfeld.net>,
+ Yevgeny Kliteynik <kliteyn@nvidia.com>
+Subject: 
+ Re: [PATCH net 0/3] net/mlx5: Fix HWS and DR steering memory safety bugs
+Date: Wed, 21 Oct 2026 07:53:56 +0000
+Message-ID: <179256923674.3290.14436892609029206565@kernel.org>
+In-Reply-To: <20261021074949.3471704-1-tariqt@nvidia.com>
+References: <20261021074949.3471704-1-tariqt@nvidia.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,29 +73,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, 21 Oct 2026 13:56:17 +0900 Sergey Senozhatsky wrote:
->On (26/10/21 12:23), Hillf Danton wrote:
->> On Wed, 21 Oct 2026 11:42:19 +0900 Sergey Senozhatsky wrote:
->> > Split struct zcomp_strm into separate compression (Write zcomp_cstrm)
->> > and decompression (Read zcomp_dstrm) streams, and split zcomp_ops
->> > context creation/destruction into create_cctx/destroy_cctx and
->> > optional create_dctx/destroy_dctx callbacks.
->> > 
->> > This decouples Read (decompression) and Write (compression) paths so
->> > they no longer contend on the same per-CPU stream mutex (Writer vs
->> > Reader priority inversion).  Currently, a (low priority) Writer that
->> > holds the stream mutex can be preempted by a (higher priority) Reader
->> > on the same CPU, which then blocks on that mutex until the Writer gets
->> > to run again and releases it, which can take a long time when there
->> > are other runnable tasks on that CPU.
->> >
->> Given lock like mutex, priority inversion happens from Monday to Friday,
->> but I wonder if you are inventing some wheels in 2026 if proxy excution
->> works for you.
->
-> Reader-Writer split is a foundation for further improvements (like
-> singleton recompression stream and so on).
->
-But that split is not needed at all if PE works, yes?
+Hi!
+
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
+
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
+
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+ - What hardware the change was tested on. For driver fixes please
+   mention the device (and if relevant firmware version) used for
+   testing, or say that the change was not tested on real hardware.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
