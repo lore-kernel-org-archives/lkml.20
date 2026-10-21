@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605888;
-	b=0n5o5dBo9r5mtsgpXV3gFxs06dGbbwjl6uQCc55MNVMbHFzpb9JdUk5WgMXCi9+j/6eF
-	 ueQum3MF5gHhinqfoDaNcVR9zKSTKgCqNQG1ry76em9CzUrs5kAAlECtpbQocM7bAvQ+7
-	 h6SKkbwJKWieAPqlCbfOnl5/+dw4+ayHDSC17HUM8MkGg1+d0wU3hfOhQ0W5gAUiI1Aoe
-	 NLJ6lTMALvqU/Moe3kDfS2Ubro3Hszl/ti0vvrUT05625Thbw42UvBY5+XMAnnN40fLNM
-	 UZ6Z6Q4h0ayF2CBFNyNYPqT7wKbXPWTOQ48aS2zkumq1U45s9ZMyvgHhntnmn+FOCHg==
+	t=1792605932;
+	b=PuezPwbvGDHARiiFzOMEEva42vlnpZeNe2JQac5qdWUbDLDEbXGKVaVPGlE3g68cMQuq
+	 yC9JUmy2E139a4Nec1BphoT8oMEw1h1lb32Al2WItUczQsGxaJpNI8mu+l1t1FEVLgL7G
+	 k9FYdH2JCN3Il0vAWhbxwCsWD3gXp5PLdFRhGVQewLjZrklJ7M//vPjd5DfS1jcYOdMEn
+	 21ABhwcFPJfoN7aCcII21USzWvXDHHSEgh9Q3UZvyh5tuNqr3p9mtLOrrCYgKcqg1oeiy
+	 qU5Ty2TA+o+iMv7JDm/xODWgJFSyK0VCfpOBZCI6w9n4w6CmeOeCcmAOHjZH4b9IAAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605932;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IKh826oksAsnXOv/8mkzFjoflIikbvfEEGMxfs2JQRg=;
-	b=sUxtAPggZ4uRZ7TFgKg9gt8ezNlsNmTPcYwjq3Liq6f5cIBWjlJyPSPGV+ninrjhqYtq
-	 JoYUCwHxJcct95HqMSAeg50O85T8dnciD/q2NbHnSUhDWlnvDT0wi3dyXDOY4Xo59KrqL
-	 xCjoTebEKJsAioFZE1mFCdIIWis02rmzMvjnlAFPt9yaX/NBlxW/HkWxfjE4NCDPjwpzJ
-	 XhXfG8ICCTngdBJM8xg9nkHDrYL63zjulYO4TgESTnm7WkLE8/Mi1crAApJtbbiUudlBK
-	 uNyrwQfgnbohP3hYWuJfECKnKZQsDDJGvyIKdcNS9a4hJI3CQp2HB03VcmyVy18yVGQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=cDckOYGKiTcCmnZHJzDUIHI22U4mrVjbAtWOGCBnRDk=;
+	b=ddUhmJdd/UTxyH2wH7NVYCNM4ilLKNJxxOEQ+r+2CF+Pt2XBtAljg0NGouPHQKfa8gmD
+	 dBr0U6u7niJgm7sdjqgf1p6G6scKYMJSqQ0k9MVt3d39FIW7lIKxJWGvFxr8pE5Q+7W8/
+	 SOjXzqdb7HiCl2T3PaOXBea+mITEQsOcEHkFICCfD4oZvyOK59V1/XoRmiwHzIs4QVnVy
+	 gWFC6wrj0SFmTxdPbX8waIdP7NrbVz+qsRLalKfphyWDFAEPtJu9VOrVp51Acsi8xTw7m
+	 IX4yx5MQh4mr8oA9FvCMxIlKNtvyr6zirtJBhVkyfkLDoWGJvR7Ijo6XvYpzf4lcOJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWik3WnI;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CtrYySqg;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E71606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:04:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E71606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7401606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7401606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWik3WnI
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso767705e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:04:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CtrYySqg
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso7770425e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:05:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792605886; x=1793210686; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IKh826oksAsnXOv/8mkzFjoflIikbvfEEGMxfs2JQRg=;
-        b=CWik3WnIyChRkJiFjDby8AUm4P72t6GJlKKoLll9tcfUvy8nMdm6quUdw7bOp/Cdrj
-         tnUONVfLRoDkwRY2U+J/41ipIVdLv2vw5v+ZP81cljtyAGPbU98VqDIbMpGcrWZjS+1h
-         iUAag3s3ynMam7T5pk9UvjlcULGuIT4hot2neeVAts+OdV4zWf5icj27TPOMTMFi+iZX
-         jPAWYgjWLqcSBjQ96JBu+RIbCpJosQCL8pYnhhq/MUw7dsvXQsFmorTyZz3NKMYKnfIF
-         D/5TKGNf43tNXTrhdhCsVNVMvmn17vufPhh0YHUGqo7ej5u4G8muH4oukSj5wetRJ/l1
-         quaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605886; x=1793210686;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792605929; x=1793210729; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IKh826oksAsnXOv/8mkzFjoflIikbvfEEGMxfs2JQRg=;
-        b=NB1HbR3bYSbyoxZwu0RBj+eNUc5V5beP3q+VjrT3tcUnq8piYYypeOb6yxurRHAz2C
-         QoTdWU614DncDESEYgXbZn56W3MXa4VB9vgunAV8i8CB8iMDKnkJSXm70aEXBrCZzCaO
-         NMnY7boBdKmbl6JZ0nHl2CZ1it7Wvzekee9pOlTPmvlbCgiRo49KH/ynlB++yuzZaQfy
-         JOd2SQPQtSNSCBU/AnnQjjJxslAIVqeEmijmJKA5evr9t3BXB+2toKl/Id9tndSYoOxp
-         FWrCdXZSw4rqU5/apnO7Pa3He/7ULA55mSgoAGA179D4ce8dc3dgW04+AYgh0zXue9S0
-         y43g==
-X-Forwarded-Encrypted: i=1; AKwUvBxJC4dwJXRbVYXx9qJxx8Va4iWNI38D48yhS1QJUVLhqqzvOEQDfReCTXd7W3cT2izDnRF65O0r8E1cAfM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0Md/FCKFvZb3P2ysV9leXkk/BhjqROVrR75QipzPSxYoKVSV1
-	0VMSfhC5TYrwGSm1M/Okg1GUf9uj2pkPbce6+uux8vO0ylySswNB/wMq
-X-Gm-Gg: AYBFou1smp9d3jdKecNrJ3RFZbt0YnV770sM3XziR+o+2nL2hwsKC8NHGhEPHmmgvIr
-	jt6IcQ/b2pR9xwWDauo2cVzDJKUJ5WDaFX5Db9xXaWOfBUQCD1ulg76ScGH4ehsAI1spdachb1C
-	bkTWgAXnXiMQ6hRUcAEPXN/CVt+j5hXD2n2PiuovMDgv0DAcGh/PgyDE7PTbfXpJfTjV4fP8Hrp
-	patxtefIjS0WReJc/MMnSqFYL9mgan5p9Eg4DjBXxSaNQzSC1XaF01wBV1rw9xOuBvoY7B93ouI
-	knFyAaVkh8AnPE3AtiSoLknyK0RuXqLILIiCEcAMWis5h8E2Qtt0+cu30ybKmDDkS2O7AWBnkSB
-	b05n6Q9ZrBqsLQSU99f07PzDDleexalm/4tmfK+/2oNWi0Xfx5SkOv1d+uvEqpxB8lfEF6NYzHp
-	ikJPCRYb/ZTl/6ezt4oejviMbgbCcYXL5+I2b9BM/uOqWX6HAOhkMwRsyEHwEhurMueymHCiCti
-	Dns4Boh7itu4s2WqbdFUioH3hy0TTYNxOq88Wv53AOq39La67HUedPyDGb+YEqNmweBoXJCkW69
-	g+fpYfAtprDBFGASLnhUCzIGBe0NAfcKxALfr8OVLIy6UrIGyUpRIyKg8WiDmwkUrho6jujqz2Z
-	zdvDuMwC04wuVfnS8vSQg/tMXNaJs3uT6
-X-Received: by 2002:a05:600c:a48d:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a204bb59aamr2067385e9.16.1792605886218;
-        Wed, 21 Oct 2026 11:04:46 -0700 (PDT)
+        bh=cDckOYGKiTcCmnZHJzDUIHI22U4mrVjbAtWOGCBnRDk=;
+        b=CtrYySqgn+sGrZhH8qfot2dEftpKaba17dq+YaDQIipAKo0hqZV4XoJkZ3mMN8MXcB
+         HgqHNcTBf/2jU2gs7HMZ3b2I09Qpc9mthKhD5JqPQoXPe7ZB/HRtRDy8mm+JP5G3bmoF
+         Ql7KC0BrxUE9yot9OtoIn/fUv2+knBjWAwvG3CHgYAcQ7Lpp8MqVgEOPbrUtjpLXuoxX
+         JZ6GrT47a/9dQaWeHbCHkDvei3P7TSTnbdPY6Ow/M2OyJd3XB7/ENp4z22zbvwzssJKg
+         pTvYQNYM40DBCk/hPKijIJnvHEE9Q8U4zQm14IDskOLcMF/HFrBMhUY+D/Ihc4OjclJf
+         27mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792605929; x=1793210729;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cDckOYGKiTcCmnZHJzDUIHI22U4mrVjbAtWOGCBnRDk=;
+        b=MiqI2yV6YC3iUxtSXmTktYuMI48KqZK55Pf1TBhiyE75lkyr1sa1NN+bXrLQ9x2v/H
+         PijT91Thy+Dnr35TqoJfZlQDsDGNesoeT9RoT9m+a/c1uZG/9Sa4UU3LhtBmO5/vbr/T
+         YXt0Rjhm7CxBELeULAy4XEuTlWspWMhmBUT4fEmBQMjQWc8eyWLOPaW1FdhjLMFNh4Ic
+         L/bZi8RWcmn9I29onx0aRGk4uZaQu/HDCNDJ19pqS/ZWueFhbMWtXddxNea8dTbsFdHH
+         8Wfqdbo0ln0RY16A1PgGLYLb6C3WyXfaOW+gkilzB7wz/xwspa52YD5c3Y/CYaarK7O+
+         8eAw==
+X-Forwarded-Encrypted: i=1; AKwUvBynVnOreWymzxSS2AqYS1nw02GRGBT9jCr/FpuMhTkFajbCMTBoRXiLzKZ8PDhXl5g3qVkNXuTev90lG3E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIxhMAyYb1y9Fo2EwvTOSVjMDsZTSnyMX9a32cOJDZdje3hEsjV
+	enumpOZ2kn6YJKl6xPyVcxTyj+9HL/o4kZ1wCRU1yvCH/M+BRarlMvjW
+X-Gm-Gg: AYBFou2ZvlbnH33+1UoPHKodPxs5iZ+kRVofEGTGUlZVieoZAWtyYNegFETa2TrKqxM
+	dQe+1+MOLo+W9EU0mZkiAKHx9nUiuN6TkvG0K9ytuvI8r9jgTd+ZYtDUbQ6WJikDq9TlMzx/o6O
+	BVUm3X+6s4hjy5sl/NSGGRa7aN38GNoUWCrATowKtdXv3KNAumsx3TYGXK8DG4qhtmA4yXxbTlp
+	qrV2XX+oNZ6bD+86vJ0nxbaqxBcEsYJyIx3+JqX+F9uHoA9WdhiacdfW3Neu1pNy/dokh9cwID3
+	olkU7HuuOlI5kk3P/smJ1vXLAzw29cEt/Pg7reJ3SuUB9hCBIz1lLKTgxns3A2UGFHZiE+lK1B8
+	tDpDZdoiZNoCIlprKTXzcexUGoTjkc+pWxY8UrZA+RVOupipvXu58aIqGX/dzfa6oPq4NAFZUAU
+	YMKvGILE/FOttvsg+QEih0OTiN/vDeQtiGIz+nu2kzaWrCH8gF6FcuXSttVktEy9dPxBZBli3m2
+	7W6D1Zz/QHiZvcgo9eCtr5KEOJt858PFl7KadpC4mpmLxCrYnwYbTwCCB1llq0KxLsjqz2jYSiz
+	z5kAA/aj3xX37fKCvQHumKS34ow2O6wg5wTqeNDW8r+qLLeEs7vwYhTXiCfk6buVzBIbw8XzBHd
+	1VgHaWTUfYb0P0rPnZhnGazFuidX3HZqI
+X-Received: by 2002:a05:600c:4fd4:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4a1fdd53c8cmr60392565e9.27.1792605928777;
+        Wed, 21 Oct 2026 11:05:28 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c6:e6ea:6401:f04a:ac6f:988e:f33d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd13891sm47007775e9.2.2026.10.21.11.04.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd13891sm47007775e9.2.2026.10.21.11.05.27
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 11:04:45 -0700 (PDT)
+        Wed, 21 Oct 2026 11:05:28 -0700 (PDT)
 From: Nick Simpson <nick.simo@gmail.com>
 To: Magnus Karlsson <magnus.karlsson@intel.com>,
 	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
@@ -112,10 +113,12 @@ Cc: Stanislav Fomichev <sdf@fomichev.me>,
 	netfilter-devel@vger.kernel.org,
 	coreteam@netfilter.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net 0/3] xsk, ipv6: validate user-supplied checksum offsets
-Date: Wed, 21 Oct 2026 19:03:26 +0100
-Message-ID: <20261021180329.26358-1-nick.simo@gmail.com>
+Subject: [PATCH net 1/3] xsk: validate checksum offload requests in copy mode
+Date: Wed, 21 Oct 2026 19:03:27 +0100
+Message-ID: <20261021180329.26358-2-nick.simo@gmail.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261021180329.26358-1-nick.simo@gmail.com>
+References: <20261021180329.26358-1-nick.simo@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,102 +130,175 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In copy mode, AF_XDP turns the csum_start/csum_offset of
-XDP_TXMD_FLAGS_CHECKSUM into a CHECKSUM_PARTIAL skb after checking only
-that the checksum fits in the frame. Sent over a veth into a namespace
-that forwards IPv6 with nf_defrag_ipv6, the checksum is then completed
-after the forward hook has accepted the packet, at an offset in the IPv6
-header chosen by the sender; with csum_start before the network header,
-skb_checksum_help() warns. Patch 1 has the details and the trace.
+In copy mode, XDP_TXMD_FLAGS_CHECKSUM turns the csum_start and
+csum_offset from the TX metadata into a CHECKSUM_PARTIAL skb.
+xsk_skb_metadata() only checks that the checksum fits in the frame, so
+csum_start can point into the Ethernet or IP header.
 
-This is the AF_XDP counterpart of the virtio_net_hdr issue fixed for
-IPv4 by commit 6785011f8b16 ("ipv4: validate checksum_start before
-completing checksum") and addressed by the "more virtio-net csum
-hardening" series [1], which does not cover AF_XDP.
+On a veth, the skb reaches the peer namespace still CHECKSUM_PARTIAL.
+When that namespace forwards IPv6 with nf_defrag_ipv6 loaded,
+nf_ct_frag6_reasm() moves the IPv6 header forward by the 8 bytes of the
+fragment header without adjusting csum_start, the forward hook accepts
+the reassembled packet, and ip6_fragment() then completes the checksum
+with skb_checksum_help(), writing two bytes into the accepted header.
+With csum_start = 22 and csum_offset = 22 on a fragmented IPv6/UDP
+datagram from fd00:1::100, the write lands on source address bytes
+14-15: an nftables forward rule matching "ip6 saddr fd00:1::100"
+accepted the packet and the fragments sent out carried saddr
+fd00:1::e87. For an unfragmented packet the same write happens at
+egress when the output device does not offload the checksum; with
+csum_start = 14 and csum_offset = 22 the packet left as fd00:1::ebf. A
+csum_start that ends up before the network header (14 to 21 on the
+fragmented path) makes skb_checksum_help() warn instead:
 
-Patch 1 is the fix: CHECKSUM_PARTIAL is kept only for the TCP or UDP
-checksum of an unfragmented IPv4/IPv6 packet, not IP-in-IP or GRE
-encapsulated, on an Ethernet device; other requests are completed in
-software at the sender. Frames without a linear part
-(IFF_TX_SKB_NO_LINEAR) are left unchanged. One visible change: a request
-on a frame that is itself an IP fragment is completed over that fragment
-alone, as a device would, so the reassembled datagram no longer has a
-valid transport checksum and conntrack marks it invalid; before, if
-every fragment carried a request, it stayed CHECKSUM_PARTIAL and was
-completed on refragmentation.
+  offset (-2) >= skb_headlen() (640)
+  WARNING: net/core/dev.c:3647 at skb_checksum_help+0x4c8/0x850
+  Call trace:
+   skb_checksum_help
+   ip6_fragment
+   ip6_finish_output
+   ip6_output
+   ip6_forward
+   ipv6_rcv
+   ...
+   __dev_direct_xmit
+   __xsk_generic_xmit
+   xsk_sendmsg
 
-Patch 2 documents the new behaviour in xsk-tx-metadata.rst. It is kept
-separate so that patch 1 stays within the stable size limit.
+socket(AF_XDP) only requires CAP_NET_RAW in the user namespace that owns
+the network namespace, so the sender can be a container that owns one
+end of the veth. With panic_on_warn, the warning panics the forwarding
+host.
 
-Patch 3 is defence in depth: the IPv6 counterpart of
-ip_check_csum_start() on the two IPv6 fragmentation paths,
-ip6_fragment() and br_ip6_fragment(). For IPv4 the check is also
-called from nfnetlink_queue, xt_CHECKSUM and xfrm_output; their IPv6
-counterparts are not changed here, and a check at reassembly time would
-cover more. Patch 1 does not depend on it, and it is not marked for
-stable.
+The interface is documented for L4 checksums. Leave CHECKSUM_PARTIAL in
+place only when the request designates the TCP or UDP checksum field of
+an unfragmented IPv4 or IPv6 packet, not IP-in-IP or GRE encapsulated,
+on an Ethernet device, and complete any other request in software, as
+XDP_UMEM_TX_SW_CSUM would, before the frame is handed to the device.
+The frame is dissected from its Ethernet type, as skb->protocol is not
+set for xsk skbs. The pending "net: resolve uncommon partial checksums
+at ingress" applies the same rule to virtio_net_hdr sources.
 
-Testing, on netdev/net 82e31923c055, arm64 under QEMU:
-- reproducer (fragmented IPv6/UDP over veth into a namespace with an
-  nftables forward rule on "ip6 saddr", csum_start/csum_offset 22/22;
-  an unfragmented packet with 14/22 and TX checksum offload off on the
-  egress veth; csum_start 20): without the series the source address is
-  rewritten after the forward hook accepted the packet, and
-  skb_checksum_help() warns. With the series, or with patch 1 alone,
-  nothing is rewritten after the accept and there is no warning; with
-  patch 3 alone the fragmented cases are not sent on (ip6_fragment()
-  drops them) and the unfragmented case is not covered
-- a legitimate IPv6/UDP request (csum_start at the UDP header, offset 6)
-  is still sent CHECKSUM_PARTIAL and delivered to a UDP socket
-- which requests stay CHECKSUM_PARTIAL, observed on the veth peer with
-  PACKET_AUXDATA: IPv4/UDP, IPv4/TCP, IPv4 with options, IPv6/UDP, IPv6
-  with a hop-by-hop header and VLAN-tagged IPv6/UDP stay partial; a
-  wrong csum_offset, csum_start in the IP header, IPv4 and IPv6 first
-  fragments, IPIP and ICMP are completed in software with the correct
-  value. Without the series all of them stay partial.
-- tools/testing/selftests/bpf: test_progs -t xdp_metadata passes with
-  and without the series
-- on a kernel with KASAN, PROVE_LOCKING, PROVE_RCU,
-  DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT, DEBUG_PAGEALLOC and
-  DEBUG_OBJECTS_RCU_HEAD, no warnings: with the series, the
-  reproducer, the classification test and the selftest; without it,
-  the selftest and the legitimate request
-- W=1 and sparse (C=1) on the changed files in allmodconfig builds for
-  arm64, x86_64, i386 and s390: no warnings, with or without the
-  series; checkstack unchanged; arm64 allnoconfig and an INET=n build
-  with XDP_SOCKETS=y build; checkpatch --strict is clean; htmldocs for
-  networking builds without warnings for xsk-tx-metadata.rst
-- arm64 allmodconfig and allyesconfig with W=1 build, with no warning
-  in the changed files (CONFIG_WERROR and the DRM *_WERROR options
-  were turned off: with gcc 15, existing W=1 warnings in unrelated
-  files otherwise stop the build)
-Not tested: IFF_TX_SKB_NO_LINEAR (virtio_net) devices, multi-buffer
-frames, an attached BPF flow dissector, a sender in an unprivileged
-user namespace, x86 at runtime, and patch 3 with tun/tap or packet
-socket sources of CHECKSUM_PARTIAL (the same header rewrite through a
-tap device was reproduced on mainline earlier, but not re-run with
-patch 3).
+A request on a frame that is itself an IP fragment is therefore
+completed over that fragment alone, which is also all a device could
+compute, so the reassembled datagram does not carry a valid transport
+checksum. Before, if every fragment carried such a request, the
+reassembled datagram stayed CHECKSUM_PARTIAL and was completed on
+refragmentation; now conntrack marks it invalid.
 
-The issue was found, and the patches and tests prepared, with LLM
-assistance (see the Assisted-by tags). I have reviewed the changes and
-the test results. A reproducer is available on request.
+Skbs without a linear part (IFF_TX_SKB_NO_LINEAR, i.e. virtio_net) are
+left unchanged: their data stays in the umem, where user space can
+still modify it after any check, and they go to the device rather than
+to the local stack.
 
-[1] https://lore.kernel.org/r/cover.1792411304.git.mst@redhat.com
+The problem was found with LLM-assisted code review.
 
-Nick Simpson (3):
-  xsk: validate checksum offload requests in copy mode
-  xsk: document checksum offload handling in copy mode
-  ipv6: validate checksum_start before fragmenting
+Fixes: 48eb03dd2630 ("xsk: Add TX timestamp and TX checksum offload support")
+Link: https://lore.kernel.org/r/9c08d12b3a7819ae03ded6a154e4f908276e93d4.1792411304.git.mst@redhat.com
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Nick Simpson <nick.simo@gmail.com>
+---
+ net/xdp/xsk.c | 58 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
- Documentation/networking/xsk-tx-metadata.rst |  7 ++-
- include/net/ipv6.h                           | 12 ++++
- net/ipv6/ip6_output.c                        | 10 +++-
- net/ipv6/netfilter.c                         | 10 +++-
- net/xdp/xsk.c                                | 58 ++++++++++++++++++++
- 5 files changed, 90 insertions(+), 7 deletions(-)
-
-
-base-commit: 82e31923c0553fdbfcddcd910ca07952880ca9b9
+diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+index 781ba46eb152..a1cf701d42fc 100644
+--- a/net/xdp/xsk.c
++++ b/net/xdp/xsk.c
+@@ -11,6 +11,8 @@
+ 
+ #define pr_fmt(fmt) "AF_XDP: %s: " fmt, __func__
+ 
++#include <linux/if_arp.h>
++#include <linux/if_ether.h>
+ #include <linux/if_xdp.h>
+ #include <linux/init.h>
+ #include <linux/sched/mm.h>
+@@ -21,6 +23,8 @@
+ #include <linux/uaccess.h>
+ #include <linux/net.h>
+ #include <linux/netdevice.h>
++#include <linux/tcp.h>
++#include <linux/udp.h>
+ #include <linux/rculist.h>
+ #include <linux/uio.h>
+ #include <linux/vmalloc.h>
+@@ -28,6 +32,7 @@
+ #include <net/netdev_queues.h>
+ #include <net/xdp_sock_drv.h>
+ #include <net/busy_poll.h>
++#include <net/flow_dissector.h>
+ #include <net/netdev_lock.h>
+ #include <net/netdev_rx_queue.h>
+ #include <net/xdp.h>
+@@ -985,6 +990,54 @@ static void xsk_drop_skb(struct sk_buff *skb)
+ 	xs->skb = NULL;
+ }
+ 
++/* Only TCP and UDP checksums of unfragmented IP packets that are not
++ * IP-in-IP or GRE encapsulated are left to the device. A CHECKSUM_PARTIAL
++ * skb can reach the local stack (e.g. through veth), and completing an
++ * arbitrary csum_start there may write into headers that were already
++ * inspected, e.g. after IPv6 reassembly. skb->protocol is not set for
++ * xsk skbs, so the frame is dissected from its Ethernet type instead.
++ */
++static bool xsk_csum_partial_ok(const struct sk_buff *skb)
++{
++	const struct ethhdr *eth = (const struct ethhdr *)skb->data;
++	struct flow_keys_basic keys;
++
++	if (skb->dev->type != ARPHRD_ETHER || skb_headlen(skb) < ETH_HLEN)
++		return false;
++
++	if (!skb_flow_dissect_flow_keys_basic(dev_net(skb->dev), NULL, &keys,
++					      skb->data, eth->h_proto, ETH_HLEN,
++					      skb_headlen(skb),
++					      FLOW_DISSECTOR_F_STOP_AT_ENCAP))
++		return false;
++
++	if ((keys.control.flags & FLOW_DIS_IS_FRAGMENT) ||
++	    skb_checksum_start_offset(skb) != keys.control.thoff)
++		return false;
++
++	switch (keys.basic.ip_proto) {
++	case IPPROTO_TCP:
++		return skb->csum_offset == offsetof(struct tcphdr, check);
++	case IPPROTO_UDP:
++		return skb->csum_offset == offsetof(struct udphdr, check);
++	default:
++		return false;
++	}
++}
++
++static int xsk_skb_resolve_csum(struct sk_buff *skb)
++{
++	/* Without a linear part (IFF_TX_SKB_NO_LINEAR), the frame stays in
++	 * the umem, where user space can still change it, and goes to the
++	 * device rather than the local stack: leave it as it is.
++	 */
++	if (skb->ip_summed != CHECKSUM_PARTIAL || !skb_headlen(skb) ||
++	    xsk_csum_partial_ok(skb))
++		return 0;
++
++	return skb_checksum_help(skb);
++}
++
+ static int xsk_skb_metadata(struct sk_buff *skb, void *buffer,
+ 			    struct xdp_desc *desc, struct xsk_buff_pool *pool,
+ 			    u32 hr)
+@@ -1277,6 +1330,11 @@ static int __xsk_generic_xmit(struct sock *sk)
+ 			continue;
+ 		}
+ 
++		if (unlikely(xsk_skb_resolve_csum(skb))) {
++			xsk_drop_skb(skb);
++			continue;
++		}
++
+ 		err = __dev_direct_xmit(skb, xs->queue_id);
+ 		if  (err == NETDEV_TX_BUSY) {
+ 			/* Tell user-space to retry the send */
 -- 
 2.53.0
 
