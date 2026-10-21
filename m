@@ -1,96 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595299;
-	b=2BqaHcc3qPFOhPGlUgm0PDrLMZunKD2YHptdPL+sBJ+j/ZDLYDNGMY+cPQhf9GOE0Mt6
-	 cuCF6ZIq+L0xQJ2orCU8VFXVwq19GbJ20+MReEZSTnqYYFFSSfUjJzSQNx0ey9kq5mqvT
-	 QlqS3te6vpjZysMbX8tM/NoTCMbaxEuskqakN+Gn1Zjf/6crubOO9o56CBJqZnqQtxVqt
-	 KtkDnoRenk7qjTg2MfSGz1YjIEZKe98MO0OwDPnjmQ6glf6yNA80vHNtno2894lHy2kZi
-	 hA0o2fRv0c38nzKTXL2BQC0AtuV+MQO5uQ6AAVd6qT4AArh4PFeauMgVmokQqlFMI6g==
+	t=1792595301;
+	b=d0m2BVm2yX8c91r99vilntQoT1c1R5bQ85TdSlpKYPkrRhdflHRzRpTVAwOSvdhawJqH
+	 CXnmP+a9YScaCHzBfnYv9Ve3BHk+p1nrZBcbiwdyGE40/c2OL3+2rTRVdzb3NmdgJGv0M
+	 SEJKeMtAjG2RcR1+5PbfK0RtlXZoHxIdZwgnUNFmvcWbZQP9qJR1yD9VdCMxBX9Pw48se
+	 E3wZP01B/l2aIUXwNGJGImpP+hdxf/FebmnS194VXnlNa1VHs1rKPkooSSu07RZp9Y/jB
+	 h3Xcn88fbuUdrsaG7PfaugFw830qJhCp70WyRcsMzcTZtWwgOTiP1NkMhatUe4Nll5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595299;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
-	b=d6NRvHm7dspSsUDGJpoHyzeWa/lsH3/sRjeFvdhcZEj4O75FLS38QaphlGCOFBjrx93n
-	 uX1sTHgsR55LZP6Ugp3yUa36z6oiouyOVSRH54eTe3umVrjqxn3ld/YpmH4ziUjuA3RS3
-	 67MjOL0TlHIuP3gAU842RcY6txa86+1ltNHkq9P7NBGbsI0b35DQUSE++//s8hc5bQgXp
-	 GvosGv05yLoL5PQqJ7Fx9SkLFSxL5Ri/3GPx/V7lcIXmmlNsAWNIhMjvhGP1iO/NqrEg5
-	 C5Zvs4INN70P6Tqt6IpWLfg1dxxc3doy4zlQkqI8GsgLXSo1icjhr803zLsSBOvX5Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595301;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP;
+	bh=46SSFjO9++Th4oDkhERxc+DpVEEjVqxW9M18rMqhX+U=;
+	b=TijHP69Ee8T7nrRFltQVLo4FpWCU1SryvrHa/0bPaNy0U0iq0iZ3L3NRohYjeFyyS+ka
+	 51e4hRVTl28RyfaLhCOJd+5tKt2/kAXeTS9AIJj2YRYlbJFSwgN8UgSRXQD3kKXiSNP0Z
+	 DsFASTYJmM3o0tGzXLgxAX63E0jy2L3BzEGoUn0gPRMeQUK1u9o9ynvxBu5Xi06D03lrL
+	 CXOTqOmxczmyOdz7BF1qrCuiReRKh2mwG3gza6WEPEFoFaHplHLgIA/MpTefpkNrw7Hps
+	 nqbdc3oLC4bNNaxd+rNKoI61AU5ua835pkOqf/41YNCzjrGmqaL7LIQsAN2wbpHD8fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VJpeNPVz;
-	arc=none smtp.remote-ip=209.85.167.173
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=posteo.de;
+	spf=pass smtp.mailfrom=posteo.de;
+	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=jUq60387;
+	arc=none smtp.remote-ip=185.67.36.66
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCBE60A3825
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDCBE60A3825
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 743D960A383A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 743D960A383A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VJpeNPVz
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-53c156ba662so417991b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:08:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792595298; x=1793200098; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
-        b=VJpeNPVzzW2m9IiLhWBOP6SQVFen0qc3AlMOAVzSp2Y+DLTEnxZzmTyRkWda+g5U4A
-         mp4KnQyGKOPH9pwQCWFtDjIVB3KbAQ58lrLDu/ilmQ3nKK/GWj5LF5himQIbPb9ZB627
-         v2KncJj/J6NMNZY+tZ4WPIwnPkR4wJyM470iQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595298; x=1793200098;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
-        b=Wz+txT/qphhdOeGLaO9tLnKRr/UFkRmSMfgkObklbEhDiCn2O6XhLSBkmQoRddtZeR
-         pfOyRT2kfhoocC369iLGihErdhblSnueW62hNlmzNDX7pmV4jWXQlBiumw4shybV4Jwd
-         IhzSht26V2BVc49N+JI+/wnmUHyNvg7fBuY64WhGxrvBCDnpYTao74l+v4ssczcsNUMN
-         8uAEwvsq/fS4V5Y/+R7rrlwePxChCRuy4o5H8H9CKqYqz5MdNyyAr209gD3MuRol64Zs
-         zYDKguvjyR9UG0QWv8qr6FjPEW3i/asYom2yYxjhKdOW83zg3Rn7/+Dk4686iZk/2lyT
-         urQw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuuXEsjpKYU1C3xrVBcqvQcSU9NpOrmBl6t/PPqBQf3v37dJ6fnWP+K3wYhv6JUq7MfEGSDsG8ITk/XkY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLK1x7yoBRcmihzfA8zGlQy582bGg9CQ9yNNiBvPChduc8IBG/b
-	olYQ8KdUlh2XZ9mteRebDfz7GvWoocJ8bD3y+yAEjd38DAKdKVJbD9zFryNPCeekoA==
-X-Gm-Gg: AYBFou2SxwikqNsvjDQHF/WQjclkLnQrnnZcakXlB+fNJ3fSe+2ysYh35MI4MAKFrFc
-	SWmj3ZB1Di/vc9pOoiKajj9i2iKTxcywnxQiUH40UYl/3HDLe00QBU/yYIfKOMtVSD8J0l0tngZ
-	SLrq9eCKeqxwvtlf7U0Vzq8NBT9LMHc3ca39JIcCR8FJhim/IsY/+vD8o4+kHSu/kY9R2lrLP+e
-	9zEpSV1mpZDJRnw00GrNxjOE9RqcBU4pIKrAhEHY/ykeJ/YnJxLpFipLdFy76Xf+UeBuqLHzaIu
-	aCNoyxAwkii7Fpm3l2otHy23XbfLJ6KefIL5qfcPLDdMj16CZ3PGagIRwqctOqQfkm7GlVhcbFb
-	iwJkUwE6CahOoVgsqLcF/EjwEsHURC6r42tje8xbDJzha7ATf24sgMz4GAT774VT1Xs8pUvTFSZ
-	I+dHGL7p5plT21iWPEP6ZCDpvSW2tO/bEvlKUotoywD8OBbhpqzOnFbgIWzyD/uNWhFAK74XEAC
-	zTrbYBaWPNHVJDosod0DxtIMa/Lsh8cgW5oGbQAb+qmRfTI3p9LVW0Ow73vQIKXcgw6hH17mCft
-	zQ4MdipzBz2yZFuIklfgj7HNjTnenZ73G9WYZUt/ZNFh
-X-Received: by 2002:a05:6808:10cf:b0:53c:8f0e:ee21 with SMTP id 5614622812f47-5535876bca3mr1511006b6e.10.1792595297620;
-        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
-Received: from rrangel.c.googlers.com.com (202.168.136.34.bc.googleusercontent.com. [34.136.168.202])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
-From: Raul E Rangel <rrangel@chromium.org>
-To: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Hongren Zheng <i@zenithal.me>,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Raul E Rangel <rrangel@chromium.org>,
-	stable@vger.kernel.org,
-	"Brian G. Merrell" <bgmerrell@novell.com>
-Subject: [PATCH 6/6] usbip: vhci_hcd: reject URBs from stale usb_device after port re-attach
-Date: Wed, 21 Oct 2026 09:07:01 -0600
-Message-ID: <20261021150704.3129446-7-rrangel@chromium.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-In-Reply-To: <20261021150704.3129446-1-rrangel@chromium.org>
-References: <20261021150704.3129446-1-rrangel@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=jUq60387
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 70DD2240104
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:08:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1792595298;
+	bh=46SSFjO9++Th4oDkhERxc+DpVEEjVqxW9M18rMqhX+U=;
+	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
+	 MIME-Version:OpenPGP:From;
+	b=jUq603871CtCWPPmBhCMG63PMYwAl8XnnCXZ9XephxkYG4QG6jdd6ILV9EbftVwGO
+	 D08Tn6BNH9ZFMsfuaREQdSmIFv2Pin7z7NyfhQ/9tvVm88welHSlpEo7caAaXRNKRc
+	 KQ15S6Ad/nT3rFehWIvnQbtfHgtmuOEDuwPZT/YnDsQ62TowsIeIvgPrlCfRsZZqDX
+	 hnao7FXPsl6W/OutTsIvukSmx3gHLyVynAd6Q/KBA1klpiYrj5mfAqykPj1cMYFuuJ
+	 zMy1pLtax1NIm9e64mVbNqUyzhXQpXFyqAhlCyQR0mvWUOzK4hd86WgRZ9vC8tNLdg
+	 nKqsfWkBd1gEw==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4j8t2S4j3Yz9rxL;
+	Wed, 21 Oct 2026 17:08:16 +0200 (CEST)
+Message-ID: <59137675cf11f7b034220c3b71c5ababab48f8d0.camel@posteo.de>
+Subject: Re: [PATCH v2 1/3] serdev: handle devices without an ACPI or device
+ tree node
+From: Markus Probst <markus.probst@posteo.de>
+To: Hans de Goede <hansg@kernel.org>, ChunAn Wu <an.wu@canonical.com>, 
+	linux-serial@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org, 
+	jirislaby@kernel.org, ilpo.jarvinen@linux.intel.com,
+ mpearson-lenovo@squebb.ca, 	derekjohn.clark@gmail.com
+Date: Wed, 21 Oct 2026 15:08:17 +0000
+In-Reply-To: <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
+References: <20261021092124.2306053-1-an.wu@canonical.com>
+	 <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+ keydata=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
+ jfGillcaQOqFZ3WwVqyzG1BUfTow==
+Content-Type: multipart/signed; micalg="pgp-sha256";
+	protocol="application/pgp-signature"; boundary="=-JnwgaKYa7ffI2Wuf5sIs"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,176 +118,272 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-After vhci_shutdown_connection() runs, event_handler() immediately
-calls vhci_device_reset(), setting vdev->ud.status to VDEV_ST_NULL and
-clearing vdev->udev before usb_hub_wq finishes running usb_disconnect()
-on the detached usb_device.
 
-If attach_store() attaches a new connection to the same rhport before
-usb_hub_wq disconnects the old usb_device, vdev->ud.tcp_socket becomes
-non-NULL and vdev->ud.status becomes VDEV_ST_NOTASSIGNED. Because
-vhci_urb_enqueue() maps urb->dev->portnum to vdev without verifying that
-urb->dev matches vdev->udev, URBs submitted on the old usb_device pass
-the connection state checks and get sent to the new remote device (or,
-if a concurrent USBDEVFS_RESET resets the old usb_device to address 0,
-overwrite vdev->udev).
+--=-JnwgaKYa7ffI2Wuf5sIs
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Serialize vdev->udev clearing in vhci_device_reset() under vhci->lock
-and ud->lock (dropping old usb_device and socket references outside the
-spinlocks in both vhci_device_reset() and vhci_urb_enqueue()), and
-reject URBs in vhci_urb_enqueue() when urb->dev != vdev->udev and either
-usb_pipedevice(urb->pipe) != 0 or urb->dev is already registered
-(device_is_registered(&urb->dev->dev)). During initial enumeration and
-PORT_INIT_TRIES retries in hub_port_connect(), each candidate usb_device
-is unregistered until usb_new_device() runs after hub_port_init() has
-assigned vdev->udev, whereas an already-registered usb_device resetting
-via usb_reset_device() is only valid when urb->dev == vdev->udev.
+On Wed, 2026-10-21 at 16:32 +0200, Hans de Goede wrote:
+> Hi,
+>=20
+> On 21-Oct-26 11:21, ChunAn Wu wrote:
+> > Driver-created serdev clients may lack an ACPI companion or device tree
+> > node.
+> >=20
+> > Add a creator-supplied name for these clients. Use it as a serial
+> > modalias fallback and to match a serdev driver of the same name. Keep
+> > returning -ENODEV for unnamed clients.
+> >=20
+> > Signed-off-by: ChunAn Wu <an.wu@canonical.com>
+>=20
+> For v3 of this series please include a cover-letter and explain
+> why this series is an improvement over the` existing situation.
+>=20
+> The dell-uart-backlight and lenovo-yoga-tab2-pro-1380-fastcharger
+> drivers are both pretty special cases and here you are adding
+> a chunk of code to the serdev-core for those special cases,
+> so I wonder: why?
+>=20
+> The current manual attach approach taking in these 2 special
+> drivers works fine.
+>=20
+> What does this new approach gain us ?
 
-Fixes: 04679b3489e0 ("Staging: USB/IP: add client driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Gemini
-Signed-off-by: Raul E Rangel <rrangel@chromium.org>
----
+That was my review comment [1] that resulted in this.
 
- drivers/usb/usbip/vhci_hcd.c | 44 +++++++++++++++++++++++++-----------
- 1 file changed, 31 insertions(+), 13 deletions(-)
+=46rom what I can tell from revision 1, ChunAn Wu is trying to fix that
+accessing uevent and modalias of the device (via sysfs) results in a -
+ENODEV error.
 
-diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
-index 27dba51392b7..e8ff63c2276f 100644
---- a/drivers/usb/usbip/vhci_hcd.c
-+++ b/drivers/usb/usbip/vhci_hcd.c
-@@ -693,6 +693,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 	struct vhci_hcd *vhci_hcd = hcd_to_vhci_hcd(hcd);
- 	struct vhci *vhci = vhci_hcd->vhci;
- 	struct device *dev = &urb->dev->dev;
-+	struct usb_device *old = NULL;
- 	u8 portnum = urb->dev->portnum;
- 	int ret = 0;
- 	struct vhci_device *vdev;
-@@ -737,6 +738,17 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		kfree(priv);
- 		return -ENODEV;
- 	}
-+	if ((usb_pipedevice(urb->pipe) != 0 ||
-+	     device_is_registered(&urb->dev->dev)) &&
-+	    urb->dev != vdev->udev) {
-+		dev_err_ratelimited(dev,
-+				    "enqueue from stale usb_device on port %d\n",
-+				    vdev->rhport);
-+		spin_unlock(&vdev->ud.lock);
-+		spin_unlock_irqrestore(&vhci->lock, flags);
-+		kfree(priv);
-+		return -ENODEV;
-+	}
- 	spin_unlock(&vdev->ud.lock);
- 
- 	ret = usb_hcd_link_urb_to_ep(hcd, urb);
-@@ -753,7 +765,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 	 *
- 	 */
- 	if (usb_pipedevice(urb->pipe) == 0) {
--		struct usb_device *old;
- 		__u8 type = usb_pipetype(urb->pipe);
- 		struct usb_ctrlrequest *ctrlreq =
- 			(struct usb_ctrlrequest *) urb->setup_packet;
-@@ -764,13 +775,13 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 			goto no_need_xmit;
- 		}
- 
--		old = vdev->udev;
- 		switch (ctrlreq->bRequest) {
- 		case USB_REQ_SET_ADDRESS:
- 			/* set_address may come when a device is reset */
- 			dev_info(dev, "SetAddress Request (%d) to port %d\n",
- 				 ctrlreq->wValue, vdev->rhport);
- 
-+			old = vdev->udev;
- 			vdev->udev = usb_get_dev(urb->dev);
- 			/*
- 			 * NOTE: A similar operation has been done via
-@@ -783,7 +794,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 			 * should be dropped.
- 			 */
- 			dev_pm_syscore_device(&vdev->udev->dev, true);
--			usb_put_dev(old);
- 
- 			spin_lock(&vdev->ud.lock);
- 			vdev->ud.status = VDEV_ST_USED;
-@@ -802,6 +812,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 				usbip_dbg_vhci_hc(
- 					"Not yet?:Get_Descriptor to device 0 (get max pipe size)\n");
- 
-+			old = vdev->udev;
- 			vdev->udev = usb_get_dev(urb->dev);
- 			/*
- 			 * Set syscore PM flag for the virtually attached
-@@ -814,7 +825,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 			 * on disconnect.
- 			 */
- 			dev_pm_syscore_device(&vdev->udev->dev, true);
--			usb_put_dev(old);
- 			goto out;
- 
- 		default:
-@@ -832,6 +842,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- out:
- 	vhci_tx_urb(urb, vdev, priv);
- 	spin_unlock_irqrestore(&vhci->lock, flags);
-+	usb_put_dev(old);
- 
- 	return 0;
- 
-@@ -848,6 +859,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		spin_lock(&vhci->lock);
- 	}
- 	spin_unlock_irqrestore(&vhci->lock, flags);
-+	usb_put_dev(old);
- 	return ret;
- }
- 
-@@ -1156,25 +1168,31 @@ static void vhci_shutdown_connection(struct usbip_device *ud)
- static void vhci_device_reset(struct usbip_device *ud)
- {
- 	struct vhci_device *vdev = container_of(ud, struct vhci_device, ud);
--	struct usb_device *old = vdev->udev;
-+	struct vhci *vhci = vdev_to_vhci_hcd(vdev)->vhci;
-+	struct usb_device *old;
-+	struct socket *socket;
- 	unsigned long flags;
- 
--	spin_lock_irqsave(&ud->lock, flags);
-+	spin_lock_irqsave(&vhci->lock, flags);
-+	spin_lock(&ud->lock);
- 
- 	vdev->speed  = 0;
- 	vdev->devid  = 0;
- 
-+	old = vdev->udev;
- 	vdev->udev = NULL;
--	usb_put_dev(old);
- 
--	if (ud->tcp_socket) {
--		sockfd_put(ud->tcp_socket);
--		ud->tcp_socket = NULL;
--		ud->sockfd = -1;
--	}
-+	socket = ud->tcp_socket;
-+	ud->tcp_socket = NULL;
-+	ud->sockfd = -1;
- 	ud->status = VDEV_ST_NULL;
- 
--	spin_unlock_irqrestore(&ud->lock, flags);
-+	spin_unlock(&ud->lock);
-+	spin_unlock_irqrestore(&vhci->lock, flags);
-+
-+	usb_put_dev(old);
-+	if (socket)
-+		sockfd_put(socket);
- }
- 
- static void vhci_device_unusable(struct usbip_device *ud)
--- 
-2.56.0.212.g129ede20d9-goog
+As mentioned in my review:
 
+- "/* TODO: platform modalias */"
+- "/* TODO: platform matching */"
+still exist in the serdev codebase (drivers/tty/serdev/core.c) and are
+unresolved. Resolving those also fixes the issue mentioned above.
+Therefore I think this would be a better approach.
+
+A cover letter is ofc still needed.
+
+>=20
+> Also if you are going to do this may I suggest looking at doing
+> some sort of of-compatible matching based on a compatible string
+> inside a swnode ? I do not know what that would look like but
+> that is something which seems like it might be generally useful
+> also outside these 2 special cases.
+
+I haven't used them before, but I don't think of-compatible string
+matching inside a swnode is done anywhere in the kernel (At least I
+haven't found a case).
+
+They can be added supplementary if needed.
+
+Thanks
+- Markus Probst
+
+[1]
+https://lore.kernel.org/linux-serial/8e4ca13d3e8acd5d649bd4c7357e5da0785ba6=
+b3.camel@posteo.de/
+
+>=20
+> Regards,
+>=20
+> Hans
+>=20
+>=20
+>=20
+> > ---
+> >  drivers/tty/serdev/core.c | 36 ++++++++++++++++++++++++++++++------
+> >  include/linux/serdev.h    | 31 +++++++++++++++++++++++++++++++
+> >  2 files changed, 61 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
+> > index 7500efcdfc21..8354a4688fd8 100644
+> > --- a/drivers/tty/serdev/core.c
+> > +++ b/drivers/tty/serdev/core.c
+> > @@ -29,13 +29,21 @@ static DEFINE_IDA(ctrl_ida);
+> >  static ssize_t modalias_show(struct device *dev,
+> >  			     struct device_attribute *attr, char *buf)
+> >  {
+> > +	const struct serdev_device *serdev =3D to_serdev_device(dev);
+> >  	int len;
+> > =20
+> >  	len =3D acpi_device_modalias(dev, buf, PAGE_SIZE - 1);
+> >  	if (len !=3D -ENODEV)
+> >  		return len;
+> > =20
+> > -	return of_device_modalias(dev, buf, PAGE_SIZE);
+> > +	len =3D of_device_modalias(dev, buf, PAGE_SIZE);
+> > +	if (len !=3D -ENODEV)
+> > +		return len;
+> > +
+> > +	if (!serdev->name[0])
+> > +		return -ENODEV;
+> > +
+> > +	return sysfs_emit(buf, "%s%s\n", SERDEV_MODULE_PREFIX, serdev->name);
+> >  }
+> >  static DEVICE_ATTR_RO(modalias);
+> > =20
+> > @@ -47,15 +55,22 @@ ATTRIBUTE_GROUPS(serdev_device);
+> > =20
+> >  static int serdev_device_uevent(const struct device *dev, struct kobj_=
+uevent_env *env)
+> >  {
+> > +	const struct serdev_device *serdev =3D to_serdev_device(dev);
+> >  	int rc;
+> > =20
+> > -	/* TODO: platform modalias */
+> > -
+> >  	rc =3D acpi_device_uevent_modalias(dev, env);
+> >  	if (rc !=3D -ENODEV)
+> >  		return rc;
+> > =20
+> > -	return of_device_uevent_modalias(dev, env);
+> > +	rc =3D of_device_uevent_modalias(dev, env);
+> > +	if (rc !=3D -ENODEV)
+> > +		return rc;
+> > +
+> > +	if (!serdev->name[0])
+> > +		return -ENODEV;
+> > +
+> > +	add_uevent_var(env, "MODALIAS=3D%s%s", SERDEV_MODULE_PREFIX, serdev->=
+name);
+> > +	return 0;
+> >  }
+> > =20
+> >  static void serdev_device_release(struct device *dev)
+> > @@ -88,14 +103,23 @@ static const struct device_type serdev_ctrl_type =
+=3D {
+> > =20
+> >  static int serdev_device_match(struct device *dev, const struct device=
+_driver *drv)
+> >  {
+> > +	const struct serdev_device *serdev;
+> > +
+> >  	if (!is_serdev_device(dev))
+> >  		return 0;
+> > =20
+> > -	/* TODO: platform matching */
+> >  	if (acpi_driver_match_device(dev, drv))
+> >  		return 1;
+> > =20
+> > -	return of_driver_match_device(dev, drv);
+> > +	if (of_driver_match_device(dev, drv))
+> > +		return 1;
+> > +
+> > +	/* Fall back to the name set by the creator of the device */
+> > +	serdev =3D to_serdev_device(dev);
+> > +	if (!serdev->name[0])
+> > +		return 0;
+> > +
+> > +	return strcmp(serdev->name, drv->name) =3D=3D 0;
+> >  }
+> > =20
+> >  /**
+> > diff --git a/include/linux/serdev.h b/include/linux/serdev.h
+> > index b6c3d957ec15..26baa0321eef 100644
+> > --- a/include/linux/serdev.h
+> > +++ b/include/linux/serdev.h
+> > @@ -8,6 +8,7 @@
+> >  #include <linux/types.h>
+> >  #include <linux/device.h>
+> >  #include <linux/iopoll.h>
+> > +#include <linux/string.h>
+> >  #include <linux/uaccess.h>
+> >  #include <linux/termios.h>
+> >  #include <linux/delay.h>
+> > @@ -19,6 +20,10 @@ struct serdev_device;
+> >   * serdev device structures
+> >   */
+> > =20
+> > +/* Large enough to hold the KBUILD_MODNAME of any serdev client driver=
+ */
+> > +#define SERDEV_NAME_SIZE	40
+> > +#define SERDEV_MODULE_PREFIX	"serial:"
+> > +
+> >  /**
+> >   * struct serdev_device_ops - Callback operations for a serdev device
+> >   * @receive_buf:	Function called with data received from device;
+> > @@ -35,6 +40,9 @@ struct serdev_device_ops {
+> >   * struct serdev_device - Basic representation of an serdev device
+> >   * @dev:	Driver model representation of the device.
+> >   * @nr:		Device number on serdev bus.
+> > + * @name:	Name of the device, set by its creator, empty for devices
+> > + *		which are enumerated from firmware, see
+> > + *		serdev_device_set_name().
+> >   * @ctrl:	serdev controller managing this device.
+> >   * @ops:	Device operations.
+> >   * @write_comp:	Completion used by serdev_device_write() internally
+> > @@ -43,6 +51,7 @@ struct serdev_device_ops {
+> >  struct serdev_device {
+> >  	struct device dev;
+> >  	int nr;
+> > +	char name[SERDEV_NAME_SIZE];
+> >  	struct serdev_controller *ctrl;
+> >  	const struct serdev_device_ops *ops;
+> >  	struct completion write_comp;
+> > @@ -135,6 +144,28 @@ static inline void serdev_device_set_client_ops(st=
+ruct serdev_device *serdev,
+> >  	serdev->ops =3D ops;
+> >  }
+> > =20
+> > +/**
+> > + * serdev_device_set_name() - set the name of a serdev device
+> > + * @serdev:	serdev device.
+> > + * @name:	non-empty name to use, typically KBUILD_MODNAME of the clien=
+t
+> > + *		driver.
+> > + *
+> > + * A serdev device is identified by its ACPI companion, by its device =
+tree
+> > + * node, or by a name set by its creator. Serdev devices which are
+> > + * instantiated by a driver rather than by firmware have neither of th=
+e
+> > + * former, so they must set a name before serdev_device_add() to be
+> > + * identifiable. Doing so gives them a SERDEV_MODULE_PREFIX modalias a=
+nd
+> > + * makes them match a serdev device driver of the same name.
+> > + *
+> > + * Devices enumerated from firmware have no name and keep deriving the=
+ir
+> > + * modalias and their driver match from firmware only.
+> > + */
+> > +static inline void serdev_device_set_name(struct serdev_device *serdev=
+,
+> > +					  const char *name)
+> > +{
+> > +	strscpy(serdev->name, name);
+> > +}
+> > +
+> >  static inline
+> >  void *serdev_controller_get_drvdata(const struct serdev_controller *ct=
+rl)
+> >  {
+> >=20
+> > base-commit: 9e947d96915af63e28896caae85a81b74855621b
+
+--=-JnwgaKYa7ffI2Wuf5sIs
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrY1UobFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSav8QAKpH3BR9SxleiyWCmxKp
+aaOdCQblx9BsYaVTJQ8QGWOOgs+t0iSwialbEwacztIDKNC83MJW8Z+mCx3yoyi8
+fyVCx5ptA0Ov+M8RkD7RUZ57cAFyZLsG3hacKDM3k1UV7h0ACLQsI4/3OYfoyXol
+6VNGag89E/TkEZFPW8FvhUewoRUajbxGhpXlTvAcbcsP3c8oomenFicfNE4u/iZc
+AQTDQAbRyqipWQ2vrnPujS/qkwU0oXvubRhFRtqG/LZcrOl2lmSLGbhqxSAV0lGl
+h1GsZW7tTKEmmen5BY669Y9olFa7OPnUsXBwoeJYDfSKFMwAgC1k4p0M68Dqlalo
+n4W8/lwtQ0V6w8S6CUuR318sk5GcZUjuDkHXnHgSiAEOMZpyk96Vl0fHPBB+heVq
+DwBO3FZgbgQEgfZ1CY9owNfc/NdsG/Z0xXC/vdg8rMaBwNk6Xq52QtTacmk2hCbS
+1V9gcVek/D7oHzGk7SnbWyvlbVwh0fzK0rHxusLTAOw4OR+DZEk7rA6kDMSWZQm0
+N4i2Yc9Pg4bP4fcnTDWEe2FTByX85uxR94nA0HraHw7mVJgGdKzPscG9XU+x54lh
+zf7BD5YAXv6I5a/p4Elp7SnaLi+FDUec7oQnPBosbeN8d0gNN7k2KpRkgKhZKDjb
+ot9xBKzY9nMMWmWzjae3A1Es
+=sdsc
+-----END PGP SIGNATURE-----
+
+--=-JnwgaKYa7ffI2Wuf5sIs--
