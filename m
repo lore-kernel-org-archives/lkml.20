@@ -1,89 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792622270;
-	b=lAPddb4+H6Vl+5xlPkpNJxjxJSyg1nAcH9CTQOEA4FrMqXeWGJ8zfcPL7rF/9UgakbNq
-	 OeE803nFCK0TDdqTybY1Oca/EdMlWbAMqN3R2ctIKkIr75DUauIvVnGhgT8Ji9KZ5fK6R
-	 Kagu8H/0gXflngKDa4NV6Qpsq7NIUAGkS1B6V1Lsf6mSbrWt5r4zqzgkT98harrV8mZhJ
-	 zWt/aY8M/5bmO9r+JPXInvRutF59fg5vnocNaquXMmZJSNKUUUH1mu3XjHD3FWG6dKbm1
-	 hnpWkuWLr3asj4sLwXP9qQVpA5CMSu7mxPsS8VgJVR2t9lRo1UBZKZm8T1DVKatx72g==
+	t=1792622353;
+	b=faoGJwse0AaMpYxJMrw64jFUV67J9Y4giZpqKCTmZmOmdetU/18x467zvCIzoCfJNpq6
+	 UX9/VQArJmb6sfFlXsRE4RImOJPH+koRoAxnNP37WWCTi1VN4pTjQyh1pIK9gT0iRGLsu
+	 PujgSar1A3UejZot4XR+bJCS5BMoKmeZhND0HVTSsJEjFXs7CCOhYQmMMSeWL/p7JW5z4
+	 l2xEFuzggI4AqKREu8Isssb+vs5knY82NqwEFLpPcD5iUWG22Xu4muKHH9uhHJkm2nPWM
+	 zAKJ5LmQfssFcK34Ml/uF2j1CUQMDbuy2W8SdctKC52pFzQNGntlDd9cUZLhtyWyrbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792622270;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792622353;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer;
-	bh=211UKmjGr9+b6wFRS8FwcfVNHhn0kS0xBLrWw522cC0=;
-	b=PWf36yDOdPNHHRyIA/aYRnGkdmXGk5XZCzYIgFXjkiNXZCJ7BjzstyBwwpUztRrmHQ/J
-	 bh2EL+O7J775h0ZeDLy5zHrCrDRpi2eKHgYSgJr0RXOnlUSHsiXZ7s9TGNrAq4XJesKCC
-	 gBVZW01XS8jb1IYq1RiMzLR7aBrReJLeO5k+qFkD0RpJL0N4slPtkB8yCy4/xst8MOkgq
-	 GrhSDU/ld41wxS/xyWUoU1C2txU3jC9gbPKa5+6VC1RzQkAibt3p5dvh10XC7jW44CBOT
-	 Sr6sgkWiwvYOsYP3XqJtb0rmk9ehqKevPeLmjWJEScsoENOlI4X9WI0pjVezTf16xvw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=YP/JfyOYWmz90m2NwbazrCLMBQ4ptjaQHMjiASdFN+Q=;
+	b=j6brsWbam+NQ5CAoAKuRDxEZnp2hcBb4PmpsHZKdw8BlBnooM1EXfcE1B7bwjQZjypRJ
+	 lJ7X0umB+xfi9JuUPdBKQu328LD+gZdzkLScqybnGRJM9BLTI9Nhnt+F/FdxEjiIr/NiJ
+	 WO2kcNQpZNsqbGJoSha4YYyQllYuXlNgdskHlRgGhS4VIiFq/vbQzAUHHT+w325WXeSOX
+	 JIK2UPhkuHN2dIx4+xwIHq64QMR3FO7b1rxJqXhhDzLLHdF2gLnAb/sG4YuLqYEtpOVoT
+	 I01OlxsySFwSdlinZuMh2H5kbZy6ltwcojVulOqHTpnkCC+a190TRg5XX2mdghKEsPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lXQxgQpO;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=LxDyt1kN;
+	arc=none smtp.remote-ip=74.125.82.72
+Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D41F606A327
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:37:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D41F606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF51F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:39:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF51F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lXQxgQpO
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-84621d8c7aaso668081a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:37:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=LxDyt1kN
+Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1663fb7e005so1789718c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:39:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792622269; x=1793227069; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=211UKmjGr9+b6wFRS8FwcfVNHhn0kS0xBLrWw522cC0=;
-        b=lXQxgQpOYEGQWl8z8lPr4Isl4vWc2Xc7OONLCHADZeVJ+/XBO+cnKy1VVawP3AWiPH
-         2c6+d21BAdZnoABW6j6s9vw8wyYODtOgHSQ8dbIgx4mbeZ9TmNfcNr2d8H4KAKB8W6Os
-         z0T5b0dB1FK/XCxbCbAHqjrSIdaJceC8nLIb21nNYSvliszzuxD/P7uu4WPL88Jbquev
-         M25sb9HRbUfPdd6TsAMbf6hooBjSXnEjJt50KGehbODe3qsjAgITPYu7r3s7ehi7v0y5
-         5SnLRGIGeIHqkl3HYRN514pbYemfLMzrb6AarMWXMGsHZHlOf10dU2fwsL87X2TPTUAI
-         xlMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792622269; x=1793227069;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792622352; x=1793227152; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=211UKmjGr9+b6wFRS8FwcfVNHhn0kS0xBLrWw522cC0=;
-        b=1WTNioXKzkSRJSZWjeaZfLSveg8nmbLOYhS2fj0t8X/LNzuYIH5u8In/ekLVIQtfWN
-         vAe4c3Ms+lTHAQYvzumZb9hOkl9t8sPnd1euYfJQh5yJk++2AQEIaVZm4WSPRicBPxo5
-         I2ANXrYLCHQdQ0zL5YdghdYfTgUoXAATsujpc7oO0CGMJgzyZJAVI7xcTBrA7HBLh+qI
-         PSVwarxrBATJX8L1jKqZpFwO1OCGWotNGvWhGJFJj1Ka+gzRcZTKrDAKD49MmzCoiAvd
-         yTuCv2n+MCz3sr4b4w+nzOrWv4TZdK0mFwPUINFLEYf4urAoq+oWZzrP/INU5+lYrMVc
-         igZA==
-X-Gm-Message-State: AFq9FYI6pPxb4EDwlLA8e+fn4qBEhhmPaNTRxSPx87BxNVaOVHXRKGdB
-	nOjodsHONdn4emtA4WYbD+aUOvp4dFyDI6/9z5IBv+ACdLRLKVdTGDA5
-X-Gm-Gg: AYBFou0xfbbXfv8KK0+vyO43oanXNhlfP7AZ5HBTzbRQOXidYJrc4HuMV6ip28/TlcJ
-	5xRU/sl/3ttsGqidQRO05fd+XaZDRZ1k7XtR+UGBzj3Y08y/6Us8Nm7WRWNH1KsgJKv4X7i68tE
-	4ZDccTBopp0N/EsmSuNzk9YltT2yWnOxVlvtZJ+1DODXi4H7R9CJBrWtMUrK3ZAILPUh5y06gFa
-	CQDz/t9NOv7L+y/kw18UEc7GHnTvnpMpb1jH6PssCOEuvvnJTquhXMlDF662zwaKQJGigXYIHo2
-	jxlFoP+hSajVRL3A6U2WNm+8q/hF08sFy1e0eu1oc4QAihBpeKYfZgabyYSXs4zhcim7+7L0nkn
-	8f3RCriVlKI/cSG30qWL0ffgzsKPBXcsTUAMBtcTKZ8nGtfSEnmAcJNPZT9oPvV8gHOvmWKnE1L
-	SdkhRpnw1kQn6n8/jhbtnLrMiOi/lZ4oqN2RgmjYLxnf9ibseNJXzrkzwseGSTQ0+1jDwggZVAD
-	5pxzAM1OWUrhRQRfXPBKWcPM3z9s56KcHPDoLM5+FQbbaMkA8CMVVDf826Xe616AEHI9dTQe8FB
-	5lRxvBzIVTP9ofZbSldQbFlD+HSNu4M8HnI7OeJKkvmChw99882Hj37S+BFyeN0BqPXNJSSOLxR
-	tC3p+td9MjF+9Re+U++jukLc1f7maSWc/8yLZrjAIhocTFNydtFQ/t2J/tltFk9dq3FwLjI4b8U
-	kA8g==
-X-Received: by 2002:a05:6830:6d4f:b0:829:79df:f84a with SMTP id 46e09a7af769-84d08107cdemr2585833a34.10.1792622269222;
-        Wed, 21 Oct 2026 15:37:49 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbddc7100sm3538837a34.24.2026.10.21.15.37.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 15:37:48 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Wed, 21 Oct 2026 16:37:44 -0600
-Subject: [PATCH 2/2] serial: 8250: retire canceled RX DMA before reusing
- the receive buffer
+        bh=YP/JfyOYWmz90m2NwbazrCLMBQ4ptjaQHMjiASdFN+Q=;
+        b=LxDyt1kN/PRQcQqx4VLrMcB1O9N0slWjRfan8BPSnLgOhDVO8Xeps8ZbeU2wCAUTYM
+         U1asqbifWPOvSlPvFZH8/85cLj8vByMXxYIt2ZmzBrbiRgqwNqpb11UZgBp0lshuIAEQ
+         DH7iO9RYL4FmRl1vVVPKfzJW+NFy+n3mtlwnNp5omEyOppSRLSBjX3j3jPpZ7bvO+E1R
+         y9emZo5J/U7VchtZhk5wKQ6JceJf4azXey2y9emrQJsuyjRo5D/+p7WHSdKoJ4XE6Twh
+         JmUJtkXZlNG91cdKWxSnuu35PF6OzAObFhJdL1syH3OtP+RBplihUunqNZ697r08ru1m
+         kDZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792622352; x=1793227152;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YP/JfyOYWmz90m2NwbazrCLMBQ4ptjaQHMjiASdFN+Q=;
+        b=PSwBgjVkSjDf4APmaWuNirFHxAM0uVw98odI47HZZrVljft2oq2OUcmQplH/QoSf/c
+         2Zu5hlEpT3KsP5G71QdSwDNSYxjK+v+8/WfVsOy94AP1nHOkRra6V+et6+TuFJTkWHP/
+         ScXGow9RiXWo6SnqcZ+I2anZ7DEYABeYesu4vNg3vVWh8pO9H0kxIFGJIfT+apJ+J5tJ
+         r/mTsKDDn0Dde+gciGucw3GxJR/EnKXa+C8gCLVl4jRjxdjkf18YlBt8Sh8GaxSpaDn/
+         7aLKYP+oFHnd95VJ6BZ6HqBZz21a1swyqFFF/Z4Yhx57/UUrbU0wrZTn8DG0CErmPRzz
+         st1w==
+X-Forwarded-Encrypted: i=1; AKwUvByMmkxRneayp8ua80Vg69pUzYvKkgLdURfGNMzIJVknvfnmTpq/dQokPUKfoKdC/D0yjIzVgi4JrgE9mlg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/93HBFWC2XAWU/2icT0JuDC/xdY/C7G/zPAhkqYUDNLKEWIEz
+	mOw4pW+C3af6rwJZGGl/SgKYxfxSpEOjSWmpF25vI0Tf+W2ilQ1ZZRLE6X6tpEmmU3/2YJSHzq6
+	8sFN+n9TfaA==
+X-Received: from dled6-n2.prod.google.com ([2002:a05:701b:42c6:20b0:191:8b40:a632])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:701b:21db:b0:153:3c50:ab85
+ with SMTP id a92af1059eb24-190a456636fmr3329466c88.12.1792622350969; Wed, 21
+ Oct 2026 15:39:10 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:38:48 -0700
+In-Reply-To: <20261021171044.155240-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,329 +78,189 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-submit-serial-8250-dma-cancel-v1-v1-2-efe2b89f2303@gmail.com>
-References: <20261021-submit-serial-8250-dma-cancel-v1-v1-0-efe2b89f2303@gmail.com>
-In-Reply-To: <20261021-submit-serial-8250-dma-cancel-v1-v1-0-efe2b89f2303@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+Mime-Version: 1.0
+References: <20261021171044.155240-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021223905.715051-1-irogers@google.com>
+Subject: [PATCH v7 00/17] tools/perf: Adopt kernel compiler-context-analysis.h annotations
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-The RX timeout path pauses a transfer, copies its data, and terminates it
-asynchronously. It also clears rx_running before an old callback has
-necessarily returned. The next receive can therefore reuse the same
-buffer and cookie while that callback is still waiting for the port lock.
-Looking up the new cookie is not sufficient: a new transfer may already
-be complete or paused when the old callback obtains the lock.
+The perf tool previously added Clang thread-safety annotations in
+tools/perf/util/mutex.h (GUARDED_BY, LOCKABLE, EXCLUSIVE_LOCK_FUNCTION,
+UNLOCK_FUNCTION, etc.). Since then, the Linux kernel has adopted a
+unified set of static context analysis macros and attributes in
+include/linux/compiler-context-analysis.h (context_lock_struct,
+__guarded_by, __acquires, __releases, __must_hold, etc.).
 
-Keep the receive buffer reserved after termination and drain callbacks
-in a worker before allowing another descriptor to use it. The interrupt
-handler can receive through PIO while the canceled transfer is retired;
-data already received by DMA is delivered first. Do not perform another
-termination while synchronization is pending. Shutdown drains the worker
-before freeing the buffer. Both the callback and retirement worker
-honor disabled receive interrupts before restarting DMA.
+This series makes tools/include/linux/compiler-context-analysis.h
+functional by synchronizing it and the required compiler_types.h helpers
+with the kernel headers, converts tools/perf from its custom mutex.h
+macros to the kernel-style compiler-context-analysis.h annotations, and
+expands context analysis coverage across comm, dso/dsos, thread/threads,
+config, intel-tpebs, env, and maps. Along the way, separate preparatory
+patches fix an unlocked __dsos__add() call and TOCTOU race in
+__machine__addnew_vdso(), avoid dropping _dso__data_open_lock in
+dso__list_del() under REFCNT_CHECKING, switch dso__data_open_lock and
+tpebs_mtx to DEFINE_MUTEX(), add a read-lock fast path to
+dsos__findnew_id(), fix an unlocked read of tpebs_reader_thread and
+double-close of tpebs_cmd.out in intel-tpebs, and avoid a potential
+read-to-write deadlock in maps__load_first() and out-of-bounds access in
+__maps__remove().
 
-Check pause failures before reading the DMA buffer or handing its FIFO
-back to PIO. Make the DesignWare idle path abort rather than proceed with
-an unpaused receiver. Track the delivered offset so a failed termination
-followed by resumed DMA cannot deliver the same prefix a second time.
+This series was developed and reviewed with assistance from an AI coding
+agent (Gemini 3.1 Pro) and reviewed with Sashiko.
 
-Serialize the Intel MID timeout callers with the same port lock used by
-the callbacks and retirement worker. Keep that lock scoped to the flush,
-since serial8250_handle_irq() takes it separately for the UART interrupt.
+v7:
+  - Add newly created DSOs in machine__process_ksymbol_register() and
+    dso__split_kallsyms() to machine->dsos so assert(dso__dsos(dso)) in
+    dso__list_add() always holds (patch 8).
+  - Add __guarded_by(&config_mutex) to function-local static parser
+    buffers in parse_value() and perf_parse_file() (patch 15).
+  - Remove from maps_by_name before calling
+    map__put(maps_by_address[address_idx]) in __maps__remove() so
+    callers such as maps__remove_maps() that pass maps_by_address[i] as
+    map do not use a freed handle in maps__by_name_index() under
+    REFCNT_CHECKING (patch 16).
 
-This relies on the provider honoring pause and synchronization; it does
-not turn a pause-register write into a hardware-quiescence guarantee.
+v6:
+  - Rebase onto perf-tools-next.
 
-Fixes: 9ee4b83e51f7 ("serial: 8250: Add support for dmaengine")
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/tty/serial/8250/8250.h      |  7 ++-
- drivers/tty/serial/8250/8250_dma.c  | 87 +++++++++++++++++++++++++++----------
- drivers/tty/serial/8250/8250_dw.c   |  8 +++-
- drivers/tty/serial/8250/8250_mid.c  |  6 ++-
- drivers/tty/serial/8250/8250_port.c |  3 +-
- 5 files changed, 80 insertions(+), 31 deletions(-)
+v5:
+  - Hold machine->dsos.lock in write mode across machine->vdso_info
+    initialization and temporary file creation in
+    machine__findnew_vdso() and __machine__findnew_compat(), and
+    annotate __machine__addnew_vdso() with
+    __must_hold(&machine->dsos.lock) (patches 7, 11).
+  - Reset tpebs_cmd.pid = 0 and return early without setting
+    t->started = true if start_command() fails in
+    evsel__tpebs_start_perf_record() (patch 13).
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 002e456fa384..c69c41c9df65 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -23,6 +23,7 @@ struct uart_8250_dma {
- 	/* Completion processing with the port lock held. */
- 	void (*tx_complete)(struct uart_8250_port *p);
- 	struct work_struct tx_flush_work;
-+	struct work_struct rx_flush_work;
- 	struct uart_8250_port *port;
- 
- 	/* Filter function */
-@@ -52,6 +53,7 @@ struct uart_8250_dma {
- 	void			*tx_buf;
- 
- 	size_t			rx_size;
-+	size_t			rx_pos;
- 	size_t			tx_size;
- 
- 	unsigned char		tx_running;
-@@ -60,6 +62,7 @@ struct uart_8250_dma {
- 	/* Protected by the UART port lock. */
- 	bool			shutting_down;
- 	bool			tx_terminating;
-+	bool			rx_terminating;
- };
- 
- struct old_serial_port {
-@@ -411,7 +414,7 @@ extern void serial8250_tx_dma_flush(struct uart_8250_port *);
- void serial8250_tx_dma_prepare_buffer(struct uart_8250_port *p,
- 				      struct scatterlist *sgl, unsigned int nents);
- extern int serial8250_rx_dma(struct uart_8250_port *);
--extern void serial8250_rx_dma_flush(struct uart_8250_port *);
-+int serial8250_rx_dma_flush(struct uart_8250_port *p);
- extern int serial8250_request_dma(struct uart_8250_port *);
- extern void serial8250_release_dma(struct uart_8250_port *);
- 
-@@ -467,7 +470,7 @@ static inline int serial8250_rx_dma(struct uart_8250_port *p)
- {
- 	return -1;
- }
--static inline void serial8250_rx_dma_flush(struct uart_8250_port *p) { }
-+static inline int serial8250_rx_dma_flush(struct uart_8250_port *p) { return 0; }
- static inline int serial8250_request_dma(struct uart_8250_port *p)
- {
- 	return -1;
-diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
-index d4b1e2a059eb..821ccc7a3a54 100644
---- a/drivers/tty/serial/8250/8250_dma.c
-+++ b/drivers/tty/serial/8250/8250_dma.c
-@@ -77,31 +77,29 @@ void serial8250_tx_dma_prepare_buffer(struct uart_8250_port *p,
- }
- EXPORT_SYMBOL_GPL(serial8250_tx_dma_prepare_buffer);
- 
--static void __dma_rx_complete(struct uart_8250_port *p)
-+static enum dma_status serial8250_rx_dma_complete(struct uart_8250_port *p)
- {
- 	struct uart_8250_dma	*dma = p->dma;
- 	struct tty_port		*tty_port = &p->port.state->port;
- 	struct dma_tx_state	state;
- 	enum dma_status		dma_status;
--	int			count;
-+	size_t			count;
- 
--	/*
--	 * New DMA Rx can be started during the completion handler before it
--	 * could acquire port's lock and it might still be ongoing. Don't to
--	 * anything in such case.
--	 */
-+	/* Only inspect the buffer after completion or a successful pause. */
- 	dma_status = dmaengine_tx_status(dma->rxchan, dma->rx_cookie, &state);
--	if (dma_status == DMA_IN_PROGRESS)
--		return;
-+	if (dma_status != DMA_COMPLETE && dma_status != DMA_PAUSED)
-+		return dma_status;
- 
--	count = dma->rx_size - state.residue;
-+	count = dma->rx_size - state.residue - dma->rx_pos;
- 
--	if (tty_insert_flip_string(tty_port, dma->rx_buf, count) != count)
-+	if (tty_insert_flip_string(tty_port, dma->rx_buf + dma->rx_pos,
-+				   count) != count)
- 		p->port.icount.buf_overrun++;
- 	p->port.icount.rx += count;
--	dma->rx_running = 0;
-+	dma->rx_pos += count;
- 
- 	tty_flip_buffer_push(tty_port);
-+	return dma_status;
- }
- 
- static void dma_rx_complete(void *param)
-@@ -111,21 +109,37 @@ static void dma_rx_complete(void *param)
- 	unsigned long flags;
- 
- 	uart_port_lock_irqsave(&p->port, &flags);
--	if (dma->shutting_down)
-+	if (dma->shutting_down || dma->rx_terminating)
- 		goto out;
--	if (dma->rx_running)
--		__dma_rx_complete(p);
-+	if (dma->rx_running && serial8250_rx_dma_complete(p) == DMA_COMPLETE)
-+		dma->rx_running = 0;
- 
- 	/*
--	 * Cannot be combined with the previous check because __dma_rx_complete()
--	 * changes dma->rx_running.
-+	 * The completed transfer no longer owns the receive buffer.
- 	 */
--	if (!dma->rx_running && (serial_lsr_in(p) & UART_LSR_DR))
-+	if (!dma->rx_running && (p->ier & UART_IER_RDI) &&
-+	    (serial_lsr_in(p) & UART_LSR_DR))
- 		p->dma->rx_dma(p);
- out:
- 	uart_port_unlock_irqrestore(&p->port, flags);
- }
- 
-+static void serial8250_rx_dma_flush_work(struct work_struct *work)
-+{
-+	struct uart_8250_dma *dma = container_of(work, struct uart_8250_dma,
-+					       rx_flush_work);
-+	struct uart_8250_port *p = dma->port;
-+
-+	dmaengine_synchronize(dma->rxchan);
-+
-+	guard(uart_port_lock_irqsave)(&p->port);
-+	dma->rx_terminating = false;
-+	dma->rx_running = 0;
-+	if (!dma->shutting_down && (p->ier & UART_IER_RDI) &&
-+	    (serial_lsr_in(p) & UART_LSR_DR))
-+		dma->rx_dma(p);
-+}
-+
- int serial8250_tx_dma(struct uart_8250_port *p)
- {
- 	struct uart_8250_dma		*dma = p->dma;
-@@ -241,6 +255,7 @@ int serial8250_rx_dma(struct uart_8250_port *p)
- 		return -EBUSY;
- 
- 	dma->rx_running = 1;
-+	dma->rx_pos = 0;
- 	desc->callback = dma_rx_complete;
- 	desc->callback_param = p;
- 
-@@ -251,16 +266,37 @@ int serial8250_rx_dma(struct uart_8250_port *p)
- 	return 0;
- }
- 
--void serial8250_rx_dma_flush(struct uart_8250_port *p)
-+int serial8250_rx_dma_flush(struct uart_8250_port *p)
- {
- 	struct uart_8250_dma *dma = p->dma;
-+	enum dma_status status;
-+	int ret;
- 
--	if (!dma || !dma->rxchan || !dma->rx_running)
--		return;
-+	lockdep_assert_held_once(&p->port.lock);
-+
-+	if (!dma || !dma->rxchan || !dma->rx_running || dma->rx_terminating)
-+		return 0;
-+
-+	ret = dmaengine_pause(dma->rxchan);
-+	if (ret)
-+		return ret;
-+
-+	status = serial8250_rx_dma_complete(p);
-+	if (status != DMA_PAUSED && status != DMA_COMPLETE) {
-+		dmaengine_resume(dma->rxchan);
-+		return -EIO;
-+	}
-+	dma->rx_terminating = true;
-+	ret = dmaengine_terminate_async(dma->rxchan);
-+	if (ret) {
-+		dma->rx_terminating = false;
-+		dmaengine_resume(dma->rxchan);
-+		return ret;
-+	}
- 
--	dmaengine_pause(dma->rxchan);
--	__dma_rx_complete(p);
--	dmaengine_terminate_async(dma->rxchan);
-+	/* Keep the buffer reserved until any old completion has returned. */
-+	schedule_work(&dma->rx_flush_work);
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(serial8250_rx_dma_flush);
- 
-@@ -363,7 +399,9 @@ int serial8250_request_dma(struct uart_8250_port *p)
- 
- 	dma->port = p;
- 	INIT_WORK(&dma->tx_flush_work, serial8250_tx_dma_flush_work);
-+	INIT_WORK(&dma->rx_flush_work, serial8250_rx_dma_flush_work);
- 	dma->tx_terminating = false;
-+	dma->rx_terminating = false;
- 
- 	scoped_guard(uart_port_lock_irqsave, &p->port)
- 		dma->shutting_down = false;
-@@ -391,6 +429,7 @@ void serial8250_release_dma(struct uart_8250_port *p)
- 		return;
- 
- 	cancel_work_sync(&dma->tx_flush_work);
-+	cancel_work_sync(&dma->rx_flush_work);
- 
- 	/* Release RX resources */
- 	dmaengine_terminate_sync(dma->rxchan);
-diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-index eca02e8bd6d1..d8998b6f1d81 100644
---- a/drivers/tty/serial/8250/8250_dw.c
-+++ b/drivers/tty/serial/8250/8250_dw.c
-@@ -134,6 +134,7 @@ static int dw8250_idle_enter(struct uart_port *p)
- 	unsigned int usr_reg = d->pdata ? d->pdata->usr_reg : DW_UART_USR;
- 	struct uart_8250_port *up = up_to_u8250p(p);
- 	int retries;
-+	int ret;
- 	u32 lsr;
- 
- 	lockdep_assert_held_once(&p->lock);
-@@ -147,7 +148,12 @@ static int dw8250_idle_enter(struct uart_port *p)
- 	serial_port_out(p, UART_IER, 0);
- 
- 	if (up->dma) {
--		serial8250_rx_dma_flush(up);
-+		ret = serial8250_rx_dma_flush(up);
-+		if (ret) {
-+			serial_port_out(p, UART_IER, up->ier);
-+			d->in_idle = 0;
-+			return ret;
-+		}
- 		if (serial8250_tx_dma_running(up))
- 			serial8250_tx_dma_pause(up);
- 	}
-diff --git a/drivers/tty/serial/8250/8250_mid.c b/drivers/tty/serial/8250/8250_mid.c
-index 44b43163df51..83f928b1f643 100644
---- a/drivers/tty/serial/8250/8250_mid.c
-+++ b/drivers/tty/serial/8250/8250_mid.c
-@@ -94,7 +94,8 @@ static int tng_handle_irq(struct uart_port *p)
- 	/* Rx DMA */
- 	err = hsu_dma_get_status(chip, mid->dma_index * 2 + 1, &status);
- 	if (err > 0) {
--		serial8250_rx_dma_flush(up);
-+		scoped_guard(uart_port_lock_irqsave, p)
-+			serial8250_rx_dma_flush(up);
- 		ret |= 1;
- 	} else if (err == 0)
- 		ret |= hsu_dma_do_irq(chip, mid->dma_index * 2 + 1, status);
-@@ -148,7 +149,8 @@ static int dnv_handle_irq(struct uart_port *p)
- 	if (fisr & BIT(2)) {
- 		err = hsu_dma_get_status(&mid->dma_chip, 1, &status);
- 		if (err > 0) {
--			serial8250_rx_dma_flush(up);
-+			scoped_guard(uart_port_lock_irqsave, p)
-+				serial8250_rx_dma_flush(up);
- 			ret |= 1;
- 		} else if (err == 0)
- 			ret |= hsu_dma_do_irq(&mid->dma_chip, 1, status);
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index d476ebc37647..b9837a3c4681 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -1815,8 +1815,7 @@ static bool handle_rx_dma(struct uart_8250_port *up, unsigned int iir)
- 		fallthrough;
- 	case UART_IIR_RLSI:
- 	case UART_IIR_RX_TIMEOUT:
--		serial8250_rx_dma_flush(up);
--		return true;
-+		return !serial8250_rx_dma_flush(up);
- 	}
- 	return up->dma->rx_dma(up);
- }
+v4:
+  - Place the DSO loaded in addr_filter__resolve_syms() into a dsos
+    collection so dso__dsos(dso) is populated (patch 8).
+  - Join tpebs_reader_thread on error in evsel__tpebs_open(), document
+    why tpebs_cmd.pid is cleared before pthread_join() in tpebs_stop(),
+    and include <pthread.h> and <signal.h> in util/intel-tpebs.c
+    (patch 13).
+  - Include <string.h> in util/maps.c (patch 16).
+
+v3:
+  - Rebase onto perf-tools-next (converting the newly added
+    dso__find_binary_type() lock annotations in util/dso.c).
+  - Separate bug fixes, DEFINE_MUTEX() cleanups, and improvements (vdso,
+    dso_data, dso__data_open_lock, dsos__findnew_id, intel-tpebs,
+    tpebs_mtx, maps) from the annotation patches.
+  - Move AI coding assistant attribution to the cover letter and drop
+    per-commit Assisted-by tags per linux-next
+    Documentation/process/coding-assistants.rst.
+  - Add Marco Elver's Reviewed-by to patch 1.
+  - Define __diag_clang_23() and Clang ASM_INPUT_G/ASM_INPUT_RM/
+    ASM_OUTPUT_RM overrides in tools/include/linux/compiler-gcc.h
+    (patch 2).
+  - Probe for -Wthread-safety-pointer/-Wthread-safety-beta in
+    Makefile.config (patch 5).
+  - Pass write_locked to __dsos__find() (patch 7).
+  - Pass struct dso_data * to close_data_fd() and dso__list_del() to
+    remove the REFCNT_CHECKING dso pointer from struct dso_data and
+    avoid dropping dso__data_open_lock in dso__list_del(), and include
+    <assert.h> in util/dso.c (patch 8).
+  - Re-validate DSO lookup under the write lock in dsos__findnew_id()
+    via __dsos__findnew_id(), and handle NULL dso_id in
+    dso__needs_improve_id(), __dso__improve_id(), and dso_id__cmp()
+    (patch 10).
+  - Reset tpebs_cmd.out = -1 if start_command() fails and include
+    <stdint.h>, <stdlib.h>, <string.h>, and <unistd.h> in
+    util/intel-tpebs.c (patch 13).
+  - Bounds-check the index in __maps__remove() (freeing maps_by_name if
+    out of bounds) (patch 16).
+
+v2:
+  - Use -c rather than -E when probing for
+    -fexperimental-late-parse-attributes in Makefile.config to avoid
+    -Werror,-Wunused-command-line-argument.
+  - Acquire machine->dsos.lock in write mode across duplicate checking,
+    dso__set_long_name(), and __dsos__add() in __machine__addnew_vdso().
+  - Avoid dropping dso__data_open_lock in dso__list_del() under
+    REFCNT_CHECKING.
+  - Pass tpebs_cmd.out directly to __sample_reader() and set
+    tpebs_cmd.out = -1 in evsel__tpebs_open() to avoid a double-close in
+    tpebs_stop(), and clarify the config_set_mutex comment.
+  - Drop maps__lock before calling map__load() in maps__load_first() to
+    avoid a read-to-write self-deadlock when loading kernel maps inserts
+    additional trampoline maps.
+
+Ian Rogers (17):
+  compiler-context-analysis: Avoid unused parameter warning in
+    _context_unsafe_alias()
+  tools headers compiler: Synchronize compiler_types.h with the kernel
+    sources
+  tools headers: Synchronize linux/compiler-context-analysis.h with the
+    kernel sources
+  perf mutex: Use kernel style compiler-context-analysis.h annotations
+  perf build: Enable additional Clang thread-safety flags
+  perf comm: Add __guarded_by annotations to struct comm_strs
+  perf vdso: Fix unlocked __dsos__add() and race in
+    __machine__addnew_vdso()
+  perf dso: Pass dso_data to close_data_fd() and dso__list_del()
+  perf dso: Use DEFINE_MUTEX for dso__data_open_lock
+  perf dsos: Use read lock fast path in dsos__findnew_id()
+  perf dso: Expand context analysis annotations
+  perf thread: Expand context analysis annotations to threads and
+    namespaces_lock
+  perf intel-tpebs: Fix race in tpebs_stop() and tpebs_cmd.out fd
+    handling
+  perf intel-tpebs: Use DEFINE_MUTEX for tpebs_mtx
+  perf config, intel-tpebs, env: Add __guarded_by and __must_hold
+    annotations
+  perf maps: Fix lock inversion in maps__load_first() and bounds check
+    in __maps__remove()
+  perf maps: Add context analysis annotations
+
+ include/linux/compiler-context-analysis.h     |   2 +-
+ .../include/linux/compiler-context-analysis.h | 518 ++++++++++++++++--
+ tools/include/linux/compiler-gcc.h            |  72 ++-
+ tools/include/linux/compiler.h                |  50 +-
+ tools/include/linux/compiler_types.h          | 206 ++++++-
+ tools/perf/Makefile.config                    |   8 +-
+ tools/perf/builtin-sched.c                    |  16 +-
+ tools/perf/builtin-top.c                      |   4 +-
+ tools/perf/check-headers.sh                   |   1 +
+ tools/perf/tests/dso-data.c                   |   4 +
+ tools/perf/util/annotate.c                    |   4 +-
+ tools/perf/util/annotate.h                    |   8 +-
+ tools/perf/util/auxtrace.c                    |  16 +-
+ tools/perf/util/bpf-event.h                   |   5 +-
+ tools/perf/util/comm.c                        |  10 +-
+ tools/perf/util/config.c                      |  47 +-
+ tools/perf/util/dso.c                         | 140 +++--
+ tools/perf/util/dso.h                         |  15 +-
+ tools/perf/util/dsos.c                        |  31 +-
+ tools/perf/util/dsos.h                        |  12 +-
+ tools/perf/util/env.c                         |   1 +
+ tools/perf/util/env.h                         |  19 +-
+ tools/perf/util/intel-tpebs.c                 | 133 +++--
+ tools/perf/util/libbfd.c                      |   4 +-
+ tools/perf/util/machine.c                     |  14 +-
+ tools/perf/util/maps.c                        | 157 ++++--
+ tools/perf/util/mutex.c                       |   4 +-
+ tools/perf/util/mutex.h                       |  90 +--
+ tools/perf/util/rwsem.c                       |   8 +-
+ tools/perf/util/rwsem.h                       |  10 +-
+ tools/perf/util/symbol.c                      |   4 +
+ tools/perf/util/thread.c                      |  10 +-
+ tools/perf/util/thread.h                      |  30 +-
+ tools/perf/util/threads.c                     |   4 +
+ tools/perf/util/threads.h                     |   6 +-
+ tools/perf/util/vdso.c                        |  53 +-
+ 36 files changed, 1224 insertions(+), 492 deletions(-)
 
 -- 
-2.53.0
+2.56.0.218.g1ec904b173-goog
 
