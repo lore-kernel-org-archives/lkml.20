@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583282;
-	b=0OSqew1cneWfZ+yBQCo6jGrVLrzqMnSOD2oijh2PdxGhS13wooXum0cgDExGjz0TTfsz
-	 Cqen9Ku35KswsuGzYUKjF+LJfmadticEhqCJXgEbSpyM5vleK/c+LhzTmrldAMy+CIXbG
-	 9GlshXT86Cs9m2mvz+Nj2fC5Vflam/O3yuqo8wIvsVm43k/G69uAgGlqGCSGnCDwVVKN1
-	 whKvrXAUmTJXtkHVSV1HqCSKLlKIGrfl+bJZV35XKyd3QGSHnz2PhXXvQdEv4AJHHthJ/
-	 0VLiPZAkxfvDq0wGA0npAM3kCwjoQg0rzYzGMTVNDucDkkE/eKYmqN5dNzbIkHSovZg==
+	t=1792583289;
+	b=KeLNSE3rggtMCZ70n40l9MtEKuClMtoS1ajBK+9QIbUyNEIMj9/lGJWnyhawu7DQcU4I
+	 jEBqz0KnF2ULXsQQt8hSsT7VyT2uiaKHRPfRJkRBw5Nz6P3z1FaxzuuEUCIxe3hP/tEeN
+	 MwYm1zLCvECoUfC2c6oFhuvxJskKcIuc+o/BLIviMXd0fOCE5Atwi9u8PUwLLDXBFvIdJ
+	 DXElmgO0dACNzAr1EN5ZbF5gtvwDVHSncibdd5WI0RDi21vcxbEU/ArqAJAf4iH01r+PD
+	 UE/kgEIFM0VnnYeDvIpJakUJDjazk2Uo3e9HhNkO0fAtJETi69TdjGnVTI1JjXRgTew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583282;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583289;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=UIvPhIRZOXHZ5pivfsKNKW7qsEyxT6PjRp1D6g3/ZIc=;
-	b=UOtEnsus6wIe1Cy5g2g5FS1VJCgivDPD0Ll3EIAAmaNAeesJqO5K2V/KbI1lWf88GXg9
-	 Dmi5sVG5rEsD4/v08HMLVVUy0zVexa2CigEyG4FlZxfuillHFevKo5BuF3cg7WHT9ns8I
-	 gtKCf+itjkpGvZyycwJwKWqTn3O+Iet2ONHKl7z5X+AsJFjZnIBSHsY2KPVyFHd8r5JCG
-	 HiLx0y0TVefm4VmC1z+skvmsXdDELRCycv7OSFatiLyNeMmVHf3MVuwRm1vB+ZB6iFwv1
-	 YfcZ8cpM4Zjz2wguFm1ouxBgbV3fgVRC/qld8mOTATf1MNcjlECAkA6lAf5Kt8r88Rw==
+	bh=v5h8ao2sl0gSDsVo7bAD/bZpeGjj83T87XQIb40RcPU=;
+	b=NZKlUlTepZl9GrMJonK2xkcvNx0WBrNtV53TgJQ3vkgPrl1y7rcUSNGOyeRKAzkPTOb6
+	 EYCeZR2L64dhNhYRB5MuOZtL/fPFa6VAZ9KEmqibxPYlIVHewv5e4a9pm1NeVQ67fqLgB
+	 vXcqmBW7N+riUTsR/giq4LrQABK5q2xb1LZaO/A+IwubdXxXmta6DH6jqdb1NIeQX/iEQ
+	 ZA/xOJMeuiaaG73yAIvui06TUZva8wY5AZmdIUOuEC0hOJJ6DwPFoI50B/wBHSNo6yyTc
+	 xTPfUtblVUam4S4dGFHM+C4gd7bbYShjRZtzhmaJlyHJ7wWVPdMkoCFqz9Pk4V6QiKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEiUIF61;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VAQEqFAq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6D4606A321;
-	Wed, 21 Oct 2026 11:48:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF5960A2621
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:48:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEiUIF61
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59EF71F000C5;
-	Wed, 21 Oct 2026 11:47:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VAQEqFAq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DA461F000C6;
+	Wed, 21 Oct 2026 11:48:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583282;
-	bh=UIvPhIRZOXHZ5pivfsKNKW7qsEyxT6PjRp1D6g3/ZIc=;
+	s=k20260515; t=1792583289;
+	bh=v5h8ao2sl0gSDsVo7bAD/bZpeGjj83T87XQIb40RcPU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UEiUIF61PWjHXaujmCUo3lHTkwT0rOwBz/pimHwq6xsb98Nk51S5FVHLcVJldFKyE
-	 zwT+rIzRyNIMu8C4sh9+s+FxwTZ6rKF54hbhKmChPa4Mjt0iV5H0rmh1+fnpDvvUoU
-	 WXFilAFLMjQSWv3qZ+fISA3X1mcD+naUh7LjdzKo9mfmALAl+Xv6lkJxje6RuzTZdY
-	 H8aTNC8PTOYMEEEElPz2N0UQGnYBXZF6/CnvEAiDU3zxTxOIqJcpGjlnB98Q6XHGFa
-	 SFk9utPZV1TP/6p0k4DHDT5VcjcuhyTgg+eaxnK+SoiI6m0oeHy24LxI6UPpFWwzD3
-	 x0YmTpdPrP7Bg==
+	b=VAQEqFAqztqAv3qcxYHFlzZ1jnwzQHztkQm2Ku6wB0q3Zn6zx9WSz/DftIPSC4uQW
+	 UQEGhZzE8CTFEjNhoxKw6waO8eavv3OLCCMKLx1GMsRQ9ICbb+Mox0wzsrZ1867sBL
+	 aruuh8VMrFgTIUoyxKK4IXRW4dLn158hDVknl84KDCH0v2DbNKnSO/snpqe1npTURl
+	 GRaxsmZQIx2WoRZi/tK+3tf9KSujh1BQnvJPcZk4NjeHAeE5TaNft5yEaxTDGnru43
+	 KMZoUuUMx6pEJeQlPxds41+IXvnl0aoR1n+LeH4ZuyqzqPYAlaVVAINqpFtQKt6k6I
+	 FLmCIoTGX4RiQ==
 From: "Harry Yoo (Meta)" <harry@kernel.org>
-Date: Wed, 21 Oct 2026 12:46:51 +0100
-Subject: [PATCH slab/for-next 10/14] fanotify: specify SLAB_MAY_ACCOUNT for
- event caches
+Date: Wed, 21 Oct 2026 12:46:53 +0100
+Subject: [PATCH slab/for-next 12/14] hostfs: specify SLAB_MAY_ACCOUNT for
+ inode cache
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-10-096800aa3330@kernel.org>
+Message-Id: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-12-096800aa3330@kernel.org>
 References: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
 In-Reply-To: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
 To: Vlastimil Babka <vbabka@kernel.org>, 
@@ -68,53 +68,41 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>, 
  Hao Ge <hao.ge@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
  linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- "Harry Yoo (Meta)" <harry@kernel.org>, Jan Kara <jack@suse.cz>, 
- Amir Goldstein <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org
+ "Harry Yoo (Meta)" <harry@kernel.org>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, linux-um@lists.infradead.org
 X-Mailer: b4 0.16.0
 
-fanotify events are allocated with GFP_KERNEL_ACCOUNT and charged to
-the memcg of the listener. Specify SLAB_MAY_ACCOUNT when the object
-may be charged to a memcg. __GFP_ACCOUNT without SLAB_MAY_ACCOUNT
-will not be allowed.
+hostfs inodes are allocated with GFP_KERNEL_ACCOUNT. Specify
+SLAB_MAY_ACCOUNT when the object may be charged to a memcg.
+__GFP_ACCOUNT without SLAB_MAY_ACCOUNT will not be allowed.
 
-Path: fsnotify() -> fanotify_handle_event()
-  -> fanotify_alloc_event(GFP_KERNEL_ACCOUNT)
-  -> kmem_cache_alloc(fanotify_{fid,path,perm,mnt}_event_cachep)
+Path: lookup -> hostfs_iget() -> hostfs_alloc_inode()
+  -> alloc_inode_sb(sb, hostfs_inode_cache, GFP_KERNEL_ACCOUNT)
 
 Assisted-by: LLM
-Cc: Jan Kara <jack@suse.cz>
-Cc: Amir Goldstein <amir73il@gmail.com>
-Cc: linux-fsdevel@vger.kernel.org
+Cc: Richard Weinberger <richard@nod.at>
+Cc: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+Cc: Johannes Berg <johannes@sipsolutions.net>
+Cc: linux-um@lists.infradead.org
 Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 ---
- fs/notify/fanotify/fanotify_user.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ fs/hostfs/hostfs_kern.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
-index a32c6634d592..bc1227e521a8 100644
---- a/fs/notify/fanotify/fanotify_user.c
-+++ b/fs/notify/fanotify/fanotify_user.c
-@@ -2184,14 +2184,16 @@ static int __init fanotify_user_setup(void)
- 	fanotify_mark_cache = KMEM_CACHE(fanotify_mark,
- 					 SLAB_PANIC|SLAB_ACCOUNT);
- 	fanotify_fid_event_cachep = KMEM_CACHE(fanotify_fid_event,
--					       SLAB_PANIC);
-+					       SLAB_PANIC|SLAB_MAY_ACCOUNT);
- 	fanotify_path_event_cachep = KMEM_CACHE(fanotify_path_event,
--						SLAB_PANIC);
-+						SLAB_PANIC|SLAB_MAY_ACCOUNT);
- 	if (IS_ENABLED(CONFIG_FANOTIFY_ACCESS_PERMISSIONS)) {
- 		fanotify_perm_event_cachep =
--			KMEM_CACHE(fanotify_perm_event, SLAB_PANIC);
-+			KMEM_CACHE(fanotify_perm_event,
-+				   SLAB_PANIC|SLAB_MAY_ACCOUNT);
- 	}
--	fanotify_mnt_event_cachep = KMEM_CACHE(fanotify_mnt_event, SLAB_PANIC);
-+	fanotify_mnt_event_cachep = KMEM_CACHE(fanotify_mnt_event,
-+					       SLAB_PANIC|SLAB_MAY_ACCOUNT);
+diff --git a/fs/hostfs/hostfs_kern.c b/fs/hostfs/hostfs_kern.c
+index 7add056d47d8..2d55f53569ca 100644
+--- a/fs/hostfs/hostfs_kern.c
++++ b/fs/hostfs/hostfs_kern.c
+@@ -1078,7 +1078,7 @@ MODULE_ALIAS_FS("hostfs");
  
- 	fanotify_max_queued_events = FANOTIFY_DEFAULT_MAX_EVENTS;
- 	init_user_ns.ucount_max[UCOUNT_FANOTIFY_GROUPS] =
+ static int __init init_hostfs(void)
+ {
+-	hostfs_inode_cache = KMEM_CACHE(hostfs_inode_info, 0);
++	hostfs_inode_cache = KMEM_CACHE(hostfs_inode_info, SLAB_MAY_ACCOUNT);
+ 	if (!hostfs_inode_cache)
+ 		return -ENOMEM;
+ 	return register_filesystem(&hostfs_type);
 
 -- 
 2.54.0
