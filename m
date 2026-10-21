@@ -1,70 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612978;
-	b=LQL1M3HXopPtujJEvEweSOyrDfi+JKd13g1IMdiexPIq0CLB5dAWq3g51OqWLfjW3Y2B
-	 xNYr6wgpwoaU3iQ7HsT73bUNUSGh6h4KxxrUfeBhFCi2amiA9gMXsOIah2QbgdefX/oh1
-	 I22z9QCkRaU60eIp346bKI1ycg9By/xdTvH+89uGVDTPsX+9kPtANtxLVknfzL00RrO0I
-	 f18M7Ite1SmcbxR+2aLynmOhOqd6ZzXPH4J4cgro4iISKyWj53l9BuS1r495fC4AdUJEx
-	 Y9x0+E1nKjfk1unI27M8wXBXgtGZc36pai/rcTkqzyt38dwrWQcGB4PFx945rL3V5sQ==
+	t=1792613009;
+	b=iyHGVr3t3m/Up4J0ZAmZFiLdr4ZiI7WeM4KMOGJQFIIvSllOPw2HdVXfTH++l6sP0TCk
+	 ZKQgbFxmKox4Qpc8o/+IRlL73/KIolGA9FbPtPTAZ2X40K0GVE+3KlRekm9gBix6gQ3UY
+	 UYHtUumylnYdUwqycIqxVScVNBQ6aDsM6cynJsDbQHHSE4jf+0Wc730HKLko8XeKhM3iM
+	 rkGx2kS9eMwD6VsLS/Pg/xuswARS0Nu+uYt7Y6+9nfrl+sox80R5jrbyJQbl8UGUMMDrG
+	 k1tWm0OH+J8jGxvHcpzYT7snYWX3k5lTSYa/njEfGQ4prrT6NVPY/3zjES0pvQaHdeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612978;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=Ab8tZXede8oabh2B0II2aH8ED810FxslsFHu2YmqFbc=;
-	b=OGYO2ll8RywtBNBdO+CGKS20Qo1QJPwoM1tI+EykOQWiJP3BemKzjxoRwGd9hLbWW3cU
-	 fMSWbCb8f7JbLTU3BREP5Jw0d4JMiOohLeiS6vsRyODpu86tQGnMKzmEmvXY3oN2+kZnj
-	 XumfOiqUCjXZQSZ44sJuWXBEHpit08RUDSpbGpu15IlXwSOrgndvDmzGeLX0iTdkeQMPS
-	 OAYLGYQ2XbHNyed91D2saPIGEsZOJVNGj8NaNHq5D9+ylePHGQjKNqqFdT0ktmr1767bn
-	 m4LuE1tH53KH3tx/25m9Y+GfIvhPcDHBXZBOfoq91ugeKfFsSa1LiEAN3yOFRWIjU1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792613009;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=qtppOnSTv5qYf/zVAOABGaVaxEJBM9qyNT4X3oeHasc=;
+	b=lV7K/TN5vvkSq55C/Sqk6X/SnfQ0QBytwZSCdSRItnqFA5uVA33Qh5F0Mwjp7o5NDKsK
+	 a6+eek+cHDPuv8bnTx4KRqTbcB8+1k7BB3VhjOUXGYKHjkqwKAvUGZ+vMFZDb7P8CILiH
+	 7feG+WENIAgXZ1Q1eSA8L38Fp3jbuJKV0iktOJMDqNmfGYD+8NE7L4U8A8E6IdXICBgnD
+	 94w2e4omYODpq0S/lVqsxjnXpS/uMVZ3gMFOXJ0kutCvagISqAh8x2/Lm7xYh3oabncvF
+	 GIRUjY1DTmcQPF/3INPyg5d7umY33tByKBSYYqJzuUKgaYtgf//57vILYHaOrxgxCRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgFUJ4x7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZC55rUQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00C2606A320;
-	Wed, 21 Oct 2026 20:02:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832E2606A319;
+	Wed, 21 Oct 2026 20:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WgFUJ4x7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2CD1F000C1;
-	Wed, 21 Oct 2026 20:02:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RZC55rUQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E09CB1F000C1;
+	Wed, 21 Oct 2026 20:03:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792612977;
-	bh=Ab8tZXede8oabh2B0II2aH8ED810FxslsFHu2YmqFbc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=WgFUJ4x7r4QY28J8pGE2EF3ync6DDzsqWxh3p95oW33NVKj0Z93xlmR4YiHxfzWGP
-	 nEjpkS3CgeG4uiGgB3nyja3GzAgKN6puF4xPLU7hpZ2voFD4lKpp++yfXkkBy7WtJ3
-	 RSqtncQ8vvGwwp92jd3XkjUqbz6KpyQ1YiIQXaOU56FpXTJ9S8t2Lo35YA2lshfTLX
-	 x1r5PD3KONDRKQkcgo84RPz7CanXEZOD6+6AbJexU1bYGUoh9inVC4Gk9mByphT9MX
-	 5LU2aZUTjCsYPAYJDzUE4gYGKfruc1DEX+tlvGTItCmLiq/tOYNLyHvxJ5sdRNqGQ/
-	 XubxETpGoxqVQ==
-From: Andreas Hindborg <a.hindborg@kernel.org>
-To: Sami Tolvanen <samitolvanen@google.com>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno
- Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, Trevor
- Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, Daniel
- Almeida <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?utf-8?Q?=C3=96zkan?=
- <work@onurozkan.dev>, FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Frederic Weisbecker <frederic@kernel.org>, Lyude Paul <lyude@redhat.com>,
- Thomas Gleixner <tglx@kernel.org>, Anna-Maria Behnsen
- <anna-maria@linutronix.de>, John Stultz <jstultz@google.com>, Stephen Boyd
- <sboyd@kernel.org>, Abdiel Janulgue <abdiel.janulgue@gmail.com>, Robin
- Murphy <robin.murphy@arm.com>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- driver-core@lists.linux.dev, Sami Tolvanen <samitolvanen@google.com>
-Subject: Re: [PATCH 2/3] rust: hrtimer: declare cfi_encoding for
- hrtimer_restart
-In-Reply-To: <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
-References: <20261019-rust-cfi-fixes-v1-0-9503472ba738@google.com>
- <DclDw3aZs6h8rmpTbJJg71sEKbRT1NZ7qUCqLvjmyjbcPRFuOmdZIAmF3_ENu8U-ijSu_cOpzgNhX2qJvJqibg==@protonmail.internalid>
- <20261019-rust-cfi-fixes-v1-2-9503472ba738@google.com>
-Date: Wed, 21 Oct 2026 22:02:45 +0200
-Message-ID: <87a4o6zusa.fsf@t14s.mail-host-address-is-not-set>
+	s=k20260515; t=1792613009;
+	bh=qtppOnSTv5qYf/zVAOABGaVaxEJBM9qyNT4X3oeHasc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RZC55rUQu/7j4ykEMZRKWhqCCBkGEyyVcd0OnzEKQbov34BmAczn1P4FbdhBXBFwm
+	 wA9tw0WQ9YLauCiHTCy9JxfCUnwJ52a4bH78/vTN5CvHhzC66VJUoiz+MB8OTmelP5
+	 KiDjMpty+P6MZT1UDJfo05xW5ZQp3RGSIySnYd+FdQ5SF6QjTrjvswhjfturQGfIJw
+	 xhFlqaKD0GIzoNb8Xe8zG5EFbi3iFYc1NPqGQ8nAGKDqgNX0z/XjhIxQmG/YWVIyhA
+	 lv2nX58b7seAv2EeCIDrQUTPVNwfPGhAwkD75v+SyRfzxSR1DZL7i6tkX0U35wnSPd
+	 07DaFdetLiyWQ==
+Date: Wed, 21 Oct 2026 20:03:27 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 0/3] KEYS: rhashtable bug fixes
+Message-ID: <20261021200327.GA2210933@google.com>
+References: <20261020174325.2229448-1-jarkko@kernel.org>
+ <atkTgEwRQfh94zeV@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,25 +60,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atkTgEwRQfh94zeV@kernel.org>
 
-"Sami Tolvanen" <samitolvanen@google.com> writes:
+On Wed, Oct 21, 2026 at 10:33:20PM +0300, Jarkko Sakkinen wrote:
+> On Tue, Oct 20, 2026 at 08:43:18PM +0300, Jarkko Sakkinen wrote:
+> > My patch set that migrates assoc_array to rhashtable had some LLM
+> > scavegend bug fixes. Unfortunately most them where either plain wrong or
+> > not in the right scope. The bug fixes in this patch set are by human
+> > labour constructed fully but they are derived from what I got out of the
+> > original LLM source. Thus, they are tagged as LLM assisted.
+> 
+> I guess these are ready to be merged? Eric do you have something for
+> this revision? I already sent -rc1 pull request i.e., I don't mind
+> to update it if necessary but otherwise I rather would just apply
+> these.
 
-> The hrtimer callbacks return bindings::hrtimer_restart, which bindgen
-> generates as c_uint. C calls them through hrtimer->function, which
-> returns enum hrtimer_restart. kCFI encodes enum types by name even with
-> integer normalization, so the type ids never match and every call fails
-> the CFI check.
->
-> Generate hrtimer_restart as a newtype with a cfi_encoding, as is done
-> for lru_status, and adapt HrTimerRestart to the newtype.
->
-> Fixes: 8a8afe9349fb ("rust: hrtimer: introduce hrtimer support")
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Looks okay now.
 
-Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Eric Biggers <ebiggers@kernel.org>
 
-
-Best regards,
-Andreas Hindborg
-
+- Eric
