@@ -1,54 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599170;
-	b=DX85rzwu8f2jBYvzGNMbW7z2LpuIWTkpWclM5VrKYD6TO9tBbkxqlnJMjgy+wu0P1x9x
-	 kxSEo7YdCXmn5SJm/djF6ig4TQ/MPFMPe/bQo09Miq0xauolhEQ9QyabkzETtp1aAec2j
-	 1E3p4MsLMexjqPuaiEijgewsn/if3KoHcejT6/KKxz6eBzAe03OmXO5QZUifMmEqJA+Ir
-	 qMqHccuBU7i66XyPaFsWFmJvKj1NxQyeQAgEKLjDURKbPSIwka4RgKcEAaJXjdv7D3dNc
-	 yAjW4FPKruJdQaS5VO9ShfI4Ht8+aMQn8cI/VH3ZAoz4Zx+bmbGmCyhtBz4ithpZEZg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599170;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=fWCXC5NTHDGlDclEH2O75YYSkPzzTN8RMoYOZpRdROY=;
-	b=Yns1/U1Rbx+LJSEbSx6onyCiXXb7URKJGkJGZxCDPB/JvTYNLLGmecxD1N3xSYQiq4hI
-	 7HXwBhM7ZWGGS9tknvLgWTSnxV5J+9RX2ClUCliDNfr6k3ekaDbKg2ckdvMm6pcDm07qf
-	 5tQeD6n4VEoD4e2RXMed4oIdpnrfUG6XDrpZrBNtyLO4eNBbmT7A8WhFD4Nd9OuXU15iM
-	 HTUJ9J2RqohzDft+DSVFVq2gG2n49GbSJQE50A0Sd9U/PzGMwBpehg3rXtH+5Py0ROjKp
-	 cxXyvWzQ/TTMeEQnB1A+OihlpdF7B30Dlpq9ydUX/qtX8/+8d9dIElti/5BfLOK/LDw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TBRFoX8I;
-	arc=none smtp.remote-ip=95.215.58.41
-Received: from mta1.migadu.com (out-41.mta1.migadu.com [95.215.58.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792599162;
+	b=uT8U0BCs9uf+sINjP4uh1lFHdSJGDeYArBdiEAs8wH3LGNFH3Yxqcf6hOShDwZIrIFzp
+	 R1B7pglDTa6RQb8om/v5iEj9yrpd4Y911RFLOu0u7Ff6VZWmeTbRHfCI4oCF9QD3l9S4C
+	 aHgqEHKFolfAnqHYer0TLyDjI+K3M8vf+qFDFSmNVfGYTqY/NWsLDT/Zb5Q5KIhNP6zCg
+	 EZ9xk5kUgugWOQ8mwLrWp1HWvjiNAIQ9icePiK0ZuJW2O0wkvXXN9Sn7x/S6Wmo3Si3ja
+	 6kY1nHyfq+W5iQnHLwD6ngKgkIEj7fttuDXxccLoAL4xQv8nLU6ZrL4CrpBhUa9ZuJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599162;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LOPkZEV6Cm2zaHtJqPrEJTh7x8w9jJnwNm2gyHPm88Q=;
+	b=fSbA6Qe903gUD8WSPLuVirk3wQnsL75eczIX3EKOV0XkkTwqQCOfJiIJrlaY12SAXVsi
+	 el4Y+NaWJPvPlkmwnS7hwsmIP71MRwmUvv55LjFTV7VVgGwq8vbl4DnJpvLsT0kzXaHYT
+	 E9ClA3qnhM66/UX+4tA3BhBggCSg96Nsvd0TRIXFzG8mBnbeNd6T11Wk83OjS4LBiZPKY
+	 hREdwj3TOpESvilqQTiRijJlTjO06zZvXohVsMzusVBqUg23AFI+MFdLFsxoAwewqcomK
+	 TqpnmPOmI62J7lAlaIWQrNslGmzBdhz504hqTISqkn5ElGIGF1iK6EEPKJKsDS24ISQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rpozbc8I;
+	arc=fail smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D90606B6E8;
+	Wed, 21 Oct 2026 16:12:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rpozbc8I
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792599162;
+	b=iIYiUvHqIWCLRtfGH/pbe6hR0t66fHGe8hU1NQZhIBgPx3Bvn+m3Y65BMmsniCozjP9o
+	 MuCTOSf8dj7mnZTlh657ATeXxiZlZYNgzZUxh0/1jCuvJFg6KUtK0kqVygjtn+rAOA5fS
+	 sYTBZ1EW2QS7DNEsIoYT1P58rbT1c2LrjPfy9zRZt1zdMi6hzaC11/lHSzhOuCigg8uUZ
+	 +MTy3k+MDCZVFeTBVkPHZZj3cQOkkdNK+BeesnshXx7gIXrI8KJjb0CZNBLLCtfMcxA4p
+	 c4g3p2CNJTIANd7cP6V325tmDX0qi5CyHXDBwrMQkA9JMtmF9NxosAUT0DGYvw0Jt6w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792599162;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=LOPkZEV6Cm2zaHtJqPrEJTh7x8w9jJnwNm2gyHPm88Q=;
+	b=EAsCfMDcA6XzviBGbt3Zd7v6Q3pjbQOx1ricdadB8w8FXf5KfOEpGiJ5cHvYPSoOUCmm
+	 0mOhJ9WFRB8mDtXjp2Fv6MSD4Ro5QpazB9Bs7Q2eltm5wSLPk/qy/S9GodV96RH3ifI0D
+	 Yq5BIPXVB9onNODoGBWEOJd6xYx+kZqxd4esoPR4YOQq10YfJm74qmLvs/9cXmqUslAoq
+	 awEj+SHouYRzjxUjJvU5m8juAxLvlowQS1STXcL+EPHWUZtjDalIKl1B8dto348AVxXt5
+	 6nzjZY2H2dcwortmNbBcaeC/Zsm6h8nE+3qfUISdAnfBMGQul3YZmauafc1Im9lmYaA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBC660A381F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:12:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FBC660A381F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TBRFoX8I
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=E7cWh+ZF7GRhp7QeoNOeMiC4IRFKXkLJvJ6m7Tdn1+M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792599167; v=1; x=1793203967;
- b=TBRFoX8IfarmXP3muakvbtwd0Fnn3QkkD4ckj09YU7HdTxPcPh89Uos/XU2JNQ/FoCS4cfxi
- jY9el39vZ3+nuLjJejOVLV8ZO2aZZ+v2Q7EtY8BM/ASk7vXopV+beNHyiGno7OoNKsaIm/rlV5T
- e0/6T1gBLeK5+yVvR090buvk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d1bddb8955e5cc6b;
-	Wed, 21 Oct 2026 16:12:47 +0000
-X-Mizu-Trace-ID: d1bddb8955e5cc6b
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <167a14f0-6a6f-4db1-a34b-905a33d5290d@linux.dev>
-Date: Thu, 22 Oct 2026 00:12:32 +0800
+	by smtp.kernel.org (Postfix) with ESMTPS id E90FA1F000C4;
+	Wed, 21 Oct 2026 16:12:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792599162;
+	bh=LOPkZEV6Cm2zaHtJqPrEJTh7x8w9jJnwNm2gyHPm88Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Rpozbc8IOvAbks8ZA0EvIQUx1BkFLLVX5UXLwniPNqaWNZcSPXitSxS8P77cQ3JGB
+	 tEc00Xrvuq6SEtbb8HwYfnmmw9xsoh2FnMlgm9SGq8UN4A85RVITPkRvKwRS1WxbYD
+	 BAQ6QyAPESg38vmoE+Bi130pDqGqq1xGaKd8XhnrdV6VlbUdAJa2c2QhL7vehfb8JD
+	 x+pYwM5pP57ckdlsNRsX+n/qqWMC4idp7zuKQ+lgN355b0TL0ZW1/da9ZwaQ0eBbKV
+	 iEeRWKn9Nrcou+qLzv2M6Kj5/sQFQserPjhJ1pPVkRVuOEhJuYHXYD3ySKQ+bJ0Ars
+	 aPp85USWsmE9w==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 75B1F433D5;
+	Wed, 21 Oct 2026 16:12:23 +0000 (UTC)
+From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
+Date: Thu, 22 Oct 2026 00:11:11 +0800
+Subject: [PATCH 14/27] dt-bindings: net: rockchip-dwmac: Add RK3572
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,60 +82,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/ksm: keep soft-dirty and uffd-wp when merging a
- page
-From: Lance Yang <lance.yang@linux.dev>
-To: samarth.colleges@gmail.com
-Cc: akpm@linux-foundation.org, xu.xin@linux.dev,
- Kiryl Shutsemau <kas@kernel.org>, chengming.zhou@linux.dev,
- peterx@redhat.com, rppt@kernel.org,
- "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <efa6a28c-f0f9-4d1e-9cce-fec2c08e7d9f@kernel.org>
- <20261020055518.36087-1-lance.yang@linux.dev>
- <3da45e6d-2b46-4fff-9ff3-241f70d68296@kernel.org>
- <f6bdf823-be42-4184-87d2-fc7c128f4786@linux.dev>
- <68f17ee7-d272-4475-8a59-645442e2c210@kernel.org>
- <ath8JTlITYcXsyLg@thinkstation>
- <2329ee64-f9be-4826-a496-65344e9a9c18@linux.dev>
-Content-Language: en-US
-In-Reply-To: <2329ee64-f9be-4826-a496-65344e9a9c18@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-add-board-ok3572-c-v1-14-0b0fd85a31ee@qq.com>
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+In-Reply-To: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Elaine Zhang <zhangqing@rock-chips.com>, Lee Jones <lee@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Richard Cochran <richardcochran@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Jisheng Zhang <jszhang@kernel.org>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ David Wu <david.wu@rock-chips.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Jaehoon Chung <jh80.chung@samsung.com>, 
+ Shawn Lin <shawn.lin@rock-chips.com>
+Cc: Cunhao Lu <1579567540@qq.com>, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-gpio@vger.kernel.org, netdev@vger.kernel.org, 
+ linux-pm@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-serial@vger.kernel.org, linux-mmc@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-phy@lists.infradead.org, 
+ linux-usb@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792599138; l=1343;
+ i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
+ bh=K0gxmniHOFyS01yuDpywB04Gh4PRTh2NilGC49wF0Uw=;
+ b=OW/ekGJbf8lwNEJWQYNfv3I5mTkDqbhiK8fSThBAA6vigH0ZL6//v8ZHW4Ee27ozpu2t/IsRo
+ PGs709KxeCcBq41j/NY9kIAySAoZFX0TROVz+O/VTBtFCliJJ/ZCfYn
+X-Developer-Key: i=1579567540@qq.com; a=ed25519;
+ pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
+X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
+ auth_id=1177
+X-Original-From: Cunhao Lu <1579567540@qq.com>
+Reply-To: 1579567540@qq.com
 Content-Transfer-Encoding: 7bit
 
-Hi Samarth,
+From: Cunhao Lu <1579567540@qq.com>
 
-Could you send a v3 with just the soft-dirty fix, as David
-suggested? Leave the uffd-wp/RWP bits to me (I'll take
-a closer look).
+Add the RK3572 GMAC compatible using the snps,dwmac-4.20a fallback.
 
-On 2026/10/21 17:49, Lance Yang wrote:
-> 
-> 
-> On 2026/10/21 16:55, Kiryl Shutsemau wrote:
->> On Wed, Oct 21, 2026 at 10:21:53AM +0200, David Hildenbrand (Arm) wrote:
->>>> +1. Did it ever actually work there :) Why not just skip them and
->>>> call it a day :D
->>>
->>> I think QEMU just always sets MADV_MERGABLE and later activates uffd. 
->>> So that
->>> needs some care to not disable them. So let's rather try to get it 
->>> fixed properly.
->>>
->>> Can you send out proper patches? Thanks!
-> 
-> Thanks David! Will take it over next week and get proper patches out :)
-> 
->>
->> +1.
->>
->> Lance's direction is right. Unsharing is not an access: do_wp_page()
->> already skips the uffd-wp fault on FAULT_FLAG_UNSHARE, and RWP should do
->> the same.
-> 
-> Thanks Kiryl! Will take a close look at that :)
-> 
-> Cheers, Lance
-> 
+Signed-off-by: Cunhao Lu <1579567540@qq.com>
+---
+ Documentation/devicetree/bindings/net/rockchip-dwmac.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+index 80c252845349c..83b0a81b4f3b7 100644
+--- a/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/rockchip-dwmac.yaml
+@@ -27,6 +27,7 @@ select:
+           - rockchip,rk3506-gmac
+           - rockchip,rk3528-gmac
+           - rockchip,rk3568-gmac
++          - rockchip,rk3572-gmac
+           - rockchip,rk3576-gmac
+           - rockchip,rk3588-gmac
+           - rockchip,rv1108-gmac
+@@ -54,6 +55,7 @@ properties:
+               - rockchip,rk3506-gmac
+               - rockchip,rk3528-gmac
+               - rockchip,rk3568-gmac
++              - rockchip,rk3572-gmac
+               - rockchip,rk3576-gmac
+               - rockchip,rk3588-gmac
+               - rockchip,rv1126-gmac
+@@ -137,6 +139,7 @@ allOf:
+         compatible:
+           contains:
+             enum:
++              - rockchip,rk3572-gmac
+               - rockchip,rk3576-gmac
+               - rockchip,rk3588-gmac
+     then:
+
+-- 
+2.34.1
+
 
