@@ -1,90 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.6.129.40
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792627251;
-	b=DzQYnPshyZyURxIvEMYxj8s1kUDpLVQMFnDdo018MP36+lkE/nhwvnyY5qRtNgSx0/jC
-	 hp5g7CCMctk499/D8QWtFeNTuC4qlfn2c3pP8IFyItrR37OlbcBvo6ltWvRrgZaDKPi5M
-	 UK6OHNC+taghgNL3lgm35P01OEw6u5OoDj0bU7cdnhEHIAhGfojm83yK9XIk7wXU9ovqn
-	 prD3tpbl956wXpKnZ4cPcT+EXshwaPOT/1euYptdqp7EdQuJN9gsJmlpw7f3lFyoyw86f
-	 FKKvz1+PHfO0JOp9i9dsfvuSz6NmKK0ASuNoaAEfOL4XQ8vSgE8iK7jfZSQt0IpDuCw==
+	t=1792627265;
+	b=lUtB8AN05QuFKLRnHL5pJ1KVGu9Yfb6EZQ+xiUB0cZqt6PZNSjWmm3Y239ZcKpb3X/VH
+	 Z3YX+6eqtsy5M4cQnIHdhn3dCCd/Yxrc8wzsAJnGmp5ECvN71raX+c82YMp+zJjXXBEnl
+	 99W3DI8PUNRjYrR++mMT2B28PMNlNAigy+BJDhhiSZbCC7ZVcNcE0rshVbg0zj8x9yqfV
+	 XgDvnPJcvpdVspZcRc01XeFFYhe0RrvM2B4LYv6g1yRSmNVCCamWVaIS2xSb+ksts2Yba
+	 wEsA0WhH9E3xx52xEjh7gF8163VSeFleviNFEUfAdadHAdEy6DB18uSweiCU1ujCP6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792627251;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 References;
-	bh=druPvQMWSEwX5b8Wb6p1csxuRLy9IK+eHcT2X1I1yfM=;
-	b=hH5PO9B+W0KKbGRII7MlQZYSklLQ3X6OjsYYADJU4GBsaUVCdrPSla0ZeJzZxk3S1OsS
-	 SFfje9FHPmUvEyvBqEgqiCIqWmMv5eku48rEFhiqtm/rNrua9DOQc7MQDTeQlSxti03hF
-	 7N8Yjc170KuFG9Qm0iSFV2dJMjVrGVat4qTGncxQ3l7Vx9Q9bIV54AK/Z0fDvx2uZKAiq
-	 iyGiANc2jnIIdrQws+lDWMeZFP++Gw1B0W1ZLorXQEoXDtJ2P3VK0RnoNeN7hVfFQety8
-	 9l1bz97yCUuxzmsJ4qtTyHLSGg883MivZuuHFytTrSXLT2HbzYlfmo9XUZam5hVH+qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792627265;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=vdQ15CY2t8acOR+daJ/by7IbMKM9K/k4D2pVTlpzkNk=;
+	b=02OE69LG5Rqmow286iRKRwbCMe+/IWeGvOES0MiYfOrnxwPP0cVDPjKIjF/4BZUESULE
+	 NxMcc0xHLEumdCrGjRVfsrH+lX4pwIq9iXI/9m90Z5fJ4pUCH+HY7VQlsR+K+cqAP0IaC
+	 4TKIVXLy0SGDWAVGKS8WkD2uvw+Iwk0JAsMoYbw2C04OKJNBzDVUubILXC6Il7rqi7rdS
+	 2DXkY8PJtjDWmK3MrJSugmh5HG2ZsBVC4xw2USCt0grFStJXpmQvjO5MJAd3WHhzDDGh4
+	 YPmk2pM0+OR/Uza0QI8nJOeXWjserxbmS+ArBE8MdXL716HFS35UUGS8PApRiK2oq4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.com;
-	spf=pass smtp.mailfrom=yahoo.com;
-	dkim=pass header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=VMebvADs;
-	arc=none smtp.remote-ip=74.6.129.40
-Received: from sonic301-1.consmr.mail.bf2.yahoo.com (sonic301-1.consmr.mail.bf2.yahoo.com [74.6.129.40])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UmA2bOuU;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22D58606A334
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:00:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22D58606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 233C5606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:01:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 233C5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256 header.s=s2048 header.b=VMebvADs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792627244; bh=druPvQMWSEwX5b8Wb6p1csxuRLy9IK+eHcT2X1I1yfM=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=VMebvADsY+fxA2EEGqi+t33HjuUafNeDG07G2ephR07Yw9IL+svnB6EYUzObRY4mFQHXEtoIlEGkyAdhkaHLzS6o9rN2OUp/Syxf0NRB1YrfLSzK7Ke4wWP5NeGq7uLupgt62Us+XErVU1ODArct9baiNrOwGL6OuFhV0wwu3bupu3yVQ2FN5rm3PwZGWg+1Fd++Cqxiu1LOgYlRYxA+D4Z6j9gqUcqfRvjsoMoF9YRW3b7iQOab9IUDsGksUiMNc7AhdCd9vAXiIILoJTs8bN3kh3cxjehHgRIOc4Y9zw5rBeO//JIfChm169nFS1oTnwUxslWeJwcNqyFdM+VQZw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1792627244; bh=gCVDNBxNxiyObti9oZoeitmApgHtlHkTPJ/LClGgnaI=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=OzKgTaWm1CDgiz7sAozzOxmmhEzEzE4Uq2dFYFYeyUk8WMVsax6Dt4GmZw5PNUvytO7xGWcHg1IzwrrfhNgbYlBOWnNzOm4JS62LxENwlwsZYG+PpyLZ+C8YJlUIU1aNoQAAJSu6kDCG3fO2fLkE9IPi+bfmcJ+iuoSNkoCJXtKlzqVTXrLFN8DLZPCFCFx0qwGjTmQfF883Mk2DlIMuoV6ukZKGoOHWOrUiXm+C7oEcicPmymyZYQHhts9YJA48/P6H/1m4IB9ZRv/UiMQm8cZOGoTrEkK88KcsNQdW60Um/WvRJ3yAR7ZTC6Z9W3YjcCm/s4hITMfBcWPAE0xhLQ==
-X-YMail-OSG: 3s8FuNcVM1kSD0x5ae.6miMlXMElNDiQ3se_ISwJKbIQw7dM0h.Z3RbtTukAho_
- L2RRLppyZtkvq5xwjLZHXL.291ETaDtOYTjsteldRY2vwyVQoK3zhY8SAzk16EbrmwBd0E4o.OAt
- 4Zgyv1EyPIhnK3BzIU5uSr6CAom_Sc5oxXxGyjQ5wvW6OtjCj6I8_qz2BvqtOVXkwsfsgbsH4Aq_
- Uv.jSM4w3Vtt3TXQvq6Xoc3nXcDZY6N6dGyCRRcwYRDFb_mPeSgEiWEmya4ZdEEKMZHT8A9qW3_W
- .TcqMKgYMdBUIhPhza3n5z5rmrUK2khdDJcYiV5k6xchkxRbi98AdORgHcwCTXn2h1lcREX5EfE8
- xOkfdsQw8tVhLzU3TuVeLvf6PsxR5CKmxqw1xm3uJoJbX_IYGXt7p84NbMpwy6kK2oGsoCu03yxP
- e7GhxVgtDYbFD7X0DiUx0hIP1dqHzIETOGOsUUsOIww1kWbgORRUh4p0tC.oS1T61ckuBPQ.9XIp
- UofoZfhldQlRW0RI68C8XcGxPwH7JIeCgLikxte.B8wb_x3dUj5Z3U3SXNkmDK.zgFo_p3taS4DB
- XBU5POxRoeCE7BvqXWlXbxzsH0YIEq4GrXKzp9bi0mLV.gH7Jyjyn4I58UK6wjsCji4FGmHeloIh
- FkbLVNZs0dsP5.tYQLwc9K_BbaA40H4IV6sMlEGijIfE11_lNvxL.vIj0DTOxi7sFxpNU6T.iXCi
- ak9W.65jH4Hyc0EaxFkd7kMDMlzMsBifspAVyalht_IRFeeJf5VeTxOKAzS.eeYohIiOb9tQDf2v
- 73pd0c8in5VwRyX9exiWthfCDuaCHe5O5nyBJgjsj.zRxrYbihCGe0WjciQ95HLmz3vYbsUBdnw8
- EkEZHRmRXD43sqIzLHfKWtasJQ5B_TCFLOusANxRvNnEnzNbVkPTMj3ivmdwad8vaeND_IQOw9CB
- b9.e80bkxpFLnbeY7HmwjksEqX8SSauZLTqXT5aoWbYjNYyFD7iEPQ_jOaUTpuNWaJnd.GSeqh5r
- 1HS6ndJChZx8muUYLlgQ8f3.b5S3LwZy_Ju3dugsGrMey.Ua6_Ho02u4mtGnydDC7Oowil9ahTKs
- Ew8HzN4nY0noAANYdK4SoyoXxgrrqR0H.3dcnuAzA3unkJF.KKyTrrx3gQvzdJ8IRyxrJMAa_nzP
- ApuxXPPNluGmDOwWYvoExnZtrqFt9SBP2LkGJ6.HiE1O6eiLWXjhIWM3J_dy4xGX4QIO.qDWQgoO
- LvNnAnF4306S7d0QNTeSN5lkfg.OFgZSpAe2dElByVykdOxI3smhItkAM9hQm.HLpDgDxqBayiND
- AmO75eexyN7mdoMJUVqWfAUrUbHC_izqGx_WntUTufm2Rc8FdxV_GPp7xUzyTtwOX9txeH0bk_hg
- 1GDs_O7DZMYT0_zDpjZFOSGVm_lGrSTRAbgirU3E9.7l8u6iCjwm3dg_JrxAopDlqEJczqM.Eg2S
- 6EK0l4lVxoFiQHUXItS38OIBbJ7_5SicK9V9zoEbGCAJEjCRqR9JVUCAHPx_zzXX0CYbzK2ODIUE
- OSWSn2Je6GRIF7T9P285DOjlotKUScKrIHT0tAzyvhSuF904ZO5t.pP98wR3zAqDfLVwSvlneTC6
- ApqVmURiqnJYLtcWS9SzHRPpN6LLMhk3iT3xhu6fJfg.qy7lR0PYdkvnJOsQmcHPgHMiG2Foyqq8
- gzKIe4aLkLAC5.VoelqU28FCwrxl9qwn3ee3_YwuJKP1HKUrzmT2VtPjy217ba0ARJ2H_g_DsdVs
- TIIBWDI4H0CZ9.H4bfPmTkPFMDXWApps9SzdxkICQCglgELD8w8nZEk6G35Im5F_jv_QGpkLGlQG
- nho2nKT75ugqVficfz1XEfXcscJ4qpSTUnj.ENO7LIECz3aP6U1iqhdAAP0MGD_PkwEwyNg9YUsX
- xo.mm0aRl8MGCQHYKDuAJefv0ReQflyLwJ71eaM4zfg8fac5MWhAyecckR5OdEcNh1c_BFRHzjl5
- H_hnmXavp_dkR88mj2kvYJ2T0pTpb1Xl_KudLeY_6IMt6Pq_7QYREpABJIWBlg2nacJYdCK9D8as
- _o9NFZGaVMINqGkBujl6ftDKg2M.G.I_ZWgaZUFExRQDqxq8KfLw9xKe4NfNePqgDxvW.j2Zt5s5
- 38Qsitgv8e.VjGxD7y.ojgvOPBoFx3elZbP6v9fF7ftt6IJi_6ZU.ujdQ_Om6jIyyixlI3SMuBCE
- _4WVukgbQ.7QqZBvNLlFKIf8xdjQ_0j1i.j.ivZAeirhOe0D.ELAdBf4UWkFNjgKdg3Vic0_P
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 7a71e304-921a-4213-bafc-1a598fb0340a
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic301.consmr.mail.bf2.yahoo.com with HTTP; Thu, 22 Oct 2026 00:00:44 +0000
-Received: by hermes--production-bf1-6d6877594b-7nfrx (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID aade7a6eefc81e54893ba8797da94197;
-          Thu, 22 Oct 2026 00:00:39 +0000 (UTC)
-From: Jeremy Dean Clifton <deaner92@yahoo.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=UmA2bOuU
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1714896eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:01:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792627263; x=1793232063; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vdQ15CY2t8acOR+daJ/by7IbMKM9K/k4D2pVTlpzkNk=;
+        b=UmA2bOuURe6zzZcz6sNdn2qZsqHZK5yINxkcZrAhLL8QDaeRg9nf09OXJdDZpSCRYf
+         +aUzwszLCLnOIgj3vFHUtMtabk1DMoHgTSs8fG9CjMPPuBumBiza6waGhaeaMQRTjq3X
+         8j8BEdih2gmRULB+bP5mlObW3UOjqcRdummgc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792627263; x=1793232063;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vdQ15CY2t8acOR+daJ/by7IbMKM9K/k4D2pVTlpzkNk=;
+        b=NwISLc+ZCiFEuwKop7Z+baJTjrtlQdAjzR6ceR8lAqZOxOEL3Y3cAcnuAN2epjS0AA
+         L3YPJs7jOimsiH0oXXQHvkwXhQCO5c1j0F2zamUVJUWcIKJSA2PhkLcDXDaMYZNOm/pB
+         5B0P3TdZzVU2Ol+6fNRyOdslTSFmyt2VZUHLZoUvE1eaSyeSgy+YZYzQB/NE8eN6JZ6/
+         TNvgKi6pEJxnUAusMprqHkOrJ7+cZpBGAy74n19K/S1frD0IdIutw7A6Bz08q74YhdpH
+         Ji4IT0+E4wYc3GRxb5pbsPqr20VbTOqXaDQ1PIkr85yF0vUgIKVlSULf+bHL6sYCamqO
+         KOGw==
+X-Forwarded-Encrypted: i=1; AKwUvByq2WHonn60qfUinJAIAKmPCTRSxw8fLzROk48Ar072+SL2K1tdysgKNpX5NXZeEzkVnOcaGblFzTpCgaA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLl9hZCl7GWSQcQefOQ/FlIFnurHKm1hmGbOQk/7NhNMVfWM3t
+	BBNVyXn3xBaAIxycSElI1YbWqG9RhzxkPdT4usgRyWxptAz2tYIdhUuksN99FpSsfw==
+X-Gm-Gg: AYBFou2rxkFKaUybFb/RFsN2per5Obls8GVBQ4F4ET7qLsNs38MUqaeHwv6w4YF2vrr
+	058oxChbrS/31+KWqLYBhlwsLe63H+CzVn6HGsgi5IO0byiuy04+4oQgAvRMfReMsn7Gnk6LGzD
+	jkFuAqqH2PY5cIzK81oeonUDKk191IkUn4qgBl91KwSaPci+1qfvhBMB4GRvoKgvifgBEV5gI50
+	TNT1+X/8MeKZfNzoHrx7ZlXM6i1iZ9Kfj+9CiQALiGR0gNk9OubPzdeW2qL35cgDT7spL6iQ7ir
+	sqxCYU8deHGz15C9Pf8WauTsyZFh5RTNpCy0teNdRHd91TL4O7zVG346VCmb3pK5ZAg3CrOUOWn
+	v88TFjiUwzau0XPDSVBxn0A9L9rb9piOsQMCE5CNBNOZ/pe24Xvwcg/32g5gyVrGzzYyaG8PFur
+	eBp9O78gIVj63P2RLqaOeRHiYWDv5mDRF2akfA6dxfBGEY6KYnnyRQIL3V4kqh5ZuRkFBMZhvQK
+	D9OcXhEhGWOP47fhZWAO9D02MnVCLOhyZiLvK5eBp0TqYPNqOPqA/5+jpnFReb3e72Jq6DLKI/L
+	08yYHZ6Ygm5ZUMsQF8K4
+X-Received: by 2002:a05:7301:2f1d:b0:361:6dc4:d0b2 with SMTP id 5a478bee46e88-3674b52acc3mr4938338eec.2.1792627262898;
+        Wed, 21 Oct 2026 17:01:02 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:14ab:bfeb:ac88:458f])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-367405ed295sm12097312eec.9.2026.10.21.17.01.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 17:01:02 -0700 (PDT)
+From: Brian Norris <briannorris@chromium.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	linux-pm@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	linux-iio@vger.kernel.org,
+	Brian Norris <briannorris@chromium.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Rui Miguel Silva <rmfrfs@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Jeremy Dean Clifton <deaner92@yahoo.com>
-Subject: [PATCH v4] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
-Date: Thu, 22 Oct 2026 00:00:28 +0000
-Message-ID: <20261022000029.125691-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2 00/17] iio: Stop looking at pm_runtime_put_autosuspend() return codes
+Date: Wed, 21 Oct 2026 16:57:01 -0700
+Message-ID: <20261021235818.3059519-1-briannorris@chromium.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,151 +106,98 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-References: <20261022000029.125691-1-deaner92.ref@yahoo.com>
 
-Convert the NXP PCA9685 PWM controller binding to DT schema format.
+Similar to this effort:
 
-Changes from the text binding:
+  Subject: [PATCH v1 00/23] PM: runtime: Convert pm_runtime_put() to a void function
+  https://lore.kernel.org/all/6245770.lOV4Wx5bFT@rafael.j.wysocki/
 
-Document the 'reg' property and make it required. It was missing
-from the text binding, although the example used it and the device
-cannot work without the I2C address.
+i.e., commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+type to void") and friends.
 
-Rename the example node to the generic 'pwm', as required by
-pwm.yaml.
+As with pm_runtime_put(), there is very little value in return-code
+checking for pm_runtime_put_autosuspend().
 
-Describe both cells of the PWM specifier, and state that 'invert'
-and 'open-drain' apply to all outputs, as per the datasheet (INVRT
-and OUTDRV bits in MODE2).
+Checking the return code is more likely to produce a race condition
+(fighting with user space writing "on" to the "control" attribute) than
+to tell a consumer useful info.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
----
-Changes in v4:
-- List Uwe Kleine-König as maintainer instead of me, as he requested:
-  https://lore.kernel.org/all/athTVpsanlK9_mVJ@monoceros/
-- Add Rob's Reviewed-by.
-- Rebase onto next-20261021.
-- Drop the Assisted-by tag, which checkpatch no longer accepts in this
-  form; the AI assistance is disclosed below.
+Because the IIO subsystem has the bulk of drivers that inspect
+pm_runtime_put_autosuspend(), and because those drivers have a lot of
+other issues touching the same code (which Jonathan suggested [1] I
+fix -- I fix some, but not all), I'm sending an IIO-specific series
+under a v2 label (since many of the changes are still borrowed from the
+earlier series).
 
-v3: https://lore.kernel.org/all/20261012140346.3065-1-deaner92@yahoo.com/
-v2: https://lore.kernel.org/all/20261009211523.56122-1-deaner92@yahoo.com/
-v1: https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
+For reference, the larger v1 series can be found at [2].
 
-The schema and commit message were drafted with an AI assistant.
-I verified each property against the driver source and the
-PCA9685 datasheet, and the binding passes make dt_binding_check.
+- Brian
 
- .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
- .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
- 2 files changed, 62 insertions(+), 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
- create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+[1] https://lore.kernel.org/all/20261018211807.66bfea0d@jic23-hlaptop/
+[2] https://lore.kernel.org/all/20261006231900.3230373-1-briannorris@chromium.org/
 
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-deleted file mode 100644
-index f21b55c95738..000000000000
---- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--NXP PCA9685 16-channel 12-bit PWM LED controller
--================================================
--
--Required properties:
--  - compatible: "nxp,pca9685-pwm"
--  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
--    the cells format.
--    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
--    time.
--
--Optional properties:
--  - invert (bool): boolean to enable inverted logic
--  - open-drain (bool): boolean to configure outputs with open-drain structure;
--		       if omitted use totem-pole structure
--
--Example:
--
--For LEDs that are directly connected to the PCA, the following setting is
--applicable:
--
--pca: pca@41 {
--	compatible = "nxp,pca9685-pwm";
--	#pwm-cells = <2>;
--	reg = <0x41>;
--	invert;
--	open-drain;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-new file mode 100644
-index 000000000000..4c60f4260922
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP PCA9685 16-channel 12-bit PWM LED controller
-+
-+maintainers:
-+  - Uwe Kleine-König <ukleinek@kernel.org>
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: nxp,pca9685-pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 2
-+    description:
-+      The first cell is the PWM channel index, from 0 to 15, or 16 for the
-+      ALLCALL channel, which sets all PWM channels at the same time. The
-+      second cell is the PWM period in nanoseconds.
-+
-+  invert:
-+    type: boolean
-+    description:
-+      Invert the logic state of all outputs (INVRT bit in the MODE2
-+      register). The setting applies to the whole chip, not to individual
-+      channels, and is typically used when the outputs drive an external
-+      driver stage.
-+
-+  open-drain:
-+    type: boolean
-+    description:
-+      Configure all outputs with an open-drain structure (OUTDRV bit in the
-+      MODE2 register). If omitted, the outputs use a totem-pole structure.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pwm@41 {
-+            compatible = "nxp,pca9685-pwm";
-+            reg = <0x41>;
-+            #pwm-cells = <2>;
-+            invert;
-+            open-drain;
-+        };
-+    };
+Changes in v2:
+ * Split iio into its own series
+ * Split into per-driver patches
+ * Fix various usage bugs in these iio drivers in the adjacent code
+ * Remove now-unnecessary helpers
+ * Maintain Reviewed-by from v1 for drivers where there was no
+   additional change (aside from splitting up patches)
 
-base-commit: 9a482184d910775cf648863148944945b74e2815
+Brian Norris (17):
+  iio: accel: fxls8962af: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: accel: kxcjk-1013: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: accel: mma8452: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: accel: mma955x: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: accel: bmc150: Discard pm_runtime_put_autosuspend() return values
+  iio: adc: rcar-gyroadc: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: adc: ti-ads1015: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: chemical: atlas-sensor: Discard pm_runtime_put_autosuspend()
+    return values
+  iio: hid-sensors: Discard pm_runtime_put_autosuspend() return values
+  iio: gyro: bmg160: Discard pm_runtime_put_autosuspend() return values
+  iio: gyro: fxas21002c: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: imu: kmx61: Discard pm_runtime_put_autosuspend() return values
+  iio: light: apds9960: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: light: pa12203001: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: light: rpr0521: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: light: tsl2583: Discard pm_runtime_put_autosuspend() return
+    values
+  iio: light: us5182d: Discard pm_runtime_put_autosuspend() return
+    values
+
+ drivers/iio/accel/bmc150-accel-core.c         |  75 +++-----
+ drivers/iio/accel/fxls8962af-core.c           |  56 +++---
+ drivers/iio/accel/kxcjk-1013.c                | 118 ++++++------
+ drivers/iio/accel/mma8452.c                   | 100 ++++++----
+ drivers/iio/accel/mma9551.c                   |  21 ++-
+ drivers/iio/accel/mma9551_core.c              |  39 +---
+ drivers/iio/accel/mma9551_core.h              |   1 -
+ drivers/iio/accel/mma9553.c                   |  36 ++--
+ drivers/iio/adc/rcar-gyroadc.c                |   4 +-
+ drivers/iio/adc/ti-ads1015.c                  |  50 ++---
+ drivers/iio/chemical/atlas-sensor.c           |   4 +-
+ .../common/hid-sensors/hid-sensor-trigger.c   |  14 +-
+ drivers/iio/gyro/bmg160_core.c                | 178 ++++++++----------
+ drivers/iio/gyro/fxas21002c_core.c            |  33 +---
+ drivers/iio/imu/kmx61.c                       |  25 +--
+ drivers/iio/light/apds9960.c                  |  48 ++---
+ drivers/iio/light/pa12203001.c                |  26 +--
+ drivers/iio/light/rpr0521.c                   |  57 +++---
+ drivers/iio/light/tsl2583.c                   |  27 +--
+ drivers/iio/light/us5182d.c                   |  32 +---
+ 20 files changed, 401 insertions(+), 543 deletions(-)
+
 -- 
-2.43.0
+2.56.0.218.g1ec904b173-goog
 
