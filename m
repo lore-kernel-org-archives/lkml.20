@@ -1,101 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.125.25.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599929;
-	b=y6HXYkQhXqaYiAB/fHLxD6cfVRQl787f9vNGWU1of0ia9TodZKP+7wHY9t84VQUQ3M8N
-	 6kfBFcXrvJug6xXvfgMfpoMDnDV7ugjSSSsUKdKb0WJLC6exdywU+f7rXsm0nvi9OJ3Aj
-	 yYz0nzJ/1WdtqO9DpEQuE3o116F6f5Srpe1PkpMijVV8ulFpcY1DJ2JG5nLw/4umQMV5+
-	 6/TS0UW5DjqBItB0GgsFx/gW5XKWprJTy6LzK4pEHdxAcB7jblBETBHeXanpIt/TIK2dy
-	 uoEJgH4MWBXtCVXQmOpg5aGida/s+rHHDcg7aRYgGCISyFHHk2qXC9bOjAJLtwk85iQ==
+	t=1792599960;
+	b=PtPUeFUWGAUOHddNl5RwwJ68BOX6W/5kwWRGYbgGXingEWiLwY+O+33P2GR779Q5XEoN
+	 VcCLTMhPW1y21cOlhTaS3qgWz6Fn7ZrMsoHE5Agv+ZsD/c59oYh0YOVmUKo5z+OJKM15e
+	 682toomOzhwLXrMl+halg9mN+0GZI2QS/B6BPR/N4Xywpe3hNZJgVRBd2IuFyueYjFjAI
+	 esPKwYAoH5oiNi0N1wtywJ/WsiWyZ9Asf0yzkSoXEXZS9WBZNq1dPYzLwP7aD9wRtLLdX
+	 up1bvv7gs1YaYCv2/j3q5woxP48C0IFO31hTFNP767ZumVCq4iumXqjVVZXRqzhX5KA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599929;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=wTPDb7LIMtyEiz+mqYTBrrnJbHRN01tnFVsBBXNS8TY=;
-	b=Uhfv3WC0tZwVDvpn+p3KhsELDLk2cTFQyJe2VQY9cW3gPdcA6Mxmp7JWIAWrF6bQOL69
-	 RVAdcwquKb8J6xpFHTrxAqtRSsx2ko3c8sQnL7PFt+4IvaLHWqyEjM1p+LbB2g3UyDjDB
-	 LJZVyjAzF1VrVY8PJAaoVSO5O+x81qq+fPxGnh3FLkeC3dnJHoDxv4v+8jCw0p9XijhMs
-	 8hF4DCVlyaPM10XTS3+xv2kZUB2fLX4H7NS/tOU3PEsh3F85uHIxwyKavy6WGVZCRzLOp
-	 80atXxf550nZdnokRSEkbVwKu4cdL2Y+hUXqih7mbUG1BmQjDbI5TtWvMBwj10Kxa3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599960;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Infomaniak-Routing;
+	bh=6aYN/2On4n7HGoJvZTU3OurKvF7SDr35YC5v5eCOowc=;
+	b=vc58tGBBwXeHPCtER84YBT/dplcSyr8beBjE1Be40z1DZo4hkIkdKOLQPsj14wthT3yD
+	 U+WUJCeumcJMwsv4bJ2/IWICgA+XjcBtGgi9b+nBE6haEljmK80YK3iS0XtUnsqkx8fPc
+	 YauUl7olq+TOdFmTsrndkqSmf9/0eCdirYi/6DEDEvFrKkki4Xgey7+ganxO+9ta4F3H0
+	 1VIVZWzEroAbZ75ICez+a3STXdAu6Gd6aixwfbn8P8xWvI8rVTnbHlVcDQ2Zf71oVIoNH
+	 ZMb9sNA4g3gQxmsq0f4iEDavt6VtlTXWs+HKYR5T4o3s/oQ4TAy5I3B9po3v1PisQAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=nLldAXVT;
-	arc=none smtp.remote-ip=209.85.218.51
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=digikod.net;
+	spf=pass smtp.mailfrom=digikod.net;
+	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=EC2wy3Vz;
+	arc=none smtp.remote-ip=185.125.25.14
+Received: from smtp-190e.mail.infomaniak.ch (smtp-190e.mail.infomaniak.ch [185.125.25.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52179606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:25:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52179606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B322D606A319;
+	Wed, 21 Oct 2026 16:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B322D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=nLldAXVT
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c445c95d553so121140166b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:25:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1792599927; x=1793204727; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wTPDb7LIMtyEiz+mqYTBrrnJbHRN01tnFVsBBXNS8TY=;
-        b=nLldAXVTDBPyUo5rQiH6wJRPeyGlMCQokaHib9EKVjff54+owMFh/Qp6vjiMk7Qk9j
-         Qw+uzHSbcliTiERA0MKT3aFKpoekS12Hvsh9Eu61qJtAeSbh076VpqH6PzpIANmxvzvR
-         IIwu8ZpXtSEz2iLmnRTJ3wC8qnPTWFM9COcSV9n46v+qVVAMc8C5NPsKz4iZiJl1gqxV
-         d/kjXe0ZI1uEOwAcqMf+EadGjSx7dDpqLNGDKteo8my9cQRM/F9j+a6JqhC+sRPFku1G
-         AyWSyMLmA3aLlvzRGRLhsZOdo/O5HostYUr1lniO+arQMkLuMwMSMkVgsTPBAI9MfX2y
-         6stg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792599927; x=1793204727;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wTPDb7LIMtyEiz+mqYTBrrnJbHRN01tnFVsBBXNS8TY=;
-        b=uUYM4n4YdGZLnwdOecNS88P2EjHtjASNJAFndEVYy3JUmb0R7oFJ6nMMBCkyBkTeO9
-         dtqgtq5JoCC081bUpdjBN8e8TM6qINw9DY29TAjiM0fCUsxtH9YDlcdahVgjqHww0i5i
-         9+RYESr3g/45+5nOKN+CN7iLs9Kn7OyK7PNUS39Wslatj80YIncYo+gq0W8AeV8Vpp9g
-         HH6G4YpsAI9HUSQ85Fd5o6EkX9UuRA4zgmj64tjzYLNGJTV8qXp0J8y95wn2ZAwGPa7F
-         dd13kNW64KSEyL0RWBah1Uuk34sg3G6aG/Nj1BQ0qPxku+ykmV9U3rGJv6V2CeaRVaUN
-         ol8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzqyRg0tkjbtgX52ePDq0vUgdKUB4r5veXw23BiP44JVf/ggv1bIztrcX2P4EfMIrNGtMvLJdtOzzjvBiM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGu98hpz730n1JCYr/yQisvh090EHkGNHtTfuQ7OkryuRGxh+m
-	WisCvU6AQfkF+TqyOwJ6gEjFkEmI//uWdV43FA78S8ajMhQRpPqGQfaAxgazg+WUpDY=
-X-Gm-Gg: AYBFou1fxqk0Lk/vDPjIQnMXjJxbaSSFcijNpk5B0JDNPJ1TvnR9p1/e6kFFd9LXCEZ
-	HozaRFXjNaqN/CPTsN6IDKe8jNdAGfPsZqxbs/Hs74BRi3EHZl23GUIjwj0Y+3uioTzxbYOjeFy
-	kLy6lpAmubVAZb87KUVq74/NoIfZwxBTZgprKbD3qdMGA9DFNVzGiyYfvFvMQS0QohBMparmtQZ
-	XMXlXBIeXvB8aILk682S1r2FrQOWS6vCR6hPK7ZBZJd03d6BxnFXsttvngz3N56Rur6y8c2a22L
-	HdFtF8nAx5DuqPkVcjyORmW2tTfrNyHuCSazzSNK4dgcRwC+B41klixPSVMJeJjis3QHmRuvi1h
-	S4fQQVzfzYCEQzI6jR6mkCKu5V7xSDni5z1vQ/FXQzqvkCOO22SeSggTOi1+afDd82BpGB1kz4O
-	32NO9PCDEdarn0/TrIyeaY3kJ+QZMIA4At5goz4v5OhderXzAQO6voU/MiWwVjqMev8XfR5td1U
-	2UtpKNVjw/yKD7dUfYuEH8RdIKNcB8wmFPGnEz0Mjns/DHGmYzttYDISnXzSIEnuv9r
-X-Received: by 2002:a17:906:dc91:b0:c27:420b:7c79 with SMTP id a640c23a62f3a-c4679a40b62mr221295166b.48.1792599927374;
-        Wed, 21 Oct 2026 09:25:27 -0700 (PDT)
-Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a6182e8sm17768966b.81.2026.10.21.09.25.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 09:25:26 -0700 (PDT)
-Date: Wed, 21 Oct 2026 18:25:23 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 03/20] ctlv: Add the root family specification and
- generated files
-Message-ID: <atjnZ9oVYZN1VnwG@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-4-jiri@resnulli.us>
- <20261021003056.354a40ad@jic23-hlaptop>
+	dkim=pass (1024-bit key, unprotected) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=EC2wy3Vz
+Received: from smtp-4-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4j8vlx1G6dz13rn;
+	Wed, 21 Oct 2026 18:25:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1792599948;
+	bh=6aYN/2On4n7HGoJvZTU3OurKvF7SDr35YC5v5eCOowc=;
+	h=From:To:Cc:Subject:Date:From;
+	b=EC2wy3Vz68NDCTpFJUzbNOPF0ExyqXqmkSSqPJKxsLmkFIaggjI9bgDaYHrXnsE7X
+	 he7TUnCvrwDqBOVaHcBYMyJ28azv87LBzc1dKEFzZ1SAImW3SH+waaIOxKlIcfXsIK
+	 EkkkpTFPrIBd2qBiCXR5XsDsgTs1EGqiRbBd6+TI=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4j8vlv58Kvz2Fl;
+	Wed, 21 Oct 2026 18:25:47 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Christian Brauner <brauner@kernel.org>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
+	Haofeng Li <lihaofeng@kylinos.cn>,
+	Paul Moore <paul@paul-moore.com>,
+	Tingmao Wang <m@maowtm.org>,
+	Wang Yan <wangyan01@kylinos.cn>,
+	linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: [GIT PULL] Landlock update for v7.4-rc1
+Date: Wed, 21 Oct 2026 18:25:38 +0200
+Message-ID: <20261021162538.1852602-1-mic@digikod.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,34 +70,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021003056.354a40ad@jic23-hlaptop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-Wed, Oct 21, 2026 at 01:30:56AM +0200, jic23@kernel.org wrote:
->
->> diff --git a/Documentation/ctlv/abi/ctlv.yaml b/Documentation/ctlv/abi/ctlv.yaml
->> new file mode 100644
->> index 000000000000..fa11bce98f46
->> --- /dev/null
->> +++ b/Documentation/ctlv/abi/ctlv.yaml
->> @@ -0,0 +1,186 @@
->> +# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
->> +%YAML 1.2
->> +---
->> +# Checked-in ABI snapshot of the ctlv family, written by
->> +# "make -C tools/ctlv abi-update".
->> +#
->> +# The checker compares this family's declarations and inherited stub fills
->> +# against this file. Updating it is how a UAPI change gets reviewed; an update
->
->Slightly confusing text: 'it' is unclear, checker or this file?
+Hi,
 
-The file. Will reword.
+The main change adds composable Landlock controls for namespace types
+and Linux capabilities, thanks to new LSM hooks (merged via the LSM
+tree).  A umount race condition is also fixed.
 
+Please pull these changes for v7.4-rc1 .  These commits merge cleanly
+with your master branch.  Kernel changes have been tested in the
+latest linux-next releases, and I recently fixed a new merge conflict
+(see the related merge commit message).
 
->
->> +# that removes or renumbers anything, narrows a bound, or makes a placement
->> +# required is an ABI break, whatever this file says afterwards.
->
->
+Test coverage for security/landlock is 91.8% of 2864 lines according to
+LLVM 23, and it was 91.6% of 2625 lines before this PR.
+
+Regards,
+ Mickaël
+
+--
+The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+
+  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+
+are available in the Git repository at:
+
+  https://git.kernel.org/pub/scm/linux/kernel/git/mic/linux.git tags/landlock-7.4-rc1
+
+for you to fetch changes up to 3e271a27c46fd591d1011c7de5a644a41e2010f1:
+
+  landlock: Fix superblock use-after-free in release_inode() (2026-10-20 16:47:24 +0200)
+
+----------------------------------------------------------------
+Landlock update for v7.4-rc1
+
+----------------------------------------------------------------
+Christian Brauner (2):
+      ns: Free anonymous mount namespaces via ns_common_free()
+      lsm: add LSM blob and hooks for namespaces
+
+Günther Noack (1):
+      landlock: Fix superblock use-after-free in release_inode()
+
+Jann Horn (1):
+      cred: clarify that task_struct::cred is only for the current task
+
+Mickaël Salaün (10):
+      lsm: add LSM_AUDIT_DATA_NS for namespace audit records
+      Merge branch 'lsm/dev' into master
+      landlock: Rename quiet_masks to quiet_access
+      landlock: Wrap per-layer access masks in struct layer_config
+      landlock: Enforce namespace use restrictions
+      landlock: Enforce capability restrictions
+      selftests/landlock: Add namespace restriction tests
+      selftests/landlock: Add capability restriction tests
+      samples/landlock: Add capability and namespace restriction support
+      landlock: Add documentation for capability and namespace restrictions
+
+Paul Moore (1):
+      lsm: update the BUILD_BUG_ON() in audit_log_lsm_data()
+
+Wang Yan (1):
+      selftests/landlock: Fix snprintf truncation checks in test files
+
+ Documentation/admin-guide/LSM/landlock.rst     |   46 +-
+ Documentation/security/landlock.rst            |  177 +-
+ Documentation/trace/events-landlock.rst        |   66 +-
+ Documentation/userspace-api/landlock.rst       |  243 ++-
+ fs/namespace.c                                 |    3 +-
+ include/linux/cred.h                           |   17 +-
+ include/linux/landlock.h                       |   29 +-
+ include/linux/lsm_audit.h                      |    5 +
+ include/linux/lsm_hook_defs.h                  |    3 +
+ include/linux/lsm_hooks.h                      |    1 +
+ include/linux/ns/ns_common_types.h             |    3 +
+ include/linux/sched.h                          |    8 +-
+ include/linux/security.h                       |   20 +
+ include/trace/events/landlock.h                |  244 ++-
+ include/uapi/linux/landlock.h                  |  139 +-
+ include/uapi/linux/nsfs.h                      |    1 +
+ init/init_task.c                               |    2 +-
+ kernel/auditsc.c                               |    5 +-
+ kernel/cred.c                                  |    2 +-
+ kernel/nscommon.c                              |   17 +-
+ kernel/nsproxy.c                               |    6 +
+ samples/Kconfig                                |   13 +-
+ samples/landlock/Makefile                      |    5 +
+ samples/landlock/sandboxer.c                   |  269 ++-
+ security/landlock/Makefile                     |    4 +-
+ security/landlock/access.h                     |   61 +-
+ security/landlock/audit.c                      |   32 +-
+ security/landlock/cap.c                        |  159 ++
+ security/landlock/cap.h                        |   48 +
+ security/landlock/cred.h                       |    2 +-
+ security/landlock/domain.c                     |   13 +-
+ security/landlock/domain.h                     |   97 +-
+ security/landlock/fs.c                         |   12 +-
+ security/landlock/limits.h                     |    9 +
+ security/landlock/log.c                        |   53 +-
+ security/landlock/log.h                        |   10 +-
+ security/landlock/net.c                        |    2 +-
+ security/landlock/ns.c                         |  241 +++
+ security/landlock/ns.h                         |   18 +
+ security/landlock/ruleset.c                    |   27 +-
+ security/landlock/ruleset.h                    |   33 +-
+ security/landlock/setup.c                      |    4 +
+ security/landlock/syscalls.c                   |  217 +-
+ security/landlock/trace.c                      |   27 +-
+ security/lsm_audit.c                           |    6 +-
+ security/lsm_init.c                            |    5 +-
+ security/security.c                            |   72 +
+ tools/testing/selftests/landlock/audit_test.c  |    2 +-
+ tools/testing/selftests/landlock/base_test.c   |   21 +-
+ tools/testing/selftests/landlock/cap_test.c    | 1370 ++++++++++++
+ tools/testing/selftests/landlock/common.h      |   13 +
+ tools/testing/selftests/landlock/config        |    5 +
+ tools/testing/selftests/landlock/fs_test.c     |   13 +-
+ tools/testing/selftests/landlock/net_test.c    |    4 +-
+ tools/testing/selftests/landlock/ns_test.c     | 2647 ++++++++++++++++++++++++
+ tools/testing/selftests/landlock/ptrace_test.c |    2 +-
+ tools/testing/selftests/landlock/trace.h       |   52 +-
+ tools/testing/selftests/landlock/trace_test.c  |    8 +-
+ tools/testing/selftests/landlock/wrappers.h    |   29 +
+ 59 files changed, 6437 insertions(+), 205 deletions(-)
+ create mode 100644 security/landlock/cap.c
+ create mode 100644 security/landlock/cap.h
+ create mode 100644 security/landlock/ns.c
+ create mode 100644 security/landlock/ns.h
+ create mode 100644 tools/testing/selftests/landlock/cap_test.c
+ create mode 100644 tools/testing/selftests/landlock/ns_test.c
