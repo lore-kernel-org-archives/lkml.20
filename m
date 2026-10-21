@@ -1,89 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792600362;
-	b=qBTSeYrsPNGzPq4/rCiJiFnZj7r4HAOORBbUua4oA/uwOr9zRkn/iGawya3NTcV3S9/x
-	 Ton8b1asVhc8qX3GsWeHSvLcPiLKRMBQlF+yAL+MEAAa7KIKOHMXlM8N+Er8ChbRn4pwq
-	 MPqbK6xSeveK3Ef5PX0wisGdNjCaRmoFmzPZ6H92xpHhaotSX3VEJ/Gq3bmrBvWU/L3bP
-	 I0bBLN9e9GlpOciVvzZYDgYa/Fnw1kdQVDfQKWVXqoq0o7Mtr6HIFhsjRZFd4aeBPhY/A
-	 eOS2qbG+Bzp7iQm1wXpRi01KSJhE8DfRKssL0tS/lhSBl0xyt1m/z799SSJ5gXEBKUw==
+	t=1792600372;
+	b=w3i/mOOzDWH9M2fBY26+lkQBfu44fwBmF0FWAkV0Zk02gF1nGYDf+y+HNxiJuI5QdulC
+	 EbNdfHKduVo71KMICaShHFmzZklUciI9UTP7Oxow8R6aqTlrwJrMm2uX5YRuYhRocMJal
+	 yC2e9VufqSxuNOf3n0FWvDo8TsVmpsGHqN0XtHAqlmvoPsgW54x3VI8vCOUzkVYAAoUlz
+	 UgeeefEYZgn9cI986Z7lp2Ll6kIFJueQ8oAh72eMkuvMEj0xddvEXdO5+F/dUGNCjejPq
+	 nhp8D+8XwieWCM/YB5/bceBuDJdyHoU14yoHxRLch3aMMdL22/nFZXxQB7iua3Stcgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792600362;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dC+5Lunx5dUQ5dWu37CHLZRWRMYn1XOzLPwBfQqIc2s=;
-	b=eyTt6MqyZ9tE2k0mFh234XzmMragjGLkot0PlZkENJ/NfNdMhT4Sk/thUmnDGiXc2WkN
-	 ufa3tnH/+5r7rbhNJUxORLGhzEaDBQkykbBw42RThpQZLUYrU+UpCCuE/zd2HRbn0rExz
-	 8dZawQpC1ukSiJKsOJoNS+FI5/F6ez91wEUJ1ZZXq6nHLlb3M+yGbU/WXX4OXYsvqnEHn
-	 FuH0S8wx/4QJxrR1/mbJSDXmFfshnrbUZxWkVFHmivPktZohjkseAlGQqyJHZmknqwnke
-	 ggFQOYHuh+3XyHJZ/rqryMaCEpOQxwwe9i05wlUQcI+jhvq0CG8VzdWrTsiQC4Bkotw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792600372;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=/4fDPFQq8kEv5tYMLq0Kn317wl6GBDnlbl/tyaxklaQ=;
+	b=o8G9fGmQnUJMSJu+6bUJDeYA2zd7O2J41cGTpU2xY5VoUg0dDfK3MgD/PPdd7jyHl2JF
+	 mDoMI0JJA92iXyJ4nFwxt3oGGq/MF4o01l9n/noS3GFZUrTeFnIiKA9SI8OUvH0ioSs84
+	 Z3N3/rIAlUWPGFcZKbLVdZiCc/UootiqTMulnarYSn4jbWPeOTQYzrWCsf3fqHG1Vsv4C
+	 ym6sQt3s+7Rf9xuFSgcXpJlILWFEflrfhS3m2S60VMrwNC2y2FGtzFAkHwDwDrOSr8Onv
+	 1+7fb6elRDVzNZR4C95grsXwUkdijCXXF+y5STJpZUtzZx9HMA9Qe2pm9R2gzuQezEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ok0zsLYF;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NNY0Go1p;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A345606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:32:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A345606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99888606A32D;
+	Wed, 21 Oct 2026 16:32:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99888606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ok0zsLYF
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4ca696de6so513643a12.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:32:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1792600360; x=1793205160; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dC+5Lunx5dUQ5dWu37CHLZRWRMYn1XOzLPwBfQqIc2s=;
-        b=ok0zsLYF6Jt/8Qjs3Kouo2Hzmuakm+SQxEo0XQvD95+U0UY1ZRvyAH9axs1/PubNR+
-         ySRUGtxOsFYH7B6eJCgGD35Q43GfFsIAm0ds7WDg5uKXytYT+K2bu/MiXsK96XEahIrr
-         LmV5/vV18/k2UtrB48TVICp3aKT/FrH3PED1mJRwpfur3y4hfNR/I+rq4BGtX8PYXBYe
-         xuvq3hZy4pyuzD7ozUn7eG6lO50PP1Rd+k0qvZMyaSA0Kew7qmSo4GZC2IkXbxrMQEmo
-         kshvDGnk6gF7pa6O5v63sFlndH/DRnUPOP605Q/EmggJO2qII0sYznH5JUZoXWPa6TTR
-         /hwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792600360; x=1793205160;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dC+5Lunx5dUQ5dWu37CHLZRWRMYn1XOzLPwBfQqIc2s=;
-        b=iLV+AhiBhDmuckGhoiVzN3H0v/eNBDFceZaVfCnIMqZMtT+oGuxJa4cv3bfUq7pVYy
-         G/KKIFAMEAGJnCNcP7e39dkm3deUMplVLqDtO+b1c8xpC3lNvF5b7qEMg0oKM4LkK1c2
-         gG8vqEyM5HH9EWeKxaOzzje8lYRRyVyQSlmrqKTk0gFr0+1FTkDx6f+8q0FP5FjRrjEH
-         WXQer3OABV2Orf3GMS5TM91mcq/m4ssEEGFs/jOnHxcviYQglgOYv63wCQ7cOMDvjFPg
-         GGinyRisA4g8Wr3uR3RS/bYsVJxw0UqzktVXyDo0mfIbcApJObclzEgAZQ30zkfzUy1h
-         MtwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxHf6aA32mskMLMDo8MyCqnV/L2lad6L2tt3JoxFfuSPAR3+wze+zezHVwACCTKa37WTfVWQ11enit6L00=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIDCqZX2+HoGP95bMaZ4ZgOiwsT8+TJiC5eizeAjRpHMuoc8evY
-	QfUOnYNpkZwi/Nm3Y26vv64tO+yvIbjzuIKnmJASZ3eVqe+0HWDMKYFHNkooyNTQSu0u2KyimgW
-	ix5qem9s=
-X-Gm-Gg: AYBFou1SrPI7qVLlGbO5I8CBZuF3sG39uR/nVp4cxcwyQoHkBG3JZStSkh9YK5B4E0n
-	sBdaTJBcv6GiY4a0R8CktQ9wQAaPS+ABBnbhBBUXvQBHk3NbP8YHTkmvuJdvN9hCdioBfzuqXJT
-	RnkR5e/fjsNqH/DlkjKAUhWrMtEdWnR4WA8rYsRA3j1akhqgYWsrTzm4tM3YAVhjibmIKoFB1Mi
-	xIBXHbAOI5TAmmRL7Vb4ry6wWfcq7C0aWtFPGYmzDH9MkWd8LZVrf0GIM/xeaJ2ScAx4mimQTfE
-	T0Df3jcrH1WCnb6YhucSHYyWlEVWxK+TtiNJLVXIZmadueBuZ7lEE8YBy3Fl2SVdHfopcu6oU8k
-	aPeTehkrwyS/lPwlwsEKwsqbEL5kE0ukSQRp+wZ3fhGM5NKBOXRmTXCJbUmcVs2YOYlRAen/PRF
-	dJJIDqZlRbUoAjgu5pf5phFaXxsdpebjT9J8WYlF6NvgW3shfgcFK0n4lfjlqa2PcxcSrrupJ4z
-	5ViSRcv3y/odesVkeS8lZuv6ikM+VDuBjBe16M5GzfEKflZ06/y/hzoxj84lOvH12bKWF9+7Hdc
-	vY9fhvZttiouE9eypUdYNtgPONEr40ZZcIZ1v5MRk9exs8bAKHZRVCWcE58v
-X-Received: by 2002:a05:6a20:9154:b0:3e0:b445:5612 with SMTP id adf61e73a8af0-3e287dd624emr2111224637.14.1792600359159;
-        Wed, 21 Oct 2026 09:32:39 -0700 (PDT)
-Received: from [192.168.1.106] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6b8482048sm247328a12.7.2026.10.21.09.32.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 09:32:36 -0700 (PDT)
-Message-ID: <db225771-106e-4014-bc43-3cd8f0e459cb@kernel.dk>
-Date: Wed, 21 Oct 2026 10:32:35 -0600
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=NNY0Go1p
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7DC251F8;
+	Wed, 21 Oct 2026 18:30:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1792600236;
+	bh=CEaI4acfak2EQ+4Yx8UeRxPKVO6MW1c1FcRLi3pNih0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=NNY0Go1phCuFQVGH+GmwW501sbdSJAcZc7mbDXoxBDQ60Tmz9EyhGEwD6kdDUsPIH
+	 ejifUPPiSq4SpyNxpFrBWBFCMyjBzzIZyXMj1MGyT7+479zwKpMM4I7d9TsOMFOxy4
+	 /Np0BFJG55n6YEuG5xa8W/0tV5JZJM9dJkX8BweQ=
+Date: Wed, 21 Oct 2026 19:32:42 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261021163242.GB325924@killaraus.ideasonboard.com>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,55 +68,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] blk-mq: clear stale inactive flag on hctx reuse
-To: Bart Van Assche <bvanassche@acm.org>, Nirmoy Das <nirmoyd@nvidia.com>
-Cc: ming.lei@redhat.com, hare@suse.de, dwagner@suse.de,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261020125129.430600-1-nirmoyd@nvidia.com>
- <ff516ed8-d4b0-463d-952b-14cf110ec8da@acm.org>
- <29692751-e80e-4f29-a07a-ea0221f1116e@kernel.dk>
- <a39c904d-4d84-49ef-84b2-16db1b28b706@acm.org>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <a39c904d-4d84-49ef-84b2-16db1b28b706@acm.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
 
-On 10/21/26 9:18 AM, Bart Van Assche wrote:
-> On 10/20/26 7:39 AM, Jens Axboe wrote:
->> On 10/20/26 8:13 AM, Bart Van Assche wrote:
->>> On 10/20/26 5:51 AM, Nirmoy Das wrote:
->>>> diff --git a/block/blk-mq.c b/block/blk-mq.c
->>>> index 025a799f35b924d..00b75eb95dd943a 100644
->>>> --- a/block/blk-mq.c
->>>> +++ b/block/blk-mq.c
->>>> @@ -4002,6 +4002,7 @@ static int blk_mq_init_hctx(struct request_queue *q,
->>>>            goto fail;
->>>>          hctx->queue_num = hctx_idx;
->>>> +    clear_bit(BLK_MQ_S_INACTIVE, &hctx->state);
->>>>          hctx->tags = set->tags[hctx_idx];
->>>
->>> Why clear_bit() instead of __clear_bit()?
->>
->> Since this isn't a hot path at all, going into details like
->> that does more harm than good. clear_bit() is totally fine
->> and honestly preferred.
+On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
+> On 21/10/2026 08:49, Eric Biggers wrote:
+> > On Wed, Oct 21, 2026 at 08:41:47AM +0200, Krzysztof Kozlowski wrote:
+> >> On 21/10/2026 08:39, Eric Biggers wrote:
+> >>> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote:
+> >>>> On 20/10/2026 23:22, Eric Biggers wrote:
+> >>>>> -Make sure that base commit is in an official maintainer/mainline tree
+> >>>>> -and not in some internal, accessible only to you tree - otherwise it
+> >>>>> -would be worthless.
+> >>>>> +    If ``git format-patch`` with ``--base=auto`` (or
+> >>>>> +    ``format.useAutoBase=true``) can't detect a base commit, e.g. due to
+> >>>>> +    the current branch having no upstream tracking branch, it exits with
+> >>>>> +    an error. In such cases, pass an explicit base commit to ``--base``
+> >>>>> +    instead. This is also needed if git detects the wrong base commit,
+> >>>>> +    such as when the upstream branch has local, unpublished commits.
+> >>>>> +
+> >>>>> +The base commit must be in a well-known public tree, such as the
+> >>>>> +subsystem development branch the patch is targeting. See
+> >>>>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-next
+> >>>>> +can also be acceptable bases, depending on the subsystem.
+> >>>>
+> >>>> I disagree, that's pointlessly too hard requirement.
+> >>>>
+> >>>> For many of my contributions base is obvious and not needed to be
+> >>>> explicitly defined. For all the patches I accept, answer is the same -
+> >>>> base is either obvious or if not and patch does not apply, then the base
+> >>>> does not matter.
+> >>>>
+> >>>> Requiring it is just bureaucracy without actual benefit.
+> >>>>
+> >>>> The only benefit would be if maintainer COULD change its base to apply
+> >>>> some patch with odd base... but this cannot happen. Maintainer base is
+> >>>> fixed - it's the HEAD of his development branch for given category of
+> >>>> commits (e.g. DTS branch for SoC maintainers).
+> >>>
+> >>> There are many use cases for applying patches besides the final patch
+> >>> acceptance, such as review (by anyone, not just a maintainer), testing,
+> >>> CI systems, etc.
+> >>>
+> >>> HEAD of a branch is of course not fixed, and changes every time a patch
+> >>> gets applied.  That's especially relevant when wanting to check out an
+> >>> old patch for any reason.  Trying to guess a base commit based on the
+> >>> date and patch subject is a waste of time.
+> >>
+> >> All these tools should just work on top of linux-next. Requiring people
+> >> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" is
+> >> pointless. I understand that base is helping, but helping and requiring
+> >> an obvious information just do not go together.
+> >>
+> >> So again: base has ZERO meaning to the maintainer process. It has
+> >> meaning to tools, so fix the tools to work on known and obvious trees.
+> > 
+> > So what is your proposed algorithm to apply an arbitrary patch when
 > 
-> Although I'm fine with the patch as-is, I want to clarify that
-> the concern behind my reply is code readability rather than a
-> micro-optimization. No other context should be accessing a hctx while
-> blk_mq_init_hctx() is in progress. Using clear_bit() instead of
-> __clear_bit() might make readers of this code wonder whether any other
-> context might be accessing the hctx concurrently with the
-> blk_mq_init_hctx() call.
+> Already provided that, so to recap:
+> 
+> > there's no base-commit?  Including any historical patch (from
+> > months/years ago), patches with dependencies, etc.
+> 
+> Dependency is something else, but for every other patch:
+> 1. For testing/CI: you apply on top of next
+> 2. Every other case the maintainer knows where to apply it, because it
+> is his HEAD of next-branch.
+> 
+> I am repeating myself, but I really had no single problem of lack of
+> knowledge where to apply a patch as a maintainer or reviewer of some
+> subsystem, thus maybe I do not understand the actual problem you are
+> experiencing.
 
-I know that was your intent, but it just reads the opposite to
-me. Whenever someone uses the __ variants it should only be
-for optimization purposes, and preferably with a comment
-explaining why it's safe. Unless there's a reason to do so,
-using the normal variants is just preferable to me.
+When I review patches, I often need to apply them to a tree, mainly to
+see the context, but sometimes also to test them. I have encountered
+many cases where the patch wouldn't apply on the current for-next branch
+of the relevant subsystem. That's often because the patch had
+dependencies. When I'm lucky they are listed manually in the cover
+letter with a link to a branch, but that's far from being the common
+case. I then have to ask the submitter to provide a branch, or enough
+information to recreate a branch. Having base information (base-commit,
+prerequisite-patch-id, and possibly base-tree) would save me quite some
+time.
+
+I understand your concern about maintainers cherry-picking and sometimes
+introducing issues as a result. In that case I also prefer asking the
+submitter to rebase, retest, and resubmit. That's not what I want to use
+base information for, in my case it helps with the review process.
 
 -- 
-Jens Axboe
+Regards,
+
+Laurent Pinchart
