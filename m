@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552555;
-	b=XGHYRjrAmZ/t1mrXg26BP767xESsqzZZdmNb6254GTbVc0gdjv7KIh25bkhfp2DGGpp5
-	 V/LK4H1yYQ1qGWWFpG2q9FIAIsosEt5honFpsXNems4s/wgCZSnGuE+5cEfNVNBs1Vpoq
-	 XVVSoTYxUmjAwXL8VtQdGSzKCQat+6DXu7ABNol6eSYWeFXdQayaQynuZcFH31cDkUDh7
-	 GTtarPFZTEJLwjPcdYgmeZxGIernYcDL5EEhMcKFxTDfiRIDYuniIzcL1agOkWuO5n79N
-	 ZzP8dujKExn26tdZ3mYYcU/OgfhH5EXsqpqFddUBipW6bDfy8OI+Po+w3hWPWZkwLrw==
+	t=1792552532;
+	b=eQ3v06dopNoOMyXcFUw60qhEIp5U0NVon1Vj94N1HsAdrHmrqsCOU6Ijt7n08CB0u02a
+	 mFegY639Rk0mJyvZsPTFefjpXsGY43IEk//A4OiygO+nMB0/KlsX4lRypZ1LfBbUPjC5h
+	 K2MIqe+kDNWCFhYV3CoNPClLTpZOKe/ufNeJJ0GRIT7TIHhk6JakyXDKKGVqpilAVRbNt
+	 KhlpUYbUgK/HwhZ2LT3BKg3Rk9INJC/p9reUlu5VmS4LhDS/mCtuVwhnxL1p+7em6vzQ/
+	 a73MTw/dVvOTDhiQGfRluWqfykmnW/pFhDn8PZxPXgy4psayQXnoSkEpAUZz91xo0NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552555;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:In-Reply-To:
-	 References:From:Subject:To:Cc:Date;
-	bh=XdjniX01hhdh0CoWmtkhU5+EFc77cvpM/wbgBeTS3xM=;
-	b=NzoUEPTa+o6lKlQBe/apja+cAtacmHi0WFC/lc12Zmj/dH8oAX8QVRvt3WcpUcxWTdHx
-	 yjKS2RQEHc+ez5/CbecbSeximDOXhZoUUiU3tehUcQqb2Ciw5399LxvLJdunsQcVC/a7t
-	 2KzyagHabkTNmIgxfUbLAjMnQ6tHzzY7g/0jWPA+X1yMOquGUe219eeG1/VkLlaNP3kwU
-	 BabC53ZW3Wc1SRfyrgwblFNKyUZh0wBhIwCK93tyUTN1wqdgOkM6Qh525l3qqWCv1qnI+
-	 83tQPY10/4SmwtAyUcBC3NENRhPNEUvkyLY5ojdbcFlsTum+ZSwy/qJ4NjDgQswpe/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552532;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:From:Subject:To:Cc:
+	 Date;
+	bh=YaduMzvfjUgcifjx1pi5ZK/cl1FkRShsaWcEKnnQ8Pg=;
+	b=Obn1toKIh+R4MyHi5VOYdf21ypVxyqxm6v9WngxgQdoWc7u45e+7dPE0fuQBlNKFThIN
+	 BetZQZT0Gm9dn2z93DxHLOyv6szMb/77u+Xmhdyyyryi8mdaycjS5KWzzDip1voMhojSq
+	 hOGS07eZo+isyh0nYUWAyGnuDDr6h2Ztk0Lo1XfKxfBdmqVwHpuGPbEbvsGEjx5X+Wgr4
+	 QyAUvzzn3B+9kY0wbryHfhx+2d2RwadaSKRSss3qOIDzUjB+eHhYhTSMxMwXX8CuUo1HH
+	 jbCl0qr7C5k3ejs/Vi2dV0ir85Gf/vyCzfHBaWNW4+CExZilCIqSuu9d81G9ywtuMdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=tuxist.de;
 	spf=fail smtp.mailfrom=tuxist.de;
-	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=gpaNkHxP;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=KgTgupxp;
 	arc=none smtp.remote-ip=173.212.254.19
 Received: from groupware.tuxist.de (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1933760A381A;
-	Wed, 21 Oct 2026 03:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1933760A381A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D3E606A31C;
+	Wed, 21 Oct 2026 03:15:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14D3E606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=gpaNkHxP
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=KgTgupxp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tuxist.de; s=201705;
-	t=1792552552; bh=sU7lqbdzjCOL/a0r7Zk22MFnMengoV7Rk5+Kfjz4bUs=;
-	h=In-Reply-To:References:From:Subject:To:Cc:Date:From;
-	b=gpaNkHxPJp8lUyxm2y/AoCDV+B8UpX22fGj+TR6Ua/lLS8HXytjGMFECMMWaBs/g3
-	 fFt/6QRM0y3nNZRs3xNcRkI44NugjUCNiYjDW24MF7Cxpmr3wtuvdaFs6CMTc3pT3U
-	 gtEY+3BaSFJIE2dU8sGO0CW4GT5XLR2mjjFWwzmD6EvSfznoRzAguj1QjP4lLDkres
-	 nupnFzXos52eFvuIt9mHIcXTd5naD+/bEg1OTgDhTldsAs92yp2aAJ6RMQxp9mJ/3g
-	 FIlit8cGnc7W/zB4cHjcnxoVyeb7RBY17eL6V4u9eDjg6kAXsmHuA412mc7vTMz2xN
-	 jvKQTwG8/v6hQ==
+	t=1792552521; bh=5RQb5oh7C6Ufck1Z8Xc+OXN3xG3LP8fAQhoU212huu4=;
+	h=From:Subject:To:Cc:Date:From;
+	b=KgTgupxpKG12s5mz/k1GL4Lo4NtxEXAFnOLiMS2BVnrsjrcYcRNI5cPvr58+4eOP2
+	 WSIa6ENPqJF294jDtExHJ7DGUwc9xDKOR9OS6y4N02QiD9sTRHRkxhhkPaNXXboP0Q
+	 33Guwue2+NIguVjhBYY1JFKMCjjRkowsx+/vSM7tR7BLv+kUqaIH1GbgM7B5QRf8AG
+	 oUhOaUGPIzUpcQ2NsLSPxFM3MN7C1cp9QU30WQy6nEE5fckaMjH7MLMIY3kBVtvwfo
+	 UOX/spOTQO8/4eNsg0tm/isQqLPmW3GgedcDbXvaPwnBU9J/SrROV9RgAZPNhRpcvs
+	 6AdDnNTSr8nFw==
 Received: from [10.1.1.106] (unknown [10.1.2.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by groupware.tuxist.de (Postfix) with ESMTPSA id AF2E58A090D;
-	Wed, 21 Oct 2026 05:15:51 +0200 (CEST)
-Message-ID: <740f7687fd823a127ff6c312240eadbd8b3ec209.1792552161.git.jan.koester@tuxist.de>
-In-Reply-To: <cover.1792552161.git.jan.koester@tuxist.de>
-References: <cover.1792552161.git.jan.koester@tuxist.de>
+	by groupware.tuxist.de (Postfix) with ESMTPSA id 9249A8A0651;
+	Wed, 21 Oct 2026 05:15:20 +0200 (CEST)
+Message-ID: <cover.1792552161.git.jan.koester@tuxist.de>
 From: Jan Koester <jan.koester@tuxist.de>
-Subject: [RFC PATCH v2 09/41] uidgid: let kuid_t and kgid_t hold a UUID or a
- GUID
+Subject: [RFC PATCH v2 00/41] UUID and GUID user and group ids (*_r system calls)
 To: Christian Brauner <brauner@kernel.org>,
     Alexander Viro <viro@zeniv.linux.org.uk>,
     "Serge E. Hallyn" <serge@hallyn.com>
@@ -70,7 +67,7 @@ Cc: Jan Kara <jack@suse.cz>,
     audit@vger.kernel.org,
     keyrings@vger.kernel.org,
     linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 05:15:29 +0200
+Date: Wed, 21 Oct 2026 05:15:20 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,662 +77,323 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-Make kuid_t and kgid_t (and vfsuid_t and vfsgid_t, which share their
-layout) tagged unions: a classic 32 bit id, an RFC 9562 UUID, or a
-Microsoft GUID. KID_LEGACY is 0, so zeroed memory still holds the root
-ids, and KUIDT_INIT()/KGIDT_INIT() keep building classic ids, so the
-bulk of the kernel needs no change. The member is renamed from val to
-legacy so the compiler finds code that peeks at it directly.
+Hi,
 
-Semantics of the new ids:
+this RFC series lets a user or group id be a UUID (RFC 9562, version 4)
+or a Microsoft GUID as well as a classic 32-bit number. Processes can run
+as such a user, files can be owned by one, and credentials, ACLs, keys,
+System V IPC, sockets, signals, audit and procfs carry the whole id.
 
-- They are not in any uid_map or gid_map: they exist in the initial
-  user namespace only. kuid_has_mapping() is false for them in every
-  other namespace, so no capability in a child namespace gives
-  privilege over them, and from_kuid() and friends give -1 (the
-  overflow id when munged), exactly as for any other id without a
-  mapping. Anything that can only store or report a 32 bit id thereby
-  already treats them safely.
-
-- Idmapped mounts map classic ids; UUIDs and GUIDs pass through them
-  unchanged, as long as the filesystem itself is in the initial user
-  namespace.
-
-- Ids are ordered by kind first and value second, so sorted group
-  lists, bsearch() and range checks between classic ids keep working:
-  a UUID never falls into a range of classic ids.
-
-- __kuid_val() and __kgid_val() stay the classic value of a classic id
-  and are -1 for the others; hash tables keyed by ids (user_struct,
-  ucounts) use the new kuid_hash() instead, and the IMA policy
-  comparators the new ordering.
-
-The structs grow from 4 to 20 bytes: struct cred by 128 bytes, struct
-inode by 32 bytes.
-
-Assisted-by: Claude:claude-opus-5-5
-
-Signed-off-by: Jan Koester <jan.koester@tuxist.de>
+Why
 ---
- fs/mnt_idmapping.c                  |  14 ++++
- include/linux/mnt_idmapping.h       |  74 ++++++++++++++-----
- include/linux/uidgid.h              | 109 ++++++++++++++++++++++------
- include/linux/uidgid_types.h        |  32 +++++++-
- kernel/groups.c                     |  15 ++--
- kernel/ucount.c                     |   2 +-
- kernel/user.c                       |   2 +-
- kernel/user_namespace.c             |  10 ++-
- mm/oom_kill.c                       |   2 +-
- security/integrity/ima/ima_policy.c |   8 +-
- 10 files changed, 209 insertions(+), 59 deletions(-)
+Directory services name users by 128-bit ids: Active Directory by
+objectGUID (and SIDs), LDAP directories often by entryUUID. Today every
+system that serves such users (winbind, sssd, nfsidmap, ksmbd user
+space) maps them to 32-bit numbers through ranges, hashes or a local
+database. The numbers differ between machines unless the mapping is
+configured the same everywhere, mappings can collide, and ownership
+written to shared storage or a backup depends on the machine that wrote
+it. With the 128-bit id in the kernel, the id the directory hands out is
+also the owner on disk and in every credential, and no mapping table is
+needed.
 
-diff --git a/fs/mnt_idmapping.c b/fs/mnt_idmapping.c
-index cb61fbdb52..c36e74a371 100644
---- a/fs/mnt_idmapping.c
-+++ b/fs/mnt_idmapping.c
-@@ -87,6 +87,10 @@ vfsuid_t make_vfsuid(struct mnt_idmap *idmap,
- 		return VFSUIDT_INIT(kuid);
- 	if (idmap == &invalid_mnt_idmap)
- 		return INVALID_VFSUID;
-+	/* idmappings map classic ids only; UUIDs and GUIDs pass unchanged */
-+	if (!uid_is_legacy(kuid))
-+		return kuid_has_mapping(fs_userns, kuid) ?
-+		       VFSUIDT_INIT(kuid) : INVALID_VFSUID;
- 	if (initial_idmapping(fs_userns))
- 		uid = __kuid_val(kuid);
- 	else
-@@ -126,6 +130,10 @@ vfsgid_t make_vfsgid(struct mnt_idmap *idmap,
- 		return VFSGIDT_INIT(kgid);
- 	if (idmap == &invalid_mnt_idmap)
- 		return INVALID_VFSGID;
-+	/* idmappings map classic ids only; UUIDs and GUIDs pass unchanged */
-+	if (!gid_is_legacy(kgid))
-+		return kgid_has_mapping(fs_userns, kgid) ?
-+		       VFSGIDT_INIT(kgid) : INVALID_VFSGID;
- 	if (initial_idmapping(fs_userns))
- 		gid = __kgid_val(kgid);
- 	else
-@@ -156,6 +164,9 @@ kuid_t from_vfsuid(struct mnt_idmap *idmap,
- 		return AS_KUIDT(vfsuid);
- 	if (idmap == &invalid_mnt_idmap)
- 		return INVALID_UID;
-+	if (!vfsuid_is_legacy(vfsuid))
-+		return kuid_has_mapping(fs_userns, AS_KUIDT(vfsuid)) ?
-+		       AS_KUIDT(vfsuid) : INVALID_UID;
- 	uid = map_id_up(&idmap->uid_map, __vfsuid_val(vfsuid));
- 	if (uid == (uid_t)-1)
- 		return INVALID_UID;
-@@ -185,6 +196,9 @@ kgid_t from_vfsgid(struct mnt_idmap *idmap,
- 		return AS_KGIDT(vfsgid);
- 	if (idmap == &invalid_mnt_idmap)
- 		return INVALID_GID;
-+	if (!vfsgid_is_legacy(vfsgid))
-+		return kgid_has_mapping(fs_userns, AS_KGIDT(vfsgid)) ?
-+		       AS_KGIDT(vfsgid) : INVALID_GID;
- 	gid = map_id_up(&idmap->gid_map, __vfsgid_val(vfsgid));
- 	if (gid == (gid_t)-1)
- 		return INVALID_GID;
-diff --git a/include/linux/mnt_idmapping.h b/include/linux/mnt_idmapping.h
-index e71a6070a8..40f0f994ad 100644
---- a/include/linux/mnt_idmapping.h
-+++ b/include/linux/mnt_idmapping.h
-@@ -12,33 +12,55 @@ extern struct mnt_idmap nop_mnt_idmap;
- extern struct mnt_idmap invalid_mnt_idmap;
- extern struct user_namespace init_user_ns;
- 
-+/* Like kuid_t and kgid_t: a classic id, a UUID or a GUID */
- typedef struct {
--	uid_t val;
-+	u32 type;
-+	union {
-+		uid_t legacy;
-+		uuid_t uuid;
-+		guid_t guid;
-+	};
- } vfsuid_t;
- 
- typedef struct {
--	gid_t val;
-+	u32 type;
-+	union {
-+		gid_t legacy;
-+		uuid_t uuid;
-+		guid_t guid;
-+	};
- } vfsgid_t;
- 
- static_assert(sizeof(vfsuid_t) == sizeof(kuid_t));
- static_assert(sizeof(vfsgid_t) == sizeof(kgid_t));
--static_assert(offsetof(vfsuid_t, val) == offsetof(kuid_t, val));
--static_assert(offsetof(vfsgid_t, val) == offsetof(kgid_t, val));
-+static_assert(offsetof(vfsuid_t, uuid) == offsetof(kuid_t, uuid));
-+static_assert(offsetof(vfsgid_t, uuid) == offsetof(kgid_t, uuid));
- 
- static inline bool is_valid_mnt_idmap(const struct mnt_idmap *idmap)
- {
- 	return idmap != &nop_mnt_idmap && idmap != &invalid_mnt_idmap;
- }
- 
-+static inline bool vfsuid_is_legacy(vfsuid_t uid)
-+{
-+	return uid.type == KID_LEGACY;
-+}
-+
-+static inline bool vfsgid_is_legacy(vfsgid_t gid)
-+{
-+	return gid.type == KID_LEGACY;
-+}
-+
-+/* The classic value of a legacy id, -1 for a UUID or GUID */
- #ifdef CONFIG_MULTIUSER
- static inline uid_t __vfsuid_val(vfsuid_t uid)
- {
--	return uid.val;
-+	return vfsuid_is_legacy(uid) ? uid.legacy : (uid_t)-1;
- }
- 
- static inline gid_t __vfsgid_val(vfsgid_t gid)
- {
--	return gid.val;
-+	return vfsgid_is_legacy(gid) ? gid.legacy : (gid_t)-1;
- }
- #else
- static inline uid_t __vfsuid_val(vfsuid_t uid)
-@@ -54,22 +76,34 @@ static inline gid_t __vfsgid_val(vfsgid_t gid)
- 
- static inline bool vfsuid_valid(vfsuid_t uid)
- {
--	return __vfsuid_val(uid) != (uid_t)-1;
-+	return !vfsuid_is_legacy(uid) || __vfsuid_val(uid) != (uid_t)-1;
- }
- 
- static inline bool vfsgid_valid(vfsgid_t gid)
- {
--	return __vfsgid_val(gid) != (gid_t)-1;
-+	return !vfsgid_is_legacy(gid) || __vfsgid_val(gid) != (gid_t)-1;
-+}
-+
-+static inline int vfsuid_cmp(vfsuid_t left, vfsuid_t right)
-+{
-+	return __kid_cmp(left.type, left.legacy, left.uuid.b,
-+			 right.type, right.legacy, right.uuid.b);
-+}
-+
-+static inline int vfsgid_cmp(vfsgid_t left, vfsgid_t right)
-+{
-+	return __kid_cmp(left.type, left.legacy, left.uuid.b,
-+			 right.type, right.legacy, right.uuid.b);
- }
- 
- static inline bool vfsuid_eq(vfsuid_t left, vfsuid_t right)
- {
--	return vfsuid_valid(left) && __vfsuid_val(left) == __vfsuid_val(right);
-+	return vfsuid_valid(left) && vfsuid_cmp(left, right) == 0;
- }
- 
- static inline bool vfsgid_eq(vfsgid_t left, vfsgid_t right)
- {
--	return vfsgid_valid(left) && __vfsgid_val(left) == __vfsgid_val(right);
-+	return vfsgid_valid(left) && vfsgid_cmp(left, right) == 0;
- }
- 
- /**
-@@ -84,7 +118,9 @@ static inline bool vfsgid_eq(vfsgid_t left, vfsgid_t right)
-  */
- static inline bool vfsuid_eq_kuid(vfsuid_t vfsuid, kuid_t kuid)
- {
--	return vfsuid_valid(vfsuid) && __vfsuid_val(vfsuid) == __kuid_val(kuid);
-+	return vfsuid_valid(vfsuid) &&
-+	       __kid_cmp(vfsuid.type, vfsuid.legacy, vfsuid.uuid.b,
-+			 kuid.type, kuid.legacy, kuid.uuid.b) == 0;
- }
- 
- /**
-@@ -99,15 +135,17 @@ static inline bool vfsuid_eq_kuid(vfsuid_t vfsuid, kuid_t kuid)
-  */
- static inline bool vfsgid_eq_kgid(vfsgid_t vfsgid, kgid_t kgid)
- {
--	return vfsgid_valid(vfsgid) && __vfsgid_val(vfsgid) == __kgid_val(kgid);
-+	return vfsgid_valid(vfsgid) &&
-+	       __kid_cmp(vfsgid.type, vfsgid.legacy, vfsgid.uuid.b,
-+			 kgid.type, kgid.legacy, kgid.uuid.b) == 0;
- }
- 
- /*
-  * vfs{g,u}ids are created from k{g,u}ids.
-  * We don't allow them to be created from regular {u,g}id.
-  */
--#define VFSUIDT_INIT(val) (vfsuid_t){ __kuid_val(val) }
--#define VFSGIDT_INIT(val) (vfsgid_t){ __kgid_val(val) }
-+#define VFSUIDT_INIT(val) (vfsuid_t){ .type = (val).type, .uuid = (val).uuid }
-+#define VFSGIDT_INIT(val) (vfsgid_t){ .type = (val).type, .uuid = (val).uuid }
- 
- #define INVALID_VFSUID VFSUIDT_INIT(INVALID_UID)
- #define INVALID_VFSGID VFSGIDT_INIT(INVALID_GID)
-@@ -116,8 +154,8 @@ static inline bool vfsgid_eq_kgid(vfsgid_t vfsgid, kgid_t kgid)
-  * Allow a vfs{g,u}id to be used as a k{g,u}id where we want to compare
-  * whether the mapped value is identical to value of a k{g,u}id.
-  */
--#define AS_KUIDT(val) (kuid_t){ __vfsuid_val(val) }
--#define AS_KGIDT(val) (kgid_t){ __vfsgid_val(val) }
-+#define AS_KUIDT(val) (kuid_t){ .type = (val).type, .uuid = (val).uuid }
-+#define AS_KGIDT(val) (kgid_t){ .type = (val).type, .uuid = (val).uuid }
- 
- int vfsgid_in_group_p(vfsgid_t vfsgid);
- 
-@@ -158,7 +196,7 @@ static inline bool vfsuid_has_fsmapping(struct mnt_idmap *idmap,
- static inline bool vfsuid_has_mapping(struct user_namespace *userns,
- 				      vfsuid_t vfsuid)
- {
--	return from_kuid(userns, AS_KUIDT(vfsuid)) != (uid_t)-1;
-+	return kuid_has_mapping(userns, AS_KUIDT(vfsuid));
- }
- 
- /**
-@@ -196,7 +234,7 @@ static inline bool vfsgid_has_fsmapping(struct mnt_idmap *idmap,
- static inline bool vfsgid_has_mapping(struct user_namespace *userns,
- 				      vfsgid_t vfsgid)
- {
--	return from_kgid(userns, AS_KGIDT(vfsgid)) != (gid_t)-1;
-+	return kgid_has_mapping(userns, AS_KGIDT(vfsgid));
- }
- 
- /**
-diff --git a/include/linux/uidgid.h b/include/linux/uidgid.h
-index 182c682458..e1adb50d5d 100644
---- a/include/linux/uidgid.h
-+++ b/include/linux/uidgid.h
-@@ -19,32 +19,37 @@ struct user_namespace;
- extern struct user_namespace init_user_ns;
- struct uid_gid_map;
- 
--#define KUIDT_INIT(value) (kuid_t){ value }
--#define KGIDT_INIT(value) (kgid_t){ value }
-+#define KUIDT_INIT(value) (kuid_t){ .type = KID_LEGACY, .legacy = (value) }
-+#define KGIDT_INIT(value) (kgid_t){ .type = KID_LEGACY, .legacy = (value) }
-+
-+#define KUIDT_INIT_UUID(value) (kuid_t){ .type = KID_UUID, .uuid = (value) }
-+#define KGIDT_INIT_UUID(value) (kgid_t){ .type = KID_UUID, .uuid = (value) }
-+#define KUIDT_INIT_GUID(value) (kuid_t){ .type = KID_GUID, .guid = (value) }
-+#define KGIDT_INIT_GUID(value) (kgid_t){ .type = KID_GUID, .guid = (value) }
- 
--/*
-- * Whether an id is a classic 32 bit id. All of them are for now; code that
-- * needs one (to store it in 32 bits, for example) checks with these.
-- */
- static inline bool uid_is_legacy(kuid_t uid)
- {
--	return true;
-+	return uid.type == KID_LEGACY;
- }
- 
- static inline bool gid_is_legacy(kgid_t gid)
- {
--	return true;
-+	return gid.type == KID_LEGACY;
- }
- 
-+/*
-+ * __kuid_val() and __kgid_val() are the classic value of a legacy id;
-+ * a UUID or GUID has none and gives -1, which is never a valid id.
-+ */
- #ifdef CONFIG_MULTIUSER
- static inline uid_t __kuid_val(kuid_t uid)
- {
--	return uid.val;
-+	return uid_is_legacy(uid) ? uid.legacy : (uid_t)-1;
- }
- 
- static inline gid_t __kgid_val(kgid_t gid)
- {
--	return gid.val;
-+	return gid_is_legacy(gid) ? gid.legacy : (gid_t)-1;
- }
- #else
- static inline uid_t __kuid_val(kuid_t uid)
-@@ -64,64 +69,115 @@ static inline gid_t __kgid_val(kgid_t gid)
- #define INVALID_UID KUIDT_INIT(-1)
- #define INVALID_GID KGIDT_INIT(-1)
- 
-+/*
-+ * Ids are ordered by kind first (legacy ids before UUIDs before GUIDs),
-+ * then by value: numerically for legacy ids, bytewise for the others.
-+ * That keeps sorted id arrays and range checks between legacy ids
-+ * working: a UUID is never inside a range of legacy ids.
-+ */
-+static inline int __kid_cmp(u32 ltype, u32 llegacy, const u8 *lb,
-+			    u32 rtype, u32 rlegacy, const u8 *rb)
-+{
-+	if (!IS_ENABLED(CONFIG_MULTIUSER))
-+		return 0;
-+	if (ltype != rtype)
-+		return ltype < rtype ? -1 : 1;
-+	if (ltype == KID_LEGACY)
-+		return llegacy == rlegacy ? 0 : llegacy < rlegacy ? -1 : 1;
-+	return __builtin_memcmp(lb, rb, UUID_SIZE);
-+}
-+
-+static inline int uid_cmp(kuid_t left, kuid_t right)
-+{
-+	return __kid_cmp(left.type, left.legacy, left.uuid.b,
-+			 right.type, right.legacy, right.uuid.b);
-+}
-+
-+static inline int gid_cmp(kgid_t left, kgid_t right)
-+{
-+	return __kid_cmp(left.type, left.legacy, left.uuid.b,
-+			 right.type, right.legacy, right.uuid.b);
-+}
-+
- static inline bool uid_eq(kuid_t left, kuid_t right)
- {
--	return __kuid_val(left) == __kuid_val(right);
-+	return uid_cmp(left, right) == 0;
- }
- 
- static inline bool gid_eq(kgid_t left, kgid_t right)
- {
--	return __kgid_val(left) == __kgid_val(right);
-+	return gid_cmp(left, right) == 0;
- }
- 
- static inline bool uid_gt(kuid_t left, kuid_t right)
- {
--	return __kuid_val(left) > __kuid_val(right);
-+	return uid_cmp(left, right) > 0;
- }
- 
- static inline bool gid_gt(kgid_t left, kgid_t right)
- {
--	return __kgid_val(left) > __kgid_val(right);
-+	return gid_cmp(left, right) > 0;
- }
- 
- static inline bool uid_gte(kuid_t left, kuid_t right)
- {
--	return __kuid_val(left) >= __kuid_val(right);
-+	return uid_cmp(left, right) >= 0;
- }
- 
- static inline bool gid_gte(kgid_t left, kgid_t right)
- {
--	return __kgid_val(left) >= __kgid_val(right);
-+	return gid_cmp(left, right) >= 0;
- }
- 
- static inline bool uid_lt(kuid_t left, kuid_t right)
- {
--	return __kuid_val(left) < __kuid_val(right);
-+	return uid_cmp(left, right) < 0;
- }
- 
- static inline bool gid_lt(kgid_t left, kgid_t right)
- {
--	return __kgid_val(left) < __kgid_val(right);
-+	return gid_cmp(left, right) < 0;
- }
- 
- static inline bool uid_lte(kuid_t left, kuid_t right)
- {
--	return __kuid_val(left) <= __kuid_val(right);
-+	return uid_cmp(left, right) <= 0;
- }
- 
- static inline bool gid_lte(kgid_t left, kgid_t right)
- {
--	return __kgid_val(left) <= __kgid_val(right);
-+	return gid_cmp(left, right) <= 0;
- }
- 
- static inline bool uid_valid(kuid_t uid)
- {
--	return __kuid_val(uid) != (uid_t) -1;
-+	return !uid_is_legacy(uid) || __kuid_val(uid) != (uid_t) -1;
- }
- 
- static inline bool gid_valid(kgid_t gid)
- {
--	return __kgid_val(gid) != (gid_t) -1;
-+	return !gid_is_legacy(gid) || __kgid_val(gid) != (gid_t) -1;
-+}
-+
-+/* A hash of an id, for hash tables keyed by kuid_t or kgid_t */
-+static inline u32 __kid_hash(u32 type, u32 legacy, const u8 *b)
-+{
-+	u32 w[4];
-+
-+	if (type == KID_LEGACY)
-+		return legacy;
-+	__builtin_memcpy(w, b, sizeof(w));
-+	return w[0] ^ w[1] ^ w[2] ^ w[3] ^ type;
-+}
-+
-+static inline u32 kuid_hash(kuid_t uid)
-+{
-+	return __kid_hash(uid.type, __kuid_val(uid), uid.uuid.b);
-+}
-+
-+static inline u32 kgid_hash(kgid_t gid)
-+{
-+	return __kid_hash(gid.type, __kgid_val(gid), gid.uuid.b);
- }
- 
- #ifdef CONFIG_USER_NS
-@@ -134,13 +190,22 @@ extern gid_t from_kgid(struct user_namespace *to, kgid_t gid);
- extern uid_t from_kuid_munged(struct user_namespace *to, kuid_t uid);
- extern gid_t from_kgid_munged(struct user_namespace *to, kgid_t gid);
- 
-+/*
-+ * UUIDs and GUIDs aren't in any namespace's uid_map or gid_map: they
-+ * exist in the initial user namespace only, and nobody has privilege
-+ * over them through a capability in another one.
-+ */
- static inline bool kuid_has_mapping(struct user_namespace *ns, kuid_t uid)
- {
-+	if (!uid_is_legacy(uid))
-+		return ns == &init_user_ns;
- 	return from_kuid(ns, uid) != (uid_t) -1;
- }
- 
- static inline bool kgid_has_mapping(struct user_namespace *ns, kgid_t gid)
- {
-+	if (!gid_is_legacy(gid))
-+		return ns == &init_user_ns;
- 	return from_kgid(ns, gid) != (gid_t) -1;
- }
- 
-diff --git a/include/linux/uidgid_types.h b/include/linux/uidgid_types.h
-index b35ac4955a..0f595d075b 100644
---- a/include/linux/uidgid_types.h
-+++ b/include/linux/uidgid_types.h
-@@ -3,13 +3,41 @@
- #define _LINUX_UIDGID_TYPES_H
- 
- #include <linux/types.h>
-+#include <linux/uuid_types.h>
- 
-+/*
-+ * Kinds of kuid_t and kgid_t. KID_LEGACY is 0, so zeroed memory still
-+ * holds GLOBAL_ROOT_UID and GLOBAL_ROOT_GID as it did when the ids were
-+ * plain numbers. Userspace has its own numbering (UID_R_* in
-+ * <uapi/linux/uidgid_r.h>), in which zero is "no id".
-+ */
-+enum kid_type {
-+	KID_LEGACY = 0,		/* classic 32 bit id in .legacy */
-+	KID_UUID,		/* RFC 9562 UUID in .uuid */
-+	KID_GUID,		/* Microsoft GUID in .guid */
-+};
-+
-+/*
-+ * Only the member .type selects is meaningful; the bytes of .uuid past
-+ * .legacy are undefined for a KID_LEGACY id. Copy the whole struct and
-+ * use the helpers of <linux/uidgid.h> to look at it.
-+ */
- typedef struct {
--	uid_t val;
-+	u32 type;
-+	union {
-+		uid_t legacy;
-+		uuid_t uuid;
-+		guid_t guid;
-+	};
- } kuid_t;
- 
- typedef struct {
--	gid_t val;
-+	u32 type;
-+	union {
-+		gid_t legacy;
-+		uuid_t uuid;
-+		guid_t guid;
-+	};
- } kgid_t;
- 
- #endif /* _LINUX_UIDGID_TYPES_H */
-diff --git a/kernel/groups.c b/kernel/groups.c
-index b5e3be6a6b..3aa0651d7a 100644
---- a/kernel/groups.c
-+++ b/kernel/groups.c
-@@ -73,18 +73,15 @@ static int groups_from_user(struct group_info *group_info,
- 	return 0;
- }
- 
--static int gid_cmp(const void *_a, const void *_b)
-+static int groups_cmp(const void *_a, const void *_b)
- {
--	kgid_t a = *(kgid_t *)_a;
--	kgid_t b = *(kgid_t *)_b;
--
--	return gid_gt(a, b) - gid_lt(a, b);
-+	return gid_cmp(*(kgid_t *)_a, *(kgid_t *)_b);
- }
- 
- void groups_sort(struct group_info *group_info)
- {
- 	sort(group_info->gid, group_info->ngroups, sizeof(*group_info->gid),
--	     gid_cmp, NULL);
-+	     groups_cmp, NULL);
- }
- EXPORT_SYMBOL(groups_sort);
- 
-@@ -100,9 +97,11 @@ int groups_search(const struct group_info *group_info, kgid_t grp)
- 	right = group_info->ngroups;
- 	while (left < right) {
- 		unsigned int mid = (left+right)/2;
--		if (gid_gt(grp, group_info->gid[mid]))
-+		int cmp = gid_cmp(grp, group_info->gid[mid]);
-+
-+		if (cmp > 0)
- 			left = mid + 1;
--		else if (gid_lt(grp, group_info->gid[mid]))
-+		else if (cmp < 0)
- 			right = mid;
- 		else
- 			return 1;
-diff --git a/kernel/ucount.c b/kernel/ucount.c
-index ec8b1445e2..d34bc9ea9d 100644
---- a/kernel/ucount.c
-+++ b/kernel/ucount.c
-@@ -23,7 +23,7 @@ static struct hlist_nulls_head ucounts_hashtable[UCOUNTS_HASHTABLE_ENTRIES] = {
- static DEFINE_SPINLOCK(ucounts_lock);
- 
- #define ucounts_hashfn(ns, uid)						\
--	hash_long((unsigned long)__kuid_val(uid) + (unsigned long)(ns), \
-+	hash_long((unsigned long)kuid_hash(uid) + (unsigned long)(ns), \
- 		  UCOUNTS_HASHTABLE_BITS)
- #define ucounts_hashentry(ns, uid)	\
- 	(ucounts_hashtable + ucounts_hashfn(ns, uid))
-diff --git a/kernel/user.c b/kernel/user.c
-index 21bafdc113..e41806bb70 100644
---- a/kernel/user.c
-+++ b/kernel/user.c
-@@ -88,7 +88,7 @@ EXPORT_SYMBOL_GPL(init_user_ns);
- #define UIDHASH_SZ	(1 << UIDHASH_BITS)
- #define UIDHASH_MASK		(UIDHASH_SZ - 1)
- #define __uidhashfn(uid)	(((uid >> UIDHASH_BITS) + uid) & UIDHASH_MASK)
--#define uidhashentry(uid)	(uidhash_table + __uidhashfn((__kuid_val(uid))))
-+#define uidhashentry(uid)	(uidhash_table + __uidhashfn(kuid_hash(uid)))
- 
- static struct kmem_cache *uid_cachep;
- static struct hlist_head uidhash_table[UIDHASH_SZ];
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 0bed462e9b..88fc8ba586 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -436,10 +436,13 @@ EXPORT_SYMBOL(make_kuid);
-  *
-  *	There is always a mapping into the initial user_namespace.
-  *
-- *	If @kuid has no mapping in @targ (uid_t)-1 is returned.
-+ *	If @kuid has no mapping in @targ (uid_t)-1 is returned. A UUID or
-+ *	GUID has no classic uid in any user namespace.
-  */
- uid_t from_kuid(struct user_namespace *targ, kuid_t kuid)
- {
-+	if (!uid_is_legacy(kuid))
-+		return (uid_t) -1;
- 	/* Map the uid from a global kernel uid */
- 	return map_id_up(&targ->uid_map, __kuid_val(kuid));
- }
-@@ -504,10 +507,13 @@ EXPORT_SYMBOL(make_kgid);
-  *
-  *	There is always a mapping into the initial user_namespace.
-  *
-- *	If @kgid has no mapping in @targ (gid_t)-1 is returned.
-+ *	If @kgid has no mapping in @targ (gid_t)-1 is returned. A UUID or
-+ *	GUID has no classic gid in any user namespace.
-  */
- gid_t from_kgid(struct user_namespace *targ, kgid_t kgid)
- {
-+	if (!gid_is_legacy(kgid))
-+		return (gid_t) -1;
- 	/* Map the gid from a global kernel gid */
- 	return map_id_up(&targ->gid_map, __kgid_val(kgid));
- }
-diff --git a/mm/oom_kill.c b/mm/oom_kill.c
-index 5f372f6e26..2ce3072931 100644
---- a/mm/oom_kill.c
-+++ b/mm/oom_kill.c
-@@ -771,7 +771,7 @@ static void mark_oom_victim(struct task_struct *tsk)
- 	thaw_process(tsk);
- 	atomic_inc(&oom_victims);
- 	cred = get_task_cred(tsk);
--	trace_mark_victim(tsk, cred->uid.val);
-+	trace_mark_victim(tsk, __kuid_val(cred->uid));
- 	put_cred(cred);
- }
- 
-diff --git a/security/integrity/ima/ima_policy.c b/security/integrity/ima/ima_policy.c
-index 68d9a5e6c2..839b88ea20 100644
---- a/security/integrity/ima/ima_policy.c
-+++ b/security/integrity/ima/ima_policy.c
-@@ -81,22 +81,22 @@ struct ima_rule_opt_list {
-  */
- static inline bool vfsuid_gt_kuid(vfsuid_t vfsuid, kuid_t kuid)
- {
--	return __vfsuid_val(vfsuid) > __kuid_val(kuid);
-+	return vfsuid_cmp(vfsuid, VFSUIDT_INIT(kuid)) > 0;
- }
- 
- static inline bool vfsgid_gt_kgid(vfsgid_t vfsgid, kgid_t kgid)
- {
--	return __vfsgid_val(vfsgid) > __kgid_val(kgid);
-+	return vfsgid_cmp(vfsgid, VFSGIDT_INIT(kgid)) > 0;
- }
- 
- static inline bool vfsuid_lt_kuid(vfsuid_t vfsuid, kuid_t kuid)
- {
--	return __vfsuid_val(vfsuid) < __kuid_val(kuid);
-+	return vfsuid_cmp(vfsuid, VFSUIDT_INIT(kuid)) < 0;
- }
- 
- static inline bool vfsgid_lt_kgid(vfsgid_t vfsgid, kgid_t kgid)
- {
--	return __vfsgid_val(vfsgid) < __kgid_val(kgid);
-+	return vfsgid_cmp(vfsgid, VFSGIDT_INIT(kgid)) < 0;
- }
- 
- struct ima_rule_entry {
+Design
+------
+- kuid_t and kgid_t become a tagged union (legacy number, UUID, GUID)
+  instead of a u32. There is no table that maps UUIDs to numbers: the
+  kernel compares, hashes and stores the whole id. uid_eq(), uid_lt()
+  and the other helpers keep their meaning. Patches 1-3 add the UAPI
+  type and helpers. Patches 4-8 fix places that relied on kuid_t being
+  a u32: sk_uid is now read through a seqcount, and af_unix, netlink and
+  Bluetooth keep only classic ids in skb->cb. Patch 9 changes the type.
+
+- UUIDs and GUIDs exist only in the initial user namespace. They are not
+  part of any uid_map or gid_map, show as the overflow id in other
+  namespaces, and no capability in a child namespace gives privilege
+  over them. Idmapped mounts pass them through unchanged.
+
+- The classic system calls keep their 32-bit ids and show a UUID or GUID
+  as the overflow id, as the 16-bit calls do for ids above 65535. A new
+  family, named after the old calls with an _r suffix (getuid_r,
+  setresuid_r, setgroups_r, fchownat_r, ...), takes a 20-byte
+  __kernel_uid_r_t:
+
+	typedef struct __kernel_uid_r {
+		__u32 type;	/* UID_R_NONE, _LEGACY, _UUID, _GUID */
+		union {
+			__u32 legacy;
+			__u8 uuid[16];
+			__u8 guid[16];
+		};
+	} __kernel_uid_r_t;
+
+  It has the same layout on every ABI, so none of the calls needs a
+  compat entry.
+
+- Existing interfaces get _R variants where an id is in the ABI:
+  STATX_UID_R/STATX_GID_R, SO_PEERCRED_R, SO_PEERGROUPS_R,
+  SCM_CREDENTIALS_R, si_uid_r in siginfo (offset 96 in every layout),
+  IPC_STAT_R/IPC_SET_R, KEYCTL_CHOWN_R, and version 3 of the POSIX ACL
+  xattr. procfs, audit records, key descriptions and the RPCSEC_GSS
+  upcall use a text form (decimal, UUID, or GUID in braces).
+
+- A filesystem has to declare that it can store such owners
+  (SB_I_UID_R). Everywhere else, chown and creating a file as such a
+  user fail with EOVERFLOW, so a UUID never turns into a wrong number
+  on disk. tmpfs, ramfs and devpts declare it, overlayfs does when its
+  upper layer does, and ext4 does with a new read-only compatible
+  feature, uid_r (patches 31, 32 and 34; 256-byte inodes). NFSv4 and
+  ksmbd carry the ids as text or as SIDs (S-1-22-3/4/5/6-...).
+
+- Things that can't carry a 128-bit id fail closed instead of mapping:
+  quotas don't account such owners, AUTH_SYS sends the overflow id,
+  unprivileged ublk devices are refused, and gssd versions that don't
+  know uid_r= refuse the upcall.
+
+Documentation/userspace-api/uid_r.rst (patches 35 and 41) describes the
+whole ABI and its limitations.
+
+Testing
+-------
+- tools/testing/selftests/uid_r (patch 36): 14/14 pass.
+- A boot test suite (nolibc init on QEMU, ext4 images with and without
+  uid_r): 88/88 pass, on a kernel with USER_NS, overlayfs, tmpfs, POSIX
+  ACLs and audit enabled.
+- End to end on a full distribution (FenrirOS: patched libc, e2fsprogs,
+  OpenSSH, rsync, libarchive, a ksmbd and NFS server): UUID users log in
+  over ssh, own files on ext4, and reach ksmbd and NFSv4 shares.
+- The selftests and the boot test suite ran on the same series on top
+  of v7.2.9 and v7.2.11. On v7.3-rc7, the series is built for x86_64
+  (bzImage and modules, with USER_NS, audit, ecryptfs, fscrypt, quota,
+  ublk, NFS, Bluetooth and the LSMs enabled) and boots in QEMU, where an
+  integration test with a full user space passes 24/24: ssh sessions
+  with a pty as UUID users, UUID owners on tmpfs and overlayfs, SMB
+  logins of UUID users through ksmbd with S-1-22-3-... owner SIDs, and
+  NFSv4 showing and setting UUID owners. ext4 uid_r was not part of it.
+- The syscall tables of the other architectures are wired up (patch 22)
+  but haven't been built.
+
+The e2fsprogs changes (mke2fs/tune2fs -O uid_r, e2fsck, debugfs, ACL
+conversion in libext2fs) will be sent to linux-ext4 separately.
+
+Open questions
+--------------
+- Is a tagged union in kuid_t acceptable, or would you rather see the
+  128-bit id kept beside a u32 kuid_t?
+- The new calls copy the classic get/set*id() and chown() families
+  one by one (20 entries). A single setid_r(which, ...) call would need
+  fewer syscall numbers. Which do you prefer?
+- Should the series be split per subsystem (core/uidgid, fs and VFS,
+  net, ext4, nfsd/ksmbd) after this RFC?
+
+Changes in v2:
+- No code changes. v1 reached the lists only up to patch 11, the mail
+  provider throttled the rest; this is the complete series, now sent
+  from jan.koester@tuxist.de (author and Signed-off-by changed to it).
+- Hunk offsets refreshed against v7.3-rc7, testing section updated.
+- v1: https://lore.kernel.org/r/cover.1792346472.git.jan.koester@gmx.net
+
+The series is based on v7.3-rc7. The syscall numbers (473-492 on most
+architectures) are placeholders and will follow whatever is merged first.
+
+Jan Koester (41):
+  uuid: move uuid_t and guid_t into <linux/uuid_types.h>
+  uapi: add <linux/uidgid_r.h> for 128 bit capable user and group ids
+  uidgid: add uid_is_legacy() and gid_is_legacy()
+  net: sock: read sk_uid through a seqcount
+  af_unix: keep sender ids in skb->cb only when they are classic ids
+  netlink: keep classic sender ids in skb->cb
+  Bluetooth: keep classic sender ids in skb->cb
+  smb: client: use __kuid_val() for the unix SIDs of the caller
+  uidgid: let kuid_t and kgid_t hold a UUID or a GUID
+  uidgid: convert between kernel ids and the ids of the *_r system calls
+  fscrypt: show the whole uid in the description of user key claims
+  keys: name per-user keyrings of UUID and GUID users by the whole uid
+  ublk: refuse unprivileged devices to UUID and GUID users
+  nfsd: don't hand out uid 0 for read layouts of UUID-owned files
+  SUNRPC: name UUID and GUID users to gssd as uid_r=
+  ecryptfs: hash daemons by kuid_hash()
+  quota: don't account UUID and GUID owners
+  fs: keep UUID and GUID owners off filesystems that can't store them
+  cred: add the *_r variants of the get/set*id() system calls
+  groups: add getgroups_r() and setgroups_r()
+  fs: add chown_r(), lchown_r(), fchown_r() and fchownat_r()
+  arch: wire up the *_r uid and gid system calls
+  statx: report UUID and GUID owners
+  shmem, ramfs: allow UUID and GUID owners
+  uidgid: parse and print ids in their text form
+  proc: show UUID and GUID ids in status, accept them for loginuid
+  audit: log UUID and GUID ids in full
+  net: add SO_PEERCRED_R, SO_PEERGROUPS_R and SCM_CREDENTIALS_R
+  signal: report the sender's UUID or GUID uid in si_uid_r
+  ipc: add IPC_STAT_R and IPC_SET_R
+  ext4: add the uid_r feature for UUID and GUID owners
+  ext4: let uid_r be turned on while the filesystem is mounted
+  posix_acl: support UUID and GUID entries
+  ext4: store ACLs with UUID and GUID entries on uid_r filesystems
+  Documentation: describe UUID and GUID user and group ids
+  selftests: add tests for UUID and GUID ids
+  ovl: allow UUID and GUID owners when the upper layer does
+  devpts: allow UUID and GUID owners
+  ksmbd: log in UUID and GUID users and map them to SIDs
+  nfsd, nfs: carry UUID and GUID owners as their text form
+  Documentation: uid_r: describe SMB and NFSv4
+
+ Documentation/userspace-api/index.rst       |   1 +
+ Documentation/userspace-api/uid_r.rst       | 186 +++++++
+ arch/alpha/include/uapi/asm/socket.h        |   5 +
+ arch/alpha/kernel/syscalls/syscall.tbl      |  20 +
+ arch/arm/tools/syscall.tbl                  |  20 +
+ arch/arm64/tools/syscall_32.tbl             |  20 +
+ arch/m68k/kernel/syscalls/syscall.tbl       |  20 +
+ arch/microblaze/kernel/syscalls/syscall.tbl |  20 +
+ arch/mips/include/uapi/asm/socket.h         |   5 +
+ arch/mips/kernel/syscalls/syscall_n32.tbl   |  20 +
+ arch/mips/kernel/syscalls/syscall_n64.tbl   |  20 +
+ arch/mips/kernel/syscalls/syscall_o32.tbl   |  20 +
+ arch/parisc/include/uapi/asm/socket.h       |   5 +
+ arch/parisc/kernel/syscalls/syscall.tbl     |  20 +
+ arch/powerpc/kernel/syscalls/syscall.tbl    |  20 +
+ arch/s390/kernel/syscalls/syscall.tbl       |  20 +
+ arch/sh/kernel/syscalls/syscall.tbl         |  20 +
+ arch/sparc/include/uapi/asm/socket.h        |   5 +
+ arch/sparc/kernel/syscalls/syscall.tbl      |  20 +
+ arch/x86/entry/syscalls/syscall_32.tbl      |  20 +
+ arch/x86/entry/syscalls/syscall_64.tbl      |  20 +
+ arch/xtensa/kernel/syscalls/syscall.tbl     |  20 +
+ drivers/block/ublk_drv.c                    |  17 +-
+ drivers/tty/tty_audit.c                     |   7 +-
+ fs/attr.c                                   |   7 +
+ fs/crypto/keyring.c                         |   7 +-
+ fs/devpts/inode.c                           |   2 +
+ fs/ecryptfs/messaging.c                     |   2 +-
+ fs/ext4/acl.c                               | 109 +++-
+ fs/ext4/acl.h                               |  34 +-
+ fs/ext4/ext4.h                              |  27 +-
+ fs/ext4/inode.c                             | 115 ++++-
+ fs/ext4/ioctl.c                             |  30 +-
+ fs/ext4/super.c                             |  45 +-
+ fs/mnt_idmapping.c                          |  14 +
+ fs/nfs/nfs4idmap.c                          |  53 ++
+ fs/nfs/super.c                              |   2 +
+ fs/nfsd/flexfilelayout.c                    |   6 +-
+ fs/nfsd/nfs4idmap.c                         |  68 ++-
+ fs/open.c                                   | 144 +++++-
+ fs/overlayfs/super.c                        |   3 +
+ fs/posix_acl.c                              | 123 ++++-
+ fs/proc/array.c                             |  17 +-
+ fs/proc/base.c                              |  38 +-
+ fs/quota/dquot.c                            |   3 +
+ fs/ramfs/inode.c                            |   1 +
+ fs/signalfd.c                               |   3 +
+ fs/smb/client/cifsacl.c                     |   2 +-
+ fs/smb/client/smb2pdu.c                     |   7 +-
+ fs/smb/server/ksmbd_netlink.h               |  15 +-
+ fs/smb/server/mgmt/user_config.c            |  35 +-
+ fs/smb/server/mgmt/user_config.h            |   4 +-
+ fs/smb/server/smb2pdu.c                     |  10 +-
+ fs/smb/server/smb_common.c                  |  18 +-
+ fs/smb/server/smbacl.c                      | 178 +++++--
+ fs/smb/server/smbacl.h                      |  19 +-
+ fs/smb/server/transport_ipc.c               |   4 +-
+ fs/smb/server/vfs_cache.c                   |   9 +-
+ fs/smb/server/vfs_cache.h                   |   4 +-
+ fs/stat.c                                   |  24 +-
+ include/linux/audit.h                       |   8 +-
+ include/linux/compat.h                      |   6 +
+ include/linux/fs.h                          |  29 +-
+ include/linux/fs/super_types.h              |   1 +
+ include/linux/mnt_idmapping.h               |  74 ++-
+ include/linux/netlink.h                     |   2 +-
+ include/linux/posix_acl_xattr.h             |  31 ++
+ include/linux/ptrace.h                      |   2 +-
+ include/linux/quota.h                       |  18 +
+ include/linux/signal.h                      |  22 +
+ include/linux/signal_types.h                |   5 +-
+ include/linux/socket.h                      |   1 +
+ include/linux/syscalls.h                    |  44 ++
+ include/linux/uidgid.h                      | 165 +++++-
+ include/linux/uidgid_types.h                |  32 +-
+ include/linux/uuid.h                        |  11 +-
+ include/linux/uuid_types.h                  |  21 +
+ include/net/bluetooth/bluetooth.h           |   2 +-
+ include/net/scm.h                           |  28 +
+ include/net/sock.h                          |  32 +-
+ include/uapi/asm-generic/siginfo.h          |  17 +
+ include/uapi/asm-generic/socket.h           |   5 +
+ include/uapi/asm-generic/unistd.h           |  43 +-
+ include/uapi/linux/ipc.h                    |  17 +
+ include/uapi/linux/keyctl.h                 |   1 +
+ include/uapi/linux/posix_acl_xattr.h        |  19 +
+ include/uapi/linux/signalfd.h               |   4 +-
+ include/uapi/linux/socket.h                 |   9 +
+ include/uapi/linux/stat.h                   |  10 +-
+ include/uapi/linux/uidgid_r.h               |  45 ++
+ io_uring/waitid.c                           |  32 +-
+ io_uring/waitid.h                           |   1 +
+ ipc/mqueue.c                                |   4 +-
+ ipc/msg.c                                   |  40 +-
+ ipc/sem.c                                   |  31 +-
+ ipc/shm.c                                   |  32 +-
+ ipc/util.c                                  | 112 +++-
+ ipc/util.h                                  |  23 +-
+ kernel/Makefile                             |   1 +
+ kernel/audit.c                              |  50 +-
+ kernel/audit.h                              |   4 +-
+ kernel/auditsc.c                            |  63 ++-
+ kernel/exit.c                               |  18 +-
+ kernel/exit.h                               |   3 +
+ kernel/groups.c                             |  94 +++-
+ kernel/signal.c                             |  48 +-
+ kernel/sys.c                                | 472 ++++++++++++-----
+ kernel/sys_ni.c                             |  12 +
+ kernel/ucount.c                             |   2 +-
+ kernel/uidgid_r.c                           | 467 +++++++++++++++++
+ kernel/user.c                               |   2 +-
+ kernel/user_namespace.c                     |  10 +-
+ lib/kobject_uevent.c                        |   8 +-
+ mm/oom_kill.c                               |   2 +-
+ mm/shmem.c                                  |   2 +
+ net/bluetooth/hci_sock.c                    |   8 +-
+ net/core/dev.c                              |   8 +-
+ net/core/scm.c                              |  94 ++--
+ net/core/sock.c                             |  90 +++-
+ net/netlabel/netlabel_user.c                |   4 +-
+ net/netlink/af_netlink.c                    |   4 +-
+ net/socket.c                                |   5 +-
+ net/sunrpc/auth_gss/auth_gss.c              |  44 +-
+ net/unix/af_unix.c                          |  53 +-
+ net/unix/af_unix.h                          |  11 +-
+ scripts/syscall.tbl                         |  20 +
+ security/apparmor/file.c                    |   8 +-
+ security/integrity/ima/ima_policy.c         |   8 +-
+ security/integrity/integrity_audit.c        |   6 +-
+ security/ipe/audit.c                        |  12 +-
+ security/keys/compat.c                      |   3 +
+ security/keys/internal.h                    |   3 +
+ security/keys/keyctl.c                      |  61 ++-
+ security/keys/persistent.c                  |  11 +-
+ security/keys/process_keys.c                |  36 +-
+ security/keys/request_key.c                 |  12 +-
+ security/selinux/selinuxfs.c                |   8 +-
+ security/selinux/ss/services.c              |   4 +-
+ tools/testing/selftests/Makefile            |   1 +
+ tools/testing/selftests/uid_r/.gitignore    |   1 +
+ tools/testing/selftests/uid_r/Makefile      |   6 +
+ tools/testing/selftests/uid_r/config        |   4 +
+ tools/testing/selftests/uid_r/uid_r_test.c  | 535 ++++++++++++++++++++
+ 143 files changed, 4425 insertions(+), 605 deletions(-)
+ create mode 100644 Documentation/userspace-api/uid_r.rst
+ create mode 100644 include/linux/uuid_types.h
+ create mode 100644 include/uapi/linux/uidgid_r.h
+ create mode 100644 kernel/uidgid_r.c
+ create mode 100644 tools/testing/selftests/uid_r/.gitignore
+ create mode 100644 tools/testing/selftests/uid_r/Makefile
+ create mode 100644 tools/testing/selftests/uid_r/config
+ create mode 100644 tools/testing/selftests/uid_r/uid_r_test.c
+
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
 2.56.0
 
