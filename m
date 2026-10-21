@@ -1,104 +1,104 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562761;
-	b=YttB8+JRrK5xSmYBgsAPN+AcAvuDb9lSzu79FaeNcuudMnJg+mWc0o20YepbcFQna/JJ
-	 nRx/sAEWqFipqNOyiB4S+bwcp2SpNDRaVHF/eWldBbXVuQiJQxuR0T7EUBaP2XL3bkprd
-	 NBVx0yNHGyjFa4xlOizGvkk2IOzLkj+usPiiacoc3kgA5qI9szIRz/jhVYJam3zmIehDO
-	 W9DdFCI0lAgOOXuAgmJ8/myUsrr5NVP5uppk0G6GHTswT5PhnrH0jbp6oUvX/qra8sAqr
-	 dyzlVscIkRRxmW3RCXZK/Dx+zStZm8eYe6qo9M9uC0NoEa/0nc3GzbtKV74t1YYFvEQ==
+	t=1792562762;
+	b=LYZhU5Iq0OIfJWXW4KLygrmWHqUgtR2zxx9tCf14NTT7ghnSmDPwTguezkvq/4kQbZTd
+	 xUNQciEdPUPeTSEcZiAhwmeL8MAYH5jiQvrrABw460RpmrGVzMe2O3rqBzWVptnlKR6gl
+	 RWf41A9Qvnabxc204JATrM6iKza4QA47O+xQcTV8+qs2nFgqWn7VcVdjC+0aJcuna5kj7
+	 ueosulZLIHxBXFvBhd1vmijHGNhLOhorRM7MWCviAvVY6NI0jb9xEJUG5wJZybJnsHJoh
+	 O8NO0qXTzCAU98zs44fPFvUxJJGFFRdoFLroWpJQuO4gBW6FA3sxV5XMGchBjnK9jRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562761;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562762;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=2s7sy+SVvRc4UpGAfkya5y1O6jc//tVZw1Co8TmbAlo=;
-	b=Cw+7+jE2BQE/TJyL8KcD0ez9CMP8hCF9YQWdSrk1CuL4Qrs79tYy6ExkzL9gnAX75o5g
-	 JHfcZFh9S0OJELRXccXUAPLO/N7Y64ZHnC4uu6U7r8eZz0eBdEObFyX+sDf3q8WmObYkS
-	 i8UwXwtQuYtf3Tx7nfkdqDItB4QwyzLvJxdXAicqySZBURHivwhNvLcNPqy8zagzlXfCS
-	 WYgulTakZSL77thFr3yUpdvQjJCu84KFI3xKvfPcOTXz7YRle+MrMzMPSukeGDxS8DUsm
-	 NxSUxMLqkPdjH5/EWnVTA+HBG92vMN4yx3VbYVkktonyZC3ztlUsyK0qeP+l4ttQ8ZQ==
+	bh=xEEzUKmwPcuLDb8KHUBfxekosp3Yw5qO1BP0yTFVDsQ=;
+	b=FXQIN8vO/O6EkCbXzzrN1TLBSSIl2IZlrQBBfiMUqeoPu6/bedx1uXKliHH65G15mNfD
+	 ptDpIa0/6D2C5GVHz9kf0tHkctRpySASH6MGtPPeI/pPVpqrxTIqSL9l9vypQkoAZY77m
+	 Ud+MICVvZMCgr4ljgdFAKvlWd2j2MuMWKKiALl75HlszM3rIWb1pFN58CbwPA89ElfYgO
+	 wkkrUERQDwCPh9Wb6ihIjpSUvJvn6cnqLIl1KCNWfhZ2RdkRyayUkxm6t4BURq37iZC+p
+	 OdnULG+0FZb+JGLjXMmVGLJiw8nP6+TkR8TRjvCPyjibyaj4RecW7cBUpbX0Pf6jYYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GJUSu9gZ;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DFVmK2y3;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cu5UxCGA;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=L9z1ZgNI;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB209606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:06:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB209606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D24660A2631
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:06:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D24660A2631
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=GJUSu9gZ;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DFVmK2y3
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cu5UxCGA;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=L9z1ZgNI
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792562759;
+	s=mimecast20190719; t=1792562761;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2s7sy+SVvRc4UpGAfkya5y1O6jc//tVZw1Co8TmbAlo=;
-	b=GJUSu9gZ2mDp/Wii4AXWxMG50PpknIVclYFet+yZpm/vHlSuHJZtE+U8NbKha3sleAiFWz
-	LdEsjgviYQJqWQWotK1VAFSS90u473q8WC1xu6/qrTZ7SioNKhvEv6znG4Axn5zzOx1D2e
-	Du4zWTTfE70uRAz2exivBgUUoJNFnSg=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=xEEzUKmwPcuLDb8KHUBfxekosp3Yw5qO1BP0yTFVDsQ=;
+	b=cu5UxCGACGg9MKTvK86OkGYVINzLDW4YTdmOUjyeQiSC39UtFP43LG9gE/JXtL0so8wdGv
+	324vNEwtCRqqiFy7+FiPXMNCtxv2sZ0qs/VmpbeckQEfWBFnaVV+HPFzxnb3v9IzYuin6Q
+	TCnozGvlavjJlndKwS1E5h8Xi7T1wow=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-116-NsM59wdINRaOi5IWOg0o_A-1; Wed, 21 Oct 2026 02:05:56 -0400
-X-MC-Unique: NsM59wdINRaOi5IWOg0o_A-1
-X-Mimecast-MFC-AGG-ID: NsM59wdINRaOi5IWOg0o_A_1792562755
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1de9dac94so3182145e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:05:56 -0700 (PDT)
+ us-mta-674-7LkEX4wYNcqYCxiTDXZOiA-1; Wed, 21 Oct 2026 06:05:59 +0000
+X-MC-Unique: 7LkEX4wYNcqYCxiTDXZOiA-1
+X-Mimecast-MFC-AGG-ID: 7LkEX4wYNcqYCxiTDXZOiA_1792562759
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b01a74792so227142f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:05:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792562755; x=1793167555; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1792562759; x=1793167559; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=2s7sy+SVvRc4UpGAfkya5y1O6jc//tVZw1Co8TmbAlo=;
-        b=DFVmK2y3/Kj+GpYZBDPNeipdhyTNqGJas5BnUwrS6tArzuPgAtVw/FJV7+10SsuyoH
-         2AkeoyhMXJHyrR7E/YJ3JO0iOQSRTeXPJg0aHjLprucn9/p29KC71/pyseC/gdAftbnM
-         W8Hb5j9x9jd3fGKTJzi58u4/5LOio5ALPcoalUYT/Y/BcfPw6w9PZ1yVmR3EvqABQ9z/
-         1Hvcr6bVWcj1J7UIJFTlolsYvRAQnlkOkLUMTpRqyB0QcpmojKIgntJNeU+l5T122QMm
-         X5iPWh9xLglhl4KwyYRycrknibrywPLCLD6PiYGgEQtn8sztr/xDMz8ueiGWGA8XvtY2
-         OU1w==
+        bh=xEEzUKmwPcuLDb8KHUBfxekosp3Yw5qO1BP0yTFVDsQ=;
+        b=L9z1ZgNIBOoai1g8EonhlKrsarMtdOKa+J7SVg4jvEjhenBcbtvOzXFGmoAK3kk65B
+         S6OUd0xxpBaNWdOz2Q6CDaIskmbRJkxy/dZIqcH3GbhewDZL7JxJ5zR4hLGjN9sFDuwZ
+         QLGfAz2j67lQGYaQtnjlK1iOw66KpG1M6ElZfgV2wUlV7y+ZhNtSUmXCVXym5iRwDTfR
+         OF/R+CV/6fVGIe7xuVayn6MyRiBA3B4ssjLh4EJ9b2Or8uelrBpdULM5RVUW0oPvVzwm
+         LZdipdXQ4FkBGKOUwGnaG0lyEn0Ubg3BNrajJGcvDyFnkxT596vICc7mRgLXFzNE2wd9
+         ibcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792562755; x=1793167555;
+        d=1e100.net; s=20260707; t=1792562759; x=1793167559;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2s7sy+SVvRc4UpGAfkya5y1O6jc//tVZw1Co8TmbAlo=;
-        b=ToXomIzSzT2Kv5NmqOgRTce1MMkjbpCm1+yoQyFR/s3ELEFXmIZBQmVANLI4pUgseq
-         orLLaX9mEYZJn+3wTAMD0ARzApkAyevAu+2x3nRPpfCFm67TdEQQ2d5BabO3yqgwShVK
-         9wGXPnC/+khqmwDJ1+yejfOsHqws0YmbFTfG+y6E2IhZjdIALNmAeeiaTna1KDvqlsuP
-         nhocPSPLCxhg62JbYIZ6xAodtYY9EhTGT02XyCPTRzMMkNOUS9a+CPqnbUoE25J3gQkW
-         Yynu5wpqZ105ttbKwWnJa6Uuxa/5eoY+/+uizkfRqwuESXsQMR7NJZg9xV4un9pgc/K+
-         2lCQ==
-X-Forwarded-Encrypted: i=1; AKwUvByB2DGx40/Kb2UKNiL9nqaUsu2AllOlS4g22bhBwegh2QKcJ13PhUchRsVR4PGUGLCdMuOIr0huP4FFaQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWA24NzTX1ZBzAjbVJ0vN+Oz8g6LhuGM/+vq1HEfYAmkXOnJpp
-	OWAJ1CZSI91Pr7IAc1RaBL9MmjB5Tt2coWFkxS0Q9rYM2fjjw3KdU7S6/QC5nhplwTFhXVIVYaD
-	Aj5F0ihD9uBOpRS/WxBTL6zMJEKXSCo39l015a1jGiuWnJFzz4g30qluuvNMiX1Qm
-X-Gm-Gg: AYBFou2fwSRPC7L5WrelGPwKqFyz0m1x7XuSTKyCs/2WuDCbbq3FVYgajLOB+0Ar6Z4
-	65E5+JJ2Kjk3c/g+Q52Inv0H37AyGQv36vA20KfBE3Tq7HNGezwP9tpKJXtTHWY9gE+h4jY8G/h
-	7XjGpnkAbsoa+rY+BAkMZHJRO9jX7Nq09y7Pr79HwPkIei8lMymsn2RIBDyGMQdqUbI3PoTBbD1
-	T3d7rmVut1Ml/GQMc5wWMERPE9iIDHFjq8T9qQf2QVsQnZ+Dn6vg7yxYo22u7me/+RArwZYBwWO
-	MNHQv+Dkd7liw0TsuASJRV7+cepvLjlb0IH8bZ54FNk2lFz+G0CKjARhMYFuK4iGzV6hlhCfaOo
-	U4bRylJZs/vf74y6fIwXDF+bHa/BT7cOfRJkK
-X-Received: by 2002:a05:600c:8b4c:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4a1fdd15484mr17405615e9.18.1792562754907;
-        Tue, 20 Oct 2026 23:05:54 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b4c:b0:4a1:fb01:13 with SMTP id 5b1f17b1804b1-4a1fdd15484mr17405085e9.18.1792562754409;
-        Tue, 20 Oct 2026 23:05:54 -0700 (PDT)
+        bh=xEEzUKmwPcuLDb8KHUBfxekosp3Yw5qO1BP0yTFVDsQ=;
+        b=Sn7mkOxQY8iguKpEDGGPrVEx+RnCrDNUdPHtJr21seI9/UAyOM81uhmUzBm8YjMobW
+         feIL/c3MnPfJJht8/bTRt7+c0YV+N8GarXbxCw8HFiwnyfY6WkR2Lqqqq1H4D9G2WFYr
+         DdyXR8J+26fH+7s8Q7L7a7ihg4HISBATpsXZVGM/RkMG3kxLRZSqwIbMJIiFi+SVRr3U
+         m+sTEs1CC8TfavKH2e0TquDkJH3YbObSIifOpaVOlWn/r1qemd+Qhs8vTzURtQvggTlk
+         UAGEKYvR9HSNwq7qtKLqeSafTGae130+ZCix1IJJ90rcdCcKrS+ZchMI9+L43O2bed+y
+         Z+VA==
+X-Forwarded-Encrypted: i=1; AKwUvBzSzCXfuOC8cxb31OuJ3d1YGlMjcGinzksIf9jYBoGb7rd+3yZd+gknKKV0+SHdozRu+ez47/rbqyq/Hy4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4vBT0n8au4TcSr6qnkbeYxNCwh8OaK8RUvk0YEseKbyyktSIs
+	xlw2/Td5+Y3/xX6xALXfMkIeTvcEKnHZMd2MuIewPxHJl/vtaKeVe4Vgp58V/6FfrzcNZcY268C
+	D/PCttMk/C3WkD03eZs5tdlL9g1RVx8EHB06D8amDasnd3rtch8s/wByrxzbIgqo0
+X-Gm-Gg: AYBFou2gXxbGdnh6waqUHdKimbpS0O4/SDzOmNGxG2qBLYOtQL1ql4rIR8Ik0FB3Jex
+	12UnOSnME3poiY2fLjw/wypqyb2rQ9Z1KBu9EYSPeAMD8MKQvMw8cS+g3XNnbJ7YdUXx+4ByvCI
+	SQKYU5rwfujskQYV5jlHCfcBLKe60uahHE23gBmF2L82MyGhlU5GZuYLRW6ngGHH6QxQMg7C803
+	YZAo4O+E58qKNn9aS98i75E+eaIpY5ZC963MJoZDcFNlNo9R6C1bCP68dOkNea32H36ZeY24wd/
+	XEPRZVolR3B77zAu4N+v0/1rTUj/9i0ddZO1HeqoRT/LZkSLeiG71QdIZMz0X+O8rZwcOcddKrn
+	F/dsdOMNYHxLpEhTOL6ZLsF4cXJMOGe867x3W
+X-Received: by 2002:a5d:5d03:0:b0:48b:69d4:bb35 with SMTP id ffacd0b85a97d-48e26493dfamr1855063f8f.12.1792562758611;
+        Tue, 20 Oct 2026 23:05:58 -0700 (PDT)
+X-Received: by 2002:a5d:5d03:0:b0:48b:69d4:bb35 with SMTP id ffacd0b85a97d-48e26493dfamr1855003f8f.12.1792562758183;
+        Tue, 20 Oct 2026 23:05:58 -0700 (PDT)
 Received: from fedora.redhat.corp (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f02f1sm3413741f8f.3.2026.10.20.23.05.52
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f02f1sm3413741f8f.3.2026.10.20.23.05.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:05:53 -0700 (PDT)
+        Tue, 20 Oct 2026 23:05:56 -0700 (PDT)
 From: mpenttil@redhat.com
 To: linux-mm@kvack.org
 Cc: dri-devel@lists.freedesktop.org,
@@ -120,11 +120,10 @@ Cc: dri-devel@lists.freedesktop.org,
 	Suren Baghdasaryan <surenb@google.com>,
 	Michal Hocko <mhocko@suse.com>,
 	Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Marco Pagani <marpagan@redhat.com>
-Subject: [PATCH v16 10/12] lib/test_hmm: add a new testcase for the migrate on fault
-Date: Wed, 21 Oct 2026 09:05:04 +0300
-Message-ID: <20261021060506.2377545-11-mpenttil@redhat.com>
+	Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH v16 11/12] Documentation/mm/hmm: document migration through hmm_range_fault()
+Date: Wed, 21 Oct 2026 09:05:05 +0300
+Message-ID: <20261021060506.2377545-12-mpenttil@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261021060506.2377545-1-mpenttil@redhat.com>
 References: <20261021060506.2377545-1-mpenttil@redhat.com>
@@ -142,373 +141,73 @@ Content-Transfer-Encoding: 8bit
 
 From: Mika Penttilä <mpenttil@redhat.com>
 
-Enhance the hmm test driver (lib/test_hmm) with migrate on fault case.
+Describe the two new MIGRATE_VMA_FAULT / MIGRATE_VMA_WRITE flags of
+migrate_vma_setup(), and add a section on driving the migration
+collection phase directly from hmm_range_fault() via HMM_PFN_REQ_MIGRATE
+and migrate_hmm_range_setup().
 
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Leon Romanovsky <leonro@nvidia.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Balbir Singh <balbirs@nvidia.com>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Marco Pagani <marpagan@redhat.com>
 Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
 ---
- lib/test_hmm.c                         | 172 +++++++++++++++++++++++--
- lib/test_hmm_uapi.h                    |  21 +--
- tools/testing/selftests/mm/hmm-tests.c |  54 ++++++++
- 3 files changed, 224 insertions(+), 23 deletions(-)
+ Documentation/mm/hmm.rst | 39 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index cd88e8177d0a..31608b6998bb 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -36,6 +36,7 @@
- #define DMIRROR_RANGE_FAULT_TIMEOUT	1000
- #define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
- #define DEVMEM_CHUNKS_RESERVE		16
-+#define PFNS_ARRAY_SIZE			64
+diff --git a/Documentation/mm/hmm.rst b/Documentation/mm/hmm.rst
+index fc1b8dc19825..58424e5f5873 100644
+--- a/Documentation/mm/hmm.rst
++++ b/Documentation/mm/hmm.rst
+@@ -348,6 +348,13 @@ between device driver specific code and shared common code:
+    Currently only anonymous private VMA ranges can be migrated to or from
+    system memory and device private memory.
  
- /*
-  * For device_private pages, dpage is just a dummy struct page
-@@ -355,6 +356,7 @@ static int dmirror_range_fault(struct dmirror *dmirror,
- 	struct mm_struct *mm = dmirror->notifier.mm;
- 	unsigned long timeout =
- 		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	bool migrate = range->default_flags & HMM_PFN_REQ_MIGRATE;
- 	int ret;
++   By default only pages already present are collected. Two additional flags
++   ask migrate_vma_setup() to fault in missing pages first:
++
++   * ``MIGRATE_VMA_FAULT`` faults in missing pages with read access.
++   * ``MIGRATE_VMA_WRITE`` faults in missing pages with write access
++     (implies faulting).
++
+    One of the first steps migrate_vma_setup() does is to invalidate other
+    device's MMUs with the ``mmu_notifier_invalidate_range_start()`` and
+    ``mmu_notifier_invalidate_range_end()`` calls around the page table
+@@ -427,6 +434,38 @@ between device driver specific code and shared common code:
  
- 	while (true) {
-@@ -364,9 +366,15 @@ static int dmirror_range_fault(struct dmirror *dmirror,
- 		}
+    The lock can now be released.
  
- 		range->notifier_seq = mmu_interval_read_begin(range->notifier);
--		mmap_read_lock(mm);
--		ret = hmm_range_fault(range);
--		mmap_read_unlock(mm);
++Migration collection through hmm_range_fault()
++==============================================
 +
-+		/* mmap lock held for whole migrate on fault operation */
-+		if (!migrate) {
-+			mmap_read_lock(mm);
-+			ret = hmm_range_fault(range);
-+			mmap_read_unlock(mm);
-+		} else {
-+			ret = hmm_range_fault(range);
-+		}
- 		if (ret) {
- 			if (ret == -EBUSY)
- 				continue;
-@@ -382,7 +390,9 @@ static int dmirror_range_fault(struct dmirror *dmirror,
- 		break;
- 	}
++The collection phase of migration (steps 1 and 2 above) can also be driven by
++hmm_range_fault() directly, sharing its page table walk. This lets a driver
++fault in and collect a range for migration in one walk, which is useful for
++migrate on fault.
++
++To do so, the driver sets ``HMM_PFN_REQ_MIGRATE`` in ``range->default_flags``
++and points ``range->migrate`` at a ``struct migrate_vma`` it has filled in
++(``flags``, ``src``, ``dst``, ``pgmap_owner``). Usually ``HMM_PFN_REQ_FAULT``
++(and ``HMM_PFN_REQ_WRITE``) is set as well, so missing pages are faulted in
++before being collected. The mmap_read_lock() has to be held for the whole
++migration, since the vma must stay stable.
++
++hmm_range_fault() collects the entries the same way migrate_vma_setup() does,
++taking a folio reference, locking it and installing a migration PTE. Collected
++entries are marked with ``HMM_PFN_VALID | HMM_PFN_MIGRATE`` in
++``range->hmm_pfns``. If the page tables change while locks are dropped the
++partially collected entries are rolled back automatically.
++
++After hmm_range_fault() returns, the driver calls::
++
++    void migrate_hmm_range_setup(struct hmm_range *range);
++
++to translate ``range->hmm_pfns`` into ``migrate->src[]`` (``migrate->dst[]`` is
++zeroed) and initialize ``migrate->cpages`` and ``migrate->npages``. From here on
++the ``range->migrate`` struct is ready for the rest of the flow (steps 3
++onwards), i.e. migrate_vma_pages() and migrate_vma_finalize(). This should be
++called even on error, since hmm_range_fault() may have collected part of the
++range before failing.
++
+ Exclusive access memory
+ =======================
  
--	ret = dmirror_do_fault(dmirror, range);
-+	/* update device page table after migration */
-+	if (!migrate)
-+		ret = dmirror_do_fault(dmirror, range);
- 
- 	mutex_unlock(&dmirror->mutex);
- out:
-@@ -994,8 +1004,12 @@ static int dmirror_atomic_map(unsigned long addr, struct page *page,
- 	return 0;
- }
- 
--static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
--					    struct dmirror *dmirror)
-+/*
-+ * Map the migrated pages into the device's page table. Caller must hold
-+ * dmirror->mutex.
-+ */
-+static int __dmirror_migrate_map_locked(struct migrate_vma *args,
-+					struct dmirror *dmirror)
- {
- 	unsigned long start = args->start;
- 	unsigned long end = args->end;
-@@ -1005,9 +1019,6 @@ static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
- 	const unsigned long start_pfn = start >> PAGE_SHIFT;
- 	const unsigned long end_pfn = end >> PAGE_SHIFT;
- 
--	/* Map the migrated pages into the device's page tables. */
--	mutex_lock(&dmirror->mutex);
--
- 	for (pfn = start_pfn; pfn < end_pfn; pfn++, src++, dst++) {
- 		struct page *dpage;
- 		void *entry;
-@@ -1036,17 +1047,27 @@ static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
- 			if (*dst & MIGRATE_PFN_WRITE)
- 				entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
- 			entry = xa_store(&dmirror->pt, pfn + i, entry, GFP_ATOMIC);
--			if (xa_is_err(entry)) {
--				mutex_unlock(&dmirror->mutex);
-+			if (xa_is_err(entry))
- 				return xa_err(entry);
--			}
- 		}
- 	}
- 
--	mutex_unlock(&dmirror->mutex);
- 	return 0;
- }
- 
-+static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
-+					    struct dmirror *dmirror)
-+{
-+	int ret;
-+
-+	/* Map the migrated pages into the device's page tables. */
-+	mutex_lock(&dmirror->mutex);
-+	ret = __dmirror_migrate_map_locked(args, dmirror);
-+	mutex_unlock(&dmirror->mutex);
-+
-+	return ret;
-+}
-+
- static int dmirror_exclusive(struct dmirror *dmirror,
- 			     struct hmm_dmirror_cmd *cmd)
- {
-@@ -1377,6 +1398,127 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
- 	return ret;
- }
- 
-+static int do_fault_and_migrate(struct dmirror *dmirror, struct hmm_range *range)
-+{
-+	struct migrate_vma *migrate = range->migrate;
-+	unsigned long timeout =
-+		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	int ret;
-+
-+	do {
-+		mmap_read_lock(dmirror->notifier.mm);
-+
-+		/* Fault-in pages for migration */
-+		ret = dmirror_range_fault(dmirror, range);
-+		/*
-+		 * Set this up even on error: hmm_range_fault() may have collected
-+		 * part of the range before failing.
-+		 */
-+		migrate_hmm_range_setup(range);
-+		if (ret) {
-+			/*
-+			 * dst[] entries are empty, so this marks every collected
-+			 * migration as failed. finalize then restores the source
-+			 * mappings and drops the associated locks/references.
-+			 */
-+			migrate_vma_pages(migrate);
-+			migrate_vma_finalize(migrate);
-+			goto unlock;
-+		}
-+
-+		pr_debug("Migrating from sys mem to device mem\n");
-+
-+		dmirror_migrate_alloc_and_copy(migrate, dmirror);
-+		migrate_vma_pages(migrate);
-+
-+		mutex_lock(&dmirror->mutex);
-+		if (mmu_interval_read_retry(&dmirror->notifier,
-+					    range->notifier_seq))
-+			ret = -EBUSY;
-+		else
-+			ret = __dmirror_migrate_map_locked(migrate, dmirror);
-+		mutex_unlock(&dmirror->mutex);
-+
-+		migrate_vma_finalize(migrate);
-+unlock:
-+		mmap_read_unlock(dmirror->notifier.mm);
-+	} while (ret == -EBUSY && !time_after(jiffies, timeout));
-+
-+	return ret;
-+}
-+
-+static int dmirror_fault_and_migrate_to_device(struct dmirror *dmirror,
-+					       struct hmm_dmirror_cmd *cmd)
-+{
-+	unsigned long start, size, end, next;
-+	unsigned long src_pfns[PFNS_ARRAY_SIZE] = { 0 };
-+	unsigned long dst_pfns[PFNS_ARRAY_SIZE] = { 0 };
-+	struct migrate_vma migrate = { 0 };
-+	struct hmm_range range = { 0 };
-+	struct dmirror_bounce bounce;
-+	int ret = 0;
-+
-+	/* Whole range */
-+	start = cmd->addr;
-+	size = cmd->npages << PAGE_SHIFT;
-+	end = start + size;
-+
-+	if (!mmget_not_zero(dmirror->notifier.mm)) {
-+		ret = -EFAULT;
-+		goto out;
-+	}
-+
-+	migrate.pgmap_owner = dmirror->mdevice;
-+	migrate.src = src_pfns;
-+	migrate.dst = dst_pfns;
-+	migrate.flags = MIGRATE_VMA_SELECT_SYSTEM;
-+
-+	range.migrate = &migrate;
-+	range.hmm_pfns = src_pfns;
-+	range.pfn_flags_mask = 0;
-+	range.default_flags = HMM_PFN_REQ_FAULT | HMM_PFN_REQ_MIGRATE;
-+	range.dev_private_owner = dmirror->mdevice;
-+	range.notifier = &dmirror->notifier;
-+
-+	for (next = start; next < end; next = range.end) {
-+		range.start = next;
-+		range.end = min(end, next + (PFNS_ARRAY_SIZE << PAGE_SHIFT));
-+
-+		pr_debug("Fault and migrate range start:%#lx end:%#lx\n",
-+			 range.start, range.end);
-+
-+		ret = do_fault_and_migrate(dmirror, &range);
-+		if (ret)
-+			goto out_mmput;
-+	}
-+
-+	/*
-+	 * Return the migrated data for verification.
-+	 * Only for pages in device zone
-+	 */
-+	ret = dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		goto out_mmput;
-+
-+	mutex_lock(&dmirror->mutex);
-+	ret = dmirror_do_read(dmirror, start, end, &bounce);
-+	mutex_unlock(&dmirror->mutex);
-+	if (ret == 0) {
-+		ret = copy_to_user(u64_to_user_ptr(cmd->ptr), bounce.ptr, bounce.size);
-+		if (ret)
-+			ret = -EFAULT;
-+	}
-+
-+	cmd->cpages = bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+
-+
-+out_mmput:
-+	mmput(dmirror->notifier.mm);
-+out:
-+	return ret;
-+}
-+
- static void dmirror_mkentry(struct dmirror *dmirror, struct hmm_range *range,
- 			    unsigned char *perm, unsigned long entry)
- {
-@@ -1643,6 +1785,10 @@ static long dmirror_fops_unlocked_ioctl(struct file *filp,
- 		ret = dmirror_migrate_to_device(dmirror, &cmd);
- 		break;
- 
-+	case HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV:
-+		ret = dmirror_fault_and_migrate_to_device(dmirror, &cmd);
-+		break;
-+
- 	case HMM_DMIRROR_MIGRATE_TO_SYS:
- 		ret = dmirror_migrate_to_system(dmirror, &cmd);
- 		break;
-diff --git a/lib/test_hmm_uapi.h b/lib/test_hmm_uapi.h
-index ea9b0ec404fb..67d267a3b999 100644
---- a/lib/test_hmm_uapi.h
-+++ b/lib/test_hmm_uapi.h
-@@ -29,16 +29,17 @@ struct hmm_dmirror_cmd {
- };
- 
- /* Expose the address space of the calling process through hmm device file */
--#define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_MIGRATE_TO_DEV	_IOWR('H', 0x02, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_MIGRATE_TO_SYS	_IOWR('H', 0x03, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x04, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_EXCLUSIVE		_IOWR('H', 0x05, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_CHECK_EXCLUSIVE	_IOWR('H', 0x06, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_RELEASE		_IOWR('H', 0x07, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_FLAGS		_IOWR('H', 0x08, struct hmm_dmirror_cmd)
--#define HMM_DMIRROR_READ_UNLOCKED	_IOWR('H', 0x09, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_READ			_IOWR('H', 0x00, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_WRITE			_IOWR('H', 0x01, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE_TO_DEV		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE_TO_SYS		_IOWR('H', 0x03, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_SNAPSHOT			_IOWR('H', 0x04, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_EXCLUSIVE			_IOWR('H', 0x05, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_CHECK_EXCLUSIVE		_IOWR('H', 0x06, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_RELEASE			_IOWR('H', 0x07, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_FLAGS			_IOWR('H', 0x08, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_READ_UNLOCKED		_IOWR('H', 0x09, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV	_IOWR('H', 0x0a, struct hmm_dmirror_cmd)
- 
- #define HMM_DMIRROR_FLAG_FAIL_ALLOC	(1ULL << 0)
- 
-diff --git a/tools/testing/selftests/mm/hmm-tests.c b/tools/testing/selftests/mm/hmm-tests.c
-index e2642eca0d02..a2d1b8f494b6 100644
---- a/tools/testing/selftests/mm/hmm-tests.c
-+++ b/tools/testing/selftests/mm/hmm-tests.c
-@@ -334,6 +334,13 @@ static int hmm_migrate_sys_to_dev(int fd,
- 	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_TO_DEV, buffer, npages);
- }
- 
-+static int hmm_migrate_on_fault_sys_to_dev(int fd,
-+					   struct hmm_buffer *buffer,
-+					   unsigned long npages)
-+{
-+	return hmm_dmirror_cmd(fd, HMM_DMIRROR_MIGRATE_ON_FAULT_TO_DEV, buffer, npages);
-+}
-+
- static int hmm_migrate_dev_to_sys(int fd,
- 				   struct hmm_buffer *buffer,
- 				   unsigned long npages)
-@@ -938,6 +945,53 @@ TEST_F(hmm, migrate)
- 	hmm_buffer_free(buffer);
- }
- 
-+
-+/*
-+ * Fault and migrate anonymous memory to device private memory.
-+ */
-+TEST_F(hmm, migrate_on_fault)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Fault and migrate memory to device. */
-+	ret = hmm_migrate_on_fault_sys_to_dev(self->fd, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
- /*
-  * Migrate private file memory to device private memory.
-  */
 -- 
 2.55.0
 
