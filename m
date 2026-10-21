@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792618242;
-	b=lqiH2MjfltTlwQkZvFxohOxwHYNRsyvs49tHasZOLefLP9AmSlz1URxXQqIQlA+G4lM4
-	 DxESdjEzDFztYzvrgWC4qSZoJXdpFprjlfiASW+8P+fD25M6f7TUW/zX0pERBdpJTwrbF
-	 Fqp/roaEj3qwwoC8xEebPeFTZb9e/fc/Et3ZgVssKz9KCHcTb7WoVLWh08ZAKJlNXtSVl
-	 x6HNxbVlwqS8uKz+ZbEOlE/r/7A6r+TVRocg60yt7qGNVSAyzOMz4HTmObkaZfgpUFIKg
-	 Nx5hON8OgTTPexILiBOo+zv5y9XOCYq8u62f2HRNil5WXeZzwAw9HDFH5vNBK521mcQ==
+	t=1792618252;
+	b=fqvrjBstQ1NCZeQESwQtKX7ox0JfVL0uuCUzwqaA05tdKkgP5OJPGToQcYomEN+aqx7X
+	 jUkD4XoA6Z+iI0A1cQMtZ330DCN9yCI7fzSL724X8QiCcVUK+FCK8rmbhOLeR0dy12akQ
+	 VO7AanzrbXSwV6O3matFyd/5kCtU6V9b7oTlLhG7ER7lghQm101Rvd2SYHklc9ZSICeaM
+	 CN6IlSu5lvEkpE5B8DK+xYAPV+QFlz9be0y+sjxp3jZg9xMLQbX0kcEa22EF5R5exJEV+
+	 ZzTE/Cr4AeE32fXhoFrtBiVI07BqUgU23koj+5aHeOE2/Q/y/hyiBuAeumyDAIyeuDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792618242;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618252;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=exd5Y4lpCd2BrAoy6JRTGbXkcvsNWaj+DuTKKJkB4N4=;
-	b=3j0p3BJw3MsooVD/RNsE2og0spE9GQA6XYWeU94mMOZTb9jjqnX3Cib+92qHWrkaUfAe
-	 qf8qhWIAhS/2TtcTuSQeZIOicHJmWqXfzPFM7grAuEWL4KFJd7dxGWvIjjZ7oQBARfTCr
-	 8CjFEnAtJD4Y2aFPH4VJAMuivPamFKoVROrWM0J6RIOjDaHHo4sxysmqsivPZt1AMe+4+
-	 1KMlnPOSZJP7GMqcELuHq7YJ+BzmuDmnMtmV9qcj2mm//SHlLzDfUjXuoJqtJUNIvKxrl
-	 RDaBz6HfGZtINTYmO1ZRmSbQnmovQ6LRyaujQFBcHvdKHOGShx3euFMR/snWr3Y1GiQ==
+	bh=DKR000uefef+Vmpc1ME2SEAH5liXbSLg55lYZ92unUA=;
+	b=VyPjZzwd14Q1Dx+X+wbVr5N2fqtonpO6+HK6Dbzjz19IBPHRsnbVXg4Bf/oN3EEea3s/
+	 mq+TDox2CeitoMkrV9iQQd5iGokG3UCteRAkl8VVLpbz5h/JA0GTw5XHWGqyK1eMycACM
+	 ggH66gzgzl7L+MLh3Ui+L/1lPpX/11HZroXwzW9VsRCJdhYAD8w9qnhy7LV+2frlVuCd3
+	 aQzdeLS8zyTbhySg77D5qgupZUsXQWXAiiwDT8S6Ez/AoJOS147lcf5a/skNfYWRJmOX/
+	 cSc2KQxEGjju1L1EoiglfNFEHHm70/K8UhRLLWFkZjUQRILMdcr+lgZmIHU3/PfX87A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SURuWWH8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOiuVxsh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8F4606A32E;
-	Wed, 21 Oct 2026 21:30:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDADD606A31E;
+	Wed, 21 Oct 2026 21:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SURuWWH8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913231F000C5;
-	Wed, 21 Oct 2026 21:30:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOiuVxsh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92A11F000C2;
+	Wed, 21 Oct 2026 21:30:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792618241;
-	bh=exd5Y4lpCd2BrAoy6JRTGbXkcvsNWaj+DuTKKJkB4N4=;
+	s=k20260515; t=1792618251;
+	bh=DKR000uefef+Vmpc1ME2SEAH5liXbSLg55lYZ92unUA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SURuWWH8ifwKM7AWUxCkSWVsvrUHQvLCAN/eaU/um6IihHPmRy3KZRPOdhhVwSg0N
-	 AEPcP6Op6xr9wY6cIf6UORpfqlGlObRC4TyxEhPVCETIEqK6a4F95U9FBth7XTrV6V
-	 tPHGc0OXCq5W3aEuBHJN/ItEawhUA7WPf8HaI/lT7mL4t/ZXpoS6B63ngrnJYvQWJ3
-	 8/i0thrXUfyVD9gEgArnpej+jymwj0DOpazVy6ZZB6zxtUMEvBFoycKUdxBbiv2k9J
-	 mmNZK1Ag7QpkJnqR9hrDhfQ1aRQw94K0IVo68Sh7HZ/aFH40/3iQObUhrCy95ok97Q
-	 wxgNJqi3+p4xA==
+	b=gOiuVxshlNyou4M4f2E2CE9UOYd9eJhOF+gTdnTA60u1ByYzjgZv0crLSIlNAjmsV
+	 rZsYcU3sOibWW3Ab6KhPbT3mrhDdBbbwPkerIKcUkj0hHhJIcnUwn7oA594UfcmP2s
+	 kBIDg14KMGrBt2vLs0nN1H+4PxSuLaEvir4CEPSyHYF6W7A51CscSNhOo5G8KPMIQu
+	 EJYToFtPOBdxwhbWunXnnMzokYuExVgWjHJbxSNd+Sf7szNXucxgDhdyUdtwqwfXmF
+	 LQ6kVJLLaXRiUh5yvT+HC6qb3FVs8vhmcWdud8XAS1z/ROrQYofaCyccazww8Lwx/P
+	 mpGMppuRKpmhQ==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -51,10 +51,11 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
-Subject: [PATCH v1 06/12] tools arch x86: Sync the msr-index.h copy with the kernel sources
-Date: Wed, 21 Oct 2026 18:30:00 -0300
-Message-ID: <20261021213007.21046-7-acme@kernel.org>
+	Hemanth Selam <hemanth.selam@gmail.com>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
+Subject: [PATCH v1 09/12] tools headers: Sync UAPI linux/fs.h with the kernel sources
+Date: Wed, 21 Oct 2026 18:30:03 -0300
+Message-ID: <20261021213007.21046-10-acme@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261021213007.21046-1-acme@kernel.org>
 References: <20261021213007.21046-1-acme@kernel.org>
@@ -73,57 +74,37 @@ From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
 To pick up the changes in:
 
-  ac5cc691eb4a ("x86/thermal: Add bit definitions for Intel Directed Package Thermal Interrupt")
+  21a62663d473 ("fs: fix typos in comments")
+  338964881982 ("mm/pagemap: add PAGE_IS_ACCESSED for RWP tracking")
 
 That don't result in changes to the string tables generated from this header.
 
 This addresses this perf build warning:
 
   Warning: Kernel ABI header differences:
-    diff -u tools/arch/x86/include/asm/msr-index.h arch/x86/include/asm/msr-index.h
+    diff -u tools/perf/trace/beauty/include/uapi/linux/fs.h include/uapi/linux/fs.h
 
 Please see tools/include/uapi/README for further details.
 
-Cc: Ricardo Neri <ricardo.neri-calderon@linux.intel.com>
+Cc: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: Kiryl Shutsemau (Meta) <kas@kernel.org>
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/arch/x86/include/asm/msr-index.h | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ tools/perf/trace/beauty/include/uapi/linux/fs.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/tools/arch/x86/include/asm/msr-index.h b/tools/arch/x86/include/asm/msr-index.h
-index 9c26d4075c5f421e..3a8e51a0c9e88cf3 100644
---- a/tools/arch/x86/include/asm/msr-index.h
-+++ b/tools/arch/x86/include/asm/msr-index.h
-@@ -350,13 +350,6 @@
- #define ARCH_PEBS_LBR_SHIFT		40
- #define ARCH_PEBS_LBR			(0x3ull << ARCH_PEBS_LBR_SHIFT)
- #define ARCH_PEBS_VECR_XMM		BIT_ULL(49)
--#define ARCH_PEBS_VECR_YMMH		BIT_ULL(50)
--#define ARCH_PEBS_VECR_EGPRS		BIT_ULL(51)
--#define ARCH_PEBS_VECR_OPMASK		BIT_ULL(53)
--#define ARCH_PEBS_VECR_ZMMH		BIT_ULL(54)
--#define ARCH_PEBS_VECR_H16ZMM		BIT_ULL(55)
--#define ARCH_PEBS_VECR_EXT_SHIFT	49
--#define ARCH_PEBS_VECR_EXT		(0x7full << ARCH_PEBS_VECR_EXT_SHIFT)
- #define ARCH_PEBS_GPR			BIT_ULL(61)
- #define ARCH_PEBS_AUX			BIT_ULL(62)
- #define ARCH_PEBS_EN			BIT_ULL(63)
-@@ -1014,6 +1007,7 @@
- #define THERM_INT_HIGH_ENABLE		(1 << 0)
- #define THERM_INT_LOW_ENABLE		(1 << 1)
- #define THERM_INT_PLN_ENABLE		(1 << 24)
-+#define THERM_INT_DPTI_ENABLE		(1 << 25)
+diff --git a/tools/perf/trace/beauty/include/uapi/linux/fs.h b/tools/perf/trace/beauty/include/uapi/linux/fs.h
+index ee2203d606436f42..a46c33692aa21af0 100644
+--- a/tools/perf/trace/beauty/include/uapi/linux/fs.h
++++ b/tools/perf/trace/beauty/include/uapi/linux/fs.h
+@@ -471,6 +471,7 @@ typedef int __bitwise __kernel_rwf_t;
+ #define PAGE_IS_HUGE		(1 << 6)
+ #define PAGE_IS_SOFT_DIRTY	(1 << 7)
+ #define PAGE_IS_GUARD		(1 << 8)
++#define PAGE_IS_ACCESSED	(1 << 9)
  
- #define MSR_IA32_THERM_STATUS		0x0000019c
- 
-@@ -1043,6 +1037,7 @@
- 
- #define PACKAGE_THERM_STATUS_PROCHOT		(1 << 0)
- #define PACKAGE_THERM_STATUS_POWER_LIMIT	(1 << 10)
-+#define PACKAGE_THERM_STATUS_DPTI_ACK		(1 << 25)
- #define PACKAGE_THERM_STATUS_HFI_UPDATED	(1 << 26)
- 
- #define MSR_IA32_PACKAGE_THERM_INTERRUPT	0x000001b2
+ /*
+  * struct page_region - Page region with flags
 -- 
 2.56.0
 
