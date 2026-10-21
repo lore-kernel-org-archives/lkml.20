@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602083;
-	b=pegkE+GCjFLkFZeTN/5ZE82+pDnB3c+IB/N/YNRTQvWLRm+M1Ihke2nfVqvjp9o+ysn4
-	 Sk6bK5DDbNeBYWi/p7b3NnDy08Nr/P1Mq3AyrzhOGuXz6lVXgwYoLOGboSHGIHXn0jRdC
-	 76rx2DFEX2hA16Q3oJCirZu/24TBZURkSiOGjboAk12bqvL6jIm2xXsD7zEy7ehqJJq+f
-	 Hj75xk263LHT77eWOJBr7PDPB+bwu61rA27nx8wwAr5FZT/w6F4EPd4+xhJ3U40PTK5j+
-	 YJQZivNWHvR2EQEo5EAJonLHWIVtaNeeoh6bK4Hm/TcIQ5iDdKkkH2LVELiZ+17cpAw==
+	t=1792602121;
+	b=wVoeVkOk7UttZKIfwE1yZZKnhm4zh7v+QJLktTM5Tcb7WsiiCosWxXcldo3pnrI4gtC+
+	 a1G4HScqQToKucxuzemVgyRyBG/Mk5knxxWW1VcyKDPpCfqKDSNnvSQa2E1uGPCroYPcg
+	 FQyAsdXOW5FYI/QRfP2XJ0LDVgHlAcjaioUZCAmj37kvElvww5a3najdaxbT5F/Hnvrlu
+	 mPKazw+oEN5NkzRgN/mMbK6HtvKgq1IgMAMWSipN+32VysQY5C5nMm6kS8eKUr+61ebZb
+	 RtNTGN7AuLofzgJuAK9PXeaxsWDyAnyAOvwnArfm2v+gnCK4CfZvUJ6VN6yETicKbag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602083;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=cFfUUxDHxpkOld3n52gWPJ2Iw6UD2gBOUzrE3m1Iksg=;
-	b=n4dzxqoFL+8B60QW/Wa0mVHN0uKFlk/9zIzV7TWh48d6VmOA9eRvz5VvzQ5xnmNoCp/Z
-	 pBuyt1WU0+moxqMk70WeCptgjR/UA3xHNs11t8DHkvh3c2TmntQHemkQbP4Jta6DvpsVP
-	 Cpxsvv3UE5vRX+MpqCXUD6xRazlsiBbfyJOHIQCOo8xt8aSSzZZLdAayG9svfNgZnrJw3
-	 jFqorlOLqPKp76oRskm2ehlR5LB2MGUDk+aXAbfNUFBTPSUEflw8dcYUJnujrQQkBwDgV
-	 zg0C4jtsNa1Op1Klcu5+AhQ1nNe1dhsuTOgHI2yFPL7eusUwygxBgWQr/BvUMkSEniA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602121;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=mePSPJATHsGdUfBbhs8qu+gZ9UWtO+tPw83R8tHqLNA=;
+	b=YxYvFMGkdZM32dxWsGs5KllAT++IAjBn31EYXcc14yBkNldkM8WBC5lSjPt7GG5VGQCx
+	 tip5rzjdSWpdcq+AbJjPYXWoZAMTrdov03rbO9QW+1RIhFiqNoiiCYlMIcNHnYf0oUwx/
+	 TdXy2eMU0AfEMTqt7YSdjaHaynbJp17X/kpZ19iaIrc77jU5CXjyiPpu/EFugP6jElDLt
+	 1OqgBgAoK0j+qlCIVrD9g/M/UUkAn+k8gahiNH+xhnBQZMdP0/F4/XEWMBY7Pja5MzWim
+	 BZg1t9olAXSr+6ozjeXiCHUMTHrA92r5dBHSRPoqC3dP2y87BYVG9ocs86gS+H5InQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Wt/Uh1tJ";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N+2zZgEv;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A56606A322;
-	Wed, 21 Oct 2026 17:01:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B676B606A319;
+	Wed, 21 Oct 2026 17:02:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B676B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wt/Uh1tJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC6E81F000C1;
-	Wed, 21 Oct 2026 17:01:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602082;
-	bh=cFfUUxDHxpkOld3n52gWPJ2Iw6UD2gBOUzrE3m1Iksg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wt/Uh1tJhO4jyTKqtj7hVmwSFhbV+tzY2GUETLVrOAp5u5PDh2WzGLNiZ8dY3w1zk
-	 j047T0x1oxKZIbfhDMHoasBl1tArQm1Yd7D33RnLQas5FFDMwvbqEiuwHyk6UoIExB
-	 ye52yq7NT7sIMbNRd3LOWv672F9C951Zl9pgJwCQM+Qq7W3Py1vB5oswBVp3UPPyja
-	 XcsG8DhQL/hee2pveUfNQjmeupSJ8AmG4Wy8GVqM4QQ+nAjDxsY5Xtit1s+f39IMeg
-	 RfAj+Jk6sF+gBQEcWl+PNZjMzmtSmP0AvM8N76+e+hGiFeXWv3egW1jmmOqvikDX3p
-	 Y2eLWk+swJ4Yg==
-Date: Wed, 21 Oct 2026 18:01:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>
-Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add regulator-boot-force-off
- property
-Message-ID: <20261021-wind-reopen-490475bc470d@spud>
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N+2zZgEv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792602121; x=1824138121;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qampBoOPcfws+SCopvn4zE9DZ8QpoNbER85isk3vXMM=;
+  b=N+2zZgEvUXmacEeqaASTl8NdgBZzQXUzXQHyOT2bjMrFeJWY/u64125l
+   ctL0Phj2BuNr7NebzGrxS7JBXsS8FHi83al8TpC6Ipk8Bta0IBkLzhed7
+   l4OcTWo5eZ/QhRk4M5aJSfsZVgt7PhgYYvBIbKhen0UWhNE7q4Dkk6dZU
+   yAVUtU5qsX/QrQzlfkiR9sN+Gl4JE/dNCkEfNeNp8bDz5Umjn+o+hVIv4
+   jSXwx4oj/lamLk4pmXVVmrtObY3lUJ8HQQaNXDCBKWKC8aMbxxk3ukJtt
+   x6YNtKHszafKfdCLSiejx43wfMbuv7dxkbdtbwIwolwAAsNB0zbRPdQTO
+   A==;
+X-CSE-ConnectionGUID: Hhqw4JF7T0GFmLlrMUVejA==
+X-CSE-MsgGUID: tRIOgTi7RimuJKcjjxlfeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1212378"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1212378"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:01:26 -0700
+X-CSE-ConnectionGUID: I0th04K1QUizFfkakI+r4Q==
+X-CSE-MsgGUID: 0v22F7vLRDu7pmlv3+91rA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3083714"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:01:22 -0700
+Date: Wed, 21 Oct 2026 20:01:19 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lee Jones <lee@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Philip Li <philip.li@intel.com>, lkp@intel.com
+Cc: Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Jarkko Nikula <jarkko.nikula@linux.intel.com>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 11/28] mfd: intel-lpss: Remove registered MFD child
+ devices on probe failure
+Message-ID: <atjv3_Njp5gW7EUF@ashevche-desk.local>
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-11-lee@kernel.org>
+ <atjFroYp0Cp7eN8c@ashevche-desk.local>
+ <20261021163333.GH1795367@google.com>
+ <atjtNCBf-geYL3yY@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,75 +89,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W6R3E/++oicwYK05"
-Content-Disposition: inline
-In-Reply-To: <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
-
---W6R3E/++oicwYK05
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <atjtNCBf-geYL3yY@ashevche-desk.local>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
-> Introduce a new property to immediately disable the regulator at boot
-> time.
-> This property is useful when a consumer device may query the state of
-> the regulator at boot time, and want to disable it right away, without a
-> prior regulator_enable().
->=20
-> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
-> ---
->  Documentation/devicetree/bindings/regulator/regulator.yaml | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/regulator/regulator.yaml b=
-/Documentation/devicetree/bindings/regulator/regulator.yaml
-> index 019aeb664cae..2da8f70d7e7a 100644
-> --- a/Documentation/devicetree/bindings/regulator/regulator.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/regulator.yaml
-> @@ -41,6 +41,14 @@ properties:
->      description: boolean, regulator should never be disabled
->      type: boolean
-> =20
-> +  regulator-boot-force-off:
-> +    description: a regulator may be enabled by default when the system p=
-owers up.
-> +      A consumer may query the regulator's state during boot and disable=
- it if
-> +      it is already enabled, potentially resulting in an unbalanced disa=
-ble
-> +      operation. This property ensures that the regulator is disabled at=
- boot,
-> +      regardless of its previous state.
++Cc: Documentation people, checkpatch maintainers, and Roman and LKP folks
 
-To be honest, I'm not sure how the commentary about querying the state
-or being unbalanced is relevant to the description - that sounds like
-something specific to the linux regulator framework?
+On Wed, Oct 21, 2026 at 07:50:00PM +0300, Andy Shevchenko wrote:
+> On Wed, Oct 21, 2026 at 05:33:33PM +0100, Lee Jones wrote:
+> > On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+> > > On Wed, Oct 21, 2026 at 12:09:33PM +0000, Lee Jones wrote:
+> > > > When intel_lpss_has_idma() is true, intel_lpss_probe() registers the
+> > > > iDMA64 child device via mfd_add_devices() before registering the host
+> > > > controller cell.  If the second mfd_add_devices() call fails, the
+> > > > err_remove_ltr error path returns without calling mfd_remove_devices(),
+> > > > leaving the iDMA64 child device registered after the parent's
+> > > > device-managed resources are freed.
+> > > > 
+> > > > Call mfd_remove_devices() on the probe error path to clean up any
+> > > > previously registered MFD child devices, matching intel_lpss_remove().
+> > > 
+> > > Good catch!
+> > > 
+> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > > assuming you will add Reported-by: Sashiko...
+> > 
+> > Roman suggested Closes:.
+> 
+> But Closes goes with Reported-by. The Submitting Patches says:
+> 
+> "The Reported-by tag gives credit to people who find bugs and report them and it
+> hopefully inspires them to help us again in the future. The tag is intended for
+> bugs; please do not use it to credit feature requests. The tag should be
+> followed by a Closes: tag pointing to the report, unless the report is not
+> available on the web."
+> 
+> Okay, you can argue on 'people', but the established practice includes 0day LKP
+> bot for a long time.
 
-In fact, I'm not sure why this is needed at all? Can't you just change
-the software so that it is okay to disable a regulator that has an
-explicit enable count of zero?
+OTOH, there are also examples for Closes: w/o Reported-by. I'm confused...
+So, what would be the best practice for all bots WRT Reported-by/Closes?
 
-> +    type: boolean
-> +
->    regulator-boot-on:
->      description: bootloader/firmware enabled regulator.
->        It's expected that this regulator was left on by the bootloader.
->=20
-> --=20
-> 2.56.0
->=20
+-- 
+With Best Regards,
+Andy Shevchenko
 
---W6R3E/++oicwYK05
-Content-Type: application/pgp-signature; name=signature.asc
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatjv3gAKCRB4tDGHoIJi
-0tDOAP9lQU0EZt/M39eiCT/Z/ePUzPIlYse/mAM53khCiIfDzQEAvAiyhRZ3wdeA
-mGwHiIe2zbdBJrsEbUyKe7vmVqN6hAU=
-=p70v
------END PGP SIGNATURE-----
-
---W6R3E/++oicwYK05--
