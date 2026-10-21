@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792620030;
-	b=xakpps1bfURes2lzbgu5C9FioNLdYuPI8U+pKVuxfTkjOyfimkJUcwR1Rr5txFhlTAg5
-	 yT5qbqFkkJwMpAE1IKU4+a0PrPz16qBpduFvxFTofkRAtNejE5kW6v6feT5TcJi6AQ9vD
-	 dEzecTAbsjGLClaXkNbfF1i2wnDdkEpKrycZd7aYve1lubHJPcQ/SvYaQHUWAJ2xauTb2
-	 PUbI24bJUVTw8qwh8OsxOQntv7Zbd6u1Z0tMDRjHWX8TsdZc6PU8p9U5vyRo6d8riSdDN
-	 8w+ij0BDHNcEexYZozTx4nh9QWXMKHkkbjrJAcxyGCJcLxgDWPYIR4TNE6aMHMEBLcw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792620030;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792620044;
+	b=J2MiEu8o8ZU4UTILaB0M4HGtkOXiAra5e8cqZdBF5pMfq6tqqYq45eKYoDFkagt76S2f
+	 60nVuq5Ejrbd0bdyakhSyy0x3E/fZkvwv+3Iqqy+Q6gG7Sn9TNIg81KeXrOTGXdFM5q68
+	 1Ns2C851OHI1xmlejuAQMZwcqJCO1NTmlNTq+tLhiiKmXDrSoJwmcjwquqGM8wYjmIx8n
+	 ff26YKMMNMi4lVpIZ0NW9/q2Qtx9f06PU7k5i3JzBBVj3mlMOmPB9lzxUB6jmHSRJOGcU
+	 QRJbNyrP2ujT/qgqHALbdikARooGsK7xTKtIkEfgi+XQoPe1PoVDdYVgK52TY+fjQUg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792620044;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Zovsq29UQ2TeLumV7ABI3SWyvg5qGuaPKJLreulBem8=;
-	b=5ot7N5wJvsXYXpBtqsb3KHlsPo/OeMOCNHUq2MK3Zq1sBlpa30uUT3riwOGD3icXKcP7
-	 1m/VcYZVDozCScD8sYwDyJEO5DCx9pt9MTTHSlwCT6X0O92SH3l4Tk+MTH1hO1WwgxXyg
-	 dE3Y0VuFqXVppZCsiqkCZqWuPop+ciwfwbaZfcvlCL2xpNamCvvyssp4j/DfH4GZCW3h6
-	 poHNaCtPlr6cY+3MBB33z82IwQNLa+tiH5VsweqmB8fkbslxOfx0uu0gxePi0gFoWUY1T
-	 FnQpPAI7pdgKAaxxS9wAwhd0gKOSskTIJv+S63aVe4OPG2SbsDCmsBFh66Q70vdCFCQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Uw85BMay;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
+	bh=SK1JHY4Qru2sKfE7pI5aCFA5cz9Q9hLtB1cww8qn0+k=;
+	b=ovKjUAV50gd26Md+KX3osjYjv7IYyAZHZoag97bvyURRtCj2TQhwU2XHb+4NrG+PtOWf
+	 G9at2UUh5HcQneLmqTv6BK1w0OYl3SwxpZS/OAkI4bJ4/9TeStB9vvMvXfWJZu3AnDi2A
+	 TILzzZCspJmQKUy46X8BN9Yn8MjbBwXxH+wJ+iPAPO/zTp6QzkcYUSmgv/mqQJe4pcrzE
+	 dbF1Iv3rcZr3Qk95SC+S+DT3iWPU5e2fRC17bolln27zK7vVY+RQPgG2BWH/FcKdQKDEl
+	 s60kqBCUWZZwq34aCn9QVAIr4EMKnu2TbUKAqR8W6zwfVFr/NCDfh4RKDjDGO5PfP7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kw2epnKN;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746E5606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:00:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 746E5606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0929F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0929F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=Uw85BMay
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c423b145922so158039766b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:00:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792620029; cv=none;
-        d=google.com; s=arc-20260327;
-        b=f0zAytw+24ekmdPPVqZP/EJC2Q1UjIkQuLDHDFuTNqKIl4rwz1eppwXiufuIXNAuSp
-         ZPVfY2echFgIzayP8Jx3+yjI56VhGg18ya1AxMgm7ROAV8INWuQ5FzqyHYp+ViO2Zmp+
-         xej3+6i0YJXC+yle3j7uJdHJL2Nzp6257hg0jxDtbtmY6RF+48P5dyTNN8AFiCfMlOam
-         Eig67eymsHpzW9ElAqclwQvijFfEmLie0RZJnXSjGUhTH11c1azn2lFb7gCJV2KhNt2X
-         LqzDguCihWwx6Xj51+eE+P8FZzwfjW6lKjZp4EKupoC49Kt+U6SfjKGnsEm0wHj0RQz/
-         jHsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Zovsq29UQ2TeLumV7ABI3SWyvg5qGuaPKJLreulBem8=;
-        fh=fmL5u+IkM3g5mYkNdbF+8nMhrub+Q613SxOR+9vpbGY=;
-        b=Zh2EYpcALH8FXl4mU7jNpf9Pg1Q3K01orT4XokNMAr2uy9Yh9kEAAFtRqTSIiXxHqA
-         iEUS5vZg2wKatq7ah7tdIEZ2u+dC7m2frpR+KAcbY/Xns3BFky0vAMcw8KRicXO7LARr
-         GdlkbyMuXb9JW87oK5ef7PfAJKJrdZwM7Wp3FpQVndXiJQdad5LiVtVRBUl4JjeRpJU8
-         WYiVCUsAyCreJyV/GQe2wtJvDibKzjopbVOtET18d+4FVNyDeP5/Zkl/POEhG+tU5tam
-         0ZCdp+cGrj9jqIdaAmZQi4r/iDcjIInFhp5Dvg091X57ZUPrPcQaKswRm8cuWl0T6utv
-         uV5w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kw2epnKN
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so472871a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:00:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792620029; x=1793224829; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792620043; x=1793224843; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Zovsq29UQ2TeLumV7ABI3SWyvg5qGuaPKJLreulBem8=;
-        b=Uw85BMaykG6umD/QN6/fu8TYaasDjSSqXD5wJlfZKuurYdFisJw90AZv4ZM0mg3WUT
-         hjuxpl/Jyz6EmgEMUM5VZRm24ZVBTmXRl78cvjSs+D6dtbqsa3c0hmfV5UrZIihVWHzb
-         yWExxjCIBGANm6MINFq1hb3dhLHMS1V2+Vz7NA26oL8I2Rea0ASGpLQXdm13nuYHMSvd
-         //cpifJmUtlNg2H7RskofZ8NBXgBf/ReDUwxgog4a0U2oMeCKUcPzFikSTLXcyYxV+Tm
-         B8qHZ9sDQ9U8gut8hsa91qTieOoGokoOMSfeEnIPIUcSunaEPm8HS8kimtGSTs8KwPur
-         Havg==
+        bh=SK1JHY4Qru2sKfE7pI5aCFA5cz9Q9hLtB1cww8qn0+k=;
+        b=kw2epnKNy3coxLIdT1Cnm8BfrHqUpoQ+Y+z46OX+2qx/VVDSgSZ+7m/Sibigly9aaK
+         WW+VQBqUpie6FUqf8e6BSO7Xju1gVy0ZrNiWwe1OYd8ODgE52Z0abqZkeTL4znABYkGN
+         p9/04ByGJecPY3bVDGl0u6GLz+3cKTkU2n+4jpGsr+1P3KE5J4HxF1/EoP5SpCryjdiJ
+         Bnd930g0HXrSZGH8h3t38a7iRlfreM23K0ajJE8ASo1oIRGKzYvntYf6/vzGRQGxh5Rj
+         9jh/vMpvPj/zxGb4kA13KcWgRUAdfo3jQiAzjSTT87/QoBJvHmnkQnO6KkcBTzIkgq14
+         Y2sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792620029; x=1793224829;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792620043; x=1793224843;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Zovsq29UQ2TeLumV7ABI3SWyvg5qGuaPKJLreulBem8=;
-        b=oayrDp1IqHFzqncv907aIu9h8i1IYq32HJGthTMsn4PNOr3bRK50ShCxp9lChO8DvN
-         tvWnLNHVe8N5eFPpA2sLnmOt17vZ2seqRzzX139RVyRgByShzR5OEvVugDzfAh21EDH1
-         fpyEMzm9iKNI/2mm7u0sl5n3X64O9UnKNadGxFFq9I9tZ0Slh1dvQUFumHY96oz0Fyzy
-         wnmh/kKZ5xJqMRCcOsTLHLywSftz50dnoRnNrrhfVFvfC+jm3DfCxQCkdlTO4K4h60Lv
-         MLg5FYWftvK+gG6SvpVQMjOJjN4oBsdUslgwmKws8Ni4hl37TAgEyGG1/WR2bSWgjltf
-         Y9Qg==
-X-Forwarded-Encrypted: i=1; AKwUvByJWS0xsJ+TT2JihR+/kugpSvbVGnUJoJnQQSeVd9NHmjm0qElLf9xKBTYPbJpm6x/TtBc/g6OjpUMxYrg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHpapDleEA2uVokU9FOvkgusLIKtHUBifreNs0pfJ3xwS0ilCa
-	cpIYV7et80Urvz4rWzntFLPCZQEtyMV7hGMVLHXP1HwV7fRjCV8xSMA2mMzkY/oQNhz2OpemHmN
-	Iy2xtUs9xUrhj/kjRj4KUP02k2K1ZThE8CsRCCm5n
-X-Gm-Gg: AYBFou1ZDPga0WteYMXPEEqQMHVQEvJ3vEtWOj1OxFvkN6z3i9IvKM61fwr0rsDcxbR
-	iFMp7VKweTcgWFIioWu8YRR6+8sO17bj5GAJJ3xFHask5Gy6ldkdYTUdAwzL4m42U2P4Hz49BXs
-	zX+HmeaLNcMf3l1O8uP7jqFEVJThm5dHVhLbq/X6++3GHsIf53voFLGPHt6DtBOljAcRZ0Zvmw9
-	A7od4fvsFgY921oi9aj20uCfA77HijUzifclTWd4OItZYiZPD5L5TBb1EeHPHqTvX3FPW/hh6hu
-	hjsoXSdqQpIDNKATEFgnBqGNOh9oWt+J7QRyW6N6DcTnjrKBfV2IixP2MWIDndEQMAM0IyjsIDt
-	rIja5aNnEK22RHGUB/qz71x7qNl/Inn54m+UQie+7szRRuzdraHWiRZqN1voMAs+dBvN9F8rNKq
-	TJvHSvEj26LTkPQEqbYn1FA/FPX8YvLlvSlVeevK68PXNwg7r7TTIqOxFn/1O3mkPnaleAQx1b9
-	qNSNeDA
-X-Received: by 2002:a17:907:7208:b0:c31:7495:e57 with SMTP id
- a640c23a62f3a-c4679a0bcd0mr297358566b.44.1792620028316; Wed, 21 Oct 2026
- 15:00:28 -0700 (PDT)
+        bh=SK1JHY4Qru2sKfE7pI5aCFA5cz9Q9hLtB1cww8qn0+k=;
+        b=A229K+sZbmLtKiEwKVoSE+TnLDHBS5rx4FhPPvja8rc/Pikb9Xk5i/rzh4defj7BLi
+         eNPTmsf36rJ9YJPhzruE/I7ECb0m87yJlJQxohzTOD1OkbhT0xq+pilGAZyEFUIkyGLd
+         XsHCyG36Jxtf4nITDmKxfDpV8rHN7QR2bR2iqwKLFoHM9LTjRRX1VXB4nc9ZNVXb6uD1
+         xleoXWec6xyXAblEjCSdqMDUiQ9GwMW73uK1banUGNLv0doL+QCDSD01ZNeQ5lKDQ8ti
+         HSQ5DuUbZTNL857XJRVQLnIzaQNOkzltfwOkAyEWOfiTko2nlN0pkEFGf8JSh87Q9S3h
+         xYyA==
+X-Forwarded-Encrypted: i=1; AKwUvBy3YA9HL7WVo74uiT3kuRtI5xrI9Zbifs2etcSVveSwl8BOgQZTwOxMYWFT+VJ+Q/Z4k78yl6HnKwHIOY0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyXqo2EaW7oMh2rSN1E2i6pVh1KeiM0/Ouebr/gTBpm+WHcUh4
+	bZIreh0zs3NCDdjvMKmjmDsuomJktKheU3+237G8ps63CBFB3TFRjrZ/
+X-Gm-Gg: AYBFou0IPMdFdzRxvI+WFzHNQ8n1ron4i5BWep/KAHjofzGe81yQ8AJYVBl7X3SOtKO
+	h9+uOM6GsExCXrw9SHX51YUO7vsCmRSnquRZxEyglN7KmY0gx3Dt1Ham5mhSVW/597t1ULRu6Fc
+	lPiugVmbbs1EN31//dLmJoE5mc3nSy3khREwOTe+TX2yRmOSj3hkNuWnE7gn6bAZwaUYoaMPfAK
+	qo1joGTjjj6YxgjIs6G7/HxHmm4yL6aHTqcDG+Aufh5lNf0NOaGu4Hi2rxZYjsDwvhvlOf96Bqj
+	SPu+qdDayYwUDC/4XHs9drIryRnSBvVefCGLil9LALeOkedza5QCrRoX1XsPQtxdNs6gRehvENc
+	nQIeYgjglpgRP7N7L8f8AU/+978qopPhOxgYQhMhGY/om31JIYnz5k7CXUJII0i5BpvNHLGyS+C
+	lBfL31jhZfStOnLsF0zvWFDd5GsBw4YVIYVylIsDh9DAdTBKHubvNRBG++4tTBA4ivitOLfyYOu
+	6gyiVJ+8LAQJIf+dMPoMDZDhrivSbK4jNastKvXIl1YGNEmFwetia9P0ZG1TBRd7pAPu0SWega8
+	mHcn03IfbK42rrVIKzfTOn0eWyDY3ITou0ZhkqwakcWM64Ll6UQRHQ9V6/djvXENFFa6FaGwa7b
+	N6TeQjg==
+X-Received: by 2002:a17:90b:2ccb:b0:3ac:a11a:7c7f with SMTP id 98e67ed59e1d1-3ad86ec9be4mr2512032a91.23.1792620043175;
+        Wed, 21 Oct 2026 15:00:43 -0700 (PDT)
+Received: from localhost ([153.61.198.242])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48ed719sm1158289a91.5.2026.10.21.15.00.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 15:00:42 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 21 Oct 2026 22:00:41 +0000
+Message-Id: <DMAURQCKK6CG.10CZ7MFXGJO3V@gmail.com>
+Cc: <bpf@vger.kernel.org>, <linux-mm@kvack.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Zhen Ni" <zhen.ni@easystack.cn>, <daniel@iogearbox.net>,
+ <andrii@kernel.org>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <martin.lau@linux.dev>, <song@kernel.org>, <yonghong.song@linux.dev>,
+ <jolsa@kernel.org>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <akpm@linux-foundation.org>, <vbabka@kernel.org>, <surenb@google.com>,
+ <mhocko@suse.com>, <brendan.jackman@linux.dev>, <hannes@cmpxchg.org>,
+ <ziy@nvidia.com>, <shuah@kernel.org>
+In-Reply-To: <20261021112437.1799213-1-zhen.ni@easystack.cn>
+References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,83 +107,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261003002123.505555-1-jthoughton@google.com>
- <20261003002123.505555-4-jthoughton@google.com> <B8A44041-1516-4405-976D-534AA2412A49@linux.dev>
-In-Reply-To: <B8A44041-1516-4405-976D-534AA2412A49@linux.dev>
-From: James Houghton <jthoughton@google.com>
-Date: Wed, 21 Oct 2026 14:59:49 -0700
-X-Gm-Features: AclHuK8yX8_UlxZwp8Wau4tISOxPTXz9_QA6ij9ZqSUUyry48bT72riHBjGZz-Q
-Message-ID: <CADrL8HUOJwEgjUzefxSUa=AZHj4JO7koonj2_-WYhcL8QcXPZA@mail.gmail.com>
-Subject: Re: [PATCH v2 03/20] hugetlb_vmemmap: Always flush TLB if needed upon
- PTE remapping
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Oscar Salvador <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>, 
-	Nikos Nikoleris <nikos.nikoleris@arm.com>, Linu Cherian <linu.cherian@arm.com>, 
-	Mark Rutland <mark.rutland@arm.com>, David Hildenbrand <david@kernel.org>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Nanyong Sun <sunnanyong@huawei.com>, 
-	Yu Zhao <yuzhao@google.com>, Frank van der Linden <fvdl@google.com>, 
-	David Rientjes <rientjes@google.com>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 2:54=E2=80=AFAM Muchun Song <muchun.song@linux.dev>=
- wrote:
->
-> Hi James,
->
-> > On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> wrote:
-> >
-> > vmemmap_remap_range() can potentially leave the vmemmap in a partially
-> > optimized state. In this case, a TLB flush should be done if the walk
-> > caller asked for it, even if the optimization was not fully applied.
-> >
-> > A follow-up patch will more completely deal with partially-optimized
-> > folios.
->
-> Why are we dealing with partial optimization cases right from
-> the start?
->
-> I know that in patch 12, you try cmpxchg 16 times, and if it
-> fails, it leads to the partial optimization state. What I want
-> to ask is, why do we limit the maximum number of attempts? Is
-> it because during testing you found that this kind of failure
-> is very common? If we did not limit the number of attempts,
-> was it because during testing you found that the scheduling
-> latency caused here is very large? Or is this just defensive
-> programming? In my view, scenarios with such intense
-> concurrent access to these struct page structures should be
-> very rare.
+On Wed, Oct 21, 2026 at 04:24 AM Zhen Ni <zhen.ni@easystack.cn> wrote:
+> Exposing the same walk to eBPF lets a program filter and aggregate in
+> the kernel and surface only the records it cares about. This series
+> adds that access as a seq_file bpf_iter target and an open-coded
+> iterator.
 
-This was done defensively, yes. With 16 retries, I never hit this
-without fault injection. (Perhaps I should try with no retries...)
+This is overkill. Two iterators, two kfuncs that print strings,
+a rewrite of read_page_owner(), a new file and a new header.
 
-> If your testing did not find any problems, my suggestion is
-> not to set an upper limit on the number of cmpxchg attempts.
-> This should be able to simplify the design of the initial
-> version of the code to a certain extent. If we want to
-> determine whether an upper limit should be added in the
-> future, I think we can add timing monitoring in the arm64
-> try_update_vmemmap_pte function and trigger a warning when
-> the measured time exceeds a certain threshold. If someone
-> reports this kind of warning to the community in the future,
-> then I think we can improve it at that time.
->
-> What do you think?
+All that the prog needs from the kernel is the page_owner record
+of a pfn. That's one kfunc. The walk, the eligibility rules and
+the filters belong in the bpf prog:
 
-From userspace, you could use kpageflags or page_idle to continuously
-access a single struct page over and over again. I think that's a
-pretty good reason to have a bound. Also, the AF can be set even
-without an architectural memory access (so a mispredicted branch can
-still set AF, for example); that also makes me want to have a bound.
+  bpf_for(i, 0, ctx->nr) {
+          pfn = ctx->start + i;
+          if (bpf_page_owner_read(pfn, &po) ||
+              pfn & ((1ul << po.order) - 1))
+                  continue;
+          if (po.pid != pid || bpf_page_cgroup_ino(pfn) != cgrp)
+                  continue;
+          /* add 1 << po.order to a hash map keyed by po.handle */
+  }
 
-Catalin also said wanted a bound here. See the bottom of this reply at [1].
 
-So I think we should leave it in. The extra complexity is pretty much
-entirely in patch #4[2], and I don't think it's too large of a change.
-I hope you agree. :)
+Something like this:
 
-[1] https://lore.kernel.org/linux-mm/aoRn3Fn1dhTdsk6d@arm.com/
-[2] https://lore.kernel.org/linux-mm/20261003002123.505555-5-jthoughton@goo=
-gle.com/
+diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+index d8f579c..3adb716 100644
+--- a/mm/bpf_memcontrol.c
++++ b/mm/bpf_memcontrol.c
+@@ -161,6 +161,20 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+ 	mem_cgroup_flush_stats(memcg);
+ }
+
++/**
++ * bpf_page_cgroup_ino - Get the cgroup a page is charged to
++ * @pfn: the page
++ *
++ * Return: What /proc/kpagecgroup has for @pfn: the inode number of the closest
++ * online ancestor of the memory cgroup, 0 if the page is not charged.
++ */
++__bpf_kfunc u64 bpf_page_cgroup_ino(unsigned long pfn)
++{
++	struct page *page = pfn_to_online_page(pfn);
++
++	return page ? page_cgroup_ino(page) : 0;
++}
++
+ /**
+  * bpf_proactive_reclaim - proactively reclaim memory from a memory cgroup
+  * @memcg: the target memory cgroup to reclaim from.
+@@ -218,6 +232,7 @@ BTF_ID_FLAGS(func, bpf_mem_cgroup_memory_events)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_usage)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_page_state)
+ BTF_ID_FLAGS(func, bpf_mem_cgroup_flush_stats, KF_SLEEPABLE)
++BTF_ID_FLAGS(func, bpf_page_cgroup_ino, KF_PERFMON)
+
+ BTF_KFUNCS_END(bpf_memcontrol_kfuncs)
+
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index fbbda7b..a26d7fe 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -12,6 +12,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/memcontrol.h>
+ #include <linux/sched/clock.h>
++#include <linux/btf.h>
+
+ #include "page_alloc.h"
+
+@@ -1144,6 +1145,44 @@ static int threshold_set(void *data, u64 val)
+
+ DEFINE_SIMPLE_ATTRIBUTE(threshold_fops, &threshold_get, &threshold_set, "%llu\n");
+
++__bpf_kfunc_start_defs();
++
++/**
++ * bpf_page_owner_read - Copy the page_owner record of an allocated page
++ * @pfn: the page
++ * @po__uninit: where to copy the record to
++ *
++ * All pages of a high-order allocation have the same record.
++ *
++ * Return: 0 on success, -ENOENT if @pfn is not online or not allocated.
++ */
++__bpf_kfunc int bpf_page_owner_read(unsigned long pfn, struct page_owner *po__uninit)
++{
++	struct page *page = pfn_to_online_page(pfn);
++	struct page_ext *page_ext = page ? page_ext_get(page) : NULL;
++
++	if (!page_ext || !test_bit(PAGE_EXT_OWNER_ALLOCATED, &page_ext->flags)) {
++		page_ext_put(page_ext);
++		memset(po__uninit, 0, sizeof(*po__uninit));
++		return -ENOENT;
++	}
++
++	*po__uninit = *get_page_owner(page_ext);
++	page_ext_put(page_ext);
++	return 0;
++}
++
++__bpf_kfunc_end_defs();
++
++BTF_KFUNCS_START(page_owner_kfuncs)
++BTF_ID_FLAGS(func, bpf_page_owner_read, KF_PERFMON)
++BTF_KFUNCS_END(page_owner_kfuncs)
++
++static const struct btf_kfunc_id_set page_owner_kfunc_set = {
++	.owner	= THIS_MODULE,
++	.set	= &page_owner_kfuncs,
++};
++
+ static int __init pageowner_init(void)
+ {
+ 	struct dentry *dir;
+@@ -1169,6 +1208,6 @@ static int __init pageowner_init(void)
+ 			    &stack_fops);
+ 	debugfs_create_file("count_threshold", 0600, dir, NULL,
+ 			    &threshold_fops);
+-	return 0;
++	return register_btf_kfunc_id_set(BPF_PROG_TYPE_UNSPEC, &page_owner_kfunc_set);
+ }
+ late_initcall(pageowner_init)
+
+pw-bot: cr
