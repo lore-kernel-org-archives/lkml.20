@@ -1,63 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593966;
-	b=tpZZWO/qYghb9+3L//H8Kz3Cc1mrMpDdkzhLs0MeTcWDmgN4F8UPx5Fx6K4yIrsJ8V8t
-	 8R4K4d2DD2+0L8i4+8WMXyap4YZlYD9Y5wPBUG6oxCL9W++oaOZvBSRVBSkWvv5x6GkcY
-	 mh1coL3JLGcnQa+jEwZZR0/wN6w7k7drIgXeOBH3yqcwIvimsZNtBAKPVd7EfbBIQPH3Q
-	 Kl/cXTqjW+80y6vv7yP8aXpt8+3b92pj1gP8FVnqyq35ewMmfaFiZgezr5YtwHebOCoqm
-	 W8qRRjm0n2socxzPJJ2gdjd2tbiRMe4LDKCjvuQR6BTHmZfJmlqx0mgrpvfLII3mE2Q==
+	t=1792593978;
+	b=mJzySO36KCgpmxW91zH6FvrTwcYu02kYdOh9PZrQ8XLA6CcmuPgAgJQP0cXyZIMjAHFN
+	 MwscsAF8HQ1mEqGrabKxGCHsi2tJYJwyw3+UekTrCU9BUODfblmKLUdavarlPFV+ouZL6
+	 3pHD7EiaDrNVNMMXf7yt8WhcOZaoiRfS4ouC2Gy6NqxosShTVYHRBBq7MFmDJIImx4Db/
+	 6VHuFY+70IZLyEON8rgjR2yjKeBnt4eUnIcgcNEzvLAg1r6NN42IJxnhMt0Jg79pTQ4XR
+	 ga1HAHwgHw+3Scyt4fi4PJ7XB2STIZjO5otKlUY5rrbunQsUljN3D2ybEyIHDUmuYvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593966;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=tcgNMAMAaTNAVmIOyjLzl3HehOwbhta2Y5yaYhTlXpk=;
-	b=wCBFS8HYz8dUv1j4bUgPrYya1ygGA47DiMUf8fV9Bo04lhUgn4pu3K/ZKgsrX9i1MUai
-	 zEMpq7Mb0imSRG7TmSKwDmgdcV2B+gG1019gf9EdphM0e/7qFHEYQoPqLNlhVsNSIPlmo
-	 XugJkEmcMLktYikRJWnCl9ENGwETK0aHs1w7TLvuoAGjakQ2HXLhndj0hQzJjDLh87u2k
-	 mca7ZDPAU1dOR+6RYC2nDDvZNWqR8hqewXz7u9YwIdsUtYow/UWjsqcHjtuuKejZXpS6u
-	 65OjhPdq8MOTwJruw2EAFr/Rz63d1Z3XaRlYSulujcv1qPD1ZMPI6D8tlOuW0KPpnBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593978;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=MatOHa22WtG+l0uamrIjaG0NC2JllSJQL/SZcG1SYnk=;
+	b=Msk8prsDJHYSXWDMZwWFzVcgIuXA3jBzske3sWhqKRaznNWh3ssPRBrQj6M+mFYvjLro
+	 9UMRvT4SAMwQ3VVYmUgafjy6aaJI/vx4oA/Dv99hd3/RD/JpPj1cC0ffWfxeacAZnHLJW
+	 ptBkgtmV3Dd1ZaDKs71s+41Mt2JTT04mDFhM4XoH3Tjg6AWv2njHV60TNPMXT2Dpr2tex
+	 eILZ96aiMvFnhtQgx0tj4duZsQW8ijhvjDISV5vRKfVbicF86HZ7YeVzWyWkk2ElfXFnB
+	 /WqYhmk7mK+G+t1GkIZlqbP8m1PjdUVkwjm3l6b9spgtnYzPsBriY/Ly2ilmgGNSSkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kY1Tucdx;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=C7dnPns2;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEDAC60A2604;
-	Wed, 21 Oct 2026 14:46:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEDAC60A2604
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0995606A323;
+	Wed, 21 Oct 2026 14:46:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0995606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kY1Tucdx
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=C7dnPns2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=tc
-	gNMAMAaTNAVmIOyjLzl3HehOwbhta2Y5yaYhTlXpk=; b=kY1Tucdx1CimJKCAbS
-	DNyGVC7awxR/OgzRpIO7XYUOyMPl9/B8NGFtjfDhSwL2aK9ZktH/Dz1Lye+i6JCv
-	3lxkclSRl4BsAjNl6KhOTU2prr9jJ5z8ciuPkdA+xUZDbPCsvs69CAoBguOmKoNV
-	rP88HRFvrMW02de6eeEfYTQuk=
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ma
+	tOHa22WtG+l0uamrIjaG0NC2JllSJQL/SZcG1SYnk=; b=C7dnPns2P32vgzywFe
+	bpTQKcDN75V5x/VBveIBCSruYf8OzOrgR262scCIwAvYaqs+0+tdTr8ohNNM3Av4
+	07sh41SFyfhUji91XZ6dAxI93JFYQUxVLj69+zwqs1ioP/IS//+UZWolm3OKG+f1
+	W2uMr0gGy7vTtktpeCdobykE4=
 Received: from pc.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3998G0NhqjItXBw--.10228S4;
-	Wed, 21 Oct 2026 22:45:29 +0800 (CST)
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wD3998G0NhqjItXBw--.10228S2;
+	Wed, 21 Oct 2026 22:45:27 +0800 (CST)
 From: Jiale Yao <yaojiale02@163.com>
-To: Marc Zyngier <maz@kernel.org>,
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <lenb@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
 	Thomas Gleixner <tglx@kernel.org>,
 	Radu Rendec <radu@rendec.net>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Huacai Chen <chenhuacai@kernel.org>,
+	WANG Xuerui <kernel@xen0n.name>,
+	Jiaxun Yang <jiaxun.yang@flygoat.com>,
 	Hanjun Guo <guohanjun@huawei.com>,
 	Tomasz Nowicki <tn@semihalf.com>,
+	Christoffer Dall <christoffer.dall@linaro.org>,
+	Julien Grall <julien.grall@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Jianmin Lv <lvjianmin@loongson.cn>,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 2/6] irqchip/gic-v3-its: validate MADT ITS entries
-Date: Wed, 21 Oct 2026 22:45:20 +0800
-Message-Id: <20261021144524.364143-3-yaojiale02@163.com>
+	loongarch@lists.linux.dev,
+	linux-mips@vger.kernel.org
+Subject: [PATCH v2 0/6] irqchip: validate ACPI MADT entries before use
+Date: Wed, 21 Oct 2026 22:45:18 +0800
+Message-Id: <20261021144524.364143-1-yaojiale02@163.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021144524.364143-1-yaojiale02@163.com>
-References: <20261021144524.364143-1-yaojiale02@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,40 +77,55 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3998G0NhqjItXBw--.10228S4
-X-Coremail-Antispam: 1Uf129KBjvdXoWrtrWDGw15Jw45Gr4UGF47XFb_yoWkArb_ur
-	yjgFn7JF4DKr4UKr1xtr4UZryY9a109w1v9r4vva95GrykZ3W3urZru3s8Zr4DGFs2vF1f
-	GrZ8Cr1Skr13tjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IU8IAp5UUUUU==
-X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgkHQWrY0AlSxgAA3+
+X-CM-TRANSID:_____wD3998G0NhqjItXBw--.10228S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar15XFWUXr1UtF18uFW7Jwb_yoW8CrWxpF
+	W5KayYvr4fGrW7Arn3Aw4UXFy5Ja95JrW7tFWfta45ur1rK3WDXay2yFWYqF13Ar13G3ZF
+	9r4jqF1xuFZ8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jeLvNUUUUU=
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzQcGQGrY0Aci1gAA3d
 
-The MADT ITS callback reads the translator base address and ID without
-checking that firmware supplied a complete generic translator record. A
-truncated entry can therefore cause out-of-bounds reads.
+IRQ chip ACPI probing receives MADT records supplied by firmware. The
+common probe path does not currently verify that the complete declared
+entry is contained in the table, and several callbacks access fixed-size
+or version-dependent records without checking their minimum size.
+Malformed entries can therefore cause out-of-bounds reads during early
+boot.
 
-Reject incomplete ITS entries before accessing their typed fields.
+Add the common declared-range check first, then validate the concrete ITS,
+GIC, LIO-PIC, and BIO-PIC records in their respective callbacks. Each patch
+remains independently buildable and limits its changes to one parser
+implementation.
 
-Fixes: 3f010cf19732 ("irqchip/gicv3-its: Probe ITS in the ACPI way")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiale Yao <yaojiale02@163.com>
+The series was checked with scripts/checkpatch.pl. Each patch was also
+checked individually and in series for application to the base commit
+below.
+
+Jiale Yao (6):
+  ACPI: irqchip: validate MADT entry bounds before probing
+  irqchip/gic-v3-its: validate MADT ITS entries
+  irqchip/gic-v3: validate MADT records before use
+  irqchip/gic-v5-its: validate MADT translate frames
+  irqchip/loongarch-cpu: validate MADT LIO-PIC entries
+  irqchip/loongson-eiointc: validate MADT BIO-PIC entries
+
 ---
- drivers/irqchip/irq-gic-v3-its.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- Use BAD_MADT_GICC_ENTRY() for version-dependent GICC records.
+- Replace the open-coded distributor size check with BAD_MADT_ENTRY().
+- Remove the redundant distributor check from gic_acpi_init().
+- Add Fixes and Cc: stable@vger.kernel.org trailers.
+- Rebase the series on the current tree.
 
-diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-index e9807af23537..485a790e4856 100644
---- a/drivers/irqchip/irq-gic-v3-its.c
-+++ b/drivers/irqchip/irq-gic-v3-its.c
-@@ -5725,6 +5725,9 @@ static int __init gic_acpi_parse_madt_its(union acpi_subtable_headers *header,
- 	int err;
- 
- 	its_entry = (struct acpi_madt_generic_translator *)header;
-+	if (BAD_MADT_ENTRY(its_entry, end))
-+		return -EINVAL;
-+
- 	memset(&res, 0, sizeof(res));
- 	res.start = its_entry->base_address;
- 	res.end = its_entry->base_address + ACPI_GICV3_ITS_MEM_SIZE - 1;
+ drivers/acpi/scan.c                    |  7 +++++++
+ drivers/irqchip/irq-gic-v3-its.c       |  3 +++
+ drivers/irqchip/irq-gic-v3.c           | 15 +++++++++++++++
+ drivers/irqchip/irq-gic-v5-its.c       |  3 +++
+ drivers/irqchip/irq-loongarch-cpu.c    |  3 +++
+ drivers/irqchip/irq-loongson-eiointc.c | 10 ++++++++--
+ 6 files changed, 39 insertions(+), 2 deletions(-)
+
+
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 -- 
 2.34.1
 
