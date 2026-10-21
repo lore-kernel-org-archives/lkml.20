@@ -1,97 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550573;
-	b=DUojDpL3QRMi9j0a5X171in4Hx6K97SEjFmyIe5fuqZoHBzyOcHwjvVnooxFf1p6zfS0
-	 FXa3ovJAZENPknpLEMsqo+VeMoCkesNjHBz0xBC3BRKVx0UbAk8ECY3D556XsKgXVp16s
-	 lqA9Of1iwIf0y7fj8AlT/ejH5KLeaoAPelZ3mfFDdmXXnQ/NI3yVbMWB7U3y+HJW3x4O4
-	 8uXq3XvY2S5yONj2Yj43vUTjLsnpXrrhYkQENlAXNAkg1+zzTteHJh+ZH5HumeCbMMm8a
-	 76kNfCdoxVguWcMMG6T//jAfT0gqvS/rcrEKTQk0t3Sg5ad9vP+KvMcCP4jdt6+JeUw==
+	t=1792550561;
+	b=5XN7PNi9eYAFEgGJHTZ1i339vBAtGMedkPvwVplNOJcd7suOOS5DYisxNsBfFyKApeoh
+	 OMtnpKK2D0KUWiGs+Yc5IV03aFgrAUdAJC4LgZLIyUVUIjT+03nWpNZVfQsJ251gTqGaH
+	 ywbAGXAVZvQ3/1UCWNil8NkoIqtjsttnzn4qKxOrgHqLmZhsdQt0IITZjfWd/pKHGwWhg
+	 7S821+r0FkM5/Qc14G2E74b71k8TM5cEN4HCB9XcbDW28f88bs6r2rIzfnRFeLKcuH2T8
+	 0sUjjKypvB2nqG31tvUwI0eEDGmVXkG4bnd8KwGhMCsbeJu+7Dj04jYTodrWaiOKgLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550573;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YqvLnWab+0OyPrxtGw/AiXaMLQ8o5EGXMAvfXVZT4qc=;
-	b=OW1v+CfhLbKYlgGdNzCnpTOmEGw5AxV4LMGgns2HE2DnemrIFjvnnCLR64dIEHrgRa8h
-	 n/GN7OKfDR5nzNoKzij7y18ImPzlFfUROyGRL10EG3/gI1yiPtVG2Sq2ah+OmGoDRQxqe
-	 LvMApd44tTYOdmuBdHfL/e7sekajhFhPfgqsihKQjEMQkleQEgwotF92O9NsTNA/RBrK0
-	 6xAkU4pWHmAtIw7WLQwGftLhQDQfdOElIBhmq3O06+ca7OUGwW29eoc9P01sKhrsWHVqD
-	 6iE+bTT2KltKsiG32PPt9arWAyDsl01ONjki4CqvJSC51uHnfG5RYtPhHquKrjBfenA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550561;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=oLBODvbSr6gtJBJto96ISE7H3MJPrfgXiOoDCPQrvq8=;
+	b=JhyixxHHNHPH2kUPP/6zxL6obaKZcMnwrvuOAJBdIkrqwR7Xo/60HOonisV78bhydJEa
+	 cbxsp6k7zwIv0o1IMAUzv2HgUnRMDgZMMYFHrTTgQL7XFVr9OhXnDYxdAC/RooPG3K+gT
+	 2G3DDxqWIsAeWvlXjA5acPFsk3JbMPhL2UNX2DhXBHaf75UIjJzDGMpZu/7X0WLt8jBvy
+	 v6BYC1H1YW7UJH+rTcuKe3/45jjFhJx1JZQMgrqfOTZ3rOPZJybJoj1jQyuRFYPEot/rY
+	 26PXoND3wK0foJaXEU6K5fnwfxw0aicjIa14LVSgH4TB6Y/iZBShcvZ70+fRJH+AayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i+6SmKo2;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY39tHg5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24042606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:42:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24042606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10874606A31B;
+	Wed, 21 Oct 2026 02:42:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=i+6SmKo2
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso447548eec.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:42:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792550572; x=1793155372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YqvLnWab+0OyPrxtGw/AiXaMLQ8o5EGXMAvfXVZT4qc=;
-        b=i+6SmKo28Gg1aPBkS6PGSq82QgA4fNC0EU0f3IriMkfk7D5N9WtCEzsIMr4IDj94Sx
-         OCLTp1T78RG57mka7X4Td1p41LIPW153wgplWHFpjnDrlaFMfSiVzmQFWSFRUbuPdr7T
-         3CRr+VQhlXvFJIs6d+1uHU5h0dCPH95GqUZCk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792550572; x=1793155372;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YqvLnWab+0OyPrxtGw/AiXaMLQ8o5EGXMAvfXVZT4qc=;
-        b=Z94eCt196UYYIBc3Q6ORkdcc64W5pnPsrYqHHqbwUA6TkZojjQWhEM3r47I/GmUw9m
-         q+aW10qijm+RhXH2gqaVxvjvg+aOyCXGg5f78ojvxMDO+UMCmXd/JcLwkHrMuJjz9bKV
-         wGOyKaDRFdjH724Ml4O0EFP+2PZ7RMN/lxQozIgwCtiSmche7VpH1pa0RiDYANvGa4r0
-         uZcXM9vkZabs03TMi/WWuuKk3osVEyqTkQRx/ZwgqpipqxXcx4Y2zpclXxI83Vc3/Y8E
-         NBprLIS+RGVZMWaJXjfT458WdvoJIeCtvTQW7aM2K9uxm2Lsb1aZuFYQOzoQ8qXF5sTt
-         /RaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxFrojeBcphGSskvB1aXXuKrZr1S38Jz0glIvS8UiHM1/M4U28+NIVSiy2gQS6g8HxRunNankeqZ+bVl9g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmmdyh7lep6eFZCKxOX+1iZFe4AmN+ef9a9SL+3cYaPMsVeHnf
-	BZoCSpZB3eOPkJhjSF7MRTaOsTXJ/5XuE0R0OegqDbcrtTaR6YvTm+VN3xzxW8fNUA==
-X-Gm-Gg: AYBFou2iLkLr2/6NKHE/KLLR1NTZokdJ7F5nBN9+U8lTOkbZFlsN1rtaG2nVMI25esl
-	rQuBEVSsQc+KBBtSF7ZOgOflUopt8zEea5555+j+ykmWMj4FXSluiEe69B0Nl4refK+Z2/6Bsxa
-	iiX4ZoGqbcCp3JGstkAW4ysTr+NBXTG0LRT6xiu7cqoUphg2hfwpeFTVamJqoFrgbOaCkRvqzJI
-	TE1qzsw1HnQb8GI33UJgf3xVNtxOCc1xg/zihOCvLDqM+8Y6Vbd1XfqvfCpp+TUjc6J0rsBpxZq
-	rx0lHgzbSOvYse3mkwjdyJZMfOQPPrP/WPa77UK1SaJBM0MKQQmAnF7AWvgqXHPsctajhb1PGwy
-	DSFrCc4Y0XC33cVkOWbyLCZDYFrM+PEpuzNDqJdhJRAoTDx7iW89Wg5R50dFnZ/UBzJi65aMcn/
-	t4nX1KjWM0qkyQ2Rv/p/ksEbEdoQm8fRtJCicFcyU0jN4kGU+JiLr2WjTBt8vniy3qMHwLxuOws
-	EeR347tuBTFir0w+AlZulu4D7N4wfET+teiDqxT5WE4b50MLojxN16AWyf0tYfNWfFPKr3D0KmH
-	79VfZkq4lHDlUsiBoT2C4kigkC33F42vnYaPFi+xk858
-X-Received: by 2002:a05:7022:f515:b0:155:7721:3a4c with SMTP id a92af1059eb24-190a660fd4fmr846137c88.35.1792550572267;
-        Tue, 20 Oct 2026 19:42:52 -0700 (PDT)
-Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:97d1:a8be:236d:bf79])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm2392047c88.3.2026.10.20.19.42.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:42:51 -0700 (PDT)
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brian Geffon <bgeffon@google.com>,
-	Barry Song <baohua@kernel.org>,
-	Bo Zhang <zhangbo0325@gmail.com>,
-	Minchan Kim <minchan@kernel.org>,
-	Richard Chang <richardycc@google.com>,
-	linux-kernel@vger.kernel.org,
-	linux-block@vger.kernel.org,
-	linux-mm@kvack.org,
-	Sergey Senozhatsky <senozhatsky@chromium.org>
-Subject: [PATCH v6 03/13] zram: reset writeback state in zram_reset_device()
-Date: Wed, 21 Oct 2026 11:42:13 +0900
-Message-ID: <20261021024236.1787884-4-senozhatsky@chromium.org>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-In-Reply-To: <20261021024236.1787884-1-senozhatsky@chromium.org>
-References: <20261021024236.1787884-1-senozhatsky@chromium.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY39tHg5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C02B1F000C9;
+	Wed, 21 Oct 2026 02:42:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792550560;
+	bh=oLBODvbSr6gtJBJto96ISE7H3MJPrfgXiOoDCPQrvq8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IY39tHg53XDT9wDChQziERP7v+ZcmXqAlg+Hg7cYkakX1Nov638ol1YuM8hp8XCRk
+	 9WcNhLLwS8Snk7dDeIWAVl7jkbA1HxsGv2WKZWOpqODHUpZKLJgPO3c4dw7emPUSOQ
+	 LfuNNjdN0JCHb9hKkA0Pf2y6PePRTtVyfL3s331SFoci7r3vFAQFFjrIJ9QoQNbmJg
+	 hTH14eicBbmzPbZQHmYYrUxjNel5YcCe9IRSw1UuRU5r+HjhSHRg9a3Qg0bRaCiIUY
+	 20ubXMuOUUL+4tDT7MQ75rQMrTKuQQ0+Q7dqu54hBYXbWrNHTZH5uOefRZq1kWawy+
+	 f6CI6jS93guPA==
+Date: Tue, 20 Oct 2026 21:42:39 -0500
+From: Rob Herring <robh@kernel.org>
+To: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
+Cc: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Guochun Huang <hero.huang@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
+ a cell to select TX or RX
+Message-ID: <20261021024239.GA3667411-robh@kernel.org>
+References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
+ <2501273.NG923GbCHz@diego>
+ <20261020141039.GB4157247-robh@kernel.org>
+ <25254818.ouqheUzb2q@diego>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,49 +74,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <25254818.ouqheUzb2q@diego>
 
-Reset all writeback state to its initial defaults on device reset.
-We used to keep writeback related data in zram->stats, which
-zram_reset_device() clears, but commit 1d69a3f8ae77 ("zram: idle
-writeback fixes and cleanup") moved it (along with the newly added
-wb_limit_enable) to struct zram, after which neither of them was
-reset anymore.  wb_batch_size and compressed_wb, which were added
-later, are not reset either.
+On Tue, Oct 20, 2026 at 04:57:34PM +0200, Heiko Stübner wrote:
+> Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleuropäische Sommerzeit schrieb Rob Herring:
+> > On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
+> > > Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
+> > > > Hi all,
+> > > > 
+> > > > On 10/19/26 17:06, Rob Herring wrote:
+> > > > > On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
+> > > > >> Hi Krzysztof, Rob,
+> > > > >>
+> > > > >>> Existing OS should ignore surplus cell if the driver is coded properly.
+> > > > >>> Same as adding new properties or new front-compatible.  The question is
+> > > > >>> how the existing driver behaves?
+> > > > >>
+> > > > >> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
+> > > > >> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
+> > > > >>
+> > > > >> 1. Keep the second cell. Add the patch as follows:
+> > > > >>
+> > > > >> - if (args->args_count != 1) {
+> > > > >> + if (args->args_count < 1) {
+> > > > >>     dev_err(dev, "invalid number of arguments\n");
+> > > > >>     return ERR_PTR(-EINVAL);
+> > > > >>   }
+> > > > >>
+> > > > >> + if (args->args_count > 1 && args->args[1]) {
+> > > > >> +   dev_err(dev, "only the transmitter is supported\n");
+> > > > >> +   return ERR_PTR(-EINVAL);
+> > > > >> + }
+> > > > >>
+> > > > >>   With Fixes: and Cc: stable, the stable kernels maintained at that
+> > > > >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
+> > > > >>   dts, and the receiver fails cleanly instead of getting the transmitter.
+> > > > >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
+> > > > >>   It goes in with the series, since two-cell dts only exist after it.
+> > > > >>
+> > > > >> 2. Use a flag in the upper bits of the existing cell, as Rob
+> > > > >>     suggested. Existing kernels are not affected, unless a board enables
+> > > > >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
+> > > > >>
+> > > > >> I will write the impact clearly whichever  approach is selected in
+> > > > >> the related commit messages and the cover letter.
+> > > > >>
+> > > > >> I think the cell approach is easier to read and more symmetric in the
+> > > > >> long term,
+> > > > >> but it breaks more. Which one do you think is better? Thanks.
+> > > > > 
+> > > > > I'm not a user of this platform, so I don't care. Up to the platform 
+> > > > > maintainers to decide if breakage is acceptible. You just need to 
+> > > > > document the issue in the commit message.
+> > > > > 
+> > > > > Rob
+> > > > 
+> > > > It's a bit of a pickle, all this.
+> > > > 
+> > > > I gave it some more thought. In the end this is an IP block with two
+> > > > PHYs. No more, no less. One cell is sufficient to address those, and it
+> > > > could be 0 for the transmitting PHY (DSI, display) and 1 for the
+> > > > receiving PHY (CSI, camera).
+> > > > 
+> > > > Of course the two PHYs can operate in either DPHY or CPHY mode. The
+> > > > phy-cells have been (mis?)used to select the proper mode of combo PHYs,
+> > > > and this principle has been applied here too.
+> > > > 
+> > > > However, we have the special situation here that the mode can only be
+> > > > changed for the complete IP block (and thus for both PHYs at the same
+> > > > time). As Bryan points out, we need to check and complain if the PHY
+> > > > mode is not set to the same value for both PHYs.
+> > > > 
+> > > > I suggest using a property
+> > > >     samsung,cphy-mode;
+> > > 
+> > > I guess, a maybe nicer way would be mimicing
+> > > 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
+> > > 
+> > > with its
+> > > 	intel,phy-mode = <x>
+> > > 
+> > > with x coming from include/dt-bindings/phy/phy.h
+> > > for the distinction between cphy and dphy, so we don't introduce yet
+> > > another way to describe this.
+> > 
+> > We already have the plain 'phy-type' property which takes the same 
+> > PHY_MODE_x values. We don't need yet another vendor specific property.
+> 
+> even better then ... and I didn't look deep enough it seems.
+> 
+> 
+> > > > (name to be bikeshedded) that sets the complete IP block into CPHY mode
+> > > > (DPHY being the default) to distinguish between the modes. Since both
+> > > > modes use a different electrical interface, this is clearly a hardware
+> > > > thing and thus suitable for device tree.
+> > > > 
+> > > > Then, we can address the two PHYs with the help of the already existing
+> > > > phy cell (without any bitflag tweaks to the value).
+> > > > 
+> > > > The sole drawback is that we need to accept the PHY_TYPE_DPHY and
+> > > > PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
+> > > > it should only be the former.) And we need to handle those values
+> > > > correctly. But I think this is not more painful than the other
+> > > > approaches. At the same time, this design seems to be the most correct
+> > > 
+> > > The current cell values are 10 + 11, so as long as we don't re-use those
+> > > exact values for the other constants the driver should somewhat easily
+> > > be able to recognize an old DT?
+> > 
+> > I think you will still have an ABI issue of what does old OS do with new 
+> > values?
+> 
+> wasn't the main contract, a newer kernel should support old DTs ?
 
-The patch is more about just being pedantic.
+Well, yes, it was. That was a position I inherited. I hear complaints 
+about the opposite though.
 
-Acked-by: Brian Geffon <bgeffon@google.com>
-Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
----
- drivers/block/zram/zram_drv.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+> Aka the DT is parked in some firmware part (u-boot?) and gets handed
+> to the newer kernel.
+> 
+> I don't see deliberately handing a newer DTB to an older kernel as a
+> very common occurence?
 
-diff --git a/drivers/block/zram/zram_drv.c b/drivers/block/zram/zram_drv.c
-index 593fa4ae47c4..0e1aa0da11aa 100644
---- a/drivers/block/zram/zram_drv.c
-+++ b/drivers/block/zram/zram_drv.c
-@@ -694,6 +694,7 @@ static void reset_bdev(struct zram *zram)
- 	zram->disk->fops = &zram_devops;
- 	kvfree(zram->bitmap);
- 	zram->bitmap = NULL;
-+	zram->nr_pages = 0;
- }
- 
- static ssize_t backing_dev_show(struct device *dev,
-@@ -2881,6 +2882,12 @@ static void zram_reset_device(struct zram *zram)
- 	zram_destroy_comps(zram);
- 	memset(&zram->stats, 0, sizeof(zram->stats));
- 	reset_bdev(zram);
-+#ifdef CONFIG_ZRAM_WRITEBACK
-+	zram->wb_limit_enable = false;
-+	zram->bd_wb_limit = 0;
-+	zram->wb_batch_size = 32;
-+	zram->compressed_wb = false;
-+#endif
- }
- 
- static ssize_t disksize_store(struct device *dev, struct device_attribute *attr,
--- 
-2.56.0.212.g129ede20d9-goog
+Do you want things to break when you do a firmware update that's picked 
+up a newer DT? I don't.
 
+
+> And from a practical standpoint:
+> 
+> We're talking about devices with DSI displays that are at stake here,
+> so we're in the embedded world.
+> 
+> In other areas we're still fighting basic functionality like actually
+> handling the type-c orientation correctly in the usbphy.
+> 
+> So I really don't see a device with a user-updateable mainline kernel out
+> in the field, apart from people hacking around on their devices to try
+> out new features and new kernels, simply because core functionality
+> is still evolving in mainline.
+> 
+> 
+> RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
+> completely incompatible DTB afterall.
+
+I can only keep my own house clean...
+
+I only ask that compatibility issues be documented. Up to individual 
+platforms to decide if they care or not. So, your decision.
+
+Rob
