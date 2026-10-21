@@ -1,57 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578912;
-	b=hRTekallU9ArhTf7tqh8WOIRGKi8gPnirv3cXN1HMnSMBsSUYT5L0yETFpbMMPtx1na5
-	 SHaYwvarCs5JzRiPmwMD+OhGsnsFlpeg+y74rtQr8siJz6xNBKQsDVRwiFzCxuEHF2z3o
-	 gWjgzzz4p+WayRzg9jkAzCg9TuV9hmplvF0ZsZYj40L4JTH34JV6jvbsHFrnScreO29Q/
-	 I8ieLbu7LGf2brsWolqAjolhFgiZzcPJe/SItzQ0fC3tvHNeFjMbu4PqtugJ9yYxcoq9e
-	 ZTsmrvSI/d7QiGn9CpQy8Sbiy6LYevUWr36BE7OgHaUWqTI7xmp6oxN5XzMyMBQLQWQ==
+	t=1792578943;
+	b=XfDpqfozhJ4Vac/umujZAL5y5FrBkzX11ZhAXNmcBTdZj6Ph1js9Xvmkgp4KSrL7NE1e
+	 BST5q6OoIsw+qP6yuafdubE4d3x27dY/WAR/Ig/6BmIU0z3mTk6Vygqghesu6vPGLwovy
+	 4MpKUJ4aITVHREj0PkCcso5e1/XV1mmY31FpzSic8hFWpb6NyjXqLHPvcEojkHgLMd2DJ
+	 72h3ibATARB4uT+WemfdUwzgr0M9txDlcY4VeMJdzjKS1mkn9hO5mPuAwUL4PG0qudMKR
+	 Fq73jqjUBv6qFJ+MVFI9wFl+VzmCfIP7lJCOU4XHfz9gP1pUL5tV18IHQPQe+cDPRng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578912;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=0xc8hhnGzqwQVL3eY7Q33EOzRhUWz24n/pDkXb+Wj6M=;
-	b=csrDhGK1CDbA7JCqWqnDGVxe7948hqPbgy6l+ijIpn41mRt5C0fY56/ycXaiu56Kok8s
-	 8u6AMoBJMDRus+sIxFO4wJXnRQG9P1M55kXf3mWXLV5s994laj8TnzmhbmeNWkluAT8Xh
-	 GlCcQ1/aOwXkwszPqSYwnUC5/l8KLYS9BHTmGBBjJql0MggwpGba+mdUkw5U3sZ3vtLQL
-	 mpIVCXmZCqfjcaPbMebOM7Mcqwuxj/5T02neNjadE174lrXV3rOxQR009hXvzrrzrrWP3
-	 RgZLK6nxfMyXFfEt3wtVEx2w21y6uW8likewNBMKmAxtI9fA9cxQharXlfEjCw5FWvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578943;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Dh+Ae+f7goZcRiPvLnUzNRTlWIUaTewojh+/EuxjxlA=;
+	b=NI5+MJGa5OLxmydOnM44OdE7D19m1CjElSsqmbVAXpjrlcROUzVrAzr8GdAU/DAfq3Sk
+	 nndOxtZWHmK0lovR2caD4Afyn8wYniuUz/0uthaax3l0mljWi73h/BxBZPAh7+Eyi+KZN
+	 qqwBAfRm4cy6pPgPnjzRrZtHzI9tnbqC2YJGpdnCDQiCTB6VDnaY2wnhVDhjdBmREtxcN
+	 oDSBROIu8fdEScKmKkYB2+w/Lbs46eOuBYkESzcG6qQ6CT+1JIZ5OMIFUP1z9XkAgpY1F
+	 fbopFWXxaCDdf96Lu826Jfjpi7NiBE2R0xfLQHOr4pk7b46W+S8c62dFu+1UTwlM5Og==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5h0OS+W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=G0jda3F7;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC2D606A321;
-	Wed, 21 Oct 2026 10:35:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3E1F606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:35:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3E1F606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5h0OS+W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9AF1F000C9;
-	Wed, 21 Oct 2026 10:35:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792578911;
-	bh=0xc8hhnGzqwQVL3eY7Q33EOzRhUWz24n/pDkXb+Wj6M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=K5h0OS+WkLCh4NmG/0DlwQWoFFV3pGBgLWd/oXGkUtSB7FfPX+Wx7beBCxdCTg9wG
-	 gN5g4KTY8qz7+QblXbHpvbBJllymWSPwnVnIZHcaqcWgBYNYjtqm0J2vLpVf6O0Hua
-	 7YaJAuOhg/A0k5FPuvmiHF2NJojIvKU6nhAokf6AFrxzg1PVcc5c4OAGHy5P6QPEx5
-	 l0XxYPnFkIrtQLjleIlo4QtwUMkonFc0qzcxo1U00hW7H81UeKwILgdduWQBLYR6b4
-	 lmle0d87q/9lj/t0tcQPqKtgGBWDGpy4lIE+IF8bdSMHYSmj59p6p0hxgMwq7lMBoq
-	 ORkK2HMJV4GQA==
-From: Christian Brauner <brauner@kernel.org>
-To: Sanan Hasanov <sanan.hasanou@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, 
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sanan Hasanov <sanan.hasanov@ucf.edu>, 
- syzbot+e353ad4408c4f9fac965@syzkaller.appspotmail.com
-In-Reply-To: <20261019013645.40834-1-sanan.hasanou@gmail.com>
-References: <20261019013645.40834-1-sanan.hasanou@gmail.com>
-Subject: Re: [PATCH] minix: restore uptodate on bitmap buffers before
- redirtying them
-Message-Id: <20261021-erdumlaufbahn-innehalten-monster-10d7ac78a7c6@brauner>
-Date: Wed, 21 Oct 2026 12:35:06 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=G0jda3F7
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso394715a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:35:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1792578941; x=1793183741; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Dh+Ae+f7goZcRiPvLnUzNRTlWIUaTewojh+/EuxjxlA=;
+        b=G0jda3F77cRYI34SxQQfhclAtQyzh/dF/mrW6Ky3oKCVVzLpJvmMHIxj8ERZWjRgOR
+         ZaIGpWNEWrLKF58tiPfzDPSfCppFzl1iACNXxov0daUuhFF5fUHx8oImmBCdIlMxSLBx
+         3pugRKUUdEzNFg6S7vKkYLsssvNsDlAIkOWZdVoW81hpYjfnlaeFGSOdlPgIm7FYkS2z
+         lkcwiDd8BZtzhZP0E47Z7+i/1cIjugVAzBDXBCtQkhw370PgeIUoGJ6oN3lKxE6XXHKD
+         J+3ZHhC2OBikzUUp6uQR8NPIIQRO6YZnGou189VTyNBhjqsMIHv1A8pR1j66oiqf+f2y
+         1Vmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792578941; x=1793183741;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Dh+Ae+f7goZcRiPvLnUzNRTlWIUaTewojh+/EuxjxlA=;
+        b=11YwHaR/EeTR3cO7u6ZT4P5dTgDsJymNrHrrmkPF+cflJKjFHNkpJT9TRxjGhStCwK
+         mCMJZukuiHVEGsO9qIGBA/b2sg9CFOxBgfRHIggU71MnMlp9xYS6q4w4H+cFavVTjli7
+         XAX5iEiuMrGZGixI0AZndy8O+ljJJ5Ff8VvJavekRXXzgLd7+8balniuwpChS7FqhnDs
+         QUkZzqu5JNY9S3zamIXagrG9SuI8GhcrvrH3dxEpm5DA1w8rgLANjdfC54H9uGauTtZl
+         WxXyKdMC1dx2ZY7TQGP/qgCGFY/IsA8N49GjgQEmNpqqZTlX6eXkW3cr5OI8KgSyeBd2
+         VpWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxqn+cvFr8npr3f846E7uXBAd3iz8LIs3tOs3Aa3Pi93aNU+jRDAd7rePwctIIZ+q9iCTFPLybVPx4dSwI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1RsUzU2ElwYkYO/Z0sH6oXAibDGBuR+6naYL56cNpxrTlAYyD
+	bwJJmAfOk/UcVik6G5fJkPp2gAkxLW/gky0t+4mYMhHwffgg2kHjfsWcnCGjvmqFveg=
+X-Gm-Gg: AYBFou38vnbCsrQGgqIoyTaB6crp+5MDp//Kz3BG+aIn6svEXz/A9TcbmLyamITxi/r
+	ozxJTwFEi6bKggEsciZO5hmPWS6z9PUx7yNfDhp7O4t/EXVFM6JhwrOxbpthn+YM9rVAI4/R1wV
+	dmEPoGt9jFzeEG2fQTJ5lNazj3pJNhF8I8vs4G0Vtexb5B6h3BJJ3M7quyjYPHLPc9wpgF2HdVL
+	6/ea5ISD/i2onr+USrpLdB+ebJGKO5pR8a3voPjF+vpC1muDwW1GMliVjHB7pTyGmvUI/GL5WLh
+	xJfFjKeXR+L2lDTzfS72Tg4oDP6zCotnmvsGcihoQCpR8nZn7tYMEogZ4ZhUa4yyUCJoiVynyHV
+	5i0n+e0EgoKe1DFku8itbG1oB9HejNZr1Ol+CkRzNClM6GM+jDe9eKyZTTtmqOa0b2zLOnObnNJ
+	W8qU/BX722nOt0n55EiEbRXgGXZbD+05Mo2Gc0XJKZulDojnetCQAnRZBtGnV1b1dEIxBxGeHCH
+	6hX9pv1ov+tUPckn1qkRxO+UIIbynFtiCLbKKqJsepM0hDHMmVvGwVNLAhtF/xFIt44+00rskbo
+	nOdOWeU9qvltX1c5+eWLKU137yUicYpa7rQeevM7Rl3svdaVpcCPh4At4g4/VDAzMDA=
+X-Received: by 2002:a17:90b:4d09:b0:3a4:9dd7:296f with SMTP id 98e67ed59e1d1-3ad86ef20e3mr1192332a91.40.1792578941042;
+        Wed, 21 Oct 2026 03:35:41 -0700 (PDT)
+Received: from ?IPV6:2401:e180:8c20:3224:91dd:dbbb:1f3d:e712? ([2401:e180:8c20:3224:91dd:dbbb:1f3d:e712])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad7ffbbba1sm3896305a91.1.2026.10.21.03.35.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 03:35:40 -0700 (PDT)
+Message-ID: <5b408217-52d1-4a22-b15b-1f0a560906f0@baylibre.com>
+Date: Wed, 21 Oct 2026 18:35:35 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,36 +92,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] nios2: remove libgcc for lshrdi3, ashldi3, ashrdi3,
+ muldi3, and ucmpdi2
+To: Arnd Bergmann <arnd@arndb.de>,
+ "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ linux-kernel@vger.kernel.org
+References: <20261019165015.2656521-1-dinguyen@kernel.org>
+ <f13fd39f-1ba4-438e-a1f7-fe4184adbc26@app.fastmail.com>
+ <20261020085630.w7je2ev3f6ectshy@dev-vm-schuster>
+ <686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com>
+Content-Language: en-US
+From: Chung-Lin Tang <cltang@baylibre.com>
+In-Reply-To: <686f4ca2-0fb6-4a73-9cdb-0edcccafdd62@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=905; i=brauner@kernel.org;
- h=from:subject:message-id; bh=aaizelgfnvGTDDjJyyiFuec8MyPX1FhmmK/FQv/A3NI=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdmBptU2zZxfHv78t9//7uaF2cuC7u4feVGQWMh7UM+
- Sunnos62lHKwiDGxSArpsji0G4SLrecp2KzUaYGzBxWJpAhDFycAjCRKFVGhssqJnf+7C226Jnc
- uX3Pp8mvVUrLfty8llDNfshshsuWdCFGhiMLWYJeed9f/bhkVU+H+h7/hTpLjU+J33otKvqQpan
- +Bg8A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Sun, 18 Oct 2026 21:36:45 -0400, Sanan Hasanov wrote:
-> minix: restore uptodate on bitmap buffers before redirtying them
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+On 10/20/26 5:41 PM, Arnd Bergmann wrote:
+>> On a more practical note, while technically feasible, I'm not sure
+>> whether we can actually vendor/copy directly from libgcc; I think all
+>> code there is GPLv3 with Runtime Exception. (I'm not a lawyer yadayada),
+>> but I guess direct reuse in that way is problematic, given that the
+>> kernel is GPLv2 only? So I guess we would need to do a reimplementation?
+> Right, the easiest way would be if you can locate a downstream gcc
+> (or clang) fork from Altera or Codesourcery before it was merged,
+> if that still has GPLv2 or a more liberal license. Reimplementing
+> the functions otherwise is of course annoying.
+> 
+> Adding Chung-Lin Tang to Cc, they contributed the original files
+> to gcc back in 2013 and may know a copyright holder that can
+> provide a GPLv2 compatible copy.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+You're in luck, found the old GCC patches still exist online:
+https://github.com/openembedded/openembedded/commit/77c8a823d4490619a247b0d4c0897761003acf98
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+They appear to be GPLv2 branded, hope this is of use.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
-
-[1/1] minix: restore uptodate on bitmap buffers before redirtying them
-      https://git.kernel.org/vfs/vfs/c/71e7bca183fb
+Chung-Lin
 
