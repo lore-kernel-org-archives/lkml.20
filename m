@@ -1,101 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.178
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792605217;
-	b=bXVbUcxdnhBRnyzJFjb/u27IiOyDtZaM7/Hm4dssaB9p9L9CUWv5DX677Gd19bKlw/8v
-	 UHf1PvT5civwuiQCRAlzV6q4Gg2scHIq5u4OLr1q3BBqWQGC9eSp0m5eNx6lEr9M8/J/p
-	 eyFy6nAX91s1hpsVCb/3vdiMUrQiPClMJcyLbO/rgAsXF+HuQjthiW3qt75p/qLnIRlLp
-	 1+LNc+z7U5Dc1lIg8eS+XVZi8czWv2zRU9LIoE4O2plcV4XYq8DIM1pERYmiZ1lAiZu5K
-	 oLNvcdTylsQ/F1p9ZEyRdsS4MyrnbZIeDCahNZn2KqCUD+Mnfo9dMdwMUvGdh9d1iMA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605217;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=HRzIKbKLO9ua2/xR6UHeXwPGuH+fej2x2QAgvQV43mY=;
-	b=V6veCD1amBpgEbcTVivZGdPZccfjttmiydRL79y5PA3rJdHwgsl7KfXvaH5wGQJreMir
-	 4vF+beITexDVyJ37GBoLHVOyacykX73W3ybIx7/2t1C8Vx8zHZO14jUxf4sM8uShtt6Kd
-	 mWjWbWca5kMHKFfH20e7VPoMar4SERWsVHFWaU5gL1Sb9S/zVLLpE0lk0tzDLJBHncAnx
-	 bmyIksWJU3tLai1x8rITsCszrDom7LmooHo3P+i2XrmPncXAQdkb8ibFH2qdS/MtSb7rs
-	 4m3dZL0mncrQkL4nmNAdNdG4oCcRcBHqbT6vZNGAgMzf74JYYIZh+dZDDJmLToURY4g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bbx+Yu4t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.178
-Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792605236;
+	b=a5RsQKjLsiAJWtMwTpdzi8Lnw5/XZiQEE+0iNEL8/ymm+ktaPoUdoFY2Rrvam513evI3
+	 tlJ94k2bKfdOGwI7UjDh6qSMQQc0RVgdsrXJBi1DeclaLX3oq5JeMCU43F0/54vZGqkpG
+	 TkOoXBK6nkuZNBXStGFjo+wnnSzXJTwEseVVFlO/EvaveFq0LIQ4Df1Ok73McZn1xP80L
+	 F/lBf7kEoVqGZmiGrEX2jwFPbZACmPjp5EjGQYC4VXoFlr54eZntrAnMtVAGss73koIef
+	 J0RPBn6vPICzj9NeeE1FtY4On//0cZNRLVONpkfjBrPAsho4ohyUT5NYwX975FFPWrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605236;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=iyhyqr2sIvyUveTwlNQZm7/cIKSzRHz2dDCNINGz108=;
+	b=fsPmhGMh8Qr3Z7gABB+uDMX+Poa1QURomrs2FzkZSDipD6oJee1qw/3SqUiajKrHoTsv
+	 nAbanFuJmS7/EbPTG453hkPlJcBrHvbaglXatH6Yno4OFyeppC0DBZYaNm2Qmv20wzvUk
+	 Golt654PRmN3GLkGrPM+43rqoJbR1uQ2AtwApfLaTaZYejocFdc3kPei2eDFAU71rlZoB
+	 laO0TM0TwEopL3lRDqGusypISqs32s4pwXkWLb6h7NQ8MWL/0xu94d6UT8S83PRI1BwF4
+	 dYAdUbr9Y/RPo2XMZkqUmQ82wO7qZh6NEtzu8krhJ572EV6cDatS/tK9+FWWB/OKZsw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=fastmail.com;
+	spf=pass smtp.mailfrom=fastmail.com;
+	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=sjqo+YWU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=GMBY6wpk;
+	arc=none smtp.remote-ip=103.168.172.158
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4876A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4876A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51598606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51598606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bbx+Yu4t
-Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cd5e6f0a22bso417364a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:53:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792605216; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qbt7JlFQUw91FTsMKI8IGqHvNyZauPfx4eL/TCpjKLEC61dEG+LxleREqy5A1o0SYz
-         7fZV1DbjT1VMlpJiTuWh1d3a4MMHwwXmlvgnUHl1ZQMYuP1bvMBwVBB4qV8qKNEzl06l
-         2pcq9g/34h9d826epQ6bNmQ08p9GIqpyWn9Tvccb5ezMQ9TViYREtFh/LlUd3S81dYuT
-         PAmRgbeauR8qpKPhgicuoBkmOTlw4Ai2Z5SG4AR4UYY22wKx6edWPGb0I5fwgPWisnXE
-         xrMCJgQHW6kmpLmrvMy7FGtIP52W5CfiZnn67ts8JsmLzrGFHYsw+SyJKo2QbfyyUhrZ
-         F1Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HRzIKbKLO9ua2/xR6UHeXwPGuH+fej2x2QAgvQV43mY=;
-        fh=DoVKVOjeaKt/3zlgwlENUKAeS48kTWAoPhhQz7QXzyM=;
-        b=Xm3HYLDMkp2hF5o01egGubux+P85SZQbMkh575rdefsUvfyIcF5iJiXUdjgf4V+b9O
-         gKs7A97sg2zka7ztgMUztV32m5/Wv7u41/cJ6LwkFQDpq+8anhBib2I/k7033RAQtyus
-         XgwUxuhhYatpiSwX6pTNOyP/BKvTScnkPpFNoZcd9W9oKgUOPWv+/zyzxg9dspoUeA+n
-         XMwtXuEolz8pPRb9t28onBvOXwemghBhu9RxjcD+qOdRo+SaYRCApadK2ducXXVAdGIF
-         yPqdKwFDp2DCoc198gs+iTIWGeMbqpYjaTudcfNGKLS9AYk/eFntIyWh7nGzS5Id5G5D
-         /ZNw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792605216; x=1793210016; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HRzIKbKLO9ua2/xR6UHeXwPGuH+fej2x2QAgvQV43mY=;
-        b=bbx+Yu4tyXLlbw4MnlGLTvddW1yf7vyK8FTcqgruyy9PZUNHGwqV6UtNX8F5po3in9
-         wLR6thuruF+xn5xbrbi4KJtXndc46ra1yeI2RRCvABOrzb1qbuj0V2eyRLPapvaEg9HW
-         8/4Pw3rVD/HRGHLXrjgBoc6MXDKiqBzBCeDchiNen2q5Z2aGwfzoPtdYW9fAoa3RuMq9
-         AVm3AA8ZB80Jixd7Yxbzl6uqA9QARcfd64L/0KppQEZMbjIV1LTBqwoTo79Q8o2wgurA
-         HDJTKkOcWyCXcB+0jd3gnzpn/iu5m4sX+gw+rLwcnUFYB+yyh+O7uZ3wfplsV9eKat6+
-         ceaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605216; x=1793210016;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HRzIKbKLO9ua2/xR6UHeXwPGuH+fej2x2QAgvQV43mY=;
-        b=vJAsHZJBPu/YQ4mR7+UhdiFVUjrMlXF1T7WjmOX3I4Wrc5pSWed7TkUQHj3AEvHmRW
-         7eE5NfVDjT1jH4YLu9dIEP1LL5dCD+Umvr6BsgyxzUVcZMJHJC81UdunOH843cazCiG2
-         0clpGDNupyXJRB/3F3XcA0mgLE0GXOucLpemqGCeCy5gnYAN0+tm4Div9PlonGD8t/6d
-         hmE78nXXCCmzWy/37Fh6LUAiY7Hve4axL1gLaWyHIs8y2cwsfkiND/AS4UD0b5psuYq7
-         ushRuttGGj4Mm9vUTILfoWciGXzAXWBDFMAkj6PaHKkbf3Gs59dR0owm7kFZowOJ6FUR
-         OytQ==
-X-Forwarded-Encrypted: i=1; AKwUvByb+CTSIJyiciPZp/8KDnMdO3zUOYuMIl8b/bA8aX6RTDdrFF4LUwg1xgDjIs6GOFjOFJsNfXIDlm+7Oa8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUzsrJbbdcQK/b4jhTAIqkIFFExO7AwPa7lDYEZflf1sBEQkN+
-	EcQXQW6ipEaWB+B8A65cOzy2SS4AEpt53VSvm5Uuu47mvyVaxrw6ZiTN+0fkx262N4IYAcxjGDI
-	oGYWmFq3cu6g9aaityDLJC4Y9ObaC51E=
-X-Gm-Gg: AYBFou1fgvvGFgVJgtaM6UiQ2xUG8iqzND3NLCYfmCsVcSU5WiZoEVXxrup5PqbeWcM
-	CwDeooYAdymVHRkp6FVkbtS2aU6Pk+yS8IX2Fm7bSx5ig+C0AGzZgQQIa3oPF53MxwFGLfYK1kc
-	qKSVa8kC5kbk/xEIGQcmtWvdtVMbCqBPwv3mREUwJs12daySDSc0Cg5brV3DXiXbCDq+VT+qWPL
-	KnGOonhSE2WqEQ2mC9hlh/e93fnd0h6aHoMxfBMCAUqXiqYNtpGU4Raln7BkW74sjLVFU6hTvFn
-	wIXze9rBUn5rAz/jHwGPVC1VKFm2oy295D6VDYxWZUNQUfV2slmnxZ6hPA5iUNEOagDW4UjNFwP
-	1IHBFmi/7zfegnZ5cY4iYKXdH2jsQBQdmJDwNmZetcPQlqWMQLJffWZQMEeq3DvLTnAWlurYOqh
-	0wGbZCMMt8YqvTPVXzZQ0DuT17azpDGV0I7yG+SvyFEmWFMVwI9MA=
-X-Received: by 2002:a05:6a20:7486:b0:3dd:85aa:4524 with SMTP id
- adf61e73a8af0-3e287dc99abmr2330743637.31.1792605216458; Wed, 21 Oct 2026
- 10:53:36 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=sjqo+YWU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=GMBY6wpk
+Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 640CC1400079
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:53:55 -0400 (EDT)
+Received: from ams-imap-15 ([10.64.2.35])
+  by ams-compute-01.internal (MEProxy); Wed, 21 Oct 2026 13:53:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1792605231;
+	 x=1792691631; bh=iyhyqr2sIvyUveTwlNQZm7/cIKSzRHz2dDCNINGz108=; b=
+	sjqo+YWUcxyEgbDOlEzD24NF308+X91Wpjbdly+YY71ASWm0DCopp/wIc36UqmZM
+	cm5GpkFVYgkexnCzyaG44d+b13ChozPujXZSb2jVo5BQ1rP7PXoTHHVVH1d25xEO
+	+bW4OaFyW9lDTsT5MJy7qXKremzYT/5+fv0UBmKwz2UkHJMNwsflxt5Xa93Cyz+o
+	o8Fqo4Ask4/aTQwhe9PyqDaKS2pFtX44YbfAYE1ZtgccC/kwCyFWi+l6Bh5PcL6W
+	VqioxRuQ9D4DofHlZO/2IqS/pe0ZAYXqF2Odi7VoXn4LA1bAmKHMkQtZ8AT9XsaP
+	IvgKMOACumXuhBldpVAvxg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792605231; x=
+	1792691631; bh=iyhyqr2sIvyUveTwlNQZm7/cIKSzRHz2dDCNINGz108=; b=G
+	MBY6wpktoq21lnJIFmt+O3J1Egd1ugD4tngege9zvd8HC0a1OHw+ujKl7enEa30B
+	1bmPvqy8ESNTrp63S53crKpDqyMUvFFrA32lBZs8MZu7zwf6+nf11Ug4WqhxpWJn
+	F2DqBYNB2vIVMAQJRQ/9aHk3fGNzphQyu6tN7ycssAEResIOyqJhKQJ4qvy72LmQ
+	9LDay5teb0s8Lw0mKmMlhPTL+vWgnqLy+EkCCWL0MBlSJOIncZOgwG5cJeExyVsR
+	FdIzGRBXml4ADDw/JpH7gkBhrYBaXNsghVYVGxNJm+VPndKdjiSBlCBEVIhWIwUT
+	rJEiR2qs6OeTy5C9gUV0A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792605231; d=fastmail.com;
+	mf=PGtyaXN0b2ZmZXJoYXVnc2Jha2tAZmFzdG1haWwuY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:QI+zwodHbu9RCKjRqJVZXEfRNYWWIOytT/nETHcGGmLp5NT
+	Q4WcLaTSiimvMU7KPgXM23rO532E4XRTK8M/Mi/31j3RJUXNTv4RYf4kkVmR+SzU
+	hNnoq9LgTE7vTFtX4QzzQgZCeo8P3steujc2w8zpmMkzf87MyJgJGj6NfvwGiVNz
+	gcy3IIRjHMwlF+UqbPk/Qbc+cnd5iYTD5/Dgf9RlyvHukY/yBp1ntRiD2ndh9VUg
+	HiosIPYleLhK1wyY+Ezx6umJK6hpwjl3+eumzBLsglEjH1nDFmxoEey1iVL3wczi
+	l4CS2Ql9tLVH2LOD9lVckcNEXFDWjIrJiIMC4+Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Gfk8HaYt9sXXdg8fqebKLoCH83qU8ZOing14jSaOBd4=:6Mn8aSjj+5lVv+rAz6jw2sGIPleHl0jioqHlqJUTcfs=;
+X-ME-Sender: <xms:K_zYakVrXXdR2ZJL0RH5KYX-clOuNIs3PEsfiwpbyb8fZIDssYIgNao>
+    <xme:K_zYajZ-UVb6Qtmkd9NwLYh4VKeWMgzyJvO6k9g8QySJBGEYN4cRKWf8lxyn1NHbB
+    hxVMAm4s3z_qu5f18bVyI-wyhTFvGTDq7gUqkI1kDHaUtZ7cMIkPng>
+X-ME-Proxy-Cause: dmFkZTEB6rLro/1tgEdPXnmJoqMK/QE3bhUi0AT1rKDMH11z+uTbCZnLNm8wozRp7uNqD0
+    J2pNjnsedCuCEIW7D2RvyEXedRKzx5tktSbD5i+oJr+VcJNdlL2DnOYETiKiOuN5Ia4xFF
+    4G+kRiU0gKV7gzUEpTWufIPAr12T6vYss4QzogH3iQngCyfaPSxjufCjKmfpVlBPCFB/Ht
+    X3ixhjMtiO5oanBSPymM+GeYoDRHCcKxSQFXg4Al0JtTXOXa+DyKmN46YYC3O/GAfNA84S
+    frXcfCfSXBqTosHgXKaz+jOeLmrjmFlp6OS0qTobvyNmWypVd0JSDngzIKH6V1YWzKkVG5
+    /MaSlUbTdo1JIAdcvaFs+QjYU23K4yKoo/ez2JMLP4S+jb0kSzqI04YB3HF75aax1gFxFD
+    3SOicqLAJN4paUkAsBsBBhracAzUX4mcag0sSxfNXI5O5Lpz25ZQ6Rb9mEhJWpJaaNNJvZ
+    e2F4IHpaX0G3yfOAP8Ka9Pho55/cX3qGoIwhUGdUG3tqDvLgfZynZCLgvAGLVOZcIB7Qx8
+    sn25X0WMfH/TBLP2cK3euAsZmFFoMLyGQpN2AIgtQgcjekACyo7yIyYFv8J1nNU7B3tcmJ
+    3g+vXzO95bwRLAAo6ZPzhZTIwnb9S7GhR+ihQ0NMJFPgxPiiZXjZ6AGdUP2w
+X-ME-Proxy: <xmx:LfzYal8vXc4PYvGm_AS7aa-_RwCKor90vrFuR86kG14hRnBSzfOdig>
+    <xmx:LfzYajzlHfZ7dQH6HTkk3OPO_bChsdWz-TS1lIl9DEROtG5O1J8ddA>
+    <xmx:LfzYai7e2HW1H8rs1_oBGLGbibRhQXpTuy4qDapZ1OhhUCYNnr6wUg>
+    <xmx:LfzYaq_oxEks_-4JN9t_kG0CeKAB6egxmhFZlT-55Allnw3_F47AxQ>
+    <xmx:L_zYarFvp1m9QQJKtFARS4IG-b4MeOUz3JcecVwtd-4mOhGDHMr4-Kn7>
+Feedback-ID: i8b11424c:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 77ECD22C009C; Wed, 21 Oct 2026 13:53:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,42 +115,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021152455.71524-1-leon.hwang@linux.dev> <DMAO0T9BL4YQ.2B3YU3ON26N6L@gmail.com>
-In-Reply-To: <DMAO0T9BL4YQ.2B3YU3ON26N6L@gmail.com>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Wed, 21 Oct 2026 10:53:24 -0700
-X-Gm-Features: AclHuK8_cFMGa7PixGohqfLm4WTItvsVIneWtEgSW9zyjr0DgVTz99PynKBUK2Y
-Message-ID: <CAADnVQJLcDW5HyZO0GEYY0yWtERkULZxYEQs8hEzG19_WogGvw@mail.gmail.com>
-Subject: Re: [PATCH bpf-next] bpf: Pass extack to bpf_xdp_link_attach
-To: Leon Hwang <leon.hwang@linux.dev>, bpf <bpf@vger.kernel.org>
-Cc: Daniel Borkmann <daniel@iogearbox.net>, John Fastabend <john.fastabend@gmail.com>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, Hangbin Liu <liuhangbin@gmail.com>, 
-	Martin Karsten <mkarsten@uwaterloo.ca>, LKML <linux-kernel@vger.kernel.org>, 
-	Network Development <netdev@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-ThreadId: AuviX-i-bDAR
+Date: Wed, 21 Oct 2026 19:53:27 +0200
+From: "Kristoffer Haugsbakk" <kristofferhaugsbakk@fastmail.com>
+To: "Theodore Tso" <tytso@mit.edu>
+Cc: "Steven Rostedt" <rostedt@goodmis.org>,
+ "Junio C Hamano" <gitster@pobox.com>, git@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ "Jonas Rebmann" <kernel@schlaraffenlan.de>,
+ =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
+Message-Id: <e1b21ca4-fe77-4aae-8135-a25397efee04@app.fastmail.com>
+In-Reply-To: <atfmYYtUii4gWIIH@mit.edu>
+References: <20261020141011.0015d172@gandalf.local.home>
+ <xmqq8q3sw75e.fsf@gitster.g> <20261020152354.165ad128@gandalf.local.home>
+ <83c59078-f6f1-456a-a99b-688eaf56bab0@app.fastmail.com>
+ <atfmYYtUii4gWIIH@mit.edu>
+Subject: Re: FYI, git output messages are being used by other tooling
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 9:43=E2=80=AFAM Alexei Starovoitov
-<alexei.starovoitov@gmail.com> wrote:
+On Wed, Oct 21, 2026, at 00:48, Theodore Tso wrote:
+> On Tue, Oct 20, 2026 at 09:28:10PM -0500, Kristoffer Haugsbakk wrote:
+>> > Where returning 0 means the bad commit has been found.
+>> > Otherwise it keeps looping.
+>>
+>> Is this different from git bisect run?
 >
+> "git bisect run" isn't always the best way to manage a bisection.  For
+> example, I might run a command like:
 >
-> CI is right. This looks odd,
-> but instead of CI's suggestion:
->         case BPF_PROG_TYPE_XDP: {
->                 struct netlink_ext_ack extack =3D {};
+>    gce-xfstests ltm -c ext4/4k,ext4/1k  generic/245 --repo stable-gc.g=
+it \
+>        --bisect-good v6.18.57 --bisect-bad queue/6.18
 >
-> do something like below:
->
-> sock_map, netkit and nf links will probably need the same when you
-> get to them. They can take &extack too.
+>[snip]
 
-We don't have time to do this back and forth.
-So I dropped the series from bpf-next.
-Pls repost the whole set.
+Thanks for the example. :)
+
+>
+> So yeah.  Sometimes "git bisect run" isn't really enough, and it would
+> be useful to have a way for programs to be able to call other "git
+> bisect" subcommands, and have a standardized way to get the results
+> from the command without having to just parse the output and be
+> dependant on the precise format of the human-readable output.
+
+Yeah, I don=E2=80=99t know about git-bisect(1) subcommands but the `git =
+rev-list
+--bisect*` options showed some promise when I tried them.[1] But the
+most useful property turned out to be the most annoying thing to figure
+out for me: how to simply query for whether we have found the first bad
+commit yet or not.
+
+But maybe that was because I botched the bad/good setup.
+
+=E2=80=A0 1: Like for `--bisect-vars`: if it turns out that it is *missi=
+ng*
+     some useful vars then those could be added without worrying about
+     backwards compatibility.
