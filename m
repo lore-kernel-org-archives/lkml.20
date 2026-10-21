@@ -1,102 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792613376;
-	b=2AAEVkpXJMtVLF9dQoExr08nYIZ6ajQgExMy6cPhmIseinDxVIecqhjPCkf+NFmp+OLL
-	 xWboLLRVtxzhUVCOk9BLS7mRIocTRtgfljjxJL731H+mzkY8vOlX7igOYv0hZmqqUr+Xb
-	 6hWk7Hi90wxao8fKFHNBSbh0KrxZYOpnOZ2XVAW+L9odzI43BYo8YCQQxquG7cRb3mLGR
-	 ook0Wwq5xLQxZT7I6f/rpld+ExMHN91vMacLIoVrX4ZlkEkbY3+OQJG6t8aRkj+krDlnD
-	 MtoL8YngFOd4rW3N8x55ri5NJBYshiYsQItwYMCKUO4ueaU8HC4FBnw0JRW6INabDJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792613376;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.171
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792613580;
+	b=Z+0wujU5I9fZCbwnONoiLjh9zOu9EUHk31h2yqbTMsWfh/AsaPseb4Sa2VkuFTKm6Jd7
+	 VJw4cxto0ZkxJ5wiLRHyEgU1Ty2F+Ug2Bf2LIDcDHPjWrk9G2r+banlENr9r3dLD8uokh
+	 Z5SZKeUfzpLSjo0YXnqE3h4pqGqUIpDHTz8Y7ouM1NbI/OSkLd8bLtGoT7DRhDEyUw8KY
+	 om7ytNNMHF1PeOrfEZ0y+2UNungC15UuDPv1e1rTo3oJjtAGqC5BitWzlwJsmAmluttgN
+	 c8+r3bEEYwTFm3biNYmppGTKdetDpyvBpcv73cR/2SrqzuyArjej/Ggz9nPqH+Yqs8A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792613580;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=O50guI93Ux45airAtD4JA+pFiEJi1Sk5OR1DxFRtE5o=;
-	b=GQyIUdzAdm6dGRU9OJpky2yn5uk6IsaF0vw0VUpyNUAxs5LIuARkOCetP48DbR0QIN1O
-	 JpMw7vBvoWYr6kI/bpQO6kgsbbuU/RN75zaE4mXttsRb0yt9s4oJhm5FYMmuFCf2JWNRb
-	 HqDXeem/VecSECn4jxwsIP+vN+ypXfjWRXCmUjLA/fUWcRhvmLYRXS3keCmC+5vKvqUEA
-	 hPGmKvATSviM1tKeioMRp723gn8Nm0dAXfWl/0XzeoXhdPsWWgyDpHHy7bA9mzHlB2PbQ
-	 s5+z6lntdZ8FPjYfDOhua7pf67ryQR5iUmIsbxF8Qf/pClF8a5w/qAg66D7Xx7IKHCA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KlRfFiLa;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Message-ID:Date:MIME-Version:User-Agent:Content-Language:
+	 To:Cc:From:Subject;
+	bh=xVFW6jM8P95J8JHTJGGRvHRkVm4betgGVC2wdYsnKmU=;
+	b=laCVAzLgQVhi9SJmrvxOPLLtUb/BN6QsXfHTCrmyTap3qaFCuYqnyGepYrTt09MZVv58
+	 sMG0GE/bOZn9QYnzggUK7bd28CInlHOFA9y8uXXiH8nUsN1IXogBkV7eyMZHk092bP1Li
+	 EVPSLFh0Uq7TmpFS55HwUY30Xtup7HZEcdDX7/iL8xETsDbP02a7v4ILRXcbDPhXq1ZoF
+	 pY1JJyWACL0EEnz4hKkHC8bEsOu0xyiZJmPa4RXik6GphKH1rtVJ/DCNh4SwSoDBDP4PP
+	 SRgHrHRBCvfmfak6BvTURaW7A+/1yykTAQaw2kf7XC8fs1PeBRE1C38rjwdlMolTGaw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=E4F88Dn3;
+	arc=none smtp.remote-ip=209.85.167.171
+Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com [209.85.167.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6BF606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:09:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D6BF606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A3D606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:12:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14A3D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KlRfFiLa
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e20edd106so795190f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:09:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792613375; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mouB8TzdPMuJCBEpm6gNBES2mROmkk+nPcmpEecdE1KWjfDmhYzK3XuaXmFGfTHDk/
-         3bdL91M+uEhvN0LCJZj9r2ugmaL+zUgz7d/FaUGByhRhaCjW4gbcoEX5PLG1FBNlT/Vo
-         86JKzgUpxjbnCOfyV+eXqiWHBb6KmXotgYD4MdOPNkPmrjYNFDdxze82aBAJLcq0U+fV
-         u4nF6IV7Cpy4A7ykXy/cKUVlHvkGHxZDmf1GyaFbhp4MkO52ntFlvKWIzgVAmTZC8HVK
-         DSNIknPe1SPLOeHEE35z2FlDScyTJ+zyzkbbyDxol0oIHIl7xMYULMbrzDv2iHw53MgN
-         GEiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=O50guI93Ux45airAtD4JA+pFiEJi1Sk5OR1DxFRtE5o=;
-        fh=v06NYWb6TkUSlrdo5A+vrHcQHiUubXAzpYXdOElHCNg=;
-        b=eojX1T6MQGUjZvyp1Y47mXfUzPedX6kFNNVVg4O6DlhWaO2Dy9GQrJCGYThSRdjQ0l
-         UofwKFDbS+CI1ZrcxH5I9nk3ZhFg2Uv1ToCYMgbpf3SP/sLpIiONslbrS3JoF3ON17IW
-         +5YRJv3iQ0rpZxVOvq5W3Uf3t9IVOhcnpRA5QpHqOFVFwLNbC5WpPw7k8Q6h7U9kakIk
-         aU/epa5ZJv+BLZzGKfFbsJZ6dXH0x7zsg03T8lACicR6lZr8gwRxcjMZLMGqNG4D2BQ4
-         rxieSBtsx/3EM2w1ILoEPZ2RLJYhuRVDQ7mX3LuMgbcoMspFJ3IEYGBHyUareIOxKUre
-         w4Ow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=google header.b=E4F88Dn3
+Received: by mail-oi1-f171.google.com with SMTP id 5614622812f47-4ab8cb2a6e4so728182b6e.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:12:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792613375; x=1793218175; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O50guI93Ux45airAtD4JA+pFiEJi1Sk5OR1DxFRtE5o=;
-        b=KlRfFiLa3b2BA/24+xsVVRbd37pDWiqeXFkte91HSpj42216TX9ShMlKnjG0g96LSW
-         O8mZF0/s0o8AnmzwtITzktd6OrJO7CXSwXf1i2r0W5Gny2KblOB15kfe+Zi2egCfgYSq
-         n23BazXI8+nLbp/vRRM7RtRnJc/Qx2OTUcleF9q7oIxBOy6zsEKglfMZi+ZpWaSareKF
-         zdZ05gkhNx662Qb/DUAmX+Pmb/bH6WkBO2f6Oo4DYywqzeBu+IK2LLcw5J1y06GQbD+Z
-         ijSc+pDMgRLzmTdXmiDbACcSh29w1CRAdA4Os0I2n35g18jm83SDa+ZuanQZf9GNG1dd
-         cUSw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792613375; x=1793218175;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linuxfoundation.org; s=google; t=1792613578; x=1793218378; darn=vger.kernel.org;
+        h=subject:from:cc:to:content-language:user-agent:mime-version:date
+         :message-id:content-type:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=O50guI93Ux45airAtD4JA+pFiEJi1Sk5OR1DxFRtE5o=;
-        b=hTNHvOA0wBII0cj5g8SZN8tJPA57jQC2VOEEENfadCskMjtmvgLBNdnA9WCjm6wIc8
-         f7xXI0zDld91DNgdbdgHrZUtGc4KWUU3Uagl3Hz9ww2YuTP8uggWNeLMKMzGr/1MeBlh
-         b6E6sWaHX+kfloI+D27GbEt9S5413bNf3xLUYL7dWRtfCd7DLclJs53BSQsFbFJACN3n
-         dcP8/TdPX5mSKmqxHpe5MAouLlfbwLYUJJllAGpgGdBQ6LLqD7WCAU91umC5L10cgW3T
-         tn929sWghi0x4fJqb5tm6n6r5B3gNQdPLjJkFrR4SOlhVLl0Iq2wxhcenWxqY6+jE+C4
-         6OZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz+XzPrN/cUH2A4xcJEZ6ZQFSUndAH46/VHyA7M1DOerY1l+Rbl48tzeTFEpEHEkidzZYwaOtQLCN4tuMI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHMypuqK56uBoW5EL/lxdshQrcsjkvc/q36KAG/0sIzbIRYD2x
-	mEFCO21P+S9n5UDl71a47Ovk9qdbA1dFYutmiv71RLaxm9Uc+VkyUYu9ub4gvkLNLyOGMaTEvfw
-	wj26EkX98Qce2CB0qb/zMG5b+VH7DKnlhVrGwt50=
-X-Gm-Gg: AYBFou2jjptcYujT+a7Q29uF4/P26MygIJ76bkzMyy8rcmC7dOOY9NVFO2yXkWzYzd+
-	hHkIOKZPda6Xr3tzH49MNj7FJkaO/WGhnwlvUgZpJSiW3JVC74g+qs5oDZlc/Ds7dzcCB+cYORp
-	6LRqrvp4gLdE5jAF83axJtACifma6G5c4xSaQI7BgdhHmLcCwRCD2ciUrtPOppZy6LCfDNWR6Ak
-	JU8bunYIHloKsTrDb3O/gKqMjnHFoGqh2GeMOox0/KDkZZ0i6UbU7ttHDoC8wRWwwIFzliL0Dpv
-	26975I+W/bHr4tvAvtLyvchID61PxjYZzx9IMUX6qU4rjHZGGsVUQu0mJ8xV8EGiWK9N+OKXNa7
-	K9m3W+3j0tdm/2OF5B/CQBhCHSIW5JBVOfegKiWuvL6l9CkXl2hQU5JEyRKvlP+lMcnYRUE4Pia
-	YkjkHhtP61t1FqzlkJ331T3/GR0vWzjtqcvFoar56nifPdep0gAE6Qpi0PAbWXs18YnxCJfEBir
-	5oIUZK7aQ0Cl5tN9yPkEA5UiKhZhWtcmWhURiUvGkNjg+0+zes8eQ==
-X-Received: by 2002:a5d:55c6:0:b0:48d:cb76:548f with SMTP id
- ffacd0b85a97d-48e264cb80fmr5105070f8f.38.1792613374247; Wed, 21 Oct 2026
- 13:09:34 -0700 (PDT)
+        bh=xVFW6jM8P95J8JHTJGGRvHRkVm4betgGVC2wdYsnKmU=;
+        b=E4F88Dn3JkgX6pHRE2BGYX/OAWLL/yNWF4iB6wUNaKFZWr/YTyeYbIr9ePu1EozkDE
+         Zm4lkf7oxG/HAoslNjdJfXx1Ps5m3AHfJPrWsdMC7MjpnFyW4TiLVJwbxvXT63zc3Ir1
+         7wv6lcSLcDbS7pIbhwLElf3Rc6jgnIQlmiN5Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792613578; x=1793218378;
+        h=subject:from:cc:to:content-language:user-agent:mime-version:date
+         :message-id:content-type:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xVFW6jM8P95J8JHTJGGRvHRkVm4betgGVC2wdYsnKmU=;
+        b=xm4yJEu46iXTZ9dJnbA8lMVk6gB5P5ZxHszhbvtuXFvflIa7mP/hc8YJL17UQ2jy1B
+         jftBuUjFm7kcy9a/8HokR9dOJVTZMkTqAxkpY8vL/dYQ/anBgNXii4ol65SIexIhAQO7
+         EjC7vjquHe684MQJKegm2qizzIwD0t8KqG6AKWgCifxQa2K0hoGGxuCp1YXNOeUuH+Np
+         lhd2dEOQ6bdFsA2IJctxFOyMPE1OWseB74fFbid6Y3g6HqMwT3vxJN1RsTUo9bacNk3J
+         1bbVw9kXUAa6OPf/e3jKyq85uoCMHLfHYGNBlM2pui/jmjZ9lDSN8li18Yg0G8tspPC2
+         vyug==
+X-Forwarded-Encrypted: i=1; AKwUvBxU+b+v3QfxIsiM8MoKmhzfhvDcB+ZTszsk0WfRjTjjaieloRGZ34lFCgkMGwHghyFo+9JIE4IOTp+ARrE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK90lnNFuKGgNaTkCU73Nas8ot6D/pLMY/2SXw/xLn4VmSIq+X/
+	tkyCmOpoqdZ39yYHe39+VS6vI3rdxKSzEy9wcMUgAVs1hgr/cpJ7gJpzwcWBaIhpqBH5h9nlhpx
+	SwpsDlSY=
+X-Gm-Gg: AYBFou24IsATuzmq5Jw8NLrxBhqtd4K8P5oS3m5xIi8gMBKLZylsmFOGH51DS7aN4N8
+	PD0YkvwZVnN3SE0Qufi72Avd4opfMWVv9YokLv6gCSPx8K8GbK9o9QKoAhBi3znsICMaQO4ArA1
+	eacCd/9x/fPDjChkyOvklhjZhgCbaJqb/W/XL+UbgRvf8yyTPsG0aQgk0RWO46q0fXPiNQttGMP
+	hbL+usqY/kRzDG4ne13TDUJz1DfNRdLZmkxIhmdrCaPpYVhWie/8hKs23f9JiL4iP/PVnFouMb5
+	fBbicW4rnlEOt36uGvfaeHMimuiLaqztIsteVVYkZQOvwuZackU4zqgf01xYK3rEipvHb6nFVoS
+	JXuk1z2y5x6R42QlEzlc1pAzLQy/wzCQsWL5DMk7RuyFeWdbaONKTkXxY7hutxT4zgLMOGQr1lU
+	ms5hAxP0uUy234TpzCxWb83q8uDWNVeIY3oOqemrr94recKHWSSJK3Nq6qo7SsG7Zrl9kMx/S1t
+	o8gg5lmjgaKpuD6ce5sLVnpN0pv99/ZaW5R5GRzPbO8nuKgTqXfKTJmOmuyxkkD0A==
+X-Received: by 2002:a05:6808:d4c:b0:4d6:92b3:5c8b with SMTP id 5614622812f47-5535d4dbdb9mr2097381b6e.65.1792613577939;
+        Wed, 21 Oct 2026 13:12:57 -0700 (PDT)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b8ba5107sm2820106b6e.17.2026.10.21.13.12.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 13:12:56 -0700 (PDT)
+Content-Type: multipart/mixed; boundary="------------qggjQZhU0idK0x3lQ4VJK41Y"
+Message-ID: <aacd551a-f512-499a-960e-585bce02dd12@linuxfoundation.org>
+Date: Wed, 21 Oct 2026 14:12:53 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,80 +87,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021-remote-tick-proxy-v2-1-07890601a71e@gentwo.org>
-In-Reply-To: <20261021-remote-tick-proxy-v2-1-07890601a71e@gentwo.org>
-From: John Stultz <jstultz@google.com>
-Date: Wed, 21 Oct 2026 13:09:21 -0700
-X-Gm-Features: AclHuK86LAvoxNeyDpbI0M36BqydSzyt0jcF7Bg0qfNtG5N7g-00JeFmid7kg5c
-Message-ID: <CANDhNCptx=Sqyb82XG6c5fQ-nW4V7LA6GxTMQqzfwoE-+q_9Dg@mail.gmail.com>
-Subject: Re: [PATCH v2] sched/core: Use the scheduling context for remote ticks
-To: "Shubhang Kaushik (Ampere)" <sh@gentwo.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	"Connor O'Brien" <connoro@google.com>, Shubhang Kaushik <shubhang@os.amperecomputing.com>, 
-	"Christoph Lameter (Ampere)" <cl@gentwo.org>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: shuah <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ David Gow <david@davidgow.net>, Brendan Higgins <brendan.higgins@linux.dev>,
+ Rae Moar <raemoar63@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org
+From: Shuah Khan <skhan@linuxfoundation.org>
+Subject: [GIT PULL] kunit next update for Linux 7.4-rc1
 
-On Wed, Oct 21, 2026 at 10:15=E2=80=AFAM Shubhang Kaushik (Ampere)
-<sh@gentwo.org> wrote:
->
-> sched_tick_remote() invokes task_tick() for rq->curr. With proxy
-> execution, rq->curr is the mutex-owner execution context while
-> rq->donor is the blocked task that supplies the scheduling context.
->
-> A mutex-blocked task remains queued for proxy execution. If that task
-> is SCHED_FIFO, or the only SCHED_RR task, sched_can_stop_tick() permits
-> the full-nohz tick to stop. find_proxy_task() can then select its mutex
-> owner as rq->curr while retaining the blocked task as rq->donor.
->
-> sched_tick() and hrtick() already invoke task_tick() for rq->donor.
-> Like task_tick(), the remote tick's full-nohz interval sanity check
-> currently uses rq->curr. The proxy owner in rq->curr can have a stale
-> se.exec_start before the accounting path updates it.
->
-> Make sched_tick_remote() use rq->donor for both the class tick and the
-> full-nohz tick-interval sanity check.
+This is a multi-part message in MIME format.
+--------------qggjQZhU0idK0x3lQ4VJK41Y
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hey! Thanks for chasing this down!
+Hi Linus,
 
-Apologies, as full nohz is a bit of a blind spot for me, but it seems
-the commit message gets a little lost focusing on the proxy details,
-which makes it a bit harder to understand how the underlying
-assumption was broken.
+Please pull the kunit next update for Linux 7.4-rc1.
 
-Maybe can I suggest reworking it to something like:
----
-In sched_tick_remote(), when adding proxy-exec support, an assumption
-was made, which was: we're in full dynticks mode, so there can be only
-one task on the rq.  With only one task, we can assume rq->donor =3D=3D
-rq->curr.  So there wasn't a need to switch rq->curr reference to
-rq->donor when proxy logic was added.
+A single fix to kunit_run_all_tests() to return void since callers
+don't check the return value and the integer return type is a remnant
+from when the function was executed as initcall which is no longer the
+case.
 
-However, the full nohz rules are more complex. If a SCHED_FIFO task is
-running, even if there are multiple tasks on the rq,
-sched_can_stop_tick() allows the tick to stop since there is no forced
-preemption of SCHED_FIFO. Similarly if there is only one SCHED_RR task
-the tick can be stopped even if there are other lower-sched-class
-tasks on the RQ.
+- kunit: Return void from kunit_run_all_tests()
 
-This means in sched_tick_remote(), there may be more tasks on the
-runqueue, which means we could be proxying (if a SCHED_FIFO task is
-blocked on a SCHED_NORMAL task) and and rq->donor may not equal
-rq->curr.  This earlier assumption doesn't hold, and the references do
-need to be switched to use rq->donor so the accounting is handled
-properly, and to make it more consistent with rq->donor useage
-elsewhere in the scheduler.
----
+diff is attached.
 
-Also looking I see the comment at the top of the sched_tick_remote()
-function "The [full dynticks mode] check is racy by nature" which
-makes me wonder if that might also be involved here, and worth
-mentioning?
+thanks,
+-- Shuah
 
-The code change itself looks good to me though, so after tweaking the
-commit message, feel free to add:
-Acked-by: John Stultz <jstultz@google.com>
+----------------------------------------------------------------
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+
+   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+   git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest tags/linux_kselftest-kunit-7.4-rc1
+
+for you to fetch changes up to e38f53f0482468efd04397f66bda4648b70ac9fa:
+
+   kunit: Return void from kunit_run_all_tests() (2026-09-02 09:19:48 -0600)
+
+----------------------------------------------------------------
+linux_kselftest-kunit-7.4-rc1
+
+A single fix to kunit_run_all_tests() to return void since callers
+don't check the return value and the integer return type is a remnant
+from when the function was executed as initcall which is no longer the
+case.
+
+- kunit: Return void from kunit_run_all_tests()
+
+----------------------------------------------------------------
+Thomas Weißschuh (1):
+       kunit: Return void from kunit_run_all_tests()
+
+  include/kunit/test.h | 5 ++---
+  lib/kunit/executor.c | 5 ++---
+  2 files changed, 4 insertions(+), 6 deletions(-)
+----------------------------------------------------------------
+--------------qggjQZhU0idK0x3lQ4VJK41Y
+Content-Type: text/x-patch; charset=UTF-8;
+ name="linux_kselftest-kunit-7.4-rc1.diff"
+Content-Disposition: attachment; filename="linux_kselftest-kunit-7.4-rc1.diff"
+Content-Transfer-Encoding: base64
+
+ZGlmZiAtLWdpdCBhL2luY2x1ZGUva3VuaXQvdGVzdC5oIGIvaW5jbHVkZS9rdW5pdC90ZXN0
+LmgKaW5kZXggZGE1MzEyZTBkZmE1Li4zMWQ1NDk1NzhmOGUgMTAwNjQ0Ci0tLSBhL2luY2x1
+ZGUva3VuaXQvdGVzdC5oCisrKyBiL2luY2x1ZGUva3VuaXQvdGVzdC5oCkBAIC00MDAsMTEg
+KzQwMCwxMCBAQCBzdHJ1Y3Qga3VuaXRfc3VpdGVfc2V0IGt1bml0X21lcmdlX3N1aXRlX3Nl
+dHMoc3RydWN0IGt1bml0X3N1aXRlX3NldCBpbml0X3N1aXRlXwogY29uc3Qgdm9pZCAqa3Vu
+aXRfYXJyYXlfZ2VuX3BhcmFtcyhzdHJ1Y3Qga3VuaXQgKnRlc3QsIGNvbnN0IHZvaWQgKnBy
+ZXYsIGNoYXIgKmRlc2MpOwogCiAjaWYgSVNfQlVJTFRJTihDT05GSUdfS1VOSVQpCi1pbnQg
+a3VuaXRfcnVuX2FsbF90ZXN0cyh2b2lkKTsKK3ZvaWQga3VuaXRfcnVuX2FsbF90ZXN0cyh2
+b2lkKTsKICNlbHNlCi1zdGF0aWMgaW5saW5lIGludCBrdW5pdF9ydW5fYWxsX3Rlc3RzKHZv
+aWQpCitzdGF0aWMgaW5saW5lIHZvaWQga3VuaXRfcnVuX2FsbF90ZXN0cyh2b2lkKQogewot
+CXJldHVybiAwOwogfQogI2VuZGlmIC8qIElTX0JVSUxUSU4oQ09ORklHX0tVTklUKSAqLwog
+CmRpZmYgLS1naXQgYS9saWIva3VuaXQvZXhlY3V0b3IuYyBiL2xpYi9rdW5pdC9leGVjdXRv
+ci5jCmluZGV4IGIwZjhhNDFkNjFkMy4uYzc5OGEwMjQ3MGQ4IDEwMDY0NAotLS0gYS9saWIv
+a3VuaXQvZXhlY3V0b3IuYworKysgYi9saWIva3VuaXQvZXhlY3V0b3IuYwpAQCAtMzcxLDcg
+KzM3MSw3IEBAIHN0YXRpYyB2b2lkIGt1bml0X2hhbmRsZV9zaHV0ZG93bih2b2lkKQogCiB9
+CiAKLWludCBrdW5pdF9ydW5fYWxsX3Rlc3RzKHZvaWQpCit2b2lkIGt1bml0X3J1bl9hbGxf
+dGVzdHModm9pZCkKIHsKIAlzdHJ1Y3Qga3VuaXRfc3VpdGVfc2V0IHN1aXRlX3NldCA9IHtO
+VUxMLCBOVUxMfTsKIAlzdHJ1Y3Qga3VuaXRfc3VpdGVfc2V0IGZpbHRlcmVkX3N1aXRlX3Nl
+dCA9IHtOVUxMLCBOVUxMfTsKQEAgLTM4Miw3ICszODIsNyBAQCBpbnQga3VuaXRfcnVuX2Fs
+bF90ZXN0cyh2b2lkKQogCQlfX2t1bml0X3N1aXRlc19zdGFydCwgX19rdW5pdF9zdWl0ZXNf
+ZW5kLAogCX07CiAJc2l6ZV90IGluaXRfbnVtX3N1aXRlcyA9IGluaXRfc3VpdGVfc2V0LmVu
+ZCAtIGluaXRfc3VpdGVfc2V0LnN0YXJ0OwotCWludCBlcnIgPSAwOworCWludCBlcnI7CiAK
+IAlpZiAoaW5pdF9udW1fc3VpdGVzID4gMCkgewogCQlzdWl0ZV9zZXQgPSBrdW5pdF9tZXJn
+ZV9zdWl0ZV9zZXRzKGluaXRfc3VpdGVfc2V0LCBub3JtYWxfc3VpdGVfc2V0KTsKQEAgLTQz
+Miw3ICs0MzIsNiBAQCBpbnQga3VuaXRfcnVuX2FsbF90ZXN0cyh2b2lkKQogCiBvdXQ6CiAJ
+a3VuaXRfaGFuZGxlX3NodXRkb3duKCk7Ci0JcmV0dXJuIGVycjsKIH0KIAogI2lmIElTX0JV
+SUxUSU4oQ09ORklHX0tVTklUX1RFU1QpCg==
+
+--------------qggjQZhU0idK0x3lQ4VJK41Y--
