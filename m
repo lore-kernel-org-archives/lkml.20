@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551731;
-	b=S8VvVerTdGCMJCPFAQXn9WfbBng8O78JWGBUAPvQ8DUlxxoQQD4A5BK4H31CfDsW81Z6
-	 58a2LoBMsO9hCSC/gJv0z20msJixRDhvDaWgQSnauQhS2L4tyIs6mpMMDsH8q5k21Zymy
-	 oBn1l2JdJLWaMWkjJzZZvJ0ym69FyDxpi/liJGh6EKl9VTCbS6SA7HwpyRT7AY2OKhXev
-	 0L9zvyJJS+kqthddJzP10J3miUlLAqW+TfUel3lE4A+XFlRrUFnoBPXhfWZQAISiDnnNQ
-	 5RLuOgTcdT2pYg79kC7UOueUMH30L3DfGOAuAvO69qqNRoKRcIeshiZx9xnY486B91g==
+	t=1792551734;
+	b=k/TBjVT19la8J4w7pJlWqbuYDGqqoWHFeL79FTWTcOrsuXfknsRvme6Fkcexbc5yIbT4
+	 8FOUjy7S21VI9dr0KszCijLXp0vpcjznYgrRtm/WfKTKcAqZHPy4ZI8YQbmbRX2U6vCHn
+	 y8+KwIj/iZWCdUsJlVP00TOFNzmHScCIcqFRG24hycZRKXcGTAOW+8stPU0uA7RBoSZU3
+	 s/dTw1zNZrX2EqcEnM5rQrvRkm8VAsJgOEASG7SF1tBSJqLnXoYdGSTcbXLZsBOzeTDZS
+	 3MzJ3cGefigbeNcRsSVP7nj/nJprE9ZWWAgnWwt4c4PTbafrjCwXg7TNdWToeRoVRfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551731;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551734;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=ttCQgnuTfkTRykr2I2ffC9sly05P32gI/ZHKSArbVBw=;
-	b=QzEmwUqKLDNUR+hAL231Z+iDO0rMZtTGAcXEmgQjjDMZSAuM/DYasHWSoZ7THSNQ8CGH
-	 1+2FiygX4TmIGbNuKHbKBX+9hx/xWgy0S4O7zpRpS+pEL/fxysibK7ajdM/KXZ9FSaVXS
-	 plcGAvWFunRvqUbU3vd/XGZ/9sFumH7MqalGZS3K0xqI9c/kc+9B/eglvh4EcbiJcnphF
-	 W3vtE09Gsmw4tTkAs8Hc82yvBnL8nPLbFLpMsrjxmsgQzw1xJTNtH4+4Z7NIpP3Q/qTOt
-	 fH5MNarqoBAbGZlwZgoZK4hRwmWlzjrOW1iLXH1AuXezdHvOeVMRTWDc3MrzduQgwXQ==
+	bh=p4RNd2i8xpZ0CJfOEJKH1RTYHzI0AXnVPwuk8UaUecw=;
+	b=qzZs7BYFfV00MvdCUyDGDreZPcRElzq1q0hT4hwDWaxDGWEMOe5Gj+rHAq8ipSqBbgKr
+	 XvwjC47dHHJY/Q68nqLUJjtMhb71GEkE7cNFhqcHYg5jPjd1NOaa6V+R7NlBTGmMyJjHD
+	 LIUuXtTFVZrORCV1UbRlI1uk/bvd43rfO1a6gZQ4Q0YivaW2J+6H06wnF+8kX6TdbCMIf
+	 Z8wGPxWjKSNXPrUExBHI0OBV19Q0mN5ui36t6quBtvtvRq1dp1Yf9xZkBiLdYfX4xpKA9
+	 U8qu+T7aLl6S89WvR4m+0Rj9g82PO8rFZaMUqamtvAYEgyhJMd7szslq6U150cL09nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nexthop.ai;
 	spf=pass smtp.mailfrom=nexthop.ai;
-	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=NkSIyIey;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=X8kWAAgG;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE62606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:02:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CE62606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44484606A32C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:02:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44484606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=NkSIyIey
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so453900eec.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=X8kWAAgG
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35ef6b49813so338379eec.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:02:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1792551730; x=1793156530; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ttCQgnuTfkTRykr2I2ffC9sly05P32gI/ZHKSArbVBw=;
-        b=NkSIyIeyj+gr2HD0pvtuTwcvM7iM0lcHLgdMm5mEm0JXvSg3/dCqqiw2MWrIdxHcgu
-         iqn8f/NvDNrkyHqf0OLJNNmqD0RW4tpExkxHc3iZZsWDlwKiHkUsT0Vtw/n+22Qezyuh
-         wa9Seo4Vj7E5OJBbeUGEU8RyqcelCQV1864dI2iCDGgI2Rhtb1068cl3CZjefwifbFbC
-         FvCwB/E9PG8DPzb9unPRzB+EYN8U5IK5LfcXreR2+voJYEqqN6IAy3Etct4lt8PeF73W
-         FTN3IeQeA7JDYyaAOy+LjWoZXjCF0HWNmQ8IdNL3te2KgHuKGQKHXSSQ/+2PebfTs0kC
-         DFDw==
+        d=nexthop.ai; s=google; t=1792551732; x=1793156532; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=p4RNd2i8xpZ0CJfOEJKH1RTYHzI0AXnVPwuk8UaUecw=;
+        b=X8kWAAgGwp0SKv+CFS7ojR51KNSrqnta/qAkbfHkLtuT0riX+O6xGeNfLd/TJMB+kt
+         n//S5DfSTuB3UBax1bjyFY8/IedkMSGEBMUZDVleIyW9E4urbhooEfjcQcrDYB2UmeDb
+         KXJdCDF5wSU1ufbez/VijPdHZeBSZ41H+EOHQGlh1gTl6qIfJv8VTfND/LHVohkMF1SK
+         ScI+He46Fa3sLjoabRoa7RO5t95OBKUFWrkUzn9Xgglz6+Ua2q+pye8dDH5hpJ7ZPO85
+         5wJ+jvaQuRjgGQwXvGDv+8FXxSdf/OLIK6nthEo+ioQZeF+YFfcjXjLPkkSix8CrD0zB
+         8u0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792551730; x=1793156530;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ttCQgnuTfkTRykr2I2ffC9sly05P32gI/ZHKSArbVBw=;
-        b=zTLITFYqDRyC6p2xvgsKOB0pDHyPouRKaFX6r/exiE5peiCd5S/LEATvYbVVwMw3Pz
-         1XSqTP4NKPqoUl5LS0HDlOhKImHKNZLGFCx4AP5EKBoL+ATks0+TQGaX6XNoVCnP+do0
-         /cW/FP26u3nC6JO1pafzJoBtdRzkGQHCAu94uxCpAtcewRiqqYW7XHFCh3bXySgc68oc
-         oWyFIds3hUE25sFDRhNzfIs7iTRGSkSXPiS3390kiWd/twIBbL/aCNH1dMMNwD4x419K
-         sTpidycXadTnTmpz7qun1fnT/OYtGVH8VOLFgJkruPqD/GMfE5XxYoAcY3BmYsiS7bbF
-         +JhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByCePA78VpolPKYrGMUfI7GxelPjRBuokmYpl8XnEzonE9oP4SwLTEsfit8kQyo2ToIWZiHT5dLR3mhyzc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIadwRH9aMOWh8LVPtb62GpnocyVU6GGx8j/gotzTqGvYY2c5VQ
-	/sHsjzWbs8NCe4JmpNHBS6F+MEfDCs/xxOM81bwvGFqxr5Mk2bu6R8MQTaNpfMEkEl8=
-X-Gm-Gg: AYBFou2AB6dWNgAyoiS9eKYnX1GPXdmCv3SYUS7/eqoZr7/LzFUbQB8+DKy9mWVKI4/
-	5Sg5vWJec3mUgGRcJ3qAaorZB+LD+FbnGGCW/r576DSYTC/N0VZoEzIiI3uq1gn/0XwXmnIAWuA
-	SsBbdsmbV4ttdtC+J/bih3yRB1HF8H8ZPLxYuOTErVaHMCGXB17TcPf5XE5aZa8HEBiOt8B9BpB
-	z7Aod06lIKrcIvCt5k4qT21JN6ON5FkPsTRRAW6gr4phcyzLGX8mUhRltsRuRv5cupabDXMt+rK
-	qOcA+Yq4gaes3/Q3wYfuVMxE3bseYGhKG+Zx4w47mfHrPb/0PU1RYEhDu+L/Fq1ya4OUYAhPZmR
-	YubjSTrdhvHP/0SS2uo5RVOgF2BSHSSie2CH2oavvl0hsj9D4nVQMR1EzFNTqYqgrVgcGxfTAKx
-	hsFYZUd1abkNloIJtYzcG6aYQQojghSltALesSwYnpydL4k+cZ8oxYgK7qWcK+BsQgdIrjXS+i9
-	TGAy+GDikF0uNjY/cmU9wOLGiedGK7i1Ig3rX+mzeng1Z27JWS1ZjAB1d4=
-X-Received: by 2002:a05:693c:42c9:b0:35c:e696:2d4a with SMTP id 5a478bee46e88-3674d347be7mr1062638eec.24.1792551730166;
-        Tue, 20 Oct 2026 20:02:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792551732; x=1793156532;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p4RNd2i8xpZ0CJfOEJKH1RTYHzI0AXnVPwuk8UaUecw=;
+        b=K4PXcWJG8GsnNKkrlcvl3Er03PbIMEp8PmA1mQekxdBWw3hVHbAwboHMnhhtv+AnvM
+         R77xebBs4ZGsr11Jh8YqT5HIircaH2pwVQsI1fKPqhIkz6QCctYXxHkFN39B7/LvJtpW
+         xOLTgCLcd4ploaMY8zAtKhCxhmrJgEXu5Ek3H2vwQL2dxuklIOoao60FqXlRqw1mlIZw
+         YRK26rhTLe0hVuyTkle/BGz6fLQUOgeGUxtBZ9JNYlo8sGiGUIlJsCvYQP+Ly+j7pzNQ
+         8zDLSBA5UjKLS4nxWRuy5fMBYD6XJLEv6YAvki9LhRIkv73tZ4VZ4ENop18iRFWPdM5D
+         BQcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy2Lddgku239xSpaB/xkhqMWrdEv44gGRddZkzNvdP16EwWsVr4rNI0zXuTI4r0l5Cz3VLRLhSQX6n6NVw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImY0YbFKXE3JmbhRsjVh7PItMCQM3WAVJEa5Jijvi4TMk8Ui5j
+	DOIYeh4pBOV2vO9rW/r89fRqnRk3buJSsuW02RR+h8Ho/MG2zRcOWEeo6HDOoBCta8o=
+X-Gm-Gg: AYBFou3W2lNPcAgWfM9UrNQDSzsLUoVpWzJdkpt96Qg4FtQI5dnzn4FH2CkdXAvbEP7
+	7lZ5lK6BOO1FEsLRqqmf/xTrwp2lRqZhbTqjIv3951Cg/3v5ARINUMWGWPhNXboCRhtdYU7jki/
+	i/X6gddynZHanFe03/zmZIoz4eo6leCrusZ2FdbyYXKQmHlZ7Eg826Jtr6D45Gj6AP+S/q2pMnP
+	BV5DMMLilAUJlI4vD3zIkTMKwgcCsny88sl5v8dxRmEJNWbbGRWMmX0/jBBxXXmOcjVMGsFEJpY
+	zVcbGm0kJEFwZABDBhh0TvWNsEMQ6+xGSH1JSli/4kM+jY6HCXWsYqrgMApecv62bT6lzpEUl9N
+	OqKGXvnFuWeEQ3QSAnBoJRjtaGXoEKx9TBbQH9d6I9DUgoTdkZEVeUO3f/cgxich6Wq116mwfIL
+	saZPgQN/aFaMpAdR0SpN56HMhBLrAl68b2iv9VkJEe6XeZAOCkwUOuNLeHDQDEi1lWjHPERK/K6
+	E1AWEpR1HN40jU4DGPGWjvtVrxVxuu+W9dfEut2qHwjLlrnmPU83gNyeANm5X84cQdar85uCcnf
+	YiaQ
+X-Received: by 2002:a05:7300:80d6:b0:35d:2c2b:215a with SMTP id 5a478bee46e88-3674f11d996mr1956331eec.35.1792551732270;
+        Tue, 20 Oct 2026 20:02:12 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm4436294eec.2.2026.10.20.20.02.09
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e15353csm4436294eec.2.2026.10.20.20.02.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 20:02:09 -0700 (PDT)
+        Tue, 20 Oct 2026 20:02:10 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Subject: [PATCH v4 0/4] hwmon: (pmbus) Support relative VOUT mode, add TDK
- FS1412 and FS1525
-Date: Tue, 20 Oct 2026 20:02:04 -0700
-Message-Id: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
+Date: Tue, 20 Oct 2026 20:02:05 -0700
+Subject: [PATCH v4 1/4] dt-bindings: vendor-prefixes: Add TDK Corporation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,11 +94,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XNTQ6CMBQE4KuQrq3pawsFV97DuODnVWoCJS0gh
- nB3C240Gl1OMvPNTDw6g54copk4HI03tg1B7iJS1nl7QWqqkAlnPAHGUlrfGtvSrikGT7UHCZz
- qSkohFagSMhKGnUNtpg09nZ/ZD8UVy36V1kZtfG/dfXsdYe39PBiBMspyVBgjSpRwbHHqa9vtc
- 0PWh5G/GJx9NXgwhMiSUuQs5fGnIf4bIhgxVDrhGYKo1JuxLMsD7uddT08BAAA=
-X-Change-ID: 20261008-hwmon-pmbus-fs1412-fd4434717c19
+Message-Id: <20261020-hwmon-pmbus-fs1412-v4-1-27ece4e43d04@nexthop.ai>
+References: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
+In-Reply-To: <20261020-hwmon-pmbus-fs1412-v4-0-27ece4e43d04@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>, 
@@ -109,134 +107,37 @@ Cc: Lars Petter Mostad <lars.petter.mostad@appear.net>,
  linux-hwmon@vger.kernel.org, linux-doc@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792551729; l=6068;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792551729; l=969;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=P635YMoH6bcSwkiW3N5b1e+xtcoxXztYjq+04Gb4V/I=;
- b=XuCBz2zBUSKUoFlpM3baIQQGX6rPiS62ng0fT0DhXGULDWjrrfyLUU+zI8aTKeGO/rfc95aXF
- hT4Tk2cp4QzCU1fzInufGyn9MHsE+kVGR7ob2ekGIeZmaS/idUDnY+x
+ bh=lNuNT+gSUpQSUsDkNUaVAjvOE/3h1o85CLNGkLI/j7o=;
+ b=rko2sOAQYQ6YKmixqBcMieuEhqCema6ugmvbB19RSjqYLJ6NH3/YxenCEWl9qOkYndCiSaPqT
+ niDkVQkKgGdD5uBHGU+odEvuQ/LIugQuoWlYefGKh2frpz7WWdi9J/6
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-The TDK FS1412 and FS1525 are 12A and 25A uPOL regulators with PMBus
-telemetry. Their VOUT_MODE is read-only with bit 7 set, the PMBus 1.3
-relative mode: the VOUT margin, warning and fault limits and
-POWER_GOOD_ON are stored as fractions of VOUT_COMMAND. The PMBus core
-takes bits [7:5] as the mode and rejects both parts.
+Add the vendor prefix for TDK Corporation, the maker of the FS1412
+point-of-load regulator.
 
-v1 worked around this in the driver. As Guenter asked, v2 instead
-carries Lars Petter Mostad's 2024 patch adding relative mode to the
-PMBus core, rebased and fixed up, and the driver only adds what is
-specific to these parts.
-
-Patch 1 adds the TDK vendor prefix, patch 2 documents both parts as
-trivial devices, patch 3 is the PMBus core change and patch 4 adds the
-driver.
-
-Tested on 7.2.10 on a board with four FS1412 and one FS1525:
-
-- VOUT_MODE reads 0x98 (FS1412) and 0x96 (FS1525). Writing it is
-  NACKed with STATUS_CML invalid data, and it keeps its value.
-- Neither part implements PAGE; reading it sets STATUS_CML INVALID_CMD.
-- The output voltage limits read as the raw fraction times VOUT_COMMAND,
-  and writing them through hwmon stores the expected raw values.
-- With VOUT_OV_WARN_LIMIT at 1.5 the FS1525 sets VOUT_OV_WARNING
-  against its 1.094V READ_VOUT with a 0.600V VOUT_COMMAND, so it
-  compares READ_VOUT against the same limit the core reports.
-
-The PMBus core change was also run against the board's other PMBus
-devices (ISL68225, ADM1266, XDPE1A2G5B), which bind as before and whose
-regulators still register.
-
-The driver registers no regulator, so the relative-mode regulator path
-was tested in a VM instead, with i2c-stub emulating an FS1412 and a
-test-only regulator: set_voltage clamps to MFR_VOUT_MIN/MAX when the
-chip has them and is unbounded otherwise, list_voltage agrees, a
-voltage that encodes to 0 is rejected with -EINVAL and leaves
-VOUT_COMMAND and the limits intact, the limits follow a new
-VOUT_COMMAND, a non-relative chip still clamps to its margins, a
-VOUT_MODE of 0xff is not treated as relative, a VOUT_COMMAND of 0 or
-one that decodes above INT_MAX mV fails probe, and a limit whose product
-with VOUT_COMMAND would exceed 64 bits saturates instead of wrapping.
-
-The FS1525 over-voltage fault is an analog comparison at the feedback
-pin, so with an external divider it would read in feedback-pin volts,
-below in2_input. The part cannot report the divider, so the driver does
-not expose it as in2_crit on the FS1525, as discussed in the v1 thread.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
-Changes in v4:
-- PMBus core: reject a VOUT_COMMAND that decodes above INT_MAX mV, which
-  was truncated into the int cache and could wrap to 0 or less, at probe
-  and from the regulator (Sashiko)
-- PMBus core: clamp a relative limit to +/-INT_MAX before scaling it by
-  VOUT_COMMAND, as the reverse conversion already does, so the product
-  cannot overflow s64 (Sashiko)
-- Link to v3: https://patch.msgid.link/20261020-hwmon-pmbus-fs1412-v3-0-51df629e13d7@nexthop.ai
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v3:
-- PMBus core: reject a regulator voltage whose VOUT_COMMAND decodes to
-  0 or less, which would later be divided by (Sashiko)
-- PMBus core: decode the regulator margins with the register they were
-  read from, and in relative mode bound the output voltage only by
-  MFR_VOUT_MIN/MAX, since VOUT_MARGIN_LOW/HIGH move with VOUT_COMMAND
-  (Sashiko)
-- FS1525: hide VOUT_OV_FAULT_LIMIT, so there is no in2_crit (Guenter)
-- Link to v2: https://patch.msgid.link/20261020-hwmon-pmbus-fs1412-v2-0-3396c3a08251@nexthop.ai
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index ba2002969373..a7c484d1113b 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -1680,6 +1680,8 @@ patternProperties:
+     description: Shenzhen City Tang Cheng Technology Co., Ltd.
+   "^tcu,.*":
+     description: TC Unterhaltungselektronik AG
++  "^tdk,.*":
++    description: TDK Corporation
+   "^tdo,.*":
+     description: Shangai Top Display Optoelectronics Co., Ltd
+   "^team-source-display,.*":
 
-Changes in v2:
-- Add relative VOUT mode to the PMBus core (Lars Petter Mostad's patch,
-  rebased) instead of handling it in the driver (Guenter)
-- PMBus core patch, on top of Lars' version: check VOUT_MODE for 0xff
-  before testing the relative bit, use signed division and clamp the
-  written value before scaling, reject a VOUT_COMMAND of 0 at probe,
-  update the cached VOUT_COMMAND only after a successful write
-- Driver: drop the VOUT_MODE and limit conversion code, keep the MFR_ID
-  check and hiding OT_WARN_LIMIT on the FS1412
-- Add the FS1525 (driver, trivial-devices, documentation); the parts
-  are told apart by IC_DEVICE_ID
-- trivial-devices: dropped Krzysztof's Reviewed-by, since the patch now
-  also adds tdk,fs1525
-- Picked up Krzysztof's Acked-by on the vendor prefix
-- Link to v1: https://patch.msgid.link/20261008-hwmon-pmbus-fs1412-v1-0-0ae7e5ee4e41@nexthop.ai
-
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-To: Jonathan Corbet <corbet@lwn.net>
-To: Shuah Khan <skhan@linuxfoundation.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-hwmon@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
-
----
-Abdurrahman Hussain (3):
-      dt-bindings: vendor-prefixes: Add TDK Corporation
-      dt-bindings: trivial-devices: Add TDK FS1412 and FS1525
-      hwmon: (pmbus/fs1412) Add TDK FS1412 and FS1525 driver
-
-Lars Petter Mostad (1):
-      hwmon: (pmbus_core) Support relative encoding of vout related commands
-
- .../devicetree/bindings/trivial-devices.yaml       |   4 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- Documentation/hwmon/fs1412.rst                     | 124 +++++++++++++++
- Documentation/hwmon/index.rst                      |   1 +
- MAINTAINERS                                        |   7 +
- drivers/hwmon/pmbus/Kconfig                        |   9 ++
- drivers/hwmon/pmbus/Makefile                       |   1 +
- drivers/hwmon/pmbus/fs1412.c                       | 171 +++++++++++++++++++++
- drivers/hwmon/pmbus/pmbus.c                        |   2 +-
- drivers/hwmon/pmbus/pmbus_core.c                   | 141 +++++++++++++++--
- 10 files changed, 452 insertions(+), 10 deletions(-)
----
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
-change-id: 20261008-hwmon-pmbus-fs1412-fd4434717c19
-
-Best regards,
---  
-Abdurrahman Hussain <abdurrahman@nexthop.ai>
+-- 
+2.54.0
 
