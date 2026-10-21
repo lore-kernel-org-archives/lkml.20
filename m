@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792589026;
-	b=iqHIDmo84dx/CpzcODjPjATVkVK8HenG7GTU1dZGaf8AbWPS0hFptdcMNwK70gobKP1j
-	 XIBr4u+u8pAzT9uxX44dCr6q3ZJsrnof0iN99L5vozNjX75SAOwZoYX2nAspHTyIQLniF
-	 wa5GsZ2xwx46iONcwWJBB0NpcRNcZ7XuEI9VT+T38u3xWYSJhnyOaOuQxv01jRS3NX28M
-	 3bwMREqb2XgPZUaUF17ukYNXr+9MshIIbvS+5ThIVPLWWgfwqCiG41iLSKYQa07loWBYk
-	 Mm0L+JXuF3HIyDpG94OGowigayYvp1RVXfxkjp5yOt0vUYXooKYv5r/4iB8ZcN6KZ2Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589026;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ENEgiLYyZC1rCnAzeRub371bt2VgRo0VClTgBaXb9SQ=;
-	b=N2C1U8VOblN0jLXbwAoz6k2PGxu7Z5k/fs+et+RAZK/RjysHdfEfnBDiUGzvzPvkoVne
-	 2qYHnI5rfNV3OxCjIKENT0+TK6mkJktHIvtTy7p19fBQ+uIQG1tQORJSesihUQeooP2Vh
-	 tAfTy2klfF48AzLAClcwtzkuGC1oIFrXL4CZNQiBA1vILs/XqH2BnYir+YZXmzoyO3IGr
-	 JZZLfzZtMggG6MZDnIYo9xly2NYQTXTt3WftUbBoWoKDl6IcpJzSG42q1nd1wsRuKzz3R
-	 57/xGV9be7vl4uTB9cyNpkCqutQeRfq7nlCo2YiITeBgWjHOtRoZegFN/NeTmmWSbjg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=yADG1ECr;
-	arc=none smtp.remote-ip=209.85.167.42
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792589067;
+	b=FEsdkXGwFzrfGKJeKAFJV1WC6glkKAB8Yl1zgZNQeJErIKvmvPxyOGnp5nq4p5TzWLsa
+	 gjloSPWYFHqkT4XMD3xlMVfAt8HusTBqDIfPXe7WKcMHgDQhsuEVLEKgn2dF4u4nQqvcY
+	 jh2hBl/6ePnSk7vln4nu1fQqAp7rm6CsZIWgfNypyewxvK19NA4bTPWNJPqCLPRPqlmJJ
+	 0NOc8CDZ1E95WNRrcdDCqQXgrjhAXwjrbDNxp4E3lN542Q89Q7EzPqSegbHEP4IK5Ap6g
+	 5iQcx4i6cy5ORLl4ZbZfj1XWV2LytygPQews3R2sFRJ5iSIqg1e+IRGPquqclJMQ9fg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589067;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=QWlbQkZ52E+yQp842lt7Y7wEmZewPlzvIVyMCCF3inM=;
+	b=Deoi8hNCmtVSSabdsco7VJ9akdRpJjW6kgdkwEsUGitUWEmXH5009onP6LE/14HYP002
+	 6ZLq77/P/4kDEGz/PWauB78rGLB065+t1UP0uPdmjkP08X+ttgOuqJxJNAx4da23CGD8u
+	 EUHMyYatB1/Kv1KdWqZhhPJ/2oTq4f6HYBMpBr+HVkfNnWirc3Ycx3QXHizoIEu1eZNjx
+	 DnBl7JtimHsjpVa/O5lvhawVCnW7fC7bQux/QMtKVehBBqq82B8z8Wp2MO++XBty+/vBn
+	 73bXvI+m2zpTr9kmwits6tJpUJaXy+8s7zSs+j126AiTQQixhwXpffjJhtzCTZIZXig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CcezYVkU;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F1D606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:23:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0F1D606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9A3F606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:24:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9A3F606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=yADG1ECr
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5be4c78e8caso612332e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:23:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1792589023; x=1793193823; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ENEgiLYyZC1rCnAzeRub371bt2VgRo0VClTgBaXb9SQ=;
-        b=yADG1ECr+QObb1QB83+iidmbJj/fobUApZuVsn1YngJx0ZfuONZA+pu4Ic4qUtnpBh
-         GkC63lm5wjgFfb5gMxmSAQ1T2MEC4rYKyNJBBZCRDvoNFfdc/1dnbPoawHNFeIMG3cQ1
-         dwQhoE+vIJAk+03yuCz00MdNPuLCfWEByg6Xqf6mtFZQHE4dGhAcSwxre3Khenao61eM
-         S/YfPRVj5VyHZarKAEdvN1f5q0N5RbEvEKVfa6CCJfAqWlGEaFei/xSUvauLvApvz3jM
-         2mJS5acP+BCEntRYDraaf909OwUFD6CronNRivnX9dfLAoUcbHGmy9cQS/fpdfcJEuVV
-         IBRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792589023; x=1793193823;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ENEgiLYyZC1rCnAzeRub371bt2VgRo0VClTgBaXb9SQ=;
-        b=nFd4X9D5RUuioSpLsyEIENJ7zl0bOJedJElIafdRG0Bt65jWisU2BBXlhwCCQzswNc
-         PlaECMf4lkwY83QWvI5kHeKKIimrjFCx3Hn0sVcTVbhLe5vqAsnUv70L8kD+H1Jcw/Fc
-         QzF6kcgCC1cswzSn/rYV9bCaN7ZEdrOKkcFFmm1k+e7eRz+NQO47odXvQV4t3OEdRPSO
-         2XOZoLRzsTf6lQu/65qJAGo9YyO8fkhI9tOFlBiTwHv2lpjU7CwtwDedH5LK4QIvmstk
-         pnMJzWtfG0xJ4iWEUuhODZv2UwxWuRe5rd2HzW2aTozbEw6eOlcrm+vjnD6mPiB4A2Xx
-         6iFg==
-X-Forwarded-Encrypted: i=1; AKwUvBxQeo91b710VUeXHDhsLdZFyucfgWlGOE/CqnIi14y2YExaP71Ql4eClZl7+6uZkioGnUWR/a5T3I1TvW0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3RcAaUIxXwBr3ozpmOOZ8fR9JgpG0z2SLpr+oKVkEwY+SIBr7
-	psQdZPXx5HjZoVZPMETxp4LM/Mmf3cL7eNrSL3WEW8CU6Ci5H6uPFtpKXWukDsBMaCc=
-X-Gm-Gg: AYBFou2Jr/rpdZkyISRkca0xDfUCdPe7Z6+8Yfyz9ajfcFIhvTZ6BHRp+vlypim9jkT
-	NcUlnRNOIPupR9rdsMiR4TkQwOypTN2T4NGFydm9sSWG8i4r+1UYs0wNdlnqRgXnYjjGvbh4+x0
-	EDAMP++OEBQ5DGxW4mNuJ/sGq0rfprbhBAAeHr9cdzgVHNsdb7TzP3Qyh27CK2YdxbFcOREb6NI
-	7TOAvSHM7G5C1f7YywhRbuTPv7Y7V8X6mOPxKlmyCx6BDMEKDHt6LfqPad1JZ4sHsLu/YoiMRKN
-	1IC8yqlV7uOM18YUm5nIbailL+NT+PKPPKY4I8EN7NqFbNkh3DDDsh2cfZWPIPJeIJOmk2o7cZ3
-	ILyqVeKWhXwNqu6xxggHGDf4m7F93ux9P7iFYJRUGSwwnXF/4Sf4D/FnqV7TtHX/V/KbmL7JgHU
-	OS0u5vYrHhYVWds5U3GWOeL+DO3wUJRxZ11VQdk1oBEPaKz4URPAuc2msNphu/2SZKlwHvXS+8v
-	6R/X+viNI5hSOIHPenge7GKL3JK4EvbqC+NFWTB/Jj0+0rwo9Gz31BBkHzNPU9xe84=
-X-Received: by 2002:a05:6512:3c8e:b0:5be:55b6:7a92 with SMTP id 2adb3069b0e04-5bfa1c2d635mr792386e87.30.1792589022381;
-        Wed, 21 Oct 2026 06:23:42 -0700 (PDT)
-Received: from localhost ([140.209.217.212])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3ac4a4f5f04sm2718501fa.32.2026.10.21.06.23.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:23:41 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:23:38 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 01/20] ctlv: Add the schema language and generator
-Message-ID: <ati8DWgQb23dV4Dv@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-2-jiri@resnulli.us>
- <20261020233132.793b7e97@jic23-hlaptop>
+	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=CcezYVkU
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E3F37200F26;
+	Wed, 21 Oct 2026 15:24:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792589063;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWlbQkZ52E+yQp842lt7Y7wEmZewPlzvIVyMCCF3inM=;
+	b=CcezYVkUzLiwnNxLGAUUxpqDI+n5JSK0nB4Gf7mLeCv33Jzu5KSrs6qBZn4u0t/aVKvXxq
+	fO4tvS1nH7ej79eG1A6HUNR9LU6Upb9WtQPhqqSIAozR1fE9DNG8syRq8TDKzEsGgMPONj
+	3JDD8MdcNKKXZUyJMuHxCtBDZUph9KeXYbTk+NPpjYjox2m0MnTv6/XM6+6FR6V6Bxblx4
+	0PLGOVZJ3JpUqAAgMA2TjcrwWQuvjfNs1EyKIA7eF3hO3lv5M2jeDfziw2JZ9n0BY3aaCX
+	oyTIKBA9WEA6xZ47lszwwKhNAnX9+LRu6T3JOjW8BMRPmHgCR537lV7V9eAgXA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792589063; a=rsa-sha256;
+	cv=none;
+	b=HqudT7Z80DQ5gw8NEicLSkBWCyFWhaHHzTglX+wzQNJY1e0BY89XHKE+VrJK24+tGVWJ5j
+	6xyJ4CyQJgGRjhY2KIadPUYBG/2jLAoEKZLV7G8o+j9/sx/R9EFpjVl4gMsTuId2fBQmjp
+	YAaZs43pFyTrug7vUpQGQnfNMC1s8ejljYlrTaaP/bR2f3URY7iZBDUa6Q6eBeUk1sCMxY
+	KN1B95Ma6vb9TEbDtiaFCYPhDXMxTJwHLyVq5OoWGY+RC8XRtgzTTQM2a/aEDoc6quvewZ
+	iyG48xCuZB9yFPLqzL7XYhIhC3H1UdHaAWY6SgbQ6bucfMrROqHEcQ/C3+3qjA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1792589063;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QWlbQkZ52E+yQp842lt7Y7wEmZewPlzvIVyMCCF3inM=;
+	b=ImbpkUQro4j+/Ubtdeg/U6UvqmjkgGQ8kH5I/dLZKsWJOlhwpWoF/bilniR1PuVyrtHY89
+	YlDXU7QiHxKzLE1z/j5E5GoqXS1c8VStUl+/vDTCj7mvpHmIpW5ytAtpaP1gPLnjQTfavZ
+	x+2gSStk0wouIJwH5FddD/2462HprTKptHVfybWO2J6aYpznEj9PRgVmFmDdXl08S6KnGf
+	ztfV44AHczvZ1+XkWYqjNyKJSX9undGemzwHOEKxZrWATuhPTl6XJTDeR/4Dpp5EVfpnXu
+	uujBoVbF4bTe/4cYErPJxV3WwDmtKjiq/USQKd8pMzxm60rfBoIPTZMWEXt+4Q==
+Message-ID: <ef5277d07f977a82030b1e61ef8db2609a5d6aa1.camel@pengutronix.de>
+Subject: Re: [PATCH v3] reset: core: Serialize concurrent deassert/reset of
+ shared resets
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: shengjiu.wang@oss.nxp.com, krzk@kernel.org, hansg@kernel.org, 
+	linux-kernel@vger.kernel.org, broonie@kernel.org, alvin.sipraga@analog.com
+Date: Wed, 21 Oct 2026 15:24:23 +0200
+In-Reply-To: <20261021030925.3543841-1-shengjiu.wang@oss.nxp.com>
+References: <20261021030925.3543841-1-shengjiu.wang@oss.nxp.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,205 +92,178 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020233132.793b7e97@jic23-hlaptop>
 
-Wed, Oct 21, 2026 at 12:31:32AM +0200, jic23@kernel.org wrote:
->On Thu, 15 Oct 2026 16:50:34 +0200
->Jiri Pirko <jiri@resnulli.us> wrote:
->
->> From: Jiri Pirko <jiri@nvidia.com>
->> 
->> Define the YAML schema and append-only family registry. Add ctlvgen to
->> validate specifications and emit kernel and UAPI outputs.
->> 
->> Assisted-by: Cursor: GPT-5.6 Sol
->> Assisted-by: Cursor: Claude Opus 5.5
->> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
->
->Obviously you asked for broad structural review and this isn't that. I'm terrible
->at reading code for just the big picture but feel free to ignore the small stuff
->in this reply.
->
->My python being even worse than my yaml I'll only say that
->part looked plausible to me!
->
->> diff --git a/Documentation/ctlv/ctlv-schema.yaml b/Documentation/ctlv/ctlv-schema.yaml
->> new file mode 100644
->> index 000000000000..38fd56e6627c
->> --- /dev/null
->> +++ b/Documentation/ctlv/ctlv-schema.yaml
->> @@ -0,0 +1,359 @@
->> +# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://kernel.org/schemas/ctlv/ctlv-schema.yaml#
->> +$schema: https://json-schema.org/draft-07/schema
->> +
->> +# The syntax gate for a CTLV family specification: permitted keys, their shapes
->> +# and the closed sets of keywords. Anything needing more than one declaration at
->> +# a time is checked by tools/ctlv/ctlvgen/lib/semantics.py.
->> +
->> +$defs:
->> +  name:
->> +    description: Kebab-case identifier. A dot is reserved for selectors.
->> +    type: string
->> +    pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
->> +
->> +  family-name:
->> +    description: Name carried by family discovery.
->> +    allOf:
->> +      - $ref: '#/$defs/name'
->> +      - maxLength: 63
->> +
->> +  selector:
->> +    description: |
->
->Really trivial but nice to drop | where it doesn't make sense to
->force line break preservation like here. 
+On Mi, 2026-10-21 at 11:09 +0800, shengjiu.wang@oss.nxp.com wrote:
+> From: Shengjiu Wang <shengjiu.wang@nxp.com>
+>=20
+> reset_control_deassert() and reset_control_reset() are documented to
+> guarantee that the reset line has been deasserted, respectively that a
+> reset pulse has been issued, by the time they return.
+>=20
+> For a shared reset only the first caller runs the hardware op; the other
+> callers just bump the refcount and return. When the op can sleep this
+> breaks the guarantee: a second caller can observe the bumped refcount and
+> return before the first caller's op has finished, and then touch hardware
+> that is still in reset.
+>=20
+> Add a reset_controller_dev::can_sleep flag that a provider sets when its
+> reset ops may sleep. When it is set, serialize the shared refcount update
+> and the hardware op in reset_control_reset() and reset_control_deassert()
+> under a new per-control mutex, taken inside the SRCU read-side critical
+> section. Providers that leave the flag clear keep the existing lockless
+> path, so callers in atomic context are unaffected.
 
-Okay
+I think this paragraph should go first.
 
->
->> +      A named attr set, a whole attr group, or one exact attr as
->> +      "group.attr". There are no tuple selectors and no cross-family
->> +      qualification.
->> +    type: string
->> +    pattern: ^[a-z0-9]+(-[a-z0-9]+)*(\.[a-z0-9]+(-[a-z0-9]+)*)?$
->> +
->> +  selectors:
->> +    oneOf:
->> +      - $ref: '#/$defs/selector'
->> +      - type: array
->> +        minItems: 1
->> +        items:
->> +          $ref: '#/$defs/selector'
->
->My yaml is terrible (and all learnt form reviewing DT bindings which are
->undoubtedly perfect :) but random LLM agrees with me that you can simplify
->this as it's a local definition.  I think doing so makes life a little
->easier for reader by indicating it is thing defined a few lines up.
->
->            $ref: 'selector'
->
->I don't care that much though.
+> Set can_sleep in the reset-gpio driver, which drives the line with
+> gpiod_set_value_cansleep() and may therefore sleep. Other providers whose
+> reset ops may sleep still need to opt in.
 
-Okay
+Please split this out into a separate patch.
 
->
->> +
->> +  uint:
->> +    type: integer
->> +    minimum: 0
->> +    maximum: 4294967295
->> +
->> +  integer-bound:
->> +    type: integer
->> +    minimum: -9223372036854775808
->> +    maximum: 18446744073709551615
->> +
->> +  max-occurrences:
->> +    description: |
->> +      A finite positive count, or unlimited, which is reachable only from
->> +      query replies.
->> +    oneOf:
->> +      - type: integer
->> +        minimum: 1
->> +        maximum: 4294967295
->> +      - const: unlimited
->> +
->> +  unit:
->> +    description: CTLV-owned unit, matching enum ctlv_unit.
->> +    enum: [ seconds, hertz, bytes, celsius ]
->
->These are used in here?  I'm sure some are but guessing not
->all of them yet.
+> Fixes: 0b52297f2288 ("reset: Add support for shared reset controls")
 
-Nope. I just want these to be part of the initial schema as it is not
-omitted by later family implementation by accident. Easy to pick up by
-AI assistents I believe.
+This is a partial fix for an issue introduced by 0b52297f2288, but only
+for reset-gpio, which didn't exist back then.
+
+On the other hand, the patch doesn't apply before commit 8c91302a29bc1
+("reset: protect struct reset_control with its own mutex"), which only
+allows this to be trivially backported to v7.1, with adjustments needed
+for older kernels.
+
+The commit this is supposed to fix, 8a0de73cf9dc ("ASoC: ak4458: add
+optional reset control to instead of gpio"), is in v6.2. I'm not sure
+if something changed between v6.2 and now that exposed this issue for
+ak4458?
+
+In short, do you have an opinion how (far) this should be backported,
+and does this warrant some Cc:stable tag?
+
+> Suggested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> Assisted-by: Anthropic:claude-opus-4-8
+
+Drop, see 1e035297ffda ("docs: remove Assisted-by references").
+
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> Link: https://lore.kernel.org/all/aszDZlJ0KahNwgZO@analog.com/
+> ---
+> Changes in v3:
+> - Drop the reset_control_reset_atomic()/reset_control_deassert_atomic()
+>   variants and their reset.h declarations/stubs; gate the mutex on
+>   rcdev->can_sleep instead, so non-sleeping controllers keep the lockless
+>   path and need no new API.
+> - Use a dedicated rstc->shared_lock taken inside the SRCU read-side secti=
+on
+>   instead of reusing rstc->lock before SRCU.
+> - Set can_sleep in reset-gpio; no other provider is converted.
+> - Drop the lockdep_assert_not_held() additions and the reset.rst / kernel=
+doc
+>   text about sleeping-vs-atomic variants.
+>=20
+> Changes in v2:
+> - Serialize only the shared may-sleep path under rstc->lock (taken before
+>   SRCU to match reset_control_acquire()'s order); exclusive path stays
+>   lockless, and reset_control_assert() is left unchanged.
+> - Add lockless reset_control_reset_atomic()/reset_control_deassert_atomic=
+()
+>   for atomic callers; gate the mutex on can_sleep so no shared consumer i=
+s
+>   regressed and so it works on all configs.
+> - Factor the body into __reset_control_*()/__reset_control_*_locked()
+>   helpers, and lockdep_assert_not_held() at each lock site to catch a
+>   controller op re-entering the API on the same control.
+> - Declare the new variants and stubs in reset.h, and document the sleepin=
+g
+>   vs atomic variants in the kerneldoc and reset.rst.
+>=20
+>  drivers/reset/core.c             | 125 +++++++++++++++++++++----------
+>  drivers/reset/reset-gpio.c       |   1 +
+>  include/linux/reset-controller.h |   3 +
+>  3 files changed, 89 insertions(+), 40 deletions(-)
+>=20
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 38e189d04d09..dd6e47163f6c 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
+> @@ -52,6 +52,9 @@ static DEFINE_IDA(reset_gpio_ida);
+>   *                   only used for shared resets, which means that the v=
+alue
+>   *                   will be either 0 or 1.
+>   * @lock: serializes the internals of reset_control_acquire()
+> + * @shared_lock: serializes the shared refcount update and the hardware =
+op for
+> + *               controllers whose ops may sleep (rcdev->can_sleep); tak=
+en only
+> + *               inside the SRCU read-side critical section
+>   */
+>  struct reset_control {
+>  	struct reset_controller_dev __rcu *rcdev;
+> @@ -65,6 +68,8 @@ struct reset_control {
+>  	atomic_t deassert_count;
+>  	atomic_t triggered_count;
+>  	struct mutex lock;
+> +	/* serializes the shared refcount update with its hardware op */
+> +	struct mutex shared_lock;
+>  };
+> =20
+>  /**
+> @@ -355,6 +360,32 @@ static inline bool reset_control_is_array(struct res=
+et_control *rstc)
+>  	return rstc->array;
+>  }
+> =20
+> +static int __reset_control_reset(struct reset_control *rstc,
+> +				 struct reset_controller_dev *rcdev)
+> +{
+> +	int ret;
+> +
+> +	if (!rcdev->ops->reset)
+> +		return -ENOTSUPP;
+> +
+> +	if (rstc->shared) {
+> +		if (WARN_ON(atomic_read(&rstc->deassert_count) !=3D 0))
+> +			return -EINVAL;
+> +
+> +		if (atomic_inc_return(&rstc->triggered_count) !=3D 1)
+> +			return 0;
+> +	} else {
+> +		if (!rstc->acquired)
+> +			return -EPERM;
+> +	}
+> +
+> +	ret =3D rcdev->ops->reset(rcdev, rstc->id);
+> +	if (rstc->shared && ret)
+> +		atomic_dec(&rstc->triggered_count);
+> +
+> +	return ret;
+> +}
+> +
+>  /**
+>   * reset_control_reset - reset the controlled device
+>   * @rstc: reset controller
+> @@ -362,6 +393,9 @@ static inline bool reset_control_is_array(struct rese=
+t_control *rstc)
+>   * On a shared reset line the actual reset pulse is only triggered once =
+for the
+>   * lifetime of the reset_control instance: for all but the first caller =
+this is
+>   * a no-op.
+> + *
+> + * After calling this function, the reset is guaranteed to have seen a r=
+eset
+
+s/reset/reset line/
+
+The sashiko bot constructed an unlikely but theoretically possible
+scenario that requires to lock _assert() after all:
+
+https://sashiko.dev/#/patchset/20261021030925.3543841-1-shengjiu.wang%40oss=
+.nxp.com
+
+Disregard the other issue, deassert_count leaking on ops->deassert()
+errors. It is pre-existing and can't be as easily fixed because
+consumers adapted to it.
 
 
->
->
->> +  attr:
->> +    description: |
->> +      One attr declaration. Exactly one primary form out of type, enum,
->> +      flags, attrs and blob must be present. optional-attrs and recursive
->> +      may only accompany attrs.
->
->Maybe worth the yaml gynastics needed to enforce this rather than
->just putting it in the description?  An LLM fed me something when
->I sanity checked how bad it would be and it's only somewhat nasty...
->
->Bunch of:
-> oneOf:
->      - required: [ type ]
->        not: { anyOf: [ { required: [ enum ] }, { required: [ flags ] }, { required: [ attrs ] }, 	{ required: [ blob ] } ] }
->
->lines, though I thought there was a more compact way to do it.
-
-Okay, will try.
-
-
->
->
->> +    type: object
->> +    required: [ name ]
->> +    additionalProperties: false
->> +    properties:
->> +      name:
->> +        $ref: '#/$defs/name'
->> +      type:
->> +        description: |
->> +          Primitive payload. Integers are always 64-bit, and a bool is one
->> +          byte holding zero or one.
->> +        enum: [ uint, sint, bool, string, binary ]
->> +      enum:
->> +        description: Name of an enum definition; implies an unsigned payload.
->> +        $ref: '#/$defs/name'
->> +      flags:
->> +        description: Name of a flags definition; implies an unsigned payload.
->> +        $ref: '#/$defs/name'
->> +      attrs:
->> +        description: Nested payload, given as selectors.
->> +        $ref: '#/$defs/selectors'
->> +      optional-attrs:
->> +        description: Further nested payload whose placements are optional.
->> +        $ref: '#/$defs/selectors'
->> +      recursive:
->> +        description: |
->> +          The nested payload is one attr set that may contain this attr
->> +          again, describing a structure of any depth. Only a query reply can
->> +          hold one, since such a nest has no maximum length.
->> +        const: true
->> +      blob:
->> +        $ref: '#/$defs/blob'
->> +      min:
->> +        description: Inclusive minimum of an integer payload.
->> +        $ref: '#/$defs/integer-bound'
->> +      max:
->> +        description: Inclusive maximum of an integer payload.
->> +        $ref: '#/$defs/integer-bound'
->> +      length:
->> +        description: Exact payload length of a binary attr.
->> +        $ref: '#/$defs/uint'
->> +      min-length:
->> +        description: |
->> +          Minimum payload length, excluding the terminator of a string.
->> +        $ref: '#/$defs/uint'
->> +      max-length:
->> +        description: |
->> +          Maximum payload length, excluding the terminator of a string.
->> +        $ref: '#/$defs/uint'
->> +      unit:
->> +        $ref: '#/$defs/unit'
->> +      scale:
->> +        description: Decimal exponent applied to the payload.
->> +        type: integer
->> +        minimum: -128
->> +        maximum: 127
->> +      max-occurrences:
->> +        $ref: '#/$defs/max-occurrences'
->> +
+regards
+Philipp
