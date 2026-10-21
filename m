@@ -1,108 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.68
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792570853;
-	b=mUwCuzhxkfF8T/FXoKqV6y3mL73PIK3oW1QBVM47Z/towEOJ9Av11FV/B61CKWXmA6cM
-	 73PtzCB+s3d1MBQeNxGNunfWPOGfT7ZD6JVjOqX1to07hora4SPWnL9+XoZKMeeuXfrzw
-	 ySTaft40hKotmHDwvOuXi8U4eWZitioU9YB3sF/4g7ZfkEY3+LX12gf1/A4N1OuO+NXFr
-	 fCo6f4BCGJ4ifPaeNtgCCxvtih7ZVGdTDDI1sH17EJXs4SGnZ5Y5Spfso1Jn+HFKaX16F
-	 gPat66L99wj8V33MCN/TH1U/+SqMk1hw94DzFAhtYVTVFWlTU3HZ1LG7hkJ/X4RfLOw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792570853;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UR5mP3A3AJ2EuxfPOSChtpb5gSEc8MX0E1UWyklf2gA=;
-	b=sIww9EiN7avqtmHBWDyGrjuiFmD92zV+A7Yy1v+8DVntrcc/Oxu6Q8Mup5GFfay/TMp+
-	 y7koyxXiIx2ONz/2QhIbz6ZLZ34q+Zo7NeaZZ9SM2g3Fb54AMq/Wu4T4wdSU0+GejQyJD
-	 npk5CNzeaHi/dWQ6xtwRs/4Y5R0Z5tmE8sZ5sM5mzva6IDcG/g+hQefKLdHtj0sLsDbGp
-	 gervMG79nGvW2zgM/ZE8rK4hSQF1Aiko9neH8PApcvkZnAnO+jBCKrf9Z4YjEAHjEcDgQ
-	 Jo8/MrwyTZtHZws5Xh9BDvb+z8EfFn+YZt1StpGp3s2QJZveZhwsx5TAHyp3MeHD0uA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nxp.com;
-	spf=pass smtp.mailfrom=nxp.com;
-	dkim=pass header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I5WR3Rx5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.68
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010068.outbound.protection.outlook.com [52.101.69.68])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792570881;
+	b=pZ7p8FYH7z0xv05WG1srhzhyZvpkQrfCQ+H/PmYMWAEaREbuca9zBE2i3dkL+oID5Km6
+	 u0c8UQFhM9T0PW4FuOL7eDm9Hk47F+QFKG0PyEkHYYEsHW3GQgB8Vz8qliAIa9l0iY2i5
+	 ICM6bT8KEKr9jXc4wQ/b5NISzAlDFGQnAaXurImsBZnlwq2XGPJaFoEwjbVcCsijQYrQY
+	 Esr5dg86JqUPu0LWapF96Ib+Xyqmyk/DfzJ94ksXio5iUlzV9smhai/kG0kb47gRHofU5
+	 WVsn2mBmWqFG5H2PBrBy1WRv5Kxwp1DpCCsgggQlV/AkP2BaHTy6W7erseEBZwIA+Aw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792570881;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Crmd2bM2PbFygsXayYi4dObxKuPU+CEb2DoYjzmN3no=;
+	b=szuFW/0+02GvbSNLSpHaVwSiSqpQqTrohkPa++2qw3uw+5xihXyMDraJzFmKEikwtpTu
+	 Q10MIvj9u1+XUbLALVpZSR4Pkax19eN+iIc/USeTSPmIIemaTSWdlwQtz8m5GP4wluvTZ
+	 6ShVx9oV4bYWv4PCahjjLb5P+E3tdvr0P8QMwcOooMrsW4kxx3zIYXfV39cTgUMjuFNC3
+	 5X7MC84KqCokUNPAk8oWv8Nwg/oDeWRYSpwJz0pndDHsZ7Rq88dKnsav1AiyDuJKEaCZn
+	 N+m0aNwjskC0Jizttt0MwBERCieTgEY3yQR1bCY1S061qlQ/I5zIz+GA3j9XiiDf14Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Tzo74RtU;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5303606A319;
-	Wed, 21 Oct 2026 08:20:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5303606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BAB8606A319;
+	Wed, 21 Oct 2026 08:21:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BAB8606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=I5WR3Rx5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jxFEtG7FyxKZt71ij/48AZb2+73M3WQTU0U9zyDsXOovOUlVS4faBVLAjh6ZRcUVtNlp9iRFRIsl+pqD5WF4is/l1Fhu+My6ePWna3gGqA16acq8dfTcI4pl+xCjx9GS7r/twMoyZzhqhyswUYNeLLAwH3tU4gKLsBYdaW2BhZFnE5Baotoq27+NI/XDyIjchwCch3gTwup8t9iPA0RYovjO7QEgNSpcqS/XG3+JekTevLEY2hUw4f0QtPozAFfTTU9N2+O+LdGI7HfdwIGQZ0yfPa41+/J6VCVch0P+B4T+ftg87X0xmZOORh7IRgM/hZXBX9BWGitocv8kEE5Q4g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UR5mP3A3AJ2EuxfPOSChtpb5gSEc8MX0E1UWyklf2gA=;
- b=QAsOhRRbip2nj/ZtO5P85eP9b/bdUAOo8dCOYapvRF6DKgDFPuJPCYlBPsvYEKZM+oCpNixaLhNtJ0MNwPBYEv+BqNqY1k4MObr98Y5NOs3VKJXu6kZTpU24ga4P0zCIV1ppuhrn1fqxrO90mybiSvDWbEslJUF79NCVL7P3mU0fLT5hhMNTJl6nSB2wJ5opQTkZ75kUcbyipCwvmluVxCsmRbWe7blphCu0CEE2SdcbvGJH4IuhccwiL2CrShfHOMeFazAQ6VIJjZIRZERcFtKuLD7oki1UtrUEVjgdDR1CK5IsKDAXcTfZHh0i/UA3iwZlCY9MzEjvRnKw/LWjVg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UR5mP3A3AJ2EuxfPOSChtpb5gSEc8MX0E1UWyklf2gA=;
- b=I5WR3Rx5wPOAgi9clEjvufV24mKii3hgmLcftFXEODjxDCAAjRWGNPRr/WI1OSnP7t2erDpBuOY+uM06gTjc/XRaQmdlnzU2aAupU0X2E35jVrlTILsFvSMxkOaAe0jQBKu52nMkNwsLhdrYz6mK9qtRTuMZxjA3C3fgKep6pl5KDBm/mhK/5kWgwYmiau/JMgK4gu6+8E4RvH4UtDIeYEGqL72F5CVgK40gEN/hZQ2wdO3YL8vTrf3Af8Z3yu2+dFxHA+mRdRwQqGuOWTu2iyKy73VFUW/Y53TxfpahrC4imBKGDHR2jsuoY8zDz8sVnLgvnJyB6OKcr5Lbb02mVg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com (2603:10a6:290:c0::7)
- by AS4PR04MB9411.eurprd04.prod.outlook.com (2603:10a6:20b:4ea::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 08:20:49 +0000
-Received: from MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151]) by MI9PR04MB350878.eurprd04.prod.outlook.com
- ([fe80::8537:1cdd:6c49:6151%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 08:20:49 +0000
-Date: Wed, 21 Oct 2026 16:22:23 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank.Li@oss.nxp.com
-Cc: Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 2/7] dt-bindings: display: simple: Add
- waiken,101wx001-wct
-Message-ID: <ath2PxwlZLyyHsxH@raspi>
-References: <20261020-dxl_lcdif-v3-0-adc944659e14@nxp.com>
- <20261020-dxl_lcdif-v3-2-adc944659e14@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-dxl_lcdif-v3-2-adc944659e14@nxp.com>
-X-ClientProxiedBy: MA5P287CA0266.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1f1::14) To MI9PR04MB350878.eurprd04.prod.outlook.com
- (2603:10a6:290:c0::7)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Tzo74RtU
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Crmd2bM2PbFygsXayYi4dObxKuPU+CEb2DoYjzmN3no=;
+	b=Tzo74RtUq/fkCOoiQ+lxSXI+yqO/EK7W7SQLlgoSbAyX1NB1WGPbfKjFqUz3KVU1eMaYQSgrI
+	eSBdi9W/Evz5axLSRqwEhV9KhDoV2e4EXRjxANGwHpS111LnzwaNdpt7iqa02s4QWlkJgfdHfRA
+	fESZEm+/aRyNDe5tblY8uQs=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j8j0l0HpSz12LcX;
+	Wed, 21 Oct 2026 16:21:11 +0800 (CST)
+Received: from kwepemf100013.china.huawei.com (unknown [7.202.181.12])
+	by mail.maildlp.com (Postfix) with ESMTPS id DB7644056E;
+	Wed, 21 Oct 2026 16:21:09 +0800 (CST)
+Received: from DESKTOP-62GVMTR.china.huawei.com (10.174.189.38) by
+ kwepemf100013.china.huawei.com (7.202.181.12) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 21 Oct 2026 16:21:08 +0800
+From: Fan Gong <gongfan1@huawei.com>
+To: <kuba@kernel.org>
+CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>,
+	<dimitri.daskalakis1@gmail.com>, <edumazet@google.com>,
+	<gongfan1@huawei.com>, <horms@kernel.org>, <hramamurthy@google.com>,
+	<ioana.ciornei@nxp.com>, <larysa.zaremba@intel.com>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<maxime.chevallier@bootlin.com>, <mohsin.bashr@gmail.com>,
+	<netdev@vger.kernel.org>, <pabeni@redhat.com>, <tengpeisen@huawei.com>,
+	<vadim.fedorenko@linux.dev>, <wudi234@huawei.com>, <wulike1@huawei.com>,
+	<zhoushuai28@huawei.com>
+Subject: Re: [PATCH net-next v17 1/2] hinic3: Add ethtool statistic ops part1
+Date: Wed, 21 Oct 2026 16:21:04 +0800
+Message-ID: <20261021082104.14495-1-gongfan1@huawei.com>
+X-Mailer: git-send-email 2.50.1.windows.1
+In-Reply-To: <20261020175113.182b3b92@kernel.org>
+References: <20261020175113.182b3b92@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,76 +77,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI9PR04MB350878:EE_|AS4PR04MB9411:EE_
-X-MS-Office365-Filtering-Correlation-Id: ef228ba1-33d0-473e-a234-08df2f4c36df
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|23010399003|19092799006|1800799024|56012099006|261009223027099003|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	MdpWsExCY7ytbtt4teWQXHDKltJRhGur58poM6oBTepK0qBZt/LlUPdWMwAomvf+6QESiXMov9wGPTVFD+gKm75zoKTK6G/+W1JB6kzaI98URZgUtG0uBXxAmF+hHFPDkcHffnkSWi+9/RJCiztUl23OGup8Tm18y3RwnxynBfS0If+cL2/K3ylrXBW+QWAKwu8zOtnaXDGx4KPeSG2bPalKOx+zGIydPuOQe0BV2Oy/AFQcwXW0DVP+jr4820IivtYG0jaK1bQeVm7RAkKbKiv26QZ2aSS9f9j7zEgW95UwGVReNu9s+9yW/sM5JokXsqgEFaL/3d/LZ0bcPHC3zEdlJns/CjrHwz0+8JtxGBxjpC++82Pdm4QnxmfTbIVfGMC9Bz7ipeKAp5TIAk1v300J4UCQ7Ydg/HRF/HhrGH89jkCyEqK1OhFsUJvw9KdDepIofN+m/xze4+u0DW5s8aC91R7DufdSOleo6ZvsEvtxOzSLwVOk9hRqUvErSToNfFqDJTGUaDirPJB+x4gadhFRaIdfufnkM4XFHR7OaXpZ+QMSyc2zm/7I5zHbEGUEf+V/qVeFcqTQU9HvwVzea6HeHclB2SMgIapcctrLzx2EtnS4AUTEW4Bjad2X3j+Cc6nPmSN3JjnngG3yXZY2Fq3WDbJr/2/gVcJWVpHkrFk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI9PR04MB350878.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(23010399003)(19092799006)(1800799024)(56012099006)(261009223027099003)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3WFlb4O+ROBmEnoKJdKWcq/xd8l3tBW4qsIqxxvSIrSg20zYrUWnk7PbXEhC?=
- =?us-ascii?Q?Wklhkct1FVYuEqw1sSv6ERYzOc7q+QCf46BJNWNutA/wDNgTWSDNtMLXGa0d?=
- =?us-ascii?Q?1tNlqUvcwYAC957KLpuEccJrsajWUDFTjJzgQ6M/EGti5T3BPpS0rqaVXx/T?=
- =?us-ascii?Q?syuLEW0Cz+7ieBMVg1eg88mS9mUiATvD0xA4/KS1NGsA7hziH3OWrnqetWP5?=
- =?us-ascii?Q?62/eQJ60rshqwE58h3xSWgOCnIMhj9cD5JCOl76VqnP0oMcAMsTU3ervSdJ3?=
- =?us-ascii?Q?Z1BwFrmrulHzuy7Z5esb5zKbont2MsX/AwLI09O5xuKR5TSdUWSJ1Ss8kuck?=
- =?us-ascii?Q?w//PomaynKkqxLq0E1Y18YnlrFSZZmmGIjXOFQQMqHGwQK3GSe6XORZJFYPM?=
- =?us-ascii?Q?yyjewnt64ayex/Xf/8as9ksSa7/f5hzsRWCvdGW2+rCWN4/n+rOnMqJ3tYG/?=
- =?us-ascii?Q?M1OQy6faaDuqDJDRHjJNJ/JQep5lVMRPsakd8E8QGDuBRn986+mXFBoPnM6s?=
- =?us-ascii?Q?naf5xoTgCpvhJFsRScsoqNnrDD83OOtCkf4i6dH1VUjk2PiGb7N8AjXA/jCt?=
- =?us-ascii?Q?Cf5fdr1opcuaq2Opr4UqvHZBvYSnAiNPdhdFgbuY47UcLYoKUrHTLZt/9flZ?=
- =?us-ascii?Q?3ARtVG4VW0N4z7XUMRzQ05gTf9uY2JrbsQWDLEHYOA/sgS5BSpA9rwnruFgd?=
- =?us-ascii?Q?+cl5ic5A/DgoeY/GReGSbwdvL7JDzkdPQq1Mc95gnqrFeIpaZ7wFftP2oBYM?=
- =?us-ascii?Q?4zVHCuDMQG/CSB+4SlBwPbNVof+qNMR/ntwHSORpROqmJ8PMoEOAWJ8K7GBS?=
- =?us-ascii?Q?vO+WmtGDs4t4Q9y4XUoIzaSHAk4zDQbEYnT/DQaR1M/QrE8+5tvXPzPvdIFR?=
- =?us-ascii?Q?qq8S+5Hq3N1XvWR2Q/iRlGiCn/zwoXOKVCfN/o5bJ5x01KnVZ6xijld7ZlA6?=
- =?us-ascii?Q?KYdKr0STcPWwptkwtXVQrWJgZHWVTTjZF6uBlQlNUVoPtswEpL95F3nQfkR8?=
- =?us-ascii?Q?inKnN8P5fAP++NtAAmlAEq/KSsRs+cHIltxY2NUKgwPkEkgb8+oK20DsKAhK?=
- =?us-ascii?Q?B2Q+qfGdh4xfWa4Y0aRziHrgUGk9GQw9+GUEQtWYQJsqpPdyqUMUUIv8YrX3?=
- =?us-ascii?Q?4+seSTS/w38dH01xv2HH18/5sSmnGL2s6S9cV8zTvULtXzfc4Z1GFYFM41eV?=
- =?us-ascii?Q?NOI40KAQCFE2BDp8ACLthhgYZGgJLUZLUG9owKvbOGOnQdUfU8lEFCEDR6vz?=
- =?us-ascii?Q?XlLakCTF0pGKZIaW2jWh5iZVbztsoAPYy+GrNgbYhDdVHU2i39yJbKAEr5X1?=
- =?us-ascii?Q?552ducWvH86pRW54Cmvl5OGzOr19PJS5qWyAwVYV3Tg9oHhT7IDdaRJTB8gc?=
- =?us-ascii?Q?N07CoUzPwSHYAU5mmEQWCmPoaOXVB0bcbrSC0+78pwrg2tcPYThpbf58AUIh?=
- =?us-ascii?Q?hzL1W/FLHC+2h1qs5K8YDt8O89SEjGJ5+g+obO0ba+6P83sBAJuDqw53ejlV?=
- =?us-ascii?Q?ckGDPRucmS0Mfa4a00qYOvMoSvZ4ZrU8ry4gMOcWyhZonBUrmzoOWZ7pVelz?=
- =?us-ascii?Q?T70sgE61ZzmyWCI0aF4at7XJFWDPwq4DXlCBIjH6SrpT6QraFPHd86HTzSSM?=
- =?us-ascii?Q?x2S5SUo0Vg4uYAjoYXucFf+0ahDS/StlfarPTCZky8LESEw9+HvBOQ0qqV6b?=
- =?us-ascii?Q?lNc8wCQ+hio5af54SHBOPXgh4L/p1txKCYBoc9aWrtnd7yhP5amH9oUmHilh?=
- =?us-ascii?Q?WjkH/Tq94w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef228ba1-33d0-473e-a234-08df2f4c36df
-X-MS-Exchange-CrossTenant-AuthSource: MI9PR04MB350878.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 08:20:49.6480
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i7GDNFvyRX8affn9H/t8FkG/ZiqukMB/psjm193I73ISXzbe7XtmlBY2GZjUipYgbILB/DzPn6vEXZRVOww6sQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9411
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemf100013.china.huawei.com (7.202.181.12)
 
-On Tue, Oct 20, 2026 at 04:12:52PM -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Add WKS101WX001-WCT panel, which is an industrial-grade 10.1-inch IPS TFT
-> LCD capacitive touch screen display module.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
-> change in v3
-> - Use Waiken Technology Limited in description
-> - Use 10.1" at comments
-> - Use waiken,101wx001-wct
-> ---
->  Documentation/devicetree/bindings/display/panel/panel-simple.yaml | 2 ++
->  Documentation/devicetree/bindings/vendor-prefixes.yaml            | 2 ++
->  2 files changed, 4 insertions(+)
-
-Acked-by: Liu Ying <victor.liu@nxp.com>
+> On Thu, 15 Oct 2026 17:55:43 +0800 Fan Gong wrote:=0D
+> > +	HINIC3_RXQ_STAT(alloc_skb_err),=0D
+> > +	HINIC3_RXQ_STAT(alloc_rx_buf_err),=0D
+>=0D
+> Why bother separating these two? Rx packet was lost due to memory=0D
+> pressure, doesn't matter which part failed to alloc.=0D
+=0D
+The `alloc_skb_err` counter signifies a failure in allocating a skb,=0D
+whereas `alloc_rx_buf_err` indicates a failure in allocating the data=0D
+buffer referenced by the skb. Given that these two resources are allocated=
+=0D
+and managed independently, distinct counters have been implemented for each=
+.=0D
+=0D
+> On Thu, 15 Oct 2026 17:55:43 +0800 Fan Gong wrote:=0D
+> > +	HINIC3_PORT_STAT(mac_rx_1519_max_bad_pkt_num),=0D
+> > +	HINIC3_PORT_STAT(mac_rx_1519_max_good_pkt_num),=0D
+>=0D
+> Isn't the 1519_max_good just the last RMON histogram bucket?=0D
+=0D
+The `mac_rx_1519_max_bad_pkt_num` metric functions as a specialized counter=
+;=0D
+strictly speaking, it is not the last RMON histogram bucket. It quantifies=
+=0D
+the aggregate number of packets exceeding 1,518 bytes while simultaneously=
+=0D
+providing granular statistics for such oversized frames. Consequently,=0D
+this metric is classified as a private, non-standard counter within=0D
+the `ethtool -S` output.=0D
+=0D
+> > +static struct hinic3_stats hinic3_tx_queue_stats[] =3D {=0D
+> > +	HINIC3_TXQ_STAT(gso_packets),=0D
+>=0D
+> Isn't this the standard lso/tso counter from queue stats?=0D
+=0D
+Yes, it is.=
