@@ -1,88 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601247;
-	b=laoF1ssIL1aM1VtNZDZm1w2sP5y9yHBc+Qx+YMKHmMHY18KtvsFGDC8k6QK1NN/KgmOB
-	 w3v1WXB9s6t1WPpvEWBiJk5s7lqgU3BYf5H4I7F+HAKzMzTdv1WYQ5C/wx01oEFKtH1vA
-	 R5BLWVTMZEi4l93WGg+gdtqsaAc6mUDfJuETZueCUY4ypdxRCib1ON3dAJhOtgc71ytZC
-	 ep0+Ekv6TbhY/lobk72Bipd2Yugl6Np67XlRpGBizopg3mtZU+fTR02DemmTpw9TQGO9P
-	 MhbpfCFVpRggMVyhMM+gSxidA/H1/1o6CxvqtCA4JxAyQVyE3D2uRvW+pl0l2lsnf/w==
+	t=1792601241;
+	b=v+5Bkn87YhrnktMC+wkljqkPTeM4SzYt0YvEryJrMyEiHkR/Xj60p6agZ4gRlPv7GVMX
+	 JJS37koOr71XoX1YRjja66PkVKqKuWH8nHi2EVSHpFRcoMpB7n5guYkZMa56AZshMq6nv
+	 zy1KXbBRcpLu8QoHzEIHnQxUpIJ3TMpCgPiawyZhHxBWDuLZAOVa3ZVnS1vBfKguYwTpT
+	 Tb+cKKf56vCFFWRiit+/kF9RiVdIv1ZtbwkWhgIKwv7NWDxzI28eA/h53P1K4qzcgqUoc
+	 vsX9lAdTEYmESxb8/9soGdO5ObtMjFpM89+z6aWY5wXDBaMZZjVYNd5OMtJSy4Yf3zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601241;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=ZZZEQJMItiqpnFGu5aV7NtwnGpNdzBOLgdMI4f1zBl8=;
-	b=oOFKMa1hmq1E0BRNOiIZmlyj3OfwqH94gLyaAycxcnGjN+yvtyz3rUG4uWNdmLRRu47B
-	 Ohleim41uFLP03ho9aaTn13BqJFs15czLsh1j+oLKj9YzsyduDNPMwcK/GbNW6vC0tHkT
-	 PxbojXxCm5cFMj0H2arowjjM/EJzpaVrBMHjNFDkTYP4SbAge9/FdZXhaBx0frCmLesXJ
-	 JQsNF5fdT6PHDbYffkLgaEOXWP0RuYuX3b3WXXGNvbde+cMnQuH9FbOuqu/80EerUZYJ3
-	 np9xam4N5HM7HLVCSeG3HRd9IfV8sfUSIvnXYK++jam8ciY1w3OgNkWMYUJYeLWzSaA==
+	bh=PpQrV3M75vRIpsbPYF6CDFPX8mxlW9t3FWzswyav9Hw=;
+	b=mZR85Ww5vFFPkbNjDmZhuZhoXSRJ3EYuA+HWiJ8Sx0hEMI920xhNjcOzfSzIp+fjxqLW
+	 p+seUJkcne8uie5kwaj7CRprXBll1Qzj6BlOTOf6bTWnDsYHoAEnNBBPuOUC6MUcSt2UK
+	 W0QL2FgEDsaqojfi25kwOnuYeRlxIGjnvjIfi2t//hI/lxvdHNFtAkkZ47xorkXaSt2h7
+	 cQSnt4lOlXNZ7GIYeCP0MYmq7SZDog0f1XGqPzK8Xk7ynMdxuaUmQnXL5qLiHdHdRjUnq
+	 X7Sk3pMq96gQ2UDCVogO1kydOo8m7EKe+lH8BDtX9Fld89Wvqrt7YuZFtEdOaASCCNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=toxicpanda.com;
 	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=FRdg2YOM;
-	arc=none smtp.remote-ip=209.85.219.52
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=AYx2MVsE;
+	arc=none smtp.remote-ip=209.85.222.169
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BBB4606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BBB4606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B39606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:47:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6B39606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=FRdg2YOM
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-917ad52d7b6so9592136d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:47:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=AYx2MVsE
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93f20b304c0so107094185a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:47:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1792601246; x=1793206046; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZZZEQJMItiqpnFGu5aV7NtwnGpNdzBOLgdMI4f1zBl8=;
-        b=FRdg2YOMBl/W7NmySpi8e/ApbFhgNz3TsQgZ56mcFIZgseKDBmNn8imA3YaVOI3my4
-         kWOuuw0zr6L0DGmGz243kDzLoNes97mXbaWHA0myrzAUdrxkt18sqQJtNwLfhcAZbpBp
-         hdWf/PnVWdFR6msiF4P81fal67bENGCztuWAB+L0IlXk51INkT8LAZso/m1kelGQIxu6
-         Z7MuTEuq4TtrA6WnUqnSLFZavgNvWcyUgzXwCHT3/lblR2zP2+qVMneRdO9uL5pKKsUO
-         atx4q7uM6M/F18Wq7WB6vZFXluwGrmWNBZdMJqB7exJrKl7a9xkpvhmMtMl/QZ3njojS
-         cNYg==
+        d=toxicpanda.com; s=google; t=1792601240; x=1793206040; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PpQrV3M75vRIpsbPYF6CDFPX8mxlW9t3FWzswyav9Hw=;
+        b=AYx2MVsEh9qn4oCcn+W2RaEHXX4/smyiVa0wet41zN2cdCN99EBGIabOrxKA7hSA/5
+         VGmWS3/bhWN6UgbVwtLbN4UKxSYW006aHt00WD6cB13aANST2Zmh2kYf1hkgCqyN0ump
+         Exe18KZ8csWenZAtZIE3sAchegzWVmjBVqtxZZ6zToJmy9HfTpSoNC275mR/6/e9SE9Y
+         mIBqATCW1iZIgRau9U6PlvynyWE6ORfGFKpWP+FST13RgK6SMc3J8z4UWD5NiPgENt9O
+         5jd4s/PTtU+OKySFVwy5IG3HGsuROKh0uTRA+O5ecrKoIIZ5Ta9JIM5nAptyhLhTEqx5
+         WKbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792601246; x=1793206046;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZZZEQJMItiqpnFGu5aV7NtwnGpNdzBOLgdMI4f1zBl8=;
-        b=vNHhiDYKEf3c3UXpbOThcc2MX4BSBVacAqKAqhQ/GftKqiE/r0tBIw7tzbCWYe0mJz
-         yxqJ6gfzVXJ4l99/APNW6Z84HNfCh1YauxXUcmvGNTkRtKZjfh5tVaj6AXkemFVp0iux
-         pX/Qipw2OqW6ODJxWTdhvUquuy82JsKMWGZs0Lu/ufECRB1GDtDcc22UQmU1kGJKZPLk
-         BplYK6llhjjt4aIRNkQSAf1hfJx2VgM7FhkbAYaMH1vu0B7g/kVXwxRASmmrSzJMVEd+
-         eO0yEt85aleT+sK+s1bdGdgfTx27ukQuHk/FtwvPsnmRJHXbOfg+LATJ7L8viOPLut3A
-         sJ0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxwuez7fvXedKd9niL7D+yjbAfqT8ONo4mUKHEpgLyInNBHn4ULLERsdDxg//T84zeAbHouxXdj9F/lacs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJDq7rPxE9UVTe+gD3kU/f2nwv90UphV2CRuWVasxheqnRbSRzP
-	kUI7GTAN8dRbnmJ/pXwfFWgEfcHfmst5ac0fnNOWwJV8ptVOa1qQ0qN4l+w+TXxjvYnew2V+DN6
-	fGLg9
-X-Gm-Gg: AYBFou3QQ3fr0L58hgJZORq1XFlLMFgtpRZox1jxiUI9qt1DJN3oToWCHAzeX36rwo8
-	VZiXuIb+iO3fAR9pULkMacZ2VcPd+s2j4Vj/+RubTtKP1n+3in4IobAwrfp8D/1sRAb8PWa9xM0
-	3xXL3pOVWLRVIweO9Wis9hH8gjTzZeoFlgZmRMt5VCw+3s6ZH50klwSwtCAax+ERQh5a2syCGAM
-	T4i7bYdKMYt4x3rsiKRXl6EcUUCJF5r5MuBun0hYzyxQ5EoYni1UnkCcocICiwGm281FyfXSa7y
-	yaJ9LgBmw8K+hEUu9sKXaJBsBB6xp6fJ1KHP2NneFtcc8ymFzefckhGOeFbshgW2tWIbVcsX/Bv
-	cNWbREBm8+ElvmNgH36OU999JwQh3+l9ySDFLmjj6SSzJZorCR3jTA0f+p2IDGY3Sgf5J7qrrmJ
-	vAzy7DYYSIx+gHelwzyKK+OLjYR45NlO6C7D53XLY0EOJRiqSEM6eIgaRScD3q70N/XREl+09oi
-	OwDw8fco1l/lY2yqmU+c1iDRpXSxWq29y8zWaOymt/IERlA2QEN0QxY2LyTy7XDejmKRCEuEQ==
-X-Received: by 2002:a05:6214:2a4a:b0:914:2c9d:b376 with SMTP id 6a1803df08f44-91c12f0c309mr45509346d6.46.1792601246149;
-        Wed, 21 Oct 2026 09:47:26 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.240])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10b74c01sm28740316d6.8.2026.10.21.09.47.25
+        d=1e100.net; s=20260707; t=1792601240; x=1793206040;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PpQrV3M75vRIpsbPYF6CDFPX8mxlW9t3FWzswyav9Hw=;
+        b=xmXijut5VxPXGsg6TD/lcLt7zQM5dnxqq83yt7E1ubjh8PGE+vaQtuuG47h8S0Mpzp
+         esgo/5EChhxoxwW9XnxBJ9vqtk6MBe7GheJiIfVX1Egbl7koT9u2pEK0NC5k0V9gxPH9
+         MmrtbCsHLEiujwTdFsobYJKy6niiWkT7he4cXlkfyB+wYph5Ns9crgExlFZE8yqfmtUB
+         MJJNYYkh5woVxXjCtTLJtrEa94BXauhbx3vBxQ2cqDe0tuvM/bsMgUm0oTcDJiU7sBPf
+         Jrp5lLDE5vQQJnVzVFdjInxL064QnwWSqbbM3MYHx40LDe8eHsdMwIZtOvK71c6FS5aY
+         PuNA==
+X-Forwarded-Encrypted: i=1; AKwUvBya6F3W4ohyu7X0I7enVJ7nWghWdm8nkeVKc7aUDDaPYNI6TK/kTUi8/bqZS0qPM8Xob9pjZYjxY6ik3r4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKltEv+0HCHopZqjII9Uddu6Icbijf2l+jW9JoyzLCGFQyGrrJ3
+	JN7uP8Mkh1jcuCUxRzuz2efIHXNSUqeUIM3iP9cXOJjWCbrxmX3RZs8l7GkUYOj9G133WgtR3cC
+	w2JsM
+X-Gm-Gg: AYBFou0fznCyK1fcTPqmZFV77Z9VQ5MnKr+VnhpKXwY+DHZwaTKkgM/vXEc5l9rewO8
+	MWjVXYa0CzqqUVt0Ri70bCZ8XHMS4ymJxQYbwziu2Eh+rHsSDT4Xl++yvOvREpia2C7UQLdieYS
+	TVCiTIhY9u1MqbG5uOAwJQ68R5AAkCr7uhOTT5yLcz4Rr/2PbaPzzQpfQL2xQO70zvphYe14sBi
+	XbNS7EE5hCT5cp5Ky8YaJ5ypd90/GhrXslMyhTd5q0Vdks1bk0EeNzr3gTq8Flz/uGRJxszQDBm
+	4X9PMT5eGWP3XiSBYet6QmrDXGjh3L3MvMO1jig2Cj7wdYXKC8JrESobtiUmrgUUos/TlZGCezl
+	0l9SlR80+gRePbwNqKa+93BnflLdDJ6bSaTusnTB+VpPWU3yEE/MBmth0lQbhYF0CE3ZuAWwmNO
+	X3vzeWH8v5J0ukW5RAbEzwDMYEUEwcXEL5jWJDzwRo4TTvxaaJWWoMkax30j7zT0qKFGibLUL+v
+	0WrO1Iagqgmfgc4DJURf6jJCSqb41i0yofo8BfOZTXItfYcduPh84rac80+N8VwW+enw6IQ
+X-Received: by 2002:a05:620a:1a04:b0:93e:5cf8:e5a4 with SMTP id af79cd13be357-93f57f4bd48mr519682685a.58.1792601239600;
+        Wed, 21 Oct 2026 09:47:19 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.242])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56de57e8sm298585185a.25.2026.10.21.09.47.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 09:47:25 -0700 (PDT)
+        Wed, 21 Oct 2026 09:47:17 -0700 (PDT)
 From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 21 Oct 2026 16:46:59 +0000
-Subject: [PATCH 3/5] fs: make BLKFLSBUF's wait for a superblock killable
+Subject: [PATCH 0/5] fs: don't let a stuck mount take everybody else with
+ it
+Date: Wed, 21 Oct 2026 16:46:56 +0000
+Message-Id: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,74 +95,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-b4-super-lock-unborn-v1-3-0265eddb6dee@toxicpanda.com>
-References: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
-In-Reply-To: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
+X-B4-Tracking: v=1; b=H4sIAIHs2GoC/2XMQQ7CIBCF4as0s3ZioYSKV2lcAI4WNdAwYkya3
+ l3QpctvMu9fgSkHYjh2K2R6BQ4pVohdB3628UoYztUge6lFLwU6hVwWyvhI/o4lupQjjoMZtBn
+ VQRkNdbpkuoT3NzudfubibuSfrdU+nGVCl230czs17v+6sG0f6+PwsqEAAAA=
+X-Change-ID: 20261021-b4-super-lock-unborn-739369748496
 To: Alexander Viro <viro@zeniv.linux.org.uk>, 
  Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>
 Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Josef Bacik <josef@toxicpanda.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1792601235; l=1603;
+X-Developer-Signature: v=1; a=openssh-sha256; t=1792601235; l=2988;
  i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=oUk6uISnfWFRH6uDQHX+PYQKTdHZokFJbKYmrMDDYws=;
+ bh=Mx6rWSe3d/zke3tB+djYDVv1P3RSX1m2KKj6LL9ZFS4=;
  b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
  JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QJ+Z3H3tEY5XZg/PqP8ScfgS76VfJrH15HB4kHDQjOPrm3mUAW2pDXZXX7fa4LQy9Xaps71vC0r
- zyeWkDqTJpgs=
+ QCJgiYVmhIVrdKsE6sgihLKqrt7bPKUKWGTkFSZFBvwqN8o5jUlgDtT49Urz5o+Id4oCaVC+jRp
+ HnmWz5oLIpAA=
 X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
  fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-fs_bdev_sync() syncs the filesystems on a block device for BLKFLSBUF.  It
-can already be killed while it waits for one which is being unmounted.  For
-one which is still being mounted it waits for SB_BORN, and then for
-s_umount, in super_lock(), which can't be killed.  If the mount is stuck on
-that very device, so is the ioctl.
+Hello,
 
-Use super_lock_killable() and stop the walk when the task is killed, as for
-the unmount.  All BLKFLSBUF does afterwards is invalidate_bdev(), which
-leaves dirty pages and pages under writeback alone.
+This is the follow up to the stuck unmount series, and it applies on top
+of it (vfs-7.5.super).
 
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+The same thing happens at the other end of a super block's life. We put
+the super block on the lists in sget_fc(), but it isn't usable until
+vfs_get_tree() sets SB_BORN, and super_lock() waits for that
+uninterruptibly. If the mount is stuck reading from a dead device or
+waiting on a server that went away, everything that walks the super
+blocks backs up behind it, and there's no way to kill those things.
+
+This isn't quite the mirror image of the unmount case. A dying super
+block is going away, so skipping it loses nothing. An unborn one is
+about to be in use, so anybody who has to get at every super block still
+has to wait for it.
+
+The things that only flush, sync(), drop_caches and Q_SYNC, skip it.
+Nobody can have written to a file system that isn't mounted yet.
+
+The things that are after that particular super block, a second mount of
+the same device, ustat(), quotactl() and BLKFLSBUF, still wait for it,
+but they can be killed now.
+
+Everything else is left alone. SELinux in particular has to wait, NFS
+sets up its security options before SB_BORN, and without a policy loaded
+that gets deferred to the walk in selinux_complete_init(). The freeze,
+thaw, emergency remount and device removal paths are unchanged as well.
+
+For testing I put ext4 on a dm-linear device, dropped all the caches,
+suspended the device underneath it and mounted, which leaves the mount
+sitting in ext4_fill_super().  Without the series drop_caches,
+quotactl(Q_SYNC), sync, ustat(), BLKFLSBUF and a second mount of the
+device all end up in super_lock() and ignore SIGKILL, and the emergency
+sync doesn't finish.  With it the first three come straight back and the
+emergency sync completes, the other three wait but go away on SIGKILL.
+Freezing the device waits for the mount with and without the series,
+SIGKILL or not.  On both kernels the mount finishes once the device is
+resumed, the data is there and nothing is left frozen, and 200 rounds of
+mounting with sync, drop_caches, ustat() and Q_SYNC running against it
+are fine.  This was with KASAN and lockdep on, neither had anything to
+say.
+
+fstests on ext4, xfs and btrfs gives the same results with and without
+the series. Thanks,
+
+Josef
+
 ---
- fs/super.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+Josef Bacik (5):
+      fs: make a mount waiting on another mount killable
+      fs: make ustat() and quotactl() killable in lookup
+      fs: make BLKFLSBUF's wait for a superblock killable
+      fs: don't make sync(2) wait for unborn superblocks
+      fs: skip unborn superblocks in drop_caches and Q_SYNC
 
-diff --git a/fs/super.c b/fs/super.c
-index 40f92ffa39c1..ecba64ed0c2a 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -1676,17 +1676,21 @@ static void fs_bdev_sync(struct block_device *bdev)
- 
- 	for (sb_dev = super_dev_first(dev); sb_dev; sb_dev = super_dev_next(sb_dev)) {
- 		struct super_block *sb = sb_dev->sd_sb;
-+		int ret;
- 
--		if (!super_lock_shared(sb)) {
--			if (super_wait_shutdown_killable(sb)) {
--				super_dev_put(sb_dev);
--				return;
--			}
-+		ret = super_lock_killable(sb, false);
-+		if (!ret) {
-+			if (sb->s_root && (sb->s_flags & SB_ACTIVE))
-+				sync_filesystem(sb);
-+			super_unlock_shared(sb);
- 			continue;
- 		}
--		if (sb->s_root && (sb->s_flags & SB_ACTIVE))
--			sync_filesystem(sb);
--		super_unlock_shared(sb);
-+		if (ret == -ENOENT)
-+			ret = super_wait_shutdown_killable(sb);
-+		if (ret) {
-+			super_dev_put(sb_dev);
-+			return;
-+		}
- 	}
- }
- 
-
--- 
-2.55.0
+ fs/drop_caches.c |   2 +-
+ fs/internal.h    |   1 +
+ fs/quota/quota.c |   2 +-
+ fs/super.c       | 168 +++++++++++++++++++++++++++++++++++++++++--------------
+ 4 files changed, 129 insertions(+), 44 deletions(-)
+---
+base-commit: b4b5957dcf76c676f8a21b24588667731e97bbbc
+change-id: 20261021-b4-super-lock-unborn-739369748496
 
