@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562869;
-	b=I7Es1Fxp4iwFWEDgufzmvQrVwdNdNveFWL+wG29sVvdTILIK6vPWKxtXYpTJ+QGd/Qvc
-	 i3xM5XhC1JiHQJqhlXezVUvKEV9xRJDPiiKbg9IA6wqyWD97NIN9lYuemf6l1kF49K0DD
-	 fz1JLgbnCZuU/fZrKC2ZQBsTK4upWAFDMwMA/W7VJG9BwIZy/Rjsicu0rohv943nbVYvT
-	 +qiuC6ccnr3J80AIi8wDwM6FqlZpx4zBgM+izdvllP7Lr7Fw3fuPl73XstS7s2p3exmyO
-	 n3Nx+KKRJbLnOAJ93mrgs2EY2KTFZPDUYvkIH+3bqWvpKOJijjPraOdqJ2Cp7T3lGjQ==
+	t=1792562864;
+	b=1KeYyyOGMh54Y1u+aTRHjJRonT+LKrmrHd7KoG5tCmmviobs+S1eKchP58eCmCEucnJV
+	 UYLcECFzkwsDCJ2OuSQ1bkEtpFph7IcR7uhfoSw5/rc9R5a/6YoUZofo2p17YPe3WPnlt
+	 IwSVCrpt2/auIvztnbNxFgKeqzvqY5zDYaniQMOQH2luAwCE9PLf0HuuJiJm6LtdeIDtk
+	 cWrERnUffM0VSIfOsTRdib+QOlAqaSNXX8PZfDSAJuEpX0v/xY4FCDg0qr58AWdSjTLcP
+	 h5XetYA06rl9vEjy6OhX/0w4z4fWM7csroB25hdFoifCYw9Md5D0Mklh/+1M/1f/eCQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562869;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=DDzscdlNdBwJxDTI+JBtY86EAYkaK9/E9rq6UIfl1PE=;
-	b=CoUImWNkBYtb1MY0aGV6Fzc284EuAUjQreZrmzZf6d5rATWELrPwFzifoYUAUq5YI38j
-	 CfY7PfrfB08G+2hrOZRrFp1sl34OuWapD0iePe8KgBI+bE3gK9TAAjVUsifJOOSqcDtKY
-	 912y3NdaC8JjYkRG3kAC2h/wyrWLn+OyhBaxuZESghQfqZzR5nT+YPTxMUR3Q3Om29WdD
-	 5P8Bje205jSts51XyWmbwASlMWlUxAPYdjJhPCM91WquMcHi67fPrzdRksDQOJIusd/SI
-	 Z901R26Sb5ox9Ow1rGyw7HmwYPfJ9wLj2ZQ4Fch7oyiVjwNA75x4qfuzqVFAWQX9d2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562864;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Bxouv0kn7Sc9hHczau5510tqW8b3G6JDVUWPALdKHHY=;
+	b=YsjZtcagElTblk/+c04PaX7eOLnjkurBuZL1vO58nWHxBu9Au4jvdheXlp3q76NMCXwV
+	 YNbWo4gS30b0HJkYGMUcIHtrawrjJIfLXAFLI3UfJl1UuJU7/Bjs4kKbdBDkGChwNu19W
+	 ETfxq7IlF3C5oIwWRgPDj59N1F3HfYFwqcw4vuZUTdo9z91TJSr9cTNfPoLPtQzE5pXef
+	 7QoOdn0SkkWpT+cCUyjiAaPLHkdZtmyYo9IcW0lQV2dvqAlB3g0tk8wbDQbNYxbdNq7SP
+	 xUZbuNFDEDBRnDGIn4gZspjcUOb3kT9/5/BxQJYXNyjzGG7/nDKUn/ewntTf0VUstbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="ELg2JAR/";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAKCu+o+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B5060A3822
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:07:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1B5060A3822
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A8F606A32A;
+	Wed, 21 Oct 2026 06:07:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ELg2JAR/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792562867;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DDzscdlNdBwJxDTI+JBtY86EAYkaK9/E9rq6UIfl1PE=;
-	b=ELg2JAR/8sLvX6tXWN0M31KYEk/Z34eXL2uL8ig9tWOWUvGs+Q1kK2HJbWhxeKiIv22kh1
-	VUMn7fHjOFn+afo6RCTazisdoSSLgx8u3/JcXS4XItOrMfJv3hMrX5WwNwl2tSLnwrLX8p
-	Y+LgLUOwwah0MDWn1f1BBg+841f2aOQ=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-274-c0UagYrcOxSlhAXQ7XSlGQ-1; Wed,
- 21 Oct 2026 02:07:44 -0400
-X-MC-Unique: c0UagYrcOxSlhAXQ7XSlGQ-1
-X-Mimecast-MFC-AGG-ID: c0UagYrcOxSlhAXQ7XSlGQ_1792562863
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0B4221956095;
-	Wed, 21 Oct 2026 06:07:43 +0000 (UTC)
-Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 7C09830000E3;
-	Wed, 21 Oct 2026 06:07:40 +0000 (UTC)
-From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-To: jjohnson@kernel.org
-Cc: tamizh.raja@oss.qualcomm.com,
-	julius@bairaktaris.de,
-	ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: [PATCH v8 2/3] wifi: ath11k: remove skb parameter from get_ring_selector
-Date: Wed, 21 Oct 2026 08:07:24 +0200
-Message-ID: <20261021060725.242681-3-jtornosm@redhat.com>
-In-Reply-To: <20261021060725.242681-1-jtornosm@redhat.com>
-References: <20261021060725.242681-1-jtornosm@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lAKCu+o+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDF221F000C9;
+	Wed, 21 Oct 2026 06:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792562864;
+	bh=Bxouv0kn7Sc9hHczau5510tqW8b3G6JDVUWPALdKHHY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lAKCu+o+pALPobQZAUGddKwHbG2VijoTyRwY+eqaavfcyR9AC9fJt0qxzrI8yXjP8
+	 HGCWfJ2+XVVfjt3J4CUTSQNZclicJGWWm4Oph3FvNVAzBOimYdJ9fKwsP5UIofmg93
+	 SkEUYcmKUPdoP0qq7PqfvQcPYvzqd1/anQZR4gg3PO1FO2Xi4F+wkljdplItfxbX1K
+	 xU6HFKBzeA7gESVpLwIpdSE06baOfBpYqF0gj2Tm8Qys+VM0YxXdzGbt0EKFtR7sAJ
+	 Hi6iThLAJ9RVVFU5FLkZv25b9xJbt5geXLip1RTpBRfJZLdA5WJxzZ7fO69qBkUrJ9
+	 a+xsaVawV3iOQ==
+Message-ID: <43b58ad7-5934-4895-b48d-5b5a7b92e253@kernel.org>
+Date: Wed, 21 Oct 2026 08:07:34 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,105 +51,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sen Chu <sen.chu@mediatek.com>,
+ Sean Wang <sean.wang@mediatek.com>, Macpaul Lin <macpaul.lin@mediatek.com>,
+ Lee Jones <lee@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Val Packett <val@packett.cool>,
+ Fabien Parent <parent.f@gmail.com>, Akari Tsuyukusa
+ <akkun11.open@gmail.com>, Chen Zhong <chen.zhong@mediatek.com>,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+References: <20261020173556.632798-1-l.scorcia@gmail.com>
+ <20261020173556.632798-2-l.scorcia@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261020173556.632798-2-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Change the get_ring_selector hw_ops callback signature from
-get_ring_selector(struct sk_buff *skb) to get_ring_selector(u8 ac),
-removing the dependency on the skb.
+On 20/10/2026 19:33, Luca Leonardo Scorcia wrote:
+> Describe the MT6392 PMIC and its RTC and regulator devices. This device
+> is mostly based on MT6323 with some similarities to MT6397 and is usually
+> found on boards using the MT8516/MT8167 SoC.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
 
-After the previous patch switched WCN6750 from skb_get_hash() to
-skb_get_queue_mapping(), all get_ring_selector implementations fall
-into two categories:
- - smp_processor_id(): ignores the skb entirely
- - skb_get_queue_mapping(): only reads the AC value from the skb
 
-Since the AC is the only information extracted from the skb, pass it
-directly as a u8 parameter instead. Callers in the dp_tx path now
-pass skb_get_queue_mapping(skb), which preserves the exact same
-behavior.
+And here you write clear note about dependency, once you fixed
+bisectability.
 
-This change enables a subsequent patch to call get_ring_selector()
-from wake_tx_queue using txq->ac, without needing access to the skb.
-mac80211 guarantees that skb_get_queue_mapping(skb) == txq->ac
-for any skb dequeued from a given txq, since both values are
-derived from the same skb->priority through the same AC mapping.
-
-No functional change.
-
-Tested-on: WCN6855 hw2.0 PCI WLAN.HSP.1.1-03125-QCAHSPSWPL_V1_V2_SILICONZ_LITE-3.6510.41
-
-Signed-off-by: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Tested-by: Julius Bairaktaris <julius@bairaktaris.de> # IPQ8074 WLAN.HK.2.9.0.1-02146
----
-v8: Split ath11k and ath12k into separate series to avoid conflict
-    with Julius's airtime queue limits series (ath11k only) and help to
-    unblock both
-    No code changes from v7
-v7: https://lore.kernel.org/all/20260917064825.12747-3-jtornosm@redhat.com/
-
- drivers/net/wireless/ath/ath11k/dp_tx.c |  2 +-
- drivers/net/wireless/ath/ath11k/hw.c    | 16 ++++------------
- drivers/net/wireless/ath/ath11k/hw.h    |  2 +-
- 3 files changed, 6 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/dp_tx.c b/drivers/net/wireless/ath/ath11k/dp_tx.c
-index cac970c92806..083aca8ff355 100644
---- a/drivers/net/wireless/ath/ath11k/dp_tx.c
-+++ b/drivers/net/wireless/ath/ath11k/dp_tx.c
-@@ -108,7 +108,7 @@ int ath11k_dp_tx(struct ath11k *ar, struct ath11k_vif *arvif,
-
- 	pool_id = skb_get_queue_mapping(skb) & (ATH11K_HW_MAX_QUEUES - 1);
-
--	ring_selector = ab->hw_params.hw_ops->get_ring_selector(skb);
-+	ring_selector = ab->hw_params.hw_ops->get_ring_selector(skb_get_queue_mapping(skb));
-
- tcl_ring_sel:
- 	tcl_ring_retry = false;
-diff --git a/drivers/net/wireless/ath/ath11k/hw.c b/drivers/net/wireless/ath/ath11k/hw.c
-index d679e39dce03..8a28c1d4c17b 100644
---- a/drivers/net/wireless/ath/ath11k/hw.c
-+++ b/drivers/net/wireless/ath/ath11k/hw.c
-@@ -876,22 +876,14 @@ static bool ath11k_hw_wcn6855_rx_desc_get_ldpc_support(struct hal_rx_desc *desc)
- 			 __le32_to_cpu(desc->u.wcn6855.msdu_start.info2));
- }
-
--static u32 ath11k_hw_ipq8074_get_tcl_ring_selector(struct sk_buff *skb)
--{
--	/* Let the default ring selection be based on current processor
--	 * number, where one of the 3 tcl rings are selected based on
--	 * the smp_processor_id(). In case that ring
--	 * is full/busy, we resort to other available rings.
--	 * If all rings are full, we drop the packet.
--	 *
--	 * TODO: Add throttling logic when all rings are full
--	 */
-+static u32 ath11k_hw_ipq8074_get_tcl_ring_selector(u8 ac)
-+{
- 	return smp_processor_id();
- }
-
--static u32 ath11k_hw_wcn6750_get_tcl_ring_selector(struct sk_buff *skb)
-+static u32 ath11k_hw_wcn6750_get_tcl_ring_selector(u8 ac)
- {
--	return skb_get_queue_mapping(skb);
-+	return ac;
- }
-
- const struct ath11k_hw_ops ipq8074_ops = {
-diff --git a/drivers/net/wireless/ath/ath11k/hw.h b/drivers/net/wireless/ath/ath11k/hw.h
-index 4996536fbd14..b6bc8b72d812 100644
---- a/drivers/net/wireless/ath/ath11k/hw.h
-+++ b/drivers/net/wireless/ath/ath11k/hw.h
-@@ -273,7 +273,7 @@ struct ath11k_hw_ops {
- 	u16 (*mpdu_info_get_peerid)(struct hal_rx_mpdu_info *mpdu_info);
- 	bool (*rx_desc_mac_addr2_valid)(struct hal_rx_desc *desc);
- 	u8* (*rx_desc_mpdu_start_addr2)(struct hal_rx_desc *desc);
--	u32 (*get_ring_selector)(struct sk_buff *skb);
-+	u32 (*get_ring_selector)(u8 ac);
- };
-
- extern const struct ath11k_hw_ops ipq8074_ops;
---
-2.54.0
-
+Best regards,
+Krzysztof
