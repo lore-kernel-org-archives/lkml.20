@@ -1,65 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591015;
-	b=2LdEgEkU6PofgaTsJS0roKJ5CvJyVhF2LE8mndz809uD79hy8jbHnMM41Eg+haUvR7Ex
-	 SMLh3AL2Pjtdn76ItHI+5b5XiEram1Rce90iDS7Wv/M83REhoBf8gsJf+9R7NIMaPC7MA
-	 df2dS0dtEoz2mwZKtApCUIGEskPUVM30PDMUDsOGJGPZUTCHEp+iCSzdGmxTaD45kCSON
-	 xQtQC1N9lXMb6GHlBUvfMVexctkAgg6sG5Es7D1200lFMto7DSE9KYABvf1O81nWIuEPQ
-	 CKdhE89yWTH8fS0PtHqNggKuf6yjQHx4cwrZviN2nXUNdoNOOLccNxDFZ01EakdF9lw==
+	t=1792591057;
+	b=OYPYBAqmqcNUQTrlpIB9lVo9HcYbGITvrKcONsVxiPHManmnMr2hBEni9o20AGs7uFCD
+	 55kCNulVHcC7xHpi/zaNWaKX3MNXrxryDQpUdY1BJqUh58Vn7XlD/1sydjUcsRTl8RV+G
+	 LBijYIJnW+0i9MMfr3qJy7R8sl/AMYV2a6y//RiJAgqvSEbpXHnK85rcmCbLrKKKZX594
+	 Ts6SxeXthO6DgJ4ZI2DWUL9RmVr7TAEW5h+3f829Q4tr+YaJWHaCFDYMqvosvxFg/csdw
+	 lcwvpAbAX9KLjWLNrZmn+9RtCndzULsC1Qpu/mnajOVn1kZ3SWYFRj+iPQ8rBU9Iw6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591015;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Y6jDT1+Uf+NYmG4WR9Wq5wTWlOhPzPOvbHnwX04CA7U=;
-	b=C7jCduPTxCbEHXs4jHnTVfMbFzxWaMI7Ox/7bW3sXP8ivOTvvru5/34x5QexrMpfJgCh
-	 hxVUB9re2LIdBtWtZojNfByYOT+lJqRZ53pNbwx5LuCDbeWs7la3MpmzQWmHGAdCZlZ9G
-	 zZ4Qn6ssNNoa6sX/KhwAr3JkaI0fm2p4ixjhGIWZGQgnlkxTAqQifwHrBrxfkj24vdpZ6
-	 6AlcxcbIY9EEoUROkEtWiStWbpzje0ooZXYCpkdhZeQIo3zKwOiCo4r4jL6kbIbfUpTYt
-	 q+jJ+r99X+OTVcF+xJTMlX4/YSOx9rp1ZZffMYNISNi0akWPdgyKFtBf5tanG3fPDVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591057;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=5W+iT+MkSvp3/KJA4Aq2SUM9unr+BuTaqOzLyaskO+o=;
+	b=ybjKv0KK0xv4mYx0/srrCiMNaXlW6iRagBCDpbcznAdYpTQp4Q5pJ2eONWHX0lR2gXt5
+	 z6gtzui3PYzE8yhe2onIl4qnXES3vU9O8TGLFIrLMTyuz+ebTtgKM08UbpqkmHxpq/Dc6
+	 taRr6SuOaI7/ycNcnRYTHBX5/9E3Uc8HuGX9RJ8yMJRke0Qi5E1i+g8Cr5N+No//VO/OM
+	 3ON5Ue46ozZ16tAg3i/z7XyRbRaZeqWeAn5J9dVdaeaOEJUQxqCwuo0NOHO/pZd3uW6dj
+	 HvbRInHEiBn6thT+h4q966Hfq1K1TKH3CMQ0up4h2k1aVu2LHxmWGlDmL19EVSv22iQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5k610Af;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UyWaOkPC;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9ABA606A319;
-	Wed, 21 Oct 2026 13:56:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A1B6606A31D;
+	Wed, 21 Oct 2026 13:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A1B6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F5k610Af
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D53991F000C4;
-	Wed, 21 Oct 2026 13:56:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792591014;
-	bh=Y6jDT1+Uf+NYmG4WR9Wq5wTWlOhPzPOvbHnwX04CA7U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=F5k610AfzYB/Bn+C/Z6090ISaSjZ95g9I5zD9y0m1sc1sspIoh5pLoMNHuhtcV04F
-	 zDsAHi1x1X5dFCk7xQhxdaJg/hzu7WWD6vDoUAjfoU569a8xnlI4xrwKvu9AKuYngk
-	 XPP3LciDn3RCOcNoEtFaogHck4AO8/H8mxl+snoVXL7JJ6Rj5CE+U7V+CUjkDPXeea
-	 VPxIEtbfDTLJ3WhGdx0sY8KAESptL+By1r7hEmdFMjZR2UfZpjo9sNlRxgX5rjvtpH
-	 3g4XFCrwohJn43MBBt66jtcYVLe9D04zd04qDe+XnPf0eMnnN9YmJTIpkN4m5Ro98X
-	 Iu4C9qjzs0YFg==
-Date: Wed, 21 Oct 2026 15:56:44 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Federico Vaga <federico.vaga@vaga.pv.it>, Daniel Pereira <danielmaraboo@gmail.com>, 
-	Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Lorenzo Stoakes <ljs@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Jori Koolstra <jkoolstra@xs4all.nl>, Jeff Layton <jlayton@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Christoph Hellwig <hch@infradead.org>, 
-	Mark Brown <broonie@kernel.org>, Jens Axboe <axboe@kernel.dk>, Brian Foster <bfoster@redhat.com>, 
-	Carlos Maiolino <cem@kernel.org>, David Disseldorp <ddiss@suse.de>, 
-	Jani Nikula <jani.nikula@intel.com>, Justin Stitt <justinstitt@google.com>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] docs: remove Assisted-by references
-Message-ID: <20261021-eisstadion-junitag-haargenau-af1082349d07@brauner>
-References: <20261013121501.3738437-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UyWaOkPC
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792591057; x=1824127057;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Br9EKJwhi7WcbmbtW8Y2iu+BL2cD1Vy7EQOi8VN93i0=;
+  b=UyWaOkPCmeSv+UKjF9lAK/rVkvlNAw3pTsXVz2CsBMs84jdAwZ8MtRhw
+   5bdWcVRRqqJejtL6QgiEiKvZ0qdX6Vj6VAtkzeO53EYZiFuWQIXpOeVOh
+   P3FxmQYprXdKfGgr9cdfz+vrvzf6TpNWd65gVweG6KgoF/63hxMQMISPE
+   IbEu+8d7Nj7hxBU2KM1pF3oMtlvxASDxMojMTSsMNMQoQFW77boi+ypGh
+   WF/eGl8OPBKD8qqW25LqZtQVvQZv8MUbNY7HJFmarReJix0yjDrWDxYzr
+   4guLsMqM/7jQOXh6C8UNvBHEIdmPfDSUfIFKkdcP82UC1GxsVAH2URUfy
+   Q==;
+X-CSE-ConnectionGUID: /Jy3thBsSiKIMq3YnmbUtQ==
+X-CSE-MsgGUID: h5p8iT59R5uE9uzfBXcbQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1332673"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1332673"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:57:36 -0700
+X-CSE-ConnectionGUID: RAMc1K4zRf+2ZuLiFKfmCQ==
+X-CSE-MsgGUID: TgiW3nb/Sby1oVttqXa00Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3115929"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 06:57:33 -0700
+Date: Wed, 21 Oct 2026 16:57:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Chong Qiao <qiaochong@loongson.cn>,
+	Corey Minyard <corey@minyard.net>,
+	Huacai Chen <chenhuacai@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 02/28] mfd: ls2kbmc: Unregister GPIO GSI via
+ devm_add_action_or_reset()
+Message-ID: <atjEyo2VkaJuecMh@ashevche-desk.local>
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-2-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,51 +83,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013121501.3738437-1-sashal@kernel.org>
+In-Reply-To: <20261021121245.3111563-2-lee@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 13, 2026 at 08:15:01AM -0400, Sasha Levin wrote:
-> Commit 78d979db6cef ("docs: add AI Coding Assistants documentation") asked
-> contributors to add an Assisted-by tag to patches developed with help from an
-> LLM, and commit 816d9992d9ed ("coding-assistants: simplify attribution") later
-> reduced the tag to "Assisted-by: LLM".
+On Wed, Oct 21, 2026 at 12:09:24PM +0000, Lee Jones wrote:
+> ls2k_bmc_init() unconditionally calls acpi_unregister_gsi() immediately
+> after requesting the GPIO interrupt via devm_request_irq().  This
+> prematurely disposes of the active IRQ mapping while the interrupt
+> handler remains registered, breaking the GPIO watchdog interrupt and
+> causing a use-after-free when devres later frees the disposed IRQ
+> descriptor on probe failure or device unbind.
 > 
-> A proposal to drop the tag was turned down in July [1]. The main argument for
-> keeping it was that maintainers wanted a signal that a patch was LLM-assisted,
-> so that they could review it accordingly.
-> 
-> The tag came up again at the 2026 Maintainers Summit [2]. Roughly 10% of the
-> 18,533 non-merge commits in 7.3 through -rc7 carry an Assisted-by tag, while
-> actual LLM use is far more widespread. Some contributors do not know about the
-> rule, others leave the tag off on purpose, and few maintainers ask about it. As
-> a result, the tag does not provide the signal it was kept for: its absence says
-> nothing about how a patch was made, and for developers who use these tools for
-> almost everything, its presence says little more. The choice was between
-> finding a way to enforce the requirement and dropping it, and there was a
-> strong, though not unanimous, consensus in the room to drop it. Greg
-> Kroah-Hartman, who argued for keeping the tag in July, supports removing it now
-> [3].
-> 
-> Maintainers do still want to know how a patch was created, but the view at the
-> Summit was that this belongs in the cover letter, where it can describe how the
-> tools were used, rather than in the changelog.
-> Documentation/process/generated-content.rst already asks contributors to be
-> transparent about tool use and is not changed here. The rules on the DCO and on
-> the submitter's responsibility for the patch stay as they are.
-> 
-> Remove the Assisted-by sections from coding-assistants.rst,
-> submitting-patches.rst, and the Italian, Brazilian Portuguese and Traditional
-> Chinese translations, and drop the handling of the tag from checkpatch.
-> 
-> [1] https://lore.kernel.org/workflows/2026070224-unholy-commode-cf45@gregkh/
-> [2] https://lwn.net/Articles/1099594/
-> [3] https://lore.kernel.org/all/2026101327-cupid-legal-6cf6@gregkh/
-> 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Reviewed-by: Kees Cook <kees@kernel.org>
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
+> Register a devm_add_action_or_reset() callback before devm_request_irq()
+> so that acpi_unregister_gsi() is invoked only after devres has freed the
+> interrupt.
 
-Reviewed-by: Christian Brauner (Amutable) <brauner@kernel.org>
+...
+
+> Fixes: d952bba3fbb5 ("mfd: ls2kbmc: Add Loongson-2K BMC reset function support")
+> Closes: https://sashiko.dev/#/bug/linux-cab8bfb6-4077-46f3-a173-ac2e2042cf66
+
+Don't we use the official Sachiko's email in Reported-by tag?
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+
+> Signed-off-by: Lee Jones <lee@kernel.org>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
