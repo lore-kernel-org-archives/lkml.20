@@ -1,54 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.153
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575190;
-	b=PoYGoanZX5FJI+PT5amt6t+hbjuyQn5qLUBfYP7fr+FBTYa2QDA8jEjajtMwAhx5/088
-	 aFeJHDg5n1pJfi/wSkeHIqFlKNjbzs9R5zjKFO88iQSNHoKbmJ+afJPOccZ6EReZatxnb
-	 5t1rqn1PLnRppmSm5vY7TfZctCxSSKytKz20WEE66G13bry1uO74sZTdy9+zWwhGNni7q
-	 Hr7g/f2SqZL+9H90S9CzfaL3EudioAhH1BNZXKUJF/5uOjKEy0GtFjBi3XhRCUSrZ4HC9
-	 2pQGttc90SbvLQnemdIV2LV+vDdtgEJwj7ea77tbjVegG4rO6eLXl4g6UrLv/L8D7PQ==
+	t=1792575212;
+	b=cR2Z0YVpvyyJzNXPWBHqEg7b1PIzuTJOeM+XAiFPaESqEE5aMHoavT5L+ARcG1ufh/aC
+	 T5VQZ+CMonp06vRnDg9MmjJf4Dm7U1T2hHL19agYqaNCpY2HMqRHKyry65/0QOlk3CmTQ
+	 K/jF1tBREWpwPsuXpMABYD8viAJSPpyADdtandX+LAQ6aGXp0EmsTU2WjqzoEDJCJeIMP
+	 ShNMC002csebCI7u9uTyyEh7Vy3npkAHCLFuH87a2EVEkm8FmjMyMykH+KgiaciEwWw5b
+	 zP5HKQAR7W3r/krPe0q2y1vNGXx0QqyQbbKuOVFCC44Pfnr21V5SmlVqduFXLqvehlw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575190;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=jr7HnwUIiu7FdL/RBzGWRsmL/DGvW3qYiYRJage31n4=;
-	b=YzbNGJxF0WIQwUMialyt3M4TsnAwsIfPibH1WZ3y9mt8vq8vmD2HPbdHmESDy4xsG/P1
-	 zK7fTOXDuSHNXeeGZtpdFvEKx33ad37JaUEyDiZpMtVBnZvUttUR9j1Y7hb3S1BYB15PG
-	 19Zbw6NdXTCxYfsXDnSTgl7czKueYrA9bgnm7NZODUmiTItz3yqHwPcReKkLEvbWDK3E8
-	 3yewFa7v3j+KkKOWOzAh3ltfmAsAmDAj5HfVFc8DSwpkq9/ihVOQsnRWfD4Pj3WlxfI2V
-	 6YlfQE0ApeM1c2cCFmAvp4eOpvurRWjr1OU8YJL9Zc4x3OzGh9ZggMGZVF5/hviSpQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575212;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=UOxlMxCeeV3aWc5tsW//V2qhk9/BquEemWrF1Xo4tEg=;
+	b=B2EHziIFzQ1Hg7TRzMnfmjdI+iGlghrad1tOpmfg3nPqr8BJnQ4YMhfybTqPlEf2Cc0x
+	 DGajRUqnrrlaxobQzeIod01ITwe01JciqoyOKE38mkLL+S84SISaU+xls8DCHZwOvmlD6
+	 1xP7DkHVZUIhxc26abGyojy53LVoOzLzWTtI0+F5L3pu4NHAf+5h5NppnEuWHYomWy0UX
+	 wLtj+bdgKeF7SCefVvtDHXzXcm3Fj13bxrR4iLW9F85v2cqARnSOL04ruDQhx2jc3uSHr
+	 kPqqXtcKMmP+Vt2traKDUgV5Kya7bYSNu4pSq9rYCII23uV6Ck3RxDgE5Q2fXntu3OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mIVZebeJ;
-	arc=none smtp.remote-ip=91.218.175.153
-Received: from mta0.migadu.com (out-153.mta0.migadu.com [91.218.175.153])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AUfvKoYY;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hamLPNm6;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDF2606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:33:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDF2606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3F4606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:33:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C3F4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mIVZebeJ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dR+VfLDHueVtZzyRT3cCSn71Vr7MLkcSNP5OUCJWM8A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792575187; v=1; x=1793179987;
- b=mIVZebeJDheysgRfBLQ5IYp9YqVkwZieb9MhPYSmKwSMHOcH/yx93Iq8oES6Xap5rYT+13qG
- yGIsquauM1c7o+8BMiBIrGKBG0B44BN0ij0dcuL9yskE7+Boo8Wr6HcV4caGA6hDiut3Khw8eVe
- B71aq7l/zBLTa9fvZH75Q6vE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 0674a95a7bee71c4;
-	Wed, 21 Oct 2026 09:33:06 +0000
-X-Mizu-Trace-ID: 0674a95a7bee71c4
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AUfvKoYY;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hamLPNm6
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5j0Pp165017
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:33:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UOxlMxCeeV3aWc5tsW//V2qhk9/BquEemWrF1Xo4tEg=; b=AUfvKoYYLuz/RiNj
+	fU1JeE0ZX3dBvp0QOJ7aTeCslxnRypJW4z6rhGnRLYP2bfK8vtNbjBTJCuM6SACE
+	MnRhIVpcac5AWC1PgE+1g2C6zPeQE+88VI/LYGT4CayKD5STdtkD4njtw9bLrmK2
+	1Rv9En7HIksLlJmW8v2gwM5TOYlLpLAxserJsFppAktX5LlPcRjQ0VMFBzHe9IFR
+	VyAMqD6wkbXQ+YGTm1PDgMyBbkkEDmgULpd5qEb+fKu8g9x7QOXtuV0W9+o97nNC
+	qkmHMBdTjp5jwdekhrgcLBYGKkxCFq95Fvb6n67X7NGtyzMoTPMW+6w1xJF9LzWX
+	/sgpyQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hegs02g3a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:33:31 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93edac58b24so15980885a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:33:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792575210; x=1793180010; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UOxlMxCeeV3aWc5tsW//V2qhk9/BquEemWrF1Xo4tEg=;
+        b=hamLPNm6h5U7OYSHnmXUcCqCWM3/B61WoKwDjGqpXpOx7+3PNTxh/DKJ7ariZUMwDU
+         FqGKi/BF+5oGYa3S1XRPezVwFKUnsbjE+3KRUyBqHk0b0HIqV9L7R82YzhLqUIigogaH
+         n6M/J+yMD3ff0qStBUSfvuf6NzhKnLYBlVL7CW6Pq0tX4ODyj/iDrXaMCAy3B71HXWSN
+         07OcH5Eps3A59vEyy/RVIJu8TBKcCIg2XWU3DElLM/xpsb88Mh7Eyt8+/YtwV2n8pJoa
+         bzYN2vVejuZWtumXxz3fiMkjMlXk2kMCdPZ0ryoupakCieTe99HAZWncPyCTzAbUqjvd
+         b7TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792575210; x=1793180010;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UOxlMxCeeV3aWc5tsW//V2qhk9/BquEemWrF1Xo4tEg=;
+        b=A0ukurjFMolQiGyAMVXevi+FR2O+s6uBXfJ2wJJqBN/wA1QOYd4wVqxM/8vx1G+A9K
+         LgTbH8+WPnecOGrJlwRmMzKGg4QwU/cORfmahPfoNDZV9PKttMQtVxI2yrrqtZ9PhpOK
+         crJXTfMjb41ewwKGAXlHpUFwzFxxQIuIlcmNr1deoMrRCl0QVFNgRad7N9uCUKdgPjmc
+         P4MYAZpFRgW5wu87BKS9XIQ+8iXe+PPNCs6pUMMHaaBSkwC5mTU1JuShK0sQYVHntBwB
+         itjuKyWx6YiAV8DUd375vCWeY1jt/uDRAxnHOk2WWYEPjjBC5ncKLbTjIiA4jeQRC0Eo
+         7kfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxP3qoV1sPXxYwLI/Q372nfdC+7KIkgty/VoJF8MtYcRCI4++B6x34tfavKugf3Mza9JPyvXhGp4my5+Ow=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLF+bBaWRX3VlrUtoGghT8X9R7NaZ1LQROEX2wSLWTIMmyZ7UiG
+	+KyKA1DgYS4JSqgL0ze3wE+vNqLiaE1jSNZWYz4ncG7Eip82ohycoFij4eLUqci3Rgbyuft5hnE
+	ufMwFzp1WOnlhmvEyFLKO9DXJdW4HiIr2lsyZUG9Z32HMI1LAj6ZdNlPIasKGdopG0HY=
+X-Gm-Gg: AYBFou2yfIljuEcgCFiWAf5WqLFgt/q2deUxCfz+KVeeFGBWggXB+O+5YmWnAi50HxG
+	mGr0zhEy4Vk9cuO0/CboVZkJgoDxZzwoP3Gz8cBhi+d1az8Aa9PRiAFJbOKtWiP5wFtMLOrVd33
+	0NwBNAWh+wbr3yZ9HyHJmDjrLKG/pldWyov0o2OfTIkNZS+v6JSuqzmM+2wjgqsVXPbWbwPn1le
+	qpo6ckM+cyNKXNUljkUdmP9rG7Vl9jc2vOuhvjuEpwnGTwIDLLKf0STic2imPhBenD6Ow40F/jp
+	boC66y0DOll0byP9aVdPc1H2kWiwovkaRnEN3sa7kXZvhaPofyrD7fH60X+IbiVJ7iZblE8FiJR
+	VqdMKLCkgarYNZ1m3Z9uKbg==
+X-Received: by 2002:ac8:5f83:0:b0:536:27d7:abee with SMTP id d75a77b69052e-5369b4fd888mr26713111cf.2.1792575210446;
+        Wed, 21 Oct 2026 02:33:30 -0700 (PDT)
+X-Received: by 2002:ac8:5f83:0:b0:536:27d7:abee with SMTP id d75a77b69052e-5369b4fd888mr26712901cf.2.1792575210042;
+        Wed, 21 Oct 2026 02:33:30 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4679037543sm59783766b.85.2026.10.21.02.33.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 02:33:29 -0700 (PDT)
+Message-ID: <9981a633-4788-4b7c-975a-77c3a57c0352@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 11:33:25 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,172 +114,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 01/20] hugetlb: Don't restore vmemmap of non-HVOed
- folios on bulk restore error
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261003002123.505555-2-jthoughton@google.com>
-Date: Wed, 21 Oct 2026 17:32:49 +0800
-Cc: Will Deacon <will@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nikos Nikoleris <nikos.nikoleris@arm.com>,
- Linu Cherian <linu.cherian@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- David Hildenbrand <david@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Nanyong Sun <sunnanyong@huawei.com>,
- Yu Zhao <yuzhao@google.com>,
- Frank van der Linden <fvdl@google.com>,
- David Rientjes <rientjes@google.com>,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <491B482A-8177-447A-8CDB-AF83C13A5DEE@linux.dev>
-References: <20261003002123.505555-1-jthoughton@google.com>
- <20261003002123.505555-2-jthoughton@google.com>
-To: James Houghton <jthoughton@google.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-google: Configure qup_i2c2 pins
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Joel Selvaraj <foss@joelselvaraj.com>, Vinod Koul <vkoul@kernel.org>,
+        Amit Pundir <amit.pundir@linaro.org>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        phone-devel@vger.kernel.org,
+        Marco Mattiolo <marco.mattiolo@hotmail.it>
+References: <20261016-pixel3-i2c2-fix-v1-1-6a527d52c865@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261016-pixel3-i2c2-fix-v1-1-6a527d52c865@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=S/NMU4sP c=1 sm=1 tr=0 ts=6ad886eb cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=vbdGY0My6zaIDZyNjYwA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX8fCMSVvApUDY
+ CAwoUV+F1iu41X3vqWt2Rdhfndq5+MWdr9LvHfitL5ub+Yg810XWVv3TY9HDNyEwWz9xnxlqFMB
+ kq2+u+X3/K8CW2iC8ELoPuTLCWQeWcpn3LCKn6XcbINBWAaUZyR/2KofWBW+WAThmsd+GhUvaR/
+ heeUZvh1k/LplbQ9MbXOG0G6HwRDApk/g1WgAhEXOG1891ZVYYrSY7fFdcpJ+j1Wf390OBBvwRK
+ uPI1uvNRY3JWvnsUB0QTLft72n5W4d+GTc/6Go3d0UBF0Wu9xrEU2AkjiuJvyJiXGCpAesxyRDU
+ qP1E151OBtAT1iHuJT1qj4Xc2VHpTpA2ekbTVNrTiiiEJPCBNYx1WFNp0spXQf7epAnZKGmqxtD
+ LsoJ8LRyXE53SaqN7rVqfhqXDUy6AyWHDJckTEqabgYxgCbhLGUq5z6cTDJy58yVqcY3661f21s
+ 7qSMNuJf7XSNifaKJRA==
+X-Proofpoint-ORIG-GUID: df-dAJ43Doe6t6UXHxM4PVA8HB6Y0JEm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNyBTYWx0ZWRfX/LKC8A0CssZ0
+ PdfGfDi5GbQUHRTfQhw2cHl0KDrb8AN/pm/FpGtUguFkXiLZR43Uo/c1G+rr8eHB7TXHquHcSrr
+ RbKtAiYNvBIE+IIKTxh2/mCSBOTMslE=
+X-Proofpoint-GUID: df-dAJ43Doe6t6UXHxM4PVA8HB6Y0JEm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210037
 
-
-
-> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> =
-wrote:
->=20
-> When hugetlb_vmemmap_restore_folios() fails, it stops processing the
-> list, so folio_list may still contain folios that were never vmemmap
-> optimized, e.g. because HVO failed when they were allocated. Their
-> hugetlb flag has already been cleared by remove_hugetlb_folio().
->=20
-> If no folios could be restored, bulk_vmemmap_restore_error() then =
-calls
-> hugetlb_vmemmap_restore_folio() on every folio left on folio_list,
-> including those, which trips the !folio_test_hugetlb() check in
-> __hugetlb_vmemmap_restore_folio():
->=20
->  page dumped because: =
-VM_WARN_ON_ONCE_FOLIO(!folio_test_hugetlb(folio))
->  WARNING: mm/hugetlb_vmemmap.c:503 at =
-__hugetlb_vmemmap_restore_folio+0x270/0x300
->  ...
->   __hugetlb_vmemmap_restore_folio+0x270/0x300 (P)
->   hugetlb_vmemmap_restore_folio+0x1c/0x30
->   update_and_free_pages_bulk+0x2c0/0x368
->   __nr_hugepages_store_common+0x2e8/0x3f0
->=20
-> Otherwise this is benign: the restore is a no-op returning success for
-> non-optimized folios, which are then freed as intended.
-
-Good catch.
-
->=20
-> Skip the restore for folios that are not vmemmap optimized; they can =
-be
-> freed right away.
->=20
-> This is very unlikely to happen without fault injection, as it =
-requires
-> both HVO and a subsequent vmemmap restore to fail.
->=20
-> Fixes: cfb8c75099db ("hugetlb: perform vmemmap restoration on a list =
-of pages")
-> Assisted-by: LLM
-> Signed-off-by: James Houghton <jthoughton@google.com>
+On 10/16/26 9:37 PM, David Heidelberg via B4 Relay wrote:
+> From: Marco Mattiolo <marco.mattiolo@hotmail.it>
+> 
+> Set drive strength and disable the pull on the touchscreen i2c pins by
+> amending the qup_i2c2_default state from sdm845.dtsi, as the other QUP
+> users on this board do, and drop the unused touchscreen_i2c_pins state
+> that duplicated the pins with the gpio function.
+> 
+> Fixes: a678adbf2d22 ("arm64: dts: qcom: Add support for Pixel 3 and Pixel 3 XL")
+> Suggested-by: David Heidelberg <david@ixit.cz>
+> Signed-off-by: Marco Mattiolo <marco.mattiolo@hotmail.it>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
-> mm/hugetlb.c | 7 ++++++-
-> 1 file changed, 6 insertions(+), 1 deletion(-)
->=20
-> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-> index a1b51251103b..4dac7ed1df57 100644
-> --- a/mm/hugetlb.c
-> +++ b/mm/hugetlb.c
-> @@ -1613,9 +1613,14 @@ static void bulk_vmemmap_restore_error(struct =
-hstate *h,
-> 		* page is made a surplus page and removed from the list.
-> 		* If are able to restore vmemmap and free one hugetlb =
-page, we
-> 		* quit processing the list to retry the bulk operation.
-> + 		*
-> + 		* Folios whose vmemmap was never optimized (e.g. because =
-HVO
-> + 		* failed when they were allocated) can be freed right =
-away;
-> + 		* remove_hugetlb_folio() has already cleared their =
-hugetlb flag.
 
-Since you mentioned the hugetlb flag is cleared. So it's unnecessary to =
-clear it again.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> 		*/
-> 		list_for_each_entry_safe(folio, t_folio, folio_list, =
-lru)
-> - 			if (hugetlb_vmemmap_restore_folio(h, folio)) {
-> + 			if (folio_test_hugetlb_vmemmap_optimized(folio) =
-&&
-> + 			    hugetlb_vmemmap_restore_folio(h, folio)) {
-> 				list_del(&folio->lru);
-> 				spin_lock_irq(&hugetlb_lock);
-> 				add_hugetlb_folio(h, folio, true);
-
-Something like following:
-
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 6a011b627986..1ab3e61f4704 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1616,21 +1616,31 @@ static void bulk_vmemmap_restore_error(struct =
-hstate *h,
-                 * If are able to restore vmemmap and free one hugetlb =
-page, we
-                 * quit processing the list to retry the bulk operation.
-                 */
--               list_for_each_entry_safe(folio, t_folio, folio_list, =
-lru)
--                       if (hugetlb_vmemmap_restore_folio(h, folio)) {
--                               list_del(&folio->lru);
-+               list_for_each_entry_safe(folio, t_folio, folio_list, =
-lru) {
-+                       list_del(&folio->lru);
-+
-+                       /*
-+                        * remove_hugetlb_folio() already cleared the =
-hugetlb flag
-+                        * for folios whose vmemmap was not optimized, =
-so they can
-+                        * be freed without restoring vmemmap.
-+                        */
-+                       if (folio_test_hugetlb(folio) &&
-+                           hugetlb_vmemmap_restore_folio(h, folio)) {
-                                spin_lock_irq(&hugetlb_lock);
-                                add_hugetlb_folio(h, folio, true);
-                                spin_unlock_irq(&hugetlb_lock);
--                       } else {
--                               list_del(&folio->lru);
-+                               continue;
-+                       }
-+
-+                       if (folio_test_hugetlb(folio)) {
-                                spin_lock_irq(&hugetlb_lock);
-                                __folio_clear_hugetlb(folio);
-                                spin_unlock_irq(&hugetlb_lock);
--                               update_and_free_hugetlb_folio(h, folio, =
-false);
--                               cond_resched();
--                               break;
-                        }
-+                       update_and_free_hugetlb_folio(h, folio, false);
-+                       cond_resched();
-+                       break;
-+               }
-        }
- }
-
-Thanks,
-Muchun
-
-> --=20
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->=20
-
+Konrad
