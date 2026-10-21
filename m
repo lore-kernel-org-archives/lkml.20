@@ -1,72 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593123;
-	b=taOjNI0CcdGm+wkPjhCH/KUMYkpnZYFdrAgE/NAmvl4+iTcE9+todj7sPL9F56Lt4VP5
-	 i283AVp8rEaBi3kXEVnZr751i6FsHBvwvnRJXYyHQCINChLcjEF4FPj22uekHVtSk3EU3
-	 03D3LDqzcipjL+QzqFnkpQJRstmaITs0Q5Ra03ta4Td+CZiZNKl7z6Dqi77UBKeuY4N6l
-	 5Bst+5TBaXyqSFpamd2ubd5VUklFyKl+ENpn3mj2B/m24aKLAr2ZkI/lL4jAOXDF+WRf+
-	 u6LT3aZKDtLJZl+Ggsqyi1cZCbyDj8AJ1wWhB5XAZs3g5VlVFa948kbvOaLmEkHZN6w==
+	t=1792593146;
+	b=Bp1TJbBRUNtqdrrPNL36YghA/+UaD1lu8Mcym7P2LRYG3hi5/vVd+O5hYAsWgarSm0gQ
+	 BPqKyC8+8UsVIE1xlF3+IBvTlVdveWXu0x3D1Nz855tmCMPrzMmF3T1qTPuk9DMsRmUcl
+	 +VT2+ERB7FoZVOQtJ7SUBjA2sipCGzUY8B/5SnHuq533zken7+PBiMALZRtLjB/3zS6Dw
+	 BpNiBR/Vigq4J1eTyv+gS8wpCrxFHS36tUeoXnxyW3mYd0hpsbehVkQRTcyNIrn0eSkHZ
+	 3sJ1UF8lxZs463+kSF4MjdZUOsgggCH7El2sN8ebi56HhhDiyONu7KHsPrnLcMLYGAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593123;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=QazYBGvrND8GI8lJcSkyL4fj9MMsXahwbNAM7/zrdo0=;
-	b=Gsyz8Q0Qg1GGtaiDtC/mAvC4PT4qg9diB+U7U9RfeWCy1lYgXY0J074nm/ZfNuXHZbYw
-	 ew+Ja0nG0spV2QFVtp25lv/qPBzHwWs2Su1CIr5GO7AGtoBf/IbK1VwMZinwVvh4pRLr8
-	 Ugy7f9p6IRd3PAalJk1G79Wmx1xqBxu5CRgyadX87JobF2Aqma1w6GFG7UV/WQLtxQRJj
-	 6gAK53Q0Y4ArgazbUIiRrdw3XZZoCdholY4XFWbg0S0ZQ0nnbEuXb/+MgLNxyUDmN5g3v
-	 lyXE3OZ/woJw/DIqNUwAum9fIWPpjmPr/fwRigwXxIfQk4FvQBrW0ZmxlXGYtpbE74Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593146;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=WEikGICSMJKiPVXQX4CApolfCDnN5Ert0St5ZdogXiU=;
+	b=fWrxwP74+OAYW8Fj3NP3YjImUhQQuA5aMSYIP59nFgoN5YWQeERTKWlZepjWqXWy4ZQe
+	 j1OfOLjEINruaQpOvJLPvak4ck8kN+3NQvMTgLV3ZBucaPhSSSdjaPjJxtWy1uHPE3s2K
+	 Pi2Mxg7glEHB7249jrrKsfRcXHyEO9pc3I6of8aLa0mxGoZvfpfHNb8hGVvRyzg9r6Wp1
+	 045TbW9G5jojU5+/rzzkVlIkVKQDxIbJaTUdTed9DhzHHL73L+QsVCZrH7KkHTqLFS8wa
+	 lsnE0EoTgX4OobZONx0e0Qf43m+gr60NVkQoXJBiCHpIDePV22AbojpCwEMVv7FD3yQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CyFxm3Ar;
-	arc=none smtp.remote-ip=209.85.221.71
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i404dnfL;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B987606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:32:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B987606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--mclapinski.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161DC606A31B;
+	Wed, 21 Oct 2026 14:32:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 161DC606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CyFxm3Ar
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e00f3929bso1370953f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:32:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792593120; x=1793197920; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QazYBGvrND8GI8lJcSkyL4fj9MMsXahwbNAM7/zrdo0=;
-        b=CyFxm3ArtbKF18zZ2VLSW18alh1KxHR9zOgCLyTRVzpX6nL5nGPAt1hsdIdE65SB8Q
-         5w6ANmH3O91Vw9FjwXtJnYGZcTk3lLuRd1Lp5ARHzPQ61FaTwRpqUxFjC69v45msoDVy
-         vZ59dq9GgrUpSVWnhnTo01wkDl1DAKZ9Ism1lUQWooxN42Tna8+UhXRXR5bdeQllLRFv
-         soZ7ZGpDvNw+5/dFVnSOeY/rJyHcuX/u0yUMh/TO27xOQTTRMRah72zNWL+w97erKq5Z
-         xsV5sqSqlW5edEGznmeICv0+r5XLN7seMpa1HnjD/cJP1Q36cscwUw+w7Oyhm3TgiD0l
-         UwXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792593120; x=1793197920;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QazYBGvrND8GI8lJcSkyL4fj9MMsXahwbNAM7/zrdo0=;
-        b=q4VsJHvL6mqHgPI679VU6F6EYoNeiTbdE3SAH/W8t3uRrtbYJgBvgCFZwKM4zKMB2K
-         iZhNjhNFcDZ/Py8pqA2BnHWgsFzYVFlDr3SKlCV6lRvzT55EvyxD6T9S+Q3i43FFbg31
-         WgqiW/eTvudDVGZxpBCUO589iWAcoQxzdpJsrkZ6w0eIA6/YhyUEbq0u1fcMSY2/waQs
-         9HHAVEJCZ3MErWBHIi+o1QRri843anYyq3OlEPS8bXJmvKGtnKbJsYJhhTNRg5bWk54n
-         1mB+z7KJYEWTHp7B0WUH8x1SHntVEwdPHHVH3sZS7KPDmn3hj01LLmF/C4dR3CytVuLG
-         hmAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxt4mpcTUimJd61W0M7i5rtGrbZXRd/QsyTtmIrNHVxkuklWrpGq34cS5eZavGeX+Yz7GB4TnLVJ5SI4cg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFUmo2oK1HsiOPa383JbHLvQbxW44USHxhCI8VrM039mRcCekL
-	r6fU9a3ebrzO3usn0bZXTFi8VQoG+maqJ7GNQjipSf0UeRF+aS8+nArxHlrm7w69E8FZDYuoXFH
-	vBvuoAvf9GBEiLqt7aX4k4Q==
-X-Received: from wmdp11.prod.google.com ([2002:a05:600c:5cb:b0:4a1:fe70:d25d])
- (user=mclapinski job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4f91:b0:4a1:a7f8:c124 with SMTP id 5b1f17b1804b1-4a1fdd0c00bmr46588075e9.7.1792593120273;
- Wed, 21 Oct 2026 07:32:00 -0700 (PDT)
-Date: Wed, 21 Oct 2026 16:31:54 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i404dnfL
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEEI1n1512527;
+	Wed, 21 Oct 2026 14:32:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=WEikGI
+	CSMJKiPVXQX4CApolfCDnN5Ert0St5ZdogXiU=; b=i404dnfLKlkuEBYmLXRhFC
+	WetwFK4PrnBk+MruFMMPOeJe4CT3HF1GLta/qJ5cJLcmWtwrw5fwgcR2zYGC1VK6
+	yJ0vR2jnL8XdNhRbiQMn4frLHev7ZjADZO/bgXaLGIqxlD/mh5mNya0C+tilTedH
+	sI1LEE9+pX/BRbEKsaww40ZEpSHRy3rVrKX7opMUJo7gylt880i5Ch7WbCMtJtbD
+	t5z9pzpS/UoXMUF4mcFhOgBHROXjwTz2m6PDYWJWXXy88TbRIzicZPo8yyzKtR4J
+	I5Ps7UCL1WTropB+SOwHiAANzZn1O46WNiFiDlY3mhFeFXy1Rd0AWOsYBj0UEPWQ
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw58smr5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 14:31:59 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69LC4mXO3038534;
+	Wed, 21 Oct 2026 14:31:58 GMT
+Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdgap5u-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 21 Oct 2026 14:31:58 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
+	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69LEVwhG15925912
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 21 Oct 2026 14:31:58 GMT
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4D86758052;
+	Wed, 21 Oct 2026 14:31:58 +0000 (GMT)
+Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 408E558050;
+	Wed, 21 Oct 2026 14:31:55 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.75.7])
+	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 21 Oct 2026 14:31:55 +0000 (GMT)
+Message-ID: <5e4032b970ae2ea34b0b616977406e3183294c82.camel@linux.ibm.com>
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Dionna Glaze <drdeeglaze@gmail.com>,
+        Jiri Pirko <jiri@resnulli.us>, Jarkko Sakkinen <jarkko@kernel.org>,
+        linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+        linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
+        linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
+        ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
+        sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
+        jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+        jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+        suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+        elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+        sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+        roberto.sassu@huawei.com
+In-Reply-To: <20261021135102.GM3008132@nvidia.com>
+References: <20261017231007.GP13920@nvidia.com>
+	 <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
+	 <atX9fugGUsI0hGcA@FV6GYCPJ69>
+	 <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
+	 <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
+	 <20261020140655.GV13920@nvidia.com>
+	 <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
+	 <ateSly15N5mLrM1m@e129823.arm.com> <20261020165251.GG3008132@nvidia.com>
+	 <ae372ed03da3cd2d57c922850b3b017bcb83ca07.camel@linux.ibm.com>
+	 <20261021135102.GM3008132@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 21 Oct 2026 10:31:54 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,175 +115,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261021143154.2638232-1-mclapinski@google.com>
-Subject: [PATCH] iommu/dma: Allocate flush queues on first use
-From: Michal Clapinski <mclapinski@google.com>
-To: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
-Cc: Logan Odell <loganodell@google.com>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Michal Clapinski <mclapinski@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: F6kky4VAncYXumWvdjaHVpU1V0Kc0aY-
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NiBTYWx0ZWRfX9RDjJFiBi0DX
+ R/zLdRca0vcJjRWz4iVTNcQeZjaeH/UGmfPxasCRMIdjfa/mIl9ia+ed71+lVp/DFp7deL6VD7/
+ 3llrql3xF7d6QV8pueyDOXqbLYBwbAY=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NiBTYWx0ZWRfX7eBV3DLTSQoQ
+ YgC2k18GXHRvLSk4ov1Pz4UfE/K+8YF1xayrqNPvR9L7yQG1geRzdmP/Fkj91mbgcv549b9Cgnz
+ JJC/mzPidrm8DrrJRz4tWos5XNn2sZyUQBl+Zaxg9HWZQQctR/UjChZXc9vwIHkNghKB79vp5pD
+ 70oWyAdcvzM2VyQo5uUcGeXS01lDfF4grKf1p+wzgwvEvFBuHvIdvlRQz4rK0NilEQUdCx3qY6S
+ 1oebzKCJwIMVIosXGrscLu4+qu2jMlkPvccfQAQuluC3fiTNGztSwwHC9f5w1gu7Xoxi6XC7iS4
+ pgJMMWCP9CAcb/QdigJJduxHIaJM+kpnN05Dx3VZVEIg8o5aQuN/QHn7ucYbJluFZYT/jJfzyfx
+ +uBuifplXxr6+Y+tnkne9ruRlxKSghJcdeow3XPZxXtC4FwHe2F+ghcYx/+iJ1EPfLKwp9WzJB/
+ ilgsg/k0dgnO806LAeQ==
+X-Proofpoint-ORIG-GUID: X9xH4nBqsbqysPHhLTM5UPrGPrNmInOc
+X-Authority-Analysis: v=2.4 cv=Ob4NnRTY c=1 sm=1 tr=0 ts=6ad8cce0 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=c7Uk0Hrh90vnBjMxToAA:9
+ a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 phishscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210056
 
-iommu_dma_init_domain() allocates the per-CPU flush queue of a DMA-FQ
-domain upfront. That is 10KiB per possible CPU, so on a 224-CPU machine
-it costs 2.2MiB and ~570us per domain. Since every device gets probed at
-boot, large servers pay this for hundreds of domains in pci_iommu_init(),
-even though many of them (PCIe ports, CPU uncore devices, ...) will
-never do streaming DMA.
+On Wed, 2026-10-21 at 10:51 -0300, Jason Gunthorpe wrote:
+> On Wed, Oct 21, 2026 at 08:23:05AM -0400, Mimi Zohar wrote:
+> > On Tue, 2026-10-20 at 13:52 -0300, Jason Gunthorpe wrote:
+> > > On Tue, Oct 20, 2026 at 05:11:03PM +0100, Yeoreum Yun wrote:
+> > > > But, I have a related concern about deferred probing of RoT devices=
+.
+> > > >=20
+> > > > For example, if TPM probing is deferred until after the attestation
+> > > > subsystem has been initialized, how would the subsystem handle the
+> > > > TPM becoming available later (This is reason for
+> > > > IMA_INIT_LATE_SYNC).
+> >=20
+> > FYI, this patch set initializes at module_initcall(), not even late_ini=
+tcall().
+>=20
+> Yeah, it's fine for where this patch series is.
+>=20
+> > > I don't think it would be any different, the mechanism for TPM would
+> > > become generalized and apply to any attestation driver.
+> > >=20
+> > > This series doesn't attempt to do that flow yet, moving ima over and
+> > > dealing with this is another series :)
+> >=20
+> > When TPM device initialization is deferred, it is retried during
+> > late_initcall().
+> >=20
+> > As there is no way of ordering within an initcall level, there is a rac=
+e between
+> > the device driver probing and the call to late_initcall(). The solution=
+ was to
+> > allow IMA to register at late_initcall_sync() based on a Kconfig.
+> >=20
+> > Both device_initcall() and module_initcall() are at level 6. Are you su=
+re:
+> > =E2=80=A2 the PCIe SPDM Devices will be ready at module_initcall()?
+> > =E2=80=A2 the PCIe SPDM Devices are not deferred to late_initcall()?
+>=20
+> Why does SPDM need to get involved here? The device acceptance flow
+> and SPDM stuff will be managed in the initrd. The subsystem can accept
+> drivers and load a TPM/etc earlier while doing SPDM later. That's fine.
 
-dma-iommu already copes with a flush queue appearing on a live domain,
-as the sysfs DMA -> DMA-FQ transition does just that. So only allocate
-it on the domain's first unmap, from a workqueue since unmaps can happen
-in atomic context, and use strict invalidation until it is in place. If
-the allocation fails, downgrade the domain to IOMMU_DOMAIN_DMA as before.
+If there are no PCIe SPDM ROTs, then it is irrelevant.  Otherwise, the ques=
+tion
+is whether the PCIe SPDM device will be ready at module_initcall().
 
-On a 224-CPU Sapphire Rapids server with 431 IOMMU groups, this cuts the
-time spent in pci_iommu_init() from 330ms to 83ms.
+>=20
+> AFAICT IMA needs its ROT to be loaded before we reach the initrd.
 
-Signed-off-by: Michal Clapinski <mclapinski@google.com>
----
- drivers/iommu/dma-iommu.c | 78 ++++++++++++++++++++++++++++++++++++---
- 1 file changed, 72 insertions(+), 6 deletions(-)
+Being able to measure the early initrd measurements would be nice.
 
-diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
-index 1f624f241ac1..e61cd016b424 100644
---- a/drivers/iommu/dma-iommu.c
-+++ b/drivers/iommu/dma-iommu.c
-@@ -56,6 +56,11 @@ struct iommu_dma_options {
- 	unsigned int	fq_timeout;
- };
- 
-+/* Bits in iommu_dma_cookie::fq_flags */
-+enum {
-+	IOMMU_DMA_FQ_REQUESTED,		/* fq_work has been queued */
-+};
-+
- struct iommu_dma_cookie {
- 	struct iova_domain iovad;
- 	struct list_head msi_page_list;
-@@ -74,6 +79,10 @@ struct iommu_dma_cookie {
- 	atomic_t fq_timer_on;
- 	/* Domain for flush queue callback; NULL if flush queue not in use */
- 	struct iommu_domain *fq_domain;
-+	/* Domain to allocate a flush queue for on its first unmap, if any */
-+	struct iommu_domain *fq_lazy_domain;
-+	unsigned long fq_flags;
-+	struct work_struct fq_work;
- 	/* Options for dma-iommu use */
- 	struct iommu_dma_options options;
- };
-@@ -330,7 +339,12 @@ static int iommu_dma_init_fq_percpu(struct iommu_dma_cookie *cookie)
- 	return 0;
- }
- 
--/* sysfs updates are serialised by the mutex of the group owning @domain */
-+/*
-+ * sysfs updates are serialised by the mutex of the group owning @domain. They
-+ * only ever target a domain of type IOMMU_DOMAIN_DMA. iommu_dma_fq_work(), the
-+ * only other caller, acts on a domain of type IOMMU_DOMAIN_DMA_FQ and only
-+ * changes it to IOMMU_DOMAIN_DMA once it is done, so they can't race.
-+ */
- int iommu_dma_init_fq(struct iommu_domain *domain)
- {
- 	struct iommu_dma_cookie *cookie = domain->iova_cookie;
-@@ -363,6 +377,48 @@ int iommu_dma_init_fq(struct iommu_domain *domain)
- 	return 0;
- }
- 
-+static void iommu_dma_fq_work(struct work_struct *work)
-+{
-+	struct iommu_dma_cookie *cookie = container_of(work,
-+						       struct iommu_dma_cookie,
-+						       fq_work);
-+	struct iommu_domain *domain = cookie->fq_lazy_domain;
-+
-+	/*
-+	 * On failure, fall back to strict invalidation as iommu_dma_init_domain()
-+	 * would, and say so in the domain type, so that it is reported correctly
-+	 * and writing DMA-FQ to the group's sysfs type can retry. That only acts
-+	 * on IOMMU_DOMAIN_DMA domains, so it can't run concurrently with us.
-+	 * Don't take the group mutex here: the group may be waiting for us in
-+	 * iommu_put_dma_cookie() with it held.
-+	 */
-+	if (iommu_dma_init_fq(domain))
-+		WRITE_ONCE(domain->type, IOMMU_DOMAIN_DMA);
-+}
-+
-+/*
-+ * A flush queue is a sizeable per-CPU allocation, but it is only of any use
-+ * once a driver unmaps DMA through the domain. Many domains never get there,
-+ * e.g. those of bridges and other devices that are probed by the IOMMU core
-+ * but never do DMA, so set the flush queue up on the first unmap rather than
-+ * when the domain is initialised. Unmaps keep using strict invalidation until
-+ * the flush queue is in place. This may be called from atomic context, so do
-+ * the allocation from a workqueue.
-+ *
-+ * The work is queued at most once per domain. Check the flag before trying to
-+ * set it, so that concurrent unmaps don't all have to take its cache line
-+ * exclusively until the flush queue is in place.
-+ */
-+static void iommu_dma_request_fq(struct iommu_dma_cookie *cookie)
-+{
-+	if (likely(!cookie->fq_lazy_domain) ||
-+	    test_bit(IOMMU_DMA_FQ_REQUESTED, &cookie->fq_flags) ||
-+	    test_and_set_bit(IOMMU_DMA_FQ_REQUESTED, &cookie->fq_flags))
-+		return;
-+
-+	queue_work(system_dfl_wq, &cookie->fq_work);
-+}
-+
- /**
-  * iommu_get_dma_cookie - Acquire DMA-API resources for a domain
-  * @domain: IOMMU domain to prepare for DMA-API usage
-@@ -379,6 +435,7 @@ int iommu_get_dma_cookie(struct iommu_domain *domain)
- 		return -ENOMEM;
- 
- 	INIT_LIST_HEAD(&cookie->msi_page_list);
-+	INIT_WORK(&cookie->fq_work, iommu_dma_fq_work);
- 	domain->cookie_type = IOMMU_COOKIE_DMA_IOVA;
- 	domain->iova_cookie = cookie;
- 	return 0;
-@@ -428,6 +485,7 @@ void iommu_put_dma_cookie(struct iommu_domain *domain)
- 	struct iommu_dma_msi_page *msi, *tmp;
- 
- 	if (cookie->iovad.granule) {
-+		cancel_work_sync(&cookie->fq_work);
- 		iommu_dma_free_fq(cookie);
- 		put_iova_domain(&cookie->iovad);
- 	}
-@@ -715,11 +773,17 @@ static int iommu_dma_init_domain(struct iommu_domain *domain, struct device *dev
- 
- 	iommu_dma_init_options(&cookie->options, dev);
- 
--	/* If the FQ fails we can simply fall back to strict mode */
--	if (domain->type == IOMMU_DOMAIN_DMA_FQ &&
--	    (!iommu_domain_supports_fq(dev, domain) ||
--	     iommu_dma_init_fq(domain)))
--		domain->type = IOMMU_DOMAIN_DMA;
-+	/*
-+	 * The flush queue is allocated on first use, see iommu_dma_request_fq().
-+	 * If it can't be used, or its allocation fails, we simply stay in
-+	 * strict mode.
-+	 */
-+	if (domain->type == IOMMU_DOMAIN_DMA_FQ) {
-+		if (iommu_domain_supports_fq(dev, domain))
-+			cookie->fq_lazy_domain = domain;
-+		else
-+			domain->type = IOMMU_DOMAIN_DMA;
-+	}
- 
- 	return iova_reserve_iommu_regions(dev, domain);
- }
-@@ -835,6 +899,8 @@ static void __iommu_dma_unmap(struct device *dev, dma_addr_t dma_addr,
- 	size = iova_align(iovad, size + iova_off);
- 	iommu_iotlb_gather_init(&iotlb_gather);
- 	iotlb_gather.queued = READ_ONCE(cookie->fq_domain);
-+	if (!iotlb_gather.queued)
-+		iommu_dma_request_fq(cookie);
- 
- 	unmapped = iommu_unmap_fast(domain, dma_addr, size, &iotlb_gather);
- 	WARN_ON(unmapped != size);
--- 
-2.56.0.212.g129ede20d9-goog
+Mimi
 
+>=20
+> DRTM also needs a ROT loaded much earlier as we need to measure ACPI
+> (and the initrd?).
+>=20
+> I imagine attestation subsystem will eventually have to be ready to
+> accept drivers prior to ACPI.
+>=20
+> ARM's DRTM architecture splits the ACPI into parts that are already
+> secured/measured somehow, and then other parts that the OS is
+> responsible to measure itself. This split is arranged so the OS can
+> discover the TPM through ACPI using only secured ACPI tables.
+>=20
+> Thus we need to parse enough of the ACPI to get the TPM driver loaded,
+> an attestation driver for it, and then continue to parse the rest of
+> the ACPI that wasn't already secured.
+>=20
+> Yikes! I dread making all of those things.. But that's an option for
+> the required shape of things.
+>=20
+> Jason
