@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792618252;
-	b=fqvrjBstQ1NCZeQESwQtKX7ox0JfVL0uuCUzwqaA05tdKkgP5OJPGToQcYomEN+aqx7X
-	 jUkD4XoA6Z+iI0A1cQMtZ330DCN9yCI7fzSL724X8QiCcVUK+FCK8rmbhOLeR0dy12akQ
-	 VO7AanzrbXSwV6O3matFyd/5kCtU6V9b7oTlLhG7ER7lghQm101Rvd2SYHklc9ZSICeaM
-	 CN6IlSu5lvEkpE5B8DK+xYAPV+QFlz9be0y+sjxp3jZg9xMLQbX0kcEa22EF5R5exJEV+
-	 ZzTE/Cr4AeE32fXhoFrtBiVI07BqUgU23koj+5aHeOE2/Q/y/hyiBuAeumyDAIyeuDw==
+	t=1792618248;
+	b=vCUWbl8aWp1oyxOD6YyVcy93AtLvJrSymh2oxTF7w2lto+dRHSeUjzfX62iAQMhb9LRO
+	 S5wvfOUYIpXBTjUKRK9ymlUws3gzUkFF8ZLo1imRiBEZYTH4oaZ4LxbHaFUkZ3oz5P72X
+	 EvbMjc+V7rZZ5zNdQLhZVdkLz/DgDxuZ4QdW0UoidIaMcDSaKxmXtBQyVXgTV7PYyv0e/
+	 pfAAmNTndvQ7idBgQbGwnA2MxvVaGKqAYBYqbgvwZcxA+wdPiz1d4UamKpPMckgEVdcej
+	 ybibebG7vNu7Hj9xMXyTzDkKX483HpBs8lSKijZsuK0QanBqQro+PvEg7eNSBTnSjUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792618252;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618248;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=DKR000uefef+Vmpc1ME2SEAH5liXbSLg55lYZ92unUA=;
-	b=VyPjZzwd14Q1Dx+X+wbVr5N2fqtonpO6+HK6Dbzjz19IBPHRsnbVXg4Bf/oN3EEea3s/
-	 mq+TDox2CeitoMkrV9iQQd5iGokG3UCteRAkl8VVLpbz5h/JA0GTw5XHWGqyK1eMycACM
-	 ggH66gzgzl7L+MLh3Ui+L/1lPpX/11HZroXwzW9VsRCJdhYAD8w9qnhy7LV+2frlVuCd3
-	 aQzdeLS8zyTbhySg77D5qgupZUsXQWXAiiwDT8S6Ez/AoJOS147lcf5a/skNfYWRJmOX/
-	 cSc2KQxEGjju1L1EoiglfNFEHHm70/K8UhRLLWFkZjUQRILMdcr+lgZmIHU3/PfX87A==
+	bh=od8WN8CVmg89zdoHb82fXFB7zIVfQy/GQmojzRyVr0I=;
+	b=LwdpK7CKiKuRVwYFbJCr6AxrTCOqYleyyBWVQ3ptE2kmjbsE4vs9t+OfJe6Bvn/mxe6D
+	 dnJKHLheaF/VlIhY2ZD/dd8QJ6MLQJmcLT9PxS0sXQCdRsrvsVh97odM348eh1dvShPPL
+	 aByQCu/xxjGKmRbF5I5ipE7HmAkkBGg5fcOSRBfxK6SstR+vVUof3RS6EUoI8x8aPNcL9
+	 Atw/EAgVXh6sYTMsI5HlDNLOhe+k9LwUtwE2aZ7pNwx0O61VEe8DMuzlQZxAU2w0LbBuQ
+	 J47al7908klsKoLfW4pKRHmeUI6dFcrS5ulp+eRwyMl1mMGoCc/8/e2105Ocels/Fiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOiuVxsh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKiR+QQ9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDADD606A31E;
-	Wed, 21 Oct 2026 21:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gOiuVxsh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92A11F000C2;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C4E60A2609;
 	Wed, 21 Oct 2026 21:30:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FKiR+QQ9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FC991F000C1;
+	Wed, 21 Oct 2026 21:30:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792618251;
-	bh=DKR000uefef+Vmpc1ME2SEAH5liXbSLg55lYZ92unUA=;
+	s=k20260515; t=1792618248;
+	bh=od8WN8CVmg89zdoHb82fXFB7zIVfQy/GQmojzRyVr0I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gOiuVxshlNyou4M4f2E2CE9UOYd9eJhOF+gTdnTA60u1ByYzjgZv0crLSIlNAjmsV
-	 rZsYcU3sOibWW3Ab6KhPbT3mrhDdBbbwPkerIKcUkj0hHhJIcnUwn7oA594UfcmP2s
-	 kBIDg14KMGrBt2vLs0nN1H+4PxSuLaEvir4CEPSyHYF6W7A51CscSNhOo5G8KPMIQu
-	 EJYToFtPOBdxwhbWunXnnMzokYuExVgWjHJbxSNd+Sf7szNXucxgDhdyUdtwqwfXmF
-	 LQ6kVJLLaXRiUh5yvT+HC6qb3FVs8vhmcWdud8XAS1z/ROrQYofaCyccazww8Lwx/P
-	 mpGMppuRKpmhQ==
+	b=FKiR+QQ9W30QUx3DxkOWrNhXOe1rZoK9JRMrCo4cX1WSpRoT0w5haei24x4haBw8K
+	 IPmXclTh1az7TsBKTqCptY45LslwhiUzQyhXB1iy+YXHNKXdSR6egM1KF+Vymzvob2
+	 pMsVafrNl5ExIn8gUornZvII4sv7Bkm6BiPOqMhpM7q6EFhblBZeOJsDp5zd/iIt14
+	 0ZPNcgFG2xCgn4ck7KIJ7TL9jqv9HKtdZeNL7FaX+rQkZ3fLbrPIFAVttQqrshh6SP
+	 ETUYLwrQvUYmUqJNh/a4S5zImDg20iJgPfHapX/GK5zOXQ7G2aqlZA8qogXw3x4NuV
+	 Htr4L5VIL3r2w==
 From: Arnaldo Carvalho de Melo <acme@kernel.org>
 To: Namhyung Kim <namhyung@kernel.org>
 Cc: Ingo Molnar <mingo@kernel.org>,
@@ -51,11 +51,10 @@ Cc: Ingo Molnar <mingo@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-perf-users@vger.kernel.org,
 	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Hemanth Selam <hemanth.selam@gmail.com>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>
-Subject: [PATCH v1 09/12] tools headers: Sync UAPI linux/fs.h with the kernel sources
-Date: Wed, 21 Oct 2026 18:30:03 -0300
-Message-ID: <20261021213007.21046-10-acme@kernel.org>
+	Christian Brauner <brauner@kernel.org>
+Subject: [PATCH v1 08/12] tools headers: Sync UAPI linux/fcntl.h with the kernel sources
+Date: Wed, 21 Oct 2026 18:30:02 -0300
+Message-ID: <20261021213007.21046-9-acme@kernel.org>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261021213007.21046-1-acme@kernel.org>
 References: <20261021213007.21046-1-acme@kernel.org>
@@ -74,37 +73,35 @@ From: Arnaldo Carvalho de Melo <acme@redhat.com>
 
 To pick up the changes in:
 
-  21a62663d473 ("fs: fix typos in comments")
-  338964881982 ("mm/pagemap: add PAGE_IS_ACCESSED for RWP tracking")
+  cdf930a00949 ("fs: support FD_FAILFS_ROOT in fchdir()")
 
 That don't result in changes to the string tables generated from this header.
 
 This addresses this perf build warning:
 
   Warning: Kernel ABI header differences:
-    diff -u tools/perf/trace/beauty/include/uapi/linux/fs.h include/uapi/linux/fs.h
+    diff -u tools/perf/trace/beauty/include/uapi/linux/fcntl.h include/uapi/linux/fcntl.h
 
 Please see tools/include/uapi/README for further details.
 
-Cc: Hemanth Selam <hemanth.selam@gmail.com>
-Cc: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Cc: Christian Brauner <brauner@kernel.org>
 Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
 ---
- tools/perf/trace/beauty/include/uapi/linux/fs.h | 1 +
+ tools/perf/trace/beauty/include/uapi/linux/fcntl.h | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/tools/perf/trace/beauty/include/uapi/linux/fs.h b/tools/perf/trace/beauty/include/uapi/linux/fs.h
-index ee2203d606436f42..a46c33692aa21af0 100644
---- a/tools/perf/trace/beauty/include/uapi/linux/fs.h
-+++ b/tools/perf/trace/beauty/include/uapi/linux/fs.h
-@@ -471,6 +471,7 @@ typedef int __bitwise __kernel_rwf_t;
- #define PAGE_IS_HUGE		(1 << 6)
- #define PAGE_IS_SOFT_DIRTY	(1 << 7)
- #define PAGE_IS_GUARD		(1 << 8)
-+#define PAGE_IS_ACCESSED	(1 << 9)
+diff --git a/tools/perf/trace/beauty/include/uapi/linux/fcntl.h b/tools/perf/trace/beauty/include/uapi/linux/fcntl.h
+index aadfbf6e0cb3a004..e43e3de3e9ee44a2 100644
+--- a/tools/perf/trace/beauty/include/uapi/linux/fcntl.h
++++ b/tools/perf/trace/beauty/include/uapi/linux/fcntl.h
+@@ -124,6 +124,7 @@ struct delegation {
  
- /*
-  * struct page_region - Page region with flags
+ #define FD_PIDFS_ROOT			-10002 /* Root of the pidfs filesystem */
+ #define FD_NSFS_ROOT			-10003 /* Root of the nsfs filesystem */
++#define FD_FAILFS_ROOT			-10004 /* Root of the failfs filesystem */
+ #define FD_INVALID			-10009 /* Invalid file descriptor: -10000 - EBADF = -10009 */
+ 
+ /* Generic flags for the *at(2) family of syscalls. */
 -- 
 2.56.0
 
