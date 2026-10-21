@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579094;
-	b=LlKeGTwexSGgez2XrIly9x2US4bpG25Ljs8TbIIQ12+3JaeK0XXzGNfuuKF4pYhjLqxk
-	 zLdxFBVUgvuyLjngYQwfU0D+M5Ea9WTOl+4U/YKS4/jdVh0DrcTLitBVKvkQWYRTFzBzo
-	 jBp2KOsFz13m78sjPvNsy/PtYOFd/ZBMIAVsbHyABbn+eBK7Qz4Oha7PWiWnM7t1g3Aw4
-	 knePcZPFJ9na6gVFEnrn7L9WApiC0VlSVvTZz8VveGOTtZh0hUKJqDBo3KUEqbNG6YY9H
-	 +6+CEtFh7iYMXzIDB9ABYH4aVIozRlolBZaf7pnQOQDw9h2Uj3mimPgDTNcS2xusFfw==
+	t=1792579072;
+	b=wqQAh4vr4QPFvNb3cCqV48KHAk4U9cXwpP69yHLNfTU1yQaq9is0FN/KMjeC7VaPIIxl
+	 RLOCgZD+nuiB1eIx5WqhnuLfjdi2RIhArS8E25WHugvLcA3vfAuoIHC8KZV5Rnwgi2Dgy
+	 RrdmyTWrw8xHbwWIeRbcCVSRRGFv1sVCmxdldLtRerRjziHV5HYjDa4N37jHr0+VJBtIG
+	 GNWLPX1CDpJgl2IO3KR7yLVdHAWkfS99hJ8Sj9XFm5yMOn+bA2MCeNsWo7MvwYusdMTO2
+	 0crOv1tpg4B9aSEriapNHLtGCCc0BRhE/uVBIF1oZHYdTHr6oVOaVaTouFxFM7hVg0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579094;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=YwmUvHkGTa//vS4IwVUPfkvfm6qtdCHeRkio5ziEENg=;
-	b=j6Zhv8v+TkSdXXMdxw4q/P4lfxvSPhzFLhG2VgsgJLTGfieefvDPmQPeqiHl+Wbtzhpn
-	 xnnSRFpO2EzWQrFtZIviIut37EX7wyS04AoGQnWQZrBJBEvJsUipr3lPvIyMdVlR4j++d
-	 txuu4p0p2MROsSdiruTW2ZyeyNXdGL1zpCcQLK9TY8QMqeM+FUQcR7eyHdf4iYXkr3BVw
-	 9pK9X8dAhWAolG6n1Ca1krv7cTdTEe6P5r2XJbIn50v6Oix+rIV76hRBfCyqSWG++HBiu
-	 QCDzfJX2H0lxH9D6oe8+4RHTfwQ/D9uyE61EBm9rzoxYt/yo22TgbUSzTn5fNWpo6JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579072;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=IWiJ8oOcKXVdB6IJ4381jMA8VyAelQkRdlx5j9qXzdg=;
+	b=KUsTtcfKzWy9uq2PZDqFcsJwzpREwLU7bpt+8AbI/D8/8wozBKdYX+xSU2bCXIDR/Pon
+	 fSJO0U829ngTdyzFAhcPkD4Y7/ZfffuOfkxZmFyhP9Yu9rmcEeKDrz3oSyYV8kcBd0GAk
+	 q6KSHkhS/8oZMlMzLBVc8kaT8HcSUmIqBGP6FWEmkK8PSasBW+S3fddccnPfaJEQF/9py
+	 rOeuir6ObfX5dBIMWNB5loyA87Z/B2+eutOmvyAgHUxv0QNG2amiVT8HujoI2oMYTrhy3
+	 heB5lbCDJz269m15sjkb71RwEmiD4X7zcl9Ht59YOCpYlMni0VWiMym4Uw7F0Xg1hgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=91.218.175.54
-Received: from mta0.migadu.com (out-54.mta0.migadu.com [91.218.175.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdBFGIvR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4777606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:38:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4777606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=YwmUvHkGTa//vS4IwVUPfkvfm6qtdCHeRkio5ziEENg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792579089; v=1; x=1793183889;
- b=RapDFibNpWNf+Mb/NuhftYhpHTgnsTxO+4ApAwi86P+bHIWyGixdtUSgFUOEDe42XqZ6+bUG
- LvoNWchmbGMsRXw14Ql/lcWXe9CF376faC8NjG8MPAZyL4oyZzrqEEqQQFN+DFg46kdpZLZRRlh
- rLjF0sdHIqTIRFB02aA/O/Nk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c9ca0b03b8d94fa6;
-	Wed, 21 Oct 2026 10:38:09 +0000
-X-Mizu-Trace-ID: c9ca0b03b8d94fa6
-X-Migadu-Flow: FLOW_OUT
-From: Igor Korotin <igor.korotin@linux.dev>
-To: =?utf-8?q?Nicol=C3=A1s?= Antinori <nico.antinori.7@gmail.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Cc: Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>,
- Andreas Hindborg <a.hindborg@kernel.org>, Benno Lossin <lossin@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Boqun Feng <boqun@kernel.org>, Brigham Campbell <me@brighamcampbell.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, Gary Guo <gary@garyguo.net>,
- Jori Koolstra <jkoolstra@xs4all.nl>, Miguel Ojeda <ojeda@kernel.org>,
- Onur =?utf-8?q?=C3=96zkan?= <work@onurozkan.dev>,
- Shuah Khan <skhan@linuxfoundation.org>, Tamir Duberstein <tamird@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
-Subject:
- Re: [PATCH] rust: i2c: remove TryFrom<&Device> implementation for &I2cClient
-Date: Wed, 21 Oct 2026 11:38:07 +0100
-Message-ID: <179257908750.11105.893364071829221111@linux.dev>
-In-Reply-To: <20261019152329.620610-1-nico.antinori.7@gmail.com>
-References: <20261019152329.620610-1-nico.antinori.7@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C185F606A319;
+	Wed, 21 Oct 2026 10:37:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hdBFGIvR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EA61F000C9;
+	Wed, 21 Oct 2026 10:37:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792579071;
+	bh=IWiJ8oOcKXVdB6IJ4381jMA8VyAelQkRdlx5j9qXzdg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hdBFGIvR71o+bk7CtajQ+ITt4pS/5NHuFS9SIGY5M9a1FepJj9ZMVFVAUxnN8vZUJ
+	 aRLL+4FoIatrorjljon+h59wB7uvrwUrkUze7k+OwZrW5/6ACS3G6g2WyKcjeb6zH/
+	 kyHurUuT4hv4o/0Rtm+hJgvEiaVYBnl/xlUIvfsGGN3cyeEip1U+7fhbmZQOz88Ghi
+	 fuLv8qHUnkZPAqvMPSQx3ESIHYPMOtVLrdDoj8EJsuBVKam0k4Ikt+9gZaEvV49Hqs
+	 PawEJl95Wf5ZcuJ+k+G1RZRq/OLH8CJgPWyG1tut+bq7YeU3OXaWYbi3d6AEeCoska
+	 xwafKhSv3jJpA==
+From: Christian Brauner <brauner@kernel.org>
+To: viro@zeniv.linux.org.uk, Stian Halseth <stian@itx.no>
+Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, sparclinux@vger.kernel.org, schwab@suse.de, 
+ fweimer@redhat.com
+In-Reply-To: <20260917151614.376867-1-stian@itx.no>
+References: <20260917151614.376867-1-stian@itx.no>
+Subject: Re: [PATCH 0/2] fs: honor FOP_UNSIGNED_OFFSET in llseek and
+ positional I/O
+Message-Id: <20261021-abgehackt-ausmachen-fallzahlen-9da5515aeaf3@brauner>
+Date: Wed, 21 Oct 2026 12:37:47 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,16 +60,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-3d1b8
 
-Hi Nicolás,
+On Thu, 17 Sep 2026 17:16:12 +0200, Stian Halseth wrote:
+> Two generic VFS bugs found while fixing pldd(1) on sparc64, where
+> userspace is mapped above 2^63 so file positions on /proc/PID/mem have
+> the top bit set.
+> 
+> FOP_UNSIGNED_OFFSET declares a file's offsets unsigned, and vfs_llseek(),
+> rw_verify_area() and the mmap path honor it.  Two sets of syscall
+> wrappers do not:
+> 
+> [...]
 
-Checked -- confirmed no other users in the tree, and the Fixes tag is
-correct. Agreed removal is the right call here over a lifetime fix,
-given the new driver model has no use for this upcast anyway.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Acked-by: Igor Korotin <igor.korotin@linux.dev>
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-I'll take this through rust-i2c-next.
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-Cheers
-Igor
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/2] fs: fix llseek() result for files with unsigned offsets
+      https://git.kernel.org/vfs/vfs/c/34e5caa86b12
+[2/2] fs: allow positional I/O on files with unsigned offsets
+      https://git.kernel.org/vfs/vfs/c/8c5ba5aa0278
+
