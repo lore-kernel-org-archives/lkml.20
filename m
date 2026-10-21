@@ -1,103 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792620718;
-	b=hfWdA9T3+nnufzyvf/w1ipUzSHqcFE9Dzicn4I1Fpel8SzcabA69yGEmMJl+gQoKRoeB
-	 It8KHjexAOVmvjeK7qNCzZI2GD/0eM1tv5/xMAPqcOYDd5uAHLB9/oxP9wAwvWaiEWVlV
-	 um2a14soPvT+zhOQjy0urj7lYwyLzG92zXNt7r3+Z4rN69s93nkI10NoqSCx3HjYrrtcW
-	 9eCbqJAXYEVsmyIvxw1wDafNC0SI1Gg4ZZoY5uat2/fd/13LezpNJyiZ+lGSbPrC1Tc4Z
-	 kTLdnDxVDHnk4uMslZ6cNFUJTQIyvGweO2XhOYpq8jbxHgZ3aBbnnmbIG2Hw1OYVvmw==
+	t=1792620751;
+	b=xcJ4B4+gwK9p/7ryy3b3wF/QF2xSGeSZiuTXQvoC+AKIJ0faHC/RTgeIVZNm+SC0DKCH
+	 CKfQHQjE25DBMt+KIWKLqF64cCSFXl9OyqcLFjQgktf3hazJMXBjaZOrepxGcMZ8LYQba
+	 kZzH4g4+bVMOkbSIjdhC1mqn95yYlNdNZ7In3a3eBbaJSqRWIuhWT4VBCTDF1ngorKztU
+	 oTmvs0Lghxt4ziNvKJEHPKXmppVpuUalp4R8nh2eMJCTko8umvABEybriqOJiY4k3SwMr
+	 bTYa5tmuHsXU91Utd3YC8695LQ8T95RGzh23SSmAMaYEhe7v6jlGv7TJgO/T11elvUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792620718;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792620751;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OVQXlRc9jEk4D2ldp46dqYfj2vUZ7gRk6ECjKwoF6ew=;
-	b=iLnRBhbPwUV0mkG2ksnl8gCyh7ngTnmFCrMdU7lS9Z4wbweG1kn7s3IH4n1CKAlSb+Hs
-	 h3Z3TE3iqKISp+Qz/J+Hx8+EqfmsK4gpjxKqduNDlNq0m2/JWB3jI+DFIJZYMq5IiPNiF
-	 QCo2KZ7y0ZxZBhcSNDc/msaRNDe6dsBE6PGjhOtdFtPDWUvcXAFJ5gYYC05OJYjOSY82m
-	 zv40ruu2c7E9Cj1QUHUtV2YNH1BGKnxfMfUU2EIe0wCHuIAMZr1LE3Tz+p1a+hGvitfLq
-	 mllzvGjitZQGrP1sPGlQfniP4aYP87JT1/hBJIPsR8oHM/L/GtIYmBR6VuQ33EmemIQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0kWLSTkaGmwILUZyU8FNS5QIr+xYWnhodPqsDv2YknE=;
+	b=2t7sP1MeiBzSPW7/3ghFAr3/DA9HV+DxXVtWTW44A4deLtzmFmteH7PeVeJsvoX59C0z
+	 ymy97ER6PZIoos9lbZuYJMexVwgWzNI6GW12HRCvso0yHBAHs3qXPiOcoA8TZU2uCCSU+
+	 oTMIG5OSWEQyc/KpUiUCA4MO1/nVC4QhpvVNUzGHtE37hgdF9tC1KNLkVa5VcEH1QpHKo
+	 tuCWolXgBZdpMyFYQ8ifs1FCF79mWlQVqKHwanDxriWWw+2/mMpkALCu/TKIOPGNgNIXy
+	 ykKhuo9K53Rz7DmhnJAoVV/Aveb7xfYIyk7HPqxSDItaxcRtqrsg7/9LTFG9Gos9juw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a5lcCI5c;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="s9/i5Cxg";
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52A77606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52A77606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C4D606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:12:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21C4D606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=a5lcCI5c
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-35c76e9614aso2196788eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:11:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=s9/i5Cxg
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35ef6b49813so1612911eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:12:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792620716; x=1793225516; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OVQXlRc9jEk4D2ldp46dqYfj2vUZ7gRk6ECjKwoF6ew=;
-        b=a5lcCI5cgnST3DY9D6D4jywWA4QDNPLFgBJReUndFzpff+ENKtM/GsHx7LNkNs1kXj
-         mfSYQcfLakvRBLHhHaWgunLLRmUJc4/ZOUFKzxIM2tIa+zDxNcf74MR9NOktqjbXcezK
-         95P1irtwAYjlGMjPEjUV3POlnDomAxisUsrZOJmPrn2eLNVIJsbVcPuz+KEdxkA8mqtz
-         FYhY7WYKo6v46sulXAuyiLa2CFJV2/NmGbXwSTCJcq0KV9DF8zJhjvVbjmLnPr0JDk7a
-         x5oRp+uWNgQ8PImehmY59qvTaIife7CbqKc1uyRjSzlwrYT2AmdCWMONDPCAFIeX+WTx
-         aWfg==
+        d=gmail.com; s=20251104; t=1792620750; x=1793225550; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0kWLSTkaGmwILUZyU8FNS5QIr+xYWnhodPqsDv2YknE=;
+        b=s9/i5CxgfCcJEOJxQp2HH3Eo6Yw99tKxurJogPoqYoeoupVDjFTHfE9TWRhjR0KEhQ
+         +oKodSeLo30RvYhCPJJWswFvvBeSoqJolN7Q93COkIKGLysC/gHdnswab/8HtJqrvWrM
+         eG/ckopEGI9s/Xpxq6NyzTR5J+lrF+GvwTZw8S23U0C0qDOjECAVvjgmeYcwxHRVjVba
+         h9uKjhDsah+p5HFxskRmu1gVckbZ9zD+B8gSArUtCV3U6bWDe/c1lbYmi17jy13vu7wD
+         +4wRy9hgQ66VtXOFynTzH352ghkJMAPiJ3w1NhOsP4b77Bi6zOlRWSZw7vi5fZZhLbdD
+         MDoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792620716; x=1793225516;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OVQXlRc9jEk4D2ldp46dqYfj2vUZ7gRk6ECjKwoF6ew=;
-        b=1EVbYt1dB7k9rQX8q08yZcHSEXoEoqRLWbGvIX0ftKcL1PV7lTiPeNo2gnNSP8XKtU
-         rWiFLnNzqb/J/Hd6Cs9xaFSOhlqrRPnzaNounG1d3osgcMcObOEPewFou9onpwKtsNyE
-         oxTAC66yJW45L1fVjhlqTHts8yVc1sY9vpUmyB1B3HnM0cFs7vfy9iyt+0M2c7jbAok7
-         of4YPiLOEbJYAhokB1/k0o1kCWbvaIPjSOPdQJtt+WvvNc2q/dCqZ9AKWsjyh57qTIYj
-         71DTPEISutLSEviejB2PrEEtLngpDNzaYLAH1Mx9EloqASZcAoPXMB7nPjh0Ub7Elipu
-         VUHA==
-X-Forwarded-Encrypted: i=1; AKwUvByDkLut539fxIRLlffbgzCxqJHanyvfnzJOiyB5B8DgxS2KTvZOjyugYgqN/SWeD5m/PskXAig1J3yCYf4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRi3ULB/EjFMrXcIveu+qk8Ip9Gh5Lwv/oSBfSEWvr8drXxKGH
-	OmjIpXa2EPTVVSlXwNZKsebYYfu6drkBgPSgkCDfeKZmWiF5fDc+D2Sr
-X-Gm-Gg: AYBFou0uxME9N/zioAnI4vb9G8R4d7JQeEVZYhiubyEAjfpz0JKOcbLpivlpBthWwKE
-	HGXzAMM0fppEEgVP/TWTlTyCN8wClbLfGvt+7UZa+1qkZO0TAocy5H1Jy32qYktzcFN+d8pwngf
-	1w6oNLRd9CVqhF1rIE0JXvE0/IQ1QJ834/QcHZUEtjI+Iaw3eygbkxxDNjBMpYKXuydfmoal4L9
-	rRwajsHk5B7cL+yNPF2SeiMSVY1s1z/GC1STTGbDDn63KvBEyAh1epuOp8Dpuku6kv2lC+ykFoV
-	j6Vm1gyvfpjvmoc3F+gpZIOiZo5bENG/2EQn6atu1TqsQ+QxtpqvsM97uwXDMWQyJ5H3V8ydt3u
-	3RhFFHpSm4aM/gJmLW47La6TUq9qvcgPQ0WK3Y689sdESjYIAePmyoG+8wZozHOZJ9HBGM96i7F
-	90kmyzevYxMlKFa1kZu1WmdGB60o1LpAtPQkKjzZsXpoqIbAmodyPDx47OWTXlUGjh+6CuwHdRp
-	isVkVvzGWA45DBdKmk3kgkmhj/YSEJ+G7ak1sqZVO8HJ5K8Y0jx7oRA/JtXmSOWWM3ddodn4te2
-	LRUdU1KNjr1oUhYoqNEaG/wjjlSoUnWRl4gd+aVjS8YeojtfwvyMZAXYJL7xGdSL6cajagXCvjN
-	T0MOtvdOi/ZlnluYdGA==
-X-Received: by 2002:a05:7301:e118:b0:359:1b05:ed30 with SMTP id 5a478bee46e88-3674b53008fmr4419050eec.4.1792620715887;
-        Wed, 21 Oct 2026 15:11:55 -0700 (PDT)
-Received: from sanjays-pc.govzhome.govindz.co.nz ([139.180.93.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367412b24e3sm9107489eec.19.2026.10.21.15.11.50
+        d=1e100.net; s=20260707; t=1792620750; x=1793225550;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0kWLSTkaGmwILUZyU8FNS5QIr+xYWnhodPqsDv2YknE=;
+        b=eW7rJSaIfouTwlg0F3Q04hkKENGUPWguv87KgvUoXPRafIV2bcURaJAx3QiG63GLGL
+         JyaHaKcBXJSnqRDysRqySNqnCC80OVSqLfiLhK9cLQuw/by7JkUqaXtyjx1V0jNuHAyp
+         8i1w2EJ638LGA5eudqQ/apgwR2JEPIuSviWskOcoKh6y3sPeo0oBqRCnG/YqVcVzT9+T
+         dyBzBqsFgybBpMQNEFSOp0UemeEpiJ4kBthQ4ywP+upO/TKd5AOeEuLHN33XzuXT0BeN
+         o0o+OfDkO8RWGJdWdqGvBIQa1eeogKl7NTjewFwqrQfWYTLd6R0aDpt0/6cfnGaOI2JJ
+         eUYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKmfRuUh8dYBfK6llBA3L4F5ehOuT+DU3ILFJHy0yzJToBN4v+nZqZTZEzKCOSn6LMoIL4ejswkoPtNXc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLopj30cM2evJl31I5Bc0Ss+BRcnRjHI/uqZvT6fu1hoApMgjks
+	juyjjarMkXoSiBnAUdO9HBLPKCRw5BtC3WjdRqqISK21xoEJfgqcYXDD
+X-Gm-Gg: AYBFou01f6oHvp9Sub3JXmURkhtlzJolrdqBKWVKjy2SVtt8oREE2rC8XXX7n0gSCBT
+	KE3mvjF9mBdWq0Rt2ICeGNVj5zftxypIaS5ZAeocvJyMybaKLGKa6mJxlVuK2m15WSozdakCvsy
+	vLbgxp6F27oxwcCwCKITBvU8HgTf1lxL2oaNq0L+zolBiSGt0QNCZNxnP6sxe6KVCVlAvt+idKe
+	m9iMeKHU+UxFg9M4Jffm9RLiadYDAzMbGoBNw3gUrxINvHtY/B82L1cekN1tfnYRkjaQnITOTKo
+	X+ORohjSHcsXrq3eafoTfDQ+VnxZpLUCgNzKRL0fcyUUuoEEWapJBlMJ09ydZhTzRBrNk6DB9pf
+	Sen59cTOYiBLyv0+5cRZk4qXMw2KlaHregTix0hStllw7YcDXccTXqxXY9LDi4tW3XnPoSmD8t0
+	sKowkAXaVNqhryGnua1zZ7kcu5iqXNzXcD2e7NtfVwFLddofg1f5jBbFkXw0cqcNyLTsKeVZEql
+	g3tM6PpVTdsy6ZYkTh1JPBqIqrn3lYNKiNItV0FAiWw1GMpPkAjJXDHA88iCjvqeCmv0urRySPH
+	P3QZN48dCKFPZitJTkRyqBUM+ob51yMfnjLrznamxZUsDCPAq7jJneqj26sNG1nCwTeX+fn9wVq
+	mI9blgYkc/T0=
+X-Received: by 2002:a05:7301:2224:b0:351:735e:2ef8 with SMTP id 5a478bee46e88-3674d54de51mr4539269eec.7.1792620750150;
+        Wed, 21 Oct 2026 15:12:30 -0700 (PDT)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3673e153519sm10580815eec.3.2026.10.21.15.12.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 15:11:55 -0700 (PDT)
-From: Sanjay Govind <sanjay.govind9@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Sanjay Govind <sanjay.govind9@gmail.com>,
-	Zoltan Illes <zoliviragh@gmail.com>,
-	Dmitriy Zharov <contact@zharov.dev>,
-	Qbeliw Tanaka <q.tanaka@gmx.com>,
-	Elliot Tester <elliotctester@gmail.com>,
-	Shengyu Qu <wiagn233@outlook.com>
-Cc: Antheas Kapenekakis <lkml@antheas.dev>,
-	Kees Cook <kees@kernel.org>,
-	Kyohei Kadota <lufia@lufia.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v10] Input: xpad - overhaul device data for wireless devices
-Date: Thu, 22 Oct 2026 11:10:09 +1300
-Message-ID: <20261021221009.361992-3-sanjay.govind9@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261015220126.102766-3-sanjay.govind9@gmail.com>
-References: <20261015220126.102766-3-sanjay.govind9@gmail.com>
+        Wed, 21 Oct 2026 15:12:29 -0700 (PDT)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Ronak Doshi <ronak.doshi@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>,
+	syzbot+8eed6f83440ecdaf4be6@syzkaller.appspotmail.com
+Subject: [PATCH net] vmxnet3: stop DMA mapping the adapter structure
+Date: Thu, 22 Oct 2026 03:42:12 +0530
+Message-ID: <20261021221221.502428-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,527 +105,124 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Xbox 360 wireless controllers expose identification information in their
-link and capabilities reports. Use the vendor ID and subtype from the
-link report to give each controller a more descriptive name and product
-ID. Some controllers also encode their vendor ID, product ID and revision
-in the stick capability data; use those IDs when the vendor matches the
-link report.
+vmxnet3_probe_device() maps the whole struct vmxnet3_adapter with
+dma_map_single() and passes its address to the device as the "driver
+data" (misc.ddPA/ddLen) in the shared area.
 
-Defer input device registration until the capabilities report arrives,
-with a 500ms fallback for controllers that do not respond. If discovery
-does not provide identification data, retain the receiver-derived
-identity and the existing default product ID of 0x02a1.
+The adapter is the netdev private area, and alloc_netdev_mqs() allocates
+it with kvzalloc(). struct vmxnet3_adapter embeds 32 tx and 32 rx queues
+and is well above PAGE_SIZE, so when a high-order allocation fails the
+adapter ends up in vmalloc memory. dma_map_single() then warns
+("rejecting DMA map of vmalloc memory") and returns DMA_MAPPING_ERROR,
+and probe fails with -EFAULT. syzbot hit this with page allocation
+fault injection.
 
-Protect the wireless discovery state with a spinlock and initialize the
-input device from a consistent snapshot. Track controller generations
-and revalidate presence and generation after registration, so a
-disconnect or replacement during registration cannot publish a stale
-input device. Stop routing input immediately on disconnect and reconcile
-cancelled discovery or teardown work across suspend.
+The driver data is only informational: the mapping is DMA_TO_DEVICE,
+done once at probe and never synced, so the device could only ever see
+a stale copy. The per-queue descriptors in this driver already report
+no driver data with ddPA = ~0ULL and ddLen = 0, and other vmxnet3
+drivers, such as the one in DPDK, never set misc.ddPA at all.
 
-This changes the IDs reported to userspace when discovery succeeds.
-Wireless controllers previously used the receiver's vendor ID and a
-product ID of 0x02a1. They now use the controller's vendor ID and a product
-ID of 0x02a0 + subtype, unless the capabilities report supplies a product
-ID. This matches Windows for gamepads (0x02a1) and wheels (0x02a2).
-Windows reports all other subtypes as 0x02a9, but Linux has no other way
-to expose the XInput subtype to userspace, so retain the subtype in the
-product ID for those devices as well. SDL already handles these IDs:
-https://github.com/libsdl-org/SDL/commit/fdc5efe1cbbcbffda016fbab9d5d9083ba040470
+Drop the mapping and report no driver data in the shared area as well.
+This also removes a probe failure path and the adapter_pa field.
 
-Assisted-by: LLM
-Signed-off-by: Sanjay Govind <sanjay.govind9@gmail.com>
+Fixes: b0eb57cb97e7 ("VMXNET3: Add support for virtual IOMMU")
+Reported-by: syzbot+8eed6f83440ecdaf4be6@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=8eed6f83440ecdaf4be6
+Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
-Tool assistance:
-Copilot SDK in VS Code assisted with implementing review feedback, code
-review, testing preparation, and drafting the commit message. Hardware
-testing was performed by the submitter.
+Tested in QEMU (q35, KVM) on net/main (abeacca61eea), with KASAN,
+CONFIG_DMA_API_DEBUG and fail_page_alloc (min-order=4, as in the syzbot
+reproducer):
 
-Changes in v10:
-- Address Sashiko's metadata race report by snapshotting the wireless
-  discovery state under a spinlock.
-- Following Dmitry's review, group presence, generation and identification
-  fields in struct xpad360w_pad_info and increment the generation on connect.
-- Revalidate presence and generation under the lock before publishing a
-  newly registered input device; tear it down if the controller changed.
-- Clear the RCU input pointer immediately when a disconnect is reported.
-- Schedule discovery only on presence transitions, so repeated status
-  reports do not extend the 500ms timeout.
-- Reconcile presence with input device state on suspend, including
-  completing teardown if work for an old controller was cancelled.
-- Expedite pending registration when a capabilities report arrives.
-- Make the capabilities inquiry helper return void and extract wireless
-  ID/name setup into a separate helper.
+- syzbot C reproducer: before, "rejecting DMA map of vmalloc memory"
+  WARNING and probe fails with -EFAULT; after, no warning (probe then
+  fails at BAR mapping, as the reproducer binds vmxnet3 to a non-vmxnet3
+  device).
+- QEMU's emulated vmxnet3 (-device vmxnet3): probes, link up, ping
+  works, before and after.
+- Same NIC unbound and rebound with order>=4 page allocations failing:
+  before, the WARNING and probe fails, so the NIC is gone; after, it
+  binds and ping works.
 
-Testing:
-- Built with W=1, with force feedback and LED code enabled and disabled.
-- Loaded an external module built against the running 7.2.3-arch1-3
-  kernel, using an unofficial Xbox 360 wireless receiver, two wireless
-  gamepads and a wireless guitar.
-- SDL2 enumeration showed both gamepads as 045e:02a1 and the guitar as
-  1430:02a7, named "Xbox 360 Wireless Alternate Guitar". Inputs worked.
-- Repeated battery-removal/reconnect testing produced fresh input devices.
-  One registration used the receiver-name fallback; this did not recur
-  in subsequent attempts.
-- Powered off multiple controllers and powered them back on together;
-  reconnection worked.
-- Suspend/resume testing succeeded: both gamepads and the guitar
-  registered with the expected names, and inputs worked afterward.
-- In a separate test-only build, discarding wireless link reports forced
-  all three devices to register with the receiver-name fallback. Inputs
-  still worked. This fallback identity matches the pre-patch behaviour.
-  This verifies the missing-identification fallback, not
-  the packet ordering responsible for the earlier transient event.
-  The fault-injection changes are not included in this patch.
+No new W=1 warnings in drivers/net/vmxnet3/. Not tested on ESXi.
 
-Previous revisions:
-v9: Track controller generations, clear discovery state on disconnect,
-    use a separate capabilities output slot, and validate vendor IDs.
-    https://lore.kernel.org/linux-input/20261015220126.102766-3-sanjay.govind9@gmail.com/
-v8: Clear presence state on suspend and wireless flags on input teardown.
-    https://lore.kernel.org/linux-input/20260818073159.909188-4-sanjay.govind9@gmail.com/
-v7: Check whether the input device has already been initialized.
-v6: Address presence-work time-of-check/time-of-use issues.
-v5: Fix work scheduling races and a typo.
-v4: Clear wireless state on presence changes.
-v3: Handle incorrect or missing link and capabilities reports.
-v2: Defer registration until capabilities discovery or timeout.
----
- drivers/input/joystick/xpad.c | 282 ++++++++++++++++++++++++++++++----
- 1 file changed, 251 insertions(+), 31 deletions(-)
+ drivers/net/vmxnet3/vmxnet3_drv.c | 19 +++----------------
+ drivers/net/vmxnet3/vmxnet3_int.h |  1 -
+ 2 files changed, 3 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
-index feb8f368f834..41348e62fe19 100644
---- a/drivers/input/joystick/xpad.c
-+++ b/drivers/input/joystick/xpad.c
-@@ -34,6 +34,7 @@
- #include <linux/slab.h>
- #include <linux/stat.h>
- #include <linux/module.h>
-+#include <linux/unaligned.h>
- #include <linux/usb/input.h>
- #include <linux/usb/quirks.h>
+diff --git a/drivers/net/vmxnet3/vmxnet3_drv.c b/drivers/net/vmxnet3/vmxnet3_drv.c
+index f8df83f9965d..3a9fb5b63e9d 100644
+--- a/drivers/net/vmxnet3/vmxnet3_drv.c
++++ b/drivers/net/vmxnet3/vmxnet3_drv.c
+@@ -2921,8 +2921,8 @@ vmxnet3_setup_driver_shared(struct vmxnet3_adapter *adapter)
+ 	devRead->misc.driverInfo.vmxnet3RevSpt = cpu_to_le32(1);
+ 	devRead->misc.driverInfo.uptVerSpt = cpu_to_le32(1);
  
-@@ -60,6 +61,26 @@
- #define XTYPE_XBOXONE     3
- #define XTYPE_UNKNOWN     4
+-	devRead->misc.ddPA = cpu_to_le64(adapter->adapter_pa);
+-	devRead->misc.ddLen = cpu_to_le32(sizeof(struct vmxnet3_adapter));
++	devRead->misc.ddPA = cpu_to_le64(~0ULL);
++	devRead->misc.ddLen = cpu_to_le32(0);
  
-+/*
-+ * Capability flags reported by x360w pads. Bit 0 matches
-+ * XINPUT_CAPS_FFB_SUPPORTED, which is also set from the link report.
-+ */
-+#define FLAG_FORCE_FEEDBACK	0x01
-+
-+#define SUBTYPE_GAMEPAD			0x01
-+#define SUBTYPE_WHEEL			0x02
-+#define SUBTYPE_ARCADE_STICK		0x03
-+#define SUBTYPE_FLIGHT_STICK		0x04
-+#define SUBTYPE_DANCE_PAD		0x05
-+#define SUBTYPE_GUITAR			0x06
-+#define SUBTYPE_GUITAR_ALTERNATE	0x07
-+#define SUBTYPE_DRUM_KIT		0x08
-+#define SUBTYPE_GUITAR_BASS		0x0B
-+#define SUBTYPE_RB_KEYBOARD		0x0F
-+#define SUBTYPE_ARCADE_PAD		0x13
-+#define SUBTYPE_TURNTABLE		0x17
-+#define SUBTYPE_PRO_GUITAR		0x19
-+
- /* Send power-off packet to xpad360w after holding the mode button for this many
-  * seconds
-  */
-@@ -734,9 +755,21 @@ struct xpad_output_packet {
- #define XPAD_OUT_CMD_IDX	0
- #define XPAD_OUT_FF_IDX		1
- #define XPAD_OUT_LED_IDX	(1 + IS_ENABLED(CONFIG_JOYSTICK_XPAD_FF))
--#define XPAD_NUM_OUT_PACKETS	(1 + \
-+#define XPAD_OUT_CAPS_IDX	(1 + \
- 				 IS_ENABLED(CONFIG_JOYSTICK_XPAD_FF) + \
- 				 IS_ENABLED(CONFIG_JOYSTICK_XPAD_LEDS))
-+#define XPAD_NUM_OUT_PACKETS	(XPAD_OUT_CAPS_IDX + 1)
-+
-+/* Discovery state learned from x360w presence, link and capabilities reports */
-+struct xpad360w_pad_info {
-+	bool present;
-+	unsigned int gen;
-+	u8 sub_type;
-+	u8 flags;
-+	u16 vid;
-+	u16 pid;
-+	u16 version;
-+};
- 
- struct usb_xpad {
- 	struct input_dev *dev;		/* input device interface */
-@@ -744,8 +777,10 @@ struct usb_xpad {
- 	struct usb_device *udev;	/* usb device */
- 	struct usb_interface *intf;	/* usb interface */
- 
--	bool pad_present;
- 	bool input_created;
-+	unsigned int input_gen;		/* generation the input device was created for */
-+	struct xpad360w_pad_info pad_info;
-+	spinlock_t x360w_lock;		/* protects pad_info and x360w_dev publication */
- 
- 	struct urb *irq_in;		/* urb for interrupt in report */
- 	unsigned char *idata;		/* input data */
-@@ -774,17 +809,19 @@ struct usb_xpad {
- 	int packet_type;		/* type of the extended packet */
- 	int pad_nr;			/* the order x360 pads were attached */
- 	const char *name;		/* name of the device */
--	struct work_struct work;	/* init/remove device from callback */
-+	struct delayed_work work;	/* init/remove device from callback */
- 	time64_t mode_btn_down_ts;
- 	bool delay_init;		/* init packets should be delayed */
- 	bool delayed_init_done;
- };
- 
--static int xpad_init_input(struct usb_xpad *xpad);
-+static int xpad_init_input(struct usb_xpad *xpad,
-+			   const struct xpad360w_pad_info *info);
- static void xpad_deinit_input(struct usb_xpad *xpad);
- static int xpad_start_input(struct usb_xpad *xpad);
- static void xpadone_ack_mode_report(struct usb_xpad *xpad, u8 seq_num);
- static void xpad360w_poweroff_controller(struct usb_xpad *xpad);
-+static void xpad_inquiry_pad_capabilities(struct usb_xpad *xpad);
- 
- /*
-  *	xpad_process_packet
-@@ -940,7 +977,7 @@ static void xpad360_process_packet(struct usb_xpad *xpad, struct input_dev *dev,
- 
- 	/* XBOX360W controllers can't be turned off without driver assistance */
- 	if (xpad->xtype == XTYPE_XBOX360W) {
--		if (xpad->mode_btn_down_ts > 0 && xpad->pad_present &&
-+		if (xpad->mode_btn_down_ts > 0 && xpad->pad_info.present &&
- 		    ((ktime_get_seconds() - xpad->mode_btn_down_ts) >=
- 		     XPAD360W_POWEROFF_TIMEOUT)) {
- 			xpad360w_poweroff_controller(xpad);
-@@ -958,19 +995,20 @@ static void xpad360_process_packet(struct usb_xpad *xpad, struct input_dev *dev,
- 
- static void xpad_presence_work(struct work_struct *work)
- {
--	struct usb_xpad *xpad = container_of(work, struct usb_xpad, work);
-+	struct usb_xpad *xpad = container_of(work, struct usb_xpad, work.work);
-+	struct xpad360w_pad_info info;
- 	int error;
- 
--	if (xpad->pad_present) {
--		error = xpad_init_input(xpad);
--		if (error) {
--			/* complain only, not much else we can do here */
--			dev_err(&xpad->dev->dev,
--				"unable to init device: %d\n", error);
--		} else {
--			rcu_assign_pointer(xpad->x360w_dev, xpad->dev);
--		}
--	} else {
-+	/*
-+	 * Take a consistent snapshot, as the reports are processed
-+	 * concurrently from the irq handler.
-+	 */
-+	scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+		info = xpad->pad_info;
-+	}
-+
-+	/* Remove the input device if its controller disconnected or changed. */
-+	if (xpad->input_created && (!info.present || xpad->input_gen != info.gen)) {
- 		RCU_INIT_POINTER(xpad->x360w_dev, NULL);
- 		synchronize_rcu();
- 		/*
-@@ -979,6 +1017,26 @@ static void xpad_presence_work(struct work_struct *work)
- 		 */
- 		xpad_deinit_input(xpad);
- 	}
-+
-+	if (info.present && !xpad->input_created) {
-+		error = xpad_init_input(xpad, &info);
-+		if (error) {
-+			/* complain only, not much else we can do here */
-+			dev_err(&xpad->intf->dev,
-+				"unable to init device: %d\n", error);
-+		} else {
-+			scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+				if (xpad->pad_info.present &&
-+				    xpad->pad_info.gen == info.gen) {
-+					xpad->input_gen = info.gen;
-+					rcu_assign_pointer(xpad->x360w_dev, xpad->dev);
-+					return;
-+				}
-+			}
-+
-+			xpad_deinit_input(xpad);
-+		}
-+	}
- }
- 
- /*
-@@ -995,19 +1053,83 @@ static void xpad_presence_work(struct work_struct *work)
-  * 01.1 - Pad state (Bytes 4+) valid
-  *
-  */
--static void xpad360w_process_packet(struct usb_xpad *xpad, u16 cmd, unsigned char *data)
-+static void xpad360w_process_packet(struct usb_xpad *xpad, u16 cmd, unsigned char *data, u32 len)
- {
-+	struct xpad360w_pad_info *info = &xpad->pad_info;
- 	struct input_dev *dev;
- 	bool present;
-+	u16 parsed_vid;
- 
- 	/* Presence change */
- 	if (data[0] & 0x08) {
- 		present = (data[1] & 0x80) != 0;
- 
--		if (xpad->pad_present != present) {
--			xpad->pad_present = present;
--			schedule_work(&xpad->work);
-+		guard(spinlock_irqsave)(&xpad->x360w_lock);
-+
-+		if (info->present != present) {
-+			if (!present) {
-+				RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+				/* Forget everything we learned about the old pad */
-+				*info = (struct xpad360w_pad_info) { .gen = info->gen };
-+			}
-+			info->present = present;
-+			if (present) {
-+				info->gen++;
-+				/*
-+				 * Allow discovery to complete; some pads never
-+				 * send capabilities.
-+				 */
-+				mod_delayed_work(system_percpu_wq,
-+						 &xpad->work, msecs_to_jiffies(500));
-+			} else {
-+				mod_delayed_work(system_percpu_wq, &xpad->work, 0);
-+			}
-+		}
-+	}
-+
-+	/* Link report */
-+	if (len >= 26 && data[0] == 0x00 && data[1] == 0x0F) {
-+		/* Decode vendor id from link report */
-+		parsed_vid = ((data[0x16] & 0xf) | (data[0x18] & 0xf) << 4) << 8 |
-+			     data[0x17];
-+
-+		/* VID 1 means unavailable; fall back to the receiver's VID. */
-+		if (parsed_vid == 1)
-+			parsed_vid = 0;
-+
-+		/* Use a subtype-derived PID unless capabilities supply one. */
-+		scoped_guard(spinlock_irqsave, &xpad->x360w_lock) {
-+			info->sub_type = data[25] & 0x7f;
-+			info->vid = parsed_vid;
-+			info->pid = 0x02a0 + info->sub_type;
-+			info->version = 0;
-+			info->flags = 0;
-+
-+			if ((data[25] & 0x80) != 0)
-+				info->flags |= FLAG_FORCE_FEEDBACK;
- 		}
-+
-+		xpad_inquiry_pad_capabilities(xpad);
-+	}
-+
-+	/* Capabilities report */
-+	if (len >= 21 && data[0] == 0x00 && data[1] == 0x05 && data[5] == 0x12) {
-+		guard(spinlock_irqsave)(&xpad->x360w_lock);
-+
-+		info->flags |= data[20];
-+		/*
-+		 * Some vendors encode identification in the stick capabilities.
-+		 * Only trust it when the VID matches the link report.
-+		 */
-+		if (info->vid &&
-+		    get_unaligned_le16(data + 10) == info->vid &&
-+		    get_unaligned_le16(data + 12)) {
-+			info->pid = get_unaligned_le16(data + 12);
-+			info->version = get_unaligned_le16(data + 14);
-+		}
-+
-+		if (info->present && delayed_work_pending(&xpad->work))
-+			mod_delayed_work(system_percpu_wq, &xpad->work, 0);
+ 	/* set up feature flags */
+ 	if (adapter->netdev->features & NETIF_F_RXCSUM)
+@@ -4044,14 +4044,6 @@ vmxnet3_probe_device(struct pci_dev *pdev,
  	}
  
- 	/* Valid pad data */
-@@ -1232,7 +1354,7 @@ static void xpad_irq_in(struct urb *urb)
- 		xpad360_process_packet(xpad, xpad->dev, 0, xpad->idata);
- 		break;
- 	case XTYPE_XBOX360W:
--		xpad360w_process_packet(xpad, 0, xpad->idata);
-+		xpad360w_process_packet(xpad, 0, xpad->idata, urb->actual_length);
- 		break;
- 	case XTYPE_XBOXONE:
- 		xpadone_process_packet(xpad, 0, xpad->idata, urb->actual_length);
-@@ -1473,6 +1595,31 @@ static int xpad_inquiry_pad_presence(struct usb_xpad *xpad)
- 	return xpad_try_sending_next_out_packet(xpad);
- }
- 
-+static void xpad_inquiry_pad_capabilities(struct usb_xpad *xpad)
-+{
-+	struct xpad_output_packet *packet =
-+			&xpad->out_packets[XPAD_OUT_CAPS_IDX];
-+
-+	guard(spinlock_irqsave)(&xpad->odata_lock);
-+
-+	packet->data[0] = 0x00;
-+	packet->data[1] = 0x00;
-+	packet->data[2] = 0x02;
-+	packet->data[3] = 0x80;
-+	packet->data[4] = 0x00;
-+	packet->data[5] = 0x00;
-+	packet->data[6] = 0x00;
-+	packet->data[7] = 0x00;
-+	packet->data[8] = 0x00;
-+	packet->data[9] = 0x00;
-+	packet->data[10] = 0x00;
-+	packet->data[11] = 0x00;
-+	packet->len = 12;
-+	packet->pending = true;
-+
-+	xpad_try_sending_next_out_packet(xpad);
-+}
-+
- static int xpad_start_xbox_one(struct usb_xpad *xpad)
- {
- 	int error;
-@@ -1870,8 +2017,8 @@ static void xpad360w_stop_input(struct usb_xpad *xpad)
- {
- 	usb_kill_urb(xpad->irq_in);
- 
--	/* Make sure we are done with presence work if it was scheduled */
--	flush_work(&xpad->work);
-+	/* Cancel any pending presence work */
-+	cancel_delayed_work_sync(&xpad->work);
- }
- 
- static int xpad_open(struct input_dev *dev)
-@@ -1928,7 +2075,68 @@ static void xpad_deinit_input(struct usb_xpad *xpad)
- 	}
- }
- 
--static int xpad_init_input(struct usb_xpad *xpad)
-+static void xpad360w_set_input_info(struct input_dev *input_dev,
-+				   const struct xpad360w_pad_info *info)
-+{
-+	if (info->vid)
-+		input_dev->id.vendor = info->vid;
-+	if (info->pid)
-+		input_dev->id.product = info->pid;
-+	else
-+		/* Default product id for x360w controllers */
-+		input_dev->id.product = 0x02a1;
-+	if (info->version)
-+		input_dev->id.version = info->version;
-+
-+	switch (info->sub_type) {
-+	case SUBTYPE_GAMEPAD:
-+		input_dev->name = "Xbox 360 Wireless Controller";
-+		break;
-+	case SUBTYPE_WHEEL:
-+		input_dev->name = "Xbox 360 Wireless Wheel";
-+		break;
-+	case SUBTYPE_ARCADE_STICK:
-+		input_dev->name = "Xbox 360 Wireless Arcade Stick";
-+		break;
-+	case SUBTYPE_FLIGHT_STICK:
-+		input_dev->name = "Xbox 360 Wireless Flight Stick";
-+		break;
-+	case SUBTYPE_DANCE_PAD:
-+		input_dev->name = "Xbox 360 Wireless Dance Pad";
-+		break;
-+	case SUBTYPE_GUITAR:
-+		input_dev->name = "Xbox 360 Wireless Guitar";
-+		break;
-+	case SUBTYPE_GUITAR_ALTERNATE:
-+		input_dev->name = "Xbox 360 Wireless Alternate Guitar";
-+		break;
-+	case SUBTYPE_GUITAR_BASS:
-+		input_dev->name = "Xbox 360 Wireless Bass Guitar";
-+		break;
-+	case SUBTYPE_DRUM_KIT:
-+		/* Vendors used force feedback flag to differentiate these */
-+		if (info->flags & FLAG_FORCE_FEEDBACK)
-+			input_dev->name = "Xbox 360 Wireless Guitar Hero Drum Kit";
-+		else
-+			input_dev->name = "Xbox 360 Wireless Rock Band Drum Kit";
-+		break;
-+	case SUBTYPE_RB_KEYBOARD:
-+		input_dev->name = "Xbox 360 Wireless Rock Band Keyboard";
-+		break;
-+	case SUBTYPE_ARCADE_PAD:
-+		input_dev->name = "Xbox 360 Wireless Arcade Pad";
-+		break;
-+	case SUBTYPE_TURNTABLE:
-+		input_dev->name = "Xbox 360 Wireless DJ Hero Turntable";
-+		break;
-+	case SUBTYPE_PRO_GUITAR:
-+		input_dev->name = "Xbox 360 Wireless Rock Band Pro Guitar";
-+		break;
-+	}
-+}
-+
-+static int xpad_init_input(struct usb_xpad *xpad,
-+			   const struct xpad360w_pad_info *info)
- {
- 	struct input_dev *input_dev;
- 	int i, error;
-@@ -1942,10 +2150,8 @@ static int xpad_init_input(struct usb_xpad *xpad)
- 	input_dev->phys = xpad->phys;
- 	usb_to_input_id(xpad->udev, &input_dev->id);
- 
--	if (xpad->xtype == XTYPE_XBOX360W) {
--		/* x360w controllers and the receiver have different ids */
--		input_dev->id.product = 0x02a1;
+ 	spin_lock_init(&adapter->cmd_lock);
+-	adapter->adapter_pa = dma_map_single(&adapter->pdev->dev, adapter,
+-					     sizeof(struct vmxnet3_adapter),
+-					     DMA_TO_DEVICE);
+-	if (dma_mapping_error(&adapter->pdev->dev, adapter->adapter_pa)) {
+-		dev_err(&pdev->dev, "Failed to map dma\n");
+-		err = -EFAULT;
+-		goto err_set_mask;
 -	}
-+	if (xpad->xtype == XTYPE_XBOX360W)
-+		xpad360w_set_input_info(input_dev, info);
- 
- 	input_dev->dev.parent = &xpad->intf->dev;
- 
-@@ -2084,7 +2290,8 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 		xpad->delay_init = true;
- 
- 	xpad->packet_type = PKT_XB;
--	INIT_WORK(&xpad->work, xpad_presence_work);
-+	INIT_DELAYED_WORK(&xpad->work, xpad_presence_work);
-+	spin_lock_init(&xpad->x360w_lock);
- 
- 	if (xpad->xtype == XTYPE_UNKNOWN) {
- 		if (intf->cur_altsetting->desc.bInterfaceClass == USB_CLASS_VENDOR_SPEC) {
-@@ -2201,7 +2408,8 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
- 		 */
- 		udev->quirks |= USB_QUIRK_RESET_RESUME;
- 	} else {
--		error = xpad_init_input(xpad);
-+		/* Only x360w devices use the device info */
-+		error = xpad_init_input(xpad, NULL);
- 		if (error)
- 			goto err_deinit_output;
+ 	adapter->shared = dma_alloc_coherent(
+ 				&adapter->pdev->dev,
+ 				sizeof(struct Vmxnet3_DriverShared),
+@@ -4059,7 +4051,7 @@ vmxnet3_probe_device(struct pci_dev *pdev,
+ 	if (!adapter->shared) {
+ 		dev_err(&pdev->dev, "Failed to allocate memory\n");
+ 		err = -ENOMEM;
+-		goto err_alloc_shared;
++		goto err_set_mask;
  	}
-@@ -2263,8 +2471,20 @@ static int xpad_suspend(struct usb_interface *intf, pm_message_t message)
- 		 * Unless explicitly disabled, power them down
- 		 * so they don't just sit there flashing.
- 		 */
--		if (auto_poweroff && xpad->pad_present)
-+		if (auto_poweroff && xpad->pad_info.present)
- 			xpad360w_poweroff_controller(xpad);
-+
-+		/* Finish teardown if suspend cancelled work for an old pad. */
-+		if (xpad->input_created &&
-+		    (!xpad->pad_info.present ||
-+		     xpad->input_gen != xpad->pad_info.gen)) {
-+			RCU_INIT_POINTER(xpad->x360w_dev, NULL);
-+			synchronize_rcu();
-+			xpad_deinit_input(xpad);
-+		}
-+
-+		/* A cancelled discovery must be restarted by the resume inquiry. */
-+		xpad->pad_info.present = xpad->input_created;
- 	} else {
- 		guard(mutex)(&input->mutex);
  
+ 	err = vmxnet3_alloc_pci_resources(adapter);
+@@ -4312,9 +4304,6 @@ vmxnet3_probe_device(struct pci_dev *pdev,
+ 	dma_free_coherent(&adapter->pdev->dev,
+ 			  sizeof(struct Vmxnet3_DriverShared),
+ 			  adapter->shared, adapter->shared_pa);
+-err_alloc_shared:
+-	dma_unmap_single(&adapter->pdev->dev, adapter->adapter_pa,
+-			 sizeof(struct vmxnet3_adapter), DMA_TO_DEVICE);
+ err_set_mask:
+ 	free_netdev(netdev);
+ 	return err;
+@@ -4381,8 +4370,6 @@ vmxnet3_remove_device(struct pci_dev *pdev)
+ 	dma_free_coherent(&adapter->pdev->dev,
+ 			  sizeof(struct Vmxnet3_DriverShared),
+ 			  adapter->shared, adapter->shared_pa);
+-	dma_unmap_single(&adapter->pdev->dev, adapter->adapter_pa,
+-			 sizeof(struct vmxnet3_adapter), DMA_TO_DEVICE);
+ 	free_netdev(netdev);
+ }
+ 
+diff --git a/drivers/net/vmxnet3/vmxnet3_int.h b/drivers/net/vmxnet3/vmxnet3_int.h
+index 9f24d66dbb27..2c2a446a8e4a 100644
+--- a/drivers/net/vmxnet3/vmxnet3_int.h
++++ b/drivers/net/vmxnet3/vmxnet3_int.h
+@@ -438,7 +438,6 @@ struct vmxnet3_adapter {
+ 	struct Vmxnet3_CoalesceScheme *coal_conf;
+ 	bool   default_coal_mode;
+ 
+-	dma_addr_t adapter_pa;
+ 	dma_addr_t pm_conf_pa;
+ 	dma_addr_t rss_conf_pa;
+ 	bool   queuesExtEnabled;
 
-base-commit: 29ee387509a184c3bfff9e26831aacc7b2edc02a
+base-commit: abeacca61eea4f6803df4a595b656ea45c2d3249
 -- 
-2.55.0
+2.53.0
 
