@@ -1,91 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.139.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792591232;
-	b=TrB1VAnlAM+R1zfMt+xlXYD6ownMcPEDHqv3Dk45GPXD0tOKTm9b21KWoDRbHnFCz0C7
-	 gmCYgAiNG9pAzwIxwGFn6644AryOgNtewwueQBXqBizY6MZ1XvdAyvLsAAjEqdENNIbc/
-	 gFrdWZF8C/Gb404zyQi5KSVNpro7S6xjCrPv1TmNgvRFzglpbVDPNMoK5sNCvrSQX2Ydd
-	 9nhTrvh084Coi+lXGy8gtGx0ClPTQ90Wnpws27fvT7kdMdFSbFFCWKvLgPGfEWYvHGE6m
-	 5lht7xhUuPsT0c+I7yu2xZeACwNuH4VmZutMlHHOO7QMiNy/zRG0fPwSpw5BMDKRZbw==
+	b=DnNe2IsugkD+R1dm9HWFZ7//IM/2CKPxiwU21bz4XqGI+nSe5CtA3w/tsFAlk6vJgRLf
+	 XOHCxW7Wn9WqsUCsaoRrOiQaXWSICAc9xs2UdXpqwnth7+E515QsO2UPZ1YfmVoAEUwt6
+	 hGZgxzrdt++KwEEfT287RcQzlhavFyK1C6fchIcoin8+JXjQMd9gp7RfDHfcB5ST5QhoQ
+	 T+sKR+jCWPVYlvKJKNjzTN6D1Xzy9oyymtklmqZQOaSbplw5FDNpbAc1GxfrcCXJNR+DI
+	 I1WExuTAHnAqLD/bEHCNe5k5zBW/Y6rV4wMDfVI3XNl+Tg7ri53QWzAAcnTDFvZBJ8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792591232;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:Received:Received:Received:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=wqSXevxtbUPzruyogfRR5D3qm9uGXtBSUWQoF9Cs71Q=;
-	b=KQZkmu5g626KlK3/iXXBlUbiFGrgVsr6lONyz9kZ0jr1PgCw2kNNVELBPIeyfvdl1utU
-	 EQ2HLOXrl+2sfO5O8KrpUV/bB/lB847ZyEvBWWehoZwKHrfNV62KddFQGFCMq3mqTzhio
-	 XpDTJLzYXbMmgANElSaCUvMRBanoYWPpRQQYXm9CMsml4nHwR27RPuBjGQ34CXtEEjd9z
-	 ceEVXB3D/jGjoUvKkuOZYfgYtD4rf5fcfYXJifMc2Ej44u93/EFC1I3pE5AtBPZxEdgpE
-	 CIlb2XH3hCpDbsN+IWMxK7VXKSXBor0/ogHzBm6LMlr6YEtKcV0s+hnFQE0vFa44rug==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=;
+	b=Mpa68mgN1jJg8peZdw98/5ZdYMQ0wjmkR6CYlU+TuiLiVCe8bcmWrL+LNA7dD9JD8n68
+	 91C8DEG7J2UDzRekbXOA6yRftEITk99Ld5gWRbLf+U4ansSgVf6cIcltAhO5xTnnY4WO/
+	 IBehyaGa+HIXJ4dDAMVlKlq9Jj8olee5tfMCWGQy9hJISGrog0dZx4UPdUF5rL2xUjxha
+	 2QnXRlaTU0+9RnjM3OJN1f8T3yYmrGfa1IsE4jLTDuAkuE5p2beGa9dtz+Q7CQ7t0ujLK
+	 aQkcDu/KKKYbCtfNlob/4hJ5JmtlDODWe6lhFNZTaSPQXw6NqHbh5PMDoBZxAuFUtxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fujitsu.com;
-	spf=pass smtp.mailfrom=fujitsu.com;
-	dkim=pass header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=SgiMcVY8;
-	arc=none smtp.remote-ip=68.232.139.139
-Received: from esa6.hc1455-7.c3s2.iphmx.com (esa6.hc1455-7.c3s2.iphmx.com [68.232.139.139])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anFs3Ywu;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="EQsrY/5P";
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9F2606A319;
-	Wed, 21 Oct 2026 14:00:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B9F2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7FA606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:00:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F7FA606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fujitsu.com header.i=@fujitsu.com header.a=rsa-sha256 header.s=fj2 header.b=SgiMcVY8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
-  t=1792591231; x=1824127231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9DK2OEbFztWGhhecyDGTA244bbTa6mPCoyishduGujU=;
-  b=SgiMcVY8dR/hOrnNxIguXQJ/2AMwDN+YIbWGBsRTJ3zZP04jKX24M6BV
-   5vINf//+zKQh0Hc3FFxk1bmr4/5IxsTOK6NUb+hskadG2XhUVwtHPpQV+
-   ghMjB9ub1qOVIdIDtR8PkpdqqdlwpMzGySPWMef/SfBjiMENljFBH1Xsf
-   UlnW7aQ1ISRM62CIrFSM7lk1zMa0N3IjzWTy9eXFppjiTleCo4ZtvrIr6
-   8DtYk07Kj8lh5SH49f7GXe+oPBq9Pg/Nx/Y3hH78C1D+D7fQ+rK/7ql0l
-   bdWtwm9UjJwcTUPGyab0JreQLwqEcc2ktFovDh8QKdSKQlLkG/v2mJvJr
-   w==;
-X-CSE-ConnectionGUID: rSuFxFBDStSLtjbR56Bv1Q==
-X-CSE-MsgGUID: ERXfj0s5T/O4mAW1yBIEDQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="262910274"
-X-IronPort-AV: E=Sophos;i="6.27,170,1786978800"; 
-   d="scan'208";a="262910274"
-Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
-  by esa6.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:00:24 +0900
-Received: from az2uksmgm1.o.css.fujitsu.com (unknown [10.151.22.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id 04D371002809;
-	Wed, 21 Oct 2026 14:00:24 +0000 (UTC)
-Received: from az2uksmom4.o.css.fujitsu.com (unknown [10.151.22.204])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by az2uksmgm1.o.css.fujitsu.com (Postfix) with ESMTPS id AA96D8D6DAE;
-	Wed, 21 Oct 2026 14:00:23 +0000 (UTC)
-Received: from FCCLS0092175.localdomain (unknown [10.8.62.79])
-	by az2uksmom4.o.css.fujitsu.com (Postfix) with SMTP id 28952405E2E;
-	Wed, 21 Oct 2026 14:00:14 +0000 (UTC)
-Date: Wed, 21 Oct 2026 23:00:13 +0900
-From: Kohei Enju <enju.kohei@fujitsu.com>
-To: Suzuki K Poulose <suzuki.poulose@arm.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org, 
-	will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, steven.price@arm.com, aneesh.kumar@kernel.org, oupton@kernel.org, 
-	gshan@redhat.com, joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com, 
-	linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com, sdonthineni@nvidia.com, 
-	alpergun@google.com, fj0570is@fujitsu.com, WeiLin.Chang@arm.com, 
-	lpieralisi@kernel.org, sudeep.holla@arm.com, jonathan.cameron@oss.qualcomm.com, 
-	Soby Mathew <Soby.Mathew@arm.com>
-Subject: Re: [PATCH v22 06/10] firmware: arm_rmm: Ensure the RMM has GPT
- entries for memory
-Message-ID: <atjEkyLimpQSL4d4@FCCLS0092175.localdomain>
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-7-suzuki.poulose@arm.com>
- <atiyZ7_S7aBxowIQ@FCCLS0092175.localdomain>
- <34bf0c98-35b1-4402-842f-a100245cb9a7@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=anFs3Ywu;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EQsrY/5P
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBgNiQ978101
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:00:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=; b=anFs3YwuuX1o37vW
+	4zYwv5s5aGMgXz8XlFBBMG+cu/YjA00QUe6oESLTHCOM1WL0EfNjYPu/OCUcz20L
+	woYdt0/5SoOV92XMti0q0YpmZPOl5UEeGCQ0zuUYY9r65N+MVWh6Gm7AKqU/LmdA
+	xBQ0L6lxlHw3+1nSiTk+vmylMLLa/WD9kZRa/FxpC+U4mIVl179fBN5Dxccz6hOp
+	5pfqk5yB49HeeXBBo6RhTMZkaq2QnELVvhaduiN2hLykk2eQK4g/qWh/vQuNHYDM
+	l/5tPvo+59rV1uX4nzAUDK+UPxqStx4APjpKYhbdDH3Fl3JTb0kLRoORSHBLUiB5
+	L/utcg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hegs03fme-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:00:31 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93f1f1f2ecfso20885385a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792591230; x=1793196030; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=;
+        b=EQsrY/5PSNz7Ep85TauZxetW+a4dPVZufNxcgOZjDkoZOZPGnPgbJtskyeL3J4O4/i
+         w8eM0fzjTPCJ5ukFV8/tUoBTuyW0/kmKzTjEXubotbwWCNRoJXJOb5DWM5ihgqSZfsl1
+         FAWlBxxYGm4ETnLFnclpTJf/z6jLNgTJhBrMyc73vEdv8DteL/ptKJUaMGt+MbLp01IN
+         hMvq40Xjrysaw1Fh283v2QWX0cZtZiDzhU7SMJhCg2FeE3yUI7cZxF/OhfAFvWwc7Fer
+         pH5xxQTkLbZdKxHDrUV1iTGGp5G29BSPUOOmppjb+rcjt5YdWhvRkc6w5S9uTKK6+194
+         6NVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792591230; x=1793196030;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+3tXMKH1cZEB1OAWwRarq301e8JF9qJ8xcXAxkIXA90=;
+        b=c7KBAZAZbNBbkwbSejTjiuo4CTFOR356uZlmmBXkyQ3M0Moms9Yp7T+3Ire745QjE6
+         Amyj5UqHZz5VNeCp+X2fRNyDwZYP96sSjfPhF0DHwwZGTL8mH5OQnZ+nMWJlbmTyXf2S
+         aTpn6k9gadK/mMtEWD392Yqk4QzxYGBgHASi9C7vMfrquZrueHkkIwMNCgpYcltnyzdY
+         2pcrORCDECLzgVV6unNXU5y8ByKarCMwGvN6/jm8962hvbz9Ci0Jlqb1vvfkW7CzjxuP
+         6NB0f6LYNe4ICb2VOcistyYUESP6Wp3dGHzmAfNiPX94ZNXI/zP1W+Esg1OSyTaDmaNY
+         HdWA==
+X-Forwarded-Encrypted: i=1; AKwUvBwz8+Bebar6VSB2unB0RFTuDX32c3InZKQuvypW9ZjvhzEkqPEorBFWcQN+wZYEK/DlbJ6ZU6YPGnKWhhc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5mvoEif0h2X8CRSG8rGOXozhLM/Nuh+xZpnL52hvvvAd7+33O
+	r2m8nAf+2qlAk8o0tIWqmNXCQBaKt9pUkAjLaLRwEhHURe2pLQb4/Gy/XYulzL3eioO62ZypSYR
+	v04rFSmxGImRPxXY11ZflRumwboQR9EznxqOI0VwgdlpFq+AgWsbl7b8Jf2Hl3C0YyAQ=
+X-Gm-Gg: AYBFou0odVCYEABAJd/6gawdL87+d960rMFjwveMVhnsaqmdauN/96kEjq4IrYkeI7E
+	ZlcGlwifl5tR3Z4Efpvrx5EkOTPqIimdT0EfXnsARY9lNO3LyuJWo9OPa/4cVWK/2TptnOSDsIU
+	Kk4Q5u8wv2NqjYwQQiBeht3sbfr1mZCLLZ5YVUHRpkz+BLTT+/ROobDU7mcLIVnLXg3DGOZcZJX
+	3I2HF+symhhAyq5739lzviCb0OCt8+xD2adfF8weTqjztWMElFhU7GWbPqVjcN0fFiU1SBu2Sfb
+	rIhOCHn9N0BUqZ1xJwn1CNWUvnTRWeDbarCfzgLmqGjRlRIsl2hgHxVJArYX/cQQnCvjba+cNV1
+	WcHc0Tx5+ZWuy81GDX0cgZA==
+X-Received: by 2002:a05:620a:480a:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93f57f87853mr518058785a.6.1792591229827;
+        Wed, 21 Oct 2026 07:00:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:480a:b0:93a:ec4:e5f2 with SMTP id af79cd13be357-93f57f87853mr518034985a.6.1792591228650;
+        Wed, 21 Oct 2026 07:00:28 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a4ffcc5sm7861166b.26.2026.10.21.07.00.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 07:00:27 -0700 (PDT)
+Message-ID: <33d4d460-684b-4031-be45-3768e8d6c092@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 16:00:23 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,164 +115,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <34bf0c98-35b1-4402-842f-a100245cb9a7@arm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v21 12/14] arm64: dts: qcom: kaanapali: Add CCI controller
+ nodes
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        jeyaprakash.soundrapandian@oss.qualcomm.com,
+        Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
+ <20261011-kaanapali-camss-v21-12-04fd28d815c6@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261011-kaanapali-camss-v21-12-04fd28d815c6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=S/NMU4sP c=1 sm=1 tr=0 ts=6ad8c57f cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=RPG6soaBvYURGeOPBHsA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfXwlb35RMhNx5Y
+ l+ld9G5UoNSfLq6/k1xZc1nFGlLwYx2LajKOF+yW/OKoVpYV8Pzr+Z5tu7BQr55Xuut78xE83Pf
+ kAoofozs6gdhfVnWDOPFLLPwaU7fuMYhNQ8bunUM3gkTIcPx21RshRKSOh6N7i5NDc8uSPN3xso
+ Mb+MtRadHKt8BPXd4kpX6mGuVLNJQmKW/U4VmcjL2SORF56PL6qMhYhDCsN5DN+N/f3MINlmGvI
+ qKF6CkQQs2xmfweZzlHNzScc+NwRsQEqkpPJ6swzUm/zhfjTIHSt2+TdN9y2xqIW6G8CR8JalC4
+ Na5pVan37HAFD/rL7iUYk/JcYHddPWuJgQlX3CagZCd6KUozDy287N5SDN4qJFrhpxCZWNXD3EY
+ 1HptB7LbF1bvsHtbu3V/yYfVPTwu02RQyDJk1Wl++3tITxDkuEhEI6swh6Vv09AGhvvwoaiILhZ
+ Zs12zD9sNfRsCAlzCwQ==
+X-Proofpoint-ORIG-GUID: kUmbkNG_w4zVXzn_m0uv1jwZ2H7Vem4R
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfX6I5yup7y9YO9
+ 1sAQBw0bPfe96xZdvBc2vuE6AgBPO04deyXuv5gcf5zM0upAGXe9m/+b0nqe0H/aP6NOMLciQiM
+ QzvwmSEckdETC3ZW3UqF91E8vzc7VPg=
+X-Proofpoint-GUID: kUmbkNG_w4zVXzn_m0uv1jwZ2H7Vem4R
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 spamscore=0 bulkscore=0
+ lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210055
 
-On 10/21 14:35, Suzuki K Poulose wrote:
-> Hi
-> 
-> On 21/10/2026 14:07, Kohei Enju wrote:
-> > Hi Suzuki,
-> > 
-> > I've tested this series and found a possible TF-RMM issue.
-> > Please  below.
-> > 
-> > On 10/02 07:15, Suzuki K Poulose wrote:
-> > > From: Steven Price <steven.price@arm.com>
-> > > 
-> > > The RMM maintains the state of all the granules in the system to make
-> > > sure that the host is abiding by the rules. This state can be maintained
-> > > at different granularity, per page (TRACKING_FINE) or per region
-> > > (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
-> > > underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
-> > > all pages in the region must be of the same state, this implies we need to
-> > > have "fine" tracking for DRAM, so that we can delegate individual pages.
-> > > 
-> > > For now we only support a statically carved out memory for tracking
-> > > granules for the "fine" regions. This can be extended in the future to
-> > > allow modifying the tracking granularity and remove the need for a
-> > > static allocation by the firmware.
-> > > 
-> > > Similarly, the firmware may create L0 GPT entries describing the total
-> > > address space. But if we change the "PAS" (Physical Address Space) of a
-> > > granule, then the firmware may need to create L1 tables to track the PAS
-> > > at a finer granularity. Linux therefore checks if the platform firmware
-> > > manages the PAR region. i.e., the firmware is in charge of managing the
-> > > L1 GPTs (creation and the required memory for the GPT tables - via static
-> > > carveouts) without host intervention. Support for dynamic GPT creation by
-> > > the host will be added later.
-> > > 
-> > > If the firmware requires us to manage the tracking or GPT memory,
-> > > deactivate the RMM and reclaim any memory donated at RMM activation.
-> > > 
-> > > Apply the same checks when hotplugged memory is brought online.
-> > > 
-> > > Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> > > Reviewed-by: Gavin Shan <gshan@redhat.com>
-> > > Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> > > Tested-by: Gavin Shan <gshan@redhat.com>
-> > > Signed-off-by: Steven Price <steven.price@arm.com>
-> > > Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > > Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> > > ---
-> > [...]
-> > > +/*
-> > > + * We do not support creating L1 GPTs yet. So, make sure that all the regions
-> > > + * are managed by the firmware.
-> > > + */
-> > > +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
-> > > +{
-> > > +	unsigned long l0gpt_sz;
-> > > +	unsigned long next, par_state;
-> > > +
-> > > +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
-> > > +					  rmi_feat_reg(1)));
-> > > +	start = ALIGN_DOWN(start, l0gpt_sz);
-> > > +	end = ALIGN(end, l0gpt_sz);
-> > > +
-> > > +	while (start < end) {
-> > > +		long ret = rmi_gpt_info(start, end, &next, &par_state);
-> > > +
-> > > +		if (ret != RMI_SUCCESS) {
-> > > +			pr_err("RMI_GPT_INFO failed for %llx-%llx: (%ld)\n",
-> > > +				start, end, ret);
-> > > +			return -ENXIO;
-> > > +		}
-> > > +
-> > > +		if (WARN_ON(next <= start))
-> > > +			return -ENXIO;
-> > > +
-> > > +		if (par_state != RMI_GPT_PAR_PLAT) {
-> > > +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
-> > > +				start, next);
-> > > +			return -ENODEV;
-> > 
-> > When system RAM starts at a non-L0GPTSZ-aligned address, the alignment
-> > in rmi_verify_gpt_firmware_managed() may cause the queried L0GPT range
-> > to include a memory hole.
-> 
-> > 
-> > On out platform, the relevant memory layout is:
-> > 
-> >      800c0000000-800dc3fffff : memory hole
-> >      800dc400000-82fffffffff : System RAM
-> > 
-> 
-> Thanks for the report.
-> 
-> > Consequently, Linux queries the following L0GPT range:
-> > 
-> >      800c0000000-80100000000
-> > 
-> > The query fails with RMI_GPT_PAR_RESERVED:
-> > 
-> >      [    8.551855] GPT for the region is not managed by firmware 800c0000000-80100000000
-> > 
-> > and arm64_init_rmi() subsequently fails.
-> > 
-> > As I understand it, smc_gpt_info() in TF-RMM checks only the beginning
-> > of the aligned L0GPT range. Since that address is in the hole, the whole
-> > range is reported as RMI_GPT_PAR_RESERVED, even though it contains
-> > platform-managed System RAM.
-> > 
-> > I believe this should be addressed in TF-RMM. Do you have any thoughts
-> > on the expected RMI_GPT_INFO behavior in this case?
-> 
-> I believe the RMM should report a value that represents the situation
-> better. In this case, there is a hole, and some conventional memory
-> areas. For the conventional memory, the RMM has to manage the GPTs.
-> (This applies to the tf-RMM implementation of TRACKING Granule state
-> too. It only looks at the first granule and reports the type of memory.)
-> 
-> RMI_GPT_PAR_RESERVED is not accurate as the memory region is not
-> reserved, unless it is reserved for firmware (in which case the
-> memory description is wrong).
-> 
-> I would say RMI_GPT_PAR_PLAT  is accurate if the L1GPT exists, as the
->  region covered by the L0GPT has some memory that are delegable.
-> 
-> Otherwise it must be reported as RMI_GPT_HOST_NOT_CREATED.
-> 
-> The information that a given memory region is not "memory" (i.e. hole)
-> is basically TRACKING_STATE returned as RMI_MEM_CATEGORY_NONE
+On 10/12/26 8:45 AM, Hangxiang Ma wrote:
+> Add the three Camera Control Interface (CCI) controllers present on the
+> Kaanapali SoC. Each controller provides two I2C hosts used for camera
+> sensor control, so define the controller nodes and their pinctrl states.
 
-Thanks for the clarification. Could you please raise this with the TF-RMM
-team? Please let me know if I can help with testing or provide any
-additional information.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Thanks,
-Kohei
-
-> 
-> 
-> > 
-> > As a side note, we tested this series and the v23 integration branch
-> > with a Linux-side workaround to avoid the problem above, and we have not
-> > observed any other major issues. Sorry for the delay in testing this
-> > series.
-> 
-> Thanks for the testing !
-> 
-> Suzuki
-> > 
-> > Thanks,
-> > Kohei
-> > 
-> > > +		}
-> > > +		start = next;
-> > > +	}
-> > > +
-> > > +	return 0;
-> > > +}
-> 
+Konrad
