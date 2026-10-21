@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792625695;
-	b=GBP7Y252mUoraV6xGe4Hc3QwcIJibt5G8+gSjG1b3jGKKp/fNtmd28sFeiEhQI8Bkzev
-	 zvMkj0Ij3MAHN2CiPnhAKRaKDQ2XlgxQq+CVvEotPCXjVWV9PI9E0eAMSuEL/WrwnqFrn
-	 tHoIitci3QGZtGB0+yptana6F56UPxeGlAlr4nN9ohHqCXFVjoV4l87n5u+WvNzu+Yvb9
-	 uGIILPsp68hekWPtRYeMSz6riLXIVRowjMABNA3F7+VW1DE58ZMAHot5RWoV9k1QD3nl0
-	 XTFcf9jWWh8NpMdvi38nslYiJjCUKtyOV1wd8FIwKnfBnZ8Sd90U8uPf42qbBk/Sj6g==
+	t=1792625701;
+	b=cwCLrXVfPMRqPOeOpygo0G7bciGqQacAcU0hgwPLkKP/01VuTk0o2keK+7xMCSRenQlg
+	 tzgkFhv0VsgZj9c5v0HCCMr0AfSv2iOwyeyqUuxh09o4xE6M+UmZjS2UdUH+l1s8pQKbh
+	 JGrZa058nwDpMnB7wKOJe4a9eeIatlIsBVuk5ZEhXCR4dgjVQagK1epNK1Hrrqi8UpmhM
+	 U5AQVD7riPYY87nwTOksazCKxh7+alLchaBgcxX47lreIdyXoPjjollM92DSeRLlCWHYO
+	 mEmjVWWCNXUgHo8tKEPdWUABOBOaeAyHu8N0M0Ltw2bH3BVsf1IeLrvDTRWYoPv8Yiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792625695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792625701;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=s5GCFuOcmjehv03gf2ljnWIxHgzVxKtBI4zuJ/1eB5M=;
-	b=HO/n6cs0iqdA4AUmjkpNqu6kKIACdNsuFrb7DB3gzJxdcgcH5NJfJFMSRSHaG3Ur4KQP
-	 wnQAU1mlaxZyRQmP+vafs7NYkE09/dsPfUvF9mfu2pdjNXibky20o1Gf6+npEd7u2yidd
-	 Sv0PfpGVYOLDh9umXP9MZVbWvcNqpqYLmbS1uoRJf/Q8MpRvP1eKF5v6z1agpO7hEkPAj
-	 ADAbUqALVG+3jKcvhNTqmJpv3pS9xYTMwjLs8BTcNJXKaO2AxKSQufDCADoFIvFQVITWc
-	 rBjk+ONhkZSZ6npzBZmG7LEChy+Y+zQHJjd6U61ox6xln4ta42JEpwH/HDOjd/7kHIQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=G0OKI6y4OhutfG+XdOF4GNKLKTZK5pihXdnNjvnUK40=;
+	b=W+chWul2Dh98ZY5HoiKn0S/emRfm0lbhD3YQVzTlBLMTUPEalDyggITFGGOZW69KR6aq
+	 9g5+p5ivexRxi/uS6Jz4rcpElneNy1h4TeojgiwnMlCH0wrTUSEGiABt1XOF3EvUd7lx7
+	 nAExDaG2BpubpQimQDWN+PUgg9flF/TdsXujYp7kO/AbwM/NnPxcwHNH8FAqB31M6OBfe
+	 JPJWM+tRvMHcZUaQIR8+zKJepxZtWCk9IG5C8c44x4AJANwz48GoFUXWGmaUM8ilh1yBa
+	 jhonKKJr9G2nwnrIsp4Ibjo/YwtoYhMQ2TESDHAzFSHkpvi4SnpjFJv8i0FTgBzf6lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7QSiiX5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThKu98bL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80940606A31A;
-	Wed, 21 Oct 2026 23:34:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099AB606A319;
+	Wed, 21 Oct 2026 23:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7QSiiX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49211F000C1;
-	Wed, 21 Oct 2026 23:34:52 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ThKu98bL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8201F000C1;
+	Wed, 21 Oct 2026 23:34:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792625695;
-	bh=s5GCFuOcmjehv03gf2ljnWIxHgzVxKtBI4zuJ/1eB5M=;
-	h=From:To:Cc:Subject:Date;
-	b=g7QSiiX5u84k62YLZ3c1x3+ueZUgWrw+FaS8iLWpFy0ypur0rpeshW6hISOU3LpYX
-	 q3LMdDTnMxORG/nxYgtnD0CXjNK8MnxAqtqbWxg2MKfUZuBonSM6Qr4rQFgK80bn3W
-	 ZXOfZwioE33FPbSA7dgVdF4F/+gOyhGEXfpso+uOr/gnugw3cI15IifZZ6Xa0rI84d
-	 Z8/oljAK0C56CAxKlujvNRho9+H+tS3+1hH9PqcAKAl4t0ex3rl2ORUxbxj+EdygHm
-	 g12QQU5IEvMSlmKsEbOwIj5paUUVN/lUxzNfgfeoO+vCq9caYtyD8jyXZwdrmX0MCd
-	 vCT6K/814OCtQ==
+	s=k20260515; t=1792625700;
+	bh=G0OKI6y4OhutfG+XdOF4GNKLKTZK5pihXdnNjvnUK40=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ThKu98bL5Hm9KlQ+BnEeF+JKlx2Uc32JqxYiXn5wjG8ZjvRH9jmi/psE9vWvAzn6/
+	 rgVR35xjDQjQJ952FtrRHOcxnR1yqHn/TUXUPb4dYAIBSUEvGxhN2u3pyRsGpRV0j9
+	 tjFVrXK2w3oU+Wtocx851k41H4dXrtXP9ejMZrohWHqLuanjw7gAWls3gVjXc/1W39
+	 fp0Bzwt4TLLyN6exLax28bZQ+4GTCC/yHu/ju6DSQhQUBM20rzYMmw8su8sYZawMUk
+	 oVHgzgJIrMJatjIiHJ9FQ8FmIxT66w7yP79YH0OVIlZe+ltM2eN95Mo0qhBk+6VkZ1
+	 pkLtrRLNzKfHg==
 From: Imre Kaloz <kaloz@kernel.org>
 To: "David S. Miller" <davem@davemloft.net>,
 	Andreas Larsson <andreas@gaisler.com>
@@ -47,11 +47,16 @@ Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v3 0/4] sparc64: D-cache alias flushing fixes
-Date: Thu, 22 Oct 2026 01:33:36 +0200
-Message-ID: <cover.1792609488.git.kaloz@kernel.org>
+	linux-mm@kvack.org,
+	stable@vger.kernel.org,
+	Stian Halseth <stian@itx.no>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Subject: [PATCH v3 2/4] sparc64: flush only the aliased page, not its whole folio
+Date: Thu, 22 Oct 2026 01:33:38 +0200
+Message-ID: <65ae69ec96f854a010ef8407144958cc290a1bf2.1792609488.git.kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1792609488.git.kaloz@kernel.org>
+References: <cover.1792609488.git.kaloz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,60 +68,176 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These fix D-cache alias flushing on sparc64 CPUs with a virtually
-indexed L1 D-cache (Spitfire and Cheetah).
+Since the conversion to folios, move_pte() and tlb_batch_add() flushed
+the D-cache of every page in the folio a PTE maps. Both are called once
+per PTE, so a range backed by a large folio had each of its pages
+flushed once per PTE of that folio. On SMP, each page flush on Spitfire
+and Cheetah is a cross-call to all other online CPUs.
 
-1/4 makes xcall_deliver() bail out before it touches the trap block
-when there is no other CPU to call, so an early cross call, before
-init_IRQ() sets up the mondo blocks, can't end up writing to physical
-address 0.
+Flush only the page the PTE maps instead, as before the conversion.
+Both callers see the PTEs of a range one at a time, so every page of
+the range still gets its own flush. flush_dcache_folio_all() has no
+other users and is turned back into flush_dcache_page_all().
 
-2/4 flushes only the page a PTE maps instead of its whole folio, which
-removes about a million redundant page flushes from a colour-changing
-mremap() of a large folio (7.3 s on a Sun Fire V240).
+On a Sun Fire V240, an mremap() that moves the 1024 PTEs of a large
+folio to the other colour took 7.3 s, about a million redundant page
+flushes.
 
-3/4 implements flush_cache_vmap() and flush_cache_vunmap(), which have
-been no-ops. Stale vmalloc lines corrupt BPF programs and module data
-on UltraSPARC III.
-
-4/4 passes the number of PTEs to move_pte(), as Andreas suggested. It
-touches mm/mremap.c and include/linux/pgtable.h, so it needs an ack
-from the mm folks.
-
-1-3 don't depend on 4 and can go in on their own. 2 and 3 are for
-stable (3 needs 2), 1 and 4 aren't. The series is on top of the sparc
-for-next branch.
-
-Changes in v3:
-- new 1/4 and 4/4, following Andreas' review
-- 2/4: reworded the message and the move_pte() comment, marked the
-  UP #endif
-- 3/4: reworded the message, dropped the Suggested-by (I have no
-  email address for nsafran1217, the Link credits them), noted the
-  stable dependency on 2/4
-- picked up Stian's and Adrian's Tested-by tags
-
-v2: https://lore.kernel.org/r/20260928132102.1707-1-kaloz@kernel.org
-
-Imre Kaloz (4):
-  sparc64: skip the trap block in xcall_deliver() when there is no
-    target
-  sparc64: flush only the aliased page, not its whole folio
-  sparc64: flush vmalloc ranges from the D-cache on map and unmap
-  mm: pass the number of PTEs to move_pte()
-
- arch/sparc/include/asm/cacheflush_64.h |  9 ++--
- arch/sparc/include/asm/pgtable_64.h    | 14 ++++--
- arch/sparc/kernel/smp_64.c             | 51 +++++++++++++++-----
- arch/sparc/mm/init_64.c                | 65 ++++++++++++++++++++++++++
+Fixes: 1a10a44dfc1d ("sparc64: implement the new page table range API")
+Cc: stable@vger.kernel.org
+Tested-by: Stian Halseth <stian@itx.no> # Sun Fire V240, SPARC T4-1
+Tested-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ arch/sparc/include/asm/cacheflush_64.h |  3 +--
+ arch/sparc/include/asm/pgtable_64.h    |  8 ++++++--
+ arch/sparc/kernel/smp_64.c             | 24 +++++++++++++-----------
+ arch/sparc/mm/init_64.c                | 22 ++++++++++++++++++++++
  arch/sparc/mm/tlb.c                    |  2 +-
- arch/sparc/mm/ultra.S                  | 25 ++++++++++
- include/linux/pgtable.h                |  2 +-
- mm/mremap.c                            |  2 +-
- 8 files changed, 148 insertions(+), 22 deletions(-)
+ 5 files changed, 43 insertions(+), 16 deletions(-)
 
-
-base-commit: 2bc58762a3d74e42de129d717ae3ba10ecf0ab96
+diff --git a/arch/sparc/include/asm/cacheflush_64.h b/arch/sparc/include/asm/cacheflush_64.h
+index 06092572c045..02c969417e7b 100644
+--- a/arch/sparc/include/asm/cacheflush_64.h
++++ b/arch/sparc/include/asm/cacheflush_64.h
+@@ -38,11 +38,10 @@ void __flush_dcache_page(void *addr, int flush_icache);
+ void flush_dcache_folio_impl(struct folio *folio);
+ #ifdef CONFIG_SMP
+ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu);
+-void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio);
+ #else
+ #define smp_flush_dcache_folio_impl(folio, cpu) flush_dcache_folio_impl(folio)
+-#define flush_dcache_folio_all(mm, folio) flush_dcache_folio_impl(folio)
+ #endif
++void flush_dcache_page_all(struct mm_struct *mm, struct page *page);
+ 
+ void __flush_dcache_range(unsigned long start, unsigned long end);
+ #define ARCH_IMPLEMENTS_FLUSH_DCACHE_PAGE 1
+diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
+index 0837ebbc5dce..1430489b9ac5 100644
+--- a/arch/sparc/include/asm/pgtable_64.h
++++ b/arch/sparc/include/asm/pgtable_64.h
+@@ -946,6 +946,10 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+ 	set_pte_at((mm), (addr), (ptep), __pte(0UL))
+ 
+ #ifdef DCACHE_ALIASING_POSSIBLE
++/* This flushes only the page the PTE maps, so it relies on move_ptes()
++ * calling it for one PTE at a time, which the default pte_batch_hint()
++ * guarantees.
++ */
+ #define __HAVE_ARCH_MOVE_PTE
+ #define move_pte(pte, old_addr, new_addr)				\
+ ({									\
+@@ -955,8 +959,8 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+ 									\
+ 		if (pfn_valid(this_pfn) &&				\
+ 		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
+-			flush_dcache_folio_all(current->mm,		\
+-				page_folio(pfn_to_page(this_pfn)));	\
++			flush_dcache_page_all(current->mm,		\
++					      pfn_to_page(this_pfn));	\
+ 	}								\
+ 	newpte;								\
+ })
+diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
+index 4240c129c5fe..6681f5263865 100644
+--- a/arch/sparc/kernel/smp_64.c
++++ b/arch/sparc/kernel/smp_64.c
+@@ -991,8 +991,9 @@ void smp_flush_dcache_folio_impl(struct folio *folio, int cpu)
+ 	put_cpu();
+ }
+ 
+-void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
++void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
+ {
++	struct folio *folio = page_folio(page);
+ 	void *pg_addr;
+ 	u64 data0;
+ 
+@@ -1005,7 +1006,7 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
+ 	atomic_inc(&dcpage_flushes);
+ #endif
+ 	data0 = 0;
+-	pg_addr = folio_address(folio);
++	pg_addr = page_address(page);
+ 	if (tlb_type == spitfire) {
+ 		data0 = ((u64)&xcall_flush_dcache_page_spitfire);
+ 		if (folio_flush_mapping(folio) != NULL)
+@@ -1016,18 +1017,19 @@ void flush_dcache_folio_all(struct mm_struct *mm, struct folio *folio)
+ #endif
+ 	}
+ 	if (data0) {
+-		unsigned int i, nr = folio_nr_pages(folio);
+-
+-		for (i = 0; i < nr; i++) {
+-			xcall_deliver(data0, __pa(pg_addr),
+-				      (u64) pg_addr, cpu_online_mask);
++		xcall_deliver(data0, __pa(pg_addr),
++			      (u64)pg_addr, cpu_online_mask);
+ #ifdef CONFIG_DEBUG_DCFLUSH
+-			atomic_inc(&dcpage_flushes_xcall);
++		atomic_inc(&dcpage_flushes_xcall);
+ #endif
+-			pg_addr += PAGE_SIZE;
+-		}
+ 	}
+-	__local_flush_dcache_folio(folio);
++#ifdef DCACHE_ALIASING_POSSIBLE
++	__flush_dcache_page(pg_addr,
++			    tlb_type == spitfire && folio_flush_mapping(folio));
++#else
++	if (tlb_type == spitfire && folio_flush_mapping(folio))
++		__flush_icache_page(__pa(pg_addr));
++#endif
+ 
+ 	preempt_enable();
+ }
+diff --git a/arch/sparc/mm/init_64.c b/arch/sparc/mm/init_64.c
+index 103db4683b16..8d01aab43cc3 100644
+--- a/arch/sparc/mm/init_64.c
++++ b/arch/sparc/mm/init_64.c
+@@ -214,6 +214,28 @@ inline void flush_dcache_folio_impl(struct folio *folio)
+ #endif
+ }
+ 
++#ifndef CONFIG_SMP
++void flush_dcache_page_all(struct mm_struct *mm, struct page *page)
++{
++	struct folio *folio = page_folio(page);
++
++	if (tlb_type == hypervisor)
++		return;
++
++#ifdef CONFIG_DEBUG_DCFLUSH
++	atomic_inc(&dcpage_flushes);
++#endif
++
++#ifdef DCACHE_ALIASING_POSSIBLE
++	__flush_dcache_page(page_address(page),
++			    tlb_type == spitfire && folio_flush_mapping(folio));
++#else
++	if (tlb_type == spitfire && folio_flush_mapping(folio))
++		__flush_icache_page(page_to_phys(page));
++#endif
++}
++#endif /* !CONFIG_SMP */
++
+ #define PG_dcache_dirty		PG_arch_1
+ #define PG_dcache_cpu_shift	32UL
+ #define PG_dcache_cpu_mask	\
+diff --git a/arch/sparc/mm/tlb.c b/arch/sparc/mm/tlb.c
+index 6d9dd5eb1328..1221814ca0e1 100644
+--- a/arch/sparc/mm/tlb.c
++++ b/arch/sparc/mm/tlb.c
+@@ -144,7 +144,7 @@ void tlb_batch_add(struct mm_struct *mm, unsigned long vaddr,
+ 
+ 		paddr = (unsigned long) page_address(page);
+ 		if ((paddr ^ vaddr) & (1 << 13))
+-			flush_dcache_folio_all(mm, folio);
++			flush_dcache_page_all(mm, page);
+ 	}
+ 
+ no_cache_flush:
 -- 
 2.47.3
 
