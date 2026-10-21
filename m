@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.173
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792605094;
-	b=znhEorro2MES/qqWsMgezXJ0igyCMrKx2AzvAvaIla3IIvO9PAyiO4h2aS6f+/6CXda6
-	 Qi/l2aaRojkIe79Up82xD3WlHYQiPoSpjHzYFq6CClXx40SBrIG3rZl0sIlPzw75sxWQ5
-	 XpeHgaV476TN5nbyCD3Ygg3DRgFvjYF/bKQdCMPXWLP+ir1vGFQcP+qlGphrBeTSh43uf
-	 yfSCRvWCOB+Irg1ksQ/I8gBCrf/Dy+t2ey1JNMAUZJVovRJEVazf+ANBL1Wh+4Ba5Uki/
-	 Ch+TwKAgdel/YmfLMKLlDcJGux5L4+/4cg+DLPHH327UksP81+DufDayyrrHQSi+OlQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605094;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792605191;
+	b=JJd0MUS5dIggYWvUOQJ7ovkEG4c1yVSTX28mS/uAtL8o1js7mrszqEz3IrMDD/lHaBtW
+	 NpjTyYEQ5rtnr1t/agT5Jo8BfBxqB8xEpmc9wnquTdf6d2rMhkD6E5A1SPwxEmu+pVNow
+	 mjFaZ2j7c+v8Tjh5Z7pCm6yZCt6z4j6pPXrXhdRiHfGByPWkSMMC227ToBKqyBKeWK3p1
+	 Zc/0vCzHeDxHKhWOldQrenXh/CQgX0zQHtw/Yq6E7EsjtFI/YHtdFxoXJ8+5S9qx1BfhV
+	 87CG35LRP+uQXmCJzdP4M2zd15PFJgq0geGWFnGtsqqsFp+yAIAdPT2UZOHYyl8Nh4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605191;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
-	b=5E72puaTSCmX4GWrgGl6AXoTnZzSC2Q0QlmWFaCsSreN4luLl9h6LyPwdFhg1bwqhXjj
-	 7nQBALhFbrCkaSDbdPhpzXaNdwt0sV4KfsU5IUtvrP7JBx7mbA0FreQd3cy2PfyldzyAF
-	 P4tMnILn/H6POk5rIh0o2AWLvjxAUxkTIanMLXKieKb2gVuQw73UiOVCRVTaiiH+XdjkE
-	 uO063IfjLgVkRH6BzJBtBLrVFmPhrV1FzZ5W8L1RXcSyPovruyAFfcy2+mCaMm0IcXCGw
-	 AWN9eQfzq1kONc5lLsn+tjaS2W+H07Ulsyx3MpZfYq427JuryFbrSFNkYygZHr7Hblw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=weV/t3lpY+C1wlkMGy3iusRIaCsEICQ6LvTEtzN/MEM=;
+	b=4qT0Vzc+x/zQVUy8a/2H+CaId1hZsjd+SqojTVylMVnTgPvXcLXWslcaE+2aVf+ikZse
+	 mFt/k5lna+E+qGk+BmgRKM/p3obQBh5T2PBFd+Z/1iDhgtDmjQ6zHP+Y04z9dshJInNyb
+	 FbYrxh40XJZvjPpZus7cfoWEdpa406Z/7e74kiK0myn10CN9wFNzuKFlFBC1D0hy7VnZd
+	 SGBqFJSSfOU4M32iXl97zRO0YYFC+zmDzkJH9HV2qq+yTAnd1B0KyTSfIPCWtEdDLyOj/
+	 qB/s+HmEfhfN8muIyuNoLtZjZqYEFv3jTaKVlJsgIVzEXybUHKaqiPAL0T52BxuI/Zw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dtuZsezP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.173
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OPWzM0l8;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B86E606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:51:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B86E606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39C2606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E39C2606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dtuZsezP
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5eadf48fb2dso333043e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:51:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792605093; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DSfdNLgSs3mOCW42Q6iFm2vAB9KhJbftPKsyzxkywT3gNcqr31evTi/NEj0uWeqL8C
-         3AbqRmGuSwpUYI9pP7+gu1QW13PuCgi2XeHtUpb4sKqYR19Fl1JjX9a5c9IqqM6Nvgy/
-         HhzGJsna9Kq/eap5sRdG2TUnr6U8lxKZ13D4rcKDGWiAMz2mpW3U+FVoZo1ZkqkaOyWx
-         ZR4EL7oadg19bZYmDbZiXLxywUp000ISjPQPiD78K/IDuMBaQOorrQAAlaO+s3srrgy9
-         /qwU2NWZBNBlpuVaepn4s/mDOOHiLTn5kfhP+WD1ZfdBZF8WioPet3QzQ4NKCzswr/ER
-         W5NA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
-        fh=m6p4Awj7PH3B7aG/WJE0Wat2s9aOf2s89sLvIoBfQLs=;
-        b=seu8tCfmXZ4hz4MNkh8G8pBjjQqBnPqiiV9jXrlECkwcAodg5sF3w0OI5ZJD1mGDqC
-         Y8kTElGS1EKTlph42eOhz1G0XRXNu7KjDKke2EmGqZk/E7mKLBODbUqnZruSG9Y7y+3i
-         2g4lI7hI0Zn2Xg9tR6JKoNA8yGTFn2GIrEPMsf4OiScwS2GjeKCDdfw+jUxzFvrXIHuB
-         uU/EQq/vvUPd6NQodflGQsQ/jVTKAHL5F3Mn3H8aSBYpIiwRYMKWsBIbWpJaTUVKL2qj
-         otJAhhNoga5MjGSjaTs4CxDWoIuWT03I6gHBGeXaYwLv5HqFrx/X7gql5Ja3AUH1RiJe
-         qdow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OPWzM0l8
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-18cdcfc05ffso1052420c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792605093; x=1793209893; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792605190; x=1793209990; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
-        b=dtuZsezP1THNiKON+Z+Lg0Kal6rVkc4EKw3GGI3IDivGz7UlmjuQuUEo53rDGwkJpI
-         08zUoNY/rsg1fUaCVa/ilQ/tgbncGgTi3ydeLPT3Kh7jXOmm/vYhtyq4Uy1faR3dcaUb
-         RMDbgkQVMIgvNKf2sAwME/RNI6G8M7ELa2IN61tVcYe7GxyFGATrG3n8i7CIpOCEwFel
-         LCJ1cdZvQ+TTwbpVmG4REU8N/AD/w8Ql4Go2sZEjaBHO8Kmom0KfSE81WSrEMFUMWdsM
-         ZNs5UANGWZ/GJXvqDzO8Hx3am8Buf4/K4on2OPn7kA2XDAARwKXpCgWjDCzpLByaHxNb
-         YhbQ==
+        bh=weV/t3lpY+C1wlkMGy3iusRIaCsEICQ6LvTEtzN/MEM=;
+        b=OPWzM0l8ptIfPVIvgbXuCW6EegEHiRBkVWJ2jiXv+CgDRuQWgxn4j8B34jOF3TbI00
+         SsId14XwxZB/ca92qNcQDYAqwu0aYF+FICOSbdu+3UNLzb1l7WgSQ8TNxY+7hYqRNEhx
+         ZlzCoIy68vjLJIR5HWsSYMptL6AQ05M62VP3VWTT/sQ8hhFGxWm46BSY63vo0xMor5L1
+         oD9Tf2rTMd0U/iF/5kOg433PbgJj8JsrrQs5b08rEukFFnreMPj61Ryk+ztvCbHtTxVk
+         UR/n1DDwNmGIfHlpAJyCkU+BFwCqC3yPe2zpJgiFympa8X1dVa8pMfSEh6m+mWbQxXYP
+         KRTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605093; x=1793209893;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792605190; x=1793209990;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=D89ifvopPkh6UIf11JinhlKyeZs6JGLXLYQheO+1SnU=;
-        b=Or5Ne4xfEjepRHBtuAR+93Gnd6qN1T/C8i9eLP+8ssfrN5t4X1nBgDzLbzPG08hRvs
-         NhFkPynWfbfIWf06jaQqT3Y+50J3oWD5bHV21oOcOjgIrHkSkftWWgHkpTe9ddxtTgip
-         Q7pdRGyc+NQEHSC1/X6kbpcZUwG9+ggNmQV41YE4x82NhSZ1zQK5rjlfGdV0CGD9K8dK
-         4n7PGipOqW0zsJwo5KkLv4nGDdlHNT83CfkLdrNnXe133ax9m0CRPTcwURMKStm+ShFW
-         FHDWPDSEqnleKgx0TbKtofAMN2jF1Y9902eL2UBgBPioFbJLEFMGZI+N55wprYemOq18
-         aqNw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPKN3zGWj0mSjdRtkCzA862voNU7lk748xJL/mWG/diBGx6FXTWmNiFazAxHoSi1QMORxon/DxH4ehQl0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIdAKv7Z5HFEbB5KP1iKSmK6qUmYmA2duYRnouZuTY47YsAAGIA
-	p2kKOOLJwZs1xkRQkLgY2f9oeVGzqvE8FIgwcXCcnfda1WZX8v4uh6+MR+z/1x02XMls2IE2xVl
-	KdNcgzQfsCOo1gwV3gJVpTknsvP3l/JVHUI/fHSY=
-X-Gm-Gg: AYBFou2+SM3dcbkFnAJM3pWx7NvXkjBJAimcIFDuKuKXs01kkTXZfTVPnGMYXZZX2WN
-	Rw5r5Aaf5AmFzr/yBytuNztuN48OL+Rl2ifox4PtSo9WqKR49chktajV5cPn4klai/+fQvOEluV
-	o4Zhd+3eBY3iX7uZGFqg+/eZ1fPTFggQN8UIhZ2mN6M2AF5rmb5WaD+vMKBZ/vVgWSDe4X55Vvt
-	XUp83eIeCNRsV/ND85TMAhKaqyrd6MhEUc1Pezjcysg28apJCVFn2077UKku6PH3VM56Jr/NfgW
-	0norZ7QwuqYk2nweSTStBHWXmkDuYqYqSBNSOLdudOqcGPzDNAlOFLan1WGsAyVIKZpedguQda2
-	Z42sa63fsh5h2UMp7Mu4WImq0RG5v9JKDti6VyDEFGEvYSD9alIafjZzqVXnXf3EegVXMXotHcx
-	utB/y78ZM3CI/n+yQ9Y+T9vD03H7TgBFONH6iGiS/4Khmk1SU4ykqpL60tVzqNrZenJ37UoheYt
-	BYeQAJ3qdU1hydySNbe4e5djTCbWRRiBS2gn/2ifX/ILDmto2LvIOh/Nbeq
-X-Received: by 2002:a05:6122:1b8f:b0:5ea:91d2:32f8 with SMTP id
- 71dfb90a1353d-5eaebdd09f9mr1192005e0c.8.1792605092656; Wed, 21 Oct 2026
- 10:51:32 -0700 (PDT)
+        bh=weV/t3lpY+C1wlkMGy3iusRIaCsEICQ6LvTEtzN/MEM=;
+        b=lVYDAooLwK+SMoxRcSoigtUaAfzghI0Fw8/t+FZL66DSKDAP+n9rn2Pn2fxEjKQYPF
+         DdQfO/rZ80SF3IccmCOILsiOnHfEZH0dYEjj+MwZypgVI36HkYD55eT1oE5PEplqRdGV
+         CHVowOIvCnpNlC4DZX4e3VphSyeADAM00z6JuiWXr1ik7SC/sj7pfdNWS33YapwhRLqF
+         pTHZxxEyNHUPUXuxvseandKyHWTuH6+fcK29LkZhCkQtRVMHmYsAVQlJWpuzOMexkjl3
+         o7qh+SkNEtvSSezB0kA43ogpOyOXMEouRKKQ6JOFXEqOBfbw3CyEcoTU+jR0MV3xBjdu
+         Sl/g==
+X-Forwarded-Encrypted: i=1; AKwUvBxD6t5+2RMcDZe+CACFxmcQNglNSYyFVS5QENf84Bj7teiK5rAbKIwA4lRsJ7sJTBVbcxAv+jVFtBAsPK4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4yHHiF/SNnigb0ZKiOOHnjBh0xbsTxMZq4e9S0Pl7EaDngnMH
+	gpv1CP24q1kda4cM4TZeO+6UAC6BTWhpWXw+exEUjs8Q/DCofQHCbH2U
+X-Gm-Gg: AYBFou1LOW6bIjdO77MqJErDo5R8RqWx+OGftBYQ9hlsQpDFsAbZ+1D2BfTj8OASJ21
+	w1Ml/3kyEDN/mNDLOjA2bZzoiXW3NNOTUCPDy4XZ+9qS32xI6cs/3/bWV1p9aWV9rIxvyE5fkp0
+	qGncGnlLLreZNfrx9g0aU58hGfm+BBg7hOEinmmf06/TqhbKtrhi2azTUOykXoHpmlCzRD+D9HY
+	TU8tTrzLbes6U+QLQZjfjRRHn/qbChdkhjnmM8rPiUxe2j6D0yRiWBw1OaqGUf0W0oB7bp7lhjs
+	ScHoSkbLOg+kx2UM/cxZ74j/nSsxk3tUN6htLboNl5OF01XmDPtdLp9d598c22Ua+tebw0fgTDf
+	2GDC029ALReF29olNMVw7n/RJH0qS+fjQP1PgCnFz9TadgqOCR/y3zQfWPIAlagMbrcFeoyAxTg
+	XxSVuj6/9cXRIHc1098hU6zR8j8XoG7MAcYX1IzHqiAlwQaWGsYG11hpyzXmuu976Jk1fgTsYWG
+	pvvQ3LeaToyS91oLV3nNFKBSatJi406JbNDiF3iJaCvEJvGOx0UmEJ6kcfyn0R76UspLVHIj5xs
+	c/GzG1wBP2wzHXq0j+REHw==
+X-Received: by 2002:a05:701b:2313:b0:148:722b:7cbc with SMTP id a92af1059eb24-190a55c1a5bmr3066254c88.14.1792605189885;
+        Wed, 21 Oct 2026 10:53:09 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a180ca2sm7114896c88.6.2026.10.21.10.53.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:53:09 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:53:06 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Hans de Goede <hansg@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Andy Shevchenko <andy@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-input@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] Input: soc_button_array - use __free() cleanup
+ facilities to free memory
+Message-ID: <atj71VUZdpHO4aBT@google.com>
+References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+ <20261021015004.1537738-2-dmitry.torokhov@gmail.com>
+ <atjw4b-ICVGH3-2a@ashevche-desk.local>
+ <atjyyqxnlqEvwNxh@google.com>
+ <atj5pgIU0VCcrHHX@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,84 +103,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019120332.553567-1-edumucelli@gmail.com> <undine-1792592451008617538-5620f2dc569b3038@undined.local>
-In-Reply-To: <undine-1792592451008617538-5620f2dc569b3038@undined.local>
-From: Eduardo Mucelli <edumucelli@gmail.com>
-Date: Wed, 21 Oct 2026 19:50:56 +0200
-X-Gm-Features: AclHuK_wu1PEBoMZwDUUmdaaxIzeIU5q0yaGhzPbnfzamDq0zX132z4TWUZdnWw
-Message-ID: <CAK0NWSMQasDdxYiWSexJk1sdxLfnLeDW_Us76go2fPdx_c8Gdg@mail.gmail.com>
-Subject: Re: [PATCH] tools/bootconfig: Quote CPU masks containing
- comma-separated words
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atj5pgIU0VCcrHHX@ashevche-desk.local>
 
-Thanks Masami!
+On Wed, Oct 21, 2026 at 08:43:02PM +0300, Andy Shevchenko wrote:
+> On Wed, Oct 21, 2026 at 10:15:43AM -0700, Dmitry Torokhov wrote:
+> > On Wed, Oct 21, 2026 at 08:05:37PM +0300, Andy Shevchenko wrote:
+> > > On Tue, Oct 20, 2026 at 06:50:00PM -0700, Dmitry Torokhov wrote:
+> 
+> ...
+> 
+> > > > +	const union acpi_object *desc __free(kfree) = buf.pointer;
+> > > 
+> > > Rafael added 'acpi_object_free' for __free() (pun wasn't intended :-).
+> > 
+> > Not sure why it is better... It goes through ACPI_FREE() ->
+> > acpi_os_free() wrappers which might be nice for ACPICA code, but has
+> > limited utility in the rest of the kernel code...
+> 
+> Today it might be similar, tomorrow it might be different. ACPI objects should
+> be freed with their proper APIs at least for the sake of consistency, no?
 
+Fair enough. I'll add a todo to switch once it hits mainline.
 
-On Wed, Oct 21, 2026 at 4:20=E2=80=AFPM Masami Hiramatsu <mhiramat@kernel.o=
-rg> wrote:
->
-> On Mon, 19 Oct 2026 14:03:32 +0200, Eduardo Mucelli Rezende Oliveira <edu=
-mucelli@gmail.com> wrote:
-> > ftrace2bconf.sh writes the CPU mask without quotes. For a mask selectin=
-g
-> > CPUs 0 and 32, the output is:
-> >
-> >   ftrace.cpumask =3D 00000001,00000001
-> >
-> > Bootconfig reads the two comma-separated words as separate array values=
-.
-> > When bconf2ftrace.sh applies the saved settings, it writes those values
-> > on separate lines instead of restoring the original CPU mask.
-> >
-> > Quote the mask so the commas remain part of a single value.
-> >
->
-> Ah good catch! OK, let me pick it.
->
-> Thank you!
->
-> > Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootc=
-onfig from ftrace")
-> > Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
-> > ---
-> > This is my first kernel contribution, so I'd appreciate any feedback.
-> >
-> > Tested with the exporter, bootconfig parser and generated replay comman=
-ds
-> > using tracefs fixtures for 00000001,00000001, 0f,ffffffff and 1.
-> > The masks containing commas fail before the fix and pass afterwards;
-> > the single-word mask passes in both cases.
-> >
-> >  tools/bootconfig/scripts/ftrace2bconf.sh | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> >
-> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-> >
-> > diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfi=
-g/scripts/ftrace2bconf.sh
-> > index 8eed445c2..f8f288f90 100755
-> > --- a/tools/bootconfig/scripts/ftrace2bconf.sh
-> > +++ b/tools/bootconfig/scripts/ftrace2bconf.sh
-> > @@ -238,7 +238,7 @@ instance_options() { # [instance-name]
-> >       fi
-> >       val=3D`cat $INSTANCE/tracing_cpumask`
-> >       if [ `echo $val | sed -e s/f//g`x !=3D x ]; then
-> > -             emit_kv $PREFIX.cpumask =3D $val
-> > +             emit_kv $PREFIX.cpumask =3D "\"$val\""
-> >       fi
-> >       val=3D`cat $INSTANCE/tracing_on`
-> >       if [ "$val" =3D "0" ]; then
-> >
->
-> --
-> Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Thanks.
 
-
-
---=20
-Eduardo Mucelli R. Oliveira -- http://eduar.do
+-- 
+Dmitry
