@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583254;
-	b=HM8JjLNOIqa7qqm4wbQzKwe4gCTaCmA+IoNjr4K9oKDgS+NPNxS+lT9L8fAHytfUk2n0
-	 CHoaSyqKkbnU/RG6ZPOPcBbAwUxN3XxzI7bIDytY6emsmm09jMTNA3LLr/uDsFhJBrqS4
-	 iw0BEmzBUURHSUoMB1ewG1bcBpbZvDbPyfUMs3pIR3ibSYOwP99lKNQGHHUlqCLBVXXDO
-	 dPFCwKM9gfti5gT2gnS3OMoBd1YT5GRjtUznBxssJBHRWfI6CZGxYcRbOnibUnvh6qFBT
-	 4bsP/O/s0h2GFq1eRTBkWc4bZf191lcn9gIwsdEkLkPSR+P4YttqeFglwdM1KrEtqVg==
+	t=1792583262;
+	b=OLzMEfVG/Rejr6iPuTqgwZDXfQwkJ7NJ5S63nI3uVTJslC6Gqfeg4lpwH4hkWyrYS//t
+	 s296o15bgsqLs6n2Bc6o0xeif8CcyE8/5wmz559tyG+Vrat9q6wa1LuNWiCH63c0eOGWF
+	 lEbfKqSQJYAivwQ/2E1O4gJva7FhBrKR+W6EIIrBsJir9QBOLWm3UjKAEAbXq9mEPkSgi
+	 NSyUzMBhNmuNwyI14RJcoGLUEndPKQnU+8NouM6vYJ9/IOkf2VdIIY0TLmjMLWrMLILbO
+	 zQFFGsaJn4Id1lFtBEq4qRZ/+g9+iJ1/b/2yGxHqjhtXS7bzlYPsdHxZLKI0MPVacKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583254;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583262;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer;
-	bh=k5tAUz/tkiXqS8hJnljlzMQfqWaNZ/lYqApYxklXIbU=;
-	b=rtrcSRqx9A/W2zK6C9Jl0VnyNdHFYClPf0fd5cK7Bw9dCDpwy9wTwliyOXAsE1TB6wRd
-	 vgRdMGkGeFBVODZChZ/q2PzhU9XsjtUXZDTizPG6Tpyo1J1vae1jtJc5APXkCqn4aU4gq
-	 WdkTa8SlD1kIE//Ccvgy1KO/ihD6EnAdCgV8Sw3+K4JBwbuYw9VY6n2sTVckzcqKmC4x+
-	 FKU7otBSGc1CX3SpPVqmWQaCWa5s5RSkTdowf8XfEzx/8sGgAWcOVJVLcBskdI/tc6BfI
-	 d+g3O92A39bZvsZraX371e7RJ9IwmQ1EH2I8tSEForTcIKBox3iElzkWmCDej7E3z8g==
+	bh=ko/uOWW9MmVDlyLdxGJWgtr/ksS4XAjHrpz+xNjK37M=;
+	b=0ShZMM8blsMrh4HdbmAgiToE1u29Hn1dkKl+UHVV9YZS1QRWcYb2HSm8GtdkVNK8MFXl
+	 i3WM9MKaeknoSrGddldmtEEc2wL918DT6uje/pIu+yPRyr1fYNFV0PCQoqpKAj8u5pNKe
+	 EZ57fQry2c6SXl165no9t0GoRHGTAp9AgDOghJ6zv3yYsHGsLv3ZwLgvli1PHDCuNcI7W
+	 pwHulU6iPXlWuwMnxFJKuKd8r6LC7Mv6ksdYT4Nqxb3wLt3sMgsVsjH2xXJYNvVOoRmzx
+	 voVoBOXQq0EjqkGiUpiUxgxzXZBR9GNiuRRomrsmgI8J6WmUs7RYPkODraP4jRGXMaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmjfHBMG;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ER9CSkf+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85AE60A263C;
-	Wed, 21 Oct 2026 11:47:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED22D60A2611;
+	Wed, 21 Oct 2026 11:47:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KmjfHBMG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8DB1F000C6;
-	Wed, 21 Oct 2026 11:47:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ER9CSkf+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85E051F000C6;
+	Wed, 21 Oct 2026 11:47:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583253;
-	bh=k5tAUz/tkiXqS8hJnljlzMQfqWaNZ/lYqApYxklXIbU=;
+	s=k20260515; t=1792583261;
+	bh=ko/uOWW9MmVDlyLdxGJWgtr/ksS4XAjHrpz+xNjK37M=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=KmjfHBMGzG71BBUUV9FeGHY/xvy+/c4Vnrc44gX4jucXojg2nTgIi8T46RM+52sIh
-	 CgG/UumtBk/l6Hxq78hLSFQOHjHAwkdGcU95oPB8EuM5G24kWATQKMra0NMQ5LIC5M
-	 /SiAOtWXWIg7PBpFsBvaj+wOTBPbxZBoSVpR2W0+mjb1FFgW1ok87RIvDoDwfjG2g2
-	 WdZ78CMqOuBUccxQP77+dfbibnob4H0ZElJTlDuIQzHwMPTGWW6Pit98D/xJr8a4bR
-	 /0DG+ck0ogX23fUXpQ2jq2OGBtebDg7WQbfEmA1NTZkMosbIUkf3+MsGAYaZu9Bw52
-	 SJvrec4At6Jhw==
+	b=ER9CSkf+A5Vu8PQAVZYvXDfMfptAvyV2alH2rkS0jPl0vXqowyTHG01tf/DX1Zo+V
+	 RAKWvHyE8bi0yWDTE2/+wB9lWEHhYwd3DypUKdNADqC8PX6TRpaxLAMJS7R2VofTud
+	 G01klTdk3Yxe0aiws3DBE97AIR6LeNpoeY+5tfr20hxJ3nzZIOBdewXHTMXNOX7wfp
+	 Z+BwSD40lJ891nYzcdORZl47QWDeaPN2cmxJTuWI5Q3l6NodgV8Z7VGpusEHEEHtF7
+	 37ZQ4ONsmkm0o8paXV25QXRVmMgMcWHHcsqDB+U6oR5dobE7ZzAxFmXQxfa0tfKnNw
+	 Xq1vtwpJAaAMA==
 From: "Harry Yoo (Meta)" <harry@kernel.org>
-Date: Wed, 21 Oct 2026 12:46:44 +0100
-Subject: [PATCH slab/for-next 03/14] lib/xarray: specify SLAB_MAY_ACCOUNT
- for radix_tree_node cache
+Date: Wed, 21 Oct 2026 12:46:46 +0100
+Subject: [PATCH slab/for-next 05/14] net: skbuff: specify SLAB_MAY_ACCOUNT
+ for skbuff_head_cache
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,8 +54,8 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-3-096800aa3330@kernel.org>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-5-096800aa3330@kernel.org>
 References: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
 In-Reply-To: <20261021-memalloc-prof-dont-waste-slabobj-ext-metadata-v1-0-096800aa3330@kernel.org>
 To: Vlastimil Babka <vbabka@kernel.org>, 
@@ -68,40 +68,57 @@ Cc: Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
  David Rientjes <rientjes@google.com>, Muchun Song <muchun.song@linux.dev>, 
  Hao Ge <hao.ge@linux.dev>, Pedro Falcato <pfalcato@suse.de>, 
  linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
- "Harry Yoo (Meta)" <harry@kernel.org>, Matthew Wilcox <willy@infradead.org>, 
- linux-fsdevel@vger.kernel.org
+ "Harry Yoo (Meta)" <harry@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jason Xing <kerneljasonxing@gmail.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ Mina Almasry <almasrymina@google.com>, 
+ =?utf-8?q?Bj=C3=B6rn_T=C3=B6pel?= <bjorn@kernel.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
 X-Mailer: b4 0.16.0
 
-XArrays with XA_FLAGS_ACCOUNT (e.g. the page cache) allocate nodes with
-__GFP_ACCOUNT, and xarray/IDR callers can also pass GFP_KERNEL_ACCOUNT
-directly. Specify SLAB_MAY_ACCOUNT when the object may be charged to a
-memcg. __GFP_ACCOUNT without SLAB_MAY_ACCOUNT will not be allowed.
+AF_UNIX sets sk->sk_allocation to GFP_KERNEL_ACCOUNT, so skbs can be
+allocated from skbuff_head_cache with __GFP_ACCOUNT. Specify
+SLAB_MAY_ACCOUNT when the object may be charged to a memcg.
+__GFP_ACCOUNT without SLAB_MAY_ACCOUNT will not be allowed.
 
-Path: __filemap_add_folio() (i_pages has XA_FLAGS_ACCOUNT)
-  -> xas_store() -> xas_alloc() (gfp |= __GFP_ACCOUNT)
-  -> kmem_cache_alloc_lru(radix_tree_node_cachep)
+Path: unix_dgram_sendmsg() -> sock_alloc_send_pskb(sk->sk_allocation)
+  -> alloc_skb_with_frags() -> __alloc_skb()
+  -> kmem_cache_alloc_node(skbuff_head_cache)
 
 Assisted-by: LLM
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: linux-fsdevel@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Jason Xing <kerneljasonxing@gmail.com>
+Cc: Willem de Bruijn <willemb@google.com>
+Cc: Mina Almasry <almasrymina@google.com>
+Cc: "Björn Töpel" <bjorn@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org
 Signed-off-by: Harry Yoo (Meta) <harry@kernel.org>
 ---
- lib/radix-tree.c | 2 +-
+ net/core/skbuff.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/lib/radix-tree.c b/lib/radix-tree.c
-index 976b9bd02a1b..2c7531deb0df 100644
---- a/lib/radix-tree.c
-+++ b/lib/radix-tree.c
-@@ -1600,7 +1600,7 @@ void __init radix_tree_init(void)
- 	BUILD_BUG_ON(XA_CHUNK_SIZE > 255);
- 	radix_tree_node_cachep = kmem_cache_create("radix_tree_node",
- 			sizeof(struct radix_tree_node), 0,
--			SLAB_PANIC | SLAB_RECLAIM_ACCOUNT,
-+			SLAB_PANIC | SLAB_RECLAIM_ACCOUNT | SLAB_MAY_ACCOUNT,
- 			radix_tree_node_ctor);
- 	ret = cpuhp_setup_state_nocalls(CPUHP_RADIX_DEAD, "lib/radix:dead",
- 					NULL, radix_tree_cpu_dead);
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index 966af3beed94..34ebbaf04fc7 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -5213,7 +5213,7 @@ void __init skb_init(void)
+ 					      sizeof(struct sk_buff),
+ 					      0,
+ 					      SLAB_HWCACHE_ALIGN|SLAB_PANIC|
+-						FLAG_SKB_NO_MERGE,
++						SLAB_MAY_ACCOUNT|FLAG_SKB_NO_MERGE,
+ 					      offsetof(struct sk_buff, cb),
+ 					      sizeof_field(struct sk_buff, cb),
+ 					      NULL);
 
 -- 
 2.54.0
