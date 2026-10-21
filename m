@@ -1,73 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792548751;
-	b=KOPRex9c02cXuNxxEijSJQc1URRWlNMoJ39nOuZIYakE/9g/scsraxwahMHN7+ePzRT8
-	 5TS0OIY8kpahHxhLUzyc7CGa3qYK/WO7e9ympnjxtjxcH3GxbNSyye8bYiqywV5VS0b4c
-	 GhWl/mz/22xjtQ2tXP2cVfrXvSgmr5NCqe7IcAQ7nyykiFZz/YGmpuCK6BRrpoaFSFu5U
-	 XlJZVIvtBgDdAp9IsToBjL7o/KvhQ6MvhmDHqA8hGsLqx34H+lYXjo0DfJ1MoMZMrpCdA
-	 1tX7cN2F1fG3q+TDsIXQIDDdL9YyF5ajRptc5DrKqTzdo4XVEvAltwBao96irPew2vA==
+	t=1792548893;
+	b=IUoPYLVDvohlLbsnBdytnmxtuD+lTwHKcY7/zqjG6NZ/i30avIUg4xJ6WMR3L1CLmcvr
+	 qANX6DQ5sKXjYZMVu4Lp3Gey4W79WRa7wNlylOIqMYsV04pWy91YfTarnulJeLk6WQEDk
+	 yMdIjDAKZ8k0XvSYJpDCzr2Rc8VdimjB6sbdCJJLeD1VhRo7SmdmbypehnubxOnFwQrF0
+	 Nsz5GTvl9EAhTsqGYcTYsdsYOUxu+jucnnHB4ysNFr+7Hb1Sicl93vTm26rf099IYsPHg
+	 BANbGox+6sFyEROk9Yee19mn0J7rJq+FGO2N2VXdEm/ge6wQHOjsArK2Wx84i2OaNnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548751;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LM3zXXEyrs1k6iikZyGFv5HI2GOa7cTFeTDBek3U1qE=;
-	b=cizSFUqRcDtDAHmGTnRmtV+hPu4EdyQys2F9uoXWxozde2a3Mf8mqdG19XtzrgAQ/BEc
-	 LGD4mahwZuKIowiZj79k3SJ35yxPTDO8XKipj4CayOvGvMDzQuguHx53M0Izbnly5273j
-	 4T6F5brbJZskpejIQxmaLrbb/CDm7fprosdC5xNblS+8zeKymm8yJlE80oS6gYJmGGKBv
-	 AUFauVpsPWbQLG7f+xgAN5pL0Pp9m/DoTLo7Sfw50mw959jUhxO6Lke7yK+ZFJ8+h4OlS
-	 yQ09Q+xRV5S47OcSOLTWh7/+FOQEw+4DBwRETduM7jsnA8t3p6pM7vGBx5GgCFLPRKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548893;
+	h=Received:DKIM-Signature:Date:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version:From:Cc:To:In-Reply-To:References:Message-Id:Subject;
+	bh=fbPRryJ8n9XhLJpBCPRDsYKT7tAPTsmQIcGjUBmw0wA=;
+	b=aEp9Zhi3kYXQZBfv7UoTmiINvXjsbkZEPxylhcK5up8DhEFjA0rYxhKISV7V+HHAe0mC
+	 8fWr3ZjjB7IU3wBFyw0w2W/bPeb8JBND9UcbF7W4CdSjhfVnO8j10FQVtG4u1JchhChK1
+	 0ZgTwaCWJYlVc27874ArHXcnF1/E1dLgdCY1hxHNNl135mNBU4ig960PNoDBrazoadfqh
+	 d+0PLjsCX69PygoPvw2wbGsqs5M+0l+v3bUHjMPL31jIRagO4IbW1+fWKnsUwwMgs61qN
+	 3vlCe+/5zb4N8EqEQoHK0INK/vHUOyhsFLIk88HtYAchrEbhyl96kIEs2LE7/UVfqtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fMu1ySdm;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AQK54XH/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4BF9606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:12:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4BF9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36A4B606A31C;
+	Wed, 21 Oct 2026 02:14:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fMu1ySdm
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3aaee1fc104so393874a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:12:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792548750; x=1793153550; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LM3zXXEyrs1k6iikZyGFv5HI2GOa7cTFeTDBek3U1qE=;
-        b=fMu1ySdmKczYVurWwRxucpMNpuFCzKTBtLPq1eOEyqTkETBtmQwuLv0iM0GA+FQbfD
-         tiDfoFf8jXxeEl1PBK7MWgBoKp3C68m3EyMvWhzkfVLH8W941S8H8IOZv54egwQhxV2a
-         zNgOnb9IoS3+PR7ankyuxnZZUknQdR6kX+cRptdznh88kvpg4AhAfOucETHRan9RV3DN
-         acY+ogOaCktWPGKQGEmGYpW3xhSrNlVWwWkhU8c1VlaACVeKmkb4L2FN5reRGRnV1s/j
-         +H9jOTK36MO+3buvLjxTi0pzlgsfIO9TmgPajhbAYDIOj58VjxZnpicWAIfuFhdnDXJ0
-         d2Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792548750; x=1793153550;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LM3zXXEyrs1k6iikZyGFv5HI2GOa7cTFeTDBek3U1qE=;
-        b=IemfaBJ2WTmLFjn8nCW5rW3gbXavkwxnnomGZsDHnkbs2xtJSLxR1+mf87RcRcunbJ
-         gMHNsmvDSqVHLeshYIsaS9r7oO/HKt11TsO/KSxIPQSnvfFloNGFSnNEuLbSQAlVz+Qt
-         AnHbRNIvtmXCpdC3LQQ5CDabgE0Dr95gt/5xAWymEOFP6FSw72JHmliVwEmLdJ+KNZXB
-         zoJkf9HYigqnFFyOZeAyHRqT/2hLJRBAp3q4FvGXYsLRktR84RovMW3MGBDThdhsTbi3
-         A1f/HrvZ6ZpplZoTdqNSaEuc3tKQhgbLQntldYh1CeBy9UkoNxRBZghHewi6/gkXO8gi
-         Ul8w==
-X-Forwarded-Encrypted: i=1; AKwUvBwWHavHVxY2PYxrXn8vhj+nlW6LaN2Yw1l3n7ji83dbL9dvSEodSb2MjpuQzKbOhJe+Po2BiMh93ZmRdaI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKBiiUwOxEy90kCQRl2zWYHzIpiayIvXYmrQmzVWqKiMC70iVeu
-	U826UnnVfvN+6bM78J1KS3cc3BJGP0u1MnmZKvnxA0ZxbffMrgpMCHUEcn3Dc0tOF5VuuDYeevk
-	zAhpUCw==
-X-Received: from pjbhg5.prod.google.com ([2002:a17:90b:3005:b0:3aa:ab59:7e2e])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2786:b0:3ac:acf5:6daf
- with SMTP id 98e67ed59e1d1-3ad8707bffemr601484a91.66.1792548749874; Tue, 20
- Oct 2026 19:12:29 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Tue, 20 Oct 2026 19:12:21 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQK54XH/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29A871F000C9;
+	Wed, 21 Oct 2026 02:14:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792548893;
+	bh=fbPRryJ8n9XhLJpBCPRDsYKT7tAPTsmQIcGjUBmw0wA=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=AQK54XH/NenajOYZnX0q/PdIt7svKjFZwieZ/EtVcj8PC4HrSuE3cZFlw8hW146TF
+	 Pknq2XyUVJ5rFTZ4OD0VNUTe1cqhjGsFUpR4vD0RIlWUYnzehEVj0I72y5dO6Z4jZu
+	 sDniZF6/CZmCTnPzBbtqXlgo5hgB33bTQF8tCnwaEgrFuE19HSrth8aWoVXpF0bNkS
+	 j4SCuHT38hfHqaTXJpJfYvNv5OfKhCgbYJ+YTq9Y+7Yf51NlTc2kmif4O8kTkJ8bv+
+	 Lo2f9sarltbTkplNxd+3C3Tbfh1UoWtPGM60U6qe5AOfOlu95vD9AyDttE1gckwYYd
+	 bmI50RAwkl+nA==
+Date: Tue, 20 Oct 2026 21:14:50 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,54 +50,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021021221.1703700-1-seanjc@google.com>
-Subject: [PATCH 6.18.y] KVM: x86/mmu: Preserve nested TDP shadow page tables
- if they are used as roots
-From: Sean Christopherson <seanjc@google.com>
-To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Hyunwoo Kim <imv4bel@gmail.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Sean Christopherson <seanjc@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Macpaul Lin <macpaul.lin@mediatek.com>, 
+ Sean Wang <sean.wang@mediatek.com>, linux-input@vger.kernel.org, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-pm@vger.kernel.org, 
+ Fabien Parent <parent.f@gmail.com>, linux-gpio@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Mark Brown <broonie@kernel.org>, 
+ Sen Chu <sen.chu@mediatek.com>, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Val Packett <val@packett.cool>, 
+ devicetree@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen Zhong <chen.zhong@mediatek.com>, 
+ Akari Tsuyukusa <akkun11.open@gmail.com>, Lee Jones <lee@kernel.org>, 
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>, 
+ linux-mediatek@lists.infradead.org, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ mfd@lists.linux.dev
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+In-Reply-To: <20261020173556.632798-2-l.scorcia@gmail.com>
+References: <20261020173556.632798-1-l.scorcia@gmail.com>
+ <20261020173556.632798-2-l.scorcia@gmail.com>
+Message-Id: <179254885010.3549549.1306117296712722010.robh@kernel.org>
+Subject: Re: [PATCH RESEND v10 1/9] dt-bindings: mfd: mt6397: Add MT6392
+ PMIC
 
-From: Hyunwoo Kim <imv4bel@gmail.com>
 
-kvm_mmu_zap_oldest_mmu_pages() excludes a shadow page whose root_count
-is non-zero from top-level reclaim, because such a page cannot be
-freed. The path in mmu_page_zap_pte() that recursively zaps a parentless
-nested TDP child has no such check. As a result, a shadow page can
-be zapped even if the page itself can't be freed; as the comment in
-kvm_mmu_zap_oldest_mmu_pages() notes, zapping it will just force vCPUs
-to rebuild the page.
+On Tue, 20 Oct 2026 19:33:22 +0200, Luca Leonardo Scorcia wrote:
+> Describe the MT6392 PMIC and its RTC and regulator devices. This device
+> is mostly based on MT6323 with some similarities to MT6397 and is usually
+> found on boards using the MT8516/MT8167 SoC.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> ---
+>  .../bindings/mfd/mediatek,mt6397.yaml         | 72 +++++++++++++++++++
+>  1 file changed, 72 insertions(+)
+> 
 
-As in top-level reclaim, do not recursively prepare zapping of a
-nested TDP child whose root_count is non-zero.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-Fixes: 2de4085cccea ("KVM: x86/MMU: Recursively zap nested TDP SPs when zapping last/only parent")
-Signed-off-by: Hyunwoo Kim <imv4bel@gmail.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/mmu/mmu.c | 1 +
- 1 file changed, 1 insertion(+)
+yamllint warnings/errors:
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 205d314a7583..1fa251ca4dcc 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2630,6 +2630,7 @@ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
- 			 */
- 			if (tdp_enabled && invalid_list &&
- 			    child->role.guest_mode &&
-+			    !child->root_count &&
- 			    !atomic_long_read(&child->parent_ptes.val))
- 				return kvm_mmu_prepare_zap_page(kvm, child,
- 								invalid_list);
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/mfd/mediatek,mt6397.example.dtb: pmic (mediatek,mt6392): keys:compatible: 'oneOf' conditional failed, one must be fixed:
+	['mediatek,mt6392-keys'] is too short
+	'mediatek,mt6392-keys' is not one of ['mediatek,mt6323-keys', 'mediatek,mt6328-keys', 'mediatek,mt6331-keys', 'mediatek,mt6357-keys', 'mediatek,mt6358-keys', 'mediatek,mt6359-keys', 'mediatek,mt6397-keys']
+	'mediatek,mt6392-keys' is not one of ['mediatek,mt6365-keys']
+	from schema $id: http://devicetree.org/schemas/mfd/mediatek,mt6397.yaml
+Documentation/devicetree/bindings/mfd/mediatek,mt6397.example.dtb: /example-3/pmic/keys: failed to match any schema with compatible: ['mediatek,mt6392-keys']
 
-base-commit: 2ff600d29ee478d0a8d46ef8a58afb5e038fe692
--- 
-2.56.0.218.g1ec904b173-goog
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20261020173556.632798-2-l.scorcia@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
