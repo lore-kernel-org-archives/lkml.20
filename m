@@ -1,107 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792570321;
-	b=GA3ssEaOXnuv9R+rikgVxNdbzmh1QPK0YFhK+JEbUe8LaDFOCwt/HXtp0ZdfPJpEYmQY
-	 Vc8k3ewaWLl7YDnAMM6ZQGlb4sd4EICgFDmjHhsA+x/XJKiGZX2ZMzkpsDRvs/oO5r9ca
-	 uSXtPowmQhURPkdaWooWsSpSMS3qWIdrSFoviXc3IO+Okxv/GrdvPlOTBlDTzFwHmbMdT
-	 hbL5KVJUJRuurs+R1uF8rACmbjHDInGwdUD41K30/67DwaAVTkUAR6lqQIc7eUBaLXOAE
-	 Fv9lXkGRYhaocNajBoCYHHVwkH0QvtX7s8Ni7wtreYFNd79Sd3bELtf5oTWNKbbLHRg==
+	t=1792570329;
+	b=s99zl2AGGGyPqpg19wQnHR/yUc9HKMmJIyMJyCBZ7H1rw1CEp5OoRU316sV8JNpImxCc
+	 EfLJKF6+fAAffNUx5sq9Vfz6UYd7W2YhxVuwjVtixj41m9TnWPK+oHLLNwqx0G7lJIaQM
+	 aiVteD2RYfwH4KHHLEtwRNLmpC2qVxR0fQkotkSexH1aU/tHr6w4DoZoqAuTs6pj4z4hW
+	 ++dFg0W9oxwIA3SEv2ZdYUID0ZShbLIaUbNXgYuqDIWRdNjy+VQOtDAmp7Jldj5uMByOh
+	 7VrJCipyp14KQ50msYfViqS4a3QDUJMvzxKuz2S5lnBs0uptOoBY0whwjeU+kZa1Dsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792570321;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=x9nlbn0Kjji4QycL/33Denq/qFQLa7BpbrMZy29ygbI=;
-	b=w4hACMblR9l5QyU8gCfBXaK4X0+rKohmzxFxme7bCaFm6s9sA4Rfdz0BDRuAAe8OAfhk
-	 bVEpBqa6ww1SSnTucSlQHcpgckFSDi7izY1bKOFFLxMq5+5Ho2NGU60iZB/W78JtPlZog
-	 Snb+uigcbXNvFFbGDZwou7QgjxeQ4ke2+pZ+yDc17gPdXoB02bv7oOFuzSKMZlkjLWhJE
-	 QjPXXhKH6FvymnCI2x5l7QvWvGAqj4TqwjUOT/kaqN4yYSuNoFaDqQOZ60U/gDKcw3byb
-	 Y+JcdXk3wbIqhwNAzJ5qr6FXTNZPxT0KLjWiy++hs1nCWzHQh6OPvHlzCfoB4VYTprg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792570329;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=ZTaJlHpLSgJPsP7bOCOBjIksawOrYCDV0TfT1aRROpc=;
+	b=DGybm4clLevEKGJR+OhX44pRkXK4ohCHJWOUduhWjKmdAywPOVAbQUZqWAIWciMYIHMO
+	 yB0oLp7s6G8r5M7e1Cw8AYWIaHCG0VkcPbneM1Apu576kqM6mTs+BYaNIW64pxwD3MyIC
+	 EfQI0TsLIkkdmMNAjh1B14PrJ9nOpuJZ/YtQFd/omfbg7HpKpPY+5h3DWfGRfsBakmdQh
+	 7nU5hkTjcWL4g/KTEXNMMw7/KK/hTA1chdDZ6QZ6Tg+xAX+CUVwfgEb3XDVMGglE8i9lh
+	 /4JVZRnqYLAdBACwtvJdhxm/WRKYDx2QZyYWuLNjYyAy3rgmlewtcVaZvl9XJtCl+0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cTctaM0T;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="B9/AOpBx";
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UP8AuJCL;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AF2606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:12:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3AF2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C821606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:12:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C821606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cTctaM0T;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=B9/AOpBx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792570319;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=x9nlbn0Kjji4QycL/33Denq/qFQLa7BpbrMZy29ygbI=;
-	b=cTctaM0TPnN5NtNKhjQZX9+GtVlmAMQiC8ZNxTw9Sd/WJhVzqVYdUt/1mk5wII7+xWDn2v
-	HXA5aqT6p9BMg4Mc7RC7ZiDaNOP4FL+WKhGOLirB3GXuaewJhz+0AjweAuh6bI6AgZ8WVK
-	DEWPYd/J1se69lUr4Pv+BSm15VQtD5U=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-619-PrHPyiarO6ewKFn-n9VOGw-1; Wed, 21 Oct 2026 08:11:52 +0000
-X-MC-Unique: PrHPyiarO6ewKFn-n9VOGw-1
-X-Mimecast-MFC-AGG-ID: PrHPyiarO6ewKFn-n9VOGw_1792570311
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a1e6ae710bso2915825e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:11:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792570311; x=1793175111; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x9nlbn0Kjji4QycL/33Denq/qFQLa7BpbrMZy29ygbI=;
-        b=B9/AOpBxJIJtak2wn37GjH1CkstgO2bc0C6KjKpsyEvUUaSp6jkJCWTQ+K6jk2PYyK
-         3edIBAbCoalYa+bIJFQmEazQO1PmMkCDCo+gzrKj0MjaX3k67ZECJQGGZQ63sTELNyB8
-         1Q6gxJMf1vB3emY1EJ539jHr1vzECkqfHwSU1Bvt5mCEEyIS3S/2NpghxmdUh6NwMn22
-         OS/1MW4cRlnkgoFo0rrB/n9ItNT9j1LSMxaHEWm1ilUeL5Y2p0jGDHDbiPd5lF5K69oE
-         UIzi/WGHWRJQNT7BdpGCuyzztl5EhYrFBlN4IwN8wAUMknSrIcC961w+VyxjDQxboQW/
-         QMoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792570311; x=1793175111;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x9nlbn0Kjji4QycL/33Denq/qFQLa7BpbrMZy29ygbI=;
-        b=xWjGm5Zh5fex2VUNr3OB/vRYH33+aGHBmlHcZFNDnrr7JVMjU5G2pJgUbREYkRnHnc
-         7mhI5NsfoOD/synvNQ9lwgcRfM3xj2PAs+UpOXn/l1mwQpR9/1lX1TKwwHCLmr5KKMJ5
-         aTM/0WQ/y9jnVVE75OhthSOFVrHbpwweLyfabBbQiJSamOKU7Of7j8lnXRgwZTlMdTd0
-         55LxK95l05cy9MkeislHuxx89UpLYQPp/7UPYUaZJIAzH8PZgNnDT3ratsW31TsPccgi
-         vilaTKf/6iRPXKas04BCQYjvG1/aO0wNqtoA5jVGkPZW6CVhrq889SP0EW8qdY9YAZnO
-         bz7w==
-X-Forwarded-Encrypted: i=1; AKwUvBygCXyCjm/kbe9yZRUjHhb4CsnjT/rzUXsJCxR06H1zJLqOyuPUg0Tcscnzr7ogNQcU4z0h09ROqPr2tuk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJSzN9qnzSE2nuRuZjIA3GwWeaf7K0tTDZyEbwnZzpr4zdMwj29
-	CSsjoYWpXFjYkiv6E3BcQ4a5iHaHPYqFN+mWT0bkluuE5US8cvF09YA/TjC+WN+lNCWbUae+WJE
-	UVB8mPPCD0zXraBWTjS7S06ji1qN3o2oJqKv1nYM23PObebGCYbrU42UP+wUrtTOT
-X-Gm-Gg: AYBFou0qGX15JYGN8pM/sigWy73oqcyTUJL55PlWJbiwwKqwN7DVMw4Y7tqyJUUXi2a
-	ZA2G8AKES3S08CZoK3fY7WtFa4/Tr688aRub7HI7sZrFDXJmK/PzQMkeq9nCJQijbdw9/oAR5xb
-	eTw9yYfdpuID4awIWvGYlh0nOBc8JgBihe0chEmDui2E0m2kCtGREQlJIFi8oN2PK3SIO0QSCJ6
-	erMXEVcExx2yevUwVywjFr3diCAuRe/pYWxmZN8W/Pg8qYUHVvo4pPjGqOAbOUbjGd2qHDYYjiD
-	cfSU8XUF1mw1AHUOLuWJGgSB/ykU+IlxYQ119FtmRVCfDVnwnjKSEp+2yvJWnMmC/Q7AH4XWItL
-	yjz38IFbkY9A0h5gYqm00cEVShtbJ9Dw=
-X-Received: by 2002:a05:600c:1d21:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a1fdb1d85amr25860985e9.9.1792570310878;
-        Wed, 21 Oct 2026 01:11:50 -0700 (PDT)
-X-Received: by 2002:a05:600c:1d21:b0:4a1:cef3:fb3a with SMTP id 5b1f17b1804b1-4a1fdb1d85amr25860095e9.9.1792570310261;
-        Wed, 21 Oct 2026 01:11:50 -0700 (PDT)
-Received: from [192.168.1.86] (89-27-86-246.bb.dnainternet.fi. [89.27.86.246])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835247sm3779888f8f.41.2026.10.21.01.11.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 01:11:49 -0700 (PDT)
-Message-ID: <8affcad2-7489-4f6a-aa64-3e5911073afb@redhat.com>
-Date: Wed, 21 Oct 2026 11:11:47 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=UP8AuJCL
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 29B8EC5CD71;
+	Wed, 21 Oct 2026 08:13:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 43FFB606E3;
+	Wed, 21 Oct 2026 08:12:06 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 700F510328934;
+	Wed, 21 Oct 2026 10:12:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792570325; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZTaJlHpLSgJPsP7bOCOBjIksawOrYCDV0TfT1aRROpc=;
+	b=UP8AuJCLcsP8mOIwkdKYmCr+tdOaTnu5ZrYPR2pOYT64VFEt6ecctUxi6wF5MSyiZi188f
+	uDELQGFfSk7OmlNUnxVRGxs99rkNRlVkS7Rg0QDpCMsArxG1mH98ZMQSqcFzmGkLy6lFMf
+	eFoQsBQ02vY0p6MSu+Ve/Mnt3TNtrAXUGOR0HUHRWkyElcx6daurs5F6XW1CoxUI5FI84e
+	brS++sGYCp/hPpqh7ncwsMF53uUmq7K0bojc+7J34uKgddCGAkCfjPEch5zGxNufBLaoN3
+	SMFGtnJaLv8hvAQe4z5/LbH2rAdgJOonjL4Z7i9xSr3suyPUO4xNnwlRrvvbRA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Bough Chen <haibo.chen@oss.nxp.com>
+Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
+ <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
+  Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  "linux-mtd@lists.infradead.org"
+ <linux-mtd@lists.infradead.org>,  "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,  "michael@walle.cc" <michael@walle.cc>,
+  Bough Chen <haibo.chen@nxp.com>,  "open list:NXP i.MX 7D/6SX/6UL/93 AND
+ VF610 ADC DRIVER" <imx@lists.linux.dev>
+Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode when
+ entering Octal DTR
+In-Reply-To: <20261020104152.l2qsutq66fwdrw7t@shlinux89> (Bough Chen's message
+	of "Tue, 20 Oct 2026 18:41:52 +0800")
+References: <20260929-spi-nor-fix-v2-1-75440cfe4e76@nxp.com>
+	<87zex05uvn.fsf@bootlin.com>
+	<AS8PR04MB8820E136E7257FC5A02F1A3E908C2@AS8PR04MB8820.eurprd04.prod.outlook.com>
+	<20261015031017.pdqnv2bp5627bhed@shlinux89>
+	<87zewfuus5.fsf@bootlin.com>
+	<20261020104152.l2qsutq66fwdrw7t@shlinux89>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 21 Oct 2026 10:12:00 +0200
+Message-ID: <87fqxzsca7.fsf@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,387 +83,246 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 03/12] mm/hmm: preparations for HMM to participate in
- migration
-To: Balbir Singh <balbirs@nvidia.com>, linux-mm@kvack.org
-Cc: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <Liam.Howlett@oracle.com>, Vlastimil Babka
- <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>
-References: <20261021060506.2377545-1-mpenttil@redhat.com>
- <20261021060506.2377545-4-mpenttil@redhat.com>
- <017202b1-1c48-4fb1-a951-6d909fb30016@nvidia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Mika_Penttil=C3=A4?= <mpenttil@redhat.com>
-In-Reply-To: <017202b1-1c48-4fb1-a951-6d909fb30016@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
+On 20/10/2026 at 18:41:52 +08, Bough Chen <haibo.chen@oss.nxp.com> wrote:
 
-On 10/21/26 10:17, Balbir Singh wrote:
-
-> On 10/21/26 5:04 PM, mpenttil@redhat.com wrote:
->> From: Mika Penttilä <mpenttil@redhat.com>
->>
->> For migration to happen after hmm_range_fault(), the vma has to
->> retrieved. Luckily, pagewalk already resolves that for us, so
->> just have to save it for further use. For migration, mmap_lock
->> has to be hold for the whole operation, so vma stays stable.
->> In case lock-drop behavior is requested, return an error while
->> migrating. Also, rename some struct hmm_vma_walk fields to solve
->> namespace collisions, and we are later introducing more
->> xxlocked fields so be unambiguous.
->>
->> Take care also of firing the mmu_notifier when migrating.
->>
->> Also, prepare for differencies of how mm_struct * is retrieved
->> in fault and migrate_vma paths.
->>
->> Cc: David Hildenbrand <david@kernel.org>
->> Cc: Jason Gunthorpe <jgg@nvidia.com>
->> Cc: Leon Romanovsky <leonro@nvidia.com>
->> Cc: Alistair Popple <apopple@nvidia.com>
->> Cc: Balbir Singh <balbirs@nvidia.com>
->> Cc: Zi Yan <ziy@nvidia.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
->> Suggested-by: Alistair Popple <apopple@nvidia.com>
->> Signed-off-by: Mika Penttilä <mpenttil@redhat.com>
->> ---
->>  include/linux/migrate.h |  50 +++++++++++++++++-
->>  lib/test_hmm.c          |   2 +-
->>  mm/hmm.c                | 110 ++++++++++++++++++++++++++++++++++------
->>  3 files changed, 145 insertions(+), 17 deletions(-)
->>
->> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
->> index 280ec9a866c7..dd7dd7ec6995 100644
->> --- a/include/linux/migrate.h
->> +++ b/include/linux/migrate.h
->> @@ -5,6 +5,7 @@
->>  #include <linux/mm.h>
->>  #include <linux/hmm.h>
->>  #include <linux/mempolicy.h>
->> +#include <linux/mmu_notifier.h>
->>  #include <linux/migrate_mode.h>
->>  #include <linux/hugetlb.h>
->>  
->> @@ -108,6 +109,29 @@ static inline void softleaf_entry_wait_on_locked(softleaf_t entry, spinlock_t *p
->>  	spin_unlock(ptl);
->>  }
->>  
->> +enum migrate_vma_info {
->> +	MIGRATE_VMA_SELECT_NONE = 0,
->> +	MIGRATE_VMA_SELECT_COMPOUND = MIGRATE_VMA_SELECT_NONE,
->> +};
->> +
->> +static inline enum migrate_vma_info hmm_select_migrate(struct hmm_range *range)
->> +{
->> +	return MIGRATE_VMA_SELECT_NONE;
->> +}
->> +
->> +static inline void hmm_fill_migrate_vma(struct hmm_range *range,
->> +					struct vm_area_struct *vma,
->> +					unsigned long start,
->> +					unsigned long end)
->> +{
->> +}
->> +
->> +#ifdef CONFIG_MMU_NOTIFIER
->> +static inline struct mm_struct *hmm_range_fault_mm(struct hmm_range *range)
->> +{
->> +	return range->notifier->mm;
->> +}
->> +#endif
->>  #endif /* CONFIG_MIGRATION */
->>  
->>  #ifdef CONFIG_NUMA_BALANCING
->> @@ -151,7 +175,8 @@ static inline unsigned long migrate_pfn(unsigned long pfn)
->>  	return (pfn << MIGRATE_PFN_SHIFT) | MIGRATE_PFN_VALID;
->>  }
->>  
->> -enum migrate_vma_direction {
->> +enum migrate_vma_info {
->> +	MIGRATE_VMA_SELECT_NONE = 0,
->>  	MIGRATE_VMA_SELECT_SYSTEM = 1 << 0,
->>  	MIGRATE_VMA_SELECT_DEVICE_PRIVATE = 1 << 1,
->>  	MIGRATE_VMA_SELECT_DEVICE_COHERENT = 1 << 2,
->> @@ -193,6 +218,29 @@ struct migrate_vma {
->>  	struct page		*fault_page;
->>  };
->>  
->> +// TODO: enable migration
->> +static inline enum migrate_vma_info hmm_select_migrate(struct hmm_range *range)
->> +{
->> +	return 0;
->> +}
->> +
->> +#ifdef CONFIG_MMU_NOTIFIER
->> +static inline struct mm_struct *hmm_range_fault_mm(struct hmm_range *range)
->> +{
->> +	return range->notifier ? range->notifier->mm : range->migrate->vma->vm_mm;
->> +}
->> +#endif
->> +
->> +static inline void hmm_fill_migrate_vma(struct hmm_range *range,
->> +					struct vm_area_struct *vma,
->> +					unsigned long start,
->> +					unsigned long end)
->> +{
->> +	range->migrate->vma   = vma;
->> +	range->migrate->start = start;
->> +	range->migrate->end   = end;
->> +}
->> +
->>  int migrate_vma_setup(struct migrate_vma *args);
->>  void migrate_vma_pages(struct migrate_vma *migrate);
->>  void migrate_vma_finalize(struct migrate_vma *migrate);
->> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
->> index 6911daa9f854..cd88e8177d0a 100644
->> --- a/lib/test_hmm.c
->> +++ b/lib/test_hmm.c
->> @@ -145,7 +145,7 @@ static bool dmirror_is_private_zone(struct dmirror_device *mdevice)
->>  		HMM_DMIRROR_MEMORY_DEVICE_PRIVATE);
->>  }
->>  
->> -static enum migrate_vma_direction
->> +static enum migrate_vma_info
->>  dmirror_select_device(struct dmirror *dmirror)
->>  {
->>  	return (dmirror->mdevice->zone_device_type ==
->> diff --git a/mm/hmm.c b/mm/hmm.c
->> index 2f1e98c6b644..4e9542aedc25 100644
->> --- a/mm/hmm.c
->> +++ b/mm/hmm.c
->> @@ -21,6 +21,7 @@
->>  #include <linux/pagemap.h>
->>  #include <linux/leafops.h>
->>  #include <linux/hugetlb.h>
->> +#include <linux/migrate.h>
->>  #include <linux/memremap.h>
->>  #include <linux/sched/mm.h>
->>  #include <linux/jump_label.h>
->> @@ -28,15 +29,23 @@
->>  #include <linux/pci-p2pdma.h>
->>  #include <linux/mmu_notifier.h>
->>  #include <linux/memory_hotplug.h>
->> +#include <asm/tlbflush.h>
->>  
->>  #include "internal.h"
->>  
->>  struct hmm_vma_walk {
->> -	struct hmm_range	*range;
->> -	bool			*locked;
->> -	unsigned long		last;
->> -	unsigned long		end;
->> -	unsigned int		required_fault;
->> +	struct mmu_notifier_range	mmu_range;
->> +	/* Set once mmu_range is armed with mmu_notifier_invalidate_range_start() */
->> +	bool				mmu_armed;
->> +	struct vm_area_struct		*vma;
->> +	struct hmm_range		*range;
->> +	unsigned long			start;
->> +	unsigned long			end;
->> +	unsigned long			last;
->> +	/* fault and lock drop related fields */
->> +	bool				*mmlocked;
->> +	unsigned long			fault_end;
->> +	unsigned int			required_fault;
->>  };
->>  
->>  /*
->> @@ -95,7 +104,7 @@ static int hmm_record_fault(unsigned long addr, unsigned long end,
->>  
->>  	WARN_ON_ONCE(!required_fault);
->>  	hmm_vma_walk->last = addr;
->> -	hmm_vma_walk->end = end;
->> +	hmm_vma_walk->fault_end = end;
->>  	hmm_vma_walk->required_fault = required_fault;
->>  	return HMM_FAULT_PENDING;
->>  }
->> @@ -400,6 +409,58 @@ static int hmm_vma_handle_absent_pmd(struct mm_walk *walk, unsigned long start,
->>  }
->>  #endif  /* CONFIG_ARCH_HAS_PMD_SOFTLEAVES */
->>  
->> +static int hmm_vma_capture_migrate_range(unsigned long start,
->> +					 unsigned long end,
->> +					 struct mm_walk *walk)
->> +{
->> +	struct hmm_vma_walk *hmm_vma_walk = walk->private;
->> +	struct hmm_range *range = hmm_vma_walk->range;
->> +
->> +	if (!hmm_select_migrate(range))
->> +		return 0;
->> +
->> +	if (hmm_vma_walk->vma && (hmm_vma_walk->vma != walk->vma))
->> +		return -ERANGE;
->> +
->> +	hmm_vma_walk->vma = walk->vma;
-> I don't quite follow the check for -ERANGE, it checks for hmm_vma_walk->vma !=
-> walk->vma, but then set's it later to be the same?
-
-The intention is to catch a range that crosses a vma boundary. hmm_vma_walk lives across the restart loop in hmm_range_fault_locked(),
-so test_walk can run again for the same vma after an -EBUSY re-walk. The first call records the vma, a re-walk of the same vma passes,
-and a different vma means the range spans more than one vma, which migration doesn't support, so -ERANGE. 
-The assignment only takes effect on the first call. I'll restructure it as "record if unset, else -ERANGE if different" and add a comment.
-
+> On Thu, Oct 15, 2026 at 12:23:38PM +0200, Miquel Raynal wrote:
+>> On 15/10/2026 at 11:10:17 +08, Bough Chen <haibo.chen@oss.nxp.com> wrote:
+>>=20
+>> > On Tue, Sep 29, 2026 at 09:10:37AM +0000, Bough Chen (OSS) wrote:
+>> >> > -----Original Message-----
+>> >> > From: Miquel Raynal <miquel.raynal@bootlin.com>
+>> >> > Sent: Tuesday, September 29, 2026 4:23 PM
+>> >> > To: Bough Chen (OSS) <haibo.chen@oss.nxp.com>
+>> >> > Cc: Pratyush Yadav <pratyush@kernel.org>; Michael Walle
+>> >> > <mwalle@kernel.org>; Takahiro Kuwano <takahiro.kuwano@infineon.com>;
+>> >> > Richard Weinberger <richard@nod.at>; Vignesh Raghavendra
+>> >> > <vigneshr@ti.com>; linux-mtd@lists.infradead.org; linux-
+>> >> > kernel@vger.kernel.org; michael@walle.cc; Bough Chen
+>> >> > <haibo.chen@nxp.com>
+>> >> > Subject: Re: [PATCH v2] mtd: spi-nor: clear the default RDCR opcode=
+ when
+>> >> > entering Octal DTR
+>> >> >=20
+>> >> > On 29/09/2026 at 14:53:07 +08, haibo.chen@oss.nxp.com wrote:
+>> >> >=20
+>> >> > > From: Haibo Chen <haibo.chen@nxp.com>
+>> >> > >
+>> >> > > The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x3=
+5).
+>> >> > > In 8D-8D-8D mode the opcode is extended to two bytes per cmd_ext_=
+type,
+>> >> > > but the resulting command is not a valid SR2 read for these flash=
+es,
+>> >> > > which access their status/config registers through a vendor-speci=
+fic
+>> >> > > indirect register space. Since spi_nor_cache_sr_lock_bits() now r=
+eads
+>> >> > > SR2 during init, i.e. after the switch to Octal DTR, the extended=
+ RDCR
+>> >> > > gets no data back and the read times out (on i.MX FlexSPI: -ETIME=
+DOUT
+>> >> > > and a controller
+>> >> > > WARN() during probe with Micron MT35xU and Macronix octal parts).
+>> >> > >
+>> >> > > Clear read_sr2 when the switch to Octal DTR actually succeeds, so=
+ the
+>> >> > > SR2 read is skipped (a cleared opcode already means "unsupported"=
+).
+>> >> > > Doing it in spi_nor_set_octal_dtr() keys off the real runtime
+>> >> > > protocol: a flash that advertises Octal DTR but runs in (x)STR be=
+cause
+>> >> > > the host lacks support keeps its usable RDCR.
+>> >> > >
+>> >> > > Assisted-by: LLM
+>> >> > > Fixes: b7b63475903c ("mtd: spi-nor: Create a local SR cache")
+>> >> > > Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write St=
+atus
+>> >> > > support")
+>> >> > > Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+>> >> > > ---
+>> >> > > Changes in v2:
+>> >> > > - Rework the fix following review: instead of guarding the read a=
+t runtime
+>> >> > >   in spi_nor_read_sr2(), clear the default RDCR opcode.read_sr2 o=
+nce, at the
+>> >> > >   point the switch to Octal DTR succeeds (spi_nor_set_octal_dtr()=
+).
+>> >> >=20
+>> >> > I don't get that choice. Why switching when Octal DTR succeeds only=
+? SR2 is
+>> >> > either supported or not supported, I don't think it is anyway diffe=
+rent when
+>> >> > entering octal DTR mode, is it? So I would expect SR2 to be cleared=
+ earlier than
+>> >> > that, once we know the chip is octal DTR capable. And this must be =
+early
+>> >> > enough so that manufacturer drivers can still set their own value.
+>> >> >=20
+>> >> > I am wondering whether we should simply drop sr2 opcode in the QER =
+SFDP
+>> >> > parsing entirely for octal DTR devices (Michael?).
+>> >>=20
+>> >> The reason I clear it at the point Octal DTR actually succeeds rather=
+ than
+>> >>  "once the chip is octal-DTR-capable" is that capability !=3D running=
+ mode:=20
+>> >> a chip can advertise Octal DTR while still running in (x)STR because =
+the host=20
+>> >> controller does not support 8D (see reply below). In that (x)STR case=
+ RDCR is
+>> >>  valid and needed, so keying off capability alone would wrongly drop =
+a usable
+>> >>  SR2 read.
+>> >>=20
+>> >> That said, I agree the current spot is awkward and does not let manuf=
+acturer=20
+>> >> drivers override the value. I'm happy to move it earlier. Two options:
+>> >> 1, Clear it during SFDP QER parsing (as you suggest) for octal-DTR-ca=
+pable devices.
+>> >>      This is the natural place next to the existing read_sr2 =3D 0 QE=
+R cases, and it runs=20
+>> >>       before the manufacturer late_init/fixups, so a driver can still=
+ install its own SR2
+>> >>       opcode afterwards.=20
+>> >>      My only concern is the capability-vs-running-mode point above =
+=E2=80=94 we'd be=20
+>> >>      clearing based on advertised 8D capability, not on whether 8D is=
+ actually entered.
+>> >>=20
+>> >> 2, Clear it in spi_nor_late_init_params() after the manufacturer hook=
+s, gated on=20
+>> >>      octal-DTR capability, so vendor values set in their late_init ar=
+e preserved.
+>> >>=20
+>> >> If the capability-based approach is acceptable (i.e. we accept that a=
+ chip advertising
+>> >>  8D but forced to STR by the host loses its RDCR), I'll go with dropp=
+ing it in the QER SFDP
+>> >>  parsing. Michael, do you have a preference?
+>> >
+>> > Hi Miquel,
+>> >
+>> > Any suggestion?
+>> >
+>> > Regards
+>> > Haibo Chen
+>> >
+>> >> >=20
+>> >> >=20
+>> >> > > - Key the clear off the real runtime protocol so a flash that adv=
+ertises
+>> >> > >   Octal DTR but runs in (x)STR (host without 8D support) keeps its
+>> >> > >   RDCR.
+>> >> >=20
+>> >> > Are you sure this is a valid case?
+>> >>=20
+>> >> Yes. spi_nor_setup() computes shared_mask =3D hwcaps->mask & params->=
+hwcaps.mask,=20
+>> >> i.e. the intersection of flash and controller capabilities. If the ho=
+st does not support 8D,=20
+>> >> SNOR_HWCAPS_READ_8_8_8_DTR is not in shared_mask, spi_nor_select_read=
+() picks a=20
+>> >> non-8D read_proto/write_proto, and spi_nor_set_octal_dtr() bails out =
+early at:
+>> >>=20
+>> >> if (!(nor->read_proto =3D=3D SNOR_PROTO_8_8_8_DTR &&
+>> >>       nor->write_proto =3D=3D SNOR_PROTO_8_8_8_DTR))
+>> >> 	return 0;
+>> >>=20
+>> >> So the chip stays in (x)STR with reg_proto =3D=3D SNOR_PROTO_1_1_1, a=
+nd RDCR is still a valid=20
+>> >> single-byte SR2 read there. That is the case I wanted to avoid breaki=
+ng by keying the clear
+>> >>  off the negotiated runtime protocol rather than the advertised capab=
+ility. If we move the=20
+>> >> clear to capability-based SFDP/late_init as discussed, this is exactl=
+y the scenario we need to=20
+>> >> be comfortable regressing (an 8D-capable part on a non-8D host would =
+lose its RDCR read of SR2).
+>>=20
+>> I am sorry but I failed to find devices acting like you describe. Your
+>> commit log mentions Micron MT35X and Macronix devices. I checked the
+>> datasheets:
+>> - Micron octal devices do not seem to use SR2 at all, they have a flag
+>>   register, but that's something else (like Winbond) and they have
+>>   similar support for it both in ODTR and in SSDR mode.
+>> - Macronix octal products feature several SR/CR. The sr1_and_sr2 opcode
+>>   exist but I would like to stop using it since there is no more need
+>>   for it and it just complexifies everything for no good reason. There
+>>   is no difference between the SSDR and the ODTR instruction sets, they
+>>   both support the same opcodes for reading and writing those registers
+>>   (with the subtlety that the repeated opcode should be a bitwise
+>>   complement).
+>>=20
+>> Which device do you use exactly? Why is it not working? Are you sure it
+>> is not a problem with your controller or the SFDP tables instead?
 >
->> +
->> +	if (end - start > range->end - range->start)
->> +		return -ERANGE;
->> +
-> Have we established that end > start and same for range->end > range->start?
-
-Yes. walk_page_range() rejects start >= end before calling any callback, and hmm_range_fault_locked() walks from hmm_vma_walk.last 
-(initially range->start) to range->end, so range->start < range->end holds whenever test_walk runs. 
-The test_walk start/end are a sub-range of that walk clamped to the vma, so start < end too. 
-That also means end - start can never exceed range->end - range->start, so the check is redundant. I'll drop it in v17.
-
+> Hi Miquel,
 >
->> +	if (!hmm_vma_walk->mmu_armed) {
->> +		hmm_vma_walk->start = start;
->> +		hmm_vma_walk->end = end;
-> Does the walk range matter here?
-
-The walk range is the caller's range clamped to the vma: with the caller's range inside a single vma the two are the same,
-and the clamp keeps the walk range's end within the vma (migrate_vma needs that) if the caller's range extends past
-the vma into a hole. The walk range is used as both the MMU_NOTIFY_MIGRATE invalidation range and the migrate_vma start/end,
-and is set once on the first test_walk call. I'll also add a check that the walk range starts at range->start,
-since migrate_vma indexes src[] from there.
-
->> +		mmu_notifier_range_init_owner(&hmm_vma_walk->mmu_range, MMU_NOTIFY_MIGRATE, 0,
->> +					      walk->vma->vm_mm, start, end,
->> +					      range->dev_private_owner);
->> +		mmu_notifier_invalidate_range_start(&hmm_vma_walk->mmu_range);
->> +		hmm_vma_walk->mmu_armed = true;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static void hmm_vma_post_range_fault(struct hmm_vma_walk *hmm_vma_walk)
->> +{
->> +
->> +	struct hmm_range *range = hmm_vma_walk->range;
->> +
->> +	if (hmm_select_migrate(range) &&
->> +	    hmm_vma_walk->mmu_armed) {
->> +		/*
->> +		 *  The migrate_vma path has the following initialized,
->> +		 *  so take care of fault path below.
->> +		 */
->> +		if (range->notifier) {
->> +			hmm_fill_migrate_vma(range,
->> +					     hmm_vma_walk->vma,
->> +					     hmm_vma_walk->start,
->> +					     hmm_vma_walk->end);
->> +		}
->> +		mmu_notifier_invalidate_range_end(&hmm_vma_walk->mmu_range);
->> +	}
->> +}
->> +
->>  static int hmm_vma_walk_pmd(pmd_t *pmdp,
->>  			    unsigned long start,
->>  			    unsigned long end,
->> @@ -594,6 +655,11 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
->>  	struct hmm_vma_walk *hmm_vma_walk = walk->private;
->>  	struct hmm_range *range = hmm_vma_walk->range;
->>  	struct vm_area_struct *vma = walk->vma;
->> +	int r;
->> +
->> +	r = hmm_vma_capture_migrate_range(start, end, walk);
->> +	if (r)
->> +		return r;
->>  
->>  	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
->>  	    vma->vm_flags & VM_READ)
->> @@ -646,12 +712,12 @@ static int hmm_do_fault(struct mm_struct *mm,
->>  			struct hmm_vma_walk *hmm_vma_walk)
->>  {
->>  	unsigned long addr = hmm_vma_walk->last;
->> -	unsigned long end = hmm_vma_walk->end;
->> +	unsigned long end = hmm_vma_walk->fault_end;
->>  	unsigned int required_fault = hmm_vma_walk->required_fault;
->>  	unsigned int fault_flags = FAULT_FLAG_REMOTE;
->>  	struct vm_area_struct *vma;
->>  
->> -	if (hmm_vma_walk->locked)
->> +	if (hmm_vma_walk->mmlocked)
->>  		fault_flags |= FAULT_FLAG_ALLOW_RETRY | FAULT_FLAG_KILLABLE;
->>  
->>  	vma = vma_lookup(mm, addr);
->> @@ -670,8 +736,8 @@ static int hmm_do_fault(struct mm_struct *mm,
->>  		ret = handle_mm_fault(vma, addr, fault_flags, NULL);
->>  
->>  		if (ret & (VM_FAULT_COMPLETED | VM_FAULT_RETRY)) {
->> -			if (hmm_vma_walk->locked)    /* needed by sparse */
->> -				*hmm_vma_walk->locked = false;
->> +			if (hmm_vma_walk->mmlocked)    /* needed by sparse */
->> +				*hmm_vma_walk->mmlocked = false;
->>  			else
->>  				WARN_ON_ONCE(1);    /* broken fault handler */
->>  			return HMM_FAULT_UNLOCKED;
->> @@ -694,19 +760,31 @@ static int hmm_range_fault_locked(struct hmm_range *range, bool *locked)
->>  {
->>  	struct hmm_vma_walk hmm_vma_walk = {
->>  		.range = range,
->> -		.locked = locked,
->> +		.mmlocked = locked,
->>  		.last = range->start,
->>  	};
->> -	struct mm_struct *mm = range->notifier->mm;
->> +	/*
->> +	 *  Could be serving a device fault or come from migrate
->> +	 *  entry point. For the former we have not resolved the vma
->> +	 *  yet, and the latter we don't have a notifier (but have a vma).
->> +	 *
->> +	 */
->> +	struct mm_struct *mm = hmm_range_fault_mm(range);
->>  	int ret;
->>  
->> +	/* Migration is incompatible with mmap lock drop */
->> +	if (locked && hmm_select_migrate(range))
->> +		return -EINVAL;
->> +
->>  	mmap_assert_locked(mm);
->>  
->>  	do {
->>  		/* If range is no longer valid force retry. */
->> -		if (mmu_interval_check_retry(range->notifier,
->> -					     range->notifier_seq))
->> -			return -EBUSY;
->> +		if (range->notifier && mmu_interval_check_retry(range->notifier,
->> +								range->notifier_seq)) {
->> +			ret =  -EBUSY;
->> +			break;
->> +		}
->>  		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
->>  				      &hmm_walk_ops, &hmm_vma_walk);
->>  		/*
->> @@ -732,6 +810,8 @@ static int hmm_range_fault_locked(struct hmm_range *range, bool *locked)
->>  		 * output, and all >= are still at their input values.
->>  		 */
->>  	} while (ret == -EBUSY);
->> +
->> +	hmm_vma_post_range_fault(&hmm_vma_walk);
-> Have you checked to see if we could end up with notifier start/end inbalance?
-> For example if hmm_select_migrate returns false?
-
-Yes. invalidate_range_start() is only called from hmm_vma_capture_migrate_range(), after the hmm_select_migrate()
-check and only once (mmu_armed). invalidate_range_end() is only called from hmm_vma_post_range_fault() when mmu_armed
-is set. hmm_select_migrate() doesn't change during the call, so if it returns false neither is called.
-Every exit from the loop goes through hmm_vma_post_range_fault(); except after test for lock drop which happens before walks.
-
+> The device is a Micron MT35XU01GBBA (JEDEC 2c 5b 1b) on an i.MX95 EVK, and
+> a Macronix MX25UW51345G(JEDEC c2 84 3a) on an i.MX8ULP EVK.
 >
->>  	return ret;
->>  }
->>  
+> In 8D mode RDID (9f) and RDSR1 (05) are read back fine. Only RDSR2 (0x35,=
+=20
+> extended to 0x3535 or 0x35ca) times out. So the controller and the 8D sam=
+pling
+> are OK =E2=80=94 the flash simply does not answer a 0x35 in 8D mode.
+>
+> Root cause is in the core, not the SFDP/controller: spi_nor_init_default_=
+params()
+> sets opcodes.read_sr2 =3D RDCR (0x35) unconditionally, the Micron driver =
+never touches
+> it, and spi_nor_cache_sr_lock_bits() then reads SR2 during init, after th=
+e switch
+> to 8D. As you noted, Micron octal parts have no SR2 (they use the flag re=
+gister),
+> so 0x35 is simply not a valid command there. Same for Macronix, 0x35 is n=
+ot valid
+> in 8D mode.
+>
+> For spi-nor device which support 8D, it should contain the xSPI Profile 1=
+.0 table,
+> And Profile 1.0 does not describe any SR2/RDCR read. Per your suggestion,=
+ I can
+> clear opcodes.read_sr2 in spi_nor_parse_profile1(). It runs for octal-cap=
+able
+> parts and before the manufacturer late_init, so a driver can still instal=
+l its
+> own SR2 opcode afterwards. I test this method, it can works, but I have s=
+ome concern:=20
+> though flexspi(controller) and spi-nor device both support 8D mode, but u=
+ser
+> still can force the mode to 1s-1s-1s mode by setting the spi-t(or r)x-bus=
+-width=3D1
+> in dts. Like the Macronix on i.MX8ULP, in 1s-1s-1s mode, it dose issue 0x=
+35, but
+> it has no HAS_SR2_CMP_BIT6 flag, so cmp_mask is 0 and the SR2 value is di=
+scarded
+> anyway =E2=80=94 clearing read_sr2 causes no regression there.=20
+> But if an 8D-capable part declared SPI_NOR_HAS_CMP in the kernel and were=
+ restricted
+> to (x)STR by the host, clearing read_sr2 by capability in Profile 1.0 par=
+sing would
+> drop its usable SR2-CMP read in STR mode. This is my concern. So I switch=
+ to the
+> runtime mode, clear the SR2 only when mode actually in 8D mode.
+> I'm not sure whether such device really exist.
+>
+> Which method do you prefer? If you prefer clear SR2 in spi_nor_parse_prof=
+ile1(), I
+> can send V3 patch.
+
+CMP is only supported on Winbond flashes today, and they did not put the
+bit in the same register as usual in their 8D capable devices, so CMP is
+already not available on these devices. Please just get rid of
+opcode.read_sr2 as well as opcode.read_sr1_and_sr2 statically, nobody
+should use those on such chips. This will greatly simplify our
+maintainance job. If someone needs them, they will add them back in their
+vendor driver, that's fine.
 
 Thanks,
---Mika
-
+Miqu=C3=A8l
