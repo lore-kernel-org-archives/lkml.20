@@ -1,98 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591363;
-	b=qpYoaxytiEaDiJ8nPe+fGD9x9OSIrGDrWqiGFoHPydrHNr/ihtNrD/zy5DKKW891K6NM
-	 uRgrIb6Z/UpE9Fi8PrFLPw1kNfmEWl98tlSgdguKeV74iNm37f7C/oSDuSQB/QIQ9uvsI
-	 dX0iG2Z4gjYRjofHFEgbhbD0P9AXmSXcwfPob8/Us+PyWW2sMFWh2U62e5sRzeYc/aZEh
-	 TWo3ZqPVq+DVA9AVI36LiqS065k4Qk9fMXjxNzWGFQeyA9sKTWN/lxilS/g4hpoYn4npM
-	 AjzI8FBlElBftjl5BWmBIJAHrqWNDE6C0I+4hVARZeGnPK6EzjueBBbwQ0n7q5xG5Ow==
+	t=1792591377;
+	b=mLCDIutiT0FkBNQOFiLYV1xd48qsa72I71n+0cFz8OCIQB5zpyqJCFmRXtiOKGlVhGTy
+	 uOCifFRoZO6AAeQPfgrbby5Kc+/ANRm9cGAvyarBvoAJjacyFQwU2XgacqF1G4qs7T53K
+	 hJnGKY4og8M+MB9gBomFIstRXrrsRFaU2o9kJulEWkMum0gZnA4HO5vcEOr+UCWFqNoN+
+	 YtrvaPR2UcImBy1RF04VfWu5uhI7PwdtFl2pfQupUFs4KKanD/UYI6Xq0wZlZBhf0QUKg
+	 0cN7Cw+ESGALNHGpjqXnH5PmAccazthFfdaYgdnchll+S7Yd+sR5vsUPiVy9JX/sGRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591363;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=i+sA7ukfPfjD0qmbK6dckJqDn7Cek/Mg6lo2porw7DA=;
-	b=oLxHkbPSbjmIjiKY2bZyuKiVzRGfmHbCqaVube1gEoHLqGFd2YVtzkHeqQrOrIMUrh/z
-	 oiL9w2gFTe0syv5HtkKeQM7OPEfFyYkB3E9nmf/Lrk77Qa6mpNola8RD/fjeGm1HAzWDh
-	 lG74rfWUsnmV7LJIbUCmpPQVJdNN7IxqvdhqugWzndmVJG7Dz+avk3wOnNaYlD1AxBs4A
-	 TZbQ1kIycAwCtvpdVVe5J38CWbwb6YPJcx7aaPGnjPgqSPkpZPyTNfrnpIWppny2eMF17
-	 q8/GkZp1NOKXvIXa4VIfeec9i+KP4MfJHQtnJ9QwMpwGSSixiUb3b/YSH9QhKDo5I+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591377;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=fDLM2uSdaow9LokFw0VaDIv/9QOPzVgEmcb//BHgPyM=;
+	b=eC0qQ10fkCB32bojVCO0Ge7Es0zdHEfZyino4JQoaGa8Ea+5VtiYaCqXU0iEkf/GiBoO
+	 bbqIcYYUA+NK9XCU9g6wVwlVYjrx4t/ZHoeOqHOLYXGRnmFx4+jOd/nMXf8Pzl6Lfb7ia
+	 1Nc7rer1zB4pG6AAmaINsEZ0xa3GoMztDxZQgs3ldgxejQAahxQdUXI7+LrBILNQDKaKZ
+	 K3pIqVaVpTN37HhCNJ1CC/lO7eDnuM8frLMvrHR0C4UdGjheuc1Ul9nnSQoH9CcMegi5i
+	 G7DRlxdO2TDEPPOwiFQ6U1UgzZXwpWbXvr90BobeoscGEAirdEjkROuV++TE650BIDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h6p0hCnq;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OUA8VE9V;
+	arc=none smtp.remote-ip=192.198.163.8
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9B0C606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:02:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9B0C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D05606A31D;
+	Wed, 21 Oct 2026 14:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D05606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=h6p0hCnq
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so6521945e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:02:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792591361; x=1793196161; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i+sA7ukfPfjD0qmbK6dckJqDn7Cek/Mg6lo2porw7DA=;
-        b=h6p0hCnqdn51jmybMmwZkhu34yX8gHJIAp1vbiZPzdHJjGvyPlMOpJAlrtx8cezUF4
-         ldNehgGB1QK0gn4uMVrAetTcxTAwVCd5nNHyCF3+9m+sSeCj8XjycGn/Z3BwC94UqGEZ
-         +93WiXmGtoJb7DrRltHDtLZWTmsHdPlEFDuhkwbcCNzkOxoeqt1zoLm/ph5M+4bZMmn1
-         muukZh9lglyyhyc7EQc03bhTjBiAxief+o6CZA8MlE7ccKMWcgB/JKqL2ZQqdKWVoRZM
-         vov7BypJQOw1+7lfnHScMAB41IquXrjYXEAwptP8Ynkuu7W0C6F4JnLRuxJUgbGNEq0t
-         yDDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792591361; x=1793196161;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i+sA7ukfPfjD0qmbK6dckJqDn7Cek/Mg6lo2porw7DA=;
-        b=lZVBwI3IPeT7tVM/9Bd/VfoM5BJ94xO/ksAgh2+klitGxIQSwyIxN74S2NtYoOy9Na
-         9UZAH7F8guu1+HK/L05EWs6EJRQFBpKZ3LCNyzUsEckVPH7jfovBbpYYfKYiucn3oWIL
-         1R3QHaYyy4zvRJ8FL5yXhc0iT7JoQpWgqeOj6X1eTjzSd4YsueFCcIkfMgC55asdhI7q
-         xKopcQGDBpNKdl18JPrHoBIs4cv6/9Eb2KwvumFtlek1P8hMtp4uYMc0urOdwO6i9Dau
-         pfhN+hCjs5/GETRYPx6Opm7fptqSLtucXEVYhMZAoW1g/5UY0EkWixrPoBbWjSrO/2dM
-         I15w==
-X-Forwarded-Encrypted: i=1; AKwUvBwLwT4/aZS+iU976TjW3c97UCR/r8lbJg/To//kFVqzemVKXpRxGCwOa8fLXin0AbdFr25dl52krQKv+9I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKHzzZGbcYp/zYdk+x6zO1h++69s6emOl9VniF37irlJ2vP0hk4
-	p0Qbapc03+pI0rDA0eJrBqP2IdYUFfWnleb+Uup6B/iCPmdCcA7hkiRQHBKVaQgt
-X-Gm-Gg: AYBFou3aWSius6a7rLCpG2aRUq9Y8Ampzs+/fYHIzMMXSqpLvR9URxkk7iaCVjzWgJZ
-	3/p3WjP8hh+xbreNYYwtf8eRWSdfeXF3/WghA4yZSwG9FmVHuObce97U0nD0If7SL5SFF/9AHu+
-	YuB5Z4/ZBwDoent4o/JqfG4HL/++nbY3qseNIvBdhkulZyD1C8PGPlNdGftD/B3qnBwsFJE6rx3
-	4SCSF1QyWlcvU9ArBg2Eb8k0lsdJFYSDzdAmyOSfZIGuaC4A5umjsTMh7VojEZ1q+CIZFzimmTP
-	cKK/8wRr1DFlLSEXweCL4h+y8/qMHq356boBprjaimNfRYlaxpUj9zGC6rJsy+vwuonGnkKHrmx
-	QqockWNqSpYMWR0/L3Kx2uVfEhxVUMMMPjWVDEGXBoiJXH19V5CsePN+Agu7N6HJveWfch9lvyd
-	q8U5kN2CiIPS+iHTalsKsdJ8Ai2QK4TnVDAmDO7hZ9ecd8dOHbw3piJ+T59bhDHjL/nOP3SuEW1
-	ru83m5U5PwYVsIz6VB03HP7Yo7JsHnqzRE64p41ZqUZMFGEdy1rrWstPi0NBScnS6m/9IJ8L4U1
-	oYI6ttD2GdzhOMlmCvur69dCe8WjkxkknjoZvXn8oOO8ZeuLAW/7PmVpmMBd
-X-Received: by 2002:a05:600c:3507:b0:4a1:96cd:2f73 with SMTP id 5b1f17b1804b1-4a1fd8cd9e8mr46111525e9.1.1792591360723;
-        Wed, 21 Oct 2026 07:02:40 -0700 (PDT)
-Received: from C422HJQPQG-Fractile ([150.251.170.8])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc10de99sm50954045e9.1.2026.10.21.07.02.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 07:02:40 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:02:37 +0100
-From: "Vishal Moola (Fractile)" <vishal.moola@gmail.com>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, baohua@kernel.org, axelrasmussen@google.com,
-	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, david@kernel.org,
-	mhocko@kernel.org, ljs@kernel.org, dave@stgolabs.net,
-	roman.gushchin@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
- reclaim
-Message-ID: <atjF_eRnuzH1IZ2_@C422HJQPQG-Fractile>
-References: <20261019185002.3428594-1-gourry@gourry.net>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OUA8VE9V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792591374; x=1824127374;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6TcpUU+U6JP4MXD+j4bO+YP5IabLS7DHZ5gJkyB4Sa4=;
+  b=OUA8VE9VlomzQ9ySAxgQDPJtkfHVZW9TwNJXT9Ywx1oiCdAA8Ecd4Aef
+   EizK+tZE8RVNa+f5eHjVetBF0m1YWo2r8PtLGDE8r9fjngmRGRgx6nJVN
+   uQg90Cn5QIbz60ayEiLGDeTe3VOSGsZKYsvdSPUktNpUoPVY1XOAmdor2
+   f/7N4xQO2p3j1prVfWigHu9rbstQgko/xtsShO0qn0iKYPzWFgTbYfVEJ
+   RJJkcm19w+Bfp5lKh+4+4/VGWkisQvJ72Oqp8qrPiU58zzKwEZOfnTQLF
+   2j98t4c8KmrLk5EFqhEmtsuV5w9hBJS+8OgVAMCktq/Ozfijn0evHAxff
+   w==;
+X-CSE-ConnectionGUID: AAALVXWlRE25Hh/uefcPDQ==
+X-CSE-MsgGUID: R0mSUPKNTpyUmzcktM8aew==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1214489"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1214489"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:02:51 -0700
+X-CSE-ConnectionGUID: JogAVmmJS02mlCCCTu7pTg==
+X-CSE-MsgGUID: iwCDsb9RRXOAkFMEYHMsEw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3416326"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:02:48 -0700
+Date: Wed, 21 Oct 2026 17:02:46 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>, Rachna Patil <rachna@ti.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH 28/28] mfd: ti_am335x_tscadc: Remove redundant
+ ti_tscadc_dev_get() helper
+Message-ID: <atjGBg9IAnPPBRmX@ashevche-desk.local>
+References: <20261021121245.3111563-1-lee@kernel.org>
+ <20261021121245.3111563-28-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,27 +88,23 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
+In-Reply-To: <20261021121245.3111563-28-lee@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Oct 19, 2026 at 02:50:02PM -0400, Gregory Price (Meta) wrote:
-> user_proactive_reclaim() limits per-node reclaim to
-> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
-> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
-> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
-> reclaims a node's movable memory. A movable-only node, such as dax/kmem
-> or hotplugged memory onlined movable, reclaims nothing and fails with
-> -EAGAIN.
-> 
-> To reproduce, fill a movable-only node with clean page cache and write
-> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
-> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
-> 
-> Scan every zone, as memory.reclaim does.
-> 
-> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+On Wed, Oct 21, 2026 at 12:09:50PM +0000, Lee Jones wrote:
+> Now that ti_tscadc_dev_get() is a single-line wrapper around
+> dev_get_drvdata(p->dev.parent), remove the bespoke helper and retrieve
+> the parent driver data directly in the child ADC and touchscreen
+> drivers.
 
-Makes sense.
+I don't see more patches Cc'ed to me, so I don't know if this one makes sense
+or not, but OTOH I don't care much, both approaches are fine with me.
 
-Acked-by: Vishal Moola (Fractile) <vishal.moola@gmail.com>
+Acked-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
