@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792547603;
-	b=FNvgTifgHpQGnRNyhid1ZGzrQF2KPOHVqL/JiYsfOzM5cLYxRJm/aWR2i4jFSPkltAg1
-	 oKP2OIDUH4oW73+Sprd6seEU2jBVAgry1Aw7WPrfRNUNDyTjgXL2HGnDoZukviCA85qmJ
-	 AZhBiWANiMEoig/N2jHMKA2TfTzFvJtNd/A/Bi2pmTCRevGTc0zZRW/Ngln74lPTI5yoy
-	 fy5KLfGFzVwinLzMoZ3jjP8f/thO6j0Ltp1fJFgw/lbHfV/xpimDmDywLF2O60roz/2qp
-	 bpGSir0ZoDBT+Ly+9PdekfhIRt0i6FibIWlya2+1+sseW1XSH0X1G/HS34a6I6mMGKA==
+	t=1792547615;
+	b=INvwG/p+efmC8nNAQwpbYAdX1lBYMmV8XfVDjfp6ac2U8pmmL5r0teIO5XYikmDS4wPe
+	 XzEzZ2pLmdt4qQQwSrAyDy2ERgFHSIA0xEQXB8awBQuVzmWSoLQS9IWWAbNMNmyqWumMY
+	 4pnD+bmaoPmkJ9q0YmfPOk+8yM4WvobyZ8+qzggL6VfeeIlfHwYCidA+t/hGqr0XNPeUa
+	 FvGx69Z09joBkSnnIiW1il3nJumV+wJSlbKcq864Qquh7Ueay0JXF4qExFZBQ4d7gDvMM
+	 DglBxpjAn+96Jlb82O7gzFyTMcxm8ifp83LharSaEF44yabJKk6sRUXvTNPphv57ECA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792547603;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0zaTOm2gabGZSGcUZLYd973mBB0BoYe5ql4/IuZHCDg=;
-	b=w4snHTRPR6JsG2r/4xC3NjZQOOhJpc3qJLxwC195YBoN3sDBe4b9+4azl2TmXZlTq9Io
-	 W07Y6vhzzWR8w0/ALnaV5EP1Hg6lwHtfXfjcr8WajYeQjNp6fa9ETvFC7MZNVsQ1q2gzJ
-	 MT9sZRymuKQhZnNZx446aEVSKcQXfbf+14BXGyCDma+29JldYBqwyLWTpnLiqPfdm0P4G
-	 x4PFxGCXIOswpB3nJRNgcYZzwWrQcTDt2olwrfCanXUBiV55AYXvfustRPvcsrhyjHNLp
-	 zOeCYzuIcf2uvbgvn6ESb5Ej/0ndXeIEnz3zu+OLpmYrFdEULoTLBkjqndmULhtFzwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792547615;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=jMlbbqXoNTNtXO6gJwUpwq7MXwdLhlzFO6lIbcOi9yA=;
+	b=bW4XdrGNNRR+9+rcPdJj8WeqcjT2kQvSRGACwiC0HU00Nn9k/nWzhVW8LUQLYxeg5ewb
+	 LE8ImJys81MGRswhOwJ7uv3GGb0aGfSbYraACcFyM8rNwfIhFyvDfEq4d7NlsCukAoJcP
+	 BdDuyNK/xbqrbAUBnnhlE/1eS09NKtV2AJ7xZJ00cHaILxHaR3QIzG0EQDvrknqInEqkf
+	 G0NlmvhKDeAb7XRdTMiS3LtEUgeAiB5ats5vKXyzMZqk9cuTT8k4qoaWODUhmdzSHbM+c
+	 GMaSfThvAFEVO4CbkVazqPLH4PZPvH+DKCMOaEZWMV+Zgh9smAMBmilgFMHNcf09bpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAdqq4CI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWftTZyf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 571C1606A31B;
-	Wed, 21 Oct 2026 01:53:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68447606A319;
+	Wed, 21 Oct 2026 01:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SAdqq4CI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93991F000C9;
-	Wed, 21 Oct 2026 01:53:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LWftTZyf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44AD61F000C9;
+	Wed, 21 Oct 2026 01:53:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792547603;
-	bh=0zaTOm2gabGZSGcUZLYd973mBB0BoYe5ql4/IuZHCDg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SAdqq4CIHbITapplM4OVDYtuAVJtNhGsum0nw7HoitCnFuscBQc7xcaNacQJJ0pOt
-	 KL6pkU25Lgr0NAalo9CkLyBhVdATGfIXeqXQQ165ZtdVkBebJmSVd41s5zfyMcC9/T
-	 EEQoOE9AVwtmnVFosn+7dsSLlm2jUmJeuIquhwk4NdGmqvc00s5AfY1rTuGDept2i0
-	 9y+P3axukuoFHe0b9chRcg2vEZPArrpgXgm5LI3I8Cb3aWK7O6eunuVey2jeCa6jdE
-	 xRFRu8K9+NLUPSLVvFXzIQsMqFOv9sZ+7H7TuAK1JnjihNK19IHNh/5MrRV/k2a7wF
-	 MlW034BXHl/CA==
-Date: Tue, 20 Oct 2026 18:53:22 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Vlad Poenaru <vlad.wing@gmail.com>
-Cc: netdev@vger.kernel.org, Jamal Hadi Salim <jhs@mojatatu.com>, Jiri Pirko
- <jiri@resnulli.us>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar
- <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng
- <boqun@kernel.org>, Waiman Long <longman@redhat.com>, Bart Van Assche
- <bvanassche@acm.org>, Davide Caratti <dcaratti@redhat.com>, Breno Leitao
- <leitao@debian.org>, Nilay Shroff <nilay@linux.ibm.com>,
- linux-kernel@vger.kernel.org, Vlad Poenaru <thevlad@meta.com>
-Subject: Re: [PATCH net-next 0/2] net/sched: don't wait for RCU when
- destroying qdisc lockdep keys
-Message-ID: <20261020185322.4297d962@kernel.org>
-In-Reply-To: <20261019170225.729789-1-vlad.wing@gmail.com>
-References: <20261019170225.729789-1-vlad.wing@gmail.com>
+	s=k20260515; t=1792547615;
+	bh=jMlbbqXoNTNtXO6gJwUpwq7MXwdLhlzFO6lIbcOi9yA=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=LWftTZyf5qFh651z62Q3085PCHrnh1U9pOC7Kagn6rioa6Um3Wr9+OqJqCjYbCk7y
+	 8n62fvVCveeoa0iNMkpspwN7DhqUee5RtpAqC0gxkLyW3f5uout9sG2VuZ7lhgKl8f
+	 VLHJjFAC6UQmk2x0LmlIgNq8yjFJogR1kdIcJ89jI8DrtfbCyw9lp32q1xQIQLlApS
+	 RvInnD5UlFxAN95SUgAgk6TUxr8cTHTKpMlYt5rwSFUiwXu8r60Neipzsj3XCv5UgM
+	 nuNzl9Hmy0jYYZGB5Nj41pd7ywDWohm0FgLj5iBY1DY9XZKe+8J1X3ORP9p/ZunTHV
+	 SNW7cc4y+Gozg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A5CD3809A0D;
+	Wed, 21 Oct 2026 01:53:35 +0000 (UTC)
+Subject: Re: [GIT PULL] fscrypt updates for 7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <20261019023501.GB3270@sol>
+References: <20261019023501.GB3270@sol>
+X-PR-Tracked-List-Id: <linux-fsdevel.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261019023501.GB3270@sol>
+X-PR-Tracked-Remote: https://git.kernel.org/pub/scm/fs/fscrypt/linux.git tags/fscrypt-for-linus
+X-PR-Tracked-Commit-Id: a63883d2c3d47ce6d41918c2453a4513b921eaaa
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: fe178c26cae01b677a1fec59f9c276c7bf20517a
+Message-Id: <179254761373.320300.1681376073211424401.pr-tracker-bot@kernel.org>
+Date: Wed, 21 Oct 2026 01:53:33 +0000
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, linux-fscrypt@vger.kernel.org, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>, Jaegeuk Kim <jaegeuk@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,33 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 19 Oct 2026 10:02:23 -0700 Vlad Poenaru wrote:
-> On kernels with CONFIG_PROVE_LOCKING, every qdisc except ingress, clsact
-> and noqueue has a dynamic lockdep key, and destroying the qdisc calls
-> lockdep_unregister_key(), which waits for an expedited RCU grace period.
-> Replacing an mq root destroys one qdisc per TX queue under RTNL, so a
-> single "tc qdisc replace dev eth0 root mq" waits for that many grace
-> periods. Commit 7a3cedafccf8 ("lockdep: Speed up lockdep_unregister_key()
-> with expedited RCU synchronization") made each wait shorter as a
-> temporary workaround until hazard pointers are available.
+The pull request you sent on Sun, 18 Oct 2026 19:35:01 -0700:
 
-## Form letter - net-next-closed
+> https://git.kernel.org/pub/scm/fs/fscrypt/linux.git tags/fscrypt-for-linus
 
-The merge window for Linux v7.4 has begun, and the net-next
-tree is now closed for new drivers, features, code refactoring
-and optimizations. We are currently accepting bug fixes only.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/fe178c26cae01b677a1fec59f9c276c7bf20517a
 
-Please repost when net-next reopens. There is some uncertainty
-about how long this merge window will last, so please check
-https://netdev.bots.linux.dev/net-next.html
-before reposting. net-next _may_ reopen on Nov 2nd.
+Thank you!
 
-See: https://www.kernel.org/doc/html/next/process/maintainer-netdev.html#development-cycle
 -- 
-pw-bot: defer
-pv-bot: closed
-
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
