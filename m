@@ -1,58 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792589316;
-	b=2SRocfJztZA0VjXo/ETCYPQwRQXMFHCaW8QUuJrIY/zETi9v2ix62kjNsSS/2bdn8Ifj
-	 HHgdO1qxLHwIY7F7RSc3E9fw1fTvXppnqc3+yftdWRTtAfE6eJCJfe9HRESO+swjmigkQ
-	 HC2Jpcuyzsl/8eZrs7lJh/WOOKDG6d5vB+RyUS1GQkbHYXCjE2wDELZW2YQhKutbbUADt
-	 /Icv/O0HkCdDmxgzxPsHOSXvi/nRd8YHNmNmtdSbxu5PM6+Xyq9UVadvvSYWNlU/NoJb2
-	 lEnuDzBBsGC0EpuqEvnb0k1RNu1Pp4BHkck18GpB6510S6XvFUyuHIuzq65X11JXn7Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589316;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=oMGqCUBvkzKyHx9AT+4QUIhrDabLOK6bK0GYypE8T3U=;
-	b=C4lNW/lwvvblzxJBJkyK0K9XBDEa54hzRh/IRMghhjf8yg/pTeo1as8htp5xuryEgcZj
-	 8r8iNN1hJVZZ+9UyYvbhO16ayx/HvLYZY4r3W5jP6DTwCtnkROB0rifP9X6CET5+OEUoI
-	 hkaJ1fVy1JZSEadrVfGnSGJj7v97qxpn96EJYmKmwfvuxskyVDATQxdSr3qjEOCJi5Juk
-	 Zyjovd4Cz4Ki8S346dusPTfX33qTAJeWiN9NejRa4fhnwIiFDbgDsNZGJEZSjG4JQURHa
-	 F30Qff+ofF9Lr3e7EpBU389ejcEDWRHoCXBlk2NF5jKZf0Od9NgXWq+ZkLiaz/c112Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWbuEhCR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792589322;
+	b=Mu717R5g9CzZiNi/pTqQJ/rVss/rY+vPgZfUvBT9Db+eYKXK02f9fDxk8CEL4VJkDtk4
+	 ygqPDRMxDd1K/gfgu+JtOtRg4cWpHHs8ek6VPuCsl3qa9Ec/e+0Ejc4AYD1n0s2K0VwEl
+	 hYWgYgteVeWuRJuval06U32thtyjd+CuxttE/wh2bKmjobf0dTiOQHqBBT0R76OoqxzEm
+	 6FNoA0nE9rnBs/W/SuP9dtJ7UoPuy4FJ8UxI84idMd/KS5inNHSaiMm+pMl3rqfg4ShwZ
+	 yrHlBnKGgjW8lHRqI6Lukv2aV/jfGzEARL8+RSBKe2qyjd3zxJVn0hxrjmDri3x6DrA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589322;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:In-Reply-To:References:MIME-Version:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+	b=4eOa3zTumS9VQVMquofqouULoAQ84k2OPfxkpJw0HFhvO/iVrLM6dUCJqahK4Y8dcAnY
+	 I9SXQW9mhg8VHm+aypmF8CBafemxmB6lKHLIwe7lYRrf7bdIHN66GxQhnRYNX9tvfYX1+
+	 wj7aOxbp3F/n54BFopvR1wGyo3ALkBAAmVGMHEzRNbqDXXT86pFi61kL8F7KtlOa7TDfF
+	 lUxVVJ6+1xTqiEEyQMvYhp8a/tOGCgyvhix5MTSe5XYNWU/+lyQ/cQyhlngBnljno3ZQi
+	 cskO/LoGAKeY0PudO3wVLo5/y5XFcZoA827JN5m1/9RS7VFH306tNrr9WRyDjHxOa1A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ihyLRDDv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.176
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3519E606A319;
-	Wed, 21 Oct 2026 13:28:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603B2606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:28:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 603B2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWbuEhCR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADF61F000C4;
-	Wed, 21 Oct 2026 13:28:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792589315;
-	bh=oMGqCUBvkzKyHx9AT+4QUIhrDabLOK6bK0GYypE8T3U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jWbuEhCRUfg7HSS5kAjkc0CEflHpYNfFhGnBYKQbboed1IQQferHvn1sOSJslAVBI
-	 WV1ui3+W3v98X+CCX6+wMnWqabDWCrOx1BcjIyG7RAnnhjYWGO3wqO/BWGXiRPn3/G
-	 GNR/2zc2tRZWZlCqNyP6C/8CnCNB+cyuhNFDQfUvSbtJkSRf4Y8HG5Wi1N0wzb8mKg
-	 QKD5tjhp0cUzYqsPvhaguchFdk+M6Hq9NMV1lRsEUEd0m5KnudPqgxbbIlLXFlZ9BF
-	 6PP+Woil9GKEwXKoKSzKo+juFtkhgZQdNhR0yuOCrNVUdR/ykYExRDhGffExZFhgkJ
-	 S6VA+EB4G1KEg==
-Date: Wed, 21 Oct 2026 14:28:29 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
-Message-ID: <ati9chI3v4jOuAiT@gremlin>
-References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
- <atc2Y4gHwtGlffns@gremlin>
- <CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ihyLRDDv
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-535f598d126so254981cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:28:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792589321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=gozfuKOgxK4QpdBsIuVM1aAEUYSCiTfKKPWWIVOMYXEk328ENqWwmG3eTlL5QfhHhH
+         FZoUzX1q5JEEJBP9P22JU0+zGUjMg2CV+QVp3CGO5ppWpsQz78PBFYU+4TxH4IAOpKk1
+         l0hMZm49SRjGd6b728W7/WjCci8FKQ6OdKrjgpDHO7zeyJDxv16/TLcG04OkUH8V2Z9w
+         O1PWJjBO9bcCBO3VxIr4FVcRqWOmnSvNnAwRZ9JkvNBSyf0oO0PHD70zrKzk6EHU69iW
+         zHtkzbEbBFfAYLLK2IpC8Y8Oa6t9mkMJEiQsbB8Dqdr+Mxypk9mBai0i1Q6dri1PiUe8
+         svGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :mime-version:references:in-reply-to:dkim-signature;
+        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+        fh=pkgq3Wyraa2db/afbDUqrRZlX5D727Q+y+hVecguJt8=;
+        b=ssBy83e89ceCtqLagzipwLCY5ow58JJE74NPspTEZ2+XGSdHimk3/vKmqUfRDh5NQc
+         VOOA7QzV/Xca48G0hQJAubNBnR4A39hZf65gfZgG1dR4QoihG32DAdXfzCWNF25xyUHB
+         gT0rtxfgUd1S5Sk7IDjg4QsyyhV9/4um0DErfYYjmDwxi96cJXtu6W/A5qyF7zH3vhuO
+         lyoJ0YEItzl6EVfMVtWZi3DqpJPXFcrWeHTWKAYRgyfvL+Y7BjywlWiDgtgYFIePGZa6
+         ciEbAm0a/nuY7PipOryM5oTCVTFvyGzo+2MLmRWIjBmL9FigyUJGUVNmDKYNZ67e4loS
+         Wcbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792589321; x=1793194121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+        b=ihyLRDDvbYTaqBdY46anGqX/Vs0AIF82chcKzRQAE54w0CAOMr+AVgOSg6FalBjknK
+         7hC8Pp2HJbJer88B7T/fwg45cNh1q+IJ4R+kIBFJeTZP7iBPa4GIt2nTldiQT4opU6J/
+         AN8mU6nlMvKX8xaP0T1HE5WG9TR+aMq9HFRPNbYCCWSFpo1jKJ0adpoUMOKG9Ywb3IFi
+         oCT7RaV6Ej3SwRyetkv3IdR0UjhGmczHNnRT9aNNFWWwpwJK59Y//+VSQZ5kk8d8eyVU
+         mTezC3lqP+qG+2e/qUmLvgX3/xKM/6P6bB0yR8CA0/mJWvHGjFwCvOjNSfiJaWAZuAtY
+         HGJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792589321; x=1793194121;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:mime-version:references:in-reply-to:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aHoL/xV+lJSptWn1pnj9SxRHcMCta8KU7nBOlsKicA8=;
+        b=1OC1XFUnNdKjLnsavITA4OLucOcJkBk1EzKRFjfUKzZnIyzQqq0yVO/+fdxJwIGN0s
+         wEHvYQvprMD16rsDBBuy0PVILvUJCLkLCC4PqFmWd3IROAu6aYzA059RlqUmJVqjb8up
+         CimX82Ux5J61gKcbimosNXY2l2dAzfQd/0zf5cKRyjuY0SziZlTHa083M+/kcL8nbqAs
+         R+NcXsh6rtOnHwyfafmfCdcdnAnmbBtvBFTisWETuLvg0Q9/FZMoSB/9QmKginO6sW4F
+         /lzNYgdvdJ4GMh2cUDu0zm61TRuWjYB8Y6/GvV5y0aNlFmWGfBxnCJI3lgsT3ZHJtoum
+         xBug==
+X-Forwarded-Encrypted: i=1; AKwUvBzUBDsag3h9+zGG1CuPQDETBf1bTM4M8Sfy6OMGJyiB8fkwsu7uUWqdMAC2/5/G7Fvf1NCtcUrHFZwmlsg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+o0YxpLf5X82H5JvA8PICMAqlDLdSfNONWNo3FkFL+Ec7veWF
+	QVKIA0G9ry7a8bYfs+c2BzPlZq6Yef22RaA4MzFOLXFeegIzIH9z6AR3eesSa5nApaPHw3uXi0v
+	MInyuIazfTde3y2lB8+a+cFDmpdkVXnTruWQQY7c5
+X-Gm-Gg: AYBFou3NFFB7BleHjNs0RtVMbJq0gj6KLSrOZ136Ap1n+oOYYz1fJCvyAs6neJuveSW
+	YS9YbbSrh2P9JrI8Tsi2ivQ6XG3Va9jkjBdg89Ke52b0UcpC1mC2rIxbUOfGKgv0Mwa9K+2SIgb
+	34rPN6pt/kcQ7o2fk+GOAnuDO+j/c3Xk3FckMXk4Ba93rt2MFXQDhSxB9+XnUQoPxTSfZ4X05TC
+	WGzZVKr6Th135fhE9N3ywBObi2CgVEliw8oux1DZSvLFPo/GQjqTm2I1x2Or/NcOCN1V98LqcE0
+	KXqZ791pHPiVGXhEe9Jkjbent+ayJ3/JnlGrlqBzXv+tH4aoUUy7oanNTN/mB2qEATlyxn1QHdy
+	1drbSOzXfH961f3EWsLOiBrJE+9g+z55rZxu1Hewww4THe/cZyjZVzWwszsgfWCQw
+X-Received: by 2002:ac8:5dd0:0:b0:533:9731:f0f1 with SMTP id
+ d75a77b69052e-5368b32a9c3mr35503331cf.10.1792589320454; Wed, 21 Oct 2026
+ 06:28:40 -0700 (PDT)
+Received: from 913411032810 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 08:28:39 -0500
+Received: from 913411032810 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 08:28:20 -0500
+In-Reply-To: <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
+References: <20261021035450.3488805-1-stanleyjhu@google.com>
+	 <20261021040615.3566831-1-stanleyjhu@google.com>	 <20261021040615.3566831-3-stanleyjhu@google.com>
+ <db4d4e246ad6b4769f736db0d3d1678adf9d59cb.camel@mediatek.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,100 +112,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Wed, 21 Oct 2026 08:28:39 -0500
+X-Gm-Features: AclHuK_9yuJHTKtFtEEYtr3PTMFrReT2NVeEAvxb4V7BtW5ZNHdjV0Vtrr4xmu8
+Message-ID: <CAE14pdcR7NPqK3W6Pfy+FkRrXSXB9wFuweOhLyFtSye_Bg4vWw@mail.gmail.com>
+Subject: Re: [PATCH v4 5/6] scsi: ufs: core: Fix double release in ufshcd_abort()
+To: Peter Wang <peter.wang@mediatek.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	Bart Van Assche <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Bean Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 08:30:56PM +0100, Fuad Tabba wrote:
-> Hi Lorenzo,
->
-> On Tue, 20 Oct 2026 12:35:14 +0100, "Lorenzo Stoakes (ARM)"
-> <ljs@kernel.org> wrote:
-> [...]
-> >> Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
-> >> Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
-> >
-> > I guess kernels that are missing 19868b67e3e7 and 2ce80f624032 will need
-> > that stuff ported too?
->
-> I think 2ce80f624032 would have to go back too, since without it a VMM
-> can still write the ID registers after they've been sanitised.
-> 19868b67e3e7 mostly provides the call site: the version I tested on
-> 7.3-rc3 called kvm_idregs_enforce_dependencies() at the top of
-> kvm_finalize_sys_regs() instead. Kernels before 6.16 don't have
-> config.c, so the backport there would be a different patch. I'd leave
-> the stable side to Marc though.
+On Wed, 2026-10-21 at 21:12 +0800, Peter Wang wrote:
+> If ufshcd_clear_outstanding_reqs(hba, BIT(tag)) returns 0,
+> should we also set err =3D SUCCESS? Since the tag is already done
+> =E2=80=94 either by the ISR or by ufshcd_abort =E2=80=94 shouldn't both c=
+ases
+> be treated the same?
 
-Ack :) I guess this is mostly 'stable looks painful' :)
+A return value of 0 here means the completion path, rather than
+this abort path, has claimed the tag and may still be running
+ufshcd_release_scsi_cmd() after it dropped outstanding_lock.
+SUCCESS tells the SCSI error handler it can retry or finish the
+command right away, so a retry could map the same command again
+while the completion path is still unmapping it.
 
->
-> [...]
-> > static const struct reg_feat_map_desc *idreg_feat_maps[] = {
-> >         &id_aa64mmfr3_el1_desc,
-> > +       &id_aa64pfr1_el1_desc,
-> > };
-> >
-> > Right?
->
-> That's how I'd expect it to look. Since
-> kvm_idregs_enforce_dependencies() repeats until nothing changes,
-> feat_gcs() could also test FEAT_S1PIE directly: by then, S1PIE has
-> been cleared if its own dependencies are missing.
+Returning FAILED here also matches the check at the top of
+ufshcd_abort(), which already returns FAILED when the tag is no
+longer set in hba->outstanding_reqs.
 
-Great, so that clears I think the really main outstanding question for that
-series. Really nice! :)
-
->
-> [...]
-> >> diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
-> [...]
-> >> @@ -59,6 +59,7 @@ struct reg_feat_map_desc {
-> >>         const struct reg_bits_to_feat_map feat_map;
-> >>         const struct reg_bits_to_feat_map *bit_feat_map;
-> >>         const unsigned int                bit_feat_map_sz;
-> >> +       const unsigned int                idreg_idx;
-> >
-> > This field feels a bit hazardous - 0 is a valid index and now things that
-> > don't declare it are setting a valid value.
->
-> idreg_idx is only read for the descriptors in idreg_feat_maps[], which
-> all come from DECLARE_IDREG_FEAT_MAP(), so the 0 in the others is
-> never used. Storing the encoding would work as well, I'll leave that
-> one to Marc.
-
-Yeah not used, but you're defaulting to a valid value, so it's got real
-footgun potential.
-
->
-> [...]
-> >> +static bool idreg_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
-> >
-> > To me this reads confusingly - idreg_apply_deps() would be clearer I think.
->
-> Agreed.
->
-> [...]
-> >> +       for (int i = 0; i < r->bit_feat_map_sz; i++) {
-> >> +               if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
-> >
-> > What if it isn't a CALL_FUNC feature?
-> >
-> > Could this loop just be replaced with compute_resx_bits()?
->
-> It's skipped, so a dependency written as a plain field match would be
-> silently ignored. Both entries today are CALL_FUNC, but
-> compute_resx_bits() handles every kind of entry and would also give
-> the res1 line something to set. It'd mean moving idreg_deps() below
-> it.
->
-> Marc, compute_resx_bits(), the rename and the loop rework are all fine
-> by me. If you agree, I can respin with them, or you can fold them in
-> when applying, whichever is easier for you.
->
-> Thanks,
-> /fuad
-
-Thanks! :)
-
---
-Cheers, Lorenzo
+Thanks,
+Stanley
