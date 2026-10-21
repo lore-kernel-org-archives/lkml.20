@@ -1,124 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792590880;
-	b=0/ELd7wDh6Ak6BG4FpucM7H4Me6S4M8pqOzxzj8muthl8y0TtWikxGVbS5FFG/cL4E1h
-	 PEMMQDdS38d8hWJvrH4Jr5nski9VYfvajrAqBjkbvckMoEmt+uYVQk17W4rupTXKdgSpS
-	 4pX80fxgLxR+DhMhlrMJtdQfbIhgu3uPHag1SKAV9sBTSCd8IaOzXLhfsTQEI8gM5prQv
-	 HV3oocPeCfPya77XGBAYk0FA6vzZkTau+baxl2E9guciD377FuA+YmgXGQf7WYu/CvjfZ
-	 MNLHFDDDboRMXh5wbbZdiu6WYNv6zMJv+gVtfQ03jqpXDeoStkyZ/GfgsZWuTGpLQZg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590880;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=t41uoanVR+TXtC4gloJCUo97Lt9PNgCNxsrVHBM9JuY=;
-	b=QGNnk87+b3KqhSd1rvAUQj9kkYkEReiVUH49n9WW9zdGmINj/01MJWQVa47HCwbs5ioI
-	 YBlcUOqFFLlOtjfFXrf5WKKiqu5RME0gY4uqwV/yPuy4xs/0kUFbIhk2XhL0Tkm4wt7Hd
-	 l6hTwEud7PLKObW5X7+7Ynaqegt4PTOWa9SRvOFffq3moY6WknXcXxnrylJkHZpggv9eH
-	 TEqc1ss9n4Y4nELBtOFWVnwP8KhhWkicYWa4YhLd13y88cwIIhICD8CKzTmqqSHqvHhOK
-	 NIlcQvFlcm/UCFkZBxkHCMzat26NAzoVvFfsTaYHgePe/RQRiLiLLnGrBiMjHEcEnAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CHV23s4v;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FlXzhpeW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792590895;
+	b=QndtAigPBrARQiVDhyVPZy0m8ywV8HZyN6xNiq+Gh5l7lI6xQOAO4KA8bC080a3SESVg
+	 bi026bXvtJ0zK8dZqiyc5GYAUGH6PcBxm2LIRTen15/7+KQ0vdBQjdqVQIGGV03TN8yZi
+	 MII64/pIElfi/+nzDKHmWFGsfik4DIHWUaYHEtbIEBvZjxY+b72cBKsx7FnrPm2fFdBOx
+	 5tW0zWz5TKaoI2LOFD1HkwSJ/Dg+Aaq195F/8zeyQUECBl47A+Q9JWSlDEM0Y/Sc50J/m
+	 OQl5SfKXP+43dT2+RgAjwKJsIdJRbjEifWeWu8u1YOWmCiKUUyXF76YCSKzfG7uSkaw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590895;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=c8NANzTMJV28RCMd27ShXdH01N2IwKbSedeFEkSZyhI=;
+	b=MAnVUd5fPpKjz927KMoApa8CBPPLJvvZSR0BBni6+13f/q0OILdRhKXdyos5yTFzZpqU
+	 3MBbc9wr2gQkUH0c3oRrOJvMh0T+yVwbjQS246s2qDxJ9/4xb+SCpnDYaFMKQ6FeNEaed
+	 /M4Und9ggfLo7wgRM0LUYzCIsepoPFPqP7aj0UerIGhtRx7uYfnZ5A8zoNMAIeyeq/QiX
+	 qYdPFNwCzPBBMotLXTXdeA9aiGmZcpxP1MM7KlJt0ce0hMfX6ymG54r7BaEdflgVVlx3l
+	 SI5rhdWINrk9HZacYfp6OXCMMbqMJjx5Ag0wUQcZE9eec3DUIS5BMm4+EWukwpx0/ag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=resnulli.us;
+	spf=pass smtp.mailfrom=resnulli.us;
+	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=UnhUfLxG;
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD4F606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:54:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FD4F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23126606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:54:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23126606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CHV23s4v;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FlXzhpeW
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LDKs4f704812
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:54:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t41uoanVR+TXtC4gloJCUo97Lt9PNgCNxsrVHBM9JuY=; b=CHV23s4vIghmqWbv
-	3OTLp80UMjT0y9JoE3lNnRy7kqp7gqFxzRI1UwO5nNP14DtZiRzQoqWQsH663p7x
-	DaJoYsdKakE2Vwgo0KLALU28mpFqAEQihoHyRFLhEc9kerwPSsZg1bdn2mLrvdxT
-	mnyNsZKYNAvFECMV/cu4CA+EvKC4SJHC/w1xAiZqRQRzIGthFEdnhdGtuurIDRKq
-	hFT5yxuAgxspQylAOe6y3C/A/iXxFjTQCfQn5maeNNX4ya4js+zsfmpYl7wLrX3O
-	9hvEnMQLbY2Elb/eiphFd16IBofjwBOlLUD+tOJZNUSe5/T/hHODWNR6gJwf9pVR
-	WiAZNA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r39un-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:54:38 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb7f9bb86so165133485a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:54:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792590873; cv=none;
-        d=google.com; s=arc-20260327;
-        b=i6MfblFjKTSySSUhlxtBbbmWNJBzl6fwfIu0IA6G0H1rLH/PX4j/n35u0QJulRYQY7
-         EN9Wg5D7TqVlRhuWYGo9vtIBfN6xp1crXkVUomjB9Y7gKcrMZqC9TEeslR1nG874fUQz
-         qZQXBnA2ukz+O2qbGqovEFU9mbnflq+8s/xMzEm/I5asvULP+Abc8ATBvX5SwroPoYNs
-         widxscsqzsAzJ0OY7a+AZnwprZelf7dMnutl2fkcJIHI2M0/5UIWEALGJQn9A8VM/ZYA
-         bE9dgb90qhGGbdm9KN0Gu4oSdzDw5YFz1U9P7/6rrNg8vx/KEI+YBj+k/3xt2DbwsIOZ
-         fveg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t41uoanVR+TXtC4gloJCUo97Lt9PNgCNxsrVHBM9JuY=;
-        fh=ykkzWFd9I4xLF/RGZLgsG4T3U4KUJkoHir+/YS+15Fo=;
-        b=LlXMoqQMwFwQ1E6WT8HXyJpfq/K6jCFYUaBJLT3YbrAgEDexRkIdVzmmP6543jQOIf
-         nc1Pw4ANigT74Qw/8EPhFvo4Za6zQzwyUEU7IYcpI8VHaNhcDCaLZWNvPEwaCwQcqY6o
-         SO9470fw1WPPJgJzZEplV3zscIVJvqvAGLxtb1l5VFhuwXfKbEmoRlszEqX6yGmSsXAD
-         461fWKOK6LoL2Q1xK3FTCtBeYdC323t+eggVScRN8FTw/ClZCSMnoq6NYhOaO3EeO865
-         y4LxP5QMoPOxJ3uejk1ZYb8xxASFBxjToTSTRRmu1ayqfXHtu2R4vPeolj7TZgHsIh88
-         /r4g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=UnhUfLxG
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso2558261a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:54:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792590873; x=1793195673; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=resnulli.us; s=google; t=1792590892; x=1793195692; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=t41uoanVR+TXtC4gloJCUo97Lt9PNgCNxsrVHBM9JuY=;
-        b=FlXzhpeWQhmQEhsU5bLH5faG3dpxqLj//t9P+tCifn+UiDHBwOai6M9MdK7ZRoWK/K
-         +VNf4vnloSn9vEoXB0mgSe1ncPXbAqQ2d0v37SMB8nrG5kVSy4iSF1sZhpzjV/+iJybU
-         jNJjvjCrlRoP3K4AwrDGOIflY8PM4SR+r+4v+Lrk9ejLUxiHVlC4a5KiBp97xbiPCLcI
-         cga2BqJT43npaTw93Qe+O68yWiqJvbI0ZkoDn9bJ9e1VA3dS9w+0SmOcFOKkyBugPGVd
-         1pnp/U5irKiwzolFjLdQBQk8SrNBlY39Fyy1QncAHtdYo3sLxHb5b/lr1vsep9cJjA7A
-         NGHA==
+        bh=c8NANzTMJV28RCMd27ShXdH01N2IwKbSedeFEkSZyhI=;
+        b=UnhUfLxGM8b96A7Gbb+spCiE8gEcBozwsrAV81TErgNHw4FO+zaccrsTaoxCPx2kqb
+         2r5gaG8S5zHRHXdTiQpqNb3zEDaS/WooNo6HDlBVigx5siBTS7a71bH0CLlch9bpH5PG
+         9lmHwnhJyO+vQBA9jC8uthqiNOdYkJW7A/Ebs11ePYG7mW1RQSaio74WSSmDcFsZO/2S
+         gTRrTRuen72SnthBBG8u7/e6qQsdAO32uOraBHIQ6QyqsTioLiOtjxrmSApK8nvawPT6
+         AA28mtSFkvje/CL/7NCB2LIN8DxJ/k3OLlcblj04rMFEjlTQBJu5erFmVfyvk8FujNQr
+         8CpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792590873; x=1793195673;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792590892; x=1793195692;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=t41uoanVR+TXtC4gloJCUo97Lt9PNgCNxsrVHBM9JuY=;
-        b=cp8sYJsQHYARrwjyVOan6CwDYtaVWCGbUiB8z1jN2SGSuUob3EwFL0BcnGLhqezvvo
-         Wt0Vix31ACJCmxcha+/QdMw/SDP70hH4vVwI98vpN8AaJlZhekLis6HzwT4/RKXNIdPU
-         +ymkfrg/7LX4WVALP6ftRisnNFFAE6CeikmAExrrFQQ1CrxmVaxZzJsuyFfzCnbx/Sl5
-         QmspBdjvr07P3D+Ht/wVTp/U9N5/24j/Cgi4EfODMj6RpjXs6oXID1e03FoskmZ5zpHp
-         F5dev5YA5yc4AMj5p+tisXzPgLT4MfCkbvIsADpvWc+LakogA74XxryfFFrjaANDK0kb
-         Au0A==
-X-Forwarded-Encrypted: i=1; AKwUvBwSwFquSDnSwkIJNdX6nNauzSzi17VaVL7Q+wCsvggPq+0l5mvU1B94yxgbTfV9hMFpXVgOFeW7ykyhw3c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXH/EQxG62tbyL0ci09sQjLwSZ4V8oHOWwxoRrQVJQGiQZ5bR1
-	Of0Fg5bUPsE4SM3BLU51DVj54KXjB0KU6OYfWV/MH8/H0PHHEigQRhDbtv7EeqCHcm7xTZQ1BLw
-	DspEoNv2eiwZcRwizs/64n45iXYGuBbjOyOElBfw+n8pGY7ul1D7x1/8v3tnwPoBQ3iJrqklHyW
-	K/GZwijJbI8tvcjM9/hZSwiXw4ypHPB/MNYeckDpq+ig==
-X-Gm-Gg: AYBFou3wh0anzlYEG+oxMHPoHFd6JJ+mV3ixed7G/mAVIKGSPzZoIJmodbXSxrkFq8q
-	cJHDAxwPX277/Q9rkg5S0RVinILgw88XOrSeTz9/BSFEEypqAhFfafO5X2VWOrwBOIGpDfypCQS
-	IVM1PNaiZki2C1Cx1FmUysqWVkG77Vqdges61cNUgVC9cH12ME3zkUHPoajBj+sbzryLDLI/ko7
-	zziBLk2Ily1W+2b9zDbQJm9VLuIWZeouqOnn7cpaEgsDMWJyjSh/ezG0BNHnFTZKUmEx35y11A=
-X-Received: by 2002:a05:620a:4398:b0:93e:c12c:f137 with SMTP id af79cd13be357-93f5803fd22mr421250485a.82.1792590873070;
-        Wed, 21 Oct 2026 06:54:33 -0700 (PDT)
-X-Received: by 2002:a05:620a:4398:b0:93e:c12c:f137 with SMTP id
- af79cd13be357-93f5803fd22mr421240085a.82.1792590871734; Wed, 21 Oct 2026
- 06:54:31 -0700 (PDT)
+        bh=c8NANzTMJV28RCMd27ShXdH01N2IwKbSedeFEkSZyhI=;
+        b=u5h+al1F9OZVSYSSq+AR6myYw1JD/++WrC37QPoOIzieS6XzaJP0g3B/o81C/+R/ni
+         1K3icjSlhBx9h+Bv4NLR+tKhmRt/iQVtUyMXwFcEcGp5SiViUjonWOY1e3uphVs63pbM
+         ryfwpr2Q9U3kQD6rgkeAogCu0MRNPbnBEyTGk8PjaRl8LAqHRU/tQqbCsowxnnubpZbo
+         +qWXiDNj7Cd+iMbF/HX2MEavAZjLDJrrPOGUKpEtJ1YCq9YgeGwT5FFbFJzVQi2GqaDF
+         FMoytZmZnFoIFj1UCGS8CxL7jhttg2Yko1YKsWH3832Si8OvcGcG/Nh6FSJk7zv3y/Ja
+         6EWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwqLV5h0I4NjhCy2Z88y6n0d3U/p0UdSpEzH413ghgSHqB+sr+7FLhvpPR0PTwPokLSsihAwh6R72R29hs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0UM4NtSp99jyYvkWugt4jfxa4honjb9Xk94gFRJFKEyFcj7am
+	qb7HDHMrQe3AInmoOF1uaq5YqywMrLJeDeWBx7LWPc3QxY0YGAkeUIwDouInjTgkFn0=
+X-Gm-Gg: AYBFou15WCKfqMmccPuz+PjB16/7hyGIMtVe5nnr6YdHiA2xED6QjlRWmffxVYbYLRs
+	RbxTsZYqtE+CI8p2PZsSrYQf5LBn3FGCs2pj+x9LbqIQqG7NTlCFtcgN7q1eO+ZH/VG5xCmdbCW
+	h17daMoe0Bd+m+6iu2STEp7Yg/UzMF6if6Z4iQhtDbVDAM/+5kPU0utkrfDaxZhWd2hVY1vCSJb
+	9EplvW+dL+90ptb/yU2oH12PsBjA+nASfSfftCcYmZlTBbar1UsNLSKrlP41ePYnH/OuEuj+bpY
+	w9HsASEx/0/DZnibmTgB6AEomZB1eHEQBVjp6b6lyHoA4AjLWdOMMYb68DY4GenwQNrH5FRriof
+	EPn/4LHnfUH3j/G3GuaAQ1CEmqksg0Yk/OkY4lOJktgh1/dz1bhv/ThEsqYQWyDqxlNufvT2VM/
+	ndaeYvm3+nYgV8/Ornx7FdI2aodmjhpLncaChllZhAgKgyxQZ2Z0iKuImy4aE7dXYTCyH08/f+c
+	Ixwv7+0bNOOnj+o/i6PQ88nFOzw3X5pt8ZVXDRmwhYar/7tt61T3OWiw+JIGbdE7Q8=
+X-Received: by 2002:a17:907:c30e:b0:c41:2ab8:aa3 with SMTP id a640c23a62f3a-c4606e91924mr434637166b.32.1792590892298;
+        Wed, 21 Oct 2026 06:54:52 -0700 (PDT)
+Received: from localhost ([140.209.217.212])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a4ffcc5sm7387366b.26.2026.10.21.06.54.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:54:51 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:54:48 +0200
+From: Jiri Pirko <jiri@resnulli.us>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
+	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
+	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
+Subject: Re: [PATCH RFC 02/20] ctlv: Add the UAPI wire format and family API
+Message-ID: <atjDlIBMg3dmXxHn@FV6GYCPJ69>
+References: <20261015145053.3664509-1-jiri@resnulli.us>
+ <20261015145053.3664509-3-jiri@resnulli.us>
+ <20261021000003.71f78d99@jic23-hlaptop>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,102 +104,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021-10k-sdio-crash-v2-0-5df80bf16e86@oss.qualcomm.com> <20261021-10k-sdio-crash-v2-6-5df80bf16e86@oss.qualcomm.com>
-In-Reply-To: <20261021-10k-sdio-crash-v2-6-5df80bf16e86@oss.qualcomm.com>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 15:54:20 +0200
-X-Gm-Features: AclHuK9frjvxrPgqG79PX0brsm6qD44pye3rZNMkfk_0YWYp84LDbfiNcLFomHE
-Message-ID: <CAFEp6-0WLtOCGQbhybo21WWX_ZbE6_nRVQLq-Hqddc-+Vvvafw@mail.gmail.com>
-Subject: Re: [PATCH ath-next v2 6/8] wifi: ath10k: hard-block the radio when
- entering WEDGED state
-To: Kang Yang <kang.yang@oss.qualcomm.com>
-Cc: Jeff Johnson <jjohnson@kernel.org>,
-        Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-        Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-        linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad8c41e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=d_Mx3J29_csdZ0INFZkA:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-ORIG-GUID: W-PIty3rHcWa3eUn7vMDk23PZ2gC8INe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfXxfWG8aGho6JZ
- wGUnHU3qx9ivWFLlc98dCbkQWUN77RNvINt1FrJ7h9BfQGx4J2/gKsHRfh+gjQfh10jJ9pc+YyN
- 0ENcDz6rN1Trjg8NULh7MJhOEMe0dcLH2bSlVEOp4AYk79sbk+4dM8n8MWqaqdbB1plLGaZ0bFc
- P0tBaM9Ma0FSK/Oem0mMyOw54E4Xk3OWhz3QMEYPifSUz4cYsxVcszTSl4AVMLJM6bDGd2U4Z53
- W4xKJQoxUAl6O7F2HS7Lx6khCu48UfE9rmZ2rCcMhxZ3dEjaDCKNB/TpyhRyE+fl4ioAiPpXOj6
- LeDj4dWo7cBQ1wEEW4aCbEOL411Rj+0eZxCbFZXX8d9Fqx+1BgaFGI73f39GjkCiGq3E7F5ej97
- c5ZWmtN/SN1gXztYLNtsm0MlJIFpSWi2s+PG8SqQ0fuQ6to7dkPlz8uWRlsuwoYnvdzYhflmGwj
- lojtSxY6yhwhkeb8x3g==
-X-Proofpoint-GUID: W-PIty3rHcWa3eUn7vMDk23PZ2gC8INe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NSBTYWx0ZWRfX9cHKIHais2dr
- Qt1zwxkwluWz88d97GdTEo3z92MLyd9oIuS2MZtVFS21FSvWl4LimlDNNGtEewm8HoBtk4jk3+f
- /DdLQumuZk1eFbEUZXKNJBcneSFHeeA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
- malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210055
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021000003.71f78d99@jic23-hlaptop>
 
-On Wed, Oct 21, 2026 at 11:10=E2=80=AFAM Kang Yang <kang.yang@oss.qualcomm.=
-com> wrote:
+Wed, Oct 21, 2026 at 01:00:03AM +0200, jic23@kernel.org wrote:
+>On Thu, 15 Oct 2026 16:50:35 +0200
+>Jiri Pirko <jiri@resnulli.us> wrote:
 >
-> Once ath10k reaches ATH10K_STATE_WEDGED, the device can no
-> longer recover and remains unusable until the driver is
-> reloaded.
+>> From: Jiri Pirko <jiri@nvidia.com>
+>> 
+>> Define CTLV's common TLV transport, ioctl, event records, identifiers
+>> and limits. Add the in-kernel API used by family implementations and
+>> generated code.
+>> 
+>> Assisted-by: Cursor: GPT-5.6 Sol
+>> Assisted-by: Cursor: Claude Opus 5.5
+>> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+>Minor stuff only.  Some of it moaning about toys we don't get in uapi
+>headers that make kernel code 'so elegant' :)
 >
-> Userspace daemons may continue issuing scan and connect
-> requests, which the driver can only reject individually.
+>> diff --git a/include/linux/ctlv_family.h b/include/linux/ctlv_family.h
+>> new file mode 100644
+>> index 000000000000..1ae4d3a536f7
+>> --- /dev/null
+>> +++ b/include/linux/ctlv_family.h
 >
-> Mark the radio as hardware-blocked through rfkill when
-> entering the WEDGED state so userspace stops retrying
-> operations against a device that can no longer operate.
+>FWIW I fully agree with Jason that sometimes it is worth burning
+>some lines and even duplicating things a bit to avoid too many
+>complex macros.  I didn't have anything to add to comments on this file
+>at this point.  Will see how new version looks!
 >
-> Both WEDGED transitions already route through
-> ath10k_core_enter_wedged(), so adding the call there is
-> enough to cover them consistently.
 >
-> Tested-on: QCA6174 hw3.2 PCI WLAN.RM.4.4.1-00288-QCARMSWPZ-1
-> Tested-on: QCA6174 hw3.2 SDIO WLAN.RMH.4.4.1-00189
+>> diff --git a/include/uapi/linux/ctlv.h b/include/uapi/linux/ctlv.h
+>> new file mode 100644
+>> index 000000000000..6bc0d1a296e6
+>> --- /dev/null
+>> +++ b/include/uapi/linux/ctlv.h
+>> @@ -0,0 +1,183 @@
+>> +/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
+>> +/*
+>> + * Copyright (c) 2026, NVIDIA CORPORATION & AFFILIATES
+>> + *
+>> + * CTLV transport UAPI: the TLV wire format, the op-execution ioctl, the event
+>> + * record header and transport limits. Schema-free; a family's constants
+>> + * are generated into <linux/<family>_gen.h>, the root family's into
+>> + * <linux/ctlv_gen.h>.
+>> + */
+>> +#ifndef _UAPI_LINUX_CTLV_H
+>> +#define _UAPI_LINUX_CTLV_H
+>> +
+>> +#include <linux/ioctl.h>
+>> +#include <linux/types.h>
+>> +
+>> +/**
+>> + * struct ctlv_attr - Attr header.
+>> + * @len: this header plus its payload, excluding this attr's trailing padding
+>> + * @flags: CTLV_ATTR_F_* bits
+>> + * @attr_id: complete attr ID, or CTLV_ATTR_ROOT for a message root
+>> + *
+>> + * Attrs are aligned to CTLV_ALIGNTO, which is why @attr_id is __aligned_u64: a
+>> + * 32-bit ABI would otherwise align this structure to four bytes. A nested
+>> + * payload is the concatenation of CTLV_ALIGN(child.len) bytes per child, so
+>> + * child padding counts inside the containing attr's @len while a leaf's own
 >
-> Signed-off-by: Kang Yang <kang.yang@oss.qualcomm.com>
-> ---
->  drivers/net/wireless/ath/ath10k/core.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>Whilst I get what you mean, leaf doesn't feel like a clear concept in this
+>comment block.  Maybe 'this attrs own padding does not.' or something like that?
 >
-> diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireles=
-s/ath/ath10k/core.c
-> index 6b6b80242cd1..66585cfa6d96 100644
-> --- a/drivers/net/wireless/ath/ath10k/core.c
-> +++ b/drivers/net/wireless/ath/ath10k/core.c
-> @@ -2521,6 +2521,14 @@ static void ath10k_core_enter_wedged(struct ath10k=
- *ar)
+>> + * padding does not. Scalar payloads are native-endian. Within each request
+>> + * root or nest, occurrences of one @attr_id are contiguous; different IDs
+>> + * otherwise have no required order.
+>> + */
+>> +struct ctlv_attr {
+>> +	__u32 len;
+>> +	__u32 flags;
+>> +	__aligned_u64 attr_id;
+>> +};
+>> +
+>> +#define CTLV_ALIGNTO 8
+>> +#define CTLV_ALIGN(_len) (((_len) + CTLV_ALIGNTO - 1) & ~(CTLV_ALIGNTO - 1))
 >
->         ieee80211_stop_queues(ar->hw);
->         ath10k_core_wake_all_waiters(ar);
-> +
-> +       /*
-> +        * Signal the radio as hard-blocked so userspace (e.g.
-> +        * wpa_supplicant, NetworkManager) stops looping scan and connect
-> +        * requests at a device the driver has already given up on. The
-> +        * state is cleared only when the driver is reloaded.
-> +        */
-> +       wiphy_rfkill_set_hw_state(ar->hw->wiphy, true);
+>Could this use __ALIGN_KERNEL() from uapi/linux/const.h?
 
-Using rfkill to signal the wedged state feels like an abuse of the
-interface. Have you seen similar handling in other wireless drivers?
-Wouldn't wiphy_unregister() be more appropriate here?
+Okay.
 
->  }
+
 >
->  static void ath10k_core_recovery_check_work(struct work_struct *work)
 >
-> --
-> 2.34.1
+>> +
+>> +/* Set exactly on root and nested attrs, clear on scalar attrs. */
+>> +#define CTLV_ATTR_F_NESTED		(1U << 0)
+>> +/* Query fragments: set on the root and each nest logically open at the end. */
+>> +#define CTLV_ATTR_F_FRAG_MORE		(1U << 1)
+>> +/*
+>> + * A request attr, never the root, that a device whose schema does not declare
+>> + * its ID skips whole instead of refusing the message. An ID that schema does
+>> + * declare is held to it wherever it appears, so this asks to be forgiven what
+>> + * this kernel has never heard of and nothing else.
+>> + */
+>> +#define CTLV_ATTR_F_IGNORE_IF_UNKNOWN	(1U << 2)
+>
+>Doesn't really matter but could use __BITUL() just to hammer home this are single
+>bits. Places like pci_regs.h have started doing this for new things.
+
+Sure.
+
+
+>
+>
+>
+>> +/* Implementation limits, not wire-field maxima: raising them is compatible. */
+>> +
+>> +/* Request roots, action replies, query reply fragments and event roots. */
+>> +#define CTLV_MAX_INLINE_MESSAGE_LEN	0x100000	/* 1 MiB */
+>> +/* Includes the error information root. */
+>> +#define CTLV_MAX_ERROR_LEN		0x4000		/* 16 KiB */
+>> +/* The root attr is at depth zero. */
+>> +#define CTLV_MAX_NEST_DEPTH		32
+>> +#define CTLV_DEFAULT_QUERY_REPLY_LEN	0x10000		/* 64 KiB */
+>> +#define CTLV_MAX_EVENT_QUEUE_LEN	0x1000000	/* 16 MiB */
+>
+>Pity the linux/sizes.h header isn't in UAPI as result is we need
+>those comments on what the sizes are.  Ah well, never mind.
+
+I already eliminated all of them. Some are kernel internal, some
+userspace internal, some I moved to introspection.
+
+
+>
+>> +
+>> +#endif /* _UAPI_LINUX_CTLV_H */
 >
