@@ -1,95 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575729;
-	b=gK1FwRwr0om9WCrUv0ftmV2dEtlXW4HKDg2cA9l0j/48XPjyWlgapYdbIxaIjgazDPeJ
-	 zVU3aK2Mo4+aCZevlPTrlA05lw4YgL68VMcE5mfIi2p6Jr6qbi6e940CKC1IM4XPUsiPb
-	 rHqqZA/4UmLCZSRwuBLrYhSV/JxqASShVOGMiLRBGb98CHcpU6aD2Vlq43Q/s1BSz1LPG
-	 Dpm2LSu2b/G9HMapoRbWep2ob7ti+kOuQriRgzQEinIyu3q5iq/o4IIe3WGw6LpAoOk3a
-	 UMMsmKJmhOZmx4+zEO/y+f4TVWcOHA5EVQkInU/VPKeSNL2BKRDuftE5zXEYoo2IxZQ==
+	t=1792575743;
+	b=Q5ImstKYOK/VoSeajfhUTrHAS5sXgQSnnx2//Nj+eE5e70MzZUQlZqPW8p7c4cToz55J
+	 muyQV7Ov2zFmMRhqyQCZDj439dT1z4dsuhQh4b+wxrpU+cnzfyKAkI4I2q3f1fFBtqViP
+	 sIsrdt0rsHmaUhPXplXtG87K+dGYhVMjipOnb1wEsMS1j7VC5riWLzcDCOVoKmJS5yyF7
+	 76hUZqk/sBm8Iqk3RHN6Dk8IFb7mjd43JP7iCuoTzexYL6dyZvreUwYhRVoQqV2ZL4duW
+	 UUah+fl2VzRsLCdzuATOdWQctNGH3svZzNd6dEFk91HN0A3Fkc/y61JN0Onc8VklAXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575729;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Q+m/q38EBTs2um+nrrdp+oHaGDwfpAAfBNiqATdHRqE=;
-	b=ch9AVl7UICq/7hdolm2LMCwL4gcRQD7F8F4R8Uqb/kZ6FDqIUjRtzhylJYLs0dP1/6YI
-	 3Hg0vY9YBXHBLd/1+WuiQuXuKCS64BlHSykeK0DdK3RwtZhwwkcV2yZC5Xtv0zMwffaY0
-	 765LyF8uPEqfcxZ5UxbV4iM1qy2FoQmfeRDCf7ibg3u3ymLuhIhMvGJHGRmO/lY0HmMQB
-	 HxF9edUv9TJYXA4pAtZtPCLbxoQu4bSjbirE1H7m46d8CkMubgjBSjfo5SnzUZQwgP+eR
-	 k4+mJOUabdT8YyYFCrEJf7PqdiAu0sxTsavxtJMvfS5X0TJXSbzyOoCe8URK7L4Cjag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575743;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8G57XmwynB3mR6uqi8qOOjUgqBbEb9SN5unyoR6cdBc=;
+	b=YXVRAW5PVEwIugoeuPhmW1lEJ/iSRKX3pVTr/h+6CHMy4lBSZ5XMngD9qi1sTXUBw/6I
+	 dV/1c0K39FhVaQt8xRNIkg39cO+ecvDMXsTFEf2CYZXU28YeHPEhn91vDueAgXwxT/Le7
+	 tfeewiEyGnsA+44dI2KAmge1OEJOgtFp4GilJDViUx0W1E0twDGJl0sivnJKm+Itx+Ec3
+	 RFfx4AlYAEtp1b8u4Jx+NbW+t8NzAzb4jEeb9Pwk1+UhTzU/KjjjlY275wBkVHmM43zrl
+	 tF371cM0ITM8Pkp4Fi+F7sbdIOBorXfl8FVw6GuWdRVe4RuRNvKYk0qwyC4o0jhpSag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mdkwIIQe;
-	arc=none smtp.remote-ip=95.215.58.45
-Received: from mta1.migadu.com (out-45.mta1.migadu.com [95.215.58.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jilo8k6Z;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBAC606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:42:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBAC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1FA606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:42:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mdkwIIQe
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7/htGxXtUHzJVlhZRgi4vB3k91+uiABHA1iTwy584Es=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792575726; v=1; x=1793180526;
- b=mdkwIIQeYGie42VYmFYr+v1lrDLwSEw+U5SIPN2s8mncrhHvq88rROIIyfXQNkofmM1Yq5G8
- Ri4soAdD+1r9uCuY6wQFoyD59/OlbCGsI01OOlnGBhSZOG83UVE2b9KCEuwX5bqOhwq9ApuAvJ6
- TjCHqjwfpglYhwazed9SIaHk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 24c5f096957bb0b7;
-	Wed, 21 Oct 2026 09:42:05 +0000
-X-Mizu-Trace-ID: 24c5f096957bb0b7
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 21 Oct 2026 17:41:59 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Petr Mladek <pmladek@suse.com>
-Cc: Zack Rusin <zack.rusin@broadcom.com>,
-	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, x86@kernel.org,
-	Joel Granados <joel.granados@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>, virtualization@lists.linux.dev,
-	Dave Young <ruirui.yang@linux.dev>,
-	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org,
-	John Ogness <john.ogness@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Pratyush Yadav <pratyush@kernel.org>, Kees Cook <kees@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>, Bo Gan <bo.gan@broadcom.com>,
-	Brennan Lamoreaux <brennan.lamoreaux@broadcom.com>,
-	kexec@lists.infradead.org, linux-doc@vger.kernel.org,
-	Maaz Mombasawala <maaz.mombasawala@broadcom.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Stephen Brennan <stephen.s.brennan@oracle.com>,
-	Michael Kelley <mhklinux@outlook.com>,
-	Ian Forbes <ian.forbes@broadcom.com>
-Subject: Re: [PATCH v2 1/6] panic: Add a notifier chain for pre-kdump
- callbacks
-Message-ID: <atiI52kl--_Z_wVc@fedora>
-References: <cover.1790014793.git.zack.rusin@broadcom.com>
- <81cb85568b36273a8e66215b3e6d671b8488d402.1790014793.git.zack.rusin@broadcom.com>
- <bc783856-9480-3944-67fb-675e4c11d8c2@igalia.com>
- <atdYIxwz8ksYNty6@pathway.suse.cz>
- <atd7GInNurGWLUha@pathway.suse.cz>
- <ateYxCu63pRY9EGq@pathway.suse.cz>
- <CABQX2QOKCpoUY_ObhFif7xN7OF-NzcxEM0JABAXo9n9KaacO7A@mail.gmail.com>
- <atgdwrSbsZD5iWsX@fedora>
- <CABQX2QO6fwvKZwG34uOYDU_ae4M4_n2SMsYmqoLgOPnWkao02w@mail.gmail.com>
- <atiDsmnUM7v2UJkY@pathway.suse.cz>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jilo8k6Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825CB1F01573
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:42:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792575743;
+	bh=8G57XmwynB3mR6uqi8qOOjUgqBbEb9SN5unyoR6cdBc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Jilo8k6Z5wiwnrH4plvBWdxS8RtonTg/JgZofxZHOOXxDzU8nFF6LsmfOjOgIikTC
+	 ddSVsbXALA+BsGCsSOppLQ1BdnD88owUzKlN5rY/DiDqEDmwS/VDJwB72CUkL/fyMQ
+	 PJrxg8ms6x11WCb1ryTiPltSt+QYeAJinNHVpecKVCgqjy0sLMiGx0k83cJp4orDEp
+	 hK0DW/3Outxkn2sdWPm1l2a78M+rTs1KFy5r09Ww5R2lbukzefQyRt1v5+2EpLBSWR
+	 vBTcsrTQCio72mFDkCi47TM96QapYh9ntgmQ1KL20OFcxyFdJB/xT2e2cNsvt9h+gq
+	 vofQPTxDvMP2A==
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f20b304c0so60390185a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:42:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw5Ismxq++5nlJbLGcPdCfQsKBzqZCZVYKDORWN/iKWRD2Vr9Wlne5LNr/zb5ea9dVLvXpli+3vbF1pB3M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyR8KrqtuCsLLXCoeZT9C8QxWy8Rn6laZq2sMfFsKcCmHjgH/U
+	wnPZK7/D+EDoS55KgfOC2GJSR99pCksr98PlTaw8HF42Y/zM68s9iD0rwlvuO3tV8lTBYHDGNTs
+	7cP8XHJcLin1wRQnj2TEzPbllwPGiLcU=
+X-Received: by 2002:a05:620a:40c1:b0:93e:6283:eba6 with SMTP id
+ af79cd13be357-93f57f1cf03mr308028285a.38.1792575742833; Wed, 21 Oct 2026
+ 02:42:22 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,203 +59,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <atiDsmnUM7v2UJkY@pathway.suse.cz>
+References: <5fdb3777-95a2-48f9-bb38-aa4ba3c96a81@kernel.org>
+ <CAKEwX=MuW6q354nB3tyFTM8d3ox7LRaqcSfUxeATR=Sop5mZPw@mail.gmail.com>
+ <5ca344de-bc34-4a9b-ab85-f553811a1d9c@kernel.org> <CAKEwX=N05iOC4hmiyTt5OxjAsOfU7_V8xGfmK_RgUyrKtuyUTA@mail.gmail.com>
+ <CAMgjq7DJwGCHCAchcfi2Kcu+XHx2YnKXDj53e0t2kpG_GSejkQ@mail.gmail.com>
+ <aqgMCIOFi0dKx_6L@fedora> <CACePvbVMFA9N0nQers=sOnSXGbNhtNE0ewq47AJEH5Cr8imQXA@mail.gmail.com>
+ <CAKEwX=OMYhUs3tt7jUzEzxsOW3yA2JmzpwwxVBP2eZuHOFu=vw@mail.gmail.com>
+ <CACePvbUMjRgK=dQzLjECgBXaUtQSPdAnBXL1Y4=Kh5d15swYvQ@mail.gmail.com>
+ <5c8a2b7b-b76d-4bba-92e1-ec3d66794273@kernel.org> <20261014195354.GA371161@cmpxchg.org>
+ <CAKEwX=Mwc+D+AN-B5T7p=80fqCDijdsiJjd6aN_3YMrEQjyvwQ@mail.gmail.com>
+ <a24ca7b8-8b42-43f3-ad72-afe62f97f76c@kernel.org> <CAKEwX=OdbOrFbdihntP3rmcWJUyM1UpYa5n+pYjt_feMQwx8yA@mail.gmail.com>
+ <CACePvbVbMPZTrD5y=--XgBS+sa4CHb7e4RFTYCbWfzHzVc3vXA@mail.gmail.com>
+In-Reply-To: <CACePvbVbMPZTrD5y=--XgBS+sa4CHb7e4RFTYCbWfzHzVc3vXA@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Wed, 21 Oct 2026 17:42:11 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4w0A_xwGZrhZWqUB1Csj1QsMx3VzjwKuSSrP0ajymCw=A@mail.gmail.com>
+X-Gm-Features: AclHuK-Lnt40pgtt6cgtli_2uN4Jy8RyL6YrVOTjl81POv4J0v-Ixt1q8_SZhk8
+Message-ID: <CAGsJ_4w0A_xwGZrhZWqUB1Csj1QsMx3VzjwKuSSrP0ajymCw=A@mail.gmail.com>
+Subject: Re: Path forward for Virtualized Swap?
+To: Chris Li <chrisl@kernel.org>
+Cc: Nhat Pham <nphamcs@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Baoquan He <baoquan.he@linux.dev>, 
+	Kairui Song <ryncsn@gmail.com>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Yosry Ahmed <yosry@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, YoungJun Park <youngjun.park@lge.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	=?UTF-8?Q?Suren_Baghdasaryan=EF=BF=BC?= <surenb@google.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Rik van Riel <riel@surriel.com>, 
+	Gregory Price <gourry@gourry.net>, Wenchao Hao <haowenchao22@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Hugh Dickins <hughd@google.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Tejun Heo <tj@kernel.org>, 
+	=?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kunwu Chan <kunwu.chan@linux.dev>, 
+	Meta kernel team <kernel-team@meta.com>, Linux Memory Management List <linux-mm@kvack.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, linux-doc@vger.kernel.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/21/26 at 11:19am, Petr Mladek wrote:
-> On Wed 2026-10-21 01:10:25, Zack Rusin wrote:
-> > On Tue, Oct 20, 2026 at 10:04 PM Baoquan He <baoquan.he@linux.dev> wrote:
+On Wed, Oct 21, 2026 at 3:41=E2=80=AFPM Chris Li <chrisl@kernel.org> wrote:
+>
+> On Mon, Oct 19, 2026 at 5:35=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> wro=
+te:
+> >
+> > On Mon, Oct 19, 2026 at 5:28=E2=80=AFAM David Hildenbrand (Arm)
+> > <david@kernel.org> wrote:
 > > >
-> > > On 10/20/26 at 03:23pm, Zack Rusin wrote:
-> > > > Hi, Petr.
-> > > >
-> > > > First of all I really appreciate you going over this. Thanks!
-> > > >
-> > > > On Tue, Oct 20, 2026 at 12:37 PM Petr Mladek <pmladek@suse.com> wrote:
-> > > > > Approach B: Three lists: platform, smp_safe, and smp_unsafe()
-> > > > > =============================================================
-> > > > >
-> > > > > It is similar to approach A. We would just add an extra:
-> > > > >
-> > > > >      + panic_notifiers_platform_list
-> > > > >      + disable_panic_notifiers_platform_list
-> > > > >
-> > > > > This list would be used for smp-safe notifiers which are
-> > > > > required be some platform. It would be the notifiers which
-> > > > > are crucial. Which are currently the reason to set
-> > > > > "_crash_kexec_post_notifiers".
-> > > > >
-> > > > > It might be called also when __crash_kexec() is called
-> > > > > outside panic().
-> > > > [...]
-> > > > > This patchset, adding vmware_log_notifier, might implement just
-> > > > > the panic_notifiers_platform_list. The rest might be
-> > > > > added by another volunteer.
-> > > > >
-> > > > > How does this sounds, please?
-> > > >
-> > > > That sounds good to me. For v3 I'd do just the platform list:
-> > > >
-> > > > - One call in vpanic(), right after kgdb_panic() and before the first
-> > > > __crash_kexec(), whatever crash_kexec_post_notifiers is set to. The
-> > > > list runs before kdump and before the other CPUs are stopped.
-> > > > - One call in __crash_kexec(), after it has taken the kexec lock,
-> > > > found a crash image and saved the registers, for paths that enter
-> > > > kdump without panic(), like oops_end() or Hyper-V's hv_crash_handle().
-> > > > Once the early panic call has run the list, the guard makes this one a
-> > > > no-op. That removes the dependence on crash_kexec_post_notifiers you
-> > > > pointed out before.
-> > > > - A once-only guard shared by both, so the list also runs only once
-> > > > when a callback panics.
-> 
-> Just to be sure. I think that a simple static bool or int should be
-> enough. The caller is responsible for the synchronization. I believe
-> that it should be done by the "panic_cpu".
-> 
-> > > > - disable_panic_notifiers_platform_list as a boot and runtime switch,
-> > > > checked in the same helper, replacing panic_pre_kdump_postpone.
-> > > > - Kernel-doc with your definition: smp-safe callbacks a platform
-> > > > needs, which would otherwise be a reason to set
-> > > > crash_kexec_post_notifiers.
-> > > >
-> > > > Roughly:
-> > > >         kgdb_panic(buf);
-> > > >
-> > > >         panic_notify_platform();
-> > > >
-> > > >         if (!_crash_kexec_post_notifiers)
-> > > >                 __crash_kexec(NULL);
-> > > >
-> > > > and in __crash_kexec():
-> > > >
-> > > >         crash_setup_regs(&fixed_regs, regs);
-> > > >         /* Direct entry outside panic() */
-> > > >         panic_notify_platform();
-> > > >         crash_save_vmcoreinfo();
-> > > >
-> > > > I'd keep the second call in __crash_kexec() rather than crash_kexec(),
-> > > > because afaict crash_kexec() can return without a crash image, e.g.
-> > > > from the BPF kfunc, or from oops_end() before it panics. Calling the
-> > > > list there would use up the guard even when no kdump follows.
-> > > >
-> > > > crash_kexec_post_notifiers, the existing list and the kmsg dumpers
-> > > > stay as they are, and moving other platforms over can come later.
-> > > >
-> > > > The VMware log copy would be the only user, and it's still best-effort
-> > > > diagnostics: kdump and the reboot don't depend on it. It copies the
-> > > > log tail into an 8 KiB buffer. On panic() that happens after the panic
-> > > > message and any local backtrace; on direct entry from an oops, after
-> > > > the exception output. With the list enabled throughout, the copy
-> > > > precedes the later panic notifiers, sys_info() and the all-CPU
-> > > > backtrace step. The guest-crash report stays a late kmsg dumper that's
-> > > > skipped while a crash kernel is loaded, because the host can power off
-> > > > the VM inside that call.
-> > > >
-> > > > If that matches what you had in mind, I'll do it that way in v3.
-> > > >
-> > > > Guilherme, Stephen, Baoquan, does that work for you too?
+> > > On 10/19/26 14:24, Nhat Pham wrote:
 > > >
-> > > Hi Zack,
+> > > I'm traveling this week, so it's a bit tricky. I cannot make Thursday=
+ morning.
 > > >
-> > > Sorry I didn't check this series before, just trying to catch up.
+> > > On Thursday I'll be traveling back from Cambridge. But hang on.
 > > >
-> > > I like the Approach B direction: one panic_notifiers_platform_list for
-> > > platform callbacks that must run before kdump. While I have one concern
-> > > about the long term.
+> > > My plan lands on Oct 22, 11:10 PM. I should be home around Friday 1.3=
+0am - 2am.
 > > >
-> > > Today the list has only the VMware log sender. Later, more handlers may join
-> > > (for example pvpanic, Hyper-V, Xen, gsmi, SNP). When the list grows, someone
-> > > will want to run only their handler, or to skip some handlers. The easy
-> > > answer is "add a new list for my handler". I think this will be a problem too
-> > > in the future. Every new list adds a new global ordering rule and a new disable
-> > > switch. Petr already said we should keep the number of lists small.
-> 
-> My hope is most of the potential users won't be registered at the same
-> time or will be a NOP in the real life. Because each particular system
-> will actively used only some technology.
-> 
-> But maybe I am naive and there will be selection and ordering problems.
+> > > I could just naturally join that day.
+> > >
+> > > So one day later would work for me.
+> >
+> > Would that be too rushed for you? :)
+> >
+> > For everyone's convenience, this would be the time slot:
+> >
+> > PDT: Thu Oct 22, 5:00 PM
+>
+> Works for me :-)
+>
+> > EDT: Thu Oct 22, 8:00 PM
+> > Europe: Fri Oct 23, 2:00 AM
+>
+> Ouch, David. If you commit to that, I understand it is very
+> challenging. Thank you for taking one for the team.
+>
+> > China: Fri Oct 23, 8:00 AM
+>
+> Other swap developers: Kairui, Baoquan, YoungJun and Barry, when you
+> have time, please comment on whether you can make the meeting as well.
+>
 
-If they are all platform related handling, that's fine. The platform system
-vendor can wrap them up in one handler, and usually the handler is a
-msut-be-done thing. If a platform system user wants to add an action for
-their own, that could be different. I am not very sure either. Unless we
-can collect information and be certain this won't happen.
+I will be glad to join.
 
-> 
-> > > Currently, atomic_notifier_call_chain() runs all registered callbacks. There
-> > > is no per-handler enable/disable and no filter. NOTIFY_STOP_MASK can stop the
-> > > chain, but we must not use it here, because one handler could hide all the
-> > > later handlers. The list-level disable_panic_notifiers_platform_list can
-> > > only disable the whole list.
-> > >
-> > > I have some rough though, just for reference:
-> > >
-> > > 1. Keep one panic_notifiers_platform_list.
-> > >
-> > > 2. Give each handler a small wrapper with a name and an enabled flag:
-> > >
-> > >    struct panic_pre_kdump_notifier {
-> > >            struct notifier_block nb;
-> > >            const char *name;
-> > >            bool enabled;
-> > >    };
-> 
-> This looks good to me.
-> 
-> > > 3. In the dispatch, skip a handler when enabled is false. Print the name
-> > >    before calling it. This also helps when a handler hangs and we want to
-> > >    know which one it was.
-> > >
-> > > 4. Add a boot parameter to disable handlers by name, for example:
-> > >
-> > >            panic_pre_kdump.disable=vmware_log,hyperv_crash
-> 
-> I like this. I think that we just would want to do s/_pre_dump/_notifiers_platform/.
-
-Sure, the name is just for demonstrating.
-
-> 
-> > >    Parse it early. At panic time we only read the flag. We do not parse
-> > >    strings in the panic path.
-> > >
-> > > 5. Keep the list-level disable_panic_notifiers_platform_list. It is still
-> > >    useful to disable the whole list for debugging.
-> > >
-> > > 6. If the list is still too broad later, we can add a reason/class argument
-> > >    (for example PANIC, OOPS_DIRECT). A handler can then decide if it cares.
-> > >    This is better than adding a new list.
-> > 
-> > Thanks for looking at it. I agree we shouldn't add a separate list for
-> > each handler, and named handlers with their own switch on the one list
-> > sound like the right way to grow it.
-> > 
-> > For v3 I'd like to keep the series to the list itself. With VMware as
-> > the only callback, the list-wide boot switch already lets us disable
-> > platform logging. The sender also has its own sysctl,
-> > kernel.vmware_record_panic_msg. We can add per-handler selection with
-> > the next user, when there's an actual choice between handlers. I'm
-> > happy to help with that when it comes up.
-> 
-> Sound good to me. I would like to start simple. We could add the selection
-> later when it is needed in the real life.
-> 
-> > Two of your points do fit in v3 as documentation. I'll change the
-> > panic_notify_platform() kernel-doc to also say that:
-> > - callbacks must return NOTIFY_DONE, because NOTIFY_STOP would skip
-> > the callbacks after them
-> > - the notifier value is 0.
-> 
-> Great catch!
-> 
-> > The VMware callback ignores that value, which leaves room to add
-> > reason information later.
-> > 
-> > Petr, does keeping v3 to that sound right to you?
-> 
-> Sounds good to me. But you might want to wait few more days for
-> more potential feedback.
-
-ACK.
+Best Regards
+Barry
