@@ -1,49 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792568554;
-	b=ZVKQ5jAG8iq1oqqgHM2Ut43S/NaZ/eNHn6y1CgKxepPI4iEJOdCkUcDe7+I2EMDe8pIN
-	 Y/6B1pfXBz8qfVIAf2IhxIRcllgPZArex7eHANJEW0P5I99yHZkC+J+AYsX00X1SzXTu2
-	 8DVJCZ3uFsQaN327+6W0JSkISqH83GL3eeZm1gKpq3gntz316fIE6LZJR/k+TwBZfc8Am
-	 Po6xjyR4AjZPrzGZGPSCSjyIrIzZmY9LB7/jYmj3ozB6V4MziwH7IWvsY73vTW/UFzkhB
-	 B2obtIEMhn6PgdHvhFQR126TGDsO+H/c2cdU4mXB3+QoX0OIY8/rtLctv1019X2h+wg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792568554;
-	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=SrMJu/tPUiSUut5zE490wX9ihBWXDV4lmTuNbxq60bg=;
-	b=maYaxRykfn+/PEhd7nipLJsPxspKtG/lpbC5PKQCt7y6ROa307ypoH5wBU8mAEGUEJut
-	 0k56OXKM+YXgJoOF26cK0vA1iK8OCnwner8qOAACO4z2eo7dT3acx06vqz5iqxaLFUFRw
-	 pF5OT8e0jb6RlnF0HSaZ+zY3RkUSCGDyoN1V566UReHxvHRH+0YBw7eX2cEfsHq3FJWwY
-	 JMa2bAW98Wu9Yi3LplpB31pzRYgKmng2lSodFQtHzzErieyaG7MDm2YFzQrCO0aWd7y80
-	 9W5Ww4ueYYP11M9TVmJ4X2vbuYE8BDXYYxP6dbw6+SCEN2jlq10GyTitA41qnQ9xJDA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=tipi-net.de;
-	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=BXZG+It6;
-	arc=none smtp.remote-ip=194.13.80.246
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792568587;
+	b=hbWqnH9BBvwuHdjOQJEPAvqu9sMCPozbcAsspIH01TftiULHQ+xh3HjtDmx+VKE3J9ly
+	 DELOeb4iMhmVYd2ws4Fz4M3VuURrKMeD0ZknI4P/7qUVs1nK1x+cZRtXoDqwNEkHoKQ3V
+	 uXcy3g05qb3U8/a9nbMyt3Zvgq5wKu0l+aNgGgrJJ1Gmb8hPQyEeD5JR43drsESSA0wL9
+	 MEirLUnIGaFM8PBttQLXXrU/7T2ME5u8dTB1qg9/Cn/0KRNwxJQHAjgZty6gjo4dxgENR
+	 WaUXqrPvAzSPzl7YABFarQ/KQL2z6gfRPOvomFh8TYryTQP6B+XPnGvJzt0C3dSs+ZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568587;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=aSQcvITll7wH57L/2aSjQ+aqI8gm9ERD2id7WlCyn5c=;
+	b=OKmD4ZtsgtgSzFXKcSucDx4vbmXKYVDeWnrXmqhY3q6BZgv9ltUJ3JhgNqqwINkFciJj
+	 WF0TRv1eNwRX0v9B6HNjHsEuFH/anskGgWFh/wA2XtuFMTpLeQ7TPQZlri5d5uiRDhWUv
+	 sHk5HAq/tgrV7BE81zW/Q75ToJQjdYjM2EDGD0CWhvSBUisATO7z/1ZMOYA8ANpcjc3kU
+	 ZqZ7qhLp6atAJd4auCCuXFKeZnDVcQ485HpAvc24zyJVMXDCuwbPsG6kiPUvUr2eF8qwt
+	 /w+JMtmLDt849mgqipHfcqgoR/yGIO6EiDBgG6gzjPfaYGcCA+lEGDOQVMlFXAMrfqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ugdDEe45;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.58
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012058.outbound.protection.outlook.com [52.101.53.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888C6606A319;
-	Wed, 21 Oct 2026 07:42:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 888C6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6965606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:43:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6965606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=BXZG+It6
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1262DA012B;
-	Wed, 21 Oct 2026 09:42:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792568550; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SrMJu/tPUiSUut5zE490wX9ihBWXDV4lmTuNbxq60bg=;
-	b=BXZG+It6CtWbR7Obz+4TgjB+ZwtyvWP/bZ/K4akuDDZdysVL3gWs/GNx8uc92oQU56UJZB
-	hIPbTMZUSIAts9v27IKLJECoGZs6mZpJbV5Ic8w0mf5GO1TkMDsJj0vOSsrqp6dmo/LH5Y
-	FY0WmrPlzv2cUher+V0Z/kNSFc7Xz1IzX+e82rSvfUp+X2l1UF3wJXsgHTyWEBTVYthYzf
-	14CHKyp+ZSVPs8wM8PKX+oVWqG3Y5OppvovknOz+WYECCxgYMujkseVdEUC18+cN4jGAn2
-	5TEYCuf5w8X8aOtgxIZBzaa2LdfPZBy2QzKzvFxYqCBf7w0l4oQSjPtSXyWROw==
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ugdDEe45
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TjBWpu+E4XXwUMXsCwakSR55685mip60h5MojukNSJShcYYSuoaHteKjSmXxsJ8xrNJ1KnRcpLMfEIgkkY0w+wXlJsX7vjmYFFca+5OOq3ijCq3iQnXzl8D7uAzBTpf+pcHDli9HEQr8cuuxvhOXidYgFd3zFOuEntRfnA3YCpCCwfWP54Pf5HTJOPMd5FFI8qCoQLT5mlBQgrTUhKdRvD1iMTwb+UVtk1IQBeCmouLUtrl4VS/3jj3euMQDoMFM0BWVXmRfeU/TWWJXm84wl07SQn4LkyHfY6VSMHdCqwCSuILtNzUsmqT92kuPe5W2YxH8A5kaYeINmE9VeU99vg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aSQcvITll7wH57L/2aSjQ+aqI8gm9ERD2id7WlCyn5c=;
+ b=LCxwZuSh4rZPP2sc2ebkZ/M7cdpY5LEH3W+eS1PWmuEh3vfYca5jLzVc9YR5jQYRL4+CkcrX+M0KHq0V9LAj9TJw0NBGrkB63Wp7RoAoRVUNLU8D6fgig87HWCwdF62Zl64qa1CT4l8g/Q8wuCADYkbBL6GzclyvyO5u9VEDkEbS4RLgcAFw/z9E34Hp+xNoVGWwUuiaY60wJvkmlW11sKldqkOROPImBfRTZkrG6VmTIHd0IM/0i3MB4WB/yE7JB5SkXhzp76XVUo1rr3Jr5Olq/OIMCv5LX6/EKey+4R7rrzoBxOlxv5i5s56KByDISYSLIlujcydsAVobR0RdyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aSQcvITll7wH57L/2aSjQ+aqI8gm9ERD2id7WlCyn5c=;
+ b=ugdDEe45V79qtWOIFzlFe815iW8wKnRae2x7tZWXurXwhz8PvAa9oZOYTIVWW+LmVLbjifRfBfdgJsfl8L3ZwtVHDHzSAji2+iPq23CY/6cOsdfGWU6WGk5G563NyLhdgQdOQOsYBUhykEo9hnZg4gDxFAYU/8AOo/7PMdc68XljfWxBBZ3iLUi6vOSMJgLAmjzqBtRyjjGqtgVtM6yBnxAM3CpTQqXHA6pSwyDVYgJKjBrKokGeMZ4ZQE6IYZvUgf7CGIZyY9PHGUN2PZv4UiOZRAImdZipLIgTj/a5g/eq8nN/By9iTgAqN6lS/Ewi+lUNElteztinn9Y3EnUXbw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com (2603:10b6:208:31c::19)
+ by DS2PR12MB473522.namprd12.prod.outlook.com (2603:10b6:8:400::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 07:43:02 +0000
+Received: from BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9]) by BL1PR12MB5174.namprd12.prod.outlook.com
+ ([fe80::58de:822b:868:96e9%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 07:43:02 +0000
+Date: Wed, 21 Oct 2026 09:42:54 +0200
+From: Andrea Righi <arighi@nvidia.com>
+To: Hui Su <sh_def@163.com>
+Cc: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>,
+	Changwoo Min <changwoo@igalia.com>, sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched_ext: Reject oversized automatic CID shards
+Message-ID: <aths_re-QX5Er4Vq@gpd4>
+References: <20261021064946.1445728-1-sh_def@163.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021064946.1445728-1-sh_def@163.com>
+X-ClientProxiedBy: VIZP296CA0023.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:800:2a8::16) To BL1PR12MB5174.namprd12.prod.outlook.com
+ (2603:10b6:208:31c::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,130 +96,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 21 Oct 2026 09:42:28 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Michal Pecio <michal.pecio@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Steve Bayless
- <steve_bayless@keysight.com>, Guido Kiener <guido@kiener-muenchen.de>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Mathias Nyman <mathias.nyman@intel.com>
-Subject: Re: [PATCH 0/4] usb: usbtmc: fix undersized high-speed bulk packets
- on xHCI
-In-Reply-To: <20261021005654.23517441.michal.pecio@gmail.com>
-References: <20261020-fix-usbtmc-short-packets-v1-0-903f4d029193@tipi-net.de>
- <20261020184244.69b78d5e.michal.pecio@gmail.com>
- <a642dbc2e4ba0efc381c69e26821762a@tipi-net.de>
- <20261021005654.23517441.michal.pecio@gmail.com>
-Message-ID: <5f7be4fcf5cb8c3b60e8acc5312d9980@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL1PR12MB5174:EE_|DS2PR12MB473522:EE_
+X-MS-Office365-Filtering-Correlation-Id: a736f1a4-60fe-407d-290f-08df2f46ef80
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|22082099003|18002099003|10067099003|3023799007|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	UTVqct0aWwLscMFr4hyzPxFs7EW+vsp10/Pw2AlfC/O7CVWZfR7lw2ljd3mIFWhEO8OmX4mO9EIkO3Sdhx0Ek0IyBtj+/vDaZXPwiX8xcqp5tnucceWrqfxv2rfXrfvzAX3/D2gie/d7hiUXJknefGCkYO5ZjnsXZ2NtGYzb3LE4XlUKXjKasdqae1Sw98ZCUQn6CXB64cd1wSBML7psxqkglu4m20QNEdSPn/PEfMeIuaGHXPXTPbpd0FqkvcZt3GjobV0s1AOJ2STJlKiXC3tRN0hmV3uf7oyVpGhDB0M+wJB/SDbERZzlq/vZXWvtZKlxBkxC5POyQggqjKS8qxZpwut9JF3Deqa6TBCGqEXPNM69lI9D4et+63LfF2n0TAOEfwEiEXqVuRocnjcqUav/EOdy5HjdkNi/KmLY/hYOvB3GN/q9uZAyoVkPiXkWRU8Z6ia7/3tw1z9Q1/1qXpdJltBWNKGC6QuWOjuFde9ogBCrfru9/A5QuCfQ8EgCsmj/Fey82H5RvU+6qK+A3lJpA2MdAFtvJ864fUGbTzHYublCpuIN8lPb9l0eVsZQt5RUzB5WoRsS1J3sGbzocApp5+W4xDzzE495bm2ANmv5cDXrtDhuOk8QqZDVPciKfv7UV0NMVosQkUaYUL6nyQKAHv4ylbI6lh5SBcSPUfM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL1PR12MB5174.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(22082099003)(18002099003)(10067099003)(3023799007)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8V0G8MMC6DV7PD1g+pFpt8TLGTb7CHeEvHertLYTtmq5Cwt++EgB1KtZYNlx?=
+ =?us-ascii?Q?9r1ePRu0RUuD7dklF3FJoJHT1JheOBgXB21WSjQzOKiIvTP5n2cop3p/ykk3?=
+ =?us-ascii?Q?BAGhQowVLy2osYCwwUNZ7TwfcfLygFWo1lExddnYu53OKKQMUejOO/pb1Aq4?=
+ =?us-ascii?Q?hEnTUr6UHSjc7U36IFMzDTRw7NiGEh/S7nird+FfuaGPD66xLGzWELRugzfF?=
+ =?us-ascii?Q?+0yUBPdDbH9BeMjP2Z2UYc2dwWwlK7/YjY2zW65PYXWLMcJpAG8ALUuZqWKu?=
+ =?us-ascii?Q?S2FAbpVzVg9gwI4PHtx9l4V8vq9NOdwevHYi/ywVfAzeJ/HPTOa2UfG7AWDA?=
+ =?us-ascii?Q?mnH7IiEWANAwK+FAh2GYpAQ2gkvYUzwtAG7H1/vNdGBGrITT+6NfnlNXkBhO?=
+ =?us-ascii?Q?J3zc5Uni/qH+fkcZGs2sg70pNeYxCn1BHoqnVrj0cvwtHpAurXhsVDiu12M9?=
+ =?us-ascii?Q?+iRwTyp26gib2Zmzw9R1aHjN9FYKiWOuVUvhunZoEFKejeCKlsfdDZxkp99m?=
+ =?us-ascii?Q?zbp4ef5EF+rAYhdWXlWs/mEzNG7lPvo2zNZb7vruneo+JFkQNpZdGkmWaV5F?=
+ =?us-ascii?Q?kDZWD7CI5gwD9pR5zG5pgsW7W2m1HZhy1SfYoWoLTiKsQzpDpRklfTKmlFvG?=
+ =?us-ascii?Q?HRmkex8PORDhp+Ciqdd1YSluvBFnhouwRCSMvQy6PvKFkmYfkDCZtDG2Mudy?=
+ =?us-ascii?Q?LST4SoHy+l1uFP3Q8mJqIgHJqvOe8iZ1y8WRiPt7o7qwut4XAkJVkHjuORUn?=
+ =?us-ascii?Q?kk5smj104ONm/v4RqT7H3Gc2FF73Zvj8tUstEHL/Zw6s4y52uLkAnlqbXF37?=
+ =?us-ascii?Q?REJIXQqPYXAMuqKUt2lm8Xo6jQNV6JYRcOme//iJy+uxd4fV2F55TVSgzspw?=
+ =?us-ascii?Q?zwYVkRVFUZCviUw4DDyN90pS1XQK253wGA36tu12Cs1U0of13FD2fQpwWes4?=
+ =?us-ascii?Q?VV1UzH7hHvhlIfJPbwFpkqanH1OuWiQhjo/FsPcWlCsY8ZaS9jABJx6NTQpd?=
+ =?us-ascii?Q?34g58j/Qpn7psCIWkqPxzEpS0bNJ1mdYr0ATBBvi4x0/O8fmhnB3Z3lI2+0p?=
+ =?us-ascii?Q?LvBtfz4v9vrpSHCZPIByCFvgJQI2JFpejx/otnsigeCyQRMzTLfS4RXZjpy0?=
+ =?us-ascii?Q?HsQvfKvAwfbNbCKlXY2dBFjLde7R0dQWZmmXeXBFflvhCHxbo2nQ//g/7EIE?=
+ =?us-ascii?Q?dKBkyylfy5TYW0ZzSXlMvVuk/pL0I2IsjP33tNzRAtQ8dsk+4/RVhcKw7K3H?=
+ =?us-ascii?Q?iqc8Howyt1wrAcdAvWGYodK58tfbM6cRPRh1GKbZ0iHY6Jr2nY1vZRv9QHW9?=
+ =?us-ascii?Q?HOHNJ5b9Ifa4XFT4kuE7E+LRb85PikLQLO9Qb7T+F5MxS1hRoy6vWcAIP/Uw?=
+ =?us-ascii?Q?/qwqNZfcvZ/+zNS1KxwQgfCykpXJF7zkuMZKfoSxKdLYFesoV0EROU/wsO8F?=
+ =?us-ascii?Q?QIgQuMmlGUwnY4SAC0jGxe33qnQnJy/0vSZQI080y5yN1j2e2c/id6fLtRPz?=
+ =?us-ascii?Q?vesXhvT2jqvh1BLFdpVA8YwENtpI2Zvq96BADdiOs9XSb0qQk/GJn1V8Gkh/?=
+ =?us-ascii?Q?suUQAG9bJqxgWeJC9fi1dXhbq51yCrv9YUY3s1si1B5Sclgdmni5UzyLEkn4?=
+ =?us-ascii?Q?kc0Wmq4AvymTq2+EYgo1Xdt/dYveOZFyN4O8UlBGTTMM3r+OLKJby2ZyXvkx?=
+ =?us-ascii?Q?562SBpxyDocZdgj5pFzqMO8bAU12sXwAHUnoR3NUlLmDNvB6?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a736f1a4-60fe-407d-290f-08df2f46ef80
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5174.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 07:43:02.3649
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z323wA8fe2yXqui8qMNNkuvqXlab+awesR/AFZNq8FsYd8bHOYemxA/8yg+exuuTLVVEq3IRC+Whk5lxQoOzQw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB473522
 
-Hi Michal
+Hi Hui,
 
-On 21.10.2026 00:56, Michal Pecio wrote:
-> [...]
-
->> So this looks like the better fix. How would we want it gated, a USB
->> core quirk flag per device, or per controller?
+On Wed, Oct 21, 2026 at 03:49:46PM +0900, Hui Su wrote:
+> Automatic topology packing starts a new shard before adding a core when
+> the current shard would exceed its target size. However, a first core is
+> always accepted so that cores remain indivisible. An indivisible core with
+> more than SCX_CID_SHARD_MAX_CPUS CPUs cannot be represented without
+> exceeding the hard shard limit.
 > 
-> [Cc Mathias]
+> Per-shard state uses fixed-size inline cmask storage sized for
+> SCX_CID_SHARD_MAX_CPUS. Passing an oversized shard to alloc_pshard() can
+> therefore make cmask initialization overwrite the following fields.
 > 
-> Good question. Do you need this fixed in stable?
-
-Would be nice, as I've also seen other reports of this issue with
-Rigol / Siglent test equipment. Otherwise I can carry it for a while
-in our tree.
-
+> Reject an indivisible core larger than SCX_CID_SHARD_MAX_CPUS before adding
+> it to a shard. Existing non-empty shard splitting already keeps the total
+> within the hard cap, while an indivisible core may still exceed
+> cid_shard_size when it fits within the hard limit.
 > 
-> Depending on regression risk maybe we could get away with no quirk
-> flag at all. That's what ehci and dwc2 seem to do, which means that
-> hopefully no device specifies illegal packet size while using 512.
-
-They do. dwc2 just takes usb_endpoint_maxp() as is, and ehci even does
-it on purpose, see qh_make():
-
-         /* The USB spec says that high speed bulk endpoints
-          * always use 512 byte maxpacket.  But some device
-          * vendors decided to ignore that, and MSFT is happy
-          * to help them do so.  So now people expect to use
-          * such nonconformant devices with Linux too; sigh.
-          */
-
-So I'd suspect that Windows takes it as is too.
-
+> Fixes: e2c841b91bf9 ("sched_ext: Add CID sharding")
+> Signed-off-by: Hui Su <sh_def@163.com>
+> ---
+>  kernel/sched/ext/cid.c | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> Other possible risk is some device doesn't truly care (no transfer
-> is ever large enough to matter) and works with 512, but setting its
-> requested packet size (needlessly) breaks some xHCI controller.
-> 
-> Such devices seem not very likely to exist, though more likely than
-> the former kind, so I will try to test whether such xHCI breakage is
-> possible. Preliminary results are encouraging: although several of
-> my HCs reject packet size of 1024 or corrupt data, 64 is accepted by
-> all but one. I haven't checked for corruption yet.
+> diff --git a/kernel/sched/ext/cid.c b/kernel/sched/ext/cid.c
+> index 4b08866d75f6..3c38650d78d5 100644
+> --- a/kernel/sched/ext/cid.c
+> +++ b/kernel/sched/ext/cid.c
+> @@ -287,6 +287,9 @@ s32 scx_cid_init(struct scx_sched *sch)
+>  				 * empty shard.
+>  				 */
+>  				cids_in_core = cpumask_weight(core_scratch);
+> +				if (cids_in_core > SCX_CID_SHARD_MAX_CPUS)
+> +					return -E2BIG;
+> +
 
-Thanks for testing!
+This requires more than 512 SMT siblings in a single core, which doesn't
+exist on real hardware, but it's possible to trigger with a synthetic
+topology (unlikely in practice, but not impossible).
 
-> 
-> I will also see if I can figure out what Windows does in such case,
-> because doing the same thing as Windows may be the safest bet.
+In fact, I've reproduced this with virtme-ng (and CONFIG_MAXSMP=y):
 
-Sounds good to me. Doing the same as ehci/dwc2 (and maybe Windows)
-feels like the cleanest option. Happy to test whatever you come up
-with on BCM2711 and RP1 xHCI with the three devices here.
+$ vng --disable-microvm --cpus 600,sockets=1,cores=1,threads=600 -m 4G \
+       --qemu-opts='-machine q35,kernel-irqchip=split'
 
-I can also check on Windows, but I'll need to look up how, as I'm not
-really familiar with Windows internals anymore.
+Without this patch, loading scx_qmap triggers the WARN_ON_ONCE() in
+__scx_cmask_init() and then panics with stack corruption in
+scx_bpf_sub_caps(). With this patch, the scheduler is rejected with
+-E2BIG.
 
-Given Guido's reply and the USBTMC spec (the host "should not send a
-zero-length packet" if the last payload is wMaxPacketSize), I'll drop
-the usbtmc series and work around the Rigol ZLP issue in our test
-software instead.
+However, the only thing reported is "scx_root_enable() failed (-7)",
+which doesn't say much about what went wrong. Can we report the reason
+with scx_error(), similar to what scx_bpf_cid_override() does for
+oversized shards? Something like:
 
->> >> The Rigols still have one issue I can't work around. They split
->> >> replies over 500 bytes into several transfers, and a follow-on
->> >> transfer that ends exactly on a packet boundary never arrives. Raw
->> >> libusb shows the same, so I guess it's another firmware bug. Should
->> >> be fine for most use cases though.
->> >
->> > What exactly is the sequence of URBs you see vs would want to see?
->> 
->> The Rigols split anything over 500 bytes into two transfers:
->> 
->>    REQUEST_DEV_DEP_MSG_IN #1
->>    IN: 8 x 64 bytes (12 byte header + 500 data), then a ZLP
->>    REQUEST_DEV_DEP_MSG_IN #2
->>    IN: header + the rest
->> 
->> That works fine, unless the second transfer happens to end exactly on
->> a 64 byte boundary (e.g. 640 bytes). Then the device just never
->> answers request #2 and the first IN times out. I also tried leaving
->> the ZLP from #1 pending until after request #2. That fixes the
->> boundary case, but then the device randomly ignores request #2
->> instead (roughly 1 in 5). Raw libusb behaves the same, also with
->> maxpacket 64 in xHCI, so I'm pretty sure it's just another firmware
->> bug. What I'd want to see is simply the second transfer arriving :)
-> 
-> Doesn't look like any obvious xHCI problem to me. Did it also happen
-> with those USB2 controllers that you used previously?
+	if (cids_in_core > SCX_CID_SHARD_MAX_CPUS) {
+		scx_error(sch, "core with %u cpus exceeds max shard size %d",
+			  cids_in_core, SCX_CID_SHARD_MAX_CPUS);
+		return -E2BIG;
+	}
 
-Yes, it's pre-existing and also is present on dwc2, which is what we 
-used
-before. Replies up to 500 + 480 bytes are fine, but as soon as the 
-second
-transfer ends on a 64 byte boundary it times out, and some of the
-missing data shows up later as garbage in the next reply ("wrong
-MsgID: 79 != 2", 79 being the 'O' of RIGOL). So that's a firmware bug,
-which I can work around in our application if needed.
+With that addressed, feel free to add:
 
-The only real blocker is the strict maxpacket handling in xHCI. If it
-could be relaxed to what dwc2 (and ehci) already do, that would help a
-lot!
-
-> [...]
+Reviewed-by: Andrea Righi <arighi@nvidia.com>
+Tested-by: Andrea Righi <arighi@nvidia.com>
 
 Thanks,
-Nicolai
+-Andrea
+
+>  				max_cores = cores_per_shard + (shard_local < nr_large ? 1 : 0);
+>  				if (cores_in_shard &&
+>  				    (cores_in_shard >= max_cores ||
+> 
+> 
