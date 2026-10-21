@@ -1,94 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792611022;
-	b=f4ywms9C5mV4dnlwJvNe5Eh4QooA0ZUZkSRxyyCMEgNKQliI2UigOvIj8GMcC7IewM66
-	 nCj1h/lAQnw7bzfE6h9BEV5gbEh5SGiw/+xsaiCyHSyDIl/CzDRbaFlV0x9R0HP2UI0b4
-	 RodjaD5+qvLQLpyjmJFzRBarccONz/47XtBwwYc+wPiD5NFdcO52EG19Omd90TYHtcPYR
-	 dG6KVz0Egd3MUO21w3PbG01ahZY6s8r4iDxzPSptQYeK8qDm3LvDBjHtz52QJiQj5BSKP
-	 NUXxbOqo8r/sK3F59q5DOd8qaFmXK/tmnrdkJ8XWcHExss1TnLDdNFshlpIIiYcRXBg==
+	t=1792611102;
+	b=FzQAt5iCfNkepwdDY2moI+e1Hm8lI/kMuqiFAMwxr+F226Qd4mavr2w88G6rshaWmjoi
+	 TQy3ZArptMdOmE5d8YA0zUGDXxVN6ln8qDXQD+KjbQHut0RJucp5LhzUj8plPrbArl2m/
+	 mWQ1XAx3AhtqjpAQQRmFmpg3J/ra/ADiscYyU46JIC0cjojYZ1HVHCzJef4xj4zsFa68q
+	 m6C1R4Ysv8yeFRSCGVopSkrr/eknOLfbcsEu3/fYu4xQi2lnMdIm4ivmx/Qh/6xA/D6hS
+	 LM/jGobCE1fso46vfoeK5MG2EOOSDb2OZUItENVFMRKyZ0diQY+RIwe3OaTWCqewSdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792611022;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792611102;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Organization:
 	 Content-Transfer-Encoding;
-	bh=FVem4HDPdj0ylTWviCW9/5t/RL/Ax9AlEndJECBbr54=;
-	b=WAxFgd2611YQUps4S4rZhW9etTBDPoLAuI1NpMAhnN/yDrOdH+g6HALfOkvAaVFs1sBu
-	 mMKAXptsrFUgk3ZT1/KvLzn+mEkLQATH4jSaUQmRwhbm4TUlB3hFQ7WNDGIDS962m84se
-	 G2xJOQobXCtIyTRJINaxR3JG1w1glvEdx4LqZ7ZtVFckJ20Eu22/5p/F20oQ88yzKeYAN
-	 nW5qD7K/+qeQZRQtaXKBb9mHu9sAkQQ/EtacvEavf4CJ+SL1+zB5K90VNAOXemPwIdOcN
-	 PdY+/16q2/Cl2oAK5dIyjgTlF/t+GmStfmTjyP66yryW8QTnFJou7igYSZFH+bE81YQ==
+	bh=3dwvi8Bpy2jkTM5NMOT9ZeaArUVyCEJHSfhITQg8gn4=;
+	b=sj4yD6uQD1bW9v03Opyx3Pbk55mghoFpLpIC9Jn5UiEIWBh11nKar2aQSX71acOY+6T/
+	 4YpaTdxr45YG7LYm/Rk9324a/WN0c7ttJWgkPRxOZjRU6HAL8G+270G8zR5aYED1JitBT
+	 mgNmWz1tvvW4nCD1rLhQGe3uhOji7VOdDGe3GZpMh7ofr+6YnCFY3ZxGOcrRGx+DEcSUS
+	 OkvLh8ZVjitsq6vB/uIxmtQtZSNEO9kWiAeD6PVshWX7HLd8S1r8mckUOo2KmPRqIjWpl
+	 atigP1MIuKqgsibpejmWxf91EpBMAMVW0DSa+SlUayxE7CBfkL/Q5tgBpdA5tcjw+zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ebe0LduK;
-	arc=none smtp.remote-ip=209.85.217.51
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UAOaPcP9;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B45606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:30:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92B45606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8848606A319;
+	Wed, 21 Oct 2026 19:31:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8848606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ebe0LduK
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc53938a8fso667445137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:30:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792611020; x=1793215820; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FVem4HDPdj0ylTWviCW9/5t/RL/Ax9AlEndJECBbr54=;
-        b=ebe0LduKx5Zxrv4TLRZSOx7scv/d1CtMFA5nivOaBt7J8XXZcGqpOzT/z7Ix+bMIiR
-         aHfYde+pkHxPrPXk3eV5LM1fzf3w8XcfRME5DkrFbB6Q1NeooM5TBdAB0GQNFv5cacoe
-         jTT7PIxjsYi7Ox++xCQpoaX8z8M30QvVxkIje8yPwBnxdFl7gLkfUgUNSc578ceEtgUs
-         17mfRuf0sz5o5q+kbZl9eidhP4HKLZFtEHLU8yb+3Y378mbxUE4PoZ/K40jj4PP8i9gh
-         STxKDvHh/DZMZ005TX0g+wiTGX+MuL2K3XMC8UFwcTsUDqrLM9R26ar+IFHB5t9NNh0H
-         RCzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792611020; x=1793215820;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FVem4HDPdj0ylTWviCW9/5t/RL/Ax9AlEndJECBbr54=;
-        b=e1yR86qiq5IPMPtdSXr+w8mcqcUtXaKs1Fpl9M9OEKHuMkcxip3KqO0Xf6TTxpoUb9
-         b5JIUf4k9QXDFPyl0Y1oGBTOGTL0EABj3fv3XDGy3fEUHBLIoD8OoYnLWL3ZIRsuGJWA
-         Pwn54/TI6NOk/LoD1ql6rSSO2uMV68RuHU7RAPBOy5VUwokvBiKMET9Y/TDgT1xj7bi4
-         jw20N275hyJOg6uBoKz3tvFhG1V9OtFUUGmvSlPXylI/e0iIUoHljUMF8fNjfa6ivKei
-         OZywEhbLZCalVb5sl7LhDYzhBmBwKV71OHFSZMsne2BKDIz9sRyO34XnP9oUWh6iiHbw
-         8K2A==
-X-Forwarded-Encrypted: i=1; AKwUvByUg6gDuCC82wsVCJKh472CPrHKTTecfHgloqTtS/S32ifb6nHISsagyN+TT01Ql1xcIbCgg4XTmoptALw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQ0ZPaTAu2oEEHz/IHYBDesFEoB5mVjpmK8vYUyT6HMRW39WgR
-	TdrAIX3KQM2yPUL3dMUIiYzytsfoDd3ti9/kACXaof2OM+5tt+h+yKe6c17b9TuC
-X-Gm-Gg: AYBFou3GHroLp+4Y7uFFK1Kmp4kqIinO3UdEANUnUCNDVvncXx2Hkc6qMAf/iDBUAxA
-	+39g1e4aMdTLQCq8KFeESVLpm6gY85t5eyqH7AxgqMTFusy2Yx2oTq+MSZfLhf5LoFok3NbPIWf
-	a+NFmZSKrWYjMb7CkHOUWX1nE3fpwbGeScytsPckbQcrXHB/twlt+uQWDLFI6Ja118LM/3djSXQ
-	ERr6IeLUDFwUt3RWWZuE78qJHjG793tudITZU2wuDIPt2VNmGvgpxhiLfANqoP/ouo9T1iCJ9qL
-	oBi+E7xFC5kUjoctvcPalI3U7QgRvrX07FEKn6toKP1YRC/fLx7s6aQE05LqmU+FP2AVSuESrjn
-	aWP/XczJKNdpaAbOEEb+vjUD/7ypex5tNf/uc/YnSHuRXUI7MNP9x9fnG7vyAN4oOTST/zXdbJj
-	4wYwKiHMV6Etqh0iuKwaxVwaJoOYCDairclBalW030pw/w5eN7KrCnoSU7vfbEwFi/NSDZPjuSA
-	rDWtfZZD64PFcCgghm3qp5zhOCEUXriqWXFS3j1TRWOyFAzBnAz4LvebHZ6WOJmjMHD6IGacs3R
-	tFiXZpNk9EM7s7z6NMpEYVOqzmmD9zsOFjxUWFDARZFa31hgy+R8AHC6BB54vlunSjujRM7IVlx
-	4qZbK9OZKfd+FcPX7ANsWSIq4Tcsy9xioLDkzHwYSJ85riNuV9zTyrDRVVOs=
-X-Received: by 2002:a05:6102:f81:b0:7cc:80ba:5e5c with SMTP id ada2fe7eead31-7cc926283abmr1384658137.6.1792611020525;
-        Wed, 21 Oct 2026 12:30:20 -0700 (PDT)
-Received: from bruno.localdomain ([168.194.106.37])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d11db523sm4136093241.11.2026.10.21.12.30.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 12:30:20 -0700 (PDT)
-From: Edson Bruno <cloudflare.ddos21@gmail.com>
-To: dmitry.torokhov@gmail.com
-Cc: linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UAOaPcP9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792611102; x=1824147102;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=THW4sdUtHqOvMX2OSOZLFucPcnAbZSf+yoP9iqHJj0o=;
+  b=UAOaPcP929jm4FMA7riUf7QsW8mA9lSfilQ+kQAq4wObaniwCQAzq5M+
+   BvltSC7Vbm5QlYjcVJZp5u8Lkbz25aaRtJow7VeU2kCFO4Ot2AxFFxPr6
+   H8qxk+DdWzlepbMAGDVExwHdYViGnHhXX+iTJv9AuNQYfBskmz88HuBme
+   Js6fA2ehL6GKITeVzB0ms1CUzJBSvpDLoEyE5tznCR8vzZO1xTEOTO6bZ
+   prW+G2DsJY9b8dCtUuPOD7mBbGsJUaIZ/6O1IfBsi2gi9VhfJ5puVgjbO
+   W7vd8iyIUqQO+4RuJZBlbKXiLP57CKMfA4Q8zqgveNXGDhSyVsJNmbrCF
+   A==;
+X-CSE-ConnectionGUID: 0c7l5wpGTT6DIRPt8I2V1A==
+X-CSE-MsgGUID: MqElsY4cQvCk2pf/nvILJQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1382505"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1382505"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:31:40 -0700
+X-CSE-ConnectionGUID: cu1H3ycBS+WuGh32R4bVOA==
+X-CSE-MsgGUID: LKEf30hhR3KrVvjqgvin0w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3170385"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:31:37 -0700
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	eballetbo@kernel.org,
-	sebastian.reichel@collabora.com,
-	Edson Bruno <cloudflare.ddos21@gmail.com>
-Subject: [PATCH] Input: exc3000 - zero-initialize vendor response buffers
-Date: Wed, 21 Oct 2026 16:28:02 -0300
-Message-ID: <20261021192803.776-1-cloudflare.ddos21@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com
+Subject: [PATCH v3 0/3] arm: dts: aspeed: add Intel AVCRP and JNCRP BMC platforms
+Date: Wed, 21 Oct 2026 22:26:39 +0200
+Message-ID: <cover.1792613583.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,74 +86,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
 Content-Transfer-Encoding: 8bit
 
-exc3000_vendor_data_request() copies up to EXC3000_LEN_FRAME - 1 bytes
-of device-supplied data into the caller's buffer and returns the length
-reported by the device. The callers (the fw_version, model and type
-sysfs attributes, and probe) pass uninitialized stack buffers and do
-not check that length.
+This series adds initial upstream support for the Intel AVCRP and JNCRP
+BMC platforms based on the ASPEED AST2600.
 
-If the device returns a short reply, fw_version_show() tests and prints
-response[2] and response[3] uninitialized. If the reply is not NUL
-terminated, the "%s" conversions read past the copied data into
-uninitialized stack, which is then exposed via the world-readable
-sysfs attributes.
+The first patch adds the board compatibles to the ASPEED binding. The
+remaining two patches add the board DTS files and register them in the
+ASPEED DTB build list.
 
-Zero-initialize the buffers. At most EXC3000_LEN_FRAME - 1 bytes are
-ever copied, so the last byte stays zero and the strings are always
-terminated.
+Dawid Glazik (3):
+  dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
+  ARM: dts: aspeed: add Intel AVCRP BMC
+  ARM: dts: aspeed: add Intel JNCRP BMC
 
-The problem was found while reviewing the driver with an LLM assistant,
-which also helped draft this changelog.
+ .../bindings/arm/aspeed/aspeed.yaml           |   2 +
+ arch/arm/boot/dts/aspeed/Makefile             |   2 +
+ .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 322 ++++++++++++++++++
+ .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 276 +++++++++++++++
+ 4 files changed, 602 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
 
-Fixes: d862a3068ea5 ("Input: exc3000 - add support to query model and fw_version")
-Assisted-by: Claude:claude-sonnet-5-5
-Signed-off-by: Edson Bruno <cloudflare.ddos21@gmail.com>
----
- drivers/input/touchscreen/exc3000.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/input/touchscreen/exc3000.c b/drivers/input/touchscreen/exc3000.c
-index 037bb35238a3..40d74f6deeb8 100644
---- a/drivers/input/touchscreen/exc3000.c
-+++ b/drivers/input/touchscreen/exc3000.c
-@@ -262,7 +262,7 @@ static ssize_t fw_version_show(struct device *dev,
- {
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct exc3000_data *data = i2c_get_clientdata(client);
--	u8 response[EXC3000_LEN_FRAME];
-+	u8 response[EXC3000_LEN_FRAME] = {};
- 	int ret;
- 
- 	/* query bootloader info */
-@@ -292,7 +292,7 @@ static ssize_t model_show(struct device *dev,
- {
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct exc3000_data *data = i2c_get_clientdata(client);
--	u8 response[EXC3000_LEN_FRAME];
-+	u8 response[EXC3000_LEN_FRAME] = {};
- 	int ret;
- 
- 	ret = exc3000_vendor_data_request(data, (u8[]){'E'}, 1, response, 1);
-@@ -308,7 +308,7 @@ static ssize_t type_show(struct device *dev,
- {
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct exc3000_data *data = i2c_get_clientdata(client);
--	u8 response[EXC3000_LEN_FRAME];
-+	u8 response[EXC3000_LEN_FRAME] = {};
- 	int ret;
- 
- 	ret = exc3000_vendor_data_request(data, (u8[]){'F'}, 1, response, 1);
-@@ -410,7 +410,7 @@ static int exc3000_probe(struct i2c_client *client)
- 	 * or two touch events anyways).
- 	 */
- 	for (retry = 0; retry < 3; retry++) {
--		u8 response[EXC3000_LEN_FRAME];
-+		u8 response[EXC3000_LEN_FRAME] = {};
- 
- 		error = exc3000_vendor_data_request(data, (u8[]){'E'}, 1,
- 						    response, 1);
+base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+prerequisite-patch-id: 3af4bd880f896c97741b54ee18845b305a4bd061
+prerequisite-patch-id: 23091b539ec7723a865d82da7703bf70c6ed0222
+prerequisite-patch-id: ac42a7a373fdc407f6377d0b1c74d728af50ba42
 -- 
-2.53.0
+2.43.0
 
