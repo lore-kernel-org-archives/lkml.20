@@ -1,54 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562829;
-	b=kjoPS1Ab/xgtcuX0KeyLmyYlY41nqr3wUP5WED9Flmj5q2cEQ3DjH79o3nxtfK9Z8Nnw
-	 rXObJPTNnpJqrsXOZTwE4eRHgpAYDNA5yLDx5zq/HiGBMVE0YwoO2xnF2VjrFcVTmOjnZ
-	 buB/cvhiXCgYFs1x1f9z96t2DyaNp7Mz6g1EsbQyewAaFD3t2KuMd3gMxZX84cNZ6XzHD
-	 M6sg3mTiGa77ljegoSqxytNF9FwaUwxwphEO4krDOWUR7ik1Uin7b3t5Oqaxess30bh9R
-	 IPu8CZiZy/U2oIyskjaJn1sPGowou1YEDLz1B1P/l7tqxz7yBFzUaB5MTwga5oAY7GQ==
+	t=1792562860;
+	b=WoldVlmiNF4zWGjdczient0tROMuBUea2f2o8l3F9sHzxDZKIfdnKYSVHC3VA2EtsfSQ
+	 EMTzoy14gDbJ3x9W+FY+gsiMmwkZhdZ5mtYauluwy2GThBT5wkoCS104rucOfqGSYwdH4
+	 tcBwxbPtSdn+wFvgdES1QRZgqxJVXNigrL5XBkeqlhXuZYUlHFPCiv3x29PY59AUwQ1vv
+	 psLoAc43AZ0fNqQ5Rp5k2v6QD3o3zphlCHBnkUg6EppP/LMkimViwpwP8N4Wsum1rAfRA
+	 god6WXDAJExPJeXmTzmLkgxOxzBizeCWANqZFvqJ7JV04JZ89L8EhbH4Yp+sVay68Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562829;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RWXu4jpq1GrCvUDpKd/ed8T68hCMT6wRiDitfxefxoY=;
-	b=g8e/XiR8G+XfzpZtNK0MS+rcHMfty3GY/+4c2xobOwMo7FhZnipFUf4D9L5Rexxmh5JV
-	 o88Z78YFPJvJOrjasSn5ErW3HZKqLagzcdAO9Sd2/0Ow35P427Yeez/MGFttgYWJCPM7+
-	 ftaLJHEISt56XpUcc0h7lE9FajI9ElD9MnfMGWtcZanoHUkvTCZjxN6ccg1GWnJzcULAa
-	 K4d3aeFdGWvP7sA9vT0mmv2cWB4QHR1fclsAgQZR2atUlh4ZtFjbXmAYUi1TsCXyUlysC
-	 5f4/wAb2s+LOtEAbdMM2bPoRvm5zJxJZ8bDMDmWla62IA76C6lS0j0DoF58Z0nCoq6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562860;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=hJTbezORZnYJia58M/w7jTBC+CsV7fk7tMYV5VsvrrY=;
+	b=pip6vWZpOQ8Dw2fSHj2JbFpvNN0UBrpQ4m5A4bxAEQZd+PBlquu6m9NQD3cEtIGLaybF
+	 1XYd5S+MqWV4sbtN8H6foO/eMK+tekYBmV3DVEuIj6qXI+LvNMHwriMOm0SukcnlwdUGw
+	 zdAgZOic/8degK6LbXNqsPDBZCuvIdLuMovzdGORBjQO8uvg7RwmNnsrsgJ+2x9GFisGm
+	 Qd2o4t5Lib9OgxpiXCBey1pcMPADXFgm/orODEfFymsHTBL+M84jVMQ4k50Vv+D5nqTjr
+	 w0nRNwnYYCId1XoMfRl1t6yAUmejbIrZQrwJwfAVvRnEfHhvdmL3iJHLzhyvHet/23Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=UFtZhN0F;
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="NWZp/CLV";
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD58606A32E;
-	Wed, 21 Oct 2026 06:07:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CAD58606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8D4606A33C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:07:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B8D4606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=UFtZhN0F
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=RWXu4jpq1GrCvUDpKd/ed8T68hCMT6wRiDitfxefxoY=; b=UFtZhN0FIOqU8GkqMum6PS8cia
-	29pzu+E8MdtpMRhmvTkW+y/+wnbCl3gvk+Ti9uP2mgnAy6fFYhgOPcKceYudFmmaovR/r0ohoeCbH
-	+WWQEA6+mh8DS40Ol/MwsXAicv9u+wCTOd9QhV7GEFPXCy9SLAIOFx71IzvsG0zh84we/tJocRtMU
-	mh+x3J6OFOVsxWUzLizi4QwnObOvNXB6C4xJGij9buyYY8Oq9Hz1NKtCE+96NoP9ojqUW3AmmFa1h
-	GbuI3Onm7hnbTnjhwjmZhAuRvF6XzCuEuM0STnJAf5F60yTcjE4f3PmiqrsuFMq/uvoQqFI66Ay4c
-	Za1Bmn0A==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJPTd-0000000B8H8-2CWa;
-	Wed, 21 Oct 2026 06:07:05 +0000
-Message-ID: <f6d6d8d2-03ca-498d-b5d2-578aece560d9@infradead.org>
-Date: Tue, 20 Oct 2026 23:07:05 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=NWZp/CLV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792562858;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=hJTbezORZnYJia58M/w7jTBC+CsV7fk7tMYV5VsvrrY=;
+	b=NWZp/CLVC4d6x/Xj50c/vbG/E7mrdWmNsBrm8QUqthG/ZRsN0VvRnwBp5oAGsa3ata9JmT
+	e1gUrIhAj0jos3K+H4YsN/EMkxnVoO8r8zQWqncWKaBYABYOiVTPBng/Piq3H7vWCxApOK
+	n7EQAupe46TSpDgK7I+HJT1pw+7Z7v8=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-516-LhCrz1F7PyyeUPBsoPOzHg-1; Wed,
+ 21 Oct 2026 06:07:35 +0000
+X-MC-Unique: LhCrz1F7PyyeUPBsoPOzHg-1
+X-Mimecast-MFC-AGG-ID: LhCrz1F7PyyeUPBsoPOzHg_1792562854
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 174E9180028B;
+	Wed, 21 Oct 2026 06:07:33 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 9266630001A2;
+	Wed, 21 Oct 2026 06:07:29 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jjohnson@kernel.org
+Cc: tamizh.raja@oss.qualcomm.com,
+	julius@bairaktaris.de,
+	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v8 0/3] wifi: ath11k: implement TX flow control
+Date: Wed, 21 Oct 2026 08:07:22 +0200
+Message-ID: <20261021060725.242681-1-jtornosm@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,61 +79,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
- Eric Biggers <ebiggers@kernel.org>
-Cc: linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- linux-kernel@vger.kernel.org
-References: <20261020212235.1143086-1-ebiggers@kernel.org>
- <20261020-brown-potoo-of-relaxation-3e9a72@lemur>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20261020-brown-potoo-of-relaxation-3e9a72@lemur>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
+This series implements a custom wake_tx_queue operation for the ath11k
+driver to prevent hardware ring overflow issues under heavy traffic.
 
+Without proper flow control, the driver experiences -ENOMEM errors
+("failed to transmit frame -12") when the hardware TCL ring fills up.
+These issues are more commonly observed in VMs with PCIe passthrough but
+also occur on bare metal systems.
 
-On 10/20/26 3:07 PM, Konstantin Ryabitsev wrote:
-> On Tue, Oct 20, 2026 at 09:22:35PM +0000, Eric Biggers wrote:
->> Many patches still don't include base tree information and can't be
->> applied.  Such patches can't be properly reviewed or tested, nor can
->> they be accepted.  submitting-patches.rst already describes how to
->> include base tree information, but it's characterized as optional,
->> appears only towards the end of the document, and is missing details.
-> 
-> I'm happy with this change, but I'd disambiguate the title a bit. With b4, we
-> started providing both a base-commit and base-tree footer, specifically
-> because often times the "base-commit:" line by itself is not sufficient.
-> 
-> Imagine this scenario: a developer is working on some code in a feature branch
-> and come across a pre-existing bug. They create a fork off of their feature
-> branch to fix the bug and send it in. In this situation, the "base-commit"
-> footer would be meaningless, because it references some transient commit-id in
-> their feature branch. In an ideal scenario, the developer would rebase that
-> bugfix branch on a known tag, but that doesn't always happen.
-> 
-> This observation doesn't really preclude this patch from being accepted, I'm
-> just recording my own experience that, by itself, base-commit is often
-> insufficient.
+The implementation follows the pattern used in the iwlwifi driver,
+adapted for ath11k hardware ring architecture, checking hardware ring
+space before dequeuing packets from mac80211.
 
-Yeah, I was wondering about specifying tree as well as commit, so thanks
-answering before I even asked the question.
+Testing shows stable operation with eliminated -ENOMEM errors and
+improved throughput under heavy traffic conditions.
 
-Most of my patches are made against linux-next.  So: is this going to be
-acceptable?
+Jose Ignacio Tornos Martinez (3):
+  wifi: ath11k: use queue mapping for WCN6750 ring selection
+  wifi: ath11k: remove skb parameter from get_ring_selector
+  wifi: ath11k: implement custom wake_tx_queue with flow control
 
-(for linux-next-20261020:)
-base-commit: 053966c344dbd346e71305f530e91ea77916189f
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-
-linux-next how has over 400 trees in it. That's a tad prohibitive AFA cloning is
-concerned.
-
-
-thanks.
--- 
-~Randy
+v8: Split ath11k and ath12k into separate series to avoid conflict
+    with Julius's airtime queue limits series (ath11k only) and help to
+    unblock both
+    No code changes from v7
+v7: https://lore.kernel.org/all/20260917064825.12747-1-jtornosm@redhat.com/
+--
+2.54.0
 
