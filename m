@@ -1,110 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572001;
-	b=w4DOmhFUUskKrJ9EWv/nZKVh713WKawFilJ0zIm4ajLwKEdRGc38vtyhN3y0dVRB6x7F
-	 J0zmd1L4AfCAI8vKcYxd5TRABPYPkYBjoWnn/J3UY9kf3UJS71pJPtJtwOszTIRIa5eOa
-	 eeLKZKUu/XX2cLqXtfBmhrB3rD1iQzXqDJiLTMhhnsUH84q5HrjGk/agV3uPg6bJBSekR
-	 O+xa9MGnaUD8AoVEc6hUPW5KfSCCfu3c07yhq0s6uCNIcVuCGvV5f8FYxN/xhsgjt/8tB
-	 9heB58jYkKbaufGGmMsMTo6u8uZbtguxUfNFzI7TvoVXrgFw93BKAssItQI/+RgvTNA==
+	t=1792572008;
+	b=vKWcAZTNP8dAhF0NqQhqfWrI+7OOuotgBKYYjIev4obvIYHBoxKYE/TfoihO2c/7BlfL
+	 b2JlL9FFvgoaeG9PW9WX0EnaIBV6At3+pdFbI8nN3fmVIz9fzgjJ66KDqT071u20xnVeN
+	 IdNkQUN8Tr4Np4x/mZUHEm/kjRZlhdux/LFams0XUT5ZTHEowqFILLTURpqvTIUn22xUk
+	 Ir1z492hAJoAUO2Hhm3PI/nmkiRHXDGh7jATbYQx0xnqqWWIhF1TFIx6Ogtyu+siyVgvC
+	 nHeH5QUXJS4A5O2FVqw3DJt4WWi4i38cUAI3Gq+eehOrt/eVspVNTfm0uioG7miKLjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572001;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572008;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLevSo2XjNeGZqmbtA=;
-	b=p5HqQqC3Mz/Tqqtr/6C7ttzA2Q3UEOhVd8yDhLF5vHDh6Wi0xC0avxbYY3ljquU+9gO3
-	 E9GOTDVOT4+VkgZhrJ9ARRS8XnE31ZPIQBrADshxuLEqciGomwSP4rxJJafPDni6cApzw
-	 okZl01s22NQcuHzxAd4aR9yth1nAcayeDL39DCr8p5fLex0Qc0RXgZP/O9Zm7fspQNHku
-	 A0y7DMQoTqcaG7Yz+K4/hpKErwml/OLpX85ya5eYCG5KB7J9Gspl3hVEIz0BJLQKWSrWL
-	 53NYuEH788ILYZrKCHmAO/DDb8PjxN4r4nKA9dtfyrJKFcSMqgk0s5PJTBipeeSRSIw==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=xMVQUpjXKvmI0ruWsNcHB6bYALlWPg9I3zEcb3KEBoY=;
+	b=hlGQhUyO0c6FuYMu8DBiCayBuILuD843C1+/0JyBB9EmyjIEQK7A+/71RWQsN5NwCE6d
+	 n94EPUHAeyHp90+vjHytDnGxiaSwQrB2bjx4vGwZB5gSX+EssYH+b+YvGq/dApDfInr5l
+	 YxWUYLHtjMahGbp/Qy0SlrzIJ40036n2wrAezcemgHQlYLyX2W6bYApuuixxNUlh33tYg
+	 9mv0vYN4CX9AvSw9KyEH7wkudimoLa6kE0lSX/Ma8/o1P2o2F16ySRtxkA19E15z+nDxN
+	 kbUgcgSBBNDaTr2sIdnhxZrsQ+mlonHUQwNLdZ0wY8BNyRFkWdiRslIvaePhnJvf2ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=invisiblethingslab.com;
 	spf=pass smtp.mailfrom=invisiblethingslab.com;
-	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=SpSiW7s+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=P1CdkiA9;
-	arc=none smtp.remote-ip=103.168.172.144
-Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	dkim=pass header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=eRqk5ucd;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=yi3jefSu;
+	arc=none smtp.remote-ip=103.168.172.159
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3297B60A2630
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:40:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3297B60A2630
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C545F60A383E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:40:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C545F60A383E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=SpSiW7s+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=P1CdkiA9
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailfout.phl.internal (Postfix) with ESMTP id 70578EC0232
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:40:00 -0400 (EDT)
+	dkim=pass (2048-bit key, unprotected) header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=eRqk5ucd;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=yi3jefSu
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 1860D1400129
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:40:07 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Wed, 21 Oct 2026 04:40:00 -0400
+  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 04:40:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:message-id:mime-version:reply-to:subject:subject:to:to; s=fm2;
-	 t=1792572000; x=1792658400; bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLevSo2
-	XjNeGZqmbtA=; b=SpSiW7s+Nn7tcFzU8ApWsri6ykt+yKJU2IJ11tSa/+ULYhAm
-	Y5wuNjiq+A5bWC5M+YJDkx+CcV6v088ty27LniFhPU9pvF7gJidnIOeD17jNF6ex
-	uCgDncXKzLSS2gHbu3pEpfuMBEhnarsoVukT4F/m0mwNlJd8qyhiaovMJ2kYCdlI
-	l94VmO8JmUpEk59zqvTW1SVfvQIVJJsqrBHnxx2K8hUVtGba+MwSNgZWksYuxCEa
-	ji8siuWUQW6mtO/I/jAHlKMiKa58no9FscnJZyXDCy0Ok4Ho9ElbGiIQNhj6hjm+
-	ZuTfBNeBFl3AIdWba7Y28vFwCh4j7dibeJ1dWA==
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to; s=fm2; t=1792572006; x=1792658406; bh=xMVQUpjXKvmI0ruWsNcHB
+	6bYALlWPg9I3zEcb3KEBoY=; b=eRqk5ucd/jWthtisPboG7tA+Z2ETXvjIXQL8d
+	J9P4pI5XbfxMMJtksD/wqUwIojf+Yu45s2tKSY6kBAfZduByo/Bi9qREI72kZwaR
+	JmylokwFe9vkdsTl4lLoAH8/Ms0DIz/p21dfS2KRyrjlQ5nRIqT1eYdT/TLGmt/O
+	08jZ8MDirPHUbD38WhJ/TZ2C0HiXZfKjlbPcyG7wVY+jicyv8YdewMV1RIP9owXi
+	7t3c/rIMWt79BTEIGX8fwr9bU3PkfHXqZo+Y2Ar7DtFrMs8HpFDPrGUIMrp5LoBA
+	fwXNKpMEuHf6Od4znYxgTH8XKg6K7tbPmesPfUf0cLgNMHFkQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792572000; x=1792658400; bh=ZRUeWVeHt3KCRBuFS0NAoBYETxLe
-	vSo2XjNeGZqmbtA=; b=P1CdkiA9KGQuE9gesSdZIHAFUiDG/61ceBsQ0opr4uVi
-	G52b0OwP8ivtfXqCCb57Sp7aZMfXSYOfVJSfqdG+Qxc/AmeqJJ/AEbT8yVgS7h9v
-	b7XeGjBgnESbCt595MTdX9V7jjJs0NhZZNtt2n9WQzopNot+btMxu8IdbOh623yF
-	oimQ10jjEDN4V7Uli+rfOf2LWluYn7OZKUuoTmw9/Vles7AUdK6nNmybcRWVQVP7
-	KiqD2WVmHejzjwoI0oYd7kpC+eImoDSpbd/XeCk/knVj5FcLtaLJKpJaaa3dEKHE
-	rMZy4wr/PBGy7s9NjONyjYDrUiNVge6kTqICiywa7w==
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1792572006; x=1792658406; bh=x
+	MVQUpjXKvmI0ruWsNcHB6bYALlWPg9I3zEcb3KEBoY=; b=yi3jefSujg6tJjf6P
+	KGuM/5o2IO84LU33hyeus2lGqcY3+GqUZwAPVO0lwnCW/cVPt/e3gxe8Ae5ZbdKa
+	1+dN4tuAddDv1/i7hkfYXGYthOvrAHSLgYAz3FxxAChsfxbo5JmWyZnFozar2gjI
+	97FP1exz96qVScfvHPZCet90vuXt63o+JQF8VvHnFPC2S2EIMzsh+b7BgfxyEwVu
+	jMquBumXWY2LXpjU2kbcMS/yJNh3WvuLqqHMtkbgqjlVlJ+uCUSW1FbBRKqOkoh4
+	/UzMHGTuNfrlZbKZVNctHS5D+T2TanmDevmyHgEKkBePj5EwYB4WqRjnwqOOuIhc
+	v6Yig==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
 	action=sign d=invisiblethingslab.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792572000; d=invisiblethingslab.com;
+DKIM2-Signature: i=1; m=1; t=1792572006; d=invisiblethingslab.com;
 	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:ocQgzXrDCY3Vbpev2SQ0YdDXima1sVX5G+LNkdO/qEJsxWP
-	swFuyCsxebEoabF3vLUBZnyuO7LOs9ySZez/jfIenfHIHM47kSipVZohrNMXf3AK
-	w1ikJ/UyoEjqplhpSXXUOliLXwdA33LxH+C+0FDYaXycX/7GXoLyp/P8Aikjnei+
-	mgiClJroRV8pDTZb6fssE6CcbNJOynruM2/LFwl88U0uBBU2IQgbIihQGN4DQhMF
-	UPDi3YR4Gdtpz6KsiN3z1jYbDlDPWnI3c6GsLykWcQ9h0r9cR16rFwbRHdYIYXH6
-	8n9wMM2j9OSNPQ6UyCS0tad1YRShAf0nakwOkow==;
+	s=fm2:rsa-sha256:geRpzaeqW8qfafeBE7WcOaUjLPjgwsA+V7TIABughRE8oD1
+	x3WI3CJaIAPxWrSwpnfJmyHRCDTP5vuZqLxHCTL+6GSSIYPrcAN+wZoK9pyX8Xov
+	uWBfocyE98abXH6yEyTaMHi7Wi7UwIKjccX7G50KvvFuiIXjQEPexgIPd0kJUaC6
+	KF9gdg4IL8f0VPid9FkV9TnjBOAjWw3yh3oJE3VGWy5CHt99DUA8N679opzQRava
+	hd+LK6oXIcGXC6at1JOmcFmDX8FK8XbyvZ4wVAGSWhQX1OeD2KjZ3AtGgNFLNAkq
+	m6gkTDG9wy1aaxTmt/PQEpTc7i0VQZ9WiSDiyUA==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
 	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:9XIRFcxfocIE7TTVobmGHzvCjgMsTJ70TPYynJ4ynA8=:mQpFvnuWRf6RbeXO/lVQ3BUGGu0Nam8GMc33D7LIjIM=;
-X-ME-Sender: <xms:X3rYanRpIsL5XFyp98M2QZ7J9GR-cTyskl-z8zuaEpsw8gBh_zclHw>
-    <xme:X3rYag8vxyS5rq64pIuRTswT7k21qH2K-37-Ldx4C-Xb8teN-_EaSdOw_6PNuCUqt
-    mHY4I4iFclUYsVgeAYJd7_je5ue14P88rmbNgmnBK9tMLjQot_E>
-X-ME-Received: <xmr:X3rYaoZFZYqO7qRps79mqO-sSB-tfLhds5jPtQg7AuPUj7uQh9uF9uer6898qX1vAbvVAeKU_HQ5KZM3IhzQ2udPaXdeFoCuo3bKBfem6EMICRroQebWz3XA8mz11A>
-X-ME-Proxy-Cause: dmFkZTGQ99FzaVuFTcvMdK/ygBNkRoPov9AfgImip9FZDA/maXGAfMDJmGK8CAXzpiT/v/
-    6eSXOenWvT9pkl6/ECj5SYWG+7ulldBorjx2rxo5QgDzY5TFFln7KzFQOe2r+BInkFtah5
-    lXwZrDGmtZlTphqhH3hkG8JCQ9e1Zj5KCBMd82t+JjBKm297UYGmJHlXDicWsY0O+mUCjX
-    wBdfh5nJowniELGh1LYyawBXXlPkdvXsLmgOZjf52NEHmw63iZeiRd7otZZjTrBnx1UJpt
-    2Khf1IgTOPArXIlvxTSUhdE9+G8iG1/NDCOzU602U8lg9kR2yn/YlHD2QaNB7FN+ZxDnZB
-    3JrTVir4YpDM52ovWN9A7bgrFsQ2KF28DzUrD/e9wI7UOX7D2AR6egtR8cHaDZEPMBFPwc
-    m1BiwjA3SmdNcP1LWBtbmhQqYXRT/cJh+lQo360yNhfVcaOJFkMAMw5tv/ojvc2GIvYhhp
-    +wjrdaW4Xqb2wLe+LwTjLpU+2OB7P2ukWYF4uNJWux1m88t50dcGBGPW1BijNy8L+NibqA
-    fjwlVRgWGREryBH1q+r3ioUNt/x9r36AOyADq7lLFpn2RN8irqFfaXpwEn4PQOQdwJt+Gy
-    cuXsL/OmqEHNdFYFJi20QxPfSrSmO5vSEvoGOH5SR7M/v/gXg+v1DH8oaykQ
-X-ME-Proxy: <xmx:X3rYahqElZfDGGf2n8k9vHJKnJ0qz9Orore7_YdQQi6fY7yw0tyyGA>
-    <xmx:X3rYasTenipPpFc-EdSwvZIETSe8qJm3jDdG3ds8xvKGOhfPv2vU4w>
-    <xmx:X3rYalrEXS36eZ09bgP36d1jGNOuHfI2Jh_rMLEYTuWQNVe2vseMRw>
-    <xmx:X3rYam2RGG518CBgXgcxq3uutWgLPfs7m8-ucqOSy5XJGvMF0QdCkA>
-    <xmx:YHrYahFsmM0DAG6FnHKtSsaD1V-ctWmyP-5PPdMN1vr3V8BicGXP3TG8>
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:C+OjhbtEAAMz+jfi8cU86N2jb+xlAeOKlCf30gkLUeM=:K5T+1gXaUOXLMPNEb7Txe3C7loiSIpyUXBIUR+GpJog=;
+X-ME-Sender: <xms:ZnrYaq5sDAONKap0qqkaELPRiWYDqD1IyfQktMrNS8HCLxPu6H57eg>
+    <xme:ZnrYasGqyEy6QYPB0hTxDbBeS0KFfFBmA_6Xs93UA2_LO803zOrRECUUJVBSWi_x4
+    jRs7OQjYzyThmlVzLHh_OfGL966pssxp9mF5BOXlnZTbsJmJqxk>
+X-ME-Received: <xmr:ZnrYalDcQEzvb6uDFOGK7RgfZxDcdA0QCqXQM8FMBLzJAHvhLSSvVvNfxuxE3UVT1o6G9JmTJZ2kxsC20lLYa2Tvwhccg1kbHK8-BU5IMoZIT7zHAIyfSYYfK-8MhQ>
+X-ME-Proxy-Cause: dmFkZTGSPTivLdJWCaPLLle5eLPBvgakeO3zd2AMB/BU5455+T1OAKKSIhSqLryWruvITu
+    mrLmxcflstKefapl1Ouzo2H4SO6sQnsedZ1hl/xGoBL9IxZgDDoVMiwErKhDoyuF+Xg+to
+    LpfQSDO/RT0uhf3t1vZYA2uv5U+VJxZ4bpF7a+uyUqas5EkZyUEDPGXBTnO3Ja44B1OIPe
+    aPm/oEDN+YAsPNfM9yYeNvJcF2SWVW+eYC3NiGiISVLTeLHOUZ2Pzq+lVG09HQ+pwoD0xq
+    t0PGp5ul74g6LPvVLuqNgawivJyrFnoW/txXCXGrVdGm0fHnRnVBgZOHvt395cxvEVBupn
+    zWaS2CMpgy4oQ3cUS5OapJfcI+LHGiplXNhK5QRKv//Z7BE5XY1dLwxhXYkBzoG7wAdFX0
+    PuoTYWpcWajraWqGaSUya97ElqktEzRWqClkcsdBkE2CdgIiDbr77w6YoAGNlYmenVsp5x
+    CtFVRKsff5hmcg6Hl9q/sC6F24870s4UaORTAbBFJgiRwzSs9xzITLe4N7Mu7x43xaDvgo
+    1m+agWgAUevu33RifRJgdR8yemX4zQ51SxqfEnLc3QWOVUX9LanpYUoykCd27FKmxoi6xZ
+    C2DOb91hQ3xnaGv3w/u1NBYNTJTpWM/Vq6Z9Yt2C/s/u3oZ51CAovNsmFFkg
+X-ME-Proxy: <xmx:ZnrYahw0xpkqnskZ-fQU1LJNG6Eopjw0IK8nVs7cpLjMHGMqa5e8UQ>
+    <xmx:ZnrYap6bU9XiVNrqTC8UJciPKy_6g3mb8rrL9k2ZHbKY4mg9jg-eNA>
+    <xmx:ZnrYaiwJ9mIMCODnzr8-vRyDq7De15qSnN1c3MQoJdT6c0JblSaQtw>
+    <xmx:ZnrYateKWptfrBvVo3MroukcdY0V5O5AO6Fy7IDA0KljiXDX9RsKag>
+    <xmx:ZnrYagsDzsyfkAQqZ5OHzMlBA2RHpXMMTiuZhFu5C-StSwYfb96GFg4v>
 Feedback-ID: i001e48d0:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 04:39:57 -0400 (EDT)
+ 21 Oct 2026 04:40:04 -0400 (EDT)
 From: Val Packett <val@invisiblethingslab.com>
 To: Gerd Hoffmann <kraxel@redhat.com>,
 	Vivek Kasireddy <vivek.kasireddy@intel.com>,
@@ -116,10 +117,12 @@ Cc: Val Packett <val@invisiblethingslab.com>,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/2] udmabuf: Improve list length limit handling
-Date: Wed, 21 Oct 2026 05:39:10 -0300
-Message-ID: <20261021083933.1983894-1-val@invisiblethingslab.com>
+Subject: [PATCH v2 2/2] udmabuf: Increase the default list length limit
+Date: Wed, 21 Oct 2026 05:39:12 -0300
+Message-ID: <20261021083933.1983894-3-val@invisiblethingslab.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261021083933.1983894-1-val@invisiblethingslab.com>
+References: <20261021083933.1983894-1-val@invisiblethingslab.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,24 +132,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-v2: Set a reasonable size, and fix size overflow check (Christian)
-    I've put the check into a separate patch that's Cc'ed to stable
-    and has a Fixes tag since it has been an issue since the size
-    has been allowed to be changed via tunables and the condition
-    has been reachable like that, independent of me changing the
-    default value..
-v1: https://lore.kernel.org/all/20261006005053.2245156-1-val@invisiblethingslab.com/
+Shared memory buffers for software-rendered GUI applications are often
+large and highly fragmented in memory. To get a shareable handle to such
+a buffer from a guest VM, a virtio-gpu device backend can use the
+UDMABUF_CREATE_LIST ioctl with the memfds backing guest RAM and the list
+of guest physical pages sent by the guest driver. That list reaches 80K
+entries for a maximized window on a 4K display!
 
-Val Packett (2):
-  udmabuf: Fix list length overflow check
-  udmabuf: Increase the default list length limit
+Increase the default limit to 131072.
 
- drivers/dma-buf/udmabuf.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+Signed-off-by: Val Packett <val@invisiblethingslab.com>
+---
+ drivers/dma-buf/udmabuf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+index 654ebe7f6b3f..dd913f9f3b06 100644
+--- a/drivers/dma-buf/udmabuf.c
++++ b/drivers/dma-buf/udmabuf.c
+@@ -16,9 +16,9 @@
+ #include <linux/vmalloc.h>
+ #include <linux/iosys-map.h>
+ 
+-static int list_limit = 1024;
++static int list_limit = 131072;
+ module_param(list_limit, int, 0644);
+-MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
++MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 131072.");
+ 
+ static int size_limit_mb = INT_MAX;
+ module_param(size_limit_mb, int, 0644);
 -- 
 2.55.0
 
