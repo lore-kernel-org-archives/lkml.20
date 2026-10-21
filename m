@@ -1,96 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792617876;
-	b=iKlXqTooJaQV/UE0QkIF0BxbZaOCRbzvQz6YAlp6NKBtNhEhPS7xhgfdemmzwiD1sISM
-	 EZ45YvEXnXorL4pxXZ5DXAqA8c4+4ShdGaftHcLxBGO/bgpoir6s2IEHKaFCnEcna1u5Q
-	 hcNlzo6HuPF9baGtdnLECkB/b2q7UFV/aMsDV8sakBTl3zPMsuxD2W25FyyVjX6lbnd8e
-	 vsBp2t7jYjktgTTJZZIbEXESU2CxEioEXoJQF8Kaek0lID+kCEQ0IYAAI0xLTjfRMygfK
-	 IORAdoztJ3BURmuOkvbKB3xWg39DfmEa4NcwY9B1gJl7/ZhI6fGOnC0XUtG8F5+E2GQ==
+	t=1792617923;
+	b=2vH9npOBhAR6nQjafxVFdy4gJVOLgMmos+SaeHhavS9PpVL4XJc+Q73tcuyZM6EpzDW6
+	 Pn3EUbPRgMbLlwhedVpBu+Hizx81e/W+bV43Yzksy8Mv98zW3qw+rZAnjOwVGIr0jn8kw
+	 1UfvWX+rhTW3q4R1hs7J93m5yffFE2j1TppmYpQZpK7763m8qGHODyXcIh91kaVPCbHf0
+	 gmeBBNfQPfc3TIC4Sa1Qmz+nQShw8mP0y1TNoi8GpUwlwmT9ilfzeYrFF3K8xRAG0hNBI
+	 6FZgMrpwqx+1kf9fAWX1Wd86Eg5CCUdJutg7+XCDRWsoty09Js2WmhvtFfZamwV3+hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792617876;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792617923;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=8IEZ9olq160T2eeN056hVBHNHsrJXJMeuGcg8w/hmqY=;
-	b=JfLD9sD5dkBj71nD3mVQg9NfrUWJ4LQvyQ2LmHThwpi0yYAxjvFqx19OTgDpVKsFLgOO
-	 WS2/vi8b2yVXrnr+vQOYKyOIV4aMhbG1pfIPgWkRXvTJm/B2Zq+IkNk78ExTjSB7n5TfI
-	 Ka4HF609eh6VsLDMkC0tfud0CoKqTHVMs7RGdTFX1uOeFHyer+udZvBf77VOy37OBn7Nm
-	 eg5po4s6mNQgwBV+ei7WssvViGEyuV6aBd4oW8uWpDPrW8nse2cpxO3ups/mwK4UCuTRD
-	 yxuGbchUZERbqywUb84exfGJ6y6/BHcq6ew2iGqS3/AkeWSVHtrXIyG2KZQ95FtmQng==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ACRfzynGelllT77etLsakTD4rjTJm7eeOZSx/UN6ohs=;
+	b=OEPydy6kLQePopN+B56qmCH7iMOn4lV7uf1juyPVE+YSaNJTQ05kpgbnk+h0JcYhmff4
+	 HKK3s4BD61aOi54zfW3WQgPVnQvZ41dSV03B3Fi2XxmpQXIw7fmtQaruzjQpkukJbWYfA
+	 aD07HiigOz8rIB0dMHOKniZuakjQtdiGYxHLPjNfvXfoyhwie9D4Q8iHe4vUQs05Lm/TD
+	 cmarAeVrY0VvMzTvSZq3MhO/Y9mMfz3DaQAxPWn4VdDtBLeHTvBHAQ/pyRc93mGQgIxvF
+	 flFhdHps1/EGNbZlkGH20B/6aaAVob7ZQZrqpLfMwnPGP4jojvGnL9FG1Ju5X1+DbTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TaisdxF7;
-	arc=none smtp.remote-ip=209.85.222.173
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
+	dmarc=fail header.from=grsecurity.net;
+	spf=pass smtp.mailfrom=opensrcsec.com;
+	arc=none smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55FF0606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:24:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55FF0606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=TaisdxF7
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f30660e69so75602785a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:24:35 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7DEE606A323
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:25:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7DEE606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=grsecurity.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensrcsec.com
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48b042c0759so875570f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792617874; x=1793222674; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8IEZ9olq160T2eeN056hVBHNHsrJXJMeuGcg8w/hmqY=;
-        b=TaisdxF7bL6oVi+T0MnL5svDJyrfja+UU17YMr3PigM4Ru03zOtsr//PovAO1RxFGg
-         e47haOHhuqUs+p3irN46GBdxDAp4qZoF37PgHBZQvLIxroKgrQPyJqKnrvvkkL1Mlami
-         oTLEH6l3CV34DV/zkanFJR9qlJmg68wzkwpc27lSxCJb97pF+OeMPPH5UVpMBcmLWUp3
-         5JkHQkySopq9buZEGrPIRQ3gyADpRdoARQJMPp5Je4W4igzpE21P5KxR16jlhdD9jAlE
-         a/gb45n5rdSFhAouOCoG1rXTOfO6auFRXBoNxWweBFkVqje9AcwnWt9m3BXaZYZLEr/c
-         TyUw==
+        d=grsecurity.net; s=grsec; t=1792617914; x=1793222714; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ACRfzynGelllT77etLsakTD4rjTJm7eeOZSx/UN6ohs=;
+        b=G3hXgeJmHnHsg7HJF1z8o1Ip7YCRJVYKpWgy89whmtbjA/wKvGK3WFih60brVXSAB3
+         BZxgalQ04wlI2vpqTVcfUF7bFM37C4j6A2IeIqs2It3OZ3MHZCW8CX5lBzl9s23BihmR
+         6I62CXqTqZry+xrIL1pyDolzUvz7oJvQwxeRVyrj7PWa2FJnT0mb/i1Gs1rqaoKcvIOd
+         lJduth6D9DubAx4+41Nv6qMSR8M1JnFSKOy+MnD16nLuFCEEfLM15M0u6IxdUhPfl8jr
+         gchiyqw0f6oUfFxoBHmGHZfWCeEVdm8jMcxlLED4qgZMyYPJ+TPNVGCPazKd+rSrTKDB
+         q+hA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792617874; x=1793222674;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8IEZ9olq160T2eeN056hVBHNHsrJXJMeuGcg8w/hmqY=;
-        b=EbPFXmAvLkg5e5ZXwZfN1SSFEz5Nm7EXb3VVQbZXNKCzvowoB6SQzRizdN8N1C/NIL
-         ow7aFNCVpywcs6w7dOQlsvl9zKYlw45g3XFMF35SJur3IdaLaZ7nQIMVvDUNkTSdMJh/
-         0mdIvG63e2cf0HnWAjPk0D1latr/mT7IKL8ra5xF59LJd1ItvSg9+uBVKNSnAVmSmr3p
-         OtBPVq7veLnzK7IjQFXlgOb5vFmcvki3YTUT3bJxxFu+DtYVaYlCGGb/CyC6wdg1Sx5R
-         /5vhJCLB/3/dsHL9KTibStK5cxeiYppeHinM46s1bNkgh3D6baBHOffmrWqpsi3PAQzm
-         BQlA==
-X-Forwarded-Encrypted: i=1; AKwUvBxPvjmuC99TvaUCmhZCIfEaIBjF5YgR8dpKG5cg7huRJjmMFAdkUMGxwSaT6Y/ChsOkXzB9giPVh+4Aupk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAwj3UYjEISbP12FhyFKPsY8rb6x8Mbs9y2RZrgN8EaApADGe/
-	HOxQ5qq1zjOU3Wz7CB69X1ZoWNplKCkYzMSoXXghJjHPH6UFYpRL5+8yFTJgxYbMH7o=
-X-Gm-Gg: AYBFou0yo7DfOhzwKNxNfyQJzZxue7TOscQahQiJ3BHbENTv8YiWG11912CLpCQ0/qO
-	WUGDX4KTJd5LS0hx4rroMr/f3jxwxFfSMM5jS4fiyitvbQWKbaG4/Y92KEsnlUOL9aJPBQOKmiu
-	EjYIlbnnqzfEW3cIbGzb6nlNKl9Iy6UqoSL2/vOr6GInLzvn/RwbRSxguSUNiCVbg/TF2llPEec
-	V8U33epKf4vklS/iBxrhfjmA+CQ6+9I47SCRd/fHIT+pshZYfPMbCtw382uFyR+v7kprzKhG27F
-	BxXnUKOLvWGPMPzKkget8ZWqqIAMfMzh7vu3bKexMNLcktutmiG8bZPfUUToK68irio34jjKKFd
-	087WJnB2+F72hdJmjGQdAQVwpxwndtiax9aSAJs5HnX4VjxXbxBu95H/hVchKs14OxRTLl129ul
-	RresiaCMsO4RFyjNtU69JaQfh097g9jmSGdSr/Qp+dUC9vfVHM4eiVxbtOp17Ars1DDiuttAAfK
-	AnlxfVtjIsg3+MBmPbKF1qNDw19Zu0FdsPN4j48O+BSxK03QC1Zpk8pgBPaekFA1xR4jmSShUxc
-	2Yv9YhV3BR6cOrXQom1yEZtZX2HZZ/kMPlmH
-X-Received: by 2002:a05:620a:4414:b0:93f:16d4:3bf0 with SMTP id af79cd13be357-93f57f23fa4mr670081285a.42.1792617874277;
-        Wed, 21 Oct 2026 14:24:34 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56df2ad5sm349884785a.27.2026.10.21.14.24.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 14:24:25 -0700 (PDT)
-Date: Wed, 21 Oct 2026 17:24:20 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Chris Down <chris@chrisdown.name>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, 
-	cgroups@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] mm/page_counter: use WRITE_ONCE() for emin/elow when
- parent is the root
-Message-ID: <atktYGL3OP088D9P@gourry-fedora-PF4VCD3F>
-References: <20261021204818.3431099-1-shakeel.butt@linux.dev>
+        d=1e100.net; s=20260707; t=1792617914; x=1793222714;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ACRfzynGelllT77etLsakTD4rjTJm7eeOZSx/UN6ohs=;
+        b=rNEnfjHwK/vaYIB7WhsQ3U6USokmY0x7HrWaJ1zvXuUfm72P4mqus6hbqNgf0Nk2MO
+         fMF8DvomA0BxDn+JnvAEzdYOvcq6WQ2qLiiQ8ULgqt3PvEpfdOJ7J3YLhiefadd/+jnY
+         xhxo3WJBTZ9uPu8UhoaGvjmdwM7JCcnOvhYabnpYvaV4HOCi0RfeXLfEU6afcuUMG/HD
+         dAts0hrEr04+b3yHPxIrfh8geH5Yxdo+SSpJzxDr6IThKv6kvGRKbeitP84XrWltIFlq
+         xjR3c6667zCHQebugWSzMeQELOCvs6gh1BZWFs3WQ3w0tEdsbXM/5y0BBWhU88yWmS0K
+         g3qQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxynJFr0TDbu+BSjEYFgCH4N9CPBrZoLEsW4ux0R63Q/26h7u7Sffm1YTWXkLIB9SmJNfJTg8NuSrYje1k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL4DAUkJgq9A5apPz87mPWZt5a5ORcjz+0I19xSugH1jadeGWrb
+	MNQ5VMRc16CVLMNviK7JMuyZeFuLV3u+ywSJAWJlXAz0GeixMKJX8uSk0OC9kY3hn/uU8y8gMjn
+	Lhc+G
+X-Gm-Gg: AYBFou393n+X8SVvg3hyo3pQk7GHcIKVgyz41VS3+TGDzuCFVQIz5a6iKvMdXvbBz2d
+	eXKIIGpbWXTUhfFNP5uLMGQcclXj2cQQiK37VYis7yf9yGVFcKtNXpZhakk7K948h/oJA3Y4x2D
+	Ar0ePZbH3fdSh6rQeu60rjh3u5PBnAIG8Ii6YxdkjG1rf6WFZOouuwbmvzypKj+qnGqRHVShBLB
+	q9AKY9SFemDkzywTcXk9f1vhEUJgKolqa7eKYrHTvNNeoKrOHscALjAn/Amu2v4Vhs6jj7+utDA
+	9TrlEt1MhM2rQUTMXrm2frYE66FXohhkC+/18oqDVYXpTz7PaVktswewd7wyYj4RZoKsn5O5hea
+	7NsTpF2v3IHQceLJyvnHBlBOCnPq8pHBMHZm2O1H9XTedfpG2EEGNC1TOVB6l32vlgpXB14Hki8
+	f7JxJEsSG5kUXkijCe9Hie2uUVxoPatblTHNJEtGVBZ2loxKV7DZ0EpnLTLEX6HOcJ61K/UFuNs
+	MSd8GhPJqVfN1Ay/j33cnUgOBO95icIpdrfqUuY4UHmLik5Zdndkgbj1Q4Mry+4YKZv9bi/thGJ
+	yY9u2EtkchLYsgUKUvvtLKYV/3CjOi9MkDWp4gUckBFbsyiDBQrHxFg8HJOUgjPSOaPsqgy2nQb
+	+Xc3vd+IpIhFY
+X-Received: by 2002:a05:6000:4b0f:b0:48d:f7f0:327d with SMTP id ffacd0b85a97d-48e264bdb23mr7395870f8f.29.1792617914014;
+        Wed, 21 Oct 2026 14:25:14 -0700 (PDT)
+Received: from ?IPV6:2003:fa:af11:b900:8855:f04:e797:81cf? (p200300faaf11b90088550f04e79781cf.dip0.t-ipconnect.de. [2003:fa:af11:b900:8855:f04:e797:81cf])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828c6dsm8383009f8f.24.2026.10.21.14.25.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 14:25:13 -0700 (PDT)
+Message-ID: <aad229bb-27c2-4c5f-bfce-73d2a0d04996@grsecurity.net>
+Date: Wed, 21 Oct 2026 23:25:13 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,27 +90,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021204818.3431099-1-shakeel.butt@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] kbuild: prevent building single targets twice
+To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260923123936.2227924-1-minipli@grsecurity.net>
+ <5836ab69-cfa6-41cc-a28b-5bd3ecfaea03@grsecurity.net>
+ <atjwobCk-mdeIlkd@levanger> <20261021190311.GB2611266@ax162>
+Content-Language: en-US, de-DE
+From: Mathias Krause <minipli@grsecurity.net>
+Autocrypt: addr=minipli@grsecurity.net; keydata=
+ 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
+ RzDVkdgPJkL/NFTKZHo5foFXNi89kA==
+In-Reply-To: <20261021190311.GB2611266@ax162>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 01:48:18PM -0700, Shakeel Butt wrote:
-> page_counter_calculate_protection() runs without locks. Several
-> reclaimers can update the same counter's emin and elow at the same
-> time, and readers such as mem_cgroup_below_min(), mem_cgroup_protection()
-> and the dmem eviction code load them with READ_ONCE().
+On 21.10.26 21:03, Nathan Chancellor wrote:
+> On Wed, Oct 21, 2026 at 07:04:33PM +0200, Nicolas Schier wrote:
+>> On Wed, Oct 21, 2026 at 08:53:56AM +0200, Mathias Krause wrote:
+>>> Ping! I know, it's the merge window but this patch may have fallen
+>>> through the cracks as there was no response so far. Just trying to take
+>>> care it doesn't get lost.
+>>
+>> thanks for the ping.  The patch is in my review queue for the upcoming
+>> cycle.
 > 
-...
+> Same, I will try to review it this week or next once I clear my tip of
+> tree clang regressions backlog and Kbuild merge window madness.
 > 
-> Use WRITE_ONCE() for these two stores as well.
-> 
-> There is no functional change. Readers already accept stale values, and
-> compilers emit a single word-sized store either way: with GCC 14 the
-> x86-64 object code is the same before and after this change.
-> 
-> Fixes: b3a7822e5e75 ("mm, memcg: prevent mem_cgroup_protected store tearing")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-
+Thanks, guys!
