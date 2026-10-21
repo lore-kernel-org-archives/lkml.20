@@ -1,78 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1792612414;
-	b=eAAu6SbW0gEoGtabAgHd9smQm0ldRgGxnGmz9PNEmEkVG/WkzHkDR7XommCUld3FNY0l
-	 TW/oF9rKuBq8JStCGD6iXh8dseP7CsmCseHdnL895KkWW0TNNdOWH/Qae4qxsufTwXTXm
-	 6mvac/yIeViDw3xVED68Q4F6gqSiuac3CpFZd50cymdkDIuMZVc3nxbpQ5Bt4/p3TAi8w
-	 54Q8pqhx6WFRoSvFsuj1ek+GCxwchTMUcSnVyzBqc+FTYsa08VbeB4GS94g9QORKPAqSX
-	 nSZX3NfUjqTCc8E51O82qOTMjOLQouIeVoGW0rqFMaXrdwb2fhoG7aoU9kdzq7uC8tw==
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792612408;
+	b=iBtdpJWXLHYXyZIY02RcfoXalwExRwnoCsoIWBiwTZGDfX7qwcsZd4l8BLj6/l0x2Fb5
+	 prJMEua95dXerQIPLMYar6Oh7UEK3dCEASWWyUDV+jPSRk08FHg905aYgUDl31IN6DFKd
+	 h0Ou1DvPyXtUFSfdhgukfq98i97HDf/wB/d15CHHli1ViEAqF6lf01nIi73K+rSLoXH79
+	 3+qRVUZGrLV8VbR6s6PG70LQhQSNaZ2mEDE3nx+KkCOjW/FVeTx8ZgWy3ApNcBcCrR5wd
+	 /9LzqboEEAa4zVu+rEEOUu4yPyj+FKOvaPA7PNyMAIqVOGci3O8gL5vpiANX3TXWcaQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612414;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612408;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b+JiLH1GI+1IZm1hw0N4xC6q910doPI+bHiafqo2L5s=;
-	b=15EFUB3hZXHZ9YHXSTtFoGD8lQ9zfM4PiMKtz2K40T5oMrvsb0pbN3H3FbLJqAJAHN99
-	 9ELfwopmeFepfEJ0qP8KR6GaLbUyO/mAFl/CAQrekGoyWbzJnlSvGrz38cG9+WF8oAz+e
-	 4xfVBE4hkdaW5Qw2wp5+G2fout2JPqFUhHoTFuNKRHP1ERp2qqyI+cGUKxNeL1NtE1tV0
-	 fEo3+NgRi1C3IGLd4HJsI4MNI6JYCCl9+r9sNTtP3YO8icqYp5I4PVSe4nrkA1vxnoBf2
-	 1u7wL9P5EQirVpWilxzv8W19Kg39ZkpYTwM2C/mCxRvJRBUWW0FrW7q5U5R2zOwGDKA==
+	bh=RzwwQpIbp0OAwDs4Pv0FKUisZKhrgfddJlf9Pk43g0c=;
+	b=PUl3TvaO801ePY3lT0m8xqDF1DlnbeL33pgalo5+Cv2QHQtEDpkUyABso5N6+VmoxZtg
+	 CxADnv3WWP9HQAMSfvJtghhd/uOj/HZx7n8TkXXbBJ0KzGKP19pn5gO4SUHcwz4S0qJh0
+	 7bZazlTPQFB+ZMoNtAA8gsR04mWlBNAgnCrOUVUw2gb6sxtJOCdpUjNgvC8zTiS8k7tc4
+	 Ywrv+LWuXfdUwPxAGWaijonZo27YG5CkB539tGYyDxQaZTsS39QhU2lTuLd024ScCT1Rr
+	 tZ17TbiYAcXllVH/7Tv268k0YgfWRoaNzQ/Ggiv6tVDLK8+0ZxUSr5bvchRkln5HdMQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtC3B0KS;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGAup7OW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241AC60A3826;
-	Wed, 21 Oct 2026 19:53:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B987B606A321;
+	Wed, 21 Oct 2026 19:53:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QtC3B0KS
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SGAup7OW
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792612414;
-	b=d9tgErYCrfrLKiw1UtqBbiUpnD5kB1c8Gd5Ld0LBob0w8RN9njxW1KgFzy/gLpn94aiK
-	 Jk4NKLpvMv9yaF4kQbJuENnuQY+/jFt1bck3HLXDet6MNV5pXGSDOMzt38aSpLiJAvCB0
-	 U87FujgaZnOViUbZRCdTbfYwgEoWxprMZiUNDJ0RDHUisIIL1GLnPPLTJknfeYeZRCgnA
-	 NKHudTavYUBA0N6KKlnCq7VuBxQoeoLPipxlad4X00yFLJ1384WvQdFXpAHkhOKw9XDM4
-	 i2F8wOd5ulSxNlsWJ3bNtxUSSTSMBPRrrDLwBcKqqW1//coL8qh5rmwKQOMFHffrE5Q==
+	t=1792612407;
+	b=Qi+kUVNJYWWMLgXVLWzzYPkbcV58xeyrqWGDEpsMgKg8uD46/g+Tos3qsqObVPXmBfqZ
+	 78yygiOR2CUW3Ca+/9eigc/dV/LzcC1gkRM9s4v6dZ/pcM9v5Rd4gP0FGvU6pvbHOTPD+
+	 X+hWYCiscpR40+kzQXuR/EOv7qa40LXombBDm1yS7wuLwjoD9aGCId5biG5Y5sDqcbD0w
+	 BGMC5x+Lqp4cf/Zurr3T7EzE/0LrhGqP5zM2C7EdIXDmZDCpylP4KObNFrMChaZGU9Pqt
+	 JoXRDphtiowBqT6eSz32jhkaBKkliROM0HyBNPtncfxNnSpp8VtsA3h5i/qyqOFIJdQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792612414;
+	c=relaxed/relaxed; t=1792612407;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=b+JiLH1GI+1IZm1hw0N4xC6q910doPI+bHiafqo2L5s=;
-	b=soMQgzBzNFMRaR1lfcU9fo4ONB7Vaa5vOkSeac6Yd4RqofWuCs3xHaB9kIyzV/LbMc/H
-	 RJX67A57Ao6EvrmvGiAJ/2ShwGZKUSb6OGAlC6F/+JDLd9m11aOvP9ucuBbht2Vciq0yV
-	 rKhLYc+o2oFg3XMeENmpWBx4PkEBpSWwm4okPwRl9sueucsA4Kk5ypmo7EHAhZ0nqP9M1
-	 FJEdqPLqxUdz8CMIiyWu5jguSnK/WkzJQnx6FiHtjDy46E5uf6ikUT1n/6azXEw5KaUCH
-	 +dlwWXWxkyD8v/7V75zpZkG+lbzDLiMPnAiJLAYFPgTwV6ykj4uIjdQN1Q4yjKnEnfA==
+	bh=RzwwQpIbp0OAwDs4Pv0FKUisZKhrgfddJlf9Pk43g0c=;
+	b=0CoLlQ4gVIjFlafbAfGC3peiKfa4pgcKLxdWNkxM+EYhNbhVqZoaM4Ia3t2e0d9c6qCr
+	 LuaG+pXclC36xEVll0PYsq3h91nu0PplL7hQhlWY5I7GKf25EGzurttmAp1ytjORB4Y9J
+	 3ZYezMGfnKdYAVw5Sh1gFstVt26qjMJJSQ3OSF12vd4TbEXlHmUivfebJVUBsCH20QeHs
+	 y/9MN4LkVBs+ZnXizZ7ot5vKaRDGLz4KSiJpOetnu4jZ6QOpbkKysv5vqog6W7FkIWBnI
+	 7RL+8Dc+EYeKOR8W4Ze93BCyqZrUMiPWx27hLWaJ8+WlbN0NF7HqPxnsSzMFbIjl6Fw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3137D1F01574;
-	Wed, 21 Oct 2026 19:53:31 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7434D1F000C5;
+	Wed, 21 Oct 2026 19:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792612414;
-	bh=b+JiLH1GI+1IZm1hw0N4xC6q910doPI+bHiafqo2L5s=;
+	s=k20260515; t=1792612407;
+	bh=RzwwQpIbp0OAwDs4Pv0FKUisZKhrgfddJlf9Pk43g0c=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=QtC3B0KSn3bPkP6Dav3ifF8VUCiQklbFvA9H5byCS7hIkkhUQyJkYLlLh7VBdbelW
-	 lcu7cwclC0fYjN1eNZg2eKbwKS9DSoP7CTL4IWbXIEpO8j2BZhpBbFkdZZWkZhTQ6I
-	 D4neQbd3yjofp7gDQ0PH+OAidXx03YBQyYoH5gxIYapvSr+2pLQOZcAuOzz6upCuIc
-	 G5b0iZpY8uBBpUdTagcQDeWPID9Vc6iUkR5umEKdswnbjqurp5Z+doiTFG30xaCTVD
-	 p7V1hGVQhqaWJcxx4ieHu4vAxZ79zsqsLa1m2bSHuAEWD0QNaEYH4WNKkA1FeWERNr
-	 BFhJQq5uSCggQ==
+	b=SGAup7OWOy1ark0k0tn6X2Ce2fcS9veNQK6SA7ll85ZAj6KQx+60w8eb6/mDANEUs
+	 bkBQrTTGGrmyr0jXHtcataSBNUCLyWjVTW6PtSucjtwKYZvDMPqJkdNRWR2743ar5K
+	 4nktTrV33ROC3F+Ms3Dv3UWMQhnm71vMFrRjiuhRj1vO2EeXfdzZAXaHdZ9l4rLaqT
+	 x6fVcfVBlPivR+X5EAszGwUkI4ZNYFUgdZpZMRqs4/ppH+/uY3AEWXFK2yC0xMJeZQ
+	 LwaLD/9DgZnKOIPLqMOU92TURGA9vbwFiXv8naEeNqnHfUw2MqpEF3oX0zeifBNl4F
+	 xCtAZ+4TdRdCw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 6A13E43468;
+	by lkml.kernel.org (Postfix) with ESMTP id 03E6643437;
 	Wed, 21 Oct 2026 19:53:26 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Thu, 22 Oct 2026 03:53:36 +0800
-Subject: [PATCH 16/18] riscv: dts: zhihe: add Melon Pi V1 and V2
+Date: Thu, 22 Oct 2026 03:53:24 +0800
+Subject: [PATCH 04/18] dt-bindings: clock: add Zhihe A210 AON clock
+ controller
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-a210-init-v1-16-5e438f972d24@iscas.ac.cn>
+Message-Id: <20261022-a210-init-v1-4-5e438f972d24@iscas.ac.cn>
 References: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
 In-Reply-To: <20261022-a210-init-v1-0-5e438f972d24@iscas.ac.cn>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -103,11 +104,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
  Han Gao <gaohan@iscas.ac.cn>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792612403; l=3373;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792612403; l=2509;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=d7EQ/ktNo91zzKNFOZe9hjNhsdudvjM2D+e3uwJCWhM=;
- b=oVD0qw8r10190p6klC89dQf262fZpx98MsZZcYGgbrQzTu/FkSzcf0OaLgBMMnCg7PaKELHL8
- LomIEnurCukDKe419PE11+euyzvZkqE+Vpn9G+AmN4pioudra1vlMcj
+ bh=+6t0kWAwiSZdwyxaiMeac4DxjPKd5CpUhqWGEpuz3PM=;
+ b=ouvK5Z74x8Z1T4L8JHl1Qsx7OfQKVEiK4Jxx2iSo70XsTpMNh93ZcZcAFDX+UWJWbcvsDYeWU
+ EOnc7YXUQ2gDMvH0OEqoi8aHJiSIeWKNlkX0ts+GL8fJyqSDijOWN2x
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
@@ -118,126 +119,94 @@ Content-Transfer-Encoding: 7bit
 
 From: Han Gao <gaohan@iscas.ac.cn>
 
-Add Melon Pi V1 and V2 with the UART4 console on GPIO2_0 and GPIO2_1.
-Use serial aliases to preserve physical UART numbering.
+Add bindings for the A210 AON clock controller, including input clocks,
+the system clock and I2C1 gates.
 
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- arch/riscv/boot/dts/Makefile                       |  1 +
- arch/riscv/boot/dts/zhihe/Makefile                 |  2 +
- arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi | 55 ++++++++++++++++++++++
- arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts      |  9 ++++
- arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts      |  9 ++++
- 5 files changed, 76 insertions(+)
+ .../bindings/clock/zhihe,a210-aon-clk.yaml         | 58 ++++++++++++++++++++++
+ include/dt-bindings/clock/zhihe,a210-aon-clk.h     |  9 ++++
+ 2 files changed, 67 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
-index 69d8751fb17c..445edde8f107 100644
---- a/arch/riscv/boot/dts/Makefile
-+++ b/arch/riscv/boot/dts/Makefile
-@@ -12,3 +12,4 @@ subdir-y += spacemit
- subdir-y += starfive
- subdir-y += tenstorrent
- subdir-y += thead
-+subdir-y += zhihe
-diff --git a/arch/riscv/boot/dts/zhihe/Makefile b/arch/riscv/boot/dts/zhihe/Makefile
+diff --git a/Documentation/devicetree/bindings/clock/zhihe,a210-aon-clk.yaml b/Documentation/devicetree/bindings/clock/zhihe,a210-aon-clk.yaml
 new file mode 100644
-index 000000000000..553102091d4f
+index 000000000000..bc1587e3fa81
 --- /dev/null
-+++ b/arch/riscv/boot/dts/zhihe/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_ZHIHE) += a210-melonpi-v1.dtb a210-melonpi-v2.dtb
-diff --git a/arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi b/arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi
++++ b/Documentation/devicetree/bindings/clock/zhihe,a210-aon-clk.yaml
+@@ -0,0 +1,58 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/zhihe,a210-aon-clk.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Zhihe A210 always-on peripheral clock controller
++
++maintainers:
++  - Han Gao <gaohan@iscas.ac.cn>
++
++description: |
++  The AON clock controller provides a system clock multiplexer and
++  divider, along with peripheral clock gates.
++
++properties:
++  compatible:
++    const: zhihe,a210-aon-clk
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: High-speed AON reference
++      - description: External oscillator
++      - description: Internal RC oscillator
++      - description: RTC oscillator
++
++  clock-names:
++    items:
++      - const: high
++      - const: osc
++      - const: rc
++      - const: rtc
++
++  '#clock-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - '#clock-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    clock-controller@30844000 {
++        compatible = "zhihe,a210-aon-clk";
++        reg = <0x30844000 0x1c>;
++        #clock-cells = <1>;
++        clocks = <&aon_high>, <&osc24m>, <&rc26m>, <&rtc32k>;
++        clock-names = "high", "osc", "rc", "rtc";
++    };
++...
+diff --git a/include/dt-bindings/clock/zhihe,a210-aon-clk.h b/include/dt-bindings/clock/zhihe,a210-aon-clk.h
 new file mode 100644
-index 000000000000..7a6e6af0aa1f
+index 000000000000..29d7e9183adf
 --- /dev/null
-+++ b/arch/riscv/boot/dts/zhihe/a210-melonpi-common.dtsi
-@@ -0,0 +1,55 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+
-+#include "a210-som.dtsi"
-+
-+/ {
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
-+		serial3 = &uart3;
-+		serial4 = &uart4;
-+		serial5 = &uart5;
-+		serial6 = &uart6;
-+		serial7 = &uart7;
-+		serial8 = &uart8;
-+		serial9 = &uart9;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial4:115200n8";
-+	};
-+};
-+
-+&peri2_padctrl {
-+	status = "okay";
-+
-+	uart4_pins: uart4-0 {
-+		rx-pins {
-+			bias-disable;
-+			drive-strength = <1>;
-+			function = "uart4";
-+			input-enable;
-+			input-schmitt-enable;
-+			pins = "GPIO2_1";
-+			slew-rate = <0>;
-+		};
-+
-+		tx-pins {
-+			bias-disable;
-+			drive-strength = <3>;
-+			function = "uart4";
-+			input-disable;
-+			input-schmitt-disable;
-+			pins = "GPIO2_0";
-+			slew-rate = <0>;
-+		};
-+	};
-+};
-+
-+&uart4 {
-+	pinctrl-0 = <&uart4_pins>;
-+	pinctrl-names = "default";
-+
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts b/arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts
-new file mode 100644
-index 000000000000..a88e9b949c4a
---- /dev/null
-+++ b/arch/riscv/boot/dts/zhihe/a210-melonpi-v1.dts
++++ b/include/dt-bindings/clock/zhihe,a210-aon-clk.h
 @@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/dts-v1/;
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++#ifndef _DT_BINDINGS_CLOCK_ZHIHE_A210_AON_H
++#define _DT_BINDINGS_CLOCK_ZHIHE_A210_AON_H
 +
-+#include "a210-melonpi-common.dtsi"
++#define A210_AON_SYS_CLK		0
++#define A210_AON_I2C1_IC_CLK	1
++#define A210_AON_I2C1_PCLK	2
 +
-+/ {
-+	compatible = "zhihe,a210-melonpi-v1", "zhihe,a210-som", "zhihe,a210";
-+	model = "Melon Pi V1";
-+};
-diff --git a/arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts b/arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts
-new file mode 100644
-index 000000000000..71752471c5fb
---- /dev/null
-+++ b/arch/riscv/boot/dts/zhihe/a210-melonpi-v2.dts
-@@ -0,0 +1,9 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+/dts-v1/;
-+
-+#include "a210-melonpi-common.dtsi"
-+
-+/ {
-+	compatible = "zhihe,a210-melonpi-v2", "zhihe,a210-som", "zhihe,a210";
-+	model = "Melon Pi V2";
-+};
++#endif
 
 -- 
 2.55.0
