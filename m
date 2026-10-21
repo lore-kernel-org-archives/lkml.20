@@ -1,99 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792578032;
-	b=FelH1i5vFJU1DqSJnMSAZiG/VcqgXrL/7C/H4xjdgyJjC82kzatyfQJnCn7qdqAcIdt7
-	 wMS91azg7r/mSwucNk410HL9B6jpe6oJ1HDwIEKVmsAsjNgS79xy7VVNz9E+OKKwURobv
-	 69a3aGU0q49NRk3r/3XGBo1Qxj1CPO9if/IQiO+ureNuG6xpa3HGU0tofMBO6KaqbGwMP
-	 StglUzXYuaV07VXQ/c5VTpW3ktFlkt1zZ+4xERsLv+16Uhkr90/Goe9C8R4P77NqH/xS9
-	 fFrFUCz2jmaHvt/g4QvU87juNUeGrhD84soE25lpZAKYrjedDZwt0NTUuIMHzNbPKKA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578032;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=0O8KxR/u4jNMtz6RpoxRSfPGCbbGOO4Hji6U7RyM5SY=;
-	b=Qia1MLsDdhbsrhb4tEN6kvJoHIkvvIiHUZPlR+HVf0mOqsv1IlY+wMzeHJMZOZPd4ZTg
-	 4FcQjAsIfc8uX3k4B14ueBGzyi+xj22z+fHtntk2nztkKRtH6l4oDIxp0VuQP3XL1Gg5t
-	 rD67hRoFg97lpl6xuPbkebkmTDCoU5+nBOIAE+EZdis+2K7IQSD2BQy84jWu58ipLudpi
-	 oel1SSkGCCyO9R7Blq3a8sr/4QyE+AToNRUELIX/UC4LhVJGmTnNqMcH7oMH/72BBSzlD
-	 DP1irQfcRsR0ek3Nf8eW4CfwrZ/ePD9EBzWBA2S5drM3HzgueWNHdbKd1eKLdIfKPzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Pbn+akcx;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.3
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792578034;
+	b=FicKcI6gYTZgtED8M13vYpZJxU4v/esnfKcyTVc4zqGLnyEA7eVm4Hw772VbXE36ENOY
+	 vFot26H0s58UgV+wg3UwJYgfwaSTE2l5CI5crSXavNHrQIzrhDuyHmjRa6W1pMYPpmvHw
+	 jXf2oQ3KEfikqkkTtk4v+ApXclK/TFK3ytCUXQzaBH/SBAQylUZazZ5IanhHIy6fZc4Du
+	 eg4B+hYQ814j+N0LGJbiIhXsisMbw0BUxuPtQUJD6bH8i+s2mCfvUx1r+xXW2x4pxgcgE
+	 m2a2JLVs+3/1zvfxRAvXklyp5UGNQWkYAuWuPgLz5z+Jwkw+o4PS49Z/jAf6pLqmANw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578034;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-Mailer:
+	 X-Authenticated-User;
+	bh=9pFhfcV00oJEJQFN/3lguD9gsSxLp2OeXDi7RJYbI5Q=;
+	b=SjR7NSS8d+c8LvnjquqECkF6udwq0TQbYaAigcrzJg8Ga86/k4Ul1cvEQuhBo+N9nghB
+	 27Zz1sdeBypZ2hshIFgwFFaZ8QrREYzfRR5vNLQollzHiNPhvmL6IfckItuk5ZyNL43n9
+	 816gvqvEzl5DVNOeVVozlQ6Z9EBD5di0syAJVwH7ZwbU7cabo1ba6SB+VBPstfDVzli2u
+	 sjD6asAbv77JMKqJx0+3tBvuHisM4o0B45TE6tvQyVw/m50ffMN7/l3tLcWxHIJAl2i50
+	 LMkfgHLOupEfMxbudrqXwQX/9IHZCsuIZBmoJnXLbxovHwIqo81UuRkz6f/PKyBiM7A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=EhJ0XhV7;
+	arc=none smtp.remote-ip=212.27.42.3
+Received: from smtp3-g21.free.fr (smtp3-g21.free.fr [212.27.42.3])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1613A606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:20:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1613A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44485606A328;
+	Wed, 21 Oct 2026 10:20:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44485606A328
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Pbn+akcx
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso2279434a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:20:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792578030; cv=none;
-        d=google.com; s=arc-20260327;
-        b=U8BhgVsM0rQBq39NJjIfxjfd/Y5/qG9g8Awd0GhSYyCpoTMAnb+6XjhKQkk9cpOhMv
-         jEpdfUEXjNzc43KYtwhBhW5nZiz9lFWTCc6QuFG/uNAAd8SFokU0CQjbbwN3PeN+OP5B
-         cJ/HOJZDuuI+cjsFfX6/n19FHO4iONRuc4S9U3MqP55cRn4vGEvA73mQlvUcOxjrzqU1
-         1NabwidJEM0YHCz363TRbiQC6AQ9rIaUAD0kqlylklRO5xMOr5+UnaMnzY5lY9LRNlLk
-         qz4p1DOYihWHwZwglUOC8MKZvn/vLgU/mrJ9Lb/C9aw5iLikw+TG7zwZad2mfUbHS8jy
-         Hbeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=0O8KxR/u4jNMtz6RpoxRSfPGCbbGOO4Hji6U7RyM5SY=;
-        fh=kf33vUqL4mhRptA9YYa1QTY8pi83dqMKclic0h1XtMk=;
-        b=iBXVzE8J45BeCmpLz6yYBjM10Jr9H4XUartMzkmDYsDIKFc6DTLJsVmkOoMHxM4ChA
-         c4VyAXLRNwQIieACwLM4RSp/TuvI9ixQZIQfewLTNKkDPEaa6BKuU4LYNiwTC0S31YKX
-         aJ5A4xqkOMJHIUlfKYx/UziXLKyAv1f//4kt+s9VsuiQ3NMJslFvmWemSWGiAKVrgb5u
-         WAacew/bfXgarktHuiTLmp6lk7id1yuzjo4n1VE/TdaInOjfzvvz0K6NPcmyvs+T1t8W
-         lDzVR1frn4nIWet84PGdSGMmqNBTa2DkKHwBAJOfFM4Z8OqM7BhLQMW01obH1HER7EOq
-         NuqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792578030; x=1793182830; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0O8KxR/u4jNMtz6RpoxRSfPGCbbGOO4Hji6U7RyM5SY=;
-        b=Pbn+akcxlX1w/E1KDARRHcSQyL418wKFzrO93mqcy4+kMnnDgAXmhIhKPjmGu3APn3
-         v5Ob6na9EMP4nzh+b0dofPFq+i46JRmPIvA6kuevLjmxSsIRL5DHxRromr7+C7q21ZWu
-         NTVbudeC5ZGLF8HfqhWoE2JwZZG2/kIHL6pQdsv7C9Ex3sMQ49e5GQAzkICiB/6UVi66
-         zRsVlzPjFbzMqmoORpLJJctXP89y1cNzkVyjjVLGuI4c8UkTjAoRbSLxnQvvBa4Lsnsz
-         617alJ7E4HM7tGnIA+xHIEyvbtysnyw4/F/TI8K5KHTCUre1jNzViVE2BEAQN+l9l+fX
-         q/6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792578030; x=1793182830;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=0O8KxR/u4jNMtz6RpoxRSfPGCbbGOO4Hji6U7RyM5SY=;
-        b=PU6qR9tsffyhghe0lHb+LZ5/xwkTt1TbaDf+YC2eod+KbexNmDmPCjN8algw3QTu9T
-         stg9BBmBn20sXbcSrrM5xTFhUq5fcALhrOZK8+XSzy0V4Z9//zESqdg2tMEtKgFYfas8
-         MkgMgcxuOMxT6plFZAXmAxkbB4Gixc0yU7TVCuZDn3TneX3UWEqpZbURbjQyaKLJwEc7
-         6RU5kztJgzu6MPyYLeJg+LkwU3j6TF1l3rVFcqAm44U8HvqK/9dIJqkKS9wkkZyyMKwi
-         UrKjForEs0O2IVQJyuxxHd1NyAYLWlt7y30a4JQDptN2SzuJD+V0+AMP6CrSzp5KR1p4
-         BDXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxYdpiQPQyLLTkG0LTdsXf4IXt7qejLzusydW8YPwyWHwllqGfNxpVoqNyKHTgXmZ4kCTojQ4bwQDqd7j4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITbSqAqohNxLHgmr+FUeRsApZekIvnfB7f83r7yQgh0EN/JpxC
-	l0N4aM2kp7K1I7IY0J8AbxfrJjWl83VgYzId7eSgKKSZ+bWLJRnutGvT1xXjCDj0gJvSgNqMYND
-	g1TTuNc6dCgz9oSSr+VTnH470MzJGq3o=
-X-Gm-Gg: AYBFou1dYjyHjHsSLrghRaTEONoB9z4NkRPor3oQFs6V9SErGGXFeddluP4h50/2oA6
-	7sRe7GZJ/lXuJ5ZCHQKNsv4GIYmAweMJaSgahKvRVKUYAmyTWgk3WDvZbbG9CLRVbpBoD8EsFW4
-	sbgK+QBEtEMaZSjBxZHBO40imtnxfaoxpEfSwrdxQCvhC/+TV+q3sIhlW7NCKSp1pgTFLXnChot
-	xmCfj0pd64fnLQUqwdD9RPoiUTHxl5l1wrRPlLr46ql122D04xdu/JNFahe28Ib3edVQIVJdEKr
-	WYphxs4WJRlpri8ZkdZs37FrOlR/BF80o2vD47sPyIUganBsnQFMtN+RQmn0Zv+azy8dqZIniLt
-	qlFj0/YI41x3wK7bRedc1uAVTt4PexfujzFgI
-X-Received: by 2002:a05:6402:1ed6:b0:6b3:afe6:4fc1 with SMTP id
- 4fb4d7f45d1cf-6b408dc32e0mr1130962a12.2.1792578030234; Wed, 21 Oct 2026
- 03:20:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=EhJ0XhV7
+Received: from zimbra65-e11.priv.proxad.net (unknown [172.20.243.215])
+	by smtp3-g21.free.fr (Postfix) with ESMTP id 0AC5C13F89C;
+	Wed, 21 Oct 2026 12:20:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792578031;
+	bh=UaxqiMpEEGmZ50v/CvqoyOgfJ41T2J5xAaT4f0Fh3wY=;
+	h=Date:From:To:Cc:In-Reply-To:Subject:From;
+	b=EhJ0XhV75VcmDBYkByTEv5mn5ysqlc6ceqiVXxhhpgHn1Nq5Fn6znjrS5AZZt1sxp
+	 bY+ZfgLHkbMIVBeIxdkj4HxBUjXjdg0CaNX6WXmfmbvMMBabbzA72ecK1ovVUYhfct
+	 tUHrawYSyA9SaGo7s2kVvxgrJTv01FQvhmjunzrXQ2CIPDPV5gY4IYuaU7X/d4wAvh
+	 a5ktkmEov4WuUxpIp5pYeBwFJaNfmjlDSE3MTgnuuVp5GZMVdpqWg7avnyBvp1gIbM
+	 gh6e8BMZjoMCB6JlZScbjCeHw+YwV8W0BZ8Rsc+MpkUz153vrMOYW9Q3CPiTV9m4nq
+	 K/c5ZCHjGa70A==
+Date: Wed, 21 Oct 2026 12:20:29 +0200 (CEST)
+From: =?utf-8?Q?St=C3=A9phane?= Grosjean <stephane.grosjean@free.fr>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Vincent Mailhol <mailhol@kernel.org>, linux-can@vger.kernel.org, 
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-kernel@vger.kernel.org, 
+	=?utf-8?Q?St=C3=A9phane?= Grosjean <s.grosjean@peak-system.fr>, 
+	Liu Changjie <liucj1228@outlook.com>
+Message-ID: <942111184.1248111675.1792578029862.JavaMail.root@zimbra65-e11.priv.proxad.net>
+In-Reply-To: <20261021-hospitable-gentle-sheep-a15164-mkl@pengutronix.de>
+Subject: Re: [PATCH net] can: peak_usb: accept short uCAN end-of-list
+ records
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,29 +67,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260921102522.1640072-4-akkun11.open@gmail.com> <20261021094542.59417-1-l.scorcia@gmail.com>
-In-Reply-To: <20261021094542.59417-1-l.scorcia@gmail.com>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Wed, 21 Oct 2026 12:20:18 +0200
-X-Gm-Features: AclHuK_9WSUvbl7lxj9ijaAvYmNx-kmxqZkezsuL4zt-K3i_hWfIEDEOQ1AATPQ
-Message-ID: <CAORyz2JODezexX2ZGwDk8LcBbFA+Jm0hRBAamJ7Nmk7Q+a4R1A@mail.gmail.com>
-Subject: Re: [PATCH 3/6] clk: mediatek: Reserve missing MT8167 clock ID
-To: akkun11.open@gmail.com
-Cc: angelogioacchino.delregno@collabora.com, bhelgaas@google.com, 
-	bmasney+clk@redhat.com, dakr@kernel.org, jbrunet+clk@baylibre.com, 
-	laura.nao@collabora.com, linux-arm-kernel@lists.infradead.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com, 
-	nicolas.frattaroli@collabora.com, o-takashi@sakamocchi.jp, sboyd@kernel.org, 
-	sjoerd@collabora.com, u.kleine-koenig@baylibre.com, wenst@chromium.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Zimbra 7.2.0-GA2598 (ZimbraWebClient - GC154 (Linux)/7.2.0-GA2598)
+X-Authenticated-User: stephane.grosjean@free.fr
 
-I apologize, I just noticed that your patch adds the "_dummy" suffix
-to the clock name. I had originally applied your change manually using
-the DTS clock name "hdmtx_dig_cts", that's why I experienced that
-error, but when using the name as you sent it it actually works fine;
-the additional dummy clock does not interfere with the one provided by
-the HDMI PHY.
-I apologize for the confusion, but at least I can provide a tested tag :-)
+Hi Marc,
 
-Tested-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+On 19.10.2026 00:46:34, Liu Changjie wrote:
+> A PCAN-USB FD v2 running firmware 3.2.0 sends a 16-byte status
+> record followed by a four-byte zero-size end marker. These transfers
+> cause repeated receive-buffer dumps while the interface is up.
+>
+> pcan_usb_fd_decode_buf() requires a complete 12-byte struct pucan_msg
+> before checking the size field, so it rejects the end marker with
+> -EBADMSG.
+
+Right: the firmware may terminate a list of records with a short null
+record, and it doesn't need to be a full struct pucan_msg. Only its size
+field matters.
+
+The patch keeps all the record length checks added by 93fcab2c6968 and
+only accepts the end marker earlier, so:
+
+Reviewed-by: St=C3=A9phane Grosjean <s.grosjean@peak-system.fr>
+
+Marc, since 93fcab2c6968 has been backported to the 6.6, 6.12 and 7.1
+stable trees, could you add "Cc: stable@vger.kernel.org" when applying?
+
+Thanks,
+
+St=C3=A9phane
+
+----- Mail original -----
+> St=C3=A9phane,
+>=20
+> can you have a look at this?
+>=20
+> On 19.10.2026 00:46:34, Liu Changjie wrote:
+> > A PCAN-USB FD v2 running firmware 3.2.0 sends a 16-byte status
+> > record followed by a four-byte zero-size end marker. These
+> > transfers
+> > cause repeated receive-buffer dumps while the interface is up.
+> >
+> > pcan_usb_fd_decode_buf() requires a complete 12-byte struct
+> > pucan_msg
+> > before checking the size field, so it rejects the end marker with
+> > -EBADMSG.
+> >
+> > Check that the size field is present before testing for an end
+> > marker.
+> > Require the full header for nonzero-size records and keep the
+> > remaining
+> > record and payload length checks.
+> >
+> > Fixes: 93fcab2c6968 ("can: peak_usb: validate uCAN receive record
+> > lengths")
+> > Assisted-by: LLM
+> > Signed-off-by: Liu Changjie <liucj1228@outlook.com>
+>=20
+> Marc
+>=20
+> --
+> Pengutronix e.K.                 | Marc Kleine-Budde          |
+> Embedded Linux                   | https://www.pengutronix.de |
+> Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+> Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+>=20
