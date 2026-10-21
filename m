@@ -1,119 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573886;
-	b=X7I4lP4Xmu/Zokq3+wgBW9Rw7/lDl9hNchJ3pU9LMkzKoAWuVks4YwB0W5+016tpcYE8
-	 I3ReYb8Cwrvw+XS8cGcyxaCkpI9rz/iTVl7Xi4QZEZyLc88ecKTCcPhOv6Q1IkKi5dyxH
-	 tjlYDeVzXFSmo9N5aBOUPwuwsfaiiKo03TWt7NH+nnYKoAFOWw97LHfQYgHn6lYH917cN
-	 RJkplPPGTpzTmAnlRSHccA90OzEJ0RW8EeBf8y9KvPLE6dOPAQtzE00kJay0k/fo9spXA
-	 JrzwidSyoABTsw0jGXC0pk/Fh9b+nzMJAzQ7EECm2yUGpN3oaZVqh1I+GsvODEHXi/Q==
+	t=1792573947;
+	b=vQWTT77sd0hMrn4sFkPfMKhM2RFKwqpgZ0Q3dPn5ZGO2FZlm86Tv0TudJUsdDmLA0uK0
+	 h9fjn1Bf/LDF8CXOna5dRo3CJaH32FsyZQ2koNBEdUVOKgDLx3DnkSZj92Tu/5rTR4ekY
+	 h3rAdoZYHXINOf6F/IIkJPGvV/iLnmGpCiXE6BR5KteBIEiPuBUE/NF2izW94ZmjGfo5s
+	 N6U44Z/sF/ru8wiWBMA9yjOEfB2W15mPuiEqVYNcrFbPXHutmw/AttDKrVavtFfhsUFhW
+	 X+992ofWFqAwRFC7s4VTMeZIjI2JbmJMZdgcHHEux63kVSNDKUUhxVup9Pcg0U+HpJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573886;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=yPQ/niTPbDxR3MpsEpcgUMSUJ1Etb5QeryWpn+3WjQk=;
-	b=WyFvJQoH8gHLpNnoAun4tYgAcEs9cZjpdluoNUZYFxu7/wbJnluOQ9LCtYrzSQodOiQh
-	 i/egZ3CgP5FKGkhV8p+dRykQq4u64NuL+J07kp8i44kf9woSH0+0+ZT3+tDVRZOE/Zk/Q
-	 B+S4BTmDy/BExmftNirb1y0XIDfzEwHPs3OApkSgMzmq4v2Nkyx2MiL+p+0H7m5IoDhPK
-	 8r8BYHmN1wAc7eOyi1hGmB1F1LYpvZYcBWX2x+cxBfleeBar90ooJN9Cz6alqAXvoe0We
-	 h8Dz5QytgnEI8kvP+95eQdvwxcBNdlC5g1lhGm2Fl8G42RpnG4WRsZePEjUT2tsZzxQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573947;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=q5o4c9Se3qqfB0CkHzs+jJJ9WgHiDHng2N6iX71Z4eM=;
+	b=uaHXc/jUCuZoK38w/m3pcmkKF9hhAkyeZeGF6Oojr9KJUbbM9JxCkXGdSDQV8cKoO002
+	 oJ8mf++8uRPZz1rXg7Pqs3ZIB2qQqGxc9en85jtIdWA4o8CHg5TvFq1VdIhnGn/3vxsl1
+	 G88NMCGNYxDnDTGIgv3fdAf8pYVt69p0TbHHVympfezZYchU1eC15L7QfKaCOWGBB5UMu
+	 OqNNjmXAhYgk1BtN+R8azsYQfKCxpxDYSHCC8gS00+eyAN0Hc9Or1wYcVoiMvLuikUp+i
+	 KpKtR14tBdPB72PlFvfk2T28QllBGIdyDhwXazyCjaYafnSS4hRQcSx9ipuY3a58KLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=shutemov.name;
-	spf=pass smtp.mailfrom=shutemov.name;
-	dkim=pass header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm3 header.b=dMlx8BfQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=gh24kUPn;
-	arc=none smtp.remote-ip=202.12.124.152
-Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZsUeF8C7;
+	arc=none smtp.remote-ip=198.175.65.16
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D1D606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:11:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D1D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43376606A319;
+	Wed, 21 Oct 2026 09:12:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43376606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shutemov.name header.i=@shutemov.name header.a=rsa-sha256 header.s=fm3 header.b=dMlx8BfQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=gh24kUPn
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 9F8E97A006D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:11:25 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Wed, 21 Oct 2026 05:11:25 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1792573884; x=
-	1792660284; bh=yPQ/niTPbDxR3MpsEpcgUMSUJ1Etb5QeryWpn+3WjQk=; b=d
-	Mlx8BfQTxvyHTYu9IheLpNGX9rpuU57Dikae29m49ckW/QcQePqDSuh2EMmUjtHM
-	7C8rIfQVSaxULH3wdOoJj6XevbFABktAXH6eD9yltF4wKQlOZ++QRRr2fxlLMxXO
-	Ypi73jf/3Sxz826j7WRtXKXIJ+iuSCzALcnBaxTRtAUOy6256H2r3JkrFlzvIZIH
-	/BkLOSNGxSjj9OLH1BHT3LqnCpcGSQJX5vNPCkAX1tB6vYGuZtIhaoiHnw+kEM05
-	g3M+LfceC8CiU6SBt9kfQ3EDIj/6KABllufnau+NHEWXYqwU5kCOGqg3ZBuudifN
-	UwOZd3bpdpKRiqlSOkZRA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792573884; x=1792660284; bh=yPQ/niTPbDxR3MpsEpcgUMSUJ1Etb5QeryW
-	pn+3WjQk=; b=gh24kUPnvU1GovUH1tV+S2Ptv6FXc0gdxtxV+4E06BVgB6maaL2
-	zw76y9L/XPCsGGcm7BvC9007fWA0b7DTg+8SbWckK1DZrEihyLqnVTteHWP/OLgf
-	yqlhS3RNmXNGMLg/y6ofpNi/NC5cnSnuYyRgc1WZpXkeH0wZA5OwgFNcNSMFEGIr
-	RT4VdmTnIOQmgIoGAEX8MiGgoMqwrUYgZMRo87UCRMAMJlGlfFqbveL65KON1tcQ
-	+KaFVGEndXGU3PzeeJhxOoUiVpviuY2FK65c9RW0zu/yYPtcVCXr5HxGMkvnAd/p
-	rfXFzjxCe+axgA4itVP4zeVwdrsgaih4A0w==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shutemov.name a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792573884; d=shutemov.name;
-	mf=PGtpcmlsbEBzaHV0ZW1vdi5uYW1lPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:Uk9+djvV9HuVyjoLo/ikt2WkRj/uftPHB7paQ5hcD7OyO8I
-	gyoeDlkfjIXCaly9CyGxAhbVhrk1f6fdBV3pgLaQbCysbUdJwJGxCVjW/dHYJJWo
-	Ex8DUF+F5UMuKyXIZ1jSdF8h+2uKACRBrr131RpbZdzx+OwLCowEuurrYSr3IdoK
-	C8e+7yjIHyEEgtR/QW9pStTDTTe4fCIzt1H5SSuPxvtl2NW9gJktGHVWRNeTTrRF
-	nc2n9Ls4eRPPrTdIqjojx/cRyQCcn9K5hSTw1Em0bj/XIq3prqvBDUHa+dKFV6BC
-	ON+zNQiaQbOvy2aEfbq1p3nj1efa3gmK/8J6i/Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Tc7ukHXWIvlZRrWSU2hLvegzEyJAUHfRT7hdKA32tuc=:H7eIvvta5zlDfEdK+OCeQCYCS9ry3TLuaH/l3ceYpYg=;
-X-ME-Sender: <xms:vIHYaoLbq_vOjgG9MuUSzn3yM4G2ekjnPNuMzYWS7ZtL-gN11qRNvQ>
-    <xme:vIHYatWJu9f2RPtUTXU3uKC44LD0SGVW997fLTuHyLtE64Gyv2NK5IdAlo0Y6pKvN
-    EN4kDys8mzrKVdpl7938CWaOBWvUVE79PBp0zFqFv7NTMmviN4JYWpq>
-X-ME-Received: <xmr:vIHYasGVdT5fjyoao5x102sz3KBM8YRx-ZZNmK5cIU52ledDpR81GEU13KY>
-X-ME-Proxy-Cause: dmFkZTF6nJZYKXks1Bk+zdjRqyvRREPlE6EyeftPs8J54NlJxNXTwVEDnsb75ebaKWGUdi
-    yUtaHEP1racnVl7qcL6IwppZun5muFsHcwTa9EhOdbeauVKGZOt786yRL7MjUpWkMNv4dA
-    6Br5zwahEqFGtKUqX+JUQPHeZOfiRQoBUWrAa/gjj5NNgI7tFOp/RtqPTRdWBWk3CV/QaA
-    n2jQBMWOr2wnnrTGRDDarS9m4P+kEs70/B3YxHkZ7rf1PVO2Ky+h8YrKzFe5ML9uYmoooG
-    Nj0W2ce69tdivcvcB4O/nqVDGRRb9MZAgvDioWBvUcDn7TDOYH3VRAfJ3m3/hHfsQx/kfz
-    0mMyqaXT6so9/lg5Yeuu+FdnwEUp3OX516ep7NrAZVy/F8WcCWHu3C2Eq3HXrwNzu+2TKZ
-    GM2aSLqF128X1QD5dUSPP55ts6wBWtnX8VNlu27EiPRiyyrSTly/0/oteQnA24x3AQa3km
-    EeVm6BApj3uwneRPvJ4UNRjqZ3nJzvbaaiu4RgBJKvvLZcqUV7bP+p1VE3/DOUHfJO0flS
-    zr+b97AnW9ox2FCtrN51tQV7JjwlX2F1nnRqCTCtSalSPsS5S92jio1vNV8G78x3k+fbiI
-    TRnQO6iePNvYg12YgOdRlwbeL7eeqw3jnOp9N9rYqUaE9atwboRXysIv8Wiw
-X-ME-Proxy: <xmx:vIHYak5opkajdHLvaXR5msfr_8VBsIgR2EyyzZvp5o_WTZr7dzA37g>
-    <xmx:vIHYaqcQ9ES_l2enZo1jQ2uIU6eV5yTuYuZbCQ3vSSJ9fDyO5RKBWA>
-    <xmx:vIHYagmhtQ-FjFkYyX5xknAQo47VkwX9i73nYd9ZX-M7Dpt9AtCvCQ>
-    <xmx:vIHYav83C2SKVO84e-QGQQfogkRDLA6tK4OtOGqryy23jhIJ4OWHOQ>
-    <xmx:vIHYar3OOgd-nJUs5WF9i_OXsUxBB3bUtDqgnW_axXkcqwbdk_vVo_qR>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 05:11:23 -0400 (EDT)
-Date: Wed, 21 Oct 2026 10:11:23 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: shaos <shawnq1@163.com>
-Cc: akpm@linux-foundation.org, Mike Rapoport <rppt@kernel.org>, 
-	David Hildenbrand <david@kernel.org>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] mm: userfaultfd RWP drops a populated shmem PMD
-Message-ID: <atiAML2RPQlCEhbB@thinkstation>
-References: <20261020110759.960089-1-shawnq1@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZsUeF8C7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792573947; x=1824109947;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=smbmGXOgf53sUhVEG5nOCbt/F7K1bGkWUk3QHVbfxqM=;
+  b=ZsUeF8C7j17c55lCl8Kmi9Psgdg02yx3YrXxX1oDTne8InTbVSZw/ZN/
+   nchTLGzdAOTYNyQnrt/JqBk5AEkBQDLTflgrdGilqpspxhVZlRgotNIcN
+   OMprz7i5cbB5a7G5HNZGJ8FcLRRjBSAAniq8SZd6iGBKchhfOEbHbWjDg
+   bKbJKUOuQ/rnfqv7ydbyh0QmYedTUlSwsXCa+x5CrxnGYhofkCEtrjRaA
+   wqKdXeyNxRHgXVmkay/peTYs8TSf2ktDwKhAYLyz6kMw/KRMR1RedQHbc
+   jWiL3XvpPIxK8jwwc7HQnsgI3cNYBPOPfB+rF1CWmbInnnWMhfFIn2CUy
+   g==;
+X-CSE-ConnectionGUID: TpFyxcXUTwm2H/49uhkJLQ==
+X-CSE-MsgGUID: m6QN9GLaQKSXm7kglyQKLQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1286661"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1286661"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:12:26 -0700
+X-CSE-ConnectionGUID: zBKMWarpT7ayhJrrRQriow==
+X-CSE-MsgGUID: 1W7CIl06TNCcqn7kFEwRNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="3059375"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:12:18 -0700
+Date: Wed, 21 Oct 2026 12:12:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Niklas Cassel <cassel@kernel.org>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Randolph Lin <randolph@andestech.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Alex Elder <elder@riscstar.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v7 1/6] PCI: spacemit-k1: Add device data support
+Message-ID: <atiB7-u5bxJbf-1q@ashevche-desk.local>
+References: <20260929083755.458238-2-inochiama@gmail.com>
+ <20261019164108.GA2177470@bhelgaas>
+ <athuYJjPMkrecGm3@inochi.infowork>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,24 +108,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020110759.960089-1-shawnq1@163.com>
+In-Reply-To: <athuYJjPMkrecGm3@inochi.infowork>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Oct 20, 2026 at 11:07:59AM +0000, shaos wrote:
-> Hello,
+On Wed, Oct 21, 2026 at 03:51:20PM +0800, Inochi Amaoto wrote:
+> On Mon, Oct 19, 2026 at 11:41:08AM -0500, Bjorn Helgaas wrote:
+> > On Tue, Sep 29, 2026 at 04:37:47PM +0800, Inochi Amaoto wrote:
+
+...
+
+> > > +struct k1_pcie_device_data {
+> > > +	const struct dw_pcie_host_ops *host_ops;
+> > > +	const struct dw_pcie_ops *ops;
+> > > +	int (*parse_port)(struct k1_pcie *k1);
+> > > +};
+> > 
+> > Does the "const" here add anything useful?  This patch suggests maybe
+> > not:
+> > 
+> >   https://lore.kernel.org/all/20260911233541.1650895-2-james.quinlan@broadcom.com/
 > 
-> UFFDIO_RWPROTECT_MODE_RWP can return success for a present shmem THP
-> mapping while dropping the PMD mapping instead of leaving the
-> populated page resident and write-protected. The next read refaults
-> the page and completes without a UFFD_PAGEFAULT_FLAG_RWP event.
+> I am not sure whether the compiler can make use it.
+> And I have not seen any explaination for why no reason
+> for that. It is good to have a clarification.
 
-RWP only traps accesses to present PTEs. Arming a PMD-mapped shmem THP
-splits the PMD, and splitting a file PMD unmaps it, so nothing is left
-to protect. Populating the page table would not help: the PTEs are
-empty and there is no RWP marker to put in them.
-
-I think the right way to deal with it is for userspace to register the
-range with UFFDIO_REGISTER_MODE_MINOR as well, and count the MINOR fault
-that follows as an access.
+These const make no sense. First of all, the third one is missing it.
+And I have no idea what would be the proper syntax to add a such. But
+adding a such make it clear that there no sense to have them. Either
+you make the const the whole data type instance on the user level or
+don't do it at all.
 
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+With Best Regards,
+Andy Shevchenko
+
+
