@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792614395;
-	b=jzlZQYEJOF80vHImduC7raRLP6/LkPBjS2acf0BbZg80vEd2W/i+KEJi4EuSTcQio/KD
-	 hp2JfYiw/5JaygcEyXs5kEgFb8pHJZ0lbl5irXoDYWMvMNx8pjqR8A/qeLm2svwwIElZ6
-	 u2xP8BOhHdTYTDMWjBkoxlYmNCmcTgLuiTWAbCSsvN7aJMjOL3T0TXV+DdjoViEz2pWK5
-	 wWyZWXLKq1zTUWFfhqcLHqBxq0Yb7ZePnopwqb28dy02SaI7hd5ganf0BepGzTxhSWeyY
-	 d8ul8lCquQuOsUv+IR0tYCRkiB9x010gEWsB2mgKppnOEGob9yWHM/mtAjG8+eAr86Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792614395;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=E2pTPMKUQJD5SV65KUhENq72igG4uuAAoV5xy1VuYmA=;
-	b=WcV5/CKNxL3279Zw11Ro39+rexqSoS6OjQWqUXQCDZpDDaBSos9YvCmhQT8pBnMTqTxq
-	 GH3jRJAgICHoXFzC0MA7DUosdcYxHnFMdrQNPjY7PBoanjWtZkbZgkAUY4aPwTxZMsbT/
-	 EfAyQ9uaZkaSm6Amelne5Bfwp8cSzuoPZrOD38wc3jW7cNNJjqWX02gPWE3HqQLCucsIm
-	 8rqGuOk30eCr5iXvKjRSGXjh2sV+Havg/pizDsKJ80FS0doazPg91qrZJUXHCowR0auSS
-	 6MVaHEFEP+F/NKLk6if5Y1cW3jILDHj0VkxTY01I0pXILvH1VlTL4Rr31bBGaZaV3lA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=3EIwuN13;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792614494;
+	b=xzsqVmNN2j1GSjQCbawGpJ93p2IbMIT2ZkNz0vQIgSlrAPoMLVc7YY5IvBnClASyienC
+	 fJirATHMYjpiI5/qtBIgp6FnKE8BZ83g8yQs6AzonP/oS2FtvlcQhm3htYAPpF972Vdwe
+	 ue2qrkf7Dklf7sU/ghHlDHWoOQ9UUMs5lBma7KgbH0sRJ+XDXAV/3pMOC3Q+Y6VbumCXF
+	 Iit3yOXO83W9ub+nYPcM0Il+LoGNYRYfiAA6cJEYySXAAz1Ay8a6MfaeouxiIFcJEybzF
+	 VHgMkxF65pRddrGMRBiPdWLvcVgq7SjhknDE2aRCziYHdKOYEJF1yYKmgkpywv2xigA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792614494;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=0puJpnNmDvGtBriXSLRhq4RtO307HXFeqwawArp0hCM=;
+	b=yIGeYmOc/N9Hj9RQjHj3EFJ9oNccA64XwI8ec1yWFkd3pWfEIlDtP/dmg1QBYppQXwhq
+	 CGBqL8N1liS3ZtInQ7sqI/ZlAARJyh/GEjSex5jf3UHh4I3xfxBpenq5kqH9L0+niycqb
+	 IdFJP93tdZQoHtX+QfwDStsxcTugvPUprWTxe+RGOO50//n6sQcexh3cotJsYyg/lxJ5+
+	 MV7UIPMePwr4LzQz7AVNZjBRNReP3d8jARDw9XIcko5iefkQ7haWkNljOM8jngEIhjnXE
+	 qXjz8DuBsI9H04g7B2kuMiWNCgCQPnAmLFZ5oWioXZhm1oOb/WcihR/8ucmpygww+gg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=URXmPl2z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40E0606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:26:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40E0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6664606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:28:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6664606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=3EIwuN13
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=URXmPl2z
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1d8944cb0so1765667a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:28:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792614492; cv=none;
+        d=google.com; s=arc-20260327;
+        b=i8Nzor/N9hN6WyeVGa2K4W8PNFYuynZKBOTlvP6Gk17c7kpFJpAmP38680KUOieQQl
+         ENMCRZBzW7EQUoUq/0xtbIj/jVNB2sLzUsKBMNJoqMLC77PgKpCl4/ekVnco+BxCh4h7
+         OQ5pde9OG8rNAzSlt/dI52RzSare2uA1g+BDtDYwPYvyV2C3FrXfaMpXyryCRklaMUi6
+         OKgslmvP9LYIIR3P0Maes/wFFWsnT6BKRqZ/yMvqTnfoOQklkxJ8d8j6+cEIexxL3BlB
+         F2UAIL7Z729ZoLPK7J7sHztDbty5oGjvXLKBV/ig3vMb7FSL1aCgkd71x3sWWeSlBMrk
+         dnoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0puJpnNmDvGtBriXSLRhq4RtO307HXFeqwawArp0hCM=;
+        fh=yTmROFx6o06w+1NinBcIOUSq+mz99tQUROSH4K/CYRo=;
+        b=eJXXVbVprHYCDlGNVlAEypY2SSOkKe5OJQ6OuykvpE29sM9IX09Ah2UyJ50VSMAHpu
+         UYPIw44P8trUP+WUKSuOxgrobD1uY5pIc7wbWfe2MgFDr0C6+sHFB1pkiLS2zTcFXPq1
+         7jkubomv0ze45vERFPaKwDYLWPVuqdc2pDBMBoJi7DFDZwapwhzkplRW2dUekdwH4fVF
+         qY2zLaRo3BkNl5iTQ4DZBAa8weGvZuXQe+MZZ+hIaDBerzHwnCmlradNEX/qQqiWDuQX
+         C5jwo5sdmb53X75MW3rRVGDDqcjGjnjMaojDrFhPC14egOI+pt3dPIYtQrbeq+oxQIpX
+         aYfQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1792614391; x=1792873591;
-	bh=E2pTPMKUQJD5SV65KUhENq72igG4uuAAoV5xy1VuYmA=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=3EIwuN13mRx60PgDwUFijdHtb2b+vrGxOONLJ84KBuHkxbvrlTvXiP/GrDXMHMYnJ
-	 iBlDRH9E7UzxG5kukFXg2dbsqfljpjrDzTXoIJTmdY0y1kZxtJ2fmXRotM/Hykr6/7
-	 9WJAG0GJCfIpclPTmVUdBYh21RkzcAr5y/rH8XM7to03gz2MCeMpQ8dmArPyimApNN
-	 bEWlTFZcLqtr2P1U0l26pLqi7uLoyzYI0AVsjOmM635YYnsvkHKexAvptEFFaYDxja
-	 85mb76usdedOfCu4p2jr0JkOWLH6tOO62YYgEPktw3Yfg8dnBv7h3IVnyOff08wgSO
-	 W1+4MNpWydR/Q==
-X-Pm-Submission-Id: 4j915f1BsSz2Sccv
-From: Michael McAllister <me@michaelmcallister.org>
-To: linux-serial@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] serial: qcom-geni: Set UPSTAT_AUTOCTS for hardware flow control
-Date: Wed, 21 Oct 2026 21:26:03 +0100
-Message-ID: <20261021202603.42888-1-me@michaelmcallister.org>
-X-Mailer: git-send-email 2.50.1
+        d=gmail.com; s=20251104; t=1792614492; x=1793219292; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0puJpnNmDvGtBriXSLRhq4RtO307HXFeqwawArp0hCM=;
+        b=URXmPl2zu5AaaNBg5ooC/iK7NTyySYtNXsaKySb9/H4Qw9911yJ2jwmHAn7350jJg/
+         a2eSFgcfyZdyJRR5KOa/C7d9K5YOCA1vn4EMJYxfrubzWly4MIamaeyZZqOsJhQ5na1n
+         ifR7aLm1Mq89DwJhJHOa6AjfRjuV2xrDd2m3O7Q5tIYD2xWa3PnAw3rIMmro6/CZC/sb
+         cgeTRHoT8dsscKPO69TKUfMAo+skotHEBliFKK+PfOpdLRT6I6Yz/qPr9lRHyQrnsplp
+         75gkO34utiegY/F2CYlPwaXxPgSki0RAvGQUTb1aS+ql1Fo0q0HYeRoSqdnVnAEZ1yD0
+         PFpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792614492; x=1793219292;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0puJpnNmDvGtBriXSLRhq4RtO307HXFeqwawArp0hCM=;
+        b=Tc20+vp51KO1ruaI2mkx3twgtezi7leE6oZWKZWil40G48bjYYlqbag273oUVWY3av
+         tXOkscnZXM1xlL6lvYTK8M0QGn58bnsS7URGpswaWMa8do725n7VtDbh3NCvYhATiP/A
+         z0cRvZYOJJkEoiLLE2+D9zFOqpwpYfNPlAA8kxK6EkNFNZTqVLdMeseq5zGMNL4y33ce
+         p4S+U4gd8hafSDyYS0VeRlwfI92dWUpXRlzm8FLyvlYeg0s8cBVL1Hvg20u8hDS35ByK
+         ZZSjZa6mntXpAZJm2wLwBDvb9PvOJs9oH3jG2Rmh/lbqlMTGq6Bs6VJbTFzoTT9m/1no
+         zEdw==
+X-Forwarded-Encrypted: i=1; AKwUvBzmherPt0sjYpIrWfGlyY5y2S648wh7B4kIlkrMkcm0qOw5TbJDyuUvu0XaXolFBdVimy5mD7PxlpxzGOc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKb8Q2jZmz5Zghf7TQj857YvQgY0H3m4bubCkOeY7cYekNp/VnL
+	K88izB6H05DilykS1NlR728i3dRdf7aJBIHn4WV+3JFB0HNQNqWdetJvK6Lkz/T1BYZI8BMqjko
+	AAdwysRMLJwDTX1ej+eF4Fzsu8krudMo=
+X-Gm-Gg: AYBFou3NFb0i3VdOqbGWUIjB2E9aWOmkqccQCZxy1cADG0zniD1oOOZTy/C68Eu8et/
+	eoPSbN+yBjoPjdQ3kvAWvSWw905Tl9bQs5ivVVmVHzQzpAX6e/ltuW1VHIIbN0L6CWDbol5KKGS
+	uYGYToXOXNNgwAVTAYy0yiM+kPxCzbiHSOjHQERXuBPCV/+0U+ksveO6vogrEvBs3KQKqK7K5lz
+	rhzbmPMUOe7WJ9mQisleLWTpEJhHQYSmRWxUpnqDJrqYLjozBSqHySoyumthgloJL4l1xh0WzK/
+	3TmTfWbvT5zCpu69HgZjUrE+1Sou4UK1rDZp/7mbT/7JYK2IlJG4hmFUP5zuE9XQSjhmENCBvFI
+	eGyaagBQ76vx2AXjRjXhisQH460RsEoPYezmIUCMir4aRenxWBbkTyw4wgjl7650WMw==
+X-Received: by 2002:a05:6402:46c3:b0:6a5:fbc6:cad1 with SMTP id
+ 4fb4d7f45d1cf-6b408e89e41mr2170258a12.7.1792614492072; Wed, 21 Oct 2026
+ 13:28:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,83 +104,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <atibhAMcgKle37-g@sirena.co.uk> <CA+=Fv5SUHkGtBPgzg9C1qGf6aiiFTVpStPd6Os3mTrz_+_5dKA@mail.gmail.com>
+ <20261021185857.GB2608581@ax162>
+In-Reply-To: <20261021185857.GB2608581@ax162>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 21 Oct 2026 22:27:59 +0200
+X-Gm-Features: AclHuK80SVzQM3IT8hIbzJ05B2q7Hnxxi9JMQfhtwyRQawT4F4MwO5pP48izAmM
+Message-ID: <CA+=Fv5Rf0puguC_G8L+CL6G5gjQZ2m3LpEsicN_jTcBpEK7XeQ@mail.gmail.com>
+Subject: Re: linux-next: manual merge of the kbuild-current tree with the
+ origin tree
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	KBuild Mailing List <linux-kbuild@vger.kernel.org>, Kees Cook <kees@kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+	Linux Next Mailing List <linux-next@vger.kernel.org>, Matt Turner <mattst88@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-qcom_geni_serial_set_termios() clears UART_CTS_MASK when CRTSCTS is set,
-enabling hardware CTS flow control. However, it never sets UPSTAT_AUTOCTS,
-so uart_softcts_mode() also selects software-assisted CTS flow control.
+Hi Nathan,
 
-If CTS is deasserted when uart_change_line_settings() samples the modem
-status, serial core sets hw_stopped and stops transmission. The GENI
-driver does not handle CTS-change interrupts, so asserting CTS again does
-not clear hw_stopped or restart the transmitter.
+On Wed, Oct 21, 2026 at 8:59=E2=80=AFPM Nathan Chancellor <nathan@kernel.or=
+g> wrote:
+>
+> On Wed, Oct 21, 2026 at 04:40:22PM +0200, Magnus Lindholm wrote:
+> > On Wed, Oct 21, 2026 at 1:01=E2=80=AFPM Mark Brown <broonie@kernel.org>=
+ wrote:
+> > >
+> > > Hi all,
+> > >
+> > > Today's linux-next merge of the kbuild-current tree got a conflict in=
+:
+> > >
+> > >   arch/alpha/boot/Makefile
+> > >
+> > > between commit:
+> > >
+> > >   c437950dceb88 ("alpha: add self-extracting compressed kernel boot s=
+tub")
+> > >
+> > > from the origin tree and commit:
+> > >
+> > >   0d4d70da348b0 ("kbuild: Mark the gzip recipes as recursive")
+> > >
+> > > from the kbuild-current tree.
+>
+> Thank you for the heads up, I have let Linus know about this one since
+> it is a little tricky.
+>
+>   https://lore.kernel.org/20261021184723.GA2608581@ax162/
+>
+> > Thanks for resolving this.
+> >
+> > This recipe now only copies the completed image, so I think it
+> > should stay without '+'. Matt's series moved compression into
+> > arch/alpha/boot/compressed/Makefile, where the change should be:
+> >
+> >  $(obj)/vmlinux.bin.gz: $(obj)/vmlinux.bin FORCE
+> > - $(call if_changed,gzip)
+> > + +$(call if_changed,gzip)
+> >
+> > The existing vmlinux.nh.gz gzip recipe in arch/alpha/boot/Makefile
+> > still needs the '+' from the kbuild patch.
+>
+> Correct, thank you for catching this.
+>
+> > Maybe adjust the resolution accordingly?
+>
+> Since the conflict came from Linus's tree, I have resolved this in
+> kbuild-fixes-for-next so that Mark does not have to worry about this:
+>
+>   https://git.kernel.org/kbuild/c/83deedcf85af511dc120b3cd8ee597d211cdf2f=
+b
+>
 
-On a Motorola Moto G10 with WCN3950, this can stall Bluetooth setup in
-tty_wait_until_sent() while qca_setup() closes the serial port. A captured
-stall had one byte left in the software transmit queue, hw_stopped set,
-and CTS asserted, with the UART powered and its interrupt enabled.
+Thanks so much for handling this.
 
-Set UPSTAT_AUTOCTS under the port lock when CRTSCTS is enabled, and clear
-it when CRTSCTS is disabled, to match the hardware configuration.
+> On a related note, is your tree flowing into -next? The recent
+> pull requests for alpha have come from your lindholm/alpha tree but
+> Next/Trees shows Matt's mattst88/alpha. Should that be changed? It would
+> not have saved much here since I send my pull request to Linus before
+> c437950dceb88 was applied in your tree as far as I can tell but it is
+> always good to catch these things early.
+>
 
-Fixes: 8a8a66a1a18a ("tty: serial: qcom_geni_serial: Add support for flow control")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
-Hardware validation used the same change in the Motorola Moto G10 Linux
-7.2.9 port.
+You are absolutely right, I'll wire up my lindholm/alpha tree into -next be=
+fore
+the next merge window.
 
-Before the fix, a Bluetooth power-cycle test captured qca_setup() blocked
-in tty_wait_until_sent() through serdev_device_close(), with:
+Thanks again,
 
-  software TX pending: 1 byte
-  hw_stopped:          1
-  UART status:        0x1 (UPSTAT_CTS_ENABLE without UPSTAT_AUTOCTS)
-  SE_GENI_IOS:         0x1 (IO2_DATA_IN clear, CTS asserted)
-  UART IRQ disabled:  0
-  UART IRQ masked:    0
-
-After the fix RTC suspend/resume worked, followed by Bluetooth discovery.
-
-Built drivers/tty/serial/qcom_geni_serial.o for arm64 with W=1 and
-CONFIG_SERIAL_QCOM_GENI_CONSOLE=y against the base below.
-
-AI assistance: Codex analyzed the saved UART diagnostics and serial-core
-source and ran the build and style checks. 
-
- drivers/tty/serial/qcom_geni_serial.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/tty/serial/qcom_geni_serial.c b/drivers/tty/serial/qcom_geni_serial.c
-index a851b8f0ef..5782b89c84 100644
---- a/drivers/tty/serial/qcom_geni_serial.c
-+++ b/drivers/tty/serial/qcom_geni_serial.c
-@@ -1503,6 +1503,7 @@ static void qcom_geni_serial_set_termios(struct uart_port *uport,
- 	struct qcom_geni_serial_port *port = to_dev_port(uport);
- 	unsigned int baud;
- 	unsigned long timeout;
-+	unsigned long flags;
- 	u32 bits_per_char;
- 	u32 tx_trans_cfg;
- 	u32 tx_parity_cfg;
-@@ -1596,6 +1597,14 @@ static void qcom_geni_serial_set_termios(struct uart_port *uport,
- 	writel(bits_per_char, uport->membase + SE_UART_RX_WORD_LEN);
- 	writel(stop_bit_len, uport->membase + SE_UART_TX_STOP_BIT_LEN);
- 
-+	/* CTS gates TX in hardware; no CTS interrupt updates hw_stopped. */
-+	uart_port_lock_irqsave(uport, &flags);
-+	if (termios->c_cflag & CRTSCTS)
-+		uport->status |= UPSTAT_AUTOCTS;
-+	else
-+		uport->status &= ~UPSTAT_AUTOCTS;
-+	uart_port_unlock_irqrestore(uport, flags);
-+
- 	trace_geni_serial_set_termios(uport->dev, baud, bits_per_char,
- 				      tx_trans_cfg, tx_parity_cfg, rx_trans_cfg,
- 				      rx_parity_cfg, stop_bit_len);
-
-base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
--- 
-2.50.1 (Apple Git-155)
-
+Magnus
