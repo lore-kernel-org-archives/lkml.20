@@ -1,72 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571710;
-	b=ANiJDnB4uX/mSN0h35A1uWMxhhNGwobzoiHRmrXrPUeZHtUssFKqGva/o6N5dHFzSFho
-	 B8acQ9n5KjQ6NB16V7WgwiXcBqCEeMluk1FoUXEvUPLwNeQbSSwqTqnX5nsQJW/b3kZUl
-	 oPrNA9kb25zgj70tCrRqbhZu84f/pGWrSgsgqEuTkF4/CBlpjwSQo8Gk3x3WOhj1Zmh53
-	 +SR6lMR1pEJd/ALI+0eSt543gUQH1rxT/jrpqlQih1O9DnKvzL4mgt7gzDUpt0BhWXK1p
-	 Xt/5s42DzzpavgWEzBr5a1X6dZSvAiEuFkqDP8mOxFC08FoczxQgV7YJykyChrdIZuw==
+	t=1792571780;
+	b=VvfM5MBtQ07X2XAiU0ZjXrRsijElLDM3GOoxLvaSiZbQWPMeCcDsQHowtHbv5LPWMsg0
+	 pBcdmod4pEPFP5QiPtSE9dvH/CyD011ji9JPBl6e6YPjy5DquicffikreoN9cJGNVBfe6
+	 e2DDtarCSAXNtV98l0w6xkUS08mrDOgR2m6Ynn4f/MGkVvV4X1WwRd77V5D8RevZ5EApa
+	 LaTzRT86/JuDhUbVKhTKMRgViTCssm+u9KItHFun2CVyCRV37ssVTUMrbqUgRQDp1jH1N
+	 rX6ujkZx6BowS+7CHYUaHJOCY0B13DdVhFEQTTna3MbARB6UgTFGvpwdNXKP6wnGy9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571710;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9JiDbdgGuLN51aKpNSs4G0icKV5bYJezA/G+Y0YwoiM=;
-	b=RdY16UrNs6aVFcGyuvEujcLZgSUL2MJFqyg06yD5+kBVTfqpIp5GrPQslhyw6TP34O5c
-	 tluCNq6JcZTLrP2phZzekUuTBnIJjID4aUU2MziFwEbT242QX2LSlCqScMiPImj0Kd/xw
-	 16WkO6Fk9Bn+Dx1HkNscPCW+jV+QuBcL1WEzufxcOaLxGQ50D8o9pI+TWco/rI1GZzsZ1
-	 MQ9gPB/BDtV4QX8vAdO/op+P+tegiwFNgC7Jq6MTW7w2pLokqN8IjPjCUGZy6F9MIjSp/
-	 LPzeasCcFEfzOnNnaXU0guYUH5UsMHCceH7hWWGLk9q3knQbMzbHiOPK0ryrtVQxNGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571780;
+	h=DMARC-Filter:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 X-Clacks-Overhead:Message-ID:MIME-Version:Content-Type;
+	bh=vVtK8FpzlHGMqGZhWfo5vyAATdQeqWgl8pchEILsMaw=;
+	b=ruK6gZ94Qn8STnD2hQdvMrMf2oRlx/cWNnAdExjXvs7i16DqhxPg1C4WXBWzni+NRgs4
+	 8P/htT8lmyy2p7e6vJw5DyKhqAd9eOXDeDeBmdd2OFtAj2bIAyBeRRQXbQA/9BMqdnTLH
+	 H/tTRVBWxe7kdBFViUoTDrJCg00Woo2EsErcdHhW7zCtpoA7lxV4YYh7FWqIsq/uygEMP
+	 /EZGWSLkrTiZPXdzNQSM/7S6EabeUdV8/Cr8iLjJRXkSqi/Yb1SvgdhLjHVrFA3AhtVIv
+	 BOhW7HaO43XVTWWZljGQk7+Tg+g4rnGY+mrEfMxaHBAluAzIxHnyK/NaLbtE2iGYvcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fK8XeHWi;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=toke.dk;
+	spf=pass smtp.mailfrom=toke.dk;
+	arc=none smtp.remote-ip=45.145.95.4
+Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53492606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:35:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53492606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=fK8XeHWi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1792571708;
-	bh=UNMzNdSJ1jQYOZWHW+9R2rXUtTmKqb+0DXMYwW9GLZ8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=fK8XeHWi1Yss47HrUDxKYtxdkcrstJ1znpAmGWlcseetbOrr+SgnNjYGB7Jq2Y0mO
-	 JKMtoVkXfWCl9tL5cKOt1670V9lp07bETwSVJmMJIBHI6Cop0yGXCXpuhM5GWrd4+Z
-	 8TG97txhE/WmTai9G+KyyYIL+dgJRdHpOiaf//g6T+ni59jQzQs72wLVo4+j8B1Zxn
-	 CTrC3Gf30ULT+M9eIee9K4eIBYDuJ5yRlseo80yvqcxgYlfKnN+Pzi4z25c/RtvEwG
-	 3DgprH13tBfS8jLI/Rqdu0n5JP80zdesRbGVsM4/OG4cJYPFHUCbVObYaS/KeoOCkb
-	 c5PmnxF8uOj5w==
-Received: from fedora-21.home (unknown [100.64.0.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2220417E053E;
-	Wed, 21 Oct 2026 10:35:08 +0200 (CEST)
-Date: Wed, 21 Oct 2026 10:35:01 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Daniel Almeida <daniel.almeida@collabora.com>, Alice
- Ryhl <aliceryhl@google.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 08/12] drm/panthor: Refactor GEM usage flags
- assignment
-Message-ID: <20261021103501.14368b3d@fedora-21.home>
-In-Reply-To: <20261012125940.3291951-9-ketil.johnsen@arm.com>
-References: <20261012125940.3291951-1-ketil.johnsen@arm.com>
-	<20261012125940.3291951-9-ketil.johnsen@arm.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04930606A319;
+	Wed, 21 Oct 2026 08:36:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04930606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
+Authentication-Results: mail.toke.dk; dkim=none
+From: Toke =?utf-8?Q?H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
+To: Jeff Johnson <jeff.johnson@oss.qualcomm.com>, Deepanshu Kartikey
+ <kartikey406@gmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com
+Subject: Re: [PATCH] wifi: ath9k: stop WMI event tasklet from rescheduling
+ itself on probe failure
+In-Reply-To: <1e1238a6-399d-4cb5-a5ab-756ccac64169@oss.qualcomm.com>
+References: <20261003021147.7461-1-kartikey406@gmail.com>
+ <1e1238a6-399d-4cb5-a5ab-756ccac64169@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 10:36:09 +0200
+X-Clacks-Overhead: GNU Terry Pratchett
+Message-ID: <87a4o7tpqe.fsf@toke.dk>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,34 +52,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On Mon, 12 Oct 2026 14:59:36 +0200
-Ketil Johnsen <ketil.johnsen@arm.com> wrote:
+> Fix: mirror ath9k_wmi_event_drain's pattern in the tasklet early-exit:
+> if (READ_ONCE(wmi->stopped)) {
+>     spin_lock_irqsave(&wmi->wmi_lock, flags);
+>     __skb_queue_purge(&wmi->wmi_event_queue);
+>     spin_unlock_irqrestore(&wmi->wmi_lock, flags);
+>     return;
+> }
 
-> -static void panthor_gem_debugfs_set_usage_flags(struct panthor_gem_object *bo, u32 usage_flags)
-> +static void panthor_gem_debugfs_add_usage_flags(struct panthor_gem_object *bo,
-> +						u32 usage_flags)
+I think this fix is overly verbose; we don't actually need to drain the
+queue twice; if we just bail out of ath9k_wmi_event_tasklet() when the
+stopped flag is set, we can drain the queue from ath9k_stop_wmi().
+There's already a helper (ath9k_wmi_event_drain()) that takes the right
+lock, so we can use that.
 
-nit: Limit has been bumped to a 100 characters per line, so let's keep
-the prototype on a single line.
+I'll send an updated patch, please drop this one.
 
->  {
-> -	bo->debugfs.flags = usage_flags;
-> -	panthor_gem_debugfs_bo_add(bo);
-> +	atomic_or(usage_flags, &bo->debugfs.flags);
->  }
->  #else
-> +static void panthor_gem_debugfs_bo_add(struct panthor_gem_object *bo) {}
->  static void panthor_gem_debugfs_bo_rm(struct panthor_gem_object *bo) {}
-> -static void panthor_gem_debugfs_set_usage_flags(struct panthor_gem_object *bo, u32 usage_flags) {}
-> +static void panthor_gem_debugfs_add_usage_flags(struct panthor_gem_object *bo,
-> +						u32 usage_flags) {}
-
-Ditto. And if we were to have multiple lines, I'd recommend:
-
-static void panthor_gem_debugfs_add_usage_flags(structpanthor_gem_object *bo,
-						u32 usage_flags)
-{
-}
+-Toke
