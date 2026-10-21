@@ -1,67 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792563956;
-	b=CR+FHCrU3zwhhpVKqrWmMgboMO+nzgRoM9U+uD22QCLrhIK/xJJFOxpyDHucEZi7Lz1g
-	 MasRbz+g4eMkxJ/vh3J4Z7gpdP8dTdkRCUQlcIHnAyRdAeNw1LeBP4lIhnsxK8vi75kyH
-	 VWt54Q8liz9CjbLH2aF5pgXE7wNSGS65WHaxO+IjnYGrAFHYWp5kjjtBELLLvKXsXR6wk
-	 UUwbmnuEpGCsOW1T6ddIoLeIeFQQPbtK3I7MIU+ngdChOvsc0XnfcgWu+ET2YGtysAa6W
-	 CO8Kp3Kn7aindDX+WVqz9qXewyJ/ThI44Oe1PIQ6DF4WAxaphpYG3AQyTKS4jUf7tJQ==
+	t=1792563995;
+	b=wDM8aqNBoQEPtXbPDM31UWvSnvLfEx/yyaAmKthN2Bs30w5ktmrtih3UIjo5Y9/mnd8E
+	 GjkqkJ588KyHGGohjjMA+qVJcRxEuskYKBH+uc7Y4bY2n0gPaCO4ThQirF5LiYUbobWOZ
+	 +wJm8ksLA0tOV7yXX+Dkt26UggaFqNpcvvr+CUPPNDqJsms4cdN0wYHh4EN0lqN2Xg5Zr
+	 v4YGLwCaxWGtiIvmAovkgwMkVHGRgx1OFmG/Mc14ahujMeD5RieWOpRQdeUxQyoBJi0Rl
+	 TtmNSqm4M5MH0ywmqide/vscgjJTeafDQXyElYG+JNpj4PS2VN4/jWFOePSUltb8wUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792563956;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AjRcfuMGPK19o0nfdE5mLK1fdDuDVIRTEqP1pEoISiU=;
-	b=4QA3YrY0DubcIhgHAHx09WF2+qYGaCuJSDrH37fNSGSf42gytanoElP/cmjJhljoTpQt
-	 Ewh4hffnDzqJ0ype/eHPyLicWThd6KYsm+eMINHwPxblU0IeWZ3Z+zjYwCMsZKMHwb+Aa
-	 bCrBNWr0dOe6rZZY2Ywa4YFxaWp4A+UMePNNIsgnE2OZz2hXfnbFSrV3Y/MIjic+ZYe7A
-	 ZykVsaxc87jdjZcaIrFy9tAh2vRbjIuXewQFoxQ+UwVdjAj3aRipp9MG64aAVGVeAeL3m
-	 U9rLIAGAiYsUB+IjGFi+AsSxgdyLLPpnNvjtQ8qWMFeC0pk0SXBwsVA09+u8qgf36zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792563995;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ElBdXWAjd5/2gZ7mZhUT7ZukISglljnO9yUGFpsfiaw=;
+	b=x+wLohycPu36F8rP+THh9YMR62pnRQpjE2/isbKrLBETm50Ge6c2Mz9xRgN6dWcIBqYE
+	 WhVrzGYLNp+YWvwHq+fp08VDouzOQn/VHUvjYy3iM+mrNb4wHCUrBgX4NuavEEW49JC/X
+	 bZZHEeE4H/HYk9wwzTLx9pi1dQp21E7zYIhNwHdpVkTME6UKx3CkAkHmY1fhsB1Fd8zoG
+	 JzN1mmU34QW6YTfWH/y299O4dlowi4fenAJI9/CV7cT1DbMHyqNRzWEB7KaDKrgp3YzE7
+	 cr2LFE5PDQSW1ht+UWdYnKoGDTBa19R8cvdi3J9rIIqeBSRcnoKbj9gcFpf9+nidThg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=Pkm2zQtO;
-	arc=none smtp.remote-ip=61.135.153.170
-Received: from smtp153-170.sina.com.cn (smtp153-170.sina.com.cn [61.135.153.170])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8+9ZkXV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F05F606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:25:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F05F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07908606A319;
+	Wed, 21 Oct 2026 06:26:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=Pkm2zQtO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792563951;
-	bh=AjRcfuMGPK19o0nfdE5mLK1fdDuDVIRTEqP1pEoISiU=;
-	h=From:Subject:Date:Message-ID;
-	b=Pkm2zQtO0nw3kI6To5WPlRdiE05fu2bhUHJ+5HQBBtwldU1M5KpAT5tmMror/GaDj
-	 EztJn2+6v8XUdqk038zpj1mB3jbEO+KFFrixJ9RmN76fp8vkUIA3noGx/MUO8UtAKg
-	 jFxV6+cJQk9A50ca88m+VfCYUYo3veIbBsmHkcO4=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.34) with ESMTP
-	id 6AD85ADF00003697; Wed, 21 Oct 2026 14:25:40 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 5868706291678
-X-SMAIL-UIID: 71D4861D3FE741D792EA1D58F61D31C4-20261021-142540-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	leitao@debian.org,
-	a.hindborg@kernel.org
-Subject: [PATCH] configfs: Delay the fop setting to prevent noise generated by open
-Date: Wed, 21 Oct 2026 14:25:35 +0800
-Message-ID: <20261021062535.55494-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
-References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8+9ZkXV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258221F000C9;
+	Wed, 21 Oct 2026 06:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792563994;
+	bh=ElBdXWAjd5/2gZ7mZhUT7ZukISglljnO9yUGFpsfiaw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=f8+9ZkXVZLN1MwnDHglLGtUQqG1MKY5z0ITTXICIMo7RupTNzpLR6cVEiM/QMDBLz
+	 x2461OLk1DPHOSgXbu9NH8bV/wDpb1gaqrKU33Bjmo7F3LTDuqSgGjZlvWseIMrsm3
+	 RzPWo99dBHvTgnJ7fk2+g5Fxg38vak6jc4Hx5qnv4Uhnx6UxdDgD1z5IpY2aX0pcaz
+	 AvV2yBIRZlJ3DWbL6eKg9w1tRSzwL9UFO3kOAbbOBx8JpMmFl5v1dGyTJa8qtZeNWq
+	 T/iW4JfYLhvF4cqLOKwT9DM4PjBSSBe4RnsU1yrmacyGVWyrtBSEotPchJ+IJY0nOC
+	 cz3WFIYT3Ousw==
+Message-ID: <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+Date: Wed, 21 Oct 2026 08:26:28 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,103 +51,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+To: Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org,
+ workflows@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-kernel@vger.kernel.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261020212235.1143086-1-ebiggers@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-mkdir() triggers:
-  configfs_mkdir() ->
-   configfs_attach_group() ->
-    populate_groups() ->
-     create_default_group("ana_groups") ->
-      configfs_attach_group() ->
-       populate_groups() ->
-	create_default_group("1")
+On 20/10/2026 23:22, Eric Biggers wrote:
+> -Make sure that base commit is in an official maintainer/mainline tree
+> -and not in some internal, accessible only to you tree - otherwise it
+> -would be worthless.
+> +    If ``git format-patch`` with ``--base=auto`` (or
+> +    ``format.useAutoBase=true``) can't detect a base commit, e.g. due to
+> +    the current branch having no upstream tracking branch, it exits with
+> +    an error. In such cases, pass an explicit base commit to ``--base``
+> +    instead. This is also needed if git detects the wrong base commit,
+> +    such as when the upstream branch has local, unpublished commits.
+> +
+> +The base commit must be in a well-known public tree, such as the
+> +subsystem development branch the patch is targeting. See
+> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-next
+> +can also be acceptable bases, depending on the subsystem.
 
-The creation of an inode for the subdentry 1 under ana_groups failed
-due to fault injection. [1]
+I disagree, that's pointlessly too hard requirement.
 
-Because helper threads are racing open() on ana_groups, ana_groups has
-dentry refcount > 1. d_delete() skips dentry_unlink_inode(), leaving
-d_inode non-NULL. create_default_group() hits BUG_ON(d_inode(child)) at
-fs/configfs/dir.c:734! [2]
+For many of my contributions base is obvious and not needed to be
+explicitly defined. For all the patches I accept, answer is the same -
+base is either obvious or if not and patch does not apply, then the base
+does not matter.
 
-[1]
-FAULT_INJECTION: forcing a failure.
-name failslab, interval 1, probability 0, space 0, times -1
-Call Trace:
- should_failslab+0xa8/0x100
- kmem_cache_alloc_noprof+0xa1/0x600
- security_inode_alloc+0x39/0x310
- inode_init_always_gfp+0x97e/0xd30
- alloc_inode+0x82/0x1b0
- new_inode+0x1f/0x170
- configfs_new_inode+0x27/0x410
- configfs_create+0xb5/0x270
- configfs_attach_item+0x25f/0xd60
- configfs_attach_group+0x2a/0x370
- create_default_group+0x87/0x180
- configfs_attach_group+0x169/0x370
- configfs_mkdir+0x6f0/0x9e0
- vfs_mkdir+0x40c/0x620
+Requiring it is just bureaucracy without actual benefit.
 
-[2]
- kernel BUG at fs/configfs/dir.c:734!
- Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
- RIP: 0010:create_default_group+0x17c/0x180
- Call Trace:
-  configfs_attach_group+0x169/0x370
-  configfs_mkdir+0x6f0/0x9e0
-  vfs_mkdir+0x40c/0x620
+The only benefit would be if maintainer COULD change its base to apply
+some patch with odd base... but this cannot happen. Maintainer base is
+fixed - it's the HEAD of his development branch for given category of
+commits (e.g. DTS branch for SoC maintainers).
 
-The root cause is a race condition between open and mkdir; delaying the
-assignment of the fop ensures that directories are not opened before they
-are ready. 
-
-Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
-Reported-by: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=4fae162886e497f72228
-Signed-off-by: Edward Adam Davis <eadavis@sina.com>
----
- fs/configfs/dir.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index eda80c2a2d38..45a955b8ab36 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -313,7 +313,6 @@ static int configfs_create_dir(struct config_item *item, struct dentry *dentry,
- 		goto out_remove;
- 
- 	inode->i_op = &configfs_dir_inode_operations;
--	inode->i_fop = &configfs_dir_operations;
- 	/* directory inodes start off with i_nlink == 2 (for "." entry) */
- 	inc_nlink(inode);
- 	d_make_persistent(dentry, inode);
-@@ -930,6 +929,10 @@ static int configfs_attach_group(struct config_item *item,
- 		inode_unlock(d_inode(dentry));
- 		if (ret)
- 			d_delete(dentry);
-+		else {
-+			struct inode *inode = d_inode(dentry);
-+			inode->i_fop = &configfs_dir_operations;
-+		}
- 	}
- 
- 	return ret;
-@@ -1430,8 +1433,13 @@ static struct dentry *configfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
- 
- 	if (group)
- 		ret = configfs_attach_group(item, dentry, frag);
--	else
-+	else {
- 		ret = configfs_attach_item(item, dentry, frag);
-+		if (!ret) {
-+			struct inode *inode = d_inode(dentry);
-+			inode->i_fop = &configfs_dir_operations;
-+		}
-+	}
- 
- 	spin_lock(&configfs_dirent_lock);
- 	sd->s_type &= ~CONFIGFS_USET_IN_MKDIR;
--- 
-2.43.0
-
+Best regards,
+Krzysztof
