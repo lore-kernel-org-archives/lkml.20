@@ -1,81 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.1.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616379;
-	b=d7yZKGszF/c5fKJedMR75MJIbhpEi51G5YwOyAIRmOcCdMLonwFH0pfO7sAtwgKKBxrW
-	 EWw5bJgKQlwFBYDX36+Gtqj/PgyankAzEfKztOohwAKLmQ3kFMhfirMhbbQ21x1ioAVwu
-	 SnV4Mi3Ak3WQ8RXPv8w3mV4sQlGEu4eLMsGECIbvq93Ch0R3wTu3fAOd7+atMxzLpHjUV
-	 QNG0WyxRaW9TE6BAajD1v3lRupWyDyZxdICQFGUNw6FZQHBg3He9nyIxmJQ0Jc4uKfjtt
-	 TAn3O/SYXiEWlt82sWfaRoCwED3VkgXhambY4wGYfH1e2RH+BPnBF8dY62rpPbUDekA==
+	t=1792616364;
+	b=V1AR+Ifv+6s2DIdnm9YnvzfibCDMDmlaErW2JpNuDidyxTID6+Af7ckZ7PHHR6VL6tTq
+	 rC/YXx7cd5N0VJvjSTsUcgvMgo7sKJH0/aeZ6EvjOzkQXI1FKhwTmZaJ49UkuE5ZBDfRd
+	 gmuDvgWEWmpRyH9xJoJ9LVqKUsq835b5Lr+CtaWx0EWyXPg/jdI2jrHPwi4W0uRb0G8Q3
+	 FtDlLHAiqzQU64n/nuYkOaSnGG1+veK70z3LvKqtnkyg5iv+vSWwo55i8GXN8a5xKYuaB
+	 5Na49aoR7oaVvEbBptQptJxEEr3XvLJVEZCcuOuKTH7wfp3tzWq7Fc9ahM+pIZ7aRYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616379;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=MB1VWokoTNzjBoK6XypOYuBfmm/Gm+5i6Hamx66M7Xk=;
-	b=KmvYnVy3DhA8dBtaXaWgh957l/VkqQnqpIFyHR2JabHfYwlRl8YbenfNOzrP4OFheFKG
-	 O1T6aLDIWDqmixD2zXQ9BUt66IVy8/x6e9dsxmbomSA4CRlRwP/JXcXIgxZfqcth3YGVH
-	 hxSALx4/lZY1wOkCZRmDndnob7lagnz3NVV6s6WhfNjbazcHgnDz2Xij4zqb2GoiRBsv3
-	 fgYgmvj23l70n+FuXD+gVpukKGEoAlTvg3W//8GBFa2/Dml8tIpUW51hvW38jqViIiUX8
-	 Zgcrac1qcoXpUXeWsgo1jvhbDHYwoZ6rJQ/MHvsaAQicX3Ksr2H/3dYz5UNGIY+EW6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616364;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=sc3hIjuqm2HqdSWjRIWRDLuVUuAq4OcILp/mjVvlhDk=;
+	b=GZhW9DOjqV9yMLqmyml2GsaPV0xRJLr1B7VYVCSA1KapnCgVOBYEjtqRwOund/P7IpQn
+	 8VewLChGywR5hUuXgBRArdu2Bf1IeJA8Z7RRnHg5XuPQWFFgmZXwAYb8V+lSfsDINffV+
+	 BpvlSolyT9Rnm12G9xUD4tjerMtvg5Q5fhr6cG0+7d24+4h00fWlEYKBtGcpqREMhFIW/
+	 /pCNmU28UEB4UkI2X1s+Fu1ZrIWlsA4mbOUhNXmk5ezqEdWFLUwRlWimrRe2eqeXhc6ed
+	 JQk3Qop3D1o+e3rPEs9MVOg0lmt3RwMtMClM7ln7ZJBoHMhGfAoHrACD75qgdJDbDBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=KsArCnRI;
-	arc=none smtp.remote-ip=44.246.1.125
-Received: from pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.1.125])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--nhuhuan.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ZMNsh3Jh;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A08606A31D;
-	Wed, 21 Oct 2026 20:59:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19A08606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 934EE606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:59:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 934EE606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nhuhuan.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=KsArCnRI
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ZMNsh3Jh
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so2904023eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:59:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792616379; x=1824152379;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=MB1VWokoTNzjBoK6XypOYuBfmm/Gm+5i6Hamx66M7Xk=;
-  b=KsArCnRInEnPRSdlXhbTSvNgjCsLWAE43TBIw0DdG4I+YV6Lf301gKeA
-   xzEnXTXxqFlqhVjE6ELYVu8F5Xdr8hHJGHAH0ptFu/Yh1k24XZWuCoui6
-   p87W3PdyzZNs4FJAKyEcHety38/+P0QSUqpjTyMazHkVowLPzGIqciQnk
-   r7wEeXelbRKrVMF2FcU9Y65TvZxM5oUDl9POWqg33G5RcmSCTHf3dA0m1
-   HUcu1XVpbbfs+aFlwGs5Aub9cZpz6m8jgvzCmgDXOg5uxUv7f3kSuQsFq
-   dzq7OsYKXxWqWG32sp/KLrTP43QOK2/KYv10OsyiWNPfPc0m7qL4cMPof
-   A==;
-X-CSE-ConnectionGUID: Rkmt/MsITkyPWq0IYQKaUQ==
-X-CSE-MsgGUID: QqDTH57+TNeT69MrtTe1mQ==
-X-IronPort-AV: E=Sophos;i="6.27,170,1787011200"; 
-   d="scan'208";a="31914408"
-Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
-  by internal-pdx-out-002.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 20:59:38 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:11671]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.40.190:2525] with esmtp (Farcaster)
- id 3c360efc-706c-4df0-9397-675341b7d311; Wed, 21 Oct 2026 20:59:38 +0000 (UTC)
-X-Farcaster-Flow-ID: 3c360efc-706c-4df0-9397-675341b7d311
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Wed, 21 Oct 2026 20:59:38 +0000
-Received: from dev-dsk-patrzhan-2a-52a3f46b.us-west-2.amazon.com
- (172.22.91.11) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Wed, 21 Oct 2026
- 20:59:37 +0000
-From: Patrick Zhang <patrzhan@amazon.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol
-	<mailhol@kernel.org>, <linux-can@vger.kernel.org>
-CC: Pavel Pisa <pisa@cmp.felk.cvut.cz>, Ondrej Ille <ondrej.ille@gmail.com>,
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 0/3] can: enable NAPI before starting the controller in three drivers
-Date: Wed, 21 Oct 2026 20:59:21 +0000
-Message-ID: <20261021205924.2538511-1-patrzhan@amazon.com>
-X-Mailer: git-send-email 2.50.1
+        d=google.com; s=20251104; t=1792616358; x=1793221158; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=sc3hIjuqm2HqdSWjRIWRDLuVUuAq4OcILp/mjVvlhDk=;
+        b=ZMNsh3JhlJhhgQmcGS+0lnv4PQ1jkXPwj/Swdqa5ZVbur6eSeM3Fa8DjhDGsrQASA9
+         9thPSUOrzIJiFKz8HmF36RGFQfzfjXxadMsGq8wo4+TCNxiib64SG2G6HqHbWOpVjLAS
+         EsYouMOnfhfHiQGbZ65Q7zFHBKhHyvGA4LiGHuACdF1/D0hwrdeBt4EZqImdHIQuer8W
+         3eZfDmFhEaAoiEe0vD3o2frHLu1Bh+MwtXLR2sbNmu5cntokFsetboebwJZVWMtI65AZ
+         /xtfEoB7lBErngBGxt7g3ScYFih1k75BH/8Q26w9DM1IJPr3K/ZsJG6uaqoKkllZ87S+
+         yxDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792616358; x=1793221158;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sc3hIjuqm2HqdSWjRIWRDLuVUuAq4OcILp/mjVvlhDk=;
+        b=cAiB+RCfmiRPpjzkMDC0KZ34vBSobsusb8DMXShyROuPn6H9ARfPynvHt+nenuXfqt
+         0CR27WfGn6ewNYPNAKmlBRBFs22cLRR2ah2F3XhHznXiz26STZtbnPNsYcO5wrpnu/1o
+         s0u/eWBJVwqEp55ETSomiXUmRR823whKdsOeRImcSesLE9PN80WSxzeI5t4NpXF7dSAo
+         26wLcBFKcZOl1KJngMPkPHNYI/3qFoIVKrIdf1E/ofPt2xjaCPAZ559GUtBoHwWXBNE0
+         VJ/OuUUD0TWHQ40ht67MxiKtZ/cNlxqmXMr7XesHUBzr4u25QlTmXtXItNw+qaGyBQW+
+         tJVA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsmv+lIxelKZvdEegS9d0ivYrAMFWOk81BgYf6ycYqIFumiMfSVH4yO5KgB0axVBpohWffY8Hb37lhP8w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYotm2pjtInJZIP9affz7DtpxvIXP6Ers5LCdEhq5subjxpvZQ
+	wKZUlk4hylPwNLa6db4iy791/bvhcKamn+Hqy/7QLLceT80WWzWACUw19VJW4TuAJjO9p67yAop
+	ZG1+SAR+CMQ==
+X-Received: from dlbdx6.prod.google.com ([2002:a05:7022:e06:b0:16c:bd18:1ee2])
+ (user=nhuhuan job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7023:a8b:b0:143:72b1:9004
+ with SMTP id a92af1059eb24-190a87a3b70mr4075424c88.45.1792616357026; Wed, 21
+ Oct 2026 13:59:17 -0700 (PDT)
+Date: Wed, 21 Oct 2026 13:59:16 -0700
+In-Reply-To: <7e998cd5-57e0-432b-a8e0-676a5b773436@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,62 +78,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA002.ant.amazon.com (10.13.139.96) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+References: <7e998cd5-57e0-432b-a8e0-676a5b773436@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021205916.584370-1-nhuhuan@google.com>
+Subject: Re: Path forward for Virtualized Swap?
+From: Huan Nguyen <nhuhuan@google.com>
+To: david@kernel.org
+Cc: akpm@linux-foundation.org, axelrasmussen@google.com, baohua@kernel.org, 
+	baolin.wang@linux.alibaba.com, baoquan.he@linux.dev, cgroups@vger.kernel.org, 
+	chengming.zhou@linux.dev, chrisl@kernel.org, corbet@lwn.net, 
+	gourry@gourry.net, hannes@cmpxchg.org, haowenchao22@gmail.com, 
+	hughd@google.com, joshua.hahnjy@gmail.com, kernel-team@meta.com, 
+	kunwu.chan@linux.dev, liam@infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, 
+	mhocko@kernel.org, mkoutny@suse.com, muchun.song@linux.dev, nphamcs@gmail.com, 
+	qi.zheng@linux.dev, riel@surriel.com, roman.gushchin@linux.dev, 
+	rppt@kernel.org, ryncsn@gmail.com, shakeel.butt@linux.dev, 
+	shikemeng@huaweicloud.com, skhan@linuxfoundation.org, surenb@google.com, 
+	tj@kernel.org, vbabka@kernel.org, weixugc@google.com, yosry@kernel.org, 
+	youngjun.park@lge.com, yuanchu@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hi David,
 
-Three CAN drivers open the device in the order "start the controller
-and unmask its RX interrupt, then napi_enable()". Each of them has an
-ISR that masks the RX interrupt before calling napi_schedule(), and a
-poll that is the only place the RX interrupt is unmasked again. A frame
-that arrives between the controller start and napi_enable() is handled
-by the ISR, which masks RX and calls napi_schedule() on a NAPI instance
-that is still disabled. napi_schedule_prep() sees NAPI_STATE_SCHED set
-and drops the schedule. napi_enable() clears SCHED without scheduling.
-Nothing ever polls, so RX stays masked and the interface receives
-nothing until the next close. Transmit keeps working and no error
-counter moves, so the failure is silent.
+I'd like to join this discussion as well.
+Could you please loop me in on the meeting invite?
 
-The affected drivers are ctucanfd, xilinx_can and ifi_canfd. The fix is
-the same in each: call napi_enable() before the controller start, so
-that an early RX interrupt can schedule the poll, and call
-napi_disable() on the error path if the start can fail.
-
-Patch 1 (ctucanfd) was tested on QEMU with the ctucan_pci device.
-Patch 2 (xilinx_can) was tested on a Versal board. Patch 3 (ifi_canfd)
-is from code inspection only. I do not have the hardware, so it is
-compile tested only. The sequence is the same as in the other two
-drivers, and I would appreciate a test from someone who has an IFI CAN
-FD core.
-
-The bug has been present since each driver was added, so each patch
-has a Fixes: tag pointing at the commit that added the driver.
-Patches 1 and 2 are marked for stable backport. Patch 3 is not,
-because it is untested. The patches are independent and can be
-applied separately.
-
-I looked at the other NAPI users under drivers/net/can. at91_can had
-the same persistent-mask pattern in 6.6 but no longer masks RX in its
-ISR since the conversion to rx-offload, so I left it alone; ti_hecc and
-virtio_can start the device before napi_enable() but do not leave RX
-masked, so a dropped first schedule only delays the first frame. All
-the others enable NAPI before the device can interrupt.
-
-Patrick Zhang (3):
-  can: ctucanfd: enable NAPI before starting the controller
-  can: xilinx_can: enable NAPI before starting the controller
-  can: ifi_canfd: enable NAPI before starting the controller
-
- drivers/net/can/ctucanfd/ctucanfd_base.c | 6 +++++-
- drivers/net/can/ifi_canfd/ifi_canfd.c    | 5 ++++-
- drivers/net/can/xilinx_can.c             | 6 +++++-
- 3 files changed, 14 insertions(+), 3 deletions(-)
-
-
-base-commit: a7bfaba4823e3c165bb2004c74eff7c096672bc7
--- 
-2.50.1
+Best,
+Huan
