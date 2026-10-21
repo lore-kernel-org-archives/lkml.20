@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792545265;
-	b=wAJAUAQI82tsf/3+tMn1HFAt7soeaFer1F3OV/U40d2BU/HryK04loZXialvTPUln8jQ
-	 XW5Sz4XBN+S26FszjnzkXtm6mIzVAfdcUd1cj1gtG6yydewKaFMbPnPaz+eO3azIZTLyQ
-	 +da0MRH1HHAPpUErO4ra8IgM3OATcXph5SulxsFs/n+V+Xqt9z32dQzJuMKS/vQfzN9Lt
-	 /hRqm+Pj+AyhT9G+fJDA8gq6Uxeu92dGoyembFG0cUD6EioQqobXz9fy8MhPmpV1hMJtS
-	 j4HhF3C5Mv3JvpsrwMIyZfRCl763BQg7ZieZKiUUYyTch10/k5Cwjj82PDHwFLWm2Zg==
+	t=1792545341;
+	b=pD9tUohSG5L59rHjnN+0ZkU0LZzxyOQByO3q/+n+nrXGjaaJUUvWa3jnmt+ceZJdXpGv
+	 ax+DngsS3e8v0Qp/z+TUNaVUVi8cj0PqeGUKiiFK4UcllfpgsGWgz84j/w1XUU3yE5vQo
+	 vngBM7ygMITOX2M1brSImjrzG3ygxPEZ4KIZpG2iTKZK333JcLGyiT/jZOURkqcVh/aA0
+	 /i1uNBMyThTc09ElCTOY1n9xhqYGG6VR9BASD1QxViPZl7Roe99ksGU1imwq7E7DAyB0k
+	 WIKM9Nb3vJO61836PGNvKwuz9rUnem1hRNi5BSFk7em28aY5Z7NsCBVsudMnhnUX+8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792545265;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YiujvNx3Csh2JtNlwupywHzIt7d25f8Y6BC9JYT+HNA=;
-	b=eGy+nTA7XsC1WB/O9pUZll/VUNmBrzuX3NLNHpFJuCg/WH/W/ooLMPUeiZxGhRDt7s11
-	 0E32htKq1UI6xp3jWLI3PPmoLKqtIY0Ntr4U3iqjoj0OJXkkfPtpiSRpM/dzk00H+A+bZ
-	 sXNojJkGfk+XoTm0YaLCN8w29wx/ZjgC1Nk0gqP2rCP5sPgcK8p2BIOMWRYtTr55DC8H8
-	 +c54/V5XyFjumvLLe58xz74O9iY2DO/x9RsyCs2U/uWALt8Q4bFxDwRqdrDxIhIP/xoDa
-	 wOTkSsGHXSLM6Jz3Z7jMOdou9WiwKm4uWoR8DxvHe0Of9bRd6KCs33h16aeV05nfr4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792545341;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:X-Originating-IP:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=w/sWIs8UfkKmHt3/JDcaudv9fV9VMQ092RWZIMJKb24=;
+	b=lsznZQd7WvwqC1b6aV9/tbY4uEoNgjo0xVTBO99CWQn8MSHuAS2nMZUictk8E96Qpdfu
+	 5ZClZIGac7AIhqNVhfo2Vcjc2d9ZrTxJCDPDagS48PWcA3fpWCWa4r5RrSo75q91gIGjn
+	 J9aeUGYOmHhYCQa3GYlGvHJfCMGKIkDAEK2CvRhiKQLi6Z+9+AAt0wN7RgXa/N6ivW1w1
+	 VYOsmucdalldFUR1rcaohXJiOGquWtK6HIdBM1cAvqxQlW/00Ig5+hx/VHig5w/VLs5ad
+	 tp8g2lGcQncx93rYfmqMkI+8nmHU3xkTaRrxORBtxkv3ru5LNRNnks9p7tbb5hOJy4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2yl1S3N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ETT54AgX;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1F12606A319;
-	Wed, 21 Oct 2026 01:14:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3981606A31C;
+	Wed, 21 Oct 2026 01:15:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3981606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P2yl1S3N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617731F000C9;
-	Wed, 21 Oct 2026 01:14:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792545264;
-	bh=YiujvNx3Csh2JtNlwupywHzIt7d25f8Y6BC9JYT+HNA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=P2yl1S3NwGJbzmIgYe/0Ljf3UVZGLrFTOJaRcQdgh43cR9vERTJLSZfTQqhI/lGmj
-	 VxE0Nu5QKSeZRH8RY0Yy2UxcPmxLbLOxPq1zF5zBD8dthau0pQNfpxsq5P/NdJDa8e
-	 lQnpUeFIAEbGTUH49d37TMr163XYjByaOBfPqEy0VYJa4/v9St3sOUL+mgIqhUTnMs
-	 jQBs/4nzq5sWMniHodrz7GtKExXS1cIGme9U8i268cLTUeWYeaFVvSOtkywUk4Qhk+
-	 4dzBZycf+Dzl2qKhf7409dhELDZc2/Szy7qi7q+xZHWvhVB+zz4T4i/vB/7LUwYQeg
-	 h+2tmVjocCSCQ==
-Date: Tue, 20 Oct 2026 18:14:23 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: netdev-bot+sinfo@kernel.org
-Cc: Rosen Penev <rosenp@gmail.com>, netdev@vger.kernel.org, =?UTF-8?B?UmFm?=
- =?UTF-8?B?YcWCIE1pxYJlY2tp?= <rafal@milecki.pl>, Broadcom internal kernel
- review list <bcm-kernel-feedback-list@broadcom.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Felix
- Fietkau <nbd@openwrt.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net: bgmac: fix TX DMA unmapping and slot
- cleanup
-Message-ID: <20261020181423.68783c1b@kernel.org>
-In-Reply-To: <179254219525.3290.1761340258214254709@kernel.org>
-References: <20261021001744.2042320-1-rosenp@gmail.com>
-	<179254219525.3290.1761340258214254709@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ETT54AgX
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69KNF5we675525;
+	Tue, 20 Oct 2026 18:15:18 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=w/sWIs8UfkKmHt3/JDcaudv9fV9VMQ092RWZI
+	MJKb24=; b=ETT54AgXEzEQJjmnb0nAmMaTldKWGzXYYa+VBpnzMVw0hbZw2+kuM
+	7euO1T6VVYEz4s0XxlVMj34e6djf0Uq3zj+Nq2noD24i91jVfGjJBG+qOntvohk+
+	msG+MCLxAIui02YNtysbwtFFI5xtpBaC1nhb36jP4YSJVI4U2NVj1AaTfaqNTC8B
+	I3ApAfolSq7aZjNJw0LXvFjqnFkhOgekaH3wAHv9tE7E+erpgeYJ+tnhvsKmNx1f
+	/Y9DaC6fNpW32HP1q1DSxF9UwIR1VF6y0NlYGjQ1Xm77aJ4BGOSvDHJX1ZufQgfD
+	D03LIJe0Jhphw7Cd7mGCvVkhtZDGC1uKw==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hdw50gqnx-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 20 Oct 2026 18:15:18 -0700 (PDT)
+Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
+ (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.49; Wed, 21 Oct
+ 2026 01:15:17 +0000
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+Date: Tue, 20 Oct 2026 18:15:05 -0700
+Subject: [PATCH net-next v4 2/7] vsock: rename the vsock pernet operations
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,24 +69,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20261020-vsock-guest-ns-v4-2-047527cfccfc@meta.com>
+References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
+In-Reply-To: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
+To: Stefano Garzarella <sgarzare@redhat.com>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Stefan Hajnoczi
+	<stefanha@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang
+	<jasowangio@gmail.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+        Shuah Khan
+	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+        Donald Hunter
+	<donald.hunter@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>,
+        Eric Dumazet
+	<edumazet@kernel.org>
+CC: <virtualization@lists.linux.dev>, <netdev@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        <kvm@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+        <sargun@sargun.me>, <jlinbox@meta.com>,
+        Bobby Eshleman <bobbyeshleman@gmail.com>,
+        Bobby Eshleman
+	<bobbyeshleman@meta.com>
+X-Mailer: b4 0.14.3
+X-Proofpoint-ORIG-GUID: uAWGrrmTl2KtKN_H49_v8iwHl4hbkK4h
+X-Authority-Analysis: v=2.4 cv=GaCCDgXL c=1 sm=1 tr=0 ts=6ad81226 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=xtH7KyWI9dI7BmFOsl-x:22 a=VabnemYjAAAA:8
+ a=-BBy4ptD6Xa2-Mryg3AA:9 a=QEXdDO2ut3YA:10 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAwNCBTYWx0ZWRfXwhmaw+rx2RYx
+ UGHI9uDfw7CD6TF038BwzKrMJ//hM2S+FYERkAj9VwUYbAMFJPwM9+gI41NJM1foVdoi1RzKr3o
+ HFIeD/wb3LvdJ6aFYMHcfbKKHGEXs8g=
+X-Proofpoint-GUID: uAWGrrmTl2KtKN_H49_v8iwHl4hbkK4h
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAwNCBTYWx0ZWRfX6NodKB2OOCh7
+ v/GMGLb965va5x1I6+Uvjy8m9Wbpcinfif4pxTLj254SAW/8P8uzm6y7fiustuA2r17oApS49z1
+ xKhOqWlEtwUbRqkIHoJftFFEhxePngj2pof1TwdCgCmXQvMZ8Soq6N5gEyaY9rxWykzGw8CfxG7
+ Z9F4Lber5sISsvN0zZmh2MSIMEr//XsuN9d7OrJMdyZx8+PySlHT4Cno/EfmvJ4ufs3PsCAmVxq
+ a7iY636NOIdHmi6xIt5tyKC1fFc7hR5H6s5m7V7+N19IkdAPhi2YsD6aKCg+ceor9iA3RZgB/wp
+ vd5WzdHXPHcIDwzNaENxYccnbIDAFz9rgd8Zcd1z0wnugX+vkUIwSrhaw5W6j5klYdeXhGqQ5Xz
+ 1mvib/DdiX1watL3rm2jeAo7DXlLN98l768Y8QYZ52UQLxSe+QM6lASLI5J0m+HicZ2R7EMjSUT
+ vrhCzlRX1wVT89E0q1w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-20_04,2026-10-19_02,2025-10-01_01
 
-On Wed, 21 Oct 2026 00:23:15 +0000 netdev-bot+sinfo@kernel.org wrote:
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
+vsock_sysctl_ops and its two callbacks are named for the sysctl tables
+they register, but the init callback already does more than that: it
+also initialises the per-namespace vsock state through vsock_net_init().
 
-This is getting tedious, the bot has emailed you 10 times asking for
-this info. One more fix without this info and you're getting a ban.
+Rename them to vsock_pernet_ops, vsock_pernet_init and
+vsock_pernet_exit, so that later per-namespace work can be placed here
+too.
+
+No functional change.
+
+Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+---
+ net/vmw_vsock/af_vsock.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+index 5a0ba068bfd1..aa4732c3599f 100644
+--- a/net/vmw_vsock/af_vsock.c
++++ b/net/vmw_vsock/af_vsock.c
+@@ -3037,7 +3037,7 @@ static void vsock_net_init(struct net *net)
+ 	net->vsock.g2h_fallback = 1;
+ }
+ 
+-static __net_init int vsock_sysctl_init_net(struct net *net)
++static __net_init int vsock_pernet_init(struct net *net)
+ {
+ 	vsock_net_init(net);
+ 
+@@ -3047,14 +3047,14 @@ static __net_init int vsock_sysctl_init_net(struct net *net)
+ 	return 0;
+ }
+ 
+-static __net_exit void vsock_sysctl_exit_net(struct net *net)
++static __net_exit void vsock_pernet_exit(struct net *net)
+ {
+ 	vsock_sysctl_unregister(net);
+ }
+ 
+-static struct pernet_operations vsock_sysctl_ops = {
+-	.init = vsock_sysctl_init_net,
+-	.exit = vsock_sysctl_exit_net,
++static struct pernet_operations vsock_pernet_ops = {
++	.init = vsock_pernet_init,
++	.exit = vsock_pernet_exit,
+ };
+ 
+ static int __init vsock_init(void)
+@@ -3084,7 +3084,7 @@ static int __init vsock_init(void)
+ 		goto err_unregister_proto;
+ 	}
+ 
+-	if (register_pernet_subsys(&vsock_sysctl_ops)) {
++	if (register_pernet_subsys(&vsock_pernet_ops)) {
+ 		err = -ENOMEM;
+ 		goto err_unregister_sock;
+ 	}
+@@ -3108,7 +3108,7 @@ static void __exit vsock_exit(void)
+ 	misc_deregister(&vsock_device);
+ 	sock_unregister(AF_VSOCK);
+ 	proto_unregister(&vsock_proto);
+-	unregister_pernet_subsys(&vsock_sysctl_ops);
++	unregister_pernet_subsys(&vsock_pernet_ops);
+ }
+ 
+ const struct vsock_transport *vsock_core_get_transport(struct vsock_sock *vsk)
+
+-- 
+2.53.0-Meta
+
