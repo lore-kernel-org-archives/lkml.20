@@ -1,57 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562654;
-	b=Vc+uRlZHuM8KgGu1Eib9ZhCaVb+P7w9QhdAU+B9FMlLvNT9FugzvKbW+XRIkfXFOAzKS
-	 MfM1u7OsABKTYg13/iuhuB8K/L77HqZq19AxrInezTCyL7saIgkg7dkq9u97R7XzRRzsS
-	 vWFouijEO3FaBMB7jEB8FdUn4HElSx46wEXRHhqG8x6Yfv4MOQj/4qeje9EC4K1XJ2JD9
-	 2yR/1yHieRcUlTXEbg5abC7/Efu+KI0DoUYqq7Ft+HXZFD519SvUwByEBSZbDB0/JNM0N
-	 JJRV5RsaY9XWnXODAwutubcWZNQZ/ll+hpCz+S43oVn61oaxyU5bHgqt295vJLyiWqA==
+	t=1792562664;
+	b=Pc6amLJtyAIZAR7vX70t6dWChtqU6khoS2u6D7vfc9kdwrVPuNf+ISMTZiENGal0a63+
+	 GLQOSHPdT8R0BedXIDFFxdMuKrxzwVaYJiRThxNse+Chmz62BMwL0FUfCdRzyrwAn4wv/
+	 bgu0CxdfRy2tEtI0Ny54SvvJCLNgtLrNGioZALH4bnODYwTz0RdQVx7mCwEjQpRD8DjBn
+	 j7khEBcE8ZgtBC+H0ClrHb+Fp6J+0ersfjPBmj8xiqPRlCUzIE86W/KerOGJjSC511MV0
+	 7pxHxSuFjYy5JOSqxh/mZunmKpDzjiXHw+8Tx8gTxNezDyQupO366pm+nAw460/hoKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562654;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=oGKqEv0ixXkyOO6lajmPfxhtIrLM+4aywa7ZFjLqxMo=;
-	b=PtJGURK2CbDb1U5O9csYfKkIXCRlIxnmRKHLJlrCj+UzDWgy/ZHzdb7cQzQUNfkJCmLr
-	 d697EyvT5T20NjNizMuB7FWv1iFKL2apmBGfltN9F7Lj814sgSt1y1SRx8K/ni5DiLDna
-	 QQh3iio9/7G5D5V7PrXiEACWh2ltCr4Zp29tXGNdTradaKdkdvM0ahoelfgGRj1gJXSsD
-	 JwRHs9OnATVzdmBPmaWUHWBDOPMYf6gCkt4TUoh5WEB6Ru7HlG8I9nxp34RBbRPQKnGfT
-	 fC84We+FijF4g4fqbaZinM8yh/CVpoTO/jlrQIbFfNJNZz4esvOyjoL8LUu1xzoNAgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562664;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=9eZU8moXQGAcGHZP9eqMMJfUyCPJT8Jq29uwh/HfL1g=;
+	b=lkWTRWi4QsxvfTRSZDl2tpxN99Oa8G6R06EsiEKQI2KQZCIzh5j0/rLsUMbkfAodSlZm
+	 lnkfGE/kWjtpbCURqrV7nRlA3k5mHNNWuegsLkJ3kiq8huknFhIJPy/Qma6OWWCZFAEVS
+	 ngSbcM/42/9C4+kUabmhGPEeyjmx0HHl9oOc0FwyWFshV8eTPyiJzM8MVCuxZj7ADAiSW
+	 3X1K6IpsPjofYxtmeAVTD8tKXeeTJ0doxA8bEMFdaDdykeLmrN+CBplid+VGw1vSvK6Ke
+	 6fvbGG+JIlWthwqBNLgHqLmveN8kOdTeB8c4yB8qIqeuny6IFV3gyYpzmL/7/sywoHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GHLZfPTA;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=djD2CotE;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBA0606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBBA0606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF70606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:04:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BF70606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=GHLZfPTA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=oG
-	KqEv0ixXkyOO6lajmPfxhtIrLM+4aywa7ZFjLqxMo=; b=GHLZfPTAqKyiBuXaP6
-	sNhEmaWNi5xzkYbiKIWXiOMyFsgiW0STOgiqnlPyHqXvqpkc6IyxN0xt4Fvxq0d9
-	J0dasEg5X5pnQs80qbqShQcGsH/f3VCPYYZfWfnIXAwyR/yY1WTdjVEWwUAWt2NK
-	E5iiLFQOpt+3DVxPOF1rWeuUo=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3P1HIVdhqX_gZBw--.38977S2;
-	Wed, 21 Oct 2026 14:03:53 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Yury Norov <yury.norov@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] cpumask: Fall back to online CPUs when NUMA lookup fails
-Date: Wed, 21 Oct 2026 15:03:52 +0900
-Message-ID: <20261021060352.1351469-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=djD2CotE
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fe9efc0eso2021335e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:04:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792562662; x=1793167462; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9eZU8moXQGAcGHZP9eqMMJfUyCPJT8Jq29uwh/HfL1g=;
+        b=djD2CotE4XEa4SJ7/FrQPW88N/TWE4+ZTM4ugmt1XfiT1+nuH6cLzCnnfBmj3EFfJf
+         FipjElBNnPYAuNgly8b3qfU0Q7gjJdaU3vkdBwyiRi5e3KLiMF0lTxbxqFvI9nlznYjh
+         FPMTLIKMVDD661TEbtUgbXqvzuBD1An1/b8hMLtcokUdxwODjNFfZrGaPDNLr38aD+BS
+         g+t+odHOzQi0a/8d9XQDCFbv5AKWVZcZywCn9QbRXEEPYsMuNkrFgI09u0yWXrCGeyGV
+         8QybQV7y2YotSxMA+iRJi+DtEuPJDs6XbfdeUA6iGkikbUe6ywswiHyV6dUOpD6YHPen
+         X2rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792562662; x=1793167462;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9eZU8moXQGAcGHZP9eqMMJfUyCPJT8Jq29uwh/HfL1g=;
+        b=2yiRPfDKhX+DDYo7jd5D83PSEoOdVb/j8m3QS7kMzrwevydjjn3qnYrUwQIDt+cVfT
+         32shmdoeOnqNb9HEIXEuJmPsJDlinXL0i3LoyJ12QwDUPO9ErOUFgr+PHvxPTA82uNHM
+         tXzmLdNXgAow9vjGVuoS9BVUoC8MCy6GtRLLdTFCPzUDo8wWb8E/Z1W7xSfd5U+kE1hb
+         +VgpXiN7UFjrRZqDqi9w25kp/SDprVBgJLE41kmmy3Mzo4gnckpeRvuzoh7PBOHeoirS
+         DDNrEyuYhNryKsIo3oo6fo3Uo5PmH4UzJOqAxTAt/kzSFlYJA23tdmDeO8xiPMpMSdLK
+         DuSw==
+X-Forwarded-Encrypted: i=1; AKwUvByhHeFQgYloletwXsYonQC3vWLYja9zGCWAUGduwBwy97u3BaYRkgVuKmC6uGKRfqpQusB7FeCNbcEO9rA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9JHpzEGgSYOoTFaN0F0/iYmREMmI5PYtlB1eAO3Xl3OxTn+lm
+	o/fxlY2Jg5ohp9b4ciqlLXrxv9LtUJyly801EBfCPXqTePy7C/m4duZUn39QEwCA5VuPSx10
+X-Gm-Gg: AYBFou0TD5LNUKep2sPaUEVzsnROaKOyZ5U2jzWCwg1+UXn9OPIIpuKshl4m0vyCGj/
+	MlCgnbdBP+C3J6QqjHYAYGWYyWZkAkqiEtQdi7aps1cMuTybZUOHdYjp+CapxsfI1FVSwFIC6mD
+	Z7VHhJXgk9/Qn3e3vfJ3MwdR8XUF7ce56Ta0tTCmkMXZOBf7PT9oSVsbP6UiZXaOhiIBKBrrqcC
+	cuIMSdWO002Sw3bJ8wj/TvtYTRu+bS4SI5XJh3U4b7j6gWYDWDsYpik66ej6bklR1575lfS6Uob
+	BZ1Yi3zqUUpWMCo607FEe3MVUN5Uunkwbs8m2W2/lTkTNJY9/dM7AIe9vnfePCRk3+YmEoAzqLf
+	hdFGiRIvW+bN2hU3Z2CDOUb2Izy1n5GDXnopOetqn+JTrku+kolYDvDCCP2pz5iyd56L1CbWEkS
+	alFRJTDWshtHYhAPejocEC4KyCOTp6+Go2UiSHp306vQtRrAJShkxKcTbAGMlxZlzakPX1/vd2s
+	IK3OfoHuBiQYUoR/NVGUSbNfqM/75lE7QuV532NE3tqd5oBJ+FZ
+X-Received: by 2002:a05:600d:82ea:b0:4a0:a34:6e7d with SMTP id 5b1f17b1804b1-4a1fdb0ab43mr18170835e9.18.1792562662120;
+        Tue, 20 Oct 2026 23:04:22 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd2eff9sm28339855e9.4.2026.10.20.23.04.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 23:04:21 -0700 (PDT)
+Date: Wed, 21 Oct 2026 09:04:18 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: LiuJunyuan <2058432396@qq.com>
+Cc: gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: vme_user: handle zero image size in read/write
+Message-ID: <athV4vUa3aZDDlAX@stanley.mountain>
+References: <tencent_FE0C25ACDF20A06CBFD0651E7C4ECD7E5009@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,53 +95,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P1HIVdhqX_gZBw--.38977S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7CFWUWF4UCFWkKryDWw43trb_yoW8GFW8pF
-	W2g3yUKrWkK3Zayw1kJayfGryrua97Grs7Z34DCrs8JFsrGw48GFWqyr17Xr93Jrs7u340
-	yFZ8Jw4jgw10vFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pinXo5UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QlYt2rYVckUJwAA3S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_FE0C25ACDF20A06CBFD0651E7C4ECD7E5009@qq.com>
 
-cpumask_local_spread() wraps the requested index by the number of
-online CPUs, but sched_numa_find_nth_cpu() can return nr_cpu_ids
-when NUMA ordering masks are unavailable.
+We removed the requirement that AI patches need to a special tag.
 
-This can happen after a sched_init_numa() allocation failure or
-while the NUMA topology is being rebuilt.
+Generally, staging is just for practice writing code so it doesn't
+make sense to use AI, but I was asking Greg to merge AI security fixes
+like this so we'll see how persuasive I was.  :)  The vme_user code is
+full of way more serious security issues and probably we should just
+delete it.
 
-Since b1beed72b8b75, cpumask_local_spread() warns about the
-invalid result but still returns it to callers expecting a
-valid CPU number.
-
-When the NUMA lookup fails, warn once and fall back to the
-corresponding entry in cpu_online_mask. This preserves a valid
-CPU result when the online mask is stable, at the expense of
-NUMA ordering while the topology information is unavailable.
-
-Fixes: b1beed72b8b75 ("lib/cpumask: reorganize cpumask_local_spread() logic")
-Signed-off-by: Hui Su <sh_def@163.com>
----
- lib/cpumask.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/lib/cpumask.c b/lib/cpumask.c
-index 5adb9874fbd0f..f09632219b267 100644
---- a/lib/cpumask.c
-+++ b/lib/cpumask.c
-@@ -114,7 +114,9 @@ unsigned int cpumask_local_spread(unsigned int i, int node)
- 
- 	cpu = sched_numa_find_nth_cpu(cpu_online_mask, i, node);
- 
--	WARN_ON(cpu >= nr_cpu_ids);
-+	if (WARN_ON_ONCE(cpu >= nr_cpu_ids))
-+		cpu = cpumask_nth(i, cpu_online_mask);
-+
- 	return cpu;
- }
- EXPORT_SYMBOL(cpumask_local_spread);
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.55.0
+regards,
+dan carpenter
 
