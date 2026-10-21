@@ -1,60 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.153
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585005;
-	b=e47YTe1xhdYQPtKCPfbccGaoRSa2bXzCEGXd4iAK0p5/CZEGS7fwQuG9IqvN6CxJpsZr
-	 zlwYlikvvQdIhAQH51FsFBQjmnh3hkFBoXboD9iheMIk95MKPspTbUYzTOb7/t0WJWHbq
-	 qa47lnt5Ohs9MwNNKAJt9kEngONcd/1qn735mw1/83Fw765MjBfZRuIttjTA0rmUNLihV
-	 EK6uCqKRsj2rm2Eq0uwGD65MD2v0WN/GcGkjSLQBlvG14jZsjCRpLnJfXnR181JbAAmJw
-	 m6dG4NEyCPa+ZcEE0m6iZQfpax6h+TRK/wiUGim3r/20SOiwo/9yFOxZFJMD5qe54yA==
+	t=1792585014;
+	b=Sg89Cs5SAajYH+j2XUKK0tEypZ8grUENU/RTbu8QeKQpsGjVw5MLQf5A8+RGvwxB4xCy
+	 gamuz1KoZm1Lq3PE0peUpTYJcuyzH7BSvKkkCQtta0jDjRj/DayanlcVoOn4wMhNffHBr
+	 zTYq7bByUXsxbBAJU86yA+UN64AequRo3FzhpsczihGEZrY32j7/hG7qNJN0yAgc5l+fr
+	 8sm3dUvn41Se7pkGeSyxbTd55y9sazF9w4VqmzG/uLN8SzfG51y3v8NgAwTHzCMrZqb34
+	 Yn3wvPVvq9S0lSMmsMNTvLfOAKhJxWbjDgK4N2yfbY80vF2piTpGk+1H6Md3Eifsgaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585005;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=WhNgb12bmkpmtNiDfvB9a1bGebOiAzBKY22qKyemjR4=;
-	b=cIJt+zl++xqdYb8Bnif+9ouG1xjL2LtoBQLwoFS9Xf4peo9Km+o33VyT8+4OYU5CR2Hy
-	 /lzz5h77Ao3fGqNvcDcGy1u3mVq94nIBEWGzGXYEFKtaMUoTqf3rrcPOCZcS0Nqj4KcY0
-	 7SVXwGNMi0TBzXcdiBHkmnVDK/fsrPLbU+Tbrfhxty0nODTZ2on34E8BPI/k/NWYfwa7l
-	 83uDZP2XPw7knZXVM3e8nIFtiSiyilY5HJZsaGVqrGVmxc1ve5H3MKtEntMFSdv3RuxCM
-	 Mm9laMwuYWACQNtgl9D/JYVQUOPnWbko07Zd/2nj5ZveGaZmAQ5wMuuP212Ev15FyLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585014;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=pVJ1x0k3sdze9cPiJou8MJTh07f7bzis+TTbrxn9Qu4=;
+	b=1tESIA36SxhNfVMcMDeW1qHJkhcVGktkCy/HJ9CrAe0Z/dQomiliY66M3uAjuYIwqbK1
+	 /sfqiYUhPIHpzLADy2n8HlEVHjkKL9HhsdEMiUid2lfTpCdYTxQ/VFv9JNgpbYL+ra/U2
+	 MGiHHEHcvoOahIJpw1WmrO0vfkpHvHxt69rNEW4rwdLdJdXsVrNr75XEyY5KMI42iKWor
+	 xh9VybId8NIEBcW6eZ64WVxsP93d5p/Dok/TXVdV742TV971qkkZ2FnMNSY8glOdsM8oG
+	 U4tT2In2HWz+PZjRzhvdCBfp1ebtwvoqFUFm/up/TJsAAzymQN6IPacZbDtl5ccfPFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VaXHEf0y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=XjECWdGp;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="euA/ihmz";
+	arc=none smtp.remote-ip=103.168.172.153
+Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E4060A6F72;
-	Wed, 21 Oct 2026 12:16:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FDC60A380E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64FDC60A380E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VaXHEf0y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C260E1F000C5;
-	Wed, 21 Oct 2026 12:16:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792585005;
-	bh=WhNgb12bmkpmtNiDfvB9a1bGebOiAzBKY22qKyemjR4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VaXHEf0y8d+f0YELTloNrW7Y/82Vbp9IaGc/JFlu0Q3AzpFU7ahYiQLRAu3l8KY8r
-	 Mi1VAzUg5sMlwWmwWjOw8dtImHy5MdKDu1G7jFPbxqTB70Zu531mwUycohkZgvoTR/
-	 ZmHLO21q8pwfzEvnuCr9nF7sl8Sj42c/iziz+4Lj4yQCeFwCdUl2hGAbTJXOEtfEm+
-	 bQNpJf9mjxG30CQ4NJcHEPS432r7Uvxc/NZIFPK0EUqfzkMoyvwqsTE9PZ/GI5U2u1
-	 UZZfw9TF6GssDtrUtFV9TaytbhW9bBDDhs+M+bIgS9W98j7lCsYRA0T0INvKvoR3pE
-	 /OkYsP03H+37A==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 25/28] mfd: mt6397: Manage IRQ domain lifecycle with devres
-Date: Wed, 21 Oct 2026 12:09:47 +0000
-Message-ID: <20261021121245.3111563-25-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
-References: <20261021121245.3111563-1-lee@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=XjECWdGp;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=euA/ihmz
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 75CC01400102
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:16:48 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 21 Oct 2026 08:16:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792585002;
+	 x=1792671402; bh=pVJ1x0k3sdze9cPiJou8MJTh07f7bzis+TTbrxn9Qu4=; b=
+	XjECWdGpZYFpXdeaeMW/MsdcYGcMMFdcUkZcALqzR+6Sc+j5GaGg9fDC/380mug+
+	mG67U5MkU3tg/Fr8SVKGPCsyg4JkvBM1kH7DNC9F9/rD2CcAMOJAjbq7ljQtmUKB
+	aMvMsNcqAfF5SoYEdWYh76RBmA+063XOG9UqYin57K3ioYJPmU5TOaFxWDoZdCyv
+	sxquUR4K65eFAqqzUzrcTFFsZHBIlxB/MuaOhGH02dN1CBwaD/0/ZFWbLFsrffFn
+	DCovWWPE79O8FFBEm03CkSwOUO9KLlkChMs07gUlWfhCaCJnHO5QTeUHamMFxCMw
+	HC9hscOG7cD5mw2rcCiDEw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792585002; x=
+	1792671402; bh=pVJ1x0k3sdze9cPiJou8MJTh07f7bzis+TTbrxn9Qu4=; b=e
+	uA/ihmzzmaNc5dTva5RUUwnhwxbvd5z8wFJ/0b58t0MG08rRSf/iw6ee1NH9Zjvs
+	zsoqPbFKE1ohkiJ+erNFbXbAhgUq0nm+2lOcpn2gXHDCZ6gzwkJivFCLoPJMpExa
+	HcMoiQjLROKxIPHqo5RHkbSFB6OGIufSYDJMHeQhpsSpwGnjlVNRbyc72InUOfdN
+	oFVa5T7aWYeGhfwchVOq3WTpmG1NQIa22mMGAdaU8ngEVyMO1Se08+E2uhxAvZNS
+	VTcfhI5sYivnlKxUp8FBET//jcC8kLAPZSXA4v8O2+H3H+HRZQM2/W4lJn7r6clk
+	owebCSOOreOCvMQ8gjSAA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792585002; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:cSizOs0VBEtW/JTt3dKKQ/7PFuGZJgNKJl5wGUTsgDYIIUA
+	cndUjts3szGUirzDdo8RSOuN+ePYCXOkLFA23Rvu0o/KZPQwiymdWeIbBsN/UCf5
+	hbRjC6F7YmnzrbCSEuzuMulp3I55qlbxsZONV11gbb+KH9YkcUTSMMg0/ZCwOlsT
+	hXBunnw0F5ZGxZHQXdRs8TtZmmRTl8C6iAmpJdWPZT81ZYJHmuV9vo08pQyziu8c
+	czi2RkpWiftQvTeYU3sqiW2SUe3598xx/72X7n0wZLJ3C6oN6YyitEPKIbZCACsx
+	HMym8YkPTTRmVifWJ0Kvw9Uif5QuTpomy2T/1oQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:sXYK5kqg5RAIxlV5JP7bTAEctlUDSe2I6M0f0fooR4o=:k1g1N9t8QGAgjH9tZVDG6P2SW1DLJKdHamEVOCUcq/Y=;
+X-ME-Sender: <xms:Ja3YarL0794Gx-VAcnXuU0QxZUHXWoz4IWKKIn5rJNRAgO78O5bKEQ>
+    <xme:Ja3Yap_vqU2j4TYeDYZJUuTE54r2wxFSc1G7hRPrmf6T7YpeUCSclhvrvj9usxP2L
+    fE6w21zg2udr-4u2mCO4fLaPV7GFWNtrNvgpVoWGtdJ8Tss4AqezqxI>
+X-ME-Proxy-Cause: dmFkZTFQx89gykQunQ8ka8t3krFt0J9UEA73ov9mxUxaGE+V0E3JjhdBeIaJ1Af3Godnc6
+    y0EGHmihZKF1SNEnzexwXUS8v1vEIPj9B5x9f9FnngGJcJLveu6gPAFk12ifuKbOgDSipN
+    KqHe1hU1mMpFtFEbHOWXLySt2GJMyT2/9gBdrfNQsCBKG3+pn4H05WjNLWeOxcDDBJYYRo
+    1LgJHgnr7RTZlMF0Mb2yD7HXBcTJfwjkO3qrFxCCC5aCi2v/2FZ+Kr6jEzTMcPelG1Po/F
+    BQapZHiFmINAZy/LvPVniBk+ipUbiLLaXjnwPhg/Et0bjc4CWqHSISyTmzEKQP5TpM3Mdr
+    UEqkAMOcf+I5EjSOWCWzdU4GDc9LUIfZjAipYVByDM2QCchAxyZod5wvbRyBuGFmy/XwTe
+    uCKFK9sVE7Rk+3oBDz07xU0T3phceBjRddagYEuMagrfvhr5OmSu/xFRi1TAtP3HIHqYnr
+    nl5Mxpn/9BZ1jEkNuS/u08O45tEriS+WcUm3AkfmxsdIPMge1UgWrPMk7/6MyOQGUezhu+
+    dIzLOiB/5vwx1GUeuUVFELe6WlbmlvCaoCwxT2RfLJ2yFuJWucZjw139KnlNtyZyPpYUhH
+    2sOwJ8Eaos4Pfys1onWfXjCKGGORW9OqsMD/6y3vxlOjGfrztXFuWUIKQVjw
+X-ME-Proxy: <xmx:J63YauEjnUtZW8eE0a_vG5IZU4WzOpaHcm6RZWlejHa8-3GmunyXrw>
+    <xmx:J63Yaki0EML2RgNaJY7_I3_tDaU22PREUruaDEoLaQuaILNTB6rgFw>
+    <xmx:J63Yarj632RdF_VW-KOy019KS7jySxesRb9_-rD7dV6yPy-nDVplpg>
+    <xmx:J63YanlPXX7Eds3MSz_lwiVVBqfGDTmSTDUaVi9g0WkZAyXz5RcHIg>
+    <xmx:Kq3Yagb8vSpKhOsZn7qDLlFOfIqAb03K0EEYgd440-F1GCu1zkE43cBp>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 93AE632A0093; Wed, 21 Oct 2026 08:16:37 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,129 +115,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: Anl2GdpqQwQR
+Date: Wed, 21 Oct 2026 14:15:56 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Gary Guo" <gary@garyguo.net>, "Philipp Stanner" <phasta@kernel.org>,
+ "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "Yury Norov" <yury.norov@gmail.com>,
+ "Rasmus Villemoes" <linux@rasmusvillemoes.dk>,
+ "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Paul E. McKenney" <paulmck@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Linux-Arch <linux-arch@vger.kernel.org>
+Message-Id: <9505cbc2-7261-4f84-9769-b97e9acb1c38@app.fastmail.com>
+In-Reply-To: <DMAHVQLCMQAN.3G0TBMA1UTM6H@garyguo.net>
+References: <20261021095512.1345191-2-phasta@kernel.org>
+ <20261021095512.1345191-3-phasta@kernel.org>
+ <9f4bbc9a-fc36-4e3a-9c42-d18419c9d025@app.fastmail.com>
+ <DMAHVQLCMQAN.3G0TBMA1UTM6H@garyguo.net>
+Subject: Re: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-mt6397_irq_init() and mt6358_irq_init() create chip->irq_domain with
-irq_domain_create_linear() before registering the parent interrupt via
-devm_request_threaded_irq().  If devm_mfd_add_devices() fails in
-mt6397_probe(), irq_domain_remove() is called before devres frees the
-threaded IRQ and without disposing child IRQ mappings, allowing an
-in-flight interrupt handler or late IRQ lookup to dereference the
-removed domain.  Conversely, when the driver is unbound, the IRQ
-mappings and domain are never removed at all.
+On Wed, Oct 21, 2026, at 13:54, Gary Guo wrote:
+> On Wed Oct 21, 2026 at 12:33 PM BST, Arnd Bergmann wrote:
 
-Register a devres action immediately after irq_domain_create_linear() to
-dispose all mapped hardware interrupts and remove chip->irq_domain so
-that the domain is torn down after child MFD devices and the managed IRQ
-handler have been released on both probe failure and unbind.
+>> I'm always confused by this and the new function makes it harder
+>> to understand in the current form:
+...
+>> - Contrary to that, the kerneldoc comment over set_bit() mentions
+>>   "This is a relaxed atomic operation (no implied memory barriers)"
+>>   and leaves out the kcsan_mb() that is in test_and_set_bit().
+>>   This makes the new set_bit_release() sound like a /stronger/
+>>   version of set_bit() the same way that test_bit_acquire()
+>>   is a stronger version of the (relaxed) test_bit().
+>
+> set_bit has relaxed semantics while test_and_set_bit implies barrier. RISC-V for
+> exmaple will generate the amoor instruction for set_bit, not amoor.aqrl.
 
-Fixes: 6df8dd5c185b ("mfd: Add support for the MediaTek MT6397 PMIC")
-Closes: https://sashiko.dev/#/bug/linux-b296fbe4-6e83-40c0-91c7-2c31e8d226d0
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
----
- drivers/mfd/mt6358-irq.c  | 17 ++++++++++++++++-
- drivers/mfd/mt6397-core.c |  4 +---
- drivers/mfd/mt6397-irq.c  | 16 +++++++++++++++-
- 3 files changed, 32 insertions(+), 5 deletions(-)
+Thanks for the clarification, I did misread the implementation
+and see how I was confused once more.
 
-diff --git a/drivers/mfd/mt6358-irq.c b/drivers/mfd/mt6358-irq.c
-index 74cf20843044..c747cae909ea 100644
---- a/drivers/mfd/mt6358-irq.c
-+++ b/drivers/mfd/mt6358-irq.c
-@@ -224,6 +224,17 @@ static const struct irq_domain_ops mt6358_irq_domain_ops = {
- 	.xlate = irq_domain_xlate_twocell,
- };
- 
-+static void mt6358_irq_domain_remove(void *data)
-+{
-+	struct mt6397_chip *chip = data;
-+	struct pmic_irq_data *irqd = chip->irq_data;
-+
-+	for (unsigned int hwirq = 0; hwirq < irqd->num_pmic_irqs; hwirq++)
-+		irq_dispose_mapping(irq_find_mapping(chip->irq_domain, hwirq));
-+
-+	irq_domain_remove(chip->irq_domain);
-+}
-+
- int mt6358_irq_init(struct mt6397_chip *chip)
- {
- 	int i, j, ret;
-@@ -279,13 +290,17 @@ int mt6358_irq_init(struct mt6397_chip *chip)
- 		return -ENODEV;
- 	}
- 
-+	ret = devm_add_action_or_reset(chip->dev, mt6358_irq_domain_remove,
-+				       chip);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(chip->dev, chip->irq, NULL,
- 					mt6358_irq_handler, IRQF_ONESHOT,
- 					mt6358_irq_chip.name, chip);
- 	if (ret) {
- 		dev_err(chip->dev, "Failed to register IRQ=%d, ret=%d\n",
- 			chip->irq, ret);
--		irq_domain_remove(chip->irq_domain);
- 		return ret;
- 	}
- 
-diff --git a/drivers/mfd/mt6397-core.c b/drivers/mfd/mt6397-core.c
-index 9ec951996588..e94e37cba249 100644
---- a/drivers/mfd/mt6397-core.c
-+++ b/drivers/mfd/mt6397-core.c
-@@ -395,10 +395,8 @@ static int mt6397_probe(struct platform_device *pdev)
- 	ret = devm_mfd_add_devices(&pdev->dev, PLATFORM_DEVID_NONE,
- 				   pmic_core->cells, pmic_core->cell_size,
- 				   NULL, 0, pmic->irq_domain);
--	if (ret) {
--		irq_domain_remove(pmic->irq_domain);
-+	if (ret)
- 		dev_err(&pdev->dev, "failed to add child devices: %d\n", ret);
--	}
- 
- 	return ret;
- }
-diff --git a/drivers/mfd/mt6397-irq.c b/drivers/mfd/mt6397-irq.c
-index 5d2e5459f744..58645dbd8095 100644
---- a/drivers/mfd/mt6397-irq.c
-+++ b/drivers/mfd/mt6397-irq.c
-@@ -169,6 +169,16 @@ static int mt6397_irq_pm_notifier(struct notifier_block *notifier,
- 	return NOTIFY_DONE;
- }
- 
-+static void mt6397_irq_domain_remove(void *data)
-+{
-+	struct mt6397_chip *chip = data;
-+
-+	for (int hwirq = 0; hwirq < MT6397_IRQ_NR; hwirq++)
-+		irq_dispose_mapping(irq_find_mapping(chip->irq_domain, hwirq));
-+
-+	irq_domain_remove(chip->irq_domain);
-+}
-+
- int mt6397_irq_init(struct mt6397_chip *chip)
- {
- 	int ret;
-@@ -223,13 +233,17 @@ int mt6397_irq_init(struct mt6397_chip *chip)
- 		return -ENOMEM;
- 	}
- 
-+	ret = devm_add_action_or_reset(chip->dev, mt6397_irq_domain_remove,
-+				       chip);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_request_threaded_irq(chip->dev, chip->irq, NULL,
- 					mt6397_irq_thread, IRQF_ONESHOT,
- 					"mt6397-pmic", chip);
- 	if (ret) {
- 		dev_err(chip->dev, "failed to register irq=%d; err: %d\n",
- 			chip->irq, ret);
--		irq_domain_remove(chip->irq_domain);
- 		return ret;
- 	}
- 
--- 
-2.56.0.218.g1ec904b173-goog
-
+     Arnd
