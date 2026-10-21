@@ -1,60 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573570;
-	b=G5OKu6IIJkkqKhoFIgRVuveghTfsQI5vkKWw7Bf0NQ5C649/5W9NMU9cdmqrXaEXPe4T
-	 dWT0Ay/dONnNM5ZpcZEm5QpxPoehx4fNvTquI5HkTSC8Jq/2vSE17cd2X7r7H07w0lz8z
-	 iVjytW280pamIfQES75+iN23I/43qx+Bj8kNr45rmJQub0yrSlsv30pEUHh7+1p1L28yA
-	 cpfhOSkOvKy64dB2XD0/En48Pwy+G1rEBJ+f6x4Dl1V7rLVy81qKsmzmVSXIql32uqV0F
-	 IEfgIy7KLOdTnCYa2e/3TEe6LInn7swxzh/HjkIFs2w2ZTfpnpNs6+d70Blpuvih5jA==
+	t=1792573601;
+	b=YBhq+x/Z3XfPZwd9BbqaeAvMh9xlr5fi1tV2XLNhy0oU2OMaWWIu5xIhh6BxE697Vibk
+	 rmEAN63By0K9uKaF7H0o8asP4atTfVwPOm5Kqztmshunbe/3VbwAQjQGg7aTaWyvmTwXU
+	 knFN4L3mPmwbEifGYsqs6rbbCf9TeR5irqTvk2Wbt8J/1gkymNX3srxrVSIpPeQsFXB+1
+	 vpn46j0w8c8RAZTBAvu00FXK/upnjsMHlSInfSa7h9Mz+E+jrY045R+L+AWpt08mx1/jU
+	 roVPA9JQ9v8W7V8k3h/8yoehMJ6hZwHtxFpa5S7RI8rum5grUz9ozsJJmHSRWHxbbPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573570;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=xO+SlNr5VR5FPJUZivBHkoRlgX7C+y7cd5KZTooj1TU=;
-	b=VayBtjhN7/Km8iqO8BGXQLUad3E+kjJHRCC6bKK9sET5Eyv0cgkpZx4bhUf9G5nU6Gsa
-	 avNWyxVJobNNal0aXcKl3gmcvy3XKyJk80v1dqwFDab4+6eJz5sIum6726sditjLgjFIP
-	 Oj3YAr6WZ6FHaD8vnrPxCcpA1r/HmHBkpqyrRymiFzF4cH96WSOPOyUb3wyv2Ozy0NkX4
-	 zzlIoRUakZyZ1bKEIMw+cqU4XT8F1ia1GQ3BHhQVZin4IIeuN5lD/cxxB+FkZCVmXq+hs
-	 8wWSlTXlaV4HKanEmBkA88C1thm9fUCl1Ba6hPFLuiVv9as8bZwL8l+VqjiYzGQZuAA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573601;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=vSS1WWn/ggetKOBLUbWaNnFFsMjByCm0f95BaaBVfMk=;
+	b=rqtgRWh9hj7V4V3a6njR5ImWLlv45iBkQ05RJxA+LZ/N43uItbULYPTE1SwjDWgyyrzr
+	 okzVJpb98TXZ01ar4OQlBoIHIcCC0haZocaUGwq25kWWpwGsJ73+BDfi9567Sw97V3TNt
+	 lf8zlh16rYmgxZVmscv0IQtKbxqHCrtRjGab1nxt4FdZTVU5vsRBOtZ74NizD6NiKqy7S
+	 +sFR2hpnVDBgs8D6Zd0XBRk+M30YkT6J6mcBvlFxPHfhA7lXQjzd0i2QcLhAwcJKcf7nX
+	 VJa4y0V0MFTPvsyGkdVakHU2tHHlNSKTCO0JFEVt0UCF5O4jXhFWAIuMItQirF9gG8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KDy47WBT;
-	arc=none smtp.remote-ip=109.224.244.16
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSEshD96;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B6F606A31B;
-	Wed, 21 Oct 2026 09:06:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3B6F606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DA3606A319;
+	Wed, 21 Oct 2026 09:06:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=KDy47WBT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1792573567; x=1792832767;
-	bh=xO+SlNr5VR5FPJUZivBHkoRlgX7C+y7cd5KZTooj1TU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=KDy47WBT7hhvun0u0FCIMhzCARBZEidsJoNBwRzdHv/5Ax7FpwFjDGOyaPMn5FbXd
-	 JUz+k8ynNy2vv+EpdLcxU8scuwaAuyEd6xSeaFKqqFvWJMH5ex77SJvrsI+kd3V2dJ
-	 5XXavjZA0XLQByINAq5hqnExCiYAt2YkaOF6wikPcmAnOWsrJnxXE80dutCGKDArLE
-	 /Y49uXw1ZnUE/f1xQQeWNjrR/cACGteJsai5BjiVF5iSKIxkJF5q7B3XXBzw506zK7
-	 qWqqwHiuc26XhQ4rI8ptuh/1Si0xAd1B8hMLHONmgis9nfq4MRSQ+g3XHWG9gDzJAb
-	 jQuPfuGbEc95Q==
-Date: Wed, 21 Oct 2026 09:06:01 +0000
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, George Neacsu <geocausa@gmail.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>, Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor driver
-Message-ID: <20261021090552.46789-1-lsa.uz@pm.me>
-In-Reply-To: <0cc7330c-d563-41bd-b3d1-992f60ae32f2@foss.st.com>
-References: <20261019162722.25587-1-lsa.uz@pm.me> <20261019193402.52923-1-lsa.uz@pm.me> <179247822513.25202.7960395606350309657@gmail.com> <20261020085200.60619-1-lsa.uz@pm.me> <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com> <20261020142641.24808-1-lsa.uz@pm.me> <20261020181025.8625-1-geocausa@gmail.com> <20261020181415.70007-1-lsa.uz@pm.me> <0cc7330c-d563-41bd-b3d1-992f60ae32f2@foss.st.com>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 5a194d521410570634a99fd238ce12a84d135ae5
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lSEshD96
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D3D1F000C9;
+	Wed, 21 Oct 2026 09:06:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792573600;
+	bh=vSS1WWn/ggetKOBLUbWaNnFFsMjByCm0f95BaaBVfMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lSEshD96KlFwImuJmXbsSDz9RmF0KKXIJsHAGH+hysJab6kr07dWIyuLKc296ew57
+	 exkHOAROwJYlBTZmHlyYSpSU5zCOeBEkyLFSr/4fEAYLWjf1UU+ICQVij7n/FuiRxp
+	 3rAhTZccZFhIuwT45vXWRDE+M43MDdkseb1l9brVVIQf0tE17wR7KC7PV1324QKOW9
+	 R8Xyn/7+c2fXU/4sLvGaCo3++d1704GiODuR9neuTZPbh4jSOVZXsWdtbpoIMpd51l
+	 OYUsH9tHVeNuWg7EZFY01nlyljTDYStuTyRUK+eSrdGJoFAx5EJT3CapxbkRqFn0lv
+	 F9o1DAxACZqyg==
+Date: Wed, 21 Oct 2026 11:06:33 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+Message-ID: <atiAmZSPiRNBAO5O@red-moon>
+References: <arZNL9BnTGK0Klwc@red-moon>
+ <arZS4vwxps01dGb7@ashevche-desk.local>
+ <arqSqcoWAkhy-8do@red-moon>
+ <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
+ <asieTvinZ7c2QpQm@red-moon>
+ <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
+ <atXyIadz1TEKSodg@red-moon>
+ <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
+ <ateI-JcExDyfXKrs@red-moon>
+ <athimRqtDvQu1ZzA@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,23 +81,82 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <athimRqtDvQu1ZzA@ashevche-desk.local>
 
-Hi Benjamin,
+On Wed, Oct 21, 2026 at 09:58:33AM +0300, Andy Shevchenko wrote:
+> On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
+> > On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
+> > > <lpieralisi@kernel.org> wrote:
+> 
+> [...]
+> 
+> > > Basically, yes, the idea is to defer the creation of the platform
+> > > device until the dependency is met.
+> > > 
+> > > > till the dependencies are cleared but then, without a _CRS, where will
+> > > > the consumer driver find the platform device resources ?
+> > > 
+> > > Well, good question.
+> > > 
+> > > > There are multiple facets in this issue and possibly some of them have
+> > > > been already solved but I need to pull them together.
+> > > >
+> > > > > Note that the dependencies can be added to acpi_dep_list after
+> > > > > creating a struct acpi_device with acpi_add_single_object() and
+> > > > > acpi_scan_add_dep() is not really suitable for that, but it should be
+> > > > > doable if the dependencies can be found.
+> > > > >
+> > > > > > I need to have a deeper look into this next week but I wanted to ask first
+> > > > > > whether there was something I missed - most likely.
+> > > > >
+> > > > > Well, it is not really straightforward.
+> > > >
+> > > > Yes it is getting messy. This RFC, with all its flaws, does not transparently
+> > > > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
+> > > > dependencies - though it does so by adding more stuff into ACPI static fwnode
+> > > > that to be honest I'd rather see gone.
+> > > 
+> > > I think what you need is a notification mechanism that will trigger
+> > > when a specific device (enumerated via the ACPI Namespace) becomes
+> > > operational.  It doesn't look like any of the existing ones (platform
+> > > device probe deferral or ACPI device dependencies tracking) is really
+> > > suitable for your use case.
+> > 
+> > Yes. It might just be a notification from ACPI core to say "the driver for
+> > this ACPI device probed, go create platform devices that depends on it".
+> > 
+> > We can check and track the dependency in code that does create those
+> > devices today.
+> > 
+> > I will think about this to see how bad this might look like.
+> 
+> Don't we do something similar in drivers/acpi/x86/lpss.c?
 
-On 21/10/2026 11:02, Benjamin Mugnier wrote:
-> Could we keep it disabled instead ? I'm afraid some receiver could
-> catch all data types and therefore messing up the frame. Better safe
-> than sorry.
+I suppose I can add a notifier that checks whether the device whose
+companion represents the ACPI device a given platform device IRQ depends
+on was bound to its driver and then map the IRQ and add the platform device
+_then_ - after all that's what acpi_dev_clear_dependencies() does (similar
+at least).
 
-Yes, that is what v2 does: the write that stays is ISL_ENABLE =3D 0, so
-the status lines stay off, as in v1. I should have said "disabled"
-rather than "keeps the write".
+There is still the question - where the GSI number, flags should be
+stashed so that the notifier can grab them in a uniform way. We
+could simply attach platform data storing those values to a pdev, either on
+a per static table basis or generalize the data so that a single notifier
+would be able to deal with it.
 
-> I should update vd55g1 too.
+That or I can just piggyback on acpi_dev_clear_dependencies() and add
+a separate dep mechanism to acpi_dep_data that instead of being acpi_handle
+based the consumer is fwnode based (something Rafael mentioned before).
 
-vd55g1 already turns them off: vd55g1_enable_streams() writes 0 to
-VD55G1_REG_ISL_ENABLE at each stream start, in media next.
+I will have a stab at this and see what's the least bad solution I can
+come up with.
 
-Sergey
+I suppose we are scrapping the -EPROBE_DEFER solution (ie this set),
+what we are talking about above won't need to defer anything other
+than the time when platform devices are added.
 
+Thanks,
+Lorenzo
