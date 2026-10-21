@@ -1,91 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792603280;
-	b=ho6MZH2dXqi+I2nYjtqMp3lpe75ltzDs0J40aJpo5AHKbeoZJ1k/buJhcdzrBfyyCIdR
-	 v9dqRnUxaUkxqYj6mOEIQxGJZd840YL1PXBasJtO7RxhRqHxs9mKRWfFGD/pHv8qlK3Bz
-	 jEV+pIV5WIZT5th68w50auLZb5r8gaP497K+eFBacy73ve7PjhISxe2ZYgxNKJLaMgah+
-	 B2+oBDlIeqnlAgI2kB4iUknR4DK1RvZkKxCPCblXu3bdy9Yg7I0cRpH7xea9Z17tIYWdb
-	 E+KDUc+9dGOsdF/4dKdfJLqCGM7iu/BkoyfFUzBdq086DbkenVZA9OJMMAPm7jwxlhA==
+	t=1792603361;
+	b=JnjRQ7+eOEH1S5e7GyvBtmVRp3QxTe5I0eKnxie6xNazUKRX4e8Bu4CKOAg4cX/mLY7p
+	 G8HtbtmH/z4U9+Vvq209dJQxBdARO/XdUyVqvaHtzEN9z684WLNc6uB8TXofaIaTX82Aj
+	 7p2sKuh7k3IIPccxJHzEJUwba3zmQ5xSLXqSq2VA12/dLVaJ2WQ9ELQIOqg5VAtgBOCE4
+	 FLoG+1unQPvGXhSKmk7/yeZc8PjjEBhYFE8OeS/J+Ef7yZOk3KI/HkQoy08V0X1FBQJUu
+	 Xg1Vd9KHAmBJV/KShUgH5LzL0vlLxKMB7zBROruKW9sFl8d5sbcP6o5HUKxN1cUh5NQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792603280;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=aYnP9EzvQu5c7OzWw3Xivytyue2e+5YkT93F7KbL5/Q=;
-	b=1fdQbJVgGIDSvuMDjQiAeRDAYiDDCnKYcdeSvVtmTyroM3/+lF6su6mz+S1tnMvrkYT9
-	 vPBAAufuo9oA7HJp/nHkGoBvv4Q+R2Xa5H0PBUO7+WhHOxTUr+l5yrDzrLoz2CZMlAyP0
-	 5TK50eyoyz8Xbml06M3A0g9q0OsArih+Gx9d7dLL2piyXZ8QBbcZ7FJwTeIhYhnFpPELr
-	 U+ZnnAZ3js7/+xI1joKAoL+SuVhqOH4yYBWbdune//G8vAPxhxZjS7iR7HzjE/ZWA6l+p
-	 e0B4CjKW8GSnEai9e8RHfbDYqVyc3Z0LbAdlPxPc2tPpsUzFXwREnNplWNvYg9Oz9tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792603361;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6LqR1VzY/7CZkjbT+gr5Y/FfDEr1ngYlH55EfU+izAs=;
+	b=5as2pPlyBny93kQ8AdWgsor0GKesQFOMDM+OvyKN5FrEcVIrc1An76ABmwJLO5+9pPgp
+	 AUL0+G5OX4lya6OB9+jXt50XtM3bSLvm8/dzWayNFvOzwKRJmnSxD/SCQIWzwxPb4eUuU
+	 vS4e65Z7fgoxoNfvyNvigFJPP7wMxxXjF1pT4BsFxPHVwcF/vgI5NyiohwEOOGWSdtzl+
+	 MPjh4phWaSPtpuhKvEFQL8rq4Ih1gUs4EcEsQ009tgzPClKS+dyCbC35cEVntdZaL+P/O
+	 8R+3rBDfKUgbFzCdKI4IMkcXlu1KxroJ0k4NiYyPMcQWdJqI9lxQZlvGFdd+10gBWmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D2LCNvwu;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2rfc6jT;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D300606A31D;
-	Wed, 21 Oct 2026 17:21:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D300606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BFA606A31A;
+	Wed, 21 Oct 2026 17:22:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=D2LCNvwu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792603281; x=1824139281;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=v7fSLTfyM6AlbgewY7IYOSHnM8YIN5meuZi9253LlHg=;
-  b=D2LCNvwuOlF+wzPz9LdAodIh78N8/jFbepQ+fAC0lfzCLwzAGipagTcq
-   BSPhFrG61TC0ojpij0RyeIKEjOScnuoUci7XDV33+UtrhqYcndU4U/hXC
-   PQliKTkqcXz4S7cWuYHxHROfP5tn85t2yx1IL/pj9dlQqii3LLOqnrrz0
-   B/svgvtFgYRJxh0InT1qV5lBm7+/B7M08KtrG/196QBCOzrHGM9LovJGA
-   4qGWKeHkNLFRkhedkocROkOiMaEGaSbmXYTG+Crwx1/CMmg9oGUyCBjmm
-   ct52SQmNSLMPtx8QaYBOOlNE7q8zXmceIQI4uC9vDSwinsum+U2ZXEozX
-   w==;
-X-CSE-ConnectionGUID: nWhcBqz/Ql6WIkni4RXEXQ==
-X-CSE-MsgGUID: 9e/hdHWyQBK5JDYM38KQYw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1344986"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1344986"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:21:20 -0700
-X-CSE-ConnectionGUID: Z0kXF4sbQEeShgBC25pcTQ==
-X-CSE-MsgGUID: ooYRJCglToWIM3GUM965iw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4939386"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 10:21:16 -0700
-Date: Wed, 21 Oct 2026 20:21:13 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Cc: linux-serial@vger.kernel.org, gregkh@linuxfoundation.org,
-	jirislaby@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-Message-ID: <atj0iRFTxHKmhxVG@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com>
- <athe0QikG2mzCAtd@ashevche-desk.local>
- <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com>
- <atjB-BnXclL3FcUm@ashevche-desk.local>
- <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com>
- <atjqZPuAbHDdaexv@ashevche-desk.local>
- <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S2rfc6jT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618E31F000C1;
+	Wed, 21 Oct 2026 17:22:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792603360;
+	bh=6LqR1VzY/7CZkjbT+gr5Y/FfDEr1ngYlH55EfU+izAs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S2rfc6jTzi8rSn5ViYwDylfdCtbgIUsR9cMsl9JPmwcE2o7Shl124XcgoFdplNgUY
+	 GPvn7lOpmXk24mnVbuwXKEJuoFlSkh9CvOFLtv5Ydqnj9mLrVWdw1Uqer20V+Vrtt5
+	 70XBFTECdp07cRSdQvmKfaI9QNVcBMF9mAkdZVVh7Xyo3nhizBiuY0NaKiJbWLeQZc
+	 aG32N70AkZbF7TJUtzdJ5POtdgwYYyuBAEHVfC5AKiwK5hRb2cDDX1VPHZKoXJm6JK
+	 Owymr1kikulFhtwki7qcAxVGdjCwRSzwBQQLe2ZDGFPeIPNjWsjEXcIpfrgJ3Nix0Y
+	 1wOHycLudZl5g==
+Date: Wed, 21 Oct 2026 10:22:38 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Alex Markuze <amarkuze@redhat.com>
+Cc: ceph-devel@vger.kernel.org, idryomov@gmail.com, xiubo.li@clyso.com,
+	slava@dubeyko.com, viro@zeniv.linux.org.uk, brauner@kernel.org,
+	jack@suse.cz, linux-fsdevel@vger.kernel.org,
+	linux-fscrypt@vger.kernel.org, tytso@mit.edu, jaegeuk@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 5/5] ceph: fail quarantined subvolume access with
+ EACCES
+Message-ID: <20261021172238.GD1879@quark>
+References: <cover.1792527529.git.amarkuze@redhat.com>
+ <345a4e8317cde90293b0d4ee9d8a3edfd229e204.1792527529.git.amarkuze@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,41 +63,61 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <345a4e8317cde90293b0d4ee9d8a3edfd229e204.1792527529.git.amarkuze@redhat.com>
 
-On Wed, Oct 21, 2026 at 02:04:03PM -0300, Vinicius Pedrosa wrote:
-> On Wed, 21 Oct 2026, Andy Shevchenko wrote:
+On Tue, Oct 20, 2026 at 08:26:50PM +0000, Alex Markuze wrote:
+> +/*
+> + * fscrypt can cache the decrypted target in ->i_link, allowing the VFS to
+> + * bypass this callback. Checking those cache hits needs separate fscrypt
+> + * support; this check covers only accesses that reach ->get_link().
+> + */
+>  static const char *ceph_encrypted_get_link(struct dentry *dentry,
+>  					   struct inode *inode,
+>  					   struct delayed_call *done)
+>  {
+>  	struct ceph_inode_info *ci = ceph_inode(inode);
+> +	int err;
+>  
+>  	if (!dentry)
+>  		return ERR_PTR(-ECHILD);
+> +	err = ceph_symlink_revalidate(inode);
+> +	if (err)
+> +		return ERR_PTR(err);
+>  
+>  	return fscrypt_get_symlink(inode, ci->i_symlink, i_size_read(inode),
+>  				   done);
 
-...
+The function comment seems out of sync with the actual code, as the
+actual code disables the symlink target caching.
 
-> > I dunno, I prefer just a longer solution, but I don't know how big this issue
-> > is that we need to backport in that way (and not taking the whole series as a
-> > fix).
-> 
-> On the severity: the IER restore comes from a7b9ce39fbe4. On the A733 I
-> saw hardware IER left at 0 and the console stop taking TX/RX
-> interrupts. I haven't tested this on hardware with a real DLF.
+>  	case FS_IOC_GET_ENCRYPTION_POLICY:
+>  		ret = vet_mds_for_fscrypt(file);
+> +		if (ret)
+> +			return ret;
+> +		ret = ceph_quarantine_revalidate(inode);
+>  		if (ret)
+>  			return ret;
+>  		return fscrypt_ioctl_get_policy(file, (void __user *)arg);
+>  
+>  	case FS_IOC_GET_ENCRYPTION_POLICY_EX:
+>  		ret = vet_mds_for_fscrypt(file);
+> +		if (ret)
+> +			return ret;
+> +		ret = ceph_quarantine_revalidate(inode);
+>  		if (ret)
+>  			return ret;
+>  		return fscrypt_ioctl_get_policy_ex(file, (void __user *)arg);
+> @@ -429,6 +439,9 @@ long ceph_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+>  
+>  	case FS_IOC_GET_ENCRYPTION_NONCE:
+>  		ret = vet_mds_for_fscrypt(file);
+> +		if (ret)
+> +			return ret;
+> +		ret = ceph_quarantine_revalidate(inode);
+>  		if (ret)
+>  			return ret;
+>  		return fscrypt_ioctl_get_nonce(file, (void __user *)arg);
 
-Yes. but is it only a single device/platform affected or a big class of the
-devices? I assume only narrow part of them which unfortunately use DFL register
-offset for something else in their RTL.
+Can you clarify why FS_IOC_SET_ENCRYPTION_POLICY doesn't need this too?
 
-> Given that, how about keeping the small fix as patch 1 with the stable
-> tag, and putting the refactoring after it in the same series? That would
-> keep the fix independently backportable if needed, while mainline would
-> still end up with the structure you proposed.
-
-It all depends on the outcome of the above discussion. Maybe others can share
-their opinions, but I lean towards a series-as-a-fix rather than a bit ugly fix
-+ proper refactoring on top.
-
-The whole approach doesn't seem to me like a pile of changes. The deduplication
-patch can be deferred for later actually.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+- Eric
