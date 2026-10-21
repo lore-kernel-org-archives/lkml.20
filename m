@@ -1,96 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602032;
-	b=iiAq+PKLL9zXZOwOU4TqZQP7kRfPolob4N0J+KIJSIaO9OxWpai/IIejmPOqBWAAW7oN
-	 e5FxZEx5XyyLXWJXxI4lN7Ho+5oCCHU8Dvh/kOJTROX05yoIiVgDMqadU/kaJpEC7V6+/
-	 mB63hmZtLuem6vnbGyqxfIbcB58dK6i2qZBiYULp/4NmBY0mVDysOMyPq7TjpQfcBaBh3
-	 Mle9Y1P0vHr2geycRnIdb23Z5l6C+WUiaAR7tT0teSMh6jq33hbQ35Jqh/ZHfNmq9IGnU
-	 YrEz9QYj+4KVBX7WDNdKoBiyaTnrlCYuAY/hbBfmULB66bXms2ktyS5GMLqCAY/zV8Q==
+	t=1792602041;
+	b=LuFOpD5t3VsI/JwGcOW2xGzfDX6lf+0nvsI/+SlxKQrFjdC1TAFcdjUhLQACks/11ny3
+	 N6p2yfL2L7fp/NGzF8g0FcoQEs8tCAO3nzboxX0QKcRIPNxbTD5/V1R3ONsQi6YjutJy4
+	 Qw7C6NbNIxnjC5qAFA94PwhM7g4r0AE1YvMaONySFCLjg+C8+I+LYrCHy9tmuqIBbfgjA
+	 iftfIMjScMhsTRCAYMdhnDx4hxhvGgL2MxAE6u9yrFwuSFKbnhV7I+IUhpOvUnoEh+F7S
+	 sB0TOSLLl7bAHhEpU20Xl1FGE1vXN+wAUvxGS5JH4Gs9YLADx/1mMLOZVY2JMQTPWng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602032;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4p+sU87b0SPhlui/+SUmlIQxPYDUposWA1I/eyb2zBo=;
-	b=QIP7qLUMqrP6LxCLAqkNdJ6Sza0Dyyi31y9CkwW7t/C/7pnU4HXIBCNzAh24YUhPo1OI
-	 sLGODwtLxVq1Bsal5Gd1ELf10BL++D7dYfzviW/0SeDS53G0mxW2iWlu146gSwP3qMSxG
-	 mnLR/FN/PAA8nuHX2HSKGU4pyuuMxYpaGYWjkDj7MZtWZwzRAtm6DoO5wBGpf2xwgZTV2
-	 ocubYWuHD6Y3CYn7UuOo0etRhSIL33f/12SDwr6qMoTWotHxFddBnrv+TTmpX4Pw127vA
-	 F7OV3pmI+h9EoUeKlmoYwtsq5xi4SFauU1fz9K5jZrjNteaiGgchJZiLbyk/gqbdbJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602041;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=hg756WFowYy+h+rv8OWF8+LfypVcqHe8wBiAPczjXtc=;
+	b=rs9nL6R9123h7qJr81tapDjT4qLcpuGrQejUwT3QhNli6HCcmZ0kF9oM/TY73atxozpr
+	 c4ItnD76flW9r0RlSaGhw9HVNekTmN6UNKGw6nCAqlm6a74JrxHp8bS5uQd/HPkiQCkEM
+	 Ooxu0y5ea/nxq3GTLLLG+HwuJBUoB3mYc3XI8bfziW8BD0Su1ms0JrdZLRuKx46pHXSh0
+	 mIv6irvevp6tcpSLyuXq3TFG5BcfkmXexsjO72FjxL6F9LPoPWgyfes+Liz4PabSm0Jtt
+	 QLu1gwu5sZbQCRuMfYAYFVHgZR/ArtrBQY3Ud59TkNhhG8rkC3w48UwRnC5tEP89a7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SDvSrkSX;
-	arc=none smtp.remote-ip=74.125.82.179
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Qepcwi7M;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UbimXrB5;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B9F606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:00:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79B9F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199C6606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:00:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 199C6606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SDvSrkSX
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso1677344eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:00:32 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Qepcwi7M;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=UbimXrB5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792602039;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hg756WFowYy+h+rv8OWF8+LfypVcqHe8wBiAPczjXtc=;
+	b=Qepcwi7Ms8POCbr9vHyi2DNXqDPB3yvY/zhjKyy8Rn1M6OME09xjLfid458GavsL29axV7
+	SXHOdABni/O3AJ7z+vtqljJ9IkSpFPOA0gZRRWXEGf4xESq+G4ALNnUqq1NSxrPyY4nx8G
+	Su3L2+HukYE+l3q3jJc5FjwmZhUHukw=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-122-wswfyklvMMyW06jAd7V98w-1; Wed, 21 Oct 2026 13:00:38 -0400
+X-MC-Unique: wswfyklvMMyW06jAd7V98w-1
+X-Mimecast-MFC-AGG-ID: wswfyklvMMyW06jAd7V98w_1792602037
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a1db220b42so8641425e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:00:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792602031; x=1793206831; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4p+sU87b0SPhlui/+SUmlIQxPYDUposWA1I/eyb2zBo=;
-        b=SDvSrkSXRN7b16uvHn0owN7P9wALOR+qF5x8hSgG0gxkjdrQLtuwhv2L5BARh97oX3
-         aS1S90uq9tOtN3LVBcUJNa2t2TXEPT9VhIRziQXWF5/SVExqtLCNRjJOaR/aNcbwTcTb
-         2urftg2aTjo0Ncs1SWWX1xR9l7NrXFdTLhKKnyDfYlOqypf3qKvZ50JkKfSXvX7UOwI/
-         L86Pv04dIDfsNWvcSpXLhdETZ3Jc2t5BuoqjWhKgX7vQ9CyQFsYYkKT4by19rmtOpLKC
-         Kej+lquPMAO/imCte++Zf4948MUu8wD2XHZZanc8LpJbGt7lCjPYGF8TMGUQcJxPSdac
-         yAtw==
+        d=redhat.com; s=google; t=1792602037; x=1793206837; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hg756WFowYy+h+rv8OWF8+LfypVcqHe8wBiAPczjXtc=;
+        b=UbimXrB5dGdnO0TsxeGofcIk8ZGbuenQmt+4Krqq2N9jETg6GFKSrNicaEK8SOMOOx
+         RluoUpqKAZKuoZPZ9zVK5w6urFc+EEZ5hb+k82B2vrSFzVHgu7/gXieOJSRCXrXUCY8T
+         CWBz+rkJNObiVMAZ780stknk0A9ApMtdmB90IyGdeDNsCG1GOtGblwHv/0xVZ1+buReF
+         9o/13GiC+N+12rejlU7VIsxpwkwSz0CvoF2npzfKLby1c8/AE+uHprSl/63+flNrHvxX
+         1+7b60YK9e1RSmdPHh+y21luDknXV1MfF7sBf7Ky+XZK/IHLEFu0fLWQxMWGxDmQPvAl
+         O3pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602031; x=1793206831;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4p+sU87b0SPhlui/+SUmlIQxPYDUposWA1I/eyb2zBo=;
-        b=QOyzrCh2bYi+2wb+mzyWBV3xlbMO3OWWaxqRqFI5/AGvIDXu0sZK8gk+rbeelDlLrs
-         h3MwKf04B78UALd1qArmkJWO5KzwqB6CkiFUNC3dvmNzmhDzWVpbD+N0m1XeAieZUXlq
-         Ds/9s7PVWxmWJZkdTaCNhy8Xlcf4K+zAaV6N+pRbEhNzAdfIqwZJ56wgCcdWSWigj3EY
-         LDOCXKIa5j3LPcRo3EajC1kFzXDum8BT14Ez/0ZnjqrBsdYpGOPOBQiuue7lsb5yoKn4
-         2w7wcTlQZcT2hTNMJR8FxCUTVx3guEfiWi+QKi/ouZSQKS4i1fhXstQ/rt0lowFfcIHs
-         ttNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdVYbHMI4nGFpYpO5Uc+gCtedyazy3g2eI5Snhv1roygmhP7W8YquuOlyKkIyPVR7VBQKkspBgERiZPmI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGHwCQX5qtiA76/mDs68XCtOMmXB7ZXeowDeBbLAFjpsA7xVsC
-	VjACInTwq6TlYRkxW7/lfDUPZ8o6jtdSwNQuTcqGwLhz6i/di6BgDzCE
-X-Gm-Gg: AYBFou0PaIkjse9B5StoyCtHBxJIao3bS4Fu/lAWMMcAr2A3SIOIGMbi4sYhHNkiR54
-	+OYlEJWT9RVkrOcGnF1po5o/E+BtJSCRXDHA+45LcOXAx1x36Ed67uBz5qpwX71n/9yMEzbRjft
-	S5glALPqkJ0seOfUgiOJasYj/xaqoQYpnkjmwr6q6oPaT4An2N9TCQauVqdFkDRDDGX7/HckUu+
-	fesIiPAPOFSIGgX/10d0DxA33jy7RAMS0I3/WLP0AhjLcJp0/DtW6pmsIshgPbwawb50wFLnJ1O
-	mY8bYLHbpfB3BF28HBPiO3YZxDtV41VInzESTi6/+L0G8s5IdL/phoC+z+eWc59ki7R9t1kOqo4
-	gSJPj/wE4Oi7nrOyOkbChZMwiW7p75osfkzGxNX27vq035AjJWKaIpqvwcxGzsHWM3yIlyE6kdF
-	ql+w6EcRheYzNBiODsRgNaOF0VmtrfZwv3bxTOT7FVKk2QIMxQ+T+7n+0eiqZ3e1ho7TLrO45fR
-	uNoAYdgfP/xi+FRoMwRdtr+q0of2Klq4UMteXDfE4sCRAhE/E8cTzwTRtmFKRuUb6MBiYnf80tl
-	uTWY+8tkyVQ4CgrKndnxkg==
-X-Received: by 2002:a05:693c:414b:20b0:367:5e31:ce29 with SMTP id 5a478bee46e88-3675e31ce6bmr3904222eec.20.1792602031067;
-        Wed, 21 Oct 2026 10:00:31 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:92d1:8038:c4e7:1f0c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ee5e3sm8459829eec.4.2026.10.21.10.00.28
+        d=1e100.net; s=20260707; t=1792602037; x=1793206837;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hg756WFowYy+h+rv8OWF8+LfypVcqHe8wBiAPczjXtc=;
+        b=1tBh4U8Js2KhnANroAC8HdG4iRaqi9RAATu91M+HxcTYs9G3Bg3nC8bC7EOx7+uZXP
+         24nI50LDDhsEJOrcenxHKg9rIWhfDzVS+7XxY14gqINiBpXOa0Sgy66XQfgXAK6A2knJ
+         3Fqp1ru/VYc3RfWh1neWCSzroFl0IL1x5SSDGWLSX6Do2aVpizClsjSDahpZk/dkeGXU
+         tsI0Tew3uWJxsf7i9fW35OmStBx7/b25IbOKKr3kFiNYPTL3lDZoON+85CcJaT27B6PW
+         Kn7AjtB/YbJDxsa+B4aQotnonvXUBOplk2XyE1NXT7tjz0jHL+A43+Pb9QXnufL4KUeW
+         yO0A==
+X-Gm-Message-State: AFq9FYLazWy3HgjaF1Apa3su9V7M7gCkJ6NS3L/2L7jS9/cq3Ys8F04/
+	DsSsH94vNCElsZn8eEZwvw5zQMXli2EKtdVmaM4OEZPS1zlpFqxI9P8nC4usZHt94+iTThGjJ9/
+	V27RZ7VB4ftMYohQgWH7IFvuiF72Wp7XkHRZQHjfptBBtDNa8Y3kisLtOsuQ3Dgw38w==
+X-Gm-Gg: AYBFou3rksO3/djqdwNZk2+jdybPD3sQXd57Kz5GoZolah6sqhttkv8DHqp+rk90eOM
+	/nFN8k3rm+zKhUfBxtGZi7kk18YhdhXZfd3Dw3ug9YC7UQ/TIkY0P/ZsU31E+QmGAjYJww6irpX
+	UpmyCHFqqq2IUIXnaglvnrfssRLH/7oXBb5V8UqMu2AV9AS4tdgxjtHT/dlygg+lN/C7QV8xBqj
+	UYtmiwhVrSFTD64TpKUnINMX4h6JT2RVIQhHgr9RiBjRcXSMq6eglxT/7mmlPXLSb45/FNm+CiQ
+	g8qtXNp0V58M4Zj90tUHinYENKku/l7OFZIvSsHQGwnvg92UBSAQnm1JWpQ7SBqu9PY=
+X-Received: by 2002:a05:600c:8b6a:b0:4a1:9831:a69c with SMTP id 5b1f17b1804b1-4a1fdd3bc69mr52099275e9.30.1792602036425;
+        Wed, 21 Oct 2026 10:00:36 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b6a:b0:4a1:9831:a69c with SMTP id 5b1f17b1804b1-4a1fdd3bc69mr52098645e9.30.1792602035808;
+        Wed, 21 Oct 2026 10:00:35 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd360e4sm46139995e9.4.2026.10.21.10.00.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:00:29 -0700 (PDT)
-Date: Wed, 21 Oct 2026 10:00:26 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Alejandro Colomar <alx+linux-hardening@kernel.org>
-Cc: Shihuang Liu <shlomojune6@gmail.com>, linux-input@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Marcus Folkesson <marcus.folkesson@gmail.com>, 
-	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
-	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] Input: joystick - use usb_make_subpath()
-Message-ID: <atjvKMOXQY_psYcF@google.com>
-References: <20261021123146.17202-1-shlomojune6@gmail.com>
- <20261021123146.17202-3-shlomojune6@gmail.com>
- <ati7yINv0_Z3yPMg@debian>
+        Wed, 21 Oct 2026 10:00:34 -0700 (PDT)
+Date: Wed, 21 Oct 2026 13:00:31 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: linux-kernel@vger.kernel.org, Willem de Bruijn <willemb@google.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>, netdev@vger.kernel.org,
+	bpf@vger.kernel.org
+Subject: Re: [PATCH net v3] net: gso: validate transport header before
+ computing segment length
+Message-ID: <20261021125549-mutt-send-email-mst@kernel.org>
+References: <52b8bfe4ee848aff8ace47752352de486171d45f.1792595507.git.mst@redhat.com>
+ <CAL4Wiir3NTn8VdbzS=sV3tfz4XGoBXmSfjm96k9SBMTiYBBtjw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,58 +120,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <ati7yINv0_Z3yPMg@debian>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAL4Wiir3NTn8VdbzS=sV3tfz4XGoBXmSfjm96k9SBMTiYBBtjw@mail.gmail.com>
 
-On Wed, Oct 21, 2026 at 03:21:28PM +0200, Alejandro Colomar wrote:
-> Hi Shihuang,
-> 
-> > Date: 2026-10-21 20:31:42+0800
-> > From: Shihuang Liu <shlomojune6@gmail.com>
+On Wed, Oct 21, 2026 at 05:49:35PM +0200, Eric Dumazet wrote:
+> Le mer. 21 oct. 2026 à 17:13, Michael S. Tsirkin <mst@redhat.com> a écrit :
 > >
-> > The pxrc and xpad drivers build their input device physical paths
-> > by appending "/input0" with strlcat() after usb_make_path().
-> > 
-> > In preparation for removing the deprecated strlcat() API [1],
-> > replace each pair of calls with usb_make_subpath(). The helper
-> > formats the USB path and the "input0" subpath in one call,
-> > avoiding a separate buffer scan and append operation.
-> > 
-> > Link: https://github.com/KSPP/linux/issues/370 [1]
-> > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
-> > ---
-> >  drivers/input/joystick/pxrc.c | 3 +--
-> >  drivers/input/joystick/xpad.c | 3 +--
-> >  2 files changed, 2 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/drivers/input/joystick/pxrc.c b/drivers/input/joystick/pxrc.c
-> > index 52d9eab667b7a..1a11e73d7cd04 100644
-> > --- a/drivers/input/joystick/pxrc.c
-> > +++ b/drivers/input/joystick/pxrc.c
-> > @@ -169,8 +169,7 @@ static int pxrc_probe(struct usb_interface *intf,
-> >  
-> >  	pxrc->input->name = "PXRC Flight Controller Adapter";
-> >  
-> > -	usb_make_path(udev, pxrc->phys, sizeof(pxrc->phys));
-> > -	strlcat(pxrc->phys, "/input0", sizeof(pxrc->phys));
-> > +	usb_make_subpath(udev, pxrc->phys, sizeof(pxrc->phys), "input0");
+> > If a TSO packet is processed in the stack before a transport
+> > header was ever established, the TCP data offset is read through the
+> > unset header offset, far outside the packet.
+> >
+> > This was demonstrated by syzkaller, back when the input path did not
+> > dissect such packets: a virtio net header supplying a malformed
+> > network header was enough.  Qdisc length estimation has carried a
+> > guard against exactly this since
+> >
+> > commit a0dce8752193 ("net: Skip GSO length estimation if transport header is not set");
+> >
+> > the GSO length validators never got one.
+> >
+> > We used to, but we no longer allow such packets in: since
+> >
+> > commit 44378d02c5aa ("net: always dissect GSO packets in __virtio_net_hdr_to_skb()")
+> >
+> > the virtio net input path dissects all GSO packets.
+> >
+> > But as a defence in depth measure
 > 
-> To be honest, I think the composed approach is more readable.  You don't
-> need to learn a new _subpath function with all the details it has.
+> I do not think we want this.
 > 
-> Everyone knows what a str*cat() (or str*cpy, FWIW) function does.
-> 
-> I'd rather improve this by adding strscat().  The reason for removing
-> strlcat(3) is that it is vulnerable to DoS, and that it is inefficient,
-> but it is good at producing readable code, and a replacement should not
-> degrade that.
+> The root cause was fixed at the source by 44378d02c5aa. This patch adds
+> code to skb_gso_validate_network_len(), which ip_finish_output_gso() and
+> ip6_finish_output_gso() call for every GSO packet, including locally
+> generated TCP, to guard against a state the stack no longer produces.
 
-Well, there is absolutely no performance concerns in this code, so
-another option is to simply leave it as is. I see no benefit here from
-using yet another variant of str*cat().
-
-Thanks.
+I just worry we missed some entry points. Shrug. As you wish.
 
 -- 
-Dmitry
+MST
+
