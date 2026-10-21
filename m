@@ -1,45 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583504;
-	b=lyqI/OTObbRBIDPjdV7xOhSLrITmpsosLjjinJM6YnNLEPLtTIbErljnmeb5zuBJN/DU
-	 ymwOPUQ77zEx6Sue1jImnJ6zohW1qoxA6WyICrwYsyLPVG2RDPAflZFOFOtsvm0f0i7kF
-	 wHK/++Q7uDGy2FnlfzlTDuDyhapR3karUrjGJdw3EoCXcIHMb28O5tC5uPGjjfXu8BLCM
-	 HCxEzNkvxm5Kru5R/NLmV2vBldjux/jDsB2Dph86Ec/jWwdE3pzdj+1Nd4lP0hvwoXmhF
-	 gPiaXP74c2DQQg5BnsAZnORB9Qjmix/++iOSHguo5iAmYwRORVvVOandsBuFUmxbEKQ==
+	t=1792583517;
+	b=3Q4DqwQSQe2/KQrb8gHKqUEoziLNjOSyZ/XsU7In4Ikfs581kYHpEb5MqwMX+wz7fa2R
+	 tvvgkBAkRhdGHoWdPnJXx9zECi07Vx6dmJphDGKfNg3wy0EQKRfrF9cT7NaSBqDuqfP+D
+	 wOlDGXOlZbxpFfeMAo5vtIhsy0tnwvEwOhdHx+v78q+64EsGCSd0IjLCeV6JDIw6geEnB
+	 W3M28ru346vrbW3rTUMbMLJX6WiCd93PUdQ7tHZw7QG5R/n9Tuz+Nlcn4nxQRF9ST/7Sf
+	 KyAW+VaSvP8oM/7uKrh1WTsSLzZ9Mif00KSJRcffmTDgEbFVL5lidILa89Hw+kSLGaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583504;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=NNGxMQXJMdTjnSOv10aQKb/ppFNgCMDdDlSf+doGbnI=;
-	b=15AynNAzlpSVaUTQp/KUInGfrfZWylyQlsZqVKwSlFhQPRBGWO6QvH0YY2uOwj/vEH8v
-	 1oPRTDHiZvM3OQ/TKkKqU7UE3sSvsDr+kKwsQKxTA660+zcvLT3EOoq0GUMTdQGPDAFQY
-	 gasFPUwamr+WEhX0DqG7eAWw5ghd9WwU4xlJllfHpkwLp9xIj0w6KzW+kFV73uGdFX8Tj
-	 SEmUGCeE1Og38w1QqgJK/Brkx087ScrZRfJZ5jrKkG57ExAH1jMwHx0fg/XDfqTXnATgw
-	 MUsdZ0OgtSSYZccAIYuxzM5YNvnWLE3U/Hy9AT6+zASaFrXXNnncEOPHJEcws7vGOfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583517;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=gHGi1gVtAcNCijVovmdgQDTWlAIi6csG7suzvk1qxYw=;
+	b=XTtuLLcz/JKBcRM+ihRcKyxbtG7qSlAmaT6B7EWFjyZvgXERzkxTh5uJ3bBBBfXlCiJj
+	 Sz5SSsCf4Xrxn3s/LbO3dGN0L23rWvXzD4ft86icxVq1qy0kw3p54tXivHRzqQAGYpCxM
+	 QpDQy0TQ6S3s8ZhTkEplaEAQNa0saGhbwbF0IZF4me+aoss11LHqX5dIfArPlXqfKG7jp
+	 Fj3NYSAPYvkn6ZgDJC1GF/beejHA7L8CCnNhAThqwYcu5yu6Qh8OZXU+Swb3w5MUZLoEt
+	 GjBZIHgM816Q+8SEmMciBGLJ5Z1NyeuRosnfe0g4lpgJdlirEwk7A59yOA2RITZPJAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtG9PuG7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BlhaLsB8;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hK9GwvAP;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85868606A319;
-	Wed, 21 Oct 2026 11:51:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79EAB606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79EAB606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BtG9PuG7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4751F000C4;
-	Wed, 21 Oct 2026 11:51:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583504;
-	bh=NNGxMQXJMdTjnSOv10aQKb/ppFNgCMDdDlSf+doGbnI=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=BtG9PuG7VaGKIXkWXibhz2PCSsATBTBkEm2LrSY2Y343uHvevVYcopKMX5TehF69x
-	 x1xCzOfknTAYZAaYrATXygE/jy9CLTHP2IU1xfb9pkcnd7ZXLCRQahK5ET4qBm684J
-	 WNCbZVP4Ty/LLwMRjTebM0RlduZLs9vqiLLZ7NNFL0DELf1YWuzS28cx2e4lU2AVkY
-	 WDRfwlh19vCdfj4IRHdbOKIgl+wEwVs5RnA6uuZWx6z1Wfhs0DoAmOPStXvqLwmECW
-	 /WVwqgT+LciSEOJ941TtrzHyGviNvJ/fyPoyvFc9aTJeWGk2pr1VqLsNx7t125xZF7
-	 uLBx1KbTSJYOQ==
-Content-Type: multipart/mixed; boundary="===============7595896769208109114=="
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BlhaLsB8;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hK9GwvAP
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBg4uP325091
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:51:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gHGi1gVtAcNCijVovmdgQDTWlAIi6csG7suzvk1qxYw=; b=BlhaLsB8tV1S7WHo
+	mFG1BNvflm0u9jHBOpjQ9dK24lk8As4RVKB6HBvefgkPRDkgd4s+7nEH0lnZw/Eo
+	g+vGNP4oBbJevgXHilXfN8jD0jJmfSNXjBQrKoz62+1pF1q3yfc46Tq3giHe5Ud5
+	cJ6sD6jK8A2B2+689kjUIORvtGB5ZUrUAkqb3k4Y/bIHI2NcAMLycPze47KLQDA8
+	GQQT/RRDzzd7t6I4jiQCTnUpU0vUOPenxglCglsYYJRPio4+ZqjCnDcF0wNenxNC
+	gWQ/sh8SHJ7EIyHjVW4dtS2qaZIL8C5iNpU5W6D+kQtas8mXiqia25NVrWpw77Ox
+	A5pPuQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v3srg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:51:55 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93df7a9466bso6234685a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:51:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792583514; x=1793188314; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gHGi1gVtAcNCijVovmdgQDTWlAIi6csG7suzvk1qxYw=;
+        b=hK9GwvAPutuDUlcKMhG54fnv3K8te9Zrts8shDVnHnFPgdJHQfY5T6Fe3PzKx0BZaB
+         Lpgd7ex28O3X3DjiNpyQGrDMiroA/GuTMWwP1mYgyCaWnPusLUSbJwyKP9nycdHezgd7
+         P/0+7i/z8oJoWb9mCr4jwgm93IZ3XxowXSoHi1WQHMazuX+3nNQaAiNYY9NTqAR5ywae
+         vIhFU0O3z8PjZ2BLHxcKu/hrf48/z3S6HZR9ZKsfpKX2WsKCbHyKqgu5FYCg+tJbzYK0
+         I8UOrzcd3AhEwtBcx0RqJeeydQQtF0y+VpbTtyszV7sBC5zgG8dTTpf8cBxXJKCnopcE
+         Aipg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792583514; x=1793188314;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gHGi1gVtAcNCijVovmdgQDTWlAIi6csG7suzvk1qxYw=;
+        b=oQUZh/980vJBopz6b1Mef4S4tbXQSdfMUPMfqok9Zjb4NA42fs6J33fOCrzzGbEqo8
+         /qadwWNp2Ylglhy282tpOW1xJNIKWSvYqh5SrMZQ881jnkQVZ2KLN5tFZm4eFCpoIwyN
+         hFlP4YtfiufZ1aip0M8qq/Ebj6OtcltRuQlv3e9yywr+UujlXy5tHArHtmuGmOiYWTJ3
+         UROsubbkR67p4f5IX89/cmXsWE2ZWTmvOEEG+HkFY2k1MjXJCKYbcvWjVxnm2c4bAUY5
+         IfOduLmXXnn0EiThijuIhhBS5sMENcsD9E/8vzYXfxYRe2GJGO5Fqst97RPHt3/h7fMB
+         cojw==
+X-Forwarded-Encrypted: i=1; AKwUvBzQBQV3JMyMN3SJEKDJPiNeUF+u97nkkWi9FXbvRUNtT4ZKlt8sWGdXLcSJk++nTD9uQWtg7jiVz5hqEts=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1xz1S7rGQv4a/kDDm6SFMGZpgMC0bjCnYlCQ+G8BHTNxcQvEK
+	6wbqRvrJ1sV+G1GA6NdP02big3mMG5DMhKGl+Y40xxNuu6DUpearQQtufeF0iqdY6aVmkhu7FbE
+	v7BRWK8gjT/skF2Fr6Yn5TkoLitQTPV+2xNTdjNkOjjzc4Hny63jP7G5bUu3M1hM21Wk=
+X-Gm-Gg: AYBFou1xI65xdOg9rYmFbRkxtIFSghozLln2XDvpWcW9v6RUd9CHOQaYZL4xJrEaW5A
+	0N+MzjDO/3aNKA8TnL9WWVc4D5+Ak9cNUfF7jjyARDlj0yTQHbvZC1XfE9lFPvBGifFNN+TiKTJ
+	fW+EVg16tnZhvuSYGa5BeYb5LgT/kJdQFzfZfuqQmVGm5NCqOg+vR2nLQ+U41Gddijr9FXLvlXZ
+	TXtgN40jAhLhdHNSGJDZAVmj0Pkm+Ux2qiKLdmGpIASAd+tHjOUi4TpHx0Uizt2N4U3JDLlvqDL
+	ROtAk3DXZasUs+0La98xmECWFVEgmNFC4k+hDshIqWplyi150nqy50GRQfnHI3aknUaHhnpu+E0
+	YGyamB89GH+hET5qgIS2HYw==
+X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id af79cd13be357-93f57e897a9mr413685185a.2.1792583514609;
+        Wed, 21 Oct 2026 04:51:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id af79cd13be357-93f57e897a9mr413680385a.2.1792583513972;
+        Wed, 21 Oct 2026 04:51:53 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678f77ac4sm69148066b.28.2026.10.21.04.51.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 04:51:53 -0700 (PDT)
+Message-ID: <92642c70-04da-4283-b25f-80369b788b51@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 13:51:50 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,143 +115,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <13ad2d54c140d070976519eba79bb098d6c2d95b64bd8c51640b45c9972baea2@mail.kernel.org>
-In-Reply-To: <20261021112437.1799213-2-zhen.ni@easystack.cn>
-References: <20261021112437.1799213-2-zhen.ni@easystack.cn>
-Subject: Re: [PATCH v3 1/7] mm/page_owner: extract page_owner_next_eligible() from read loop
-From: bot+bpf-ci@kernel.org
-To: zhen.ni@easystack.cn,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,akpm@linux-foundation.org,vbabka@kernel.org,surenb@google.com,mhocko@suse.com,brendan.jackman@linux.dev,hannes@cmpxchg.org,ziy@nvidia.com,shuah@kernel.org
-Cc: bpf@vger.kernel.org,linux-mm@kvack.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,zhen.ni@easystack.cn,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed, 21 Oct 2026 11:51:43 +0000 (UTC)
-
---===============7595896769208109114==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: hawi: Add memory-region for audio PD
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261021-hawi-rh-v1-1-401143c22401@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0NyBTYWx0ZWRfXycMRLn2owO2I
+ Hkm3bRRQcs/PqfdMeGVlBKX/m5/VFV2NX1ulzpo/CBuKLEeC+ta+3b27/AAoGew5CMEcqrMjq0E
+ ODyldoNdFc14cQvIncofbsPm3NT3Z9E=
+X-Proofpoint-ORIG-GUID: 4b0pej6tNvqZ_JpoxzyfjIHTL8VOl1RR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0NyBTYWx0ZWRfXx8d/PVl7OOsM
+ RBcasBuzS3QmM8wFPHjgHmUVtK1U1W0CPr93vh/xbthZNJT2nU9CqPgQ3hgDCcCoMsoFP2AHcjs
+ EXU9cOY/TBiZh9wjZTAVKKGicqnvdpdLeMbRKRa4wwxuYkzQTX9aiS+pNdIrrkGnZOAAhduTHMR
+ VAzkL9sqFoR44aZ8//VMudSiYg8tAWE2kY+70bzkzxVsPwg97/vxO0Z+69loTTdmMILrGWiNmxw
+ cz0uIaCQfYo9oYJN0z6FT/WgyXTsxVRZYdABr69wh2St+P/vI4hvMbwi7Ynzy0ev3qy+03VjS5h
+ O/NjBYBgPprfsvnqZG0FRaU8kr7sH51jJLYt+zP8ShBzaV5g9fIm1a82jh7nO5EHDT2fLbaqKye
+ AFgU8x9izzxobEuWvrODqodEnqaEUv0rkhwE8oyQGC7j2zYB6Roc7SCcpuuTCrHKJBCK75PIXs8
+ A2oTGyd5Cdb2fpoJHPg==
+X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad8a75b cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=hSA76YPsP928zEigGEUA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: 4b0pej6tNvqZ_JpoxzyfjIHTL8VOl1RR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210047
 
-> mm/page_owner: extract page_owner_next_eligible() from read loop
+On 10/21/26 1:45 PM, Ekansh Gupta wrote:
+> Reserve memory region for audio PD dynamic loading and remote heap
+> requirements. Add the required VMID list for memory ownership
+> transfers.
+> 
+> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> ---
 
-TL;DR: The nid filter's page->flags read now happens outside the page_ext RCU
-window, so it may fault on an unmapped vmemmap during memory hot-remove; later
-patches fix it, so it is only a bisect window.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> diff --git a/mm/page_owner.c b/mm/page_owner.c
-> index fbbda7ba914b..92a92cdf74ec 100644
-> --- a/mm/page_owner.c
-> +++ b/mm/page_owner.c
-
-[ ... ]
-
-> @@ -798,13 +794,45 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
->  			goto ext_put_continue;
->
-> -		/*
-> -		 * Access to page_ext->handle isn't synchronous so we should
-> -		 * be careful to access it.
-> +		/*
-> +		 * Take a snapshot of the page_owner record inside the RCU
-> +		 * window, then validate it, so that print_page_owner()
-> +		 * reads the checked handle from the same snapshot.
->  		 */
-> -		handle = READ_ONCE(page_owner->handle);
-> -		if (!handle)
-> +		scan->pfn = pfn;
-> +		scan->po_snap = *page_owner;
-> +
-> +		if (!scan->po_snap.handle)
->  			goto ext_put_continue;
->
-> +		page_ext_put(page_ext);
-> +		return true;
-> +
-> +ext_put_continue:
-> +		page_ext_put(page_ext);
-> +		cond_resched();
-> +	}
-> +
-> +	return false;
-> +}
-
-[ ... ]
-
-> +	/* Find an allocated page */
-> +	while (page_owner_next_eligible(&scan)) {
-> +		struct page *page = pfn_to_page(scan.pfn);
-> +
->  		if (state->nid_filter_enabled) {
->  			int nid;
->  			memdesc_flags_t page_flags = READ_ONCE(page->flags);
-
-Can this READ_ONCE(page->flags) fault on an unmapped vmemmap?
-
-In the parent commit the nid check ran between page_ext_get() and
-page_ext_put(), so it was inside rcu_read_lock():
-
-    page_ext = page_ext_get(page);   /* rcu_read_lock() */
-    ...
-    if (state->nid_filter_enabled) {
-        memdesc_flags_t page_flags = READ_ONCE(page->flags);
-        ...
-            goto ext_put_continue;
-    }
-    ...
-    ext_put_continue:
-        page_ext_put(page_ext);      /* rcu_read_unlock() */
-
-Now page_owner_next_eligible() calls page_ext_put() before it returns true,
-and read_page_owner() reads page->flags with no RCU section, no
-get_online_mems(), and no page reference held.
-
-The RCU section mattered for memory hot-remove:
-
-    offline_pages()
-      memory_notify(MEM_OFFLINE)
-        page_ext_callback()
-          offline_page_ext()
-            synchronize_rcu()
-
-try_remove_memory() requires the blocks to be offline before
-arch_remove_memory() -> ... -> section_deactivate() ->
-depopulate_section_memmap() unmaps the vmemmap.  While a page_ext_get()
-reader was active, that section's memmap could not be torn down.
-
-After this patch, an offline plus remove can complete between page_ext_put()
-and the READ_ONCE(page->flags), because synchronize_rcu() no longer waits
-for this reader.  This needs CONFIG_PAGE_OWNER with page_owner=on,
-CONFIG_MEMORY_HOTREMOVE, a nid filter set through page_owner_write(), and a
-concurrent hot-remove of movable memory.
-
-The commit message says "No change to the output is intended", but it does
-not mention that the nid filter's struct page access moves out of the page_ext
-RCU window.
-
-For context, the parent already read struct page without a pin in
-skip_buddy_pages() (PageBuddy() before page_ext_get()) and in
-print_page_owner() (page->flags, pageblock flags and page->memcg_data after
-page_ext_put()), so this widens an existing race rather than adding a new
-class of problem.  It does turn one protected access into an unprotected
-one, though.
-
-This is fixed later in the series, so it is only a bisect window issue:
-
-- 915f86c7862f ("mm/page_owner: protect page access with mem-hotplug read
-  lock") re-resolves the page in read_page_owner() with pfn_to_online_page()
-  under get_online_mems() before the nid check.
-
-- 2cf991a93cbd ("mm/page_owner: record the NUMA node in the scan cursor")
-  moves the nid computation back into page_owner_next_eligible(), "to avoid
-  dereferencing a possibly-unmapped page".
-
-Could the nid be read in page_owner_next_eligible() before page_ext_put(),
-for example by storing it in the cursor?  Alternatively, could the
-mem-hotplug protection patch be reordered ahead of this one?
-
-[ ... ]
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39593164040
---===============7595896769208109114==--
+Konrad
