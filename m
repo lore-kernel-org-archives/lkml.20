@@ -1,54 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.117.225.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792614992;
-	b=RjK5W70J1tddOYdpi1wJxFRZaXAOGIMkeuU1xMNeMHvIx+yt7rZqyAK0AvaayVa1NXL7
-	 jaYJP9SRu2NPPyt/NdsF9MX42OHE9Y0m9Cp0pZxKUbOrq59V6CM22EassP6j13UjGsAQJ
-	 GpAV65q2/L/YhokVC2Fg9ZDNHen6ZsHohd0hGdZFhPBhvTaUny6eZPLv2Xn2a7sn6sx6B
-	 ci4IyQrM/0Bw3/mt7h2qexfhgiNDtMDbjkPo95CvtPC+qX1GHnG4Teiif6TUGsw3pERhf
-	 HvzA4hEoT1QIPo/XLN60cLM25BHY41A8TmcF/Ihebk/5u58R5X1BsjL2lxdv5Clz56w==
+	t=1792615064;
+	b=GrWCJ8Bq0Ma+oxgHuui4rkkF7spNzvns8qr1x1IWiWLqxss59hRzRhrxERqnMni3C/GG
+	 m5VH1KvutmCTyZpS8CGgWnWtOgJpJlvzooA2ODDQ6ndrnNvKw8mR74Oou+94XSPLMdPwV
+	 CO3ays5maWjahUQPY5nl2jPLIZ4lV2Lt/8oXirCB+MSRusDmOOg1d9h6oNRJF1ktfvM5c
+	 il/cGdY/rHP5fjP1G7+8ryqmqMjZkhBuO96AkwNPjYCJA2JAd9/rb2lPDFlk5PYRn905D
+	 /xXiF6kD00u3EqLVp9QuWzOhSZQsVzyrH+JO597rSec0C4vD9eLFxbPzdyAUkmkU3fA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792614992;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=VOyDX5dEPNERoauSrbofATI5mXA9FSAKRwTu8vDD23U=;
-	b=O0YHKYuYc+4sVIzzRhZ1RgDR6wc2Tn5JGqZd4RgM2CljSXQ2ChJBDbyn9JfUcc+Cb6+V
-	 uHVb20CI0x/BpYatMCejB3rN2BVCuw6Y7jVILgs93Vu7gHASqw1+cxL/RTRibGx8nN9ZV
-	 3IJKb6DXo0t/fxIrjacNVwOTmkNLElpAcO3/N+vHcY/DPXhJQWnlRPtM1OBaAEIBXjt3u
-	 CggTlXYQ3d+qU8UTsDoHcjNJHFxyErp3Fwe4W84OSN8lp5iQHHeEmISZk+28kFshVYzbv
-	 SY627MEgKvKotUIaIkhhyJorcI30Jp+9WYD8Qhla2wFarRScfZsFXEgDSQjjngqXKUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Qz7r+A/D6KnqK0PO5YdI2E3CPVQcCuCNvAghnich9pU=;
+	b=CPxNOuISZOyIr+VOd/8/WQoTi0zwOUYJ3Z55jBdM+MSfZAsWxGHqGG4e7xUCuYfgl9F2
+	 9p50zhBhU0exgkOM+rarwG0epYd/T5vL9ONMN5phIAXhwfHjAbaOC+cZV+4zBZE5pOFSn
+	 L1WyYi03uk4l1QpspUDOhozoBWSJaiw2yz+MbTcNOqtYpOEVLzTTNJbmwWwBc6wduVeuj
+	 GGxBUuoYENjklmNE+Od00UhMCLyay230SYrAa/vcI8UuqmrndJ2pkSTcxZjvvLwQhb938
+	 eOK1weWkK/QNS7SU9zv5xfs1KLK5pV2fDpV+VVKSGsHT3gD6oq6tOUtBtrIZ6VvqKCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=virtuozzo.com;
-	spf=pass smtp.mailfrom=virtuozzo.com;
-	dkim=pass header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=LgpaH7wC;
-	arc=none smtp.remote-ip=130.117.225.111
-Received: from relay.virtuozzo.com (relay.virtuozzo.com [130.117.225.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Vyr9Ej4Y;
+	arc=none smtp.remote-ip=209.85.219.48
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C333606A329;
-	Wed, 21 Oct 2026 20:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C333606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=virtuozzo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=virtuozzo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDED606A337
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BDED606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=virtuozzo.com header.i=@virtuozzo.com header.a=rsa-sha256 header.s=relay header.b=LgpaH7wC
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=virtuozzo.com; s=relay; h=Message-Id:Content-Type:MIME-Version:Subject:Date
-	:From; bh=VOyDX5dEPNERoauSrbofATI5mXA9FSAKRwTu8vDD23U=; b=LgpaH7wCs81cWgHanKg
-	5J7NT3T9Ku7YbxYV6keyUmIzuvv9Sju6TLJC3TUsVTysOv65ijD0Lt/Z3qHiUA87oCj7g7eJAaITQ
-	ScOBnUS3nizelnJeFFA8djEOFd5M+AoBhcqxzASY7Kc0xhQz6fkd6gxsgD2WCsToxTxSD34aAeoZL
-	9DHJOuYB307Sdho5gGK5e/PdA3IHRME1WMrygQ2yt1dDc7AvqaCHuZBoWoEwtinwXgQ+qeMndkh9e
-	C9ztzyer6EJ5Qrtv43MHSwsePC84JaBhL76qVv0PgnfnoUpS3gfCaJ86YNW5F1f9PMIMFIxBBJ6Fm
-	dT6QElY5MBLvXaA==;
-Received: from ch-demo-asa.virtuozzo.com ([130.117.225.8] helo=f0.sw.ru)
-	by relay.virtuozzo.com with esmtp (Exim 4.96)
-	(envelope-from <khorenko@virtuozzo.com>)
-	id 1xJcz7-00D9zC-15;
-	Wed, 21 Oct 2026 22:36:12 +0200
-From: Konstantin Khorenko <khorenko@virtuozzo.com>
-Date: Wed, 21 Oct 2026 22:36:03 +0200
-Subject: [PATCH v4 4/4] selftests/mm: test fork of PMD-mapped shmem THPs
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=Vyr9Ej4Y
+Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91b8b456dbeso11872696d6.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:37:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1792615063; x=1793219863; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qz7r+A/D6KnqK0PO5YdI2E3CPVQcCuCNvAghnich9pU=;
+        b=Vyr9Ej4Yqcprk3WG6+TyjpghfpCld3UFXXz5MTV+9u54EvPhJ5Dm8U7OM2xPyJ5Ajf
+         sKoAk1v8T8XPmdy8Pczk1OKaxmc7myCh8ylTNSozIm8pbP3xAjtvzBnK+F0nXrwrEEJw
+         XVj1VaB2bF3byFB/q1Kra4xxL/Eo+GWqLOnZBtR1VTjDoA8fqn50NvwyyYTFWehTjWPO
+         G55Z4nYeca34fm598MfoZnvYDikR90viUKoE7Rb3jOX7BrF1h/mLRT9xDgAwnFKIHsOs
+         2+DYVoIC8OGZqc5lWLQKgITnjnCpK/hQk1ZeNpI/JmalW98BD5o6ELrjK/Hb0aEr8IQ7
+         ExFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792615063; x=1793219863;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qz7r+A/D6KnqK0PO5YdI2E3CPVQcCuCNvAghnich9pU=;
+        b=HErphdrbreWeRyWUbezQhM1S9rT4djd5rFruGugjxWbXf+P7e/m+6wNLilMnktyGPa
+         CB2l4zotk0Yi/5QtMxTBz+86d5t7r90VFMCMwGVQn4QvmU+DnIQ1OUBKpI+oOkab7BbF
+         OwPWiBZG0nSMlB2GVF/4Epza0N0C0JVK6DQjL9tiIw4UJ0D/G5MXHrEuDZexKvBfG+6/
+         qAVXAH4SNNYiDtiNOicd39tqzdHYMGvzbv6ZqKy+71yg5x7em38ERrRhGeE+3fvBkC8b
+         NIFqyqRusEAfGVMr0dlhp9KI9rQH/HfzWbnwGKh1cixWNWOPkn3IlRaPW69VehIoBxUv
+         Wr9A==
+X-Forwarded-Encrypted: i=1; AKwUvBxyYh/byazFn/Rme8lDeRlvVAaX8GUO3RYw2PxJ8szg3bPhnXG8Xx9vkri7GeeVU/+JoKUD+1e6yw3iZ/E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeICMIvM05Dsds3+xzJOYVOuEK1I9XCjkFmY/0EJOZhRiwOArA
+	3G13bcsJiWoWV2Jc/GA9AmjBwjdPgTMeb/tftD2eV4pxKbAk8Kiq3tVtHW/GkAtoSYk=
+X-Gm-Gg: AYBFou3CvmsSIxK3/eQ0OI8/Lbkx7/fVXPAWPykoj+A563wbpNj63yOyIiIxSRl9U+5
+	HaymPPtyYuGED5ra0ATA60uTam2Y1iXSdcohX0zerwGYnes+1O6Q+arkzIaMsd32DiEUB2//SpL
+	8drlF2rLnhb+Oc/l6zNPZ34r1HY59NuLm61Mt37ZNJ8e5Vfs8HrVFODGMk2cR390sNXeZyGfRS5
+	RqagJc7H3hXwdXAleDXZ4jiheee73xnpJdCIwWmWfJzxxlBQt9hZFPkqS9zHk4S06sn2gkeN5Yd
+	eqNX/ZW7xXWYhMAHn5LcdOy5OBa0h7+zMbVlIK/lxU+34IjlQW8yn3uSk8wZRp16tg+DLHJu0UU
+	T29fkQzTYMNZvgwnOS7cktbik99jGMMLwOt7/h3AiG8zQ2KRzvbu+LW8kPHM5ASfjO5h19h2jj2
+	tpjOeXNDVHZG9eHTwY+00fOP4L7PwhFuJSDWFLMcWQZBo+GE37v15z0xy0aDrnFVoVQ6e2uV4NK
+	6A5XO5RdlIv4tQMJ/Mzuxgk0lm0Nvm2Dap+Sq4qx30XW3OURUnsefrg9oPdXsgNe1yXn1ce
+X-Received: by 2002:a05:6214:1307:b0:91b:895f:1a70 with SMTP id 6a1803df08f44-91c12edd4a2mr53460076d6.13.1792615063292;
+        Wed, 21 Oct 2026 13:37:43 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.254])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c10c45747sm33392256d6.39.2026.10.21.13.37.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 13:37:42 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Date: Wed, 21 Oct 2026 20:37:26 +0000
+Subject: [PATCH v3 2/5] userns: don't let setns() lend CAP_SETFCAP
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,339 +93,177 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-4-66f00b7a564c@virtuozzo.com>
-References: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
-In-Reply-To: <20261021-b4-prep-vstor-149847-copy_huge_pmd-recheck-special-pmd-v4-0-66f00b7a564c@virtuozzo.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Peter Xu <peterx@redhat.com>
-Cc: Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org, 
- =?utf-8?q?Lo=C3=AFc_Molinari?= <loic.molinari@collabora.com>, 
- Lorenzo Stoakes <ljs@kernel.org>, Shuah Khan <shuah@kernel.org>, 
- linux-kselftest@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Konstantin Khorenko <khorenko@virtuozzo.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9737;
- i=khorenko@virtuozzo.com; h=from:subject:message-id;
- bh=bRhjD9Vo+lw+k222NCBCfPr0t0oTlFMKai2BU8dG86Q=;
- b=owEBbQKS/ZANAwAKAVGWCkf5YVwqAcsmYgBq2SI4LMEpHNb0U38oaO6M9JYbWTExQ1/4OjzDl
- qxJYbyiqXGJAjMEAAEKAB0WIQRWD23IPcXT0GO9CCxRlgpH+WFcKgUCatkiOAAKCRBRlgpH+WFc
- KlxJEADC26pSfjefmw7IIUPxOuf0fsqsAsLVvhvhzEeYqWUcR9OWZvAXaUjOXCgSi1A9YfLALxn
- V5WjHHnLd/FgPV5r2iHOXBCadlLq8c7w7NcyEx8fr5bwmtjTXGy3jEHTVJq82TF3+Gm4z7O4V85
- SMO4cGSe5mDHZrnmKsADj8+vsr68DAvtGjwKgWoXfnCmRMdyGrhyAAbEc/pucSJoHSynzoJ3tL7
- n2N6Kon5wHTREzBZcSQLByuaKaiiCoCjbtcBNWmHdxCvUD8vFlssvsqe2PwFNW3ir1dbnrd7kZx
- nxRNKlpSdzE7aIIl3dA0kBDYg6A7OftrUHu8kS2/V31EtNuLJ6dnCowInQVVCL2GmW8rXw0cXah
- EoE3oGPMKEkwKdUB8DHJL86nGx7k/DIfDl3hwchwiArre/vTuGn/45i4ydRG4k1wL56uPcKd9et
- n8LOL+sgyQ+dWHescqo8GsEMbzgaER+pDoZHZ9yFenZ+HHT3CzrwZDQr/3SJvQKaKulEeOsFdD7
- o7IfRV01WKUNM1cwM8YdyEbnFJcvHEbKpivuI3dhNVWluku0Yef34Wz7DU/NeT58Y5BsBIoNF/s
- 2z5U1ocxGg/OXz/pz8Vl0VjpzZgmVQsjiROi0IdO6qHM3YNkh6yAoufjU6qhFhJkj4essCzX9k6
- u05WN/yvHnZP8YA==
-X-Developer-Key: i=khorenko@virtuozzo.com; a=openpgp;
- fpr=560F6DC83DC5D3D063BD082C51960A47F9615C2A
+Message-Id: <20261021-b4-setfcap-userns-v3-2-97c7ed4e43e1@toxicpanda.com>
+References: <20261021-b4-setfcap-userns-v3-0-97c7ed4e43e1@toxicpanda.com>
+In-Reply-To: <20261021-b4-setfcap-userns-v3-0-97c7ed4e43e1@toxicpanda.com>
+To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
+ Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1792615055; l=6171;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=n4GgDASw93W0W4hVR9BfgOUvZQHADy8KOEbGO3+EfSU=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QM4P3KlqYurlWT3jkkLXjsgK30Pnk6OhCditFT1YkDA0ERB0Bbw2JzYks6wrcXMC976EgYglCcs
+ uvVq02w6ahQQ=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
-Fork a process that maps shmem THPs with PMDs, in a VMA whose page
-tables fork copies: a private mapping with an anon_vma, and a shared
-one with a guard region. The child must find the PMDs before it
-touches the mapping, and its exit must leave the parent's mapping and
-the system-wide ShmemPmdMapped counter as they were.
+Mapping uid 0 of the parent into a user namespace requires CAP_SETFCAP,
+because a task in such a namespace can write file capabilities that are
+honoured in the parent.  A task that is already in the namespace has a
+full capability set there and can't be asked any more, so
+verify_root_map() goes by what the creator had, now ns->setfcap_level.
 
-With folio_dup_file_rmap_pmd() adding PTE mappings, the child's exit
-takes the parent's share off ShmemPmdMapped while the parent still maps
-the folios. Closing the file then reports "Bad page cache", or hits a
-VM_BUG_ON with CONFIG_DEBUG_VM. A kernel that leaves file THPs to a
-refault in the child skips the test.
+But setns() lets other tasks in, and they get the full set as well:
 
-The test mounts a tmpfs with huge=always over /tmp in a private mount
-namespace, so it leaves the THP settings and the host's mounts and
-files alone.
+  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
+  unshare(CLONE_NEWUSER)
+                                    setns(A's user ns)
+                                      allowed, euid == ns->owner
+                                    write "0 0 1" to /proc/self/uid_map
+                                      ns->setfcap_level is A's -> allowed
 
-Signed-off-by: Konstantin Khorenko <khorenko@virtuozzo.com>
+or, if A's namespace maps uid 0 already, B sets security.capability on a
+file.  Either way B ends up with file capabilities that are honoured in
+the initial namespace, which it could not have written there, nor in a
+namespace it created itself.
+
+Refuse setns() into a user namespace whose tasks can write file
+capabilities for the root user of an ancestor that the joiner's
+CAP_SETFCAP doesn't reach.  That is the case when the namespace maps
+such a root user, or has no uid map yet and its parent maps one.
+cred_may_setfcap_userns() checks it, and cred_setfcap_reaches() is the
+comparison it and the later checks use.  Then every task in such a
+namespace is entitled to what its setfcap_level says, and the checks on
+the way to file capabilities can go by the namespace.
+
+An idmapped mount can store a root user that the namespace doesn't map,
+for example a "0 100000" container whose rootfs maps 100000 to host uid
+0.  That is a deliberate setup and up to whoever creates the mount, so
+it is not considered here.
+
+The change in behaviour is that a task without CAP_SETFCAP gets -EPERM
+when it tries to setns() into a user namespace that maps the root user
+of an ancestor, and was created by a task whose CAP_SETFCAP reached that
+far.  Containers that don't map host uid 0, tasks with CAP_SETFCAP, and
+unprivileged users joining their own namespaces are not affected.
+
+Link: https://lore.kernel.org/all/20261021-bioenergie-allheilmittel-undurchdringlichen-35666eb62cff@brauner/
+Fixes: db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 ---
- MAINTAINERS                                |   1 +
- tools/testing/selftests/mm/Makefile        |   1 +
- tools/testing/selftests/mm/fork_file_thp.c | 227 +++++++++++++++++++++++++++++
- tools/testing/selftests/mm/run_vmtests.sh  |   1 +
- 4 files changed, 230 insertions(+)
+ include/linux/capability.h |  3 +++
+ kernel/user_namespace.c    |  6 +++++
+ security/commoncap.c       | 58 ++++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 67 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 7b5cab72d851b..1b5124e7e2bf9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17481,6 +17481,7 @@ F:	include/trace/events/huge_memory.h
- F:	mm/huge_memory.c
- F:	mm/khugepaged.c
- F:	mm/mm_slot.h
-+F:	tools/testing/selftests/mm/fork_file_thp.c
- F:	tools/testing/selftests/mm/khugepaged.c
- F:	tools/testing/selftests/mm/split_huge_page_test.c
- F:	tools/testing/selftests/mm/transhuge-stress.c
-diff --git a/tools/testing/selftests/mm/Makefile b/tools/testing/selftests/mm/Makefile
-index 2d5366196e309..33ec3b7f4c048 100644
---- a/tools/testing/selftests/mm/Makefile
-+++ b/tools/testing/selftests/mm/Makefile
-@@ -104,6 +104,7 @@ TEST_GEN_FILES += guard-regions
- TEST_GEN_FILES += merge
- TEST_GEN_FILES += rmap
- TEST_GEN_FILES += folio_split_race_test
-+TEST_GEN_FILES += fork_file_thp
+diff --git a/include/linux/capability.h b/include/linux/capability.h
+index 026974a5111b..e4199b03668b 100644
+--- a/include/linux/capability.h
++++ b/include/linux/capability.h
+@@ -224,5 +224,8 @@ int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		      const void **ivalue, size_t size);
  
- ifneq ($(ARCH),arm64)
- TEST_GEN_FILES += soft-dirty
-diff --git a/tools/testing/selftests/mm/fork_file_thp.c b/tools/testing/selftests/mm/fork_file_thp.c
-new file mode 100644
-index 0000000000000..76c8d1a0c9792
---- /dev/null
-+++ b/tools/testing/selftests/mm/fork_file_thp.c
-@@ -0,0 +1,227 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * fork() of a process that maps shmem THPs with PMDs, in a VMA whose page
-+ * tables fork copies: a private mapping with an anon_vma, and a shared
-+ * mapping with a guard region.
+ int cap_setfcap_level(const struct cred *cred, struct user_namespace *ns);
++bool cred_setfcap_reaches(const struct cred *cred, struct user_namespace *ns,
++			  int level);
++bool cred_may_setfcap_userns(const struct cred *cred, struct user_namespace *ns);
+ 
+ #endif /* !_LINUX_CAPABILITY_H */
+diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+index a5a94367600d..7bd3692c2f3e 100644
+--- a/kernel/user_namespace.c
++++ b/kernel/user_namespace.c
+@@ -1390,6 +1390,12 @@ static int userns_install(struct nsset *nsset, struct ns_common *ns)
+ 	if (!ns_capable(user_ns, CAP_SYS_ADMIN))
+ 		return -EPERM;
+ 
++	/* Tasks in the namespace may have CAP_SETFCAP that counts outside of
++	 * it, so only let in tasks whose own counts as far.
++	 */
++	if (!cred_may_setfcap_userns(current_cred(), user_ns))
++		return -EPERM;
++
+ 	cred = nsset_cred(nsset);
+ 	if (!cred)
+ 		return -EINVAL;
+diff --git a/security/commoncap.c b/security/commoncap.c
+index 4f49dba65426..8a9d998b1897 100644
+--- a/security/commoncap.c
++++ b/security/commoncap.c
+@@ -158,6 +158,64 @@ int cap_setfcap_level(const struct cred *cred, struct user_namespace *ns)
+ 	return cred->user_ns->level + 1;
+ }
+ 
++/**
++ * cred_setfcap_reaches - Check how far up CAP_SETFCAP of a cred reaches
++ * @cred: The credentials to use
++ * @ns: The user namespace to look from
++ * @level: The ->level of the ancestor of @ns it has to count in
 + *
-+ * The child must get the PMDs without faulting, and its exit must leave the
-+ * parent's mapping and the system-wide ShmemPmdMapped counter as they were.
-+ * Kernels that leave file THPs to a refault in the child skip the test.
++ * Return: true if CAP_SETFCAP of @cred counts in @ns and in its ancestors
++ * up to the one at @level.
 + */
-+#define _GNU_SOURCE
-+#include <asm-generic/mman.h> /* Force the import of the tools version. */
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sched.h>
-+#include <sys/mman.h>
-+#include <sys/mount.h>
-+#include <sys/wait.h>
-+
-+#include "kselftest.h"
-+#include "vm_util.h"
-+
-+#define NR_PMDS		4
-+#define MAX_PMDSIZE	(32UL << 20)
-+/* ShmemPmdMapped is system-wide: retry if something else changed it. */
-+#define ATTEMPTS	3
-+
-+static size_t pagesize, pmdsize;
-+
-+static long meminfo_kb(const char *key)
++bool cred_setfcap_reaches(const struct cred *cred, struct user_namespace *ns,
++			  int level)
 +{
-+	char line[256];
-+	long kb = -1;
-+	FILE *f = fopen("/proc/meminfo", "r");
++	return cap_setfcap_level(cred, ns) <= level;
++}
 +
-+	if (!f)
-+		return -1;
-+	while (fgets(line, sizeof(line), f))
-+		if (!strncmp(line, key, strlen(key))) {
-+			kb = strtol(line + strlen(key), NULL, 10);
++/*
++ * The topmost ancestor of @ns whose root user tasks in @ns can write file
++ * capabilities for: within @ns->setfcap_level, and mapped into @ns, or into
++ * its parent while @ns has no uid_map yet.  NULL if there is none.  An
++ * idmapped mount can store other root users, but that is up to whoever sets
++ * up the mount.
++ */
++static struct user_namespace *setfcap_top(struct user_namespace *ns)
++{
++	struct user_namespace *seen, *p, *top = NULL;
++
++	if (ns->setfcap_level >= ns->level)
++		return NULL;
++
++	seen = READ_ONCE(ns->uid_map.nr_extents) ? ns : ns->parent;
++	for (p = ns->parent; p; p = p->parent) {
++		if (p->level < ns->setfcap_level)
 +			break;
-+		}
-+	fclose(f);
-+	return kb;
++		if (kuid_has_mapping(seen, make_kuid(p, 0)))
++			top = p;
++	}
++
++	return top;
 +}
 +
-+/* Skips the last page, which may be a guard page, and @skip. */
-+static bool data_ok(const char *mem, size_t size, size_t skip)
++/**
++ * cred_may_setfcap_userns - Check whether a cred covers what a userns can do
++ * @cred: The credentials to use
++ * @ns: The user namespace
++ *
++ * Tasks in @ns can have CAP_SETFCAP that counts in ancestors of @ns, see
++ * cap_setfcap_level().  Check that CAP_SETFCAP of @cred reaches as far up as
++ * tasks in @ns can make use of theirs.
++ *
++ * Return: true if it does.
++ */
++bool cred_may_setfcap_userns(const struct cred *cred, struct user_namespace *ns)
 +{
-+	size_t off;
++	struct user_namespace *top = setfcap_top(ns);
 +
-+	for (off = 0; off < size - pagesize; off += pagesize)
-+		if (off != skip && mem[off] != (char)(off / pmdsize + 1))
-+			return false;
-+	return true;
++	return !top || cred_setfcap_reaches(cred, ns->parent, top->level);
 +}
 +
-+/* Child exit codes, apart from what kselftest helpers exit with. */
-+enum result { PASS, NO_PMDS = 10, FAIL_DATA, FAIL_COUNTER, FAIL_PARENT,
-+	      FAIL_KILLED, COUNTER_OFF, CHANGED };
-+
-+static enum result fork_once(char *mem, size_t size, bool shared,
-+			     long *before, long *after)
-+{
-+	/* The parent alone maps this much with PMDs. */
-+	long own = (NR_PMDS - 1) * (pmdsize >> 10);
-+	int status;
-+	pid_t pid;
-+
-+	*before = *after = meminfo_kb("ShmemPmdMapped:");
-+	if (*before < own)
-+		return COUNTER_OFF;
-+	fflush(stdout);
-+	pid = fork();
-+	if (pid < 0)
-+		ksft_exit_fail_perror("fork");
-+	if (!pid) {
-+		/* Look before touching anything: the PMDs must be there. */
-+		if (!check_huge_shmem(mem, size - pmdsize, NR_PMDS - 1, pmdsize))
-+			_exit(NO_PMDS);
-+		/* A shared retry sees the previous child's write. */
-+		if (!data_ok(mem, size, pmdsize))
-+			_exit(FAIL_DATA);
-+		mem[pmdsize] = 'c';
-+		_exit(PASS);
-+	}
-+	if (waitpid(pid, &status, 0) != pid)
-+		ksft_exit_fail_perror("waitpid");
-+	*after = meminfo_kb("ShmemPmdMapped:");
-+
-+	if (!WIFEXITED(status))
-+		return FAIL_KILLED;
-+	if (WEXITSTATUS(status) != PASS)
-+		return WEXITSTATUS(status);
-+	/* The child's exit took the parent's share off the counter. */
-+	if (*after < own || *before - *after >= own)
-+		return FAIL_COUNTER;
-+	if (*after != *before)
-+		return CHANGED;
-+	if (mem[pmdsize] != (shared ? 'c' : 2) || !data_ok(mem, size, pmdsize) ||
-+	    !check_huge_shmem(mem, size - pmdsize, NR_PMDS - 1, pmdsize))
-+		return FAIL_PARENT;
-+	return PASS;
-+}
-+
-+static void test_fork(bool shared)
-+{
-+	size_t size = NR_PMDS * pmdsize, last = size - pagesize, off;
-+	const char *desc = shared ? "shared mapping with a guard region" :
-+				    "private mapping with an anon_vma";
-+	char *buf, *area, *mem;
-+	enum result res = FAIL_PARENT;
-+	long before, after;
-+	int fd, i;
-+
-+	fd = open("/tmp/fork_file_thp", O_RDWR | O_CREAT | O_TRUNC, 0600);
-+	if (fd < 0)
-+		ksft_exit_fail_perror("open");
-+	unlink("/tmp/fork_file_thp");
-+	buf = malloc(pmdsize);
-+	if (!buf)
-+		ksft_exit_fail_msg("malloc failed\n");
-+	for (off = 0; off < size; off += pmdsize) {
-+		memset(buf, off / pmdsize + 1, pmdsize);
-+		if (pwrite(fd, buf, pmdsize, off) != (ssize_t)pmdsize)
-+			ksft_exit_fail_perror("pwrite");
-+	}
-+	free(buf);
-+
-+	area = mmap(NULL, size + pmdsize, PROT_NONE,
-+		    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (area == MAP_FAILED)
-+		ksft_exit_fail_perror("mmap");
-+	mem = (char *)(((unsigned long)area + pmdsize - 1) & ~(pmdsize - 1));
-+	mem = mmap(mem, size, PROT_READ | PROT_WRITE,
-+		   (shared ? MAP_SHARED : MAP_PRIVATE) | MAP_FIXED, fd, 0);
-+	if (mem == MAP_FAILED)
-+		ksft_exit_fail_perror("mmap");
-+	for (off = 0; off < size; off += pmdsize)
-+		FORCE_READ(mem[off]);
-+
-+	/* Make fork copy the page tables; the last PMD gets zapped. */
-+	if (shared) {
-+		if (madvise(mem + last, pagesize, MADV_GUARD_INSTALL)) {
-+			ksft_test_result_skip("%s: MADV_GUARD_INSTALL: %s\n",
-+					      desc, strerror(errno));
-+			goto out;
-+		}
-+	} else {
-+		mem[last] = 'p';
-+	}
-+
-+	if (!check_huge_shmem(mem, size - pmdsize, NR_PMDS - 1, pmdsize)) {
-+		ksft_test_result_skip("%s: shmem is not mapped with PMDs\n",
-+				      desc);
-+		goto out;
-+	}
-+
-+	for (i = 0; i < ATTEMPTS; i++) {
-+		res = fork_once(mem, size, shared, &before, &after);
-+		if (res != CHANGED)
-+			break;
-+	}
-+
-+	switch (res) {
-+	case PASS:
-+		ksft_test_result_pass("%s\n", desc);
-+		break;
-+	case NO_PMDS:
-+		ksft_test_result_skip("%s: fork does not copy file THPs\n", desc);
-+		break;
-+	case COUNTER_OFF:
-+		ksft_test_result_skip("%s: ShmemPmdMapped %ld kB is below what this process maps\n",
-+				      desc, before);
-+		break;
-+	case CHANGED:
-+		ksft_test_result_skip("%s: ShmemPmdMapped keeps changing\n", desc);
-+		break;
-+	case FAIL_DATA:
-+		ksft_test_result_fail("%s: child sees wrong data\n", desc);
-+		break;
-+	case FAIL_COUNTER:
-+		ksft_test_result_fail("%s: ShmemPmdMapped %ld kB before fork, %ld kB after\n",
-+				      desc, before, after);
-+		break;
-+	case FAIL_PARENT:
-+		ksft_test_result_fail("%s: parent's mapping changed\n", desc);
-+		break;
-+	case FAIL_KILLED:
-+		ksft_test_result_fail("%s: child killed by a signal\n", desc);
-+		break;
-+	default:
-+		ksft_test_result_fail("%s: child error %d\n", desc, res);
-+		break;
-+	}
-+out:
-+	munmap(area, size + pmdsize);
-+	close(fd);
-+}
-+
-+int main(void)
-+{
-+	ksft_print_header();
-+	pagesize = getpagesize();
-+	pmdsize = read_pmd_pagesize();
-+	if (!pmdsize)
-+		ksft_exit_skip("THP is not supported\n");
-+	if (pmdsize > MAX_PMDSIZE)
-+		ksft_exit_skip("PMD size %zu MiB is too large\n", pmdsize >> 20);
-+	if (geteuid())
-+		ksft_exit_skip("needs root to mount tmpfs\n");
-+	/* The tmpfs over /tmp lives and dies with a private mount namespace. */
-+	if (unshare(CLONE_NEWNS) || mount(NULL, "/", NULL, MS_REC | MS_PRIVATE, NULL))
-+		ksft_exit_skip("private mount namespace: %s\n", strerror(errno));
-+	if (mount("tmpfs", "/tmp", "tmpfs", 0, "huge=always"))
-+		ksft_exit_skip("tmpfs with huge=always: %s\n", strerror(errno));
-+
-+	ksft_set_plan(2);
-+	test_fork(false);
-+	test_fork(true);
-+	ksft_finished();
-+}
-diff --git a/tools/testing/selftests/mm/run_vmtests.sh b/tools/testing/selftests/mm/run_vmtests.sh
-index d09f9f6a384ee..454a8b75a3bf3 100755
---- a/tools/testing/selftests/mm/run_vmtests.sh
-+++ b/tools/testing/selftests/mm/run_vmtests.sh
-@@ -445,6 +445,7 @@ fi
- CATEGORY="thp" run_test ./transhuge-stress -d 20
- 
- CATEGORY="thp" run_test ./folio_split_race_test
-+CATEGORY="thp" run_test ./fork_file_thp
- 
- CATEGORY="migration" run_test ./migration
- 
+ /**
+  * cap_settime - Determine whether the current process may set the system clock
+  * @ts: The time to set
 
 -- 
-2.43.0
+2.55.0
 
