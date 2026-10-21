@@ -1,65 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575654;
-	b=v93+5S/POQSILV+LBK0/XOAESelLOGrTJE/eXjr8XCkLa8OWoOhrbRr2KOaEADQ20VAl
-	 G94JsDcPS6ztOwa/uu9AbZ8wsWJdo62psO53ZsOqL7n+/VNjcgOCUpBFywGbgr+tGxHsn
-	 BNJuSBd89m/5Xq3CqtOlOiLBluPImY0vhV7tBcH4+cykSuIL8tHYvxw386a2dmzKOp25c
-	 ENoJWXGmDbm/zo/ONhAItSKOlQHtlUVvErXFtAsk4CCiM7HTVjNIaS4lrhFkihg7+vkY+
-	 IEDirX+cdF1pT3uhrHC1W6jBgK6/bxaIcR3Ydg9Oj8hXdCsFKeMiGHcBSoHFdshNb7w==
+	t=1792575667;
+	b=LTq658U3xQDq0K0cLKQS5PB0lxBZZPjFGIhZf/wD0ySHzOqGl1dCQP/ogpLFLbPPdvtA
+	 maREST2k7dKbK1VLZADJeJ73HgQh6aja6pfCmmmhxQEuH9HkwhXEDR/pe2OWgFPN9AX73
+	 FIfVe/2LOC4diXqqIs2ZASwpXwXIr7GRlWWTaHpgqgr1mlZXE7SGS40/ff1eHtkiG0yO4
+	 9xnHHCz365V9AUnP1M067wFrNm+toEXO2AxI5kkhgHWqPlELw6YR0/EosoAXoK4v1+IsN
+	 byK4M4fJyA7w2QFACZr9V7JjJSX5KemOy2In9VHcZiun7evhnkwxFuz7RKTujLsCH8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575654;
-	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
-	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vSwETkh3wkOi+VGFHHaGts/46wLig1NK9Uvkn+ZTxeY=;
-	b=ay4NkaXnIMPZszBX/jwIA0t31qO57tGz+kgjDKmhkcp5vIQf9ISJYMJi5IwySKJ+TWYv
-	 lk69VOaP0lWZ/9MXbtfBDTkOkVvdMQf5QH2VV2baoyHLne+dJWmRKGGe0jEouGVDkxE2J
-	 O+wYhTyUIWYetzDj7V2163yLBEgubDthhrL/Uiu45UGw8Z7Bf90aMaQWhk+EoR9ia25FC
-	 whZA6DKPoBtKGt/fLDJAjK+VetJPB3VUMs7tRQExetd5LDVjKhamNO18QLtGt0V8C3qZv
-	 Aclj8IN2WEn140USWQmQSzNNaU6csqBWkAgD84bboyplqQWFfsXchjHpUFhbkUTppiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575667;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
+	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
+	bh=GQxW6xENtXbMj8QQDuCNwAAh6QE3zn6BXyEAG556udM=;
+	b=Q+lJqH4SIzqqiHBQvWWmEAmGXstAfR5xhCa6Omu6JPZ8jJ4O878uyqw1sf2bDoVz1Mm9
+	 iWXsC8eR/MpA6QVBsiwRwX/b58dspf429cBz0eTsPgOFodN5mwh4Er/hG6kDs/6BwAYKv
+	 449BKJILXvLZjwQhBWQWosfnrEq5BIxrUxpB8vOBdjlsAXlW8aXeAPRHpHUC1joUbuWdW
+	 QgmQX/IjHw8LWzSRa3brSOigSWvPngIw5wl0F5dpYpliS3zC/i4vMdeYe6wNyChJYZd+B
+	 8JeCHoR2TjBmqjONaNr06CxvWw4l7M18yiJNV2cDkT/4bR/rOX61vsalKUiYFux0gAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sina.com;
-	spf=pass smtp.mailfrom=sina.com;
-	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=v5LrxsI6;
-	arc=none smtp.remote-ip=202.108.3.22
-Received: from r3-22.sinamail.sina.com.cn (r3-22.sinamail.sina.com.cn [202.108.3.22])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="hM86O0k/";
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B99606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:40:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B99606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817F1606A31B;
+	Wed, 21 Oct 2026 09:41:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 817F1606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=v5LrxsI6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792575652;
-	bh=vSwETkh3wkOi+VGFHHaGts/46wLig1NK9Uvkn+ZTxeY=;
-	h=From:Subject:Date:Message-ID;
-	b=v5LrxsI6sydxvmftDEqwzbYHAfsfAE2GtSElV0cR/7kX0Tn3vG1Ltzzoj8DX25m0E
-	 BdUaH6oReDrVkU6PPQLu+UizLJmyGVQrOzQ2Khg03xlwWDWjalxZpSCs6xOwMBq59R
-	 HZkngk/zfD1S3ZWmaF342Gof97BrqrQp5c2d2cJE=
-X-SMAIL-HELO: lxu-ped-host..
-Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
-	by sina.com (10.54.253.33) with ESMTP
-	id 6AD8889600004738; Wed, 21 Oct 2026 17:40:42 +0800 (CST)
-X-Sender: eadavis@sina.com
-X-Auth-ID: eadavis@sina.com
-Authentication-Results: sina.com;
-	 spf=none smtp.mailfrom=eadavis@sina.com;
-	 dkim=none header.i=none;
-	 dmarc=none action=none header.from=eadavis@sina.com
-X-SMAIL-MID: 1257776685464
-X-SMAIL-UIID: 986BE175D99045DF8BF9DC36494E31A9-20261021-174042-1
-From: Edward Adam Davis <eadavis@sina.com>
-To: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
-Cc: linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [syzbot] kernel BUG in create_default_group...
-Date: Wed, 21 Oct 2026 17:40:37 +0800
-Message-ID: <20261021094037.61096-1-eadavis@sina.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
-References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hM86O0k/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792575667; x=1824111667;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=jWWtomYEmcE2WRVvCrQva78fyq2hiVCpAZfWf4+FIys=;
+  b=hM86O0k/TqhZFl1DEX4P7hhwtJ91DIPJzGa2NEtERr4pZfRSHn+ajZCU
+   9UXV5C34jL3PifhwE3iZEWcatgF1Q816eVJQeUV83VuNDZxQSU8m4ZC0Y
+   hXAJ+gL3+bMS6ZS1cxwuPK79MrLg6liHdIbUsK8RQotJxvLOdITte5/Lz
+   0TXu+vWdMTVZJglpTp5J8UXjyncYTAeMMpMhufSV7ZeARos4tuZ9fnwgq
+   Z6DBk4i9pfpfLTOt+hUqw+3SUmw2ec5r1IpmyEQk3l459HVjo6rPT/xRA
+   jpV4elgYFWkKvvS8k10Xags6GEF3+Vu92wH/ORrmhFKsUSHfrbU9aENlL
+   A==;
+X-CSE-ConnectionGUID: qMmBT9zjS86dfTucRozmJw==
+X-CSE-MsgGUID: XNA5n7G5S++rmVUBjf0Gyw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1306606"
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="1306606"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:41:07 -0700
+X-CSE-ConnectionGUID: CuTzZbQvS3uG0gS4V7rB9Q==
+X-CSE-MsgGUID: 8Y1uQFNaSS2B3yPFqYXC3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
+   d="scan'208";a="4845540"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:41:03 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 21 Oct 2026 12:40:58 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
+    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v6] platform/x86: hp-bioscfg: fix heap OOB in
+ hp_enforce_single_line_input()
+In-Reply-To: <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com>
+Message-ID: <273be4cc-ad7d-cdcd-de25-8d1439bed3e3@linux.intel.com>
+References: <20261016025352.230535-1-meatuni001@gmail.com> <29c3e4a2-9d6a-60cf-d06d-85152a40a703@linux.intel.com> <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com> <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,23 +82,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323328-1747451990-1792575658=:1258"
 
-From: Edward Aadm Davis <eadavis@sina.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 58161ead29e5
+--8323328-1747451990-1792575658=:1258
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index eda80c2a2d38..edc5a7419ad9 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -1605,6 +1605,9 @@ static int configfs_dir_open(struct inode *inode, struct file *file)
- 	struct configfs_dirent * parent_sd = dentry->d_fsdata;
- 	int err;
- 
-+	if (!configfs_dirent_is_ready(parent_sd))
-+		return -EAGAIN;
-+
- 	inode_lock(d_inode(dentry));
- 	/*
- 	 * Fake invisibility if dir belongs to a group/default groups hierarchy
+On Wed, 21 Oct 2026, Ilpo J=C3=A4rvinen wrote:
+
+> On Wed, 21 Oct 2026, Muhammad Bilal wrote:
+>=20
+> > Hi Ilpo,
+> >=20
+> > > Why use n variant?
+> > strnlen() keeps the read within count, which is the size of buf as far
+> > as this helper knows, so it does not depend on the caller NUL
+> > terminating the buffer. Both current callers pass a kstrdup() copy, so
+> > strlen() works too. I can switch to it in v7 if you prefer.
+>=20
+> As the contract here is the input must be a string, I don't see any need=
+=20
+> to limit the length with n variant so I do prefer strlen(). Also, we know=
+=20
+> that it should not be longer than count anyway.
+
+I only now notice Andy's comments which seem better suggestion in general.
+
+--=20
+ i.
+
+--8323328-1747451990-1792575658=:1258--
