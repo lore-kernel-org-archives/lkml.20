@@ -1,109 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792613941;
-	b=kCuM3xsQYJEjmwf3HMFa3v+/Rbw3Z8xF14+1ZFIdcrkIEa2E9DGqz3sue0AGmEcfgAzf
-	 NGhAFoqGLKz2S9oORCcBQpdytqhmspg21I46uo4QrpMFFzAG1t821FG1cC/zySZo/ZT4s
-	 D+EbJtUB+7jaqmubBmiS6BFDo09paAA335mdeuO0r94g8Fc+160Q1ByvGov9WpKwUiEQW
-	 1cKiVqy5W6IqCoDMrtMhahnE58ut+2nQV9fAUTch8Tz1VS2kwGzDorcCoBUjLfCr0JPKd
-	 9Xk8LHbsKq5XcwURtM781poLXfYRTWwmlN65UrllDeejmut9HvywuMgg+4m6o29BjZg==
+	t=1792614151;
+	b=OyhehYO31ZHbb8bdVLkfCNas3Qyu2x4Pqq3I1pCPbSVSlzpvPuqOX93UR83qMKKaZXQL
+	 nJX4UwSf/uWr6r0+lxTh+I+BV9uCbHASAlmF0ezU9kxCE7e9siVOJgKGAYecd0LsfPw5W
+	 y/szEY6KKgW0BIOKuPYSokGj1h392VpFgldfIq9iactE5oqF9aXkb3Ni2BaALtZHdIOvS
+	 bR+AUhlKIbildgV/59dEpo55ymjSqmiiSZCiQYG4WSnJ0Jtny6AiBAy4wNzB1vOjgnOui
+	 gL+vwaXfVHdy0CfEgUi9qWkiR2WGdMuFG1j1zXlIvG21hfv6k+af1xAc77kJw0ar67w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792613941;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=A7A3Qu4FeRo1KfTu4t3Hb9gLExSWYXnRTXONAqoE3Ds=;
-	b=2ZsQRmwcsMu8NwyHiUC0Yo1XMi08inupLZGy8nQHP6ELuMdlU/XvcN1lEFmE8uIzN21L
-	 0gYv55DC4jvdVorGbixENI5h3nw21uJCXMdusfGpKbnY2fMfikXlKYDyDCEVvUQ9s0PfY
-	 dV4RjQR3Lq6s5al2VVZHNi1V1/QgHFma6sQMgGcCEItOFe/aK7/9EmViFC7OQtjcMNOhG
-	 ll2cg1LlH2wdwBETsPFBE9lI6uGMpB8OJjQjGF/LiM8UCAKTytXt4/WBGHsgKEm+tuQIv
-	 lUIbykh2CYMxKAUKX4u2pEpJL+E2/cyA4/NNENMwh2QuIKegMWMd8kCGT7hL+2S02OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792614151;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Content-Language:From:To:Cc:Subject:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=AhmVF6xP7L02ZOn/A5X4vZcbE692f/yDQ/fpvt5dPIw=;
+	b=vyDAuRVjmIkwAfXHw0dz2qS7/aeMLY63PKTy+Q6X1TRn7xmxxDsDhxS5iOkA1cntShaQ
+	 8/BgyDBaMHxBWidJWsxmKap47iRiX5zETkp6W8yxkQ1rDTy4EdtAcSmOm596Yh7FrYf6l
+	 JnidUIWtL+jwxlu0F/Y1bF70b79DXnpl0Q02bmJ9u27l6HxW/xCoFa6mnq13MYjAicWKM
+	 G7ulSxzTbCyeQYhvBbLihGH37qQKq3LXIdlMhckHnmSEsWK46y/z6v35K2QOoczzdUpKA
+	 rvwobiazdhD9T4Uqy0NkE3F+ykOJk0urQ54u+11pKsJ7q0olNS/6CxbxaZ7TzKsdCfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GVpPm9bc;
-	arc=none smtp.remote-ip=74.125.82.45
-Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUGtCKR5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E29606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80E29606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC486606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:22:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GVpPm9bc
-Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-170135e43c7so1058251c88.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:19:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792613941; x=1793218741; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=A7A3Qu4FeRo1KfTu4t3Hb9gLExSWYXnRTXONAqoE3Ds=;
-        b=GVpPm9bc+zIPk9hn5LNpctKd9MALwZe4t9kAyynMR/UyShtLooLptrHIB1nyip76ij
-         e0yqiaPmGpYl8xvlp352dmUwFkxYzbMNmT2ZLMglhApwLUibVlRTMuBXpDT9hfDob0Lw
-         cfsl/2z9t9lJkKCJ+L/eJgNmICGJ98IOU2j7S91LqgUWx0k59mOwGEMbFvKFOOTrKCxD
-         eYVJe9qDJiL0A5UYeMDsuXarkUsP3C0QbX+tzVqbyIjoqCtl7gm3pWKNO1GDLMGOdTVC
-         IPufgah6it6sHqVuCdI1hdNDCWNGFyS7rNh1ijEDfIxbOX7/JpmK6n+qJ4R0PR9jkz4F
-         LHEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792613941; x=1793218741;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=A7A3Qu4FeRo1KfTu4t3Hb9gLExSWYXnRTXONAqoE3Ds=;
-        b=gYUoKDzgqZutYoub+8n7egVzxK4cKbtn3+RL7Qh+OAV6xZ9Qw63lcsYT9xTSLQJbdW
-         /5eWySE1zaTdWNTSQ3i/8roF9XHTu3xNF/pManM7adqP9e5854qGbX1hxmFRpees4Wbi
-         dmf37JrdtTukFA4lUwh/GW82NAb/QN/BwLvZxf0bqJpCsSwBW9AWiLT9m41vNnOxMunb
-         XiwJI94lkoNhLMcpjLo7wo6m1NpLDX2ciGr+fwLEtzfj9nPRilB0BH3Vc1Nv6HRUzEsR
-         8bTa18a5n40tzlrJ4AEGLoFEcEC1LiZRC5t+mk/FPKABU0GiGkhs93Ci0bHyzV2HF+BU
-         n/oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBze87XZoARaSC/FpvxWWSCpdNPHFtDhgmA+bRCjAkBE3T0Jxn2uYy41q2yjqDyD0Gf/cBpmx94VKsQOAI4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhoZUtaXKdwMnk+PlEy7gxBKHqkpEYZeThyrClRskOUkH7QiGm
-	/Wl1792sEUSbGUeJ+cMEPnveUF7rw8Nu7e8op/jlwGzaonmbphbk8lNU
-X-Gm-Gg: AYBFou2upXaLvIjSADyJzWf9f0qw3iaY0GCv64Xpnsv9FX/4Ll3OCyCsN9fayF1aeaF
-	LYIc8+W0EqutsijaJJ0PgttLhVayYX1vUwx1nnrMeLZ2ij2BXKHdTfV4/DuID6K+9hWRRfQMp+R
-	uN/Ge6aRTVFsfQZI9UTnadOYQiUGgL+Yy1mpEqAqIIehtntc0L5ut5eka7AiSedrUgb0E2LyW9r
-	ELTI1fugOSiNdDjsyn3yr/DIMqyAW5XYpFFi5xXop6ugn5MCEIF7CoUkbyw8LO0vlfYK15RNCgG
-	qeLpTYl7gxB7E+ZTHA62HzpI8maI5u/oWxS1cIcFPI2GeaXFh8lXWzgttRRrCNacwY0cnG78bqc
-	vr21LuRU2K5aUwI8YO4E99N9gj0YIPiXApKjuUNReX9Wc+g0ITNE/HFZvPiGyrpnNGecZmaBgXa
-	CaIE8LP1S22WK3rU6Hcot/7VoC+kVRrew4XxlsLltjupgTdnR8jKGsD2THrcmi1P/oQGZ3703jZ
-	Z/XNFDYi9/W2NezW5sXJsOTPgcAuDh5o4xIqEMSaiez6O1SxOmbAdvXY6prcEs4
-X-Received: by 2002:a05:7022:e1d:b0:141:4c37:a212 with SMTP id a92af1059eb24-190a051dd9amr5401751c88.2.1792613940370;
-        Wed, 21 Oct 2026 13:19:00 -0700 (PDT)
-Received: from localhost ([2409:4062:21d:8dc5:7fa7:1adf:a854:c40c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e4f2eacsm7986001c88.23.2026.10.21.13.18.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 13:18:59 -0700 (PDT)
-Date: Thu, 22 Oct 2026 01:48:55 +0530
-From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-To: Alison Schofield <alison.schofield@intel.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	Dan Williams <djbw@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>,
-	Li Ming <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
-	Naoya Horiguchi <nao.horiguchi@gmail.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
-	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
-	Oscar Salvador <osalvador@suse.de>,
-	Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
-Subject: Re: [RFC PATCH 0/5] cxl, mm: Keep device-reported poison out of the
- page allocator
-Message-ID: <atkeL1aBD9p5hQgN@acer-nitro-anv15-41>
-References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
- <ata_pfACXdlQuM_e@aschofie-mobl2.lan>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XUGtCKR5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0805E1F000C1;
+	Wed, 21 Oct 2026 20:22:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792614150;
+	bh=AhmVF6xP7L02ZOn/A5X4vZcbE692f/yDQ/fpvt5dPIw=;
+	h=Date:From:To:Cc:Subject;
+	b=XUGtCKR5VWDDjSs/f0yXdVEXPoE+BfHFp+l/9K6AEGFYxZk2x3lq1sh8nde5hxcIr
+	 7ZKiWKV3qHIxTtJikv0YfJNstXIpufQ8TdA+/hLEOBkkdjvmBLhhs5OP+lCM2hXhQ+
+	 HKGh2PlBgsf9ZXYfSU77cgE89LMj26KnwGUfgPOVdP1pI3lw+I9/Bu2dUQGbUF2abt
+	 2buWXw0EDiXMCjltkbsVC21FAtzfqK8DfNXejAfJq/AiM1B+qvE02wyPsHvAXCdwL7
+	 KM6QznSXTt6xD8ZmDuMVh5tiGjo1cMSewAt++RIV4uLQh5kmj/mZ2GneMWNJexX98w
+	 3bFkq8/KnMf+Q==
+Message-ID: <d7086f73-9398-448a-834c-69e2ffca8563@kernel.org>
+Date: Wed, 21 Oct 2026 14:22:14 -0600
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -113,53 +51,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <ata_pfACXdlQuM_e@aschofie-mobl2.lan>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: Shuah <shuah@kernel.org>
+To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Cc: "conduct@kernel.org" <conduct@kernel.org>,
+ tech-board <tech-board@lists.linux-foundation.org>, shuah <shuah@kernel.org>
+Subject: Code of Conduct Committee report for April 2026 - September 2026
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 19, 2026 at 06:11:01PM -0700, Alison Schofield wrote:
-> On Sat, Oct 10, 2026 at 09:50:08PM +0530, Shaikh Kamaluddin wrote:
-> 
-> snip
-> 
-> > 
-> > Applies on next-20260908 plus [1] v5. The num_poisoned_pages_inc()
-> > change agreed for v6 [2] does not touch these patches. Patches 1, 2 and
-> > 5 touch only drivers/cxl; patches 3 and 4 touch mm.
-> 
-> Hi Shaikh,
-> 
-> Can you share a public branch with all this code in one place?
-> 
-> -- Alison
-> 
-> snip
-> > 
-> > 
-> > base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
-> > prerequisite-patch-id: fe9d44deb8ccc48c0311bc4131bdf733eb353b34
-> > prerequisite-patch-id: 4cabe6adb37cd8c218bd43c97970bc65f313b671
-> > prerequisite-patch-id: 52ad24bceedb9c03df167f10573166a1d97ba97d
-> > prerequisite-patch-id: 44bfbc8aa3c4b19593f7b0d466fbc0cb99b99f76
-> > prerequisite-patch-id: 2d344a5322ff07c7895a59d2425540a30e4e0630
-> > prerequisite-patch-id: e776f306dcbdda3f6972187ad1e43a62c2754890
-> > prerequisite-patch-id: 3ef887599e31ef973d6d9ca15d0462d55f5f0409
-> > prerequisite-patch-id: a23fe88ab4529b6a6669a991e15cf1631311391c
-> > prerequisite-patch-id: 111c69880ed0e148cdda285896c006e8d1fc98a8
-> > -- 
-> > 2.43.0
-> > 
+Linux Kernel Code of Conduct Committee: September 30th, 2026
 
-Hi Alison,
+In the period of April 1st, 2026 through September 30th, 2026, the Code
+of Conduct Committee received the following reports:
 
-Here's a branch with everything in one place:
-https://github.com/shaikhkamal/linux/tree/cxl-poison-rfc-Breno-v5
+Reports received: 3
 
-(top: 9e63fdb "cxl/region: Register device poison before exposing RAM")
+Code of Conduct scope and enforcement related reports: 3
 
-It's next-20260908 + Breno's hwpoison-kho v5 + this 5-patch RFC,
-matching what was posted.
+    -- Publicly coached and educated an individual who wasn't part of
+       the kernel community about the CoC, advising them to follow
+       the code of conduct when they interact with the community. The
+       issue was resolved without considering other enforcement options.
 
+    -- A public report to the CoC about technical discussion was resolved
+       on the mailing list without any response or action by the CoC.
 
-Thanks,
-Shaikh 
+    -- A dispute about copying code had been resolved by the maintainer
+       asking the developers to resolve the issue between them before their
+       patches get reviewed and accepted.
+
+We would like to thank the Linux kernel community members who have
+supported the adoption of the Code of Conduct and who continue to
+uphold the professional standards of our community. If you have
+questions about this report, please write to <conduct@kernel.org>.
+
+Please visit the following Code of Conduct link below for information
+about the Code of Conduct Committee and previous reports:
+
+- https://www.kernel.org/code-of-conduct.html
+
+thanks,
+-- Shuah (On behalf of the Code of Conduct Committee)
