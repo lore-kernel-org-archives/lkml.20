@@ -1,85 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562887;
-	b=3TpX22paCRT4bfJLsxIUX+M0RDZ8eicKRjEwvCVcji0IB0feuvnOb5+2yDT3u1O5nPQd
-	 x2A9w4wqBUiQOAhDPRZOda4IPY55xpylWcysdcf936m9izXjXqggIPRHw8Ko93UtRLPb9
-	 zpA871edpiQzJNNpr/plPbfnOZ6cD+3w0Z/WLlWIAJAmNELTJnXr3eRfVG6SYUDWaZmvi
-	 FL3JuX8Yz0zL8U/IYaqZxU3aLw4euzz0zMYV1VDEIB0m+SEOiI2ScTitBcKUQx+QNA0ZI
-	 TAAGMPuawz2rjmC+SySZ2FIJ8OgA1ZzQXZEB8Ig8m3KDipg4BCAv8of8rs+1INnphog==
+	t=1792562983;
+	b=jK2mrg4Rxg3z5ZUoPA2QixiYVk9znFPQef//yjfYcjbgFqybeyc2KgqL1GBuGD8h3Q4v
+	 1H5DLqE42Dg0ofYtrnMON2N1ZkZpS8Awk0KSNW0fSjUxHHBC88yUyCdqfMnoBLc8LgobX
+	 LpG9zZbKOKOiN3YA4gdyUQhq5QtZA4jRhmsoKQUbg0BDd2r/GjziJAjD/komdCQnUxlZg
+	 wYr5NbVDsj8UeeVobFsttnkpoCGkGrJQie2/V25u7wEtrbmaF0PeBmp6KF7Rd0f28V5lb
+	 EHWJ8j7F1/JNdS8m3SIgH8kHQ8Pq8K0b5ziieu6btZf6pDWRwEL0No2QV9xSvEodyng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562887;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZYe3wOkYMWAT9nEkJmHND9GUlXX8tkyrEnTbfn+hGAE=;
-	b=3TuHLAjAkIauVMbH9k6Pi5tH0EOK310K+cyE4bidkwT1AUgrcW2iZu07oVW7S8fJ1D41
-	 RKkhDZ590V6gzeAvcVsmPmXY6r0N6s+Sog3dpT0wXaKOtxNNfejTV1SiCXTmHlx0Z/Sqx
-	 lHmw4OgrlK+Df/BJ3Dab69klvnoLrAenl2mI83hZQY1ATO5PT9KgN/y2rNQH0iYKj1uPS
-	 1rloqtuaUbTKAwDGrljW5ifMADNSeQ/KxF9zeHVJU99hSieBHZpsU46kdusL7R8YGa5QC
-	 /IznnEBNIUUVSpYVDpFy6ts26mqz/FPJpdzkLyHPJWpo/iVyE+ZQyUeCbnt/QCMP1uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562983;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:MIME-Version:Content-Transfer-Encoding:X-Scanned-By;
+	bh=Y3Kbd4rECN07DcxByi+wY4G9Biu9iKfm+5QZE7UXzxc=;
+	b=fwFCbyL7TwVL2Pg0AmL4xYzRI+O9MN5ps+WWJYgwPmn0jR0AF9o5wJ2DVh3MrvDyO+LW
+	 Yks7IJc2HXqBqLcLNT7yrlqh+tVLoyBbmcm4j6Hrwt1tP4wn+XYi1ULIjkiBnXX3NIJM3
+	 NCJG+a1uSR2aZPqaqnLZx/wQX8Gt6kNJODAfIzF8RJGUGIVzufZZ42A8mu3KCe57otaZE
+	 biGri4CkN5Ifu0vJs8waaOK9nQaSTP/UBIHXfDMq1IBqAW0OLRrJgy7AqV1y4/heP/zBz
+	 bDT3Y7MqSj0kXwHTHk/n0V1+wruM1u2+olHYkzdnWx3MGNhc9BJShbCkRjhYMg4Cy0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p02NDSmT;
-	arc=none smtp.remote-ip=91.218.175.168
-Received: from mta0.migadu.com (out-168.mta0.migadu.com [91.218.175.168])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LkFUIp0f;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BC560A262D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:08:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87BC560A262D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3B4606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:09:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB3B4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=p02NDSmT
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4KIURn7WEb1ayotO22ZrkJ9wcqdsX7N260OoXXlEYTw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792562884; v=1; x=1793167684;
- b=p02NDSmTaSCB8KSHun2b3TBjbf1NxzTB/b6rDos/XyDiLhiG+2lxVTaZ4aTR24rWJ9/gY/mw
- cOxsxKQ8l4CCJ668HxHAkwzAjhfXpzA02MknKMDcP6EqNdBo6cYSi0IeK3sur8sTHobIbATp94K
- 8nj/4oIDDrwoxMYcccNwBXQE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da1eddc643cb8bda;
-	Wed, 21 Oct 2026 06:08:03 +0000
-X-Mizu-Trace-ID: da1eddc643cb8bda
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: akpm@linux-foundation.org,
-	david@kernel.org,
-	osalvador@suse.de,
-	maddy@linux.ibm.com,
-	corbet@lwn.net,
-	muchun.song@linux.dev,
-	lance.yang@linux.dev,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	mpe@ellerman.id.au,
-	npiggin@gmail.com,
-	chleroy@kernel.org,
-	ritesh.list@gmail.com,
-	sshegde@linux.ibm.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	qi.zheng@linux.dev,
-	linux-mm@kvack.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/4] mm/hugetlb_vmemmap: remove vmemmap_wrprotect_hvo()
-Date: Wed, 21 Oct 2026 14:07:56 +0800
-Message-ID: <20261021060756.4599-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261019090830.1917657-4-songmuchun@bytedance.com>
-References: <20261019090830.1917657-4-songmuchun@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LkFUIp0f
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792562982;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Y3Kbd4rECN07DcxByi+wY4G9Biu9iKfm+5QZE7UXzxc=;
+	b=LkFUIp0fPfD1gs6ovWe7solNwuywKSFoEoBZgzUecpxYOTmn/6CCkaef5fNIrMQ/2zxixk
+	LIrwk9wHCduu2tyfLAUt1lGEz2MKDfhvwX9Y0InSHqjO6IFu2LtSCYAPCiuMh0L3jnDfar
+	pKXKULknoUKlTOXJhmDxXg63u8VQMng=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-292-bItbCJ_LODKIpUzCS97Hhg-1; Wed,
+ 21 Oct 2026 06:09:40 +0000
+X-MC-Unique: bItbCJ_LODKIpUzCS97Hhg-1
+X-Mimecast-MFC-AGG-ID: bItbCJ_LODKIpUzCS97Hhg_1792562979
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E44751956065;
+	Wed, 21 Oct 2026 06:09:38 +0000 (UTC)
+Received: from jtornosm-thinkpadp1gen7.rmtes.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0A51B1800347;
+	Wed, 21 Oct 2026 06:09:36 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: jjohnson@kernel.org
+Cc: ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+Subject: [PATCH v8 0/2] wifi: ath12k: implement TX flow control
+Date: Wed, 21 Oct 2026 08:09:29 +0200
+Message-ID: <20261021060931.249629-1-jtornosm@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,23 +77,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
+This series implements a custom wake_tx_queue operation for the ath12k
+driver to prevent hardware ring overflow issues under heavy traffic.
 
-On Mon, Oct 19, 2026 at 05:08:29PM +0800, Muchun Song wrote:
->Shared vmemmap tail pages are now mapped read-only during initial
->population, so already optimized HugeTLB bootmem folios no longer need a
->separate write-protection pass.
->
->Remove vmemmap_wrprotect_hvo() and skip these folios during boot-time
->optimization.
->
->Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->---
+Without proper flow control, the driver can hang and experiences -ENOMEM
+errors ("failed to transmit frame -12") when the hardware TCL ring fills
+up. These issues are more commonly observed in VMs with PCIe passthrough
+but also occur on bare metal systems.
 
-Yep, already read-only, so there's no need to write-protect them again.
+The implementation follows the pattern used in the iwlwifi driver,
+adapted for ath12k hardware ring architecture, checking hardware ring
+space before dequeuing packets from mac80211.
 
-LGTM, so 
+Testing shows stable operation with eliminated -ENOMEM errors, no hangs,
+and improved throughput under heavy traffic conditions.
 
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Jose Ignacio Tornos Martinez (2):
+  wifi: ath12k: remove skb parameter from get_ring_selector
+  wifi: ath12k: implement custom wake_tx_queue with flow control
+
+v8: Split ath11k and ath12k into separate series to avoid conflict
+    with Julius's airtime queue limits series (ath11k only) and help to
+    unblock both
+    No code changes from v7
+v7: https://lore.kernel.org/all/20260917064825.12747-1-jtornosm@redhat.com/
+--
+2.54.0
+
