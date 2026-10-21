@@ -1,76 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567934;
-	b=TwL6i+G3TmWygUIVq3+T16TUKEodBNP86Rzqmrr68m+ywcV+ljQnUxrHQ0yy4e+qV6qO
-	 rbYcFdyWE14qYVYS0/pcoFvKljQOEAI247jtfuA3j+sKChJC9DjsSZJXmRuP5pMHCTidR
-	 H5JYS+0QfU7AUCN+YGRrERjSX1FFsOfoFnYdRBihfQ+kW5I2FrdmXqln9qPmBk2C3aSiq
-	 79ft6ZquUnWGw/AbR1mGEK7wASpKwpxhPz0Pd+MpKBWXdGQ3PhJodnnBI12TTQTR3YM/a
-	 pC3zR2LgJnYtS4xWiDdQ2z2BepM1yRc32NHqxKGHNK2Clo8OF0xqevs82qTWHk7eRBw==
+	t=1792568010;
+	b=gnSmWrDzZ3lJ9SXxOs7wvnWZMCt+NRJIDFVHrhQz1nJYLsMGLZopwxVcBddaCjckpkLb
+	 MufayTQyK3SQs6rprcwCIufJUTfLAHNdCkghA5ujf0SyH5+huvghY9TQTzDwAsuK/BUP/
+	 55s5HZpnsvFPewFjd2MkwiK8iV+8om2GXIQXjXYgGKuaZ2SbG72lkfUdAOo9Fo3S0Lv3y
+	 ehj5iamd5HLLDQCzJ1OXUw8+g+OsTy32QXgpcXhByN52ek7NsiIv1qOdWxu5Fs065oiqN
+	 1KT+T4HAOURSpsk9teNgNFbwbu8BsAH34HMUUSyQgwmFf3udYrE1Wiu096VPPv/WXRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567934;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=6QAiK2mo/o5kQv4IXUx/z21UDEdea17cHOw3H4USIDI=;
-	b=NY98Biglx6PhDCP4zzDDmcjEnQmoQIsrcXn4JwQ2ODagVO/azqFcPoTOHdK+L7oS6Us4
-	 zbrRq+4Xkhc9FyVww8/pJhk+m3O3nQT7QLlPICC1lt3uHLjSyvtJ+zwYJ1kM5mRlXgA9y
-	 mFt3vJo09x7dNAWEZpE+UwkNxP+Ofh1eobctxSWykkiM2fDza73mZOqhtuCQQ+FbqI5aU
-	 UVosLEq+To/ZQhmWCceHe3Y4W86ghe6IPe4mXuaf4q/zkeUIninIvwuZvhx/FEwh9puVo
-	 hQsGBn4GLOPf8JzLDkEpHVG9pWzUCYTAwx/huDm5VeYtjG9VvGpm7jD6Pp+E5F9X+8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792568010;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=;
+	b=BApzTpD+yQL79Up4v0PjBHcZD3SxRhDEEDNaEtgMnRyFijTypyZTCesgTpgIh46UVKJp
+	 r0OhDp8N7pLXcBDA21xcZcRRAFUnl5XFK7nEuPz6y4mvznrAoknq7oo5wshyrJ4+U+VH5
+	 14WdcXXhl1ByZP8/FTEZ2tEAOZBu9kVlhOQ1CG9X7UPcEYcxHMQLOgTkpBimBGPStTIco
+	 aZLRXpbfIUx2b0HnoUrefKjEzae4Ixqs/9uA06dg8xKzVu2ZIWllrifCIMwinjQEDMhSN
+	 zySlc2LiZdX4o1F3CJhtCRisQYMu3LUGQ9jv08FEtMZILAtxh6aBTnBuyFkI75oY0Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.217.54
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com [209.85.217.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=H2CZAlNU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=MeoTVJvo;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2733606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:32:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2733606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-7cc013095d4so116992137.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:32:13 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792567933; x=1793172733;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6QAiK2mo/o5kQv4IXUx/z21UDEdea17cHOw3H4USIDI=;
-        b=WRFLxprgyPmJ3BwkvXpCHXnmyukS1dmg5M7EhXrQy3UiLyf3Gx+7VY9qqoRX7nFtMB
-         NADFMny2etQtt8eRBLd+1LTgiTMLOYp+PREPScdbr7gkYwGmKL2euNMw8uMnQ17Oe0xK
-         dyh4LTiKf88X+J84M9xP++mO4KNYaf+VGG3r/ZmYlX+fLZ3TdsEXLiNMtZrFQdBuPgtG
-         Ei0PxfzBuxEmJuFTYEYzBnMuaHA+tsTPz23MyYxukUl1pAvei7bFlUcq4ZEJLrMaJ5Dh
-         Er66nXfRuTWfHhdiyInzqhQ9Uey3EdxPy10pr04spw9cgLWpJ/Ln+TuKNg/2s0jx+g1d
-         HPOg==
-X-Forwarded-Encrypted: i=1; AKwUvByhby3oBRq5x5mFLTp8eTJT1m4pH9RwSOcwi7WNYi0FMEiJyFPARlRQH0oFljXTtH+tDlKdi5HF7LF/DzQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIVcmLzX1THuQ8ZzcsVcsxitr6ioN/SCmJcaex6WYKuwX2Nl/5q
-	eAtCBArJmO8BICj3s75Jt2ut9MdYWow2jEnlP/G59+QOF2xN5M0YHEUMnGD4i9Bqtkw=
-X-Gm-Gg: AYBFou0jGIV7t/onP304CglTHpmcTXOHhCgt6uXMD0BLnKhc3M23BBwsYqltTBnALWj
-	MUjDNR7ecqF68Pqsgi64f4vvYLnz4MS4/xxn6+WfuPMjtMEnJa5jj4HC5vNR3/DqKPqfg1tv3sC
-	4jnEfdOie6aGIDFbxfZppyexCmXl8fBrWL365LHEsmAldggFYx/k2rdW+tmeow7kdoqxo5XEsmy
-	ToEk0/GqXy7qHuOslL2DUriIePQ/jwuZrQBaAdxK3vEuFGehrc/WwdK+eGHBWBB/JiKGGogxWqI
-	aEhjmB14GlU9kHdmIqsB9BDVzrDE5Mi9PidXjpNuhF/CTeM94TghCJ5A3sOnSCZHFvcE7P0wVUe
-	++uyKxpnNwNjjqzoPMQaXmCVGDorpm7TcmYXe63O5jv/WCFBna5yTRO7xo4xemgFDWrx32WoyFh
-	5P2yr0K+M83qJh9ZpqYjnCpNDx15DM5LmUbNeyNyeJFGQnoUXN12O35ruJ3NHtW6WOIzkjhCtHY
-	9EbN4uC9qvJQDYLIcY2PkHh5IrPQlw7fj+ou2qapVCMtvLNAEHZk6KB8YZOxbGEASDncPCSWW72
-	/GTKSrsd+JrTkkaNYj8Nph24HLuiCeK0N1kkg98=
-X-Received: by 2002:a05:6102:6cf:b0:7cb:bc5e:7dad with SMTP id ada2fe7eead31-7cc925e3ab8mr426814137.10.1792567932708;
-        Wed, 21 Oct 2026 00:32:12 -0700 (PDT)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d118d522sm2245953241.10.2026.10.21.00.32.12
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 00:32:12 -0700 (PDT)
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-98c8cbdb9daso110614241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:32:12 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxz1PX/dveBqd9YVc8diHEraN47Enty70V/UXA1OpbCgQOrfDSECqW6dUdPGXGOKz68gAfbObhOnNaW+mI=@vger.kernel.org
-X-Received: by 2002:a05:6102:2c8d:b0:7cc:2152:4f95 with SMTP id
- ada2fe7eead31-7cc9246d45amr430597137.3.1792567932012; Wed, 21 Oct 2026
- 00:32:12 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9384606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:33:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9384606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=H2CZAlNU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=MeoTVJvo
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.phl.internal (Postfix) with ESMTP id 576D2EC01B8
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:33:29 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 21 Oct 2026 03:33:29 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792568008;
+	 x=1792654408; bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=; b=
+	H2CZAlNU4dJN4nZ+deU/xL+rLNt40eM9yOaxC7LoCAEUdPRkldX21YR12nJ+XUr8
+	3DMKxEi7kNuDzLriFSZllXka9gGUOjbF/jobdAoHm1X8y+yeb6WCv50xto8eOuZq
+	MfRiuA3eyOYVMdHsLTMYmvnJ66WUswmi7bLyWgPKNEnb9Wq4TLC4dRjYCshqRx2T
+	eESh/Q+eU4B0ZLGXNhO81jgV31NxsmIJHlyYMZj5WetcngX+m3LLcJvwkpGwG5pR
+	y9B+72ASE8sdAzEUhE73wxnqvYK+jr3A3VrYgZUdy5nshO0sqW/Toaop8UHw6Qg8
+	aMyT9DiUNpNaCs4GWwxFVw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792568008; x=
+	1792654408; bh=uVzGXGFEaDe1Jv5P3wq/EEUrc9Mo9DIHRPQwOT1ZGe8=; b=M
+	eoTVJvoMSmfhJTi68FsgDFtBIPRrDKDuWAX3leqxy4fMbvGClEdkC7RBvOvqWkur
+	ca9rkNDo8bEsfq4uIlhNoSzxDX8/4LQXzdSJSPavLatUAeGNiA2cdW4EmTu+oD/u
+	6KI98tIHVnATZaQP2KZI3vutc242IoCPYfAlsJqxbbZZFOhigAvFzp28cdlQDTFg
+	C2Enm1Qv2qBKQYjoDfE2xh+l3TeMJqfMdNHocQHAe0cuIGOZAfTon+kcFBqDxx30
+	Cz4ssk+s8DHvy41TQVAZ+GGVr/W1DxPpZbTT24YMU+MpFGci2MWRplgXh1YzzmCG
+	nk9zGAmocLUsb22FfDzcQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792568008; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:SWNUP898WFC5BHYepUlJ1pIkN6IETID6ujgI81muIn5n7YU
+	+uMf1hgcjuZQXF7eFL4sp4Rpo54cab8S7QRc7zv2P9AhjXbkmOXxaWd7kvlUMMQM
+	NSbcgp2a/3HKJAAPyHK9+48ZTqVRfF01appiVjEOEWMtS+E4AXGRrZDkwXN4qcdV
+	XVRnr3pN3Jhw+uNT3T8cq0/t1bxlGNnO85thTeEwMYtGmJ4JPNRMEJAWdbMlBMEL
+	9lnMczQwTkCD8w951w4gqm4Ybl/+T+RotaDW53AGlW9h13Z4fbHYOQzrOp2b9GSA
+	557TGzctPtqkCfiyiG+NyRzE1o4CU+ihiwFPQUQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:sE7oviaG2W9U03+NUO1ZCJgJ5kzaLF7Ubos/2J9o5AA=:aIxrJQw6byJSSpI7JG68txUCarZU1Hc6/3WckQFzdGc=;
+X-ME-Sender: <xms:yGrYage2hmGQ4G-an03e3gvYKy9AfCVIu5WbSu0gTLw7ukE9GiJlpw>
+    <xme:yGrYavoQNMHup-ZRl0i_Nl0LAvFFiFvkYwozl80MotUsNYVH-5k_n5kCV4GuQ7d8F
+    O0LUeEx8lkQjZGcPXqJsO-AHFAVnYdpzayerwV8aW0fnYYzh5cnpTLV>
+X-ME-Received: <xmr:yGrYaheSNJsJEpEBKQlG7lWCRiv2OjR01-BfOSJMuNPeH8wVnCOrjIc72gWJKvsQEQnMyyuaPZwA1I7_D1oGe_ij>
+X-ME-Proxy-Cause: dmFkZTGpVTHn+SydJJT+VRdoTPrvGprGGVNIRF+afNyksTljI/Xz7ouNtYDX7THXy9XbOF
+    JGB8Rol1p2S2ksGNH3skRUpPGxxs44MvhLa+/OyhtEeBcu5j5bRa+cVNNtZz5jmWl58RGz
+    hfJCyX8x7mn1S9MXhKBvzTZYRkP7Tq+4cVthmDwsOA5BzUbNhG9TVk84hAQDq3xMKEd1Rf
+    xm3XJuochdBuUcTdvClfqF/K49B3YJJ5o1n6zBZIgTW6o1rpwa9XaDDihmK9mmzsnGBq4m
+    tqxXHJ29g24JySuuiiOVHgUwmIWcZRskKzfvX47BXmuutqmStjXWTN8t/v1IDQT5Gr5yBv
+    IbbsOlJZ4cbWNBjVCOYa1qAbVz4TRJRd3tPVKSh7vQTQ916/jf581kV3OzXBS1UtYN0Aap
+    RdA0ire71HaAkF1igf2U1BQIofJGw70oV80d3UsrfsybdWclUIvSlSdC76TlEwAFdTwTcm
+    nJdmIfCaKGyxk+4T54+lF61F8D7qr+bzlmCPmofv1GV02iYrwL9kS1bW6oPWHIqRe3Um5Q
+    Up2W57m5l4QTBw2nGif0a54AZyK7y8GFHgcFhs1L4bRLnLabHmGJhBKvxdqOdWLUjCQKYa
+    rLM/9v4esMOAr+GS4xFx3wpGQrYwRarizTc81eNig2hL7ld/CJEnYAFryA1g
+X-ME-Proxy: <xmx:yGrYanl2G1ptoFiX593oJTYOnLd7XEq2CDDYMCNjN8FSiVaizO4xpw>
+    <xmx:yGrYast_clruEqrFMBFv3KJvIVdxfpcX74yWbqGKyQhMhRj2RqP2UQ>
+    <xmx:yGrYaiz9EiwnTP6rDnWon3ax5og12YoCNZcX8NwRtdAThlcDx211hA>
+    <xmx:yGrYavy87Klf-1Zw4c4YKRU77MsPTmBuaUfGAni7lPyQxLVYhUun-Q>
+    <xmx:yGrYalNcEYcYdl00-2zGjMBALGGtnnZ0_Yws_plbzRuYV_smyg9KPS5R>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 03:33:22 -0400 (EDT)
+Date: Wed, 21 Oct 2026 16:33:20 +0900 (JST)
+Message-Id: <20261021.163320.943019405320974844.tomo@flapping.org>
+To: chenhan0017.work@gmail.com
+Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
+ boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
+ georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/3] rust: time: rename the rem_nanos() divisor
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20261017111134.22546-2-chenhan0017.work@gmail.com>
+References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
+	<20261017111134.22546-2-chenhan0017.work@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,72 +132,23 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261021000338.2160223-1-miro.kropacek@gmail.com>
- <20261021022336.2232886-1-miro.kropacek@gmail.com> <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
-In-Reply-To: <c77944ee-f170-ce57-9065-d7d49fcfed6e@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 21 Oct 2026 09:32:00 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXWHXjbCNojoukGq4OWvLSibk-goJo4quLdbOj01neOew@mail.gmail.com>
-X-Gm-Features: AclHuK-O5R44UqsZeHR5r5kV3Sh9TQiIGd4qHB-xb-ZK5hAF_St4Y5l-i_lJpFI
-Message-ID: <CAMuHMdXWHXjbCNojoukGq4OWvLSibk-goJo4quLdbOj01neOew@mail.gmail.com>
-Subject: Re: [PATCH v5] m68k: Fix atari mouse movement
-To: Michael Schmitz <schmitzmic@gmail.com>
-Cc: Miro Kropacek <miro.kropacek@gmail.com>, dmitry.torokhov@gmail.com, 
-	linux-m68k@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-On Wed, 21 Oct 2026 at 04:51, Michael Schmitz <schmitzmic@gmail.com> wrote:
-> Am 21.10.2026 um 15:23 schrieb Miro Kropacek:
-> > Kernels are built with -funsigned-char since version 6.2, resulting in
-> > the signed 8-bit position deltas reported by the IKBD being
-> > misinterpreted as unsigned.
-> >
-> > The hook is handed a raw IKBD packet, so take it as a byte stream and
-> > apply the sign to the two displacement values alone.
-> >
-> > Fixes: 3bc753c06dd02a35 ("kbuild: treat char as always unsigned")
-> > Link: https://lists.debian.org/debian-68k/2026/08/msg00000.html
-> > Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > Signed-off-by: Miro Kropacek <miro.kropacek@gmail.com>
-> > Cc: linux-input <linux-input@vger.kernel.org>
-> > ---
-> >
-> > Changes in v5:
-> >
-> > - take the packet as u8 * and cast only the two displacement values,
-> >   as suggested; this drops the call-site cast v4 needed, and with it
-> >   the -Wpointer-sign warning
-> > - add the types include atarikb.h now relies on
-> >
-> > The same cast of the two displacement values was tested on an Atari
-> > Falcon030 with CT60 in v1 of this patch; v5 differs from it only in the
-> > type of the hook argument.
-> >
-> > Michael's Reviewed-by from v3 is dropped, as the approach has changed
-> > twice since.
->
-> Dmitry's reasoning makes sense to me, so we're back on v1 with no change
-> in functionality.
+On Sat, 17 Oct 2026 19:11:32 +0800
+chenhan <chenhan0017.work@gmail.com> wrote:
 
-If it's just a byte stream, one might not bother doing s/char/u8/, as both
-are the same type anyway... and then we're really back at v1.
+> The argument to rem_nanos() is the divisor, while self holds the
+> dividend. Rename the argument and correct the documentation. Drop the
+> architecture-specific implementation explanation from the public API
+> documentation; the argument type already states the divisor's width.
+> 
+> This does not change the function's type or behavior. It is a preparation
+> for documenting and checking the invalid divisors in the next patch.
+> 
+> Cc: stable@vger.kernel.org # prerequisite for the Delta division/remainder fix
+> Assisted-by: LLM
+> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 
-> Looks good to me, feel free to add my Reviewed-by if it helps get this
-> merged.
-
-Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
-for the arch/m68k files:
-Acked-by: Geert Uytterhoeven <geert@linux-m68k.org>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
