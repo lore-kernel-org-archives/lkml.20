@@ -1,101 +1,138 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572371;
-	b=TwNQ7JQhAe923N0rEl2uUDo3T14lyyRU7PNu5qGNMHlWzfunWZd1cJU8A49bOzl1bVX0
-	 RBFTZ8AWR5WjCn1Pm7nSnqiV0/X1MEZRtIHMUS6gLoqrTWxM2LHPWpA2IAQr+0SzyCCa8
-	 hYWzQoWXaWwti5dcTgCNKcAbGH3AN9TqxoZTgroo669pBwQ8zDU78xdD8X2h/Mx2CZpVq
-	 parRrevx9GZxtqcn0bQEj2UuO9iRJsGx892st2fs95Mfeg2ssBsdHsbbFktINPIA4255i
-	 oBacJPwC8oHUcqnAgRVhgXhXA1AUPSF6Oh8xlglB7zP5ZSUMOI0O7zU937Yq2Wc17jg==
+	t=1792572378;
+	b=OBilExyA0o+v/GTxb8LIop6IzbjT0v2cVIvNzaLPnfkUVBcprzIjpA/b0zwMNj26rxXO
+	 P2joGPZJtYX2ixTBLfWc0lvwUU96OULQ96qPquomIJJZPhSXUHWvH91FS9TuI+G5uH1lc
+	 KBQc+kSpO6VjsvXmfyO4QY4EbqLaEVRLVnIK8Yyw8HkSLRyt+QJnytiZPY97ley+n+0QT
+	 yfo0vG4pSNosrgtk+ApcIF2EmsTlnz/O7XmcCOZafV/Ec7OhAsvpM1Lr5d4upcfh8fai4
+	 r3+j/aAeIqtEuGlQvn8ViveTxW6pZP+ISyeE5Pt6x4uy50gxqS+GEV4wudKNNlQ3gJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572371;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=cYjE70VK9dQOuYVSDX1vCeqjSSE/jR55HkQy4/7ye/I=;
-	b=Yvd3QQ6ksHw9Iuti+VBBgDRD0sB5kur3pKWewaowNhBsKYUp2wdaDveKYNUZuetVv1ui
-	 XE78N1eFkmpJspNmLJ5Bq6/6d86auosAhVGwOmYzReZvuHlxh+Q2euaNATYhwSSiRaNUS
-	 s7fx1jgqA6o8AFHy4K7Tkxarvy4XwMjrrEmieNSBmZbuAdFWZ2zNV3RUxf1fKUYIc1p/8
-	 kcWxynzy6nf7zT+aMib+bkM50dkxFpfDJ8/A6Z0P/weU0nqPXBEFtYnBmpk318OlafQF8
-	 c6J7+0U1TD+QZRcrWaxG1k3sf9hpMf+hiQiLnuw2hB0kVzUJPCmxkmIISkm1l/Z1cfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572378;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Autocrypt:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
+	b=aEa3O/tYBinabp4AwnSpnJGNQJGY2+/fc2HWZ7VPMVQ/3zUCkUC5OJ5MRI826ZAX7l0g
+	 8wLqoiNTvZ4oGyiKTSqdS2ePUbLhjyizbOwNZ+M0La9TDjDcIVFMA3hmAT5dKkAd3i7Ps
+	 m2/r4aA7UXY/oLeTCG5iFPz9epCeNOtid9akTp+dqocFm11j9N46hWGZUENRt5z7Qw0V8
+	 P1SYL0BWz9jK+Q7J+FNrlE1gaFp39P1EyynJ0KvTwRvxOhRfAVBUJ1Vb+2mtXcki7bKpp
+	 k25SXET8Ukus6B8LoV1SzjwZsHwp5/6L0D4eHMHKWcUi6B8o7OGjDd1ezc7UkRzcnSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L+TEqmEQ;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WYuxZlXv;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qvvuyH4D;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B668606A32D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:46:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B668606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C63E606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:46:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C63E606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L+TEqmEQ
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a070755c8cso222948b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:46:10 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=WYuxZlXv;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=qvvuyH4D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792572377;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
+	b=WYuxZlXvJ+rKt1yZ1R5jH89Cs6WSpZooooJKR3KMuju3Wvzr7DL6xYUcAXUSdVMLbhkavB
+	CXXRYLIOj/K2PkAIfWHMtFzgN3F+q0p/VVEEMNz4VAcpYOSh/SsL93QplinPhW7DNokPjL
+	kt+CsiaHPkdE3m0z4c2gGWk4bpm7eGA=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-10-iOmBIHYtOyuWD3hs4zDAaA-1; Wed, 21 Oct 2026 04:46:15 -0400
+X-MC-Unique: iOmBIHYtOyuWD3hs4zDAaA-1
+X-Mimecast-MFC-AGG-ID: iOmBIHYtOyuWD3hs4zDAaA_1792572374
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e0ef019a4so397046f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:46:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792572370; x=1793177170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cYjE70VK9dQOuYVSDX1vCeqjSSE/jR55HkQy4/7ye/I=;
-        b=L+TEqmEQlPVsZuo1fkvPl++sMPQwiPUJII2p1B+u3s4pc9VFskc6MpsD09l8NXlJtT
-         LdCsasMDuloH36mlimuT9VkfVrLxn9XSoIVYJ70sIeYz+N0Lg+vsqg6Xg12fNgNliz4P
-         irrSbM0J13u675IX4EncRuJ11PnbjOgxOOBTnoPN6LugVKvqv+24OJRN0zmFAoxZ+kzx
-         WD9xlw+Ovp8BwBXDRPWcED3vMn0s/irMPnCx2noc0t2Uo3UdnotNF5Om65iUY8X0idXD
-         2SrKmRmRrrBaN6eiMv5f1d+CUKzP4+yIBmDbfKLlLS3QAwnpCzgloSL4ox2crMlE1N7+
-         4ITA==
+        d=redhat.com; s=google; t=1792572374; x=1793177174; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
+        b=qvvuyH4DPZ7mbqZw0+o84tLAY4eSfF2Pr/CMSCe+wX3HfFTPkjAfEsoikWc1gy3Qho
+         nf+VEkwdNyZ+cO5kCiYgov7ERaZpwgjLxTKN7qHvwpIPFwYiLjdum/eeOxdnhOCfee/k
+         bPXJlJHBLzGBzo0KGhxxmVB8XShaKfaJepnitPhm+0kKP53STmWFbIcEeDMpkth6SULS
+         wehdWoCi/dGDR5450s764PZxBiGIQtkVulytIWsz/6kwmJ6VUkt94bRJi5/KexrgyhXN
+         KtAKzoykAlxkOsNoqjgVXHYmjuu4zVERuqNpRxeROMBqZ9oxug5GxzBgtDI4sj+Q+gyU
+         avsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572370; x=1793177170;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cYjE70VK9dQOuYVSDX1vCeqjSSE/jR55HkQy4/7ye/I=;
-        b=0bF0dmDcUz9KHoNphReIeVCSpo639OJgql5viPibYzkP3vZjqSBj/CRt9MmgvAaRjN
-         cyS/ROIY+KEUHNVrWqzRFmtvsFQs9mGOE3eQJAq7WkMlyKXXm9nPtB7djGARWcdeUnxl
-         JylmDBVB7FZ4WUBF8KlqAFK6LHdsmb89YUscX/ZJADNXjdfoqdWl8ys7GRqiuE90bV83
-         x4DhiPisvtToHWHJ1WiJlYw/w0FX1ghRXKcsRd1d625vH+IVB1BAUgeUmsxGWGzRTI96
-         +//4CsPZvhUF5NEVRTxivXQGp0ULcIwDEXc6ZcSlMWigNw40HQE8MxZjVC/zaqwZPPhb
-         aKJg==
-X-Forwarded-Encrypted: i=1; AKwUvBzYm6gw9K5L7lCZzg+3/MEv4zMfsWJteTcE5BkV+9ndHpKta3Nuw6+KFbPun4EI28VyQ2R9VkzIIXspFb8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI/abZGINFX3keql8jW5Fea375Sy6kzx2dCqg4ULRbWQxIVz/Uw
-	7b7vJRToGQ1pESGY9RhKSIAUKj6f/cbVktDEzMvjMmOmgwMc4HFjuCTac7+aSskD/tA=
-X-Gm-Gg: AYBFou33kOdM0DaWmrY4yCBmaWbLY3bE/iGuNz7DKyOIp+oc71LwkjE6b4YvLTLfReT
-	KH9cjlrnLSZCkYYZrIHYz9zo1oWYV9VXRXTxuF4+IuhZ0xT1nYeKyu/c3uObEYNsLOLD9ZIe/kN
-	ojknj1SXhN8S3HBHUP2uxa/wsHfpb87teypCX55E+M7bbbB/5HGEOnli9enQiXi20OghRf4v7kK
-	XLpqzmwfEWx8+Hm6/k5YSYrhvNg6SvEYLYOUR93RU7cP+8yGLJUBNoBv+fG1YvMfM5xE9XPr8Xr
-	/f+Gu/skTyAZKFMs7+bD6vvlm8iyOByCUYQn9UpULmeFFbL1svY8S2igygHu7jdDlpZC/qdRBGx
-	YTDDV7ROcjRf4gf1ySFAqDBtVOwU/LNwTZgJufXjqB1KUnUWZd5Jv2pnnu8SL3OExgAqVBGSCBQ
-	E8D8fL1qPJfB2SVzWHRS50WK603wu4eYQijMN5kK136elCtmZjHzAVs+yrBOcmxgE8iP3qKEwIW
-	er1n4cRDSODf6eTVCDLdUkdFOaC2TtAticdm4/MTDY+Dn6Du6r+rNsA2weYAl7NrlDdQvU9VtZi
-	qbvIYGM=
-X-Received: by 2002:aa7:8887:0:b0:89f:129a:9590 with SMTP id d2e1a72fcca58-8a089ebacf3mr1029844b3a.48.1792572369847;
-        Wed, 21 Oct 2026 01:46:09 -0700 (PDT)
-Received: from FLK-B04Q314.global.tektronix.net ([87.58.102.86])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895c08c8sm604998b3a.25.2026.10.21.01.46.06
+        d=1e100.net; s=20260707; t=1792572374; x=1793177174;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/yF0JL6Rd6tCEdOsvrC8K9rzM4lbnQgAsaM0D1hAFzE=;
+        b=SHixSx1nTeSlPxGyzuW6jmrptWq8IfWcQbvj0aLxm6o8P1gLCgcM1j1SSDKV1Rt/Ve
+         eZjO5frHmBwr6LHvS1hPMheOjgb280RYxulCkut7+mlaAIws7GUbxGPnM7c8pWRFVxpX
+         MsTUny1BjckiQxZIeobW53kIDimyzXmXua6tx2Yb57JHC6/B4+XX9hrGnSueelVEqe5B
+         LfaLj6lZ6EdtWopojnA5neXB5cr2lekf/f9XLJmhH6hnL8J6PevVKBRMptDRB0rB9D8K
+         HhP9/iykAMThlXk/OxK7WPpbbgUqeHFMm/pc3jX5cBEN8AQFFw+xvAVHOJN9dGYkhyxO
+         Xj/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz6HcGG9ebrZNMG8oc6MSYC9HHFh03gtqigbiPabF5D8WyO0LSzw829v0X6z0+Z0r3/1frCUewuLG9diyg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK62yBd9yOeoLTvnyIdPlYsRsv/gCDPorxXQyxm126qJKrcc+1U
+	+ZiwzBWw53dPlGeb4jCgTWWJP6pt08nq0uHrRmLzcaSlQ83/PdykNcJpZNlNclajXP19hDkJnP/
+	EMxvAp7qQpRFxATKPHSu1qYTeuxp4kcLoZy1v0yMVJlBzjpoMxj1UPUUwNPmESQTV/w==
+X-Gm-Gg: AYBFou1Lb2ac2I5OLkB2l3teE506Ryzsl8VM108XT5gctdAa9q49FglC9OWhaLgIkDG
+	os86p1RWgAbtqdla3Qs1hebpEC0W+RFtNlMFZglc3fD9NIRWCXekDrIvfh/3NnB0VNfh4wWP+WD
+	YaxfQR4bAYxI2gnfhs79gFUjrbsU8pXbVU2k3MiEAfKMdMUad0VY4v0oakQDExzF1ngL7+OiZNI
+	wqOUgu7XufWgMyZ99fH4jAjfY5/47oz32WKepyFpJkK1kr+fIyNYD9HMFWdJ9OwH3ONzZEdvG4x
+	okGYb2PkzDJ0yKlm4I7nlyEiem+4IGZd0JWIj2Nqek/7i26/8PyzgSonOzz/OKxZJUg6WkdvMZs
+	mvIQj2QuDtpL4o6Ozlhjtnbb35wM=
+X-Received: by 2002:a05:6000:2001:b0:48b:1c:d6e1 with SMTP id ffacd0b85a97d-48e264dd0e4mr2661919f8f.43.1792572374352;
+        Wed, 21 Oct 2026 01:46:14 -0700 (PDT)
+X-Received: by 2002:a05:6000:2001:b0:48b:1c:d6e1 with SMTP id ffacd0b85a97d-48e264dd0e4mr2661878f8f.43.1792572374010;
+        Wed, 21 Oct 2026 01:46:14 -0700 (PDT)
+Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.34.203])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2583ffa8sm4205103f8f.51.2026.10.21.01.46.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:46:09 -0700 (PDT)
-From: Krzysztof Kaszubski <sympthicode@gmail.com>
-To: Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Alice Guo <alice.guo@nxp.com>,
-	Peng Fan <peng.fan@nxp.com>,
-	imx@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kaszubski <simpthicode@gmail.com>
-Subject: [PATCH] ARM: dts: imx7ulp: add "tpm6" pwm node to i.MX7ULP
-Date: Wed, 21 Oct 2026 10:45:59 +0200
-Message-ID: <20261021084602.121087-1-sympthicode@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Wed, 21 Oct 2026 01:46:13 -0700 (PDT)
+Message-ID: <631896ae8e44ed6356c3b79598a2facee8af9770.camel@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+From: Gabriele Monaco <gmonaco@redhat.com>
+To: Nam Cao <namcao@linutronix.de>, John Ogness <john.ogness@linutronix.de>,
+  Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	bpf@vger.kernel.org, Steven Rostedt <rostedt@goodmis.org>
+Cc: Wen Yang <wen.yang@linux.dev>, Tobias Schaffner
+	 <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
+Date: Wed, 21 Oct 2026 10:46:11 +0200
+In-Reply-To: <87ecdjqxnr.fsf@yellow.woof>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+	 <20261001152042.124445-11-gmonaco@redhat.com>
+	 <DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
+	 <b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
+	 <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+	 <878q3xtptq.fsf@jogness.linutronix.de>
+	 <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+	 <87bj8s8ih9.fsf@jogness.linutronix.de>
+	 <b76dfd3e5a118e30ab25910f243db1cbcedc1c00.camel@redhat.com>
+	 <871p9mqcn2.fsf@jogness.linutronix.de> <87ld7trgzg.fsf@yellow.woof>
+	 <87mrs9q1d3.fsf@jogness.linutronix.de> <87ecdjqxnr.fsf@yellow.woof>
+Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
+ keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
+ 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
+ Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
+ Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
+ cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
+ T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
+ eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
+ 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,44 +142,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Krzysztof Kaszubski <simpthicode@gmail.com>
+On Wed, 2026-10-21 at 10:13 +0200, Nam Cao wrote:
+> John Ogness <john.ogness@linutronix.de> writes:
+> > On 2026-10-19, Nam Cao <namcao@linutronix.de> wrote:
+> > > John Ogness <john.ogness@linutronix.de> writes:
+> > > > @namcao: Maybe you could chime in if you want the transitions as ev=
+ents.
+> > >=20
+> > > No. Those are only useful for debugging RV itself and do not need to =
+be
+> > > upstream.
+> >=20
+> > Sure, but debugging RV itself _is_ a use case. Especially when RV moves
+> > to eBPF and lots of people will start writing their own RV monitors.
+>=20
+> Right.
+>=20
+> I wouldn't enable those by default though, it's way too much noises. As
+> it's for debugging the model, we can have some sort of compile-time
+> switch to turn it on.
 
-Add the Low Power Timer/Pulse Width Modulation Module 6 (TPM6)
-node to the i.MX 7ULP device tree.
+That's almost what's happening already, in-kernel use tracepoints, gated by
+static branches. Those are the closest thing you can get to a dynamic compi=
+le-
+time switch (assuming such a thing can exist), it's patching the code.
 
-TPM6 is located in the Application Domain (Cortex-A7) at base
-address 0x40a10000. This enables PWM and timer support for
-peripherals connected to this domain, such as display backlight
-controllers.
+BPF gets even closer to the concept, we use a volatile const flag, which is
+constant for the JIT runtime but volatile for the compiler (not compiled ou=
+t
+when generating byte code). Before loading we set the value we want in the
+object and the JIT compiler wipes away the unused branches.
 
-Signed-off-by: Krzysztof Kaszubski <simpthicode@gmail.com>
----
- arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+But technicalities aside, we probably want tracepoints for events too, so
+bpf_printk or whatever else.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi b/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
-index 39e37ae9b2b1..f5ec5e9d65de 100644
---- a/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx7ulp.dtsi
-@@ -216,6 +216,16 @@ tpm5: tpm@40260000 {
- 			clock-names = "ipg", "per";
- 		};
- 
-+		tpm6: pwm@40a10000 {
-+			compatible = "fsl,imx7ulp-pwm";
-+			reg = <0x40a10000 0x1000>;
-+			assigned-clocks = <&pcc3 IMX7ULP_CLK_LPTPM6>;
-+			assigned-clock-parents = <&scg1 IMX7ULP_CLK_SOSC_BUS_CLK>;
-+			clocks = <&pcc3 IMX7ULP_CLK_LPTPM6>;
-+			#pwm-cells = <3>;
-+			status = "disabled";
-+		};
-+
- 		usbotg1: usb@40330000 {
- 			compatible = "fsl,imx7ulp-usb", "fsl,imx6ul-usb", "fsl,imx27-usb";
- 			reg = <0x40330000 0x200>;
--- 
-2.43.0
+Gabriele
 
