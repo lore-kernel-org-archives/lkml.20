@@ -1,67 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605545;
-	b=j84rsMSFaRyfsQFsD9Yuaui14iHeZJt2IpKZmcO301rwdECCx6wI9zx4g9hTYY+zVt9n
-	 Nix4MnaXXXQ/4QKLRVd73GNEG2Gurz2TyswwIueCbtgJE3ApHwIKwM8UhxyqUccOyTF7u
-	 IQ5Fyog+S/Dt9fsPNg3rq7uzXO5excimtTcFy0/1HRbp+hJ48heQHC+GVKSapSOIRYaZR
-	 fRbGY3hEL9z47HMA/4Snn/wQmex1AA3+cgCY7W+lU1ZO+iqbPbQ4yQI+z40/HNUmUoid9
-	 rMmHZS5hee1weyWNPumKJ2oN9yvbyBuopDTsfp7/4iDaowkzHvtpxiPoOyc7F4nT8Lg==
+	t=1792605888;
+	b=0n5o5dBo9r5mtsgpXV3gFxs06dGbbwjl6uQCc55MNVMbHFzpb9JdUk5WgMXCi9+j/6eF
+	 ueQum3MF5gHhinqfoDaNcVR9zKSTKgCqNQG1ry76em9CzUrs5kAAlECtpbQocM7bAvQ+7
+	 h6SKkbwJKWieAPqlCbfOnl5/+dw4+ayHDSC17HUM8MkGg1+d0wU3hfOhQ0W5gAUiI1Aoe
+	 NLJ6lTMALvqU/Moe3kDfS2Ubro3Hszl/ti0vvrUT05625Thbw42UvBY5+XMAnnN40fLNM
+	 UZ6Z6Q4h0ayF2CBFNyNYPqT7wKbXPWTOQ48aS2zkumq1U45s9ZMyvgHhntnmn+FOCHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605545;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=6VMduDmQMGNa5Y2H0M9gFEBcSWL8g4wfZV1TeE/oAPs=;
-	b=5TVp4fYg7BPyLcolcwlFvdWDRDZkuvj0MIZeMamJtFWEoDqk/SveCh9R9LH1XOP/ySmr
-	 ZoKYcfw/w/Qj/8c1nZ/e2TwYJ8iWt6ZW1pnjhvd51id6aimWPBonQzCqT2qvnJtJWKXcd
-	 m9LypYJVO8Mcsm/+vqxnf/sosNPlJJ6Uehy/it9xaTB8IYTHa9wMRvGgoVmYtsfQnVqgw
-	 yF7c1EBbSjVEXMRD4U5v0hgRCOhwnyslhW6Zfi2gHc3HXiQj4MAfwK4L41ofFOpiVhv/7
-	 wvPacQLtBBgaBKC/XePeCkIqyEKYQbYfCsqQAqG1RCCiyRa9YDMOW3MeLqXPkPS1kkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605888;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=IKh826oksAsnXOv/8mkzFjoflIikbvfEEGMxfs2JQRg=;
+	b=sUxtAPggZ4uRZ7TFgKg9gt8ezNlsNmTPcYwjq3Liq6f5cIBWjlJyPSPGV+ninrjhqYtq
+	 JoYUCwHxJcct95HqMSAeg50O85T8dnciD/q2NbHnSUhDWlnvDT0wi3dyXDOY4Xo59KrqL
+	 xCjoTebEKJsAioFZE1mFCdIIWis02rmzMvjnlAFPt9yaX/NBlxW/HkWxfjE4NCDPjwpzJ
+	 XhXfG8ICCTngdBJM8xg9nkHDrYL63zjulYO4TgESTnm7WkLE8/Mi1crAApJtbbiUudlBK
+	 uNyrwQfgnbohP3hYWuJfECKnKZQsDDJGvyIKdcNS9a4hJI3CQp2HB03VcmyVy18yVGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=nV8NGEa9;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWik3WnI;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22107606A319;
-	Wed, 21 Oct 2026 17:59:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22107606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E71606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:04:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E71606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=nV8NGEa9
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DDEF88FD;
-	Wed, 21 Oct 2026 19:56:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1792605414;
-	bh=CeGx70QYH+Vgr/XX91xzxQaYe29xYTykgTq8ekxCnbg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nV8NGEa9DlItx0C5J8Wp+vK0ruYpHgQBz6kAry81+VG+fw+7Qb5YNJSYCq8+cdpkO
-	 3rPaJHB/MCKouHvKdNaJibWs2kylG8d1cEee+DaLYnbuzxBIIXxzxqmS5DEAhI9Cco
-	 7zVF+t5HCbpcwSKFuHv1tGzvzqOBO1YfN1EnQAk8=
-Date: Wed, 21 Oct 2026 20:59:00 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomasz Figa <tfiga@chromium.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, linux-media@vger.kernel.org,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Tomasz Stanislawski <t.stanislaws@samsung.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWik3WnI
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso767705e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:04:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792605886; x=1793210686; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IKh826oksAsnXOv/8mkzFjoflIikbvfEEGMxfs2JQRg=;
+        b=CWik3WnIyChRkJiFjDby8AUm4P72t6GJlKKoLll9tcfUvy8nMdm6quUdw7bOp/Cdrj
+         tnUONVfLRoDkwRY2U+J/41ipIVdLv2vw5v+ZP81cljtyAGPbU98VqDIbMpGcrWZjS+1h
+         iUAag3s3ynMam7T5pk9UvjlcULGuIT4hot2neeVAts+OdV4zWf5icj27TPOMTMFi+iZX
+         jPAWYgjWLqcSBjQ96JBu+RIbCpJosQCL8pYnhhq/MUw7dsvXQsFmorTyZz3NKMYKnfIF
+         D/5TKGNf43tNXTrhdhCsVNVMvmn17vufPhh0YHUGqo7ej5u4G8muH4oukSj5wetRJ/l1
+         quaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792605886; x=1793210686;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IKh826oksAsnXOv/8mkzFjoflIikbvfEEGMxfs2JQRg=;
+        b=NB1HbR3bYSbyoxZwu0RBj+eNUc5V5beP3q+VjrT3tcUnq8piYYypeOb6yxurRHAz2C
+         QoTdWU614DncDESEYgXbZn56W3MXa4VB9vgunAV8i8CB8iMDKnkJSXm70aEXBrCZzCaO
+         NMnY7boBdKmbl6JZ0nHl2CZ1it7Wvzekee9pOlTPmvlbCgiRo49KH/ynlB++yuzZaQfy
+         JOd2SQPQtSNSCBU/AnnQjjJxslAIVqeEmijmJKA5evr9t3BXB+2toKl/Id9tndSYoOxp
+         FWrCdXZSw4rqU5/apnO7Pa3He/7ULA55mSgoAGA179D4ce8dc3dgW04+AYgh0zXue9S0
+         y43g==
+X-Forwarded-Encrypted: i=1; AKwUvBxJC4dwJXRbVYXx9qJxx8Va4iWNI38D48yhS1QJUVLhqqzvOEQDfReCTXd7W3cT2izDnRF65O0r8E1cAfM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0Md/FCKFvZb3P2ysV9leXkk/BhjqROVrR75QipzPSxYoKVSV1
+	0VMSfhC5TYrwGSm1M/Okg1GUf9uj2pkPbce6+uux8vO0ylySswNB/wMq
+X-Gm-Gg: AYBFou1smp9d3jdKecNrJ3RFZbt0YnV770sM3XziR+o+2nL2hwsKC8NHGhEPHmmgvIr
+	jt6IcQ/b2pR9xwWDauo2cVzDJKUJ5WDaFX5Db9xXaWOfBUQCD1ulg76ScGH4ehsAI1spdachb1C
+	bkTWgAXnXiMQ6hRUcAEPXN/CVt+j5hXD2n2PiuovMDgv0DAcGh/PgyDE7PTbfXpJfTjV4fP8Hrp
+	patxtefIjS0WReJc/MMnSqFYL9mgan5p9Eg4DjBXxSaNQzSC1XaF01wBV1rw9xOuBvoY7B93ouI
+	knFyAaVkh8AnPE3AtiSoLknyK0RuXqLILIiCEcAMWis5h8E2Qtt0+cu30ybKmDDkS2O7AWBnkSB
+	b05n6Q9ZrBqsLQSU99f07PzDDleexalm/4tmfK+/2oNWi0Xfx5SkOv1d+uvEqpxB8lfEF6NYzHp
+	ikJPCRYb/ZTl/6ezt4oejviMbgbCcYXL5+I2b9BM/uOqWX6HAOhkMwRsyEHwEhurMueymHCiCti
+	Dns4Boh7itu4s2WqbdFUioH3hy0TTYNxOq88Wv53AOq39La67HUedPyDGb+YEqNmweBoXJCkW69
+	g+fpYfAtprDBFGASLnhUCzIGBe0NAfcKxALfr8OVLIy6UrIGyUpRIyKg8WiDmwkUrho6jujqz2Z
+	zdvDuMwC04wuVfnS8vSQg/tMXNaJs3uT6
+X-Received: by 2002:a05:600c:a48d:b0:4a0:20b4:ba93 with SMTP id 5b1f17b1804b1-4a204bb59aamr2067385e9.16.1792605886218;
+        Wed, 21 Oct 2026 11:04:46 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c6:e6ea:6401:f04a:ac6f:988e:f33d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd13891sm47007775e9.2.2026.10.21.11.04.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 11:04:45 -0700 (PDT)
+From: Nick Simpson <nick.simo@gmail.com>
+To: Magnus Karlsson <magnus.karlsson@intel.com>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>
+Cc: Stanislav Fomichev <sdf@fomichev.me>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Phil Sutter <phil@nwl.cc>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Song Yoong Siang <yoong.siang.song@intel.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Sridhar Samudrala <sri@us.ibm.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	netdev@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	bpf@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] media: videobuf2: add opt-in DMA-BUF CPU access
-Message-ID: <20261021175900.GG15441@killaraus.ideasonboard.com>
-References: <cover.1792392288.git.kmehltretter@gmail.com>
- <673c04ad9dcc4f12685c076193ebad9e48e5f08d.1792392288.git.kmehltretter@gmail.com>
- <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
+Subject: [PATCH net 0/3] xsk, ipv6: validate user-supplied checksum offsets
+Date: Wed, 21 Oct 2026 19:03:26 +0100
+Message-ID: <20261021180329.26358-1-nick.simo@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,327 +125,104 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAFQd5Djx0kjeFpzPWEgRV5_MhiJAW8tg-2C+cYxqMf45u_-RA@mail.gmail.com>
 
-On Thu, Oct 22, 2026 at 01:20:45AM +0900, Tomasz Figa wrote:
-> On Mon, Oct 19, 2026 at 4:14 PM Karl Mehltretter <kmehltretter@gmail.com> wrote:
-> >
-> > Drivers must bracket CPU access to imported DMA-BUFs with
-> > dma_buf_begin_cpu_access() and dma_buf_end_cpu_access().
-> >
-> > Add a queue flag to do so from buf_prepare() through buf_finish(). Use
-> > read access for output and write access for capture. Map imports
-> > bidirectionally because CPU and device access directions are opposite.
-> > Pass the mapping direction to attach_dmabuf() so USERPTR and MMAP keep
-> > the queue's normal direction.
-> 
-> This isn't right. For the regular vb2 mem ops (dma-sg, dma-contig), a
-> buffer in the prepared state is expected to be ready for hardware
-> usage, meaning only the hardware can access it until the buffer is
-> finished. The vmalloc ops are special in a way that CPU is the
-> "hardware".
-> 
-> > Keep this opt-in because some vb2-vmalloc drivers pass buffers to
-> > hardware. End access in process context because DMA-BUF callbacks may
-> > sleep.
-> 
-> That is at least unexpected, but also probably wrong (I haven't
-> checked all the drivers) - the vmalloc mem ops are expected to be used
-> by drivers that only access the buffer contents from the CPU.
-> 
-> Putting all the above together, what I think we need is:
->  1) prepare/finish ops in vb2_vmalloc_memops to invoke the
-> dma_buf_begin/end_cpu_access() API if the buffer is backed by a
-> DMA-buf,
->  2) some vb2 API for drivers using the regular (dma-) memops to invoke
-> the dma_buf_begin/end_cpu_access() API for them when they need to
-> perform some CPU accesses to the buffers - typically they would do
-> that in their vb2_ops::buf_prepare/finish callbacks, but definitelly
-> must not after the buffer is already prepared.
-> 
-> It sounds like this series focuses on uvcvideo and vivid, which likely
-> means that 1) alone would be enough to fix the original problem. WDYT?
+In copy mode, AF_XDP turns the csum_start/csum_offset of
+XDP_TXMD_FLAGS_CHECKSUM into a CHECKSUM_PARTIAL skb after checking only
+that the checksum fits in the frame. Sent over a veth into a namespace
+that forwards IPv6 with nf_defrag_ipv6, the checksum is then completed
+after the forward hook has accepted the packet, at an offset in the IPv6
+header chosen by the sender; with csum_start before the network header,
+skb_checksum_help() warns. Patch 1 has the details and the trace.
 
-I think the dma-buf API doesn't give us what we need. Cleaning the CPU
-cache through end_cpu_access() when the producer is done writting to the
-buffer is right in some use cases, but not in all of them. It assumes
-that the next consumer will access the data through DMA, which isn't
-always the case. What I think we need is to track the state of the
-cache(s) in the dma_buf, and perform cache management operations
-accordingly when needed. In the uvcvideo -> display use case for
-instance, the dma_buf should track that the CPU cache is dirty when
-finishing CPU access, and should be cleaned on the display side before
-performing the DMA. In a use case where the producer would DMA to the
-buffer, cache management would be skipped as the dma_buf would see that
-the cache is not dirty.
+This is the AF_XDP counterpart of the virtio_net_hdr issue fixed for
+IPv4 by commit 6785011f8b16 ("ipv4: validate checksum_start before
+completing checksum") and addressed by the "more virtio-net csum
+hardening" series [1], which does not cover AF_XDP.
 
-> > Assisted-by: LLM
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> > ---
-> >  .../media/common/videobuf2/videobuf2-core.c   | 83 ++++++++++++++++++-
-> >  .../common/videobuf2/videobuf2-dma-contig.c   |  5 +-
-> >  .../media/common/videobuf2/videobuf2-dma-sg.c |  5 +-
-> >  .../common/videobuf2/videobuf2-vmalloc.c      |  5 +-
-> >  include/media/videobuf2-core.h                | 12 ++-
-> >  5 files changed, 101 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/media/common/videobuf2/videobuf2-core.c b/drivers/media/common/videobuf2/videobuf2-core.c
-> > index 460eaf4e82f78..d2a78cd0a86bb 100644
-> > --- a/drivers/media/common/videobuf2/videobuf2-core.c
-> > +++ b/drivers/media/common/videobuf2/videobuf2-core.c
-> > @@ -371,6 +371,65 @@ static void __vb2_buf_mem_finish(struct vb2_buffer *vb)
-> >                 call_void_memop(vb, finish, vb->planes[plane].mem_priv);
-> >  }
-> >
-> > +/* Output buffers are read by the driver; capture buffers are written. */
-> > +static enum dma_data_direction vb2_cpu_access_dir(const struct vb2_queue *q)
-> > +{
-> > +       return q->is_output ? DMA_FROM_DEVICE : DMA_TO_DEVICE;
-> > +}
-> > +
-> > +static bool __vb2_dmabuf_is_duplicate(const struct vb2_buffer *vb,
-> > +                                     unsigned int plane)
-> > +{
-> > +       unsigned int i;
-> > +
-> > +       for (i = 0; i < plane; i++)
-> > +               if (vb->planes[i].dbuf == vb->planes[plane].dbuf)
-> > +                       return true;
-> > +
-> > +       return false;
-> > +}
-> > +
-> > +static void __vb2_buf_end_cpu_access(struct vb2_buffer *vb,
-> > +                                    unsigned int num_planes)
-> > +{
-> > +       struct vb2_queue *q = vb->vb2_queue;
-> > +       enum dma_data_direction dir = vb2_cpu_access_dir(q);
-> > +       unsigned int plane;
-> > +
-> > +       for (plane = 0; plane < num_planes; plane++) {
-> > +               int ret;
-> > +
-> > +               if (__vb2_dmabuf_is_duplicate(vb, plane))
-> > +                       continue;
-> > +
-> > +               ret = dma_buf_end_cpu_access(vb->planes[plane].dbuf, dir);
-> > +               if (ret)
-> > +                       pr_warn_ratelimited("[%s] failed to end CPU access to dmabuf plane %u: %d\n",
-> > +                                           q->name, plane, ret);
-> > +       }
-> > +}
-> > +
-> > +static int __vb2_buf_begin_cpu_access(struct vb2_buffer *vb)
-> > +{
-> > +       struct vb2_queue *q = vb->vb2_queue;
-> > +       enum dma_data_direction dir = vb2_cpu_access_dir(q);
-> > +       unsigned int plane;
-> > +       int ret;
-> > +
-> > +       for (plane = 0; plane < vb->num_planes; plane++) {
-> > +               if (__vb2_dmabuf_is_duplicate(vb, plane))
-> > +                       continue;
-> > +
-> > +               ret = dma_buf_begin_cpu_access(vb->planes[plane].dbuf, dir);
-> > +               if (ret) {
-> > +                       __vb2_buf_end_cpu_access(vb, plane);
-> > +                       return ret;
-> > +               }
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> >  /*
-> >   * __setup_offsets() - setup unique offsets ("cookies") for every plane in
-> >   * the buffer.
-> > @@ -1423,6 +1482,9 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
-> >         }
-> >
-> >         if (reacquired) {
-> > +               enum dma_data_direction attach_dir = q->uses_cpu_access ?
-> > +                       DMA_BIDIRECTIONAL : q->dma_dir;
-> > +
-> >                 if (vb->planes[0].mem_priv) {
-> >                         vb->copied_timestamp = 0;
-> >                         call_void_vb_qop(vb, buf_cleanup, vb);
-> > @@ -1453,7 +1515,8 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
-> >                                                   vb,
-> >                                                   q->alloc_devs[plane] ? : q->dev,
-> >                                                   planes[plane].dbuf,
-> > -                                                 planes[plane].length);
-> > +                                                 planes[plane].length,
-> > +                                                 attach_dir);
-> >                         if (IS_ERR(mem_priv)) {
-> >                                 dprintk(q, 1, "failed to attach dmabuf\n");
-> >                                 ret = PTR_ERR(mem_priv);
-> > @@ -1504,9 +1567,21 @@ static int __prepare_dmabuf(struct vb2_buffer *vb)
-> >                 }
-> >         }
-> >
-> > +       if (q->uses_cpu_access) {
-> > +               ret = __vb2_buf_begin_cpu_access(vb);
-> > +               if (ret) {
-> > +                       dprintk(q, 1, "failed to begin CPU access to dmabuf: %d\n",
-> > +                               ret);
-> > +                       call_void_vb_qop(vb, buf_cleanup, vb);
-> > +                       goto err_put_vb2_buf;
-> > +               }
-> > +       }
-> > +
-> >         ret = call_vb_qop(vb, buf_prepare, vb);
-> >         if (ret) {
-> >                 dprintk(q, 1, "buffer preparation failed\n");
-> > +               if (q->uses_cpu_access)
-> > +                       __vb2_buf_end_cpu_access(vb, vb->num_planes);
-> >                 call_void_vb_qop(vb, buf_cleanup, vb);
-> >                 goto err_put_vb2_buf;
-> >         }
-> > @@ -1756,6 +1831,8 @@ int vb2_core_remove_bufs(struct vb2_queue *q, unsigned int start, unsigned int c
-> >
-> >                 __vb2_buf_mem_finish(vb);
-> >                 call_void_vb_qop(vb, buf_finish, vb);
-> > +               if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-> > +                       __vb2_buf_end_cpu_access(vb, vb->num_planes);
-> >                 vb->prepared = 0;
-> >         }
-> >
-> > @@ -2160,6 +2237,8 @@ int vb2_core_dqbuf(struct vb2_queue *q, unsigned int *pindex, void *pb,
-> >         }
-> >
-> >         call_void_vb_qop(vb, buf_finish, vb);
-> > +       if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-> > +               __vb2_buf_end_cpu_access(vb, vb->num_planes);
-> >         vb->prepared = 0;
-> >
-> >         if (pindex)
-> > @@ -2296,6 +2375,8 @@ static void __vb2_queue_cancel(struct vb2_queue *q)
-> >
-> >                 if (vb->prepared) {
-> >                         call_void_vb_qop(vb, buf_finish, vb);
-> > +                       if (q->memory == VB2_MEMORY_DMABUF && q->uses_cpu_access)
-> > +                               __vb2_buf_end_cpu_access(vb, vb->num_planes);
-> >                         vb->prepared = 0;
-> >                 }
-> >                 __vb2_dqbuf(vb);
-> > diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-> > index 9ce6284cd5f26..68c146c043fb1 100644
-> > --- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-> > +++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
-> > @@ -768,7 +768,8 @@ static void vb2_dc_detach_dmabuf(void *mem_priv)
-> >  }
-> >
-> >  static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
-> > -                                 struct dma_buf *dbuf, unsigned long size)
-> > +                                 struct dma_buf *dbuf, unsigned long size,
-> > +                                 enum dma_data_direction dma_dir)
-> >  {
-> >         struct vb2_dc_buf *buf;
-> >         struct dma_buf_attachment *dba;
-> > @@ -794,7 +795,7 @@ static void *vb2_dc_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
-> >                 return dba;
-> >         }
-> >
-> > -       buf->dma_dir = vb->vb2_queue->dma_dir;
-> > +       buf->dma_dir = dma_dir;
-> >         buf->size = size;
-> >         buf->db_attach = dba;
-> >
-> > diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-> > index b1d0695cda260..ab03f9d31391a 100644
-> > --- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-> > +++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
-> > @@ -616,7 +616,8 @@ static void vb2_dma_sg_detach_dmabuf(void *mem_priv)
-> >  }
-> >
-> >  static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
-> > -                                     struct dma_buf *dbuf, unsigned long size)
-> > +                                     struct dma_buf *dbuf, unsigned long size,
-> > +                                     enum dma_data_direction dma_dir)
-> >  {
-> >         struct vb2_dma_sg_buf *buf;
-> >         struct dma_buf_attachment *dba;
-> > @@ -640,7 +641,7 @@ static void *vb2_dma_sg_attach_dmabuf(struct vb2_buffer *vb, struct device *dev,
-> >                 return dba;
-> >         }
-> >
-> > -       buf->dma_dir = vb->vb2_queue->dma_dir;
-> > +       buf->dma_dir = dma_dir;
-> >         buf->size = size;
-> >         buf->db_attach = dba;
-> >         buf->vb = vb;
-> > diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-> > index 63f023696f3ee..c38faa0188bc9 100644
-> > --- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-> > +++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
-> > @@ -402,7 +402,8 @@ static void vb2_vmalloc_detach_dmabuf(void *mem_priv)
-> >  static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
-> >                                        struct device *dev,
-> >                                        struct dma_buf *dbuf,
-> > -                                      unsigned long size)
-> > +                                      unsigned long size,
-> > +                                      enum dma_data_direction dma_dir)
-> >  {
-> >         struct vb2_vmalloc_buf *buf;
-> >
-> > @@ -414,7 +415,7 @@ static void *vb2_vmalloc_attach_dmabuf(struct vb2_buffer *vb,
-> >                 return ERR_PTR(-ENOMEM);
-> >
-> >         buf->dbuf = dbuf;
-> > -       buf->dma_dir = vb->vb2_queue->dma_dir;
-> > +       buf->dma_dir = dma_dir;
-> >         buf->size = size;
-> >
-> >         return buf;
-> > diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-> > index 4b4f4c15c53a7..8dfe22fa4423c 100644
-> > --- a/include/media/videobuf2-core.h
-> > +++ b/include/media/videobuf2-core.h
-> > @@ -78,7 +78,8 @@ struct vb2_buffer;
-> >   *             to the userspace, also optional.
-> >   * @attach_dmabuf: attach a shared &struct dma_buf for a hardware operation;
-> >   *                used for DMABUF memory types; dev is the alloc device
-> > - *                dbuf is the shared dma_buf; returns ERR_PTR() on failure;
-> > + *                dbuf is the shared dma_buf; dma_dir is the DMA mapping
-> > + *                direction; returns ERR_PTR() on failure;
-> >   *                allocator private per-buffer structure on success;
-> >   *                this needs to be used for further accesses to the buffer.
-> >   * @detach_dmabuf: inform the exporter of the buffer that the current DMABUF
-> > @@ -136,7 +137,8 @@ struct vb2_mem_ops {
-> >         void            *(*attach_dmabuf)(struct vb2_buffer *vb,
-> >                                           struct device *dev,
-> >                                           struct dma_buf *dbuf,
-> > -                                         unsigned long size);
-> > +                                         unsigned long size,
-> > +                                         enum dma_data_direction dma_dir);
-> >         void            (*detach_dmabuf)(void *buf_priv);
-> >         int             (*map_dmabuf)(void *buf_priv);
-> >         void            (*unmap_dmabuf)(void *buf_priv);
-> > @@ -510,6 +512,11 @@ struct vb2_buf_ops {
-> >   *             ->finish().
-> >   * @non_coherent_mem: when set queue will attempt to allocate buffers using
-> >   *             non-coherent memory.
-> > + * @uses_cpu_access: the driver transfers buffer data with the CPU instead of
-> > + *             DMA. For imported dma-bufs, videobuf2 brackets the interval from
-> > + *             buf_prepare through buf_finish with dma_buf_begin_cpu_access()
-> > + *             and dma_buf_end_cpu_access(). Imported attachments use
-> > + *             bidirectional DMA mappings.
-> >   * @lock:      pointer to a mutex that protects the &struct vb2_queue. The
-> >   *             driver must set this to a mutex to let the v4l2 core serialize
-> >   *             the queuing ioctls. This lock is used when waiting for a new
-> > @@ -614,6 +621,7 @@ struct vb2_queue {
-> >         unsigned int                    uses_requests:1;
-> >         unsigned int                    allow_cache_hints:1;
-> >         unsigned int                    non_coherent_mem:1;
-> > +       unsigned int                    uses_cpu_access:1;
-> >
-> >         struct mutex                    *lock;
-> >         void                            *owner;
+Patch 1 is the fix: CHECKSUM_PARTIAL is kept only for the TCP or UDP
+checksum of an unfragmented IPv4/IPv6 packet, not IP-in-IP or GRE
+encapsulated, on an Ethernet device; other requests are completed in
+software at the sender. Frames without a linear part
+(IFF_TX_SKB_NO_LINEAR) are left unchanged. One visible change: a request
+on a frame that is itself an IP fragment is completed over that fragment
+alone, as a device would, so the reassembled datagram no longer has a
+valid transport checksum and conntrack marks it invalid; before, if
+every fragment carried a request, it stayed CHECKSUM_PARTIAL and was
+completed on refragmentation.
 
+Patch 2 documents the new behaviour in xsk-tx-metadata.rst. It is kept
+separate so that patch 1 stays within the stable size limit.
+
+Patch 3 is defence in depth: the IPv6 counterpart of
+ip_check_csum_start() on the two IPv6 fragmentation paths,
+ip6_fragment() and br_ip6_fragment(). For IPv4 the check is also
+called from nfnetlink_queue, xt_CHECKSUM and xfrm_output; their IPv6
+counterparts are not changed here, and a check at reassembly time would
+cover more. Patch 1 does not depend on it, and it is not marked for
+stable.
+
+Testing, on netdev/net 82e31923c055, arm64 under QEMU:
+- reproducer (fragmented IPv6/UDP over veth into a namespace with an
+  nftables forward rule on "ip6 saddr", csum_start/csum_offset 22/22;
+  an unfragmented packet with 14/22 and TX checksum offload off on the
+  egress veth; csum_start 20): without the series the source address is
+  rewritten after the forward hook accepted the packet, and
+  skb_checksum_help() warns. With the series, or with patch 1 alone,
+  nothing is rewritten after the accept and there is no warning; with
+  patch 3 alone the fragmented cases are not sent on (ip6_fragment()
+  drops them) and the unfragmented case is not covered
+- a legitimate IPv6/UDP request (csum_start at the UDP header, offset 6)
+  is still sent CHECKSUM_PARTIAL and delivered to a UDP socket
+- which requests stay CHECKSUM_PARTIAL, observed on the veth peer with
+  PACKET_AUXDATA: IPv4/UDP, IPv4/TCP, IPv4 with options, IPv6/UDP, IPv6
+  with a hop-by-hop header and VLAN-tagged IPv6/UDP stay partial; a
+  wrong csum_offset, csum_start in the IP header, IPv4 and IPv6 first
+  fragments, IPIP and ICMP are completed in software with the correct
+  value. Without the series all of them stay partial.
+- tools/testing/selftests/bpf: test_progs -t xdp_metadata passes with
+  and without the series
+- on a kernel with KASAN, PROVE_LOCKING, PROVE_RCU,
+  DEBUG_ATOMIC_SLEEP, DEBUG_PREEMPT, DEBUG_PAGEALLOC and
+  DEBUG_OBJECTS_RCU_HEAD, no warnings: with the series, the
+  reproducer, the classification test and the selftest; without it,
+  the selftest and the legitimate request
+- W=1 and sparse (C=1) on the changed files in allmodconfig builds for
+  arm64, x86_64, i386 and s390: no warnings, with or without the
+  series; checkstack unchanged; arm64 allnoconfig and an INET=n build
+  with XDP_SOCKETS=y build; checkpatch --strict is clean; htmldocs for
+  networking builds without warnings for xsk-tx-metadata.rst
+- arm64 allmodconfig and allyesconfig with W=1 build, with no warning
+  in the changed files (CONFIG_WERROR and the DRM *_WERROR options
+  were turned off: with gcc 15, existing W=1 warnings in unrelated
+  files otherwise stop the build)
+Not tested: IFF_TX_SKB_NO_LINEAR (virtio_net) devices, multi-buffer
+frames, an attached BPF flow dissector, a sender in an unprivileged
+user namespace, x86 at runtime, and patch 3 with tun/tap or packet
+socket sources of CHECKSUM_PARTIAL (the same header rewrite through a
+tap device was reproduced on mainline earlier, but not re-run with
+patch 3).
+
+The issue was found, and the patches and tests prepared, with LLM
+assistance (see the Assisted-by tags). I have reviewed the changes and
+the test results. A reproducer is available on request.
+
+[1] https://lore.kernel.org/r/cover.1792411304.git.mst@redhat.com
+
+Nick Simpson (3):
+  xsk: validate checksum offload requests in copy mode
+  xsk: document checksum offload handling in copy mode
+  ipv6: validate checksum_start before fragmenting
+
+ Documentation/networking/xsk-tx-metadata.rst |  7 ++-
+ include/net/ipv6.h                           | 12 ++++
+ net/ipv6/ip6_output.c                        | 10 +++-
+ net/ipv6/netfilter.c                         | 10 +++-
+ net/xdp/xsk.c                                | 58 ++++++++++++++++++++
+ 5 files changed, 90 insertions(+), 7 deletions(-)
+
+
+base-commit: 82e31923c0553fdbfcddcd910ca07952880ca9b9
 -- 
-Regards,
+2.53.0
 
-Laurent Pinchart
