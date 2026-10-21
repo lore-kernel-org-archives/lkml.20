@@ -1,112 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792626988;
-	b=dz15+dTlpI3YCZpwGPAo6sC2lYQgaICvx3qj+132u+fI+deyRaIt3bSeZm46l2/ndmiF
-	 oAv85Fp66lTo5bBMTYRdZ4+gvbVsy8Y7X31otJZgTxEsoLRqcd2yaeHNzo3aEo+TZjM+N
-	 RHLWcM3iscuh+qtV3ZcwAckJ8eake5TCk2hcvwaYnAnyZ18Ua7WcjVByIjQbEUnhBwZar
-	 t1M5n29iHShzNZfADOddcfgu3EYL+OoY6ipQz1zlisuL3444/7lVPuHolvBCPGXQ/A+WW
-	 nsvirVbEB60I4WqPgSIslVUcvhnki39P85y1M3t70uU4ZqUJZkojh9hKJDm3gvw9jJw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792626988;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9X5fZ/FbtwVEHohDXP7Y9pADWXE7M/FKsbGY4MERs24=;
-	b=Cyollz7wYpdBa+XSjzT3WuEvNla8/sHuqUAptsnyI7qz5pAuXZtbegHFFHUe8jK9eSLx
-	 nzVjWbPiSOokw/o0a2sWqWCBnUIOAO0J/A/5lzlbtwP530xXyZE1sDZAUqYByPp8Ym8rK
-	 CITurgW8K7Unv6JA6R8MssY6mOizQT8FipK49ek5RMiTxHZynFxpRxN/d1w8qFPjfD0HP
-	 nqfayrbEPk1erqjIgBZ5LUlx2K7pz7TdXw98Q4AV3oUIa/RdEve/tXI72gQO8CMlRTf+N
-	 NICkUXuBXznVo4qedxqIO7D5G2HVksZTKW7ksimeHdjNOzbFoPm9WD3+vbb1NmGARTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cOpxvwVT;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792627097;
+	b=0VTaJvgqjvBeUahq7Jon0SAkvIWPnpRBStMxwNEmaamLKRtls+EdjF+a9LyQLaBzY9hQ
+	 wssHHwZXH9sC9gT5ccSlEgL21iU8by5QBa2ZXySPGsy0APFZZPc0HQz4ZWhPSHWXU2YM+
+	 aS5XwaJcGBPPXikoxg9nZZMIpwslATaJtZmzGW5cJHoIu0iN7e7fzRYjnHxSPxN/em6XL
+	 MM/baLngjoX5JeaPBJwntIS//1Ml64FS/dZfZlTasnIu7zBxLIL4PjAGbLuf5N+DK3PSQ
+	 vdzE++Z0C2GqZHGjStKhVneNR0XioAnjEW4le4RGXomSJYkXWGH01QQgTHF9ZEJiR0g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792627097;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PVO/xI+Q6StmOq54Kw84feMW9Wpfq5xDoAh0/gYL794=;
+	b=O75n/ruAbqruQngXdHYRR9ND4PEorVSbOXzbW3nhFtpkJB3WFiGMNEEEi7fAWTQlgqHo
+	 Sb/BB1gAr8DK6dBCTJCCe114dBpmUsT6AGYTom/qSVSwH+Rs6ItfVlsjckyRraqtTGil5
+	 k2QkW+U8oREQ1/80BbySi1Vnn0pdz9EAR/deoItiSm6GzTg8N0U6Memt7gWX+BqIyExE4
+	 6boLokwfAIGkbOR0TOnYuT4+3uO+AtEuu/FYX0mpP148fdYDtShWpa4mMpX0ZbnMZBvkA
+	 8nQ8t57Xvqtw1xjYRsIBbp7M63IW8JVmc/SBJFALB2Os1LuwUtejf4NCmCYVDanhuEg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tPUlbtZ3;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.34
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013034.outbound.protection.outlook.com [40.107.201.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A32FF606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A32FF606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8C87606A319;
+	Wed, 21 Oct 2026 23:58:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8C87606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cOpxvwVT
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a07078200fso544369b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:56:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792626987; x=1793231787; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9X5fZ/FbtwVEHohDXP7Y9pADWXE7M/FKsbGY4MERs24=;
-        b=cOpxvwVTTia8/hMhYfRnL7Y9HyYoSCfwu8BXodIE6ulBJ8tFd4t5LBI3/sQGtVygGH
-         PUaZOJk+seK4wooDwEOB08hMpocCUJk20T30rW7seK3TWzFpZaZlmeLT6y5aKkHJsNVL
-         qH0xP6i9aO1roX8EuU3Nefyxrud9r9zd5N1s6iNFcZ6zBsZsidTRy3CE/ewkkvYFg1Va
-         cEa4+Uys6sEO95J2Dw8eMlTPHI5oUPF/zplHAca/egHV3e61/v7ZBnjy/uDlci5AR1FI
-         2OVn74jMKXXFiIuDtxY2+4l0nos1xY2++I0xpSJvSLfs/Xop5yGs4dZ1BIXDEVZ9SSjK
-         v8Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792626987; x=1793231787;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9X5fZ/FbtwVEHohDXP7Y9pADWXE7M/FKsbGY4MERs24=;
-        b=vCA5B67ezWeBx/ASw7T/ReKD1zjayNAveWl7SJxQadVbscg7AEoRemyOT7gqh4AVZx
-         QO+Y0qllj7HsjJSRwI00iEX/awDFWgZQoXreMO+eVdw2qK96RHMR6HGQhVXt683/i9rE
-         9coeiH9dx9bjpg0UOx1ieyVZESVL+5EWQiHb4eN3iYepqnJk2ZEEfULbGvC8IjQ4hS8T
-         RLQuEolQRLN7cFDf1vIYcntWPd7agl/3dDAgndFZ3MusSKJMnC6SAM8XJGCJv9l9rNsJ
-         pNQYlSTvdvIe6x4qIFeRWQaGKYI9cgaidSppvffeNuJ5OwCXPZVAzA/qVC8app6bnZje
-         oWkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/A66R4QAvwkrn5+zmtqM3/9dNH2gxqXWgDfqlAdJz5xrbGsKnvzMJ+Gyv7JWrs6WmpA8VR5DNN3fEH7Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7evU1heaj8hI7qGzhtwY7K5U03GTMmcp2HgYPAMcavZ4cRjNF
-	eRjLfIqYVWnpM+7JEgVadH2f3DcVl7tmFx0SwBkujNkCMlT7HWmhDczf
-X-Gm-Gg: AYBFou03oOcwqthv/wk46M1/uTCm1vmpi5JMlHVSHNmnaLF6GqW7acNxqecIaKQYsU9
-	CmQHxc7cDIkmyIXNkFSW/uHayf/9oAhL4r5Hkp+MEf/e0dSEpFi1+gkdmzLdvDoIqnntul7SgVf
-	LBGWp7QAxYINXFUAnlfYoqnQdT2asNCvdxsDpQvBwQRfmkGrP0UUn/mFr9UAQaKNjYm+pUz14cr
-	q/2IMoq7BC0qbd6kuEIFHEBWImp1p8q1Hd0J6lIS9eJtdEHJL6viQpCkUbAijil1dNHnb7Ue0jH
-	8gFYxFXs9rnzE2KDol2cXZ5PNgcEse54f7hEV4H4o+6JNkmn/Fxs8SrzYdVTj41g1lAPol9vTYP
-	g3iztQcak6Qpgw4oNzRHqDcjnCU40ULeq/9ZzPFZVB2+kSFuJnJ2kmz2vQ8wii3Zqr6qHqO0RNb
-	SSQJQbvqwrmdiHReFL/BE7d6TtheyhY+yOiIMg1sciKc80c2MU1H+Wu9a+znS3k2KBlvi9gu4K0
-	wH6SLEIw5WHFwlUl5RjVfl8boG3ir10JY4MOxGiQas9V/dIrF5kLUr1fDoRJXElgpFa/yo3Ta42
-	23JH1nTjiEnuUlvpB35Sy99RPf2WabDK2hwgMR3fTH+z6ua28ph0zHsc8+FswpH0PeDEvd8a5xV
-	9WYMU6h6dYu1DeVamGOk+AzPTCYG6n4BC5+tf4+bzdyIkBFPRYLW1hzAn47gHucZKHHg=
-X-Received: by 2002:a05:6a00:4185:b0:89e:9c7e:fd56 with SMTP id d2e1a72fcca58-8a089d1fd3emr2665695b3a.33.1792626987000;
-        Wed, 21 Oct 2026 16:56:27 -0700 (PDT)
-Received: from sid-dev-env.cgrhrlrrq2nuffriizdlnb1x4b.xx.internal.cloudapp.net ([4.155.54.158])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895fa696sm1366733b3a.45.2026.10.21.16.56.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 16:56:26 -0700 (PDT)
-From: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-To: akpm@linux-foundation.org,
-	hannes@cmpxchg.org
-Cc: david@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	ljs@kernel.org,
-	kasong@tencent.com,
-	baohua@kernel.org,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	baoquan.he@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	yuzhao@google.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	apais@microsoft.com,
-	rlmenge@gmail.com,
-	Siddharth Chintamaneni <sidchintamaneni@gmail.com>,
-	Hardik Garg <hargar@linux.microsoft.com>
-Subject: [PATCH v1 2/2] mm: multi-gen LRU: remove get_lruvec()
-Date: Wed, 21 Oct 2026 23:56:06 +0000
-Message-ID: <20261021235606.89545-2-sidchintamaneni@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tPUlbtZ3
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DEeBcpKcVgD/FSd9HuY4MBUDXssuc43Li+owy0bi5MAYdtPrgyBby4Q4nC76ACL6a9dbxmDYlfSCJkn+LE/uAH2QOtq/dzsL6hOxKrW/qhL7PBV6BAtkOlVAUFZ4F2wob2nmd5FgejA4268zPb6TYSis1IqbqeOaNDFIPJLYyoxCl4BjUUpsi3SxqVfkV3D07gZ/V/Kysle6lI/9efFYNyOmiHwm216vDZRRM62TpZ6V77J7xZ/MExsFAQoZza5gGz4gwbt5OUq3fEg5eIud1lCu/KunGuTHGEsi3PYRSfdyRY/kscN5G3WdNXdi7kJ1jJnnoob/bAXnJCSmrjrPSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PVO/xI+Q6StmOq54Kw84feMW9Wpfq5xDoAh0/gYL794=;
+ b=Ka76+TMM/ogYqT56O5mJ3Z6CVxZY/yT4k0vTtdRcgOSreLAjdBIheVO7YndOsk1xK1J20l1jFTpD2etNWJVMDk8zUivUMmWzbIZfV+d+5O1iqlqzlA+wF2m+WbxoaSYSAoBK5fy8H5+spsIZ7Iq0W8u+4JQBqW+YuCZW2QpO8m81++GGKhtAqKDlXpoX+CSOgo3QCi7VG7M2O9e5ZSVPb4DozmyajlUxszg2GCIihDNYWGpoyng9ntYqP9YRrlY/BxciCbMjDYP+LSH9Y+aayYKgU1KAJpUWSmlOv5+kdag9Z+e0o3a+r9T7s3u3OsT6F6W5P9v3DYmrw5GF/Tp3xg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PVO/xI+Q6StmOq54Kw84feMW9Wpfq5xDoAh0/gYL794=;
+ b=tPUlbtZ3F6n2mHifaB5RzChMDktII9U9lhPhyRQd123n/wS8kUG83bZpgM+wu9ytNe/d/PMLfl/Hk4hNaE7TpO2/boKqj1VH+K3O7Sm5prUlU5muXkb43u8gA4TWciUzdhoVl8FEv5sHihCb1pbKZp2cfIm3kwJ0Onf/zGDwi1A=
+Received: from BN8PR04CA0066.namprd04.prod.outlook.com (2603:10b6:408:d4::40)
+ by SA1PR12MB6894.namprd12.prod.outlook.com (2603:10b6:806:24d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
+ 2026 23:58:09 +0000
+Received: from BN2PEPF0000A994.namprd04.prod.outlook.com
+ (2603:10b6:408:d4:cafe::ae) by BN8PR04CA0066.outlook.office365.com
+ (2603:10b6:408:d4::40) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Wed,
+ 21 Oct 2026 23:58:09 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF0000A994.mail.protection.outlook.com (10.167.248.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 23:58:09 +0000
+Received: from bmoger-ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
+ 2026 18:58:08 -0500
+From: Babu Moger <babu.moger@amd.com>
+To: <babu.moger@amd.com>, <tony.luck@intel.com>, <reinette.chatre@intel.com>,
+	<bp@alien8.de>
+CC: <x86@kernel.org>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<corbet@lwn.net>, <skhan@linuxfoundation.org>, <rdunlap@infradead.org>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <kas@kernel.org>, <rick.p.edgecombe@intel.com>,
+	<linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+	<linux-coco@lists.linux.dev>, <kvm@vger.kernel.org>
+Subject: [PATCH v5 0/2] x86,fs/resctrl: Keep default MBM mode at boot and fix ABMC programming
+Date: Wed, 21 Oct 2026 18:58:00 -0500
+Message-ID: <cover.1792627082.git.babu.moger@amd.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021235606.89545-1-sidchintamaneni@gmail.com>
-References: <20261021235606.89545-1-sidchintamaneni@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,173 +110,135 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A994:EE_|SA1PR12MB6894:EE_
+X-MS-Office365-Filtering-Correlation-Id: 630e5f0a-42c0-483b-ab1b-08df2fcf286e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|1800799024|7416014|376014|261021121427099003|6133799003|18002099003|3023799007|13003099007|261021123027099003|11063799006|260925021911599003|260925021311599003|261009223027099003|10067099003|260925022911599003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	VHzHRhMaF39vURY8ophowf/xh2LcVEmnFXYdqLK9uI/5b5/aefaAetRtsH/EmQLmHx4A8H6gw8WxvgQariVlSznYUkayxywodphdgYyOlwS2eztQN3zmte/WOoGQm7u+hS8EmRmPS3WB65CtBKjIXQO8K4/OlsJNXxxQCFZni/w5yiMTJBOsmxQ1YFwR5rB+3VgWPh7Q7p42cqXy0KWZ5Bf+nT1wKw34pFDYZdrd6KZnaNyQ4CUSJmnq/9yOw9QI3FuONrcGJzwIm//In82vWKRCoNLu58pA++4iu8uvZgrOl9LZAsEIntrdzUEF0ZTL7u/8LdviCJOJSyiFjct5frYGmWhiuVJN4sIo7QT4mT08fvLEGh7P3iOk9mFNuCeQucLu4Zx2JgeSXoA0hDZnQxM14DJaAFuPVWWqSFBS8+3hvtt6mW8iwnmu0YLbJZFwuSY87pXHkfreaO3QYEjBebIaW8P/nUhvbT4pQZTx5/mzDFjZfT7uvDEaZ2btoYbM/Ig5l+7DhivOqU6kNLzlg8gsiXfnt0V+f0/WYm9Qj6lZgVPKZcgR0fHoLoAUjCQuf1Ivg0qtrqHaGe1qVMn29UkoNc8QjTQEpuMD1vbYrbLglmUxCr58YbrkMXdBII6LyHLAd059yg+gE5ooVKD6KA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(7416014)(376014)(261021121427099003)(6133799003)(18002099003)(3023799007)(13003099007)(261021123027099003)(11063799006)(260925021911599003)(260925021311599003)(261009223027099003)(10067099003)(260925022911599003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ktSMrNvyp26DWgqO9qsi93yChh8ooswIUPwGscFc7D5JIiCbKyBE4je+CPlskLxBuK+aN8Xh+nLvR/sdKDIZ5vr2gH4wq+KwV5r+6YBwEOjWoHMEcIfI3ZQjkgzu0XhSKuoBZzwCYBoQ9IHFcXEHm4CMZx1Op7MfiZV8Wp0frO6bJ9UY2xyQr1cNChIA4HRR+PrnAk3UPbK4I4IgYN+s0M7hgWuFHn/DxvK7/S9YCtDiYIywctW8nf72nhmHA8or8m+QRO43ugS4dE8IEDq5rqcgwH9sNfb3xw3+gB6/iVnKZjGjGgPLRJs1Dvh0/xNPX8KswgFxrXv9wOBrgMnu1P7x3ZimIQKKHKq/12MbDQhIK6TWyUOkZXKF3trAvsZn3yQZwS0wznylw7yt00biQy1mPGxVyNZH3C91pQ+zTEJ/eos/2IeE530K1z+6ttij
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 23:58:09.2577
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 630e5f0a-42c0-483b-ab1b-08df2fcf286e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A994.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6894
 
-get_lruvec() was originally introduced in commit ec1c86b25f4b ("mm:
-multi-gen LRU: groundwork") to guard against NULL NODE_DATA(nid) on
-uninitialized NUMA nodes (`return pgdat ? &pgdat->__lruvec : NULL;`).
-After commit 09f49dca570a ("mm: handle uninitialized numa nodes
-gracefully") and commit 931b6a8b36a2 ("mm: multi-gen LRU: remove NULL
-checks on NODE_DATA()"), that NULL check was removed, leaving
-get_lruvec() as a thin wrapper around mem_cgroup_lruvec().
 
-Remove get_lruvec() and call mem_cgroup_lruvec() directly at all call
-sites.
+Hi All,
 
-Cc: Barry Song <baohua@kernel.org>
-Signed-off-by: Siddharth Chintamaneni <sidchintamaneni@gmail.com>
-Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
----
- mm/vmscan.c | 39 +++++++++++++++------------------------
- 1 file changed, 15 insertions(+), 24 deletions(-)
+This series restores default MBM assignment mode at boot, and fixes ABMC
+programming for more than 32 counters.
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 99e9f07fa2e1..5767b94fd8e8 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -2741,15 +2741,6 @@ static bool should_clear_pmd_young(void)
- #define get_memcg_gen(seq)	((seq) % MEMCG_NR_GENS)
- #define get_memcg_bin(bin)	((bin) % MEMCG_NR_BINS)
- 
--static struct lruvec *get_lruvec(struct mem_cgroup *memcg, int nid)
--{
--	struct pglist_data *pgdat = NODE_DATA(nid);
--
--	VM_WARN_ON_ONCE(!memcg && !mem_cgroup_disabled());
--
--	return mem_cgroup_lruvec(memcg, pgdat);
--}
--
- static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
- {
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-@@ -2942,7 +2933,7 @@ void lru_gen_add_mm(struct mm_struct *mm)
- 	spin_lock(&mm_list->lock);
- 
- 	for_each_node_state(nid, N_MEMORY) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		struct lru_gen_mm_state *mm_state = get_mm_state(lruvec);
- 
- 		/* the first addition since the last iteration */
-@@ -2972,7 +2963,7 @@ void lru_gen_del_mm(struct mm_struct *mm)
- 	spin_lock(&mm_list->lock);
- 
- 	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		struct lru_gen_mm_state *mm_state = get_mm_state(lruvec);
- 
- 		/* where the current iteration continues after */
-@@ -4424,7 +4415,7 @@ void lru_gen_online_memcg(struct mem_cgroup *memcg)
- 
- 	for_each_node(nid) {
- 		struct pglist_data *pgdat = NODE_DATA(nid);
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
- 
- 		spin_lock_irq(&pgdat->memcg_lru.lock);
- 
-@@ -4446,7 +4437,7 @@ void lru_gen_offline_memcg(struct mem_cgroup *memcg)
- 	int nid;
- 
- 	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 		lru_gen_rotate_memcg(lruvec, MEMCG_LRU_OLD);
- 	}
-@@ -4459,7 +4450,7 @@ void lru_gen_release_memcg(struct mem_cgroup *memcg)
- 
- 	for_each_node(nid) {
- 		struct pglist_data *pgdat = NODE_DATA(nid);
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, pgdat);
- 
- 		spin_lock_irq(&pgdat->memcg_lru.lock);
- 
-@@ -4480,7 +4471,7 @@ void lru_gen_release_memcg(struct mem_cgroup *memcg)
- 
- void lru_gen_soft_reclaim(struct mem_cgroup *memcg, int nid)
- {
--	struct lruvec *lruvec = get_lruvec(memcg, nid);
-+	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 	/* see the comment on MEMCG_NR_GENS */
- 	if (READ_ONCE(lruvec->lrugen.seg) != MEMCG_LRU_HEAD)
-@@ -4489,7 +4480,7 @@ void lru_gen_soft_reclaim(struct mem_cgroup *memcg, int nid)
- 
- bool recheck_lru_gen_max_memcg(struct mem_cgroup *memcg, int nid)
- {
--	struct lruvec *lruvec = get_lruvec(memcg, nid);
-+	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 	int type;
- 
- 	for (type = 0; type < ANON_AND_FILE; type++) {
-@@ -4536,7 +4527,7 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
-  */
- void max_lru_gen_memcg(struct mem_cgroup *memcg, int nid)
- {
--	struct lruvec *lruvec = get_lruvec(memcg, nid);
-+	struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 	int type;
- 
- 	for (type = 0; type < ANON_AND_FILE; type++) {
-@@ -4613,8 +4604,8 @@ void lru_gen_reparent_memcg(struct mem_cgroup *memcg, struct mem_cgroup *parent,
- 	struct zone *zone;
- 	enum lru_list lru;
- 
--	child_lruvec = get_lruvec(memcg, nid);
--	parent_lruvec = get_lruvec(parent, nid);
-+	child_lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
-+	parent_lruvec = mem_cgroup_lruvec(parent, NODE_DATA(nid));
- 
- 	for_each_managed_zone_pgdat(zone, NODE_DATA(nid), zid, MAX_NR_ZONES - 1)
- 		for (type = 0; type < ANON_AND_FILE; type++)
-@@ -5370,7 +5361,7 @@ static void lru_gen_change_state(bool enabled)
- 		int nid;
- 
- 		for_each_node(nid) {
--			struct lruvec *lruvec = get_lruvec(memcg, nid);
-+			struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 			lruvec_lock_irq(lruvec);
- 
-@@ -5501,7 +5492,7 @@ static void *lru_gen_seq_start(struct seq_file *m, loff_t *pos)
- 
- 		for_each_node_state(nid, N_MEMORY) {
- 			if (!nr_to_skip--)
--				return get_lruvec(memcg, nid);
-+				return mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		}
- 	} while ((memcg = mem_cgroup_iter(NULL, memcg, NULL)));
- 
-@@ -5533,7 +5524,7 @@ static void *lru_gen_seq_next(struct seq_file *m, void *v, loff_t *pos)
- 		nid = first_memory_node;
- 	}
- 
--	return get_lruvec(memcg, nid);
-+	return mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- }
- 
- static void lru_gen_seq_show_full(struct seq_file *m, struct lruvec *lruvec,
-@@ -5715,7 +5706,7 @@ static int run_cmd(char cmd, u64 memcg_id, int nid, unsigned long seq,
- 		goto done;
- 
- 	sc->target_mem_cgroup = memcg;
--	lruvec = get_lruvec(memcg, nid);
-+	lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 
- 	if (swappiness < MIN_SWAPPINESS)
- 		swappiness = get_swappiness(lruvec, sc);
-@@ -5899,7 +5890,7 @@ void lru_gen_exit_memcg(struct mem_cgroup *memcg)
- 	VM_WARN_ON_ONCE(mm_list && !list_empty(&mm_list->fifo));
- 
- 	for_each_node(nid) {
--		struct lruvec *lruvec = get_lruvec(memcg, nid);
-+		struct lruvec *lruvec = mem_cgroup_lruvec(memcg, NODE_DATA(nid));
- 		struct lru_gen_mm_state *mm_state = get_mm_state(lruvec);
- 
- 		VM_WARN_ON_ONCE(memchr_inv(lruvec->lrugen.nr_pages, 0,
+Commit 0f1576e43adc ("x86/resctrl: Configure mbm_event mode if supported")
+enabled ABMC at boot. That breaks the pqos tool from intel-cmt-cat [1],
+which treats a non-numeric event read as zero bandwidth. pqos creates 16
+or more groups and uses two counters per group. On a platform with 32
+counters per domain, that consumes the pool, so further groups read
+"Unassigned" and pqos reports 0 MB/s.
+
+Leaving the mode at default does not make pqos correct. pqos still
+treats "Unavailable" as zero. Once the default-mode counter pool is
+exceeded, hardware can re-allocate a counter between reads and pqos can
+report that as a wraparound. That shows up only after the pool is
+exceeded. Default mode uses one counter per monitoring group. On existing
+AMD platforms that pool is 64 counters and may be larger on newer
+hardware, so common deployments stay within it. mbm_event mode uses two
+counters per group, so the same 32 counters cover only 16 groups.
+
+mbm_event remains available as an opt-in. Users that need stable
+measurements beyond the default-mode pool should enable it and rotate
+assignments. The limitation of default mode is documented.
+
+Patch 1: widen cntr_id in L3_QOS_ABMC_CFG from 5 bits to 12 bits, and
+limit the enumerated counter count to 4096, which is what that field can
+encode. The APM [2] at [3] will be updated for the expanded cntr_id field.
+
+Patch 2: leave mbm_assign_mode as "default" at boot. Counters are not
+assigned automatically. So, update resctrl documentation to replect that.
+
+Based on tip/master:
+  6b27d3127c05 Merge branch into tip/master: 'x86/tdx'
+
+[1] https://github.com/intel/intel-cmt-cat/issues/311
+[2] AMD64 Architecture Programmer's Manual Volume 2: System Programming,
+    Publication #24593, Revision 3.41, Section 19.3.3.3 "Assignable
+    Bandwidth Monitoring (ABMC)"
+[3] https://bugzilla.kernel.org/show_bug.cgi?id=206537
+
+v5:
+ - Dropped patch 2 from v4, as auto-assignment is not a requirement
+   and should be left to the user.
+ - Patch 1: Added Reviewed-by tag from Reinette.
+ - Patch 2: Fixed a few typos.
+            Auto-assignment is not a requirement based on our discussion.
+            Updated the resctrl documentation to reflect this.
+
+v4:
+ - Patch 1: Updated changelog(from Reinette's input).
+ - Patch 2: Changelog update (Reinette's input).
+            Function comment update for rdtgroup_assign_cntrs().
+            Tag order update.
+ - Patch 3: Introduced mbm_event counter pool and default active counter pool.
+            Removed duplicate texts in resctrl.rst.
+            Re-arranged the tag order.
+v3:
+- Patch 1: drop the 32-bit u64 change and the bw_src widening. Cap the
+  enumerated counter count at 4096 instead of truncating the CPUID field.
+- Patch 2: clean up comments. Add Reported-by, Closes, and Cc: stable.
+- Patch 3: document one counter per group in default mode and two counters
+  per group in mbm_event mode. Describe the default-mode pool and the pqos
+  wraparound once that pool is exceeded.
+
+v2:
+- Added patch 2 to address Sashiko's comment regarding the documentation
+  issue. In fact, it exposed a real issue. When switching to mbm_event mode,
+  existing monitoring groups should be assigned counters whenever counters
+  are available. This provides a smooth transition between modes and aligns
+  the behavior with the existing auto-assignment mechanism.
+  https://sashiko.dev/#/patchset/8cb66e18e32e4087a9712c1e68ee6da614efe244.1784322818.git.babu.moger%40amd.com
+
+- Combine the two v1 patches and add patch 2 (assign existing groups
+  on mbm_event switch; Sashiko review).
+- Keep boot-default separate from the encoding/truncation fixes.
+- Document the default-mode counter-pool limitation.
+
+Previous versions:
+
+v1: https://lore.kernel.org/lkml/980f39d3a0e0d9f73925e362f835aeef070a1bc5.1784322818.git.babu.moger@amd.com/
+v2: https://lore.kernel.org/lkml/cover.1788545152.git.babu.moger@amd.com/
+v3: https://lore.kernel.org/lkml/cover.1790976400.git.babu.moger@amd.com/
+v4: https://lore.kernel.org/lkml/cover.1791589412.git.babu.moger@amd.com/
+
+Thanks
+Babu Moger
+
+
+Babu Moger (2):
+  x86/resctrl: Fix ABMC counter programming
+  x86,fs/resctrl: Keep mbm_assign_mode in default mode at boot
+
+ Documentation/filesystems/resctrl.rst  | 101 +++++++++++++++----------
+ arch/x86/kernel/cpu/resctrl/internal.h |   4 +-
+ arch/x86/kernel/cpu/resctrl/monitor.c  |   4 +-
+ 3 files changed, 67 insertions(+), 42 deletions(-)
+
 -- 
-2.45.4
+2.43.0
 
