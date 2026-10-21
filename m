@@ -1,112 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.172
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792541132;
-	b=2UCRjZZTA4T6KR1H6CCqTK96PKSz7EOsY0efnTrzUettBDpt8PCS/usUMfVaOfnUhdhA
-	 VW2CkNL51E/+Z3jWCwdMu502ZbVI5+jODbeKP1N550D/V3R9iIcAcroWmlnGPXboBeV5q
-	 ytaiEyImv9kpA/0bINdYdjC+QChKEL7h0fUIHltMO5ARUFU0+tklrsfXhUbhD3ZQENcgV
-	 y2ORlCnSM9j4xhRibnzsZN8mvwApaiMaTbqsxP1AldAtISNT4J0eN5PpF2ru2XRIvxt2+
-	 GNRCSqnW0KOtH/46hULeLYUzr/ZHXpg2kNFPGQiKA4rHfpVFwHds2d627zw0qObJCOw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792541132;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Message-ID:In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9KmVjMJTY8zcLg9QfQKrHKxwneViwt4HwZ1IqLmXRp8=;
-	b=Q02E39PIzji0fjq/2maHAUCvAAOedrosNiy0MZQYShiRITGs9P1b461XaPhn4mJ/DJd3
-	 Oj1jzVqNNomWVGIJ+Qq78HchAVvNm3yfOB/HaLsRx80KTMKWTHhfPmzV1W0ZJ0obAgx9x
-	 kR9d7M/bbeKzIoXeofL0du7eGHYa1tP0N0ZsZY6HbGFNDWDKXE8IJotYfmLxr+FFNdw/T
-	 0J7IGhkC4zeJ891mmBHiroW/RhaoG25CFvBgx282qlcQYmdlL+zch0lpeJ2sHjg3sVtLZ
-	 cS1URwPm6PZ4wbs5bV2q7osWN0M6vPehyQy+H+hKTdQJVkXmhtAeu39gAVNS76KWqPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oheBebjs;
-	arc=none smtp.remote-ip=209.85.221.172
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792541238;
+	b=rBAJCPVZupROdj1GAcz9iWxKIJGEAJcBeCuTNLka85lwJ1yfgjtjZeA1oTE1VQxyXf3W
+	 Uh2APsOankQ4mk0PQz/TYD3veXTrs1e0FKPJZqQitgsydrSCGkfIjBgi/bFmy/Ck8cf+f
+	 uEg9MRtskfj6r1nLA7fvsNuanzsQ4noL0PO+esIK3dxvIOqGZeUvG3hefZ1ILe/5lHafk
+	 ez0Ejjfiijsvs2hF34eBGtfvOZiw57oWjK3ptS1DH1GoleCqXxNnLNCnzj3zk336P7f2e
+	 us8nb4+H/O73mfQXwg1ESH1vTBiYw/pGRwyGECNCxH8p3J0k3EGMxGylCt/ILPZqBpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541238;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=;
+	b=L//GEI5yQCOGAqZSeVKUnRUN3EsNV999bfxGg+rC9l+rOUDJUrJ9N84a9qYNsfJszvwq
+	 +P+UfVMSz9hs3AiLXgFAD7Wqoq0eRMAp/rk/vYxiEblXpG2+SO6+A+3qAReXfFVuila5a
+	 K1cI74eJssnZ1MVf6bykIwbFjFHhe9T19/VswykRVmGjEH0ZSTynubnTPLSjmAguyrITG
+	 CyHwCmmwAkgjEO/tKF6zAtzcPG/Ehcd+eZgJ70lqHpQU+EBgxC7f3ONlc1nXK6oPeBTt8
+	 IYneh5XPUa3Yg8mwuasVmP6ikta66PVNpGoXJ1+0fAD3qQrdZnzHea1kNFVkT0b9UFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Kk64iPFI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED44606A323
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED44606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149D7606A319;
+	Wed, 21 Oct 2026 00:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149D7606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oheBebjs
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5e9a1f1681dso84350e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 17:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792541131; x=1793145931; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9KmVjMJTY8zcLg9QfQKrHKxwneViwt4HwZ1IqLmXRp8=;
-        b=oheBebjsamFrOmbLheQaS9kwhGj2/5c8GFJHxr1Jfk8Ef0D34wwjyBvsEuKf35hI0e
-         ztFETiGiNiTqwzVtvgcutrbe8xxY0xHvKLB2UNa5RoZIS0HWDfL6Dvty6FSovI5n6Xku
-         /KfXaRvgxwuzIdR4tzYn/Bt8iOegGcUfGHNA0QmVwZBoJ304o/WuLdOjczSNAyjAhMV2
-         wgaMP6IwezPX6lF2zR8kRvmI/0gArW9734zefhGoFIFVpLLtAltqkztEsqTKHt3s1XjX
-         y7WuFnIyWIxtggIiJJe9ZwlTYEbqoZqWc9D7k6qqNmoBMTNJr7xWng2tkaPsVfD9eRFN
-         kEsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792541131; x=1793145931;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9KmVjMJTY8zcLg9QfQKrHKxwneViwt4HwZ1IqLmXRp8=;
-        b=iZi0bLgNqtZaoYzcqVcdh5SPGHkdBx/t/gJj+RyW6F9bZnkW3pIoFIG2090FBNeXNy
-         VxlnJNv33tiE+K224yVLmeKL88lBXLLhqHXqsf7LrznomL/EYsZtafkkcZJMOUPmSvGb
-         cMt30zEyFNY4rFAsGwCn7V7PAcHQbQ4xRV4OoCatGPI/xZW32GUvM73m5ZR76fBuEF4K
-         d0R3/DPqT6eLpXxksluAu/kUzLl3iJbZIEDb1TDDiLmoJ18HG8k2YX4slGpetvm8XRKy
-         tz2ybLx9OXpwUJeEYWqItaYWubhEa9zwUMxnOdN6rz0nYB3qLv95BKrbwC+5omo+X6qi
-         SDqQ==
-X-Gm-Message-State: AFq9FYIHVR/nX2gaOHhfEyMfBDPQEw3l0juxg0kkVgE+pG4rgw78tFBY
-	/dlvtcVQc0t2nNoxge2tTZvWgvlRM3VgAFlMLhSYY0Ed3xy8aOcu/aYk
-X-Gm-Gg: AYBFou2p3suVv/zKZC22qR04fpRYrKHYorfr/3wRCCrrAGi5d7KubYHIFGoCeYZDXPi
-	VbHbQTHQ+s5I+Cx97qF7oYHmnA8YNZEc8FyZ/BX0hDO6GdyVLQRBxYYohXuE9o9b9KiKylxnOMW
-	QRM4coE1YKNVconMf1zzCKNzN1m1zLHAOSl+dmVz0LvH7V3y7pKOylomPU3CwLGbpyMrseUnEXV
-	umgStuaSGKbpB4n+y9DAwMuyzinB2GxEkKEgUJ25HgWybALZQhKduyrL6d6H7zDR9TJZpNw6oq6
-	rnTx7wODJLPC62thaTItOOlHVeVPVHKboKk1I3xHHhDNH2ZZRTQXDh78NrLqhvEgJcIfae8AE7R
-	sawga458DK6kHrEdLYVlmCj3pLwuhIb6NyO8tTp0DoImDD7j7gMbPPcYPp5jH16u7Pt4rGy6ItT
-	dwfuI0K0pyXKA2Lru44fRN02KWI9Cp3biWhXQYo1tumNKcfmrg46sb76PnOduuEeisLqpTr/xFM
-	WA/I8OsdsyZhLJhAZG+DMymccikCwLtcQMSKv8/ttJ+8716KoeeNEciyTxwz5uPobPiILAqZXmS
-	WWiQCbqe2aUN4riiD2lp30w33gk/uk1AIhSlpg==
-X-Received: by 2002:a05:6122:1d9f:b0:5e6:82ca:c551 with SMTP id 71dfb90a1353d-5eaebef16acmr141977e0c.22.1792541130631;
-        Tue, 20 Oct 2026 17:05:30 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae981d239sm1228104e0c.14.2026.10.20.17.05.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 17:05:29 -0700 (PDT)
-Date: Tue, 20 Oct 2026 20:05:29 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-Cc: linux-kernel@vger.kernel.org, 
- Chris Arges <carges@cloudflare.com>, 
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
- Phil Sutter <phil@nwl.cc>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- Max Krasnyansky <maxk@qualcomm.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Paulos Yibelo <habte.yibelo@gmail.com>
-Message-ID: <willemdebruijn.kernel.1da723f98c23a@gmail.com>
-In-Reply-To: <20261020170908-mutt-send-email-mst@kernel.org>
-References: <cover.1792411304.git.mst@redhat.com>
- <9c08d12b3a7819ae03ded6a154e4f908276e93d4.1792411304.git.mst@redhat.com>
- <willemdebruijn.kernel.2eb449439b094@gmail.com>
- <20261020170908-mutt-send-email-mst@kernel.org>
-Subject: Re: [PATCH net v3 5/8] net: resolve uncommon partial checksums at
- ingress
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Kk64iPFI
+ARC-Seal: i=1; a=rsa-sha256; t=1792541208; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=mDNRmGcFsBoI+QahUVD4rH0GuzFzvfICeQmo8INaC4tWeyisd3SMPm8rCrvjQ29WK0ZCXzoXzxwn4+NRcyIwTMShSNwdlNn7xORA6vyEwUjr7Cgka3IcJ0o4hSsX+VgkBXWVSaAaL5jAlDiigdpbTGplfm5c+eORxYjr3kHTBBs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1792541208; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=; 
+	b=OhrWFmGHgLm3q+r73Q31S1Zl6V9ZSbriMBZgpZ2ughJgskXJs6VprkNDxjXjJ7aigMW/AJEBvUDeejvoNjw3OYEXK3QQpVRam+Du2v6wZ9dEaeq9skxaGXnh6tMwM9TRzVCr14aRThdxaFwJQxgS/avnOnRxZ/8c3khk7Ez3wL0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+	dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1792541208;
+	s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=xvVn8Y8fDCV94jW6KWPstvQM6iscLHTCd7/u3m0LTfs=;
+	b=Kk64iPFI+la3xEnrUdP/iMSv4DN3klAcgpqq6/2/+TlCJtHMPHebO7xQSru3T9yo
+	nl8kptpnWtNeFYSQ42Gx7vcAMKQ+9NvwhTWYAtvnKWa70X3raaYLKMt5iNb/uNmMpRe
+	YuXUUJch71o9EA/Omge/4HBzngexmCiudXsqgvoY=
+Received: by smtp.zohomail.com with SMTPS id 1792541206606520.137903256707;
+	Tue, 20 Oct 2026 17:06:46 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Subject: [PATCH v4 0/3] drm/tyr: allow mismatched buffers for dev_query
+Date: Tue, 20 Oct 2026 17:06:44 -0700
+Message-Id: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,160 +66,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QS27DIBAG4KtYrEs1DA8Hr3qPqrJ4jBOkJCTYs
+ WpFuXtxsmhURd0g/cB8MHNlI5VEI+uaKys0pzHlYw3qrWFh545b4inWzBDQCBCKe8Ujzf35QmX
+ ph/RNI1cEzgMqtMqxWngqdD+odZ9fNe/SOOWy3N+Yxbr7LzcLDtwiKCkAvGrxI+T93vlc3HvIB
+ 7aSMz4z+iWDlSFJJqIGDcG/YuQzY14ysjLDBloRopNa6L/M7dFxofOlTm96tP07vK5ZdbAoV31
+ 7uvTpOOS6TNkv9TYPGJUe0EodNt2s1wF6NxKv+CFNXSOVbZ0CiUZ5sIp8NMJvfKu1MDpqQ220M
+ ci2/uT2A7QKKhTPAQAA
+X-Change-ID: 20261014-b4-dev_query_fixes-4e0ab024294a
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1980;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=3mXYYH2Wyp7iMdOVfIyLyhIL3ZJckx+Ml8KpZV29isc=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFk3mERfTo/dHbnGdP7B+5tdf7y8z2Q7r3NNVohomLxKw
+ L7vwlmtHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEwkrp2RYe2anoJHPh9UcrpM
+ 2DZM9Xf2iJdcd+ubcoQBr0TXDYfLKQy/2ew6i2Pr2/6c5l5am/vvUkpFyrqEtlf9DAsfrtqvfjq
+ XGwA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 
-Michael S. Tsirkin wrote:
-> On Tue, Oct 20, 2026 at 03:44:35PM -0400, Willem de Bruijn wrote:
-> > > +/* Walk the L3 header at @nhoff: where does its transport header
-> > > + * start, and which protocol is it?  Returns false if the header
-> > > + * is truncated, malformed or fragmented.
-> > > + */
-> > > +static inline bool
-> > > +virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
-> > > +		    unsigned int *thoff, int *ip_proto)
-> > > +{
-> > > +	if (proto == htons(ETH_P_IP)) {
-> > > +		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
-> > > +
-> > > +		if (!iph || ip_is_fragment(iph))
-> > > +			return false;
-> > > +		*ip_proto = iph->protocol;
-> > > +		return true;
-> > > +	}
-> > > +
-> > > +	if (proto == htons(ETH_P_IPV6)) {
-> > > +		const struct ipv6hdr *iph;
-> > > +		int flags = 0;
-> > > +
-> > > +		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
-> > > +			return false;
-> > > +		iph = (const void *)(skb->data + nhoff);
-> > > +		if (iph->version != 6)
-> > > +			return false;
-> > > +		*thoff = nhoff + sizeof(*iph);
-> > > +		*ip_proto = iph->nexthdr;
-> > > +		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
-> > > +			*thoff = nhoff;
-> > > +			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
-> > > +						  &flags);
-> > > +			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
-> > > +				return false;
-> > > +		}
-> > > +		return true;
-> > > +	}
-> > > +
-> > > +	return false;
-> > > +}
-> > 
-> > for all this parsing: could we use flow dissection, like the
-> > !VIRTIO_NET_HDR_F_NEEDS_CSUM case?
-> 
-> Hmm I don't see how.  That one trusts the caller's protocol and network
-> header. We could parse L2 ourselves and use the dissector for L3+. But
-> it stops at whatever it does not know, and every miss would turn into a
-> drop or a software checksum for a packet the stack delivers fine.  Our
-> parser deliberately covers everything the stack can deliver.
+Panthor UAPI for DRM_IOCTL_PANTHOR_DEV_QUERY allows userspace to provide
+a smaller or larger buffer than the kernel needs. Revise Tyr's
+implementation to match the expected UAPI behaviour.
 
-You're right, the protocol and network offset need to be parsed
-manually. After that it could be passed to the flow dissector.
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+This series depends on:
+[PATCH v5 0/2] drm/tyr: safely write GpuInfo to userspace 
+https://lore.kernel.org/rust-for-linux/20261020-b4-gpu_info_intobytes-v5-0-3e0c7c93223c@collabora.com
 
-Totally untested:
+Changes in v4:
+- add new UserPtr method to accept u64 address
+- replace write_truncated() with write_slice_partial()
+- replace AsBytes with IntoBytes + Immutable in set_uobj
+- replace u32_as_usize with usize::from_safe_cast
+- remove redundant import size_of_val
+- Link to v3: https://lore.kernel.org/r/20261016-b4-dev_query_fixes-v3-0-f8071cda3515@collabora.com
 
-    static inline bool virtio_net_setup_l3_input(struct sk_buff *skb, int *nhoff, __be16 *proto)
-    {
-        const struct net_device *dev = skb->dev;
+Changes in v3:
+- replace "as" cast with lossless u32_as_usize()
+- Link to v2: https://lore.kernel.org/r/20261015-b4-dev_query_fixes-v2-0-e3e6d25050cb@collabora.com
 
-        /* Devices with Ethernet framing: ARPHRD_ETHER, loopback, macvlan, etc. */
-        if (dev->header_ops == &eth_header_ops || dev->type == ARPHRD_ETHER) {
-            if (!pskb_may_pull(skb, ETH_HLEN))
-                return false;
-            *nhoff = ETH_HLEN;
-            *proto = eth_hdr(skb)->h_proto;
-        } else if (dev->type == ARPHRD_NONE) {
-            /* Raw L3 devices (e.g. tun in IFF_TUN mode) */
-            *nhoff = 0;
-            *proto = skb->protocol;
-            if (!*proto) {
-                if (!pskb_may_pull(skb, 1))
-                    return false;
-                if ((skb->data[0] >> 4) == 4)
-                    *proto = htons(ETH_P_IP);
-                else if ((skb->data[0] >> 4) == 6)
-                    *proto = htons(ETH_P_IPV6);
-                else
-                    return false;
-            }
-        } else {
-            /* Fallback for other netdevs using caller's network header */
-            *nhoff = skb_network_offset(skb);
-            if (*nhoff < 0 || (unsigned int)*nhoff >= skb->len)
-                return false;
-            *proto = skb->protocol;
-        }
+Changes in v2:
+- Added #[inline] to UserSliceWriter::clear()
+- Link to v1: https://lore.kernel.org/r/20261014-b4-dev_query_fixes-v1-0-92043100b472@collabora.com
 
-        return true;
-    }
+---
+Deborah Brouwer (3):
+      rust: uaccess: add UserSliceWriter::clear()
+      rust: uaccess: add method to get UserPtr from u64
+      drm/tyr: allow userspace buffers to be mismatched
 
-    static inline bool virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
-    {
-        struct flow_keys_basic keys;
-        __be16 orig_proto = skb->protocol;
-        u16 orig_net_hdr = skb->network_header;
-        __be16 proto;
-        int nhoff;
-        u16 csum_offset;
-        size_t min_thlen;
-  
-        if (!virtio_net_setup_l3_input(skb, &nhoff, &proto))
-            return false;
-  
-        skb_set_network_header(skb, nhoff);
-        skb->protocol = proto;
-  
-        if (!skb_flow_dissect_flow_keys_basic(dev_net(skb->dev), skb, &keys,
-                              NULL, 0, 0, 0, 0))
-            goto restore_fail;
-  
-        /* Disallow fragments: partial checksums cannot be retained across frags */
-        if (keys.control.flags & FLOW_DIS_IS_FRAGMENT)
-            goto restore_fail;
-  
-        /* Validate protocol matching */
-        switch (keys.basic.ip_proto) {
-        case IPPROTO_TCP:
-            if (!virtio_net_hdr_match_proto(keys.basic.n_proto, hdr_gso_type))
-                goto restore_fail;
-            min_thlen = sizeof(struct tcphdr);
-            csum_offset = offsetof(struct tcphdr, check);
-            break;
-        case IPPROTO_UDP:
-            if (!virtio_net_hdr_match_proto(keys.basic.n_proto, hdr_gso_type))
-                goto restore_fail;
-            min_thlen = sizeof(struct udphdr);
-            csum_offset = offsetof(struct udphdr, check);
-            break;
-        default:
-            goto restore_fail;
-        }
+ drivers/gpu/drm/tyr/file.rs | 49 +++++++++++++++++++++++++++++++++++++--------
+ rust/helpers/uaccess.c      |  6 ++++++
+ rust/kernel/uaccess.rs      | 33 ++++++++++++++++++++++++++++++
+ 3 files changed, 80 insertions(+), 8 deletions(-)
+---
+base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
+change-id: 20261014-b4-dev_query_fixes-4e0ab024294a
+prerequisite-change-id: 20260923-b4-gpu_info_intobytes-c2d45f2935c8:v5
+prerequisite-patch-id: 0ff3c9871f563680d2888d489cc155cc52788048
+prerequisite-patch-id: ecf0aed0bd7e4f8d3bc1bbaabb02976fc8d5fa4d
 
-        /* csum_start must match the dissected transport header offset */
-        if (skb_transport_offset(skb) != keys.control.thoff)
-            goto restore_fail;
+Best regards,
+-- 
+Deborah Brouwer <deborah.brouwer@collabora.com>
 
-        /* csum_offset must point to the transport checksum field */
-        if (skb->csum_offset != csum_offset)
-            goto restore_fail;
-
-        /* Ensure the transport header is linear */
-        if (!pskb_may_pull(skb, keys.control.thoff + min_thlen))
-            goto restore_fail;
-
-        return true;
-
-    restore_fail:
-        skb->protocol = orig_proto;
-        skb->network_header = orig_net_hdr;
-        return false;
-    }
