@@ -1,119 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792599514;
-	b=mzUP2mio7hTvQ56oOGvw9bzVI+odSO8T8HwkHrANvMfUuLEkM/ctUeCa3PwS39W6EewP
-	 OqP6oBe2WQjnpVEHPG4sq0ASxfs6kcj3GezbKO4XDk/8bgdRw32O+cvbALyb+GQWfeI00
-	 8NCs9XV6Qj77mPnZtsZs1UpAS3jiO9vsLKdUlG2vp54NWy9qf339wXGrpMouPh94SEPMk
-	 xX9/qieoyEx9V8Aa10+AqHVsVUrPcc0S70amimtEnTpgDBxEC0os4n9XiTRnETMCACsgK
-	 j2WzBQvtq++ZOd/lgV/QMLnLPoKdNKKZhV1N41LvxN2ymIn918ryL8cT2IBx/vJz2Vw==
+	t=1792599661;
+	b=ZrXGlZScSGYfByi+sKKtOqRIROOiCMBaTW0bO6Ut6TOd9WI2dGuRheze6y7CUVR7cexJ
+	 xp6/wixrQ7i/NkssHbHT/r9uUNTrVIAIHXVlLq2MBgBmcH23nToB/O4GZWfRpFCuj9JCp
+	 Ox4LXB/jtqjzz71XV3VWNkemEh1JRI8svMlBSTIBalgrxIWc3iQuDRmT5B7WNRlGdaxA0
+	 KjQYVFddI01JISGQZzD5PaFqRiheElTZjznmG7/1ccsSJoaukk5y7vzvzDddWJZtZdp/s
+	 3VjqxpTqYpuywuSOeVz8J9UJYTO/EH9shIVZgExw6OVLZWHZu5paP398CIc4/xLnknA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792599514;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=UrbNAcrvvqBJ2+CGBxSM/krMHIMJIRsTQjY9f7twsUM=;
-	b=zJ/jjNKOPeMKPuSaHLpX8BEV57Jsa/11wxRo9zJjCQEvmdVUWAoTqmHLNxxCZaNwTZpP
-	 xK3SNiUOzGPsxaapqLMyFW4HCbwc/IH+ZzU4Fvm1mAwwi7E3fhlI0gLmJ9ZJdrVG4dWVd
-	 1NS9MGwRLpfZUHjDuuWt+NX7+e7+QfNo3EUtODob50rIhVmkF1v+dkbBYe3PW2iRLX8Oo
-	 6vxYgsmUZEUHA9KkI+fHzypRINGo3zFZPftZZl/xfI613jUsywkwsgiMnWpHhTd4GWOCR
-	 fasdzJIGJMIr/YBoZl9Jxr3hpTthpQioXmX4kPWgBw1NIIzTNFgh0H4JIi7daPZifAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792599661;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=3W+k5df5twd/uwIwPEZLuB82lN0JvdHr4jO4Du0Y9TU=;
+	b=L5IY5E3BFpeeoOry/BkX7RnANPHCi1OQUwlYhqgWZ0W+Prxt3ntBH2ONg8WnI4EYWInk
+	 xFMWX3sGkeO2P0PciOn97zsqenpR1ucibYFF3tpz9tsMLhRyL6xaEr+ihYGIHbWElOrT9
+	 hhTTIcepSeVRwLG43LZLrFfRFJfbTgeFPSTL8xPD+dKW9eQhfuctIU7QLKqbNIaWc92zZ
+	 d0Vad80SBuh1NeCGINlEl54NupwjCll+jv4y2TC+mJVTECqTFbpPg1ji/pg6sOUq+LN8t
+	 0soges3qYUguBHH23oQ8n0R8sXbLKa69VatIh0TcLiOxznLFX51HVMPt7UGHSv2+1gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JryTpxW9;
-	arc=none smtp.remote-ip=209.85.221.174
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aFwq3WuU;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CQmriEFf;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809C1606A544
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:18:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809C1606A544
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6D7606AD11
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB6D7606AD11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JryTpxW9
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eabf7d5bbeso973691e0c.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:18:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=aFwq3WuU;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=CQmriEFf
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LFTw2Z991790
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:20:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3W+k5df5twd/uwIwPEZLuB82lN0JvdHr4jO4Du0Y9TU=; b=aFwq3WuUbVXDccU6
+	ImyH2DdBjjpi9JffnMykpYkmPPyflDaD7oOAy+hZ3XZAposKZjUgaDlS4XawLN7i
+	kkJxvoDaZJ77FNCLX5TBxEpJST6D/nriLtxkUMCw7Tbm9dakplSQls8FNw6r6Dz1
+	IC+RoxfII7elux/+iPoegwbE133XoorW+5FY1mDsbiD/eWS254w0t5syY00rrl/2
+	ti8Xgs3kk4c7csJoDWLYR+TT8ziKSocv2B2+e7TtULdiZ01BE2WNtAMCU8v2sBpG
+	w13+UuRQLb4WTwrf+lovp+Q6t0acYTpILdljrIJTFFOHu54hMeIVTI3l9T7DfqjM
+	WOjU8Q==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heh5r40fb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:20:59 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93f2373e9b4so103951985a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:20:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792599513; x=1793204313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UrbNAcrvvqBJ2+CGBxSM/krMHIMJIRsTQjY9f7twsUM=;
-        b=JryTpxW9sA3qgDc6w0OI4sgjqiV1VJqlQCAAH2NLz1aeF7tdSyLCIHbXYSjqHwIKRu
-         Aro3upjhu0Vwe24oYk+djjQ17zEu2D9zfbGNJa9OsEoe1ljXVZExNF0GW7ogav1wXBLP
-         jKUBtCOxgvy7fWWO+kSrJoVmmLchOqtMxf33gDDpTEhTw0fZo4A7db+su2GLOtnsMf9L
-         2XhJjwbzmBSUrykW3CXhhciDKT/NR8wZRTfu+XykGIesrxGF8OLKewg47aI22Ga6f399
-         Y1mGwr93UvKKvMU4T8g987HNB+eoNnKihh7mtSV9H2VdLJhytvi4W2+0HZKwrjPFcXTX
-         jRTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792599513; x=1793204313;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792599659; x=1793204459; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UrbNAcrvvqBJ2+CGBxSM/krMHIMJIRsTQjY9f7twsUM=;
-        b=VGwJ3GImcDrFWffLvyr8s54WvB5Lv9fwzqGsWEAlziWLFUxbZKofMVyKqe7NQXFPJH
-         fknx/Ut7hjQdUgHZO9qo4WISlWTgPe6dJ9q7gOjKlMYeN7zfNU/CPKaVG0YPSghCr4zr
-         EmaJg3K5Wl5tXh+ZdO4i+WJqYM/VeeRQBn4wfhKGAOtjewbmSAbjR7p1Nz1apHrTW24p
-         0F7HeNBwNDL6uaTP01ka3sHkh/ZSLKccdYzPkIxsaAULdsbVrT8Xrd3ZkVbqse8fgXl/
-         o2rRFph3JQUYeosqtySiiFubViLZNAm7rEObKyBI0tOkZGTTztLBKhPdeuERY6J341sg
-         37NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxnMNI+ycFFXkXWSDKB1KUP+T0glND7BCtkuUT6G8peIyl7wTpeOodkgk//lSl6NseheyjsTB4xzRDF9EY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzlKIohxbmMfegYpVUKBvQB0WaunZODbD8HuPsisIu9+3FpYiz
-	lRQnElWflMMf5qdLhTaPZrdWQsjeaF1K03deXIV9od6Wq+r85xdEOvv3
-X-Gm-Gg: AYBFou00mB5Ua0c9N/gEU/vxzXK6Wn2170IlnjYjwE745VeJSqoxp1uSjq8nC0NaEQ4
-	3usUjGms5JcPhGxQNwR1T8CUJ7MJH1+QrEcqKpkTJzNRrkxHtbetHz89231MmSAUvvRG8J7qQYV
-	WMhlFjSlLFeIkCDdxmi4dj5NfjwJ1oli7XC84pARMYxRrR24hhEPPs7EJSKhFXmFvz1o5M5QjRA
-	H1bBATHBNENS2EqfHhVpmnEuXg9cOSJ04nPPzmAgbuDJOg7FL5Vj53Ij1VQ3X96XAq8N73uvqGR
-	yrzGyBS71+SE5h5ODSM7zklHmXOOfor56Ek0n6Vf+EC1NDQxKo+6YGQd7lixCggYYEZbJjMJe6s
-	Nqpk18GTgc/hOmbmj9Jm3Yix9qn8NhpD1SXPJS3fGSLUmMCPM1v/ZxGnLaQ8Jrmyr5ug+AgOvuI
-	RCzW72wRTAlAmPudNgzrL6rFLkpojb2Rgnk8R/WrJJxrw82iNOgBDXW254mIGZkuqWYwnd4+Agj
-	yDLqvl5E1Louh5woQ0q0ji5Ej1ofre+f/7lzs1sgzrWpHbB8eYnMbPncolMmFqLoi3aNMGaMjrq
-	rTM1A4qQgvuMDBx2sD6wOkJFrWx1I0hRkWlrvkiK+2neOCakZJjwJqfMcoRS7trhgl35k+c2XS8
-	mgfJPUl95dxqAmWkUSEHEXd9kLCZYXQ/ID1yGx50/
-X-Received: by 2002:a05:6102:3e8b:b0:79e:2b00:b4da with SMTP id ada2fe7eead31-7cc9263e66bmr1074589137.6.1792599513253;
-        Wed, 21 Oct 2026 09:18:33 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cc9236f63csm3160917137.5.2026.10.21.09.18.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 09:18:32 -0700 (PDT)
-Date: Wed, 21 Oct 2026 12:18:32 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>, 
- linux-kernel@vger.kernel.org
-Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Chris Arges <carges@cloudflare.com>, 
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, 
- Phil Sutter <phil@nwl.cc>, 
- Jason Wang <jasowangio@gmail.com>, 
- =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- Max Krasnyansky <maxk@qualcomm.com>, 
- Rusty Russell <rusty@rustcorp.com.au>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, 
- Florian Westphal <fw@strlen.de>, 
- Nikolay Aleksandrov <razor@blackwall.org>, 
- Ido Schimmel <idosch@nvidia.com>, 
- Simon Horman <horms@kernel.org>, 
- David Ahern <dsahern@kernel.org>, 
- netfilter-devel@vger.kernel.org, 
- coreteam@netfilter.org, 
- bridge@lists.linux.dev
-Message-ID: <willemdebruijn.kernel.c4a4cd674948@gmail.com>
-In-Reply-To: <aa1551c0357a149a84d01761872cb4d3b489d1af.1792565282.git.mst@redhat.com>
-References: <be251d104f881a309cfef150455efa128ebb101d.1792565282.git.mst@redhat.com>
- <aa1551c0357a149a84d01761872cb4d3b489d1af.1792565282.git.mst@redhat.com>
-Subject: Re: [PATCH net v4 6/7] net: add ip4_parse()
+        bh=3W+k5df5twd/uwIwPEZLuB82lN0JvdHr4jO4Du0Y9TU=;
+        b=CQmriEFfeOG70Q/TgOLioizPnkvqo0SoGbNfA7JY6K5LRyEKWEjp6y/UZyi883KLgw
+         jYX+wc0GsYjw6EJ1xVo+3ncRGacUo0JhjTmzbOD1kwyUITETL0DDEMKnINQr5ra5Mxad
+         wsN5+VaNPuwfGuKDK78te7hb7dqiOzGgyloA5fseLVVxyxYZp/LkK/rTQOBEjLsFYBvy
+         HlD0w5KFCd3uu5OOlzpqXFzZJipZmaJVz6rm9+57bFEk67L6Q/nwdbcKYIhDtOQ3BqJK
+         PDbGQ4XUO3S4x0jWIkS8h2IbUXEjhNkgql9kEPALDXUdINWwJlyckXskKsKH/vvA/3HW
+         O2ZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792599659; x=1793204459;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3W+k5df5twd/uwIwPEZLuB82lN0JvdHr4jO4Du0Y9TU=;
+        b=1E83kb4YFKgYvyojSyo6ru1wiNLMjwIES8Wo2hzVKmK6jgwaNVkuhakMarwC3fGt+v
+         9BDOczxIUKJotp4wTwqXjQsucecBd1daQ83JI0rHaB7ScfhLGJnd9fQubZVZ638JxA4+
+         Qt8tImwraxNvj0oAhFLah3MF8tqaGAkfK1KIc77u9HWQu2SdsJKUkYJm4aI+UsWrCEcN
+         Y8vkVpQNdL56HoGd7QnD2AQ+WSluLVrxhD59V1WH1mueWFAVLSpNKf/OD9HfZ/VWPTqe
+         kvGUUfZs16dZHomG7RCtt0edBP8Ni0d0I9bRMN7lhhMyVmRXPZwl3GfjGLnjQEQWWiHe
+         CkMA==
+X-Forwarded-Encrypted: i=1; AKwUvByn08ZWFA5MOQSL6NfoY9ynFNaL8GNTPlPn4+pFUg0QxgqUYRm1Fgl4aM9hUPY4eCInfFSrdmPPf/0JPbk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJU0xjzz2GD/lwNIdON2+m7mIWeKKscZbsGIbKYkv9YlFS9fxRV
+	Sr4F3HnxQPs6OY5Q3NXLvgov9KSe5HRq6/7MRM5c81qo171AwOIDjxYlrRQ0gao1T4HoYozVJKz
+	HqWxJ7TWIZ6s56YznG9kgDkqqT8EfUaBgX9iq5R5RruU1mDj9vVB9LzY68jjfvVE6snZzWXa95G
+	g=
+X-Gm-Gg: AYBFou3AUxEly6j00OIo0/0Er+Ybkoc2tioUt/BZC7OgATDghk/5SeM7k2YQhzO8i1B
+	L5BoTaeFbjBJ4/8OY4ZcFUfIck2lZmOK10HC2gMHskpcrw+brtCkkElIMpdiwvY02A8sYKE5nKp
+	VnEOAiU8K1hB+SCxAbiliMWdHV88U9WS1iDAD9Rz1zRkRu3oM4qs0zgHqXyfN71Bi7GqUTwdU3+
+	Wfc2dmzQp2WPi3Gg00IDPrKc8DzX5CTUqCV9Jq0MSx2JRK6AQgeup0xVHDmUExRM7sSQN3cLHTY
+	30hH3lkSSaMnLYU26Wpvfc1Q3BkY9/CaTKOXB5KDJrozSFEK9jDqXIO/Cuxbpz/6/HGGijm0TwJ
+	9CI4IZhpKyjpLGPJfgjXfwp6wkTs4YQHbjhOFDVJfbn0mmHqgilft1MO211eHWw==
+X-Received: by 2002:a05:620a:269b:b0:93b:bce3:5499 with SMTP id af79cd13be357-93f57ebdd46mr452136785a.6.1792599658495;
+        Wed, 21 Oct 2026 09:20:58 -0700 (PDT)
+X-Received: by 2002:a05:620a:269b:b0:93b:bce3:5499 with SMTP id af79cd13be357-93f57ebdd46mr452130685a.6.1792599657853;
+        Wed, 21 Oct 2026 09:20:57 -0700 (PDT)
+Received: from ?IPV6:2a05:6e02:1041:c10:3887:4025:a805:2ac9? ([2a05:6e02:1041:c10:3887:4025:a805:2ac9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835404sm7092835f8f.42.2026.10.21.09.20.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 09:20:56 -0700 (PDT)
+Message-ID: <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 18:20:55 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,297 +116,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
+ zones for PMICs
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, johannes.goede@oss.qualcomm.com,
+        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mark Pearson <mpearson-lenovo@squebb.ca>
+References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
+ <atH0oW5j9pxsTty4@linaro.org>
+ <aca2cd5d-18e1-406d-a062-e219478b243c@oss.qualcomm.com>
+ <ath8tHxHOdA7G-Bx@linaro.org>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <ath8tHxHOdA7G-Bx@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=aI5lOr9m c=1 sm=1 tr=0 ts=6ad8e66b cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=OaStsYZM47bEMq8ebD0A:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: X5TmgqfeKcAzFODpEZJzmj7Ng7eXymFk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA2NSBTYWx0ZWRfX9Lv8nOQN3Fyi
+ FQRNlXMaGSDi56Ac4XRQsGRKPk8l3ofb4JbQDseN+fFgX8HTzqnLWRrajJ00p5N/w4gBE0GS56a
+ xGvwFcHxqZRDRtvuxhNb6qJsgUNafqjNH8DEr9naLz+rZFvPkxIzAXmPK84jFLwwpzK0gd5J/J+
+ H+t9SMjvWq+VieefivUryxyHe7rekl0QUBiuj1hAvFVhsZOy5D4aEp4Sk8o3ILUNtF0OVHuBRQV
+ 5g+TAyatb0q9+aZLf8Bwkj0CNhFiuaHmR1kkiLTTuNfb3Mn5es4D0aMncp2Vt8Dx1/SHvl9Dd9n
+ A1epp1i+sMLs92bfNI+RQ8k7X0v0y8mut41rsdKbAkk6GHr21OQaOWN5SgKt4FHFzC5+oGhkHPU
+ PVh4dDhutfgaT40RdW9NN7hcdvMz+cAEdQyvKBdMQKq6mRAznm3gkn9fD9B0vqa5MCrCBgLQE1D
+ 96yiEdq74s5SjMcS02A==
+X-Proofpoint-GUID: X5TmgqfeKcAzFODpEZJzmj7Ng7eXymFk
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA2NSBTYWx0ZWRfX58WO1Gr7WCkV
+ EjPUeukIrBc5mAM/QP+DukzKJoAKfb4CrH47Di9ZdmaFV9Jjhj/uV260FXtrP5p/9tepKV9A4pa
+ n7V9gEDa29uYLhL6PRNbkRH49P1C6I0=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
+ malwarescore=0 suspectscore=0 adultscore=0 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210065
 
-Michael S. Tsirkin wrote:
-> Multiple places in the net stack open-code the same minimal IPv4 header=
+On 10/21/26 10:49, Stephan Gerhold wrote:
+> On Tue, Oct 20, 2026 at 06:08:56PM +0200, Daniel Lezcano wrote:
+>>
+>> Thanks Stephan for the additional information, that's very helpful.
+>>
+>> We currently have an urgent thermal issue on this platform, and getting this
+>> thermal mitigation upstream is important to prevent overheating under
+>> sustained workloads.
+>>
+>> Would it be acceptable to address the sensor naming and description
+>> improvements in a follow-up patch, so that we can get the thermal protection
+>> in place first?
+>>
+>> Of course, if any of these changes are critical for the correctness of the
+>> thermal mitigation, we should address them now.
+>>
+> 
+> I have no intention to delay this patch. In fact, since I'm using the
+> latest unmodified stable kernel on my T14s, I'm also suffering from
+> these thermal issues. :-)
+> 
+> On the other hand, we are at the beginning of the merge window and Bjorn
+> is unlikely to queue patches until that ends. The changes that
+> I suggested are purely cosmetic (the names of the thermal zones), there
+> is no need to repeat the thermal validation. The throttling behavior
+> will be identical no matter which name is used for the thermal zones.
+> 
+> IMO we should use the remaining time until the merge window ends to
+> correct the naming to avoid any confusion for people reading the patch
+> once it lands.
 
-> validation: pull the fixed header, check version 4 and IHL >=3D 5 (wher=
-e 5
-> is the fixed header size in 32-bit units) - and locate the transport
-> header at IHL * 4 past the network header.
-> =
+Ok, fair enough
 
-> Add a helper for doing that: it returns the validated header and
-> the transport header offset, or NULL if truncated or malformed.
-> =
+I propose the following names for the thermal zone:
 
-> As noted by Phil Sutter, there are more places that could use this
-> helper, e.g. ip_mc_check_iphdr(). They will be converted in a follow-up=
+  dram-board-thermal
+  gpu-board-thermal
+  fan-board-thermal
+  wwan-board-thermal
+  chg-board-thermal
+  cpu-board-thermal
+  typec-board-thermal
 
-> patch.
-> =
+so we can capture with the name the ones related to the non-on-die sensors
 
-> Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-> Reviewed-by: Bj=C3=B6rn T=C3=B6pel <bjorn@kernel.org>
-> Reviewed-by: Phil Sutter <phil@nwl.cc>
-> ---
->  include/linux/ip.h                  | 30 +++++++++++++++++++++++++++++=
-
->  include/linux/virtio_net.h          | 28 +--------------------------
->  net/bridge/br_netfilter_hooks.c     | 15 +++++----------
->  net/ipv4/ip_input.c                 | 13 +++++--------
->  net/ipv4/netfilter/nf_reject_ipv4.c | 13 +++++--------
->  5 files changed, 46 insertions(+), 53 deletions(-)
-> =
-
-> diff --git a/include/linux/ip.h b/include/linux/ip.h
-> index d11c25f5030a..aba37cd60212 100644
-> --- a/include/linux/ip.h
-> +++ b/include/linux/ip.h
-> @@ -56,4 +56,34 @@ static inline void iph_set_totlen(struct iphdr *iph,=
- unsigned int len)
->  {
->  	iph->tot_len =3D len <=3D IP_MAX_MTU ? htons(len) : 0;
->  }
-> +
-> +/**
-> + * ip4_parse - pull and minimally validate an IPv4 header
-
-This only pulls sizeof(struct iphdr).
-
-To match function comment and generally be robust: pull again
-if ihl !=3D 0.
-
-Apparently virtio_net_hdr_tnl_to_skb will set =
-
-skb->transport_header to the thoff reported here, which may be
-beyond the end of the linear packet.
-
-> + * @skb: buffer to parse
-> + * @nhoff: offset of the IPv4 header within the linear data
-> + * @thoff: returns the transport header offset
-> + *
-> + * Only the fixed header is guaranteed linear on return: callers
-> + * that need the options or the transport header must pull
-> + * further.
-> + *
-> + * Return: the validated IPv4 header, or NULL if truncated or
-> + * malformed.
-> + */
-> +static inline struct iphdr *ip4_parse(struct sk_buff *skb,
-> +				      unsigned int nhoff,
-> +				      unsigned int *thoff)
-> +{
-> +	struct iphdr *iph;
-> +
-> +	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
-> +		return NULL;
-> +
-> +	iph =3D (struct iphdr *)(skb->data + nhoff);
-> +	if (iph->version !=3D 4 || iph->ihl < sizeof(struct iphdr) / sizeof(u=
-32))
-> +		return NULL;
-> +
-> +	*thoff =3D nhoff + iph->ihl * sizeof(u32);
-> +	return iph;
-> +}
->  #endif	/* _LINUX_IP_H */
-> diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
-> index b3bbecbd023c..724ab8659501 100644
-> --- a/include/linux/virtio_net.h
-> +++ b/include/linux/virtio_net.h
-> @@ -53,32 +53,6 @@ static inline int virtio_net_hdr_set_proto(struct sk=
-_buff *skb,
->  	return 0;
->  }
->  =
-
-> -/* TODO: nothing virtio specific here, move to ip.h */
-> -
-> -/*
-> - * Pull and minimally validate the IPv4 header at @nhoff.
-> - * Returns the header and stores the transport header offset in
-> - * @thoff, or NULL if truncated or malformed.  Only the fixed header
-> - * is guaranteed linear; callers that need the options or the
-> - * transport header must pull further.
-> - */
-> -static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
-> -						  unsigned int nhoff,
-> -						  unsigned int *thoff)
-> -{
-> -	struct iphdr *iph;
-> -
-> -	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
-> -		return NULL;
-> -
-> -	iph =3D (struct iphdr *)(skb->data + nhoff);
-> -	if (iph->version !=3D 4 ||
-> -	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
-> -		return NULL;
-> -
-> -	*thoff =3D nhoff + iph->ihl * sizeof(u32);
-> -	return iph;
-> -}
->  /* Defined in net/core/dev.c, enabled while any network namespace
->   * has net.core.virtio_net_hdr_validate set to 0.
->   */
-> @@ -157,7 +131,7 @@ virtio_net_l4_start(struct sk_buff *skb, unsigned i=
-nt nhoff, __be16 proto,
->  		    unsigned int *thoff, int *ip_proto)
->  {
->  	if (proto =3D=3D htons(ETH_P_IP)) {
-> -		const struct iphdr *iph =3D virtio_net_ip4_parse(skb, nhoff, thoff);=
-
-> +		const struct iphdr *iph =3D ip4_parse(skb, nhoff, thoff);
->  =
-
->  		if (!iph || ip_is_fragment(iph))
->  			return false;
-> diff --git a/net/bridge/br_netfilter_hooks.c b/net/bridge/br_netfilter_=
-hooks.c
-> index 0a394e5f4391..e89da0e41542 100644
-> --- a/net/bridge/br_netfilter_hooks.c
-> +++ b/net/bridge/br_netfilter_hooks.c
-> @@ -206,18 +206,13 @@ static inline void nf_bridge_pull_encap_header_rc=
-sum(struct sk_buff *skb)
->  static int br_validate_ipv4(struct net *net, struct sk_buff *skb)
->  {
->  	const struct iphdr *iph;
-> -	u32 len;
-> +	u32 len, thoff;
->  =
-
-> -	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-> +	iph =3D ip4_parse(skb, 0, &thoff);
-> +	if (!iph)
->  		goto inhdr_error;
->  =
-
-> -	iph =3D ip_hdr(skb);
-> -
-> -	/* Basic sanity checks */
-> -	if (iph->ihl < 5 || iph->version !=3D 4)
-> -		goto inhdr_error;
-> -
-> -	if (!pskb_may_pull(skb, iph->ihl*4))
-> +	if (!pskb_may_pull(skb, thoff))
->  		goto inhdr_error;
->  =
-
->  	iph =3D ip_hdr(skb);
-> @@ -228,7 +223,7 @@ static int br_validate_ipv4(struct net *net, struct=
- sk_buff *skb)
->  	if (skb->len < len) {
->  		__IP_INC_STATS(net, IPSTATS_MIB_INTRUNCATEDPKTS);
->  		goto drop;
-> -	} else if (len < (iph->ihl*4))
-> +	} else if (len < thoff)
->  		goto inhdr_error;
->  =
-
->  	if (pskb_trim_rcsum(skb, len)) {
-> diff --git a/net/ipv4/ip_input.c b/net/ipv4/ip_input.c
-> index 9860178752b8..5adf01763e85 100644
-> --- a/net/ipv4/ip_input.c
-> +++ b/net/ipv4/ip_input.c
-> @@ -500,7 +500,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *=
-skb, struct net *net)
->  {
->  	const struct iphdr *iph;
->  	int drop_reason;
-> -	u32 len;
-> +	u32 len, thoff;
->  =
-
->  	/* When the interface is in promisc. mode, drop all the crap
->  	 * that it receives, do not try to analyse it.
-> @@ -520,10 +520,6 @@ static struct sk_buff *ip_rcv_core(struct sk_buff =
-*skb, struct net *net)
->  	}
->  =
-
->  	drop_reason =3D SKB_DROP_REASON_NOT_SPECIFIED;
-> -	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-> -		goto inhdr_error;
-> -
-> -	iph =3D ip_hdr(skb);
->  =
-
->  	/*
->  	 *	RFC1122: 3.2.1.2 MUST silently discard any IP frame that fails the=
- checksum.
-> @@ -536,7 +532,8 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *=
-skb, struct net *net)
->  	 *	4.	Doesn't have a bogus length
->  	 */
->  =
-
-> -	if (iph->ihl < 5 || iph->version !=3D 4)
-> +	iph =3D ip4_parse(skb, 0, &thoff);
-> +	if (!iph)
->  		goto inhdr_error;
->  =
-
->  	BUILD_BUG_ON(IPSTATS_MIB_ECT1PKTS !=3D IPSTATS_MIB_NOECTPKTS + INET_E=
-CN_ECT_1);
-> @@ -546,7 +543,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *=
-skb, struct net *net)
->  		       IPSTATS_MIB_NOECTPKTS + (iph->tos & INET_ECN_MASK),
->  		       max_t(unsigned short, 1, skb_shinfo(skb)->gso_segs));
->  =
-
-> -	if (!pskb_may_pull(skb, iph->ihl*4))
-> +	if (!pskb_may_pull(skb, thoff))
->  		goto inhdr_error;
->  =
-
->  	iph =3D ip_hdr(skb);
-> @@ -559,7 +556,7 @@ static struct sk_buff *ip_rcv_core(struct sk_buff *=
-skb, struct net *net)
->  		drop_reason =3D SKB_DROP_REASON_PKT_TOO_SMALL;
->  		__IP_INC_STATS(net, IPSTATS_MIB_INTRUNCATEDPKTS);
->  		goto drop;
-> -	} else if (len < (iph->ihl*4))
-> +	} else if (len < thoff)
->  		goto inhdr_error;
->  =
-
->  	/* Our transport medium may have padded the buffer out. Now we know i=
-t
-> diff --git a/net/ipv4/netfilter/nf_reject_ipv4.c b/net/ipv4/netfilter/n=
-f_reject_ipv4.c
-> index 59ec465a9df9..42d639854ddf 100644
-> --- a/net/ipv4/netfilter/nf_reject_ipv4.c
-> +++ b/net/ipv4/netfilter/nf_reject_ipv4.c
-> @@ -25,22 +25,19 @@ nf_reject_ip_tcphdr_get(struct sk_buff *oldskb,
->  static int nf_reject_iphdr_validate(struct sk_buff *skb)
->  {
->  	struct iphdr *iph;
-> -	u32 len;
-> +	u32 len, thoff;
->  =
-
-> -	if (!pskb_may_pull(skb, sizeof(struct iphdr)))
-> -		return 0;
-> -
-> -	iph =3D ip_hdr(skb);
-> -	if (iph->ihl < 5 || iph->version !=3D 4)
-> +	iph =3D ip4_parse(skb, 0, &thoff);
-> +	if (!iph)
->  		return 0;
->  =
-
->  	len =3D ntohs(iph->tot_len);
->  	if (skb->len < len)
->  		return 0;
-> -	else if (len < (iph->ihl*4))
-> +	else if (len < thoff)
->  		return 0;
->  =
-
-> -	if (!pskb_may_pull(skb, iph->ihl*4))
-> +	if (!pskb_may_pull(skb, thoff))
->  		return 0;
->  =
-
->  	return 1;
-> -- =
-
-> MST
-> =
-
-
-
+Sounds good ?
