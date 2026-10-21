@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584931;
-	b=AzNF50vY09MDJLYN0NHxoFSfUYAUG2/+lzSt1N8LraLb5j+yuDHkKtuRyB3QOa2M4SzB
-	 XN8dxUEUNj5aljX45x1oz5USbweoaz9qKOOHdmGESgvObdksdsXEPap9t/O4S29TnMnBd
-	 M5Rx5VaHl40T/O+ULgKlWPNC/UJ0x2OmWu0PyAhDW/meK427nlG8rexQGdYQiV77LTObf
-	 Tn1HkACIw9w+L/Y+OnauyPn5HM0z9evVqsi0+npX0NF9Wb4VnOTVKK8z5Y8EBYNyQ3lq9
-	 syERuSxrnqnnjIJJrXQrxR6/yw5pm6FtE41VxrifzYZXpjsdH5tGjdlUemS3bkFEMRQ==
+	t=1792584918;
+	b=jCj79Cs0WZemE5L2zB03DFGx/q1vU+c7R8uVwdvxDvY/cM3FI+Uqr4Qgajpldf9Ur5ih
+	 lc9FHLJqt35d9WKD3hIgz9HEIwP+9umoKfRyhurbbRaFb30IDAovPn3nif+dUma/AYr8l
+	 +eaLPmtY+blNPJ8lwcu8hlM9VxMh/gW+BQnSy+UosH21XzF3E6UQd+2Ff2ZlWU9b+Czmr
+	 t/ypcWCNM7hN1P19DXY7YhiLjVQVCL2zRKzjDsvNwpmefRRLl7hw8bzMKDm558JkyqGGp
+	 4+Kdb+KbewL8OjwQbtXHhU0DqyjBdDb+ijd08DiWX49OzITeMbtcxPqR7UsTWrywPeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584931;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584918;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=X9lWh4O6O7Umzil2pxjsOPjFQX4WkHiI/3kxYZplzAY=;
-	b=T9y7VXKw2O1MlfyKHw0b6+v9U7bjyghniUDXysRXPCYMwvmuNO5CjK1mhJDOcrqs6Ui3
-	 XGwPqkv/qcw+cDWNkgxHhsqOMMBrGXAqEg81uuwJ8Pe4+I4jmwX9TJlXZysEuUjaane5Y
-	 o8DZGomtnJzAa3IUOqwegAr2VlBcB1g/OfmxWAnA5oT8aZPGgKnseQBIAFtq3XKCKFMjV
-	 EInf9OHeTDd97Y0gmqKwvzFg8+R6sbHS7GnC+JAg9lTof8NDPUiOR0wvCP75ejjHokCs0
-	 5wcGO5Lz3VuSJF9DGhNY6IKz/+Y8WG9I6ISx4q/SLT0iWUFaSh+A/7j9QObue7eLMCg==
+	bh=OQAQy8H2ZPsToCNPH++qnZ5B9B/4u/szFzQb7JQ/mYg=;
+	b=dIixMrfMA/Hp6fJ/HMncSM9KIC9x9076ZDzyem5KlaOV4v2acVkeVH/Iq7JFbPfqPLYd
+	 ZfwFOnUoXEXiu/m+TgFtq5A+80wfhjWDO1NKPSUnNRmyv6DWmPDuMxJC/SPhKIDoWGIrr
+	 EzztBV3zCMLtM7ptLSKoET8wAf0yJO2xdqc52ikgp9GoZK+pqe1h3QzJuqrKYtglHUirL
+	 HlPTZkFI2MVJoaaOLrPPhjIzvTJCo7Psqkv9qZiEahNCeJ3+fivk6TYeib9GgDvSRBRzk
+	 xFcwDB665lmY8nLSbyJEXFPcVgy3JkbcMNTlkC/muE6eB4VSdQpnLK61q0NuSnZdNOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S97KVlOa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZDR7JY+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABE1606A321;
-	Wed, 21 Oct 2026 12:15:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED0360A262C;
+	Wed, 21 Oct 2026 12:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S97KVlOa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390511F000C4;
-	Wed, 21 Oct 2026 12:15:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZDR7JY+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C91F91F000C4;
+	Wed, 21 Oct 2026 12:15:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584930;
-	bh=X9lWh4O6O7Umzil2pxjsOPjFQX4WkHiI/3kxYZplzAY=;
+	s=k20260515; t=1792584918;
+	bh=OQAQy8H2ZPsToCNPH++qnZ5B9B/4u/szFzQb7JQ/mYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S97KVlOaNk7UeV9V67X4hdY7yar3aMYGquTLgF/sf9CPyYn6wickeS7DDsV12lw7/
-	 Yl1IBvB/8Gv4VKc0O+VJWadzuD666BCmNy/yytqe8k7EHsh70NIW/apxE5S2hCdhTu
-	 nSHEHm1lxbLfjVq3Rho4NvJepBZ1ghQ2SJd7ijcjswzGKysmpUPlLmRzpOfj6KV4Hu
-	 qBwdIjPW7o5Yu75A7RIpocZLgLN8Y9PBHoaqcdOmHrnaNsUrQ5pqHi2Zp0S8uU87aK
-	 anpwftz0tEXdNjmybuCRtWbcoWtiqFNaxiDCM6ooy/jNcmzF2qGhBXb9pLiZkAOFk+
-	 10zw7k2T1k06g==
+	b=eZDR7JY+OhK6f4i/zOPpfIjtvfXVwAc4jgsQlJ7z+JH/6jjgG6L0RgOkR+D24f/qn
+	 mdhGL69BRm5Cxlsf5ejg3O0FlVBs5W4+DhCRH5qI5MHrLKtMMWdURTgJaSaV5CffPO
+	 /l3KrgReoHUyJ1MC/I0WvX3M02/c6UsU/rEaXDq0X+TWud0ZLxRCP+GprqDTH4clbz
+	 DloZ23wEBEdpnGhh/jW4n31H0F+K+0X5ci/0TduvwEIztm3A74dx3jIWeW1ICJd5ka
+	 1E29x+E5jcLjYVJmh/8SnbGfQTBnyI9saJJ4HBb1xLMfmlk8s/UedgK+bJtto4q/fy
+	 MMndK4CPaMebw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Qunqin Zhao <zhaoqunqin@loongson.cn>,
-	Yinggang Gu <guyinggang@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-crypto@vger.kernel.org,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	Kai Svahn <kai.svahn@nokia.com>,
+	syed khasim <x0khasim@ti.com>,
+	linux-omap@vger.kernel.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 15/28] mfd: loongson-se: Check return value of dma_set_mask_and_coherent()
-Date: Wed, 21 Oct 2026 12:09:37 +0000
-Message-ID: <20261021121245.3111563-15-lee@kernel.org>
+Subject: [PATCH 13/28] mfd: twl-core: Clear pm_power_off callback in twl_remove()
+Date: Wed, 21 Oct 2026 12:09:35 +0000
+Message-ID: <20261021121245.3111563-13-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -65,35 +69,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-loongson_se_probe() ignores the return value of
-dma_set_mask_and_coherent() when requesting a 64-bit DMA mask before
-allocating coherent DMA memory.  Check the return value and abort probe
-if the platform cannot satisfy the 64-bit DMA mask requirement.
+When a TWL6030-class device is configured as the system power
+controller, twl_probe() registers twl6030_power_off() as the global
+pm_power_off callback.  However, twl_remove() does not clear
+pm_power_off when tearing down the device on late probe failure or
+driver unbind, leaving a dangling callback that dereferences the freed
+twl_priv context during system shutdown.
 
-Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-Closes: https://sashiko.dev/#/bug/linux-6685ee0c-b7ed-4f21-8800-cc705cec449b
+Reset pm_power_off to NULL in twl_remove() when it points to
+twl6030_power_off().
+
+Fixes: ca9414a1d087 ("mfd: twl-core: Add power off implementation for twl603x")
+Closes: https://sashiko.dev/#/bug/linux-f5847f26-c868-416a-b926-3fc3da57802d
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/loongson-se.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/mfd/twl-core.c | 29 ++++++++++++++++-------------
+ 1 file changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-index 3902ba377d69..8dcb90a067b3 100644
---- a/drivers/mfd/loongson-se.c
-+++ b/drivers/mfd/loongson-se.c
-@@ -199,7 +199,10 @@ static int loongson_se_probe(struct platform_device *pdev)
- 	spin_lock_init(&se->dev_lock);
- 	mutex_init(&se->engine_init_lock);
+diff --git a/drivers/mfd/twl-core.c b/drivers/mfd/twl-core.c
+index c024a28b057e..64b45fe79159 100644
+--- a/drivers/mfd/twl-core.c
++++ b/drivers/mfd/twl-core.c
+@@ -672,10 +672,26 @@ static void clocks_init(struct device *dev)
+ /*----------------------------------------------------------------------*/
  
--	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
-+	err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
-+	if (err)
-+		return err;
+ 
++static void twl6030_power_off(void)
++{
++	int err;
++	u8 val;
 +
- 	if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
- 		return -ENODEV;
++	err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val, TWL6030_PHOENIX_DEV_ON);
++	if (err)
++		return;
++
++	val |= TWL6030_APP_DEVOFF | TWL6030_CON_DEVOFF | TWL6030_MOD_DEVOFF;
++	twl_i2c_write_u8(TWL_MODULE_PM_MASTER, val, TWL6030_PHOENIX_DEV_ON);
++}
++
+ static void twl_remove(struct i2c_client *client)
+ {
+ 	unsigned i, num_slaves;
  
++	if (pm_power_off == twl6030_power_off)
++		pm_power_off = NULL;
++
+ 	if (twl_class_is_4030())
+ 		twl4030_exit_irq();
+ 	else
+@@ -692,19 +708,6 @@ static void twl_remove(struct i2c_client *client)
+ 	twl_priv->ready = false;
+ }
+ 
+-static void twl6030_power_off(void)
+-{
+-	int err;
+-	u8 val;
+-
+-	err = twl_i2c_read_u8(TWL_MODULE_PM_MASTER, &val, TWL6030_PHOENIX_DEV_ON);
+-	if (err)
+-		return;
+-
+-	val |= TWL6030_APP_DEVOFF | TWL6030_CON_DEVOFF | TWL6030_MOD_DEVOFF;
+-	twl_i2c_write_u8(TWL_MODULE_PM_MASTER, val, TWL6030_PHOENIX_DEV_ON);
+-}
+-
+ 
+ static struct of_dev_auxdata twl_auxdata_lookup[] = {
+ 	OF_DEV_AUXDATA("ti,twl4030-gpio", 0, "twl4030-gpio", NULL),
 -- 
 2.56.0.218.g1ec904b173-goog
 
