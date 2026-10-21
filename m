@@ -1,68 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552515;
-	b=S5XmJc+ILkZDBFP5dMPX8MN5WgvlOfPcCu0wZI5KqhStO+7dLDxrv2yK2iYQOZAXSjO9
-	 Lep+FfYNU/kfJ6nQ17UT6AA0UpeQnjSY80B7CaMyjJ0HRhnOragSFJ+5lXh7/hBeRT+uK
-	 mLkqAdDazJIgbBTIIx52iitRLGmRS+qDQx4pjlOwR38SVrBHrFk4fLXTzVsCPmiTk1U6J
-	 Q2oX97E7+sttjD55Qg1nHPaivbev9y379t9imjskY9/nWCmBIe9inWOhqJlzwAFMt55Vo
-	 Ocr/BuaODssLLMUwVHSIngRKE5gpiFRGw6U2DduQYzBeb2H0qPV/KgeRPBy/+gPSNXw==
+	t=1792552533;
+	b=laXYx8y82W4xTO0JdodbmeXF95x4duy+BOK2WJY3zFLoH8/Eybo02W9MM4USwx8u3IJM
+	 J0bczwF3rqU58CoOq6IPKnOBnVZhM0eX3ZpAY96R34jG3WsqOEdV2VkCnilrBKRpPfCdJ
+	 3byb3mzvQZ8b8TIDHc6HnsESX4wg6UwmauEwpd23wxYvn5AAj9dWnfVKqkFQLic09oio+
+	 NPGvP7p1+EWcgsdr8k6LzBTBZE8Pka96QSF7g10i5t8F8XfSLob+Aqu/QOSpKFBSgHfjw
+	 lLWWtg/+cwgToKoUYvd3XqXYGhxekkalQn0gNBtt1vIYPe4slQolE7h6YM9s3MmAfhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552515;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Ys8oP0bysBxyVKMvLkKGZUAWfsxvNo0pNAVuTzJHbRQ=;
-	b=DGLYkKa1n8EUA/9PfqByOA5JEOpqylAB4ym3AdJQUdMdE4QqU+SqkPT/BF/W+FTge1hQ
-	 wi+17OiVLBD3qkFmMGQHP1PZF7/kGrxYhy1Eb6Yql6On81/rxMfvXOURgstJTDvI8XnKx
-	 7DXj0VDomBYOSZgRsmsMRCTyT67hJ9jGQL220l/UMLUpVNeLhvWbeq0X15An8bg2FsRRt
-	 dgsQSYKHpDTiB81vw1GWradNg04lB7yPlZU6XZ/ahbzv85DSfvetZv+BgfLul6AwCN29X
-	 kCXpn1s+rNJVLqZL0wypgc+rFo35561Ccn9Ifh+StuFsy2p9dvsckV608OfeTVWizhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552533;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:In-Reply-To:
+	 References:From:Subject:To:Cc:Date;
+	bh=EfTRtZy0G2OuIXu4PScrnzWcsEd6oPudCAluCFucq4Q=;
+	b=HHPDGmseBhMaBymXXmQ0yhPxtk+XikZXYX6wwK2XmXZiRWsJktdjFcPH4g2CMCd9wJGE
+	 JohwYG3PyjViIBL2t3c1qWC1MP5Nv4EK+GZcTisnvTLiqxBiJ/wisOAsvczjz173o5ifj
+	 UzQCceirVJ7hKABsKuBN7bflXN6bcLdaQAs1sQtv1UAiLSYotSL9cEZnJlaMrdFOM9wEh
+	 nXeXlB2ZzLX0+miES9TcQbkLpwWGu0v7xQJVQx6IguJAGf5QT45CRq/rBVj8E6iUfwbHz
+	 U1sPrh6ERUGTNFxFZDY0oRDH3zzoG4rnb0GQI4/xzNX4FHlaeUfLvyXs55G21v59C+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evDlOaod;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=tuxist.de;
+	spf=fail smtp.mailfrom=tuxist.de;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=Pf58hAVc;
+	arc=none smtp.remote-ip=173.212.254.19
+Received: from groupware.tuxist.de (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54863606A31B;
-	Wed, 21 Oct 2026 03:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF38606A31D;
+	Wed, 21 Oct 2026 03:15:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF38606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evDlOaod
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EE231F000C9;
-	Wed, 21 Oct 2026 03:15:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792552514;
-	bh=Ys8oP0bysBxyVKMvLkKGZUAWfsxvNo0pNAVuTzJHbRQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=evDlOaodjI+nyT+AchLjNaMkTnceP8J1lq5zDIgnoEJnwGD5JvxB0R0lOQslv787q
-	 mLHXpSvBDKXOg5D1weZZdIZGpMyc0YuoMXQCjI1uOxqtME0Fhrm75qrY6hRq3mWTXz
-	 xi28526KH11XMEzGGYlJWMYL0ZujoQQkI1PdCiYdxHIYyG3MkoyTvHNIQum7oRdLst
-	 xHthLbNIfEC94oQlL1L7+OZGYD0TXIp15rW7iXKoBw3Yo4f/oOmSJpbXHhsKIWzjdA
-	 r+0Ww92US795seIaMClJooZENVaG8EVHY1XlTulx/X14sz0t807kEkoUqLOLZ+E6/h
-	 YEwMud3Mti3Zg==
-Date: Tue, 20 Oct 2026 20:15:13 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?=
- <clement.leger@bootlin.com>, Eric Dumazet <edumazet@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
- Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Russell
- King <linux@armlinux.org.uk>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Prabhakar
- <prabhakar.csengg+renesas@gmail.com>, Biju Das
- <biju.das.jz@bp.renesas.com>, Fabrizio Castro
- <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH net-next v3 04/13] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Disallow ports beyond port@4
-Message-ID: <20261020201513.7c537f7a@kernel.org>
-In-Reply-To: <20261014131906.990077-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261014131906.990077-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-	<20261014131906.990077-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=Pf58hAVc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tuxist.de; s=201705;
+	t=1792552531; bh=0PLU2tqzeCB9lkMpzBKLluy29433zzBAWGe4OWhQlrE=;
+	h=In-Reply-To:References:From:Subject:To:Cc:Date:From;
+	b=Pf58hAVcCvsS5lNh9fqRRUi3TwaXPunlCLXPI/td2NJ/6FEy3z79xJAxuUS2SoCjZ
+	 WEb3TENz5f62EOOs4A5a02u3F0nE/V1AE1YLBORyQihdlvpbLFcOu79QVbIyOFmarp
+	 m+I6tSLTEOmbWUgUHw+UsoAy9nbOt+pAvye4VcmB8PYLd2vKMb0L91M271usDv+W52
+	 xnaJJfpfRfpFCDZUZEOWCRwuEpyOX1QSysYCzb990kiVk50lcWn2BMFptVZOSKYXYv
+	 1ux91G3892m5rfY56V236tyQi82U36XcjKQEkpg2vzycz0kIXkh1QSOrnXqrodkLKW
+	 aHW6YUJ4vw0RA==
+Received: from [10.1.1.106] (unknown [10.1.2.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by groupware.tuxist.de (Postfix) with ESMTPSA id 8B28B8A08F4;
+	Wed, 21 Oct 2026 05:15:30 +0200 (CEST)
+Message-ID: <acd7e5be521cc2ba0526c45212e0c7b0010a6d16.1792552161.git.jan.koester@tuxist.de>
+In-Reply-To: <cover.1792552161.git.jan.koester@tuxist.de>
+References: <cover.1792552161.git.jan.koester@tuxist.de>
+From: Jan Koester <jan.koester@tuxist.de>
+Subject: [RFC PATCH v2 03/41] uidgid: add uid_is_legacy() and gid_is_legacy()
+To: Christian Brauner <brauner@kernel.org>,
+    Alexander Viro <viro@zeniv.linux.org.uk>,
+    "Serge E. Hallyn" <serge@hallyn.com>
+Cc: Jan Kara <jack@suse.cz>,
+    "Theodore Y. Ts'o" <tytso@mit.edu>,
+    Paul Moore <paul@paul-moore.com>,
+    Arnd Bergmann <arnd@arndb.de>,
+    linux-fsdevel@vger.kernel.org,
+    linux-api@vger.kernel.org,
+    linux-security-module@vger.kernel.org,
+    linux-arch@vger.kernel.org,
+    linux-ext4@vger.kernel.org,
+    linux-nfs@vger.kernel.org,
+    linux-cifs@vger.kernel.org,
+    netdev@vger.kernel.org,
+    audit@vger.kernel.org,
+    keyrings@vger.kernel.org,
+    linux-kernel@vger.kernel.org
+Date: Wed, 21 Oct 2026 05:15:23 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,24 +78,47 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 14 Oct 2026 14:18:52 +0100 Prabhakar wrote:
-> Restrict the A5PSW ethernet-ports node to ports 0 through 4, matching the
-> hardware configuration of four external ports and one CPU/management port.
-> 
-> Although the schema pattern limits port nodes to port@0 through port@4,
-> additionalProperties: true allows other port nodes to pass validation.
-> Set additionalProperties to false and explicitly allow #address-cells
-> and #size-cells so that ports beyond port@4 are rejected.
-> 
-> Existing in-tree device trees describe only port@0 through port@4 and
-> are unaffected by this change.
+User and group ids are about to become able to hold a UUID or a GUID
+besides a classic 32 bit id. Add the predicates code that can only keep
+a classic id (in 32 bits of a buffer, for instance) tests with, so it
+can be converted before the types change. For now every id is a classic
+one.
 
-We are closing net-next and this is missing DT review.
-LLM also found a potential issue here:
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261014131906.990077-9-prabhakar.mahadev-lad.rj@bp.renesas.com
+No functional change.
+
+Assisted-by: Claude:claude-opus-5-5
+
+Signed-off-by: Jan Koester <jan.koester@tuxist.de>
+---
+ include/linux/uidgid.h | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/include/linux/uidgid.h b/include/linux/uidgid.h
+index 2dc767e08f..182c682458 100644
+--- a/include/linux/uidgid.h
++++ b/include/linux/uidgid.h
+@@ -22,6 +22,20 @@ struct uid_gid_map;
+ #define KUIDT_INIT(value) (kuid_t){ value }
+ #define KGIDT_INIT(value) (kgid_t){ value }
+ 
++/*
++ * Whether an id is a classic 32 bit id. All of them are for now; code that
++ * needs one (to store it in 32 bits, for example) checks with these.
++ */
++static inline bool uid_is_legacy(kuid_t uid)
++{
++	return true;
++}
++
++static inline bool gid_is_legacy(kgid_t gid)
++{
++	return true;
++}
++
+ #ifdef CONFIG_MULTIUSER
+ static inline uid_t __kuid_val(kuid_t uid)
+ {
 -- 
-pw-bot: cr
+2.56.0
+
