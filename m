@@ -1,85 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.68.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792549417;
-	b=jpDZXSgAacU+Oi7NL8F+lFnH5eHk5mW6eLwMG3V62Q6Pm6LuaXEde7u0LZ1eGjlpTQvt
-	 U6pMqMoSdzBNP0Hy0Vn3mvLahkIvAyzoKnTDesaaXa734j0pEiRwhYplKUTdr/uIjyISJ
-	 cVkU9t56rpCBZ5nyT8so53NUAtjHDlQeUAFlfthYcMrB1/ZFIFJe9jKUBRKmT2gE02lh+
-	 rnjhp6GhL+39yFDIalYb9VtTWw33c7MUN1jFiUJazrf32zdYn+WXSkX3wFiNmgcQVYAP8
-	 s6BaJQgAjqYFoZ7ehcebnQohqFUNoDhU/adpH1U+jzpJREKE3GZRG793UwMBSYtK7xw==
+	t=1792549426;
+	b=p4AXHe/fAWxJpr6tpS7tZXSewORkkPAKUyhx+KJDOriZJT9XKt/XI15VfTuDRTY2ysGR
+	 E/QQYIeCUaX4nVDVvEnFp2GhJW9Fn4aGBtO1lA/oSGcPGdF1gZlMjBVgWVu4AlzzZi26k
+	 E8l/fO1m30AuuVB93MMKRg04pX4YtCNiJ8yKGltSUN3+tMqhjG2rxzMCw6lgoUDRANQ5n
+	 cUzSrGi8gcBGMYumKp+Mnbmz46fJ6oA1BmBxJCfZai6DhI3FpiQWmOMKYTTs5SIfHShOr
+	 nBY5ggZonFWNPlD6DKGKEkgfWaIOhhpXkSFRQxGeBjiedOPRXaUyH1TLOxkITRmD66Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549417;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=ouuFtypaEJ9ckJXUmMEhOp8/mEcn0FyKt1h6MgNlrj4=;
-	b=tNCgQ7b7/9aK/bzwBav7Mn4q08yJyi/RsryeXTHMdcHJ9K7RgHBGcilIo/VsT6yWyCnn
-	 IyZJR5wsDTm0Xc+/qYpgysw0UIfoSGB63dGfKHnP9ZGST+PAnC4sbBwro3RiKj0TbUHSQ
-	 Rkkf19wcwYmpayrXC6RfUXC3t3LcESHcSV8QqcBoHvj0WJlj/JicUHA2VXHWXxIMcfXTC
-	 6iTv9eLemeYVF4AKpbbtKIM3ItmpwP7qnQ9/AaBkdizCu217OSKZEUyuVA+jnQZRuIM53
-	 7O9D/3IUdTNVsJLau0EtDmr0oC1NWgMn+92fgJLSD5OklIIkNK5G7fdWCTbJCtqHifQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792549426;
+	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
+	 Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Authority-Info-Out:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-JNJ;
+	bh=GDEvEH/LpDgW+uEZTtQvjnKzJSBloxmBvXK14a5S0Ac=;
+	b=mEz1Pip7ViS5n+Y5aQNNebV6nsmftuWq1x80E4xO4QdeLq1QFe1iEP15gEItvfhTsv2g
+	 qPz8cbFEylSDg29fDYLMTd5DTgST2A16sMdrAvIERcm1Spf6v1XlEAZsHS3gR6zeThpum
+	 ADadeAcGsp7eWUTt8Ovp7SwmFdhqli9IsXWDqDrW4Zl7RX6o2iGStLJfndX0kagPre95T
+	 iP86aIva4lD8C9tGYkPs3bhiaDwZX5JdfG6eFwKq1jeCGQytbjqajNHAm4vLGWjrDrvEG
+	 dXNuRZHTp2c4nJvHPS52zodVC+27ELjScyqOHc3RieL+Pf6YIAUt7r0Q9VvGHm1uDgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=mvTRJBiN;
-	arc=none smtp.remote-ip=209.85.219.41
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=icloud.com;
+	spf=pass smtp.mailfrom=icloud.com;
+	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GjkpDHWw;
+	arc=none smtp.remote-ip=57.103.68.41
+Received: from outbound.mr.icloud.com (mr-2001l-snip4-8.eps.apple.com [57.103.68.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC41C606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:23:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC41C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77372606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:23:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77372606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=mvTRJBiN
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-917d595138fso1939816d6.3
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:23:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792549415; x=1793154215; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ouuFtypaEJ9ckJXUmMEhOp8/mEcn0FyKt1h6MgNlrj4=;
-        b=mvTRJBiNayBZ832CCECJySz+ba/5fJXFzuDem1u7b+ZYvUSUNCsDV9z9w1eSMNPqOh
-         wQfrXPnvUwf73h8+wZr5mR4HHDf0uwB+bzUjRXnQDDjCeoHwhrRoMviHfsKae+xXqk68
-         MACjf9bd2krFLykEoKwkred2e/6I32/5xwEw7sv3wpvdXlPtzBVy9CVCMXJzsQ0vKxJK
-         iL8TXTsz+O5axi5LOdJi6hdyulbqG155qB0x0UUy9QRNdXmW1UBpBPCwxML/AKOMMqlD
-         /tAD7DVi+Cs7D4C8Ru4uy75DOcwvkAWYE5oFwnxtSe4AFxne9eNB4s/9ck75elf/q9GT
-         7JYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792549415; x=1793154215;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ouuFtypaEJ9ckJXUmMEhOp8/mEcn0FyKt1h6MgNlrj4=;
-        b=0yVlyPyg5YtDLeAIGwgnLlkBMoqXK7ZL4UMnw4RqdIbRDeilHLXkYnuL4CVcnDYrUn
-         Noh7Sf7b/fBKyI9SK2in5pMiuwHq9I9g+xY6B3kKOYYDh1XpEyAmxHvFCdN2i73j6RMv
-         NjuANThSmdBtevFVHY7NsIOkffSaOSWawm4xoQ7URrsp0kSWRbiV2OsixMVPJbIjLPR9
-         nDLkUQym5oM0CYGLcJySZAaasd+Nlyvayx4y3QSDlVX/8tCTuKYRHpaz/S2ADbJFsWWZ
-         KIAk5pfn+03pUD1c/rjakSdBrUxxkpyrAxjUVu9GBAoFUsupUePeR6qCsFIOXr7Dl2lD
-         Oi/g==
-X-Forwarded-Encrypted: i=1; AKwUvBwg1a4ruaof8kRNqbVnPbRuU+8T7eQxt5rF4UMI7IfzdgSGXsYhVV57olWG/8DtwlwqxEO2uH/JqOTrnkA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKW8VHqv4poPXBCDeFwsFxRTBbjpH7hvq3FRsGhlPCpYFEa44BW
-	+/MlPjZHS4f50xUiJngX/iQpnVVcTuC3q/na0tmAJcpLYcwoPofGQk4K4eKx47ddVulLkAXJcqg
-	OPOiU
-X-Gm-Gg: AYBFou33fPhoKDEH9OZmaG7Ctjh/e2SpUneI5tyDT8306BX8BFjNAyws03GZIw3aVAz
-	9ewSmAeW4ABQjcEaPe0U59404GGoDSUBkdXmGD03F9mt+wJq/WmbdmZgVv2q0vgZ5H8eW8YV0Og
-	V06qAttkw6F1+y4lxLYHWzDsiVzLWkVRNs+tCEK7dIXXYunHZRHb/A3p8qxZxzWKyWFRuFw7yff
-	yYiKEMtPmde9fRKB4xG9BFA2x9FuNIzQNQ9a3JPMx5bJkD5+GgyaURpPPZMffKT5I+LkSJtzuyw
-	8oDJVP/UlRv8HzzjouHNgoCXysuqCY24b+g/u7bXPpl162Mx21gnZfoXhlvWsFfv7p3VLDby8EP
-	0rMtk4DAvquyvQckbH4SQ/8qQbogThXv7bVEjbnJDq5wRnJqdcLzKDAQnrH7Hb0roZFZEeaKLur
-	RivMQlMLbRSE8ptlGcadSxgwc9N8dJxFd4lXIPwqpH2Sd6SOWks3NnaUng8kjsocaDPXU84t7n0
-	I6BFHTUgx1ldyPLMZXiPp7KGJ3CqhNnC/2cV4KUO5N31q0gYaKHswI6s3d2eTuBFowuK5SbjgII
-	md1mwgWeSlQ9O12AOhnb3TKJrQPG
-X-Received: by 2002:a05:620a:4621:b0:93f:a7e:e0f0 with SMTP id af79cd13be357-93f57fd3b6amr186072885a.82.1792549415263;
-        Tue, 20 Oct 2026 19:23:35 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56de57e8sm135743885a.25.2026.10.20.19.23.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 19:23:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=GjkpDHWw
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-100-percent-1 (Postfix) with ESMTPS id 5D5ED180021A;
+	Wed, 21 Oct 2026 02:23:44 +0000 (UTC)
+X-ICL-RepId: 01a15c45-8caf-71fc-bdd1-eab4e7043f60
+X-ICL-Out-Info: HUtFAUMEWwJACUgATUQeDx5WFlZNRAJCTQFIHV8EWxxCDFYCVARLVxQEHVcaVhlWHVgUWgYOXnIZWhRcGFNFUR9UWFUJCgJRHFYNV0NUBF9QSxsOXAdLWhVVFw4CQh9QH0wWV0NaGRwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoCURxWDVdDVARfUFQRV1ALCAcVXEFSXgMIBBIOHAAOVlIERQpAUFRUCABJCExRWwdYUEBdG1ZaUkVREVQdXy1eCF4fTBwdDlgGDFBNAUMICgJRHFYNVw==
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1792549425; x=1824085425; bh=GDEvEH/LpDgW+uEZTtQvjnKzJSBloxmBvXK14a5S0Ac=; h=Message-ID:Subject:From:To:Date:Content-Type:MIME-Version:x-icloud-hme; b=GjkpDHWwttT2jlIm7qBUWY8arF1mLlTQA4BZaJWjhvYb4ycJXDXaOY/x9BW1ilsPAODhzCkWt5efThIivkPrTUm1A9YgmzAp3luuz1XbJQk3vnpDitMoIA1xWYjpCnbvCNoaLVqzNeCw5+w/m/ixpvDWn4hVwwV0aCuRFaqolDZQMlCd43znSfheFJ5jdU6ErCeD73RZmRMU9CH3zaVCuQtWxNCAY6yisjAIP+hhN6NjvDoY9jeFVj/dklZK+DICRrDuf/XV28Mwusi/oNrydFHIT1fVf/zhVj7/Pi22rHwvq34ycyGITMj+MWn68bPIeEDVBKk+PNprwpdOItjGrw==
+Received: from archlinux.lan (unknown [17.156.200.36])
+	by p00-icloudmta-asmtp-us-west-2a-100-percent-1 (Postfix) with ESMTPSA id 86FA71800156;
+	Wed, 21 Oct 2026 02:23:40 +0000 (UTC)
+Message-ID: <c5ee9a34c6b7d3ca96538c9cc2914b603b0dce7e.camel@icloud.com>
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with
+ no link
+From: Edward Malik <edwardmalik95@icloud.com>
+To: Andreas Wild <andiwild@gmail.com>, Thorsten Leemhuis
+	 <regressions@leemhuis.info>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>, Bjorn Helgaas
+ <helgaas@kernel.org>,  Bjorn Helgaas <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	regressions@lists.linux.dev, M M <restafvalendergelijke@outlook.com>, blaat
+ windows <blaaaat@hotmail.com>
+Date: Wed, 21 Oct 2026 05:23:36 +0300
+In-Reply-To: <20260929080109.53944-1-andiwild@gmail.com>
+References: <20260801201244.4421-1-andiwild@gmail.com>
+					 <20260917233355.GA1115024@bhelgaas>
+					 <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info>
+					 <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk>
+					 <1b2cceea-8da4-4239-a955-e0c6b475a227@leemhuis.info>
+					 <87c93553-d74d-4588-bd54-0ccb2728f327@leemhuis.info>
+					 <20260929080109.53944-1-andiwild@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,43 +76,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH v3 bpf-next 1/5] sched: fix stale get_pref_llc()
- stub for !CONFIG_SCHED_CACHE
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Yafang Shao <laoar.shao@gmail.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
- eddyz87@gmail.com, memxor@gmail.com, mingo@redhat.com, peterz@infradead.org, 
- juri.lelli@redhat.com, vincent.guittot@linaro.org, 
- akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net, 
- tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shakeel.butt@linux.dev, 
- roman.gushchin@linux.dev, yu.c.chen@intel.com, zhao1.liu@intel.com, 
- tim.c.chen@linux.intel.com, lizhe.67@bytedance.com, bpf@vger.kernel.org, 
- linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261019064157.29885-2-laoar.shao@gmail.com>
-References: <20261019064157.29885-1-laoar.shao@gmail.com>
- <20261019064157.29885-2-laoar.shao@gmail.com>
-Date: Tue, 20 Oct 2026 22:23:29 -0400
-Message-Id: <179254940965.1919196.7604748267690139512.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+X-Authority-Info-Out: v=2.4 cv=JKA2csKb c=1 sm=1 tr=0 ts=6ad82231
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=x7bEGLp0ZPQA:10 a=U1xsJXor1XMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=mehdgkVfAAAA:8 a=C7AHVqOwGFqPf_5PTdYA:9 a=QEXdDO2ut3YA:10
+ a=J1pP9gvGZaT0y92QayzM:22
+X-Proofpoint-ORIG-GUID: ly087XXSoiCvN1Z6YN0Q7_sC23W1ZVB2
+X-Proofpoint-GUID: ly087XXSoiCvN1Z6YN0Q7_sC23W1ZVB2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAwOSBTYWx0ZWRfX/OX3fDKX97y5
+ 44TIJwwjPzcRlMkK4CBaZDE9DPiuhPc0YHK/WjcxU3eWgBqdyYzACzSw6rFCS0k11+ylVd+CHUL
+ sInsCER+pvZ4ATJ2bNI6LODE9KlsE6I7DtHqwYjyMncvhmiS8BjAzzFnbF//UvijJiqJDIhj/J9
+ 2UEYi9LuZbW2ddSuhW9yce4D/Jd+ZySssAc/qOKiWmLzFD1ldNj3xou9BvnssmV7D98SyeCim0N
+ 3CxtPZoFlIoflRb9w2cWSdH7bD3DBZVdncBOtX5V+9sxX7+0e1GGeR6bwUMIbZzrfFoZ8yJzEbs
+ sWjmZve3HVDJYZkCTYzmoSRK0MHZuyRj1dwVrZnai8CnjdyOmoZsKIQEXGYIqQ=
+X-JNJ: AAAAAAAB8KyJNs4iC1Kxd9rxaP+vp32isD0RYSwRSDzlJX86FEaqfULtLlXEDTf6cUMllsvH2dzYHaSnsOazIyPJrOYSC4NGKd5urWYuSWtgxnTonOlyH0HpQ0gCBqp8hzPskxMhoZOTjOrfHv0gOiwWpiedOVNf/OuMlzMHrKaC6sxVoNxsOSUKg0AlKb/udB7TL4EcxlfBXE/BPYYT7JpMhqMYbyPLbOYLq+hXDtfyYsmsu8e26RT7G0WyIxpbVShMR8Zj27UXD0J4rJcIlO1bYUZKn29dy7oM4/1+UGdJb+Z0xZj6q/6s5p79wk26sRDn1PlORyEWJR8RdNzV256QkQ0ePLH+xRlnuQKETRIe7x7Xzg9RKvK/rw8S0gtrr/juSpCV1jd00IUYoPo89IGQXtmtAdJbhxMfPonYweZGgyDNd8+/fQmuqRSldFMmC9OiF/tHeZKVzMbOmDEM3fnztHHfKkP3DssKTIdtMlkbOOW74iFYibX/Gg+HyjVsSncdkzXMltO9QJLLRnkxeX0n1M5Wp+RL1TtHU/SpjRE2AzXKRgiTXeZq9hYwltf/6qcj5Gmw5i69ftnZ0KqBF8hSf5JAl1lWo/dmdKtJUl5uAh1TqlX6UKTovOpNTW/U17u7CdKTZiU6XMjPM+hQSGNlgja+M8LYr7qTFT29MYckLWjGPIDK3AN7pxbWKyaa+kt5iIO2BAAf21UUUos16qDHdm2YhuDHLXVhf9hsiEjOzhoIDr0D4XPQgb4l3Lo7BSUBJIl93hgWxzstrZtZm7W4ncOO5k8PoSWnx5tqguAD++wnS1Czjw2YCtm9F/cz38RWb/C6oKd9LIHoI5gj4y+SHCPGnidNlMe89p2h4jCYx28Z9VL76Tt+zAhS8DU8Ay1t20BJdN/kbVQRPqGiEBg6b3SHgebIfG2plQ8TK50Ujcexlg7ZjRfMTfQ5CagLr03wQ6P0vv7VqBJid8tMR2qVNCZTGQ8
+ SPzcSN2JMPm+mjfuiUnVSOaeR4eOKDwkMDoDYakQvWDgGPlC2uXRfMkwgH8uYWGmaMpAEZnnpOI+RtVTpp3jiplbU8sITOzJr9gXaEwkgjsmg69skvfikzNd6LT/pd6c+ePfB702JjznWfmoU2XF9Dq3NmmSqDLpTaPtnCq1LSlfNw2MDwRA6CsGy1kIyA154O9kRJ9j0+0rn1ylisyfDpwTlir3wHazjKhlBCYIEIfx1UB4dmDO4dHjvnjqMta+/A5mq/MC5YTjeABczn1GLUxzlrjL3gKPh0uGFZIADtyXYecLcRGQ+Yhr8+G9jyzlTF2v7wKUdOHp+
 
-On 2026-10-19 14:41 +0800, Yafang Shao wrote:
-> Commit b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp
-> to fix UAF") switched get_pref_llc() from taking a struct mm_struct * to
-> taking the task's struct sched_cache_group *, but only updated the
-> CONFIG_SCHED_CACHE definition and its caller: the stub in the
-> !CONFIG_SCHED_CACHE branch kept the old mm_struct parameter.
-> 
-> Fixes: b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp to fix UAF")
-> Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-> Cc: Tim Chen <tim.c.chen@linux.intel.com>
-> Cc: Chen Yu <yu.c.chen@intel.com>
+I noticed another reported incident on the CachyOS Discord server:
+[1.278083] pci 0000:00:1c.0: retraining failed
+System information:=E2=80=A8https://paste.cachyos.org/p/35d9bd0.log
+I'm sharing this in case it helps with investigating the PCIe
+retraining regression maybe there is a common denominator among the
+hardware=20
 
-
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-
-Please submit fixes like these separate from your series.
-
--- 
-Gregory Price (Meta) <gourry@gourry.net>
+Probably will see more now that ubuntu has moved to the new kernel i
+think
