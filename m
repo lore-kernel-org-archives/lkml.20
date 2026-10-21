@@ -1,100 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606788;
-	b=rpA+ZBS5qt98sxMI9RdwaL4pzNBK+19YRbGRYii+iet3oRtiSt7BWCwKtUoe5cKcdVjB
-	 nmJibN8AJUUisUN/E56ye1rVTy4GsDEFOdqtln7sG+vyKMG2IOraIsouIfgSLJ0h7PHp6
-	 wACRfoMXD9+qBGvIyUKjQQwPnvTlB6rzZKGRsqIcPMS7/N86aUSkvVjoZsSJc/qzMdiKW
-	 utRPhHGv88CIaMoXA0mMYOyPsb3bKUIDIIjDVexscktr/IjYoznrFpbXqOePMrwTZPQIG
-	 ORwKfXBCBhYPQQOCoQaxfAr2uMkU3Shni4Jh02BF/tlD+IVPY3ibbkSdzoFe/8/IoiA==
+	t=1792606842;
+	b=JnQSPOZhijWDht8KRwHmY+aTwc9R0DxhDUP5LyBlEA/5V4r2SGJq1c8H6gNT0xOvtiHV
+	 6OpL9bKa4BpwTn+3xR+7HHcN6kJkDhqcFsPL1OIaprQ+qOEjROXPAfm/YOx+iNRag15Oa
+	 H4G0HUbSjpKyiJ/B3ZoEB9BP8dzblqCEiccM+EaAHH1KBrAlBNbs1JoQI8JqrDLMGW7hI
+	 jqU5EuyfA5wxt2dDEgfNmjm84RIYa3s0XYeNlA8hu+xuCUwTA91wDy4jez7lRuMr/HSqS
+	 378KnO3Q2uMYkpgLphUuEwopX4ANExFloHuFjfC4s2xTUOz3dFjMR3Qx44uxzNn0zpg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606788;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Nco9E6pnxf1U90wQWWUGgERQdyljr6gpJ4DY5U+hjP0=;
-	b=YhFegAbJLVM8rZ0BrGVeU2M5TSGxZlWgbm8hZiXEbMjCwhT6cEIEv2TncP2SIo9blFW+
-	 TFn6zjwgwG8ycaps4ndvaYRDRXEndRTbRjLh99CTOUc7xM09QfiBdPQltdBWaJgVNvUxj
-	 7cu91NjrFO4PKN2pH6TGC0Mgq1ngz6BQ3JFVBGwTvrl3JMyzPtAN7d4fK66TV5BTXsld+
-	 M6Lee+EPKaGQpXx54ACDDbxWf8tFl1RV4PcGZ4/IvDQJ53MgDXFIYJhTaJuWacNTuIA2v
-	 pxl0V8+ssVEa2vfRyzccvMVkDgn9+bEKUVBmu65FgxF2SQpfZGCuItT23SNi/YXsp6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606842;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=3RB8pGqoFevwjpm7hqYDh3Z0YhJECl+wf0Lwr/YiYQk=;
+	b=Num8BvtveeofgwxdQP/lvLoecFFDz5SaND2qN61egpjPuDNlOVohqhkUq22Y7pv9nG4j
+	 TzCVmmgYpV/6N7QSFjyOCdlr2s66Ym5tvfpJIxEQ+L9kuzpneRxl5dLotU/Rmx9whvMqB
+	 xVyuExEKwU2FU55ZAjZZtSDK/fFnGk/CCzbj7Ay1UGbM1mMGT6nu9Sy06FqhIuoP3bTpw
+	 LM7sfg51dy1ItIq+JqpdFh52jw+wPPa9/TqY7JgRTFvOMM65NzyLGRauv/4AtmZEnkvt4
+	 DYiKV8tIv/y8nrpSbE46DPD9FlChG0P7k/oMqOBU/QaJ7LOj8XDyWfHbcEN+VpLmGnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qAGpfHyV;
-	arc=none smtp.remote-ip=209.85.167.52
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XorJYn+h;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEA6606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:19:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BEA6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F41DE606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:20:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qAGpfHyV
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5bcc6094d7fso821093e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:19:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792606786; x=1793211586; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nco9E6pnxf1U90wQWWUGgERQdyljr6gpJ4DY5U+hjP0=;
-        b=qAGpfHyVfaMIH7CJNiBwxj9rv0Qe6qb2Bz8HH8EBd7DU/Gjg/s5+p/zxDysVJdoVt6
-         gHm750RlBqNpmLp3R2mVgZtSwqCnC0mWd5rSRkHqtSt84k55Wem2s13Y8Tqt9qR2pvTc
-         amDxGM37Q1biWEVVa3KpRTDLEvBhyEsuBj1Wu+N/uzl3RODyG/at0S/jTNUmGum9GgqG
-         yFqFiS8iKcOn1B0og2Q6mWoyM7sF1uBmIH4fPOrt23TZadX2ELc2fy3pYnR0e9VRRekp
-         9aQUnX2VNlMqn6+hspMHTJwFuaPFnV0IqTAxeQ2RZGFtN/tP1+FnB7Ra0ekHtOztob7u
-         4QAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792606786; x=1793211586;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nco9E6pnxf1U90wQWWUGgERQdyljr6gpJ4DY5U+hjP0=;
-        b=PgfiHqijJaidEppeQtsRa4F7KsgPX70Fm0lmCobpEzWoH4QS90dTv97izDS3i3LKrA
-         PeO3uKTnoXP4L9GJlFafFNWq7njs7B6xlWWRs8m22Ne4p8twt+AIbqDrhHETYz1PNSYX
-         v5FsqRDF+mN/wIplO/F6Q/NbregJARGSIFODKjuSe27HCz2sDnJohITHziuLQO1L/CCM
-         ywpJhdnPfvZjVgbb1LTU4Q5m3SqW3Hhgalo0sukyccP80oUKfO78lwcIaXmpE/MgJrIc
-         SnT+A/c29x+QdZsQRQO78a7xXxjPVUw95aeC9FLsQdDMAQlB3yYXiAdvarYRnEbyHPXP
-         ulOA==
-X-Forwarded-Encrypted: i=1; AKwUvBwSi3XQUSjylU2mRz923qPAw7hjFmw03xMQAjdJkslirPue0DMzPgYh2o0LkKyKgqDImWmzCD+3jFXcvqM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7MwW0FjcZMtdfTFs5FsgX9NNPnvqolbWLA7FR8QmILWShjhKf
-	vqLjA6KRv9e7eWhJMGHzMxXANnklZ3u1/nO+GYGHRD8RJigUZm0MwjSq
-X-Gm-Gg: AYBFou1oyWC3+S5mgpIIbVP/hL7heLkmYdFtVir7jfcfqDrKxNh2A74YR5UMaaafO6H
-	KxBqafU10LmgJLvMwPzgd+7LoRV6HArGddCSNqBgRk2cn8j2x8lPfX13Dwm1/ODJ86avK9dttKg
-	q6OeXYq4oH3g3aR+46wiv5I2VW4/WuWjSmgE7boAYmcAECCemv14qziDjJlsUNpwYCI4FQFtIbb
-	bjMUmB013Z2Qk8jOMzgMzBgFuSgn+dWNBGAcfVEuBfBjel13/PdNW+halmi44k/nsKFe//ni514
-	WkU+l2ScE/nTDcSZfU+VXN95MrDS/yw48ff/QxRW/lIMMWLn+do/2kW0p98ZbCtbKWjDLIyAl/j
-	wlfl6MaW4roEpx30BU9aLtYjIWXrasYPnh+gr+AyRSwek4hZJQHSlAf2MOknC+J7t/5N79vYToA
-	vrQOSA9jaiWKuu5zDvswYp8GN7hcHK5qalmOgWUpF7yI/ySszR7S9zez6c0T7OvI3j7B38uGUjM
-	cLPntRKJcS0PqXJnyG6fGdiwR1h7Qv2zoLwPZfOmqMbUEbgIRciwd19mGdnrfaZa+HCXxlTuGI+
-	y1OspeNRvoTcpqXgSfWQBgC7ZzjSzxaCA1Yuih2OzRTg6DuC/UIlS+RqAY/D18A=
-X-Received: by 2002:a05:6512:3e0e:b0:5be:488f:6008 with SMTP id 2adb3069b0e04-5bfa1ccefb3mr1270192e87.15.1792606786005;
-        Wed, 21 Oct 2026 11:19:46 -0700 (PDT)
-Received: from yantra.. (nekmmqsaylkikwvppw8-1.v6.elisa-laajakaista.fi. [2001:99a:d7d:c300:10fa:2e9e:78b7:e58])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa123120asm649718e87.69.2026.10.21.11.19.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:19:45 -0700 (PDT)
-From: Rupesh Majhi <zoone.rupert@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Marco Elver <elver@google.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: qcom-spmi-adc5-gen3: fix lock annotations on mutex helpers
-Date: Wed, 21 Oct 2026 21:19:44 +0300
-Message-ID: <20261021181944.14272-1-zoone.rupert@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <3f41338e-fc47-4306-b68b-5a81c26027fe@acm.org>
-References: <20261021052435.112686-1-zoone.rupert@gmail.com> <3f41338e-fc47-4306-b68b-5a81c26027fe@acm.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XorJYn+h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DD571F000C8
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:20:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792606841;
+	bh=3RB8pGqoFevwjpm7hqYDh3Z0YhJECl+wf0Lwr/YiYQk=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=XorJYn+hh8+QV5j9kCCSgIJ80rJZGdHc4PL2XqIIDp/VAJ5pSgngbEND2Elg2a2MK
+	 +ZI27Xx62nRMhJ/KqbqvsnoNAjY+2Neg/8GumCtLZ8XAiYDCmDl6AYdpmecQXtT6st
+	 0kRAwIBtir6Iz6uSatsX1p1inuOlWAELZcT//pjCMmJoCYPweyH5vqWyGZwLKWoMd9
+	 qt5uSyRl2qmK7OudqFGY3WeSbMseSnzer7MPX9QqZJbF13ssu2Ma5e2s1Ed0EYkjSl
+	 xz0EjZru7Hk1gliznBNz9U9fz03jD4Un1xHEIubRmbrIVwwt5swT5hP/Anji4bsld7
+	 dw5EGSw9SO6mA==
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-4a6f2825dd6so295365fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:20:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzpiV58n+b3UQcREW3mo/yJ7jWvUkM+dxZBlF+zuwcbsmnyFfqf85iZmp6/lSmlhVQXs5S6GUx4/svGMI8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLuOozAWdEZ0pPonjcsBn65YIwPFhPPUMkBHiXYjXjg0nSDQ+bf
+	NEA5cfSel7ibh7gp1qyOH80mICWW7gcLY0yna5YXZPGZR9gPA6f5FjYQdN2m5qvgBGhQNPPaiM5
+	fbyoLwF2UEK3llXVdx2adtceFPlQ9Dic=
+X-Received: by 2002:a05:6870:7097:b0:4a6:f0b3:79b3 with SMTP id
+ 586e51a60fabf-4a7dbf3b81bmr1643703fac.8.1792606840868; Wed, 21 Oct 2026
+ 11:20:40 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,11 +59,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021180329.26358-1-nick.simo@gmail.com> <20261021180329.26358-4-nick.simo@gmail.com>
+In-Reply-To: <20261021180329.26358-4-nick.simo@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Wed, 21 Oct 2026 20:20:29 +0200
+X-Gmail-Original-Message-ID: <CAL4Wiiq6Jy1XPtkrA-Ge2N+voJrE86DWPJp_jXwHJG3ZgMvPaQ@mail.gmail.com>
+X-Gm-Features: AclHuK92ROo2GQDUw7T4ShtS9Gq30MtN5yysthtRvbBAH8cdJS4sBr7rxyIL9QU
+Message-ID: <CAL4Wiiq6Jy1XPtkrA-Ge2N+voJrE86DWPJp_jXwHJG3ZgMvPaQ@mail.gmail.com>
+Subject: Re: [PATCH net 3/3] ipv6: validate checksum_start before fragmenting
+To: Nick Simpson <nick.simo@gmail.com>
+Cc: Magnus Karlsson <magnus.karlsson@intel.com>, 
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>, David Ahern <dsahern@kernel.org>, 
+	Ido Schimmel <idosch@nvidia.com>, Stanislav Fomichev <sdf@fomichev.me>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+	Phil Sutter <phil@nwl.cc>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+	Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend <john.fastabend@gmail.com>, 
+	"Michael S . Tsirkin" <mst@redhat.com>, Willem de Bruijn <willemb@google.com>, 
+	Jason Xing <kerneljasonxing@gmail.com>, Song Yoong Siang <yoong.siang.song@intel.com>, 
+	Rusty Russell <rusty@rustcorp.com.au>, Max Krasnyansky <maxk@qualcomm.com>, 
+	Sridhar Samudrala <sri@us.ibm.com>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org, linux-doc@vger.kernel.org, 
+	bpf@vger.kernel.org, netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 08:15:20AM -0700, Bart Van Assche wrote:
-> Why doesn't this patch set CONTEXT_ANALYSIS_qcom-spmi-adc5-gen3.o=y?
-> Shouldn't that change be included in this patch?
+Le mer. 21 oct. 2026 =C3=A0 20:05, Nick Simpson <nick.simo@gmail.com> a =C3=
+=A9crit :
+>
+> ip6_fragment() and br_ip6_fragment() complete CHECKSUM_PARTIAL skbs with
+> skb_checksum_help() without checking where csum_start points. After
+> reassembly by nf_defrag_ipv6, the IPv6 header has moved forward by the
+> 8 bytes of the fragment header while csum_start has not, so a
+> CHECKSUM_PARTIAL skb from an untrusted source (tun/tap or packet sockets
+> with a virtio_net_hdr, or AF_XDP TX metadata) can have csum_start inside
+> the IPv6 header, and the checksum is then written into a header that the
+> forward hook has already accepted. When csum_start lies before the
+> network header, skb_checksum_help() warns.
+>
+> Add the IPv6 counterpart of ip_check_csum_start() from
+> commit 6785011f8b16 ("ipv4: validate checksum_start before completing
+> checksum") to the two IPv6 fragmentation paths: refuse to complete a
+> checksum that starts inside the unfragmentable part of the packet (the
+> IPv6 header and the extension headers before the fragment header) and
+> drop the packet instead.
+>
+> For IPv4, ip_check_csum_start() is also called from nfnetlink_queue,
+> xt_CHECKSUM and xfrm_output; their IPv6 counterparts are not changed
+> here. A reassembled packet that is not fragmented again, such as an
+> atomic fragment, and an unfragmented packet whose checksum is completed
+> at egress are not covered either; those have to be handled where the
+> CHECKSUM_PARTIAL skb is created, or by a check at reassembly time.
 
-Fair point, without it nothing checks these annotations. v3 will enable
-it as a separate patch, so the fix can still be backported on its own.
+Then let's do that, instead of adding checks to every consumer.
+
+A CHECKSUM_PARTIAL fragment is meaningless: the L4 checksum covers the
+whole datagram, and our own stack completes it before fragmenting
+(ip_do_fragment(), ip6_fragment()). Only untrusted injectors produce
+them. Yet inet_frag_reasm_finish() keeps the reassembled skb
+CHECKSUM_PARTIAL when all fragments are.
+
+Downgrading CHECKSUM_PARTIAL to CHECKSUM_NONE in inet_frag_reasm_finish()
+covers IPv4, IPv6, nf_defrag_ipv6 (and the bridge path) in one place;
+the bogus L4 checksum is then verified and the packet dropped.
+
+Also, reassembly does not move the L4 bytes, so a valid csum_start stays
+valid; the "header moved without adjusting csum_start" framing is not
+the bug.
+
+Finally, this patch is described as defence in depth and not for
+stable, but carries three Fixes: tags. Please drop it.
+
+Nacked-by: Eric Dumazet <edumazet@kernel.org>
+
+I am so tired of these LLM patches working around the issues instead
+of fixing the root causes.
