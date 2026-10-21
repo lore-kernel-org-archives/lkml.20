@@ -1,67 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602204;
-	b=QMaT3cTkldEIawBLSxOpgMrgb962uHIKl+vwMsfVOe7GEx/UfemGUNBnkqbInJUJAfQ6
-	 1lWzAx4/1Lo7JjSsEIbx1lcCTYXa76I01YyIodVig6i9p97pqSGo4ZwpiSp9QgZmxG1hz
-	 fRGM9gjy4eCQtaLdAUd4dG+MohRBXWGw0ESWIS02hxZTbhBbOCSdhDWCLzKqo1+7q8Mim
-	 HIcjM0sfTVP4VTlVzkNQQE8Pc8wzH28q5NppzyxYxZyHIGy6ErKXa6N7We2nsaOxTtvGG
-	 xYqmQiaDE7KaIBc+n2oy4bf+VT3fqfC/ypNiEnJiCewTTFtcqlDKd5MMo28fFEJrqHQ==
+	t=1792602239;
+	b=P88HeanM0eRa/vthmd5p7V/RKgXk+ITQtwQj4Z3IISJycSwo/cNrmBrleNyPCAxDWtkp
+	 kb5SjW58EHGVXztUhyfgaJr43fdN8NKeRg2J1UeLixKzbLnobMqaFHfaDWe4PRE13tb25
+	 XFM1MFvjzT8itVs7UsAeLkxWSUMgzORt785KcBhimNCYxQGPxxf2q9lZhtshmfFFNVeMU
+	 jqwdvOgeKvE0tKi3hOaL3E0D1UywyKR0GQwOktke/KAsHpx4YVweLKxYmgqDHGZg3ih8d
+	 AoQOdEk3xHHp+dpScL/6kmEjq7chfESOXBQ3SPOWHL3s4DVTZj1nZw2fm/bLuWYokqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602204;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=V9oKbRIgS4pwxVZeeCa88Y3+8XRLveqA5R7QjFJXjVE=;
-	b=WE37z3I5H3P7d/5xBDrZfh0EzeQqnHLM60fKZJQ53dk/hJJOrX2GfQK+VHm2/l2RzhNp
-	 5Y4gyBMkmliV4Z5nTJMtWIEZQYeBzRjHgggcw5y8sGVu2SwcbmxW8USRSyGtHt6vgUK7A
-	 1v1B7EGysZ2Clzxv55XfMdRwiLP7FmpnlYfKJwBaYUAw+fYN8pxpshRsUYymUDEhRyUCv
-	 AL7XojZxH7CqyEI68chCJ0iLyKdkVS1m7B7poRFvyGBnuErca+hc2ee0R5yatjwdRZLdw
-	 Pm6H8ANjP5QuExcJc90NavRN3FYEzZmZ0W84aBGIDrKGw0971d7LqUpF9l1x02diJ8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602239;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=XxkAtzk3cuV4R/7ZEJ4B77roig8TiSn44g1A3T9utgI=;
+	b=B6dVj+b0AZrrbB2PSTKpASJKt2XwmuwgHeYD5GXB+bhO6juw+EQiTJL3mUEQDl1yRzOR
+	 FqjuDqa0jmoRfurv3vNy7lfkfw36X3+ZPQsbeKPBxn4+TpUpv8hkVlz1L8XDjoUa6diSm
+	 CJPHlhYhBWMAmFo7QbPBfTPp4r91YDHbftkRdCuG+f1QpuRsyWyhrXDmWDYgCdDWeNl7i
+	 2tef7EbtUB0s8uD4knvy5AOhxvBvnqJ5sjYg+nEPE25xgyn5VJk+wDxcwN4Xivjfc/Cgh
+	 Zg/hntddZZUlOLs97mxrfoFfG8weMNTaJkEP2sJ/pFyFUmFEnkLqsa6aAioTvwAducA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce6277pA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OKzhBjGE;
+	arc=none smtp.remote-ip=95.215.58.166
+Received: from mta1.migadu.com (out-166.mta1.migadu.com [95.215.58.166])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E342606A327;
-	Wed, 21 Oct 2026 17:03:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F55606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:03:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8F55606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ce6277pA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1B981F000C1;
-	Wed, 21 Oct 2026 17:03:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792602203;
-	bh=V9oKbRIgS4pwxVZeeCa88Y3+8XRLveqA5R7QjFJXjVE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ce6277pAdcGnf1xtHytlSgyb0IX0barbbXBYnMWF5ylVBrx54J5Lj5+0YdYf8RgFJ
-	 Hj7SIi9RKXwd5ypKOy0s6cDoGwa9J6i5QBGn1hySXzDZG29PmKhuvAc3NB1Y8AVGPv
-	 0sb/8NKf8BMGmDvEYjxkpsbMTmUDOqPc/35ke2aM5827hGf+44EzQz0Z2yQGyp80bU
-	 LnjJWnMiKk9HBNCRQFhEHD0ejbn3Dospb88Ff3vGVs84UJbazyzEU+ZVhvfHhyApUE
-	 lr57ZjTMPC5JLYWWRE1NvbTsU+DVtxupb7NkhTHclYkFj2qdUiB0a/nKurDv1z0xTY
-	 QOdYb1Sm++55w==
-Date: Wed, 21 Oct 2026 10:03:21 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <linux-cifs@vger.kernel.org>,
-	"moderated list:COMMON INTERNET FILE SYSTEM CLIENT (CIFS and SMB3)" <samba-technical@lists.samba.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 1/3] KEYS: Expand key->{datalen,quotalen} to unsigned
- int
-Message-ID: <20261021170321.GC1879@quark>
-References: <20261020174325.2229448-1-jarkko@kernel.org>
- <20261020174325.2229448-2-jarkko@kernel.org>
- <atfT5WJU_ldjpQOM@kernel.org>
- <20261020214335.GE699485@google.com>
- <atfky30OZQ5vsNVs@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=OKzhBjGE
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xxzknvAGwBqrx+ryt5T3qM3aIvNfAZ9P3IcDt4rnT4w=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792602236; v=1; x=1793207036;
+ b=OKzhBjGEncpgo3Uz3/LILxAqU/+xcGGiC7mavksAJYiq3PMGFkBOisxga95iE3oHTTuyKuhB
+ M6cpiiUbcmVjfp75wVT6QnKK+Ui/yyjMS1BAZAZsCmOKVzrhmHTOh4+AZbDa6bzIAftpDE2xSeR
+ qiZVGnmdkMLCYqQCxM8nt4/s=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d445459a510384bd;
+	Wed, 21 Oct 2026 17:03:56 +0000
+X-Mizu-Trace-ID: d445459a510384bd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <51ccddcc-53b0-47cd-9526-ccd825f0f6d9@linux.dev>
+Date: Thu, 22 Oct 2026 01:03:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,69 +58,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atfky30OZQ5vsNVs@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] ppp: linearize bridged packets when required
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: netdev-bot+sinfo@kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Breno Leitao <leitao@debian.org>,
+ Kees Cook <kees@kernel.org>, Taegu Ha <hataegu0826@gmail.com>,
+ Tom Parkin <tparkin@katalix.com>, linux-ppp@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ James Chapman <jchapman@katalix.com>, Sashiko <sashiko-bot@kernel.org>,
+ Felix Fietkau <nbd@nbd.name>, Pablo Neira Ayuso <pablo@netfilter.org>
+References: <20261021023608.55867-1-qingfang.deng@linux.dev>
+ <179255036282.3290.8488375760281728576@kernel.org>
+ <c0f348bf-0e13-4cb1-8014-cd9b7787bfe6@linux.dev>
+ <CAL4WiirRPnbSBgcoh8Aiq8zGVzsy34w9uaqAgSKQwpgJ0ht7aA@mail.gmail.com>
+ <315a8794-db40-4d0f-9e4c-0cad66174bff@linux.dev>
+ <CAL4WiiouaJ5QU24uKt=CuxpfgHmWHS5oxoE2E_C6KFCLbDh0+w@mail.gmail.com>
+Content-Language: en-US
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <CAL4WiiouaJ5QU24uKt=CuxpfgHmWHS5oxoE2E_C6KFCLbDh0+w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 01:01:47AM +0300, Jarkko Sakkinen wrote:
-> On Tue, Oct 20, 2026 at 09:43:35PM +0000, Eric Biggers wrote:
-> > On Tue, Oct 20, 2026 at 11:49:41PM +0300, Jarkko Sakkinen wrote:
-> > > For any kernel patches I've missed all Sashiko reviews so far and have
-> > > not taken the feedback into account in anything.
-> > > 
-> > > There is two issues:
-> > > 
-> > > 1. I was not subscribed to linux-security-module. I could be and have
-> > >    been but probably when I've changed my list subscriptions at some
-> > >    point otherwise, I happened not to be.
-> > > 2. Even if I was subscribed to linux-security-module, at least I'd
-> > >    like to get reviews Cc'd that concern my patches or patches
-> > >    sent to me.
-> > > 
-> > > Now that Eric pointed out Sashiko review I was able to look up this
-> > > via web browser:
-> > > 
-> > > https://lore.kernel.org/linux-security-module/20261020174325.2229448-1-jarkko@kernel.org/T/#mccc5900222fdad9d790be343fcec2a32540ed2fb
-> > > 
-> > > This is somewhat inconvenient though that it responds like that, and
-> > > not to the review thread.
-> > > 
-> > > Not actually sure how do you write a Sieve filter that automates
-> > > relevant-to-me Sashiko emails going into some specific folder but
-> > > I'm sure that is somehow possible. I guess I'll start by subscribing
-> > > to linux-security-module.
-> > 
-> > Well, the keyrings mailing list isn't currently opted into Sashiko
-> > monitoring or emails.  linux-security-modules is opted in, but it's set
-> > to have the Sashiko emails go to only that list.  See
-> > https://github.com/sashiko-dev/sashiko/blob/main/projects/linux/mailing_lists.toml
-> > 
-> >     ["linux-security-module@vger.kernel.org"]
-> >     reply_to = ["list"]
-> >     positive_review = "all"
-> > 
-> > (Sashiko defaults to no email, because unfortunately there hasn't yet
-> > been consensus in the kernel community to enable it everywhere yet.)
-> > 
-> > keyrings could be opted in by opening a GitHub pull request that edits
-> > that file.  Let me know if you want me to do it.
-> > 
-> > My preference is what I set the fscrypt and fsverity lists too: enable
-> > monitoring of the list and emails of issues found to everyone (but not
-> > the noisy positive reviews, i.e. "It looks great!"):
-> > 
-> >     ["linux-fscrypt@vger.kernel.org"]
-> >     reply_to = ["author", "list", "recipients"]
-> > 
-> > So for keyrings I suggest we add:
-> > 
-> >     ["keyrings@vger.kernel.org"]
-> >     reply_to = ["author", "list", "recipients"]
-> > 
-> > Do you agree with that?
+On 10/22/2026 12:31 AM, Eric Dumazet wrote:
+> Le mer. 21 oct. 2026 à 12:27, Qingfang Deng <qingfang.deng@linux.dev> a écrit :
+>>> +       case PPP_IP:
+>>> +               skb->protocol = htons(ETH_P_IP);
+>>> +               break;
+>>> +       case PPP_IPV6:
+>>> +               skb->protocol = htons(ETH_P_IPV6);
+>>> +               break;
+>>> +       default:
+>>> +               goto drop;
+>>> +       }
+>>> +       skb_set_network_header(skb, PPP_PROTO_LEN);
+>>> +
+>>> +       segs = skb_gso_segment(skb, 0);
+>>
+>> Passing zero features to skb_gso_segment will linearize every segment
+>> prematurely.
 > 
-> Yeah, that would help, thanks :-)
+> Good point, PPTP and L2TP do not need linear packets.
+> I will pass NETIF_F_SG: checksums are still computed in software by
+> skb_segment(), as openvswitch does, and ppp_bridge_xmit() linearizes
+> segments only for channels without direct_xmit.
 
-FYI, it's merged now: https://github.com/sashiko-dev/sashiko/pull/719
-
-- Eric
+What about NETIF_F_FRAGLIST?
