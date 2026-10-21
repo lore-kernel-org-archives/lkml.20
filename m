@@ -1,84 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792621344;
-	b=mavfFRSdLQz58wHrS1MNKst2yX3hDZgtX4FodA7CqrSJGlnRTKApK3C7EnQJXQPWW14w
-	 3qNQOHLEpQ4ri9TJzHuHxdY9Gj/hZ2M9drax7nSVrUnvtkQp9M2T8Z5Fl1EP/qUQoDyMh
-	 XIRy1n17MCQA76JNP6Fj/+y2DpOmcexoY+qfm9kJXvNAUUFmv5C2Q5iMnc7QgNhp2tP/R
-	 3DAwlGPkpKjVJhKluAfslANQb0NOw7VGKSW3Uz1N+H0MJDt9P9OoCMvFV1difNeewbLtc
-	 E5demmwimFfOrIl4Aodov9gqEZ1/dYhLTnBAFCEkuHUWnglFcxxrhbZqQPdSHoxU7Cw==
+	t=1792621385;
+	b=X0gwVVg1mSoL/9XzCUjuO+ieHmDOguqNgKBuH61fuapA75KMNG2YFh6nnphe+BoEZkG4
+	 TVBJ2zyxG0d6oLbcx3ZdInXZFabLw5lnueFNLiNPUFwnfyk2T82/Ogoii5sWnVheSgNmJ
+	 BJNK931RTyW0GZaFer5NQhDwCvjrD91Wmm8/by1saOVBTIQOpRmYlBwOkSN8QUlAq6myr
+	 93RSruBBNpmo2El2R6rH2JgJfCmlc+hRM5oWTFUK8IV1URdIEVOKZNb8UUNiz6BbNoBCV
+	 PAAzZn1kbR2C9WaOHIpzs5r/tdymEUSFRqyTb1NkWUZOrjdXim9pU1fUnzM20GRzIzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792621344;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=fiUM6JnMHmA5Ov/xErJ0AuJ15Kfyu9ttUsUZNXK5l38=;
-	b=FHCDbNqjw4p2QXDoZKRqB8pFXNIqKJ0cekIqI0g07YHw5yX9i1E+HOvPOJCCQZNajnjf
-	 2GhH9+rjgdHOMP+e+oE4C8+gkE2wUgeGCRJysv55wqw/5oNY96RK9hBAgD75F8Mbpp9ae
-	 Dd+rvup9XBHoZekwVq7B7CUBkgmUqb7Uf/BtYnSaE2uOusH+QpKw7l8iPeEhI/2M/jlwO
-	 Sdz1D9XFyzxB6NnOonbUYWfO+OKIsUIbPJGU+nVhSjd/cCaVIHORg6C3fq4rW5rLgMLle
-	 2MY/LfJzzpGanEYSSFnhR4+/EpdxUEpOpYUiCDQuAylDgP3YpyInaFSmernpDdhJH5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792621385;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=f638RTnmDUhYgsB0t3rdzo87luml5kZaSE06sLT1s7M=;
+	b=jNfecbNjoeH+d9jfKqVzD9TPeX6ZB5uHKJQPp86BS/HYjsXsKet1/oh5PXufzEffHM6q
+	 r441g3+qZ6G84kIBLqxhndvIdXBsUviqv0CApUNfHHlKv0kRtqY+R6LFTtTNwgzAg+4Al
+	 Kgtbr/oC3uqc/MuN8imQIrVSQ9L9NFd3aMe8UJP/vfVR6wcfoVSFXB/CIOLHQTaSgm7cB
+	 0lYhYGuHkEKR+6nfejwERGqKfcAYJUVER48gKWhAUuIWwpaIfnypssmXsnpKrI70GPc/y
+	 2DVRLsNjJCA0DRpnaAdQ4PK0enPc+GmHl+be+XBbOSrDxVDeo4BynwnsvZhlF+IUlCA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKEmHpaZ;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evypLS0E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52EED606A322;
-	Wed, 21 Oct 2026 22:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52EED606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18832606A31A;
+	Wed, 21 Oct 2026 22:23:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=cKEmHpaZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792621343; x=1824157343;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rPUtyuFnWu82Z984Cm8dRmoMlFt8wbeuLLGVVyrRq0o=;
-  b=cKEmHpaZAKll5ufRzLNbx8vm9dLyATaoh+4zoO5lEvRwSyFifsB5myjG
-   BfYgR9YwPovf+b3wvCckH9nxhyVz0e92Jbcmes6d2C+pUwDv+kju3perM
-   fwO/twEYqL4MZKrM6OLacdc271eL1z/5FsQW4NkRCJhvbXZQW3KCLontU
-   5ao8WD62uVFySHNiyF85Mgna5sdZYaCTVRkMDRUlZhbL01ZBrLtbgnqKt
-   vsVX36kolWEPkn7FGhT+o1ju2HkJA+dtI8ROhBSqwP+PdKFqdPFJfup8O
-   +ZZALEuJ9FkoO1OV9CeSspHlr/cVJOp+YKmu5AadCMFeb7iDtkgjXDKgV
-   Q==;
-X-CSE-ConnectionGUID: 202Bar4aRBulGHiWzjFgZg==
-X-CSE-MsgGUID: WlSygMDEQCixWwklwGkVLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1373155"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1373155"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 15:22:22 -0700
-X-CSE-ConnectionGUID: jERSXTrpQ4mmahGGAlw3dw==
-X-CSE-MsgGUID: Fu/9SPr7QIiN0bURyZL7vA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3258258"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 21 Oct 2026 15:22:20 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xJehM-00000000Q94-2Qb6;
-	Wed, 21 Oct 2026 22:22:16 +0000
-Date: Thu, 22 Oct 2026 06:22:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Lee Yongjun <jun85566@gmail.com>, stern@rowland.harvard.edu,
-	gregkh@linuxfoundation.org
-Cc: oe-kbuild-all@lists.linux.dev, digidietze@draisberghof.de,
-	xiehongyu1@kylinos.cn, linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com,
-	syzbot+7317196294d50d6e55c3@syzkaller.appspotmail.com,
-	Lee Yongjun <jun85566@gmail.com>
-Subject: Re: [PATCH v2] usb-storage: option_ms: bound probe-time bulk
- transfers
-Message-ID: <202610220624.5aofbefV-lkp@intel.com>
-References: <20261021081616.89976-1-jun85566@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=evypLS0E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9471F000C1;
+	Wed, 21 Oct 2026 22:23:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792621384;
+	bh=f638RTnmDUhYgsB0t3rdzo87luml5kZaSE06sLT1s7M=;
+	h=From:To:Cc:Subject:Date;
+	b=evypLS0EWxbwVoyabjSsFUygbI8AgCukjVhMtAozpC5DdjLqrdzzGUVETHQ+GOLgs
+	 M3leedefl1FvJaGBtRNjHmIsxFJAufwQchB03kiBGUKDmYRjr/RqJ0W73iILBjU1Mx
+	 rrgrRxsH6tEgCtsrhlyBA+qiksiGpl830gjQOQZP4TE6bLqVUeDwlZrV5BrC8f6XdE
+	 NA+7iFRcCXRAq/OFAqoc7YcDfiBkCH0fgzEnkKtMIF0x4KiQp6LJeppoR9RHVbj8Gg
+	 jSWNjm/gxYXElHLW7mkLatk7gMi5DlZy7NUeS2u6QJAapMBFk0Cp/eBihTa36GVKhy
+	 LzrqyxJQ+qkUg==
+From: Song Liu <song@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	live-patching@vger.kernel.org
+Cc: rostedt@goodmis.org,
+	mhiramat@kernel.org,
+	mark.rutland@arm.com,
+	kernel-team@meta.com,
+	Song Liu <song@kernel.org>
+Subject: [PATCH] compiler_types: Do not mark inline functions notrace
+Date: Wed, 21 Oct 2026 15:22:55 -0700
+Message-ID: <20261021222255.3124940-1-song@kernel.org>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,92 +61,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021081616.89976-1-jun85566@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Lee,
+Commit 45959ee7aa64 ("ftrace: Do not function trace inlined functions")
+added notrace to the inline macro. At the time, inline was only a hint
+with CONFIG_OPTIMIZE_INLINING, and whether a given inline function got
+an mcount call depended on the gcc version. Some functions that must
+not be traced, such as the paravirt native_*() helpers, were marked
+inline and relied on being inlined, so a different gcc could silently
+break the function tracer. Making all inline functions notrace removed
+that dependency on the compiler.
 
-kernel test robot noticed the following build errors:
+The reasons for that change no longer hold:
 
-[auto build test ERROR on usb/usb-testing]
-[also build test ERROR on usb/usb-next usb/usb-linus linus/master v7.3 next-20261020]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+ - Code that must not be instrumented is now marked noinstr, and objtool
+   validates that noinstr code only calls other noinstr code, see commit
+   c4a33939a7eb ("objtool: Implement noinstr validation"). This check
+   is based on sections, not on notrace, so an out-of-line inline
+   function called from noinstr code is reported whether it is notrace
+   or not. The paravirt helpers that the tracer itself depends on, such
+   as pv_native_save_fl(), are now in .noinstr.text or __always_inline.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Lee-Yongjun/usb-storage-option_ms-bound-probe-time-bulk-transfers/20261021-171616
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-patch link:    https://lore.kernel.org/r/20261021081616.89976-1-jun85566%40gmail.com
-patch subject: [PATCH v2] usb-storage: option_ms: bound probe-time bulk transfers
-config: x86_64-defconfig (https://download.01.org/0day-ci/archive/20261022/202610220624.5aofbefV-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261022/202610220624.5aofbefV-lkp@intel.com/reproduce)
+ - All ftrace callbacks are recursion safe since commit a25d036d939a
+   ("ftrace: Reverse what the RECURSION flag means in the ftrace_ops"),
+   so tracing a function that the tracer itself calls no longer causes
+   recursion problems.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610220624.5aofbefV-lkp@intel.com/
+ - CONFIG_OPTIMIZE_INLINING was made always on by commit ac7c3e4ff401
+   ("compiler: enable CONFIG_OPTIMIZE_INLINING forcibly") and removed
+   by commit 889b3c1245de ("compiler: remove CONFIG_OPTIMIZE_INLINING
+   entirely"). The compiler also inlines static functions that are not
+   marked inline, and creates .constprop, .isra and .part clones, so
+   the set of traceable functions already depends on the compiler.
+   notrace on inline does not make it consistent. It only hides the
+   inline functions that the compiler chose not to inline.
 
-All errors (new ones prefixed by >>):
+Hiding these functions has a cost. They cannot be traced with ftrace or
+used as BPF fentry/fexit targets. They also cannot be livepatched,
+because livepatch redirects functions through ftrace, so a fix to one
+of them has to be shipped by livepatching its callers instead.
 
-   drivers/usb/storage/option_ms.c: In function 'option_rezero':
->> drivers/usb/storage/option_ms.c:49:18: error: implicit declaration of function 'usb_stor_bulk_transfer_buf_timeout'; did you mean 'usb_stor_bulk_transfer_buf'? [-Wimplicit-function-declaration]
-      49 |         result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
-         |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-         |                  usb_stor_bulk_transfer_buf
+A function that really must not be traced should be marked notrace or
+noinstr explicitly, instead of relying on the inline keyword.
 
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Song Liu <song@kernel.org>
+---
+ include/linux/compiler_types.h | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-vim +49 drivers/usb/storage/option_ms.c
+diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+index c5921f139007..ea7f2a928b4d 100644
+--- a/include/linux/compiler_types.h
++++ b/include/linux/compiler_types.h
+@@ -230,9 +230,8 @@ struct ftrace_likely_data {
+  * externally visible function. This makes extern inline behave as per gnu89
+  * semantics rather than c99. This prevents multiple symbol definition errors
+  * of extern inline functions at link time.
+- * A lot of inline functions can cause havoc with function tracing.
+  */
+-#define inline inline __gnu_inline __inline_maybe_unused notrace
++#define inline inline __gnu_inline __inline_maybe_unused
+ 
+ /*
+  * gcc provides both __inline__ and __inline as alternate spellings of
+-- 
+2.53.0-Meta
 
-    30	
-    31	static int option_rezero(struct us_data *us)
-    32	{
-    33		static const unsigned char rezero_msg[] = {
-    34		  0x55, 0x53, 0x42, 0x43, 0x78, 0x56, 0x34, 0x12,
-    35		  0x01, 0x00, 0x00, 0x00, 0x80, 0x00, 0x06, 0x01,
-    36		  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    37		  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-    38		};
-    39		char *buffer;
-    40		int result;
-    41	
-    42		usb_stor_dbg(us, "Option MS: %s\n", "DEVICE MODE SWITCH");
-    43	
-    44		buffer = kzalloc(RESPONSE_LEN, GFP_KERNEL);
-    45		if (buffer == NULL)
-    46			return USB_STOR_TRANSPORT_ERROR;
-    47	
-    48		memcpy(buffer, rezero_msg, sizeof(rezero_msg));
-  > 49		result = usb_stor_bulk_transfer_buf_timeout(us, us->send_bulk_pipe,
-    50							    buffer, sizeof(rezero_msg), NULL,
-    51							    OPTION_MS_PROBE_TIMEOUT);
-    52		if (result != USB_STOR_XFER_GOOD) {
-    53			result = USB_STOR_XFER_ERROR;
-    54			goto out;
-    55		}
-    56	
-    57		/*
-    58		 * Some of the devices need to be asked for a response, but we don't
-    59		 * care what that response is.
-    60		 */
-    61		usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-    62						   buffer, RESPONSE_LEN, NULL,
-    63						   OPTION_MS_PROBE_TIMEOUT);
-    64	
-    65		/* Read the CSW */
-    66		usb_stor_bulk_transfer_buf_timeout(us, us->recv_bulk_pipe,
-    67						   buffer, 13, NULL,
-    68						   OPTION_MS_PROBE_TIMEOUT);
-    69	
-    70		result = USB_STOR_XFER_GOOD;
-    71	
-    72	out:
-    73		kfree(buffer);
-    74		return result;
-    75	}
-    76	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
