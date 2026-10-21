@@ -1,75 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616246;
-	b=G+RKo9UGs6CHKdWeWdfDupWC+JrkoFR67yfWKdE36G1HFtuUJukUh/jMRJYe+zjHIYPl
-	 7fzuY70gBRyTz7zsYKsinumrwCTtwmbxzxdImQ7bzMk75B4yKBlb7mxXzeRuTcl4ci22G
-	 uQD6fmLbL5kXrGAhJ7ggyUwnK2IKoXUHliPqfCYsvWOqo6H+D9fMfBqoNOBWJkAMsJkXq
-	 b70XRZGvzbPpXhscDSk9H8efaAg/nERBljEg+8XeHS8QDe3/AbpeuoHXvkfBGsxhG9uzQ
-	 g90tNsbjKpHuVugm5YFm6H1q6P9jnTKt2cEGjtIkRRN8AwMjxf0ppXDpCr4kpm88Enw==
+	t=1792616336;
+	b=ZhfVaSDO4BUCr46npDbygO3Je9q684sFpelZ8QcolD7o7vQZ4EnUz8mXV1YALq7vbCqT
+	 dmOWZKuHfWKboZ4cTZ52ddamZ+Z+QxJCUq9/kzFXe4Le8gMNRlg4QCFvA0n2KDP4uRv1N
+	 3X0WCKN0xbDagDXE+I5nsagT0S9EHw0WMiRgl3xIUBQ1J1GcWhjtk4orn5mEyYBn91mew
+	 1iok1ZVIhve4CQrnEzgF+zkwUtOdYLB0/nhMqullQHOeIxqTubcCS2qKTLohNj6xDLwiJ
+	 hEVL3ali5enlBIeXVfVKeog5WBaqPB6sNr6+mz2SwTafhEOya9X4ZHS7PF8Lc/hHqeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616246;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=AMF4QHAGquMqZj2Vy845rVn3rz16W/4eYJ+XdOmh9/k=;
-	b=RXFiuwGDrdcZ93jxYWnjuHRmalxxgWyScznwH05BvxwqlW3P7dOA3kWrEDhbkh+kkpvb
-	 1PpH7JPQkYZtdYlq74gpOuns/t+v6b8B8qCM28EOMP0czdIk/KzTL0KqL0xMGbQTzPuck
-	 Kva1f8WQDZQjWTPbMGUfI2Fe+YFDImesPynhgQrKb2I0Q6nPJWjlYB4Br1eXIwL5O/NMw
-	 NiegP/JpqeI5v/qfGt0ETXAwljTvPinWSV4lOfikWWLs9ZLX7dCWWGIUG2xsWwZdBGgzq
-	 FUthQdaVXb3qNYU6Sup2+CaDdbjdUDZIfMDCk/19fozlK1xNBhWni5J2RozNcNujKkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616336;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=W8QpUwmMkLvVxRBYSH3rqkRjfuSW4enaMRdeQNLqIcg=;
+	b=I+47OgqIe0ytCoWRNiIp0+rSh9VanmPfmD5KmZBbAQvqQo+FoxABjCjgmC1qEmNc0aaL
+	 cEGHixdX/uSRo6f+8j1P0Peqv1/fVkMCtGYoMgpvPE6QBb3yvVDEYsZNRCg0syO1cLBEP
+	 eyQt1SwHBzVuAsenmzJNyRnVfQmcSgX+wgIdlpr+gWYNhwfaoiHUCBAWPQunUzHhSaMoT
+	 OG/PPsRqv9hOT6+ZVw0YqhZO122/RyWoNZgr6KC7o1aLApTd0VvKV6JE3mXJPB3Sc5vQp
+	 z+wjAVoCJmzBUEp9BCU8hwvBbpzmRk9Mc5Vq7i9Evm6dnPSdtFXO6uFP/97xEzbi49Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TpPXbtMD;
-	arc=none smtp.remote-ip=209.85.215.199
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8wdlYnJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE0A3606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:57:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE0A3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760A8606A319;
+	Wed, 21 Oct 2026 20:58:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=TpPXbtMD
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1170897a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:57:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792616245; x=1793221045; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AMF4QHAGquMqZj2Vy845rVn3rz16W/4eYJ+XdOmh9/k=;
-        b=TpPXbtMDhK8DnIHR5IRl7yUlsvvL5rPDT4DiEwMLkZ226NR3RF9nrSh7K3+7imRKTN
-         u7ZJh3lW4Wm1yfBTye1USFage3uFLmI+2blTMc5IoPOiUGQYt1TjmzXw7+oemrr11Hbc
-         Le58JJu+ijlEGOlU+D/hwkDOoA6BOZ3FnnTnfJJQQw6vLCr84TQfX4BINFZyzdol/+Ui
-         pY8arT6gsVgWYKaJgvEZEwNcmpl9OHlbhcfHUc3EXV1TIwddjLUz6PEnivaABGW5IQ55
-         ewfFe24bb4De+iYZukruKEb+kl8EHnwKAzZcFV0RkWx+yWhvCpkBhDAJozG9yvI9ud4b
-         V0Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792616245; x=1793221045;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AMF4QHAGquMqZj2Vy845rVn3rz16W/4eYJ+XdOmh9/k=;
-        b=rsIXa5LbG+zVlEYMhopkcADYg274XhyuVZfgutOPISEshr3Psg3d1PF6CnEpMbGHOp
-         JO9kZ6fsoNQYD59hcJ4NRiQsI1UwNY2zEAOIvHeYF+91GyP7u0ofoSN2zPCQ9TOup9FK
-         YhvawlqNqTnl2zJrexPVFWHhWgHPlPT2YBo1Lp4LD7XZyL4OdWaHiHJYITkGymDuTn/q
-         pJlbEWsJa58zVUqt5p867IMKuTT/rcm4oxgpn0fxeyD4GrEKIR8NGRcgcYRsuEpurGou
-         YWtUSC0HcFuSIxnYP1k7KJp/CqYLf5tI3cSfPrgY1v141l2bASNpy4F8e/z9oxqaXkPb
-         9oUA==
-X-Forwarded-Encrypted: i=1; AKwUvBx6Lh6LTtnLmSa1c5FAPKtLrccYOMUC2GZtb64vR/KGZqljATmYMYFio9nIvkxOmvkgHIIodg4NiIAvGZY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJdyv7q6pg8R81pUV+OMIe9botWJEv96lh6qCZF+FIpJnGSfkSv
-	ckqPrcQz9SG1k/RRXbjqV/gVzd6hFyumpdw5+wzP/XZwkLvw9psd7hY0dFFOeS6NbB5HBZvRKDX
-	nbC0tTDYT6LDWbZeV6A0F1pibxg==
-X-Received: from pgbj24-n1.prod.google.com ([2002:a05:6a02:61d8:10b0:cd6:9a6f:2802])
- (user=suseendranb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a20:3d08:b0:3c3:6f6c:aa21 with SMTP id adf61e73a8af0-3e287dd5c8dmr2833277637.11.1792616244847;
- Wed, 21 Oct 2026 13:57:24 -0700 (PDT)
-Date: Wed, 21 Oct 2026 20:56:26 +0000
-In-Reply-To: <20261021205626.3286270-1-suseendranb@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b8wdlYnJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00AFF1F000C2;
+	Wed, 21 Oct 2026 20:58:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792616336;
+	bh=W8QpUwmMkLvVxRBYSH3rqkRjfuSW4enaMRdeQNLqIcg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b8wdlYnJygC9QUFvBH0kNwqRrRzW8FCxvY4yW0TAOjd0ISGq+EPh3zZUhSGohygFR
+	 iogrxxdFBaPr9Bk0pySII4vMnbmTzuk2+eRdzF4FVSHXnEpHM2Uj6gCMeo9IH/Ujk6
+	 dfVthZhXotiix0YjX7KAnUb3TOhEc1BL4q8e3SnIdJSIudcdOeIH6FGkm1AEFqwBYm
+	 dv0CsN+sjEB/ScQ9RgK6kw5tBIB+qyga1Ik7XSkdVYk/b3Eq65DzhX5B+VI4TrYUra
+	 E+P8CC33dj/APijwMMU9rTkR+XiyM2BsPQY1u+lyWQjGnen4umSKHm4LNtUWXKQboJ
+	 JYH1kNNIPCt3g==
+Date: Wed, 21 Oct 2026 13:58:54 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: Naman Jain <namjain@linux.microsoft.com>
+Cc: Daehyeon Ko <4ncienth@gmail.com>,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Saurabh Sengar <ssengar@linux.microsoft.com>,
+	Michael Kelley <mhklinux@outlook.com>, linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] mshv_vtl: fix poll waitqueue handling
+Message-ID: <20261021205854.GM851443@liuwe-devbox-debian-v2.local>
+References: <cover.1792398881.git.4ncienth@gmail.com>
+ <61e6d816-7cd4-4124-960c-805f7689b568@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,98 +60,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261021205626.3286270-1-suseendranb@google.com>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021205626.3286270-3-suseendranb@google.com>
-Subject: [PATCH 2/2] mm/zswap: classify compression dst overflow as poor compression
-From: Suseendran Bhaskaran <suseendranb@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S . Miller" <davem@davemloft.net>, Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
-	Nhat Pham <nphamcs@gmail.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>, Nick Terrell <terrelln@fb.com>, 
-	David Sterba <dsterba@suse.com>, SJ Park <sj@kernel.org>, Chris Li <chrisl@kernel.org>, 
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>, 
-	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>, linux-crypto@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Suseendran Bhaskaran <suseendranb@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <61e6d816-7cd4-4124-960c-805f7689b568@linux.microsoft.com>
 
-Commit dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page
-as-is") and commit 0b1bf60c324a ("mm/zswap: reduce the size of the
-compression buffer to a single page") updated zswap_compress() to pass a
-PAGE_SIZE destination buffer to crypto_acomp_compress() (so
-incompressible pages typically overflow the PAGE_SIZE buffer due to
-compressor metadata overhead) and check:
+On Mon, Oct 19, 2026 at 02:37:39PM +0530, Naman Jain wrote:
+> 
+> 
+> On 10/19/2026 2:13 PM, Daehyeon Ko wrote:
+> > MSHV_SET_POLL_FILE retains one embedded wait entry per CPU after vfs_poll()
+> > returns. Two independent bugs affect that state.
+> > 
+> > First, a provider such as signalfd may retire a non-file-owned waitqueue
+> > with POLLFREE. The MSHV callback leaves its entry linked and retains the
+> > queue pointer, allowing a later replacement to access freed provider
+> > memory. Patch 1 detaches on POLLFREE and introduces an RCU-safe removal
+> > helper.
+> > 
+> > Second, a poll callback may register more than one waitqueue. MSHV inserts
+> > the same embedded list node into each queue, corrupting the first list.
+> > Patch 2 rejects a second distinct queue and uses the common helper to
+> > unwind the first registration.
+> > 
+> > The roots, triggers, effects, and runtime oracles remain independent.
+> > Source-equivalent KASAN/LOCKDEP tests reproduced both bugs and validated
+> > the fixes. The local system is not a Hyper-V VTL2 environment, so the
+> > series has not been exercised through the real MSHV ioctl. OpenVMM does
+> > not exercise these paths in its current use of the interface.
+> > 
+> > An LLM assisted the source audits, fix development, and validation. Each
+> > patch notes that assistance in its changelog.
+> > 
+> > Changes in v2:
+> > - combine the two previously standalone fixes into one series;
+> > - rebase onto current Torvalds master;
+> > - introduce the removal helper in patch 1 and reuse it in patch 2;
+> > - replace the obsolete Assisted-by trailer with changelog prose.
+> > 
+> > Previous standalone submissions:
+> > - POLLFREE v1: <20261017141527.623376-1-4ncienth@gmail.com>
+> > - multi-waitqueue v2, now withdrawn:
+> >    <20261019070438.3732624-1-4ncienth@gmail.com>
+> > 
+> > Daehyeon Ko (2):
+> >    mshv_vtl: detach poll waiter on POLLFREE
+> >    mshv_vtl: reject poll files with multiple waitqueues
+> > 
+> >   drivers/hv/mshv_vtl_main.c | 51 ++++++++++++++++++++++++++++++++++----
+> >   1 file changed, 46 insertions(+), 5 deletions(-)
+> > 
+> > 
+> > base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> 
+> I would suggest you to generally wait for a couple more days to collect
+> other reviewers feedback as well, in case someone is reviewing your changes.
+> You can then address them together in the next version.
+> 
+> For the series,
+> Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
 
-    if (comp_ret || !dlen || dlen >= PAGE_SIZE)
+Applied.
 
-Because crypto_acomp_compress() previously returned -EINVAL on
-destination buffer overflow, this check conflated destination buffer
-overflow (incompressible page) with unexpected compressor failures and
-did not set comp_ret = -ENOSPC when rejecting incompressible pages,
-resulting in two user-facing issues:
-
-1. When zswap writeback is disabled (e.g. memory.zswap.writeback = 0),
-   zswap_compress() sets 'comp_ret = comp_ret ? comp_ret : -EINVAL' and
-   jumps to unlock. Whether the compressor fails on destination overflow
-   with -EINVAL or succeeds with dlen == PAGE_SIZE, comp_ret becomes
-   -EINVAL. Consequently, incompressible pages are misaccounted in
-   debugfs under reject_compress_fail instead of reject_compress_poor
-   (leaving reject_compress_poor stuck at 0 and triggering false
-   compressor failure alerts on normal incompressible workloads).
-
-2. When zswap writeback is enabled, any non-zero comp_ret (such as
-   -EINVAL from an invalid compressor context, -ENOMEM, or a hardware
-   accelerator error) is treated identically to an incompressible page:
-   comp_ret is cleared to 0 and the raw page is stored uncompressed in
-   zsmalloc. This silently masks genuine compressor failures
-   (reject_compress_fail is never incremented) and miscounts pages that
-   encountered a compressor error under stored_incompressible_pages.
-
-Update zswap_compress() to treat only comp_ret == -ENOSPC or
-(!comp_ret && dlen >= PAGE_SIZE) as an incompressible page (storing it
-uncompressed in zswap when writeback is enabled to preserve LRU order,
-or rejecting it with comp_ret = -ENOSPC when writeback is disabled so
-zswap_reject_compress_poor is incremented), while jumping to unlock on
-unexpected compressor errors (comp_ret || !dlen) so
-zswap_reject_compress_fail is properly incremented.
-
-Fixes: dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page as-is")
-Signed-off-by: Suseendran Bhaskaran <suseendranb@google.com>
----
- mm/zswap.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e..5f2a941fcaf1 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -881,12 +881,12 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 	 * only adds metadata overhead.  swap_writeout() will put the page back
- 	 * to the active LRU list in the case.
- 	 */
--	if (comp_ret || !dlen || dlen >= PAGE_SIZE) {
-+	if (comp_ret == -ENOSPC || (!comp_ret && dlen >= PAGE_SIZE)) {
- 		rcu_read_lock();
- 		if (!mem_cgroup_zswap_writeback_enabled(
- 					folio_memcg(page_folio(page)))) {
- 			rcu_read_unlock();
--			comp_ret = comp_ret ? comp_ret : -EINVAL;
-+			comp_ret = -ENOSPC;
- 			goto unlock;
- 		}
- 		rcu_read_unlock();
-@@ -894,6 +894,9 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 		dlen = PAGE_SIZE;
- 		dst = kmap_local_page(page);
- 		mapped = true;
-+	} else if (comp_ret || !dlen) {
-+		comp_ret = comp_ret ? comp_ret : -EINVAL;
-+		goto unlock;
- 	}
- 
- 	gfp = GFP_NOWAIT | __GFP_NORETRY | __GFP_HIGHMEM | __GFP_MOVABLE;
--- 
-2.56.0.218.g1ec904b173-goog
-
+Wei
