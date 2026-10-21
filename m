@@ -1,101 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605402;
-	b=1fxxUjR8RRcUxCrbmTwJSO5yF1K+29dEnyUmwz188RfEdUEqRzdrJ6XuYmZ50PEwVwva
-	 bXdPmopibfPnx6S0GAT1gJvAU6vq+Xl3j8ht+b5XS2Ue+YRwjFqg3bI45/YtXRLf2LIUd
-	 uEb4R08iBx57Bdckj2IncunFHkThbXxeDyaDOiLwDmXypAS2nFiN/3vcSAPODI6AFgVsC
-	 /lU284GikJLlxjhG4plKx441PsIuiGkQq1WasvxMpy6ppRYGVMTiha246ruU2PAMwroT+
-	 8ByvXaCW9ecF2v690ExXqkmgiKB4HhrnPpaxxdwJVE7WtqQ0qRTwfvjcl/ZxCI0WYUw==
+	t=1792605521;
+	b=dglwOpcCyFj3S9yScv7JKVrBmGFzJMb+soCj4aVVBsB4szXN2/mYU1sf0lOXB6/krjgi
+	 8Hz5dY9MQepKGuWYihrLX/Lpk50r/8UR0uLqyHQ6PJEygobwy/A8v0CGmAx+snHvkzI+l
+	 hewYGO0+0rr3t9yWa94z4gapyuV6w6asbeXbZYMVh9QF/rwmQJJthuEK7PDO9hU2NCY68
+	 x7h1EQAFfsVFVsQbWPmBFR/OD2PQ96s+LNLcEiSrYMjaahwlfxmtgNjnPzfQh6JKr0rsP
+	 3O7d1TwHxIuOUthZoAZKWoz4kumSDHhO3rC7IP/QffDbT9YvOdfPpO8NNE3DkMdVR9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605402;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605521;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
-	b=RdKAxL2mRykVk9rISFaD81xRQx6tij40jHmjyhgsXxUlXhA9e3Vu8HE7va14olxMwoT7
-	 wagOYRafmHETo/pLAe0fJQIcLGeSN78LDrN8MEkh0E4MHJgjiOjSDnKtmlcUcMj+WrpHl
-	 a1YLLhBDi+hy7Evb40gO1CFz5/Rch0oSDsEt1aggWA0Xzz/Tkul+NjwAuKTR/MJvzYynY
-	 D1Xp+vsy9V25mUdZJ1O2hJUyVGmm1iUenPKDTpxj1ZP1VLHFJj2XX3URZcHVEY1k1sHN7
-	 OG5qxEHAZNU+lIGe4OYUtLzystk9D0No4WxUwx/p4aqVCfa1nZCO3SW7vdF/8WBNjrA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ha1K352wfyqdFbF8DNVmHU8vhoz9syKvY98S4jY+g6Y=;
+	b=F9E/7tHoIY+RygFY+xJvfNM33kE5UtA//sP8NrBwBrUfSvUz2S6oY9wE7PsM7yH/niN+
+	 4MLuVoEleFBM7r0eqPW99HMHboD64y3hD/Z3oR62B04GJ4NusCBE+fdXZnHIkgIoDKMEF
+	 yNddSZnfWc1HC96WM7EPbgF9aoOJJ9dMd3uAoFJhj0s/8sG1iMZEW5GtAUyJbt7uZ4EpZ
+	 jQ2C51x2RQF2wnJLtmieTbgg/ok7R73iOgrTqHY+PO24TsBHOBflRFegFhhZgdI+Zmc6F
+	 hbzjBnhiKJ2B0HIuh58kGztMsA3fqyxREZrQlZ9sjjHBoO5ieCwsRAMSl3Sc7P9i+9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=trailofbits.com;
-	spf=pass smtp.mailfrom=trailofbits.com;
-	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=XQ8MzsJf;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FT4pwh6g;
+	arc=none smtp.remote-ip=209.85.222.42
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF13606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DF13606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCA1606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBCA1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=XQ8MzsJf
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-17bc533fda3so1222089c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:56:42 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=FT4pwh6g
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-97ca72f2cd9so660109241.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:58:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1792605401; x=1793210201; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
-        b=XQ8MzsJfm7hVLaVVmJxcZ6cCv2OpnZhEPS/ixp+1iyeH7bdd67uqG1H1T22iN81Vpj
-         IqdFpLXy+hex8KLmaifYYxCctnfDmCSeb6G/AZ2ct0NJ7cUn6kLJdQhpKeFcQ0KzF1QO
-         MaQCpyPrutkdj7djQwJeI99nmLRhJMs07Kkrf+Y/qy+Vl6TpSthXMSA1odxP9ZiiAWfJ
-         jkVxSyB/XBfrqpb4OYXbXcDz52Ok2oaXNuR2p6KUICorES9mE3pSIOIZVbHrA+dpsHBI
-         /8OuhiCIh+NdJvgh0zzCsMwPSjQK1TE+TJk+8qxNr4sz5wUBSb29H8lSMda6j9GbB8EB
-         l/mA==
+        d=gmail.com; s=20251104; t=1792605519; x=1793210319; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ha1K352wfyqdFbF8DNVmHU8vhoz9syKvY98S4jY+g6Y=;
+        b=FT4pwh6gpGaIQ6svkDMoqALbka3hBJJwgkHvkiaYv/qNWOGa5DhCoyrhMuH9rgTIJx
+         baThPsKkl3f9EaTmvHlonm7bADrrg1Bu3W2cbchx1i9d3oEFPmfwzJxAPDW0ND4ZB3I+
+         8DQuQNXHSbB90S/57d7YMWMBAN+tY/0o4x8VIb8yR321706XWUmk8ZQkkApNsaZO8Mxe
+         DnMdp053VU2HdjfXWOS8Z1gwoLWH4Z4FVQa+9M1+llC5mYY87rbhsSNrgmcDyFPxLoeC
+         +rAxusdHJf0kJ6URDKVvZa/j2/fs3AatLn7za+iZP/Pr5A66JlTmX+NV8duUTeOHKxkG
+         a5Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605401; x=1793210201;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ILZGqeePK3tN5s5Fa4xyHKs3r5hIM8Fdn/roa97zOY=;
-        b=a+6+etfLoKNy0DNGLiHzS2rUoRBFY4BF9uNEuQ2EnYGmCcPFqiCcDGMd1zowg00XhT
-         g2iTFF/cnzR6zKdwlmC45ZB7V+0ng5wdnA4cigueC/Qr5VUOqr9Dwwz00jLfT47rDxt6
-         Jywwgzyb/ZNlZJ83VXxfyWS5czVNQZhDFZILdgRkA7sfcxWlQFPdkkMzfaPcJxZ96ww8
-         a1SRI/xJYQMVzY9QSV6USw5Sr/yQbQ0ZVqCHCA8iMrWwkVxybCGJbgEQxIYgOr3wbI21
-         t/aZ2DCPhtSCZwCdeuqv/A96R6/+Zt/CYvhgcwLvS2N59askJzF3YFJ5MXy6T+Y5YJiO
-         dDmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxdsfRdSVlEttav4Q92IEYQyJu/Hqn6KpfLZsXr1PpLl6KeX3Tbl4+fjx4TQXfDszvkjCvLBiNo4Ez/5Qo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPbK99DtV4/9ESsFILGkjYNQCXxNZfX2MtDZuxLl+DENbsuU3H
-	vVIKCQv5eLq09dXSK/59F57mICVjE5M/exUOpZJnCUiLP2w6FLoO1C7U5KW5cEbGqoE=
-X-Gm-Gg: AYBFou1HLUBrhc1k15PpaZPKBIFnbe2d2RQZKmfUvCrlxkXkzaz1eQ4HCXQh1/GTRHc
-	r3BK3UhLxolh+/dJtJ8syFYiMEURy4IPEXuhzM1+7pcPgfxkOT801U1MFORX9jHBQ6BmO8VSlkN
-	Qb05sD++TLtGMX9vXMQZlFaodT59QLE2qZjgH/2B9ogHR0iHtN67DiZU5yZPoMAGauyWC0jsa65
-	o0wv703ELvURYN3wU1vv7qBoVhm/244/NF7lrOPw9xMb1BLdOe7Kge/hw1Re5bgy9gMA0L7lyJA
-	m0nUlGK3pJOV7H4f/Yu2TlLXwQWQMHZB3M2hIV70e36wwtFvZfMSRa6G+cWFT/nzv7iRZ4zepIz
-	TgZrI8Sg5Kr4QnQM3XUHWGbVj6Ea/NKzO4kG7z8K4NJ5Jrc+RhYecuDucGjdavnVAZ1XOE4FfyH
-	I81p9HigEPEqctdoGMHUonmutXIpJCygaHEzrrFNp0AMCrasnWZA5k+MazlFjLrIRLkuGLOVNR0
-	C2IMlVSRukipljioiurvFbNz34UJlgs/2bKfRmbfqyHvdgiH1Wjx+uzBUtHnPAk3Xw8Tsk1JYXD
-	pd8eZ8tsSeIs1I3zDe8mBf4zlbUfhDT+i4W0U7D8vJgGXlnPcboi
-X-Received: by 2002:a05:7022:928:b0:151:6e80:baa9 with SMTP id a92af1059eb24-190a4ffadbbmr4178212c88.12.1792605401167;
-        Wed, 21 Oct 2026 10:56:41 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d0a1sm7736763c88.14.2026.10.21.10.56.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 10:56:40 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: alison.schofield@intel.com,
-	dave.jiang@intel.com,
-	dave@stgolabs.net,
-	djbw@kernel.org,
-	icheng@nvidia.com,
-	iweiny@kernel.org,
-	jic23@kernel.org,
-	kaihengf@nvidia.com,
-	kobak@nvidia.com,
-	linux-cxl@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1792605519; x=1793210319;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ha1K352wfyqdFbF8DNVmHU8vhoz9syKvY98S4jY+g6Y=;
+        b=hqv4qlIzWrOEM4KrQJWF6YvXlwvG/QGrM0GEbsZebZm7TNVP0zBDpim/J1YOl4MobS
+         qLecSDJiEfTsPrSC20eBl8BbWZ2BdSGS/vIf/QfD08TCag1RSnBuMpr6DLzqlU58ucXN
+         DSe1QF4lKW38U1MA3ZDpG57EAuOifnsZKlb8JT3pKj/70hqRN3+L4L27j43Z5QHciVN7
+         pcZDvuK6N3lIUuD4AlotoBgGBlTbcFMpAgHkr6vvsUWTNBVmTyunbuyVz50lvufbGBip
+         YdIIkuSaXw5es+vmS3cznhARCCGilD0iEgib1ja0IxOAjZpW/rqF3rIyVQirnFR14WgY
+         ltDA==
+X-Forwarded-Encrypted: i=1; AKwUvBySaxMNXi6hGFr9JWgY8E9eZpxbIwdHX88+sU/6X2aYRCtTf1eSv781JV4wKdWMmmKGqhp2HwZbjk5SlaE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRWQktcJPxEeE85phUhBDlKq7Sh6pWsuchM9n3up0JMhzueIHX
+	mMtMTEI8950g0lkvU3ZuV+LWGEMkxvZWzGIH18kzYNPS0Lvy1RYm8JT+
+X-Gm-Gg: AYBFou20ga/RfrOj/mNkD0lwyC0akjh9jyupjYzsMwkmx468DcP06c8nnb3Yn5yNVwB
+	2nw5aLP2b5WBUwmXDzQg1UmV5UmiTVuTr3o+MldodEjmDg4uJE1ZlQU8/gYyQzS70CEW16MLnS1
+	HILMrH7jblTITxdbDULL0Yoag8JUCBIOF5Ke5rWPgm0/8UEMKLMIzh/ikOa2DuS+u8SurjV+/ZR
+	ZdBsrXJdCB/gF5KhclGxBNqcgkj291eWhioM8Zh6Gj9ExCmhnIQnJgqptEyf3LTK7/wm1cGQomz
+	kzjchlvYGCLVE64JIPIrr4XnVtcGIwW6dk1RnD59vQ/aAvna9V7+Jm1RpbShGiKCJ1JLeb2N8Oo
+	QbsWt12Pizhgh1/sEHqlRr+DyZl5Asa2S5+xdZcP2kZ9a0IB0t/EmAD/y408ak52f7QS199LTPQ
+	cUslBNFnBiubiFtZmYeJyFpR5ZOBBiXuQG4V8Vb6X9S3Y5Yr3CvVayCFXMd+qJJjRILQ2yCWIJI
+	F60HC+uWm34bMoi2opKfK+dZo9AQSrqru7YPMl11RGx2T3mQ4dxPXpExQeIwRyLdp/6Xm0vp0SK
+	cA3aCTnAmnI0R22xiFvPd9S4POGX8pXVibUuwg+3kTUtyKam+lG7EegPwgNvPkX9IZoEWvW5VGN
+	oxZBHMQkcPA==
+X-Received: by 2002:a05:6102:508f:b0:7c3:872c:8be6 with SMTP id ada2fe7eead31-7cc9271966dmr1231907137.25.1792605519613;
+        Wed, 21 Oct 2026 10:58:39 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae9788c68sm4090944e0c.5.2026.10.21.10.58.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 10:58:39 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	ming.li@zohomail.com,
-	vishal.l.verma@intel.com
-Subject: [PATCH 6.6.y] cxl/mbox: Clamp mailbox output allocation to the payload size
-Date: Wed, 21 Oct 2026 13:56:37 -0400
-Message-ID: <20261021175637.1655-1-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	linux-sunxi@lists.linux.dev,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	ilpo.jarvinen@linux.intel.com,
+	Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: Re: [PATCH v2 3/4] dt-bindings: serial: snps-dw-apb-uart: Add Allwinner A733
+Date: Wed, 21 Oct 2026 14:58:22 -0300
+Message-ID: <20261021175822.318717-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <414bbb7a-1018-41ac-a580-cd41708c6a78@arm.com>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <09f3a181436e6f19317224e583c2fdaa787797d7.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <414bbb7a-1018-41ac-a580-cd41708c6a78@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,67 +113,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Richard Cheng <icheng@nvidia.com>
+Hi Andre,
 
-[ Upstream commit 8a13db9f899d149c3aab24abcb668121cfda5a4f ]
+On Wed, 21 Oct 2026, Andre Przywara wrote:
 
-CXL_MEM_SEND_COMMAND bounds the user's in.size to the mailbox payload
-size but leaves out.size unbounded, then cxl_mbox_cmd_ctor() calls
-kvzalloc(out.size). A large out.size drives a huge allocation, above
-INT_MAX it WARNs and taints, and with panic_on_warn=1 it panics.
+> So if I understand correctly, this compatible is really there for the
+> clock gating issue, right? As the DLF part is now somewhat correctly
+> auto-detected?
 
-The transport __cxl_pci_mbox_send_cmd() already clamps the response copy
-to min(out.size, payload_size, device len), so the output buffer is
-never written beyond payload_size. Clamp the allocation to payload_size
-too, matching the RAW path.
+Yes, the compatible is only for the clock issue (SKIP_SET_RATE). The
+false DLF detection is handled generically by patch 2.
 
-Fixes: 583fa5e71cae ("cxl/mem: Add basic IOCTL interface")
-Reviewed-by: Kai-Heng Feng <kaihengf@nvidia.com>
-Reviewed-by: Koba Ko <kobak@nvidia.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-Signed-off-by: Richard Cheng <icheng@nvidia.com>
-Link: https://patch.msgid.link/20260624144147.53997-1-icheng@nvidia.com
-Signed-off-by: Dave Jiang <dave.jiang@intel.com>
-Assisted-by: LLM
-[ Backport to 6.6.y: Use the target mbox and mds objects for the upstream
-  output-size clamp. ]
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Hi,
+> Can you share what your termios test looks like? Because I assume this
+> affects more Allwinner SoCs (the DLF change definitely does).
+> Then we should add more compatible strings here. If there is a simple
+> test, I am happy to run this on a bunch of boards, to give you a list.
 
-Please consider this backport of the fix for CVE-2026-93186 to 6.6.y.
+I reduced the termios test to a small standalone reproducer and retested
+it on the A733. While the serial console is continuously transmitting,
+this program toggles CLOCAL and restores it:
 
-The code changes match upstream with the target mailbox object names. See
-the bracketed backport note above.
+    #include <fcntl.h>
+    #include <stdio.h>
+    #include <termios.h>
+    #include <unistd.h>
 
-The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+    int main(int argc, char **argv)
+    {
+            const char *dev = argc > 1 ? argv[1] : "/dev/console";
+            struct termios orig, changed;
+            int fd = open(dev, O_RDWR | O_NOCTTY | O_NONBLOCK);
 
-Build-tested only as part of a cumulative 6.6.y series on x86_64
-(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+            if (fd < 0 || tcgetattr(fd, &orig)) {
+                    perror(dev);
+                    return 1;
+            }
+
+            changed = orig;
+            changed.c_cflag ^= CLOCAL;
+
+            if (tcsetattr(fd, TCSANOW, &changed) ||
+                tcsetattr(fd, TCSANOW, &orig)) {
+                    perror("tcsetattr");
+                    return 1;
+            }
+
+            return 0;
+    }
+
+I compile it with:
+
+    cc -O2 -o clocal-toggle clocal-toggle.c
+
+and run 300 iterations from a shell on the serial console, keeping the
+console busy:
+
+    dmesg -n 1
+    (while :; do seq 1 1000; done) &
+    gen=$!
+    i=0
+    while [ "$i" -lt 300 ]; do
+            ./clocal-toggle || break
+            i=$((i + 1))
+    done
+    kill $gen
+
+CLOCAL doesn't change the framing, so the output should stay a clean
+1..1000 sequence. A bad run shows garbage characters and missing lines.
+
+On the A733 I ran this test five times without SKIP_SET_RATE and all
+five runs were corrupted. With the A733 compatible selecting
+SKIP_SET_RATE, all five were clean.
+
+Running the same test on your other Allwinner boards would be very
+useful. I also have a small script that checks the capture, if that
+helps.
 
 Thanks,
-Artem Dinaburg
-
- drivers/cxl/core/mbox.c |    6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
-
-diff --git a/drivers/cxl/core/mbox.c b/drivers/cxl/core/mbox.c
-index 059e95e086205a497eb5f6c863a4bfc29c1c16c9..278a11657d8b7516533749bc8c1ce3eb933848cf 100644
---- a/drivers/cxl/core/mbox.c
-+++ b/drivers/cxl/core/mbox.c
-@@ -359,11 +359,7 @@ static int cxl_mbox_cmd_ctor(struct cxl_mbox_cmd *mbox,
- 		}
- 	}
- 
--	/* Prepare to handle a full payload for variable sized output */
--	if (out_size == CXL_VARIABLE_PAYLOAD)
--		mbox->size_out = mds->payload_size;
--	else
--		mbox->size_out = out_size;
-+	mbox->size_out = min_t(size_t, out_size, mds->payload_size);
- 
- 	if (mbox->size_out) {
- 		mbox->payload_out = kvzalloc(mbox->size_out, GFP_KERNEL);
+Vinicius
