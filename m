@@ -1,102 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.39
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792567273;
-	b=4PQzYz6GPzAMHNOltj2iYCeMO7NeXUGohRcOG3eDdgPtoGJfcDTIxkdaliD/JaxnqX1m
-	 8eWG/weGylmZV1WBnbBx4t3a7RpcdhLS3RzCDiHOM30Nuvb0ydoiLtLT6MW9N5j6sAMY9
-	 Qa1txYmfS5uR8Zm3BBktU/7wlYtehxPLmLdrXlle4SBxUJLg8/weJlVkVRLRbi8++fA1A
-	 MZZIMkQ8mu6S+cRyPlWYTerKbe68bMEC2ckXTpe+Jaf3Xk4PYOwf/WZxsuE/+gihoAnaO
-	 ZxiApYLyEzxQ7auaMTvZKTU3qIM2gkw8doMarwip+9Moh4dTYpPxXV0bjQfSeRvT4xA==
+	t=1792567420;
+	b=IewPvPnf2KJAG1LObG07D2PuhJsBuMBURwz0hGpwPbdXfpeps4cYz2HYewR+/8Avvr5D
+	 6VeRzwDGOJs+pAe/C7daTuQw7s5ePOMQSDBOPQVEXblQ/arQI54Y2Kfa6ociqqkeypPfd
+	 vlJaPvL9RYQUdNuDw80kXXFcsPAp21aFewbOtszmJhDNL8lskhAQwf6TMPEgx03YTDDT5
+	 XA7HR+WrPf5SMgAe2g+1NMZKbuAO33C7nEl6fEnDg1EWYJLDVCQJjMoR42ZPuw36WiRCB
+	 KhCx7iGyU1xO7hIPTuPolz+fx6BBOWA+ubU+a7KXpBOhNhF+PbrsVd4Iih74rOu6A2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792567273;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Spamd-Result:X-Spam-Score:
-	 X-Spam-Level:X-Spam-Flag;
-	bh=YRrTXf5Nqnghn1xrdmRqxibSwbs3PkHvP8bBaT+3BbY=;
-	b=rBlh+arHnvNemajXRz4cK59nY2W1SG1Dnx9qSRmOPTurwC9ucaAFz6nL80FaXYBcY7d5
-	 HwT9fUJwTdDRaaym+a2BnaIXba0lCFq0JB+TKrkUqZRg4qxr+RvWfdUZPQWoZEp1rCmAF
-	 nePXRsMQb9drXskC6yiX5frDE6FAsxeATzrbu7R85cli3F88CELmQ4sIEyq1/lTYxiHcr
-	 TLNKaxIINVkrH63wd/jM3fNc1cagFT9Hnw8aEd6zEXIzKktbsHa+hGXSo+SDTSA8E+4YS
-	 r9BsKlbqyGyNjY/yH4QP7xmXv8wscmMsgGC7WAimCeAdM4CF+dQStqKGxD9jgW73b4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792567420;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=V+x0xV+m3eowwe+TjUl+RzSOGyPXS0tHlwPVyxSEpj4=;
+	b=VJRxC4Cdq6pmo8XlwhZF4QXqa5Bi5PEOQT/iXYNIw7dtaoTJpKDnxpZFRcdOJMz7Ncnv
+	 bkmbpywrb4QHUfAdMyNi+nKyxcmorX7RhMo9Cnr1rQ8jGX8iqk1RHsmeWUs8f5fJt4/Z3
+	 SGso3V2znVR1JHZKslGHVp7rLH8VzqCRNLsx5SL/2b/eIMvcotZurU93MGDFeNS7+vZjx
+	 MD6la84/9ygESdaJSn8waTotYVZWD4w1er21WfquoTxVYX0zpdJuJgXg6djBsY0LzZkH+
+	 Cc2H5/V37dUpI5zxQveu8uUF/vJI/j9Lmakli6ChrDq78KurQbdy33lsIp2anU/F/6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gPzOWJXd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Q7xlBNqi;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gPzOWJXd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Q7xlBNqi;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Uupz13u/";
+	arc=none smtp.remote-ip=91.218.175.39
+Received: from mta0.migadu.com (out-39.mta0.migadu.com [91.218.175.39])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F121606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F121606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78C8606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:23:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D78C8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gPzOWJXd;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Q7xlBNqi;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=gPzOWJXd;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=Q7xlBNqi
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id CF0321F7DE;
-	Wed, 21 Oct 2026 07:21:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792567270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YRrTXf5Nqnghn1xrdmRqxibSwbs3PkHvP8bBaT+3BbY=;
-	b=gPzOWJXdGqyTCIk1beVbtL/ZNAXABuSHIzLqFo3xDjaVwWDf1qZg7Chk6QrtE/kD304K3H
-	fCEdB9AoIPTusnbUnXrRnXLIWL3fBdcvLz4uwzUZRy0gpKZhtAoMMs8HsUbWB40fyApK2R
-	j6N5KaYwvWSNmpAt8igClQwJFgRUhE8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792567270;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YRrTXf5Nqnghn1xrdmRqxibSwbs3PkHvP8bBaT+3BbY=;
-	b=Q7xlBNqisnTWjlFhEt07/e/NEihaS4vSyAsjEbXd80DFhMRiaka38csFz9ATWTI+CObgi4
-	bilsZ8TtDbJVT+BQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792567270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YRrTXf5Nqnghn1xrdmRqxibSwbs3PkHvP8bBaT+3BbY=;
-	b=gPzOWJXdGqyTCIk1beVbtL/ZNAXABuSHIzLqFo3xDjaVwWDf1qZg7Chk6QrtE/kD304K3H
-	fCEdB9AoIPTusnbUnXrRnXLIWL3fBdcvLz4uwzUZRy0gpKZhtAoMMs8HsUbWB40fyApK2R
-	j6N5KaYwvWSNmpAt8igClQwJFgRUhE8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792567270;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YRrTXf5Nqnghn1xrdmRqxibSwbs3PkHvP8bBaT+3BbY=;
-	b=Q7xlBNqisnTWjlFhEt07/e/NEihaS4vSyAsjEbXd80DFhMRiaka38csFz9ATWTI+CObgi4
-	bilsZ8TtDbJVT+BQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6582C134A5;
-	Wed, 21 Oct 2026 07:21:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id Ri5LB+Zn2GrwDAAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 21 Oct 2026 07:21:10 +0000
-Message-ID: <72fce5bb-b256-42aa-8844-f970c4480ad3@suse.de>
-Date: Wed, 21 Oct 2026 09:21:09 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Uupz13u/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vAkhRjN3hG8UHJdcYxjaq6dYwJWiOCLtDD81+R6ZVdg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792567416; v=1; x=1793172216;
+ b=Uupz13u/huvTPXtfj5UL2RUGGuj9gRhFyayYMngHIrAKvI8yhLQIqXdU6dWE68GUunb+D0ZD
+ kin0NqoDCIYojx7nTOOJyR9EKkAXWwbV2iZDncmz6DzaqGderKfeuTJM7SkqmT1uA8M07J/8GFe
+ ayf2WyUfnncmWYct1aNB5XUw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 281913562dc98e21;
+	Wed, 21 Oct 2026 07:23:36 +0000
+X-Mizu-Trace-ID: 281913562dc98e21
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,103 +57,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] nvme-tcp: allow setting per-queue io_cpu through
- sysfs
-To: Daniel Wagner <dwagner@suse.de>, Saravanan D <saravanand@crusoe.ai>
-Cc: linux-nvme@lists.infradead.org, kbusch@kernel.org, hch@lst.de,
- sagi@grimberg.me, axboe@kernel.dk, nilay@linux.ibm.com,
- sgogte@purestorage.com, hare@kernel.org, linux-kernel@vger.kernel.org,
- iyamahata@crusoe.ai, kiyer@crusoe.ai, ganbalagane@crusoe.ai, sjpark@crusoe.ai
-References: <20261018010059.83120-1-saravanand@crusoe.ai>
- <20261018010059.83120-3-saravanand@crusoe.ai>
- <0ee4d281-61b4-458e-92c6-7fff3e50c0ec@flourine.local>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <0ee4d281-61b4-458e-92c6-7fff3e50c0ec@flourine.local>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-8.29 / 50.00];
-	REPLY(-4.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-0.998];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	XM_UA_NO_VERSION(0.01)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	MIME_TRACE(0.00)[0:+];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -8.29
-X-Spam-Level: 
-X-Spam-Flag: NO
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [RFC PATCH] LoongArch: mm: avoid backing vmemmap beyond max_pfn
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261021062115.116922-1-guanwentao@uniontech.com>
+Date: Wed, 21 Oct 2026 15:23:21 +0800
+Cc: chenhuacai@kernel.org,
+ kernel@xen0n.name,
+ loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ akpm@linux-foundation.org,
+ rppt@kernel.org,
+ david@kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <EB4B2A6B-147E-4E7A-BAD7-A7C4699AF46E@linux.dev>
+References: <20261021062115.116922-1-guanwentao@uniontech.com>
+To: Wentao Guan <guanwentao@uniontech.com>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 10/20/26 5:28 PM, Daniel Wagner wrote:
-> On Sat, Oct 17, 2026 at 06:00:59PM -0700, Saravanan D wrote:
->> nvme_tcp_set_queue_io_cpu() picks each queue's io_cpu at connect time
->> as the least loaded CPU in the queue's blk-mq map group, and all socket
->> work runs there for the connection's lifetime. This decision falls
->> short when the host partitions its CPUs after connect time. On a 384
->> cpu multi tenant host with 128 queue controllers, blk-mq folds three
->> CPUs into every map group, some groups straddle two tenants' cpusets,
->> and 9% of nvme_tcp_io_work executions ran outside the submitting VM's
->> cpuset, seen by the neighbor as steal time.
->>
->> Expose the io_cpu in each I/O queue's directory
->>
->>    /sys/class/nvme/nvmeX/queues/<qid>/io_cpu
->>
->> so a control plane that owns CPU placement can set it directly instead
->> of relying on the driver's heuristic. The attribute accepts a decimal
->> cpu number, -1 or "unbound". A user assignment, unbound included, is
->> marked in the queue flags, persists across reconnects and is never
->> reselected by the driver. The read-only managed attribute reports 1
->> while io_cpu is driver managed and 0 once the user assigned it. The
->> accounting of nvme_tcp_cpu_queues applies regardless of who set the
->> io_cpu.
->>
->> A queue's directory is added when the queue is allocated and removed
->> when it is freed, before the queue is torn down, so a sysfs store
->> never runs on a freed queue. The queues directory is created before
->> the I/O queues are set up in parallel. All io_cpu writes, from sysfs
->> and from the driver, serialize with the accounting under
->> nvme_tcp_cpu_queues_lock, while the I/O paths read io_cpu locklessly.
->> The queue stop now clears NVME_TCP_Q_IO_CPU_SET under that lock, since
->> a sysfs store may move io_cpu in between.
->>
->> nvme_tcp_free_queue() now clears NVME_TCP_Q_IO_CPU_SET and drops its
->> count, because a queue can still be counted when it is freed. A sysfs
->> store may have run after the queue stop, or the connect may have
->> failed, and the setup error path frees such a queue without calling
->> nvme_tcp_stop_queue(), where the count is normally dropped.
->   
-> This looks good, just trying to wrap my head around with isolcpu (yeah,
-> doing a bit of work in that area makes me a paranoid).
-> 
-> I think it make sense to allow that the user can change queue CPU
-> pinning during runtime even with isolcpu enabled. And then the question
-> is should this be connected to cgroups?
 
-Not sure if cgroups is the right concept here; cgroups are user/
-application centric whereas nvme-tcp is pretty much queue/cpu centric.
-IE after all the cgroup calculations are done.
-Don't think cgroups are a good fit here.
 
-Cheers,
+> On Oct 21, 2026, at 14:21, Wentao Guan <guanwentao@uniontech.com> =
+wrote:
+>=20
+> A PMD maps 32MiB of vmemmap on LoongArch with 16KiB base pages, while =
+a
+> 512MiB section only needs 2MiB.  vmemmap_populate() is called for each
+> section and vmemmap_populate_hugepages() installs a PMD mapping for =
+the
+> whole PMD, so the last PMD also backs struct pages for PFNs beyond
+> max_pfn.
+>=20
+> On a 34GiB system 160MiB of vmemmap is mapped although 136MiB is
+> needed.  The extra 24MiB describes PFNs that do not exist.
 
-Hannes
--- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+Your commit messages are very detailed, but I don't really understand =
+the
+problem you're trying to solve. What issue did you run into, and what =
+was
+the resulting impact?
+
+Thanks,
+Muchun
+
+>=20
+> Other architectures handle this differently.  On x86, arm64 with 4KiB
+> pages, and riscv, the PMD covers exactly one section's vmemmap, so the
+> huge page path never maps beyond the populated range; x86 tracks
+> partially used PMDs with PAGE_UNUSED for memory hotremove.  arm64 uses
+> base pages for 16KiB and 64KiB kernels.  s390 deliberately keeps using
+> 1MiB frames even for partially used PMDs because vmemmap_populate() is
+> called per section and falling back would add page tables.  powerpc
+> radix falls back to base pages only when the altmap cannot back a full
+> PMD or the allocation fails, and powerpc hash maps the vmemmap with =
+the
+> linear mapping page size, which can exceed a section as well.
+>=20
+> With 16KiB pages the LoongArch PMD is 16 times the vmemmap of one
+> section.  Moving the whole vmemmap to base pages, as arm64 does for
+> 16KiB and 64KiB, would also remove the tail, but it would give up PMD
+> mappings for the 128MiB that is fully populated.  Use base pages only
+> for the PMD that extends beyond pfn_to_page(max_pfn) and keep huge
+> mappings for the rest.
+>=20
+> The altmap case is left alone because max_pfn does not describe it.
+>=20
+> Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+> ---
+> arch/loongarch/mm/init.c | 5 +++++
+> 1 file changed, 5 insertions(+)
+>=20
+> diff --git a/arch/loongarch/mm/init.c b/arch/loongarch/mm/init.c
+> index 4b46c5d30708d..bb7a17bdb0e51 100644
+> --- a/arch/loongarch/mm/init.c
+> +++ b/arch/loongarch/mm/init.c
+> @@ -146,6 +146,11 @@ int __meminit vmemmap_populate(unsigned long =
+start, unsigned long end,
+> #if CONFIG_PGTABLE_LEVELS =3D=3D 2
+> 	return vmemmap_populate_basepages(start, end, node, NULL);
+> #else
+> + 	unsigned long vmemmap_end =3D (unsigned =
+long)pfn_to_page(max_pfn);
+> +
+> + 	if (!altmap && (start & PMD_MASK) + PMD_SIZE > vmemmap_end)
+> + 		return vmemmap_populate_basepages(start, end, node, =
+NULL);
+> +
+> 	return vmemmap_populate_hugepages(start, end, node, NULL);
+> #endif
+> }
+> --=20
+> 2.39.5
+>=20
+
