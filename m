@@ -1,76 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573995;
-	b=ypkUsdMZtk3a2rlU1mYUnS4Hm3umKjEdHCjaVErVOGgoxuxua/bUn6yhnYPaZQM1xz+s
-	 HaeXmBg4FHaHIlIoOAXQQMDoQCqQmqozxvaksOpiUUpQeu+miOrC6GM2+c4tLpFrvajMb
-	 vShYa+WIdppd1pk7nWi14F82MlMrKaL0K/kJAF0DSYmSvbkAD1i5VW+Z4LHvxEZwVC+D/
-	 MCaqQlk9GlP3e48CBzX2BR0wD9tedwyEWS+OfNzEL+RBkXQR2xGD4FtJGpdYdrB5fzgw8
-	 5W0dLeMjXF4lLbCSN0/os3QEM8Q/ttuyRlqwT5zN9978j9dYE/ekgjO9KSj6waj/PKw==
+	t=1792574004;
+	b=5L4bIHETPv57GSfZletnfMkm1VaVbiKl6SxROf9RYTrGF3nLIWZ8G0z/gWNgI+Lp3UKS
+	 3E48dt/1ZRAB8nGT8mNNzi7xklh/ZWnYSGszdkvbvNgtMgEr8giwWf2aPlGTDXD2ZKK14
+	 HjftuvPTZglxgzNbd4WXXVghf8mHWa1a1Evp7ahG2QQtvSb8HMsvVZOvL9W3dVfNKG4aR
+	 1p0oOt2+aV78+rjMERkkXlcscSWrqRZFFAfiAiprGWMY0S0ywQ/LE/xsYDd4jJ4ke57WW
+	 J6De6io+N82o9vYu9U/MRLYZtUUr8UP7/IoBL9RHVaT6MsJKE+EEYl70fRzYlNNqQAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573995;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=TdukyCPcl9fUvggoegFEcLQWHoHKZ12f0CCAVKT3rYg=;
-	b=QFOY3MxUWAEfZfs+oiR91IXcsRae17KHOsL9Ydq3C9lI/WujKmCMv9sT4UG9nYm5J8Da
-	 TDdBqfD3xN1rgXsBl7RN0Ba72zXD1I5LmbS1n5YJCmm5W68q9Ma1hFJd+cY0p4AXQCt2G
-	 4rvJvIjiesgtPSlBbD5hSw4XPftGYXvMpSmI7lPCV/sJtVeIPwM2rtWGbT2AkcUCs4xy+
-	 yBjrYKgFUzTIcFcBJZAjPlpu28cvIaVUBsTs4HQZKKpW9X9XklhavryvbzJ3Y+YhSrvIM
-	 S842jyoexjJ6e2rejS1Yr2qNWQvP2Jjqqp5rLtWrygc2TMA37QV8G4TkHPpTuR6FspQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574004;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ibFHvFi24VZLXp5k+/QO09VG0su+4GpbQN0fTL3vDus=;
+	b=ZDPuBXogqcjJHfRsSYJXVfmvd7PiyN1RTSTxnNJjWtxQwCmPoALX1ETtVRl68bHkpkij
+	 OYwf7D7Mnvj1b6jvd/Oglw0zBnZ4QBNpEQuAM8c7SyiVSXp4DESUW94xyHioMS9NacNOc
+	 S2Yn5gf+yTOjoiLOVFAPzJt6VLymkBJm8AbmRL9O/2Qs1h7cqArDIOk81A0rnV5hBige4
+	 Y68ummKRlTTOX1OmTpulCVHte8EAM3YOjA7wGrnvKQ+LBVtD05JypC7Btr1Y9cuDXsx9b
+	 huzLa2cj9IpiJrEYI90CcP5kJO+f8qWF36nim7Ug4z3PRzccSo5cFmGIGal3qBXMb3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.179
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghQjnlW2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 959CB606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:13:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 959CB606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5eac9db5905so155775e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:13:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792573993; x=1793178793;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=TdukyCPcl9fUvggoegFEcLQWHoHKZ12f0CCAVKT3rYg=;
-        b=M2muS4kPLmDT+zurIcWURx1Z0ALPBRQ7ZcnxPVidD6dGoUQUuSwLA7zdNQj2w758aY
-         D7eh905HZtHZt4qbx1yq1tRfUgSKqie1mrwckPePccDJ0DmxIF1fniBonTji1LK4Kqyr
-         enfqM+l23TFidqNIRqB4fpMmSIAzMq+6+Swaqm1OwUszBymGof0m2gKSy1kEo3nEm5KL
-         dim7kf/TUU8RRdwPn/h4puSWMlzQiemTShmAUkKKqVdJJPefOw84rXn8ZO7OJuJj3ftO
-         4G6EiDcqHiEEcsJNhavQmXVoVqDySTD9h5FaxpMdlIjvZVzsd8Ix90lQLkuLddFi+7xq
-         dqyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzsmTnHPel/r6/uR8oyIDnqL0HN7+6KQbw/q2nUGJpUoV82vNiwwoa3q4dh2uIA9WaF0DG0bZ4xH8OT62k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBOruOmkIBE2SJ5mge32f1EHy2HPknrErceq6pjMtXRrOnZEy0
-	srGKQcYeq/4Ebdcj3cUdV9KORKel2eeYLPVH0weAQ5dYph5ExweDElaiPTZajDS3AJM=
-X-Gm-Gg: AYBFou2rERN581v0O006/l42ytFm3x1JsDtQG/f+KAH13EdEFfE27cYItZgKNdaK4fA
-	rVBpvxhpMyTjfGGwev6js+Up6SzV5nQbYWF8lmX6e46dMbjQImToF3pE635oFhwi7RGI4/FBl1n
-	FHK47cGzsNfnctvXv2udCCtZw+czXQYRPsaCX4g92+B1v4NbNVum7gR7mBhANUaY8n/r24pLFq0
-	11/zUHaBnF7D0dkI1JvM/Yv4qbzIV0qnMe07Cckh7l/YL38UkOm0bPzknCfMNelVCu4ohVurkTt
-	CkJgxv+WiasEE4aHewtKd/w3B9NGwW1LcuuVo/8I/ejqlQYJlGt0NbF1A7EUG2JyuvRwK0QA1lh
-	slJxOxtVulXts/h2UgQyo7VfsjcISaf+4xP9RHlpuaUpApd2V4Uedm/cox3Ecj1Qw82iki5zhKR
-	XJqL0c4omOyGHKjj7IWzZvA6IPtz9hSf/SuaTZRKWQEs9Xu9W6z1kh1vtHH5aGL32/U6wFyP1vD
-	fVHpD0rhrGPaeKolGVkBuvA3eUyODPmmjQtP1NPYY+iwrG5gLDqPq3egqafYa5ofmAWOyR6H0rp
-	R7mOINaGD1vU1GbILH+YM2nAHZaAKPJ5k6sSYTJfdUI=
-X-Received: by 2002:a05:6122:4d86:b0:5e5:1be6:e12c with SMTP id 71dfb90a1353d-5eaebe75a61mr546051e0c.21.1792573993503;
-        Wed, 21 Oct 2026 02:13:13 -0700 (PDT)
-Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae980f64esm2456873e0c.13.2026.10.21.02.13.13
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 02:13:13 -0700 (PDT)
-Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5eaaa9b1591so268566e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:13:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz+i/T226SAPhKQ2kyopNgFsU8QwgfoC+C40dZkFO3ls1oixpnn9GxiJAkH+MehByt+UnrkUfb46CIFLG0=@vger.kernel.org
-X-Received: by 2002:a05:6102:c4b:b0:7cc:306:d3ab with SMTP id
- ada2fe7eead31-7cc92473061mr657933137.5.1792573993049; Wed, 21 Oct 2026
- 02:13:13 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE719606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:13:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghQjnlW2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED5E1F000C9;
+	Wed, 21 Oct 2026 09:13:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792574003;
+	bh=ibFHvFi24VZLXp5k+/QO09VG0su+4GpbQN0fTL3vDus=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ghQjnlW23UzTWYDPndfk/wQJ4pfFwQWR4rRQGvZcBiXidQ2FOKXQhHaSRpFXwM7uh
+	 aDxdjifvMQENW4gy3TYaxyNjacBoQBRg/iN2xUD4A1knzFCIqt0l3iFS21nieXsf/N
+	 xYeTWyem1b+bw3hNX4rbDUyxXLQ27vwacuikYLtAf8HjJMGzq948/zAiLFOj5Pkxml
+	 vnep2VtePEe87EsWHGTHX2r09ox+pyzgun2IhuYKye/2GBMsGVfb/JpuyzHK7DdZej
+	 miF5vvCwyTHSgFi1xS7Q9XjDHEQPrx5VaOIIX6VlEBqrYb8aeadtAAE8EfmCSQ8mOh
+	 bBlJH+xi2ZiPg==
+Date: Wed, 21 Oct 2026 10:13:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Chen Pei <cp0613@linux.alibaba.com>
+Cc: sudeep.holla@kernel.org, alex@ghiti.fr, aou@eecs.berkeley.edu,
+	atishp@rivosinc.com, conor.dooley@microchip.com, guoren@kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	palmer@dabbelt.com, pjw@kernel.org
+Subject: Re: [PATCH] riscv: Populate boot CPU topology on UP kernels
+Message-ID: <20261021-dilute-arrive-f7633eed8556@spud>
+References: <20261012131034.1026-1-cp0613@linux.alibaba.com>
+ <20261020-unsent-commuting-91739a882031@spud>
+ <20261020-frisky-jovial-echidna-2d003c@sudeepholla>
+ <20261020142630.1680-1-cp0613@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,56 +61,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
- <0605a3c99b55124d1be71c9939f636e2@perches.com> <ate3lqnWlk9zLZC5@mit.edu>
-In-Reply-To: <ate3lqnWlk9zLZC5@mit.edu>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 21 Oct 2026 11:13:01 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVmmRWFJpE=A18w+Jg+9T46Aeomc9NeCCtZR-MzaJW+Dg@mail.gmail.com>
-X-Gm-Features: AclHuK-q1FSczAVmbAF3hXa82KzgGcPPTlNy2rnoWV3tKHuYqGppXvTDvgYY5ZM
-Message-ID: <CAMuHMdVmmRWFJpE=A18w+Jg+9T46Aeomc9NeCCtZR-MzaJW+Dg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
-To: Theodore Tso <tytso@mit.edu>
-Cc: Joe Perches <joe@perches.com>, Konstantin Ryabitsev <konstantin@linuxfoundation.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org, users@kernel.org, 
-	Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, 
-	Carlos Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, 
-	Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, 
-	Dongliang Mu <dzm91@hust.edu.cn>, Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, 
-	workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
-	Petr Pavlu <petr.pavlu@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uIe2oQA0ozxBslji"
+Content-Disposition: inline
+In-Reply-To: <20261020142630.1680-1-cp0613@linux.alibaba.com>
 
-On Tue, 20 Oct 2026 at 20:52, Theodore Tso <tytso@mit.edu> wrote:
-> On Tue, Oct 20, 2026 at 08:53:04AM -0500, Joe Perches wrote:
-> > > This issue came up during the 2026 Maintainer Summit and the consensus
-> > > was that "always include linux-kernel for every patch" was never the
-> > > intent.
-> >
-> > That's not actually true.
-> >
-> > Lkml was the default mailing list and other lists were specific to their
-> > interests.
->
-> Historical practice for decades before the change was made that plenty
-> of patches only went to the subsystem list (e.g., linux-ext4,
-> linux-scsi) and it was *never* intentional that LKML was supposed to
-> be cc'ed for all patches.  That didn't match historical behavior, and
-> as far as I know no one was asking for that change.  If someone
-> managed to slip that into submitting-patches, that was either a
-> mistake by the submitters or the people reviewing the change.
+--uIe2oQA0ozxBslji
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Historically, not all subsystem mailing lists were as well-archived
-as lkml.  Nowadays, as long as a patch ends up on lore, it's fine.
+On Tue, Oct 20, 2026 at 10:26:26PM +0800, Chen Pei wrote:
+> On Tue, Oct 20, 2026 at 01:24:00PM +0100, Sudeep Holla wrote:
+> > Commit 4b3dc9679cf7 ("arm64: force CONFIG_SMP=3Dy and remove redundant =
+#ifdefs")
+> > removed UP support and made SMP default enabled.
 
-Gr{oetje,eeting}s,
+Ah yes, I forgot about this..
 
-                        Geert
+> Thanks. RISC-V still allows UP: CONFIG_SMP is a plain bool with no
+> default, yet arch/riscv/Kconfig selects GENERIC_ARCH_TOPOLOGY
+> unconditionally while the only callers of init_cpu_topology() and
+> store_cpu_topology() sit in smpboot.c, which is built only for
+> CONFIG_SMP. That mismatch is what this patch closes.
+>=20
+> Gating that select on SMP instead does not work. UP would then fall back
+> to the cpumask_of(cpu) defaults in include/linux/topology.h and report
+> the same sysfs, but vmlinux no longer links: arch_freq_scale,
+> capacity_freq_ref, topology_scale_freq_tick and topology_set_freq_scale
+> all become undefined references.
+>=20
+> arch/riscv/include/asm/topology.h binds the arch_scale_freq_* and
+> arch_set_freq_scale hooks to symbols that only drivers/base/arch_topology=
+=2Ec
+> provides, and those defines suppress the generic fallbacks in
+> kernel/sched/sched.h and include/linux/sched/topology.h. Making the
+> gating work needs extra conditionals at several Kconfig and Makefile
+> gates, and gives up freq and capacity invariance on UP, which is a much
+> larger change than the twelve lines here.
+>=20
+> Conor, and RISC-V maintainers: would you rather force CONFIG_SMP=3Dy on
+> RISC-V as well and drop UP altogether, or keep UP buildable and take
+> this fix? I would keep the current approach unless you prefer the
+> former.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+I think we probably should drop CONFIG_SMP=3DN, but this patch would be
+needed as a fix regardless since making SMP mandatory would be for 7.5
+or later whereas fixing this is 7.4-rc content and should probably be
+backported to stable.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+FWIW, the patch looks reasonable to me, I was just wondering why arm64
+didn't need it.
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+
+Thanks,
+Conor.
+
+--uIe2oQA0ozxBslji
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatiCLgAKCRB4tDGHoIJi
+0vBBAQCHzwMkQlJ8bBWTCZpOlZkwVgGCC1bBopmcuYSd1KwgdQD/VjIT/ComB9c3
+A4RchBLZWXhBIjHQ092F3Ox/Pd9ERAM=
+=jKs+
+-----END PGP SIGNATURE-----
+
+--uIe2oQA0ozxBslji--
