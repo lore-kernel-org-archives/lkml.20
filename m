@@ -1,87 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792592388;
-	b=GWByjUvBkFmtFL4vLE0EKjWin4ZJCAzLYF0+hgWKqfrukk7QbhS2oisUv2POwlJnlrBj
-	 0vAMX37mZBDup5jAVxULFKJjwTyXs6mC0fL+NPriLFakHVAjxWGi63wk6RfenzUM75NQj
-	 nV0g6SGcnjckz0vvvtsZ/1YMqb9KJdUX4oyhEf8z8YhrTNM2D0pn7bKqqaLdoZuduHgJQ
-	 1N/jnatmlak/Sz0HyKeeS8S9loYFikHaygug7YaTgFJ/1Y7J0vHQv4XY/shko0t1xrIsJ
-	 AkIH4fRACzBoBkzyppfO1wGnb6G8zUw0/gmYTq1Lscp+i0ASJcCyJULzPsG/vQEF+hw==
+	t=1792592384;
+	b=baeTqWLD/iKIKD8na/ev4Pde8tp9ixRy2ZPEE/e8WHUOv4PWZGKI15Pb1DpZfzZcgMTz
+	 EdCxv4GP8m40sd5jJs2oabvgmySC+K1GkiWolK35Unh1d/kx7XY80Fp9Cj9RFqJ+/qweZ
+	 6SNOPHG4B3Lda899NIdT6yQy7ICTN+5Sz15LNL/UKaixnFNG2F88J6IKGx70Woct2GQHV
+	 hq5do2nmoLFko1VbV37eU6WXnrzyHQSqCULVXY7lilNwX1kcuvdmc9GClzjpL+pf4DNfO
+	 QlJueTw59956JJAZWLzpbaZorF8ScsNSckEHP+w4poMt5upQj+mw8eXRFDYB+KNiHAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792592388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=DbH0x+1VGrxmmG/67GKpm0AlwDDsWm6hJsBQAAEfQEQ=;
-	b=hjHarX+dWmU9d5AZU1CJXQO7bjl9pt3uKNXp8zhv1iWjEZ97vxH8HiOoO082c0nKpgww
-	 UxHXxo8kkP8HNfprbK2ZPgygn1Yyk4X7W07gByTZzNbhnXGHFxYOSzXA11cLeKy0DK6Ge
-	 N7l76zGnK+Eo3/cH9xuFpkwRCr4On3pnCwFvnBg73o37MBDdemqaRjj0bKxF3dVx5s3v2
-	 Yp5Kp4RR0NJwIvJ9aUy2GgkFV2Vqssbx3eDpAKe4rGl356A+3pLRHAdfbiXRDTSLWsxzA
-	 5h2ndwCHPGdS+s41HkbxtD2KL/LKEw6gagUfkISHb2juEns2mPMbK+5GRbd5tv/zp2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792592384;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=UEVidBOtJkGIF4/dj6UUdp9Wd3YXp7nSAWdH8eAbb7E=;
+	b=Ly2p/rTsL+1lMwRWovJw4mjRdai5fAll+Qgl1Y/LRXvJLFDqoORw5UR80nktEhftC2Rm
+	 58V5vHVHyaBaWw32YS6vv2/0P8dIvVORZWtgLw0VDLdDvXS+kIFJPhoAOYEkckePWGf+u
+	 9E+k+ZhbkcM9eaR9Ysj0FtfXju559oOW7uwR7I2VrSlChWb7dmkxg5AdWu/Wq9qFlhjQo
+	 cToVjXWcf0qEuhZAsUtaPLghwxqBnq4TMhWSekqUZi/Zp5da+ENKBrMhi2emTVwjZcOFD
+	 Wb1nsmv+mtYOl70Fa8//MlJrkZtImTjL6ARmdCzOoo+7waiM0EIhW6ReimRtWJxKYBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CZb7+6fI;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3YF5IEx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA186606A33B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA186606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8956E606A31A;
+	Wed, 21 Oct 2026 14:19:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CZb7+6fI
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1f80b7bf6so1347605e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:19:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792592386; x=1793197186; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DbH0x+1VGrxmmG/67GKpm0AlwDDsWm6hJsBQAAEfQEQ=;
-        b=CZb7+6fIEChRZkiSFWYjgkGJzq5blxu54QhARlPpVWLVktMgOr9eVaF4vF7mbUobpM
-         RX8o/hKDK/AMkmuouoEXj3dJXFHgmJRNhMPTX/HCXJUBrI+aOchA0piV7JNQpf6eV/2Y
-         yHBpXM4sbNzZScGYGplSNdYPtYn8DGxkGjaLgJQlW73uObRFZEoQYx1mx2EjbVequSaQ
-         nMEBGIhkBUjwXfrkTi19nxXZl7X7G5k9OGIkTNPNqRP6/SsOtI5YUhwQQORusiif+UB5
-         kYp9bx4uCEA8bgKxFRABUTE+gKigHanRjI2iaqkFEAgfQspcGr/kvxtyKLm8bRri9HUM
-         O4Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792592386; x=1793197186;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DbH0x+1VGrxmmG/67GKpm0AlwDDsWm6hJsBQAAEfQEQ=;
-        b=YZC0sFZIImAzmiUc8nDGDgd3q89mNqLIqXHJCa7s/JWlYI/G2YDNXECnrV7VLj9W/X
-         uYe6A2MZxyGUExs7QASTPuIRPlMxF/hmxMoPSPxRb+HC1NiWfhEUYZguZJAuKtWJceGu
-         uZyR+JPlMlXVPWHaw6UhwHy8hIUDdo1Bqh8mM4RNK3mH0M+AQNHwZjHFbbBTEqoUZCSg
-         AqT6NuWtfFjWt/dn+eNdz0Bes/Gc8qvvkluvWf4OH39tsFnEeVdoNbSSM6xH4um0OxBD
-         ZSaw3dqx7nj/Bn3DbUwRQCP2C/lAF+6QvKgkF0TIzq1VrXss8g7tMJZecPKKzjcnjgdU
-         PMMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvLZFyDreE7KsC5Ae9UdbD3MP8gqFC4iwvsDCg5S6/9QSjgGUfn0NbFe0bhRDDdhy/JKUBe35i8QhpiSg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVBjG5T3Ofk0w/DnJ/8ykX3MDfhDYHsnf9pffsWfXv/A+k4o9V
-	mJHy3cruCYWUOmSCiPvZtSYMe+YpXIwchHv4x12Zs0hY6IAXLLfJAP/r
-X-Gm-Gg: AYBFou1QjR5lg3mG/D8m5ae3PS/QqNUzsLkfovnuucbz/MDr/2eyMPUE1fcxn+BS7cB
-	a1lk25ad/w4FD7/TPxDtpqgNYgnE05V46wk1OOqWZZfTVSVnQkXj4pF3ejknoHm6RY1HC+BcRyO
-	MtfhH8fo8OMlIGPI0mDg7acItaeSDEQqp8OPaTSVdQrLL5e9kOp9fRnVg3N11td6f13IWha7klH
-	uotwO5TaajhkR7CkZnGRZDNK0/yzNG15S0x5PgxIgczyDPjK9dXxj+TBCMAX4kuWHvzqUdMVugF
-	kIhwH8oeSnisRJnB5EVQvVAHsAfjPVDwfAkOvvA9lG02FFqxkP57zN8q3/Qdbb/6133F/kHbXGX
-	EtxDDWxYe3pz7n4ZHzSmmhawgYa+UfQGDD0Y0Rc+pS5ADkWBaIl7WvjVGFIC5J3gwW3fu24uUbD
-	vQaQ6UjMOdFNipEh3iN5Ah/gFL1Yv1RxelHGiJtq6CPBKyidjtcqIfGqzoWnw7OxqAtNm8Iw6JO
-	UgWvYlemFpRhRfOs2KlKo3xcc8w+B5Xttbji1YBHR4b2iz2Wra+8taF
-X-Received: by 2002:a05:600c:8707:b0:4a0:13d8:cd0c with SMTP id 5b1f17b1804b1-4a1fdae90ecmr44009445e9.2.1792592385804;
-        Wed, 21 Oct 2026 07:19:45 -0700 (PDT)
-Received: from localhost ([2a01:4b00:bd1d:5d00:1a26:c015:c64b:f840])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d41c8asm153631325e9.8.2026.10.21.07.19.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 07:19:45 -0700 (PDT)
-From: Gustavo Luiz Duarte <gustavold@gmail.com>
-Date: Wed, 21 Oct 2026 15:19:05 +0100
-Subject: [PATCH net v4 1/3] netconsole: finish enabling the target before
- releasing RTNL
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J3YF5IEx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 091A11F000C4;
+	Wed, 21 Oct 2026 14:19:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792592384;
+	bh=UEVidBOtJkGIF4/dj6UUdp9Wd3YXp7nSAWdH8eAbb7E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J3YF5IEx+f0xM3L6lGSedpqw1xZILeSBg9+qBCG3fPIh0Im2Qi3dVV9QwWk54g/Ow
+	 f/fUNUXG/IWtyORuoTDz/YC8zut+S8kBe6l1nKAWd7K/7O2DnxERSzSwOIDxd2Ky3G
+	 OUulGror7/GFlnXow42JXkVC36VdSWTiDalLfNb5CUi7HyDHauAuKmy49J+FBWi9g6
+	 y4SJUN4A6JfdAQJTet1Qwm7VwdtzEGpW3oYwNZFsIzB7LhhUrderhVq4JJdV+kozwK
+	 csXe7/1qYnBwKEZUDeAzIzzLb+VQ+mOYFntgFWrhkFs+ohgXlcTtqYfQ61laSvDyeI
+	 36QCVCxA9FeNw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id D42661CB526D; Wed, 21 Oct 2026 15:19:41 +0100 (BST)
+Date: Wed, 21 Oct 2026 15:19:41 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Lorenzo Stoakes <ljs@kernel.org>, Fuad Tabba <tabba@google.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+Message-ID: <atjJ_WuM_6GuLkmI@sirena.org.uk>
+References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+ <ati3_lymW0zaBsSU@sirena.co.uk>
+ <86mrs7ywsc.wl-maz@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,93 +69,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-netcons-fixes-v4-1-3857120c6340@gmail.com>
-References: <20261021-netcons-fixes-v4-0-3857120c6340@gmail.com>
-In-Reply-To: <20261021-netcons-fixes-v4-0-3857120c6340@gmail.com>
-To: Breno Leitao <leitao@debian.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Stephen Hemminger <stephen@networkplumber.org>
-Cc: Gustavo Luiz Duarte <gustavold@gmail.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="myDSwi2Ph81d1HS6"
+Content-Disposition: inline
+In-Reply-To: <86mrs7ywsc.wl-maz@kernel.org>
+X-Cookie: Whoever dies with the most toys wins.
 
-netcons_netpoll_setup() publishes nt->np.dev inside __netpoll_setup(),
-then releases the RTNL and waits for an RCU grace period before
-returning. Only after that does its caller store STATE_ENABLED.
 
-A NETDEV_UNREGISTER event landing in that window tears the target down
-and we end up storing STATE_ENABLED with a NULL np->dev, leading to a
-null-ptr-deref in netconsole_write():
+--myDSwi2Ph81d1HS6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-  BUG: KASAN: null-ptr-deref in netconsole_write+0xb9/0x7f0
-  Read of size 8 at addr 00000000000000a8 by task pr/netcon_ext0/135
-   netconsole_write+0xb9/0x7f0
-   nbcon_emit_next_record+0x501/0x550
-   nbcon_emit_one+0x10e/0x170
-   nbcon_kthread_func+0x2ff/0x3b0
-   kthread+0x199/0x1e0
+On Wed, Oct 21, 2026 at 03:04:51PM +0100, Marc Zyngier wrote:
+> Mark Brown <broonie@kernel.org> wrote:
 
-Store STATE_ENABLED before dropping the RTNL lock to avoid racing with
-netconsole_netdev_event().
+> > It would be nice to have it be more obvious to the VMM and/or it's users
+> > that it messed up, as things stand features it thought it had set will
+> > just silently vanish from the guest - they'd need to know that this is
+> > something that might happen and check after finalization or similar.
+> > That's probably more a documentation/education thing than anything for
+> > the patch.
 
-Fixes: 2382b15bcc39 ("netconsole: take care of NETDEV_UNREGISTER event")
-Signed-off-by: Gustavo Luiz Duarte <gustavold@gmail.com>
----
- drivers/net/netconsole.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+> The VMM is an integral part of implementing the architecture. If the
+> VMM doesn't cooperate, that's its problem.
 
-diff --git a/drivers/net/netconsole.c b/drivers/net/netconsole.c
-index b358e5c36735..1fb846ad07d1 100644
---- a/drivers/net/netconsole.c
-+++ b/drivers/net/netconsole.c
-@@ -552,13 +552,16 @@ static int netcons_netpoll_setup(struct netconsole_target *nt)
- 	err = __netpoll_setup(np, ndev);
- 	if (err)
- 		goto put;
--	rtnl_unlock();
- 
- 	/* Make sure all NAPI polls which started before dev->npinfo
- 	 * was visible have exited before we start calling NAPI poll.
- 	 * NAPI skips locking if dev->npinfo is NULL.
-+	 * Hold RTNL until enable is finished so we don't race with
-+	 * netconsole_netdev_event()
- 	 */
--	synchronize_rcu();
-+	synchronize_net();
-+	nt->state = STATE_ENABLED;
-+	rtnl_unlock();
- 
- 	return 0;
- 
-@@ -589,7 +592,6 @@ static void resume_target(struct netconsole_target *nt)
- 		return;
- 	}
- 
--	nt->state = STATE_ENABLED;
- 	pr_info("network logging resumed on interface %s\n", nt->np.dev_name);
- }
- 
-@@ -1067,7 +1069,6 @@ static ssize_t enabled_store(struct config_item *item,
- 			goto out_unlock;
- 		}
- 
--		nt->state = STATE_ENABLED;
- 		pr_info("network logging started\n");
- 	} else {	/* false */
- 		/* We need to disable the netconsole before cleaning it up
-@@ -2669,8 +2670,6 @@ static struct netconsole_target *alloc_param_target(char *target_config,
- 			 * otherwise, keep the target in the list, but disabled.
- 			 */
- 			goto fail;
--	} else {
--		nt->state = STATE_ENABLED;
- 	}
- 	populate_configfs_item(nt, cmdline_count);
- 
+Absolutely, it's a bug if the VMM is doing this.  What I'm saying is
+that it could be helpful if the bug was made visible, with the silent
+fixup VMM bugs could easily lurk around for longer before someone
+notices the problem than they might otherwise.
 
--- 
-2.56.0
+--myDSwi2Ph81d1HS6
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCatjJ+AAKCRAv73Ows9A4
+iZeYAQDZSaktjduuIlbdaY9J9HfNbTXXohL5Mg9RtMggk2fZTwD/RWuP/83tS3ju
+xCr8sa/Wa91fFPcj6epcub0Aat5XBAo=
+=KMvg
+-----END PGP SIGNATURE-----
+
+--myDSwi2Ph81d1HS6--
