@@ -1,106 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792586073;
-	b=UrTnTxaM/6w+HWQbWvl84ktIAW7mNq/+UZvO9K2iwU8P1whKEZONr3flcyknxhOLvHLv
-	 JFGmtghVlDhZnFMrLJ/sKK1J5Skqc8+rqGSrAGO4CflHh1qgIBOzQSCZlrbdSl6N/8yz+
-	 DXFsklz5fpI7J0JpHGuAA7UKhVjc78dHq/BOe7qKcEy3U1qbkZHuhxeT/HN0O76It6o0K
-	 hXUGhJTYiueJjVOuEkj/45Y2j+ocxcdqNhEgdCViKP0wWYOZWe8i1wrydPV/YWJGm5ub0
-	 Hnhkc0IeCf3xtyiDclV1AeD0R1cYBwXIL35SKK069bm08xxDKTLceNhBaIrLUpQlqYQ==
+	b=Dt28G3IpEQ+drb9jnkMNHSD+eVp8K4xdMxqoedcW4grU0bwkLc8Gl8L5OLL3vLEqI1lR
+	 4HVRLLrl2Q+ugVYkE4Koc2Ef/SlrkMpz5j+yKUCVR1Q/UfUjbjgLN01MNXn5hE2qm0wzG
+	 HqLbzTHCtmKh/5cFInEVxIOp8FuOW2Dm0+XrD8EhImkj3qzhKrQ2GtNn6JpUmFGIidwba
+	 D8MhA8jgQOGUmWl6865UE3rPPzjpYMfmOIIJQMEH7eY3yZEddU9Gt14NZ1ULIRb+zeY4P
+	 qa4jFctJ5G1iLDT7AAMYDPqP/G0N8Ps+HxEEbhUnqjZevf0ciI4PQpAhJiptRgqd87w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792586073;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=XO8Ovd8Yga4MN2GzBAV0MC7glt1HQ8NzqivIkAGhHag=;
-	b=J1aJu+14dujUdqDe+F4BeZOlD3houTgYjZhZXwOi/2Ec2/Cf7hIS/xwah5YaR46iQM3/
-	 lNozecKoO8hi7x4hf7ZCo6tFn4IBQD1/SY6B34wzZmCCU7XRCsCK9JO/x2v79iXL1ecJW
-	 L2/f1lwVUOhMw/gdhZqtyLsVzN8sgLoM37S7o0AooeJAFkBwX2AmxcaccPdh5FUq2NTNu
-	 wyo/6mMU6H7x1xtqj1HQlzgQgSp46dvoA4Zg6E/s5G3XDofQmOh0XarbyTWNAsalGr/zI
-	 r0MmmqaZlhzITg4hy8VOdecr2cZ3sqPUXZnMO5jpwCNqYlYCE2hEVw0OPdOkzbt/TgQ==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=HoenyfuYG/Fzd7K0ktejvOFJ7xwOTPV0x5uHk8iV1OU=;
+	b=UG8gtXx3QHn+5hLOZp7HxGbEOAIwBB9TBfavzS3J2wPPCTeY5wHt60zOLlXv98KQFLOx
+	 oOhfwAYD7WtzEGffw0R/APWTMA+xE19Y/hj8F8D7tChHfqeuJizmFFvetCKjhhVN+Rh/8
+	 /S3OqTi7Bm6dCRew7LtWOPljQ4aiQETE+Qk8/Y0ATGwFZgeAPrnpiI3de3XjVci5Y67pF
+	 Po31R1bd/w/l8utopv/24SN9u12of/pw8PlmARXAl6dzAKVdHcDkXN0p1yqsczEi3Tnh2
+	 m8uwY6AI/l49DsBZLRrCsyG3KLw8gpPrM0KDODLrZAA/JIeSidiHRWnQn2iotncpQWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LIGMdYiR;
-	arc=none smtp.remote-ip=209.85.216.54
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+tlu9Uo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D93606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:34:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3D93606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35393606A31E;
+	Wed, 21 Oct 2026 12:34:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LIGMdYiR
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso410915a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:34:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586072; x=1793190872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XO8Ovd8Yga4MN2GzBAV0MC7glt1HQ8NzqivIkAGhHag=;
-        b=LIGMdYiRZ/LgfeAWS3K7xA4D9vdGmAhtmyJIzl7jROn5XS2gJKFwOEIIi1HCzyuGoZ
-         vqMD2l3P5uiOYvLgciZ1LglD+5hmKqdh+c1QhDxUI8Xw5M57AdaB2cqqGrhqfRexV+gq
-         UxC6RZsD2fIWcFbV3mxCQMLYYsbMFTCi9KEBYom1zlXPrRRtZBtw/lUR52kkaX996xeN
-         P06rzkw8b+oBb/ryHRDCu57R4HBaWWN3L9roc3JeD7NG86fQLgVf0NhsqO32c6vXH+in
-         XMlc5L+PRGh5LUWGk6lxW8NL71++Acn7CeaRZRMWj0QRFu1QNIEQPi2OPP1jaNKG70kr
-         Xbjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586072; x=1793190872;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XO8Ovd8Yga4MN2GzBAV0MC7glt1HQ8NzqivIkAGhHag=;
-        b=1Dlop/XElJWUbVEpWuPPOMASQUaPgDWg3MzCCHF8lJlk0XRMvTBuyNNOGUvPjdYKw0
-         Cu+ap2jP0luwGwH3GHoEa2w6GUbET0ktmyPHjl3IjvJTQotvyAHxmyJsEL/TdOEu8s5t
-         mn2stDAeSK6v1BX8w10zODgS2z2CoUw3VAeDsnMJB9HTmXWukuDIV5MuBNGRtinEaCBs
-         8kEVlPP1FoM8+biFKb0x7iuvL5VrWViVmDfMcz4YA4HKYuFVDSHYXBXJ00UbQ3V6EW16
-         RpGov60v6EHE0f1d7rIYdqyyNSgG7DIXOjCPrQgsP7SW5Rg8FwYPwBfGbca+D7KTrtyL
-         UOWA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9iVLYwA3zBZre4/4V5IDZra3JzGdOvD7qoM54iy2dDmLO98qyS68qpEUgLtXhNiy0b8e2cY/yLIg4Yew=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJCS8J3VuUpI8yb7qGVUxkkCTVW34Ly5iNuKru/khpKwsTShyLT
-	kBAX+QbhdBRTpTAeqHzoIFJ6HaQ/rj5P20gbrMb5p3r/BVNI3bUEFuCT
-X-Gm-Gg: AYBFou0hY+7uQtWfjzUx+xVQ/fU6owK75BZYbyf/zJrCwvnFGWxKAKA9yfmMjOumsI+
-	1NWhnGm+GB6R20/b6Y9pXG12Ya3xLvJvOFYEMPBUsXq0iXvvy3TeQpXmBYDoqPERzfnoXmksvW1
-	lh8hombMt22x5ZLwAN9D/yL7NQGNBAls33ad2kAHFyY6RcXKj2KKXVn7J01lEPRMhmmSuCPSgNN
-	rn17oZ/Pno3dhqHmAW0uquvFwxtcor0aPoY+a551ndSgSO2LkcDdSeM0TtNL1jRhXohJXOjTqhg
-	u+4HzN7DyyfL/D7woBBjH1R0MVeetKQ9nnsPwPvULaQHoR4UyAllnPKEBzNFtPVLz6BbOruW4fg
-	cBN6cJxwtK4RXHBvQHdyRzeuksUAthMD0EeNeLEfQ85uxitdRzQTtKu//PFO3VodyWCgaITSig7
-	Y73/ubzFjl6Np/djoUl3oBb2pRU7pawP7zwo+0M32tfuzKFl6p6Xz30ssdyZDghhZOE7f+tFX2P
-	7DqA3/K1qkJCpgK9joEi+5iY2/5gjxHATuur/xMJqcmUhqiz2mPGyo2
-X-Received: by 2002:a17:90b:2886:b0:3ac:7556:8eda with SMTP id 98e67ed59e1d1-3ad86ed22e0mr1474331a91.26.1792586072096;
-        Wed, 21 Oct 2026 05:34:32 -0700 (PDT)
-Received: from qby-nixos-laptop ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1823615a91.3.2026.10.21.05.34.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:34:31 -0700 (PDT)
-From: Mingyou Chen <qby140326@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
-	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>,
-	Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Serhiy Shliapuhin <shlyapugin@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>
-Subject: [PATCH v13 0/7] Merge redmi-wmi into bitland-mifs-wmi
-Date: Wed, 21 Oct 2026 20:34:07 +0800
-Message-ID: <20261021123414.25516-1-qby140326@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+tlu9Uo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C871E1F000C4;
+	Wed, 21 Oct 2026 12:34:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792586072;
+	bh=HoenyfuYG/Fzd7K0ktejvOFJ7xwOTPV0x5uHk8iV1OU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=X+tlu9UoJYTky3n1RAbnaT3bn81ij5E/yiQsympqDY7bZ5UVsOrug/bUBIYcliE4w
+	 NEHZ4YaNPtlMe8Yfdu8+XVG1HII3aKBi/gutoO+lrf510YV5ACkpUz91GgHDEBFty1
+	 CaBEvXbwY0C1qUw37D84H1O9NSB0QDzV3HD7Za2d09JyWEVl1N9GduaINZTWtQA1kD
+	 EcgiTdhiyBcIC9CW0xp/vyA1HWrVfbfGxJxM4PFhCq5otvueyc35AKzxoNVBQDvHnJ
+	 S8Lnnb5KV0CFe9f497Er2zQA5C0gCVAH2eFFW5I9kPUf7cXhFx6SiHZMv9rVWq8aXU
+	 G8QdHxLpAbDTA==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Ben Whitten <ben.whitten@gmail.com>,
+	Oliver Jowett <oliver@opencloud.com>,
+	Richard Purdie <rpurdie@openedhand.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew@lunn.ch>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 03/21] leds: trigger: netdev: Hold RTNL lock across hw_control_get_device() in activate
+Date: Wed, 21 Oct 2026 12:32:12 +0000
+Message-ID: <20261021123406.3163547-4-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
+References: <20261021123406.3163547-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,156 +68,84 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series consolidates the standalone 'redmi-wmi' driver into the
-'bitland-mifs-wmi' driver to eliminate code duplication and centralize
-the maintenance of overlapping ACPI WMI event streams.
+In netdev_trig_activate(), hw_control_get_device() is invoked without
+holding rtnl_lock, and the returned struct device pointer is then
+dereferenced via dev_name() and passed into set_device_name().
 
-Bitland is the ODM manufacturer for various Xiaomi Redmibook models. Both
-platforms share the exact same keyboard event stream WMI GUID
-(46C93E13-EE9B-4262-8488-563BCA757FEF). While redmi-wmi previously parsed
-the 4-byte payload as a bulk u32 scancode, bitland-mifs-wmi deconstructed
-it into discrete type/id/value fields.
+Because implementations such as phy_led_hw_control_get_device() and DSA
+port LED callbacks return the embedded struct device of an attached
+net_device without incrementing its reference count, a concurrent
+network device unregistration or rename can detach and free the
+net_device (or its kobject name) before set_device_name() copies the
+name and acquires rtnl_lock, leading to a use-after-free.
 
-Redmi operations were not contained in this patch series, future reverse
-engineering is required.
+Move rtnl_lock acquisition to the callers of set_device_name() so that
+netdev_trig_activate() holds rtnl_lock across hw_control_get_device(),
+dev_name(), and set_device_name().
 
-This series introduce a newly reported mic-mute hotkey definition
-for Redmibooks, dropped the previous redmi-wmi driver and intrudoced
-the quirks table for the bitland-mifs-wmi driver.
+Fixes: 0316cc5629d1 ("leds: trigger: netdev: init mode if hw control already active")
+Closes: https://sashiko.dev/#/bug/linux-ef006cc6-9a69-46b2-ae9f-8de934d37aff
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
+ drivers/leds/trigger/ledtrig-netdev.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-I don't have a Redmi or other Bitland device. So I cannot work on the
-real device.
-
-Features are working properly on my device (Lecoo Bellator N176).
-
-I leave the future reverse engineering work to the community.
-
-Tests are welcome.
-
-And by the way, the no_set member in bitland_profile_entry means a
-platform profile is only report by the firmware but not available for
-set.
-
-Does accept_zero_function still necessary since the driver now permits
-0x0 function field on SET operations?
-
-And I've got a question, from sashiko's comment in my v12
-
-https://sashiko.dev/#/patchset/20261012133648.132363-1-qby140326%40gmail.com
-
-> Will this result in the loss of KEY_PERFORMANCE events on event-only legacy
-> devices?
-> Looking at bitland_mifs_wmi_probe() in drivers/platform/x86/bitland-mifs-wmi.c,
-> if dev_type == BITLAND_WMI_EVENT, it returns early after registering the input
-> device:
-> 	if (dev_type == BITLAND_WMI_EVENT) {
-> 		/* Register input device for hotkeys */
-> 		drv_data->input_dev = devm_input_allocate_device(&wdev->dev);
-> 		...
-> 		return input_register_device(drv_data->input_dev);
-> 	}
-> When the performance key is pressed, bitland_mifs_wmi_notify() intercepts it,
-> invokes the bitland_notifier_list, and returns without reporting an input event:
-> 	case WMI_EVENT_PERFORMANCE_PLAN:
-> 	case WMI_EVENT_PERFORMANCE_PLAN_ALT:
-> 		blocking_notifier_call_chain(&bitland_notifier_list,
-> 					     BITLAND_NOTIFY_PLATFORM_PROFILE,
-> 					     NULL);
-> 		return;
-> Because the platform profile and notifier were not registered during probe
-> for event-only devices, does this mean the events are silently dropped instead
-> of emitting KEY_PERFORMANCE like the old driver did?
-
-I ackknowledged that KEY_PERFORMANCE (WMI_EVENT_PERFORMANCE_PLAN_ALT in
-bitland-mifs-wmi) looks like an event in this LKML thread
-
-> Since the event reports a change that has already happened,
-> platform_profile_notify() is the natural way to pass it on, as
-> suggested in my v6 reply: power-profiles-daemon then re-reads the
-> profile, which is harmless after the driver's own writes too. If
-> KEY_PERFORMANCE should stay for on-screen displays (Ibragim asked to
-> keep these events observable), it may be worth not reporting it for the
-> event that echoes the driver's own write, or at least saying in a
-> comment that it reports a mode change that already happened. On
-> Ibragim's TM2209 the profile SET is reported not to work [3], so there
-> 0x16 can only come from Fn+K and the echo does not exist; Ibragim, can
-> you confirm?
-
-https://lore.kernel.org/all/20261008152647.1510152-1-uselessfire@gmail.com/
-
-So should I follow sashiko's advice?
-
-v13:
-Fix the zero function value problem find on my device
-Fix the memcpy size issue
-Remove WMI_EVENT_PERFORMANCE_PLAN_ALT in the keymap
-Select BITLAND_MIFS_WMI and deprecate REDMI_WMI instead remove the
-config entry
-
-v12:
-Fix the issues mentioned in https://lore.kernel.org/all/20261008152647.1510152-1-uselessfire@gmail.com/ .
-Copy payload_data to output->data at bitland_mifs_wmi_call, not
-overwrite the entire struct.
-Correct the key name (Mic Mute) in the commit message of
-"platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries"
-and my device doesn't have a FN-ESC key, so I renamed the enum variant to
-WMI_EVENT_MIC_MUTE.
-
-v11:
-Add missing return_code_at_end and accept_zero_function logic
-Fallback to balanced platform profile if resume to performance failed
-
-v10:
-Replace the previous "profile table" with dmi quirk table
-
-v9:
-Add the missing feature introduced in the commit
-e0d6312578e1 ("platform/x86: redmi-wmi: report EC state change events").
-
-v8:
-Correct Ilya Gladyshev's email address in the MAINTAINERS entry
-
-v7:
-Swap low bit and high bit for WMI_EVENT_KBD_BRIGHTNESS
-in bitland_mifs_wmi_keymap
-0x00800501 -> BI_HOTKEY_CODE(WMI_EVENT_KBD_BRIGHTNESS, 0x80, 0),
-
-Report KEY_FN_ESC when WMI_EVENT_FNLOCK_STATE events received
-Rename the reserved names
-Use Xmas tree order in bitland_mifs_wmi_notify
-Collect the Tested-by and Reviewed-by tags
-
-v6:
-Drop the wrong Redmi ops
-
-v5:
-Correct Xiaomi DMI vendor name
-
-v4:
-Map PLATFORM_PROFILE_PERFORMANCE to wmi performance mode if the device
-doesn't support full-speed mode.
-
-Mingyou Chen (7):
-  MAINTAINERS: Add maintainer entry of bitland-mifs-wmi driver
-  platform/x86: bitland-mifs-wmi: Merge the function of redmi-wmi into
-    the bitland driver
-  platform/x86: bitland-mifs-wmi: Add Redmi mic-mute key entries
-  platform/x86: redmi-wmi: Drop redmi-wmi driver
-  platform/x86: bitland-mifs-wmi: Add quirks table
-  platform/x86: bitland-mifs-wmi: Fallback to balanced platform profile
-    if last performance profile is not available
-  platform/x86: bitland-mifs-wmi: Permit zero on SET functions
-
- MAINTAINERS                             |   7 +-
- drivers/platform/x86/Kconfig            |  11 +-
- drivers/platform/x86/Makefile           |   1 -
- drivers/platform/x86/bitland-mifs-wmi.c | 357 +++++++++++++++++-------
- drivers/platform/x86/redmi-wmi.c        | 154 ----------
- 5 files changed, 259 insertions(+), 271 deletions(-)
- delete mode 100644 drivers/platform/x86/redmi-wmi.c
-
-
-base-commit: 893018d51f27ec0449155b0afe371aaf65380630
+diff --git a/drivers/leds/trigger/ledtrig-netdev.c b/drivers/leds/trigger/ledtrig-netdev.c
+index 5b0132484594..d69031bbd2b8 100644
+--- a/drivers/leds/trigger/ledtrig-netdev.c
++++ b/drivers/leds/trigger/ledtrig-netdev.c
+@@ -279,6 +279,8 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	struct net_device *new_dev = NULL;
+ 	char device_name[IFNAMSIZ];
+ 
++	ASSERT_RTNL();
++
+ 	if (size >= IFNAMSIZ)
+ 		return -EINVAL;
+ 
+@@ -292,7 +294,6 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	/*
+ 	 * Lock order: rtnl_lock -> netdev instance lock -> trigger_data lock.
+ 	 */
+-	rtnl_lock();
+ 	if (device_name[0]) {
+ 		new_dev = dev_get_by_name(&init_net, device_name);
+ 		if (new_dev)
+@@ -319,7 +320,6 @@ static int set_device_name(struct led_netdev_data *trigger_data,
+ 	mutex_unlock(&trigger_data->lock);
+ 	if (new_dev)
+ 		netdev_unlock_ops(new_dev);
+-	rtnl_unlock();
+ 
+ 	return 0;
+ }
+@@ -331,7 +331,9 @@ static ssize_t device_name_store(struct device *dev,
+ 	struct led_netdev_data *trigger_data = led_trigger_get_drvdata(dev);
+ 	int ret;
+ 
++	rtnl_lock();
+ 	ret = set_device_name(trigger_data, buf, size);
++	rtnl_unlock();
+ 
+ 	if (ret < 0)
+ 		return ret;
+@@ -760,6 +762,7 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 	 * Init already enabled mode in hw control.
+ 	 */
+ 	if (supports_hw_control(led_cdev)) {
++		rtnl_lock();
+ 		dev = led_cdev->hw_control_get_device(led_cdev);
+ 		if (dev) {
+ 			const char *name = dev_name(dev);
+@@ -771,6 +774,7 @@ static int netdev_trig_activate(struct led_classdev *led_cdev)
+ 			if (!rc)
+ 				trigger_data->mode = mode;
+ 		}
++		rtnl_unlock();
+ 	}
+ 
+ 	led_set_trigger_data(led_cdev, trigger_data);
 -- 
-2.56.0
+2.56.0.218.g1ec904b173-goog
 
