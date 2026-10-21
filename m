@@ -1,94 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575229;
-	b=JfmqEADz3HUKYPXLW6G8zmrvnDZJGfU7Aqcl4h3FYCI/hDHl8IQ/Sk1U6f/uK50CEn71
-	 PA9rRkJkKN0P8RK+cDN/kS1SEPJkS4FlhIh13D6kXNivpUpCvzHaKyAkpAqJmZyrMRcXe
-	 fgaSFC7+wvfa0YKzCqmtYHUsx6ugA+2MerqjFNdFkpUXLfklPtSQeFQSWTvrnMmJrlMHs
-	 QqK7WhqroXjki7/mcdmxfrLGyXvNbj8GzJIUQn2hCJg62rRm7i6+hz4R3TPcnse5i8kPb
-	 BdOhklfr58Bp2BPqFRDmpPVsou5kDA0tHVkxQzDU/YZgQG3XDYKBlc94Blj6chmhTsA==
+	t=1792575254;
+	b=JUzpts/gm8KXvVnjGAbTvV6ss9XpIB05UW+Jhb2IvpEt4A/QGt0hl8fRTp4xa9+KqhQt
+	 QfDoaKlLl3KGBh0zzjQpflF6fQxVMUJdLM20TTsFrzWbaCnTgbWFj+k/tnQOZmVi92nQC
+	 gmyk/UcFOISV3iUJ4PtW4v/CE4PDe6U7+YxGOnYMEybBb27d6Q+AfFvAn3Vxe2HQPbIzu
+	 wdWsRnxTwThogRWw3xapme/l98BSxMfG1i07gaBlnVKPr6dm6qyzzpx5K8gVBgxQDH3do
+	 zapvUiGv4pHTgwaYYnwQQTSOum7bAokz7/OQq2soPue5ewPANrUebbThK85uZSFxLMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575229;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=tYJqufCjo1bLqz+aK1iPVMBINWSRhQ37F570JEgy46s=;
-	b=S/VO1n4cdpY9X+ylZrkfrWBXVQdnVri5wrs5pr8sca8Fw52jJhIxP6IR+oNzhXyiqkZ3
-	 1FPCnrH2PXOLGDSa0NV/ml1xjy52NnL4FSvMurHgBBh+4rdHd/H+nEp4IO0FMPbLwZKuE
-	 KseJvUuSXl5th0K/0roe/eWbs+GITrHBV5FC/LWd1hAeaO6CY5kd73i1tBCQfg5TjzJl3
-	 wrf8AOteoLGsJeL4rwK09LVEHnhuDkmH20NxhAnp6lrve74Wwlscu7GFI7+R6jWq3G2Ku
-	 800Slakeu8v1tQdWmkFZIjB+PCOmToxtFtF3AqIaoxdI6SgL1+CcgXRpKFc7oiPx+Dg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575254;
+	h=DMARC-Filter:DKIM-Signature:X-Lms-Return-Path:Subject:Date:
+	 In-Reply-To:User-Agent:Content-Type:X-Original-From:
+	 Content-Transfer-Encoding:To:Cc:From:Message-Id:Mime-Version:
+	 References;
+	bh=coNWzQ5GIYQq0sPIsYUvWDSkWqhCl1jRcwfPQzxcsYs=;
+	b=IrBi9IR1av9CdADBx+i6vfFQo9FOu4BZIXQf+c/8+e67rcej3aqbmqmMwZi4VMhSaNNc
+	 hGgU3tE8RewqKLM6B2Y+yGB57qwiMygzss6qOWmmQ8tGiaZgUHQR74DKidYdRCY5Gz8mz
+	 ALyPjmrNzPh8F+ZpTc55qWRh4z63ZdDGMy6zXVthTl7U6PvIynluRdDl2kzSsW/BhShRu
+	 CNEOPWnzwQAPRKpT0HT7qu9NedvqIwUzHGcav/o4SE71QtEkiJ1BI/FkErjwypwGMF84y
+	 b9va1dzcEpfSGvOwtBvhjn0Elcv6qtRxSo/+DisvT3RzqNfmkCLBY+w/vrjzViRkKpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYe94fM1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ccvoIXh7;
+	arc=none smtp.remote-ip=209.127.230.113
+Received: from va-1-113.ptr.blmpb.com (va-1-113.ptr.blmpb.com [209.127.230.113])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97FA606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9045606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B9045606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYe94fM1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 661711F000D2;
-	Wed, 21 Oct 2026 09:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792575228;
-	bh=tYJqufCjo1bLqz+aK1iPVMBINWSRhQ37F570JEgy46s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EYe94fM10VflfuiWyh0fRtTXRF2etpia2o7owGtaW17OQngPYqf1FFbWQ4TdxFWaX
-	 kN58+4Oa0liAqIjhZdUaZkOXeta4+s/9qKfZ63oTaElOeMcWMGeh6kh0K/q+1C7Rx+
-	 23SiepofIqcdKEsQHPWFWpRLt0agroNAM/Skvm+zJcudIM31ZVyLkskIR2iEAC/ife
-	 N//ZWi1taX/maHkbkqoDlrgpBg8h0WF1QwpeBt6zQ7X2MfiUjwKYC1s3N7bHWuZTKk
-	 7cE6pd7Bqct88tSYWJcnea00bJNlxdxR7g1Be1Dj6nqiOPYIyeh85q3KAgY/YY0pSS
-	 nEEySMChLuu1Q==
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 788A5198003A;
-	Wed, 21 Oct 2026 05:33:43 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Wed, 21 Oct 2026 05:33:46 -0400
-X-ME-Sender: <xms:9obYaohboYwN-Oyv_9N85Kp-o0wdjPGLYi9U4Jweczwc1LELqDzlsg>
-    <xme:9obYaqsL3QdoxJkBeG6XFyL3PEzUY94bWbp4Gpd0xmQ8yNumUr0spy20mE6rqHU5D
-    CaSmdSwmV2uU5iL8Z2nh0ioNc4B61i49ddYwhMUfEKodpbjdF3zmRKr>
-X-ME-Received: <xmr:9obYavbanvw097VxBxIs0S__UPCi9uhLpbUPxgBBgW2JjK7WULFQT-PkxCI>
-X-ME-Proxy-Cause: dmFkZTELFEvu1GI3tSCWgCF102QEycz4DGBObmJl25RALQ3Cxk5ofZC3Gvf8s8pkKw8wfz
-    MIDDiGFmvC5la4lnge1OoLPCYhSCbSER0N9ED4GpBoKpGz7WEndh4bv7BOgeiOvwUVRCR/
-    t+t6Bbg5wofZxXfbuPq+27rXWuoMcBAKqnai+8s/ItcqZLefslz5xWPGlFZXk9w59ddRfS
-    lfla69TNWQ8VJYTH+j9csyZ0v2bEnyxjaqHX/CyzEBaJaC2HJfTOTkjb4+agGeZXo5NIVl
-    TIN6DNXr9+W/INW0ot2rVh3w3hzXZV2mOfffcl2i7Tr7XmV+OjdpS774umu35PGGHrbZrF
-    f4LwHHV/pKAcpG1KnWk3qLd7hqAx4vW75ZaXvZxVEBRufae1pBEOqAaSZgy2wbxGORAhS+
-    X1PisJTloFMAcI7O9VKA6/t1XFAG6lwYxSPEX5nNO8/+GlK3YSYDey4u2N4AsaYyocknWW
-    yILBQAjv5VcxIUBFet4ZgztQJS4vqcYs2jEsgXvxUKoCtQuCz2iJc5A2tQPwqUhEdl64o/
-    0T/bGgLxVs6savQTGo6exNpRdRYHMBOQC7Z96jH53GoGZo1Ap6aUhj8Z7HjVAW8EJe528U
-    hQJ3cUj7LN/oY3crn+ERq9HfcQ06H/Bg8lhmGGeFBENRa7ZWccPKlM6QKLqA
-X-ME-Proxy: <xmx:9obYahVdJYdFMpM6Y-l81MVaMHtBXOMCEgdlryQyenvztAo2tZjbGg>
-    <xmx:9obYaqLUrX4KnopubSD9CBagf4buRpH7l4LAiqSzp6KNHrLApBJQEg>
-    <xmx:9obYake5XjujuGVgvp3pwHdY2Mu3jYbbQr3hLKlWWJPtfkpXyy0ZHQ>
-    <xmx:9obYapYKEt7BVNoigejcPFVE1CX39IS8AeNMhJJJ2G6N-URof92d2w>
-    <xmx:94bYasVbphJ8-7lIuQ7cRPykn1m_tE8OKmgcEDjojqMY2NsWAww3TIbQ>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 05:33:42 -0400 (EDT)
-Date: Wed, 21 Oct 2026 10:33:41 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Dev Jain <dev.jain@arm.com>
-Cc: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Harry Yoo <harry@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	kernel-team@meta.com
-Subject: Re: [PATCH v3] mm: page_alloc: make defrag_mode retries follow the
- promoted order
-Message-ID: <atiCG2iPrHwDznSZ@thinkstation>
-References: <20261009125503.126202-1-kas@kernel.org>
- <15a9e03e-c748-4e51-b8cc-583a3610c897@kernel.org>
- <20261012192834.6934ef85444dee4a60d6d876@linux-foundation.org>
- <as5q14OsbK2CmOrh@thinkstation>
- <20261014202936.GC371161@cmpxchg.org>
- <78238103-3a7f-432c-b1df-bd14d7cf4bb1@kernel.org>
- <atDMN5MoGrwJNpAj@thinkstation>
- <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=ccvoIXh7
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792575248; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=coNWzQ5GIYQq0sPIsYUvWDSkWqhCl1jRcwfPQzxcsYs=;
+ b=ccvoIXh7oTjSziKOA6CLkKOftjqBtbQ/HZCtfXQBoaX7llsMqJ8i5XR/sTJ0r7YV70udCU
+ x6jPBuL6mPNvszHK7m549UDVETqYNPf5FNG5fCvLfSo7rftcJpMQ2M6utGRADEUdhmJhPH
+ ca1N2IQ6aC4qr98eGi45+aHbPYnzj+Fcr4PQRwekEaEFXeT9ha2xALGNlSiSA1nw6GjZKj
+ OCssEO/OfwOc2E1IrlBEsMvQO2xvXmmbWoO4k1zvfjJPYeTu2loUCNxFDeb59tOV9lw6Pe
+ EpjjCZuTvg29c/TtsRDBJhwWy0JBkClw6YKuA2hHnmP17UUX5SnEOHiNxYCOlQ==
+X-Lms-Return-Path: <lba+26ad8870e+6ab876+vger.kernel.org+qirui.001@bytedance.com>
+Subject: Re: [PATCH v5 2/9] riscv: Define arch_apei_get_mem_attribute for RISC-V
+Date: Wed, 21 Oct 2026 17:33:45 +0800
+In-Reply-To: <20260924073714.1650588-3-himanshu.chauhan@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: "Himanshu Chauhan" <himanshu.chauhan@oss.qualcomm.com>, 
+	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	<linux-acpi@vger.kernel.org>, <linux-efi@vger.kernel.org>
+Cc: <acpica-devel@lists.linux.dev>, <anup.patel@oss.qualcomm.com>, 
+	<ardb@kernel.org>, <conor@kernel.org>, <james.morse@arm.com>, 
+	<lenb@kernel.org>, <palmer@dabbelt.com>, <paul.walmsley@sifive.com>, 
+	<robert.moore@intel.com>, <sunilvl@oss.qualcomm.com>, 
+	<tony.luck@intel.com>, <zhangzhanpeng.jasper@bytedance.com>
+From: "Rui Qi" <qirui.001@bytedance.com>
+Message-Id: <98fe9db7-f22c-483d-9811-939263595004@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,44 +70,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4aa14b41-9b89-494c-8825-55fffd5a541c@arm.com>
+Mime-Version: 1.0
+References: <20260924073714.1650588-1-himanshu.chauhan@oss.qualcomm.com> <20260924073714.1650588-3-himanshu.chauhan@oss.qualcomm.com>
 
-On Mon, Oct 19, 2026 at 12:28:40PM +0530, Dev Jain wrote:
+On 9/24/26 3:37 PM, Himanshu Chauhan wrote:
+> ghes_map function uses arch_apei_get_mem_attribute to get the
+> protection bits for a given physical address. These protection
+> bits are then used to map the physical address.
 > 
+> Reviewed-by: Sunil V L <sunilvl@oss.qualcomm.com>
+> Signed-off-by: Himanshu Chauhan <himanshu.chauhan@oss.qualcomm.com>
+> ---
+>  arch/riscv/include/asm/acpi.h | 16 ++++++++++++++++
+>  arch/riscv/kernel/acpi.c      | 12 ++++++++++++
+>  2 files changed, 28 insertions(+)
 > 
-> On 15/10/26 6:25 pm, Kiryl Shutsemau wrote:
-> > On Thu, Oct 15, 2026 at 09:16:36AM +0200, Vlastimil Babka (SUSE) wrote:
-> >>> And agree 7.4-rc1 with CC stable is fine. Sadly, not sure if anyone
-> >>> but Meta is using the feature right now.
-> >>
-> >> I thought it was there for a long time but it was only added in 2025 :) At
-> >> least the enterprise world is slow to adopt things, AFAICS.
-> > 
-> > I was thinking to propose a patch after merge window to make defrag_mode
-> > default. Do you think it is too early? I don't think it is ever going
-> > to be truly stabilized without wider exposure.
-> 
-> AFAIU defrag mode is not going to improve mTHP allocation success.
-> 
-> I ran a synthetic benchmark faulting in lots of 64k mTHP with swap enabled,
-> defrag mode caused me to enter a warn_alloc (and 8 times more compact_stalls),
-> which didn't happen without defrag.
+> diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
+> index cdefa1f2d67d..c7dee956cdb1 100644
+> --- a/arch/riscv/include/asm/acpi.h
+> +++ b/arch/riscv/include/asm/acpi.h
+> @@ -16,6 +16,7 @@
+>  
+>  /* Basic configuration for ACPI */
+>  #ifdef CONFIG_ACPI
+> +pgprot_t __acpi_get_mem_attribute(phys_addr_t addr);
+>  
+>  typedef u64 phys_cpuid_t;
+>  #define PHYS_CPUID_INVALID INVALID_HARTID
+> @@ -29,6 +30,21 @@ extern int acpi_disabled;
+>  extern int acpi_noirq;
+>  extern int acpi_pci_disabled;
+>  
+> +#ifdef	CONFIG_ACPI_APEI
+> +/*
+> + * acpi_disable_cmcff to disable IA-32 Corrected Machine Check (CMC)
+> + * Firmware-First mode. It is not required in RISC-V architecture
+> + * and is present for compatibility
+> + */
+> +#define acpi_disable_cmcff 1
+> +static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr)
+> +{
+> +	return  __acpi_get_mem_attribute(addr);
+> +}
+> +#else /* CONFIG_ACPI_APEI */
+> +#define acpi_disable_cmcff 0
+> +#endif /* !CONFIG_ACPI_APEI */
+> +
+>  static inline void disable_acpi(void)
+>  {
+>  	acpi_disabled = 1;
+> diff --git a/arch/riscv/kernel/acpi.c b/arch/riscv/kernel/acpi.c
+> index efd52a5d05b5..d1e472ce0878 100644
+> --- a/arch/riscv/kernel/acpi.c
+> +++ b/arch/riscv/kernel/acpi.c
+> @@ -204,6 +204,18 @@ struct acpi_madt_rintc *acpi_cpu_get_madt_rintc(int cpu)
+>  	return &cpu_madt_rintc[cpu];
+>  }
+>  
+> +pgprot_t __acpi_get_mem_attribute(phys_addr_t addr)
+> +{
+> +	u64 attr;
+> +
+> +	attr = efi_mem_attributes(addr);
+> +	if (attr & EFI_MEMORY_WB)
+> +		return PAGE_KERNEL;
+> +	if ((attr & EFI_MEMORY_WC) || (attr & EFI_MEMORY_WT))
+> +		return pgprot_writecombine(PAGE_KERNEL);
+> +	return PAGE_KERNEL;
+> +}
 
-Could you share the benchmark? I would like to play with it.
 
-Which THP defrag setting, and was the range MADV_HUGEPAGE?
+Hi Himanshu,
 
-With the default "madvise" and no MADV_HUGEPAGE, a 64k fault cannot
-reclaim and does not wake kswapd.
 
-How is your system setup?
 
-> So perhaps bundle the default with pageblock_order eagerness etc.
+Could you clarify why PAGE_KERNEL is used as the fallback here?
 
-What do you mean by pageblock_order eagerness?
+When none of EFI_MEMORY_WB, EFI_MEMORY_WC or EFI_MEMORY_WT is
+present, including the case where only EFI_MEMORY_UC is advertised,
+this returns PAGE_KERNEL.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+With standard Svpbmt, PAGE_KERNEL leaves PBMT at zero and therefore
+relies on the underlying PMA. In comparison, the existing RISC-V
+acpi_os_ioremap() starts with PAGE_KERNEL_IO and retains it when none
+of WB/WC/WT is present.
+
+Is relying on the platform PMA intentional for the GHES error status
+block mapped by ghes_map()? If so, is there a platform guarantee that
+the PMA provides the appropriate memory type for every address reaching
+this path?
+
+Otherwise, would PAGE_KERNEL_IO be a more appropriate fallback here,
+consistent with acpi_os_ioremap()? A comment documenting the intended
+PMA dependency would also help clarify the difference between the two
+mapping paths.
+
+Thanks,
+Qirui
+
+> +
+>  /*
+>   * __acpi_map_table() will be called before paging_init(), so early_ioremap()
+>   * or early_memremap() should be called here to for ACPI table mapping.
