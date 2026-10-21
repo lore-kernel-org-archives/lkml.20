@@ -1,99 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792607071;
-	b=UsAS/l4x6Bt4NuvFn28HLc1nPfxIkL87CovT6Ias0jrNOOFlaBcR/eogmqOCKmXl5YjC
-	 8H4mlh6VmpfjRZ73kSQoiyO+oyMCBt3O7alTmPVmf8LLGfOExMhwdnmn9UCdPgKUsqFIJ
-	 WhDFMKla05IlnLlt39DfJg/wnTzTu30yYv9e2Qo0hmvFT/sbWo5NC4CcC15lQX3cih5Bm
-	 75/ECP1QJB9BMcoMxNNxI+6TnjSe2rd6uLHA0/AR8ivQotB2BwELW2apdeZZcbLe0IUC+
-	 /IeBTMVv5ZHZ00OzPPGU2BI5ClSYSjTPyNQALXELRMBxDjSp/3XjiBysAKeAOD8a3Ag==
+	t=1792607159;
+	b=oSTS1XCZ+intcd1yf9IS5xQot6YJhKwq8YMHrqZ8OD4WNh1eahUuGW4GJwoXhUtrkWcM
+	 VaIKbcY+WqOOdoMUPeMTfYWuqXbwRaeeKb17yfNvsOBcBHyBwNfOFZ/xizOntHayekSM3
+	 3vDI+y9AkYMi4zahZcKX3c3CXtmUdjSn6WQlMKuKZGE9rESO0b3h6emLDdzBZMNGBQkfy
+	 1durJjlwKI/gK6nRafiiEVaaTO1sePQXPT9Lg7VeHFiJoxrnVpn+UgE/bP/eV9l37Oi9z
+	 cta085zLK1LyMijjK6IftgP9WO7UGpYtjwb1E+/ulfouSLQY2UCHY/h3mugC/qX1HdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792607071;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=C8k+JbJNU5IGiHKVYYM+eJQgIjguwqcbHlYgMrCENwg=;
-	b=Web2vgY7XEIJ6Wd9k+gVVt/oqivcyhMmghC08zglxrEj5w2TPFybNkGZE/5lKZTc4k0E
-	 tHc02VF/cF4qtYaGEHIaQlJ3C3Vcbd95VNe1tNU1+e37Vk7iK4i3yBb/XyFSmkaQhFrJv
-	 fmQyeV1YqNJk8uTPVn67qEF3568ak1CTd/NRjSHs8zXKODEyKsMzAshkvm3oNJWUfVHKy
-	 F7hO9XQT7rhxKiS0puKn5ZgIDO4rH+tla8XcizALzBlQS2iRSrU1dBW9BrFqn0tT3rC0Y
-	 vDnN4TZm5MEkzf8VfhrhDmE5zc7Bv1uEF2CyGDmzBeJtkVCuHG+FKnz39KhaIkXrrCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792607159;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=N6fyMcM49GdqoHU2qB+Q6cBcQk7A6DXHp1dBvrO4qF0=;
+	b=mo6b/ARu1iy7b/dYpk3IinOL8jeckKICTqgRGHRlcZiJAlufIOJgKIto5RewAJDPoZ1l
+	 aEIjOqS9G8UXMzjdtIkGi7ZjJug/GbndyfwVrK6EJxZw9qpomc6rJEZm/EKRhLKIO8A4O
+	 qhDbFlLWWmgtylEoSxalYU9G1JSiKP+CyAlEFTJZTWQ7bIEvMjxcCkC4LBLg39GCDhbtN
+	 0ATN60OP0aTmfvJ+gx31rn16uPNhh3k5MK6Y55D/pJt6J1cu2TGGXjLPBOgE7YUEYAdjD
+	 2W7Qu1mBGD64CoFSGuO1+9sRHbyV6Kl38zg1n2kernWpCkN/jMJIeUQgfJxRifHaiwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GUcHk8EG;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihiH1ybm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4E28606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:24:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4E28606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F677606A319;
+	Wed, 21 Oct 2026 18:25:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GUcHk8EG
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-3550c917fd3so1348397eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:24:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792607070; x=1793211870; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=C8k+JbJNU5IGiHKVYYM+eJQgIjguwqcbHlYgMrCENwg=;
-        b=GUcHk8EGdW9iALfuUNV6i+ojsO6BzNoR66EmrjLsrEgDqIVVpJsC6mc/me/508QbaR
-         5hGlOZ/Ite48vvaiYyvDH6wDS1BOGMx7nB0RtSnTJPkWExQOwnjZFpD9sp2WjbOG06qq
-         S6qWcZ7z/aW+sChHoygj9nzAPIiR3/larwlogL0J+Q53c8qSSBlqr0boF8iWTS6XNKTo
-         KgwFvZNjjFDBm2qjyDy9bQ+UOf5WOnRdBUsb7f5Oqk9tvvl1jwpL9nfEdkrzOYkxlcEj
-         fzjZnuIrKl28dfJ9svUYcjjr6CiQU/jlYu42mdRlwutO93/xD+PBlBFdNGwHN+BW8Q99
-         y7ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792607070; x=1793211870;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C8k+JbJNU5IGiHKVYYM+eJQgIjguwqcbHlYgMrCENwg=;
-        b=ZxHOasc8bVrOQ68oX5ilTNerwL1qnGeUKb/RDKx5pWkVDT69gWp7nFBBrhSaOuzc//
-         xvdMsZksVYQvIyh8hGMJH/pcbQdZIW/C9hSmau0iU6ldjMVKso4UnyRv/DPqgsHL2Ucr
-         DGPUHPZCNw/mK8AZTMVgxrtV8WKKs7d/TiJlA/dbPIYoQAbA8hd4gOEjpUZ2jG79CVtK
-         /UHBjEpBmEbHYMBr6GwMKQhwy6ZDx73P+5b7T8lpchzyQalvJctCiSUk2OIBEibpB9E7
-         C0AkpYZw0p+mv/wI2xGaAScwheir51pFBTqhYAMsftqhV1xA6JdfBJ0CsaZJFGGRrct+
-         SGkw==
-X-Forwarded-Encrypted: i=1; AKwUvBzLEZ2qaeTrzc7y++Db/jsXLFkrJp14/rPhoSE3fdJz0cczzP1fqmZFykbYQBtWcV+jxZyGSNo6fpFsB4Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOngqOvCHs+HlEJJS11T4yqs2MCUqtNvMDkCd2cVQIqz8EPCLM
-	6driVotFgO42VdfkOFPE0qYLY4XXM8P6JPusvdt+gXeNgQrIJI2Am2n9/GGGYbyv
-X-Gm-Gg: AYBFou2HxDPsld4pMeUC0YhFDTHVVZbx7yA2eh+6/S+yc3z0vHGCfxicDgEOZc8iG+W
-	LhFCIXsYnwVbZF55k0H+1oOZr1qsv29YBc4UhdYjnd/FGE73wioT28a1H9g2eBzjgfS0JKg86ko
-	plW3QYxOrmNtqqIMwAIACdahdjbSVzpSlTnidcRIGiVKxhW9rjMkgvBxFUY0B0H8/qHX6V6ugfs
-	1AifQO7VInul51REqjOwc6zYlFXA3/bM7BH4/8+ePQPLM1iuSVNnRBYX4MclW00Gqss/isf1qEP
-	j6pIc5gpW3sSwZiCBNJ63YabNW3UQJjlYxP0WHqe8cwfVWUCIs+dD4s5voSagF/JVtC1IYPwjtF
-	RMZkkJgrTcMLwsE4YVd0DapPbL1nDRA3J8BY18WcTVV89Qoq4tkIkbZyP79XXurayCK9QaoVW+N
-	dM/jvDYnFhCeiFxFhYRhqPtvMCduEyYUE1gAgsUdY6KGHNR07MHoqStX3IbVI4MhZpLsPg0/8Ad
-	a9q9cyjMg3iqlwrx3ljl4yu1GHRXN+PG/L88g1/6/qyxSml5ub1Dt48OZE/VpkBVJNEpoTwnm93
-	qW7A7MJvLoID2wkpGJc0XzB3KSAffjKH3ZYnxQ==
-X-Received: by 2002:a05:693c:8399:10b0:35e:f1a5:9ba6 with SMTP id 5a478bee46e88-3674a40738emr4497258eec.5.1792607069610;
-        Wed, 21 Oct 2026 11:24:29 -0700 (PDT)
-Received: from 1u1g-b650-0212.nvidia.com ([72.25.70.131])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cca3d8sm9107228eec.14.2026.10.21.11.24.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:24:29 -0700 (PDT)
-From: Samarth Narang <samarth.colleges@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>
-Cc: Xu Xin <xu.xin@linux.dev>,
-	Chengming Zhou <chengming.zhou@linux.dev>,
-	Peter Xu <peterx@redhat.com>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] mm/ksm: keep soft-dirty when merging a page
-Date: Wed, 21 Oct 2026 11:21:57 -0700
-Message-ID: <20261021182157.1873726-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ihiH1ybm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0321E1F000C1;
+	Wed, 21 Oct 2026 18:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792607158;
+	bh=N6fyMcM49GdqoHU2qB+Q6cBcQk7A6DXHp1dBvrO4qF0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ihiH1ybmTSVBwKPmKrZOVjhPA8IxWboEITg9XVGZecdf39z0zwd+kW0RkSt6RUYay
+	 5+55tR5nH50mpZf/RRkioiM6+WKRv/1eAC2WsFGBjx8d/9eBwNHU2Tx2/ynXeyniob
+	 A5QXNrapO1WjVXCvT8hX0c4mpxN+O+vPU8ElzdxQVrQftKVs7Rj4jx+1DpaxfeVhLz
+	 nyF8JHngJcvhyWoWkim/TEhLAOJWGvV6su3uSt1U7H2w2aO850qDwT9m7UdKeOkTuJ
+	 EKHxsziWIY6C176n+2wgNy3EQ06myw7y7AW7uet/U7aSRk9XJgH5TQ2ObCcS3LmRYm
+	 mtwvaJ77mLnlw==
+Date: Wed, 21 Oct 2026 11:25:54 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, Julian Braha <julianbraha@gmail.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Ricardo Ribalda <ribalda@chromium.org>, linux-s390@vger.kernel.org
+Subject: Re: [PATCH 1/2] kbuild: Move testing of '-mfentry' back to Makefile
+ from Kconfig
+Message-ID: <20261021182554.GA2594500@ax162>
+References: <20261020-kconfig-fix-mfentry-check-v1-0-428258bc0fc0@kernel.org>
+ <20261020-kconfig-fix-mfentry-check-v1-1-428258bc0fc0@kernel.org>
+ <F643B506-5031-4BEA-8279-199E7E181721@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,50 +61,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <F643B506-5031-4BEA-8279-199E7E181721@kernel.org>
 
-replace_page() maps the KSM page with a PTE built from scratch, so the
-soft-dirty bit of the PTE it replaces is lost. A page written since
-"clear_refs 4" then no longer shows as soft-dirty once it is merged, and
-a soft-dirty based dumper treats it as unchanged.
+On Wed, Oct 21, 2026 at 07:44:16AM -0700, Kees Cook wrote:
+> 
+> 
+> On October 20, 2026 2:52:18 PM PDT, Nathan Chancellor <nathan@kernel.org> wrote:
+> >Unlike cc-option in Kbuild, cc-option in Kconfig does not test options
+> >with either bit ('-m32' / '-m64') or endianness ('-mbig-endian' /
+> >'-mlittle-endian') flags because which flag to use may depend on the
+> >result of the configuration stage.
+> 
+> Oooh, yeah... Do we have any silent failures due to this in other places? On x86 I worry we'll see similar problems. Stack protector arg checking comes to mind. I will go see if I can find anything...
 
-Copy the soft-dirty bit from the original PTE to the new PTE.
+I am not sure. I did not look that far, mainly because I thought it
+might be hard to audit what is expected vs. unexpected but I guess it
+would be easy enough to just dump the result of cc-probe from
+scripts/Kconfig.include into a file then look at the tested flag.
 
-Fixes: 0f8975ec4db2 ("mm: soft-dirty bits for user memory changes tracking")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
----
+On immediate glance across the tree, the s390 Kconfig checks might be
+problematic with s390-linux-gcc like '-mfentry' was. Arnd, could the
+target for s390 be flipped for the kernel.org GCC toolchains to
+s390x-linux-gcc so that '-m64' was the default but the toolchain could
+still generate compat code, which seems way more standard for distros?
+FWIW, compat support is being killed in the toolchains too, so it feels
+like it is worth making this switch even more:
 
-Notes:
-    v2: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
-    
-    Changes since v2:
-    - Keep only the soft-dirty fix, as David suggested; Lance will be handling
-      the uffd-wp/RWP part.
-    - Fixes tag reduced to the soft-dirty commit.
-    - Dropped the Tested-by tag, since the patch changed.
+  https://gcc.gnu.org/git/?p=gcc.git;a=commit;h=5886bb453a6a010fc218d90c18febf94a1be30d1
+  https://sourceware.org/git/?p=binutils-gdb.git;a=commit;h=748bc6a7febf874d84657f538c9d9e3b8153c6e7
 
- mm/ksm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+The kCFI checks could become problematic if one of the 32/64 or
+bi-endian architectures gained asymmetric support in the toolchain but
+it was not the target triple that scripts/Makefile.clang uses, but that
+feels somewhat unlikely.
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index dbfb8f98b189..910a1307ac9f 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1463,6 +1463,10 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
- 		dec_mm_counter(mm, MM_ANONPAGES);
- 	}
- 
-+	/* Preserve soft-dirty when replacing the page. */
-+	if (pte_soft_dirty(orig_pte))
-+		newpte = pte_mksoft_dirty(newpte);
-+
- 	flush_cache_page(vma, addr, pte_pfn(ptep_get(ptep)));
- 	/*
- 	 * No need to notify as we are replacing a read only page with another
+Everything else probably does not matter much in practice just due to
+lack of use (think 32-bit RISC-V probes when using clang since it has a
+64-bit target triple). It does make me a little worried though.
 
-base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
 -- 
-2.53.0
-
+Cheers,
+Nathan
