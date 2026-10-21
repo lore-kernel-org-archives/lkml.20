@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576627;
-	b=cRet/YOoFeT0OTYUCs7kznMCjs/jCYsdLAdOG5umKb5Uie3PkTVAqw5+/nZ8/VnGJN7N
-	 UpRCrNk0KDPLLgYubMeU6TipyW3mtkeeSkXAXBuv0of6Yg+22lF1C2mt3aKn4RDcYnKeb
-	 2BSMTmlcB1G+1AeC5aonk3zIavwmdx4rX3o2pbe6OORyI+/PV1M0+JCSV6BQmXb3DVo6o
-	 TpeIiUTKGWvO3Mj7B20+0DUOYO602qXLYES63ydSjkhMg7WJipWeyCam2tCh3xYJF+kl2
-	 OegYBPIgIhlJU26cC491AzLw/dlyj4W4DBptGyYlfmfKUPjyW1dbnPzcj2hZ6ufGJfw==
+	t=1792576684;
+	b=VEmWzD3JhxWxqViQrb1ilxozJ0M/fegr79KNzJpvqs5l6yceBdfVFxYJZLi7xsF8bHfa
+	 1mroHbSWrhYg7ZAXnI+8z2bMV7cf9IUwcdy66BVrcCria24alAqpkzH539niYAiF9Gear
+	 tn+hnaO8gKc9Wju4SZs6e1etq3Mabn2v5ziQTrrPN+6JusmwXIGsy1lkaD4JU4F3hIwLs
+	 rU4591heHEkH9BVGZH5uyVEtqTJwJ0gT4VnaFBLa3oLECQcCLqW8Sy7gfuKcLUN6tDY89
+	 8hoamxVYzbFp5oyh/2zPSR+N4QT7d7+YYwZdsbK+XvkOunLi5rkGTa68SNZs/ukX+qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576627;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=mmNDCdeKa3yD2Gl3CTC7+/aQ/aNMhU0J3kwcOnofaIg=;
-	b=g9tVliwp1DslEqJAaZALNg2OlkPV+FGXkHLj+L6AffdoOfV/YAiLiC6pr9dls9aCripZ
-	 wz8RjproOaXU/RvU9GL6FE50qJypcsCW8S76QQzAUPnyyKFFCKXySTguKW4GzKprGivgA
-	 ds8gkUECIc5ntocgz/kSkGwo8H5uLXINhEjoGhbfbKX6HnRrDCAlpvGFeFR+j0xySUJDk
-	 AOBL6p/eCmF8Bn2CG/gQ421JDKnzcAmIfLilX3I1MHz9tZO8G9caopRXgiUq7vqRGP3EG
-	 MLPpZPUXPOD6YIdk3RbfG9jVV403F76ZBNFge9GnZwGFU6DquQUuWsYkqPt5vFhBgmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576684;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=7SjDaQ4pe825A9BLw+4oEFxNi2F27DZJ8HAcV1Uc7FY=;
+	b=Cs2kO6WiXNjmNZc72Jc9z1qWVQdbMffnrsHsxWuPew6mpJWmKEKyVyPLZnQw02km/13q
+	 esZFMTCeXT/30ddrcvc7xM0fps16UNoepVhh4Mh8qr9xJv9xtJykp7fgnPIINrtmqDxqv
+	 qEnvnQtKUG3qwi6In9m6BugQdSPE/Wwr8T/t5BWaDZLsmQ0RvATrCapGMeK3bSvBx/DCc
+	 EUMzucnk/apL5qVXXRHHIxETSR98ww9UOca1rGnQVXcXksYV74J4me02TGxKl+vUrVPPp
+	 IiBkEdyHpbHacP34OKdyl+cCPmR5pzMmyJdAL0ZLNNNSMzy3ZaWFeU65Q6fLWcRJJ2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsbSL8lm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 443DA606A31B;
-	Wed, 21 Oct 2026 09:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FsbSL8lm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D44D1F000C9;
-	Wed, 21 Oct 2026 09:57:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792576627;
-	bh=mmNDCdeKa3yD2Gl3CTC7+/aQ/aNMhU0J3kwcOnofaIg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=FsbSL8lmB/UMYQbvLckJmDB1B0LWta/nkkM/K8PrFY4A7jN6lZFrsPy+jwxIW3AiQ
-	 Fu78ylkbyVpzqE5pzdcEYYExyWomuYz3qCqgRIgJEjr5aFXbFPXW3YjXqQNyoa5gnU
-	 SOMF91yYRynn5Hsjl80jkTsUTFC8kv2BtJafqhorcCM3R84CvL+uGFdbbBVmah5W0e
-	 9y68L76WlAtPEPEchM/q0olQkW++OJH8BNCWrsCYWlPnKDzQo/z8K6yfI7l+mspmV8
-	 Frm36bgNK2U9/ULmw414lvEM7AWL19RkOqof/s6zJ34phIQZCqPrRW+/QGAxnzhEdB
-	 W0uBfkwhvaUFQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- Hui Peng <benquike@gmail.com>, linux-fsdevel@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260927225002.509062-1-matthias.goergens@gmail.com>
-References: <20260927225002.509062-1-matthias.goergens@gmail.com>
-Subject: Re: [PATCH] qnx6: keep the top-level pointer index unsigned in
- qnx6_block_map()
-Message-Id: <20261021-frohsinn-lawinen-fluggast-a2d6f13fe709@brauner>
-Date: Wed, 21 Oct 2026 11:57:00 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61F44606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:58:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61F44606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-547ae874949so744197b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:58:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792576683; x=1793181483;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7SjDaQ4pe825A9BLw+4oEFxNi2F27DZJ8HAcV1Uc7FY=;
+        b=D7a5XJcu31s73SmRXblYKnLQczSuDtlcDzWvbecHbyap7iT7ewBjMY+elv64H5EKdg
+         RC/SvctBkJErcY4+Dn3z4F+4kRGCEuKfiqAAb0BwhnGjD4TnV47j/CwxDadQ1ffMYuEF
+         zj/3l8czOZyZqRr0epQY+fMFA0cb4GYtopYTkykW5FobvWww5fzktr4NWewvL3amp6D8
+         PgcIqbGBY3XdimHoN432q1PVw0u9LOLG+pL/z66XIZDzWuP0VPVDeVoSOH+xJxM7hIBn
+         WwLgoP6cZut7ce9qpXFepjzrRaKpb6IEvXuCWR1YPK21ajP6XPOIRTZeiWVaclhjVo24
+         wFig==
+X-Forwarded-Encrypted: i=1; AKwUvBwTheNS/63DB0rzNjR62ZqkHx0FBNgJd1yQ9rA6K7lTX4qGmix++ZHCLL7mrQNkX8vOzUUElpyXl64wbE0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIof0aKYBT3f65ZMyT50okjYB8jykKuv11PmXB1pxdUFypHhfX6
+	0ftJ7l24lVnXQGdpftaTjgKHoALmVv85FxHB+Vjv8mhmacZD7VBmsVk10df2Qq6bKpDh5twtBLr
+	UF/N/KEpxxC9nJC/sIXTiL1yT4+Uwf0gsUtPObBQO0/8asm4p5S8SpQ/ZckU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,36 +58,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=924; i=brauner@kernel.org;
- h=from:subject:message-id; bh=8f56Pl6L+FfFM49t1sg2EGWfG/P+YKY3xO3hIxlGqfE=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTd6Mln2/wxL1NYRXq//aFHy1UFdpR0J5aV8b6f1mMWl
- jzp1rz4jlIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIk81GdkuDI1z2rz7fnu7kub
- ZN2687dx7v1Twe168v2H+9v+9QtNC2T4p5gw83S//AQx1YOuNpujz5atqT+U+8ip5Oz2qfte90g
- 08wIA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+X-Received: by 2002:a05:6808:bc6:b0:54c:7bef:90d6 with SMTP id
+ 5614622812f47-55351ac00aamr936374b6e.4.1792576683306; Wed, 21 Oct 2026
+ 02:58:03 -0700 (PDT)
+Date: Wed, 21 Oct 2026 02:58:03 -0700
+In-Reply-To: <20261021094037.61096-1-eadavis@sina.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad88cab.5c73e770.1a06c9.0141.GAE@google.com>
+Subject: Re: [syzbot] kernel BUG in create_default_group...
+From: syzbot <syzbot+4fae162886e497f72228@syzkaller.appspotmail.com>
+To: eadavis@sina.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 28 Sep 2026 06:50:02 +0800, Matthias Goergens wrote:
-> qnx6: keep the top-level pointer index unsigned in qnx6_block_map()
+Hello,
 
-Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.misc branch should appear in linux-next soon.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+kernel BUG in create_default_group...
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Warning: Permanently added '[localhost]:52391' (ED25519) to the list of known hosts.
+[*] Starting reproducer for kernel BUG in create_default_group...
+[+] mkdir /sys/kernel/config successful or directory already exists.
+[+] configfs mounted or already mounted.
+[+] mkdir /sys/kernel/debug successful or directory already exists.
+[+] debugfs mounted or already mounted.
+[+] Successfully wrote 'N
+' to /sys/kernel/debug/failslab/ignore-gfp-wait
+[+] Successfully wrote 'N
+' to /sys/kernel/debug/failslab/cache-filter
+[+] Successfully wrote '-1
+' to /sys/kernel/debug/failslab/times
+[+] Pre-clean of /sys/kernel/config/nvmet/ports/1 successful.
+[+] Online CPU count: 1
+[+] Started 6 background racing helper threads.
+[*] Iterating fault injection points (fail-nth 1..80 with concurrent race)...
+[*] Testing fail-nth = 1 (1 attempts)...
+[*] Testing fail-nth = 2 (1 attempts)...
+[*] Testing fail-nth = 3 (1 attempts)...
+[*] Testing fail-nth = 4 (1 attempts)...
+[*] Testing fail-nth = 5 (1 attempts)...
+[*] Testing fail-nth = 6 (1 attempts)...
+[*] Testing fail-nth = 7 (1 attempts)...
+[*] Testing fail-nth = 8 (1 attempts)...
+[*] Testing fail-nth = 9 (1 attempts)...
+[*] Testing fail-nth = 10 (1 attempts)...
+[*] Testing fail-nth = 11 (1 attempts)...
+[*] Testing fail-nth = 12 (1 attempts)...
+[*] Testing fail-nth = 13 (1 attempts)...
+[*] Testing fail-nth = 14 (1 attempts)...
+[*] Testing fail-nth = 15 (1 attempts)...
+[*] Testing fail-nth = 16 (1 attempts)...
+[*] Testing fail-nth = 17 (1 attempts)...
+[*] Testing fail-nth = 18 (1 attempts)...
+[*] Testing fail-nth = 19 (1 attempts)...
+[*] Testing fail-nth = 20 (1 attempts)...
+[*] Testing fail-nth = 21 (1 attempts)...
+[*] Testing fail-nth = 22 (1 attempts)...
+[*] Testing fail-nth = 23 (1 attempts)...
+[*] Testing fail-nth = 24 (1 attempts)...
+[*] Testing fail-nth = 25 (1 attempts)...
+[*] Testing fail-nth = 26 (1 attempts)...
+[*] Testing fail-nth = 27 (1 attempts)...
+[*] Testing fail-nth = 28 (1 attempts)...
+[*] Testing fail-nth = 29 (1 attempts)...
+[*] Testing fail-nth = 30 (1 attempts)...
+[*] Testing fail-nth = 31 (1 attempts)...
+[*] Testing fail-nth = 32 (1 attempts)...
+[*] Testing fail-nth = 33 (1 attempts)...
+[*] Testing fail-nth = 34 (1 attempts)...
+[*] Testing fail-nth = 35 (1 attempts)...
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Tested on:
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.misc
-
-[1/1] qnx6: keep the top-level pointer index unsigned in qnx6_block_map()
-      https://git.kernel.org/vfs/vfs/c/345a23b25153
+commit:         58161ead Merge tag 'drm-fixes-2026-10-17' of https://g..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=11b5ebcd580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=4ccb65e03706547e
+dashboard link: https://syzkaller.appspot.com/bug?extid=4fae162886e497f72228
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=12c84e7f980000
 
