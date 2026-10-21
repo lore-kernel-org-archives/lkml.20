@@ -1,75 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=130.133.4.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792572743;
-	b=eZA5K1YoWMBLPywglokggks6FeQ89JvCfvC1Sxbw4llVdBfXyh2r48GjyhqREn1c/mbB
-	 KVY36jzyVR22uFkgNoTJnjWeAQ/PvNFm7jkxInMADYUQfc7gXOKIaArRlzrfvYrgzQFYl
-	 P6ny1NrihhqFhiv+y2eLOdLKufuf/yAvK5QOPJjRNea5IQtsj3ulT2ipFPjuDV0gnzS3z
-	 sGNUUUG7LxaajDblWBEGSJBjr+urOkJnAkOoy6m2hhtOMdjlaDUG1iq2KxVffdrZmtv2H
-	 xaBfzTJRbit9c9pEqiCCz+vWkjnbgk4EQHwuUcVsDTWwdhBlJVznnP9QYYBcTKWNbwg==
+	t=1792572750;
+	b=IR0VSwZ8a4X+AutQH+Ia36FVOP61nL60G9gsx/iwY/YrYjUnLhOZ8GyVui16eiBefkhD
+	 RttsXNkXOYQySz1fk8CCzg/vYqBhfanB63K7dD3UTqwRsA8cEV9DophsO9YfcoAq12LEG
+	 YY4EhNbcJ4nkkzKcBvjV2KqbREmZiu+z8WBEFvY2i0WOmaHix9er3Ug9/bJ7b1UzBccmM
+	 4L3CFr5o3orxnoMD+L+vsHLyPJDUnt9G0oiPv5FVQZXCb4i9v5J92w2G16QZ7AVxkmGcY
+	 Z+zTzBnBiDoWtcBwbtyPCCjxkFa1ShR3OXgj6QPmJEgEdx7096RbQ0eIFQWnu3o2crw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792572743;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=eyNTpdWYX99+7C9MN8TAB1uHP728SkaAnyZyPKz7OOE=;
-	b=rps5M5WI17P5D2VNCSuXPXn1EhDMtQ/GLuGLmWwMmYF8tqxNSVr86SCdxn8lGWnil0tx
-	 Rkilr5YZTiK//YEAR2Pf7a06eSffwq1CTQ0TNyXcLSQRHxitWOFggy65PHt/1EBs/I4vf
-	 3JCtTb4F2na9zHjalSt4sA/x5UlG7c2TdDny24i8I/EQ1/a87SK7E9rq4rTshWstwvk3w
-	 Y7YT+QOehUNiplbmJbop57RLyfw9LtFid3sGGOuyNkex6r1BTUOAkNBA1KfytNV/GQo7K
-	 3puMOkYVcq/ZmtucxKPZ+hpnwFhzGjJaSRf8PAGc9cN9eEAs97QuFvquYlNmXKWUzXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792572750;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Subject:
+	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-Original-Sender:
+	 X-Originating-IP:X-ZEDAT-Hint;
+	bh=nLAv4znXqp7J4jKgEvw3NbURy0oURMFIRBJwXlCWHgc=;
+	b=EcP8j2vtdfB2n6nnO10Rbc3LduGMo8qPvKyGfo5tSgeswEe4Vq53SY1YG4SP5hzeGo24
+	 9KrklkQEvLF429vDyY6HpB9+GUe8oAnqbM9u1NaqqWy3MCahw2ea1PKLjtwgm9vxcF/vW
+	 uCf8OclvGjeaC9pw3Jw2ubrOrUKuYdS5CmgrwWqls7sr8NNUyTiWOa1by3fhXoFpOyAvT
+	 uHRvUvCWfy1ij4Xh9Ajf7YcNACPSu/AF0HBwuL9EEfmlYwhFJBpKkIOLk4S1506+zo7gT
+	 GeYoRORjvSXUO6mXOfGwhVQNUeqYaqffo/f1pajhjw/Msmp1GjZiPgqRI2yvuigtjWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="gjYlK/t8";
-	arc=none smtp.remote-ip=209.85.128.72
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=physik.fu-berlin.de;
+	spf=pass smtp.mailfrom=zedat.fu-berlin.de;
+	dkim=pass header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=N36hx7Ov;
+	arc=none smtp.remote-ip=130.133.4.66
+Received: from outpost1.zedat.fu-berlin.de (outpost1.zedat.fu-berlin.de [130.133.4.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277F5606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:52:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 277F5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318EE606A320;
+	Wed, 21 Oct 2026 08:52:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 318EE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=physik.fu-berlin.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zedat.fu-berlin.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=gjYlK/t8
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a1fa972b4fso2643495e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:52:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792572741; x=1793177541; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eyNTpdWYX99+7C9MN8TAB1uHP728SkaAnyZyPKz7OOE=;
-        b=gjYlK/t8BzcU91ZEKKH3sdAF3s7/Cim5LxYiDhwe509nUWPFJeEJ0rRC7exYrOyBd1
-         vH0uX5zzcixcB4TiDUm4p1gMYdruxZnuYRSwYqtjuG6+Qt87rStpP53S2GdFgxo5CmX0
-         CF1gDy1uWATmc//FkPTMxlUz0076t77p3rUqNxlrOh6CaarVDIk9aPOushPhqlR5Cddi
-         8q1W/sEHV4qqD+a2DCBtVxItZ5t2EiecRu0f88zWCY5hbgclO3wXNw3gFMUyuMwRxH5p
-         jBu00ai76q+gRZ9mwwv03FVU3s75MQjOK5LUO+zfWyYi1Qxo68xN/K/30CdlHNnAiB2K
-         Dn9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792572741; x=1793177541;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eyNTpdWYX99+7C9MN8TAB1uHP728SkaAnyZyPKz7OOE=;
-        b=vg62OCc1TMI++8UtYROQNKxqu5K6I/pP1sVSc2DE8ylC7X/MVk0hah6LYlmLLHmQbs
-         m8JixyF4hACBXzZuloTrqbq4u9T35Z/KwgfhoP4exkCGv7Suox3OLcv6f9LO/UkiKD/z
-         wZhTSeO96ucHv0ELNz2DHUSxYQR9LQKSccXmA1qdvceUVhGl4oDsQdbMh70Y2I/gpTHx
-         1SBQoO2U1Hzv0nX+2BtZJYosN8Qtj6PUUryjUB4qQVaOsqkJb/UcIDGYwNb5JHbr42h8
-         yibLV1wfRAN66+e2KV1V3LIxkTHsCSUwJr+nmvlZ4fdojruaKaUvmD/Ul9m8/cR99UAR
-         mPHA==
-X-Forwarded-Encrypted: i=1; AKwUvByKqIISn2JB+vjty6NEBb81IpmrLXL0QqiGr5+cHqaJADVJ3myD4JEJj4DG7t2GIRVu2HNYOiYDE5BjZHM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIeon+9wW2BSeMnZnnzUdcD+dpdUQPj+bKqTy2r1MII+K5r2jqn
-	jyYaQKrL3tCc3DIi8Ht0kwHJn5u/WX9zVJW/toocCCP6k2aQg0zlBGDLqKI/S73lKYJco3ogW+/
-	0/5O7qBaSExUc39WHbQ==
-X-Received: from wmro19.prod.google.com ([2002:a05:600c:3793:b0:4a1:e34c:d989])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1391:b0:4a1:fc0a:8b75 with SMTP id 5b1f17b1804b1-4a1fdd483a6mr24969595e9.24.1792572741168;
- Wed, 21 Oct 2026 01:52:21 -0700 (PDT)
-Date: Wed, 21 Oct 2026 08:52:18 +0000
-In-Reply-To: <20261020-b4-dev_query_fixes-v4-3-df66b4c98bc6@collabora.com>
+	dkim=pass (2048-bit key, unprotected) header.d=fu-berlin.de header.i=@fu-berlin.de header.a=rsa-sha256 header.s=fub01 header.b=N36hx7Ov
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=fu-berlin.de; s=fub01; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:From:
+	Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:In-Reply-To:
+	References; bh=nLAv4znXqp7J4jKgEvw3NbURy0oURMFIRBJwXlCWHgc=; t=1792572748;
+	x=1793177548; b=N36hx7OvBDwonjMUw+vQZGNWUgwXxpoDmz5vIeTFgVY61KB2mL3OlSk699E5/
+	GTPxSqnHeCf5aOBFoZZYZAAaxjTaeW92rEBbnnajK1J7qyUaIA5NFkNK+XqCVlnrQ7nIyQfk3S669
+	phI6yzfWBf6EZgYFnTLbDDfjIe79qMyzJoI4yCyU6YxtPfIqP1s+kh7rDGvy1cw0S5BloHNpBdGqG
+	OriiBxzTO0jFgk8QpL6iz8mgfc/JZqCV/sHdrwIAKurnNG1itu+sHIBeYDWbHSRFS336nq4cvkOyL
+	+FAXlkmRfE4YJ84dZ53HxeS5yikbq0MMJBYi9ICQgryImF4xvQ==;
+Received: from inpost2.zedat.fu-berlin.de ([130.133.4.69])
+          by outpost.zedat.fu-berlin.de (Exim 4.100)
+          with esmtps (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@zedat.fu-berlin.de>)
+          id 1xJS3c-00000001Fqm-0sQr; Wed, 21 Oct 2026 10:52:24 +0200
+Received: from p5b13a90a.dip0.t-ipconnect.de ([91.19.169.10] helo=[192.168.178.61])
+          by inpost2.zedat.fu-berlin.de (Exim 4.100)
+          with esmtpsa (TLS1.3)
+          tls TLS_AES_256_GCM_SHA384
+          (envelope-from <glaubitz@physik.fu-berlin.de>)
+          id 1xJS3b-00000003HQO-3yZw; Wed, 21 Oct 2026 10:52:24 +0200
+Message-ID: <0c70afc8a119504aa5c2d22361f613547b2750bc.camel@physik.fu-berlin.de>
+Subject: Re: [PATCH 0/2] sh: Fix IDE on landisk
+From: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+To: Daniel Palmer <daniel@0x0f.com>, Geert Uytterhoeven
+ <geert@linux-m68k.org>
+Cc: dalias@libc.org, dlemoal@kernel.org, cassel@kernel.org, 
+	linux-sh@vger.kernel.org, linux-ide@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Yoshinori Sato <yoshinori.sato@nifty.com>, 
+	fuchsfl@gmail.com
+Date: Wed, 21 Oct 2026 10:52:23 +0200
+In-Reply-To: <CAFr9PXn4henL=rQ3n73H7Mjwd7v6XX6Jt63h=Sywu-boOPggKw@mail.gmail.com>
+References: <20261017041419.311921-1-daniel@0x0f.com>
+	 <4cdb2939264e0b7d767f44289fddffd40fddf504.camel@physik.fu-berlin.de>
+	 <CAMuHMdXmZash+8PmfSVrT=Wwob-mkq0x4umyRgX2-yikV9kaVA@mail.gmail.com>
+	 <CAFr9PXn4henL=rQ3n73H7Mjwd7v6XX6Jt63h=Sywu-boOPggKw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,37 +83,53 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261020-b4-dev_query_fixes-v4-0-df66b4c98bc6@collabora.com> <20261020-b4-dev_query_fixes-v4-3-df66b4c98bc6@collabora.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261021085219.426333-2-aliceryhl@google.com>
-Subject: Re: [PATCH v4 3/3] drm/tyr: allow userspace buffers to be mismatched
-From: Alice Ryhl <aliceryhl@google.com>
-To: Deborah Brouwer <deborah.brouwer@collabora.com>
-Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-Original-Sender: glaubitz@physik.fu-berlin.de
+X-ZEDAT-Hint: PO
 
-On Tue, Oct 20, 2026 at 05:06:47PM -0700, Deborah Brouwer wrote:
-> Allow userspace to provide a buffer that is smaller or larger than the
-> object that the kernel expects to write into it.
-> 
-> Set a minimum buffer size to match those in PANTHOR_UOBJ_MIN_SIZE. If
-> userspace provides at least the minimum buffer size, then simply write
-> until the buffer is full.
-> 
-> If userspace provides a larger buffer than necessary, then zero out the
-> remaining buffer.
-> 
-> This ensures UAPI compatibility with Panthor.
-> 
-> Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Hi Daniel,
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+On Mon, 2026-10-19 at 08:04 +0900, Daniel Palmer wrote:
+> Hi Geert,
+>=20
+> On Sun, 18 Oct 2026 at 23:48, Geert Uytterhoeven <geert@linux-m68k.org> w=
+rote:
+> > > I hope Geert can test and review your patches and I'll pick them up
+> > > with his Reviewed-by and Tested-by signatures.
+> >=20
+> > Sorry, I must have different hardware, as mine doesn't have an
+> > ATP865 PCI device:
+> >=20
+> >     # lspci
+> >     00:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd.
+> > RTL-8139/8139C/8139C+ (rev 20)
+> >     00:02.0 USB Controller: NEC Corporation USB (rev 43)
+> >     00:02.1 USB Controller: NEC Corporation USB (rev 43)
+> >     00:02.2 USB Controller: NEC Corporation USB 2.0 (rev 04)
+> >=20
+> > My CF rootfs uses pata_platform, which is enabled in my working .config=
+.
+> > landisk_defconfig lacks CONFIG_PATA_PLATFORM=3Dy, so it hangs during
+> > boot. After enabling that, the boot gets further, but it still hangs:
+>=20
+> I guess you have something like the USL-5P that uses the SH's onboard
+> CF interface.
+> Since Florian has confirmed their hardware has the PCI IDE controller
+> like mine and reviewed the change I think we're good.
+
+Is disabling CONFIG_PATA_ATP867X still correct or would that brick the
+boot on USL-5P? I guess you are using any of the HDL-XXXU devices [1],
+aren't you?
+
+I actually own both as I did quite a SuperH shopping spree in Japan some
+ten years ago.
+
+Adrian
+
+> [1] https://www.iodata.jp/product/nas/personal/hdl-u/
+
+--=20
+ .''`.  John Paul Adrian Glaubitz
+: :' :  Debian Developer
+`. `'   Physicist
+  `-    GPG: 62FF 8A75 84E0 2956 9546  0006 7426 3B37 F5B5 F913
