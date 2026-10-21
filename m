@@ -1,89 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591127;
-	b=ew4Jmu7AJ9HZVjJnnuzX+fmOT18ZvV5RXvQTjrsfyhE7n6cNx80VyHbyhTKOZLRcqAXN
-	 XyZfZYxMOV4mLpGeiRisxHMarWSA2NqdG9k+G37PVtxQhXQ2IYCcC7xG7dq/GY6LnwMcA
-	 RpkQD+3yQ1RstaZltT4mZjDcMzAflaoRCwI7KKl2q6Uwx5rvWFfjIwAUohDLxZEFd8Wih
-	 hFEevn09/B9FyVtBm00H7+cgVkn4Ejh56xRFyOgOOx+Knri9c6AmBBQaHAE5C0GWAI+Dm
-	 2WHQdAlCo4mB6ZefObG/iBNRBo6SLqWySO6of2YSxlv8mVZGlLIXmmiSZGxWsLHNlyA==
+	t=1792591148;
+	b=mZ67h92lze5GkQ/HTYkTchQpz27H2TA1mzNNDPApdn38Gucc5wMUaJYp3NG8wA9HTxif
+	 kabLzOVYgDoYUqNNNhzHE+qqsJn9WIbkVUUX95NQvcPESjb+yLLtGSqhSQCWhYi3rQWzA
+	 3M3NuaoC66KXhaj8d1PbhiTdY4cp/+2FVmDinrEQrtZGt+W7B0QFBlv1AegM9xh3ESODt
+	 1cRk2KCGsVLzH8QroSmPsKjEFhJxmn8rIxzbjphA5gHJP2+kxTvq2jLWI4E1MqtbYcers
+	 p8NWFlYP8yRJHlwOTTGJ7hH5YQQx8R7zu3a8M3V6QnAfAOrX5i5Cgfp7v7LLL7w9HRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591127;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4zg/LYuc5EVJgXpf2aLA4/NF2gq/+rC0L8/4lGLzGqE=;
-	b=TmgjSMGm5dVV0Ao56zgKjiuz4bxbvTcT9j3ihNEkGiF6mebGuxgKmts6PMjEw1RMb3+5
-	 JHVzSolL6TxLrFTyh0yKVAEX1ZzqWLdI+Emk6dG5nXeofqrKdXInKWMD/VYC0x86HQoYj
-	 HhL6dBuCAXaGj6AOsZat4R6vsVC7pa2zC0bAA4fuXXUtKEsi+mX0b8uBu3fo0R/FDt7Za
-	 L985Grf9xF8VFC3PlAoDmhHDpiCiDb/DjjAwJAs3RtNFEJNJXhfIGhQJR1XW7srrwbTgz
-	 pDW4wvjurdy3FqTXYX6dp3bKLI28KFp4aJ93Bqau5c46XNBVNlu5Su+ucgWcvaBaYOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591148;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=CF7NxGfQqwUb06gUqk0YXRYtqxZmJkrr71gFRploMIo=;
+	b=x9hilN6eTCI33UbZI9QhqcXBNBJpKol8k4k0tOj8STUxSywUgFWzNz4UHUsEUFYaxndH
+	 /206+aHKvAb+vi81qmTl4gZurd1ZQ9ePwlV+fJriGBixJ4dYfrui4DYYffdBkif7rFCIg
+	 DKKCRrkACvmGt1w6FE3y7PhpYEUSKbcKSEMfDE49oYXByhVGqFaYDO6MKp20k29kfK+No
+	 pKirl00QBNuzJbgOgfGI/m2qXfJZUq3HPCzBrfj/nzCbXfc9pS8lqZFvvs/fcvCbYJwME
+	 MuWPmpgeF6aMzKDTfuM+0PeaxrwoYGD4pO4qqneu86aFzNeE/9o5xZOhnLsAXj74RFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NBvJApti;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Vto8D6lq;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D98C606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:58:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D98C606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2137606A31B;
+	Wed, 21 Oct 2026 13:59:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2137606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NBvJApti
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac6971aaebso94234a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:58:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792591126; x=1793195926; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4zg/LYuc5EVJgXpf2aLA4/NF2gq/+rC0L8/4lGLzGqE=;
-        b=NBvJAptiWLVWyTnnDIdNkW7PRUv0hDRVi2HNyBXHSlHsNGSpubjArczgoe0F+uKrMf
-         E+TJ8OztoOv9h/IJm4b/4EAZqNxBOBnIF1mGWTYmCQ3MQspieCzuaqEzKawhWldsa4zW
-         sh4CjX9QwoDkE94aoj52vZjOOsw4bDwxE1LfzJ1IeB30CJ5J31mexy8lFtzvGsQzIyNW
-         Tp2G9ygrE9dqZ9qaQKkLvuUwIkf+CAA55ssWS7p8jbdsSz/ttTzB6I8W5sG3IZcrcUxi
-         I2LSW/P7P58yNoQxLATR0eC9kIUd2e/hMXwI+2/TRGKFMPDBeCwMH4BJ9Qm8dvri68Z3
-         7ZMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792591126; x=1793195926;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4zg/LYuc5EVJgXpf2aLA4/NF2gq/+rC0L8/4lGLzGqE=;
-        b=1heCpFa9WCQsBiAoRrJCZm4dRf8pNWxAr9qJK2eH+9VAt3bgStZHAiDlOoWMlq/feM
-         yjgRvksJGE/BF85+WOY8yFAAMW/ZbyTFe94/FOLMOhDTnq6FOuVPq1Dm4iqd02QMt33c
-         SCNUA+f3MKPmRKTH/kNWjLFuxv/htzEwlh2W+cFVFf5hXKvZV+DNV6AVLh1ahwZjIhyH
-         hrBcz1it4fvtYgI5rm3KjDH8msziQJ2m8sb3nGbEi35xQJLLVSMbYJdQnjyQoo0+LUmH
-         ZHBwUcuCcHWFIbpKEBPHfKAqx3g066mNP4iT7gF/J7eNgbLCwZfGdHdYBybljGfhdES+
-         hUNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxbfUfWKA+OwwD8zrY3wJMsnCbZVfZdvIgY60jDuKU8veERgAKv1abBvNHBrkpf5mtHKIIGsSHobrCLBUA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKJ5k/r48ooWy11epjOH+EVMz+WOnkpflZBcyDcHthKSBgRBmZ1
-	mnsYLnpesNlrg87mYrJu/zkZChpymbncfxRI1w+Oa3zx3Xz8N/jJzgNAyYLIL4RkQEQ=
-X-Gm-Gg: AYBFou0V1pIQSbL6VTGd5NKMgMhEhOSmJnkSqEt497A/Poa26KpLDSW0GGjSjGllK8e
-	GZXsX5Y25hvVVknbqxZAmOJJvnUGhzdsmfOs2nnmmcFrRrPP+A6eCRe1TJaRLTm+34elZ8tOV8D
-	NZOCCcrCL0QMoO9z4qy91uArF3P1Tw4bRyMGnEwso00gakTiONggGOtOEDVIUXoa3FxaEXIHmtE
-	PecHOZflyzaGpVMMKXVQzvpPA3UFC+r1nQ4AkiNWLFwL/owdmfRgF9rXgVjH0bzRGb3Y9g6Ma6j
-	GLuPBdG6ngR92MXVB8qeYeC3ZyxTR6C7wsQmwS5VHs/1BOA0Es9kbQpR2zmKzTK/XUZaVqudEe7
-	fbX/lYNhESwEi7NtKact/JwpZKG47Jb80Bh9ZfmX9X7LOgFYBWxIZjJx5Rb1GOPXlMzTCjjdyte
-	my3IQoX7059Hbf3DsnI+ITFPNgdLlZjcI5LJTcTtemfuPPeZ413nAdlpS1uA2QCmGR3FMrsZTC9
-	GRIlk2X3e9JQ1fpTGI5Sy/AK0f/d0zPkLa5ql3JTo9Kn9FPQmbO7kKmx8aNz072O2Ox8NuJQ1JM
-	r4bZlQ0=
-X-Received: by 2002:a17:90b:5249:b0:3ac:e6a:1af5 with SMTP id 98e67ed59e1d1-3ad86de0976mr3286305a91.2.1792591126388;
-        Wed, 21 Oct 2026 06:58:46 -0700 (PDT)
-Received: from [192.168.31.234] ([183.193.19.60])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f38df2sm2209811a91.2.2026.10.21.06.58.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:58:45 -0700 (PDT)
-From: Anfernee Cao <anferneemelokc5@gmail.com>
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH] pmdomain: core: clear states after freeing them
-Date: Wed, 21 Oct 2026 21:58:39 +0800
-Message-ID: <179259111932.19580.13027750156272888992@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=Vto8D6lq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=CF7NxGfQqwUb06gUqk0YXRYtqxZmJkrr71gFRploMIo=; b=Vto8D6lqNg+NPFt78gCjRqpyju
+	CEs6ABHzkAKT9YyuuBVfQdP7BIZzyvBzqgOJIlx5mX29sYYnybxNpCcagyfX7Ffhfkj5y5yH8dnd3
+	mCvuVaGX4YNgSqC+Wwx4zIiO92saNqA51Cu0CNe+wQka38Qe0GQRT2gpO1D9czcOee3w=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xJWqH-00C5yL-QP; Wed, 21 Oct 2026 15:58:57 +0200
+Date: Wed, 21 Oct 2026 15:58:57 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Christian Lamparter <chunkeey@googlemail.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net] net: emac: release DT PHY resources on teardown
+Message-ID: <51f35c9c-190c-4ac7-a3e0-c681068fecc9@lunn.ch>
+References: <20261020223002.1749284-1-rosenp@gmail.com>
+ <59c8f008-9ca0-4620-9a54-e73da131ab6c@lunn.ch>
+ <DMA6QT4SYA41.3VGVOVAWYQMS6@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,54 +68,31 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 8bit
+Content-Disposition: inline
+In-Reply-To: <DMA6QT4SYA41.3VGVOVAWYQMS6@gmail.com>
 
-genpd_free_data() frees the genpd power states through the ->free_states()
-callback, but leaves genpd->states and genpd->state_count pointing at the
-freed memory.
+On Tue, Oct 20, 2026 at 08:11:02PM -0700, Rosen Penev wrote:
+> On Tue Oct 20, 2026 at 6:05 PM PDT, Andrew Lunn wrote:
+> > On Tue, Oct 20, 2026 at 03:30:02PM -0700, Rosen Penev wrote:
+> >> Disconnect PHYLIB PHYs and deregister fixed PHYs during both probe
+> >> unwind and driver removal. Without this cleanup, unbinding a DT-based
+> >> EMAC can leave its PHY attached to the freed netdev, while fixed-link
+> >> instances retain their registered fixed PHY.
+> >
+> > This driver is quite convoluted with its PHY handling.
+> I agree. I got this LLM to convert the whole thing to phylink. It tested
+> a bunch of stuff over serial and ethernet, which works. That's net-next
+> material though. It'll probably get rejected.
 
-Providers that allocate the states themselves hand them over to genpd by
-setting ->free_states().  When they fail after genpd has taken over, they
-still run their own free helper, as psci_pd_init() and the RISC-V SBI idle
-driver do:
+What is important here is you have the hardware and you have tested
+it. That is better than most LLM generated patches which sometime
+don't even build, and most of the time are never run on hardware
+before submission.
 
-    remove_pd:
-            pm_genpd_remove(pd);  /* frees states via ->free_states() */
-    ...
-            dt_idle_pd_free(pd);  /* frees them again */
+If your patchset for phylink is up to mainline quality, post it.
 
-The second call dereferences the freed states array and frees it again,
-causing a use-after-free and a double free.
+We push back on LLM generated patches which are of obvious bad
+quality. But we have no problems with good quality patches tested on
+real hardware.
 
-Clear genpd->states and genpd->state_count once the states have been
-freed, so that a later free helper becomes a no-op.
-
-This issue was found by manual code inspection.
-
-Fixes: 9d976d6721df ("cpuidle: Factor-out power domain related code from PSCI domain driver")
-Cc: stable@vger.kernel.org # v5.18+
-Signed-off-by: Anfernee Cao <anferneemelokc5@gmail.com>
----
- drivers/pmdomain/core.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pmdomain/core.c b/drivers/pmdomain/core.c
-index 052ec478dfcc..12db69f53aee 100644
---- a/drivers/pmdomain/core.c
-+++ b/drivers/pmdomain/core.c
-@@ -2353,8 +2353,11 @@ static void genpd_free_data(struct generic_pm_domain *genpd)
- 		ida_free(&genpd_ida, genpd->device_id);
- 	if (genpd_is_cpu_domain(genpd))
- 		free_cpumask_var(genpd->cpus);
--	if (genpd->free_states)
-+	if (genpd->free_states) {
- 		genpd->free_states(genpd->states, genpd->state_count);
-+		genpd->states = NULL;
-+		genpd->state_count = 0;
-+	}
- 	kfree(genpd->gd);
- }
- 
--- 
-2.54.0.windows.1
-
+     Andrew
