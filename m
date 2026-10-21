@@ -1,61 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792544735;
-	b=L2s0PTu3ZWZrtLoVJMOqMKFz6dmUql06n0wG6GKJUPZYET/TY2EnEPGbMwe3kkhuUDSZ
-	 1amrdGiuS/jW6y65d+tZvtHqxFi78T+rLMoM27dSRcr5UTQXAcLWBS9DoQ100fjpCFQzI
-	 EjRnrVQ4gleAg8A4aeOsfIO3H7BzUDI6y7++8Et/FIBIxRMaQe9z4zx6H6XG2zLLggyXy
-	 EiBsUfWIK+EdoHrrTuXJ5Ra42crDoZc2PzXikwIzzn1bDKzQ8bVXYIRDgdsNV16/t4YW6
-	 fAsH3ToItJU2hTY2euxyGZhwFB4d9jfN+V/nXXTHlp5jvhIN0wSNaVA/Rbq2lsCAYPg==
+	t=1792544848;
+	b=3XtqXqfpGtc3MMODe+ahd1Shxx63VAEt7I4jAwCWf5hhJlOfPMKtIZ6I3oiJp7j5oP7s
+	 c4+F6cvfA1ZD8nnTSr8Iv2tpiA5F9JtzsETFToQJ9JZaKuIiH79ggHgqMZvYBoyE/Oqfx
+	 zfKfQenDvQv8YSnBdDM2vJPkvzPaf025NbYGGdyTXG+qifpWY0btbMi1XGNzjASdc3DlH
+	 FhB9K9HfW9Xxpikmzu7c8MIeB33JajXW09zKGLxEpvaDedJXWevLEjB6VAwWngQL9QVCg
+	 w604V+YuomR/Bqyy6f4eYqLjq/hhz6mDxXjAitb6tcULY4/qribg6oXVRPdKHpmSViw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792544735;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=yzjZW+qTIi0ilDpmbfqEu+IvND2R58m4+1/2tiefcE0=;
-	b=FVh9kL8uk9daFaKpq1yL4Ic1/7ajtPgm72fuxFptRSwFWRrVYnnbMAdhojNP+iga3X4o
-	 JlROXqZsQT02iPFSrgs7eZLOWWvDKDOYoErEoEbjJFALlKTD/ay7YEQ52zpJtWF4mcuEk
-	 G7fmSfQQLrwFXBlyTrHLjlPz9YC5AFBDgj1QDLF9LH8ZKN6msylaOLZFN7kXwiVv8nO+Y
-	 Z/69RaeQdLha/1dg3UqSpq7eN+u1tqozruPf+KRd+9bYM9IfG1Jy6tYWGwL1Crsfsv55+
-	 F8SCHH+eQLlNlE3e+VvzjJXj8Zbofu6ZiZRY+zLitmUhFSYTNV/q1dN1SeBOVmu0m4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792544848;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=V6m3/WsasuvJ6oilVkIro4Yg7VSyz0LpQEufM4tNpoE=;
+	b=MqJyutqZQ/lzskJzFikgxJ27Fi6/MVRCQ/cNRiMXAG2Vd7f2kOsxRIKIigebtmCH1EQD
+	 mxXjQNUVmePKNJ+ZK+RP6B5sO0MA0rCrxagOe2MwcwSv1cvlX2sheNRIRi//dmA7mixNH
+	 eHxcIAB/ey2uQlhIqrUIbtsJnwe/NQ7P1Q6YL9n48TjS2g5xG0xfciyCNt+KMd4+7ni38
+	 VMOHVufuqOFK4yivUc6XS/6xqVO4vBkAeQUXA5Jbi5cMel5jPGtkKgl8RrBR7Kzoo4FLR
+	 ROVs4bFlXY/eAWTcKaZbTzepAj5wzGNh1piHCajImd1isspLyOMPHNlASz5b2ss2iyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=IPx3XyZn;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSKVntjO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240D7606A319;
-	Wed, 21 Oct 2026 01:05:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 240D7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA16A606A319;
+	Wed, 21 Oct 2026 01:07:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=IPx3XyZn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=yzjZW+qTIi0ilDpmbfqEu+IvND2R58m4+1/2tiefcE0=; b=IPx3XyZncTgKcilragBIPzdckV
-	dsEQcCuka/dbWro/Xth8Ygzo7JpJhxIa5YjSXQosibFqYezE5nm6j6xDUMZOsUHHlNOJR+VzI0QL/
-	CzxGEMQzfC0po06/v4Sbuu3Y3AaQIohT/nmgaG5Ya265J36JULfg45on69Ot5AuTgZIY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xJKli-00Bx1E-Bo; Wed, 21 Oct 2026 03:05:26 +0200
-Date: Wed, 21 Oct 2026 03:05:26 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Christian Lamparter <chunkeey@googlemail.com>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH net] net: emac: release DT PHY resources on teardown
-Message-ID: <59c8f008-9ca0-4620-9a54-e73da131ab6c@lunn.ch>
-References: <20261020223002.1749284-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSKVntjO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 445931F000C9;
+	Wed, 21 Oct 2026 01:07:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792544847;
+	bh=V6m3/WsasuvJ6oilVkIro4Yg7VSyz0LpQEufM4tNpoE=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=eSKVntjOzA8jhw/rmzGbLf7Zwd28PnJ3IY5wUf4LEmnf6owoXK/E+eZwbA45rD/8R
+	 BLjJkzsgpv9N2X3HgvL7DMkNyW/017AxPyQQi8laqqj/LSKVmR+p/S/mLdCamm0Onq
+	 5eM3lLBjub6DFHGG/lekqkSjGnKBT0M+1EjPGisAV0ozR0Xc/5NnmM/yVvm+qhtWNJ
+	 Gt0FzbNk+rOWBNH+FJbiVOspRG363yTTlL6H18otUXTs3ThQh4LuoXpFTM4WU+pkwJ
+	 yzxAKCdwnYMIU7kttoJ2LgDLtncF+gY9UOnHH3W54zOGrzeObqx8hxwV/W+eHzzajH
+	 I5T1cmkWJi0Vg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A4943809A0C;
+	Wed, 21 Oct 2026 01:07:27 +0000 (UTC)
+Subject: Re: [GIT PULL] chrome-platform updates for v7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <atVqC0emrgzIQfAL@google.com>
+References: <atVqC0emrgzIQfAL@google.com>
+X-PR-Tracked-List-Id: <chrome-platform.lists.linux.dev>
+X-PR-Tracked-Message-Id: <atVqC0emrgzIQfAL@google.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git tags/chrome-platform-v7.4
+X-PR-Tracked-Commit-Id: 2d3ee0bdb321ad84d9cf18d4bfd2b839293a695d
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: e5d379e9c3148aaef37909ce6d4c3ca18fad0312
+Message-Id: <179254484587.303828.8695858092581861840.pr-tracker-bot@kernel.org>
+Date: Wed, 21 Oct 2026 01:07:25 +0000
+To: Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: torvalds@linux-foundation.org, bleung@chromium.org, chrome-platform@lists.linux.dev, tzungbi@kernel.org, linux-kernel@vger.kernel.org
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,51 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020223002.1749284-1-rosenp@gmail.com>
 
-On Tue, Oct 20, 2026 at 03:30:02PM -0700, Rosen Penev wrote:
-> Disconnect PHYLIB PHYs and deregister fixed PHYs during both probe
-> unwind and driver removal. Without this cleanup, unbinding a DT-based
-> EMAC can leave its PHY attached to the freed netdev, while fixed-link
-> instances retain their registered fixed PHY.
+The pull request you sent on Mon, 19 Oct 2026 00:53:31 +0000:
 
-This driver is quite convoluted with its PHY handling.
+> git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git tags/chrome-platform-v7.4
 
-Please split this into two, phy_disconnect() and
-of_phy_deregister_fixed_link() and add better commit messages.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/e5d379e9c3148aaef37909ce6d4c3ca18fad0312
 
-	if ((dev->phy_address == 0xffffffff && dev->phy_map == 0xffffffff) ||
-	    of_phy_is_fixed_link(np)) {
+Thank you!
 
-		/* PHY-less configuration. */
-		dev->phy.address = -1;
-...
-		if (of_phy_is_fixed_link(np)) {
-			int res = emac_dt_mdio_probe(dev);
-
-			if (res)
-				return res;
-
-			res = of_phy_register_fixed_link(np);
-
-The logic here is more complex than 
-
-> +	if (of_phy_is_fixed_link(np))
-> +		of_phy_deregister_fixed_link(np);
-
-So you need to explain in the commit message why it is correct.
-
-> +static void emac_cleanup_phy(struct emac_instance *dev)
-> +{
-> +	struct device_node *np = dev->ofdev->dev.of_node;
-> +
-> +	if (dev->ndev->phydev && dev->phy.address >= 0)
-> +		phy_disconnect(dev->ndev->phydev);
-
-It is also not clear this is correct, since a fixed-link should be
-connected to, yet a fixed link has dev->phy.address == -1?
-
-	Andrew
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
