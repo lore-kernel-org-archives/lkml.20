@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792616190;
-	b=PpN8fxLZwSP07Z6z2ZoEQd8YNRc/k9YkM4ys/E7iL1Ni9WQ3mkOQvqwY7GvxM/TJrdiL
-	 pUXRf2F+zbdz0sQdY33aJqMfegCOec4YPhs4g+11nHic+o4CpPWprGgTRRidre7lmHuZR
-	 Vy4XI8nZnLCmEOHJJZsJBk7TWVMRWRaU82+qPtmsVnK4wi0FyM/7XRNKdfXo6TF3OfGYH
-	 aF/uHR+f3uRd18RCDfhBBOLSLy8dWBN9BrP4tCeNg534/Zpe4WOT/nhSfdirQ095eHsGU
-	 wXoV3ze/C0mrYOACzrtYi54/+Fc2IPkWMgTw1U85laFyuO8EpZLU3SdJExDnVQea3Hw==
+	t=1792616231;
+	b=y3TXqRu02sOh35YAOdMjGncEdhlZbc3EB8oPfotjurAiEXk9K+BX4zjqlTP+ibygpR49
+	 2HEQ4ZOMVIGtdEV7FetFZ9qLfsDWqt+y9OEzB1cfBNwWVJPKNjYSxaOU/zSvmThtiwiQW
+	 cMtyoJ/1ao5nQ+EY3KFIJLC3ZQA736fg1TkXkby6V+IgVIN3AOjynuRvurFzS1XacyYaW
+	 tJusPD0AG3+CZevct9Kr+VoITxdsZeX2ujwtbbg922oC8UlZMhHMiPvfi2Bv8d3PYgwgp
+	 aQiPOrwqtl+AkwfGISevJhEg8NDrnevkoxh20tZYlOZwm6T4OuKfceNJluxj3CHXPmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792616190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792616231;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/wMSCFq7cwAqlw5+JpUyGiK59gPbKmzoJzlvO01tlDo=;
-	b=ZyTbC/wCruZ1vaI6hb78+4Y5bUUnwE+HdO6EK3JDM9lDtcWUp5iaHJ4gWFnOwMyY1pP0
-	 P1deiDIhKADCV0S+cxSkp2Eog3Gf+inxUOr/SMhCkRdmAx7bYHURF7/UA2OeYHs9DrAW8
-	 CJX/i7YWTs1u5X+GVC5DIPGDXCWdn3K2NPz6/1X7FlODrf7ADaXbNH9z5lmb+zeiYHz7S
-	 Xl6RE/0QZCRguizuLUvtBw6maZQg3gk9Mx1ara7X5cJQtbZwzM8JGeVGHXuUnC+SB2j7k
-	 /Kps8M+laDyxCYSzjKl2nS6ZNQB4Wdid9UOFqj15RgXN9WRjDLbnDQwtUgR7WqPc94w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=TjGoXIwxwvYJCfSB4uUwJbeswXlbVh5GTXRCoqO+ToQ=;
+	b=AxQUIBtwRhyEbmYOkb9mElvKMTkNfIH7LLZ7HfIaZgEP5TyKS8UtnM3Gw71irhz37CK3
+	 4PsNLyUJEcpc/WwRx3NdT0ep0I0G90nrAahBu7wk4IUB5tATeGHfuCgILq+wFJvYoU/xG
+	 n9ErmCBKdCu425BgQX8X+FHxsf4lYa/37rH6gtUUtlPc/IOhoVvH86Enh2x2iQxTzl4t4
+	 WcSfYYBZE+tunwi5oC1TB6ucnGs59Iw7Y+wW8/pnYQ67+PLHWZbFJaXVq1afqMx23IvWR
+	 4mR26x3m/gxaJWMtehczZKCqjO/QgIc0tqzxyMbd74DUnqRNu1MAIR4f4qH5hYH0QKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gwwp587o;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=umQqFLME;
+	arc=none smtp.remote-ip=209.85.214.197
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664C4606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:56:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 664C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9BC8606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:57:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9BC8606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Gwwp587o
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-353804b591eso2190471eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:56:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=umQqFLME
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e9572e892dso7778675ad.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:57:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792616189; x=1793220989; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/wMSCFq7cwAqlw5+JpUyGiK59gPbKmzoJzlvO01tlDo=;
-        b=Gwwp587o6azI29+TvQEdT4XuDNJaKyrkNZuS1Wb/cZmb6w0H2yHF29MWJxsJ/25Z+i
-         B261985l0eGXHxnxZOaQnnbmRSLY04ujt3hKiGMmALmostf5QpPU0wxepQPKIPk8MFdi
-         /e3xSDHfQxPzuwc4WqOW6jKy9RxwzsYCK+2mMZ5uR1zInZ/e7fcCoY/d1TKyD4y+Mfvl
-         AwdkZ4lxe18Q0MrlpQrZzDoUVNXWuW7t7/IhFYPgOaDzGuJ4I4WUUh80pT44kGQsIGqz
-         +I7Ay+yfALT6kucTCpgFYLSwT/6erjOSnXzs9zK3c9kRlopos+DFkr7ncj5OnfZJd1PJ
-         gWMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792616189; x=1793220989;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20251104; t=1792616227; x=1793221027; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/wMSCFq7cwAqlw5+JpUyGiK59gPbKmzoJzlvO01tlDo=;
-        b=Gn8yLgRL9ZXiMiF26PTZ0awp7iaSL1nTjBBuoXtiaylVa0lZks7j1Qt09SCXZ7vmFj
-         dSn8AnIuIwsaHwz9ASA8aZCP22FpPz8F7CfRUIbil56S9ubr1Ctu+M19LGf0ucKYrBW2
-         KbKYbhPeWP/e0p6IxDT+bWhczM/KLexMnZG7HEOzZb6IePw6VZjsLmRAYJ6Zd3Sk46GN
-         5smVIEPDy9Yfv6/wQ5IoASi4eYSBXOtuu5POn9pv3s4asGZs2b2fV0ay1qJj9o8PZn43
-         2nQCb+SNgWxwkegzKZb/uFHYHLa/LR5SYyYyV3lU92ZMlb18VcSFLRPojjqLKOgo3gng
-         2ZRA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8YO0u39duzwI11E5ZIeU4xg/xv5q5IQ7DOdYPHiHDNNFKpH2atGwP38M/X3E6RmkfTSNgsVy7RnZN0bU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZdF4mA+PCr5X87GNzKYivrm+BmHMT9AkoDLbZcuJ+7r0UoJvN
-	9tNXbicI/3BbIj3jmxD0TbWs3MppEP3K6hVq0UUPVs9plnqBNpUj5SMTX9ZDv3Fv
-X-Gm-Gg: AYBFou1suGpIFdtrkPJ1/3etZJ1xxzGvgZxqFKhoud/eeLXlegZuBWV/KN2iLql6QYA
-	u8PmkmXYcrrmuODrikZcrwVWy8Aenkbm5zKobqOgALq+ddD+uEoH30vS1tuTajvwTq6VWHJvKyY
-	6ALaiXp1HGF+hG7wwGOYd6VpLkNAf0ePAjxFAGE+q1/ZSz0lly7dPmgaOMMc+VSeqQAQaOcYWFw
-	odQfdjEMRSmi0mEF+Ya8qdke0BrlZ6dmVuV9LFXWYxzVigjSBkWpN8+YC8tnly5nCV0c0E9OFw6
-	uQseA8D40+d1Q2wwUnnqDyG6MSMlWFpNfl0zKdp527n858P0dF5LKw1BbA7TQQbxj9ZfJPRtbjF
-	PTonD/Q7K7aw0RoAAPmYfxEptmBg/UDFP1BNkp4O5lr/LUISZY/MFpdlBLHGg7WSMEdPtLiQoUG
-	LwlUboZqtwslcOj5ljeN/sJZ5g/jikOJha2PODu+FcMzAZftSVRbOHL/uTfl8PRQRo/74a8tBT+
-	fEiQjH0VIdkzEHJky9K8ofqEYOr0BVV79DinZD3sVexW3K6nSjOmAP48MZt+wJZMyIFS4/JyScf
-	JztK48CtReWHMGCR8ON58GfCqQcuL6IY3MB5b9UME4sWYc2jSQ4qE9jb7MvVUYNQu6owg2x74Dy
-	VLgaFt2Mk+W0hNNhnNpHdHDaQ3r0exHFw
-X-Received: by 2002:a05:7022:eb46:10b0:159:aa67:2893 with SMTP id a92af1059eb24-190a632f2bemr4055440c88.30.1792616189407;
-        Wed, 21 Oct 2026 13:56:29 -0700 (PDT)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903a275026sm13371585c88.5.2026.10.21.13.56.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 13:56:28 -0700 (PDT)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Joshua Crofts <joshua.crofts1@gmail.com>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: inv_mpu6050: use named initializers for temp in hw_info[]
-Date: Thu, 22 Oct 2026 02:26:20 +0530
-Message-ID: <20261021205620.342142-1-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atkKMNHPRLSrD3iZ@ashevche-desk.local>
-References: <20261018000924.758186-1-kapoorarnav43@gmail.com> <20261020095936.00002ff3@gmail.com> <20261021183823.169199-1-kapoorarnav43@gmail.com> <atkKMNHPRLSrD3iZ@ashevche-desk.local>
+        bh=TjGoXIwxwvYJCfSB4uUwJbeswXlbVh5GTXRCoqO+ToQ=;
+        b=umQqFLMES1JPk4420IiZfNB632/zKzT4sUli4e84ALhzsGfTMxij98Ebgf4YZBFddi
+         UY0aT6RxGWFJxA2T6p2sbTyG287UseVXX2ncIGOgoti5UqCbHVrKTtaiYpNNI+j4LAar
+         nGb1FSgj2y7WGclgeYpYjjHYrzorVhnjHzudMRVFbZet4qdhmSOE9r2lIB50BxOjOeI0
+         xm7ybJbYUG3nnmz0yOrH/6Xyb4ebFEvx19bFprxv0GGmp6ei1HuRfEp5Ec+tLJ061gW+
+         cegn0mkiT6X4OMftE1OFDD0ia7mB95JVk2JEmld1h0LzLCea9Drn92lKVpK6mCZFaaCQ
+         C1CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792616227; x=1793221027;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TjGoXIwxwvYJCfSB4uUwJbeswXlbVh5GTXRCoqO+ToQ=;
+        b=wDVbUQjYhlRh5Y0BInC7t+HF3l0tKEXtptQkLGyfc2H4MPOz5fgLa8DWdOWaU4XgZK
+         iAAlaqX9KMXJwdinajZgdi6MpMUTpL2Ybe8unFDeSgpQaZNjN+WC6XyCujYiubJlzjqt
+         yPBJMdBnMrAOr3nZOaZePsHbtd7T60Vzw+MBX4A9xEdKqFlry36dndEWqCnN7yWelExF
+         9hQns5grsBO/6jJwSOmBZh3zwhWNfQy/vf17WgFwxgaIamU9F7m4yCxVSyJamqoE4H0o
+         zOnmWxlNpBNblkk4R2f68byvUmk7UlWUJ01XOt760zGogmJ5V4Cs4IucRJQ1tG7UN5cn
+         xPvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzgWFZIXJdROm0KXp2WdfW36ix/7zkH00TqCd6FZ1/8/xoPEVeWgpDkb2wO8obbUoA3q6XRy/7QFrv0eEY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvpR2mCSFZ8gNNFA/Pm//MZe8oAU4vAve5Oa/Sg7qyO+VrJh91
+	vpR6zhlqwASCcKpvpwXWiBOigSKtvEKEnRMzhVEGzGm6SEEVR5VCT2N9u/Gt2H3+5gk1wwkI5kg
+	xis8tHLJGhdHxzyVy0aJuWVJlPg==
+X-Received: from plot22.prod.google.com ([2002:a17:902:8c96:b0:2e9:8ef0:cf73])
+ (user=suseendranb job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:903:26c8:b0:2e6:7c6:8d40 with SMTP id d9443c01a7336-2ea43c0b534mr25135175ad.27.1792616226856;
+ Wed, 21 Oct 2026 13:57:06 -0700 (PDT)
+Date: Wed, 21 Oct 2026 20:56:24 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,12 +75,81 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021205626.3286270-1-suseendranb@google.com>
+Subject: [PATCH 0/2] mm/zswap: distinguish incompressible pages from
+ compressor failures
+From: Suseendran Bhaskaran <suseendranb@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S . Miller" <davem@davemloft.net>, Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, 
+	Nhat Pham <nphamcs@gmail.com>
+Cc: Chengming Zhou <chengming.zhou@linux.dev>, Nick Terrell <terrelln@fb.com>, 
+	David Sterba <dsterba@suse.com>, SJ Park <sj@kernel.org>, Chris Li <chrisl@kernel.org>, 
+	Giovanni Cabiddu <giovanni.cabiddu@intel.com>, 
+	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>, linux-crypto@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Suseendran Bhaskaran <suseendranb@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 21 Oct 2026 21:53:36 +0300, Andy Shevchenko wrote:
-> just use --base next time when formatting patch (with `git format-patch`).
+Commit dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page
+as-is") and commit 0b1bf60c324a ("mm/zswap: reduce the size of the
+compression buffer to a single page") updated zswap to pass a
+single-page (PAGE_SIZE) destination buffer to crypto_acomp_compress()
+(so incompressible pages typically overflow the PAGE_SIZE buffer due to
+compressor metadata overhead). Because the single-buffer software
+compressors return -EINVAL on destination buffer overflow and
+zswap_compress() checks 'if (comp_ret || !dlen || dlen >= PAGE_SIZE)',
+destination buffer overflow (incompressible page) is conflated with
+unexpected compressor failures, causing two user-visible bugs:
 
-Will do, thanks. For this one, the base was:
+1. Broken debugfs telemetry when writeback is disabled
+   (memory.zswap.writeback = 0):
+   Single-buffer software compressors (zstd_compress_one(), lz4, lz4hc,
+   lzo, and lzo-rle) return -EINVAL on destination buffer overflow
+   (whereas the multi-segment streaming path in zstd_compress(),
+   deflate, and 842 return -ENOSPC). Furthermore, in zswap_compress(),
+   'comp_ret = comp_ret ? comp_ret : -EINVAL' forces comp_ret to -EINVAL
+   even when comp_ret == 0 and dlen == PAGE_SIZE. As a result,
+   incompressible pages are misaccounted in
+   /sys/kernel/debug/zswap/reject_compress_fail instead of
+   reject_compress_poor, leaving reject_compress_poor at 0 and causing
+   false-positive compressor failure alerts in monitoring.
 
-base-commit: 28691515f54f03f23636cbf1ee2cd60fc31e2353
+2. Silent masking of real compressor failures when writeback is enabled
+   (memory.zswap.writeback = 1):
+   Because zswap_compress() checks 'if (comp_ret || !dlen || dlen >=
+   PAGE_SIZE)' and unconditionally clears comp_ret = 0 to store the raw
+   page in zsmalloc, genuine compressor errors (such as -ENOMEM,
+   -EINVAL from an invalid context, or hardware accelerator errors) are
+   silently masked as incompressible pages. Users see 0
+   reject_compress_fail events, and pages that encounter an unexpected
+   compressor error are miscounted under stored_incompressible_pages.
+
+Patch 1 updates zstd_compress_one(), lz4, lz4hc, lzo, and lzo-rle to
+return -ENOSPC on destination buffer overflow, matching the streaming
+path in zstd_compress(), deflate, and 842.
+
+Patch 2 updates zswap_compress() to treat only comp_ret == -ENOSPC or
+(!comp_ret && dlen >= PAGE_SIZE) as an incompressible page (storing it
+uncompressed in zswap when writeback is enabled to preserve LRU order,
+or rejecting it with comp_ret = -ENOSPC when writeback is disabled so
+zswap_reject_compress_poor is incremented), while jumping to unlock on
+unexpected compressor errors (comp_ret || !dlen) so
+zswap_reject_compress_fail is properly incremented.
+
+Suseendran Bhaskaran (2):
+  crypto: return -ENOSPC on compression destination overflow
+  mm/zswap: classify compression dst overflow as poor compression
+
+ crypto/lz4.c     | 2 +-
+ crypto/lz4hc.c   | 2 +-
+ crypto/lzo-rle.c | 2 +-
+ crypto/lzo.c     | 2 +-
+ crypto/zstd.c    | 5 ++++-
+ mm/zswap.c       | 7 +++++--
+ 6 files changed, 13 insertions(+), 7 deletions(-)
+
+-- 
+2.56.0.218.g1ec904b173-goog
+
