@@ -1,79 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792548153;
-	b=lWzDEFHPzGvwEtsbiMOL6mfzIoNMQjWFzOBjhjWQnqDhhvFz+YHfnso/kCNJx6Ynw78C
-	 pO/urJZn3guH1UXyJ/87Olw/TjBeKeQj8t+uuQbI5tMx15kxcTWEWusaF45N2YRFYTWC2
-	 n4hgZvWRHdIBHH72wjwpB94iAlQyjKfh9y/QgnRfusr0PLYW7vM997VNHJvsHeuKhWaQq
-	 JfYbZaFbPCn1szI+aEyQVnrHOBZoiIRn1tIXARcFmOZkW84ixPjOOyAdV40lLpnujyax5
-	 DinGcEwIAcq9eILmgF+4hYy4h8cjf4NYH01JOoaykvYIIpyku2nc9wsb5M9hFJrmlbQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792548153;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
-	b=zESQscpxbCHFM7Z8ra3er89OzYDvIl13Gt1j4IxOmOIi6ifYeEV8aF0EujMqJOUuKv++
-	 dF/kWweBeI8XwS9F82XuRbtNoC9+p/bcUxGca8Ms2WhiqAvAbGPHRpAeinmiIV8qPtYwY
-	 yOIc9Qp15Nak3OnKNafX+f86uKgadXvQ56StWnccEfQhmJbBw8fabwGVc/9TFvGiV0QNk
-	 lMp98STj/XJsqMNf0qZCKFN1MtGA10uvorhdfH55iuT0DwQ7TJbBvUITQEjGmiZOyAhlG
-	 QdUM+KwDOFVUo5CCp+yD/LDtLpZJYizplxgdI/oVZYDB3NK/QCN5YF2jC+orD3aijAA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2DAC606A31A;
-	Wed, 21 Oct 2026 02:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eSD7Coup
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792548152;
-	b=hQ1W6tdyEFzXVuVZwcb9SD7JGXgDWAmguY+qAGBfvI0nRDYSGwuMOy6Htt1VHhusyt/e
-	 kSDr+6n+KZJGhYxKaO09aL4IbL2ZgZudoNiGax4ly3c0kpQptOpeyPR5zN9YpNE77C0bI
-	 aPuE4x0AfjxvxgseHfrVcX1nQV8J9e8Q/B51MOAQEDkVL7yupjEwTr4M8hh+hCdnLa8KA
-	 UCcJEegpHYIME/DgTiPy0B+e4SaEZg+v8Qw1A3kF/ZjuupTQGEPMb1H0Z25lOhfPv/3Mh
-	 GlrZgfr5f3affeCkbN6CCwPH7CmG9mHn59m8YUlJuaerVh1I5JTgM+roB6OT36rd5VA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792548152;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792548212;
+	b=edaJYc42v+vecQrme8NqgmiGmZ8MoE8HSCwRARkBOtq8jlR8a+5qo/7BLc3sNRcG00Ab
+	 SCUEYdytjIZGzHB+Y+qgFO6jKwKUhQXNWYvpg3napFLHL7JSQA7QWZfcH3OrLr6sRkR0r
+	 brMFzgInVq3SyUl/X8aC0DqysC5GvbY0fbtvwUIZtouVipZdPduepSZ0qqRl5550XAPV3
+	 Jh6zj/8mMu8GbzqqV/47pV+ml9eanXJXIMsGZm3vZEXNrYOtn6+LJcg5L4DyoVTSVTG9m
+	 8OoJdNv6CzETJgsnZ1fM+Skql8zhtiCfcyOjQE5NEaCr0c5lmKt+vxEebjaHDu3iTXQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792548212;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
-	b=W/4ZXCzJRmOslF46zwU0v2yhYioJyet2oDl5VdLCyp26KzaaSVt/9dXp/kT62EqqO4G0
-	 bCO4okQqmPGzHA1nXSHLp4C5ZGOgAa7u/+kWbN+sKHy/9A0ygCchv3Gn+wQYpCQUTKhR5
-	 qTAvov6a/nk7t3qghoMIJtZO153ZcM/wuSM1zHQ2lzTX7PObqqT8jHr+1GThuW6pR0dZt
-	 6yncQuZlQsl28trQoxQ1MqGRFOaWUk3NKS4ZYIapql2Jz0IvCs8LFdOq6bFlNBHAOV2ZA
-	 MlQ8OLyNUCilBtSQFX9pZwchhSu+kVl/8021gohLSFmvSt//W47CBHOWz7+qpxY2Fpg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=BlvUMX8Lu0GoGP4/a2/X6c3y355TJFwaE46ARxjS7zQ=;
+	b=zm5sI6RnZk7GhSzQSnBFBq55095qupIhWwA2Bp7+5u/SNuOD4TLf8ry6CYGReemHLsIH
+	 VQvDSSItHU5nJxSemiVTO/2OWIBiJCLGYxLgxfSFzlwEPWy/QVzd/v+JqLy3oz1hbTN/P
+	 0iwQesbBQAabknPVrtjyEQ7X+hi+6s8UjgmHuR65zWxNAFPFfSAPqtYZOFfgZt2ldZ1oh
+	 mXFN9cWr2U07rAh4LB4fzwjuSXbipWCIRKxatdR1oAwEwqgQh248ZrrJ93Cz7y8+8Ne6j
+	 +WuiVb2QYheNACzDDYvmF/VWkgl0n8qwIzFQhNi4Cw1vCtgae7Lq7+moTlHHow4YE9g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gt.tech.gov.sg;
+	spf=pass smtp.mailfrom=gt.tech.gov.sg;
+	dkim=pass header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.a=rsa-sha256 header.s=google header.b=CifFtXAT;
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id EA6781F000C9;
-	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792548152;
-	bh=f0yKeF4w4GH+4lXqeNbGng0xeltVKW31ll58aa+tTMY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eSD7Couposucux9BBfClKOEFLwEoiFInTcZfcMuL22QeyB9Il3A3mLqtFMb3OYpUv
-	 z6HREFIMJLJSDgpwow3xoGobUeAprDaJm1Gu1+e1d+995hyBWgj/ETKCub5YP6B8te
-	 7EqE3WyT5srHrs+cxM+GtkyeXufO7w9TvH2TrbtFzaEswLE7ooc5W2lxcatrGueeay
-	 fv8F1PDNoefCjIbk+UAW7tmcl+MaT4BMRNIbZLlS7tWqAKvCNz8SlaCWzl6nk+f1tU
-	 iQXuxeONsL0Gzmi4CAEQ+FT6Ct9Un1wbKfFoJmzJw+yG5Se18P/5l+zQvVXOFQkKmJ
-	 HAXwJGj4KFWAg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7A8474326F;
-	Wed, 21 Oct 2026 02:02:31 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Wed, 21 Oct 2026 02:02:29 +0000
-Subject: [PATCH] arm64: dts: rockchip: Add vdd_log and vdd_center to Kobol
- Helios64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3C5606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:03:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF3C5606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gt.tech.gov.sg
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=gt.tech.gov.sg header.i=@gt.tech.gov.sg header.a=rsa-sha256 header.s=google header.b=CifFtXAT
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad2b3b1c02so137467a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:03:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gt.tech.gov.sg; s=google; t=1792548211; x=1793153011; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BlvUMX8Lu0GoGP4/a2/X6c3y355TJFwaE46ARxjS7zQ=;
+        b=CifFtXATkbaGlUsTaBdoFlT+mxYjc+kFA264t+FxPrPhmj7Bsnk92kj5LGKdG3gXbF
+         NEaI+UPYZXsFx6VBd9CSHcq32NVUKOQjKTc0D+Ep2EhxZzJ40GuR97ZT34oJ680QY3GO
+         yAYK2mZBW14HZ0n6VGzAmq/FFAqVw7nAOo98A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792548211; x=1793153011;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BlvUMX8Lu0GoGP4/a2/X6c3y355TJFwaE46ARxjS7zQ=;
+        b=JrGfD8kqe+QTxqOwQHIcVzheIoM9MF5G4RN+Knn3Y2fiQZHUUgGaGmd1KXxW5m9bWG
+         HWkg1zDQS/RlPSi0NIkSfIGdk3GQpnljlPV5ZMjDDiXdI3T9ZU8CYEGKk/0a+IiaP8vI
+         gL0IJlXzl4mtWicsI8uJbWiqAj3dCdWqrtROSsCDvFiM8ng/7YsV93qr4APGacVsa9w7
+         BFJu2yq+9nUpCWeq+1IE8MfZnMfR0Gt+nzVdl78tbil5fxmEJ6j0rytBgfR8Uz5U9RW9
+         Gy8kl0xW2Yzg14E5JCNutdYHSkXaVtLYQchICQcdSUBfPxs8ebnmn8JsdCGVat+UbpOg
+         vBmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwxY8kPBCZWAkhrCIx0SGbRQPxASHQyuGlA+KGy7KUyfvbP3ykM2KnnHpDtgb8JD9ziiPEj+UoFzfnRsVM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKDg4vpD8KtXaxLf6Naya7/dVsIFV1Hp0mQLxSwrLAyRochNZ+2
+	SZ5TVvnn8G7gtGivrNXXOUSFyOU/xkQQxUxDGSMtzqCrXjB3o9lLVXW5wGibyc5imBg=
+X-Gm-Gg: AYBFou1oRiIV3ble5iJEjgWo8xeGHBTha0pzYdGX73KDOd2J9yjmDu1aO+IbwLjQCZg
+	e2v2Encj9qQUjVPqoisg+bDNGcYoHfDWkCGflJ8Vup7Up9+hAKhnaBDT71GwwD4ES3cJGuRjgm8
+	qOn30yVaioO4G0xfERheVO3o24DJeW8c8+JG4BH5kinJEgo4o8M0aKAXsfu5+ggYqcd5/ylEWAO
+	5/AOd1rNuq0QN0zz6vzW/biikIFkcMHELQgi13WDB21nsFZwGQ9FU+TPt63WaHFIlKnXlNgAsZT
+	xEPS+qNY2x8lu47IabsVHY+SJrdEV05zgvecpdDjR6Phszx2K9Y3+9kw+5J4gz0pzoz2OYpafG0
+	a/CGz0Y4PDsvA9/dkoEDufGY/CNGxPgpYDr1iikQCFCLVO6LAmm52Xk3mdIrTEqaWWms/KZFekE
+	3pwTfSr3K0G76ojEPweM8iVVZLoI10w7WbJV/XwaXx92bKQmxxb04fxzYN/5XEHeZZbBsJCFKg0
+	rYtp/aIZGpVjnS9qnNRzvZNoQ7p0lnYbnqPuYCfFgKYZqHVYa7lEF0DotATy+/6tT3Ut+OjD/RZ
+	cB1QD+QD5Q==
+X-Received: by 2002:a17:90b:548e:b0:3a8:59d3:530f with SMTP id 98e67ed59e1d1-3ad86f23619mr533892a91.57.1792548211109;
+        Tue, 20 Oct 2026 19:03:31 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([203.125.131.137])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8035a117sm1934124a91.16.2026.10.20.19.03.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 19:03:30 -0700 (PDT)
+From: Wei Jie Law <law.wei.jie@gt.tech.gov.sg>
+To: Petko Manolov <petkan@nucleusys.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Jie Law <98lawweijie@gmail.com>
+Subject: [PATCH net v2 0/2] net: usb: pegasus: fix receive length handling
+Date: Wed, 21 Oct 2026 10:03:08 +0800
+Message-ID: <20261021020310.34045-1-law.wei.jie@gt.tech.gov.sg>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,116 +98,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-helios64-vdd-log-center-v1-1-4cafd110e0e5@iav.lv>
-X-B4-Tracking: v=1; b=H4sIADUd2GoC/x3MQQqAIBBA0avErBtoTCy6SrQwnWogNDQiiO6et
- HyL/x/InIQzDNUDiS/JEkMB1RW4zYaVUXwxqEYZahThxrvEbDRe3uMeV3QcTk44U+sXPZuutwS
- lPhIvcv/ncXrfDzkFkdJpAAAA
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2557; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=RDt7P+CwOHiaEZvswLkEBaOOUqR15G5E3l+XUXhUTd8=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFk3ZM28ok6uurQ4RuGJvaChU8C3vtWXs34WMTzvOV6gO
- ofBseBRRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhI8SmG/1lfjils1Jsu0lPc
- klw6+daeKx4PfI8siAiqF+btd3xrHsjIsCsy+OKF7YymHVIti1g23t9sLJ3R8S8h2Svyb/PRd0d
- jGQE=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Igor Velkov <iav@iav.lv>
+Two fixes for read_bulk_callback(), both reachable by a USB device that
+identifies itself as a Pegasus II adapter.
 
-The Helios64 feeds VDD_LOG from a PWM regulator driven by PWM2 and
-VDD_CENTER from DCDC_REG1 of the RK808, but the device tree describes
-neither of them.
+Patch 1 fixes an out-of-bounds write: on the 0x8513, every frame that
+is dropped because of an oversized length field advances the receive
+buffer by two bytes, until the host controller writes past the end of
+the skb data area.
 
-Describe both. The vdd_log range comes from the schematic (sheet 8):
-0.83 V with 3.0 V on LOG_DVS_PWM and 1.4 V with 0 V, so the PWM is
-inverted. vdd_center gets the same limits as vdd_cpu_l.
+Patch 2 drops frames whose claimed length exceeds the data actually
+received, or is shorter than an Ethernet header, instead of passing
+stale or uninitialized buffer contents up the stack.
 
-With U-Boot setting both rails to 950 mV, Linux 7.3-rc7 reports 949 mV
-and 950 mV.
+Both bugs need a malicious or emulated USB device, which
+Documentation/process/threat-model.rst treats as a regular bug rather
+than a vulnerability, so they are posted publicly.
 
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-No regulator-state-mem: deep suspend does not resume on this board yet,
-so no suspend value is tested.
+Testing: the series builds without warnings (W=1) on net and passes
+checkpatch --strict. It applies unchanged to v6.12.105, where it was
+tested on a KASAN kernel with a device emulated by raw-gadget +
+dummy_hcd:
 
-U-Boot sets both rails to 950 mV:
-https://lore.kernel.org/r/20261021-b4-helios64-v1-1-74afe8aa6d72@iav.lv
+The first two tests ran against v1; v2 only adds the lower bound in
+patch 2, which does not affect those frames. The third ran against v2.
 
-This conflicts with the pending power tree series in the list of fixed
-regulators; I will rebase whichever goes in second:
-https://lore.kernel.org/r/20261016-helios64-power-tree-v1-0-31d6c8dc5092@iav.lv
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+- 3000 frames with pkt_len 0xfff, then 20 valid frames. Before: KASAN
+  slab-out-of-bounds writes and a general protection fault in
+  skb_release_data(). After: no KASAN reports, and all 20 valid frames
+  are received.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index 63ad79b4c8ac..3c2ba805e999 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -271,6 +271,17 @@ vcc12v_dcin_bkup: regulator-vcc12v-dcin-bkup {
- 		regulator-max-microvolt = <12000000>;
- 		vin-supply = <&vcc12v_dcin>;
- 	};
-+
-+	vdd_log: regulator-vdd-log {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm2 0 25000 1>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_log";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <830000>;
-+		regulator-max-microvolt = <1400000>;
-+	};
- };
- 
- /*
-@@ -370,6 +381,15 @@ rk808: pmic@1b {
- 		#clock-cells = <1>;
- 
- 		regulators {
-+			vdd_center: DCDC_REG1 {
-+				regulator-name = "vdd_center";
-+				regulator-always-on;
-+				regulator-boot-on;
-+				regulator-min-microvolt = <750000>;
-+				regulator-max-microvolt = <1350000>;
-+				regulator-ramp-delay = <6001>;
-+			};
-+
- 			vdd_cpu_l: DCDC_REG2 {
- 				regulator-name = "vdd_cpu_l";
- 				regulator-always-on;
-@@ -580,6 +600,10 @@ &pwm1 {
- 	status = "okay";
- };
- 
-+&pwm2 {
-+	status = "okay";
-+};
-+
- &saradc {
- 	vref-supply = <&vcc1v8_s3>;
- 	status = "okay";
+- Five each of: 1536-byte transfers with pkt_len 1534, 1535 and 1536;
+  101-byte transfers claiming 1500 and 97 bytes; normal frames.
+  Before: all 30 received. After: the 15 that fit are received, and
+  rx_bytes matches; the rest are dropped.
 
----
-base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
-change-id: 20261021-helios64-vdd-log-center-b13df4b678a1
+- Frames claiming 0, 4 and 13 bytes (three each) with five normal frames.
+  Before: all 14 are received, including the runts. After: five are
+  received and nine are counted in rx_length_errors.
 
-Best regards,
+Both bugs were found, and the patches written, with LLM assistance,
+hence the Assisted-by tags.
+
+Changes in v2 (review by Sashiko):
+- 2/2: also drop frames shorter than ETH_HLEN and count them as length
+  errors, because eth_type_trans() reads h_dest and h_proto without
+  checking skb->len.
+v1: https://lore.kernel.org/all/20261014025307.25233-1-law.wei.jie@gt.tech.gov.sg/
+
+
+
+Wei Jie Law (2):
+  net: usb: pegasus: do not advance rx_skb->data on dropped frames
+  net: usb: pegasus: check rx pkt_len against the received length
+
+ drivers/net/usb/pegasus.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+
+base-commit: 746d0e7e851edefce9656ce744d4ec5e94de6b5f
 -- 
-Igor Velkov <iav@iav.lv>
-
+2.43.0
 
