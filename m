@@ -1,97 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.29
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792554963;
-	b=pVKmO/F/MmJpj37ylPrFXqcNnIZyw9Dv8GR3xUcDucm4UCHgPhCZjAWBjlImdxC2yOwR
-	 WOAPLV+Csu2hemUza3bT7qdUYDzHn0yEHi0YXVUmOPRH1g3iqNXmPY+OvY3dsnCaqHG61
-	 ce9UWQlQPrrsPpekEjI8yTllR1sI6spN9TGknRQtabMgXyonggGFWZ4ENJd8JE0/DGU+t
-	 TUrJycWIlE6mAxrRhSz++Vy13FVdwXO6R13/li61tcSTQmQECJnqZYX/7jneXntC+9RlS
-	 mPbr13DB+VivhgxmUePQWaK2dRGbRcOFJne9EQee7InqHg07a6/Q5h40hWfaPo3ygHw==
+	t=1792555009;
+	b=grB1hn6rw6WLv3bBWaYWLSxLhUWnOm0Onksx6rIGtUUMr//4zczsg4pzqeq16HVyzYRQ
+	 +ch7cbR0WwesuBCsqwCyqxCWLSlIQvsf/qOl7WYs03OlvoEf7FtNrPaRET5OsYzIlgseJ
+	 +hJLaadVyBVkfzkn6zagssptjIZ4MMVSY3pkGgpjqJE/6dURMFhMyCIx/Ewy5B096sax/
+	 G48NMy/VobEtyu/gfMZCFlkUz84R2BFkzietE6Qhz2OlcIo9xYWylhZETMjARUk7qffDY
+	 lGPtxs5a4TPJES+prsJVuDdVgo6ZkNxma6LY6B/2cs5c55ltAkGyGq+ecbeGFhV6q3g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792554963;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:CC:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=BJ/gyD12KEb7fT6/+z0cs0ZDChtwRmHzw7D3XjswVCU=;
-	b=1EzIxGercqYeWEQokTbLtYswU5A4cvB7smU95B/N8VjAggsOkIa7+VSgMCRdNXENyF4V
-	 3F5wpwIEr0En+7oWjFYMelXsETaX0YQd4CRUjFnHAxhsUDR/8EjJtL8AGHkk7j2GFwXF4
-	 UklO4P7FmmHax8CM5pulNiYfb5lkLJY4nYyXNephpmBM8Ljj9Ppn4GZ3/8eV+kIxdkfFQ
-	 vdefGkx34F8LyXFsyoqxCm7U0NssAtYo3Nz6xngXq6pERO2vY2y1bmVlqqwoERQY3VI0N
-	 VY6thA1duUuxheA7TxOXlxJqvE6c5ZE56VPZCaBE9vlE09ycH/GEPYPypmcCEIFjBig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792555009;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
+	b=kNurkipiCFwUdLh4VXptnR8ypb/vSVUqoVN4waXfeUiWIQA3ohMIAvDMgnt46Oq3hGRA
+	 OySCO7rcwfS06B36F0yuW0W7DwGzb9BkBzHAwrv5j/M6Q4yTlPPTDwyUZ2oSG93isfkb9
+	 Sajl3lJwmSYcZnlAGaDAjt8/50vvBXp43k9JAiJNoFxsLcvxMvvsuaB3Ro7GCfCIUIIyh
+	 vEfgFeM7uXNh+0YaL3rj23RiXMLaYfg2FrQeu0YI03r8Apuw0G6v3bv2DQnbQ7VzPooQS
+	 qjQzEq/mgo+TkdkLWYkRMtwY8Nzk/iiLAaa+sINd+fzk2c2Cu7HBqIWmKmrnF5c3aWg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="WjnA/Hsm";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.29
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011029.outbound.protection.outlook.com [52.101.57.29])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aL+Eihkq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7643A606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7643A606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6B2606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E6B2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=WjnA/Hsm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JNkxZUYRC777S3JCOWWS5Cid53PV3V+JUyRWvVp7P0sjhWFR4wMNKgeEwTn1IcNmD7Qb2DRkCf0rjS8btZUmpzH5jE5MIj7aatUz6oHhfRnnWvWVUs5niafuksWimC6NmYGdbL5XTy7LdyPOeQOd6Ka5pWsL2inXcRmaJ7driQfVWvKQu3VBapkUqyFMiaXRotdY/APvya4VuGJ5A446CEdNX2cF6MGFL589mZPL0fOIVI9bTJuO5lJtuW0+mc1nqqpOfXGdIkx0K0Pdz3J28cm+RmNOPFqetn8jj9T61EwhBxtbnoDg/xpJH7RYGxPAPkEPfoy67II59eu+TDeI1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BJ/gyD12KEb7fT6/+z0cs0ZDChtwRmHzw7D3XjswVCU=;
- b=Nud8/QcRLNsexubqAlZAb2ihGnXOi2Vd8ErIYTFd0lF6FXJxHDHh1WmQz9xWZ4/ihg+hpxYHu6Km7dMzvibvR3y3ePD/1PUIYOlZsSef1sReYtK9HWXq3i5LSwkUtXCLjUxjmmSvQj5TRmPMdByaf9lJaWf10uMvkAa/sHOomabtO1A1bKbBRCUAm2M5Q3xjbRIgJm9+6IDcKbOVdw9+0gNwZ8OAJCxdPrFSqMERnfX9HSiT6FR0XYk7qkYbT5EIV+EKGBPXt/dpyp//c6Mv+/0qXXD4Qq1bD5uIc178+9XqVrK8vICduyU/U02Xcfv/lXz7gelV0YxKNffoB1DA/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=163.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BJ/gyD12KEb7fT6/+z0cs0ZDChtwRmHzw7D3XjswVCU=;
- b=WjnA/Hsm2H+yU8+gGJopdj1Esii3cVk7SEGCk4dz83gnBbXkLlaJaimK0GSqFHKAUuCIRrn98/H2OR1KkJ/Xsf+PagnsENGMYszIlFRVX5WGDYqsMs22rw8m10oWSe3GMOD0bD7Lec119XL5tL5QHhwAcz9hByv6Mgzy1vS8lfc=
-Received: from SJ2PR07CA0001.namprd07.prod.outlook.com (2603:10b6:a03:505::11)
- by BN7PPF8FCE094C0.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6d8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 03:55:57 +0000
-Received: from SJ5PEPF000001CD.namprd05.prod.outlook.com
- (2603:10b6:a03:505:cafe::71) by SJ2PR07CA0001.outlook.office365.com
- (2603:10b6:a03:505::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.21 via Frontend Transport; Wed,
- 21 Oct 2026 03:55:57 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001CD.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 03:55:57 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Tue, 20 Oct
- 2026 22:55:55 -0500
-Received: from [10.136.41.43] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Tue, 20 Oct 2026 22:55:51 -0500
-Message-ID: <62a7530f-ffe7-490e-8d0a-3bed170e24d3@amd.com>
-Date: Wed, 21 Oct 2026 09:25:50 +0530
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=aL+Eihkq
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-9178aabd30dso3080236d6.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 20:56:49 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792555008; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EA5BbZVEvKJfRezhYgtdhfla+GTawkZfZc3hTBTotZS57NiuQOzxgRyxovOopyHE3k
+         uGKFncywE5Jq36TVfVaP4U9KU545IWqzILZzucodFk6nbIhSk15wxIEOyYbteiuE2Vyz
+         Shn/w1MOBRZX1wddFzBaZPWF9q4IptS+5w0zUvviaPx6Zwb2tf26sg00Z6bpHOg4cxAt
+         TyxnoEpv3jnK2tihoBHBd3bDx8j5cvTWQ5LpOy/VpwRenI8Kc83sj83jL3Pm/OHrRdC7
+         4yOnMfNs1G8BJezZCG3NseZt/fpMG5U3fnXtfbHBL0skEwqjoC/i7q35ZmiCbpGG50ZR
+         6XaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
+        fh=ZeH2cOyAxh2X7ooP7ZUF0eGw4pPDBGbWta2hmP8nNWE=;
+        b=LxoDYPJ4QXbQ/8Zl73IgNxRq+iIYsQSBnRC8HBHr7tE6bkckPVIT7MCK5rIDHH6nYi
+         Ph13lxYEDpe7k2gNFsA/ps39lqAawj2IfzSSrzMpvxl5X48YPVEycnBMn7M956G2NrEH
+         yBIJG926YsTg7zs+RaNKmuDmlYXO0zO7mSkkV379zDY8YljLOOXA3WibyePb4E4pr/Ox
+         LMNU8o/6vBU6dKMYZvEQT5CyDX6vwsQ5PggYDUlK9lsjOkAUuh4yE1CdmqPllXQAwnjJ
+         djzJEbhhe1yYrI10OvMiJXyY/vXiyON8igQGHUCRpDTf6oSOvZoL7sHoPICCdAvlTxHt
+         hfKA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792555008; x=1793159808; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
+        b=aL+Eihkql5I2435do2UXmzZTjw8S+G0swn+RgK8kqDk4s/RGVdvrLOKwlYQjHWCTKK
+         MsRNMDi1OItJ+BfgUKb3N3JitUpNb/cxGLxqNjV/ujmsI2V/T5akTWrXpBaBvzsoaxWl
+         99WitaldvKWquvxj764wQpiTGzjEonBQgAomKgzssD7aCdqgq15zscQUoxQL7OPvK6cY
+         NQO7eUGA0y4UW6YWNifG2olaIlFHW/ylik680h7hZr2b/z7oQmFaOv7FhOxNGA3lT7w7
+         DLkN4USI4sjMYQYAOF5vEhP8CnE8VKRwzOEx2slax2gos05BXgN7g0wFbEeADwJhOZWl
+         9kuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792555008; x=1793159808;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=TsxIu5w5FY3ABJNnJou2C+ZIq2e5DebUIuAtyHX8ZHY=;
+        b=is+eJhovi9sY7jPBXH0UafC4dKvh+UuYBI+oDA5cFQpMatNDmPhjF2cl1l2vfTyFLq
+         /cCmWPFkz1bjM77zrr/VI+fE22V6y3g+WkAtFD03DlOBBX8Q+Bd8frnjPfQ//ZvCRP0g
+         Fm4oOpz7bIlJhC3U3D2xWWMfDHgmCkjIHX1vVe9cMRHxruw/wdEfVtBQF2gVBGKH2v/c
+         jNEPb8ulZ6x0hT/K42I5MC5UfmVvNX2RvGHSTveGIVB/bOitnRtsABZxNYWi2JTkk++y
+         R1X6+tzhNcN6hO8L8o9UeJ2DNJldwL/ETnIoQIBtTBesOlr4RdH1lG0hkSbsz1h2erA8
+         1/lA==
+X-Forwarded-Encrypted: i=1; AKwUvBz7ZzM7zHIOU6BN7wNo0l2C6g4qYqSBM/5sSqH5N2yT4emiUq7bcstVUk81aD/9XjHmNoE7N94SoGZzqkQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCEnTaIpdrJGjfmfUaZiJGDpGRzUJ2E6p/45pJmDDB9B9TvXCW
+	THF2aMD+KC0pBZoEYc4GK8cvSqvUi67F8GPPzPFnxw2YrbOHYO/fz5868igDs08V2fBA+htQMvb
+	jwgW/GEEthSUiZwYz9vMDCXlAxusC3bk=
+X-Gm-Gg: AYBFou1v0xhAazx7zJ240wtVH3w7LRd0zYIH+s8/YCXmTVTjlDLObuYv1Kd4WjFXtxB
+	jrZLL9HY+evv3YBBaMo/1JRfoFlCIrug8gI07/KUZnsvdflGF+SuCOcNLowt/EowcAypGGAobMq
+	e3JvQeribj8nTZEIFhegi0Pa+d7KoOiPlg1e3I8SmzFINotsVY6x1a6WKPOlKZ0ODo96a6dASGl
+	DbYmaS4muW3smrksznvnIxCHjoWHDyNmWG3nCOzriXPOaO2HoKQ5TR6qUfbGAHBBt8fUMNgslPN
+	Z6CQhkU4A+ryvS8L9jw4vZpMc4kEG1gNpmX6qFuf1JHE1PYcJFhl2SB94S9370QUZCAp438LI2A
+	+NKBuCqch7f2vmvyKCUfg0oizHqV+EA9g0d0w9M8Y9dn7GbbMk9/9zEOwU7zVQsObVAga
+X-Received: by 2002:a05:6214:2b94:b0:914:4511:9271 with SMTP id
+ 6a1803df08f44-91c12f031bdmr16014616d6.22.1792555008068; Tue, 20 Oct 2026
+ 20:56:48 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,93 +104,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] sched/topology: Balance cluster static-key updates
-To: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>, Peter Zijlstra
-	<peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
-	<vincent.guittot@linaro.org>
-CC: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
-	<mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, Barry Song
-	<baohua@kernel.org>, Tim Chen <tim.c.chen@linux.intel.com>, Chen Yu
-	<yu.c.chen@intel.com>, Yicong Yang <yangyicong@hisilicon.com>,
-	<linux-kernel@vger.kernel.org>
-References: <20261021034314.864713-1-sh_def@163.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20261021034314.864713-1-sh_def@163.com>
+References: <20261020175254.900284-2-bestswngs@gmail.com> <CAKYAXd9nwp=X8AfzqTs9231i6SVoX7wuBqVvUfgBP2a8xrt+ow@mail.gmail.com>
+In-Reply-To: <CAKYAXd9nwp=X8AfzqTs9231i6SVoX7wuBqVvUfgBP2a8xrt+ow@mail.gmail.com>
+From: Weiming Shi <bestswngs@gmail.com>
+Date: Wed, 21 Oct 2026 11:56:09 +0800
+X-Gm-Features: AclHuK9edLT7Ue1NZq0Si5aKsqQpW65ATZGLO5S5vLoxrR-P6z-TcbrWHv5GkKc
+Message-ID: <CANgPUi1Tn8vvQTWNCXUB9qPmy-LqXk_G8YiwS4DMU2kei3eHaA@mail.gmail.com>
+Subject: Re: [PATCH] smb/server: prevent file publication after tree disconnect
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Ronnie Sahlberg <lsahlber@redhat.com>, 
+	Hyunchul Lee <hyc.lee@gmail.com>, Xiang Mei <xmei5@asu.edu>, stable@vger.kernel.org, 
+	co+d531129f2f9fbf88@bugs.sh
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CD:EE_|BN7PPF8FCE094C0:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee5d6b41-3490-47cd-9c40-08df2f273659
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|23010399003|1800799024|22082099003|18002099003|10067099003|261009223027099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	V0tB6TRq1j3Sx5rQFtTNBEv8j85jTtXlkijsLvkUT2CVzVYnMjjXLtd+DA0/CS0Fwc+J97yu11o8RnUCNVvJCsmnrmADJTyKpa+N8ptVHgZWB3ltc4Ee/hF8KxHqQ7bC7NI7X22twkoN/GM9Ep2bUs0Thfd3UAtIERaSegye55DjTUMeDgvrozd2fFRx/1UBH0CiEaZe66n2RwCfuxoHFEVqQ/42tKzTX/pM5ND/A62A1BMiHHxzAy/XkzUUWKnfPvGjq8jmrnHMOSK6iiTFv+v39TakR1LbWseZYtMv5qJ4ZXOI+dF8odTf+JNFTXDBitp1/vrdzZLoZmcWVuWaCqiZ6PT6RLsILAJ/iFxFSZ/fqD+ywoH1GNTEYP/t91Zynj3TAPa9SnZh8d3YTvGZsXE8WWjMf0Ewv9TqW9TIxysaZxtLk4jyyrLtAYO6k+2RXJqILTh20HCgn5qvVpA40BNG5J6Y4f0ifWXlzZsYJtCXEmB4NFSGxfJXg1ue8mkVS9/sqfRhWvn3ho8RvlKXvsOaCXNO7IqYQupmKspNZD+L891TcJTf4B4nGj6ISn8y1utXu92wUTiXqwaSrcWM2uEiQHJ+smkm11yXtM2Gu12xs2PWavlsVPK17OUSkA/k28YmKMdQtqvd6/1xb+Pp6LLRwjrogDYO7HMtQHCuExsMhAlCPn4SqdxCzuOz5qlt6sZHTr+4N+xLX1jJ/1iTCA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(23010399003)(1800799024)(22082099003)(18002099003)(10067099003)(261009223027099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	DMQq/tUI7Mx1Fq7fpFCJoVzyoHBCQw+yQffKQK8DNViVvEsYKQnZsjTo8P48F5pcNbxxGKyqDrJB/P9jGX6J03qgN+KC6YZ4j5he7XcZkVkOeCpqMKwW3TrCSHEKyoU8ia2SsidkmthBsdKek6yK5+vPiY7eQAca8Fj2XobHCAN2F7Wh3bmQqbuiPil53kkk3acgzsRhe9P3PcqWHE3VT7L3eto5cdY+X+ZYpv3l/AYvjLFR8DwegDFU2FoKGCWZVlkx2KSLFRzjL1rDRHiX5cSthMwmUc3vozAMG2AWC2oZIVfMZNxTKRz/PblAKIZAyCwEWUc2h9ejuGMHAqwyoQvZ7++2BRC/he4d4Vu49PoZ+ZCooZT/Ni3+7zgUN8x9368SVeb0/94839dehLW6ZVy6suWEBuRQjMFFc13AADHl81a+Gnau7RD8y56myZ5P
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:55:57.0697
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee5d6b41-3490-47cd-9c40-08df2f273659
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001CD.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF8FCE094C0
+Content-Transfer-Encoding: quoted-printable
 
-Hello Hui,
+Namjae Jeon <linkinjeon@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8821=E6=
+=97=A5=E5=91=A8=E4=B8=89 10:06=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Wed, Oct 21, 2026 at 2:53=E2=80=AFAM Weiming Shi <bestswngs@gmail.com>=
+ wrote:
+> >
+> > TREE_DISCONNECT closes the tree's published file handles before marking=
+ and
+> > removing the tree connection. A concurrent CREATE that already holds a =
+tree
+> > reference can therefore publish its file after the close pass. When CRE=
+ATE
+> > drops its reference, the tree can be freed while the published file sti=
+ll
+> > points to it.
+> >
+> > Mark and remove the tree connection before closing its files, and seria=
+lize
+> > both new-open and durable-reconnect volatile ID publication with that s=
+tate
+> > transition. An opener is then either published in time for the close pa=
+ss
+> > or rejected after disconnect with STATUS_NETWORK_NAME_DELETED.
+> >
+> > Keep a tree reference while a file carries its tree pointer. This prote=
+cts
+> > asynchronous users that can defer the file's final destruction past tre=
+e
+> > disconnect.
+> >
+> > The close pass can race the successful FP_NEW to FP_INITED transition.
+> > Take the opening request's file reference atomically with that transiti=
+on.
+> > This keeps the file alive until request completion even if teardown rem=
+oves
+> > the ID immediately.
+> >
+> >   BUG: KASAN: slab-use-after-free in proc_show_files (fs/smb/server/vfs=
+_cache.c:126)
+> >   Read of size 4 at addr ff11000101540f80 by task poc/153
+> >
+> >   Call Trace:
+> >     proc_show_files (fs/smb/server/vfs_cache.c:126)
+> >     seq_read_iter (fs/seq_file.c:231)
+> >     proc_reg_read_iter (fs/proc/inode.c:299)
+> >     vfs_read (fs/read_write.c:574)
+> >     ksys_read (fs/read_write.c:716)
+> >     do_syscall_64 (arch/x86/entry/syscall_64.c:84)
+> >     entry_SYSCALL_64_after_hwframe (arch/x86/entry/entry_64.S:121)
+> >
+> >   Allocated by:
+> >     ksmbd_tree_conn_connect (fs/smb/server/mgmt/tree_connect.c:35)
+> >     smb2_tree_connect (fs/smb/server/smb2pdu.c:2819)
+> >     handle_ksmbd_work (fs/smb/server/server.c:368)
+> >
+> >   Freed by:
+> >     kfree (mm/slub.c:6801)
+> >     handle_ksmbd_work (fs/smb/server/server.c:332)
+> >
+> > Fixes: f44158485826 ("cifsd: add file operations")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: <co+d531129f2f9fbf88@bugs.sh>
+> > Assisted-by: LLM
+> > Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> This patch does not apply cleanly to the ksmbd-for-next branch. Could
+> you please rebase it onto that branch and resend it?
+> Thanks!
 
-On 10/21/2026 9:13 AM, Hui Su wrote:
-> diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-> index 3dab0253976fb..c9e10bfade6d0 100644
-> --- a/kernel/sched/topology.c
-> +++ b/kernel/sched/topology.c
-> @@ -3314,12 +3314,22 @@ int __init sched_init_domains(const struct cpumask *cpu_map)
->  static void detach_destroy_domains(const struct cpumask *cpu_map)
->  {
->  	unsigned int cpu = cpumask_any(cpu_map);
-> +	bool has_cluster = false;
->  	int i;
->  
->  	if (rcu_access_pointer(per_cpu(sd_asym_cpucapacity, cpu)))
->  		static_branch_dec_cpuslocked(&sched_asym_cpucapacity);
->  
-> -	if (static_branch_unlikely(&sched_cluster_active))
-> +	rcu_read_lock();
-> +	for_each_cpu(i, cpu_map) {
-> +		if (lowest_flag_domain(i, SD_CLUSTER)) {
-> +			has_cluster = true;
-> +			break;
-> +		}
-> +	}
-> +	rcu_read_unlock();
+Thanks for the heads-up. I'll rebase the patch onto the latest
+ksmbd-for-next branch and resend it shortly.
 
-nit.
-
-This should be done only when sched_cluster_active is enabled to
-avoid the extra loop on systems that don't have any cluster domain.
-
-Apart from that, feel free to include:
-
-Reviewed-by: K Prateek Nayak <kprateek.nayak@amd.com>
-
-> +
-> +	if (has_cluster)
->  		static_branch_dec_cpuslocked(&sched_cluster_active);
->  
->  	rcu_read_lock();
-
--- 
-Thanks and Regards,
-Prateek
-
+Best regards,
+Weiming Shi
