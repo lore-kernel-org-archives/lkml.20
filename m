@@ -1,88 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792609398;
-	b=UTknLShHafM6PVK9aqjQvVDKho4gDs5aOj6RdDCobqsjR4rXuouNZqpEucMUgOm8NuwX
-	 XMYAecSgxGieo1u+wsnCd0fS1ixRknXJGquAzh2MTI4GnIHrkeWJFXoVZYhrybM4X7W4v
-	 KWesV5X+Ok65p0AbNmtW/GJz/mUiVlV+a0Hg9WAVQH55lquSUT5oZkdETTHzkbRm7JhKZ
-	 UF9GFhznAC3fsGgAGFlFqlvskVS1AkJWbkZueXYtYqnFOOxZdqns+TLyGaUoiI234dWKL
-	 nMLsIFF7RRsVW7W5FVWj4q78TyFm63biC5rIhtc3EclK7iBQfG2rZw/MSb6Qqz06ofA==
+	t=1792609443;
+	b=CD4K1CGnCGL9Nacl/AXZNVgPFX7+T2W91VHL97ay8B6UDegKtdYhKA4Mg6x6perfznur
+	 t3LnzSIrhktWRxTTt/m9hCuZJx/eo7Zt9o2dp40Cq9BE1zpxOYQGUth3Y9mjbcUQjJI8l
+	 c6fdihMW0fbxr6WtHYfuxlHlzFs6Bq46ZXFfODC8V8PwlN1Y9hA2B+UMxSrte/TZkGpfl
+	 W5u27VZ7eHwH5crMD8VjODvWgwX4RaApj6d4ZOPW2lxcZoRtQmshYixl8Rg1N59zotW/k
+	 +khIlMZDodexD3gH1edNp/RJmRUb9TYR5P3gBCDP+i94Q5K82J/NQskpsc4lJrXfN7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792609398;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=vrSJU4GgBQ150PF99g7M45HkRrI5pLJYV4NvvKGCVjQ=;
-	b=Fc1ZeWLmP8U8cedLiv9YOq/7JJtn+wWnFqZmj1EBGOvQvwRow7N/dnCnmAMG3k2xre+1
-	 3TCnQetsWjQePRs6niGWKG3qxrLs1BduIpM6OWip8aGVEqoGEBDExYJaLuSkB3ZIJLU4c
-	 FL0VUCgYoG6brU7J5o035AL0+kVkAYb5+hxlgq86vaFT4NFtjBtcbJ9IMIglBD54PBdl+
-	 fbJ2FpkCUK9JabXp8Vy+OhDpe2tTk0Q/K6qre2NrZMGdl9fDjJCYgxvwPYe7HseuKKR3W
-	 51RORuNIkp1F9N/v0Cxgr9j+R8cO7japIduaWjxUHpsTin9H2aH0pOGnyutIi9cpsGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792609443;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=n8U3NPb6qJjh33S8/t0CTqr/1TXqpv+wOJ21D7k9Jjk=;
+	b=UC1j0QhC82yCcKwzGBN063p3GzRg7C69oW/KBlunRdFssY+UclE8TUQ0TE96exQ4WFGm
+	 AKTd2ePCeRm87Sp0xdfIiPyC+LAA1M+S44xZviv9to042h3xJg6SRTGlyZLb1XaOhWd+C
+	 PWECW6V0LFpJnmxo+eDM+EF4KdAITSFJj4m25cUOdq06V5MfK46DxAi2rn/5fpkjBSAlD
+	 1wzE2hcVEk/98bpdNRT0t83hm+fsMcbTB1vnb5KQhLgVgE3B1SD+E/mOI5yvaWpHktDxD
+	 usI8S3FkcSMURseN7eMJh24KUvAWeHz++zkoZ47iqiNXNA2Z+qKWuOnOCEc4DySF6lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="e/KEu2Dl";
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF4rFlar;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6C1606A320;
-	Wed, 21 Oct 2026 19:03:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E6C1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB02606A319;
+	Wed, 21 Oct 2026 19:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=e/KEu2Dl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792609398; x=1824145398;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4h3cHqTXriG4rqXH/umCjPSbZXlkjNMeDELIzfETGqg=;
-  b=e/KEu2Dl08ReNUoKAeP6Ki5hRucwV2EtgzCzTYlm2GKMtxl8sCI4m3SG
-   7F9L3+TsPdLvn56zlIkVnhhRZgfxM6lwYxRYtBm//ea2dYdIb1UpHLCDo
-   3UYP7h5iK+Kdj4QxxbpS0TEOTWxsrlMsMSeSAEq0CkFk/kQf06WwhhGSS
-   i2/BL+3/g0QRWabpJLVgMvKMPg5MBdcCxP9QnZwXY68NIzQ6FRTsTrTqc
-   4MNVzYNkzpQSGkpPTZCmszwo3Q9Yld01H/06fZCiztM97SnYjZZLbARCE
-   KXjRjEQQeD3rcUM2PSFgUHiogdGbtf4xLy5YWJbMeaEShJ9cjkRnVEKPc
-   Q==;
-X-CSE-ConnectionGUID: JD8IOpq7Say2tkZ8PnysBg==
-X-CSE-MsgGUID: uw+R8yX8Q+OrlhAI/j36uw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1236242"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1236242"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:03:18 -0700
-X-CSE-ConnectionGUID: trES0lCxSlKF23Su1cy7Ew==
-X-CSE-MsgGUID: gEt0x1TAQ/iMhUVCFp6H8A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3237846"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 12:03:09 -0700
-Date: Wed, 21 Oct 2026 22:03:06 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Dan Carpenter <error27@gmail.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-iio@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iF4rFlar
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EDC1F000C1;
+	Wed, 21 Oct 2026 19:04:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792609442;
+	bh=n8U3NPb6qJjh33S8/t0CTqr/1TXqpv+wOJ21D7k9Jjk=;
+	h=From:To:Cc:Subject:Date;
+	b=iF4rFlarNDUzt0Pu+RPkNWNasD01VPEbRg3XHxJCU9XoxEt/De8/bJlnPQIAcq3hv
+	 pkzF+gssYeGtkih9uVBCCSofWTm9Pl8/2Ivr55M6Z5MhxShUNzi10H1zpFaLhEfYq5
+	 fmMWO56djQgCNELQA2dDdSF6HcWZvncx+bQwV57gOZGTcADHryIgcZade9FpdH49LL
+	 +bt5HaX425QuppusFjKSz+53P5RrJxv2RwxiUa1R4GzDkWx/sQBarGn7vEop1bV4QG
+	 vBjNkMgKnOop22tkYOqfTNtzvkmgC7Oiz4fkyqmRkspuaGQRi9dVbhWB8cDdEer63O
+	 am2V/0FVcaVgw==
+From: Imre Kaloz <kaloz@kernel.org>
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org
+Cc: stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: Allocate unique ADC_TM
- aux device IDs
-Message-ID: <atkMam-XiXcrUOFB@ashevche-desk.local>
-References: <20261008031154.3440632-1-shengchao.guo@oss.qualcomm.com>
- <atWzFlOgRICAGM-R@QCOM-aGQu4IUr3Y>
- <20261021195401.6a70fe6a@jic23-hlaptop>
+Subject: [PATCH] MIPS: SGI-IP27: Install the cache error vector on every CPU
+Date: Wed, 21 Oct 2026 21:02:53 +0200
+Message-ID: <20261021190253.30128-1-kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,28 +57,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021195401.6a70fe6a@jic23-hlaptop>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 07:54:01PM +0100, Jonathan Cameron wrote:
-> On Mon, 19 Oct 2026 14:05:10 +0800
-> Shawn Guo <shengchao.guo@oss.qualcomm.com> wrote:
-> > On Thu, Oct 08, 2026 at 11:11:54AM +0800, Shawn Guo wrote:
+The hub flips the low 128K of the CKSEG1 (attribute 0) uncached alias
+per CPU slice, and the cache error vector is fetched through it.
+trap_init() writes the vector through TO_UNCAC(), which is not flipped,
+so only slice 0 sees it. Copy it to each secondary CPU's slot as it
+comes up.
 
-...
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+---
+ arch/mips/sgi-ip27/ip27-smp.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-> > > Assisted-by: LLM
-> 
-> Applied to the fixes-togreg branch of iio.git and marked for stable.
+diff --git a/arch/mips/sgi-ip27/ip27-smp.c b/arch/mips/sgi-ip27/ip27-smp.c
+index 62733e049570..0fef66b86959 100644
+--- a/arch/mips/sgi-ip27/ip27-smp.c
++++ b/arch/mips/sgi-ip27/ip27-smp.c
+@@ -7,11 +7,13 @@
+  * Copyright (C) 2000 - 2001 by Silicon Graphics, Inc.
+  */
+ #include <linux/init.h>
++#include <linux/string.h>
+ #include <linux/sched.h>
+ #include <linux/sched/task_stack.h>
+ #include <linux/topology.h>
+ #include <linux/nodemask.h>
+ 
++#include <asm/addrspace.h>
+ #include <asm/page.h>
+ #include <asm/processor.h>
+ #include <asm/ptrace.h>
+@@ -133,6 +135,18 @@ static void ip27_init_cpu(void)
+ 	per_cpu_init();
+ }
+ 
++static void ip27_init_secondary(void)
++{
++	/*
++	 * The hub flips the low 128K of the attribute 0 uncached alias per
++	 * CPU slice and the cache error vector is fetched through that alias,
++	 * so the copy trap_init() made through TO_UNCAC() only serves slice 0.
++	 */
++	memcpy((void *)CKSEG1ADDR(0x100), (void *)TO_UNCAC(0x100), 0x80);
++
++	ip27_init_cpu();
++}
++
+ static void ip27_smp_finish(void)
+ {
+ 	hub_rt_clock_event_init();
+@@ -182,7 +196,7 @@ static void __init ip27_prepare_cpus(unsigned int max_cpus)
+ const struct plat_smp_ops ip27_smp_ops = {
+ 	.send_ipi_single	= ip27_send_ipi_single,
+ 	.send_ipi_mask		= ip27_send_ipi_mask,
+-	.init_secondary		= ip27_init_cpu,
++	.init_secondary		= ip27_init_secondary,
+ 	.smp_finish		= ip27_smp_finish,
+ 	.boot_secondary		= ip27_boot_secondary,
+ 	.smp_setup		= ip27_smp_setup,
 
-JFYI, this tag now is killed from documentation. The idea that the use of AI is
-described in the comments block or so.
-
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.47.3
 
