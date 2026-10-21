@@ -1,70 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584072;
-	b=pqmgiZTDFVlvDL/LrOMAygxE0Bih6QRsIUfNf8+We4Bz9gnOZlaxPD6KFznTIKTlEhHL
-	 0Riga48VwskNQKpfGtEQ1jwtnKemHqu5svjyCI4vY4T9SUJmhP+9BwG5fyLch6yceXUL3
-	 y+kMuHF9UV5GKGWISgfznmJs9HLh15rr9lR2FuR27wpw5XQwXaUdKTlhtF7GmnWIqdj88
-	 UPpkEEWC3qJZfPHUNJO+pv9lqDfa1ftHXgWO1n6iQCsCoNd387bGjFAoE78CUVf1u6SL/
-	 oWZqfM0AAJkq1nJ5el0rCW9jubdupOhU+tEUzBeOFrckgo4DqKby1m1I4bK3CJVZY6Q==
+	t=1792584125;
+	b=PMhNOFijLnYH5pDCV2eSjnLtG2Evxtd5wXtObYynQfYBXxgrJuMfbppH/9nQAqPZd1zz
+	 WJVMukitKXlgS53a/mDji3DJoafsNwBHyZsMGUenP4ywvL04bHwyHJVLuDFQH6SfRWN8y
+	 7+NHyrVPM1EoogIaZkrD8dA1YYeBQoMOTf+Ekmer0du1QRlitofmDpxGeCxOO99S4ZZnQ
+	 RucLKeObIOpyh4tjYYWFBIeZu4+/kpeg/fRxSfmG2NOHfmO8CksnJO9/Ptwrj8Msa2u5p
+	 4S6XoIROYeMnNk0JxKonA6AsMldnHKkj1bqJqYP4WG8/NL0enIxFiSI9POZ43zURZXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584072;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
-	 X-Rspamd-Queue-Id:X-NC-CID;
-	bh=lEKtq91QrqvW3Y2km0i9GPLG+sCH8OJnOIVvLe8oxAo=;
-	b=3uLv0zV+BHf+mbAdy1m7qCIVu6u53K4+gz8gBw6euYPycv+/H1hTUqrmWWcB3ULCAN60
-	 b4l6vcFCCRtbkk7o2TDPe9SAPo2vFE4maccun6BA+leILqo0oGZvZbbyouQca1V+skAZE
-	 VaHMiuu+CsRjll6zWjPtY5NORtQq0Nlqg+5IPvxvPkXepquu46mCYdcC5dRXJrcmkBih6
-	 X6KCxIAmEDBtNy2bHUDzM9kTPjRGRKA2yzHdI5tZQdUKPUHI6OYEDfceyff8UhTaHpcgj
-	 mQJsvHLlUzreHXqmccVAR5pdLmsykTwzQoqrwoxmxtWj8t6D0aZiugZDNeietmLFRXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584125;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=W1ga9dSqSCIvVDilXp4fc5dGnbugKM5WamFw/5iafy4=;
+	b=otCWwRxc/H1rRxxbMHRjkX1UeLJHEjTY7NIxcCxxKoItO63ch3Rl+rsKuhKB3zOD6UGS
+	 hesRmv33LqCXtqjD6XXj4kwbPNAr0zVgqU/OkHU3Ns3EkyxeuFlgDl4XF53QTdXtLtdj/
+	 cSGt6F0fZyEENTpwaA+4qDTV1VOAvCRj+c71sPr/JzFZiyXWTwsl1601junK2u3lEO1Tq
+	 jK9RfJsIJo8E8bhb4+ygTTtvt4U/N3uKFAkL9iNg64TyNwENW5ZB66iR0Ckm9xZs0X2UK
+	 ZU8aBUy7+Xu8/tJBsoRN01qtZLkvagVV+A6N+PYQswIBK0ysfbjUTSHSvRJ0KBAvJAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=JuNK4Alj;
-	arc=none smtp.remote-ip=188.68.63.162
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55640606A31A;
-	Wed, 21 Oct 2026 12:01:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55640606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=JuNK4Alj
-Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j8nrp2T1Yz46Dx;
-	Wed, 21 Oct 2026 13:59:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1792583978;
-	bh=H0hq2a/UVp8Z892AiKOsOR/W8WmDxGDNugcwl0/Ckvg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JuNK4Alj6qETyCJVmxBrSYv3GK3aInz/r4M+5LCoJa7gtbld3iW9vx7ghBIvuJ9Gg
-	 COO3AXu4Vgkj/vTD3NwXjTh9WqyM0iKp+LhLNwLtNs+g0CC1KSBmF1kI2bcX/lW+Mu
-	 eyWncwScxd+/NKmTbagxJvjr+kMpd3do7cFeDCPqI7fjtk/XjYgpKsd02BCkX1oh+U
-	 0YMoyFNujC/Azh10P+yXm+1QdCrqbXBKz9MxK7V43XLjU12vByypJMQbyhon3J+D6E
-	 AlkJBh35QY5Une6wGwIX9PDRkUQcILzD3A4nLw1N5V2KMiajnmOy8fkjIiag7Yy+I0
-	 5pyrNV5ZEgVdg==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j8nrp1k7Pz46DN;
-	Wed, 21 Oct 2026 13:59:38 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j8nrn3s5zz8sgW;
-	Wed, 21 Oct 2026 13:59:37 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A49885F9B7;
-	Wed, 21 Oct 2026 13:59:32 +0200 (CEST)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <144f19b5-7adf-4168-be8c-e82fedfe13a9@leemhuis.info>
-Date: Wed, 21 Oct 2026 13:59:31 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66E1606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A66E1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c467e19391so974116b6e.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:02:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792584123; x=1793188923;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=W1ga9dSqSCIvVDilXp4fc5dGnbugKM5WamFw/5iafy4=;
+        b=AoFm/+fQPd6Hl/qSbQZ2Y2rgxZfBoh3nlrR6pHdAergPePf/slLwFx/u2CfcdOIVyh
+         diTC+x8aRXDDpl8WWbMdQd1Rb9+8c3TpyC7sHoSrn6+S8tsgyrihXTZaDuZ9HEsWWnyZ
+         n0HgWXbW4DJC8H8oe9D+sM4sEm+aJnXqL36ydhqfYsoVwfWGjMQ9KVLnhvcRr+OC9ojC
+         h0huJ2NxO8Qp1rqavzmfeVkfOFNbHeH+tHx8472sIr3hpPCKfNZe54An012naJO8u7Fi
+         qvfvZQZRKlJp8qJHnJKynG6S2VRVB0dmEoZ24+5q8s/XKH1PHjbWUNjL/zRlbY5UZ5iC
+         AnoQ==
+X-Gm-Message-State: AFq9FYJR8WASMkCYTNj68Z15zTvY/UeTp7fITK3oF8Y/Mm1mQtkoLsKZ
+	S68sLt0TRlNjYaR43/414OxB8X/9VMUyRI7lB5qSowctYwuE/7Oaf1g5OGCC/X9pIRzwr/0RVJX
+	yAVF8nBRth/spImCdkKEgRgBYKCUlbLxM1WLST4T5IDsoES8IFycEe3YxGpE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,77 +57,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
- link
-To: Edward Malik <edwardmalik95@icloud.com>, Andreas Wild <andiwild@gmail.com>
-Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
- Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
- regressions@lists.linux.dev, M M <restafvalendergelijke@outlook.com>,
- blaat windows <blaaaat@hotmail.com>
-References: <20260801201244.4421-1-andiwild@gmail.com>
- <20260917233355.GA1115024@bhelgaas>
- <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info>
- <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk>
- <1b2cceea-8da4-4239-a955-e0c6b475a227@leemhuis.info>
- <87c93553-d74d-4588-bd54-0ccb2728f327@leemhuis.info>
- <20260929080109.53944-1-andiwild@gmail.com>
- <c5ee9a34c6b7d3ca96538c9cc2914b603b0dce7e.camel@icloud.com>
- <f9ab8a2d-966f-4e96-b905-116919c5ac7b@leemhuis.info>
- <672f06a2cd0bb380fafeacc5f1731e1f4030f329.camel@icloud.com>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <672f06a2cd0bb380fafeacc5f1731e1f4030f329.camel@icloud.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <179258397315.3889052.6744945320187028587@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: A49885F9B7
-X-NC-CID: EvU9xDEa6hIMWP/5UnQ8mRqDxHOhTZJB0sJFcZ8+hexNBEIVqbU=
+X-Received: by 2002:a05:6808:ec2:b0:4cb:26a3:a0db with SMTP id
+ 5614622812f47-5535d9b1e2emr911688b6e.39.1792584123653; Wed, 21 Oct 2026
+ 05:02:03 -0700 (PDT)
+Date: Wed, 21 Oct 2026 05:02:03 -0700
+In-Reply-To: <6abfe679.b50370da.302ea9.000d.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad8a9bb.bbfe3b82.1ac288.0003.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [wireless?] KASAN: slab-use-after-free Read
+ in tasklet_action_common
+From: syzbot <syzbot+e91dc13b1b37759b3d9f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 10/21/26 13:43, Edward Malik wrote:
-> On Wed, 2026-10-21 at 10:24 +0200, Thorsten Leemhuis wrote:
->> On 10/21/26 04:23, Edward Malik wrote:
->>> I noticed another reported incident on the CachyOS Discord server:
->>> [1.278083] pci 0000:00:1c.0: retraining failed
->>> System information: https://paste.cachyos.org/p/35d9bd0.log
->>> I'm sharing this in case it helps with investigating the PCIe
->>> retraining regression maybe there is a common denominator among the
->>> hardware 
->>>
->>> Probably will see more now that ubuntu has moved to the new kernel
->>> i
->>> think
->>
->> I don't known about the others, but if you ask me this thread always
->> was
->> confusing, as we ended up discussing two different problems; over
->> time
->> it became even more confusing.  And one of the issues was fixed for
->> 7.3
->> iirc.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-I was wrong here, sorry -- the fix for one of the issues discussed in
-this thread is still just in next as ff8a969f7dc8e7 ("PCI: Skip Target
-Speed quirk on clamped ports with no link").
+***
 
->> So if you ask me I think it's overdue someone tests if *vanilla* 7.3
->> (not a vendor kernel) is still affected and reports any remaining
->> problems separately anew (e.g. in a new thread) in a way that can be
->> read without reading this thread -- while still briefly dropping a
->> link
->> to this thread for completeness. Afterwards reply here with a link to
->> the new thread.
->
-> i think i understand you want to seperate the threads 
+Subject: Re: [syzbot] [wireless?] KASAN: slab-use-after-free Read in tasklet_action_common
+Author: toke@toke.dk
 
-I think it's time we get new mailing list threads for any problems that
-still remain with ff8a969f7dc8e7, because when you wrote "I noticed
-another report" earlioer at least I have no idea which of the two
-problems discussed in this thread you mean; but maybe it's better to
-start new threads only once 7.4-rc1 is out with testing based on that,
-as that will contain the aforementioned and other fixes and likely is a
-good new starting point for further discussions.
+#syz test
 
-Ciao, Thorsten
