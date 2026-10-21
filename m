@@ -1,110 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586105;
-	b=XpvETfMzbBxOlgf1mU7c1zAScoUYHSng5PBtE5nLkHF3gFOkEdYEENSEZpFd2wJM6cWu
-	 TT1T2HEKs2DX9qlzQwuP2tVzL9dF4KAiZThtSTeHZBUYDHq1VGP5rltnsG2IawtDRdpbw
-	 nRTkTdEi8Xx+oCmsIn493lwGTbFmV+b6mtubroZ5hjM6dqpRD6fjzaVemDU3l24OCSaaM
-	 Bn6ls5+V0cyGyKAp9tcDph1qF2jAu0y8hxhhv+OIqfsoAU0M7b3bPZ2TwDRv1dNvDgdc6
-	 aHrg7td95pkmrx7l+L84e31ZLlRusJsoeWH1mn5PuDdjHOcJ8IZYaoUVCBxxntPLNfw==
+	t=1792586104;
+	b=H10kY3Ugyk6QzTsHgNzRyT4fRaXB6FpO46PTCRqvjqHq+S4pjX9IcQ50foCgj9RICHNz
+	 DQH3qAqMo416A64fNVgGSMmV8pKv9KMVmA7g/6pWaBEleY0erSYl8knfOlLsBtG6YuR4E
+	 Tkl9SVA2xN8mIDumF/4I34sIgHnRB2uk576ib8jhk8gt2IXe1H/fdk0oleha2YK7L0/9H
+	 BI6Vr95vcEcQQX6KDB+1fdTvyBqCBNrVRmzhjtbp7XttCDoIXmB+ZpYOGPwccZa3Iory0
+	 3GO2BGigcGpZE8+jjoi+nNY0tX/2Rfk0hHY/sZjr3g5NotBf1mKW+mwt9vf6wJvKrbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586105;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/U9pxeFHp1yyDPo3cqpKyHrdBbsfXfnVhdf6kExQeGo=;
-	b=w25GW3dxmnq1LJhxfQ9dSuGGwna5rMi+Lw2Rl9DvfZltSukKF98H+LBHcO11YXrC/cI7
-	 +lvwEeHCOkkp/36s/L0lPpPLBcWXsKsuw0p/gcbk/YOEG7Nk52kHyihYZyq5yNm0kvTor
-	 gtjuW+AanS/LOQXWG66T0QEObaTVCiNV5IiDWftRu6CnB0GG6eELcaTYn8Qe8bq0pkKhO
-	 E6e1xQwz1k02miYegJ6uhJ2G/1/9W3Mn/kTs39iZXi6odQrdKHYm6wmucdg32w6aZ48v7
-	 aFMQAqmlHutJ4UKO5i8useYboMw54bQd3TEX9H1A8rHqY64WOTjXu2vRqm+mvsghdzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586104;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=4HHwPh4rEshU8o2SqCBOtfq1VQDPTtfMOkIFtYsIIX8=;
+	b=HQ1u8Ev/L138WT8Ry9hUkzR84VEy4gL9YE0drpDNnnqmz88TmJuXwJ9MvRbiE+fkCpCL
+	 +/nBkGSpf17P0pfHMdhIFKZl7bj96fkKPQ2OnFv+9Hi2+EacNlpleAts4hJBhlAD2IiFY
+	 YUxqPCxnZMCE94LbUxKZXgqceDF9uV30jH+70BK1C2HtTsdL5FTJZOnshM5biwCwSGV4Z
+	 dIzm4GPObEaHcTr5uiHgpHWqP4zT4VrYk/CSmH50jQ8uN9Mnb3qZNBr+mRLu/nArqnQS9
+	 T/letca9zEGrKqmz0CSm1j9BtD/ZmRLNOjSfFp79paSE6OMMAAYfxd3qpIAALU0d7tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ev4046RD;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVieGYKr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5078160A4AE1
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:35:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5078160A4AE1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E89860A4AD8;
+	Wed, 21 Oct 2026 12:35:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ev4046RD
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ac677668a9so650755a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:35:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586105; x=1793190905; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/U9pxeFHp1yyDPo3cqpKyHrdBbsfXfnVhdf6kExQeGo=;
-        b=ev4046RDKj26Fv3J+npltPnBTsfIOzkx5Gt6IeJiU7iJYoAK2nnoXpyetLTKjhv3fF
-         VTAaBnPlus57g1Vr5NznAKcAgt+uHPXHB5NdHOCrVG0GjBzDpV/CJRxt+y4u+g1F8vKq
-         ajgWCyBQmkr8VCIGs9d+/OsyJWIfQPNynNoDToTHn1nSSjLhDJNjyHhZRQS7vz6D1VSU
-         lYyyqANt1i2kn+boDq7upwsUoOmF9tWb9X5Tda2Lp4ln4Ou+8OgD02oynwTlp/cBKoaE
-         LG+xXiXzo0Sq7XzJCAJc3UKPKIaVDDUbO+QRH/DHM4pHHkDBAcEYx7XvQ6su1jnn2TP6
-         A4lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586105; x=1793190905;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/U9pxeFHp1yyDPo3cqpKyHrdBbsfXfnVhdf6kExQeGo=;
-        b=w5MMBH4hA1x7J7VSh3rQsZL5hucDDo6ugvg96drW/qJjnKVNqup2pGVd0apR785xFY
-         fmz4mF4fVpW9sqMmtXQEBiZq5beQZD9mi0H/QNs2TH4qMsoejGGzSyUQGV86fJySOnZ5
-         aijlgMpOZesc0oVzddNWE+qnZjNimEh5h7Vp7cNOq6Lm7mD4g9Z014P7ThqzSzRe7RNu
-         3tfSRwG7UWRhriXlAdQLM9KicbgdI+xHRMuBiHsx5FgWT3DZgCttvmc1u1Vi4TY3CDeO
-         w99pUSIBEc7s2EMAtIXEVscR6+7ZYH97t7IJJyxkn7naeT7+RacxVwYW0i3Hmjce0B6w
-         T0Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBynqra/N8WqKRfY2Vb2gz98z5hcMgq0y8qS5mL0vk6BRHIsZwDclFvxSBdojINDW25+/ODk4O8ztvdgD7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6V4RZEYQft42W5oLRQK0gtJTJK7LlgsplzUOpT3Cx//eWakNL
-	Y7gT0dStOcA1AXK2ByRz/bRJtyQUZuQdF81kNJCFbDKCHQqfAkYRMGew
-X-Gm-Gg: AYBFou3o/KWTsF6Q6OmBWd5NrOXZM1oOiofNW4j/bfnU+0HJl8DWTGjr75Fr2Bc6QQA
-	ssY8zw8aXC+c1snEaeccMKxyCY++Wab9kdXpveir8jN6r3U/sGJYcx2X5BEtqOoQwX5eWJmRaAx
-	tr4LzonTH4qJEXVUalSYgRqmZUCrjMR28CympsNywuP14mrLPmt4Bl+MNoM0MqbimVYzhq3XGwM
-	n6L9FZ/4baYUFfQ9SICOKpzh8I8F2EmI52F6v9wPudkZCG4EgE9PzPc+P/E/5T+Y4ygzpzYRxI+
-	nOLTys01tTH7UG9yvHK0hvF0LHFpSFrc9MCeTE/ISyYFXs5Iu54o5vTljUZflidD8yGHX20dmcn
-	YEEn61drPC5A7wryDS27+WCSS5dKy2Z5XrF5JZZ5dTSBXNmIGxZkYRl4rJr3BW7nZHvgdzxHY1w
-	go/oJCR08NGOkb86LvVpKXdmJsL+uMu2g+jBXvF937UZrj8Xlfvejbi/xwQCk6aKQZYqjGcBx7a
-	GRkhWPr71YP6XbtDi2abyEB/p35+bX3ozaYhu2FkpUuYiAy7Qz2u7pRyt2edT/jHgJluP/OTQFw
-	Qg==
-X-Received: by 2002:a17:90b:1642:b0:3ac:b3e5:426c with SMTP id 98e67ed59e1d1-3ad86c8f925mr1833838a91.26.1792586104709;
-        Wed, 21 Oct 2026 05:35:04 -0700 (PDT)
-Received: from qby-nixos-laptop ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad85f56b03sm1823615a91.3.2026.10.21.05.34.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:35:03 -0700 (PDT)
-From: Mingyou Chen <qby140326@gmail.com>
-To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-Cc: KentoNion <kento@kekto.ru>,
-	platform-driver-x86@vger.kernel.org,
-	ted eric <ericted8810@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	linux-kernel@vger.kernel.org,
-	Chris Taraszka <chris@miget.com>,
-	Matias Civadda <matias.civadda2342001@gmail.com>,
-	=?UTF-8?q?=E9=AB=98=20=E4=BF=8A=E6=96=87?= <btx342@gmail.com>,
-	powerfullz <wleizc7319@gmail.com>,
-	=?UTF-8?q?=E5=AD=99=20=E8=AA=89=E9=93=AD?= <wolf109909@outlook.com>,
-	=?UTF-8?q?Milo=C5=A1=20Vlku?= <vlku.milos.fun@gmail.com>,
-	Rsplwe <i@rsplwe.com>,
-	Bozhen Peng <bozhenpeng93@gmail.com>,
-	Anton Karasev <uselessfire@gmail.com>,
-	Jame Jao <jaojame6@gmail.com>,
-	Serhiy Shliapuhin <shlyapugin@gmail.com>,
-	Mingyou Chen <qby140326@gmail.com>
-Subject: [PATCH v13 4/7] platform/x86: redmi-wmi: Drop redmi-wmi driver
-Date: Wed, 21 Oct 2026 20:34:11 +0800
-Message-ID: <20261021123414.25516-5-qby140326@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261021123414.25516-1-qby140326@gmail.com>
-References: <20261021123414.25516-1-qby140326@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XVieGYKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E801D1F000C5;
+	Wed, 21 Oct 2026 12:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792586104;
+	bh=4HHwPh4rEshU8o2SqCBOtfq1VQDPTtfMOkIFtYsIIX8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XVieGYKrznQ+g0V1H1Lnm8B8cgMpC/EgAl9PBDICyh3YO9Pn5S7dykthf3BFPIVij
+	 rSvIFDJknCChR7v0dmyM7o7w6BCpq2FpS//kNXDzb1iOan05IoJrlUeGCqF5Ft6J0W
+	 6fhfbgaR4hdMnWteAldjqAckmRv+S8xQXppvyMtb4aRRTSKvRUDPQLVtPDpkx0bdKH
+	 qlRp910Z3/1co2ofXK7AMFhwaDFh4/Pmo5YbK1eUb8Tf96LCTz9WYt0cs2SSlNPidN
+	 27ePdrl/m1iduGBMfzqrn/g8rgfPh/4D51xrDgmh1QoTxsbXbsuJxxyegLQ9CiEQQN
+	 pk4Tq5C787S3w==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	Luca Weiss <luca@lucaweiss.eu>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH 08/21] leds: sgm3140: Replace powerdown timer with delayed work
+Date: Wed, 21 Oct 2026 12:32:17 +0000
+Message-ID: <20261021123406.3163547-9-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261021123406.3163547-1-lee@kernel.org>
+References: <20261021123406.3163547-1-lee@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,237 +63,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The redmi-wmi driver is no longer needed because its functionality
-has been superseded by the new generic bitland platform driver.
-All supported Redmi laptop models are now handled properly via the
-updated WMI interfaces in bitland-mifs-wmi.
+sgm3140_powerdown_timer() runs in atomic timer softirq context and calls
+regulator_disable(), which acquires sleepable mutexes, as well as
+gpiod_set_value() on GPIOs that are otherwise driven via
+gpiod_set_value_cansleep().
 
-Remove the obsolete code, Kconfig entries, and Makefile references
-to clean up the platform directory.
+Replace powerdown_timer with a delayed_work item so that the powerdown
+sequence executes in process context and can safely sleep when disabling
+the regulator and driving the GPIOs.
 
-Signed-off-by: Mingyou Chen <qby140326@gmail.com>
+Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+Closes: https://sashiko.dev/#/bug/linux-8c3788a3-17f9-49dc-89be-c9f5844b0b95
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- MAINTAINERS                      |   6 --
- drivers/platform/x86/Kconfig     |  11 +--
- drivers/platform/x86/Makefile    |   1 -
- drivers/platform/x86/redmi-wmi.c | 154 -------------------------------
- 4 files changed, 4 insertions(+), 168 deletions(-)
- delete mode 100644 drivers/platform/x86/redmi-wmi.c
+ drivers/leds/flash/leds-sgm3140.c | 26 ++++++++++++++------------
+ 1 file changed, 14 insertions(+), 12 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 63d2fec54e86..401811130a28 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23037,12 +23037,6 @@ S:	Maintained
- T:	git https://github.com/pkshih/rtw.git
- F:	drivers/net/wireless/realtek/rtw89/
+diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+index dc6840357370..478573da1d61 100644
+--- a/drivers/leds/flash/leds-sgm3140.c
++++ b/drivers/leds/flash/leds-sgm3140.c
+@@ -6,6 +6,7 @@
+ #include <linux/module.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/platform_device.h>
++#include <linux/workqueue.h>
  
--REDMIBOOK WMI DRIVERS
--M:	Gladyshev Ilya <foxido@foxido.dev>
--L:	platform-driver-x86@vger.kernel.org
--S:	Maintained
--F:	drivers/platform/x86/redmi-wmi.c
--
- BITLAND LAPTOP DRIVER
- M:	Mingyou Chen <qby140326@gmail.com>
- M:	Ilya Gladyshev <ilya.gladyshev@linux.dev>
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index 7ee9ff3879c9..569644ed1bf5 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -79,16 +79,13 @@ config XIAOMI_WMI
- 	  be called xiaomi-wmi.
+ #include <media/v4l2-flash-led-class.h>
  
- config REDMI_WMI
--	tristate "Redmibook WMI key driver"
-+	tristate "Redmibook WMI key driver (DEPRECATED)"
- 	depends on ACPI_WMI
- 	depends on INPUT
--	select INPUT_SPARSEKMAP
-+	select BITLAND_MIFS_WMI
- 	help
--	  Say Y here if you want support for WMI-based hotkey events on
--	  Xiaomi Redmibook devices.
--
--	  To compile this driver as a module, choose M here: the module will
--	  be called redmi-wmi.
-+	  This option is deprecated and will be removed in a future release.
-+	  Please enable CONFIG_BITLAND_MIFS_WMI directly.
+@@ -16,7 +17,7 @@ struct sgm3140 {
+ 	struct led_classdev_flash fled_cdev;
+ 	struct v4l2_flash *v4l2_flash;
  
- config GIGABYTE_WMI
- 	tristate "Gigabyte WMI temperature driver"
-diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
-index b90c544387be..3052b92fb5fa 100644
---- a/drivers/platform/x86/Makefile
-+++ b/drivers/platform/x86/Makefile
-@@ -9,7 +9,6 @@ obj-$(CONFIG_HUAWEI_WMI)		+= huawei-wmi.o
- obj-$(CONFIG_MXM_WMI)			+= mxm-wmi.o
- obj-$(CONFIG_NVIDIA_WMI_EC_BACKLIGHT)	+= nvidia-wmi-ec-backlight.o
- obj-$(CONFIG_XIAOMI_WMI)		+= xiaomi-wmi.o
--obj-$(CONFIG_REDMI_WMI)			+= redmi-wmi.o
- obj-$(CONFIG_GIGABYTE_WMI)		+= gigabyte-wmi.o
- obj-$(CONFIG_BITLAND_MIFS_WMI)		+= bitland-mifs-wmi.o
+-	struct timer_list powerdown_timer;
++	struct delayed_work powerdown_work;
  
-diff --git a/drivers/platform/x86/redmi-wmi.c b/drivers/platform/x86/redmi-wmi.c
-deleted file mode 100644
-index cc82ef502002..000000000000
---- a/drivers/platform/x86/redmi-wmi.c
-+++ /dev/null
-@@ -1,154 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/* WMI driver for Xiaomi Redmibooks */
--
--#include <linux/acpi.h>
--#include <linux/bits.h>
--#include <linux/device.h>
--#include <linux/input.h>
--#include <linux/input/sparse-keymap.h>
--#include <linux/module.h>
--#include <linux/mutex.h>
--#include <linux/unaligned.h>
--#include <linux/wmi.h>
--
--#include <uapi/linux/input-event-codes.h>
--
--#define WMI_REDMIBOOK_KEYBOARD_EVENT_GUID "46C93E13-EE9B-4262-8488-563BCA757FEF"
--
--#define AI_KEY_VALUE_MASK BIT(8)
--
--static const struct key_entry redmi_wmi_keymap[] = {
--	{KE_KEY, 0x00000201,	{KEY_SELECTIVE_SCREENSHOT}},
--	{KE_KEY, 0x00000301,	{KEY_ALL_APPLICATIONS}},
--	{KE_KEY, 0x00001b01,	{KEY_CONFIG}},
--	{KE_KEY, 0x00011b01,	{KEY_CONFIG}},
--	{KE_KEY, 0x00010101,	{KEY_SWITCHVIDEOMODE}},
--	{KE_KEY, 0x00001a01,	{KEY_REFRESH_RATE_TOGGLE}},
--
--	/* AI button has code for each position */
--	{KE_KEY, 0x00011801,	{KEY_ASSISTANT}},
--	{KE_KEY, 0x00011901,	{KEY_ASSISTANT}},
--
--	/* Keyboard backlight: Off / Auto / Low / High (new state in byte 2) */
--	{KE_KEY, 0x00000501,	{KEY_KBDILLUMTOGGLE}},
--	{KE_KEY, 0x00800501,	{KEY_KBDILLUMTOGGLE}},
--	{KE_KEY, 0x00050501,	{KEY_KBDILLUMTOGGLE}},
--	{KE_KEY, 0x000a0501,	{KEY_KBDILLUMTOGGLE}},
--
--	/* Xiaomi G Command Center */
--	{KE_KEY, 0x00010a01,	{KEY_VENDOR}},
--
--	/* OEM preset power mode: 1=Balanced 2=Silent 3=Turbo 4=Full speed */
--	{KE_KEY, 0x00011601,	{KEY_PERFORMANCE}},
--	{KE_KEY, 0x00021601,	{KEY_PERFORMANCE}},
--	{KE_KEY, 0x00031601,	{KEY_PERFORMANCE}},
--	{KE_KEY, 0x00041601,	{KEY_PERFORMANCE}},
--
--	/* Fn Lock state: 1=on 0=off */
--	{KE_KEY, 0x00000701,	{KEY_FN_ESC}},
--	{KE_KEY, 0x00010701,	{KEY_FN_ESC}},
--
--	/* Fn+`/1/2/3/4 */
--	{KE_KEY, 0x00011101, {KEY_F13}},
--	{KE_KEY, 0x00011201, {KEY_F14}},
--	{KE_KEY, 0x00011301, {KEY_F15}},
--	{KE_KEY, 0x00011401, {KEY_F16}},
--	{KE_KEY, 0x00011501, {KEY_F17}},
--
--	{KE_END}
--};
--
--struct redmi_wmi {
--	struct input_dev *input_dev;
--	/* Protects the key event sequence */
--	struct mutex key_lock;
--};
--
--static int redmi_wmi_probe(struct wmi_device *wdev, const void *context)
--{
--	struct redmi_wmi *data;
--	int err;
--
--	/* Init dev */
--	data = devm_kzalloc(&wdev->dev, sizeof(*data), GFP_KERNEL);
--	if (!data)
--		return -ENOMEM;
--
--	dev_set_drvdata(&wdev->dev, data);
--
--	err = devm_mutex_init(&wdev->dev, &data->key_lock);
--	if (err)
--		return err;
--
--	data->input_dev = devm_input_allocate_device(&wdev->dev);
--	if (!data->input_dev)
--		return -ENOMEM;
--
--	data->input_dev->name = "Redmibook WMI keys";
--	data->input_dev->phys = "wmi/input0";
--
--	err = sparse_keymap_setup(data->input_dev, redmi_wmi_keymap, NULL);
--	if (err)
--		return err;
--
--	return input_register_device(data->input_dev);
--}
--
--static void redmi_wmi_notify(struct wmi_device *wdev, union acpi_object *obj)
--{
--	struct key_entry *entry;
--	struct redmi_wmi *data = dev_get_drvdata(&wdev->dev);
--	bool autorelease = true;
--	u32 payload;
--	int value = 1;
--
--	if (obj->type != ACPI_TYPE_BUFFER) {
--		dev_err(&wdev->dev, "Bad response type %u\n", obj->type);
--		return;
--	}
--
--	if (obj->buffer.length < 32) {
--		dev_err(&wdev->dev, "Invalid buffer length %u\n", obj->buffer.length);
--		return;
--	}
--
--	payload = get_unaligned_le32(obj->buffer.pointer);
--	entry = sparse_keymap_entry_from_scancode(data->input_dev, payload);
--
--	if (!entry) {
--		dev_dbg(&wdev->dev, "Unknown WMI event with payload %u", payload);
--		return;
--	}
--
--	/* AI key quirk */
--	if (entry->keycode == KEY_ASSISTANT) {
--		value = !(payload & AI_KEY_VALUE_MASK);
--		autorelease = false;
--	}
--
--	guard(mutex)(&data->key_lock);
--	sparse_keymap_report_entry(data->input_dev, entry, value, autorelease);
--}
--
--static const struct wmi_device_id redmi_wmi_id_table[] = {
--	{ WMI_REDMIBOOK_KEYBOARD_EVENT_GUID, NULL },
--	{ }
--};
--
--static struct wmi_driver redmi_wmi_driver = {
--	.driver = {
--		.name = "redmi-wmi",
--		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
--	},
--	.id_table = redmi_wmi_id_table,
--	.min_event_size = 32,
--	.probe = redmi_wmi_probe,
--	.notify = redmi_wmi_notify,
--	.no_singleton = true,
--};
--module_wmi_driver(redmi_wmi_driver);
--
--MODULE_DEVICE_TABLE(wmi, redmi_wmi_id_table);
--MODULE_AUTHOR("Gladyshev Ilya <foxido@foxido.dev>");
--MODULE_DESCRIPTION("Redmibook WMI driver");
--MODULE_LICENSE("GPL");
+ 	struct gpio_desc *flash_gpio;
+ 	struct gpio_desc *enable_gpio;
+@@ -52,10 +53,10 @@ static int sgm3140_strobe_set(struct led_classdev_flash *fled_cdev, bool state)
+ 		}
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 1);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 1);
+-		mod_timer(&priv->powerdown_timer,
+-			  jiffies + usecs_to_jiffies(priv->timeout));
++		schedule_delayed_work(&priv->powerdown_work,
++				      usecs_to_jiffies(priv->timeout));
+ 	} else {
+-		timer_delete_sync(&priv->powerdown_timer);
++		cancel_delayed_work_sync(&priv->powerdown_work);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 0);
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 		ret = regulator_disable(priv->vin_regulator);
+@@ -75,7 +76,7 @@ static int sgm3140_strobe_get(struct led_classdev_flash *fled_cdev, bool *state)
+ {
+ 	struct sgm3140 *priv = flcdev_to_sgm3140(fled_cdev);
+ 
+-	*state = timer_pending(&priv->powerdown_timer);
++	*state = delayed_work_pending(&priv->powerdown_work);
+ 
+ 	return 0;
+ }
+@@ -117,7 +118,7 @@ static int sgm3140_brightness_set(struct led_classdev *led_cdev,
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 1);
+ 	} else {
+-		timer_delete_sync(&priv->powerdown_timer);
++		cancel_delayed_work_sync(&priv->powerdown_work);
+ 		gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 		gpiod_set_value_cansleep(priv->enable_gpio, 0);
+ 		ret = regulator_disable(priv->vin_regulator);
+@@ -133,12 +134,13 @@ static int sgm3140_brightness_set(struct led_classdev *led_cdev,
+ 	return 0;
+ }
+ 
+-static void sgm3140_powerdown_timer(struct timer_list *t)
++static void sgm3140_powerdown_work(struct work_struct *work)
+ {
+-	struct sgm3140 *priv = timer_container_of(priv, t, powerdown_timer);
++	struct sgm3140 *priv = container_of(work, struct sgm3140,
++					    powerdown_work.work);
+ 
+-	gpiod_set_value(priv->enable_gpio, 0);
+-	gpiod_set_value(priv->flash_gpio, 0);
++	gpiod_set_value_cansleep(priv->enable_gpio, 0);
++	gpiod_set_value_cansleep(priv->flash_gpio, 0);
+ 	regulator_disable(priv->vin_regulator);
+ 
+ 	priv->enabled = false;
+@@ -235,7 +237,7 @@ static int sgm3140_probe(struct platform_device *pdev)
+ 	 */
+ 	priv->timeout = min(priv->max_timeout, FLASH_TIMEOUT_DEFAULT);
+ 
+-	timer_setup(&priv->powerdown_timer, sgm3140_powerdown_timer, 0);
++	INIT_DELAYED_WORK(&priv->powerdown_work, sgm3140_powerdown_work);
+ 
+ 	fled_cdev = &priv->fled_cdev;
+ 	led_cdev = &fled_cdev->led_cdev;
+@@ -284,7 +286,7 @@ static void sgm3140_remove(struct platform_device *pdev)
+ {
+ 	struct sgm3140 *priv = platform_get_drvdata(pdev);
+ 
+-	timer_delete_sync(&priv->powerdown_timer);
++	cancel_delayed_work_sync(&priv->powerdown_work);
+ 
+ 	v4l2_flash_release(priv->v4l2_flash);
+ }
 -- 
-2.56.0
+2.56.0.218.g1ec904b173-goog
 
