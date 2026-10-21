@@ -1,38 +1,38 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.83.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.224.81.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792581910;
-	b=CGiruNPGOg9B6u1+1hS9ErAb4JXMk76zEwZqz69y9vMm33NI2z2BY7iUWfDERM1AX5HT
-	 BeHAiwLrzOqDRYZC1iKbjFDK/jP6u6DnZE2Sc0GXS5AUll0dKheanrxEvvloPWESO4yb0
-	 3+u2IEZZJlK4tmj0byh0daOdfeTkgZJaenInGl2d7iP5jZADL0EP/Ta5qn7l0LBSteHXj
-	 qXQn5L7u7SnXYBXFkiArahO7AT8uBN5gPcI2EFxg/ujoc2kWv9uWqoCBW6RVui6nlvZM2
-	 mvs0M54U4ukdhvobahwT30+QPDrZ/izPBL4OYiyQL4IqMYEqrqXil+Ydw1g5J5g7j1g==
+	t=1792581901;
+	b=lb+HwqQaqw99KfqP//TMqgon24ACegcj6/1O9AAkef8T3aV8GSsBilK/RkCwJ65DGygr
+	 jLBrQDnAAp5RydCOfq0r8HPNPhkxhXJGdkB8Nknxm4Wf5GA1/WYyvvjVyoRHZR2VqD/uF
+	 /D0j88p8hdRoCRRo3ULBX1TAHVEf8corDMwrtDBpZe8MCLfUMccjmAGWTnNp622JqBsNN
+	 +hjfrzRZ4hCEaE9w79/noGxCDV5uBnnF6M5VruHXDQpFCgey0S4tNe9PZHCxXDPLYZVGn
+	 7d4IkYwPc23tKcRbvgCJZN4HpTThvZtOUwU509ItUdqFAsJT5WVinmjIO5A/isycISQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792581910;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792581901;
 	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=JwksEVSehb/mfsR/dwCZxF1qX9fjT9KcXaTcFo9jDRc=;
-	b=SyS73ieC29qBN6dLjXEI+ew2WWd8x3ZbwFGkFenk0NR3gQCesmEIPWH46jU9l4xu47Mm
-	 SnTMHkifULwh42IxIchk8RbsVGTnH80AOrFtcIZXtiDoD3aze8xYA/Bs5kKPEpvSxTDVx
-	 L5bB1vkXesJaGZW5hx7UOoE+gstUWYjRCH5u+SlSXzP2dNZ2n0sVFxZGJOa2Jk5q3Yb2A
-	 6O/MN7BcKZQy4ljolYvLWT6QNCRapljbRbIuLqKIGwhDI7r/hswy2asJHXwJsQxOC2e5N
-	 +OQ5v0Snr0aJJj/5Fs8JPwKpaCc6GmB+w0UinwXGA3zk9jBURVKKDWLqOlRzXJpPlBA==
+	bh=a6dY8R/bQis1rIq1yZh1AAI0QczoTtw4exwtDutCO9s=;
+	b=C8vBfUDFQ1MmnHloXjihbWp96Qu3FVMxW9hC4PEBYKgOs9VrO70oxtZy/LmldLZaaKgt
+	 iH8WGfatLEgpdFAgQra9llCbas+z0VC6TpmwIAWR4SVC4eGGW2W/Tonz1DOR/gKxy4sSH
+	 iIp4QjpGovh78MijzKEaD8PWfdW/iXZP7aSiXHSiK4P/3UR7FEXZscRDoRfCtvUtIgCLz
+	 aPAdPvs4CcyDKn83qj5RGWwN8RVcagCbVod63LbaYoIe+jqSYUDkTvJSd7os+Cp/9CttZ
+	 9YRtjvBk/IHVsYFNxTBMobMltbmu9xD47DAH3bPJTlZ6Uwh5oK4Sb8zm5ddCqkgPQtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=easystack.cn;
 	spf=pass smtp.mailfrom=easystack.cn;
-	arc=none smtp.remote-ip=156.224.83.63
-Received: from mail-m8363.xmail.ntesmail.com (mail-m8363.xmail.ntesmail.com [156.224.83.63])
+	arc=none smtp.remote-ip=156.224.81.87
+Received: from mail-m8187.xmail.ntesmail.com (mail-m8187.xmail.ntesmail.com [156.224.81.87])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6BE606A339;
-	Wed, 21 Oct 2026 11:25:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D6BE606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA4F606A31D;
+	Wed, 21 Oct 2026 11:24:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA4F606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
 Received: from localhost.localdomain (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151b0;
-	Wed, 21 Oct 2026 19:24:58 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 204f151a5;
+	Wed, 21 Oct 2026 19:24:49 +0800 (GMT+08:00)
 From: Zhen Ni <zhen.ni@easystack.cn>
 To: ast@kernel.org,
 	daniel@iogearbox.net,
@@ -58,9 +58,9 @@ Cc: bpf@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Zhen Ni <zhen.ni@easystack.cn>
-Subject: [PATCH v3 7/7] selftests/bpf: add tests for the page_owner bpf_iter target
-Date: Wed, 21 Oct 2026 19:24:37 +0800
-Message-Id: <20261021112437.1799213-8-zhen.ni@easystack.cn>
+Subject: [PATCH v3 1/7] mm/page_owner: extract page_owner_next_eligible() from read loop
+Date: Wed, 21 Oct 2026 19:24:31 +0800
+Message-Id: <20261021112437.1799213-2-zhen.ni@easystack.cn>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20261021112437.1799213-1-zhen.ni@easystack.cn>
 References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
@@ -74,417 +74,188 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa15e3510440229kunme08c1fd526acf5
+X-HM-Tid: 0aa15e34eca80229kunme08c1fd526acd0
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTBgZVk9PTUhCSEseQ09LHVYVFA
+	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHU9CVkMdQk9CH09KTkJOGFYVFA
 	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
 	lPT09IVUpLS1VKQktLWQY+
 
-Add a sleepable BPF program and a userspace runner covering the seq_file
-and open-coded page_owner iterators. The test checks:
+Move the page scanning logic out of read_page_owner() into a dedicated
+helper, in preparation for using it in the page_owner bpf_iter target.
 
-  - seq_file walk, unfiltered and pid-filtered: records read back from
-    the iterator fd match the lines the program printed.
-  - open-coded iterator parity with the seq path.
-  - the kfuncs' contracts: a non-empty stack trace, and memcg
-    classification.
+The helper advances a struct page_owner_scan cursor to the next page
+eligible for page_owner output and returns true on a hit. On a hit it
+takes a snapshot of the page_owner record inside the page_ext RCU
+window.
 
-CONFIG_PAGE_OWNER is enabled in the bpf selftests config so the
-program's page_owner BTF types are available. Skipped when debugfs
-page_owner is unavailable.
+No change to the output is intended. handle is read from the snapshot,
+taken before the non-zero check, so the validated and reported handle
+are the same value.
 
 Signed-off-by: Zhen Ni <zhen.ni@easystack.cn>
 ---
 Changes in v3:
-- Check the ENODATA/EOPNOTSUPP instead of local macros.
+- Drop the page field in struct page_owner_scan.
 
 Changes in v2:
-- Drop the get_nid kfunc coverage.
-- Enable CONFIG_PAGE_OWNER in the bpf selftests config.
+- Route the zero-handle case through ext_put_continue.
 
-v2: https://lore.kernel.org/linux-mm/20261013122125.843451-7-zhen.ni@easystack.cn/
-v1: https://lore.kernel.org/linux-mm/20261009112308.240769-7-zhen.ni@easystack.cn/
+v1: https://lore.kernel.org/linux-mm/20261009112308.240769-2-zhen.ni@easystack.cn/
+v2: https://lore.kernel.org/linux-mm/20261013122125.843451-2-zhen.ni@easystack.cn/
 ---
- tools/testing/selftests/bpf/config            |   2 +
- .../bpf/prog_tests/page_owner_iter.c          | 193 ++++++++++++++++++
- .../selftests/bpf/progs/bpf_iter_page_owner.c | 157 ++++++++++++++
- 3 files changed, 352 insertions(+)
- create mode 100644 tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
- create mode 100644 tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
+ mm/page_owner.c | 101 ++++++++++++++++++++++++++++++------------------
+ 1 file changed, 64 insertions(+), 37 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/config b/tools/testing/selftests/bpf/config
-index ea7044f30adc..731bc3d79881 100644
---- a/tools/testing/selftests/bpf/config
-+++ b/tools/testing/selftests/bpf/config
-@@ -136,3 +136,5 @@ CONFIG_SMC_HS_CTRL_BPF=y
- CONFIG_DIBS=y
- CONFIG_DIBS_LO=y
- CONFIG_PM_WAKELOCKS=y
-+CONFIG_DEBUG_KERNEL=y
-+CONFIG_PAGE_OWNER=y
-diff --git a/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c b/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
-new file mode 100644
-index 000000000000..3684ca308935
---- /dev/null
-+++ b/tools/testing/selftests/bpf/prog_tests/page_owner_iter.c
-@@ -0,0 +1,193 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 */
-+
-+#include <test_progs.h>
-+#include "bpf_iter_page_owner.skel.h"
-+
-+#define DEBUGFS_PAGE_OWNER	"/sys/kernel/debug/page_owner"
-+
-+static bool page_owner_available(void)
-+{
-+	return access(DEBUGFS_PAGE_OWNER, R_OK) == 0;
-+}
-+
-+/* Count link_fd output lines; -1 on error. */
-+static long iter_record_count(int link_fd)
-+{
-+	char *line = NULL;
-+	size_t len = 0;
-+	long count = 0;
-+	int iter_fd;
-+	FILE *f;
-+
-+	iter_fd = bpf_iter_create(link_fd);
-+	if (!ASSERT_GE(iter_fd, 0, "bpf_iter_create"))
-+		return -1;
-+
-+	f = fdopen(iter_fd, "r");
-+	if (!ASSERT_OK_PTR(f, "fdopen")) {
-+		close(iter_fd);
-+		return -1;
-+	}
-+
-+	for (;;) {
-+		if (getline(&line, &len, f) > 0) {
-+			count++;
-+			continue;
-+		}
-+		if (!ferror(f))
-+			break;		/* clean EOF */
-+		/*
-+		 * bpf_seq_read() returns -EAGAIN when a chunk scanned.
-+		 * Not an error, just retry the read.
-+		 */
-+		if (errno == EAGAIN) {
-+			clearerr(f);
-+			continue;
-+		}
-+		ASSERT_OK(errno, "iter_read");
-+		count = -1;
-+		break;
-+	}
-+
-+	free(line);
-+	fclose(f);
-+	return count;
-+}
-+
-+/* Validate bpf_page_owner_get_memcg_info() results from the open-coded run. */
-+static void check_memcg_skel(struct bpf_iter_page_owner *skel)
-+{
-+	fprintf(stderr,
-+		"memcg: seen=%u charged=%u online=%u nodata=%u notsup=%u bad=%u first='%s' name='%s' flags=%u\n",
-+		skel->bss->memcg_seen, skel->bss->memcg_charged,
-+		skel->bss->memcg_online, skel->bss->memcg_nodata,
-+		skel->bss->memcg_notsup, skel->bss->memcg_bad,
-+		skel->bss->memcg_first_path, skel->bss->memcg_first_name,
-+		skel->bss->memcg_first_flags);
-+
-+	if (!ASSERT_GT(skel->bss->memcg_seen, 0, "memcg_seen_gt_0"))
-+		return;
-+
-+	/* all -EOPNOTSUPP: CONFIG_MEMCG is off */
-+	if (skel->bss->memcg_notsup == skel->bss->memcg_seen) {
-+		ASSERT_EQ(skel->bss->memcg_bad, 0, "memcg_stub_invariants");
-+		return;
-+	}
-+
-+	if (!ASSERT_EQ(skel->bss->memcg_bad, 0, "memcg_kfunc_invariants"))
-+		return;
-+
-+	/* Every call is either charged or nodata */
-+	if (!ASSERT_EQ(skel->bss->memcg_charged + skel->bss->memcg_nodata,
-+		       skel->bss->memcg_seen, "memcg_ret_classified"))
-+		return;
-+
-+	if (!skel->bss->memcg_first_saved)
-+		return;
-+
-+	if (!ASSERT_EQ(skel->bss->memcg_first_path[0], '/',
-+		       "memcg_first_path_abs"))
-+		return;
-+
-+	if (skel->bss->memcg_first_name[0])
-+		ASSERT_OK_PTR(strstr(skel->bss->memcg_first_path,
-+				    skel->bss->memcg_first_name),
-+			      "memcg_name_in_path");
-+}
-+
-+void serial_test_page_owner_iter(void)
-+{
-+	struct bpf_iter_page_owner *skel = NULL;
-+	LIBBPF_OPTS(bpf_test_run_opts, opts);
-+	long iter_count, unfiltered_count, oc_diff, pid;
-+	unsigned int printed_before;
-+	int link_fd, prog_fd;
-+
-+	if (!page_owner_available()) {
-+		printf("%s:SKIP:page_owner debugfs unavailable "
-+		       "(CONFIG_PAGE_OWNER + page_owner=on)\n", __func__);
-+		test__skip();
-+		return;
-+	}
-+
-+	skel = bpf_iter_page_owner__open_and_load();
-+	if (!ASSERT_OK_PTR(skel, "bpf_iter_page_owner__open_and_load"))
-+		return;
-+
-+	/* --- seq file iterator: unfiltered run --- */
-+	skel->bss->filter_en = 0;
-+
-+	if (!ASSERT_OK(bpf_iter_page_owner__attach(skel), "skel_attach"))
-+		goto destroy;
-+
-+	link_fd = bpf_link__fd(skel->links.dump_page_owner);
-+	iter_count = iter_record_count(link_fd);
-+	if (iter_count < 0)
-+		goto destroy;
-+	unfiltered_count = iter_count;
-+
-+	fprintf(stderr, "iter_count=%ld printed_lines=%u total_seen=%u\n",
-+		iter_count, skel->bss->printed_lines, skel->bss->total_seen);
-+
-+	ASSERT_GT(iter_count, 0, "unfiltered_lines_gt_0");
-+
-+	ASSERT_EQ((long)skel->bss->printed_lines, iter_count,
-+		  "lines_match_printed");
-+
-+	/* unfiltered: every visited page is printed, so the two must match */
-+	ASSERT_EQ(skel->bss->total_seen, skel->bss->printed_lines,
-+		  "unfiltered_all_printed");
-+
-+	/* --- seq file iterator: pid-filtered run --- */
-+	pid = getpid();
-+	skel->bss->filter_en = 1;
-+	skel->bss->filter_pid = (pid_t)pid;
-+
-+	/* printed_lines is cumulative across runs: compare the delta */
-+	printed_before = skel->bss->printed_lines;
-+	iter_count = iter_record_count(link_fd);
-+	if (iter_count < 0)
-+		goto destroy;
-+
-+	fprintf(stderr,
-+		"pid=%ld iter_count=%ld printed_delta=%u\n",
-+		pid, iter_count, skel->bss->printed_lines - printed_before);
-+
-+	ASSERT_GT(iter_count, 0, "filtered_lines_gt_0");
-+	ASSERT_EQ(skel->bss->printed_lines - printed_before, iter_count,
-+		  "filtered_printed_match");
-+
-+	/* --- open-coded iterator parity --- */
-+	prog_fd = bpf_program__fd(skel->progs.scan_open_coded);
-+
-+	ASSERT_OK(bpf_prog_test_run_opts(prog_fd, &opts), "prog_test_run");
-+	fprintf(stderr,
-+		"open_coded_seen=%u nid_seen=%u first_nid=%d "
-+		"stack_bytes=%u stack=[\n%s]\n",
-+		skel->bss->open_coded_seen, skel->bss->nid_seen,
-+		skel->data->first_nid, skel->bss->stack_bytes,
-+		skel->bss->stack_text);
-+
-+	/* same eligibility as the seq path: counts must be close */
-+	ASSERT_GT(skel->bss->open_coded_seen, 0, "oc_seen_gt_0");
-+	oc_diff = (long)skel->bss->open_coded_seen - unfiltered_count;
-+	if (oc_diff < 0)
-+		oc_diff = -oc_diff;
-+	ASSERT_LE(oc_diff, unfiltered_count / 100 + 64,
-+		  "oc_seen_close_to_iter");
-+
-+	/* the nid kfunc returned a valid node for every page */
-+	ASSERT_EQ(skel->bss->nid_seen, skel->bss->open_coded_seen,
-+		  "nid_valid_all");
-+	ASSERT_GE(skel->data->first_nid, 0, "first_nid_valid");
-+
-+	ASSERT_GT(skel->bss->stack_bytes, 0, "stack_snprint_ok");
-+	ASSERT_OK_PTR(strstr(skel->bss->stack_text, "+0x"), "stack_frames");
-+	ASSERT_OK_PTR(strchr(skel->bss->stack_text, '\n'), "stack_lines");
-+
-+	check_memcg_skel(skel);
-+
-+destroy:
-+	bpf_iter_page_owner__destroy(skel);
-+}
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c b/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-new file mode 100644
-index 000000000000..1cd99956aff3
---- /dev/null
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_page_owner.c
-@@ -0,0 +1,157 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/* Copyright (c) 2026 */
-+
-+#include <vmlinux.h>
-+#include <bpf/bpf_helpers.h>
-+#include <errno.h>
-+
-+char _license[] SEC("license") = "GPL";
-+
-+__u32 filter_en;
-+__u32 filter_pid;
-+__u32 total_seen;
-+__u32 printed_lines;
-+
-+__u32 open_coded_seen;
-+__u32 nid_seen;
-+__s32 first_nid = -1;
-+char stack_text[2048];
-+__u32 stack_bytes;
-+
-+__u32 memcg_seen;
-+__u32 memcg_charged;
-+__u32 memcg_online;
-+__u32 memcg_nodata;
-+__u32 memcg_notsup;
-+__u32 memcg_bad;
-+__u32 memcg_first_saved;
-+__u32 memcg_first_flags;	/* bit0 is_online, bit1 is_kmem */
-+__u32 memcg_first_path_len;
-+char memcg_pathbuf[4096];
-+char memcg_first_path[4096];
-+char memcg_first_name[80];
-+
-+#define MEMCG_F_ONLINE	(1 << 0)
-+#define MEMCG_F_OBJCG	(1 << 1)
-+
-+extern int bpf_iter_page_owner_new(struct bpf_iter_page_owner *it) __ksym;
-+extern struct page_owner_scan *
-+bpf_iter_page_owner_next(struct bpf_iter_page_owner *it) __ksym;
-+extern void bpf_iter_page_owner_destroy(struct bpf_iter_page_owner *it) __ksym;
-+extern int bpf_page_owner_stack_snprint(struct page_owner_scan *scan,
-+					char *buf__uninit, u32 buf__sz) __ksym;
-+extern int bpf_page_owner_get_memcg_info(struct page_owner_scan *scan,
-+					 struct memcg_info *info__uninit,
-+					 char *buf__uninit, u32 buf__sz) __ksym;
-+
-+static __u32 copy_str(char *dst, const char *src, const __u32 max)
-+{
-+	__u32 i = 0;
-+
-+	while (i + 1 < max && src[i]) {
-+		dst[i] = src[i];
-+		i++;
-+	}
-+	dst[i] = '\0';
-+	return i;
-+}
-+
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index fbbda7ba914b..92a92cdf74ec 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -36,6 +36,15 @@ struct page_owner {
+ 	pid_t free_tgid;
+ };
+ 
 +/*
-+ * Exercise bpf_page_owner_get_memcg_info() until 32 pages charged to an
-+ * ONLINE memcg have been seen, checking its per-return contract:
-+ *  - 0:          buf holds an absolute cgroup path;
-+ *  - -ENODATA:   buf was NUL-terminated;
-+ *  - -EOPNOTSUPP: counted (CONFIG_MEMCG is off);
-+ *
-+ * The first online charged sample is saved for userspace to print and
-+ * cross-check (name vs basename of path).
++ * Cursor and per-page result of page_owner_next_eligible().
 + */
-+static void check_memcg(struct page_owner_scan *scan)
-+{
-+	static struct memcg_info info;
-+	int err;
++struct page_owner_scan {
++	/* resume point */
++	unsigned long pfn;
++	struct page_owner po_snap;
++};
 +
-+	err = bpf_page_owner_get_memcg_info(scan, &info, memcg_pathbuf,
-+					    sizeof(memcg_pathbuf));
-+	memcg_seen++;
+ struct stack {
+ 	struct stack_record *stack_record;
+ 	struct stack *next;
+@@ -725,37 +734,24 @@ void __dump_page_owner(const struct page *page)
+ 	page_ext_put(page_ext);
+ }
+ 
+-static ssize_t
+-read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
++/*
++ * Advance @scan to the next page eligible for page_owner output.
++ * On a hit, fill scan->pfn/po_snap and return true; the caller
++ * must advance scan->pfn past the hit before calling again to resume
++ * the scan.
++ */
++static bool page_owner_next_eligible(struct page_owner_scan *scan)
+ {
+-	unsigned long pfn;
+-	struct page *page;
+-	struct page_ext *page_ext;
+-	struct page_owner *page_owner;
+-	depot_stack_handle_t handle;
+-	struct page_owner_filter_state *state = file->private_data;
++	unsigned long pfn = scan->pfn;
+ 
+-	if (!static_branch_unlikely(&page_owner_inited))
+-		return -EINVAL;
+-
+-	page = NULL;
+-	if (*ppos == 0)
+-		pfn = min_low_pfn;
+-	else
+-		pfn = *ppos;
+ 	/* Find a valid PFN or the start of a MAX_ORDER_NR_PAGES area */
+ 	while (!pfn_valid(pfn) && (pfn & (MAX_ORDER_NR_PAGES - 1)) != 0)
+ 		pfn++;
+ 
+-	/* Find an allocated page */
+ 	for (; pfn < max_pfn; pfn++) {
+-		/*
+-		 * This temporary page_owner is required so
+-		 * that we can avoid the context switches while holding
+-		 * the rcu lock and copying the page owner information to
+-		 * user through copy_to_user() or GFP_KERNEL allocations.
+-		 */
+-		struct page_owner page_owner_tmp;
++		struct page_owner *page_owner;
++		struct page_ext *page_ext;
++		struct page *page;
+ 
+ 		/*
+ 		 * If the new page is in a new MAX_ORDER_NR_PAGES area,
+@@ -798,13 +794,45 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 			goto ext_put_continue;
+ 
+ 		/*
+-		 * Access to page_ext->handle isn't synchronous so we should
+-		 * be careful to access it.
++		 * Take a snapshot of the page_owner record inside the RCU
++		 * window, then validate it, so that print_page_owner()
++		 * reads the checked handle from the same snapshot.
+ 		 */
+-		handle = READ_ONCE(page_owner->handle);
+-		if (!handle)
++		scan->pfn = pfn;
++		scan->po_snap = *page_owner;
 +
-+	if (err == 0) {
-+		memcg_charged++;
++		if (!scan->po_snap.handle)
+ 			goto ext_put_continue;
+ 
++		page_ext_put(page_ext);
++		return true;
 +
-+		if (memcg_pathbuf[0] != '/') {
-+			memcg_bad++;
-+			return;
-+		}
-+
-+		if (!info.is_online)
-+			return;
-+		memcg_online++;
-+
-+		/* keep the first online sample for userspace */
-+		if (!memcg_first_saved) {
-+			memcg_first_path_len = copy_str(memcg_first_path,
-+							memcg_pathbuf,
-+							sizeof(memcg_first_path));
-+			copy_str(memcg_first_name, info.name,
-+				 sizeof(memcg_first_name));
-+			memcg_first_flags = MEMCG_F_ONLINE |
-+					    (info.is_kmem ? MEMCG_F_OBJCG : 0);
-+			memcg_first_saved = 1;
-+		}
-+	} else if (err == -ENODATA) {
-+		memcg_nodata++;
-+		if (memcg_pathbuf[0] != '\0')
-+			memcg_bad++;
-+	} else if (err == -EOPNOTSUPP) {
-+		memcg_notsup++;
-+		if (memcg_pathbuf[0] != '\0')
-+			memcg_bad++;
-+	} else {
-+		memcg_bad++;
++ext_put_continue:
++		page_ext_put(page_ext);
++		cond_resched();
 +	}
++
++	return false;
 +}
 +
-+SEC("syscall")
-+int scan_open_coded(const void *ctx)
++static ssize_t
++read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
 +{
-+	struct bpf_iter_page_owner it;
-+	struct page_owner_scan *scan;
++	struct page_owner_scan scan;
++	struct page_owner_filter_state *state = file->private_data;
 +
-+	bpf_iter_page_owner_new(&it);
++	if (!static_branch_unlikely(&page_owner_inited))
++		return -EINVAL;
 +
-+	while ((scan = bpf_iter_page_owner_next(&it))) {
-+		open_coded_seen++;
-+		if (scan->nid >= 0)
-+			nid_seen++;
-+		if (memcg_online < 32)
-+			check_memcg(scan);
-+		/* grab the stack of the 100th page for userspace to check */
-+		if (open_coded_seen == 100) {
-+			first_nid = scan->nid;
-+			if (scan->po_snap.handle)
-+				stack_bytes = bpf_page_owner_stack_snprint(
-+					scan, stack_text, sizeof(stack_text));
-+		}
-+	}
-+	bpf_iter_page_owner_destroy(&it);
-+	return 0;
-+}
++	if (*ppos == 0)
++		scan.pfn = min_low_pfn;
++	else
++		scan.pfn = *ppos;
 +
-+SEC("iter/page_owner")
-+int dump_page_owner(struct bpf_iter__page_owner *ctx)
-+{
-+	struct page_owner *po = ctx->po;
++	/* Find an allocated page */
++	while (page_owner_next_eligible(&scan)) {
++		struct page *page = pfn_to_page(scan.pfn);
 +
-+	if (!po)
-+		return 0;
+ 		if (state->nid_filter_enabled) {
+ 			int nid;
+ 			memdesc_flags_t page_flags = READ_ONCE(page->flags);
+@@ -814,21 +842,20 @@ read_page_owner(struct file *file, char __user *buf, size_t count, loff_t *ppos)
+ 			 * VM_BUG_ON when accessing poisoned pages.
+ 			 */
+ 			if (page_flags.f == PAGE_POISON_PATTERN)
+-				goto ext_put_continue;
++				goto skip_continue;
+ 			nid = memdesc_nid(&page_flags);
+ 			if (!node_isset(nid, state->nid_filter))
+-				goto ext_put_continue;
++				goto skip_continue;
+ 		}
+ 
+ 		/* Record the next PFN to read in the file offset */
+-		*ppos = pfn + 1;
++		*ppos = scan.pfn + 1;
+ 
+-		page_owner_tmp = *page_owner;
+-		page_ext_put(page_ext);
+-		return print_page_owner(buf, count, pfn, page,
+-				&page_owner_tmp, handle, state);
+-ext_put_continue:
+-		page_ext_put(page_ext);
++		return print_page_owner(buf, count, scan.pfn, page,
++				&scan.po_snap, scan.po_snap.handle, state);
 +
-+	total_seen++;
-+
-+	if (filter_en && po->pid != (pid_t)filter_pid)
-+		return 0;
-+
-+	BPF_SEQ_PRINTF(ctx->meta->seq, "pfn %llu pid %d comm %s\n",
-+		       ctx->pfn, po->pid, po->comm);
-+	printed_lines++;
-+	return 0;
-+}
++skip_continue:
++		scan.pfn++;
+ 		cond_resched();
+ 	}
+ 
 -- 
 2.20.1
 
