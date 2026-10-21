@@ -1,66 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586354;
-	b=v3IMhIg6gvq88BAxv7Jre6JkyOTBVrsEHYJL02Juz03kP+E3XprNMn9fI191ZZYYmJYh
-	 Jle1pSMzi+ugt829LkgMrMNJz0d5+Mva5bv4948wUyA5eOnKmH+F53eMpCnkUM0QOpFwM
-	 FY0TL7fnSrjEapQ1SGkcOO+TbMzbKYjhVo2UUwp1iXe9AJ//YE6RkBOL+TU5XnhrsgT+H
-	 DUbu/LSpgjGL4uGw8VXwfMrF9GCXj1Lc0SoSseEpiMCD31gJMNUjKwtXPdbI+6fPA0Xuw
-	 x3xqsOZhTneLIq3cTUYllhBjnjcGVBUILWBGKVeuQPpXSiZeh2V7mRsf63gA5GoFcJg==
+	t=1792586358;
+	b=UfmFAJV/IsQQvjPL6LjQsxYKmvj72kzOKCWwwHTA+sJmId9O1RZcYeUnpSndhwOl3c8n
+	 wgNQRT3HGJ4A0cj0xpu4Z0uELzr7hD2CTKziK9HcrZl/gi4vkLoyzxcz6AhftZV8fhBDP
+	 0WK9iWafNrxth/tNlcNeeDsr+64hHScs4QQHAc7tq55h0f+meEQk0tp8uHpjfLXtGjKZs
+	 wUMwfsWyRuWc4VkbhGreyzm7JPOK8gPiW1scgIn4oUvcl5PFaXCNAPVARr121UyHADWKL
+	 Vub3D2f/qn5q8ZzyjOoTSE4PYU5mH4d+Gqk7X90K9NZjDHXMv3dnWCfUMVKjwBBq1cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586354;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=+Mgdy3xU7pRapxjphwKWj/l/TTWdzgFiOjvXPVd3wso=;
-	b=PaygQ20XH+RPR+363KTJ86BOfYsbdCUGM/lUR86QlxDRkAEVhhRNO9g1kLJT3urDRrlC
-	 mvN2yV8WyoHaZljnauMXAhQGrAO1TJF5IoZ9q1Gk0EXzefZNUwKbAz9yJnMBEujPSduFj
-	 UI7N+zu007Ggh9C4oIfFzumtxKb+cZt4ECJavNPlHpGH4eO5eRji5EatnFQ6HkOvgoomX
-	 6Ed2lPxjsF6RXrk/nRxykGYgqCl+kZemuQUa/Ws6dCeuKyylHLMmYMSUIwmEm6Uq6BkIu
-	 Gqh3N3LpuTCjo32t7p34m80AMRMbP4h7NJX2OSa/NvvX1gxyiL7zmXwNkZ/HlTJtGtg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586358;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=7LywcFqB+/5xRyU6GGTMYkhvgXlEandMOB0iFjHFry4=;
+	b=ab6XA1sSBggysxVzsmTIhWlNSGJeBhPrqUPADvo/AKzlFIPRIbsiHTG0+n18xRItjbuI
+	 imybJHlRRjvX11ZJdBTmYFVlnGADtDMJCjwFqUdHEJtnwtNdT7xRapWi2wOtaC+FJGppY
+	 XGuPXtfuNsrSrikRZM9MFfsG8B91gLJzEBMxfDDbeacxwNopHPDLcQhjZ38ITZQZXlbhZ
+	 x3KHaoDJPUkIaRWvoV12wglWG5AVb2wVGgq17hdYz/1x/vBk8TnynTNj6oa0zVDwNgBN2
+	 NzSUmz1h+EB1nxxJw5FNZdcd9kpwR4XYbD8vkGiGPXOZWe8gjcwPdM1lD6TKV/9swhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=of1WxAb+;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WP8Wip5v;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3jNj9R0h;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF72606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:39:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EF72606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B22606A320;
+	Wed, 21 Oct 2026 12:39:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8B22606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=of1WxAb+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+Mgdy3xU7pRapxjphwKWj/l/TTWdzgFiOjvXPVd3wso=; b=of1WxAb+Hd9yQI0YshLp8NLcFI
-	CEY+1AW/NtbBABeZrQsrdn0+gZ1pizEdh56AYP/e/Qpjqp9Lvzwe/OM3ZkmbRDyZOWFg4oFrfGWCu
-	HPd9U8L1lZeA/47A/9izZ7dW3f7f2r/2mKpXDu8BreYrbidf/NUzNIGI3FXQA590YMSdteIJk+NAF
-	+osbR+khHe1+luYL0vHsoKO65OuBaVpMwYqmxaS7IDoVBoIs9BBPLQW8EXEIdwB8fEbURQaWtyPto
-	6eRLzuRPMBgwkIM+KMz+HbXL6r1BoaGs7V3EYD+bSQzHilp4xNE69ZkMdo0c2Jtj9eJ2zpID/Ucr1
-	xmE7OU1w==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJVaz-00000009CqM-0lD9;
-	Wed, 21 Oct 2026 12:39:05 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 9E091300720; Wed, 21 Oct 2026 14:39:04 +0200 (CEST)
-Date: Wed, 21 Oct 2026 14:39:04 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Li kunyu <likunyu@open-hieco.net>
-Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
-Subject: Re: [RFC PATCH 3/6] sched/fair: SMT sibling exclusion after
- successful push
-Message-ID: <20261021123904.GI2823843@noisy.programming.kicks-ass.net>
-References: <20261020083746.37068-1-likunyu@open-hieco.net>
- <20261020083746.37068-4-likunyu@open-hieco.net>
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=WP8Wip5v;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=3jNj9R0h
+Date: Wed, 21 Oct 2026 14:39:15 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792586356;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7LywcFqB+/5xRyU6GGTMYkhvgXlEandMOB0iFjHFry4=;
+	b=WP8Wip5vPrsuh2OlJgttUQ71UzDDfzW+s8xgUeOB/M6KRGwx2+O0Cr/g7AVk7tu3dUGR8u
+	LWxPVc18jPWBfwr6db0bj9P2e3dl410kKNwTixbWEfUW6dGPtK8W6kE2OVvGuQFS07LwrV
+	pdcFglJgStoSu1S7oC8j40kxBn2v8rSY4I7/DU+plfAExWiD/PHQzk0lnLx8sj+HhEaWNQ
+	9xE6FXOgPoGqof60spk33MTkBcnwkkTubyaLO7f4/92R9Lrxlwg5+2LhfEXHZy1+3Tnrz7
+	Xrjk31xaKGcL8AJ2GyvS3VRjHdzccQpDPe/2cS8XSXvOgE2ruITOAH2Qg0l6yQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792586356;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7LywcFqB+/5xRyU6GGTMYkhvgXlEandMOB0iFjHFry4=;
+	b=3jNj9R0hQi60PadC0Q8npV3E5R+nfxTN0J1Wcj1xXvRpma9ZNat9HWx4CrpPbohWskI1hJ
+	AktAQtUYXxGljrAA==
+From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: aggregator: constify struct configfs_attribute
+Message-ID: <20261021143836-afd6d95e-03a5-420f-b680-6ac3e90e21cb@linutronix.de>
+References: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,39 +74,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20261020083746.37068-4-likunyu@open-hieco.net>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261021-gpio-aggr-const-configfs-attrs-v1-1-a98e8d1157a6@oss.qualcomm.com>
 
-On Tue, Oct 20, 2026 at 04:37:43PM +0800, Li kunyu wrote:
+On Wed, Oct 21, 2026 at 02:31:41PM +0200, Bartosz Golaszewski wrote:
+> In preparation for the constification of configfs attributes, make the
+> existing instances of struct configfs_attribute in gpio-aggregator const
+> and use the new st_attrs_const field of struct config_item_type.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-> @@ -13377,7 +13379,20 @@ static struct rq *sched_balance_find_src_rq(struct lb_env *env,
->  	struct sched_domain __maybe_unused *sd_tmp;
->  	unsigned int busiest_nr = 0;
->  	int __maybe_unused dst_llc;
-> -	int i;
-> +	int i, smt_cpu, dst_cpu = env->dst_cpu;
-> +
-> +	if (sched_feat(SMT_BUDDY_ASSIST) && env->is_smt_move_task) {
-> +		/*
-> +		 * Remove the SMT sibling CPU from the mask to avoid the
-> +		 * extremely rare case of pulling tasks from it.
+Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
 
-Your comment seems to think the SMT mask is only ever 2 cpus, we have a
-ton of architectures where this is not true.
+> ---
+>  drivers/gpio/gpio-aggregator.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 
-> +		 */
-> +		for_each_cpu(smt_cpu, cpu_smt_mask(dst_cpu)) {
-> +			if (smt_cpu == dst_cpu)
-> +				continue;
-> +
-> +			cpumask_clear_cpu(smt_cpu, env->cpus);
-> +		}
-
-This is terrifyingly horrible. You're using a loop and atomic bit clear
-to clear bits in a local cpumask.
-
-		cpumask_andnot(env->cpus, env->cpus, cpu_smt_mask(dst_cpu));
-		__cpumask_set_cpu(dst_cpu, env->cpus);
-
-
+(...)
