@@ -1,102 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602156;
-	b=xPSJa+s6TwJhISJ2EIU1h1XVwnmQeArit/t+f/8k3xNN7DYpwmLxYAwmU0wVaw/GxUCo
-	 ZXUiK9VuUXREQKm3Nli5G6BGZ9rMgRrnj82H8U0j7fe+qw5O0SDyOyhd8sz/KXeJRq49C
-	 UjsIKrXGzJv0YR8cey4/opDEH7dKJcCCW1m+vw+Ke7werwYmWVjao5QoWOsxWyByoNIuD
-	 T6gKYpM1sp4V9Mz7GjXERaXjFKUj8yHJZ/QWUwIF4kUNK/FsLsSd9XObK+BV0vkBAozpO
-	 9hYBteEfjU7aOEtLX5fGhVbQ71ww+3XhTU1D613lsPNqfqCA8hYhwHmwWBUTQJBiMgQ==
+	t=1792602179;
+	b=Wc7tUlWhBgHPFZt2f4bOZ4wp26IkzujF3t9y+j0wJigdLTH/NZGkDwmybALPIuHnHYzc
+	 EYk2F+HP6N72LWWnZrDrdu7ms70+zrfjXAtW7UFGYfHTMcpx0Y6xfrtHL4AODlWGBn6ep
+	 VbcgqPu2ftoR+jYEet1Tkrr6lSCdwKVchkywbczeY0yqYuACexCJOl+3tp+oTCcZ6U3cX
+	 UVknZuyadYx3+4DjlWwn67AkGqCbjmuIyA2X43yIgx8B3ETFVzSWRzHkoC3LwrRNfPeGB
+	 UyAKVIw5fXhbjw7uemqUsKOs5xc1vlXLV3fXMSm0zKl/ti+1e0Nle0svgHUbibrTkBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602156;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-DetectorID-Processed;
-	bh=8hOuabnxLm0beCp1h5BHdKuYcbUneAYJ9aWN1l0DLgQ=;
-	b=EJonmLeBJDmYbecbSlan6Sp6F7u6VOaLB5mB+M9+nFUNmbREmDhkqh07jla/tZMMq17x
-	 i6pTJ4TL8uHweOwF3RitE9mmWcQgHdZ/+/Ic9E9gc4wB11AxpAyla56QfEeH/yEyrSVOD
-	 qAItkwXe0erSKJ4fSxzXNucSQcfmo7b30XrJ2q+7e5STiaTOI2n80p9gvj/bsnbJ39wAj
-	 r/MR+9xjPLTkMsJbeEF4B8uPORYT9Hm1OlK+0aUoQk8GPKILMfxlkjvS1D0wsJORKyTHb
-	 pPLK/Xfb+QmdMaklSzVkeagQIOP7t2BMVOnlOcJZKSWBZuFPqb4r5v7w9lFFZZE3R1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602179;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=TEZyD5pcu62HA6lXMz0SzC2W+CY7uiKBKznI8rJlxsQ=;
+	b=Nb27yx60fLm7FSYzIq9lTSsAXEB8RKbh6UrDe0ozR9wqVxVYBPe4jJhjPIi6Mghjefuq
+	 wCFuKzpwYOfh/mkAXUcaJZMBpb/TqEqBy2Ku+CLj/Ltw7peymFamEJr5DEu7cWPCFzgZ1
+	 EOVudsoZqRrROUT58yoby40eAWtFsNaqNT36D7MhbXEOjE+vzjICDgqagPX+xa7LawFy6
+	 eLhfjA1S8T+6ZoKHTBpuIEdDeSbMReSohZi4yaB7gGt2rizM3E8GtouiPHGC7r+xbU2mp
+	 Y1phs/pVKNt8ePWyX3Y1E2gnrqWPDvcOct3ecwbu2xlCTiAHSLWPJGy6z/2CQk9/VZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ChBURhV5;
-	arc=none smtp.remote-ip=74.125.224.100
-Received: from mail-yx1-f100.google.com (mail-yx1-f100.google.com [74.125.224.100])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=QRY1ZjGB;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kG5AVI4X;
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FCC606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:02:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36FCC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63B81606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:02:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63B81606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=ChBURhV5
-Received: by mail-yx1-f100.google.com with SMTP id 956f58d0204a3-67489c8202cso835802d50.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:02:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792602155; x=1793206955;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=8hOuabnxLm0beCp1h5BHdKuYcbUneAYJ9aWN1l0DLgQ=;
-        b=zPfnbvPuBB/BaBUeADnsQZeQ8we+EjAhTGTMXw/pD8qUkAHGPIYt6HzHjrqKcN1evn
-         XrVuIUOtabpIApz/EfhVhn+K4lS044Tbu48dd5jBXu/3yCF0ptvSJtwp0XbFeGPde5Wz
-         wzt97U3susc1uayQsKO+6G5JZDE4ARaSaFiI6nyezTe/2NcsIdlnHU1cWarcNYiTf8MT
-         1rGRZZjn8rI4p5nZxOMcor/21EFG7Jz/pRqLYHSX1a4ITF6NQEeuuEwlhRMJfaXbCkZB
-         Ipeac8Y9LNxqiblW0ck7bF2K6HWLoLRsaXpqWvimasdryOQKRuNZ3rdveMdkKcok37Lj
-         oTiA==
-X-Forwarded-Encrypted: i=1; AKwUvBxnaUQcf4f1x6rOp8F3oeyzOzbK83ySVNY+5WbSqe3FVXwYkTuHiE1o6z5HGhQvz70GccrStU2c/StzxpY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKp8MUtlwUWn7bcMSSPro7x8DEDziA+3RvcNJNL+ZOTmH1G12RH
-	+DjOKVw24dhGeM+l5S6e70Brs832ljfVspww8Mxi/0UVwFvx/O3L/iCxgl00PZj2ViN0SwieIbS
-	QxfKqpMsDMZ0CheqOWL/1N+3RF+D8AjLcdy0j2u9OHBoRambTVzcK0shiFOX5Ow/Lnu+cgDSS9o
-	Ohih8s9JJWd3gCM/91UDPXs6uSjqBoEDhKFQcuFGQEF4Xx+Sr+S48MgzjQb/S4rc/3OPpXMhn+n
-	yR/xIZE/UAPcXwhflqtjdz0
-X-Gm-Gg: AYBFou2zT5rGZRy4fNi9YkpxMMxKYCZbdYZsPEG4u8jKtDreQxbpJMoApcQ7wM326bC
-	5LIis73dYIOfvnRaBxycNkqhpvhMnK9tD2F/sdCVEy8bnQNt/SmxZAnSqpca69IGx9CdlSrWXBp
-	RJV8GE6g9uwiDK8Hb2SFH2wO+D7Ld713pMjo0yX2Qs2EvLzwgHX+h4PX0oXWO50KAnPMbF9Pw2Z
-	uFyNvY1IxU7u70FnJmuE91pB5QdjbnikpOZo+cSrgqOLjf8l3HSZfgAcsEBO06GY0svNHKlYUhp
-	lLVCCnbB0mTlQQnrdvQcQfQ3wo37xKitiFKb4fo+WyXFgaQGFtTfu3aSGU46eqP4s/6q+g7NVmu
-	I/M17QI5kqbvMgaOXUHTVqWS5rmCwzvldHpr2+pBy6JierKBobv6DRKt/cdfMpNu2Qz/Yd3WK34
-	YvCgn346f4tzXfcnR+9iSQBPcroa7amnLdeNVQJtKO
-X-Received: by 2002:a05:690e:488d:20b0:677:d4b0:47fd with SMTP id 956f58d0204a3-67a0e49b2dfmr881092d50.23.1792602153492;
-        Wed, 21 Oct 2026 10:02:33 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-17.dlp.protect.broadcom.com. [144.49.247.17])
-        by smtp-relay.gmail.com with ESMTPS id 6a1803df08f44-91c2104740fsm67906d6.36.2026.10.21.10.02.33
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 21 Oct 2026 10:02:33 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3abfcf726dcso1535732a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:02:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1792602152; x=1793206952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8hOuabnxLm0beCp1h5BHdKuYcbUneAYJ9aWN1l0DLgQ=;
-        b=ChBURhV5LulMs4bCnLVaVA3IZSXrCR45ONzdkar9U+u6fyCq99Qx7YIGf8ZuCV0UKy
-         MGg6AtqyP5bXC430p3V79frR0vkY+UmlgcIv2phwi4+zbCnwC4+als8nIfvpBCjJPaWF
-         VjEtuHH3JJA00xJTlkxXLUKArOc7MLazZ+hdQ=
-X-Forwarded-Encrypted: i=1; AKwUvBxosk+0Sp9otoNnMEuflyqcd9aPZs9niPPspouAa/yKbPDTj2GwfsbKuDDKEcHtHWhCOSwXzvkOP4r/99o=@vger.kernel.org
-X-Received: by 2002:a17:90b:582d:b0:3a8:d71:5fda with SMTP id 98e67ed59e1d1-3ad870b2e7cmr2118615a91.63.1792602152086;
-        Wed, 21 Oct 2026 10:02:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:582d:b0:3a8:d71:5fda with SMTP id 98e67ed59e1d1-3ad870b2e7cmr2118588a91.63.1792602151503;
-        Wed, 21 Oct 2026 10:02:31 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4890c56sm333869a91.2.2026.10.21.10.02.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 10:02:29 -0700 (PDT)
-Message-ID: <45bc44ff-664b-4a18-bdcc-bb812220e2e6@broadcom.com>
-Date: Wed, 21 Oct 2026 10:02:26 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm1 header.b=QRY1ZjGB;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kG5AVI4X
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfout.phl.internal (Postfix) with ESMTP id 5E157EC0191
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:02:58 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 21 Oct 2026 13:02:58 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792602174;
+	 x=1792688574; bh=TEZyD5pcu62HA6lXMz0SzC2W+CY7uiKBKznI8rJlxsQ=; b=
+	QRY1ZjGBBhV/NY/+vXckqdP9UdbG7ET+EHLz9tErP6Ht/1xX/XhG+5lEdDQHyh7n
+	QqO6RiwQMU76DAM999Jg1m+o4RgSBt3CuK79mu3RlJNmrs/eIIY7E9PyEc3k73zL
+	UqGYL9HqdF2GK9Eqou8u9bYjXTk9EL1Sve1rxOaqJYMkJ6xWSfEO7gmtjs0ScniF
+	WuyQ1gxJ+NPW+glQ9QmPT+qk1da6Rkcew+tE76lRVx2IMjvrOpwn/9wJdFODNiWE
+	kfUQQho9RVGmsDYznSmTpXlrbNGxpOPCfh75U+Wt2he6QC0yWfb29CoV1x1m9YBf
+	I2RI8990ppHYKvGpXywZoA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792602174; x=
+	1792688574; bh=TEZyD5pcu62HA6lXMz0SzC2W+CY7uiKBKznI8rJlxsQ=; b=k
+	G5AVI4XTRSGyEJmWN27DMXkCV1dpAXajXKfTvVH/rEHlrO1Q12W0h+MbHFSAy5IG
+	yafOOWJdzwT6zkEZKkG960TJ/dAd4mljkTAdLWOLL1N8QpDUUnde8+OFUOLGqyax
+	i/uhZ+H82618bzRp4SlAg+x98sGxfTWThhDI1Cq+oPn5GY1W9UJJb4E3GN7c4uPj
+	EkTFDBdnSlZzj5hvNZNOIyi3Cgv4Zdpq4xaCNnOyyPIm6xmr2rHxIYmC+Pky+akm
+	BifwkpegJBFRUmTUv5IBMTGHBASHL/swC8CzGZIVKJVgwmW/lIfzjI31khPlV4VE
+	/SjmTd/pkQw722LkSz6gA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792602174; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:PYAZpvjI1fmYiyG8UBBL77b2mphug9zqVNbw77vBFum07KM
+	wPMv9Svz2ztT/dXJPaoWjB4pRtMO0xxKFgcMLXhBL2O5w+4mhB19D4N+RVQnxOej
+	0OIfVZNzYM6RkctRsE2XePRxzsCx9sfhigg3HTIDx+JsjzGuOKrlE0If1Dv6SPRa
+	x+miGGaaMO4uzuOI/7Srpy4jqlwVm0gVhTFE9mwOBTDMKEWcPo/ihD7njlcx9LxH
+	VS1q/li/Z6JPW2augXyygrGwitXoGc5qlZjvAZHQq2UUdwpayvGVGF0XEniupEnt
+	X2o6l+Fz6vbnK6bJ8nM7NHRGTWYJmWvVUXEZNUg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:0dEGpu+5OC750QFyrTXNnD5XTzn4dE9WmDdkwUY9cCI=:itydhWu1NgktY4WhwToR9q82X6aIYDRQkv5dsPsu+pQ=;
+X-ME-Sender: <xms:PPDYahItIjuCYX_hz0h8MzYkkE9GTF7Zx7_VW9dffJXTV8Lgk9piMQ>
+    <xme:PPDYan8wMuYvKpg9adBqpOcFnxbmR5GH96JjtsQlAlJMYo4xV8-0pTGbaqBswfnIO
+    v6PmhWZO-WX66MOukSkrLsrDZCQX_6FWIKK50RCPtr-H-ncse35g4HP>
+X-ME-Proxy-Cause: dmFkZTGKtv/0ANKjDg40Sw8CEUymGqXjjmpaqvC7zvrFp5nBZxkDBqLuiZJ/cE9cGA9KqB
+    i8UHUsXp9uQyFcYOPQFrTLEygjnhao9+CkQTvm2Y4Zca7f49/BI62DJfRoiMbSE6yVxHrT
+    +NPQ5hWi+AZBkWZKElVhjPau6njeHgyuZCDuYdNyRCnHwrCcY2bNaPRsMtcUGZwVLIwX9Q
+    qLwZt1x/1z7gyCeKE3xaQQDFJtnEurEJJKQjw/gD9hQSQZVcX5tknzeULCduJCYwsdwcng
+    kcV1DkjK/KKbIUEb1ulfbHsAhU6MX3zVmwoCsnjPDgeowJbEmQqbSND/m/m+tsKH04IvJJ
+    90lgFONmIQI+ymK3FiTcvmO4lADoyI82U5SEXAyAWFcb9808iG1uA5eBMdy5vIeJjw18a6
+    dofU6VCCK6cOe4P3fqC+kiLlyLvaxt0689dN8NsdXuxexi5aef0WR/oXfoBSsDYg8DZ/zY
+    qwJsMmJupxIvIQT9lPgX4tVL73M6qCAFV6sKSGooyxRYR83FEpEAu+rx22iR/FJ0iw5U3l
+    NDcyKy3hBBL+9uOabuCosbuaeREdr3Qv4pMIwmEDKDo20C5E/DoYO2krX/8b2vsS4S3Cq9
+    mTP8hBdn5unVCSBq6nd6gWEO3+r5h84P466RTvUHQpa/QKFNcDIKMEcG+dvA
+X-ME-Proxy: <xmx:PfDYan5fF5tWRe4L9yUMchFmntnD44LhSaIJAGaBVdn0Zd5SC1POlg>
+    <xmx:PfDYave8mocWvqv3ManDpoBq2hiP7RkHf5rPrb9erLVLpUxf8uhWyA>
+    <xmx:PfDYaiE0eq--0eykhAErvc1AnKBm9X0Or3PgQToa3p6PB3URLf10Zw>
+    <xmx:PfDYaoSN1jvk-l88eAfbb8hCOtWZ99x8InTqPf-6r5hqDMIrUWWOlA>
+    <xmx:PvDYarVihCqiGHca1UMiyB7ExgAeYFORzCFkzLu0DA1TKxoIEDlbehC9>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 9BCC232A0093; Wed, 21 Oct 2026 13:02:52 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,86 +115,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] Fix SATA support for NSP SoCs
-To: linux-arm-kernel@lists.infradead.org
-Cc: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
- Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Tejun Heo <tj@kernel.org>,
- Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
- "open list:LIBATA SUBSYSTEM (Serial and Parallel ATA drivers)"
- <linux-ide@vger.kernel.org>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>
-References: <20261021165555.652102-1-florian.fainelli@broadcom.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20261021165555.652102-1-florian.fainelli@broadcom.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+X-ThreadId: AZo3noQSaVtc
+Date: Wed, 21 Oct 2026 19:02:32 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>
+Cc: "Andy Shevchenko" <andy@kernel.org>, "Linus Walleij" <linusw@kernel.org>,
+ linux-input@vger.kernel.org,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, "Hans de Goede" <hansg@kernel.org>
+Message-Id: <9496ea3b-563f-4517-86d6-e20694e2ec9b@app.fastmail.com>
+In-Reply-To: <atjuDNi0_SXs4y2d@google.com>
+References: <20261021015004.1537738-1-dmitry.torokhov@gmail.com>
+ <20261021015004.1537738-3-dmitry.torokhov@gmail.com>
+ <CAMRc=MfZg36BULXh3n-ce_x_4B_xOn3Jp4Jgo5BN1LsB2FqaTw@mail.gmail.com>
+ <atjuDNi0_SXs4y2d@google.com>
+Subject: Re: [PATCH 3/3] Input: soc_button_array - convert to software nodes
+Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 10/21/26 09:55, Florian Fainelli wrote:
-> This patch series fixes SATA on the Northstar Plus (BCM58xxx/8831x)
-> which was broken due to a number of things:
-> 
-> - the SATA PHY assumed separate PCB windows when a shared one is used
->    for this generation of SoCs
-> - the clock/reset (IDM) was not being configured by the driver which
->    meant that depending upon what the boot loader did, or did not, we
->    could have had the AHCI controller still in reset by then
-> - on some reference boards, the AHCI controller is not DMA coherent,
->    assuming so leads to all sorts of timeouts, data corruption, etc.
-> 
-> Since this touches several subsystems: DT, PHY, AHCI and DTS, I would be
-> keen on having Damien merge all of those via his tree if acceptable by
-> the DT and PHY maintainers, I am OK either way for Broadcom SoC.
+On Wed, Oct 21, 2026, at 18:56, Dmitry Torokhov wrote:
+> On Wed, Oct 21, 2026 at 05:11:32AM -0500, Bartosz Golaszewski wrote:
+>> >
+>> > -	*gpio_ret = desc_to_gpio(desc);
+>> > +	gdev = gpiod_to_gpio_device(desc);
+>> > +	fwnode = dev_fwnode(gpio_device_to_device(gdev));
+>> > +	if (!fwnode) {
+>> > +		gpiod_put(desc);
+>> > +		return -ENODEV;
+>> > +	}
+>> > +
+>> > +	*gpio_ref = SOFTWARE_NODE_REFERENCE(fwnode, gpiod_hwgpio(desc),
+>> > +					    active_low ? GPIO_ACTIVE_LOW :
+>> > +							 GPIO_ACTIVE_HIGH);
+>> 
+>> Sigh... I hate it and it looks hacky but I also don't have a better idea. :(
+>
+> Thanks, that is quite common reaction to the code I write ;)
 
-Argh, looks like I submitted patches 5 and 6 twice after I had 
-re-ordered them, the correct order is in the cover letter:
+When I looked at this one in the past, the only other idea I had was to
+completely separate it from the regular gpio_keys driver and just make
+it a separate input driver. I think that would make this driver a bit
+cleaner, but it would also require a bit of code duplication and I
+can't tell if that is worth it.
 
-ARM: dts: broadcom: Use noncoherent SATA DMA on BCM958625HR
-ARM: dts: broadcom: Enable SATA on BCM958625HR
-
-Will wait for feedback and resubmit if necessary. Thanks!
--- 
-Florian
+      Arnd
