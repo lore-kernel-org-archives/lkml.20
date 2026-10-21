@@ -1,82 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591377;
-	b=mLCDIutiT0FkBNQOFiLYV1xd48qsa72I71n+0cFz8OCIQB5zpyqJCFmRXtiOKGlVhGTy
-	 uOCifFRoZO6AAeQPfgrbby5Kc+/ANRm9cGAvyarBvoAJjacyFQwU2XgacqF1G4qs7T53K
-	 hJnGKY4og8M+MB9gBomFIstRXrrsRFaU2o9kJulEWkMum0gZnA4HO5vcEOr+UCWFqNoN+
-	 YtrvaPR2UcImBy1RF04VfWu5uhI7PwdtFl2pfQupUFs4KKanD/UYI6Xq0wZlZBhf0QUKg
-	 0cN7Cw+ESGALNHGpjqXnH5PmAccazthFfdaYgdnchll+S7Yd+sR5vsUPiVy9JX/sGRg==
+	t=1792591387;
+	b=ZWzlyiUktVJL7q6ry9kWNAvH2UK2XYJOae1DfCyksSu5whzfMGuL4DbWj5tDyAE0qixk
+	 eTBNbNkkWakTIwV95QjRY4+T6jxifF9E8XlKkIGJUxAidGY+m9K1o69aMl9mQ3doaX7r8
+	 cCvqL1RrQzSySba4nz4ougoHx/gyiV4dqTtOKbAVDOUx5oUO8sKx7r33S27h/caWJnebr
+	 Hx84i2Gom6PxeFAxGi2QAYb+jnRi4TLvgs4+gfvEac1cfAX5BdrrhiNTtsIGLW1qKgcpm
+	 ybw7WVrYkW9Yg7OxzXxutl6oc5LUNnaZ3R3UG9yi/juQFmLb8WQwsxNVibZ5//+a4zQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591377;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=fDLM2uSdaow9LokFw0VaDIv/9QOPzVgEmcb//BHgPyM=;
-	b=eC0qQ10fkCB32bojVCO0Ge7Es0zdHEfZyino4JQoaGa8Ea+5VtiYaCqXU0iEkf/GiBoO
-	 bbqIcYYUA+NK9XCU9g6wVwlVYjrx4t/ZHoeOqHOLYXGRnmFx4+jOd/nMXf8Pzl6Lfb7ia
-	 1Nc7rer1zB4pG6AAmaINsEZ0xa3GoMztDxZQgs3ldgxejQAahxQdUXI7+LrBILNQDKaKZ
-	 K3pIqVaVpTN37HhCNJ1CC/lO7eDnuM8frLMvrHR0C4UdGjheuc1Ul9nnSQoH9CcMegi5i
-	 G7DRlxdO2TDEPPOwiFQ6U1UgzZXwpWbXvr90BobeoscGEAirdEjkROuV++TE650BIDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591387;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=HG5WwI0uva9+q35bmaikDJW5M7QGxWPn9cqDARaboVE=;
+	b=dAYjGu+KZ8FreqoPloGVmfaMeohVu+MwZE+WE18YFV89CfjRxL7Tug+KTPEd/0B8V1yd
+	 PE4heyCgRMBKZ4lIMFZTkn9dvKzTanc5Uwrh1YV3HLF3B3UHpjQV8bKvb99k8FPoD9i0F
+	 34GstQ+W5rdUdGErN8km2zjJWYJBen6OcGWnPfJhCok2Pge2S2PDc32+WVR593yYRSV7F
+	 OnSnrG3T7elmxWmtSlkkfVh/Z0zBIEJ1yOuY0n0DHy33NmVDnAA5R5T01bHMKkTTnOJh2
+	 ycM2JTUP/z19DKZeL3afcM/2APxPkQQFcD7m1I434pMiIr91rrEwNZSbbrRJm6l3zpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OUA8VE9V;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGjvyCzl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D05606A31D;
-	Wed, 21 Oct 2026 14:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98D05606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F51606A32E;
+	Wed, 21 Oct 2026 14:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OUA8VE9V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792591374; x=1824127374;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6TcpUU+U6JP4MXD+j4bO+YP5IabLS7DHZ5gJkyB4Sa4=;
-  b=OUA8VE9VlomzQ9ySAxgQDPJtkfHVZW9TwNJXT9Ywx1oiCdAA8Ecd4Aef
-   EizK+tZE8RVNa+f5eHjVetBF0m1YWo2r8PtLGDE8r9fjngmRGRgx6nJVN
-   uQg90Cn5QIbz60ayEiLGDeTe3VOSGsZKYsvdSPUktNpUoPVY1XOAmdor2
-   f/7N4xQO2p3j1prVfWigHu9rbstQgko/xtsShO0qn0iKYPzWFgTbYfVEJ
-   RJJkcm19w+Bfp5lKh+4+4/VGWkisQvJ72Oqp8qrPiU58zzKwEZOfnTQLF
-   2j98t4c8KmrLk5EFqhEmtsuV5w9hBJS+8OgVAMCktq/Ozfijn0evHAxff
-   w==;
-X-CSE-ConnectionGUID: AAALVXWlRE25Hh/uefcPDQ==
-X-CSE-MsgGUID: R0mSUPKNTpyUmzcktM8aew==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1214489"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1214489"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:02:51 -0700
-X-CSE-ConnectionGUID: JogAVmmJS02mlCCCTu7pTg==
-X-CSE-MsgGUID: iwCDsb9RRXOAkFMEYHMsEw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3416326"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 07:02:48 -0700
-Date: Wed, 21 Oct 2026 17:02:46 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Shi Hao <i.shihao.999@gmail.com>, Rachna Patil <rachna@ti.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org, mfd@lists.linux.dev
-Subject: Re: [PATCH 28/28] mfd: ti_am335x_tscadc: Remove redundant
- ti_tscadc_dev_get() helper
-Message-ID: <atjGBg9IAnPPBRmX@ashevche-desk.local>
-References: <20261021121245.3111563-1-lee@kernel.org>
- <20261021121245.3111563-28-lee@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fGjvyCzl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF621F000C8;
+	Wed, 21 Oct 2026 14:03:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792591387;
+	bh=HG5WwI0uva9+q35bmaikDJW5M7QGxWPn9cqDARaboVE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=fGjvyCzl/fJR+Od4lSDF8SJ6aZKPrlsrQz4NQHh6aQRKTNbxA8w5bvEkcPmIm1xpD
+	 0UbBGkvMb2PXPQyZplNPm75s5OZMCs/of/Q32mdtF/smWQKFNP+WRVkOVM1g/pgF7M
+	 k6Gilcq91OuB8lxZWSo00NOqkLLNDe4YfheInStdqfZqXqgjkEexCgjzhpWK7jNZnu
+	 n9w/rjbYE9+Ogl2+2nUyjwlTtBNyRUgQR6xwpeDtOajbZKWpMIFENdUf57CPUfbI+p
+	 XxgSiHkBRrGucN9Hhu/l1ep5E8AAg+JpBLP1qT7YhJ+SATLQ2wcWoaAydcqYox4Jd8
+	 hWBtCNuaWDKkQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xJWuG-00000005dP4-3zaA;
+	Wed, 21 Oct 2026 14:03:05 +0000
+Date: Wed, 21 Oct 2026 15:03:04 +0100
+Message-ID: <86o6cnywvb.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Mark Brown <broonie@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+In-Reply-To: <CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
+References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+	<atc2Y4gHwtGlffns@gremlin>
+	<CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,26 +80,71 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021121245.3111563-28-lee@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: fuad.tabba@linux.dev, ljs@kernel.org, oupton@kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, broonie@kernel.org, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Wed, Oct 21, 2026 at 12:09:50PM +0000, Lee Jones wrote:
-> Now that ti_tscadc_dev_get() is a single-line wrapper around
-> dev_get_drvdata(p->dev.parent), remove the bespoke helper and retrieve
-> the parent driver data directly in the child ADC and touchscreen
-> drivers.
+On Tue, 20 Oct 2026 20:30:56 +0100,
+Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> 
+> >> @@ -59,6 +59,7 @@ struct reg_feat_map_desc {
+> >>         const struct reg_bits_to_feat_map feat_map;
+> >>         const struct reg_bits_to_feat_map *bit_feat_map;
+> >>         const unsigned int                bit_feat_map_sz;
+> >> +       const unsigned int                idreg_idx;
+> >
+> > This field feels a bit hazardous - 0 is a valid index and now things that
+> > don't declare it are setting a valid value.
+> 
+> idreg_idx is only read for the descriptors in idreg_feat_maps[], which
+> all come from DECLARE_IDREG_FEAT_MAP(), so the 0 in the others is
+> never used. Storing the encoding would work as well, I'll leave that
+> one to Marc.
 
-I don't see more patches Cc'ed to me, so I don't know if this one makes sense
-or not, but OTOH I don't care much, both approaches are fine with me.
+I don't think we should baby-sit people who hack this code. If you put
+something that is not the output of IDREG_IDX(), you get to keep the
+pieces. If you use this out of context, it will blow up in your face.
 
-Acked-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+> [...]
+> >> +static bool idreg_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
+> >
+> > To me this reads confusingly - idreg_apply_deps() would be clearer I think.
+> 
+> Agreed.
+> 
+> [...]
+> >> +       for (int i = 0; i < r->bit_feat_map_sz; i++) {
+> >> +               if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
+> >
+> > What if it isn't a CALL_FUNC feature?
+> >
+> > Could this loop just be replaced with compute_resx_bits()?
+> 
+> It's skipped, so a dependency written as a plain field match would be
+> silently ignored. Both entries today are CALL_FUNC, but
+> compute_resx_bits() handles every kind of entry and would also give
+> the res1 line something to set. It'd mean moving idreg_deps() below
+> it.
+
+I really do not want to drag compute_resx_bits() into this. None of
+that stuff is RESx. It is bad enough that we use the same structures
+to represent different type of dependencies. I also want to add new
+ways to affect ID registers that really do not fit the RESx handling.
+
+> Marc, compute_resx_bits(), the rename and the loop rework are all fine
+> by me. If you agree, I can respin with them, or you can fold them in
+> when applying, whichever is easier for you.
+
+I don't care about the name, but I don't want the rest of the proposed
+changes.
+
+Thanks,
+
+	M.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Without deviation from the norm, progress is not possible.
