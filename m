@@ -1,124 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605933;
-	b=qE3MDEprPeJRqXJnknSe6aFsoQX87CqnoxVXfXW4hQDYffUCEG8h+sy9mQGFrzhCbSxG
-	 dUpMMi53VRAkljHia7X1MLZsZvf7i4h/PadGWdbKbM0gJaLpDq56Y+LupCOhRclRB7L92
-	 lV2A0PZFPtBsg4KSyZ+7/cWxEilhAsQVTFolbQBxl/bZT6D+wFrvDo2gR5YtffgjNH5bZ
-	 OKxhAnIOBa+fgTyU3BtIIsSC2rxdeIcLhgzFCzcQibZ9mAC7+BL/ZU685GICgY0veiQil
-	 zbL6L8+EhnzJyOhu/NUHSyYJmMbJz8TN/k1zCiBAtptjN/jo2a1O9m9S342Nc6mRYyg==
+	t=1792605952;
+	b=3JSxnPiuHx26iuuloItGlS8gjqiat315dqJMnJV30PqhyYpRSwqACU1CPVVz21hLLtGk
+	 Kpko9wUc6/qug2W5WGL/PcIVnhJgLr5koQyZpOAh3saYcNZvM7NiHpXZQnAZFEDyZnwEB
+	 46q2WygffUCGGer51CRg2WPsINevcG5y1dZ3EUribLWnUvpaRqQS1FFP6wArvak0bymSZ
+	 UaqqQRiU8/wfkj2DhqjSdi4A9iRRob1JRCofX6CqJIBpzl3IkNP+inM0+tY65SPURB8Qn
+	 Z+TQCcOIMWtQ7I05JXrlUzA6c9WlQXJpeMuDcBleR6x9yOlUzAUyr7gCIUhDKnURuHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605933;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DS+qpxy2NKuBUhINnKtH+4oZ3tQEN68OVLg0g7A1lmA=;
-	b=FHyRMcDJyitwuBTHv3nYUqqxy09Y3S9xlKZZ1GXhwHsDvC2ERgCMoUyyS8zfUJdQH5Tl
-	 /bROUNyIGGCZ6oQKnxKmb1xxZdGMKSolFTfbWAmGXynbEgndEhZ+P8KANMuyxm24LsBKg
-	 zadof9ZXMlWC4F7TkHqBqhmQs4EUXvu8PQiMWQTWXC1iXjMBIChc9O4/K7bv42qnf933S
-	 DIEiB7x3Rk0us6hcVImc3LL0KN1tfv2ix0hrQQ+KiyKVgbWzytYNcZcnh4O5JVHThASwZ
-	 wc3Q2QctdKuXF/e/f33GB1v2IrVJX9Odl+sF+JyEKCbIHPJky4blcc3XJTjS/4tMgmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605952;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=AJCrdCDNjGUfUWfP/t17vdtV3ZAlW99PLvfAiw3Nk4g=;
+	b=Ai/7jsPFeRnIJKr3hlSCKMxqT5TbsHrI5e1h6s6NaEQBB8qZATKZLHY5iZSEIecVSLga
+	 Nq67CYjyyPN8nNjRTMUdzdCeIilfAhOqtyHcP1neA99aryyxFc5KSv719Ra4EkpAASW1Q
+	 PK8DEHM3A7va7DOuXGXmChVW2e9HkoJlDx0p2rXodAS7EyPbUkfC/Z61IKzGjGnHSzOmv
+	 7XLI8GPpZ4oe3Pj09Hszgu01wyHg7D1T3MG5UiQrUHvK0KCzkM0ihSfmE92H+QqPbdSaf
+	 e+MSO+KnH7j9N+8KgrjPxutYZsxR13AZW4qia/PvsfeuVeRQ+BpWwNNanmZBjIsLPSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ii5B2VWq;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RSuf21aX;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC294606A334
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC294606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764A9606A325;
+	Wed, 21 Oct 2026 18:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 764A9606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ii5B2VWq
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so12191645e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:05:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792605931; x=1793210731; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DS+qpxy2NKuBUhINnKtH+4oZ3tQEN68OVLg0g7A1lmA=;
-        b=Ii5B2VWqfwQW5rzOGgccwN0tkdmw/e4rjES1c5Zo92Eo0X5gjyDyp5PY38u63ZPztE
-         uVtGhuu47sjcZgNH1Wo/jaIgCeym6Ms8YT9fEnibOKNBnQRdevlo7AO9rtWlYUIJIsqy
-         x7i9wy67Yb/MnMKsq9nAG0J+0gIMNOB1eaLKhYtLYHSlrhUXRxA3nZimCsJRByF1QNlY
-         RsVQJBPzWToj8ihKGmpCfsecuceIY94Cex4ogp5ahaUKwiHB58wCl9xgJCQz+9Fzp1bC
-         Fes9WVUmPxSIFuH27OMYhcrpYJGSU9mA91jOKK6lqOTpzSrK6eb7HK4i+tuWFf9fp5OT
-         RGUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605931; x=1793210731;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DS+qpxy2NKuBUhINnKtH+4oZ3tQEN68OVLg0g7A1lmA=;
-        b=1a/XwI/i1ooqT7iH+jniTTxpa7Osd6mnRpEHtYBW1ng41NBvGKEkDYGStWKNl/wtcV
-         AbgeoZrHSPFr9Xv+oGUR6esxrLC73xg8cqjKj/zF+rxhrQA0mJc2JP/lin8YFfPwXR3+
-         4MoQfD7E2uYygl8WWBzLgrBcfjfT099S86WjyMwwaxjE12DCUV9Q8OETXoBVrnTDocgW
-         rqxuE36ldT5oHs61Y73PkWWWAH7xdUF9C9rh/bMwM+KFVQ+8Vh5ZEFtnrPb9kZ1V6Nia
-         FqZJMtL9QLQKQB3TmXmsZHkPxxzaydHjQosVpFC6M8rUjgPXhIzCLOWnnVHdDC7AwcAg
-         EVTg==
-X-Forwarded-Encrypted: i=1; AKwUvBw20d7AByN2dxvzBGkgxRStmZLMvf0EDTaZxTnccRYuUhq5yZMVzkHRKbUIKCYOuhaLKxyDSS6UpGg7Vk0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgB6CacF7VDUmaVaNshwypYEgRWnJNaQ7eurQACDx1/DZZV29R
-	qVML3DyFFj2ICJssW28y7Yqci2AnBzcefnIM5Kga9hqleRIBOANL1u2s
-X-Gm-Gg: AYBFou05Uz44/ulRAItxDAZDxMdaKEPLpr/asXX+LY1GYlIEuICqmkw+bTNss70EVAX
-	8V5sbtJrrBDF1Eh21X7m6QEo1eG/EolIjCp01b7bNjL7odvzHP9CWKmmk/5aPfzHl5RD8d91rcC
-	WUbrXjc/XZDlxRIc2lXnNAIACB2XfCZgJwFjv69F9ibMX6sS52GczJ80D8khZn9ZJkxnKjvSuPc
-	pmK24K2qjgK3DINlOoNX/Kf0MmDj6hxtVjN8zI7N1bEZMmydj+i7vW/Vkx+ZHdWQBK8BpWP9P7D
-	I+52k20NzXK17i/cyr3+IZ330B2xwNaOu8VCiw5furWfWlHrBPv5WF92Eby4/iWFYB59fpgZFQP
-	hvNwRQHImj87W1HE+k4ZrRecJarWirQOjtlp8HffJjHmI/Khj9RTlfvSdb3oerGCiUTibaYTSZ2
-	289zZcRlXd6c4pmlWlXiaYnQXE0FwJQxIv4Z9sIKRYKspeiFYsIVIUlAKxTttJcY+w5870uLgCA
-	mF9TGgHq8QMpYi2vg2WDMvHNxpKl3PPEQGz5AV5/z8iOPCi76JvFVnxD4rQB5HlSBJ+dDcNFnJu
-	ryhsus8/EJ8OdbAkPPEejiHsASMOLtD1+q8CTR+Pj6I8EFS5HQLdUgAJQJb2I6rI75BxzwQmTcU
-	kNOEVQ5kBtOE4r3ac5/ZHO/GbHuGh/QK9
-X-Received: by 2002:a05:600c:1d0f:b0:49f:faa3:3ca2 with SMTP id 5b1f17b1804b1-4a1fdd14249mr60316635e9.13.1792605930927;
-        Wed, 21 Oct 2026 11:05:30 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c6:e6ea:6401:f04a:ac6f:988e:f33d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fcd13891sm47007775e9.2.2026.10.21.11.05.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 11:05:30 -0700 (PDT)
-From: Nick Simpson <nick.simo@gmail.com>
-To: Magnus Karlsson <magnus.karlsson@intel.com>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: Stanislav Fomichev <sdf@fomichev.me>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jason Xing <kerneljasonxing@gmail.com>,
-	Song Yoong Siang <yoong.siang.song@intel.com>,
-	Rusty Russell <rusty@rustcorp.com.au>,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Sridhar Samudrala <sri@us.ibm.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	netdev@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	bpf@vger.kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net 2/3] xsk: document checksum offload handling in copy mode
-Date: Wed, 21 Oct 2026 19:03:28 +0100
-Message-ID: <20261021180329.26358-3-nick.simo@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261021180329.26358-1-nick.simo@gmail.com>
-References: <20261021180329.26358-1-nick.simo@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=RSuf21aX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1792605943;
+	bh=P4mI3jVORdFOS0hLbLmfPfeRfTH3pEbYoF72Q6pG7+Q=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=RSuf21aXdyPZWIyhF9vwsgBeIkdUZV60wvudJ4vRzZm1KVyrRxRJgfNngK+o0bMCA
+	 zMhMYLV6ryIivoj9uWI6Cm/KrTWI4+78fd1e7YZk0wB5PO7Onq2oc/oxxR8K6++17C
+	 d0LLU7g+qz3WYuYL9rU6XOE6X7dUfLcakZt6beJXwp/yz6yxKg30JGnCQYxHwJf5i4
+	 /MBa0hs3rWBoDYYXBGwlZHnXJNiGeJwaCMFcMnJz82CJOTx6RvOm9TT8s7+fG+LAHt
+	 vYiCoO/Bzk5K2jjlyzXZeFTvFCuuYU/vDtobujyW96YkbaUYhLb5ZzzrCNX5KKBFGH
+	 bfqZNvHrA6+pQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A02CE17E08D8;
+	Wed, 21 Oct 2026 20:05:43 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 6357848002F; Wed, 21 Oct 2026 20:05:43 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Wed, 21 Oct 2026 20:05:27 +0200
+Subject: [PATCH v18 2/7] phy: rockchip: usbdp: Add reset hook support for
+ dwc3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -128,39 +66,206 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-2-60000d03fca2@collabora.com>
+References: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
+In-Reply-To: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>
+Cc: Igor Paunovic <royalnet026@gmail.com>, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, 
+ kernel@collabora.com, Sebastian Reichel <sebastian.reichel@collabora.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5053;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=P4mI3jVORdFOS0hLbLmfPfeRfTH3pEbYoF72Q6pG7+Q=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGrY/vfJ60A/eFrS1inhBnPWu50D0qonUw6jS
+ RzZy2yoUNxjC4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq2P73AAoJENju1/PI
+ O/qaQKQP/jeggayT5hQ8EMcCSEr5qB9OuapKcw6neMxNBT7BoOnCUIU3yobpKeOXIrxf9puRX0Q
+ KEaQko0sVkWQXVeqLIPuA/qif2YNh1IfONiBdypGmXdw8QYPzy41zENlFRNEo076AGk/xHx+b5a
+ g02hInf5Oixt2PQi3iR7cw/TFXk36oLHZCxHnXW55RdLeFbXr16Eo3IONIpFNVEHyQxExyYa8AR
+ c367B9SKKbpkbC/DGewnBsRhnvbUZDO1n6s9XVtXgiLeLjetE9KeExZERcvuzbFfAPX25PrnihE
+ QgvGgpIcsKa4pXuXUJr4apPxQ6CAnf2uw3HJjN6nOsCLHsZs33FbnVbyPMsd79qKtDgI4XqI4Uh
+ MkofvMS3L6o5zuaZkP8oI5Kh30BQ5IRKAFhdJqiDXvRZ41j5KKKJ9R9QxXwMAy0YKMbvtPq5Xma
+ 2VPxDD6ExErAc2jnSO4Cfg9dQT1BUbfa3qq1CmpqxhIqOUNEsIAJavz4xtK++hhS/ZMMyEONBUs
+ I6xP0rSxo/Rpc2IqS5NE0AISgZjaHETxNkmP8b7SbDA2+nxOBaqUQkczyQ9kcJVh7nqyOBY/tf9
+ CeiORhWiDNW73HiRw6XyLPQNWBPqdcPEtMiShXcfFFN8PbBA40qmGgdlixbnAK9ajbE9vNVIBq6
+ jicWoPXLZaI5q7M5GbAAxeA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-In copy mode, XDP_TXMD_FLAGS_CHECKSUM requests are now left to the
-device only for the TCP or UDP checksum of an unfragmented IPv4 or IPv6
-packet, not IP-in-IP or GRE encapsulated, on an Ethernet device; other
-requests are completed in software before transmission. On devices that
-take skbs without a linear part (IFF_TX_SKB_NO_LINEAR), every request is
-still left to the device. Say so in the description of the flag.
+When TCPM (Type-C Port Manager) triggers a orientation or mux
+change, the PHY needs to reset. This results in the PHY no longer
+providing a clock to the USB controller. If the USB controller
+registers are accessed without the clock, SErrors are generated.
 
-Assisted-by: LLM
-Signed-off-by: Nick Simpson <nick.simo@gmail.com>
+This can be avoided by switching the clock provider for the USB
+controller. But after switching the clock, the USB PHY sometimes does
+not succeed to lock its "cmn ana lcpll" PLLs again. I suspect this is
+due to a clock glitch and after some debugging figured out that this
+can be avoided by disabling the USB controller's PIPE interface while
+the PHY reset is ongoing.
+
+Implement an API that allows the USBDP to actively request a reset
+from DWC3 as a quirk.
+
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- Documentation/networking/xsk-tx-metadata.rst | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/phy/rockchip/phy-rockchip-usbdp.c | 60 +++++++++++++++++++++++++++++--
+ include/linux/phy/rockchip-usbdp.h        | 31 ++++++++++++++++
+ 2 files changed, 89 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/networking/xsk-tx-metadata.rst b/Documentation/networking/xsk-tx-metadata.rst
-index f240930ca1df..028564dba43d 100644
---- a/Documentation/networking/xsk-tx-metadata.rst
-+++ b/Documentation/networking/xsk-tx-metadata.rst
-@@ -50,7 +50,12 @@ The flags field enables the particular offload:
- - ``XDP_TXMD_FLAGS_CHECKSUM``: requests the device to calculate L4
-   checksum. ``request.csum_start`` specifies byte offset of where the
-   checksumming should start and ``request.csum_offset`` specifies byte offset
--  where the device should store the computed checksum.
-+  where the device should store the computed checksum. In copy mode
-+  (``XDP_COPY``), only the TCP or UDP checksum of an unfragmented IPv4 or
-+  IPv6 packet, not IP-in-IP or GRE encapsulated, on an Ethernet device is
-+  left to the device; other requests are completed in software before the
-+  packet is transmitted. On devices that take skbs without a linear part
-+  (``IFF_TX_SKB_NO_LINEAR``), every request is still left to the device.
- - ``XDP_TXMD_FLAGS_LAUNCH_TIME``: requests the device to schedule the
-   packet for transmission at a pre-determined time called launch time. The
-   value of launch time is indicated by ``request.launch_time`` field of
+diff --git a/drivers/phy/rockchip/phy-rockchip-usbdp.c b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+index cb1f455accf8..6fb6b0c0860b 100644
+--- a/drivers/phy/rockchip/phy-rockchip-usbdp.c
++++ b/drivers/phy/rockchip/phy-rockchip-usbdp.c
+@@ -19,6 +19,7 @@
+ #include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/phy/phy.h>
++#include <linux/phy/rockchip-usbdp.h>
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
+@@ -179,6 +180,9 @@ struct rk_udphy {
+ 
+ 	/* utilized for USB */
+ 	bool hs; /* flag for high-speed */
++	void (*dwc3_reset_handler)(void *data, int port, bool pre);
++	void *dwc3_reset_data;
++	int dwc3_reset_port;
+ 
+ 	/* utilized for DP */
+ 	struct gpio_desc *sbu1_dc_gpio;
+@@ -995,6 +999,46 @@ static int rk_udphy_parse_dt(struct rk_udphy *udphy)
+ 	return rk_udphy_reset_init(udphy, dev);
+ }
+ 
++static void rk_udphy_run_reset_handler(struct rk_udphy *udphy, bool pre)
++{
++	if (!udphy->dwc3_reset_handler)
++		return;
++
++	if (!(udphy->sw_mode & UDPHY_MODE_USB))
++		return;
++
++	if (udphy->hs)
++		return;
++
++	udphy->dwc3_reset_handler(udphy->dwc3_reset_data, udphy->dwc3_reset_port, pre);
++}
++
++void rk_udphy_unregister_reset_handler(struct phy *phy)
++{
++	struct rk_udphy *udphy = phy_get_drvdata(phy);
++
++	guard(mutex)(&udphy->mutex);
++
++	udphy->dwc3_reset_handler = NULL;
++	udphy->dwc3_reset_data = NULL;
++	udphy->dwc3_reset_port = 0;
++}
++EXPORT_SYMBOL(rk_udphy_unregister_reset_handler);
++
++void rk_udphy_register_reset_handler(struct phy *phy,
++				     void (*reset_handler)(void *data, int port, bool pre),
++				     void *data, int port)
++{
++	struct rk_udphy *udphy = phy_get_drvdata(phy);
++
++	guard(mutex)(&udphy->mutex);
++
++	udphy->dwc3_reset_handler = reset_handler;
++	udphy->dwc3_reset_data = data;
++	udphy->dwc3_reset_port = port;
++}
++EXPORT_SYMBOL(rk_udphy_register_reset_handler);
++
+ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ {
+ 	int ret;
+@@ -1005,24 +1049,36 @@ static int rk_udphy_power_on(struct rk_udphy *udphy, u8 mode)
+ 	}
+ 
+ 	if (udphy->status == UDPHY_MODE_NONE) {
++		rk_udphy_run_reset_handler(udphy, true);
++
+ 		ret = rk_udphy_setup(udphy);
+-		if (ret)
++		if (ret) {
++			rk_udphy_run_reset_handler(udphy, false);
+ 			return ret;
++		}
+ 
+ 		if (!udphy->hs && udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+ 		udphy->phy_needs_reinit = false;
++
++		rk_udphy_run_reset_handler(udphy, false);
+ 	} else if (udphy->phy_needs_reinit) {
++		rk_udphy_run_reset_handler(udphy, true);
++
+ 		rk_udphy_u3_port_disable(udphy, true);
+ 		udelay(10);
+ 
+ 		ret = rk_udphy_init(udphy);
+-		if (ret)
++		if (ret) {
++			rk_udphy_run_reset_handler(udphy, false);
+ 			return ret;
++		}
+ 
+ 		if (!udphy->hs && udphy->mode & UDPHY_MODE_USB)
+ 			rk_udphy_u3_port_disable(udphy, false);
+ 		udphy->phy_needs_reinit = false;
++
++		rk_udphy_run_reset_handler(udphy, false);
+ 	}
+ 
+ 	udphy->status |= mode;
+diff --git a/include/linux/phy/rockchip-usbdp.h b/include/linux/phy/rockchip-usbdp.h
+new file mode 100644
+index 000000000000..44e0bc7d1d40
+--- /dev/null
++++ b/include/linux/phy/rockchip-usbdp.h
+@@ -0,0 +1,31 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Rockchip USBDP Combo PHY with Samsung IP block driver
++ *
++ * Copyright (C) 2026 Collabora Ltd
++ */
++
++#ifndef __ROCKCHIP_USBDP
++#define __ROCKCHIP_USBDP
++
++#include <linux/phy/phy.h>
++
++#if IS_ENABLED(CONFIG_PHY_ROCKCHIP_USBDP)
++
++void rk_udphy_unregister_reset_handler(struct phy *phy);
++void rk_udphy_register_reset_handler(struct phy *phy,
++				     void (*reset_handler)(void *data, int port, bool pre),
++				     void *data, int port);
++
++#else
++
++static inline void rk_udphy_unregister_reset_handler(struct phy *phy)
++{ }
++static inline void rk_udphy_register_reset_handler(struct phy *phy,
++					    void (*reset_handler)(void *data, int port, bool pre),
++					    void *data, int port)
++{ }
++
++#endif
++
++#endif
+
 -- 
 2.53.0
 
