@@ -1,85 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587089;
-	b=5U6MyNPfNCZReqptct59NqxemN9Of//ewCiCgOaCdTy0nEZhxyxNwB1BFnETytHe5Las
-	 u5ejnKyyjpOklRbnHKfKWs90i+pjLVVNm1krg6a4cT0nuoffQPrJlZfXL65bktsvtNIST
-	 /fCRUsyIEBmA8EEGb2QkhIjNZCt/ERd/YuqElF7nOihqwtsF0FJHcg3C0nitWhD7TeqP1
-	 cCd8WEInj+e47vwmZgq86SSv+UsKxCz89Fp4CdjNvPsnevhVn5LmzzCfhKB30wi2ahZNh
-	 hoK0QLaSQQseCl2cC/I+9duvdfCLrfNlE0PrrURdVtHL7B9C29s38djr16GvqN8+Lmg==
+	t=1792587105;
+	b=46xw3Xb0qlErxaWLCkegXnP5Ey3ZigoBuF2f8JMjnMl07IWg14ijOQI7ChoPghy461z3
+	 nH8vq/Pz56HM5ZwKaQYzjKOLlj2uHL9rCLLrpn/PjlS5I/8hptfP1DmqP+P3z3qEtKkDp
+	 /S/X7Fqi2XC4IUMwpoOSpaK/YeVeM2mhPzzPK8vHsBd98EmSU+2E5JWg9dkxuWqMxRHSj
+	 9hYsCzFXb6oyBS8MrSUs1ighZq1fuDElBvtC0jE1TNQFV8U9C1tWQ0nzpxUddqkF6QglS
+	 vGG5Hgq/E7xWjHtM/PgR0QEYi/09GTrHSUcpM2ZXlSLBDctTpyI1HvHFnwnE1X6ctFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587089;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Content-Transfer-Encoding:Message-Id:References:To:X-Mailer;
-	bh=3ErFwJVbogXRtuieiIGkh2IlFtMeZm+e0ItbHfs/jEA=;
-	b=f/YRy7qpPl/BQyH6Q/KfTVk99s88IWV0NFAlP770VWn5NhDKFnHRsmhuRd6YPBPCAcU8
-	 aNIsphwSKZd35Y/rLSz9wLc2vJ+Mrdfv3kioVCOWdQ3I0PeQlPWSNH8UsqL3Rmx4tBn6q
-	 Wl7UcuCIoHxEfIzE5O3rGwrw3F9aWONucvjA+16+TiHEYnPBwJrKZat1A4FTAi3ufzYTw
-	 o1W7h4h5d5qFnD7fMmsOT1tK92GfeNPD38DVHvo80LHFid2NjK55UHXLRe72GhAhnpEha
-	 KEiYZ4wZTzlFiLTeItXyi7olZHgSrhHRjKe/wCUYNyfdrPBHPATSyR0LCX0cTrXNqlg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587105;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nTACmC2zvEZmDZwuiJOWih6JraGJbBCkoflRslUyg/0=;
+	b=41XExl9AvnMIXpneWkd2R4hc9tIk9P8damqk1kORjz6RRB6T35RBifdJbedu/+nhamNt
+	 OwpY8EXAT5M598WIm3DNahmF56Axvwu/zCZd/OYfepxtMLhwIYYjmBmNdzZX1a4odZHYl
+	 j4z31/6YUdKHNoKTRNqC4fGB43WDvXiS7hPH9VNwijMuBOMg/q45icYVBOOiLh3icFwWv
+	 pg0iQ2d3G3Q/PqWRhCQlk6fGkoSQJwQccZwM/IKBM7glKNiSVoT7VGGFWcHJ5fx/kmpK0
+	 x/5aHiVMV5DPlhK/laqFxH0rB24RAiwexyC1/v83yquKUXfgpXZpuhm42hKB0sExYMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="B/fq2MJF";
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="j50/C93y";
+	arc=none smtp.remote-ip=198.175.65.18
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD3606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:51:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CD3606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810E7606A31D;
+	Wed, 21 Oct 2026 12:51:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 810E7606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=B/fq2MJF
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cd5e6f0a22bso232652a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:51:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792587089; x=1793191889; darn=vger.kernel.org;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=3ErFwJVbogXRtuieiIGkh2IlFtMeZm+e0ItbHfs/jEA=;
-        b=B/fq2MJF0aOZ6qXvGZ+mGKEAHDFHEpg24+yRfHM2QD4B0fbT3Qx0ZXNWMX4NX4p8PK
-         x/exbF9CYe7m7EMzYwRCz0GwUF6FA4pAFyJnFoyguTw3gLBhBPcdyGbqGFYbI57rSJsG
-         yxqOFONEbNsFhmzlrxSFAHwN7V7+Cc9oD5TiX2jRda5uk2SFdNaaaSYnGkegGeehSlYF
-         I8ljJrKTOKAQRhVhaeE66Gq6R6xxOB6gxiph5tKYdf33x70e+q1dso4UAcCmpjrPLw6/
-         jCC9P8slzH1ABqPfWWNyt7CZQh2bwhl0/B49bnOMfSAbSuLgiIn7PDSohEdv5fqrEa/e
-         ALgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792587089; x=1793191889;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3ErFwJVbogXRtuieiIGkh2IlFtMeZm+e0ItbHfs/jEA=;
-        b=Fe3mc/4sWzZj4S8OsSb4PNxaS821xbzz/vuKrTJDRydv8/0Q9btBgbLppKrk+IZH1/
-         mQ8az8v2h6O6PgrFOvJprM5fh65Sd+AbBbh7MOuj0UoC+7VlkOsOrtwGOPvqh6AEOr+4
-         00tPvTFJESB5EbBFcntaPe9Z4bu6yxnNrd81gsyy9flrJY0cXCJE255Z1yBa8DqATw9h
-         LFoOnUoFHlRMJmxKZqCsXhteoplsnNegdDHH4RUy+4Lqn3k2T7ICjtpBh+3fKlmrk3fO
-         oX+VdkSGsEuoLXEIr22tWC+845AxtntXAovTGY+6Y2B+0Gil4E1A/i6aHc0vFZ6TarGD
-         waiw==
-X-Forwarded-Encrypted: i=1; AKwUvBwb0DNL0Uwt8iQL+S59p//pJDnCx93Gwu55IAlm7+pgo47+D93UbJnEdpPJ5M8RCOYk4UxumJCFYSBmDBA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHfwCzKJ3DCwSxbQwSOThkBwgo7yJJXyIDDIxOHLAmQ4ZHfvc5
-	1vu2Mw4yQf2/pjpbsBfEYR8B06b8VKnWa66p3RzchLwvUhi/osddo7lD
-X-Gm-Gg: AYBFou3DQ95AKVM4LjzToN6rqZfupIk8CsZVEBuxa0+CLHMcpbtO11ZOUUvZGoXt2Sy
-	bv/pdj1zZMVK8LFGI5zVdjM22YwiYWn3WUjyHvYhFgS0pGPEmzoC9o0vS8AdBfRStKhm5xz3kD9
-	WRFXyMFcMZOvJJvhoOHrUP0qJjEHFQKGJgX3EH2Mk+vHmHT7s9LITiJgA8HWTs95OZzEp4Tox5B
-	VVigsv/vWQCN9E1zjkvMwaOJe6TGeyoOzCNKJq18SbnZaGv66rSUVgT4LpdiJMMZUSqu+UKhHzi
-	EBvs08BUbuvK8T7zRUb96sLfqGgJr/pLE7ow45RKC1YFAEdpLwHFoclU2waaimYaCWBaYPsyOVf
-	+gVkBPnPWIJsJy025TQqZ3j3XfjshzmR71c/4uR1ufVWDjsuXGZlvhYapEZwqgly9+z1R5YVUaR
-	fSKU4yxSeqBf0XET8JfLb2Z8VsqH7yxIHpTJDxEaGNQvhI3TmKHD1oiLb55AOeNWkSbkuB4J7hk
-	R2wDVstj9wVJ+UF4mH7hG2DZCD8wx2IMeeJtFgIs1mVDtalpMnp6skFOX7s/l3WSSnS
-X-Received: by 2002:a17:90b:4d09:b0:3ab:2c2b:1030 with SMTP id 98e67ed59e1d1-3ad86e9e4f4mr1535342a91.22.1792587088600;
-        Wed, 21 Oct 2026 05:51:28 -0700 (PDT)
-Received: from smtpclient.apple ([2401:c080:1c00:2343:5400:5ff:fe7d:3dd1])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6a859c4d6sm769392a12.7.2026.10.21.05.51.16
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Wed, 21 Oct 2026 05:51:27 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=j50/C93y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792587106; x=1824123106;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=p1HXJDgQRHqibBiKPSwVGUh4hSAocx7qJsryn8NTUcU=;
+  b=j50/C93yl+t/RTg0SXnF3pb85wNJLKWDWW0zWcj+yOQqg34gZLBvWUWs
+   AI9nL1oKtekIChIBC/jD5eVpj2kY4XPrdLR1OhEbv0cNoAjyRk3WDWqJr
+   YueeqU49zmxQ2XDfG6guBr5y7S59Tkx/sjlOoxzX/jUx5Rq6SSfmnHk8T
+   pouzn3YS+1v+uqYl2pcT2yvUqDydXrhAA32mDHIiwZV6aN3/nFQDU/p90
+   FKb06XLdBd2Yq7NGo6CYMzH14yZ3CCcbDBcmlMUugWGwbdOux4vhrGzCM
+   wEEOJvCdua14W86B4PONxGJ9uzrf+9NaxyQAnz9GPsMmGjbwqonq9+cOG
+   Q==;
+X-CSE-ConnectionGUID: mlXC/ZWFSgePC2FmbFLljg==
+X-CSE-MsgGUID: zrqrrwvlRFSGcbss4TZThw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1319953"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1319953"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:51:45 -0700
+X-CSE-ConnectionGUID: fqWTILxFSFemIpCM69Ymig==
+X-CSE-MsgGUID: OlLzXMrfSd22zd9NARe4sA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3137858"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:51:40 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Nikolas Joshua Britton <nbritton@exabit.io>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org
+Cc: Bradley Morgan <brads@mainlining.org>
+Subject: [PATCH v4 7/7] PCI: Fix composite resource sizing
+Date: Wed, 21 Oct 2026 15:49:52 +0300
+Message-ID: <20261021124956.4250-8-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+References: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,98 +89,168 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v3] sched/cache: Remove the old cache group footprint on
- exec
-From: Jemmy Wong <jemmywong512@gmail.com>
-In-Reply-To: <atiP8TwaDDtbImRn@chenyu-dev>
-Date: Wed, 21 Oct 2026 20:50:52 +0800
-Cc: Jemmy Wong <jemmywong512@gmail.com>,
- mingo@redhat.com,
- peterz@infradead.org,
- tim.c.chen@linux.intel.com,
- chen.yu@linux.dev,
- juri.lelli@redhat.com,
- vincent.guittot@linaro.org,
- dietmar.eggemann@arm.com,
- rostedt@goodmis.org,
- bsegall@google.com,
- mgorman@suse.de,
- vschneid@redhat.com,
- kprateek.nayak@amd.com,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <A81AB6C4-6821-454D-9C2D-716A3D0DFE6B@gmail.com>
-References: <20261015053604.29927-1-jemmywong512@gmail.com>
- <atiP8TwaDDtbImRn@chenyu-dev>
-To: Chen Yu <yu.c.chen@intel.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+The bridge window sizing algorithm aims to pack child resources back to
+back. With multiple composite child resources whose sizes do not align
+to the calculated minimal alignment for the bridge window, back-to-back
+placement may not be possible. The non-aligning remainder placement is
+limited because it must be adjacent to the rest of the composite
+resource.
 
+Effectively, two remainder parts may be placed into the same align
+sized block, but sum of their size might not match align. In such case,
+a gap is required to meet the alignment requirement of both resources.
 
-> On Oct 21, 2026, at 6:12=E2=80=AFPM, Chen Yu <yu.c.chen@intel.com> =
-wrote:
->=20
-> On Thu, Oct 15, 2026 at 01:36:04PM +0800, Jemmy Wong wrote:
->=20
-> [ ... ]
->=20
->> @@ -3965,36 +3974,6 @@ static void task_numa_placement(struct =
-task_struct *p)
->> ng->total_faults +=3D diff;
->> group_faults +=3D ng->faults[mem_idx];
->> }
->> -#ifdef CONFIG_SCHED_CACHE
->> - /*
->> - * Per task p->numa_faults[mem_idx] converges,
->> - * so the accumulation of each task's faults
->> - * converges too - Given the number of threads,
->> - * it cannot overflow an unsigned long.
->=20
-> Above comments can be kept for future reference, with minor =
-adjustment:
->=20
-> s/it cannot overflow an unsigned long/it cannot overflow an =
-atomic_long_t
->=20
-> I launched a full hackbench test on a Xeon with multiple LLCs per =
-node. There
-> is no obvious difference except for some false-positive regress with =
-large
-> run-to-run variance. This patch looks good to me in terms of turning =
-the
-> footprint into an accurate counter. Feel free to add:
->=20
-> Reviewed-by: Chen Yu <yu.c.chen@intel.com>
-> Tested-by: Chen Yu <yu.c.chen@intel.com>
->=20
-> thanks,
-> Chenyu
+Add bridge window gap size calculator. Basic rules:
 
-Hi Chenyu,
+1) Gaps are only necessary if there is more than one non-aligning
+   composite resource within a single bridge window.
 
-Thanks for the review and testing.
+2) If there are only two remainder parts that amount to less than align
+   together, the required gap is the difference of align and the sum of
+   remainder sizes.
 
-For v4, I've restored the convergence comment next to the batched
-footprint update, changed the type to atomic_long_t as suggested, and
-rewrapped the text:
+3) On other cases, round each remainder part to align to get the gap
+   size. Sometimes, smaller size may be possible but due to how sizing
+   and assignment are made in different phases, it is not always
+   possible to predict where each resource is assigned. Thus, the
+   sizing has to play safe.
 
+The gap is calculated based on the minimal alignment for the bridge
+window, which may be different for the case with only required
+resources and the case with optional resources.
 
-+ /*
-+ * Per task p->numa_faults[mem_idx] converges, so the accumulation of =
-each
-+ * task's faults converges too. Given the number of threads, it cannot
-+ * overflow an atomic_long_t.
+Fixes: 9036bd0efcb6 ("PCI: Align head space better")
+Reported-by: Bjorn Helgaas <bhelgaas@google.com>
+Tested-by: Bjorn Helgaas <bhelgaas@google.com>
+Reported-by: Nikolas Joshua Britton <nbritton@exabit.io>
+Tested-by: Nikolas Joshua Britton <nbritton@exabit.io>
+Link: https://lore.kernel.org/linux-pci/20260903063124.9316-1-nbritton@exabit.io/
+Reported-by: Maciej Grochowski <Maciej.Grochowski@sony.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+---
+ drivers/pci/setup-bus.c | 84 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 81 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index 7ca0e9f4ffb6..2980b499ef75 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -1164,6 +1164,79 @@ static inline resource_size_t calculate_mem_align(resource_size_t *aligns,
+ 	return min_align;
+ }
+ 
++/*
++ * Bridge window gap size calculator.
 + *
-+ * Apply the net change once per placement pass to limit cache-line =
-traffic.
++ * Calculates gap (empty space) necessary because of non-aligning composite
++ * resources (VF BARs, bridge windows).
++ *
++ * Rules:
++ *
++ * 1) Gaps are only necessary if there is more than one non-aligning
++ *    composite resource within a single bridge window.
++ *
++ * 2) If there are only two remainder parts that amount to less than win_align
++ *    together, the required gap is the difference of win_align and the sum of
++ *    remainder sizes.
++ *
++ * 3) On other cases, round each remainder part to win_align to get the gap
++ *    size. Sometimes, tighter packing might be possible but due to how
++ *    sizing and assignment are made in different phases, it is not always
++ *    possible to predict where each resource is assigned. Thus, the sizing
++ *    has to play safe even if it may overestimate in some cases.
 + */
-+ sched_cache_footprint_update(p, p->total_numa_faults - old_faults);
++static resource_size_t calculate_win_gap_size(struct pci_bus *bus,
++					      struct resource *b_res,
++					      resource_size_t win_align,
++					      bool optional,
++					      struct list_head *realloc_head)
++{
++	resource_size_t safe_gap = 0, remainders = 0;
++	unsigned int nonaligning = 0;
++	struct pci_dev *dev;
 +
++	list_for_each_entry(dev, &bus->devices, bus_list) {
++		struct resource *r;
++		int i;
++
++		pci_dev_for_each_resource(dev, r, i) {
++			resource_size_t r_size, remainder, aligning;
++
++			if (!pdev_resources_assignable(dev) ||
++			    !pdev_resource_should_fit(dev, r))
++				continue;
++			if (b_res != pbus_select_window(bus, r))
++				continue;
++
++			if (!optional && pci_resource_is_optional(dev, i))
++				continue;
++
++			r_size = resource_size(r);
++			if (realloc_head && optional)
++				r_size += get_res_add_size(realloc_head, r);
++			if (r_size <= win_align)
++				continue;
++
++			aligning = ALIGN_DOWN(r_size, win_align);
++			remainder = r_size - aligning;
++			if (!remainder)
++				continue;
++
++			nonaligning++;
++			remainders += remainder;
++			safe_gap += win_align - remainder;
++		}
++	}
++
++	if (nonaligning == 2 && (remainders <= win_align))
++		return win_align - remainders;
++
++	if (nonaligning >= 2)
++		return safe_gap;
++
++	return 0;
++}
++
+ /*
+  * Calculate bridge window head alignment that leaves no gaps in between
+  * resources.
+@@ -1281,6 +1354,7 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 	int order, max_order;
+ 	resource_size_t children_add_size = 0;
+ 	resource_size_t add_align = 0;
++	resource_size_t gap_size;
+ 
+ 	if (!b_res)
+ 		return;
+@@ -1345,7 +1419,9 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 	win_align = pci_min_window_alignment(bus, b_res->flags);
+ 	min_align = calculate_head_align(aligns, max_order);
+ 	min_align = max(min_align, win_align);
+-	size0 = calculate_memsize(size, realloc_head ? 0 : add_size,
++	gap_size = calculate_win_gap_size(bus, b_res, min_align, !realloc_head,
++					  realloc_head);
++	size0 = calculate_memsize(size + gap_size, realloc_head ? 0 : add_size,
+ 				  0, win_align);
+ 
+ 	if (size0) {
+@@ -1355,8 +1431,10 @@ static void pbus_size_mem(struct pci_bus *bus, struct resource *b_res,
+ 
+ 	if (realloc_head && (add_size > 0 || children_add_size > 0)) {
+ 		add_align = max(min_align, add_align);
+-		size1 = calculate_memsize(size, add_size, children_add_size,
+-					  win_align);
++		gap_size = calculate_win_gap_size(bus, b_res, add_align, true,
++						  realloc_head);
++		size1 = calculate_memsize(size + gap_size, add_size,
++					  children_add_size, win_align);
+ 	}
+ 
+ 	if (!size0 && !size1) {
+-- 
+2.47.3
 
-Does this wording and placement look fine to you?
-
-I'll also include your Reviewed-by and Tested-by tags in v4.
-
-Thanks,
-Jemmy=
