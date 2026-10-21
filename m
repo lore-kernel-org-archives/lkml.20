@@ -1,89 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587382;
-	b=Jk0xqB4yvP3nL2G+m0KfoJ107/U61yZeUkV7mZukx2xFnQXWYTMwJe1OnMoXM3hiQwuI
-	 HqMJ3F4ECQrDd6driiJWNCl8rZ1jFnSo0Ys5yTPf/zPUpgXMqkekR5aEFlYiKAQ92pW6h
-	 ujMvJxJZMfV/z6dxRoMy7QZ8Drbctzx9cAILvDD+DtE1pmoX+7vW6bwHwlWaDGHDGTsJL
-	 rbpB0I3WnsnTH2bufRM8riWh4rJH2tlKZYxprWYfiSDOsY75H7LJraSjRRvVQjl8oHo1Y
-	 J4Dy3NATrfNq/LgJBCDXrkgIlopViTb+0KL0efph02bmhXHBhGKHMJsohhho7CGW2yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587382;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=zE0wPrOhPgdDBuZiyfrszzR2mLBGoUO+vXgswwY1qW4=;
-	b=vvS8jMh5d9L1uwtFAXE/7/tm48TkB+EFOjfK5bruEndqmYME5Ee99bgTKGpzS9oGgFY2
-	 nXcXSgdpkEMdFAL5sthG64K/QgyO+pgs9TSU8Ycq0xZjUQuTGTkXLsv/DvDldXerWJzub
-	 o3C68EHsU9JnT6bFLT0WjVIB0pXEOw1MGS3KXkedJ+VbMtVuRnwAJPTlZRw4ODH7ftZ/r
-	 bkefgf+bEKd1+zB6izz0cZPBF9TnOSzt8qZkfblUdiAMveValVcDGhqHMkrLsr89nA71E
-	 Cs9v8qXPZFitr5RRuaq0EpbIeAyNttmm3EwCO7iyoiGV4+DSZN1FWeXBvwD5JlcCQ+g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H93b7reb;
-	arc=none smtp.remote-ip=192.198.163.18
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=74.125.82.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792587396;
+	b=e16NGSHVlcFOKuFeLA3jLPlrC3nBJmBHZXSDJ/F7Ssg9tq8PIbTozSosOdb7nSrdr/EM
+	 zo1VZhwGri5NCzNHAO7V2ls5olDrCcp4kUPohGKo9Pl2o7zId8vjI05CiLAqllZZtzwFz
+	 FRyn3++9cVgzqVmQu5sJW0PfITXU6FKCfGal6HrUa4uv0X/TQ9KyvXR6b56JfgoaEI/3i
+	 7vmLrxB3kfa5p9b+WjNY13F9ZtyykcHh4w71pWn8lbK/Zul+COO0KHGD+zpBgN/p0AcwO
+	 knO3AieTkAlgDm2Y8wnwLOf4ajfbHUlXoBYb2guhayjgAMgTx3t6Pey8BfdEoCDYIjQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587396;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=qi1H/TWXxLLxbGzzn39MIG1qXo5ZarlUhDNNloP8fkw=;
+	b=2zrYUcdMk2nssEti0yE59or5+zkm4JObFUnXF7Wh9jeJn6vwe7oQZP8pUgF6YEp26qCN
+	 VTLI1N8K+iGuSrgIHECchryBO2ov48qmrB/g+1pNzus5XjXrehFobkwXusrKWovTRtX48
+	 cdnxnxoPPDFplRrhJ+Av0kFNbU/SAyzbfusVxoS4kK/kUVp8kmBJVCVBoS/8D0Ys+VtX6
+	 d2+RKe6mr92AKMGouMi45l2spNNbUH12C6p0foE4GpDQJhXmkoWBT4dot2E1QroVhOa7B
+	 HdbcIqcoVIpw/2/Tnfahhn0ZootgFDOWVZg4AZyPMN5XGSDGh7wTY3wbz++fE/oqMfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eaWpfOtj;
+	arc=fail smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1286606A319;
-	Wed, 21 Oct 2026 12:56:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1286606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C11606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:56:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96C11606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=H93b7reb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792587382; x=1824123382;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=UwleBUfevokjeMBFYNGacuzxhYWtpsd+7UaNr3cdTfI=;
-  b=H93b7rebWBf90uxi7mP/ZFSXyAS1tYyrhWv6y+Bdq7Sr24At0hoRXYMa
-   7fRHvFg18n24k8FnA2r0VsvNe6p7Cf4z+l8Ghn8jK/nzT/gvJrrNMiVrr
-   CQwvD5R1QawWgqv0/FnecwdQ6YG5Z2y6sujjNO2J0tNHhG3OL+NpD83hx
-   P2Hjhi/nIWkwf+od10r7S7KwAPpnHqqVZXtC/wDLuLZpiXXdR3NGXWvWz
-   tbvQGu1bySGglrAwJQ+fhTytrytbANyDd4QF5bj+DZ0a0hFIxcsT2b6nq
-   w1OeZWM21kcLznayTseIbYfLxbGhBOO2roMhhePkpGpE/v2aQAhIffOqp
-   w==;
-X-CSE-ConnectionGUID: 6k7iS0ZcQQ+acBT5oNMU6w==
-X-CSE-MsgGUID: SR4Zi5ziSJuVZyOsiR7R1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1342780"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1342780"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:56:21 -0700
-X-CSE-ConnectionGUID: d9GQnnMIQWO72CuJQ1KxSw==
-X-CSE-MsgGUID: mBatNI4bS72ngTVJhbnyiw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4845032"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:56:14 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 21 Oct 2026 15:56:08 +0300 (EEST)
-To: linux-pci@vger.kernel.org
-cc: Hans de Goede <hansg@kernel.org>, Bjorn Helgaas <helgaas@kernel.org>, 
-    Mario Limonciello <mario.limonciello@amd.com>, 
-    Maciej Grochowski <Maciej.Grochowski@sony.com>, 
-    Nikolas Joshua Britton <nbritton@exabit.io>, 
-    Geramy Loveless <gloveless@jqluv.com>, Eric Auger <eauger@redhat.com>, 
-    Alexey Fomenko <alexey.fomenko@intel.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, 
-    Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
-    Rob Herring <robh@kernel.org>, 
-    =?ISO-8859-2?Q?Krzysztof_Wilczy=F1ski?= <kw@linux.com>, 
-    Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
-    Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
-    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
-    LKML <linux-kernel@vger.kernel.org>, Bradley Morgan <brads@mainlining.org>, 
-    Kai-Heng Feng <kaihengf@nvidia.com>, 
-    Andy Shevchenko <andriy.shevchenko@intel.com>, linux-acpi@vger.kernel.org
-Subject: Re: [PATCH v3 8/8] PCI/quirks: Avoid certain address on Genoa
- systems
-In-Reply-To: <b9f0ac77-079c-2383-a572-73ad649af0c8@linux.intel.com>
-Message-ID: <69e5be12-b107-bd7c-8cd0-1db29319bf6b@linux.intel.com>
-References: <20261013224010.GA1589480@bhelgaas> <f823d264-8b9d-422e-bfaf-388957fbc2fa@kernel.org> <b9f0ac77-079c-2383-a572-73ad649af0c8@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eaWpfOtj
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35b2c599f43so1491942eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:56:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792587395; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QurIafsJZR0hqXHRMZINobte9KN88RJUUsDj+tMzqGxY7+O7fwOwvpPo9tbixVVuPb
+         xeiTgV53O2pNglwcutrhD8bACI/uG2HGw67LJ05Mo8nuh8igkSqa+ELzsj7Zgo4/CHTU
+         EsYLBmqVv0o9+BY+JtPu++/ErZ9SHT5MKexPiUGDbxHpbI4tytdVbIUGpgy2JMl1v4Y+
+         EvaZVU5BmP26QuGtYqro58nlZp0cfPdoAOJm16L9EY47KS6smQf2NiqBc2wH4JPewOJc
+         /BdB5h7FrmL8A+XtrAPAIZsi0I2HN7RxYXHev8fezBYycDHcwvatEBbQS56Lnn1mus4p
+         GXLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=qi1H/TWXxLLxbGzzn39MIG1qXo5ZarlUhDNNloP8fkw=;
+        fh=PB2BfP1pzn4VP59FZZ+TNvsIdcdqYbCDS3FdWAun52U=;
+        b=puKCq+CE1dLfsDoCoBj1CAQ0kHf7bulZrWlP+F8W7aBqEC30OtStpfmOn6L7K/xIg2
+         FXZ3vgWbuohwRq6Vmwg/2ivaKDa7ijap+XNKrwOsSXVKj96xgaTeioP7YgnuHNal4yCX
+         mbwqHcDMcyBwFXwj3wD/+hY08XhtTuwJWMQS8/ERAnLM4kvJ7WF4w5zqL9zmM5hhI/aS
+         XJ5eQOR6nntYXdfPly09dSCNn7HND2agaWt4ywzRJ/NpT3yC43JalwEAMus5DR2nK+M5
+         Q1BacQytoxMQi/8mZwGJbda2iuEu/RH29YIvLmQFr6ndZodUNwaRWkfrCtHgrDRg3EZc
+         +uaA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792587395; x=1793192195; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qi1H/TWXxLLxbGzzn39MIG1qXo5ZarlUhDNNloP8fkw=;
+        b=eaWpfOtjLbTltFIYf/0HgsAaZYh4+RqTlDSj7tec+v7r59/ApehwoK1nURlUiXfZZI
+         6SvUMBsUq/rYIJ2m4EYj6MpF0D1fd4QbbPIdCzTMB2srLqC/nLlzHhK00lWQmivmySbJ
+         2Yb3ypiJ5ZMEkdeNof/W6HbNryu+jNzZTG4mWM55NSpjQhv4wtN5CyFbL4N9dwmf+7Zo
+         bhTwsJwPdOwmCyT8NIOy+c/QJFqiHwkOBt+KczPiwoiQMZGJnBqjgZn3jSxc2Pv98IJs
+         YkQyd+++KsorzGb0n0lCa3AplzuhYkXMK+wkdLmfACy4Wtj976iBqGlnhCg3MzVIelkZ
+         QQHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792587395; x=1793192195;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qi1H/TWXxLLxbGzzn39MIG1qXo5ZarlUhDNNloP8fkw=;
+        b=TLGfc9TBRhMLfeixrc++M3ZzKAQIvkx6YKCKulkCvMhH2cT2GuzcwPEqNCBMiWbxfl
+         mYVkOIH63eDVWldhboTL7uipKom5mdO+vS8jmLnA2RS+YUg4IHr+Aazyr9+pP+2B6iAm
+         r7oL7QX6W7v556JWSDejATj2AGNFa/TCwUUVWREV5MSpHS4+KmtGEvPYm5ha6/Xy/7z8
+         +7epGJ43l/fIJYbs3HwzRukVSSHIRaxquF6l1+d5IdDzIi5X81jR4W09rxeHeH/bSRPj
+         4xfsqZYGIxqlu2VU2TNjzn4xAmGITt5IrjsTVHiIhiy6EkWaiIW2q1SV15AvPxYXACX5
+         2Jpw==
+X-Forwarded-Encrypted: i=1; AKwUvBzNU/kKF33fdwgAOMZ/bHmE2B5iaZAY/V2yh8bbAfORPsBp/rN5vAoyoJPMSpilxBSyp+nkz8mg5rts2vE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIaFGdPEbMQ9tmrJLDgwDyhUbK+yqpN+JJq5dJVSasCxdZVOQts
+	Bz0OB6M/0HA3Igu+TGd6K8vi1Xw8dB5VVcHglm8ucrutTI+lh0MysA1LMg4moVyDsuSJxeKVFQm
+	eeyw8TLQzKi3Zzh4UFUAJv1E5un9cE+I=
+X-Gm-Gg: AYBFou25Jgyl2+sp8u/5lASAyJGCm/qjIu+liN5TbwXxh0xRYJHaHdF/tHdz9P/kwbS
+	V79+JDtWyN0SRAmcXw61+aYz50nuzO3+0n9VtPgbSe8eDoji+hjb0CG2qdkSuzdZDhfQtBZLe3q
+	2itp4qT/IccwaBQ/cogHCHN5+zCTiiwm81RwmXyO1oeGndmAwv7ip7dey5ein11/z81MgaOE5Rh
+	pcHUlk+mdnAwPLqpJybNXYPKW7iAbtUHt7zm0VsfDEIkxidUu8FGR9hP7+ZMVRGO77kPr0Mg3RR
+	VXZc7WVQ8hJuJDUAoEj9OF1YQ1JAP5jtUAaTDVoJd5dUSLqsQwIMzX1G8CtBOlYH8owxUtRhMtY
+	UwG8Pn22f1tVYgS6VaAIoqHpAH1TLHXguO5jo1UtGOMSke8T1R5+DMKpelIWpLrYPwNSEaZCEen
+	f3vj7G/SoizFQ6vP2W7hc=
+X-Received: by 2002:a05:7022:698e:b0:18b:755:ae06 with SMTP id
+ a92af1059eb24-190a7661e5bmr3619854c88.37.1792587394516; Wed, 21 Oct 2026
+ 05:56:34 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,267 +104,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1302103120-1792587368=:1258"
+References: <20261019-sv105c-retry-set-interface-v1-1-ab2f08bc3fcb@gmail.com>
+ <20261019111712.GP595565@killaraus.ideasonboard.com> <449eb143-37a8-4044-a071-63fe495c0213@kernel.org>
+ <20261019112726.GR595565@killaraus.ideasonboard.com> <CAAquLuDc==WsbOYTfuKV2tspTSQAvB7kg2r2aqbE2rs3tYx2LA@mail.gmail.com>
+ <d2d5e53a-ba8b-4b66-8e15-0c45e08e0f3f@kernel.org> <20261019123803.GA855235@killaraus.ideasonboard.com>
+ <CAAquLuBW3MaBZgxQt_Kr7L2jGQf6mXarRtKi729-44DqwC=CnA@mail.gmail.com> <f4c591d0-304a-49d6-8892-d28124767a55@kernel.org>
+In-Reply-To: <f4c591d0-304a-49d6-8892-d28124767a55@kernel.org>
+From: Ostashow Constantine <ostashow@gmail.com>
+Date: Wed, 21 Oct 2026 15:56:22 +0300
+X-Gm-Features: AclHuK9yOMjxMFyx5SOlfInswV2iCdARQUgVp5qEBKbxa42As5kbuxjFSrB3VSM
+Message-ID: <CAAquLuAepobWS5N7CzwO4po2g+=CmtqDPZ9D1VQQiWfJFi6S7Q@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Add quirk to retry SET_INTERFACE for
+ SVBONY SV105C
+To: Hans de Goede <hansg@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi Hans,
 
---8323328-1302103120-1792587368=:1258
-Content-Type: text/plain; charset=ISO-8859-15
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+On 21-Oct-26 12:26, Hans de Goede wrote:
+> I wonder if it helps if you insert a fsleep(3000) here on the RPi case?
+>
+> So that is sleep between the Configure Endpoint and the actual SET_INTERFACE
+> ctrl urb being send out.
 
-Hi all,
+It doesn't help. usbcore is built into the Pi kernel, so I put the
+delay in a small test module instead. It has a kprobe on
+usb_control_msg() that does mdelay() only for SET_INTERFACE with
+alt != 0 on this camera. In usb_set_interface() that call comes right
+after usb_hcd_alloc_bandwidth(), so the delay lands between the
+Configure Endpoint completion and the SETUP. It was busy-waiting,
+not fsleep(), but the timing on the bus is the same.
 
-I've sent v4 of this series to address a few comments sashiko had for=20
-b3 [1]. v4 does not contain my version of the quirk as it seemed least=20
-likely to be selected among the proposed solutions and the decision is=20
-largely independent from rest of the resource placement series.
+xhci-hcd trace events with a 3 ms delay, 5 stream starts:
 
-[1] https://lore.kernel.org/linux-pci/20261021124956.4250-1-ilpo.jarvinen@l=
-inux.intel.com/
+  Configure Endpoint queued
+  +0.25 ms    Configure Endpoint completed, Success
+  +3.1 ms     SET_INTERFACE alt 6 Setup Stage queued
+  +0.9 ms     Transfer Event on the Status Stage TRB, followed by
+              Reset Endpoint, Configure Endpoint (Drop), Configure
+              Endpoint (Add)
+  retry       again 3.1 ms after Configure Endpoint, Success
 
---=20
- i.
+The first attempt failed in 4 of the 5 traced starts, and the fifth
+completed after 260 ms. So with 3 ms between Configure Endpoint and
+the SETUP, the failure looks just as it does without the delay.
 
-On Thu, 15 Oct 2026, Ilpo J=E4rvinen wrote:
+Without tracing, MJPEG 1920x1080, auto exposure, blocks of 10 starts
+with the delay settings alternating:
 
-> On Wed, 14 Oct 2026, Hans de Goede wrote:
->=20
-> > Hi,
-> >=20
-> > On 14-Oct-26 00:40, Bjorn Helgaas wrote:
-> > > [+cc Hans, Kai-Heng, Andy, linux-acpi]
-> > >=20
-> > > On Tue, Oct 13, 2026 at 01:59:23PM -0500, Mario Limonciello wrote:
-> > >> On 10/13/26 12:26, Ilpo J=E4rvinen wrote:
-> > >>> On Tue, 13 Oct 2026, Mario Limonciello wrote:
-> > >>>> On 10/13/26 12:00, Mario Limonciello wrote:
-> > >>>>> On 10/13/26 08:09, Ilpo J=E4rvinen wrote:
-> > >>>>>> While testing the resource placement changes, tests hit a case w=
-here
-> > >>>>>> igb fails to probe when BAR 0 is placed at 0x9c000000:
-> > >>>>>>
-> > >>>>>>  =A0=A0=A0 90000000-9cffffff : PCI Bus 0000:a0
-> > >>>>>>  =A0=A0 -=A0 90000000-902fffff : PCI Bus 0000:a1
-> > >>>>>>  =A0=A0 -=A0=A0=A0 90000000-900fffff : 0000:a1:00.0
-> > >>>>>>  =A0=A0 -=A0=A0=A0=A0=A0 90000000-900fffff : igb
-> > >>>>>>  =A0=A0 -=A0=A0=A0 90100000-901fffff : 0000:a1:00.0
-> > >>>>>>  =A0=A0 -=A0=A0=A0 90200000-90203fff : 0000:a1:00.0
-> > >>>>>>  =A0=A0 -=A0=A0=A0=A0=A0 90200000-90203fff : igb
-> > >>>>>>  =A0=A0 +=A0 9be00000-9c0fffff : PCI Bus 0000:a1
-> > >>>>>>  =A0=A0 +=A0=A0=A0 9be00000-9befffff : 0000:a1:00.0
-> > >>>>>>  =A0=A0 +=A0=A0=A0 9bf00000-9bf03fff : 0000:a1:00.0
-> > >>>>>>  =A0=A0 +=A0=A0=A0 9c000000-9c0fffff : 0000:a1:00.0
-> > >>>>>>  =A0=A0=A0=A0=A0 9c100000-9c17ffff : amd_iommu
-> > >>>>>>  =A0=A0=A0=A0=A0 9c180000-9c1803ff : IOAPIC 8
-> > >>>>>>
-> > >>>>>>  =A0=A0 -=A0=A0=A0=A0=A0=A0 Region 0: Memory at 90000000 (32-bit=
-, non-prefetchable)
-> > >>>>>> [size=3D1M]
-> > >>>>>>  =A0=A0 -=A0=A0=A0=A0=A0=A0 Region 3: Memory at 90200000 (32-bit=
-, non-prefetchable)
-> > >>>>>> [size=3D16K]
-> > >>>>>>  =A0=A0 -=A0=A0=A0=A0=A0=A0 Expansion ROM at 90100000 [disabled]=
- [size=3D1M]
-> > >>>>>>  =A0=A0 +=A0=A0=A0=A0=A0=A0 Region 0: Memory at 9c000000 (32-bit=
-, non-prefetchable)
-> > >>>>>> [size=3D1M]
-> > >>>>>>  =A0=A0 +=A0=A0=A0=A0=A0=A0 Region 3: Memory at 9bf00000 (32-bit=
-, non-prefetchable)
-> > >>>>>> [size=3D16K]
-> > >>>>>>  =A0=A0 +=A0=A0=A0=A0=A0=A0 Expansion ROM at 9be00000 [disabled]=
- [size=3D1M]
-> > >>>>>>
-> > >>>>>> igb 0000:a1:00.0 0000:a1:00.0 (uninitialized): PCIe link lost
-> > >>>>>> ------------[ cut here ]------------
-> > >>>>>> igb: Failed to read reg 0x18!
-> > >>>>>> WARNING: drivers/net/ethernet/intel/igb/igb_main.c:724 at
-> > >>>>>> igb_rd32.cold+0x3c/0x4f [igb], CPU#32: kworker/32:1/706
-> > >>>>>> ...
-> > >>>>>>  =A0 igb_get_invariants_82575+0xff/0xf00 [igb]
-> > >>>>>>  =A0 igb_probe+0x3c8/0x1190 [igb]
-> > >>>>>>  =A0 local_pci_probe+0x3b/0x80
-> > >>>>>>
-> > >>>>>> It turns out there is a 64kB iomem black hole at 9c000000 that r=
-eturns
-> > >>>>>> ~0 and this is where igb's BAR 0 resides. If another BAR of the =
-same
-> > >>>>>> card is placed into that address, it is similarly black holed.
-> > >>>>>>
-> > >>>>>> Mark the problematic 64kB range reserved using a quirk bound to =
-the
-> > >>>>>> bridge found in the problematic system.
-> > >>>>>>
-> > >>>>>> Closes: https://bugzilla.kernel.org/show_bug.cgi?id=3D222074
-> > >>>>>> Suggested-by: Mario Limonciello <mario.limonciello@amd.com>
-> > >>>>>> Signed-off-by: Ilpo J=E4rvinen <ilpo.jarvinen@linux.intel.com>
-> > >>>>>> ---
-> > >>>>>> Cc: Borislav Petkov <bp@alien8.de>
-> > >>>>>>
-> > >>>>>> As an alternative to this, I've also tested reverting the commit
-> > >>>>>> 07eab0901ede ("efi/x86: Remove EfiMemoryMappedIO from E820 map")=
- and
-> > >>>>>> that also resolves the issue by retaining "9c000000-9cffffff : R=
-eserved"
-> > >>>>>> entry in the resource tree.
-> > >>>>>>
-> > >>>>>> ---
-> > >>>>>>  =A0 arch/x86/pci/fixup.c | 36 +++++++++++++++++++++++++++++++++=
-+++
-> > >>>>>>  =A0 1 file changed, 36 insertions(+)
-> > >>>>>>
-> > >>>>>> diff --git a/arch/x86/pci/fixup.c b/arch/x86/pci/fixup.c
-> > >>>>>> index b301c6c8df75..cc463bf492b6 100644
-> > >>>>>> --- a/arch/x86/pci/fixup.c
-> > >>>>>> +++ b/arch/x86/pci/fixup.c
-> > >>>>>> @@ -822,6 +822,42 @@ DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD,=
- 0x1571,
-> > >>>>>> pci_amd_enable_64bit_bar);
-> > >>>>>>  =A0 DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x15b1,
-> > >>>>>> pci_amd_enable_64bit_bar);
-> > >>>>>>  =A0 DECLARE_PCI_FIXUP_RESUME(PCI_VENDOR_ID_AMD, 0x1601,
-> > >>>>>> pci_amd_enable_64bit_bar);
-> > >>>>>> +/*
-> > >>>>>> + * TODO: Remove when/if root cause is found.
-> > >>>>>> + *
-> > >>>>>> + * Genoa appears to have a 64kB iomem black hole starting at 0x=
-9c000000
-> > >>>>>> + * address for which all reads return ~0 blocking an overlappin=
-g BAR from
-> > >>>>>> + * working.
-> > >>>>>> + *
-> > >>>>>> + * Work around the problem by reserving the space prior to maki=
-ng any
-> > >>>>>> iomem
-> > >>>>>> + * allocations that could overlap with the black hole.
-> > >>>>>> + */
-> > >>>>>> +static struct resource genoa_black_hole =3D
-> > >>>>>> DEFINE_RES_MEM_NAMED(0x9c000000,
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 SZ_64K,
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "reserved");
-> > >>>>>> +
-> > >>>>>> +static void genoa_iomem_black_hole(struct pci_dev *dev)
-> > >>>>>> +{
-> > >>>>>> +=A0=A0=A0 struct resource *r;
-> > >>>>>> +
-> > >>>>>> +=A0=A0=A0 pci_bus_for_each_resource(dev->bus, r) {
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0 if (!r || !r->flags || !resource_assigned=
-(r))
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
-> > >>>>>> +
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0 if (!__resource_contains_unbound(r, &geno=
-a_black_hole))
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 continue;
-> > >>>>>> +
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0 if (resource_assigned(&genoa_black_hole))
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pci_dbg(dev, "iomem black hol=
-e workaround already
-> > >>>>>> applied\n");
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0 else if (!insert_resource(r, &genoa_black=
-_hole))
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pci_info(dev, "iomem black ho=
-le workaround enabled\n");
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0 else
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pci_dbg(dev, "iomem black hol=
-e workaround add failed\n");
-> > >>>>>> +=A0=A0=A0=A0=A0=A0=A0 return;
-> > >>>>>> +=A0=A0=A0 }
-> > >>>>>> +}
-> > >>>>>> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_AMD, 0x14ab,
-> > >>>>>> genoa_iomem_black_hole);
-> > >>>>>> +
-> > >>>>>>  =A0 #define RS690_LOWER_TOP_OF_DRAM2=A0=A0=A0 0x30
-> > >>>>>>  =A0 #define RS690_LOWER_TOP_OF_DRAM2_VALID=A0=A0=A0 0x1
-> > >>>>>>  =A0 #define RS690_UPPER_TOP_OF_DRAM2=A0=A0=A0 0x31
-> > >>>>>
-> > >>>>> I guess it's good we know the root cause is 07eab0901ede. If we'r=
-e going
-> > >>>>> down the path of making holes in that we may well put the hole in
-> > >>>>> efi_remove_e820_mmio() like this (attached).
-> > >>>>
-> > >>>> I don't really like that though.  If Genoa is affected I would exp=
-ect plenty
-> > >>>> of other machines are too they just haven't been found yet.
-> > >>>
-> > >>> That's what I'm worried as well. My own testing can only cover very=
- little
-> > >>> ground here.
-> > >>>
-> > >>>> Can we roll back 07eab0901ede and add quirks for the busted machin=
-es instead?
-> > >>
-> > >> I had an agent dig through all the reports linked in 07eab0901ede an=
-d
-> > >> drafted up what should be the remaining quirks for a revert.
-> > >>
-> > >> https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/lo=
-g/?h=3Dsuperm1/genoa-mess
-> > >>
-> > >> Bjorn, thoughts on this?  I'll send it out if that's the way we want
-> > >> to go (or Ilpo feel free to subsume into your series as it's only
-> > >> really exposed by your series at the moment)
-> > >=20
-> > > I would LOVE it if we can use those patches because it's way less
-> > > magic than 07eab0901ede is.
-> > >=20
-> > > But I'm frankly terrified to touch it because I'm skeptical that two
-> > > more quirks are enough.  I just expect that whatever strategy BIOS
-> > > uses to build these maps is likely to be used on many models.  I do
-> > > hate 07eab0901ede though, so I would love to see it gone.
-> >=20
-> > It has been about 4 years since we came up with 07eab0901ede IIRC we
-> > had a huge email thread with a whole bunch of attempts at fixing
-> > the issue in a generic manner.
-> >=20
-> > IIRC some of those attempts tried to identify the exact problematic
-> > issue the quirks try to fix where there is an EFI MMIO reservation
-> > covering the entire bridge window.
-> >=20
-> > Maybe we can dig through the old thread and see if with the knowledge
-> > we have now one of the previous attempts of fixing it from the thread
-> > is better?
-> >=20
-> > I agree that needing to go back to quirks is likely going to be painful
-> > and break a whole bunch of other systems. IIRC 07eab0901ede fixed
-> > a whole bunch of laptops having issues around the time not just
-> > the Clevo NL4XLU and Lenovo Yoga C940. But this info might be spread
-> > over various bugzilla entries, etc. + some models where likely never
-> > reported but just fixed in time for users to not report things.
-> >=20
-> > I also wonder if given we only have this magic black-hole on geneo/zen4
->=20
-> That might be because my PCI resource placement series has not (yet) been=
-=20
-> tested on that many systems.
->=20
-> I think it's the other way around. While my testing is quite extensive, i=
-t=20
-> can only cover relatively little ground, but already that was enough to=
-=20
-> find one issue. Why should we assume I managed to hit the "only" problem?=
-!=20
-> More likely explanation is there are many problematic addresses, enough=
-=20
-> for me to stumble on one of them.
->=20
-> The new generalized resource placement does have a tendencity to place=20
-> resources at the right edge of the window (to keep the left edge availabl=
-e=20
-> as it typically provides higher aligning order for the remaining free=20
-> space). I expected that to lead us to largely uncharted territory though
-> Andy seemed to suggest Windows might actually be using top-down ordering
-> for its allocations so it could be that it's better charted than I've
-> assumed.
->=20
-> > if it would not be better to go with Mario's original approach here ?
-> > Esp. since Mario's quirk is chipset based where as the other problems
-> > seem to be model/product based so that is 1 quirk vs many quirks.
->=20
-> I'm somewhat skeptical it will be the only problematic case but it's hard=
-=20
-> to guess which case would require more quirks in the end.
+  no delay      35/40 first attempts failed
+  3 ms          32/40
+  20 ms         29/30
 
+Today the failure rate is much higher than in my earlier series, with
+or without the delay. Every failed start recovered with the retry,
+including the retries that also had the 3 ms delay in front of them.
 
---8323328-1302103120-1792587368=:1258--
+> Can you try the camera on the RPi without involving the USB2 hub, or
+> are all ports routed through the hub ?
+
+All of them go through the hub. The VL805's USB 2.0 root hub has a
+single port, and the VIA hub (2109:3431) is behind it. All four USB-A
+ports are on that hub:
+
+  Bus 001.Port 001: Dev 001, Class=root_hub, Driver=xhci_hcd/1p, 480M
+      |__ Port 001: Dev 002, Class=Hub, Driver=hub/4p, 480M
+          |__ Port 004: Dev 003, Class=Video, Driver=uvcvideo, 480M
+
+The only port not on that hub is the USB-C port, which is on the
+BCM2711's DWC2 controller and not on xHCI at all. I can try it in host
+mode if that would tell you something useful, but it wouldn't separate
+the VL805 from its hub.
+
+Regards,
+Constantine
