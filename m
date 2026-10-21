@@ -1,112 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585688;
-	b=uazpm0vb0AvZPF9tLHZy1qigXNbbP0IQgGaxtm7dGHaG28a726AXiW6HTcrosVunxYQb
-	 zW2/B2HfWtPa5LB9b2kOgVKR+p4LxTxaYcTD4bU5izRVeaZ2+5DQz7Qc749JmHM6/9lgc
-	 jvLX4cSff9NPho2ianeRcg0KdVPQFwwyixK5VK5DdT5DUHkqPJQ0ipoVIDNFn+r7xmcpc
-	 ZLvAz90TJ8KR4V7UOr+62tywUGEFI84fVtbuE+JYm8kJjuGwXM7n4k9IkpAgP+wSnFomX
-	 oTkMxdI0QvDuVvjfskc59n642sWfFG9ZcibBInjctmuIIGxR4GeoDiTbejxHdPCkAuQ==
+	t=1792585730;
+	b=gQNLlRNAzrz62Y82HH1TblVqb8efdGnBbKsVhfOM2vLLjZKmfw09viWjMKmP68wDYGPy
+	 PXmNGKNd46Oo8jgss8hsvdXFNQN1XSG8WQA5Mc7c2EkcpkahANCjyppqHJjiKalDR1P89
+	 5Q9uBUbV9qV3YmTDATDhhcGvchsJv2R6v64goYswApTWn+qwSkEeq/BjgSP8WfOoJv/Sa
+	 DxbXq7Y3qj+JLk3wsVvo5MPZh5F9e6avwvMltKWgxJ9BDKAvPqHvCjPy11y+9x7IT+p47
+	 TsbqIhFMsMjlT39MCzMDnQzeNtoV9/VcEXa6FvzqW6qPAAMBJRhC7LIiwhGcw0qHxDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585688;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=0eU6RtwaBGBVUdLrxzNH+pMOcJGbeX6TyDSST0DZFlQ=;
-	b=jfR4j+wDBe1AM7iYkxiUbYVLegTXvI2DKYR32/Pr/JRtRMllGbXwHJyZshGFydhyRMkO
-	 e5BPncYC6p0u7KIAb4eRFG4zXMEfckpW5mzNNiIGaBU+VAIOdTvIak1d/N6nUo/d8ab6V
-	 HYu6KfnU5RtmN5PmeFHoKuZM9hFrLHYf3FWVyJ7GymlWnzPQDvqtGJRjmKyeUd8LJpljC
-	 KbCi8Lg+3UTPON6fihpjJDhV3GJlSUN9oc9dXlblKZeQ4zvErwnfpGooYjZzv7Wkzo1XJ
-	 NJooKccrpM3V3WxwtwhseVijpmmDPthsobsWSnBkOgVjoNl8hJoh5T7AIfZa/wEHoDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585730;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=x7YCZmHpFRCHFyGPTyhGucE8A4eYFXcryDMfwgdgRZc=;
+	b=leRExGcUaLLi677z9WFYZyUvuKUJGI8/NrkjRTu/ENd2zBQlLreJFflgUz+w2vkOfY9j
+	 0tsCjOeauDkZo7LNy9k+NDX07yHK/uTfdUkoZ+Bd13PFKhRlZYGnh4elUCMEHWWvXvpDQ
+	 0QK4hlyUd9VPS6RbIGviLgDlacpSgadLYNOM9ZWDbIKUZHf3Kufw7F0KrKyNTfoF2sOa7
+	 +hIfVupasqikOacikuLHScX8QHU0B+77sBi6aaIw1VI9CM4gxp1+SgL9OiSK4vfK1y4F3
+	 JE0MoxrboAGJoTBrvpwdQtyEcFkYWvCTFQTYJITgpIYQ0yx878VzxkE8xZq2FmUnvZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CsmirpcJ;
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hm22FjB9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3948606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:28:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3948606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC37B606A319;
+	Wed, 21 Oct 2026 12:28:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CsmirpcJ
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-33e623bd651so67156eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:28:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792585687; x=1793190487; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=0eU6RtwaBGBVUdLrxzNH+pMOcJGbeX6TyDSST0DZFlQ=;
-        b=CsmirpcJlZUVZQAFipxefTs8JnRPOik/dZDs6oytiYK65ls7Ll4DnzOSuuYS4VeYAc
-         xkktwKXQ8tQb79+dhpsdrYS9En+YayXrb1ppjHC8YCuZA8s0F5M8a9SRVkrrwAMJgYsj
-         ARTwt21HZ3Ro043jDBtBXXzdPjb4PFoW3W4pA4X53fIUusgME6SDvRwW0Z+eQoa9X+Su
-         9L1pxRq6pGJxY9Pt8ODVDhfG6WQ4WgJC6ncD1Kn4CTMNtZX/oJKgRl+jJGBiyoWn7lMV
-         gJsryKeD/pMI+IuAAmjVkZpAayYlqEu39+q1gmjtG9opqPpv8TOGupGmZZyBM5+D4Lv7
-         zJfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792585687; x=1793190487;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0eU6RtwaBGBVUdLrxzNH+pMOcJGbeX6TyDSST0DZFlQ=;
-        b=N87eu/gmNAX9GMdUD9bdIznkcFHnkeRww7vKd4CuX24F/ZSufbG4MBzT3re4HyJlqS
-         XWXp/Aj/Fxo5fxYN2L1bpT81a9MYp6Fy4fbF0i7GZ/IZ1tKsnJQ3l4d9gKEE3gsjwqLA
-         hPDkJgrCndP6PBlnAbwsp4sk+/PbY2SYSDdbTN4fw426SgFSDkM7FGEQklKadrbxmflE
-         /M5iGGMOKYx94DP+Ch6QCwv7fLLfjOvGBLeCk0SuPMIHa41Pjmn/iKP/mkwWDv6RB8zG
-         10kf1jD92WaqPaFmosilwNXlz//pcmMq0B5hID0GB8jxnRyRp5ViXxbVNFX9pMq8pP1P
-         AKOg==
-X-Forwarded-Encrypted: i=1; AKwUvBx16lWAfxixZP5mPtiPzCcM6a8hdjdTMc0xE8b4rYLYbn1knWmWhFdm1YBSg/8mpl6mA/3nIQBhrRgHXfk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJZsMaReFmb08eboCOGdaIF51hG1SDZ5iDCg0bm+1MSGMlGIIxo
-	8fvC5lXkkHYCUPuRCFxB0DZ966ae51a0IfykYVgwshNRpLC6JDqIdOvl
-X-Gm-Gg: AYBFou3y8jpBVd6/oQ0OtHp4J+Do5rXaATx7D4T0/dQtDd0Wc2c3phMvT/nFCUdVi10
-	4mzIP50a66BQX496tEifN6UXkMjMXanpUmwtLzpt27aRGw057LOniMrUJttxaDC10U05SU0Tyfw
-	GgFKJdfO6JyfVitVNkVt8n0WChEFp5c4bpFWqpus2iYH6+PM+I0ttOlNYWn2y43MwJhewEtNx8O
-	0CEVOsGzYDNArE9FYxmQE4Tm59qooAHpG6A94aphSAUUbwR46azG2IyBrlEn1idlvgk4qK3VWQV
-	Fs+IKfr38AdUYGKbsJvv4ELaj7i8W+q7ZB+1kLSueOPZWhAkSZerKfjnXnwMekySG4G2rMQeqdj
-	jvBgPkGJdvsVyTtAMX7xjsWPBDXNEUAPm2YmVBBjavSHUk/JaUrkaHQBQYi3nly3r7kA8UfQAUK
-	3cNcnevXfwfK0hsD+1hHfqkVviI1OaboRIjSnb8ZRqQObDwQr8LdxPea9RY26H1XJHahCToU+lM
-	Nc3FIlmrBhV1wLpSpWvRZxIhU6FFpr0sd9Phl+HRM3+1QnCyyPFyRSpB+GDOD2KOuA7Qi/OcZcJ
-	18/UctyBYiJVbv2+XA==
-X-Received: by 2002:a05:7022:f519:b0:14b:edb2:c3bc with SMTP id a92af1059eb24-1909acc857bmr3334418c88.0.1792585686379;
-        Wed, 21 Oct 2026 05:28:06 -0700 (PDT)
-Received: from o6.lan ([2602:fce1:44f:115e::])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035926fe9sm4935059c88.2.2026.10.21.05.27.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:28:05 -0700 (PDT)
-From: Xueyuan Chen <xueyuan.chen21@gmail.com>
-To: gourry@gourry.net
-Cc: akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baolin.wang@linux.alibaba.com,
-	baoquan.he@linux.dev,
-	dave@stgolabs.net,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
-	kernel-team@meta.com,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	stable@vger.kernel.org,
-	weixugc@google.com,
-	yuanchu@google.com
-Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive reclaim
-Date: Wed, 21 Oct 2026 20:27:56 +0800
-Message-ID: <179258562954.2.15216681747698947501.node-proactive-reclaim-review@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
-References: <20261019185002.3428594-1-gourry@gourry.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hm22FjB9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0DE21F000C4;
+	Wed, 21 Oct 2026 12:28:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792585729;
+	bh=x7YCZmHpFRCHFyGPTyhGucE8A4eYFXcryDMfwgdgRZc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hm22FjB98pQQqDEUKzhBwrhVIvZRBkT9Uo5aEGJEM9c1lNfcoEvpHGBEGnblB5GQv
+	 NHiub28gA6QMTNzNCefGTjrfOoccMxUQ4R79JsznGZvZ/V2BDI7CA2iT+hq+Zn2FaE
+	 waw4hVMX3VITTXm5347EF70HjF9l+WNqRfQfLI5FIKUb59SlugRL98f8qWFCdsJaNr
+	 r72i0ZV7YAX4/DKecqUMhHfOscT8fKpLFi0oFHBubU1JmDVzmPK60bCKmCdftc9NSm
+	 wLRBqzORgHDGCTp/FgTETDkGK7HcIQDVpNx6SLEGgpcx1ikViAvR8WPWGjovOV07pB
+	 5cPW0d+FrRvFQ==
+Date: Wed, 21 Oct 2026 13:28:42 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Joey Gouly <joey.gouly@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Steven Price <steven.price@arm.com>, 
+	Yang Shi <yang@os.amperecomputing.com>, David Hildenbrand <david@kernel.org>, 
+	Fuad Tabba <tabba@google.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] arm64: mte: Add mte_clear_folio_tags()
+Message-ID: <ativTPb95ZxK2_ho@gremlin>
+References: <20261021110700.493315-1-fuad.tabba@linux.dev>
+ <20261021110700.493315-5-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,11 +63,135 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021110700.493315-5-fuad.tabba@linux.dev>
 
-Including all zones makes sense here, since per-node proactive reclaim
-is not serving an allocation. The existing GFP context restrictions
-and folio isolation checks remain in place.
+On Wed, Oct 21, 2026 at 12:07:00PM +0100, Fuad Tabba wrote:
+> mte_sync_tags(), sanitise_mte_tags() and kvm_vm_ioctl_mte_copy_tags()
+> each open-code the loop that clears the tags of every page in a hugetlb
+> folio. Add mte_clear_folio_tags() and use it in all three.
+> kvm_vm_ioctl_mte_copy_tags() then tests for hugetlb first, as it does
+> where it sets the tagged flag below.
+>
+> No functional change intended.
+>
+> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-Reviewed-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
+Great LGTM so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  arch/arm64/include/asm/mte.h |  4 ++++
+>  arch/arm64/kernel/mte.c      | 15 ++++++++++-----
+>  arch/arm64/kvm/guest.c       | 10 +++++-----
+>  arch/arm64/kvm/mmu.c         |  3 +--
+>  4 files changed, 20 insertions(+), 12 deletions(-)
+>
+> diff --git a/arch/arm64/include/asm/mte.h b/arch/arm64/include/asm/mte.h
+> index 7f7b97e099968..5a2d2814c0416 100644
+> --- a/arch/arm64/include/asm/mte.h
+> +++ b/arch/arm64/include/asm/mte.h
+> @@ -96,6 +96,7 @@ static inline bool try_page_mte_tagging(struct page *page)
+>  }
+>
+>  void mte_zero_clear_page_tags(void *addr);
+> +void mte_clear_folio_tags(struct folio *folio);
+>  void mte_sync_tags(pte_t pte, unsigned int nr_pages);
+>  void mte_copy_page_tags(void *kto, const void *kfrom);
+>  void mte_thread_init_user(void);
+> @@ -128,6 +129,9 @@ static inline bool try_page_mte_tagging(struct page *page)
+>  static inline void mte_zero_clear_page_tags(void *addr)
+>  {
+>  }
+> +static inline void mte_clear_folio_tags(struct folio *folio)
+> +{
+> +}
+>  static inline void mte_sync_tags(pte_t pte, unsigned int nr_pages)
+>  {
+>  }
+> diff --git a/arch/arm64/kernel/mte.c b/arch/arm64/kernel/mte.c
+> index 1a9aad6ef22a0..fb2598f8c0ccd 100644
+> --- a/arch/arm64/kernel/mte.c
+> +++ b/arch/arm64/kernel/mte.c
+> @@ -36,6 +36,14 @@ DEFINE_STATIC_KEY_FALSE(mte_async_or_asymm_mode);
+>  EXPORT_SYMBOL_GPL(mte_async_or_asymm_mode);
+>  #endif
+>
+> +void mte_clear_folio_tags(struct folio *folio)
+> +{
+> +	unsigned long i;
+> +
+> +	for (i = 0; i < folio_nr_pages(folio); i++)
+> +		mte_clear_page_tags(page_address(folio_page(folio, i)));
+> +}
+> +
+>  void mte_sync_tags(pte_t pte, unsigned int nr_pages)
+>  {
+>  	struct page *page = pte_page(pte);
+> @@ -43,12 +51,9 @@ void mte_sync_tags(pte_t pte, unsigned int nr_pages)
+>  	unsigned long i;
+>
+>  	if (folio_test_hugetlb(folio)) {
+> -		unsigned long nr = folio_nr_pages(folio);
+> -
+> -		/* Hugetlb MTE flags are set for head page only */
+> +		/* A hugetlb folio is marked tagged as a whole, so clear every page */
+>  		if (folio_try_hugetlb_mte_tagging(folio)) {
+> -			for (i = 0; i < nr; i++, page++)
+> -				mte_clear_page_tags(page_address(page));
+> +			mte_clear_folio_tags(folio);
+>  			folio_set_hugetlb_mte_tagged(folio);
+>  		}
+>
+> diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
+> index cda655fbff657..c75466384f8ac 100644
+> --- a/arch/arm64/kvm/guest.c
+> +++ b/arch/arm64/kvm/guest.c
+> @@ -1012,7 +1012,6 @@ int kvm_vm_ioctl_mte_copy_tags(struct kvm *kvm,
+>  		void *maddr;
+>  		unsigned long num_tags;
+>  		struct folio *folio;
+> -		unsigned long i;
+>
+>  		if (!page) {
+>  			ret = -EFAULT;
+> @@ -1046,11 +1045,12 @@ int kvm_vm_ioctl_mte_copy_tags(struct kvm *kvm,
+>  			 * tags. A hugetlb folio is marked tagged as a whole,
+>  			 * so its first tagging clears every page.
+>  			 */
+> -			if (!folio_test_hugetlb(folio))
+> +			if (folio_test_hugetlb(folio)) {
+> +				if (folio_try_hugetlb_mte_tagging(folio))
+> +					mte_clear_folio_tags(folio);
+> +			} else {
+>  				try_page_mte_tagging(page);
+> -			else if (folio_try_hugetlb_mte_tagging(folio))
+> -				for (i = 0; i < folio_nr_pages(folio); i++)
+> -					mte_clear_page_tags(page_address(folio_page(folio, i)));
+> +			}
+>  			num_tags = mte_copy_tags_from_user(maddr, tags,
+>  							MTE_GRANULES_PER_PAGE);
+>
+> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
+> index 6e10aa9913d71..f8139c0a54deb 100644
+> --- a/arch/arm64/kvm/mmu.c
+> +++ b/arch/arm64/kvm/mmu.c
+> @@ -1514,8 +1514,7 @@ static void sanitise_mte_tags(struct kvm *kvm, kvm_pfn_t pfn,
+>  	if (folio_test_hugetlb(folio)) {
+>  		/* A hugetlb folio is marked tagged as a whole, so clear every page */
+>  		if (folio_try_hugetlb_mte_tagging(folio)) {
+> -			for (i = 0; i < folio_nr_pages(folio); i++)
+> -				mte_clear_page_tags(page_address(folio_page(folio, i)));
+> +			mte_clear_folio_tags(folio);
+>  			folio_set_hugetlb_mte_tagged(folio);
+>  		}
+>  		return;
+> --
+> 2.47.3
+>
+
+--
+Cheers, Lorenzo
