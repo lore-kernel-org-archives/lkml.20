@@ -1,91 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.230.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605195;
-	b=I7uq+TDuL7U/dVRDkKvD4uZ/rNXjJJJ4FsfMccloXrF0EMV7mdSKibdlub6wCKkDLGoJ
-	 gG340t8VBkCYM1AywCgSRgFZ/p2mqFCJHa49AK3hFKCkwEZc/8wMNSbVKEWo/iKJKK3vg
-	 sYu/wNFO3I32irVSyLXoft+XbQkWihNP1Nm2IsSlyYHZl/yWx9Cz3NBzEJ2d7IgFu5kjX
-	 gtHop3VhbX4l4OITcaJpYYH/3TFvIOKSvr4eV1KhbvwrcxHFoke7BG3Wk1eWqAh+fP+Xd
-	 xbOCWuycYR4ZNlZzW3dtNYCzRpY5DESFY79+Ejcw2/D9VX321kmhLihG8E3LboJpIWA==
+	t=1792605197;
+	b=kZpFA7fu87s4dkCAA0ra6S/SJ5OvTWIUvQIDkZH/0OVxGUJL32jOm8xffbSvGBg8UZqD
+	 3dtKWv83lgyggSiMxGMac45MQvIounRrtAWTpoENYYdB2zFu6jyWH1KvXLPEKBznx1acQ
+	 sYDcsTbpQ7fHHyrjeVYqzrPEPBvr54UHVvBqgRE3syrEifl3rUp/mvB/C5bXmgNGVrQZR
+	 IqgQsEF04kF5rlEFgJy30LXlwSe8D1cBRdKHOfUC0SimET/q2fg55HFomseFO4t7G9yQ8
+	 N9AypHbYUfFcLJUxaPk22iXuNXLK9q8JLqPKUdk8bNlKoqFd7qhlVK2ArynvTM9kKwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605195;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605197;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=EKHQEVKe3P8J8ao8BGzCfnwn7QspA2SFir6fQkjj/Rw=;
-	b=5kDihZ/fC+UtDwf4b+WJQzO+Le7uY3Tne23CppiAkCQXu37+3tNcylba3yNR4vHVWd4I
-	 V1ByH77zzIfJvDlCOF3oRHdjdz6xMC7pAVP/ekfVdEP3HwHFFcrFaBkGBfZfrUD0cNQ1p
-	 LDu0PqhE9Y29nil5UCKbsNB91/b5dgO2+62sJAjwZ/apuMcinQ1oEOpmL4bYHDXJ0ase7
-	 tL3ieVnVLmD/ZzGYdll0BLrnMvDPPPAdBEVNFTBRNvZtuGmTiVVjkZJ5Hc88z7f/w4G92
-	 q2DV5UXNNi7rO8l1zSpZav4D6LVotpChOS56HrxuO657dmQ28gg0cCCFOhNv74ycv3w==
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=Nkow2WxsbwgbBb3PRtxAKEX5ZOJS6u8PKRX/NW/T3IU=;
+	b=kFRRuLczPAuEPQJgkbgrZ0nk3WnJxYf9ptlM8eyNAtG0RK+J3MM6aWjXzr5kg3Igf3X9
+	 ucSV9HY9fW3yxrQ3bzekx8HiSdLteYxkKiL3GxMa/fbVQcP8l+I74Pwu58dvhtkKo81wh
+	 frp9CbaL2DkAeX9o+lc49GImBvym0k31CAsa1xyStyNgFYTc7VgbmptgeeDVG7l56Ojo0
+	 A2Qm/OKBZkmdT3TP7YZ57PeNkRrv33rbyOlr1LhQI2tigHmb1sBA6fz2aSqlm9rPduqw2
+	 cFQQ16W2k2EbSMcYdc49dX9PGiXtjbn6lMvgp4yS6iV07sTr11i4z18FlxodBGYNfmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xy9bMYJv;
-	arc=none smtp.remote-ip=74.125.230.200
-Received: from mail-qk2-f8.google.com (mail-qk2-f8.google.com [74.125.230.200])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=apSsoOej;
+	arc=none smtp.remote-ip=74.125.230.196
+Received: from mail-qk2-f4.google.com (mail-qk2-f4.google.com [74.125.230.196])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC814606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC814606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8C1606A323
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A8C1606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Xy9bMYJv
-Received: by mail-qk2-f8.google.com with SMTP id af79cd13be357-9369a6afaf8so53450885a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:53:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=apSsoOej
+Received: by mail-qk2-f4.google.com with SMTP id af79cd13be357-93f08d9aa49so11250785a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:53:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792605194; x=1793209994; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EKHQEVKe3P8J8ao8BGzCfnwn7QspA2SFir6fQkjj/Rw=;
-        b=Xy9bMYJv3tkYhDXnapLP6C0yHm2bzQ/rafwOM4Ilu01F65xSFOYh1wFyLwCwBjrT4t
-         eDu3BdrIiLJ/qxbERDrPAcbaSTeoA1FdVGyATVWd9xmHI4wkFg+AJDXYiyWhZ2cPaJ+0
-         xrXLoQ5Ri7zSUX3YnAWa+bKaJG//8f/f8niC5iQDny3H3Hd3eStHOXj/yUUcNEF6A3lS
-         zWuxaPHajm+xUTUSBz7b8JTEfNL2+kS3BB15EkFSgjhqN6OMUH6EF9bh7bBShV+ahGW7
-         hngoD7WHZ7YFr6IlRsPIM02XQ3oenYbeLj8qY5kBD02WbEX8g2XcyHE5EyzsGXbPmKEh
-         tsuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605194; x=1793209994;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792605196; x=1793209996; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=EKHQEVKe3P8J8ao8BGzCfnwn7QspA2SFir6fQkjj/Rw=;
-        b=dkDFPompvE5YsaXnq+kr6KhcRDlWB5bnF1oixz5qIAldHzNuITq7O7oYC4zTuzOw+H
-         Q9xLwDBVPHM70uF1a7DlAgL6CmE7BWEr3/X3jVe2fuX254PKLdBjbNzSRFIj8LHrbaDq
-         KhwPoPrmdsdUKdTId2Zp0J1s/fn1TQC2Ayz/hKlS5OaOBaHmICi3n1whahmIYyJ9eJsB
-         MSubggmS8m3m71jYRWhAKQJ7A08/KylreAP13SR59LalYJxvaA3cMGlwy5ZDvxE3EoOH
-         OzDp1TCHPw11aGYTkC5TYoLeiiMAYACE/n1uh+sKOR0rEhSdQ4QnFYujaPU7kh0SsWUe
-         qOOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzCO+/mAnUaGDyR7jviEVZ0sQsdHEavUtjnmbn6Ci//5i0P4l3cnh0D0YJcoy6pOTE+tkMdoG30mIPpZqw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfJoQUvyLKg0v753KKHW6/rna6JBcHFy1ufrG7JB3BQr2uzlM3
-	wmnnFfddqnD0ZYthqcVlHmeOHq9fJ3n6EeaoJtGO6gi/jgskEwKknyMy
-X-Gm-Gg: AYBFou0V1ZtOZoj3qgmoBhbg0BkHb99CVWTDBn9GUg+5I/xf7kj/Sru2PRdR/P8pScR
-	+Ev1PDYaSLwRCxDoYd1gP0rOa+GXMvsh/V72EVXDe/mjsb/RL/G1VqnbnhbXBov/9R8UTCaNok5
-	qMiUn+5HwpdeF9mMwXdTQY7g/HLKLSZny1RA9USY3HbA8EDHHBJycVPnq5bAQuZnQOq4weiyaub
-	PHIoXPNRVK7eOL1kFWU5yt62yk8WqOdnGtothOz4PIF5o2uUSGQcNOwTvReEGN6SAS/asvDjsuj
-	st2IDfd5VS5jNZInTVvyveUKR1b5CS1YDZXmGnkdhGoQXjmf2F+SzNiBFqKdsNoUdUtOb+l4Lg1
-	Uqu/GiDVOxfX3q2YDTBys8Kziqi9jNF+kOHhujf0054EKaiobe/ZCNfagCniZCA9ioBzD9WJXrj
-	bVqLEZESLteL7giEW5P/FunVkZQ+mFpXnJrisojMQbBtKxbmfQNs3vYI6wV0ArVJD/QjqKXJMTR
-	C3w+JUNydpxTSRrVtitai9kb/JY8QHG+hQzEEGCMtQiLWyJMp24qVoWTFX6gDvCB3vi4JoOauGx
-	1so/tqkZ0w==
-X-Received: by 2002:a05:620a:2987:b0:93e:95ce:53c7 with SMTP id af79cd13be357-93f57f05babmr488590585a.4.1792605193584;
-        Wed, 21 Oct 2026 10:53:13 -0700 (PDT)
+        bh=Nkow2WxsbwgbBb3PRtxAKEX5ZOJS6u8PKRX/NW/T3IU=;
+        b=apSsoOejDjjcH5diiC2gbH+Z8kNd1Jauv+MSmpI4UZrUS2NjxhosEOAmgFyWIw1tK8
+         +lL2IKClK1IoBMMMjvQOFgoS9EqawBsXTPPTrExACDcEohGG3kebty5hpHgtEy/euVMa
+         ZjC8gDd7PKQ6LXTst2U3wP5xFcno9P7NShD2VCFtkqEyRd1hAKPc4wMSaxHZxtKp83hd
+         VZB788xsnGmHWOiEL/+bcOQ6dosna5Kvss+/yLjjUhJ0hk3NHjLSeoY85aYgLzKodOq5
+         UcOWYNdhwLapdAd44EFDaiinnPBQj/bJumTz5tnw8VcciX/ErEHPF76cIUw9e0N+DVky
+         nUGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792605196; x=1793209996;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Nkow2WxsbwgbBb3PRtxAKEX5ZOJS6u8PKRX/NW/T3IU=;
+        b=kWUXb0uQGsUBDYhHbbiAfrXnVYPIaBwhOjUseGTwf2MG40UPliNooYhDwY+WPFcPbo
+         tXtlCG4gsBsZ5DUCLZTRyjmfZU9b7fPAyAvM3WwwcD4WsWRs51i3b48jAijkYjtYNtgZ
+         LQkiPdPlmzR3GrbNMPlKSuUZJDc3nzT5iRZKq5DpoU6x0tAZAZTiCZAwhWpI623DxCYz
+         AKe91cDmZ1DVwoVn/9GlOB3OtjH6sAnu2m0PR8oPpDPemsxRRHjfz3jBj40ojDbHLwK/
+         9rmNjZUPhDfqh2V6jZqytjI9AlVfr89ROAp2Nt6mdGs6PeubacEcc7TDPlSHAdBNwPjC
+         CovQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzpsr2U4mBv9rhMdQLj3V0gKagxLnRSnBjBnlJrGK4FxncKyj/XDqe3118gsvMCrF8SSNxt6j1i7u9AqW0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS+DadRlnBDwiwSijIYs7r7WKVqEOP2V9kam3vhIacP8uMDmHv
+	jwHgy9otgJgoNlcalhW399OgOi9ZdniZRBPXmEGlV2V4OfBtGBOxgTXv
+X-Gm-Gg: AYBFou3OhfIzMTx1zvUBSc20AB7qlLq5UrARGgWNgijWhwIoTUjacP9Ai4iQKZswbvF
+	3OpSMyn8eU36PSr37hZXU2kdi7G58UYHM5Sy+br9vWGe9ojwUznkXG+1lA0Mu8FjzNgKHY0ZaDZ
+	92cq3SPxyq90ijuuWydwpGB7IWEJvmqUrTgE/0fW3foUIUcxlh0Nd1TQvH9WTlKvVWuMMe1+e9b
+	1aSVaQdZfiXGWmbMviO90Qgy/JuQQAYUYnfnzBWRYlKqI21cbQfI6A1anUmLmQaeV8U1d+8RW9p
+	z5YyFpRNiu1WPlKN13feO9zduD9HKrBpc7S3qZXUhG5HnkyEqeDf1NIXHTugxwBErdnMtVklzQi
+	jtV8neFN1n9X1w628ygqs+88DeardVR5p4b/l1UIYew6ZNo2/k8vEHzabk7PkZfvviXueeXWqbC
+	UrAlMS6IBFV0qT1IxvbclaT/UsUnHr9nfTjSNNegpQLbF05XqTYtZr4gAknaXPJJWm+zdw74Vsj
+	jBLaKe+WombkZIJSiIOcVPXyXQjyocg8iGKNUiPSsC4nSqwQWybPetz3u9dKLge
+X-Received: by 2002:a05:620a:2b92:b0:93e:7156:f814 with SMTP id af79cd13be357-93f624d257cmr17959385a.11.1792605196271;
+        Wed, 21 Oct 2026 10:53:16 -0700 (PDT)
 Received: from Fujo.localdomain ([142.188.41.221])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56d9af50sm305675385a.8.2026.10.21.10.53.11
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56d9af50sm305675385a.8.2026.10.21.10.53.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 10:53:13 -0700 (PDT)
+        Wed, 21 Oct 2026 10:53:15 -0700 (PDT)
 From: fujo <hooyan2024@gmail.com>
 To: linux-fsdevel@vger.kernel.org
 Cc: Christian Brauner <brauner@kernel.org>,
  Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>
-Subject: [PATCH 0/2] fs: two mount API fixes
+Subject:
+ [PATCH 1/2] fs: statmount: don't copy strings past the caller's buffer
 Date: Wed, 21 Oct 2026 13:51:51 -0400
-Message-ID: <179260511193.411.2849255769062027805@gmail.com>
+Message-ID: <179260511193.411.4517720543579678364@gmail.com>
+In-Reply-To: <179260511193.411.2849255769062027805@gmail.com>
+References: <179260511193.411.2849255769062027805@gmail.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -98,32 +101,56 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Two mount API edge cases reported by shaos, both reproduced on
-7.3.0-rc7 (58161ead2) with a small syscall probe run as /init under
-QEMU with KASAN:
+statmount(2) collects all strings in a kernel buffer and copies them to
+the user buffer after struct statmount.  copy_statmount_to_user() copies
+seq->count bytes at buf + sizeof(struct statmount), but only
+statmount_string() checks whether they fit: it returns early when the
+producer emitted nothing, before the size check.
 
- - statmount(2) with STATMOUNT_MNT_UIDMAP on a mount that is not
-   idmapped and a short buffer copied the reserved empty string at
-   offset 512, one byte past the declared bufsize, and returned
-   success.
+If no producer emits anything -- for example STATMOUNT_MNT_UIDMAP on a
+mount that is not idmapped -- the reserved empty string is the only
+thing left in seq->buf.  statmount(2) then copies that single NUL at
+offset 512 even when the caller passed a smaller bufsize, and returns
+success with size = 101 for bufsize = 100.  The write is beyond the
+buffer the caller declared; if the following page is unmapped the
+syscall fails with EFAULT instead.  The same request with a producer
+that does emit data correctly returns EOVERFLOW.
 
- - listmount(2) and listns(2) with a U64_MAX cursor wrapped around to
-   zero and restarted the enumeration at the first entry.
+Validate that the string area fits into s->bufsize before copying it
+and return EOVERFLOW otherwise.
 
-Probe output before:
+Reported-by: shaos <shawnq1@163.com>
+Link: https://lore.kernel.org/all/20261020110747.959829-1-shawnq1@163.com/
+Signed-off-by: fujo <hooyan2024@gmail.com>
+---
+ fs/namespace.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-  uidmap buf=100  ret=0   size=101 byte512=0
-  lm cursor=MAX   ret=1   id0=2147483651
-  ln cursor=MAX   ret=8   id0=1 id1=2
+diff --git a/fs/namespace.c b/fs/namespace.c
+index c30f06374..c8aceeff6 100644
+--- a/fs/namespace.c
++++ b/fs/namespace.c
+@@ -5831,8 +5831,18 @@ static int copy_statmount_to_user(struct kstatmount *s)
+ 	char __user *str = ((char __user *)s->buf) + sizeof(*sm);
+ 	size_t copysize = min_t(size_t, s->bufsize, sizeof(*sm));
+ 
+-	if (seq->count && copy_to_user(str, seq->buf, seq->count))
+-		return -EFAULT;
++	if (seq->count) {
++		/*
++		 * The string area starts after the struct and must fit into the
++		 * caller-provided buffer.  A request that emitted no strings
++		 * still leaves the reserved empty string in seq->buf.
++		 */
++		if (s->bufsize < sizeof(*sm) ||
++		    seq->count > s->bufsize - sizeof(*sm))
++			return -EOVERFLOW;
++		if (copy_to_user(str, seq->buf, seq->count))
++			return -EFAULT;
++	}
+ 
+ 	/* Return the number of bytes copied to the buffer */
+ 	sm->size = copysize + seq->count;
+-- 
+2.53.0
 
-after:
-
-  uidmap buf=100  ret=-75 (EOVERFLOW) byte512=170
-  lm cursor=MAX   ret=-22 (EINVAL)
-  ln cursor=MAX   ret=-22 (EINVAL)
-
-The in-tree statmount_test (17/17), statmount_test_ns (2/2) and
-listmount_test (2/2) pass with both patches applied.
-
-Thanks,
-fujo
