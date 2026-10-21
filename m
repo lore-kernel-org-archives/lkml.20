@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576465;
-	b=uc78jqy7wo6mGL01JKGzUfKVfVQS57rq3tvQNDNBtZOqbHR5j/BZ7GYB9Sd5DlTq3oaH
-	 z96TU/6NwA/+7N7PvOLRY61Ssb2aTiv7oX45wmTKblA72bfAYdoCjs4Crm3OB5YZWFAZH
-	 AMYFtxuqp8EEd62XrZWoYELUhVwYEfZbuzWbNUc9gwiT2feKjCKWeOxandpN9aUSpbayJ
-	 vA+CNX6o31cUOjcqJhSDZix/9eRHdqnUvvD5kycKLRQvni7plmOxUqK7LNFzW+UGnGyqp
-	 EeyTqnSILlE29zODA4/cx+es/udUniJq4IJC6oHu/SIbkV+X9vmXZ3dXpZRENFelhFA==
+	t=1792576501;
+	b=kdcXhoZf5PDljkYAx3ZDx8ephpdEyjnZUIY2M/Pqtt2altfWkE6PKUd4OPFNKiycSHbM
+	 aRtZf1DEziq3O+Z3weIWdDTiFh5+3UaQGByXLHYElsnEGAF0ufWXjOOVpH6oAzgvd0doN
+	 PkMpzvuQIJUOM/0RkRtyPpJdOrlWv6WBGKgskhj0qHQKMYKLtRYFCry3FqgsJfCLV0g5o
+	 f9ymsEAFRb6GR1ZaTz3zfN7o/r8wplLU6MjMwfsldE9RqEU+kum73jswcqAyDISuy045f
+	 4bIGhNQVbx/d4ph1AX1FJ4PgO8CT/vCcI2m0dHzGkfCPvA8TT2kjM5MVBopJZgBfm0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576465;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=Ph5jOO1GJkWHfez0YQCFb1ckQjLY8JeVKtFL0PrDBnU=;
-	b=gVQXXiKs+MAxZllK1LwnK6nM4lK9UCOuEETrFEsRiuFlACdPxRYdNQ3vyNCNBTwtF2+k
-	 qGC7aZwYb0eIdKMt2S7tgrmezKj9ngfVAVMnnwa2DWS70F+HVBj0SZ++81hX8COiQYg1Z
-	 Rauf4qowPQVU7vbUUfIsJlMl6ID0UBl4SzL39XfSzH5oadhXk4p2VqalMuK0+4g7hsyLL
-	 QgxcKSjwcbwj+2wyHR6KDOrcNgwHhUgc+cEn/ddGgVPy0/0XV2CkB0sK9bTCFT45bt57o
-	 5Z0bVd8vlXKp/UZ8waPbiYLXRckN1o9YYXZ59NBbLf+adPGGj7WplPHnjGlNh6NKcWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576501;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=MExLNxo30QD12Kyb4ucdYdonXGQpRob/JKPTjbdcYUw=;
+	b=ogocmcFuHUGytuoZa4bd3SXl2imftufRbR3A0GNxmJ6x800DKsq7I0vLBpRcVgTNmqnU
+	 JL6e1MmdSo8aJVSr2jEhdApJsCOb0jchy02mgE5mCPx/TarTBoxU6SvqhBexlEiNVPAz/
+	 4TfsEC4OVcsbpLGtTZS9+/MbbZvDmZdTzN1vV+RX5+JmLMqD8d2Nihao9WiYL1fE5TItc
+	 2M3wkCI+Qka6jPZUANJ0tON2vxjA4U0GHzK39uI9VxNk41yTnfgtyta5Nod3xD5NGXD/d
+	 Uw6JKQ7NIB2JlOcO5Hxl7UT0CG+HrnfZ84PfTuEPv8a/25VkGMh2vguoQtlE0MeclwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LAHQOhdr;
-	arc=none smtp.remote-ip=95.215.58.6
-Received: from mta1.migadu.com (out-6.mta1.migadu.com [95.215.58.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJauNYda;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA837606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:54:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA837606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C963C606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:55:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LAHQOhdr
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=mtNnOi1A0NVeWv71nH2FKskD2CAi32/TwrkTagWD074=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792576462; v=1; x=1793181262;
- b=LAHQOhdrACH2uKpTmTwpy2nnJvEuOsPIWIWFykGDycUbPghtcFhl1t35CijPXf67YUiojPN/
- VOQ9emlN5v9k6BxruqAvX8yUBYPZvPuCJ86irQQ2s5NY9LPw9Q8B1ZZUYBmynq48VmEWbhrRjzs
- n4CLIH99Tc41TwqOn9hEdQUc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id f8890043187a53cd;
-	Wed, 21 Oct 2026 09:54:21 +0000
-X-Mizu-Trace-ID: f8890043187a53cd
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJauNYda
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961C41F000C9;
+	Wed, 21 Oct 2026 09:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792576500;
+	bh=MExLNxo30QD12Kyb4ucdYdonXGQpRob/JKPTjbdcYUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nJauNYda1heiTixpeplj8GOZdEBNqEA0ekDZR9zS0GMSGpmpz0B/C4SnzBNSo9i+F
+	 YzoqB+8NzevEcE2A6zUu+vXa301b7gwLeERoXhFjvZQTFa48EDGeWUhht8zm010/WE
+	 jbnQO945QwVDZC0un3iSyZHkEGGicdtsuhXc/iinQHSiwyZo8kE/CAezr2US3S9bOY
+	 lC9Py4vn4mmQSUoB78bqYgntKcK6f5mS4Q4HXO2yi65CwopqmT9rDjgHw+qwfnctoh
+	 C5f8UpRbCRCIQ+G6tsHs0w0qCVv3p3Yy+nRJDE5gIl561kM3UrVkeabXKncuWjOxVC
+	 t4P7G8KecbJ2Q==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id CCF691980047;
+	Wed, 21 Oct 2026 05:54:55 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Wed, 21 Oct 2026 05:54:58 -0400
+X-ME-Sender: <xms:74vYaqVl2KoKaAEI9wN6vD_TyJ2o1PtMlkJU3WHStvhoCsFWnfRbCw>
+    <xme:74vYauV4F6NRqO4apXMewdcBnKzBdvxd1tuWiCpC0bzROQTVs0RFOi9PD5_a8fFsd
+    aDzrfBZtT4G4YWE8k2F9qLx4qsCpwLzL6f7EswCGZkJvVbrrx-Sa62xvg>
+X-ME-Received: <xmr:74vYas9dKnQ-mDrhRVynmTKPQUkVabIa7iz_ErItlqyxus0ixMCO3M0M7VU>
+X-ME-Proxy-Cause: dmFkZTGb/Scrq1IeFW6Re/s6z4hEr+1tf35xinWTa+O/Fw80orVIKU9SW3pc2dkWLXOxYX
+    aj4ioxmBvCvOHRjRdogkFH1rnMbj7322v1gTqwmXTMhq+Z8nTAW6lao7civSlmdBfCBEsC
+    dKosLcITrmuLbvRC2qdMEduQR2GDfbPDEyQxftwTkmKHsu89cPNX4zF3Ytu8Ri551fETE9
+    jFhri3RGjfONpTgZvjZyoUmlZipSdJYJ9z9Vin/KCkM0L2moggAaeACKCYYu6+N1IYv1hd
+    WXKzocmG3QVqE+svsBYuYwDOHIHJzfoTPzMNXHbFhUAcXHYrf5Xmxw9xs+KO83Cz9kF6gO
+    lN9/yxDlOr7VZ0TlR67P8dgaYMmJVGvx8KrIjZVN7Mrl5EKV8gHLw1JEll9RZ44Is86w7G
+    mxB2B6R4XFgXExXQtEFSi6y3rhqjgQ/oEe2BiablW4VLfTv7eG+yoBx4pFLJ59eq1E89up
+    9yXVGCB6IjeAwOId5O2ppYNR/s2LgPmoIWFq6QTkxMI8qM95y8b8rRk3sT5ae+ExSacpey
+    +Sx17rhcYq0Mg57WLXbyG9md0+I5D88F/+LEDYejObZX2rNRb2zlKXKOPeQtKRvC5vC9Ds
+    f1RW9hFCFt8wfG5qCH8uH9vUCOPnayvZQBBH/jv8e2W7c5UYMaUY5biwSVNw
+X-ME-Proxy: <xmx:74vYarrsuHxJMa9blAEqSmJ1ECzF10GSwXI8zA_z1-bcIkP3UzaMrw>
+    <xmx:74vYaoeSpFLYNZ0lPYG8yuBAcliWv1Lo-37mMMD1ycOvfhja-M4LWQ>
+    <xmx:74vYaq-2nnNyD-xPDVbKsuRtBKGlWkL_rkj2aVJEokgw69BCSzqAOA>
+    <xmx:74vYaiYyzitMP-K6gugZGd-mUEO10KwVWolCba8CD3RTHPcNkeZtcQ>
+    <xmx:74vYal0UgFzPYW3tHiU_dpVP5tyqLl1UZAvZnH3IRXm2VFRB3iDdLFaE>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 05:54:54 -0400 (EDT)
+Date: Wed, 21 Oct 2026 10:54:53 +0100
+From: Kiryl Shutsemau <kas@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: bp@alien8.de, dave.hansen@linux.intel.com, dsterba@suse.com, 
+	hpa@zytor.com, linux-kernel@vger.kernel.org, mingo@redhat.com, terrelln@fb.com, 
+	tglx@kernel.org, x86@kernel.org, torvalds@linux-foundation.org, 
+	hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com
+Subject: Re: [PATCH] x86/lib: Use REP MOVSB for large memcpy() on ERMS CPUs
+ without FSRM
+Message-ID: <atiKeB-76nOj-ztU@thinkstation>
+References: <atCpTMcAALymqADw@thinkstation>
+ <20261017192727.2760919-1-usama.arif@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,106 +88,52 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 03/20] hugetlb_vmemmap: Always flush TLB if needed upon
- PTE remapping
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261003002123.505555-4-jthoughton@google.com>
-Date: Wed, 21 Oct 2026 17:54:06 +0800
-Cc: Will Deacon <will@kernel.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Nikos Nikoleris <nikos.nikoleris@arm.com>,
- Linu Cherian <linu.cherian@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- David Hildenbrand <david@kernel.org>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Nanyong Sun <sunnanyong@huawei.com>,
- Yu Zhao <yuzhao@google.com>,
- Frank van der Linden <fvdl@google.com>,
- David Rientjes <rientjes@google.com>,
- linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- linux-mm@kvack.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B8A44041-1516-4405-976D-534AA2412A49@linux.dev>
-References: <20261003002123.505555-1-jthoughton@google.com>
- <20261003002123.505555-4-jthoughton@google.com>
-To: James Houghton <jthoughton@google.com>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017192727.2760919-1-usama.arif@linux.dev>
 
-Hi James,
+On Sat, Oct 17, 2026 at 12:27:25PM -0700, Usama Arif wrote:
+> diff --git a/arch/x86/lib/memcpy_64.S b/arch/x86/lib/memcpy_64.S
+> index 12a23fa7c44c5..6b3e203b6087c 100644
+> --- a/arch/x86/lib/memcpy_64.S
+> +++ b/arch/x86/lib/memcpy_64.S
+> @@ -31,9 +31,10 @@
+>   * which the compiler could/should do much better anyway.
+>   */
+>  SYM_TYPED_FUNC_START(__memcpy)
+> -	ALTERNATIVE "jmp memcpy_orig", "", X86_FEATURE_FSRM
+> +	/* The FSRM destination move shares the space used by the ERMS jump. */
+> +	ALTERNATIVE_2 "jmp memcpy_orig", "jmp memcpy_erms", X86_FEATURE_ERMS, \
+> +		      "movq %rdi, %rax", X86_FEATURE_FSRM
+>  
+> -	movq %rdi, %rax
 
-> On Oct 3, 2026, at 08:21, James Houghton <jthoughton@google.com> =
-wrote:
->=20
-> vmemmap_remap_range() can potentially leave the vmemmap in a partially
-> optimized state. In this case, a TLB flush should be done if the walk
-> caller asked for it, even if the optimization was not fully applied.
->=20
-> A follow-up patch will more completely deal with partially-optimized
-> folios.
+Moving MOVQ inside ALTERNATIVE_2 is ugly...
 
-Why are we dealing with partial optimization cases right from
-the start?
+And it only turns a 5-byte NOP into a 2-byte one on FSRM.
+What is the point?
 
-I know that in patch 12, you try cmpxchg 16 times, and if it
-fails, it leads to the partial optimization state. What I want
-to ask is, why do we limit the maximum number of attempts? Is
-it because during testing you found that this kind of failure
-is very common? If we did not limit the number of attempts,
-was it because during testing you found that the scheduling
-latency caused here is very large? Or is this just defensive
-programming? In my view, scenarios with such intense
-concurrent access to these struct page structures should be
-very rare.
+>  	movq %rdx, %rcx
+>  	rep movsb
+>  	RET
+> @@ -171,3 +172,11 @@ SYM_FUNC_START_LOCAL(memcpy_orig)
+>  	RET
+>  SYM_FUNC_END(memcpy_orig)
+>  
+> +SYM_FUNC_START_LOCAL(memcpy_erms)
+> +	cmpq $2048, %rdx
+> +	jb memcpy_orig
+> +	movq %rdi, %rax
+> +	movq %rdx, %rcx
+> +	rep movsb
+> +	RET
+> +SYM_FUNC_END(memcpy_erms)
 
-If your testing did not find any problems, my suggestion is
-not to set an upper limit on the number of cmpxchg attempts.
-This should be able to simplify the design of the initial
-version of the code to a certain extent. If we want to
-determine whether an upper limit should be added in the
-future, I think we can add timing monitoring in the arm64
-try_update_vmemmap_pte function and trigger a warning when
-the measured time exceeds a certain threshold. If someone
-reports this kind of warning to the community in the future,
-then I think we can improve it at that time.
+Copies below 2048 now take two jumps to reach memcpy_orig() instead of
+one, and David's point is that nearly all kernel copies are that small.
 
-What do you think?
+Can the check go in memcpy_orig() after the existing 32-byte compare?
 
-Thanks,
-Muchun
-
->=20
-> Signed-off-by: James Houghton <jthoughton@google.com>
-> ---
-> mm/hugetlb_vmemmap.c | 4 +---
-> 1 file changed, 1 insertion(+), 3 deletions(-)
->=20
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 0057fa2a16a8..1a2645c382ba 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -163,13 +163,11 @@ static int vmemmap_remap_range(unsigned long =
-start, unsigned long end,
-> 	ret =3D walk_kernel_page_table_range(start, end, =
-&vmemmap_remap_ops,
->    					NULL, walk);
-> 	mmap_read_unlock(&init_mm);
-> - 	if (ret)
-> - 		return ret;
->=20
-> 	if (walk->remap_pte && !(walk->flags & =
-VMEMMAP_REMAP_NO_TLB_FLUSH))
-> 		flush_tlb_kernel_range(start, end);
->=20
-> - 	return 0;
-> + 	return ret;
-> }
->=20
-> /*
-> --=20
-> 2.56.0.rc1.315.gc6ed9934b7-goog
->=20
-
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
