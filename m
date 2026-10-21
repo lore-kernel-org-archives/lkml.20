@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596336;
-	b=3MjFx9ixljqtE+FIwJDEOBVyExSwlMgMz67yp1Bg+y6XJeH7eXDSw3Xy5pHP1qCS7EgK
-	 AKjyDc2H8Rrz6RYhcagZEx8Fqudkmz1FQ4dKSrXBnicv76us29+yc/JBg0uLpikcSYZWG
-	 VwR/64x2JswgV4f+KGnpX9E+TrNVbYN7ljwEBaQm9o5SsvNGW69d22BI+EbdI1Ui7tDZn
-	 lz5+RsuYQSSUnpE6hGfr5sitBr8i/fJSlkQzg+crrYDC3j8lplCIxHCdOSylPZsNds8zO
-	 9sQof6kGXI+7T3CTeYytqfSTKlf8bJK6SB3g8toahZujnDmw2ajNHo1kyS6I6C+n1WQ==
+	t=1792596333;
+	b=v+KiFyRRy2v1wWT02l6R6q7Jlk3sSJN2RGk6KHt8WLu2x4rl/r2gQ3adyMdZ3ibGQ7rF
+	 yjW51Py14YkqmPuvMoTd8UaOBSEdqHDFDzy9ZZC81vsxquO1o0dHmt3fKXOVSSU0m5v4T
+	 WDT8sj1qcFWP2L9RSLIGa0hAuyknLNgs5IJxo8iqclHwi/fTnliuQkRwR38TghRIv/xen
+	 jHkzvfYJz+OeDPn7Wg9CKXn/eY0p+lx76oUwqY8F52LcMDFMHi+poad34DnzxGTmwxaL6
+	 pwNPJBth02+ftNTtlCBh1v/hQVSrT9jPBSpK+5GXkMEAjUd8+Uxm5B4AYzKvdJViP5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596336;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596333;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=yVHoNG/F+MSh1AvSZ4DFO2pLKQWPL8PGoHBteE3nowI=;
-	b=zGB5ECv/qaDCVy/vaUi08oQ6APCltgQZ4vQd7Nvni/NBJb9b2+KQYO9aJVos9SsgJk+Z
-	 pAYhUmdh6CoSBB9eeNdPE7Som0CdgJJYhloNq5U+vEL8h1/Qmy8x1qKV2yJRyk9tdDIyQ
-	 8pc5E1sbuT2HDYE4YdMcl5gXfEa7YuLCgjndAIHEz2/iayf4HMmjFAwAGr/289HlDPkBm
-	 GY+wUEPyzlOa69QsKNkWJHA3SP49kKRf94FMJ5f8/BETNgSAawc7w7mWc2TZJT47q2Taj
-	 Ys+XJris+1++KNutSKc/5jq05lLrLblGGz60PPEYZam3R5XQ5tlEWhER/qBogLtgMfg==
+	bh=eF6EuxU5y/OwYzc2Wn37QAO5vY1XkAXoeRxwHLACs2w=;
+	b=OubKuzPYpibo+Beiy/4Iy9QqdlGA/JHeEAXgYy5ENuiP75oghPKXs/3WiixGvFpiHPVN
+	 iO7lHs7ads9mUWF+rnXm0mKW8ISZ3DVHICKg2f/T8Tsq5rb0z6aroWCHRe50vSXfxSQ7L
+	 4wJbb0rH10NF0hyR+IREl5uBI+SsN1gN7NKoD9fcu+pfQiZg32daHouCHnY08WXQSdHy1
+	 7TQUbwYyiTtJf6gut3XaNQpdSi6zsEsVlWZh8utoiZ+BeIljeUZNI+8kfC3qK9a5yF4MZ
+	 UFhHAgHZktEzvQt+92iG6Ky2FSqfDF34w4PLSTFKj8zqa3mCGATjniWwBVDB11Mxxxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jc3bLYEO;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dkqpyNqp;
 	arc=none smtp.remote-ip=209.85.218.69
 Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F419606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:25:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F419606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7B7606A32C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:25:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7B7606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jc3bLYEO
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c4108bfb63dso48322866b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:25:35 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dkqpyNqp
+Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c42f98f354fso82487466b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:25:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792596334; x=1793201134; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792596332; x=1793201132; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yVHoNG/F+MSh1AvSZ4DFO2pLKQWPL8PGoHBteE3nowI=;
-        b=jc3bLYEOf8zmAbDpQW600Y71cZu0cU6Muo3eczCRYHwipOI4moDhU8p8wg4+/iCpla
-         mhxEg8m9dr/8gSw7EDxBBZHQ/37Krx1ZmZSsGLxY//i+huyTP8XYu9vHxxFoyVyjJ2Uq
-         DSTMt/P5pb5qcdJ1XjhJNch8iRYYELnNWK4kousHIsXPJUyzRIdWsdf1xwqdXjrUQjUZ
-         A5LGUMjZ73UjIZqwOBo1UdwPFo+CmO1cEq2Y9LLjQYqnjlG4WYwubAHylSD9VeF1mtOV
-         bJKgTRn5Un2bSSx1KdI61mKnjA/8oFZ9xKpdQEpdoNbwkCV/KqC+qdDEzVMhq8PqoZKP
-         my7Q==
+        bh=eF6EuxU5y/OwYzc2Wn37QAO5vY1XkAXoeRxwHLACs2w=;
+        b=dkqpyNqp41yY7/oxMCemumRID+Op7bhjYa83BNB22tRP/ttHyCTy9bq6BK2iKbrgr6
+         TxeyBGCA7iVLdQfRFMqPXYT5vmRhkcWMpZ7lMXpYn6qNa4xyXZqNrkICHgMmcQHgUALV
+         +4qnks/hU3ZiFuTSid9pYkwc8rQXgwxtGwedi6BhtTmXVUk22QcSzoXuCSek4paD0wAi
+         EHCuEfSmg0+YnU3NH5fFmWFCNNjovUZtr9hjdHdQtLcyQ2uxcUIGZrf1mIXmWSyi9wTS
+         oMSjyFfhmhSQaSfLVXRHf3xpSO7mo/tAzB0bzuifh5SAi+7hqXuyBhSEQ771B9bjI2Zb
+         D7gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792596334; x=1793201134;
+        d=1e100.net; s=20260707; t=1792596332; x=1793201132;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yVHoNG/F+MSh1AvSZ4DFO2pLKQWPL8PGoHBteE3nowI=;
-        b=OexCAveGEmVDquJ5MIgM5hJw4Y02dPkbGEisRmpkKL5BKpH38zu7PDdqGc5+56eXBA
-         25dxcHDseGTWzvwWYRO3d5JeGV9Fkg/AuVlYnh1tq/4gp85e1T7PYL+9CRubiJj8DCoq
-         pKSVakUdkrA61scEyK51Yv2M8QKfSp28ywSFsTL+IhSs6IPz78m2MvAvvWDbpb4dQhVB
-         lHdyxTrW0x67Bg12BfWljobJViWUS+D78UGeZEvAEGpl3ro/cjlnq5ggo1HOW4k+JYAo
-         qIdkwUQar8SPzrggwD8aJLjluXXggIX0XMZrmWjkWWHNfMJrMTyk6Y2WIg2x/v2/TeOT
-         uWng==
-X-Forwarded-Encrypted: i=1; AKwUvBxFuzyiwiUaWPC++G2wh0tgg3FItn0uoDhQmjSNu4itknEf9LEVYx3R1L+O5Txk+OiSAPY3JMP5g4Yu62I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJ7Mc9cqnTBHk5csCexvYmy1zuHVHPZivLil3Dw+oIhEETwD/0
-	JGzCrNa1A1zx4iOQ4fW7ezqA9j01w5nS8EwcWcXSEgPm2NI9sipaXIYOBzgVpcjEmV8B42ZFvIc
-	QL6eBqgY4/XqunQP0Gw==
-X-Received: from ejeck13-n2.prod.google.com ([2002:a17:907:e1cd:20b0:c2e:8317:2af9])
+        bh=eF6EuxU5y/OwYzc2Wn37QAO5vY1XkAXoeRxwHLACs2w=;
+        b=mE29DUStcOrF+hgNREwroJEW1hnFcwyx8n6YA1zmcE4+oSDk6nG53Exizmn+gJWoDs
+         Dxo/Q+y9BvDhwkntltRmoosaIFAjXedZ6mN5u1SulFZaGOg/igpk1pldU5nmeYNh1/M/
+         jol1k94hmhkTa0ktMoV/sWk+1KELvVzMEptCUXWiuuyVmxbgx+dHA5/RkxW0uAC967nf
+         KyNRE2GejsoaRF+m5yj3dcKFFPcp/jTcro53OmaiuzhkXKXkVqJBvwGwqxPNsm+kXtTq
+         6uX/YCoVRuSBMWMYmiVYfLe1YosdBZa6uNWgR8mfGpCH1IeIuAwKfqYULEDW294UDY6+
+         fD+A==
+X-Forwarded-Encrypted: i=1; AKwUvBwyOiMqNYGYY2R47LeBJg+yj93cHMH8Yb8VDie0yxRO7SHvz41502DLz5//oTCG2FYPJzylNkVekc7Cg4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZA09YZTGm0dbaDkYAC33SBTuytulog0p8qnyp+LbB/irpau+g
+	acSP9vSIBzFO8KVBT2V4dgb6DXmWaNz0o0RNBVqGDsCyrJFZmEGWTFo6vDON0cUJmIqyQcs3pGf
+	g9NqyyU4o6xhwqlu0Cw==
+X-Received: from ejbgw26.prod.google.com ([2002:a17:906:f15a:b0:c3f:b33c:8124])
  (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:c64b:10b0:c46:7fa4:922b with SMTP id a640c23a62f3a-c467fa4a587mr117629166b.33.1792596333890;
- Wed, 21 Oct 2026 08:25:33 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:25:27 +0000
+ 2002:a17:907:d40a:b0:c45:d8aa:6ae5 with SMTP id a640c23a62f3a-c46799bdbb7mr204058966b.42.1792596331473;
+ Wed, 21 Oct 2026 08:25:31 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:25:25 +0000
 In-Reply-To: <20261021152527.375070-1-tarunsahu@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,8 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261021152527.375070-1-tarunsahu@google.com>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261021152527.375070-5-tarunsahu@google.com>
-Subject: [RFC PATCH v2 4/4] mm: memfd_luo: Add the 2-bit pair feature header
+Message-ID: <20261021152527.375070-3-tarunsahu@google.com>
+Subject: [RFC PATCH v2 2/4] liveupdate: Select file handler by name in the
+ preserve ioctl
 From: Tarun Sahu <tarunsahu@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
 	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
@@ -98,140 +99,157 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
 	Tarun Sahu <tarunsahu@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Embed the fixed-size 128-byte struct luo_feature_hdr at the start of
-struct memfd_luo_ser and define enum memfd_luo_feature
-(MEMFD_LUO_FEAT_CORE and MEMFD_LUO_FEAT_MAX) for memfd preservation.
+Currently luo_preserve_file() iterates over luo_file_handler_list and
+picks the first registered handler whose .can_preserve() callback
+returns true. When a subsystem introduces a new, backwards-incompatible
+file handler alongside an existing one for the same file type, userspace
+has no way to choose which handler preserves a file descriptor, nor can
+the kernel keep the existing rollback-safe handler as the default while
+allowing callers to opt into the new handler.
 
-All current struct memfd_luo_ser fields (pos, size, seals, flags,
-nr_folios, folios) and MEMFD_LUO_ALL_SEALS belong to
-MEMFD_LUO_FEAT_CORE (LUO_FEAT_REQUIRED in memfd_luo_features). Future
-changes add new entries to enum memfd_luo_feature before
-MEMFD_LUO_FEAT_MAX and append any new fields to the end of struct
-memfd_luo_ser so existing field offsets never shift.
+Append char handler[LIVEUPDATE_HNDL_NAME_LENGTH] to struct
+liveupdate_session_preserve_fd immediately after token, keeping
+IOCTL_OP min_size at offsetofend(..., token) so callers passing the
+original 16-byte structure continue to work:
+- When handler is empty (all-zero, or zero-filled when userspace
+  passes the 16-byte structure), luo_preserve_file() selects the first
+  registered handler whose .can_preserve() callback accepts the fd.
+- When handler is non-empty, it must be null-terminated within
+  LIVEUPDATE_HNDL_NAME_LENGTH bytes (returning -EINVAL otherwise);
+  luo_preserve_file() looks up the registered handler with that exact
+  name (returning -ENOENT if unknown) and verifies that its
+  .can_preserve() callback accepts the fd (returning -EINVAL if not).
 
-Signed-off-by: Logan Odell <loganodell@google.com>
+The retrieve ioctl is unchanged because the handler is identified by the
+name stored in the serialized payload from the source kernel.
+
 Signed-off-by: Tarun Sahu <tarunsahu@google.com>
 ---
- include/linux/kho/abi/memfd.h | 35 ++++++++++++++++++++++++++++++-----
- mm/memfd_luo.c                | 14 ++++++++++++++
- 2 files changed, 44 insertions(+), 5 deletions(-)
+ include/uapi/linux/liveupdate.h  | 12 +++++++++---
+ kernel/liveupdate/luo_file.c     | 21 ++++++++++++++++++---
+ kernel/liveupdate/luo_internal.h |  3 ++-
+ kernel/liveupdate/luo_session.c  |  7 ++++++-
+ 4 files changed, 35 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/kho/abi/memfd.h b/include/linux/kho/abi/memfd.h
-index 371ffd108a79..f0b5235a408d 100644
---- a/include/linux/kho/abi/memfd.h
-+++ b/include/linux/kho/abi/memfd.h
-@@ -13,6 +13,7 @@
- 
- #include <linux/types.h>
- #include <linux/kho/abi/kexec_handover.h>
-+#include <linux/kho/abi/luo.h>
+diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
+index 509c6236720d..2413b19dabc1 100644
+--- a/include/uapi/linux/liveupdate.h
++++ b/include/uapi/linux/liveupdate.h
+@@ -126,9 +126,14 @@ struct liveupdate_ioctl_retrieve_session {
  
  /**
-  * DOC: memfd Live Update ABI
-@@ -21,11 +22,20 @@
-  * reboot using the LUO.
+  * struct liveupdate_session_preserve_fd - ioctl(LIVEUPDATE_SESSION_PRESERVE_FD)
+- * @size:  Input; sizeof(struct liveupdate_session_preserve_fd)
+- * @fd:    Input; The user-space file descriptor to be preserved.
+- * @token: Input; An opaque, unique token for preserved resource.
++ * @size:    Input; sizeof(struct liveupdate_session_preserve_fd)
++ * @fd:      Input; The user-space file descriptor to be preserved.
++ * @token:   Input; An opaque, unique token for preserved resource.
++ * @handler: Input; Optional null-terminated file handler name (max length
++ *           %LIVEUPDATE_HNDL_NAME_LENGTH including null terminator) selecting
++ *           which registered handler preserves @fd. If empty (all-zero, or
++ *           omitted when passing the 16-byte structure), the kernel selects
++ *           the first registered handler whose .can_preserve() accepts @fd.
   *
-  * The state is serialized into a packed structure `struct memfd_luo_ser`
-- * which is handed over to the next kernel via the KHO mechanism.
-+ * which is handed over to the target kernel via the KHO mechanism.
+  * Holds parameters for preserving a file descriptor.
   *
-- * This interface is a contract. Any modification to the structure layout
-- * constitutes a breaking change. Such changes require incrementing the
-- * version number in the MEMFD_LUO_FH_COMPATIBLE string.
-+ * This interface is a contract. `struct memfd_luo_ser` starts with a fixed
-+ * 128-byte `struct luo_feature_hdr`. The relative order and offsets of
-+ * fields must remain unchanged as features are added or retired: new fields
-+ * are appended at the end of `struct memfd_luo_ser` under a new feature
-+ * flag in `enum memfd_luo_feature` (before `MEMFD_LUO_FEAT_MAX`), and
-+ * retired fields are kept in place so subsequent offsets never shift. In
-+ * the target kernel, fields of a `LUO_FEAT_REQUIRED` feature are guaranteed
-+ * present once `luo_feature_hdr_validate()` succeeds, whereas fields of a
-+ * `LUO_FEAT_OPTIONAL` feature should be accessed only after checking
-+ * `luo_feature_is_active()`. All current fields (`pos`, `size`, `seals`,
-+ * `flags`, `nr_folios`, `folios`) and `MEMFD_LUO_ALL_SEALS` belong to
-+ * `MEMFD_LUO_FEAT_CORE` (`LUO_FEAT_REQUIRED` in `memfd_luo_features`).
+@@ -152,6 +157,7 @@ struct liveupdate_session_preserve_fd {
+ 	__u32		size;
+ 	__s32		fd;
+ 	__aligned_u64	token;
++	char		handler[LIVEUPDATE_HNDL_NAME_LENGTH];
+ };
+ 
+ #define LIVEUPDATE_SESSION_PRESERVE_FD					\
+diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
+index fb81239bedf3..be20e0f1e0aa 100644
+--- a/kernel/liveupdate/luo_file.c
++++ b/kernel/liveupdate/luo_file.c
+@@ -207,6 +207,8 @@ static bool luo_token_is_used(struct luo_file_set *file_set, u64 token)
+  * @file_set: The file_set to which the preserved file will be added.
+  * @token:    A unique, user-provided identifier for the file.
+  * @fd:       The file descriptor to be preserved.
++ * @handler:  Optional NUL-terminated handler name. If NULL or empty, the first
++ *            registered handler whose .can_preserve() accepts @fd is selected.
+  *
+  * This function orchestrates the first phase of preserving a file. Upon entry,
+  * it takes a reference to the 'struct file' via fget(), effectively making LUO
+@@ -238,11 +240,13 @@ static bool luo_token_is_used(struct luo_file_set *file_set, u64 token)
+  *         -EBUSY if the file descriptor is already preserved by another session.
+  *         -EBADF if the file descriptor is invalid.
+  *         -ENOSPC if the file_set is full.
+- *         -ENOENT if no compatible handler is found for the file type.
++ *         -ENOENT if no matching handler is registered or accepts @fd.
++ *         -EINVAL if the named handler cannot preserve @fd.
+  *         -ENOMEM on memory allocation failure.
+  *         Other erros might be returned by .preserve().
   */
- 
- /**
-@@ -58,7 +68,7 @@ struct memfd_luo_folio_ser {
- 
- /*
-  * The set of seals this version supports preserving. If support for any new
-- * seals is needed, add it here and bump version.
-+ * seals is needed, gate them behind a new feature flag.
-  */
- #define MEMFD_LUO_ALL_SEALS (F_SEAL_SEAL | \
- 			     F_SEAL_SHRINK | \
-@@ -67,8 +77,22 @@ struct memfd_luo_folio_ser {
- 			     F_SEAL_FUTURE_WRITE | \
- 			     F_SEAL_EXEC)
- 
-+/**
-+ * enum memfd_luo_feature - Feature indices for &struct memfd_luo_ser.
-+ * @MEMFD_LUO_FEAT_CORE: Core feature covering `pos`, `size`, `seals`, `flags`,
-+ *                       `nr_folios`, `folios`, and %MEMFD_LUO_ALL_SEALS.
-+ * @MEMFD_LUO_FEAT_MAX:  Number of defined &enum memfd_luo_feature features.
-+ */
-+enum memfd_luo_feature {
-+	MEMFD_LUO_FEAT_CORE = 0,
-+	MEMFD_LUO_FEAT_MAX,
-+};
+-int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd)
++int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd,
++		      const char *handler)
+ {
+ 	struct liveupdate_file_op_args args = {0};
+ 	struct liveupdate_file_handler *fh;
+@@ -266,6 +270,18 @@ int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd)
+ 	err = -ENOENT;
+ 	down_read(&luo_register_rwlock);
+ 	list_private_for_each_entry(fh, &luo_file_handler_list, list) {
++		if (handler && handler[0]) {
++			if (strcmp(fh->name, handler))
++				continue;
++			if (!fh->ops->can_preserve(fh, file)) {
++				err = -EINVAL;
++				break;
++			}
++			if (try_module_get(fh->ops->owner))
++				err = 0;
++			break;
++		}
 +
-+static_assert((int)MEMFD_LUO_FEAT_MAX <= LUO_FEAT_MAX);
-+
- /**
-  * struct memfd_luo_ser - Main serialization structure for a memfd.
-+ * @features:  ABI feature and size header for memfd_luo_ser.
-  * @pos:       The file's current position (f_pos).
-  * @size:      The total size of the file in bytes (i_size).
-  * @seals:     The seals present on the memfd. The seals are uABI so it is safe
-@@ -79,6 +103,7 @@ struct memfd_luo_folio_ser {
-  *             struct memfd_luo_folio_ser.
-  */
- struct memfd_luo_ser {
-+	struct luo_feature_hdr features;
- 	u64 pos;
- 	u64 size;
- 	u32 seals;
-diff --git a/mm/memfd_luo.c b/mm/memfd_luo.c
-index 64f8b8cb75bd..ea1f4c8cd259 100644
---- a/mm/memfd_luo.c
-+++ b/mm/memfd_luo.c
-@@ -84,6 +84,10 @@
- 
- #include "internal.h"
- 
-+static const u8 memfd_luo_features[MEMFD_LUO_FEAT_MAX] = {
-+	[MEMFD_LUO_FEAT_CORE] = LUO_FEAT_REQUIRED,
-+};
-+
- static int memfd_luo_preserve_folios(struct file *file,
- 				     struct kho_vmalloc *kho_vmalloc,
- 				     struct memfd_luo_folio_ser **out_folios_ser,
-@@ -284,6 +288,8 @@ static int memfd_luo_preserve(struct liveupdate_file_op_args *args)
- 		goto err_free_ser;
+ 		if (fh->ops->can_preserve(fh, file)) {
+ 			if (try_module_get(fh->ops->owner))
+ 				err = 0;
+@@ -274,7 +290,6 @@ int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd)
  	}
+ 	up_read(&luo_register_rwlock);
  
-+	luo_feature_hdr_init(&ser->features, sizeof(*ser),
-+			     memfd_luo_features);
- 	ser->pos = args->file->f_pos;
- 	inode_size = i_size_read(inode);
+-	/* err is still -ENOENT if no handler was found */
+ 	if (err)
+ 		goto err_fput;
  
-@@ -525,6 +531,14 @@ static int memfd_luo_retrieve(struct liveupdate_file_op_args *args)
- 	if (!ser)
- 		return -EINVAL;
+diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
+index dac6644bfb18..911ffedec9f3 100644
+--- a/kernel/liveupdate/luo_internal.h
++++ b/kernel/liveupdate/luo_internal.h
+@@ -101,7 +101,8 @@ int __init luo_session_setup_incoming(u64 sessions_pa);
+ int luo_session_serialize(void);
+ int luo_session_deserialize(void);
  
-+	err = luo_feature_hdr_validate(&ser->features, memfd_luo_features);
-+	if (err) {
-+		pr_err("memfd_luo_ser feature header validation failed (size=%llu, flags[0]=%#llx): %pe\n",
-+		       ser->features.size, ser->features.flags[0],
-+		       ERR_PTR(err));
-+		goto free_ser;
-+	}
+-int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd);
++int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd,
++		      const char *handler);
+ void luo_file_unpreserve_files(struct luo_file_set *file_set);
+ int luo_file_freeze(struct luo_file_set *file_set,
+ 		    struct luo_file_set_ser *file_set_ser);
+diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
+index f48e9a4185f9..194ef45907c1 100644
+--- a/kernel/liveupdate/luo_session.c
++++ b/kernel/liveupdate/luo_session.c
+@@ -266,8 +266,13 @@ static int luo_session_preserve_fd(struct luo_session *session,
+ 	struct liveupdate_session_preserve_fd *argp = ucmd->cmd;
+ 	int err;
+ 
++	if (strnlen(argp->handler, sizeof(argp->handler)) ==
++	    sizeof(argp->handler))
++		return -EINVAL;
 +
- 	/* Make sure the file only has seals supported by this version. */
- 	if (ser->seals & ~MEMFD_LUO_ALL_SEALS) {
- 		err = -EOPNOTSUPP;
+ 	guard(mutex)(&session->mutex);
+-	err = luo_preserve_file(&session->file_set, argp->token, argp->fd);
++	err = luo_preserve_file(&session->file_set, argp->token, argp->fd,
++				argp->handler);
+ 	if (err)
+ 		return err;
+ 
 -- 
 2.56.0.212.g129ede20d9-goog
 
