@@ -1,90 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792579451;
-	b=X42iyThq+C/FnfH+xMv2FKYvG3GTB8GTE+QlzG8nn8esjSXS+mN9viYQ6heZAPcGA5w5
-	 ObG8IrLJb4A3CI8U7QdCziLFmHy3zg7M5NNguPabV6yuAezlMlKRIXaamjqrvDbQhQuSU
-	 DB6A7i0r8x/KrfO8E5hkERpHA72khV9YObPrfYlZJl4qTMBDo1TyFjurT5XD31txzLMBd
-	 IOQjhLuuP3iWWxB7sMoknpeHpmSmZAF37fyODHdjOveNv8WBkoM0RJH7kxCE+1X8sN1aW
-	 YEjoJGxRH9085YLuHFRoms4mZk8Yiw5/EYKnyDDBTdvex4qK/crYf/FGcrwK5EcQ83Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792579451;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Us9MblHdqheExL+x3XL9+16dU0fSlqkrDNwTx8ZinSI=;
-	b=i2jPygHG+c00NzxPWEKqMZt5n44eZDAby19qLr7ihp71AXoMSbMN0pHlwv+OryXrss6s
-	 LMUE95yxEFlPaw4IetsKtmMEdRMsmoDYoDSaNqjir9G0p/7oMSZFOW5awCrD3v4uN/7YV
-	 5UtVAzYrKYBdFPBxAk7MLeyyhjUJ63q+FvXRK70K4g4zfxjFNEzFyWikEMdb2Y3l5dQss
-	 aAUR9Uqf7aaDhAc5tdDEMbrx+V7tunvlU1yMDK2QGR0FFk67oj/LqaDEwnmSiEzVzMs9K
-	 0YpajIVjbyuBBXrF5VWrvDeAXkKtC+//qifj6kn+4mCmgRs5lcxC6tx4gbw5BO3VUhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpWdr09j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792579485;
+	b=hKpl3GKzeQ8Hsczi8C2STUKjhc2xIcW3VXfqyJa/1GuXqvqQ1LS6bEWOqTEbVcjmXXnD
+	 snhBszphpdeOCcscBVOWRED9K5rYHslIQYhO0mnzyf47is4DJd0G3puYKLRKJ8oRg/2zO
+	 AupZgkM+XdOjhhMFgYllhCrtEgQ4UAlsi1bdAwkSz49IZER1wLuIJl2j+vrEgOwzAeaMz
+	 KMlU05V7VRRBYZQc+RgLAq8cCiVDnIzNJDkidDKbroueskKi65sQwxG8ZHHpOgRIE2OAM
+	 F+Tjib4RaveO7mEai98b4dWKUeXsloHmby3LWsfZFtNKxV9eV+tcF8/X7pnnqHEvffg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792579485;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=3+Zu9D+KgKA9DXJq7rrfhDe7h3krW5LnH7aKJrVEA3Y=;
+	b=aY9LgC2G4vRnlkmQ11g4WM/MviiqSTaqCjLx9rvjA3yOEljLPKRU1PJ8TUBnALNkO2eS
+	 kJ1Pzjlf0zCMtzqo/eXt9lLBlvh77ZzQ11crJFmF+LAmWFWbUdlEN1siXqvz9II617viH
+	 +yZ+TSB1Qgg+1TRo0X7ICnD/0Olu2yZzz5OjC/HPMqe6Jhs2wqGkZDSZCXp9kX8aAFoTB
+	 LzoLave7xObhl7XWraQ6DGSmTyO2RDUWaKbqVuQfNLnHjo8hAjcFdHAgzEfIH2vf3WaI7
+	 zzQVGEQUTVA4++359gCEflqD/kb3zwQKWZHjXN+QaRPyeSIawyChKM5w0tRugogXr9w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EMJ2b1Mf;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.49
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com [209.85.167.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8E3606A319;
-	Wed, 21 Oct 2026 10:44:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A7A606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:44:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89A7A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cpWdr09j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2CD71F000CC;
-	Wed, 21 Oct 2026 10:44:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792579450;
-	bh=Us9MblHdqheExL+x3XL9+16dU0fSlqkrDNwTx8ZinSI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cpWdr09jPEBb0bc9LwNOJEzRdZjJF/BmJqcBNQwEwkzMr688MKrLiEmNM9hjiMWey
-	 UQslgbqyADbfbVDMyMEghX6Y3z23Ket3+TL6VEwjtJ44VtWdzyt0HsypjPDiwsY+fA
-	 yDpGl8ZcSRDnArSkUdQkEs9PZCf9/8uOYWJnIIAdmxFu6F1WYK0Jt0z3NCLzcT/rpu
-	 n2TsT61w2zbwBJhuJX9+wr6MbpT7ybuL2En/4PmCLIwcmn/M4Sm+0QVo8heQa2W29r
-	 TKAxBEHIWbH2lF2Il7Um6mDpwMbYMbIHyC6XH1LPbyv+gqfS6li7UEM4nTraVAVNKa
-	 Ypkq0uk2Xaj5A==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 2AD67198004A;
-	Wed, 21 Oct 2026 06:44:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 06:44:07 -0400
-X-ME-Sender: <xms:c5fYajUSghtNgFI70pcZQneEQiKH-7lS9ZiDirnB17TnEvHBNdbCoA>
-    <xme:c5fYanAQyxuwZwdQplhyZWO5Bdi2T3DvThxLwzqn_3RnCTqpb-X4KPqEKjKDGlTZ7
-    oKcZRIZfz-3S6jmsuUKK8xOpGS7tHrzX8oz-CmCJCmsjXvaBHq7Ui28>
-X-ME-Received: <xmr:c5fYai81E17U72TQR6cBaVLxynEL8Mf3FphrFIRT7W66q-afIjHNwVhOSWI>
-X-ME-Proxy-Cause: dmFkZTGjd0a96U9V2vCQJLOMnRP+wBw1u1T1zryEKh7wa0310J6MaOgUiIze5CmLw2GV9H
-    W7t6mlprVd+kvbSxqwnutYrDRHFq9thzgxnKvzoOneg/m+7lBF9h6ytrT+iKjxIUuf+vvN
-    y9Cq7W4xWk7YVHBR3ir9mF0JQz+UsddF9RY9ecD9IhTffHR77HlcEV22e07OPYPqpykR1c
-    Wbn4lcV/ZHNQlUrw+hxoN3dRq3FexhKkQBbUB2wMoaOQaVWFZvvUIADdR6OZTcM2mOgGbt
-    Bk1nFt8UG7lG7K1JW9O5KIcUOduE5+An5YPc7EUyj56sUKNTOHdIARZs+z4z7vm38NyPL+
-    HMeJaBxs1tnJ0vyAx9C/DXs6nkO5W+SROu2gcLvgiyeg+rJm8DzqGFpZRqkGkzLHbSENiJ
-    HBbb/QiPxtnII8Uk1Aw0fsQFr4bsOMXrpJpP4o9kQ6A6DpRyVen1lHrEEJ4L9yapznEJAj
-    3PpKWlBNVcyf/NsutF0IPRW7//mfti3i/gbQX23xqmAqPmynlQt9p6EB2slaCusRSNwU2q
-    TqhR1AuKmJ9+wlHfDyYPNRZ6p0We8D+oBsW/o3vn35BTXm8B9lt5J6jeuOcZJ/s43Qu9gD
-    mjnUcWTYfxtc0HJnryuldPPfmsEjTZQJq09ZQ5pAmUiMVHNuJ4+1inCL5tDg
-X-ME-Proxy: <xmx:c5fYanX-UOwD1UJMljja19LTZSvPp6QGcT0h-ll81DosJRWQO3Hp0w>
-    <xmx:c5fYaqveaLErmdg4TlIzJ8FZHHZWWJWD8PxVjFCrfhuzfBv-JlBQhQ>
-    <xmx:c5fYapwXBuSeNxn6ADFbdlYq0tTrchCfRfxXKfJJahhF3GaoUflqoA>
-    <xmx:c5fYatQlMd7RbKCdCqBqcY3jcV_k3NMeVXticf3wiq0mfAzk1ElIMQ>
-    <xmx:c5fYaj_ICU5Mn5lVmICEv_wySfwlt4Bp4UxwPMTYguEn6y9bPCJ8cNWj>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 06:44:02 -0400 (EDT)
-Date: Wed, 21 Oct 2026 11:44:01 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, 
-	Adam Litke <agl@us.ibm.com>, Mel Gorman <mel@csn.ul.ie>, Rik van Riel <riel@surriel.com>, 
-	Peter Xu <peterx@redhat.com>, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Josef Bacik <josef@toxicpanda.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 07/10] mm/hugetlb: tolerate uffd bits set without uffd
- for PROT_NONE PTEs
-Message-ID: <atiXUuyXM89u-XBV@thinkstation>
-References: <20261015-urgent_fixes-v1-0-42796911043b@kernel.org>
- <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=EMJ2b1Mf
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5be3ea5a7adso418072e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:44:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792579484; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ENd11nrFG0FD4mhOaJxJBo5ik22ZVszAwW/GtOFb5PRbQ5fWHFoOLUTvkkPWhGSIq4
+         IDqVwJ5GHojFQgHggHW+5rOZY7Fi93TjLsVvlm7dq5IGpgKgtSwR+hv13umA6VGsTW30
+         Y7jlqsR7JWKaBBuDvR/0WmOng/jE8MXH86uppCzJX3hjxCCnqoRZ4beMULB+EhSfpvJy
+         nB2eU0NCppL1dPgNVZQo7+TgjuoMNuaETPRA+lRR4Tl7WMpsHQoIte+YEC9Yztdmhuf4
+         UP/h2GBoor7HPWErFfDe8OMgojQFJExOxF2yQoX5nI4tHJgWTG7SPnDjjMJjaPF4zoxV
+         Y2+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3+Zu9D+KgKA9DXJq7rrfhDe7h3krW5LnH7aKJrVEA3Y=;
+        fh=KBADYZdmpyUj6VL6GksrPUvDO6sAO9Fh5MQsvqhPea4=;
+        b=QfYpdGTrzv6kfXn4NbvNKIY5Dks7ykiMSWZHAcBJbDLkdwlEPhQXI1fTWBpA8++lzF
+         ZAmtcWU9lDKMwBo62raO9tSTiigUbXaeJ1dAyAQwTyBSuUdbvVXWtBldEqc+sWVerc6I
+         Lt8ch27ylfqr/q/VVqmiCg0Tzzq2Lu7HLFbCEZhQMQSOjauXYHD/Q5gkqOxl3orADsh1
+         qtRIcyiKTVvqz1HuGHw8Ae1VJ798TQbY6/kyw+2+hYD6mL2UWiI71+DC1CuQu7IvVnup
+         m8Di3T9sNi3QWUTtBafAUggI4Js++OgrYjKOhUpqiplh7MnCrIkqN6zGZDi8TYH8xLbe
+         74oQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792579484; x=1793184284; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3+Zu9D+KgKA9DXJq7rrfhDe7h3krW5LnH7aKJrVEA3Y=;
+        b=EMJ2b1Mfsr3z531uo4PbTQcnTiI1V6QP2j5RPccaDPxAHktd9HynIpimNpp3Seb44d
+         dsnZSu24RsiD1Ks8D84LeNAS6pJL8bWtjZerKwun5BXvUwNGyxGGXot1ISBjBaelgNWb
+         +LsiBG3i+1rd2dbFbheMbr8XhypCxbMgaV6YqM7xJmr0A6EhAAIIaRAWbMN/NPY/BODc
+         BCFbyAj3A1UEcGi6L+CouAWi/U+85lD9TRk45mfBdIk4o2Hk6O3GAD0V/DT6h5+fMwhB
+         HDu/WXCbJOx9fw8q3qCmbhmO4OLj0UJdhHDMNfw0tSpNpbOvILJCArJ7ODv+AMQ9ddWI
+         UNSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792579484; x=1793184284;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3+Zu9D+KgKA9DXJq7rrfhDe7h3krW5LnH7aKJrVEA3Y=;
+        b=QgXc6ggoBtXBnUCbsJWOB6HpACN7UC1u/OZb+huDeteOAmNS7hz+KbgMgb5O4M3O47
+         FbLiaaL9h0VaCnubKI2pWC8/C6zNTJHoe1vICOqEafiVAcjHSfHSeQsZUsxFkZEZz7+J
+         FB+o/u9UWg8QC70idkY7dDIVZKHzOOi8F4Dvot2tKd0fEgxNQrkNaORhWQh3nXiqo4N+
+         R3R/tPgthHxflyRbn2i8EFcEIJnieyRLCs6ZA6JkoLV4NqMCf82IgT/ttPv7GeW5yNPm
+         NYPDnpyhh+8fy+LqqEBIvqzetRD5gSx/Hevbjwc8f17Sc9k7JuhRoojt8brV95D481x3
+         Q/Yg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRAfwVMIKhVtX1hcBQWDry6Oe5H0loiFZCEUFHBAvgolxZMuG3zPoT6qWMtZuA+kaaIA7Gi8/ji2gsTAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcnSUWQTxUo/oYt+0BkCleEqkan76zhlyl2bICFhLHhVCoaz2v
+	HtqV19HUK3Q8p5D4v4F6IV1Hwb7mAlK9/MGAG3w4WrsBpsNWt5bOYNH98a3+tGihwZ+yBjYM6oE
+	dLFgBW2N67WweOcMzqHUjL3wxvUDCVyc=
+X-Gm-Gg: AYBFou1ptKeNJXp49QAOIzbImUu2yCbOcoREE6QyOZe/jLTWiciA44en/56YCglagI1
+	+V62OBVysd+pDaTPzb4Y8PrbdwNjaNTPhC13tlvk8oaQY7QVLnZGt9efKIXIejJ1oM5Lh8eQs/b
+	6DhZ8dD8c+7JdO0BUwrbeIMU7zCV4o+I7vYfzNTRG81Zs23nMl4KSerp/2N6r7bfJnLSip3CUtz
+	h/dLLGLDWFN3VgEt6wYbyhxlqh334Iroc2W+O705Wkbhbn/Mr1A9EEiYHgwlpQ4C5EpwS9e+lJe
+	VOlDr9vY8yBS5MszR5BenipZLCEEDB2Se9VJseC7Edmv2ctQKW+bPP3QHGq9Ra9BLHZopvcQXBQ
+	auu1irs4j3bMr7ApCxPa4aZiwgKHdKnqJdVrwJqxEVIWtsiAODP6e0E6uaFcuGtoc2IMa
+X-Received: by 2002:a05:6512:158b:b0:5be:50d6:af8a with SMTP id
+ 2adb3069b0e04-5bfa1ceb37cmr564734e87.33.1792579483402; Wed, 21 Oct 2026
+ 03:44:43 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,26 +103,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261015-urgent_fixes-v1-7-42796911043b@kernel.org>
+References: <20261012011707.3378-4-sigefriedhyy@gmail.com> <179185709988.434549.15422498299449004512@kernel.org>
+ <CA+7S2v+LHUWXQMD-cYPEzT5-f3Qhw_vz+LEssQH_A_oqDKtnnA@mail.gmail.com>
+ <8dcd9564-e9a3-4b00-93b8-3cb023d68047@redhat.com> <CA+7S2v+rWYvz9xKPEeM6=3HPz3o7TbX2uRfRKk95f9Y60HnEiA@mail.gmail.com>
+ <976d815d-a9ec-4fa0-9b16-8e55695706c2@redhat.com> <CA+7S2vLWvQd7GrnwB+B+DiqAgST8EjfWwBKzJXtjGRBPVgmOBg@mail.gmail.com>
+ <d3a1b219-84da-4ed8-9d87-5619e74bd1f5@redhat.com>
+In-Reply-To: <d3a1b219-84da-4ed8-9d87-5619e74bd1f5@redhat.com>
+From: Yuyang Huang <sigefriedhyy@gmail.com>
+Date: Wed, 21 Oct 2026 19:44:35 +0900
+X-Gm-Features: AclHuK-rJH5v9EVEYVeh2aYcnbIBH6iiXDeQCmZP7VNDudjBotFAAvZQy4bP1zQ
+Message-ID: <CA+7S2vKt_n5MyyiG0wf01wyzTW-SUzyyRSw+eui3CL5rx0Zavw@mail.gmail.com>
+Subject: Re: [PATCH net-next v11 3/6] net: add a generation counter for
+ dev->mc changes
+To: Paolo Abeni <pabeni@redhat.com>
+Cc: netdev-bot+sashiko@kernel.org, ajay.kathat@microchip.com, 
+	aleksandr.loktionov@intel.com, andrew+netdev@lunn.ch, 
+	claudiu.beznea@tuxon.dev, davem@davemloft.net, dsahern@kernel.org, 
+	donald.hunter@gmail.com, edumazet@google.com, idosch@nvidia.com, 
+	jacob.e.keller@intel.com, kuba@kernel.org, johannes@sipsolutions.net, 
+	kees@kernel.org, kory.maincent@bootlin.com, kuniyu@google.com, 
+	nicolas.dichtel@6wind.com, nickgarlis@gmail.com, sd@queasysnail.net, 
+	shuah@kernel.org, horms@kernel.org, sdf.kernel@gmail.com, 
+	vadim.fedorenko@linux.dev, willemb@google.com, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	netdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 15, 2026 at 06:07:13PM +0200, David Hildenbrand (Arm) wrote:
-> The whole uffd handling when a VMA is unregistered from UFFD is shaky:
-> there are still some scenarios where we might have stale uffd PTE bits
-> in VMAs no longer registered for UFFD, which confuses other code.
-> 
-> Let's just tolerate that for now and simply clear the PTE bit. Add a
-> TODO to really clean up any uffd leftovers when unregistering a VMA from
-> userfaultfd.
-> 
-> The handling is now more similar to what we have in handle_pte_fault().
-> 
-> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> TL;DR: please include the relevant information in later revisions, at
+> least as a reference link.
 
-Acked-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Understood, thanks for mentioning the background, next time I will
+make sure to include all relevant information in the cover-letter.
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Thanks,
+Yuyang
