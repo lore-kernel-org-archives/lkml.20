@@ -1,83 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792681072;
-	b=mE2kAF0sA/gnqrG8v5QD3r/dsDtOFADl8UTPgZE2cu+biltFfjDQsfOzqyfr3tJ7mkEw
-	 gq99vZSuiFkQ5brEJ4+DzYXLUTE9LGObZh8TeI38VOPgUE3lH0WI18zbd3Kej9JvsfYJx
-	 OUJF/LMQf9EvFg4Iy+TQ7RpJ3WIDENw7Mwcj+Fbrq0nyXMVBcFMtja0NfIw7deY2Ts1Ah
-	 I8Qed7qMaq2mDHlU3C3tNFQ3/XTqhRYGCyz6ih7xvxSgpGGXT980UDsRKl/tXQp+APpEp
-	 sOrDfEgAK0DZ55ZZ6gSXpuXqpKcx1HhxYVrpc6NW0UZFkzlyEy650TY1Zibr+/Pee0Q==
+	t=1792681104;
+	b=1Or4FdSCYPHNsCOBvyHEuoLIrAyPDTqGstIB0qiZPIhgZGEWYWJ/S2xUn+B3sewt+axJ
+	 qYO7btMAvGPTkWsLbojT0RRXAczGOcsSJIrAerIpkXDNk99JW0E801Od9ttPBY85A9Gm3
+	 WVXpJB36Dz2NecdgtS1fSipzqBPnbhizgp9ggXK5byb+OckZ5II2kMTMWwJGy93LY5Cfa
+	 EWhNHtQzmSxKB2Y2VZAbccYQ4BOJn6ydScgIO5Nhk98HE768uq/rjsTztikOONGu+d79j
+	 aEnmamZoJyodI9SBBfrE34BIo1Q5DF7iP2Kx8zfBxA6C2EWwuuM4Ci5a/GgYBJUd1eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681072;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=IJs45fFUDJNNiewh1g9rjIHPssvqt7O5EgXXxQLLM8M=;
-	b=OZhK+jUsOVr3AVtd8cHieR5+NB3XnTmIA5kHxb8goagTmQx9iLF6hLle0o8IgdOO2/OB
-	 2fj7IpH+owSt0tnfTnpinEWC1OiB/U6bNa3yRWERXDBlqjX5b5ud2qFCvXtPiig+sfe9G
-	 H7MXxsT4EwdMa9TOXeYIZQL7jRNI2pa6d/OahazB8CI1eiJTQhJrkxLBJ67+tZt4dlSiM
-	 oZNHU+tJYcdTsslEsatzJWfNGc/d37AzFxYTwKn8DyRzcLa/VNFJwIEgY1bGCEZCnL+FG
-	 IpzamQnyzpDD5xydWZ4UNeWepp/cCK5OeURlUAGVQNh8CSzdCSqQlyTwFVFAqFd2qKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681104;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=WiXgxjwizuyUVqCzXbnbDMrPmjqOsN4MN7Vc9pRXtsk=;
+	b=VLu5175ctdIOrBXgZ50R0/BVd9oYZj8N2c3F18kIiJiwwUSicuYq1u4XnJJfO5Tq/p+n
+	 CGXCKC+BcjT7VlRK0euWGj1Hgzle5YtbVAsvePcDE3EuEoQt0kECkr78uYoBYNov57xUp
+	 B9eLJuQdWIV7ePAZCrPcndjHSKo3mtTVL7ZSz7WJUJ+CbrVoJID1SSoDqIK1uO+UACnoV
+	 m4QtVY0VCzwdeHh4P639R0C/mH2Fcc+cO79uAONkXS4QwZqu8NmI27xNrLHHR9Qg3ie+y
+	 OcX7YK4FOTeYOzWWkvjlZgEPoELMz1gHAp8Pbw0EyVsvGvVpH6WJTbCne5YDmjMug1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HVWyfJNR;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ps447kTD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF5B606A319;
-	Thu, 22 Oct 2026 14:57:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFF5B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DE0606A319;
+	Thu, 22 Oct 2026 14:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=HVWyfJNR
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFXQK4098577;
-	Thu, 22 Oct 2026 14:57:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=IJs45fFUDJNNiewh1g9rjIHPssvqt7O5EgX
-	XxQLLM8M=; b=HVWyfJNRENZ0zXBaKsk5f9NF/S9fUirVuhYn/AuzkQrtKR0NCmL
-	EtVKk8FnCQgNsV8HlSGiCB+mCwy4F8nrWuAZp8L7vPtXWFQPqIpqVjFWQ0o+lzgN
-	vVBXQAQOj89InxDZWwhtyQA/s2wWZV8mgFup6vIhgAN37CtybRlMD1k1W8hiV98i
-	AEE0c6SaSCEe5uR3Tzwy/u2UGDEL+nwi7XSTuhohbfHzY10i6o8jxaOwzzh5ZG6r
-	F4v0sVic/YiSeUOPGDyAO8irxTTz9o2lEYcZ820234Uljx9w/GLvd33XDnoixHhV
-	Hob+POz8sjnNgXp5IdqfWDvxD+qG8taRgdA==
-Received: from apblrppmta02.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq35dj-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 14:57:43 +0000 (GMT)
-Received: from pps.filterd (apblrppmta02.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA02.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEfW421932679;
-	Thu, 22 Oct 2026 14:41:32 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-mohis-hyd.qualcomm.com [10.147.253.64])
-	by APBLRPPMTA02.qualcomm.com (PPS) with ESMTPS id 69MEfV601932659
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 14:41:31 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4840500)
-	id D1E3A66C; Thu, 22 Oct 2026 20:11:30 +0530 (+0530)
-From: Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mark Brown <broonie@kernel.org>
-Cc: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
-        Liam Girdwood <lgirdwood@gmail.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-Subject: [PATCH 0/2] Fix GPR callback registration race during probe
-Date: Thu, 22 Oct 2026 20:11:28 +0530
-Message-Id: <20261022144130.2443667-1-mohit.sharma@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ps447kTD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 854E71F000C1;
+	Thu, 22 Oct 2026 14:58:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792681103;
+	bh=WiXgxjwizuyUVqCzXbnbDMrPmjqOsN4MN7Vc9pRXtsk=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Ps447kTDjEuvUEahzsoLQhrK+GxmsbZGWuPD4RQmuU+CENjP0wSQwdvwqtnAzNcSv
+	 DnbdOzxMFslWzN6ens83vTUPYxt4Kzs7DMbcoMMcjyRF4+6H1CrSvPmbBYQEu7kLcT
+	 xshIr5mzOqWfM5fOdu/cwTcfmlWZtEppUA20GGbWUPnLmBCR8nns1aN4+PGUpwmrFG
+	 CaU8K7cpXZtXW7qYVEVa4lpXJrvtT46sQzsjrUG3APHTC0g4zpiD10fYoJO9Cudx+c
+	 pebC3k9wi5KZm3XQ2ZAi+ffzdxRLtLyCULbnzNI9amznsMKvs36Eq92WJxf3H1eLUJ
+	 FfuRDUnrcNKKw==
+From: Mark Brown <broonie@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Qinguang Xu <guang.cy2023@gmail.com>
+Cc: linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
+In-Reply-To: <20261020-debug-v1-1-44e0491ede30@gmail.com>
+References: <20261020-debug-v1-1-44e0491ede30@gmail.com>
+Subject: Re: [PATCH] regmap: irq: fix incorrect index calculation for
+ read_sub_irq_data()
+Message-Id: <179260159860.3909521.14877027870846141809.b4-ty@b4>
+Date: Wed, 21 Oct 2026 17:53:18 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,63 +60,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: hlmCAZDTC2JUn2_LZQ8k27SXRjdGrUdr
-X-Proofpoint-ORIG-GUID: hlmCAZDTC2JUn2_LZQ8k27SXRjdGrUdr
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX4u0f8ISkhA5d
- tisCRZmYem9ITX1SX3R+7k325PJHQ1on4RYR5kR7NZ0r1c2QRvygSKH2D8dWh/kwaDe9mFApBIl
- 0icnuG19n+WyckTMiHgEx6vA0F8By4k=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ada2467 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=SdEKr03YgSq6kbhPS0kA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA1OSBTYWx0ZWRfX+q9j3IMNLh/U
- 3eOGRr+A6Ow7s2mBGtzs+pjR/jh6gLHHmzVpQ7OU0x8IspCcVjQ6rdpx8xXZvQseW1ruP6qvJ1q
- SGml5n8fYz0Uth8H0i7ntUN/pUN1lYmAnX58WVbfjlIVZbnGlw4U1W5mzN0Jk4u6HU5mUNBSBAq
- M4Fib1hFFc/GtUad5vE6cNoRIszILkPdEUTBoNKrKomE2fhbnsVbH8hUQGpPEUtpC1g44kD/kAk
- 3/6TYtbsnVhFeJcszxDnEY3gSMMUsy32wJOGT68CMCulzJSsIMb3NDnQcFVUpxr6XDO7HKR5n8g
- /UekM0ZRhUFus+PuLmdHxfo5E3te3WOgtiMiKw4B4RNI7ABEXOZNse16M71vNDJwFo3P99ngH65
- GhPbEZucuD5RNJqd0LnUI/w8HdjEsuXQPIh8xCR3BR4qqDmlx6bdW3kkMD46E4//QYNQCAOEEaq
- euKvEoTXzUcADthiW5A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220059
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=KCmYyeZOMRjK9LGCDBZqe/giZw+9pfkY/PKIxWhhVN4=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJuqbSXPg903xKzPmDyj2Pmv78KeO8wfi5ndplh8klBe
+ d+4B9OvdpSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAigncZ/tkwfdwUa7V1Ck/l
+ RK/tJy4veFKy0lV8toaugvhsHsX4Y+sZ/ofJBlpNmvPf5oGPvvCJgrW7FzwW81p4uc7J31uxvVL
+ diREA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-GPR service drivers can issue synchronous commands directly from their
-probe callbacks or indirectly while populating child devices. The GPR
-bus currently publishes the service callback only after the client probe
-returns. Consequently, a DSP response received during probe cannot be
-dispatched and the command times out.
+On Tue, 20 Oct 2026 21:39:06 +0800, Qinguang Xu wrote:
+> regmap: irq: fix incorrect index calculation for read_sub_irq_data()
 
-This was observed intermittently on Qualcomm Lemans and Monaco platforms
-while q6apm child probing issued an APM shared-memory map command. The DSP
-response reached the GPR receive path, but was discarded because the
-service callback had not yet been installed.
+Applied to
 
-The first patch prepares q6apm and q6prm for early callback publication by
-ensuring callback-visible state is initialized before driver data is
-published and safely ignoring packets received before that point. The
-second patch publishes GPR callbacks before invoking client probes and
-clears them again when probing fails. Existing APR callback ordering is
-left unchanged.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.4
 
-Mohit Sharma (2):
-  ASoC: qcom: q6apm: Guard callbacks until probe data is ready
-  soc: qcom: apr: Publish GPR callback before client probe
+Thanks!
 
- drivers/soc/qcom/apr.c          | 15 +++++++++++++--
- sound/soc/qcom/qdsp6/q6apm.c   |  6 ++++--
- sound/soc/qcom/qdsp6/q6prm.c   |  3 +++
- 3 files changed, 20 insertions(+), 4 deletions(-)
+[1/1] regmap: irq: fix incorrect index calculation for read_sub_irq_data()
+      https://git.kernel.org/broonie/regmap/c/1ea2927c1bc3
 
--- 
-2.34.1
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
