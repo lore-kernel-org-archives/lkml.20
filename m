@@ -1,102 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588215;
-	b=tyOR03UJ1IEept06mLwhicu0DcHkTlJLnSjDGOnHW5zbmLcBxYTKKc4Z/VsYz7rKEN0H
-	 luDdrAlD47qq7KguT8ZNFyOCmLTrvUYdpOeaoeKB8SFwtmtIsRf5loPw3bwHCQgkZA52a
-	 KP3Wq7WrtSso7a0udj86wyDwMg9nyoa5LyXw7MvaAM8kdYcKLB09+7rMkC9rFGN3rpEgW
-	 44ahyldLHYTLxy8Q0rFazjK2/ANiVrvzYZ96lu+6BgFVQg5GcXccXyay18BlvcnsH5oEf
-	 kEHBxZaM8brJKP81j/OJ86DAp2HFu50NKQXxUNfSrifsRzbMW8nhaLYy7cpiJpb72hg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588215;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=kCIy61a3Xg4nO5urxAH55V+yrXEsE58ZJ5Oo+jGSLDg=;
-	b=Kra4zGpqiR2iKwuFAe/w+XnpFJcUlHcQuWBf/TUGT/eW4SxfKNSBfYDnXo0ZHcEEvk3A
-	 +/J/pqtSMunQFganwjR7Z32MOelkKFGtp3YpkRIOYn0/9sVPUOiLKoJuQ3U7Miz023xAM
-	 5R+M4M7OVrpI2WovxFm1qLVqpJYZJuEwew7MfaV/OuVWqF93BncQjiE39redP6IcSlfcD
-	 JYwyNyfMe2mheqYeGe0MAZg3MHmtJ8NkrVP+G/ZNjvI5xLNVMmhrJtZYN0Ner9xaGSrB7
-	 TwPY1EQaO1ai2ZXMS+pDHJ5byFfhcsrUepTpvS1iH7v8qx3Lpnjjiil9BEIT0/NUzAQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nVoBGEyK;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.33
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792588211;
+	b=tn6ih6lgwZRXTYXR9v7+NyLGSpS3+UNY+Nkh5TMHmlsSo404gF3Uv3+u2WSUAWHz6AAg
+	 fvJRkEBAOnOK51/N2Cv5bva2080wYWEEy50l5hz7cBIdTh8ORieIFw0C1uQn2NXwvXfMB
+	 PJOaxyUYurfy2XziQRngT7yEh/E5n1koXAS4VJZSNlWRKIoTlZm1QjNMEDu/4+LFM/rck
+	 Ho9a9jrtBMOYHKorp7a5OAbDZq3L6XlTVB82t+XV3BRrrPM8biFqOQl1tfA5cYQpY99eY
+	 h3PMl8N0akv11rkvoE+ra8BLCg5+5wiuD21QoW5amh280bU2HSMbuhGc9STyNEBt4Vw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588211;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=38JPmohYw3JtdG07XYkX8XXFWnONVnK1ALykvNznEtI=;
+	b=wPqsHLT4hwmoAhZ1ULATwk67lV6CKBA0SUAk+vvwrP1c18xy7BWjfify2kkFiDm/9vTy
+	 bChpZGNzMZVSP7DTyHwk14wpy7Zq/wNg4M8iupewnKAkxHSb2GZXqmK/ZcjqyERywV2Ci
+	 4BuahkksjKf6KZyK/sNJAM45hpd0C1LWeZzMRvYkQLhYz5jlaG6H/loErjPeBgf8hhZXk
+	 NKVGc43xXq89KO4CH3nwQEvtsseRneaCD/iVM0RhUqW3A8VCrSH8lzvb2J8po5a3FU5nw
+	 rWGXTBrIx7IyPjvmAXLm+U20c1CF1WTtUJeoHabtSzf9h37fAemF7xMFgz+1YInP8wA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oDCA24rV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.33
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011033.outbound.protection.outlook.com [40.93.194.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED8860A260D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:10:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED8860A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B809606A326;
+	Wed, 21 Oct 2026 13:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B809606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nVoBGEyK
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso12223935e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:10:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792588213; x=1793193013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kCIy61a3Xg4nO5urxAH55V+yrXEsE58ZJ5Oo+jGSLDg=;
-        b=nVoBGEyK7gbnJ6EAha/Eh0jQIxCab9Ijkk1Ym2VNnKczHuCRLd2jnOzaPiLl654WWm
-         o7UO5SeHYQC40zn01q7ldeUrur+eASwRMihxaPgKkNl+rdAHnURYm/5ZV7MqcxP33gMI
-         sJhG2QrWRO9HHEbDfe5LLnrvqPH1hRkA4rJ+NZ9oHJTqOaGaNHpBtPyBpaOANiOJk/Or
-         hnlnYjG4CPsupLf5BCzA3WdTCh+V4l2WEvDCocS6616SFXplh9b8XA7R0YKXPnHXSTgD
-         4MR9kllBnQDd3JZpNXSb9SrHvco9gbcLGLeBuS2wYaYDtECEeXtYntaRUWlDe4SS32b7
-         liow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792588213; x=1793193013;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kCIy61a3Xg4nO5urxAH55V+yrXEsE58ZJ5Oo+jGSLDg=;
-        b=BwAIuZ1lGZsw67HmqtGEqbd9p/7c8hrgunwP1yUoHOmzBKH6Biw/MV4a4UxUgEz8vW
-         vE6JduChErJyfoHb8o/aOIaA0mcNwRZbuBmLFcCfQU7NEEeMbDgPhYUmK8LiuQUXllPJ
-         4o4TDgxuisq6waG+wJng6MZwWj59klSj9/KqZXV9fYPgBsJfTT/SgHT3f8E/bESj/gTd
-         hwH7jVYajdXdMXEm2rJ3w2qgWB1DvEXmoWq0cT2XCWfvmdYj614p9XgCwvqmjdUPs0JY
-         +qt7EQk6uxr/z68nsWlmuXGqxMaMMn5gsk7d56k6P7w/xFTPvVRnOWuWLGqC9PoUdQ8i
-         Cifg==
-X-Forwarded-Encrypted: i=1; AKwUvBwaImYLAxPfVrGFTeeP6q7rXxQW0UJmJVP8Whe7By2r6Pt+68mnvAL+1Tjfz/uHmQ7j6scxWKXDUvgrpm4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIIoKlRsIIL4bg/l6iZ6wbaLm3JJtmwgG3pE3pRtk7KALlADe2K
-	QV/Fp7V524bkbW995SujO8YjQ05c+6vhVgQlp3zBa7FVqcp1jLIR4WKQ
-X-Gm-Gg: AYBFou2jYHO7QKcCR9gf2W8y+KwcNmdQbYKodWmCBGY2PnYuufcZM8YHyMX/wmrz9SB
-	umWfugDZCPXNI8e3NnWhB7yOUhNUX3o3HBWknrN3MBZ2ZiDkyiPtcHfT3uEM87n3yx88zxDM6p/
-	8CqGG3z0MvsMNiXw0f0nI2r4FdLLC2XtR46GsDR4toXxTu28Mt7VHjSKdb3CoMQrkzEzmXXGxSZ
-	D2EuN87KC4fbLwGxQxeWyC9gFZdkK95NZWZDx+PUusak1uYJpIxQQfPJA4OykB0TP2YNZY4XFBu
-	3HI3JheEzluxhrmeO+DsYCLJCHxDBpMTepC6yhe+WTh8aJp2xJV81HVecVobPvulAfamlrvDC2h
-	fcHWXxuuO0xofNyYK9tM1Z1AVQqDN0WHOsqQebgbXVp19HKP2TMv5InqNc3aQ7ffsam+nIkTvuv
-	kBD4MCgTUE1XljHZs8nHdkpT0SvCOHT9Jq4E5GR5D8dggTvQP90CrKS+FthsysJticZk3jLYNJa
-	749vtv3sl0tmr4TXhsSSOo/Vv/pVSed+k1nam7+Ei2ODg==
-X-Received: by 2002:a05:600d:864c:10b0:4a2:317:d0ed with SMTP id 5b1f17b1804b1-4a20317d208mr440795e9.1.1792588212996;
-        Wed, 21 Oct 2026 06:10:12 -0700 (PDT)
-Received: from fedora ([2.35.202.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d85a9bsm170890685e9.15.2026.10.21.06.10.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:10:12 -0700 (PDT)
-From: Francesco Nigro <nigro.fra@gmail.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	acme@kernel.org,
-	namhyung@kernel.org
-Cc: mark.rutland@arm.com,
-	alexander.shishkin@linux.intel.com,
-	jolsa@kernel.org,
-	irogers@google.com,
-	adrian.hunter@intel.com,
-	james.clark@linaro.org,
-	kan.liang@linux.intel.com,
-	leo.yan@arm.com,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Francesco Nigro <nigro.fra@gmail.com>
-Subject: [PATCH] perf test: Add test for events re-armed with PERF_EVENT_IOC_REFRESH
-Date: Wed, 21 Oct 2026 15:10:06 +0200
-Message-ID: <20261021131006.2101248-1-nigro.fra@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=oDCA24rV
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IqguMXLWVBXL0jDaAJmTTxZaXVQuLwDKS1/H+lvW5Vb5ftZea7WpOfh+7+b/pLMGCB9GK0123oZkpwfsBajHEOOwGsfEwzcl9x7oxw3seLLjuEHOx59jhqK2VvpWh4nnaih1MkBjCUOHWKzvPiDbaZ8Zl43jfiMgcAZlWJzQbvcf1G9SlEKi4o42Vg6iuLBweWcahdBj9MbUN2SrBAvU7gtB0vD16Jr2QSphFGbEezn9SBwLpaRX1Hk5qxTvpcCnY3PMzHFk1RlyBTaAkq4XBlA3oDCAK9kPq4O++bGaBGF67G0U2U6K/saS5b0qkL1CuXYHrkGOAg3Dn8La/AKj/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=38JPmohYw3JtdG07XYkX8XXFWnONVnK1ALykvNznEtI=;
+ b=VLRVDU9z28NF5aXBEppTkVmH9AmhBGkRhTmjc8u+9kQnFacnKBgQI1cHRK0T3YXSAps48Q7wvOe5r9pw0AMkm57txpnn/qfAej4WdhYx+Xb4ukdBqz1iIvcu5WM9OrWRDTSgcwgfKZ6UtZDh/TVGxI5n/FSTL5h8DbRwH/Ql6j9lQZg+vXskTgEczT+mZ6k4kxFi4P2xS1oaLq4s5vOpviS0O5XWHrsCkpJm9UfXrEjGNaNozx0SPfhZJwNF2IB6ifp6Bnjy0+NVKWZ+39FMeQYhksOLzl8UZ/SfcDYkaXwt3O0GE7xJ3YzwjyxPQR7ukUw/G8RclPIsvtoYlJTQ3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=38JPmohYw3JtdG07XYkX8XXFWnONVnK1ALykvNznEtI=;
+ b=oDCA24rVkGc2AeMt3D3ZSXhEZcAI+FSzmTvn8aUi3jHNemE0/0RgO6qGfLoT/NirHtxCa30PfxEGPCswPAQ0lUf5UnDw7jFDXQ+hNbI/gU9XEtQJ1g+DrW+3OomGmvF/AJii8S1Bs4exPXpD9CdU6zUHyOIFtuEygm8IogH/ol3OmiBaVuQjbuzCjNFbLc67F6hXcBM+1PpPiEhQBG6tGnQLSsrZmjfkXVFv/J4iUOpFyL9C88A8FtUbv7xbL7HuerBzoTBqSIyvUrAExSsLDo+68t3kPN5VG6o9oJPjL6uHIt2hn28ad5DbxADXWlGpAoZLaEKEBcqwXk4hYBcJww==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM4PR12MB9734.namprd12.prod.outlook.com (2603:10b6:8:225::23)
+ by CH4PR12MB840224.namprd12.prod.outlook.com (2603:10b6:610:51a::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 13:10:06 +0000
+Received: from DM4PR12MB9734.namprd12.prod.outlook.com
+ ([fe80::ba44:51c5:b641:2917]) by DM4PR12MB9734.namprd12.prod.outlook.com
+ ([fe80::ba44:51c5:b641:2917%4]) with mapi id 15.21.0522.013; Wed, 21 Oct 2026
+ 13:10:05 +0000
+Message-ID: <fa6a33f7-9967-4934-8a84-b50d7cf8570d@nvidia.com>
+Date: Wed, 21 Oct 2026 16:09:58 +0300
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net] net/mlx5: Use only loaded devices for PTP clock
+ operations
+To: netdev-bot+sinfo@kernel.org, Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Cosmin Ratiu <cratiu@nvidia.com>,
+ Gal Pressman <gal@nvidia.com>, Kees Cook <kees@kernel.org>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Mark Bloch <markb@mellanox.com>,
+ Mark Bloch <mbloch@nvidia.com>, Moshe Shemesh <moshe@mellanox.com>,
+ Patrisious Haddad <phaddad@nvidia.com>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Saeed Mahameed <saeedm@mellanox.com>, Saeed Mahameed <saeedm@nvidia.com>,
+ Shahar Shitrit <shshitrit@nvidia.com>, Thomas Gleixner <tglx@kernel.org>
+References: <20261021105600.3481485-1-tariqt@nvidia.com>
+ <179258039278.3290.9931291968534367820@kernel.org>
+Content-Language: en-US
+From: Carolina Jubran <cjubran@nvidia.com>
+In-Reply-To: <179258039278.3290.9931291968534367820@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FRYP281CA0005.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::15)
+ To DM4PR12MB9734.namprd12.prod.outlook.com (2603:10b6:8:225::23)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,233 +108,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB9734:EE_|CH4PR12MB840224:EE_
+X-MS-Office365-Filtering-Correlation-Id: cddbbba1-8af5-454f-d493-08df2f749fe6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|1800799024|23010399003|376014|366016|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	vdjlfV9KUFilQUk2OCVcJslEb33p2nGQS/S0zdodRJ8L7ej9IIfHLchI3oiCwlS+yBkmYSltH0XJiYuhCsJxnTHJlsFkWd7334QtYRcIjegUH8pjZKW+GYVqzP/nwEzicrd7RLXnOolyfES8wQi1iemqQDCJ+ddOHxLnPDRbwiGq3hkCl5mXmxkv0e5wCfyLNB5sqLDRGqOtG0tJiPZT7ql5LG1OzG1fIcAhUl9DAYzNHKuJA5AexYyYUFGzf2qkfc2YbX0234kXxykIaHqgj8/o+UDFxIQ+O1u/W9xe0ud7QF5VSXYyeagueFHpVpRus/RGavZ6tkxLdHF1T47os5L6aJZJkddctyhad6dI24fOe9zkFXvoO308lDnmTAyIBSHRjbxddSKCmkU1h4lDdUMH3W5z1pEav+uVy8erLsW24ZQrxsi+Tqv9EkhwAXP8dv+ODYVk8RYw94mcyBcpqno8m8sTBVu87zi11EbVRA4qdD80fdRVsY/ziDxJcd09d3oPD1tOW/HwEzNsCAoKZjN6WRvSQDPUKmFonMm9rVodTaw11Slk1atJR04Qm0echf1bwwu4bA2k6TuBM3tAv8S7uNE6LIT9DlIfTMOCZYnWysj6N5wwE5QS7ksCIut4ojIrSh5Tjpv4SRgz6jCWl1Y19MpMy/1sId3aCZ3qMts=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR12MB9734.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(23010399003)(376014)(366016)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VElJa3F4T0NqazdHb1ZybVJJZEVxdXFvWFV3VkFITWx3RnFxWTQ4MDd2WXA0?=
+ =?utf-8?B?anNVL2lPcmdTRnJFRndVa1BUNkIyOU5QMDFWWHZHdGNkR3NuT3MwVTRaVXJq?=
+ =?utf-8?B?TnNkOWtYSDBXMVB1ZUxaT090WHVncU1hVUhqZGFaZjdjWlZHMTVmcnhGRWxY?=
+ =?utf-8?B?dXF0cnh0bjF5SFA2eUs0WGVNMGIxZ2grMGdQbG8xaUFQckVDUnpJOVdUaDFz?=
+ =?utf-8?B?UHJ4dS92YlM3RlNDeFQvZTFuRkg4NmsrVndtQlhlYnk0Zks5aTcrWlptWGQw?=
+ =?utf-8?B?dnNOc2t0a25pU0hBRjNPN1ZYUG9jYk4zY29QZXppSEtqeXU5TzZmMHJ4UVhT?=
+ =?utf-8?B?SEhiMmorb2V1VFpZT1hzVWZQckkzVzMrZXdqSm5ZMzFZL21reFkrbzl3bVhm?=
+ =?utf-8?B?c2tJazRNOUhOZ0JJdFlvM0NIcG16VkZYSlNWTTNLWUVMNjFWUWVVemtWTnoz?=
+ =?utf-8?B?N0VHVmJyM3RzdkVxd29SVHlNVE9ibWpzY05QMHZCb0NaS1hyZ2Vnb0V4cGdD?=
+ =?utf-8?B?dktYSXlLUTJKYzRRNlNTQXNMN2ptZFRFdkZrT0o5bnZjS1JVS054eFZkYmZu?=
+ =?utf-8?B?RGxMUHhlZld5VDY3TG94Wm9wYWNSdzdzbVgyWmNMa1Q3Mi9xZk5IMnVMY21q?=
+ =?utf-8?B?WWVGNlRCd2JUWm9UTHlnVGpmNk9mM1RZV2IvOGdjU0pKRWc1TFFTOEJBNTNq?=
+ =?utf-8?B?a0lHbUlTdHpxalZXYTRUM0FldUlPalZINXJPWWs3RFl5SXRRTS9nZnIvcVI0?=
+ =?utf-8?B?TGpPNi92N2FVZUgrSTR0Tmdqc2V6d2d5cWpSc283MktGRUxuQVMzaGZKbUpv?=
+ =?utf-8?B?Q1J3MDhheHVNTzNDd0kvRkZaZWgxZUdvQnUvaTFyazcyWElVY1RtZTZqVEZN?=
+ =?utf-8?B?YWR3eWhaZldsS1pYWUtTM1V4dHpjOVdQeGUwZk9uem5zUVJ5NE9CYU81TGF1?=
+ =?utf-8?B?d0VQU2xLRXptSzQvMkpuU3A2UXlzTVVLQlhJc3UrK21KZmFGRWljdHRzb2d6?=
+ =?utf-8?B?RWc0MGsxa2YvNHlBVDdIclhOcWUzQ2NlSm1PWHlsdTlpR1haeklQdU9aVmNR?=
+ =?utf-8?B?anZuSXNvd21aVjJXaVJrTXMyWjdVNnB0MHpRL0tFSEpMSi9leldyOUtYTnlG?=
+ =?utf-8?B?anVHZUo2K2N6NzhsN0prcDBvZDJkMWNXb2FGYWpiU1VyQ0lNamMrb2owWTVt?=
+ =?utf-8?B?VjlTR1k0Tm1SRTdvcDZ4Rmx3dVhOdThpMFpFU1ZsQ1pqMERPVGthcWp0WGhP?=
+ =?utf-8?B?UUNTbm1iR3did3VkbU9zbXR4SGszeHcwQU5QTU5YdjVaTUR2WTZQbllWYzg3?=
+ =?utf-8?B?V1htWmc5dWxpdU9nSmtRQVhlTGtUbXBUaytqaVYraEw5MmtXWkpTREJUWDZp?=
+ =?utf-8?B?VHErREpSVGZ4NTNkZU1ZTUtWNm1KR21GUktZbGdpVEhWU3pnMXNSdUs3TDdk?=
+ =?utf-8?B?TVRJLzZJMzRqWlZRSmY1RjBnbTdzdUhKcld5RzFLWmpNNXF5NS9sUGVqaHh1?=
+ =?utf-8?B?c1gwOFdFclJJbEJZdFJBZlliWEdSQnhOVEpIVnFvVHQyMWVldjl4Zll6K1RQ?=
+ =?utf-8?B?VDF1N2hvcUZvRGlLTUUwaVNMRGhwZ3lISTBLTEgvbHdDRGh3RWpyM2dlRjZo?=
+ =?utf-8?B?VWhvZEFIa21sdStOUlA3NTFmZGJuRFJhdy96SE14K2pCVEdLV0JSTUpJdDE5?=
+ =?utf-8?B?UUNTVkJOeDBpd2wwVHBWdEpJQzlQYTcyNEJjQWwrNDRyb250NW1HVW1ZNFN1?=
+ =?utf-8?B?U3lXNVRvZnVZaDY4QVVSdlQvNXlDbkhlV2Izb1pVZllxU1lycDlaZGNFbXZF?=
+ =?utf-8?B?UUJ5MFNLUmUvTW5QRVdKMjNTM2V4Z1dQL3g0eDhQT25KWUlodlVGemoxb1VR?=
+ =?utf-8?B?TkFFbENuVytNcHpkMXdERXNTeTlSVThtWWJydUxxNVBpczdkbG5sdUhkUjhF?=
+ =?utf-8?B?STV1UXF4U09Rekd6SGlOWjNLNDMvaVFGNWpFaXAxMlU3RU9iMlFQRHErWmNa?=
+ =?utf-8?B?NVpHaHNhcnFDTEcyRFppTXN2a3BZUSs1NE05TlhOcG5YVGJteUM1WU5LY3Bw?=
+ =?utf-8?B?a1Z5U0ZucEhCU0lNSUlaUUo0MFdLL3B4L2FjZlhHM0wxSW1VWmJnNXNpeVA5?=
+ =?utf-8?B?T3lOcDROdlpyem9mbDFYdEdiNU8rREEzRWlzYzh4dndKRXhLckFlcFh4Mzdr?=
+ =?utf-8?B?cVJXaVNkekhQcWxEMGhyaFd3YlJOVjZTd0o3elRFVTQwajQ5WG5kZzFxUUpk?=
+ =?utf-8?B?cDh4blBGdFBuQ1ZvbkVvQlU5ZUFCbGE0bnk0VzNrcU9KVjloaDJuOUovMGZi?=
+ =?utf-8?Q?CXENSU2Zm8bJ8f+FaV?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cddbbba1-8af5-454f-d493-08df2f749fe6
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB9734.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 13:10:05.8516
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jqyEXEN0FoVje2H23omu2e6bOn8lJOVyqafzsE8cLpq6PWmeDjwwr+iBAoU+nagnYGBgm5V8Q0e2D/M0IQPe6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB840224
 
-Open a sampling event with sample_period 1, re-arm it with
-PERF_EVENT_IOC_REFRESH from its SIGIO handler, as self-profilers such
-as async-profiler do, and check that each of 1000 events delivers a
-signal. One case uses a software event (page faults), the other the
-syscalls:sys_enter_getppid tracepoint.
 
-The tracepoint case fails since
-commit 18dbcbfabfff ("perf: Fix the POLL_HUP delivery breakage"):
-only the first overflow is delivered. It passes on the parent commit.
-The software case passes on both.
+On 21/10/2026 13:59, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+>
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by code inspection). If it was triggered please include
+>     the symptoms, like the stack trace or error messages.
+>
+>   - What hardware the change was tested on. For driver fixes please
+>     mention the device (and if relevant firmware version) used for
+>     testing, or say that the change was not tested on real hardware.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-The test was written with an AI coding assistant (Claude) from a
-standalone reproducer; I reviewed it and ran it in QEMU on current
-mainline, on that commit and on its parent.
+Hi,
 
-Link: https://github.com/async-profiler/async-profiler/issues/1813
-Signed-off-by: Francesco Nigro <nigro.fra@gmail.com>
----
+The issue was observed and reported internally during PCI suspend/resume.
+During the initial investigation, another team found that stopping the
+PTP worker prevented the issue. I do not have any logs to share.
 
-Notes:
-    To run it on any x86_64 box with virtme-ng:
-    
-      vng --kconfig && make -j$(nproc)
-      make -C tools/perf NO_LIBTRACEEVENT=1
-      vng -- tools/perf/perf test -v REFRESH
-    
-    Results, 2 vCPUs:
-    
-      b320789d6883 (parent)  Tracepoint event: Ok
-      18dbcbfabfff           Tracepoint event: FAILED, 1000 events, 1 overflows
-      a804c5742bff (master)  Tracepoint event: FAILED, 1000 events, 1 overflows
-    
-    The software event passes on all three.
-    
-    Leo Yan's series "perf: Revert direct PMU stop for refresh limit"
-    (linux-perf-users, 2026-05-12) reverts 18dbcbfabfff for a different
-    reason; I haven't tested it against this.
-    
-    #regzbot introduced: 18dbcbfabfff
+I then investigated the report through manual code inspection and found
+that the periodic PTP worker could access PCI registers through its
+backing function after that function had been unloaded. Stopping the
+worker alone wasn't enough because PTP operations could still access
+the same unloaded backing mdev. The change therefore ties the worker to
+the load state and ensures that PTP hardware operations use only a loaded
+backing function.
 
- tools/perf/tests/Build           |   1 +
- tools/perf/tests/builtin-test.c  |   1 +
- tools/perf/tests/event_refresh.c | 136 +++++++++++++++++++++++++++++++
- tools/perf/tests/tests.h         |   1 +
- 4 files changed, 139 insertions(+)
- create mode 100644 tools/perf/tests/event_refresh.c
+The change was tested on ConnectX-7 hardware.
 
-diff --git a/tools/perf/tests/Build b/tools/perf/tests/Build
-index 66944a4f4..199e10c8c 100644
---- a/tools/perf/tests/Build
-+++ b/tools/perf/tests/Build
-@@ -23,6 +23,7 @@ perf-test-y += hists_output.o
- perf-test-y += hists_cumulate.o
- perf-test-y += bp_signal.o
- perf-test-y += bp_signal_overflow.o
-+perf-test-y += event_refresh.o
- perf-test-y += bp_account.o
- perf-test-y += wp.o
- perf-test-y += task-exit.o
-diff --git a/tools/perf/tests/builtin-test.c b/tools/perf/tests/builtin-test.c
-index 4d0784b16..2b10f4d7f 100644
---- a/tools/perf/tests/builtin-test.c
-+++ b/tools/perf/tests/builtin-test.c
-@@ -98,6 +98,7 @@ static struct test_suite *generic_tests[] = {
- 	&suite__hists_link,
- 	&suite__bp_signal,
- 	&suite__bp_signal_overflow,
-+	&suite__event_refresh,
- 	&suite__bp_accounting,
- 	&suite__wp,
- 	&suite__task_exit,
-diff --git a/tools/perf/tests/event_refresh.c b/tools/perf/tests/event_refresh.c
-new file mode 100644
-index 000000000..480f738de
---- /dev/null
-+++ b/tools/perf/tests/event_refresh.c
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Re-arm a sampling event from its overflow signal handler with
-+ * PERF_EVENT_IOC_REFRESH and check that every overflow is delivered.
-+ */
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <signal.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
-+#include <sys/ioctl.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <linux/perf_event.h>
-+
-+#include "cloexec.h"
-+#include "debug.h"
-+#include "tests.h"
-+#include "tp_pmu.h"
-+#include <internal/lib.h> // page_size
-+#include "../perf-sys.h"
-+
-+#define NR_EVENTS 1000
-+
-+static volatile sig_atomic_t overflows;
-+
-+static void sig_handler(int signum __maybe_unused, siginfo_t *info,
-+			void *uc __maybe_unused)
-+{
-+	overflows++;
-+	ioctl(info->si_fd, PERF_EVENT_IOC_REFRESH, 1);
-+}
-+
-+/* Count overflow signals for NR_EVENTS calls of trigger(), period 1. */
-+static int count_overflows(struct perf_event_attr *attr, void (*trigger)(int i))
-+{
-+	struct sigaction sa, old_sa;
-+	int fd, i, err = TEST_FAIL;
-+
-+	attr->size = sizeof(*attr);
-+	attr->sample_period = 1;
-+	attr->disabled = 1;
-+
-+	fd = sys_perf_event_open(attr, 0, -1, -1, perf_event_open_cloexec_flag());
-+	if (fd < 0) {
-+		pr_debug("failed opening event: %s\n", strerror(errno));
-+		return TEST_SKIP;
-+	}
-+
-+	memset(&sa, 0, sizeof(sa));
-+	sa.sa_sigaction = sig_handler;
-+	sa.sa_flags = SA_SIGINFO;
-+	if (sigaction(SIGIO, &sa, &old_sa) < 0) {
-+		pr_debug("failed setting up signal handler\n");
-+		goto out_close;
-+	}
-+
-+	fcntl(fd, F_SETFL, O_RDWR | O_NONBLOCK | O_ASYNC);
-+	fcntl(fd, F_SETSIG, SIGIO);
-+	fcntl(fd, F_SETOWN, getpid());
-+
-+	overflows = 0;
-+	ioctl(fd, PERF_EVENT_IOC_REFRESH, 1);
-+	for (i = 0; i < NR_EVENTS; i++)
-+		trigger(i);
-+	ioctl(fd, PERF_EVENT_IOC_DISABLE, 0);
-+
-+	pr_debug("%d events, %d overflows\n", NR_EVENTS, overflows);
-+	if (overflows == NR_EVENTS)
-+		err = TEST_OK;
-+
-+	sigaction(SIGIO, &old_sa, NULL);
-+out_close:
-+	close(fd);
-+	return err;
-+}
-+
-+static char *pages;
-+
-+static void touch_page(int i)
-+{
-+	pages[(long)i * page_size] = 1;
-+}
-+
-+static int test__event_refresh_sw(struct test_suite *test __maybe_unused,
-+				  int subtest __maybe_unused)
-+{
-+	struct perf_event_attr attr = {
-+		.type = PERF_TYPE_SOFTWARE,
-+		.config = PERF_COUNT_SW_PAGE_FAULTS,
-+	};
-+	int err;
-+
-+	pages = mmap(NULL, (long)NR_EVENTS * page_size, PROT_READ | PROT_WRITE,
-+		     MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (pages == MAP_FAILED)
-+		return TEST_FAIL;
-+
-+	err = count_overflows(&attr, touch_page);
-+	munmap(pages, (long)NR_EVENTS * page_size);
-+	return err;
-+}
-+
-+static void call_getppid(int i __maybe_unused)
-+{
-+	syscall(SYS_getppid);
-+}
-+
-+static int test__event_refresh_tp(struct test_suite *test __maybe_unused,
-+				  int subtest __maybe_unused)
-+{
-+	struct perf_event_attr attr = {
-+		.type = PERF_TYPE_TRACEPOINT,
-+	};
-+	int id = tp_pmu__id("syscalls", "sys_enter_getppid");
-+
-+	if (id < 0) {
-+		pr_debug("no syscalls:sys_enter_getppid tracepoint\n");
-+		return TEST_SKIP;
-+	}
-+	attr.config = id;
-+
-+	return count_overflows(&attr, call_getppid);
-+}
-+
-+static struct test_case tests__event_refresh[] = {
-+	TEST_CASE_REASON("Software event", event_refresh_sw, "permissions"),
-+	TEST_CASE_REASON("Tracepoint event", event_refresh_tp, "permissions"),
-+	{	.name = NULL, }
-+};
-+
-+struct test_suite suite__event_refresh = {
-+	.desc = "Event re-armed with PERF_EVENT_IOC_REFRESH",
-+	.test_cases = tests__event_refresh,
-+};
-diff --git a/tools/perf/tests/tests.h b/tools/perf/tests/tests.h
-index cee9e6b62..ecc25b5a3 100644
---- a/tools/perf/tests/tests.h
-+++ b/tools/perf/tests/tests.h
-@@ -124,6 +124,7 @@ DECLARE_SUITE(parse_events);
- DECLARE_SUITE(hists_link);
- DECLARE_SUITE(bp_signal);
- DECLARE_SUITE(bp_signal_overflow);
-+DECLARE_SUITE(event_refresh);
- DECLARE_SUITE(bp_accounting);
- DECLARE_SUITE(wp);
- DECLARE_SUITE(task_exit);
--- 
-2.55.0
+Thanks,
+Carolina
 
