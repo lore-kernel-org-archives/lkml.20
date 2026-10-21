@@ -1,78 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590540;
-	b=SGjKEBSJbDKgjT3ZLDX4wpUb5+ABt0TYeS2tAJI4gvynOr/VfgmRE01DFpvSyY9SXoJ/
-	 RE8a7bVmZ8m+PEbTAWfSzXnoEgzZWdGwB5wssRRjkcFJ2UE++Q/GPzVUiINGu0oH+MZfK
-	 HtI4LWOwvj8dMaKdULhb0u1xtVdsWxiXTA8gywfxlulD+/SGJW5ocwfCwzzBzlIfmDQJv
-	 m/OGZizOzUZOKf5MuQbGPAwAftFxVMsA5OQkA4npzCpoSqdRpHgrTvIbwRyARMThPPm02
-	 tVjThNzSHY12RtsOqAX4EK9mTTYrd/y8+jc67qD57Ty5PVSXGHanNlt+gS+AzkXKUmA==
+	t=1792590563;
+	b=kRNq5QhvVKf6uh4d1CnDS8MYOhknjjPhiKuCXOyPmq0Qym3EuLYRdy/7kXdMMg/F6R0K
+	 lIPCjKS2n/TBavY72eYS58QRyhGZ2RjWdUrTFxQB3UMdO4hUzKy+lWnz6FiJ7X7H8zKqS
+	 NqeTo5jq1sdAWDgfpETDcjYxuCVL9G56RZloCmZULOkJpv9YxwipFZA9TfcwN3SoIC2mZ
+	 J5z446z8ZjBn4ua/MFHninUMPgQPGcar2K4gS/e1R9ZGBXKFaVBsnm6OauMuKLL3lx9Kc
+	 9VW/dHATQ9N9ElKsWOs8dLRpOgSR3DNuj1dQzl8afH0GWfdxE5iuNb5HY1z0JaRyPHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590540;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=m6ie5JCyR2XxFwtvMIqypZ8n7/2BglhxkFeUrEWwt6s=;
-	b=A/t5mN5qdstTHim5yXKUxg7KpJXhBbFwcsc6mP0j8JpnfGJk9IrsHU1PsReEWefl5KkQ
-	 7MWf/6RIhzg3+MG29wFdUlyDtoNH5ZS6NH8pPQwuLJMpL//cnKv5qbwYpblwsqlw6tuOZ
-	 6Lytig65Tlgk1V85wgLHbQI6ZEGdzfHZRnTWNkCQlmuGqVqR3iDw7h1eLrsQwZxzMPFY8
-	 mK64AOHJkab/nvYynFc056gFHsY3jXNhlgfo8vZfhVIVVXUQE1hwgqW65LNdjlbp8hdF0
-	 R1SnT6DFQpABBWduvRDHvelj58mSprhIieh718jBrLupTIsmoCvUqXQhsn7xQ4dLKXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590563;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=uZg4BKspB/y+CooZbsgJ6fLMCO5/PIy2LqC7iUq3yNk=;
+	b=kXEeHMRCc4PNZNi8GLSpVh1Wwmy/tkfDqbOCV7LVppGwsJPzguvgSo2io4JS1SbJH3sT
+	 AOO/fCgzvBMYgQHqPZxEJnkqftxPag074cafZ9Mn0l6FII8D/78CEMnKwYhGc8ATzPnej
+	 b030FeMPnZIIC12YslAC/9dPlAoX3RuqWbbJdederBW95Ibq1IEFJ5HdTqCIbt09PK0BN
+	 ZNuIBvOqBz9k3QTCtfebaX9hKF8PhWKTIAhAEgUo+xTUVmt356vWGEtbdEnF2tmmlJUnG
+	 sPFwMHpC+lUiM6wuHZkHoG12OD4WP3I4cGh2S2W1BnfOGPGgiiix90jGARYaZnnREUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7YHU08uj;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498D606A320;
-	Wed, 21 Oct 2026 13:48:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D498D606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=PrElQ2nI;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A6EA3606A319;
+	Wed, 21 Oct 2026 13:49:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6EA3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=7YHU08uj
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id 969F08048E;
-	Wed, 21 Oct 2026 13:48:57 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf13.hostedemail.com (Postfix) with ESMTPA id 24FD32001E;
-	Wed, 21 Oct 2026 13:48:55 +0000 (UTC)
-Date: Wed, 21 Oct 2026 09:48:53 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: Nam Cao <namcao@linutronix.de>, John Ogness <john.ogness@linutronix.de>,
- Tomas Glozar <tglozar@redhat.com>, Alexei Starovoitov
- <alexei.starovoitov@gmail.com>, linux-kernel@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org, Wen Yang 
- <wen.yang@linux.dev>, Tobias Schaffner <tobias.schaffner@siemens.com>,
- Viktor Malik <vmalik@redhat.com>
-Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
-Message-ID: <20261021094853.29b9f7be@gandalf.local.home>
-In-Reply-To: <a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
-References: <20261001152042.124445-1-gmonaco@redhat.com>
-	<20261001152042.124445-11-gmonaco@redhat.com>
-	<DLXSI4BSRE5F.1TLKCBUAGNDFQ@gmail.com>
-	<b1fb01e1c58893795dd4be346f233d39fe653aaa.camel@redhat.com>
-	<DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
-	<878q3xtptq.fsf@jogness.linutronix.de>
-	<8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
-	<87bj8s8ih9.fsf@jogness.linutronix.de>
-	<DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
-	<87v770uuyr.fsf@jogness.linutronix.de>
-	<DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
-	<87ik2zryzo.fsf@jogness.linutronix.de>
-	<0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
-	<CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
-	<8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
-	<CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
-	<87pkx5q1w4.fsf@jogness.linutronix.de>
-	<0d4f11b1999588ddba9d855db43fc492eda32de1.camel@redhat.com>
-	<87h5ifqy6w.fsf@yellow.woof>
-	<a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=PrElQ2nI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=uZg4BKspB/y+CooZbsgJ6
+	fLMCO5/PIy2LqC7iUq3yNk=; b=PrElQ2nIsm9MEcoRGnwjnvUBJBgamTyjrOg/v
+	/hoK8j+AT8UKFPEtKlmMWh3LM0Xbzhzs/CpMHfmLVdtzjwi5lFd/45SfMuFUWKrD
+	6vm1Pzo72ZY+9T+LfFJmlRpSd+HR4vPXMtMmuUNNAiLylMd8siATq6lTjo/uG6Ah
+	hfqHvs=
+Received: from [127.0.1.1] (unknown [114.214.181.25])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAHfzPNwthqAOokAA--.948S2;
+	Wed, 21 Oct 2026 21:49:01 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-pm@vger.kernel.org
+Cc: Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH] power: supply: qcom_battmgr: do not report power_now on SM8750
+Date: Wed, 21 Oct 2026 21:49:01 +0800
+Message-ID: <179259054168.209323.8102186130128474174@mail.ustc.edu.cn>
+In-Reply-To: <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
+References: <20261013002124.332111-1-xiaqinghuan@mail.ustc.edu.cn>
+ <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,49 +64,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout05
-X-Rspamd-Queue-Id: 24FD32001E
-X-Stat-Signature: 3e8xkmsffyoz5tqfcbp5gzchn195ciz6
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/won3QmWO3Ea00n6TVtg5JObWY0ME+wXM=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=m6ie5JCyR2XxFwtvMIqypZ8n7/2BglhxkFeUrEWwt6s=; b=7YHU08ujBNK3Sf9GcF9v9OOvNmoZOVKjeSWm26SiC+x4cOWhpKWxS1a/9z1wHgOFyKxv1kdprbIb47P01mLy5cPvZsfG+ZqEfdD12c0XrjkPry4Q5JKlxhi/kU0z9G2Wl7twvLDE/Qv3yxZuHhqBSdwAPdxkT/UgQnd8EVsi7WE=
-X-HE-Tag: 1792590535-35345
-X-HE-Meta: U2FsdGVkX19cWOGdLkWjMcDfb0lJuNUgOuDab930f5+fzedrDD+DDMLGOlqXXYTRezyRJSDSRbcp/sPe9rzQP2ZlFJouu9+AdFlD0BmJjPrI5dsfs05cDLCVt9LssZnEo3Elup4EVF002qnfwodRVkTdckUSITs1iu2IxBTxNAHDQ4QsWd6Eb0BuGVd3EVV0/vwPoHRirouMyDlnWXHe+XaxiAYtRM/vmpjd9pp6Crmvu7pEFJ3pvba/uutatAPOPGqTZZSUpPiuECwe/TkdqZ3ZVRs1e+N87Z+lkJq7sWkv15HyQDFdvOwBsSacKRQvzpwM24NidLL3NJszxlRmzBd3J7w/KeXZ
+X-CM-TRANSID:3pYKCgAHfzPNwthqAOokAA--.948S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxZrW5ZrW5Jw1xCF18uw1rJFb_yoW5Gr4rpF
+	Z0qF4DGw1DJFyfZryvv3yDCanYvrZ5X3yjkFy8GrnrZayDKrn7Xr9Ikr1agFy8Cr1rWFW0
+	kFs8K3W5CF1DCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xS
+	Y4AK67AK6ry8MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWU
+	twCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUI7
+	5rUUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREHB2rXwVRrvQAqsE
 
-On Wed, 21 Oct 2026 13:54:04 +0200
-Gabriele Monaco <gmonaco@redhat.com> wrote:
+Hi Konrad,
 
-> > I vote 1, much simpler (but maybe I just haven't quite got the issue). I
-> > feel a bit ensure about adding RV kfuncs and would only go that route if
-> > there is no other way.  
-> 
-> We can go down that route and see how it behaves.
+You are right, and thanks for stopping on that sentence.  "Maximum-load
+updater" is a phrase I invented; it is not a QBG or battmgr term from any
+document, so I should not have used it in a commit message.  Let me
+restate what I actually observed and what I am and am not claiming.
 
-BTW, I'm curious if it isn't possible to keep both in-kernel and BPF
-monitors? That is, for those cases that do not change often and has a well
-known model, to simply keep those as modules and hard coded.
+What the driver does (no bug here)
 
-But this entire thread started with people that wanted BPF type of
-monitors for more flexibility. I would argue that is an entirely separate
-use case. For them, it should be a fully BPF solution, with a few hooks
-into the RV infrastructure.
+qcom_battmgr_bat_get_property() does not sample anything.  For a given
+power_supply property N it reads the 32-bit slot that the QBG
+notification buffer reserves for that property (in the SM8750 variant the
+battery property array starts at context + 0x6a8 and is indexed by
+property id, so BATT_POWER_NOW, id 22, is context + 0x6a8 + 4 * 22).
+The driver faithfully returns whatever firmware left there.
 
-It currently is a big unknown if the BPF solution can handle all the use
-cases of the current module method. My suggestion is to not try to do so.
-Keep the module method for the more static use cases that do not need
-dynamic changes. And create a purely BPF method for those that need BPF.
+What I observed on the unit
 
-This thread is sounding like there's different requirements between the BPF
-and module methods. If that's the case, let's keep them separate.
+  - charging, actual input well under 1 W: power_now reported ~89 W
+  - discharging, actual draw ~4 W:           power_now reported >100 W
+  - current_now * voltage_now in the same samples stays in the expected
+    magnitude range, i.e. the other battery properties are consistent
 
-I agree with Alexei's first comment about not adding BPF to the module
-method. But that doesn't mean we need to eliminate the module method
-completely in order to use BPF. Instead, just create a new BPF pure method.
+So on this platform the BATT_POWER_NOW slot does not hold a measurement of
+present power; it holds something closer to a configured/estimated ceiling.
+That is a statement about the value, and it is reproducible on my unit.
 
-Perhaps in the future the BPF method may make the module method obsolete,
-but I don't want users of the module method having to do all these
-workarounds just to satisfy the BPF method while it is in development.
+What I do not have
 
--- Steve
+QBG firmware sources, or a public document describing the semantics of the
+BATT_POWER_NOW slot.  The "it is a maximum-load figure" reading is my
+inference from the two facts above plus the vendor battery property
+interface, not something I can cite.  I also cannot yet say whether this
+is a property of the SM8750 firmware build, of this OEM's configuration,
+or of the slot in general: Fenglin's earlier reply (default supported,
+OEM can customize) would predict the latter, and confirming it needs
+power_now/BATT_POWER_NOW readouts from the stock Android build on the
+same unit, which I have not done.
+
+Proposed wording
+
+I will resend the patch with the firmware-semantics sentence removed.  The
+commit message will keep only what is verifiable: on SM8750 the reported
+POWER_NOW is not a present-power reading (with the two counterexamples),
+the driver returns the slot as-is, and therefore this platform should not
+advertise POWER_NOW.  The code change is unaffected: add the SM8750
+variant and reuse the SM8550 property list without POWER_NOW.
+
+If you happen to know the intended semantics of that slot, or know of a
+QBG interface document that defines it, I would rather cite that than
+describe it in my own words.  Otherwise the factual version is what I will
+send.
+
+Thanks,
+Qianhui
+
