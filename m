@@ -1,101 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792608567;
-	b=2tjx5IAsu2nUHXoSN21XkxiUNvyQmxEtrCKiSYpjgfnTxUWVfi1l2Z4zzEpeLvhRi9Ji
-	 WZJuyN2C4cGYTOJvE8PaI37IBseGG742NC8uaeOTBFgLxoDnVrSIjdKqG3E6oei8z2n9z
-	 oPCebTllvkcJ12lk2O9Kl6EG0FEgkecCB+YMC7D92UqBDJSQ8zxdEJYokAroPovF7lBy3
-	 JDUq/Z+zbhcPKAB2bhM1h6MpabtoCZVHinVomCDvoPKTSmaWzxdXj36Q42itlcVk22KvZ
-	 0Of+J0/Hp0rwmGW4FKzhXTOTNgJGrZG1iBWLn6V+nSra5D3XHjL4XnwTlQtPSZMkQIQ==
+	t=1792608600;
+	b=O/AL67aIDwDwLk4xv9ATEJqgISsB3qXDLHlFLZmvy0X7IK9D6kIL7ah+gN8R3WipIb7Y
+	 AnsAqlZLOfiqSWPGgIQCbYimcRSAsyd/Ys/42dvx6iD6wQ1i+IUZAQja1ykCpTo6qdrBH
+	 grAQNvdxzeJbkMInFdgrFlBbTlhjUN0juGP/js6gsM4q9y/cIQLPoM94ZsPoJpf5TdmOK
+	 +zGYqituJv1zmZKiyUNsNtOF/2l+A214D6h/hqhhH5l1JaPBSjFMQuDtIBLubKocDnZhK
+	 LvW0tpJ6Iw3agkbEwNcoagURcq2GT81ViWjYYDqXk0sS1znsP7Qv6JFLt/jas4tkTcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792608567;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=wq1/fUbSP408+1Q3Fl5D/AoNlkMMVExemigFlptzFc8=;
-	b=oA2gdhFiGByMv9gV9BnsaOd4dOi673deCdx32yT9vqDMS575JbZtDYY6MVX8Xs4uuY0a
-	 Ly+XJiiclLAEOFdgmSneRhxXyCL5kabDd+h7wk7djppdvFwS31ucMwyx+fbZBtvyRkkMb
-	 xYsagEchKBhsDb/B5904rg8GSnbCm4bTzLaZO04gPE5uP/vSoHdlqX4THgjVrhibk6Dy8
-	 wxaBx4n8LZjC25hsBH/qn3h2thwFZ+RrMsfbh7El9m15h6VPIfLTbUXKlDjOUtstdsmsO
-	 PFupqUrMQsDUaytBIaFzzoCJIFZ7mFbSiVk7OjF1/SMdrXafrmcYiS8MLS9XizmRxcQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792608600;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=UP7QKcZoxFf5ukFFf3zgd+8QVhw52yv+EUqhUUTfyb4=;
+	b=KSitFwIZOtJeRj6ftP6CYfDrJOp0J/5sYP1xmYjoFmQAKTF7qpl0hZJo5dFoigzqn2jb
+	 iu3iIsVMqlOcQUQex7fjGhnMgpJSJQyfrCD0fzo0yEpcRX8c71EEFBGz2DaQ2hQPEoXVF
+	 +ch2MG8/IXEBofW8gfNtmLrsqvhgFuO6ibnpepMCcv4vIT1F5nXuQ6ckNZ48vt3YF5i69
+	 Ie2lmyCu2fPpR7si2Txd3qHOHRVqM+KpNZSVrQptpsI+4IEY/4C+ibC/L1I2B8Ly02dcm
+	 RuvshHu2x67Iw3eXDBDOIbX0xHvdVVnFYJTd/i2U8fXhRjZ85ll+4H3iLhmHIDfEMNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudflare.com;
-	spf=pass smtp.mailfrom=cloudflare.com;
-	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=MdBgk1We;
-	arc=none smtp.remote-ip=209.85.210.52
-Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2aDVkC3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06C9606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:49:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F06C9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217F3606A319;
+	Wed, 21 Oct 2026 18:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=MdBgk1We
-Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-7f48c750afcso715611a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:49:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudflare.com; s=google09082023; t=1792608566; x=1793213366; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wq1/fUbSP408+1Q3Fl5D/AoNlkMMVExemigFlptzFc8=;
-        b=MdBgk1WeXVW4we2m7Lh9XTyYMe6RmHuEhY5hO1EjgclurjFlE6iypVoahcVivZsBoE
-         iaZaWsVH86Plngf8casByA+PbHLI03Tk1oXgxpqfIJRRVXa8YfaBIVpoKjMEVUHNApHL
-         kmFnxEMP/FPsXCnu9LaLhwdJc0HyGlnoKRxOinucl/UkNIT/eLvVJBbjteB9puSTeILY
-         8O8MZ+Ja/Xdak57jSWmPsqN/QA0oIOVzjRTk2CGABSQZcE2t0UOmuC4MDunah1o9XVrV
-         zG4pwnTicZM7eFXOe9ozqpM9CAkTpIy+Wr0lq18lYkcGNnYjylghVZ+OTiY3Ra57LIQq
-         /8Cw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792608566; x=1793213366;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wq1/fUbSP408+1Q3Fl5D/AoNlkMMVExemigFlptzFc8=;
-        b=s1QNDEWnkHUI3DEoMfEYOpvagcbqxWirS5WkGJyONs/hC2xNw1LSylCouIiqkqVEr9
-         UPEQ5Sl+f8776KUcAAsU5/3nXhwFuGGjy3SEudqBwTbVULyNTncxPIOVsDnDBY3LqL9g
-         krqlBJM8wuxM5IMfyynqJvqeLnqcuI9ektLsueYQNwCkZBgNwjdEgDReZmKu625ZhbFO
-         owJgMB3TTb4dlp8yzvvb0mCj0fGz27OWZr20Xy7OszDnMafq4gRmFqLKCZYnuqwdJVGK
-         sXe3wQtzXeHPS0ZS8Gu6/eQ1IWH4oX/cNDw/IAoGTTRYuynEKCV5zgoBtKoBREI7slE2
-         NYIw==
-X-Gm-Message-State: AFq9FYKNc7sdthmPXLkHISQpm3BWGNpMrOys215bifcRYCQkHqyh9yM9
-	3CrJeURg+xAsOiRMgsG7fSo9MPdDZQgJJo6NxqF7CYHthu+oU6HOUWhzSPDuUrxSf3Q=
-X-Gm-Gg: AYBFou3WRSPCADNyXtXRfPt7WiFTIE/95aVflJ7Y3Jp32B/pimp/J+31cZJlorawqWS
-	Zu5XPb8b/w/AMKHiKBeWy4fNdu1kuDmBT9HYbNAroEWEUAQmw4yYbaMCBwhjzFyhiuAUf22DQAL
-	4vksQYDgdgBWiAmoBOMYYwqMwO6dMIxjsaMCdeEEfstNfHYt3UkEiNQgKpJjOPQd721+PQaMSt9
-	eNbbYL5vSEPMpuAf/WbjEalIGeqGTFqjCY131gL38Ms2ukQ1q2OMHC2mV+4TQWY9jcEitwvGrFY
-	NsH0MY90pp/iYRknPGmKBDUlmYdcr9hhf5xayOJD2ahU7qhgwmr1+W7gcDR9Nzc8/X3iEqDYghm
-	4YiSZI7LPi8vjE5Z4E/zauRrZ3ohqQ/RwZjiHWuxonRW61zTNSK+FxdKE3xRsneDi9lMPFIedF5
-	YSWXkO21Ci/07lGShDkVBYsLL8KROMpi1j+wvnlPMgRc7Vt44LyeAuF87ywX8lpz3BZAcMweeRg
-	3o0JypfijRxdssTpNu1xMeYL2GZQ2maeI32Ok8=
-X-Received: by 2002:a05:6808:1903:b0:4b3:3e1:4a25 with SMTP id 5614622812f47-553559a2395mr2044396b6e.11.1792608565668;
-        Wed, 21 Oct 2026 11:49:25 -0700 (PDT)
-Received: from 20HS2G4 ([2a09:bac6:bf21:15e1::22e:5d])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b583fd57sm2528069b6e.8.2026.10.21.11.49.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 11:49:24 -0700 (PDT)
-Date: Wed, 21 Oct 2026 13:49:21 -0500
-From: Chris Arges <carges@cloudflare.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: linux-kernel@vger.kernel.org,
-	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, virtualization@lists.linux.dev,
-	Max Krasnyansky <maxk@qualcomm.com>,
-	Rusty Russell <rusty@rustcorp.com.au>
-Subject: Re: [PATCH net v4 0/7] more virtio-net csum hardening
-Message-ID: <atkJMTj3aGMrXmY8@20HS2G4>
-References: <cover.v4.git.mst@redhat.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F2aDVkC3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 947C51F000C1;
+	Wed, 21 Oct 2026 18:49:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792608599;
+	bh=UP7QKcZoxFf5ukFFf3zgd+8QVhw52yv+EUqhUUTfyb4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=F2aDVkC3wKHHTT76g49QPHNRr9iHNf/o3pj4tzGIUkjoh8OOPu5FE5dHowS0tIoef
+	 sn3kug7+NGNfS8MV5OvoLU/mFl066DoydpisPFNekOWrs5ZaAe39iXy/ZFdXdmzTPi
+	 hwyMD2j1eAp5ibjgRP5VOD+Nl8WTYFIn3AEdo2mDWJ8O5tP3NQyiYPcPGRA4xk/HDc
+	 N9Ylbfroo/g6m6RCa/p0EVOpUoP8ORnGDu59yLEvf2htR+5ppugdyp6xEZVFb8C998
+	 DEPbgu0vyxON++1Kdf6Bn53W9ORsSFaYYwtpSIvdf8SBFXm/chMV4KwJRob9Jn09qh
+	 5ol4dDmCmogZw==
+Date: Wed, 21 Oct 2026 19:49:51 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Brian Norris <briannorris@chromium.org>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-pm@vger.kernel.org, Ulf
+ Hansson <ulfh@kernel.org>, linux-kernel@vger.kernel.org, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, Marek Vasut
+ <marek.vasut+renesas@mailbox.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
+ linux-iio@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 03/13] iio: Discard pm_runtime_put_autosuspend() return
+ values
+Message-ID: <20261021194951.7b65c2eb@jic23-hlaptop>
+In-Reply-To: <ataTYER7XM_MEYKL@google.com>
+References: <20261006231900.3230373-1-briannorris@chromium.org>
+	<20261006161337.3.If2263e6ae9eaa4493881b72922dcde031ce9d81d@changeid>
+	<20261018211807.66bfea0d@jic23-hlaptop>
+	<ataTYER7XM_MEYKL@google.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,181 +68,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <cover.v4.git.mst@redhat.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 2026-10-21 03:50:20, Michael S. Tsirkin wrote:
-> v4 and I'm pretty tired of this family of issues.
-> 
-> Willem suggested more cleanups, but I don't think I will
-> be able to dedicate much more time to this, there's a pile of
-> fixes I queued that need to get tested and go into rc2, and a bunch
-> of qemu features that need review.
-> 
-> Hopefully if any changes are required this can be done by patches on
-> top, or if someone wants to take over this, very welcome.
-> 
+On Mon, 19 Oct 2026 15:02:08 -0700
+Brian Norris <briannorris@chromium.org> wrote:
 
-Happy to help if needed.
-Again, I was able to test this patchset minus the UM portions and verify
-that it fixes my tests.
+> Hi Jonathan,
+> 
+> On Sun, Oct 18, 2026 at 09:18:07PM +0100, Jonathan Cameron wrote:
+> > On Tue,  6 Oct 2026 16:13:31 -0700
+> > Brian Norris <briannorris@chromium.org> wrote:
+> >   
+> > > Multiple IIO drivers inspect or propagate the return value of
+> > > pm_runtime_put_autosuspend(), which is not particularly useful.
+> > > 
+> > > Returning an error code from pm_runtime_put_autosuspend() merely means
+> > > that it has not queued up a timer or work item to check whether or not
+> > > the device can be suspended and there are many perfectly valid
+> > > situations in which that can happen, like after writing "on" to the
+> > > device's runtime PM "control" attribute in sysfs for one example.
+> > > 
+> > > For this reason, modify these drivers to simply discard the
+> > > pm_runtime_put_autosuspend() return value, and change the return types
+> > > of fxls8962af_power_off() and fxas21002c_pm_put() to void.
+> > > 
+> > > This will facilitate a planned change of the
+> > > pm_runtime_put_autosuspend() return type to void in the future, similar
+> > > to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> > > type to void").
+> > > 
+> > > Signed-off-by: Brian Norris <briannorris@chromium.org>
+> > > ---
+> > > This patch is independent of the rest of the series, except for the end
+> > > (changing the return type). I expect it can be applied by individual
+> > > maintainers, and we pick up the end once the dust is settled.
+> > > 
+> > > I couldn't decide if I should split this up by individual driver, or
+> > > just 1 for the whole drivers/iio/ subsystem. Many of these drivers have
+> > > borrowed the same patterns, so I chose to just send 1. Let me know if I
+> > > should split it up.  
+> > 
+> > Hi Brian,
+> > 
+> > Great that you are doing this, but sadly it opens the can of worms that
+> > are the helpers a lot of these drivers have.  They just about made
+> > sense before various recent runtime_pm useability improvements.
+> > Now they make very little sense at all. Dropping the return value
+> > here also removes the reason for a bunch of odd defensive ifdefs.
+> > 
+> > As such, I'm requesting some slightly more involved changes. Some of
+> > them I think are coupled tightly to what you are doing here so should
+> > be in this series, others can be left for later.  
+> 
+> Thanks for the notes. I'll handle the ones that are at least
+> approximately related to the code I'm touching. I think there are a few
+> bugs that get resolved along the way too.
+> 
+> I may not get the more tangential ones though.
+> 
+> Also, unless you'd prefer otherwise, I plan to wait a bit more to send
+> v2, since the merge window only just opened, and some of this series
+> will just be a RESEND. I'd prefer maximizing the chance that the
+> recipients will actually notice the patches, by submitting outside that
+> window.
+> 
+> (OTOH, the bulk of these changes are in IIO, so I can just make IIO its
+> own series if that helps things along.)
 
---chris
+I'd split out an IIO series but take your time as no particular rush
+given these won't merge until next time around.
 
-> ------
+  
+> > > diff --git a/drivers/iio/gyro/bmg160_core.c b/drivers/iio/gyro/bmg160_core.c
+> > > index d611341a0e2a..e8e511daa7c4 100644
+> > > --- a/drivers/iio/gyro/bmg160_core.c
+> > > +++ b/drivers/iio/gyro/bmg160_core.c
+> > > @@ -319,18 +319,15 @@ static int bmg160_set_power_state(struct bmg160_data *data, bool on)
+> > >  	struct device *dev = regmap_get_device(data->regmap);
+> > >  	int ret;
+> > >  
+> > > -	if (on)
+> > > +	if (on) {
+> > >  		ret = pm_runtime_get_sync(dev);  
+> > 
+> > gah.  Please just change this to use pm_runtime_resume_and_get() whilst you
+> > are here.
+> > 
+> > Ideally squash the helper in favour of direct calls to the runtime
+> > pm.  Yet another pace that the recent improvements in runtime pm useability
+> > have made what was of minor benefit entirely pointless.
+> > 
+> > The ifdef can go away as well as I think the only thing that helped with
+> > was the return value of the put you are removing.  
 > 
-> As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
-> others, credited below, found more ways the bug can affect users):
+> One thing I found while looking through this driver:
 > 
-> allowing untrusted hardware to specify csum start/offset for
-> CHECKSUM_PARTIAL was not a good idea, because, if it edits the packet
-> outside the actual checksum, and depending on the setup, the networking
-> stack could be looking at the packet both before and after the edit, and
-> seeing different results.
+> bmg160_write_event_config() and bmg160_data_rdy_trigger_set_state() do
+> some ghastly things w.r.t. runtime PM. In particular, they seem to
+> perform put_autosuspend() *before* they're done touching the hardware,
+> and then rely on the (very large) autosuspend delay to defer the
+> runtime_suspend() operation. It even has a bunch of comments about the
+> incorrect ordering.
 > 
-> Previously, commit 6785011f8b16 ("ipv4: validate checksum_start before
-> completing checksum") validated all known instances where this
-> causes the most grief, but the real fix is to make sure
-> that either only actual checksum fields are ever edited,
-> or the checksum is completed before the net stack looks at it,
-> so it is always consistent.
+> That's one giant race condition. And the autosuspend delay is
+> configurable via user space, so it's extra dangerous.
 > 
+> Anyway, that's to say: I plan to refactor/reorder the put_autosuspend()
+> ordering there while I'm at it.
+
+Excellent!
+
 > 
-> This basically goes back to
-> what we did before f43798c27684 ("tun: Allow GSO using virtio_net_hdr"),
-> except in a narrow list of specified known good cases.
+> (There's also some strange error handling that potentially leads to
+> runtime PM underflow. I'll fix that one while I'm here.)
 > 
+> I think this one is imitated in another few drivers as well.
+
+yeah.  We do seem to cut and paste bad practice and bugs around :(
+
 > 
-> Summary of the patchset:
+> > > -	else
+> > > -		ret = pm_runtime_put_autosuspend(dev);
+> > > -
+> > > -	if (ret < 0) {
+> > > -		dev_err(dev, "Failed: bmg160_set_power_state for %d\n", on);
+> > > -
+> > > -		if (on)
+> > > +		if (ret < 0) {
+> > > +			dev_err(dev, "%s: failed to resume: %d\n", __func__, ret);
+> > >  			pm_runtime_put_noidle(dev);
+> > > -
+> > > -		return ret;
+> > > +			return ret;
+> > > +		}
+> > > +	} else {
+> > > +		pm_runtime_put_autosuspend(dev);
+> > >  	}
+> > >  #endif
+> > >  
+
+> > > diff --git a/drivers/iio/light/pa12203001.c b/drivers/iio/light/pa12203001.c
+> > > index c0f4db8d95f7..d4e197e05d26 100644
+> > > --- a/drivers/iio/light/pa12203001.c
+> > > +++ b/drivers/iio/light/pa12203001.c
+> > > @@ -188,7 +188,8 @@ static int pa12203001_set_power_state(struct pa12203001_data *data, bool on,
+> > >  	if (on)
+> > >  		return pm_runtime_resume_and_get(&data->client->dev);
+> > >  
+> > > -	return pm_runtime_put_autosuspend(&data->client->dev);
+> > > +	pm_runtime_put_autosuspend(&data->client->dev);
+> > > +	return 0;  
+> > 
+> > This function has evolved to the point of silliness.
+> > Given how minor your change is, feel free to ignore the following however!
+> > 
+> > There is zero shared code in here between the on and off paths so
+> > rename the function pa12203001_runtime_enable() and cover only the
+> > 'on' case.  Then just put the pm_runtime_put_autosuspend() in wherever
+> > on was previously false.  
 > 
-> These are probabably net material (and seem to be too big for stable,
-> or I would recommend backporting there, too):
+> Ack. But because "runtime_enable()" has a specific runtime PM meaning
+> that is very different than the usage here, I've chosen the name
+> "pa12203001_runtime_resume_and_get()" instead, which I think makes for
+> more API symmetry.
+
+Good point on naming.
+
 > 
->   net: account for ingress-resolved virtio net hdr state
-> 	- accounting, not the fix itself, dependency of the fix
->   um: vector: trim skbs before verifying the header
-> 	- fixes the um receive path: without it the checksum would be
-> 	  completed over the unreceived tail of the buffer
->   virtio_net: parse tunnel csum_start little-endian
-> 	- bugfix, a dependency of validating the header
->   net: resolve uncommon partial checksums at ingress
-> 	- fix itself
->   net: add a sysctl to opt out of virtio net hdr checksum validation
-> 	- reducing risk of the fix by adding a sysctl to disable it
+> > Given that presumably one of the things is being turned on whenever
+> > we enable it, also pull the mutex out of the if blocks and use
+> > guard() to simplify that.  
 > 
-> These are cleanups, can be deferred to net-next, too:
+> guard() is tricky, since it produces a deadlock if you hold the lock
+> across pm_runtime_resume_and_get(). So I'll skip that part and leave it
+> to someone (or no one) who is more particularly interested in this
+> driver.
+Ah indeed. Should be scoped_guard() but can wait for someone else
+who cares enough to do that and maybe not worth it anyway.  I got
+lost in imagining what the other refactors would look like.
+
+Thanks,
+
+Jonathan
+
 > 
->   net: add ip4_parse()
->   virtio_net: cleanup protocol calculation
-> 	- cleanup resulting code duplication
-> 	 (kept separate to simplify backporting)
-> 
-> Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
-> 
-> Changes since v1:
-> 	- reorder patches to fix bisectability, addressing
-> 	  a comment by Björn Töpel.
-> 	- code refactoring, different patch splitup,
-> 	  a sysctl knob to disable as suggested by Willem de Bruijn.
-> 	- fix a bunch of minor issues spotted by LLMs
-> 
-> 
-> Changes since v2:
-> 
-> virtio_net: parse tunnel csum_start little-endian
->   - new patch. correctly parsing the header is a dependency
->     of validating it, otherwise i do not know what to validate
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - make rx_csum_sw counter 64 bit so it won't wrap
->     (spotted by LLM review)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - tunnel fixes to bugs noticed by Willem de Bruijn and
->     Chris Arges
->   - restore the csum_offset checks as suggested by Willem
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - the knob is no longer writable by root inside a user
->     namespace: changing it now requires capable(CAP_NET_ADMIN)
->     suggested by Willem de Bruijn
-> 
-> net: add ip4_parse()
->   - comment converted to kernel-doc format (Willem de Bruijn)
-> 
-> um: vector: trim skbs before verifying the header
->   - new patch, found by code review
-> 
-> 
-> Changes since v3:
-> 
-> net: account for ingress-resolved virtio net hdr state
->   - um: vector: honor virtio net hdr conversion failures
->     folded in (Björn Töpel)
->   - count on tap and virtio_net, too (Willem de Bruijn)
-> 
-> net: resolve uncommon partial checksums at ingress
->   - walk the frame on loopback, too: loopback_xmit() runs
->     eth_type_trans() on it (Willem de Bruijn)
->   - return the mismatch handling directly, GSO is implied in
->     the tunnel path so drop there outright, and fold the helper
->     into its one remaining caller (Willem de Bruijn)
->   - read the IP version through struct iphdr (Willem de Bruijn)
->   - document the ipv6_find_hdr() flags choice
-> 
-> net: add a sysctl to opt out of virtio net hdr checksum validation
->   - renamed to virtio_net_hdr_validate, in case more validation
->     is gated by the same knob later (Willem de Bruijn)
->   - point .data at the value like the neighboring entries,
->     the per-netns registration rebases it, and the handler reads
->     the value directly - no ctl_table copy (Björn Töpel,
->     Willem de Bruijn)
->   - check the opt-out before parsing: with the knob off, packets
->     the parser cannot handle were still dropped (Willem de Bruijn)
->   - include virtio_net.h in net/core/dev.c so the static key
->     definition sees its declaration (build warning reported by
->     Jakub Kicinski)
-> 
-> net: add ip4_parse()
->   - add the missing kernel-doc Return: section
->     (Jakub Kicinski)
-> 
-> Tested: full suite on the final tree, tunnel included.
-> um part compiled only.
-> 
-> 
-> Michael S. Tsirkin (7):
->   net: account for ingress-resolved virtio net hdr state
->   um: vector: trim skbs before verifying the header
->   virtio_net: parse tunnel csum_start little-endian
->   net: resolve uncommon partial checksums at ingress
->   net: add a sysctl to opt out of virtio net hdr checksum validation
->   net: add ip4_parse()
->   virtio_net: cleanup protocol calculation
-> 
->  Documentation/admin-guide/sysctl/net.rst |  19 +++
->  arch/um/drivers/vector_kern.c            |   6 +-
->  arch/um/drivers/vector_transports.c      |   4 +-
->  drivers/net/ipvlan/ipvtap.c              |  36 ++++
->  drivers/net/macvtap.c                    |  36 ++++
->  drivers/net/tap.c                        |   8 +-
->  drivers/net/tun.c                        |  41 ++++-
->  drivers/net/virtio_net.c                 |  14 +-
->  include/linux/if_tap.h                   |   1 +
->  include/linux/ip.h                       |  30 ++++
->  include/linux/virtio_net.h               | 279 ++++++++++++++++++++++++++++++-
->  include/net/netns/core.h                 |   1 +
->  net/bridge/br_netfilter_hooks.c          |  15 +-
->  net/core/dev.c                           |   7 +
->  net/core/net_namespace.c                 |   1 +
->  net/core/sysctl_net_core.c               |  50 ++++++
->  net/ipv4/ip_input.c                      |  13 +-
->  net/ipv4/netfilter/nf_reject_ipv4.c      |  13 +-
->  net/packet/af_packet.c                   |   4 +-
->  19 files changed, 533 insertions(+), 45 deletions(-)
-> 
-> -- 
-> MST
-> 
+> > >  
+> > >  err:
+> > >  	mutex_unlock(&data->lock);
+
+
