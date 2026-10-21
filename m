@@ -1,57 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583803;
-	b=FDOZc1gbvX6GokQ9Z3GYua5siyahI4u/hDKDRClRJUyb6K3KJ5D3gZ7hpsjsqbpmxVE7
-	 M8g6UzCRki3X1/byAtemeCoW3anplPBbQxRD0mGYGzzAcwxDfrES0D5jkGIQwLYOFr1og
-	 IMehWaHG9PtzmYoMuRPmkX+iemUHYcoa/ZvmoMaKw+tDdEeTbDL1wSpuBfY9kRODYsSOh
-	 euCcXuXnZlky2nJfjW7pZzf3+M2FsHIDBj2jGx3enmFHezE3Rc1NaGu1kq8OmNlILchF2
-	 0muNxtdX/XLpEbos3qmyDD5p5e0lSDL96pmduz0Am6CQ8I0aMgnTSwWO9ttomDoEKLg==
+	t=1792583806;
+	b=nGuYZbaV2ytc6vbWTubXFWkOde2BgG5yAftusHbVpGPXthZ12J3YcSBNI/JI7bLCiJgK
+	 nPHuVeDHRWk4aAEdWAVep7QSPqTsy+RmZCRPT0JtuotC2uSHNDtPw6XHBfpStrxIkjTTM
+	 jIJviHUSOmbNC2eH6PBAxwz2XbmDG9RVXGpWjRG1ghyUdufKukyfQ2dXGGXSpY459WVTm
+	 4vcDzsg5MrcfFQNoRgV7ntf06xo94jxnGtxh5uXbE6wNERdiWRv8TqFGJrhPOHBFfrIrs
+	 wbj0UTu03HdU4n+ePEovhXtjvSBUtNUfS+C8DLjw864t+jQufSiJ8LPCBfak2pRVwvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583803;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=057g4fkzojSmZ2w31SqHnYt6IBK9egcTQ3a1+8LQlYo=;
-	b=Jfi4uSlgzmM38uU8V6NlIs67Vn6XeFPEGalivXBtxUtscOaWvl0rABt8tBZp4tVzEDWr
-	 qvSkr6POi+CMZs6Qe9swgZY8SrqDylnA8hZNRWMz6177B0Af0xaMg6guvi4bxZTNRTSnX
-	 P3FRL6UbrWm1yISX4C9RRJXUNQVvMuIFp5bYXC153LXoMIOGs44CC8tMzSE0Hpp+8mdqb
-	 +LJ4orDpSu4StNq++wODlFk0Pq6QLwxXmXjFHe6678emeQWc98dXcGCU/IFCQeq4TViFd
-	 OlYSGyql1eRUHpJ1UddFpI6zRgntkGEd1/cI5W/5r9vwBwpyz1wq8nsrQSzAG5V5/kw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=25HQcasjSxqCf6dqX+3PCt7YydgfJ0RpprQQR2JRC/4=;
+	b=mHMfp+pPX6uxC/XTbTFzUbXwKm2WSz4EVWttXm1nV4iG1wIcF3r2ygpQGvSSKEK8OC9+
+	 ORfJkkF9BqE55AsW+wYwq1i1LA//kT24pqfPWx94VsbzK/cM0O52+z3O581v51p+LhRcu
+	 eG8LSuP4wesvh/lDx/TsaDfdOV5owCMH51+eZx7+/S6iRqz1VFGsL2c7SLYUSxCNeSELM
+	 GaeSURtppNlKr2VcaR1eejjEYWu/v54+K0HvYPUtmzTJNlQ5o8Hjq8rpJJRUTTp5U/d51
+	 K7UIGZqKiBx9cbMZXwvGdVJU6HEGOn++bnj/Vhvi02ElO2wHvzYOoU0OwCbHZYKjYGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Ydt/0mHF";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXCRWMs0;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E789A606A319;
-	Wed, 21 Oct 2026 11:56:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF455606A32A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:56:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF455606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ydt/0mHF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D9A1F000C5;
-	Wed, 21 Oct 2026 11:56:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792583802;
-	bh=057g4fkzojSmZ2w31SqHnYt6IBK9egcTQ3a1+8LQlYo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Ydt/0mHFXuuUnlKg0e53miPmv4SeXWaNYLSgFQtRU1iEp6v77etS6tX50CNHzM7/0
-	 ycIWfMsq+WE80qO/zFUnz1li+LWFKjZu0UXLNcYy/0PzpJmYpOuMMjX1oV2kzquHU9
-	 RdoF2dOIlk8t57tUH49Eb72f7nw1PIcXa4mWBkZ2+BLalv2OgrhU5F8vYEXOjLaEOl
-	 IFUfii0crzTjXdybBqa1WOlzaY3YX1AZTdZYxEN4iAWn9vOBtoSPyNQd75Smr9EfXD
-	 iUZaWC2RhSRlQLeC5FX/i6AZazZ/86HiK00WyB6+gSPLgw35nitBYu8hz0k7v1jnqL
-	 G6/LsoVK6jAkg==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Nikolaos Karaolidis <nick@karaolidis.com>
-Cc: Jan Kara <jack@suse.cz>, Zhihao Cheng <chengzhihao1@huawei.com>, 
- Mateusz Guzik <mjguzik@gmail.com>, linux-fsdevel@vger.kernel.org, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261009142431.713875-1-nick@karaolidis.com>
-References: <20261009142431.713875-1-nick@karaolidis.com>
-Subject: Re: [PATCH] fs: don't lose inodes that another LRU walker is
- isolating
-Message-Id: <20261021-lesbar-rosig-immer-78a7ce2261ab@brauner>
-Date: Wed, 21 Oct 2026 13:56:36 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pXCRWMs0
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-157fe9d771bso800720c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:56:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792583805; x=1793188605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=25HQcasjSxqCf6dqX+3PCt7YydgfJ0RpprQQR2JRC/4=;
+        b=pXCRWMs0l3QRpaBSy14qZql0Lx3jKYNNyZ1lfjPRWlIng2vmo024sDDXSZ+ux57lN2
+         Wf+mMi+agWX7TfzNVhoXmnifhbWVxU6vQHMMbJg8FoIGVfaupMgJBAafWXrQDcz4NseG
+         vQ9GKUWJ8dN5+s63g0JdWb1lZzdDEti++QAkjOPPv/wv60Ajf+llkwXRZTPq2iD+bEId
+         CxlhH4h/KOi2BUdwra4TKTlejg29OQfYKA4Bi7aPcLL2CGHtlYRF7NxnMy2vmAp9y6QQ
+         ivc31XiWscm1hjaCscVFQU3ksqNQHyKyZeW3EqJiAnl+bh3F9WXtohJUBbuzXZKdhaX1
+         qTGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792583805; x=1793188605;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=25HQcasjSxqCf6dqX+3PCt7YydgfJ0RpprQQR2JRC/4=;
+        b=HnnS8DRcJiVeqBvHoByGLSc0sqWxosRXn5Z2Fz6EDsahA1Ztrh9pKs7wokoWJMtQz9
+         AkZ3uvLfamNNSVS3yYoWKpsc3dZXg7rXh9Tx7JQgt66HPs55GtHy7rlfMACZFuR0uxlh
+         VTnuMMbrkwvHN1ocB4FKVKvvZ3EdaBW30HKdkBrDWmXQ38hNnj753vbwDUeh0Tapv+RK
+         gbD8G3iDrGURLmtg0UPE6SNPbQTJciE9M9PFwCzEKgTYkmIsjpugKlVh1hVNiF5Pp1DO
+         rNN++VIFjwhcuBVX81c1xT/cvwWM/vNh8Z3D7JPQLlpLXBZDziszh8gL7+E6mgnTqZuM
+         7YBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzVgpWtfZMjXSX77bS9WSDEGuoCYeq2Tm+en3zWNiShOHdVJ8MQ+Lvr1F40+4b4PSIPPNsYuE3BOOGRRMg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJVNi8LtV7cn6eWFCIlWTzrE8+LpZUfTSVBXD1yMaiaXvGQv+w1
+	YKjO41UrhlZwMVxg+gcPw6dwmyFurVwhGfzOwUmxR2vOZCvnK013rD+v2PFGzKGb
+X-Gm-Gg: AYBFou2AVq4yyK3fYShY/RhVVSn9Qtf6M6cRldLoZbC7igdB7MvoPfM7xk9N8ySH/w7
+	14BA6dUkj7obwT9vjFuE1icPgNEfg0C/tN9lUQk6qGzavGHFcZPzWmIpltI2++q/PWtfTi4zcRv
+	2hWbv3KfgDPWPU1t4RWZiHo34ocHf4bkvfwoP1t9iFJDVAGhuonRhqJ1Xkj3s4Yc9jxrpyP9pbU
+	NUc1rmFBQ7TSmMveRux9+/Jug8/KBtMY4yMvdkemE/erZZMVav49qtBukZhomiLtY9f20iFcLUi
+	STG9Xz1FMkH1gBIF5XOJG+pJeD+mbEoxfEQPmKtMxvo0wHkpiIOAHOkiejtZT3ReTJYeta5zta4
+	YmppHPlsLFjGdK8Q+e10m20+v1AR0hy6j4UQSA0sI9aRTiBtWaJ2d3SEsXJt21qkfwxTpMgjrCw
+	tdT6DH6f0p5u2+UwMHmZb44hMhtymC+tvI6Ru4kJ5Kcd8vryQaGGyMDBCbNnzzucxEUt4OdGKgW
+	1HAisN4kmobbk1VgTp6T02WTJGAYiflQdiXw6fbl3wVSMaH
+X-Received: by 2002:a05:7022:2507:b0:151:ece6:b16b with SMTP id a92af1059eb24-190a4c1fa2emr3350163c88.7.1792583804543;
+        Wed, 21 Oct 2026 04:56:44 -0700 (PDT)
+Received: from dev ([163.43.243.221])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm6055020c88.22.2026.10.21.04.56.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 04:56:43 -0700 (PDT)
+From: Yuya Kusakabe <yuya.kusakabe@gmail.com>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Gabriel Goller <g.goller@proxmox.com>
+Subject: Re: [PATCH net-next v3 1/2] seg6: skip the route refcount in seg6local IPv6 lookups
+Date: Wed, 21 Oct 2026 20:56:40 +0900
+Message-ID: <20261020031413.seg6-lookup-noref-v3-reply-5f2735b7@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261020010429.eeffd6f140ec6157609c310a@uniroma2.it>
+References: <20261015-seg6-lookup-noref-v3-0-6d51a60a67d3@gmail.com> <20261015-seg6-lookup-noref-v3-1-6d51a60a67d3@gmail.com> <20261020010429.eeffd6f140ec6157609c310a@uniroma2.it>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,36 +103,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-3d1b8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=899; i=brauner@kernel.org;
- h=from:subject:message-id; bh=Y/iaCQhSTOToIAabGiKICrDvPJx2LEbcHo4TbLPi6hU=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTdWFGmptdVkBRQNFGq68ULPZVcA/sY3rAps16F12+Vq
- zptU1bZUcrCIMbFICumyOLQbhIut5ynYrNRpgbMHFYmkCEMXJwCMJHGVIY/HAKvud5tqbwg8P+/
- QlLB9U+lhXFG9/RnJpw+l+lfahHgwsjQ6/njyO9jYnsbN2dPuTkvaf4SdqXZX27+1tsRLDj7tfZ
- 9ZgA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Fri, 09 Oct 2026 14:24:31 +0000, Nikolaos Karaolidis wrote:
-> fs: don't lose inodes that another LRU walker is isolating
+On Tue, 20 Oct 2026 01:04:29 +0200
+Andrea Mayer <andrea.mayer@uniroma2.it> wrote:
 
-Applied to the vfs.fixes branch of the vfs/vfs.git tree.
-Patches in the vfs.fixes branch should appear in linux-next soon.
+> After a noref lookup, the "out:" branch still takes a reference on
+> ip6_blk_hole_entry and then clears RT6_LOOKUP_F_DST_NOREF.
+>
+> This branch can be taken at steady state.
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+Agreed.  With a local next segment, every End packet goes through the
+"out:" branch and takes a reference on a shared entry, which is what
+the series removes for ip6_null_entry.  On v3, 20000 such packets made
+20000 more dst_release() calls than with your suggestion applied.
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+> For a blackhole rule, __fib6_rule_action() picks ip6_blk_hole_entry and
+> takes no reference on it when the lookup has RT6_LOOKUP_F_DST_NOREF. The
+> "out:" branch could do the same, for example:
+>
+> 	if (!dst) {
+> 		dst = &net->ipv6.ip6_blk_hole_entry->dst;
+> 		if (!(flags & RT6_LOOKUP_F_DST_NOREF))
+> 			dst_hold(dst);
+> 	}
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+v4 will do that, and will set RT6_LOOKUP_F_DST_NOREF before
+fib6_get_table() in the table branch, so that a missing table takes no
+reference either.  The oif branch will keep the flag clear.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs.fixes
+> Nit: seg6_lookup_any_nexthop_noref() and seg6_lookup_nexthop_noref() can
+> attach the dst without a reference. They rely on being called under RCU. A
+> one line comment about this, like the one ip6_route_input() has, could help
+> the next reader.
 
-[1/1] fs: don't lose inodes that another LRU walker is isolating
-      https://git.kernel.org/vfs/vfs/c/3f54961ad92a
-
+v4 will add one to both helpers.
