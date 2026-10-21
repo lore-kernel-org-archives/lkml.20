@@ -1,88 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792565015;
-	b=WGYetNrAjEu5qnAxU1Kb6uPPlBQDaK/EUiBRNN9r80xDMzEbI5UeaLXU9di/juU0g/vC
-	 Cpsr6fkNVwrx2TtYKf4gDmpfK2uaC693H2m6JRLbaKegxNP1HnhHdbfKDHhfVQwHkf5R7
-	 yazL+8Ltf1G6Cnbefvix9Nl0sBJGucHt70omc6RZhgJCTtzhUdsImFr+esXtqjjPiNDhz
-	 7g6TRiIcXtgo8XWvCMbown1m67+r6GTkk4LhgBkXlwITjFwM8BLnfxam1Xv7smqU6Np31
-	 pw5JAZBtLGSJojCF9Q7FyruxPGLNFD3+/ORzvw6QxdSE+tgEqxw1Pl+gGz41r+YLYOg==
+	t=1792565098;
+	b=Cfkfg1yc5fslvsSYH/sBkLTXJEf1+4+BlOcAmWN3m67VykUWedoX2aR3ehOz3v+c3weA
+	 BDaeP5YE6xRgWCk4KmNaanmvwDx/Pqwelly6/JgFk5nyfTl5e+WRQA9Dli4Qj4q74atEI
+	 +wMHOB/J22xSdqi8DOtE42WwXyxHzcyBo3M1Q5NWdEuPFU5w52DbnoDUkfkXzIK6hTBkY
+	 MhVm0aK5tR4JYdNeiZD6+vew6quV9xCbBqQyAqQeBnGQ8LCHlitXutNC0nQWox+xojTN2
+	 U21cMJZubkXIrQDtkZC0aTc8ao0HlQMJJBE5fRY19bzP+FAYIgsXPH6bEO3l6z77ZCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792565015;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To:
-	 Organization;
-	bh=hOcd/ybW41WQRIw4yk0tTChVIHQbGli2LRqLVjxW4rI=;
-	b=CFXeBGR61TH8ToFYMU33dKlcVqkdxKFuGzDrQzVqpNlaCug8mB4PtHGJi/Pf9NFdMYHw
-	 iLJMSu+af3CyfYOYufakmR8Wfike6fmHuT1wJ/jsUKGHBY7Y3qv2tz3yBcxPG2CxmM3gX
-	 FyXxy4HPxzutnWUuua/iOgk+r98b6myc6BfWemdirXWQILt4GpegO4VMl6R+JBXxj81HQ
-	 SDCeh5md3RSe6QGZIriQD9JNCrAa6e+zghjoRKg2Qe+YFKEbv3pWP22kW7b4aXntwNlYW
-	 IoXDh189UkHXabF6mhjbfKYJaIbK+bXs8fWLYFCk37X2VBdquxQQ3lW0dg8USa0+xSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792565098;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=T1e1QM1ZFN6/wik079djmaxdvIuuJbXdO9q9FT90fIA=;
+	b=EC15Gwe9fi33juarmT3RSC/Dpf3X9klxcNrvklMkiaVIEwi9YVbACbx8aTV8a6oIhF1u
+	 BLQV3lqpNxgs+Oj5k4iLcntzO1KnQIaXCZJnT+RqP6N+SF0VH0+NKXqJqhx5evgf4UuGu
+	 p4kKebYULXHR2YtE2U6LPKq7wg5aQBWUsdGCm1RCrxPL+omeFZWParQ/uBLa0kyBkswRh
+	 Qqsz9JssMfIwJRiprziHOhDe70EKyltadWZVnH1775U3HD9jFk0hQADzXf45ETZzBXPOq
+	 XYNvS46yor2OBnM68dYV25fO5Xri5/Qx32Jlpj7uprenxL5cuGqZ9BKtYI+PuGw3cqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HtxnNQJt;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="k7vt/TP8";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEEA606A324;
-	Wed, 21 Oct 2026 06:43:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BEEA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1428606A319;
+	Wed, 21 Oct 2026 06:44:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HtxnNQJt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792565010; x=1824101010;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=t7QuSbFm/OZPuXTWlsUtCNI9PFTEGuzt+w+5HV1IiWc=;
-  b=HtxnNQJtyasmV60Fjt8jrYqeED/BIH46PTy42inlfU9JsZWYrnlGWb5+
-   Fhdc6MyMjZ73aIym8FOFiF9oI0El9VbnPMNzgEVi9rrBU55cGqE6KUPNi
-   26MPVxL2gctVm5rjYWTBZIcae62O1ELquCh5KSa6DTGfpwz+RMFmov8sm
-   rcfs/xrkaSM0dbWLxPzrAHyRB5xKmGyX7rE4PUhUD3sfSPsdSB/jrj+s8
-   3XAfhu0nnCdeDQOgEWDJaghxB8WzgjO28C/fzV+PrTa/0F8f/xZ8R91Pa
-   iWpz6gEQTxlypUFK0WKyNZbj0iyD4H7XmgQGc0fjqu06M0GomPvtDHI3v
-   Q==;
-X-CSE-ConnectionGUID: EEBlMLjtQCaqjfBEHXSJ6g==
-X-CSE-MsgGUID: QlvvidoESr+xGzv35bM5jg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1262071"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1262071"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:43:29 -0700
-X-CSE-ConnectionGUID: EUWzumZPRr2YHD64Lu80qw==
-X-CSE-MsgGUID: 1d1oD7PaRWOdxkHTs7rzWg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="4810152"
-Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Oct 2026 23:43:26 -0700
-Date: Wed, 21 Oct 2026 09:43:23 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-	LKML <linux-kernel@vger.kernel.org>, linux-sunxi@lists.linux.dev,
-	andre.przywara@arm.com, wens@kernel.org, jernej.skrabec@gmail.com,
-	samuel@sholland.org, enzo.adriano.code@gmail.com
-Subject: Re: [PATCH v2 2/4] serial: 8250_dw: Only accept a contiguous DLF
- readback
-Message-ID: <athfC3qGJuQGbITy@ashevche-desk.local>
-References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <a79114e72d029732db6764935dde12aa5d497706.1792439398.git.vinicius.eduardo.pedrosa@gmail.com>
- <d992e18d-31ab-4937-8780-9c9dc423082a@kernel.org>
- <atcm2zqDs1P_EDr0@ashevche-desk.local>
- <09812a6a-dd0d-9c47-e1ad-5220f1954648@linux.intel.com>
- <20261020122746.41699-1-vinicius.eduardo.pedrosa@gmail.com>
- <6c4a5613-7e10-64dc-a670-6407a4f1f6ed@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7vt/TP8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 648901F000C9;
+	Wed, 21 Oct 2026 06:44:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792565097;
+	bh=T1e1QM1ZFN6/wik079djmaxdvIuuJbXdO9q9FT90fIA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k7vt/TP8TGbvt+xlj4sPKksUlfqKnltoq+yYOPRi6gIdiBATK69qpByYeTKkILJgz
+	 5sXAdciPS6yA1psxWbJGLjpC/YTv7O3KWoEbeAr5fnH1MtR+EBDtPEVJYLi+c98QjE
+	 kRAR7KKvYi4X3323MJGSIQBnSrtKaCGIM3BUO9Okhpw7XqUFefViPSy4aamQR5CD7L
+	 GKBcjgTIRzhIJJ7zxFNeXid1ye6YmYGUShdjRLbkrvyAWl6WbdnWqFfe7MD3/R4wcN
+	 Qvd6L4/MTs7TxJSek1n74HOANbhjtx3ptidk/o9NcH9tW+YAitYqtEe4rE4JO0gqt0
+	 Uup/NLQX6p5fg==
+Date: Tue, 20 Oct 2026 23:44:56 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>,
+	linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261021064456.GB31908@sol>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <20261020-brown-potoo-of-relaxation-3e9a72@lemur>
+ <f6d6d8d2-03ca-498d-b5d2-578aece560d9@infradead.org>
+ <7f3bab90-c32d-484b-b493-974cf33bb30c@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,40 +63,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6c4a5613-7e10-64dc-a670-6407a4f1f6ed@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <7f3bab90-c32d-484b-b493-974cf33bb30c@kernel.org>
 
-On Tue, Oct 20, 2026 at 04:02:29PM +0300, Ilpo Järvinen wrote:
-> On Tue, 20 Oct 2026, Vinicius Pedrosa wrote:
-> > On Tue, 20 Oct 2026, Ilpo Järvinen wrote:
+On Wed, Oct 21, 2026 at 08:35:04AM +0200, Krzysztof Kozlowski wrote:
+> On 21/10/2026 08:07, Randy Dunlap wrote:
 > > 
-> > > For is_power_of_2(), 0 is not a power of two. And it also wouldn't make
-> > > sense to have zero bits in the bit field as it's same as no bit field so
-> > > using just is_power_of_2() should be enough.
 > > 
-> > I think the reg != 0 check still needs to stay here, since the test is
-> > is_power_of_2(reg + 1), rather than is_power_of_2(reg).
+> > On 10/20/26 3:07 PM, Konstantin Ryabitsev wrote:
+> >> On Tue, Oct 20, 2026 at 09:22:35PM +0000, Eric Biggers wrote:
+> >>> Many patches still don't include base tree information and can't be
+> >>> applied.  Such patches can't be properly reviewed or tested, nor can
+> >>> they be accepted.  submitting-patches.rst already describes how to
+> >>> include base tree information, but it's characterized as optional,
+> >>> appears only towards the end of the document, and is missing details.
+> >>
+> >> I'm happy with this change, but I'd disambiguate the title a bit. With b4, we
+> >> started providing both a base-commit and base-tree footer, specifically
+> >> because often times the "base-commit:" line by itself is not sufficient.
+> >>
+> >> Imagine this scenario: a developer is working on some code in a feature branch
+> >> and come across a pre-existing bug. They create a fork off of their feature
+> >> branch to fix the bug and send it in. In this situation, the "base-commit"
+> >> footer would be meaningless, because it references some transient commit-id in
+> >> their feature branch. In an ideal scenario, the developer would rebase that
+> >> bugfix branch on a known tag, but that doesn't always happen.
+> >>
+> >> This observation doesn't really preclude this patch from being accepted, I'm
+> >> just recording my own experience that, by itself, base-commit is often
+> >> insufficient.
 > > 
-> > For reg == 0, reg + 1 is 1, and is_power_of_2(1) is true. So without
-> > the explicit reg check, a zero readback, meaning no DLF, would be
-> > accepted as a valid DLF.
+> > Yeah, I was wondering about specifying tree as well as commit, so thanks
+> > answering before I even asked the question.
 > > 
-> > I'll keep it as:
+> > Most of my patches are made against linux-next.  So: is this going to be
+> > acceptable?
 > > 
-> >     reg && is_power_of_2(reg + 1)
-> > 
-> > in v3.
+> > (for linux-next-20261020:)
+> > base-commit: 053966c344dbd346e71305f530e91ea77916189f
+> > base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
 > 
-> Ah, you're right.
+> According to commit msg which claims that without base information "nor
+> can they be accepted. "
 
-Sorry for being unclear, yes, that's what I meant, reg != 0 should stay.
+I actually wrote:
 
--- 
-With Best Regards,
-Andy Shevchenko
+    Many patches still don't include base tree information and can't be
+    applied.  Such patches can't be properly reviewed or tested, nor can
+    they be accepted. 
 
+So it's about patches that can't be applied due to lack of base tree
+information (due to the obvious guess not working).  Not merely the lack
+of such information by itself.
 
+- Eric
