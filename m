@@ -1,105 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.66
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792552799;
-	b=Cn9yknCyyPFYEkBa8eUbfUuXJ4b/HjxJCjkIipbtVzruh8k1c7a3R3NRiEk+2Ybrdj0N
-	 C6J4wKPE2qPYrk+ryUWs1/aHgpb74w2WadpDoBnNZ3RLnT8Q8+5omZ46hlc2GfWoS04Gc
-	 3zolbBOusI4NJYK8p4NPJTGHsIR+eOjeo0HHvWBwmH2SE+6Nq9cHy7cXtdxAX3C1UdaUL
-	 7gIlfVgbnoeAcEvAcs/cnB1TRDKZ5oGGjwUBFKhL5uGnFJKYcGnt0FWd946Kqu0RrPcDQ
-	 csb70OzxGHEWFPL8UwTKcwO1G68L7DKsiBsIIImRUwDWEV4R1jOePP45w3qjd+HG/qA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552799;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=TFQpkJC1YdaZbksQ2KZWYQC2To1pYZr/2Xhhx/p4k9Q=;
-	b=qPhNK9KDmJogj4S8xMwiogmEeWYmAUnxKpxO2tZ7mcw2BiSPMcBrr/lvLHTFGL/3UOlm
-	 hI3P23gOY2olTfbejjPV/cpK+o8qQFH65OP1fM8+JUZ97scol+PYHTiHGJdub0J9wH1Xa
-	 h+SGccilxSa1ODMCa+RPKafVmZpyRyQx12M9sM4wQLfarTcYMwDK2Z+KrshxoSxn5HBvh
-	 TwgJ06P9p87eUzCS2pLTPnnzhao+t8xlOgiSirXnUvSHJEYJL8cQCftvwJhzndxqUd4BI
-	 9FQZQmEg0RHgEtdAm5OBBfcQyYBtaUdGkPbBvxoEC3u8ZsGx4rPfMqEF5fZNY5g3NNA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z0wvnM3P;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.66
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010066.outbound.protection.outlook.com [52.101.56.66])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.212.254.19
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792552809;
+	b=rxFL68u9RO8YgRBu2+ALiH8cROo8j0fM31sF6MxXDJ44s9BCVhYwIWv1cGoBP19iqQsU
+	 liBFB/m1OHYsbjCN4kSuS6tEM4dajikKGZ3W1Dskf3FD1L7nrqxGkPINkbGbjQgZTAk2C
+	 4Re7gqUs3tD3DrXbmdfq0j3jGotm/psGzEwNl3PdY7Dc6hOYipA0dF1h63hlmiU+QvvK4
+	 A6N6P8sK2HpI7P5iOPXaQyzTxuFZtD81HKiGj7bS6Z98ne3ilJVnwbed/iowNf3QAVwWf
+	 LTQ9Ct3U9GgrYR0CBkRE3n32uvWkx9LQeWgImGTxnQ37EALHCxe3pzU6GEV0snedLWQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552809;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=IzjzlttjghcxXcVw7Ekvyw7MxBypTlNB49w2eoANCGg=;
+	b=xXd1lAVMPhmu0CcgaOt/s7ZTdPw3OjofEwt7JIg1QseKZNszb5TK9OpnwnCgmKyF3QJD
+	 Oqtj2QCyCkK7I+ERpWCVC9u6T90+hMpYgCeEs74LqFZ1Sg5AXIgJesBbQGi8KSSTkcMbG
+	 08U2KODQc5K9jsC+CvV1odKy2bgwulxNtU/wcXWQyQQTTlb2bifcXx4zQQA6HR9dW4b6j
+	 Ky/OZTVjs/hsa/QaLTcv9XNpGLG7Y0uaKWvmsNLnN4EhqRuXyKRvwu3ivgZclvb8O/U8N
+	 eWBbKwiOsmzIfyuT7V+s25BqlQXn2Nrv8FTLHByG9GDyI7TAGJ4kX1XV0kX1eEBdKXA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=tuxist.de;
+	spf=fail smtp.mailfrom=tuxist.de;
+	dkim=pass header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=cmd7YYEe;
+	arc=none smtp.remote-ip=173.212.254.19
+Received: from groupware.tuxist.de (groupware.tuxist.de [173.212.254.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20DE606A321;
-	Wed, 21 Oct 2026 03:19:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A20DE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3BE606A321;
+	Wed, 21 Oct 2026 03:20:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D3BE606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tuxist.de
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=tuxist.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Z0wvnM3P
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DoYXlhm71LhaN4eTyPwhk29lQUdWwP6HU/iSAFS/qOtUjqZUNSp7kGHvY7CfFPJD6u7TVibhfZnxRG7cRIFxvb8gbS38azrPso4GwflzUf3ED5FpuVYZyPxexu36gII8CUtjat1ebK6Xn06EqUmq4XR3JNJOqNVQKa/bvswo0oLtVzoSMB93midQPfLhRdt3d4C+jQG3WyHen7iZlRIGG2NvKKWnxs8v4PWdRuj3+PBgJUYuNHJNv48Hi6CUm1IdlV4qLPHA/KIDM1mr8Fp5wfOtzmK4fOwxr0Fo9ZzkAdX36pp9YrRuAvM/aj9YJ9kUKnLQZb9a7qCT+lcl87m+GA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TFQpkJC1YdaZbksQ2KZWYQC2To1pYZr/2Xhhx/p4k9Q=;
- b=ySBBaOCN2QPhWTO5dZhD87D/X1e2WEOnr38oA8BGzJpOK1tsbO/Han+y6YwYbujMSpBeyE1FqTZYElVapUgMMNykgehvQNTU+fCrRFxa+AuiElKGNcmsbPUG+DgHRD+6WZU3Q3BBuI78V5kDbhBPQp6tLBZaipV/tBoV9Z9yjppE76rEEaeYLuK8lQqMvQUzYpjRKktUzFOx6H2ZieU/xDMK4v3UrNZffqNzExbfPlA+7u+374Hursgs3kLHXc5snOp037oHcKONtSVoQoeR2nJeEw99d5g9d1UoE78CULR4u36O4zxcf9Qh87/MMssnIgyMtlTRZW4ylXWHaWlGpA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TFQpkJC1YdaZbksQ2KZWYQC2To1pYZr/2Xhhx/p4k9Q=;
- b=Z0wvnM3P9hJrkYMcgKXWIG+z+ACYk7ys93y+fwE7S6l6cbv/QUy/79xPLJHfdMOC1A35Nh8AUBYu/Aw/QkomLLQ58ty2NgdAINQW6zquVEvx91wrnQg4j2UBnHs9VzvPkyJNp+NkQ3jUwFVP1V3PUZTSKNGXv6zAPpUJG+ihy9nLnGHRdGgwV35T17mFugGd4y7m+7D2NYHFSHQ4k4pDnn7lPLtZSO80UFUJzObA98kfmMjo6kY7i37WwSrVdhSF+IgyJqT7e5RIv1jNC26qKxbnw67c+kipKloK7PRy48aMcD4gnaWynMYrIMZpEJaRFwtlf87z77tjln1ID+ZWwA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com (2603:10b6:8:ce::10) by
- MW3PR12MB4378.namprd12.prod.outlook.com (2603:10b6:303:52::7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15; Wed, 21 Oct 2026 03:19:54 +0000
-Received: from DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa]) by DS0PR12MB6413.namprd12.prod.outlook.com
- ([fe80::e82a:6673:4142:37fa%5]) with mapi id 15.21.0522.017; Wed, 21 Oct 2026
- 03:19:54 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 12:19:50 +0900
-Message-Id: <DMA6XJJQLBOT.1EZJ61ON6VVEN@nvidia.com>
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Danilo Krummrich"
- <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang"
- <zhiw@nvidia.com>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v4 06/10] gpu: nova-core: gsp: cmdq: move RPC message
- logging to RpcMessage
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261009-cmdq-rpc-v4-0-c9ab8de1d3f2@nvidia.com>
- <20261009-cmdq-rpc-v4-6-c9ab8de1d3f2@nvidia.com>
- <DM46C72WC4G9.FRMU9QSIS1SE@nvidia.com>
- <DM5GBX7ULZFR.2TT17DYNN2UCL@nvidia.com>
- <DM9L3QYY9Y27.WM0G66X0Y8PG@nvidia.com>
-In-Reply-To: <DM9L3QYY9Y27.WM0G66X0Y8PG@nvidia.com>
-X-ClientProxiedBy: TY4P301CA0050.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:36b::9) To DS0PR12MB6413.namprd12.prod.outlook.com
- (2603:10b6:8:ce::10)
+	dkim=pass (2048-bit key, unprotected) header.d=tuxist.de header.i=@tuxist.de header.a=rsa-sha256 header.s=201705 header.b=cmd7YYEe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=tuxist.de; s=201705;
+	t=1792552806; bh=3y9Q8AsVoTBFF5EDnjPSG0OScUCmGU6sYl7Gp5g6W7Y=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
+	b=cmd7YYEe7p9+ZHLFZylKS4V/+3nFT8uujqBj7UVchQtWC55g71W19pgG0k+LBBJ56
+	 jxpu6kjNmf4Prb38Qkrb1Db0TrfFDPOmRSdArcbZIioOlU8ujRonw2NevW7mbYdtw0
+	 4bL3aP4lEkDEwLO5C+GBmHZxFstP3JxY960Jns5E2nri03hTSPXbTl0wvY9cH1RgMM
+	 uMSvCCB/h9rMUS71MfH93Ed+a+eYuSQCHxYYZUfXXf3ApZzo4Xd+XeHSwgX3WfDKQf
+	 yMSpycA1r7M8j1zqtLgvUfFsKnx9f16VN15yuwUVmn4znv1cxzTJqVEIVdbIu2o3dW
+	 Y5AHWl1oVU7yw==
+Received: from [10.1.1.106] (unknown [10.1.2.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by groupware.tuxist.de (Postfix) with ESMTPSA id 531FB8A0651;
+	Wed, 21 Oct 2026 05:20:05 +0200 (CEST)
+Message-ID: <8934b1f2-90dd-42c5-b43b-5d1eeffac84f@tuxist.de>
+Date: Wed, 21 Oct 2026 05:20:04 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,110 +58,350 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB6413:EE_|MW3PR12MB4378:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2f508c7b-af51-47cf-a286-08df2f222ce2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|10070799003|376014|7416014|23010399003|4143699003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ON0ne/Xjze/0Px+OliZ+sXLafgl8uUchF6ww+09vDIWxh0o9CrOnTAzej1JMqiJdb48r+dr9+hT0m/i9iYc7wo+Icqx0ep/LtC7YFrBcycENTWjrsHGAeXRFl2f1WhNcRoJQIR7G2KpyIul2Yf3BrDTkz9WOeyG97YcfncMsw1hfNrVHngRIDMGC+7usrSj/0EbXP8ajApTTNMPIYOaWhWVoDoqKGsGf3NN7dQNEkfn9SaMdSjn5gXN6Qrdg8FaetIWpAyjiI62Y5yPuFc2AszU0wp+TROoF4KsPJLQysCGurFBaLcGDjV2mJym18jvqpx6Kkqagnydi0RE8r7uhcyhnNtLhV4LcTKz+m1j7dalZdKTuvbRdDpIzkZhXKTlNwRV5LbuIRNly32JGTadltRk7It1bCK0H4YnZVwyJKrQK8hNfb6QhIVFE2gJRj9qZx52Y94NvR+A84cgDVk6/HSkXpLmf8AZI03ysNgJTYZsJR0uEqyzDd029Om2YHzCZK2928PAFKSmwsYcXZwoAPN7hbD0+8JGUg4v7AHJTOC/YCCxjjdU2SxGgsP6GMgpbNzSaw+vlv97u7YuGAMVZ3W5UGyPwXFe3zaLAPHo39xJGvm5r+uz4fQwDi7TSjdQ/2UuIsfKqwM7RuPi+hlZIiy9S4bdKLyF1uhSCvAIORuk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6413.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(7416014)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dkJZa3FCY2hjWnJ0U3BnWXRTZnREWUhsS0pmRWZRdWNHY05JUWROY0hJaUlt?=
- =?utf-8?B?SnB2Q1hqOUJhQUx5TzRCTWNrWCtIeklYNWJISnh2d3gwNXZudGFBKzVxd0Qy?=
- =?utf-8?B?ZExHM1ZxZkdaNGxZbFN3ZlhwK1ZjTFVscExmcHpZakZzMm4zUnFNeFhCcHJw?=
- =?utf-8?B?UmRndVhDVitkREpBcDBGL0w4SFFhZ1BWWFA1U0dzMGJMeWprUDBmUE54Vkgy?=
- =?utf-8?B?L3JpNE1nR2h4L0wzQmJ2cHFlMFFVNENyZ0l4Z0pVUC85dnhkM1VpWkltby9X?=
- =?utf-8?B?djg3dEVEbmx2Y3krMDloOGpVby95U2hwODVybHBYQ1hZdStwdmdmck1GY0Ri?=
- =?utf-8?B?RjBHamVEd0JKNHFsZWd4d2FSWWlDM3poK3pVbGlmNXpjZzYwZllveW9hbGoz?=
- =?utf-8?B?ZWVha3dINlQyM3FNK2xSTml4M09KNVg0VWJheFNBQndIWHBZaFJKMjRtNVlY?=
- =?utf-8?B?akdUSSttNWU2RjlwZ29WdDdzTWMxRnRvVUN6RWVHUlBWNThla0RWUUg3K045?=
- =?utf-8?B?a2FPeitUWVdYcFdHSWROVWNobzB3cngxU090Q3lxSkpYeldyNEJJVzg2b0lD?=
- =?utf-8?B?SXZURDRZWjlpZ2UyaWdDTEhwL3B4U2pYalZEMlhLWlJSSkpTMGk4Skh0QzFT?=
- =?utf-8?B?Tjd4MDFtZHF5elZVMTZOcnpNUXgyREJMUmtkMHk3L3d2aSsvMEVmZmtOaEcy?=
- =?utf-8?B?YmNFSTZCdWlwUWpzcFFHZWtaeDBZOVZGT1hJNjlGRUZGb1k1ZHZZQ05XMHh1?=
- =?utf-8?B?aVcrRURvLy8vVHFZUVlTR0FUYklFdm5IQXZTVGpteGxWSVBVS0xIMVY1V1ZT?=
- =?utf-8?B?TDNlVEVoWG9KeExxSVVGcE43ZVl4WUNiaW1QUG9RdC9RcTkybEJteTI1ekti?=
- =?utf-8?B?NTNXRmtjY0dMMXJKc3kzbDBMNnFOUlp3bGtPNnhYQ25oYXhKSkdJajkxWWpr?=
- =?utf-8?B?TDQ2SUNyT0t2V25KaW9YbDZtTUFOTVpOVk1oMXUrN1ZtSGdHL1JuT2JYckhU?=
- =?utf-8?B?dGRxdUNpazJyQXB4SWlVNU94S21uUlg0eEVCU1BsZFdYQUlUSVRUMDJjRy9C?=
- =?utf-8?B?cFg3UzBFeWxQQ3NwTm13d3QyS1hyV0tyZzBlNjAyakVuZEhnbVAzMGRQNVZR?=
- =?utf-8?B?bkE5WjRDYUlZMEdpcldUaCt3YzB6VFRZdHU0bnBGNUlVYU1IZUVKOUIrZUEz?=
- =?utf-8?B?ZVVWZURtTThNKzh3Nkk5QjltN0xNS1hHSkJsbXZrZ3NXc2VWblVIdkRBaXlj?=
- =?utf-8?B?dnV5aFZGWkhEdXdHNVVzTGFxU0k3NXlTalVKSW1nSFBWVVhGd0ZReEczRDlL?=
- =?utf-8?B?c3FEdVZhdDdBdjRsb0RibDYydUgzOUZiZzRibmh5aGpUanlhcjNpMThKWmRL?=
- =?utf-8?B?ak4wb1VsNTVaRzZITHIzS1dnQ21XNjdXUExLbFJvZTJnQmprL3FkZHBvc1hn?=
- =?utf-8?B?MkdjMk5PNHF5c3hqT0s5bklPdVB1MGFpTUhtRUZ3RUhqcHNXeW9XcFFwYjIr?=
- =?utf-8?B?bHEvZHE5djNuZ1lZTEgvTUdxeEw4MjZvZWM2cy9IUkZTejIvWWVDdzk3SnFa?=
- =?utf-8?B?UFY1U29reW4zeUJkZkllTCtVckhiVTRVbzd2RVhxWjF3ak4rSUFJSnlWeFUr?=
- =?utf-8?B?Q0R6RWo1ZTEza3ZBRjlPeW9hY3FuOWxCVFR2aFVlK1dyOGZDaU5uYUJrWWoz?=
- =?utf-8?B?Y0MzVlAvb0lYYU1MaUFadnBRN0syS3RtdUVmcVVDY2lJUkh0dmJVRFJyNEs5?=
- =?utf-8?B?cHR6KzVGTi9oZ3dmY0hpY2JOWmQ5ZVJzQXZ3RHdQQjhYOWhZWmZMTTh2bzY2?=
- =?utf-8?B?bVQ3SU1kWGlMck9nVmtyK0VSZitpOVVNdUxxMlFuZCtDR3N2clpZT0VjZzBD?=
- =?utf-8?B?NkIybWxtMGNNQm1vSDRpb21aVVZNN3g1OXRPRUc4ekt5YmdjSXV0WUYzdElH?=
- =?utf-8?B?dmE2K0lhSjNvV25abW1jZFpCN2FRK3g4ZUVIY2F0dTg3VlB4TXRNS2FzUlV0?=
- =?utf-8?B?V0ptSWdJbmN3cWNMbk1FNXJUckZUbFFFa0NXSU5mZmFYN28yNkRPNWJoMk5l?=
- =?utf-8?B?Rjg5NEpJMHpTNjM4bzZIVXZwTEVWektiSThEdTRFTWFJZHpWazZJNkwyTTMw?=
- =?utf-8?B?TFZYdXZtZjhZalArUkxmOTVrRy9nNWpQUWJjd0gwNVBhcjFsOWdnb1NrVmRl?=
- =?utf-8?B?eUZTNG9Ea0xCVU51Z2VxNjN0VVF1MkJMVGRPQjB0YlVNS2UybUpBaHlZVndm?=
- =?utf-8?B?ZVVrUC9Zd2VJRkZ5Tm1QOWQrNFRIZ25zcm1ERkJHRldMemt0WnNLUFc1TVdU?=
- =?utf-8?B?NG9KSyt6bHRhRjBpc2tmMmpxZDI5M0RTcXZLYWR4MWJOY3lYcnBJcVlUWEdK?=
- =?utf-8?Q?iFQNJO3Yc01QsXBPuL1ABqVgB2yk5JlhuTjQtUf1k7UD8?=
-X-MS-Exchange-AntiSpam-MessageData-1: TKboAI0gSZT6Gw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2f508c7b-af51-47cf-a286-08df2f222ce2
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6413.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 03:19:53.9583
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2QhC1l1OqmnuauC/GcvrsJ2//iviHMXsN0FEHsTlOVWB0yNgZgPsZOU3ZG52Zx/QXcMtk+vkDZbMhw7u253Y2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4378
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 00/41] UUID and GUID user and group ids (*_r system
+ calls)
+From: jan Koester <jan.koester@tuxist.de>
+To: Christian Brauner <brauner@kernel.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, "Serge E. Hallyn"
+ <serge@hallyn.com>
+Cc: Jan Kara <jack@suse.cz>, "Theodore Y. Ts'o" <tytso@mit.edu>,
+ Paul Moore <paul@paul-moore.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-fsdevel@vger.kernel.org, linux-api@vger.kernel.org,
+ linux-security-module@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
+ linux-cifs@vger.kernel.org, netdev@vger.kernel.org, audit@vger.kernel.org,
+ keyrings@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <cover.1792552161.git.jan.koester@tuxist.de>
+Content-Language: en-US
+In-Reply-To: <cover.1792552161.git.jan.koester@tuxist.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue Oct 20, 2026 at 7:13 PM JST, Alexandre Courbot wrote:
-> On Thu Oct 15, 2026 at 10:38 PM JST, Alexandre Courbot wrote:
->> On Wed Oct 14, 2026 at 10:35 AM JST, Eliot Courtney wrote:
->>> On Fri Oct 9, 2026 at 8:54 PM JST, Alexandre Courbot wrote:
->>>> The `RpcMessage` type is the right container for the `log_event` metho=
-d,
->>>> since it contains all the data we passed to it. Move it there so calle=
-rs
->>>> don't need to extract the required data themselves.
->>>>
->>>> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
->>>> ---
->>> [...]
->>>> -            let function =3D rpc_msg.header.function();
->>>> -            let seq =3D rpc_msg.header.sequence();
->>>> +
->>>> +            RpcMessage::parse(self.dev, msg)?.log(self.dev);
->>>
->>> nit: in core/interrupts.rst we say:
->>>
->>> ``` A drain fails when a message's framing or checksum is bad (see
->>> "Draining the GSP-to-CPU queue"). The message stays at the queue head,
->>> so every later drain would fail the same way, and the IRQ thread
->>> disables vector 155 and logs the failure, which leaves the queue
->>> unserviced until the device is reset. ```
->>>
->>> So `parse()?` returning early on failure here is intentional, but I
->>> reckon it is worth a comment, especially since the behaviour is
->>> different to the semantics for consuming elements regularly (still
->>> consumes and progresses for failed elements). Especially since you
->>> wouldn't expect this behaviour to differ for a method which explicitly
->>> "consumes every message the queue holds".
->>
->> Sure, I'll add a comment.
+Hi,
+
+i have already submitted but not all patches arrives now i use a other  mailbox sorry.
+
+best regards
+
+Jan Koester
+
+Am 21.10.26 um 05:15 schrieb Jan Koester:
+> Hi,
 >
-> The inconsistency in dropping behavior between `drain` and `await_msg`
-> really bothered me, so I've spent more time than I should have reworking
-> that to harmonize the two. As a result v5 has changed a bit more than I
-> wanted, but hopefully it's for the better.
+> this RFC series lets a user or group id be a UUID (RFC 9562, version 4)
+> or a Microsoft GUID as well as a classic 32-bit number. Processes can run
+> as such a user, files can be owned by one, and credentials, ACLs, keys,
+> System V IPC, sockets, signals, audit and procfs carry the whole id.
+>
+> Why
+> ---
+> Directory services name users by 128-bit ids: Active Directory by
+> objectGUID (and SIDs), LDAP directories often by entryUUID. Today every
+> system that serves such users (winbind, sssd, nfsidmap, ksmbd user
+> space) maps them to 32-bit numbers through ranges, hashes or a local
+> database. The numbers differ between machines unless the mapping is
+> configured the same everywhere, mappings can collide, and ownership
+> written to shared storage or a backup depends on the machine that wrote
+> it. With the 128-bit id in the kernel, the id the directory hands out is
+> also the owner on disk and in every credential, and no mapping table is
+> needed.
+>
+> Design
+> ------
+> - kuid_t and kgid_t become a tagged union (legacy number, UUID, GUID)
+>   instead of a u32. There is no table that maps UUIDs to numbers: the
+>   kernel compares, hashes and stores the whole id. uid_eq(), uid_lt()
+>   and the other helpers keep their meaning. Patches 1-3 add the UAPI
+>   type and helpers. Patches 4-8 fix places that relied on kuid_t being
+>   a u32: sk_uid is now read through a seqcount, and af_unix, netlink and
+>   Bluetooth keep only classic ids in skb->cb. Patch 9 changes the type.
+>
+> - UUIDs and GUIDs exist only in the initial user namespace. They are not
+>   part of any uid_map or gid_map, show as the overflow id in other
+>   namespaces, and no capability in a child namespace gives privilege
+>   over them. Idmapped mounts pass them through unchanged.
+>
+> - The classic system calls keep their 32-bit ids and show a UUID or GUID
+>   as the overflow id, as the 16-bit calls do for ids above 65535. A new
+>   family, named after the old calls with an _r suffix (getuid_r,
+>   setresuid_r, setgroups_r, fchownat_r, ...), takes a 20-byte
+>   __kernel_uid_r_t:
+>
+> 	typedef struct __kernel_uid_r {
+> 		__u32 type;	/* UID_R_NONE, _LEGACY, _UUID, _GUID */
+> 		union {
+> 			__u32 legacy;
+> 			__u8 uuid[16];
+> 			__u8 guid[16];
+> 		};
+> 	} __kernel_uid_r_t;
+>
+>   It has the same layout on every ABI, so none of the calls needs a
+>   compat entry.
+>
+> - Existing interfaces get _R variants where an id is in the ABI:
+>   STATX_UID_R/STATX_GID_R, SO_PEERCRED_R, SO_PEERGROUPS_R,
+>   SCM_CREDENTIALS_R, si_uid_r in siginfo (offset 96 in every layout),
+>   IPC_STAT_R/IPC_SET_R, KEYCTL_CHOWN_R, and version 3 of the POSIX ACL
+>   xattr. procfs, audit records, key descriptions and the RPCSEC_GSS
+>   upcall use a text form (decimal, UUID, or GUID in braces).
+>
+> - A filesystem has to declare that it can store such owners
+>   (SB_I_UID_R). Everywhere else, chown and creating a file as such a
+>   user fail with EOVERFLOW, so a UUID never turns into a wrong number
+>   on disk. tmpfs, ramfs and devpts declare it, overlayfs does when its
+>   upper layer does, and ext4 does with a new read-only compatible
+>   feature, uid_r (patches 31, 32 and 34; 256-byte inodes). NFSv4 and
+>   ksmbd carry the ids as text or as SIDs (S-1-22-3/4/5/6-...).
+>
+> - Things that can't carry a 128-bit id fail closed instead of mapping:
+>   quotas don't account such owners, AUTH_SYS sends the overflow id,
+>   unprivileged ublk devices are refused, and gssd versions that don't
+>   know uid_r= refuse the upcall.
+>
+> Documentation/userspace-api/uid_r.rst (patches 35 and 41) describes the
+> whole ABI and its limitations.
+>
+> Testing
+> -------
+> - tools/testing/selftests/uid_r (patch 36): 14/14 pass.
+> - A boot test suite (nolibc init on QEMU, ext4 images with and without
+>   uid_r): 88/88 pass, on a kernel with USER_NS, overlayfs, tmpfs, POSIX
+>   ACLs and audit enabled.
+> - End to end on a full distribution (FenrirOS: patched libc, e2fsprogs,
+>   OpenSSH, rsync, libarchive, a ksmbd and NFS server): UUID users log in
+>   over ssh, own files on ext4, and reach ksmbd and NFSv4 shares.
+> - The selftests and the boot test suite ran on the same series on top
+>   of v7.2.9 and v7.2.11. On v7.3-rc7, the series is built for x86_64
+>   (bzImage and modules, with USER_NS, audit, ecryptfs, fscrypt, quota,
+>   ublk, NFS, Bluetooth and the LSMs enabled) and boots in QEMU, where an
+>   integration test with a full user space passes 24/24: ssh sessions
+>   with a pty as UUID users, UUID owners on tmpfs and overlayfs, SMB
+>   logins of UUID users through ksmbd with S-1-22-3-... owner SIDs, and
+>   NFSv4 showing and setting UUID owners. ext4 uid_r was not part of it.
+> - The syscall tables of the other architectures are wired up (patch 22)
+>   but haven't been built.
+>
+> The e2fsprogs changes (mke2fs/tune2fs -O uid_r, e2fsck, debugfs, ACL
+> conversion in libext2fs) will be sent to linux-ext4 separately.
+>
+> Open questions
+> --------------
+> - Is a tagged union in kuid_t acceptable, or would you rather see the
+>   128-bit id kept beside a u32 kuid_t?
+> - The new calls copy the classic get/set*id() and chown() families
+>   one by one (20 entries). A single setid_r(which, ...) call would need
+>   fewer syscall numbers. Which do you prefer?
+> - Should the series be split per subsystem (core/uidgid, fs and VFS,
+>   net, ext4, nfsd/ksmbd) after this RFC?
+>
+> Changes in v2:
+> - No code changes. v1 reached the lists only up to patch 11, the mail
+>   provider throttled the rest; this is the complete series, now sent
+>   from jan.koester@tuxist.de (author and Signed-off-by changed to it).
+> - Hunk offsets refreshed against v7.3-rc7, testing section updated.
+> - v1: https://lore.kernel.org/r/cover.1792346472.git.jan.koester@gmx.net
+>
+> The series is based on v7.3-rc7. The syscall numbers (473-492 on most
+> architectures) are placeholders and will follow whatever is merged first.
+>
+> Jan Koester (41):
+>   uuid: move uuid_t and guid_t into <linux/uuid_types.h>
+>   uapi: add <linux/uidgid_r.h> for 128 bit capable user and group ids
+>   uidgid: add uid_is_legacy() and gid_is_legacy()
+>   net: sock: read sk_uid through a seqcount
+>   af_unix: keep sender ids in skb->cb only when they are classic ids
+>   netlink: keep classic sender ids in skb->cb
+>   Bluetooth: keep classic sender ids in skb->cb
+>   smb: client: use __kuid_val() for the unix SIDs of the caller
+>   uidgid: let kuid_t and kgid_t hold a UUID or a GUID
+>   uidgid: convert between kernel ids and the ids of the *_r system calls
+>   fscrypt: show the whole uid in the description of user key claims
+>   keys: name per-user keyrings of UUID and GUID users by the whole uid
+>   ublk: refuse unprivileged devices to UUID and GUID users
+>   nfsd: don't hand out uid 0 for read layouts of UUID-owned files
+>   SUNRPC: name UUID and GUID users to gssd as uid_r=
+>   ecryptfs: hash daemons by kuid_hash()
+>   quota: don't account UUID and GUID owners
+>   fs: keep UUID and GUID owners off filesystems that can't store them
+>   cred: add the *_r variants of the get/set*id() system calls
+>   groups: add getgroups_r() and setgroups_r()
+>   fs: add chown_r(), lchown_r(), fchown_r() and fchownat_r()
+>   arch: wire up the *_r uid and gid system calls
+>   statx: report UUID and GUID owners
+>   shmem, ramfs: allow UUID and GUID owners
+>   uidgid: parse and print ids in their text form
+>   proc: show UUID and GUID ids in status, accept them for loginuid
+>   audit: log UUID and GUID ids in full
+>   net: add SO_PEERCRED_R, SO_PEERGROUPS_R and SCM_CREDENTIALS_R
+>   signal: report the sender's UUID or GUID uid in si_uid_r
+>   ipc: add IPC_STAT_R and IPC_SET_R
+>   ext4: add the uid_r feature for UUID and GUID owners
+>   ext4: let uid_r be turned on while the filesystem is mounted
+>   posix_acl: support UUID and GUID entries
+>   ext4: store ACLs with UUID and GUID entries on uid_r filesystems
+>   Documentation: describe UUID and GUID user and group ids
+>   selftests: add tests for UUID and GUID ids
+>   ovl: allow UUID and GUID owners when the upper layer does
+>   devpts: allow UUID and GUID owners
+>   ksmbd: log in UUID and GUID users and map them to SIDs
+>   nfsd, nfs: carry UUID and GUID owners as their text form
+>   Documentation: uid_r: describe SMB and NFSv4
+>
+>  Documentation/userspace-api/index.rst       |   1 +
+>  Documentation/userspace-api/uid_r.rst       | 186 +++++++
+>  arch/alpha/include/uapi/asm/socket.h        |   5 +
+>  arch/alpha/kernel/syscalls/syscall.tbl      |  20 +
+>  arch/arm/tools/syscall.tbl                  |  20 +
+>  arch/arm64/tools/syscall_32.tbl             |  20 +
+>  arch/m68k/kernel/syscalls/syscall.tbl       |  20 +
+>  arch/microblaze/kernel/syscalls/syscall.tbl |  20 +
+>  arch/mips/include/uapi/asm/socket.h         |   5 +
+>  arch/mips/kernel/syscalls/syscall_n32.tbl   |  20 +
+>  arch/mips/kernel/syscalls/syscall_n64.tbl   |  20 +
+>  arch/mips/kernel/syscalls/syscall_o32.tbl   |  20 +
+>  arch/parisc/include/uapi/asm/socket.h       |   5 +
+>  arch/parisc/kernel/syscalls/syscall.tbl     |  20 +
+>  arch/powerpc/kernel/syscalls/syscall.tbl    |  20 +
+>  arch/s390/kernel/syscalls/syscall.tbl       |  20 +
+>  arch/sh/kernel/syscalls/syscall.tbl         |  20 +
+>  arch/sparc/include/uapi/asm/socket.h        |   5 +
+>  arch/sparc/kernel/syscalls/syscall.tbl      |  20 +
+>  arch/x86/entry/syscalls/syscall_32.tbl      |  20 +
+>  arch/x86/entry/syscalls/syscall_64.tbl      |  20 +
+>  arch/xtensa/kernel/syscalls/syscall.tbl     |  20 +
+>  drivers/block/ublk_drv.c                    |  17 +-
+>  drivers/tty/tty_audit.c                     |   7 +-
+>  fs/attr.c                                   |   7 +
+>  fs/crypto/keyring.c                         |   7 +-
+>  fs/devpts/inode.c                           |   2 +
+>  fs/ecryptfs/messaging.c                     |   2 +-
+>  fs/ext4/acl.c                               | 109 +++-
+>  fs/ext4/acl.h                               |  34 +-
+>  fs/ext4/ext4.h                              |  27 +-
+>  fs/ext4/inode.c                             | 115 ++++-
+>  fs/ext4/ioctl.c                             |  30 +-
+>  fs/ext4/super.c                             |  45 +-
+>  fs/mnt_idmapping.c                          |  14 +
+>  fs/nfs/nfs4idmap.c                          |  53 ++
+>  fs/nfs/super.c                              |   2 +
+>  fs/nfsd/flexfilelayout.c                    |   6 +-
+>  fs/nfsd/nfs4idmap.c                         |  68 ++-
+>  fs/open.c                                   | 144 +++++-
+>  fs/overlayfs/super.c                        |   3 +
+>  fs/posix_acl.c                              | 123 ++++-
+>  fs/proc/array.c                             |  17 +-
+>  fs/proc/base.c                              |  38 +-
+>  fs/quota/dquot.c                            |   3 +
+>  fs/ramfs/inode.c                            |   1 +
+>  fs/signalfd.c                               |   3 +
+>  fs/smb/client/cifsacl.c                     |   2 +-
+>  fs/smb/client/smb2pdu.c                     |   7 +-
+>  fs/smb/server/ksmbd_netlink.h               |  15 +-
+>  fs/smb/server/mgmt/user_config.c            |  35 +-
+>  fs/smb/server/mgmt/user_config.h            |   4 +-
+>  fs/smb/server/smb2pdu.c                     |  10 +-
+>  fs/smb/server/smb_common.c                  |  18 +-
+>  fs/smb/server/smbacl.c                      | 178 +++++--
+>  fs/smb/server/smbacl.h                      |  19 +-
+>  fs/smb/server/transport_ipc.c               |   4 +-
+>  fs/smb/server/vfs_cache.c                   |   9 +-
+>  fs/smb/server/vfs_cache.h                   |   4 +-
+>  fs/stat.c                                   |  24 +-
+>  include/linux/audit.h                       |   8 +-
+>  include/linux/compat.h                      |   6 +
+>  include/linux/fs.h                          |  29 +-
+>  include/linux/fs/super_types.h              |   1 +
+>  include/linux/mnt_idmapping.h               |  74 ++-
+>  include/linux/netlink.h                     |   2 +-
+>  include/linux/posix_acl_xattr.h             |  31 ++
+>  include/linux/ptrace.h                      |   2 +-
+>  include/linux/quota.h                       |  18 +
+>  include/linux/signal.h                      |  22 +
+>  include/linux/signal_types.h                |   5 +-
+>  include/linux/socket.h                      |   1 +
+>  include/linux/syscalls.h                    |  44 ++
+>  include/linux/uidgid.h                      | 165 +++++-
+>  include/linux/uidgid_types.h                |  32 +-
+>  include/linux/uuid.h                        |  11 +-
+>  include/linux/uuid_types.h                  |  21 +
+>  include/net/bluetooth/bluetooth.h           |   2 +-
+>  include/net/scm.h                           |  28 +
+>  include/net/sock.h                          |  32 +-
+>  include/uapi/asm-generic/siginfo.h          |  17 +
+>  include/uapi/asm-generic/socket.h           |   5 +
+>  include/uapi/asm-generic/unistd.h           |  43 +-
+>  include/uapi/linux/ipc.h                    |  17 +
+>  include/uapi/linux/keyctl.h                 |   1 +
+>  include/uapi/linux/posix_acl_xattr.h        |  19 +
+>  include/uapi/linux/signalfd.h               |   4 +-
+>  include/uapi/linux/socket.h                 |   9 +
+>  include/uapi/linux/stat.h                   |  10 +-
+>  include/uapi/linux/uidgid_r.h               |  45 ++
+>  io_uring/waitid.c                           |  32 +-
+>  io_uring/waitid.h                           |   1 +
+>  ipc/mqueue.c                                |   4 +-
+>  ipc/msg.c                                   |  40 +-
+>  ipc/sem.c                                   |  31 +-
+>  ipc/shm.c                                   |  32 +-
+>  ipc/util.c                                  | 112 +++-
+>  ipc/util.h                                  |  23 +-
+>  kernel/Makefile                             |   1 +
+>  kernel/audit.c                              |  50 +-
+>  kernel/audit.h                              |   4 +-
+>  kernel/auditsc.c                            |  63 ++-
+>  kernel/exit.c                               |  18 +-
+>  kernel/exit.h                               |   3 +
+>  kernel/groups.c                             |  94 +++-
+>  kernel/signal.c                             |  48 +-
+>  kernel/sys.c                                | 472 ++++++++++++-----
+>  kernel/sys_ni.c                             |  12 +
+>  kernel/ucount.c                             |   2 +-
+>  kernel/uidgid_r.c                           | 467 +++++++++++++++++
+>  kernel/user.c                               |   2 +-
+>  kernel/user_namespace.c                     |  10 +-
+>  lib/kobject_uevent.c                        |   8 +-
+>  mm/oom_kill.c                               |   2 +-
+>  mm/shmem.c                                  |   2 +
+>  net/bluetooth/hci_sock.c                    |   8 +-
+>  net/core/dev.c                              |   8 +-
+>  net/core/scm.c                              |  94 ++--
+>  net/core/sock.c                             |  90 +++-
+>  net/netlabel/netlabel_user.c                |   4 +-
+>  net/netlink/af_netlink.c                    |   4 +-
+>  net/socket.c                                |   5 +-
+>  net/sunrpc/auth_gss/auth_gss.c              |  44 +-
+>  net/unix/af_unix.c                          |  53 +-
+>  net/unix/af_unix.h                          |  11 +-
+>  scripts/syscall.tbl                         |  20 +
+>  security/apparmor/file.c                    |   8 +-
+>  security/integrity/ima/ima_policy.c         |   8 +-
+>  security/integrity/integrity_audit.c        |   6 +-
+>  security/ipe/audit.c                        |  12 +-
+>  security/keys/compat.c                      |   3 +
+>  security/keys/internal.h                    |   3 +
+>  security/keys/keyctl.c                      |  61 ++-
+>  security/keys/persistent.c                  |  11 +-
+>  security/keys/process_keys.c                |  36 +-
+>  security/keys/request_key.c                 |  12 +-
+>  security/selinux/selinuxfs.c                |   8 +-
+>  security/selinux/ss/services.c              |   4 +-
+>  tools/testing/selftests/Makefile            |   1 +
+>  tools/testing/selftests/uid_r/.gitignore    |   1 +
+>  tools/testing/selftests/uid_r/Makefile      |   6 +
+>  tools/testing/selftests/uid_r/config        |   4 +
+>  tools/testing/selftests/uid_r/uid_r_test.c  | 535 ++++++++++++++++++++
+>  143 files changed, 4425 insertions(+), 605 deletions(-)
+>  create mode 100644 Documentation/userspace-api/uid_r.rst
+>  create mode 100644 include/linux/uuid_types.h
+>  create mode 100644 include/uapi/linux/uidgid_r.h
+>  create mode 100644 kernel/uidgid_r.c
+>  create mode 100644 tools/testing/selftests/uid_r/.gitignore
+>  create mode 100644 tools/testing/selftests/uid_r/Makefile
+>  create mode 100644 tools/testing/selftests/uid_r/config
+>  create mode 100644 tools/testing/selftests/uid_r/uid_r_test.c
+>
+>
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 
-I took a look and it's looking really nice now, so well worth it IMO.
