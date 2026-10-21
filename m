@@ -1,59 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792618774;
-	b=F1Ndw2Q7zJk2EPXmc5xLLm/5SgUsb1ZWL17ir1Gemgma8Y50JZtqp7Bq8SZFUXQZMDH5
-	 9ydf9KkelQqWRcijDZEuUkglWqv/qboMj++CmPTJQjy9PgqUrqiFnMWkT62LXZJNhYPY9
-	 a9tX5QBN1K/KSfAC9YPKgpx9qkV8Gya29LFxkul0JhyME9QDYNWZnfN8hcchX1ZJdEoly
-	 2uKBoOuW5DHcg4mAHvuilDw9Xb5zGW8hjhIratP8ZE/R1iGi+7rryRKNFWpyExfPIC+x6
-	 B3LJ1Cr5notnaz/WOEz9lkhFxFI/6vBTfkPPRKnuRU42QUc0IgyJFZy1ZCgxM6c3tnw==
+	t=1792618865;
+	b=cTAidam5ufqUyLLHYf9BB6hFbrbTPaJpkPpSXT4O7b6Frw9PBM6vs84aga6CzprezcHS
+	 H0NRUo1t6fb+s39W+oAbmJ3FWhiYWtiWha+1cMwkHWUMilYgBDlSXllqDLn7MdFl0Ybwy
+	 J/VvpJeZHMbBJiZWwQAuEn0WhKw0usZcFCJlUCNRIbWWCyEnaDnoPrV/ivbLkM8dnwLat
+	 xIzUHfM/qEHkQittRFvcRpgWa+QRX57Mdq5CQWbxwEZ1l4d2Nl/cOo5UFv0SP3CeVyZAV
+	 GwdMA8pXtL4xY17hmJNum7xwPv6BGex7KHqxoQ5OgmcdzgYD7mLQbGxK2rciHTGMqaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792618774;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=FTrydkL7HtkLMgb49aJ3qzS//tJyj29uIWq7iqTrQWE=;
-	b=hZJc5ipMQV7sLXqv6kPjEbA4PYXOpIKpenwwCIbLmuoEoCrheye3zF0GRqtCiyRclFwH
-	 8wEVh1+MWsgx9iRlo1W2usDOnEHLXgZ0vYYP0erctlgH+FPrbr0ZUP2+4gglg6hJFDj1b
-	 u9QxZTPwgfEM8JlhQ/HF+f6iddo1h4drZCnOc+m8nuACTLusMq5SMHw+SzjngMAn0DJhC
-	 m+MYhqqyk6LiOgFVV/80UztZYpobYaj8ShMXCQ3fizTzTmAMAuZqAdlMX0ca/zlQzjPVV
-	 7ro3kdSML2bW1gso1DP+7QJngKOi703JDN4L8LODf9LCnd43FLubGAa0N59dMBPMFqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792618865;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=/1aHWxyPWaYI59CMhIW1BNu9XQN4EHa+eCNK3CqCECU=;
+	b=Xnc4BNTk5s4xOKjyE4+Ofcf5QQI3yeMmSK328MED0hHDnOB1/aWvD4XMVqbd8rlOa4yJ
+	 QI78Go8sP+TnyUHLi1tVkgdUyy9zWPnEqqzcoU+iy/dWrNAmNnXmI7IC7pm6QLmufuJRc
+	 eMv9NztVQcmjwqJyfthqIVw1wsT7ObS8bZ18HYvyDEJ1XiD3faxyqalDhrJUcyGDaxGwA
+	 +Dz3pSQFiiohrWlQ4+Iy5Ewr5UdPYeDFsPEugzOsp4jV0RmsXdNh+DwH5wY5hBqzc/1oT
+	 PmykM9iGJLKD0UqjY8c5mA1Su6sRh5krPyTiOR5X0ATJnMNF1nIxdjHd8P8q6GqxI8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVRNRsF2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=eE+ocNRC;
+	arc=none smtp.remote-ip=90.155.92.199
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2642606A31A;
-	Wed, 21 Oct 2026 21:39:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B234606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:41:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B234606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BVRNRsF2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559BA1F000C1;
-	Wed, 21 Oct 2026 21:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792618773;
-	bh=FTrydkL7HtkLMgb49aJ3qzS//tJyj29uIWq7iqTrQWE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BVRNRsF2SyJOiX6MqSC27TY2uf42yZZ+NBCehQgjoI094CwIPepmPo6cLqdWWK4b/
-	 0IQY2WDgLIjXE0fq5KZrUdWaZoiKL8K8r/KRcMxFIom5mWHeqh4BhW2hRWuuL40dFJ
-	 OzHphNysGcBldV7jUIICF3PvViyvo9zjaP9AWjDQ0sQbXcbFEfr5HzcPV2ZAO6Onau
-	 gGssXrAFYhjFf3m4V9hIVmJ7oBm8eziAvlDeXCaSuJE2kbsRFpa3fzCEpN+Sn/mPNK
-	 VxNT5xTye1/9W++hyz2U0fYuL/BwuWt5j6FRUl9kP7ZwVMfe1PQNzF7a+x/6aHKiZv
-	 3LCTo4bgMn8rg==
-Date: Wed, 21 Oct 2026 18:39:30 -0300
-From: Arnaldo Carvalho de Melo <acme@kernel.org>
-To: Namhyung Kim <namhyung@kernel.org>
-Cc: Ian Rogers <irogers@google.com>, adrian.hunter@intel.com,
-	james.clark@linaro.org, jolsa@kernel.org,
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org,
-	mingo@redhat.com, peterz@infradead.org, eranian@google.com,
-	ddhariwal@google.com, rcu@vger.kernel.org
-Subject: Re: [PATCH v4 1/7] perf lock contention: Filter events before
- creating lock_stat
-Message-ID: <atkxErgNUd-o9Cru@x2>
-References: <20261018053710.2572636-1-irogers@google.com>
- <20261019220915.3943592-1-irogers@google.com>
- <20261019220915.3943592-2-irogers@google.com>
- <atbvPNZcoxUtRxez@z2>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=eE+ocNRC
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=/1aHWxyPWaYI59CMhIW1BNu9XQN4EHa+eCNK3CqCECU=; b=eE+ocNRCWFnuOT27sO4xPdlij2
+	t6Rm729ePETVVg2CsQcT9clnADQpez7N1pkcPgxnKjZwTV+Jt7Aw09ec/G589YXVEuw4NJikJASgp
+	sK8n23mjcSeZBpvdIWEPlBlsaPq8riJixY75CxDxUpjttm6QytHMKidP1z2yHxDWmpBH2mF6RxyVR
+	GjI3VobILlezRrY3BUDKkCc5ebsrjhSUSRoGHGLE9xfWOr9DvIMdod43zYa6+Ot8KvEhMUykDyFiO
+	qeBSrCO9Pgl2/nWaHib5XZJZLnUWrAN8rDAkg64UC25amwn8iA1l0ieW2c8TFuuScpx7/Qd+bZB4i
+	Q/PNga2g==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
+	id 1xJe3O-00000006Fnu-28yp;
+	Wed, 21 Oct 2026 21:40:58 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id B51E83005AA; Wed, 21 Oct 2026 23:40:57 +0200 (CEST)
+Date: Wed, 21 Oct 2026 23:40:57 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: linux-kernel@vger.kernel.org, Andy Lutomirski <luto@kernel.org>,
+	Rick P <rick.p.edgecombe@intel.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	the arch/x86 maintainers <x86@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>
+Subject: Re: [RFC][PATCH 12/24] x86/cea: Map and use FRED exception shadow
+ stacks
+Message-ID: <20261021214057.GT2823843@noisy.programming.kicks-ass.net>
+References: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
+ <20261021195136.687DBEA2@davehans-spike.ostc.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,30 +75,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <atbvPNZcoxUtRxez@z2>
+In-Reply-To: <20261021195136.687DBEA2@davehans-spike.ostc.intel.com>
 
-On Mon, Oct 19, 2026 at 09:34:04PM -0700, Namhyung Kim wrote:
-> On Mon, Oct 19, 2026 at 03:09:09PM -0700, Ian Rogers wrote:
-> > In report_lock_contention_begin_event(), lock_stat_findnew() was
-> > called before checking filters.nr_types (-Y), filters.nr_addrs (-L),
-> > and match_callstack_filter() (-S).
-> > 
-> > When a filtered-out lock event (such as a mutex contention when
-> > running with -Y spinlock) shared the same aggregation key as a
-> > subsequent matching event (for example, contention on the mutex's
-> > internal wait_lock spinlock from the same caller), the first event
-> > created the lock_stat entry with the filtered-out lock's flags and the
-> > second event reused that entry, causing non-spinlock entries to appear
-> > in -Y spinlock output.
-> > 
-> > Check the type, address, and callstack filters before looking up or
-> > creating the lock_stat entry.
-> > 
-> > Fixes: b4a7eff93c39 ("perf lock contention: Add -Y/--type-filter option")
-> > Signed-off-by: Ian Rogers <irogers@google.com>
+On Wed, Oct 21, 2026 at 12:51:36PM -0700, Dave Hansen wrote:
 > 
-> Reviewed-by: Namhyung Kim <namhyung@kernel.org>
+> FRED hardware automatically switches stacks between levels on different
+> kinds of kernel entries. Each normal FRED "RSP" stack has a corresponding
+> "SSP" shadow stack.
+> 
+> Leverage the existing CPU Entry Area infrastructure. Add shadow stacks
+> for levels 1-3 right next to the existing RSP stacks. Map them with
+> shadow stack permissions. Last, point the FRED SSP MSRs at the exception
+> stacks.
+> 
+> Just like the task stacks, do not leave a guard page since regular and
+> shadow stacks have mutually exclusive permissions and serve as guards
+> for each other.
+> 
+> Nit: The "return style" of the new cea_map_stack() and wrmsr() code
+> looks superficially inconsistent. But each site is consistent with the
+> code around it, just not when looking at the two sites against each
+> other.
+> 
+> == Future Work ==
+> 
+> The *_stack_guard[] elements could probably be removed now. When in
+> use, shadow stacks serve as guard pages for the regular stacks. When
+> not in use, the shadow stack region could remain unmapped and also act
+> as a guard area. But that would take some more fancy dynamic mapping
+> work. The existing CEA code is dirt simple and doing anything dynamic
+> would add complexity. KISS. The downside is wasting three pages per
+> CPU when shadow stacks support is compiled in but not used at runtime.
 
-Cherry picked this one as its the first in the series.
-
-- Arnaldo
+People were trying to *shrink* stacks ;-)
