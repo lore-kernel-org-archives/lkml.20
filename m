@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580303;
-	b=mPzyMOBI0XZ43ZFBUGkaoefi/OJ1HV5E8ITtsqVrjoraC9mFoDRsyvUrHnxuzKJ02yGW
-	 MRqBf3MSzOM1M8yC22qob418ujt36rWbJb8sscvStVMuIHWsFY/o4j0qNaLbe5da20qie
-	 7CV40maL1JgQN7SlMk3e6NFMTp/cGH77T5VIVqfrwTIOGdLF+/tUzjLUm3ju3oOL6xov8
-	 zDAAQjkgyeBCHNd/+Jk8K/EFteDLN9k5OVjYYcnIuy0mCPtMq6dd21QCQT9eu381EUrOk
-	 CKF5jyN08utfCXGMqHHGJsqTsT9ezvc3fsUtFBrwDkeShpJV1oPlw1eqruZUMfGzNYQ==
+	t=1792580375;
+	b=Qbn5kZpraRkTSagMnE1vL+SR0leO8k1QLugT5nN+32ZUmA6PapOfLyBiaZ7FDtzY1NVO
+	 UgD9a0ebr4hnFv/Jv3WJzyLoJQrhH5fTjBXn+SV3RGJQ5+tw1JuiThBh1ouHRpJpbLKDZ
+	 imot0NDulTd6KJ32TSdihyHfeSNGsCy8QbF35gdSYJJZM1h1FMOsBuLwef/us0b+CS7BO
+	 ynV/eVXY7eYVBGyE/orPRRXx+edl/d/OqAEUW/hrx4oDhixvuRau3qpjslgLH61U1OtX6
+	 AwLZBQ292n8Wl6eXyBL7yALlmDFbq2vmQ5t4qY3b45+FmEf3SDjdOFzBQVXei0dd42g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580303;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=D9XpsGJWEwNtJOnAsBPr5CyPfHqVCX6IANnhZBr3+2Y=;
-	b=NIzFyLHa7Vu5gznDOaf4Fq8LD8ob1wbjVThRKHN+salyzN62dEMqNci/UFWJQ1pkMVXf
-	 ktRos4QDnaovAm7yKurz2xlGBYoVx0XOZKdyhZHAn4HbLfX/ogP0ApzKaF1qUA79Nd6Ag
-	 isvVqMbvvF/RKUdBwzFEaRGh+uFgizSjzQkTJRVumL1lVhvhwdXuTmidOm5ap3BACaQcx
-	 sLyjQYmgLUP4QEirSKVsYbZbdvaQ0L6uFCuEhG/ofQzxC6JsEcZrygPXCvsB9zXYPuo8C
-	 0dz3hWQvvNkVL6bAndfqmWSE8wpba1pFSSaKTCtiVavFoMx1TdVZi5rn9oc2eSbjegw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580375;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=71PhXNjOvmIAl1aRTI7zqhrskFBVVkC78m4SzV3kK8s=;
+	b=BZJywqptcVIXx1w7htLnd9Bojd3miFJA39+8kU1dJmMtR1viDi1OtHwkNfW/I3oYqepR
+	 S5yoTC/+jf8pkOiabeltTvryN0jwng2SIXLPTWXpnRAvkSUzSF8Gm0NVO1Z6JK74c4Fbv
+	 4Pebw1oLcKvdL9VPIzHplmcKD9z+AXvGoxt2qqwbK4BpVDYea/TFjcq1WagBlGD2gq7tt
+	 c7BRrLjQyiTGvS8JLDsq5R/C8wi+g7ZABWOX8aArnPVh8VlPvZCGa3zHJM9HHVnHya6Lp
+	 x9tqh9U3tklGYK03le51/8GelUPPqnWnHvuaamc1OaVle/LOwG7pKVxAyFAnm4T9mGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKoLXKaj;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1+MDMGt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F31606A319;
-	Wed, 21 Oct 2026 10:58:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091E0606A31B;
+	Wed, 21 Oct 2026 10:59:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MKoLXKaj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C5E1F000CB;
-	Wed, 21 Oct 2026 10:58:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1+MDMGt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1241F000C9;
+	Wed, 21 Oct 2026 10:59:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792580303;
-	bh=D9XpsGJWEwNtJOnAsBPr5CyPfHqVCX6IANnhZBr3+2Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MKoLXKajy/1QnBAFBg/llA4yMM4S5y2QW0wKrn1OYvI8psAMeOg9QvL2BMamjYHpJ
-	 RwXLsQv5lZ96bI/082VobpmK+/mU1aQLHnwRHeBxo70QDhKMhZ9dDgzQ54N9hSi6no
-	 vgRY7N5MQTu+QlS/4edEO7i470qiVe7PBIrbktEEoi+Fnp5cJh4RbomHOLaSG3D8WH
-	 YCuLvk//zclWN5gYRkI7/rzIIXvplGaQPzDLqGYZ1i24Mwje84d5cRNQNUAbcxj4P1
-	 oj0OaQoxSbtdBhG7pt5DXE6cVskeXbx5sqFGXodaWVrRL/avL/SmiS/Kmo+0EskC/m
-	 4kl+6Mtsylihw==
-Date: Wed, 21 Oct 2026 12:58:15 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Huang Shijie <huangsj@hygon.cn>
-Cc: axboe@kernel.dk, viro@zeniv.linux.org.uk, zhongyuan@hygon.cn, 
-	fangbaoshun@hygon.cn, yingzhiwei@hygon.cn, jack@suse.cz, agruenba@redhat.com, 
-	mic@digikod.net, gnoack@google.com, paul@paul-moore.com, jmorris@namei.org, 
-	serge@hallyn.com, aleksa@amutable.com, legion@kernel.org, david@kernel.org, 
-	sandeen@redhat.com, ebiggers@kernel.org, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, gfs2@lists.linux.dev, 
-	linux-security-module@vger.kernel.org, sunjunchao@bytedance.com
-Subject: Re: [PATCH 0/3] vfs: add inode iteration method super_iter_inodes
-Message-ID: <20261021-chiffrieren-quetschen-kostspielig-b9ca4b0c83ff@brauner>
-References: <20261015093854.2082600-1-huangsj@hygon.cn>
+	s=k20260515; t=1792580374;
+	bh=71PhXNjOvmIAl1aRTI7zqhrskFBVVkC78m4SzV3kK8s=;
+	h=From:To:Cc:Subject:Date;
+	b=i1+MDMGtleUeML8OwFtwmJQRuoyHcR+jJfoYStTvTgWsP24f/QUqHy1T3LEfDIVus
+	 7s05SEm17UKRkckZ5q1WypTzLMpqS+mYCa+S3iHU0OOoztNQzjtKyRRVOYK4d1a3I9
+	 i0/4U+oLbwpvTr92AmPGP7gDAFTBtTdLAh/PeRIi3sWngcFDfWPWJQ2EU+8yKUz2a7
+	 WWq7fcn+syQUjmmzKCvGqh543Gn4s31NSpjMhTHkDHQvI1ULFhkN3Z+CfMEjKNhshW
+	 SOE3TgvKi5FOF72Zd5zcDpOu9I/zMXTk1XUirFPknSb41ekQbefQwqyDT1H0KGtq9Z
+	 BTAce2BZpvqTg==
+From: Thorsten Blum <blum@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Rong Zhang <i@rong.moe>,
+	Arun Raghavan <arunr@valvesoftware.com>,
+	Thorsten Blum <blum@kernel.org>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: Use strscpy() in append_ctl_name()
+Date: Wed, 21 Oct 2026 12:58:26 +0200
+Message-ID: <20261021105826.147060-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,15 +62,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261015093854.2082600-1-huangsj@hygon.cn>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1503; i=blum@kernel.org; h=from:subject; bh=iiUI6+gsmzqf5KZyem4oHEBxqYvGd+SjMlFNlVP6GDE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFk3Zl0yi68qmL9y1Rd/mabqQs6jD5Sf5heVya0r22Vdd jFceb5+RykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEyE34aR4XH+rKC5EjWMW0tr r7Pv/XDvoegdi2+uEZeWtq8JfMvj4MXwv4jj2CP7yfX9yUyJj1yjeNbdKdvC5Pf9Qqp/xoSs15U crAA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 15, 2026 at 05:38:51PM +0800, Huang Shijie wrote:
-> This series adds a single superblock inode iteration helper,
-> super_iter_inodes(), and converts the open-coded sb->s_inodes walks in
-> the VFS to it.  The design is based on Dave Chinner's patch set:
->   "vfs: improving inode cache iteration scalability"
->   https://lore.kernel.org/all/20241002014017.3801899-1-david@fromorbit.com/
+To prepare for removing strlcat() from the kernel [1], use strscpy()
+instead with the current name length as the append offset. Change
+append_ctl_name() to return void since no caller uses its return value.
 
-Jan has specific ideas around this are so I'll wait for him to chime in.
+Use append_ctl_name() to append " Jack" in build_connector_control().
+
+No functional change.
+
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ sound/usb/mixer.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index ecaa8bc08d7c..0320a3e8af92 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -1720,9 +1720,11 @@ const struct snd_kcontrol_new *snd_usb_feature_unit_ctl = &usb_feature_unit_ctl;
+ /*
+  * build a feature control
+  */
+-static size_t append_ctl_name(struct snd_kcontrol *kctl, const char *str)
++static void append_ctl_name(struct snd_kcontrol *kctl, const char *str)
+ {
+-	return strlcat(kctl->id.name, str, sizeof(kctl->id.name));
++	size_t len = strlen(kctl->id.name);
++
++	strscpy(kctl->id.name + len, str, sizeof(kctl->id.name) - len);
+ }
+ 
+ /*
+@@ -2090,7 +2092,7 @@ static void build_connector_control(struct usb_mixer_interface *mixer,
+ 	}
+ 
+ 	if (check_mapped_name(map, kctl->id.name, sizeof(kctl->id.name)))
+-		strlcat(kctl->id.name, " Jack", sizeof(kctl->id.name));
++		append_ctl_name(kctl, " Jack");
+ 	else
+ 		get_connector_control_name(mixer, term, is_input, kctl->id.name,
+ 					   sizeof(kctl->id.name));
