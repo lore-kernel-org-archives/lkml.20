@@ -1,67 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792536614;
-	b=llHZvl3e1VGDbHgykPKhMvsIVhQeq8U8Al3FKv8+AQEhkmsplSylUM5d3wGGmjJ8zUqu
-	 hiobdtYE2PULxgkPSzz6K8d4uaYFQLIbCGJCzCSsd2WKWfmIHdiaw6ByJ+kEhuFAzkUOj
-	 XYSc4y8q32bGK2bh6b8Pu43Jeqnt4HOVn/kqeE05stiNaLTAT9BaxvUzakDnJ5Snqufab
-	 ZVJyjHzKhyc/ptmDqTV5iwlVpeFo9sqyGF7pIlpIGSX8480qN22wfe3wKN3nF/vCO2+m3
-	 qDPlkaG4FY48cGCHe3KkII2PFIcuxbTlroiMQd/F15cgMYgXfyeGgzEycqVImSl8fJw==
+	t=1792536619;
+	b=b8YWd6bmjUGh49F+lXbH21eU226abvo6tJbC7rHe0vphWSQ20e62FeCUE9SJeEevi+cT
+	 PI0MKwUeZ7On0PPk4K3rPDHKYe91KJ+J7OWtXlQ4rOmONs1uojije7rA4TuXQRiaxvYGD
+	 yyfDYEjPmSFhZQ0U/ZtItSLpyNVX14dziT+6fI1LCIlSNCL1Gvh3TQSdJs303QlTW07yz
+	 iUuaj9b8gHfA62mfv/gABpWdY8Uuv7WQlb7mhnk45dALO45Miu2K+fcDFXWqEK7lsT2tR
+	 /AKTNPGJVifTGRhHYUGnBMn//GNlSpKNQsvAqVh6pF63FwsK8+kFCK1XVLEfvKeNORA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792536614;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=oZiXrRKvQcXJbnmZKNbeBglyOf7giCIx7g21DfvxHeM=;
-	b=JhbEhmtG1dgOUeGtHD0c6ZW67EcNAbFaThN7/cvnVyXz0OVVev7HHdrFAQ6rJ19WZZmu
-	 tg1jEiRaunUKStCiCBD57gerdHpqLsCkf6308keD87QYFcJLtWVj2PEdvw46YCtcWvK4O
-	 maoAtIpYrw2OiVaHti+Y0dF+gy0+ss19o/bMYfvElAP2AMGFl3q1moMJq1dj5aCqFV/aE
-	 HK0eLBXr3lJuHxKGE7S0RlsBXRjBonhDhs5PB5H0OX4BrTM/mpSFk/Y8GOJ7cYp3GxoBj
-	 ZuMxSbXpezjqR1HYQpgcwo2UVE1Xwa951fj15Lh2FPlQDmrpCLs3JPmgUkiHokRvQ/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792536619;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=4zL0S6kvmtkQoYmoWRmufP9rJujsnjUqprK46hj2fn0=;
+	b=EH5owTmf/+Gi65BBVIDUGtrehx2GobMggHNvu21X1nMmwGfmNW9M3+z3zDVMK7hO+h41
+	 JrIXxrCyg18q+AfRXN6TAz/XMDhA/BexVGTLdB2FDi0FixHYYRf8WHwODGuIABY8DHx6K
+	 77PFOoKcmxrVClb2nibu62f05C9T5oiA/LoAfCL02ieNsNV2kksx5YCDo1JGtqI32/7A8
+	 A++F8LqOlz3PeBHfeUvgEXVKE/Y5fxHoY93tIG+/WnlyVxn3YEadKfzBSg0Kdc7Ovya+n
+	 W3bUJlxJJcInKz5aYktNoUjghxzK6R3gZjkNs8kOydHaz4sp3c/Kn2ohLg7L95jTH8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mit.edu;
-	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=KVDCNzG4;
-	arc=none smtp.remote-ip=18.9.28.11
-Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y9FIbqDR;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A3B606A33B
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5A3B606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC39606A338
+	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:50:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC39606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=KVDCNzG4
-Received: from macsyma.thunk.org (pool-173-48-113-115.bstnma.fios.verizon.net [173.48.113.115])
-	(authenticated bits=0)
-        (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 69KMnbMs016711
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 20 Oct 2026 18:49:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1792536580; bh=oZiXrRKvQcXJbnmZKNbeBglyOf7giCIx7g21DfvxHeM=;
-	h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
-	b=KVDCNzG4S3KuvOFjvzAKI2mVLHr+XqNSBP/1MyhAZyTHWdXKlM+d1ClZw2C2IJug8
-	 HYBcBAuywcR7D/JgGFztfETkJ4ndtAyX6+OpzmG12NxJPtRUFs9IYEuj8kEiIooxCe
-	 VVIQyU+KBG3XxP1fye9bt5PeZAVZaGWGkBFV+pd+opyQ9m3Pcky5qq1KBCwuAATnnW
-	 +G1vcDGAjUU3OZFODM2ijPhuYv4iGLe+j2p0Ifkx8QxdmODAsSfx9T8XK++wSPgOuw
-	 8gEyG7gWlLSvCRI7idTscavVdMALKTcRfQ+NcmOcuxIb8aycbXaKSW1mgZ5mICBlul
-	 j4mmFiS/9Pc3A==
-Received: by macsyma.thunk.org (Postfix, from userid 15806)
-	id 0A5BE21C98B6; Tue, 20 Oct 2026 18:48:37 -0400 (EDT)
-Date: Tue, 20 Oct 2026 18:48:36 -0400
-From: "Theodore Tso" <tytso@mit.edu>
-To: Kristoffer Haugsbakk <kristofferhaugsbakk@fastmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Junio C Hamano <gitster@pobox.com>,
-        git@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
-        Jonas Rebmann <kernel@schlaraffenlan.de>,
-        Ricardo =?utf-8?B?Qi4gTWFybGnDqHJlIChTVVNFKQ==?= <ricardo@marliere.net>
-Subject: Re: FYI, git output messages are being used by other tooling
-Message-ID: <atfmYYtUii4gWIIH@mit.edu>
-References: <20261020141011.0015d172@gandalf.local.home>
- <xmqq8q3sw75e.fsf@gitster.g>
- <20261020152354.165ad128@gandalf.local.home>
- <83c59078-f6f1-456a-a99b-688eaf56bab0@app.fastmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Y9FIbqDR
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so1347045e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 15:50:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792536618; x=1793141418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4zL0S6kvmtkQoYmoWRmufP9rJujsnjUqprK46hj2fn0=;
+        b=Y9FIbqDRFsiHCh6wCMx/lGXYMzbEMpcYPExHRKo8kxmfRwSdsbHKcVN6b2o3fsfWmS
+         EMfNStvVEXtwQlwGFhTspCN6Iy8LsIslmTQJZArs9croRUFFsg9a0R2Wmowm78fCGk+p
+         qoMRAjWrlWyjvmo/cv+QOkjio/QCUym29eIrZxNWbZgTO868C5tZQiYnBcrDy/y+qYxV
+         AxXCy+jIbfVSYNWbB6SaV+1+cus75rqPWlO2twcCFTqCAqrzmVEb5SQPuQ0TN5KrYxQd
+         MNdNYIr9ltemS55NjRHUaTPPPJnI8hAvgtgmCV7T01bNB3UVCcpT2l7+0a9cI5hk20GK
+         EuaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792536618; x=1793141418;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4zL0S6kvmtkQoYmoWRmufP9rJujsnjUqprK46hj2fn0=;
+        b=gkbYU1xObqOYFyMY3NaepXGie++AEP7ilVlHt0IIkWZHbNGfWuOUiqgMqFHcSs/J4P
+         qYsvmDDyhoBpD1q9Co/Bgb4cIqpMA2bbWIWAZ2fUYzKtoxlPsN69I7pGZBC6Tdx748iv
+         jeY0fLg1pA2mBl4+WFqhadzD8urKNKHwkPFymwvxMtSTRFDnJVvRxax6avwJoURdJ9IA
+         u2lGRDiKxuCRIUSZIu6Aq+iWrsg6/yi/jeYRBO5aUvAZ3A0SnNKZi2xAfglY78FknXZx
+         kIbIiyZHI9V9RnukuApp9mRHjVfITq6k2M9roYMxM8PI2i4mC84akDxgl9wHZmlBPbpk
+         hklA==
+X-Forwarded-Encrypted: i=1; AKwUvBwndM5B2wDn9Pj+LU69npCeHcinZcCceK88dugAy72hycbwBM/WOv7PinmVxiS3Q29P/P5U7IFD/wOeHS4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKRjhns3H31D74sxfBiKtKYSBuBZEUqO/7Lh9HX1DkkxnIe8iU+
+	8U6fcLJshw0S7hs96yy/2fSi3ILtN9AfG4iar/Buw10DVMw49du9rQKm
+X-Gm-Gg: AYBFou3U0H+oT5Kg6L5T3Fr/FGiTn2J+rxzKFjpz6rd+RRYyNjoAwFxOhZtRntW+dqB
+	Umg3ZIvHI8SUUMxi5Uwtr3UrCNO3xYpa6bvKofBc3mBbzljkrM3IQDkuOQn3Y+FBAdRNyLhqp4D
+	wTsl8f5RwXNKOeTwCFb1OY7ZNQV9oeZ/QbP4Pf9k8t3mlRHyCRJMOel6/N3ZCZ5NSR01Ddi+4OL
+	OTyteB0fY1uNy95GhoWCY2AchQAel5wK0W24FICy09oINjqSnvjZgprDWCC0dNNpXJQKBFwfUYG
+	3/xeujU/1B+A3GH793J1ZiAlP2picfgFs/Dc9S10GEgzLPpSiQtPrAoD5kcl0MAy6po/KdMQnW9
+	Pp/JL4HAbjx5AKr7P/Eu6o1F/v6DDMwQqZ5wluFCEJg0e3/btSlgj5EP3FchbboAiWa7J1TIR74
+	B+CQPQI5QjvqV8foKgsp6Q+H5FGAiMelHZdAr3Cp+tjKKEFAprjFVTCqfE6fNDBGQQehkLgkYX3
+	HmYmrxdPcfjBrWyk+OiqnD/
+X-Received: by 2002:a05:600c:b8d:b0:49e:65f2:db64 with SMTP id 5b1f17b1804b1-4a1fdb165d8mr2576335e9.5.1792536618009;
+        Tue, 20 Oct 2026 15:50:18 -0700 (PDT)
+Received: from ingenieria31.oficinasStQ.local ([79.117.46.175])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc0b42bdsm17511805e9.0.2026.10.20.15.50.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 15:50:17 -0700 (PDT)
+From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Francesco Valla <francesco@valla.it>,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Mario Limonciello <mario.limonciello@amd.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Jocelyn Falempe <jfalempe@redhat.com>,
+	Sam Ravnborg <sam@ravnborg.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-efi@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-embedded@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 09/13] drm/client: splash: turn the device tree image as it asks
+Date: Wed, 21 Oct 2026 02:50:04 +0200
+Message-Id: <20261021005006.2341200-5-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <350adc03-dd7f-4120-ac9c-b6d04ff44faf@suse.de>
+References: <20261013093243.505776-1-maximpedraza@gmail.com> <20261013093243.505776-10-maximpedraza@gmail.com> <350adc03-dd7f-4120-ac9c-b6d04ff44faf@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,54 +119,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <83c59078-f6f1-456a-a99b-688eaf56bab0@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 09:28:10PM -0500, Kristoffer Haugsbakk wrote:
-> > Where returning 0 means the bad commit has been found.
-> > Otherwise it keeps looping.
-> 
-> Is this different from git bisect run?
+Hi Thomas,
 
-"git bisect run" isn't always the best way to manage a bisection.  For
-example, I might run a command like:
+Am 20.10.26 um 13:16 schrieb Thomas Zimmermann:
+> Reading the code below, may I suggest to do this in two steps: first
+> read the image data into a temporary buffer, invert height and rotate as
+> needed.  Second, copy the temporary image into the graphics buffer and
+> adjust the color format.
+>
+> Eventually we want to have a useful and flexible drawing/blitting API
+> for the DRM clients. Keeping drawing steps separate will help a lot in
+> the long run.
 
-   gce-xfstests ltm -c ext4/4k,ext4/1k  generic/245 --repo stable-gc.git \
-       --bisect-good v6.18.57 --bisect-bad queue/6.18
+Makes sense. v6 will do it that way: the first step turns and flips
+the BMP into an XRGB8888 buffer, and the second converts that into the
+framebuffer's format. The buffer is as large as the image in
+XRGB8888, up to 8 MB for a full screen 1080p splash, and it goes once
+the image is drawn. If there is a helper you would like the second
+step to go through, or a shape you have in mind for the API, I am happy
+to follow it.
 
-This results in an RPC call to the Lightweight Test Manager (ltm),
-which is a micro VM running in Google Compute Engine.  If there isn't
-a Kernel Compile Service (kcs) VM already launched, the ltm VM will
-launch a much larger build VM.  Once the kcs VM is ready, the bisect
-request is then forwarded to the kcs VM.  The kcs VM will check out
-relevant repo, run "git bisect start", and will do the build.  Once
-the kernel is built, it then sends a RPC to the ltm VM, and the ltm VM
-will launch one or more test VM's (in above example, one for the
-ext4/4k config, and one of the ext4/1k config).  The ltm VM will
-monitor the serial console of the systems under test, so if the kernel
-hangs, the ltm VM can force reboot a failing VM and either continue
-with the next text (if there is more than one test that is being run).
-If we are doing a bisect, then the ltm VM will send a bisect update to
-the kcs VM via an RPC.
-
-This architecture allows multiple biseccts or test watches to be
-managed by a single ltm VM and (if necessary the kcs VM --- the kcs VM
-will shut itself down if it's not needed to save on cloud costs).
-
-So yeah.  Sometimes "git bisect run" isn't really enough, and it would
-be useful to have a way for programs to be able to call other "git
-bisect" subcommands, and have a standardized way to get the results
-from the command without having to just parse the output and be
-dependant on the precise format of the human-readable output.
-
-Cheers,
-
-					- Ted
-
-P.S.  For more information about how my test appliance works, and the
-other features/functionality of the ltm VM, see [1] and [2].
-
-[1] https://thunk.org/gce-xfstests
-[2] https://github.com/tytso/xfstests-bld/blob/master/Documentation/gce-xfstests.md
-
+Best regards,
+Màxim
