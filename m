@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.140
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792601855;
-	b=yn19S7CPwXL/tvAe5Z13bU+saTLtQpD52Chh1OgtbCxK/4nvhPtCoIFh3r8Q2X2JegKM
-	 EHHSffXEWKtcYCjhBKhmg1pGuztuxeT9OnOw8nKc0/RmAOMrV95nT6akhZqjb7dLikfmT
-	 myjNuQyHR3cI7vtR2oExgci0bBXLKpBJJ90AObiBD6AnFBqfiipwAKB8MHNPJc0/qODid
-	 mri3oMQduoWc9teLu6H34aSZldu26By73gA1pDtOHjGSCcsnXaKUsfsLy32gDvZzg0veQ
-	 i3b1Lts7P9gm6yNL0CqUOG6b7tIxnGcr11gZnzqPAQicCSVmB2u7Y+DnyBjiIfA4QVQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601855;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RM/YX2wBTINfEb6574A63dtRObGC8PO2khkIHPP7D3M=;
-	b=hmyfs17ERQi7wvE178Pk97tSIIuvkTzzJ2YZAtJw0q82NS1L8126nvqqLH5zF+S4KdaW
-	 8Y9qlneK0OMdH0W+U/hBUikSZewTX7sYNSZdNX2DUuisk58M7z1+WUBKYdNu/qVcMGHaW
-	 5+7C6rVZLvtEHA4VTnC55CvIudsnFXYhzyqpZjywHQYu4adi7moVkiV+jhkL+zYYjCi5t
-	 eg0BqHaVLK1i1YRqW4GxMccLxSQlydskhS6cnL07/matLT3KXITR+3OVGGCkovGoTY92Q
-	 tB/Qt1cjHcZJxjEZn/VVHFyk4ER3LcobvM2hfnHuYRU+WZWMmrCIG5yw+ZkfA4DKFYw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=at05ZyJ3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.125.140
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021140.outbound.protection.outlook.com [52.101.125.140])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792601872;
+	b=aUoXZdnX7Jj/HMGb3zCteQRS7P3jtlXfBfpruZz7I5icbU0UmdMzzHUxmMXi4prCOq1a
+	 AxvqIBig4h3jv2EUVoKLNePzaD0kdLjXVe9KNR0vxS6mpEhJN3I6WozG197WoOfer4zpp
+	 SPkCCwoFOkp24YOuXoy+PzeSS90uV/o48Lt82EtsH0AZIe6/yQZM7v6UiEC2M/DDEYhAE
+	 h0pYxLOkwICFOrysMtJzsG2p3uT+cGlr8p8fxg+hPymotokiSoIKCjQjZwO+Pe575FX8I
+	 NNeMsdbqE7zINZuRFVeYD9rbYxNrtVJFUJIG/BtcJdzHKLoRdtJvdWiHv+o6U3XThuw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601872;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Wrl1hkgNQocQ50RbdUgeab14QR/zpMpNR80bbfzJVRw=;
+	b=n6QgSJrcVfA1eLjbEB9JPACX0y2/0xaFYDbUQBL5ajDXCtEaw06I4s3txjKN5CtMhY82
+	 jvwKYcs++GlMe5TpS6X9CYcjnVaWaDi27h3yn+dV2GXwBFkj5wSk726RSp1Ohr7qscmhV
+	 dax/A4GpLfZnK+P1LpODf8mZGVej2SYL5vGw4hYJGyIpxZ0YMby0jbE+4Nv6ZFZlAAgd/
+	 i5+aI3VJvxXDXtdZBsrzlRHjyh+bTyotzZVgw/iK5mMfm3sWXO7pJ/8ewn6jITNOJ7QL3
+	 N3GI9d1/N93UWbRJpf3HnDNbguGqViIYuN9VgRmchfva2UExEMg76Q0FhW7GEIdawIg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=armoriq.io;
+	spf=pass smtp.mailfrom=armoriq.io;
+	dkim=pass header.d=armoriq-io.20251104.gappssmtp.com header.i=@armoriq-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="ecJ3/BLc";
+	arc=none smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9BC7606A319;
-	Wed, 21 Oct 2026 16:57:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9BC7606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CAF606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:57:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88CAF606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armoriq.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armoriq.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=at05ZyJ3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jdQJXZK6FYj3PahdMEctwWdpwxSYnStr00JgRFiI4o8IIqfsK+5VevFiQekZW72ph6AhYR6ABMPVoocK3bRiW9cO2fygHvGPHiihqardjajsCeyp/rcBAEEeRPTP/GiUewG/Q7z6WBkoOo5Y35HHt6oxmvuCZkhN8+E+Wm33QtWQAT/LijP9GBQzQHWAt9wcM7ei0U/n/Slzmj9At9UEgB30a6Mi0UALL9jOqJHHpIwfGHymFKS35PcW0K8nA9UNSdr8ypDdSNSL0OJmLdmzji11YkK1OvMGMH/ozXGz4JLSdB6jNE9B/zmv59/QMmEEKTHx1UPeHZQiJfeIXtQDfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RM/YX2wBTINfEb6574A63dtRObGC8PO2khkIHPP7D3M=;
- b=TC1KAUM5LNk76iunwu7COm94m1ikvxbjwWys5gFS/n2DGSXYqyjjvc3dGFsRXbDFA0ig49dOqapXYhSpEk66um0+Poy6UjVgcQTXQmkeKER8mfyjRzEudhENnz+97BpvGQVncfAF/CL+u06zn3KWthQeSAYB/CgYZX+bJN/u5F5L+pVfz3vw1ctEF7M2pNRdajYz67wgx/jzhTbk+Tspx/2pCJrPPCRXC+J1ie3OTU5wEWTCkA98hjqCBuuv7ZnDdWIt9RaQHtz3baDn2TGcgFKgeI5RoA0JjXzg3HIJXAcq97n3NH58n2TlOKe9CJJ6IT+471mNckw+uhbVgV3fZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RM/YX2wBTINfEb6574A63dtRObGC8PO2khkIHPP7D3M=;
- b=at05ZyJ387nFGsCFY9iMKyyP6cxDB6QBC++GCNYARwWj1MBHupMrUfhCvPrlwjo831y2FYAjXfBJrBeSSJUv/H/9TdcP0i57sl8wIDVh+HN5HSFx4tQ54hgnTbr3LQ91wFpZs4jp2S78mu7RE2huTfkyQ4cupxS8xFs/jq5XC7w=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OS9P286MB4206.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:2c3::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
- 2026 16:57:31 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 16:57:31 +0000
-Date: Thu, 22 Oct 2026 01:57:29 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, Niklas Cassel <cassel@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, linux-pci@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, ntb@lists.linux.dev
-Subject: Re: [PATCH v7 10/10] NTB: ntb_hw_epf: Support DMA and MW sharing a
- BAR
-Message-ID: <eg2sbks43lnyvs7i6jtzqkhqkgpjalgynhkwi2c2pkpklrbekv@oiscofavvmxh>
-References: <20261021042229.2280937-1-den@valinux.co.jp>
- <20261021042229.2280937-11-den@valinux.co.jp>
- <atjhPo42pjkA8vJK@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atjhPo42pjkA8vJK@SMW015318>
-X-ClientProxiedBy: TY6PR01CA0001.jpnprd01.prod.outlook.com
- (2603:1096:405:3bc::6) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key, unprotected) header.d=armoriq-io.20251104.gappssmtp.com header.i=@armoriq-io.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=ecJ3/BLc
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-66fca0709caso808297d50.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:57:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=armoriq-io.20251104.gappssmtp.com; s=20251104; t=1792601870; x=1793206670; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Wrl1hkgNQocQ50RbdUgeab14QR/zpMpNR80bbfzJVRw=;
+        b=ecJ3/BLcdDo0hwe0Voqxkj3GWbMNNB3JG/+deM/4A6R1lB+aqx3TOsTX4SwKd2qCIG
+         Intc+zHP0tWLWS/4iuS5mDzvKXyBtThLWW0jk5mlS+JFn6KYQo5Zh7Jn0zErvRI3iDlv
+         uUH1IympoPSBiVpg1oW7LwKZ20LH7yCXH55AHNyfPUsCopVCDOfBuhjarDYHIUMaTblC
+         tuceB/MqKnLVpWi77wXHPM1MULmllyXIf5CtoI5lChe94DPnzkgGzSwsHom3w9n7AdxM
+         rGjBzt5jXz26IeIaOjsLq0ZT0lgnEn7O8dxWuWNsQt+Pe1mhafkzidya3X+O9xNehjFr
+         CbDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792601870; x=1793206670;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Wrl1hkgNQocQ50RbdUgeab14QR/zpMpNR80bbfzJVRw=;
+        b=LFRitFy0ggoF2Puidl1GkIEFMfgc1SkuvhDec5NqSABbLhL/HXEbTpPydyq/njHVAJ
+         OpbOYlTj/29y7xUbBXzNmYhuCNp7LjafovJMo2kx4K4hk+y9l0eoYEJb1tIcXwjqeSjf
+         Scq0vwMp3iyYcnFTNQYE97bZvy96Z/CCpOYbBSkwgn4IQmqmdkhqb5PZme4D89ezN5tj
+         jCYKlPar+FfO3uSDm/FAXLPbFZLrbt51h6zhA4Myf06mAZ3LDO1bMdd4XncQFA9mKcgG
+         WvZworVVKhBNvGh7E1VUTeyM0gJckuDTbY+JzkuHCe4RNSUvRqbfFaX0O+R8UoLqXNxH
+         Y21w==
+X-Forwarded-Encrypted: i=1; AKwUvBxg/D0q2kME44/PWtfFdc6wAnc/dKX8u4JScH2qNsuaf1fjB5wqB+Mu9waslJhtvF1FHv0kof+AefQ/5SY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlu25EEsMrG63P9u1JQr9xdBI5Ve89A+C0haSe2FTcRqjm5mbc
+	oJB3tqsY8cjlYVTQSear7F8A0/hvgUUCMV8ZkaU88oPxfbtNkZCRNUII+tujHeugQdyB
+X-Gm-Gg: AYBFou2YzLOnRyIoADLLvXPYWk7HYRdpoxaALFWZsgUTldjSwKi4XSsAr0sziSucn/U
+	JL14/Bi1Tp6x9WJ82Dx3EK9yBuX9zaqz/tbKVOHLjChiCQP5dvJYzTTRDP/CBLIjTfLnQ3zcS5H
+	6dKbOXodlRJEKqa81iD4aHYMv6VtojZ3rNAt4Vww3PGSWDNwlAslzl2uRl5dxFhzApcQdU1RMG3
+	jlUXwl1PbtiLP8eKARaeClOMm7pkK80rAjbrdrFGfl7QJXUJqc6OYV7Kj8uKCqihBMFU3thwrEA
+	36YCBtVEDfPBaAFYOclVthJIfI8Q7nvVuadRifcE2PI6NDJkoT0QFf2H0J7OXlJ7Rffh446xTTs
+	uZjh+ZsIm2cGE6yS7lrXeLG7fDbj00n6pcgQFePNg2br4Xm4H+FuKWJWzsUuENMOEU5pFoV9mT2
+	grmMyhH6RyEw6ocpddHq9udMc+rkeD0wQcQsRuS1qeScT5AKk/hKID89o/3/cQxWBxeDVnCQWjk
+	ppMGbAT6YYXvVBioe2BMvW6laJgPTaJFR3V8yja8fz7iuREc79bt5K7TABTt1az7nFTfgIsqy5i
+	0dtuyffQCtIXtGjki/bzsvhcGWj/beOOzme8+bc6FWosFOh4QIzZZ4eNglaxPbHIm/AxXKqx
+X-Received: by 2002:a05:690e:4395:b0:679:b87d:6f7b with SMTP id 956f58d0204a3-67a0e4d43a7mr1148532d50.42.1792601869931;
+        Wed, 21 Oct 2026 09:57:49 -0700 (PDT)
+Received: from CC-KJQTV599DQ.lawn.gatech.edu ([2610:148:205a:0:adab:fd33:8207:cba3])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1301045a3sm14277117b3.28.2026.10.21.09.57.49
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 09:57:49 -0700 (PDT)
+From: Ketan Bhardwaj <ketan@armoriq.io>
+To: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	linux-doc@vger.kernel.org,
+	linux-api@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"HARIHARA SUDHAN . R" <harisudhan@armoriq.io>,
+	Ketan Bhardwaj <ketan@armoriq.io>
+Subject: [RFC PATCH] docs: security: Describe the Kernel Assurance Plane design
+Date: Wed, 21 Oct 2026 12:57:48 -0400
+Message-ID: <20261021165748.19304-1-ketan@armoriq.io>
+X-Mailer: git-send-email 2.51.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,212 +103,365 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS9P286MB4206:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7b422b5-c28f-47d9-ef91-08df2f946556
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|10070799003|366016|261021123027099002|56012099006|4143699003|261009223027099003|10067099003|18002099003|6133799003|261021121427099002|22082099003|27256017;
-X-Microsoft-Antispam-Message-Info:
-	0kpFfXCyxuYShdYi4WsBcAP56HMIIebgm9XkSfhVTwKLMO2zPRd8t/0OI9IBA9ZkHnC43U8oLXoCm5TK0SL6m8YzSEo71HQN1t7YJUDKGFRMTBQEhp5UkkEIWF39I+HNOnoSplvDcyMh5OxZJI9Va4k9LmhPHHSuHNy58xXh/Q8jn36hATBsrjgE4MkezKOULJXyqTgzgNA7Y+XNmCjsYveFRxLpqgGsETccSf80AwubCXJstCo4Fh7C9FPGKLgTArMnCRcHGQUGKu7PJQ25OFQA727bgVmP4L2jK4IqSVAI1WS6sIwOYKq6/j3vGAKFjs3s6mVPROIkmC0JgfyFKtaY4ajRjj4QPW1hXOaGs0cKBBONRSld8lHCmtCWClM4HuvXqRCJmwgekoWjJFsEOLHnk0HUc/tGOsPS2divuKPloL0lpO7I7A05qkblBqcEbzxBh8vHEHcV2uSoIhls8pg+KJRDDzfoZsHystJgx9pBq0U6Xp8tLsAoLszQjrWLDEtJABCDawXmNiU0ZXqOShnMVtN6MGzEMIylvopmPo4piVHC4Yx+0wgrQO8dFWC94AHf+HdbRyPBnKypPXYtOwqwd1RWwM9GJnR/KkvOOl8Fr08w6xae7HaO0L8KT3qxaodXTvEhVw5Ftv4rJl7OQKYD3FhpKzMvi+aKMlT4VqjZdfZ0f2h/cIjivwBhV038q52dh3X+qfw+fXZnASAdLg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(10070799003)(366016)(261021123027099002)(56012099006)(4143699003)(261009223027099003)(10067099003)(18002099003)(6133799003)(261021121427099002)(22082099003)(27256017);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3c7ilTxRLHeRdAUZ7fAd+s+q78W47VfAF1qqe5ltNRceXFPtbaINJsI6U7By?=
- =?us-ascii?Q?5SVPYrYp2DtAdzsgqG40IFjVV+Vy4+0Fr8lHiqlNa73aozpbOqo8NNzpIuDT?=
- =?us-ascii?Q?Tu9cVBVkdl63ndPEKfl9iKCx1YeqvJCBLXNMFbRSVVHFqCD/UBodqIHWNbls?=
- =?us-ascii?Q?WWcJ/IwYAnu4tODj2WAbvGufWKfu5YdFczaBw9DYS67GPAs50GT80bswvKsu?=
- =?us-ascii?Q?CvTnN6AkoNEH5KXPBv8GI10E/P0U9g1HJS/zsTmgfEoeKw2KHt4NJUenHx6k?=
- =?us-ascii?Q?CXg/S36+9oWc37pzpDSQ56uGWCvvMRUOjh0ZxP0CwvSAHORmATq0k43XKsg2?=
- =?us-ascii?Q?CK3x0DO6Xv3K4qAkIq40MoKKt96OOBBqBmzs6Q3LSAgDAdbgm6ZLLqrUjIG2?=
- =?us-ascii?Q?Y9Oyah0E+r/FpQq/xynaXXIClVMLo2YdkKi5NxZ8LoJkyz3EZF7kOfAdu/9z?=
- =?us-ascii?Q?Jdn8e0Vp2hk5WJzsNXsNbWbkWF1+hdO0VQDiaNKl2ysdNGnOyiTBP89v3/kX?=
- =?us-ascii?Q?XrrrFB2VGMVpOara6+HzVSrssVYNAbN/XKIauEesreeR9YTQzGDHumoLJfvf?=
- =?us-ascii?Q?CyYz518siJHz0jc2LSrhpthQ5LeQTwpqspp+331ddXcE8Fwca5GQeDk4ChlP?=
- =?us-ascii?Q?547m7/+dTr947Y/fKkNY5IPOtVE3t8qSeRhzSgYlzhfP3SfvFgtsvcYAq/Rp?=
- =?us-ascii?Q?xZy66vDBmPzW//vQAwN3mZgHVYA8aTq/iunhG8WJI35890VQFxRVwhlgKPMl?=
- =?us-ascii?Q?UMmJYdiWO5cWIQ7x0aeqQ0R2eATtrRDmvMesXQwrSpqvXQuc+som7/c699i0?=
- =?us-ascii?Q?Ey7nfcjz2XpBi2Wl4PxpPwTwTiC1AsIhB+ohNcJwH7LCKCcN/kAgWkISNd4i?=
- =?us-ascii?Q?+1E9uiXlpN+r4QbiwoJsNZMMKNaBZquuMAVSUxmrUjY5HvgVw3QqCHr9nYfy?=
- =?us-ascii?Q?ePd/2pKpVvL645ff0QbinFvlsqc6y1ukuH0QvjC3kfCMRkohai8ROAstfznY?=
- =?us-ascii?Q?jTB974x90aBJn4PXVKpHYiR1kM2rLcncVuaW4uzxbKutSGRDnCJejHmRsYU2?=
- =?us-ascii?Q?I15Dp5lcWJqMPH+Hsq5G1mixbPFar8uoKWVU6mzIqnPIzi7MLhD5RD3tIoeH?=
- =?us-ascii?Q?bJTUylpHVky+8qV967MOZeCoU8AGwSooLxDUPOuqoKq5lGpujz3dlU9RfCi3?=
- =?us-ascii?Q?sSkXeIpDe5MrvMLZfNeuP2kI8BhzjosRx7bB2+LEIPAhq1Q/9wyHnUqW4RjF?=
- =?us-ascii?Q?SGnh8Oobc/2z1QU3OkZOOrF3oWusjUE9ED7ifBOrKLIlNDynzIQc6zp5fMX0?=
- =?us-ascii?Q?ouxQK5xm81UUvVLKHRzHkKfJpjZRSbQh9t71cA0UaKJsF/vi6iWfUJ6BZtqd?=
- =?us-ascii?Q?9QX4pI6HYen2vb4SgfKBMH2BPVMkUhdBE5djkLoCbNWLZufPbTo51TrhID8N?=
- =?us-ascii?Q?E2lfwokYaII60ZwynOgUs52PECvd7htryN5cdSnSg1xzPi0aXEghoo1zxTFZ?=
- =?us-ascii?Q?7Lf5qf5doCGScqmdPyh7wHRAGOy13eOyHSjrhHBYAwBoNMXAUgpGJE7Cs/b0?=
- =?us-ascii?Q?DG3bWuFJHi9Z0cdGwDUmiZY80J6ZotwqtCXM+V+VAb8Eo/2i+qIuygdbI8Ui?=
- =?us-ascii?Q?Lny36QZnFadf1iYP8Yz12BRDDwsD2r7DSC3Jd9kESluMco3lOsEY063xVFqd?=
- =?us-ascii?Q?J5KfrooO+HE074NZ4r9nu/mUavq0GAQEjSjTaGVuQq1oGLEkqdnDCkIAPNQv?=
- =?us-ascii?Q?FCUmKA3ZaF8CMpfTxF/EHYZumUD+Xwa5zKO1SfduacuSzTpxQ0q7?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7b422b5-c28f-47d9-ef91-08df2f946556
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 16:57:31.2551
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iSNt/438MjHkXWDt/LsKC7o3jH5iEUlvrYWnpipPYjEH5Z9za48tITK8l4gmx+TaWfWjybA9m7gPTN6oFuF2xw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB4206
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 10:58:54AM -0500, Frank Li wrote:
-> On Wed, Oct 21, 2026 at 01:22:29PM +0900, Koichiro Den wrote:
-> > A vNTB endpoint can place DMA resources after an MW in the same BAR.
-> > Limit the MW to the advertised boundary so clients cannot overwrite
-> > those resources.
-> >
-> > Advertise this support in LINK_UP, including when DMA is unavailable.
-> > Older endpoints ignore the argument.
-> 
-> if ignore it, any side effect? Does host DMA side use wrong memory region,
-> which actually is not mapped by EP?
+Describe the Kernel Assurance Plane (KAP) design for review, with no code.
 
-None. This only advertises the host's support for MW/DMA BAR sharing.
-Without DMA metadata from the EP, the host does not initialize endpoint DMA.
+Agents and other long-running tasks act on behalf of an objective that a
+user approved. Linux decides whether a task may perform an operation,
+but not whether the operation still belongs to that objective. Seccomp,
+LSM profiles, namespaces and cgroups cannot hold several objectives apart
+inside one environment, or revoke one objective's authority while its
+task runs.
 
-JFTR, this is the case I described in the cover letter, see [1] below:
+KAP introduces objective-scoped authority as a kernel subsystem. The
+document covers Intent Lineage Groups, the authority model and the
+control plane under /sys/kernel/security/kap, where igroups are created
+with mkdir as cgroups are. For each design decision it lists the
+alternatives considered, and it ends with the questions on which
+maintainer feedback is wanted. Code follows once the design has been
+discussed.
 
-  EP                              | Old host     | New host
-  --------------------------------+--------------+----------
-  Old                             | OK           | OK [1]
-  New (dma_bar = -1)              | OK           | OK
-  New (dedicated DMA BAR)         | OK           | OK
-  New (shared MW/DMA BAR)         | Rejected     | OK
+Assisted-by: Claude
+Co-developed-by: HARIHARA SUDHAN. R <harisudhan@armoriq.io>
+Signed-off-by: HARIHARA SUDHAN. R <harisudhan@armoriq.io>
+Assisted-by: Codex
+Signed-off-by: Ketan Bhardwaj <ketan@armoriq.io>
+---
+ Documentation/ABI/testing/securityfs-kap |  99 ++++++++++++
+ Documentation/admin-guide/LSM/index.rst  |   1 +
+ Documentation/security/index.rst         |   1 +
+ Documentation/security/kap.rst           | 191 +++++++++++++++++++++++
+ 4 files changed, 292 insertions(+)
+ create mode 100644 Documentation/ABI/testing/securityfs-kap
+ create mode 100644 Documentation/security/kap.rst
 
-I've retested the [1] case with R-Car S4 just in case ...
+diff --git a/Documentation/ABI/testing/securityfs-kap b/Documentation/ABI/testing/securityfs-kap
+new file mode 100644
+index 00000000..89223a93
+--- /dev/null
++++ b/Documentation/ABI/testing/securityfs-kap
+@@ -0,0 +1,99 @@
++What:		/sys/kernel/security/kap/
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Kernel Assurance Plane control directory in securityfs.
++		The ABI is experimental and intended for RFC review.
++
++What:		/sys/kernel/security/kap/kap.default
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write "open" or "closed". When closed, a task
++		outside the initial PID namespace that is bound to no igroup
++		cannot start a program.
++
++What:		/sys/kernel/security/kap/igroups/
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Directory of Intent Lineage Groups. Create an igroup with
++		mkdir, as a cgroup is created.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.install
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Write the lineage root, authority epoch, optional expiry and
++		transition, and the authority as one key=value document in a
++		single write. The fields commit together or not at all.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.procs
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Write a pid to bind a task to the igroup. Reads return bound
++		pids.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.lineage_root
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the opaque lineage root for the igroup.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.authority_epoch
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the current authority epoch. A lower value is
++		refused. Bound tasks whose recorded epoch is stale fail KAP
++		checks closed.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.authority
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the compiled authority snapshot for the igroup.
++		The RFC prototype accepts a text predicate payload with typed
++		allow and deny arrays.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.expires_at
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write the authority expiry in seconds since the Unix
++		epoch, or 0 for none. An expiry already in the past is
++		refused. Once it passes, every check for the igroup fails
++		closed.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.transition
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Write transition records. Sequence numbers must increase
++		monotonically to prevent replay.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.mode
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read or write igroup mode. Supported values are "enforce" and
++		"revoked". A revoked igroup refuses every operation.
++
++What:		/sys/kernel/security/kap/igroups/<igroup>/kap.events
++Date:		October 2026
++KernelVersion:	RFC
++Contact:	Ketan Bhardwaj <ketan@armoriq.io>
++Description:
++		Read recent KAP decisions as JSON lines.
+diff --git a/Documentation/admin-guide/LSM/index.rst b/Documentation/admin-guide/LSM/index.rst
+index b44ef68f..4a299993 100644
+--- a/Documentation/admin-guide/LSM/index.rst
++++ b/Documentation/admin-guide/LSM/index.rst
+@@ -48,4 +48,5 @@ subdirectories.
+    Yama
+    SafeSetID
+    ipe
++   kap
+    landlock
+diff --git a/Documentation/security/index.rst b/Documentation/security/index.rst
+index 00650dcf..937193b1 100644
+--- a/Documentation/security/index.rst
++++ b/Documentation/security/index.rst
+@@ -18,6 +18,7 @@ Security Documentation
+    siphash
+    tpm/index
+    digsig
++   kap
+    landlock
+    secrets/index
+    ipe
+diff --git a/Documentation/security/kap.rst b/Documentation/security/kap.rst
+new file mode 100644
+index 00000000..43099a5a
+--- /dev/null
++++ b/Documentation/security/kap.rst
+@@ -0,0 +1,191 @@
++.. SPDX-License-Identifier: GPL-2.0
++
++======================
++Kernel Assurance Plane
++======================
++
++Kernel Assurance Plane (KAP) introduces objective-scoped authority as a kernel
++subsystem. Intent Lineage Groups (igroups) are its core kernel object, LSM hooks
++are its enforcement mechanism, and securityfs is its control-plane interface.
++
++This document describes the design for review. It does not add code. It lists
++the alternatives that were considered for each decision and the questions on
++which maintainer feedback is wanted.
++
++Motivation
++==========
++
++A task increasingly runs on behalf of an objective that a user approved, for
++example an AI agent asked to fix a failing test. Over hours it starts programs,
++reads and writes files and opens connections. Linux decides whether the task
++may perform each operation. It does not decide whether the operation still
++belongs to the objective the task was started for.
++
++Existing mechanisms cover parts of this. Seccomp filters syscalls but cannot see
++paths or objectives. LSM profiles, such as AppArmor or SELinux, are attached to
++programs or labels, not to an objective, and cannot be narrowed for one task
++while it runs. Namespaces and cgroups partition resources rather than
++authority. None of them lets several objectives run in one environment, each
++held to its own authority, or fails a task closed the moment its authority is
++revoked.
++
++Model
++=====
++
++``igroup``
++  Intent Lineage Group, the unit KAP enforces. An igroup owns an authority
++  snapshot, a lineage root, the current epoch, an optional expiry, a transition
++  sequence, its bound tasks and an event log. A task is bound by writing its pid
++  to the igroup, and membership follows fork, exec and setns.
++
++``authority snapshot``
++  The predicate set for one igroup epoch, with typed ``allow`` and ``deny``
++  arrays for exec, file, network connect, credential, IPC, namespace,
++  descriptor, procfs, executable memory, BPF, ptrace and io_uring checks. File
++  predicates also govern rename, link, unlink, mkdir, rmdir, mknod, symlink and
++  truncate, so a file cannot be moved into a denied path. A deny wins over an
++  allow, and an operation no predicate allows is refused. The snapshot is
++  compiled once when it is installed.
++
++``epoch``
++  Monotonic authority generation. Installing a higher epoch fails every task
++  still bound to an older one closed from its next check.
++
++``lineage root``
++  Opaque identifier supplied by userspace that ties the installed authority to
++  a committed execution lineage.
++
++The kernel does not parse planning or policy languages. A privileged userspace
++runtime validates those artifacts and installs kernel-ready state. Tasks that
++are bound to no igroup are not affected, and every KAP check returns early for
++them.
++
++Control plane
++=============
++
++KAP state lives under ``/sys/kernel/security/kap``::
++
++  /sys/kernel/security/kap/
++    kap.default
++    igroups/            created with mkdir, as cgroups are
++      <igroup>/
++        kap.install
++        kap.procs
++        kap.lineage_root
++        kap.authority_epoch
++        kap.authority
++        kap.expires_at
++        kap.transition
++        kap.mode
++        kap.events
++        kap.igfd
++
++``kap.default``
++  ``open`` (the default) or ``closed``. When closed, a task outside the initial
++  PID namespace that is bound to no igroup cannot start a program, so a bind
++  that failed cannot leave a workload running without authority.
++
++``kap.install``
++  Write the lineage root, epoch, optional expiry and transition, and the
++  authority as one ``key=value`` document in a single write. They commit
++  together or not at all.
++
++``kap.procs``
++  Write a pid to bind a task to the igroup. Reads return bound pids.
++
++``kap.lineage_root``, ``kap.authority``
++  Read or write the lineage root or the compiled authority snapshot.
++
++``kap.authority_epoch``, ``kap.expires_at``
++  Read or write the epoch, or the expiry in seconds since the Unix epoch (0 for
++  none). A lower epoch, or an expiry already in the past, is refused.
++
++``kap.transition``
++  Write transition records with monotonically increasing sequence numbers.
++
++``kap.mode``
++  ``enforce`` or ``revoked``. A revoked igroup refuses every operation.
++
++``kap.events``
++  Read recent decisions as JSON lines, each with the decision, operation,
++  target, reason, igroup, epoch and lineage root.
++
++``kap.igfd``
++  Reserved for future igroup file descriptors.
++
++Design decisions
++================
++
++Where the control plane lives
++-----------------------------
++
++Igroups are created and destroyed by userspace, so the control plane needs
++directories that userspace can create. securityfs does not allow userspace
++mkdir.
++
++Considered:
++
++* A dedicated filesystem mounted at ``/sys/fs/kap``. This was the v1 interface.
++  It works, but puts security state outside securityfs, where the other LSMs
++  keep theirs.
++* securityfs with control files, for example writing a name to a ``create`` file
++  to make an igroup. This keeps everything in securityfs but replaces mkdir and
++  rmdir with a private protocol that every tool has to learn.
++
++Chosen: a small internal filesystem that the kernel mounts itself and links
++under securityfs, the approach AppArmor uses for policy namespaces
++(``apparmorfs``, linked as ``/sys/kernel/security/apparmor/policy``). Users only
++see paths under securityfs, and an igroup is created with mkdir, the way a
++cgroup is.
++
++Igroups rather than a cgroup controller
++---------------------------------------
++
++Considered: making KAP a cgroup controller, since igroups are created like
++cgroups and follow the process tree.
++
++Chosen: a separate hierarchy. A container usually places all of its tasks in
++one cgroup, while several objectives can run inside it, each needing its own
++authority. Tying authority to resource partitioning would prevent that, and
++authority must also follow setns, which cgroup membership does not.
++
++A static LSM rather than BPF LSM programs
++-----------------------------------------
++
++Considered: implementing the checks as BPF LSM programs.
++
++Chosen: a built-in LSM. Igroup membership, epochs and inheritance across fork,
++exec and setns are kernel object state with fixed semantics that reviewers can
++audit in one place. BPF LSM also needs ``CONFIG_BPF_LSM`` and BTF, which many
++minimal guest kernels used for sandboxed agents do not enable.
++
++Policy stays in userspace
++-------------------------
++
++Considered: parsing a policy language in the kernel.
++
++Chosen: the kernel accepts only a compiled predicate snapshot. Planning,
++policy validation and signature checks stay in privileged userspace, and the
++snapshot is compiled into per-kind pattern sets once at install time.
++
++Questions for maintainers
++=========================
++
++1. Is an internal filesystem linked under securityfs, as AppArmor does,
++   acceptable for a control plane that needs userspace mkdir?
++2. Should igroup removal follow cgroups, with rmdir allowed once no task is
++   bound?
++3. Is a separate igroup hierarchy the right call, or should this be a cgroup
++   controller despite the cases above?
++4. The predicate format is text and experimental. Is a binary format preferred,
++   or reuse of an existing ruleset format such as Landlock's?
++5. The series adds hooks on namespace and io_uring paths that existing LSM
++   hooks do not fully cover. Are those acceptable, or are there existing hooks
++   that should be used instead?
++6. The LSM ID is provisional and should be confirmed.
++
++RFC status
++==========
++
++This interface is experimental. The RFC is intended to make the authority and
++lineage model reviewable, not to freeze the userspace ABI.
 
-Best regards,
-Koichiro Den
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+-- 
+2.51.0
 
-> 
-> Frank
-> 
-> >
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> > Changes since v6:
-> >   - Split from the BAR-sharing patch. (Frank)
-> >   - Advertise MW/DMA BAR boundary support in LINK_UP.
-> >
-> >  drivers/ntb/hw/epf/ntb_hw_epf.c | 46 +++++++++++++++++++++++++++------
-> >  1 file changed, 38 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
-> > index e0016128b95c..56185870cba9 100644
-> > --- a/drivers/ntb/hw/epf/ntb_hw_epf.c
-> > +++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
-> > @@ -382,6 +382,23 @@ static int ntb_epf_mw_to_bar(struct ntb_epf_dev *ndev, int idx)
-> >  	return ndev->barno_map[BAR_MW1 + idx];
-> >  }
-> >
-> > +static resource_size_t ntb_epf_mw_offset(struct ntb_epf_dev *ndev, int idx)
-> > +{
-> > +	return !idx ? readl(ndev->ctrl_reg + NTB_EPF_CTRL(mw1_offset)) : 0;
-> > +}
-> > +
-> > +static resource_size_t ntb_epf_mw_size(struct ntb_epf_dev *ndev, int bar)
-> > +{
-> > +	resource_size_t end;
-> > +
-> > +	end = pci_resource_len(ndev->ntb.pdev, bar);
-> > +	/* The DMA submap offset marks the end of an MW sharing this BAR. */
-> > +	if (ndev->dma.submap.size && ndev->dma.submap.bar == bar)
-> > +		end = min(end, ndev->dma.submap.offset);
-> > +
-> > +	return end;
-> > +}
-> > +
-> >  static int ntb_epf_mw_count(struct ntb_dev *ntb, int pidx)
-> >  {
-> >  	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
-> > @@ -420,7 +437,7 @@ static int ntb_epf_mw_get_align(struct ntb_dev *ntb, int pidx, int idx,
-> >  		*size_align = 1;
-> >
-> >  	if (size_max)
-> > -		*size_max = pci_resource_len(ndev->ntb.pdev, bar);
-> > +		*size_max = ntb_epf_mw_size(ndev, bar);
-> >
-> >  	return 0;
-> >  }
-> > @@ -524,7 +541,8 @@ static int ntb_epf_link_enable(struct ntb_dev *ntb,
-> >  	struct device *dev = ndev->dev;
-> >  	int ret;
-> >
-> > -	ret = ntb_epf_send_command(ndev, EPF_NTB_COMMAND_LINK_UP, 0);
-> > +	ret = ntb_epf_send_command(ndev, EPF_NTB_COMMAND_LINK_UP,
-> > +				   EPF_NTB_LINK_UP_DMA_MW_SUPPORTED);
-> >  	if (ret) {
-> >  		dev_err(dev, "Fail to enable link\n");
-> >  		return ret;
-> > @@ -707,7 +725,7 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
-> >  	if (bar < 0)
-> >  		return bar;
-> >
-> > -	mw_size = pci_resource_len(ntb->pdev, bar);
-> > +	mw_size = ntb_epf_mw_size(ndev, bar);
-> >
-> >  	if (size > mw_size) {
-> >  		dev_err(dev, "Size:%pa is greater than the MW size %pa\n",
-> > @@ -739,21 +757,20 @@ static int ntb_epf_peer_mw_get_addr(struct ntb_dev *ntb, int idx,
-> >  				    phys_addr_t *base, resource_size_t *size)
-> >  {
-> >  	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
-> > -	u32 offset = 0;
-> > +	resource_size_t offset;
-> >  	int bar;
-> >
-> > -	if (idx == 0)
-> > -		offset = readl(ndev->ctrl_reg + NTB_EPF_CTRL(mw1_offset));
-> > -
-> >  	bar = ntb_epf_mw_to_bar(ndev, idx);
-> >  	if (bar < 0)
-> >  		return bar;
-> >
-> > +	offset = ntb_epf_mw_offset(ndev, idx);
-> > +
-> >  	if (base)
-> >  		*base = pci_resource_start(ndev->ntb.pdev, bar) + offset;
-> >
-> >  	if (size)
-> > -		*size = pci_resource_len(ndev->ntb.pdev, bar) - offset;
-> > +		*size = ntb_epf_mw_size(ndev, bar) - offset;
-> >
-> >  	return 0;
-> >  }
-> > @@ -851,6 +868,7 @@ static int ntb_epf_init_dev(struct ntb_epf_dev *ndev)
-> >  {
-> >  	struct device *dev = ndev->dev;
-> >  	int ret;
-> > +	int i;
-> >
-> >  	ndev->mw_count = readl(ndev->ctrl_reg + NTB_EPF_CTRL(num_mws));
-> >  	if (ndev->mw_count > NTB_EPF_MAX_MW_COUNT) {
-> > @@ -862,6 +880,18 @@ static int ntb_epf_init_dev(struct ntb_epf_dev *ndev)
-> >  		dev_err(dev, "Invalid endpoint DMA layout\n");
-> >  		return ret;
-> >  	}
-> > +	if (ndev->dma.submap.size) {
-> > +		for (i = 0; i < ndev->mw_count; i++) {
-> > +			int bar = ntb_epf_mw_to_bar(ndev, i);
-> > +
-> > +			if (bar == ndev->dma.submap.bar &&
-> > +			    ntb_epf_mw_size(ndev, bar) <=
-> > +			    ntb_epf_mw_offset(ndev, i)) {
-> > +				dev_err(dev, "Invalid DMA/MW boundary\n");
-> > +				return -EINVAL;
-> > +			}
-> > +		}
-> > +	}
-> >
-> >  	/* One Link interrupt and rest doorbell interrupt */
-> >  	ret = ntb_epf_init_isr(ndev, NTB_EPF_MIN_DB_COUNT + 1,
-> > --
-> > 2.54.0
-> >
