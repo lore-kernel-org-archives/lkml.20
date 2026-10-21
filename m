@@ -1,86 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.61.82.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588169;
-	b=Jj9JiYjkXADRf+Y0p1iYRTCcaFFmC11lStUWiYQoFkkf4oHtKxePGLGOpS1l+V0ZQ0X5
-	 RvvADKq8ve3S59d9ZZo1nprxY+BUUMhVEnQFTCArIgbmNudCbFhwwWzsS0Wb6LDWlP43O
-	 GBxMU1JNxPchhk3L4HeM0FTEGvW7CPZY2Q/4JpPdr9K8fvY8ZXapWQOrpcu0cXyTaxD3V
-	 O11Sy5y5glurrwgeIOU4x3gLJD5YoXLshyrNAQtUqySzs9cmEk82uDk1wywbBDMfhZgvI
-	 8P1uwbEmPkIiMs0Q/AbO36dQlIk9Gx5mzX2aD6ctnbsP4Z2GhHWqi2OdtZh9G+dcC+A==
+	t=1792588187;
+	b=A0QSnwbH87zR6b88BA7iSnVbmGBRtKcXIpb9Wo3HJaktPrDJuebyLAnfVq7oRAfFW/5B
+	 38YChJNPK9TtYqvwBNTJBIBrT84puXyL6v7iuMWgVBjqm9zB6RKPwEKXGHg2+K00hYIH4
+	 IrN9kcDq2ZoqEUW03DTW046FxZoMbiqB6EZQS0THnMuFA5WGPCPNX9WB18MJCVIOOHxlj
+	 Z7d24GSrT4JHkEQXO/xhgGd47nndWGTBDUng9nJgL21027dw7zDvEcQlv6RtmvtAOc/ol
+	 A7DuDaZBGxs3HJ/ndvdXwlSM1/g9U0S/UBTFxEGQKgu9SgsiEZFSAM/153b6yZFwxRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588169;
-	h=DMARC-Filter:X-UUID:DKIM-Signature:X-CID-P-RULE:X-CID-O-INFO:
-	 X-CID-META:X-CID-BVR:X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:Received:
-	 Received:Received:Message-ID:Subject:From:To:CC:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-MTK;
-	bh=ALjN0/QTvgvP/A3smoh4RmmzgPoOEfQg0Vc73ChwCI4=;
-	b=JevbG7aBhAfRrJmBSHMJIPP6CK9Zh0WYNu1XsuN2EWOkvqBVtQvc5hKH0F11uXlleMYa
-	 RiMtXekS96D0nt0/kMFoGo8jOgt6eoOyi54prHb9NGWB7BI14M/vGrheek/8vUc9IHIPA
-	 Me9giTsoF+6CQC0/HuOeN/2TqZ8fVbkQFv+ZOeL3Wv4AxYXc0zRq3rfUscHa6wdD55VKW
-	 Civ85icLwRSaJ/T5v1L1g3kQsqXusT3zA419Mwtv2a48O4uW9zWQSZeVeG8+4HC1ijU5v
-	 5X5pqUzwpBsui8Z6E6r/HMTXCQbNRuseKelqJHXnDN6dbOwrJnhnokfmyNmeEwPEWQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588187;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Q08y28kaRtiqf3uk8BV+2BQPytUqi6HBvnka7EjTRCE=;
+	b=Y6G52OUSEIc+eA0d/USy+mBfzGlrScVXmyn/x7qvkJaRvnhbub4/lbiK700nBC4VbY67
+	 lzcih/qPz8QjqWmBjmAFQWWFfLN5JERGBKNBdN0pFWCn4b9+C/IuQLH77DXwjafgGM0GU
+	 mlp9QbcaGGjgDb9W1WwGx9rSO+KS6RgarxQ1NM6uB7LS0oQo2NqY7f74OCeqbF+CUEZmn
+	 6bwxOKd4EdzL3+OT9wcqkeueqtVCXHYHqH1dPlwWiggJI3r+svCOzYmH14aWp/dQ+20Nk
+	 dNvB1UOxIcB3qI+z4lNY3DYJqWR27T98t7zDnuTUQDbAlJi0D6etoqRFIXTv3KPTMSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mediatek.com;
-	spf=pass smtp.mailfrom=mediatek.com;
-	dkim=pass header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Px0BUNR7;
-	arc=none smtp.remote-ip=210.61.82.184
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fzRM6wbX;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C88606A319;
-	Wed, 21 Oct 2026 13:09:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43C88606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA49606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:09:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBA49606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=Px0BUNR7
-X-UUID: a278e58ecd5011f18dc8c9802ae25ab1-20261021
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=MIME-Version:Content-Transfer-Encoding:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID; bh=ALjN0/QTvgvP/A3smoh4RmmzgPoOEfQg0Vc73ChwCI4=;
-	b=Px0BUNR7x6qemFCfx7Drk54vRMD1SMuwShpZPYWtzhUyCq4Hm93hSJOQ7TBUXKtNPm1KS0OFI7HZcJqk2pIiNKqBhsEch9hb2UNNxMOxTnaJOuoJkV3uGvskF9pzZFL3PLkS3PP6QGoiL87Q7scBW5QpBT1dFN1pEdAWXmk9E0c=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.20,REQID:c5739957-0aed-46a8-ab76-6c7d912dd19a,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:291e20b,CLOUDID:7ab846ce-02bc-447e-ab88-2baec399874a,B
-	ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|836|865|888|898,TC:-5,Content:
-	0|15|50|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,
-	OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: a278e58ecd5011f18dc8c9802ae25ab1-20261021
-Received: from mtkmbs10n2.mediatek.inc [(172.21.101.183)] by mailgw02.mediatek.com
-	(envelope-from <peter.wang@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1737463512; Wed, 21 Oct 2026 21:09:23 +0800
-Received: from mtkmbs13n1.mediatek.inc (172.21.101.193) by
- MTKMBS14N1.mediatek.inc (172.21.101.75) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 21 Oct 2026 21:09:21 +0800
-Received: from [10.233.130.16] (10.233.130.16) by mtkmbs13n1.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.2.2562.29 via Frontend
- Transport; Wed, 21 Oct 2026 21:09:21 +0800
-Message-ID: <70cc95fb8f1ad9a855015377b7e100d02ab7a589.camel@mediatek.com>
-Subject: Re: [PATCH v4 4/6] scsi: ufs: core: Fix double release in
- ufshcd_eh_timed_out()
-From: Peter Wang <peter.wang@mediatek.com>
-To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
-	<mkp@kernel.org>, <linux-scsi@vger.kernel.org>
-CC: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, "Bart
- Van Assche" <bvanassche@acm.org>, Alim Akhtar <alim.akhtar@samsung.com>, Bean
- Huo <beanhuo@micron.com>, Can Guo <can.guo@oss.qualcomm.com>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Date: Wed, 21 Oct 2026 21:09:21 +0800
-In-Reply-To: <20261021040615.3566831-2-stanleyjhu@google.com>
-References: <20261021035450.3488805-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-1-stanleyjhu@google.com>
-	 <20261021040615.3566831-2-stanleyjhu@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fzRM6wbX
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48dee593f18so573914f8f.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:09:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792588185; x=1793192985; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q08y28kaRtiqf3uk8BV+2BQPytUqi6HBvnka7EjTRCE=;
+        b=fzRM6wbXaiaCzuT+9CevqVF20mKC2vooPhqvxyiZocf4ThKWiQiRWxjmNirvf5znqh
+         mazbzo0FJ32fDAxyn6hmY1+afGgeMK92SL7paM8gSHU0Lx9uXZdVYd38TcmLINfQgrhL
+         eJ5xUSe9anfkMVU/VhKhNb1cw3OA7/ZgP5BeCdz8oPO2QUprkgCmiMboKpGWyiSBvd8F
+         +JGbsrRPMzRKeMCMw10vQubojtNALkApJugc/cUH6zKi7Y4f1e0Y3g2PIWZ9OW0y7B+1
+         03LjhnuQp5wlahzUCboYBZ5rhdYzoZ6G8gwSPOdHwaKWxScCjwVHQjx90N4kl8NYmrKs
+         390Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792588185; x=1793192985;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Q08y28kaRtiqf3uk8BV+2BQPytUqi6HBvnka7EjTRCE=;
+        b=tfMUOwIwmVBEBXlOa8+7mpv16sNTuMghG0TyQg5vEey9+AaR3XHLDDOArGUTk36bby
+         sBs6cLTbmsexW1omVmxsW+x3pZCo0kJVesY29GkVfh5Rk0rvR+oFplRdmJEaZJWcjH6k
+         3JZpad+Iq88Gs0Vee1H717TYQ92PsXloYOSVoUgiH84u7L1j37VE1SxNf8NpAqqbLURw
+         VE1C15uh4sw8bnjZCi7vanyz4ekFgj71hIonOFrM7gVR0aU+/z46fs4utLnRjQcQgcIu
+         VACnLAjjspB4HgUcRmzJkoLrNXZ6aGTnT8m1ygph/EeiTgSsuPD3xhj8E2Zd+0fSsY4N
+         T66w==
+X-Forwarded-Encrypted: i=1; AKwUvBze0IseUeSg2oolN9qsisapVuD6fVyfRT2gkpBN5xOpukvQ+NAkN4xiu1Yc71RulJpUDdXUIrFBLHNy34s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRZS4Q+/9cpj6aPiJuVO9/nxtL6Qhux7Us8vQU/SvvZCktsP+o
+	CbY+4dSMoc0+VLsYIGTNtmvqfpmqVkTbgOByav+3Zvct9Hb+uGIUocCY
+X-Gm-Gg: AYBFou2uZoVU0vRQHAsPQ6KPeEhyDXNJk2/MRQN0iEqujywxl1x+cXxQ3oYnAyZxyEZ
+	Tt1CtWioTDnp8A8esN1BFvCc8g9blumj7YG/8+wxMCV6EdKL4/GULgscV8+vcRqhoCo4yun4EgY
+	6L5FrlVCHLkHOHMgOXI1ZwD5F+WQl7WrpU2dCys48YlHiL+wCV4ULMX9E/sB5aMT2Tq8JwQggC9
+	JD6vogeHl9n8huT2a9b7/4OskchZkU1OHxqo5ZvGOMlTAelCYhKR5C2gMwKfxghwASqPqkc53Gx
+	hZf6Qf587RrLb99/r2ff+unb1vj/dlxQF7MvxNp7W0FsmwM6BF09qZ81rtmfIF5YfQJ/cZNMSy2
+	kzXIksQpaPngIhDUQGxtoaIXapX80373LI0Oy2wsvmDuNCTdBvro3/ZzG29I9mcj7etAOjoLCiM
+	fRcKiiNdqOWmPK0Ccv1I6egMNrXC7hBWiTURp3fyXpqc8/csD24D6/hBe51Ii72GFVRb8W6VD9B
+	zE7YqZvICn1Tvuu4Hk5vjjN/a8Ei0hp4T1jnrjrHE1SdWxPDgJFdQ==
+X-Received: by 2002:a05:6000:15c8:b0:48d:f3f8:f910 with SMTP id ffacd0b85a97d-48e264ca949mr2913670f8f.34.1792588184900;
+        Wed, 21 Oct 2026 06:09:44 -0700 (PDT)
+Received: from localhost ([2a02:8308:b092:fd00:d28d:9c92:be85:1c3a])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25828cd1sm5360894f8f.22.2026.10.21.06.09.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 06:09:44 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:09:43 +0200
+From: Jan Remes <ciakval@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, martin.triska@mycroftmind.com,
+	Jan Remes <jan.remes@mycroftmind.com>
+Subject: Re: [PATCH v2 0/4] iio: light: tsl2591: fix lux calculation and
+ precision, add I2C ID table, report saturation
+Message-ID: <ati5lzd2KotvmMC6@mm-ntb-00805>
+Mail-Followup-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, martin.triska@mycroftmind.com,
+	Jan Remes <jan.remes@mycroftmind.com>
+References: <20261014141650.259929-1-ciakval@gmail.com>
+ <atEdM6wi_FAGFjrr@ashevche-desk.local>
+ <20261017031411.05dee323@jic23-hlaptop>
+ <atXSBHbOPYYltHUW@mm-ntb-00805>
+ <atXZwm5DzCK8S0_K@ashevche-desk.local>
+ <atdRJ3JqAyGWOnxf@mm-ntb-00805>
+ <athxOKkugAYL62F9@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,33 +115,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MTK: N
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <athxOKkugAYL62F9@ashevche-desk.local>
 
-On Wed, 2026-10-21 at 12:06 +0800, Stanley Jhu wrote:
-> In SDB mode, a command that times out during a power management
-> operation can be released twice:
->=20
-> 1. The command times out while its normal completion is running.
-> 2. The completion path clears BIT(rq->tag) in hba->outstanding_reqs
-> and
-> =C2=A0=C2=A0 releases the command. It has not called scsi_done() yet, so
-> =C2=A0=C2=A0 SCMD_STATE_COMPLETE is still clear.
-> 3. ufshcd_eh_timed_out() recovers the link, sees SCMD_STATE_COMPLETE
-> =C2=A0=C2=A0 clear, clears BIT(rq->tag) in hba->outstanding_reqs without
-> checking
-> =C2=A0=C2=A0 whether it was still set, and releases the same command a se=
-cond
-> =C2=A0=C2=A0 time.
->=20
-> Return SCSI_EH_DONE when ufshcd_clear_outstanding_reqs() returns 0,
-> as
-> another path has already claimed the command.
->=20
-> Fixes: 01d5e237b339 ("scsi: ufs: core: Handle PM commands timeout
-> before SCSI EH")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
-> ---
+On Wed, 21 Oct 2026 11:00:56 +0300, Andy Shevchenko wrote:
+>
+> On Tue, Oct 20, 2026 at 01:31:51PM +0200, Jan Remes wrote:
+> > On Mon, 19 Oct 2026 11:50:10 +0300, Andy Shevchenko wrote:
+> > > On Mon, Oct 19, 2026 at 10:17:08AM +0200, Jan Remes wrote:
+> > > > On Sat, 17 Oct 2026 03:14:11 +0100, Jonathan Cameron wrote:
+>
+> ...
+>
+> > > > FWIW, I don't think it to be very urgent, as people probably don't use
+> > > > it on x86-64 (seeing both as it had only DT probe support and that
+> > > > impacted users are likely to have noticed the oops).
+> > >
+> > > What do you mean by the second part of the sentence? It's as easy to use on
+> > > ACPI platforms as on DT, we have so nice trick called PRP0001, which allows to
+> > > enumerate "OF-only" drivers on ACPI platforms via SSDT overlays (or other means
+> > > of DSDT/SSDT provisioning).
+>
+> > I did not know about the PRP0001 (thanks), so please disregard that
+> > argument. Still, I believe x86 users to be few if any, since the oops is
+> > quite easy to trigger
+>
+> True.
+>
+> > and AFAIK most x86 distro kernels ship without CONFIG_OF.
+>
+> How is this relevant? This driver doesn't use any #ifdef CONFIG_OF or alike,
+> so most likely the driver is available for x86 as well.
 
-Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+I thought that CONFIG_OF was needed in order to be able to probe a
+device using the driver's OF table. TIL that missing CONFIG_OF prevents
+only manual probing (`echo "tsl2519 0x29" > .../new_device`) but not the
+ACPI mechanism.
 
+So:
+  1. Please ignore that argument
+  2. The wording of my Patch 2 commit message is not correct ("cannot
+     be probed on a kernel with CONFIG_OF disabled"), I can send a v3
+     if that's preferable.
+
+Thanks for getting me to learn a bit more.
+
+Best regards,
+  Jan Remes
