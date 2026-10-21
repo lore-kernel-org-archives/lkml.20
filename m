@@ -1,42 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792612537;
-	b=lCduZc+3e95PowFqVS+DyEj14RSVQgf6kQwh2aEAWXu7U/nk4Pic2goPQvv1NdG3Bg7E
-	 KFgrLYMKm5HnH5HUBvdfHsRlhoIWTKC6ueB+jao697ZHtB3Yxwi2fUOFg8VBH7qiVRLEC
-	 9cbxgMY6p0oD3xzWaEtH1NdsdZq9zA+V2oLGPkOS6+59nsIJxqDF/Sh7JTvmR3XHfRktC
-	 MyWfheP852XBQdrE0uAqh84tQln+HKA9VNlMHfrxS9HeIstuvx7bW7bSAJWk4veu6etbK
-	 10ICX0cTk9Yx0cCIw5SPgZU7CW14IR69tku2xrHvtqSroJcOVR3NNZLlfU1vGX3AcKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792612537;
-	h=DMARC-Filter:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=QShVkM2LJ8JPti4P3lg9N2gtK9rDsPbvy7dUhJpdWr4=;
-	b=Z8VjET4K8Q9GAqBj0a5kyBbBbXIjzpRP3F8s0CwiL9mSxycMBVh57A88QyG/0iyrk3I1
-	 2qq0hA6PuusCFChmVabr7AZ3KvtvxW5x3jfOkRloUqiXhwaNqTUVAae9yp1LN9FPqfKYg
-	 Q9OdSh7RULllrfJP0c3xrZFcd3cOzjWkbY9HKZF1CtmeFfn1ffLRgT7FF6ppQ0DszxtQx
-	 E6PTPpKxQhFN2swoon0S5LgVnR78WMyAfKX6ssIZXQT/x2u1izenzHgSB++juJa0TJcBy
-	 TiT2G0tnDWQF0BZVho3azEUNXFowlkPqRfGIsYNl+vJmOhLViqUXWzu1VnQ03zmz+hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792612595;
+	b=PIr/GrcGq/5Ump5BeGJkLeEQbGfsc54pKJ+OYpDIZtsjbunFEF3yuqgXmsay7F5fX5ua
+	 8uwuUcvcYomlY/SXZHMDSmEBbJmIP/vp/XDgmq7/1lthplrLW2mAAlOPrvYILqrs/NyFk
+	 Numf+fNyirlnoUjGovl8R7yX9pDM2PZhf2vdnf0B0/08CB9mnCOIkNChTUbWz69EAp8Sa
+	 0lPU3X8YYewlCX972c1zGFG/149gEe7uxAUmIRJVb1z3S/hMFZ3Bpb2dpFhE1w3OyZiaj
+	 TtTjQrIaaAKpHFn2rYMWOItAXDutWpW/0E8XdSY+BJfVRWHXzj/coYUQXKEiO1Jcx0w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792612595;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=hADXUFWM6q3PB+qGNm2SKwpnCLeJXT+MJ9DOT856AMI=;
+	b=KxVYEoL9k0x+mtmZMF8vpR+aSvggG11et2rDNISqsGhuzvyWkvIvqlT0YWoUOgsD7ppC
+	 FRXq5oLJaWwswESAvrjkOEuNBxbVDzZm8C/FHejI2LoJ0N0MSaAYyNdMRPT3SdRzM7z95
+	 rRToSl1c06VtqQjuPj3N7TwdHXV52nge5Nw0RmEHYMyGkLZV3WPUdfNA6PCHcUI5t7V02
+	 5jBqxkjEp6NMMSv9Acb1rxLrfaElQXrCgyICbPFqG7cEomkb1vIYS+6mf9yYhv6RefH39
+	 Zebb4lqn/9smBlFdbr/zEE2VaEE42DNWgRydAp315i/fVasPpAH5b8Z5Z3ntPWaZ1fQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMFR0P7p;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5030606A31B;
+	Wed, 21 Oct 2026 19:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMFR0P7p
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792612594;
+	b=IRAP1894uSmTQ1AP6gLEHh2ip4F3PUxg/AP8+wFlKb25Qe6ZHLxbwFLjO+81AjCcEw2H
+	 H3uxr9iwk7CdK75o/lTvU1eIN+8hfR2PRJWbj6k0PHBAzMKpsy7NXX4eT/PaOlJhrd/uL
+	 NJ9zERbjoxthPwfVdgHGMhgRZf17p8p9CITLBB3Q17YCNc+9EdWUEinnFe3SpS8qyjojT
+	 SWkONZHcoduuGE2pNhH/RaDauH2uVxfgGVbmV/XOVGwzcAm40U259VHe2prHSmr2+Btye
+	 29Zy0CSllYMCTLj5aTY8bWQMEPNnPg8a77ErXUeEXKOIvT+4xEf++MJSzKbug6r0QRQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792612594;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=hADXUFWM6q3PB+qGNm2SKwpnCLeJXT+MJ9DOT856AMI=;
+	b=2oxsJnNE+CbeGv5oqHXjDmmdqWOSpvZXEvrcQB5wj3nuZAy03w9x1UYPXah/A+F+8ziV
+	 iLDUC2r7/gAqBGsv4LnKOt8og2/yfLIIVZxkItlJN6vCJBWZn1vWKDjUxC3a1YVBaihJV
+	 wBOVqQroi5keHjo2tW7oYmroFTcKGA7/xy3d4ifsr4Gf0Bajw0IG4RnCr+BkdQkuCuI2K
+	 cnyHXA92F2sNIrmk7VXFVJuiZMiZi22YjBGmsGB5MUecHYiMzULSmPXBZrRzFo56PO9w7
+	 tcX6rFU6hsDvXmfHdMk6I1P3D/liEIpYczmaZoy+WGhZZWed0guocmmcz/x6UJ1/pOw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F11606A320;
-	Wed, 21 Oct 2026 19:55:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0F11606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from [127.0.1.1] (unknown [223.166.93.48])
-	by APP-03 (Coremail) with SMTP id rQCowAB3gT_6Ftlqxu5hCw--.4480S13;
-	Thu, 22 Oct 2026 03:48:23 +0800 (CST)
-From: Han Gao <gaohan@iscas.ac.cn>
-Date: Thu, 22 Oct 2026 03:48:19 +0800
-Subject: [PATCH 11/18] dt-bindings: riscv: add Melon Pi V1 and V2
+	by smtp.kernel.org (Postfix) with ESMTPS id 4551E1F000C4;
+	Wed, 21 Oct 2026 19:56:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792612594;
+	bh=hADXUFWM6q3PB+qGNm2SKwpnCLeJXT+MJ9DOT856AMI=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=LMFR0P7pdpYslPQS3/CN2h4Aa7ZgHjGYffRPnU3AVAPHVG6J8+nqWAZabP+EdrMDY
+	 +UogH3NuoH7alO9sNfuXNn+QqKCR1cc9V/KSQtDOil5iGENGUFg9ViJpt9PCAJdhEY
+	 csuNrALA7eSR5QRUDaPpiu2FhH/40OLiTrXBTnxgWJNUjLxvk9lUuLLtaPzMI3YrIx
+	 CkCwzemxPslr7GkI492rlPIenmjLaS8s2ABq9cOB268WWXGYzCzK3/Nbpi/aFH2Yoa
+	 ME1Lg9UIQfXr0x01yzuM0yk4rzXXwa9+vlexjTZHXI3aT2qVoSg8PlvbxBC/MX10Dq
+	 SfIMp1ujZ+P/Q==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9A6CD4342E;
+	Wed, 21 Oct 2026 19:56:33 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH v2 0/2] Add Altera timeout bridge driver
+Date: Wed, 21 Oct 2026 19:56:22 +0000
+Message-Id: <20261021-feature-timeout-ip-v2-0-a037be089518@bruker.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,92 +85,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-a210-init-v1-11-09fb4d99da65@iscas.ac.cn>
-References: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
-In-Reply-To: <20261022-a210-init-v1-0-09fb4d99da65@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAOYY2WoC/32NSw6CQBAFr0J6bZv5RD6uvIdhMTKNdAwM6RmIh
+ nB3Rw7gsip59TaIJEwRrsUGQitHDlMGcyqgG9z0JGSfGYwypVbKYk8uLUKYeKSwJOQZK9fY0ip
+ PpmkgD2ehnt9H9N5mHjimIJ/jY9U/+ze3alRY17bqrNb+UunbQ5YXybkLI7T7vn8BQBCvHrUAA
+ AA=
+X-Change-ID: 20261003-feature-timeout-ip-7a93630de299
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Radu Rendec <radu@rendec.net>, Samuel Holland <samuel.holland@sifive.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Anup Patel <anup@brainfault.org>, Icenowy Zheng <uwu@icenowy.me>, 
- Drew Fustini <fustini@kernel.org>
+ Conor Dooley <conor+dt@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-gpio@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Han Gao <gaohan@iscas.ac.cn>
-X-Mailer: b4 0.16.0
-X-CM-TRANSID:rQCowAB3gT_6Ftlqxu5hCw--.4480S13
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw13urWrAry3uw18Zr1rtFb_yoW8Gr1xpF
-	s3GFy3JF4xGF17Ww4SyF10kF4Yqr95CF15KFZru3srG3yDGasYvwsIk34jv3W8JF4kGFW7
-	ua4UWrWUKr40y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUml14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
-	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
-	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
-	4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4U
-	JVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx
-	0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWU
-	JVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxV
-	A2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC
-	6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
-	C2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_
-	Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r
-	1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4U
-	JbIYCTnIWIevJa73UjIFyTuYvjTR_nYFDUUUU
-X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiBwYHDGrYyeCSrgAAst
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792612593; l=1633;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=lJpE9cg9IeF8aoZNz2dghC01UkZXyo/mx2Fv4BVXTmM=;
+ b=mvdsBBK4Y0BRMscdKiQHNacZqHp2e2B7AQX5fNUTRjVNztMVx8qxWyem8xDTUhj9mCAP49FEy
+ fxWXBrBEl9EASbdoZfK7TYEvdASSYTiSUHrVwT9TJ9PlQCzGkFqxWAI
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-From: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
+This series adds support for the Altera's AXI Timeout Bridge IP. 
 
-Add bindings for Melon Pi V1 and V2 with the A210 module. V3 uses the
-same board compatible as V2.
+The timeout bridge connects an Axi bus to the HPS and provides a
+downstream address space for devices implemented in the FPGA. The
+bridge also exposes status information and generates an interrupt when
+a timeout occurs.
 
-Signed-off-by: Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
-Co-developed-by: Han Gao <gaohan@iscas.ac.cn>
-Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+The driver registers the timeout bridge as a bus and allows child
+devices behind the bridge to be described as the child nodes in the
+device tree.
+
+The latest bridge documentation (as of October 2026):
+https://docs.altera.com/r/docs/683609/26.1/quartus-prime-pro-edition-user-guide/axi-timeout-bridge-ip
+
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 ---
- Documentation/devicetree/bindings/riscv/zhihe.yaml | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Changes in v2:
+- Address review notes
+- Simplify error handling
+- Provide better description for DT Schema
+- Link to v1: https://lore.kernel.org/r/20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com
 
-diff --git a/Documentation/devicetree/bindings/riscv/zhihe.yaml b/Documentation/devicetree/bindings/riscv/zhihe.yaml
-new file mode 100644
-index 000000000000..92ac0a99a687
---- /dev/null
-+++ b/Documentation/devicetree/bindings/riscv/zhihe.yaml
-@@ -0,0 +1,27 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/riscv/zhihe.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ZhiHe SoC-based boards
-+
-+maintainers:
-+  - Zhiguo Zhu <zhiguo.zhu@linux.alibaba.com>
-+
-+properties:
-+  $nodename:
-+    const: '/'
-+  compatible:
-+    oneOf:
-+      - description: Melon Pi V1 and V2 with the A210 SODIMM module
-+        items:
-+          - enum:
-+              - zhihe,a210-melonpi-v1
-+              - zhihe,a210-melonpi-v2
-+          - const: zhihe,a210-som
-+          - const: zhihe,a210
-+
-+additionalProperties: true
-+
-+...
+---
+Vyacheslav Yurkov (2):
+      dt-bindings: bus: Add Altera AXI Timeout Bridge
+      bus: Add Altera AXI Timeout Bridge driver
 
+ .../ABI/testing/sysfs-driver-altera-timeout-bridge |  21 +++
+ .../bindings/bus/altr,axi-timeout-bridge-1.0.yaml  |  80 ++++++++++
+ MAINTAINERS                                        |   7 +
+ drivers/bus/Kconfig                                |   9 ++
+ drivers/bus/Makefile                               |   1 +
+ drivers/bus/altera-timeout-bridge.c                | 173 +++++++++++++++++++++
+ 6 files changed, 291 insertions(+)
+---
+base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+change-id: 20261003-feature-timeout-ip-7a93630de299
+
+Best regards,
 -- 
-2.55.0
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+
 
