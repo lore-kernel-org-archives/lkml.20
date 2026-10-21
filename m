@@ -1,55 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792626078;
-	b=r/EPzO9jAsJB0shJLIolTxZpY+8KFJh8GoFFlSmojbKOH2XP+pQoaHzc5aD4uELaPAm+
-	 0VTCVfeEErQdO9wXMFDRTJWnxsCdhgm5ya8X3z8WlD/LAkc69cuPQnDbC1huuP2uerHt0
-	 VU8x6iSVZmKtvVQ9YzaUXTQUfL3WTUaLXcsOKBJHCEl8h1jTpPV4YhLBi2XnmtI1ASrVb
-	 GFQXH/YrDacItzI0y3cCIOtKTKG9+DRNJIo/LutAypvk5vXeEZIANgNvkcytbVX2sA4VG
-	 BHrQz8XmrN2yts8fTzZlgK7xCIQmrutBtLXvH1z6/WFlRNTsIxE7qhCl3aVAbORxvjQ==
+	t=1792626094;
+	b=W1MzQ8aOkn6mlV1vO2jXniRPRjB6ugxUl+i7GGES5n90/yGTTncRNfq42pHbUL5A2pC4
+	 2zgqLbTud2YB62IqnpYidRl//0Xxwi6RO5xDG6aVvnCB/0u96GAoD3phfn54Huaz47QSg
+	 1ZEAebaUF1Q1Tz1YkUMZSUE/aZWYE6p+en4QjaSLI+XjChrYdKzLEqib6EI1ex6zz6/Hi
+	 Qj2DK0kQh0iwX6wDdLqnu9kdVCFcNTvAFn9vMgnNXEikhfzqKleLYlJNRO3SlDe+ikkMi
+	 bxQQdj1lfJo15bEgE91GSbf22VYr03CVCbTT1T4SYl1Z3YqpMEYkF4U+DSsB/K3DpPg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792626078;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=J4DhFTEeDoKbntxLITsLWIvgLd3FXN6aVEqXjdkWZdA=;
-	b=29H1C5Sj/fs/+q0qmVt7QNGy0oxrc1juEwsK7URGJSvVNiZ9kvSKBGD2TU8jvq72q3pr
-	 oAD7loSaP6coLQIxSTd6Z0dbq906b86r4vGWjXWYNWQZjnHpTVWJQ/SeAVxE9t2OBd24D
-	 ElmpbhON5bWjA35xoIMAMpYaQOK4cnRLBze9GYutb845bFf50QK9ybtPi41VA8F7Y+SrT
-	 CNp9EI23iVszkzDCFLmgG/36YvwAN5MHWqme3n048GTHLT3hJJgivEI4FwcAjijr8+doD
-	 Lt11dyramvBRcoIHNbaXnja2TxmaMYzy6sbbpJPhuKC05PBGJ8JQ+WwD3i/QgUQLqJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792626094;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=9JQopFvN4rZM9m2R9xwMR2uSxRVpYkQzXBI5laTN/EA=;
+	b=hb49ymRIyOxtEEPUFVY53mjReiEy9s1vsx1KDnM+stZA993VcQT72hg5zRfEitMCqPG3
+	 GEKeS/5KrwOeFdBdTkJRBZ2+R5haIpy9jwSyJZQsJkkM8HuTO0DCzcO8n4OoXcM7cZ3Xg
+	 jFvPycGb0KYVzk0FywIECcSnke33BHZdkV4Nqa4SOvnUDFfrSlSGvVTvEMp5ZqL6HfDLQ
+	 iQcJtlEWJwuRKXQzmhcTOaQ8bvTPWzTIBW0zOeSyhSo7BJx7BhOQVPJKrmRAzerk/5r/B
+	 rUYLjd8UBTr4tNBpOaUxN/M5iXsLWImBzlIDnH8yAFwaexHpqWqonm/5ZCJFxiAETRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D1llVcx/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZO1541My;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB754606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:41:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7046606A319;
+	Wed, 21 Oct 2026 23:41:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7046606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D1llVcx/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548B01F000C3
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:41:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792626077;
-	bh=J4DhFTEeDoKbntxLITsLWIvgLd3FXN6aVEqXjdkWZdA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=D1llVcx/Wcx2gxACxf6PGWvV4TKxazaq4Q3KGU6h4AZUmyGDLgr1XhGcuLAN8UDtF
-	 ds97t3PfI79HGI/CpZotBeWlUyaPy5sYWX+4YbDhQ6knZLFpLKG0GTdy1hj0kW7QfC
-	 zHaCd4xsoKRkjww2W1UASPu8Vpwr3j9QQphByjXjMOm9LeDq46blt1y4eyvPJTfIxl
-	 nPPOCcOWt/D5lR77swScRX+J1VQNYhdZddlBq96h846cZ0fTwnGY7ja+x9/BgVgmEY
-	 Zf0ctifTnhFFcvOyVY+1kNPzOE0WQ0QAU90vZ1FfunNlrQyobbIHfYIDgddnh95OkA
-	 3cp7cfs1mbd/w==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be53e5fce1so1168868e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:41:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy3ROIvE7Ox5rTIlRrZYliqDQKWgbBYLA+9IVMTOgRqImVElTVR3n2FP1CB7rS5oT0vBtlEw4dfsgSfO34=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7sX6h7JirNoL/gdz/8rfDjbpZsJ/c0BEtUpYHF0oyay4U2DJF
-	tA6BCvLzzj1eJw2bLByNQwy99ABHRziobxgy36u36fFnNa73u+Yr2pWL56blXDJAB7PSdIgbDYP
-	2yvXpbdX2KAAaxwAa3/N0Q4m9oGh9FKU=
-X-Received: by 2002:a05:6512:3e0e:b0:5bf:7c40:d086 with SMTP id
- 2adb3069b0e04-5bfa1b96422mr1376212e87.8.1792626076140; Wed, 21 Oct 2026
- 16:41:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=ZO1541My
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=9JQopFvN4rZM9m2R9xwMR2uSxRVpYkQzXBI5laTN/EA=; b=ZO1541MyYrXR3d0HCh70sL9Ag7
+	j/PhX+nX6HnRL8ZvYOEGqdz6bPBm/o5ZsGQu5zHF+xJzERtSqE2HCBWlA5v5Qq0fpWXRUpvWGy8+w
+	lXGsMQQt7FRfle6OR30DQWCKLJqrC7nAtaNC402UoGK92qFxfI06uiWF46za9XIVo5tZBfZnzNDBW
+	AtGXnDs/55I/lHDPgGJT/qICvJlWbIEcC/BNxJHTJ2bAhC4Wgq9iycKfud/IKuljYM6U3WMiC62Pu
+	NlYyClYihgUmWe2il+mRcEp7dSzIRsFsI46PbumUAQuMyYM2jpgEbZZZu6rtoE9yLNYiW30/ugday
+	0EddCK0A==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJfw1-0000000D3IN-0kSw;
+	Wed, 21 Oct 2026 23:41:29 +0000
+Message-ID: <db4e46a6-1788-44a3-a3ab-4fded03591d7@infradead.org>
+Date: Wed, 21 Oct 2026 16:41:27 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,49 +58,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021121245.3111563-1-lee@kernel.org> <20261021121245.3111563-23-lee@kernel.org>
-In-Reply-To: <20261021121245.3111563-23-lee@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 22 Oct 2026 01:41:03 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmLOP+5ef-iLvfzc_7RCD9+qMsRgX4ngD1=tiafBw_3qw@mail.gmail.com>
-X-Gm-Features: AclHuK8pfYXRmoE4oCo4fv8YhwqKRNMvuqICl15jr0fU6UsmfMQ7frp0R1kJ7GI
-Message-ID: <CAD++jLmLOP+5ef-iLvfzc_7RCD9+qMsRgX4ngD1=tiafBw_3qw@mail.gmail.com>
-Subject: Re: [PATCH 23/28] mfd: ab8500-core: Register sysfs attribute groups
- via devm_device_add_group()
-To: Lee Jones <lee@kernel.org>
-Cc: Srinidhi Kasagar <srinidhi.kasagar@stericsson.com>, 
-	Rabin Vincent <rabin.vincent@stericsson.com>, 
-	Mattias Wallin <mattias.wallin@stericsson.com>, linux-arm-kernel@lists.infradead.org, 
-	mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] docs: security: Describe the Kernel Assurance Plane
+ design
+To: Ketan Bhardwaj <ketan@armoriq.io>, Paul Moore <paul@paul-moore.com>,
+ James Morris <jmorris@namei.org>, "Serge E . Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+ linux-api@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "HARIHARA SUDHAN . R" <harisudhan@armoriq.io>
+References: <20261021165748.19304-1-ketan@armoriq.io>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20261021165748.19304-1-ketan@armoriq.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Lee,
+Hi,
+[just a small documentation warning:]
 
-On Wed, Oct 21, 2026 at 2:16=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+On 10/21/26 9:57 AM, Ketan Bhardwaj wrote:
+> diff --git a/Documentation/admin-guide/LSM/index.rst b/Documentation/admin-guide/LSM/index.rst
+> index b44ef68f..4a299993 100644
+> --- a/Documentation/admin-guide/LSM/index.rst
+> +++ b/Documentation/admin-guide/LSM/index.rst
+> @@ -48,4 +48,5 @@ subdirectories.
+>     Yama
+>     SafeSetID
+>     ipe
+> +   kap
+>     landlock
 
-> ab8500_probe() registers up to two sysfs attribute groups with
-> sysfs_create_group().  On AB8505 and AB9540 (cut 2.0 and later), the
-> second sysfs_create_group() call unconditionally overwrites the return
-> value of the first, and if the second call fails, ab8500_probe() returns
-> an error without removing the first group.  Because the driver context
-> is freed and driver data is cleared on probe failure, reading any leaked
-> sysfs attribute dereferences a NULL ab8500 pointer in
-> get_register_interruptible().
->
-> Register the attribute groups via devm_device_add_group() and only
-> register the second group when the first succeeds so that devres
-> automatically cleans up registered sysfs attributes on probe failure.
->
-> Fixes: 93ff722e8853 ("ab8500-fg: Add power cut feature for ab8505 and ab8=
-540")
-> Closes: https://sashiko.dev/#/bug/linux-a9ac1a9d-5a97-4ad3-b4c5-c7775c24a=
-333
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+I wondered what this index entry was for and then running
+'make htmldocs' complained:
 
-Neat, thanks for fixing!
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Documentation/admin-guide/LSM/index.rst:48: WARNING: toctree contains reference to nonexisting document 'admin-guide/LSM/kap' [toc.not_readable]
 
-Yours,
-Linus Walleij
+
+-- 
+~Randy
+
