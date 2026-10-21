@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.224
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792574004;
-	b=5L4bIHETPv57GSfZletnfMkm1VaVbiKl6SxROf9RYTrGF3nLIWZ8G0z/gWNgI+Lp3UKS
-	 3E48dt/1ZRAB8nGT8mNNzi7xklh/ZWnYSGszdkvbvNgtMgEr8giwWf2aPlGTDXD2ZKK14
-	 HjftuvPTZglxgzNbd4WXXVghf8mHWa1a1Evp7ahG2QQtvSb8HMsvVZOvL9W3dVfNKG4aR
-	 1p0oOt2+aV78+rjMERkkXlcscSWrqRZFFAfiAiprGWMY0S0ywQ/LE/xsYDd4jJ4ke57WW
-	 J6De6io+N82o9vYu9U/MRLYZtUUr8UP7/IoBL9RHVaT6MsJKE+EEYl70fRzYlNNqQAQ==
+	t=1792573995;
+	b=LvnBz7n/HhMFAkzbkV/Z42VWm/HgatL/go/xrJQWluHtrJOf7yofWUHABKy/bmoYAG8z
+	 BpOYFiGhcUYHCISTwtJYjZzxL0f8137NN1cAYy0X35TuH4uBgDhzI30h8b/gGlF9nb9lA
+	 AkMIbdvxyHXuiNRQ8OM1l1GtH4n/0wmb+ql2i9xylI/pw7bx8d6ZQAVkt46ZUDO1tAFX2
+	 N5iFNqUkXll0s0IBijVeHEw08W3C7FdHuGqZj0vZzbGWyOHvddI9yY6/SlSeSFGqj1jll
+	 xPmVq8nKGB1B0mCc4anSWaHjZQQxtD1PwBU/x6IKauxyhTf6NbV9v5g8Y/e9mASfW/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792574004;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=ibFHvFi24VZLXp5k+/QO09VG0su+4GpbQN0fTL3vDus=;
-	b=ZDPuBXogqcjJHfRsSYJXVfmvd7PiyN1RTSTxnNJjWtxQwCmPoALX1ETtVRl68bHkpkij
-	 OYwf7D7Mnvj1b6jvd/Oglw0zBnZ4QBNpEQuAM8c7SyiVSXp4DESUW94xyHioMS9NacNOc
-	 S2Yn5gf+yTOjoiLOVFAPzJt6VLymkBJm8AbmRL9O/2Qs1h7cqArDIOk81A0rnV5hBige4
-	 Y68ummKRlTTOX1OmTpulCVHte8EAM3YOjA7wGrnvKQ+LBVtD05JypC7Btr1Y9cuDXsx9b
-	 huzLa2cj9IpiJrEYI90CcP5kJO+f8qWF36nim7Ug4z3PRzccSo5cFmGIGal3qBXMb3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573995;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=nzADmYKv4GpvdMxYyHHtqrTYHk3osWUIWqWnEfBwJ1o=;
+	b=CvbdU4WgtiKUhIdo8oPGzkazoeA6FoeqnPj8CYzSUvDUbv0F7o46QWh6t5kB/7aeQsSl
+	 7UIo/NhOD9NCWPoFKJU9mrdqkdDCOG1qs/IM0yg1QSruaOD8IRY3C3A1iy0w644IGZeDY
+	 abibdoyvbAc9CHwDA0dImWmZc6WcU8zw8+Q3ydOgKABwBjIGnJaaKEVZuFdgQa3QN9Sqo
+	 dE7DYe0lmn/kwVH0Wc3qtr9iGsduWsfH5qqkDfvc+18eTgJzcWgHXVf2N9vt0oqON/o9l
+	 kZ0MRuIL98Das3X9j0lafBiiIaaAaB2wNvgtpiTawgiykTPjE67tUSAk4gnkHG0/Q0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghQjnlW2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qy05oNmy;
+	arc=none smtp.remote-ip=113.46.200.224
+Received: from canpmsgout09.his.huawei.com (canpmsgout09.his.huawei.com [113.46.200.224])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE719606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:13:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 875F2606A31A;
+	Wed, 21 Oct 2026 09:13:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 875F2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghQjnlW2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED5E1F000C9;
-	Wed, 21 Oct 2026 09:13:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792574003;
-	bh=ibFHvFi24VZLXp5k+/QO09VG0su+4GpbQN0fTL3vDus=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ghQjnlW23UzTWYDPndfk/wQJ4pfFwQWR4rRQGvZcBiXidQ2FOKXQhHaSRpFXwM7uh
-	 aDxdjifvMQENW4gy3TYaxyNjacBoQBRg/iN2xUD4A1knzFCIqt0l3iFS21nieXsf/N
-	 xYeTWyem1b+bw3hNX4rbDUyxXLQ27vwacuikYLtAf8HjJMGzq948/zAiLFOj5Pkxml
-	 vnep2VtePEe87EsWHGTHX2r09ox+pyzgun2IhuYKye/2GBMsGVfb/JpuyzHK7DdZej
-	 miF5vvCwyTHSgFi1xS7Q9XjDHEQPrx5VaOIIX6VlEBqrYb8aeadtAAE8EfmCSQ8mOh
-	 bBlJH+xi2ZiPg==
-Date: Wed, 21 Oct 2026 10:13:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Chen Pei <cp0613@linux.alibaba.com>
-Cc: sudeep.holla@kernel.org, alex@ghiti.fr, aou@eecs.berkeley.edu,
-	atishp@rivosinc.com, conor.dooley@microchip.com, guoren@kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	palmer@dabbelt.com, pjw@kernel.org
-Subject: Re: [PATCH] riscv: Populate boot CPU topology on UP kernels
-Message-ID: <20261021-dilute-arrive-f7633eed8556@spud>
-References: <20261012131034.1026-1-cp0613@linux.alibaba.com>
- <20261020-unsent-commuting-91739a882031@spud>
- <20261020-frisky-jovial-echidna-2d003c@sudeepholla>
- <20261020142630.1680-1-cp0613@linux.alibaba.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=qy05oNmy
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=nzADmYKv4GpvdMxYyHHtqrTYHk3osWUIWqWnEfBwJ1o=;
+	b=qy05oNmy3wvcAipAQKL4DCStOriRWTyczBtLbfPzPytLSmCWdRpIYENADIsJu88KlAJj0hmjc
+	e1p5428X8KTeWUYB9Vrw2GOPKCj13drNhfpLlgpoC2Z/ybSXrCDzqgJdySA25ihc7Us9rMXLO2x
+	ua/h/PISSyjS5+zO8Dkln2g=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout09.his.huawei.com (SkyGuard) with ESMTPS id 4j8jvf2rLvz1cySH;
+	Wed, 21 Oct 2026 17:01:50 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 1B4A840563;
+	Wed, 21 Oct 2026 17:13:10 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 21 Oct
+ 2026 17:13:08 +0800
+Message-ID: <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
+Date: Wed, 21 Oct 2026 17:13:07 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,71 +62,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uIe2oQA0ozxBslji"
-Content-Disposition: inline
-In-Reply-To: <20261020142630.1680-1-cp0613@linux.alibaba.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
+ against hotplug
+To: Wandun Chen <chenwandun1@gmail.com>, <robh@kernel.org>,
+	<baoquan.he@linux.dev>, <rppt@kernel.org>, <m.szyprowski@samsung.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
+References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+ <20261021083011.2170525-4-chenwandun1@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20261021083011.2170525-4-chenwandun1@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
---uIe2oQA0ozxBslji
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 10:26:26PM +0800, Chen Pei wrote:
-> On Tue, Oct 20, 2026 at 01:24:00PM +0100, Sudeep Holla wrote:
-> > Commit 4b3dc9679cf7 ("arm64: force CONFIG_SMP=3Dy and remove redundant =
-#ifdefs")
-> > removed UP support and made SMP default enabled.
 
-Ah yes, I forgot about this..
+在 2026/10/21 16:30, Wandun Chen 写道:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> crash_prepare_headers() counts memory ranges before populating the
+> allocated crash_mem array. The weak implementation used by ARM64,
+> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
+> two-pass operation over system RAM resources. Concurrent memory hotplug
+> can change range source between the two walks and make the populate
+> pass overflow cmem->ranges.
+> 
+> Take device_hotplug_lock when preparing crash headers during
+> kexec_file_load(). The x86/riscv memory hotplug path already takes
+> device_hotplug_lock, so call __crash_prepare_headers() directly
+> to avoid recursive locking.
+> 
+> Sashiko reported this issue in [1].
+> 
+> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
+> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
+> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
+> Acked-by: Baoquan He <baoquan.he@linux.dev>
+> ---
+>  arch/riscv/kernel/crash.c  |  2 +-
+>  arch/x86/kernel/crash.c    |  2 +-
+>  include/linux/crash_core.h |  2 ++
+>  kernel/crash_core.c        | 17 +++++++++++++++--
+>  4 files changed, 19 insertions(+), 4 deletions(-)
+> 
+> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
+> index fe5a4b306aae..ac8df2edf2a7 100644
+> --- a/arch/riscv/kernel/crash.c
+> +++ b/arch/riscv/kernel/crash.c
+> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>  	 * memory resources.
+>  	 */
+> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+>  		pr_err("unable to create new elfcorehdr");
+>  		goto out;
+>  	}
+> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+> index e6f23933a6df..bef008a0cb22 100644
+> --- a/arch/x86/kernel/crash.c
+> +++ b/arch/x86/kernel/crash.c
+> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>  	 * memory resources.
+>  	 */
+> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+>  		pr_err("unable to create new elfcorehdr");
+>  		goto out;
+>  	}
+> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+> index bc087124cd78..28e7a81cf263 100644
+> --- a/include/linux/crash_core.h
+> +++ b/include/linux/crash_core.h
+> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
+>  				       void **addr, unsigned long *sz);
+>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
+>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
+> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> +			    unsigned long *nr_mem_ranges);
+>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
+>  
+>  struct kimage;
+> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+> index faa0f22dbb41..8a861a946e26 100644
+> --- a/kernel/crash_core.c
+> +++ b/kernel/crash_core.c
+> @@ -16,6 +16,7 @@
+>  #include <linux/mm.h>
+>  #include <linux/cpuhotplug.h>
+>  #include <linux/memblock.h>
+> +#include <linux/device.h>
+>  #include <linux/kmemleak.h>
+>  #include <linux/crash_core.h>
+>  #include <linux/reboot.h>
+> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
+>  	return 0;
+>  }
+>  
+> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> -			  unsigned long *nr_mem_ranges)
+> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> +			    unsigned long *nr_mem_ranges)
+>  {
+>  	unsigned int max_nr_ranges;
+>  	struct crash_mem *cmem;
+> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>  	return ret;
+>  }
+>  
+> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+> +			  unsigned long *nr_mem_ranges)
+> +{
+> +	int ret;
+> +
+> +	lock_device_hotplug();
+> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
+> +	unlock_device_hotplug();
 
-> Thanks. RISC-V still allows UP: CONFIG_SMP is a plain bool with no
-> default, yet arch/riscv/Kconfig selects GENERIC_ARCH_TOPOLOGY
-> unconditionally while the only callers of init_cpu_topology() and
-> store_cpu_topology() sit in smpboot.c, which is built only for
-> CONFIG_SMP. That mismatch is what this patch closes.
->=20
-> Gating that select on SMP instead does not work. UP would then fall back
-> to the cpumask_of(cpu) defaults in include/linux/topology.h and report
-> the same sysfs, but vmlinux no longer links: arch_freq_scale,
-> capacity_freq_ref, topology_scale_freq_tick and topology_set_freq_scale
-> all become undefined references.
->=20
-> arch/riscv/include/asm/topology.h binds the arch_scale_freq_* and
-> arch_set_freq_scale hooks to symbols that only drivers/base/arch_topology=
-=2Ec
-> provides, and those defines suppress the generic fallbacks in
-> kernel/sched/sched.h and include/linux/sched/topology.h. Making the
-> gating work needs extra conditionals at several Kconfig and Makefile
-> gates, and gives up freq and capacity invariance on UP, which is a much
-> larger change than the twelve lines here.
->=20
-> Conor, and RISC-V maintainers: would you rather force CONFIG_SMP=3Dy on
-> RISC-V as well and drop UP altogether, or keep UP buildable and take
-> this fix? I would keep the current approach unless you prefer the
-> former.
+I think this patch conflicts with my changes and would also conflict
+with the implementation of arm64 crash hotplug.
 
-I think we probably should drop CONFIG_SMP=3DN, but this patch would be
-needed as a fix regardless since making SMP mandatory would be for 7.5
-or later whereas fixing this is 7.4-rc content and should probably be
-backported to stable.
+https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
 
-FWIW, the patch looks reasonable to me, I was just wondering why arm64
-didn't need it.
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+arm64 crash hotplug:
+https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
 
-Thanks,
-Conor.
+> +
+> +	return ret;
+> +}
+> +
+>  /**
+>   * crash_exclude_mem_range - exclude a mem range for existing ranges
+>   * @mem: mem->range contains an array of ranges sorted in ascending order
 
---uIe2oQA0ozxBslji
-Content-Type: application/pgp-signature; name=signature.asc
+-- 
+Best regards,
+Jinjie
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatiCLgAKCRB4tDGHoIJi
-0vBBAQCHzwMkQlJ8bBWTCZpOlZkwVgGCC1bBopmcuYSd1KwgdQD/VjIT/ComB9c3
-A4RchBLZWXhBIjHQ092F3Ox/Pd9ERAM=
-=jKs+
------END PGP SIGNATURE-----
-
---uIe2oQA0ozxBslji--
