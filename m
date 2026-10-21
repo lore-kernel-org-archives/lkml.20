@@ -1,20 +1,20 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.96
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.72
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792556561;
-	b=qgqr1QUGwUjrDzu1ngULYcyZJdRnp+oF4Apz46b3xqIxMe94l6hZ/FGQtklAu8J5pS/8
-	 YhERPm5NX0lY56nY/LjFhWDOFhhdbHI2t0avyrb3anmQh86hB0qb5zkJh+GSG5ro8Nmri
-	 wJH9fUL9cJE+x0LmHNcOUNu2LBKX2N/vny4Tp6feI76MgahMOH6n+ujd8weOC1GyxagY/
-	 nM8GQ0xfWsJ4dq1XXmZWYDdZ1rqDM5pY6cJmgEJTqADh66GoGmticJxWng0cX/Z/MMsGk
-	 gpqiNt+2r0maKa9n0ESLYkQEkaVsAPe8PlfWRFMH9HxBZ/khhf4CNUuxtz8nMUWtcOw==
+	t=1792556570;
+	b=oPr2Q+HCoF6ZC8mQOI91RW5wHWOUff0JsUIXuxgNRdzO/RHn8SCoGmiliRVckTDqOX2i
+	 qn1DE57sSsOCiP16sHT5MrPmnwEeAiW95toGQ2QrPVSagNX+DPux8KY+FdwtNrXewKCwQ
+	 lXVN5sppdk0GNEVl8fHclobVUa5HQv7tJ1SReNr3bl100jQ6WGKlFSI2h8eZDjBcln/xt
+	 XWORnv/rcE3jonc2xgpnIvaW0go9hZfbT9dP570pRth9q+GK+B713y8vDL0VgnppmHgTX
+	 A67te2aAbDBpTE8OH/61EWBZPohei+0UhWyx8/+EYUAyQmV04CcvsuEE0mLJKI7iW2A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792556561;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792556570;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -24,54 +24,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=YtPvspNOvm3SIc7NpGLLK6Z4260uWc+6kpi5pVuCzI4=;
-	b=I1cQ+k8VCglCucIkbvsWEsRipNLDlH8VDPnA+rA2JQQwAEETAQ9XtIe6E2soO3kibzAM
-	 Wk/MLzU/8wvnaM7q7h/Wrpx5gDNC/g7oaBJ6RSk6KxuctJzD7II06GIPzC5tKdkonhbnr
-	 YbTSWJ3vWagqO9JxJqXNTozjubyZSWKbalmhnVjl/zqDGhRcURXCOZChE0Z6VCqGQfF5O
-	 qu6HdOYUvQfDCE2EiVP4ASuxpK013WWhqRVbnhPpJU+UHIMeuxIrFlOSPjzNiwahevNVr
-	 wIgo6vJGqBGNVqS9tERIqYjfq6Khte/ICTqtR2CajQGph5dq6HZgEWXidkO+lhoStVg==
+	bh=S4l6Fv39rvHyKHu1t7JWL+XSPbos1FsfgRPPZACr8r0=;
+	b=T645kA8/J5pqSE2QoRWWLgIkc1dU5MTBnbZHcSoBMQFkFqGYR/ls+XLI5n5U3JIxaS0J
+	 Dki8r5cWQEYfoQh8uCOvpITnX1aEfZ/84+ojM4md8jNVFUEDXjN79ZkPFf6vvGP6AWN0w
+	 e7y65MI9gPHJnxYxnjeIorDvWr39i34MFitjlAidf4Urmy1sZKEErjjg/4mNHmElx8sME
+	 1jP2zn8i+N4SvJXszzVwsNQP1E+VVpsrKrr24ZKUtC8MSV37utvq0iP2cyUEj0n2axnYk
+	 e+o8fcjtcE8RgjSG8bqtltSfKNv7i6G026bK2oGvIwoLWHm+H5F6kFeZos3UqxtaFWA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=valinux.co.jp;
 	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=LaCFAFCG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.96
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021096.outbound.protection.outlook.com [40.107.74.96])
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=UqJo9Aay;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.72
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020072.outbound.protection.outlook.com [52.101.228.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA25606A31A;
-	Wed, 21 Oct 2026 04:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BA25606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2494C606A31E;
+	Wed, 21 Oct 2026 04:22:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2494C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=LaCFAFCG
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=UqJo9Aay
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HHdW7yygpVlbEfD7NKadNX0M60CqmCc/gwpKdJ2LSOvGZErlA5cL0jLMDWcInT2NMMVsO2Fd6MFIOHWzktcAO0kpt08btLJN0QuzGnLnSGhf1ECWMY18UUCtMKeILrebAwZv+HlHBkG2kwvLx+Tz9Y5lkKLX5zGjqFXnUKT7KE1isyI9YjwQ3EbuGQQYyzHnQL1KD3zuKlGzZM/8SRTTqDNXgEnkqfx617qqo7e7mS/vk3MhBmKP9TNdUQmKs/ODpdm0hz0WD0C7/HPNAttIPXZ8i3rO1Cb2NlyVcc2U/7UZuB5sn3wpvkDPak0eBAvj3UNWvAzoXwlEJuTu8xnjsA==
+ b=QUnox2Ej82fW9sWrqXdfZWXlwItA5hFRIkVut7C46RfKSj6LWB840obJqy4G564zxPzt3+8Qn4ap3HVaX6ja50d4s93K0ojbR1ql/RHWX3fdzAyTKJB+nSOSBXci2sIeFiGZi3F4Syu4NFTfOCeEAArn5Kg+39e9v4/1NQ331o0XGVLizWbAYk0S8RT6FClUv891h3iBpQhsro+TxRHjIoH8FAVXMgQczciqxMRaRvJojXO1nM+Nhg1peHkx8wXOUfHLnv79ML69iNqalGu3etPfEQrRoC0/rtm+6+5P60teGVZFKBecKzg4mUjZIsS+k2MMqbYmGLUX851rHU5+Hw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YtPvspNOvm3SIc7NpGLLK6Z4260uWc+6kpi5pVuCzI4=;
- b=LC5WU5QmqAfqTQcXqwqsgmsC0fifbqSMyCRRf7tS6r2Ur0Mqziz4ho6voQbLZzcbMnD3HTuHLJm/OCGeg1vd77jahXg/gnXnH97xmhejeQphMsUPsVsN92ghoH4HcQVZ0zMWoNa56YKnZ7UnWxDPK2wVlIluXq7/aqxADctR6GRoFJRRv4IIrflMejVzr9/QQolZHgUsIRqy4N8DapblRmfvYIeGzzewcuDhFIshT84Zp1IKjIt+OkBdcmnQxoHFI8g58fL/551oQYAlsAaEB7QFdBYAn5hwomWbnewF7oUmQTG41aL+TCROH0+z3OF6et7ePteGjK6ZyezwtKkDHA==
+ bh=S4l6Fv39rvHyKHu1t7JWL+XSPbos1FsfgRPPZACr8r0=;
+ b=PfHbU0zKtRm6Qb2DRO3mdIxRDsJkC/wIV3SUo3FNUjHIbVID1BbZHxVijzmqfp4A059We3ClnaJfgYoHMX7RfzzWdfUXKTTh7BKMCL9KWWQso38uyP+so2ixViwtDdIn2H5BpFx5kAowQMAuG8ez8PkjSy/dIfC3d+vdhx16AxAJqQOMiy9rJfe6znlZYbykW409EyQwcKBi1sIKrJcBgcxRlv/fVtBdumCYrL0Jn6XW1VcTU/gwpV5R1Qth3gXpH8zEBZz6Sx4MT3OJ8nbBKiwIGpi4aFUp+qGbm9Dw2uYp0XCZcGsLjWUK0xwEuXK5U1b4d3yIs3qidNWkNouT5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
  header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YtPvspNOvm3SIc7NpGLLK6Z4260uWc+6kpi5pVuCzI4=;
- b=LaCFAFCGlzchLysAofBDZK3zf3NoCyVg2/jXXYeTtHvYgpYPBtphc+Cbgn9PaAChoihuK3Ahwg/d5f4K0JRKDbM/LXre1FHC3GnkOSbsaXiOlMKhuuJU1ayRUvmlJVsMDCqz+LfKOe5cRiaqJ3rEwrrvIF43U5RH57xc6GaUjDo=
+ bh=S4l6Fv39rvHyKHu1t7JWL+XSPbos1FsfgRPPZACr8r0=;
+ b=UqJo9Aay6lkrr4whYik2QrNPv9WBBUJ62D/c+Jo5hEnqgcctJJyyB1hGHcKcP3C/OA8Sp2eyLF5nQWHW1tGCqwPk1smaSGKnsaYncZcuOXh/16vNBqahtsL6GnmUtwH0gnEu+XSpCOgB4wrEF/bhoqoQwme6kxk526dVWPFR4oc=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=valinux.co.jp;
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
  by OS3P286MB3180.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:20c::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 04:22:35 +0000
+ 2026 04:22:39 +0000
 Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 04:22:35 +0000
+ 04:22:39 +0000
 From: Koichiro Den <den@valinux.co.jp>
 To: Frank Li <Frank.Li@kernel.org>,
 	Manivannan Sadhasivam <mani@kernel.org>,
@@ -93,14 +93,16 @@ Cc: Bjorn Helgaas <bhelgaas@google.com>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	ntb@lists.linux.dev
-Subject: [PATCH v7 00/10] PCI: endpoint: Remote DMA support via vNTB
-Date: Wed, 21 Oct 2026 13:22:19 +0900
-Message-ID: <20261021042229.2280937-1-den@valinux.co.jp>
+Subject: [PATCH v7 03/10] PCI: endpoint: pci-epf-vntb: Move epf_ntb_is_bar_used() up
+Date: Wed, 21 Oct 2026 13:22:22 +0900
+Message-ID: <20261021042229.2280937-4-den@valinux.co.jp>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261021042229.2280937-1-den@valinux.co.jp>
+References: <20261021042229.2280937-1-den@valinux.co.jp>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TYCP286CA0303.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:38b::11) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-ClientProxiedBy: TYCPR01CA0150.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b7::19) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
  (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -113,198 +115,129 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS3P286MB3180:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ad8d0fd-0608-4b2d-f77a-08df2f2aeeff
+X-MS-Office365-Filtering-Correlation-Id: 24cc61a5-07a5-4215-37e4-08df2f2af0c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|10070799003|23010399003|56012099006|261009223027099003|10067099003|18002099003|6133799003;
+	BCL:0;ARA:13230040|7416014|1800799024|376014|366016|10070799003|23010399003|56012099006|261009223027099003|10067099003|18002099003|22082099003|6133799003;
 X-Microsoft-Antispam-Message-Info:
-	ASSHnX/UejbyLar9sGsy/aC2Te6R3x9zhxIPTZ4l69jvoWiJJwU9O4mSlIKOr3i5YGiVt9tDJJxzbvSwU3WhHEjDuwHVB7e5aYL49JUDNHOxkxzBXu4OW6XgJ6YpOg7NoW7gzX3GB8MuQmxhB84BgGOylqlJEn+U2bD9lrMFuL6E1vv7MlBwfDA2j0ZbPCvzFFQqsDnYpfDCtIPNYkAPdld8t8LZsArJQ9JPXzi6f+ddu+jtrXxtvR+B2f5l2Mul9WCsG0uShBlfq98Py1cE4uu7636NiLkLJ2HPDQUAWuV2urUgTZ2NNcr/mEw5WlClsadKbO1WO+8njev8Ut91C5ZyVC25/Kpuv2QbiR3kuGZvPcFE1SBFldo09a5ULquQMVsDRUYuxnflg/UVKENVHbOE5DAwWdITYGK3BfAT4wD5GFDCeIf7lJLCs+VIaKyeJ9lMko75Zu0hhHXVQEovlLikQo1e4Bqk7VFYNGkPjwQfj1gon3QZIywAUfPIVSamn1dKXe83EruK+75mlkc4wYxtWO8xllazQw5cscYJ/NzveumTaazbziAD0v1Twrs0sdEg3AB69IH83FFbTPEUZEngGV9CB/KRTdY0eutQMP3CK+J7yN8J+9bgb5t1PBhB
+	le/QvTqqG3+MN03rM2LNCRr31bUJkzchtphXzDj+cpRF1OI1PqHclBqBwXmdMpy2BP84ZSN/ZCkPGiuqzgSt0K71Sk2s9/dvM3taoBozmiHC69i7UZfWmBm9JOKkFTrX2Z7qoXPO0P8VG4zpGqaPGtv6G16RdQ8+yaXYgDcUgMve5vBnMbaQ7l63qcMSDdeRwM+85da2CavHO77x3ElKj2ApgARZ5ukvxpTcAeEqZjR0Pa5QRq/JNVTPV21TK0BHx03N726Z7B4XFymI+0eAjE6Toyat6xh5SvuCdV1b42AuvMpMqK0w5Kc9Hxq5fa0c511Izg4MrwaPyTYi9t6u7D7N6AKkkqyUQkjuX/2i1NXz777ZIp1CgzWwsvx3CVqxYgvPa49bkM83K5Bknlj/O8g5X9TKQKW1KiKXQ+9o45LFDobkR1UI3BLJ4ZfLzWHznTm/XPbpD3nezXtTn9MBAZZkOyEaOC+tNytT1r3Jl63sCApAhbf1ItCt9MkKI4bwXrRe/Bx4fLcAwWA5/PWwnxEWmb8kZeO4U60O7VT4xcXMk9YwBTvDHvYrEVLBhvwICH5CMiFyESolSaiBeoe0RuOJryO151znuHLocwH4HjsWztOIu3jB/PrHy0Jbt/3KSMMnOHKHh/FI1pBIfAuW/PmdsRlv82d+iRM+b6Frzp4=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(10070799003)(23010399003)(56012099006)(261009223027099003)(10067099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(366016)(10070799003)(23010399003)(56012099006)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?u/n4/xtyoWj/CFxpVXxfUEKDFhhHbmAD9Tr8bC5/K9L/wzukuKZ72Op3dSNi?=
- =?us-ascii?Q?MkV+scO2IuEn0CIXw+bsMjyIWYNHQDW0H39kNHldvPu1Pl4pAM+P+HrprA8a?=
- =?us-ascii?Q?DGsbgGB+8MzrVgN1d7CiuD9y3gbafuHqcxBllGWc+JUGd18vndwD2Gy46Ydk?=
- =?us-ascii?Q?+Nn1iT6mBQHDrl6jYS0B4GT98bFuN5+ZK2HCviL3ISZJ8vpxAmlpSDXi8AlJ?=
- =?us-ascii?Q?XoCMOCAmGfr5d4EihtGmPoCXJsGAVxFACHM/KZClMpQGSYrvQubcmSps219C?=
- =?us-ascii?Q?ey7MO+PBymoQrlTAUTC5oxgAW8fs/J87n43YntIPJAEwD6SlLm7Dw5zDZruc?=
- =?us-ascii?Q?cYcQ2L7dqvlCZLIa4LGLyly416xU11AeWX4FPk+Rz+7QAbDrMwdIdYHF1KAq?=
- =?us-ascii?Q?D56ucaPKB2A05c1QbMI3THYamFR7px+/gsNUzF9c5yhOjmzKTY1FbYihUJhr?=
- =?us-ascii?Q?BnLlQCOjhyWlMx7D7d7ivny8s7HFOFfzmfgcwaiNYLKRFvxqOi85oEKyMpWo?=
- =?us-ascii?Q?iPPn28bft5TCKLKXF26nyUfvQBAImeMFeCZ9sVWq4zxNu1n6Gp8ukDpwXjZs?=
- =?us-ascii?Q?WVu3GtzPYi5kOLfsSMcoW6LZtrJPhxfRfKLw1rRypR/LEADF6Zc5aJ7JgXWN?=
- =?us-ascii?Q?Su4njhYCQxGrdwdWibFtDAk2jfdmu4oh8yk3BMTK3UhPI6DjSsezHLUOp+xO?=
- =?us-ascii?Q?fEt73AhEmTVzKTSIPI2QuIgm7U0FEU7Vh0wo9QIQp27xC3mIEjvN42S5OpF9?=
- =?us-ascii?Q?5nH5VQxZrbH/ItMisetfwoDbmLlIqUOr6Lxmih9FZ3O1sFQZ1RsteFgg9XvI?=
- =?us-ascii?Q?7Fjcq+42N0ZT4uXkvPFPP763RH4HnH9QIKDWbp67H+pKMlDCIAZ/8LeyfV5d?=
- =?us-ascii?Q?LmXma+Fwq+sE48GGh3eBjRaRNMBA1cdjjMkZsrkjSufXOAgLvVEbXfg9Vgar?=
- =?us-ascii?Q?5UevP4L8Osl0KvuvE8wJidxLkINtc4s3LF4HT2yeT0oGax15RfJn6jQOst+B?=
- =?us-ascii?Q?4vhc5C/0yjePyPV2jCnFOstSX4IYriVMf4C8jaWHsRFohiZdIEzqReAAAfNj?=
- =?us-ascii?Q?Kj8rcD6ddB5vpaAA+mrFyXK5nqpMHOtEVH2JMsdmnP6KSuCxLG+qM3CfwbTd?=
- =?us-ascii?Q?5gfehm9/dOKFDgaWV4z6+lBigdv6pCj9Lzh7/jDojZOr0IlR/NRY+7KwQt1C?=
- =?us-ascii?Q?J16GtG92iVs/lZg1xRvjHlSiadf7Z3mVahtkkJyjF1SkhB7dAC4KUlWKRUs7?=
- =?us-ascii?Q?3J5P11LJHKpwB1L8bkTlrPbdSSMWvitPjQ/jWDe0P/fcyCR/mwlEacSTrxYf?=
- =?us-ascii?Q?492v1Jgvun19XnBFGDg8HMPJ15JGyPjRfe5NqmUZw2zsat6pC4uhrXks9ACG?=
- =?us-ascii?Q?VM4zwRqMTBWl1rHv1X18oB1Znc0NJhbseU2oQfqSlDayog82RZR0UFn6gPCn?=
- =?us-ascii?Q?1tIld9rFNDcUNp9+ZSAfHpPL8K/glB2obpJjifePU4L6qVHmW84pGZ8/Brf/?=
- =?us-ascii?Q?qZbj9PfhmHOpiIlCP/3V89XROhh933Bu+obgV88rqgRSBh/pVcQLREcZ34/o?=
- =?us-ascii?Q?/yF1yTtQPtj8jAz4PzzqNs57NDVwapVtFykZb3yM03NcIw6Z+k07iNuHm9lS?=
- =?us-ascii?Q?OYLb+lPkwRWF8SNg2Lrw5C4enU+POQ0NLSQhTvNXhydCBhpZbpL7WNg/Dezq?=
- =?us-ascii?Q?JZHycZNkgVI+7+kHD+FQ0rtj+RpYOOc1Vr7Ocwgrvi6ma7gMvuRFDrAAt91C?=
- =?us-ascii?Q?P0LSCnEfBNyZzBzpdz+agLVS0sY/w9SktP3dJqxSX3FQsRTTpkh+?=
+	=?us-ascii?Q?bxqAeLfv7BttubDqDcN/zCH3yPTEsMoFDyasINL4z8XJWF5NbfGJ+MQ23oFs?=
+ =?us-ascii?Q?AgBX5+v2RRqT01uxooKjr7gWj4EEaFkGFIw2IdGRys/o+pUnoXREAe5+1a+J?=
+ =?us-ascii?Q?zFRdDn1F3XF9xOzEWj5M4ghX3TpReHYAiFNm9AMsOExmgW2nUxe+PXmPPxNW?=
+ =?us-ascii?Q?ywh7BMkYfNG4GHruxfTl1+ow1dQVg0Ko7XLjXstzSXQqfI/vmrVDrXnFFDSq?=
+ =?us-ascii?Q?+lff6UGvJ/jtJ4IjPLCctfWV+jhMiFDV9f3LlUSSXdHZ363gzir0zAyxuhp3?=
+ =?us-ascii?Q?f47dSfTn4hE+Q/28YrVPihtMuMd+eW8p713+m2Z14wnW4b0vfJvpKxLI5Tff?=
+ =?us-ascii?Q?jvUl5VnISqkZKBsouG0wFg/6jgKuybubirVbj688Vlaa6am7LkASuEqKCCzV?=
+ =?us-ascii?Q?Yqben/U+LQBaxc4Gd/86+vNIoUm+FhUGnzWLZwbvH1U6uxNAj/3n0jepVOem?=
+ =?us-ascii?Q?qEKA92FnJJMYfzGQq3p7Kgedf0QSiR5cEkf3MfJZarsrxEkhX4L309OsztAI?=
+ =?us-ascii?Q?HbUF+c9bw0Cuu++jfNLpTViAV6i2TQeeR/0UD13VyEOxH2eFL0bpGfjZxEM7?=
+ =?us-ascii?Q?pw4y8EvJ1pTghz3d0thd5iHBCGWhI17jhmTWXAGv38QqhwJwhQCoJUkA/pXZ?=
+ =?us-ascii?Q?H7X4Xhx2VOldlLVRvEleF3d2kucsgjXonA/KchO6jwh2j6mcZ+/13+rrskFq?=
+ =?us-ascii?Q?CY1PRuGt9kNmumTmlQ5Yjllo73CLV6UWpL2vN3EH/p+AXNUhUu7dVR9zQP0n?=
+ =?us-ascii?Q?oIptCOgxNiGphCLv5E47IS8oe1O8mGwr2WekvpKPcqzRGJS1eceQYuUwiKtR?=
+ =?us-ascii?Q?Pct6YeSl3JOzuuAYnGc5aPaZwOh2R9oIc6T6eYNXiE/xxX9As6HNnoflc6oP?=
+ =?us-ascii?Q?CIDNjh0BtDcA5GESQR801ze4YcJP5Sma6uilAP9oPJOCV8lpE+YcU5tsPd7u?=
+ =?us-ascii?Q?WN1/1GYI8l5I8f0GIPh7gML+Ix2+mXrtdg1Z2NWYsET9cw3m20glUka9ljbq?=
+ =?us-ascii?Q?qWyZcXV4sqnkHGrrkD11NAIJoeCjtvPXh53F1liZy6QUXwF+mfwa9Oh1Eobi?=
+ =?us-ascii?Q?gzUwOJqdgE35D+hGcWHyhSqgGiUATMeM+EiU/E/WgWYfuzs5vrRo/Fvti1hj?=
+ =?us-ascii?Q?Q3AODunImERUNqRJ4gQPx0Wo/GFXVdnrJ2huo75q56ZM8vhhz54spbdBs9Ko?=
+ =?us-ascii?Q?+UB1O0Iok9fO0/QH2o4J87lRCJ13/BZYHPm498XzzgUbh1Ih4/73MhlszcAl?=
+ =?us-ascii?Q?aCcsh+uIvY0hXma9ZTsAFbKMoigm4mKdO/I1eQGLJAySoAhTcSuUZehVrU48?=
+ =?us-ascii?Q?BjmXZGOaM7X2L9FIiwtk6C6Ivkz6xZ9Ras+hfvw/NuI7fMzEeRhWxPYoAt9d?=
+ =?us-ascii?Q?pl8MlklitOmTXC8Qiz58kenbTdXbwsiERo+sectp+KrAZtyP1dqnGCZ+cSDW?=
+ =?us-ascii?Q?tlZYMm8AGrlww9ngHdFrL+jsNPKNlUDufj19+HM0RbmlEC7RM2eN4m/wnB69?=
+ =?us-ascii?Q?wN50YUwjDEcmMKIaglI+wafBghWjvy2LD+tQxrnDY8nKz2YY+3G9gi7kmaeu?=
+ =?us-ascii?Q?g+N2LldvN0j0KrUNGQTbvVhGvrm4oAdLNFm6hf4PokA27Sdcp9BJf/cnxy6G?=
+ =?us-ascii?Q?nfIt/8qYLTcuueG/YuklVcUr/STqjOFrbIeOVQ4rRwUicFxeZ2e/hA6XDV/w?=
+ =?us-ascii?Q?bwx6FYSadet0/3yb32C7sFX3YnwqF+pM9rPd+ZwYpTMT+3JxpQCVE1KDl2yF?=
+ =?us-ascii?Q?I6Ll+EGwqaXKTBehdTnBR2qgWloiiEK4kklVMfVhzU76qFvT6nyJ?=
 X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ad8d0fd-0608-4b2d-f77a-08df2f2aeeff
+X-MS-Exchange-CrossTenant-Network-Message-Id: 24cc61a5-07a5-4215-37e4-08df2f2af0c5
 X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 04:22:35.6183
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 04:22:38.5515
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TQe514xB+tSKy7440NzrSusf9sNnohjwZ1ph2btY7+3YkjufFtJ9zl9x1Tn34ZjGfV6Y1I4w1+EUxza1Hnbr9A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: If2XGKLrmONxPwf75rmeKOtrzOeZjteavZQkdFUimUPp+qxSkSt8jl1KmkzttKK+68ZlY6Ep2ZWGoxIp1HEQGg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3P286MB3180
 
-Hi,
+Move epf_ntb_is_bar_used() up so later BAR selection code can call it
+without a forward declaration. No functional change.
 
-This series lets host Linux use EPC-local DMA read (RC-to-EP) channels
-through vNTB. I also tried a separate PCI DMA EPF, which reached v7 [1],
-but came back to this vNTB-embedded approach after discussion.
-
-An EPC-local DMA engine can use host DMA addresses (IOVAs when an IOMMU
-is enabled) as PCI addresses to reach any host buffer mapped for the
-endpoint. Letting the RC side drive its read channels also gives the RC
-a direct path into endpoint-local buffers.
-
-A major motivation is direct TX in ntb_transport. Both sides could use
-the same dmaengine-based TX path (ie. symmetric), sending directly to RX
-buffer DMA addresses supplied by the peer. This would avoid MW bounce
-buffers and per-transfer MW remapping for payloads in both directions.
-
-This assumes both sides trust each other. The RC side still programs DMA
-over PCIe MMIO, so this is expected to pay off for large data transfers.
-
-DesignWare eDMA is the only supported dmaengine backend for now. Other
-EPC-local DMA engines can be added if there is a need and they have a
-suitable programming interface.
-
-This series does not include a consumer for the dmaengine channels exposed
-to RC Linux. Native HDMA support is also left out to keep the series from
-growing too large.
-
-Setting pci-epf-vntb's 'dma_bar' configfs attribute enables DMA export.
-The default is -1, which leaves it disabled. pci-epf-ntb only switches to
-the shared control layout header and is functionally unchanged.
-
-
-Dependency
-==========
-
-(Re)based on next-20261020, which includes the following dmaengine series
-needed to build these patches:
-
-  [PATCH v4 0/3] dmaengine: dw-edma: Prepare channels for remote use
-  https://lore.kernel.org/r/20260912174023.1227397-1-den@valinux.co.jp/
-
-
-Proposed merge plan
-===================
-
-Patches 1-7 are for the PCI tree, and patches 8-10 for the NTB tree.
-The NTB patches need the shared header as updated by patches 4-6.
-
-
-Compatibility matrix
-====================
-
-Below, "Old" means next-20261020 without this series, and "new" means with it
-applied. The table describes expected (and tested) behavior.
-
-  EP                              | Old host     | New host
-  --------------------------------+--------------+----------
-  Old                             | OK*          | OK*
-  New (dma_bar = -1)              | OK*          | OK*
-  New (dedicated DMA BAR)         | OK*          | OK
-  New (shared MW/DMA BAR)         | Rejected**   | OK
-
-  *  NTB works without DMA.
-  ** LINK_UP is rejected with an error message. In v6, an "Old" host
-     could mistake the entire shared BAR for an MW and overwrite DMA
-     registers or descriptor memory.
-
-
-Testing
-=======
-
-The existing MW-based ntb_netdev path worked with DMA export disabled
-(dma_bar = -1) and enabled with the following EP-side BAR settings:
-
-* Dedicated DMA BAR configuration on RK3588 Rock 5B:
-
-  ctrl_bar = 0
-  mw1_bar  = 2
-  db_bar   = 4
-  dma_bar  = 5
-
-* MW-shared DMA BAR configuration on R-Car S4 Spider:
-
-  ctrl_bar = 0
-  mw1_bar  = 2
-  dma_bar  = 2
-  db_bar   = 4
-
-I also tested a v7 EP with a shared MW/DMA BAR against a next-20261020
-host. LINK_UP was rejected with "Host does not support MW/DMA BAR sharing".
-
-
-Best regards,
-Koichiro
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
 ---
-Changes in v7:
-  - Split and reorder the patches for the PCI and NTB trees. (Frank)
-  - Reject LINK_UP from hosts without MW/DMA boundary support when
-    a BAR is shared. (Frank)
-  - Rebase on next-20261020.
-  - Link to v6: https://lore.kernel.org/r/20261020054948.1218370-1-den@valinux.co.jp/
+Changes since v4:
+  - No changes.
 
-Changes in v6:
-  - Add a prep patch that moves the control region layout to
-    include/linux/pci-epf-ntb.h, shared by pci-epf-ntb, pci-epf-vntb and
-    ntb_hw_epf. (Frank)
+ drivers/pci/endpoint/functions/pci-epf-vntb.c | 40 +++++++++----------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-For earlier changes, see v5:
-https://lore.kernel.org/r/20261009045949.1109871-1-den@valinux.co.jp/
-
-[1] Superseded approach, PCI DMA EPF, v7:
-    https://lore.kernel.org/r/20260813063757.3131865-1-den@valinux.co.jp/
-
-
-Koichiro Den (10):
-  PCI: endpoint: Add DMA auxiliary resource metadata
-  PCI: dwc: Expose endpoint DMA resources
-  PCI: endpoint: pci-epf-vntb: Move epf_ntb_is_bar_used() up
-  PCI: endpoint: Add pci-epf-ntb.h for the shared NTB control layout
-  PCI: endpoint: pci-epf-vntb: Export endpoint DMA channels
-  PCI: endpoint: pci-epf-vntb: Allow DMA and MW to share a BAR
-  Documentation: PCI: endpoint: Document vNTB DMA export
-  NTB: ntb_hw_epf: Use the shared NTB control layout
-  NTB: ntb_hw_epf: Discover vNTB-embedded DMA
-  NTB: ntb_hw_epf: Support DMA and MW sharing a BAR
-
- Documentation/PCI/endpoint/pci-vntb-howto.rst |  31 +-
- MAINTAINERS                                   |   1 +
- drivers/ntb/hw/epf/ntb_hw_epf.c               | 410 +++++++--
- .../pci/controller/dwc/pcie-designware-ep.c   | 107 ++-
- drivers/pci/endpoint/functions/pci-epf-ntb.c  |  85 +-
- drivers/pci/endpoint/functions/pci-epf-vntb.c | 790 +++++++++++++++---
- include/linux/pci-epc.h                       |  34 +-
- include/linux/pci-epf-ntb.h                   |  90 ++
- 8 files changed, 1272 insertions(+), 276 deletions(-)
- create mode 100644 include/linux/pci-epf-ntb.h
-
-
-base-commit: 8f7df005a7564bd7ffa75da9c3085d5b996f1e16
+diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+index f77e28f2fe96..1a0ce31e680c 100644
+--- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
++++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+@@ -244,6 +244,26 @@ static int epf_ntb_set_link_enabled(struct epf_ntb *ntb, bool enabled)
+ 	return 0;
+ }
+ 
++/**
++ * epf_ntb_is_bar_used() - Check if a bar is used in the ntb configuration
++ * @ntb: NTB device that facilitates communication between HOST and VHOST
++ * @barno: Checked bar number
++ *
++ * Returns: true if used, false if free.
++ */
++static bool epf_ntb_is_bar_used(struct epf_ntb *ntb,
++				enum pci_barno barno)
++{
++	int i;
++
++	for (i = 0; i < VNTB_BAR_NUM; i++) {
++		if (ntb->epf_ntb_bar[i] == barno)
++			return true;
++	}
++
++	return false;
++}
++
+ /**
+  * epf_ntb_configure_mw() - Configure the Outbound Address Space for VHOST
+  *   to access the memory window of HOST
+@@ -906,26 +926,6 @@ static void epf_ntb_mw_bar_clear(struct epf_ntb *ntb, int num_mws)
+ 	}
+ }
+ 
+-/**
+- * epf_ntb_is_bar_used() - Check if a bar is used in the ntb configuration
+- * @ntb: NTB device that facilitates communication between HOST and VHOST
+- * @barno: Checked bar number
+- *
+- * Returns: true if used, false if free.
+- */
+-static bool epf_ntb_is_bar_used(struct epf_ntb *ntb,
+-				enum pci_barno barno)
+-{
+-	int i;
+-
+-	for (i = 0; i < VNTB_BAR_NUM; i++) {
+-		if (ntb->epf_ntb_bar[i] == barno)
+-			return true;
+-	}
+-
+-	return false;
+-}
+-
+ /**
+  * epf_ntb_find_bar() - Assign BAR number when no configuration is provided
+  * @ntb: NTB device that facilitates communication between HOST and VHOST
 -- 
 2.54.0
 
