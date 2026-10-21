@@ -1,94 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792623264;
-	b=3n+fs3TRh6ylm2LQ44XnSKcdWacV7STVWZfOqYUTe/BJ4d34V7Rk0ZBHlnr/OX46OrC+
-	 QFVDqhGgub4NTG4fyznR9ntxSW6Udp3eu3YLX6suuEn8Z1XlsSGZ6Njbkn5LPP7wS1FTz
-	 Pi3X2OgBaRKb4ZwGNtP0NFVneoJTWZ1C66cZKYnccejZ5C4jB4E1gjRFGU1j5LJ4t14Vy
-	 Tivo0yjFWmBTkuAr4hsFqvPvhl190J0SWqxCGCBtzLlUepJZ8oR/aYR1J2nigh5nJOkKj
-	 2uv+Rx1VYqUt8MTY3UGGOIWlQyAyMfgAGGoNoCzYiB68SERc7fXvfmPTIIi6w2K55MA==
+	t=1792623279;
+	b=Qv0stMxU010Pa6mRjhHDpZ5UY5612yVLF/1YmEZh1p7514hDYG8puWuDa1g233FkZLmc
+	 WdKNZZAQasT7XgirI+zbLzWnh7GpVhlhcLYYYqSc9my/naB0HMMj+TYSQGc7Cr8+zsj+8
+	 hb90BzHE44SDmIZ69+SvBvPIc7zXibQAXBiLjHP5jbE7bYHUNX5tDSIvr3Rr+YGqviNxZ
+	 KrybPB+bVl6usTq8meO9+pvt2UiGEzeIae9KRjd5oRuHz3ECa1U4CP2T0qS4Vth9p/faw
+	 XfL/8lsUpGUAffbpV7zaWIwvLw93fnHhGK0mjvI3JvFUuURHDGBXlMGyetrdeGdvapg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792623264;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792623279;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=M/HCi2uN/jq/lVCP/nbhRVGKxJtO5i3puDSAhzll2fQ=;
-	b=p/8PUt4STj+ka/br8+A0sOPnk6qtOXmU8m0nH15D7KaHLmh/lcSMa6gFSFx5EhRGpBqu
-	 MLVDwC1J8TfH7KHS7S3tgxVfT5rhnpZN7RNyQ+KEV3exa2ZeI25V+eIBOPeWBWuoGqpij
-	 K6BKsSsn2aEyM8b2Dlg1d/VOq5BeZWMrvEih6QsZkdelkVqK0CTw8124xzx2R75r9QhBr
-	 TADknD/0WYfcIVygy7mMO/e6brTpp35gFZLM1lrNrIwvcilNxWkc7c4Be+/BdmJNZXGaG
-	 Urlc6t9HcX9E8EFJ4GBjkFSnx5LBsoS1Mq17hxh+mo13cwQ0Uxxwc7IxC4ampUsVfpg==
+	bh=x7MyieQXbBbx4Xn5YipQkBiUdTpW0l+4A4LlRi8x/Iw=;
+	b=0BTXs1k4fAcp9rxd0dAZ01FKaj8Nb9yCjpDFqn7hAB9/uKI3Pk/cl8X+yDoJUidLocmO
+	 xthNLAxv+HHj0xrVO1A8L3Jv6Hp6PlhEwqM3qXAkASJmJZQ2EvaFSyjRwrxuYitBR+dfG
+	 HItS23O86T2Y6l186i8BDiaJIPfEDKYa8g7lG1YRCe7XnwIVUSRrvDvdxvWXdGva7JHdQ
+	 k4bGqqEKtvE5x7MnDHimkcadbXheLtsDMGSg7EuWsjg/czycI3ZcC9PnLkprk3N1BEYFK
+	 KUeW005jVBvGuEkXwa2l3+KcVKYDovTPnK2bo+uYKQwUZJLRTtQabPxFnB4wVsHlHLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LULCyG0N;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CBdUgxA1;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C12B606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:54:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C12B606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487C4606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:54:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487C4606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=LULCyG0N
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35ef6b49813so1650345eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:54:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CBdUgxA1
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36661f953e4so2364423eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:54:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792623264; x=1793228064; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792623278; x=1793228078; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M/HCi2uN/jq/lVCP/nbhRVGKxJtO5i3puDSAhzll2fQ=;
-        b=LULCyG0NF8XpZRm6yFjaDBqK8WHmyzAGJg9YsvXN/iSa8G+WPnlvofYQhtYGP4qwJP
-         VthbE2b9UlAWO7kz+Vd0PFLMrkgETeaIRIxi6+wd4eGQGro1eh6jlgG0sqyy/FRI1jRZ
-         4XjgjgDtLLg53RSkMPNR1pUlM0h7h3DpMZfhSDAsk0Tt1/y7yCuxgnyIITci1scL8ujC
-         iPqAUnlWI/xazld+rvOfOlRKcV/5fcjXNeJQbgs5ppmm/IXHb6hXFWKDvXSV3PQfOegg
-         ZVkWreLBGibUbs+x5pVK7G2leAFuFlXVBz/mt2CTmKiEqDDMpJkhiPOg6nOUFCnqdeUC
-         0/PA==
+        bh=x7MyieQXbBbx4Xn5YipQkBiUdTpW0l+4A4LlRi8x/Iw=;
+        b=CBdUgxA1QC/+MlRdYyQ57PEEqWsDnPwgCiASzIPjVnvMS7nIJIVFIVTHXQS5IcTB45
+         HHD/HydzPIUD+9nlsDMhIRczbD1qH/TmyuIn+D5dlL2HVPq4GL6AMJ4+utIVU8ecjdzH
+         LlCGMZtvUPzEKjOV94R7zG15odG8K29B79STt9MaZGfaiaYv+wuariW1bSh4JWBrLWhA
+         cwsbNWZwMeDOcOSztnptVRZ8KTXBzf+yEqfVW3bP3FfrkjFiGtPUKR286BdTb2FK0P+t
+         Pj/s2PAcYCYKLt/Gu7Y3eAFWXtSuFubPOfDQt6F62KB+GzgNjtF0LZAeTfu2EblX2NBD
+         Kx6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792623264; x=1793228064;
+        d=1e100.net; s=20260707; t=1792623278; x=1793228078;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M/HCi2uN/jq/lVCP/nbhRVGKxJtO5i3puDSAhzll2fQ=;
-        b=mhyU+sKC6IvznRV7/fQE4Q3Cmo9PhwpdtwWFLigZWZHO4rBLkq5ahRPrd3NNd7yV/G
-         mNvZmQIcdhfLlghRZSfhjmBwVEfPq2CVQ/99dogdockOtOrQPpIlfOvH6wili5F0kreQ
-         FMjubQmfOWl7ZppxO/GEUOd7VY4bKZ9tFaIXvHMld/okgG3bpnyvFf/f/J2vJWJYHZfd
-         9olH1YrIQjzionOMqLn3KrVKxPMC1MWSt7BGk27q0HO6k8cCGyoOni6sVNV5oPie0mPn
-         aBYbqIqHPQsyG24Xt/m8S8lkLn1uQfEwF/JOkW0M/2R4BTbPv6LrHhZeNWnfFVg/dNZw
-         eW3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzyyZV4pj+PUzuUQySMopWHhUwEetfCDochumeUu2itfcSE7r1KbVV2fVspKoiPrfBd4/cIxUY930OkW9E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIehL+X4UyywJgmLVmIaV65gcbiVcYHJlFhElgLePpOGRTrOIZN
-	E4yxAWD5JS9Hf+y/wfEL9e1t0ZEfk0Gh2uNmLC/X4L7kbSvT7keXOIq2iVtKa09t
-X-Gm-Gg: AYBFou2f3rmIBZZ48OD8Nrp5W3SHHkoqCyZuPw59x3OW//rCYnuWxrTBmk1W1Bh+q/f
-	YPoa5ZYeqsvfByOQk52ReVJ5RIto1hF2gLbOqZSC3Ytpo5w3uezUU6K7GSFptkt0RhyBbIjsSCx
-	lswFgHbdre8y5ywKgTxYPuiL94AOoPg78oufV4dtM5ioMUjw3b+J/hU5nofkF2cY/Tz0CMA2biF
-	wZVFB1MZmvpJmAGv1hv14VDscLhJxNz2aujws0g9JbFldWHh/esgJVhA1YnnXORH405mcbLmdy9
-	yRHgKZUGoPPqmOAIH9i4FGgprbXxoJWj/iSnQt5KeG6daa2YqJB2VEp8yCgnHKvNuiM0k9e2ooV
-	gGKJ7NRqgyGXfz3dVDBaxAE7HHY0PRd0LcJcv0DEpYEyXVR/FGb0n/P4Unr+0rEpW/h0zp0L57J
-	B4TS8hxuggFNM4bw3Vw6vFgNb3lhyiLXzS/ajEgk4c4XskDHZPBT4BcwfAHDmKeHf3+QCWiQ8EX
-	A1tgZyFzoHlzk120sePXZtxWaq4jVHQmpz8BRCFynzXtATsEDKZceBIgoOKeZQOl4XULLf609F7
-	LaEO52HhUEOZSypkLADpr/xoR0Ls4g5WViaqva+KqQW982AQIurwGBsRBSRUG843iauDftdo5Ox
-	/PvnDMV/AV1NP
-X-Received: by 2002:a05:7300:e9cf:10b0:365:b147:b458 with SMTP id 5a478bee46e88-3674b52acb8mr5389019eec.3.1792623263512;
-        Wed, 21 Oct 2026 15:54:23 -0700 (PDT)
+        bh=x7MyieQXbBbx4Xn5YipQkBiUdTpW0l+4A4LlRi8x/Iw=;
+        b=1QqESz46F98LIkzTJfI2XcY3SoZzyfUJ1wTj730nk7gnM0XCZ7FepifrwiDNyu1wpO
+         PrjgBiKewdzgfiSIfrgE9e5icMAU2t5lWOEkX55XROpidW3g9oJgKmLnNerCyrVt9PK1
+         LYLyE9Fd+MlnvYkURPAekZFfulPNj/sBdnch+bF0QQYIQpS4vowdlA4S62cxmMOW2uxq
+         O//29pgl/vJQ1fe+LoPiI+ipArb3P2Zeg2+VMhTahmDGLaP0BkGyIFe8gdb1iaPzwqKw
+         PuXPZi+BZbs/UlKKUsIk7lLNciaf6kTEce9id3TG6+uDUro228dOf16l5pjU2qAG7iGp
+         auhA==
+X-Forwarded-Encrypted: i=1; AKwUvByY4CftPgBQR73ydvNIDd/924VzJv8MxSVqDxdgJtoMob6616cMzdBuV79MotJ3oLsUPrfu+KYfAokONvw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGPvLcrM+e40abCEqwX7/ID2aSfLyU3ijgGrWxDvXei0n/0daJ
+	c256fMbCqUp2gOVH8l2dNI7LbvfMplxesfDi/vhXfHTlcTUgPzOSQJ0a
+X-Gm-Gg: AYBFou1yNuzaoq093cuJNIQmxIaD87KmlQ24Vs2NnXplp+CUi+Ci+sv4uSN0lCkmGfX
+	uVFDAIiR6eVnasNJZIWAGmZI0xL2fZiT/dYi6qOdV9dw1CmNZxOO4FtAHS0Kxq/VMt4bqy1wVAI
+	EoQ7fX+kHTY+gbQaaUbF/me8hOLoyKoudyZvRGKhmgsodFgfUkQlEyRXpfCzcFYqjy+LKN3BuBl
+	ryn4dMlqxZl5e+6bjBy/qI8QddMshZj6Q8dkvQogfGiKnpgBXPN4fLAtTUxQKrQo2p9rRZDdTCK
+	iFoEJ8M92KWdw6YRHjwhZu2D3Q2NDE5FL4cINKWmamttVepiXKerhjg6OUBoCtM+fx1LaBbMqdt
+	tRVHZ7+4mGy/BrC6pi2jnhwLAEKXPnecbnqKWxEuPiwKMileOso5ROlXWsAndWHEj9Pl8bFbKMi
+	XcwFAY8yxGsW90gt3IYZG4UG9SAQbnGG3AaujH/yp2Iz0kgLDDhmsfx6WdAmfthifE72G9FnmAF
+	qu4isGPDAsaRG6aSFONGZgNYeazw06bmeQQ9RWemLjE5MBLwCy2DhccBDyjLgmo/KwvgrdeO85u
+	r3msMjBh7d14L8cbuzJLFhbQ/Ze7mrbYE/fA5fjYYsx5xJ6HkvgbgaUhAGuUyD+3fpZyyA8yoI7
+	5ID/yOP7Z3KQ=
+X-Received: by 2002:a05:693c:8942:10b0:34d:96cb:d75e with SMTP id 5a478bee46e88-3674e3571bamr4690949eec.27.1792623278344;
+        Wed, 21 Oct 2026 15:54:38 -0700 (PDT)
 Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ee692656sm439219eec.28.2026.10.21.15.54.20
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1cdsm11859529eec.25.2026.10.21.15.54.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 15:54:22 -0700 (PDT)
+        Wed, 21 Oct 2026 15:54:37 -0700 (PDT)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
+To: Marius Cristea <marius.cristea@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Andy Shevchenko <andy@kernel.org>
 Cc: Arnav Kapoor <kapoorarnav43@gmail.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] iio: proximity: sx9324: fix out-of-bounds read of scan
-Date: Thu, 22 Oct 2026 04:24:11 +0530
-Message-ID: <20261021225417.626946-1-kapoorarnav43@gmail.com>
+Subject: [PATCH] iio: adc: mcp3564: reject devices without match data
+Date: Thu, 22 Oct 2026 04:24:28 +0530
+Message-ID: <20261021225431.627718-1-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -101,54 +102,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The scan period of the SX9324 is selected by the 5 bit wide
-SX9324_REG_GNRL_CTRL0_SCANPERIOD field, so it has 32 possible values.
-sx9324_scan_period_table[] however only has 16 entries, it was copied
-over from the SX9310 driver where the field is only 4 bits wide.
+The driver identifies the chip by reading its ID registers. If that
+fails, e.g. for a newer part number, it falls back to the match data
+provided by the device tree.
 
-sx9324_wait_for_sample() indexes the table with the raw field value, so
-all the codes from 16 to 31 read past the end of the array. The default
-value of the register is SX9324_REG_GNRL_CTRL0_SCANPERIOD_100MS (0x16,
-i.e. 22), so the out-of-bounds read happens with the default
-configuration of the device. It is only avoided when the device has an
-interrupt line, as the wait is only done in the polling case.
+spi_get_device_match_data() returns NULL when the device is bound with
+the "spi: override" property, as in that case no match data is set and
+the device name doesn't match any of the entries of the driver's id
+table.
 
-The value read is then used as the duration of an msleep() call, so the
-sensor is polled with a completely random delay.
+The driver dereferences the returned pointer without checking it, which
+leads to a NULL pointer dereference and a kernel oops.
 
-Fill the table with the scan periods of all 32 codes, which are the
-periods documented for the corresponding sx9324_samp_freq_table[]
-entries, and add a static assertion to keep both tables in sync.
+Return -ENODATA if no match data is available, like the other IIO SPI
+drivers do.
 
 Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- drivers/iio/proximity/sx9324.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ drivers/iio/adc/mcp3564.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
-index 13b4ef2896e3..36ab83d3f493 100644
---- a/drivers/iio/proximity/sx9324.c
-+++ b/drivers/iio/proximity/sx9324.c
-@@ -279,11 +279,20 @@ static const struct {
- 	{ 0, 250000 },  /* 11111: 4 s */
- };
- 
-+/*
-+ * The scan period of the SX9324 is selected by the 5 bit wide
-+ * SX9324_REG_GNRL_CTRL0_SCANPERIOD field. The values below are the scan
-+ * periods in ms of the corresponding sx9324_samp_freq_table[] entries.
-+ */
- static const unsigned int sx9324_scan_period_table[] = {
--	2,   15,  30,  45,   60,   90,	 120,  200,
--	400, 600, 800, 1000, 2000, 3000, 4000, 5000,
-+	1, 2, 4, 6, 8, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50,
-+	56, 62, 68, 74, 80, 90, 100, 200, 300, 400, 600, 800, 1000,
-+	2000, 3000, 4000,
- };
- 
-+static_assert(ARRAY_SIZE(sx9324_scan_period_table) ==
-+	      ARRAY_SIZE(sx9324_samp_freq_table));
+diff --git a/drivers/iio/adc/mcp3564.c b/drivers/iio/adc/mcp3564.c
+index 259ac4ebdedf..91796a47e412 100644
+--- a/drivers/iio/adc/mcp3564.c
++++ b/drivers/iio/adc/mcp3564.c
+@@ -1204,6 +1204,9 @@ static int mcp3564_config(struct iio_dev *indio_dev, bool *use_internal_vref_att
+ 		 * try using fallback compatible in device tree to deal with some newer part number.
+ 		 */
+ 		adc->chip_info = spi_get_device_match_data(adc->spi);
++		if (!adc->chip_info)
++			return -ENODATA;
 +
- static const struct regmap_range sx9324_writable_reg_ranges[] = {
- 	/*
- 	 * To set COMPSTAT for compensation, even if datasheet says register is
+ 		adc->have_vref = adc->chip_info->have_vref;
+ 	} else {
+ 		adc->chip_info = &mcp3564_chip_infos_tbl[ids];
