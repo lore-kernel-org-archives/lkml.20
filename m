@@ -1,70 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792550561;
-	b=5XN7PNi9eYAFEgGJHTZ1i339vBAtGMedkPvwVplNOJcd7suOOS5DYisxNsBfFyKApeoh
-	 OMtnpKK2D0KUWiGs+Yc5IV03aFgrAUdAJC4LgZLIyUVUIjT+03nWpNZVfQsJ251gTqGaH
-	 ywbAGXAVZvQ3/1UCWNil8NkoIqtjsttnzn4qKxOrgHqLmZhsdQt0IITZjfWd/pKHGwWhg
-	 7S821+r0FkM5/Qc14G2E74b71k8TM5cEN4HCB9XcbDW28f88bs6r2rIzfnRFeLKcuH2T8
-	 0sUjjKypvB2nqG31tvUwI0eEDGmVXkG4bnd8KwGhMCsbeJu+7Dj04jYTodrWaiOKgLw==
+	t=1792550565;
+	b=Vq4GL2hEuU2iq2OA5fy8ACNmznjLtAV9Ws6xsgSk8HbUSVzA49EjNi9qsIDbbv9mGDzU
+	 1Grx3itqVp+MPp2du83KPijsPjDVR2Y+mbkD1u6fiU7oRcz7MbWb+mH3oOMBK3ElxRxEn
+	 tN6pG6OGImunsRxRAq/YahMnJxq+sKafVj3fJALHWNHitwgQ3Vn0A7Nib9f/y+f2rRGFt
+	 1CK1Kvnj8fL/9HQnLKwoB0HCeEDdhoimiWr3OlvaEbRENO1aW98JGKBB7+M8KpAnQcUOQ
+	 EOSlUKio1eMQzre45gybyHbRchx+ZMQ78EXuChrNao2iWZZO8wmQRTvvT1YETpBb2JA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792550561;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=oLBODvbSr6gtJBJto96ISE7H3MJPrfgXiOoDCPQrvq8=;
-	b=JhyixxHHNHPH2kUPP/6zxL6obaKZcMnwrvuOAJBdIkrqwR7Xo/60HOonisV78bhydJEa
-	 cbxsp6k7zwIv0o1IMAUzv2HgUnRMDgZMMYFHrTTgQL7XFVr9OhXnDYxdAC/RooPG3K+gT
-	 2G3DDxqWIsAeWvlXjA5acPFsk3JbMPhL2UNX2DhXBHaf75UIjJzDGMpZu/7X0WLt8jBvy
-	 v6BYC1H1YW7UJH+rTcuKe3/45jjFhJx1JZQMgrqfOTZ3rOPZJybJoj1jQyuRFYPEot/rY
-	 26PXoND3wK0foJaXEU6K5fnwfxw0aicjIa14LVSgH4TB6Y/iZBShcvZ70+fRJH+AayA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792550565;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1qRBobvsLUCIbGsbEwiV9kaRSV7ZvIaGMjGH4r35+uk=;
+	b=KAEX04E2u1F52aF3atG4Pj1WHzAF1RgTX9LYhHDaflm1fYD/8FbF4adt4zKQHRy7ePpe
+	 To2ZM/hvn/U81FnSf5GoMfK6B93NzNUtQJvnqffQtFEjiPYGdrI3zWGechpz0YmClwPrH
+	 aSioHc1c81fve8cCEXbb6iWRQMje7oGHUSwqPkQuNvOYTvA41ZchQxgx+1VbLykFITak2
+	 45DF3DDP8EGcJ4M7ExY7TgrRT0ObGIjkyE+nqPTH1fiH2zEjcD7tSkKFeF/TYzvUCgPCq
+	 KSBScrW10ctvFA/mWUfxlCwteAqfCueSh+JZsx5uWGOwdI2MTkYq6NOHssxqDP4ISog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY39tHg5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lF2SU6RU;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10874606A31B;
-	Wed, 21 Oct 2026 02:42:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7628606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:42:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7628606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IY39tHg5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C02B1F000C9;
-	Wed, 21 Oct 2026 02:42:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792550560;
-	bh=oLBODvbSr6gtJBJto96ISE7H3MJPrfgXiOoDCPQrvq8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IY39tHg53XDT9wDChQziERP7v+ZcmXqAlg+Hg7cYkakX1Nov638ol1YuM8hp8XCRk
-	 9WcNhLLwS8Snk7dDeIWAVl7jkbA1HxsGv2WKZWOpqODHUpZKLJgPO3c4dw7emPUSOQ
-	 LfuNNjdN0JCHb9hKkA0Pf2y6PePRTtVyfL3s331SFoci7r3vFAQFFjrIJ9QoQNbmJg
-	 hTH14eicBbmzPbZQHmYYrUxjNel5YcCe9IRSw1UuRU5r+HjhSHRg9a3Qg0bRaCiIUY
-	 20ubXMuOUUL+4tDT7MQ75rQMrTKuQQ0+Q7dqu54hBYXbWrNHTZH5uOefRZq1kWawy+
-	 f6CI6jS93guPA==
-Date: Tue, 20 Oct 2026 21:42:39 -0500
-From: Rob Herring <robh@kernel.org>
-To: Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-Cc: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Guochun Huang <hero.huang@rock-chips.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add
- a cell to select TX or RX
-Message-ID: <20261021024239.GA3667411-robh@kernel.org>
-References: <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <2501273.NG923GbCHz@diego>
- <20261020141039.GB4157247-robh@kernel.org>
- <25254818.ouqheUzb2q@diego>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=lF2SU6RU
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15354aa70e8so777732c88.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:42:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792550564; x=1793155364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1qRBobvsLUCIbGsbEwiV9kaRSV7ZvIaGMjGH4r35+uk=;
+        b=lF2SU6RUDeIN/zII/sLfo9V9Ft4emmbvAofzcFB0yvHttYqlxXaVii9pZXix90BC6u
+         zLsruxoFsjiQF1o4VZAizSXAch6QwIx+4fTPhTTa2IyZwgZha8adZsz1m1wkl7/ujpzC
+         KMqEusvEwG2rTFi+2Ar+HKVchepRk83WH5lRs=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792550564; x=1793155364;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1qRBobvsLUCIbGsbEwiV9kaRSV7ZvIaGMjGH4r35+uk=;
+        b=0yKZtOofL+xoPA0uNhDdCgyyk+rkaV278lZ/BnQfMoIV/pgxbOonxq9UrhLHt45zGn
+         9HG3dRiFi57spcq2agc/wvVOyq+XJTARmbRah4GsSoehFqmmsW0HeoDUDsaac5LMzTqC
+         DDNueQdHsJHF8B08iikRunXDQUoEF8T4SECgze6pUiWoMutDpm76N6y0epW7xKftZEkP
+         hhXAzPvdzz34K+pNoXQNp5qrMSIcVUlU9OCS1XCCCV5OP8gz07QXcmUJ+ZbbzSlqz0fT
+         Y9YLlubLOZ53p8e+RaOfQOl1WyvqMc8hWBeSeSRkPbSTSfRGXVvst2pZE82UJZtfGFTJ
+         FH3g==
+X-Forwarded-Encrypted: i=1; AKwUvBy63JKJd5d8RLo/wJGgpPIrPdt4b7ISoE5ncDDYtxdmWtXQzB8kEK9mbxgv7i2aTJiN6ra/TaQ5u4P5vZE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJla9Xl/xJ5iscZWnW+RQszOreuz0tZWVKfpK788oYO8sGWUP5a
+	FzXioCL7KBpl5t0sVweNPAHihotL+3lokUzJQEvsV/1o6NbpLm+H2t6p3fY3+Qtz/YsW+rnatiW
+	Qbbw=
+X-Gm-Gg: AYBFou0WnTD/d1LI8tn0ykbViBPzhW2qVRLx0O6k42khIvKVLRVxwYPPrPFjpkFkWif
+	E/jnnrnFSgAwRdxs8nKsfwFfoerUrZBakZi/MkQxt3HMbulCbM8iydtDPGoJR7Rdp8hrbPA4IBi
+	uwMOtTdgOKCtyB1arlp3yFO1BgjM5revynPVjW/LWIptoXtgW064IkdrWx324V22DBfAE85Abaj
+	hCNBwVgod8qqGNlP+KLkI1j90YmTiP0NtWnk3ymrCIRq8iPfkTa7DWLHXpt8qwvxgvy9t0jrmbl
+	hfLW+wcbD/iKEOkPxgHAvWmEWUiNddVBi/5kUigoM3gkxhDlfkHrPmwHlbD7XEQ/bRu7aCxQIlJ
+	voibr1tMoQmizrzMMLIREwGDAh8xIukyR4W6t7QWOe7Vm2jKBjifnrY0QrlorphnRRf9YvKWAAw
+	VVj8RhXflepzEYxQ1QOl3idGlDoANaUAVAo6N5YIySug1tEfXUCNAioHscvpi+f9kV3O7E2GAXD
+	zoe4/b5zBJsNm/cvKgEL97gNdNueWq8ZjWqhwbuX8AnSgXhAuZ3tAbS6n/xzA6rV/VrJvsYNNt5
+	bDG4oRxdsCdIDVeo7PC6IC3bgOxsiO21hPQAyPJ3GtyS
+X-Received: by 2002:a05:701a:c90a:b0:152:92c6:8b58 with SMTP id a92af1059eb24-190a6adaa1emr781617c88.35.1792550563732;
+        Tue, 20 Oct 2026 19:42:43 -0700 (PDT)
+Received: from tigeriii.tok.corp.google.com ([2a00:79e0:2031:6:97d1:a8be:236d:bf79])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm2392047c88.3.2026.10.20.19.42.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 19:42:43 -0700 (PDT)
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Brian Geffon <bgeffon@google.com>,
+	Barry Song <baohua@kernel.org>,
+	Bo Zhang <zhangbo0325@gmail.com>,
+	Minchan Kim <minchan@kernel.org>,
+	Richard Chang <richardycc@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org,
+	Sergey Senozhatsky <senozhatsky@chromium.org>
+Subject: [PATCH v6 00/13] zram: redesign zcomp and rework backends
+Date: Wed, 21 Oct 2026 11:42:10 +0900
+Message-ID: <20261021024236.1787884-1-senozhatsky@chromium.org>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,155 +99,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <25254818.ouqheUzb2q@diego>
 
-On Tue, Oct 20, 2026 at 04:57:34PM +0200, Heiko Stübner wrote:
-> Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleuropäische Sommerzeit schrieb Rob Herring:
-> > On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko Stübner wrote:
-> > > Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleuropäische Sommerzeit schrieb Michael Riesch:
-> > > > Hi all,
-> > > > 
-> > > > On 10/19/26 17:06, Rob Herring wrote:
-> > > > > On Mon, Oct 19, 2026 at 04:15:03PM +0800, 楊智成 wrote:
-> > > > >> Hi Krzysztof, Rob,
-> > > > >>
-> > > > >>> Existing OS should ignore surplus cell if the driver is coded properly.
-> > > > >>> Same as adding new properties or new front-compatible.  The question is
-> > > > >>> how the existing driver behaves?
-> > > > >>
-> > > > >> As you pointed out on 5/8, the xlate checks args_count != 1. The DC-PHY
-> > > > >> driver was merged in v6.15, so every kernel since 6.15 fails on a second cell.
-> > > > >>
-> > > > >> 1. Keep the second cell. Add the patch as follows:
-> > > > >>
-> > > > >> - if (args->args_count != 1) {
-> > > > >> + if (args->args_count < 1) {
-> > > > >>     dev_err(dev, "invalid number of arguments\n");
-> > > > >>     return ERR_PTR(-EINVAL);
-> > > > >>   }
-> > > > >>
-> > > > >> + if (args->args_count > 1 && args->args[1]) {
-> > > > >> +   dev_err(dev, "only the transmitter is supported\n");
-> > > > >> +   return ERR_PTR(-EINVAL);
-> > > > >> + }
-> > > > >>
-> > > > >>   With Fixes: and Cc: stable, the stable kernels maintained at that
-> > > > >>   time (currently 6.18.y and 7.2.y) keep DSI working with the new
-> > > > >>   dts, and the receiver fails cleanly instead of getting the transmitter.
-> > > > >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affected.
-> > > > >>   It goes in with the series, since two-cell dts only exist after it.
-> > > > >>
-> > > > >> 2. Use a flag in the upper bits of the existing cell, as Rob
-> > > > >>     suggested. Existing kernels are not affected, unless a board enables
-> > > > >>     the DC-PHY CSI-2 receiver on 7.0 or later without this series.
-> > > > >>
-> > > > >> I will write the impact clearly whichever  approach is selected in
-> > > > >> the related commit messages and the cover letter.
-> > > > >>
-> > > > >> I think the cell approach is easier to read and more symmetric in the
-> > > > >> long term,
-> > > > >> but it breaks more. Which one do you think is better? Thanks.
-> > > > > 
-> > > > > I'm not a user of this platform, so I don't care. Up to the platform 
-> > > > > maintainers to decide if breakage is acceptible. You just need to 
-> > > > > document the issue in the commit message.
-> > > > > 
-> > > > > Rob
-> > > > 
-> > > > It's a bit of a pickle, all this.
-> > > > 
-> > > > I gave it some more thought. In the end this is an IP block with two
-> > > > PHYs. No more, no less. One cell is sufficient to address those, and it
-> > > > could be 0 for the transmitting PHY (DSI, display) and 1 for the
-> > > > receiving PHY (CSI, camera).
-> > > > 
-> > > > Of course the two PHYs can operate in either DPHY or CPHY mode. The
-> > > > phy-cells have been (mis?)used to select the proper mode of combo PHYs,
-> > > > and this principle has been applied here too.
-> > > > 
-> > > > However, we have the special situation here that the mode can only be
-> > > > changed for the complete IP block (and thus for both PHYs at the same
-> > > > time). As Bryan points out, we need to check and complain if the PHY
-> > > > mode is not set to the same value for both PHYs.
-> > > > 
-> > > > I suggest using a property
-> > > >     samsung,cphy-mode;
-> > > 
-> > > I guess, a maybe nicer way would be mimicing
-> > > 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
-> > > 
-> > > with its
-> > > 	intel,phy-mode = <x>
-> > > 
-> > > with x coming from include/dt-bindings/phy/phy.h
-> > > for the distinction between cphy and dphy, so we don't introduce yet
-> > > another way to describe this.
-> > 
-> > We already have the plain 'phy-type' property which takes the same 
-> > PHY_MODE_x values. We don't need yet another vendor specific property.
-> 
-> even better then ... and I didn't look deep enough it seems.
-> 
-> 
-> > > > (name to be bikeshedded) that sets the complete IP block into CPHY mode
-> > > > (DPHY being the default) to distinguish between the modes. Since both
-> > > > modes use a different electrical interface, this is clearly a hardware
-> > > > thing and thus suitable for device tree.
-> > > > 
-> > > > Then, we can address the two PHYs with the help of the already existing
-> > > > phy cell (without any bitflag tweaks to the value).
-> > > > 
-> > > > The sole drawback is that we need to accept the PHY_TYPE_DPHY and
-> > > > PHY_TYPE_CPHY values that some OS in the field might pass. (For Linux,
-> > > > it should only be the former.) And we need to handle those values
-> > > > correctly. But I think this is not more painful than the other
-> > > > approaches. At the same time, this design seems to be the most correct
-> > > 
-> > > The current cell values are 10 + 11, so as long as we don't re-use those
-> > > exact values for the other constants the driver should somewhat easily
-> > > be able to recognize an old DT?
-> > 
-> > I think you will still have an ABI issue of what does old OS do with new 
-> > values?
-> 
-> wasn't the main contract, a newer kernel should support old DTs ?
+The series has a number of memory usage optimisations and fixes
+that result in savings from double digits KB to triple digits
+KB per-context/per-CPU, depending on backend and its configuration.
+More details are in the corresponding commit messages.
 
-Well, yes, it was. That was a position I inherited. I hear complaints 
-about the opposite though.
+The zcomp redesign and backend rework happen in the final three
+patches.  zcomp part, basically, attempts to address the priority
+inversion problem, that is seen on some setups.  In zcomp, we have
+always kept Read and Write contexts together in per-CPU streams.
+With preemptible zram this becomes a bit of a problem, as a higher
+priority Reader can preempt a Writer, which may hold a stream
+lock, but since the compression stream is locked by the preempted
+Writer, the Reader gets blocked on the very same stream lock.
+However, we don't have any reasons to have Read and Write contexts
+share and compete for the stream, because Read (decompression) and
+Write (compression) paths are completely independent, they never
+touch each other's buffers.  Thus, we can split compression streams
+into per-CPU Read streams and per-CPU Write streams (Barry Song),
+so that Readers and Writers don't block each other anymore.
+Decoupling Reads and Writes results in noticeable performance
+improvements on synthetic tests.  The Reader vs Reader priority
+inversion is still possible.  To attack this problem we introduce
+shared decompression stream (Brian Geffon) which can be used when
+decompression is stateless.  There, however, stateful backends (zstd,
+deflate) that cannot have shared decompression contexts.  For those
+backends, we introduce a remote CPU borrowing of idle exclusive
+decompression contexts, if an exclusive Reader get preempted on
+current CPU.  We also now allocate a per-request (Read) bounce
+buffer for linearisation of spanning zsmalloc objects, so stateless
+decompression contexts do not block each other.
 
-> Aka the DT is parked in some firmware part (u-boot?) and gets handed
-> to the newer kernel.
-> 
-> I don't see deliberately handing a newer DTB to an older kernel as a
-> very common occurence?
+Reader vs Reader priority inversion tests:
 
-Do you want things to break when you do a firmware update that's picked 
-up a newer DT? I don't.
+  exclusive zstd (fg reader, average of 3 runs):
+  Metric           Base               Patched
+  ----------------------------------------------------------
+  Read IOPS        391k               1,064k        (+2.7x)
+  Read clat avg    49.07 us           9.68 us       (-5.1x)
+  Read clat stdev  7,179.16 us        30.64 us      (-234x)
+  Read clat max    3,208,867 us       5,880.87 us   (-546x)
 
+  shared lz4 (fg reader, average of 3 runs):
+  Metric           Base               Patched
+  ----------------------------------------------------------
+  Read IOPS        972k               1,466k        (+50.9%)
+  Read clat avg    11.56 us           3.29 us       (-3.5x)
+  Read clat stdev  2,738.84 us        16.57 us      (-165x)
+  Read clat max    2,204,467 us       6,442.50 us   (-342x)
 
-> And from a practical standpoint:
-> 
-> We're talking about devices with DSI displays that are at stake here,
-> so we're in the embedded world.
-> 
-> In other areas we're still fighting basic functionality like actually
-> handling the type-c orientation correctly in the usbphy.
-> 
-> So I really don't see a device with a user-updateable mainline kernel out
-> in the field, apart from people hacking around on their devices to try
-> out new features and new kernels, simply because core functionality
-> is still evolving in mainline.
-> 
-> 
-> RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
-> completely incompatible DTB afterall.
+Writer vs Reader priority inversion tests:
 
-I can only keep my own house clean...
+  lz4 (fg reader, average of 3 runs):
+  Metric           Base               Patched
+  ----------------------------------------------------------
+  Read IOPS        642k               1,472k        (+2.3x)
+  Read clat avg    23.97 us           3.28 us       (-7.3x)
+  Read clat stdev  4,303.64 us        14.85 us      (-290x)
+  Read clat max    2,393,767 us       5,710.53 us   (-419x)
 
-I only ask that compatibility issues be documented. Up to individual 
-platforms to decide if they care or not. So, your decision.
+The final patch builds atop of decoupled Read and Write streams and
+reworks the way secondary streams are handled.  Secondary compression
+streams are only used from recompression, which is serialized by
+device lock, IOW it's single-threaded.  However, we still allocated
+secondary streams per-CPU (we needed to permit concurrent Reads
+of recompressed objects).  Because we now have dedicated R/W
+streams, we can allocate a singleton compression context (for
+recompression) yet still have per-CPU decompression contexts.
+This saves a notable amount of memory with some backends and
+configurations (e.g. zstd, deflate, lz4hc).
 
-Rob
+v5 -> v6:
+- fixed for_each_online_cpu_wrap() argument evaluation bug (Sashiko)
+- moved the "reset writeback state" patch up
+- updates some commit messages
+
+Sergey Senozhatsky (13):
+  zram: prefix backends printk-s
+  zram: remove debugfs entry on init failure
+  zram: reset writeback state in zram_reset_device()
+  zram: zstd: do not allocate empty C/D-dictionaries
+  zram: lz4hc: pre-initialize dictionary stream in setup_params
+  zram: lz4: use LZ4_decompress_safe_usingDict()
+  zram: lz4hc: use LZ4_decompress_safe_usingDict()
+  zram: zstd: do not use kvzalloc() for zstd allocations
+  zram: split zcomp into separate R/W streams
+  zram: introduce shared decompression streams
+  zram: allocate bounce buffer for spanning objects
+  zram: borrow idle decompression streams in exclusive mode
+  zram: use a singleton compression context for recompression
+
+ drivers/block/zram/backend_842.c     |   6 +-
+ drivers/block/zram/backend_deflate.c |  98 +++++----
+ drivers/block/zram/backend_lz4.c     |  85 ++------
+ drivers/block/zram/backend_lz4hc.c   | 105 ++++------
+ drivers/block/zram/backend_lzo.c     |   6 +-
+ drivers/block/zram/backend_lzorle.c  |   6 +-
+ drivers/block/zram/backend_zstd.c    | 133 +++++++-----
+ drivers/block/zram/zcomp.c           | 298 +++++++++++++++++++++++----
+ drivers/block/zram/zcomp.h           |  53 ++++-
+ drivers/block/zram/zram_drv.c        |  55 +++--
+ 10 files changed, 542 insertions(+), 303 deletions(-)
+
+--
+2.56.0.212.g129ede20d9-goog
+
