@@ -1,121 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577685;
-	b=N+bY/KS+bcmz/9u37zGkdi9X+K9KAeyxn2oV8o3Qp6717lfvksWxe3ZdnSygCbQx2Qs7
-	 ZtvODo+TqA4OH/1bijJLVj6ABvBRr21pwc9GEODmqYQQRtNdyWeHTxR3s744QcbktaG5k
-	 Dr1GVwDaHWIEoFSXWBGGSMoH8mHpRfNO7Iz+d/d69JjZod42ZGjlsHCqHVZN4hyXjYHTC
-	 wSTTTziqGm/enuvHAWOJoxHRTen5zgmlyL8CjEP4ZrI0bsMVjI5T4RgKgUdMii0ElfB1+
-	 dBD0brs1yPB7gg5NsgCwxwLlmo+wAfct0No5AbAfFKlH0Pj/+g1FtQh/qNasuOkaylw==
+	t=1792577745;
+	b=EerJeSp4DlmQO2J4bhnAvpyZCcQYXYSKQEiS4mAFlZM3f83T7Z+B/zirvKj9K3SZoYK/
+	 gQwD8AybfMQ3H5A8QypA3tk8sCpAYK/1EVf2xbtAv6r90cr4QnbMYqqrzyTRXgq/vTLJG
+	 JcamyVHKby0RfwNibPyUxCBfYcNO1ewFG6xPDc8TLj7JfJOWKkC97WoEIeEAgO0sjn/vx
+	 SY7g7c+7nCu6A9I+W36rE4WXqs4rCIyDP2mN+bhs/8zRA4BqwE1McBShzlUYvMqbLHkc2
+	 cRsfoGvAceoG3YMWNzfEK8wvWkHqLniBdjdIPnTd4BVYcmhQaMOLrECgHT1WSJ7YuVg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577685;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LaMrw0UGiuCnM59eNBEdevbmBZ2o/qyOQGg9zp+WMrM=;
-	b=jGShmI6uwtYsEvHzA1RXn2MzZCE70fGIUxjxgTpuLOEWkKAKU7pA45IiR1qi1Jg1cwMI
-	 KHabsdfM6wonQpI7zmusSXM5QDlwZ4+inJYq2nupmIecOzTLXRhpdWohT87juuGnp+i7q
-	 nVJmKeI2Rydbd13g5JyXkGlLhCKyylLXkvhRT9S2alxVN1r0R7UJQymQ0rLlIzMVyuezi
-	 1u6oMdwT/c583N510MpmKtHgII0RcUhRb4CBwB77Ekpn4YrLf6iLI2J2DyBQU/JRKdNIF
-	 wxkqM5/pO2EEPwHS7SuVQIEEWO+VxJhV1IrkdGmvRtk/a1r2FpQl803jmggFnUKRPRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577745;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=qID+dEtKjHnTB7zRrjAZ+x1ovn7794ILO31jRDajG3g=;
+	b=WCtjmPTUInfHP1Rj61PVTlfXbPhge2A6Uc9mPWlOWxtWQq+fSS/LUTyLwwFYZtJTvJOP
+	 yze0uGrx63LZ1eAybAzKPPCk7xLd6JkM8rq9QGsH4YYq5Vdt4yeS4I0frcaknVAL36ZpA
+	 FhQQWiR3CG06W0UU6uJhibTPKLyClWVYQ+2+Si5H0Ww/Yb1Uqm9gQORmdqyzkIQahhTBu
+	 0pxA/PR+Tu4gv5qoC3WGq0Qc4bP7n8BdXVSx5HBR60MxxuQuafsxG/vK5sOd8xDJ+a82+
+	 pI/5QixgTLnOjrdPeAEUBFSv5EIcDn9g3ro1tX5uiudzhYyv7l5RfBkoJuFTMG9IRmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TpixcOcI;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ejAaswOC;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=cknow-tech.com;
+	spf=pass smtp.mailfrom=cknow-tech.com;
+	dkim=pass header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=MzoRXlTX;
+	arc=none smtp.remote-ip=91.218.175.172
+Received: from mta0.migadu.com (out-172.mta0.migadu.com [91.218.175.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10AF606A31E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:14:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F10AF606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5B1606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:15:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B5B1606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=TpixcOcI;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ejAaswOC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792577684;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LaMrw0UGiuCnM59eNBEdevbmBZ2o/qyOQGg9zp+WMrM=;
-	b=TpixcOcIc+qEmEDiQ0FLw+S+qtpggT3NqH0RIXuzC8XKV/f9YbgNr3ahFBE7fZ+GDb2aiM
-	MJ8Tu/HXmRNLwBcF7ACuwPEadiowaMAmgZJ/st10hS9I3uA3Zr1aRYCnlG+rN/XIpsvwi5
-	q+58VurQ3uB5vhiS4wynDKnC3HLs7QE=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-155--WVlLRf-OC20rZX_2xETAg-1; Wed, 21 Oct 2026 06:14:36 -0400
-X-MC-Unique: -WVlLRf-OC20rZX_2xETAg-1
-X-Mimecast-MFC-AGG-ID: -WVlLRf-OC20rZX_2xETAg_1792577675
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e1ad3cb66so282113f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:14:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792577675; x=1793182475; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LaMrw0UGiuCnM59eNBEdevbmBZ2o/qyOQGg9zp+WMrM=;
-        b=ejAaswOCkEY3H7XHMvAZgqt+YFWmaA2GRwEj+PstMfsG6vKej3aW9Mc3rh9fAEWYEb
-         pg2JMCkAPE82ExN+TJKKaHRxxf+3uJRlOUFuBXopOsn1ymGHjdcQSgg7go7o2YFOI6B4
-         5Be9HrAfZ3MzPuPr3CKBSUBj4Qny302DJ5AAyOadKTYOToXS4tMVBUuwRD052omVT7J0
-         MD1H88CSDfGxOULqFgCsw8YcCa6ZqWGbgLZXdbr5TZ9li9gphxupZM28UZ3UNFe32CXU
-         Z6TO6k+AYwCq6yZ5V00AlM8z7dgnk6dWXWcf/KseDK8hkirdiHm+lEyFTAzhw2dNekkJ
-         r8Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792577675; x=1793182475;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LaMrw0UGiuCnM59eNBEdevbmBZ2o/qyOQGg9zp+WMrM=;
-        b=eW6116P/y3I9U1o8AzJ1jKxuAukVWVx5m0Dhm1JjtNZQ6Y2j5KONtWJ2QyntYuYNBQ
-         vAQCCMDGHZSKHDQTC/XudsrwqXHqFzJG7s3v/7q96bHL+jFkcl+d8tt5RWC2soxmfEqG
-         A+HbSXfcKzZNRVnAc226bImqEaQIEvZr+1PvlAQWI2k5efZf/EPzVWW5UjjuiI4WBXWC
-         y/68MRaJWe8v7DQPz3yD9XyQqXMaMsWqSJ64gqWJhoBUJqvHkXDFrpkgMc0qxKhL9tUI
-         37v6f3rg2VSGI0DQuy37vyY32k5ceQ28HZDBBaBzOqj0GHqhNWPLLsBkhIi1hJPODIAX
-         zqmA==
-X-Forwarded-Encrypted: i=1; AKwUvBz7EFtmdgy5oZZgqf63d1GrisJWCRdIcdCoU3dh2PajOGn6JrjOCvTL2SPOWsaeCHQyHRRm+8ayKutdNvU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRqflL+8Knra9X0DlN4Gc36Y5xEiWbhoTs6VzFTIMbYTnT/eNc
-	aEykX4TJs2vb3ZrY0i5lQYbw9P34tczStcvoXEoCWPo1DGS8tHtSA66N+Mc+u4Xsm/HqtvyUz/d
-	dfFqMW6IFsN0DD76iVtIEIgmZlDXqxDyDT/X8YlVoOvtqO8obEv/s1nut9CM9kdpCwA==
-X-Gm-Gg: AYBFou0Wc1rzEOyXOk3cpw0vJzCuYuLAgDZDMXsJwlimWV1e6y20L5V6gQqHCQ+eQIj
-	uQuWzMGGX+bv2Hem5rN5brTnuLU65K72ViptxYQMgXY4HefzA7v6rODVUZgoDuuE1Ku0p2F0yWF
-	7jIP9NHER0SBb6LtM03d58JW8nRc1L0GL7ybyiab3wZfF8jyW89+ciSqX9ceUtHnPhEeFIxdQ7t
-	LQF0tyyRysmH73Jmk+du4fSu1CNRhiwVMEOVbxdWrtoGP/DrYG+f+sCKf02YAdJuAO/yVZJE0Qi
-	6K8X1OpmB6h13rFO5bfj6+YMpAPPapFSFor7q4oNsOewKkWrP8j3JEyJGGgtIUY8Nsgs6N5lOgb
-	XK3rQSQ==
-X-Received: by 2002:a05:6000:4213:b0:488:8931:b1b2 with SMTP id ffacd0b85a97d-48e264bd584mr3754107f8f.28.1792577675515;
-        Wed, 21 Oct 2026 03:14:35 -0700 (PDT)
-X-Received: by 2002:a05:6000:4213:b0:488:8931:b1b2 with SMTP id ffacd0b85a97d-48e264bd584mr3754032f8f.28.1792577675060;
-        Wed, 21 Oct 2026 03:14:35 -0700 (PDT)
-Received: from sgarzare-redhat ([193.207.178.135])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f0bc2sm4512724f8f.1.2026.10.21.03.14.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 03:14:34 -0700 (PDT)
-Date: Wed, 21 Oct 2026 12:14:30 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Bobby Eshleman <bobbyeshleman@meta.com>
-Cc: "David S. Miller" <davem@davemloft.net>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Stefan Hajnoczi <stefanha@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>, 
-	Jason Wang <jasowangio@gmail.com>, Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
-	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>, Shuah Khan <shuah@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Donald Hunter <donald.hunter@gmail.com>, 
-	Eric Dumazet <edumazet@kernel.org>, virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com, 
-	Bobby Eshleman <bobbyeshleman@gmail.com>
-Subject: Re: [PATCH net-next v4 3/7] vsock: pass the netns to
- ->has_remote_cid()
-Message-ID: <atiQfOneKTIyhGHX@sgarzare-redhat>
-References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
- <20261020-vsock-guest-ns-v4-3-047527cfccfc@meta.com>
+	dkim=pass (2048-bit key, unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.a=rsa-sha256 header.s=key1 header.b=MzoRXlTX
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gsCMZZdvoKKiSu7dqO9JkNt1TMT38UkvVw1xwlAFKHE=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792577742; v=1; x=1793182542;
+ b=MzoRXlTXc+JAtToIuPIerhcflb10/HaSykfPkyk9peAW+RP8wlgKsKIHjPMmynjgBKnzgFC9
+ jp2IBpB2CbkGAKg+MEnPw4kXJyQY2aQaqHFgTix9HznEDdBq3Zh4/RFks6Ue/mIipL4qYZ4TpQU
+ FpjjVtToQ3hFu5COTGPm30qRwdaJI7OftEDPaqFNDJBcAJ+GY5K315TPi/t8cAg14Ruf+bwRr54
+ xTB2h0fi/4PspJ65z4lxfxAFyYkircfCMmMUNUT7xRNgeZQIzE/4phVfXsVgELWE5G7+ZP7IE1J
+ 7zX2PrTFxEfv+XnqKhvDRSDqcV6psfzxUPOqfxqHmSisw==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6805060a84a1d670;
+	Wed, 21 Oct 2026 10:15:38 +0000
+X-Mizu-Trace-ID: 6805060a84a1d670
+X-Migadu-Flow: FLOW_OUT
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Diederik de Haas <diederik@cknow-tech.com>
+Subject: [PATCH] PCI: dw-rockchip: Remove redundant dev_err()
+Date: Wed, 21 Oct 2026 12:14:57 +0200
+Message-ID: <20261021101533.609118-1-diederik@cknow-tech.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,26 +73,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20261020-vsock-guest-ns-v4-3-047527cfccfc@meta.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 06:15:06PM -0700, Bobby Eshleman wrote:
->The transports only use the socket to find its network namespace. Pass
->the namespace instead, so that a later patch can ask whether a CID is
->taken in a namespace without necessarily having a socket on hand. This
->will help with avoiding CID collisions when devices move between
->namespaces.
->
->No functional change.
->
->Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
->---
-> drivers/vhost/vsock.c            | 4 +---
-> include/net/af_vsock.h           | 2 +-
-> net/vmw_vsock/af_vsock.c         | 6 ++++--
-> net/vmw_vsock/virtio_transport.c | 2 +-
-> 4 files changed, 7 insertions(+), 7 deletions(-)
+The devm_request_threaded_irq() function already automatically logs
+detailed error messages on failure since commit
+55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()")
+So remove the now-redundant driver-specific dev_err() calls.
 
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+index 14976861f8ef..a4dbfc52c2f1 100644
+--- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
++++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
+@@ -718,10 +718,8 @@ static int rockchip_pcie_configure_rc(struct platform_device *pdev,
+ 	ret = devm_request_threaded_irq(dev, irq, NULL,
+ 					rockchip_pcie_rc_sys_irq_thread,
+ 					IRQF_ONESHOT, "pcie-sys-rc", rockchip);
+-	if (ret) {
+-		dev_err(dev, "failed to request PCIe sys IRQ\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	/* LTSSM enable control mode */
+ 	val = FIELD_PREP_WM16(PCIE_LTSSM_ENABLE_ENHANCE, 1);
+@@ -764,10 +762,8 @@ static int rockchip_pcie_configure_ep(struct platform_device *pdev,
+ 	ret = devm_request_threaded_irq(dev, irq, NULL,
+ 					rockchip_pcie_ep_sys_irq_thread,
+ 					IRQF_ONESHOT, "pcie-sys-ep", rockchip);
+-	if (ret) {
+-		dev_err(dev, "failed to request PCIe sys IRQ\n");
++	if (ret)
+ 		return ret;
+-	}
+ 
+ 	/*
+ 	 * LTSSM enable control mode, and automatically delay link training on
+-- 
+2.55.0
 
