@@ -1,68 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586487;
-	b=JCKZ4wgiF6zzi5tYgcLBnF45eVdwExQ+QN5FhTot+DKop9czorZQFxEwH56L3bXlKWYO
-	 bfdDsRUxFak1PllT70+7shWNJbnp/59BA/E9JHUH/kR3FVlTgoHIlu71nl4YSSuz2IrjO
-	 D+nfiX5gqpey/ESMLJF0B6npGvPOx0rC153Mva1el2EvN6glzOyIbqo8MfxtfSCeSSfTW
-	 GbgXRd7tVay3YSQrkyQUg+QdV25tXfcFFrxjex69tas0ZueWrc9C7BeCDtVpL27MQMyVB
-	 3zE0pYFpTP92dY36FHFXJzpnUyfQFgyAMpYBVZ+cPufBgLU62DLOpwR6oGRJlwk62Tg==
+	t=1792586548;
+	b=Ki9bW/yp5+P7Q6h/IBH4aqSk34QewqJZYk7g1t011L80fH0O+E/Bj3h2UZdowYQN26Kp
+	 A3ObNiBzLwwTXpz67Q0goBs0F9DCwgsE/uZErD0QztX7VLz+3+sbU/hLydsysi0byvh9y
+	 0OmO6omPeI27K8npZ/o6pbd2cIE1GD2t2VO4iugv/iksp/NiPdHKS8tnDAYdJsjMpEqmr
+	 rBHJwtc0Xgz7mhmdROIT7KIZfOVH3YfSP2QNsLBu3iO8w4F5VQtrt98lE3l6Ul/63q5jh
+	 98VtKG48rpGYAi5KD3eT5BZIOjBmOWtUZZ3OexiJ9kUDF+vJSl9pcUkbz2eApGJTF7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586487;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=4ozu3bzvfbgOwc0XH5XCnshd9cJbrOsn/SPLDVtn8zI=;
-	b=nbXGZd9lur7vqJTfFL6kvnt/4RExdY5/aB4z8cb7iYiHmUoF/65ijnBW9s2ENvLWU85p
-	 ZcAzq2U8dKJJ8dDTb54vaJg72UlBrKw00OLFadLI18EuDF0plBJorMuAUC0GDrmu1s1WU
-	 kqTAXenJSLmcEuCVimDoK9/5Bu2ZrWM2sfhXUg/oRaE3yx/SLiY1ks4vrUwCYk7cnXmRs
-	 txdnHZx0derTl0Y36S5fJz2TK7EfKlEF41Efls0fhJHMHyCo7NGw5G2jiSLFAMGE6cqEM
-	 CqG0rpqHu2glL3Qh26uvYwTygNzhk6AHOVMBqbPC3xBPRiVqMZuebDwT6ckH8CNFKiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586548;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=2ommWee4MyCahncwDfAzycqhXdWog0om9E1EShLfWfs=;
+	b=vo+MDpJ3Z0FXiLga+44t8uf870UlIpWdV0G2W+kogEvSX0vs6CF+fpXRN3K8Ohv083yp
+	 N5uhYp63fjsyDcILk8VpfVO2tBxULkVemhoO4EVEoZ78iB3dPODTHz3sGYn4YdPu2nDh7
+	 TJ3w+l9xYQccFCV3ydrBA30p0h/ELjSrRv3YfYJ4/9rNXp5sLwLgmD5dWIFGXaJVsgTR+
+	 d5t8o8n02AB5O6Iujw92BVCVkUpH2vINm2BGAlEZ0GzWWKXGMMUua/KNXBqZFMziuhtrM
+	 5STT21Od483AG4W0hZr7riJjOQ2+O6akNG/1n3ekd7pzWfousbkTM6+5Xw8+aq3H2Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="U+R/gcUo";
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Vv72FW4J;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA952606A319;
-	Wed, 21 Oct 2026 12:41:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA952606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161B2606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:42:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 161B2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U+R/gcUo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792586487; x=1824122487;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M8BEP5MPbOJlN7vys7wNvH4sULBHpzW3JIMAwKYD0Iw=;
-  b=U+R/gcUo3A0owZhbwuQzhQ3TzVEW4w+GHSwvo83PCrEtO9VesgnPNSjW
-   f1xUK+1JNMYjHB1IO5TrZS/IUYLLnEkC4XbkxxZG6cxQT8c11fSuZRe4A
-   tmxLP+eTHbLzOn8gJ/BGtr+qAsYLWnX4hpWrEQ+DeTYvrT0BGTBhzDN/8
-   Gdgnc5cp0gZPaTPHDXttr/uuVjruzIgo11kl2i0HvQ/sEtyl8Ici0y3Wa
-   sW86aSS+4GDFZjSQOPbvsycAuNFTkwDyjyXigVZpWC3b2Uv+cll74ZYna
-   erTU51egUmePko05Pd6yYWKJQiw+u1gOp//ot6tlAMXOnAh41eiD2B59G
-   A==;
-X-CSE-ConnectionGUID: Q864YB7VR2O2hii+KD91EQ==
-X-CSE-MsgGUID: IQ21nY+YQqu6CdOqP8oMmw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1290694"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1290694"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:41:26 -0700
-X-CSE-ConnectionGUID: hKL8DJAuTlqmpb2VmcW5ag==
-X-CSE-MsgGUID: 08J0FFbcRNWWn1xWSuoVsw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="3098528"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO [10.245.245.66]) ([10.245.245.66])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:41:24 -0700
-Message-ID: <24f53405-f73c-48b6-b912-ad1bdd07a498@linux.intel.com>
-Date: Wed, 21 Oct 2026 15:41:21 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Vv72FW4J
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=2ommWee4MyCahncwDfAzycqhXdWog0om9E1EShLfWfs=; b=Vv72FW4JvESR4va443XTNzqalK
+	59MYzmeBSwZCAm8XC2rrWoT+79HaZ7FoiyQ8NLq8xt6YWRtUYccRxHuoAxqBTMI9bRinpnGkwMKuB
+	WbgzyAKxLfd9jjUt4ZNzoMWtOoKDxbbx1tfzyfvI7E559fXLMSkQ6ymKP8p9+CUQVyf5G3w5vyub0
+	2yIwQxDPHgCoPbuxHYvR0Dm6mJjFV2o+uc4DHZqY1hA/bRCBfdq/5miHr9OIsS4VmpJzDe5k4rAbz
+	q41Z3La9Z62OoB595IIQ8AZsQekjyTB2TqgBYlXYePWhrnpjK7GMGxgWrUPQFW6bjMuFeeH9JPUJx
+	J05UCBUw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1xJVe7-00000009Dwf-0ZQS;
+	Wed, 21 Oct 2026 12:42:19 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id AE197300720; Wed, 21 Oct 2026 14:42:18 +0200 (CEST)
+Date: Wed, 21 Oct 2026 14:42:18 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Li kunyu <likunyu@open-hieco.net>
+Cc: mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org,
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
+	linux-kernel@vger.kernel.org, "Li Wang (Hieco)" <li.wang@linux.dev>
+Subject: Re: [RFC PATCH 4/6] sched/fair: Restrict newidle balance to LLC
+ domain
+Message-ID: <20261021124218.GJ2823843@noisy.programming.kicks-ass.net>
+References: <20261020083746.37068-1-likunyu@open-hieco.net>
+ <20261020083746.37068-5-likunyu@open-hieco.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,51 +70,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] xhci: debugfs: initialize command buffer
-To: Jiale Yao <yaojiale02@163.com>, Mathias Nyman <mathias.nyman@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20261021104720.4106961-1-yaojiale02@163.com>
- <20261021104720.4106961-4-yaojiale02@163.com>
-Content-Language: en-US
-From: Mathias Nyman <mathias.nyman@linux.intel.com>
-In-Reply-To: <20261021104720.4106961-4-yaojiale02@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261020083746.37068-5-likunyu@open-hieco.net>
 
-On 10/21/26 13:47, Jiale Yao wrote:
-> xhci_port_write() copies user input into an uninitialized stack buffer
-> and compares ten bytes against the compliance command. A short matching
-> prefix can make strncmp() inspect bytes that were not initialized.
-> 
-> Zero-initialize the buffer so the copied input is always terminated.
-> 
-> Fixes: 87a03802184c ("xhci: debugfs: add debugfs interface to enable compliance mode for a port")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiale Yao <yaojiale02@163.com>
-> ---
->   drivers/usb/host/xhci-debugfs.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/host/xhci-debugfs.c b/drivers/usb/host/xhci-debugfs.c
-> index 2aa01d99f23d..a020cbab9674 100644
-> --- a/drivers/usb/host/xhci-debugfs.c
-> +++ b/drivers/usb/host/xhci-debugfs.c
-> @@ -347,7 +347,7 @@ static ssize_t xhci_port_write(struct file *file,  const char __user *ubuf,
->   	struct seq_file         *s = file->private_data;
->   	struct xhci_port	*port = s->private;
->   	struct xhci_hcd		*xhci = hcd_to_xhci(port->rhub->hcd);
-> -	char                    buf[32];
-> +	char                    buf[32] = { };
->   	u32			portsc;
->   	unsigned long		flags;
->   
+On Tue, Oct 20, 2026 at 04:37:44PM +0800, Li kunyu wrote:
 
-Acked-by: Mathias Nyman <mathias.nyman@linux.intel.com>
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 6e2271484c86..f2bf4b53d8a9 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -14983,6 +14983,24 @@ static inline bool nohz_idle_balance(struct rq *this_rq, enum cpu_idle_type idle
+>  static inline void nohz_newidle_balance(struct rq *this_rq) { }
+>  #endif /* !CONFIG_NO_HZ_COMMON */
+>  
+> +/*
+> + * is_smt_buddy_newidle_constrain - After enabling the smt_buddy_assist
+> + *                                  feature, check whether the current
+> + *                                  scheduling domain meets the conditions
+> + *                                  for skipping statistics.
+> + * @sd: The current scheduling domain that is to be traversed.
+> + */
+> +static bool is_smt_buddy_newidle_constrain(struct sched_domain *sd)
+> +{
+> +	if (!sched_feat(SMT_BUDDY_ASSIST))
+> +		return false;
+> +
+> +	if (sd->flags & SD_NUMA)
+> +		return true;
+> +
+> +	return false;
+> +}
+> +
+>  /*
+>   * sched_balance_newidle is called by schedule() if this_cpu is about to become
+>   * idle. Attempts to pull tasks from other CPUs.
+> @@ -15080,7 +15098,8 @@ static int sched_balance_newidle(struct rq *this_rq, struct rq_flags *rf)
+>  				weight = (1024 + weight/2) / weight;
+>  			}
+>  
+> -			pulled_task = sched_balance_rq(this_cpu, this_rq,
+> +			if (!is_smt_buddy_newidle_constrain(sd))
+> +				pulled_task = sched_balance_rq(this_cpu, this_rq,
+>  						   sd, CPU_NEWLY_IDLE,
+>  						   &continue_balancing,
+>  							false);
 
-I'll cherry pick this in case Greg doesn't take the whole series
-
-Thanks
-Mathias
+You could have just fiddled with SD_BALANCE_NEWIDLE, no? But instead you
+went and did something inscrutable and violated coding style *again*.
+Any multi-line block must have {} on.
