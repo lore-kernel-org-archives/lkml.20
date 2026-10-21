@@ -1,102 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792615085;
-	b=u+4kPHVQ62IV9Xd3nQflUX09AFO4wsyi+FuMIINgO2pKOYF9A5lwonn3p0aPZHxR7fCL
-	 e65GmP6jkynK4KJ4sRo9LvAuNC7yDth4XrViuxgMF3csuiHKA/nQHVfvf7L8/bVdXkqo3
-	 UYqbczmV708CfIV2BdkfdgJW0dPhh+mJUPaV/zMJUiMolefX98wQzBw9LKisSHeM5G2AL
-	 7479fT/haULfQHlBPqbbUpQekhVxzOWIaClIoRyLY1+As/8WNLUo/FuSNa1Jd/lW7E787
-	 jJCsNL0FCaQWZz4JUzViapOaTgV9BubMrt768scN5ctDQug0z5avlH9XfqAxBvidONA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792615085;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792615125;
+	b=34YGZ5IoVT7JRDz3f18jgReJGiPw9zFnaRWfTa76FCqhunPyA+zFr2g6qBWZ69rUXdFs
+	 OGcRxwdrIU6z2S4fIn7Z2kpiJJkouH2hqEqWQ/ypjeulThuW+Oj26QNecpT+Rp1xxNYBj
+	 36llzvJ0pGrOp9TDYB2vbtPM2tqcrdc21+FNdWpYUe9ABCiyIGhxPnSZNcadnaHt753ON
+	 XATqUs0WzVzx/rCrQ4hNIphtDyxnEo0iN9EN7t/NhW40A0CGixRk56i4PyouYGqavuYz3
+	 DZDjaeCmeG8E+paBpH9BJfZAAP9rZcgpVAon7Msk3Ethp0ZK5UnYkvIUx/wXVyrzFig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615125;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
-	b=jSBnFRUcm9Wc6XdvK8jX4uNPNEILq3ZJpQNBmnXB2LH45dNJEw9A+Q6IKQmH+a/X95gM
-	 rJOkaalRQeW5xrDxV3UiRCsaSTOcnN64+HNGPOY4KALqTcpI05Clz2jCSw7nRYgXT+myj
-	 SstyUfcSzCOcIkGIrbhKOosPxSaLhLh3VaAko9Pp0s5U9AwqjRwuIQOz7UcMe3aYxiK6J
-	 8bhcXhYwUX23MAPp5q2epz+q3R/tg8EVEngo1ZjOwzTwFmZEYAGZyytrRi6Ifj0+b95mU
-	 6kWpVLejMeNkgJySdmDWkgn8P5+wHYhHX4P1iaT5XbD4yY70lNHWZnGVPfUsUh63KpQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=P9B7WV3t;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QDqMOsDuzil6WajGuk0RdRf8D0CQ7SO9x51N1GbZQdM=;
+	b=aXyDL5hEKTyNM/Zb38CWsnyn984DMDJw6veg6pUIQDUFmB3Ef5knpqYnbg2IAgC0ItcY
+	 k8GqKVtQdQZ0EBehu4FJf+ttDfyCl67gT6HM5mdijnwDkNR4onZifbdMvisr7Bq6rD5M5
+	 KgarYnHDrUvxvPhY1znf5aiCnv5KwBnr9Q7F8o5NyMG086Y7sf96LeaXucQfICM/x7Xs/
+	 g0oISCNDA1N4A1btMDqsmYraCNJ4bWpiyQXQfaSIONfv62Ce2k18gun2Yr09LWb3xBr0W
+	 oB6JlRYaMLpoDiimxwL7Nbwq6h0H3p7BIurf5d1eWBNWmGwPG1QEROhxQOhvRWHOIRA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=asu.edu;
+	spf=pass smtp.mailfrom=asu.edu;
+	dkim=pass header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b="TYuqt/5m";
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F12F606A324
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:38:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F12F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8817A606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:38:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8817A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=P9B7WV3t
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ead5ff47caso788975e0c.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:38:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792615084; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JeldWFzRVZXVyacD6SYtE0YemcvJ1wRA19uUg3O4sRu3Je4YS5s3d+oIhMCTHwf7QG
-         zdVj8d1r8jPNKtN5v6gdfdgxCbyLLGIUkouX1dvWOTm/0++SNJIz6vY7Xdo7NYsMBB+Y
-         +CrQsj+LgUABIEMnQ5KEtdFqEq1e74tB3aHB6ZUcISqF/ipM4IWgHh8XNHfkOcHIaAtE
-         QBa+wesGXz3Iwx9E+9QuoTF9PfdILR1cKm+m//wk2RV5afDJfsEYerS2i03Ty05AJ+SK
-         q+LChcIwPygeoyAMdg5LUK6+jEZX/wHop6jnIg4Q5KM6BHxxuPvFLEGIaJjvanAgJuIW
-         dnQg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
-        fh=uu9Zge4rNn6EnoMO2FHHcfWyKSHjDQTzyzvqgt18xLY=;
-        b=ADll6+wMJdQFGBn4hZgxTFrc8dECEeR4EMpTAlGBiHCCe171GUCYleR50qDIU1/10r
-         K2pPBbEf2jH86sLTsMC+JQn7XAVLAtsF0yqLoWQQi/vjVkWeY4xsImr3sJvRo2gvtkcG
-         LBXM0WCWK8tg45jJZhs2wVoF0kxm4zy7UbYjHeKL1UNzC+96gkbrzuD3y2a8l7J7mxPw
-         mGlHtEFyHgz1KWHpZsyze4JcZOP7pB2np4l0HFZU4jBQx4MBZN/QHSxCIPds9f6i2otK
-         rJkJj6bR1eWz/VFQnV+Q+BGLdaTV1DyUUEBHyfTLUcEufYfRGhPRThdoSP94P2yUfxfl
-         ebwg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=asu.edu header.i=@asu.edu header.a=rsa-sha256 header.s=google header.b=TYuqt/5m
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3282db206d3so2664777eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1792615084; x=1793219884; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
-        b=P9B7WV3tW+qvrq5niXivgO31cu4Owz6HdP3qvP+Iwr/St9Zhpihd1UVKv+q2HbFj1o
-         2KWmaSXK0QaAHoNdAwIIRsPz4An2G9/nDSg2IlVf5cQZAmw7TfFudNyeJNrf6CtXqC7B
-         Kr0JszlArIOVBLh844PiJshSg6I+azbo6+0CuT9pAbeb6+KWyCsGhbAhGhXRi3AiGtYZ
-         bQzc5pHMLExJ6B4wz+rEIoOOdAmR15HAlt+ng57ZsbQPn1iNOX5QlzfOIYJwhR+v0ojU
-         7sGH1pIpj1N+7+iJhZOY+cwnIDbFU/ImANQcJyfrv5tfuEQJ6KOHc7LithudHDZayozG
-         7AYQ==
+        d=asu.edu; s=google; t=1792615124; x=1793219924; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QDqMOsDuzil6WajGuk0RdRf8D0CQ7SO9x51N1GbZQdM=;
+        b=TYuqt/5mO4PjbfnCRxwcJm7BAZwyqRgmg3wp2FBQnEulaSDO8PG1kkau9TrwwG/4rm
+         S54X/KvrMS9ftanemrX+21iKHDVucwkzknh255Dw7twnycP9vUEZrqRsbbDZwXmPkQkt
+         kL9NjK5dKf6Fr2cUe9oywBQ442UmXHTvzbL3IJRcSb2SOTFLMItZhRVw8nyLvka7+ENJ
+         8pSUlA6e168H6A/u6qwE2ZDguV9Upife7jLXEE2IVYaQfjU7FxjhZXDPmilKpww/F5rD
+         vaRFpqIqaJcohE82mXETz77IOXcp5EmcODCg+YODE4SJdZTAHCS2QOp91iygN85PDmBY
+         KeQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792615084; x=1793219884;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
-        b=Qg6qbtiSPpPdlUDb9PdVu/ebJK6/lc5HneZiRJjNx9RgKxp13gxIoHsC4Y5RdaNwBr
-         JXgPctPZJqNEjvomHoH2Wi324r1GbBHhpWX5AgNjltfhrq3TRl/LSBr0gCXrUW/FDpaz
-         ChHqf9k7A9GWAbUD8Rrt3ymqdmjfC+w7enYreZ2bS1WAK+j0r7ywq6m+AJwneWK+eZL4
-         nvt6rCdmMaz8cedAO5FsVVmxQQMlbaaRWG9H9k3McrNLFTnZEW/zSC03hHljFT1NCYpd
-         hPgbFON54WXKhMVPDWl0VbePDsWDx9VU44oNZLVKzDOkb7dD2nF0EPKgw+D4cMhdn0O8
-         9UPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzPosB6khV/+b77yHv0BQ1KG4bd+HiPwhuQ6me0l8BBrcT59dDLG0MNRoBIeOfc6ZR6llVgBpZl35ZNxrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJ7KKDiIfKqd9FVRRzORgUSveAYCG1MEeD04Jp48gJvJXl2H+8
-	hBNRl+yHEttoAUZrQvCUtbxZkJuIhcQLstY3o4jHE9qRYNBD0PZuP4Kstt50Jl0nF5DVGWQTQCy
-	rDU70Xh6/0l3tiy52g5Ewz4yvdbuVkPy19x+NJwbrfQ==
-X-Gm-Gg: AYBFou3mo3PZVVwbxsEBoCG6NIUsTTB1v79Y1z4N21cxz5uBJpue3wsh7Znzdm4suqz
-	yxoSBM2MvFa6ltiNlmZ/PkhBJ8N1Im1D/UlFhUVyRSJouATu7IKSWPzkP2k5Nv3C8wHK9DIeT6e
-	u4MV/uz0REXL3BTJ8aGhpteLvO7C+mf+P+QrkwfavmH1z6yt1CYbhI2+sAyD0WOsyIFyqVKlVkf
-	+i2uV2DLRlTCh2bcjlgyhulmDtCiavePgj6p/7JrXKEPlq6RgLZPwpHfai8bDisFN/DabbPLOSL
-	Q8WzBsBTvbwWXFG+gKlTe0+Y4b7FO+NYNHRzUKJy3/roU0SNZn95acXC9UgPKbObQ3wse9cOGU7
-	AXbPQpL8qzrmyiHVF804inJzIF2UTl0P9w8a9bK/kyICFfEpX9UBMJ4201SeFpv++3jb8NzUGyM
-	KERNnioxz6NKF1211Q4Yf6WKdprT9o38VMTzJ6yNbFC0BxhzFxGU7IUHeae1kaYe7s04cHSVMY+
-	zcPGPXQM8CYZJTHZTacRak+Cg==
-X-Received: by 2002:a05:6102:850f:20b0:7cc:3eb0:6ea0 with SMTP id
- ada2fe7eead31-7cc93ac38e4mr702006137.22.1792615083930; Wed, 21 Oct 2026
- 13:38:03 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792615124; x=1793219924;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QDqMOsDuzil6WajGuk0RdRf8D0CQ7SO9x51N1GbZQdM=;
+        b=PRxTrDZQKUYefEbfTHuOwNt3X+zTqr7LntqDfpHhGq7wpdevMyf+MCT/vuiAh6R9wB
+         N5qpH1NvrchRjBx0V5REEOU4/JnXFRNcu5sw+kC9/ZbnhkslQgYED5qprS6vRX20ykau
+         gDqjaVVGPCR2HjH/pDkzHYJV8ovMw/GnZtvOtQfQZ07kmkldJxt9v3FOUbFzKCw3/4J9
+         g7SyplZYyr42/GRVELVvT7v68PZCiASu4h6MjaROpiJyIqbrcooTr30/pu4k8Q9yLmun
+         UD5PwwT3sBCbq8117Gh1cbysDLfTF8d/wDBgBdgMSVLFyE5V1E+yaYpZf+1Q3lG4zI4l
+         /fHw==
+X-Forwarded-Encrypted: i=1; AKwUvBwkjQNwrTp3krdTojmIZM4a/DSogZK2IqnW62+7TkIENhIa6dQp+qCtChvgvgDd6xopBW///ZQDwmb9BWM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtCG6aJt8RWrRk4iB9mTAjfl0dQr/O5oXqEDzOnysSGSGwUQV6
+	WJbrq75ftoqRTNz9qHMy1z8YKDsywN5fi9rnjFlyU+P2ED7bKJNoP2V7IunsRH2rYQ==
+X-Gm-Gg: AYBFou1BMnbZg7vuXnCrNCQaaHuOFAB846o9bj9jEy+dxOtG3DeGFhFP+nubcB1j/Jx
+	S+uMGqxgSW6/7z+P5oXCtpRyBCHytsWva8S7dKG4tOl60fAf0xalkuT8Pc/9bO7aFKyBY+Hol01
+	RPkLy9z2/F+V+PcSrp8tr6aU2Swfko60NcbNFcf9WctH00ZGbQKVx9NRXHItJyd7w9pkOQLFGbI
+	NNOTszm1eECqyzQQVNwItpPqvbPNYBuatW+u41L8h3pNj3s6o/JDuU/d9sfqfjZOWWIDajH+3DT
+	zelFguwsY1f0DUENFXqc2e/WbxgFSl529Z4eTvSi+MrM3wfB4PlAl3ESC2um8NH9BRWMcTaJcAV
+	AsNn4IAEH5FL1n1s2FhJ3xYSX3dtAM5wOL5xh5TB99jRPFtuBAY1qwaxU938IkGrz+77N8MMLR6
+	7naXL1KOtLdoms9XkbV6lK1DYoSKsVFSlDLdaKHhI/3MA1T+c2WrbizqQMDKXXnWFSAKz+ukf3G
+	unPREGB4ckqtmrTgAvUlk30dwwLWnnY/Glk1kFrtgo/yJ5yyJQcdS6ktnWI8YcM7oZ3hfAau3Do
+	AVkHZ45IlK4=
+X-Received: by 2002:a05:693c:8955:20b0:339:7b3b:236d with SMTP id 5a478bee46e88-3674cf43498mr4460582eec.15.1792615123572;
+        Wed, 21 Oct 2026 13:38:43 -0700 (PDT)
+Received: from gio.localdomain (ip68-109-140-205.ph.ph.cox.net. [68.109.140.205])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405edd7bsm9857018eec.6.2026.10.21.13.38.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 13:38:43 -0700 (PDT)
+From: Giorgi Kobakhia <gkobakhi@asu.edu>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	Xiang Mei <xmei5@asu.edu>,
+	linux-nfs@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Giorgi Kobakhia <gkobakhi@asu.edu>,
+	stable@vger.kernel.org
+Subject: [PATCH] svcrdma: bound check rc_curpage in svc_rdma_build_read_segment
+Date: Wed, 21 Oct 2026 13:38:17 -0700
+Message-ID: <20261021203817.3898293-1-gkobakhi@asu.edu>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,58 +103,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020214500.972308-1-rjethwani@purestorage.com> <179253294887.3290.487147499123330924@kernel.org>
-In-Reply-To: <179253294887.3290.487147499123330924@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Wed, 21 Oct 2026 13:37:52 -0700
-X-Gm-Features: AclHuK-ZhRkgIdv5yYGGMnFPJ0d_TUAMLJF9EVSU41qM5LLHoLsovdDN6fqrV4g
-Message-ID: <CAKaoeS3iWOm6Oy7V9VZChyQuOBYB33EzbQLgt50E3jj-tMzCbQ@mail.gmail.com>
-Subject: Re: [PATCH net v2] tls: keep TX and RX hardware offload on the same device
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Boris Pismenny <borisp@mellanox.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 2:49=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
-:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+The existing guard in the end of loop is not enough for bounding
+rc_curpage, because it only checks if some part of the chunk goes beyond
+the rq_maxpages.
 
-This issue was discovered during code review and subsequently
-reproduced on hardware using mlx5 and TLS 1.2 AES-GCM-128.
+    if (len && ((head->rc_curpage + 1) > rqstp->rq_maxpages))
+	goto out_put;
 
-Changing the route between TX and RX setup installed the second
-direction on a different device. Driver traces showed successful adds
-on both devices, but both deletes at socket close targeted the first
-device, leaving an orphaned context on the second. Both setup orders
-reproduced the leak, even though all current core TLS context counters
-returned to zero. No crash was observed.
+If the chunk exactly fills up the pages, then len is 0, guard is skipped
+and the next chunk makes head->rc_curpage go over rq_maxpages.
 
-With the fix, the same tests correctly fall back to software for the
-second direction and leave no orphaned hardware context.
+Commit 81381d1a90de ("svcrdma: Adjust the number of entries in
+svc_rdma_recv_ctxt::rc_pages") made OOB accessible, since it
+shrunk the rc_pages array size to rc_maxpages.
+
+Commit d1bea0ce35b6 ("svcrdma: bound check rq_pages index in inline
+path") added a loop-top "rc_curpage >= rq_maxpages" guard in nearby
+function svc_rdma_copy_inline_range(). The same check would guard it in
+svc_rdma_build_read_segment().
+
+OOB write is triggered in svc_rdma_process_read_list():
+
+ BUG: KASAN: slab-out-of-bounds in svc_rdma_process_read_list
+        (svc_rdma_rw.c:1148 svc_rdma_rw.c:1197)
+ Write of size 8
+
+ Call Trace:
+  svc_rdma_process_read_list (svc_rdma_rw.c:1148 svc_rdma_rw.c:1197)
+  svc_rdma_recvfrom (net/sunrpc/xprtrdma/svc_rdma_recvfrom.c:1022)
+  svc_recv (net/sunrpc/svc_xprt.c:870 net/sunrpc/svc_xprt.c:968)
+  nfsd (fs/nfsd/nfssvc.c:919)
+
+Add bound check for rc_curpage in the beginning of the loop.
+
+Fixes: 81381d1a90de ("svcrdma: Adjust the number of entries in svc_rdma_recv_ctxt::rc_pages")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Tested-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Giorgi Kobakhia <gkobakhi@asu.edu>
+---
+ net/sunrpc/xprtrdma/svc_rdma_rw.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/sunrpc/xprtrdma/svc_rdma_rw.c b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+index 9aaaade99e6e..a98041139075 100644
+--- a/net/sunrpc/xprtrdma/svc_rdma_rw.c
++++ b/net/sunrpc/xprtrdma/svc_rdma_rw.c
+@@ -777,6 +777,9 @@ static int svc_rdma_build_read_segment(struct svc_rqst *rqstp,
+ 	ctxt->rw_nents = nr_bvec;
+ 
+ 	for (bvec_idx = 0; bvec_idx < ctxt->rw_nents; bvec_idx++) {
++		if (head->rc_curpage >= rqstp->rq_maxpages)
++			goto out_put;
++
+ 		seg_len = min_t(unsigned int, len,
+ 				PAGE_SIZE - head->rc_pageoff);
+ 
+-- 
+2.43.0
+
