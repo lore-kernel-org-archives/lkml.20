@@ -1,111 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792614837;
-	b=PGG2ausNkU9K3dm4JZc0bOx9rR8ga4DkHa1lnBqHVHioxe7ueBkArXDNOTl0PouDklCt
-	 PYZFw936Yq9iTXSOMxuugpDTNAgGNI7jr+BMEmurrapsr/ACkPcKYfnE93oq8SUz8SnpF
-	 iJIqiJQsGiWiiFdRprxEhIxa28sbWB7RM3FM/uOrBUr1Vjoq4DE1dbH7HopKDWXtUximH
-	 RhbJyFCh11xNjrjt1Kk0KBelS4K4bMSv/ODkyiwGUBBafBK1nVubTNCBynckje60SE1Af
-	 jisLcsbaRsWSau9pNBM6Z2drMdbwLzvkbYJ+c7ZGBmk3MYqe20NvkCAhEenr2gPsyTQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792614837;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Ych/Zf08x28o9LLrYkYPAjNwcDM5guKZUT1kj8rPdFI=;
-	b=Vhgq9qikfAlnZZeRWVc57axKDL4+C82ke8pmwPZeNvvB4si9TQcYAx1WoGrHEJN6YYFH
-	 Biz2yHwam3ZsJm/S4yudCEp6x/3Zb+IIFQP3IyaKU2QbIyvZplCz/KPYWGIyz08MI/OAI
-	 8YVx2fkwAnQpMXnvHffZ0pLryUh7/v1LasxC9e6dCC7YFx3EOZkYmOqhyPITZ6ZOLihGd
-	 AaNnnts8qBJgA9gSHNn6sRQQ2aBDArdsSRp5W/McyYBFiylg19A6ZeGs5r0bfO4LylL9/
-	 7LzBVY8aggAD/ESyb4X2HjD9UuxLU+86j9cqBNNMNLWfqRBfelTxfOA4zTqbF7Bvt2w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P1GCox7h;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RdbjUuwk;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=198.175.65.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1792614868;
+	b=JYqvhLXiix5Ihu3UDdZj/FcWktNI+1ZvkfALav2Knk2RraW3EePwaxf8KKe15XXqkWaC
+	 g3z0MBudDs4e/Yo9GCIu4FVgXFuuhUxEAlMblsFUjFaome8NW4DWJhE27JPMLfoNigp4l
+	 A4q7nn+s9rzdYIxEir7pho2+4sZXiyUFXw3ZH4CKB8sEPf7A4+zHWjDUoL9wNtFzxYriz
+	 E8c88XggE4GeK37UCHDo0V0NiD6kcieLOos8YyiuxcCxmRFHV8QA8g4DBE5SNJAFxUVVK
+	 yo/DVkf2wP7yOTRmw/40ZqKHUca5oI+2zjKiwP5aLlCUMabOmygmj5ZMFAn3tsU/kGQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792614868;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
+	 Received:Received:Received:Date:From:To:CC:Subject:Message-ID:
+	 References:Content-Type:Content-Disposition:In-Reply-To:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
+	bh=p/9gvWa4TjEifvlHbztEFbJAi6uZestVYzsVYZJLaAc=;
+	b=vQk33KxARtjzD+gfkYBawQcu+DAZ1tphgQRkQKBRkTPuRx4ANxHNTGsIZcJAawJIboX3
+	 /1nIGvOTVegkQ99bOFFQ6vDA4fM7hRcIGX5bxj9elo+9Z41LG5tCQQiGt+QRRDKuVKljq
+	 cvPoVJ5NgKE327pwbEVJAZA3uuBgFEwPVr2ZdZ+sC4P1zgk+wljgwuANoh1Z0TbgOAlFd
+	 kvPCtan36PbkdqiwqUd1oFvaK9CTO5tCrPAPh5irCp9yxWt5UtYv0jc8jI/eOSUOu/KPd
+	 GnLdgtAjFJBLPYg9bGku7bUAhFpPHvUkhseGh2XKqSxyDaSrLonaMdUWtNku4L/jlvw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="F+C/dWz6";
+	arc=fail smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2D85606A321
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2D85606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB15606A319;
+	Wed, 21 Oct 2026 20:34:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DB15606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=P1GCox7h;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=RdbjUuwk
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LHpGm92384123
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:33:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ych/Zf08x28o9LLrYkYPAjNwcDM5guKZUT1kj8rPdFI=; b=P1GCox7hGAIm/O10
-	RkUKDcUdwgBtJh5DEYYKv2HJLQFB7IZ6yjgwRq3u+8yogg44VxbugAedosyDvBlh
-	f4S95RgA3DUHI3BYMv7lUVAdEqXn2SHk2nYSxleKRHWja2aLoVpu/KdGw0QSR7Rf
-	OnBKGSwq00QT8XUJ6J0xPbGNMsXaeqMLzZ6+Zvs+FQOPrL8kq0bTv6Dz+oMKphns
-	D+olk46YyJ4BJCqWT91yUwNmbtYbvU/n0vYB3TMWur7D+P7DlzZZy0Z8IrYZCtum
-	XMyXmoU46tAriNOpJzKgExr02iNrdV7Hq5uP+NKf4fI6VFnmXruwzacR2w32ELJZ
-	nO4BNQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf0ke1213-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:33:56 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb71b1443so236171585a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:33:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792614835; x=1793219635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ych/Zf08x28o9LLrYkYPAjNwcDM5guKZUT1kj8rPdFI=;
-        b=RdbjUuwkP68wlv3KlKj+BEX+ODK1v6F3OgVoh6qRfdlfBtdxLxZ1Mf8P5eNIMw0APU
-         FrHq3xDtGpW5segmUAdyuaz6EkhK4kkofM3DKNfYrZ6acyY1smsiD4fBNK+BKfwasOQz
-         4hm/dxmtvQGEbMh2jT9axYGXBuH/ZtWKBx6AqZaYgAx5ElB/ZCpkL3HOgdZh1R7IsmZG
-         UsfcuELITGi/ag669QUeKeinfMx2r3MTUeRAM7yVl0ClCn8QZZzWdm3PdV39seKz+kUM
-         UnaqWhfCFemxi6UDwzGvH1OTi7P9EVKMUcLRUXnG1ACZ4819wYJkKyW1VI5hRkgHQ9VG
-         6rQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792614835; x=1793219635;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ych/Zf08x28o9LLrYkYPAjNwcDM5guKZUT1kj8rPdFI=;
-        b=yKzc6pfYOcrdSCGQdLNx53wlfSFaxU/YLX70Wsd7QrIaWb1dY6MZOpljZnnXWrT9ro
-         WJP0xQDpjWeaM8WJPGSfkddtcQqaZu6lyA1VgasryDLnQErv1lIyLV3U2p+vx8CWXWuT
-         1mbYSZYJN4+cOOer9JbbO27Zpt9BVoPtOlTJPo3uv9hDXw9POZBfBxXcZGZ6vW+iLQnp
-         cxQzzhalGxrBZczxRFp8Pb3kbgRTTV73Mhzb6vlSImEih4mNs9O/skCvOdTTV0XJwfkd
-         69x5OaRxLu7ki/uheI6zhT4qSq3CY6QzbUKmxCM5fLQyyzjCdpFsHXdZqa6uc3RthUnK
-         G3jw==
-X-Forwarded-Encrypted: i=1; AKwUvBxiiyYfcbD2PgCdrpyAbcW6MKx5W90oteufeayHULlJ15lyWL6J5ipuEid1SNkzubeRY/xdtl0kCdfPNlY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/emkP2+qDQrzeoyCwsyTLEe+NeDmyRwR8fxYp0AYp5rbhMkEF
-	0+QsrucHa3oOL/8tjs2wjplYEw1yCeBQPoX1+95R9jmPh4kztDW3gRkTqaTujO0OuWUbnesMb/0
-	KUkb1Nk17DEmu5NKNg78UtmU4ZQgHUYzVI5XzFYPwNXwdk6Mju1xX5vTbdDYyuBWAmHE=
-X-Gm-Gg: AYBFou1Boq4sTz8VQcGjNpqN6Oger2M9S8q3/NlDJBMWG/rUTYM4hJ/2W4egS2z0SnR
-	+IyfBP8ZlDGhio6Lsyp5Zipzf23fm3WU2P/IZRW/T0I5WP4DQzpjjZ7TyAKGwLg/U1Mmb8lA7tc
-	tlYHIyzmM9uOM1B8LkKLBTYprBtRW0PHQGi3qBThfp60j3oBw1UwhsW7Bfsi6TtJojGTb3WvGe3
-	l+LrySeny9P53tbHBzIcY3QcK+8IZ49eXS2aA9WrK07uEb7KQm88K3rqdh0nFaqB+0beoy/CAUF
-	mNAgzXZ3uB1LQzCtjwJQwIxr1ZwEgxMb63xfgsK0/LH1TAESWwQjyD7x1UxcQiC6pUT2ppqBMs9
-	W50M1YYUrWu266mGDh6oknh6WkNagX+HjED9sYTPfAjMu7FGsRs44Qzmch9LG+A==
-X-Received: by 2002:a05:620a:6605:b0:93c:c98d:e1b6 with SMTP id af79cd13be357-93f57f9c47bmr614752385a.48.1792614834733;
-        Wed, 21 Oct 2026 13:33:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:6605:b0:93c:c98d:e1b6 with SMTP id af79cd13be357-93f57f9c47bmr614747785a.48.1792614834122;
-        Wed, 21 Oct 2026 13:33:54 -0700 (PDT)
-Received: from ?IPV6:2a05:6e02:1041:c10:3887:4025:a805:2ac9? ([2a05:6e02:1041:c10:3887:4025:a805:2ac9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254ef1bfsm8068153f8f.6.2026.10.21.13.33.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 13:33:53 -0700 (PDT)
-Message-ID: <912b3de9-cb81-4d90-9d2c-9b99297e2645@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 22:33:52 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=F+C/dWz6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792614866; x=1824150866;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=ALcaRgehmytl1AFNE+us2FYRKfQ1LQFxoQyGZREf34s=;
+  b=F+C/dWz6Wu0tyIxsKPoGU/QKg+Bu1Vcl1073B32nCzwBKb4E/71L2OA+
+   LKiD98O1nzGE8DhIACDp5Y4G5zH3EBjKJsxVDomoX+H90kfjziJDn9Zfg
+   /CvIkcE23wqgzfwrxauXJ7hZYimDhnEThi5X9vQw/S94+saTUTrZ66zR5
+   TOPbsziMrHiFHO6qbtKugcyZbZ/m6233DthYIJfUwogUJDOmnZjNid6rV
+   shNY1BCM7amHi49Jr3mjnIKTLAbpBPgOl2762buceJ/XjTOTGsajsS+7A
+   r6/pX3Fs9QOLQ8EzrlWEQrX8OHRPUGaxMDvmlWrzyoB4atypLi6khGvZ1
+   g==;
+X-CSE-ConnectionGUID: FELhVRtdQMyQUseBzBbRHg==
+X-CSE-MsgGUID: du9O1EagQcSMxYzhMV5nsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1233917"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1233917"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 13:34:25 -0700
+X-CSE-ConnectionGUID: c4YAoQE0Slex9En7bs/+oA==
+X-CSE-MsgGUID: cW0tpLdtRGmDqm5vvrWXxw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3579342"
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by orviesa010.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 13:34:26 -0700
+Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 13:34:25 -0700
+Received: from ORSEDG901.ED.cps.intel.com (10.7.248.11) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49 via Frontend Transport; Wed, 21 Oct 2026 13:34:25 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.2) by
+ edgegateway.intel.com (134.134.137.111) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 21 Oct 2026 13:34:24 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=oxDWG/VosOvsTWDvug+9sWF3fHsDES19iVdoqpP+KHx7eTafi4kELaC252wWydoY+EZRCKL4uSER6NbscFXDQ1C2y4TRQ3ELQeA8RGnnFa3KGlGaCBJSc9KyF5x7QLGqGxiv79j3NgEOEAKqMXNMlv/pOlW+7SibwpF/PKDnkdXZYtaD1h3Ae2Ud+sFoQwSfY6PIQL+8FPLnN2tvqTaoRbL3k/V6eUihnMQWZgvi9gUxO06qik1ToxxT6IS5ONAbSchBvZ5M5gONLpeKa45e64a0+ElpcP0CwowI++O8MebAUAkmshYbiAXMFBYcoHXvBasvAFgUBgCHWe4fLnqW0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p/9gvWa4TjEifvlHbztEFbJAi6uZestVYzsVYZJLaAc=;
+ b=t8FGFswOovB82g+QrmWLEtbi+aq0iRoyVIGimZRMGiKHZqvXf0PRVPwoethQ/LVp3qlZGSno7vcipGGxbufBqb+UkYeMPoJJ/AVXE60BImMbf0ULHroK0dQemCoA8igm77xA2MGFehd6u5FtbxEIV1jfzzqzrjMwlAGf8R61mM1gJFeDJTLunTt0jEH0A4rkVTG8Ph8lbBWCy1QvowrgDs4y1Jd3PsTCCh8FPG9tKFTduOMYsk9u/064A9uiZtC90+E//dSJ/Cs+CZuNlNWW42c49JD0m8hYFAwLI34rLQn9NkvWc5oDlZnBB7eelFjwadwrCkqrz7KMC8t95xABRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6117.namprd11.prod.outlook.com (2603:10b6:8:b3::19) by
+ DM4PR11MB8204.namprd11.prod.outlook.com (2603:10b6:8:17d::22) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.19; Wed, 21 Oct 2026 20:34:22 +0000
+Received: from DM4PR11MB6117.namprd11.prod.outlook.com
+ ([fe80::d9b3:e942:2686:3cdd]) by DM4PR11MB6117.namprd11.prod.outlook.com
+ ([fe80::d9b3:e942:2686:3cdd%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
+ 20:34:21 +0000
+Date: Wed, 21 Oct 2026 22:34:06 +0200
+From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
+To: <bochaolucky@gmail.com>
+CC: Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+	<daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman
+	<eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, Song Liu <song@kernel.org>, Yonghong Song
+	<yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Emil Tsalapatis
+	<emil@etsalapatis.com>, Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan
+	<shuah@kernel.org>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski
+	<kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>, John Fastabend
+	<john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+	<linux-kselftest@vger.kernel.org>, <netdev@vger.kernel.org>, Alexis
+ =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>, Lorenzo Bianconi
+	<lorenzo@kernel.org>, Tiezhu Yang <tiozhang@didiglobal.com>, Willem de Bruijn
+	<willemdebruijn.kernel@gmail.com>, Petr Machata <petrm@nvidia.com>
+Subject: Re: [PATCH net-next v6 5/5] selftests/net: Move the XDP feature test
+ to drivers/net/hw
+Message-ID: <atkhvvxcDrzXwgb1@boxer>
+References: <20261018-xdp-v5-send-20261008-v6-0-7336e1282ca3@gmail.com>
+ <20261018-xdp-v5-send-20261008-v6-5-7336e1282ca3@gmail.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261018-xdp-v5-send-20261008-v6-5-7336e1282ca3@gmail.com>
+X-ClientProxiedBy: VI5PEPF0000098B.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:808:1::80e) To DM4PR11MB6117.namprd11.prod.outlook.com
+ (2603:10b6:8:b3::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,107 +146,312 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] arm64: dts: qcom: x1e78100-thinkpad-t14s: Add thermal
- zones for PMICs
-To: Stephan Gerhold <stephan.gerhold@linaro.org>, konradybcio@kernel.org
-Cc: andersson@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        johannes.goede@oss.qualcomm.com, conor+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Mark Pearson <mpearson-lenovo@squebb.ca>
-References: <20261014193524.5590-1-daniel.lezcano@oss.qualcomm.com>
- <atH0oW5j9pxsTty4@linaro.org>
- <aca2cd5d-18e1-406d-a062-e219478b243c@oss.qualcomm.com>
- <ath8tHxHOdA7G-Bx@linaro.org>
- <2d885d41-7d05-458c-8364-e206dab12792@oss.qualcomm.com>
- <atjy8ZVUW61VBa26@linaro.org>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <atjy8ZVUW61VBa26@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 6sgKIJD6I-GBYT7FwhKiDFrWSceTvzDC
-X-Proofpoint-ORIG-GUID: 6sgKIJD6I-GBYT7FwhKiDFrWSceTvzDC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA4MSBTYWx0ZWRfX26Z/RytAnImW
- bbKnFeYHqOfBK8Cb3Lk/6E75+DQwp7uytewtFyiOrKfrlaRPvM5r7ANon8qtHpfZ4E9DcSNPaDv
- bT4lU0rNVVt34rF8118eROoNHwDqosc=
-X-Authority-Analysis: v=2.4 cv=KOzPn1Fo c=1 sm=1 tr=0 ts=6ad921b4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=DpSQHuFe0l2nUacwF_0A:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA4MSBTYWx0ZWRfX9fU5Pmt8HmTH
- 1+B0Exo4/n/Bm0evUXmp2iSBxbBeQ2lqdoZVfvA9LamWIYIf2QTy6ADXyXmQ4OMlVkdkOXa204w
- BAsHEhrjii51U3ww7tMpizuPt+uL8l+iggOewVKuvXmzD3MHgR166G3JTROhukJ4w0GWOKwqbMb
- CTebWpTM+CWyUfBYL1YQcrtAbFmxmp6+Fd7MZn85UjTg5OfgdRnCyGVTD7h4biD7JxcUfyG7VzR
- VdfCzpGSWmpCT3FIZ5L8o9gMTJ19uYypUz1OAY5Rc9ZD+DqRHZ3zABBDggLt9fXgDEvvtccD31J
- uNNA4ywH9vCOdWcx5xXxDWLnO4yg0kH8YvSxxdzuI8HjhD/aqZ3/mkyECd6Dzzqe2aLEw3Pae64
- GPXTCHOW+lLlhigNx255Jh+3m9toeyuMT01/nOdpUl/ezUQZSV2V5iCkBdhs+wlZCmtONPg8PDL
- Zk8+yL8lm14cbrM7zrg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 impostorscore=0 suspectscore=0 bulkscore=0
- lowpriorityscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210081
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6117:EE_|DM4PR11MB8204:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14ff211d-681e-44f9-d6d1-08df2fb2b03b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|366016|261021123027099003|261009223027099003|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003|6133799003|3023799007|261021121427099003;
+X-Microsoft-Antispam-Message-Info: HbdmOzOi/fmXMTlJw55kG124jGjDHSN01+YQ4Q69yr1CsSAYeJeqKubdAUOLNxKkaImy7+v8xWw6DBJA3TbXf2gJB07opHEmZjgZeZY4NQmWIz8vS5N9zhEAtznKtl1KIr2ZRQ7g3B4jXrrILA+ZA84QyZ+vLvtOW6ZlJJY85Pe2fcD5i2Uoy6i9vebQ/jS/XPp1cZWhM3UBYCe7H/pnVrMAU+tsYcZxjdV1cCFqUNsT22k7/WVw5Xc874H90LfstAuYtmdCjP27qZZdo1w39Nf6IXzzs1BakleoY9nfrp428iicGRbfuXEWycttf1u2ozlDuf5xTxHyP6BSKJX14GB0TqgQXbtGUstYiFRCkGANlZ7umPzwc5VEdZb+BM7bQFWAvY1zAotRdBQs+xg6kHPGi9KuHt071zxoMBVEvXVOiI4ObD9SIqbGtLTSUKSts4M2IWEhHgRxF6tHQRInf0yi2oMsDNdMjSJuH14213rmg5yP3E8JRtOiNEXBRkGmobEopno4J+Stf72D7nbrQ8ELLLNZ8JyyaRu93AzhG8med7DoUUmUsQsVny4yxNss1WuR1uQu7davCpSvoIQ4DN8hotfZ+A9mLo3DhAFQ1vM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6117.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(366016)(261021123027099003)(261009223027099003)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(6133799003)(3023799007)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?KO7cezpYDNcJn+bfbDqQ3tZeUntyhUMxNZph1R+WqzBynkOqNUzpuANNRXeV?=
+ =?us-ascii?Q?US+lsFPKJqAomJoAEWsHlwwzsQAkBmrxe/Lq/vk6fegiiEmNjIFDpPYONxg9?=
+ =?us-ascii?Q?X/OhaBOGtEXE6EDj5y7J9G3L7wjIO9zBthQHQGNKpsMWHqrL8rnk4egSHyEL?=
+ =?us-ascii?Q?tR6CPxYM67ZJuMY08w2pQ7tw0VRaAqp0X3vk93xF9wQCb1SIiGjK5EhbSPA9?=
+ =?us-ascii?Q?gPdcGv1k66BsrAbOI/lfa5JgdGk3GUVhLbrowWr4MhH8n/21GnPKJuUi+lbh?=
+ =?us-ascii?Q?orSxGCkH3mctKGZELbcjVM4NGIkYj2VsRAanjDFYV2ToV6Do/ZWTGlANGMov?=
+ =?us-ascii?Q?FFxzx9eaVbE8r11QzxsUk5JBKlRepz+TFF+slw1gD4lgtUfbNXTim6dArNPS?=
+ =?us-ascii?Q?pmWlMhYYna/qaleUZbgLOxKjq5D+OYoNzHPcYY0XUKqYt/4ZX1XbTEYnb68b?=
+ =?us-ascii?Q?2imgqeBa2hsJuC885DK5cKavB33oGiSJlWKKfJb6qkP4wrR3p3nu04aIiUkT?=
+ =?us-ascii?Q?RLkYXpjE3/8YusRF4iBsO4TYH7Kya6x1JpY+DaEF6EAaY4zRIaHsEf0ii6+E?=
+ =?us-ascii?Q?oSXffd9L7JosyseQ5iLEiz03MzsH1/r4wniB7QfIfkAYcs6aY6bTcTEtDsNS?=
+ =?us-ascii?Q?mgFH29PFqMwk253iNs/71XhELp7J/fyn0/lVqcblr+3DfOgr7Yykz8eO3ohn?=
+ =?us-ascii?Q?GDz2RAXGcm4TZdEB0aBru9nzP1HtqxdrIiHoT8fiJN5903FfeiY9hK3Dz54F?=
+ =?us-ascii?Q?cWOLo4jaq4LHRlBurkMzdkcG7ykHKWt/UPfOtjvkiz6my6uwCh7Lfyy5YwuM?=
+ =?us-ascii?Q?WlRLgHPKmmDKH9XMmBpDNmTC8gtMGdAjMSzf0mAmdRHvWhEYCBVTM6wjZ3N+?=
+ =?us-ascii?Q?QVq245j61j76KG5bJMzmxtj43cf0ZipaJJ+e38LiJ5PAEnRuGy4PI2cIZhex?=
+ =?us-ascii?Q?FFf4vG2xw6cHI8d1n5Xxg++MmC/vZhzbJzhVkJXUPjbdF40/elZnKIbIP7i6?=
+ =?us-ascii?Q?HIsIKHmLvYbtZvm3codY2De4/E049U7Ye4QUQPGuLhfkj3L+gqiAEGkyO1OW?=
+ =?us-ascii?Q?WUeSjYaVBzobipFy9hy8X3g6MSGW+aLjZkk4AwyDgzPwLO1Y4jFLDOcEBWew?=
+ =?us-ascii?Q?EXvRVD77+7eJCsrVC3odQc2HDf79ob2poyG+KSSv+82pyKBDf0fEqJEIEfKe?=
+ =?us-ascii?Q?coyhLki0dZ4KdQ580QtLIgx72Zt+hNdBImwP5tLAYP538nUV2lDnS9S/hWW6?=
+ =?us-ascii?Q?Qk+MqbgbEZzdId7oYYx7ofeOJus+fNTPFSEAP4nDiAyZGPrMkDRhNG+QR988?=
+ =?us-ascii?Q?0/4LMS0WxZpn1FrF6Q6da8dxJdFjfCoduVKyCCR6mREVW/Kty6XGzPTce0iY?=
+ =?us-ascii?Q?hz/KRuR39gHmDtqsZHnv6p7zSK10ojWJxwOReYbDJ/DsESBu5t2P99DSnFCR?=
+ =?us-ascii?Q?kCwHjphqyxZM8ITbtiIbLLWRqaxwUF5/AV3FE/4utKnORfEF+l8OdxfT5dKA?=
+ =?us-ascii?Q?UUYa6nkmNZtbkp/OTqhs1oQFyhoiMsw0aiBMZN1HpViZf8tzvgKhz4rddCvJ?=
+ =?us-ascii?Q?rDNY0ZPNjaU0G7T9wz3AUbmepDEI3pbdjpyepoAUpiWGi5kCdY8goG6cLTxF?=
+ =?us-ascii?Q?/Tq/s5f7rfQP3FsY+r53tEvztH2JkDw5R7Pod9BczystphK5NaWXSNlmPyWa?=
+ =?us-ascii?Q?tfZIq+aX8bt1P74/2Bqvi4VmdSJGsGlHkOezGy5VVteK2ODnifwJr6ofLl4x?=
+ =?us-ascii?Q?tyl/sV2caDAPuFM08hzmFaoTi6icVb0=3D?=
+X-Exchange-RoutingPolicyChecked: ROa4y82xzNKY/vsajduQbLgypR7sKYzbYzWYB1/q9hrlpnzPvBD2te/YRN05PC8JWttjYR3NAEbRGmT0Plw66UGhkjZ9EcZ27AwEKlyu+zyDRLw24m4mFrJJztSZqbzXZaF6shfefRoTV1hwSZladxEMiLkgdRhLBNP4XY9bssDjethKAVl4ApGf/5lZIGibH7/PwshX1huDxjwF9GVN0C4O4Eiusj01z26G5OR68YOAMKpjxZ8emkuiVxW/gM2gBq942eKgSEgHMuqbMqwPY3e4bL95Fw4TCaisrGAB4tVXecDzjE/k6la0nF02kMuXlaYUglrgMQ2/gn/yjEj+TA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14ff211d-681e-44f9-d6d1-08df2fb2b03b
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6117.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 20:34:21.8975
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Gn+E1PSpT25oiaqytjD6hTu09L9t/hzqc5/BWTE3VOvne1ATbZ4jdSB6kyiA1GVXDla7F16vwTBcE/EpgujPxEYqF4TIua/Dw8waDV9qNs0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB8204
+X-OriginatorOrg: intel.com
 
-On 10/21/26 19:14, Stephan Gerhold wrote:
-> On Wed, Oct 21, 2026 at 06:20:55PM +0200, Daniel Lezcano wrote:
->> On 10/21/26 10:49, Stephan Gerhold wrote:
->>> On Tue, Oct 20, 2026 at 06:08:56PM +0200, Daniel Lezcano wrote:
->>>>
->>>> Thanks Stephan for the additional information, that's very helpful.
->>>>
->>>> We currently have an urgent thermal issue on this platform, and getting this
->>>> thermal mitigation upstream is important to prevent overheating under
->>>> sustained workloads.
->>>>
->>>> Would it be acceptable to address the sensor naming and description
->>>> improvements in a follow-up patch, so that we can get the thermal protection
->>>> in place first?
->>>>
->>>> Of course, if any of these changes are critical for the correctness of the
->>>> thermal mitigation, we should address them now.
->>>>
->>>
->>> I have no intention to delay this patch. In fact, since I'm using the
->>> latest unmodified stable kernel on my T14s, I'm also suffering from
->>> these thermal issues. :-)
->>>
->>> On the other hand, we are at the beginning of the merge window and Bjorn
->>> is unlikely to queue patches until that ends. The changes that
->>> I suggested are purely cosmetic (the names of the thermal zones), there
->>> is no need to repeat the thermal validation. The throttling behavior
->>> will be identical no matter which name is used for the thermal zones.
->>>
->>> IMO we should use the remaining time until the merge window ends to
->>> correct the naming to avoid any confusion for people reading the patch
->>> once it lands.
->>
->> Ok, fair enough
->>
->> I propose the following names for the thermal zone:
->>
->>   dram-board-thermal
->>   gpu-board-thermal
->>   fan-board-thermal
->>   wwan-board-thermal
->>   chg-board-thermal
->>   cpu-board-thermal
->>   typec-board-thermal
->>
->> so we can capture with the name the ones related to the non-on-die sensors
->>
->> Sounds good ?
+On Sun, Oct 18, 2026 at 10:05:54PM +0800, Bochao Cao via B4 Relay wrote:
+> From: Bochao Cao <bochaolucky@gmail.com>
 > 
-> That works for me, I don't have a strong opinion about the naming (maybe
-> @Konrad has?). I guess people reading this might mistakenly assume that
-> these refer to separate "sub-boards" in the sense that there is a
-> "mainboard", a "Type-C board", a "DRAM board", a "GPU board", etc.
-> But I can't think of a better name either. :-)
+> Replace the private-veth script with a NetDrvEpEnv test for a local DUT
+> and remote tester. Build the helper with the shared BPF rules and
+> installed kernel headers.
+> 
+> Compare detected and advertised features, wait for DUT readiness and
+> bound the remote helper lifetime. Pass local commands and scp arguments
+> as lists so paths containing spaces work.
+> 
+> Run veth XDP_TX when peer GRO or native XDP provides NAPI. Skip only
+> when neither is present. Read GRO with ethtool without changing the
+> peer configuration.
 
-Hmm, yes. That is a good a point
+why is veth so special cased here? On my side [0] I added separate test
+runners: selftests/net python runner runs test tool on veth pair and
+selftests/drivers/net/hw is dedicated for HW-backed netdevs.
 
+Because I assume the move of this tool is to open this up for running
+against actual HW?
+
+Also, seems two tools would be introducing similar functionality which is
+a TCP control channel. Maybe we could commonize this? I'll ask LLM later
+about it :P I have not looked into xdp_features C side.
+
+Furthermore, we are gonna have a conflict with skeleton building
+enablement within Makefile, but that's heads-up to maintainers.
+
+[0]: https://lore.kernel.org/netdev/20261016174338.787135-1-maciej.fijalkowski@intel.com/
+> 
+> Tested the runner's skip, failure and pass paths on Ubuntu 6.8 with
+> ethtool 5.16. With isolated veth modules, IPv4 and IPv6 probes receive
+> 0/10 replies before the GRO-only XDP_TX flush fix and 10/10 after it.
+> Existing peer XDP programs and offload settings are preserved. SSH
+> deployment and execution from a path with spaces and a quote also pass.
+> 
+> Signed-off-by: Bochao Cao <bochaolucky@gmail.com>
+> ---
+>  tools/testing/selftests/bpf/.gitignore             |   1 -
+>  tools/testing/selftests/bpf/Makefile               |   9 +-
+>  tools/testing/selftests/bpf/test_xdp_features.sh   | 175 ---------------------
+>  tools/testing/selftests/drivers/net/README.rst     |  19 +++
+>  tools/testing/selftests/drivers/net/hw/.gitignore  |   3 +
+>  tools/testing/selftests/drivers/net/hw/Makefile    |  15 +-
+>  tools/testing/selftests/drivers/net/hw/config      |   3 +
+>  .../net/hw/xdp_features.bpf.c}                     |   0
+>  .../{bpf => drivers/net/hw}/xdp_features.c         |   2 +
+>  .../{bpf => drivers/net/hw}/xdp_features.h         |   0
+>  .../selftests/drivers/net/hw/xdp_features.py       | 146 +++++++++++++++++
+>  .../selftests/drivers/net/lib/py/remote_ssh.py     |   2 +-
+>  12 files changed, 189 insertions(+), 186 deletions(-)
+> 
+
+[...]
+
+> diff --git a/tools/testing/selftests/drivers/net/hw/xdp_features.py b/tools/testing/selftests/drivers/net/hw/xdp_features.py
+> new file mode 100755
+> index 0000000000000..dda114033b8ab
+> --- /dev/null
+> +++ b/tools/testing/selftests/drivers/net/hw/xdp_features.py
+> @@ -0,0 +1,146 @@
+> +#!/usr/bin/env python3
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +"""Check that a device's advertised XDP features match its behavior."""
+> +
+> +import ipaddress
+> +from pathlib import Path
+> +import re
+> +import shlex
+> +
+> +from lib.py import bkg, cmd, ethtool, ip, ksft_eq, ksft_exit, ksft_run
+> +from lib.py import KsftFailEx, KsftSkipEx, NetDrvEpEnv
+> +
+> +
+> +ANSI_ESCAPE = re.compile(r"\x1b\[[0-9;]*m")
+> +RESULT = re.compile(
+> +    r"Feature .*: \[(NOT )?DETECTED\]\[(NOT )?ADVERTISED\]"
+> +)
+> +
+> +
+> +def mapped_address(address):
+> +    """Return an IPv6 or IPv4-mapped IPv6 address for xdp_features."""
+> +    address = ipaddress.ip_address(address)
+> +    if address.version == 4:
+> +        return f"::ffff:{address}"
+> +    return str(address)
+
+does it have to computed every time or could we store this once at main
+within cfg's built-in dict like we do for binary paths?
+
+> +
+> +
+> +def feature_command(binary, feature, dut_addr, tester_addr, ifname,
+> +                    tester=False):
+> +    """Build the helper command with the configured endpoint addresses."""
+> +    args = [str(binary)]
+> +    if tester:
+> +        args.append("-t")
+> +    args += ["-f", feature, "-D", dut_addr]
+> +    if tester:
+> +        args += ["-C", dut_addr]
+> +    args += ["-T", tester_addr, ifname]
+> +    return args
+> +
+> +
+> +def run_feature(cfg, feature, ipver):
+> +    """Run one feature with bounded helper lifetimes and verify its result."""
+> +    cfg.require_cmd("timeout", local=False, remote=True)
+
+are there any cases where timeout would not be available on the system?
+even if it needs to be kept it feels to me like a pull out candidate onto
+main() and skip the whole test suite once, not per each test case.
+
+> +    probe = cmd([str(cfg.xdp_features), "-q", cfg.ifname],
+> +                fail=False)
+> +    if probe.ret == 4:
+> +        raise KsftSkipEx(f"{cfg.ifname} does not advertise native XDP")
+> +    if probe.ret:
+> +        raise KsftFailEx(f"Unable to query XDP support: {probe}")
+> +    if feature == "XDP_TX":
+> +        link = ip(f"-d link show dev {cfg.ifname}", json=True)[0]
+> +        if link.get("linkinfo", {}).get("info_kind") == "veth":
+> +            peer = ip(f"-d link show dev {cfg.remote_ifname}", json=True,
+> +                      host=cfg.remote)[0]
+> +            if peer.get("xdp", {}).get("mode") != 1:
+> +                cfg.require_cmd("ethtool", local=False, remote=True)
+> +                features = ethtool(f"-k {cfg.remote_ifname}", host=cfg.remote)
+
+isn't the proper way to utilize ethtool commands is to do:
+cfg.ethnl = EthtoolFamily()
+
+Also this feels like it should be within veth runner and scoped at
+test_xdp_tx()
+
+> +                gro = re.search(r"^generic-receive-offload: (on|off)"
+> +                                r"(?: \[fixed\])?$", features.stdout, re.M)
+> +                if not gro:
+> +                    raise KsftFailEx("Unable to query peer GRO state")
+> +                # The peer needs NAPI to receive XDP frames.
+> +                if gro.group(1) == "off":
+> +                    raise KsftSkipEx("veth XDP_TX needs peer GRO or an "
+> +                                     "existing peer native XDP program")
+> +    if not cfg.addr_v[ipver]:
+> +        ipver = "4" if ipver == "6" else "6"
+> +    cfg.require_ipver(ipver)
+> +    dut_addr = mapped_address(cfg.addr_v[ipver])
+> +    tester_addr = mapped_address(cfg.remote_addr_v[ipver])
+> +
+> +    dut_cmd = feature_command(cfg.xdp_features, feature, dut_addr,
+> +                              tester_addr, cfg.ifname)
+> +    tester_cmd = feature_command(cfg.remote_xdp_features, feature, dut_addr,
+> +                                 tester_addr, cfg.remote_ifname, tester=True)
+> +
+> +    with bkg(dut_cmd, exit_wait=True, ksft_ready=True):
+> +        # Bound the remote process itself, not just the local SSH wait.
+> +        remote_cmd = shlex.join(["timeout", "--signal=TERM", "--kill-after=5",
+> +                                 "90"] + tester_cmd)
+> +        result = cmd(remote_cmd,
+> +                     host=cfg.remote, timeout=100)
+> +
+> +    output = ANSI_ESCAPE.sub("", result.stdout)
+> +    match = RESULT.search(output)
+> +    if not match:
+> +        raise KsftFailEx(f"Unable to parse xdp_features output: {output}")
+> +
+> +    detected = match.group(1) is None
+> +    advertised = match.group(2) is None
+> +    ksft_eq(detected, advertised,
+> +            comment=f"{feature}: detected and advertised support")
+> +
+> +
+> +def test_xdp_pass(cfg):
+> +    """Check XDP_PASS detection against the advertised capability."""
+> +    run_feature(cfg, "XDP_PASS", "6")
+> +
+> +
+> +def test_xdp_drop(cfg):
+> +    """Check XDP_DROP detection against the advertised capability."""
+> +    run_feature(cfg, "XDP_DROP", "4")
+> +
+> +
+> +def test_xdp_aborted(cfg):
+> +    """Check XDP_ABORTED detection against the advertised capability."""
+> +    run_feature(cfg, "XDP_ABORTED", "6")
+> +
+> +
+> +def test_xdp_tx(cfg):
+> +    """Check XDP_TX detection against the advertised capability."""
+> +    run_feature(cfg, "XDP_TX", "4")
+> +
+> +
+> +def test_xdp_redirect(cfg):
+> +    """Check XDP_REDIRECT detection against the advertised capability."""
+> +    run_feature(cfg, "XDP_REDIRECT", "6")
+> +
+> +
+> +def test_xdp_ndo_xmit(cfg):
+> +    """Check XDP_NDO_XMIT detection against the advertised capability."""
+> +    run_feature(cfg, "XDP_NDO_XMIT", "4")
+
+Why some are v4 and v6? I was told to be flexible and support both.
+Why we map v4 to v6?
+
+> +
+> +
+> +def main():
+> +    """Deploy the helper and run the six feature checks."""
+> +    with NetDrvEpEnv(__file__, nsim_test=False) as cfg:
+> +        cfg.xdp_features = (Path(__file__).parent / "xdp_features").resolve()
+> +        cfg.remote_xdp_features = cfg.remote.deploy(
+
+maybe we could refer to these via bin_{local,remote} as other hw tests do?
+but that's just a nit.
+
+> +            cfg.xdp_features.as_posix()
+
+what does as_posix() do and why is it needed here?
+
+> +        )
+> +
+> +        ksft_run([
+> +            test_xdp_pass,
+> +            test_xdp_drop,
+> +            test_xdp_aborted,
+> +            test_xdp_tx,
+> +            test_xdp_redirect,
+> +            test_xdp_ndo_xmit,
+> +        ], args=(cfg,))
+> +    ksft_exit()
+> +
+> +
+> +if __name__ == "__main__":
+> +    main()
+> diff --git a/tools/testing/selftests/drivers/net/lib/py/remote_ssh.py b/tools/testing/selftests/drivers/net/lib/py/remote_ssh.py
+> index 924addde19a3e..5e2950a7c95fa 100644
+> --- a/tools/testing/selftests/drivers/net/lib/py/remote_ssh.py
+> +++ b/tools/testing/selftests/drivers/net/lib/py/remote_ssh.py
+> @@ -33,7 +33,7 @@ class Remote:
+>          file_name = self._tmpdir + "/" + self._mktmp() + os.path.basename(what)
+>  
+>          if not os.path.isabs(what):
+>              what = os.path.abspath(self.dir_path + "/" + what)
+>  
+> -        cmd(f"scp {what} {self.name}:{file_name}")
+> +        cmd(["scp", what, f"{self.name}:{file_name}"])
+
+agree with sashiko report this deserves to be a change on its own
+
+>          return file_name
+> 
+> -- 
+> Git-155)
+> 
+> 
+> 
