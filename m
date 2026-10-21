@@ -1,86 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586187;
-	b=wVFavhD6HqrE7Zy+IW4mS0aE95m74NtmVqy3fDuxVVbBdvtvmrJUdi7dlUwUmuw77d4t
-	 iT4QXIES8FPMTKDIDT9UHX4/gCxBIznvehFsTtDeuVIX5FuDcL1Iw7KTdOTKAQlti76du
-	 Ot3DqwtwkwBCTGpXYUCfgY+QlhoNz7JIIVJKkzojwBJ+PXRHx+ae6H4sK35TRkR0WFz6S
-	 RtZf4y6eGGiSBg8B0jyIpaQW77jOVR+TKP+rFhoi+TKsVty1CSEkk1KImbmqNAPg6i3qo
-	 nqc24zt0ha0uyrugd4p1tWcBZVKzS9brYibfnDngLp2QFNxmmG9xpUUL9TA15qdi9aA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586187;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792586212;
+	b=xJejpzlC/FsIBChm0DRRDq/UoB9gCmBLaiWgXR4tEKH7uRWO3Wz28eFjITS5gVDfOqhv
+	 ZMhAjA6gluPaTZ0BryebVN7PdpcoevpRSMmvG6QhShlwaJhIWE0cDhmetffNIR7jpPINB
+	 b/2Fr8KxUOivmxgpI1Pl/X8fCwBeApvLUOmEskNPPk7GWSJAVdgx1B1LGYpY/ClzTCcYb
+	 V5bVPuJ4NVrX9aw1QodNHaUZWLnkqC1mBzL+4UYsBkbf8Qc0gSWiSgZeiqI/QXnJAg7vU
+	 8RUnLjVNH1/UhQFgqgDgW8a0c6z/Rn+OsoJ5gpFsUIl9/sLta0kK0EF3fVzV0fHPchg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792586212;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=A3wRfe9sMloXs5k9s52yyaXQN/yvODgxq6R0LM/3RHw=;
-	b=YiPRbKCcTePaZ5xMKeg5IvpNm+7U2xVzaeT5Vq6uwanwtRwBeHnQzf8QZQiNydDv90E5
-	 ETSS3c177FBst64+1thabtAeuaSwXku/sW+4gN8vnAl1w8XVqN7BU4W8vw8PpJWxYw9EM
-	 Ckcx4FLhdNcg+wH+eDTbBzTXscU4FqjSo6ykSqwbZyPBE7P9mfOd2GeKI39S7d0Hl0FMd
-	 u0Lf892qJAEJksFOS2gACQsN8K/DfH+u+3Zsco4JTCFUcIIky6FjNSdvYI2CNat9aCt9T
-	 bYNaoeeZOKK/jzFcERDcKWwrO1p6Ov/bjG9p4T31/hba4XL7iWnkYUuZue3NziYvfUQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="qgLDCNV/";
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:From:In-Reply-To:References:MIME-Version:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=vp+dVFBwYXmRjQyumKZLewi3+rD7rnAjQOTAkzTLD1s=;
+	b=ajcJs+l5n3nEudp27KuhJ0EtrT6rcVKKGD5IpGWbME++hjgXp25soastZ3YSmBiFeSAT
+	 muTyroEZ24Z33Iu/c/WEl2+A3dbFpi0IKNZhDNCmxnAt5cqkbDxqMmICFDgm8Eau0BTB2
+	 eNBxqlorWrdKCePquR2twdun+KC9iHD/D2fXEXmzDkHtrhLzFN1StpTuRBM+lYcnUF9FH
+	 bm1k4vx+mqrzUIj4a91cbs6z0kDQ83ci1SYSfcdgETq5fSubPdtoAfCCU01ZGPMVy3TrO
+	 E6ECJQXbTtMnhWaxhlQQN0/d5/m++X523JSLvQrDu9Lt/ozuPHkdG3gRTV9+vmt0ROw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VfIFDj1U;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4135660A4ADB
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:36:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4135660A4ADB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385FC606A32E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:36:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 385FC606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qgLDCNV/
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-36681e85e87so1304517eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:36:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=VfIFDj1U
+Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-91ba702cceaso8373036d6.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:36:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792586211; cv=none;
+        d=google.com; s=arc-20260327;
+        b=KmfO69PKbY6wXbYRa9njSMcf5LqBPFbZ+DeII5EVN8GEtQiVv41mCrxcoOds9a0zrC
+         5Y06xv9G+M3lAeIIYvnJQnCvTqffmlIBGUi3wN/AE1Y2T6STi8CeY8OgxJVOnY6ozDoV
+         K12AA3j1/lj5SQD5axyn5t7qEHezyP1cZgHsGFwZNK1W/bk7g+NzvCTlUnBeL3uFic9V
+         wtVBd5Wla/K9Xzht9asxaRZF0T1mbfRGodO78BOfCmywb/NIJM5/90crqVkEhVQz00+s
+         lLG8XCvfwPZK2Wzxopgp5yW5IhEfR4N2+7YH9yNBIs0RyLun0K3vuVflk2fGKsJygi28
+         a9gQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=vp+dVFBwYXmRjQyumKZLewi3+rD7rnAjQOTAkzTLD1s=;
+        fh=yFpIMnd0FK9tLfA+8Y2Wyy7UBViRRxvQMDSzFnDl+os=;
+        b=IY99n0sy0/Cs/TVMxHjxXhNB4aKecsTfZO2Fk9NRmgL0O7yRCCCwnIqzZUdXRoVZaM
+         k+gZiv5vlgXqBedXyXMPTtAKoq1PeZRnstR2hta5XU2hmdzD8MZW/mQM4ThQPRojUEMO
+         +rGGFOAIyrO+kSKn6K2KR6M4uv42RwxPWdtygliwnlcC1KOAteGUKizPy0GhuLTykKVf
+         3NiBq/nX9YrfygVQVAjgJj0iJc//Zp7jCSw89FF4bN89MYcI4iL+DNV7fKTiLrGZ02+Q
+         O9nyxtNygEqxysYyc9KPKHqxI1R4JzDQEyMkxyKCFVp4EzHAG8TnAuE5IfD+/tSooA+Z
+         43rw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792586186; x=1793190986; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792586211; x=1793191011; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=A3wRfe9sMloXs5k9s52yyaXQN/yvODgxq6R0LM/3RHw=;
-        b=qgLDCNV/ZOF0YzIxaW5n5UDtDQEI4IZeI2Z8Wv2mfwPgd8Vnx14Cx11H1OHmGicI/d
-         qEKDqPOFGd8HjbRAMtFvf2kItK0as75Akc37mOWCkNCT5Q5aFgmnrz18ZwAUs5vYc+Qt
-         DCH4WSWz6nJxd6ASBDvG/WckvCRE66XJWxv4i5KxJHQpQFKzROlClrc/NH18zHPUliQ1
-         fSpZOUr6Mi+HuuwP+dqZz8hLLMvWdumaId9eBTVsIl4ji2cpPH+X6V9HbGvMAbi6KqQY
-         p1vhNSBJ3A3d5xsyVlb8URFgmFskmbKbboGXuEQ7mzKYT3A87QxvNpm4GzBG0Le1rLlU
-         bwxQ==
+        bh=vp+dVFBwYXmRjQyumKZLewi3+rD7rnAjQOTAkzTLD1s=;
+        b=VfIFDj1U1wx7mgWjIhtPYJRlL+/Ei885Ww1NZCDi+DxR1li7ARReqjbVU9kcM0ZY8D
+         T+BA5Mvf+GG39KNVUP3PG+7IY/2kh4N3DjOLdujIE2tdp+Kpl0XINjVn0JjfXvhX3kGQ
+         ChSfRHSkPJqFvDzqAEuXEsnCFojfdH+2a0lqPTZMAhnF/lt+owm3lV3lFQHMbm9CkGnU
+         fiutRbPKq/3g6NbSwv/vb9TiYG1eHsJOU274cfkYX2vqqp5M7F+LmHSLTHPz1bapSyHx
+         gHdSmZ2ztnE+O991Orcln1ukNv/1ZlXyOUBeAQW+TA0Lc0P/yY7c5Psm4kCBojTtEEg3
+         szFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792586186; x=1793190986;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792586211; x=1793191011;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=A3wRfe9sMloXs5k9s52yyaXQN/yvODgxq6R0LM/3RHw=;
-        b=ChCPRmzGplncJHYPoNXTCb5XUB5ebafJa6lazh5B9STnOMtHscM52stgvKVuSPhtbB
-         o0GzPDczeZtTUi3yLqqxyHnouD1JRTFTGZSytu928LGtHm6gDf7ZqMDFCdVdVo2Rbaaf
-         oANL0DILFIVFNR/snPbeNVGoYmkxUJuuMaJ+BT9orPbk86ufbuwglzu1Up+SWj647VqK
-         14Y+0bNmw76kDhUekIpFaxWmZky8Pr8YCVFEtFdKqBxXxpe9HBTY26y5U7TpJoTCPLQ/
-         dXKTN8tbeJvc3zGFtPPnDZcEbvcKxjmLdqFpqmzQ2ZEbzw/csHNuI43erzSMH4wiugJV
-         cGNg==
-X-Gm-Message-State: AFq9FYILHl1ROmP4PDyeW+4abUq1FycUe6PSYO2oN+jReo2MfLIPL6m+
-	2yIG99GOuzrrCfXW8i3LjHRTZN7Z/b1Fw4DLqZwfO+oeWpMfbuHZUelE
-X-Gm-Gg: AYBFou1NEUsl4sfs7ps8mWMfUs4Nl986keseS+lRd1GPWVs8Zw4Ermy6fqg6ASxE3ga
-	PgW48t79fazRhMnwKxPj6p3Q2JAtTU/XB1psbyjgb5QttSJ/Uend42mIw69ZKKg4vqahCpcDVZD
-	tn5kVCEQPDPT4a8OgSn851y9+mLhdExpXYFbVtKl1ACiWVV4WxB1ro7aIPBXrKD9nHzPYD5v201
-	K2CcL6mJm0V+mdKjES32fhZT4so/xRfZ5cyRbuYmpYs0toqTIy/xgARrBZl11dKkYt+klUqnib5
-	dO00qFqfgU8nwPtyjRqXgbjxKRJOWET35eAf2q57HOpff/9El5HQMnBgadxZAajkq1vN+3RCZkz
-	KPgnrJN9gAWHyyurpoRoSJiQQUhBf9/NOut+7DUKlQeHunxTk78S9XJ7MEiVFP3gskmATM2ukyd
-	z4mnfufm/Om0udoeC+hP4OS6jOGKp5bGapZsXAeaAt03Lcssx6rd3TNaQ4thIniLF1/qmc1L65+
-	J1YRsUxiGc43aGJ+GEPHe6EGj4tXLZ3UeOHlIM4+0Y5oXDRE2Dtr81Iw/8cRagnWl+yo72jKB5Q
-	+WD1p37L5/wkxQkk+Xg=
-X-Received: by 2002:a05:7300:c00e:10b0:35b:d329:9f3e with SMTP id 5a478bee46e88-3674e842a86mr3427400eec.28.1792586179507;
-        Wed, 21 Oct 2026 05:36:19 -0700 (PDT)
-Received: from ?IPV6:2408:8210:2436:950:e587:7022:9bde:e16f? ([20.89.137.63])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36741e71eaesm15270240eec.26.2026.10.21.05.36.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 05:36:18 -0700 (PDT)
-Message-ID: <5f8047e2-9803-451e-9a70-6b9275d4ce5d@gmail.com>
-Date: Wed, 21 Oct 2026 20:36:14 +0800
+        bh=vp+dVFBwYXmRjQyumKZLewi3+rD7rnAjQOTAkzTLD1s=;
+        b=yKB5gGKhb0P2IXsfnO450IQURHKHZAPHH2Uo+TlyjMKZNH2l4IuRimd3x8iAE8zuP5
+         /ceKmPiZ0p8wCie174208w5gUQHsfOv27xkfM0J98chjlC+RFo5Ew/DxGtMiMieQYfG6
+         /BpjtkVgkEKi1MvAp892gMrui2aS79S7ZlY49qMXlVDyKGuMyzPojZCNlI3yd7Tz2EGr
+         ion+UMj8igP+9nBLez4q++UFia0h4s0/azJpIbhZAL7j5uT/odtoXCqV+Xuz9iDxfU9F
+         H3ASKmQiL5L6dqQQ3NdQzmeWm1I25pJQIh3A9pGk1KxgUuETrcYMBtfABm/VDgyf53KH
+         hWkA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFZHstoSt58seA9mIMJwjqO8iTBHXnf9gS+9CGjW2ei3u8fOskmwY7nUhA3lvDMPvvP7eqBT80FejmvDc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV9TrUO8zbXiBtm7wgJJNdNlZsiBzfGEqIldxZGOEvxabiiDGn
+	lDwH4u+eHbHI5XtuwRXli6uPGoWrXPELfSdASCDNm7Md/j75J2wMjd5sVVgvHRiAznkAfzzjmmX
+	Waai5qhCv/RbMIqw9g85CyDDo0sHCHu185R3c+Ne9
+X-Gm-Gg: AYBFou1aDeMteIuzvKth3hVn9hVPOrlTOwUHDJTRfvanAV/tWrXUUmF7XBC4jcLO5CA
+	nHCzqs9DgzR2jPHauKhH+362TKOHTtGrDVYJQg+fa3td/zU5TV3vqg/8s+0C4NIOUqYawY/PbkZ
+	vCJxAfxUVGkSnul8jk6HefbqHqMRL2+8ENSMeyB+XUTTwjF9YvNFgBQJo68ORmFAYc8PYUIBm1a
+	oCMxUWDJmdut1UPw5kUm0AgKegzMKMrMONklfYap3LDhGQJkSnHJYjx7NzAb6DG8FEtdX3h2qkU
+	E1B2N/8dXkAnOfcBveX1tuSlktMfGXp/vVo5UI7XZBkIS5kKP3cjPMH702AVtwKIjt7Zwpyk7bA
+	2JbF53RgQ/t02MABM+/xCCnQGMYiFbKFIsO6/5LSrBgbAhscETwHazKy00FxEAti8uck=
+X-Received: by 2002:ad4:5ded:0:b0:91b:8b2b:5a0 with SMTP id
+ 6a1803df08f44-91c12ed7f7fmr33692636d6.23.1792586210014; Wed, 21 Oct 2026
+ 05:36:50 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:36:48 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:36:48 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <20261020131447.122096-4-pbonzini@redhat.com>
+References: <20261020131447.122096-1-pbonzini@redhat.com> <20261020131447.122096-4-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,47 +110,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] platform/x86: bitland-mifs-wmi: Fix response
- payload copy size
-To: TuteMthCD <matias.civadda2342001@gmail.com>,
- platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, ilya.gladyshev@linux.dev,
- ilpo.jarvinen@linux.intel.com, hansg@kernel.org, chris@miget.com
-References: <20261020234927.121570-1-matias.civadda2342001@gmail.com>
- <20261020234927.121570-2-matias.civadda2342001@gmail.com>
-Content-Language: en-US
-From: Mingyou Chen <qby140326@gmail.com>
-In-Reply-To: <20261020234927.121570-2-matias.civadda2342001@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Date: Wed, 21 Oct 2026 05:36:48 -0700
+X-Gm-Features: AclHuK8oqUEgIxjh5FUdJlLrxelycGduv-SDb4dxrbObth2hRi4LViUrvz_cFxw
+Message-ID: <CAEvNRgGstgi3vo4Z1vqoXXQfbg8fDd608+JuMnmEtF_FiQF5Dg@mail.gmail.com>
+Subject: Re: [PATCH 3/3] KVM: always make in-place conversion a compile-time
+ constant when possible
+To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: Fuad Tabba <tabba@google.com>, Xiaoyao Li <xiaoyao.li@intel.com>, 
+	Binbin Wu <binbin.wu@linux.intel.com>, Shivank Garg <shivankg@amd.com>, 
+	Yan Zhao <yan.y.zhao@intel.com>, Sean Christopherson <seanjc@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Paolo Bonzini <pbonzini@redhat.com> writes:
 
-On 10/21/26 07:49, TuteMthCD wrote:
-> sizeof(*output->data) copies only one byte, leaving the rest
-> uninitialized. Use sizeof(output->data) to copy the full 28-byte
-> response payload.
+> Remove the unnecessary static call indirection and make
+> gmem_in_place_conversion a constant if CONFIG_KVM_PRIVATE_MEMATTR_VM
+> is false.
 >
-> Signed-off-by: TuteMthCD <matias.civadda2342001@gmail.com>
+> Require that CONFIG_KVM_PRIVATE_MEMATTR_VM is y only if
+> kvm_arch_has_private_mem is also defined.  This way, the three
+> possible cases can be expressed without nested #ifs.
+>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->   drivers/platform/x86/bitland-mifs-wmi.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>  include/linux/kvm_host.h | 13 +++++--------
+>  virt/kvm/kvm_main.c      | 13 +++++++------
+>  2 files changed, 12 insertions(+), 14 deletions(-)
 >
-> diff --git a/drivers/platform/x86/bitland-mifs-wmi.c b/drivers/platform/x86/bitland-mifs-wmi.c
-> index 44b16b7b4034..522b38e9755e 100644
-> --- a/drivers/platform/x86/bitland-mifs-wmi.c
-> +++ b/drivers/platform/x86/bitland-mifs-wmi.c
-> @@ -265,7 +265,7 @@ static int bitland_mifs_wmi_call(struct bitland_mifs_wmi_data *data,
->   	if (output) {
->   		output->return_code = return_code;
->   		output->function = function;
-> -		memcpy(output->data, payload_data, sizeof(*output->data));
-> +		memcpy(output->data, payload_data, sizeof(output->data));
+> diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+> index 09c57d31d153..e7fc94e2910a 100644
+> --- a/include/linux/kvm_host.h
+> +++ b/include/linux/kvm_host.h
+> @@ -2585,15 +2585,7 @@ bool kvm_arch_post_set_vm_memory_attributes(struct kvm *kvm,
+>  #endif  /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
+>
+>  #ifdef CONFIG_KVM_PRIVATE_MEMATTR_VM
+> -static inline bool kvm_vm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
+> -{
+> -	return kvm_get_vm_memory_attributes(kvm, gfn) & KVM_MEMORY_ATTRIBUTE_PRIVATE;
+> -}
+> -#endif  /* CONFIG_KVM_PRIVATE_MEMATTR_VM */
+> -
+> -#ifdef kvm_arch_has_private_mem
+>  extern bool gmem_in_place_conversion;
+> -
+>  typedef bool (kvm_is_private_gfn_t)(struct kvm *kvm, gfn_t gfn);
+>  DECLARE_STATIC_CALL(__kvm_is_private_gfn, kvm_is_private_gfn_t);
+>
+> @@ -2601,6 +2593,11 @@ static inline bool kvm_is_private_gfn(struct kvm *kvm, gfn_t gfn)
+>  {
+>  	return static_call(__kvm_is_private_gfn)(kvm, gfn);
+>  }
+> +
+> +#elif defined kvm_arch_has_private_mem
+> +#define gmem_in_place_conversion true
+> +#define kvm_is_private_gfn kvm_gmem_is_private_gfn
+> +
+>  #else
+>  #define gmem_in_place_conversion false
+>
 
-Hi,
+There's a #endif just below here where the comment says
 
-I've included this fix in my v13.
+  #endif /* kvm_arch_has_private_mem */
 
->   	}
->   
->   	return 0;
+Not sure if the convention is to align with the first #if
+(CONFIG_KVM_PRIVATE_MEMATTR_VM) or the #elif (kvm_arch_has_private_mem)
+or something in-between.
+
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+
+>
+> [...snip...]
+>
