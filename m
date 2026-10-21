@@ -1,121 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.150
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792573465;
-	b=hykuWl+icneSkhplgFjbEnPK6BZbczjw/qR8ulp88KAYrBzIWIXzOk/q/sFRQdOvJIso
-	 NeRLW1QXjzuN2tOM/eKF86NiGK3XES+35AAsVxbnjctOZ/cVjzJ7FxaGAVhBCsCEw0a9h
-	 gnuEzXzff63Lay2FRkKkPUt4Z6ldMM6CQrE7lwSrrlvgieFa+b6gwdxasFQP8pl9NR9iA
-	 62h8ksfbr/IuNdpFZJz7UsxzUKDD2iJnha4nXVl+ZxjsbpfOL7tEeejA48JUKUMMzEab1
-	 DTDuwEuFSlL6sy2VPlxwJtSKwcJNi378lieqqZBuCIdav0zcR6PwBxNWsMo2F0nhR/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792573465;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s3xFwzQFM=;
-	b=w/oIRUyhRLmcU0lORVmA9Z6Fg4NG6XAw8PWPYsuTUkeQJEGPRtgIwhAhDq6wZrnceNLy
-	 ThEdLvf2tO+YLNZuqDx+qUvOtKz6vATasLLEzwXPVEEQ7tWXRzCJrZoIdu3+cbCwZRItK
-	 uecszzORX4/oU7ffRv4GjEarAfsHbUghue8Ow/rV9BI7PIeuROa+ZT5Due3FCQmaEMZUf
-	 KaI6V84umnyo109y6YTpTVTEDck55soGjvpkAZ2USCvWpvbt27Wgief1bhELQCN7j5I1j
-	 z8aA47SWxyIaRsFjMcQBU3bOFFvbTXqc4P1GvliJUBH/0bvWNnO9xyKEFrGZMXkxpPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=queasysnail.net;
-	spf=pass smtp.mailfrom=queasysnail.net;
-	dkim=pass header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm3 header.b=omeSON72;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=nudGWP2W;
-	arc=none smtp.remote-ip=202.12.124.150
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792573468;
+	b=EQU8GrNM5Yvholy0aBv975d10LiGl5RLwtuwMijc72ac92XqGaYB2iq8NHiuA4Oir/ij
+	 Uxy84EmIRcS2011grNvgxXmKcy4uLECkZ7y+RRjR/UKStEtX40aHij3fDhQKK6guTeBvf
+	 lFzHZCteV3XB1A9BnrDy+R4uOLYf9gaPk+PuBEasw6rEz/JOEvifyQi4d16ii6cA+GwAh
+	 kcqa+VTfOhSI3y+OXEyF9/HkZ6QYmPmXealjMoyJWWQG19aX+5Gef6+WfcdSpf8j1A7Ey
+	 fDVubohVZ6S4Cor60GVmQNZLISn+CDgk32frovlgsXPjYjp9dg5H9gMmrutEI3MlU1Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792573468;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:CC:
+	 References:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Mpl5lFq/5z/7P+5942HziISR7YV4Qmm+6R4/KaZiC2w=;
+	b=IDMpak9vTw0fmseRE/ajecqWbFpyUXW6TNP0t4Q8woDP+fFE3B3DgCb04j9elIE+cuPM
+	 VlfiArI/54DajRFeN3aj/tKPF1TiwTVLxMT83gadH6Ll1NsLVqASmkMX2YlD13Jkk4Y1S
+	 6umtbtNZDGssBBz2D9vnKY6uAkQy44xb4cDp1llGbxyrryKSuyDgOG91kVyX4aai8igVL
+	 3gLkPxnSkv/Y8uBtEj9Dw3StWuJ0rZPZ4/jn6i8zF0AXx5JVE1wCftfg4TWFN7XPWTn+x
+	 EAowGN/e6JXoxFJBvXZhZ4LdRGKrFLD9jO2q91g3u11/EOSoHVdQJEmQrhKzuCLi9ig==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foss.st.com;
+	spf=pass smtp.mailfrom=foss.st.com;
+	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=K9IMoBDi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.12
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012012.outbound.protection.outlook.com [52.101.66.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F9A606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:04:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F9A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B524A606A323;
+	Wed, 21 Oct 2026 09:04:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B524A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=queasysnail.net header.i=@queasysnail.net header.a=rsa-sha256 header.s=fm3 header.b=omeSON72;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=nudGWP2W
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.stl.internal (Postfix) with ESMTP id 95C881D00134
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:04:23 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:04:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm3; t=1792573462; x=
-	1792659862; bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s3xFwzQFM=; b=o
-	meSON72QEHErjg7n+i2yeuPoD4JJO3wC0eQEUP670QY9jVILee30qzKmS4mOVKdh
-	peivkki6RAGkgrXSwPyFReTEuB2+aWZDnKuVFkTVbbhn2IRuPe5EeYiZwiaCXj5t
-	BWH64f724LqnDxwnUntOpa3zIYyNBDfQYtQHdLdokmn+my2gMwsWUEQY/OmWDJe7
-	EJnGJvBElhHJ0OAILgOBGI+yyTKyMjRknJIWe1ECfuY6xvFveHLyHxIAw4Tavkq4
-	RSk9rc/qmrqrc6+egbMBOmveywQYLX+4SUCet7HMTXriVVYcz3rn+0z2xmpE7vfg
-	B2L+2FrywVUryW31X7QbQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1792573462; x=1792659862; bh=csNOmpzOi9opi088UH5aVImfWx2YCUTo70s
-	3xFwzQFM=; b=nudGWP2WpJidpEIlgg3pDi5/YpEIj6ZF1hEBVngrs55d/rt2z2r
-	qVMvOlua5w007vKBlQhSkEwUT/a1btkc382XtH5ii4vJi15RO21GmxCu0XicxAb4
-	uQmUVMfqotwY7kcloF8ILjTkmORbIDWN8UcJ/xa/LrY6FUh4qZjrEpJG5yHQXfVE
-	ZbrqLfoUch8u1E6MsFiWlUcQrTjpuTlexzxZ37gfGwmyiU1fC25AYMzvtXKPjk9i
-	HQ+R/nnmVFfCSJOkjpgvfjt4CDcMArLIqdg5psbzaZwfOpdgPSqLOin8hzEOdnx5
-	YiuwnLQu0GyRO18SV0tdHtmV5O608ehqv/g==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=queasysnail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792573462; d=queasysnail.net;
-	mf=PHNkQHF1ZWFzeXNuYWlsLm5ldD4=;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:IVAmoHZN3WRKxPPzdtfNTAPJ8R9KRR/55breYxJaAPMn2Sm
-	BTXLZQ7dlqbEjaeqWkb3UqA5CwMJmJfiefozuEqw8MYz4Bfh8FRE79ZUANOppWKk
-	517m6Dl/e+jgh2maqIg8B40DErl7eI+tO5AvS5o5urfDE/02HaK82W+GcZ1kk0po
-	qoEdurWeyRgcT3MJ7wTnfuqaUPdVKsLy2ECz5clPd/3ef+ftObkoBDC0FckzIQNO
-	UkoyxhRm/cgSqzz+/rkQLvXl4MkOOT36A8/629Q0HQozllnxOJK35vyoxPINnQCX
-	W8Qjg22QjjkWjdXxI0osBln3wRI+0/+UANbPjzA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:BPsFBW8hox1ARX6bqMlGNHye56oNNRkxjp5ruwYW0+0=:SN3lCVCm/+OtZcsJHcgkhERSa+yp3BYbsp+O1Bf8328=;
-X-ME-Sender: <xms:FYDYauMP4a6wy_N2vd6bl73-dVR2gJpMSg2ECRE9E7AoSIfCc0-ObQ>
-    <xme:FYDYai8tYAKVjeW7LlIJgoPvnHmhVc0ki5KINUUIhyzUh0WVk6yclIt0vAOyOSW_5
-    PpkMHEjLj_XNJuJfAHA8izGpTqAMAjbU3B3jFz2O-gPjHOZwRbIBf3A>
-X-ME-Received: <xmr:FYDYagHgn2hk1qgwWQ_s2nu5LBEYvscjvWc-lIkZ3WCp1ipFJudtLW93p1I>
-X-ME-Proxy-Cause: dmFkZTEu9GlWtHXe9v9ClB+erUmoDap8HNWDFhJJi5pP1RUgD8TZuRnUuCCBr1H8B0+f/F
-    xcfo+/mXnhan7i4FzLnwhbRZ1QUo3U6auOgMvtpuwR2wXwUsPO+dgsJWQse6rYu/MYGQEa
-    ad1sJrqX8ZWQOBJ6jfBeswqfi6sidebXP4/b8Bh79NYyEa9JUa5eD7EAXE7AC9a8j3kV2X
-    5MSXnED3dLH8vB0pOcMbwyTMEltKQRLJMoRGB6ZEVyDVa4L7LMImJcGM4lhXxaZEh407Aq
-    XCONGZqAuEXOSov9Vh9qXgV/z7vur5hiAvGh5U/Uw7Bo4UmHthK+M2P+GHo7tPi+cTERg9
-    XIdDkkS/xzWpx+dlIdz6guXu+8uWxwWTolp5QLOE0QqjzRZZU49Cenr04EKtkEtPSW/Ri3
-    DAsATrp2XrU6EkAqZbnespu9lj4RzsN2Xq0lCo5BPfLilXxT2ftpnlKihgY5oDR8pyvSQS
-    xkIOjMMw0kc8+vB8YGSgajmwODNIvlkJ3Toh4fp16CtxXFQgFDed4p2tYLsvQ3qcdivC6r
-    WD4E9l3vvEoaqaR1QWM3iACMvLwrMyeazLpwQ/jGvPOkWrVxtoX0NYe7oSUK+FNw+6lIXW
-    fA63JfweHR0DDhQiCL/GZCRyZ1kSzUB0fW6trlhpQAkO8nJSbNUaQDUHSjxg
-X-ME-Proxy: <xmx:FYDYahhXsVAlRoPfZxlYTlnuGVDc0p2cbNbubdbOVdIHS1xBAzyE0g>
-    <xmx:FYDYaltnXFMlSICTXpMrGUS5sT331VQrnoXPKTE19ku_RQsEJ4Jz8w>
-    <xmx:FYDYastJkBcNLiTvh6lv7qwqBeYpVOLZMtlUriOnvVgES6fl8axYcA>
-    <xmx:FYDYaiERLrOeTp1AA3BRNfh6dO_pV630xhxRy7QThbW2zWXYdQ6Otw>
-    <xmx:FoDYajcdDGLF-Dn0E_Z4KMbYXiTD9mw18eJF4PVv5YGZ6XLz4JvZC956>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 21 Oct 2026 05:04:21 -0400 (EDT)
-Date: Wed, 21 Oct 2026 11:04:19 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Rishikesh Jethwani <rjethwani@purestorage.com>
-Cc: netdev@vger.kernel.org, john.fastabend@gmail.com, kuba@kernel.org,
-	davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] tls: device: keep tls_sw_fallback() from encrypting
- its own output
-Message-ID: <atiAExld_bpR7sQm@krikkit>
-References: <20261019212651.733565-1-rjethwani@purestorage.com>
+	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=K9IMoBDi
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hLAvKKCcgXc5eYg7tLo3YQFLJr75gR/0k0Dp7Lr4Zjw47jsMU+/kKWh0l4cK9k2KcqZWW6TBz1h8cvKR7xrFgH69nb2bpl8OkIiQLW7oEAN7+gPLHcJpCCjZdMP+Igyf8tof3aAkHu9ApWsMqnva0O1pr0MMqX89CaHDC9vGI4y0H7y5ohKMjJB+3SM4wXKPJ1bBrIISBWk6jeo6GHmmeQK6+THeANnT3JF5929cfpsl9sJjsijKbHFKgpN50XoEjmyIZSyAIoWGEzklaeBUZEnTTQU5/RC1826BKUTq8af1DY+U6s17Nb84HhvNcKX7EO+IHNgCGMWuti7Ykb8BUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Mpl5lFq/5z/7P+5942HziISR7YV4Qmm+6R4/KaZiC2w=;
+ b=g6k3b6G1VR8k5dU++knoTUw1kAsT5BmQ+AtI4oaFmu6MjNG97aUXHG4KT8ikPtz9Tsr2VCEQxqqB7xH5YdZvm667NOL0mQF7TOyqFrwX3fRycY6u4uQn3vGiFR/efzmkHm18246HrAv/yw9YiIruvDzLBR/SX0lQj5y5mcxstv9UFhP4+RVHPMgUD956nf4F3thm2AF6ft52miupG4ma0W/2EGBteOwvSbcNtsIl8R6j8nQk/5lfsxk4sJQdpl1XizV+mdkT5b0rQJuUE8sqMYF16pyy6SPkpUWtqMprFYZ0hBnvISKFCo0UohwWI0WI6igxne0iA0MgyaQWNksY8g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=pm.me smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Mpl5lFq/5z/7P+5942HziISR7YV4Qmm+6R4/KaZiC2w=;
+ b=K9IMoBDiH10fycjBGC8IIKcsPSlB6x1ZIOfM1x44JeZ5B3OyMu/JbEHh/gw03jq3lteEVINCdJw2ntrnFlUDl6EjTh+gNMDx6k5XyQqiymUb9N6C9YNaCkTdSjN8Lig7w9D+0KjtZCpnurpHN9TDivJoFfUFljoHn9ozwpiD/Ng6rfqQgz5c2oefXql7Br9RJoeQlHTHxwbZpRkObjhwHRpsG36rahln1H9eO7zF5WhtCwzxGbsVGkkCC90uJu/avvFWi0T+7OqeAor8wDAY3bFiaMJVsp35SK31I3rxyyKdCKT7QDolebZRpUy7OjlUC4nHtaV1U3WZ2TUrZ3GZcA==
+Received: from AS8PR04CA0090.eurprd04.prod.outlook.com (2603:10a6:20b:313::35)
+ by DU4PR10MB9166.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:569::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
+ 2026 09:04:22 +0000
+Received: from AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+ (2603:10a6:20b:313:cafe::2) by AS8PR04CA0090.outlook.office365.com
+ (2603:10a6:20b:313::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.522.20 via Frontend Transport; Wed,
+ 21 Oct 2026 09:04:22 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM1PEPF000C1ADB.mail.protection.outlook.com (10.167.242.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 09:04:21 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 21 Oct
+ 2026 11:04:52 +0200
+Received: from [10.130.78.67] (10.130.78.67) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 21 Oct
+ 2026 11:04:20 +0200
+Message-ID: <d379adcc-4500-475e-b048-b9a551d024a7@foss.st.com>
+Date: Wed, 21 Oct 2026 11:04:20 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,103 +104,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261019212651.733565-1-rjethwani@purestorage.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] media: i2c: Add ST VD55G0 global shutter sensor
+ driver
+From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+To: Sergey Lebedev <lsa.uz@pm.me>, George Neacsu <geocausa@gmail.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Sylvain Petinot
+	<sylvain.petinot@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Dan Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Peter Marshall <pm@petermarshall.ca>,
+	"Hao Yao" <hao.yao@intel.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261019162722.25587-1-lsa.uz@pm.me>
+ <20261019162722.25587-3-lsa.uz@pm.me>
+ <179243379000.31842.4735750009847702427@gmail.com>
+ <20261019193402.52923-1-lsa.uz@pm.me>
+ <179247822513.25202.7960395606350309657@gmail.com>
+ <20261020085200.60619-1-lsa.uz@pm.me>
+ <de8c6003-c7b5-40f0-beab-4c3370b98f09@foss.st.com>
+ <20261020142641.24808-1-lsa.uz@pm.me>
+ <20261020181025.8625-1-geocausa@gmail.com>
+ <20261020181415.70007-1-lsa.uz@pm.me>
+ <0cc7330c-d563-41bd-b3d1-992f60ae32f2@foss.st.com>
+Content-Language: en-GB
+In-Reply-To: <0cc7330c-d563-41bd-b3d1-992f60ae32f2@foss.st.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000C1ADB:EE_|DU4PR10MB9166:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2df166bd-750c-48f5-99fe-08df2f524bfc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|36860700016|82310400026|56012099006|4143699003|11063799006|10067099003|18002099003|6133799003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	cu3bYV6oODbCbBQfwvAVoP+sUlNPYjTwBPxyY8zQduyZS7Qd/HwGLkpCrbpcGr4cwYUtATzk6u8rNx1dJBl7yVwbRl4SYq4ZBLyvHTnnvt0/1ZT+WHjZ6HeeBEZ9KFe0TUjl/2yD5fpYqoUXpXDPLqQ7/p+GEHWKnv4wA7Kn2tUjlU89pwiLRoQeol9Oet/r65mi04F8gSdGwi2HNkbtCnZ8WEQ8eXhE61EuKRpVyKN/HTEQ7bk02+WCnjRW5iZmfhw4QTZAtER5kQ4i19LQaAnZ44c22gljv/U8VDJB/xDV8V/+X+XevihcETG6y9pYbjXE8xUJ10Tzk4bsOg/tyAUHAk2ogV7ZUyT67iwPSmqsJlBlFHN3i73ANNF8L6XnadgGgGnhu5rIxgeCobPLmkUXqyoIzOcS8kxmHbmiBMUNDrrbQHKrU77A8RNx6yWmhoD4GhZJxTU5/W/zdQSHMDzPlUjaWJ5pcNvDywGaplshl78USfInZ11cqqU1FHqhLHK9tgjYVunbizfGLupivo3GXU927HWbKs3GcNZ4VxOAnvvqweNybbwrTqyS33+TB+A6IWspGB5zdOt/1SwcQk/Xm6hvUpDJIquPVP5c6SRwmkwX0ynZzvyZSVKVOwjt/oBO/d68KQ9Lu4i5lyb6hbYnJwiUd4DVSwc12RR+NAF+9QEGzrITCcAQ+AMViBXq3/reg1qiUtbF7WDGvh0DAQ==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(36860700016)(82310400026)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(6133799003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vi9t0oXM5Hfx0wTUwuCtXbMv/ZlqBqUYE82aORE7mDlbPXaLIfZm8FyYD5M8gf9BSR4w0JyQGXYtYoEJB6iXxBpJtXFjHDQlizDyH0CezCDldYdun2p+3b+Vsn2sIrbVUCwPyjBot6sS5MGSt3kSEAEvrxduqj5W5pvMVcW/EyBKTGjiDiuLAF4QQMuun3temF/71862MEBXmiC2k52LNR6sSYcoXE+XKNKnwkt1SQCi4qsaobN04heLp7nRULxCPpeLyjelpJqeKcsHTHwyNzVYta57MfBFDajLhkQ8SCYSamwMN43asB7wBsLaUcx6OLTfEJCBkJAX7ZEb4rF9GhGdi0oOG5lK+T+jF59n3j8qKf9q6dEOSJ9u+BFyk53wbMMxQmSsv5Q3PXU6kFy/DqE+AbxQOo/+zfU5JpFG98Y6UKYWUZR/e/FChXKun7uF
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 09:04:21.7729
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2df166bd-750c-48f5-99fe-08df2f524bfc
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM1PEPF000C1ADB.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB9166
 
-2026-10-19, 15:26:51 -0600, Rishikesh Jethwani wrote:
-> A socket offloaded through a bond has every skb validated twice, once
-> at the master and again at the slave. tls_validate_xmit_skb() passes
-> the master-level call through for that reason (netif_is_bond_master()),
-> but tls_validate_xmit_skb_sw(), the validator tls_device_down()
-> installs, calls tls_sw_fallback() unconditionally, so it encrypts the
-> master-level ciphertext a second time with the same rcd_sn and IV. This
-> cancels the CTR keystream and exposes plaintext on the wire. For a
-> complete record encrypted twice in one skb, the second pass also
-> generates a valid GCM tag, so the peer accepts corrupted data without
-> an authentication failure.
+
+
+Le 21/10/2026 à 11:02, Benjamin Mugnier a écrit :
+> Hi,
 > 
-> Guard on the content rather than the device. Offload plaintext always
-> carries the decrypted bit (tls_push_data() and
-> tls_device_write_space() send with MSG_SENDPAGE_DECRYPTED), so
-> tls_sw_fallback() can pass through any skb without it: such a skb needs
-> no offload encryption. complete_skb() now clears the bit that
-> skb_copy_header() copied from the plaintext original, so the fallback's
-> own output passes through any later validation pass untouched. This
-> also does not rely on every path validating a skb at both the master
-> and the slave.
+> Le 20/10/2026 à 20:14, Sergey Lebedev a écrit :
+>> Hi George,
+>>
+>> On 20/10/2026 19:10, George Neacsu wrote:
+>>> Sergey, the write can stay or go as you prefer; the Snapdragon model
+>>> does not need it dropped.
 > 
-> Tested on two hosts back to back over a mlx5 port, the only slave of
-> a bond0 (balance-xor, layer3+4), so each transmit is validated at the
-
-As in another patch, a couple of selftests for "offload over
-bond->NIC" would be good.
-
-> master and again at the slave. Run from each host as sender, a TLS 1.2
-> AES-GCM-128 TX socket kept open across an administrative bounce of the
-> slave leaked every later record as plaintext before the fix; after it
-> each record is encrypted exactly once and the kTLS peer reads the
-> stream intact.
-
-The wording and verbosity of this section ("administrative bounce", 3
-lines to say "before it didn't work and now it does" which IMO
-shouldn't even have to be said) needs to be cleaned up. The rest of
-the commit message as well.
-
-> Fixes: c55dcdd435aa ("net/tls: Fix use-after-free after the TLS device goes down and up")
-> Cc: stable@vger.kernel.org # needs commit fc6d80eb5044 ("tcp: prevent collapsing skbs across boundary in rtx queue")
-> Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
-> ---
->  net/tls/tls_device_fallback.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+> Glad you got it sorted, I was starting to wonder.
 > 
-> diff --git a/net/tls/tls_device_fallback.c b/net/tls/tls_device_fallback.c
-> index 3b7d0ab2bcf1..24fba12febd1 100644
-> --- a/net/tls/tls_device_fallback.c
-> +++ b/net/tls/tls_device_fallback.c
-> @@ -192,6 +192,14 @@ static void complete_skb(struct sk_buff *nskb, struct sk_buff *skb, int headln)
->  	skb->destructor = NULL;
->  	skb->sk = NULL;
->  
-> +	/* nskb carries ciphertext now, but skb_copy_header() inherited the
-> +	 * plaintext original's decrypted bit. Clear it so the bit keeps meaning
-> +	 * "still-plaintext, needs an encryptor": a requeued nskb would otherwise
-> +	 * be re-validated and encrypted a second time on any re-entry into
-> +	 * tls_sw_fallback().
-> +	 */
+>>
+>> Thank you for going back to it, and no need to apologise.
+>>
+>> Then v2 keeps the write, as vd55g1 does: the driver does not expose the
+>> status lines, and on IPU7 it makes no difference either way.
+> 
+> Could we keep it disabled instead ? I'm afraid some receiver could
+> catch all data types and therefore messing up the frame. Better safe
+> than sorry.
+> 
+> I should update vd55g1 too.
 
-"nskb is encrypted now" is enough. the rest of this comment (why it
-was set and what the bug would be) really doesn't belong here.
+I misread your message. We're on the same page then.
 
-> +	nskb->decrypted = 0;
-> +
->  	update_chksum(nskb, headln);
->  
->  	/* sock_efree means skb must gone through skb_orphan_partial() */
-> @@ -371,6 +379,17 @@ static struct sk_buff *tls_sw_fallback(struct sock *sk, struct sk_buff *skb)
->  	s32 sync_size = 0;
->  	u64 rcd_sn;
->  
-> +	/* Only skbs carrying the decrypted bit hold plaintext that awaits
-> +	 * offload encryption; anything else needs no work here. That
-> +	 * includes this function's own output (complete_skb() clears the
-> +	 * bit skb_copy_header() inherited), which is seen again when a skb
-> +	 * is validated a second time, e.g. a bond master handing it to a
-> +	 * slave via bond_dev_queue_xmit(). fill_sg_in() would map it back
-> +	 * onto its own record by tcp_seq, reusing rcd_sn and IV.
-> +	 */
-
-Sorry, I'm not reading all this. 0 or 1 line of comment here, nothing more.
-
-> +	if (!skb_is_decrypted(skb))
-> +		return skb;
-> +
->  	/* worst case is:
->  	 * MAX_SKB_FRAGS in tls_record_info
->  	 * MAX_SKB_FRAGS + 1 in SKB head and frags.
-> -- 
-> 2.50.1
+> 
+>>
+>> Sergey
 > 
 
 -- 
-Sabrina
+Regards,
+Benjamin
+
