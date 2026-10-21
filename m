@@ -1,45 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.226.244.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792552696;
-	b=sEncPAxYr9IxLOxkYerfLsaAbI9MKP44vQQBeWnDYRvl6g8SqvDmXRQrtDQtOnHCsnHx
-	 oiG0WMf4f0rTc4FQiukxbuPuPj1V7yCF2/Pc1wbKErIgc91jK4hLue6vEbnkyZpXIe+Ex
-	 wgBehRzUXFHzr5KpN31uwwToABJupSCeg72+kiM8+LlWBtSiujhBpgJ56b+ysa6ae0ZyH
-	 Ylxv9HqQSzc5f4jrzYJ4luuFAzDqVaFNjKt8LqTjagAVBuPonzewP/vRaUD+hcwe1BzEW
-	 NHGHmNRbe11UUNI2+bHUPG4fBaVPUIG4JCG76n4YtQd2bvqqMIJwVR5oZAmL/n8Z0Kg==
+	t=1792552702;
+	b=P+oa2o0Yo1BLw9Rt2QYjFH6nMBmrlT3EPf0Y0wOAM4BGiUUU5KwPagFn75FkvAfGKDDi
+	 p5HSazOJqc36ERr0JW3dLmmqdoEZbC+TSE+0IXIqdWykfIIxWuNT8oipJSA45unRS0/4f
+	 7lD8lA6iygfNIw4RsSCun/GwXyxWCtRcEdOoiLTETsXNhaKmKZcAAzMiZGQu3723H6mhq
+	 TivhPn9E2Qd3AmSSC8zcAKzvkbUWI3nd5OdUV/Zs1/uQYgDJvmLsKE13avBPdYdJ23E2t
+	 PcRMYwHToDcje0fz5hJPzO//4oXQqCZwUN9TUuc2WjVZL93+0uupvpqm1J1raRJzBzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792552696;
-	h=DMARC-Filter:X-CSE-ConnectionGUID:X-CSE-MsgGUID:X-IronPort-AV:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=E6SRRIHdR3MeVbzYonVYeC0jQ3Pln5amYMSI+TSF0oA=;
-	b=3bALQYqe0dCbyPjPKF/ukVL5wja7WuFBQ5Oc868xNZaBfKj3V7uTa3TFYF9c1hx4NS99
-	 UputDDvzrnNizTygwd2Zdp0zQo3vP9y4M2V+R+7HeC5W9yG2nhqMyUO/p5+EhPDbmMSaI
-	 jDVpsF+9czShv0lzeetoXsrJw88lIIuMBP0patl6bW17AF4yopPCfRu6/rQ9n2jE0ph4k
-	 Pz6ja8Zi2Dsg2cLyVsd0NLgavPIo5OKrdI5qx8wmuvfZiTbud0I0LTNrkz/wabFNWLazU
-	 52O8WqbWGDrNH/XzYIBxIU37MAuTdrfbvLJOwKIlrJwOhH5rwXuDcpBVDElwrCUhncg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792552702;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=3dUKeUJaBb46mcxQmFWqIVt8obdNVy5Sq3YwSGh8/aA=;
+	b=r5PNkgt7Oi1e7T/VLGAVi6Mf4MtZQc52m90fbENgdEEK1S0CcEHD5YVBBGIYMpBcyR/V
+	 rrcHQs8cPADDZxKKLWAAyZjcmg5XERuurnFc/Y2zbLcIjpen4v/UGm6EhAFucM006aIpn
+	 zlkcneqiyjjgOusYNuonLQZdgC21HOsAIl70kyvYUNds6SgDCpYOQq0hgxZSNj6Si1k0I
+	 bDJvTJfEkEeBgQIA/Eh9g2aNwbRMLsypqOG+tpDcPC7g+GZSA+qA7G5PWL8gppiKfCsYd
+	 8aVr+/3nz4nDTCBHzcB7B1zO7FHyhtug2qmt/LYgj1UTkECrWOV5fODqFwfa3rkKbJg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xiaomi.com;
-	spf=pass smtp.mailfrom=xiaomi.com;
-	arc=none smtp.remote-ip=207.226.244.123
-Received: from outboundhk.mxmail.xiaomi.com (outboundhk.mxmail.xiaomi.com [207.226.244.123])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CE412607B108;
-	Wed, 21 Oct 2026 03:18:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE412607B108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=xiaomi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaomi.com
-X-CSE-ConnectionGUID: GaW/xH2SQkKAlUYhY3iXfg==
-X-CSE-MsgGUID: FP2NoZ6qRMS2c2VW3EmU4A==
-X-IronPort-AV: E=Sophos;i="6.27,169,1786982400"; 
-   d="scan'208";a="192574023"
-From: Kaiqian Zhu <zhukaiqian@xiaomi.com>
-To: <ulfh@kernel.org>
-CC: <rafael@kernel.org>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Kaiqian Zhu <zhukaiqian@xiaomi.com>
-Subject: [PATCH] cpuidle: psci: Fix CPU PM domain state after failed runtime PM resume
-Date: Wed, 21 Oct 2026 11:17:08 +0800
-Message-ID: <20261021031709.42644-1-zhukaiqian@xiaomi.com>
-X-Mailer: git-send-email 2.53.0
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=N05n60Io;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EBE606A336
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:18:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51EBE606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=N05n60Io
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792552696; bh=3dUKeUJaBb46mcxQmFWqIVt8obdNVy5Sq3YwSGh8/aA=;
+	h=From:To:Cc:Subject:Date;
+	b=N05n60Ioo8MBbJj0RH5DIUEFQr+jYu1myP5x3tdVvkoLWISJsVx6a4OaBwqnQy1MG
+	 nSNhI1n7BKUgfcW7KJd4YB8G+6L3imuMYa93D782FJ1eoXh1cnkNnH27DPumQV+3iR
+	 NdxHn8iG5J2TGoVKExFdS4m9NLArAFFLaca5iPr4=
+Received: from Liujunyuan.. ([218.106.117.235])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4721E4DA; Wed, 21 Oct 2026 11:17:50 +0800
+X-QQ-mid: xmsmtpt1792552670th5xmavys
+Message-ID: <tencent_F5EEA06B3CD49F9EFF5C185259BF4134DA0A@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9X1TGriRphkRdqjRfBHIYS51Kq1RtSpLS515hoa0TfK15D8MQt0r
+	 /yQP1NO9rf5sABfUosnDZrpe7JWr/6aagRWorAAdYgq9LEln1MV32p96AajwjX31ga8rTIEdAHnx
+	 5VBPJkZmF02BRVb6jc64QOpjb1RYaNZxinomX2YNAMdxDy0eGsQ24IbpM8N0WsFsG6Hy7eQ/EpRi
+	 eiuT8c564FkvjRp7neG6Qnoom7npv0FicS/ToedpLwYm9VViNTYxbLGpNDkxR6gFXes1WA+5haL4
+	 fvtybIMdjPtZXy9G/O8NMYuACE5WgWqPuAm/F8hnGsS8aSoM0H/0ejN3irShQ/Y4iY69v6pOTe2A
+	 xU44FEYF1UHWHEshVxdccGQQRGSlBKMvjrMVcqxpfiXWaq07OiW3RygkMqBnPUkSHiNPi7FYmu+9
+	 HIc8yLWcVWo/AQq/Jen/3EtZvnYLVshn6LQcxNe9m6Zybm1pbe4hrTJPcKECPUNner+MHmxIQVZv
+	 Q1uZL2i9/2MbywdaPvslyMQ6JPYmJpVvGYbVoj8K5frHXJD2bbFql+mwIJzjFkqBzI+0SzQObpno
+	 Ilq/Nk5sywvL4af49FpqZ78AJ8pD5+TndbPOBFtwzkHLaf7djJSCiXvyl3n/a8yPHHvOkoQGZ9C+
+	 c/IX7xya9MVggIBUxUyyFqNKuvxmiCkGtEqBe6cfBzuTAy1qy+3VTDTiNEouS+/8qLQC8h56XcNE
+	 AgvvQzkesj0o+f5++UmD2vg8Wd/f6KYeLMnKd0tydBcbUJUbS8X6A/GCkRAa8fZMzdns8GYV+Yn1
+	 YtdZhuvEFqpnjP3jx7zFvjqa87Mx1SicnC0lhBolxTPJJlQqDRmNR0bP2QWrs7M/POwHVow+feFs
+	 vcvPTFb8WszrUX3Ce1rFWayAE+ZaUEeeUUMHnyD1/hoGRvKDeCzs85VYUIGQ3wte/SWwFTBLTal9
+	 yzxzOKTnYCQn3RBI4AJtu/6/2TstXyvn0fg/Sjtf3o+Ni+apymOwOvgHGFBqgT5nZbt3xLzlZAg4
+	 Wzs73xH8gW+bQ/lNeDSWim3GUaA9LYBg0d45DNDVdSTyX548tz8TK5Mn2eGzAlLP3kvtuRH+YQLC
+	 wm+55shNa6xwFYWNA=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: LiuJunyuan <2058432396@qq.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	LiuJunyuan <2058432396@qq.com>
+Subject: [PATCH] staging: vme_user: use scnprintf in tsi148_alloc_resource
+Date: Wed, 21 Oct 2026 11:13:49 +0800
+X-OQ-MSGID: <20261021031349.11825-1-2058432396@qq.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,136 +78,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
-X-ClientProxiedBy: BJ-MBX07.mioffice.cn (10.237.8.127) To YZ-MBX03.mioffice.cn
- (10.237.88.123)
+Content-Transfer-Encoding: 8bit
 
-In PSCI OSI mode with the hierarchical CPU topology, a CPU can come
-out of idle after dpm_suspend_late() has already disabled runtime PM
-for its device. The idle exit then restores the cluster PM domain through
-the runtime PM path, however, since the runtime PM is disabled, it
-becomes a no-op and the domain stays powered off in software while
-the CPU is running. The CPU then silently stops requesting the cluster/
-system power level in CPU_SUSPEND.
+Replace sprintf() with scnprintf() when formatting the resource name.
 
-The Race:
-dpm_suspend_late() wakes all idle CPUs first and only then walks the
-device list, disabling runtime PM per device as it goes:
-
-  dpm_suspend_late()
-    wake_up_all_idle_cpus()               <-- asynchronous cpu wakeup
-      device_suspend_late(dev, ...)
-        __pm_runtime_disable(dev,false)    <-- disable_depth++
-
-wake_up_all_idle_cpus() only requests that the idle CPUs leave idle; it
-does not wait for them. A CPU parked in a deep PSCI state can take a long
-time to come back that its idle exit lands after the runtime disable:
-
-  CPU0: dpm_suspend_late()             CPUx: parked in idle
-  ------------------------------       ----------------------------
-  wake_up_all_idle_cpus()
-                                       powering ON
-  device_suspend_late(pd_dev)
-    __pm_runtime_disable(pd_dev)
-      disable_depth++
-                                       powered ON
-                                       __psci_enter_domain_idle_state()
-                                       pm_runtime_get_sync(pd_dev)
-                                       no-op: disable_depth > 0
-
-genpd_runtime_resume() never runs and the domain stays OFF. The next
-idle entry skips the genpd suspend as the state is already OFF.
-
-Fix this by using the genpd interface when the runtime PM is disabled.
-If the runtime resume failed to restore the domain, force it on by
-calling the genpd suspend/resume pair directly.
-
-Signed-off-by: Kaiqian Zhu <zhukaiqian@xiaomi.com>
+Signed-off-by: LiuJunyuan <2058432396@qq.com>
 ---
- drivers/cpuidle/cpuidle-psci.c | 28 +++++++++++++++++++++++++---
- 1 file changed, 25 insertions(+), 3 deletions(-)
+ drivers/staging/vme_user/vme_tsi148.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/cpuidle/cpuidle-psci.c b/drivers/cpuidle/cpuidle-psci.=
-c
-index b250d0dde760..5b56f279cc7e 100644
---- a/drivers/cpuidle/cpuidle-psci.c
-+++ b/drivers/cpuidle/cpuidle-psci.c
-@@ -70,14 +70,23 @@ static __cpuidle int __psci_enter_domain_idle_state(str=
-uct cpuidle_device *dev,
-        struct device *pd_dev =3D data->dev;
-        struct psci_cpuidle_domain_state *ds;
-        u32 state =3D states[idx];
-+       bool use_genpd;
-        int ret;
+diff --git a/drivers/staging/vme_user/vme_tsi148.c b/drivers/staging/vme_user/vme_tsi148.c
+index 9447c00bc013..a0a7c8341995 100644
+--- a/drivers/staging/vme_user/vme_tsi148.c
++++ b/drivers/staging/vme_user/vme_tsi148.c
+@@ -745,8 +745,8 @@ static int tsi148_alloc_resource(struct vme_master_resource *image,
+ 		}
+ 	}
+ 
+-	sprintf((char *)image->bus_resource.name, "%s.%d", tsi148_bridge->name,
+-		image->number);
++	scnprintf(image->bus_resource.name, VMENAMSIZ + 3, "%s.%d",
++		  tsi148_bridge->name, image->number);
+ 
+ 	image->bus_resource.start = 0;
+ 	image->bus_resource.end = (unsigned long)size;
+-- 
+2.43.0
 
-        ret =3D cpu_pm_enter();
-        if (ret)
-                return -1;
 
-+       /*
-+        * The PM core disables runtime PM during a system-wide suspend, wh=
-ich
-+        * makes the pm_runtime_*() calls below no-ops.  The resume can the=
-n
-+        * no longer set the PM domains back ON, while the CPU is running.
-+        * Use the genpd interface directly whenever runtime PM is unavaila=
-ble.
-+        */
-+       use_genpd =3D s2idle || !pm_runtime_enabled(pd_dev);
-+
-        /* Do runtime PM to manage a hierarchical CPU toplogy. */
--       if (s2idle)
-+       if (use_genpd)
-                dev_pm_genpd_suspend(pd_dev);
-        else
-                pm_runtime_put_sync_suspend(pd_dev);
-@@ -90,11 +99,24 @@ static __cpuidle int __psci_enter_domain_idle_state(str=
-uct cpuidle_device *dev,
-        ret =3D psci_cpu_suspend_enter(state) ? -1 : idx;
-        trace_psci_domain_idle_exit(dev->cpu, state, s2idle);
-
--       if (s2idle)
-+       if (use_genpd) {
-                dev_pm_genpd_resume(pd_dev);
--       else
-+       } else {
-                pm_runtime_get_sync(pd_dev);
-
-+               /*
-+                * Whenever runtime PM is disabled while a CPU was idle (in
-+                * the system-wide suspend progress), the resume above beca=
-me
-+                * a no-op and the domain is still OFF.
-+                * Force the genpd to update power state to ON, so that the=
- next
-+                * suspend can see the correct state.
-+                */
-+               if (!dev_pm_genpd_is_on(pd_dev)) {
-+                       dev_pm_genpd_suspend(pd_dev);
-+                       dev_pm_genpd_resume(pd_dev);
-+               }
-+       }
-+
-        cpu_pm_exit();
-
-        /* Correct domain-idlestate statistics if we failed to enter. */
---
-2.53.0
-
-#/******=B1=BE=D3=CA=BC=FE=BC=B0=C6=E4=B8=BD=BC=FE=BA=AC=D3=D0=D0=A1=C3=D7=
-=B9=AB=CB=BE=B5=C4=B1=A3=C3=DC=D0=C5=CF=A2=A3=AC=BD=F6=CF=DE=D3=DA=B7=A2=CB=
-=CD=B8=F8=C9=CF=C3=E6=B5=D8=D6=B7=D6=D0=C1=D0=B3=F6=B5=C4=B8=F6=C8=CB=BB=F2=
-=C8=BA=D7=E9=A1=A3=BD=FB=D6=B9=C8=CE=BA=CE=C6=E4=CB=FB=C8=CB=D2=D4=C8=CE=BA=
-=CE=D0=CE=CA=BD=CA=B9=D3=C3=A3=A8=B0=FC=C0=A8=B5=AB=B2=BB=CF=DE=D3=DA=C8=AB=
-=B2=BF=BB=F2=B2=BF=B7=D6=B5=D8=D0=B9=C2=B6=A1=A2=B8=B4=D6=C6=A1=A2=BB=F2=C9=
-=A2=B7=A2=A3=A9=B1=BE=D3=CA=BC=FE=D6=D0=B5=C4=D0=C5=CF=A2=A1=A3=C8=E7=B9=FB=
-=C4=FA=B4=ED=CA=D5=C1=CB=B1=BE=D3=CA=BC=FE=A3=AC=C7=EB=C4=FA=C1=A2=BC=B4=B5=
-=E7=BB=B0=BB=F2=D3=CA=BC=FE=CD=A8=D6=AA=B7=A2=BC=FE=C8=CB=B2=A2=C9=BE=B3=FD=
-=B1=BE=D3=CA=BC=FE=A3=A1 This e-mail and its attachments contain confidenti=
-al information from XIAOMI, which is intended only for the person or entity=
- whose address is listed above. Any use of the information contained herein=
- in any way (including, but not limited to, total or partial disclosure, re=
-production, or dissemination) by persons other than the intended recipient(=
-s) is prohibited. If you receive this e-mail in error, please notify the se=
-nder by phone or email immediately and delete it!******/#
