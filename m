@@ -1,45 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577116;
-	b=ii/701s76ELOGSJ7FpLpYVD+FmqPgOAVSRKUkqBxzHeeu5OZX55Gb5Nx/LucmUXmT0jb
-	 8JwyQwtZ3q0jmcNnDltjpJUajzllhh7e9OzBY8MBimTOaJPiM7l/F4YpvdY5h18eCQbyh
-	 9+pXKwM9feSopVFZIlr+t5piviLxB76FHsX+OVe7reUAZltaOPkNLEaCr2sNSiwzYX3RO
-	 hdZpb64Kfo99HQ+E89jcy3KhyeDlMKMywqnzyr5un2mrOACfAfGPbpf/PdQZyMxpH+Fqn
-	 7TJ3DuljW+IX41HSIgGZVlCJm62XP8hU1Y0/D1fYFvbZacEU3Sa5sXPiELhm/q72X0A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577116;
-	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:X-Mailer:References:
-	 In-Reply-To;
-	bh=A1BISaUl9wWDfw7k+gq2pMQJekKPJMnfZN8WAqVyfIU=;
-	b=zXPQPJqqhFV6eyrn4+a9w1JefQqIxkDUxnILf5xB7RYVwWKoimNmAI/TeLJIPS9a8CkM
-	 KeuPIUoyGWcfheDIq5czRG+Vj3zv08U9x/+Tt7pgOmF7NRZmvS5yF/eM+bwpB0AnVubjB
-	 leWDJapDNsF/K82gRd9coYREH6uQLMrxIkQHX1jBcfJkn93FiHD8uP0tSd8lmG4Y2P7yB
-	 OgyxpAuCaWyHgvuMxMtvTWY245f18o/kansNjZwZ91S9Q/Mj69ws8ALlxVNy/feGzdDko
-	 k9NBKwmlVDVoZ+taKCeMp1gerYptpWnnC2TENsfDXDrYXkOIqltfVg0yI7nyi9d/Qvw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="oeIc/PWc";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.21
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792577175;
+	b=qvxRc+RT+cWxrgyjc/d4U75PFdDbCPXgmqwse9CAPNkpqB731W91KWhrlc0RIkdhudj9
+	 Yyv3RX1D/r71j+2zbJORWtRSZVIW6bnSDkgmyQ42pZmCMZD0rA/QPbPisVE3j2ULT5k6n
+	 uv6LsLrYa6rkQ6yOxyxrlDuBcjeR0qVy3ZvArG/JLNGjbJ/ck/Ti4usEKSaAOBBOnNJmH
+	 Q8/lS6y49OtrtLnSaA4bFHVDi3QpuJQtOqrebY3+tnhv4bZyMQRyalOrzsseUq8bKinji
+	 5sZe24TSVcTvXmhh535XnT0UtdHeO5OKAyUujO+eCq2D84edM9GR2vSuB8/zYqzBcgQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577175;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=H72PF/ZbhuH/kCTn0TafzV7d313LQ7zFW2+PHQhSNY0=;
+	b=o52SXHICLXORa5JuM//AApB8dW45vATyV74hd2Zl1RSY0S6132nDKOecfWKX7GXhLx+G
+	 ncgSb3+dRYAN9k0IpB2qx1XjQ9RihZcRihSsSdiWZzTqtEuYM9JEXS7zlv9jwl2I/TdvP
+	 tlYmrZk7AJ1n4UKZ5H9H+owk9h1nSOwkbQo3d+Xraw7UCsCqgXNyFBLDYt645oQE76pnD
+	 WOMoNzjngQw69sBuVjWmhN3J36LCZdNEk4l/0jcj3X1HQ4ep9Vc4c9bRQPLo6hfA8R4U0
+	 DWy11yPra2YmGxaQLDgRyxd7jLASyH1aKSN+uua4XGiX7HikXxVMhbfaMK4to65fSNg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=hJo+d2rr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.21
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013021.outbound.protection.outlook.com [40.107.201.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A8D606A319;
-	Wed, 21 Oct 2026 10:05:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53891606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:06:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53891606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oeIc/PWc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77ADD1F000CA;
-	Wed, 21 Oct 2026 10:05:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792577116;
-	bh=A1BISaUl9wWDfw7k+gq2pMQJekKPJMnfZN8WAqVyfIU=;
-	h=Date:To:Cc:Subject:From:References:In-Reply-To;
-	b=oeIc/PWc5+vSy3/esocJX63Z0ImiyfwGlQ4/npg8hmtub/K3MBDrQGMIoqk0Pm+Io
-	 mObbyx8SQz+8wn6lqUIPJtlGZMyNHF0wglza7VH03SoA7ku9IPX2Chad70T+No8bCp
-	 R3k9zgcNqRra300oz23otd8hKFsRd0Rhc965yGuzTq8ohHs/oei2iOv+6N9w2pkm+1
-	 meJWYDaPBQ6GOA/fPbYsO+CcI9JoOewFMvcYLf1FJ/9yetdCz5z9UPqkMJ9O8kMXc4
-	 tbNmp1tGKqDzgdSsl5hslbuowjjusKRUxV1882+VRsnSEwTqFNFfDYt62Osdet34E0
-	 Z5OwaUaGbXRkw==
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=hJo+d2rr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mKfhqe8G7D0b60EHzUy8uxtVqTjQPEvPU8U99/qHq++lcptI3Qec+He5IvpOVSbOr1wtMMtx89A+9eY5DuJe0c6rCqlzBcqrgB0e+2UxGg0/I9sfXpJ9IF037G6JbcsGURbsdUls4sALpLbhfksGKzh9X5sRx9tn2Q+Ehf76GymYoEQGyH4ZNlNjLeW1QEJTCubyVQHZ1MrWj3WuDpFxLirVUkA0819cgLyItA0Hayy43WH34krM7Pdksu3Dv2b1AHDgaHs4oph/ge2+KTDTEk4DKLDiR2V8Z1+WVqnALfYbr74ZtjJyW58j+/C0xdXIiCyZiSoz4Twzxyx6iQNRHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=H72PF/ZbhuH/kCTn0TafzV7d313LQ7zFW2+PHQhSNY0=;
+ b=S+ODndv7m1UvLT4R05N/Ul8jJxtCl2geONtUBDlJ7Brahb1Z4oADK8An5K0+jGrim223CfO6mrS93lEIfqCDNQQbWTRIaOeol6vhfmyE+XTAxgBprQl9+Aarm8j1SMvw3hYcibW2y1IHaSpM05R65I4VUL/mKPcLMjDjB2IN73pFrtCaQY7e2IG4BnhUg2B10YW0CWM6Jqyoae2Zb8ZOpsgsPejnov/QnYxMmwfwaiBMi76HT0+zpPOqwX0TZ9F89BILHnqEdr8ZKWZAxk+J7KEbdeOy37Mj3YkFLt89O9Faqw1BuEgho+yk2vRuTgI5grE4ZqDsTjrlAmXyXwsZdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=H72PF/ZbhuH/kCTn0TafzV7d313LQ7zFW2+PHQhSNY0=;
+ b=hJo+d2rrXHqRVrQQmeaZ8sltL99/xN/cexVxcDnxPCUNvsXQVgU60ezjt1InZwALwFt5zCvZkqBT6CFw4WbySXybHtoYDTlGHSEyaV43Fl8nh5UC4hUwhG1Q1+uPXSpsvUnLwc7iKCtFF+JegdZDag+eHe5BkoxzOObdhR3aOzA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com (2603:10b6:208:591::16)
+ by SAAPR12MB826020.namprd12.prod.outlook.com (2603:10b6:802:300::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
+ 2026 10:06:12 +0000
+Received: from BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83]) by BL4PR12MB9505.namprd12.prod.outlook.com
+ ([fe80::73aa:eb8c:a86b:5a83%5]) with mapi id 15.21.0522.017; Wed, 21 Oct 2026
+ 10:06:11 +0000
+Message-ID: <2ac1dbe9-ec16-445d-aa44-9b0152f92fae@amd.com>
+Date: Wed, 21 Oct 2026 15:36:01 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 23/24] iommu/amd: Assign per-vIOMMU translate device ID
+To: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, joro@8bytes.org,
+ jgg@nvidia.com
+Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
+ jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
+ jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
+ wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
+ alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
+ guanghuifeng@linux.alibaba.com
+References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
+ <20260930092344.5616-24-suravee.suthikulpanit@amd.com>
+Content-Language: en-US
+From: Vasant Hegde <vasant.hegde@amd.com>
+In-Reply-To: <20260930092344.5616-24-suravee.suthikulpanit@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0042.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:175::10) To BL4PR12MB9505.namprd12.prod.outlook.com
+ (2603:10b6:208:591::16)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,105 +102,121 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 11:05:09 +0100
-Message-Id: <DMAFJVM431FZ.R5XWZBIAR0UE@kernel.org>
-To: "Gary Guo" <gary@garyguo.net>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Danilo Krummrich" <dakr@kernel.org>,
- "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Robin Murphy"
- <robin.murphy@arm.com>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Tamir
- Duberstein" <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>
-Cc: <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-pci@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH 5/7] rust: io: let I/O locations carry an access mode
-From: "Benno Lossin" <lossin@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20261015-io-access-modes-v1-0-93611b84b5e3@collabora.com>
- <20261015-io-access-modes-v1-5-93611b84b5e3@collabora.com>
- <DM9NV8ICWRKK.2Q6FSBE476G5M@garyguo.net>
-In-Reply-To: <DM9NV8ICWRKK.2Q6FSBE476G5M@garyguo.net>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PR12MB9505:EE_|SAAPR12MB826020:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8dab8847-dc57-4973-58ee-08df2f5aef15
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|23010399003|10067099003|18002099003|22082099003|11063799006|4143699003|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	17oCnLAEscTPdoq8t+xWSl6ZpjoqxuLT+m1h00hyuI2dwEOQFr541RT/mJxIHL8P55c1HZY8j0qH3tJnP8bcKZ4vEZh8duTk+5yxvlZYRpybI5y6DMrBY9Gh1878wf+qxTpfLDeUZVoQDJzDwzLXWCrxdJuza8mc7ZhdBrEhm7N/XAhLtcUG7uksB0BJnmeIqCoyeY/jnp8QGi3WBRt26/dqmiWW9NiFaySy/BXvoDjdXhuwtVZbzhxrcsTkG3wJIE0/O32urwVpH9ZPLUnpH1WIXdd4KiCXVMpnLoxq9q2RTZvCmeNAwo1/L46nQHs4S4MVxwO6e9zHjMjCXS9Td8yAm5Z35mJvF7NwTLosrObdcXcDPzMuxsRw/RQQ1Zl7Ev7H16Kr3r8v08s2H7gM+eydqdNTgz/8/KwYZHXzGvCeg74vy6o3GbHQcP0Ws/vI54Hq73N3/l5xC8Ie/NksFRo+JfYvlAu9JCei6/JaJQo48Um7c0iJMqLh4oc3WXgSw9T6ts59VovdBgZ34+A/7L/uQfssjm+nd6F434ymi04tZpUfhToNMX9SzPMkd2+yhM1ro5+xWZz48bavdvIu+A6aKx7XQbqjcnlafYEcbNuEJm4V8pAm7oy/mBYoVFc3NtW29zNZL3GsiAadyX+OKqtlcMkUtX2jygDXuw6sRdY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL4PR12MB9505.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(23010399003)(10067099003)(18002099003)(22082099003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MStzTmIxdVpEN3BsekpqZm9ZL0VGTWphTFcza1h6emEzZ0NiYnJXeVJxSVdM?=
+ =?utf-8?B?NEs3bmJabnRRUUdnZUdyUGUydFhXWjBsTDEyZkkxdGJkbEVSS3o0OHJEalBI?=
+ =?utf-8?B?R1ZyT0N2L0c0eFZLay9EcG1yYmNIVVV5MGo4bUNBT1NDSHIybkdyYWY5bDBW?=
+ =?utf-8?B?bE1YVG5DYjZqbjhlbzlOeHJVQlZCNkRNN09qUURiWGVVU05NZ01GRlNGZHgw?=
+ =?utf-8?B?RmtXV3pRZ3g0NGJkcHBRSGlQN0tXSDc2TmNRVmhwS00vM2JPZ3FpalBJUWtl?=
+ =?utf-8?B?RDhXbXhBUkRmQngxOFRsSDloRmdjaUdrZDlXZm5uODREaWNTL0d0UzJvV2hz?=
+ =?utf-8?B?ZUZ1Z0Z1a0RLQWNTT1ZiUUtQZTdRYVJWOWxPRTVVZEVGTlhEK01tRnNKOUJP?=
+ =?utf-8?B?N0taTGFTRE9mNC9ySUpPOUorbHVISUMxVWxROW05NFpkS1VjcXU5YkI5ZHdq?=
+ =?utf-8?B?dmhXUzdUOGc5RW5JZm1ENzBqWm9OSm03b1FNYmtjem5LZ3hXWUQzTXFSYWJL?=
+ =?utf-8?B?b0VwL0FtS01raTd2THl3Zm5HMVg5ODFnQ2tRaTdTUGZnRTUwL1M4V3AzZElE?=
+ =?utf-8?B?TlFkS2tvRG9rMlVWMVg4UXAxd25FS3NKOE9XekFNTmNjRklGMHlESVF1K3N0?=
+ =?utf-8?B?VnpPUHpoWjZXT3lBcjZEc0xKaWc3UlpYSzgydDlZUzVHZWh0aEhpditlOVJJ?=
+ =?utf-8?B?ME91bFpySlN3MmZKdStnT3RmOTFIRWRvVDZ3MXhObUlxcVZIWkM1UXNPbWFh?=
+ =?utf-8?B?UHhFQXArTFN6SU0yQ1pXNHkycWNaT1g5Y2pTTm5MaHNQQXB5QUwwdC9JV2lp?=
+ =?utf-8?B?R1ZKcVIydmh5MXBRNjR3aXBRbndnaTVVVmhma2xPejFTOTBwV1owUXE5dC9H?=
+ =?utf-8?B?V1VmU2x5NjJPSXIwTnd2RXNidWNyV29RdDZDN0wwZ2pkUlFJeXVNYklRc3hi?=
+ =?utf-8?B?MER1SzdCR2tOUFIxakord0FBdUcvYzQ1bEdnSW1Dei9lV05xRG43eTVjNWpj?=
+ =?utf-8?B?dEJuTC9kcEcyRXk5azgxUjdRNEh3S2VMOXZQYkY5MzRZakhjcnVtY0R0ckN1?=
+ =?utf-8?B?YWtCcC9sZm45SlRIOU9VNS9aa2pCSDhOUElkSWsycXUrQldRZ1hZVGk2eCt0?=
+ =?utf-8?B?alU4anY0RjV0RllRWXVlQjhROG9obndkeXRTVWdpR0FpZ0lDMm15MnZWNkFM?=
+ =?utf-8?B?ZnVpMElVenR5UzRwdzRpR1R1NFpvQkNwdWVQb2ptR1pqOWdyRkpydjVwcis4?=
+ =?utf-8?B?dG5Ydk5HbmhFaFRSRDRvOU5rRFBISk9xTVlCc3hpTTN4QzlUalExRWV4V21k?=
+ =?utf-8?B?bFRrRGI1VGRIQWE1UU9VQXlsUGdYeiszK1pRNW8wSlF5RTI0bnMrL3dCM3Bz?=
+ =?utf-8?B?MktybERIMFpIek5sOTZCRlJOV3ovNjlIbjIwU3NrdlVQeExpbi9WR013QVZa?=
+ =?utf-8?B?M1hobU54TDY1UU1iWEw2RkJYS2twbWptRlIwVVZWWnhrUktzL2EyQjU2SmVD?=
+ =?utf-8?B?ODV1anZXTVNsTDR5VVZGbE9ncUNYdFhDT3oraytLUm9Sc1RhS0FLT21uV0ty?=
+ =?utf-8?B?eUcvT1JoL1plNThkQVl3Qkk4VnF3Sk1pQzNCajZlZmVldDd6NjBKZXFlYllM?=
+ =?utf-8?B?OEtXOXlYRjU4RHVnZzJMT3g3Uzg2NUYrR0ZYR3VKQm9FdllncmlxNEEwSmJx?=
+ =?utf-8?B?b21kcVBWaFFPeW5FSVVNR09ZcTJENkVKUnlGQW5rcnl5RXBudXNDTlBYc1dr?=
+ =?utf-8?B?YlhDcHY1QkNpeHJ0dVU3R2l2K1VFKzdWWm8yS3Bjd1puSm1Xb1VBSFp1azVj?=
+ =?utf-8?B?VVR2QklkU1dBVE5XeE1jQ1o4dTBJYVJNMFFqdjlQNVZVM2tOYnRuQXc5Zm1U?=
+ =?utf-8?B?Sm9tV2hCTlY4RUtiRTg0WGZkSXVlMjIrOC84emdVRFVISFNwNE1idHEwQkh4?=
+ =?utf-8?B?cW9QeDRhbEtKY0M3YmJJemJlcWdyNStRZEF1TW05T09BS1BGSldWV2RDYkI3?=
+ =?utf-8?B?elI5N2Yzc0kzMURONWphQU96UjMvS3dHODF6NEwwb1Y1cnkvS2E1cyszcW9Q?=
+ =?utf-8?B?SEZyTTVjaWJlNC9EOGw0Wm5EWmRBU0g0VFRpWGxsdG5mNTh5QllxcHg3K2pP?=
+ =?utf-8?B?bTAvelZVeDRCcFVYQ05OMkxHMjdQOHdqcGlRbnlFUVc1SVFwcGVkYnhmZGc2?=
+ =?utf-8?B?d1FTYndDVHVSY25TQk05UDB3MXJpY2lMamEzck5XaHJXSElTQ1hsOWdYWTBs?=
+ =?utf-8?B?VElQWUJja1RmdWh2ZkdWOXExUkhpSW9WbUNSTGpIZUdvWFlFcTlEV1VwVEJU?=
+ =?utf-8?Q?G8uvsr778eGj/xAVNL?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8dab8847-dc57-4973-58ee-08df2f5aef15
+X-MS-Exchange-CrossTenant-AuthSource: BL4PR12MB9505.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 10:06:11.7718
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5m4fCVodajU4vG8ZC4o/9lWa8vsUO6RUl9he7IDD3GdvuoR4vAhMIPFdpIt+IBmaKmGDDavGELrA/fxTSSZRxw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAAPR12MB826020
 
-On Tue Oct 20, 2026 at 1:23 PM BST, Gary Guo wrote:
-> On Thu Oct 15, 2026 at 1:39 PM BST, Daniel Almeida wrote:
->> `Io::read`, `Io::write`, `Io::update` and their fallible variants
->> project the view to the given `IoLoc` and access it there. A location
->> has no say in which accesses are allowed, so a register cannot be
->> declared read-only or write-only.
->>
->> Add the `io::access` module with the `Mode` trait and the `ReadWrite`,
->> `ReadOnly` and `WriteOnly` modes, and add an `Access` associated type to
->> `IoLoc`. Projecting through a location applies its mode: `ReadWrite`
->> leaves the view as it is, while `ReadOnly` and `WriteOnly` wrap it in th=
-e
->> `ReadOnly` and `WriteOnly` views. The bounds of the generic accessors no=
-w
->> apply to the backend of the restricted view, so a write to a read-only
->> location, or a read from a write-only one, does not compile.
->>
->> Raw offsets are `ReadWrite`. `OffsetLoc` takes the mode as a type
->> parameter that defaults to `ReadWrite`, and `RegisterArray` gets an
->> `Access` type, which `register!` sets to `ReadWrite` for now.
->>
->> No existing location changes its mode, so there is no functional change.
->> A following patch lets `register!` declare read-only and write-only
->> registers.
->
-> So far, without considering access modes, we have a clean mapping after t=
-he
-> register projection series that a `register!()` macro just generates a cu=
-stom
-> projection. However, this commit makes it special again and this isn't po=
-ssible
-> with struct definitions, so it breaks feature composibility. It is also s=
-omewhat
-> surprising in the sense that it changes the base view type.
->
-> What about making RO/WO wrapper types on actual data? Something like
->
->     Mmio<'_, ReadOnly<T>>
->
-> and
->
->     Mmio<'_, WriteOnly<T>>
->
-> Then we can implement
->
->     impl<T, B> IoRead<ReadOnly<T>> for B where B: IoRead<T> {}
->
-> and
->
->     impl<T, B> IoWrite<WriteOnly<T>> for B where B: IoWrite<T> {}
->
-> ReadOnly will not implement FromBytes, and WriteOnly will not implement
-> IntoBytes, to avoid people using them with `copy_read`/`copy_write` API.
->
-> This way, the design works for struct too. One issue of this, though, is =
-that
-> you cannot project from `Mmio<'_, ReadOnly<Struct>>` to `Mmio<'_,
-> ReadOnly<Field>>` currently. However, I believe this is solved with the "=
-place
-> wrapper" concept in field projection.
 
-indeed. if you implement `PlaceWrapper` for `ReadOnly` correctly, then
-you can do that projection "as if the wrapper wasn't there".
 
-> Regardless, before we proceed with any design, I'd like to hear opinions =
-from
-> Benno on how this interacts with the field projection design as language
-> feature.
+On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
+> Allocate one translate-device-id per IOMMUFD vIOMMU instance from the
+> per-segment pool on init.  Reset MMIO first, then program translation
+> DTE and VFctrl TransDevID under trans_devid_lock so PCI-probe relocate
+> cannot interleave.  Clear both on init error and destroy, and drop the
+> id before amd_viommu_uninit_one().
+> 
+> Initialize pdom_list before set_translate_dte() so list_empty() is
+> valid. Drop the late list_add; set_translate_dte() already publishes
+> the vIOMMU on viommu_list under pdom->lock. list_del_init() on init
+> error if that add ran.
+> 
+> Free the synthetic translate-device-id DTE object on init error and
+> destroy; it is not stored in the per-segment xarray.
+> 
+> Add per-vIOMMU trans_devid_lock to serialize DTE and VFctrl TransDevID
+> updates on init and teardown.  VFctrl TransDevID is not written from
+> amd_viommu_uninit_one().
+> 
+> Destroy trans_devid_lock on init error and on vIOMMU destroy, after
+> the last unlock, the same way as vfctrl_lock.
+> 
+> Signed-off-by: Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>
+> ---
+>  drivers/iommu/amd/amd_iommu_types.h | 10 +++++
+>  drivers/iommu/amd/iommufd.c         | 68 +++++++++++++++++++++++++----
+>  2 files changed, 69 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/iommu/amd/amd_iommu_types.h b/drivers/iommu/amd/amd_iommu_types.h
+> index 5f84f25e3f37..c748bab27509 100644
+> --- a/drivers/iommu/amd/amd_iommu_types.h
+> +++ b/drivers/iommu/amd/amd_iommu_types.h
+> @@ -556,6 +556,16 @@ struct amd_iommu_viommu {
+>  	/* Synthetic DTE; not stored in pci_seg->dev_data_xa */
+>  	struct iommu_dev_data *trans_dev_data;
+>  
+> +	/*
+> +	 * Serializes this vIOMMU's translation DTE and VFctrl TransDevID
+> +	 * updates on init and teardown. VFctrl TransDevID is not written
+> +	 * from amd_viommu_uninit_one().
+> +	 *
+> +	 * Nested lock order: trans_devid_lock, then
+> +	 * pci_seg->trans_devid_mutex.
+> +	 */
+> +	struct mutex trans_devid_lock;
 
-not sure what interaction you are referring to. I read Daniel's patch,
-but I can't infer what you mean by "this" :)
+Do we really need another lock? We already have lock for vfctl update and
+allocating traslation device id.
 
-best,
-Benno
+-Vasant
+
