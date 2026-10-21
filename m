@@ -1,114 +1,129 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792574170;
-	b=Y2zL02z9jiyXXtIxKiVHqOANsvM8qP+fyaJg364XeVllLonoNf46QztK2B4GgXv9obAV
-	 Y0MNLeKRjEDW4kBcPjc/vZvMP6+GautgcIZJuj6zif2KnKlSKmzK8/YhKkQvBX/YQ7S22
-	 QgBA8SYu6QW70UPSdX9j0JM48RL21k/41oV7owFbor/LEzfmZTahYrrvDyrew4xzVBb4z
-	 CJXCO14jXwUwST4aWXj27/oeOObN9fHxAZtEmtPMypOrOTeEQxMantDbIvaoI9NG+haYC
-	 T19Sbdb9MdWR6D74k8ZtpPFZ/Y1mS5jH5XQSt17QPpP6q2NmB5r4AZ5CftuB75HkIxQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792574170;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bmHZPjfmIc4enEGR6naj+q1z5ghYzD/WaoQyJfH0jN8=;
-	b=XDHOaL2AmSnU9iQFSeSUQEsIuieEzt/dU9ev9NSq7AB0RJOCUwHQp00HC8VF7tt1LWsR
-	 d94SKEcRQH86T7QKnQ1AlXT10gMAlEPjcJGtvH8WxN4scwU74no+KuRH/8Xtzu2DhBrAh
-	 dFiAO5JYXXfqYlq5WeVtIM7U3zHUP7y+3q0TqSqu15GnF/zqcU9OXL1xXdt1PUUyo4RMC
-	 nw5Tnt6sA6u6vrk3/3TYKdHzGuTIMVOSOTeyT1k2E7IKH8X7R89HVY/v+bfcmYybGEB3/
-	 6R4H+G/srOCOdmrOaqqkoqI+8WIavRuZKHcu+W6tHrpwTUNV5Gt1Ghq2Vlka8XzwG6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=THCYIcbe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.33
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012033.outbound.protection.outlook.com [52.101.53.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792574206;
+	b=a0hATwYIqD6PndHvMxOIoIqLyy6qVaRG8v/xILQqfUFNDZHUIiWoN72TKxYWv28ld2bv
+	 vqFfXpa8KSRm5JBfyNGh36kMnu+rsvf3FVxhQslFuWod08lXpIoGYc0JK+ymMRSicoLRp
+	 MC0uMZ0XOjUeYNTxDJCs9Utt1lgsoEQCV2acq1gfEDLVXpu0vc2UhqGuGb5A8aiDeK6+w
+	 Qx0nfZpVyl6BXYP6N8Y7MAB4DR9iQo1HBkmSmypJDt4LoDaRKyXKKHmrguTaTl4iS7EfB
+	 VStiEoFf9WPx15bcnyLEkLwHYT4AQg2S6AGzcWElmV4XuFByaMhKYIhDZA2O0QxW5iw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792574206;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
+	 Mime-Version:Content-Type:Content-Transfer-Encoding;
+	bh=UjhycloSVwN/MsXqslqJcrsVG4Tc+E2r56Jl+uN09fI=;
+	b=0N5ug98PAhP25VQFkjSgxAY71eSLCbmq4oagglpTZr3X3ISXs7GmT5WPtB+O32x9IQWj
+	 8DZvrEw3wYitMHqSsE+N5zO9hT7DX8rhlHw+oEGlBw5yfTZa3Cq9jN1wjUJ5e7B+KrTlC
+	 Bbs6QdD/Vpb/49WrJx5KOyDplwKPo0wNfIwy6QewrQWZaJhGVrn+U7961psZsDe6A+kRg
+	 898Piz2OvDassR0sZti7Zh8wWAmsG36FYYdWnaWnro1ftW/OrKMmBHSiK3qnkaQ8X42/q
+	 AFaSOhZB2n4l7uWUB6VfmcfucLyF3CKaCl7mcYaiyhKW6vPRWG7ZSeWUYVFyqeC3nHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=sWZ+27OJ;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=xpqD8259;
+	arc=none smtp.remote-ip=103.168.172.159
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90753606A32A;
-	Wed, 21 Oct 2026 09:16:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90753606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FD2606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:16:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60FD2606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=THCYIcbe
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=a4rCD5N4ANcNMFBJMFu3dnSYDWXCqTyhXmNPKRaNaF15HDgnkKRh0GLDEhyQjnpGYsLbb8Hc1jgQTvmckfSH17XTjjHrjHwYqNyDJpCl2ckfSslre5sBR0bOJgxIf38D49YWw/4IouoJLug8WDv5a5TST5b1a0WzJfG8rdaDeHMdeYHOvCX5q1PrBH/MBtZkgViOAfbaVP8yfjo745+30oSIA/PZarOuZ2M0mwOGL3KwIySu5gFaOYkvsd0U1w6HQTbw+dPc8zRIj7GqKegmOfsr2V8Ckxquy5v0tByqgz0eNzTt7c6MQm9L1IEAFETKRZZ18R7Bkxmj88Ct+MKHmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bmHZPjfmIc4enEGR6naj+q1z5ghYzD/WaoQyJfH0jN8=;
- b=pHopb3j3zsfMUAB/NEgOVkfENvEsVPS1uxvGWJlKNoDSHy0EG5+kdRJZ+E67EcGBJp+TY+wjI1FZDerIye7biyRJEtSQl70z1DdgsHnVGzYk0Rm4awt/IjFVA2bX3Jf9T7OQpIgCWbDTXkU6ah34S4V/8A2d/i2Y+Fs/+KB32zBqsxJRJuRgAtLm1NhqMkx09apGemFz9XgLHv/w32dFu/BQi8GskcTHG3hMmaQXQWeJNz7piuYi6NA1Nu/BNVHi3BtAPFvKYrWzLKITmLRgPZP8tQJJXCLf9qA84e7dRJy/LdflUh1RfNjaGUB0tKe3C4EvCCgiQBLIbRZaFz17ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bmHZPjfmIc4enEGR6naj+q1z5ghYzD/WaoQyJfH0jN8=;
- b=THCYIcbeVSUQLyLHXCR9X6/jgdMBF97L0VXghnzTaZowQHzbiS/42k1tbR0oQctOEMZzbqqj1xnddt6itmdqKlxRDKeB33jf/CJHUuUCnIYHmYCKwmZ/jHlKht09M3utCXulX9rq8AFsHv0h4Jga4uKp6Ai/TySngqjEzfF0yYg=
-Received: from DS7PR05CA0067.namprd05.prod.outlook.com (2603:10b6:8:57::12) by
- BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Wed, 21 Oct
- 2026 09:16:04 +0000
-Received: from CY5PEPF00000E7B.namprd02.prod.outlook.com
- (2603:10b6:8:57:cafe::8c) by DS7PR05CA0067.outlook.office365.com
- (2603:10b6:8:57::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Wed,
- 21 Oct 2026 09:16:02 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY5PEPF00000E7B.mail.protection.outlook.com (10.167.247.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Wed, 21 Oct 2026 09:16:02 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 04:16:01 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 04:16:01 -0500
-Received: from xcbalexaust42x.xilinx.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.53 via Frontend Transport; Wed, 21 Oct 2026 04:15:59 -0500
-From: Alex Austin <alex.austin@amd.com>
-To: Edward Cree <ecree.xilinx@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
-CC: Richard Cochran <richardcochran@gmail.com>, <netdev@vger.kernel.org>,
-	<linux-net-drivers@amd.com>, <linux-kernel@vger.kernel.org>, Alex Austin
-	<alex.austin@amd.com>, Alejandro Lucero <alucerop@amd.com>, "Pieter Jansen
- van Vuuren" <pieter.jansen-van-vuuren@amd.com>
-Subject: [PATCH net v3 3/3] sfc: ptp: avoid racing PPS timestamp updates
-Date: Wed, 21 Oct 2026 10:15:34 +0100
-Message-ID: <20261021091534.3164258-4-alex.austin@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261021091534.3164258-1-alex.austin@amd.com>
-References: <20261021091534.3164258-1-alex.austin@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=sWZ+27OJ;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=xpqD8259
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id BC2C4140013D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:16:45 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-01.internal (MEProxy); Wed, 21 Oct 2026 05:16:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1792574205;
+	 x=1792660605; bh=UjhycloSVwN/MsXqslqJcrsVG4Tc+E2r56Jl+uN09fI=; b=
+	sWZ+27OJD63e/ltTZ0iTd2ZOlpkBeqWZzo0aybnnWxEoLJ7obx+cqIgOI8Zhu4I3
+	J44hEYkOl8QmttT0pnnuY1BFlMv5j/hSp1GMAsWpBogRj/NHWntU60Qoaabn/Ac0
+	3SbloHRTlFGKzMdF8PRMYu27II3wM8XBh4I8KzHQgwnTu0tEwwnEqH0TS6Hf2tGy
+	ZUIiqIuq8VHTHWOQi1V0BS1sPy4xW509asKMMR1yOf4GmFfAXCl5ELN19JrXG7Ls
+	V5kGLlcC61y2bDL0pfcP40esCkXsUGxQ5+dP//2XGqBlItKP/shOamjpeP4Fp4dC
+	oJ9DaxT4xVSqoCZCvRArFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792574205; x=
+	1792660605; bh=UjhycloSVwN/MsXqslqJcrsVG4Tc+E2r56Jl+uN09fI=; b=x
+	pqD82590tRKDDt49Y1uY3YoHPm1dCRX4MIWDGDOpCdNDckmGMcHlLXMlSwbhvVIU
+	Vi/7qd4VXVcPOYP0sej7jf1JlRUbudilEgpk8IU/10vHwNH3jhjtxx3+jbuWQxI4
+	Ffcqyltw6mcYLJwgRHw6QLACqU4XDfabN4lFR0JrKaViK4INGAHSGVWVhgj+Kl1x
+	i1ayFjOYKqm/o47xeGXE0rX6L4MHwWtkQNjUEhIdpxHVYGXWgOFEHxJ7PkGZF37n
+	5qAz3Deli78Bbiftmu4CUHko7Jh6cr5R/yYx1Y7HUoEWsokUCJcudyqD+hJekNX0
+	KqTieRkf1ib4JUrpqHP0Q==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792574205; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:bNE4gd2cUTmu6YeBrNkv9H17XgOLqO6RjTmPx9rg/HswDVL
+	4S/LQrwwBXqxHt+TrUPP9IIWXHluVxciQ33H6lv+hQXEEyuJ5r4gePent5muHAtj
+	0DtdutMZSWYIYlk3xRquUTbRBUE6fzKdW8LHV0406kABwS8GkBu7HvmdlHs92ve7
+	pGCsdiy5h/aBGQA6DT6hgn0A5RwhOoZ9n9BxugjiLvsfnSWjmn0Ix/ljY9G0Xn/O
+	DxUPiIO2SiDmUlLeBUeF+52I15ADKAqFfSYTFX+okmyQ9IXjhRbZ84XMtWxW73jY
+	6wPrwFYLnOoQONWeXxHLCaiYOvkSGFoyrn/mWsg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:ZwMDi4rAti1uu51xzIBBJztq/4lgEcvp8W3Mckc3dcU=:uXV0Pgga/E/hgbUqGADZ4JQfpuFz3auNsY49xtYlPdQ=;
+X-ME-Sender: <xms:_YLYanXhOjMvwrSy-IJElg6rozn-mdq4dLms4f8c5Jx-GYhF192EjQ>
+    <xme:_YLYarrNewEtcIPZafRTyKwnBGRRgXN3vHWedsEkMr3J4YcyhLkvPa9xXcGQ7it9S
+    _-WNUPn1QcUGOFjsPcDyDvWXt4eYolh9Sl-W8djU9dZ0gJQesOKDxyR>
+X-ME-Received: <xmr:_YLYauupcimTS4D6_md0ZuiifoKwCNdGFXqV_uHC-dUoDAP2DRXu5jBd7bZvI4ANl97JgzlwR0nYMxKpc0bsrSYA>
+X-ME-Proxy-Cause: dmFkZTG0LX2vhbvH7Fb2TvHCFcsQyHPcJmPOPD0Y8sf8J1GVaCtaKhE01c93ZTwa3Uf/QI
+    qc9WxXA5QVYuYFZWPQDnYCX4C0Hwl7L8/WKqhvfOhxH/vA8zYcWgbg4LJamXbPTC+V5iGg
+    r1k3PZ8S6oiIUEChtYSky6D9HZThaAe4T6YG2qUgTjjjV8IXR2BQg9gA/HnkKUBSPfsggi
+    bS5wzFV5oXcSJiuWZE074Js8D3D4YkrE8rSZAv9XqN0gNvZYA35xTVMTFMKgINKtDQhKpw
+    XRsdF+rFgWMsqVUeDW8LD82HG7k7tusdPh52FkvC7oLk5Pre0BXu39FhbvbB2DO2AtCkpA
+    vh4fw0bGMECeNqgZcMQWZBft2aDMD8ZbG3lDwDxMTAptKER2gz8IGvs+p4LDTFM/5LzdSk
+    jA4CzWPGKKoxEJ6PqjJwcD2oo1XIbDmzVc1SI9P7oIYyfUu7td1mzBWOs2w9MxAalmHR+e
+    7FRYSdaQi+zvkRIeEO1xXWqJemVmfnfH9gr5oBUGa1KQVQsmgJ4poEBiJbIc8lfAuEz1Hf
+    qwJUYbJHa7zT80Zxw17S299qjPYBj95JEYzGA72gBltKYn6v0BbvBJn/oP/irHsRoiTj7e
+    /J8P0fmtcH9BAwXDdNimOJkhVmHitLd1zg/jObIO7NhElcZdlZ1hM9vFymUw
+X-ME-Proxy: <xmx:_YLYahTYix0bQqMVnA_pTR8lJrOst0Wlw4JAy4MHclMTOyPyz1JMHA>
+    <xmx:_YLYaqp3_-MlsTdLKbAiReHiAbqVi0vme4yhP6fopYzmoy3ZUOABkQ>
+    <xmx:_YLYakK22Kzu03e63Zwvz1MwlaICd4Xyd9gWzDy_WAEItI4WmsPl5Q>
+    <xmx:_YLYalOdjXS7B0vb5XN6V1gEKS9c4ptSH6q5lHj4JjhruBYvIoKSSw>
+    <xmx:_YLYap5jG1pncBa1nZcBUh-ypRbAu0seXjKI4EvsUcUgMHqFhC5Cy19I>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 05:16:39 -0400 (EDT)
+Date: Wed, 21 Oct 2026 18:16:37 +0900 (JST)
+Message-Id: <20261021.181637.954248793010611824.tomo@flapping.org>
+To: chenhan0017.work@gmail.com
+Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
+ boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
+ lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
+ jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
+ tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
+ miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
+ georgeandrout13@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] rust: math: add signed division and remainder
+ helpers
+From: FUJITA Tomonori <tomo@flapping.org>
+In-Reply-To: <20261017111134.22546-4-chenhan0017.work@gmail.com>
+References: <20261017111134.22546-1-chenhan0017.work@gmail.com>
+	<20261017111134.22546-4-chenhan0017.work@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,154 +132,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E7B:EE_|BL1PR12MB5994:EE_
-X-MS-Office365-Filtering-Correlation-Id: df9e3a57-bdf5-4793-2796-08df2f53ed76
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|56012099006|11063799006|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	rRlOLUopbFLjEscO4Evctm3gZKpMDIMaI9p0SDAxhsxS23OlNjQadaaWg5SomICmvUPbKAL6jlyfztRkfDHiCTHL0B7y643h3Andm4sDstFKwzx1JbKp9k9TNVs1zJYtH78FrKBcfcG34+/d2pmjURJ23+Qo+qVOaiccwy6sm3z5Pwjhs5WfIWWMwTHT7EJaNN2sppdp147RQa5P2kIq7k0dfEiLKSG6gKOnQjxcI1rorKgUTH5n1uxw/wAF6x88jacVVJ3pMFae4FZMQFDf8xDPBN282kxfpgnGndcId4EVgtDM+7r9j6JPd6GnhpnLrRWxmfG9I98sk1cCcUKINDTWg0sx/YzbC1qkHgvW1DCejsCXEKNY3BAQPPhUH0V6UBWj5DSdnDmX3SvZzO785W82retpkARIWsBpGBAvLG/6Elb1LsYfdjT7n/GuPW0SnivMdQ4EIFQtBz40t+OQV0S4GrtgoSInLaNPPZ5Romh8auYmp8fvonos5M3mkpe8kGZOfww8Q54qgCkBUEiXDaxFm+1x7yt4L1dYOctnvY1Vt+YW4APmJcXkfKyCKSce05uMcA8jG+h0cPLOagp/eWnQJDpbBOQ8eOVt6pTo2mN9ucEByaD0zAaSXT+VEq/BJXuuldSmS3wzc2Po+iLwScg1QTBwrjqY0w7x9ia5+s+FMKK2/qGGMH54OCI3hr6oYwZsBgef3ucncWg1CVHI2g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(56012099006)(11063799006)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	QoZUIQTTGqpPNH4TOeRPeXmtneIy6GRKW9MjF4eqYiLr8lXgASnosOQZS64TlT3f7+dbWlmViB0Dh0lKX/WflizSn88qlWYZdkXgUDU72E9kZP9H1htaaozGpyj27990FiZZyoxnznv+asy/BDCwI1qavGSZHSsw951gvbLWlGHMJVwdSApPebJ3E6oje4Q9WnZcAYHR8kkxylkIXKMUiDyZhu8zlbZbcm4Y+3v3/N0VPEzTe2SjopQw/VTwCCAxtVb7MNBGibb76RD6UKsZBHIrIM7bEVn6WY/L0wsOfTv8q5YcrvD57Md/KT6Kxn3CpqFHw1OQh3OQoMBPZaMarFtXlznNBYsPW3oDEU5nwMvNe+OvWWS4++J7u3UIx9J2C8M9a3qNi6nPUSGkyGlR57pjDzoYVEJJEitZYysMoBY1r2ySsIjAEmcy+P4wTlJx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 09:16:02.1751
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: df9e3a57-bdf5-4793-2796-08df2f53ed76
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E7B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5994
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-efx_ptp_pps_worker() can race with SIOCHWTSTAMP via
-efx_ptp_change_mode(). After the worker completes synchronization, the
-ioctl can start another synchronization and update host_time_pps while
-the worker copies it into the PPS event. This can report a partially
-updated timestamp. Serializing synchronization transactions alone does
-not protect this copy, which happens after phc_lock is released.
+On Sat, 17 Oct 2026 19:11:34 +0800
+chenhan <chenhan0017.work@gmail.com> wrote:
 
-Return the timestamp through the caller's own pps_event_time rather
-than the shared field in efx_ptp_data, so the worker reads storage no
-one else can write.
+> Delta's division and remainder implementations operate on integers and
+> do not depend on time units. Move them into a math module to provide a
+> common home for arithmetic helpers, with Delta as the initial user.
+> 
+> Expose div64_s64() and rem_s64() so driver crates can use these operations
+> without constructing time values. The division helper takes two i64
+> operands; the remainder helper takes an i64 dividend and an i32 divisor
+> and returns an i64. Both keep Rust's signed operator semantics, including
+> the unconditional panic checks, and use the existing C helpers on 32-bit.
+> 
+> Keep the Delta API and its panic documentation unchanged. This is separate
+> from the preceding behavior fix so that introducing the math module is
+> not required for a backport.
+> 
+> Assisted-by: LLM
+> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
 
-Fixes: 7c236c43b838 ("sfc: Add support for IEEE-1588 PTP")
-Signed-off-by: Alex Austin <alex.austin@amd.com>
-Reviewed-by: Alejandro Lucero <alucerop@amd.com>
-Reviewed-by: Pieter Jansen van Vuuren <pieter.jansen-van-vuuren@amd.com>
----
- drivers/net/ethernet/sfc/ptp.c | 26 ++++++++++++++++----------
- 1 file changed, 16 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
-index eedab53..3c6a85b 100644
---- a/drivers/net/ethernet/sfc/ptp.c
-+++ b/drivers/net/ethernet/sfc/ptp.c
-@@ -268,7 +268,6 @@ struct efx_ptp_rxfilter {
-  * @evt_frag_idx: Current fragment number
-  * @evt_code: Last event code
-  * @start: Address at which MC indicates ready for synchronisation
-- * @host_time_pps: Host time at last PPS
-  * @adjfreq_ppb_shift: Shift required to convert scaled parts-per-billion
-  * frequency adjustment into a fixed point fractional nanosecond format.
-  * @current_adjfreq: Current ppb adjustment.
-@@ -330,7 +329,6 @@ struct efx_ptp_data {
- 	int evt_frag_idx;
- 	int evt_code;
- 	struct efx_buffer start;
--	struct pps_event_time host_time_pps;
- 	unsigned int adjfreq_ppb_shift;
- 	s64 current_adjfreq;
- 	struct ptp_clock *phc_clock;
-@@ -912,7 +910,8 @@ static void efx_ptp_read_timeset(MCDI_DECLARE_STRUCT_PTR(data),
- static int
- efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
- 		      size_t response_length,
--		      const struct pps_event_time *last_time)
-+		      const struct pps_event_time *last_time,
-+		      struct pps_event_time *host_time_pps)
- {
- 	unsigned number_readings =
- 		MCDI_VAR_ARRAY_LEN(response_length,
-@@ -990,6 +989,10 @@ efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
- 			   "PTP bad synchronisation seconds\n");
- 		return -EAGAIN;
- 	}
-+
-+	if (!host_time_pps)
-+		return 0;
-+
- 	delta.tv_sec = (last_sec - start_sec) & 1;
- 	delta.tv_nsec =
- 		last_time->ts_real.tv_nsec -
-@@ -1006,8 +1009,8 @@ efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
- 	delta.tv_nsec += ktime_to_timespec64(mc_time).tv_nsec;
- 
- 	/* Set PPS timestamp to match NIC top of second */
--	ptp->host_time_pps = *last_time;
--	pps_sub_ts(&ptp->host_time_pps, delta);
-+	*host_time_pps = *last_time;
-+	pps_sub_ts(host_time_pps, delta);
- 
- 	return 0;
- }
-@@ -1020,7 +1023,8 @@ efx_ptp_process_times(struct efx_nic *efx, MCDI_DECLARE_STRUCT_PTR(synch_buf),
-  * the function that registered it, so a secondary function can capture here
-  * without serializing against the primary.
-  */
--static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
-+static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings,
-+			       struct pps_event_time *host_time_pps)
- {
- 	struct efx_ptp_data *ptp = efx->ptp_data;
- 	MCDI_DECLARE_BUF(synch_buf, MC_CMD_PTP_OUT_SYNCHRONIZE_LENMAX);
-@@ -1069,7 +1073,7 @@ static int efx_ptp_synchronize(struct efx_nic *efx, unsigned int num_readings)
- 				 &response_length);
- 	if (rc == 0) {
- 		rc = efx_ptp_process_times(efx, synch_buf, response_length,
--					   &last_time);
-+					   &last_time, host_time_pps);
- 		if (rc == 0)
- 			++ptp->good_syncs;
- 		else
-@@ -1501,14 +1505,15 @@ static void efx_ptp_pps_worker(struct work_struct *work)
- {
- 	struct efx_ptp_data *ptp =
- 		container_of(work, struct efx_ptp_data, pps_work);
-+	struct pps_event_time host_time_pps = {};
- 	struct efx_nic *efx = ptp->efx;
- 	struct ptp_clock_event ptp_evt;
- 
--	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS))
-+	if (efx_ptp_synchronize(efx, PTP_SYNC_ATTEMPTS, &host_time_pps))
- 		return;
- 
- 	ptp_evt.type = PTP_CLOCK_PPSUSR;
--	ptp_evt.pps_times = ptp->host_time_pps;
-+	ptp_evt.pps_times = host_time_pps;
- 	ptp_clock_event(ptp->phc_clock, &ptp_evt);
- }
- 
-@@ -1844,7 +1849,8 @@ int efx_ptp_change_mode(struct efx_nic *efx, bool enable_wanted,
- 				rc = efx_ptp_start(efx);
- 			if (rc == 0) {
- 				rc = efx_ptp_synchronize(efx,
--							 PTP_SYNC_ATTEMPTS * 2);
-+							 PTP_SYNC_ATTEMPTS * 2,
-+							 NULL);
- 				if (rc != 0)
- 					efx_ptp_stop(efx);
- 			}
--- 
-2.34.1
-
+Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
