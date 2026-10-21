@@ -1,70 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569850;
-	b=UUmTMMOi9mtn9FfClW5zF4mkqZwBBYgE2M6p61joIoq8k/K7svdJ5D/zo9RX9JcppKs1
-	 bAbkYUVk9WT/Z7AOPwCfJ3+vGllowGo0d9FxY7cYHPG/eeKxa6/kmqRjyJ7mpNgXjQsQg
-	 Eo/Y/AS80QMGKzwigNvKpBfrakRl9xgIS2HbVDnfT3lEsZQrQZIOSNlv+YGg2L+D/Nebe
-	 p9UWrilGGdvgt13hNJ4+Ib5DJ9m9LbKwyVoQ/1fym7BfV4gcos5cAxomZ2MFmTjQLYJ9z
-	 1dGf/Z2iX+Pndo/SPzg929DLhZIFGsXpOqc+H6VlQ6JtZnV9nPaZV+AbI6PGhPfwS1g==
+	t=1792569860;
+	b=AGMz5zr31YpB7XI36B2YRg0aQ8QtvO1GkTtsjK/0Ic8YLnGHaf19oeCAN8g4xtgrq/34
+	 xXLgRfFNZp02wPSZZEW3KfBCAY6LX1jrZ+35LBFaBU7SGtiEN+ldNyQv94Y4cip1Er/9T
+	 SKMk9b6dZup6FNCtFSEcv9mR9rm3otgkby0RXeKJtzB0thdU8MpG8L91x2xMs1+g0Lw/J
+	 C1PdpDyeMOXNU+MwNuBwRiGIR/WCua/IfjG9Xmt3Tg/pK3ladJSU4sm0p5YgN/WDFMGDV
+	 VXPKk3ApWW4PcGhYHtC7VR4M1mQAyoPfZXRviQJO0XzyDJgJ2AaR81HDVyNsdiJDsJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569850;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=Dpk6oZW2/pIfMTZ5y5HTyizlc9Lr7d1oiu8c5BoQlkY=;
-	b=F6Z489LobmUI+KMOCCGvFcGYNZMFnSxgtaQ2NUe8ZTPlqbTovCif6tltBJUAixLDri+b
-	 MZF0qcCQ/vLEAv4l2gUqCkb50lGi3qyUGSa6zOV6GjtenoCFE/cKldD5p9Rv6TjMTI2j0
-	 P1efW39IkMCBfPCGTodU4mkSYU/i6/7ikKBXEv03f4TUT9MPDmDpKFGrdpXsZci3sMpRM
-	 Us0+E7HXbVbLVJDi190nr3rUoDJIRWL5KGhjOY7N+NMXOv0Sx8GLL/9R2gWb+zUTFQyK0
-	 fCd6dooTwzWCa3+COBBmD/Bg5SGARgJeg1ecva/bZoBjend1nt2OySNshURg95NXyBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792569860;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=376e3NZ04AYvXJ05krt9Fdz8ClOb73elsktpTuyFrOM=;
+	b=24IW5F6wLlaDLG3Luk62NdQHkcFIHwbPKV6MFh2+hKnafBy7XkaHc15eYv3hMBwt6Ikg
+	 6b0hrYlZbSSwmoQmA2t88AnYenFQc/GbvIVK5GZEl72XRrvvRVRlERXxQ3HvFi9svG9Zs
+	 6N3mo2areUZivYZMUcuMF5qCP2KxnuoG2TVlX/Z7/8F2YDHWFoWiWjiElNFCAYWDUOYeC
+	 jh1Hbzsf/HfK/Kpsq2TUgPE7QhQ1K67q3ikCwyldDJnZ8vABDNzZRXauQS7Iq6PwWGmfa
+	 CngCFtECwcrhFOThN+E6qtO6wjetJ8UBpf/oS8A1G5zl5pPouxh/YtlTlvrAv1ytblw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=bDpM4kwH;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mrO1mXf7;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kRyQHIqR;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD4D606A31B;
-	Wed, 21 Oct 2026 08:04:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BD4D606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F049E606A31C
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:04:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F049E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=bDpM4kwH
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Dpk6oZW2/pIfMTZ5y5HTyizlc9Lr7d1oiu8c5BoQlkY=; b=bDpM4kwHriQ1sFZK2YGUYqM+SJ
-	Ls2GKe9T6Q16wdIVF0sIzmbdiO7gAx2lt4lCag3lyfSN1GaGRIKVpJwultXZbxL0u5mQGwvtc0TQD
-	JXvZG/E5H3HNZjKKqYq4rXaXbCX2zNEpYfY5qPiiWbyzxhey/mkyqwG9lfBlVMWco0SPcM9A2l6ii
-	b0nSfG/YGAAB1uwEdpfxgbiIMeezk3BB817qsMBw7BJvnQ3jldRGTUXcmfQtYMdl/R3NyB74ykCS5
-	Qd7zOjXD/EnxwWM2+rji23j/ZoKJnaub74Vpm2N8aNUxp7beklzAqa9M/+tzxAuKonma76t0gIQTo
-	awv8ofqw==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>
-Cc: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>,
- Michael Riesch <michael.riesch@collabora.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Guochun Huang <hero.huang@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v5 2/8] dt-bindings: phy: rockchip,rk3588-mipi-dcphy: Add a cell
- to select TX or RX
-Date: Wed, 21 Oct 2026 10:03:45 +0200
-Message-ID: <3435698.oiGErgHkdL@diego>
-In-Reply-To: <20261021024239.GA3667411-robh@kernel.org>
-References:
- <20261016-dcphy-rx-v1-v5-0-e63b49eabe2d@gmail.com>
- <25254818.ouqheUzb2q@diego> <20261021024239.GA3667411-robh@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=mrO1mXf7;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kRyQHIqR
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L5jI742848123
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:04:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	376e3NZ04AYvXJ05krt9Fdz8ClOb73elsktpTuyFrOM=; b=mrO1mXf7S9FLD5rt
+	zKEStQDCnxwR4ZDxHSlqz3JTMFtg3oROyZU5AEL+R3ooq3uwBCRJeyqdJLHRCRRI
+	Yje7ETm+9urgF9k2KzPwRzNV+cbyV+Vi9zXzVPtHdBmydn3WLjN1cXLOUY5oYp7l
+	0sYyvlI5KgIqc5PhEtyXtcVoBtlbnpGa6v5XuOZfjjOPcNE8fHV2jQSb8LaYUz1b
+	louPFnH5RuizqSBpbwmd6CdWh1i9ucm1fIkNULWBrbKBUsDUeyGwKYQR8p65/Pei
+	RPMD7S8ks94DhKIL3V3hNZk3s5yPSG6vWFXq7SALTpBpz49CknchAmL0pwvnTZJh
+	0wcElQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heeb9aggu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:04:18 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f3960dca5so15142985a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:04:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792569858; x=1793174658; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=376e3NZ04AYvXJ05krt9Fdz8ClOb73elsktpTuyFrOM=;
+        b=kRyQHIqRh1abyHBwXj9qN2pXyLNMPAdpUqEUtNyDDOpWat1pwCbj5e5fi7saFrlfoB
+         9rWuvqhzxXAh33b8cp2x0Q/fanZk+wiGjANin+99KwOGv3gp9noJVsiorJM/YwMDNvkj
+         xsemtIrF9CwsML1IjYBByuppZpAe3GeArCYWgt8S7iPl5P3UGRlDgeWbwdSyKKmLMxo0
+         ouDZ5yZU0cWVUSMm8VvNlHomYfjlDxb4zx35a0UpkE/Uv+4nR4njWOUp4IQWTsyFYWzB
+         KDB0H+o+XrC9mSbCBlYD6W0lIMNvGaCdEiTuSa85vet8RgWohJqLFmQn/7OtS6UbpbUB
+         JHhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792569858; x=1793174658;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=376e3NZ04AYvXJ05krt9Fdz8ClOb73elsktpTuyFrOM=;
+        b=M1DRbyneckqdIdaNDR0AUzr/I/4ORDkZlEjYec4qU7imzr14EQLUoyDn/47Xqlyd+S
+         KX8pqwoifaOcgAjBfEj+uGz6EQ9UmZSFhfPHRcnT2BwksUVQasy525BQbKgZAGFna/A6
+         xsc3gfUZlRthdrHzlbmv0DuS/9OWaXiCKe/Dt24OZNZYML0Y+O6VQJojv+9KJ2OqLJAs
+         if/zfdfUgiKcdnBH1Wx7+2LdXexxcJRBju4deBpnSJLbjVljWjcHalvJhPNqitZvCSfV
+         0QyIyIbpjy6PMmgW6eNPzSSGKFKH6fk75M6ShCrX1DZGnhAtkIxbo+UGXFSfpSa2jI4H
+         hZ5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxpCEeCHsz09TlZnj6lGQh/xSn1Ck508edl9/OnpM2PWYvonKiqQwJHT+KOt12jB7oVJh7+w+iB83V/dU0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJl2NB3j1KM1Df/zMUBl/nM1qircojuEMjfM2vidaaYCU5ff0a2
+	3miadkJHGrjZGNYJ+l4lwdhWFg5OZPVkyW9JEGocciAhlL6ijXrwxix2MTmJQn+olgUh0TWI+oh
+	6bhIvkrloG6cUPWppMVUzV/6VaUQI4K/0p9WqyrUTbb+oVap+NEKBQLwT+5JYPfggqpQ=
+X-Gm-Gg: AYBFou0ka9h0CqAjh795WRFESooOGoaQMD7ydzwLmwJ21RYEWHtZ9oWQxiBrweYShs0
+	yO1lYjJSpoc72yxUc4CyeFSS/PZPs/kxkAgE23hpu22z4iBuAoSffIejmtgjN5Zv0mlZro4b/lv
+	uUpRqdUNDja+nBLwhTRRIEXbLVmqtcXQrlEdRX7fEymKhfwTk8xDuYSjerZxZc+vUOhx2yLT0iJ
+	mC3lKl5CFpMgzQd/mabVN56FckK7jEI3AGut/JhF2cKjgbydJXUqutGUuBn29z7YfKwhlCvxM/T
+	HXXmHq/ZvGpwGdJF6LBDOmY2KX0lRP8YxozT70BDLBrydUAw+4iW+qPE6QNjn1gW1RYCueseiNr
+	Zt07K14enUkwsGzqBHOQVww==
+X-Received: by 2002:a05:620a:45aa:b0:939:9205:4d78 with SMTP id af79cd13be357-93f57f96010mr324547685a.3.1792569857918;
+        Wed, 21 Oct 2026 01:04:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:45aa:b0:939:9205:4d78 with SMTP id af79cd13be357-93f57f96010mr324544285a.3.1792569857519;
+        Wed, 21 Oct 2026 01:04:17 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4030daf5bsm547898a12.6.2026.10.21.01.04.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 01:04:15 -0700 (PDT)
+Message-ID: <b620b2de-77dc-4d90-acd6-464a85ec674f@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 10:04:10 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,207 +115,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 05/10] clk: qcom: cpu-8996: move off the ACD leg while the
+ PLL speeds up
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Joonwoo Park <joonwoop@codeaurora.org>,
+        Imran Khan <kimran@codeaurora.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jeffrey Hugo <jeffrey.l.hugo@gmail.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Ilia Lin <ilialin@codeaurora.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Dmitry Baryshkov <lumag@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        Christopher Obbard <chris.obbard@oss.qualcomm.com>
+References: <20261019-msm8998-fix-clocks-v1-0-370949e4d8a0@oss.qualcomm.com>
+ <20261019-msm8998-fix-clocks-v1-5-370949e4d8a0@oss.qualcomm.com>
+ <c3ac769f-59be-408a-81c8-9d6a2693d3f2@oss.qualcomm.com>
+ <iqwdlpjvsilp2zwvp4kljoc4txwaw6h6ndz42hgvakfcgc4lqo@ajr7xrkiwmle>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <iqwdlpjvsilp2zwvp4kljoc4txwaw6h6ndz42hgvakfcgc4lqo@ajr7xrkiwmle>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzMSBTYWx0ZWRfX6l4x+GgBw+sf
+ Wg6teJGKa7EdpdiJF8bHS7EbYzOsExRWQmLFwis4IShcNyace7cLigAFNJV42axg9lL8yb4vcaQ
+ Fds9t2EOMRR/Yje/4nsC5gf0yGwzyKg=
+X-Proofpoint-GUID: Jf4v2kOwWKnkFlFBKka_aBn3NFzQ0QU_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzMSBTYWx0ZWRfX+85CJEfO6jmm
+ S723ACOIHt1NfFAHpDKwczhjBmBnVrL1BL78VsNG0snTtJ5TU8Qfb3R33LlMIQD/ovbH4fysI1q
+ FpNkJIbY8mVv8k5KE8s7ztrnHYW3c1pFzkUhB6pT/sWBsknZf9xWPYzDXyLq4ULIrJSDVh/H+LH
+ rSLPiNspCubgBllT8SAIcMEpNCT8GUh1uHBb9YJgWUwTsFq7ZOtyEfFUZvzIQvgddXk5nNKVK1h
+ km/ed4B4J1o1JpQsOoqWji1e8+ELizWldJwynpLkiEIM/W7E6c3ZH0EHFP8dgonnR8n91aywCnn
+ 4/deB6FgM335bll67D6GaHMySMWyOsB5vt0tJlwlN/KjTV6N2NJ85p5yz8x/cK3r59sa2xHDRzJ
+ fuVvlJAFGblqXRD08BRQVKXiF8kKeVqUCfZMJd940kWId8G4Yt0iMAKg5Tprd4IcmTKQfX6n5Ub
+ O23gABVKBdFpzFNUmcw==
+X-Authority-Analysis: v=2.4 cv=R42WitRX c=1 sm=1 tr=0 ts=6ad87202 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=zcdO2QGPM5nA-iYd0ZEA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: Jf4v2kOwWKnkFlFBKka_aBn3NFzQ0QU_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0 spamscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 impostorscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210031
 
-Am Mittwoch, 21. Oktober 2026, 04:42:39 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Rob Herring:
-> On Tue, Oct 20, 2026 at 04:57:34PM +0200, Heiko St=C3=BCbner wrote:
-> > Am Dienstag, 20. Oktober 2026, 16:10:39 Mitteleurop=C3=A4ische Sommerze=
-it schrieb Rob Herring:
-> > > On Tue, Oct 20, 2026 at 03:37:35PM +0200, Heiko St=C3=BCbner wrote:
-> > > > Am Dienstag, 20. Oktober 2026, 00:20:47 Mitteleurop=C3=A4ische Somm=
-erzeit schrieb Michael Riesch:
-> > > > > Hi all,
-> > > > >=20
-> > > > > On 10/19/26 17:06, Rob Herring wrote:
-> > > > > > On Mon, Oct 19, 2026 at 04:15:03PM +0800, =E6=A5=8A=E6=99=BA=E6=
-=88=90 wrote:
-> > > > > >> Hi Krzysztof, Rob,
-> > > > > >>
-> > > > > >>> Existing OS should ignore surplus cell if the driver is coded=
- properly.
-> > > > > >>> Same as adding new properties or new front-compatible.  The q=
-uestion is
-> > > > > >>> how the existing driver behaves?
-> > > > > >>
-> > > > > >> As you pointed out on 5/8, the xlate checks args_count !=3D 1.=
- The DC-PHY
-> > > > > >> driver was merged in v6.15, so every kernel since 6.15 fails o=
-n a second cell.
-> > > > > >>
-> > > > > >> 1. Keep the second cell. Add the patch as follows:
-> > > > > >>
-> > > > > >> - if (args->args_count !=3D 1) {
-> > > > > >> + if (args->args_count < 1) {
-> > > > > >>     dev_err(dev, "invalid number of arguments\n");
-> > > > > >>     return ERR_PTR(-EINVAL);
-> > > > > >>   }
-> > > > > >>
-> > > > > >> + if (args->args_count > 1 && args->args[1]) {
-> > > > > >> +   dev_err(dev, "only the transmitter is supported\n");
-> > > > > >> +   return ERR_PTR(-EINVAL);
-> > > > > >> + }
-> > > > > >>
-> > > > > >>   With Fixes: and Cc: stable, the stable kernels maintained at=
- that
-> > > > > >>   time (currently 6.18.y and 7.2.y) keep DSI working with the =
-new
-> > > > > >>   dts, and the receiver fails cleanly instead of getting the t=
-ransmitter.
-> > > > > >>   But EOL kernels (6.15, 6.16, 6.17, 6.19, 7.0, 7.1) stay affe=
-cted.
-> > > > > >>   It goes in with the series, since two-cell dts only exist af=
-ter it.
-> > > > > >>
-> > > > > >> 2. Use a flag in the upper bits of the existing cell, as Rob
-> > > > > >>     suggested. Existing kernels are not affected, unless a boa=
-rd enables
-> > > > > >>     the DC-PHY CSI-2 receiver on 7.0 or later without this ser=
-ies.
-> > > > > >>
-> > > > > >> I will write the impact clearly whichever  approach is selecte=
-d in
-> > > > > >> the related commit messages and the cover letter.
-> > > > > >>
-> > > > > >> I think the cell approach is easier to read and more symmetric=
- in the
-> > > > > >> long term,
-> > > > > >> but it breaks more. Which one do you think is better? Thanks.
-> > > > > >=20
-> > > > > > I'm not a user of this platform, so I don't care. Up to the pla=
-tform=20
-> > > > > > maintainers to decide if breakage is acceptible. You just need =
-to=20
-> > > > > > document the issue in the commit message.
-> > > > > >=20
-> > > > > > Rob
-> > > > >=20
-> > > > > It's a bit of a pickle, all this.
-> > > > >=20
-> > > > > I gave it some more thought. In the end this is an IP block with =
-two
-> > > > > PHYs. No more, no less. One cell is sufficient to address those, =
-and it
-> > > > > could be 0 for the transmitting PHY (DSI, display) and 1 for the
-> > > > > receiving PHY (CSI, camera).
-> > > > >=20
-> > > > > Of course the two PHYs can operate in either DPHY or CPHY mode. T=
-he
-> > > > > phy-cells have been (mis?)used to select the proper mode of combo=
- PHYs,
-> > > > > and this principle has been applied here too.
-> > > > >=20
-> > > > > However, we have the special situation here that the mode can onl=
-y be
-> > > > > changed for the complete IP block (and thus for both PHYs at the =
-same
-> > > > > time). As Bryan points out, we need to check and complain if the =
-PHY
-> > > > > mode is not set to the same value for both PHYs.
-> > > > >=20
-> > > > > I suggest using a property
-> > > > >     samsung,cphy-mode;
-> > > >=20
-> > > > I guess, a maybe nicer way would be mimicing
-> > > > 	Documentation/devicetree/bindings/phy/intel,combo-phy.yaml
-> > > >=20
-> > > > with its
-> > > > 	intel,phy-mode =3D <x>
-> > > >=20
-> > > > with x coming from include/dt-bindings/phy/phy.h
-> > > > for the distinction between cphy and dphy, so we don't introduce yet
-> > > > another way to describe this.
-> > >=20
-> > > We already have the plain 'phy-type' property which takes the same=20
-> > > PHY_MODE_x values. We don't need yet another vendor specific property.
-> >=20
-> > even better then ... and I didn't look deep enough it seems.
-> >=20
-> >=20
-> > > > > (name to be bikeshedded) that sets the complete IP block into CPH=
-Y mode
-> > > > > (DPHY being the default) to distinguish between the modes. Since =
-both
-> > > > > modes use a different electrical interface, this is clearly a har=
-dware
-> > > > > thing and thus suitable for device tree.
-> > > > >=20
-> > > > > Then, we can address the two PHYs with the help of the already ex=
-isting
-> > > > > phy cell (without any bitflag tweaks to the value).
-> > > > >=20
-> > > > > The sole drawback is that we need to accept the PHY_TYPE_DPHY and
-> > > > > PHY_TYPE_CPHY values that some OS in the field might pass. (For L=
-inux,
-> > > > > it should only be the former.) And we need to handle those values
-> > > > > correctly. But I think this is not more painful than the other
-> > > > > approaches. At the same time, this design seems to be the most co=
-rrect
-> > > >=20
-> > > > The current cell values are 10 + 11, so as long as we don't re-use =
-those
-> > > > exact values for the other constants the driver should somewhat eas=
-ily
-> > > > be able to recognize an old DT?
-> > >=20
-> > > I think you will still have an ABI issue of what does old OS do with =
-new=20
-> > > values?
-> >=20
-> > wasn't the main contract, a newer kernel should support old DTs ?
->=20
-> Well, yes, it was. That was a position I inherited. I hear complaints=20
-> about the opposite though.
->=20
-> > Aka the DT is parked in some firmware part (u-boot?) and gets handed
-> > to the newer kernel.
-> >=20
-> > I don't see deliberately handing a newer DTB to an older kernel as a
-> > very common occurence?
->=20
-> Do you want things to break when you do a firmware update that's picked=20
-> up a newer DT? I don't.
->=20
->=20
-> > And from a practical standpoint:
-> >=20
-> > We're talking about devices with DSI displays that are at stake here,
-> > so we're in the embedded world.
-> >=20
-> > In other areas we're still fighting basic functionality like actually
-> > handling the type-c orientation correctly in the usbphy.
-> >=20
-> > So I really don't see a device with a user-updateable mainline kernel o=
-ut
-> > in the field, apart from people hacking around on their devices to try
-> > out new features and new kernels, simply because core functionality
-> > is still evolving in mainline.
-> >=20
-> >=20
-> > RK3576/RK3588 devices still ship with a vendor u-boot/kernel, with
-> > completely incompatible DTB afterall.
->=20
-> I can only keep my own house clean...
+On 10/20/26 12:10 PM, Dmitry Baryshkov wrote:
+> On Tue, Oct 20, 2026 at 08:52:49AM +0200, Konrad Dybcio wrote:
+>> On 10/19/26 3:41 PM, Dmitry Baryshkov wrote:
+>>> The MSM8996 CPU clusters sometimes run at half the rate they report
+>>> after going up between two frequencies above 600 MHz, and stay there
+>>> until the cluster drops below 600 MHz. The PLL, the muxes and the rest
+>>> of the cluster clock registers are all as expected: it is the ACD that
+>>> latches at half the rate when the PLL is reprogrammed to a higher rate
+>>> underneath it, and selecting the ACD leg again clears it. The driver
+>>> only moves off the ACD leg when going below 600 MHz.
 
-ok :-)=20
+[...]
 
+> Downstream isn't keeping the main output below 1190.4 either. After
+> pre_set_rate(), cpu_clk_8996_set_rate() asks the HF mux for the target
+> rate, which makes mux_set_rate() set the PLL rate and then switch the mux.
+> So the main output follows the PLL up to new/2, e.g. 1075.2 MHz on the
+> way to 2150.4 MHz, on every increase above 1190.4 MHz.
+> 
+> The main difference is where the cluster waits before the PLL moves: downstream
+> first lowers the PLL to 1190.4 MHz and parks the output at 595.2 MHz, while
+> this patch parks it at old/2. Both are lower than the target rate. Following
+> the downstream approach would mean reprogramming the PLL from inside the pmux
+> notifier while CCF is changing the rate of the same tree, which feels incorrect
+> to me. Also it wouldn't lower the peak.
 
-> I only ask that compatibility issues be documented. Up to individual=20
-> platforms to decide if they care or not. So, your decision.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-The discussion would be a lot different for SoCs like the RK3399 or PX30
-that can and have run mainline software in a usable way for years now.
-RK3568 very likely falls in that area too.
-
-But for the in-progress SoCs RK3576 and RK3588 anybody wanting to run
-a generic userspace would need a heavily patched kernel anyway, with
-other unreviewed/unmerged dt-changes, so personally I can live with it.
-
-Especially if we keep the (in my eyes) more common case
-(old dtb, new kernel) working.
-
-
-Heiko
-
-
+Konrad
