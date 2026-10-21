@@ -1,55 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593452;
-	b=AXodLfFcDYUjYtoAHGQEAd9YwyOkZ+HU/KKpgJSZtFQmoA8+3ps8m8llfBAYDd96x9lq
-	 BrVreCsLZFLTgNxPWU469DUIXFjNnGXdu6gSRrK2qPKXtSTtIgGwIvZtJcuY+DOS7tnVL
-	 75YQCbNlD5g2jNbNWAeV5kSNsin77z3g7bV/8UTO15xhEkG4RKvvw7U2JopwMVRjf76n0
-	 mGE+skoaUOFBxqiKeCzWxTpfUXMKiZg72a3HvZiNBpEJWlvtmVvDfrPjoeFNw3cA4BS0o
-	 80bGRUSDR6Xk4zpbZdiMAUigHE6gf3b0PNARWBmcdDvoUi9JAdZZvq07jEEVKa8GExA==
+	t=1792593523;
+	b=cWNV2FMC1xxmLCitgOnYwr01ruA2qcMG9SxKeFmpSSAQpE+66tJAcK3n7yoH0RMSc2CH
+	 JB0+1g/VTQgu5KVNa4UA0odONXfJb9jhCBfrFiJ1ioftFi44WY1ylWepPWnoK+1S5qv3t
+	 7XPU32Y85uAD+6yrPZfppcnF5C6q4NLIwoDafuILkr5xGVjzPnUzUyQuJjCxrxbTTWeyu
+	 +at8yhA6j2wFMrCHVMXOXW4DpCeuV5dweJpr/AF4GTjbnYDbRixok6afUTpQOcqICj/44
+	 tXAK3gTC1A4rCfgSnzzWu/k8ll8IogNI4j/F8xj39NMsjZNt8kDGJqIXyW+0A1UNIdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593452;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LNqUh1ctm4UHtwJf1BYt5KCSbLCVqB9wnPT3dznMsCY=;
-	b=lNAge6uWpRu9wesD+NWzkX4MM1KczvJwpWMJiQ0CnPkr1Iw3838ActtP05CRlBlA8Cdo
-	 H66YEoGsc7Vz6d1QmlJuekvA0/APgehgKdPSmn3A8sq/Rqzf6WQiq1LY7MXMNe/Y237rR
-	 eMlsJY4rWZdjOnnkTEighqGlHQnczVNjkHKK5l7dQyg8QXgBGOLdK+RDRKwCI4XcFdX07
-	 riaABqMKYuKcwT1m/yYebtDLFRoDK/fUrM7bq7RHCojOfP6KiGYpcgqQGqx9HxZYYWLaE
-	 UkLNdXGzZ5/y8J5X8Ved0joJGNYLLbqXzHol6RNIkHP7njkMX7C1MfaQHo/r0W0GB/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593523;
+	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
+	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
+	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=KoL7GRKqrRuEvjWhaorUa6GwE3B2CHX/zoowq8ecWdk=;
+	b=tcQL4c6/NHipFzIxGJFEtnqD8/kg6KF5O6UGYFT19mDtidLD3Zsz4UuhMhjdKL3tnBo3
+	 QZ2pgqRxmr1DUlPQakQCKyZGlcu5UFXfGrtUKJcCset6rq5kDxijUqXUxtFdSq+03M3t2
+	 XAThecRp7D9VSNx4R/kS8Xek0OnLW9BKvVEQDWWprAYbZZ5VtWzoEsc+ecqQUuV/PjHnK
+	 Pb40uSiLgEeWwapBcZtlLWIX09WLwH+hGOSZN1nrGMS/LO2QPA4N5KZVC3WSWAL9XvkgY
+	 emxhvtdzFk003Q9Fldby1gMjJm91RkNQgshtT8gOpA2Y5iO6yf/HdfZ+BivRTXioiLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F08YV3Vc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EzldkBFc;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD81606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:37:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442BE606A31B;
+	Wed, 21 Oct 2026 14:38:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 442BE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F08YV3Vc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84ED61F000C1;
-	Wed, 21 Oct 2026 14:37:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792593451;
-	bh=LNqUh1ctm4UHtwJf1BYt5KCSbLCVqB9wnPT3dznMsCY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=F08YV3VcVZcG1A937aiiuDbtWGBbtf1gdDJzjrWCoFJmAYy6miP4DAvelUBbaIlOe
-	 4bXSMFjLEECp4d3z7J8eM9Vhf7+ftCE0SniWXthZDaer7ipB9DQ1+kz/GxsMY//q5e
-	 8Jtd5z1sr9R9x5IamdwCnNXs91poBcPdvRtGWFaGyT8GMoi0HjYZUnlHs1RqvRB+oX
-	 hFpL9VJbihZnVp5GYWXiOP0/NESkbebp/1fejrPh+66HM78oXbbMAA4E5gR2aDlMPF
-	 zMNhW+G1uZjEkl6JlL8eajTMSfpxCSqtv4/FwWFhL9qSgrGHRqwOq25dTnG89P8tXW
-	 NP8n9R82cv52A==
-Date: Wed, 21 Oct 2026 15:37:25 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 01/39] mm/vma: fix mmap_prepare file handling, remove
- file_doesnt_need_get
-Message-ID: <atjAgZCWdYN77C4n@gremlin>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=EzldkBFc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=KoL7GRKqrRuEvjWhaorUa6GwE3B2CHX/zoowq8ecWdk=; b=E
+	zldkBFcYUfmB7nEe6h6Nt+8kfwVm0srWOBQON5BByYwwnVHP51GgkCeuFf5Dt1Xz
+	Nrr/PUg4rg2iWz5sUfOqct1JGnxmBTvZ+LKofoobD0qizLNxYxmTOjiGMxAAO83U
+	FRTdUQdFeWAZ7DhvYRbO0djlJhZkdQh0EpSMNAHow4=
+Date: Wed, 21 Oct 2026 22:37:58 +0800 (CST)
+From: "jiale yao" <19888972804@163.com>
+To: "Kameron Carr" <kameroncarr@linux.microsoft.com>
+Cc: "Haiyang Zhang" <haiyangz@microsoft.com>, "Wei Liu" <wei.liu@kernel.org>,
+	"Dexuan Cui" <decui@microsoft.com>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Stephen Hemminger" <stephen@networkplumber.org>,
+	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH] hv/vmbus: copy dynamic IDs before dropping the lock
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <7d9f70d0-1856-4424-89d9-c9f3552a8469@linux.microsoft.com>
+References: <20261019085544.1834700-1-yaojiale02@163.com>
+ <7d9f70d0-1856-4424-89d9-c9f3552a8469@linux.microsoft.com>
+X-NTES-SC: AL_Qu2SAPmSvEws7iSfZ+kcn08ShO49XMOyvfoi2YFTc+AEnyzt4CYNekNFJlbR4NixDT6PtCCIYido2OlHUoR6m7aMhGa3PcNajq7P9qcyOg==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,46 +67,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179253282492.1207257.6426479952081115792.b4-reply@b4>
+Message-ID: <7b506cdc.9bbf.1a15ee5c351.Coremail.19888972804@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:aygvCgD3H+tGzthqW4ZdAA--.979W
+X-CM-SenderInfo: x1dryxhdohiji6rwjhhfrp/xtbCzgaVz2rYzkYtswAA32
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-[ cut cc list for sanity ]
-
-On Tue, Oct 20, 2026 at 05:47:04PM -0400, Gregory Price (Meta) wrote:
-> On 2026-10-13 16:04 +0100, Lorenzo Stoakes (ARM) wrote:
-> > The map->file_doesnt_need_get flag is confusing and the existing
-> > implementation has holes.
-> >
-> > Drivers are permitted to change the owning file of a mapping. If they do
-> > so, they are required to take a reference on that file.
-> >
-> > The mmap() operation which ultimately invokes __mmap_region() is guaranteed
-> > to drop the refcount for the original file the mapping was made under, but
-> > this is not true for the replaced file.
-> >
-> ...
-> >
-> > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->
-> Have a nit below, but otherwise
->
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-
-Thanks! :)
-
->
-> > +static bool map_same_file(struct mmap_state *map)
-> > +{
-> > +	return map->vm_file == map->file;
-> > +}
-> >
->
-> Terrible function name :]
-
-I think let's leave things as-is and maybe chase this separately as a
-follow-up ;)
-
---
-Cheers, Lorenzo
+SGkgS2FtZXJvbiwKCkF0IDIwMjYtMTAtMjEgMDc6MzA6NTUsICJLYW1lcm9uIENhcnIiIDxrYW1l
+cm9uY2FyckBsaW51eC5taWNyb3NvZnQuY29tPiB3cm90ZToKPk9uIDEwLzE5LzIwMjYgMTo1NSBB
+TSwgSmlhbGUgWWFvIHdyb3RlOgo+PiByZW1vdmVfaWRfc3RvcmUoKSBjYW4gZnJlZSBhIG1hdGNo
+aW5nIGR5bmFtaWMgSUQgd2hpbGUgVk1CdXMgaXMKPj4gcHJlcGFyaW5nIHRvIGludm9rZSBhIGRy
+aXZlciBwcm9iZS4gQ29weSB0aGUgSUQgd2hpbGUgaG9sZGluZyB0aGUKPj4gZHluYW1pYyBJRCBs
+b2NrIHNvIHByb2JlIG5ldmVyIHJlY2VpdmVzIGEgcG9pbnRlciBpbnRvIGEgZnJlZWQgbGlzdAo+
+PiBlbnRyeS4KPgo+SXMgdGhpcyB0aGUgc2FtZSBmaXggYXM6Cj4KPiAgM2ZmYzRjOTY5MGMzICgi
+UENJOiBGaXggVUFGIHdoZW4gcHJvYmUgcnVucyBjb25jdXJyZW50IHRvIGR5biBJRAo+ICByZW1v
+dmFsIikKPiAgZWY4MTU0ZDhiNTJkICgidXNiOiBmaXggVUFGIHdoZW4gcHJvYmUgcnVucyBjb25j
+dXJyZW50IHRvCj4gIGR5biBJRCByZW1vdmFsIikKPgo+SWYgc28sIGNvbnNpZGVyIGNpdGluZyB0
+aGVtIGluIHRoZSBjb21taXQgbWVzc2FnZS4gQWxzbywgY29uc2lkZXIgdGFraW5nCj5pbnNwaXJh
+dGlvbiBmcm9tIHRoZWlyIGltcGxlbWVudGF0aW9uLgoKWWVzIQoKPgo+Tml0OiB0aGlzIHN1YnN5
+c3RlbSB0eXBpY2FsbHkgdXNlcyAiRHJpdmVyczogaHY6IHZtYnVzOiIgZm9yIHRoZSBzdWJqZWN0
+Cj5wcmVmaXguClRoYW5rcyBmb3IgeW91ciByZXZpZXcsIGhvdyBhYm91dCB0aGlzIG9uZQpodHRw
+czovL2xvcmUua2VybmVsLm9yZy9hbGwvMjAyNjEwMjExNDMzMjMuMzM4MTQ2LTEteWFvamlhbGUw
+MkAxNjMuY29tLwoKPgo+Cj4+IEZpeGVzOiBmYzc2OTM2ZDNlYTUgKCJ2bWJ1czogYWRkIHN1cHBv
+cnQgZm9yIGR5bmFtaWMgZGV2aWNlIGlkJ3MiKQo+PiBTaWduZWQtb2ZmLWJ5OiBKaWFsZSBZYW8g
+PHlhb2ppYWxlMDJAMTYzLmNvbT4KPj4gLS0tCj4+ICBkcml2ZXJzL2h2L3ZtYnVzX2Rydi5jIHwg
+MjUgKysrKysrKysrKysrKysrLS0tLS0tLS0tLQo+PiAgMSBmaWxlIGNoYW5nZWQsIDE1IGluc2Vy
+dGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+PiAKPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaHYv
+dm1idXNfZHJ2LmMgYi9kcml2ZXJzL2h2L3ZtYnVzX2Rydi5jCj4+IGluZGV4IDQ2OTI2ODdjZGJm
+My4uOTZhZDBkZmFhNTBiIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2h2L3ZtYnVzX2Rydi5jCj4+
+ICsrKyBiL2RyaXZlcnMvaHYvdm1idXNfZHJ2LmMKPj4gQEAgLTY2MSwyMSArNjYxLDIyIEBAIGh2
+X3ZtYnVzX2Rldl9tYXRjaChjb25zdCBzdHJ1Y3QgaHZfdm1idXNfZGV2aWNlX2lkICppZCwgY29u
+c3QgZ3VpZF90ICpndWlkKQo+PiAgfQo+PiAgCj4+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGh2X3Zt
+YnVzX2RldmljZV9pZCAqCj4+IC1odl92bWJ1c19keW5pZF9tYXRjaChzdHJ1Y3QgaHZfZHJpdmVy
+ICpkcnYsIGNvbnN0IGd1aWRfdCAqZ3VpZCkKPj4gK2h2X3ZtYnVzX2R5bmlkX21hdGNoKHN0cnVj
+dCBodl9kcml2ZXIgKmRydiwgY29uc3QgZ3VpZF90ICpndWlkLAo+PiArCQkgICAgIHN0cnVjdCBo
+dl92bWJ1c19kZXZpY2VfaWQgKmlkX2NvcHkpCj4+ICB7Cj4+IC0JY29uc3Qgc3RydWN0IGh2X3Zt
+YnVzX2RldmljZV9pZCAqaWQgPSBOVUxMOwo+PiAgCXN0cnVjdCB2bWJ1c19keW5pZCAqZHluaWQ7
+Cj4+ICAKPj4gIAlzcGluX2xvY2soJmRydi0+ZHluaWRzLmxvY2spOwo+PiAgCWxpc3RfZm9yX2Vh
+Y2hfZW50cnkoZHluaWQsICZkcnYtPmR5bmlkcy5saXN0LCBub2RlKSB7Cj4+ICAJCWlmIChndWlk
+X2VxdWFsKCZkeW5pZC0+aWQuZ3VpZCwgZ3VpZCkpIHsKPj4gLQkJCWlkID0gJmR5bmlkLT5pZDsK
+Pj4gLQkJCWJyZWFrOwo+PiArCQkJKmlkX2NvcHkgPSBkeW5pZC0+aWQ7Cj4+ICsJCQlzcGluX3Vu
+bG9jaygmZHJ2LT5keW5pZHMubG9jayk7Cj4+ICsJCQlyZXR1cm4gaWRfY29weTsKPj4gIAkJfQo+
+PiAgCX0KPj4gIAlzcGluX3VubG9jaygmZHJ2LT5keW5pZHMubG9jayk7Cj4+ICAKPj4gLQlyZXR1
+cm4gaWQ7Cj4+ICsJcmV0dXJuIE5VTEw7Cj4+ICB9Cj4+ICAKPj4gIHN0YXRpYyBjb25zdCBzdHJ1
+Y3QgaHZfdm1idXNfZGV2aWNlX2lkIHZtYnVzX2RldmljZV9udWxsOwo+PiBAQCAtNjg1LDcgKzY4
+Niw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaHZfdm1idXNfZGV2aWNlX2lkIHZtYnVzX2Rldmlj
+ZV9udWxsOwo+PiAgICogSWYgdGhlcmUgaXMgbm8gbWF0Y2gsIHJldHVybiBOVUxMLgo+PiAgICov
+Cj4+ICBzdGF0aWMgY29uc3Qgc3RydWN0IGh2X3ZtYnVzX2RldmljZV9pZCAqaHZfdm1idXNfZ2V0
+X2lkKGNvbnN0IHN0cnVjdCBodl9kcml2ZXIgKmRydiwKPj4gLQkJCQkJCQlzdHJ1Y3QgaHZfZGV2
+aWNlICpkZXYpCj4+ICsJCQkJCQkJc3RydWN0IGh2X2RldmljZSAqZGV2LAo+PiArCQkJCQkJCXN0
+cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgKmlkX2NvcHkpCj4+ICB7Cj4+ICAJY29uc3QgZ3VpZF90
+ICpndWlkID0gJmRldi0+ZGV2X3R5cGU7Cj4+ICAJY29uc3Qgc3RydWN0IGh2X3ZtYnVzX2Rldmlj
+ZV9pZCAqaWQ7Cj4+IEBAIC02OTcsNyArNjk5LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBodl92
+bWJ1c19kZXZpY2VfaWQgKmh2X3ZtYnVzX2dldF9pZChjb25zdCBzdHJ1Y3QgaHZfZHJpdmVyICoK
+Pj4gIAkJcmV0dXJuIE5VTEw7Cj4+ICAKPj4gIAkvKiBMb29rIGF0IHRoZSBkeW5hbWljIGlkcyBm
+aXJzdCwgYmVmb3JlIHRoZSBzdGF0aWMgb25lcyAqLwo+PiAtCWlkID0gaHZfdm1idXNfZHluaWRf
+bWF0Y2goKHN0cnVjdCBodl9kcml2ZXIgKilkcnYsIGd1aWQpOwo+PiArCWlkID0gaHZfdm1idXNf
+ZHluaWRfbWF0Y2goKHN0cnVjdCBodl9kcml2ZXIgKilkcnYsIGd1aWQsIGlkX2NvcHkpOwo+PiAg
+CWlmICghaWQpCj4+ICAJCWlkID0gaHZfdm1idXNfZGV2X21hdGNoKGRydi0+aWRfdGFibGUsIGd1
+aWQpOwo+PiAgCj4+IEBAIC03NzMsNiArNzc1LDcgQEAgc3RhdGljIHNzaXplX3QgbmV3X2lkX3N0
+b3JlKHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcml2ZXIsIGNvbnN0IGNoYXIgKmJ1ZiwKPj4gIAkJ
+CSAgICBzaXplX3QgY291bnQpCj4+ICB7Cj4+ICAJc3RydWN0IGh2X2RyaXZlciAqZHJ2ID0gZHJ2
+X3RvX2h2X2Rydihkcml2ZXIpOwo+PiArCXN0cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgaWRfY29w
+eTsKPj4gIAlndWlkX3QgZ3VpZDsKPj4gIAlzc2l6ZV90IHJldHZhbDsKPj4gIAo+PiBAQCAtNzgw
+LDcgKzc4Myw3IEBAIHN0YXRpYyBzc2l6ZV90IG5ld19pZF9zdG9yZShzdHJ1Y3QgZGV2aWNlX2Ry
+aXZlciAqZHJpdmVyLCBjb25zdCBjaGFyICpidWYsCj4+ICAJaWYgKHJldHZhbCkKPj4gIAkJcmV0
+dXJuIHJldHZhbDsKPj4gIAo+PiAtCWlmIChodl92bWJ1c19keW5pZF9tYXRjaChkcnYsICZndWlk
+KSkKPj4gKwlpZiAoaHZfdm1idXNfZHluaWRfbWF0Y2goZHJ2LCAmZ3VpZCwgJmlkX2NvcHkpKQo+
+PiAgCQlyZXR1cm4gLUVFWElTVDsKPj4gIAo+PiAgCXJldHZhbCA9IHZtYnVzX2FkZF9keW5pZChk
+cnYsICZndWlkKTsKPgo+VGhpcyBjaGVjayBhbmQgdGhlIGxpc3RfYWRkX3RhaWwoKSBpbiB2bWJ1
+c19hZGRfZHluaWQoKSBydW4gaW4gc2VwYXJhdGUKPmNyaXRpY2FsIHNlY3Rpb25zLCBzbyB0d28g
+Y29uY3VycmVudCB3cml0ZXJzIGNhbiBib3RoIGFkZCB0aGUgc2FtZSBHVUlELgo+Q29uc2lkZXIg
+YSBwcmVwYXJhdG9yeSBwYXRjaCB0aGF0IG1vdmVzIHRoZSBjaGVjayBpbnRvIHZtYnVzX2FkZF9k
+eW5pZCgpCj51bmRlciB0aGUgc2FtZSBkeW5pZHMubG9jazsgc2VlIDA0ZmRlNzBmNzgyYiAoIlBD
+STogRml4IGR5bl9pZCBhZGQKPlRPQ1RPVSIpLiBuZXdfaWRfc3RvcmUoKSB0aGVuIG5vIGxvbmdl
+ciBuZWVkcyBodl92bWJ1c19keW5pZF9tYXRjaCgpIG9yCj5pZF9jb3B5IGF0IGFsbC4KPgo+PiBA
+QCAtODQwLDEyICs4NDMsMTMgQEAgc3RhdGljIGludCB2bWJ1c19tYXRjaChzdHJ1Y3QgZGV2aWNl
+ICpkZXZpY2UsIGNvbnN0IHN0cnVjdCBkZXZpY2VfZHJpdmVyICpkcml2ZXIKPj4gIHsKPj4gIAlj
+b25zdCBzdHJ1Y3QgaHZfZHJpdmVyICpkcnYgPSBkcnZfdG9faHZfZHJ2KGRyaXZlcik7Cj4+ICAJ
+c3RydWN0IGh2X2RldmljZSAqaHZfZGV2ID0gZGV2aWNlX3RvX2h2X2RldmljZShkZXZpY2UpOwo+
+PiArCXN0cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgaWRfY29weTsKPj4gIAo+PiAgCS8qIFRoZSBo
+dl9zb2NrIGRyaXZlciBoYW5kbGVzIGFsbCBodl9zb2NrIG9mZmVycy4gKi8KPj4gIAlpZiAoaXNf
+aHZzb2NrX2NoYW5uZWwoaHZfZGV2LT5jaGFubmVsKSkKPj4gIAkJcmV0dXJuIGRydi0+aHZzb2Nr
+Owo+PiAgCj4+IC0JaWYgKGh2X3ZtYnVzX2dldF9pZChkcnYsIGh2X2RldikpCj4+ICsJaWYgKGh2
+X3ZtYnVzX2dldF9pZChkcnYsIGh2X2RldiwgJmlkX2NvcHkpKQo+PiAgCQlyZXR1cm4gMTsKPj4g
+IAo+PiAgCXJldHVybiAwOwo+PiBAQCAtODYwLDkgKzg2NCwxMCBAQCBzdGF0aWMgaW50IHZtYnVz
+X3Byb2JlKHN0cnVjdCBkZXZpY2UgKmNoaWxkX2RldmljZSkKPj4gIAlzdHJ1Y3QgaHZfZHJpdmVy
+ICpkcnYgPQo+PiAgCQkJZHJ2X3RvX2h2X2RydihjaGlsZF9kZXZpY2UtPmRyaXZlcik7Cj4+ICAJ
+c3RydWN0IGh2X2RldmljZSAqZGV2ID0gZGV2aWNlX3RvX2h2X2RldmljZShjaGlsZF9kZXZpY2Up
+Owo+PiArCXN0cnVjdCBodl92bWJ1c19kZXZpY2VfaWQgZGV2X2lkX2NvcHk7Cj4+ICAJY29uc3Qg
+c3RydWN0IGh2X3ZtYnVzX2RldmljZV9pZCAqZGV2X2lkOwo+PiAgCj4+IC0JZGV2X2lkID0gaHZf
+dm1idXNfZ2V0X2lkKGRydiwgZGV2KTsKPj4gKwlkZXZfaWQgPSBodl92bWJ1c19nZXRfaWQoZHJ2
+LCBkZXYsICZkZXZfaWRfY29weSk7Cj4KPkNvbnNpZGVyIGRvY3VtZW50aW5nIGluIGluY2x1ZGUv
+bGludXgvaHlwZXJ2LmggdGhhdCB0aGUKPmh2X3ZtYnVzX2RldmljZV9pZCBpcyBvbmx5IHZhbGlk
+IGR1cmluZyBwcm9iZSBzbyBmdXR1cmUgZHJpdmVycyBkb24ndAo+c2F2ZSB0aGUgcG9pbnRlciAo
+c2VlIHdoYXQgUENJIGFuZCBVU0IgZml4ZXMgZGlkIGluIHBjaS5oIGFuZCB1c2IuaCkuCj4KPj4g
+IAlpZiAoZHJ2LT5wcm9iZSkgewo+PiAgCQlyZXQgPSBkcnYtPnByb2JlKGRldiwgZGV2X2lkKTsK
+Pj4gIAkJaWYgKHJldCAhPSAwKQo+Cj5QbGVhc2UgcmV2aWV3IHRoZSBTYXNoaWtvIGNvbW1lbnQu
+Cj4KPlJlZ2FyZHMsCj5LYW1lcm9uCg==
