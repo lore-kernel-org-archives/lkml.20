@@ -1,111 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792605236;
-	b=a5RsQKjLsiAJWtMwTpdzi8Lnw5/XZiQEE+0iNEL8/ymm+ktaPoUdoFY2Rrvam513evI3
-	 tlJ94k2bKfdOGwI7UjDh6qSMQQc0RVgdsrXJBi1DeclaLX3oq5JeMCU43F0/54vZGqkpG
-	 TkOoXBK6nkuZNBXStGFjo+wnnSzXJTwEseVVFlO/EvaveFq0LIQ4Df1Ok73McZn1xP80L
-	 F/lBf7kEoVqGZmiGrEX2jwFPbZACmPjp5EjGQYC4VXoFlr54eZntrAnMtVAGss73koIef
-	 J0RPBn6vPICzj9NeeE1FtY4On//0cZNRLVONpkfjBrPAsho4ohyUT5NYwX975FFPWrA==
+	t=1792605250;
+	b=RbsStl2hDH6gbOyVY9b9Dc+CmtoGwh4alidCClWb3wjKgZYdZzp557s7G+Z1rlCAj6aH
+	 w0Fj29cAv6lAPd2QUB0qIZB1FvMqFq3sH9iDmGRwj1LgyklmsyfDK3Bu6z3iT00vYrQS5
+	 vVJZetlxP/ch6eeiP0aLyNXk3uoKG8aq8c8M/SCRt9mAlkiL87NFlytkr5xhxr7dyDtX/
+	 mrscjWRro1FXB7Gm7OtbHxb1muktDZ84SEfMQTOs+R2nG7K1XFYA6Bv87kOd8/t4Z0Ehr
+	 nIBEdJ+nc3u4bCr08ln/L6aTEhW5L2LHZ/9/mRCEgFABe6Fj0biOlUTekKZfQYfWmzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605236;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=iyhyqr2sIvyUveTwlNQZm7/cIKSzRHz2dDCNINGz108=;
-	b=fsPmhGMh8Qr3Z7gABB+uDMX+Poa1QURomrs2FzkZSDipD6oJee1qw/3SqUiajKrHoTsv
-	 nAbanFuJmS7/EbPTG453hkPlJcBrHvbaglXatH6Yno4OFyeppC0DBZYaNm2Qmv20wzvUk
-	 Golt654PRmN3GLkGrPM+43rqoJbR1uQ2AtwApfLaTaZYejocFdc3kPei2eDFAU71rlZoB
-	 laO0TM0TwEopL3lRDqGusypISqs32s4pwXkWLb6h7NQ8MWL/0xu94d6UT8S83PRI1BwF4
-	 dYAdUbr9Y/RPo2XMZkqUmQ82wO7qZh6NEtzu8krhJ572EV6cDatS/tK9+FWWB/OKZsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605250;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
+	b=OXa9xBZBhzWVOYIOfjO8Qd6ud1Gf32BVsI0zPuk91h+XhFc6u3moc7086otK08Xssuze
+	 ApBrTXHZPN/nnh6tD9AI/3MUHdzStwN4CfS/m+79Q/fOKTb7Fzf624OdvyRNsNIfQJ3We
+	 C/XYlbAtKsru5EAYdEP9tUqvPgx2zANmNELT6nSi/NTHLdgKHVFexd/nHGkfhyghgWCTi
+	 jY5C0I/c55bTbRYqsucsdqr1MOQ6J0uXxuYv25etwvYUC3XOrGnjEvn1zlvqgHMJe8DLa
+	 sHy7l1rvug/mqDwGyqvSSUdEVdHX9GBpx00WxT184Q0rQ5PINDwVEdtajWtUKD7mj1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.com;
-	spf=pass smtp.mailfrom=fastmail.com;
-	dkim=pass header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=sjqo+YWU;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=GMBY6wpk;
-	arc=none smtp.remote-ip=103.168.172.158
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=trailofbits.com;
+	spf=pass smtp.mailfrom=trailofbits.com;
+	dkim=pass header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JcpocVIS;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51598606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:53:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51598606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEFF5606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:54:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEFF5606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm2 header.b=sjqo+YWU;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=GMBY6wpk
-Received: from ams-compute-01.internal (ams-compute-01.internal [10.64.2.61])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 640CC1400079
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:53:55 -0400 (EDT)
-Received: from ams-imap-15 ([10.64.2.35])
-  by ams-compute-01.internal (MEProxy); Wed, 21 Oct 2026 13:53:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1792605231;
-	 x=1792691631; bh=iyhyqr2sIvyUveTwlNQZm7/cIKSzRHz2dDCNINGz108=; b=
-	sjqo+YWUcxyEgbDOlEzD24NF308+X91Wpjbdly+YY71ASWm0DCopp/wIc36UqmZM
-	cm5GpkFVYgkexnCzyaG44d+b13ChozPujXZSb2jVo5BQ1rP7PXoTHHVVH1d25xEO
-	+bW4OaFyW9lDTsT5MJy7qXKremzYT/5+fv0UBmKwz2UkHJMNwsflxt5Xa93Cyz+o
-	o8Fqo4Ask4/aTQwhe9PyqDaKS2pFtX44YbfAYE1ZtgccC/kwCyFWi+l6Bh5PcL6W
-	VqioxRuQ9D4DofHlZO/2IqS/pe0ZAYXqF2Odi7VoXn4LA1bAmKHMkQtZ8AT9XsaP
-	IvgKMOACumXuhBldpVAvxg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792605231; x=
-	1792691631; bh=iyhyqr2sIvyUveTwlNQZm7/cIKSzRHz2dDCNINGz108=; b=G
-	MBY6wpktoq21lnJIFmt+O3J1Egd1ugD4tngege9zvd8HC0a1OHw+ujKl7enEa30B
-	1bmPvqy8ESNTrp63S53crKpDqyMUvFFrA32lBZs8MZu7zwf6+nf11Ug4WqhxpWJn
-	F2DqBYNB2vIVMAQJRQ/9aHk3fGNzphQyu6tN7ycssAEResIOyqJhKQJ4qvy72LmQ
-	9LDay5teb0s8Lw0mKmMlhPTL+vWgnqLy+EkCCWL0MBlSJOIncZOgwG5cJeExyVsR
-	FdIzGRBXml4ADDw/JpH7gkBhrYBaXNsghVYVGxNJm+VPndKdjiSBlCBEVIhWIwUT
-	rJEiR2qs6OeTy5C9gUV0A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=fastmail.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792605231; d=fastmail.com;
-	mf=PGtyaXN0b2ZmZXJoYXVnc2Jha2tAZmFzdG1haWwuY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:QI+zwodHbu9RCKjRqJVZXEfRNYWWIOytT/nETHcGGmLp5NT
-	Q4WcLaTSiimvMU7KPgXM23rO532E4XRTK8M/Mi/31j3RJUXNTv4RYf4kkVmR+SzU
-	hNnoq9LgTE7vTFtX4QzzQgZCeo8P3steujc2w8zpmMkzf87MyJgJGj6NfvwGiVNz
-	gcy3IIRjHMwlF+UqbPk/Qbc+cnd5iYTD5/Dgf9RlyvHukY/yBp1ntRiD2ndh9VUg
-	HiosIPYleLhK1wyY+Ezx6umJK6hpwjl3+eumzBLsglEjH1nDFmxoEey1iVL3wczi
-	l4CS2Ql9tLVH2LOD9lVckcNEXFDWjIrJiIMC4+Q==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Gfk8HaYt9sXXdg8fqebKLoCH83qU8ZOing14jSaOBd4=:6Mn8aSjj+5lVv+rAz6jw2sGIPleHl0jioqHlqJUTcfs=;
-X-ME-Sender: <xms:K_zYakVrXXdR2ZJL0RH5KYX-clOuNIs3PEsfiwpbyb8fZIDssYIgNao>
-    <xme:K_zYajZ-UVb6Qtmkd9NwLYh4VKeWMgzyJvO6k9g8QySJBGEYN4cRKWf8lxyn1NHbB
-    hxVMAm4s3z_qu5f18bVyI-wyhTFvGTDq7gUqkI1kDHaUtZ7cMIkPng>
-X-ME-Proxy-Cause: dmFkZTEB6rLro/1tgEdPXnmJoqMK/QE3bhUi0AT1rKDMH11z+uTbCZnLNm8wozRp7uNqD0
-    J2pNjnsedCuCEIW7D2RvyEXedRKzx5tktSbD5i+oJr+VcJNdlL2DnOYETiKiOuN5Ia4xFF
-    4G+kRiU0gKV7gzUEpTWufIPAr12T6vYss4QzogH3iQngCyfaPSxjufCjKmfpVlBPCFB/Ht
-    X3ixhjMtiO5oanBSPymM+GeYoDRHCcKxSQFXg4Al0JtTXOXa+DyKmN46YYC3O/GAfNA84S
-    frXcfCfSXBqTosHgXKaz+jOeLmrjmFlp6OS0qTobvyNmWypVd0JSDngzIKH6V1YWzKkVG5
-    /MaSlUbTdo1JIAdcvaFs+QjYU23K4yKoo/ez2JMLP4S+jb0kSzqI04YB3HF75aax1gFxFD
-    3SOicqLAJN4paUkAsBsBBhracAzUX4mcag0sSxfNXI5O5Lpz25ZQ6Rb9mEhJWpJaaNNJvZ
-    e2F4IHpaX0G3yfOAP8Ka9Pho55/cX3qGoIwhUGdUG3tqDvLgfZynZCLgvAGLVOZcIB7Qx8
-    sn25X0WMfH/TBLP2cK3euAsZmFFoMLyGQpN2AIgtQgcjekACyo7yIyYFv8J1nNU7B3tcmJ
-    3g+vXzO95bwRLAAo6ZPzhZTIwnb9S7GhR+ihQ0NMJFPgxPiiZXjZ6AGdUP2w
-X-ME-Proxy: <xmx:LfzYal8vXc4PYvGm_AS7aa-_RwCKor90vrFuR86kG14hRnBSzfOdig>
-    <xmx:LfzYajzlHfZ7dQH6HTkk3OPO_bChsdWz-TS1lIl9DEROtG5O1J8ddA>
-    <xmx:LfzYai7e2HW1H8rs1_oBGLGbibRhQXpTuy4qDapZ1OhhUCYNnr6wUg>
-    <xmx:LfzYaq_oxEks_-4JN9t_kG0CeKAB6egxmhFZlT-55Allnw3_F47AxQ>
-    <xmx:L_zYarFvp1m9QQJKtFARS4IG-b4MeOUz3JcecVwtd-4mOhGDHMr4-Kn7>
-Feedback-ID: i8b11424c:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 77ECD22C009C; Wed, 21 Oct 2026 13:53:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=trailofbits.com header.i=@trailofbits.com header.a=rsa-sha256 header.s=google header.b=JcpocVIS
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3550c917fd3so1305711eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:54:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1792605249; x=1793210049; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
+        b=JcpocVISGPYKnrqPOePf1IjPWVkOdMt+vqMiqK6675evji8SrVn43ad1vly8ipbMKk
+         ioH3OmdSkiYoRTq6bTJ0nasbwHTF7cxKPKLWLhYu+AUkTMYd4h8hdnIpfnXzzG7laeqs
+         SImsnVR2K6ziy8+63x9g7rmLQY5xdzxSTk8lZG7E1BHnFpqwLVXwv/tRmLYn611qDpKk
+         8PuKs6IldcLrfv6QnuOJgK5t+38ZMwnEJ3aKY+9sTNYXyyQ1rm2T+Kag6tpIaAwomBQA
+         IwHYp4JJqh1/hOgTPbmnRQhkq1pbxkxks5QbB/W33gNVmMfitcS+/l3pS/2rt91GInG1
+         31ig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792605249; x=1793210049;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5PqjLYJUgUiokTOvnfFlSVLgSp4XVLZwVNOD0zgcVgw=;
+        b=C049ox2do4otO+SnBprncaMGJyM2mS1C/Gzog/4Cw9VaFS00qGM5WfekNueEoCG8YK
+         kj37n4boEQ9oWQuOjJZl/fTuQ2UXC8H10MkdB7/jtBXu3wCchyP8r7X4UWC1hFBS3VxL
+         2jlW7yVmya5huLcFe2I8vXCIH5A9AHr2CRoiHnssVOxB9YMdB8aGlPVUcUgQZfLLxB6t
+         4s7znn2rG+crQnVmcId4IYWtGjhUH1lRwFGrn2dQR5cJTT+NhCJ/BzWrq5mBJvHQLNwX
+         OxZ9ErjBgNK29MOPxv+TOoRCrhujL23Y/7AN91yxeLZfAYrn2TQbnnNXD1VHNcUBEluC
+         OqKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwxLjSjSW9PI3dbOcH9cIdSXG1UIKDzgnu4rKY3PRRt+m8RFTz7aYe2BbYkxFQEuj9MjZv/KtsLnAVQEok=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLVTPbgjNsEoHpYLVD2/uTW7JeC8K/mESbI4etyiD9B2XSP6wRc
+	xI7ZyUnt+B//3Rl+7cFPiYVfiUjAhNWpntvwHeuAGxHLLGQszLdfbQGAP6YMXppcSgs=
+X-Gm-Gg: AYBFou1BbamHvcL4QPFmgXVza0ihNvFm1dT33Y4yuBAP4sGytHIo+FGQXXNxpqyjS+0
+	KAV09g4Uw0k/esKCoV/I9lP6ztCV5CekPzsC4DGcMxppdlYeyHxLu9v2J30WdYjQNEDQ+EIQBGF
+	gJMeb9kc01sQfSr1Bp9nqxylXQlt9x8v0e1j4Jtm41UR+/GRERsQc+UrgfQyrTccla10fz8Mcjc
+	tP6dWVBIovo40jWnDkt4MsmfH8dAxEbZFY0rCcjyZfxtg/FYa/X5bor00METtNsIZoQJEapMaAv
+	THkiGr1GnrlnENpKDVkIjPiKXOEi+ENiVQLZ8ShgdJ+o05OnKdRUdHraBtuH1bKqCtHExlwllmP
+	6ExepN7X4hRPu6nTyPqybyy/HKntuifv0Q71DZ2SJMj6Fit9S+zGlyUZyCmJMqW2+vSn/YRPnI0
+	FYFyI9dAvZEp4AvboFXtBGCWWOmTMUibPpKtNTAwMgEytPw8i9Gz0+CEQ/A5XqNueQ2bTHa/DYd
+	uNoXCxuzbqaKst264sDNsScZIqoIP9xEUSGtsqAfa5L4W5U3tpwPSfdFF8qpMK5yNUil/+WlAk4
+	GUPSJsn8Sqajy9I02QR6+h0zYGRu1+8bSuIbq03U8TuRuW9cA67v
+X-Received: by 2002:a05:693c:42d9:b0:367:e68b:c047 with SMTP id 5a478bee46e88-367e68bc08cmr2811480eec.40.1792605248757;
+        Wed, 21 Oct 2026 10:54:08 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:d059:e601:becb:a5ad])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368b4b8e9c6sm17395eec.1.2026.10.21.10.54.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 10:54:08 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: davem@davemloft.net,
+	herbert@gondor.apana.org.au,
+	ldy3087146292@gmail.com,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	n05ec@lzu.edu.cn,
+	tomapufckgml@gmail.com,
+	yifanwucs@gmail.com,
+	yuantan098@gmail.com
+Subject: [PATCH 6.6.y] crypto: af_alg - limit RX SG extraction by receive buffer budget
+Date: Wed, 21 Oct 2026 13:54:05 -0400
+Message-ID: <20261021175405.1542-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,60 +101,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AuviX-i-bDAR
-Date: Wed, 21 Oct 2026 19:53:27 +0200
-From: "Kristoffer Haugsbakk" <kristofferhaugsbakk@fastmail.com>
-To: "Theodore Tso" <tytso@mit.edu>
-Cc: "Steven Rostedt" <rostedt@goodmis.org>,
- "Junio C Hamano" <gitster@pobox.com>, git@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>,
- "Jonas Rebmann" <kernel@schlaraffenlan.de>,
- =?UTF-8?Q?Ricardo_B=2E_Marli=C3=A8re_=28SUSE=29?= <ricardo@marliere.net>
-Message-Id: <e1b21ca4-fe77-4aae-8135-a25397efee04@app.fastmail.com>
-In-Reply-To: <atfmYYtUii4gWIIH@mit.edu>
-References: <20261020141011.0015d172@gandalf.local.home>
- <xmqq8q3sw75e.fsf@gitster.g> <20261020152354.165ad128@gandalf.local.home>
- <83c59078-f6f1-456a-a99b-688eaf56bab0@app.fastmail.com>
- <atfmYYtUii4gWIIH@mit.edu>
-Subject: Re: FYI, git output messages are being used by other tooling
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026, at 00:48, Theodore Tso wrote:
-> On Tue, Oct 20, 2026 at 09:28:10PM -0500, Kristoffer Haugsbakk wrote:
->> > Where returning 0 means the bad commit has been found.
->> > Otherwise it keeps looping.
->>
->> Is this different from git bisect run?
->
-> "git bisect run" isn't always the best way to manage a bisection.  For
-> example, I might run a command like:
->
->    gce-xfstests ltm -c ext4/4k,ext4/1k  generic/245 --repo stable-gc.g=
-it \
->        --bisect-good v6.18.57 --bisect-bad queue/6.18
->
->[snip]
+From: Douya Le <ldy3087146292@gmail.com>
 
-Thanks for the example. :)
+[ Upstream commit 8eceab19eba9dcbfd2a0daec72e1bf48aa100170 ]
 
->
-> So yeah.  Sometimes "git bisect run" isn't really enough, and it would
-> be useful to have a way for programs to be able to call other "git
-> bisect" subcommands, and have a standardized way to get the results
-> from the command without having to just parse the output and be
-> dependant on the precise format of the human-readable output.
+Make af_alg_get_rsgl() limit each RX scatterlist extraction to the
+remaining receive buffer budget.
 
-Yeah, I don=E2=80=99t know about git-bisect(1) subcommands but the `git =
-rev-list
---bisect*` options showed some promise when I tried them.[1] But the
-most useful property turned out to be the most annoying thing to figure
-out for me: how to simply query for whether we have found the first bad
-commit yet or not.
+af_alg_get_rsgl() currently uses af_alg_readable() only as a gate
+before extracting data into the RX scatterlist. Limit each extraction
+to the remaining af_alg_rcvbuf(sk) budget so that receive-side
+accounting matches the amount of data attached to the request.
 
-But maybe that was because I botched the bad/good setup.
+If skcipher cannot obtain enough RX space for at least one chunk while
+more data remains to be processed, reject the recvmsg call instead of
+rounding the request length down to zero.
 
-=E2=80=A0 1: Like for `--bisect-vars`: if it turns out that it is *missi=
-ng*
-     some useful vars then those could be added without worrying about
-     backwards compatibility.
+Fixes: e870456d8e7c8d57c059ea479b5aadbb55ff4c3a ("crypto: algif_skcipher - overhaul memory management")
+Reported-by: Yifan Wu <yifanwucs@gmail.com>
+Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+Co-developed-by: Yuan Tan <yuantan098@gmail.com>
+Signed-off-by: Yuan Tan <yuantan098@gmail.com>
+Suggested-by: Xin Liu <bird@lzu.edu.cn>
+Signed-off-by: Douya Le <ldy3087146292@gmail.com>
+Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Assisted-by: LLM
+[ Backport to 6.6.y: Add braces to the older block-size conditional so the
+  new short-block error check and existing rounding remain under the same
+  condition. ]
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi,
+
+Please consider this backport of the fix for CVE-2026-31677 to 6.6.y.
+
+The code changes match upstream, with braces added to the older block-size
+conditional. See the bracketed backport note above.
+
+The complete fix is already present in 6.12.y, 6.18.y and 7.2.y.
+
+Build-tested only as part of a cumulative 6.6.y series on x86_64
+(allmodconfig, CONFIG_WERROR=y); no runtime testing.
+
+Thanks,
+Artem Dinaburg
+
+ crypto/af_alg.c         |    2 ++
+ crypto/algif_skcipher.c |    8 +++++++-
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/crypto/af_alg.c b/crypto/af_alg.c
+index e7fea668473d9ede47c7d0e2005c333d34147b29..e6e94b34e0afe78f4d2a8a60c6a194bd0a958beb 100644
+--- a/crypto/af_alg.c
++++ b/crypto/af_alg.c
+@@ -1207,6 +1207,8 @@ int af_alg_get_rsgl(struct sock *sk, struct msghdr *msg, int flags,
+ 
+ 		seglen = min_t(size_t, (maxsize - len),
+ 			       msg_data_left(msg));
++		/* Never pin more pages than the remaining RX accounting budget. */
++		seglen = min_t(size_t, seglen, af_alg_rcvbuf(sk));
+ 
+ 		if (list_empty(&areq->rsgl_list)) {
+ 			rsgl = &areq->first_rsgl;
+diff --git a/crypto/algif_skcipher.c b/crypto/algif_skcipher.c
+index b12df4544d0bbba3f3d156f0e279ac896cd81ec0..8729ef268d9d83cea537abaf23c6cdbb45f59ccd 100644
+--- a/crypto/algif_skcipher.c
++++ b/crypto/algif_skcipher.c
+@@ -82,8 +82,14 @@ static int _skcipher_recvmsg(struct socket *sock, struct msghdr *msg,
+ 	 * If more buffers are to be expected to be processed, process only
+ 	 * full block size buffers.
+ 	 */
+-	if (ctx->more || len < ctx->used)
++	if (ctx->more || len < ctx->used) {
++		if (len < bs) {
++			err = -EINVAL;
++			goto free;
++		}
++
+ 		len -= len % bs;
++	}
+ 
+ 	/*
+ 	 * Create a per request TX SGL for this request which tracks the
