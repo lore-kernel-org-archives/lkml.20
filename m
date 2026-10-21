@@ -1,115 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580079;
-	b=Idu+N9se3Hu+5Jsemp1bHRPRJeuRShaGUZLwoQMBeQKzwyNKHcqfyFArOR0gaJxI9M8i
-	 RWLYvmhuV0MqYWSpEtqgYu9Ch7oC23PbfNE//WYbp7epTLrQ1IxmjD51Pc84HesZ/spVS
-	 FCn2NBMXXVyUOjHjWumzGpCp8LRAPu3VKUfdR5kk1U2+EU+qiQIw2IKfzEoD/WM03S8w8
-	 bGXPPdHl00b0sgHKdKSg9gJd7/1mFvr7tkld7g7/zOfkxa5wGUy1hVV1m9dTFfjcqsdyC
-	 QT+O4emOHmZpqnaXvdbx+MqmEpaJ44/2oZaIKMvwV0nTsS2DZlCjbNci2iu1SkeG0QA==
+	t=1792580117;
+	b=LfPagpAXBEtg3R5NJLFnCx+RW7X2mMUd0Kcg3UOFyl3dvsYISbnUT0+olWtmkkxVFc7J
+	 1I/ZStXpzkElPnmoWEJejbWKxFhdlA559KNOb0hs8/5vnu34oZrE0OKPEpNt6nQ7egQdd
+	 bDxlV51ngx1uFR8B4weIarEcOST6WmHnqC9gO5rQjKm95+F9HlRKMGtmc9V8QKQKPdWob
+	 CcydFDSIQeM8+etW0idF+dLAQagXTfvcCWNPO2BBXX7nz9svspwkZvtk9rdliS/FjJ049
+	 +2T07fwEHhmT/TdL+IRzvmGhNa2xqBV6eJ5jCFgJ3ceRT64B/i8zhDSioDhuNNg3dTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580079;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ocwe/ua5bx6fTunJTjbDvG/Rp4d0BH8Fbx4UwIDjj0c=;
-	b=A1ulbFhZw4dRZuDbbJJbj/syUz6dV5Hjo8H3kS91WHEV6ZB9S2gy0OzZ7GKGV5BOdUbO
-	 s0st4j7sSD8jc0M9VC5x7yHdvncryyAXF/MssHWt+NPh5lrPpwU+TJ2z+tNgMxc8WloQU
-	 jcMnK1OwPAwkB02iF781WS436CnbBOzhh22t3vQ4mq+nUvyeV86QDGuRjAwPh0FZMA2oV
-	 GfJs8m26FSzROoe8jp5FbScwX8Iu3oDQqYc2+3l9mVpnhZNvyN3xaGJRzZBDBGsOJEmp/
-	 XNcCxSt4H/bgl5SGepvkFya9zEHMU8XQ/25Hv9e6+3gDCP6LmrbSBaS6hsWs+BHms5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580117;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=hylB7Q5s6aIIrh9STmuiAIGnIKZCFLhCVkXWbPnn+4U=;
+	b=cPm6KZypTc3Nm90dRqbh/Nw0V0d5+18I/BKBbzSdi2xGlA0NhXaLTqsA2PFZ+RgroN/T
+	 nNLNJ8acj7yU7F/jzUvv4GzGgTk2beBlfbHNdPFouMxHE4cnsZn6SdqLjaSRn7fhi37CD
+	 wUitTuUZ24lALAxCGcUCCPHJEdTTSDhUjYgComPTDnvQqveptzcAU9cxRKgUFPk6AulnL
+	 jDl4nCmfc2lNa0OKWIXwd2u5ow4/AaJ4wj20bae3SDGTq16Ay9DwC3m8s527t6kOgj207
+	 fcXk2WeiMP7m8WkPhCAAnLyAf4l8xKiTgXT/OqlS6SNTrUbrobWcAJN95oShlpmsZ5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gfzKp+Jf;
-	arc=none smtp.remote-ip=209.85.128.48
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WnGUsFZ4;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45CD606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:54:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45CD606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81205606A31A;
+	Wed, 21 Oct 2026 10:55:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81205606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gfzKp+Jf
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso4555375e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:54:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792580077; x=1793184877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ocwe/ua5bx6fTunJTjbDvG/Rp4d0BH8Fbx4UwIDjj0c=;
-        b=gfzKp+Jfn9HGkFwZoxtkVcqi981cZV4VqtEWhYSXm2NmynKbW6dKPR3a8/uUURLl3R
-         vI9yz435S7jU4KQiqljr3ZwskHWkkF13uJcpLJVER1WSrG9P8U8ig6w3yDiIuUP+jHfO
-         oL3+ic7Trpf05BRLN4lJ861emswggMn3PXinsni5/T2RGhHmvDCiZSDqkpeNMxYkUQpF
-         NSpIfWQdi5/agxBX9Is4/5s1mwYAvyy0J/t35aETrsEDr1nNpY5USkXyYW+HkqhUyza4
-         GbUtDbYdCuOjga8YW9VFuP+srgb7925VYCsk8F/Zq0N0U06Euk0RMrrLi2slNppjlkDd
-         Duaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792580077; x=1793184877;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ocwe/ua5bx6fTunJTjbDvG/Rp4d0BH8Fbx4UwIDjj0c=;
-        b=UFbbMc/yeDRauc5aS/pQYF6UWCb8jDWw0c4OV20NQ/1fFLlr9+KBFAAJiSszoO9Vh5
-         D88haULgw86Mqb2EMyNYpTjvpYCEffRvS68ybm1p+g5RRb3fQ5KBMDPzHEgtBn94Vulh
-         OC2fc2mntq2TM3Y2ojW8MfT+hl14G9z+J2oDr2UOy/elBHn0BTFBRxIfOqCuaK2iImce
-         Is2QY1n8QcDH53LJaVFDy/G8GjCoef0QL/glj7V+Vw8iygI8/lD4RfvuBUBr7MGXa/Nb
-         kFMhjzVbtph8Wqm4cSNlhEZlJpOQMYSH43fR7akuaEKsnGl3hYQsqSNtAmeIEIq7ZDbn
-         5nRA==
-X-Forwarded-Encrypted: i=1; AKwUvByQBJ7U5rauQjDps+SK7yvS5XkS6+UsbrgH3/XQQ+SgPHMlq6/ffYiZRR0AuwEWQrU3hHydfu2K3MjUEj8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRl5xnz4182tuFLlT4mEsfl9hECo8rfMUwaH8hscvCAtS34feJ
-	caQPMpFms1fU5ci16FQDKCCqGxLj+0blWseTJNNKxYgLDcLSZvEVc1eU
-X-Gm-Gg: AYBFou0wr8baSiDhmMZIqfut0tw+r9WxwjqJ4khKwwDzUc4UxaahT78suUZSRv3wRTT
-	QlIgI1MKU98DSrdG/rUFsBrIu438yAqMwrZe1YwPMr+MIO7e0r5bdcpiI+Bm+kpEmZl253yTDdE
-	2dJH9b/F+Uk187wnLYWB3BkZzFZPETQk5HMB8FJEIGG7nfCLgF1ZbYzsDlcEn2X6ocvaQDe5O0q
-	oPb3/oMDIvC9BpweFR2p3g6+2wfvok/OUGAvbhCA3oiMguwLFH5ipx1Y0YRzGXZZzdOcUCMo7sh
-	2Dk9Ukm28gTlO40NYM0732XeypSgrUGPNAspjfF/yqc2XCcFGn/4wzN7kEALk16IQQ05iHktVVY
-	Ye6rFuwfBAqjqharvex8XGRy+KfuYB8u0md1w+Grk0OYOWXm51Mw3Af3fjL75fMYJZGM/1bG083
-	As+h+Bj0tOoTDWm6LHFqI/6eEu81Ul/y6h0QtblJgtuP5uCVlKA3jrTRUM4lbZOBAFn1juUAE2D
-	OJbIpkE8jv+aCw/Z4XcbYEAc7Vrro9ce3hrZ9u0R43weBP0gJA=
-X-Received: by 2002:a05:600c:3488:b0:4a1:fa33:441a with SMTP id 5b1f17b1804b1-4a1fd8a0560mr37336685e9.2.1792580076920;
-        Wed, 21 Oct 2026 03:54:36 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f2d6e2dbsm153388305e9.13.2026.10.21.03.54.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 03:54:36 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Val Packett <val@packett.cool>,
-	Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Lee Jones <lee@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Fabien Parent <parent.f@gmail.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Chen Zhong <chen.zhong@mediatek.com>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=WnGUsFZ4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=hy
+	lB7Q5s6aIIrh9STmuiAIGnIKZCFLhCVkXWbPnn+4U=; b=WnGUsFZ4arwK11llxk
+	5yF+HvDN9+CBevVjvvjcIRyH6HmpPzKBSBEzQCTX8peAm4WkP1Z+mlZrAZEorNWB
+	UyxM/ryUuLSr2i+NB+LH3AChMfq9mBzcRWhrA6n54QKeXJz90hnYncgm3ChJWJRb
+	zqc8siQ4z9Iv23dO5HE5Swklc=
+Received: from jbd-ThinkPad-X1-Carbon-Gen-14 (unknown [])
+	by gzga-smtp-mtada-g0-0 (Coremail) with SMTP id _____wDX_wPwmdhqxCoxBw--.10772S2;
+	Wed, 21 Oct 2026 18:54:41 +0800 (CST)
+From: Slark Xiao <slark_xiao@163.com>
+To: mani@kernel.org,
+	jeff.hugo@oss.qualcomm.com,
+	krishna.chundru@oss.qualcomm.com
+Cc: loic.poulain@oss.qualcomm.com,
+	val@packett.cool,
+	mhi@lists.linux.dev,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v11 9/9] arm64: dts: mediatek: Add MediaTek MT6392 PMIC dtsi
-Date: Wed, 21 Oct 2026 12:47:27 +0200
-Message-ID: <20261021105109.199886-10-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021105109.199886-1-l.scorcia@gmail.com>
-References: <20261021105109.199886-1-l.scorcia@gmail.com>
+	stable@vger.kernel.org,
+	Slark Xiao <slark_xiao@163.com>
+Subject: [PATCH v3] bus: mhi: host: pci_generic: Update the default autosuspend_delay_ms as 5000ms
+Date: Wed, 21 Oct 2026 18:54:34 +0800
+Message-ID: <20261021105434.29897-1-slark_xiao@163.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,199 +67,62 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDX_wPwmdhqxCoxBw--.10772S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF47Xry3AF1xKr1xZr4UXFb_yoW8uF4DpF
+	WF9a1Fqr1rJrWUK3Wkt34kXFy5W3y3GrWjyrykCa4Fk3s5t3sYgryvqFy5ta4qkrZ3Za9x
+	Aa1jq3y5Xr1jyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_YFCUUUUUU=
+X-CM-SenderInfo: xvod2y5b0lt0i6rwjhhfrp/xtbC5xFz12rYmfEaPgAA3s
 
-From: Val Packett <val@packett.cool>
+For some MHI devices in some specific scenarios, the default value
+of autosuspend_delay_ms may not be enough to handle the last wake
+event, potentially leading to device timeout or link drop issues.
+This can lead to a runtime resume failure and a subsequent system
+error:
 
-Add the dtsi to be included by all boards using the MT6392 PMIC,
-providing support for regulator, keys, pinctrl and RTC.
+  [ 8749.089545] mhi mhi0: Resuming from non M3 state (SYS ERROR)
+  [ 8749.089573] mhi-pci-generic 0000:73:00.0: failed to resume device: -22
+  [ 8749.090218] mhi-pci-generic 0000:73:00.0: device recovery started
+  ...
+  [ 8752.940324] mhi-pci-generic 0000:73:00.0: reset failed
 
-Import the new file in the shared device tree for the Pumpkin boards.
+Following Qualcomm's recommended settings from Windows and their
+suggestion during case discussions, update the default autosuspend
+delay to 5000ms for MHI devices.
 
-Signed-off-by: Val Packett <val@packett.cool>
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Fixes: d3800c1dce24 ("bus: mhi: pci_generic: Add support for runtime PM")
+Cc: stable@vger.kernel.org
+Signed-off-by: Slark Xiao <slark_xiao@163.com>
 ---
- arch/arm64/boot/dts/mediatek/mt6392.dtsi      | 145 ++++++++++++++++++
- .../boot/dts/mediatek/pumpkin-common.dtsi     |   7 +
- 2 files changed, 152 insertions(+)
- create mode 100644 arch/arm64/boot/dts/mediatek/mt6392.dtsi
+v3: update the commit message and the comment of the define
+v2: define a autosuspend delay timeout and explain the reason
+---
+ drivers/bus/mhi/host/pci_generic.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt6392.dtsi b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
-new file mode 100644
-index 000000000000..cc4770d70246
---- /dev/null
-+++ b/arch/arm64/boot/dts/mediatek/mt6392.dtsi
-@@ -0,0 +1,145 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 MediaTek Inc.
-+ * Copyright (c) 2024 Val Packett <val@packett.cool>
-+ * Copyright (c) 2026 Luca Leonardo Scorcia <l.scorcia@gmail.com>
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/regulator/mediatek,mt6392-regulator.h>
-+
-+&pwrap {
-+	pmic: pmic {
-+		compatible = "mediatek,mt6392";
-+		interrupt-controller;
-+		#interrupt-cells = <2>;
-+
-+		mt6392keys: keys {
-+			compatible = "mediatek,mt6392-keys";
-+
-+			key-power {
-+				linux,keycodes = <KEY_POWER>;
-+				wakeup-source;
-+			};
-+
-+			key-home {
-+				linux,keycodes = <KEY_HOME>;
-+				wakeup-source;
-+			};
-+		};
-+
-+		mt6392pio: pinctrl {
-+			compatible = "mediatek,mt6392-pinctrl";
-+
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
-+		mt6392regulators: regulators {
-+			compatible = "mediatek,mt6392-regulator";
-+
-+			/* Fixed supply defined in the data sheet */
-+			avddldo-supply = <&mt6392_vsys_reg>;
-+
-+			mt6392_vcore_reg: vcore {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vproc_reg: vproc {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vsys_reg: vsys {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_BUCK_MODE_FORCE_PWM>;
-+			};
-+			mt6392_vaud28_reg: vaud28 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vxo22_reg: vxo22 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vaud22_reg: vaud22 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vadc18_reg: vadc18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcama_reg: vcama { };
-+			mt6392_vcn35_reg: vcn35 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vio28_reg: vio28 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vusb_reg: vusb {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vmc_reg: vmc {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vmch_reg: vmch {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vemc3v3_reg: vemc3v3 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamaf_reg: vcamaf {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vgp1_reg: vgp1 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vgp2_reg: vgp2 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vefuse_reg: vefuse {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vm25_reg: vm25 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vdig18_reg: vdig18 { };
-+			mt6392_vm_reg: vm {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vio18_reg: vio18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcn18_reg: vcn18 {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamd_reg: vcamd {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vcamio_reg: vcamio {
-+				regulator-allowed-modes = <MT6392_REGULATOR_MODE_NORMAL
-+							   MT6392_LDO_MODE_LP>;
-+			};
-+			mt6392_vrtc_reg: vrtc { };
-+		};
-+
-+		mt6392rtc: rtc {
-+			compatible = "mediatek,mt6392-rtc", "mediatek,mt6323-rtc";
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi b/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-index 805fb82138a8..b19d5792bd89 100644
---- a/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/pumpkin-common.dtsi
-@@ -6,6 +6,8 @@
+diff --git a/drivers/bus/mhi/host/pci_generic.c b/drivers/bus/mhi/host/pci_generic.c
+index 7193a384cca4..17d51964b55f 100644
+--- a/drivers/bus/mhi/host/pci_generic.c
++++ b/drivers/bus/mhi/host/pci_generic.c
+@@ -21,6 +21,9 @@
  
- #include <dt-bindings/gpio/gpio.h>
+ #define MHI_POST_RESET_DELAY_MS 2000
  
-+#include "mt6392.dtsi"
++/* Timeout to accommodate a potential 'late wake-event' issue */
++#define MHI_AUTOSUSPEND_DELAY_MS 5000
 +
- / {
- 	aliases {
- 		serial0 = &uart0;
-@@ -160,6 +162,11 @@ &i2c2 {
- 	status = "okay";
- };
+ #define HEALTH_CHECK_PERIOD (HZ * 2)
  
-+&pmic {
-+	interrupt-parent = <&pio>;
-+	interrupts = <28 IRQ_TYPE_LEVEL_HIGH>;
-+};
-+
- &uart0 {
- 	status = "okay";
- };
+ /* PCI VID definitions */
+@@ -1483,7 +1486,7 @@ static int mhi_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 
+ 	/* Allow runtime suspend only if both PME from D3Hot and M3 are supported */
+ 	if (pci_pme_capable(pdev, PCI_D3hot) && !(info->no_m3)) {
+-		pm_runtime_set_autosuspend_delay(&pdev->dev, 2000);
++		pm_runtime_set_autosuspend_delay(&pdev->dev, MHI_AUTOSUSPEND_DELAY_MS);
+ 		pm_runtime_use_autosuspend(&pdev->dev);
+ 		pm_runtime_mark_last_busy(&pdev->dev);
+ 		pm_runtime_put_noidle(&pdev->dev);
 -- 
-2.43.0
+2.53.0
 
