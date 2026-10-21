@@ -1,92 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792586991;
-	b=V+ZbeJcjWm5nsWK/tCnQJqaMFCtUX8SPGnR7xfJW7Eq5howFL+ll1KeZxy/hHUBaqYKX
-	 HPU4exOUqmw4m9Qj7cVsSyCrgHpErcCzjNziAWIVgsKc6k+FCxHDZB+m0UZYz/XkSCAL7
-	 E2dL8x3ThKxNWGnD8ne2I9JACDf2agVBE3TZxUMb3spxihbB/6EVzBi+jY04I1X0uzCIU
-	 0LiPFVcs75KMN0avg7rq5NNkwKdXiSmcw0rMusP9YLmTAw+TcRje6tY8YbL/qm2uelmY9
-	 T3nre95wj3e/TcZmSNO7p48SPPaxPTEdMedFAT4tq/dVc1tkSNGY0WPxWV0xlOKKOjA==
+	t=1792587009;
+	b=M4Y0/JZgpdcb7ophnjpDtc2tOJP4LHuE7d19G0JCKQvCV2++IMtHtRyHhw0FQtrvlniw
+	 p7/9kzW5IxlMWE3DCn1GYQHMhtihYPKtLaYGkSdVRjmKru23h8/u2ruM0caeRtibteQzD
+	 r5BCCfuuoEDfQo/xWDeiWe42fP23/skYaIPK9O2ouVS8bLkEACDUEv8q44Hblrjlgzh7e
+	 AjKys5TJwYS5grZVB+5OVH+adEcfL2ej2NvWHhXCExVdZ1mU9WBV+pPS3JfpZAdTapsJJ
+	 Q6aT8W63wZ4VL8s34EvD2nqZ/reT4yD95noqSoYokahgY0M6za6/3+57rT80lKQzPyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792586991;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-META:
-	 X-MBO-RS-ID;
-	bh=lfnYZLKIiZVXPHMfsSfYR3WNLa/4FyJKqBCOhOsvSoQ=;
-	b=pXx0E8Hfqpk+H3+BqzFvsf+B0ydC0g2Uyfm/8taiPVz4cjyeEjUL9kttbM67Jk6hZqF6
-	 3VugygtcIoIzy16ljadZHAjzizmEMYRP3JU+O46Kwby/xIfB4VcLq5X6hJVtg7WBo+LW/
-	 VOlwrR1+NishIAQmb/POC6YqTFCYZ7Ppms5EW7qedhxGmUFFSLG1XfwSfCREq/HRdecN8
-	 QxL2Rj2wnME9Slkj2BPMYN6/o+uqzVF/wZn+KFHOqbG61Rppi3KqGgPVZ+kKvhKqwjMYr
-	 MZkZNEMnX4VHaF4BS9cJqm2zgh51uIEW+ERPEesc/1PADQ0U+QQ6hNjYIWuJOfsJ4ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587009;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gBb8uBAmMlkm/cdR9+bGhzgZKE+/jopoS+IA5oyimP8=;
+	b=w8XTAgtCdskdp1EFbPUG2JwBKgAg2GUU3OqH1HLJXDn+8E4dxMXwRkwyRTyMFGOo+0H0
+	 DnQV7n6gNAHHZlfnZVzLKUHgmpdwgUj76/SuvwZhZsOVOUw1Spe0szPDzeEz9fmNjjt6G
+	 TUdf4RShCxpjpZJv0sBZx8e2tUCsKcUN8c64/SOXfTnVc7B3jGAtlwVE56CNAm+g/XYJG
+	 Yr0MzK+3HE+n82NkaWZ6uwZbzatCgplX9NHKCcJLRUiQvPwdvoBVd4pHCWwGO+TA+mjhJ
+	 HlohFEUqKpXRMvHPLMMeGrtEAV8yFrG9Br1+EqI6fFq6P4XPbFeiMKj5RhdmED384lA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b="c/2LEONi";
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UtIE7IjY;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C7C3606A319;
-	Wed, 21 Oct 2026 12:49:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C7C3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86286606A31B;
+	Wed, 21 Oct 2026 12:50:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86286606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=c/2LEONi
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j8pyX5smMzKnB7;
-	Wed, 21 Oct 2026 14:49:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792586980; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lfnYZLKIiZVXPHMfsSfYR3WNLa/4FyJKqBCOhOsvSoQ=;
-	b=c/2LEONi60z6Kz54vZJJL3DkDd/VneNflB8WzwpZzMxF+lm6XWQWwFGN7Y9x7XCdU62lFq
-	iieAL/UWCA9ebw+oXGyYtmBpdvyA4Gw3vMDGCC/nQY9qnEr3dGExjjp2LZ8mhSh1xGaZqu
-	y1wCAH/47Ojer+whhr1G2oEQpBaiYTgE7pSreffhKRRTikTLs1j1ohn+nN06XZWJLPbQhr
-	kZYCPz2D/pUTCXipUsz2RpX6QZAgJo5tfixMCt8Ta7/7HFsH1hlibyOLYt730jj4/eCqWl
-	1GHHpOfDqk7QgH6BMY4+HBMIrDBvkGGBc6Si5etuCYbWXMONtw4p+1VsRkVtFw==
-Message-ID: <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Wed, 21 Oct 2026 14:49:34 +0200
-In-Reply-To: <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
-	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
-	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
-	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
-	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=UtIE7IjY
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792587009; x=1824123009;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=0ftYK8aqAiaMC6HFBzOvt2uB1COq6Xp9MrgY0PwqjlA=;
+  b=UtIE7IjYDtgMuss3GpwlagqWj/6CcuRK53Z9QMHPHwBWg2/4fBXZxiqO
+   L4n3cN4DHaZOKvnYQ7AsnnBunxZkKKhn9OlMsaLjWLLiiJSxQntGHIkrH
+   6kzq8pmBFk7EbOfrQ17zU3woC0nHV884N5GbkjplgyMbzZmCo3jyehxkW
+   xTBNKscsQkTgvgGZNl0aHAPC1u3fCUJi8TYZw3aP9kzeknpzdIUPfuCps
+   QxcdZbXYXYVCVWYCOISUtq4yqYq7O3TXj5qLi6H89dYbA5RxB5jB7th/y
+   /L5prtgsyLS6kTiWQkVYTQ/BFZJjIUVKWNM66zbBY9oUBm+2O8J7qXUWh
+   Q==;
+X-CSE-ConnectionGUID: CY0EBY6/TmuqDyIneTNw9w==
+X-CSE-MsgGUID: Yi+UOVqNQg2u2VBRg+apcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1326056"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1326056"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:50:08 -0700
+X-CSE-ConnectionGUID: indkkJ69S5Sg+8hG7kgK5Q==
+X-CSE-MsgGUID: epAppy4hTamDIC713rLGMw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3184009"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 05:50:03 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: Maciej Grochowski <Maciej.Grochowski@sony.com>,
+	Nikolas Joshua Britton <nbritton@exabit.io>,
+	Geramy Loveless <gloveless@jqluv.com>,
+	Eric Auger <eauger@redhat.com>,
+	Alexey Fomenko <alexey.fomenko@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org,
+	Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>
+Cc: linux-kernel@vger.kernel.org,
+	Bradley Morgan <brads@mainlining.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Subject: [PATCH v4 0/7] PCI: Resource placement algorithm fixe
+Date: Wed, 21 Oct 2026 15:49:45 +0300
+Message-ID: <20261021124956.4250-1-ilpo.jarvinen@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,250 +88,119 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-META: 3bmg6dk9gyqm43c5y7c8ggghkg156yj5
-X-MBO-RS-ID: 29c0397ed4351857f79
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-10-21 at 13:53 +0200, Christian K=C3=B6nig wrote:
-> On 10/20/26 17:36, Philipp Stanner wrote:
-> ...
-> > > > > First of all that prevents concurrent execution of the callbacks
-> > > > > which for a lot of use cases is a must have.
-> > > >=20
-> > > > Currently only set_deadline() can execute in parallel.
-> > >=20
-> > > Especially the is_signaling() callback is executed in parallel by ton=
-s of use cases.
-> >=20
-> > ops->signaled() you mean.
-> >=20
-> > Anyways, only one will succeed at having the fence marked as signaled
-> > anyways, and then all other callers of dma_fence_is_signaled() will be
-> > guarded by the fastpath bit-check (which btw is also broken; but we
-> > want to address that in a different patch. For now my series proposes
-> > keeping the fastpath).
->=20
-> What should be broken here? As far as I know the signaling path works per=
-fectly fine.
->=20
-> What we have problems with is the lifetime of things.
+Hi,
 
-The signaled bit is set under lock-protection, fully ordered. Reading
-is just racing. See my other patch series, I linked two bugs that could
-have been avoided if it were ordered.
+v4 resolves a few sashiko findings. Also, the quirk I had in v3 is
+not part of this as there are other approaches discussed in v3 thread
+that seemed more preferred over the approach I had in v3.
 
-Anyways, I was just answering your point. These functions' parallelism
-is unchanged.
+This series generalizes resource placement algorithm. The commit
+9036bd0efcb6 ("PCI: Align head space better") special cased one
+composite resource remainder case to fix a regression (in a long chain
+of regression fixes). Unfortunately, it introduced another regression
+(or a few, to be more accurate).
 
+Instead of building more special tricks, generalize the PCI resource
+placement algorithm so it returns placements that gives better chances
+for the greedy assignment algorithm to find suitable space for
+subsequent assignments.
 
-> > > >=20
+In short words, the new approach tries to find a placement for the
+current resource that blocks as little of the free space range as
+possible, considering both alignment and continuous free span of the
+remaining free space.
 
-[=E2=80=A6]
+In addition, the series corrects composite resource sizing to account
+for gaps that have to be added due to alignment constaints and
+remainder space not fully connecting (filling space all the way to
+the bridge window align).
 
-> >=20
-> > Nope, I want to protect shared data, which is the signaled-state. Which
-> > is currently a race-condition worked around with RCU (and sometimes
-> > with manually doing the right thing (locking!)) [1], stemming from the
-> > fact that the fence's spinlock is not used consistently.
->=20
-> The fence spinlock is consistently used for protecting the fence
-> signaling, in other words it always happens with the spinlock held,
-> same for adding callbacks.
->=20
-> The only thing which happens without the spinlock held is the fast
-> path checking of the signaled and enable_signaling bits and as far as
-> I can see that is ok as well.
+More detailed explanations in the patches themselves.
 
-No, it isn't. It makes the API fragile.
+Unfortunately, this also causes yet another regression due to shuffling
+resources around. I've left my quirk out of this version as it seems
+the least likely approach to be used to resolve the issue. Some approach
+should still be applied but that decision seems largely independent of
+this series. The main part of the quirk discussion is here:
 
-	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race")
-	commit 7c703a7d3f2b ("drm/amdgpu: Fix one use-after-free of VM")
+  https://lore.kernel.org/linux-pci/20261013130948.6231-9-ilpo.jarvinen@linux.intel.com/
 
-There are certainly more related bugs around.
-
-Also think of the various ordering issues between signaled-bit and ops
-pointer that you and I observed.
-
-> The problem here is not about the state of the fence, but if the
-> callbacks are still executed or not. And that is not a good task for
-> a lock, instead what is usually used for that is a barrier and that
-> is exactly what RCU provides.
-
-Locks are for mutual exclusion. Which is what you want here: you want
-to exclude someone from signaling the fence while you are working on
-it.
-
-Tell me one thing:
-If locking is the wrong approach, then how come it was added to
-literally all callbacks except for set_deadline()? Seems to me that it
-must have solved some issues.
+I find it likely that after this series the resources are packed tight
+enough to solve also
+  https://bugzilla.kernel.org/show_bug.cgi?id=220016
+from more than a year back but that remains to be seen (if we can still
+get the reporter to test it).
 
 
->=20
-> > > > > Then as I pointed out before the second problem is that this agai=
-n
-> > > > > makes the existing lock inversion between the signaling by pollin=
-g
-> > > > > and signaling by interrupts even worse than it already is.
-> > > >=20
-> > > > We asked for examples in our last discussions, and the only one eve=
-r
-> > > > presented was the list-access requiring the fctx-lock in
-> > > > nouveau_fence_no_signaling(). Nouveau is often not a good example.
-> > > >=20
-> > > > Can you provide examples in the kernel where deadlock would occur?
-> > >=20
-> > > Just exercise the simple example of a driver supporting both pull and=
- interrupt:
-> > >=20
-> > > Interrupt: Handler takes lock protecting a linked list, finds fence
-> > > and signals it.
-> > >=20
-> > > Polling: is_signaled is called with fence lock held, can't take list
-> > > lock and so needs to work around that somehow.
-> >=20
-> > signaled() neither needs a list lock nor any other lock.
->=20
-> I don't think we should decide that inside the framework, this is up
-> to the implementation of the dma_fence backend.
->=20
-> By taking the lock for the callbacks we just move the complexity of
-> handling from the framework into the dma_fence_ops implementations,
-> and that is something I would *really* like to avoid.
-
-Of course the framework needs to specify exactly what the callbacks are
-about and what the driver should do in them. That's btw why many expect
-Rust to result in often better driver design, because by the type
-system you can define how your API can and cannot be used.
-
-> > It needs to read a sequence number from somewhere, so a u64. And then
-> > it returns true or false to the fence_backend.
-> >=20
-> > The u64 can easily be an atomic. Also ioremaped reads should work
-> > locklessly.
-> >=20
-> > No need for any lock.
->=20
-> It is perfectly possible that you need to take whatever lock you want
-> to cleanup things. E.g. spinlock for list removal, common lock with
-> the interrupt handler etc....
-
-That's like saying it's perfectly possible that someone will want to
-allocate memory in a callback. Yet we say No, you cannot do that.
-
->=20
-> That's also why I said that the whole approach with the signaling and
-> enable_signaling callback returning a boolean is broken.
->=20
-> Instead what we should do is to forward the requests to the dma_fence
-> implementation. And that dma_fence implementation calls
-> dma_fence_signaled() as necessary.
-
-dma_fence_signal() you mean?
-
-I don't get your point. What you wish to happen is already the case:
-
-dma_fence_is_signaled(struct dma_fence *fence)
-{
-	const struct dma_fence_ops *ops;
-
-	if (dma_fence_test_signaled_flag(fence))
-		return true;
-
-	rcu_read_lock();
-	ops =3D rcu_dereference(fence->ops);
-	if (ops && ops->signaled && ops->signaled(fence)) {
-		rcu_read_unlock();
-		dma_fence_signal(fence);
+I've another series coming up to improve pci=resource_alignment locking
+as I realized the current approach allows parameter change to race with
+the fitting and assignment algorithm.
 
 
+v4:
+- Drop my own quirk patch (one approach should still be picked!)
+- Use 1ULL to not lose bits in 32-bit case (sashiko)
+- Copy avail flags from full_avail.flags (sashiko)
+- Always return "resize" from pci_specified_resource_alignment() (sashiko)
 
-> > >=20
-> >=20
-> > Where does such a driver-lock need to be held while operating on a
-> > fence, opening the deadlock-path?
->=20
-> In the interrupt handler.
+v3:
+- Add roundup/down_pow_of_two64() (new patch) to avoid problems if
+  resource_size_t is 64-bit and unsigned long is 32-bit + use __ffs64()
+  (multiple potential issues mentioned by sashiko)
+- Do not print res->parent in parisc debug code as the resource is never
+  in the resource tree (found by sashiko).
+- Do not override user-alignment with the remainder moves (sashiko)
+- Consider optional sizes properly when sizing bridge window gaps (sashiko)
+- Move genoa quirk under arch/x86/
+- Rename quirk's static resource variable
 
-I don't see that either. In the interrupt you will want to do:
-
-driver_lock();
-seqno =3D get_seqno();
-driver_unlock();
-
-signal_fences_up_to(seqno);
-
->=20
-> > Note that, as I pointed out many times, all callbacks are already
-> > called under lock-protection. Especially enable_signaling(), and
-> > is_signaled() must be lock-resistant, proven by
-> > dma_fence_is_signaled_locked() existing.
->=20
-> Yes, but we clearly want to get away from that.
->=20
-> See the calling order in the interrupt signaling path is driver ->
-> framework.
->=20
-> While in the is_signaled/enable_signaling/set_deadline path it is
-> framework -> driver.
->=20
-> The dma_fence framework solved this issue by using a shared external
-> driver provided lock, and that lock is then taken before calling into
-> the backend operations. But we want to get away from that and use an
-> inline lock in each dma_fence.
->=20
-> So the only two possibilities I can see is to either call the backend
-> without holding locks or force the backend operations to use a
-> lockless approach for their internal handling.
-
-Right now, we do both: call callbacks with a lock *and* force all API
-users to do the RCU dance.
-
-So we have the worst of both worlds.
-
->=20
-> > Regardless, what I propose would only make a potential difference for
-> > *new* users, with inline-lock, who can then cleanly design to avoid
-> > locking problems.
->=20
-> Yeah, but I'm desperately trying to avoid the complexity of using a
-> lockless approach in the driver implementation.
->=20
-> Just take a look at amdgpu_fence.c and how complex the RCU handling
-> there becomes because of this issue here.
-
-AFAICS amdgpu only uses ops->enable_signaling(), and there it does
-exactly what I would have expected: register a timer who will see the
-fence gets signaled.
-
-As I said, no reason to do list accesses like nouveau. That's just the
-driver being misdesigned.
-
-Interestingly btw amdgpu's ops->release() does a call_rcu() to free the
-fence.
-
-You do agree with me that our API being usable like this:
-
-dma_fence_signal(f, err);
-dma_fence_put(f);
-
-would be robust and desirable, don't you?
-
->=20
-
-[=E2=80=A6]
-
->=20
-> And I still think that this is the simpler and especially more defensive =
-approach.
->=20
-> The dma_fence framework should not leak it's internal lock anywhere exter=
-nally and that includes calls into the backend operations.
->=20
-
-Calling a callback while holding a lock is not leaking the lock. It's
-sometimes necessary. All fence callbacks are being called under lock
-protection, for the same reason as I propose here: prevent the fence's
-state from changing while they execute.
+v2:
+- Add patch to cleanup parisc debug print (do dyndbg conversion)
+- Add patch to prevent remainder tricks when alignment override is used
+  (found by sashiko)
+- Do not use PCIBIOS_MIN_IO/MEM but 1U as min align. The former seem
+  address space lower bounds even if parisc arch code misleadingly
+  uses them for ALIGN() call.
+- Fix res->end + 1 overflow case (found by sashiko)
+- Tweak debug print formatting
+- Reworked the iomem black hole quirk (now based on the bridge)
 
 
-P.
+Ilpo Järvinen (7):
+  resource: Mark free space assigned
+  PCI/parisc: Clean up resource debug print & use dynamic debug
+  PCI: Honor alignment overrides
+  PCI: Fix nesting windows with remainder at the left edge
+  linux/log2.h: Add 64-bit roundup/down_pow_of_two64() variants
+  PCI: Place resources to either edge of the window
+  PCI: Fix composite resource sizing
+
+ arch/alpha/kernel/pci.c          |   3 +-
+ arch/arm/kernel/bios32.c         |   5 +-
+ arch/m68k/kernel/pcibios.c       |   4 +-
+ arch/mips/pci/pci-generic.c      |   5 +-
+ arch/mips/pci/pci-legacy.c       |   5 +-
+ arch/parisc/kernel/pci.c         |  20 +--
+ arch/powerpc/kernel/pci-common.c |   5 +-
+ arch/sh/drivers/pci/pci.c        |   5 +-
+ arch/x86/pci/i386.c              |   5 +-
+ arch/xtensa/kernel/pci.c         |   5 +-
+ drivers/char/agp/intel-gtt.c     |   5 +-
+ drivers/gpu/drm/i915/i915_gmch.c |   5 +-
+ drivers/pci/pci.c                |   7 +-
+ drivers/pci/pci.h                |   4 +
+ drivers/pci/setup-bus.c          |  88 +++++++++++-
+ drivers/pci/setup-res.c          | 223 +++++++++++++++++++++++++++----
+ include/linux/log2.h             |  52 +++++++
+ include/linux/pci.h              |  33 ++++-
+ kernel/resource.c                |   3 +-
+ 19 files changed, 412 insertions(+), 70 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.47.3
+
