@@ -1,58 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792608762;
-	b=c0cL3rHerZYfeP5lzdcCjOH0mQJDhX64y1NSgiIqpX+mcyHc/CowKCPVynBy/qcPAtYH
-	 pIMrk9mCZ/77hPoeQ8yKu12BX+YKnStHaD4FWFyOosb/lK69ZJ5Z7eluAzvD4vveNgN1B
-	 JmJpLzqwQ+sghye9YxoCpMm83pDl+Jw2XWqWwqjg4PJDSVn2/BrR5iz1o/Drlad2d+rlS
-	 s2osqtQojljpni57lEWQxi7XN3SBd5P2vdezhqJCsvBVX3vlaZrbHjt8sae60oGZfTNOi
-	 9ZuwP3lCz6ui5iAFfgzbOUTxiS7+AZOQZb5SXLyMNIqjAPXSBnqIPd4M7HbLJJvxZZQ==
+	t=1792608823;
+	b=ZX1iqdsV2hTCSz5Z+BPIH8gNAXF7kYr7zTtsCPywOF2tr6BWI3Y8diVdFSOdfjMz96IX
+	 JIvMfFjSI7ImfqSlgjUkjqjbA53NpO+7/o+tynCvGrsgUwzbIuyPt6iZkJzbpvp1fPm67
+	 y71nzi4mx5jMOXP6U87NuiJ21KN5RV6vfjCLtfoNmwr1bpCy31ZTzM0qsvMaKTkxvtjvC
+	 zfP2ZeZpVVCdQibEhD2181Gi8sGiHx69K7lq3HTC6FV8nQ+DWZ3QxtLl3HMeYJzYxDz10
+	 1btTQqq33PMvGeIaBkMhvgqzQKNdpuHwRwN9PWVVj4mFmBwGgwIr6/H1pWJSmWIlk5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792608762;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9XNWFo/CYTANDrafjipXREwd0B+NLKGQLy/y5ee2/mU=;
-	b=IsZQdVTMkc6fHcu4G7Oar1NzU2IjloCvIoFtrlfCxvPyVPwUPyMF/YxBkvhRlzC2hRrz
-	 WCU2iFHrI23kfwqFmC+7+JVEzfWlxvEB8r2h2tMiO0eNPdn7tvRu9NcN6q1XEJRJxAq+l
-	 es8Cmlttx3PJP4qF1wHdr+NTzovkbRw8O+H8jxHDPU5WbtK+se/4e3Ih/s1IYYC3qfFpT
-	 zBVL9xpEUp+SRK6sxC//rylFSsQojFUDxXuk8OuDayIdREHoonRu/fGgxSK5QabSsYHnW
-	 ymorGiY7GtIXhjz1fgcpttTT4cLzMIffuzJQ4N+IMJP2V/Xst+fjvRdjzzkg7/p6/Qg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792608823;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=7lnmtc17BSdgNxSiz6MhbF6463BF4PmzHevtPUbsEmo=;
+	b=TStGTsYEB0apZlvpu60Tti/SCOc5POARpJmY03OOoDJ/eC0vlP/zfPnl0UT6BNmhX+FH
+	 CDL4wB3Gylb1v8F1epB+yAyuyZqA4sntM10MVRysgmAwuHCW4qQ01Myel/FyqV7V9QxxH
+	 T9g+YNTuVR62+IrV8aSskbo32R9XHtW9smVILBY2SpjQOwPgCah6spxStw4ZnXVfMDNG9
+	 k2oggyJcYinH2/OggunHmS8wkANQHmr8730xetPLEEvQSTezEw8LcXaYIesg08X3iT5Qg
+	 gKFV3YBdKsqvB03Vr3KKGCdodjW8H+0weUuEluw1qu0dNcZdtdoBMb+T38j1E6lVJDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XVmYSRoE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lmuQ6dXd;
+	arc=none smtp.remote-ip=192.198.163.13
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0318606A319;
-	Wed, 21 Oct 2026 18:52:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6313606A319;
+	Wed, 21 Oct 2026 18:53:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6313606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XVmYSRoE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D5C1F000C1;
-	Wed, 21 Oct 2026 18:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1792608761;
-	bh=9XNWFo/CYTANDrafjipXREwd0B+NLKGQLy/y5ee2/mU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XVmYSRoE6euKHfFwnaiDhnpBmWGbT907C2lFpgaBfbpl4U+4ISxr9AqyT6pARcZaX
-	 wJeE56M0QsINp8WXWmFS8zXuVk/sMuPJxGXhNzXXM+zGK/e+2KGPy0jMuID4x8Ke3P
-	 C6pCbQm3HD1d/C4kmi/btMdNA8+N/HVKL7FgMmeU=
-Date: Wed, 21 Oct 2026 11:52:40 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Zhen Ni <zhen.ni@easystack.cn>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
- eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
- yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
- ihor.solodrai@linux.dev, vbabka@kernel.org, surenb@google.com,
- mhocko@suse.com, brendan.jackman@linux.dev, hannes@cmpxchg.org,
- ziy@nvidia.com, shuah@kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
- linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, Zhen Ni
- <zhen.ni@easystack.cn>
-Subject: Re: [PATCH v3 0/7] mm/page_owner: add bpf_iter and kfuncs
-Message-Id: <20261021115240.f195a2a55364fe300cbb6983@linux-foundation.org>
-In-Reply-To: <20261021112437.1799213-1-zhen.ni@easystack.cn>
-References: <20261021112437.1799213-1-zhen.ni@easystack.cn>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lmuQ6dXd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792608822; x=1824144822;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=o0DFkB9dJs1Dl4KwJLBNMiua3ECNncQS2ZlsCMjSNco=;
+  b=lmuQ6dXd9yhpjpOwgG0Jv4Y0VwIj3eLMtREGbtJygP0gaIJhNF10A37M
+   6zyrZ7n4H1JKiVVeRA+aXX+aEsyFvtdKHgKxekMfB7H+LRXWX3xAI2pT7
+   YtVvOuDh8zuZCX5+sWmB03F9TsPSbVDGh3WNaGWH1ev5OlIyQdECZV7tm
+   7SOT0kefAx5d7vwHYkjHKCOkmZhOZ9OcaZ0frUP995yq7+Fbsnadhcr7e
+   HHJAD6B9r912yOMD05gTd6xjblDGkOihdt31atG4n5igLGggyU31iN4TG
+   EEIegWPhoufq6V5vfoC4HDIaE2Qe0yZaT0IyVoqsv2XLBwv4yDwu29wTm
+   A==;
+X-CSE-ConnectionGUID: Iw4IXsTdTb2E0cmg/eotew==
+X-CSE-MsgGUID: bmIfcGbRRKGDK7UCu2uVCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1328749"
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="1328749"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:53:41 -0700
+X-CSE-ConnectionGUID: FTnDbCdWSMSVE1Du1M3NjA==
+X-CSE-MsgGUID: 3tT7CI4rSDeM8UzVU6jMFg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
+   d="scan'208";a="3221989"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.24])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 11:53:38 -0700
+Date: Wed, 21 Oct 2026 21:53:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: joshua.crofts1@gmail.com,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: inv_mpu6050: use named initializers for temp
+ in hw_info[]
+Message-ID: <atkKMNHPRLSrD3iZ@ashevche-desk.local>
+References: <20261018000924.758186-1-kapoorarnav43@gmail.com>
+ <20261020095936.00002ff3@gmail.com>
+ <20261021183823.169199-1-kapoorarnav43@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,18 +84,28 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021183823.169199-1-kapoorarnav43@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, 21 Oct 2026 19:24:30 +0800 Zhen Ni <zhen.ni@easystack.cn> wrote:
+On Thu, Oct 22, 2026 at 12:08:00AM +0530, Arnav Kapoor wrote:
+> On Tue, 20 Oct 2026 09:59:36 +0200, Joshua Crofts wrote:
+> > Your patch fails to apply, please check it out.
+> 
+> Thanks for trying it. The patch is based on iio.git fixes-togreg, on
+> top of commit 2b8d4cd20ac8 ("iio: imu: inv_mpu6050: fix swapped accel
+> and gyro startup times"), which changes the neighbouring .startup_time
+> lines in every hw_info[] entry. It applies cleanly there, but not on
+> togreg or testing, which don't have that fix yet. I should have said so
+> below the ---, sorry.
 
-> page_owner records who allocated every page and is a core memory-debug
-> facility, but it currently reaches userspace as the debugfs flat dump:
-> slicing allocations by pid, comm, NUMA node, cgroup or stack, etc.,
-> means streaming and parsing the entire file in userspace, which is
-> expensive on large hosts and hard to query live.
+just use --base next time when formatting patch (with `git format-patch`).
 
-Confused.  Your series 8570b65220e8 ("mm/page_owner: add print_mode
-filter") addressed this significantly?
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
