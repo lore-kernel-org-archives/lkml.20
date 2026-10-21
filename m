@@ -1,56 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584974;
-	b=pFM5CTwVQirTKHPFmcOu9+PXUFpRltAmzY+mm8uJa2Y0DLhzHAVI5w/XPHmTKNuX8ygV
-	 ddwPXwMVbZtglv7fYT4s2ErQCRk+rWGiTOzgla43h/SMNSjjGz/pp7aeX4vGExW+o+C4l
-	 wdtHHHh0wsUZNY/RDlfwB7AfaAQTcU2v1G662JmDsL+qag3tE4ifsSUJT7P6obAAKu8cK
-	 rGLd5QahIjYBlxWS9ZBnPiD0f5yD4hYG1vLCMUtUzAmVQxxij3swJ7it43m9fDkI9kqRU
-	 Lni3FN4B5DnNo6rsWog7v80a8w8TdGK3WaHmZ3xkyzQuGjSiypz/dvLYAKRVQ/Z2qLQ==
+	t=1792584992;
+	b=d8iYrQO9QtKwC3OYgE00jn1U3j9qRu8RCfLQ7NrvHpPLXeRP9uwQMxE3b71dIa9GByI0
+	 EElXwz7vti8+9CNZfci9Co1cFZBocCqP0pllVtqb2GW2IrP/L79BRYZ2U1YslcbSR6kv1
+	 wcqNV5U2Y7U1Ltnf/fFNOCHxcYMK+AmH+SaBWkXbor3JF/DHxhClGHU+Ez3rnmWDAYhSD
+	 2BSsVyxTxTuQBMqsZdyxlWnuo5f57JT/2+cjtkZaDZjQmQPPlvbdiQmeuwqccMzTxfXWG
+	 Jf1BTWkjMQ7un3XjOUbg/xDV5z9qL8JDEf/fMe2+mq1bZzBR4VM1/4OWppVkD7qf8WQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584974;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584992;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=14xqRJbBwPSTUwMpLNaEdMOdsXigfG/PZ5Nys6W811A=;
-	b=aCf5v13oFtLb/427Wfg6QEmfX6Z1Jx7+KQ8Q1DHFdLIdmKB/c4QaJs8FzzdbX7JOuaS0
-	 D3FcFmSaSvkWKNdbg0v/S/SghH/1QW1W/cv1CZXx5MrreCHzKFOH2MriVowG843RUqlGM
-	 GopY8KaPveZNwwslaD8H+qhUg6oiIQNNZvjU/yy9VojE8tEgEOad7wyn9E7CxRBe4LQdP
-	 TPlVl1DTzLkOGnPY1IiZonplHKu+og0MuuiP0IWQdCV8WilsqdE4MrvLZVWaSISlAITdo
-	 stE6kqHPJMYklnUOv8OT0d6YdK4lUEnYj09BrvONu4AKfLteMa2B7AkU7s+upmVjaUg==
+	bh=47JPxnKtn88z3FWrX9k+DRLaFxM6US7BskZPlDapUxU=;
+	b=gLSQEsiOm40TLyGhmiIwyTgnyomIz05u3etOCyReAHDgLnm8Jwr/vxwZ3MK5EFwGTdbc
+	 hIPIJaKroUpL9opSWBruaNsPo/oI3blTuzUDU90Qv2kYTinDoCzPjeIrAWWsK9RHt4hmn
+	 HtJbqnWtk+M//gbqoPQmc3PZLHh0RtwjDtD4RQ16kIaUSBj3FvPidI/ytHC8GIQcc1PLx
+	 38veuN6i36GNEDQE+hBEid4ad811oCG2OkBNTpdTx1MMDXQLnytVe+OCvfuMxLiS5Nt9b
+	 zxstXWtCAM5WckBXs2KjrNfhq+hp06C9cD7HJqtSHHoFCAjK9ncqQm3vMPzZ6sQUGlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CySbTGku;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HTiFI/gR";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31A2860A2612;
-	Wed, 21 Oct 2026 12:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826F8606A319;
+	Wed, 21 Oct 2026 12:16:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CySbTGku
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518441F000C4;
-	Wed, 21 Oct 2026 12:16:12 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HTiFI/gR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BC531F000C4;
+	Wed, 21 Oct 2026 12:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584973;
-	bh=14xqRJbBwPSTUwMpLNaEdMOdsXigfG/PZ5Nys6W811A=;
+	s=k20260515; t=1792584992;
+	bh=47JPxnKtn88z3FWrX9k+DRLaFxM6US7BskZPlDapUxU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CySbTGku/p1XXOGUiHGHB2To7Jn1H2F49N+Nti9JYAJP5peQg75qm+Ctp4yZRi5Yl
-	 l0f2pw9KKz2xjhPLYMrTkdDQbUUFVoz3CXroH39JvnUs5IhBeMp5WqiyUmQDnRgpCr
-	 hbvpqF/R2/IYF/CjQWTY91k1EOblZM2XC+xMR+lcfK/GxVSaAXMuLqw1kLyVu6PnCq
-	 +kCXkIGbXoNBtuhQMxgWOZ4UqTILrEfeOrHVAmWW3j7YpGDQG2Dw9Jg/rUn90EgD36
-	 jtx9o9pSd3FGGGD/j3W9VhEJOE2xjtpOdXL2lbQTZEpNOqeYtf7m9oMzObrW2WhjA9
-	 pcN/0ooGXDRyw==
+	b=HTiFI/gRAcXJTgd7xuiXoBfiPSvqelwO/3RGk7rZqNg9NEI06XjAWsSMka1CZWFeq
+	 Oda3v69dDUnNcFSn8LTRVg06ujoNhH5JZH7FgG7PKjMckKMz+LYx2GrGH/+pOMTloO
+	 wsR6Ov/rFgIamo696hV23UrspCuwcexBH9nSoEST4GbaxoZTRXmgHgLv+GEBff7E/C
+	 iknsZ3pM2HH7E+6p4sf5mZNYPYOJhx8tUz2LAoKTxb1Fz4tNNesUL4l8Oq9r6FnIYh
+	 UZ8Gb467kxSKG6wa3kG9sO95Pwvm3ZaeElzfUDeYRBYYJaNnabtu6gta6/T3O4gJ4o
+	 CFmpji5cAy1jA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Qunqin Zhao <zhaoqunqin@loongson.cn>,
-	Yinggang Gu <guyinggang@loongson.cn>,
-	Huacai Chen <chenhuacai@kernel.org>,
-	linux-crypto@vger.kernel.org,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Tony Lindgren <tony@atomide.com>,
+	AnilKumar Ch <anilkumar@ti.com>,
+	Milo Kim <woogyom.kim@gmail.com>,
+	linux-omap@vger.kernel.org,
 	mfd@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 21/28] mfd: loongson-se: Validate engine ID, DMA buffer size, and IRQ registration
-Date: Wed, 21 Oct 2026 12:09:43 +0000
-Message-ID: <20261021121245.3111563-21-lee@kernel.org>
+Subject: [PATCH 24/28] mfd: tps65217: Manage IRQ domain teardown via devres
+Date: Wed, 21 Oct 2026 12:09:46 +0000
+Message-ID: <20261021121245.3111563-24-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
 References: <20261021121245.3111563-1-lee@kernel.org>
@@ -65,97 +69,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Harden input and error checking in loongson_se_init_engine() and
-loongson_se_probe():
+tps65217_irq_init() creates tps->irq_domain with an unmanaged call and
+requests the parent interrupt via devm_request_threaded_irq(), while
+tps65217_remove() manually disposes mappings and removes
+tps->irq_domain.  Because tps65217_remove() executes before devres
+teardown, the IRQ domain is destroyed while tps65217_irq_thread() and
+child MFD devices are still active, allowing a concurrent interrupt to
+dereference a freed or NULL domain.  Furthermore, if probe fails after
+irq_domain_create_linear() or if tps65217_irq_init() fails, the IRQ
+domain is leaked, and if the device is probed without an interrupt
+(client->irq == 0), tps65217_remove() unconditionally passes a NULL
+tps->irq_domain to irq_domain_remove().
 
-- Reject out-of-bounds engine IDs and engine 0 in
-  loongson_se_init_engine() before indexing se->engines.
-- Store dmam_size as u32 to match device_property_read_u32() and verify
-  that it is large enough to hold the command buffers of all engines
-  within engine 0's data region.
-- Propagate negative error codes from platform_irq_count(),
-  platform_get_irq(), and devm_request_irq() instead of ignoring IRQ
-  registration failures or masking -EPROBE_DEFER.
+Register a devres action to tear down the IRQ domain in
+tps65217_irq_init() prior to devm_request_threaded_irq(), propagate
+errors from tps65217_irq_init() in tps65217_probe(), and drop
+tps65217_remove().
 
-Fixes: e551fa3159e3 ("mfd: Add support for Loongson Security Engine chip controller")
-Closes: https://sashiko.dev/#/bug/linux-89bf25f5-ecd9-40e3-bb4c-bd26d07c53a1
+Fixes: 40a50f8b307d ("mfd: tps65217: Fix page fault on unloading modules")
+Closes: https://sashiko.dev/#/bug/linux-7e358c08-6d75-48be-87d2-35dc037ea953
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/mfd/loongson-se.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+ drivers/mfd/tps65217.c | 40 ++++++++++++++++++++++------------------
+ 1 file changed, 22 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/mfd/loongson-se.c b/drivers/mfd/loongson-se.c
-index bdbab4b91729..23af05d388aa 100644
---- a/drivers/mfd/loongson-se.c
-+++ b/drivers/mfd/loongson-se.c
-@@ -26,7 +26,7 @@ struct loongson_se {
- 	struct completion cmd_completion;
+diff --git a/drivers/mfd/tps65217.c b/drivers/mfd/tps65217.c
+index c240fac0ede7..a1e9b9e22d82 100644
+--- a/drivers/mfd/tps65217.c
++++ b/drivers/mfd/tps65217.c
+@@ -146,6 +146,21 @@ static const struct irq_domain_ops tps65217_irq_domain_ops = {
+ 	.map = tps65217_irq_map,
+ };
  
- 	void *dmam_base;
--	int dmam_size;
-+	u32 dmam_size;
- 
- 	struct mutex engine_init_lock;
- 	struct loongson_se_engine engines[SE_ENGINE_MAX];
-@@ -101,8 +101,13 @@ EXPORT_SYMBOL_GPL(loongson_se_send_engine_cmd);
- struct loongson_se_engine *loongson_se_init_engine(struct device *dev, int id)
++static void tps65217_irq_exit(void *data)
++{
++	struct tps65217 *tps = data;
++	unsigned int virq;
++
++	for (int i = 0; i < TPS65217_NUM_IRQ; i++) {
++		virq = irq_find_mapping(tps->irq_domain, i);
++		if (virq)
++			irq_dispose_mapping(virq);
++	}
++
++	irq_domain_remove(tps->irq_domain);
++	tps->irq_domain = NULL;
++}
++
+ static int tps65217_irq_init(struct tps65217 *tps, int irq)
  {
- 	struct loongson_se *se = dev_get_drvdata(dev);
--	struct loongson_se_engine *engine = &se->engines[id];
- 	struct loongson_se_controller_cmd cmd = {};
-+	struct loongson_se_engine *engine;
-+
-+	if (id <= 0 || id >= SE_ENGINE_MAX)
-+		return NULL;
-+
-+	engine = &se->engines[id];
- 
- 	engine->se = se;
- 	engine->id = id;
-@@ -186,7 +191,7 @@ static void loongson_se_stop(void *data)
- 	mutex_unlock(&se->engine_init_lock);
- }
- 
--static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, int size)
-+static int loongson_se_init(struct loongson_se *se, dma_addr_t addr, u32 size)
- {
- 	struct loongson_se_controller_cmd cmd = {};
- 	int err;
-@@ -249,6 +254,9 @@ static int loongson_se_probe(struct platform_device *pdev)
- 	if (device_property_read_u32(dev, "dmam_size", &se->dmam_size))
- 		return -ENODEV;
- 
-+	if ((se->dmam_size / SE_ENGINE_MAX) < (SE_ENGINE_MAX * 2 * SE_ENGINE_CMD_SIZE))
-+		return -EINVAL;
-+
- 	se->dmam_base = dmam_alloc_coherent(dev, se->dmam_size, &paddr, GFP_KERNEL);
- 	if (!se->dmam_base)
+ 	int ret;
+@@ -165,6 +180,10 @@ static int tps65217_irq_init(struct tps65217 *tps, int irq)
  		return -ENOMEM;
-@@ -258,16 +266,21 @@ static int loongson_se_probe(struct platform_device *pdev)
- 		return PTR_ERR(se->base);
- 
- 	nr_irq = platform_irq_count(pdev);
--	if (nr_irq <= 0)
-+	if (!nr_irq)
- 		return -ENODEV;
-+	if (nr_irq < 0)
-+		return nr_irq;
- 
- 	writel(SE_INT_ALL, se->base + SE_S2LINT_CL);
- 
- 	for (i = 0; i < nr_irq; i++) {
- 		irq = platform_get_irq(pdev, i);
-+		if (irq < 0)
-+			return irq;
-+
- 		err = devm_request_irq(dev, irq, se_irq_handler, 0, "loongson-se", se);
- 		if (err)
--			dev_err(dev, "failed to request IRQ: %d\n", irq);
-+			return dev_err_probe(dev, err, "Failed to request IRQ: %d\n", irq);
  	}
  
- 	writel(SE_INT_ALL, se->base + SE_S2LINT_EN);
++	ret = devm_add_action_or_reset(tps->dev, tps65217_irq_exit, tps);
++	if (ret)
++		return ret;
++
+ 	ret = devm_request_threaded_irq(tps->dev, irq, NULL,
+ 					tps65217_irq_thread, IRQF_ONESHOT,
+ 					"tps65217-irq", tps);
+@@ -333,7 +352,9 @@ static int tps65217_probe(struct i2c_client *client)
+ 	}
+ 
+ 	if (client->irq) {
+-		tps65217_irq_init(tps, client->irq);
++		ret = tps65217_irq_init(tps, client->irq);
++		if (ret)
++			return ret;
+ 	} else {
+ 		int i;
+ 
+@@ -373,22 +394,6 @@ static int tps65217_probe(struct i2c_client *client)
+ 	return 0;
+ }
+ 
+-static void tps65217_remove(struct i2c_client *client)
+-{
+-	struct tps65217 *tps = i2c_get_clientdata(client);
+-	unsigned int virq;
+-	int i;
+-
+-	for (i = 0; i < TPS65217_NUM_IRQ; i++) {
+-		virq = irq_find_mapping(tps->irq_domain, i);
+-		if (virq)
+-			irq_dispose_mapping(virq);
+-	}
+-
+-	irq_domain_remove(tps->irq_domain);
+-	tps->irq_domain = NULL;
+-}
+-
+ static const struct i2c_device_id tps65217_id_table[] = {
+ 	{"tps65217", TPS65217},
+ 	{ /* sentinel */ }
+@@ -402,7 +407,6 @@ static struct i2c_driver tps65217_driver = {
+ 	},
+ 	.id_table	= tps65217_id_table,
+ 	.probe		= tps65217_probe,
+-	.remove		= tps65217_remove,
+ };
+ 
+ static int __init tps65217_init(void)
 -- 
 2.56.0.218.g1ec904b173-goog
 
