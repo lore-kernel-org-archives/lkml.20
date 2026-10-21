@@ -1,95 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792571914;
-	b=EtmaP3BlVLWYFP56ZcZ91fXR4a4M2gDcH4WLuRsnIdqVbYlvfRtQv8j/XZgwX57HVv2r
-	 Qe/gvPlbJi1zz63z9lbmQhqIJIg8u89gd/X2l2Ge46evOJG+RxwZZOxiCqvbdntppDake
-	 ebTfoEBa0g+xSWeLpgs7mxWos+eysuQzf/q+8HVgbmzmqP7jEQhsqNJo4V5DjxQMKzdIF
-	 oQv5LRpHPCY9Secmdx8QIPsXDQep3oH4D1dLGT/mNGyUNVEwJzR7RsxsDG/JtWJ216Lqk
-	 i/r8oEj9vBPfenQzqTx2qq7F7JnNOxjijGYwKE8WkuABAKZ+Hq4x4PUBkNJPBD64m4g==
+	t=1792571936;
+	b=cH3t8RcWTaZ1U3rxcrBBZ/QYrE1dIZ3v6j3BLX6xJ9UqdzONmdZEn2JDjfCfRC1lsQbf
+	 weyVZnjUHXqNlesiKeFIMQnVA/EH0YhUybpqz8gDXo3P8Fck4HsiTzeCfWtmBkdNVLthS
+	 511REKfuOF7FcF98gpO1DnCoIhdWRfE4y+MYQwFRMBYDg0X5OMS8jIOBeIM+b/8cphr4W
+	 Y36QoHnGuJdPmRxuI+sPx/uYK0RvisfyhdJGC87YKMCCgotpaXF1oWTw3WZ9zV6+ypEme
+	 YpcVroiKIquBeglCmhUW2ZrOpOz3ebIPy0jBaBR0hYTpBmGJ6Gft37+oqnJ1osgyzrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792571914;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ezaUw4HbM92qbq50KCeRpsCuDK1ahVr0MqnfbwD+p5c=;
-	b=Z4J73Gy3jvbjIo3FLvujF1wD068bqyOD0CurQ+V6z954jNHvE2+hY4rpfHxikGGMKGzq
-	 wHlo0ThGtQHKkGm88WYo6aG234WGRR+J7MLu+ELB/bMDUtCuFB82e5GI5RHqkJAex2FpX
-	 mHL6xPmc6r+YfkdFulmL3M0MGwRvc75CgQdNR36c6Y2+fvTOV78INslp10c+k0WCiRJu+
-	 ejhE1VlfABakIDtoDitpvw3+orsg4a7ACmBVhITaYSFvsBX6LZKBr2ai3hFUd/h43LoOD
-	 03DsS4j4WbIUzV/3OxgkwUARpCXBHK5kYVbzDxZnVleQSRayRhbMXMpf6RphMzcEVGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792571936;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=;
+	b=g7b66yXSLzNPYBIyIL3RGqpVqhoJHSipJVhJFlqUnjgtAYr+keZwZI/nRowVCbhdqxnK
+	 atY3fEWB8sK0MgnJFCiMDRhzpcQTYnIZPuDjUvWiS09OaNfFZR7mdmPjE+wVxXeLPS5m5
+	 UbaatdknZyQvqoojDb50dyl3CoVb39axxRcKgAaw7r+QOn+rSjrIfmwRe/xCZG1DGlj7M
+	 RKrS+UKfU2hi44C5ZQ0+aAlk1U7YJTS2/Ww4BJTB2JBtbqb5qhjln8Pi7b6bNImFLHZTh
+	 w7A1yamGiqD1Q12ft//69yozh2ELspGDM4h3qr4Rpr0tdLF1m5y4CNcwu62EcZ/7JAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Sc438LRA;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IBP1AgCN;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f5THkjeN;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2911606A32F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2911606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67A85606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67A85606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Sc438LRA
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-36681e85e87so914435eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:38:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=IBP1AgCN;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=f5THkjeN
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69L8cdEU644174
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=; b=IBP1AgCNXnfxKQWs
+	U/gF6I4kttmVJBgP+n+m+w1mQh1SNWfkVPYDMewQm13NgtuORAjhg0dJtMxpqUXE
+	TuKwpKXCL1WE7G0F8Oeb+JZMNvrfs6zex1hf8PtQKWdBJmth2HzTbu2AqD2E8WNg
+	79MaS4yUU1GPhHx5gQBZA1tj5tzs40i2f6ps8KE/R4rbPgvGkggDy4n4nM3bOf6u
+	D2BdEpDYiuail7KwS2VxG0yIIT8WsEn5NVRTDyWnZfvJ6oNheQcfRhxxqkgSO7yC
+	n258RB16rRgVP6BZ0+Uzwrn4b7QOYu0g9HPXbgaELdP2kyD7PW66/58dcuwG7rIV
+	abvBcA==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hedajjxtg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:38:55 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-915e9e1a5f1so1023946d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:38:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792571913; x=1793176713; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezaUw4HbM92qbq50KCeRpsCuDK1ahVr0MqnfbwD+p5c=;
-        b=Sc438LRApyTpSreJ2uVrqCx6QYKAesxvwh3mQBDucT8nngGIfn/JLHPOGQX3LKkUO7
-         a7kNu5jrEPLbZwIaHTlir0LJPhvqNjvSQkxdXfcB4rfdWqNprujV2Bzf5b7FeYyRwaiF
-         xFiMuD4wOVvsLu/UGBXbru/3s3X4bjLI7pbkMWed9bxe0hGXZzsh7cL7iI9AaoAYHigB
-         1vVCeLgiaNKaVtTfJ6t8fG2vK7AqWXWHdl0b74mXMCcbi8uytjMbD38t4my9JF2C/M9e
-         G1YdHPheMNiPSzx+MyUdvNe33Owwk4+hokAgqJUfyAE2lt0bukmA4NgrGIF8giW/UcQZ
-         AIiQ==
+        d=oss.qualcomm.com; s=google; t=1792571934; x=1793176734; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=;
+        b=f5THkjeNNGZCSZkmJzhLz3FLgIXAOHnKyK4eL5RKVzeu1wxkIzJSide/BBPfF9ZbEF
+         is3CeA+EgISIu+8+/hgJQ4smzSfRucqUljXInxr68kNINYDEQMnAH+XhyT/WCC4NM2lx
+         bBmmPCo98lw5hqjJX94cwbJVls4z9U0b7BqNecn7Cq0AQJxcMTsmjfp1pUwrAynUYVnF
+         Tj4CtUmy8+mDejmEt4Lo3ICWp57hPbkI+UfsJk5ezFD5BVQA1/Nsx8xVDQj9t2vcf3/Y
+         lom2MflvxTd44Oovc5l+VjR9jT6OSmRW9qcmTj2uZFMQt7nZj6/2E7bfmiUYf8ck1fKa
+         hOcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792571913; x=1793176713;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792571934; x=1793176734;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ezaUw4HbM92qbq50KCeRpsCuDK1ahVr0MqnfbwD+p5c=;
-        b=oVbZbS4cwhHX9uhyXYl39+4Z9AuVgB1Y5j1UIqNFkLAOJXCdZsTqEXHgPWZqAfruPJ
-         S6KJd69zYW2jhtwBubCY1cXXNuv8y8bWGPc1xGV26jy92w8d2cPyQkwklmiqgI0/ZyDN
-         I2QwVCnBgSsPIk+4ilBCddeBtlPNymJN3uxUd6X/AucpJtrTvVsKVPR2KVpWkdMUov1O
-         PowmOBu00GqrZaHcegdE8XGRCU3Ul84gL5IZIZskUWi5MXtoZ9y6sKmsH1Pg45Kg00y+
-         UVoPqcvEoB9NCN//jA8CG0HTIVn/pMTS9uFbCZYyk0MDf2phkNhvtJ2E4FqnVuMpjYLB
-         c1wA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7r6a8Wle//btk9GAxiOJukxSoxJjjCFrqPHDJspjiq6rzUtEqZyPo3hcYTM4r5087PEzV9RPBec6hhik=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+YoLvFFsuXzdghd6/qxj95ckzBBKt4J9ckJ7y2q/y2S9+m2AN
-	I/8n3e1qmK/8mhRruNBRL7ti3qewlgwYSvJIzw2/kR/J+0JnRXE1l64Z
-X-Gm-Gg: AYBFou1rEDvtd7XbjV5EYMfAPIMY8kGbjS6crlnoSfmr90UoarHJf0pKfL01qpfYMI6
-	6KgWnr6iYZTcVkH+4iq4S+TgjvWcxiWR8VuDzwrIUweoOClNQS12tao1ex+fl+M2uQ22TnBG+54
-	by8+V3tts+cinghZvaB+b1JEYbA/ffvZYJ8WXByz34IQOLUDzBYTQGCXSk57/eQDKz7gJl/XkJc
-	ajIebsi6OqWeU26CzXXaFGDifIrOCI6yj76+N6OgSwVCaJ8CfmEP10vhCB64ZhwBgb/nEgjNtdo
-	uqnAa888cufXEGyGk0h6A64HDocqublcGXii3xXNmpiRgK2R3IU6Iy24fOjae13vl5RInYhxZCK
-	uDKIPTgHp+fSv0cyIm8j/r0MCOP/A91gtjPlkm3reihPNLQcA+iPBFsjoALm4GCcwM3YcxnUY9q
-	BYPYCo+WhZ2QNGv8/bXJKRUHtd/OXEnefyVYtTzoXYAwo2epQVrLEdSBtGY89bgi/x48frPO4bm
-	2x7mRVTLyREcVpnwaM3hY+My6w0PXEhWS3in32pOvLkf/zIjJ6B3RR49jfW3IZswjQKspeLEA==
-X-Received: by 2002:a05:693c:864c:20b0:351:1f56:3a89 with SMTP id 5a478bee46e88-3674e548e2amr2574946eec.23.1792571912854;
-        Wed, 21 Oct 2026 01:38:32 -0700 (PDT)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411b4145sm6102203eec.15.2026.10.21.01.38.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 01:38:32 -0700 (PDT)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: Gao Xiang <xiang@kernel.org>,
-	Chao Yu <chao@kernel.org>
-Cc: Giuseppe Scrivano <giuseppe@scrivano.org>,
-	Yue Hu <zbestahu@gmail.com>,
-	Jeffle Xu <jefflexu@linux.alibaba.com>,
-	Sandeep Dhavale <dhavale@google.com>,
-	linux-erofs@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: [PATCH] erofs: don't reuse a superblock for a mount that passes device=
-Date: Wed, 21 Oct 2026 16:38:26 +0800
-Message-ID: <20261021083826.1870937-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=10q99WjpupYyXoAqEGbsDSnGwWdgp3LWUj2x80wFg9g=;
+        b=RMhjr8DEXAF7/ttM7hZp8o0laivlojBACUVBcrS2ER/TfN8rIOMG4JR8Aipl504rFN
+         oQNVdKT9Ilgumf+JXMz7knh0KqgyIibV2LtIRlRSqNxUDemS9G0QZ/EBNOU4l5TVQSPk
+         WVs5LiX9Jt+BKRGjVsAqK5U+LfyBFFG4uw6NbC5te7DxzNwoQXo63OkCEx0uP7BhucJU
+         yHqQm0LDFvLBB5/ld581sONkPaxT1hcW+FSb2Dx4vUaIqATDayqWevEo9FCpNtylhWTj
+         MVP5LQiCO8LhsJC3nTnZbDKgxbQ1FL4he5emfLe/Rrs8oMR+LvYLuU9yeb5KzCD0I/NV
+         wGCg==
+X-Forwarded-Encrypted: i=1; AKwUvBwuhEalHbhH/wfl0nlSUwXMY/6p/7gk6z6dybz1leXH+zQbc3+A/spB1g46AAhm16kzPk+6sVfQ0rAiiPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNF/R2ZWJYHhrDjsK9fZwv+3BD3W2XXXYtwqjLn2SGe6YpLIFL
+	deQmtCoKA1ojHhnHgwLn64noC7LrIEm8I6DekZX5XQHthpmMhif+cOmTLVFxv6o1uUAevztcDZ1
+	iQjMkDtsUNrLi9Vj1Mh8qIM2777DoaTvejUXud/YmnGt/mind1HbJh0ZeupNkPzyYXT0=
+X-Gm-Gg: AYBFou0ut6IH6YUgwXcoxR77qYrkBUhdjGRvbGyQW9Okn/dt5AqQDAnXNtvJc56+Mjp
+	nForgeWH8C+QOsEw7EpG5AZ1iiwuvZU60qTxJTtKSkOpahuahCneZVxzUQ47Kcxgqe3nFO8n6dG
+	6AFBqDn7Pyhs/65XS8lLnZmBoDqJivTg0WxyItQs3yKsP26sz0tkoNc3xH8IpD2qbwUe6bWRjut
+	lmhB9l1Q6Q+E/T8jjLbcrsFMYj0xG4OUmYEtKqlYczZn+5apkEtfafeNQ9P3YvW+9ZG4YKT2LAw
+	dWbsKUBILipQqgsPXCwfATjNLw65kvPQRqMCrnja30IZS2FRtBgA5zPxlj+SJiZmpiuVupm6Ddw
+	Gqb2q5XsqQLD2RWTKN3SXrQ==
+X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id af79cd13be357-93f57e897a9mr338659185a.2.1792571934448;
+        Wed, 21 Oct 2026 01:38:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:172b:b0:939:8bc:8826 with SMTP id af79cd13be357-93f57e897a9mr338657585a.2.1792571934003;
+        Wed, 21 Oct 2026 01:38:54 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678f77729sm54778566b.25.2026.10.21.01.38.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 01:38:53 -0700 (PDT)
+Message-ID: <c90eb47d-0eac-46af-9806-8404f5053e38@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 10:38:50 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,61 +115,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/12] drm/msm/a8xx: Allow nonctx reglist to include GMU
+ regs
+To: Rob Clark <robin.clark@oss.qualcomm.com>, dri-devel@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+        Alexander Koskovich <akoskovich@pm.me>,
+        Jie Zhang <jie.zhang@oss.qualcomm.com>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Bhaskar Reddy Valluru <bvalluru@qti.qualcomm.com>,
+        Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20261020204728.28844-1-robin.clark@oss.qualcomm.com>
+ <20261020204728.28844-5-robin.clark@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261020204728.28844-5-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX3U2SRbcpDaS7
+ 040Vls2fb4pJbWkEui+EjGQMEWM0ZQAtnhNswCeZkHiJgDbQl9q3bTy3iriBxhyylCcvlbApw5X
+ A0ZIQ6tkZoUvl7VqnrAnxyWE/R6i/yMCnf/BtFlS6AqiDurXmXH1COD5IEDi6vMNiUeoW6u1jbz
+ rvMTKkrlHLSvoNAAR231Zynmik8FCLw3NhDXroK8J0iBddGAi/7kZAJTT2PUteJvlxYlJ9jd36k
+ dTxBr7Aadm4LwJzfA2tBh+bTX9IAXzqkvAyH+wcjvBeqedqVPlqYq03TRKUyNjzrq46ZWQN0hX0
+ 1j9703F2QSx5GHRsfoGiw7iHhpl5Rr0N88ccDf/WcOln8fiC4MaagJwWKiWNmMIogHV+GkJfrRc
+ KOWscgVHm0QO0PSF6ihKwIyBrgqaZbfEX3WNBkDMLCUNMvRY6YligWC+Fb6F3RL+oFLAd267z1w
+ BJ9NcbEH4riNmN4M1eg==
+X-Proofpoint-GUID: vly-x-3PBpdHNXSn_f9F-44KXz6Owx8z
+X-Proofpoint-ORIG-GUID: vly-x-3PBpdHNXSn_f9F-44KXz6Owx8z
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDAzNCBTYWx0ZWRfX4HOkMlIeO9iT
+ 9oTjA47IcZZ5lVIWb2hbQykx5kN7PxmTBC4kqgWUkQ6xeYtySPETgDKrwbIWYhdEjZWfaxsj4e5
+ jliMJq7jUcM55rgIaxIovsKag7bgROk=
+X-Authority-Analysis: v=2.4 cv=HrTjiETS c=1 sm=1 tr=0 ts=6ad87a1f cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=FxG1VXWaU6FXrht2Wa8A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-21_02,2026-10-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210034
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
+On 10/20/26 10:46 PM, Rob Clark wrote:
+> From hw PoV, it's all part of the GPU.  But from dt perspective it is
+> it's own device with a separate io space.  So we need to detect this and
+> direct writes to the correct place.
+> 
+> Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+> ---
 
-superblock_share together with device= is rejected in
-erofs_fc_fill_super():
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-	if (test_opt(&sbi->opt, SUPERBLOCK_SHARE) &&
-	    sbi->devs->extra_devices)
-		return -EINVAL;
-
-but extra_devices is kept in sbi->devs, not in sbi->opt, and
-erofs_sb_share_test_super() compares only the backing inode, the
-fsoffset and sbi->opt.  So once the image is mounted with
-superblock_share, a second mount with superblock_share,device= matches
-that superblock and get_tree_super() reuses it without calling
-fill_super() at all.
-
-The same command line therefore either fails with -EINVAL or succeeds
-with device= quietly dropped, depending on whether a compatible mount
-already exists.
-
-Refuse to match a context that brought device= options, so that it gets
-a superblock of its own and fill_super() decides as it does today.
-
-Only the incoming context can be tested: a shared superblock may have
-extra_devices set itself, because erofs_scan_devices() fills the device
-table from the image when no device= was given.
-
-Fixes: cd4108319bb3 ("erofs: reuse superblock for file-backed mounts")
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
- fs/erofs/super.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/fs/erofs/super.c b/fs/erofs/super.c
-index 16fa3b853f1b6..bc9ab5a6234a0 100644
---- a/fs/erofs/super.c
-+++ b/fs/erofs/super.c
-@@ -825,6 +825,13 @@ static int erofs_sb_share_test_super(struct super_block *sb,
- 		return 0;
- 	if (!sbi->dif0.file || !new_sbi->dif0.file)
- 		return 0;
-+	/*
-+	 * extra_devices is not part of sbi->opt, so the memcmp below cannot
-+	 * see device= options.  @sb may have extra_devices set from the
-+	 * on-disk device table, so only the incoming context is tested.
-+	 */
-+	if (new_sbi->devs->extra_devices)
-+		return 0;
- 	return file_inode(sbi->dif0.file) == file_inode(new_sbi->dif0.file) &&
- 	       sbi->dif0.fsoff == new_sbi->dif0.fsoff &&
- 	       !memcmp(&sbi->opt, &new_sbi->opt, sizeof(sbi->opt));
-
-base-commit: 1137aa577a35e2684e8046c3e53f920e79c7cc60
--- 
-2.43.0
-
+Konrad
