@@ -1,69 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792591513;
-	b=YZTYK3Omy3Sx8A3yw/KKdTMQhIeLh5/diSmGhGhhnochG7yxOYqLaK5krN31T5ZCYhF0
-	 ncEUkkeepmHmLo4BN82CXlTKzKQc9poASTssOsDP8BiMae/r6nf34H42ehWefI3ANIMfL
-	 YhRBONoZqVnK9qV2KmGwW+Jv0kdF0A00O0ZZCyVOTC+QfYb3RfAuDkhgLia1mMim+scoV
-	 KTcPkmMQ6nzKXh9ibfmiw+qdey6slJZTyzMa6q0dLx5LqfqLUQO2XO+TjQNVQaiwdY/YZ
-	 gLQQIubSQHardrz24Mmo0jHdOBCG2n6iCjVGpKA8fx/cz09cWPEekAHmlNdd+3O+RFQ==
+	t=1792591572;
+	b=IsYPXFiGFpKXny1AWrj8RoiULyTjSqKJos9uLcktNIgfgawWBpL5OkiMmQokxb7hgYAE
+	 ad4b7V4Ft74Am1swM8UGV2Gi7lAzWPLRkT6Ipe0XAA9N9JpEy8glHuhx8KDvFSdbJJt8m
+	 r3WQcl+49UZH0oqVRUEbh27dp59hshONFYu5ipMY9uhYj3kut/TBVQwQGinrZPM9Vxcyd
+	 58cho2WhIua8q+gHnswl0P/uM78SfEWUxpL10OKhzmAAs50vOwvM9tTISCcI6rm1E02U0
+	 +xQs/YjOlC5VPYpUpnT2up27xrbjZMdSbUizCZM8U+SBPYinUpBcTGaPVvvdRap+DAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792591513;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer;
-	bh=FrXrhGc84F0SEW6ngQZtjtWKdGiIcLodKB76mx9Tm3A=;
-	b=rtofw81Zz75CS01Fvdd0gEjU+5HaodscVAPCnRACiGZR9DFIpCu4fB4ZkEaVVBo1T/nB
-	 l/8rJbcVAAD8PptD6Z4Nh1IKa6i3Pj8yTdtQo5so13m3C++HwLHLTIw+KCWMRjXL/6meU
-	 2wVw4gH1+eo+VfJNmUUkwfgVOY27Q210LJ6BmcAXjdc4zybTDMoH/TcpfmUrvnT3Vaf/A
-	 A8DDf4pCwsjQBz4cq1JmxK0wxnE2h7V3rzzuEo58WfD0sUwjafuHrqm9XDZutth6o9TIf
-	 rYxq65p17UqUglmc39ZirT9k0NRu4Tu/sa8whiI4B56Y+jJmprthIh5ZEx+Zi8avCsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792591572;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=UTt+5FuHrUx1tCjYQAe2xq5MHeqwbx0v5ma8SnHJEo4=;
+	b=MuWDJ0nEjXce4oNX4hgz/DkNQsKMlinf1ZCtksCU8vODldPp4zTPvSZe0YHK7Gv2nC+2
+	 FByDln9ehqVCx+FMfgUQ3ns1HWaS4Al/v1yWBSHpkRLGsTH/Rki661abwLh8SBSNGzoBy
+	 cl3Ls+lOwfSqZolTYyYv//G3h4v/YeqGY7mLlyqlrJrZ/Dgr7etso8yTwBbLOnh9fa332
+	 VDXDzFi07RPp83nD7uy+kCc1jlQ+Sln1wm0wfKIxhjLxrbGHQL/9aNEF8exje5hUvS8sb
+	 IHSIpKdAu/M4PJCwg9cq1vft5mNQAFEi7Ta9qkOc+a2l2zGdNK7HdEWizxvTSP3HG4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=LnDF2sZJ;
-	arc=none smtp.remote-ip=68.232.153.233
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=K8jwJSG0;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B21EE606A321;
-	Wed, 21 Oct 2026 14:05:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B21EE606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE79D606A319;
+	Wed, 21 Oct 2026 14:06:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE79D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=LnDF2sZJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1792591518; x=1824127518;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=yW1XgpoWielDMW3UIfBB+wESIDB5LYWkKc7wBm5oMgY=;
-  b=LnDF2sZJFDEQqQPIkMpFyGxjstKmffU5nqrJzNStEzSdJQCEaJ3JJUaU
-   I10Dr1kQbfcARXpiNGntNRsWrSjbkhmO/NJ72DXojw6aO1ePl5gHTpT+H
-   Jq/6DXURLG1qKjlzov8UnZ6OBkA8xNYcjwB1DIALwzV/JaM1SJam7VXai
-   N+odYh0aa7fA8+iGPjrCM3GYbxuqCjnlRt0i5GFnAlOzOu2O88xVGB6oU
-   kYAOFhxXtkGQNMR5hkZpQxVG1pk+rE5yDapYPaUzh06g3CGANHcrHWZGU
-   Nal5xirHZqqwReo6VO/2ihLeon+XRBXldgun2qMNKeQpMSpZaHlv4NvAS
-   A==;
-X-CSE-ConnectionGUID: u22Z2VIBR/KVsPTy3Nax2Q==
-X-CSE-MsgGUID: oZgFHj/kSEKlmX0aTh2m5A==
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="75812527"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 21 Oct 2026 07:05:17 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.85.143) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 21 Oct 2026 07:05:11 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 21 Oct 2026 07:05:09 -0700
-From: Daniel Machon <daniel.machon@microchip.com>
-Date: Wed, 21 Oct 2026 16:04:59 +0200
-Subject: [PATCH net v2] net: sparx5: fix tx DCB index drift in fdma xmit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=K8jwJSG0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
+	Message-Id:To; bh=UTt+5FuHrUx1tCjYQAe2xq5MHeqwbx0v5ma8SnHJEo4=;
+	b=K8jwJSG0UuH0ErGa/Otekj2N5olAKTa0KMBJj+Pv3m9rBC6ED4uedBoFr9mH7u
+	66EOkAJj3B0I2b12mXeILZ3KTFFWVmA3O48Cj27uawu/GATG56+vm0QfrzbM2MLo
+	eyBdRElCmFp4m69IE0YmYwQeaTaz3rMp7eLjZWMZsZt+w=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDnD6anxthqXSXxBg--.24760S3;
+	Wed, 21 Oct 2026 22:05:31 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Date: Wed, 21 Oct 2026 22:05:21 +0800
+Subject: [PATCH v9 1/2] dt-bindings: arm: rockchip: Add ALIENTEK
+ QuarkPi-CA2
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,85 +58,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261021-sparx5-fdma-last-dcb-v2-1-7b8fabdb9239@microchip.com>
-X-B4-Tracking: v=1; b=H4sIAIrG2GoC/22NwQqDMBBEf0X23C1uqKnpyf8oHmKy1oVqJBGxi
- P/eYK89vhnmzQ6Jo3CCR7FD5FWShCmDuhTgBju9GMVnBlUqTSUZTLONW4W9Hy2+bVrQuw5ZcX0
- z1N19rSFP58i9bKf2CRMv0OZwkLSE+DmvVjqrn1WV/60rIWHfGWsqTUZ734ziYnCDzFcXRmiP4
- /gCgxSEp8EAAAA=
-X-Change-ID: 20261019-sparx5-fdma-last-dcb-e2e8491b7d86
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
-	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
-	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	=?utf-8?q?Jens_Emil_Schulz_=C3=98stergaard?=
-	<jensemil.schulzostergaard@microchip.com>, Horatiu Vultur
-	<horatiu.vultur@microchip.com>
-CC: <netdev@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>
-X-Mailer: b4 0.14.3
+Message-Id: <20261021-quarkpi-ca2-v9-1-b75006b22bc5@163.com>
+References: <20261021-quarkpi-ca2-v9-0-b75006b22bc5@163.com>
+In-Reply-To: <20261021-quarkpi-ca2-v9-0-b75006b22bc5@163.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wDnD6anxthqXSXxBg--.24760S3
+X-Coremail-Antispam: 1Uf129KBjvdXoWrKrW7Wr18Ar17Jw13WFy3urg_yoWDGrgEka
+	4xZF15WFyrJFyFgws8Aa1xGFyjqw47Krs7AF1UAF1UA34qyrs3KFZ5t343Aa4xCr43urn3
+	CFn5JryxXFnxGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sR_rb1UUUUUU==
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+QytG2rYxqxboAAA3g
 
-sparx5_fdma_xmit() advances dcb_index before checking that the FDMA is
-done with the DCB, and does not undo the advance when the check fails.
-Before commit f4aa7e361ae2 ("net: sparx5: use FDMA library for adding
-DCB's in the tx path") the next DCB was always the one after last_dcb.
-Since then dcb_index drifts one DCB further away from last_dcb on every
-failed transmit.
+Document the ALIENTEK QuarkPi-CA2, an RK3588S based single board
+computer.
 
-While the ring is full, this drops frames even though completed DCBs
-sit behind dcb_index. After a run of failures, dcb_index can also land
-on last_dcb itself. Re-adding last_dcb loses the frame, because the
-FDMA has already passed the tail of the chain, and that DCB is never
-completed again.
-
-Fix this by making dcb_index the next DCB to use, and advancing it only
-after the DCB has been added, as the rx path does. dcb_index and
-last_dcb now only move together, so dcb_index always points at the DCB
-after last_dcb.
-
-The issue was found by an AI code review agent. It was reproduced on a
-sparx5 PCB135 board with a modified kernel that forces 63 consecutive
-transmit failures. Afterwards, about 1 in 64 frames is lost for good.
-With the fix, the same test loses no frames.
-
-Fixes: f4aa7e361ae2 ("net: sparx5: use FDMA library for adding DCB's in the tx path")
-Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
+Assisted-by: Hermes:deepseek-v4-flash
+Signed-off-by: Bob Hui <bg9oxa@163.com>
 ---
-Changes in v2:
-- Advance dcb_index only after the DCB has been added, instead of
-  rejecting last_dcb. This fixes the drift itself (AI review).
-- Reword the subject and commit message to match.
-- Link to v1: https://lore.kernel.org/r/20261020-sparx5-fdma-last-dcb-v1-1-fb9a956196dd@microchip.com
----
- drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-index dbe86f937b21..15ec9b053824 100644
---- a/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-+++ b/drivers/net/ethernet/microchip/sparx5/sparx5_fdma.c
-@@ -217,7 +217,6 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
- 	struct fdma *fdma = &tx->fdma;
- 	void *virt_addr;
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a799bb843f74..a3191bb909b2 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -182,6 +182,11 @@ properties:
+           - const: alientek,clrv1126f
+           - const: rockchip,rv1126
  
--	fdma_dcb_advance(fdma);
- 	if (!fdma_db_is_done(fdma_db_get(fdma, fdma->dcb_index, 0)))
- 		return -EINVAL;
- 
-@@ -235,6 +234,8 @@ int sparx5_fdma_xmit(struct sparx5 *sparx5, u32 *ifh, struct sk_buff *skb,
- 		     FDMA_DCB_STATUS_BLOCKO(0) |
- 		     FDMA_DCB_STATUS_BLOCKL(skb->len + IFH_LEN * 4 + 4));
- 
-+	fdma_dcb_advance(fdma);
++      - description: Alientek QuarkPi-CA2 board
++        items:
++          - const: alientek,quarkpi-ca2
++          - const: rockchip,rk3588s
 +
- 	sparx5_fdma_reload(sparx5, fdma);
- 
- 	return NETDEV_TX_OK;
+       - description: Edgeble Neural Compute Module 2(Neu2) SoM based boards
+         items:
+           - const: edgeble,neural-compute-module-2-io   # Edgeble Neural Compute Module 2 IO Board
 
----
-base-commit: 07bd391eb9572e74f073c49acef327611234f9bb
-change-id: 20261019-sparx5-fdma-last-dcb-e2e8491b7d86
-
-Best regards,
 -- 
-Daniel Machon <daniel.machon@microchip.com>
+2.34.1
 
