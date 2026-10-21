@@ -1,69 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792585821;
-	b=y601hawhtPsxM9zNuD+A5L/K5cgnZ5abxPwDSZ6kIqiasats5OFHeG4zbsYslP2sXiHW
-	 mx5V1hsYGLK04MG1WCiHEzBZZvKaEoh/ozX361keBApDtnOHDpCNNnww5S19dUpZ/LnkV
-	 3zcfoTOJA4dAJZTD+SVCypctTzxjRoXCOT96Sfc3o+86KcM8ltQWOg4aEiJ50OhHwZ+nc
-	 fby75CWK4j67Et3Ade00fIZ53/LvYS020aBZtjzw/XHKEVsk1x74OnC/OrAyHEKv+vQBG
-	 48itz6dONZD6FsUebTDaPGl/fmn6Ff73Hqr+KU3b+my1P4BDd3AkB7GlTD83jactsKA==
+	t=1792585901;
+	b=EpufamDVDhsadIO+1ywMO64Gp5JJC1waFInT2TLrZianfzKNyTX0Luin96l2+qp016My
+	 8FbPyly0/pfMS7R1mRMNyCC6sZ3LUtss6j2AzZtRgKzuPvmxS5cyS8ASHWYDZvjZhf3bU
+	 AzHV8oIS2ruzO/q2egLnOnifXhDvEZNLG5zwRNp6VN8jMm0XzuefKEweTmnk5vhG2G2Vq
+	 Cnq0xAlng9bt+NjYaujyKteNBGuLSiBoJWC9poeoKkxb41rGicUbO10MMp8emhgjL/eQt
+	 EPtjdhtMlUssvfvBftggJ4YznXaIRYeE4JudOVs+8Yc0quh8W3yBT/bZo6ZrD5G00RA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792585821;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=aOb1JUFJeX8/Ty37TWLdjDq3uADcY0jWX+HnhA6S0I4=;
-	b=Mt1tYIO6F2kTrXHS0UORucq5z+1iQk633RDPKC4pDzYZerSJCa7B71hnU8IB2oo9zNWz
-	 LdGc8DgMJ31EkRUED0JhLJfiYku019h+GBNlWRHOBHhhWDIyQ9X3uxHocwl/nPrRfIL5R
-	 YdrLGScZhxy2DXMbc9VTHXwsrz3TqT15GC1ufw19bOemkROWdCQOHxzMdv4WupqyFcbyz
-	 jaL/LA+ARienKmDhb1NPqpgtzFgV7sxKdlyEJgyNZCUx0xtkHthSPYUPsrmQrO/5xEykW
-	 +cHSABdTPSJ4xbFAUnVgTyqI39T7j9bOB2XHxH7qVgmiMaPsOjYri2fNCYj5gRil9Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792585901;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Qd4BaSzD1LGTx2Y2uGB3Eo4kEo7F1O6DGIb4zjdHo44=;
+	b=pqHkFfCi9EjEPm1bYhfSvj/kR5S48FNx7brlaZX2S+FtC+WBvLXICA2SFg8vTPu2zmmp
+	 8/rgNrmrhFxEZGkiHK1DqNk96+YDZX6OW0NJvSWjmhgF/m2fioK4BUbv3bQ+Z9arbIDF3
+	 xUPlRTFLqUv/zB+2QhHrty3WPO0B8Efn0yQSO4o/ZUOIzV9hXIKrn5ZC0ya9kyicW5vGE
+	 WRRlNC85o/dZ3DyGYX7nmkmbixKVXAu2rIanlSWp085DUGeiBiiUKip35XjecmSpj4wAs
+	 jqEeh7S5RpPN7R/NGakhU0F8COeE+R6SvNj/PxAC1GuxM/nbL9xHV9Aq1/RjdpD32Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mijJOCOH;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9O5oFVTB;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LLGp4/+8";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B866D606A324;
-	Wed, 21 Oct 2026 12:30:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B866D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB26606A319;
+	Wed, 21 Oct 2026 12:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=mijJOCOH;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=9O5oFVTB
-Date: Wed, 21 Oct 2026 14:30:18 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1792585818;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aOb1JUFJeX8/Ty37TWLdjDq3uADcY0jWX+HnhA6S0I4=;
-	b=mijJOCOHbtrXaTWwx+tEj5q5uYokpyqlI3Gw+9ZB6lBO9QsO7K4scpJnPKOJaoZTl9yMlG
-	VmJjXRM0VzMJB+2VlAL8IWNwH/4jAax0cawPamDDI84J7Qip1u/EF1f23QV6Em81rOVV76
-	td852EiW1hWjDEFGY26rp41G5QrC5kIbBcrQ0BrztUAw9Dgz8eV7kB3KhT5biKKfLu78XV
-	TbH2OG0sWM+B7bcXoBgpSEtQC0yo5N+wuS2PJOwIQcV83gMpXwQED9jaSz6aaQeK1ncdCv
-	TN3SRKtlNlElebmfuW+DEOz7T17XvE+WF9Oz5pzjl8RnfyMjc6ByxAf/bM0XaQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1792585818;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aOb1JUFJeX8/Ty37TWLdjDq3uADcY0jWX+HnhA6S0I4=;
-	b=9O5oFVTBHnT4VQouTS1SQCJ9kNcXCwzboZSDnbeN0G9ZGOs8LZ3l48rsg7biG/0AmzQIig
-	/CXOj7WMnUWJ1zAg==
-From: Thomas =?utf-8?Q?Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: virtuser: constify struct configfs_attribute
-Message-ID: <20261021142956-225001d4-e081-4e06-9c9b-9916d146a104@linutronix.de>
-References: <20261021-gpio-virtuser-const-configfs-attrs-v1-1-bca474c9cd12@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLGp4/+8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD001F000C4;
+	Wed, 21 Oct 2026 12:31:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792585901;
+	bh=Qd4BaSzD1LGTx2Y2uGB3Eo4kEo7F1O6DGIb4zjdHo44=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LLGp4/+8kHfG3XaY9MW48NgLFV00TpK3bldoGF2u2IsEIe01KBpuQWuKk7hhMBjPQ
+	 JKhplgPH506WX1RmYtr3rcCl5N1uZ3qTepV2ikpQMkVY9e3Rsunc0Eq+MV8UYICgn2
+	 DHLP8HxsWjiTqDwOpxdHXt/gUcT33tnpkmWF+YtKYxsdJKFQq7GCA3942trBjm19N8
+	 /taG2iuEYzP4vgcD+YuryfApu1ijzfHoWtl8LIF55gFLsjNC10D0UMsrFWJD9psn61
+	 n+W38tnK2hhNLZ/93IcvdfnskEbM2fDBJ7wzh1SGJTF7dvupS3I395I70Ei5C3wXO2
+	 aAGqtsDFdVveQ==
+Date: Wed, 21 Oct 2026 13:31:32 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, shakeel.butt@linux.dev, 
+	baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
+	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, hannes@cmpxchg.org, 
+	david@kernel.org, mhocko@kernel.org, dave@stgolabs.net, roman.gushchin@linux.dev, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/vmscan: reclaim every zone in per-node proactive
+ reclaim
+Message-ID: <atiwhEIudhnK0pmQ@gremlin>
+References: <20261019185002.3428594-1-gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,22 +61,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261021-gpio-virtuser-const-configfs-attrs-v1-1-bca474c9cd12@oss.qualcomm.com>
+In-Reply-To: <20261019185002.3428594-1-gourry@gourry.net>
 
-On Wed, Oct 21, 2026 at 02:24:29PM +0200, Bartosz Golaszewski wrote:
-> In preparation for the constification of configfs attributes, make the
-> existing instances of struct configfs_attribute in gpio-virtuser const
-> and use the new st_attrs_const field of struct config_item_type.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Mon, Oct 19, 2026 at 02:50:02PM -0400, Gregory Price (Meta) wrote:
+> user_proactive_reclaim() limits per-node reclaim to
+> gfp_zone(GFP_KERNEL), which is ZONE_NORMAL. Proactive reclaim serves no
+> allocation, but that limit makes shrink_node() skip every ZONE_MOVABLE
+> folio, so writing to /sys/devices/system/node/nodeN/reclaim never
+> reclaims a node's movable memory. A movable-only node, such as dax/kmem
+> or hotplugged memory onlined movable, reclaims nothing and fails with
+> -EAGAIN.
+>
+> To reproduce, fill a movable-only node with clean page cache and write
+> 200M to its nodeN/reclaim: the write fails with -EAGAIN and the page
+> cache stays. The same write to a ZONE_NORMAL node frees 200MB.
+>
+> Scan every zone, as memory.reclaim does.
+>
+> Fixes: b980077899ea4 ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Reviewed-by: Thomas Weiﬂschuh <thomas.weissschuh@linutronix.de>
+Seems sensible to me, and since it's become the review of the ages (TM) let's
+try and get some kind of tag record here :P
+
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
 > ---
->  drivers/gpio/gpio-virtuser.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
+>  mm/vmscan.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index e82ba737c028d..90f7a7bf4e426 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -8180,7 +8180,7 @@ int user_proactive_reclaim(char *buf,
+>  		} else {
+>  			struct scan_control sc = {
+>  				.gfp_mask = current_gfp_context(gfp_mask),
+> -				.reclaim_idx = gfp_zone(gfp_mask),
+> +				.reclaim_idx = MAX_NR_ZONES - 1,
+>  				.proactive_swappiness = swappiness == -1 ? NULL : &swappiness,
+>  				.priority = DEF_PRIORITY,
+>  				.may_writepage = 1,
+> --
+> 2.53.0-Meta
+>
 
-(...)
+--
+Cheers, Lorenzo
