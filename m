@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792625625;
-	b=ie26tEi3638ngcl/Nr5uZueFII1A+rScqDN7jC4lUFJBiEdalInsHn68Js057WOnXxSt
-	 OxbuhicL/oCTxejMcFZNDgIXnfvkoxU3e4w9uoz9TckiiPqor84SZa1psg3WKOdQmBI9f
-	 U3yplQXDV15WSDrW+6yOfdh7F8yj+oCXeYHtFiAh1jIm714jELx+yXO/oJxz0wXaxz2De
-	 RcUH9oPBsVcISuuTateIrpBVTTWI+Yydyq7bSl0aBqPXKoo8s2iNTSplgpgCZI9oi930f
-	 2fPoMbThjjgrd1KgtstqFQTPsgeOVlSwIritBwiQ2cIn54EJIoUH0ieaCERejiG0+eA==
+	t=1792625695;
+	b=GBP7Y252mUoraV6xGe4Hc3QwcIJibt5G8+gSjG1b3jGKKp/fNtmd28sFeiEhQI8Bkzev
+	 zvMkj0Ij3MAHN2CiPnhAKRaKDQ2XlgxQq+CVvEotPCXjVWV9PI9E0eAMSuEL/WrwnqFrn
+	 tHoIitci3QGZtGB0+yptana6F56UPxeGlAlr4nN9ohHqCXFVjoV4l87n5u+WvNzu+Yvb9
+	 uGIILPsp68hekWPtRYeMSz6riLXIVRowjMABNA3F7+VW1DE58ZMAHot5RWoV9k1QD3nl0
+	 XTFcf9jWWh8NpMdvi38nslYiJjCUKtyOV1wd8FIwKnfBnZ8Sd90U8uPf42qbBk/Sj6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792625625;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=TfJDjIuUl4aJETYDbJIgG7qSKIZz1GaGZ/99HJHyisc=;
-	b=CsNzPRhOLjne6XaNr++sqOZ7sZEqJR9b58TnJXRI2lbQ/KMC3lqFqOl3aOjhwJKVMA/3
-	 FwycFZE/WL4qC4j7NQ1f0ILKK0gIYLKiAkvMLoeEIoBdJquVsgfb+gvR6G7H2zOv32Rdu
-	 6qJiqlHspRYDopRF2HdzjFn/rAcqL6q77CDX1PeCJMyNJtu0f9Y4mf1fdCoRABBNECMTj
-	 M22kefNaqQTmwySXLnAiNyMEGQtpGF/zveyDmCAePlkfLLVlKAqCUKuCUKiK+jFeMKfQa
-	 m4hvPqQ3YKXSSzpOoMI8buWxXngTu6EJD5iphjIY01HHYCU/otb2w0004bnSw4bsRZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792625695;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=s5GCFuOcmjehv03gf2ljnWIxHgzVxKtBI4zuJ/1eB5M=;
+	b=HO/n6cs0iqdA4AUmjkpNqu6kKIACdNsuFrb7DB3gzJxdcgcH5NJfJFMSRSHaG3Ur4KQP
+	 wnQAU1mlaxZyRQmP+vafs7NYkE09/dsPfUvF9mfu2pdjNXibky20o1Gf6+npEd7u2yidd
+	 Sv0PfpGVYOLDh9umXP9MZVbWvcNqpqYLmbS1uoRJf/Q8MpRvP1eKF5v6z1agpO7hEkPAj
+	 ADAbUqALVG+3jKcvhNTqmJpv3pS9xYTMwjLs8BTcNJXKaO2AxKSQufDCADoFIvFQVITWc
+	 rBjk+ONhkZSZ6npzBZmG7LEChy+Y+zQHJjd6U61ox6xln4ta42JEpwH/HDOjd/7kHIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="vLHDv/Dp";
-	arc=none smtp.remote-ip=95.215.58.125
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7QSiiX5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF2F606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:33:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAF2F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80940606A31A;
+	Wed, 21 Oct 2026 23:34:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vLHDv/Dp
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=331uUGN146HsRaO79pxY8Tvt1YQauDOWvdtP61Fu73M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792625621; v=1; x=1793230421;
- b=vLHDv/DpLOOiWnSIvOWDvFx2bhBUfIw/X/8/TXXh0vpXBEv1r8FpM+3rywjqcdCDHN/SC6Oy
- BqWMw32S7VIZhirP5V3TFwdc+asJ/90Zz+c20ZLqbxT9nxetF3qev5Fkej8qyMZRKxjHgbFTq2F
- ri4cIJbQoXLnrTtNj1zsf33M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 139855eab81ec8b4;
-	Wed, 21 Oct 2026 23:33:41 +0000
-X-Mizu-Trace-ID: 139855eab81ec8b4
-X-Migadu-Flow: FLOW_OUT
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: Adrian Hunter <adrian.hunter@intel.com>,
-	Ulf Hansson <ulfh@kernel.org>
-Cc: linux-mmc@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7QSiiX5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E49211F000C1;
+	Wed, 21 Oct 2026 23:34:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792625695;
+	bh=s5GCFuOcmjehv03gf2ljnWIxHgzVxKtBI4zuJ/1eB5M=;
+	h=From:To:Cc:Subject:Date;
+	b=g7QSiiX5u84k62YLZ3c1x3+ueZUgWrw+FaS8iLWpFy0ypur0rpeshW6hISOU3LpYX
+	 q3LMdDTnMxORG/nxYgtnD0CXjNK8MnxAqtqbWxg2MKfUZuBonSM6Qr4rQFgK80bn3W
+	 ZXOfZwioE33FPbSA7dgVdF4F/+gOyhGEXfpso+uOr/gnugw3cI15IifZZ6Xa0rI84d
+	 Z8/oljAK0C56CAxKlujvNRho9+H+tS3+1hH9PqcAKAl4t0ex3rl2ORUxbxj+EdygHm
+	 g12QQU5IEvMSlmKsEbOwIj5paUUVN/lUxzNfgfeoO+vCq9caYtyD8jyXZwdrmX0MCd
+	 vCT6K/814OCtQ==
+From: Imre Kaloz <kaloz@kernel.org>
+To: "David S. Miller" <davem@davemloft.net>,
+	Andreas Larsson <andreas@gaisler.com>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	"Mike Rapoport (IBM)" <rppt@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Victor Shih <victor.shih@genesyslogic.com.tw>,
-	Lucas Lai <lucas.lai@genesyslogic.com.tw>,
-	Ben Chuang <ben.chuang@genesyslogic.com.tw>,
-	Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH] mmc: sdhci-pci-gli: GL9767: Wait for UHS-II PHY before LPM
-Date: Wed, 21 Oct 2026 16:33:13 -0700
-Message-ID: <20261021233313.247155-1-matthew.schwartz@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	linux-mm@kvack.org
+Subject: [PATCH v3 0/4] sparc64: D-cache alias flushing fixes
+Date: Thu, 22 Oct 2026 01:33:36 +0200
+Message-ID: <cover.1792609488.git.kaloz@kernel.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,83 +63,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sdhci_gl9767_set_clock() re-enables low power negotiation right after
-releasing the UHS-II PHY reset. If the bus then goes idle before the
-PHY has settled, every SDHCI MMIO read returns all-ones for about 250
-us. sdhci_uhs2_interface_detect() takes that as IF_DETECT and LANE_SYNC
-set, so a UHS-I only microSD card is treated as UHS-II. The attach then
-either fails with "SDHCI_UHS2_CAPS_PTR(65535) is wrong" or, if the
-registers come back before the CAPS_PTR read, runs DEVICE_INIT 30 times
-with a 10 second timeout each and delays card detection by 5 minutes.
+These fix D-cache alias flushing on sparc64 CPUs with a virtually
+indexed L1 D-cache (Spitfire and Cheetah).
 
-Config register 0x8CC reads 0x2000 from clock enable until about 250-300
-us after the PHY reset release and 0x1000 otherwise. Poll its bit 13
-before re-enabling low power negotiation. The register meaning is
-inferred from that behaviour, and with the wait in place 12 of 12
-UHS-II probes of a UHS-I card correctly found no UHS-II interface.
+1/4 makes xcall_deliver() bail out before it touches the trap block
+when there is no other CPU to call, so an early cross call, before
+init_IRQ() sets up the mondo blocks, can't end up writing to physical
+address 0.
 
-Fixes: 27dd3b82557a ("mmc: sdhci-pci-gli: enable UHS-II mode for GL9767")
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
----
- drivers/mmc/host/sdhci-pci-gli.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+2/4 flushes only the page a PTE maps instead of its whole folio, which
+removes about a million redundant page flushes from a colour-changing
+mremap() of a large folio (7.3 s on a Sun Fire V240).
 
-diff --git a/drivers/mmc/host/sdhci-pci-gli.c b/drivers/mmc/host/sdhci-pci-gli.c
-index b55618566d651..bd383918d27c7 100644
---- a/drivers/mmc/host/sdhci-pci-gli.c
-+++ b/drivers/mmc/host/sdhci-pci-gli.c
-@@ -205,6 +205,9 @@
- #define   PCIE_GLI_9767_COMBO_MUX_CTL_RST_EN		  BIT(6)
- #define   PCIE_GLI_9767_COMBO_MUX_CTL_WAIT_PERST_EN	  BIT(10)
- 
-+#define PCIE_GLI_9767_PHY_STS			0x8CC
-+#define   PCIE_GLI_9767_PHY_STS_UHS2_BUSY	  BIT(13)
-+
- #define PCIE_GLI_9767_PWR_MACRO_CTL					0x8D0
- #define   PCIE_GLI_9767_PWR_MACRO_CTL_LOW_VOLTAGE			  GENMASK(3, 0)
- #define   PCIE_GLI_9767_PWR_MACRO_CTL_LD0_LOW_OUTPUT_VOLTAGE		  GENMASK(15, 12)
-@@ -1190,6 +1193,27 @@ static void gl9767_set_low_power_negotiation(struct pci_dev *pdev, bool enable)
- 	gl9767_vhs_read(pdev);
- }
- 
-+static u32 gl9767_read_phy_sts(struct pci_dev *pdev)
-+{
-+	u32 value;
-+
-+	pci_read_config_dword(pdev, PCIE_GLI_9767_PHY_STS, &value);
-+
-+	return value;
-+}
-+
-+static void sdhci_gl9767_uhs2_wait_phy_ready(struct sdhci_host *host)
-+{
-+	struct sdhci_pci_slot *slot = sdhci_priv(host);
-+	struct pci_dev *pdev = slot->chip->pdev;
-+	u32 value;
-+
-+	if (read_poll_timeout_atomic(gl9767_read_phy_sts, value,
-+				     !(value & PCIE_GLI_9767_PHY_STS_UHS2_BUSY),
-+				     10, 10000, false, pdev))
-+		pr_warn("%s: UHS-II PHY not ready after reset.\n", mmc_hostname(host->mmc));
-+}
-+
- static void sdhci_gl9767_uhs2_phy_reset(struct sdhci_host *host, bool assert)
- {
- 	struct sdhci_pci_slot *slot = sdhci_priv(host);
-@@ -1276,9 +1300,12 @@ static void sdhci_gl9767_set_clock(struct sdhci_host *host, unsigned int clock)
- 
- 	sdhci_enable_clk(host, clk);
- 
--	if (mmc_card_uhs2(host->mmc))
-+	if (mmc_card_uhs2(host->mmc)) {
- 		/* De-assert reset */
- 		sdhci_gl9767_uhs2_phy_reset(host, false);
-+		/* Low power negotiation before the PHY settles makes MMIO read all-ones */
-+		sdhci_gl9767_uhs2_wait_phy_ready(host);
-+	}
- 
- 	gl9767_set_low_power_negotiation(pdev, true);
- }
+3/4 implements flush_cache_vmap() and flush_cache_vunmap(), which have
+been no-ops. Stale vmalloc lines corrupt BPF programs and module data
+on UltraSPARC III.
+
+4/4 passes the number of PTEs to move_pte(), as Andreas suggested. It
+touches mm/mremap.c and include/linux/pgtable.h, so it needs an ack
+from the mm folks.
+
+1-3 don't depend on 4 and can go in on their own. 2 and 3 are for
+stable (3 needs 2), 1 and 4 aren't. The series is on top of the sparc
+for-next branch.
+
+Changes in v3:
+- new 1/4 and 4/4, following Andreas' review
+- 2/4: reworded the message and the move_pte() comment, marked the
+  UP #endif
+- 3/4: reworded the message, dropped the Suggested-by (I have no
+  email address for nsafran1217, the Link credits them), noted the
+  stable dependency on 2/4
+- picked up Stian's and Adrian's Tested-by tags
+
+v2: https://lore.kernel.org/r/20260928132102.1707-1-kaloz@kernel.org
+
+Imre Kaloz (4):
+  sparc64: skip the trap block in xcall_deliver() when there is no
+    target
+  sparc64: flush only the aliased page, not its whole folio
+  sparc64: flush vmalloc ranges from the D-cache on map and unmap
+  mm: pass the number of PTEs to move_pte()
+
+ arch/sparc/include/asm/cacheflush_64.h |  9 ++--
+ arch/sparc/include/asm/pgtable_64.h    | 14 ++++--
+ arch/sparc/kernel/smp_64.c             | 51 +++++++++++++++-----
+ arch/sparc/mm/init_64.c                | 65 ++++++++++++++++++++++++++
+ arch/sparc/mm/tlb.c                    |  2 +-
+ arch/sparc/mm/ultra.S                  | 25 ++++++++++
+ include/linux/pgtable.h                |  2 +-
+ mm/mremap.c                            |  2 +-
+ 8 files changed, 148 insertions(+), 22 deletions(-)
+
+
+base-commit: 2bc58762a3d74e42de129d717ae3ba10ecf0ab96
 -- 
-2.56.0
+2.47.3
 
