@@ -1,122 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792551050;
-	b=t5Af4cKrRx1h8VVLLwM5SkP2WrJjYPFL4oU0XNvTsEBB6CvoPaMWflYiGIyvTmFIgUqw
-	 lyX/TnGFC8M+EvaxF+XNcsC3afV6vEQYl/mpiSYjKv85oQvgWE4sW3o0uX6DNT/1uyp4v
-	 jBd/Scbz1nbFNFTW66lX//Q1pYfDfLI8rfEv8if2KcHZUxJVJ7XY1Wo4os6ISYGsiktI2
-	 /Yxiq5RfPuEAhPFeJsAx04GIXQekPbNpnSxl/mnYqtA4B5TG28O5JcVFD6bO81TLiT8Oi
-	 6uyKCj4Fz7x6yPMLkVSmDrU1iKWQ1PS1kqDscDmHOItdDABV1rOSKBJxg0eOpN4TGnQ==
+	t=1792551056;
+	b=eG8zcy1IVkyncxbK6c4qrmuWLT5a4BvHWPJaGrSz3KUOlq8V9Z/7lsWqy3X1bAhVeKNV
+	 YT4n94WwkZpFRMv0ezi9aNfsQeP6pEntGpPyjX2SfKNwd9wU24QpEoRB9LW/C2HpFZI4/
+	 qThKyUlnD0omtvOSIY9TBq4+AB8404RK2Gz4h64CGLWg5LVTgkORntxMX1zEE/6lYlKTX
+	 nf3N7AZfWIvWO+Yc4QyFi/h/ZXdBA6SM08pabcFQR/U+TML+nTTR3TQGqbjvwp6MX2HOp
+	 MW8NVKC77dY790fIkBSm1ClGch6U7Qi63y0jvNMQV9Hi65mygKJVaaBRSs84YG1sT+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792551050;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=/BDUCV75ecZnIf7L+uEa+NmPiDbUKsl6LVs/lrdqGok=;
-	b=EDml6NfXgFLGdHQ7Mdrtptmu6Q3p3hnSpBdz+/uCUcz8nV/VpHfUcPLbiqb8CwFZXN1/
-	 0uc9wcCLhNVKdoX6kpOjekYlRUcM3LdvM/6ZDvssCR56+hxC8X1k98cdQLiLkPQASGETR
-	 rSaFyPsTbOctjl9pmsnuuHxFl5xNGOI6M6g6i+OPb27NzJPC4E/Z+vnNa9AtrdCNT7tLy
-	 bFU4a9eBns+f6XTWiCTgEhxEM1M6v8mlVyjbidntbAw8A8dyfINyF3cUqxhvd5tw4AWes
-	 6Qi55rw1V72j/oYXazyD1P7ykE6+sRnk7Lddl5Uvjif16Bcu6WBV9bzgEnUmVTmGP0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792551056;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=wZoEfE7hyPINcO4oEzH6Xm/UEuOnJmf4WzCd35Q4EqI=;
+	b=o/XOnwZg/emcHidwlZ36Xt7c7kBtBSWaYASh+HgV5s9zXrVjgBPVhoe3NglCD6R4oPnr
+	 0I22Twa3l7k/ctTJHzFknIFvrSzYsRdNXK0pjDNT92gT9SkDLjqsnW9rQHGQXPVTZwZTj
+	 G7D3+3Kcjf7zL7SmghQRFkVdznd5O/PT4cQ8s2PKpBgp1A43b5h4l6Q6STTmAr/1WMx9k
+	 0VunrrjgTbGRSvTTCyPpi2j56iJvqzV6+BLgBKVzBN27C752hRg+gi6F92LzkBzY3Idsn
+	 NLg5vQ8BCAhBO2oNcgdmaXLx9hr2IGujDe/GKhuUcMQLrvCl05nVbhhy3d8PBw20xzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=benboeckel.net;
-	spf=pass smtp.mailfrom=benboeckel.net;
-	dkim=pass header.d=benboeckel.net header.i=@benboeckel.net header.a=rsa-sha256 header.s=fm1 header.b=Xy3RkWb+;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Uz2Yaavz;
-	arc=none smtp.remote-ip=202.12.124.148
-Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hHjYrzFv;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95719606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:50:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95719606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=benboeckel.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=benboeckel.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1397D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:50:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1397D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=benboeckel.net header.i=@benboeckel.net header.a=rsa-sha256 header.s=fm1 header.b=Xy3RkWb+;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Uz2Yaavz
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfout.stl.internal (Postfix) with ESMTP id 1E67A1D000F8
-	for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 22:50:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-09.internal (MEProxy); Tue, 20 Oct 2026 22:50:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=benboeckel.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:reply-to:subject:subject:to:to; s=fm1; t=1792551047;
-	 x=1792637447; bh=/BDUCV75ecZnIf7L+uEa+NmPiDbUKsl6LVs/lrdqGok=; b=
-	Xy3RkWb+6LhY/fN6uWisXpOCPY5PMwCaPUAkEIS9JZPyJtSgvLgVDuCJduJR+P+R
-	cZ2khCV88BgECOieOFbX7KWAxk3DtGwij6t8/1dPpPc0b/R9fokNNS9aCU1Ns7tw
-	K9mb7wYSdJL5ucsGC2JrwIy4G1UUWnQ/b921MBlBNA7sQyJJLKo5481E2KOBZ0Zf
-	1RLZLHNCMeoleSd0MYonVJCRtFXxnGwPNsCQy5nREIer9+FYJGF6HSD1Az5iYHFf
-	0qAiNXDyFLKZV1LBCeXP9XiG6z52M2CbUKV8rpAtQkaQChz1ULKJqJV0MW/+6YJk
-	TjsPnPpdZr+2ngk10RibEw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792551047; x=1792637447; bh=/BDUCV75ecZnIf7L+uEa+NmPiDbU
-	Ksl6LVs/lrdqGok=; b=Uz2YaavzGyxINWUTzPg1waBjqcfzkoKdv8vqMc6PIDFm
-	bPYSk7GpZ8Jb4y9MyxQ4qk05szyy5MvkSzktig6AhZAe+OTLbZEg3Ntp3/gE7NyP
-	v+g0T55mFvQR95LiET1jwksiKEKgqeGywieHIKvmBKMtDBHkj5Dk5BWvSum4ogQI
-	vERsufnsqDL+etKN49i5d5wqqdXLBvr75dhzM12cKy3o9iVeBZG91x2ncDSKpda/
-	M+Ddq+KWrJP3CcRg5FUNgo6LyIOuLWd2J2n65MYFrIMYSTOGuL3nEf8PESUxOJUt
-	HKHBd+bVlNYOk+xXpyWVP7DWU7c4hakhAk/yLQMWRA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=benboeckel.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792551047; d=benboeckel.net;
-	mf=PG1lQGJlbmJvZWNrZWwubmV0Pg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:AvVJ0M3QvPtCfxFJDuh5WpHMG4yINI/DKdDAsij6s3vpj2u
-	RlRgYOcQ3YbCop+uAIZQzmDTZfFnpA5AMmk47lpYNAHwj/4HOgvTIkmdulf/ytFB
-	TLoTXgYIWz7I7Ie+E5cUnaUlE/Tr8XrFGg0ZN7KzxxInTBX5+JyutJv00CnMwGRB
-	NNfWTtJNdezweTwp9cUNprdDHZqnWqIvYAkozAOxUMlCaxcIQyuDwsZgPNEULlX2
-	1ogJV49A2bD4L0T8DCvq3A6LF3ojeM5YHdFBdBngaMGIWpug5GJCn+gyr7cSgoht
-	jAH3hsl1FUEhxpo5+Zop1THJVaSAxCRcrI++whA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,reply-to,subject,
-	to,user-agent;
-Message-Instance: m=1; h=sha256:6jnct6a2NNXk6u0eIPv1rlZUTH6XS+zGMm316R32Guc=:sfDckac9qktk2NiIdiLnIKvK25r78Cban5dx0WaOIrw=;
-X-ME-Sender: <xms:hijYaigcN-6hXr_PVZngWS-D8UEt3uiVBSneHXbbD0z13fS8ccoqUw>
-    <xme:hijYamHuF8YPo6e8fFJkFiBwueYe9oYpwhs_WpfNhhtGIiGpOTPMic9ZdSg5r3mnl
-    fNSYdY083DCClY_yBwqs_Ph1Fy63fRr1MtexYjQ0QgKot2FMvgR5-sF>
-X-ME-Received: <xmr:hijYakt95RN4EjqmqG_qbFt3Bp0YWH7lDMT1ofnhy6i1W8X9Xoert6Mjew>
-X-ME-Proxy-Cause: dmFkZTEX6teufzxfbx3q3Nq8vrCK28j75Fa5daFWBH0MBVYghVtw3ryevWqQZVyTIofoWE
-    eJZ43bYcfl4TkW6ehRKXR8Hu2mJx20x0GBvs7nhM0Q4MIBFTgswbBawRdERJ8uo//5DTcG
-    oridkpkRRatEzW8aaFOMGlnrvMTb3IozkCawqs/PbNxlj5TE2ye87Z2y0sT+H0meu1U/EZ
-    VAxcyWySRuy7p/klLmELrcsS0K9wLpv0p9U3G7dFtxdBL1dc4f8XOEZoXvkQZ6men/yhlw
-    AJO7Jynm8McCZKwO0DAdcQKO1PTnaN2xebK1HqKtOJjj2spRaH8Db24XET2cscA7mdhRRz
-    xLVu2Vuf6rXjRL6WAFVFw1aazsy+cLTjxZs9sX9+UXz40n+QrYwgUQ8GqdkgDJrKOiJQOM
-    MHfncNPrlllyW7hfHBBRAHZnedIfTyb025SzwsfQkTc+thld+8tcoJJvkefvsLcoBq2NI8
-    UrjnA1PozaW4u7mw3IdUgrCdjwFbYOOpT+ZSHE8EjDrtEI5LNaX3/Mtj4j1RX+57upWhbG
-    5Kg+s85OIA2WRv0HlxNRDeS1hxSXfJLNqVE/EMVmypIwd9dKVq1eV7fUa5bGDhbIMyjK9B
-    piJOdqOz/FC291iBmxpc9NeX1IImTqL6LHoBi8KGF2qzW3oj5ZwgTctsOwBA
-X-ME-Proxy: <xmx:hijYancybgvusLad9eU62CgDQhiL04qHdR3i8QBibjceLeZ0ikjXqg>
-    <xmx:hijYaqnPtioQ37Q3wmWpAvTWg1jc8V2ynPqz63oRv2LFgtIfAr7L5A>
-    <xmx:hijYaqBRpi6QaSyiQ66JVbOFaTBwirbfBRi7uckRKxTU7Db226OPBA>
-    <xmx:hijYakNDIdN5dd9MibEIm4bmg-ThFoDcGCRwvNaFtRK6k_utrn3xYA>
-    <xmx:hyjYakXBe-hlndAAnM7mVkXQSMKXigOIGTvdO8n2u3pyHrsH2jhUJxie>
-Feedback-ID: iffc1478b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 20 Oct 2026 22:50:45 -0400 (EDT)
-Date: Tue, 20 Oct 2026 22:50:42 -0400
-From: Ben Boeckel <me@benboeckel.net>
-To: m-amirpour <ampr.mhd@gmail.com>
-Cc: keyrings@vger.kernel.org, dhowells@redhat.com, lukas@wunner.de,
-	ignat@linux.win, herbert@gondor.apana.org.au, davem@davemloft.net,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: asymmetric_keys: Fix PKCS#7 selftest error
- reporting
-Message-ID: <atgogp7ea-UCQLbO@rotor.dev.benboeckel.internal>
-Reply-To: list.lkml.keyrings@me.benboeckel.net
-References: <20261017210513.135540-1-ampr.mhd@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hHjYrzFv
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3514b90bb89so611352eec.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:50:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1792551055; x=1793155855; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wZoEfE7hyPINcO4oEzH6Xm/UEuOnJmf4WzCd35Q4EqI=;
+        b=hHjYrzFvGja06AK5clILci44z6cRylDO7K4O9c0+fd4jLMi5LYN1soRxZ9YO3xmTM/
+         8LSFYg2XJuj+R4+q+fQeyJnnldsSwyrCvF6M3MpMYQa/yJzZ3IzxzFInDc5Eg+qAqHO8
+         ds4chpMAmBe0qyEY7bhw9NyRvcH59D6LHjyWI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792551055; x=1793155855;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wZoEfE7hyPINcO4oEzH6Xm/UEuOnJmf4WzCd35Q4EqI=;
+        b=PXsB5Jf7SGFhDWHG+V5CxSzEp/r2tDrUxs56vzzUxL0xnicQPDcfHY/FmS/TLZIjUC
+         UgsIkprBIRoKx6YdrQlquWsBvY9S4rEQKME/+FiMS/LL2QBgI8N3aBFMjPOncGDzh4iE
+         XrqSLGMTWf/OCZGt8krx+MAgnur5/V3smfLjQHO1s0dXkT+y71dG/sGqwEfYXNsgfxti
+         dIYFXkr5BKyY+7GzFczYpkTGBsppFixDhVS4uWO668bPfYGtz2KFuAZzItSTKMogH2ZF
+         32H6/4eixJ/5MhURYaPOzdKqknFqQmaicK6rZ/h+DYz1SlPlv1kENk871WSBbBReWCAn
+         rtFw==
+X-Forwarded-Encrypted: i=1; AKwUvByC2Ae9au8dVEfpscQQi1apod7rbiPF0RpJRkppuc1Rpwx+osOCk/4/Fqi+NiumuDuot45pPxCvI2QqRyc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyMF/fRX9ie94qkacBjVaUEKLNSjBxeaI56dvOEeFIDzU18ft3
+	n+SXTA0n3FfyMAw2uI1umoRwnVXRdMKaCixBlLlxW/89UDm+whO0J+ZEMHqGhpgy9w==
+X-Gm-Gg: AYBFou1QevReSR/Hrhux7BXrklZStIuIUkxoUX/XGLlmhTdqnujTshuJyr2XASPtCXA
+	LNIlLOFGtLNrYT1RBqQRhYenYnKfOrOrF4+yAa4aQkvNOtrftt+T//nRHfO1TLLYgOqljteJOmJ
+	m3GOn7RQmc+1DUCXx1dNqv6S2LSKaKbhgbRVX0NpBcoQmkD68Q2j59dfd5dDx0ADrDGQITAERM2
+	MR6YcVgklY8JpSfCPmbt+5BOPEg0VlfIWzqlbPKEkKnjQV0MqzePle2UwAc6EFlqwGsc7gzI/I9
+	3HI7bVq414b1sJ54tzP3Jls57hKC0fzY8uRRjjhaBdyonoVDme9lS3uH5u93zoAxhMxI/vEWboG
+	JYWxd3SFg0Xr+lQIvVoh4hZQTWan/lV01g3Uis46QC9utfCQKJMlOnBvRcn8fG4HKRyropqK+XP
+	RjyKGLQtg/8hGqYoqj1C4z+amC+2o4jHN09T4zTNDlACzOdskBeLQER/AcBeuFQt011octuJyZ9
+	1e7ZaFc3HJxVzJoHZQLXQVcWqvppRJtFGy6oxqxKfwIKL6GkkTfjw902njp5+hUnTf9ZVhSH4l+
+	D/mu7YiCep6IY1A9R6yH
+X-Received: by 2002:a05:7301:144a:b0:35d:363b:c115 with SMTP id 5a478bee46e88-3674db4c591mr1276619eec.30.1792551055018;
+        Tue, 20 Oct 2026 19:50:55 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:97d1:a8be:236d:bf79])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367411bd2a6sm3819901eec.18.2026.10.20.19.50.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 19:50:54 -0700 (PDT)
+Date: Wed, 21 Oct 2026 11:50:50 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Tzung-Bi Shih <tzungbi@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Petr Mladek <pmladek@suse.com>, 
+	Douglas Anderson <dianders@chromium.org>, Tomasz Figa <tfiga@chromium.org>, 
+	Sergey Senozhatsky <senozhatsky@chromium.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] watchdog: Force console verbose when reporting lockups
+Message-ID: <atgoRCF8OCsD4keA@google.com>
+References: <20261007051726.4154849-1-tzungbi@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -126,39 +95,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261017210513.135540-1-ampr.mhd@gmail.com>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+In-Reply-To: <20261007051726.4154849-1-tzungbi@kernel.org>
 
-On Sun, Oct 18, 2026 at 00:35:13 +0330, m-amirpour wrote:
-> From: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
+On (26/10/07 05:17), Tzung-Bi Shih wrote:
+> When a hard or soft lockup is detected, the watchdog prints a header at
+> KERN_EMERG (<0>), followed by diagnostic details (modules, registers,
+> and backtraces) at KERN_WARNING/KERN_DEFAULT (<4>) and KERN_INFO (<6>).
+> If console_loglevel is quiet (<= 4), the console skips those <4>/<6>
+> diagnostic messages before vpanic() has a chance to call
+> console_verbose().  With the buddy detector, this leaves only the
+> detector CPU's panic stack on the console and nothing about the locked
+> CPU:
 > 
-> pkcs7_parse_message() returns an error pointer on failure, but the
-> selftest prints ret, which still contains the result of the previous
-> x509_load_certificate_list() call.
+>   <0>[ 1535.991833][    C6] watchdog: Watchdog detected hard LOCKUP on cpu 7
+>   <0>[ 1535.995960][    C6] Kernel panic - not syncing: Hard LOCKUP
+>   <4>[ 1535.995970][    C6] CPU: 6 UID: 0 PID: 0 Comm: swapper/6 ...
+>   <4>[ 1535.995997][    C6] Call trace:
+>   ...
+>   <4>[ 1535.996063][    C6]  watchdog_hardlockup_check+0x1e0/0x288
+>   <4>[ 1535.996075][    C6]  watchdog_buddy_check_hardlockup+0xb4/0xc0
 > 
-> Print the parser's error pointer with %pe so that a failure reports
-> the actual parsing error.
+> Similar to commit 168e06f7937d ("kernel/hung_task.c: force console
+> verbose before panic"), call console_verbose() before printing the
+> lockup report so the diagnostic output is not suppressed.
 > 
-> Signed-off-by: Muhammad Mahdi Amirpour <ampr.mhd@gmail.com>
-> ---
->  crypto/asymmetric_keys/selftest.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/crypto/asymmetric_keys/selftest.c b/crypto/asymmetric_keys/selftest.c
-> index 98dc5cdfdeb..42857b02258 100644
-> --- a/crypto/asymmetric_keys/selftest.c
-> +++ b/crypto/asymmetric_keys/selftest.c
-> @@ -41,7 +41,7 @@ void fips_signature_selftest(const char *name,
->  
->  	pkcs7 = pkcs7_parse_message(sig, sig_len);
->  	if (IS_ERR(pkcs7))
-> -		panic("Certs %s selftest: pkcs7_parse_message() = %d\n", name, ret);
-> +		panic("Certs %s selftest: pkcs7_parse_message() = %pe\n", name, pkcs7);
->  
->  	pkcs7_supply_detached_data(pkcs7, data, data_len);
+> Signed-off-by: Tzung-Bi Shih <tzungbi@kernel.org>
 
-Reviewed-by: Ben Boeckel <mathstuf@gmail.com>
+Looks good to me.
 
---Ben
+FWIW,
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
