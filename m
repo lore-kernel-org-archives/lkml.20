@@ -1,56 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584894;
-	b=YPjiQwzaaT1rflLioMukbR+dSYaLax38RuC2Hl5Y8+zzifzlFbfhCNUFXNZ2TgWvd7g3
-	 vG+hX2EPcSGQsNCWcKbRPse9I3REE1sPX3DdL08EBxUjUgloU9yrNAnPTNQgyBiPL2z8R
-	 dpGc8oktItIp16hgaOgVPnvAaP9i5Hisxid+nICvJ6+XL7nNp0UZMT3hyHj5PRv0NsdPg
-	 YS8RTCeZLTKd2Ruf+lMZHjP+5K7gXayfBrJ+Esj0xogCnfsDlssc2IGvmoc5iTuj3KA9K
-	 BoIHEvg4P2vJAPHkJRpZq93/ajA95lvuBRjexQVmlyy9swZwtdHpky6AZULQ3OT65Tg==
+	t=1792584897;
+	b=ya9zCErYb0IDCCHSdLeZyPjV0oBqmZdsRioZQQTs28rp+2EA7jXkWbyBUXqzMjerW8wJ
+	 C7UrQ5X+ZBwJLK3YHGAPuv+MjLbwckvpLiuNhHT/fIcNHYdhpHVNKYDTIU3pG5U6/0XUF
+	 lLzgjawXVPMfLYdoaHkbLt2JDcDSDxgfxjBULx+joptTPgx+5hJqPxAbXm1T3Ci5k+VE0
+	 pqlKDThRYoVG9dEwNdqQSoWTvSXWsl5CRo+ASkbTRLjgpYVRuPSfcajDB+B1jWm0PN5DP
+	 QGH6ibxMX2gl6Qacm4cprdSHnj8MHITtPe801szrnKfWRByzfuNa4lVmzK84dQ8gmnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584894;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yIE4Ws0+fzmkVfBmC58B4o4iBYgCAB+97otsS2HlOmY=;
-	b=ARb504YWJi3+oIow//B/qUGefg4bqO4ETpZfEwUTaBD47u3Hk6Ufi0g6ZcuS8fbIADf7
-	 j3JIz1ITOuZL9rgMJI+WnfRESWLuXeyKMUiYt8QPsfKPInQF5W/+UHoHqUvP9QqQ9v1pT
-	 dnKlSDlWC7FsJqke1PDrS3FVcWAG68bukCoca+HirukoZGYSBbcOQb4aXM1q6GpzOGt/a
-	 uT3chQonJUYIIbefMrWi7da72+gXwN98L8N1NsD0Y42+gpKJ4g926XOvUgibUqd3fZNuA
-	 VX4brSfZh4Y5LEZWf+xLttXKDv10GpzKYqkEuOkL3E4LDcFoQtMeWIeOecI89Vc1sZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584897;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Pp0lEThnj35kfWyHTvE22h4eScmu1/f68EtXC/xDDnA=;
+	b=i5gDQxNVlCs7KR7Qf5iX6vqB9l/MRm4GbAz/1f1xla/ZrJ5kfvZpojF6wq4+in+nxG/C
+	 vXOKc0BYHkBXAzgIJh8J2BqfpWDEGV+ZmmorrvtvJZWWiDxSydNniWfZeJaqwaEH+ufrP
+	 gbu3zPESZS+WvAHokqndqJ4WdLz3HX1OgBrreQjKCj8AwDPBkmueTPJ94hFMDeL4BvEF9
+	 PNfs505xp0h+gm6C3BO0VcWP5FMh2aoiZ4eOfSEbZakfTmEP8qDeny/DHkBBWaCfu6fMK
+	 PJztOdP7WMTM0hUsiugbK7Zsd5foOJ7beUEWZwYUV7yySFkoPQah3ifAGXYQjG267Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MT16dIF5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=La4+OJI6;
+	arc=none smtp.remote-ip=113.46.200.220
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AD4606A334;
-	Wed, 21 Oct 2026 12:14:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5339D60A2618;
+	Wed, 21 Oct 2026 12:14:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5339D60A2618
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MT16dIF5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ECD41F000C5;
-	Wed, 21 Oct 2026 12:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792584893;
-	bh=yIE4Ws0+fzmkVfBmC58B4o4iBYgCAB+97otsS2HlOmY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MT16dIF5R3rm5ttv3iWHGZfQKfnLzunO0QTri6bfKhnQfJbfnFVRsRebPLx5naONA
-	 6cbT8oJkh4F6TdYpQAZWCpUzwpLeVeQEqvKEbHsQjQ2UK+Sz73DHdPdKiYUxk/7e47
-	 KD7bpCJHs5yTOtp0J6AFt0Ha0gH7hijjKUJqxv17lmi7E2DFj3jVvj6n0uSGdNwRjK
-	 0wHluVC/XZ3X9b3ztMeRdBILVmQ/KA70BrZANnPW9QaR1r90PNjRsiWDzw1sqXkh8W
-	 61UccBQtqgI+DAt91v8rPyjb60InjYMA6rNHXv2DBMHg2YdOCTAAZyDt2A5AiN69Hy
-	 RhvQmiBgHxSlA==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	Thomas Richard <thomas.richard@bootlin.com>,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 09/28] mfd: cgbc: Zero-initialise version buffer in cgbc_get_version()
-Date: Wed, 21 Oct 2026 12:09:31 +0000
-Message-ID: <20261021121245.3111563-9-lee@kernel.org>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-In-Reply-To: <20261021121245.3111563-1-lee@kernel.org>
-References: <20261021121245.3111563-1-lee@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=La4+OJI6
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Pp0lEThnj35kfWyHTvE22h4eScmu1/f68EtXC/xDDnA=;
+	b=La4+OJI6QW1N6pj/AJjY2uoKVjcoQjDagBioiWHoyRRWpbkxstJGYZ0PDsDe7RCLZ5tq+Qjv7
+	DWCQeNzQVzDQvxxUDsHiLmBxjVF6CBBCNgcLwejh3KWx/pdTT9W29wjjEZKAQWL78cOcEZqsGOc
+	kM1qCsX4nGA8Yl4M4YgSJCk=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4j8pBK0BHmz12LCr;
+	Wed, 21 Oct 2026 20:14:49 +0800 (CST)
+Received: from kwepemo500018.china.huawei.com (unknown [7.202.195.199])
+	by mail.maildlp.com (Postfix) with ESMTPS id C66BD4056E;
+	Wed, 21 Oct 2026 20:14:47 +0800 (CST)
+Received: from localhost.localdomain (10.50.163.32) by
+ kwepemo500018.china.huawei.com (7.202.195.199) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 21 Oct 2026 20:14:47 +0800
+From: Jijie Shao <shaojijie@huawei.com>
+To: <davem@davemloft.net>, <edumazet@kernel.org>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <andrew+netdev@lunn.ch>
+CC: <shenjian15@huawei.com>, <liuyonglong@huawei.com>,
+	<chenhao418@huawei.com>, <yangshuaisong@h-partners.com>,
+	<ningwei15@huawei.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <shaojijie@huawei.com>
+Subject: [PATCH v2 net 0/3] net: hns3: three fixes for hns3 driver
+Date: Wed, 21 Oct 2026 20:14:23 +0800
+Message-ID: <20261021121426.3096838-1-shaojijie@huawei.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,37 +72,55 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemo500018.china.huawei.com (7.202.195.199)
 
-If the Board Controller returns a short response to the firmware
-revision query in cgbc_get_version(), cgbc_command() can succeed
-without populating all bytes of the stack-allocated data buffer.
-Those uninitialised stack bytes are then copied into cgbc->version
-and exposed to userspace via the cgbc_version sysfs attribute.
+This series contains three bug fixes for the HNS3 driver.
 
-Zero-initialise the data buffer on the stack to prevent leaking
-uninitialised kernel stack memory.
+Patch 1 fixes a vector resource leak in the error path of
+hns3_nic_alloc_vector_data, where a devm_kcalloc failure after
+successful get_vector() leaves allocated vectors unreleased.
 
-Fixes: 6f1067cfbee7 ("mfd: Add Congatec Board Controller driver")
-Closes: https://sashiko.dev/#/bug/linux-8c473713-527e-4619-8404-689f28c7654d
-Cc: stable@vger.kernel.org
-Signed-off-by: Lee Jones <lee@kernel.org>
+Patch 2 fixes an interface stall that occurs when the hardware RX
+queue is full and memory allocation fails.  Without an RX interrupt,
+NAPI is never scheduled and the queue cannot drain.  A delayed work
+re-arms NAPI polling on affected vectors to break the deadlock.
+
+Patch 3 fixes a use-after-free in debugfs read callbacks that can
+access priv->ring and ring->desc while reset, driver unload, or
+ethtool ring resize is freeing those resources.  A mutex is added
+to synchronize debugfs readers against resource teardown.
+
 ---
- drivers/mfd/cgbc-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+Patch 1:
+  - No change.
+Patch 2:
+  - Clear per-vector OOM bitmap when device is DOWN to avoid
+    spurious napi_schedule() on next up event.
+  - Move rx_oom_cnt accounting to hns3_ring_set_oom_state() with
+    test_and_set_bit() for per-event counting.
+Patch 3:
+  - Drop hclge_debugfs.c changes; mutex only protects enet-layer.
+  - Replace guard(mutex) with explicit mutex_lock/unlock.
+  - Remove redundant NULL checks; unify -EPERM to -EBUSY.
+v1: https://lore.kernel.org/all/20260915132434.1141742-1-shaojijie@huawei.com/
+---
 
-diff --git a/drivers/mfd/cgbc-core.c b/drivers/mfd/cgbc-core.c
-index 2becaf797646..f2615c783bc8 100644
---- a/drivers/mfd/cgbc-core.c
-+++ b/drivers/mfd/cgbc-core.c
-@@ -299,7 +299,7 @@ ATTRIBUTE_GROUPS(cgbc);
- static int cgbc_get_version(struct cgbc_device_data *cgbc)
- {
- 	u8 cmd = CGBC_CMD_GET_FW_REV;
--	u8 data[4];
-+	u8 data[4] = {};
- 	int ret;
- 
- 	ret = cgbc_command(cgbc, &cmd, 1, &data, sizeof(data), NULL);
--- 
-2.56.0.218.g1ec904b173-goog
+Jijie Shao (3):
+  net: hns3: fix vector resource leak in hns3_nic_alloc_vector_data
+  net: hns3: fix interface stuck after OOM with full hardware rx queue
+  net: hns3: fix use-after-free in debugfs read during reset/unload
+
+ drivers/net/ethernet/hisilicon/hns3/hnae3.h   |   1 +
+ .../ethernet/hisilicon/hns3/hns3_debugfs.c    | 124 +++++++++++--------
+ .../net/ethernet/hisilicon/hns3/hns3_enet.c   |  70 +++++++++-
+ .../net/ethernet/hisilicon/hns3/hns3_enet.h   |  18 +++
+ .../ethernet/hisilicon/hns3/hns3_ethtool.c    |   3 +
+ 5 files changed, 167 insertions(+), 49 deletions(-)
+
+base-commit: 305deb54c6c287e586bed92da2375ae1220e8dde
+--
+2.43.0
 
