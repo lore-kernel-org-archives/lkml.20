@@ -1,59 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792541535;
-	b=e+mRU3zCmi4tTu3Ypl7KpAchg+HMXzZPjm5mJB79Z1bNfp4UnZa3bGFE0bk+UBwxPQTO
-	 abSYYMpw5fnBf9Bn2jwlE3uLRCwnv4s3L+qRKKPasfgJD+4TShF7soRL6tI/FA9fCqm7p
-	 Pn1r8OSsZYAYW3VoeawZhtlYHhINI599WKRvj6TTklar1wG3uJjlw6skaThTWGtbFyYlc
-	 7D4jtp+X3M99WhzXal6NYHTR1HBtMlFyGdhATvLGBGzT09iu2NieLsn1GpYZ6O0otZGa6
-	 IcDZRiheAP/Yf5lm2GoO1mGVTTcelqVkXfNexGObKjZOA2PcJqc4LfAUpI3MLsJhDYA==
+	t=1792541611;
+	b=WNap2quiDSXfBOpQ27M7eY+a/c5gBh9dT1VdkwEmY19imHzwYBzFvPjKq0OzFYmXDRO3
+	 p9RnZFNdl7aQWAb/aVsNRk++TzjPXA+cl2kF2o+51XyOBmI7LM0sja1pdIkLLFaQvvIJj
+	 sJAkMeVHy37xGZS1Ee6L5AMQ4u0UlXPnclSfqqf8BOalGfrMeXhAJTtYymEgtkzG7mal3
+	 LagOt2QewaOpiSHEHbcobgcnKvHrx0VvuF4HEyc9CqAlAcAvXNKp0EjfY9EZ9/HvdbTfq
+	 F95i9wuZ6qaQk4NSDhihteHtjytGC8oiWkIADheqF2lFIf2PGQdcib1x5a1rUUA0/Fg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792541535;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=cOxbniIZrsE6Og7OO2rhA2lJPg4qjRGzVzOR2aSt5t0=;
-	b=bDFvIodfeADyGX7gJC2LPm6p3LEEQNkFvnq3+4TUOY0edTvoxOxaCn5I1Q+vFQ4FhvqA
-	 AZxHqWpX1u/RMDIh8OH9U/IrAlaG3aR/DXCXVd5uhg8JUscOWnDuovlLGVueo7ppgObdh
-	 mvqxGYCVpf0ClXdyVjMcAZEDpq8RtuljQP7IpI4psLQFp7ARvpr78XTkRLDYKuJZIxmQ8
-	 FnrapcuvExYxVcdFeU2Zwvxg/WoRnPmfBO3QmHNVWE6phoflNK23sz/3lEjrvH4rc62hE
-	 Z/gUfsIuy1FGUcfM91mD3kN8Gn+x1s7Eo4z7WDMht25B9ixge2Jmzp6ayDcIT9+m/Mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792541611;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition;
+	bh=/EynJRX4SvYGjxKs3oCb/Z5/8kaPiUXEuG1TIZ3CstY=;
+	b=G1JUTD/L/3kAqX7YmuvwpTt6MUpF8gEuzop8JrYu2s/sKFhpZYS+e8C9KLWGf27nefw+
+	 J2QfFjNpJA08+T7X2pZZXd4+vuWGf7uuxlXQIXysixEKqJgHcOl+dqQOZ/8MyCrDOtYNp
+	 agux563gOdRgI10YOD4o0UQdA59Wqu90khC/aLCLbrK0Ywfbhk7sjV37DdBm6d92Ln6oR
+	 5zbEJ+1h+i/6wwooJ0/zMuStbm1pkfNzc0VhYz5FZ4oQJ2l2KyOzm7CiPegmzrSgb87i3
+	 YX1RpS0eOPoqQt+VGmYkM6ZGN2QHqqSHVqKN44NBO5dokPH5n7R8kbdRd3R45uxe2Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exUnIpcg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2Z7WRpZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987EE606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:12:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAC3606A319;
+	Wed, 21 Oct 2026 00:13:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exUnIpcg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B731F000C9;
-	Wed, 21 Oct 2026 00:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c2Z7WRpZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D52741F000C9;
+	Wed, 21 Oct 2026 00:13:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792541535;
-	bh=cOxbniIZrsE6Og7OO2rhA2lJPg4qjRGzVzOR2aSt5t0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=exUnIpcgy8YrF3HQV1sjeuWXOi/pQ7hYlvdW4SH44TO/9Wz91OVgCaRDtpuW7cwKi
-	 mt83i9iLn7TQ8rlR1BqaaUJj7yj43EyTZwDbmxgRDQpRmISrS9WpeFuPXI/ArtavIH
-	 dYEWmu5pMBvpj4F7yOkvbZHUI7/vn++z9ZhnmoWwI0cO+MjAIS7K9fD38UY50hMwRc
-	 TZFUOGg4b3lnt4kF9YX+dTrElDQx50MnVoaEbHRUKua2GnoElNDvMrrpX6WhyUN/mm
-	 fYSxU61fqAJZ0/ssxPy3emvmND4VWvlzDf67iGRMGBHy7DyV8rHZjRZo6xmvuvcmpH
-	 CGcsdZUEKekMQ==
-From: SJ Park <sj@kernel.org>
-To: "Liam R. Howlett (Google)" <liam@infradead.org>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tools/testing/shared: catch a failed posix_memalign()
-Date: Tue, 20 Oct 2026 17:12:07 -0700
-Message-ID: <20261021001208.93708-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261020033128.1934349-1-liam@infradead.org>
-References: 
+	s=k20260515; t=1792541610;
+	bh=/EynJRX4SvYGjxKs3oCb/Z5/8kaPiUXEuG1TIZ3CstY=;
+	h=Date:From:To:Cc:Subject;
+	b=c2Z7WRpZnZBWmRyd2jcLXN87jXg8F7k1Djggq9bpucpaEg5Rg9gv88DzjM9GAkzuA
+	 /dVhfSUBKFrDRS8ryhtIq29v+cq2QdCGKxh0T0BsW3Xu7oVOpGTwQWRM9dM557vA+7
+	 a/y3eHPGBcAhpVSIUWgcdwAdbYghRrm3k7JvF2i2RSDkIQCTaQuUHzRaxlegEQcIME
+	 zNBBilVV8K7zobqtAvHpaIUadbCI1TrqNIm6PuU0rSp1+3XiiSrI/Z1eUz2SIYKGwM
+	 DmcFGxXA0qMK9PShYLql/k9z2g+RadBI8ms39rr78pT7u2zX16JSS5yN9zcSlKoG38
+	 A+0c+ajsoopRQ==
+Date: Tue, 20 Oct 2026 17:13:27 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+Cc: ojeda@kernel.org
+Subject: Prebuilt LLVM 23.1.4 uploaded
+Message-ID: <20261021001327.GA2730064@ax162>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,26 +54,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, 19 Oct 2026 23:31:28 -0400 "Liam R. Howlett (Google)" <liam@infradead.org> wrote:
+Hi all,
 
-> posix_memalign() returns zero or a positive error number and never sets
-> errno, so the checks for a negative return in kmem_cache_alloc_lru() and
-> kmem_cache_alloc_bulk() is not possible.  A failed aligned allocation
-> carries on with the pointer unset, into the constructor or the memset().
-> 
-> Test for any non-zero return.
+I have built and uploaded LLVM 23.1.4 to
+https://mirrors.edge.kernel.org/pub/tools/llvm/.
 
-Nice catch, makes sense to me.
+If there are any issues found, please let us know via email or
+https://github.com/ClangBuiltLinux/linux/issues/new, so that we have an
+opportunity to get them fixed in main and backported before the 23.x
+series is no longer supported.
 
-> 
-> Signed-off-by: Liam R. Howlett (Google) <liam@infradead.org>
-
-Reviewed-by: SJ Park <sj@kernel.org>
-
-
-Thanks,
-SJ
-
-[...]
+Cheers,
+Nathan
