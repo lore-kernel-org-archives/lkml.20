@@ -1,71 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.119
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.154
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792613664;
-	b=ZZqda7/6+k24jvjONZMp63/Iu08M3stMoSmCcaAHmolagpflcuAVQY7s8QTX2OHmg1CU
-	 INeNaapU7mWyOU+o+Q632m1G0JjRRnjjljZN4ywGbuFtYIW99zHGf2i7smZ1mPvIu/zyM
-	 Cle7UqZaLZb94pYtZcFjDQYg4PEazPvYx2yy6aZSPIi+YBl8rPd7W+TTr3bcjKpKxNc1D
-	 YzEP10Veh5dMQC2xpS+2eEeHI482RKyiwqbKAJc6afnaaUAWp1TjVL74XBmt4NU2LsB/y
-	 gr2WTBzhZna7KkQesKkNw6x9RciYtgWWk2F4WD88iWZFE8lrFb6WOst9KxouAoRoK8A==
+	t=1792613831;
+	b=ZIeUUNn0T8mEDWs5arOHFHtCDe7vNLDMUO2sVX4JGePmHVkFrGEKHnpQrIOq+q1Q+M0F
+	 hhhmQDVBqu6yP3Yu1JXg10BWsKOuyDh7dmUsUt1r/+BgMFzY0LhLg1mDCXMIKgh37D/lX
+	 3cw6Hsef2hy1TiUm7QMs8YMQbNZ7Qqvn9t3SYVb3xiWZPcejVMoAIsgYN2EA45sjnEF3q
+	 Ant3wjsIyplzLUXmpuANVR0Vx1MjrxDtJjHp0fdUrG63BFMNi2wLnIgPld7WnlcnRfD7C
+	 hYrB13ftE35khkGT0XK5kuSwhZ/s3FI+FJJ1tYHo5kpXCvoavu/65MM0Uko+fLk/sOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792613664;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=MK/sCNnQliqsRAgVoxF+hCWSDeszRLqOViWrqNvyhPc=;
-	b=bFfIbXXP00KYUsScrUo0rUcuo+HcaTChC079cmgYAL/+PRjMldpYUOTu7xLmH0xsByke
-	 TvD+9ZTZXVdX69i9kqnNrJx/n2v7oTm3MD5G0snwfI5LbZXPBtB5QQorx8ad8X2EBBNNK
-	 ZPDkTwL6SeZNJSJMuZlVeiIt+zAC4Td+HcrZoKrtGN/voD+aW+pUWV/Trl3HqQDEBkmBu
-	 mRttwfcabSm1I2jgTbvH3eHCUgY8JVvjqUsDeNyFDATzqSKwu9okPGnNx2A4L5NL8+TdO
-	 O3Gb84GZhlRPFdDYbyt1z+3q8dr5LSxJm4rF6PlLuq07os5jfBdN7DMKs/93dP+m4BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792613831;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=WsOu/rRUjYL7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=;
+	b=zoKL1eU0k+hWhu4ZWAO1Xvj3VRRZq7NBTjrbpngEmCZEaaRvDHLwcrMXt+hB2a1vGz3O
+	 yJxpeFkqDe3RLI2bLch+Lun4zz1TVscnMtgUQUp3bkwX5MnHwNQI4oJbAi+5w0cApEO0H
+	 mRxjytxTBkRM0O2FCY7gEsiaRbsLkpbtDZ/uspeXVTDqRkt/NLZf/PRWExVQcKdTAlEMS
+	 5jk20ROIkv+HEAH+L8wfx1PkWEeosfSvOt5RKGhLDF+XuBXkLuzZH0FKsrLwbCRJ4IYCR
+	 BkF74SEMAX6NdFhPjY4qLgf5ddKGYb8TmhDGrIHGctQMzSzsSifyIEuaX+csib5hLbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ox2VFkCo;
-	arc=none smtp.remote-ip=91.218.175.119
-Received: from mta0.migadu.com (out-119.mta0.migadu.com [91.218.175.119])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=invisiblethingslab.com;
+	spf=pass smtp.mailfrom=invisiblethingslab.com;
+	dkim=temperror header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b="atp5/hIL";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Bwf4dz12;
+	arc=none smtp.remote-ip=103.168.172.154
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63515606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63515606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECCD6606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:17:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECCD6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=invisiblethingslab.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=invisiblethingslab.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ox2VFkCo
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=w2yIvfdgGfmlQVpeDUGVxacsdJvhxz5P+RtAjBdIp+U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792613658; v=1; x=1793218458;
- b=ox2VFkColxaQvhbRPAOwLuz+qjvZGykGQTMQ7lMfTeQyOsOtVRJkJMu7p9uCJ5Z2qdkKLftq
- GU7CY6UM+UuLov8zO7bMaBIrCLkO2D846eb5SZ+KV15g3NAtPdkArYViUJOZ6UPH59mcy4vJ1E+
- qNKh8sdfB1ahgePZnVF3feYc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 19901bfe483d708d;
-	Wed, 21 Oct 2026 20:14:18 +0000
-X-Mizu-Trace-ID: 19901bfe483d708d
-X-Migadu-Flow: FLOW_OUT
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-To: Christian Brauner <brauner@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	NeilBrown <neil@brown.name>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com
-Subject: [PATCH vfs v3] bpf: Allow bpf_d_path() from filp_close_sync()
-Date: Wed, 21 Oct 2026 13:13:59 -0700
-Message-ID: <20261021201400.5409-1-ihor.solodrai@linux.dev>
-X-Mailer: git-send-email 2.56.0
+	dkim=temperror header.d=invisiblethingslab.com header.i=@invisiblethingslab.com header.a=rsa-sha256 header.s=fm2 header.b=atp5/hIL;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=Bwf4dz12
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 15A6E1400105
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:17:00 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Wed, 21 Oct 2026 16:17:00 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1792613819; x=1792700219; bh=WsOu/rRUjY
+	L7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=; b=atp5/hILPS7RjOeTpIcMO/fh1r
+	spzLdAb4T9cgeaiF+HSxAoT9TVTX80macpFUl49eZ1zGQgRQaaZZ1q+18DFYRaoa
+	y/5BFmzCLHSPNHP+0ZENhAEkIlY3JCCYimL8yib5c0FNiK/6gyEyvij5g0Tdc1lb
+	Kdl4KUG5KyDS5AsL4Tfkz8qFNJkWlsZL/2SgupMtUFSeAgSHpSmUMuPhApXdMDNu
+	uXRtZ2fyZLyZBHq2zL9yzwTsJWxGaIJX9vbg4CabpYqtSuDAmj/XXhfUCbv+NtrR
+	iRX+8BV120sfMNGvQmUEPzfI9lIsqVsSSsQm24oT5LkRdvnLzbhqaL+vN/wA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1792613819; x=
+	1792700219; bh=WsOu/rRUjYL7OCikxdUqQkdguWvT2iaNfaZpeKUs+qo=; b=B
+	wf4dz12Mv+nHxgpgq5usKeX7+n1aC5jdk6ftFenJLJxzd4/WxnSj5gR7K6FiPWZM
+	rg2PL8Wvr/yMaIAL0a8cVWwpErdrCrUR2o8Vt1tFakqMjqpVceiworGkhccX61WQ
+	kJKkmXoH0povlrDtxN4wEIFg/vtz+ZIq714RaJjqxDv9jKd4PHeVZb3uwmpb29Jv
+	XxMKBiLuIBI91qQ7Y8PqvOm9JjlqG3DTh7gbxaWNZ2E4OOiWcLdJBTyc+fgkkYH0
+	lxiwmKEViPuXUkyflhTQx+/lCvQaILi0l4FV+4biOrap1MIXrtUd5xls1F2v1RiP
+	LVC2rMVJ9OutP7iwozQow==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=invisiblethingslab.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792613819; d=invisiblethingslab.com;
+	mf=PHZhbEBpbnZpc2libGV0aGluZ3NsYWIuY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:m++3+lZtLZV+s7kNmYsBn4cbvOYEICgUNPFesaeKa0K7pA7
+	bWLk7XFeuWKJgJjRV3GhMDgUFSYJSGQSEj348txChT0criYlPrRq+vXrBe8SEp3/
+	UupmZKL4U+briICgSQgdQ6Tg5qNuXwcBStZrTzrZh9nTjt76A2MmvsSC6tuhgo52
+	N8lI9qp2j1Y9zZEelytT3k4J8GSod6tKW9wvxffU/8jicXu4fxNcIGhOp7HUfl8i
+	AjQBpAe2r1G+7X+nEIPeWv7EAO00SP0rD7mmrNiD6s8VV5Sp1H8C9g5oMpNUtRlu
+	9hQ7fJXrpBEzTreyVdIgAmDyl2J90NFaKjEu7AA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=15;
+	hn=autocrypt,cc,content-language,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:o5K+uoy2p3l+rotmqQ/lqLog1mD1ccTslh81foHS7SA=:XQ6PYviYeH6meLP/28q9IYylvU0BkycclHGqpiogBlI=;
+X-ME-Sender: <xms:ux3Zardsg0Lmvr9uoNcj9PcvvACU9BeUbyg5t3mfyIFUv71d342reA>
+    <xme:ux3ZagSvvt4TBAfY_GPH-oRbUq6Jd4_FXijHbIIjNlkg7Ne02H7PqSWEtkO4XPyOQ
+    V0AZNlcK2NQ4MvxJO9NuFx-2ExYOv7jtS3ifbLJu1hhUG7MrzRx>
+X-ME-Received: <xmr:ux3Zaqvaqos80rBkdWZn-2rFXQCXLOecqFLjEuGM1xCAY-RFT16rbcej5OtjppBmipsp-19JByaebM53lCwBRhhVWCa7Fu3jSQ>
+X-ME-Proxy-Cause: dmFkZTF5+fcfy/Oo5Le9I+Kjc3hGsGqRVtTBvtalw9ldQrZqqDF7kj28w0isq6NWkXIq78
+    bnL/tBTa9p8XouAsJCZEPacqdUuiQHvxkGXGoODmdc7SuUBv6enBUYuu6AMstMsnQdRDLu
+    HfVHmZElus2f0sABEVTnCvOWeiBL0FP4rKKqyj9i81HnyAxUWglZ6uxANNdU+bv9XHuBCk
+    mEigObqboa9yoo9hYGU2J9bGlxKpiQwp2C0RjwbLlOSMCkc5F9QXvlKfT16RuGyV4zqxSo
+    Hi/odAbWpKwBZtJkUm7dptQPsR12CDTWnofHtUvT7t0y5Dlr0X8sH+U+vhNJYtmusUmoAH
+    Tu9fZDy2TQVHoSl5Z/NIa+jg+DvjZrloWWFXJHsnon3XOeUF8s7NbsxMnBdPbTNhDSQEB7
+    zKi+Wq74T/qCn7uoQL+vCw9w9srbhX6Y6mnIWbnqMGGwrgHgGnSGluhnhlZBrX3oZqng/w
+    MijAYp1axMDt1P3JcCHuvhj9tLcHohL+UysFvhVed074/EUS4Z5Dd9lV0YZY9576cGXlmK
+    5kJjU6R2yOhBc+nsiV9sYkTvOUdsq8G2xhPB9FsWDvKDNUWue9XqwHglyGCnJfbTvVvXZM
+    +mp4Ofob1vR+eGlkAbOkY/JSgD7CBPb7dro38E67Ram2gWNkDi3klIqZWFAQ
+X-ME-Proxy: <xmx:ux3ZapfawUxz73R2n_YRTOJMP_jvbze2m3g3Xbciftk9ShjKXn6uSg>
+    <xmx:ux3ZasZKYHY-MN8s23tolDr-8ktT9clQRZgcbifzN2UfWeyo8Fuuow>
+    <xmx:ux3Zaja4bW2GE2fTz1n1lNL6OqqO0YTnaoBa-ubZQaXQ7HuN-0dUBA>
+    <xmx:ux3ZapJDw1OE9bJirGPrnDNcq9M8Bma6VmxBRRE4A7Z2IEdV2QdkYA>
+    <xmx:ux3ZasswRekrGH_gOF085VCwg4JwBJBJ0QE5V7jcAuUCFq-YS5A0ayCM>
+Feedback-ID: i001e48d0:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 21 Oct 2026 16:16:57 -0400 (EDT)
+Message-ID: <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
+Date: Wed, 21 Oct 2026 17:16:54 -0300
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,160 +119,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+References: <20261021093533.1990028-1-val@invisiblethingslab.com>
+ <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+Content-Language: en-US
+From: Val Packett <val@invisiblethingslab.com>
+Autocrypt: addr=val@invisiblethingslab.com; keydata=
+ xm8EaFTEiRMFK4EEACIDAwQ+qzawvLuE95iu+QkRqp8P9z6XvFopWtYOaEnYf/nE8KWCnsCD
+ jz82tdbKBpmVOdR6ViLD9tzHvaZ1NqZ9mbrszMXq09VfefoCfZp8jnA2yCT8Y4ykmv6902Ne
+ NnlkVwrNKFZhbCBQYWNrZXR0IDx2YWxAaW52aXNpYmxldGhpbmdzbGFiLmNvbT7CswQTEwkA
+ OxYhBAFMrro+oMGIFPc7Uc87uZxqzalRBQJoVMSJAhsDBQsJCAcCAiICBhUKCQgLAgQWAgMB
+ Ah4HAheAAAoJEM87uZxqzalRlIIBf0cujzfSLhvib9iY8LBh8Tirgypm+hJHoY563xhP0YRS
+ pmqZ6goIuSGpEKcW5mV3egF/TLLAOjsfroWae4giImTVOJvLOsUycxAP4O5b1Qiy+cCGsHKA
+ nCRzrvqnPkyf4OeRznMEaFTEiRIFK4EEACIDAwSffe3tlMmmg3eKVp7SJ+CNZLN0M5qzHSCV
+ dBBkIVvEJo+8SDg4jrx/832rxpvMCz2+x7+OHaeBHKafhOWUccYBLKqV/3nBftxCkbzXDbfY
+ d02BY9H4wBIn0Y3GnwoIXRgDAQkJwpgEGBMJACAWIQQBTK66PqDBiBT3O1HPO7mcas2pUQUC
+ aFTEiQIbDAAKCRDPO7mcas2pUaptAX9f7yUJLGU4C6XjMJvXd8Sz6cGTyxkngPtUyFiNqtad
+ /GXBi3vHKYNfSrdqJ8wmZ8MBgOqWaaa1wE4/3qZU8d4RNR8mF7O40WYK/wdf1ycq1uGad8PN
+ UDOwAqdfvuF3w8QMPw==
+In-Reply-To: <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The d_path selftest closes its descriptors with close_range() so that
-its fentry program on filp_close() runs.
 
-Commit 056069eb2b66 ("fs: make close_range() synchronous") switched
-close_range() to filp_close_sync(), so the program still attaches but
-is never called:
+On 10/21/26 10:43 AM, Christian König wrote:
+> [..]
+>> The buffer lifecycle coordination we need this for applies to KVM as well
+>> and it generally doesn't make sense to have this as a provider-specific
+>> thing since it's not related to the provider in any way, it's just
+>> something we want from dmabufs in general.
+> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
+>
+> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
+>
+> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
 
-  test_d_path_basic:FAIL:close trampoline for filp_close was not called
+Well, we already need it with both udmabuf and gntdev-dmabuf..
 
-With that series, close(), close_range() and the closes on exec and
-exit all go through filp_close_sync(). Few paths still reach
-filp_close(), dup2() being one of them, so a program on filp_close()
-no longer sees most file closes.
+Involving the exporter sounds really annoying when it's not something 
+exporter dependent really.. What if the policy is just "only one eventfd 
+ever" i.e. the first call of the ioctl succeeds but later calls on the 
+same dmabuf return an error? That should remove the concern about one 
+user messing with another's events (and avoid the concurrent replacement 
+issue sashiko-bot warned about)..
 
-Allow bpf_d_path() from filp_close_sync(), but only from fentry.
-filp_close_sync() drops the last file reference inline, so by the time
-an fexit program runs, file->f_path may already be freed, with no RCU
-delay for NORCU dentries such as pipes and sockets.
-
-Attach the selftest program to filp_close_sync() and keep triggering
-it with close_range().
-
-Add a test rejecting bpf_d_path() from fexit/filp_close_sync.
-
-Assisted-by: LLM
-Fixes: 056069eb2b66 ("fs: make close_range() synchronous")
-Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-
----
-
-v2->v3:
-  * Drop the unreachable BPF_TRACE_FENTRY_MULTI check (Sashiko)
-  * Add a Fixes: tag
-v2: https://lore.kernel.org/bpf/20260925210347.1364191-1-ihor.solodrai@linux.dev/
-
-v1->v2:
-  * Allow bpf_d_path() from filp_close_sync() only for fentry (bpf-ci-bot)
-  * Add a verifier test rejecting bpf_d_path() from fexit/filp_close_sync
-v1: https://lore.kernel.org/bpf/20260924204226.190315-1-ihor.solodrai@linux.dev/
-
-The issue was found by BPF CI when running on linux-next:
-https://github.com/kernel-patches/bpf/actions/runs/35923662147/job/107398237366
----
- kernel/trace/bpf_trace.c                      | 15 +++++++++++--
- .../testing/selftests/bpf/prog_tests/d_path.c |  7 ++++---
- .../testing/selftests/bpf/progs/test_d_path.c |  2 +-
- .../selftests/bpf/progs/verifier_d_path.c     | 21 +++++++++++++++++++
- 4 files changed, 39 insertions(+), 6 deletions(-)
-
-diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-index 29260951aa87..4b2f944bf67f 100644
---- a/kernel/trace/bpf_trace.c
-+++ b/kernel/trace/bpf_trace.c
-@@ -974,6 +974,10 @@ BTF_ID(func, vfs_getattr)
- BTF_ID(func, filp_close)
- BTF_SET_END(btf_allowlist_d_path)
- 
-+BTF_SET_START(btf_allowlist_d_path_fentry)
-+BTF_ID(func, filp_close_sync)
-+BTF_SET_END(btf_allowlist_d_path_fentry)
-+
- static bool bpf_d_path_allowed(const struct bpf_prog *prog)
- {
- 	if (prog->type == BPF_PROG_TYPE_TRACING &&
-@@ -983,8 +987,15 @@ static bool bpf_d_path_allowed(const struct bpf_prog *prog)
- 	if (prog->type == BPF_PROG_TYPE_LSM)
- 		return bpf_lsm_is_sleepable_hook(prog->aux->attach_btf_id);
- 
--	return btf_id_set_contains(&btf_allowlist_d_path,
--				   prog->aux->attach_btf_id);
-+	if (btf_id_set_contains(&btf_allowlist_d_path,
-+				prog->aux->attach_btf_id))
-+		return true;
-+
-+	if (btf_id_set_contains(&btf_allowlist_d_path_fentry,
-+				prog->aux->attach_btf_id))
-+		return prog->expected_attach_type == BPF_TRACE_FENTRY;
-+
-+	return false;
- }
- 
- BTF_ID_LIST_SINGLE(bpf_d_path_btf_ids, struct, path)
-diff --git a/tools/testing/selftests/bpf/prog_tests/d_path.c b/tools/testing/selftests/bpf/prog_tests/d_path.c
-index 1a2a2f1abf03..7665e1d28a64 100644
---- a/tools/testing/selftests/bpf/prog_tests/d_path.c
-+++ b/tools/testing/selftests/bpf/prog_tests/d_path.c
-@@ -109,8 +109,9 @@ static int trigger_fstat_events(pid_t pid)
- 	fstat(indicatorfd, &fileStat);
- 
- out_close:
--	/* sys_close no longer triggers filp_close, but we can
--	 * call sys_close_range instead which still does
-+	/*
-+	 * filp_close_sync() may be inlined into close(2), so use
-+	 * close_range(2), which calls it directly.
- 	 */
- 	syscall_close(pipefd[0]);
- 	syscall_close(pipefd[1]);
-@@ -165,7 +166,7 @@ static void test_d_path_basic(void)
- 
- 	if (CHECK(!bss->called_close,
- 		  "close",
--		  "trampoline for filp_close was not called\n"))
-+		  "trampoline for filp_close_sync was not called\n"))
- 		goto cleanup;
- 
- 	for (int i = 0; i < MAX_FILES; i++) {
-diff --git a/tools/testing/selftests/bpf/progs/test_d_path.c b/tools/testing/selftests/bpf/progs/test_d_path.c
-index 561b2f861808..edb5494a47f7 100644
---- a/tools/testing/selftests/bpf/progs/test_d_path.c
-+++ b/tools/testing/selftests/bpf/progs/test_d_path.c
-@@ -41,7 +41,7 @@ int BPF_PROG(prog_stat, struct path *path, struct kstat *stat,
- 	return 0;
- }
- 
--SEC("fentry/filp_close")
-+SEC("fentry/filp_close_sync")
- int BPF_PROG(prog_close, struct file *file, void *id)
- {
- 	pid_t pid = bpf_get_current_pid_tgid() >> 32;
-diff --git a/tools/testing/selftests/bpf/progs/verifier_d_path.c b/tools/testing/selftests/bpf/progs/verifier_d_path.c
-index 87e51a215558..7ab9b6b1d589 100644
---- a/tools/testing/selftests/bpf/progs/verifier_d_path.c
-+++ b/tools/testing/selftests/bpf/progs/verifier_d_path.c
-@@ -45,4 +45,25 @@ __naked void d_path_reject(void)
- 	: __clobber_all);
- }
- 
-+SEC("fexit/filp_close_sync")
-+__description("d_path fexit reject")
-+__failure __msg("helper call is not allowed in probe")
-+__naked void d_path_fexit_reject(void)
-+{
-+	asm volatile ("					\
-+	r1 = *(u64 *)(r1 + 0);				\
-+	r2 = r10;					\
-+	r2 += -8;					\
-+	r6 = 0;						\
-+	*(u64*)(r2 + 0) = r6;				\
-+	r3 = 8 ll;					\
-+	call %[bpf_d_path];				\
-+	r0 = 0;						\
-+	exit;						\
-+	"
-+	:
-+	: __imm(bpf_d_path)
-+	: __clobber_all);
-+}
-+
- char _license[] SEC("license") = "GPL";
-
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
--- 
-2.56.0
+Thanks,
+~val
 
