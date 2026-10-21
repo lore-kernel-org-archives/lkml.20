@@ -1,47 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792606038;
-	b=LgODynLBUR+a7gHg7SWbyZSTglbArXSIoWQmshEfh0HRjJ6UTDRvqs/+0U1P3AWwlwFm
-	 8VyNDgAehUMG0ssG7izcHn5gmgjjPQjOfJdOoAKyXs0ZPwgMS636IyFi9Np6e+I9JYr2K
-	 eEUWOZu7dHu+rKl/7Z7dUQbvZWS0R9zwyA8R27FgyJaWizQiH9/+gyjMCgZnC1u4DHQ9q
-	 f9gWpmg9w6KCGilTMOEzRPKvF7rr6YZURFIwoX1DTkXWg9EB0ELuL1qhOoDyo0OlRApj5
-	 O8Hl9vPf6BQfOSSn05sGBvkPUPz9p8OxJZ2s4S/GAQE0lNXmhxYK0MeJ1yTrfWm2gNA==
+	t=1792606047;
+	b=mmpNugAnE+o2gFxzwI1IdBGu6r14dkE3pQKnnF2KoIIfB7WJZaGkxeEsymz3/d/VpnMG
+	 PKY7iEIPoUj2wH7HaZAjWshScR9ZDmgMgr3HBz+BJxN5Oy1fU4+XHI4YUk1gxk34jUAoa
+	 vUQl1kkUCVFRVZEgwi2l1CDopmVzCBkBM6qOvM+z5+eZ814P4gQlau3m921la+cWWDk8g
+	 4Oq3sJ2q4HJVNuKRu33uh3YHGdN2ztCxKINN+SNSCsSWzPX/aptkk+xGqpeYQn4tlwWbh
+	 6em2iVizOZLNJ7uMIksxurCje7NIfRaVsP/n7nlLsjxUP1B+gQGRNaj+lxQxrN6UkSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792606038;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=15kvgDQ7PMMf6Jfi4drYcstlTrHaHywyRCw4UvsdTmg=;
-	b=nZrb7glrEIJ08UKd3JYNC5S8xw3e1r2n1ffc/YtyMNAmLwfOvre5LeRNOLeqnnluqy42
-	 P7xuz8K/nVq8CTMlLHtUVJc3/NuzIpQb5Z2xUQ7PlHQBw/WYjc0vYrookFCFwwOYUXwZf
-	 JMugsZieRWUNM47KaXpVI8eKA+mKuY/QGsfAPoGZIHi7+b6O5XemY9oe2fimoOhMU/j15
-	 ATu58IM9JJ9m9+lVLNPeHj5CRx1mKxNleAKAdR1f5lPUZMiSDO6ZGjSh0fcdudD7q63v5
-	 N7M5lxbUT2zV+rdQy8I3PuNIL/FKGHaFzw4bc8OoqBgmzMLnzV0Qy48N+/xhSsUzxXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792606047;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
+	b=JBQMcJKRhKkV4DxWJ/4DzBTu8s1u+qF04PJsgkMI2+B4eerpVLvHpFyGb0GQ1IQnpQxW
+	 OjF3AXEs4NfI/gKuYN8K7PpBzRx9wmgLsZUQ+oYZUk60VeENF5rGHjyIA/6ljT2FJI73R
+	 Ed5dAu0JtvOozz71LY8/43EGRhbyNqYtOxqvgsjOCRa/IklLK47rn2hA1PSNY+8RVKjI7
+	 HIMl/zaDmoCy8TPG5E7INk5cU7CXZpfqrBZJA0A3kKMkqkULI1ilKSgcr8fuEKzNvT9VP
+	 vn0+8tST7UtqwIIIC33j48H6gTkfQV8Fyzm/Ku9P50REsi5kVvK5+fv81PjyOotO7pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhtJCKJA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmPuaxZx;
+	arc=none smtp.remote-ip=209.85.221.178
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7173606A31D;
-	Wed, 21 Oct 2026 18:07:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CABA606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:07:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CABA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FhtJCKJA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E3A1F000C1;
-	Wed, 21 Oct 2026 18:07:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792606037;
-	bh=15kvgDQ7PMMf6Jfi4drYcstlTrHaHywyRCw4UvsdTmg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FhtJCKJAA8aBXh3veNhWmwXjeKINGJOtvpNmmoS0cftkVaD2dceXyVwdNqjn/aXPA
-	 XyWsVKbMcfaUf4NTGWkrBGMg4h0wllDxZL764dTbejVAGJt517JFW6oi8C0Yc/GLXy
-	 5I9w9w6imsQWRR1Tr+LWZ4S8pdBmRsU1b7/eRiooRY/jF/iEO0CoeRlqGKpdW18rij
-	 RBR6bIIDwGJznKjQVHIVmllDZ/AOeZts59jEtrDRIxgmWeVtgvkY5uKZ19x+80oA3R
-	 0yzaAnJPdmsMNxngDvQ7vHj2SadFJH8O/BeRqqWZ7VlcrLhL4ggSTZBto2KLKrAvnA
-	 gv36fC8FxdlCA==
-Message-ID: <97dd05c2-0a6f-4856-a473-59183a5b3424@kernel.org>
-Date: Wed, 21 Oct 2026 20:07:13 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jmPuaxZx
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5eac925bac3so209246e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:07:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792606046; x=1793210846; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
+        b=jmPuaxZxGSuX2iUAkX5etUFc8l3rPMvgto8XSo5wtZwb/bT/7hXZd5zXz76Q3zTryw
+         AHoQ+fHEfCnELueNC6j6PX5Fnc4K2VpLXakAFunBe+Mpc3uphKEEaJacETiZEaTxZZy+
+         e2sKCGJviofNwT48s5JFb8OqqmXNunlx7Ty0tftUlJMIVauQaexhNpF67R8w8uEvVXIx
+         N8dG1+T2D4Bp0ksb5ZmHMTflDJg4/I5YuUcP/iAGYZeZ0fdISC0jX82sJbCMoU0xlxhZ
+         OqdwJicC/jegzyXcMpNBV17k1XuIQq3PE6tqJCnMnD1ulnQ7w0qBvYPGCkJ9hV+PjTge
+         loxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792606046; x=1793210846;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BD3PH8sn/SG/F7DO7wxZvYQbvmrfrsBI3sjtEwqgqnY=;
+        b=K6NUbQFh4HmTeeJ/OPd/iKQ08tXOcfTcys4ZxW89FRIIFCaMGt0XWtun0wxoG1cJzg
+         /pXpSfJAKzhPlzuDpXfyD9zsXcuRaqWprEF5QwW2OC3txNEezb7FLqtwGuMAAQeOOloq
+         tuNlc8EAcjDdizmHfabuxBekzvrTlFfYLaZFgzQpAgGK8I8l22bl4NwQb5yV7jQ7occa
+         YLI26VgSHJP+tixYZ/6dCLYYXl/f5L06tS9seDv1MBxE2tVClDxPawDFu2Gh0p04RR2g
+         BGEzVltM8wg/9tUCTQJ3i5DNBgSDyhMJBBr9fmPr+fj0dAs2D0M6LG29PAznHPhk31dS
+         +0HQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzrGEcjBjzeG5R1DzgU/cmRpP/2iL2pvag1yePiZMHUGTmA8l52mcWKVHRd4FXUoZlxzYKbRNxVi/7uTo0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLs6C5Chp6OdGIyLSGtw751MCV0PNDDEhxCziUo341jHw7FxAcJ
+	494jHYb5SoB40ZFFvQyHmIwQJbEaa80N3thXRg43/IdOHuKWUR+3ac6P
+X-Gm-Gg: AYBFou3R4o5GQnotbkm3f24D+b/2iIUJ+FImb7HxK93FORKiE9w2RBemxI1Fy1mDJTL
+	XCKcPDU5SUSVAXxRjfrX1hb0y5yU+o7ryInVBbEVwUZY3Snqgv02Py/Nsqc7H6hQHFSxV4/HMl3
+	SfiQZ8vm5n7EsryGvFbsGS2MCuBljVgb7SVbGXLO9yVenVmebBoip8sHoxqHDryOQKZyTqvTeBH
+	5jaK8I27R3yxIIPvTHKsskZcRSf40h0krboey7Fx9L9dDC6q8G8lUULSdwdjvDCckylKJVlGRzD
+	fH0tCtnLCJVcfAxsaESmDj/u0tf0SZcJ+uNoK66UNINF5Dj3Cc3IjYjyXVhIXDh8Lgc3ymk3rPU
+	m81dGP1yP7IZZ5ex2RNPHqEC/1ZXr8pkugRtuBV3saUjYZTaJg7EekeVh+OlRN+OOu9S1VA0oVo
+	rwWzCP6h64/8l7rAVo6P1yiB4FNfizNlp8ZCj2F0TkNyjP5+frQNfiXVMRQpZl05i6hPQw70W46
+	yBSr6xWba1WAqVJ4a7NmBzqNF7u2ITdqDXl921DXyFQICOK5+lw8z12j40vp56pyRJtmU9i9rcr
+	zLYFndDjcBkVxS54IEeU0tMQuqx2fBvki2mZlvIYvJ60AFolw2okh2GqEnuw8MsK
+X-Received: by 2002:a05:6123:6d:b0:5d2:4a4c:ad83 with SMTP id 71dfb90a1353d-5eaebefa0bemr1334431e0c.23.1792606046270;
+        Wed, 21 Oct 2026 11:07:26 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.238.247])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae9697814sm4054490e0c.1.2026.10.21.11.07.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 11:07:25 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-serial@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] serial: 8250_dw: Keep the BUSY-safe divisor hook when DLF is present
+Date: Wed, 21 Oct 2026 15:07:14 -0300
+Message-ID: <20261021180714.473749-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <atj0iRFTxHKmhxVG@ashevche-desk.local>
+References: <cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <cc358c2be6b0b4ea0323e4f694a581ffb667112d.1792439398.git.vinicius.eduardo.pedrosa@gmail.com> <20261020104753.28703-1-vinicius.eduardo.pedrosa@gmail.com> <athe0QikG2mzCAtd@ashevche-desk.local> <20261021100049.16504-1-vinicius.eduardo.pedrosa@gmail.com> <atjB-BnXclL3FcUm@ashevche-desk.local> <20261021153732.1978410-1-vinicius.eduardo.pedrosa@gmail.com> <atjqZPuAbHDdaexv@ashevche-desk.local> <20261021170403.2052449-1-vinicius.eduardo.pedrosa@gmail.com> <atj0iRFTxHKmhxVG@ashevche-desk.local>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,114 +112,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] serdev: handle devices without an ACPI or device
- tree node
-To: Markus Probst <markus.probst@posteo.de>, ChunAn Wu <an.wu@canonical.com>,
- linux-serial@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, gregkh@linuxfoundation.org,
- jirislaby@kernel.org, ilpo.jarvinen@linux.intel.com,
- mpearson-lenovo@squebb.ca, derekjohn.clark@gmail.com
-References: <20261021092124.2306053-1-an.wu@canonical.com>
- <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
- <59137675cf11f7b034220c3b71c5ababab48f8d0.camel@posteo.de>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <59137675cf11f7b034220c3b71c5ababab48f8d0.camel@posteo.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Andy,
 
-On 21-Oct-26 17:08, Markus Probst wrote:
-> On Wed, 2026-10-21 at 16:32 +0200, Hans de Goede wrote:
->> Hi,
->>
->> On 21-Oct-26 11:21, ChunAn Wu wrote:
->>> Driver-created serdev clients may lack an ACPI companion or device tree
->>> node.
->>>
->>> Add a creator-supplied name for these clients. Use it as a serial
->>> modalias fallback and to match a serdev driver of the same name. Keep
->>> returning -ENODEV for unnamed clients.
->>>
->>> Signed-off-by: ChunAn Wu <an.wu@canonical.com>
->>
->> For v3 of this series please include a cover-letter and explain
->> why this series is an improvement over the` existing situation.
->>
->> The dell-uart-backlight and lenovo-yoga-tab2-pro-1380-fastcharger
->> drivers are both pretty special cases and here you are adding
->> a chunk of code to the serdev-core for those special cases,
->> so I wonder: why?
->>
->> The current manual attach approach taking in these 2 special
->> drivers works fine.
->>
->> What does this new approach gain us ?
-> 
-> That was my review comment [1] that resulted in this.
+On Wed, 21 Oct 2026, Andy Shevchenko wrote:
 
-Thanks, that is useful info and the kinda info I would
-expect in a cover-letter :)
-> From what I can tell from revision 1, ChunAn Wu is trying to fix that
-> accessing uevent and modalias of the device (via sysfs) results in a -
-> ENODEV error.
+> Yes. but is it only a single device/platform affected or a big class of the
+> devices? I assume only narrow part of them which unfortunately use DFL register
+> offset for something else in their RTL.
 
-I see. Makes me wonder though how that -ENODEV is a problem,
-it is weird. But is it a problem?
+The A733 is the only case I've seen, and the false DLF is what exposed
+it. But I don't think the BUSY problem depends on the DLF offset being
+reused: with a real DLF on a UART that isn't 16550-compatible,
+dw8250_setup_port() also replaces the BUSY-safe setter with the dwlib
+one, so the same path exists. I haven't confirmed that on hardware.
 
-The v1 patch writes the following about this:
+With patch 2 the A733 no longer takes that path.
 
-"This makes the modalias sysfs read fail and suppresses the device
-add uevent, even though the device is registered and bound to its driver."
+> It all depends on the outcome of the above discussion. Maybe others can share
+> their opinions, but I lean towards a series-as-a-fix rather than a bit ugly fix
+> + proper refactoring on top.
 
-Ok, but the backlight driver ultimately ends up adding a
-/sys/class/backlight device which I assume does get
-a uevent, or is the problem that one never getting a uevent
-because of its parent not getting one ?
+I'm fine with a series-as-a-fix, and with deferring the deduplication
+patch.
 
-And the lenovo-yoga-tab2-pro-1380-fastcharger driver does all
-it needs to do fully in kernel and does not even export
-a userspace interface.
-
-> As mentioned in my review:
-> 
-> - "/* TODO: platform modalias */"
-> - "/* TODO: platform matching */"
-> still exist in the serdev codebase (drivers/tty/serdev/core.c) and are
-> unresolved. Resolving those also fixes the issue mentioned above.
-> Therefore I think this would be a better approach.
-
-With that said given that there are TODO comments for this
-I guess addressing the TODO-s is ok.
-> A cover letter is ofc still needed.
-
-Ack.
-
->> Also if you are going to do this may I suggest looking at doing
->> some sort of of-compatible matching based on a compatible string
->> inside a swnode ? I do not know what that would look like but
->> that is something which seems like it might be generally useful
->> also outside these 2 special cases.
-> 
-> I haven't used them before, but I don't think of-compatible string
-> matching inside a swnode is done anywhere in the kernel (At least I
-> haven't found a case).
-> 
-> They can be added supplementary if needed.
-
-The idea was to make this a generic match mechanism / helper
-function busses can call, like the current of and acpi
-match (and modalias) helpers. And then have matching by
-a compatible string instead of by name since matching by name
-only works if there is only 1 instance.
-
-Anyways this is just an idea and somewhat out of scope for
-this patch-set.
-
-Regards,
-
-Hans
-
-
+Thanks,
+Vinicius
