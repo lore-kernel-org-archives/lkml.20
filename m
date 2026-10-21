@@ -1,111 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792587411;
-	b=kYUMlk8lxE73aBJc+bKMWsI/cCZWWbFYp5OCwpveA3igBrM2G1i618DQGfw2UzTiXdtG
-	 7EJmLnn6V9J7UwNBwVJ480qh3JBPVGRTH9x7XLxF1rwutJzub6GYvxkCjCWtQ6Wpp/1uj
-	 SEl3k8xVzv1LquqQc1bur09+rP10EzKgO+dhmSESGBzDQskZPXHvBA+LJuAzIHEQsx4M3
-	 W/oj9vQpRYew0DiHNceKoAax7rWmgXD9pFOeMLEjSuPq4r04Rb9Mj0ZLKef5rrdnQ1yLF
-	 HEuRZ85mB//j2L05A1Cd+8Wsz4BR4lwKL9hNmMlRnrxLh0dO24q1/0Y2tS25/eZGH3Q==
+	t=1792587415;
+	b=oAny7ScQMtekwGpQ+TdVDgodPTmpon2Yjd9kNmmQAPNH8fCccbBBFKFxla+wXEU5h9AJ
+	 ZyfgFcOKEvCzXYN0upw8kjHnvjvrnmdTgkyDg+qaH1IcNAV8rSxvQsJjimGvcw3kYHXxB
+	 JX3BcPrIOE6vzgJ8zQjScqHN7z8SvdZ9yib474D+FiJvADkjN/hyvwrkrHBkqLpjUtL8v
+	 5die3QuZ0GwILO/7owjkqrbgEUnChBhmCwZFNTBLjnCJT1PPAu7cOlN0uHxrtTMyAUmiu
+	 xdo25LzCNQljXVf8gjkgVdcKKfclDcDBrOHoZ6bSmNjcFt00ZXTLw2mCowlOrPVzH4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792587411;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=2nBydGv9mIiJ5Gr5SDQONXTipJ1tdBIAYvpUitblkuM=;
-	b=aheRfDoz340U31lqbGk/Ue/ZTs3jeFux7cEUefkB2Rfqx93AhRJnvJ8WJXcjhv6JbWoY
-	 vi2eSFsL5MwRAdr6ZZI9z0XZn71AWRZLjHtexELSCaayagCUI+epQGmpTsW3KbXfuWAYL
-	 oQpL9ROO2G/CRcMWUZyiFPzssBf2aZ2ZqnHIuYOErLtjcq56KzoP2i09aOUCYUTZ4obiZ
-	 s5fUa//tELrSmt4jg1Q+Ffrcz1cgUNSOapqqViy/olWXhcYlBCRzIZ7d4IajdIrdrs53/
-	 I3qgs8CujmEF+v572xOhmUAYG73pbSnNj73WFMy2Xo04lD0iYkqi8xYhtF+dOKZgmbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792587415;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=8N2TaHMWI8j5xcPeZMdsXt0buMI8vI6KwHU5sNRNuKI=;
+	b=nfvRMw4icEqdgrWWDmycjOad9wkZK/fffWSGS1oSstmoa5PDcGWYfQ6b9cwgd52Cd84P
+	 hN+OG9PfDHG86dAQehD1QpHqDryeW/O+CidK+BihpkEvqcGRBmAIJmdwHCGtftVVJxD5d
+	 LjNonyx4rn3ogQiaSgHdVdpdh9dT+3LR/88SiPUr5Xuo3dF0JJ3OY1VxRRzl7njNCczLc
+	 /hXVfRsraBO+Du2AfaUP7oHp09t0ODd8jB6PPhX8pk8EcqqpI+I+Dxh9eZnGMd7sfkuBl
+	 RU7TfNJQo+dccUG76cNrhumlLmGswpmt1DxwsTi6wTSUmeySuwyBDbrqbC6OFBcetwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dmxV+Vny;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s7Tb8LQe;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dmxV+Vny;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s7Tb8LQe;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CFnH0X1v;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xq1MaR9S;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F950606A31D;
-	Wed, 21 Oct 2026 12:56:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F950606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817DA606A330
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:56:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 817DA606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dmxV+Vny;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s7Tb8LQe;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=dmxV+Vny;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=s7Tb8LQe
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2B88E21A33;
-	Wed, 21 Oct 2026 12:56:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792587409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2nBydGv9mIiJ5Gr5SDQONXTipJ1tdBIAYvpUitblkuM=;
-	b=dmxV+VnyDNluCdG5hbyfKyteWRqN/Cl2b4mG364gEjJRhUGBwN28Ke/vnOasXxlS0guygS
-	ON1BPKN8gwGOFdih/xHE94cGT4WG4F9pc4ep6Ji1C+Hr66W2DL1q/fnFS3IBPG34UdIW2Z
-	UdsPusohwi2JPEbgVwL2VeoKrGFpvfM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792587409;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2nBydGv9mIiJ5Gr5SDQONXTipJ1tdBIAYvpUitblkuM=;
-	b=s7Tb8LQegD2Wm2FjGP671tfZB4yJTjKj/9EjWwbdB1udIsAnSvAIiaWoq+/j4Ty4u18rEH
-	Rur75xIUCdJoE4AQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792587409; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2nBydGv9mIiJ5Gr5SDQONXTipJ1tdBIAYvpUitblkuM=;
-	b=dmxV+VnyDNluCdG5hbyfKyteWRqN/Cl2b4mG364gEjJRhUGBwN28Ke/vnOasXxlS0guygS
-	ON1BPKN8gwGOFdih/xHE94cGT4WG4F9pc4ep6Ji1C+Hr66W2DL1q/fnFS3IBPG34UdIW2Z
-	UdsPusohwi2JPEbgVwL2VeoKrGFpvfM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792587409;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=2nBydGv9mIiJ5Gr5SDQONXTipJ1tdBIAYvpUitblkuM=;
-	b=s7Tb8LQegD2Wm2FjGP671tfZB4yJTjKj/9EjWwbdB1udIsAnSvAIiaWoq+/j4Ty4u18rEH
-	Rur75xIUCdJoE4AQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E372B134A5;
-	Wed, 21 Oct 2026 12:56:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id IhyJLZC22GoHcQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Wed, 21 Oct 2026 12:56:48 +0000
-Date: Wed, 21 Oct 2026 14:56:44 +0200
-Message-ID: <87v76vdxf7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: henrik.enquist@gmail.com
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Mark Brown <broonie@kernel.org>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] ALSA: aloop: Update the PCM Slave controls for a matching playback
-In-Reply-To: <20261021-aloop-slave-controls-v1-0-62297727177f@gmail.com>
-References: <20261021-aloop-slave-controls-v1-0-62297727177f@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CFnH0X1v;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Xq1MaR9S
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBgLpO4168133
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:56:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8N2TaHMWI8j5xcPeZMdsXt0buMI8vI6KwHU5sNRNuKI=; b=CFnH0X1vYTNqj+Dr
+	tnTyG31yDCu5C2kNe8tE3NzeAcDgYOHqtYGUh+P5odDF+jUSuP2IYlcfYQvpCmJD
+	Pazu1aTtkDWG+1z9JdTWaiNI0S8sodgXqoq4fbNpcyVy62LJPWB/MZTJctCWBoWi
+	M7cj5PFPS0xXqpAVT+pI6EYr7huerP4XY5yq+71EA6Tv8I2zXUdhlbibPZ+DatQe
+	si8+lgieUNfr725H54kh7LV3GwxZz0B9seWVYhftGLGA1LNsO7rMgg/1bKR+UZRo
+	J0KC7cv2YLEiJY0c504iMSd0oATmOTeZJmBKZizsxqR57QBp1mkdeAnIPWSAeom+
+	tWnvWw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda0kxr5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:56:53 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93df7a9466bso7119685a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:56:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792587412; x=1793192212; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8N2TaHMWI8j5xcPeZMdsXt0buMI8vI6KwHU5sNRNuKI=;
+        b=Xq1MaR9SsNT1w5grT45+tEpoPZJ29Y3nwNAmlSE/R/ykfcfWgqv6Ek9YBUVLJGp84R
+         83vqLARubbS5Ln9ELNkJRxQZNKcivCFtPOE0FiWhKHSm84qeen7B7H0hU4c6IF7y55DP
+         2/q/1cU6j9AH68H3jyhXSGjiBbTaVIrA7lLLwAvwiCdsI7iOChl9ph9B5FnGBBqW+2ig
+         DSs9T5pBsWsb0+25J8J9KetsL7vGm3OeyIkSc5T0LDdvrK0i9vC3OW6RFaxo0k8IiSiU
+         maWK9/f9QhDjb+31qhLNSWGd5qonmtb5NJdACkj7HKXshkN/RkCg0ckM4m7M1zHCXi0v
+         8hLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792587412; x=1793192212;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8N2TaHMWI8j5xcPeZMdsXt0buMI8vI6KwHU5sNRNuKI=;
+        b=2DrKVU9tzWhilDdbFP2CCvWMDdb7+qnjjqLtDCtXLWttl9JYTV6qkOlwq+0Bg8UZTQ
+         Zr9Jj2mxFQqHSoQGwVKC1ye9Mk954tW+pUIatfWXex3Z6RX3v4eZeJZmheTv/uql+Lav
+         067SMqevoazNMYsHwmN+hNeuNSOP8hPXgetOIzSDAwl3l2wePWyH9gKpoy0zj7BWArC/
+         Dw586KLF4gVHksTZpcjqyrvY5mFb2luG1+8JmkbrAfOydUKK5HslpJxWseUomACAGFDY
+         kJNCbccMjs27k15YCnjxv6nET1zb4v/8EPWLLK4uVaK6Do6U+JNBfPxLebq7N+SVyryx
+         UHjA==
+X-Forwarded-Encrypted: i=1; AKwUvBwNqRQPtFhnG/SlgCv3B8J92bAGhWmOftXyIH2dnDdffapqV/JJx4jM/HIH3QwnO+kLkag6XVS6N0MDIi0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOzwOb/3M7JSjYfgopcXhx+kiDk0wZW7m8llETM7zkn8tI4aN0
+	mr7AlaQ30KyGTKqAbkVjtiE2iePt+a6aydDuwBEOCb0p3hV/JHFaTGlWkTOzDvXAWgLk90AuHm/
+	bVSLOW98Ax2umF7UGNBXOEaV25F7Eho75eCB2AO6DmFQ6a0grMwBTjy8MH4WDCFNdOj0=
+X-Gm-Gg: AYBFou3gPLnmm972+IJQNb0/x4kY9epg+hCjWsq3+HM/caxPTg6caXBmxiay/1WCKMV
+	jVHO4IvhX4fhDa8qd2onAMO5SlT9ozttcFWfHRY2Eo5AC3a1aFt/vXYCi/HD/mQst7dvjvvRsoV
+	1gWYwdHu3qmJ+xlE4kEqsbiQwvmfrS6zyavt5gZrGHM8GOtwnhhtDt4EedFr9BX27spqujLv0za
+	lyHt4fztjLSKeWypUr2xpRXBAMc65GRBS1Gw0VS23clZKgqXytuBhYt2j15WWk5Dr4kwbddyKv7
+	Zg/86CunYXi7zNo3R3HFL92wCFMfDrzjZ5kNt3+QN97OIwD857pjIzZIrVIBeoFJ7gA5z2DY9sa
+	Vda5CQ6ev5R8eUhIc4muYGg==
+X-Received: by 2002:a05:620a:6087:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93f57d6eb34mr480105185a.0.1792587412627;
+        Wed, 21 Oct 2026 05:56:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:6087:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93f57d6eb34mr480100485a.0.1792587412035;
+        Wed, 21 Oct 2026 05:56:52 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678fe6f4asm75163166b.65.2026.10.21.05.56.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 05:56:51 -0700 (PDT)
+Message-ID: <9e902800-8c51-44bd-bec8-5cfbcceae64b@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 14:56:49 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,85 +114,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -10.80
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8] firmware: qcom: pas: Make MDT buffer retention
+ explicit
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Sumit Garg <sumit.garg@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org
+References: <20260925165231.10722-1-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260925165231.10722-1-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1MSBTYWx0ZWRfX+G0Q0+EW5Ruy
+ vsFTNMomVlOhhmorbzOKIHVDcTZ2lAOy5ZRyEDFBi59F8F0xNy6eMO9pE8fpIA+F5Koh3/SHO5p
+ Crt2NiaX7+eq+0W7lH6pUcIL2SEOfizk+w7bePGvumng8lnyTayvYW7aJd1CjtvrEzT4GZFaUKF
+ KTikPYDK9Pbqskk0Q3RIqSR8ICrBbO0hsVPB7NyapiyG3pmsmlR8Z7b0LKHy+xC4tl8wADP2J1S
+ 1NJO46yx5GFhYxEIPt6HGxF5AXJkS7L8iAfI1DjfodhW5t6B7FtNAz1bt0IPGi6j5NH0BXHdCpa
+ azThWRMeANfG1cXklps57aOtFYsJfBf0iw5jMhZkIfLkPlFaXf0ozcbFoup83XDcdImyJvgdS8Z
+ HfJkTF/CGfEBP+uqbdRJwPdqhZNoZmhUuGwycaDSYRX9ZAlC/KgaiwoNgeAsz+V2XJZ2S7YGixI
+ mYpGfcMq2i+hR+pVOfQ==
+X-Proofpoint-ORIG-GUID: -I9WUjrsStNodXWsv9E20o3TF89L57BI
+X-Proofpoint-GUID: -I9WUjrsStNodXWsv9E20o3TF89L57BI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1MSBTYWx0ZWRfX59sy0CTmctdA
+ hdYyG1vjXDWYOO84G6VRkUBGuRln0EtN4xfwGPLZH0WtRT7/efsUCoE+63Usry5HAI92j72xIGV
+ M26Vh+kaeDqR5yQF0sVAVTj0DxvrIsE=
+X-Authority-Analysis: v=2.4 cv=HL5WhYtv c=1 sm=1 tr=0 ts=6ad8b695 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=oFv1cWL6vE1NE88U30gA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610210051
 
-On Wed, 21 Oct 2026 09:46:44 +0200,
-Henrik Enquist via B4 Relay wrote:
+On 9/25/26 6:52 PM, Mukesh Ojha wrote:
+> The PAS image initialization path retains metadata whenever a valid
+> qcom_pas_context is supplied, although callers may not need the metadata
+> after initialization. This leaves ownership implicit and causes unused
+> metadata buffers to remain allocated.
 > 
-> Hi,
+> Add keep_mdt_buf to struct qcom_pas_context and have the generic PAS
+> wrapper release metadata unless the caller requests retention. This applies
+> uniformly to SCM and OP-TEE backends, while qcom_q6v5_pas keeps metadata
+> for subsequent PAS operations.
 > 
-> One more aloop fix, after the notify mode one (ded1060369 "ALSA:
-> aloop: Don't constrain playback params in notify mode"). I ran into
-> this while working on a new CamillaDSP feature that uses notify mode.
-> The "PCM Slave" controls are meant to report the playback's
-> parameters, but often they don't. loopback_check_format() returns
-> early when a capture is open and the parameters match, before it
-> updates the controls. They then keep the module defaults, or the
-> values of an earlier stream.
-> 
-> This isn't specific to notify mode. Without notify, a playback that
-> joins a running capture always has matching parameters, so the controls
-> are never updated in that case. The early return has been there since
-> the driver was added, hence the Fixes tag on the 2010 commit.
-> 
-> Patch 1 skips only the capture stop when the parameters match, and
-> always updates the controls. A value event is still sent only for a
-> control whose value changes, so nothing new shows up except where a
-> stale value gets corrected.
-> 
-> Patch 2 adds a test for it to the aloop selftest. It doesn't need to go
-> to stable, so it can wait for the next merge window if that's easier.
-> 
-> Testing: for-linus at 443ed4edc2, arm64 VM, kernel with KASAN,
-> lockdep, DEBUG_ATOMIC_SLEEP and DEBUG_LIST, comparing the patched
-> driver with the unpatched one built from the same tree.
-> - The selftest passes 5 of 5 patched. Unpatched, only the new test
->   fails: the controls keep the earlier stream's values (96000 Hz,
->   S32_LE, 4 channels, non-interleaved) and no value events arrive.
-> - The reproducer in patch 1 reports 48000 unpatched and 44100 patched.
-> - No KASAN, lockdep or other warnings in dmesg.
-> Not tested: real hardware, other architectures.
-> 
-> AI disclosure: as with the notify series, I used Claude Code (Claude
-> Opus 5.5). It traced the bug through the driver and its history, wrote
-> both patches and their changelogs, built the test kernels and ran the
-> tests. I reviewed all of it.
-> 
-> Henrik
-> 
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 > ---
-> Henrik Enquist (2):
->       ALSA: aloop: Update the PCM Slave controls for a matching playback
->       selftests/alsa: Check the aloop PCM Slave controls for a matching playback
 
-Applied both patches now.  Thanks.
+Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-
-Takashi
+Konrad
