@@ -1,65 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792543415;
-	b=MPRO+cB8KD1sWqJbmzvl6jDjZpinfd5g0FbYqX3mH5NpzMPmFWHpt6v0w5GrM9+T7KKg
-	 TshsbdTIC8t5offr2FHa0Riol6ZJFp8dUoWBqs5zYTBZkeQoKWgEfouha4JKpdgjvopUy
-	 ZqHRgWSzqGSIqqurMsgw1e7QeXT8s6tgH8Dpmm2G3Q8gQUgCd/Qbe7kALafLij2+OZ6Ha
-	 52JXgCVcocehRRWUUQjDg6tHpfjKPM2oiRp9Powgxs/eeGyfkZypRA4ovkoXERBd2zpQ+
-	 zrRaSZs6vIDdnZ2XgvZs+D+utyLuiULL2fLVgHmPU3w7egO+neBZ6JqjLG9/VSBBnOg==
+	t=1792543604;
+	b=U/TEbuCxNCQcevM2scRvHU+UAW11/61R3GN05MeX77F27GftKMxcd6kzPsMKh0yGaZpK
+	 gykdMr1tlaOFepGln77ml8UaGQQpzBRKedeXRh2CFXKRUnARiUbnK+HwhZHdjO5CJ/Npe
+	 zOSlDFzG4c0oqCbDTq1Xf8m0fYIJEW4bk9tAetOdtPTYOroG+ICb2Yp/EidIoibkoYMvL
+	 KJy0ER2dCWcKXehC0OxRhKe2hhbLBVxYxCk4RQ5IAYGntUDUd0MTIe8zsI5PB3SUKJS0R
+	 oiaWmzHOENfctn91QYSwp5RPtikDc8NJGZv6cXTdVavQHB3Cdv905ggIM+siqZw/Hfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792543415;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792543604;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=+nsFjOW7BqpbTIqHalWaePbKIO7ywrm1YspyvTTDJtI=;
-	b=X25bysreya8fYQLdf+2yLtNuWSZDgCCgaeZsV8CT1MBpX8Pl5HUGQLxrcKF4C+6u71mD
-	 hQFxKhNp+2FppUF0Dlb+QxARSTc87TidZv4YMWFeEyekQVgS6FvK3FL/MDrZzn0w4MAoD
-	 U+TH5xMaq/r4m9cOqdGR4a9m5XQE33V7YYbnH2EaNRm/TahRXhIj2iV0zPpHPht9MBuhB
-	 DmbJL96v7ZDaEG0QWfCF1SUOmwTZDFUFA9Gslgz2ISHu66K+g9/ttt8jHPtPdj/VJhi9S
-	 tEV2YmQWsaF0ldHoKP9TbLHhppGe4V0uiIahPm8R3WfGGXdDa1vzllzu2KampoIK5XA==
+	bh=cYpHHOHNHq5tzuXPfB7XouT8ae+NpXW8E3LZxG9wwtA=;
+	b=V9+Ckokzm60qS7+JG5t107z6DjjLjCC655g/Df9H6HGxaz6GSIqROKfzhFGkm7QYwlrn
+	 sZNh6rzdNxJbzMYosI4VkMSP8H7u4Ywtp4Ym4TnQ6g8yaqzIsxEwCCrUdJ2em4Jm/e+RG
+	 2lZPTxjhGzsLboqPpCApHdHHFZXBeKQghFXtLp7Kfef4bBIo1gchk/AkOrPpDsstVIQdP
+	 ME5o5Nt3mYEfvDGwt3RMANZq97Q1iSycd1DhQrH4SdyKOTapEZ0TZjhqaBQTzG4MkcuWJ
+	 48/aV6ZpkLrIi2+YcQlsuuoYwdDXEMRuY5m4aQF20jKOud5XW/1zOJgQwfLvF4/bPnQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxcF7P9Z;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vWWnqBmk;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC11606A319;
-	Wed, 21 Oct 2026 00:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFEAC606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:46:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DxcF7P9Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F321F000CB;
-	Wed, 21 Oct 2026 00:43:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792543415;
-	bh=+nsFjOW7BqpbTIqHalWaePbKIO7ywrm1YspyvTTDJtI=;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=vWWnqBmk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621D31F000C9;
+	Wed, 21 Oct 2026 00:46:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1792543603;
+	bh=cYpHHOHNHq5tzuXPfB7XouT8ae+NpXW8E3LZxG9wwtA=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DxcF7P9Z8g9YonBWeXdP7GBGjT2smZ0f5bgEtvl7J2t4zP4ETROvhigfV8h151wzc
-	 LIfDwx4M/0LBeRjp33bTltFl023pkl94jXkiwX0i25JhHsbeCeKHVXH/oIbW0+9bxA
-	 HYYEmnbflmRQ3yza6Xba4HjF/k3Nf6UNv8WMYYqTwy2dwAc/hL5BCVTS/CY3oZzbqe
-	 YDbK6eRvAU3STAbb2jBawAmCzDD86hXg5xitwqBq3UkMFwHIYOQd7FYr8oHkHnG4ue
-	 whDknX3N7JSVkNgvSjnWi/1p0aw4ykAmdez+cN+5EdinjhAtZrHasyW4lRf1gniW1T
-	 MJXqzY0ZyMzgA==
-Date: Wed, 21 Oct 2026 01:43:24 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jiri Pirko <jiri@resnulli.us>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
- linux-doc@vger.kernel.org, jgg@ziepe.ca, david.quigley@intel.com,
- lukas@wunner.de, ksinyuk@kernel.org, rodrigo.vivi@intel.com,
- cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com,
- James.Bottomley@HansenPartnership.com, aik@amd.com, jpiotrowski@nvidia.com,
- qinkun@google.com, pgonda@google.com, alistair.francis@wdc.com,
- ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
- rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
- dave.hansen@linux.intel.com, sathyanarayanan.kuppuswamy@linux.intel.com,
- peter.fang@intel.com
-Subject: Re: [PATCH RFC 05/20] ctlv: Prepare message input handling
-Message-ID: <20261021014324.58376589@jic23-hlaptop>
-In-Reply-To: <20261015145053.3664509-6-jiri@resnulli.us>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
-	<20261015145053.3664509-6-jiri@resnulli.us>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	b=vWWnqBmkjzGkxuzqf7s9WbmPmVzrHdxinjflYQXw2wmdEzh8SFTR/DoCh7lI40vJb
+	 ZBFN7qloXI3Sp5ULMNIjrEGPG6aKfu2ZvKcU3iwe1NtygT3o6gXjfdMTfCsVRyMsy+
+	 q2bJH+OhgG4BW2pirFH3LoyB9umfYfhSzeEwV9VA=
+Date: Tue, 20 Oct 2026 17:46:43 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Avi Weiss <thnkslprpt@gmail.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] profiling: fix sampling step on 64-bit big-endian
+ systems
+Message-Id: <20261020174643.41ce3b98434d0791af79cda7@linux-foundation.org>
+In-Reply-To: <FBD0DC2E-B6C0-400A-A2C2-BA8BA127E43E@mainlining.org>
+References: <20261020101225.917959-1-thnkslprpt@gmail.com>
+	<E2C67135-E62C-4E68-9087-4E3CE47E5A4D@mainlining.org>
+	<CAKOB7-YhfVyoo95LtfOSkJTVxgjOA0bxPBndca5L+9M9MXTSHw@mail.gmail.com>
+	<FBD0DC2E-B6C0-400A-A2C2-BA8BA127E43E@mainlining.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,143 +58,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Thu, 15 Oct 2026 16:50:38 +0200
-Jiri Pirko <jiri@resnulli.us> wrote:
+On Tue, 20 Oct 2026 17:50:24 +0100 Bradley Morgan <brads@mainlining.org> wrote:
 
-> From: Jiri Pirko <jiri@nvidia.com>
+> On 20 October 2026 17:47:22 BST, Avi Weiss <thnkslprpt@gmail.com> wrote:
+> >I'm happy to try it anyway - just so I know how for future patches.
+> >I'll see how many I can run through before my laptop gives up ;-)
 > 
-> Add wire walking, request indexing and validated input accessors for
-> generated family readers.
+> sometimes the crux is for these kinds of patches something in some cryptic
+> arch gets messed up in vmlinux stage, odd right?
 > 
-> Keep CONFIG_CTLV unwired until dispatch completes the module.
-> 
-> Assisted-by: Cursor: GPT-5.6 Sol
-> Assisted-by: Cursor: Claude Opus 5.5
-> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
+> This *makes sense* for me, off the top of my head and thinking hard id say
+> this *shouldn't* do anything bad to a cryptic architecture, but I've been
+> shocked in the past.
 
-Trivial stuff only. I didn't attempt (yet) to check
-all the walking code, just get a feeling for what was here. 
+OK, read_profile() makes me question my career choices.
 
+It starts out with totally inappropriate type choices then bandaids
+over that by typecasting just about every damn thing in there.  None of
+it is commented, natch.
 
-> diff --git a/drivers/ctlv/Kconfig b/drivers/ctlv/Kconfig
-> new file mode 100644
-> index 000000000000..aed3243c55fd
-> --- /dev/null
-> +++ b/drivers/ctlv/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +menuconfig CTLV
-> +	tristate "CTLV character device TLV UAPI"
-> +	help
-> +	  CTLV provides character device UAPIs described by a checked-in YAML
-> +	  specification. It owns the character device lifetime, the strict TLV
-> +	  message format, request validation, reply serialization, the large
-> +	  payloads a request describes rather than carries, per-open event
-> +	  queues and runtime schema introspection, so families only implement
-> +	  semantics.
-> +
-> +	  If you don't know what to do here, say N.
-
-I'd not say that.  Overly cautious for something we expect
-to get fairly extensive use.
-
-
-> diff --git a/drivers/ctlv/message.c b/drivers/ctlv/message.c
-> new file mode 100644
-> index 000000000000..7e5742ba8f70
-> --- /dev/null
-> +++ b/drivers/ctlv/message.c
-
-> +
-> +bool ctlv_message_input_rebind(struct ctlv_cursor *nest, const struct ctlv_schema_tree *tree,
-> +			       u32 node)
-> +{
-> +	const struct ctlv_message_input_scope *bound_scope;
-> +	const struct ctlv_message_input_nest *indexed;
-> +	u32 i;
-> +
-> +	if (WARN_ON_ONCE(!nest->attr || !nest->msg || !nest->msg->index))
-> +		return false;
-> +	if (!ctlv_message_nest_index_ok(nest))
-> +		return false;
-> +	bound_scope = &nest->msg->index->scopes[nest->index_nest_scope];
-> +	indexed = &nest->msg->index->nests[bound_scope->nest];
-> +	for (i = 0; i < indexed->scopes_count; i++) {
-
-	for (u32 i = 0; ...
-
-> +		u32 scope_index = indexed->first_scope + i;
-> +		const struct ctlv_message_input_scope *scope =
-> +			&nest->msg->index->scopes[scope_index];
-> +
-> +		if (scope->tree != tree || scope->node != node)
-> +			continue;
-> +		nest->tree = tree;
-> +		nest->node = node;
-> +		nest->index_nest_scope = scope_index;
-> +		return true;
-> +	}
-> +	return false;
-> +}
-
-> +
-> +void ctlv_attr_next(struct ctlv_cursor *cursor)
-> +{
-> +	const struct ctlv_message_input_slot *slot;
-> +	const struct ctlv_message_input_scope *scope;
-> +	const struct ctlv_node_schema *node;
-> +	const struct ctlv_attr *next;
-> +	u32 next_nest;
-> +	u32 next_offset;
-> +
-> +	slot = ctlv_message_cursor_index(cursor);
-> +	if (!slot || WARN_ON_ONCE(!cursor->attr))
-> +		return;
-> +	next = (const void *)((const u8 *)cursor->attr +
-> +			      ALIGN((size_t)cursor->attr->len, CTLV_ALIGNTO));
-
-kernel code is allowed to rely on void * arithmetic, so this can be
-	next = (const void *)cursor->attr +
-	       ALIGN((size_t)cursor->attr->len, CTLV_ALIGNTO);
-
-container_of() for instance makes use of sizeof(void) == 1.
- 
-
-
-> +const void *ctlv_attr_binary(const struct ctlv_cursor *cursor, u32 *len)
-> +{
-> +	const void *value;
-> +
-> +	*len = 0;
-> +	value = ctlv_message_cursor_payload(cursor, BIT(CTLV_SCHEMA_BINARY), len);
-> +	if (!value)
-> +		*len = 0;
-
-I'd kind of have assumed that ctlv_message_cursor_payload() would not
-set len to anything if it returns NULL.  Thus the default *len = 0 would
-be intact.  From a quick look that seems to be the case making this
-code a little odd. 
-
-Perhaps overly defensive or keeping an LLM happy?
-Same applies on some other functions.
-
-
-
-> +	return value;
-> +}
-> +EXPORT_SYMBOL_NS_GPL(ctlv_attr_binary, "CTLV");
-> +
-> +/*
-> + * The room is measured before anything is written, which is what leaves a
-> + * refused attr's message exactly as it was, padding included.
-> + */
-
-Having a trailing comment in a file rarely adds much or indeed
-even more rarely gets read.
-
-
-> diff --git a/drivers/ctlv/message.h b/drivers/ctlv/message.h
+I'll grab Avi's fix for this merge window.  I persuaded the
+coin-operated coding machine to generate a couple of patches to fix a
+pre-existing thing and to clean up that code.  I'll send them
+separately so Sashiko takes a look.  Please review.
