@@ -1,139 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792588079;
-	b=wReqXf9qHxkuHLhrT2/Igb4gk9MpiSR5pEQciSAqPlRACVIuZ/m44g57Mw7G2Ojif6mT
-	 pU4IC1b+ISzxm4LPDTkFwO2F7t3Z6NaQ4k/fxMpu3bjutab2kiKZHgdEdI017exNRDZqh
-	 6zflNwMfn4UW74Q9gcNfBCJ9HpdWeSaFJJRnQfjSqC7gCze2I52XcNfyJl+C2Doy3DI6d
-	 N7sXOb7YFjZhAz4fEsNuGeJ5wDbCdin2BHQgcsnEOd7hGAcVBX8UmfS0WZw6vvF4woZj8
-	 RoTLHMW/lQrfciZQ+1+n0DBIh9s0j0lIWGwXQTSk4xWYFyBBmZMy5ATnY5Utw599+Jg==
+	t=1792588134;
+	b=sQ05qbJ33VpCHiOiispAemqGDWz3bHe0A2N5YpWLQraWNptGCOPyOe1gJaKuVpfdaIaB
+	 HDxypZoAxix/8OtzSHFdWGx0l9itY0tZ0ElXBBArsnsZKtimgvb7I4SmDNrgAbinxBMRH
+	 DZETQwyxs0VzSo8ODnxVKo/jRWe4dyfp52kzWxD3vLs6I+IQ8tmHLFWxf75Fhp0kIhDS/
+	 Qkd8/SlgIMJFJbeu4ZfSfFIfghvsA7Wu0qZlV10u3jFPZckUq8XtLGam6Rycloj80b7VW
+	 FPqEw2IecVYHWd7kSpS994IpC825AkEl54cwg/Qqid7KoZGN30IqaH646gjUeQHe9aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792588079;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=uHps6C48bjErWLWTA2jyVj+V/HCuKfjWf7ze/6BLmro=;
-	b=yGWWXCGcETqQ5Xo2G71cHa0q3MZCedcL3I5sHnVmVXCIy+gwln20hDi+byW61dsR26lx
-	 Z7D9UJvJK/61fwp/FOzfKZaQLG+sC9So5uymOSqw+m/A1tLyQ5hKAVZ+yuubprtZa6j5D
-	 bS6S9jH1MxrSWaE7sAqOBon0V9LXGSol5ip1WwiZnAiw9fjFIq6+zyhKyAfmtMhRiZscM
-	 98T38FozycbowOi4AqNSLtc/aRb+ReEm/v12jXw9BLaQ2NI44w84+G3ov0ri7kTRZ5yAN
-	 4+PAa2AufMP2nhF2BMdvAvsWT/hXHezavGIh1GjKnZUl8/OtmbQbHTUNVjMof3nFf9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792588134;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7Ve8ZNksPYVItMCXMNZb+IruVuyPRZOJDuAdFAJU5Yk=;
+	b=tLaO+vZY0JY9+q5APzCpZ1wBjEptP0CgnXJIWg0BhLyQ8vSw1k0MusIZ5/14Xknl5rHT
+	 e5/bYBvGB6n7CgA7WZx+u3KZAAUQr8Lj7nzHE804KcA02WXicaWrJ13Kd3w/foH1R1zvh
+	 L9Lty76evffc6Fs2kT9vJmsgVwPBj764vPMW+jk/l+6YbMv5xkXF7U84Lve2+vQc7Ek8D
+	 VxIwQe9077F9OrlTpyzSKkeo/TCJVM6slAKXOXZyA2XNJZKsUUs+Jfcq10sP5A1N13WQX
+	 zR5k/RwAr+FCNyYEkFW5WjtOrCXReXTCEvEdKr8jmiiDXkKjc3qXcInNy0w9K6GP0dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LlwgX1B9;
-	dkim=temperror header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NqN65Qjv;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=S4gwn3cy;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BC3606A31F
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77BC3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA47606A31E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:08:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CA47606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LlwgX1B9;
-	dkim=temperror header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=NqN65Qjv
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LBg4I0325099
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:07:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=uHps6C48bjErWLWTA2jyVj+V
-	/HCuKfjWf7ze/6BLmro=; b=LlwgX1B9QPTmQmXJZC3FEVbGiGYzEgnKeg2Kv2j2
-	x73Z6bydNkiDaDZz7Rkt36TgSMxA0Tcon7A/Qkx9jgOD1Gr1bX7uiFUeqxlYvU6m
-	OBRVwUscuRRKuGqCYTHFdWJ6YCGGMfYt2upE8FItNlJmVASCW61RC9znVFkT611h
-	tqRBVbVLIFrFdZgtmkD0Zrpc15+/D0sDRrbJ517N8TSD0K8NaN0Wn7VtvRpn7Q3f
-	sgmJ2BUqwy1GDryKVySzuOW+wr9/z4nWf8gLxYeHV9EiBoR/oOkdP8pvQHlcJ7xT
-	YSeiW3AYBYrq/mrwwj7o8LrXnjMRdplYPaRd1j9irawV2Q==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hed9v42tk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:07:51 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3662e7a9299so2912290eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:07:51 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=S4gwn3cy
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35c76e9614aso1246579eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:08:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792588071; x=1793192871; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uHps6C48bjErWLWTA2jyVj+V/HCuKfjWf7ze/6BLmro=;
-        b=NqN65Qjvk51cnPaIJnL1Gu1v6zHApo+oN7v52F/O90ImUF8/IXxhyglIH1Ac1HMsiK
-         mYnadnNi7w45Vn+o2v67sNMZYoZDAl4lUSXaWgHkUgQU+F7iUICQX+V3BddmsPF5b0bf
-         dC/d6guGhO9DBOSed9iYgV49yQckJY6dAvUlBp6S8U5gBIJzrdIEENuwjzxm7wB5n2Ln
-         77eejz5A7LkJCXmUJ47yK4YyXVT60aKerNU84dPNof4bI6hj5/w777zrq8zSWmvpEt4m
-         K4yrdTwCj9e0XNAKslhSmW+BYq8/qc4DTt4OfdQ5l3caWJ+OiuWME4Akbl+NcU+abiOd
-         FzkA==
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792588131; x=1793192931; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7Ve8ZNksPYVItMCXMNZb+IruVuyPRZOJDuAdFAJU5Yk=;
+        b=S4gwn3cyFGOKzCs0BoufHQqIDvW0Fn6fef5tjun/OK0UuOvXJornzAJHMw7QQJN8FG
+         pAkpmZUfjE4vJohYdBe8MqR4sm9s1Zt3mud3Fk2Wg/SMc6LdWPJO0oeceiYhZn5iD4hd
+         gAdKs7e9bX6OyOjIVQuWc02WWF0fPqBnnWj3OZRA/8bP01/WNbvCBroPSCKSQx5OSdiS
+         7/JSzmvC4bN1+T/+P4C/1idY46gVoUmTIhmv0IGP9AXnLTnEEGSNlMyu9s3Z3fD98gYh
+         G1Q21d/1rmgXdiMzLJogsAlgSFbyIzsGON0W/g76CcDKbYwxIx8p/hygQO5JOTK4abxn
+         73KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792588071; x=1793192871;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uHps6C48bjErWLWTA2jyVj+V/HCuKfjWf7ze/6BLmro=;
-        b=W2PTd94iLe4mYfbcSRHapqY5vUcsIqkjYo4TecZhy/sOz2qFlrSZMTNQ7pseQfo1RH
-         Gp1RG0IEQ4q30V8mFmUzxOpybq28kliEns5JVruV6dtKI1LfD3f/ZElAjGubFmxUIOG7
-         xdOdJdfyfXG7wavtCs7R1ce+6/nbIz51d3Ot+MnKL5KE1oLVtQwUh194+Eg1A5gNGkMS
-         BZ15E8z7k/pKY8JSSthv03xOqtx0II9oGRm8FULhFiv4LH4Ad86rOkAiOiKKU3aalDlL
-         JZME/0os7n5URhf/6Y+sRcFwEcs0qD8ik+3d6fz2HFqEAsqWg+CErKl+flmXjfiMI/+j
-         r83Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7WxzCjYaFjC89NGk5DxTsGUasas6nGkKw2mWho3mV1j5gKCI36eTaV8W42hCkuRd41M5sJzXUojh2mO4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhaXWTzRbeZoqRlnZmLWqi0Go4Ag4X2tAtSV+fY8L8KBTPTJ0E
-	Yrb07ozuamxYczAIlsr6bduC4zObtr1nj3VcIPrCZL8C7Rj89XVBfNZ+RWqL+0QJQvyDJgC5Z61
-	x719F70NxZZlL9BMIDGOaJ2LSjsghaApZAZJ0Nd4baa//o0CjTIRqZJh1vjtpPG3Ftww=
-X-Gm-Gg: AYBFou2lwN51DRV+LT7rYY+VEnt8cmMf1Qtvitv98wBjDHc7M61H2NB4TrzuS0wg7nJ
-	uUU/rv4wSYKlo+DvJhCcSdQBkSo5RiXQHgOiCCBn48AnFI085kNVEoifGn8f1JDg7yUnXnaaZyN
-	ItU8jDy9HMZMJ89MSaDOQQkQdzfF9m1Mvz6RkO1YvVWVNFoRY/vecmBdopy1uVNo7Tvbi4KGCGn
-	hMEvGCW/VpUq1r+5MXBAmjAGvtG5mr4BIWltAZXEmzDAo4hDiLOogegI4eiaGoctrCm6G2jcXKB
-	rt8Cl09qaEuYMCNkAEwHlTV/B2PPA9pI5k1QNaddsYq4mMzfOWRNocioBm4kbHd05zE2vvW248F
-	OVIUzDPt3WlEu8Ot7U8iRGa1HeQ==
-X-Received: by 2002:a05:7022:7e04:b0:15c:705f:b981 with SMTP id a92af1059eb24-190a67fb474mr2783337c88.32.1792588070417;
-        Wed, 21 Oct 2026 06:07:50 -0700 (PDT)
-X-Received: by 2002:a05:7022:7e04:b0:15c:705f:b981 with SMTP id a92af1059eb24-190a67fb474mr2783235c88.32.1792588069115;
-        Wed, 21 Oct 2026 06:07:49 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d0a1sm6052461c88.14.2026.10.21.06.07.38
+        d=1e100.net; s=20260707; t=1792588131; x=1793192931;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7Ve8ZNksPYVItMCXMNZb+IruVuyPRZOJDuAdFAJU5Yk=;
+        b=F0ovKHf5+OLw5lk3Ns4P6wt7j4s5sgOOnMpVu+OCGcueVQJpYFMGtxAPRLD0ZZPxUO
+         zhnokMwDxKLGm2ew5qNpm8INUKgBxncw4QzbCf6sBs13kWiaK+BWjDrvOa4Inh7u4fs4
+         8j7/+FxMzh3nOo8rPVSCWVrJevkPMW9tZWmW8xSYFXac1gel0R/V/7wp8xYYzUuHV8kR
+         2ltzFAhW3WUbAoQcjgnGlyZ6dfdER1g+YOyXSPCXmGu65wy/patUkY7XtKlxaxnYf1qB
+         n/I5a4kPjqIR18JC24dAJEPvtg6xYr9jiqFLDFtnSOBL7XYxmHC/V2WSpjIKV8+aikel
+         8UGg==
+X-Forwarded-Encrypted: i=1; AKwUvBwiSkFkSYkIBHKWps7ZgGu/7EhuOynAQYXjNkTA3CNb+3Ih2eO/wdO4Gh6Id5lgCSDNnY05Mszrh6Lw6qI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWL89O8lmI4hq4z0nroU6+pSc0OgcyWoWAA5QZXS9HYPZx5maE
+	Vufhr/7g3LBzbqKLAW5EREYKEjs679hhc4qpmM9tHlfl/1maq88RR3pS+UVqh4aJkL8=
+X-Gm-Gg: AYBFou07x3fZw5Icc7j7wERhNPAjZ6Uv0RXobFoc9bY++t5OUl0At6rvUoj2x5Paa0j
+	7t8eR9Uwr3lq0aotnfBEg6rXGViui6dQ3iH8mluadE0bMHHAWYVGmNEjWr26zvti9rc41CCa5tE
+	MHb5nidN7aPctHMj6V7DGMg444y5VSezm+LXybcuRgmYLCfZwP27k60Ysiya9HUHycvaR7+xMiN
+	QJMHBLWLfrhFz3Nl52gpT/mQ8eetssjiYYr9M1kSb1f1PMKRM8UKp2k+SgizhAwwz9HIlxlg5Qi
+	BvSBPzhAj3NEbWGoUTIhyVXl7zzrJOZzzk2RQJYQBLJjTpP+RemxM82vHAjvGqNet+IOhfyt9dK
+	PfUz+l4GIEjtC9L2j8spvjsEFocdls3inT1tMso4RHN8pzfTSsIOYrAMq6OM0L87rvl7lt2eacW
+	Nm8RmIAohwRsnY7uOPEfGpfkfR6vjRFOi00GtR6xwggXxi00YWiAyhyMLj/I7ZmKNYHWhf8xC/z
+	Sl3aBwr5wPynGJ0K5KAr8GdLYbDZ34ZZuoaKuBPM4vrrY7kyAxYhfyHbePuUUkS2iVS9d6vP4d/
+	mfKgBZk7eMa3/iw+xUSG9DY=
+X-Received: by 2002:a05:7022:4092:b0:18a:3911:ec1 with SMTP id a92af1059eb24-190a7ff8258mr2087001c88.39.1792588130972;
+        Wed, 21 Oct 2026 06:08:50 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:e416:85ef:f22:6c5d])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035c0c9a6sm5923746c88.3.2026.10.21.06.08.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:07:48 -0700 (PDT)
-Date: Wed, 21 Oct 2026 18:37:35 +0530
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Sumit Garg <sumit.garg@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
-        Simona Vetter <simona@ffwll.ch>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        linux-media@vger.kernel.org, netdev@vger.kernel.org,
-        linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
-        linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH 0/8] Migrate PAS clients to qcom_mdt_pas_load() and
- qcom_pas_prepare_and_auth_reset()
-Message-ID: <20261021130735.h7t2c7txqdfohrs6@hu-mojha-hyd.qualcomm.com>
-References: <20260925155737.4161358-1-mukesh.ojha@oss.qualcomm.com>
- <ce3f58f7-f500-49f8-89cd-611d8e1ac6ac@oss.qualcomm.com>
+        Wed, 21 Oct 2026 06:08:50 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Ram Vegesna <ram.vegesna@broadcom.com>,
+	Daniel Wagner <dwagner@suse.de>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: James Smart <jsmart2021@gmail.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Mike Christie <michael.christie@oracle.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v2] scsi: elx: efct: fix target session lifetime against node teardown
+Date: Wed, 21 Oct 2026 22:08:02 +0900
+Message-ID: <20261021130802.2691833-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -143,77 +103,385 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ce3f58f7-f500-49f8-89cd-611d8e1ac6ac@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1MiBTYWx0ZWRfX3Tm/jsZp5+Ou
- DopZoNye3ntivd63rS5QVzvoKAzJnhX3oyE39l96jeY1e1fZq2TitNWoN26EqEt3pUFcKoioboc
- TwH+gXqbKiTACXMNrAdUalf0+TLU29I=
-X-Proofpoint-ORIG-GUID: XRnQEFEsLUuKPdf0ZnIfXC0Wcn24gp5L
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1MiBTYWx0ZWRfX71koYYK2urjL
- AptDHzbvIrvdyaHz1IwcWen1QpIiUjIlGjxFtxHR1cA9hJ+yIUNOvJtffQvHDn6fwhusJNwY7QY
- K+2HqaoZK4E0glYuTAmEXEMlQs/wRCKu2vhvjUWc5hWPBZ2SiG87keWBg80sYQRoU8X7c4LE7Sc
- vuZvmitzybOG69GvxzrBj39ixfMGfg56RhGcx+VriAh/Jl3T8VCcyrdfuoWHXhyKolfJKY0MVvN
- GbNOS+mkHuuVvh/ao1XXzQ7lJbKQEuICDZ/HEBRDAc0Xcufk3ETa/RzkMhBfQzmoh/QzQgEVX90
- xwHjjjlwALXqvV3exEQhkMjDMDtJ+mjUhBFc1F+Dv/3mpX+htjewxREQRyMQcr+pc/8sXB12fMk
- sOKYzZQilz0GR2qEMFI/qIe6VUvh28IBDJRe5JfyGHGd0BL4S1GOT36SWX2vhAKIXfs/wJOefO8
- ksxEdNACSbZbpqbtRmg==
-X-Authority-Analysis: v=2.4 cv=I6zw19gg c=1 sm=1 tr=0 ts=6ad8b927 cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=wXrbNP8IbqZU6GI7zsQA:9 a=CjuIK1q_8ugA:10 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-GUID: XRnQEFEsLUuKPdf0ZnIfXC0Wcn24gp5L
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0 lowpriorityscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610210052
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 01:32:13PM +0200, Konrad Dybcio wrote:
-> On 9/25/26 5:57 PM, Mukesh Ojha wrote:
-> > In preparation to remove qcom_mdt_load() and qcom_pas_auth_and_reset()
-> > public function, migrate every user to the new PAS context-aware API
-> > qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset().
-> > 
-> > This series migrates every remaining caller of the deprecated APIs
-> > (qcom_wcnss, adreno zap shader, iris, venus, IPA, ath12k) and then
-> > removes qcom_mdt_load() and qcom_pas_auth_and_reset() entirely.
-> > 
-> > This series is based on top of although no dependency as such.
-> >   firmware: qcom: pas: Make MDT buffer retention explicit
-> 
-> LLM has the following comments:
-> 
->  1. Metadata buffer (ctx->ptr) is leaked, and overwritten on
-> reload, because qcom_pas_metadata_release() is never called
-> (patches 1-6)
->  2. devm_qcom_pas_context_alloc() is called from repeatable runtime
-> paths, so contexts accumulate until unbind (patches 2, 3, 4, 6)
->  3. use_tzmem is never set, so the shmbridge prepare step never
-> runs on SCM and the commit messages are inaccurate; TEE gets
-> a real mem_phys/mem_size change
->  4. Not bisectable: patch 4 relies on the NULL mem_region
-> handling that only arrives in patch 7
->  5. Patches 3 and 4 don't apply to this tree; iris
-> iris_detect_firmware() still needs mem_virt after the load;
-> the base of the series is not stated
->  6. Patch 7: NULL mem_region now means "map internally", which
-> weakens the -EINVAL sanity check
->  7. Patch 6: redundant second ioremap_wc() on top of ath12k's
-> persistent memremap()
->  8. Patch 6: ctx is set under one scm_auth_enabled check and
-> used under another, which is fragile
->  9. Patch 2: the context now carries the full region size instead of
-> the MDT size, which matters if use_tzmem gets enabled
-> 10. Patch 3: stale qcom_mdt_load() comments remain in
-> iris_firmware.c
-> 11. Patch 8: no issues found
+efct_scsi_new_initiator() hands a bare struct efc_node pointer to lio_wq
+and returns EFC_SCSI_CALL_ASYNC, so the node state machine keeps running
+while efct_lio_setup_session() is still queued. Three things go wrong
+over that window.
 
-Thanks.  Will address them along with Sasiko's one.
+The node itself can be freed under the work item. efc_node_alloc() takes
+a single reference and efc_node_free() drops it as the last step of a
+node shutdown, which a peer LOGO, an FC link down, a domain or fabric
+change or target teardown can all start. efct_get_vport_tpg() reads
+node->nport before target_setup_session(), efct_session_cb() reads it
+from inside that call, and node->tgt_node is read after it returns. The
+node pool is created with curr_nr == min_nr, so mempool_free() calls
+kfree() rather than refilling the reserve and the work item reads freed
+slab memory:
 
+  BUG: KASAN: slab-use-after-free in efct_lio_setup_session+0xc44/0xde0
+  Read of size 8 at addr ffff888002d538a0 by task kworker/u4:0/12
+
+  CPU: 0 UID: 0 PID: 12 Comm: kworker/u4:0 Tainted: G                 N  7.3.0-00342-gbe448252d3e7-dirty #4 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  Workqueue: efct-kunit-wq efct_lio_setup_session
+  Call Trace:
+   <TASK>
+   print_report+0xcd/0x620
+   ? efct_lio_setup_session+0xc44/0xde0
+   ? __virt_addr_valid+0x208/0x3f0
+   ? efct_lio_setup_session+0xc44/0xde0
+   kasan_report+0xfb/0x130
+   ? efct_lio_setup_session+0xc44/0xde0
+   efct_lio_setup_session+0xc44/0xde0
+   ? __pfx_efct_lio_setup_session+0x10/0x10
+   ? lock_acquire+0x100/0x2d0
+   ? process_one_work+0x835/0x1c40
+   ? process_one_work+0x735/0x1c40
+   ? lock_release+0xc3/0x250
+   process_one_work+0x88b/0x1c40
+   ? __pfx_process_one_work+0x10/0x10
+   ? lock_acquire+0x100/0x2d0
+   ? worker_thread+0x2c7/0x11b0
+   ? lock_is_held_type+0x84/0xf0
+   ? __pfx_efct_lio_setup_session+0x10/0x10
+   worker_thread+0x649/0x11b0
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x3aa/0x550
+   ? _raw_spin_unlock_irq+0x23/0x40
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x493/0x940
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xdc0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
+
+  Allocated by task 33:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_noprof+0x23b/0x580
+   mempool_alloc_noprof+0x143/0x230
+   efct_kt_node_alloc.isra.0+0x38/0x4b0
+   efct_kt_uaf_after_cb+0x7a/0x370
+   kunit_try_run_case+0x1ca/0x4c0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x3aa/0x550
+   ret_from_fork+0x493/0x940
+   ret_from_fork_asm+0x19/0x30
+
+  Freed by task 12:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0x119/0x490
+   mempool_free+0xbc/0x100
+   efc_node_free+0x311/0x4a0
+   efct_lio_setup_session+0xa4a/0xde0
+   process_one_work+0x88b/0x1c40
+   worker_thread+0x649/0x11b0
+   kthread+0x3aa/0x550
+   ret_from_fork+0x493/0x940
+   ret_from_fork_asm+0x19/0x30
+
+  The buggy address belongs to the object at ffff888002d53800
+   which belongs to the cache kmalloc-1k of size 1024
+  The buggy address is located 160 bytes inside of
+   freed 1024-byte region [ffff888002d53800, ffff888002d53c00)
+
+Teardown can also run while the session does not exist yet.
+__efc_d_initiate_shutdown() moves the node to __efc_d_wait_del_node and
+only then calls efct_scsi_del_initiator(), which finds node->tgt_node
+still NULL and returns -EIO without queueing the removal work. The node
+waits there with node->nport set and node->req_free still clear, since
+req_free is only set later in __efc_node_shutdown(). The setup work
+therefore sees nothing wrong, registers a session, and nothing ever
+removes it: the se_session and the struct efct_node leak, and
+se_session->fabric_sess_ptr keeps pointing at a node that is freed
+moments later.
+
+Or teardown can run just after the session became visible.
+efct_session_cb() publishes node->tgt_node from inside
+target_setup_session(). If efct_scsi_del_initiator() runs between that
+and the end of the setup work it erases the efct->lookup entry and
+queues the removal work, and the tail of the setup work then puts the
+entry back. efct_lio_remove_session() frees the struct efct_node without
+erasing the key a second time, so efct->lookup keeps a freed pointer
+that efct_node_find() returns, and takes a reference on, for every
+inbound FCP or BLS frame. That is the case the comment above
+efct_node_find() states cannot happen.
+
+Give the node a reference for the life of the work item, and give the
+backend an explicit session state, read and written under efc->lock,
+which is the lock the node state machine holds when it calls in. The
+work claims EFCT_TGT_SESS_SETUP before it is queued and reaches
+EFCT_TGT_SESS_REGISTERED in the same critical section that stores the
+lookup entry. efct_scsi_del_initiator() now decides from that state
+rather than from node->tgt_node. While a setup is in flight it marks the
+node EFCT_TGT_SESS_DELETE_PENDING and reports completion instead of
+-EIO, and the setup work unwinds the session it built instead of
+publishing it. Once the session is registered the existing removal path
+runs unchanged, and because the state transition and the lookup store
+share one critical section, a store can no longer follow an erase.
+
+The same state closes a smaller hole next door. An initiator that
+repeats PRLI while registration is pending used to get a second session
+for one node, which left the first one unreachable;
+efct_scsi_new_initiator() now reports completion rather than building
+it.
+
+An earlier version gated the work on node->nport and node->req_free
+instead, which is not enough, because req_free is only set well after
+efct_scsi_del_initiator() has already run and returned.
+
+Fixes: 692e5d73a811 ("scsi: elx: efct: LIO backend interface routines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/elx/efct/efct_lio.c | 90 +++++++++++++++++++++++++++++---
+ drivers/scsi/elx/efct/efct_lio.h |  9 ++++
+ drivers/scsi/elx/libefc/efclib.h |  2 +
+ 3 files changed, 94 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/scsi/elx/efct/efct_lio.c b/drivers/scsi/elx/efct/efct_lio.c
+index 67d686dd6fb33..634200c1a61b5 100644
+--- a/drivers/scsi/elx/efct/efct_lio.c
++++ b/drivers/scsi/elx/efct/efct_lio.c
+@@ -1062,17 +1062,33 @@ _efct_tgt_node_free(struct kref *arg)
+ 	kfree(tgt_node);
+ }
+ 
++/* True only while a setup is in flight. The caller holds efc->lock. */
++static bool efct_tgt_sess_may_register(struct efc_node *node)
++{
++	return node->tgt_sess_state == EFCT_TGT_SESS_SETUP &&
++	       node->nport && !node->req_free;
++}
++
+ static int efct_session_cb(struct se_portal_group *se_tpg,
+ 			   struct se_session *se_sess, void *private)
+ {
+ 	struct efc_node *node = private;
+ 	struct efct_node *tgt_node;
+ 	struct efct *efct = node->efc->base;
++	unsigned long flags;
+ 
+ 	tgt_node = kzalloc_obj(*tgt_node);
+ 	if (!tgt_node)
+ 		return -ENOMEM;
+ 
++	/* target_setup_session() sleeps, so the node may be in teardown now */
++	spin_lock_irqsave(&node->efc->lock, flags);
++	if (!efct_tgt_sess_may_register(node)) {
++		spin_unlock_irqrestore(&node->efc->lock, flags);
++		kfree(tgt_node);
++		return -ENODEV;
++	}
++
+ 	kref_init(&tgt_node->ref);
+ 	tgt_node->release = _efct_tgt_node_free;
+ 
+@@ -1086,6 +1102,7 @@ static int efct_session_cb(struct se_portal_group *se_tpg,
+ 	tgt_node->port_fc_id = node->nport->fc_id;
+ 	tgt_node->vpi = node->nport->indicator;
+ 	tgt_node->rpi = node->rnode.indicator;
++	spin_unlock_irqrestore(&node->efc->lock, flags);
+ 
+ 	spin_lock_init(&tgt_node->active_ios_lock);
+ 	INIT_LIST_HEAD(&tgt_node->active_ios);
+@@ -1157,15 +1174,26 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 		container_of(work, struct efct_lio_wq_data, work);
+ 	struct efct *efct = wq_data->efct;
+ 	struct efc_node *node = wq_data->ptr;
++	struct efc *efc = node->efc;
+ 	char wwpn[WWN_NAME_LEN];
+ 	struct efct_lio_tpg *tpg;
+ 	struct efct_node *tgt_node;
+ 	struct se_portal_group *se_tpg;
+ 	struct se_session *se_sess;
++	unsigned long flags;
+ 	int watermark;
+ 	int ini_count;
+ 	u64 id;
+ 
++	spin_lock_irqsave(&efc->lock, flags);
++	if (!efct_tgt_sess_may_register(node)) {
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
++		efc_log_debug(efct, "node %p torn down before session setup\n",
++			      node);
++		goto done;
++	}
++
+ 	/* Check to see if it's belongs to vport,
+ 	 * if not get physical port
+ 	 */
+@@ -1176,8 +1204,10 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 		tpg = efct->tgt_efct.tpg;
+ 		se_tpg = &tpg->tpg;
+ 	} else {
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
+ 		efc_log_err(efct, "failed to init session\n");
+-		return;
++		goto done;
+ 	}
+ 
+ 	/*
+@@ -1186,14 +1216,43 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	 * ConfigFS NodeACLs.
+ 	 */
+ 	efct_format_wwn(wwpn, sizeof(wwpn), "",	efc_node_get_wwpn(node));
++	spin_unlock_irqrestore(&efc->lock, flags);
+ 
+ 	se_sess = target_setup_session(se_tpg, 0, 0, TARGET_PROT_NORMAL, wwpn,
+ 				       node, efct_session_cb);
+ 	if (IS_ERR(se_sess)) {
+ 		efc_log_err(efct, "failed to setup session\n");
+-		kfree(wq_data);
++		spin_lock_irqsave(&efc->lock, flags);
++		if (!efct_tgt_sess_may_register(node)) {
++			node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++			spin_unlock_irqrestore(&efc->lock, flags);
++			goto done;
++		}
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
+ 		efc_scsi_sess_reg_complete(node, -EIO);
+-		return;
++		goto done;
++	}
++
++	spin_lock_irqsave(&efc->lock, flags);
++	if (!efct_tgt_sess_may_register(node)) {
++		tgt_node = node->tgt_node;
++		node->tgt_node = NULL;
++		node->tgt_sess_state = EFCT_TGT_SESS_NONE;
++		spin_unlock_irqrestore(&efc->lock, flags);
++		/*
++		 * No kref_put(), because efct_scsi_del_initiator() already
++		 * reported completion. tgt_node never reached efct->lookup
++		 * and node->tgt_node is cleared above, so nothing else can
++		 * reach it and its count is the one kref_init() gave it.
++		 */
++		efc_log_debug(efct, "node %p torn down during session setup\n",
++			      node);
++		target_stop_session(se_sess);
++		target_wait_for_sess_cmds(se_sess);
++		target_remove_session(se_sess);
++		kfree(tgt_node);
++		goto done;
+ 	}
+ 
+ 	tgt_node = node->tgt_node;
+@@ -1202,8 +1261,10 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	efc_log_debug(efct, "new initiator sess=%p node=%p id: %llx\n",
+ 		      se_sess, node, id);
+ 
+-	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_KERNEL)))
++	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_ATOMIC)))
+ 		efc_log_err(efct, "Node lookup store failed\n");
++	node->tgt_sess_state = EFCT_TGT_SESS_REGISTERED;
++	spin_unlock_irqrestore(&efc->lock, flags);
+ 
+ 	efc_scsi_sess_reg_complete(node, 0);
+ 
+@@ -1215,7 +1276,9 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 			efct->tgt_efct.watermark_min : watermark;
+ 	atomic_set(&efct->tgt_efct.io_high_watermark, watermark);
+ 
++done:
+ 	kfree(wq_data);
++	kref_put(&node->ref, node->release);
+ }
+ 
+ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+@@ -1223,6 +1286,10 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+ 	struct efct *efct = node->efc->base;
+ 	struct efct_lio_wq_data *wq_data;
+ 
++	/* a repeated PRLI must not build a second session for one node */
++	if (node->tgt_sess_state != EFCT_TGT_SESS_NONE)
++		return EFC_SCSI_CALL_COMPLETE;
++
+ 	/*
+ 	 * Since LIO only supports initiator validation at thread level,
+ 	 * we are open minded and accept all callers.
+@@ -1231,6 +1298,10 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+ 	if (!wq_data)
+ 		return -ENOMEM;
+ 
++	/* the work outlives this call and undoes both of these */
++	kref_get(&node->ref);
++	node->tgt_sess_state = EFCT_TGT_SESS_SETUP;
++
+ 	wq_data->ptr = node;
+ 	wq_data->efct = efct;
+ 	INIT_WORK(&wq_data->work, efct_lio_setup_session);
+@@ -1287,17 +1358,22 @@ int efct_scsi_del_initiator(struct efc *efc, struct efc_node *node, int reason)
+ 	if (reason == EFCT_SCSI_INITIATOR_MISSING)
+ 		return EFC_SCSI_CALL_COMPLETE;
+ 
+-	if (!tgt_node) {
+-		efc_log_err(efct, "tgt_node is NULL\n");
+-		return -EIO;
++	if (node->tgt_sess_state == EFCT_TGT_SESS_SETUP) {
++		/* hand the session being built back to the setup work */
++		node->tgt_sess_state = EFCT_TGT_SESS_DELETE_PENDING;
++		return EFC_SCSI_CALL_COMPLETE;
+ 	}
+ 
++	if (node->tgt_sess_state != EFCT_TGT_SESS_REGISTERED || !tgt_node)
++		return EFC_SCSI_CALL_COMPLETE;
++
+ 	wq_data = kzalloc_obj(*wq_data, GFP_ATOMIC);
+ 	if (!wq_data)
+ 		return -ENOMEM;
+ 
+ 	id = (u64) tgt_node->port_fc_id << 32 | tgt_node->node_fc_id;
+ 	xa_erase(&efct->lookup, id);
++	node->tgt_sess_state = EFCT_TGT_SESS_NONE;
+ 
+ 	wq_data->ptr = node;
+ 	wq_data->efct = efct;
+diff --git a/drivers/scsi/elx/efct/efct_lio.h b/drivers/scsi/elx/efct/efct_lio.h
+index 569a0d4b1894c..8f550ad0e349b 100644
+--- a/drivers/scsi/elx/efct/efct_lio.h
++++ b/drivers/scsi/elx/efct/efct_lio.h
+@@ -65,6 +65,15 @@ struct efct_scsi_tgt_nport {
+ 	struct efct_lio_nport	*lio_nport;
+ };
+ 
++/* Target session state of a struct efc_node, kept under efc->lock. */
++enum efct_tgt_sess_state {
++	EFCT_TGT_SESS_NONE = 0,
++	EFCT_TGT_SESS_SETUP,
++	EFCT_TGT_SESS_REGISTERED,
++	/* teardown raced setup; the setup work must unwind it */
++	EFCT_TGT_SESS_DELETE_PENDING,
++};
++
+ struct efct_node {
+ 	struct list_head	list_entry;
+ 	struct kref		ref;
+diff --git a/drivers/scsi/elx/libefc/efclib.h b/drivers/scsi/elx/libefc/efclib.h
+index 57e3386128127..7c00a3fd79ad6 100644
+--- a/drivers/scsi/elx/libefc/efclib.h
++++ b/drivers/scsi/elx/libefc/efclib.h
+@@ -336,6 +336,8 @@ struct efc_node {
+ 	struct list_head	els_ios_list;
+ 	void			*ini_node;
+ 	void			*tgt_node;
++	/* enum efct_tgt_sess_state, private to the target backend */
++	u8			tgt_sess_state;
+ 
+ 	struct efc_remote_node	rnode;
+ 	/* Declarations private to FC trannport */
+
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
 -- 
--Mukesh Ojha
+2.43.0
+
