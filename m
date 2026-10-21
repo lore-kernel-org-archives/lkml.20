@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792590563;
-	b=kRNq5QhvVKf6uh4d1CnDS8MYOhknjjPhiKuCXOyPmq0Qym3EuLYRdy/7kXdMMg/F6R0K
-	 lIPCjKS2n/TBavY72eYS58QRyhGZ2RjWdUrTFxQB3UMdO4hUzKy+lWnz6FiJ7X7H8zKqS
-	 NqeTo5jq1sdAWDgfpETDcjYxuCVL9G56RZloCmZULOkJpv9YxwipFZA9TfcwN3SoIC2mZ
-	 J5z446z8ZjBn4ua/MFHninUMPgQPGcar2K4gS/e1R9ZGBXKFaVBsnm6OauMuKLL3lx9Kc
-	 9VW/dHATQ9N9ElKsWOs8dLRpOgSR3DNuj1dQzl8afH0GWfdxE5iuNb5HY1z0JaRyPHA==
+	t=1792590606;
+	b=teLkrUOZTyNkV++9Ng2h14lbYLXg7GoV8+Z0CwStqpJMn+Cu9+HjbUfq2WKD8I65JKJ7
+	 78KsoLUEhhUv8MxQpzayjCq5i4WNpLfmAhU+G9Dc4k2PGuPyOhwd9fZepDdqnaf1UTcQg
+	 ySPlgTCK6nwQpCcMV/sZ3Gfr53q/zRA25+JNwP2WNHLKwQNg7RGsIaIqsFAK+oOonw1Il
+	 vN0UGOnB/sX4Xg9oQxGQCXs9ObyeHkIUmTzXT+ngQHkE6I9IFrUeh0EX6M1Tt6bKFk9eT
+	 DuO41HGq114RciqqyFwU4s1vTsY1GAgKIfVPIc97gai5njTmXxK+yzsQ8NJw0kDVVRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792590563;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=uZg4BKspB/y+CooZbsgJ6fLMCO5/PIy2LqC7iUq3yNk=;
-	b=kXEeHMRCc4PNZNi8GLSpVh1Wwmy/tkfDqbOCV7LVppGwsJPzguvgSo2io4JS1SbJH3sT
-	 AOO/fCgzvBMYgQHqPZxEJnkqftxPag074cafZ9Mn0l6FII8D/78CEMnKwYhGc8ATzPnej
-	 b030FeMPnZIIC12YslAC/9dPlAoX3RuqWbbJdederBW95Ibq1IEFJ5HdTqCIbt09PK0BN
-	 ZNuIBvOqBz9k3QTCtfebaX9hKF8PhWKTIAhAEgUo+xTUVmt356vWGEtbdEnF2tmmlJUnG
-	 sPFwMHpC+lUiM6wuHZkHoG12OD4WP3I4cGh2S2W1BnfOGPGgiiix90jGARYaZnnREUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792590606;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=v1YiWdLfzEcu7fQY4ueusVJXfXfBkH/pMzgprS/6y8s=;
+	b=HJydo0dD7rHLq4DJfLmo/fZ+apTBFlhJ7Pu2rUuTIwAGZGc5ZIOLu0asNRS2JVA6cMVy
+	 nmPHjTgset1qOk8wd2n2XWF95XOn9xFKNHCBOfDb7weZzDUEbWgSsW1c2JAH7aM2aHBIm
+	 MG6YrzMajCVAoaul4zljN6wy5VvFyQYbtSbri3sLAtx6N0TXKnrFYHXJ6VqNdGXtGwzsR
+	 zMdJHWft22EcCLwv35tYWbLXbSGUPMnuTagIJ6bcYmNqCq4NR4ErePm1oPnlfv03EwZ+e
+	 xI4BA0ioXQFanLereYcgAW26IB8PpSKDaLMoa9KKxKjAPDoRQdF5tQOCQaixSgCUNPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=PrElQ2nI;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A6EA3606A319;
-	Wed, 21 Oct 2026 13:49:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6EA3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tayxm9lZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2567F606A319;
+	Wed, 21 Oct 2026 13:50:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=PrElQ2nI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=uZg4BKspB/y+CooZbsgJ6
-	fLMCO5/PIy2LqC7iUq3yNk=; b=PrElQ2nIsm9MEcoRGnwjnvUBJBgamTyjrOg/v
-	/hoK8j+AT8UKFPEtKlmMWh3LM0Xbzhzs/CpMHfmLVdtzjwi5lFd/45SfMuFUWKrD
-	6vm1Pzo72ZY+9T+LfFJmlRpSd+HR4vPXMtMmuUNNAiLylMd8siATq6lTjo/uG6Ah
-	hfqHvs=
-Received: from [127.0.1.1] (unknown [114.214.181.25])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAHfzPNwthqAOokAA--.948S2;
-	Wed, 21 Oct 2026 21:49:01 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-pm@vger.kernel.org
-Cc: Sebastian Reichel <sre@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH] power: supply: qcom_battmgr: do not report power_now on SM8750
-Date: Wed, 21 Oct 2026 21:49:01 +0800
-Message-ID: <179259054168.209323.8102186130128474174@mail.ustc.edu.cn>
-In-Reply-To: <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
-References: <20261013002124.332111-1-xiaqinghuan@mail.ustc.edu.cn>
- <5bf3636d-be7a-4800-9914-808d2fc5ebd9@oss.qualcomm.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tayxm9lZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F1081F000C4;
+	Wed, 21 Oct 2026 13:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792590605;
+	bh=v1YiWdLfzEcu7fQY4ueusVJXfXfBkH/pMzgprS/6y8s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Tayxm9lZ8glz7CAEW+XpWoXqPogPvAVP5FyRHysSufMVpYFOd5kAHe4eGeJbgfeec
+	 lN9UQ6X2/Svm+vKebPAyYr7ByWM+3x5XdfX8TkZij5/m5+vjiA6rkIP/rYabTfcAzu
+	 IptdY7DH/bWaKtMjjuZT9anmjj9eoBnVO/+RTyv5Jbn2C3S2B1YcP1vZ9byQgNLmvv
+	 RntpHNTTo3qYRgECnXOXprEcrGC2viaZg1w1n2ZdoYCWQwnrPthWmeAIBh3SFkglBr
+	 3xt6O8Z9juiX9ctKSXg5b2Uazj542hNEOlHf2l2DCNC9TBxwApcU3K30t5eOWxwnE4
+	 2GB3ctpiCEY9Q==
+Date: Wed, 21 Oct 2026 10:50:02 -0300
+From: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: James Clark <james.clark@linaro.org>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
+	linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>,
+	Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+	John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+	Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>
+Subject: Re: [PATCH v3 0/4] perf: cs-etm: HW_ID improvements
+Message-ID: <atjDCpTIrchbCLt7@x2>
+References: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
+ <2bc4b058-3a5b-4a9c-a469-eb8c93215594@linaro.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,78 +69,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgAHfzPNwthqAOokAA--.948S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZrW5ZrW5Jw1xCF18uw1rJFb_yoW5Gr4rpF
-	Z0qF4DGw1DJFyfZryvv3yDCanYvrZ5X3yjkFy8GrnrZayDKrn7Xr9Ikr1agFy8Cr1rWFW0
-	kFs8K3W5CF1DCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvjb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xS
-	Y4AK67AK6ry8MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
-	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWU
-	twCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x
-	0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUI7
-	5rUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREHB2rXwVRrvQAqsE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2bc4b058-3a5b-4a9c-a469-eb8c93215594@linaro.org>
 
-Hi Konrad,
+On Wed, Oct 21, 2026 at 09:42:24AM +0100, James Clark wrote:
+> On 02/10/2026 12:15, James Clark wrote:
+> > James Clark (3):
+> >        perf: cs-etm: Don't add global v0 HW_IDs to unformatted queues
+> >        perf cs-etm: Free partially created queues
+> >        perf: cs-etm: Respect --no-itrace option
+ 
+> Hi Arnaldo,
+ 
+> Is it ok to take this one please, Leo has left his review tags.
 
-You are right, and thanks for stopping on that sentence.  "Maximum-load
-updater" is a phrase I invented; it is not a QBG or battmgr term from any
-document, so I should not have used it in a commit message.  Let me
-restate what I actually observed and what I am and am not claiming.
+Thanks, applied to perf-tools-next, for v7.4.
 
-What the driver does (no bug here)
-
-qcom_battmgr_bat_get_property() does not sample anything.  For a given
-power_supply property N it reads the 32-bit slot that the QBG
-notification buffer reserves for that property (in the SM8750 variant the
-battery property array starts at context + 0x6a8 and is indexed by
-property id, so BATT_POWER_NOW, id 22, is context + 0x6a8 + 4 * 22).
-The driver faithfully returns whatever firmware left there.
-
-What I observed on the unit
-
-  - charging, actual input well under 1 W: power_now reported ~89 W
-  - discharging, actual draw ~4 W:           power_now reported >100 W
-  - current_now * voltage_now in the same samples stays in the expected
-    magnitude range, i.e. the other battery properties are consistent
-
-So on this platform the BATT_POWER_NOW slot does not hold a measurement of
-present power; it holds something closer to a configured/estimated ceiling.
-That is a statement about the value, and it is reproducible on my unit.
-
-What I do not have
-
-QBG firmware sources, or a public document describing the semantics of the
-BATT_POWER_NOW slot.  The "it is a maximum-load figure" reading is my
-inference from the two facts above plus the vendor battery property
-interface, not something I can cite.  I also cannot yet say whether this
-is a property of the SM8750 firmware build, of this OEM's configuration,
-or of the slot in general: Fenglin's earlier reply (default supported,
-OEM can customize) would predict the latter, and confirming it needs
-power_now/BATT_POWER_NOW readouts from the stock Android build on the
-same unit, which I have not done.
-
-Proposed wording
-
-I will resend the patch with the firmware-semantics sentence removed.  The
-commit message will keep only what is verifiable: on SM8750 the reported
-POWER_NOW is not a present-power reading (with the two counterexamples),
-the driver returns the slot as-is, and therefore this platform should not
-advertise POWER_NOW.  The code change is unaffected: add the SM8750
-variant and reuse the SM8550 property list without POWER_NOW.
-
-If you happen to know the intended semantics of that slot, or know of a
-QBG interface document that defines it, I would rather cite that than
-describe it in my own words.  Otherwise the factual version is what I will
-send.
-
-Thanks,
-Qianhui
-
+- Arnaldo
