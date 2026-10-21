@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578474;
-	b=5QpuBmEnj5E1epm3llnvhDCbS5fbAFB3Y7JDblqB7vOVx3BrlkBYOT91QIoNcQ5HJdCc
-	 j2BX1Bxr0uKY0AJo8Y8KDUxM3KV3uPYHRqOqoJ8Tl06KdtnqX/mXPJs2zuhMw6AcPovsr
-	 4ujMt5b0Bdt8gL4ERS/kNwe33E3kCcZSf8Qdjxb9KBW+6RiLOma2Fx180f/YnzK8L80BF
-	 EiAz8pxe1XcY1nE3g4qfJjSoueUMn27JaGL8wnJCam4af7n1WBFQ0K4a8lx2V9+df73gY
-	 w4Qjxu9d5WlVY8SRw54bKq4zIW1fL4MijLh7s9y38OGnq42q7pl8+b1gRS0nl2WKTug==
+	t=1792578531;
+	b=w+QdG/ji9Zo3gYxWbwbm+ySQJlIwA9hBw9Fn8arnSkGwruNqnwGsOqrwAobhzzkW2KCz
+	 rmovH5l2MN39PNI9y1vtNjqRC82MXKkZplMMffNfQ/z6PF4ihib7l+4q851Eq8BB1Taoi
+	 jjFOMnW6YbhqhB6OrZQF1wZ+kJ5GmhxnTMwnNLmX6QP8Xo20b3HhhgBejObuhgOfT/8Jc
+	 ny1xyFF7T0pRzUy8amx8uPTzrP9PJy/BdCknKK9DH1ih1Bn9j5MlPU1w95qG8eIHI1U6E
+	 x/tys+ro4ICjZQ53Z490i9tSoaBKXqTp0nOiWMaQ4LBG5/62s808moeuav9JoI/uV9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578474;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dLKJpTfaxtLERayiN2nEferBpV2oDnDfD72mIJg0vcA=;
-	b=4bgFjPcaZ8K1s+rYdFLY3JhRAaUnwtkvNA3iYIB4XGn1q/V113CQttxXL/Rq6pENOGXP
-	 soHNIURtFEYwLtbb9kJoVbEJy3UIO36Re1ou8tF5Ccwqo+UF7YOyiatMSNbWyLNJO1XuQ
-	 SuT07M0oWKlqRl7nEaiA4TGJua5aq1/JOVn+gHvF+O3HCPjcovUz50nvFe0tTnlIyInSN
-	 0wIqKxnu8Xfq7uoChSLVBcK/rYwct3SkzSoaq/tHWXsQ1LzsDsuMZbAVxadLmvB9jbRMG
-	 NfWXYLWOVhIk+TxWvN7l8OU2nAKfmLDMrhx39/dmztQ8t8CNvBL9E0PQeNtg9kqG1Pw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578531;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Last-TLS-Session-Version;
+	bh=ZSoGy5dps/KoaCHgigqDazauW/W03FE98bBK2jNSbQs=;
+	b=UnmajUfehx7w2O/N7wTkcDIODXHfduX0UVgl3xQdekpFKzRnMLL+a3FzKN3LUbkGB6q9
+	 RdygGH3nD8DM3R6gjz+8Uyb8/zs/RiZCtIfUh4mM7JsYU+LjE/DYKYzesDiA4U5JvIrYS
+	 aXSZLcbI5fpQrS95QwKnqQxAYmXJWVDOdwulbZi08NHqf4Ekr8nH66vaPveP6BQOO8teg
+	 LxFvwLEngjClNQbnQVWmIQc5NOeMvNvlcODxSs/5RVipsW6cEoe0yD+EmOYXayrWA9kO0
+	 wyLmUherYbgSTX5DNAKWX7rv9yacHamfJVtYMDNi8su7iblkB+dchzvVdFPfraM87pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BA1UEjlG;
-	arc=none smtp.remote-ip=95.215.58.115
-Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ja1d5n5Z;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4435A606A325
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:27:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4435A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CBB606A320
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:28:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1CBB606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BA1UEjlG
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yEusfg4qIgtMgZ0hwnnk4ZJYnBDrsm10dToYRC22Mm0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792578470; v=1; x=1793183270;
- b=BA1UEjlGwC9nK2Ut19aMxqcmYaO0G/N7YBj7/8b8nB4BdCrQspZvECE2O1YICIFYfv3KIw8H
- odMuhxEwRN95vPGhIbxkrS+NrC6r5HjMOTw3Gqb8vp4HRSenzlJcPyxw62KWJgJoDsXKOVa3Nyk
- alGciyDfVOnZhu3ixUJqosAE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6eb127304f5e06c1;
-	Wed, 21 Oct 2026 10:27:50 +0000
-X-Mizu-Trace-ID: 6eb127304f5e06c1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <315a8794-db40-4d0f-9e4c-0cad66174bff@linux.dev>
-Date: Wed, 21 Oct 2026 18:27:40 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Ja1d5n5Z
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 5DE2AC5CD77;
+	Wed, 21 Oct 2026 10:29:48 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 795C9606E3;
+	Wed, 21 Oct 2026 10:28:49 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5E79710328E5A;
+	Wed, 21 Oct 2026 12:28:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1792578528; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZSoGy5dps/KoaCHgigqDazauW/W03FE98bBK2jNSbQs=;
+	b=Ja1d5n5ZH1fw0gmykyXHZpRlyHa/uHrc7FIhLJlYZn/xHos6xS8NbwEr/e7jOmBEDW5UAI
+	kYS6sStgtqHeaA+cTzwDpZM64SsjRA1l2ePXhsBXcVjOo7cNhQITOksNAm7p1yk3k+U3b7
+	pSirurQhQcJZPvgPf72IuWmhMjlVGfUxP5NlEgYLvBbb+le+I29H3J/vLy9I8KfLqJVig3
+	Q8lykAoOoqlXyd30yg42E00xQKlFDd5cyCrY/pftxIqIYzDxP93sGnBy2+gIPNcZy2vHuw
+	WWpjF1b0gEmXf7QqXzTKNgEaZjVwcIO+x0PDzyXdbdOu1lHwXQQeDl+2k2dvZQ==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Date: Wed, 21 Oct 2026 12:27:45 +0200
+Subject: [PATCH 4/5] regulator: Support regulators where the voltage
+ selector spans two registers
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,249 +64,205 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] ppp: linearize bridged packets when required
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: netdev-bot+sinfo@kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Breno Leitao <leitao@debian.org>,
- Kees Cook <kees@kernel.org>, Taegu Ha <hataegu0826@gmail.com>,
- Tom Parkin <tparkin@katalix.com>, linux-ppp@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- James Chapman <jchapman@katalix.com>, Sashiko <sashiko-bot@kernel.org>,
- Felix Fietkau <nbd@nbd.name>, Pablo Neira Ayuso <pablo@netfilter.org>
-References: <20261021023608.55867-1-qingfang.deng@linux.dev>
- <179255036282.3290.8488375760281728576@kernel.org>
- <c0f348bf-0e13-4cb1-8014-cd9b7787bfe6@linux.dev>
- <CAL4WiirRPnbSBgcoh8Aiq8zGVzsy34w9uaqAgSKQwpgJ0ht7aA@mail.gmail.com>
-From: Qingfang Deng <qingfang.deng@linux.dev>
-In-Reply-To: <CAL4WiirRPnbSBgcoh8Aiq8zGVzsy34w9uaqAgSKQwpgJ0ht7aA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-paul-lm51772-v1-4-25f0ffbffa8d@bootlin.com>
+References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+In-Reply-To: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Paul Louvel <paul.louvel@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792578518; l=5750;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=s7S5OsGAC/cwtcNgaVWb1CyRtznqn16Pg64Avs+pleI=;
+ b=MyjakuQpDImtq0Vzj56yzE75OTnG0OUaWqFifiovDcOqbqGgDUHU52h09DimQNOC9KSlQk1IY
+ ZBrCftSPbwlBoJpeUIn/UrE5AcgtlX+aGKdPNaT9yEZCPwoLuo4DTZr
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 2026/10/21 17:24, Eric Dumazet wrote:
-> OK, but I think GRO/GSO is still in the way (because of 55a5d8fca836
-> ("net: pppoe: implement GRO/GSO support")).
-> I guess Sashiko will find out.
->
-> We should GSO segment first, then linearize the small segments
-> (instead of 64KB packets)
->
-> I was working on the GSO part yesterday, so what about this:
->
-> commit 5e8cbf87e1aea072b9bdb52ca5c7a5f523186934
-> Author: Eric Dumazet <edumazet@kernel.org>
-> Date:   Wed Oct 21 10:04:45 2026 +0200
->
->      ppp: linearize and segment bridged packets when required
->
->      PPP channel bridging is commonly used for PPPoE relaying or forwarding
->      from PPPoE to PPPoL2TP. Both destination channel types handle non-linear
->      packets, but other channels, such as PPP Async, require linear packets.
->
->      Ethernet drivers can pass non-linear packets to PPPoE. If one is bridged
->      to PPP Async, ppp_async_encode() accesses the entire packet through
->      skb->data, assuming that it is linear. This can read beyond the linear
->      buffer and transmit unrelated memory over the serial interface.
->
->      Since commit 55a5d8fca836 ("net: pppoe: implement GRO/GSO support"),
->      these packets can also be GSO packets. Packets can also be in
->      CHECKSUM_PARTIAL state, for instance when injected by a tap device or
->      a packet socket using a virtio_net_hdr. The regular transmit path never
->      sees such packets, because the ppp device does not advertise GSO or
->      checksum offload features. Most PPP channels are not prepared for them:
->
->      - PPP Async and PPP Sync send a GSO packet as a single frame, up to
->        64KB, far above the peer MRU. They also send CHECKSUM_PARTIAL packets
->        with an unfinished L4 checksum.
->      - PPTP pushes GRE and IP headers in front of a TCP GSO packet, which
->        gre_gso_segment() refuses because skb->encapsulation is not set. It
->        also sets CHECKSUM_NONE without finishing a pending checksum.
->      - L2TP pushes UDP and L2TP headers in front of a TCP GSO packet, which
->        udp4_ufo_fragment() refuses. A TSO capable device could also be
->        handed a TCP GSO packet whose transport header is a UDP header.
->
->      Only PPPoE handles them correctly, as pppoe_xmit() uses
->      dev_queue_xmit(), which can segment GSO packets with
->      pppoe_gso_segment() and finish checksums, or offload them to the
->      device.
->
->      Add a xmit_offload flag to struct ppp_channel, telling that the channel
->      accepts GSO and CHECKSUM_PARTIAL packets, and set it for PPPoE.
->
->      For other bridged channels, segment GSO packets in software. The PPP
->      protocol field in front of the IP header is used as the L2 header, and
->      is replicated in front of each segment. Then finish CHECKSUM_PARTIAL
->      checksums with skb_checksum_help(). For channels without direct_xmit,
->      also linearize each packet, as ppp_push() does for the regular transmit
->      path. Packets are dropped if any of these steps fails.
->
->      The bridge path still has no transmit queue, so a channel that is
->      busy (for example a full tty) drops the segments it refuses, as it
->      already did for regular packets.
->
->      Non-linear packets were reproduced in a VM, with a TAP interface using
->      IFF_NAPI_FRAGS feeding PPPoE, bridged to PPP Async on a PTY: the
->      packets sent to the PTY contained garbage data.
->
->      GSO and CHECKSUM_PARTIAL packets were reproduced by bridging a PPPoE
->      channel on a veth device to PPP Async on a PTY. With GRO enabled, a
->      burst of 8 TCP segments was sent as a single 8040 byte frame with a
->      bad TCP checksum, and is now sent as 8 valid frames, for both IPv4 and
->      IPv6. A CHECKSUM_PARTIAL packet sent through a packet socket with
->      PACKET_VNET_HDR was sent with a bad TCP checksum, and now has a valid
->      one. When bridging to a second PPPoE channel, GSO packets are passed
->      unchanged to the PPPoE device, and are correctly segmented by
->      pppoe_gso_segment() when the device does not offload them.
->
->      Fixes: 4cf476ced45d ("ppp: add PPPIOCBRIDGECHAN and
-> PPPIOCUNBRIDGECHAN ioctls")
->      Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
->      Reported-by: Sashiko <sashiko-bot@kernel.org>
->      Closes: https://sashiko.dev/#/patchset/20260908072135.877364-1-qingfang.deng@linux.dev
->      Co-developed-by: Qingfang Deng <qingfang.deng@linux.dev>
->      Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
->      Signed-off-by: Eric Dumazet <edumazet@kernel.org>
->      Cc: Felix Fietkau <nbd@nbd.name>
->      Cc: Pablo Neira Ayuso <pablo@netfilter.org>
+Some devices uses 8-bit registers to store the voltage selector across
+two registers: one for the least significant bits and one for the most
+significant bits.
 
-LGTM, thanks. Nits below:
+Introduce vsel_reg_oversize to support voltage selectors that span two
+registers. Write the selector in bulk across both registers using
+little-endian encoding.
 
-> diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
-> index 1a610a18893ba94b5ff3f69f8e25dcd944ef01a8..2b27ec36c8cef829e3bc9238036c68967aceea1e
-> 100644
-> --- a/drivers/net/ppp/ppp_generic.c
-> +++ b/drivers/net/ppp/ppp_generic.c
-> @@ -45,6 +45,7 @@
->   #include <linux/slab.h>
->   #include <linux/file.h>
->   #include <linux/unaligned.h>
-> +#include <net/gso.h>
->   #include <net/netdev_lock.h>
->   #include <net/slhc_vj.h>
->   #include <linux/atomic.h>
-> @@ -2278,6 +2279,58 @@ static bool ppp_decompress_proto(struct sk_buff *skb)
->          return pskb_may_pull(skb, 2);
->   }
->
-> +/* Segment a GSO packet (built by PPPoE GRO) before sending it to a
-> + * bridged channel that does not accept GSO packets.
-> + * skb->data points to the PPP protocol field, which is replicated
-> + * in front of each segment.
-> + * Returns a list of segments, or NULL if the packet was dropped.
-> + */
-> +static struct sk_buff *ppp_bridge_gso_segment(struct sk_buff *skb)
-> +{
-> +       struct sk_buff *segs;
-> +
-> +       if (!pskb_may_pull(skb, PPP_PROTO_LEN))
-> +               goto drop;
-> +
-> +       switch (get_unaligned_be16(skb->data)) {
+Assume that future hardware will require at most one additional register
+to store the voltage selector, and that only a device with 8-bit
+register will require such flag.
 
-skb->data should be already 2-byte aligned here. You can avoid the 
-get_unaligned and runtime byte-swapping.
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+ drivers/regulator/helpers.c      | 71 ++++++++++++++++++++++++++++++++--------
+ include/linux/regulator/driver.h |  2 ++
+ 2 files changed, 60 insertions(+), 13 deletions(-)
 
-> +       case PPP_IP:
-> +               skb->protocol = htons(ETH_P_IP);
-> +               break;
-> +       case PPP_IPV6:
-> +               skb->protocol = htons(ETH_P_IPV6);
-> +               break;
-> +       default:
-> +               goto drop;
-> +       }
-> +       skb_set_network_header(skb, PPP_PROTO_LEN);
-> +
-> +       segs = skb_gso_segment(skb, 0);
+diff --git a/drivers/regulator/helpers.c b/drivers/regulator/helpers.c
+index 0def82eb8b46..1221128dde98 100644
+--- a/drivers/regulator/helpers.c
++++ b/drivers/regulator/helpers.c
+@@ -118,6 +118,37 @@ static int regulator_range_selector_to_index(struct regulator_dev *rdev,
+ 	return -EINVAL;
+ }
+ 
++static int get_voltage_sel_reg(struct regulator_dev *rdev, unsigned int *sel)
++{
++	int ret, val_bytes;
++	unsigned int val;
++	__le16 buf;
++
++	if (rdev->desc->vsel_reg_oversize) {
++		val_bytes = regmap_get_val_bytes(rdev->regmap);
++
++		if (val_bytes != 1)
++			return -EINVAL;
++
++		ret = regmap_bulk_read(rdev->regmap, rdev->desc->vsel_reg, &buf, 2);
++		if (ret != 0)
++			return ret;
++
++		val = le16_to_cpu(buf);
++	} else {
++		ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
++		if (ret != 0)
++			return ret;
++	}
++
++	val &= rdev->desc->vsel_mask;
++	val >>= ffs(rdev->desc->vsel_mask) - 1;
++
++	*sel = val;
++
++	return 0;
++}
++
+ /**
+  * regulator_get_voltage_sel_pickable_regmap - pickable range get_voltage_sel
+  *
+@@ -140,7 +171,7 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
+ 	if (!r)
+ 		return -EINVAL;
+ 
+-	ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
++	ret = get_voltage_sel_reg(rdev, &val);
+ 	if (ret != 0)
+ 		return ret;
+ 
+@@ -148,9 +179,6 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
+ 	if (ret != 0)
+ 		return ret;
+ 
+-	val &= rdev->desc->vsel_mask;
+-	val >>= ffs(rdev->desc->vsel_mask) - 1;
+-
+ 	range = regulator_range_selector_to_index(rdev, r_val);
+ 	if (range < 0)
+ 		return -EINVAL;
+@@ -161,6 +189,19 @@ int regulator_get_voltage_sel_pickable_regmap(struct regulator_dev *rdev)
+ }
+ EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_pickable_regmap);
+ 
++static int set_oversize_voltage_sel(struct regulator_dev *rdev, unsigned int sel)
++{
++	int val_bytes = regmap_get_val_bytes(rdev->regmap);
++	__le16 val;
++
++	if (val_bytes != 1)
++		return -EINVAL;
++
++	val = cpu_to_le16(sel);
++
++	return regmap_bulk_write(rdev->regmap, rdev->desc->vsel_reg, &val, 2);
++}
++
+ static int write_separate_vsel_and_range(struct regulator_dev *rdev,
+ 					 unsigned int sel, unsigned int range)
+ {
+@@ -173,15 +214,17 @@ static int write_separate_vsel_and_range(struct regulator_dev *rdev,
+ 	if (ret)
+ 		return ret;
+ 
++	if (rdev->desc->vsel_reg_oversize)
++		return set_oversize_voltage_sel(rdev, sel);
++
+ 	/*
+ 	 * Some PMICs treat the vsel_reg same as apply-bit. Force it to be
+ 	 * written if the range changed, even if the old selector was same as
+ 	 * the new one
+ 	 */
+ 	if (rdev->desc->range_applied_by_vsel && range_updated)
+-		return regmap_write_bits(rdev->regmap,
+-					rdev->desc->vsel_reg,
+-					rdev->desc->vsel_mask, sel);
++		return regmap_write_bits(rdev->regmap, rdev->desc->vsel_reg,
++					 rdev->desc->vsel_mask, sel);
+ 
+ 	return regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
+ 				  rdev->desc->vsel_mask, sel);
+@@ -257,17 +300,15 @@ int regulator_get_voltage_sel_regmap(struct regulator_dev *rdev)
+ 	unsigned int val;
+ 	int ret;
+ 
+-	ret = regmap_read(rdev->regmap, rdev->desc->vsel_reg, &val);
++	ret = get_voltage_sel_reg(rdev, &val);
+ 	if (ret != 0)
+ 		return ret;
+ 
+-	val &= rdev->desc->vsel_mask;
+-	val >>= ffs(rdev->desc->vsel_mask) - 1;
+-
+ 	return val;
+ }
+ EXPORT_SYMBOL_GPL(regulator_get_voltage_sel_regmap);
+ 
++
+ /**
+  * regulator_set_voltage_sel_regmap - standard set_voltage_sel for regmap users
+  *
+@@ -284,8 +325,12 @@ int regulator_set_voltage_sel_regmap(struct regulator_dev *rdev, unsigned sel)
+ 
+ 	sel <<= ffs(rdev->desc->vsel_mask) - 1;
+ 
+-	ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
+-				  rdev->desc->vsel_mask, sel);
++	if (rdev->desc->vsel_reg_oversize)
++		ret = set_oversize_voltage_sel(rdev, sel);
++	else
++		ret = regmap_update_bits(rdev->regmap, rdev->desc->vsel_reg,
++					 rdev->desc->vsel_mask, sel);
++
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/include/linux/regulator/driver.h b/include/linux/regulator/driver.h
+index 55cc519103ed..8a0f3aebdade 100644
+--- a/include/linux/regulator/driver.h
++++ b/include/linux/regulator/driver.h
+@@ -312,6 +312,7 @@ enum regulator_type {
+  * @range_applied_by_vsel: A flag to indicate that changes to vsel_range_reg
+  *			   are only effective after vsel_reg is written
+  * @vsel_reg: Register for selector when using ``regulator_map_*_voltage_*``
++ * @vsel_reg_oversize: Indicates that the vsel_reg spans on two registers
+  * @vsel_mask: Mask for register bitfield used for selector
+  * @vsel_step: Specify the resolution of selector stepping when setting
+  *	       voltage. If 0, then no stepping is done (requested selector is
+@@ -405,6 +406,7 @@ struct regulator_desc {
+ 	unsigned int vsel_range_mask;
+ 	bool range_applied_by_vsel;
+ 	unsigned int vsel_reg;
++	bool vsel_reg_oversize;
+ 	unsigned int vsel_mask;
+ 	unsigned int vsel_step;
+ 	unsigned int csel_reg;
 
-Passing zero features to skb_gso_segment will linearize every segment 
-prematurely.
+-- 
+2.56.0
 
-> +       if (IS_ERR_OR_NULL(segs))
-> +               goto drop;
-> +
-> +       consume_skb(skb);
-> +       return segs;
-> +
-> +drop:
-> +       kfree_skb(skb);
-> +       return NULL;
-> +}
-> +
-> +static void ppp_bridge_xmit(struct ppp_channel *chan, struct sk_buff *skb)
-> +{
-> +       if (!chan->direct_xmit && skb_linearize(skb))
-> +               goto drop;
-> +
-> +       if (!chan->xmit_offload && skb->ip_summed == CHECKSUM_PARTIAL &&
-> +           skb_checksum_help(skb))
-> +               goto drop;
-> +
-> +       if (chan->ops->start_xmit(chan, skb))
-> +               return;
-> +drop:
-> +       kfree_skb(skb);
-> +}
-> +
->   /* Attempt to handle a frame via. a bridged channel, if one exists.
->    * If the channel is bridged, the frame is consumed by the bridge.
->    * If not, the caller must handle the frame by normal recv mechanisms.
-> @@ -2285,6 +2338,8 @@ static bool ppp_decompress_proto(struct sk_buff *skb)
->    */
->   static bool ppp_channel_bridge_input(struct channel *pch, struct sk_buff *skb)
->   {
-> +       struct sk_buff *segs, *next;
-> +       struct ppp_channel *chan;
->          struct channel *pchb;
->
->          rcu_read_lock();
-> @@ -2300,8 +2355,17 @@ static bool ppp_channel_bridge_input(struct
-> channel *pch, struct sk_buff *skb)
->          }
->
->          skb_scrub_packet(skb, !net_eq(pch->chan_net, pchb->chan_net));
-> -       if (!pchb->chan->ops->start_xmit(pchb->chan, skb))
-> -               kfree_skb(skb);
-> +
-> +       chan = pchb->chan;
-> +       if (!chan->xmit_offload && skb_is_gso(skb)) {
-> +               segs = ppp_bridge_gso_segment(skb);
-> +               skb_list_walk_safe(segs, skb, next) {
-> +                       skb_mark_not_on_list(skb);
-> +                       ppp_bridge_xmit(chan, skb);
-> +               }
-> +       } else {
-> +               ppp_bridge_xmit(chan, skb);
-> +       }
->
->   outl:
->          spin_unlock_bh(&pchb->downl);
-> diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
-> index bf7414b46a26068d1773ec79055167956dde7183..f22087d76874ce524f66003ae00d1528a0e0b898
-> 100644
-> --- a/drivers/net/ppp/pppoe.c
-> +++ b/drivers/net/ppp/pppoe.c
-> @@ -669,6 +669,7 @@ static int pppoe_connect(struct socket *sock,
-> struct sockaddr_unsized *uservaddr
->                  po->chan.private = sk;
->                  po->chan.ops = &pppoe_chan_ops;
->                  po->chan.direct_xmit = true;
-> +               po->chan.xmit_offload = true;
->
->                  error = ppp_register_net_channel(dev_net(dev), &po->chan);
->                  if (error) {
-> diff --git a/include/linux/ppp_channel.h b/include/linux/ppp_channel.h
-> index 2f63e9a6cc88984c075792dcbd6c832ff45acd51..15bc3aa4f1715c265a5808fcc1cc2b93cc44c519
-> 100644
-> --- a/include/linux/ppp_channel.h
-> +++ b/include/linux/ppp_channel.h
-> @@ -43,6 +43,7 @@ struct ppp_channel {
->          void            *ppp;           /* opaque to channel */
->          int             speed;          /* transfer rate (bytes/second) */
->          bool            direct_xmit;    /* no qdisc, xmit directly */
-> +       bool            xmit_offload;   /* accepts GSO and
-> CHECKSUM_PARTIAL skbs */
->   };
->
->   #ifdef __KERNEL__
