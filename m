@@ -1,80 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792595297;
-	b=rcyfN+34liQHksOvPtXBr1AY6ZYf9RjzW7e4ad5/LqzLDaWwhotSIS3i5bzsKvetOQ0f
-	 AvITNjly+LfctSwxr1HNeRb3tFGLgcjzFWgULZ5UCBEDME19oHV2fQZlXdyhi0OhxO5qF
-	 2lXH07q51bWBvb3qWzuAUDSAF0MA/c9meijEMOLcYhi7fkHC167FlXaAE6cIEMENdeeu7
-	 TVBK3LJAR985LDKZjJ6sJuoCZ69Usm0Fpa/4o5ati7De+oLamU0TkVyuYpKoTwEocVvU4
-	 s3F+bL/oqeq1GNIVhv31rYIPqgRo+QkrzIRivo6wbT3oSzBFPVoAR0G77ge+BpNgPVA==
+	t=1792595299;
+	b=2BqaHcc3qPFOhPGlUgm0PDrLMZunKD2YHptdPL+sBJ+j/ZDLYDNGMY+cPQhf9GOE0Mt6
+	 cuCF6ZIq+L0xQJ2orCU8VFXVwq19GbJ20+MReEZSTnqYYFFSSfUjJzSQNx0ey9kq5mqvT
+	 QlqS3te6vpjZysMbX8tM/NoTCMbaxEuskqakN+Gn1Zjf/6crubOO9o56CBJqZnqQtxVqt
+	 KtkDnoRenk7qjTg2MfSGz1YjIEZKe98MO0OwDPnjmQ6glf6yNA80vHNtno2894lHy2kZi
+	 hA0o2fRv0c38nzKTXL2BQC0AtuV+MQO5uQ6AAVd6qT4AArh4PFeauMgVmokQqlFMI6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792595297;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792595299;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=nX+gP2drifdU2o+OF+ySLEpKlcNDTqHvU5zt6uKwARU=;
-	b=MsGQolLsQlLFrq3oV3ubV4KjoLZW9jTJCYXHFr8DqFOJCA3s7OXA/G9xn3NTrrjIqo5u
-	 z83iT9bDmKCg5D5gKqUUeM57X4TanSHCwDxzVmFC8Zb+gS/lKZyujYZWPP5G2UtBZuPxO
-	 L1fkvCZKsgqzkrVDb3dT7Y7NQ0cQ4BBnuaDk4dzuBETY1QbK8tZ16Mxam6ZVghv2bsWBp
-	 tbRXtAs3fQcy+XcifXObAafxh6rBKuZIM+MkfWGspwcs2wpMBxZQq0Hm9iCVDR96Z1DM8
-	 y6z/t0KFjOmzAROTtZdn9IlbLusZcPuCVcgHaPpdXMSpcHBAkSkfVbweVHz44l3Dv0A==
+	bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
+	b=d6NRvHm7dspSsUDGJpoHyzeWa/lsH3/sRjeFvdhcZEj4O75FLS38QaphlGCOFBjrx93n
+	 uX1sTHgsR55LZP6Ugp3yUa36z6oiouyOVSRH54eTe3umVrjqxn3ld/YpmH4ziUjuA3RS3
+	 67MjOL0TlHIuP3gAU842RcY6txa86+1ltNHkq9P7NBGbsI0b35DQUSE++//s8hc5bQgXp
+	 GvosGv05yLoL5PQqJ7Fx9SkLFSxL5Ri/3GPx/V7lcIXmmlNsAWNIhMjvhGP1iO/NqrEg5
+	 C5Zvs4INN70P6Tqt6IpWLfg1dxxc3doy4zlQkqI8GsgLXSo1icjhr803zLsSBOvX5Fg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oVC2S4B7;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VJpeNPVz;
+	arc=none smtp.remote-ip=209.85.167.173
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A64606A33D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60A64606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDCBE60A3825
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:08:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDCBE60A3825
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=oVC2S4B7
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7f48c750afcso555928a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=VJpeNPVz
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-53c156ba662so417991b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:08:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792595296; x=1793200096; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1792595298; x=1793200098; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=nX+gP2drifdU2o+OF+ySLEpKlcNDTqHvU5zt6uKwARU=;
-        b=oVC2S4B7NFJNQTrSito4yJfEumKFdCgmaWTW1R8xRymEe+S9WdzW5tinIY4IOobWb5
-         NQxBC4YgeLe2VNjzyzR+jYDQN+hf0aOFqnAL5RroVOYue/nVYJXrCremCd9qZD8Af0M3
-         p1iWgRi6XHyNYyirbChTYVvH3G5LthAyLYQng=
+        bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
+        b=VJpeNPVzzW2m9IiLhWBOP6SQVFen0qc3AlMOAVzSp2Y+DLTEnxZzmTyRkWda+g5U4A
+         mp4KnQyGKOPH9pwQCWFtDjIVB3KbAQ58lrLDu/ilmQ3nKK/GWj5LF5himQIbPb9ZB627
+         v2KncJj/J6NMNZY+tZ4WPIwnPkR4wJyM470iQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792595296; x=1793200096;
+        d=1e100.net; s=20260707; t=1792595298; x=1793200098;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nX+gP2drifdU2o+OF+ySLEpKlcNDTqHvU5zt6uKwARU=;
-        b=NtkinBo2Dn3w3TlmwVSXDSLVTC/qB2iNQX5hqzoMrA60IHyOSWd40lPpiYNe/kLG5y
-         MOdqNbQUxwFTpKhDGW8O83ly3LgkDkoiPvR/r0V8NhWv9TntObmDKHRm9jqULrq4Slk9
-         0rjZurDX3kxHBRrimkv2oSTixGVQu7Au5mfe2GoXrnfHpZKv5pVa/OM+J1lqAqAl+C0C
-         ARnVe8+DaeQmNfOH2t8UsuskIIblzCSokt06jzo05UKEvzLeoMxV5c/zyMgUdVjg5N9b
-         yIeEBUhxhXJRXinHdY+vuebfsjYtawZY3SUhp4wJyG7DaJUGUaxXJTyyJkEPscqX6Baf
-         ejNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVoX6luG3O2N/5uMDMWZAAqNzun15w3ACTI1RU5m/oLQWlCb1DNx4xLfhgEQ34bivWn2ukfV3hsnrNIQ4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRD4GUvD+pOzar+CngIl5xy4QRMYS4qTbMG2fMYxjJt71ppNeX
-	+E5FmRqQZ9sCGlxPTd/XXw+kCUMqY2VLPlMhmgPYqS+cSJrhw2hD8NNSeTwKdCm7nA==
-X-Gm-Gg: AYBFou2sKQb6ldY7qaYengmOUmcqR9mBstF8rIPpeddUTDFxMk4foPz4ZvtcwR4Lqy5
-	xzfMkVhcw9dQM87lp8aijX9CLvtZ3oFEsxHSRjzl51CBIaRETV5UaUBwgd3c0NU99XGysYcRE48
-	PNKACwy85OpQOK7gZ9OnXc8BdocWVnnEvlhm3x6KEXIcPyk9nU47+bmDlnyos29RBBNT1GhbXEu
-	X7CG21k3AK/F4j7jX34ZpcRIUdI1MRWJaNeYhbKv/xa2QRcX7/K1jkYjylzB3flbmbcrKId8J9K
-	opwPFDqhVPR6fopoign2CTSQqWN6ZUqIxAlCk4myvuPIomrTKBiZS4GzETIFZnmFUmMFGuBqr55
-	oiSNL8H9ENy101tNeK68qBhgAGI/x3eBNh1roCXHO/+7kelJdjGoRHowO93OC05bMXFySI/jur+
-	GBQ3z/FwReTulSI/XiCy9ol+xHETFk5/tfiv3xxiJiaZ+ezZ7wjKRkxsdKBgXZ2feyKBUmzw8Eu
-	re6in2LxF06fwTxjziF7xYnX9cLuXMPBTEiuKvEw4B8KB33r280ELuDdXvzQ116qdvdY7Vxaqrs
-	VGg9/4+gGpVZftRybOrjtlkXIwpBb7z6MVTmWbIujzod
-X-Received: by 2002:a05:6808:148e:b0:4ea:5e0e:7dab with SMTP id 5614622812f47-5535818f4edmr1498560b6e.37.1792595295749;
-        Wed, 21 Oct 2026 08:08:15 -0700 (PDT)
+        bh=SKh8lPT5SEfMc99OwulIZQOlMHEzODfvv6gUt03pNys=;
+        b=Wz+txT/qphhdOeGLaO9tLnKRr/UFkRmSMfgkObklbEhDiCn2O6XhLSBkmQoRddtZeR
+         pfOyRT2kfhoocC369iLGihErdhblSnueW62hNlmzNDX7pmV4jWXQlBiumw4shybV4Jwd
+         IhzSht26V2BVc49N+JI+/wnmUHyNvg7fBuY64WhGxrvBCDnpYTao74l+v4ssczcsNUMN
+         8uAEwvsq/fS4V5Y/+R7rrlwePxChCRuy4o5H8H9CKqYqz5MdNyyAr209gD3MuRol64Zs
+         zYDKguvjyR9UG0QWv8qr6FjPEW3i/asYom2yYxjhKdOW83zg3Rn7/+Dk4686iZk/2lyT
+         urQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxuuXEsjpKYU1C3xrVBcqvQcSU9NpOrmBl6t/PPqBQf3v37dJ6fnWP+K3wYhv6JUq7MfEGSDsG8ITk/XkY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLK1x7yoBRcmihzfA8zGlQy582bGg9CQ9yNNiBvPChduc8IBG/b
+	olYQ8KdUlh2XZ9mteRebDfz7GvWoocJ8bD3y+yAEjd38DAKdKVJbD9zFryNPCeekoA==
+X-Gm-Gg: AYBFou2SxwikqNsvjDQHF/WQjclkLnQrnnZcakXlB+fNJ3fSe+2ysYh35MI4MAKFrFc
+	SWmj3ZB1Di/vc9pOoiKajj9i2iKTxcywnxQiUH40UYl/3HDLe00QBU/yYIfKOMtVSD8J0l0tngZ
+	SLrq9eCKeqxwvtlf7U0Vzq8NBT9LMHc3ca39JIcCR8FJhim/IsY/+vD8o4+kHSu/kY9R2lrLP+e
+	9zEpSV1mpZDJRnw00GrNxjOE9RqcBU4pIKrAhEHY/ykeJ/YnJxLpFipLdFy76Xf+UeBuqLHzaIu
+	aCNoyxAwkii7Fpm3l2otHy23XbfLJ6KefIL5qfcPLDdMj16CZ3PGagIRwqctOqQfkm7GlVhcbFb
+	iwJkUwE6CahOoVgsqLcF/EjwEsHURC6r42tje8xbDJzha7ATf24sgMz4GAT774VT1Xs8pUvTFSZ
+	I+dHGL7p5plT21iWPEP6ZCDpvSW2tO/bEvlKUotoywD8OBbhpqzOnFbgIWzyD/uNWhFAK74XEAC
+	zTrbYBaWPNHVJDosod0DxtIMa/Lsh8cgW5oGbQAb+qmRfTI3p9LVW0Ow73vQIKXcgw6hH17mCft
+	zQ4MdipzBz2yZFuIklfgj7HNjTnenZ73G9WYZUt/ZNFh
+X-Received: by 2002:a05:6808:10cf:b0:53c:8f0e:ee21 with SMTP id 5614622812f47-5535876bca3mr1511006b6e.10.1792595297620;
+        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
 Received: from rrangel.c.googlers.com.com (202.168.136.34.bc.googleusercontent.com. [34.136.168.202])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.14
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-552b400bd39sm2023922b6e.6.2026.10.21.08.08.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 08:08:15 -0700 (PDT)
+        Wed, 21 Oct 2026 08:08:17 -0700 (PDT)
 From: Raul E Rangel <rrangel@chromium.org>
 To: Valentina Manea <valentina.manea.m@gmail.com>,
 	Shuah Khan <shuah@kernel.org>,
@@ -85,9 +85,9 @@ Cc: Hongren Zheng <i@zenithal.me>,
 	Raul E Rangel <rrangel@chromium.org>,
 	stable@vger.kernel.org,
 	"Brian G. Merrell" <bgmerrell@novell.com>
-Subject: [PATCH 5/6] usbip: vhci_hcd: allocate vhci_priv outside lock and handle ENOMEM
-Date: Wed, 21 Oct 2026 09:07:00 -0600
-Message-ID: <20261021150704.3129446-6-rrangel@chromium.org>
+Subject: [PATCH 6/6] usbip: vhci_hcd: reject URBs from stale usb_device after port re-attach
+Date: Wed, 21 Oct 2026 09:07:01 -0600
+Message-ID: <20261021150704.3129446-7-rrangel@chromium.org>
 X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
 In-Reply-To: <20261021150704.3129446-1-rrangel@chromium.org>
 References: <20261021150704.3129446-1-rrangel@chromium.org>
@@ -102,24 +102,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In vhci_urb_enqueue(), usb_hcd_link_urb_to_ep() links the URB onto the
-endpoint before calling vhci_tx_urb(), which allocates struct vhci_priv
-with GFP_ATOMIC while holding vhci->lock. If that allocation fails,
-vhci_tx_urb() triggers VDEV_EVENT_ERROR_MALLOC and returns while
-vhci_urb_enqueue() still returns 0, leaving urb->hcpriv NULL and the URB
-linked on ep->urb_list where vhci_urb_dequeue() rejects it with -EIDRM.
-Moreover, failing a single URB submission should return -ENOMEM to the
-caller rather than tearing down the entire USB/IP connection.
+After vhci_shutdown_connection() runs, event_handler() immediately
+calls vhci_device_reset(), setting vdev->ud.status to VDEV_ST_NULL and
+clearing vdev->udev before usb_hub_wq finishes running usb_disconnect()
+on the detached usb_device.
 
-Allocate struct vhci_priv in vhci_urb_enqueue() using the caller's
-mem_flags before acquiring vhci->lock, pass it to vhci_tx_urb(), and
-free it on early-exit and non-transmit paths.
+If attach_store() attaches a new connection to the same rhport before
+usb_hub_wq disconnects the old usb_device, vdev->ud.tcp_socket becomes
+non-NULL and vdev->ud.status becomes VDEV_ST_NOTASSIGNED. Because
+vhci_urb_enqueue() maps urb->dev->portnum to vdev without verifying that
+urb->dev matches vdev->udev, URBs submitted on the old usb_device pass
+the connection state checks and get sent to the new remote device (or,
+if a concurrent USBDEVFS_RESET resets the old usb_device to address 0,
+overwrite vdev->udev).
 
-In vhci_urb_dequeue(), if allocating struct vhci_unlink fails after
-usb_hcd_check_unlink_urb() has already marked urb->unlinked, return 0
-after triggering VDEV_EVENT_ERROR_MALLOC so callers know the unlink was
-accepted and connection teardown will drain priv_rx and give back the
-URB.
+Serialize vdev->udev clearing in vhci_device_reset() under vhci->lock
+and ud->lock (dropping old usb_device and socket references outside the
+spinlocks in both vhci_device_reset() and vhci_urb_enqueue()), and
+reject URBs in vhci_urb_enqueue() when urb->dev != vdev->udev and either
+usb_pipedevice(urb->pipe) != 0 or urb->dev is already registered
+(device_is_registered(&urb->dev->dev)). During initial enumeration and
+PORT_INIT_TRIES retries in hub_port_connect(), each candidate usb_device
+is unregistered until usb_new_device() runs after hub_port_init() has
+assigned vdev->udev, whereas an already-registered usb_device resetting
+via usb_reset_device() is only valid when urb->dev == vdev->udev.
 
 Fixes: 04679b3489e0 ("Staging: USB/IP: add client driver")
 Cc: stable@vger.kernel.org
@@ -127,104 +133,143 @@ Assisted-by: Gemini
 Signed-off-by: Raul E Rangel <rrangel@chromium.org>
 ---
 
- drivers/usb/usbip/vhci_hcd.c | 30 ++++++++++++++++++++----------
- 1 file changed, 20 insertions(+), 10 deletions(-)
+ drivers/usb/usbip/vhci_hcd.c | 44 +++++++++++++++++++++++++-----------
+ 1 file changed, 31 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/usb/usbip/vhci_hcd.c b/drivers/usb/usbip/vhci_hcd.c
-index 522cbaa6eb0a..27dba51392b7 100644
+index 27dba51392b7..e8ff63c2276f 100644
 --- a/drivers/usb/usbip/vhci_hcd.c
 +++ b/drivers/usb/usbip/vhci_hcd.c
-@@ -665,18 +665,12 @@ static int vhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
- 	return retval;
- }
- 
--static void vhci_tx_urb(struct urb *urb, struct vhci_device *vdev)
-+static void vhci_tx_urb(struct urb *urb, struct vhci_device *vdev,
-+			struct vhci_priv *priv)
- {
--	struct vhci_priv *priv;
- 	struct vhci_hcd *vhci_hcd = vdev_to_vhci_hcd(vdev);
- 	unsigned long flags;
- 
--	priv = kzalloc_obj(struct vhci_priv, GFP_ATOMIC);
--	if (!priv) {
--		usbip_event_add(&vdev->ud, VDEV_EVENT_ERROR_MALLOC);
--		return;
--	}
--
- 	spin_lock_irqsave(&vdev->priv_lock, flags);
- 
- 	priv->seqnum = (u32)atomic_inc_return(&vhci_hcd->seqnum);
-@@ -702,6 +696,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+@@ -693,6 +693,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 	struct vhci_hcd *vhci_hcd = hcd_to_vhci_hcd(hcd);
+ 	struct vhci *vhci = vhci_hcd->vhci;
+ 	struct device *dev = &urb->dev->dev;
++	struct usb_device *old = NULL;
  	u8 portnum = urb->dev->portnum;
  	int ret = 0;
  	struct vhci_device *vdev;
-+	struct vhci_priv *priv;
- 	unsigned long flags;
- 
- 	if (!portnum || portnum > VHCI_HC_PORTS) {
-@@ -716,11 +711,16 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 		return -EINVAL;
- 	}
- 
-+	priv = kzalloc_obj(struct vhci_priv, mem_flags);
-+	if (!priv)
-+		return -ENOMEM;
-+
- 	spin_lock_irqsave(&vhci->lock, flags);
- 
- 	if (urb->status != -EINPROGRESS) {
- 		dev_err(dev, "URB already unlinked!, status %d\n", urb->status);
- 		spin_unlock_irqrestore(&vhci->lock, flags);
-+		kfree(priv);
- 		return urb->status;
- 	}
- 
-@@ -734,6 +734,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 				    vdev->rhport);
- 		spin_unlock(&vdev->ud.lock);
- 		spin_unlock_irqrestore(&vhci->lock, flags);
-+		kfree(priv);
+@@ -737,6 +738,17 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 		kfree(priv);
  		return -ENODEV;
  	}
++	if ((usb_pipedevice(urb->pipe) != 0 ||
++	     device_is_registered(&urb->dev->dev)) &&
++	    urb->dev != vdev->udev) {
++		dev_err_ratelimited(dev,
++				    "enqueue from stale usb_device on port %d\n",
++				    vdev->rhport);
++		spin_unlock(&vdev->ud.lock);
++		spin_unlock_irqrestore(&vhci->lock, flags);
++		kfree(priv);
++		return -ENODEV;
++	}
  	spin_unlock(&vdev->ud.lock);
-@@ -829,7 +830,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- 	}
  
- out:
--	vhci_tx_urb(urb, vdev);
-+	vhci_tx_urb(urb, vdev, priv);
- 	spin_unlock_irqrestore(&vhci->lock, flags);
- 
- 	return 0;
-@@ -837,6 +838,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
- no_need_xmit:
- 	usb_hcd_unlink_urb_from_ep(hcd, urb);
- no_need_unlink:
-+	kfree(priv);
- 	if (!ret) {
- 		/* usb_hcd_giveback_urb() should be called with
- 		 * irqs disabled
-@@ -956,10 +958,18 @@ static int vhci_urb_dequeue(struct usb_hcd *hcd, struct urb *urb, int status)
- 		/* setup CMD_UNLINK pdu */
- 		unlink = kzalloc_obj(struct vhci_unlink, GFP_ATOMIC);
- 		if (!unlink) {
-+			/*
-+			 * Leave urb->unlinked set and return 0 so callers know
-+			 * the unlink was accepted and usb_hcd_flush_endpoint()
-+			 * does not busy-spin retrying unlink1(); the shutdown
-+			 * triggered below (assuming usbip_event_add() can
-+			 * allocate its event node) will drain priv_rx and give
-+			 * back the URB.
-+			 */
- 			spin_unlock(&vdev->priv_lock);
- 			spin_unlock_irqrestore(&vhci->lock, flags);
- 			usbip_event_add(&vdev->ud, VDEV_EVENT_ERROR_MALLOC);
--			return -ENOMEM;
-+			return 0;
+ 	ret = usb_hcd_link_urb_to_ep(hcd, urb);
+@@ -753,7 +765,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 	 *
+ 	 */
+ 	if (usb_pipedevice(urb->pipe) == 0) {
+-		struct usb_device *old;
+ 		__u8 type = usb_pipetype(urb->pipe);
+ 		struct usb_ctrlrequest *ctrlreq =
+ 			(struct usb_ctrlrequest *) urb->setup_packet;
+@@ -764,13 +775,13 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 			goto no_need_xmit;
  		}
  
- 		unlink->seqnum = atomic_inc_return(&vhci_hcd->seqnum);
+-		old = vdev->udev;
+ 		switch (ctrlreq->bRequest) {
+ 		case USB_REQ_SET_ADDRESS:
+ 			/* set_address may come when a device is reset */
+ 			dev_info(dev, "SetAddress Request (%d) to port %d\n",
+ 				 ctrlreq->wValue, vdev->rhport);
+ 
++			old = vdev->udev;
+ 			vdev->udev = usb_get_dev(urb->dev);
+ 			/*
+ 			 * NOTE: A similar operation has been done via
+@@ -783,7 +794,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 			 * should be dropped.
+ 			 */
+ 			dev_pm_syscore_device(&vdev->udev->dev, true);
+-			usb_put_dev(old);
+ 
+ 			spin_lock(&vdev->ud.lock);
+ 			vdev->ud.status = VDEV_ST_USED;
+@@ -802,6 +812,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 				usbip_dbg_vhci_hc(
+ 					"Not yet?:Get_Descriptor to device 0 (get max pipe size)\n");
+ 
++			old = vdev->udev;
+ 			vdev->udev = usb_get_dev(urb->dev);
+ 			/*
+ 			 * Set syscore PM flag for the virtually attached
+@@ -814,7 +825,6 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 			 * on disconnect.
+ 			 */
+ 			dev_pm_syscore_device(&vdev->udev->dev, true);
+-			usb_put_dev(old);
+ 			goto out;
+ 
+ 		default:
+@@ -832,6 +842,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ out:
+ 	vhci_tx_urb(urb, vdev, priv);
+ 	spin_unlock_irqrestore(&vhci->lock, flags);
++	usb_put_dev(old);
+ 
+ 	return 0;
+ 
+@@ -848,6 +859,7 @@ static int vhci_urb_enqueue(struct usb_hcd *hcd, struct urb *urb, gfp_t mem_flag
+ 		spin_lock(&vhci->lock);
+ 	}
+ 	spin_unlock_irqrestore(&vhci->lock, flags);
++	usb_put_dev(old);
+ 	return ret;
+ }
+ 
+@@ -1156,25 +1168,31 @@ static void vhci_shutdown_connection(struct usbip_device *ud)
+ static void vhci_device_reset(struct usbip_device *ud)
+ {
+ 	struct vhci_device *vdev = container_of(ud, struct vhci_device, ud);
+-	struct usb_device *old = vdev->udev;
++	struct vhci *vhci = vdev_to_vhci_hcd(vdev)->vhci;
++	struct usb_device *old;
++	struct socket *socket;
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&ud->lock, flags);
++	spin_lock_irqsave(&vhci->lock, flags);
++	spin_lock(&ud->lock);
+ 
+ 	vdev->speed  = 0;
+ 	vdev->devid  = 0;
+ 
++	old = vdev->udev;
+ 	vdev->udev = NULL;
+-	usb_put_dev(old);
+ 
+-	if (ud->tcp_socket) {
+-		sockfd_put(ud->tcp_socket);
+-		ud->tcp_socket = NULL;
+-		ud->sockfd = -1;
+-	}
++	socket = ud->tcp_socket;
++	ud->tcp_socket = NULL;
++	ud->sockfd = -1;
+ 	ud->status = VDEV_ST_NULL;
+ 
+-	spin_unlock_irqrestore(&ud->lock, flags);
++	spin_unlock(&ud->lock);
++	spin_unlock_irqrestore(&vhci->lock, flags);
++
++	usb_put_dev(old);
++	if (socket)
++		sockfd_put(socket);
+ }
+ 
+ static void vhci_device_unusable(struct usbip_device *ud)
 -- 
 2.56.0.212.g129ede20d9-goog
 
