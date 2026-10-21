@@ -1,88 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792615080;
-	b=mSOrFjotfAVzhsEeGnDfhf8OMqMUcKOqGwB4xwX/AX1l4h3KbAkNaIybFt03h0IPRGXl
-	 g0mhQgvjdQhsrwHkDHME/X222sPvZSdEbSty+ImLmv3nqZY4dV0TXzlpV6xad/VnB8MuM
-	 DaznQVY9PFyP2K8pPbOUBQ6GP5BsoHs4BApv8hFINSyQr5FyBQMlo7mPX85ADJ/O+/XZP
-	 MJbsG/++Cl7AYDfaQiP9ZoLkE9CjThBK6x3euQWkqXqMaZ2hMuETxH8KzP3h+IWEzNkYH
-	 roGJJhBSepxqfMgL/I4ZNCMayXLPxyO9WNyDppp341IsyFXZq8TCAW4xV6THXcoHBmA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792615080;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792615085;
+	b=u+4kPHVQ62IV9Xd3nQflUX09AFO4wsyi+FuMIINgO2pKOYF9A5lwonn3p0aPZHxR7fCL
+	 e65GmP6jkynK4KJ4sRo9LvAuNC7yDth4XrViuxgMF3csuiHKA/nQHVfvf7L8/bVdXkqo3
+	 UYqbczmV708CfIV2BdkfdgJW0dPhh+mJUPaV/zMJUiMolefX98wQzBw9LKisSHeM5G2AL
+	 7479fT/haULfQHlBPqbbUpQekhVxzOWIaClIoRyLY1+As/8WNLUo/FuSNa1Jd/lW7E787
+	 jJCsNL0FCaQWZz4JUzViapOaTgV9BubMrt768scN5ctDQug0z5avlH9XfqAxBvidONA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615085;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=w8r5S5TfbVKxJBCsITNfOxJTwKsk3ZajonF1pgsHV7c=;
-	b=acO19EB6wmkwX0CGdrnemLfaDE93ERxd80Umray5CN6Y14OXaFs+ugZTf0GOBAZZQI3X
-	 MlyX27eTbezqYx2xCgQpz2c9sAi4M8foa/GPN41bFLK7UOVVR/3Gnu07aZU1sAyuLqSGt
-	 8Pc0/IBTG1lluExQ8DWMGPOM9+1k03gfalzdN9mgiyfVhuH+H6gWh70Y3UP1nLDe12Ilx
-	 goBTsi7tdufOGNj/N4TKYeO5Cg+v0jxfJozlGL6h4Nt3dcjAKU2QsvIlToD3oJ5LiD5Qa
-	 mKA4d4h1FaAo6X4d1CvMnjo9O9SANNae9TE6d9SLvicF98KqcwTtN0RpeLiJueN4pQw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=TJJB0lK0;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
+	b=jSBnFRUcm9Wc6XdvK8jX4uNPNEILq3ZJpQNBmnXB2LH45dNJEw9A+Q6IKQmH+a/X95gM
+	 rJOkaalRQeW5xrDxV3UiRCsaSTOcnN64+HNGPOY4KALqTcpI05Clz2jCSw7nRYgXT+myj
+	 SstyUfcSzCOcIkGIrbhKOosPxSaLhLh3VaAko9Pp0s5U9AwqjRwuIQOz7UcMe3aYxiK6J
+	 8bhcXhYwUX23MAPp5q2epz+q3R/tg8EVEngo1ZjOwzTwFmZEYAGZyytrRi6Ifj0+b95mU
+	 6kWpVLejMeNkgJySdmDWkgn8P5+wHYhHX4P1iaT5XbD4yY70lNHWZnGVPfUsUh63KpQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=P9B7WV3t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.180
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AB9606A326
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:37:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9AB9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F12F606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:38:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F12F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=TJJB0lK0
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e55db58cfso96212485a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:37:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=P9B7WV3t
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5ead5ff47caso788975e0c.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:38:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792615084; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JeldWFzRVZXVyacD6SYtE0YemcvJ1wRA19uUg3O4sRu3Je4YS5s3d+oIhMCTHwf7QG
+         zdVj8d1r8jPNKtN5v6gdfdgxCbyLLGIUkouX1dvWOTm/0++SNJIz6vY7Xdo7NYsMBB+Y
+         +CrQsj+LgUABIEMnQ5KEtdFqEq1e74tB3aHB6ZUcISqF/ipM4IWgHh8XNHfkOcHIaAtE
+         QBa+wesGXz3Iwx9E+9QuoTF9PfdILR1cKm+m//wk2RV5afDJfsEYerS2i03Ty05AJ+SK
+         q+LChcIwPygeoyAMdg5LUK6+jEZX/wHop6jnIg4Q5KM6BHxxuPvFLEGIaJjvanAgJuIW
+         dnQg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
+        fh=uu9Zge4rNn6EnoMO2FHHcfWyKSHjDQTzyzvqgt18xLY=;
+        b=ADll6+wMJdQFGBn4hZgxTFrc8dECEeR4EMpTAlGBiHCCe171GUCYleR50qDIU1/10r
+         K2pPBbEf2jH86sLTsMC+JQn7XAVLAtsF0yqLoWQQi/vjVkWeY4xsImr3sJvRo2gvtkcG
+         LBXM0WCWK8tg45jJZhs2wVoF0kxm4zy7UbYjHeKL1UNzC+96gkbrzuD3y2a8l7J7mxPw
+         mGlHtEFyHgz1KWHpZsyze4JcZOP7pB2np4l0HFZU4jBQx4MBZN/QHSxCIPds9f6i2otK
+         rJkJj6bR1eWz/VFQnV+Q+BGLdaTV1DyUUEBHyfTLUcEufYfRGhPRThdoSP94P2yUfxfl
+         ebwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1792615067; x=1793219867; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w8r5S5TfbVKxJBCsITNfOxJTwKsk3ZajonF1pgsHV7c=;
-        b=TJJB0lK0ppJLS7oR3UyWcCtGx90PdBJLK7d8BmBxFSaqwOSCKUu0WT+qgbBwBxinVM
-         uq5Hj8rd51/hfGI3h12FWRMbVseZFui8W0rsIavs8AGgjXACyFzyGmK/vaWoZ1bDI1JJ
-         k5NvQ4DK+HUFtQJqrtz/RznhGuG1wwlM79AVUt/07u750lmOa9nC14nyZGa/+RMPeH4F
-         d5uANnP6SpoPhx39VaFC8u0yXG5kK/BRG9c8Jqtodx9g2wP6tOWM3m1s0cvck8Z88dz2
-         J0iIB4DjCkwHFCaNxDsvhLaUNRZb44NCqs2GnrojXxFWkbCkLlzLJcz0Xt8a7sWtvh9O
-         a6JQ==
+        d=everpuredata.com; s=google; t=1792615084; x=1793219884; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
+        b=P9B7WV3tW+qvrq5niXivgO31cu4Owz6HdP3qvP+Iwr/St9Zhpihd1UVKv+q2HbFj1o
+         2KWmaSXK0QaAHoNdAwIIRsPz4An2G9/nDSg2IlVf5cQZAmw7TfFudNyeJNrf6CtXqC7B
+         Kr0JszlArIOVBLh844PiJshSg6I+azbo6+0CuT9pAbeb6+KWyCsGhbAhGhXRi3AiGtYZ
+         bQzc5pHMLExJ6B4wz+rEIoOOdAmR15HAlt+ng57ZsbQPn1iNOX5QlzfOIYJwhR+v0ojU
+         7sGH1pIpj1N+7+iJhZOY+cwnIDbFU/ImANQcJyfrv5tfuEQJ6KOHc7LithudHDZayozG
+         7AYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792615067; x=1793219867;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792615084; x=1793219884;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w8r5S5TfbVKxJBCsITNfOxJTwKsk3ZajonF1pgsHV7c=;
-        b=J67DlPF6Nj0y0bgN0lfAXOP9DkYdwOhH1PyBSkTzVQ1q89Zi3SdlPB9oU2ox9mGBw8
-         ZRvDAAfaMsrbao+LdAj0EqP7K1yydzUZ3Z1A+7lvDlsnhk1VkR6nFF33xiJ+Vgijv0IX
-         CsPFnDql8ua0wa6GQODcCiR263xy3NjZGa5uYDf0yA/9NDhOxCiRNXyC/NdMmvXAygAw
-         QaaiSPcD1h1i7VEbJigmJrSjw/Yk5PGC9xX0lVx+XyVn6kVDnI0flZYzJ42HgeVtdQ7V
-         iwPiKixe+bmlaQeUufSEl1fFQ1gUTJBoKv7k2QsDNGPFFPjD1C9agVWO/LE42eIo/xLr
-         crIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxP/hc0N0LwVq4ZpwBWBt5Q7KniBaw5wJTd1ELEvlb7JaoK/L6h+q7FCIWYt8GZSdLy1OAurbSHj9IIaeY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAixpfD2LbME8izytSyzoc0y3V1p2qd8P8pU25+6iTMx6uQAUd
-	B0mMbTX8OyooroP2azyypb44C0VR9ozV0zmlMvq3LCpJm0TDd8uK013Xy7h+hkf3LoY=
-X-Gm-Gg: AYBFou2pu3o3pWnuDJejY4Bj31VK8ek6nJZj9UfZMD931CxkDV0IiriIigEnFtUskdX
-	M6akdpiiUYwWXHeqt+QcDduDeO+9PvqiszSRnD6z6kuB4N/uTC2aWO4CfQKUU7OEhdl9yAVkwHi
-	iUIG+5noKnWj0h4KT18QWlK8RsX9QdxcNs8OmqVN2HxQk0LPZSPtxSiTb+TmXhiCowHWDukA01k
-	KBmBlu/gxP+o4DcpfnfSzt6lkC5X0Pl3VrbOvdWiircGfN6EoyDi7GgWNikon/B49SytPHtE4F3
-	+rVGECCwPDzXj2Kk5VmS4In3r+jg83d10jxtv/CmwOc8Kw91klCmX/mIFrE3Qg6xwHvmywgwsCR
-	HijI61jkzbBCjw9C5hGx59m+BiKSv4u8NX/X4XlycTJaNClHdDbOLRpoLrHKtbet9VeaAGxGrt9
-	YV9aM08MRxf4yl1THebri9OPdjPsGL5X2cSZu+mvY6mzBFD3BOvMyOfQc1iBuIhDzYY4FXYhnzg
-	1DzzcYoHrxpfMCW1nS6ZI+NdVYxGI+iu8XjXj8gQ0IWIggBogpr7/bXTdY8Aer0NGXZ7Yms
-X-Received: by 2002:a05:620a:1b9b:b0:93e:d854:4b83 with SMTP id af79cd13be357-93f57f20218mr702292685a.22.1792615066863;
-        Wed, 21 Oct 2026 13:37:46 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.245])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56c70057sm343030785a.5.2026.10.21.13.37.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 13:37:46 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Wed, 21 Oct 2026 20:37:28 +0000
-Subject: [PATCH v3 4/5] capabilities: limit fscaps to where CAP_SETFCAP
- reaches
+        bh=Sm/ucVIs/IML1ifexi9A6kIUGzt7C9TWX0mG8agamnA=;
+        b=Qg6qbtiSPpPdlUDb9PdVu/ebJK6/lc5HneZiRJjNx9RgKxp13gxIoHsC4Y5RdaNwBr
+         JXgPctPZJqNEjvomHoH2Wi324r1GbBHhpWX5AgNjltfhrq3TRl/LSBr0gCXrUW/FDpaz
+         ChHqf9k7A9GWAbUD8Rrt3ymqdmjfC+w7enYreZ2bS1WAK+j0r7ywq6m+AJwneWK+eZL4
+         nvt6rCdmMaz8cedAO5FsVVmxQQMlbaaRWG9H9k3McrNLFTnZEW/zSC03hHljFT1NCYpd
+         hPgbFON54WXKhMVPDWl0VbePDsWDx9VU44oNZLVKzDOkb7dD2nF0EPKgw+D4cMhdn0O8
+         9UPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzPosB6khV/+b77yHv0BQ1KG4bd+HiPwhuQ6me0l8BBrcT59dDLG0MNRoBIeOfc6ZR6llVgBpZl35ZNxrE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ7KKDiIfKqd9FVRRzORgUSveAYCG1MEeD04Jp48gJvJXl2H+8
+	hBNRl+yHEttoAUZrQvCUtbxZkJuIhcQLstY3o4jHE9qRYNBD0PZuP4Kstt50Jl0nF5DVGWQTQCy
+	rDU70Xh6/0l3tiy52g5Ewz4yvdbuVkPy19x+NJwbrfQ==
+X-Gm-Gg: AYBFou3mo3PZVVwbxsEBoCG6NIUsTTB1v79Y1z4N21cxz5uBJpue3wsh7Znzdm4suqz
+	yxoSBM2MvFa6ltiNlmZ/PkhBJ8N1Im1D/UlFhUVyRSJouATu7IKSWPzkP2k5Nv3C8wHK9DIeT6e
+	u4MV/uz0REXL3BTJ8aGhpteLvO7C+mf+P+QrkwfavmH1z6yt1CYbhI2+sAyD0WOsyIFyqVKlVkf
+	+i2uV2DLRlTCh2bcjlgyhulmDtCiavePgj6p/7JrXKEPlq6RgLZPwpHfai8bDisFN/DabbPLOSL
+	Q8WzBsBTvbwWXFG+gKlTe0+Y4b7FO+NYNHRzUKJy3/roU0SNZn95acXC9UgPKbObQ3wse9cOGU7
+	AXbPQpL8qzrmyiHVF804inJzIF2UTl0P9w8a9bK/kyICFfEpX9UBMJ4201SeFpv++3jb8NzUGyM
+	KERNnioxz6NKF1211Q4Yf6WKdprT9o38VMTzJ6yNbFC0BxhzFxGU7IUHeae1kaYe7s04cHSVMY+
+	zcPGPXQM8CYZJTHZTacRak+Cg==
+X-Received: by 2002:a05:6102:850f:20b0:7cc:3eb0:6ea0 with SMTP id
+ ada2fe7eead31-7cc93ac38e4mr702006137.22.1792615083930; Wed, 21 Oct 2026
+ 13:38:03 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,99 +106,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261021-b4-setfcap-userns-v3-4-97c7ed4e43e1@toxicpanda.com>
-References: <20261021-b4-setfcap-userns-v3-0-97c7ed4e43e1@toxicpanda.com>
-In-Reply-To: <20261021-b4-setfcap-userns-v3-0-97c7ed4e43e1@toxicpanda.com>
-To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
- Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
- linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1792615055; l=3016;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=wRQfv+uQ2WPQh0CvfROACNKqd38goOF6LfQfEeyNoYQ=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QA9EV/aZhjYX1t/oD79Yrsmszo2Y5fuSKVDRBIawa5XczpeHTSI83HjDgeu7Sa82cWNmCFmv/S5
- iT9jEBLsoqQ8=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+References: <20261020214500.972308-1-rjethwani@purestorage.com> <179253294887.3290.487147499123330924@kernel.org>
+In-Reply-To: <179253294887.3290.487147499123330924@kernel.org>
+From: Rishikesh Jethwani <rjethwani@everpuredata.com>
+Date: Wed, 21 Oct 2026 13:37:52 -0700
+X-Gm-Features: AclHuK-ZhRkgIdv5yYGGMnFPJ0d_TUAMLJF9EVSU41qM5LLHoLsovdDN6fqrV4g
+Message-ID: <CAKaoeS3iWOm6Oy7V9VZChyQuOBYB33EzbQLgt50E3jj-tMzCbQ@mail.gmail.com>
+Subject: Re: [PATCH net v2] tls: keep TX and RX hardware offload on the same device
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, John Fastabend <john.fastabend@gmail.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Sabrina Dubroca <sd@queasysnail.net>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Boris Pismenny <borisp@mellanox.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
-keeps a root process without CAP_SETFCAP from creating a user namespace
-that maps uid 0, in which it could attach capabilities to a file that
-are then honoured outside.  But the map doesn't have to be written by
-that process.  A privileged task can write it from the parent, and the
-file capabilities are not checked against the outside at all:
+On Tue, Oct 20, 2026 at 2:49=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote=
+:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+>  - Whether the issue was actually triggered, or is only theoretical
+>    (e.g. found by code inspection). If it was triggered please include
+>    the symptoms, like the stack trace or error messages.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account. If the series needs another revision for
+> other reasons, please include the information in the commit messages
+> then.
+>
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
-  task A: uid 0, full caps          task B: uid 0, no CAP_SETFCAP
-                                    unshare(CLONE_NEWUSER)
-                                      ns->setfcap_level = 1
-  write "0 0 1" to B's uid_map, gid_map
-    A has CAP_SETFCAP -> allowed
-                                    setxattr(file, "security.capability")
-                                      rootid = kuid 0
-  uid 1000 in the initial namespace:
-  execve(file)
-    file capabilities apply
+This issue was discovered during code review and subsequently
+reproduced on hardware using mlx5 and TLS 1.2 AES-GCM-128.
 
-The map doesn't even have to show uid 0 of the parent as uid 0, since a
-v3 xattr can name any mapped uid as the root user.
+Changing the route between TX and RX setup installed the second
+direction on a different device. Driver traces showed successful adds
+on both devices, but both deletes at socket close targeted the first
+device, leaving an orphaned context on the second. Both setup orders
+reproduced the leak, even though all current core TLS context counters
+returned to zero. No crash was observed.
 
-Check at the place where it matters, in cap_convert_nscap().  On an
-idmapped mount the root user named in the xattr has two identities: the
-kuid seen through this mount, and the kuid that is stored and seen
-through every other mount of the filesystem.  If either of them is the
-root user of an ancestor of the caller's namespace too, CAP_SETFCAP has
-to reach up to there, which ns->setfcap_level tells.
-
-Tasks in the initial namespace, tasks in namespaces created by a task
-with CAP_SETFCAP, and file capabilities for a root user that only exists
-in namespaces within reach are not affected.  That includes everything
-an unprivileged user does in its own namespaces.  The rest gets -EPERM.
-
-Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
----
- security/commoncap.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
-diff --git a/security/commoncap.c b/security/commoncap.c
-index b06914223039..1a419a4a872c 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -703,10 +703,24 @@ int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	if (!vfsuid_valid(vfsrootid))
- 		return -EINVAL;
- 
-+	/*
-+	 * The root user may be the root user of ancestors of our namespace as
-+	 * well.  CAP_SETFCAP that we got for entering it doesn't cover those.
-+	 * On an idmapped mount the root user is vfsrootid as seen through
-+	 * this mount and rootid as seen through every other mount of the
-+	 * filesystem, so both have to stay within reach.
-+	 */
-+	if (cap_root_level(vfsuid_into_kuid(vfsrootid), task_ns) <
-+	    task_ns->setfcap_level)
-+		return -EPERM;
-+
- 	rootid = from_vfsuid(idmap, fs_ns, vfsrootid);
- 	if (!uid_valid(rootid))
- 		return -EINVAL;
- 
-+	if (cap_root_level(rootid, task_ns) < task_ns->setfcap_level)
-+		return -EPERM;
-+
- 	nsrootid = from_kuid(fs_ns, rootid);
- 	if (nsrootid == -1)
- 		return -EINVAL;
-
--- 
-2.55.0
-
+With the fix, the same tests correctly fall back to software for the
+second direction and leave no orphaned hardware context.
