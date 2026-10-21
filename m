@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792580375;
-	b=Qbn5kZpraRkTSagMnE1vL+SR0leO8k1QLugT5nN+32ZUmA6PapOfLyBiaZ7FDtzY1NVO
-	 UgD9a0ebr4hnFv/Jv3WJzyLoJQrhH5fTjBXn+SV3RGJQ5+tw1JuiThBh1ouHRpJpbLKDZ
-	 imot0NDulTd6KJ32TSdihyHfeSNGsCy8QbF35gdSYJJZM1h1FMOsBuLwef/us0b+CS7BO
-	 ynV/eVXY7eYVBGyE/orPRRXx+edl/d/OqAEUW/hrx4oDhixvuRau3qpjslgLH61U1OtX6
-	 AwLZBQ292n8Wl6eXyBL7yALlmDFbq2vmQ5t4qY3b45+FmEf3SDjdOFzBQVXei0dd42g==
+	t=1792580384;
+	b=GbS2XJCJr7WcbUSOxFmWOBy+x0Lcsqqbh2qSWa9YjADLM3UlOpfWNuMsqs3sZcbrW0z5
+	 d4bYph7y6iN5Rm1LbqzXfuSmkdONTc5Sf8lkl/nQoBLA5LvCCIZxnr96nNIpEuViZtQtM
+	 oPEF+mb8ak/gMQWTdA6aodBj0W8K+z99CubxW8zFCJynuzGsvkaURy/kcVbg0VzkKs4R2
+	 Zg6qP2i3i3KnnZ5yu+k+VuRIlfQh3XRZ6Zbd92mZbYzNL6dJefQ0IoLs4E9hazQYXZgy8
+	 zWL+vjDxcEkg3V/MyTgImykAYg21bSZJW2M8SW8I92mWuQnJtvcHE3Hxxgey2HWjb2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792580375;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:X-Developer-Signature:X-Developer-Key:
-	 Content-Transfer-Encoding;
-	bh=71PhXNjOvmIAl1aRTI7zqhrskFBVVkC78m4SzV3kK8s=;
-	b=BZJywqptcVIXx1w7htLnd9Bojd3miFJA39+8kU1dJmMtR1viDi1OtHwkNfW/I3oYqepR
-	 S5yoTC/+jf8pkOiabeltTvryN0jwng2SIXLPTWXpnRAvkSUzSF8Gm0NVO1Z6JK74c4Fbv
-	 4Pebw1oLcKvdL9VPIzHplmcKD9z+AXvGoxt2qqwbK4BpVDYea/TFjcq1WagBlGD2gq7tt
-	 c7BRrLjQyiTGvS8JLDsq5R/C8wi+g7ZABWOX8aArnPVh8VlPvZCGa3zHJM9HHVnHya6Lp
-	 x9tqh9U3tklGYK03le51/8GelUPPqnWnHvuaamc1OaVle/LOwG7pKVxAyFAnm4T9mGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792580384;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=A07pI+6kl5x/WyNZEmkwAAo8IIOF+3LbtRO11TE6Ri0=;
+	b=wSsIH1XoEVT88+b+t4W8XLXwVZxGbcjr3BNNVByHSyiD69EEU0rMVTK7DwtQPqWuLEac
+	 8QQmhinkugc5wqX3U3iAoq+9i3dr06+fntHbLybH1GKywu+AhYSFDcJ5oDEZDIwuk6k+Z
+	 98I/u5+a8zUs9alXjTNYwG4J1+mJzAwoD0I0lCqM2dTZbNLme14K/r7D/SMZDPE5iW9GV
+	 K8eVqctayvLbBAuE6fsb4TKq1WiPW98yqHIKBZ+LWs/D3pzQ02mFeOPaopSTiJfHJJYyC
+	 l2ytoJ27yU5tNDvZHl06WuIc53e5KCdh/0n+YmlEa8YlLWPMSg/OEg3bc+fwPATEhpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1+MDMGt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=erfXG7ov;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091E0606A31B;
-	Wed, 21 Oct 2026 10:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C972D606A319;
+	Wed, 21 Oct 2026 10:59:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C972D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1+MDMGt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE1241F000C9;
-	Wed, 21 Oct 2026 10:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792580374;
-	bh=71PhXNjOvmIAl1aRTI7zqhrskFBVVkC78m4SzV3kK8s=;
-	h=From:To:Cc:Subject:Date;
-	b=i1+MDMGtleUeML8OwFtwmJQRuoyHcR+jJfoYStTvTgWsP24f/QUqHy1T3LEfDIVus
-	 7s05SEm17UKRkckZ5q1WypTzLMpqS+mYCa+S3iHU0OOoztNQzjtKyRRVOYK4d1a3I9
-	 i0/4U+oLbwpvTr92AmPGP7gDAFTBtTdLAh/PeRIi3sWngcFDfWPWJQ2EU+8yKUz2a7
-	 WWq7fcn+syQUjmmzKCvGqh543Gn4s31NSpjMhTHkDHQvI1ULFhkN3Z+CfMEjKNhshW
-	 SOE3TgvKi5FOF72Zd5zcDpOu9I/zMXTk1XUirFPknSb41ekQbefQwqyDT1H0KGtq9Z
-	 BTAce2BZpvqTg==
-From: Thorsten Blum <blum@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Rong Zhang <i@rong.moe>,
-	Arun Raghavan <arunr@valvesoftware.com>,
-	Thorsten Blum <blum@kernel.org>
-Cc: Takashi Iwai <tiwai@suse.de>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Use strscpy() in append_ctl_name()
-Date: Wed, 21 Oct 2026 12:58:26 +0200
-Message-ID: <20261021105826.147060-3-blum@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=erfXG7ov
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 6CECD5340996;
+	Wed, 21 Oct 2026 12:59:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1792580381;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=A07pI+6kl5x/WyNZEmkwAAo8IIOF+3LbtRO11TE6Ri0=;
+	b=erfXG7ovdsdDK7GLEXWIx+HmnzDjKlwiAjH3rBH1zyjTQ15E9EwedssRisRAwqZRyFu2Y0
+	yS38Z1GZEDXskl8T/kUUH7P5Wl8CriJ7iY4wp6lszAaiV5owNiQsI2H6xvipEM79EKfnqT
+	vMIBWpj1Be75M2JAk9rK7sNsUu75Urc=
+Message-ID: <2a709990-0bff-4170-ab3d-d4087b875a35@ixit.cz>
+Date: Wed, 21 Oct 2026 12:59:40 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,48 +60,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1503; i=blum@kernel.org; h=from:subject; bh=iiUI6+gsmzqf5KZyem4oHEBxqYvGd+SjMlFNlVP6GDE=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFk3Zl0yi68qmL9y1Rd/mabqQs6jD5Sf5heVya0r22Vdd jFceb5+RykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAEyE34aR4XH+rKC5EjWMW0tr r7Pv/XDvoegdi2+uEZeWtq8JfMvj4MXwv4jj2CP7yfX9yUyJj1yjeNbdKdvC5Pf9Qqp/xoSs15U crAA=
-X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-xiaomi-beryllium: Enable
+ gpi_dma0
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20261016-beryllium-gpi-dma-v1-1-76ade615c571@ixit.cz>
+ <9e60b65a-f412-4026-b84a-6a9bb8b5d42a@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <9e60b65a-f412-4026-b84a-6a9bb8b5d42a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-To prepare for removing strlcat() from the kernel [1], use strscpy()
-instead with the current name length as the append offset. Change
-append_ctl_name() to return void since no caller uses its return value.
+On 21/10/2026 12:29, Konrad Dybcio wrote:
+> On 10/16/26 8:38 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> Used by not yet introduced tas2559 codec connected to the i2c5.
+>>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>> We don't have upstream tas2559 driver which would use it yet,
+>> but the gpi_dma0 is confirmed to be used, thus let's enable it.
+>> ---
+> 
+> I can't stay this patch is wrong, but I can say it's not
+> particularly beneficial for both of us to go through the review
+> process to offload 4 boilerplate LoC that don't have a functional
+> effect..
 
-Use append_ctl_name() to append " Jack" in build_connector_control().
+As I prepare more patch-sets for upstreaming, almost any DT node which rots in 
+downstream breaks rebases when mainline changes (or I change ordering of commits).
 
-No functional change.
+My goal is upstream everything, thou with currently sdm845-next having:
 
-Link: https://github.com/KSPP/linux/issues/370 [1]
-Signed-off-by: Thorsten Blum <blum@kernel.org>
----
- sound/usb/mixer.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Commits a top of `-next`: 260 (39 `b4/` series commits)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index ecaa8bc08d7c..0320a3e8af92 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1720,9 +1720,11 @@ const struct snd_kcontrol_new *snd_usb_feature_unit_ctl = &usb_feature_unit_ctl;
- /*
-  * build a feature control
-  */
--static size_t append_ctl_name(struct snd_kcontrol *kctl, const char *str)
-+static void append_ctl_name(struct snd_kcontrol *kctl, const char *str)
- {
--	return strlcat(kctl->id.name, str, sizeof(kctl->id.name));
-+	size_t len = strlen(kctl->id.name);
-+
-+	strscpy(kctl->id.name + len, str, sizeof(kctl->id.name) - len);
- }
- 
- /*
-@@ -2090,7 +2092,7 @@ static void build_connector_control(struct usb_mixer_interface *mixer,
- 	}
- 
- 	if (check_mapped_name(map, kctl->id.name, sizeof(kctl->id.name)))
--		strlcat(kctl->id.name, " Jack", sizeof(kctl->id.name));
-+		append_ctl_name(kctl, " Jack");
- 	else
- 		get_connector_control_name(mixer, term, is_input, kctl->id.name,
- 					   sizeof(kctl->id.name));
+I have to send even these small not-yet-useful snippets, otherwise I'll get mad 
+at some point from rebasing.
+
+Thanks for the R-b!
+David
+
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Konrad
+
