@@ -1,107 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.63.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792584052;
-	b=NrO8TGK43XpsdNoWw9MM9SmG7k80u8OuDm3mbLwBF7mDheFITcO53Fu1kP+PtSEYuZbv
-	 2xgdpq0xerhyjhGOJBV2t2QzK3VBuM9u3uNR+mEHcaA38gJsUnR7/tdtO4r3xX035LJKy
-	 hyvkUeEP95gKCp3yJavTSKFEiylyEzb8itHbXms+rLUy7tTdHJiPkQ3qf8is4i7Tukb9p
-	 yP/NpRhQRXXUPdmSE9ygdphxWcmv2vRB68iIzK96jg9uA+SZsWBsNpniUOVz9uts3v9Aw
-	 Atz5U0NbFIzRgAddUNBg0Jd6P3GVV4Y9SClAGwxtNPsDHhe7jxOxfrV/3vsPsEidiwA==
+	t=1792584072;
+	b=pqmgiZTDFVlvDL/LrOMAygxE0Bih6QRsIUfNf8+We4Bz9gnOZlaxPD6KFznTIKTlEhHL
+	 0Riga48VwskNQKpfGtEQ1jwtnKemHqu5svjyCI4vY4T9SUJmhP+9BwG5fyLch6yceXUL3
+	 y+kMuHF9UV5GKGWISgfznmJs9HLh15rr9lR2FuR27wpw5XQwXaUdKTlhtF7GmnWIqdj88
+	 UPpkEEWC3qJZfPHUNJO+pv9lqDfa1ftHXgWO1n6iQCsCoNd387bGjFAoE78CUVf1u6SL/
+	 oWZqfM0AAJkq1nJ5el0rCW9jubdupOhU+tEUzBeOFrckgo4DqKby1m1I4bK3CJVZY6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792584052;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=sFIge3pvKg5tOjs6OafupZRnQ+taR/KXdTgP36TD1t4=;
-	b=sY8xdKl6P29CNqDYhtBq19KRjVYiL3PWi+6AFS2ZvOgGnv7zSwtwuonDXBlRMoJsN5BN
-	 AfXaL7XixCmJnKAD0dJDr/8cXunIo/rPUV3gR0d6FCAwycjyNygJMNR9BGSD7w8AxJO4h
-	 V71dTGV672rCyozOWepzSxHa1k0i2hUAFKIHr8/Igc9nEYK2HLQSOOs0nN/tFvpq4U1mP
-	 F9IItCEiaa2UqPhjwZlxZynDRKBS+sJX+kKDzypJMEVCUx+bWzFOn0vSee/BDLjPVDKEC
-	 NXZTGe3hroLh3+oaoLVKLV+2vr/aXJItxfb8jaqbJcZtlCh6zjqdzBxipAXtc6glYsw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792584072;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:From:Content-Language:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-PPP-Message-ID:X-Rspamd-Server:
+	 X-Rspamd-Queue-Id:X-NC-CID;
+	bh=lEKtq91QrqvW3Y2km0i9GPLG+sCH8OJnOIVvLe8oxAo=;
+	b=3uLv0zV+BHf+mbAdy1m7qCIVu6u53K4+gz8gBw6euYPycv+/H1hTUqrmWWcB3ULCAN60
+	 b4l6vcFCCRtbkk7o2TDPe9SAPo2vFE4maccun6BA+leILqo0oGZvZbbyouQca1V+skAZE
+	 VaHMiuu+CsRjll6zWjPtY5NORtQq0Nlqg+5IPvxvPkXepquu46mCYdcC5dRXJrcmkBih6
+	 X6KCxIAmEDBtNy2bHUDzM9kTPjRGRKA2yzHdI5tZQdUKPUHI6OYEDfceyff8UhTaHpcgj
+	 mQJsvHLlUzreHXqmccVAR5pdLmsykTwzQoqrwoxmxtWj8t6D0aZiugZDNeietmLFRXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Ni2/mLP+";
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=leemhuis.info;
+	spf=pass smtp.mailfrom=leemhuis.info;
+	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=JuNK4Alj;
+	arc=none smtp.remote-ip=188.68.63.162
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.162])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE678606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 12:00:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE678606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55640606A31A;
+	Wed, 21 Oct 2026 12:01:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55640606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Ni2/mLP+
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c20ce3c118aso112049966b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 05:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792584050; x=1793188850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sFIge3pvKg5tOjs6OafupZRnQ+taR/KXdTgP36TD1t4=;
-        b=Ni2/mLP+iAbSaf4FkE0ykYCMgbK4kPCN3VwLapCetbM0FY4KPtNdrXAv0QBhxAjyTv
-         eNe6hU27/TyIXRfsw/ss4WFt3dDVOjkRDCtSFdlN+R5afJ3dM3/4xB0X0j3HWgl20ycj
-         ItkCVQiA6v3VKJQicOuLEHARAzySVcUqkSwhpb1DarNH6IQvLr1VyfFmGvEAeHitjBlh
-         ML8V2LgdeGHe3ijOkOnj0F5q6KXwaNYlr6XYm/x9a5j1xZ7mclaNSGIdL8yucf8nZdzZ
-         mwCqbEwvHn8GtuEyksudk4epRCTZVPyofMmw5olW6dYr96qluPMntNljDL7v7bdT5rDb
-         kSDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792584050; x=1793188850;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sFIge3pvKg5tOjs6OafupZRnQ+taR/KXdTgP36TD1t4=;
-        b=GyDabz2kz9YfA1K7pdX1mCA7iz2rrzm2NmjoxM+WtIYh/FWbSKvcBdL17/rB7symyM
-         76+4volCso9UQ6lwNzUZVy1YWIrOn59YFYGSx4ai0v8Hbk5962ifCN9FV5Cn1kMPx86k
-         cN/+D0wsIJaIUUUsj17g1Gb4il6bSmyfCrT0rf1j/KgMN5HRoH0HbqF8uH7tTFQ1FS3q
-         jB/dWHqzM7zOI70UxrQF9PwEjU90MN8s4QV81Q4Y4yA0QW9OLqpD52btfum6Qbo23su/
-         0v9Kaxzl0kbX8rH3J86Mn/uVnBRRWnRVUwa6gzER0Qczj5NUSRzYjc2Q5QLRN5KnYTIQ
-         iOeA==
-X-Forwarded-Encrypted: i=1; AKwUvBxbxpEcceZz3QsmFmIxTH1LjB8d5G+o3pU5LZgjeJaAptHFsr2aXRfG3T47qNtqiPBFSKERc3y3CI4SE8k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI98er5DKTFZMWtQQaLRIG7iJqAndquCtxboEGK5gXGAuCOSg4k
-	1rXkeKfNtYqyQ1zVfPiB+B8ApnPU58/xXxRRMAFzKpFB8nDGhZ7YMlhz
-X-Gm-Gg: AYBFou0YwUnbhfa0pAJUlYMaYYtJ45haSluwF4l/KG8O3eTo1hHSjEyLylFNok3f2qZ
-	QzZsKHHXD+O4xrGnIKN5CppBBBm/obnX9XKJ1ETpjGi34jlpW/+LcajKCylWcdzvn/gjv/C/JSX
-	/3RyZ1/F4l/TTTCiCOnBuVhJLe7t1eaz3I47OBIW/u7/5Bbmo0USqivOY6o9Kcibl7mgazO/apN
-	JXsTeE3Ru/5duO1ycLOvcijWXy2YcbIi5LEWbnwlNHNQOj3TgPtYBmikkM6PvRItWxg0SHLNYrx
-	AjDrU3xtmyEeMEiQxpvs+a3qmQngyv5drlbFnIHDmt/H3KMhJGwTVq+LHB/Gv7OGt5uNMYfkav6
-	+I/rS+uGYhhBZnJjTNw66IabuizD7azZjjskecwvt9RWlMl7PLhGovkpOlLOnu3Hspwa8pXI0t8
-	iD3A1BlvRObx2JlVJMkKK8b/Awj4YDso4scZWzX7jlFt+GZn5evefM82W/Na3LB56JhLnMV2kEa
-	7vhRFEjwqmDmq7lSrkJKD5fxdOCfnwQThbSXoYHm2r9yZS5JA==
-X-Received: by 2002:a17:907:9490:b0:c42:6632:a369 with SMTP id a640c23a62f3a-c46799b30a6mr165818266b.21.1792584049857;
-        Wed, 21 Oct 2026 05:00:49 -0700 (PDT)
-Received: from localhost ([2a03:2880:32ff:48::])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678fda057sm68875966b.58.2026.10.21.05.00.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 05:00:49 -0700 (PDT)
-From: Vlad Poenaru <vlad.wing@gmail.com>
-To: Boqun Feng <boqun@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Simon Horman <horms@kernel.org>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	Davide Caratti <dcaratti@redhat.com>,
-	Breno Leitao <leitao@debian.org>,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 0/2] net/sched: don't wait for RCU when destroying qdisc lockdep keys
-Date: Wed, 21 Oct 2026 05:00:46 -0700
-Message-ID: <20261021120046.3279601-1-vlad.wing@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <atehw5Cn5Ev7Z68i@tardis.local>
-References: <atehw5Cn5Ev7Z68i@tardis.local>
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=JuNK4Alj
+Received: from mors-relay-8201.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j8nrp2T1Yz46Dx;
+	Wed, 21 Oct 2026 13:59:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1792583978;
+	bh=H0hq2a/UVp8Z892AiKOsOR/W8WmDxGDNugcwl0/Ckvg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JuNK4Alj6qETyCJVmxBrSYv3GK3aInz/r4M+5LCoJa7gtbld3iW9vx7ghBIvuJ9Gg
+	 COO3AXu4Vgkj/vTD3NwXjTh9WqyM0iKp+LhLNwLtNs+g0CC1KSBmF1kI2bcX/lW+Mu
+	 eyWncwScxd+/NKmTbagxJvjr+kMpd3do7cFeDCPqI7fjtk/XjYgpKsd02BCkX1oh+U
+	 0YMoyFNujC/Azh10P+yXm+1QdCrqbXBKz9MxK7V43XLjU12vByypJMQbyhon3J+D6E
+	 AlkJBh35QY5Une6wGwIX9PDRkUQcILzD3A4nLw1N5V2KMiajnmOy8fkjIiag7Yy+I0
+	 5pyrNV5ZEgVdg==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8201.netcup.net (Postfix) with ESMTPS id 4j8nrp1k7Pz46DN;
+	Wed, 21 Oct 2026 13:59:38 +0200 (CEST)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4j8nrn3s5zz8sgW;
+	Wed, 21 Oct 2026 13:59:37 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id A49885F9B7;
+	Wed, 21 Oct 2026 13:59:32 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <144f19b5-7adf-4168-be8c-e82fedfe13a9@leemhuis.info>
+Date: Wed, 21 Oct 2026 13:59:31 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,33 +74,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] PCI: Skip Target Speed quirk on clamped ports with no
+ link
+To: Edward Malik <edwardmalik95@icloud.com>, Andreas Wild <andiwild@gmail.com>
+Cc: "Maciej W. Rozycki" <macro@orcam.me.uk>,
+ Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ regressions@lists.linux.dev, M M <restafvalendergelijke@outlook.com>,
+ blaat windows <blaaaat@hotmail.com>
+References: <20260801201244.4421-1-andiwild@gmail.com>
+ <20260917233355.GA1115024@bhelgaas>
+ <b4ed1637-ac6a-4af5-ab47-e07309af200b@leemhuis.info>
+ <alpine.DEB.2.21.2609181131520.57799@angie.orcam.me.uk>
+ <1b2cceea-8da4-4239-a955-e0c6b475a227@leemhuis.info>
+ <87c93553-d74d-4588-bd54-0ccb2728f327@leemhuis.info>
+ <20260929080109.53944-1-andiwild@gmail.com>
+ <c5ee9a34c6b7d3ca96538c9cc2914b603b0dce7e.camel@icloud.com>
+ <f9ab8a2d-966f-4e96-b905-116919c5ac7b@leemhuis.info>
+ <672f06a2cd0bb380fafeacc5f1731e1f4030f329.camel@icloud.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <672f06a2cd0bb380fafeacc5f1731e1f4030f329.camel@icloud.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179258397315.3889052.6744945320187028587@mxe9fb.netcup.net>
+X-Rspamd-Server: rspamd-worker-8404
+X-Rspamd-Queue-Id: A49885F9B7
+X-NC-CID: EvU9xDEa6hIMWP/5UnQ8mRqDxHOhTZJB0sJFcZ8+hexNBEIVqbU=
 
-On Tue, Oct 20, 2026 at 10:15:47AM -0700, Boqun Feng wrote:
-> Sounds like a solid plan to me. You can make it behind
-> CONFIG_LOCKDEP_DEBUG.
+On 10/21/26 13:43, Edward Malik wrote:
+> On Wed, 2026-10-21 at 10:24 +0200, Thorsten Leemhuis wrote:
+>> On 10/21/26 04:23, Edward Malik wrote:
+>>> I noticed another reported incident on the CachyOS Discord server:
+>>> [1.278083] pci 0000:00:1c.0: retraining failed
+>>> System information: https://paste.cachyos.org/p/35d9bd0.log
+>>> I'm sharing this in case it helps with investigating the PCIe
+>>> retraining regression maybe there is a common denominator among the
+>>> hardware 
+>>>
+>>> Probably will see more now that ubuntu has moved to the new kernel
+>>> i
+>>> think
+>>
+>> I don't known about the others, but if you ask me this thread always
+>> was
+>> confusing, as we ended up discussing two different problems; over
+>> time
+>> it became even more confusing.  And one of the issues was fixed for
+>> 7.3
+>> iirc.
 
-Done, under CONFIG_DEBUG_LOCKDEP, as a fallback.
+I was wrong here, sorry -- the fix for one of the issues discussed in
+this thread is still just in next as ff8a969f7dc8e7 ("PCI: Skip Target
+Speed quirk on clamped ports with no link").
 
-> But this means lockdep needs to do its own allocation for the hash
-> nodes? Where does the memory come from, a slab or something? If so, I
-> think we should probably avoid that. But I like this idea more since it
-> won't introduce another API. So please do explore this idea as well,
-> thank you!
+>> So if you ask me I think it's overdue someone tests if *vanilla* 7.3
+>> (not a vendor kernel) is still affected and reports any remaining
+>> problems separately anew (e.g. in a new thread) in a way that can be
+>> read without reading this thread -- while still briefly dropping a
+>> link
+>> to this thread for completeness. Afterwards reply here with a link to
+>> the new thread.
+>
+> i think i understand you want to seperate the threads 
 
-No slab. The nodes live in a static array with an in-use bitmap, like
-lockdep's classes, list entries and chains, sized by a new
-CONFIG_LOCKDEP_DYNAMIC_KEYS_BITS. Unregistering hands the node to the
-existing delayed_free machinery, so a slot is only reused after a grace
-period, and lockdep_unregister_key() no longer waits at all.
-is_dynamic_key() only compares key addresses stored in lockdep's own
-memory. I posted it as an RFC against tip/locking/core:
+I think it's time we get new mailing list threads for any problems that
+still remain with ff8a969f7dc8e7, because when you wrote "I noticed
+another report" earlioer at least I have no idea which of the two
+problems discussed in this thread you mean; but maybe it's better to
+start new threads only once 7.4-rc1 is out with testing based on that,
+as that will contain the aforementioned and other fixes and likely is a
+good new starting point for further discussions.
 
-https://lore.kernel.org/all/20261021115621.3194947-1-vlad.wing@gmail.com/
-
-With that, this series is not needed. Given Jakub's note it is on hold
-anyway; I will only come back to it if the RFC approach does not work
-out.
-
-Thanks,
-Vlad
+Ciao, Thorsten
