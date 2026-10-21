@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792624652;
-	b=x5Wjm1MhkJbxhqPVwJnevy+/mOvL11m1gk0+NrGr8YnknM/Ir77tFNE6q1yh52VFcHG8
-	 EUfWvJsSwCyry1hxrG8yx2KEbOxmilSjEnmbfBiL2odwSePyT2r9wYXlG/V+x/BJc8fEA
-	 vlp6V+qjD0jStP4xv8uwzTZi3eCrDyxNbJq7fJjl1K/XmCqX3vIoB0Gxmc8GJAaBltY+b
-	 Fedjbd070Yr7pNNWD26o5koXqrwljDtoWjgxf2j2WuhLeETPy3be5AsB7B1fV6XQVoVJ4
-	 xvZSYJVz7Mia7P1FH8CUqxffNQjpcCFxnOCe/8u8UD9zdvyE9iAUQiaHgOTAwnjvIQg==
+	t=1792624656;
+	b=jT2bJeZKiGPwBGHmlT9UEHgLLsoYtczlqB1izziIoHGWcVfD6T8NKv9qortEBCcSY56Y
+	 VJXU3zuIlUISIYW2gI7pODUCAN793h8MeZ2DmrgUnnEKOlmxsnizGOstNWpAEjRNOwIHV
+	 cBK6jAcGSEgm1icHr+N54pj3v1EeVz0QIgIpINOfMSEscAGROa36VsnWbmOvkxlIOks9T
+	 5BpX1Jzw214QL+uzTKKapB3gLVtIxOMHB1xFoDwNKaqK4UoiaU9pqGPh89TFGkcvLida4
+	 LzNVSsamD6idBK/7CMuzS4UyhFx7ml1ww12dsYDFYuq7V758wqEIb7qJaVrHwBRc6lA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792624652;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=JKqDIMaO3UKeyh5L6ed+1xZhl6XUpDzaQeagYHZqSxE=;
-	b=WD3jss5h3H60xDUS6Q3pfiN/HKzLmdmX0NSWenGUIs8wK8Bj45QbQbahnXuVWRZ0hmpX
-	 qdRA7DreF8aMeLzo6qNAeTj3eAkpT0Kr+lKHdd0Saq7y19LSkwTF274wRro/T60mZh2vi
-	 AfcQquBjbt3iC426XPbzV/Ur57L8OA98aoZIfMwkGoplLlcS25iICBg9coeLA/oEsZdRu
-	 b5BRIxZSAuTkMvqCTuPBeZdvgrM9lGmFpCO57GwD/zZtMs3NcQuvgukoQCy1MLpmhwCGB
-	 uC2P73jN6nydX37IN5F0dBbi6k0BVcu98aYZrugCI1cMlqwf8yrHz39xw3aJuDiCjSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792624656;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lY6ateJ8HoOldOVrxlHhBNu0dJYaIqqKKUkZiKAttn0=;
+	b=Tar6u3fry1eagSwfMYkKnp7bZTFvvzzpCiRRBy6qvhV0Dh36ZAquJWBF3Z/kG/s0KP6J
+	 sw/g800q7goUJ3p4Gh2/jvYe2T+mOeeZnQlsiFuDmFa63aZlzg/+WtlRcZ7gApNI+U9Og
+	 eIXa0KXAjzuZrChRJkTqNBVc978FbwNTq4ieQ5OiSzREtuMd8LzOcp4E9xT6vNP5nB4gy
+	 J1EyceqkY4u0a5YhGd3W2fQfWti+Ch3/NTv1E8ERX6xD6ghSngTlfDLwtzZPe80fo0cSj
+	 xLXEXmRa/F7n2lZmzwyteVy0/8UJt79yvNWAVyeVqq0lj+JZzQJt3IAms3f9n05FBww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fah9WwvN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="g/bQ6o/7";
+	arc=none smtp.remote-ip=209.85.216.54
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B93606A320;
-	Wed, 21 Oct 2026 23:17:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC9F4606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:17:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC9F4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fah9WwvN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6E461F000C5;
-	Wed, 21 Oct 2026 23:17:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792624651;
-	bh=JKqDIMaO3UKeyh5L6ed+1xZhl6XUpDzaQeagYHZqSxE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fah9WwvNb1KzSyxzvYuxt8hf9zjJJHqm5sT1jyLw9CNEfnmfH8aNpQIqS36GzUqSO
-	 NZr5o9FeYO8TFWKOvTvY24S0+84w8J825GiQG3FKWQEBx6LWY+uNsPBqpYCQAWGNuR
-	 qfJTeZM2tSlSmhwYlJbGPhydpq9g6i/Hpixen7klOHLLj68vROyG4zkXVp6zNKdfPN
-	 xhf5bi7Cu8E26RfBkl9QB9Uk0X1MWRM12b5Y2/p/oA80PwEfWq/xN1RklyC/kuRQro
-	 TpW6otpv22sPGSnnG2rSceuyeDZDJp6uAYJtAi8m8mRb1RHMQKO/+Hw/G9giZ/mVNe
-	 tsWegLYQCxTXg==
-Date: Wed, 21 Oct 2026 16:17:29 -0700
-From: Namhyung Kim <namhyung@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] perf build: Add MINIMAL=1 to build without optional
- features
-Message-ID: <atlICVt3ItifkPZb@google.com>
-References: <20261018135321.3986899-1-sashal@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=g/bQ6o/7
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so1076960a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:17:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792624650; x=1793229450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lY6ateJ8HoOldOVrxlHhBNu0dJYaIqqKKUkZiKAttn0=;
+        b=g/bQ6o/7g4dMFGgqWKRYEYUUXHE6B+8vGdyVy7kua5ZduXUK9y57+JSv1pe8l8EoVs
+         tF2VNhDi51sKdqkUUdwOhN26Nmr8dhoq3cNfBMzq19qs55I8IF5r0DbWT4Aayclm4RMi
+         8ZjjLe1qtfxPbwTdKCrrcs77KtcNasXI2KPOdFIzquHE0SazyyT1uuc2/Ns2zKjKcFk1
+         SdGMvJzJQIsiFutvLRlPCr6Lw4S1oVyYIGGV8j0yShYp6ZkzVvPqUY+pEPvraMGzGD2x
+         GDmyE1cZLg1pmhWsYZIhB8oW4w/DBViZQWnGHQQJwjfN6P8W4fO31VBU1cok/2djVHPI
+         2Fsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792624650; x=1793229450;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lY6ateJ8HoOldOVrxlHhBNu0dJYaIqqKKUkZiKAttn0=;
+        b=tGUp7HlX9aJeX5dt0TjPCN+a3BurvFRVWlVtgdwqljZKBQCEHtSWrBWB0Xgh6WOQF/
+         wm+g3wFJNYinkfgFCykM8YW/pBLQNlIlh5MF4qlS8Aw6BNvCDUtOWrnT7PSM5qZsfAXg
+         95Z7fzLuJFiH1uoABuN9TILyAj40ugJTs++iI768hVduQKgixSioNnJcckdM//aUmJr0
+         3ZEFuRSXshxOxxag3kmHO8AYjiBPJwZlVBBpoID54gFgvJ7FPz48GH/JXlp0Dl8/UK59
+         tPU2ju1a00uy3RMaPTpWoSmlwgwRKvEMlEKrPO6sMTG3MCxFUA0C344TvjC38QBTbqfx
+         dfrw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKbij6pOjltlVRV/w2QogLSvHktz609wkXQfmZUaTCQCkl1NbEvDfMhFMQVVHlDaPxWhMKx6QTfMMWaaQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJayKKRyb/mQt7n8Z0GjkgnS6nhR/Lo5qNIwO8WBhK939eCRgcv
+	fwFJewdrxmklbp3x0sAmbBI9Ee5vz7Qr+RJnwe8kbNkYWjaEPgP8xNxS
+X-Gm-Gg: AYBFou3LT9p5rPwuR8aHqEuGLx4nY0arIvWlkxVhHdNtiHMMe2DR3RcZ8aFcN16uAol
+	Qoq/VNv1CnzSP2syuRuOO5hKz4OBCppzD3QCjJv80pREyOeWp+/srwXKSA1ygo1NCHM8Y8YqF65
+	oHReYYMtZ2RMhvb3jbvsdPWA2NsJddZLc9rUiQtsEZKLslvrVwIJV4w288H0k5zeYd6uEKXhVdg
+	q0ARkFusbmpCS6ALmpLyStQ2qOfBvBJ4HJ6WxwymOVNL/B2S4EVFk7lMrY5REvGZXaugRDmcK3F
+	PxH3NSwCVXBiYt0/QMFbUPPGKmbpSaZXRoAapRSXcgHgwkZYiMj2c+OMtoUsCI/Esr879RmIqhb
+	jdOJlliW5GYLOWDdKfuzqTC13sQ4AJZZY0zNP9ZjnwhGktkG1ddJzeUa4rprPY12dNSTNJCPQa1
+	id7XoPCeNn9NvVTfWOv5LmoYGxLr3+tJyY+oa4H/a0MnWbziycoCN3j6l0c7csFNnOAIpMp9ge9
+	nJvw13+MiAN4TK00+ioP5bdGaAVpgoAR6H7lJ1scVokDoH+r3CMj2FPNqYG
+X-Received: by 2002:a17:90b:4b8b:b0:3ac:c03a:38b0 with SMTP id 98e67ed59e1d1-3ad86dcaf71mr2917316a91.8.1792624650002;
+        Wed, 21 Oct 2026 16:17:30 -0700 (PDT)
+Received: from arm-a100.. ([140.112.28.118])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada47f1b8fsm1343576a91.0.2026.10.21.16.17.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 16:17:27 -0700 (PDT)
+From: Tzu-Ching Yang <shingekinocore@gmail.com>
+To: Alexander Lobakin <aleksander.lobakin@intel.com>
+Cc: Eric Biggers <ebiggers@kernel.org>,
+	"Jason A. Donenfeld" <Jason@zx2c4.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	"Jose E. Marchesi" <jose.marchesi@oracle.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Simon Horman <horms@kernel.org>,
+	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] unroll: Make unrolled, unrolled_full and unrolled_none function-like
+Date: Thu, 22 Oct 2026 07:16:32 +0800
+Message-Id: <20261021231632.687227-1-shingekinocore@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <0a38e0b0-2508-41c1-bd99-d15c27579307@intel.com>
+References: <20261016025613.2690485-1-shingekinocore@gmail.com> <0a38e0b0-2508-41c1-bd99-d15c27579307@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,168 +104,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261018135321.3986899-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 18, 2026 at 09:53:21AM -0400, Sasha Levin wrote:
-> Turning off every optional feature takes a long list of NO_* variables,
-> and the list has to follow features as they are added and renamed. The
-> one in tests/make for make_minimal has fallen behind: it leaves
-> libtraceevent, jevents, slang, AIO, LZMA, zlib, libLLVM and Rust to be
-> detected, so a make_minimal build still needs libtraceevent and python.
-> 
-> Add MINIMAL=1, which turns off every optional feature, the BPF
-> skeletons, and the shellcheck, mypy and pylint runs. perf then builds,
-> natively or cross, with no library beyond the C library and without
-> python, pkg-config, clang or rustc, and the result does not depend on
-> what is installed on the build machine.
-> 
-> A MINIMAL=1 build also leaves out the notices that post unwind and
-> python support are disabled, which it asked for, and the one about the
-> pkg-config search path for cross builds, as pkg-config is not needed
-> then.
-> 
-> It is handled in Makefile.perf rather than Makefile.config, as
-> Makefile.config is included after the pkg-config, shellcheck, mypy and
-> pylint setup.
-> 
-> Use it for make_minimal in tests/make.
-> 
-> Suggested-by: Ian Rogers <irogers@google.com>
-> Link: https://lore.kernel.org/r/CAP-5=fWFY-tpJz2vcBZvurwdZY5gwd8cuTemE9q1rtZ0Vi0dng@mail.gmail.com
-> Assisted-by: LLM
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+On Wed, Oct 21, 2026 at 05:02:30PM +0200, Alexander Lobakin wrote:
+> We have either plain-named attributes like `notrace` (BTW what if you
+> name your variable as `notrace`?) or underscored like `__always_inline`.
+> If you really need to name your variables `unrolled`, then I'd expect
+> changing these macros to `__unrolled` etc, not to `unrolled()`.
+> Although I'm not sure we really need it, there's tons of such macros in
+> the kernel -- try naming your variable `current`.
 
-Acked-by: Namhyung Kim <namhyung@kernel.org>
+A variable named notrace or current fails to build, and so does one
+named unrolled_full. The one that worries me is unrolled: on GCC it
+expands to an empty _Pragma(), so a function parameter of that name
+compiles with only -Wunknown-pragmas warnings (not errors without
+CONFIG_WERROR) and silently loses its name:
+
+	int add(int unrolled, int x) { return unrolled + x; }
+
+builds as "return x;" with GCC 11 to 16 (Clang rejects it). Nothing in
+the tree does that today; this is about not leaving the trap for the
+next file that includes <linux/unroll.h>.
+
+I see three ways to close it:
+
+1. This patch: make the three macros function-like, as unrolled_count()
+   and UNROLL() already are. Variables, members and parameters with
+   these names are then left alone. Cost: an attribute that looks like
+   a call.
+
+2. Your suggestion: rename them to __unrolled, __unrolled_full and
+   __unrolled_none, like __always_inline. The attribute syntax stays,
+   and nobody names a variable that way. Cost: inconsistent names,
+   unless unrolled_count() is renamed as well.
+
+3. Drop unrolled and unrolled_none, which have no users. This removes
+   the silent case and touches only unroll.h; a variable named
+   unrolled_full still fails to build, but with an error, not silently.
+
+Which would you prefer? I can send v2 for 2 or 3, or leave 1 as posted.
 
 Thanks,
-Namhyung
-
-> ---
-> The kbuild series that builds perf with MINIMAL=1 carries the mainline
-> version of this patch:
-> https://lore.kernel.org/r/20261016143143.3613501-1-sashal@kernel.org
-> 
->  tools/perf/Makefile.config |  8 ++++++--
->  tools/perf/Makefile.perf   | 42 ++++++++++++++++++++++++++++++++++++--
->  tools/perf/tests/make      |  8 +-------
->  3 files changed, 47 insertions(+), 11 deletions(-)
-> 
-> diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
-> index b4764f69f47f4..4af7934887539 100644
-> --- a/tools/perf/Makefile.config
-> +++ b/tools/perf/Makefile.config
-> @@ -753,7 +753,9 @@ dwarf-post-unwind-text := BUG
->  # setup DWARF post unwinder
->  ifdef NO_LIBUNWIND
->    ifdef NO_LIBDW
-> -    $(warning Disabling post unwind, no support found.)
-> +    ifneq ($(MINIMAL),1)
-> +      $(warning Disabling post unwind, no support found.)
-> +    endif
->      dwarf-post-unwind := 0
->    else
->      dwarf-post-unwind-text := libdw
-> @@ -828,7 +830,9 @@ endif
->  
->  PYTHON_EXTENSION_SUFFIX := '.so'
->  ifdef NO_PYTHON_MODULE
-> -  $(call disable-python,Python support disabled by user)
-> +  ifneq ($(MINIMAL),1)
-> +    $(call disable-python,Python support disabled by user)
-> +  endif
->  else
->  
->    ifndef PYTHON
-> diff --git a/tools/perf/Makefile.perf b/tools/perf/Makefile.perf
-> index 2d9379fea2672..5297fc15a3c9e 100644
-> --- a/tools/perf/Makefile.perf
-> +++ b/tools/perf/Makefile.perf
-> @@ -129,6 +129,9 @@ include ../scripts/utilities.mak
->  # Define NO_MYPY if you do not want to run mypy during build
->  #
->  # Define NO_PYLINT if you do not want to run pylint during build
-> +#
-> +# Define MINIMAL=1 to build without any optional feature, needing only a C
-> +# compiler and library, flex and bison
->  
->  # As per kernel Makefile, avoid funny character set dependencies
->  unexport LC_ALL
-> @@ -174,6 +177,39 @@ endef
->  
->  LD += $(EXTRA_LDFLAGS)
->  
-> +# MINIMAL=1 is handled here rather than in Makefile.config, which is included
-> +# after the pkg-config, shellcheck, mypy and pylint setup below
-> +ifeq ($(MINIMAL),1)
-> +  NO_LIBELF := 1
-> +  NO_LIBDW := 1
-> +  NO_LIBTRACEEVENT := 1
-> +  NO_JEVENTS := 1
-> +  NO_PYTHON_MODULE := 1
-> +  NO_LIBBPF := 1
-> +  BUILD_BPF_SKEL := 0
-> +  NO_SLANG := 1
-> +  NO_DEMANGLE := 1
-> +  NO_BACKTRACE := 1
-> +  NO_AIO := 1
-> +  NO_ZLIB := 1
-> +  NO_LZMA := 1
-> +  NO_LIBZSTD := 1
-> +  NO_LIBNUMA := 1
-> +  NO_LIBLLVM := 1
-> +  NO_CAPSTONE := 1
-> +  NO_LIBPFM4 := 1
-> +  NO_LIBDEBUGINFOD := 1
-> +  NO_BABELTRACE2 := 1
-> +  NO_SDT := 1
-> +  NO_JVMTI := 1
-> +  NO_RUST := 1
-> +  NO_PERF_READ_VDSO32 := 1
-> +  NO_PERF_READ_VDSOX32 := 1
-> +  NO_SHELLCHECK := 1
-> +  NO_MYPY := 1
-> +  NO_PYLINT := 1
-> +endif
-> +
->  # Some distros provide the command $(CROSS_COMPILE)pkg-config for
->  # searching packges installed with Multiarch. Use it for cross
->  # compilation if it is existed.
-> @@ -195,8 +231,10 @@ else
->        PKG_CONFIG_LIBDIR := $(PKG_CONFIG_LIBDIR):/usr/local/share/pkgconfig/
->        PKG_CONFIG_LIBDIR := $(PKG_CONFIG_LIBDIR):/usr/share/pkgconfig/
->        export PKG_CONFIG_LIBDIR
-> -      $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for cross compilation,)
-> -      $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
-> +      ifneq ($(MINIMAL),1)
-> +        $(warning Missing PKG_CONFIG_LIBDIR, PKG_CONFIG_PATH and PKG_CONFIG_SYSROOT_DIR for cross compilation,)
-> +        $(warning set PKG_CONFIG_LIBDIR for using Multiarch libs.)
-> +      endif
->      endif
->    endif
->  endif
-> diff --git a/tools/perf/tests/make b/tools/perf/tests/make
-> index 7524de5228029..bef5599b95d6f 100644
-> --- a/tools/perf/tests/make
-> +++ b/tools/perf/tests/make
-> @@ -119,13 +119,7 @@ make_install_prefix       := install prefix=/tmp/krava
->  make_install_prefix_slash := install prefix=/tmp/krava/
->  make_static         := LDFLAGS=-static NO_PERF_READ_VDSO32=1 NO_PERF_READ_VDSOX32=1 NO_JVMTI=1 NO_LIBTRACEEVENT=1 NO_LIBELF=1
->  
-> -# all the NO_* variable combined
-> -make_minimal        := NO_PYTHON_MODULE=1
-> -make_minimal        += NO_DEMANGLE=1 NO_LIBELF=1 NO_BACKTRACE=1
-> -make_minimal        += NO_LIBNUMA=1 NO_LIBBIONIC=1 NO_LIBDW=1
-> -make_minimal        += NO_LIBBPF=1
-> -make_minimal        += NO_SDT=1 NO_JVMTI=1 NO_LIBZSTD=1
-> -make_minimal        += NO_CAPSTONE=1
-> +make_minimal        := MINIMAL=1
->  
->  # binutils 2_42 and newer have bfd_thread_init()
->  new_libbfd := $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep bfd_thread_init)
-> 
-> base-commit: 1c90f0a3c8a1c4e38f9edd97af9e20848805a7fb
-> -- 
-> 2.53.0
-> 
+Tzu-Ching
