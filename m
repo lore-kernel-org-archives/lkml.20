@@ -1,92 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792544938;
-	b=Sk2hXp3+06H7lJqSfM3VPoBA6iNI863rc5FTSNwX6pGn+x4MovZHiRRTKIZuBaLHZL+O
-	 owYdHvtKz15D6JEMX5Xm8DVGm611Wx75JPf0Ya+Es/1Hz4tcXneL35y5bqndSPkqfFhNF
-	 I3yg15FPmVttL2Vcq+95T0pzj4x6AGQx2JcOkWpAgWCrMOnuy543TlwhwzD66lXyWwJN/
-	 JJuFlTZZ5DQRhaYy/v8P1DFFKnLkzHaKK7e/I//wHeBre02v60TljAVUyMOPSM6WKsX64
-	 /zl+Ol4/R5mt/vKa1kxkS04LnsNhT+5sj8N5Sp9AFcRNs53XKGUgew6Zlq3bIq88MBQ==
+	t=1792544950;
+	b=1SXPW52UJTtHmQkZK1vuNByw0g2zIGyegkPY3aPeprP6+VnsaGg87TYwMqpQ9NKUDD0h
+	 7TIDlVVCV5CKIdtrnAb/8gPliVi7RoUk8vubUFbybFM+9ed/INWGGltgXh6rQGs2+f8wY
+	 gRaMbB6GcYJaETN03kVkJCQCExlNKtZk8LujsRddfUlIe+D5ugGLXYwiujDXOEImClWs0
+	 yGgGEQvDz7fI8pI5Uxvd6PZLEIQaMOBD4scKyDBo2fuV9n9gMYk/VQC5So9ToJbqzK0s+
+	 HEk7baVu1HYBBLhZdaovbd7f4V2TNIKtQ/BQKZm6DG4mi6BoHyk6xS3yDTgAgkvF4bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792544938;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792544950;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Yuv5rDY1N08B6dEjeAKBsb8gX3GN84cFs/O3p+HC2u0=;
-	b=M2m7F2QPzrzITRMKobj3dQm9BiTHZUcBxO+FCwarBUlth0ny9vZ+cF38VDv90YlXcNp3
-	 zZdXKRFg/3oATa0PcxGDJ2eLNdABF2pc5DkuznrU8PVXCEHdX1yE9Mzg17IeuCKMZm9JY
-	 ajV6Qy5MTAejsSBojKl018gCxoCm7KgLqXEjE4jVIdDPRu+Rs6BZOl05Xfc7+M2qEB2iG
-	 HVmpHosNR+ItVlNQIJ7Y1wxedAxOVbkSFZv6My9zSDyv4H0M/la6yh5nKrvomY3j7nGdC
-	 P0ucxnflP24wqlEvrwUEov9clqhD2bZpcNsRMLdOICrdko6fIaLJx3y7sWAw51kpDCA==
+	bh=7iEPiz9yOIV+y72qaA8W2UPQbrqSP5r2/Sa3LQF4egM=;
+	b=DSh1uiigCfgiaed/wt+NfXe0snVQJZesNUlN+pwx2PNSJ/E/Ab6qRJHUG58gMx/XIraO
+	 xQvGkJszrfPY4r1aiBGKbeNivybVZwZbVe/Kn3HBvOanfXb6QHxDMUiq3b+/TlNNNAsQa
+	 NHpr0DB4CSeN8vvoR7SvXDjm+acGNiFKVMx8ITgrZJ45jlrBUXBzVSMdCrpnKOd2sMD5u
+	 rTKeu8IrHGlc6yGpwnvh2jkBuKWT5qrPj5L3BE4YuzeQgc3yqihfkQSTfmSgVlJy+TCGH
+	 f+F4UvYO8+grOj8KXfi3dBPyHro+CXBUrjVjv/MBEnfSz2cvwom5hr9DmAjSSgK3ayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j7CSoAWk;
-	arc=none smtp.remote-ip=209.85.216.48
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Hv09cj6J;
+	arc=none smtp.remote-ip=209.85.221.174
+Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6795606A31B
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:08:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6795606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E3D606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:09:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71E3D606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=j7CSoAWk
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3ab868eb9cfso118362a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:08:57 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Hv09cj6J
+Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5eaa1b5b84aso228460e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:09:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792544937; x=1793149737; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792544949; x=1793149749; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Yuv5rDY1N08B6dEjeAKBsb8gX3GN84cFs/O3p+HC2u0=;
-        b=j7CSoAWkH6lvBcXXQmlagPeQlzVFKKIDHWBAdmxhtSGTaPWBXJW/O5p6ez8CNa9SHr
-         Fygq7lgb2e2uxnG/cp/dTBFCd4cZl5ukg17U1smIKFIeq6WoDi2azvEMlFU2c1/7Ixxj
-         KhMDro/3aOLNVvqzyMN90oDJfNhauj2hIZRalZswfVt5QCojP+AOgTqMfLSak7lRNnJT
-         vuCa3kBXv/dGXXWDlIoOXcprDuDP1XtN8tp9jIUto5TSr4ShevwuJsKeTa0ZPQXHjY4B
-         XkXK/4b6H6giwD5I6d+AWnoZvqXQiydfo8n/cX6o1GECQzlhUcq6P6l3PXBavcdBbVjd
-         3d1A==
+        bh=7iEPiz9yOIV+y72qaA8W2UPQbrqSP5r2/Sa3LQF4egM=;
+        b=Hv09cj6J8eoXcUtgZ4L9LJvQ5fMzvH+PM1JKFCE11ERCdj48sOiWUOJJDvxRbG2qZQ
+         +V9Ld7wl18TlaSg4o80tjB9O5ww+gY6IbcY4EecGhLRcVwv9gkNHfLUEOPmRdlZ7KkBN
+         pu6FOFLBgNFtbNbY29k1lqlORPlQe1GTOrEg6WIou1pos0nLyR5DSLb+yQbXAQxyCXWX
+         Ol6jiasluvnjnBfQRLM9I/rOYpb8BoKDEIiU9c6cTYPk8gcZ9fSQYxUzoxyXCpVRUI6k
+         CwBGaRU0PGmQaRyw4HWYAJDSnn0TKf9O+xBDHJgIllueVX7SKQUqOZfc3HutbNGEVCj7
+         06lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792544937; x=1793149737;
+        d=1e100.net; s=20260707; t=1792544949; x=1793149749;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yuv5rDY1N08B6dEjeAKBsb8gX3GN84cFs/O3p+HC2u0=;
-        b=n3jH/W4TE/3cA5GhBp2NsIfbvOclIPn4yb436BHWPTVv+i2z2y7iK1OyiINvKG4RfB
-         +V8qEs74HgOsLL+ZtuEC17CknZNNyWjMNxeE/O/rRRwejC0M95JKuTzoGgQ5BI5Qqezc
-         3D++y+IXhm/cMV71Um48NxQuiCp8WDQY5X8YuGG3YnEn8fGhJupKfRJxYbhrie5D5Y3U
-         vsenx4r+8ySKNiD0wzi16YgksW3U9tX/Ixl2PnO+PuA14XQSKY0rlGDeSaVaiaTMFM3q
-         65CacqxxqHCQh+JcIGb3c37AMa9oR8/WhmYB7guIEgQ6TldU+SWgaFsn+8VgppnaLf+z
-         U63A==
-X-Forwarded-Encrypted: i=1; AKwUvBwYOt3xa4e8ED+sDZHN32jceExRvDTowNfrdJd7Y9NU/0nJ/vVVMl6Qr2eCoqNlAqNBa9IzQar8BkIubxM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLRtfSuzG1Y+/BuuFQYQnWX9tRzHgZZ2tR1dqh49Hq9mi02ynig
-	d9akGKQX6oON08H/UTjigupKlgCRGAg/JgKaNdL/zkcMFtkyAgYPadW2
-X-Gm-Gg: AYBFou1tzsKu949nADFHDJii3C1CDEPto2q9RXj6TdKNa05lPpeB2vxJOHxEBmqVJY6
-	zTSUtnx8Xf9959jL+knboXeFZfRZ1yiO1R8LZ4DcGakmLkxJjwqGTyJScldtxUB6kSh0gtQdjM6
-	54xoJPiw0/49cDTMuL/vOKhrPtNVEg01oqU9OkUhWuY1FKPpbatnVIVk8N60S9fnHbw7wxgzhcQ
-	jRenR1zBQtW8XxXImo4OQEYU0luXlOZ/r3azVEH3qHKwKbSGR6NuiAfJXQTWSy45DtzqmlITieJ
-	qSTTJMOXgChDP/VEvWXPZa4NWjAkkx5M95aQDeO8hznLEWO+QkILxswKctFHJLDNPvf2KZFyMFX
-	TbsGaauvQT5AdAYo2/VpjOq6RKMuITp05nsWmiKaQ35M4UC0J25imE9jOPXI0JR64p07PVpV4jj
-	qtkopjci3hqPvjyPHgZsAUU212LjORCLI27npFJU23TsxjEoV5UDDQJRiALKOO
-X-Received: by 2002:a17:90b:3bc7:b0:3ac:c005:cf07 with SMTP id 98e67ed59e1d1-3ad86ef5171mr459769a91.42.1792544937058;
-        Tue, 20 Oct 2026 18:08:57 -0700 (PDT)
-Received: from localhost ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad80214aefsm1694443a91.3.2026.10.20.18.08.55
+        bh=7iEPiz9yOIV+y72qaA8W2UPQbrqSP5r2/Sa3LQF4egM=;
+        b=edUcjMnDYzk1lI/nfReTL+TBeXGM1drhNN1HsfsgjDizmQuzd4efj2egcRPn9VZxrT
+         7rXHlVDjWsA5UW6cbksO+WB+cizqQvuICmOyyMmCD2YRIBeAny+jhlVj8in0ThJEPTn/
+         P1S+yjuA6XSe9y5DtNWHtVJU+u1YYXETd7x4XGaWhxVsz7/R0jA0Poefm3C6hSNImI99
+         K+noEMdjbtyducvcPLQJOBe7hEgeU7mvZCUfDRuL96WMDo+jm/TSims20s1YvjKOEDwI
+         4DDrgUcTYeuByYIDDK1jIlF+JTYj6QvfqPpTAtIssMQ1b8YJngz1XI4VCzxho83fcxKF
+         ZVhA==
+X-Forwarded-Encrypted: i=1; AKwUvBwIV/tNM1D/it6Ks1OcaBhe5Jb4Y88FJWBaeA5vt81v+k2qMELQ9+ZxQ4yvu8iFySFgh5I051rvihz6bV4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrNG67HqDmegSPHtyEV3wToVYFVARizLbyf1+spZKBtELy7e4V
+	pmt5rwkpHh0ndbbbY9ccy8QmHBPOyGyJPGOj4IJ11lcf80ZWCxI1x9aO
+X-Gm-Gg: AYBFou1PBFoQlGPN9asd0RK+vltKv/aQSRgTMolXEJUme19o1xH+2LExPDWkei2Q2rj
+	/mOrRm84li6Hn/8BfvMg8s3Shfwpms93WYOiA89j59//FdCBHfzMk6kyQjScfqFN9KaQj7b2JPn
+	iAIbeGoz0t/JNKsow/K01NV458q361UmHHUmAL0tvvYOEbF9efxrXvaW2F93LfJ22zZTzVcTYyy
+	TAnSVfcQ7IifnV6wOY+hLI/oY9Imy8TCHZT7t4gw3Z+ORW3arLjYRwzOUbZUR9p35I8zOgJXSLc
+	g5/dv+pNt+cupnZSIyOl976xlMeL7l4zePbQPJuvQIiB8545/0IzwrxhUrP8v89LbyJd8wmbySi
+	DGBwGDNchsU2sF3+MaPGt316VPXTpJFxa+fa/H1CT4AuCaJNK4IQf5yd9x9HCoF6KnNXRI6F9ZI
+	C+xE5KJceaZYVhJoYVU72TStL1xIJSC1HbVvpNdTCg8mg98yoemiX3RXGfCqdOCINl35OXtTjXb
+	yQ1JTxlnjwD
+X-Received: by 2002:a05:6122:e203:b0:5ea:c77f:2f2f with SMTP id 71dfb90a1353d-5eaebd72abemr166243e0c.4.1792544949299;
+        Tue, 20 Oct 2026 18:09:09 -0700 (PDT)
+Received: from localhost ([2804:14c:5bc6:abb9:bc2d:a62c:e289:6aca])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5eae97df494sm1413817e0c.10.2026.10.20.18.09.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 18:08:56 -0700 (PDT)
-Date: Wed, 21 Oct 2026 10:08:52 +0900
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Bryam Vargas <hexlabsecurity@proton.me>, ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Zhan Xusheng <zhanxusheng@xiaomi.com>
-Subject: Re: [PATCH] ntfs: fix u16 truncation of the update sequence array
- count check
-Message-ID: <atgQpJDr-3tfZxQw@hyunchul-PC02>
-References: <20261020134433.1015126-1-zhanxusheng1024@gmail.com>
+        Tue, 20 Oct 2026 18:09:08 -0700 (PDT)
+Date: Tue, 20 Oct 2026 22:09:05 -0300
+From: =?iso-8859-1?Q?Jos=E9?= Guilherme de Castro Rodrigues <jose.guilherme.cr.bh@gmail.com>
+To: git@turtledev.nz
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D. Jones" <luke@ljones.dev>,
+	Denis Benato <denis.benato@linux.dev>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] platform/x86: asus-wmi: fix camera key LED on Zenbook
+ S14
+Message-ID: <atgQsQrbCvCGKKld@djouze-zen>
+References: <20261019-asus-wmi-camera-led-v4-1-7744c125bcc9@turtledev.nz>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,48 +100,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020134433.1015126-1-zhanxusheng1024@gmail.com>
+In-Reply-To: <20261019-asus-wmi-camera-led-v4-1-7744c125bcc9@turtledev.nz>
 
-On Tue, Oct 20, 2026 at 09:44:33PM +0800, Zhan Xusheng wrote:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> ntfs_check_restart_page_header() bounds the on-disk system page size by
-> recomputing the update sequence array count from it:
-> 
-> 	u16 ra_ofs, usa_count, usa_ofs, usa_end = 0;
-> 	...
-> 	usa_count = 1 + (logfile_system_page_size >> NTFS_BLOCK_SIZE_BITS);
-> 	if (usa_count != le16_to_cpu(rp->usa_count))
-> 		return false;
-> 
-> The right hand side is computed in u32 but stored in a u16, so the count
-> wraps once the system page size reaches 0x2000000.  An image claiming any
-> larger power of two passes the check by also claiming usa_count == 1.
-> 
-> Nothing else limits the value, so ntfs_check_and_load_restart_page() goes
-> on to kvzalloc() up to 2 GiB for the restart page and copy that many bytes
-> a page at a time.  The size is only rejected afterwards, by the
-> (size >> NTFS_BLOCK_SIZE_BITS) != usa_count test in post_read_mst_fixup().
-> 
-> Compute the count in a u32 so the existing check rejects an over-large
-> system page size instead of being defeated by the truncation.  This adds
-> no new limit: the array holds one u16 per protected sector plus the update
-> sequence number and must end within the first sector, which caps usa_count
-> at 240 and the system page size at 64 KiB.
-> 
-> Widen ra_ofs and usa_ofs as well, as ntfs_check_restart_area() already
-> does: both are loaded from __le16 on-disk fields and every comparison is
-> against a non-negative value, so no result changes.
-> 
-> Fixes: 1e9ea7e04472 ("Revert "fs: Remove NTFS classic"")
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+Hi, Zane.
 
+Thanks for the updated patch!
+I've applied the patch locally and it works just fine on my Zenbook S 14
 
-Looks good to me.
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
+On Mon, Oct 19, 2026 at 07:35:18PM +1300, Zane Hunt via B4 Relay wrote:
+> From: Zane Hunt <git@turtledev.nz>
+> 
+> When CAMERA_LED is missing but CAMERA_LED_NEG is there, register
+> asus::camera as a read-only LED backed by CAMERA_LED_NEG, and read it
+> after every camera key event, sending a brightness_hw_changed event.
+> Registering the LED reads it as well, which fixes the LED being dark after
+> a cold boot with the camera disabled.
 
--- 
-Thanks,
-Hyunchul
+With this patch applied, a write to /sys/class/leds/asus::camera/brightness
+returns no error, even though the led is "read-only". I'm wondering
+whether we should care about this?
+
+> +
+> +/* The firmware owns this LED; a write just resyncs it with the camera state. */
+> +static int camera_neg_led_set(struct led_classdev *led_cdev,
+> +			      enum led_brightness brightness)
+> +{
+> +	struct asus_wmi *asus = container_of(led_cdev, struct asus_wmi, camera_led);
+> +
+> +	if (!(led_cdev->flags & LED_UNREGISTERING))
+> +		camera_neg_led_sync(asus);
+> +	return 0;
+> +}
+> +
+
+Is this function necessary? We can't perform what the caller has asked
+us to perform, since there is no way to set the LED. If this "resync"
+functionality affects the behavior, please ignore this comment.
+
+Apart from the comments, I'm fine with the patch as it is. I just
+wondered these two things out loud.
