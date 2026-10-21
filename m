@@ -1,75 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792596333;
-	b=v+KiFyRRy2v1wWT02l6R6q7Jlk3sSJN2RGk6KHt8WLu2x4rl/r2gQ3adyMdZ3ibGQ7rF
-	 yjW51Py14YkqmPuvMoTd8UaOBSEdqHDFDzy9ZZC81vsxquO1o0dHmt3fKXOVSSU0m5v4T
-	 WDT8sj1qcFWP2L9RSLIGa0hAuyknLNgs5IJxo8iqclHwi/fTnliuQkRwR38TghRIv/xen
-	 jHkzvfYJz+OeDPn7Wg9CKXn/eY0p+lx76oUwqY8F52LcMDFMHi+poad34DnzxGTmwxaL6
-	 pwNPJBth02+ftNTtlCBh1v/hQVSrT9jPBSpK+5GXkMEAjUd8+Uxm5B4AYzKvdJViP5Q==
+	t=1792596342;
+	b=j//4b8cUkqHQki+aaUhpxVOQzTTY/e6p3zSShLvcdzQbgy6HEuoN4mnfaXkdlklfac8Q
+	 hmApE+/BLObvbVNh+ieuSTnDy3vniwwOzdU2612htc9WWukliiJPhM/bTR+L+FfNTUyOg
+	 tVHc56nbC0W5O3q1BAroI2W4uq6fCJkUmA8e1l3ezwVzXHALZ1ofSsKSGwXuV14mNCIG4
+	 2hzJJ70Y5hJpzT04qvcafzFATXJmze4+n9dyVU/1dVFyth6fAO7gaHDMvTtfqMpAHpLQY
+	 KZXaoFK3UPROKZdmi+vWjQB1yqWxDdfdlqN6BDRY7CnZUqFcYTDLJx4zsVtYhUAo1uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596333;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=eF6EuxU5y/OwYzc2Wn37QAO5vY1XkAXoeRxwHLACs2w=;
-	b=OubKuzPYpibo+Beiy/4Iy9QqdlGA/JHeEAXgYy5ENuiP75oghPKXs/3WiixGvFpiHPVN
-	 iO7lHs7ads9mUWF+rnXm0mKW8ISZ3DVHICKg2f/T8Tsq5rb0z6aroWCHRe50vSXfxSQ7L
-	 4wJbb0rH10NF0hyR+IREl5uBI+SsN1gN7NKoD9fcu+pfQiZg32daHouCHnY08WXQSdHy1
-	 7TQUbwYyiTtJf6gut3XaNQpdSi6zsEsVlWZh8utoiZ+BeIljeUZNI+8kfC3qK9a5yF4MZ
-	 UFhHAgHZktEzvQt+92iG6Ky2FSqfDF34w4PLSTFKj8zqa3mCGATjniWwBVDB11Mxxxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596342;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:
+	 X-Rspamd-Action:X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
+	b=bx7dZgG2hfyT7DSr+2ZHd9fDCJ1+59edBLz6sK6zFlQizN1BeeYTG1XcQ5gf5d4oSzHN
+	 MLPQwpbLsEMkwmr0UjEVa3fX57jqx516AKdvfKU5XuE9ZzQ9WVOpY506vRQheAXzEF+l6
+	 VE7vHnw0B51fWx0Uqgv+QYu2jwwFykUNLBRjH++/Ow9upNVepIkEUDPagIOyhbs9lv4ua
+	 kq5hvOZAGD8R+9rj9cdUV8pqSAjdY9DbDYSyHgCXt0PvgJH5BL8/rKgBi1avuCYiB432b
+	 4gkLZ4j10N4/ehnKZXNargWaXkSB7Lsmu3VrAJDcYa4RQw6ZLAlwFAcO4cQ/6E14Phw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dkqpyNqp;
-	arc=none smtp.remote-ip=209.85.218.69
-Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7B7606A32C
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C7B7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--tarunsahu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBDA60A3822;
+	Wed, 21 Oct 2026 15:25:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FBDA60A3822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dkqpyNqp
-Received: by mail-ej1-f69.google.com with SMTP id a640c23a62f3a-c42f98f354fso82487466b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 08:25:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792596332; x=1793201132; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eF6EuxU5y/OwYzc2Wn37QAO5vY1XkAXoeRxwHLACs2w=;
-        b=dkqpyNqp41yY7/oxMCemumRID+Op7bhjYa83BNB22tRP/ttHyCTy9bq6BK2iKbrgr6
-         TxeyBGCA7iVLdQfRFMqPXYT5vmRhkcWMpZ7lMXpYn6qNa4xyXZqNrkICHgMmcQHgUALV
-         +4qnks/hU3ZiFuTSid9pYkwc8rQXgwxtGwedi6BhtTmXVUk22QcSzoXuCSek4paD0wAi
-         EHCuEfSmg0+YnU3NH5fFmWFCNNjovUZtr9hjdHdQtLcyQ2uxcUIGZrf1mIXmWSyi9wTS
-         oMSjyFfhmhSQaSfLVXRHf3xpSO7mo/tAzB0bzuifh5SAi+7hqXuyBhSEQ771B9bjI2Zb
-         D7gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792596332; x=1793201132;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eF6EuxU5y/OwYzc2Wn37QAO5vY1XkAXoeRxwHLACs2w=;
-        b=mE29DUStcOrF+hgNREwroJEW1hnFcwyx8n6YA1zmcE4+oSDk6nG53Exizmn+gJWoDs
-         Dxo/Q+y9BvDhwkntltRmoosaIFAjXedZ6mN5u1SulFZaGOg/igpk1pldU5nmeYNh1/M/
-         jol1k94hmhkTa0ktMoV/sWk+1KELvVzMEptCUXWiuuyVmxbgx+dHA5/RkxW0uAC967nf
-         KyNRE2GejsoaRF+m5yj3dcKFFPcp/jTcro53OmaiuzhkXKXkVqJBvwGwqxPNsm+kXtTq
-         6uX/YCoVRuSBMWMYmiVYfLe1YosdBZa6uNWgR8mfGpCH1IeIuAwKfqYULEDW294UDY6+
-         fD+A==
-X-Forwarded-Encrypted: i=1; AKwUvBwyOiMqNYGYY2R47LeBJg+yj93cHMH8Yb8VDie0yxRO7SHvz41502DLz5//oTCG2FYPJzylNkVekc7Cg4I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZA09YZTGm0dbaDkYAC33SBTuytulog0p8qnyp+LbB/irpau+g
-	acSP9vSIBzFO8KVBT2V4dgb6DXmWaNz0o0RNBVqGDsCyrJFZmEGWTFo6vDON0cUJmIqyQcs3pGf
-	g9NqyyU4o6xhwqlu0Cw==
-X-Received: from ejbgw26.prod.google.com ([2002:a17:906:f15a:b0:c3f:b33c:8124])
- (user=tarunsahu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:907:d40a:b0:c45:d8aa:6ae5 with SMTP id a640c23a62f3a-c46799bdbb7mr204058966b.42.1792596331473;
- Wed, 21 Oct 2026 08:25:31 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:25:25 +0000
-In-Reply-To: <20261021152527.375070-1-tarunsahu@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ztTEx3yV;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=rXncpbw+
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 0B5711FB2A;
+	Wed, 21 Oct 2026 15:25:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792596334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
+	b=ztTEx3yVw0NQySRnicT0gWazUDORFKee0iLmtPZwq9+yp1cSkouP7dXFayqFYw59pQTqrB
+	h2tq6bDhtdCDLFW6iffPsTlKLY+602gbWR4D3h4jNME4N5Od8Q6E/iuHcoLpFJD6wE0HN/
+	A+ZoAmWAWPCStVsbFf30DqtStOWh4hU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792596334;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
+	b=rXncpbw+tAOXohKHUvjcRXJU81bt0cbpD0OROGUSusvH4vOmaliQwcdGtq2Ptsx2yjXfRS
+	FuFxB0lyBWSGf1Bw==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=ztTEx3yV;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=rXncpbw+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792596334; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
+	b=ztTEx3yVw0NQySRnicT0gWazUDORFKee0iLmtPZwq9+yp1cSkouP7dXFayqFYw59pQTqrB
+	h2tq6bDhtdCDLFW6iffPsTlKLY+602gbWR4D3h4jNME4N5Od8Q6E/iuHcoLpFJD6wE0HN/
+	A+ZoAmWAWPCStVsbFf30DqtStOWh4hU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792596334;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=m7G3t+0twhzwcxbrBBvWEnkEAKgpilMXDhMbgtxEqL8=;
+	b=rXncpbw+tAOXohKHUvjcRXJU81bt0cbpD0OROGUSusvH4vOmaliQwcdGtq2Ptsx2yjXfRS
+	FuFxB0lyBWSGf1Bw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D4994134A5;
+	Wed, 21 Oct 2026 15:25:33 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id exIjLG3Z2GoUEAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:25:33 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 623ACA1418; Wed, 21 Oct 2026 17:25:33 +0200 (CEST)
+Date: Wed, 21 Oct 2026 17:25:33 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
+	Jeff Layton <jlayton@kernel.org>, shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 3/6] listmount: don't wrap around with a U64_MAX cursor
+Message-ID: <4kwugonfxrc44htf7ar7xtrkun4h4ekpbap22c74fuhcgr337q@ylguygvysipm>
+References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
+ <20261021-work-mount-statmount_listns_fixes-v1-3-8917a4c1bd14@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,178 +113,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261021152527.375070-1-tarunsahu@google.com>
-X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
-Message-ID: <20261021152527.375070-3-tarunsahu@google.com>
-Subject: [RFC PATCH v2 2/4] liveupdate: Select file handler by name in the
- preserve ioctl
-From: Tarun Sahu <tarunsahu@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
-	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
-	David Matlack <dmatlack@google.com>, jgg@nvidia.com, robin.murphy@arm.com, 
-	loganodell@google.com, oupton@kernel.org, kevin.tian@intel.com, 
-	alex@shazbot.org, dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, 
-	will@kernel.org, Pasha Tatashin <pasha.tatashin@soleen.com>, 
-	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com
-Cc: linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
-	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Tarun Sahu <tarunsahu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-3-8917a4c1bd14@kernel.org>
+X-Rspamd-Queue-Id: 0B5711FB2A
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,redhat.com,kernel.org,163.com];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:email,suse.com:email]
+X-Spam-Score: -13.01
 
-Currently luo_preserve_file() iterates over luo_file_handler_list and
-picks the first registered handler whose .can_preserve() callback
-returns true. When a subsystem introduces a new, backwards-incompatible
-file handler alongside an existing one for the same file type, userspace
-has no way to choose which handler preserves a file descriptor, nor can
-the kernel keep the existing rollback-safe handler as the default while
-allowing callers to opt into the new handler.
+On Wed 21-10-26 13:46:56, Christian Brauner wrote:
+> do_listmount() takes the last mount id the caller saw and looks up the
+> first mount after it by searching for last_mnt_id + 1. With U64_MAX
+> that wraps around to zero and the search finds the first mount in the
+> namespace. So a cursor at the largest possible id restarts the listing
+> from the beginning instead of ending it. A cursor of U64_MAX - 1
+> correctly returns nothing.
+> 
+> No mount will ever have that id. Mount ids come from a counter that
+> starts at MNT_UNIQUE_ID_OFFSET + 1 and a caller that only feeds back
+> ids it got from us can't hit this. It's still wrong. Nothing can come
+> after the largest possible id so return no entries for it, just like
+> for any other cursor past the last mount.
+> 
+> The reverse direction isn't affected. A cursor of zero is special-cased
+> and anything else is larger than MNT_UNIQUE_ID_OFFSET so last_mnt_id - 1
+> can't underflow.
+> 
+> Reproducer, unprivileged:
+> 
+>     #define _GNU_SOURCE
+>     #include <errno.h>
+>     #include <stdint.h>
+>     #include <stdio.h>
+>     #include <sys/syscall.h>
+>     #include <unistd.h>
+>     #define LSMT_ROOT 0xffffffffffffffffULL
+>     struct mnt_id_req {
+>     	uint32_t size, mnt_ns_fd;
+>     	uint64_t mnt_id, param, mnt_ns_id;
+>     };
+>     static void list(uint64_t cursor)
+>     {
+>     	struct mnt_id_req req = {
+>     		.size = sizeof(req), .mnt_id = LSMT_ROOT, .param = cursor,
+>     	};
+>     	uint64_t ids[8];
+>     	long ret;
+>     	errno = 0;
+>     	ret = syscall(__NR_listmount, &req, ids, 8, 0);
+>     	printf("cursor %llu: ret %ld errno %d", (unsigned long long)cursor,
+>     	       ret, errno);
+>     	for (long i = 0; i < ret && i < 1; i++)
+>     		printf("%s%llu", i ? "," : " ids ", (unsigned long long)ids[i]);
+>     	printf("%s\n", ret > 1 ? ",..." : "");
+>     }
+>     int main(void)
+>     {
+>     	list(0);
+>     	list(UINT64_MAX - 1);
+>     	list(UINT64_MAX);
+>     	return 0;
+>     }
+> 
+> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM:
+> 
+>     cursor 0: ret 5 errno 0 ids 2147483651,...
+>     cursor 18446744073709551614: ret 0 errno 0
+>     cursor 18446744073709551615: ret 5 errno 0 ids 2147483651,...
+> 
+> After:
+> 
+>     cursor 0: ret 5 errno 0 ids 2147483651,...
+>     cursor 18446744073709551614: ret 0 errno 0
+>     cursor 18446744073709551615: ret 0 errno 0
+> 
+> Reported-by: shaos <shawnq1@163.com>
+> Link: https://lore.kernel.org/r/20261020110732.959552-1-shawnq1@163.com
+> Fixes: b4c2bea8ceaa ("add listmount(2) syscall")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Append char handler[LIVEUPDATE_HNDL_NAME_LENGTH] to struct
-liveupdate_session_preserve_fd immediately after token, keeping
-IOCTL_OP min_size at offsetofend(..., token) so callers passing the
-original 16-byte structure continue to work:
-- When handler is empty (all-zero, or zero-filled when userspace
-  passes the 16-byte structure), luo_preserve_file() selects the first
-  registered handler whose .can_preserve() callback accepts the fd.
-- When handler is non-empty, it must be null-terminated within
-  LIVEUPDATE_HNDL_NAME_LENGTH bytes (returning -EINVAL otherwise);
-  luo_preserve_file() looks up the registered handler with that exact
-  name (returning -ENOENT if unknown) and verifies that its
-  .can_preserve() callback accepts the fd (returning -EINVAL if not).
+Looks good. Feel free to add:
 
-The retrieve ioctl is unchanged because the handler is identified by the
-name stored in the serialized payload from the source kernel.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Signed-off-by: Tarun Sahu <tarunsahu@google.com>
----
- include/uapi/linux/liveupdate.h  | 12 +++++++++---
- kernel/liveupdate/luo_file.c     | 21 ++++++++++++++++++---
- kernel/liveupdate/luo_internal.h |  3 ++-
- kernel/liveupdate/luo_session.c  |  7 ++++++-
- 4 files changed, 35 insertions(+), 8 deletions(-)
+								Honza
 
-diff --git a/include/uapi/linux/liveupdate.h b/include/uapi/linux/liveupdate.h
-index 509c6236720d..2413b19dabc1 100644
---- a/include/uapi/linux/liveupdate.h
-+++ b/include/uapi/linux/liveupdate.h
-@@ -126,9 +126,14 @@ struct liveupdate_ioctl_retrieve_session {
- 
- /**
-  * struct liveupdate_session_preserve_fd - ioctl(LIVEUPDATE_SESSION_PRESERVE_FD)
-- * @size:  Input; sizeof(struct liveupdate_session_preserve_fd)
-- * @fd:    Input; The user-space file descriptor to be preserved.
-- * @token: Input; An opaque, unique token for preserved resource.
-+ * @size:    Input; sizeof(struct liveupdate_session_preserve_fd)
-+ * @fd:      Input; The user-space file descriptor to be preserved.
-+ * @token:   Input; An opaque, unique token for preserved resource.
-+ * @handler: Input; Optional null-terminated file handler name (max length
-+ *           %LIVEUPDATE_HNDL_NAME_LENGTH including null terminator) selecting
-+ *           which registered handler preserves @fd. If empty (all-zero, or
-+ *           omitted when passing the 16-byte structure), the kernel selects
-+ *           the first registered handler whose .can_preserve() accepts @fd.
-  *
-  * Holds parameters for preserving a file descriptor.
-  *
-@@ -152,6 +157,7 @@ struct liveupdate_session_preserve_fd {
- 	__u32		size;
- 	__s32		fd;
- 	__aligned_u64	token;
-+	char		handler[LIVEUPDATE_HNDL_NAME_LENGTH];
- };
- 
- #define LIVEUPDATE_SESSION_PRESERVE_FD					\
-diff --git a/kernel/liveupdate/luo_file.c b/kernel/liveupdate/luo_file.c
-index fb81239bedf3..be20e0f1e0aa 100644
---- a/kernel/liveupdate/luo_file.c
-+++ b/kernel/liveupdate/luo_file.c
-@@ -207,6 +207,8 @@ static bool luo_token_is_used(struct luo_file_set *file_set, u64 token)
-  * @file_set: The file_set to which the preserved file will be added.
-  * @token:    A unique, user-provided identifier for the file.
-  * @fd:       The file descriptor to be preserved.
-+ * @handler:  Optional NUL-terminated handler name. If NULL or empty, the first
-+ *            registered handler whose .can_preserve() accepts @fd is selected.
-  *
-  * This function orchestrates the first phase of preserving a file. Upon entry,
-  * it takes a reference to the 'struct file' via fget(), effectively making LUO
-@@ -238,11 +240,13 @@ static bool luo_token_is_used(struct luo_file_set *file_set, u64 token)
-  *         -EBUSY if the file descriptor is already preserved by another session.
-  *         -EBADF if the file descriptor is invalid.
-  *         -ENOSPC if the file_set is full.
-- *         -ENOENT if no compatible handler is found for the file type.
-+ *         -ENOENT if no matching handler is registered or accepts @fd.
-+ *         -EINVAL if the named handler cannot preserve @fd.
-  *         -ENOMEM on memory allocation failure.
-  *         Other erros might be returned by .preserve().
-  */
--int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd)
-+int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd,
-+		      const char *handler)
- {
- 	struct liveupdate_file_op_args args = {0};
- 	struct liveupdate_file_handler *fh;
-@@ -266,6 +270,18 @@ int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd)
- 	err = -ENOENT;
- 	down_read(&luo_register_rwlock);
- 	list_private_for_each_entry(fh, &luo_file_handler_list, list) {
-+		if (handler && handler[0]) {
-+			if (strcmp(fh->name, handler))
-+				continue;
-+			if (!fh->ops->can_preserve(fh, file)) {
-+				err = -EINVAL;
-+				break;
-+			}
-+			if (try_module_get(fh->ops->owner))
-+				err = 0;
-+			break;
-+		}
-+
- 		if (fh->ops->can_preserve(fh, file)) {
- 			if (try_module_get(fh->ops->owner))
- 				err = 0;
-@@ -274,7 +290,6 @@ int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd)
- 	}
- 	up_read(&luo_register_rwlock);
- 
--	/* err is still -ENOENT if no handler was found */
- 	if (err)
- 		goto err_fput;
- 
-diff --git a/kernel/liveupdate/luo_internal.h b/kernel/liveupdate/luo_internal.h
-index dac6644bfb18..911ffedec9f3 100644
---- a/kernel/liveupdate/luo_internal.h
-+++ b/kernel/liveupdate/luo_internal.h
-@@ -101,7 +101,8 @@ int __init luo_session_setup_incoming(u64 sessions_pa);
- int luo_session_serialize(void);
- int luo_session_deserialize(void);
- 
--int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd);
-+int luo_preserve_file(struct luo_file_set *file_set, u64 token, int fd,
-+		      const char *handler);
- void luo_file_unpreserve_files(struct luo_file_set *file_set);
- int luo_file_freeze(struct luo_file_set *file_set,
- 		    struct luo_file_set_ser *file_set_ser);
-diff --git a/kernel/liveupdate/luo_session.c b/kernel/liveupdate/luo_session.c
-index f48e9a4185f9..194ef45907c1 100644
---- a/kernel/liveupdate/luo_session.c
-+++ b/kernel/liveupdate/luo_session.c
-@@ -266,8 +266,13 @@ static int luo_session_preserve_fd(struct luo_session *session,
- 	struct liveupdate_session_preserve_fd *argp = ucmd->cmd;
- 	int err;
- 
-+	if (strnlen(argp->handler, sizeof(argp->handler)) ==
-+	    sizeof(argp->handler))
-+		return -EINVAL;
-+
- 	guard(mutex)(&session->mutex);
--	err = luo_preserve_file(&session->file_set, argp->token, argp->fd);
-+	err = luo_preserve_file(&session->file_set, argp->token, argp->fd,
-+				argp->handler);
- 	if (err)
- 		return err;
- 
+> ---
+>  fs/namespace.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/fs/namespace.c b/fs/namespace.c
+> index 6c9c0cdbe890..dd60123a0cb0 100644
+> --- a/fs/namespace.c
+> +++ b/fs/namespace.c
+> @@ -6253,6 +6253,8 @@ static ssize_t do_listmount(struct klistmount *kls, bool reverse)
+>  	} else {
+>  		if (reverse)
+>  			first = mnt_find_id_at_reverse(ns, last_mnt_id - 1);
+> +		else if (last_mnt_id == U64_MAX)
+> +			first = NULL; /* nothing comes after the largest id */
+>  		else
+>  			first = mnt_find_id_at(ns, last_mnt_id + 1);
+>  	}
+> 
+> -- 
+> 2.53.0
+> 
 -- 
-2.56.0.212.g129ede20d9-goog
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
