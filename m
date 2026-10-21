@@ -1,98 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792596306;
-	b=Z2YmPO0hwcY24SBdOokevzVFMOidHRoLjQuHjlPtdL+kBkJ4Ef3H4Vqd4W4D5//x9mot
-	 LdUoB0VKADrP/DrQuDfp1ph69pICiDh1js49YqW3lYEAuRKfY+blgw4xhtOoeZVnsrOlC
-	 xhaU7e9Tw14MdGmerhlAvvUAEyJ3Wa9DKF1x1EYxstROP4ZesRoAn0XyOPY1OOC0tXNLC
-	 lBilPgLeDBAu/gghC18zmXu3BbOSC1oCLWVNTlqwP+DrnLuOiGy4uSOc7oydv7E7S8yvl
-	 AcHTiHEtPcE84xGk6iG1/JnCno/TED7rJ4aNBudD+K67jAhAUn5Q/jkkEXFlFqlQlyg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596306;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3YQW2wPoNrUElvQVBxdRB5ZJamVm6YVC6pzY12xi64c=;
-	b=rCnbbjJnqOALq+vbRuefGn/hliu/OsIQkHjSO9RPNwB0vZfCJG/6RSfGTuTKH/s9IPTg
-	 n32HDgEycAmsfgLFNEn/JCdkrCgyfqcFx4UIBD4xFcoSni+A37nOwLKWrD7auhC6WdZl5
-	 LhRUPQf//y40BEf+3ieW6PYDKxb4UInxqyHt1Hgbp2E0Il4IcktPPVaUbcmlJinMagFIK
-	 pDR6QXhrGUAFYKGoSB2pguulsnuo6rFldaOmH8D2Sm9mrw9Q7bf6XTQ9ACh20WnR8mpMJ
-	 cNabeC+S3wfHLrADi1jOgl2GlUpNr5TAdgmRyuJ1qhrh7uC4EVheXM97wHIPQPE04zg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=w8nNdRXM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.62
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012062.outbound.protection.outlook.com [52.101.66.62])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.96
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792596326;
+	b=20mPIV754XQqDJg/548k+VbB4jUG1BYi5ZqMkdzozfbV/8y7gLKkmlFhhGAK6Qxq2TBC
+	 LtylEmsJokFjSE7u8Ge+Nq30pvfcMTRYp6mLwu5xtHxuxTD+Xz2R+KG9ZRuJVCVEoMqHy
+	 lWgMFDVtwLDMss89uetOIZimUBvLgQ4E8+fu0YGx8ByUlyGa74fNAN9Kpe+v6smur+XGt
+	 bhnnrtVDM4LaBci4n6lb48ujLrFbCBO5kbMheUMZ8G9qIuHFby2vM+ls49GYe7zj8WvHV
+	 TR1BW/ci6skFWE2+6s1c9/PmSBWdQ+OAyn4ha/UglsmOGticAQkR0bFdJkqRsKG6F8A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596326;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=knvARjvm/b7EPks61dPTHzn4nKrfkJtbvOaJXgAGa6w=;
+	b=CtQ9sKlM6qP9BirMPhViXFsBTns5kpdu61stqaX2F5p/2FiJciKLkYUI5I0Ac6OhHF0B
+	 sUPIDJGKMT8cwyc07xQWw8kLkG2vBeW7S6Msf7l4Qkr2eLf19fCwmGW2wXA13YBE8wLpk
+	 099/XNZjXojLKFwoLSXeUx6SYNVeInV3mr60L/dScO6Sh4SkQbva68SrHxOAJ8r6VJouO
+	 Faifn6K4G6kSrQ56p5I+w485eFSWbQpJ5K+CywRqxXT7JfTcN8qIl6OA8Gbpocm7gHmB/
+	 ZsDCQIMj1k8DtU3og0WqgDEENMBmIkQdt5+wZBjBZ2GbMuwtKDC5AlOdWgLe68PfBJg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ta+J1CRy;
+	arc=none smtp.remote-ip=95.215.58.96
+Received: from mta1.migadu.com (out-96.mta1.migadu.com [95.215.58.96])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61771606A31A;
-	Wed, 21 Oct 2026 15:25:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61771606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244DD606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:25:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 244DD606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=w8nNdRXM
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Etp/MeupraReb8HekDV65ptt1U+iLmpI4QTUBjxGEKzKdaUKMe7evnHXEzqu7TZqdvHE14J0iHju3FMYdmNwROiu7HPPHJiBM2gy02+q0TP+Mfrb9bdmuzmPLPtSBaTO7jnWyN2DbXfiWhFM4agbCmU/TYns2X2DvmNoBs1AM4bycco58D2GJrCUH0WuYmobmayzuou16jCPFLuo1LgKDvyDhsAstwg8pe0NjeUY1pn0P7lVbkc2GUdUDMtQJBqBFrc9SatW6JhpaoUsEs0l6Ae9gSh2+GTwXht9NwEeMM4qTJKb3zQufF0i+SK6PKGPKpXAvFbyzSqbeKdjQov4GA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3YQW2wPoNrUElvQVBxdRB5ZJamVm6YVC6pzY12xi64c=;
- b=qHBai9rxUZC1JkWepfoDJy91r1CYc5TsyjWgfQVJH3DxSgKPfXozN3BR89rbe4aGDSoT3St/zlq1FZJyPCnS+5Jx0I90akuTdfyU72B3p4qfHqy3BpshmJUgR8X06oB86cpZJa+l9d/XHWWsFUHF0HngZtWMjDCsy0QMzVwCDT4xxGUcrCNNDEhlt2gcwJMuU6O62Tj5wZ8GFA/zIcLhmouoCWjC0R1ulBChsDyqT2Tzcb3i86yZUMpVTcHP7tcKrKHsTFq1VWnDtBydfWnll+HdMwFrLpplEQvbaKX/2OUEeunZBqvGNrnq3LBOhMauGkfx87ozcltE7yjMSfR6gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3YQW2wPoNrUElvQVBxdRB5ZJamVm6YVC6pzY12xi64c=;
- b=w8nNdRXM/7MzCLD18DZSUUIVbRdfUpP8bqsv7pbPR4NqQVjE38bHXqiQI5phcRNZkvo9uC2T48YnUeGzYmah27cskzWTniNDZT3UTD6eNsGo7nSI+ycvEETEZszJdEqKr2w/oYx9AEoRzQkua4g+fOp5l3iOGV+MqJisHNjjRvLBNhmkzyLwMwxneBAIhtdsL3je0Sqg2ZQ8aLfN4x4is61+RWErC6u6T3dgIlQB0oopSzPevYR1Ux2nveyINjmkEPM3u4S5UcOnBIa0Ukj8IqQ5zKedFg8u9eyNBZKwZGuooCeehgQEas/AE8MqAgT20XgaIfBOXRef//R3m7WJlw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by VI3PR04MB018611.eurprd04.prod.outlook.com (2603:10a6:800:375::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Wed, 21 Oct
- 2026 15:25:01 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:25:01 +0000
-Date: Wed, 21 Oct 2026 10:24:51 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	bhelgaas@google.com, linux-pci@vger.kernel.org, robh@kernel.org,
-	thierry.reding@kernel.org, jonathanh@nvidia.com, kishon@kernel.org,
-	Frank.Li@kernel.org, vidyas@nvidia.com, cassel@kernel.org,
-	den@valinux.co.jp, marco.crivellari@suse.com,
-	andriy.shevchenko@linux.intel.com, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/10] PCI: tegra194: Check for 16 GT/s capability
- before programming
-Message-ID: <atjZQ7IufvjYdXcs@SMW015318>
-References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
- <20261021061349.1265704-6-mmaddireddy@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021061349.1265704-6-mmaddireddy@nvidia.com>
-X-ClientProxiedBy: PH7PR13CA0005.namprd13.prod.outlook.com
- (2603:10b6:510:174::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ta+J1CRy
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2NUhMoKkUJ6bepZ4RgyA85/mYzDtnL9WbvXKX2SoqhA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792596323; v=1; x=1793201123;
+ b=Ta+J1CRyGV9OmxnXjk3QROzoKrk1/Eke2jvUuto6loQLqIV/iW96VrFICUMDl1YrtN8LV0Ls
+ nbyywT/KJBYco76vnyrBugQXNPGdV03n/exdwV0FDd7pqmxlDrF6XHT04KUMCYHZAbYuvbIiS2j
+ x+Nhb+zEZbMWIlfdKcgU5ofQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 328008eecc345c54;
+	Wed, 21 Oct 2026 15:25:10 +0000
+X-Mizu-Trace-ID: 328008eecc345c54
+X-Migadu-Flow: FLOW_OUT
+From: Leon Hwang <leon.hwang@linux.dev>
+To: bpf@vger.kernel.org
+Cc: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Martin Karsten <mkarsten@uwaterloo.ca>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	Leon Hwang <leon.hwang@linux.dev>
+Subject: [PATCH bpf-next] bpf: Pass extack to bpf_xdp_link_attach
+Date: Wed, 21 Oct 2026 23:24:55 +0800
+Message-ID: <20261021152455.71524-1-leon.hwang@linux.dev>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,119 +87,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|VI3PR04MB018611:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5fb4e9a2-6a74-457a-680b-08df2f877992
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|366016|23010399003|7416014|376014|56012099006|11063799006|4143699003|261009223027099003|10067099003|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	tDTCGKZlK+zCttkaUCJ0hwhokWJbufTMiM1xLMa1YtRdQu2pKk+3LwHrouT320VRt3xXVLzohfyRce9OBq3RdngC5FkWnn6HXkwtT8ZXc6LN7IWeOONJOe+iDH0gUD0OEmiY6DoCmrWZ2w7UdiK2lqHLcTmwVDcPw9y+1cHDvMrPVfmV7OG+CYbdReBNE5Zg6CD5xZ3gslr0MREAwlrE/W9xYVukdQf0P/Aa+dphh+dyQIot6Y0bqTsDbLQ2tA/VPGjAJXIWpR0XyGIc9zhATMcEHBQ0aVry/CelU4ChlANV4OoLJAaZ9AdNwrCBEEi03InvCffNu/Qk9AtNZVDy60Dprmzuqpz/Bg4tXkd9JHuYkumQo7y65Bdj+KNX1RLgNg5z83DGkBueISzcWAHe9xVUgWfnTD/Je7O+MYbyKC+KLm94+6F5uZsK2XEieJFIgaQExxVQPRjCndV6XgfvvNHD5uu08ex7VVYjr5+o/rqgtVPYe+eyq9cL96jJmS8//baZkP7pXV3CWwXkzX56BIc2I6lYJMapprXvd6En/ZYBnkhL34152nAM2dhciXjU7MGiy1wKZGgwtPBcfXwhi0mulurxJyLQfy1bf1al2J+P1PUwXzR4z1G9y0knVQn+wNjHe8ft0qlpzfnU0mCIO28tPRXhIP7OS/aR3BaD++0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(366016)(23010399003)(7416014)(376014)(56012099006)(11063799006)(4143699003)(261009223027099003)(10067099003)(22082099003)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9Tpu7GSVZCEe2GSM6VOy0nCe0Yfqo9pQdXLSn5py7sWAhqyQuE9TsQu2VVgL?=
- =?us-ascii?Q?MvoLM6b+u7CUFvqDwPG+aevoraOzasoWAuCkPRheA439y5bKN69DYqhqnOHC?=
- =?us-ascii?Q?z1sLSfLCZGQQm6VXNBhiPn5NwOUyg4uT9kQRRGd7SwWIFhqzSV/0cDBgFSLe?=
- =?us-ascii?Q?ognhjZw1TwCupdBlJcco9lE4PPpBDO/8IXbXUJXVx1ouBWQKbWROJ6ZByiV3?=
- =?us-ascii?Q?t/1jQtvUXrmQ/BbXqSwJLkww13KkL3T7Kycr6fCqUYkuA2qa+xtbYVcQ1O1P?=
- =?us-ascii?Q?gL8QPqV36GHaqP8nXHjUHohiWTMzsXioTIoUKJnkj9GG6iTMmT4OoQQAZLEP?=
- =?us-ascii?Q?MQgNRAnT2BqvPzofK6FVf4XRo0kZg6yZBlV/Ew7zmUj2Oh03dZbCKwpW8h3q?=
- =?us-ascii?Q?xQIwc2V/XgT7sIlu+Hhd7VMBd+iQfqrQv4a/wbc4EzioL3Zt3ZfF1xUXz+US?=
- =?us-ascii?Q?kqRh/8RVYmZONLkR/uqBhIhb0Hu4LsQFlvVsjsydmtxRERP7nbktjdXyWdkx?=
- =?us-ascii?Q?Tyc1TdDyLxz32mwks0r0cr0Mq3BS/LMVHBapRSrH08JCR9+3HjVDutofoP7i?=
- =?us-ascii?Q?OmcbP57W//2p/feWPQQ7qNyAhqoPeGc+kWQpTt+hAzIFY9bqUOc5DEDlxF+1?=
- =?us-ascii?Q?zc3ZlSC7HhNhN6QxrMn2wEelkgGxozewWkoMGv8HiKuciYaSFX14gWYF5Mxv?=
- =?us-ascii?Q?irrUhwZrQgZNAmNDfT2qWY7hy+X2cofP0Dab5CNHg6v9T41ce+aKxrJLoa8q?=
- =?us-ascii?Q?jwtaxryonnBasHO1A4mKAfiIA7poOUYUPe6+TUB/t2gZaEOUq5LYTUwPr0TS?=
- =?us-ascii?Q?FMJQUW/Mp+jXHQiRyrniuEzXa/Pujh+nESViTr8ga5Avj9dEcbxSws2AwLHm?=
- =?us-ascii?Q?WmlWFruFZSetP8aWF+UMYbpe3309h0kNAePBQuyf16MGPXQl86L4lRSa31bJ?=
- =?us-ascii?Q?0QsrpOiPAXEzACbnhK/RYQR+AewjFZKkYR68/WmL4ALHbY3E03AgJSqJWXuo?=
- =?us-ascii?Q?422g2TgzTgmFQiQGPc/wXH3LjAiV8ZVvM5J33FhEp/NTh07ojl5/7SCoqqGV?=
- =?us-ascii?Q?KhmELCXNWKusqM5IcaBKICQatFG4h3jJUD+HCTJR7vPcD0jOHdaDpG0g8nB1?=
- =?us-ascii?Q?5c9JcVwS9EcZ/wddV3nPYIzSzz6ZCY+eyYuLXF/2JrWPlqhAZu86Zc0PNT/Q?=
- =?us-ascii?Q?pSLFAYz/Lg/UCFQBrZsCkWtQWcUvEx9RYS76U0OI51HkDcsg4V5gUpMIagxJ?=
- =?us-ascii?Q?E/rG0hAs/ODQDeaV9dfVJsiwKZVNmBnzWzS6j5IOATt90ih9Apop3OSpG2B0?=
- =?us-ascii?Q?Yy0szGZ9PTT1tAo1ywuNmceK+5sh3LDMuZh9bB6eSKznuwpsNuSXDERg5s1v?=
- =?us-ascii?Q?DKHZCZHTs58gnu2UrQhik7PT3CI9/xldNvqVDZgGbq+mV5tN3DbORY9REqiY?=
- =?us-ascii?Q?Vns1i7cp7i56nPxqK/yOUaJm0CKIVdolAnpocYIe5wEnxWsVbnonCiK7INA5?=
- =?us-ascii?Q?r/ezcFA7Jf46Ak5oxaHGaQVPYI2oadFwlCJwVU9Od5KLIBI2CRkSYg7CfTCe?=
- =?us-ascii?Q?7qV2G4aWu8TbkDBV8swOgx7YtBZLBtzQCou55KIWgCnwNL/BYSzU6k8yw7Xi?=
- =?us-ascii?Q?6R8D/fKx8ODeDyY3G1lDKdA7rhs2ah0i02GkUW81qYbOXPujNdA7d4E7IVpz?=
- =?us-ascii?Q?UbLy7lseqXqaDqr5ioNlzYlfqeTYOQDPWcdal9MmKQbEkgwwfIEg52QY7zxd?=
- =?us-ascii?Q?rXzPuHSoMjH4lrzWNrXOwYbrZwdzjjIkr0FojpjSA/ALmHEpI918?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5fb4e9a2-6a74-457a-680b-08df2f877992
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:25:01.7782
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qN8IciFM9ibsZRhtgR78+7Id4fYYs+DQjzRmUwd76qLgZWy3M6SifDUggoCAB7vCzdzZ5f5DD8beNcb1s7jXq1SPtKssitY90qXkeTsI8eDUwEZoB6LF0TFh075XDOvE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI3PR04MB018611
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 11:43:44AM +0530, Manikanta Maddireddy wrote:
-> config_gen3_gen4_eq_presets() added PCI_PL_16GT_LE_CTRL to the result of
-> dw_pcie_find_ext_capability() without checking whether the 16 GT/s
-> capability exists. If the capability is absent, the code writes lane
-> presets at an unrelated configuration offset.
->
-> Look up the capability once before the lane loop and skip the 16 GT/s lane
-> equivalent control programming when it is absent.
->
-> Fixes: 56e15a238d92 ("PCI: tegra: Add Tegra194 PCIe support")
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> ---
+In order to drop the dependency of bpf_verifier.h in net/core/dev.c, pass
+extack to bpf_xdp_link_attach() in link_create(). Afterwards, transfer
+the error message from extack to log buffer in link_create().
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Drop the stub bpf_log(), because it is not used in net/core/dev.c
+anymore when CONFIG_BPF_SYSCALL is not set.
 
-> Changes V1 -> V2: None
->
->  drivers/pci/controller/dwc/pcie-tegra194.c | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-> index fb8084cef38b..14031cfaee8b 100644
-> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
-> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-> @@ -840,7 +840,11 @@ static void tegra_pcie_enable_interrupts(struct dw_pcie_rp *pp)
->  static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
->  {
->  	struct dw_pcie *pci = &pcie->pci;
-> -	u32 val, offset, i;
-> +	u32 pl16g, val, i;
-> +
-> +	pl16g = dw_pcie_find_ext_capability(pci, PCI_EXT_CAP_ID_PL_16GT);
-> +	if (pl16g)
-> +		pl16g += PCI_PL_16GT_LE_CTRL;
->
->  	/* Program init preset */
->  	for (i = 0; i < pcie->num_lanes; i++) {
-> @@ -851,15 +855,15 @@ static void config_gen3_gen4_eq_presets(struct tegra_pcie_dw *pcie)
->  			     GEN3_GEN4_EQ_PRESET_INIT);
->  		dw_pcie_writew_dbi(pci, CAP_SPCIE_CAP_OFF + (i * 2), val);
->
-> -		offset = dw_pcie_find_ext_capability(pci,
-> -						     PCI_EXT_CAP_ID_PL_16GT) +
-> -				PCI_PL_16GT_LE_CTRL;
-> -		val = dw_pcie_readb_dbi(pci, offset + i);
-> +		if (!pl16g)
-> +			continue;
-> +
-> +		val = dw_pcie_readb_dbi(pci, pl16g + i);
->  		FIELD_MODIFY(PCI_PL_16GT_LE_CTRL_DSP_TX_PRESET_MASK, &val,
->  			     GEN3_GEN4_EQ_PRESET_INIT);
->  		FIELD_MODIFY(PCI_PL_16GT_LE_CTRL_USP_TX_PRESET_MASK, &val,
->  			     GEN3_GEN4_EQ_PRESET_INIT);
-> -		dw_pcie_writeb_dbi(pci, offset + i, val);
-> +		dw_pcie_writeb_dbi(pci, pl16g + i, val);
->  	}
->
->  	val = dw_pcie_readl_dbi(pci, GEN3_CTRL);
-> --
-> 2.34.1
->
+Signed-off-by: Leon Hwang <leon.hwang@linux.dev>
+---
+Address Jakub's review in the series
+"bpf: Add syscall common attrs support for xdp link_create" [1].
+
+Links:
+[1] https://lore.kernel.org/bpf/20261020152804.39863-1-leon.hwang@linux.dev/
+---
+ include/linux/bpf_verifier.h |  5 -----
+ include/linux/netdevice.h    |  2 +-
+ kernel/bpf/syscall.c         |  8 +++++++-
+ net/core/dev.c               | 10 +++-------
+ 4 files changed, 11 insertions(+), 14 deletions(-)
+
+diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+index 1d34ece19bcc..5926f13ff43c 100644
+--- a/include/linux/bpf_verifier.h
++++ b/include/linux/bpf_verifier.h
+@@ -1269,13 +1269,8 @@ __printf(2, 0) void bpf_verifier_vlog(struct bpf_verifier_log *log,
+ 				      const char *fmt, va_list args);
+ __printf(2, 3) void bpf_verifier_log_write(struct bpf_verifier_env *env,
+ 					   const char *fmt, ...);
+-#ifdef CONFIG_BPF_SYSCALL
+ __printf(2, 3) void bpf_log(struct bpf_verifier_log *log,
+ 			    const char *fmt, ...);
+-#else
+-__printf(2, 3) static inline void bpf_log(struct bpf_verifier_log *log,
+-					  const char *fmt, ...) {}
+-#endif
+ int bpf_vlog_init(struct bpf_verifier_log *log, u32 log_level,
+ 		  char __user *log_buf, u32 log_size);
+ void bpf_vlog_reset(struct bpf_verifier_log *log, u64 new_pos);
+diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
+index 4548b0fd824d..f5d6438c4b8f 100644
+--- a/include/linux/netdevice.h
++++ b/include/linux/netdevice.h
+@@ -4418,7 +4418,7 @@ struct sk_buff *dev_hard_start_xmit(struct sk_buff *skb, struct net_device *dev,
+ 				    struct netdev_queue *txq, int *ret);
+
+ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+-			struct bpf_verifier_log *log);
++			struct netlink_ext_ack *extack);
+ u8 dev_xdp_prog_count(struct net_device *dev);
+ int netif_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
+ int dev_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index 87cd122d1024..26917a1ecbb2 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -5944,8 +5944,14 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_a
+ 		break;
+ #ifdef CONFIG_NET
+ 	case BPF_PROG_TYPE_XDP:
+-		ret = bpf_xdp_link_attach(attr, prog, log);
++{
++		struct netlink_ext_ack extack = {};
++
++		ret = bpf_xdp_link_attach(attr, prog, &extack);
++		if (extack._msg)
++			bpf_log(log, "%s\n", extack._msg);
+ 		break;
++}
+ 	case BPF_PROG_TYPE_SCHED_CLS:
+ 		if (attr->link_create.attach_type == BPF_TCX_INGRESS ||
+ 		    attr->link_create.attach_type == BPF_TCX_EGRESS)
+diff --git a/net/core/dev.c b/net/core/dev.c
+index a142613536b0..d79a589206e1 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -97,7 +97,6 @@
+ #include <linux/kthread.h>
+ #include <linux/bpf.h>
+ #include <linux/bpf_trace.h>
+-#include <linux/bpf_verifier.h>
+ #include <net/net_namespace.h>
+ #include <net/sock.h>
+ #include <net/busy_poll.h>
+@@ -10773,11 +10772,10 @@ static const struct bpf_link_ops bpf_xdp_link_lops = {
+ };
+
+ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+-			struct bpf_verifier_log *log)
++			struct netlink_ext_ack *extack)
+ {
+ 	struct net *net = current->nsproxy->net_ns;
+ 	struct bpf_link_primer link_primer;
+-	struct netlink_ext_ack extack = {};
+ 	struct bpf_xdp_link *link;
+ 	struct net_device *dev;
+ 	int err, fd;
+@@ -10786,7 +10784,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+ 	dev = dev_get_by_index(net, attr->link_create.target_ifindex);
+ 	if (!dev) {
+ 		rtnl_unlock();
+-		bpf_log(log, "Invalid target_ifindex.\n");
++		NL_SET_ERR_MSG(extack, "Invalid target_ifindex.");
+ 		return -EINVAL;
+ 	}
+
+@@ -10808,15 +10806,13 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
+ 	}
+
+ 	netdev_lock_ops(dev);
+-	err = dev_xdp_attach_link(dev, &extack, link);
++	err = dev_xdp_attach_link(dev, extack, link);
+ 	netdev_unlock_ops(dev);
+ 	rtnl_unlock();
+
+ 	if (err) {
+ 		link->dev = NULL;
+ 		bpf_link_cleanup(&link_primer);
+-		if (extack._msg)
+-			bpf_log(log, "%s\n", extack._msg);
+ 		goto out_put_dev;
+ 	}
+
+--
+2.55.0
