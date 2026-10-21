@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792549315;
-	b=KtBIj30v04YPMgYo9C02jwzfpEpg0cExG1gs8HO4MMSVV/6ozqnGyqV1bSSzojL/tMUr
-	 l1zn4rSnYzvRTg+KbzuZIMCHShmbKIMJsNLUxkQWdOaAE6+LCAcMdA1J/kWj50oMXOOxZ
-	 MONhL6Pi/lMCWiMnlFyORN7HoJ179eMRaBHN/wQUeV8eIcxs9S9FlGrTFzITy+GkTATNk
-	 AlpfI19kt/32Hv0bQOP0i7fohtskYeUog6lwbSYPJ5pT5Ex47iAcbvoPdWytQOdsaTRqB
-	 z3dpFvQbThyadWkKDVKjNVPIsX8nw4T/GU9J0ZPq09IiQlKvGXXARbvNHkLfsZG6BlQ==
+	t=1792549349;
+	b=me5GuRK7/M+JFOUsltuetZmvIm4utwGT7nhjP9ZOF3YlREjAVG2rpKEe0uC9EYK/pkzu
+	 wYjNqgkeXzNG2GG8OloafIuYaL2UflfKCJ8KpalzmzdgU4KXdd6yFLsF32oDXLCVRr6QI
+	 YEao3aXWAC74RH0EttY/SE9eRNyq4bT8qUdPWFJKjzROSoMO7pJ3hL3SzfKuKydMceuIY
+	 0YEjpEr4v8zkw7wozpgzpBRYp/tK6YHgQP/rGNsVEnH+gw9fCD5iqbSEcO57XpUL/mYCR
+	 FjfoUBxoTiSpd5F6xav49rnAbxA9t7YwDoh72uFjYdZmJanFlPdrJxHBd3ZELniRTUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792549315;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=Kt/kKs7mRJzpqThsCL29ovxNo4HgqgzLd9RpLzowLNU=;
-	b=E6nUydjS4DzOpvfhOkO/ObxFxt7WAyMEXeISSGgOiJ+liZSVEd12VbmGR+Og11IgszqE
-	 TSmBOMECIx98VTov+R3XhgUDwyVtKLsVf/hHFVN9X0yTHzBNM7VLmgRbf+OGbQW9dcCi5
-	 2cYKyhivcmwb0Z+9QNdfWsd6kmkre6RlEHZhcDKkVbucCs8KQ/R1dhdWpSkF5rb/ob0mX
-	 8KGVe0/ILsANuHciA37X+PRN0HmrMLu3r6ILk0NxhXcldUNduRlUSU1z+pK4k6TeywbKM
-	 tjCP8zoCV11Az+is63JqLBVcKDdXTWSRn0AA6nj0Yn2K3l10ZoFNfJKN2ZhAj5di9fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792549349;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4Hvt/B3J52Gjx7+kaJxyB0SdGwJ2youU0SIAHrXEJjM=;
+	b=donvzakRf8rpSFSzkWar+qz27GltOC3JxN9CL7uhkM0rOL/Ap5Pkcp5fz5szUk7h00f7
+	 coKAgEa3sopm9N5dZcOvV9YaX5t+vWV/GmBqwEQcTznGgW6DyaE7mfJdj0fEShjFRTNDk
+	 njxDoLiy94D99GkxFGfaSC+8g5dyGhzpQX6CpaB9gouri1az+AX3LX5bfhklwC/9NYZ9w
+	 07o57cKHZm2fukBviE2OlGX9YOWLFyN9bvVBRvkkiVFVZKAXaYYlg/4vtTj1SulGBfhxR
+	 Zk+vyg8YykJraPhlvPdplHtjmkvtxphzFSv8cb7RyBUzs/8v88OE2F2395Ce8UeiW8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=cxZRH6a8;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=GAFUvu+x;
+	arc=none smtp.remote-ip=209.85.216.50
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EBB606A319;
-	Wed, 21 Oct 2026 02:21:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80EBB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15B6606A322
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:22:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E15B6606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=cxZRH6a8
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4j8Y270PbdzKnSx;
-	Wed, 21 Oct 2026 04:21:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1792549311;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Kt/kKs7mRJzpqThsCL29ovxNo4HgqgzLd9RpLzowLNU=;
-	b=cxZRH6a8JgFJ7tGvb6yB26tPngM5JpQeggeCMNBgLs8w7YCNwdequrA+zL5NdcZvnHs+fU
-	P4YQtTN16UwfvKfNQt0wAheVgllw4ziux4jjNu6KVNEwyzxTRhffu7BVfhMj/m2GqlEF5o
-	6vKR7x6HFU33SoN9bUvO+E6tehydGTamb+3HV/ISJ58W/jx5W1gEKpQO/oanM7yXCAQEIa
-	j5ZSZynw/K67VI/jOQHOHm+CAKB5Vvky0oCp0VFvo+EhyjtznU5ME6YSoyj46/VUl7AeiP
-	TjJFYkPmisD8a/EyHBaBFxMauQOQrJyjjvd2Hwz49q6cRTbaFSxQqxZzUo0FKw==
-Message-ID: <33e7f153-9dde-4bf7-8ab4-d128b256239a@mailbox.org>
-Date: Wed, 21 Oct 2026 02:19:46 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=GAFUvu+x
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3ad41b47541so211505a91.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 19:22:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792549347; x=1793154147; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4Hvt/B3J52Gjx7+kaJxyB0SdGwJ2youU0SIAHrXEJjM=;
+        b=GAFUvu+x6bI5xXmiBdwqYiRbtfk2X5g7QOYuJp5kVp0kJM0uvI6XWOy8jHPTxpSQGZ
+         cMj6sC/9Rr1J8RVAlq+lTSvoXYERsrwv+s9O2FGpLap/bly1iNE8Ix7UUtDmWqRK35JT
+         GGIKMWEJ3sxPNlnaVg2LOJrd2djForOBKvd2da2lVRCLPpCHj+4F+xs23aL5SlEj0zpg
+         0n3nCIUHU3UMfn+McvJL+ICwtS15Hib/1h8hsEuoGlZwiw7MmZjoSJ9vz+r4V+VzeLHd
+         aEjWh0OYk1EeOVh4tp+eVo4uQYX3DiDnqIq1EfeE7/ksdVIlLDBTKFRufr6+uLunrYZL
+         Pgsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792549347; x=1793154147;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4Hvt/B3J52Gjx7+kaJxyB0SdGwJ2youU0SIAHrXEJjM=;
+        b=uFssFil8RJ1pSzneE0WazUug+XcJEQDsmk/r9dDUsfm9/xuJ64UdbeN8zoCgIaid08
+         8tm3QwEhKngDEn4OiYIC/v8Z/sdpQPl8TijHnyIIiTC5eEuHGUDnVB5iP8Z06tWz6uB+
+         mdTq97nwoLYI+SYxC0I6cS7gOwM9b9RhyPZpFK3t9Bi1ciJcuzYk3b72+HwTxDwmXSH7
+         CkK+93X1XP6Dn/2T+QAxGP7QN58U2tQG+hztJsnlGceh68zosR5u2zWJ3kwP/VVTWD8b
+         DJGZcEISmpJhOOguJxTiB+mvZA2RI8PpbACj7xo06Z7otLwD4RxLGM7J8NwGDcu6N7fd
+         wFqA==
+X-Forwarded-Encrypted: i=1; AKwUvBzR4pQZnVCwReEl1cnpCizKDkpPd5fA1EPTSR0zXv1oGropx2DU8Ie5Wke1ghq+BELBt4ImnbMRtlhvGOk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrZx3JPXT1MFy8Ievp/Vh5jDV/mfOnZMfXhAGI7S2TpGfRnbLy
+	hg5yqtYKK1z4a1nlFozQyMaBZUo/tzBHdAdv7xW/5rh+ESzWOO6UDWNOyG5O55wNxUg=
+X-Gm-Gg: AYBFou3mjueDmAks5Hiaq0ZOSGIpNPPcwzSsc48tjI2BueamUdjrb23FNzrPgMFABg6
+	BJtHR1kz5sGmAHkFHIOvHpR58SpsYhO24QUmrqWj8xFKNi5+wM0kB/SDXojhcrPVji4+qFoJbDr
+	P2Uyo7IjQohLPF7/CJjJbL6Q2XvTDMzZv5TxMjrhedmy5lhuIxUac8bzH1h7nOh91CLD9wB9Fl1
+	tDThy8KcHkANJjbvQz7pERPBj3qEKr/B5dDNfIDVa4jsgkK0Ji+7A8UpLOm4xqpXqEX76d1Nm3f
+	/F9CGxIT1BvTR0r7ChU8IQVN/sCkQYffbYL6HBHNYLcc+g0ZRmaG3iam4ucmkeYG9vOO5KjZNl3
+	ci2A9xB/8rJdejQTAT8H0X8YsZmTQYlVF/sGdsDweOYgctMl41LIMeVDZ0SoXv03t+pBN2Lle5f
+	bDgpFoKvg1McbrSBb0MY92IG8wn8aOyq2Q8hkg5m6T1D3wqurxiIYv6O8oLa7uQkwvt74RULKvO
+	PDF1sZdYL3ACR5UaYk6PTgNIf/igv5FRbma3L7hZ+pXPlxOuh09R2DAsWgjbESkyEJC0ezo+Epu
+	ATyfjtwXGqyy83L/6mtag20=
+X-Received: by 2002:a17:90a:dc83:b0:3ad:8769:8741 with SMTP id 98e67ed59e1d1-3ad87698883mr361612a91.4.1792549346782;
+        Tue, 20 Oct 2026 19:22:26 -0700 (PDT)
+Received: from yhlee-960QFG.Davolink ([2406:5900:1044:110c:e416:85ef:f22:6c5d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8021ac2dsm1930614a91.5.2026.10.20.19.22.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 20 Oct 2026 19:22:26 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Ram Vegesna <ram.vegesna@broadcom.com>,
+	Daniel Wagner <dwagner@suse.de>,
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: James Smart <jsmart2021@gmail.com>,
+	Hannes Reinecke <hare@suse.de>,
+	Mike Christie <michael.christie@oracle.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	linux-scsi@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH] scsi: elx: efct: hold a node reference across asynchronous session setup
+Date: Wed, 21 Oct 2026 11:22:09 +0900
+Message-ID: <20261021022209.2580332-1-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,421 +103,271 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 13/17] PCI: rcar-gen4: Route Root Port AER to a virtual
- Root Port IRQ
-To: Koichiro Den <den@valinux.co.jp>, Manivannan Sadhasivam
- <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Shawn Lin <Shawn.lin@rock-chips.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Jingoo Han <jingoohan1@gmail.com>
-References: <20261020031049.969895-1-den@valinux.co.jp>
- <20261020031049.969895-14-den@valinux.co.jp>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <20261020031049.969895-14-den@valinux.co.jp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 93beee897e2d6021d40
-X-MBO-RS-META: s8byibs3e3nz1dcaamjqsrdzui1rqwty
+Content-Transfer-Encoding: 8bit
 
-On 10/20/26 5:10 AM, Koichiro Den wrote:
-> On R-Car Gen4 SoCs, the APP block exposes the Root Port interrupt
-> signals in PCIEINTSTS0 and routes them to platform IRQs: AER to
-> intreq_pcim_lperr, and PME and bandwidth notifications to
-> intreq_pcim_sub. On an R-Car S4 with GIC ITS, a link retrain set
-> LnkSta.LBMS and latched PCIEINTSTS0[23] (cfg_bw_mgt_msi), but the Root
-> Port's MSI never fired while endpoint MSIs worked fine. With iMSI-RX the
-> Root Port MSI capabilities are already hidden, but its INTx maps to
-> intreq_pcim_sub. Note that even before this driver took over the IRQ
-> with rcar_gen4_pcie_msi_irq_handler, the port service was unable to
-> request it, as the DWC core used that IRQ for its chained MSI handler.
-> In either case, iMSI-RX or an external MSI controller, Root Port
-> interrupts are not delivered to the port services.
-> 
-> Hide the Root Port MSI/MSI-X capabilities so the port services use
-> INTx regardless of the MSI controller. Do this in the R-Car host setup,
-> which also runs on reset and resume. Use a virtual IRQ to deliver
-> notifications from separate platform IRQs to the standard handlers.
-> Route AER from the optional "aer" interrupt. DTs without it remain
-> supported, but Root Port AER stays unavailable.
-> 
-> The APP block may still receive MSI-form notifications because hiding
-> the Root Port's MSI capabilities does not clear MSICAP0.MSIE. Handle
-> these alongside the INTx-form level signals. Clear the MSI-form latch
-> before the AER handler clears Root Error Status, so a late APP clear
-> does not erase a new notification.
-> 
-> Check for reset requests before dispatch: on S4, DBI accesses from
-> the port services can hang the host immediately after link down.
-> 
-> The next patch also feeds PME and bandwidth notifications from "msi"
-> into this IRQ, so both parents may dispatch concurrently.
-> handle_level_irq() calls irq_ack() before checking whether it can run
-> the handlers. Keep the APP latches set while the IRQ is in progress or
-> disabled, so the level parents can retry through the reset checks.
-> This avoids losing notifications without a raw lock around port
-> services that take regular spinlocks.
-> 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
-> Changes since v4:
->    - Hide the Root Port MSI/MSI-X capabilities in host_setup() instead of
->      adding a no_rp_msi flag to the DWC core. (Shawn)
->      https://lore.kernel.org/r/bi3rvyqpdu4iq6pfyrqvx7eplyim6gmg2ijal67mpateobmtlq@gec7zewfm76r/
->      I did not carry Marek's Reviewed-by tag over due to the change.
+efct_scsi_new_initiator() hands a bare struct efc_node pointer to lio_wq
+and returns EFC_SCSI_CALL_ASYNC, so the node state machine keeps running
+while efct_lio_setup_session() is still queued. The work item then
+dereferences that pointer on both sides of a sleeping call.
+efct_get_vport_tpg() reads node->nport before target_setup_session(),
+efct_session_cb() reads it from inside that call, and node->tgt_node is
+read after it returns.
 
-Bjorn/Manivannan, can you please have a look at this patch and the MSI 
-handling, to be sure this is OK ?
+Nothing keeps the node alive across that window. efc_node_alloc() takes
+a single reference and efc_node_free() drops it as the last step of a
+node shutdown. A shutdown posted from efc_nport_shutdown(), which an FC
+link down, a domain or fabric change, a fabric that rejects FLOGI or
+FDISC, or target teardown can all reach, unwinds through
+efc_node_post_event() and returns the node to efc->node_pool while the
+work item is in flight. The pool is created with curr_nr == min_nr, so
+mempool_free() calls kfree() instead of refilling the reserve and the
+work item reads freed slab memory:
 
-(no further comments from me below this point)
+  BUG: KASAN: slab-use-after-free in efct_lio_setup_session+0xad2/0xda0
+  Read of size 8 at addr ffff8880029dd060 by task kworker/u4:1/27
 
-Thank you !
+  CPU: 0 UID: 0 PID: 27 Comm: kworker/u4:1 Tainted: G                 N  7.3.0-00342-g5b8610135c8d-dirty #2 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  Workqueue: efct-kunit-wq efct_lio_setup_session
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x3f/0x50
+   print_report+0xcd/0x620
+   ? kfree+0xdd/0x300
+   ? __pfx_mempool_kfree+0x10/0x10
+   ? efct_lio_setup_session+0xad2/0xda0
+   kasan_report+0xd9/0x110
+   ? efct_lio_setup_session+0xad2/0xda0
+   efct_lio_setup_session+0xad2/0xda0
+   ? __pfx_try_to_wake_up+0x10/0x10
+   ? __pfx_rpm_suspend+0x10/0x10
+   ? __pfx_efct_lio_setup_session+0x10/0x10
+   ? __dequeue_entity+0xe9a/0x20a0
+   process_one_work+0x6b9/0x1160
+   ? __pfx_process_one_work+0x10/0x10
+   ? mutex_unlock+0x8f/0xf0
+   ? __pfx_efct_lio_setup_session+0x10/0x10
+   ? assign_work+0x11d/0x370
+   worker_thread+0x575/0xf50
+   ? __kthread_parkme+0x56/0x1a0
+   ? __pfx_worker_thread+0x10/0x10
+   kthread+0x33b/0x4a0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x347/0x620
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xbd0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
 
->   drivers/pci/controller/dwc/pcie-rcar-gen4.c | 213 +++++++++++++++++++-
->   1 file changed, 210 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index 50d4b74e63b0..b0440f2c5329 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -14,10 +14,12 @@
->   #include <linux/io.h>
->   #include <linux/iopoll.h>
->   #include <linux/irqchip/arm-gic-v3.h>
-> +#include <linux/irqdomain.h>
->   #include <linux/module.h>
->   #include <linux/of.h>
->   #include <linux/of_address.h>
->   #include <linux/of_irq.h>
-> +#include <linux/of_pci.h>
->   #include <linux/pci.h>
->   #include <linux/phy/phy.h>
->   #include <linux/platform_device.h>
-> @@ -59,6 +61,11 @@
->   #define SMLH_LINK_UP		BIT(7)
->   #define RDLH_LINK_UP		BIT(6)
->   
-> +/* Root Port notifications routed to intreq_pcim_lperr ("aer") */
-> +#define AER_RC_ERR_MSI		BIT(29)
-> +#define AER_RC_ERR_INT		BIT(27)
-> +#define RP_AER_MASK		(AER_RC_ERR_MSI | AER_RC_ERR_INT)
-> +
->   /* PCIe DMA Interrupt Status Enable */
->   #define PCIEDMAINTSTSEN		0x0314
->   #define PCIEDMAINTSTSEN_INIT	GENMASK(15, 0)
-> @@ -68,6 +75,7 @@
->   
->   /* PCIe Interrupt Status 0 Clear */
->   #define PCIEINTSTS0CLR		0x0340
-> +#define RP_LATCHED_MASK		AER_RC_ERR_MSI
->   
->   /* Port Logic Registers 89 */
->   #define PRTLGC89		0x0b70
-> @@ -133,6 +141,12 @@ struct rcar_gen4_pcie {
->   	struct work_struct link_down_work;
->   	/* Allow Root Port event handling after enumeration and until teardown. */
->   	bool rp_events_armed;
-> +	/* Virtual Root Port INTx shared by the port services */
-> +	struct irq_domain *rp_irq_domain;
-> +	unsigned int rp_irq;
-> +	bool rp_irq_enabled;
-> +	/* intreq_pcim_lperr ("aer"): Root Port AER notifications, optional */
-> +	int aer_irq;
->   	/*
->   	 * The controller needs reinitializing; the APP interrupt sources
->   	 * stay masked until a reset succeeds.
-> @@ -565,7 +579,7 @@ static void rcar_gen4_pcie_app_irq_sync_locked(struct rcar_gen4_pcie *rcar)
->   	lockdep_assert_held(&rcar->app_lock);
->   
->   	val = readl(rcar->base + PCIEINTSTS0EN);
-> -	val &= ~MSI_CTRL_INT;
-> +	val &= ~(MSI_CTRL_INT | RP_AER_MASK);
->   	/*
->   	 * Note that rcar->rp_events_armed is not checked here because device
->   	 * removal may still need iMSI-RX interrupts after Root Port events have
-> @@ -573,6 +587,8 @@ static void rcar_gen4_pcie_app_irq_sync_locked(struct rcar_gen4_pcie *rcar)
->   	 */
->   	if (!rcar->reinit_pending && pp->use_imsi_rx && pci_msi_enabled())
->   		val |= MSI_CTRL_INT;
-> +	if (rp_events && rcar->rp_irq_enabled && rcar->aer_irq > 0)
-> +		val |= RP_AER_MASK;
->   	writel(val, rcar->base + PCIEINTSTS0EN);
->   
->   	val = readl(rcar->base + PCIERSTSTSEN);
-> @@ -675,6 +691,15 @@ static bool rcar_gen4_pcie_handle_link_down(struct rcar_gen4_pcie *rcar)
->   	return rcar->reinit_pending;
->   }
->   
-> +static void rcar_gen4_pcie_rp_irq_dispatch(struct rcar_gen4_pcie *rcar)
-> +{
-> +	/* Recheck reset requests after the parent's status read. */
-> +	if (rcar_gen4_pcie_handle_link_down(rcar))
-> +		return;
-> +
-> +	generic_handle_domain_irq(rcar->rp_irq_domain, 0);
-> +}
-> +
->   static void rcar_gen4_pcie_link_down_work(struct work_struct *work)
->   {
->   	struct rcar_gen4_pcie *rcar =
-> @@ -769,6 +794,162 @@ static void rcar_gen4_pcie_rp_events_disarm(struct rcar_gen4_pcie *rcar)
->   	cancel_work_sync(&rcar->link_down_work);
->   }
->   
-> +static void rcar_gen4_pcie_rp_irq_mask(struct irq_data *d)
-> +{
-> +	struct rcar_gen4_pcie *rcar = irq_data_get_irq_chip_data(d);
-> +
-> +	guard(raw_spinlock_irqsave)(&rcar->app_lock);
-> +	rcar->rp_irq_enabled = false;
-> +	rcar_gen4_pcie_app_irq_sync_locked(rcar);
-> +}
-> +
-> +static void rcar_gen4_pcie_rp_irq_unmask(struct irq_data *d)
-> +{
-> +	struct rcar_gen4_pcie *rcar = irq_data_get_irq_chip_data(d);
-> +
-> +	guard(raw_spinlock_irqsave)(&rcar->app_lock);
-> +	rcar->rp_irq_enabled = true;
-> +	rcar_gen4_pcie_app_irq_sync_locked(rcar);
-> +}
-> +
-> +static void rcar_gen4_pcie_rp_irq_ack(struct irq_data *d)
-> +{
-> +	struct rcar_gen4_pcie *rcar = irq_data_get_irq_chip_data(d);
-> +
-> +	/*
-> +	 * handle_level_irq() may skip the handlers after calling irq_ack().
-> +	 * Keep notifications latched if the IRQ is disabled or in progress,
-> +	 * so they raise a parent IRQ again after unmasking. The descriptor
-> +	 * lock serializes this check with IRQD_IRQ_INPROGRESS.
-> +	 */
-> +	if (irqd_irq_disabled(d) || irqd_irq_inprogress(d))
-> +		return;
-> +
-> +	/* Clear APP latches before the service clears Root Error Status. */
-> +	writel(RP_LATCHED_MASK, rcar->base + PCIEINTSTS0CLR);
-> +}
-> +
-> +static const struct irq_chip rcar_gen4_pcie_rp_irq_chip = {
-> +	.name = "rcar-gen4-rp",
-> +	.irq_mask = rcar_gen4_pcie_rp_irq_mask,
-> +	.irq_unmask = rcar_gen4_pcie_rp_irq_unmask,
-> +	.irq_ack = rcar_gen4_pcie_rp_irq_ack,
-> +};
-> +
-> +static int rcar_gen4_pcie_rp_irq_map(struct irq_domain *domain,
-> +				     unsigned int irq, irq_hw_number_t hwirq)
-> +{
-> +	irq_set_chip_and_handler(irq, &rcar_gen4_pcie_rp_irq_chip,
-> +				 handle_level_irq);
-> +	irq_set_chip_data(irq, domain->host_data);
-> +	irq_set_status_flags(irq, IRQ_LEVEL);
-> +	irq_set_noprobe(irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct irq_domain_ops rcar_gen4_pcie_rp_irq_domain_ops = {
-> +	.map = rcar_gen4_pcie_rp_irq_map,
-> +};
-> +
-> +static irqreturn_t rcar_gen4_pcie_aer_irq_handler(int irq, void *data)
-> +{
-> +	struct rcar_gen4_pcie *rcar = data;
-> +	u32 status;
-> +
-> +	/* The line also fires on link down; reset requests come first. */
-> +	if (rcar_gen4_pcie_handle_link_down(rcar))
-> +		return IRQ_HANDLED;
-> +
-> +	status = readl(rcar->base + PCIEINTSTS0) &
-> +		 readl(rcar->base + PCIEINTSTS0EN);
-> +	if (!(status & RP_AER_MASK))
-> +		return IRQ_NONE;
-> +
-> +	rcar_gen4_pcie_rp_irq_dispatch(rcar);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int rcar_gen4_pcie_map_irq(const struct pci_dev *dev, u8 slot, u8 pin)
-> +{
-> +	struct pci_host_bridge *bridge = pci_find_host_bridge(dev->bus);
-> +	struct rcar_gen4_pcie *rcar = dev_get_drvdata(bridge->dev.parent);
-> +
-> +	/* Downstream devices use standard OF INTx mapping */
-> +	if (!pci_is_root_bus(dev->bus))
-> +		return of_irq_parse_and_map_pci(dev, slot, pin);
-> +
-> +	/* Root Port uses the virtual IRQ (always INTA) */
-> +	return rcar->rp_irq;
-> +}
-> +
-> +static int rcar_gen4_pcie_rp_irq_init(struct rcar_gen4_pcie *rcar)
-> +{
-> +	struct device *dev = rcar->dw.dev;
-> +	struct fwnode_handle *fwnode;
-> +	int irq, ret;
-> +
-> +	irq = platform_get_irq_byname_optional(rcar->pdev, "aer");
-> +	if (irq == -ENXIO)
-> +		irq = 0;	/* old DT: Root Port AER stays unavailable */
-> +	else if (irq < 0)
-> +		return dev_err_probe(dev, irq, "Failed to get AER IRQ\n");
-> +
-> +	fwnode = irq_domain_alloc_named_fwnode(dev_name(dev));
-> +	if (!fwnode)
-> +		return -ENOMEM;
-> +
-> +	rcar->rp_irq_domain = irq_domain_create_linear(fwnode, 1,
-> +						       &rcar_gen4_pcie_rp_irq_domain_ops,
-> +						       rcar);
-> +	if (!rcar->rp_irq_domain) {
-> +		ret = -ENOMEM;
-> +		goto err_free_fwnode;
-> +	}
-> +
-> +	rcar->rp_irq = irq_create_mapping(rcar->rp_irq_domain, 0);
-> +	if (!rcar->rp_irq) {
-> +		ret = -ENOMEM;
-> +		goto err_remove_domain;
-> +	}
-> +
-> +	if (irq) {
-> +		/*
-> +		 * Dispatch the child IRQ in hard IRQ context, including on
-> +		 * PREEMPT_RT. Enable it together with the "msi" parent IRQ.
-> +		 */
-> +		ret = devm_request_irq(dev, irq, rcar_gen4_pcie_aer_irq_handler,
-> +				       IRQF_NO_THREAD | IRQF_NO_AUTOEN,
-> +				       "rcar-gen4-pcie-aer", rcar);
-> +		if (ret) {
-> +			dev_err_probe(dev, ret, "Failed to request AER IRQ\n");
-> +			goto err_dispose_mapping;
-> +		}
-> +		rcar->aer_irq = irq;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_dispose_mapping:
-> +	irq_dispose_mapping(rcar->rp_irq);
-> +err_remove_domain:
-> +	irq_domain_remove(rcar->rp_irq_domain);
-> +err_free_fwnode:
-> +	irq_domain_free_fwnode(fwnode);
-> +
-> +	return ret;
-> +}
-> +
-> +static void rcar_gen4_pcie_rp_irq_deinit(struct rcar_gen4_pcie *rcar)
-> +{
-> +	struct fwnode_handle *fwnode = rcar->rp_irq_domain->fwnode;
-> +
-> +	irq_dispose_mapping(rcar->rp_irq);
-> +	irq_domain_remove(rcar->rp_irq_domain);
-> +	irq_domain_free_fwnode(fwnode);
-> +}
-> +
->   static int rcar_gen4_pcie_enable_device(struct pci_host_bridge *bridge,
->   					struct pci_dev *dev)
->   {
-> @@ -854,6 +1035,13 @@ static int rcar_gen4_pcie_host_setup(struct dw_pcie_rp *pp)
->   	if (ret)
->   		return ret;
->   
-> +	/*
-> +	 * Root Port MSIs are not delivered. Hide the MSI/MSI-X capabilities
-> +	 * so port services use the virtual INTx IRQ.
-> +	 */
-> +	dw_pcie_remove_capability(dw, PCI_CAP_ID_MSI);
-> +	dw_pcie_remove_capability(dw, PCI_CAP_ID_MSIX);
-> +
->   	msleep(PCIE_T_PVPERL_MS);	/* pe_rst requires 100msec delay */
->   	rcar_gen4_pcie_host_perst_assert(pp, false);
->   
-> @@ -869,6 +1057,8 @@ static void rcar_gen4_pcie_quiesce_irqs(struct rcar_gen4_pcie *rcar)
->   
->   	/* The MSI status lives in DBI; keep the handler away during the reset. */
->   	disable_irq(rcar->msi_irq);
-> +	if (rcar->aer_irq > 0)
-> +		disable_irq(rcar->aer_irq);
->   }
->   
->   static void rcar_gen4_pcie_resume_irqs(struct rcar_gen4_pcie *rcar,
-> @@ -879,6 +1069,8 @@ static void rcar_gen4_pcie_resume_irqs(struct rcar_gen4_pcie *rcar,
->   		rcar_gen4_pcie_app_irq_sync_locked(rcar);
->   	}
->   
-> +	if (rcar->aer_irq > 0)
-> +		enable_irq(rcar->aer_irq);
->   	enable_irq(rcar->msi_irq);
->   }
->   
-> @@ -945,6 +1137,8 @@ static int rcar_gen4_pcie_host_init(struct dw_pcie_rp *pp)
->   	if (pp->bridge) {
->   		pp->bridge->enable_device = rcar_gen4_pcie_enable_device;
->   		pp->bridge->reset_root_port = rcar_gen4_pcie_reset_root_port;
-> +		/* Route Root Port INTx to the virtual IRQ. */
-> +		pp->bridge->map_irq = rcar_gen4_pcie_map_irq;
->   	}
->   
->   	rcar_gen4_pcie_host_perst_assert(pp, true);
-> @@ -1003,10 +1197,14 @@ static int rcar_gen4_add_dw_pcie_rp(struct rcar_gen4_pcie *rcar)
->   	raw_spin_lock_init(&rcar->app_lock);
->   	INIT_WORK(&rcar->link_down_work, rcar_gen4_pcie_link_down_work);
->   
-> -	ret = rcar_gen4_pcie_msi_irq_init(rcar);
-> +	ret = rcar_gen4_pcie_rp_irq_init(rcar);
->   	if (ret)
->   		return ret;
->   
-> +	ret = rcar_gen4_pcie_msi_irq_init(rcar);
-> +	if (ret)
-> +		goto err_rp_irq_deinit;
-> +
->   	pp->num_vectors = MAX_MSI_IRQS;
->   	/* Reserve an iATU window for the generic PME_Turn_Off implementation. */
->   	pp->use_atu_msg = true;
-> @@ -1018,7 +1216,15 @@ static int rcar_gen4_add_dw_pcie_rp(struct rcar_gen4_pcie *rcar)
->   	pp->msi_irq[0] = -ENODEV;
->   	pp->ops = &rcar_gen4_pcie_host_ops;
->   
-> -	return dw_pcie_host_init(pp);
-> +	ret = dw_pcie_host_init(pp);
-> +	if (ret)
-> +		goto err_rp_irq_deinit;
-> +
-> +	return 0;
-> +
-> +err_rp_irq_deinit:
-> +	rcar_gen4_pcie_rp_irq_deinit(rcar);
-> +	return ret;
->   }
->   
->   static void rcar_gen4_remove_dw_pcie_rp(struct rcar_gen4_pcie *rcar)
-> @@ -1026,6 +1232,7 @@ static void rcar_gen4_remove_dw_pcie_rp(struct rcar_gen4_pcie *rcar)
->   	/* Cancel recovery work before removing the PCI bus */
->   	rcar_gen4_pcie_rp_events_disarm(rcar);
->   	dw_pcie_host_deinit(&rcar->dw.pp);
-> +	rcar_gen4_pcie_rp_irq_deinit(rcar);
->   }
->   
->   /* Endpoint mode */
+  Allocated by task 32:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_kmalloc+0x8f/0xa0
+   __kmalloc_noprof+0x19b/0x330
+   mempool_alloc_noprof+0x131/0x210
+   efct_kt_node_alloc.isra.0+0x38/0x460
+   efct_kt_uaf_after_cb+0x7a/0x370
+   kunit_try_run_case+0x1ca/0x4b0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x33b/0x4a0
+   ret_from_fork+0x347/0x620
+   ret_from_fork_asm+0x19/0x30
 
+  Freed by task 27:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   kasan_save_free_info+0x3b/0x60
+   __kasan_slab_free+0x43/0x70
+   kfree+0xdd/0x300
+   mempool_free+0xbc/0x100
+   efc_node_free+0x308/0x4a0
+   efct_lio_setup_session+0x93f/0xda0
+   process_one_work+0x6b9/0x1160
+   worker_thread+0x575/0xf50
+   kthread+0x33b/0x4a0
+   ret_from_fork+0x347/0x620
+   ret_from_fork_asm+0x19/0x30
 
+  The buggy address belongs to the object at ffff8880029dd000
+   which belongs to the cache kmalloc-1k of size 1024
+  The buggy address is located 96 bytes inside of
+   freed 1024-byte region [ffff8880029dd000, ffff8880029dd400)
+
+Take a reference on the node before queuing the work and drop it when the
+work finishes, so the slab stays valid. Re-check under efc->lock, which
+efc_node_free() holds while it clears node->nport and sets node->req_free,
+that the node is still live before using it, and bail otherwise.
+efct_session_cb() makes the same check, so a session is registered only for
+a live node and efct_scsi_del_initiator() removes exactly those.
+
+The lookup store moves under efc->lock and therefore to GFP_ATOMIC, and
+the two early returns that leaked wq_data now share the common exit.
+
+The KUnit harness used to order the free against the work item is not
+part of this patch.
+
+Fixes: 692e5d73a811 ("scsi: elx: efct: LIO backend interface routines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/scsi/elx/efct/efct_lio.c | 63 ++++++++++++++++++++++++++++++--
+ 1 file changed, 59 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/elx/efct/efct_lio.c b/drivers/scsi/elx/efct/efct_lio.c
+index 67d686dd6fb33..add939366bc6a 100644
+--- a/drivers/scsi/elx/efct/efct_lio.c
++++ b/drivers/scsi/elx/efct/efct_lio.c
+@@ -1062,17 +1062,42 @@ _efct_tgt_node_free(struct kref *arg)
+ 	kfree(tgt_node);
+ }
+ 
++/*
++ * Report whether the node state machine may still have a session registered
++ * for @node. The caller must hold efc->lock, which is also held by the paths
++ * that shut a node down.
++ */
++static bool efct_node_registrable(struct efc_node *node)
++{
++	return node->nport && !node->req_free;
++}
++
+ static int efct_session_cb(struct se_portal_group *se_tpg,
+ 			   struct se_session *se_sess, void *private)
+ {
+ 	struct efc_node *node = private;
+ 	struct efct_node *tgt_node;
+ 	struct efct *efct = node->efc->base;
++	unsigned long flags;
+ 
+ 	tgt_node = kzalloc_obj(*tgt_node);
+ 	if (!tgt_node)
+ 		return -ENOMEM;
+ 
++	/*
++	 * target_setup_session() sleeps, so the node may have entered
++	 * shutdown since it was called. Refuse the session in that case:
++	 * efct_scsi_del_initiator() only queues the removal work once
++	 * node->tgt_node is set, so either it sees the session below or
++	 * there is no session to remove at all.
++	 */
++	spin_lock_irqsave(&node->efc->lock, flags);
++	if (!efct_node_registrable(node)) {
++		spin_unlock_irqrestore(&node->efc->lock, flags);
++		kfree(tgt_node);
++		return -ENODEV;
++	}
++
+ 	kref_init(&tgt_node->ref);
+ 	tgt_node->release = _efct_tgt_node_free;
+ 
+@@ -1086,6 +1111,7 @@ static int efct_session_cb(struct se_portal_group *se_tpg,
+ 	tgt_node->port_fc_id = node->nport->fc_id;
+ 	tgt_node->vpi = node->nport->indicator;
+ 	tgt_node->rpi = node->rnode.indicator;
++	spin_unlock_irqrestore(&node->efc->lock, flags);
+ 
+ 	spin_lock_init(&tgt_node->active_ios_lock);
+ 	INIT_LIST_HEAD(&tgt_node->active_ios);
+@@ -1157,15 +1183,25 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 		container_of(work, struct efct_lio_wq_data, work);
+ 	struct efct *efct = wq_data->efct;
+ 	struct efc_node *node = wq_data->ptr;
++	struct efc *efc = node->efc;
+ 	char wwpn[WWN_NAME_LEN];
+ 	struct efct_lio_tpg *tpg;
+ 	struct efct_node *tgt_node;
+ 	struct se_portal_group *se_tpg;
+ 	struct se_session *se_sess;
++	unsigned long flags;
+ 	int watermark;
+ 	int ini_count;
+ 	u64 id;
+ 
++	spin_lock_irqsave(&efc->lock, flags);
++	if (!efct_node_registrable(node)) {
++		spin_unlock_irqrestore(&efc->lock, flags);
++		efc_log_debug(efct, "node %p shut down before session setup\n",
++			      node);
++		goto done;
++	}
++
+ 	/* Check to see if it's belongs to vport,
+ 	 * if not get physical port
+ 	 */
+@@ -1176,8 +1212,9 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 		tpg = efct->tgt_efct.tpg;
+ 		se_tpg = &tpg->tpg;
+ 	} else {
++		spin_unlock_irqrestore(&efc->lock, flags);
+ 		efc_log_err(efct, "failed to init session\n");
+-		return;
++		goto done;
+ 	}
+ 
+ 	/*
+@@ -1186,14 +1223,28 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	 * ConfigFS NodeACLs.
+ 	 */
+ 	efct_format_wwn(wwpn, sizeof(wwpn), "",	efc_node_get_wwpn(node));
++	spin_unlock_irqrestore(&efc->lock, flags);
+ 
+ 	se_sess = target_setup_session(se_tpg, 0, 0, TARGET_PROT_NORMAL, wwpn,
+ 				       node, efct_session_cb);
+ 	if (IS_ERR(se_sess)) {
+ 		efc_log_err(efct, "failed to setup session\n");
+-		kfree(wq_data);
++		spin_lock_irqsave(&efc->lock, flags);
++		if (!efct_node_registrable(node)) {
++			spin_unlock_irqrestore(&efc->lock, flags);
++			goto done;
++		}
++		spin_unlock_irqrestore(&efc->lock, flags);
+ 		efc_scsi_sess_reg_complete(node, -EIO);
+-		return;
++		goto done;
++	}
++
++	spin_lock_irqsave(&efc->lock, flags);
++	if (!efct_node_registrable(node)) {
++		spin_unlock_irqrestore(&efc->lock, flags);
++		efc_log_debug(efct, "node %p shut down during session setup\n",
++			      node);
++		goto done;
+ 	}
+ 
+ 	tgt_node = node->tgt_node;
+@@ -1202,8 +1253,9 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 	efc_log_debug(efct, "new initiator sess=%p node=%p id: %llx\n",
+ 		      se_sess, node, id);
+ 
+-	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_KERNEL)))
++	if (xa_err(xa_store(&efct->lookup, id, tgt_node, GFP_ATOMIC)))
+ 		efc_log_err(efct, "Node lookup store failed\n");
++	spin_unlock_irqrestore(&efc->lock, flags);
+ 
+ 	efc_scsi_sess_reg_complete(node, 0);
+ 
+@@ -1215,7 +1267,9 @@ static void efct_lio_setup_session(struct work_struct *work)
+ 			efct->tgt_efct.watermark_min : watermark;
+ 	atomic_set(&efct->tgt_efct.io_high_watermark, watermark);
+ 
++done:
+ 	kfree(wq_data);
++	kref_put(&node->ref, node->release);
+ }
+ 
+ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+@@ -1231,6 +1285,7 @@ int efct_scsi_new_initiator(struct efc *efc, struct efc_node *node)
+ 	if (!wq_data)
+ 		return -ENOMEM;
+ 
++	kref_get(&node->ref);
+ 	wq_data->ptr = node;
+ 	wq_data->efct = efct;
+ 	INIT_WORK(&wq_data->work, efct_lio_setup_session);
+
+base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
 -- 
-Best regards,
-Marek Vasut
+2.43.0
+
