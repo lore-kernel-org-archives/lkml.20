@@ -1,69 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569239;
-	b=UruytLLskzNBM346mMuuyL3/HdBDuZmSomlkmc18vwF1Llzm/zutWtKvgmv/n6hxIZgK
-	 atOnWJxpQG8K+sQfo/K4p5fqJo3tbcswMfxkh2dxT4d+wgalW+IZsqI4GTtdtJduz/uwX
-	 HAY2bos5G1oSiYFyPXvdG3b5Kt8bqSykSgeu58QsSsj3V4Ph0mtBN0ZGSP+gw4tK2UHr1
-	 CcjIG5QDTOKe5HvuVY7mAPiHQk09u5VhpqWjLbrx8cpSBZMPdhGpk47NMcXTBcFvNBkMd
-	 45VLsAOqWTCw0dkTBYKXjOfMjdtCJaVWPEJgGzRGXdDX7oJ0YZx6Oca/xhdB1BASl1Q==
+	t=1792569275;
+	b=VU8oGQ61ATfmOL2ZigH3KUj7MQTQpclgu6X+0jGHUZ0cvy8K6c+9dHdNU+wQ5kf2CuTg
+	 S3puTvCkSANTThDAlQNLas2lCjC4vtUjSPdNWhByuxYhevqt/SGrna8gkknSBPo+JRePR
+	 h6umJS/4ZgAzH8+QmfGUJwhO+tPOHxLF4MNYeUacciqgZkEdQIxAb+GRC/AyGHuJ+tCDP
+	 bk8WdOi/b/f80nAC8HZLsDfFsw/rxL+bHzrSrbYpGIlaWTphHMHk2U4l2FgoOtuzK7RH7
+	 h6qmleAQj2bv0kVRNdJuD1hhC3Q4/I2jmP4eaps/bNxM/vJlpZ/NXQ+PgG5gjV3nmhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569239;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	b=mAJavTvE/zVdaAH4O3JJKVKCoOpomz2QYKI8ORazYv3l8bz6u/iBqmTnZE5i4IvzYrV6
-	 XtDLog8G/e9mJ0WNIrltndPhQPid1maJGoLXDpvveGl15jJGZ1eB9P3EcpaGVHxEeqv5t
-	 VJHcK3cupO9RMfS9Hq4O+zkaMhjjcwxfj2Jx1Mj9i5grtfCQJMDHucwSK8Ug+TameIwtw
-	 FcoNlhGGhf2RsM+It1/BTVCVTUXlssslBgihbmVk/Pe6vi7Oh5ViVOmCwKKE5S5IxVf8k
-	 bgqTd3bFteoG9/2/Unb5IDFtQrwMH4nMvrLqjRiNP/i1vtZJkHX1A04eS88Ue1oH7UA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792569275;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=P5jPyrsipjOZRyAQQJ7dr7r5vLtteQsHq4fMoXGpg2g=;
+	b=yxmeYI3mf1/okmrme3ONAbweaWKlqr3hMEQLlxkYCj3x8CQI3Xu+Su+gQx2vLqg8u7cD
+	 auAf+/nBWuCH/+FBenV59HIR28KKkNg7+TkwaVr8Sb6wn0X0qIfOFBcGjKTY03ZGhEBSC
+	 jZgNkv2MV7BGSZ8twSd4lWP+e1oVVj9LUgV7fE1dwhhb/bn7cL8NU4NYBaYB5doDxPmYr
+	 oNGUEa2jWYIGms4KRc/3aCXX+UTcEYP6PETujQdu5DUOIfqhN3WWdxjvQZAVJmq7sIkLt
+	 J2e7alPeO/M06ny3bzXw6Kft+f7l5SU+V1QCWuZGdv9zh3eAKsGwri7ZbT+jxIna3PA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGcqdc+r;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZ86Xyzf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F109C606A319;
-	Wed, 21 Oct 2026 07:53:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38057606A319;
+	Wed, 21 Oct 2026 07:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oGcqdc+r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F1B61F000C9;
-	Wed, 21 Oct 2026 07:53:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZ86Xyzf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D75A1F000C9;
+	Wed, 21 Oct 2026 07:54:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792569238;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oGcqdc+r/lbAvimEPgmLHYcBozq1kF4RzvnB/6T5NZkr7zbetu8VpVJ7dNr9NAMio
-	 EQbOoM55camCNlZFgeEg9lvKVClnVlvZwaZacgwve7PtnnD8pWA3BcXP/mXxJtypeL
-	 y5Xatyay1IFRQUDjE8k+qdnHpOdiLqXcZe3tvXRDAXdCtngnP8OBs3+vciNswT4NE+
-	 83XrGhb/5KRbnoJbJNoeIuuwjps1cz3/ETx9bkvl3BpYxdENOxAtxs8Cgdiqq7IciO
-	 vwviyWulXzQbQzRXvn0vYx29eDZ5s241W9vMx8u25TkJ/Ll19rsahuaOyb7+5SEPLR
-	 doqw+otHB2kOw==
-From: netdev-bot+sinfo@kernel.org
-To: Tariq Toukan <tariqt@nvidia.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, Alexandre Cassen <acassen@corp.free.fr>,
- Alex Vesker <valex@nvidia.com>, Erez Shitrit <erezsh@nvidia.com>,
- Gal Pressman <gal@nvidia.com>, Itamar Gozlan <igozlan@nvidia.com>,
- Kees Cook <kees@kernel.org>, Kees Cook <kees+treewide@kernel.org>,
- Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
- linux-rdma@vger.kernel.org, Mark Bloch <mbloch@nvidia.com>,
- Moshe Shemesh <moshe@nvidia.com>,
- Prathamesh Deshpande <prathameshdeshpande7@gmail.com>,
- Saeed Mahameed <saeedm@nvidia.com>, William Theesfeld <william@theesfeld.net>,
- Yevgeny Kliteynik <kliteyn@nvidia.com>
-Subject: 
- Re: [PATCH net 0/3] net/mlx5: Fix HWS and DR steering memory safety bugs
-Date: Wed, 21 Oct 2026 07:53:56 +0000
-Message-ID: <179256923674.3290.14436892609029206565@kernel.org>
-In-Reply-To: <20261021074949.3471704-1-tariqt@nvidia.com>
-References: <20261021074949.3471704-1-tariqt@nvidia.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1792569274;
+	bh=P5jPyrsipjOZRyAQQJ7dr7r5vLtteQsHq4fMoXGpg2g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UZ86XyzfhwNabrc+QWFmxGXjzb7EhgJUd1pofbSnKz48KeQijP6qHrA8/F+dPSHe0
+	 OkCsfPUFRcJhka442PrynUwtbz/LZnrC6nOAim5D42vLkXJ8WVWjnF2cmPOewyAEUz
+	 4RXtwdlT9DU053wSmzojk4NTsrD6gzkgd3fX1QcIPy5asJuI4msw6AoJSes1AkU6vm
+	 nlR137b35oqUnoaqK+I1XKh1gAEj5oHuJwviS0PzQttPTJu5N4j9bGYB0M2rey510H
+	 5JiNNGep/ZSbXp0RnbwfzfTVybeOcM7XXfy1+UzeyJiv4u23W+ewaAkwTWdy3ow4tS
+	 d/SGEVdZCoNbA==
+Date: Wed, 21 Oct 2026 00:54:33 -0700
+From: Wei Liu <wei.liu@kernel.org>
+To: mhklinux@outlook.com
+Cc: haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org,
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH 1/1] Documentation: hyperv: Update information on guest
+ CPU offlining
+Message-ID: <20261021075433.GK851443@liuwe-devbox-debian-v2.local>
+References: <20261017160848.14730-1-mhklinux@outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,29 +59,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261017160848.14730-1-mhklinux@outlook.com>
 
-Hi!
+On Sat, Oct 17, 2026 at 09:08:48AM -0700, Michael Kelley wrote:
+> In Hyper-V Overview documentation, remove the out-of-date reference
+> to explicitly reassigning VMBus channel interrupts before taking a
+> guest CPU offline. Instead, reference the VMBus documentation, which
+> is already up-to-date on this topic.
+> 
+> Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
-
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Applied. Thanks.
