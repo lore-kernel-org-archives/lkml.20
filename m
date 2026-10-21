@@ -1,87 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792615203;
-	b=qBd5cm8M+hc3ZkszlZv8ynVRQV36K9TZPoPE3kjeKRGyVVzONb924RRsC4xSuEMMzq85
-	 ujRcXuWgfXMe85gsht2GglCmpDaLvwj5cAkbHosjVg9NvmAJMKWD8RPfkDfzR8g0ADB4+
-	 ue+6dwNMFnhTsSvgoNxa/9ea0PqT3C7XuPeLD34R1B4Y3o1lTObdoGulicktnJp2R8RB2
-	 J+7jlqzt8Jcvq/RxwKwb6yVHdiTilNOWHCKARZLftEaspKWPtrRW8SlWbYqXx8UYh3Igm
-	 IQJoU0HStgn0P/rcn9YBJM3Aph3U3TNAx60lXHB/LFF/5BTcued3LH7+D1IQu4nqQZg==
+	t=1792615255;
+	b=yHR+lIqbJRQkShumnOproIe6RM9aT+uIHBHopx86IC+0GnaxyD+DSU6b0Grt8S5cUjWj
+	 7jpFMfMznC2qQaOWhTkflZC5f/TXLBq8vfISpHPDG4SDGULvujNuQEHmG0/P4a+lTJIZ+
+	 pzRT3erEXCzIfYszvM2AEWWNM9eE9ZTqlYhaYZbHLBKgdDIljNBvD4dQJ+u1rp6W03Tc1
+	 cJdADaD17PzJNEX88YP9GwPNA+BDhKC1ecYx4Zk0hhQPmg/ErUHKUrtyLxOFmjaJwDYjn
+	 8aDuO5ybG62+B3aDjoEEHYHu6gyGj2LGCW2w1vedpxcSr3H6/Wtd2h/egKvK8LBDKvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792615203;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Subject:
-	 From:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=juErZhvjoSkm5e8GzLZMCvXuam8Gd7RIkFvc7uAIv/w=;
-	b=UcYv+vx9ZqqA9UhAdIz1qfg2kmZt/7Vf5XjzljVtyf2MKTwX+1nb6BIRuEMMZ7FTLFJ1
-	 tqA6dITvq2PhezWkbqhELhEJpX6VskvneqzWF2D17rK5KhEEqZRVW5SwTrUas0G6oh40o
-	 T/gGluOUdmf/dT8QGoihOJZpVniIB6eCPZcpSc8sEybqecXYX3NQLdaYrJdSwagsLoeWs
-	 a4bjiDzsQomiffB8n550rFWvS1B1SydZsbz2aEfgPZu9+yiD2xUx4Mr5Iz/57gSrN0DAW
-	 MptGu/Bir86CO6fBNNE33w14kuEj1t07rr4wu7Ak+3VaOpfcs41WoCU3DeGVI83rsOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792615255;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=GSL1GGdImg9hl4VmD8JgKMsvGIQDNZPkKDE0HV3fsIk=;
+	b=CnGukwZKFYo7tdWeFVGnunkGSvcInrz0+PZTkIH30dUHuv3zmSsAf26j/Zr14k0x3pnF
+	 aq8DEmW0alVO5/8nYtjlzz4uJUZr5MDqy2TdVswUmlJK+pO9RPUE8ZS4UUNK/rTadC5nj
+	 vpdejmlh0lRCo7dS5RIrFUmbg5VQXOjUf02wQgRp2lcSNsuuYDW+dxrwNAZ4BVDO0bn2J
+	 MUPFfXlgn7AZvdiU/IGql4joNt6sZDsUCs+Zcl86xwCnO1Pca90FcQ6d/U/MMiqmVzKgj
+	 KdBFYshNFlmXCJ9jHZkN2CeDpovDpH1U8qJRI4jtJK8YX54xcaebqD6frTjuKIvYHiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GhlogCuR;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bY6t7Nko;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC93B606A32C;
-	Wed, 21 Oct 2026 20:40:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC93B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28612606A319;
+	Wed, 21 Oct 2026 20:40:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=GhlogCuR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792615203; x=1824151203;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=J5q7gxHb9njBGGMG4RpHoR7VIzzwmBGZbkkvnhJBKA0=;
-  b=GhlogCuRzdBGj7MCL90UYCwuatoGstdFI+z8Mkh9vAOZ7kmSsPT8GFQP
-   PEEwTcmrA7jED8800DRTE0vyO4Eys1zAYqWJhPjxkoZwxCavsGkQepII9
-   ejY0v9vkZeQM+YZGESE+03KMofZ9cfzR/OF+aD9z98VCfgsN7oBqRIcwc
-   dhrFDOpMg0w6Fre2aTCpHjGQEDGaPeCEIQDda71C36MqrXpgf7cIIRfM1
-   avB5fsNWGJAHUSX/TL0qMmFq+p9xbm1wfF/16X4sSeB9xCWw7uqBmfa7p
-   WrhtSinP5rjPtUpwODW1dpl1UOpAEa/OOdLvnvdSkJWndetAFOg95heD8
-   A==;
-X-CSE-ConnectionGUID: aPs//FJdTpab+oEjulmjTw==
-X-CSE-MsgGUID: 8nKBQ0jYSImbr5w7OyAcyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1257293"
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="1257293"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 13:40:02 -0700
-X-CSE-ConnectionGUID: x2Z9GKP8TG6vbIsZ4Fic/A==
-X-CSE-MsgGUID: 3/BEZK9pTXOVpTGnUawn+A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,170,1787036400"; 
-   d="scan'208";a="4982516"
-Received: from unknown (HELO [10.241.242.209]) ([10.241.242.209])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 13:40:02 -0700
-Message-ID: <cbf93381e02861620b012ace93c816f2c0822fea.camel@linux.intel.com>
-Subject: Re: [RFC PATCH v3 bpf-next 1/5] sched: fix stale get_pref_llc()
- stub for !CONFIG_SCHED_CACHE
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Yafang Shao <laoar.shao@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, 	andrii@kernel.org, eddyz87@gmail.com,
- memxor@gmail.com, mingo@redhat.com, 	peterz@infradead.org,
- juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	akpm@linux-foundation.org, david@kernel.org, gourry@gourry.net,
- tj@kernel.org, 	hannes@cmpxchg.org, mkoutny@suse.com,
- shakeel.butt@linux.dev, 	roman.gushchin@linux.dev, yu.c.chen@intel.com,
- zhao1.liu@intel.com, 	lizhe.67@bytedance.com
-Cc: bpf@vger.kernel.org, linux-mm@kvack.org, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 21 Oct 2026 13:40:01 -0700
-In-Reply-To: <20261019064157.29885-2-laoar.shao@gmail.com>
-References: <20261019064157.29885-1-laoar.shao@gmail.com>
-	 <20261019064157.29885-2-laoar.shao@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bY6t7Nko
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0654E1F000C1;
+	Wed, 21 Oct 2026 20:40:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792615254;
+	bh=GSL1GGdImg9hl4VmD8JgKMsvGIQDNZPkKDE0HV3fsIk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bY6t7NkopaHQe5aa/mdvJAALDELewJyZEq+q1bwFZuNAuIm53sdBHodM6puPc8Mya
+	 OghPky/009O4iGSgpCnSZvVtdQUi1re/Zb0Y9X5IA6gCj77I5g2Th+1lthOCevqsGS
+	 F0IU62MlXLPaFNFCvwmVweGu+7hTD6pxwbBjT9zJlI3NLRBz9fD6YIKtkXUKyAbeZo
+	 u8eMWbIh25rdKMyclx45baYwDh6GpZFssI2Bw0LC7wXwZ0YOqJINS3aH9BuDbAxGWE
+	 cHDhV6orObUIybY6QLvujsX3XZuB0zKRfiyWDsCxtk+ZbYGb80RnU8wRd1XbTrR8sH
+	 +QgoqAfmrbs1Q==
+Date: Wed, 21 Oct 2026 13:40:53 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Wei Hu <weh@linux.microsoft.com>
+Cc: longli@kernel.org, kotaranov@microsoft.com, davem@davemloft.net,
+ pabeni@redhat.com, edumazet@google.com, andrew+netdev@lunn.ch,
+ jgg@ziepe.ca, leon@kernel.org, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, shradhagupta@linux.microsoft.com, horms@kernel.org,
+ ernis@linux.microsoft.com, stephen@networkplumber.org,
+ netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ gargaditya@linux.microsoft.com, kees+treewide@kernel.org, kees@kernel.org,
+ mawasthi@linux.microsoft.com, weh@microsoft.com, edumazet@kernel.org
+Subject: Re: [PATCH net-next v8 0/4] net: mana: concurrent HWC requests and
+ dynamic queue depth
+Message-ID: <20261021134053.74169d5a@kernel.org>
+In-Reply-To: <cover.1791998462.git.weh@linux.microsoft.com>
+References: <cover.1791998462.git.weh@linux.microsoft.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,45 +66,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2026-10-19 at 14:41 +0800, Yafang Shao wrote:
-> Commit b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp
-> to fix UAF") switched get_pref_llc() from taking a struct mm_struct * to
-> taking the task's struct sched_cache_group *, but only updated the
-> CONFIG_SCHED_CACHE definition and its caller: the stub in the
-> !CONFIG_SCHED_CACHE branch kept the old mm_struct parameter.
->=20
-> Fixes: b636fef85bda ("sched/cache: Introduce task_struct->sched_cache_grp=
- to fix UAF")
+On Fri, 16 Oct 2026 12:06:11 +0000 Wei Hu wrote:
+> This series adds concurrent HWC request ownership and negotiated HWC
+> queue depth to MANA. It starts from depth-one bootstrap queues, keeps
+> setup private until the final channel is tested, and preserves the
+> distinction between CPU lifetime and PF ownership of DMA mappings.
 
-Cc: <stable@vger.kernel.org> #v7.2.x
+Please respond to the netdev-bot AI review in a timely manner.
+(You can ignore the global review bot, it's not even CCed to
+netdev so maintainers don't actually see it :/)
 
-> Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
-> Cc: Tim Chen <tim.c.chen@linux.intel.com>
-> Cc: Chen Yu <yu.c.chen@intel.com>
-> ---
->  kernel/sched/fair.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 57360f5cdde4..973647ad6c2d 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -2194,7 +2194,7 @@ void init_sched_mm(struct task_struct *p) { }
->  static void task_tick_cache(struct rq *rq, struct task_struct *p) { }
-> =20
->  static inline int get_pref_llc(struct task_struct *p,
-> -			       struct mm_struct *mm)
-> +			       struct sched_cache_group *grp)
->  {
->  	return -1;
->  }
-
-Thanks for catching it.
-
-Should be backported to 7.2.x kernel as commit b636fef85bda
-that this patch fixes has been backported to stable.
-
-Reviewed-by: Tim Chen <tim.c.chen@linux.intel.com>
-
-Tim
+Can't tell at a glance whether the Medium / High severity issues
+are indeed valid or nit picks, but since the merge window has already
+started let's revisit this after. Please repost in 2 weeks.
+-- 
+pw-bot: defer
