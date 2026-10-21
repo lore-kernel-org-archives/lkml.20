@@ -1,131 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562627;
-	b=V8q3cDCPaHBtloarOuA2LgAVFKg7gu4MN+8FZY4lBp5QjyK1K4lV5tvFZCAPoZSSxm+t
-	 R2QHAE7WN+TK7I+uHA4QYq8/wWZnsUfxPpQqUHLAC6C2xRuzu2JHK9qLHKclmn/Ix5pSQ
-	 Js5LcKN9lo9JDffQBVQMlPD1+cjOUo3Usg0AmCVX7MGbKd2N1YOfHa00y/fCiFI9Q2teA
-	 SUyqaeIxLEMEeS5Wfz1yCeb424iUgbNJ5INHTdHZ/m/0HWFqNVxLSiTNltomodA7WMN5k
-	 //mc0ADfCecVuqYSHSp+9tzvf02BNuoWaUts8CiOAJcw562ZVYrf8qKDccQFW2nRAsA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562627;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hXV3pXzpnzs8U7BbqpWsaUJNBuB8eNBkejRWaj9fiJ0=;
-	b=KXAEpjr4WdtkQhqxrI7w8X6blTdfP9aaPyFAv9o9PlEoralOBwq+uvVNJ8kX9NHOY8Zq
-	 NO0R0zDf82tI2eyZWZNV9HsiZ3Fb8/1L+pVFfFsm+LpDRfSNJAYLfF0XeQmgkKrRu8bPT
-	 CjJMUEfCtGrcueq09lgk8Dh2e2aSvoGs1md5horrpZb3q5MsH+/waA/9vbwcnqxWzQFBw
-	 ia9c5JAFh7u+bDTPKMQ3sBR8thxshXQOk2kISvbf4icGWxGq7bOVuPAyykZGoNnK6kgYe
-	 JZDLveWqa8ZtpMLVDx0aHTwb+PqAvrk01Gm2M6nZfoCALdt6FYE1iRnPQjJcwZlRAhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iN4WdV09;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792562623;
+	b=xxzocpGGKqol3ZROBfSLiV5vX2qlvPtywr3ZjET304Rgo3ECQEuDQf142lJCa0D6JrsL
+	 ge5mgjak0rqA7Mc8tZdAuygZOiojqffDvvWde5oFCkPM3YuOdeQel2+VjSVa93jALfc7R
+	 JztHjMMaHV3u2PkRQMRya4tyqZ2Hv494ujQZQ9PL95pOpHmP9RTjN4iOrGNzsxS0d0dHB
+	 ydwf7IdlB0g3GznWXhxJWIzFZd2lUkUetHN8ojcnj7Zv8BHV+T2Ei/cgq+Je+xsGt6401
+	 1SYmQfJFcrGYYjwYN24o6tshrfT/6WF0KMG79PjMrz/gLEuE13R6Lf45EoJ4sJ9PwBQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562623;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ep7Ww2T+FtQvzhxoYxdmZr4RCZRzuoB5nE4UdbUykWk=;
+	b=u9eCbAm6+HghylmYU78OkbfGDLTd5r97c7Lqif1e1rDLwSPmVgd2X1d45Dm4M7PsdUmv
+	 dJr9DByYGddlLRrejT7a/4maLKNYN7zvQmW8Mcvsu6PqXW9MAxsRMdVCrm3tNlYllCGyw
+	 un0ucD+LCYaVB1BHP4MMOLCRSW/nINXJ1Ddg24kORChutBV9iN08qy9PtioVfaBaTA0cG
+	 rhy+YO8Nbhfr6OqX7cFD5WLUuIJg92QH0/ayacqld0IgdJ+P7NfhHlnvf3DOuF0S1Fby2
+	 kddy5yI2IItE5I9b4DcdfiZVF91GH3F28vEtsQ8X+YI4NDA7Kn29yQLAB7vJ8kz75qQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2lpmZ7o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1C63606A329;
+	Wed, 21 Oct 2026 06:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k2lpmZ7o
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792562622;
+	b=uDcqk5tSwktQhPDs0NHLyFNa7K5eWBHvtTVUsjBLrUjyDtxaD3vePFxO5O0aCSSKOC4S
+	 z/8Jnse7gg1bBgMRVRjAKFqEmNVRxXnqaMivD7ldPKzDkJ+Fapqa82/ikuj0ydIj/AG7x
+	 iNU7tAsnPeRezNblfxLqCY7uEBLXA2ZSODlB4DsQUVwisXAFo9qQC76i3rOOxPMXmpcRM
+	 xOE2k4Bn5iXRDl7IjuwP4EGNjnsjOvpd7jsgd7ug3wwRtcWiydOyejU9tUHjVGPu3jA2t
+	 uc/nhhTQOjlESpf7WMEU0WpmELPtv8pKaXQeK7FkjCy+L1d+xVHOSkv9X+8SN9aewKA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792562622;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ep7Ww2T+FtQvzhxoYxdmZr4RCZRzuoB5nE4UdbUykWk=;
+	b=ASkP0Ffdc5b1kZxOFBsFv/EheUu4sRCzn2Sdh2sgyVCeGFf1vXGV1o+1msREivh684ad
+	 Mqcg9WrD8qsrygnqyOwVa3t5qdi9sCRYrjo31V5DRVt0VdUGWhu1pSkjXb4hvOIBy9PTW
+	 Xz6xZycqFVVOSP/jFinY/wmZYC8zF0v46YpUN2MvDkCOo7eeUT2+l61FHAR1MFpXdMveL
+	 pChblRMNIpZi7sMzrsuU1e0meKrVRuVydh7QOrJsqB3i7Yn/cJgieRzGBUpUF94CipThR
+	 VHbtJT2pXYj0Olrg2Ln060zmmU9cX1Ftt6pcRIq0ToJ5zqEujTNqSIBj4hZeBGvXt4A==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F5260A2618
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:03:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F5260A2618
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=iN4WdV09
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b13c7bb0deso61127b3.1
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:03:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792562626; x=1793167426; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hXV3pXzpnzs8U7BbqpWsaUJNBuB8eNBkejRWaj9fiJ0=;
-        b=iN4WdV09dBPlOo3iHc4DGXc6vYHT2MEVxnumJU9t1WuWpjPUq3TwTuyg6GiHw7ztgk
-         kuitYNZHRlPT6h3tq/LRTE78topov3d0SbZW1w0MPcLMz0MSrFrP8eqPS+10km8JJrqG
-         NLVxsyO/X+ptQ28S08psLuo8vITHFV3czqCkgxJqHIkmeAKGZB2KzxS+qst0RgCNDsSk
-         /r3iqeMyE/73vQ3SHoXsYeY7Vb36tWO/dQ8vnaoDJf3V3nqxmx8XJaVPlnTK/6dd5H7/
-         7pERuPDrlduolwc9pJCvaWmEpFUW0M2RU7o/BwJ+Y1gbcWZB6qp7JFZtI1nSChcpuZh/
-         +mLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792562626; x=1793167426;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hXV3pXzpnzs8U7BbqpWsaUJNBuB8eNBkejRWaj9fiJ0=;
-        b=Zy9IzRrqXp62QiMekYpS+Ra/9mOXH3rMMueXX3Hm238ddY4yo11WuRLhml3UkkaDiF
-         e5xFzpaf91zR4S8Sik1Bu+cgcnX/rapwiC15z9mfldgz4Xxysr6JklWxFl/xc6lsxaKj
-         m2Ovy+0L9LKVDMyj1VbepQfe08dHo2zm46oMc3doCpdJqJ7y5sT0rp6/pdVNh0Cd5zxK
-         xvLstxYa2VqM8VGHNv2K29zWfrg/2vIGuVI/mqRzWGByuW3fzZKDSUhQfFnwq4dm2dYO
-         sEMlDzgAdN0xxz0liJ247hGyQGouj0NtfHXKIFztgouPbpJehaqR/9YPSdt0hTzWsK1p
-         NQSA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9+Tl+j0tdvZDyxiocZPAOvuHtHJDthePhwUqxB0UEzYHD2djtKomaaf0IhCKVW1eGD8DBOpwLqIvLCNI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUZ0zbEF6+R68P9hmtrwRKfosCm8q39rRgZ+Vd9XSahaYyoNK2
-	fN9Xa5RaNFrH67UWT5q7jdjNfCrEaoNSJNlGa5XctD529B2nxWxL7VR9
-X-Gm-Gg: AYBFou0X4JI9gEmLJFobARL/6sZ24Q5jqhVNiKxnDiVNbMww6SHHx0md/CUPszT27w2
-	QPB1sfj8M5n6YV5gTe53Qr/mXYPAJ5/6wvfrNc9XrzPAho4xOw4V7ThOosGd+x2QzE247Z2l8xC
-	jnDKuI9Gw6FJ71HdHI2UWmzTkou4PAxXURVvavnO+NhkuI6ViU5zGtddI8+Yan5AulegYoeOkeg
-	6NWdgbDsAqz5UFtJdFn0IrTZUD7nA4kbMh7D3K9Y9efFGCOYHjliRnzbHgK0oLxBE5oK7jdrXTI
-	Afkysv1nRBfxihQnLWMlBrnzSMqnXgha5NyEu55YhIu2xg7lsgjoYBf3sESf1GOz3TXckQWiEyl
-	EgaqjZY2l3/H/DcavTLuLkvYcZUbGT9fLWUqw6r01KhqEmWni6OFNI5W3vuXBtQUPcNrFvTOx3z
-	VjZ1ZVM/p5RxM4OAWu2k6T9lyZdgxn2IdXhBttBMCJHuvWB2Bmj9o+1fU35BSjgM7f2PzkQB+Q2
-	6J+Myjbmko+T2nIubVQ6ky6oPIPv1gwdqD5pLaNY8WeGH8bpx5nG0hbXM/WRjssMmnAQ8hHCuIC
-	I44go72Mx5OJewBF7dQYVwZUyK5UduS8hVUT1a2cFO/SHJqWqeTAjDdaLT5ZYNk+
-X-Received: by 2002:a05:690c:e3eb:b0:8b0:89ea:6aca with SMTP id 00721157ae682-8b133cdd929mr5826817b3.6.1792562625774;
-        Tue, 20 Oct 2026 23:03:45 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:50::])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300ae0c2sm7348597b3.18.2026.10.20.23.03.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:03:44 -0700 (PDT)
-From: Nhat Pham <nphamcs@gmail.com>
-To: akpm@linux-foundation.org
-Cc: chrisl@kernel.org,
-	kasong@tencent.com,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	yosry@kernel.org,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	shikemeng@huaweicloud.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	chengming.zhou@linux.dev,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	qi.zheng@linux.dev,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	riel@surriel.com,
-	gourry@gourry.net,
-	haowenchao22@gmail.com,
-	corbet@lwn.net,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	tj@kernel.org,
-	mkoutny@suse.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	kunwu.chan@linux.dev,
-	kernel-team@meta.com,
-	nphamcs@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: [PATCH v6 06/12] mm, swap: write back vswap zswap entries to physical swap
-Date: Tue, 20 Oct 2026 23:03:17 -0700
-Message-ID: <20261021060323.553433-7-nphamcs@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021060323.553433-1-nphamcs@gmail.com>
-References: <20261021060323.553433-1-nphamcs@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 980EF1F01575;
+	Wed, 21 Oct 2026 06:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792562622;
+	bh=ep7Ww2T+FtQvzhxoYxdmZr4RCZRzuoB5nE4UdbUykWk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=k2lpmZ7oc8XaIL0lqi3dnbjYW0DObN3Yaa3k7Ga/Hu9l2aqp7v1PR7gEPXev76APl
+	 5K6TYee3UaZSjOKrKTVhfEtJ3YsACuXBSyALHmNft9zSIe4lSfgSekKZAcPI6xQyXr
+	 gpxP9gcbVJyPjZkfikEIX4i1DVJXlxC7ubScUtufLbYLFWl1H9wBV6WEdz9k0AiGda
+	 i5DIESk/hbePpkwKjXe0rXHboMCC4ST/OCinXVB5jGtS+H3bUf6LJ8aOZN5VQLjTWF
+	 lDGWxJj43/LQ8So/tGdGpEJWkT5isCJlqHOQlBAEL5ct6r9t2wJJn5nCEFVuGqbyCt
+	 mOWIpvU0NuYfg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0F2EA432E7;
+	Wed, 21 Oct 2026 06:03:29 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 21 Oct 2026 14:03:29 +0800
+Subject: [PATCH 5/5] media: i2c: it6625: lower the minimum pixel clock to
+ 25 MHz
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -135,183 +83,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-upstream-it6625-dv-timings-fix-v1-5-5881babdc4c2@ite.com.tw>
+References: <20261021-upstream-it6625-dv-timings-fix-v1-0-5881babdc4c2@ite.com.tw>
+In-Reply-To: <20261021-upstream-it6625-dv-timings-fix-v1-0-5881babdc4c2@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792562608; l=1952;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=klea6SVvI1iLUVpDr4o27dnQb1TtSzgZeTrQd969SJY=;
+ b=z48XEC6FXP7koznRc/181L/fyA8iDSMjKxI4/uZhUiVKx2QfKNDhJq+F65SVfr0ZDrDyg9TGa
+ HGS0noITa9fBRQcFieCEsfaBLKSDe/iwIAZ7t3PUB0Wy+nT0QKc5pMd
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+Content-Transfer-Encoding: 7bit
 
-Add support for writing back zswap-backed vswap entries to physical
-swap. The mechanism mirrors the existing zswap writeback path, except
-the backing physical slot is allocated on demand at writeback time
-rather than already being pinned by the PTE.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-Zswap shrinker only skips vswap entries when we're out of physical swap
-space.
+The 27 MHz minimum pixel clock rejected 640x480p59.94 and 640x480p60
+(25.175 and 25.2 MHz), the lowest CEA-861 format, both in
+QUERY_DV_TIMINGS and in S_DV_TIMINGS. A 27 MHz format whose measured
+pixel clock comes out slightly below nominal can be rejected as well.
 
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+Use 25 MHz as the minimum. This admits the 640x480 formats but still
+keeps out the 13.5 MHz 480i/576i presets.
+
+Change both timings caps. The minimum doesn't depend on the CSI-2 PHY
+configuration; the three-trio C-PHY cap only raises the maximum.
+
+Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
+Assisted-by: LLM
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- mm/zswap.c | 69 +++++++++++++++++++++++++++++++++++++-----------------
- 1 file changed, 48 insertions(+), 21 deletions(-)
+ drivers/media/i2c/it6625.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 1b91dba992ab..fd0c2f126b57 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1076,12 +1076,13 @@ static bool zswap_decompress(struct zswap_entry *entry, struct folio *folio)
- static int zswap_writeback_entry(struct zswap_entry *entry,
- 				 swp_entry_t swpentry)
- {
--	struct xarray *tree;
- 	pgoff_t offset = swp_offset(swpentry);
- 	struct folio *folio;
- 	struct mempolicy *mpol;
- 	struct swap_info_struct *si;
- 	struct swap_io_ctx ctx = {};
-+	swp_entry_t phys = {};
-+	bool is_vswap;
- 	int ret = 0;
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index 75bcb8304c02c7c0c5feeb02af6c93378fcfa5d7..561e5b5f75d887da01755fa292d6c04e4fb22c16 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -342,7 +342,7 @@ static const struct v4l2_dv_timings_cap it6625_timings_cap = {
+ 	/* keep this initialization for compatibility with GCC < 4.4.6 */
+ 	.reserved = { 0 },
  
- 	/* try to allocate swap cache folio */
-@@ -1089,12 +1090,7 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	if (IS_ERR_OR_NULL(si))
- 		return -ENOENT;
+-	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 300000000,
++	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 25000000, 300000000,
+ 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 			     V4L2_DV_BT_STD_GTF | V4L2_DV_BT_STD_CVT,
+ 			     V4L2_DV_BT_CAP_PROGRESSIVE | V4L2_DV_BT_CAP_INTERLACED |
+@@ -357,7 +357,7 @@ static const struct v4l2_dv_timings_cap it6626_cphy_3trio_timings_cap = {
+ 	.type = V4L2_DV_BT_656_1120,
+ 	.reserved = { 0 },
  
--	/* Vswap entries have no physical backing to write to. */
--	if (swap_is_vswap(si)) {
--		put_swap_device(si);
--		return -EINVAL;
--	}
--
-+	is_vswap = swap_is_vswap(si);
- 	mpol = get_task_policy(current);
- 	folio = __swap_cache_alloc_folio(swpentry, GFP_KERNEL, BIT(0), NULL, mpol,
- 					 NO_INTERLEAVE_INDEX);
-@@ -1115,24 +1111,44 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	/*
- 	 * folio is locked, and the swapcache is now secured against
- 	 * concurrent swapping to and from the slot, and concurrent
--	 * swapoff so we can safely dereference the zswap tree here.
-+	 * swapoff so we can safely dereference the zswap tree (or vswap
-+	 * vtable) here.
- 	 * Verify that the swap entry hasn't been invalidated and recycled
- 	 * behind our backs, to avoid overwriting a new swap folio with
- 	 * old compressed data. Only when this is successful can the entry
- 	 * be dereferenced.
- 	 */
--	tree = swap_zswap_tree(swpentry);
--	if (entry != xa_load(tree, offset)) {
-+	if (entry != zswap_entry_load(swpentry)) {
- 		ret = -ENOMEM;
- 		goto err;
- 	}
- 
-+	if (is_vswap) {
-+		/*
-+		 * Allocate physical backing before decompress so a failure
-+		 * wastes no work.
-+		 */
-+		phys = folio_realloc_swap(folio);
-+		if (!phys.val) {
-+			ret = -ENOMEM;
-+			goto err;
-+		}
-+	}
-+
- 	if (!zswap_decompress(entry, folio)) {
- 		ret = -EIO;
-+		/*
-+		 * The phys allocation above took the entry out of the vtable.
-+		 * Restore the zswap entry to the vtable, which also frees the
-+		 * allocated physical swap space.
-+		 */
-+		if (is_vswap)
-+			vswap_zswap_store(swpentry, entry);
- 		goto err;
- 	}
- 
--	xa_erase(tree, offset);
-+	if (!is_vswap)
-+		xa_erase(swap_zswap_tree(swpentry), offset);
- 
- 	count_vm_event(ZSWPWB);
- 	if (entry->objcg)
-@@ -1159,7 +1175,10 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- 	folio_put(folio);
- 
- 	/* start writeback */
--	__swap_writeout(&ctx, folio, folio->swap);
-+	if (is_vswap)
-+		__swap_writeout(&ctx, folio, phys);
-+	else
-+		__swap_writeout(&ctx, folio, folio->swap);
- 	swap_write_submit(&ctx);
- 
- 	return 0;
-@@ -1174,6 +1193,17 @@ static int zswap_writeback_entry(struct zswap_entry *entry,
- /*********************************
- * shrinker functions
- **********************************/
-+/*
-+ * With vswap disabled, all zswap entries use directly mapped physical swap
-+ * entries. With vswap enabled, such entries are rare.
-+ *
-+ * A zswap-backed vswap entry needs physical swap capacity for writeback.
-+ */
-+static bool zswap_writeback_possible(void)
-+{
-+	return !vswap_is_enabled() || get_nr_swap_pages() > 0;
-+}
-+
- /*
-  * The dynamic shrinker is modulated by the following factors:
-  *
-@@ -1311,7 +1341,7 @@ static unsigned long zswap_shrinker_count(struct shrinker *shrinker,
- 	if (!zswap_shrinker_enabled || !mem_cgroup_zswap_writeback_enabled(memcg))
- 		return 0;
- 
--	if (vswap_is_enabled())
-+	if (!zswap_writeback_possible())
- 		return 0;
- 
- 	/*
-@@ -1397,7 +1427,8 @@ static struct shrinker *zswap_alloc_shrinker(void)
-  * were scanned but none could be written back, or -ENOENT if @memcg has
-  * writeback disabled, is a zombie cgroup, or has empty zswap LRUs.
-  *
-- * Also returns -ENOENT when vswap is enabled.
-+ * Also returns -ENOENT when vswap is enabled and there is no physical
-+ * swap to write back to.
-  */
- static int shrink_memcg(struct mem_cgroup *memcg)
- {
-@@ -1406,7 +1437,7 @@ static int shrink_memcg(struct mem_cgroup *memcg)
- 	if (!mem_cgroup_zswap_writeback_enabled(memcg))
- 		return -ENOENT;
- 
--	if (vswap_is_enabled())
-+	if (!zswap_writeback_possible())
- 		return -ENOENT;
- 
- 	/*
-@@ -1437,11 +1468,7 @@ static void shrink_worker(struct work_struct *w)
- 	int ret, failures = 0, attempts = 0;
- 	unsigned long thr;
- 
--	/*
--	 * When vswap is enabled, zswap entries are almost all vswap backed,
--	 * with no slot to write back to.
--	 */
--	if (vswap_is_enabled())
-+	if (!zswap_writeback_possible())
- 		return;
- 
- 	/* Reclaim down to the accept threshold */
-@@ -1522,7 +1549,7 @@ static void shrink_worker(struct work_struct *w)
- 			break;
- resched:
- 		cond_resched();
--	} while (zswap_total_pages() > thr);
-+	} while (zswap_total_pages() > thr && zswap_writeback_possible());
- }
- 
- /*********************************
+-	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 27000000, 594000000,
++	V4L2_INIT_BT_TIMINGS(640, 3840, 480, 2160, 25000000, 594000000,
+ 			     V4L2_DV_BT_STD_CEA861 | V4L2_DV_BT_STD_DMT |
+ 			     V4L2_DV_BT_STD_GTF | V4L2_DV_BT_STD_CVT,
+ 			     V4L2_DV_BT_CAP_PROGRESSIVE | V4L2_DV_BT_CAP_INTERLACED |
+
 -- 
-2.53.0-Meta
+2.34.1
+
 
