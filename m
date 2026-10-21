@@ -1,102 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792605389;
-	b=mL6mnzKjPau4G4IvfsSDIxee1sdFxqALw711mbxj+yl7bY6SojEWl/+6Z2D6yl6M7pvr
-	 y1mcWaxWr4+khBsYBgiI4tT/vxyR90D5fbItQElBARFwYl7i1Q8s4EkZvYhqNeQKK6yhF
-	 M/+iLEMG4rGTeG1Vird9mhnsaBOrwZAMwD2sa1m9DgNs/KwCAh7fY4gkmKBrVty9pHSG4
-	 W+g9g/9W46BxNWNy3cIpldK3PrNr+LL01vXmvNMY1PfUpxBkFpP+yZf5tfFRzt7eJHOkZ
-	 /aDsGc6nNCAPIfFcY1gv/5GBUct2YEUWlFdPGztZIqajOMiMzwDo2EhdnZhd2LnQxLQ==
+	t=1792605391;
+	b=Ota/2pen3bbiqJJGXacLwOFY4g3PKn6YbBVCXUkO5a0cjFjAaQtRLqEFn9EaHpWR40dK
+	 DEe4FEoR01MGy3oIdOXMiyTlzVhTQlIfdsBwf6L+1o0c/4+DwFO/ZL0MDGZRTGzpF0txW
+	 4SLk7yrN6JVXZcSy2w/nCKRgBGblu6Ettdvx6D59gIsKzJwAeLS0eAl/xG7C/Dct0RYRH
+	 hFefEBVB6ysjSarPcbzXCVjxy4KgYpPJz539s59sziPyL4y1tVeFVin4vHO1muQVJBx5f
+	 8VwzEP9SWvE47hJj0D5CfFv2gsnTLtgfU6kLNMT6XQQ7dKaZhl8YZ8WHH3LXXt5VHzQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792605389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792605391;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Qq25VGlAW81YVUWZGBDfS97JG2avmzEzTgDrDaF3kUY=;
-	b=XT9TA8/7bCaQPGJ+W/P+BWs5yVU2ADB4jr/+4y5Knq1nJguBUjL31eLDe+/0FDfv0UmW
-	 tNTlovCxWXW6H9ALXAfef7X0K9kK9I2QhjH285u/t2Nk0XQaVtwqrP0irN9HszKBAW7pX
-	 4g65BxzVSUNBvJyMl7VBecoQ/BH3ryHfohFzNLTPtFBqRmnahII2cALPmvrK9p3onrDto
-	 MKw/VN4HZ7W8MdvDREmO5/auRR89IqCnfIrOAnUSMKJ7vm0z+Xp4HgDaPkgQASioMwRhw
-	 AtN5u55FFDq8hXe76ma0Z7wHYnXHQCe6rQ+s1E6ZWsK6ttzTjgLXCB9U+irEqOePUcA==
+	bh=l/9Q6vwSpHzLOuQcu+iZE9ek6ulZ0fAfcC9lHWm1vuA=;
+	b=REC0cZC46QbvQFuvgfFrbAXZo8upa9pUSbrnegTuUBC17JcMivu+jaETZKeJ3aMG+8Tn
+	 wJhRzokVWRTRATAUGD0i3fWyI/JkgdEkzoqgqKC6MEt7IeDtphoI0fo5ZYWfziW/8TLov
+	 ya1dgTr4S3BLk6f81s+toHp5YfWN8AXXDPLv0bXxd2J6eSiP1fsCmJJICoAUL7uH1Z6uR
+	 mKXxj0B7HIhf6V+wUiCiHKQ9X0080A50f3sWLnV9pbn1ONbuvtmFNQppffNaKK6JgocmG
+	 jrzCfLJRCl1OMFcajLpkMLmiVD7IXrykFk6ewZNDjPn1zrdRvmtCRNpsGt5OGJD/M8Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DFY+OsFo;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=CsnNkHId;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4C3606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC4C3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B5D606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:56:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B5D606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DFY+OsFo
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48e09aa5264so719381f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:56:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792605387; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=CsnNkHId
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b413b0a974so840645a12.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:56:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792605389; cv=none;
         d=google.com; s=arc-20260327;
-        b=Z1DMqn91bMWpXL2DYZw6JxiUsPs0+XBZpWFQZQp7P9vJuesIkKIfWnv6A0frzKwHtw
-         xtguwvbMDTQZUnxBiFgNTaC9MAdCQbntBS2RPhJqS3sXEMa7/8JUneZVPpvVYiMnB54J
-         9rONAFlCaNMGxlzNK3E/u3FtKpwQeYoAThvMKRnBGueg0bnABKzmKBmgtGVQs9cFrFEK
-         lN/NMumJ54OuN+1k2oqkpbT1s87CC3rwtj1p5+VDkNWYN3GwpudvTpLRtZv3g7zYMvep
-         sOa4l9nEuTdoPN1CHCKdjD4k7u/pXCO0F6QNigCSlNAA5URyBuSe2uG31m6Y5FE0FL25
-         DVog==
+        b=a+LNe2Q0oLFoEHFChUbovlDtCXl5h4hZ4momgPe3Pq3NMMW480msVKaW6mv4sythGB
+         LDbStKDFyvRPSq5/f6BqwlgItPI/iW25HFzUhA0towRDWryaKOQEHUQ63oYoTW2UQ5AE
+         qYExQqEYwvbldotnHvvcYyh72HuIND3v3vb4wsNqMAa6abteaIhQH95wuwypVqk+cll9
+         SV0KccSrRq8z838TnenIBnf5hvYX+tlwTJzQr6OlmTrdiXxuGG0jvp8Pg2a5Y+Z2e6sb
+         u3yqvxxFlyqo6vvtW6AIk08Go0QNfCLOYvKx2eUVf2SrPcZh+/ml+2FqHSiArAoJliUr
+         FURA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Qq25VGlAW81YVUWZGBDfS97JG2avmzEzTgDrDaF3kUY=;
-        fh=KuTMQsHGaZ7ioz2cfYWlRoFbSWr6GU4MSx2MtYweECM=;
-        b=lvqOK/7M8/hRqMXnhjN1d4NiJD6uBNEHxcQ0GdAMchgg9JqNtXytiiBC7AqXm+Gv4x
-         GDFOXMMPugtKgulU3qvz39nR0ZPsPtFnIkvlbS6vFzdZkEeuPEAlBdgOQXg2dNCOEIsR
-         AO1ucP4ui1mN9/eHtBWnWoy1f8xDzYqJFPX4H7NJjQX5QvkDqADBYQbO6AnWtVYToy3w
-         fXp43gytL/RZHjubDHR5dGa0VC5cI9acUEJqftl8EiHu5dHZVRm5+29r9J/YomFUuDuX
-         SJLetGL3yGDzAdKP/bkPXpWDtDi52plUYghNO07Voefvrb/vTUTm5DMqeT/opAUi7TsG
-         kDUg==;
+        bh=l/9Q6vwSpHzLOuQcu+iZE9ek6ulZ0fAfcC9lHWm1vuA=;
+        fh=PZ4ObLCjHZzWr4QOSKztSJypSDTPw/2FDp2YKMaSZYY=;
+        b=HS45gW6GG0z7cKjpSYxq3shHnf563xBfPgsQJQiU5ZnvG+87BLDVEHG7nk5J3cdL26
+         VXXZ8DxM/9gr19maEDqwN+lSrx5losGyOSBeOGDjFXUBUXAFTkLBk8z0gTpEL4PrTfNF
+         ktSvys7Ns9iiKOepOgM31NVhP+Aj8zO00hM3m8dCdf/G3Pr+ACax7JTLN9yVnKjdj1Jk
+         +1WwycQJ5LkXZ3s6Ku7E1QlCGXjcxfI1lHmiZYvuNgzLMM/UylEMtSbWtpM8rc1RGqW/
+         oiszCG8LWTQVldp3aTvRea7AJnXenHVdF0dniv2e5dHyx+lIBFQoWCzT9pqLVphZytLF
+         IAcA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792605387; x=1793210187; darn=vger.kernel.org;
+        d=soleen.com; s=google; t=1792605389; x=1793210189; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Qq25VGlAW81YVUWZGBDfS97JG2avmzEzTgDrDaF3kUY=;
-        b=DFY+OsFoBkMmb+IKJ2T7tv92EDkPI+ArU5vPyaUOsOfdRmot2l8OlQtHYuuhWZvRmv
-         bZ7IGG/0WeQCniYPw5e+b3xv08Pvag+ikZ54m+SLTnCSywSeRUcKb18jfYxjtfZEyQwu
-         JJiNl8shtP3riWGt909y7UbjSJ7wR55HqcCcr/8AHb0EIccstGXDCboJgInALvW5iH0D
-         szzeb97/WILh7j40AwRdhRRFTUgH6WYcDxm0nyS0Me4danS9sJXb67kJa1XtzrZlq33Y
-         ewG0TqLYuULLmWAvmUB2CjeEQ1wlQPcTGFecYEACc6ID6pzgYabJS/406wlVC1XWSTiC
-         VXqQ==
+        bh=l/9Q6vwSpHzLOuQcu+iZE9ek6ulZ0fAfcC9lHWm1vuA=;
+        b=CsnNkHId/2HmaPxBHjb/0jR2Ogy9CW+152Se+WQyag2dh21j8P/RHssb1Z44QC5yWC
+         C4QlKQrH5IzSaG/OPVbhWVM3PA/cIm1fOy/fqHgVzQMXB+wzQ3KobKxzNHWIF4yHaCSD
+         txHLa8F1uvqOKW0HUcSBT/UKnibnqOmjYCzuBGkNyTsfn4IHOirM/RQrbSf1aiLT2X7E
+         TgvGTfdyJp6KjZJ9KdiumiVokiBpI9M4awk2Pc8IDRALgaKADIzg57iXw0Hqhfl8ts2G
+         zkyDtGt7WXsJ0Qmo6uDo8E2S2BXyQ30jWJlFRuBusxShLi3wKYksnzRG7ma3ngGkK7xJ
+         oUbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792605387; x=1793210187;
+        d=1e100.net; s=20260707; t=1792605389; x=1793210189;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Qq25VGlAW81YVUWZGBDfS97JG2avmzEzTgDrDaF3kUY=;
-        b=T7V3gtzLjKr7LekcGEvOsDfW71Yr92JwEXdaIxCMAtFmdpeWjrLctEwj9RBvf/qEVc
-         uNqd6XFVoEtCyvy+BFvBmyEB82cqYOHRyzHOTxCbT2hvf/tJZ2QVP013VD+LROFolpM7
-         VuS6agwwo1W/xs1cw2NwJLmFg62bEnN9Y8WzGmm3AjFobuzwil52ht2WEproWKhMOyiG
-         FU9ewTgthEkoz7aPX11HXntj4aLIHvSCSFgC6dx/PGZaJuc+7E+N2Izui9S8zmQ8nCWY
-         h9PPQL/tCHVi/FGP+T1DLYN6g2tniLE93VXWuoQPc3BqpFijAlwrZvhG9XEqYgow7nIt
-         CA3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzuM6MAtFk33s90GmhFE6KjBo54Rr4UuCjqglFOR26ZVOC55+8AX0KbRqONPFRf6HzmD5cgkkiBuvv1a5g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLHn8rlBX7OWw6YDPm7cUAyHct3z+lM0xCyD4AZOrS5e30jWnqk
-	B4KsIenosHkKFcA/vihg7aK8XAvLqSzVF+jSDGntdJpRFadS3xmHZDeLgISOUN4cmpIhE498DGZ
-	yZ27wlbw11vakc573OQV03EVrxEd1MQ83xAGgfmeDKRFJeQkt7OB4fG0A/w==
-X-Gm-Gg: AYBFou1r7iRNrKR3JbxSwXv82X0mYT0wDZ1BaF3rPhiN3BZSRbft7kRmk9G9g/jJ/fS
-	bItZjDLjVWF/C+BIhyCeRpaOQKC5zzIEkXdCOkcR7AZAAkoj1Vp+TG/IkvtDCIDn6HLbEn/+GfQ
-	DLmHp9NmcewPj2XS71ZDYdjnLJ+2GRwAi3LX6kAXj4dQT5crKTR+/ZiIP2+psCp7q5V2K+QQqTZ
-	ofwM2UY3F3uZf4yjpQR5YnbW9OjTCzqZ0aX9R8Y7RX8YVHdiNyhr90VyprNg2FKMALwh3SHmRhZ
-	m6bVoRBsmZqc1WinLQ+ILKZot2jhWVHWDNEDR9e6VDJbkuQTOKz1PKbOQbR4d3jP7EgpLlRGwSP
-	LmO5KHYN7XZau64z4XeTuO+QGeRoj0boDG9Sx1dQanDKFZpqtvGk3rR7NLlg3Rz9gZMUxdxitSx
-	9wjnqLIfLgdb2DxY5KmyqLglpYttri0QVbhIHoHhc0aycngHiFKXzN5zL/5e59oKqsmqpYYainO
-	p2DKoSUuujL3v4N3+wFOckPnW+VsSdN4nvDYhxJSYU4CCJAtHNtOA==
-X-Received: by 2002:a05:6000:4009:b0:48d:ffa3:714 with SMTP id
- ffacd0b85a97d-48e264c9950mr6295414f8f.19.1792605386617; Wed, 21 Oct 2026
- 10:56:26 -0700 (PDT)
+        bh=l/9Q6vwSpHzLOuQcu+iZE9ek6ulZ0fAfcC9lHWm1vuA=;
+        b=1NSqGq6GSSwiYUJQgWu84FIKDuAfzG4EKKIjP04XO7vvtia3ZD3QR2onnARdwdDKC0
+         YF+3hbRqv6IkG92c9Bn+FIE67ZfAO+zevsn2LPdAr9/lzucuAuE3CGwfq0SdqkUXxveG
+         C6EjSpCcneeXZr4twC+G8RPFhI0VReL9O4zjsKsuTM7wiSUU7iz6HTjZx+g2ojj/ZAxZ
+         ojj/Mb0VrzheQe6jLoXGqgRRzpuVGnrt/9KMd3aFxgW09ZgQ/DyJ9hmUn+0Ir4RN21Eg
+         qt4xEnSnI122YDg6Styccbk4Cq2Rd6c3izP/BzypEYkoYyMf4TthDawb5byp7/jUtHuZ
+         hVyQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrPLFg/EHh9lBtn07ffignuc31kI2RTs/3tY2rGV7TTvY7Y/wP5xtBK2u4PQ1dX8GFJvmjs5tG9E7ld5E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI59QDsmvvaxqobnx+C2S1uG4ZIweDzjUvmCVzQEVvEZq6TNAqz
+	xRYqAdS8is4K91jjAdIlUSHjQI678Ct2efPJFf6cLFW8zVzieivSCjc9fvumt2pR0866c9cIZM7
+	FPBs4sdlUZ5jE9auTdg/fUoBmbcjdJ+sUe0xyrXaTaQ==
+X-Gm-Gg: AYBFou2wpnTSrond/yf5PqsSYf3pp+wLpFA5xCMVXdlexrYTX02EkiZ0dKVODKH8JRN
+	qyb7CF4QgXZFOE/WzGz1l2LEmj7vG+ZmvJ2mtc8CupHVDjFtRUT4mtHZMTdI4lf8u2saBn3UyWU
+	fONGnkHKetuaGZ/HTk6LLfNQ8qfDUCvoPTPjpyB6BF+/JufzglLAPA2YNzpQB45QIONTPJl8TtG
+	bdVidHzTG1+DKFl8z5hpWwe8dQVuRNDUY0EpAXmn/QASh3lEXyVrPDOGDG5xljpacj0FPJgfAvv
+	ZsOuAh5snXa9mti2qiLE4PAdlEkOoDcUHnmXPsx5MYTByLUnBlXwslh+wBZpczw+UU+s0AQ0XT4
+	0i8voSG+nHKqZZev8oi8yhsZ5xQF18nRg0jWqLWA0bO6Z24Jo8O8AbCUQrar44WUCEiE=
+X-Received: by 2002:a05:6402:458e:b0:6ac:686f:91db with SMTP id
+ 4fb4d7f45d1cf-6b408e9f045mr1964734a12.11.1792605389455; Wed, 21 Oct 2026
+ 10:56:29 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,135 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CANDhNCqyXsZ6G77z+9s=rTO6BZifRG9+hVxMTah+tAv6pB6h3w@mail.gmail.com>
- <20261020152933.16989549@gandalf.local.home> <20261021113806.GE2823843@noisy.programming.kicks-ass.net>
- <20261021092136.249e2d19@gandalf.local.home> <20261021133430.GP2823843@noisy.programming.kicks-ass.net>
-In-Reply-To: <20261021133430.GP2823843@noisy.programming.kicks-ass.net>
-From: John Stultz <jstultz@google.com>
-Date: Wed, 21 Oct 2026 10:56:14 -0700
-X-Gm-Features: AclHuK8PhOHG1mR9ByxCJxYtDkddizCMhnGOg_IuLGReq30H2L73_L47tYdrxgE
-Message-ID: <CANDhNCryxGFe20+Xir0teCuabBdWhJVUBL46WF1OycwU7FdZxw@mail.gmail.com>
-Subject: Re: Uclamp races due to non-atomic static_branch_likely updates
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Vincent Guittot <vincent.guittot@linaro.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Qais Yousef <qyousef@google.com>, 
-	LKML <linux-kernel@vger.kernel.org>, Hongyan Xia <hongyan.xia2@arm.com>, 
-	Ingo Molnar <mingo@kernel.org>, Wei Wang <wvw@google.com>, 
-	Patrick Bellasi <patrick.bellasi@arm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>
+References: <20261021152527.375070-1-tarunsahu@google.com> <20261021152527.375070-4-tarunsahu@google.com>
+ <CA+CK2bAQbmq3ArP3XMErF_8RC2CUwvgpLY0H83D0nCJTaVKYyA@mail.gmail.com> <20261021174006.GU3008132@nvidia.com>
+In-Reply-To: <20261021174006.GU3008132@nvidia.com>
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+Date: Wed, 21 Oct 2026 13:55:52 -0400
+X-Gm-Features: AclHuK-Q6MQhxMIMUURzzci_OOwzGik9EFivN3YqqlGA_5OHu0xT6GsF67-BzDw
+Message-ID: <CA+CK2bDJzo44K0X-+5F77E9g2dmqKdwZvrUf-1SkC7ewrgEgzA@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Tarun Sahu <tarunsahu@google.com>, Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org, 
+	Mike Rapoport <rppt@kernel.org>, Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de, 
+	David Matlack <dmatlack@google.com>, robin.murphy@arm.com, loganodell@google.com, 
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org, 
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com, will@kernel.org, 
+	Alexander Graf <graf@amazon.com>, Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com, 
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org, 
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev, 
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org, kexec@lists.infradead.org, 
+	skhawaja@google.com, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 6:34=E2=80=AFAM Peter Zijlstra <peterz@infradead.or=
-g> wrote:
+On Wed, Oct 21, 2026 at 1:40=E2=80=AFPM Jason Gunthorpe <jgg@nvidia.com> wr=
+ote:
 >
-> On Wed, Oct 21, 2026 at 09:21:36AM -0400, Steven Rostedt wrote:
->
-> > > And yeah, its always been the case that jump_labels (and static_branc=
-h)
-> > > updates are non-atomic. Most of them are init time, and don't care.
+> On Wed, Oct 21, 2026 at 01:27:22PM -0400, Pasha Tatashin wrote:
+> > On Wed, Oct 21, 2026 at 11:25=E2=80=AFAM Tarun Sahu <tarunsahu@google.c=
+om> wrote:
 > > >
-> > > Now, I'm sure we've ran into this particular problem before, and it
-> > > always requires care.
+> > > LUO and its file handlers validate handed-over state with monolithic
+> > > compatibility strings ("luo-v5", "memfd-v2"). Any change to a seriali=
+zed
+> > > structure, even an optional additive one, must bump the string, which
+> > > breaks live update between adjacent kernels. Replace the string in
+> > > struct luo_ser with a feature header, so that the target kernel can
+> > > accept or reject the source kernel state per feature.
 > > >
->
->
-> Read this part:
->
-> > > Also note that a simple global boolean has the exact same problem.
-> > > Adding runtime conditionals isn't going to fix this.
->
-> again, and then consider your response..
->
+> > > struct luo_feature_hdr is a fixed 128-byte header: the serialized
 > >
-> > Another idea for "atomic static branch" is to have two static branches =
-at
-> > each location. One that switches to a "check this variable and do a nor=
-mal
-> > test and branch" and "we are now in sync and can use the original stati=
-c
-> > branch".
+> > This patch is all wrong; 128 bytes is far too large. For every _ser
+> > struct, we only need 8 bytes instead.
 > >
-> > Something like:
-> >
-> >       if (static_branch_unlikely(&foo_use_variable.key)) {
-> >               return static_key_enabled(&foo->key);
-> >       } else {
-> >               if (static_branch_unlikely(&foo->key))
-> >                       return true;
-> >               else
-> >                       return false;
-> >       }
-> >
-> > And then in between updates of foo, the foo_use_variable gets set makin=
-g
-> > all the branches use the key, which will be updated "atomically" (maybe
-> > some memory barriers needs to be added). After the updates of all the
-> > static keys are complete, the foo_use_variable gets unset.
-> >
-> > The non-atomic portion of "foo_use_variable" is OK because the foo->key
-> > will match whatever the static_branch version it has.
+> > The first 4 bytes are the size, and the next 4 bytes are flags (i.e.,
+> > 30 feature flags + 2 reserved bits for flags extension). The last two
+> > bits of the flags indicate whether an extended flags field is present.
+> > Each extended flags field is 8 bytes, and its last two bits indicate
+> > that yet another extended flags field follows.
 >
-> That simply doesn't work.
+> I thought we agreed not to loose the string too, it was a tree
+>  string -> feature flags -> individual values
 >
-> Even *IF* memory stores would propagate instantly (they don't) you can
-> still have the boolean swap while in the middle of this state.
->
-> ---
->
-> B =3D true;
->
-> CPU0                    CPU1
->
->  enqueue
->    if (B)
->      something++;
->
->                         B =3D false;
->
->  dequeue
->    if (B)
->      something--;
->
->
-> ---
->
-> Will still be left with something unbalanced, even if everything is
-> super duper magically atomic.
+> The string is the emergency if we really badly mess it up.
 
-Sure, but this sort of race with a flag variable is much more common
-and easier to think about (particularly if the flag value is a one way
-transition), since there is usually a causal relationship between
-enqueue and dequeue.
+Yes, we'll still have the file-handlers/flbs compatibility strings.
 
-But I'd argue the static_branch/jump_label updates being non-atomic
-(and ordered by address) can make for much more subtle and unintuitive
-results that seem non-causual:
-
- B =3D true;
- CPU0                    CPU1
-                         B =3D false;
-  init
-   if (B) //sees true
-     something=3D0
-
-  enqueue
-    if (B) //sees false
-      something++;
-
-  dequeue
-    if (B) //sees true
-      something--;
-
-And yes, compilers and cpus can do a lot of reordering to also break
-causality in similar ways, but there's no barrier-primitive here that
-can be used to force the order of things.
-
-Again, it may just be a natural consequence that the static key is
-*not* actually just a flag and that's fine. But given it looks a lot
-like one, it makes it a potentially shiny footgun. (I should know, as
-I'm now looking at a strange hole in my foot after realizing my
-out-of-tree patch to allow one-way enabling of proxy-exec at runtime
-for testing is now "a bit problematic" :)
-
-thanks
--john
+>
+> Jason
