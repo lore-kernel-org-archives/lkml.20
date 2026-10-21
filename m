@@ -1,68 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792597143;
-	b=ayl9AHUsg+U8G9akxTSJGQn6hzYILF6Bxx3py+7YDXU60GjioAoqEFrHHxHy2/UJqeC+
-	 SzC3ADZalNJowlvMewujPWEHOyonrXFqeOvNts0AKClJ2dEMZXfvkwLbFSEI1Onr+tNZJ
-	 slHIUzh4nVJN5mUPIhmllRk17RB+9C++Y/OJDpnzsiYDEW9gJZXy8R2NMhkIAYEa9yEr4
-	 UaeO3uBBwizTOWyy/Mk+eTL3HHWBwME/3HlU0dIFFeKnbzjdku1uHVWXYD3kpc5zfrwsS
-	 pLm/4R6Vydj359g9QxhkICbIqQTJ1QQXd1uX+vomVSH9DhRC2gwcJo/p103Jqej3mDg==
+	t=1792597152;
+	b=eJs0jNFt/NyfNTnGqcCUPab3ZQbVH039GBBL5ExOTJIZYVkRwkrUb0XRl6PH0FUoYEqE
+	 Uv2LDfcsVsJaIk72C+4zaVCiSHwyJH1JvZfg+NRgkXU2KqVRkPkPHLqC7GdjJZV2EFYCG
+	 bb2wFPTP5JLnXsJ6Qvi6TF2h3X/B+41wyZUN35dRY0SgtIA6B56l9FsNSnSatWWRYcC6J
+	 rIhkDJFKTT+mmOllaPkctNN2sQOazBXYCdq3MjautyZxqnP+2BUDqabuYWIU3d1n0ibXO
+	 MEzC+X8q12Gl3o3BPMmd1eCR2UJWB9QH3Pl7oZiRVQcyRhmzk8AxKZFvsKF1VB0oO2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792597143;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=XGBx0ovf+jnJmhB+IqTbU1kl9AeZ5LqNvVMjzHQnu/k=;
-	b=k9RQa8X0boTHlWNDomV5AqP5NIjCdGASw7XXJrSKiFI8uzH5evtFLhfgjsFAFQqFbewm
-	 LvqdpW6xGr0AKdnfQaSfEGuBgaKaQ3Bd+YFpZFFKBfiTKqbCD9NHAcJ0/k8Chhq2qVAUF
-	 KXqlZ1P8H5KE3UUglq0+MK3NB1A67dQU11X/mdIK16ExvKz6qFitC0OciCI4evCrJHDRd
-	 NTzd6XOY4tqhvWpdaOI2JFjR95181nVa7ILF+TzTtX0luloppWIqZk9sTmrnO826fx990
-	 EF/o7GI72qZ/ST9BFNbYbK0obb7oMHNSwbabHtx0xXya/w/mF1HuU+kCNnDMgYe0UCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792597152;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=MBvUCZd8bqreVqsBZdyTrFLIsUWjtGvD3lWIOh8evsg=;
+	b=H8WRHuBXZIvFc/yyrLr6/enakMsyqhpW3e9LfQfLWlksOxtzeXnIP1zn9RyyWUpcfBWo
+	 HxzUMS81+LuhXO9Vjxw6X3TuK4MXfasJdgsL/vZQi5w1JJ51/u4FD+u4qcUcvf95ydtFb
+	 c88WfNLN6dNtw5HvcaJP+bP4vkXcOQNYeKUUS8deVWBGKl8aJAVOgyrH4lyR/xWndhiNS
+	 KrICAm5T5vmLZyo2AFp+iXmMB4kZcz2NtZA3Pu18Sijb6K1I7GVO7iVzhjJ+8Uv4FXCY1
+	 wo/kJcNbEzI9BT1HVBpcZCbPvgxGM9lbFiX94VD8iMQzx+9IBP905lHpaTZasdkq5sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Ap7r22m1;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btT4gfBm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9CA8606A31A;
-	Wed, 21 Oct 2026 15:39:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9CA8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5D26606A319;
+	Wed, 21 Oct 2026 15:39:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=Ap7r22m1
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=XGBx0ovf+jnJmhB+IqTbU1kl9AeZ5LqNvVMjzHQnu/k=; b=Ap7r22m1oufLq89HeQe/FRzz3Z
-	nyGs3aAkZVG14I+igprO/Dbd6jE+WBT6vj7d7Ih4eOf+jdnrzGmew2Js922cJ/qqZ6znXcvdf/Ndh
-	wF7rDYdhFgROY+I/r+7ozsWEU3sN3fBVU5hX2+HFjUslZgffgGOci5i6BU0mgirJU62tZba/c8lpI
-	z8pLHcPYmSaUlZV3fAxLOJX+GxMlGb1EQS+CBx6+7Sjb1s/uydR3bg4sHVpZRpFwJn1xPqXETPZZx
-	zw7m7NrcoOe5MygHY+qx21z10FfUnJnLG9HjH9R7DhN44DsyRZ+GCXznnVtS5QlGdLt0F9Px7xD41
-	rrmAWDCQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1xJYP3-0000000AF8l-3TNo;
-	Wed, 21 Oct 2026 15:38:58 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id B4C553007A4; Wed, 21 Oct 2026 17:38:56 +0200 (CEST)
-Date: Wed, 21 Oct 2026 17:38:56 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Thomas =?iso-8859-1?Q?Wei=DFschuh?= <thomas.weissschuh@linutronix.de>
-Cc: Magnus Lindholm <linmag7@gmail.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Matt Turner <mattst88@gmail.com>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Dapeng Mi <dapeng1.mi@linux.intel.com>
-Subject: Re: [PATCH] alpha: add simd_enabled argument to perf_reg_validate()
-Message-ID: <20261021153856.GR2823843@noisy.programming.kicks-ass.net>
-References: <20261021-alpha-perf_reg_validate-v1-1-a8e8cc23ea7a@linutronix.de>
- <CA+=Fv5QWoVZqOR1uHTaE20XWBkXoVqbjTE6bF2iDvvJn6j5hfA@mail.gmail.com>
- <20261021134714-fbc85127-2188-4c7b-b472-ed719c520541@linutronix.de>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=btT4gfBm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC7C1F000C1;
+	Wed, 21 Oct 2026 15:39:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792597151;
+	bh=MBvUCZd8bqreVqsBZdyTrFLIsUWjtGvD3lWIOh8evsg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=btT4gfBmyBDxfrzjx2a0efMfGhFt8VANa7K1hwYjqI8464c4RwmAvv4XDhfoH9eOD
+	 7gZVLDBqKxvPk4tWbifA963rlq+1NT9gS/Pk232WwIk3dOKCLGznnMn30icxJ0wHiT
+	 ZRveYaBOrCy0H4NqWQzHr7diZU1l0bZHLyMXTrLgUGVvR7bMWDx+i5w5LtHg0nIj24
+	 vVbTNQBNttvT4wdBEfe2jloNx1tWby2YosMRY4uuVTtc3S/D6OODprCtoWr9+Vw+w/
+	 PWF002r8RwaOhNQc0OIu+uHGaZUf3VgiEI86rdT/8DInQYQT2E0id/dS/+6i5lCga3
+	 uiBaQL31ZdLrw==
+Date: Wed, 21 Oct 2026 16:39:06 +0100
+From: Simon Horman <horms@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev-bot+sinfo@kernel.org, netdev@vger.kernel.org,
+	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Felix Fietkau <nbd@openwrt.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: bgmac: fix TX DMA unmapping on fragment mapping
+ failure
+Message-ID: <20261021153906.GB708417@horms.kernel.org>
+References: <20261018231348.36884-1-rosenp@gmail.com>
+ <179236550812.3290.9443229332836486177@kernel.org>
+ <CAKxU2N8rq4bhk-5zAKd3hEWvUh-bfJtntQb9iJ-niZvXgT8rUg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,35 +69,34 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261021134714-fbc85127-2188-4c7b-b472-ed719c520541@linutronix.de>
+In-Reply-To: <CAKxU2N8rq4bhk-5zAKd3hEWvUh-bfJtntQb9iJ-niZvXgT8rUg@mail.gmail.com>
 
-On Wed, Oct 21, 2026 at 01:49:35PM +0200, Thomas Weißschuh wrote:
-> Hi Magnus!
-> 
-> On Wed, Oct 21, 2026 at 12:23:55PM +0200, Magnus Lindholm wrote:
-> > On Wed, Oct 21, 2026 at 10:18 AM Thomas Weißschuh
-> > <thomas.weissschuh@linutronix.de> wrote:
-> 
-> (...)
-> 
-> > Thanks for catching this. I reproduced the build failure on current
-> > mainline and confirmed your fix with GENERIC SMP and DP264 UP builds.
-> > Both also passed perf register validation and sampling tests in QEMU.
-> > 
-> > Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-> > Tested-by: Magnus Lindholm <linmag7@gmail.com>
-> 
-> Thanks.
-> 
-> > If you have a route for this patch upstream, please go ahead and take it,
-> > unless Linus would prefer to pick it up directly.
-> 
-> I have no route upstream. I hope for Linus to pick it up.
-> But if that does not happen, maybe you could send a PR.
+On Sun, Oct 18, 2026 at 04:23:48PM -0700, Rosen Penev wrote:
+> On Sun, Oct 18, 2026 at 4:18 PM <netdev-bot+sinfo@kernel.org> wrote:
+> >
+> > Hi!
+> >
+> > This is an automated message. This series looks like a fix, but its
+> > commit messages seem to be missing some information:
+> >
+> >  - How the issue was discovered, e.g. hit in production, hit during
+> >    development, syzbot report, manual code inspection, LLM or static
+> >    analysis tool scan.
+> >
+> >  - Whether the issue was actually triggered, or is only theoretical
+> >    (e.g. found by code inspection). If it was triggered please include
+> >    the symptoms, like the stack trace or error messages.
+> This was found by an AI review of a related bgmac patch and confirmed by
+> code inspection. It has not been observed in practice; it requires a
+> fragment DMA mapping failure. Compile tested only; not tested on
+> hardware.
 
-I can stick it in tip/perf/urgent if that helps :-) I'm the one merging
-the broken patch in the first place I suppose :/
+Although this has not been exercised on hardware, the logic does
+look correct to me (now, not before!). And it does seem realistic
+to expect DMA mapping failures can occur on systems under pressure.
 
-> How this issue made it past -next would also be interesting to know.
+So I lean towards this being net material.
 
-Yeah this; normally I get robots screaming at me for things like this.
+Reviewed-by: Simon Horman <horms@kernel.org>
+
+...
