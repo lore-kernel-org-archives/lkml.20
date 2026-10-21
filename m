@@ -1,108 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792601008;
-	b=LadL2M60ZVYjCyCo7xtjHcUu18mDBtzlfjSDhrUJ8XtCPPT8f+b4BspLxuor5sfURh8r
-	 ZW3oU6KG9kqYAhT5akBeqRWI7YF3A0ga3UQ+tQE8Q9rl2a6gHoUzL24tBLECdBCcHoP9P
-	 umVCQ0KIXcXXnelVDkGpS629nuG8Ot2jvh3PhYVcl3iAzI7sktCvTPJV3yt4DQcS94hyK
-	 euOHz+/hHHY3x+DHBoej9TA45w7x3A3L9tORt64os0LQoZCWqJ6xMNZLElESCgy6hFNEJ
-	 uYZchDmEmb4RRZfJHixGPUJKMjPUMPg9FZCKjNUK7RQrjciU2FhH/tjS4uU/P/JjHqQ==
+	t=1792601017;
+	b=SsqEUYT48Atz7iWJgk+AK2/5pOVZ+m3QCPjR0nWE/4CTn6vqtPNNHYsd2rAMDFFmSEOz
+	 pA8Ubd1gbA6hX+f2PXDptXUd2BTsDeA6/DvVNvnpHf6v04FcrabJHXLpT35DAFlrLMSHs
+	 7E9dNW/Fm4pNMjCVv9AJ6TyD17vGxacMAuxtrWrAwS4+cTaWcBDb37itEfW43KGPRATdF
+	 wHW94BGEl0P9zp/k6aM0C+YAgtDDuDtNrUzunKr8gaMIZkP02kn0PRPbRUk5s9BlrKnKZ
+	 5hMJUAgCRE3/FWxitp/qIAPEujmsuYHLCpaLT5LWFecPWwBzOv2gLkNNYRnULg4csyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792601008;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
-	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
-	bh=Ci8HQ01z2l/V3dvB0tBYdp+UGZOKQC242kExtdOTHs4=;
-	b=b/pZcJ56b4Jd7qZnujFyMkW5pJ1B8YQ6fqK4T64c07lKQ9uNL+BB//kkMZ1yMa9rMx7W
-	 2XdrEQKU8O4Ve9zNbnz77c6llSTvjBG5cjC1RskVS5B1I954nGX7wFRSxdYPNSoXrJ42x
-	 aNZRb4Z/OtWX86AV4Uh2UJcIViRIORhr/H5j/5Mie21+7eCZtRyWQVEBqH48ZsNdFthlt
-	 p78KVf0OjIz7YfG+CAbxwQa4nqkGaueBsvBx6GW16ODCr/McCs/m+3BoY546/MZetpJbW
-	 nuFeJSqi8CbHtm1vXAvIzA7E1LgwJQkYHu/GqjyGYhFw4Thxe3Y5Hcv4RE95PiuvlXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792601017;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jJagp3/aI4VISZi8g8kQqTjVESVyNbK/TdcfBbWn+K8=;
+	b=Qox7PswxxyGBOQpmIp7+AlgoLans2tNCTTpJXL3aPHhyxoiBGWwbHk/mvoyhdQBX3U8/
+	 s7C5JJZxHnCKXpKvsspUGrRhmxVXRMyj5h78/A7RVZtvfsWvXD4dOoHMB5atc+lNTDoVe
+	 mYsP/c9EcFHpAgIb5Yn4OJWHW5RIBW4aUi+9YQga0YG6d/XpyLN2zfsbJSnVm6aDfkO1R
+	 kS3vFvkGaxVEVCVmGDQaZsEDP9dAjS6l2nvpFD8QiI0Cvd+VcY6u3TlZcSvSzlv/j5ePr
+	 dMRudAbM2IDTV0bdUruX0GeBzbcVtY//EcbGeg/j+rAc95PYNIPl56jLXZtGZYz20+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DnvLvDTt;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00A5A606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 16:43:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00A5A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=njeze0JP;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 41A19606A319;
+	Wed, 21 Oct 2026 16:43:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41A19606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DnvLvDTt
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso5002975ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:43:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792601007; x=1793205807; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ci8HQ01z2l/V3dvB0tBYdp+UGZOKQC242kExtdOTHs4=;
-        b=DnvLvDTtBy7cN7BNYpcCz9JwEHLw0xK8wVqv0zpzZSxW0EFrjl62Crt3/vzVL67jRw
-         +wIovjXsjSRwuf+RAp5bOOnSWaPFGEEqtjEHnLW7DhmC05SYGcVROA8DULZb9lHCaZU9
-         d0VgzExH93c7j0iXT4XTJWDqEpC9orlkwgzJr5CHgp0hspFkWv2c99CWEdBT0rMAD9yG
-         pAFp7XHazWLDFc/uGPRsJpIBKCUUrUn8OzSrC+ozjQSbfCH1LqX2n8b3IJ+I/DTTKfRO
-         kOPEu0+o+mA8gzC5wqpZNfh/5XV4F1c9g3u0guJPTTjuytALZVDeiRiUNJAyNScenoYq
-         M4BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792601007; x=1793205807;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:to
-         :from:subject:cc:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ci8HQ01z2l/V3dvB0tBYdp+UGZOKQC242kExtdOTHs4=;
-        b=WHDpUVzMBQ1/zR4jwg96AhkUEG6BeZVGiu59Cm/w68NBW/fyZwJMoeoQMaIAXO5i4L
-         mCqofIbm9XjXF4pIcpQqDut3tpztlWXEZT5AYoUCj14z4qTR5ovzxrCG2vM+/CofQ+CI
-         Ws1MJTXEmHkc3zVE0r0PEcKN9DDA1WT4UC5t0iQlIR/KueP+SYCVL5hCREkg4mFhcAAo
-         cc/p+YwbmljALNEg00ku0zqf5pwZSAajr920E6Q9DICHioVNcLx4Ebjg99UMQFIT0Iqf
-         AeekRyeSaxu1DFi+e1OG8fQMcyWhXCYJWkkVfZRadNFaiBE3XorPoHNqlxZERHcPzKPu
-         FDzg==
-X-Forwarded-Encrypted: i=1; AKwUvBynJQvYqM8rsCkNgFEaUXW+zCPh4j2yHrcCzcXI9z2Pz1v/SAJBe25QdCgeqPCzRcgLQNa8X34Ir2RN1Yo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImIgGoLNNV7sbehO79Bc2nVBlTmHiZ2U1BiUvbOOCH3KF9HhQz
-	mBtvEiCv63aDH/joNqPC284glhlLB5qw4zZmOIms8T7pO2wVO2HZiwoa
-X-Gm-Gg: AYBFou3PNxJEOF9zFF4mWWaogs4m0AT4UQiMMFNaZGdrkz3wUyI8qdkZPCCRmfF43cW
-	VQ+fyJj5VWC9b5tlCXCP5j9/xiyCUIudzf5PZC/JbuBUz0mNpfKzRf3r1oD/O3tTr5QDQerL0Yi
-	iln1cH2rU3yZJPKRK8fNyOe5BLb4scqpBmDuNvYKBGKILbu0d8og6l3kkEQbge0/LAuEpG1Oups
-	JX7GqF+7iwYMAiz8O7xgop57S4tbLm9rfqNKPVHzD7JjvwjneLJJC7q8t2H044Dljgl6pVkMVmi
-	yu9RLc9xE801c2Q95oovspJAzb4QP/Dnhq85gnKvnuMR4ss4krvLxcPrT7+Qh4vfN22Yj99/Hv9
-	js4+QWFDfP/Cudzb3rmBPZN/Bgxf4hryqXhSpER1w3YRkcZK4sbURPogPYOnJAInsZTdbB7UT2N
-	IMY/wH9Jco4FYwRcDxOWdGGDfnz404GhnhicXn1YArzLgONm+hvpAa+STEKIQSRO5cYIVQSlKqH
-	3i/EKP08HTjkGJYattBprI7l/pKcwONdLdM6F8pkqTguq3JSYsTmZXkbf86JfdkrIrWCncIKfwz
-	nvGSGOnSWhgT1OneQdOa0Zd3LSC/l3uuHHBu7sWHG6BkvvWhAvM0qk5yJCotMQ==
-X-Received: by 2002:a17:90b:514d:b0:3a8:699f:959d with SMTP id 98e67ed59e1d1-3ad86d55b29mr2259973a91.31.1792601007016;
-        Wed, 21 Oct 2026 09:43:27 -0700 (PDT)
-Received: from localhost ([153.61.198.244])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6b84b513csm257161a12.12.2026.10.21.09.43.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 09:43:26 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 16:43:25 +0000
-Message-Id: <DMAO0T9BL4YQ.2B3YU3ON26N6L@gmail.com>
-Cc: "Daniel Borkmann" <daniel@iogearbox.net>, "John Fastabend"
- <john.fastabend@gmail.com>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, "Andrew Lunn" <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, "Eric Dumazet"
- <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni"
- <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Jesper Dangaard
- Brouer" <hawk@kernel.org>, "Stanislav Fomichev" <sdf@fomichev.me>,
- "Kuniyuki Iwashima" <kuniyu@google.com>, "Hangbin Liu"
- <liuhangbin@gmail.com>, "Martin Karsten" <mkarsten@uwaterloo.ca>,
- <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-Subject: Re: [PATCH bpf-next] bpf: Pass extack to bpf_xdp_link_attach
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Leon Hwang" <leon.hwang@linux.dev>, <bpf@vger.kernel.org>
-In-Reply-To: <20261021152455.71524-1-leon.hwang@linux.dev>
-References: <20261021152455.71524-1-leon.hwang@linux.dev>
-X-Mailer: mkdraft (claude review draft; edit before sending)
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=njeze0JP
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 179AA1756;
+	Wed, 21 Oct 2026 09:43:32 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D9DDF3F7D8;
+	Wed, 21 Oct 2026 09:43:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792601015; bh=pTG1M1AhoRIl85w5oJURP9jvzcTWRrqw5hYeYanFX1g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=njeze0JP3ZuJZGz0/cxGFIwiygbTIsjJp8h83dKSpc0RVAt2rJDCoVsG4xKgUOWz0
+	 kP+RYX+GUGibwULZNIvvjKAVELbY/KiFrdM+dBFqZJepx8r7KejBNKi0DAlshl7G7M
+	 9fv4bm7jamJQZQt1ZToOQ+Uq6wN1uHz8pBVVy1FQ=
+Date: Wed, 21 Oct 2026 17:43:32 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Amir Ayupov <aaupov@fb.com>
+Cc: James Clark <james.clark@linaro.org>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] coresight: etm4x: Report the external outputs the
+ PMU counts
+Message-ID: <20261021164332.GI26205@e132581.arm.com>
+References: <20261012230527.750567-1-aaupov@fb.com>
+ <20261012230527.750567-4-aaupov@fb.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,144 +68,184 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012230527.750567-4-aaupov@fb.com>
 
-On Wed, Oct 21, 2026 at 08:24 AM Leon Hwang <leon.hwang@linux.dev> wrote:
->  	case BPF_PROG_TYPE_XDP:
-> -		ret = bpf_xdp_link_attach(attr, prog, log);
-> +{
-> +		struct netlink_ext_ack extack = {};
-> +
-> +		ret = bpf_xdp_link_attach(attr, prog, &extack);
-> +		if (extack._msg)
-> +			bpf_log(log, "%s\n", extack._msg);
->  		break;
-> +}
+On Mon, Oct 12, 2026 at 04:05:22PM -0700, Amir Ayupov wrote:
 
-CI is right. This looks odd,
-but instead of CI's suggestion:
-        case BPF_PROG_TYPE_XDP: {
-                struct netlink_ext_ack extack = {};
+[...]
 
-do something like below:
+> --- a/drivers/hwtracing/coresight/coresight-config.h
+> +++ b/drivers/hwtracing/coresight/coresight-config.h
+> @@ -35,6 +35,10 @@
+>   * a device that matches one of its classes and has all of its capabilities.
+>   */
+>  #define CS_CFG_MATCH_CAP_MASK		0x0000ff00
+> +/* trace unit external output n is countable by the PMU as TRCEXTOUTn */
+> +#define CS_CFG_MATCH_CAP_PMU_EXTOUT_SHIFT	8
+> +#define CS_CFG_MATCH_CAP_PMU_EXTOUT_NR	4	/* TRCEXTOUT0-3 */
+> +#define CS_CFG_MATCH_CAP_PMU_EXTOUT(n)	BIT(CS_CFG_MATCH_CAP_PMU_EXTOUT_SHIFT + (n))
 
-sock_map, netkit and nf links will probably need the same when you
-get to them. They can take &extack too.
+We can just use a single capacity for all output singals. It would be
+good to follow the naming convention in the Arm ARM:
 
-diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
-index 1d34ece..5926f13 100644
---- a/include/linux/bpf_verifier.h
-+++ b/include/linux/bpf_verifier.h
-@@ -1269,13 +1269,8 @@ __printf(2, 0) void bpf_verifier_vlog(struct bpf_verifier_log *log,
- 				      const char *fmt, va_list args);
- __printf(2, 3) void bpf_verifier_log_write(struct bpf_verifier_env *env,
- 					   const char *fmt, ...);
--#ifdef CONFIG_BPF_SYSCALL
- __printf(2, 3) void bpf_log(struct bpf_verifier_log *log,
- 			    const char *fmt, ...);
--#else
--__printf(2, 3) static inline void bpf_log(struct bpf_verifier_log *log,
--					  const char *fmt, ...) {}
--#endif
- int bpf_vlog_init(struct bpf_verifier_log *log, u32 log_level,
- 		  char __user *log_buf, u32 log_size);
- void bpf_vlog_reset(struct bpf_verifier_log *log, u64 new_pos);
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 4548b0f..f5d6438 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -4418,7 +4418,7 @@ struct sk_buff *dev_hard_start_xmit(struct sk_buff *skb, struct net_device *dev,
- 				    struct netdev_queue *txq, int *ret);
+  #define CS_CFG_MATCH_CAP_TRCEXTOUT            BIT(8)
 
- int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
--			struct bpf_verifier_log *log);
-+			struct netlink_ext_ack *extack);
- u8 dev_xdp_prog_count(struct net_device *dev);
- int netif_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
- int dev_xdp_propagate(struct net_device *dev, struct netdev_bpf *bpf);
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index 87cd122..0ce75ee 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -5865,6 +5865,7 @@ err_put:
- static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_attr *attr_common,
- 		       bpfptr_t uattr_common, u32 size_common)
- {
-+	struct netlink_ext_ack extack = {};
- 	struct bpf_verifier_log *log;
- 	struct bpf_log_attr attr_log;
- 	struct bpf_prog *prog;
-@@ -5944,7 +5945,7 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_a
+>  int etm4_cscfg_register(struct coresight_device *csdev)
+>  {
+> +	struct etmv4_drvdata *drvdata = dev_get_drvdata(csdev->dev.parent);
+>  	struct cscfg_csdev_feat_ops ops;
+> +	u32 match_flags = CS_CFG_ETM4_MATCH_FLAGS;
+>  
+>  	ops.load_feat = &etm4_cfg_load_feature;
+> +	match_flags |= (u32)drvdata->pmu_extout << CS_CFG_MATCH_CAP_PMU_EXTOUT_SHIFT;
+>  
+> -	return cscfg_register_csdev(csdev, CS_CFG_ETM4_MATCH_FLAGS, &ops);
+> +	return cscfg_register_csdev(csdev, match_flags, &ops);
+
+I would suggest to enable the capability bit base on drvdata->caps:
+
+  if (etm4x_is_ete(drvdata) && drvdata->caps.nr_events)
+	match_flags |= CS_CFG_MATCH_CAP_TRCEXTOUT;
+
+For now, we can enable TRCEXTOUT for ETE only, as this should be
+sufficient to detect the feature safely. I'd like to leave this to
+James and Mike as I got suggestions from them.
+
+Please also rebase onto the latest CoreSight next branch [1], which
+moves the capability fields into drvdata->caps. I found an issue in the
+decoding of caps.nr_event; the attached patch fixes it and makes the
+field hold the actual event count.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/coresight/linux.git branch: next
+
+---8<---
+
+From 95307fa0574b1e0b3922ffa23fe98144b2688496 Mon Sep 17 00:00:00 2001
+From: Leo Yan <leo.yan@arm.com>
+Date: Wed, 21 Oct 2026 17:05:18 +0100
+Subject: [PATCH] coresight: etm4x: Fix event count decoding
+
+TRCIDR0.NUMEVENT normally encodes the number of events minus one.
+From ETMv4.3 onwards, including ETE, a zero TRCIDR4.NUMRSPAIR instead
+means that no events are implemented and NUMEVENT is zero. The sysfs
+event controls currently interpret this combination as one event and
+allow writes to unsupported event fields.
+
+Decode NUMEVENT after NUMRSPAIR and store the actual number of events
+in nr_event. Use the decoded resource count so that older ETM versions,
+where a zero NUMRSPAIR represents one resource pair, still report at
+least one event. Update both sysfs event controls to use the actual
+count and clear their event fields when no events are implemented.
+
+Also correct the instruction event enable mask for the single-event
+case to use INSTEN[0]. The existing mask uses INSTEN[1], preventing
+event 0 from being enabled.
+
+This change depends on the recent driver refactoring. With no reported
+failures, it is not intended for stable backporting.
+
+Signed-off-by: Leo Yan <leo.yan@arm.com>
+---
+ .../coresight/coresight-etm4x-core.c          | 13 +++++++--
+ .../coresight/coresight-etm4x-sysfs.c         | 29 ++++++++++---------
+ 2 files changed, 27 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+index e21be6468e954..af017bd8a5477 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
++++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+@@ -1451,8 +1451,6 @@ static void etm4_init_arch_data(void *info)
+ 	caps->trccci = !!(etmidr0 & TRCIDR0_TRCCCI);
+ 	/* RETSTACK, bit[9] Return stack bit */
+ 	caps->retstack = !!(etmidr0 & TRCIDR0_RETSTACK);
+-	/* NUMEVENT, bits[11:10] Number of events field */
+-	caps->nr_event = FIELD_GET(TRCIDR0_NUMEVENT_MASK, etmidr0);
+ 	/* QSUPP, bits[16:15] Q element support field */
+ 	caps->q_support = FIELD_GET(TRCIDR0_QSUPP_MASK, etmidr0);
+ 	if (caps->q_support)
+@@ -1519,6 +1517,17 @@ static void etm4_init_arch_data(void *info)
+ 	caps->nr_resource = FIELD_GET(TRCIDR4_NUMRSPAIR_MASK, etmidr4);
+ 	if ((drvdata->arch < ETM_ARCH_V4_3) || (caps->nr_resource > 0))
+ 		caps->nr_resource += 1;
++
++	/*
++	 * NUMEVENT encodes the number of events minus one. From ETMv4.3,
++	 * including ETE, NUMRSPAIR == 0 means no events are implemented.
++	 * nr_resource already accounts for the pre-ETMv4.3 encoding.
++	 */
++	if (caps->nr_resource)
++		caps->nr_event = FIELD_GET(TRCIDR0_NUMEVENT_MASK, etmidr0) + 1;
++	else
++		caps->nr_event = 0;
++
+ 	/*
+ 	 * NUMSSCC, bits[23:20] the number of single-shot
+ 	 * comparator control for tracing. Read any status regs as these
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+index db9e603f97ba8..fb38f0102290a 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
++++ b/drivers/hwtracing/coresight/coresight-etm4x-sysfs.c
+@@ -513,19 +513,22 @@ static ssize_t event_store(struct device *dev,
+ 
+ 	raw_spin_lock(&drvdata->spinlock);
+ 	switch (caps->nr_event) {
+-	case 0x0:
++	case 0:
++		sysfs_config->eventctrl0 = 0;
++		break;
++	case 1:
+ 		/* EVENT0, bits[7:0] */
+ 		sysfs_config->eventctrl0 = val & 0xFF;
  		break;
- #ifdef CONFIG_NET
- 	case BPF_PROG_TYPE_XDP:
--		ret = bpf_xdp_link_attach(attr, prog, log);
-+		ret = bpf_xdp_link_attach(attr, prog, &extack);
+-	case 0x1:
+-		 /* EVENT1, bits[15:8] */
++	case 2:
++		/* EVENT1, bits[15:8] */
+ 		sysfs_config->eventctrl0 = val & 0xFFFF;
  		break;
- 	case BPF_PROG_TYPE_SCHED_CLS:
- 		if (attr->link_create.attach_type == BPF_TCX_INGRESS ||
-@@ -5978,8 +5979,11 @@ static int link_create(union bpf_attr *attr, bpfptr_t uattr, struct bpf_common_a
+-	case 0x2:
++	case 3:
+ 		/* EVENT2, bits[23:16] */
+ 		sysfs_config->eventctrl0 = val & 0xFFFFFF;
+ 		break;
+-	case 0x3:
++	case 4:
+ 		/* EVENT3, bits[31:24] */
+ 		sysfs_config->eventctrl0 = val;
+ 		break;
+@@ -565,22 +568,22 @@ static ssize_t event_instren_store(struct device *dev,
+ 	/* start by clearing all instruction event enable bits */
+ 	sysfs_config->eventctrl1 &= ~TRCEVENTCTL1R_INSTEN_MASK;
+ 	switch (caps->nr_event) {
+-	case 0x0:
+-		/* generate Event element for event 1 */
+-		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_1;
++	case 1:
++		/* generate Event element for event 0 */
++		sysfs_config->eventctrl1 |= val & TRCEVENTCTL1R_INSTEN_0;
+ 		break;
+-	case 0x1:
+-		/* generate Event element for event 1 and 2 */
++	case 2:
++		/* generate Event element for events 0 and 1 */
+ 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
+ 						   TRCEVENTCTL1R_INSTEN_1);
+ 		break;
+-	case 0x2:
+-		/* generate Event element for event 1, 2 and 3 */
++	case 3:
++		/* generate Event element for events 0, 1 and 2 */
+ 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
+ 					     TRCEVENTCTL1R_INSTEN_1 |
+ 					     TRCEVENTCTL1R_INSTEN_2);
+ 		break;
+-	case 0x3:
++	case 4:
+ 		/* generate Event element for all 4 events */
+ 		sysfs_config->eventctrl1 |= val & (TRCEVENTCTL1R_INSTEN_0 |
+ 					     TRCEVENTCTL1R_INSTEN_1 |
+-- 
+2.34.1
 
- out:
- 	if (ret < 0) {
--		int err = bpf_log_attr_finalize(&attr_log, log);
-+		int err;
-
-+		if (extack._msg)
-+			bpf_log(log, "%s\n", extack._msg);
-+		err = bpf_log_attr_finalize(&attr_log, log);
- 		ret = err ? err : ret;
- 		if (prog)
- 			bpf_prog_put(prog);
-diff --git a/net/core/dev.c b/net/core/dev.c
-index a142613..d79a589 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -97,7 +97,6 @@
- #include <linux/kthread.h>
- #include <linux/bpf.h>
- #include <linux/bpf_trace.h>
--#include <linux/bpf_verifier.h>
- #include <net/net_namespace.h>
- #include <net/sock.h>
- #include <net/busy_poll.h>
-@@ -10773,11 +10772,10 @@ static const struct bpf_link_ops bpf_xdp_link_lops = {
- };
-
- int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
--			struct bpf_verifier_log *log)
-+			struct netlink_ext_ack *extack)
- {
- 	struct net *net = current->nsproxy->net_ns;
- 	struct bpf_link_primer link_primer;
--	struct netlink_ext_ack extack = {};
- 	struct bpf_xdp_link *link;
- 	struct net_device *dev;
- 	int err, fd;
-@@ -10786,7 +10784,7 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
- 	dev = dev_get_by_index(net, attr->link_create.target_ifindex);
- 	if (!dev) {
- 		rtnl_unlock();
--		bpf_log(log, "Invalid target_ifindex.\n");
-+		NL_SET_ERR_MSG(extack, "Invalid target_ifindex.");
- 		return -EINVAL;
- 	}
-
-@@ -10808,15 +10806,13 @@ int bpf_xdp_link_attach(const union bpf_attr *attr, struct bpf_prog *prog,
- 	}
-
- 	netdev_lock_ops(dev);
--	err = dev_xdp_attach_link(dev, &extack, link);
-+	err = dev_xdp_attach_link(dev, extack, link);
- 	netdev_unlock_ops(dev);
- 	rtnl_unlock();
-
- 	if (err) {
- 		link->dev = NULL;
- 		bpf_link_cleanup(&link_primer);
--		if (extack._msg)
--			bpf_log(log, "%s\n", extack._msg);
- 		goto out_put_dev;
- 	}
-
-
-pw-bot: cr
