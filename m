@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575667;
-	b=LTq658U3xQDq0K0cLKQS5PB0lxBZZPjFGIhZf/wD0ySHzOqGl1dCQP/ogpLFLbPPdvtA
-	 maREST2k7dKbK1VLZADJeJ73HgQh6aja6pfCmmmhxQEuH9HkwhXEDR/pe2OWgFPN9AX73
-	 FIfVe/2LOC4diXqqIs2ZASwpXwXIr7GRlWWTaHpgqgr1mlZXE7SGS40/ff1eHtkiG0yO4
-	 9xnHHCz365V9AUnP1M067wFrNm+toEXO2AxI5kkhgHWqPlELw6YR0/EosoAXoK4v1+IsN
-	 byK4M4fJyA7w2QFACZr9V7JjJSX5KemOy2In9VHcZiun7evhnkwxFuz7RKTujLsCH8w==
+	t=1792575680;
+	b=h8yzpftewpvDYWbWOmWcMkweOhc9auT8MKaRnMM4NOWo4ym4fE9dEOrTjYoOpWz25EWp
+	 GspXquaosDbbNMekK+y2mDLg4lS/LXnTM4p7Gh28GhmD2B23606mgrTFh5HOlDvGp7wn/
+	 wjptwvIUjqlxoD2Vv8FW8TbL3ICqgRExI6kY4iathld/tyWj1ijwnOD/ecrAbbb1pbm0b
+	 7gJsxJLeaC7Le0WeQIQ0pGacLadnKFY+igY1tNr0VKmhZNLgNl+TUcc76eqUTRe+kb7jb
+	 TqcYn2tcw0p5lRNlTpS+2ueZSCFtaMaXaCWmfRcEAviZi1sz2Sk8iD3DNV4ecR/HZrQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575667;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:To:cc:
-	 Subject:In-Reply-To:Message-ID:References:MIME-Version:Content-Type;
-	bh=GQxW6xENtXbMj8QQDuCNwAAh6QE3zn6BXyEAG556udM=;
-	b=Q+lJqH4SIzqqiHBQvWWmEAmGXstAfR5xhCa6Omu6JPZ8jJ4O878uyqw1sf2bDoVz1Mm9
-	 iWXsC8eR/MpA6QVBsiwRwX/b58dspf429cBz0eTsPgOFodN5mwh4Er/hG6kDs/6BwAYKv
-	 449BKJILXvLZjwQhBWQWosfnrEq5BIxrUxpB8vOBdjlsAXlW8aXeAPRHpHUC1joUbuWdW
-	 QgmQX/IjHw8LWzSRa3brSOigSWvPngIw5wl0F5dpYpliS3zC/i4vMdeYe6wNyChJYZd+B
-	 8JeCHoR2TjBmqjONaNr06CxvWw4l7M18yiJNV2cDkT/4bR/rOX61vsalKUiYFux0gAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575680;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=fyZC70zcs2JyMZN3/MJ99iH36eA3idZcChdR9W7M0ws=;
+	b=rLo76w0sxCIHbw3Ltc3DH3vVlYJFppx2mBuh49VHpCq24Fh9IZBb3aOTZNJYtzyBJHSG
+	 J1mrIpF/2db+fLX7cIG/8nges1FgU3TBKkiHbOCNUHDDFFUNwxZepbb2fvOIrR3zRSJen
+	 bEnwYIZgpERdCB7HlKILZT9+LeJrl5WYbmbVFmzIqayBzzYyVYKkLV8fkramLd2MPyc5s
+	 mteYPQTXw2hD8YRIIKn/73827lFRT6g8P4i96lLn7q7l7tdSZShJmRgL6zYxeDl2pG/XP
+	 gLkZ2Uu+jrrIEziYUkzsuYLt7OjX9wE3JP/hTF2TNYKVQVF0WWHQBs+QuFqcCETQLBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="hM86O0k/";
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U54cVHtg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 817F1606A31B;
-	Wed, 21 Oct 2026 09:41:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 817F1606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB25606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hM86O0k/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792575667; x=1824111667;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=jWWtomYEmcE2WRVvCrQva78fyq2hiVCpAZfWf4+FIys=;
-  b=hM86O0k/TqhZFl1DEX4P7hhwtJ91DIPJzGa2NEtERr4pZfRSHn+ajZCU
-   9UXV5C34jL3PifhwE3iZEWcatgF1Q816eVJQeUV83VuNDZxQSU8m4ZC0Y
-   hXAJ+gL3+bMS6ZS1cxwuPK79MrLg6liHdIbUsK8RQotJxvLOdITte5/Lz
-   0TXu+vWdMTVZJglpTp5J8UXjyncYTAeMMpMhufSV7ZeARos4tuZ9fnwgq
-   Z6DBk4i9pfpfLTOt+hUqw+3SUmw2ec5r1IpmyEQk3l459HVjo6rPT/xRA
-   jpV4elgYFWkKvvS8k10Xags6GEF3+Vu92wH/ORrmhFKsUSHfrbU9aENlL
-   A==;
-X-CSE-ConnectionGUID: qMmBT9zjS86dfTucRozmJw==
-X-CSE-MsgGUID: XNA5n7G5S++rmVUBjf0Gyw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11941"; a="1306606"
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="1306606"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:41:07 -0700
-X-CSE-ConnectionGUID: CuTzZbQvS3uG0gS4V7rB9Q==
-X-CSE-MsgGUID: 8Y1uQFNaSS2B3yPFqYXC3g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,169,1787036400"; 
-   d="scan'208";a="4845540"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.75])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 02:41:03 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 21 Oct 2026 12:40:58 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v6] platform/x86: hp-bioscfg: fix heap OOB in
- hp_enforce_single_line_input()
-In-Reply-To: <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com>
-Message-ID: <273be4cc-ad7d-cdcd-de25-8d1439bed3e3@linux.intel.com>
-References: <20261016025352.230535-1-meatuni001@gmail.com> <29c3e4a2-9d6a-60cf-d06d-85152a40a703@linux.intel.com> <CADqcGBkV4iE_0j6usv6TvV3K9XGUa0L9J-ebUkTLsB0NBYzTHA@mail.gmail.com> <a905f45d-aec8-569f-d5bc-718896f7c9c9@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U54cVHtg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C01EC1F000C9
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:41:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792575679;
+	bh=fyZC70zcs2JyMZN3/MJ99iH36eA3idZcChdR9W7M0ws=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=U54cVHtgyaYCzaVg6lv6nnSrhp5kOAx1Sp3i4Xuu2rpNCaq4iSulQKlepPuT3LpHL
+	 HtEHPuzqTixVtSC2VG3nrPnpOykscbOCeGErPz67XWoIuanXQBqgIX7UGZTB4J2VVG
+	 qOiVaxyXC6QjSW1Jb0UaBRqBv8JJvIKAztju2mCujS9lL+aI9MhyuKRph8KKBeoLyP
+	 EmTeFGCwR4y9PHOK8mjYVWY321DVOR/XVirs1V8usDxan04bQ7oH5c0F3TjOr0LFOL
+	 yMqJgoMipMmi07Y7qJGN4cs00QHUnFzS+su2gBp/YMQ8xgtozRzpqpJB7kY9MFyE3J
+	 2tE0IT1ke6koA==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3ab27b4924aso3977401fa.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:41:19 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy25/o6jfJo+XP70jlCTF4AfumihzyLpqRnXxsnbv83wk1Xn6Hzlrditb0w23JiC94xiQqgKi8VZNG2Cgo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMuWNccSmiUEP2ieBMsL7mETnQ/zsZph3dEaXZiBquguigsgnF
+	lmbK9o7QtMOS5Ne8YQ7JgLr6CYKHnZo3lBPo5q56y1koxuKtScY4LsU4GSybosLTB9BAYkvOlhE
+	O3AE5c6h2/PZ3bZb+kqeex9pWRC7SW/PK8H7AourCeQ==
+X-Received: by 2002:a05:6512:6c2:b0:5bc:e661:d673 with SMTP id
+ 2adb3069b0e04-5bfa1d00cb6mr598516e87.56.1792575678483; Wed, 21 Oct 2026
+ 02:41:18 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:41:16 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:41:16 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,36 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1747451990-1792575658=:1258"
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com> <20261021073633.2163128-2-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 05:41:16 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Mfth7nH3dkn7__N=o3P0zYvYYp8S58WjwX=zttoSPEusw@mail.gmail.com>
+X-Gm-Features: AclHuK8Sh9-m53G1_uADJjezLlpATsHIz1MTBlYIHav2b9m-Yl5DadTNtdz_ykI
+Message-ID: <CAMRc=Mfth7nH3dkn7__N=o3P0zYvYYp8S58WjwX=zttoSPEusw@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 1/5] soc: qcom: pd-mapper: Add support for Nord
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, 21 Oct 2026 09:36:29 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+>
+> Add support for the Qualcomm Nord SoC to the protection domain mapper.
+>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
---8323328-1747451990-1792575658=:1258
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Wed, 21 Oct 2026, Ilpo J=C3=A4rvinen wrote:
-
-> On Wed, 21 Oct 2026, Muhammad Bilal wrote:
->=20
-> > Hi Ilpo,
-> >=20
-> > > Why use n variant?
-> > strnlen() keeps the read within count, which is the size of buf as far
-> > as this helper knows, so it does not depend on the caller NUL
-> > terminating the buffer. Both current callers pass a kstrdup() copy, so
-> > strlen() works too. I can switch to it in v7 if you prefer.
->=20
-> As the contract here is the input must be a string, I don't see any need=
-=20
-> to limit the length with n variant so I do prefer strlen(). Also, we know=
-=20
-> that it should not be longer than count anyway.
-
-I only now notice Andy's comments which seem better suggestion in general.
-
---=20
- i.
-
---8323328-1747451990-1792575658=:1258--
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
