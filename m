@@ -1,108 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792589094;
-	b=rQM7lLcFH5eaMSDJhBMrJv1UOcnQsB9hTuKZUq6YUqrO10gLvTYhc4wjYyvhG6NN6/3c
-	 pvQTnxcbIzPYqVNf9jSKQnfKjAx2+dgSanv8quCv50SoG8z/vP/T72+5AXSOi/580gr/s
-	 ufj6ceXR4jweNubWS393oH28bsLTdyRgxWNlT648bWHZFAWFNr+Abhe11arRt5cnN8V1Y
-	 2L+WmE8ysuLXY3NzMCebwfRCO+FQZwR8hSE/ylGT/jq+X0HrYe3158gyNJKHbIuZpNP07
-	 0Cr10nhkSKQVFmdVNgnrQYJya1ASMiJ/R75L8Y0Lvp9yDJT2jLJ/dvI01t9/tyNcYxA==
+	t=1792589316;
+	b=2SRocfJztZA0VjXo/ETCYPQwRQXMFHCaW8QUuJrIY/zETi9v2ix62kjNsSS/2bdn8Ifj
+	 HHgdO1qxLHwIY7F7RSc3E9fw1fTvXppnqc3+yftdWRTtAfE6eJCJfe9HRESO+swjmigkQ
+	 HC2Jpcuyzsl/8eZrs7lJh/WOOKDG6d5vB+RyUS1GQkbHYXCjE2wDELZW2YQhKutbbUADt
+	 /Icv/O0HkCdDmxgzxPsHOSXvi/nRd8YHNmNmtdSbxu5PM6+Xyq9UVadvvSYWNlU/NoJb2
+	 lEnuDzBBsGC0EpuqEvnb0k1RNu1Pp4BHkck18GpB6510S6XvFUyuHIuzq65X11JXn7Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792589094;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DfLg15d2NsC8WG4F+8NUyIDwq+mbAzZvSv8g7DgQuf0=;
-	b=uuVpM63c/xueQiypB4TgXKxN46KqUaGDL2k7nEdwDc6LALrTlGKevQ5wmXQHTkhacmEf
-	 8MZ0ZrFjK/dWFQdomMN61dihOZVFJ0i2a/hQLTS8kX5JtAbSI8fwV2/cggDKrIOHw7S9N
-	 PEDDermmrjYxuZtVLbDgM0yM4BQb39bnPynywVaiB7YCWk1F+Y7k3ocA5MvhrwcU5ix2L
-	 SViefGKckGu8swj/C+A7fIJayXfKs716X4PoMsu8dZFsM8d8bmrhmeFCFR7jM+RRv++TD
-	 Pvl92uDHiFRKZd2u1oF8x02QPaULh57f7RB73KDKJFjLx+Xrz2CKz2oWvZudWjEbCiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792589316;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=oMGqCUBvkzKyHx9AT+4QUIhrDabLOK6bK0GYypE8T3U=;
+	b=C4lNW/lwvvblzxJBJkyK0K9XBDEa54hzRh/IRMghhjf8yg/pTeo1as8htp5xuryEgcZj
+	 8r8iNN1hJVZZ+9UyYvbhO16ayx/HvLYZY4r3W5jP6DTwCtnkROB0rifP9X6CET5+OEUoI
+	 hkaJ1fVy1JZSEadrVfGnSGJj7v97qxpn96EJYmKmwfvuxskyVDATQxdSr3qjEOCJi5Juk
+	 Zyjovd4Cz4Ki8S346dusPTfX33qTAJeWiN9NejRa4fhnwIiFDbgDsNZGJEZSjG4JQURHa
+	 F30Qff+ofF9Lr3e7EpBU389ejcEDWRHoCXBlk2NF5jKZf0Od9NgXWq+ZkLiaz/c112Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DFN1tklU;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWbuEhCR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E71A606A330
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:24:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E71A606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3519E606A319;
+	Wed, 21 Oct 2026 13:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DFN1tklU
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c445c95d553so89896066b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:24:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792589092; x=1793193892; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DfLg15d2NsC8WG4F+8NUyIDwq+mbAzZvSv8g7DgQuf0=;
-        b=DFN1tklUulxevp5e23DDQwk12D6ac5gehXefCmPIk3ujm87X145Iltk3nXTTJy10Co
-         18aFMXxMs0ITa744yyaA8coIk8ixafXJoH+P2cxkRvVolGZtNXcjQJah39i86ygQ6vDa
-         +99t2ShsDmh/tvedHar6FjFJfigremGZZVxAJDG4o5coiF6bAcm6M6xs4ybCKGtgClnL
-         l5OOZx+SjoAEToexQ1PuerbtVhpUdLGXFFshGdvMRUly8FwJwMta5oyLxtSTvLLGsP3X
-         lt+BLgsYkcghrABTaGAGNrvkqd8/1EUZqnrVutMlXxygBFmBdiNYwNo5pnLVhrScVieF
-         RAMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792589092; x=1793193892;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DfLg15d2NsC8WG4F+8NUyIDwq+mbAzZvSv8g7DgQuf0=;
-        b=bFahiOH9kr+BJ5GI74OKwKHzj3LhOLFoEGWJ0RlAZ5x2n+J4uq0JjuQNWqRt6H6NzL
-         A8q7Vh//VhmfSTG40QDyfdTrjqUoCRqujdNJT6pgljQ01cIsAtb5ayRTo6mVY0xw7oM2
-         +H1aZYyQlnQ1cjY5GRNvVIKNolg53MK3VW3EbauWoUPimzbaAXaECCMhSuhNSAMFJqOE
-         SKU7oAS/5uYs/yQu0ZjfmZDynBJ5DlxVKv3PAEDdXAwXBs5DhRCwRr4bDOqsFh9HpTFQ
-         PVpGRKFVc3cWvt7kxh5klxwFH/s+X3MtVsykeo+6z63wFurNtQxNvuVHV+83nDhCVutZ
-         GJXg==
-X-Forwarded-Encrypted: i=1; AKwUvBx+rl9VT4zAOm2pOzZY/H1vL+1b8qzsKGGPwo9ywMzONyOzMPlSOXL369M8Bd30j8W6ewrm8ICToVUkE+Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJsnGlg4OeWos3S2TXwfjZgLvHkTk0rfoV3Jjaa1FNKsXnF/V9X
-	tZquk0qq18aRMJLbX4T1BlvT5Y3GR1QWeFA1P2hJj6gahY8VR/Wy4CzT
-X-Gm-Gg: AYBFou1yDp3ZtBhGDYsmb0wnpRuUJO3cIZXkfRfvfcgzmIHLgaDx7yOzicNhvYsQfBG
-	ZPgXZJAadKvnIhZF4qknFoWPcA5im6VBlJq1ybST/ycSrZP8fkE3YVpgXyGMBjPEfHgAqJubZNm
-	yLZ4TwbSlZjRU+uA0CLt3iu21lWwegMCNAfWe0elJAFbbsuZIXP6U0DVilVet4E8RcU1V/HTMZK
-	AS+WTlM99FBI1JvktDq+wKUKprI7jT0Ox4IwvT7yjgKhB1gAjDtam4SP5vztcDyGzhK/PMSs76g
-	fZO1k4ZqMX+MyEMNPMDOhUmCHSeu2oQfW6CIViUi92ZDwn+oe33A4ZizZwtND2O6zRteBhs2Gff
-	bAxQKEuBdnAeUcJ1D8pY5/UqFFNaEm+Q2R28gcKCGWNZQ7m0aD3oQuhIJhIkirzJfh/JGXSvhnv
-	w/5PmaWjO9WAo2H6S/mF/5fopj7j2t4AR8mjE3OFnnDa8NK6gD3fyds5Z1wwi66IEB8B98B32t5
-	mMbn6/5pNEuIz5BrlrwDDgld9jV+lHLg+QK99Jn7HD1HoHER7K46mdnnT1Jd5qlELnZUcCAHjpD
-	f3o4EE8pq2q9cPFm58MjzyCQuHEu+Fjb+PXcZS+FGUwDkmHYL6Sn8WcpRjLlW7Gm24x+Bamyqg2
-	yOeo4ENnv
-X-Received: by 2002:a17:907:608d:b0:c2e:46d0:b802 with SMTP id a640c23a62f3a-c46797af00bmr188075166b.40.1792589091580;
-        Wed, 21 Oct 2026 06:24:51 -0700 (PDT)
-Received: from M-K2012N0113010.localdomain ([88.119.128.229])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a592333sm1418266b.46.2026.10.21.06.24.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 06:24:50 -0700 (PDT)
-From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Paulius Zaleckas <paulius.zaleckas@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>,
-	Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/5] iio: pressure: dps310: add Zilltek ZTS8032
-Date: Wed, 21 Oct 2026 16:24:09 +0300
-Message-ID: <20261021132409.3742735-1-paulius.zaleckas@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261019141646.49599-1-zoone.rupert@gmail.com>
-References: <20261019083620.1285782-1-paulius.zaleckas@gmail.com> <20261019141646.49599-1-zoone.rupert@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWbuEhCR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EADF61F000C4;
+	Wed, 21 Oct 2026 13:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792589315;
+	bh=oMGqCUBvkzKyHx9AT+4QUIhrDabLOK6bK0GYypE8T3U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jWbuEhCRUfg7HSS5kAjkc0CEflHpYNfFhGnBYKQbboed1IQQferHvn1sOSJslAVBI
+	 WV1ui3+W3v98X+CCX6+wMnWqabDWCrOx1BcjIyG7RAnnhjYWGO3wqO/BWGXiRPn3/G
+	 GNR/2zc2tRZWZlCqNyP6C/8CnCNB+cyuhNFDQfUvSbtJkSRf4Y8HG5Wi1N0wzb8mKg
+	 QKD5tjhp0cUzYqsPvhaguchFdk+M6Hq9NMV1lRsEUEd0m5KnudPqgxbbIlLXFlZ9BF
+	 6PP+Woil9GKEwXKoKSzKo+juFtkhgZQdNhR0yuOCrNVUdR/ykYExRDhGffExZFhgkJ
+	 S6VA+EB4G1KEg==
+Date: Wed, 21 Oct 2026 14:28:29 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>, 
+	Suzuki K Poulose <suzuki.poulose@arm.com>, Zenghui Yu <yuzenghui@huawei.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] KVM: arm64: Sanitise ID_AA64MMFR3_EL1.S1P[IO]E
+Message-ID: <ati9chI3v4jOuAiT@gremlin>
+References: <20261020064306.1542865-1-fuad.tabba@linux.dev>
+ <atc2Y4gHwtGlffns@gremlin>
+ <CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,11 +62,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTxMGFuZHPp8ULkpUiGhXos8f1B8kZ1FDigFE7afR=X6AQ@mail.gmail.com>
 
-On Mon, Oct 19, 2026, Rupesh Majhi wrote:
-> Tested-by: Rupesh Majhi <zoone.rupert@gmail.com>
+On Tue, Oct 20, 2026 at 08:30:56PM +0100, Fuad Tabba wrote:
+> Hi Lorenzo,
+>
+> On Tue, 20 Oct 2026 12:35:14 +0100, "Lorenzo Stoakes (ARM)"
+> <ljs@kernel.org> wrote:
+> [...]
+> >> Fixes: 70ed7238297fb ("KVM: arm64: Sanitise ID_AA64MMFR3_EL1")
+> >> Fixes: d4a89e5aee23e ("KVM: arm64: Expose S1PIE to guests")
+> >
+> > I guess kernels that are missing 19868b67e3e7 and 2ce80f624032 will need
+> > that stuff ported too?
+>
+> I think 2ce80f624032 would have to go back too, since without it a VMM
+> can still write the ID registers after they've been sanitised.
+> 19868b67e3e7 mostly provides the call site: the version I tested on
+> 7.3-rc3 called kvm_idregs_enforce_dependencies() at the top of
+> kvm_finalize_sys_regs() instead. Kernels before 6.16 don't have
+> config.c, so the backport there would be a different patch. I'd leave
+> the stable side to Marc though.
 
-Thanks for testing on a real DPS310!
+Ack :) I guess this is mostly 'stable looks painful' :)
 
-Paulius
+>
+> [...]
+> > static const struct reg_feat_map_desc *idreg_feat_maps[] = {
+> >         &id_aa64mmfr3_el1_desc,
+> > +       &id_aa64pfr1_el1_desc,
+> > };
+> >
+> > Right?
+>
+> That's how I'd expect it to look. Since
+> kvm_idregs_enforce_dependencies() repeats until nothing changes,
+> feat_gcs() could also test FEAT_S1PIE directly: by then, S1PIE has
+> been cleared if its own dependencies are missing.
+
+Great, so that clears I think the really main outstanding question for that
+series. Really nice! :)
+
+>
+> [...]
+> >> diff --git a/arch/arm64/kvm/config.c b/arch/arm64/kvm/config.c
+> [...]
+> >> @@ -59,6 +59,7 @@ struct reg_feat_map_desc {
+> >>         const struct reg_bits_to_feat_map feat_map;
+> >>         const struct reg_bits_to_feat_map *bit_feat_map;
+> >>         const unsigned int                bit_feat_map_sz;
+> >> +       const unsigned int                idreg_idx;
+> >
+> > This field feels a bit hazardous - 0 is a valid index and now things that
+> > don't declare it are setting a valid value.
+>
+> idreg_idx is only read for the descriptors in idreg_feat_maps[], which
+> all come from DECLARE_IDREG_FEAT_MAP(), so the 0 in the others is
+> never used. Storing the encoding would work as well, I'll leave that
+> one to Marc.
+
+Yeah not used, but you're defaulting to a valid value, so it's got real
+footgun potential.
+
+>
+> [...]
+> >> +static bool idreg_deps(struct kvm *kvm, const struct reg_feat_map_desc *r)
+> >
+> > To me this reads confusingly - idreg_apply_deps() would be clearer I think.
+>
+> Agreed.
+>
+> [...]
+> >> +       for (int i = 0; i < r->bit_feat_map_sz; i++) {
+> >> +               if ((r->bit_feat_map[i].flags & CALL_FUNC) &&
+> >
+> > What if it isn't a CALL_FUNC feature?
+> >
+> > Could this loop just be replaced with compute_resx_bits()?
+>
+> It's skipped, so a dependency written as a plain field match would be
+> silently ignored. Both entries today are CALL_FUNC, but
+> compute_resx_bits() handles every kind of entry and would also give
+> the res1 line something to set. It'd mean moving idreg_deps() below
+> it.
+>
+> Marc, compute_resx_bits(), the rename and the loop rework are all fine
+> by me. If you agree, I can respin with them, or you can fold them in
+> when applying, whichever is easier for you.
+>
+> Thanks,
+> /fuad
+
+Thanks! :)
+
+--
+Cheers, Lorenzo
