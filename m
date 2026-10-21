@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792577672;
-	b=1s/7SXGuVoh2DSHGj0oFhwXkikVicYCfT3jBX7COUa9j0UQCi6LKRwT/UFAXnAiSI3MX
-	 h+P3MdcCOmNZlPsEwZq4hh5wZmyO2fqwPv39fGX5NSXU8inI5oy0jeR8pmyzCSW7Uxxtv
-	 EBuz8jsqtkURgRScJBeMq613kYgL0O/apkhkNgpSyI5Yo6ywlXMqzCE1YWQNk+kJhT1Sb
-	 3iTA5Bs05aBKXkfVQTlamJv3wIqXWZKRRBLbbRggMhJRD5aFbu6pekWPLBYT55v5Q5E0v
-	 cCpvOmOJXMp29PMB3r32zwu2rzGbdlZxGa9FlJE50x3Kwr26D2HGds+4xEaCTb/Zrdw==
+	t=1792577685;
+	b=h0ARP/6kVpyRCny7ANWJZlILoIhFDkDMkruaEnGK4Efrw0wKMr/zDf2KxkWkkRWNqPyD
+	 PFNieuVNMg6PjH8aATEWjcUYsWnjDyyPRdZBU5sjJm1aCs0wh9yRFppbiFX66WD+Sc86h
+	 rkEWh7W8CLu9ERIAq2hBuqpYETzRWLcfwGn9CSJjgiNlV6qkx4QvdIV8m1z8o4uXT/hZn
+	 9VEfo3PYgm5032oHzZXzEPRsDUFjB38rpKLuLYZXQFkNwaMApcI1ymumSx5cbTWsIh50R
+	 We3llSgE/E7HrqmgpRopp8l96e4Eo53ab29IIQ07GBf2rzTNORjA2OADBtHB+xmHDJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792577672;
-	h=DKIM-Signature:Received:Message-ID:Subject:From:To:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-malware-bazaar;
-	bh=BDN+UiwX4dBEBh5y7D0QpWF83D3+WwbbbxuOce4C+bE=;
-	b=U+6FLcv2EbiD5HLN0DXxh+SWm9cET7sAqZnPzVvhBrV6JG+p0RgyNbX4jzFgpWdvE5oE
-	 5u8SjoMv8Lq2DTGEkPb43Sw9u0UP+pLKiC3+55aTNafxcGOqzacGmj2+aGAFcSe5uBR9Z
-	 DURJfBWg1DgkcvGzwZF6ot9qD2yVQlFtveUcVC2dJhAtLRa0Wbc7tQT90kSOoao0vlc6H
-	 xaUXVG2qbebdr178b5xmH+Aroacs173w4FxvlBAkdWJzYNF4z1eyVNEvV53fGDOtGJitN
-	 6FUCvg0E4kpd7Ih9zFxxUFGgUqepAql4FGcAfwH5oPvsaV4M6Vud3ky2BdXeeko7xvQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792577685;
+	h=DMARC-Filter:DKIM-Signature:EX-QQ-RecipientCnt:X-QQ-GoodBg:X-QQ-SSF:
+	 X-QQ-FEAT:X-QQ-BUSINESS-ORIGIN:X-QQ-Originating-IP:X-Originating-IP:
+	 X-QQ-STYLE:X-QQ-mid:From:To:Cc:Subject:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding:Date:X-Priority:Message-ID:X-QQ-MIME:
+	 X-Mailer:X-QQ-Mailer:References:In-Reply-To:X-QQ-ReplyHash:
+	 X-BIZMAIL-ID:X-Address-Ticket:X-QQ-SENDSIZE:Received:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=SwQuEuaNDO3nid1ReGvMJRb42Hols1id3AV90RDfQ9s=;
+	b=1YkziLu4TiJ2KgQxTCGqJdSPOwaT6q5HDnIUTSMKDl3N/9nxHkMuAB4AV733SMVWH2Ov
+	 oRvabJqXTEErzWEZ5UQOQ7BjFlkawmpnVrAHjFByA0gIiP5ZF9dJTC0TW3f5EzP/0amg8
+	 UjYj16tOG3i82LKEygDhUMSSEW0mqLlEDmimU/DEPx17R+N6s95x0047GHBVz2LX92RMj
+	 ctDaAO+q7u/VFU0uA0oOFJqa1D5iHVGw5u6nM4dchIp8QvIkqYefGqWva5tYJGgClGgce
+	 yDqK/nA3N2me1oYKHwqqFhw38nyDltRmVvYuK5ix5T2B4+8ugBHpO3JPTurrT93c7Jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=permerror header.from=sipsolutions.net;
-	spf=pass smtp.mailfrom=sipsolutions.net;
-	dkim=pass header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=cZmE6n93;
-	arc=none smtp.remote-ip=168.119.38.16
-Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=O2W4YJiw;
+	arc=none smtp.remote-ip=54.92.39.34
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9FB4606A31B;
-	Wed, 21 Oct 2026 10:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F72D606A324
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:14:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F72D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sipsolutions.net header.i=@sipsolutions.net header.a=rsa-sha256 header.s=mail header.b=cZmE6n93
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:To:From:Subject:Message-ID:Sender:
-	Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
-	Resent-Cc:Resent-Message-ID; bh=BDN+UiwX4dBEBh5y7D0QpWF83D3+WwbbbxuOce4C+bE=;
-	t=1792577671; x=1793787271; b=cZmE6n93awAVmHUc5kRk1v0ic68Nn213CA5wPqQUYN2EDJF
-	SpP18fACXepNjm4ZTRFkJAwkaJTlaAhOTlCTDvQcDFCAEggd6DWaLHJZ2RjKjN2mwL++qwYzSvl5c
-	rui7Hu0+l2O4Arc7jp3K8AbZSjWcfjdP62GUnIGQuvHbcK/DO3CKAuj5frlgWnQl1cIZbXr3on/Kr
-	wbAucCvsD6HLIrSNUtBbtmCiAIqykb1GFbP7YMusVu3mcbauL4Ska+Di/OrdFg70QoU+Hk3DFomk8
-	4cnGnuljg3QmyJcqT34zfhZ9mq8ZBEcS1Pm6SEbe0RwRmuEweJM7dBngJbSZLzvg==;
-Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
-	(Exim 4.98.2)
-	(envelope-from <johannes@sipsolutions.net>)
-	id 1xJTL1-0000000243u-3m11;
-	Wed, 21 Oct 2026 12:14:28 +0200
-Message-ID: <e0875c5e3a36835a3d41aa99d0f4de66b721f9d3.camel@sipsolutions.net>
-Subject: Re: [PATCH] wifi: zd1211rw: unwind failed interface additions
-From: Johannes Berg <johannes@sipsolutions.net>
-To: Jiale Yao <yaojiale02@163.com>, "John W. Linville"
- <linville@tuxdriver.com>,  Daniel Drake <dsd@gentoo.org>,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Wed, 21 Oct 2026 12:14:26 +0200
-In-Reply-To: <20261019013211.1489233-1-yaojiale02@163.com>
-References: <20261019013211.1489233-1-yaojiale02@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=O2W4YJiw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1792577610;
+	bh=SwQuEuaNDO3nid1ReGvMJRb42Hols1id3AV90RDfQ9s=;
+	h=From:To:Subject:Mime-Version:Date:Message-ID;
+	b=O2W4YJiwNJYbTvmiRjZMhv2XTW7q4dsC4bE4lJ395R6raY2HIW+AON5uRRskWB6ZJ
+	 WuHmvXbmk4oCHGsXWnUjxReOM2WvydIxKi9FvGyloCo7g1mujoOZ4BwDljFmCT1lY4
+	 T1p8ZPep52Glrb7lR4ICNs3hNOepH2YK+2mFyEf0=
+EX-QQ-RecipientCnt: 9
+X-QQ-GoodBg: 1
+X-QQ-SSF: 00400000000000F0
+X-QQ-FEAT: D4aqtcRDiqTFsO9FnkdoVsnipN7HHR/15pCLdlumVjA=
+X-QQ-BUSINESS-ORIGIN: 2
+X-QQ-Originating-IP: +3DOg1PzSdFwb2rZHtUROVuNle8zwNFRtV4KhKEjChE2yNkpCBjosYJTbFteg71B7L4zx2Rt0S7ynyhhnN9WDw==
+X-QQ-STYLE: 
+X-QQ-mid: lv3gz7b-6t1792577608t08ae0b56
+From: "=?utf-8?B?V2VudGFvIEd1YW4=?=" <guanwentao@uniontech.com>
+To: "=?utf-8?B?TXVjaHVuIFNvbmc=?=" <muchun.song@linux.dev>
+Cc: "=?utf-8?B?Y2hlbmh1YWNhaQ==?=" <chenhuacai@kernel.org>, "=?utf-8?B?V0FORyBYdWVydWk=?=" <kernel@xen0n.name>, "=?utf-8?B?bG9vbmdhcmNo?=" <loongarch@lists.linux.dev>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtbW0=?=" <linux-mm@kvack.org>, "=?utf-8?B?YWtwbQ==?=" <akpm@linux-foundation.org>, "=?utf-8?B?cnBwdA==?=" <rppt@kernel.org>, "=?utf-8?B?ZGF2aWQ=?=" <david@kernel.org>
+Subject: Re: [RFC PATCH] LoongArch: mm: avoid backing vmemmap beyond max_pfn
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,23 +63,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-malware-bazaar: not-scanned
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Wed, 21 Oct 2026 18:13:28 +0800
+X-Priority: 3
+Message-ID: <tencent_3FCCC1A500DEB6DD1A2BBFAB@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261021062115.116922-1-guanwentao@uniontech.com>
+	<EB4B2A6B-147E-4E7A-BAD7-A7C4699AF46E@linux.dev>
+In-Reply-To: <EB4B2A6B-147E-4E7A-BAD7-A7C4699AF46E@linux.dev>
+X-QQ-ReplyHash: 2681788507
+X-BIZMAIL-ID: 5298009908803815931
+X-Address-Ticket:version=;type=;ticket_id=;id_list=;display_name=;session_id=;
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1])
+	by smtp.qq.com (ESMTP) with SMTP
+	id ; Wed, 21 Oct 2026 18:13:29 +0800 (CST)
+Feedback-ID: lv:uniontech.com:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NF3tN0JyXxqWB7XmuSvHXGnHQzbbPwKwcV0gQSWBSktEX4FIPEI/nZxM
+	DIlHvsjkX2WgVMnHhFqcCiCIJQx4XXKTO+mcduX9OBALOaF6ONRUyHpe2Zj3OpdMVDYURDL
+	ekIOgPRSstMlFZpu6RWobyZE9+RvVEOxwp4WHi82uWIOnazaBAusOqDu6WmkykrjfIu8YT/
+	2xdR3inKc+xaWiJ8FvBnlOEnUmwkv+8YWPSP1IQ51UnM7M2LhgKjriGbCbZPiA/FAIqvUkX
+	EfJ1YRai5SlqpEsjuKE+4S9gx8nlsCPj/SmMnDNG017IGpJZaD5IJV6SWBiSHz2iYstzQdt
+	4Z5hImYlcOXine2UYJzlvBHb7pDgsdDgc5HS057YbOKk5BWqx6Lfe3IkD0AYtF+WpDOycXV
+	lgAdk0p3KMFooLXRQAgJSlowabwuxsyDALRghoMN89Qe2AAGnOz6ub2Pv9kwboDzGjgyG9E
+	GG+I14H23Ic4qgZ4mBb4N3ScAKp4vc/PrSE5EDEguWa7wNzBexPSecuJMl6mRpJzlw7zLFi
+	wIaWAUrK9dndRTSmBxkHdvNO0lw/EF8naiCWFedD5QEdRCfu6OlsOQHtoy2lCNqbrwMD31p
+	fumH6/cUFYyfJAiMTAhbre+s09mwbdeC1+ncEUy84PM4Lb3nWjAqFXPCT1e04REA7jUm31P
+	C7+nr3H0NolqwPmgipMbIOF7CxQg08jA/z+2PZ8i6qQlmHPQKSHMThW0gFN1FIQC4VqzqMw
+	r7ni+/xbKQiQOHAAHdXMUVJ1QNfArRL0XmTlypVgXWQfImhEGJ0QqqWH0p4p5TpTzqViuP1
+	V1kN5tFee22jQbVsgw9NwZPyBAVCM13+/W9lsq+tdX10SB8XTq57KFB/xbUKQM2ziu7Cnl8
+	BPmUz+ycLcdVT0W1tmW86yNlVZpeoygyestP9cZw2UCxqPHGrUh0jdSBfKhvU3YUYdYxX/P
+	cml7BFDDSLKsr4B4RET8THuGf3uq1awKOn3Tv/d1by2Ueed0+hm/fHfZk1CUGNukebEBUnA
+	DCE0U/sXt4yZRp8MwhnRXSHimzZrrOb6dcRpHOhwDwwitWxoeK/gVxN994tkmaLTwDGfzOc
+	A==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, 2026-10-19 at 09:32 +0800, Jiale Yao wrote:
-> zd1211rw stores the vif and interface type before programming the MAC
-> and receive configuration. If that setup fails, mac80211 does not call
-> remove_interface and the stale type prevents another interface from
-> being added.
->=20
-> Clear the vif and type and restore the hardware MAC state before
-> returning the setup error.
+PiA+IE9uIE9jdCAyMSwgMjAyNiwgYXQgMTQ6MjEsIFdlbnRhbyBHdWFuIDxndWFud2VudGFv
+QHVuaW9udGVjaC5jb20+IHdyb3RlOg0KPiA+DQo+ID4gQSBQTUQgbWFwcyAzMk1pQiBvZiB2
+bWVtbWFwIG9uIExvb25nQXJjaCB3aXRoIDE2S2lCIGJhc2UgcGFnZXMsIHdoaWxlIGENCj4g
+PiA1MTJNaUIgc2VjdGlvbiBvbmx5IG5lZWRzIDJNaUIuICB2bWVtbWFwX3BvcHVsYXRlKCkg
+aXMgY2FsbGVkIGZvciBlYWNoDQo+ID4gc2VjdGlvbiBhbmQgdm1lbW1hcF9wb3B1bGF0ZV9o
+dWdlcGFnZXMoKSBpbnN0YWxscyBhIFBNRCBtYXBwaW5nIGZvciB0aGUNCj4gPiB3aG9sZSBQ
+TUQsIHNvIHRoZSBsYXN0IFBNRCBhbHNvIGJhY2tzIHN0cnVjdCBwYWdlcyBmb3IgUEZOcyBi
+ZXlvbmQNCj4gPiBtYXhfcGZuLg0KPiA+DQo+ID4gT24gYSAzNEdpQiBzeXN0ZW0gMTYwTWlC
+IG9mIHZtZW1tYXAgaXMgbWFwcGVkIGFsdGhvdWdoIDEzNk1pQiBpcw0KPiA+IG5lZWRlZC4g
+IFRoZSBleHRyYSAyNE1pQiBkZXNjcmliZXMgUEZOcyB0aGF0IGRvIG5vdCBleGlzdC4NCj4g
+DQo+IFlvdXIgY29tbWl0IG1lc3NhZ2VzIGFyZSB2ZXJ5IGRldGFpbGVkLCBidXQgSSBkb24n
+dCByZWFsbHkgdW5kZXJzdGFuZCB0aGUNCj4gcHJvYmxlbSB5b3UncmUgdHJ5aW5nIHRvIHNv
+bHZlLiBXaGF0IGlzc3VlIGRpZCB5b3UgcnVuIGludG8sIGFuZCB3aGF0IHdhcw0KPiB0aGUg
+cmVzdWx0aW5nIGltcGFjdD8NClRoZSBjb21taXQgbWVzc2FnZSBpcyBtaXN1bmRlcnN0YW5k
+aW5nLCB0aGUgaXNzdWUgaXMgcG9pbnQgdG8gc2F2ZSBtZW1vcnkgY29zdCwNCg0KPiA+IE9u
+IGEgMzRHaUIgc3lzdGVtIDE2ME1pQiBvZiB2bWVtbWFwIGlzIG1hcHBlZCBhbHRob3VnaCAx
+MzZNaUIgaXMNCj4gPiBuZWVkZWQuICBUaGUgZXh0cmEgMjRNaUIgZGVzY3JpYmVzIFBGTnMg
+dGhhdCBkbyBub3QgZXhpc3QuDQpPbiBhIDMyR2lCIHN5c3RlbSB0aGUgcGxhdGZvcm0gbWVt
+b3J5IG1hcCBsZWF2ZXMgYSAyR2lCIE1NSU8gd2luZG93DQooc2VyaWFsIDEwMDgwMDAwLEFD
+UEkgMTAwZDAwMDAsTE9PTjAwMHguLi4gZXRjLCkNCmJlbG93IDRHaUIgYW5kIFJBTSBlbmRz
+IGF0IDM0R2lCLCBzbyBtYXhfcGZuIHNwYW5zIDM0R2lCLiAgVGhlIHZtZW1tYXANCmZvciB0
+aGF0IFBGTiByYW5nZSBpcyAxMzZNaUIsIGJ1dCAxNjBNaUIgaXMgbWFwcGVkOyB0aGUgZXh0
+cmEgMjRNaUINCmRlc2NyaWJlcyBQRk5zIHRoYXQgZG8gbm90IGV4aXN0LiBJbiA4R0Igc3lz
+dGVtLCB0aGUgY29zdCBpcyAwLjM3JSAoMzBNQi84R0IpLg0KDQpCUnMNCldlbnRhbyBHdWFu
+DQoNCkxvZzoNCiBjYXQgL3Byb2MvaW9tZW0gDQowMDIwMDAwMC0wZWRmZmZmZiA6IFN5c3Rl
+bSBSQU0NCiAgMDAyMDAwMDAtMDFiNmZmZmYgOiBLZXJuZWwgY29kZQ0KICAwMWI3MDAwMC0w
+M2MxMTNmZiA6IEtlcm5lbCBkYXRhDQogIDAzYzExNDAwLTAzZDM2Y2FmIDogS2VybmVsIGJz
+cw0KICAwM2QzNmNiMC0wM2QzZmZmZiA6IFJlc2VydmVkDQogIDAzZDQwMDAwLTAzZjRiZmZm
+IDogUmVzZXJ2ZWQNCjEwMDgwMDAwLTEwMDgwMGZmIDogc2VyaWFsDQoxMDA4MDEwMC0xMDA4
+MDFmZiA6IHNlcmlhbA0KMTAwODAyMDAtMTAwODAyZmYgOiBzZXJpYWwNCjEwMDgwMzAwLTEw
+MDgwM2ZmIDogc2VyaWFsDQoxMDA5MDAwMC0xMDA5MDAwNyA6IExPT04wMDA0OjAwDQogIDEw
+MDkwMDAwLTEwMDkwMDA3IDogTE9PTjAwMDQ6MDAgTE9PTjAwMDQ6MDANCjEwMDkwMTAwLTEw
+MDkwMTA3IDogTE9PTjAwMDQ6MDENCiAgMTAwOTAxMDAtMTAwOTAxMDcgOiBMT09OMDAwNDow
+MSBMT09OMDAwNDowMQ0KMTAwOTAyMDAtMTAwOTAyMDcgOiBMT09OMDAwNDowMg0KICAxMDA5
+MDIwMC0xMDA5MDIwNyA6IExPT04wMDA0OjAyIExPT04wMDA0OjAyDQoxMDA5MDMwMC0xMDA5
+MDMwNyA6IExPT04wMDA0OjAzDQogIDEwMDkwMzAwLTEwMDkwMzA3IDogTE9PTjAwMDQ6MDMg
+TE9PTjAwMDQ6MDMNCjEwMDkwNDAwLTEwMDkwNDA3IDogTE9PTjAwMDQ6MDQNCiAgMTAwOTA0
+MDAtMTAwOTA0MDcgOiBMT09OMDAwNDowNCBMT09OMDAwNDowNA0KMTAwOTA1MDAtMTAwOTA1
+MDcgOiBMT09OMDAwNDowNQ0KICAxMDA5MDUwMC0xMDA5MDUwNyA6IExPT04wMDA0OjA1IExP
+T04wMDA0OjA1DQoxMDBhMDAwMC0xMDBhMDAwZiA6IExPT04wMDA2OjAwDQogIDEwMGEwMDAw
+LTEwMGEwMDBmIDogTE9PTjAwMDY6MDAgTE9PTjAwMDY6MDANCjEwMGEwMTAwLTEwMGEwMTBm
+IDogTE9PTjAwMDY6MDENCiAgMTAwYTAxMDAtMTAwYTAxMGYgOiBMT09OMDAwNjowMSBMT09O
+MDAwNjowMQ0KMTAwYTAyMDAtMTAwYTAyMGYgOiBMT09OMDAwNjowMg0KICAxMDBhMDIwMC0x
+MDBhMDIwZiA6IExPT04wMDA2OjAyIExPT04wMDA2OjAyDQoxMDBhMDMwMC0xMDBhMDMwZiA6
+IExPT04wMDA2OjAzDQogIDEwMGEwMzAwLTEwMGEwMzBmIDogTE9PTjAwMDY6MDMgTE9PTjAw
+MDY6MDMNCjEwMGQwMDBjLTEwMGQwMDEzIDogQUNQSSBQTTFhX0VWVF9CTEsNCjEwMGQwMDE0
+LTEwMGQwMDE3IDogQUNQSSBQTTFhX0NOVF9CTEsNCjEwMGQwMDE4LTEwMGQwMDFiIDogQUNQ
+SSBQTV9UTVINCjEwMGQwMDI4LTEwMGQwMDJmIDogQUNQSSBHUEUwX0JMSw0KMTAwZDAxMDAt
+MTAwZDAxZmYgOiBMT09OMDAwMTowMA0KICAxMDBkMDEwMC0xMDBkMDFmZiA6IExPT04wMDAx
+OjAwIExPT04wMDAxOjAwDQoxMDBlMDAwMC0xMDBlMGJmZiA6IExPT04wMDAyOjAwDQogIDEw
+MGUwMDAwLTEwMGUwYmZmIDogTE9PTjAwMDI6MDAgTE9PTjAwMDI6MDANCjFmZTAwMWUwLTFm
+ZTAwMWU3IDogc2VyaWFsDQo5MDQwMDAwMC1mOWI3ZmZmZiA6IFN5c3RlbSBSQU0NCiAgZWE0
+ZjAwMDAtZjdhOWZmZmYgOiBSZXNlcnZlZA0KICBmOWFjYzAwMC1mOWFjZmZmZiA6IFJlc2Vy
+dmVkDQogIGY5YjAwMDAwLWY5YjdmZmZmIDogUmVzZXJ2ZWQNCmY5YjkwMDAwLWZkYWJmZmZm
+IDogU3lzdGVtIFJBTQ0KICBmOWI5MDAwMC1mOWJiZmZmZiA6IFJlc2VydmVkDQpmZTA4MDAw
+MC04N2ZmZmZmZmYgOiBTeXN0ZW0gUkFNDQogIDg3MzgwMDAwMC04NzQwMjNmZmYgOiBSZXNl
+cnZlZA0KICA4NzQ0MDAwMDAtODc0NDIzZmZmIDogUmVzZXJ2ZWQNCiAgODc0ODAwMDAwLTg3
+NDgyM2ZmZiA6IFJlc2VydmVkDQogIDg3NGMwMDAwMC04NzRjMjNmZmYgOiBSZXNlcnZlZA0K
+ICA4NzUwMDAwMDAtODc1MDIzZmZmIDogUmVzZXJ2ZWQNCiAgODc1NDAwMDAwLTg3NTQyM2Zm
+ZiA6IFJlc2VydmVkDQogIDg3NTgwMDAwMC04NzU4MjNmZmYgOiBSZXNlcnZlZA0KICA4NzVj
+MDAwMDAtODc1YzIzZmZmIDogUmVzZXJ2ZWQNCiAgODc2MDAwMDAwLTg3ZGZmZmZmZiA6IFJl
+c2VydmVkDQogIDg3ZTI0MDAwMC04N2ZmOTNmZmYgOiBSZXNlcnZlZA0KICA4N2ZmOTQwMDAt
+ODdmZjk3ZmZmIDogUmVzZXJ2ZWQNCiAgODdmZjk4MDAwLTg3ZmY5YmZmZiA6IFJlc2VydmVk
+DQogIDg3ZmY5YzAwMC04N2ZmOWZmZmYgOiBSZXNlcnZlZA0KICA4N2ZmYTAwMDAtODdmZmEz
+ZmZmIDogUmVzZXJ2ZWQNCiAgODdmZmE0MDAwLTg3ZmZhN2ZmZiA6IFJlc2VydmVkDQogIDg3
+ZmZhODAwMC04N2ZmYWJmZmYgOiBSZXNlcnZlZA0KICA4N2ZmYWMwMDAtODdmZmFmZmZmIDog
+UmVzZXJ2ZWQNCiAgODdmZmIwMDAwLTg3ZmZiM2ZmZiA6IFJlc2VydmVkDQogIDg3ZmZiNDAw
+MC04N2ZmYjdmZmYgOiBSZXNlcnZlZA0KICA4N2ZmYjgwMDAtODdmZmJiZmZmIDogUmVzZXJ2
+ZWQNCiAgODdmZmJjMDAwLTg3ZmZiZmZmZiA6IFJlc2VydmVkDQogIDg3ZmZjMDAwMC04N2Zm
+YzNmZmYgOiBSZXNlcnZlZA0KICA4N2ZmYzQwMDAtODdmZmM3ZmZmIDogUmVzZXJ2ZWQNCiAg
+ODdmZmM4MDAwLTg3ZmZjYmZmZiA6IFJlc2VydmVkDQogIDg3ZmZjYzAwMC04N2ZmY2ZmZmYg
+OiBSZXNlcnZlZA0KICA4N2ZmZDAwMDAtODdmZmQzZmZmIDogUmVzZXJ2ZWQNCiAgODdmZmQ0
+MDAwLTg3ZmZkN2ZmZiA6IFJlc2VydmVkDQogIDg3ZmZkODAwMC04N2ZmZGJmZmYgOiBSZXNl
+cnZlZA0KICA4N2ZmZGMwMDAtODdmZmRmZmZmIDogUmVzZXJ2ZWQNCiAgODdmZmUwMDAwLTg3
+ZmZlM2ZmZiA6IFJlc2VydmVkDQogIDg3ZmZlNDAwMC04N2ZmZTdmZmYgOiBSZXNlcnZlZA0K
+ICA4N2ZmZTgwMDAtODdmZmViZmZmIDogUmVzZXJ2ZWQNCiAgODdmZmVjMDAwLTg3ZmZlZmZm
+ZiA6IFJlc2VydmVkDQogIDg3ZmZmMDAwMC04N2ZmZjNmZmYgOiBSZXNlcnZlZA0KICA4N2Zm
+ZjQwMDAtODdmZmY3ZmZmIDogUmVzZXJ2ZWQNCiAgODdmZmY4MDAwLTg3ZmZmYmZmZiA6IFJl
+c2VydmVkDQogIDg3ZmZmYzAwMC04N2ZmZmZmZmYgOiBSZXNlcnZlZA0KZTAwMzAwMDAwMDAt
+ZTAwN2ZmZmZmZmYgOiBQQ0kgQnVzIDAwMDA6MDANCiAgZTAwMzAwMDAwMDAtZTAwMzAwZmZm
+ZmYgOiBQQ0kgQnVzIDAwMDA6MDINCiAgICBlMDAzMDAwMDAwMC1lMDAzMDAwM2ZmZiA6IDAw
+MDA6MDI6MDAuMA0KICAgIGUwMDMwMDA0MDAwLWUwMDMwMDA0ZmZmIDogMDAwMDowMjowMC4w
+DQogICAgICBlMDAzMDAwNDAwMC1lMDAzMDAwNGZmZiA6IHI4MTY5DQogIGUwMDMwMTAwMDAw
+LWUwMDMwMTAwN2ZmIDogMDAwMDowMDoxYS4wDQogIGUwMDMwMTAwODAwLWUwMDMwMTAwYmZm
+IDogMDAwMDowMDowOC4wDQogICAgZTAwMzAxMDA4MDAtZTAwMzAxMDBiZmYgOiBhaGNpDQpl
+ODAwMDAwMDAwMC1lZmNmZmZmZmZmZiA6IFBDSSBCdXMgMDAwMDowMA0KICBlODAwMDAwMDAw
+MC1lODAwZmZmZmZmZiA6IDAwMDA6MDA6MDYuMA0KICAgIGU4MDAwMDAwMDAwLWU4MDAwN2Vi
+ZmZmIDogQk9PVEZCDQogICAgICBlODAwMDAwMDAwMC1lODAwMDdlYmZmZiA6IHNpbXBsZWRy
+bQ0KICBlODAxMDAwMDAwMC1lODAxM2ZmZmZmZiA6IDAwMDA6MDA6MWEuMA0KICBlODAxNDAw
+MDAwMC1lODAxNGZmZmZmZiA6IDAwMDA6MDA6MTYuMA0KICBlODAxNTAwMDAwMC1lODAxNTBm
+ZmZmZiA6IDAwMDA6MDA6MTkuMA0KICAgIGU4MDE1MDAwMDAwLWU4MDE1MGZmZmZmIDogeGhj
+aS1oY2QNCiAgZTgwMTUxMDAwMDAtZTgwMTUxMGZmZmYgOiAwMDAwOjAwOjA2LjANCiAgZTgw
+MTUxMTAwMDAtZTgwMTUxMWZmZmYgOiAwMDAwOjAwOjA2LjENCiAgZTgwMTUxMjAwMDAtZTgw
+MTUxMmZmZmYgOiAwMDAwOjAwOjA2LjINCiAgICBlODAxNTEyMDAwMC1lODAxNTEyZmZmZiA6
+IElDSCBIRCBhdWRpbw0KICBlODAxNTEzMDAwMC1lODAxNTEzZmZmZiA6IDAwMDA6MDA6MDcu
+MA0KICAgIGU4MDE1MTMwMDAwLWU4MDE1MTNmZmZmIDogSUNIIEhEIGF1ZGlvDQogIGU4MDE1
+MTQwMDAwLWU4MDE1MTQ3ZmZmIDogMDAwMDowMDowMy4wDQogICAgZTgwMTUxNDAwMDAtZTgw
+MTUxNDdmZmYgOiBkd21hYy1sb29uZ3Nvbi1wY2kNCiAgZTgwMTUxNDgwMDAtZTgwMTUxNGZm
+ZmYgOiAwMDAwOjAwOjA0LjANCiAgICBlODAxNTE0ODAwMC1lODAxNTE0ZmZmZiA6IG9oY2lf
+aGNkDQogIGU4MDE1MTUwMDAwLWU4MDE1MTU3ZmZmIDogMDAwMDowMDowNC4xDQogICAgZTgw
+MTUxNTAwMDAtZTgwMTUxNTdmZmYgOiBlaGNpX2hjZA0KICBlODAxNTE1ODAwMC1lODAxNTE1
+ZmZmZiA6IDAwMDA6MDA6MDUuMA0KICAgIGU4MDE1MTU4MDAwLWU4MDE1MTVmZmZmIDogb2hj
+aV9oY2QNCiAgZTgwMTUxNjAwMDAtZTgwMTUxNjdmZmYgOiAwMDAwOjAwOjA1LjENCiAgICBl
+ODAxNTE2MDAwMC1lODAxNTE2N2ZmZiA6IGVoY2lfaGNkDQogIGU4MDE1MTY4MDAwLWU4MDE1
+MTY4ZmZmIDogMDAwMDowMDowOS4wDQogIGU4MDE1MTY5MDAwLWU4MDE1MTY5ZmZmIDogMDAw
+MDowMDowYS4wDQogIGU4MDE1MTZhMDAwLWU4MDE1MTZhZmZmIDogMDAwMDowMDowYi4wDQog
+IGU4MDE1MTZiMDAwLWU4MDE1MTZiZmZmIDogMDAwMDowMDowYy4wDQogIGU4MDE1MTZjMDAw
+LWU4MDE1MTZjZmZmIDogMDAwMDowMDowZC4wDQogIGU4MDE1MTZkMDAwLWU4MDE1MTZkZmZm
+IDogMDAwMDowMDowZi4wDQogIGU4MDE1MTZlMDAwLWU4MDE1MTZlZmZmIDogMDAwMDowMDox
+MC4wDQogIGU4MDE1MTZmMDAwLWU4MDE1MTZmZmZmIDogMDAwMDowMDoxMy4wDQogIGU4MDE1
+MTcwMDAwLWU4MDE1MTcwZmZmIDogMDAwMDowMDoxNi4wDQogICAgZTgwMTUxNzAwMDAtZTgw
+MTUxNzBmZmYgOiAwMDAwOjAwOjE2LjANCiAgZTgwMTUxNzEwMDAtZTgwMTUxNzEzZmYgOiAw
+MDAwOjAwOjFhLjANCiAgZTgwMTUxNzE0MDAtZTgwMTUxNzE0ZmYgOiAwMDAwOjAwOjA2LjAN
+CmVmZTAwMDAwMDAwLWVmZTFmZmZmZmZmIDogUENJIEVDQU0=
 
-This is completely crazy. "I have an LLM and it found something that
-doesn't make sense to it" is not a reason to send a patch.
-
-Does this actually matter at all? This driver only supports a single
-interface anyway - who cares about the hardware state when it's going to
-be shut down right away?!
-
-johannes
