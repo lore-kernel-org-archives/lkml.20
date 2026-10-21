@@ -1,132 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792562624;
-	b=dGKMmL9u9Al/hciKv8faNDs9/yS49FFZkSBsZbCwAlNGeZcKc8g9lsY6GYPBfBJ1bp0F
-	 ptxxPYYdYGn2AmWSDrCMOkHk/05uA6epsA/rfcqQ3PUyvJrubCluwPugrsJE3xADuVS+K
-	 4259u/ClMBUFhehDwxFF5PfTwK7UkVS3lZ9qr30wZkPNci2d0ROmWM7emo5mJMdR6JFaR
-	 P4Nq9Is6Fv+TjSuNsNmxG1a4pD486IHW2njHdmddfT6OSs3fPuOLSygtr2oI3QT4m/uS6
-	 L143zYiJHIvlBoPv17CNind7PtzogmnJmTdgEq6Crq2ZTl7ZFJtuntxw2SIh0NXSUzw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792562624;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+TsRxErWT6koYb6Xgo6QbB8vqh49N8f3WZDdlHz9iT8=;
-	b=e2x6/Gth994x7ZO4Qbfu8Z1VZ0q1pP/Pd5AkMZCe0D5WXEMbSsuAGsk/+RjkWlqPWWlr
-	 8PpyxgOlUnQ4J5/xnfB6oQgTvzdycg3HaygKJmwDM1Kp6TG7VEPqS3T4J1ZPN+YYW7TvA
-	 i8Vf7P8GYf5omCRSvhsgyXSib4KwW/kW5RBQ9CX5zAU5qFQqTguFYVOdoD67h7BHIZlqt
-	 M3SMY6Q84Hi0WmklkzMuchl7NqFPSBAeV/LZd/mnxwxhHGPjuiHrGfkx8wFdaZOYV6G4L
-	 m0pbnMoE/PD93W/jiUuj5T+5Ps0q8VsFHq8kiuWu4n6ZCFF3bJ53sapoEylc5QrON3Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NsPaKD2f;
-	arc=none smtp.remote-ip=74.125.224.47
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792562612;
+	b=CRXD+fkce55MddKxUb6VFoNy1v14pNSGGEWGEA4Xd6Hak/+n+uxsSI6frhi2uSGYkkVi
+	 bhAbW0Rxe4ackLQf1DebH4NbXUfviYZkyduAjvBarn8tZfeQ0QdOGyaIcSzz4Tfs51qa9
+	 mnj9MlJht23rq7QgcaZiwtgMyHPjxXshro4FzQoU6txNjcK5M31j+57guAVuHZeget79Y
+	 LcbTFtyJbfmLRcu2ve5zq6iYvqsTbrygOrDhIWlcx9NUNPbVdymojC1bIcBLpG7hDIpnj
+	 ykxg8/pNf5bMpLP73kZNold5sofsswbwtbCZ1iLEy/GSo7ghb4Ca0E+E1I3mlN0Vcsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792562612;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=lnfaStrgud0AfUogXBqRy59YJPI3+tOiENHp9VVz120=;
+	b=jTykZPHuJuQt2q4VgS/CZUaoOJOCqGchUeLdomcJHJPiK6ioBsc8fyC53b0LGj1qYsIz
+	 ZzCJikGO9yzn4YBtw0TXDZMvAJTZgKOD7ShLxf2sGF4XAlrzqRrKED2Dp4BV0nX8sV8DI
+	 pes482cykqEov5EoqUN/MRAhZcxY5BaAXdFyu7VLbQFyzeOGJEDRqpCAbQHY4xvKXkJYx
+	 r+70+hYAme5lDbfdjuwJm0IQQxjXaawKlfvRp+HCdcVyeg55acZaG5+mbAF92hFKN3mJ/
+	 loR++eSSGssyGnP5N1E7eN0USBmcUh3z266kIIyXYmI4XaUIU4tMfee5QHqnz6qrYpg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZD7qTqun;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A68C606A31F;
+	Wed, 21 Oct 2026 06:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZD7qTqun
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792562611;
+	b=suJBuSoRW7WAU0749pWUe38k93iz2jiF2z+8/ZEVQb1p5BhAUTSOFmJeCYnOqANWZpC8
+	 HPWQIDQAMuzRy9WHRdGL/O4RbLuntY+OcSnth+HOT0xowwM30vBzqIbMZIR1wHm+R4scZ
+	 OwBqVU+fz1SjeSu+cLYU32uYx6v4axPJ8IwBybaLm8ocl1cswN5TilxlKMrexHzitI4qx
+	 W5SKKUkJ8t/CYF3OwnReZF+XElpmZ75POXE6XtyxVG9thzd3Gw853/aM+jVvalwkXOqiB
+	 n+csNz7aJaKJ+RbRuZfcMRU8lF9hFYbbWbog1I69s5RwdOlXVbO7U1HYyjNRQ0UHDZQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792562611;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=lnfaStrgud0AfUogXBqRy59YJPI3+tOiENHp9VVz120=;
+	b=QfnjEKy+2zfnrTExChuAwgpyyszNP6Jq+a/xXUoWpCCI/32nNjUvKs6RCIl3ypSMlbSB
+	 3e2lkEGFTfRyJ+EvFiWcw+mAgQGYYeHLrrFBv861bQg2OheU2QPYvqNgddp+uam/3nZZg
+	 4207qF815H3q4AMqUqpevgpJ6fueL1H3juckDivsydxZowAV34Of77Hj1VlbOBjbVGJdm
+	 BIuuVgWJwV8PNj6aYoCTeUvAUEvxm50lAL8EnScyuYVadMsqd0lgPcuiWi8DYsBpYMqoO
+	 GUpifNEU1JVEK0VUjs1/Jwt5gL00n/AJJ0jKkYzIno+XjF8uJdR996FQX/ekS4BAoXA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE0060A2620
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 06:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBE0060A2620
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=NsPaKD2f
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-679aeeddc6bso378489d50.2
-        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 23:03:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792562623; x=1793167423; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+TsRxErWT6koYb6Xgo6QbB8vqh49N8f3WZDdlHz9iT8=;
-        b=NsPaKD2fIf84Pt4WIbaiiZ1JbCcqSw/gidqj7LyzXn+G5xJ/6ye97icBsoIewABXlN
-         bzoQhxfB+4qvA+XPI2BamI0J5lDZHqJNI7rQ1JBAbJ+ZC6APEhToIIXKHIaGGO9ggfcF
-         2EcTcF8JH77So0rLNX19lRvlPA05qFrTNoURxcgUE+WpweFR52daI8q0EokVcJ9NtEac
-         qZysdlhw9H2y3bs7ACAjb0gkfpl7BcNjeWtT/nJb1CS/CQb78FlXbaNDoUpbPn1M+fy7
-         WtBfmZGC+u5baOyyqrW9R7cpsazBfaKu6A3iMmwkefSRyb1MEbS7KR9WS4P1hqvtCXoO
-         9XVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792562623; x=1793167423;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+TsRxErWT6koYb6Xgo6QbB8vqh49N8f3WZDdlHz9iT8=;
-        b=u8UuD0I9f2HDwZXa6aZlkXP6u9vd4ZsnswObkJJU23xgBiV3j9hvyIZMlxblOpQP+V
-         ChGiGUDTvulgDIzBKm02YRclRTKDQnYb0/3GXk3RWm/LR8cSvr4HQmhRPfxI+dPnPGHJ
-         TOV1BIS+faEM17VnmYwI/q9H/et0YeLlzQzwFbIM9Dtopg8ApLows2VNAUly99TkuHAD
-         vmTqFT73GtrBQb67hA8nZiovJKm1drnqYQtdYqKoWbHrWTcOxGhAbm6PtVWU/GE0Y0K8
-         Z1aS1+h/+IXZ//XqSuxkest7us2AHeWuYO8SMBFZmX+ObV6MCQeiYi8wXKLgDhy1u3ud
-         AEpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzn27pWEo9P8BdxEaKGICFTsAQMgbJ1X61EcwR5kqK7UJUYFnYsDtRfcFcC5tANkvW45ZXUbke/J+lGFpE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNZp7HMwNGuOlhTE9DEDJuISEIhcNH5SosulmDz29JsE04Xydj
-	tWMZECGEXD0yaBpdFPalYlhaekZyhkXZAOHWdfNkiw//l6GyKyqx7+GR
-X-Gm-Gg: AYBFou07geyrkQzjT7/ffKy/QmFgiAcuB1jmdzRePJ5wG2/+f+46Z0Xalx0qOS/FDFO
-	E4uAypUJ53gBoyxPBzIomJ15O6zBjirGYN37laRkBTH8RfoeIJbBBt1+jI4TcDxhh1h+u8v+hG5
-	Z8QGRWg0C+3nKnSqe4j8N3g9XaFCOBAxuRvh4vWHrKPzpnWeFO4+rDzDs/6FVW0KGmH7H2RFTFF
-	xTi7NBu+VaOs3TKuHf1LeNGfBlbYRKDQtw3uNirmybWkI3AmJEwRoMuyfufuHTbQsKgs7bOx3nw
-	pgwnfIQRIraFqQYR6cdSl6nh4GiWNHtXjMF9vTKDaMLcUUiCY/bg0wa8iYbnEWLQuKFiYWFW8dV
-	Ydl1KCsNCYxIhLduCI/7k3XrMQ9nVCOMFzUrSUYKdweyqC6S8EgYEgobdTGmJL1bJTbiix5Lw/J
-	DfAsIWpEkseu8F4FLHBKbF8l5Z1gDH+64FGcwglHdDqAaScDCMc68oZlRH2zZMmFxjrB5chH4fm
-	yK2C+pJy3zVPsirDoNdGCuPd6qpLrnjkSKSUYpATPNPwDoowVgApqRroq6OGfp02FIT20ezpa04
-	ffJ2saPhBwz3EaSLekObCOUjMF+aJCSne9tuvFUsJo53yQf43aBMgd12OUsYhO0sl6HCBT9RSOv
-	AjGVlBQ==
-X-Received: by 2002:a05:690e:488d:10b0:679:8c5f:3fb6 with SMTP id 956f58d0204a3-67a0e0417acmr381635d50.9.1792562622988;
-        Tue, 20 Oct 2026 23:03:42 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff::])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e496732sm619480d50.5.2026.10.20.23.03.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 20 Oct 2026 23:03:41 -0700 (PDT)
-From: Nhat Pham <nphamcs@gmail.com>
-To: akpm@linux-foundation.org
-Cc: chrisl@kernel.org,
-	kasong@tencent.com,
-	hannes@cmpxchg.org,
-	mhocko@kernel.org,
-	roman.gushchin@linux.dev,
-	shakeel.butt@linux.dev,
-	yosry@kernel.org,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	shikemeng@huaweicloud.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	chengming.zhou@linux.dev,
-	ljs@kernel.org,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	qi.zheng@linux.dev,
-	axelrasmussen@google.com,
-	yuanchu@google.com,
-	weixugc@google.com,
-	riel@surriel.com,
-	gourry@gourry.net,
-	haowenchao22@gmail.com,
-	corbet@lwn.net,
-	hughd@google.com,
-	baolin.wang@linux.alibaba.com,
-	tj@kernel.org,
-	mkoutny@suse.com,
-	skhan@linuxfoundation.org,
-	rdunlap@infradead.org,
-	kunwu.chan@linux.dev,
-	kernel-team@meta.com,
-	nphamcs@gmail.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	cgroups@vger.kernel.org
-Subject: [PATCH v6 05/12] mm, swap: enable THP swapin for vswap entries
-Date: Tue, 20 Oct 2026 23:03:16 -0700
-Message-ID: <20261021060323.553433-6-nphamcs@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021060323.553433-1-nphamcs@gmail.com>
-References: <20261021060323.553433-1-nphamcs@gmail.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 864931F000CA;
+	Wed, 21 Oct 2026 06:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792562611;
+	bh=lnfaStrgud0AfUogXBqRy59YJPI3+tOiENHp9VVz120=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZD7qTqunwkC1QCgqqBec3yxvy2ltsUBZOvkHp+QjiOtLi42tvi+EtBARhEpD2cdEN
+	 qfbTLErsAuYXxuF1Hcp4+7yPUjXgBKAEfMcmrFtNe8I6mayP+wJfk9iUe9UHTU+Zi/
+	 LvQSNt9QywWLX5vDQ6wGD3K3UvA9KmA5AiwhTYmeAggq96jqLywijOkMFoeG5/Z+h3
+	 N7afy1drF7CMg5aA0u4mKv8IX1ZqajRaTTnLrhaUTv4x2s84eXOz9gHGy2CdVuRgnY
+	 h7NvVhwkTovQzYwWprhiSUUgQ5MkediFvaBFlPfcJZDQL03bZyJ7sshJBXs6NnfvZM
+	 OYAmyv14wwesw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E6A71432AD;
+	Wed, 21 Oct 2026 06:03:28 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Date: Wed, 21 Oct 2026 14:03:25 +0800
+Subject: [PATCH 1/5] media: i2c: it6625: keep the configured DV timings on
+ 5V changes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -136,94 +83,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261021-upstream-it6625-dv-timings-fix-v1-1-5881babdc4c2@ite.com.tw>
+References: <20261021-upstream-it6625-dv-timings-fix-v1-0-5881babdc4c2@ite.com.tw>
+In-Reply-To: <20261021-upstream-it6625-dv-timings-fix-v1-0-5881babdc4c2@ite.com.tw>
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792562608; l=2162;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=7IBszv5mgeCCnM+3Dp8JO2qhtzhMhD85q51gl4iqtKo=;
+ b=bFax78KbrxQjJO6gCUSUvl/OJLSj+uwyWcVWczBRH+zKwusUZPtEwT6VP+WcTQkeVzKNEQZnh
+ 1JxAQ1RcOvdDHvNseCpo/bTqrnl0Jfi43AT48y5TNhqo7nXz+g3ByNQ
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
+Content-Transfer-Encoding: 7bit
 
-Swap a large anon folio back in as a unit when its vswap entries share a
-contiguous run of physical swap slots on a synchronous IO device,
-instead of always falling back to order-0 faults.
+From: Hermes Wu <Hermes.wu@ite.com.tw>
 
-A zswap-backed or mixed-backing batch is still refused, and the fault
-retries at a smaller order.
+Every change of the HDMI 5V state cleared the configured DV timings and
+set the ACTIVE pad format to 0x0. Both stayed that way after the input
+came back, until userspace set the timings again, so G_DV_TIMINGS and
+the pad format no longer reflected what had been configured.
 
-Signed-off-by: Nhat Pham <nphamcs@gmail.com>
+The V4L2 API says receivers must not change the configured timings on
+their own when the input changes; that is left to the application.
+Userspace still learns about signal loss from the
+V4L2_CID_DV_RX_POWER_PRESENT control and its event, from
+QUERY_DV_TIMINGS returning -ENOLINK, and from the source-change event.
+None of these depended on clearing the timings.
+
+Drop the clear from the 5V interrupt handler, together with
+it6625_clear_timings(), which has no other user.
+
+Fixes: 142e5f00bd57 ("media: i2c: add driver for ITE IT6625/IT6626")
+Assisted-by: LLM
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
 ---
- mm/memory.c     |  5 +++--
- mm/swap_state.c | 17 +++++++++++++----
- mm/zswap.c      |  6 +++++-
- 3 files changed, 21 insertions(+), 7 deletions(-)
+ drivers/media/i2c/it6625.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index 9f651d247eef..430b83900ba8 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4885,9 +4885,10 @@ static unsigned long thp_swapin_suitable_orders(struct vm_fault *vmf)
- 	 * lack handling for such cases, so fallback to swapping in order-0
- 	 * folio.
- 	 *
--	 * THP swapin for vswap is not supported yet either.
-+	 * Vswap entries are checked later, under the cluster lock in
-+	 * __swap_cache_add_check().
- 	 */
--	if (is_vswap_entry(entry) || !zswap_never_enabled())
-+	if (!is_vswap_entry(entry) && !zswap_never_enabled())
- 		return 0;
+diff --git a/drivers/media/i2c/it6625.c b/drivers/media/i2c/it6625.c
+index b74df9dbf8c2cab7461c69bc0f926141ed7a506c..0d3bc83e4e865e55bb9940c7e958b85eedf9869a 100644
+--- a/drivers/media/i2c/it6625.c
++++ b/drivers/media/i2c/it6625.c
+@@ -1192,26 +1192,11 @@ static void it6625_fill_timings_format(const struct v4l2_dv_timings *timings,
+ 		     V4L2_FIELD_INTERLACED : V4L2_FIELD_NONE;
+ }
  
- 	/*
-diff --git a/mm/swap_state.c b/mm/swap_state.c
-index 3900975c675f..6c8e8f49e349 100644
---- a/mm/swap_state.c
-+++ b/mm/swap_state.c
-@@ -174,6 +174,9 @@ static int __swap_cache_add_check(struct swap_cluster_info *ci,
- 	unsigned int ci_off, ci_end;
- 	unsigned long old_tb;
- 	bool is_zero;
-+	struct swap_cluster_info_dynamic *ci_dyn;
-+	enum vswap_backing_type type;
-+	int ret;
+-static void it6625_clear_timings(struct it6625 *it6625)
+-{
+-	struct v4l2_subdev *sd = &it6625->sd;
+-	struct v4l2_subdev_state *state = v4l2_subdev_lock_and_get_active_state(sd);
+-	struct v4l2_mbus_framefmt *fmt = v4l2_subdev_state_get_format(state, 0);
+-
+-	scoped_guard(mutex, &it6625->it6625_lock) {
+-		memset(&it6625->timings, 0, sizeof(it6625->timings));
+-		it6625_fill_timings_format(&it6625->timings, fmt);
+-	}
+-
+-	v4l2_subdev_unlock_state(state);
+-}
+-
+ static void it6625_irq_hdmi_5v_change(struct it6625 *it6625)
+ {
+ 	struct v4l2_subdev *sd = &it6625->sd;
+ 	int ret;
  
- 	lockdep_assert_held(&ci->lock);
- 
-@@ -202,11 +205,17 @@ static int __swap_cache_add_check(struct swap_cluster_info *ci,
- 		return 0;
- 
- 	/*
--	 * Reject a vswap batch so __swap_cache_alloc_folio falls back to
--	 * order 0.
-+	 * For a vswap entry batch, reject if the backing is not THP-amenable
-+	 * (e.g. uniformly ZSWAP, or mixed). The order-fallback loop in
-+	 * __swap_cache_alloc_folio will retry with a smaller order on -EBUSY.
- 	 */
--	if (is_vswap_entry(targ_entry))
--		return -EBUSY;
-+	if (is_vswap_entry(targ_entry)) {
-+		ci_dyn = container_of(ci, struct swap_cluster_info_dynamic, ci);
-+		ret = __vswap_check_backing(ci_dyn, round_down(ci_off, nr),
-+					    nr, &type);
-+		if (ret != nr || type == VSWAP_ZSWAP)
-+			return -EBUSY;
-+	}
- 
- 	is_zero = __swap_table_test_zero(ci, ci_off);
- 	ci_off = round_down(ci_off, nr);
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 24c4e7a73d56..1b91dba992ab 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -1753,9 +1753,13 @@ int zswap_load(struct folio *folio)
- 	 * range on the backing device, so scan the range rather than rejecting
- 	 * it outright. The caller has pinned every slot, so zswap cannot start
- 	 * a store or a writeback into the range while we look.
-+	 *
-+	 * A vswap batch is checked when the folio enters the swap cache, and
-+	 * its backing cannot change after that.
- 	 */
- 	if (folio_test_large(folio)) {
--		if (WARN_ON_ONCE(zswap_is_present(swp,
-+		if (WARN_ON_ONCE(!swap_is_vswap(si) &&
-+				 zswap_is_present(swp,
- 						  folio_nr_pages(folio)))) {
- 			folio_unlock(folio);
- 			return -EIO;
+-	it6625_clear_timings(it6625);
+ 	ret = it6625_v4l2_sd_ctrl_update(sd);
+ 	if (ret)
+ 		dev_err(it6625->dev, "%s: failed to update controls: %d", __func__, ret);
+
 -- 
-2.53.0-Meta
+2.34.1
+
 
