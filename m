@@ -1,111 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792578471;
-	b=kIKhmWck6CW+xD7wW1AGNZOyyBaIOAOvTzyXSosmHoX2+OmrmCSAiqMNOeGmmNMPa2jN
-	 abzhz4x4OWg14nExydfpZYHaIKDDUxSjRYQqHcVWJ9cnCJbq6nSTMIhJeQjX/h/RKukrW
-	 FDhsE/UU8i0aPvW2VTzFKPx2DCK96m8KM83Wsgwpb3ArwhurORdEuGm2UVCnM4XB5Kazp
-	 uRBTWewv1eDYg2kvb62F/f7+bKa5lG3Ln+aS1Kt+8ljYZq/gee2e5QLrR4OvSHN1spJDV
-	 yg74/JFB2/+sX7NvDn4YpRwB31tqsY7Sw/8j8ZR5YqC/IV1A1K2ONkZocWbpn1KbKuA==
+	t=1792578474;
+	b=5QpuBmEnj5E1epm3llnvhDCbS5fbAFB3Y7JDblqB7vOVx3BrlkBYOT91QIoNcQ5HJdCc
+	 j2BX1Bxr0uKY0AJo8Y8KDUxM3KV3uPYHRqOqoJ8Tl06KdtnqX/mXPJs2zuhMw6AcPovsr
+	 4ujMt5b0Bdt8gL4ERS/kNwe33E3kCcZSf8Qdjxb9KBW+6RiLOma2Fx180f/YnzK8L80BF
+	 EiAz8pxe1XcY1nE3g4qfJjSoueUMn27JaGL8wnJCam4af7n1WBFQ0K4a8lx2V9+df73gY
+	 w4Qjxu9d5WlVY8SRw54bKq4zIW1fL4MijLh7s9y38OGnq42q7pl8+b1gRS0nl2WKTug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792578471;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lKIuPtXucGTuUrVP+08mQo0qmmFiAtXLjNuGxi16fbQ=;
-	b=jmzF/fp+0v4WgWmMJYGu5FhOwHDWA+MdrxwjdaS9+ljQFFgEToy4a6WgqOh7hrJToqgI
-	 /dJIT+OguIHyFgZwDFvDB0vP89TF5Ji1Jipz5/O1HY2A7jypFhFXDrr4mxCyKjGwqbtZr
-	 rc9HfBYXFidFKzt1Pvw0GjjG/v9nogQn9vVmZxv4tJvBb1LfwpwZXmyKZugkWeVinbwHd
-	 n7dnpee+Z/B0CygRjayGiReDIgBTvw5YvGkpM7Zx5pVR6FfEzg38hVSIzgjB3ZKEgUOCy
-	 wHEP452rAgyk/JQP97S9n3uKkThWsW2BqF3tgvvov8EzHBnGEL9uigczEl9/3X0psDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792578474;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dLKJpTfaxtLERayiN2nEferBpV2oDnDfD72mIJg0vcA=;
+	b=4bgFjPcaZ8K1s+rYdFLY3JhRAaUnwtkvNA3iYIB4XGn1q/V113CQttxXL/Rq6pENOGXP
+	 soHNIURtFEYwLtbb9kJoVbEJy3UIO36Re1ou8tF5Ccwqo+UF7YOyiatMSNbWyLNJO1XuQ
+	 SuT07M0oWKlqRl7nEaiA4TGJua5aq1/JOVn+gHvF+O3HCPjcovUz50nvFe0tTnlIyInSN
+	 0wIqKxnu8Xfq7uoChSLVBcK/rYwct3SkzSoaq/tHWXsQ1LzsDsuMZbAVxadLmvB9jbRMG
+	 NfWXYLWOVhIk+TxWvN7l8OU2nAKfmLDMrhx39/dmztQ8t8CNvBL9E0PQeNtg9kqG1Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Mw9yS/dk";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YxquBoFl;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BA1UEjlG;
+	arc=none smtp.remote-ip=95.215.58.115
+Received: from mta1.migadu.com (out-115.mta1.migadu.com [95.215.58.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C244606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4435A606A325
 	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:27:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C244606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4435A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Mw9yS/dk;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YxquBoFl
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LA5uhL3958146
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:27:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	lKIuPtXucGTuUrVP+08mQo0qmmFiAtXLjNuGxi16fbQ=; b=Mw9yS/dk+tSEmZUZ
-	/4PGeOp3wb02AZnS5ew0LavnrtXYp1V03Yt6CVm9vJadr+WHsJE6Q5Ox9Y1rJwzE
-	R8lUX4HdSiL/DelTpMxlxZIh/DX3YpCab3fl8rBg+ee0XzPhhYRq2P5Osf2nD2TC
-	b1ml2+5+00jI46BIIyPS7KpRDGlrfrVy52OIeeUhjQh4qI4kds0rhj+GvvPXUEGu
-	CCFubzN6mEcZQ5Bo04qkV14omeG+huKbhqG0hlwBJBTCgakFvqruvrWtwaHTJG51
-	StV96JyHONLGcgBI2cvAkPRu1hje6Cl7PYTKJf6d8DFPjC4dL0SwaeZ4fCCoVT7H
-	BPJymw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4heda0kew4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:27:50 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5338bd59032so466381cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:27:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792578470; x=1793183270; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lKIuPtXucGTuUrVP+08mQo0qmmFiAtXLjNuGxi16fbQ=;
-        b=YxquBoFlr1nGIaAj/rLZs2YfzzePXg/bh6+EQG6MqBN8JveFOS5hqUgt28EoU++PAi
-         PQmUtfUKJkZtX96Tw0IerOuuB9aSrxkCqkOkPqIfcMOJPlo6+cXdiW1PmPkOrMczyZn2
-         cqQ+j+jolp33gfXyu19P/JkO6fPDuT4+Gacm1hHDcBpfmOVjjvOAtOTfY+VR4rG9ETZ9
-         D7SM6JQ7eOi4tnckTYmvRtnNdYZOKTr3f0QpYr5hqo8BzGsN8zsHIJEItC2PHzjoT/Xt
-         dGBB87QetBHrlZtxYnLrebYg+tm5xw+Lt8SWKr3BmNkbKdOim1gKsMgJ4QlAzdablrIW
-         T3tA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792578470; x=1793183270;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lKIuPtXucGTuUrVP+08mQo0qmmFiAtXLjNuGxi16fbQ=;
-        b=ktDezEaLCGyqHlS+fra/rbsEiHnoQk1mGdB5iRU3ndytwjnQvPlsJBwVdBwMZI2/gn
-         Vzj9a2zCQW3NvvhRjHE+gFfSBd5IdDToEPlPvJ4xH2ZZdJ2b+mRgq6ZndKctiY+w0+Ms
-         LOWG2F9J+z8lk/0WX9D/kV8zxLADq7K5eACXVyC4GJLsYzjT569JDyfGGWVK5e2ovLZE
-         WzxXJ0r2T3caeSLW6iC5kYQjiOiqwpO7hr2+wbP9TZzmniSJZDAdyrKo+HM7ZEgmcBWO
-         CNWyFhZVtkFC4w9piG+xiWXLN5b1YfTayLEdehKmtdsMIzFPzmqcxpef9hw9/0qMVfgM
-         gcOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwGaA0pPLuEtPSvdqcvCnHobIJTVeEHfJQBYqpNDfo5oa1gikfYkpoZIOmGoSYy1twgcQh76anI7svhXn0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK2VlLZyt4caB2SeZk9ONLdFiBnwFCh4kyS7oGFU7RCT6AdkRfp
-	IjD4yee6Aes/UdEOY9Mgs67Gmf0l39NOVah9lGDieXEzmPLNOlM14+zE8LESeegKoC/81/L0zbv
-	R8b9uUR1cKdXaFNpXSyfd6B7rbqGkxF4mBrk+7VHnsyn6XEMBsCpzkZi2OcD+nm/QCRE=
-X-Gm-Gg: AYBFou2S9PiR7e9a8MtZ7HahMXOqEMtQ0EOU+Viqr3yx5GN2204/hkmTL93oshYtZmo
-	zj8fdfYtFz7j8Z9ztSyyPvcfVgBOC9dr/1+0PrDOAILRaG9fjqw/k6+hOoJds42LxLx3fRTkWVX
-	3RDLnWUD5ppM7x9KzUx1BpjGzlNKnwG6TvgfRgeZea9Bc07ITVm6Zuurr+Zxzok2kifJ4AqoC/v
-	VdK/eRE9XYUCa21WU2JwpfusAkecg64n3SPElIYpau1NmHHI+DKz0JOE4ZSbIV/1Phyn13iDWxl
-	VrhW7bJXxRuCJpAFN7qPYxvsSxX+OlW2YoZszH3hcsCSQBfQQEbNHFzN6F9zW0Xbaw+E/z7WSYu
-	BqVtuBvOmTm3hN0foD9fcQg==
-X-Received: by 2002:a05:622a:134b:b0:535:162c:2e81 with SMTP id d75a77b69052e-5369bb640a1mr26674681cf.5.1792578469474;
-        Wed, 21 Oct 2026 03:27:49 -0700 (PDT)
-X-Received: by 2002:a05:622a:134b:b0:535:162c:2e81 with SMTP id d75a77b69052e-5369bb640a1mr26674471cf.5.1792578469077;
-        Wed, 21 Oct 2026 03:27:49 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4678f7826csm65275266b.27.2026.10.21.03.27.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 21 Oct 2026 03:27:48 -0700 (PDT)
-Message-ID: <31b06177-69e0-44f5-9f84-28dd86a4e5a3@oss.qualcomm.com>
-Date: Wed, 21 Oct 2026 12:27:46 +0200
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=BA1UEjlG
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=yEusfg4qIgtMgZ0hwnnk4ZJYnBDrsm10dToYRC22Mm0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792578470; v=1; x=1793183270;
+ b=BA1UEjlGwC9nK2Ut19aMxqcmYaO0G/N7YBj7/8b8nB4BdCrQspZvECE2O1YICIFYfv3KIw8H
+ odMuhxEwRN95vPGhIbxkrS+NrC6r5HjMOTw3Gqb8vp4HRSenzlJcPyxw62KWJgJoDsXKOVa3Nyk
+ alGciyDfVOnZhu3ixUJqosAE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6eb127304f5e06c1;
+	Wed, 21 Oct 2026 10:27:50 +0000
+X-Mizu-Trace-ID: 6eb127304f5e06c1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <315a8794-db40-4d0f-9e4c-0cad66174bff@linux.dev>
+Date: Wed, 21 Oct 2026 18:27:40 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,71 +59,248 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] thermal/drivers/qcom/tsens: Disable hardware on probe
- failure
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Cc: andersson@kernel.org, Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
-        "open list:QUALCOMM TSENS THERMAL DRIVER" <linux-pm@vger.kernel.org>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20261021085749.3786101-1-daniel.lezcano@oss.qualcomm.com>
- <20261021085749.3786101-3-daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261021085749.3786101-3-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH net] ppp: linearize bridged packets when required
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: netdev-bot+sinfo@kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Breno Leitao <leitao@debian.org>,
+ Kees Cook <kees@kernel.org>, Taegu Ha <hataegu0826@gmail.com>,
+ Tom Parkin <tparkin@katalix.com>, linux-ppp@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ James Chapman <jchapman@katalix.com>, Sashiko <sashiko-bot@kernel.org>,
+ Felix Fietkau <nbd@nbd.name>, Pablo Neira Ayuso <pablo@netfilter.org>
+References: <20261021023608.55867-1-qingfang.deng@linux.dev>
+ <179255036282.3290.8488375760281728576@kernel.org>
+ <c0f348bf-0e13-4cb1-8014-cd9b7787bfe6@linux.dev>
+ <CAL4WiirRPnbSBgcoh8Aiq8zGVzsy34w9uaqAgSKQwpgJ0ht7aA@mail.gmail.com>
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <CAL4WiirRPnbSBgcoh8Aiq8zGVzsy34w9uaqAgSKQwpgJ0ht7aA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA0MSBTYWx0ZWRfX5epO9FLM8wIi
- WfH8lHaQwHD9eJoq+1aNfWyh4PLpfC1+s9xhSpasz0afCf8Jjh245fw1xLgrkGa58tiQXXZD6+7
- ufAVcWZkjnsnAV5dWcEL4WBIiwgpft6NhZR1GuxOmZ/+NGhKjbBnmPfnBeyJfDzXjoCVYdQL1Kb
- D8l0qGLMd6rqYFcAxx/8XrBAJIEizEPgOiQpMo+d6xyAvqRs/nyApENhMox1pGf5rRCUZkCnpBX
- V4Upv3THShbAIVDmBhanwGbtcoaSES3P5cZKYPVPnWIG+wDEONBU6W5a/AgCewzhLAEZ4PqBwNP
- usfaHvruFQWAe/wTZf+o/3tN2HZ5VcuVxue8/YsjZ/dCKfrgdksFGIjBGOqCloapXLXqTNnm6H2
- N2ehZQLilpcavMv4aUlWgWiOIhHSTMDo5kWnoRQvWes4FhX8NU/LAW4LwcxC6nnbu4sH1mYOKf7
- OoBt+Si6HK5MUh9p2JA==
-X-Proofpoint-ORIG-GUID: R1aKlnrTaya6Pnx9NWKgEfo25TAWYOnm
-X-Proofpoint-GUID: R1aKlnrTaya6Pnx9NWKgEfo25TAWYOnm
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA0MSBTYWx0ZWRfX+VKnES0b2sR+
- Ya/bPR0hvec/R+AZnQmnoqEwe41TgzUFwmQgUrqTEvF8ED8nnLLdsDHVDjDlwxdgS/93JOZ88rl
- I/vaJ+tRi+848qRmjZUZ4hNfNMRdLqY=
-X-Authority-Analysis: v=2.4 cv=HL5WhYtv c=1 sm=1 tr=0 ts=6ad893a6 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=pCP4VrvfTVqM1MFBOCEA:9
- a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-21_03,2026-10-19_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 adultscore=0 impostorscore=0
- clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0 malwarescore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210041
 
-On 10/21/26 10:57 AM, Daniel Lezcano wrote:
-> Hardware initialization enables TSENS interrupts before calibration and
-> thermal zone and IRQ registration have completed. If calibration or
-> registration fails, probe returns without disabling the hardware. Devres
-> then releases any registered IRQ handlers, leaving the interrupt source
-> enabled without a handler.
-> 
-> Factor the hardware shutdown sequence out of the remove callback and
-> invoke it when calibration or registration fails after successful
-> initialization. Disable hardware interrupts and call the optional sensor
-> disable callback before devres releases IRQ handlers and register maps.
-> 
-> Fixes: 634e11d5b450 ("drivers: thermal: tsens: Add interrupt support")
-> Closes: https://sashiko.dev/#/bug/linux-4b873699-7a0d-46e9-b768-169916c70d1d
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> Cc: Amit Kucheria <amitk@kernel.org>
-> ---
+On 2026/10/21 17:24, Eric Dumazet wrote:
+> OK, but I think GRO/GSO is still in the way (because of 55a5d8fca836
+> ("net: pppoe: implement GRO/GSO support")).
+> I guess Sashiko will find out.
+>
+> We should GSO segment first, then linearize the small segments
+> (instead of 64KB packets)
+>
+> I was working on the GSO part yesterday, so what about this:
+>
+> commit 5e8cbf87e1aea072b9bdb52ca5c7a5f523186934
+> Author: Eric Dumazet <edumazet@kernel.org>
+> Date:   Wed Oct 21 10:04:45 2026 +0200
+>
+>      ppp: linearize and segment bridged packets when required
+>
+>      PPP channel bridging is commonly used for PPPoE relaying or forwarding
+>      from PPPoE to PPPoL2TP. Both destination channel types handle non-linear
+>      packets, but other channels, such as PPP Async, require linear packets.
+>
+>      Ethernet drivers can pass non-linear packets to PPPoE. If one is bridged
+>      to PPP Async, ppp_async_encode() accesses the entire packet through
+>      skb->data, assuming that it is linear. This can read beyond the linear
+>      buffer and transmit unrelated memory over the serial interface.
+>
+>      Since commit 55a5d8fca836 ("net: pppoe: implement GRO/GSO support"),
+>      these packets can also be GSO packets. Packets can also be in
+>      CHECKSUM_PARTIAL state, for instance when injected by a tap device or
+>      a packet socket using a virtio_net_hdr. The regular transmit path never
+>      sees such packets, because the ppp device does not advertise GSO or
+>      checksum offload features. Most PPP channels are not prepared for them:
+>
+>      - PPP Async and PPP Sync send a GSO packet as a single frame, up to
+>        64KB, far above the peer MRU. They also send CHECKSUM_PARTIAL packets
+>        with an unfinished L4 checksum.
+>      - PPTP pushes GRE and IP headers in front of a TCP GSO packet, which
+>        gre_gso_segment() refuses because skb->encapsulation is not set. It
+>        also sets CHECKSUM_NONE without finishing a pending checksum.
+>      - L2TP pushes UDP and L2TP headers in front of a TCP GSO packet, which
+>        udp4_ufo_fragment() refuses. A TSO capable device could also be
+>        handed a TCP GSO packet whose transport header is a UDP header.
+>
+>      Only PPPoE handles them correctly, as pppoe_xmit() uses
+>      dev_queue_xmit(), which can segment GSO packets with
+>      pppoe_gso_segment() and finish checksums, or offload them to the
+>      device.
+>
+>      Add a xmit_offload flag to struct ppp_channel, telling that the channel
+>      accepts GSO and CHECKSUM_PARTIAL packets, and set it for PPPoE.
+>
+>      For other bridged channels, segment GSO packets in software. The PPP
+>      protocol field in front of the IP header is used as the L2 header, and
+>      is replicated in front of each segment. Then finish CHECKSUM_PARTIAL
+>      checksums with skb_checksum_help(). For channels without direct_xmit,
+>      also linearize each packet, as ppp_push() does for the regular transmit
+>      path. Packets are dropped if any of these steps fails.
+>
+>      The bridge path still has no transmit queue, so a channel that is
+>      busy (for example a full tty) drops the segments it refuses, as it
+>      already did for regular packets.
+>
+>      Non-linear packets were reproduced in a VM, with a TAP interface using
+>      IFF_NAPI_FRAGS feeding PPPoE, bridged to PPP Async on a PTY: the
+>      packets sent to the PTY contained garbage data.
+>
+>      GSO and CHECKSUM_PARTIAL packets were reproduced by bridging a PPPoE
+>      channel on a veth device to PPP Async on a PTY. With GRO enabled, a
+>      burst of 8 TCP segments was sent as a single 8040 byte frame with a
+>      bad TCP checksum, and is now sent as 8 valid frames, for both IPv4 and
+>      IPv6. A CHECKSUM_PARTIAL packet sent through a packet socket with
+>      PACKET_VNET_HDR was sent with a bad TCP checksum, and now has a valid
+>      one. When bridging to a second PPPoE channel, GSO packets are passed
+>      unchanged to the PPPoE device, and are correctly segmented by
+>      pppoe_gso_segment() when the device does not offload them.
+>
+>      Fixes: 4cf476ced45d ("ppp: add PPPIOCBRIDGECHAN and
+> PPPIOCUNBRIDGECHAN ioctls")
+>      Fixes: 55a5d8fca836 ("net: pppoe: implement GRO/GSO support")
+>      Reported-by: Sashiko <sashiko-bot@kernel.org>
+>      Closes: https://sashiko.dev/#/patchset/20260908072135.877364-1-qingfang.deng@linux.dev
+>      Co-developed-by: Qingfang Deng <qingfang.deng@linux.dev>
+>      Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+>      Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+>      Cc: Felix Fietkau <nbd@nbd.name>
+>      Cc: Pablo Neira Ayuso <pablo@netfilter.org>
 
-Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+LGTM, thanks. Nits below:
 
-Konrad
+> diff --git a/drivers/net/ppp/ppp_generic.c b/drivers/net/ppp/ppp_generic.c
+> index 1a610a18893ba94b5ff3f69f8e25dcd944ef01a8..2b27ec36c8cef829e3bc9238036c68967aceea1e
+> 100644
+> --- a/drivers/net/ppp/ppp_generic.c
+> +++ b/drivers/net/ppp/ppp_generic.c
+> @@ -45,6 +45,7 @@
+>   #include <linux/slab.h>
+>   #include <linux/file.h>
+>   #include <linux/unaligned.h>
+> +#include <net/gso.h>
+>   #include <net/netdev_lock.h>
+>   #include <net/slhc_vj.h>
+>   #include <linux/atomic.h>
+> @@ -2278,6 +2279,58 @@ static bool ppp_decompress_proto(struct sk_buff *skb)
+>          return pskb_may_pull(skb, 2);
+>   }
+>
+> +/* Segment a GSO packet (built by PPPoE GRO) before sending it to a
+> + * bridged channel that does not accept GSO packets.
+> + * skb->data points to the PPP protocol field, which is replicated
+> + * in front of each segment.
+> + * Returns a list of segments, or NULL if the packet was dropped.
+> + */
+> +static struct sk_buff *ppp_bridge_gso_segment(struct sk_buff *skb)
+> +{
+> +       struct sk_buff *segs;
+> +
+> +       if (!pskb_may_pull(skb, PPP_PROTO_LEN))
+> +               goto drop;
+> +
+> +       switch (get_unaligned_be16(skb->data)) {
+
+skb->data should be already 2-byte aligned here. You can avoid the 
+get_unaligned and runtime byte-swapping.
+
+> +       case PPP_IP:
+> +               skb->protocol = htons(ETH_P_IP);
+> +               break;
+> +       case PPP_IPV6:
+> +               skb->protocol = htons(ETH_P_IPV6);
+> +               break;
+> +       default:
+> +               goto drop;
+> +       }
+> +       skb_set_network_header(skb, PPP_PROTO_LEN);
+> +
+> +       segs = skb_gso_segment(skb, 0);
+
+Passing zero features to skb_gso_segment will linearize every segment 
+prematurely.
+
+> +       if (IS_ERR_OR_NULL(segs))
+> +               goto drop;
+> +
+> +       consume_skb(skb);
+> +       return segs;
+> +
+> +drop:
+> +       kfree_skb(skb);
+> +       return NULL;
+> +}
+> +
+> +static void ppp_bridge_xmit(struct ppp_channel *chan, struct sk_buff *skb)
+> +{
+> +       if (!chan->direct_xmit && skb_linearize(skb))
+> +               goto drop;
+> +
+> +       if (!chan->xmit_offload && skb->ip_summed == CHECKSUM_PARTIAL &&
+> +           skb_checksum_help(skb))
+> +               goto drop;
+> +
+> +       if (chan->ops->start_xmit(chan, skb))
+> +               return;
+> +drop:
+> +       kfree_skb(skb);
+> +}
+> +
+>   /* Attempt to handle a frame via. a bridged channel, if one exists.
+>    * If the channel is bridged, the frame is consumed by the bridge.
+>    * If not, the caller must handle the frame by normal recv mechanisms.
+> @@ -2285,6 +2338,8 @@ static bool ppp_decompress_proto(struct sk_buff *skb)
+>    */
+>   static bool ppp_channel_bridge_input(struct channel *pch, struct sk_buff *skb)
+>   {
+> +       struct sk_buff *segs, *next;
+> +       struct ppp_channel *chan;
+>          struct channel *pchb;
+>
+>          rcu_read_lock();
+> @@ -2300,8 +2355,17 @@ static bool ppp_channel_bridge_input(struct
+> channel *pch, struct sk_buff *skb)
+>          }
+>
+>          skb_scrub_packet(skb, !net_eq(pch->chan_net, pchb->chan_net));
+> -       if (!pchb->chan->ops->start_xmit(pchb->chan, skb))
+> -               kfree_skb(skb);
+> +
+> +       chan = pchb->chan;
+> +       if (!chan->xmit_offload && skb_is_gso(skb)) {
+> +               segs = ppp_bridge_gso_segment(skb);
+> +               skb_list_walk_safe(segs, skb, next) {
+> +                       skb_mark_not_on_list(skb);
+> +                       ppp_bridge_xmit(chan, skb);
+> +               }
+> +       } else {
+> +               ppp_bridge_xmit(chan, skb);
+> +       }
+>
+>   outl:
+>          spin_unlock_bh(&pchb->downl);
+> diff --git a/drivers/net/ppp/pppoe.c b/drivers/net/ppp/pppoe.c
+> index bf7414b46a26068d1773ec79055167956dde7183..f22087d76874ce524f66003ae00d1528a0e0b898
+> 100644
+> --- a/drivers/net/ppp/pppoe.c
+> +++ b/drivers/net/ppp/pppoe.c
+> @@ -669,6 +669,7 @@ static int pppoe_connect(struct socket *sock,
+> struct sockaddr_unsized *uservaddr
+>                  po->chan.private = sk;
+>                  po->chan.ops = &pppoe_chan_ops;
+>                  po->chan.direct_xmit = true;
+> +               po->chan.xmit_offload = true;
+>
+>                  error = ppp_register_net_channel(dev_net(dev), &po->chan);
+>                  if (error) {
+> diff --git a/include/linux/ppp_channel.h b/include/linux/ppp_channel.h
+> index 2f63e9a6cc88984c075792dcbd6c832ff45acd51..15bc3aa4f1715c265a5808fcc1cc2b93cc44c519
+> 100644
+> --- a/include/linux/ppp_channel.h
+> +++ b/include/linux/ppp_channel.h
+> @@ -43,6 +43,7 @@ struct ppp_channel {
+>          void            *ppp;           /* opaque to channel */
+>          int             speed;          /* transfer rate (bytes/second) */
+>          bool            direct_xmit;    /* no qdisc, xmit directly */
+> +       bool            xmit_offload;   /* accepts GSO and
+> CHECKSUM_PARTIAL skbs */
+>   };
+>
+>   #ifdef __KERNEL__
