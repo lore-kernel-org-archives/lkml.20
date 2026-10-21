@@ -1,92 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575842;
-	b=TSF7CdSw46tSpOJ472H2PqH0yFheKXbwrYkQq6nCK0tqjICVFUAvWkhzjXlhdWBJ61xr
-	 /eQCemTa6FAMaNaee8U7uynDMf7ZV2MHBJOkHnfubScfFZLixxuH6GEsNEok7QAM6hPuX
-	 vO+eWFHm/Iu7CtR1vdv5wTcXoUxwyzS/ac+H8Do9xGhp0JRZR4ngaqNyghzVYr90f9oea
-	 uqgJSw0yrnLzStn/ShDI5TucxdPI1gKkS91MLge9LdhL5qz/Gl1HbS8jnXUDqxamZMbf3
-	 1pGktz/69OHVzBofYTodUMbBDR1A1A4z4iAVa9yVK2lwPQfQKBVLCIXAQtb2x0jS6pQ==
+	t=1792575850;
+	b=Ohozf4KXmhm+r62eLsqdprpeH5/zSFcO/IcydTWSTp+Q/ZmGS0AS6mz0YwMZerLrlQfC
+	 uEyw2pysJsvSSb88Zz14GpajcDP9UCQNBpy73wEnAElrNFZo/cxcsxDa1PRKp05X5Qnss
+	 10CVuG5rRql1gtPWvjXHnrHIzAqvHsByxxFNJ1Dw34dXXXwbyDu5OxhrvDMoDKOeI6QEL
+	 4TOa+6ommJsQe9WLiPSF8MP+hof4iPBMdsJmEBZR0CnJxzl4wa5S53ZaYUKpvUTKK/2Pc
+	 dRvL913FkkhwXrGNGVgXuaQTB+8XUy1MU0vCzhsCREvQqgF4ORHd6e4iE6mWJmc1LJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575842;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1mDee8fRVwNUSS62hfCgOdMly0KHJWoEHw3uq1wP+dM=;
-	b=WFpoR4zuKmRFxepvYLxD4+ZIFWG68p8LVGGEMLNh6U2TH/hcjK6SmMaBupednNhLo3m8
-	 ueaXPVWF/PFidq5A385svkiNMvZoP10V4UPg/qAvRj25Wj/nF785vWEOmAF31zC0eooz+
-	 EoMbIEStF6v2Ihb2m7JMvIjiqIoF3Iocx+ZzqO2kcpMHRz8/HIxrQTnLikknzWUhvcB17
-	 72xiLsSrqysaO/WvTAkiQWOxPkss/We75FuOyyV1x9uQD62K1DRaVWr7a7N41lobgVZEp
-	 U+QpIljQPkL3FrKgPPiuUO/HQYwJ8v8dCaoRVfCD5PbyDz0mk9yGIOMgg/YxpingqEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575850;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=5GqSQ0QCihZuBCVkqsf4LxXGXNiQ71AyM2cHDQFk7c8=;
+	b=GK7T0dlNY0U0QnuS4+j8RGsJYJYfzpO7vnS1HaGsRetO6EI74wsS286IMMW+2K0qk2CL
+	 w3Oy9LAa+s1q1+pdDNY+FyyI36psANHYDRbmnHZ0VIK11FjEan/3Bfsy6U/AwL3gKgnAG
+	 vEt9/vmokxofV1jalPgZzBPLewKHLPtWiBKMqihidIymOprUDCaOA0g4A5FFQSiuHhWDs
+	 tB/1NJUHkrinpHjgbRykJfqTIWAA+oiVwVPKv2NLMqn1s7bF9QuKLpvRXVYkMMse3PSfp
+	 m8ox7Yx1Ha7x7cqDj4OIGhegtER2VA/Lv1Y0WnRXspnyrMiOXrk8xWVpl3gMGokFFMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Src1xL7d;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L8DXu5/2";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE183606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE183606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11479606A326
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:44:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Src1xL7d
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3a4cdc9025bso335777a91.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:44:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792575841; x=1793180641; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1mDee8fRVwNUSS62hfCgOdMly0KHJWoEHw3uq1wP+dM=;
-        b=Src1xL7dJtcD+mW+4kphC0vx+JMq83KXMH7usEwmz9UqBfkDiDbWNHsEfnycXz6ud9
-         7VivyaxWw+ti00pkjfGK1MlvcmRnSq5gh2DOZe1/MkXLfzQ9CwFQo4aQ2ySO4JfEQmgg
-         0kKaPeUdtyv+tdFE3MQcZveKQZQbg1Rm0a0jfYnlKuRomlWGdsohhjfVVyUNem/FuDZQ
-         UOQ7jOtGhCzQwc65ruy2qqcKfbCFMfIvZf/jvwcPlUURw9h0goYmGrC4AXueXh1ipwzs
-         YlYj1nXfSkGmLs83iusDHVYQG6yPl3bWUdwQLSAOWrFOjvo3JzVOZqQsBPeWon4Lgbxu
-         S/SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792575841; x=1793180641;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1mDee8fRVwNUSS62hfCgOdMly0KHJWoEHw3uq1wP+dM=;
-        b=TS80A+w1D1oR4bnJ5BXR3RpFtgZBQqEQqV6Yd2S4vDD65LeHL53crn3cOzNPmMLNZe
-         CmF6t+Gm0VumPkfRWnBCHY01iWWboTw4UwmlPyAidtHso/u7N7vXtjOEzzZS6pB+KFT6
-         KFcPBWVofHPKl21ESAD3p/eIXxbMYZ2Q9R3hWqM54A8YgaabCMXeSyuuPWfnodlNTj8P
-         vMGXjZZqFMsR+O4FjwOZ/FhH114jT3YyDX9EreISfYdx60SHMQsPVtxN8PtDvp353Pe3
-         Y+OTTLgSID7dKnHnI5O58t8pxA6CdHoNcvZRghn9sthSm5pBCFqLq6iR9F5GE6dOFDpN
-         4Lqw==
-X-Forwarded-Encrypted: i=1; AKwUvBxlhPTw3xY//HLU+y8E9IJowiAxlx2wwFRbyD0ysR+OUMAeFNgduk5caKR/kWpGqOLvuEC0DatDtOC7Ha4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+Egr5gA76rdkZPjSpcaFiVJXHaO714ArGVvxrmiHoROE4QFUN
-	XTQ8XrFFwfKD9HP6zV11Dt8PqQvNzLRF4/9k4QlJqSpIbEO83dyqW6et
-X-Gm-Gg: AYBFou0spO/nLuaqIJmBfpYrNVCWDWLx2VCqMH/NSlV29saJixIbNEErCBqIPNiCtAX
-	1kK5PKFMiVGJHL43IilTbcoGRFlfLYLBbA3J2xNYFNb+rOAyLN6P0CP3fHZuYg1h0tZBwY4vuPT
-	ZSHxE23D0T9ZZiidzfzz5/X2M4lf/SXV/h/GXJbfF3kqOJGGhmVG/t+j0EechXWs5lctrrZ9kIY
-	BQTP7bP5sHDtMmmgf6wYM43228nrX6CPzld0vzAhYcHkqI6bE/AyDyfbx7wDmG8Jj/xa5sLhKML
-	1MY6lSqVcubOeFkIfh/kXNWF7G1baIBlOHFxYM3ZzC3gEnJu8OeCNAqgmC9V2G4tTOgbT2d+O84
-	wKbWmQyA501XxBQPc070e6HUuNYbirFRmfMtLY6tO/RedxABXPMICe5WXrwDtwWf+Tg0jOOybIU
-	aMCGpp7zXzlZuPCB7K6dACgj7X5XX24RwJaYVrmn9w9P7ZwEUfle2vpJOyoTr4kEZSrZfvIf5zB
-	+ON93e02HJfXivDqqoHsr6mWMD7b8euadtcQTPsIbCEGCfEwu5oUgI=
-X-Received: by 2002:a17:90a:c887:b0:3ad:53e2:78c1 with SMTP id 98e67ed59e1d1-3ad86e980d9mr1157973a91.10.1792575841069;
-        Wed, 21 Oct 2026 02:44:01 -0700 (PDT)
-Received: from gmail.com ([188.253.12.32])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ad8021d29bsm3644438a91.4.2026.10.21.02.43.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 02:44:00 -0700 (PDT)
-From: Jia Jia <physicalmtea@gmail.com>
-To: "Martin K . Petersen" <mkp@kernel.org>
-Cc: James Bottomley <James.Bottomley@suse.de>,
-	Nicholas Bellinger <nab@linux-iscsi.org>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] scsi: target: validate REGISTER AND MOVE TransportID length
-Date: Wed, 21 Oct 2026 17:43:34 +0800
-Message-Id: <20261021094334.198599-1-physicalmtea@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L8DXu5/2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999791F000CB
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792575849;
+	bh=5GqSQ0QCihZuBCVkqsf4LxXGXNiQ71AyM2cHDQFk7c8=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=L8DXu5/2tjvqRFM1X2jp3UbAQmXndkgTfUcy5OrYVbK+ioE4XQSg1NT0g/WfBbM7+
+	 q32o0AOy+PF+l1sJGfIMj35gyQ3DzBKXiPisbLIwwGkhbQzMFiAsx5XTWyMB5tj63g
+	 TjVvt11qe6jUKUBBDZug33DtXj/Nd88D0Yne2cYYHFbkFTewcfrQvfNNjRHN2uJky4
+	 2SN4o9dnqQFJMJqWJDUoRTw1ZyRTPSW7jX3546Pg2JWgq+4vVASmRO+FLy4JypE7dU
+	 b19tQSXY5EKQwiMFZN6ObemrHA3hHVPdpr8QoWrnF4EUvmEPV1Lu2QYaiRIPIOtPpB
+	 CJPIBaT9uE76A==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso532861e87.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:44:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwTP/brbiQcxX+pIIwNB7Xu1qmG9thSzr7kAFUTWHVWW4o4VtbAa3599PxpBJ93CBo3jRFVLJm7Rfh6hfE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRw1bQKc+fyBs2y+VlfgPacoMDAEtBwQKI/YbpsFGMBEMbCcKV
+	q9fxwSKW2bcnC1oDWsBWWndYJN7HFSaUg6Lni4h0SWp9eW8d6WsHRAVtjWjXlE5V0zzfXofyhqe
+	9ZmkzEP6c22QZIYjk66P9ZTadUeV++Ovd5RoB4ENOhw==
+X-Received: by 2002:a05:6512:33c8:b0:5b6:1a7c:59dc with SMTP id
+ 2adb3069b0e04-5bfa1d08db4mr634089e87.54.1792575848401; Wed, 21 Oct 2026
+ 02:44:08 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:44:05 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:44:05 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20261021073633.2163128-3-shengchao.guo@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,45 +65,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261021073633.2163128-1-shengchao.guo@oss.qualcomm.com> <20261021073633.2163128-3-shengchao.guo@oss.qualcomm.com>
+Date: Wed, 21 Oct 2026 05:44:05 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Me0T-5hNbT8ksqrjQpQ=21GAb_26Vqup87etSO=QtCovQ@mail.gmail.com>
+X-Gm-Features: AclHuK_9YGg_X7146bJJdqhZHqrsMwLmX75q5uNTn98-K7ckzWhfGKrFDJ1LtLQ
+Message-ID: <CAMRc=Me0T-5hNbT8ksqrjQpQ=21GAb_26Vqup87etSO=QtCovQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 2/5] arm64: dts: qcom: nord: Add gpr node
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+	Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-REGISTER AND MOVE has a 24-byte parameter-list header followed by a
-TransportID.  A 24-byte parameter list with a zero TransportID length
-passes the existing tid_len + 24 check, then the handler reads buf[24]
-for the TransportID protocol identifier, one byte past the received
-parameter list.
+On Wed, 21 Oct 2026 09:36:30 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+>
+> Add the GPR (Generic Packet Router) node to the nord SoC DTSI along
+> with the APM (Audio Process Manager) and PRM (Proxy Resource Manager)
+> audio services. These nodes are required by the Q6APM audio stack to
+> route audio packets between the application processor and the DSP.
+>
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
 
-A TransportID is at least 24 bytes.  Reject shorter TransportIDs and
-compare the declared length with the bytes following the header before
-reading buf[24].
-
-A malformed PR OUT sent through vhost-scsi triggered this read on a
-KASAN kernel.  The command is now rejected with INVALID PARAMETER LIST
-before buf[24] is accessed.
-
-Fixes: c66ac9db8d4a ("[SCSI] target: Add LIO target core v4.0.0-rc6")
-Signed-off-by: Jia Jia <physicalmtea@gmail.com>
----
- drivers/target/target_core_pr.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index 25b1bcacc0c8..ca1a2802aa22 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -3226,10 +3226,11 @@ core_scsi3_emulate_pro_register_and_move(struct se_cmd *cmd, u64 res_key,
- 	transport_kunmap_data_sg(cmd);
- 	buf = NULL;
- 
--	if ((tid_len + 24) != cmd->data_length) {
--		pr_err("SPC-3 PR: Illegal tid_len: %u + 24 byte header"
--			" does not equal CDB data_length: %u\n", tid_len,
--			cmd->data_length);
-+	/* TransportID is at least 24 bytes. buf[24] is its first byte. */
-+	if (tid_len < 24 ||
-+	    tid_len != cmd->data_length - 24) {
-+		pr_err("SPC-3 PR: Illegal tid_len: %u for data_length: %u\n",
-+		       tid_len, cmd->data_length);
- 		ret = TCM_INVALID_PARAMETER_LIST;
- 		goto out_put_pr_reg;
- 	}
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
