@@ -1,67 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792619601;
-	b=enqvccJu9RI6v4xP0XBbeJZTpqyhB+T8eFPPb81ggJxQlyZcQ46OVdw7+dx9EoRKtO+u
-	 F75YaCrdoQMdeCGOymdQj3uxMD7bqNk2Xq3PVs++lNiBvXw9+SIlxaybShU1c4cEwf0uB
-	 gmzt0EzI71gKlkZMIWxe3DiysTTbm6ZMQrhVz8onesnly0p2Thj28hHu7GTblNrT4CKV6
-	 pIvvHfDT4MahJ9UFIhTDSBUXYMkvjL4kT6qf6qtbGZK0yjtq3lkqjkLIcYPCyRWAeVJRI
-	 YqG4uRga94spxixzZWwTVHiyeJe+ar+ee1W0PYLo6bRPeCxq4ky33tU0ZfE+oBsKwlQ==
+	t=1792619723;
+	b=h9PJ1f6UG5aQJAQg1aeJdqBxb6ybzCOO/g4VM7BM7cGpla6sKrTd1S71PbLyEAtZY+hc
+	 LZckbeI6QBFKpqi74u7rzVfaF5Ltkl/ycQvkVoWfnAizlG9icqBkQx0K1p2gXKYH9Zx17
+	 d05n61SUsIn2s/+J7Um/M1iTUdIrwnEVx/s+96shvjvqt2wTL6S74Y7M2crfXwC1oSUKr
+	 SAkYssHVOO1VJQyyEA31kIxscF0a0PXO5A6qlY+R4PAQ1dUW52fpnaCo5tF13SwbNWFaV
+	 BpkGDVArepjeAtG6I+EL9OY/nmKqBgTIkRQ+t+QPh1L+7PmZtsGr9E1pYsKVzoxl1DQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792619601;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=zngC4Gg97840m7bkbzFdo+IOdjY9FiI3xLhgwdydC2g=;
-	b=naEkQebIn7x9/Rpd2R/kzx+myx+lVKcF9L6K8VuFsmQ+Pas5LMnjyg0YvFtmeZWlnqJf
-	 5OlaSwDdLqfCFbHOW5p5Fey6TjSKpdGVhdxHdN1aug9bhf7L8hVg7DGlIs68SXzZP58dr
-	 hlFjYItfodJMPZB7EEtzDFajnG6g9oNgrbxyS7llc9YN7k9OCUhVlLsad78OjZi7B3gpY
-	 1ik5GwwP6bsqSYLnJnRbI6bxRjuvKCw/+Vib5v2PZuIrIPywa6YAFC2YfVx21dt6outra
-	 a//6AkczvP3FPt2TWTrJYBeyMUnQXj2viHAb5M/7u8l3eWxRQjbB+sF6gWDm4Grwncg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792619723;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XbblKzcGrmO5Ko5Ulj3O9NpL7GMqStGr4Qlbbk//Src=;
+	b=GOr0/n7XkrG3mkepvPGT8QNIQtnBcyt9HYKw7jpxuWFa6UY9d94oZR1mnGSRmT9202BR
+	 vToxKjkNgGO/+ZldJFPmsMwtBd0AaQz+IpWiHzA+0SRZhKQhVhM3iPHy8qLAcz6FH9mDy
+	 bpjAJX16ameWvW0ZgD05LU196JruUM1oAH1L7DmPGAF9KmR4WKHv6ooYrUnQkiPBGzyBd
+	 JTvMDfGDiIs0wsbANxeaBHRX6/24FAn5gWR256M32bIBy/vBGS8C9Al3TOkYq8tkhwsjb
+	 xCczDHpSr+c1aThMzp0q0NaDM3w/vgQ8BW+u+NhcncdSXmlVtS07RBbPlfZJM7HsDAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=dy3QrKC6;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IISonUq6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F379E606A319
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:53:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F379E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB344606A31F
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:55:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=dy3QrKC6
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=zngC4Gg97840m7bkbzFdo+IOdjY9FiI3xLhgwdydC2g=; b=dy3QrKC6PUEylSQeS65xJ2rp1I
-	E5SeBLYHz8ANSyu9ZJalE9HOLAiSJR8j3pu53IQieJ+Be19ULOzorfG0+YX58DLiojinehO7CDk1B
-	yOP/kFtDERNfOssuyn8/SwLMuMYj2O/7FnLBV1VWezJEP40hWowrRI4+vN8SAJ1XX/ykf3MjyVOCk
-	aXJFO1UThRfhU33LepriTRhLTW4l+ofHtv06QVT18zeqe3i9+6Eio3n3jOX7XnU92PjgOs8TpsAi3
-	3/e3Nb4/YF0yyIU16Q8SH0/Ngm9dx2o4OUvK7mtnuvRu7Z/DGryXA65tVgO9mifkNndRXBw5V28/H
-	wHdBMkfA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.5 #2 (Red Hat Linux))
-	id 1xJeFG-00000006GFB-3yZp;
-	Wed, 21 Oct 2026 21:53:15 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 30A913005AA; Wed, 21 Oct 2026 23:53:14 +0200 (CEST)
-Date: Wed, 21 Oct 2026 23:53:14 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, Andy Lutomirski <luto@kernel.org>,
-	Rick P <rick.p.edgecombe@intel.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	the arch/x86 maintainers <x86@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Borislav Petkov <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [RFC][PATCH 00/24] x86 Kernel Shadow Stacks
-Message-ID: <20261021215314.GU2823843@noisy.programming.kicks-ass.net>
-References: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IISonUq6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61FE71F000C2
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:55:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792619722;
+	bh=XbblKzcGrmO5Ko5Ulj3O9NpL7GMqStGr4Qlbbk//Src=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IISonUq6PPuILhouWjN3XrAW4TyXV7DF3zaY8rj73hwsu87lHUbm7/wCuPYWIUUGN
+	 8ZftC/Ff2TTDpONhLu53ut7cLLqdIqZXBwzAdvxWQbq47jwrPovWDAE/Tt76Zq3T5R
+	 kPm51HL6vRRV7QXn5fQxZSOcFr6oAhKA4BvHrs/R0/8n/liPhhLQ9FR4A3qg67Xchq
+	 TZtOu2d0rvMJQZbiV/Zy+ZGvKvlQ2V4IWyIN4Yv+EJeVZ4vZuu+bCZeoooHC41Tdzt
+	 WFWQNjX0tLWsmxdqi/N4N/E3qYkmaoctEzucIXURHvImXewhcFnRyuQABNJytfwpLt
+	 uefPyP0cEaZZQ==
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f36c18b75so84748785a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 14:55:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByJSkXvSmKC+CzmzPbBL7LfAR3XUNhhfIx4ek2CpQKtZSc7E+oEuvkFEh1mhNd7hHi87OyNrzzhZgIkOPM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFQcI3GmflL4pNugmbCNhOYyVTrzzuYPf18XJvZHoiWcK5+alF
+	eubu1B6gtgl84n2KDBrDTV/xNSHqKkoW83nBj97BV4KYYmTdUpsHJCZlTGit+2y7o3hF+I61/KQ
+	cA9HD9j2jkVmCRTVIaE/GjQpZObVP+To=
+X-Received: by 2002:a05:620a:4113:b0:93e:48fc:aa88 with SMTP id
+ af79cd13be357-93f57f81db1mr689549385a.44.1792619721658; Wed, 21 Oct 2026
+ 14:55:21 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,48 +59,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021195120.E61EC737@davehans-spike.ostc.intel.com>
+References: <179248830836.1744016.8424217811286616919.noio-mglru-rfc-v2@bytedance.com>
+ <7f4daafd-a3c5-4ccc-80bd-05a7ac09e4ab@linux.alibaba.com>
+In-Reply-To: <7f4daafd-a3c5-4ccc-80bd-05a7ac09e4ab@linux.alibaba.com>
+From: Barry Song <baohua@kernel.org>
+Date: Thu, 22 Oct 2026 05:55:08 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4wV8A5snz-XE+5ht931=07SvCs_k4xvUCE1yphKyQd8tw@mail.gmail.com>
+X-Gm-Features: AclHuK-Lm3ETeKvlfdxyvGOhePGX8_fdCxCFPiSQfmBetlKnWoeOhvEVMJZjPbw
+Message-ID: <CAGsJ_4wV8A5snz-XE+5ht931=07SvCs_k4xvUCE1yphKyQd8tw@mail.gmail.com>
+Subject: Re: [RFC PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with
+ low swapcache in MGLRU
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Xiang Liu <liuxiang.277@bytedance.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Bo Zhang <zhangbo56@xiaomi.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 21, 2026 at 12:51:20PM -0700, Dave Hansen wrote:
+On Wed, Oct 21, 2026 at 3:28=E2=80=AFPM Baolin Wang
+<baolin.wang@linux.alibaba.com> wrote:
+[...]
 
-> There are a few critical parts of the design:
->  1. A shadow stack is allocated per-thread. Space is carved out
->     in the thread_info structure, adjacent to the normal stack.
->     vmap'd stacks are leveraged. They already provide an alias of the
->     program stack with 4k pages so it is straightforward to create an
->     alias of the 4k shadow stack page with its special permissions in
->     the same area.
->  2. FRED is a required prerequisite. If someone wants to go back and
->     do an IDT implementation, I'm all for it. But FRED is way simpler
->     and it is absolutely the place to _start_.
+> >   static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_cont=
+rol *sc)
+> >   {
+> >       unsigned long total;
+> >       int swappiness =3D get_swappiness(lruvec, sc);
+> >       struct mem_cgroup *memcg =3D lruvec_memcg(lruvec);
+> >
+> > +     swappiness =3D get_scan_swappiness(lruvec, sc, swappiness);
+> > +
+> >       total =3D lruvec_evictable_size(lruvec, swappiness);
+> >
+> >       /* whether the size is big enough to be helpful */
+> > @@ -5249,9 +5265,10 @@ static bool try_to_shrink_lruvec(struct lruvec *=
+lruvec, struct scan_control *sc)
+> >       bool need_rotate =3D false, should_age =3D false;
+> >       long nr_batch, nr_to_scan;
+> >       int swappiness =3D get_swappiness(lruvec, sc);
+> > +     int scan_swappiness =3D get_scan_swappiness(lruvec, sc, swappines=
+s);
+>
+> IMO, 'swappiness' and 'scan_swappiness' are really confusing. Why move
+> this logic into get_swappiness()? In get_swappiness(), we already have
+> some similar logic to adjust swappiness when there is no available swap
+> space.
+>
 
-SSS has always had FRED as a hard requirement. We're not going to
-contemplate doing IDT; its an absolute trainwreck.
+Yes. It is very confusing. we can't do that in get_swappiness() as otherwis=
+e,
+we will get cold/hot inversion due to GFP_NOIO. for a real swappiness=3D0,
+we allow cold/hot inversion for anon, but for GFP_NOIO, this is not the
+case.
 
->  3. In addition to the per-thread stacks, there are also kernel
->     exception stacks. This is also true for shadow stacks. Leverage
->     the "CEA" infrastructure to allocate space for the exception
->     shadow stacks. (look for "x86/cea" patches).
->  4. The kernel shadow stack pointer needs per-thread storage and needs
->     to be context-switched.
->  5. Any event handling (exceptions or interrupts) that modifies the
->     "return to" instruction pointer now needs corresponding changes
->     to the shadow stack event frame.
-> 
-> == Warts ==
-> 
-> In order of things I want folks looking at.
-> 
->  * The shadow stack is not used for the init_task. The most ideal
->    thing would be to find a convenient, simple time where the regular
->    stack is shallow and it is simple to create a corresponding shadow
->    stack. This is not currently done.
+static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
+{
+        ...
+        /* For file type, skip the check if swappiness is anon only */
+        if (type && (swappiness =3D=3D SWAPPINESS_ANON_ONLY))
+                goto done;
 
-This; I'm thinking we should simply unwind our own stack and write the
-return frames in the shadow-stack and switch. We have all the
-infrastructure for this to be 'trivial'.
+        /* For anon type, skip the check if swappiness is zero (file only) =
+*/
+        if (!type && !swappiness)
+                goto done;
+        ...
+}
 
-Trying to support non-ss tasks looks like a complete nightmare, lets not
-do that.
+So the trick here is that Xiang is doing scans by tuned swappiness but does=
+ age
+by the original swappiness.
+
+IMHO, this is confusing but this is a possible way to fix it before we
+land something
+like:
+mm/mglru: Avoid scan anon while swapcache is low for GFP_NOIO allocation
+
+https://git.kernel.org/pub/scm/linux/kernel/git/baohua/linux.git/commit/?h=
+=3Dkairui_scanbalance_0.4
+
+Best Regards
+Barry
