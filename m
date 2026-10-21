@@ -1,78 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792544587;
-	b=2+/OpEax8hT6eTbZaL0H73PAuuDj0dT3IPGuEkuliPO+9PUnQ6N7QxRS1s4xdy/Z9xeG
-	 ynykf/+sS9jtN5zDUT+kcU8bbSvTollXeV1QGsQbHa4pwLm38RxalNotHNTWr1Whxw7+Y
-	 NkvTUARmYWuv1M5KRzbrYUe4G5cqeCyUmVpXiJjRq0lsYHIz3m8GWXWqCflok3mtlNwiU
-	 d9Y9d4PkyHzriGYDSl2xKAggKgoEFyCwKyRFJOnlqK0n3pRslCWe0NdNeGkzbBC0QH9CH
-	 PRmca+8OsGsuPvbNW8UBznpTZYMkfuGv2IwTEYrZ7RUhEcWud+izsub9H/AafSruqoQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792544587;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OqHXkQVK8xlwr8KTC1AMZpnmkw1krIUJz1OEBICVePE=;
-	b=OUtvw2Byy5LQFlZHlV8gU/Aw0IMBIjRS6S/L4ey1XssTaYk3OXn4oOUeQXi7d+e8uFJT
-	 C/D2uAE/lyOOQHBsKvYOrfyAVlYJImQceO15oX7PjDWVCt/3n2MFiyUxlYP7LV7gtrWsT
-	 L1XqSJi+DCvh/Gykfqi3TJ5VjTAMo9RQJvol2BAqiw2Sp0INjjsnkyneyRNFE+oRyj9PD
-	 7QeCXu75skI6wUh01F3XHJk/K30nLN7vijZQpPrTjQ6G/sviT7tSKaHAw0FKt7lpESnTT
-	 0XACaVk2eDVKfQK6Xv85j/uKVRn0d6WDzjUYt4VnInLhogth2TqDL/rXFTlU2bwfyLg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUZTQIUg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA44D606A331;
-	Wed, 21 Oct 2026 01:03:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VUZTQIUg
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792544586;
-	b=xzFaPpw0U1IVqCMBcB08Quf6e422Ik+u+5RLdLGgFJZ3jYaSkFzmzsUNVXu5h5dhQ5iy
-	 CJdqe9G3SA8EmWsI3e92ASujTAxBC1X8fuFFidR9uv8M5ztwRd7Dd45sXxV/pUSVaf/H0
-	 qbQm6a06IJ5km6eockgoebUkfO3YFCXivYi8H8BYq0Y5Ulms/loV3CkTTuE5Y0bFHqoL3
-	 /oy5WCUqJp5pph6yCoCzrodFntPjjFe9jp6JyOSSlhcB36L6LKErdsDIO3dSLjVhdE55o
-	 ep66R5iuhB8dB43rlyxA01R4anDP19jmr8SJxj0c7Sp7utYCBH+wG+XWxqD73+u+UNA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792544586;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=OqHXkQVK8xlwr8KTC1AMZpnmkw1krIUJz1OEBICVePE=;
-	b=cfOwEEojFVWwaheZ8SdSqVxbFWSa41w8fnUKnC/w1Bf1TiVFe14W82AFls3JYgMsELvS
-	 rxqMgwuPboLQIeCS0BJrKQ4QVkfqH/0cnuYai+f4t9kNnqFyuG4vAN9Ie3aptX12u9v3r
-	 atGh5RiXPmhPOln9AyjMnIX6qvwSYx9dDoZTV6I5sIGHiEaBWLNAZSpYDBigYByRmIyhI
-	 O9BUh7eVuTdxm9+y18IFzXHHoL4rvidwNRp7FfMxZpJ9w5ht7TUyl8cKfvjTfS5CLoCMy
-	 LQeHClY91rfMh9uMLR/Jni7u1AMgafoGmYbN6nArDTo24BdgXn37bpnGmjdPoVy5CIQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792544613;
+	b=c6rrfRIuu3AFq/KrSQxXbgPblRIvjusIX4kgxD/E2DIe1AAv6CUpjf3PfvPhM8AkJ9as
+	 UWqB3TQG68pecD2rPJnUcWhHYH7x33K8BXsDHP0Iloyq+0DNVJ0KKiX3PePsQsQvN9nOQ
+	 FI5WJVjbmupQ56rnkq937EByM6BT9tpnIJeVW9Vc4oXLHEn0+iNLXv1+2cIlQKKbATyGx
+	 dO595vWQGCNopuw1m3hOeMv9XEDzrTCfVl0D4EWMl4zUc5y7l0aNGe/0nGJapOg6zuF6b
+	 4On+rywLAU7WM0o7UPLMegPGoDhEElnmEmTGKBNuTeMSra5jy9GkXlIRtje3bb7Px5Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792544613;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=26ckmdUGF7QTnv8n0/aMUKoRme42kauVoRprvIKYDLU=;
+	b=mNcI6XAGGSrauVHEUu/dN7G4wzyFVzUKsQh63t8e+siI6eGcxnmUEJhv41/tQFZJaJ9X
+	 MqPK+s03VGDcR1o+UkTTGhm8ySMM3nmNJ+YflMcYnCVb9xi0MmvnApBzF19suJFNJz/Kl
+	 Ayv5xRHipFceOLUIqMJpIR2tTq38I1Oic6Ydd8xXCR36uHtZrDPbtStSdmtRiw5XzKuZ6
+	 f9Ten6iZY+wB/oVFqwe2wn5cftsJe1DuIhmieTu5p7Ar/6522AX5U2UH+ay1OnSxC0RMW
+	 67UB5fy76c8ZZFdO0ZpFqvNNQqwfXGlD+CaAvQjXine42HgJSqDjzKUmPkxdz0UCYkA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0A1401F000CC;
-	Wed, 21 Oct 2026 01:03:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792544586;
-	bh=OqHXkQVK8xlwr8KTC1AMZpnmkw1krIUJz1OEBICVePE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=VUZTQIUgCu5lEUikEIFeV10oCwyayMKwxWJ0qO7eMdXwn/FkHngdffUOXDvCc4XsE
-	 j1+ssRzlEH8BGgngyZJZYRa4XC8eRkPf6c9ktVJKVtPGs7v/VGGqN6GN1mpxhpdlRn
-	 Ol7RYqXSfj6ES27KgPxNzUiezTXESFSoxegNi1KQU1WqPkmjHkMnDUj1Q27CVjG68h
-	 /+Z1bMhXlAq5CPbHmLs8ELbmGIg123NasKfZ9b3x9gTvNZzSZVeWPIGJJz7sFmHcfW
-	 +h0VqTUkGeqh1bZkGp8A994HOjta6YyQB6Dxlivs3tJ20jLhpFPpyz5OzEBfvilKSh
-	 TV+Lt/eYpu+hw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 7440C4328C;
-	Wed, 21 Oct 2026 01:03:03 +0000 (UTC)
-From: Daejun Park via B4 Relay <devnull+daejun7.park.samsung.com@kernel.org>
-Date: Wed, 21 Oct 2026 10:03:05 +0900
-Subject: [PATCH 3/4] nfsd: send a referring call with CB_LAYOUTRECALL
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E93606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 01:03:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66E93606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b28d7ffab1so326094b6e.1
+        for <linux-kernel@vger.kernel.org>; Tue, 20 Oct 2026 18:03:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792544612; x=1793149412;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=26ckmdUGF7QTnv8n0/aMUKoRme42kauVoRprvIKYDLU=;
+        b=KLKoPmJWwamV9YwurSfeG/vT637hIBonUtlfWzn283mBWHLb/QpuN0LGW8BtnaX9SC
+         ycvG0B5N1kIWGgKB7ht8AIibJd4plEtB3CVrOMgzVnvsZmseVOL+p+NJlKQWY4Wh43kG
+         smE/uBV763fLpSAvCOuYEoh8PwyCwIHhp/XkRoGO188P1rszs5gdcXXLS9QrW980QwQM
+         JsYaKd2TRoOEiDi84VPAZBb62kweKUnfdXxSxcT4gOrQuesi2Ckam4K5DHBUZQTyneLj
+         +4S72dnclAMf41J7w6RtiIW3lnOr1zeL2dqdNxm7yAMf1ds26et+UTGc6NIg+QIKnsFi
+         XgRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpJSOcbgg41PhbiDzA6MZfR+FZ8ZfQFQHWqQ5ObW5UgZ2bbpq7MC9xa8Mms6SQdNiHc42a6mHlg2Vi7/w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL70Ju+gZ928v4otOxlYTk/qppZhhyMYyq5z2a3CxoTC0Ybqm3r
+	J4kj26//p/uuaNqs/8EciNLispgdSesr7q/HU8AkKABRGKEZy5NL0MZzQH1AHQZyNcoJ1O5e514
+	tNwnXjAoDlHEu2ujepjmS07mR2EGHjO6GsreenmkDIbA7tLg2B+r/cnfC5B8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,218 +58,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-nfsd-layout-refcall-v1-3-797096b92377@samsung.com>
-References: <20261021-nfsd-layout-refcall-v1-0-797096b92377@samsung.com>
-In-Reply-To: <20261021-nfsd-layout-refcall-v1-0-797096b92377@samsung.com>
-To: Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>, 
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>
-Cc: Christoph Hellwig <hch@lst.de>, 
- Benjamin Coddington <ben.coddington@hammerspace.com>, 
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>, 
- linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Daejun Park <daejun7.park@samsung.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792544582; l=10217;
- i=daejun7.park@samsung.com; s=20261006; h=from:subject:message-id;
- bh=rwrYK3CrIB/K7UTkQ6dMIZit5Nsq1coAEQCzRIFkNbw=;
- b=GL9FjfKYM8ilP9ZUBGClqKncyhLIQxyRaUQX9ZNDOvyrystB1JdapjhD0rCXMBP36JM6H+ksE
- kxWmecRxBFsA4uJPN4QPzWCSUm5J0Bk4H98CrNcylJhjG4d4TeNxTQV
-X-Developer-Key: i=daejun7.park@samsung.com; a=ed25519;
- pk=4yUfDqGRZTIj0Ik43z1GoMZRWCNm/rgX6uJuM9dtNIg=
-X-Endpoint-Received: by B4 Relay for daejun7.park@samsung.com/20261006 with
- auth_id=1122
-X-Original-From: Daejun Park <daejun7.park@samsung.com>
-Reply-To: daejun7.park@samsung.com
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:c224:b0:4e6:76eb:b991 with SMTP id
+ 5614622812f47-54d950c7a3emr2372052b6e.29.1792544612365; Tue, 20 Oct 2026
+ 18:03:32 -0700 (PDT)
+Date: Tue, 20 Oct 2026 18:03:32 -0700
+In-Reply-To: <6a6be82b.77639fcc.3d4fd0.0014.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ad80f64.46bc089a.3217e3.0039.GAE@google.com>
+Subject: Re: [syzbot] [net?] possible deadlock in __netdev_update_features (3)
+From: syzbot <syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com>
+To: andrew+netdev@lunn.ch, andrew@lunn.ch, davem@davemloft.net, 
+	edumazet@google.com, edumazet@kernel.org, horms@kernel.org, kuba@kernel.org, 
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Daejun Park <daejun7.park@samsung.com>
+syzbot has found a reproducer for the following issue on:
 
-The previous patch resends a layout recall once when the client answers
-NFS4ERR_NOMATCHING_LAYOUT before it can have processed the reply to the
-LAYOUTGET, which covers a client that takes the reply in within two
-seconds. RFC 8881 section 2.10.6.3 has the server name the request that
-created the state in the referring call list of the callback instead, so
-that the client can hold the callback back until it has processed the
-reply, and section 12.5.5.2.1, which is about this race, lets the server
-name the LAYOUTGET in a CB_LAYOUTRECALL. Commit 4f3c8d8c9e10 ("NFSD:
-Implement CB_SEQUENCE referring call lists") added the lists, noting
-that layout recalls need them, and "NFSD: Send referring calls with
-CB_RECALL" [1] uses them for delegations.
+HEAD commit:    7a19f0cc94ad Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=14b5b831580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=26d6221a572842ac
+dashboard link: https://syzkaller.appspot.com/bug?extid=c6c86a1c56b5131f2d97
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=15311081580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=159e0481580000
 
-Do the same for layouts: nfsd4_cb_layout_prepare() names the LAYOUTGET
-that the previous patch records as a referring call, unless the client
-had retired its slot when the recall was sent. The resend keeps the list
-without testing the slot again: a client that has not processed the
-reply yet holds the recall back, and one that has finds the call
-complete. The Linux client holds a callback back with "NFSv4.1: Return
-NFS4ERR_DELAY when a referring call wait times out" [2]. Without that,
-it waits half a second for the LAYOUTGET, then answers as before, and
-the resend still covers it when it takes the reply in within about three
-seconds: half a second of waiting, the two second delay, and half a
-second again.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/296cd4b77dbf/disk-7a19f0cc.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/e57669ed895f/vmlinux-7a19f0cc.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c679c1ad76d4/Image-7a19f0cc.gz.xz
 
-Only the last LAYOUTGET of a layout stateid is named. That departs from
-RFC 8881 section 2.10.6.3, which says that recalls MUST carry every
-request that created the state for as long as its slot has not retired.
-The recall is misread only for a layout stateid the client does not know
-yet, and such a layout stateid was created by a single LAYOUTGET:
-nfsd4_preprocess_layout_stateid() makes a new layout stateid for each
-LAYOUTGET that presents another kind of stateid, and the client cannot
-use the layout stateid before it has the reply. For a layout stateid the
-client knows, the Linux client takes the seqid of the recall as given
-once the named LAYOUTGET is complete, since
-commit dce72920c81b ("NFSv4.1: if referring calls are complete, trust
-the stateid argument"), and a reply to an earlier LAYOUTGET that arrives
-after the recall is not used, because its seqid is below the barrier the
-recall sets (pnfs_layout_stateid_blocked()). One referring call is also
-all that cb_sequence_enc_sz has room for. ->prepare runs once per layout
-stateid, which is recalled at most once, so the list holds one call and
-is freed with the layout stateid.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com
 
-This needs the referring call lists, which are in v6.16, and [1], which
-is queued for v7.4. It should not go to kernels without
-commit f52792f484ba ("NFSD: Enforce timeout on layout recall and
-integrate lease manager fencing"), which is in v7.1: a client that holds
-the recall back with NFS4ERR_DELAY while it takes the layout in can need
-a GETDEVICEINFO for that, and before v7.1 a lease break that holds every
-nfsd thread does not give up, so that GETDEVICEINFO would never be
-served. From v7.1 on, that case stalls the server for the client until
-fs.lease-break-time and then has the client fenced, where the client
-would have lost the data before.
+batman_adv: batadv0: Interface activated: macvlan2
+============================================
+WARNING: possible recursive locking detected
+syzkaller #0 Not tainted
+--------------------------------------------
+syz.0.17/4904 is trying to acquire lock:
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock include/linux/netdevice.h:2864 [inline]
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock_ops include/net/netdev_lock.h:42 [inline]
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_sync_lower_features net/core/dev.c:10983 [inline]
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: __netdev_update_features+0x988/0x1894 net/core/dev.c:11153
 
-With the test of the previous patch and its one second delay, this patch
-lost no block (23 and 23 blocks, the recall overtaking the reply of
-each). With [2] on the client and the next patch as well, which does not
-act in this test as the lease breaks come from the other client, no
-recall was answered before the client had taken the LAYOUTGET reply in
-(19 and 23 blocks): the client held each one back. With a delay of four
-seconds, longer than the resend covers, a client without [2] loses every
-block whose reply the recall overtakes, with this patch as with the
-previous one: 15 of 15 in each of two runs here, 7 and 8 of 15 with the
-previous patch alone, where each such recall is about a second shorter
-and the NFSv4.0 client was done after 29.0 and 31.5 seconds, so later
-blocks met no recall. With [2] and the whole series, none (8 and 9
-blocks). For a client without [2], this patch saves the two second
-resend when the client processes the reply within half a second, and
-the data when it does so in two to about three seconds; it adds half a
-second to each such recall when the client takes half a second to two
-seconds, as in the test above, and a second when it takes longer than
-about three seconds.
+but task is already holding lock:
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock include/linux/netdevice.h:2864 [inline]
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock_ops include/net/netdev_lock.h:42 [inline]
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: __dev_ethtool net/ethtool/ioctl.c:3627 [inline]
+ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: dev_ethtool+0x384/0x1a98 net/ethtool/ioctl.c:3669
+and the lock comparison function returns 0:
 
-The cost is on the writer that breaks the lease. A recall that names a
-LAYOUTGET the client has not processed within half a second now lasts at
-least two and a half seconds: half a second of waiting on the client,
-then the two second delay before nfsd sends the callback again, after
-NFS4ERR_DELAY in CB_SEQUENCE with [2] or as the resend without it.
-WRITEs through the metadata server get NFS4ERR_DELAY meanwhile. With the
-one second delay, the NFSv4.0 client wrote only 71 and 76 of its 600
-blocks in 62 seconds with this patch, against all of them in 15.0 and
-15.3 seconds without the series and in 37.8 and 51.9 seconds with the
-previous patch alone. It needs about 15 seconds plus two and a half
-seconds for each recall that meets an unprocessed reply, two with the
-previous patch alone. The number of such recalls varies between runs of
-the same code; here there were 23 in each run, one for every LAYOUTGET
-granted. In six runs with this patch and six with the whole series,
-which behaves the same in this test, there were 23 or 24 in eight, and
-the NFSv4.0 client wrote 6 to 76 blocks in a minute; 2 to 13 in the
-other four, and it finished in 20.3 to 49.1 seconds. With the previous
-patch alone, there were 1 to 18 in six runs, and it finished in 17.2 to
-51.9 seconds.
+other info that might help us debug this:
+ Possible unsafe locking scenario:
 
-Link: https://lore.kernel.org/r/20260802-nfsd-deleg-destroy-badhandle-v1-9-323aa7196055@kernel.org # [1]
-Link: https://lore.kernel.org/r/20261020-nfs-referring-call-delay-v1-1-0be8f0608f7c@samsung.com # [2]
-Fixes: c5c707f96fc9 ("nfsd: implement pNFS layout recalls")
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+       CPU0
+       ----
+  lock(&dev_instance_lock_key#23);
+  lock(&dev_instance_lock_key#23);
+
+ *** DEADLOCK ***
+
+ May be due to missing lock nesting notation
+
+locks held by syz.0.17/4904: 2, last CPU#0:
+ #0: ffff80008aa8ec80 (rtnl_mutex){+.+.}-{4:4}, at: rtnl_lock+0x20/0x2c net/core/rtnetlink.c:80
+ #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock include/linux/netdevice.h:2864 [inline]
+ #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: netdev_lock_ops include/net/netdev_lock.h:42 [inline]
+ #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: __dev_ethtool net/ethtool/ioctl.c:3627 [inline]
+ #1: ffff0000cbc0ce78 (&dev_instance_lock_key#23){+.+.}-{4:4}, at: dev_ethtool+0x384/0x1a98 net/ethtool/ioctl.c:3669
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 4904 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/14/2026
+Call trace:
+ show_stack+0x2c/0x3c arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack+0x30/0x40 lib/dump_stack.c:94
+ dump_stack_lvl+0xd8/0x12c lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ print_deadlock_bug+0x2e8/0x2f0 kernel/locking/lockdep.c:3085
+ check_deadlock kernel/locking/lockdep.c:3137 [inline]
+ validate_chain kernel/locking/lockdep.c:3939 [inline]
+ __lock_acquire+0x2404/0x2b08 kernel/locking/lockdep.c:5288
+ lock_acquire+0x13c/0x320 kernel/locking/lockdep.c:5942
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x164/0x1078 kernel/locking/mutex.c:821
+ mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+ netdev_lock include/linux/netdevice.h:2864 [inline]
+ netdev_lock_ops include/net/netdev_lock.h:42 [inline]
+ netdev_sync_lower_features net/core/dev.c:10983 [inline]
+ __netdev_update_features+0x988/0x1894 net/core/dev.c:11153
+ netdev_update_features+0x78/0xf4 net/core/dev.c:11210
+ macvlan_device_event+0x530/0x778 drivers/net/macvlan.c:1883
+ notifier_call_chain+0x1a4/0x4cc kernel/notifier.c:85
+ raw_notifier_call_chain+0x3c/0x50 kernel/notifier.c:453
+ call_netdevice_notifiers_info+0xb8/0x120 net/core/dev.c:2275
+ call_netdevice_notifiers_extack net/core/dev.c:2313 [inline]
+ call_netdevice_notifiers net/core/dev.c:2327 [inline]
+ netdev_features_change+0x84/0xcc net/core/dev.c:1612
+ dev_ethtool_locked net/ethtool/ioctl.c:3576 [inline]
+ __dev_ethtool net/ethtool/ioctl.c:3634 [inline]
+ dev_ethtool+0x165c/0x1a98 net/ethtool/ioctl.c:3669
+ dev_ioctl+0x284/0xc88 net/core/dev_ioctl.c:745
+ sock_do_ioctl+0x198/0x254 net/socket.c:1339
+ sock_ioctl+0x55c/0x7ec net/socket.c:1446
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __arm64_sys_ioctl+0x154/0x1cc fs/ioctl.c:583
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x60/0x1d8 arch/arm64/kernel/entry-common.c:796
+ el0t_64_sync_handler+0x44/0x104 arch/arm64/kernel/entry-common.c:815
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:606
+
+
 ---
- fs/nfsd/nfs4layouts.c | 26 ++++++++++++++++++++++----
- fs/nfsd/state.h       | 12 ++++++++++--
- 2 files changed, 32 insertions(+), 6 deletions(-)
-
-diff --git a/fs/nfsd/nfs4layouts.c b/fs/nfsd/nfs4layouts.c
-index 78ce4fc94d..33d78595f7 100644
---- a/fs/nfsd/nfs4layouts.c
-+++ b/fs/nfsd/nfs4layouts.c
-@@ -254,6 +254,8 @@ nfsd4_free_layout_stateid(struct nfs4_stid *stid)
- 	if (ls->ls_recalled)
- 		atomic_dec(&ls->ls_stid.sc_file->fi_lo_recalls);
- 
-+	/* The list outlives one send of the recall. */
-+	nfsd41_cb_destroy_referring_call_list(&ls->ls_recall);
- 	kmem_cache_free(nfs4_layout_stateid_cache, ls);
- }
- 
-@@ -897,6 +899,18 @@ nfsd4_cb_layout_prepare(struct nfsd4_callback *cb)
- 	ls->ls_recall_retired_at_send = !grant.valid ||
- 		nfsd41_grant_slot_retired(clp, &grant);
- 	ls->ls_recall_resent = false;
-+
-+	/*
-+	 * The recall can reach the client before the reply to the
-+	 * LAYOUTGET that handed out the layout. Name that LAYOUTGET as a
-+	 * referring call (RFC 8881 section 2.10.6.3) if the client has not
-+	 * retired its slot yet, so that a client that honors it holds the
-+	 * recall back instead of answering NFS4ERR_NOMATCHING_LAYOUT.
-+	 * ->prepare runs once per recall; the list stays for the polls and
-+	 * the resend that follow and is freed with @ls.
-+	 */
-+	if (!ls->ls_recall_retired_at_send)
-+		nfsd41_cb_referring_grant(&ls->ls_recall, clp, &grant);
- 	return true;
- }
- 
-@@ -1009,9 +1023,10 @@ nfsd4_cb_layout_done(struct nfsd4_callback *cb, struct rpc_task *task)
- 		return 1;
- 	case -NFS4ERR_NOMATCHING_LAYOUT:
- 		/*
--		 * The recall can reach the client before the reply to the
--		 * LAYOUTGET that added the layout, and a client that has not
--		 * processed that reply answers this way too. As the
-+		 * A client that has not processed the reply to the LAYOUTGET
-+		 * named as referring call answers this way too: one that
-+		 * ignores referring calls, and a Linux client that stops
-+		 * waiting for that LAYOUTGET after half a second. As the
- 		 * delegation code does for NFS4ERR_BAD_STATEID, trust the
- 		 * answer if the slot of the LAYOUTGET had retired when the
- 		 * recall was sent, and send the recall once more after a
-@@ -1026,7 +1041,10 @@ nfsd4_cb_layout_done(struct nfsd4_callback *cb, struct rpc_task *task)
- 		 * do, although RFC 8881 section 12.5.3 has a new one for each
- 		 * request: a client that did not take the request in expects
- 		 * that seqid next, and a client that did answers
--		 * NFS4ERR_OLD_STATEID, which the polls handle.
-+		 * NFS4ERR_OLD_STATEID, which the polls handle. Unlike the
-+		 * delegation code, the resend does not test the slot again:
-+		 * a referring call that is complete by then is harmless, as
-+		 * the client finds it complete.
- 		 */
- 		if (!list_empty(&ls->ls_layouts) && !ls->ls_recall_accepted &&
- 		    !ls->ls_recall_retired_at_send && !ls->ls_recall_resent) {
-diff --git a/fs/nfsd/state.h b/fs/nfsd/state.h
-index 71a4b6fa5a..075fd3d107 100644
---- a/fs/nfsd/state.h
-+++ b/fs/nfsd/state.h
-@@ -866,8 +866,16 @@ struct nfs4_layout_stateid {
- 	/*
- 	 * Forward-channel slot that carried the last LAYOUTGET that added
- 	 * a layout to this layout stateid, or extended one by merging.
--	 * Under ls_mutex. Until that slot retires, the client may not
--	 * have processed the reply to the LAYOUTGET.
-+	 * Under ls_mutex.
-+	 *
-+	 * RFC 8881 section 2.10.6.3 has a callback name every request that
-+	 * created state it refers to and whose slot has not retired. The
-+	 * recall names only this one. A layout stateid the client does
-+	 * not know yet was created by a single LAYOUTGET, because
-+	 * nfsd4_preprocess_layout_stateid() makes a new layout stateid for
-+	 * each LAYOUTGET that presents another kind of stateid, and the
-+	 * client cannot use the layout stateid before it has that reply.
-+	 * LAYOUTGETs for one layout stateid are serialized by ls_mutex.
- 	 */
- 	struct nfsd4_grant_slot		ls_grant;
- 	/* Recall state for ->done, reset in ->prepare */
-
--- 
-2.43.0
-
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
