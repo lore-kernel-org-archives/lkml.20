@@ -1,112 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792593146;
-	b=Bp1TJbBRUNtqdrrPNL36YghA/+UaD1lu8Mcym7P2LRYG3hi5/vVd+O5hYAsWgarSm0gQ
-	 BPqKyC8+8UsVIE1xlF3+IBvTlVdveWXu0x3D1Nz855tmCMPrzMmF3T1qTPuk9DMsRmUcl
-	 +VT2+ERB7FoZVOQtJ7SUBjA2sipCGzUY8B/5SnHuq533zken7+PBiMALZRtLjB/3zS6Dw
-	 BpNiBR/Vigq4J1eTyv+gS8wpCrxFHS36tUeoXnxyW3mYd0hpsbehVkQRTcyNIrn0eSkHZ
-	 3sJ1UF8lxZs463+kSF4MjdZUOsgggCH7El2sN8ebi56HhhDiyONu7KHsPrnLcMLYGAQ==
+	t=1792593183;
+	b=Gqy6bdD02xFD4vBqv7irDg3YyFQL6seh+GJcNnGuIp3aOj8l8BXP4AnmWKb//93lF2BA
+	 ezTKagolV+mQ98O2du7Fl7u0tqXIrib/n1Ow9PYNs6X9AR18YRwfve1mvUZgAVdNCZ7vo
+	 QqxHueFvdpkshgG0PiOFd5ubMCeXaqM4XlmXDbz3/OA5JJHirRI1ZBWN/1hwdxm8GhwgT
+	 b6/t0VJtFBVAKASZVaVSRfPcwYcr0I6MoXfLfPRnIqTP4I2iSsIq8Rilm+Poez6c9ZSi6
+	 64MNd509CyYwisyMPs3JzbF6/H+1uMq883EX9iwWJmz6IVJ15Dinoaq5QDKEF8t6vzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792593146;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=WEikGICSMJKiPVXQX4CApolfCDnN5Ert0St5ZdogXiU=;
-	b=fWrxwP74+OAYW8Fj3NP3YjImUhQQuA5aMSYIP59nFgoN5YWQeERTKWlZepjWqXWy4ZQe
-	 j1OfOLjEINruaQpOvJLPvak4ck8kN+3NQvMTgLV3ZBucaPhSSSdjaPjJxtWy1uHPE3s2K
-	 Pi2Mxg7glEHB7249jrrKsfRcXHyEO9pc3I6of8aLa0mxGoZvfpfHNb8hGVvRyzg9r6Wp1
-	 045TbW9G5jojU5+/rzzkVlIkVKQDxIbJaTUdTed9DhzHHL73L+QsVCZrH7KkHTqLFS8wa
-	 lsnE0EoTgX4OobZONx0e0Qf43m+gr60NVkQoXJBiCHpIDePV22AbojpCwEMVv7FD3yQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792593183;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=kThb887yl4OaivErYCFX9FiyQChfD/n8kNnGpPqyOzY=;
+	b=jYJFNVNgGJay+F43iGFojAznFv/JR2QrcpS66Om/Lef/d2dIYAp6FpC7eCosCkBOdseD
+	 cTnTpskRLJkHXpobg786deH+mjfwmpZ3vj7Fn8/a5R3H6WVAVEB7NPpAZJJH33PABWE4M
+	 gJdTKWOm4m8Be1LhyGsAHSwRfk9sFEqhZ3oMqufUvSL4bqMFkf7UtTVnKD1JloHszzURz
+	 DD7yL9BgDyK/oChz51odSYmEkpJT2lg8BdJwqAJh01aJ88NsQUmEX+/zVqjHMnWXF1loL
+	 XdVLtoltNps11r6WPShn79d02kOCHbQiow+zbXfjjVr5VdP8pC6DXyrB8TQ2Kp8O0Ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i404dnfL;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aSCxxTBw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161DC606A31B;
-	Wed, 21 Oct 2026 14:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 161DC606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E39A606A319;
+	Wed, 21 Oct 2026 14:33:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=i404dnfL
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69LEEI1n1512527;
-	Wed, 21 Oct 2026 14:32:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=WEikGI
-	CSMJKiPVXQX4CApolfCDnN5Ert0St5ZdogXiU=; b=i404dnfLKlkuEBYmLXRhFC
-	WetwFK4PrnBk+MruFMMPOeJe4CT3HF1GLta/qJ5cJLcmWtwrw5fwgcR2zYGC1VK6
-	yJ0vR2jnL8XdNhRbiQMn4frLHev7ZjADZO/bgXaLGIqxlD/mh5mNya0C+tilTedH
-	sI1LEE9+pX/BRbEKsaww40ZEpSHRy3rVrKX7opMUJo7gylt880i5Ch7WbCMtJtbD
-	t5z9pzpS/UoXMUF4mcFhOgBHROXjwTz2m6PDYWJWXXy88TbRIzicZPo8yyzKtR4J
-	I5Ps7UCL1WTropB+SOwHiAANzZn1O46WNiFiDlY3mhFeFXy1Rd0AWOsYBj0UEPWQ
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw58smr5-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 21 Oct 2026 14:31:59 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69LC4mXO3038534;
-	Wed, 21 Oct 2026 14:31:58 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdgap5u-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 21 Oct 2026 14:31:58 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69LEVwhG15925912
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 21 Oct 2026 14:31:58 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4D86758052;
-	Wed, 21 Oct 2026 14:31:58 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 408E558050;
-	Wed, 21 Oct 2026 14:31:55 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.75.7])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 21 Oct 2026 14:31:55 +0000 (GMT)
-Message-ID: <5e4032b970ae2ea34b0b616977406e3183294c82.camel@linux.ibm.com>
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>, Dionna Glaze <drdeeglaze@gmail.com>,
-        Jiri Pirko <jiri@resnulli.us>, Jarkko Sakkinen <jarkko@kernel.org>,
-        linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
-        linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org,
-        linux-doc@vger.kernel.org, david.quigley@intel.com, lukas@wunner.de,
-        ksinyuk@kernel.org, rodrigo.vivi@intel.com, cedric.xing@intel.com,
-        sameo@meta.com, James.Bottomley@hansenpartnership.com, aik@amd.com,
-        jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
-        jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
-        suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
-        elena.reshetova@intel.com, dave.hansen@linux.intel.com,
-        sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-        roberto.sassu@huawei.com
-In-Reply-To: <20261021135102.GM3008132@nvidia.com>
-References: <20261017231007.GP13920@nvidia.com>
-	 <CANwfdvVJRv6++MJ8OCUnHSR_5nVD8Yv6eTmYxxqfzxEk0sNfpA@mail.gmail.com>
-	 <atX9fugGUsI0hGcA@FV6GYCPJ69>
-	 <CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
-	 <a69c7e7ac4fd07a9c375faadc599e96bb8c8534e.camel@linux.ibm.com>
-	 <20261020140655.GV13920@nvidia.com>
-	 <aa00515a0f364fea0150cf1550a09d9400e4632f.camel@linux.ibm.com>
-	 <ateSly15N5mLrM1m@e129823.arm.com> <20261020165251.GG3008132@nvidia.com>
-	 <ae372ed03da3cd2d57c922850b3b017bcb83ca07.camel@linux.ibm.com>
-	 <20261021135102.GM3008132@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 21 Oct 2026 10:31:54 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aSCxxTBw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DC941F000C5;
+	Wed, 21 Oct 2026 14:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792593182;
+	bh=kThb887yl4OaivErYCFX9FiyQChfD/n8kNnGpPqyOzY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aSCxxTBwdQ5fBcPY9rOyetmvAKv8H1aMfpdlqo1ahvg7jvA41DV4oAyTeVEJN8l7q
+	 BeI7135qFLSfUYbAAv/R1tmN1WE1PYgOLR5EZAFITVLgCYQJP54u+dyIBVpW9PouP5
+	 wz++H6El1fqhqn3psexHFsz7He+Nk++0QuaEVrZIgcfqFN1YpFM+QYy/GMfB8WhR40
+	 SBMg1uA46xRCRPOE4EIiCwoi1w78JlXG5CcU2q4tLp0/8UNsW2deh/Gu3mPWyQ7TLg
+	 cuDTKyPv6Dc8b5VLMpHIbXMcm8Pm7tPTZqq9G7gTQVh0ciXQ7tsXiCA2WsXVm7M+YL
+	 7JhqXuotSdbUQ==
+Message-ID: <250bded6-2a51-457d-9bf2-24c299dbd7a9@kernel.org>
+Date: Wed, 21 Oct 2026 16:32:58 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,106 +51,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: F6kky4VAncYXumWvdjaHVpU1V0Kc0aY-
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIxMDA1NiBTYWx0ZWRfX9RDjJFiBi0DX
- R/zLdRca0vcJjRWz4iVTNcQeZjaeH/UGmfPxasCRMIdjfa/mIl9ia+ed71+lVp/DFp7deL6VD7/
- 3llrql3xF7d6QV8pueyDOXqbLYBwbAY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIxMDA1NiBTYWx0ZWRfX7eBV3DLTSQoQ
- YgC2k18GXHRvLSk4ov1Pz4UfE/K+8YF1xayrqNPvR9L7yQG1geRzdmP/Fkj91mbgcv549b9Cgnz
- JJC/mzPidrm8DrrJRz4tWos5XNn2sZyUQBl+Zaxg9HWZQQctR/UjChZXc9vwIHkNghKB79vp5pD
- 70oWyAdcvzM2VyQo5uUcGeXS01lDfF4grKf1p+wzgwvEvFBuHvIdvlRQz4rK0NilEQUdCx3qY6S
- 1oebzKCJwIMVIosXGrscLu4+qu2jMlkPvccfQAQuluC3fiTNGztSwwHC9f5w1gu7Xoxi6XC7iS4
- pgJMMWCP9CAcb/QdigJJduxHIaJM+kpnN05Dx3VZVEIg8o5aQuN/QHn7ucYbJluFZYT/jJfzyfx
- +uBuifplXxr6+Y+tnkne9ruRlxKSghJcdeow3XPZxXtC4FwHe2F+ghcYx/+iJ1EPfLKwp9WzJB/
- ilgsg/k0dgnO806LAeQ==
-X-Proofpoint-ORIG-GUID: X9xH4nBqsbqysPHhLTM5UPrGPrNmInOc
-X-Authority-Analysis: v=2.4 cv=Ob4NnRTY c=1 sm=1 tr=0 ts=6ad8cce0 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=c7Uk0Hrh90vnBjMxToAA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-21_04,2026-10-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 phishscore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610210056
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] serdev: handle devices without an ACPI or device
+ tree node
+To: ChunAn Wu <an.wu@canonical.com>, linux-serial@vger.kernel.org,
+ platform-driver-x86@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, markus.probst@posteo.de,
+ gregkh@linuxfoundation.org, jirislaby@kernel.org,
+ ilpo.jarvinen@linux.intel.com, mpearson-lenovo@squebb.ca,
+ derekjohn.clark@gmail.com
+References: <20261021092124.2306053-1-an.wu@canonical.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20261021092124.2306053-1-an.wu@canonical.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-10-21 at 10:51 -0300, Jason Gunthorpe wrote:
-> On Wed, Oct 21, 2026 at 08:23:05AM -0400, Mimi Zohar wrote:
-> > On Tue, 2026-10-20 at 13:52 -0300, Jason Gunthorpe wrote:
-> > > On Tue, Oct 20, 2026 at 05:11:03PM +0100, Yeoreum Yun wrote:
-> > > > But, I have a related concern about deferred probing of RoT devices=
-.
-> > > >=20
-> > > > For example, if TPM probing is deferred until after the attestation
-> > > > subsystem has been initialized, how would the subsystem handle the
-> > > > TPM becoming available later (This is reason for
-> > > > IMA_INIT_LATE_SYNC).
-> >=20
-> > FYI, this patch set initializes at module_initcall(), not even late_ini=
-tcall().
->=20
-> Yeah, it's fine for where this patch series is.
->=20
-> > > I don't think it would be any different, the mechanism for TPM would
-> > > become generalized and apply to any attestation driver.
-> > >=20
-> > > This series doesn't attempt to do that flow yet, moving ima over and
-> > > dealing with this is another series :)
-> >=20
-> > When TPM device initialization is deferred, it is retried during
-> > late_initcall().
-> >=20
-> > As there is no way of ordering within an initcall level, there is a rac=
-e between
-> > the device driver probing and the call to late_initcall(). The solution=
- was to
-> > allow IMA to register at late_initcall_sync() based on a Kconfig.
-> >=20
-> > Both device_initcall() and module_initcall() are at level 6. Are you su=
-re:
-> > =E2=80=A2 the PCIe SPDM Devices will be ready at module_initcall()?
-> > =E2=80=A2 the PCIe SPDM Devices are not deferred to late_initcall()?
->=20
-> Why does SPDM need to get involved here? The device acceptance flow
-> and SPDM stuff will be managed in the initrd. The subsystem can accept
-> drivers and load a TPM/etc earlier while doing SPDM later. That's fine.
+Hi,
 
-If there are no PCIe SPDM ROTs, then it is irrelevant.  Otherwise, the ques=
-tion
-is whether the PCIe SPDM device will be ready at module_initcall().
+On 21-Oct-26 11:21, ChunAn Wu wrote:
+> Driver-created serdev clients may lack an ACPI companion or device tree
+> node.
+> 
+> Add a creator-supplied name for these clients. Use it as a serial
+> modalias fallback and to match a serdev driver of the same name. Keep
+> returning -ENODEV for unnamed clients.
+> 
+> Signed-off-by: ChunAn Wu <an.wu@canonical.com>
 
->=20
-> AFAICT IMA needs its ROT to be loaded before we reach the initrd.
+For v3 of this series please include a cover-letter and explain
+why this series is an improvement over the` existing situation.
 
-Being able to measure the early initrd measurements would be nice.
+The dell-uart-backlight and lenovo-yoga-tab2-pro-1380-fastcharger
+drivers are both pretty special cases and here you are adding
+a chunk of code to the serdev-core for those special cases,
+so I wonder: why?
 
-Mimi
+The current manual attach approach taking in these 2 special
+drivers works fine.
 
->=20
-> DRTM also needs a ROT loaded much earlier as we need to measure ACPI
-> (and the initrd?).
->=20
-> I imagine attestation subsystem will eventually have to be ready to
-> accept drivers prior to ACPI.
->=20
-> ARM's DRTM architecture splits the ACPI into parts that are already
-> secured/measured somehow, and then other parts that the OS is
-> responsible to measure itself. This split is arranged so the OS can
-> discover the TPM through ACPI using only secured ACPI tables.
->=20
-> Thus we need to parse enough of the ACPI to get the TPM driver loaded,
-> an attestation driver for it, and then continue to parse the rest of
-> the ACPI that wasn't already secured.
->=20
-> Yikes! I dread making all of those things.. But that's an option for
-> the required shape of things.
->=20
-> Jason
+What does this new approach gain us ?
+
+Also if you are going to do this may I suggest looking at doing
+some sort of of-compatible matching based on a compatible string
+inside a swnode ? I do not know what that would look like but
+that is something which seems like it might be generally useful
+also outside these 2 special cases.
+
+Regards,
+
+Hans
+
+
+
+> ---
+>  drivers/tty/serdev/core.c | 36 ++++++++++++++++++++++++++++++------
+>  include/linux/serdev.h    | 31 +++++++++++++++++++++++++++++++
+>  2 files changed, 61 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
+> index 7500efcdfc21..8354a4688fd8 100644
+> --- a/drivers/tty/serdev/core.c
+> +++ b/drivers/tty/serdev/core.c
+> @@ -29,13 +29,21 @@ static DEFINE_IDA(ctrl_ida);
+>  static ssize_t modalias_show(struct device *dev,
+>  			     struct device_attribute *attr, char *buf)
+>  {
+> +	const struct serdev_device *serdev = to_serdev_device(dev);
+>  	int len;
+>  
+>  	len = acpi_device_modalias(dev, buf, PAGE_SIZE - 1);
+>  	if (len != -ENODEV)
+>  		return len;
+>  
+> -	return of_device_modalias(dev, buf, PAGE_SIZE);
+> +	len = of_device_modalias(dev, buf, PAGE_SIZE);
+> +	if (len != -ENODEV)
+> +		return len;
+> +
+> +	if (!serdev->name[0])
+> +		return -ENODEV;
+> +
+> +	return sysfs_emit(buf, "%s%s\n", SERDEV_MODULE_PREFIX, serdev->name);
+>  }
+>  static DEVICE_ATTR_RO(modalias);
+>  
+> @@ -47,15 +55,22 @@ ATTRIBUTE_GROUPS(serdev_device);
+>  
+>  static int serdev_device_uevent(const struct device *dev, struct kobj_uevent_env *env)
+>  {
+> +	const struct serdev_device *serdev = to_serdev_device(dev);
+>  	int rc;
+>  
+> -	/* TODO: platform modalias */
+> -
+>  	rc = acpi_device_uevent_modalias(dev, env);
+>  	if (rc != -ENODEV)
+>  		return rc;
+>  
+> -	return of_device_uevent_modalias(dev, env);
+> +	rc = of_device_uevent_modalias(dev, env);
+> +	if (rc != -ENODEV)
+> +		return rc;
+> +
+> +	if (!serdev->name[0])
+> +		return -ENODEV;
+> +
+> +	add_uevent_var(env, "MODALIAS=%s%s", SERDEV_MODULE_PREFIX, serdev->name);
+> +	return 0;
+>  }
+>  
+>  static void serdev_device_release(struct device *dev)
+> @@ -88,14 +103,23 @@ static const struct device_type serdev_ctrl_type = {
+>  
+>  static int serdev_device_match(struct device *dev, const struct device_driver *drv)
+>  {
+> +	const struct serdev_device *serdev;
+> +
+>  	if (!is_serdev_device(dev))
+>  		return 0;
+>  
+> -	/* TODO: platform matching */
+>  	if (acpi_driver_match_device(dev, drv))
+>  		return 1;
+>  
+> -	return of_driver_match_device(dev, drv);
+> +	if (of_driver_match_device(dev, drv))
+> +		return 1;
+> +
+> +	/* Fall back to the name set by the creator of the device */
+> +	serdev = to_serdev_device(dev);
+> +	if (!serdev->name[0])
+> +		return 0;
+> +
+> +	return strcmp(serdev->name, drv->name) == 0;
+>  }
+>  
+>  /**
+> diff --git a/include/linux/serdev.h b/include/linux/serdev.h
+> index b6c3d957ec15..26baa0321eef 100644
+> --- a/include/linux/serdev.h
+> +++ b/include/linux/serdev.h
+> @@ -8,6 +8,7 @@
+>  #include <linux/types.h>
+>  #include <linux/device.h>
+>  #include <linux/iopoll.h>
+> +#include <linux/string.h>
+>  #include <linux/uaccess.h>
+>  #include <linux/termios.h>
+>  #include <linux/delay.h>
+> @@ -19,6 +20,10 @@ struct serdev_device;
+>   * serdev device structures
+>   */
+>  
+> +/* Large enough to hold the KBUILD_MODNAME of any serdev client driver */
+> +#define SERDEV_NAME_SIZE	40
+> +#define SERDEV_MODULE_PREFIX	"serial:"
+> +
+>  /**
+>   * struct serdev_device_ops - Callback operations for a serdev device
+>   * @receive_buf:	Function called with data received from device;
+> @@ -35,6 +40,9 @@ struct serdev_device_ops {
+>   * struct serdev_device - Basic representation of an serdev device
+>   * @dev:	Driver model representation of the device.
+>   * @nr:		Device number on serdev bus.
+> + * @name:	Name of the device, set by its creator, empty for devices
+> + *		which are enumerated from firmware, see
+> + *		serdev_device_set_name().
+>   * @ctrl:	serdev controller managing this device.
+>   * @ops:	Device operations.
+>   * @write_comp:	Completion used by serdev_device_write() internally
+> @@ -43,6 +51,7 @@ struct serdev_device_ops {
+>  struct serdev_device {
+>  	struct device dev;
+>  	int nr;
+> +	char name[SERDEV_NAME_SIZE];
+>  	struct serdev_controller *ctrl;
+>  	const struct serdev_device_ops *ops;
+>  	struct completion write_comp;
+> @@ -135,6 +144,28 @@ static inline void serdev_device_set_client_ops(struct serdev_device *serdev,
+>  	serdev->ops = ops;
+>  }
+>  
+> +/**
+> + * serdev_device_set_name() - set the name of a serdev device
+> + * @serdev:	serdev device.
+> + * @name:	non-empty name to use, typically KBUILD_MODNAME of the client
+> + *		driver.
+> + *
+> + * A serdev device is identified by its ACPI companion, by its device tree
+> + * node, or by a name set by its creator. Serdev devices which are
+> + * instantiated by a driver rather than by firmware have neither of the
+> + * former, so they must set a name before serdev_device_add() to be
+> + * identifiable. Doing so gives them a SERDEV_MODULE_PREFIX modalias and
+> + * makes them match a serdev device driver of the same name.
+> + *
+> + * Devices enumerated from firmware have no name and keep deriving their
+> + * modalias and their driver match from firmware only.
+> + */
+> +static inline void serdev_device_set_name(struct serdev_device *serdev,
+> +					  const char *name)
+> +{
+> +	strscpy(serdev->name, name);
+> +}
+> +
+>  static inline
+>  void *serdev_controller_get_drvdata(const struct serdev_controller *ctrl)
+>  {
+> 
+> base-commit: 9e947d96915af63e28896caae85a81b74855621b
+
