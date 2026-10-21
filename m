@@ -1,49 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792576810;
-	b=S4bTkzIQmW8ytcMQA8RTUnAnFj43F08s+Uon8kj+gL1SeulSHS6n8M86JrKo7GbjyWqz
-	 bW6ZsVk4dJFygYI5slO6XCXrc0KVsmQiLdlgsX1MHcr5GTn8RjxTGIEAc7hi26x/tH5Hy
-	 bOsVTFjAVogMMsltI/9vPJjJ5Vipjj4PYQDk64cnd77f1NzH4bPqr84H8vbNti4xMFFHv
-	 iSF+cgX9ioCunJ5QaZMztoJUa6+/27g/UyeMz0qKXgydF4wbcQmF3HDfWGMbiPSgcYUa1
-	 X1CpeeIRF4e9C9j+FDSaV3oM8SrlKe0E3s4VE8pQJY6Z2Qe5Gnidrbid+K6xZckiwZA==
+	t=1792576828;
+	b=mcKsFLZthGUWoWSjd1BpgNk7Ftw4FIEFy6hh5JU07/H4H5g+rRNGUyNfw1Et1O2l4S+h
+	 ndvQn646Lrg6C4DH3L/mWoZqjKBjJ/z7ChZsURtNuTxXdW+m09lnMc4356eWKTCSBeLJK
+	 UGPHhgrpMvGCO7fIhCpofrWaKDBsCEfprzlF/hEktL9aKQjMAi/tE1dHPPo0A8K5/bC7Y
+	 +GEDHb7ZO+hp4LiHBCDpKZX+CPT1iDOzDfxzF5vNcuE86UjkENmvM1JacgmJKZrgOyJ8/
+	 OrlLfdZRZPyEd6YXgpb0O2fpvCkYlBaVoLUjM3P1cOtzOJdZD02Z0Q25EBbio6IEccg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792576810;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=IXpdNahMxn9TR1HD+Mn7efw1bbwxmk2HtLEylRRzfSs=;
-	b=Ty0pAd5+YipwrPI1n8agbJF0NG0zoZh2fMINka/9+PwX9WOSAddAh79IeLfXldDdmu5S
-	 ZICxNg6oQETZPbDZXPC98i0bMyjAIob1Hc+dO2bi8Bjev3REkqGROYuqfJrmAZUdeSJ0J
-	 omvuSb+HzWnsjk3KEUmYAvuQhhtt1TYhGe7QLU3Y7f/3jtKxJQ2kviWc94Ai/o+5jykEC
-	 8VCZ1zt9BcgAxCkiIMlWf+wnMCP77L63Cw2jcEsYN8LAIvBz5DsQGs+sfo80Hudnq9Rmi
-	 mzm0GczjhzAqWOVkostAECGv/CnmCIIho1DRls2agmUN+Tfj9BCSKZ52iCd6tUVUfnA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792576828;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=AvKotJeRTYmx13C9lmxu70vA0AtCenNU0r6DrwCYPMY=;
+	b=5YU8fWF/Clo0OJNwjZGktdLB/TiVPSLzDDuTDlSydZwLIteXkERvdFEdKp0fpx5FDzTc
+	 5yGcxHbNQ2+Oxwt8AOuWNZ1kSO2CpJmwHtfTLPQPw0/iyoIAGhs1MKkM28ktTg7oaKufP
+	 UyK3fWorgmZzRmN0+BtyDqII4QhwnQqrLMMmE7LjLAgXPGsOy5JzrRSgZhqT1eCOWmpDH
+	 G7pithRswD8tiCFXbb8YEP5oZsyVY/ehFEhH7YMXAv/o+Q9tImizalXjF/kCA2oKbZJN5
+	 s/MAKTFJzCGtdsWU2zpAJUHjP+PFSG+9R9dSQrreMP9PW6uwtkIOnImramXtHJSFFKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2gl8tIT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TALd5yl+;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC47B606A31A;
-	Wed, 21 Oct 2026 10:00:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5545C606A31B
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:00:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e2gl8tIT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459C31F000C9;
-	Wed, 21 Oct 2026 10:00:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TALd5yl+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 242EF1F000CB
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:00:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792576809;
-	bh=IXpdNahMxn9TR1HD+Mn7efw1bbwxmk2HtLEylRRzfSs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=e2gl8tITQBmN4QlHLt3yS/KRk0nSOvhJhrcf1sBKdJf3kSzPkSDm+JKU0KfIKcHMd
-	 bNbOnIQ3LcpAuPkmnMh5+6Bgj3VkAeWuRPVgeYRbrnEG+qMSfymwVGjBACgh9OjU/P
-	 jqaaxwnhglq1Uh7rg07YqUIqFGgBv75dEYDSYtR7ZQSqKDAlrAaf5+jNbaJaP5dOKd
-	 TIBkVM6WiksGIemHzJ1m7zT+PPSu5gHtwHjddrUbe/FKekT0MMt0jlBpdj6JWl8Bvh
-	 5p3dqtTgtsGB467SOtDdV3btFJ8ynJyoSkFOYLZZpeedTrbejfsrXbp6iceH6TIYxq
-	 SUJe76fecaLMw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A4593809A24;
-	Wed, 21 Oct 2026 10:00:09 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792576828;
+	bh=AvKotJeRTYmx13C9lmxu70vA0AtCenNU0r6DrwCYPMY=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=TALd5yl+7wDWdF/zQ4FNqnx1ld2xAOUnCFuMBWgkKiEKUpdnvn/iOZuG1PUdyn9rt
+	 36Vyp3gMSnp4Mq52wjGnCpyV2iR+QWi33rCv1Q2bprM8z6tsuaTt02wKp2J1OdfWxv
+	 2npe715UQtnOycoPq1jMt6LGKsvTOMjzb/XEjC9wOSEJSLsyK6Q746oDKVtNSQFAUh
+	 gY+W6x4vXTCTXcRwuecLTmXL0nuaLRbKPm1Bo0x9UvdtQD/gDF3/aRam01ky5ajxzS
+	 j4X5J+G/qgL2zfENn91EKl/VblNSQmpTo8oBEGSkNglV1yV1UmCMhDx/uJFe4ymD07
+	 Q3iH3EOQfTrNw==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-3a65ed9c7cfso5041041fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 03:00:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzRbhW13b03ON1T2L5/gV+9YHE8fYgtKYRL73STl4yE8GqifQnujLiwxhlSfdCSLQF3Vf3dEG4ZYwa4ooI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLD2m5E0CWmReWMDexv1zZCp1TxqqA4nvasPt/M+X+gcSXNN8/R
+	5cNWjx4/ccnmAPjvjvS6LES3xq08/6icZrWeLNNnFEE0RgMlBAbjOR8yfUt+rBV4dzCdq4vqoe9
+	Zm0VOmYv15FOj3WedcNFvJjAgk9I+lYnGYGZWEIha7Q==
+X-Received: by 2002:a05:651c:199f:b0:3ab:41c8:fc15 with SMTP id
+ 38308e7fff4ca-3ac44164462mr4097361fa.12.1792576826700; Wed, 21 Oct 2026
+ 03:00:26 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:00:25 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 21 Oct 2026 05:00:25 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAMuHMdUWPXK3eBQu+49ZURg8u01hmOSgv9e1KNYZwbYxjXFNWA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,55 +65,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v7 0/4] gtp: ynl spec for the GTP netlink family,
- two fixes, and a selftest
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179257680778.526483.7395011719912367177.git-patchwork-notify@kernel.org>
-Date: Wed, 21 Oct 2026 10:00:07 +0000
-References: <20261016093225.1036375-1-anilkaushikwireless@gmail.com>
-In-Reply-To: <20261016093225.1036375-1-anilkaushikwireless@gmail.com>
-To: Anil Kaushik <anilkaushikwireless@gmail.com>
-Cc: pablo@netfilter.org, laforge@gnumonks.org, donald.hunter@gmail.com,
- kuba@kernel.org, davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com,
- horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
- sdf.kernel@gmail.com, nicolas.dichtel@6wind.com,
- osmocom-net-gprs@lists.osmocom.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260630-gpio-shared-dynamic-voting-v3-1-8ecf0542953b@oss.qualcomm.com>
+ <CAMuHMdUWPXK3eBQu+49ZURg8u01hmOSgv9e1KNYZwbYxjXFNWA@mail.gmail.com>
+Date: Wed, 21 Oct 2026 05:00:25 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Me5M37wMq0U1VRrcjC0o3-9JxmDVCLLqcNkiCnLTzktog@mail.gmail.com>
+X-Gm-Features: AclHuK_O-lCDmZ2aqHgju7aX9jfKFteLFchT47cIg4oN5MqCAmkooApYQocjM0o
+Message-ID: <CAMRc=Me5M37wMq0U1VRrcjC0o3-9JxmDVCLLqcNkiCnLTzktog@mail.gmail.com>
+Subject: Re: [PATCH v3] gpio: shared: make the voting mechanism adaptable
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Marek Vasut <marex@nabladev.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Viacheslav Bocharov <v@baodeep.com>, linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hello:
+On Tue, 20 Oct 2026 16:30:24 +0200, Geert Uytterhoeven
+<geert@linux-m68k.org> said:
+> Hi Bartosz,
+>
+> Thanks for your patch, which is now commit b30973e8c3920ddf ("gpio:
+> shared: make the voting mechanism adaptable") in v7.2. I only
+> noticed this now, thanks to commit f918e38044988082 ("arm64: enable
+> HAVE_SHARED_GPIOS for all ARM64 platforms") in soc/for-next.
+> So far I haven't seen any ill behavior due to that yet.
+>
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+This has been tested quite extensively on Qualcomm platforms and is being
+currently used upstream, but if you ever notice any issue, please do report
+it, I'll do my best to fix it ASAP.
 
-On Fri, 16 Oct 2026 09:32:21 +0000 you wrote:
-> This adds a ynl spec for the gtp genetlink family, two small driver
-> fixes, and a selftest.
-> 
-> Patch 1: the GET and dump replies carried the family id in the command
-> field, so ynl dropped them. Use GTP_CMD_GETPDP instead.
-> Patch 2: new in v7. On the netdev CI debug kernel, the selftest hit an
-> RCU warning: adding a PDP context looks up the device without the RCU
-> read lock. Hold it around the lookup.
-> Patch 3: the spec (NEWPDP/DELPDP/GETPDP/ECHOREQ), no uapi change.
-> Patch 4: a selftest that adds, dumps and deletes PDP contexts.
-> 
-> [...]
+> However, shouldn't the default state depend on GPIO_ACTIVE_{HIGH,LOW}
+> and/or GPIO_OPEN_{DRAIN,SOURCE}?
+>
 
-Here is the summary with links:
-  - [net-next,v7,1/4] gtp: set a valid genl command in PDP context get and dump replies
-    https://git.kernel.org/netdev/net-next/c/758d8928d2c5
-  - [net-next,v7,2/4] gtp: hold RCU for the device lookup when adding a PDP context
-    https://git.kernel.org/netdev/net-next/c/fe3e1a42fb7e
-  - [net-next,v7,3/4] netlink: specs: add genetlink-legacy spec for GTP
-    https://git.kernel.org/netdev/net-next/c/8a2f9964fc28
-  - [net-next,v7,4/4] selftests: net: add a test for the gtp netlink family
-    https://git.kernel.org/netdev/net-next/c/ffb51f75013f
+It does though, doesn't it? If you have:
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+	node0 {
+		foo-gpios = <&xyz 0 GPIO_ACTIVE_LOW>;
+	};
 
+	node1 {
+		foo-gpios = <&xyz 0 GPIO_ACTIVE_LOW>;
+	};
 
+And the driver that requests this shared pin over the proxy goes:
+
+	desc = gpiod_get(dev, "foo", GPIOD_OUT_HIGH);
+
+The actual value written to hardware will be "low". The value in the shared
+proxy's memory may as well be 1/high but it doesn't matter because the proxy
+tracks the logical value.
+
+> Apparently Marek asked the same question[1], to which you replied[2]:
+>
+>    "We could but that would require DT changes, you probably don't want
+>     this?"
+>
+> Can you please elaborate why this would require DT changes?
+>
+
+Sure, and my response was actually a bit longer:
+
+    "We could but that would require DT changes, you probably don't want
+    this? That's a different thing though too. Here's it's purely logical
+    - either we default to high and vote for low or default to low and
+    vote for high with at least one vote needed to switch."
+
+We were talking about the specific case of a write-protect pin, which is held
+high by default and pulled low for writing. This logic is the same irrespective
+of the ACTIVE_LOW setting.
+
+Bart
