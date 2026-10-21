@@ -1,55 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792602720;
-	b=SwJJUlCf0qgPRiX/VDrcHJVdJEBcOT+eKcz+qKxvneHH1trIeJFvnT/nvimP8vX61uHy
-	 zwCWyl5MZL6f58FTYGkHV87FHv6LuZAMDIo4rPysIvmUP0s67A3itgLhhnYAYIL+xPZxe
-	 C2QnlyDcFtQdJtrrHbHfLBCU5GB7Cq35yQBDG6bL5Uf6Ki3tJIdR7xV9oqj0nxoDN8xGx
-	 cdbToK0WjApyhnC0jAmToUnvckPn/9pZ2JhT0sJY/2qka+oYt3KD5wdyl6QL7MWUkRp6W
-	 fPixYjOYdEEXZhQTpqhOqIHll9XUbNqRqOvXIr8Z1b0nkAvcz27Fq/FZ8+t/yz3Q+sw==
+	t=1792602730;
+	b=AEkSyu6iKKaJ4JEF8VNmogliEBF7l2B1ELgiVAo0qTjTFAHz9XlfH84ozGzsChxZa6Fg
+	 nWDShgmTT0VjqQVLjuRP5hQZh9O+ODuOAunmm2JiHeLJrhqxIvd8HAQJBpG4kHPZnZvR2
+	 z9UleFDiKBthasL0dgsWGllVVsng/fn/qcj8eca9sKi2vOYGjw84qXRsacz60tyN7JVNi
+	 MIpBZFU5a3Jh8vtwz0vhr23+xtHfko+9Nvc1GMd0wJxG6WYpKg/4UYK8ezrjgO1XGdMVF
+	 6QnLcNL9K3J3gaKAj2RUcglMKQ7kySZ+qgBETjO2JG9B7vvbSjsGrThTTOAlvu0Pcbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792602720;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Mime-Version:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:X-Mailer:References:In-Reply-To:X-Last-TLS-Session-Version;
-	bh=1tnzbTVQ51uWZal+Jth6879qYR8Xa8UKPaBRBV/R8Yw=;
-	b=5EGuO7OUYLmPxYeHXAGOcTYeldH5JHMdA6ipeO0yfOiUtj7yV8LzBZfcxnUeZlqo38mk
-	 rWXgxP/STfaYrU+ojBKc9eQoy3F4Hgkn/URl4jeW59RoNom+w+YloPb7mrFHroTYplr/F
-	 EOaesSePrgqcZ50kjlZQtKF7jVoOkhvEU4pTefWiPgvAF2qsfBP99NDiREPzmL6pj7UGC
-	 9q7+K2bk+6/6uom7BhCtYrOKwCI+GH5t7i/w3p/001CconRqqsL3t4ce1Wi8k7s3X+Bkw
-	 /SISH1FGwhFqCC9knBSfMLd0IuxLETbU8F/srdxdG2tGrdgVXOuXkkXHUJSishq2xCQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792602730;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=v2rrXS1ate7b8OOQCuZc5vd/vkFrx7oPEHSNFj+/YLY=;
+	b=Ny3Gtmrt68tUbR2l3Fecq/oxUBzTh0xp67ZzAljUJqh8tpiJ6cUHDPWfQzF0oIKLSbH7
+	 dgwSnQ5irtP7mpeZ+WJlUgwXexUXfapDbJM9dkz6CyoAkfViPZ9i6FOQAGMvSQ1QVVC1O
+	 AotZxtMuGpcgQmX7ePEYbkDEdMr9tuSH7EUSaL351C+Xm6UapCgax0f8PTQn5a6LoVAeD
+	 mq2auNMBHt2vsAN607252NfFS6vU+YD57Rr51HqGlT7yiQ/5Xg/LhkRsRk4dGIQsS6SRC
+	 6bWGkXGOwSmCKFZrDP9JNwO8iX44bTzCs0I8YtVkBqgtEsr6rilGtsu692/gPgelS2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FFPDORY8;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CbbHbcMQ;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F0460A263E
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83F0460A263E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD7C60A263E
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:12:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BDD7C60A263E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=FFPDORY8
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D11094E41266;
-	Wed, 21 Oct 2026 17:11:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9F01D606E3;
-	Wed, 21 Oct 2026 17:11:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2218C103289F5;
-	Wed, 21 Oct 2026 19:11:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792602715; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=1tnzbTVQ51uWZal+Jth6879qYR8Xa8UKPaBRBV/R8Yw=;
-	b=FFPDORY8amXem0dXx+KM4QkcYhR4YxwcmnlvfN5R02wk3st8BP2sBZ8EytAUMvqU7W1+VF
-	cLEsbeHGkcZnXyr9i5aftrn3eLTe4nokqn5sT6sWlx+PBFv3prmA/GaOOoCJ2OrZYkUU/g
-	gTGgq0sbFmKONpet23SsyVRCYY9Jt2omxtxGpe22TVUdGD8KctUAojpZYvtgJzhd/I7f5R
-	rQqiUUtlDK1cnFX2u7InHqX7oPqL1L/Dk5nEE3LEHghx7jzVdzR07p2ZR3k6vC9q2+UnW0
-	B+f6ABGnRsNBOXq5pl9O6h4bxvF+6klq5m5HFm982uisSC/PlHhwZEYJqSAZUw==
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=CbbHbcMQ
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so2222283eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 10:12:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792602728; x=1793207528; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v2rrXS1ate7b8OOQCuZc5vd/vkFrx7oPEHSNFj+/YLY=;
+        b=CbbHbcMQiZ+byJpSKHMsv41LI+BX1TPk5IL23P3fEgoK9+wgAxZDil/k8dLkwYd4PY
+         05RK+qAD11vMoG9GFnZB+97IK9QdM7tFGWONKWkRiEmR1ogJ60X21QlcWfGokt5SBy0Z
+         YQP0vw3K7kcfJS5F7myg4eluhhVo2E+f5s+onwOJH6yyCOft3T9A/fgaQYphvkreCDeF
+         E/ahRH1Yrpw9DUA1WbrXyZbX3jW5KflfLTJAEvAU2Wc99Jb0Ub+zOl90nMY/UxlfXnuD
+         HVz7fXn6h2lRm43PXRIx/8R2PiwQBDu/8Sr1ujy9NlHr2tNaguhDBSKhEgYJhBI3Jrgr
+         jiFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792602728; x=1793207528;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v2rrXS1ate7b8OOQCuZc5vd/vkFrx7oPEHSNFj+/YLY=;
+        b=bXURZrQwVlEHmWoYB9eMKOHfY8Z107sDt1PbMomGulO8oZ/1Il3UC6V/jUxTq2XPdA
+         ICJfMaPVXJBBcYd1Mi5jX89spyXOj6mPhFHJ63zNR71XHWFysEnvS8c8ChQHc9fZg1um
+         YYE5q842YrfXS0jQA1lDjYy4HT5dujjzYFqxyPAMRwdLG28qaobCmM9bjxUG4zMsw6XT
+         bIxavX2I3EZ9ibtO7jxHIDcij6m5uXT6Cn3eeaX57DGSdVFqXqfMXFgUQFbHW1QLIX87
+         FKbLvH+Qq3jniEp1/N3CfxeQN5h0hDDj2/tp6YUm53SjCQ6/0ZgPvaxT6uOtvALgrtLQ
+         2amw==
+X-Forwarded-Encrypted: i=1; AKwUvBxoKJrZDhvjkPJZAh52w3u8JpznKNcQiyf443ZuGX+z0qmBCAPB7J9wpLSrEldopH9ek9KiZV1ZQyV7JL0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIexj9KS7/ZHqG0MEZ/bzYoUX8cjTV4npyYNLum/zgxhgsXJ08T
+	oMdzCPmP1EIR8thGUtfyJU+Tic4YnbrISqLtgGo6D2RiSt/wQBW0wHaYxp1idoLOegdT8oLFjc4
+	J3LOCmEA79A==
+X-Received: from dydr17.prod.google.com ([2002:a05:7300:50f1:b0:366:5b79:cc98])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:32cd:b0:35d:e0da:ad2d
+ with SMTP id 5a478bee46e88-3674cf378ddmr4074485eec.17.1792602727439; Wed, 21
+ Oct 2026 10:12:07 -0700 (PDT)
+Date: Wed, 21 Oct 2026 10:10:39 -0700
+In-Reply-To: <20261021171044.155240-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,98 +79,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 21 Oct 2026 19:11:51 +0200
-Message-Id: <DMAOMKRB8DT6.2DUZQCDZW47X2@bootlin.com>
-Subject: Re: [PATCH 1/5] regulator: dt-bindings: Add
- regulator-boot-force-off property
-From: "Paul Louvel" <paul.louvel@bootlin.com>
-To: "Conor Dooley" <conor@kernel.org>, "Paul Louvel"
- <paul.louvel@bootlin.com>
-Cc: "Liam Girdwood" <lgirdwood@gmail.com>, "Mark Brown"
- <broonie@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "Herve Codina"
- <herve.codina@bootlin.com>, "Miquel Raynal" <miquel.raynal@bootlin.com>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3
-References: <20261021-paul-lm51772-v1-0-25f0ffbffa8d@bootlin.com>
- <20261021-paul-lm51772-v1-1-25f0ffbffa8d@bootlin.com>
- <20261021-wind-reopen-490475bc470d@spud>
-In-Reply-To: <20261021-wind-reopen-490475bc470d@spud>
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261020163640.746159-1-irogers@google.com> <20261021171044.155240-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261021171044.155240-14-irogers@google.com>
+Subject: [PATCH v6 13/17] perf intel-tpebs: Fix race in tpebs_stop() and
+ tpebs_cmd.out fd handling
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
+	justinstitt@google.com, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, ljs@kernel.org, llvm@lists.linux.dev, 
+	mingo@redhat.com, morbo@google.com, nathan@kernel.org, 
+	ndesaulniers@google.com, peterz@infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed Oct 21, 2026 at 7:01 PM CEST, Conor Dooley wrote:
-> On Wed, Oct 21, 2026 at 12:27:42PM +0200, Paul Louvel wrote:
->> Introduce a new property to immediately disable the regulator at boot
->> time.
->> This property is useful when a consumer device may query the state of
->> the regulator at boot time, and want to disable it right away, without a
->> prior regulator_enable().
->>=20
->> Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
->> ---
->>  Documentation/devicetree/bindings/regulator/regulator.yaml | 8 ++++++++
->>  1 file changed, 8 insertions(+)
->>=20
->> diff --git a/Documentation/devicetree/bindings/regulator/regulator.yaml =
-b/Documentation/devicetree/bindings/regulator/regulator.yaml
->> index 019aeb664cae..2da8f70d7e7a 100644
->> --- a/Documentation/devicetree/bindings/regulator/regulator.yaml
->> +++ b/Documentation/devicetree/bindings/regulator/regulator.yaml
->> @@ -41,6 +41,14 @@ properties:
->>      description: boolean, regulator should never be disabled
->>      type: boolean
->> =20
->> +  regulator-boot-force-off:
->> +    description: a regulator may be enabled by default when the system =
-powers up.
->> +      A consumer may query the regulator's state during boot and disabl=
-e it if
->> +      it is already enabled, potentially resulting in an unbalanced dis=
-able
->> +      operation. This property ensures that the regulator is disabled a=
-t boot,
->> +      regardless of its previous state.
->
-> To be honest, I'm not sure how the commentary about querying the state
-> or being unbalanced is relevant to the description - that sounds like
-> something specific to the linux regulator framework?
+In tpebs_stop(), read tpebs_reader_thread into a local variable before
+releasing tpebs_mtx to call pthread_join().
 
-Yes it is. Maybe I miss something, does this binding is used outside linux =
-?
+Transfer ownership of tpebs_cmd.out to __sample_reader() by passing it as
+the thread argument and setting tpebs_cmd.out = -1 in
+evsel__tpebs_open() so tpebs_stop() does not double-close the fd closed
+by perf_session__delete(). Also reset tpebs_cmd.pid = 0 and tpebs_cmd.out = -1 and return early if
+start_command() fails in evsel__tpebs_start_perf_record(), as
+start_command() closes the pipe internally and may leave cmd->pid = -1
+on error, and join tpebs_reader_thread on error in evsel__tpebs_open()
+if it was already started.
 
->
-> In fact, I'm not sure why this is needed at all? Can't you just change
-> the software so that it is okay to disable a regulator that has an
-> explicit enable count of zero?
->
+Include <pthread.h>, <signal.h>, <stdint.h>, <stdlib.h>, <string.h>, and
+<unistd.h> explicitly.
 
-Do you mean by calling regulator_force_disable() instead ? I thinked about =
-that
-but I don't think this is ideal.
-Or just patch the core to allow unbalanced disable downstream ?
-My intent was to provide an upstream solution to the problem I described in=
- the
-cover letter.
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/util/intel-tpebs.c | 51 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 44 insertions(+), 7 deletions(-)
 
->> +    type: boolean
->> +
->>    regulator-boot-on:
->>      description: bootloader/firmware enabled regulator.
->>        It's expected that this regulator was left on by the bootloader.
->>=20
->> --=20
->> 2.56.0
->>=20
-
-
-
-
-
---=20
-Paul Louvel, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
+index 7c0b8b15bd10..47c939fc2058 100644
+--- a/tools/perf/util/intel-tpebs.c
++++ b/tools/perf/util/intel-tpebs.c
+@@ -27,6 +27,12 @@
+ #include <errno.h>
+ #include <poll.h>
+ #include <math.h>
++#include <pthread.h>
++#include <signal.h>
++#include <stdint.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
+ 
+ #define PERF_DATA		"-"
+ 
+@@ -120,10 +126,15 @@ static int evsel__tpebs_start_perf_record(struct evsel *evsel)
+ 	tpebs_cmd.out = -1;
+ 	ret = start_command(&tpebs_cmd);
+ 	zfree(&tpebs_cmd.argv);
++	if (ret) {
++		tpebs_cmd.pid = 0;
++		tpebs_cmd.out = -1;
++		return ret;
++	}
+ 	list_for_each_entry(t, &tpebs_results, nd)
+ 		t->started = true;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static bool is_child_pid(pid_t parent, pid_t child)
+@@ -220,13 +231,13 @@ static int process_sample_event(const struct perf_tool *tool __maybe_unused,
+ 	return 0;
+ }
+ 
+-static void *__sample_reader(void *arg __maybe_unused)
++static void *__sample_reader(void *arg)
+ {
+ 	struct perf_session *session;
+ 	struct perf_data data = {
+ 		.mode = PERF_DATA_MODE_READ,
+ 		.path = PERF_DATA,
+-		.file.fd = tpebs_cmd.out,
++		.file.fd = (int)(intptr_t)arg,
+ 	};
+ 	struct perf_tool tool;
+ 
+@@ -236,8 +247,10 @@ static void *__sample_reader(void *arg __maybe_unused)
+ 	tool.attr = perf_event__process_attr;
+ 
+ 	session = perf_session__new(&data, &tool);
+-	if (IS_ERR(session))
++	if (IS_ERR(session)) {
++		close(data.file.fd);
+ 		return NULL;
++	}
+ 	perf_session__process_events(session);
+ 	perf_session__delete(session);
+ 
+@@ -331,12 +344,19 @@ static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
+ 	/* Like tpebs_start, we should only run tpebs_end once. */
+ 	if (tpebs_cmd.pid != 0) {
+ 		pid_t actual_pid = tpebs_cmd.pid;
++		pthread_t reader_thread;
+ 
+ 		tpebs_stopping = true;
+ 		tpebs_send_record_cmd(EVLIST_CTL_CMD_STOP_TAG);
++		/*
++		 * tpebs_results is empty when stopping; clear pid so
++		 * process_sample_event() ignores any late samples while
++		 * draining the pipe.
++		 */
+ 		tpebs_cmd.pid = 0;
++		reader_thread = tpebs_reader_thread;
+ 		mutex_unlock(tpebs_mtx_get());
+-		pthread_join(tpebs_reader_thread, NULL);
++		pthread_join(reader_thread, NULL);
+ 		mutex_lock(tpebs_mtx_get());
+ 		if (control_fd[0] >= 0) {
+ 			close(control_fd[0]);
+@@ -515,6 +535,7 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 	int ret;
+ 	bool tpebs_empty;
+ 	bool started_process = false;
++	bool started_thread = false;
+ 
+ 	/* We should only run tpebs_start when tpebs_recording is enabled. */
+ 	if (!tpebs_recording)
+@@ -567,12 +588,15 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 			goto out;
+ 
+ 		if (pthread_create(&tpebs_reader_thread, /*attr=*/NULL, __sample_reader,
+-				   /*arg=*/NULL)) {
++				   (void *)(intptr_t)tpebs_cmd.out)) {
+ 			kill(tpebs_cmd.pid, SIGTERM);
+ 			pr_err("Could not create thread to process sample data.\n");
+ 			ret = -1;
+ 			goto out;
+ 		}
++		/* __sample_reader now owns and closes the output fd. */
++		tpebs_cmd.out = -1;
++		started_thread = true;
+ 		ret = tpebs_send_record_cmd(EVLIST_CTL_CMD_ENABLE_TAG);
+ 	}
+ out:
+@@ -586,9 +610,22 @@ int evsel__tpebs_open(struct evsel *evsel)
+ 
+ 		if (started_process) {
+ 			if (tpebs_cmd.pid > 0) {
+-				kill(tpebs_cmd.pid, SIGTERM);
++				pid_t actual_pid = tpebs_cmd.pid;
++
++				tpebs_stopping = true;
++				kill(actual_pid, SIGTERM);
++				tpebs_cmd.pid = 0;
++				if (started_thread) {
++					pthread_t reader_thread = tpebs_reader_thread;
++
++					mutex_unlock(tpebs_mtx_get());
++					pthread_join(reader_thread, NULL);
++					mutex_lock(tpebs_mtx_get());
++				}
++				tpebs_cmd.pid = actual_pid;
+ 				finish_command(&tpebs_cmd);
+ 				tpebs_cmd.pid = 0;
++				tpebs_stopping = false;
+ 			}
+ 			if (tpebs_cmd.out >= 0) {
+ 				close(tpebs_cmd.out);
+-- 
+2.56.0.218.g1ec904b173-goog
 
