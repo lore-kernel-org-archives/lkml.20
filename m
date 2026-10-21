@@ -1,97 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792583710;
-	b=kccj16q94YiRIrOcMgJCnJ1Ps3WBkkxOJZeioQYX+qA5txYuKFnhZEOAsX0829zb98AR
-	 GFXtACM0U/2OJTH+fzTqMKc49GVoYJhMB5E9vRR0bkkw7aEltRQ3bRcs/gowxp2r2Sl89
-	 zKSVfOs/ZaXldAEm2mlRa3he2Hv8hPm9jF7wyJl2UJ3dR1zAFYZ1zfrFefCHahzQpUgdr
-	 5t6mQt91fTS0erPFLh0MrE2D+ZjM+9fI65q+BGzhY84Zl4oKivOQrWV9odgbL6z594vL2
-	 J+OlXu3ukzzb2c4WPZuLNJJiURRq6f57AQN1A3+KiZ1YDP0yQwrkCTRs5RhfM3lheDA==
+	t=1792583742;
+	b=E8qSqrcfZH+IbxkZ0qR3qPEMDQ5RWur5OhKA3hIlJJFPv3gBC5T5GEZTPyz2GTCDH9np
+	 3e6eS4wNtdLXgcAcyUQbg25LwafM7nEcRBzgJ2OK1/YRzTNV6PLRwQScrt32IPxOXWgYA
+	 BYh/pH7beIRqi3Nh3sGlrpDeF+qrm6ZZ7IBe9dPz6MsqCwCA7dDtoYYiyTzcPTXhSb1cc
+	 aqaaCRMDOib6SPhlNh5RLOYikrnBGYtB3uXnh40R7CBE1vpRIxpaDFVqZHAUg9R2OK2FP
+	 P+hnO9kfHNbm9GOqs6aKD5h9Nz4RdcX9wVzWwf2nh+Quo9qgarCHD7v9X+J7qpa2sQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792583710;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=EW23E2mFb7Fm/luf0IceECOkzJ6tAxozkU+iJmUE+Xg=;
-	b=1taQFfKu4+LlJkzmxH9M8O7B4B0eOPFqswDXwggjapN1VSGSpQwYFgxz1cMONVoQfGFT
-	 NjbEvFsJi5mnKPngO4/IQ6Rc6JKK5rF0ud1Gip3mNZ9iajNyRXt2ah9VsZfNc7hXzThpb
-	 /ZH5V5sbNkwDH4EVSYgT4KX1ptG8++u6jqxM+DP0gxtIEG7Pq3Rx3EQbIdtzzeYIDUYL8
-	 JbXm53OGLZk1B7xDes5hRkX3Boe/FzYey7dIIE2DAndqym6dJbp0JF7l/DtObuqfW1M41
-	 lit233w+YAUz/BfOvKbYRT5rEwFyXH9qc+J4nwdeqVJZYhxyi4xWWWpH9isLMS+tl/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792583742;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=h1gsuh3+QAkcUVGaGgg3bgmqiOfNnhJ4pLjBIjhtJJg=;
+	b=gqDkfvmRcBNncZTurG+/rEUwyTzKL4tZ6RJRks+FkDuZP+TWALFUimKxX4W9ySzsjdAN
+	 LYnSnKUvsvVrmR9B1RNxVwkwpeiQcEOYpm5iWf/HdozxZgrcaU31XYmi+aMmaMsqycYgs
+	 MHEOUKTC+ea8D9d5h5/AMICAXrUPQr0K6nqmnK6r9lGPDitv36OUL98uYLRmaOuRdfi5z
+	 jcM9TxVU9LSVpVa3x9eLoIDlJQDWocGQHlRcHOVVT/I55Wki5F6jD2qFC2qFbQ5MADW9g
+	 wIUj/9rsa5c1716C5AkVt9Ejn+iZnXdWjkxwOfXQj2b6Z+52foKSbIHx+tvTg2CwlHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bjlKIOGH;
-	arc=none smtp.remote-ip=209.85.160.174
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Jxi5ovK/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC7FF606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 11:55:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC7FF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D237606A319;
+	Wed, 21 Oct 2026 11:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bjlKIOGH
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-53667180af3so6357711cf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 04:55:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792583708; x=1793188508; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EW23E2mFb7Fm/luf0IceECOkzJ6tAxozkU+iJmUE+Xg=;
-        b=bjlKIOGHlz5hzoMozqCIuAyfQWlsh+Eo1BWemeBKwpcsF9hFlKit0J1kSvT8STWfi2
-         sngXEvLTtHuetAIihH/5LDP+XO961AMNSe4NLBEVjeQUa3eEoHGtkevBhlXU3WWHZvFj
-         WuJcUemeJ0vbAXGPS8hoXJZF3ICe1LIBM+DMxDTMBCg5RrcBsONiw/uwEqZ+0uJ6XRLy
-         wUVf1Wv12S98YVa7m8Val/TVepJTkaQpk1KLmTrRk/iiGypVjw7cYEuun+MYVXckBN6y
-         MnEWA1onKs0FkgI0C/+6QsIHYSx8rbnhp0LskPMNWk7yNUsojl5SO3irZQoJBGG6j79h
-         2x6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792583708; x=1793188508;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EW23E2mFb7Fm/luf0IceECOkzJ6tAxozkU+iJmUE+Xg=;
-        b=AFXKbYM3JGEk3UmWIae7WAInCiB3ZgqUTxep0n1lHQWgDt3/8DsNDAEjz9EuEbT2zr
-         8185D6KBr5W62QB9PdxDNLuaPiDIBp9/kxJBm3mD6fIOHNU0qjnLs922RUa111vs94+k
-         7nds2hlN/oJ1Vvha4gB8PgMQv494s4/FOINI2E/sdYq+srMCCRaARbriQwJAZUl8WvUM
-         se59qE5JYdpnI4kMI4H0t2qCuxiG/FDo9oMmTlD/wws4je0AfhdEfwKBUZwFk64o25N0
-         JOPfh/yqdCTdbB6aoJdGLA8iDk6qKuGCbG6xR9qUtrh8gZL1c/vFcBujXrDA/nEe2YPR
-         JqlA==
-X-Forwarded-Encrypted: i=1; AKwUvBwFZlfu5dFPa+Z9UOf4oZZIVmZLK9z3joLzaVdFNUq0kaslRKTyB9DS7SHGx0mQw31FCAdub7Hi+oFCIns=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhml+BHV53jN0OqJFJdQsddkQ2mAOJxIlMM83MRVSF6SZP1j9J
-	7M4fSxUnB5Sfekx/hlPgwccflpHbuKNuuYwYNZpqMCeir/NxdZPjeL6q
-X-Gm-Gg: AYBFou3oRVTEkUBnhHE9aMDVYRf3F82JCyk6SFcIQ+K8eWS+aMUv5mwTiKovZskJ1fj
-	8ZUJ4P7V/N9nag/EdPhxRJBlnLgwRCeBnI6s7AeaWEmj7PHjFxiYMEcmSF5PaYV0IxQiUA4MGHI
-	zFEEsRkIeoXHr5UqC8EFdD4WKRehbXUemevds0G4Z3twDcReMnBGrE/tPF7dE8N/XjkQDMPvJ7L
-	Eb7dWeMTtzEk6NNGbPU1nf0l9ssy+DdpgCBkMe2fjzBNiR8gUMnQS/lhPRh92y05vr8CXOHaxDh
-	i8xK2YNMJnJGQCVO0a2E20+YPhMqP0VoPh6ifKZYZvDJsp0Fbmif/DAJcSY4ux2PVfCh/U2sodI
-	JQihoSZoYwa8JBeMf6wtTd6Lnk6iFBnmOGlSyW0EuQBS8qdkaC0utCssFWycHyfiHnLEHW4+8bA
-	pQyctcjGmoUm2Yr2um9mZdNEEJHZIknOwmygTIe+S4Hqlv3b6g3HR1rfZXErFXsIGW89y/RXIjz
-	6xelUzKA9ZetuGH6R0T5FSlLpHXow5rxTMYvJhcmuLsRuncsaDJKk+sJU36RluF9CHJ0TRxcXh1
-	cldGC1KOWNP9h0Y=
-X-Received: by 2002:a05:622a:1b03:b0:533:3e09:22bb with SMTP id d75a77b69052e-5369b82fee1mr25272531cf.42.1792583708345;
-        Wed, 21 Oct 2026 04:55:08 -0700 (PDT)
-Received: from virtlab805.virt.eng.rdu2.dc.redhat.com ([66.187.232.140])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53698ae9290sm17472821cf.8.2026.10.21.04.55.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 04:55:08 -0700 (PDT)
-From: Rahul Kumar <rk0006818@gmail.com>
-To: linux-mtd@lists.infradead.org
-Cc: Joern Engel <joern@lazybastard.org>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Vincent Whitchurch <vincent.whitchurch@axis.com>,
-	linux-kernel@vger.kernel.org,
-	syzbot+eaaabe90f486cb6f31b2@syzkaller.appspotmail.com,
-	syzbot+061cb4ee001379dbbfaf@syzkaller.appspotmail.com,
-	Rahul Kumar <rk0006818@gmail.com>
-Subject: [PATCH] mtd: phram: reject non-RAM ranges for module parameters
-Date: Wed, 21 Oct 2026 07:53:48 -0400
-Message-ID: <20261021115348.799538-1-rk0006818@gmail.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jxi5ovK/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334971F000C4;
+	Wed, 21 Oct 2026 11:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792583742;
+	bh=h1gsuh3+QAkcUVGaGgg3bgmqiOfNnhJ4pLjBIjhtJJg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Jxi5ovK/02eNuyahEQCdyHOorsIkN3Nkq4W1RJkhFr5pWWqySKlIT7N50i8sjdTUK
+	 ea7RD+iOIKev49zaWaeztsplr5oNgRn4LofYLCHlzGP/8goIrd3CpZnIJGONCp6z0Y
+	 jWZMGkmFoUXCAggGktB15Z7u39953rtQlv3LMrxuB1amXlxp3lwlUqLRVZFCOoo2nl
+	 f0HXILOmVgCO9EFyT+29RRwBNoDr6QbfRHdI1OO3au4Mz9RvNa7sIOGSA8AJVLCkQJ
+	 7tC9BOZV7LQD6pP4pOJa2EqeeV4/x3LkAlny3NUfU2xHcqv6phoiAAn6/RpZ5qCNxX
+	 tgr96NhY6Fyig==
+Message-ID: <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+Date: Wed, 21 Oct 2026 13:55:37 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,66 +51,134 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+ Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261021064940.GC31908@sol>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Writing a bogus address such as "p0,0x8000000000000000,0x1000" to
-/sys/module/phram/parameters/phram reaches ioremap() and triggers
-WARNING in __ioremap_caller on x86. On arm64 a non-RAM address can
-map and later Oops in memcpy when FTL scans the device.
+On 21/10/2026 08:49, Eric Biggers wrote:
+> On Wed, Oct 21, 2026 at 08:41:47AM +0200, Krzysztof Kozlowski wrote:
+>> On 21/10/2026 08:39, Eric Biggers wrote:
+>>> On Wed, Oct 21, 2026 at 08:26:28AM +0200, Krzysztof Kozlowski wrote:
+>>>> On 20/10/2026 23:22, Eric Biggers wrote:
+>>>>> -Make sure that base commit is in an official maintainer/mainline tree
+>>>>> -and not in some internal, accessible only to you tree - otherwise it
+>>>>> -would be worthless.
+>>>>> +    If ``git format-patch`` with ``--base=auto`` (or
+>>>>> +    ``format.useAutoBase=true``) can't detect a base commit, e.g. due to
+>>>>> +    the current branch having no upstream tracking branch, it exits with
+>>>>> +    an error. In such cases, pass an explicit base commit to ``--base``
+>>>>> +    instead. This is also needed if git detects the wrong base commit,
+>>>>> +    such as when the upstream branch has local, unpublished commits.
+>>>>> +
+>>>>> +The base commit must be in a well-known public tree, such as the
+>>>>> +subsystem development branch the patch is targeting. See
+>>>>> +:ref:`obtain_a_current_source_tree`. Mainline or the latest linux-next
+>>>>> +can also be acceptable bases, depending on the subsystem.
+>>>>
+>>>> I disagree, that's pointlessly too hard requirement.
+>>>>
+>>>> For many of my contributions base is obvious and not needed to be
+>>>> explicitly defined. For all the patches I accept, answer is the same -
+>>>> base is either obvious or if not and patch does not apply, then the base
+>>>> does not matter.
+>>>>
+>>>> Requiring it is just bureaucracy without actual benefit.
+>>>>
+>>>> The only benefit would be if maintainer COULD change its base to apply
+>>>> some patch with odd base... but this cannot happen. Maintainer base is
+>>>> fixed - it's the HEAD of his development branch for given category of
+>>>> commits (e.g. DTS branch for SoC maintainers).
+>>>
+>>> There are many use cases for applying patches besides the final patch
+>>> acceptance, such as review (by anyone, not just a maintainer), testing,
+>>> CI systems, etc.
+>>>
+>>> HEAD of a branch is of course not fixed, and changes every time a patch
+>>> gets applied.  That's especially relevant when wanting to check out an
+>>> old patch for any reason.  Trying to guess a base commit based on the
+>>> date and patch subject is a waste of time.
+>>
+>> All these tools should just work on top of linux-next. Requiring people
+>> to add base like "next-20261021" or "tip-of-obvious-maintainer-tree" is
+>> pointless. I understand that base is helping, but helping and requiring
+>> an obvious information just do not go together.
+>>
+>> So again: base has ZERO meaning to the maintainer process. It has
+>> meaning to tools, so fix the tools to work on known and obvious trees.
+> 
+> So what is your proposed algorithm to apply an arbitrary patch when
 
-For module-parameter devices, require the range to be System RAM
-before mapping. Also default that path to memremap(), matching DT
-without "no-map".
+Already provided that, so to recap:
 
-Fixes: 9401911f2d9f ("mtd: phram: Allow cached mappings")
-Reported-by: syzbot+eaaabe90f486cb6f31b2@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=eaaabe90f486cb6f31b2
-Reported-by: syzbot+061cb4ee001379dbbfaf@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=061cb4ee001379dbbfaf
-Signed-off-by: Rahul Kumar <rk0006818@gmail.com>
----
- drivers/mtd/devices/phram.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+> there's no base-commit?  Including any historical patch (from
+> months/years ago), patches with dependencies, etc.
 
-diff --git a/drivers/mtd/devices/phram.c b/drivers/mtd/devices/phram.c
-index b42cadcd76b1..9747e7e58e6f 100644
---- a/drivers/mtd/devices/phram.c
-+++ b/drivers/mtd/devices/phram.c
-@@ -19,6 +19,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/io.h>
-+#include <linux/ioport.h>
- #include <linux/init.h>
- #include <linux/kernel.h>
- #include <linux/list.h>
-@@ -126,10 +127,16 @@ static int register_device(struct platform_device *pdev, const char *name,
- 			   phys_addr_t start, size_t len, uint32_t erasesize)
- {
- 	struct device_node *np = pdev ? pdev->dev.of_node : NULL;
--	bool cached = np ? !of_property_read_bool(np, "no-map") : false;
-+	bool cached = np ? !of_property_read_bool(np, "no-map") : true;
- 	struct phram_mtd_list *new;
- 	int ret = -ENOMEM;
- 
-+	if (!np && region_intersects(start, len, IORESOURCE_SYSTEM_RAM,
-+				     IORES_DESC_NONE) != REGION_INTERSECTS) {
-+		pr_err("start/len is not System RAM\n");
-+		return -EINVAL;
-+	}
-+
- 	new = kzalloc_obj(*new);
- 	if (!new)
- 		goto out0;
-@@ -138,7 +145,7 @@ static int register_device(struct platform_device *pdev, const char *name,
- 
- 	ret = phram_map(new, start, len);
- 	if (ret) {
--		pr_err("ioremap failed\n");
-+		pr_err("failed to map memory\n");
- 		goto out1;
- 	}
- 
--- 
-2.52.0
+Dependency is something else, but for every other patch:
+1. For testing/CI: you apply on top of next
+2. Every other case the maintainer knows where to apply it, because it
+is his HEAD of next-branch.
 
+I am repeating myself, but I really had no single problem of lack of
+knowledge where to apply a patch as a maintainer or reviewer of some
+subsystem, thus maybe I do not understand the actual problem you are
+experiencing.
+
+Best regards,
+Krzysztof
