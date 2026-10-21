@@ -1,56 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792625697;
-	b=hOEnij91zPsqTyxDLBtsw1zAcdJSlTyhPbaWGCopgHAhqrp3jtABBaZbLE0kJwW/UpVG
-	 gYIbSHQD/Bj41Qy2GJkbFxTf7XQbHJ2ZLtHAz0B0s61TGUqAornIAGDKRwM75aXLROwrK
-	 fK0Lx/HNdB471xwcLsIludefMKwuM3jNDscjO+s0YrSGTKLQlfe0gsQ4dEeb2pN2E4dKA
-	 cpTnODZ99QMTK/lgt6xUF2+g23R/XRnaQqK44sUO+g0fylflFr/N4sojSuE2zRNQmFG6t
-	 3KPdQxYyJ27VfV0YJVAXPnRaB1ojaoV66ctMwX79nOXKCOyDrrJtGLPTk9aoJ5cFJQQ==
+	t=1792625708;
+	b=prAUn4wAEgxu//QzYm87uohsR03U+7Em1VJjUvjmx1WX2X9c0k/mqR1C1g3G16uicpGD
+	 jnChCs7inmkGPJL5utwJHDHDDkdLvWqdBzyt0ad9hVqfoL/kWj65VSRrNaZqG78IX988g
+	 0fDq/hKc8rlrsl1u/vdJkqcq7ISng2qnIwk4Grdnj0IR5KwwYPSscz7aLG9n+im1YfvEv
+	 9rtBVHxCZxJBXNELkOYaC0THHbDwPWQFwd4TKwCq+RmbuKxLRDFj6yXdyc9JQf0evHiou
+	 SitepykLLXQvBI5tY0ZAHyMi4wVtknihELLp0WQPnO2Bpg90RBj4G3/8vc8K+EZvatA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792625697;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792625708;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=b+mC8VYd4OIdAs5s1Sr2HQYuGE+BUuD12RZl8Figbho=;
-	b=oclR0mQpkLHADm+0NQaYKEqum5NUyOnBFN4hjtSUIJluswPzk8BmGut98XRj/beIjNxG
-	 1oauuMBFq8grEgAKxcIm5yUPtwyDHYzbgFDXVlxoW0hjSQ1QUe5/QtW67RiW+GDoq7qJP
-	 OrIf5uxHyt2EZx7pNmtSf23UYg+UGvTG6Cfanz1f97NFW00oAFfwTt/YYAcw5KhXL9ydJ
-	 CLr98GbHN+Fn/OF2JsADLQevkCQNN/C4Uwsd+GpnAmMQKdEx+Slv0x84jl1c/pAtrPzv4
-	 9IeCnJ6dUhrEeTTJPYp/TwioSy8uwZiLnWKKZU1nmdRzyT6HCUl2ORRVfm0k3cCWbag==
+	bh=UiwpltmOBAEqC1E507in2t/reGPJ/SwkyjEVEuoAspA=;
+	b=ihgo4R47LTsqsFdZ27eBMdWyKX2hzjcJ6SWjVKsk9Y6wFQZybPU6wzuD3FfPaSpVeqNc
+	 kVbf0vysbBoEWzprQEtZM5/nIVEsTfv4PchCzsROWEQv9lrooOAvtBdT7mz8pZHoVKC8H
+	 MaRZ6mvZcjuLx51EKLW7mfC59cZ8df2j6xRDRVUteHw1BMUTETmDggckoL/wHsRVR+QIU
+	 bVyGtCXuOPRWXz2eJghAyTf367pTzpsLXUJ1qLsJxotr4DkJ99VPMs1wSqHnBKeF6eR0H
+	 c3rDV3bcLV9N+Kw4hY3X/X3m9toaMhg9rGo0tHcoqqIBQUga6QN/aT1T5QjgZ3Yyi+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5sHW2cn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLU6OErr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D05606A31F;
-	Wed, 21 Oct 2026 23:34:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27672606A319;
+	Wed, 21 Oct 2026 23:35:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M5sHW2cn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772431F000C2;
-	Wed, 21 Oct 2026 23:34:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HLU6OErr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 295B81F000CD;
+	Wed, 21 Oct 2026 23:35:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792625697;
-	bh=b+mC8VYd4OIdAs5s1Sr2HQYuGE+BUuD12RZl8Figbho=;
+	s=k20260515; t=1792625707;
+	bh=UiwpltmOBAEqC1E507in2t/reGPJ/SwkyjEVEuoAspA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M5sHW2cnzWwkaf3Qjkf0OZTU7gUHdmKDYHdaTqfMhbjdkZjbnRg84RuEDsypeG6lp
-	 bOp3H6s/TgsDqqE+JOQA59IpEbc+6OWNPbTQj6AMOLah9E9ht6OLOXdDCHBctcYMH3
-	 hTtZmgQSBd3PJgLG5CoLHsRTA9AwVHa01J2AilkqIMHJui8LrU8MPgvTFVvxmJihoA
-	 lAFSKomWZsB5yTPqBmcWm0vf6bczeXn5eOyk9SZV1Mnn8jqluU+Mn33sGq90m6NFic
-	 CbALjsYjmcaM5tQBzI0Na6qKNsVvwT1QZOgS5g1qOhjQOfjFRqBNyhQ2ro7V8/agdk
-	 xDuHDfWUC221A==
+	b=HLU6OErrutYdmJLqV6sgxwlWNOzyDV0FO0p7+QzyIe4739dv8OYNKwqyytbiDjcLo
+	 YtZGqB0nphuc4hbRrg58AW3vskzoE1XcdudEIIdh5Wx6J6CerqjAaOc2tnv9Qj1iar
+	 P9GvZNk13xyhf6KOJzb7if6iBT/d0kBMKx5E9xi4k3Zr0ONap9uIQltEyE36vTFXNd
+	 VneUbALFVd2ABpxmlOcbku6XmrKA+/MHN73hlFaSgsCpYbBQ1XeDmF2Xl8rRr2u4am
+	 W0ilwPVMAnoAW2t4xmauaNUVyPv6Xhln7uJ1uXInPm9HzI8ThYLagzYzR1tTbgYzdP
+	 BYfTPz2c9KpeQ==
 From: Imre Kaloz <kaloz@kernel.org>
 To: "David S. Miller" <davem@davemloft.net>,
 	Andreas Larsson <andreas@gaisler.com>
 Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
 	"Mike Rapoport (IBM)" <rppt@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
 	sparclinux@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH v3 1/4] sparc64: skip the trap block in xcall_deliver() when there is no target
-Date: Thu, 22 Oct 2026 01:33:37 +0200
-Message-ID: <3bf5d270153bf6b8efb1673a9500df826ec28678.1792609488.git.kaloz@kernel.org>
+Subject: [PATCH v3 4/4] mm: pass the number of PTEs to move_pte()
+Date: Thu, 22 Oct 2026 01:33:40 +0200
+Message-ID: <2bc50d2a6829b49ee909e5bb943244859661a40b.1792609488.git.kaloz@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1792609488.git.kaloz@kernel.org>
 References: <cover.1792609488.git.kaloz@kernel.org>
@@ -65,40 +73,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-xcall_deliver() writes the mondo data and the target CPU list through
-the trap block's physical addresses before it knows whether any CPU is
-targeted. These addresses stay zero until init_IRQ() sets them up, so a
-cross call made earlier, while only the boot CPU is online, would write
-starting at physical address 0.
+Since commit f822a9a81a31 ("mm: optimize mremap() by PTE batching"),
+move_ptes() moves a batch of PTEs mapping consecutive pages of a folio
+at a time, but calls move_pte() once per batch with the first PTE
+only. sparc64, the only architecture that overrides move_pte(), flushes
+from the D-cache the page that PTE maps when the move changes its
+colour, so the other pages of a batch would keep lines of the old
+colour. This cannot happen today only because sparc64 has no
+pte_batch_hint(), and mremap_folio_pte_batch() then never batches.
 
-Return before touching the trap block when no other online CPU is in
-the mask.
+Pass nr_ptes to move_pte(), as get_and_clear_ptes() takes it. The
+generic version ignores it, and sparc64 flushes every page of the
+batch.
 
 Signed-off-by: Imre Kaloz <kaloz@kernel.org>
 ---
- arch/sparc/kernel/smp_64.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/sparc/include/asm/pgtable_64.h | 16 +++++++++-------
+ include/linux/pgtable.h             |  2 +-
+ mm/mremap.c                         |  2 +-
+ 3 files changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/arch/sparc/kernel/smp_64.c b/arch/sparc/kernel/smp_64.c
-index 371460e34484..4240c129c5fe 100644
---- a/arch/sparc/kernel/smp_64.c
-+++ b/arch/sparc/kernel/smp_64.c
-@@ -801,6 +801,15 @@ static void xcall_deliver(u64 data0, u64 data1, u64 data2, const cpumask_t *mask
- 	local_irq_save(flags);
+diff --git a/arch/sparc/include/asm/pgtable_64.h b/arch/sparc/include/asm/pgtable_64.h
+index 1430489b9ac5..9ca787b3cbfe 100644
+--- a/arch/sparc/include/asm/pgtable_64.h
++++ b/arch/sparc/include/asm/pgtable_64.h
+@@ -946,21 +946,23 @@ static inline void set_ptes(struct mm_struct *mm, unsigned long addr,
+ 	set_pte_at((mm), (addr), (ptep), __pte(0UL))
  
- 	this_cpu = smp_processor_id();
-+
-+	/* The mondo block and cpu list are not set up until init_IRQ(),
-+	 * so do not touch them unless there is a cpu to send to.
-+	 */
-+	if (cpumask_any_and_but(mask, cpu_online_mask, this_cpu) >= nr_cpu_ids) {
-+		local_irq_restore(flags);
-+		return;
-+	}
-+
- 	tb = &trap_block[this_cpu];
+ #ifdef DCACHE_ALIASING_POSSIBLE
+-/* This flushes only the page the PTE maps, so it relies on move_ptes()
+- * calling it for one PTE at a time, which the default pte_batch_hint()
+- * guarantees.
++/* The nr PTEs map consecutive pages of one folio and all move by the
++ * same offset, so either every page of the batch aliases or none does.
+  */
+ #define __HAVE_ARCH_MOVE_PTE
+-#define move_pte(pte, old_addr, new_addr)				\
++#define move_pte(pte, old_addr, new_addr, nr)				\
+ ({									\
+ 	pte_t newpte = (pte);						\
+ 	if (tlb_type != hypervisor && pte_present(pte)) {		\
+ 		unsigned long this_pfn = pte_pfn(pte);			\
++		unsigned int i;						\
+ 									\
+ 		if (pfn_valid(this_pfn) &&				\
+-		    (((old_addr) ^ (new_addr)) & (1 << 13)))		\
+-			flush_dcache_page_all(current->mm,		\
+-					      pfn_to_page(this_pfn));	\
++		    (((old_addr) ^ (new_addr)) & (1 << 13))) {		\
++			for (i = 0; i < (nr); i++)			\
++				flush_dcache_page_all(current->mm,	\
++					pfn_to_page(this_pfn + i));	\
++		}							\
+ 	}								\
+ 	newpte;								\
+ })
+diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+index 8c093c119e5a..b58c0e98994e 100644
+--- a/include/linux/pgtable.h
++++ b/include/linux/pgtable.h
+@@ -1471,7 +1471,7 @@ static inline void arch_swap_restore(swp_entry_t entry, struct folio *folio)
+ #endif
  
- 	mondo = __va(tb->cpu_mondo_block_pa);
+ #ifndef __HAVE_ARCH_MOVE_PTE
+-#define move_pte(pte, old_addr, new_addr)	(pte)
++#define move_pte(pte, old_addr, new_addr, nr)	(pte)
+ #endif
+ 
+ #ifndef pte_accessible
+diff --git a/mm/mremap.c b/mm/mremap.c
+index e8df5cdb0ac9..7fcae7f0082d 100644
+--- a/mm/mremap.c
++++ b/mm/mremap.c
+@@ -289,7 +289,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
+ 			force_flush = true;
+ 		}
+ 		pte = get_and_clear_ptes(mm, old_addr, old_ptep, nr_ptes);
+-		pte = move_pte(pte, old_addr, new_addr);
++		pte = move_pte(pte, old_addr, new_addr, nr_ptes);
+ 		pte = move_soft_dirty_pte(pte);
+ 
+ 		if (need_clear_uffd_wp && pte_is_uffd_wp_marker(pte))
 -- 
 2.47.3
 
