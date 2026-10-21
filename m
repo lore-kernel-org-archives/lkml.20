@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792566513;
-	b=Qn0k2TG9E8UMl1Hhfh9Yz0R+xUsMcN76dIJFBxb0Q8QbytSZGmmOe3Uv2hvPM/9gB5Ml
-	 7pEShF7nrP6AQPLRVc15LRrOooVCl70wm7abdFq9WnUuIZnicjXL0fwsVWeNBZ42NFHeT
-	 9ffZZYJe4C5JIBs8+yTX7/DAxZaJL4/gdnr1sF5wDpNXg41EUuw5o7I2mDd6eNCKktmNK
-	 5aYJtBaDACibmNl+zSNqCbryrzbpF7DI0mLgggIIeZlww0d4qundyB5wubUlDcC3BGpIA
-	 C/SJUHuaUHhHSZjsbrpOp7/4Zq3eBpRHnO+RmEeZXwjx39OoStRUsnhmPFtfAYTSvhQ==
+	t=1792566514;
+	b=OQ1WQdTKISEQEAVhKRU4trhTgrUiOxV88HE/SWBT2ofbTaOT3mq1wObTtY36K949SjD+
+	 GfvcSGkBioMvn7MMl7ekpt84vzCqVoD2UnZpUBbIBYxf9wxPhHJ5jlmaauhILOPIpTwti
+	 ifxE9sqVagAPE1pUUEhQh1EveOLz/IMKuNJjW7O9HS02BwDPYM+AIIxomJsdTMPBt7AFX
+	 bgkZPRDhSv/ZS0xuauXocIVgkuk3WJMD1RDnie16DactuGCZnb/j1HGVzTQIOvyr1c44V
+	 RhXg78f+wkDsWsZqEZQVEkCOJK2hwhxuIL/8d8EFeSSGs8gwClp57EBrXpzZbD+bczQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792566513;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792566514;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	b=1ruAazxGYfavvLeCFxJHoOjrmpiBoMkU0Jl4PI0oKIs1y3yU2nlO5Yt8t75tOMxVQFOn
-	 enURxYFoWmYfDo4wV8T+422gnBbLAs8BjOQ5QNopZY8/Gc/8/bfMjJ7UeRG4h/ftucU5t
-	 4D3oQ7wGh9rdRz5uEXJb2VOm94aihMQ4qkOiCzhXBMO8Q0tD9j0BtNtZigKJwP0L7yTlp
-	 Vk1AFogBO8+i9i3jNmXgtPX1rnoUIxzMlDrEm3nUQAS8PcPljjHdJDH5FiE4NmCCtqN9Y
-	 j6DsWaIw1a43Szdg4Bgdaq5izscFef5PjHgRL4le0cEpX91CdSd5FT8ikt8Yql4BiHQ==
+	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
+	b=p7QeuV+csBFxcZHGukCu+yqVvEKwW7W6E4HnQWs9tAWXY9C9c1TKrNP/BET09y6azpqO
+	 2qPFWf37TuZADHqjeSdhK8XfAgTJJGl+XUhMN1Si9QiHlq/MyW9Y+E94h6tLewoclWOOF
+	 0/Ei0FKlt699mFJ74v+Sj2hH88fpOqMbBTuwk2S6rYd+5h5Q4SxpVLKYjdbc7vHgzNheO
+	 FCVVZZ9+pUKemrcJ2Rxiu7MJPbutyei8Bn/u3vnihg/AAEobUjzukl+EuX0JmxTWsB+yT
+	 LDQdinPD1PDpVQgX/G2qvf/C2ZZy0MYlu4LrikudG7BKZnqdRYA3e5/Os+ycijSLEyw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlCS74vW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oar26Dho;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9777F606A324;
-	Wed, 21 Oct 2026 07:08:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB179606A33A;
+	Wed, 21 Oct 2026 07:08:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlCS74vW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Oar26Dho
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792566512;
-	b=g7eKeWPJCUx37Zh/lyEt33nZdUnWfAG4UpswDdgKYRuMNfDyPQa4x3XEbO50Z7265e8w
-	 MNq0teaD3pCUkPW4RkoKdS/Vw6mWoAx0WCeOaZVU+kHd20hzEqCcBsbzGV1DhgROWo2sF
-	 7v2vjagymPIWjcLrvzxv4NI4nrXYLDckCwR52Rq5XW2BwNKdzs/hDppQZXq57rTp3ffO9
-	 HT1NyJ0VrJKmbY9ej2snpTq5CpxXS9lDwbno6j+ZWxCWXCOajbHFRT7AilSpi5xiJyrXu
-	 SHxFYFxnBi/kH6JmsI7ypsbNveQO6zbaEvZ2i0JjPXd7TNGpRkJBDORm12n4e3Y1h6Q==
+	t=1792566513;
+	b=hVgsOjGhwbyudDHXCbrIZ1K/+QEcGF2ccN8wRA60T8QXkI3VR464kaH7dX6LKzklyurY
+	 dA0IZld5FzSVAZqzjks5/W8/koV1SMZGNaQx25Yn7yZrdsiP6CB4RJKhQXOnHcBzecWB3
+	 F/C5e3PmdraY0nfpUBZcROGPtJQ6sA5aGn4rmWc/1JVmISHz2X9O4fyLsBpj9MYkwvJ89
+	 uj6fyvTybUeRc/T73o9RTFShDwb92mgryFVBFmkkaYCArlAxoipXDF+lYg8T7onlidF4k
+	 5K1UrdBdQrZx0fWQqHdBwsujra1iq5O43DUi3smBmYSB17DzlWvyDsonY15yLi9yVXw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792566512;
+	c=relaxed/relaxed; t=1792566513;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
-	b=PcuAUzN/vBmv1rN/VjJ7Qs4Pgs8bm+m/2znN34SrRzs6ZdqUcZ0I/29sz27MJCYglzla
-	 yBAr5Usc8EpW5ezTJ9xn4eMW2abf4Jw3DQRlppQYd2hrqxBvpYEa7TUz+HhB9eboEFhvs
-	 0NDlJtAjcfy3ly5Sjh8/d4clFtYhwECJEj8lw0pk/4/39AVMDnyE5GCMa8FyIyYOQUIRm
-	 sc5vbxzndrcDhREJH8ywRqzXmX6+T8APvrdU8LevUBR8iVccvKiD3e0eh61Kyt2GxZF4C
-	 uWllIzJB0rkUakoAozRyfNT1K554+iakv/3o429YOAb63qhS+oGjmhGPxdnluoulYKQ==
+	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
+	b=G9t3n0pglwNLm73NWCsqJ3RQWDKeKQfBkkWZrHMRPwHOZaASJtC8XR+6mQ0YiKbc4mzG
+	 dVgI2r33zEJVwZxGuHOltgfMVX749MaJhog+DZ1zPdiPR8l1IA1kGXDilE1LNQnFsruNV
+	 zhDIEO02nyf4UL0djPLc8sPQ8Ka9FhHg1bpDIrEkxzFWt2bHvlYvpuYFxuhoUAM7srfmH
+	 Uxz70nWv88SeiWqLiF64L0FjLKJ5kc2rCtWjNVEDGRKPI1PUQ/938XgprnEGMkE9vauoA
+	 JrVijoaSHU6Ay5fhvdIDNFeU2GxwwVrlP90z8KX3CIUN6bYp4BXY+CHnfq0rIT5OcoA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id A65641F000CD;
+	by smtp.kernel.org (Postfix) with ESMTPS id A56441F000C9;
 	Wed, 21 Oct 2026 07:08:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792566512;
-	bh=Uwm1M5LXW/yTgu/3JOzbMxTh7fefzGQL92I4Ehs9SNc=;
+	s=k20260515; t=1792566513;
+	bh=vNbhO50GiNuaaW+LC5eoTkqY7OMQkS9uvXG8VYmr0iI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=MlCS74vW0+/Tk56hwXXuvqyD5R7kq4+7z32PhoNYCsp9pTpogzj/VhHyXpH4V0ybv
-	 KHMX5wkzgKZAjBhExTvrpWjjCziAJaoEjykE2uC3D72LMgMN+4O8Z+B1VruVnufLb9
-	 Du7B/bBiuIYLaoj1H6MbwOWvDsS4vaJ05HVZs6/MAFM2Wd3pbLut8rysmydbIsblE4
-	 eOmp0olXa8n6yKUy6PUgEQSJ/DOSyv1s21grq8fYVt0DwBznvA+geD6PxVvA9XpCIH
-	 8kwXgQV6Rog7kpkjS9vLu8Bmw/tUe4K4Cg0kXYkcrlLDKolpOtsHeS0dwySUc3maoK
-	 Y9l3/zOxHj06g==
+	b=Oar26Dho5H1GOKZOyInNdm1xL6SKKYQymyi3PYQ4F/WlDjQIEoxlZ4ckQhoqZKbfJ
+	 q9gAkOaPqJtEt8bdtNbMfddvFUtRlCEtv7eaEIzFiBhHReN4znFuEA8dXUdCgi0oOz
+	 SGBAd23tz9AIZn19GzXYISpKT2myHlQQMP64XoV7+damqg6Mufb8FW1CI8tF54AiV0
+	 1xJ2WZKN7/P3DVrPI9tlspzQ2zz2PeN7w0BYCY5UOxsPNr0//KKB7imFkttFQlNech
+	 vEQbfwRa2S80OfdVr2H2OzLGcXPoXFoIbmlpdx4QN1kKQcGGqX+ddlUOg2zJcAUIO8
+	 csG6YZzCYFTpg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 164F3432F4;
+	by lkml.kernel.org (Postfix) with ESMTP id 2511C432FE;
 	Wed, 21 Oct 2026 07:08:31 +0000 (UTC)
 From: Jiebing Chen via B4 Relay <devnull+jiebing.chen.amlogic.com@kernel.org>
-Date: Wed, 21 Oct 2026 15:08:29 +0800
-Subject: [PATCH v7 2/5] dt-bindings: Asoc: axg-audio: Add S4 audio tocodec
+Date: Wed, 21 Oct 2026 15:08:31 +0800
+Subject: [PATCH v7 4/5] clk: meson: axg_audio: add S4 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-audio_drvier-v7-2-2b9aeae9cb8a@amlogic.com>
+Message-Id: <20261021-audio_drvier-v7-4-2b9aeae9cb8a@amlogic.com>
 References: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
 In-Reply-To: <20261021-audio_drvier-v7-0-2b9aeae9cb8a@amlogic.com>
 To: Jerome Brunet <jbrunet@baylibre.com>, 
@@ -101,11 +101,11 @@ Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  jian.xu@amlogic.com, shuai.li@amlogic.com, zhe.wang@amlogic.com, 
  jiebing chen <jiebing.chen@amlogic.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792566509; l=851;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792566509; l=9384;
  i=jiebing.chen@amlogic.com; s=20250110; h=from:subject:message-id;
- bh=DMgqU4dy+C9otoBnz7xzg+U2RUB122T3zVnjUiL76gQ=;
- b=dCsYNVktGOqd5dEGjsOmG2lMjfuS47nelfFKNm2BCt6lTYEPBOLYVtrCNBeRKAfUmbqTpAn03
- oFuHqEvTTysCXTSxRj/pA3/kvJFkPYNkTKfrUOdoRf/1oySron6CaoF
+ bh=mSlr+PYl6Kv5xTlb1MKaLQhx8bgwIvHXfLMJnftHOWU=;
+ b=7UhCQfOAVauSTn4ATQBjRONUlF5VRtSOuDDDeLyCGkLVYZbq2hkb1PUKj6FNiZjwhVlLHan1T
+ E0SVPUO/CFOAKbZzxulnN+jMSM47COgd7ZJTgD6QpOSfLubeXY1g/Mb
 X-Developer-Key: i=jiebing.chen@amlogic.com; a=ed25519;
  pk=6rFvvF45A84pLNRy03hfUHeROxHCnZ+1KAGw/DoqKic=
 X-Endpoint-Received: by B4 Relay for jiebing.chen@amlogic.com/20250110 with
@@ -116,26 +116,206 @@ Content-Transfer-Encoding: 7bit
 
 From: Jiebing Chen <jiebing.chen@amlogic.com>
 
-Add S4 SoC tocodec compatibility support.
+Add S4 support the axg audio clock controllers, Compared with the
+previous version, the selection of the audio's clock and data pad
+will be designed in the form of pinmux control. The purpose of doing
+this is to distinguish between clock control and pin control selection.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Jiebing Chen <jiebing.chen@amlogic.com>
 ---
- Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/clk/meson/axg-audio.c | 165 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 165 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-index 23f82bb89750..7e053aaa0f59 100644
---- a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-+++ b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
-@@ -25,6 +25,7 @@ properties:
-           - const: amlogic,g12a-toacodec
-       - items:
-           - enum:
-+              - amlogic,s4-toacodec
-               - amlogic,sm1-toacodec
-           - const: amlogic,g12a-toacodec
+diff --git a/drivers/clk/meson/axg-audio.c b/drivers/clk/meson/axg-audio.c
+index fd7eca652261..ab8c05b0509e 100644
+--- a/drivers/clk/meson/axg-audio.c
++++ b/drivers/clk/meson/axg-audio.c
+@@ -1150,6 +1150,159 @@ static struct clk_hw *g12a_audio_hw_clks[] = {
+ 	[AUD_CLKID_TOP]			= &axg_aud_top,
+ };
  
++/*
++ * Array of all S4 clocks provided by this provider
++ * The input clocks of the controller will be populated at runtime
++ */
++static struct clk_hw *s4_audio_hw_clks[] = {
++	[AUD_CLKID_DDR_ARB]		= &ddr_arb.hw,
++	[AUD_CLKID_PDM]			= &pdm.hw,
++	[AUD_CLKID_TDMIN_A]		= &tdmin_a.hw,
++	[AUD_CLKID_TDMIN_B]		= &tdmin_b.hw,
++	[AUD_CLKID_TDMIN_C]		= &tdmin_c.hw,
++	[AUD_CLKID_TDMIN_LB]		= &tdmin_lb.hw,
++	[AUD_CLKID_TDMOUT_A]		= &tdmout_a.hw,
++	[AUD_CLKID_TDMOUT_B]		= &tdmout_b.hw,
++	[AUD_CLKID_TDMOUT_C]		= &tdmout_c.hw,
++	[AUD_CLKID_FRDDR_A]		= &frddr_a.hw,
++	[AUD_CLKID_FRDDR_B]		= &frddr_b.hw,
++	[AUD_CLKID_FRDDR_C]		= &frddr_c.hw,
++	[AUD_CLKID_TODDR_A]		= &toddr_a.hw,
++	[AUD_CLKID_TODDR_B]		= &toddr_b.hw,
++	[AUD_CLKID_TODDR_C]		= &toddr_c.hw,
++	[AUD_CLKID_LOOPBACK]		= &loopback.hw,
++	[AUD_CLKID_SPDIFIN]		= &spdifin.hw,
++	[AUD_CLKID_SPDIFOUT]		= &spdifout.hw,
++	[AUD_CLKID_RESAMPLE]		= &resample.hw,
++	[AUD_CLKID_SPDIFOUT_B]		= &spdifout_b.hw,
++	[AUD_CLKID_MST_A_MCLK_SEL]	= &sm1_mst_a_mclk_sel.hw,
++	[AUD_CLKID_MST_B_MCLK_SEL]	= &sm1_mst_b_mclk_sel.hw,
++	[AUD_CLKID_MST_C_MCLK_SEL]	= &sm1_mst_c_mclk_sel.hw,
++	[AUD_CLKID_MST_D_MCLK_SEL]	= &sm1_mst_d_mclk_sel.hw,
++	[AUD_CLKID_MST_E_MCLK_SEL]	= &sm1_mst_e_mclk_sel.hw,
++	[AUD_CLKID_MST_F_MCLK_SEL]	= &sm1_mst_f_mclk_sel.hw,
++	[AUD_CLKID_MST_A_MCLK_DIV]	= &sm1_mst_a_mclk_div.hw,
++	[AUD_CLKID_MST_B_MCLK_DIV]	= &sm1_mst_b_mclk_div.hw,
++	[AUD_CLKID_MST_C_MCLK_DIV]	= &sm1_mst_c_mclk_div.hw,
++	[AUD_CLKID_MST_D_MCLK_DIV]	= &sm1_mst_d_mclk_div.hw,
++	[AUD_CLKID_MST_E_MCLK_DIV]	= &sm1_mst_e_mclk_div.hw,
++	[AUD_CLKID_MST_F_MCLK_DIV]	= &sm1_mst_f_mclk_div.hw,
++	[AUD_CLKID_MST_A_MCLK]		= &sm1_mst_a_mclk.hw,
++	[AUD_CLKID_MST_B_MCLK]		= &sm1_mst_b_mclk.hw,
++	[AUD_CLKID_MST_C_MCLK]		= &sm1_mst_c_mclk.hw,
++	[AUD_CLKID_MST_D_MCLK]		= &sm1_mst_d_mclk.hw,
++	[AUD_CLKID_MST_E_MCLK]		= &sm1_mst_e_mclk.hw,
++	[AUD_CLKID_MST_F_MCLK]		= &sm1_mst_f_mclk.hw,
++	[AUD_CLKID_SPDIFOUT_CLK_SEL]	= &spdifout_clk_sel.hw,
++	[AUD_CLKID_SPDIFOUT_CLK_DIV]	= &spdifout_clk_div.hw,
++	[AUD_CLKID_SPDIFOUT_CLK]	= &spdifout_clk.hw,
++	[AUD_CLKID_SPDIFOUT_B_CLK_SEL]	= &spdifout_b_clk_sel.hw,
++	[AUD_CLKID_SPDIFOUT_B_CLK_DIV]	= &spdifout_b_clk_div.hw,
++	[AUD_CLKID_SPDIFOUT_B_CLK]	= &spdifout_b_clk.hw,
++	[AUD_CLKID_SPDIFIN_CLK_SEL]	= &spdifin_clk_sel.hw,
++	[AUD_CLKID_SPDIFIN_CLK_DIV]	= &spdifin_clk_div.hw,
++	[AUD_CLKID_SPDIFIN_CLK]		= &spdifin_clk.hw,
++	[AUD_CLKID_PDM_DCLK_SEL]	= &pdm_dclk_sel.hw,
++	[AUD_CLKID_PDM_DCLK_DIV]	= &pdm_dclk_div.hw,
++	[AUD_CLKID_PDM_DCLK]		= &pdm_dclk.hw,
++	[AUD_CLKID_PDM_SYSCLK_SEL]	= &pdm_sysclk_sel.hw,
++	[AUD_CLKID_PDM_SYSCLK_DIV]	= &pdm_sysclk_div.hw,
++	[AUD_CLKID_PDM_SYSCLK]		= &pdm_sysclk.hw,
++	[AUD_CLKID_MST_A_SCLK_PRE_EN]	= &mst_a_sclk_pre_en.hw,
++	[AUD_CLKID_MST_B_SCLK_PRE_EN]	= &mst_b_sclk_pre_en.hw,
++	[AUD_CLKID_MST_C_SCLK_PRE_EN]	= &mst_c_sclk_pre_en.hw,
++	[AUD_CLKID_MST_D_SCLK_PRE_EN]	= &mst_d_sclk_pre_en.hw,
++	[AUD_CLKID_MST_E_SCLK_PRE_EN]	= &mst_e_sclk_pre_en.hw,
++	[AUD_CLKID_MST_F_SCLK_PRE_EN]	= &mst_f_sclk_pre_en.hw,
++	[AUD_CLKID_MST_A_SCLK_DIV]	= &mst_a_sclk_div.hw,
++	[AUD_CLKID_MST_B_SCLK_DIV]	= &mst_b_sclk_div.hw,
++	[AUD_CLKID_MST_C_SCLK_DIV]	= &mst_c_sclk_div.hw,
++	[AUD_CLKID_MST_D_SCLK_DIV]	= &mst_d_sclk_div.hw,
++	[AUD_CLKID_MST_E_SCLK_DIV]	= &mst_e_sclk_div.hw,
++	[AUD_CLKID_MST_F_SCLK_DIV]	= &mst_f_sclk_div.hw,
++	[AUD_CLKID_MST_A_SCLK_POST_EN]	= &mst_a_sclk_post_en.hw,
++	[AUD_CLKID_MST_B_SCLK_POST_EN]	= &mst_b_sclk_post_en.hw,
++	[AUD_CLKID_MST_C_SCLK_POST_EN]	= &mst_c_sclk_post_en.hw,
++	[AUD_CLKID_MST_D_SCLK_POST_EN]	= &mst_d_sclk_post_en.hw,
++	[AUD_CLKID_MST_E_SCLK_POST_EN]	= &mst_e_sclk_post_en.hw,
++	[AUD_CLKID_MST_F_SCLK_POST_EN]	= &mst_f_sclk_post_en.hw,
++	[AUD_CLKID_MST_A_SCLK]		= &mst_a_sclk.hw,
++	[AUD_CLKID_MST_B_SCLK]		= &mst_b_sclk.hw,
++	[AUD_CLKID_MST_C_SCLK]		= &mst_c_sclk.hw,
++	[AUD_CLKID_MST_D_SCLK]		= &mst_d_sclk.hw,
++	[AUD_CLKID_MST_E_SCLK]		= &mst_e_sclk.hw,
++	[AUD_CLKID_MST_F_SCLK]		= &mst_f_sclk.hw,
++	[AUD_CLKID_MST_A_LRCLK_DIV]	= &mst_a_lrclk_div.hw,
++	[AUD_CLKID_MST_B_LRCLK_DIV]	= &mst_b_lrclk_div.hw,
++	[AUD_CLKID_MST_C_LRCLK_DIV]	= &mst_c_lrclk_div.hw,
++	[AUD_CLKID_MST_D_LRCLK_DIV]	= &mst_d_lrclk_div.hw,
++	[AUD_CLKID_MST_E_LRCLK_DIV]	= &mst_e_lrclk_div.hw,
++	[AUD_CLKID_MST_F_LRCLK_DIV]	= &mst_f_lrclk_div.hw,
++	[AUD_CLKID_MST_A_LRCLK]		= &mst_a_lrclk.hw,
++	[AUD_CLKID_MST_B_LRCLK]		= &mst_b_lrclk.hw,
++	[AUD_CLKID_MST_C_LRCLK]		= &mst_c_lrclk.hw,
++	[AUD_CLKID_MST_D_LRCLK]		= &mst_d_lrclk.hw,
++	[AUD_CLKID_MST_E_LRCLK]		= &mst_e_lrclk.hw,
++	[AUD_CLKID_MST_F_LRCLK]		= &mst_f_lrclk.hw,
++	[AUD_CLKID_TDMIN_A_SCLK_SEL]	= &tdmin_a_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_B_SCLK_SEL]	= &tdmin_b_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_C_SCLK_SEL]	= &tdmin_c_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK_SEL]	= &tdmin_lb_sclk_sel.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK_SEL]	= &tdmout_a_sclk_sel.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK_SEL]	= &tdmout_b_sclk_sel.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK_SEL]	= &tdmout_c_sclk_sel.hw,
++	[AUD_CLKID_TDMIN_A_SCLK_PRE_EN]	= &tdmin_a_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_B_SCLK_PRE_EN]	= &tdmin_b_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_C_SCLK_PRE_EN]	= &tdmin_c_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK_PRE_EN] = &tdmin_lb_sclk_pre_en.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK_PRE_EN] = &tdmout_a_sclk_pre_en.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK_PRE_EN] = &tdmout_b_sclk_pre_en.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK_PRE_EN] = &tdmout_c_sclk_pre_en.hw,
++	[AUD_CLKID_TDMIN_A_SCLK_POST_EN] = &tdmin_a_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_B_SCLK_POST_EN] = &tdmin_b_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_C_SCLK_POST_EN] = &tdmin_c_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK_POST_EN] = &tdmin_lb_sclk_post_en.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK_POST_EN] = &tdmout_a_sclk_post_en.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK_POST_EN] = &tdmout_b_sclk_post_en.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK_POST_EN] = &tdmout_c_sclk_post_en.hw,
++	[AUD_CLKID_TDMIN_A_SCLK]	= &tdmin_a_sclk.hw,
++	[AUD_CLKID_TDMIN_B_SCLK]	= &tdmin_b_sclk.hw,
++	[AUD_CLKID_TDMIN_C_SCLK]	= &tdmin_c_sclk.hw,
++	[AUD_CLKID_TDMIN_LB_SCLK]	= &tdmin_lb_sclk.hw,
++	[AUD_CLKID_TDMOUT_A_SCLK]	= &g12a_tdmout_a_sclk.hw,
++	[AUD_CLKID_TDMOUT_B_SCLK]	= &g12a_tdmout_b_sclk.hw,
++	[AUD_CLKID_TDMOUT_C_SCLK]	= &g12a_tdmout_c_sclk.hw,
++	[AUD_CLKID_TDMIN_A_LRCLK]	= &tdmin_a_lrclk.hw,
++	[AUD_CLKID_TDMIN_B_LRCLK]	= &tdmin_b_lrclk.hw,
++	[AUD_CLKID_TDMIN_C_LRCLK]	= &tdmin_c_lrclk.hw,
++	[AUD_CLKID_TDMIN_LB_LRCLK]	= &tdmin_lb_lrclk.hw,
++	[AUD_CLKID_TDMOUT_A_LRCLK]	= &tdmout_a_lrclk.hw,
++	[AUD_CLKID_TDMOUT_B_LRCLK]	= &tdmout_b_lrclk.hw,
++	[AUD_CLKID_TDMOUT_C_LRCLK]	= &tdmout_c_lrclk.hw,
++	[AUD_CLKID_TOP]			= &sm1_aud_top.hw,
++	[AUD_CLKID_TORAM]		= &toram.hw,
++	[AUD_CLKID_EQDRC]		= &eqdrc.hw,
++	[AUD_CLKID_RESAMPLE_B]		= &resample_b.hw,
++	[AUD_CLKID_TOVAD]		= &tovad.hw,
++	[AUD_CLKID_LOCKER]		= &locker.hw,
++	[AUD_CLKID_SPDIFIN_LB]		= &spdifin_lb.hw,
++	[AUD_CLKID_FRDDR_D]		= &frddr_d.hw,
++	[AUD_CLKID_TODDR_D]		= &toddr_d.hw,
++	[AUD_CLKID_LOOPBACK_B]		= &loopback_b.hw,
++	[AUD_CLKID_CLK81_EN]		= &sm1_clk81_en.hw,
++	[AUD_CLKID_SYSCLK_A_DIV]	= &sm1_sysclk_a_div.hw,
++	[AUD_CLKID_SYSCLK_A_EN]		= &sm1_sysclk_a_en.hw,
++	[AUD_CLKID_SYSCLK_B_DIV]	= &sm1_sysclk_b_div.hw,
++	[AUD_CLKID_SYSCLK_B_EN]		= &sm1_sysclk_b_en.hw,
++	[AUD_CLKID_EARCRX]		= &earcrx.hw,
++	[AUD_CLKID_EARCRX_CMDC_SEL]	= &sm1_earcrx_cmdc_clk_sel.hw,
++	[AUD_CLKID_EARCRX_CMDC_DIV]	= &sm1_earcrx_cmdc_clk_div.hw,
++	[AUD_CLKID_EARCRX_CMDC]		= &sm1_earcrx_cmdc_clk.hw,
++	[AUD_CLKID_EARCRX_DMAC_SEL]	= &sm1_earcrx_dmac_clk_sel.hw,
++	[AUD_CLKID_EARCRX_DMAC_DIV]	= &sm1_earcrx_dmac_clk_div.hw,
++	[AUD_CLKID_EARCRX_DMAC]		= &sm1_earcrx_dmac_clk.hw,
++};
++
+ /*
+  * Array of all SM1 clocks provided by this provider
+  * The input clocks of the controller will be populated at runtime
+@@ -1410,6 +1563,15 @@ static const struct audioclk_data g12a_audioclk_data = {
+ 	.max_register = AUDIO_CLK_SPDIFOUT_B_CTRL,
+ };
+ 
++static const struct audioclk_data s4_audioclk_data = {
++	.hw_clks = {
++		.hws = s4_audio_hw_clks,
++		.num = ARRAY_SIZE(s4_audio_hw_clks),
++	},
++	.rst_drvname = "rst-sm1",
++	.max_register = AUDIO_EARCRX_DMAC_CLK_CTRL,
++};
++
+ static const struct audioclk_data sm1_audioclk_data = {
+ 	.hw_clks = {
+ 		.hws = sm1_audio_hw_clks,
+@@ -1426,6 +1588,9 @@ static const struct of_device_id clkc_match_table[] = {
+ 	}, {
+ 		.compatible = "amlogic,g12a-audio-clkc",
+ 		.data = &g12a_audioclk_data
++	}, {
++		.compatible = "amlogic,s4-audio-clkc",
++		.data = &s4_audioclk_data
+ 	}, {
+ 		.compatible = "amlogic,sm1-audio-clkc",
+ 		.data = &sm1_audioclk_data
 
 -- 
 2.52.0
