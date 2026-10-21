@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792622357;
-	b=ojmKBnjPvgTtqyK0UDwuvWKJ9BjkiyDAm/zXMEgO77ea9YgEP9Sr8A/XQgtI7M9P7qh0
-	 BJ9E96Fe1z94aR533CGKaqUkD0gWwRa80GaPqmNXPlwACZEYVfzYcuWUfNTF/OOnN4Yal
-	 4RNI6oUIm7AYMKAQiSBJtrafWsyoZe5by6P7gnafPHzxMvQpvpU2AvocUcvehYVofh3AJ
-	 M82VbEuXnC9VGo8v6YcGZE6MR7I25XQ+q+Dn+J6Ssz6VZWjiT1luS3lqye4hl2/76UxoS
-	 JOlByTVqSDRNNHFao2xsPYDf9DndbdQw/w4d/HjkBUFDt8Oyg+a+D26z54Xx7fME5UQ==
+	t=1792622364;
+	b=J8+/uRH2cXlu1xTmidKjaUAqQDIoTSCy/KqDJ4UM7B0JtyPr8wHso6fCqTy01NCYzlkU
+	 7I3KVpvQumLiboVXYsM2wLacnH35V7zQhqnbW7g/xqrkJ2rajF8HyiLqjqSs/FvHbSSU4
+	 ClVlSNJ0SGjuqI3/kZZ/S0oBVgMNz82iLgrrBZKLQVZWND1Hy9wnnRqSPsc2r6q69yBbL
+	 505KQioZci8GeVZlR8heScr2+yAwz7RzUBiO2cqZ61e0+vgEsz0ik0nmu9Lnt7ZmQZPnx
+	 Nm5SJoCbXqEmzAJ78RP3vhXTH1FNRy5nY5CzTZzOxhTklRXYKaVB3jOk7Bw2qGzycEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792622357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792622364;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=YorFNtdLTCPqnOJgGiZt6vRk0rsZ/6+OBLRyulcOSSI=;
-	b=Rgf47KqVJJT513XskRSzUWanUcG1Ui45rChP5G8ZuuMVWMGe7OcMrhjvx+3z8rSFddX4
-	 nPrLqybG7zP4aEP1pG7i2R9RctBgBlZmxUc941PXSAQ6V6xgpIVGAONzFRcdt4VsLVq5P
-	 PSqBa4R8Qqxh3lnfcxL6fCog4CkYTLjuP3Er9ts8iwOsL4sKPdNscFqqee8/eEy2GlUxm
-	 +d/wE53WW88Y5AIXr71tLa7I9uVEkolnhr04Ikoj+78SULbjdAOOigPy/FoSxHSYD7bSo
-	 aahXwCsDXPG/5ctKBmd8vPqOOzu2B1iaHaZlan8Yjdiu+rNPhcrn9dN95qcl0xD+IWw==
+	bh=vB8jpnv8Xp1K0hitsEdM1jNen9fLGs8xVviNmV/o/t4=;
+	b=Px8mjFySBQa7Y/zPyxUC8cBUlhlwbdsn+3ttWHEkSdtX6qjRkhLe9kPnWqi8Cvn4wA5k
+	 oWLWVi6iS3xKHNm0G7qQlWXNJgSD8wTjijBN0LKWHziXbsnft8ITz04CUpfrGMfR6dMsm
+	 C3vE7DTr5KImA8rUYH1h+jsPMypksStKcT7MWEJHiN7i6k0ZwWO7Tv2n7bbZdyUjlAdp+
+	 rjaF3o4OErxr7JqbjAaKonuOLTBR5aj7HifARTUCT5cyUlNYfTnMLsSLDwB+qBAZVtVvc
+	 sNTzUHQFb/DpeebtSnT6QVPJruWuCbI/rXraZpNWqPESRFCvspFnF+5y+AURJPjhxmA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="hXiImv/f";
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kHiMRlfm;
+	arc=none smtp.remote-ip=74.125.82.199
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67939606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67939606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4BE606A31D
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:39:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4BE606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hXiImv/f
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-18eb2616974so2219168c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:39:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=kHiMRlfm
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510d0baf63so2813694eec.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 15:39:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792622356; x=1793227156; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792622362; x=1793227162; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YorFNtdLTCPqnOJgGiZt6vRk0rsZ/6+OBLRyulcOSSI=;
-        b=hXiImv/f/5tbDIw6JulgXTT/gKecx7xRvQKciKGMDNSkORnswBillLgqw6mI70XgOc
-         eRUZKouFXyj3quCZyjjt1L0eVf+0bdH5S6VCiR1xjbPuBX6ScI5q9WgtkwRYGYuvg+aw
-         4tyn+Rt9lXDg8ySNuDkBuKYCdn5ASq2cprJ2EuV9sCrEvGmp2nefymTxawvXGDSAnaE1
-         wSRjElKA4CZ180CV8EyUPraPeUVQaddCDUWwoawunsJ8Mr0A13GMt3lC/rbvK+h7cc3m
-         vAPPisi/Fnro9yzFvmcsipmHzW6XwQhvAkBfDP83P/QtXOmrcdzY//8ojQtin9hAw4Tu
-         f4Fw==
+        bh=vB8jpnv8Xp1K0hitsEdM1jNen9fLGs8xVviNmV/o/t4=;
+        b=kHiMRlfm9imSjM6J7so+neib27CqPPQhw8FdHdCsMrIh3wUkiIT4In4dn2Hy/itCM2
+         8DSKEaX1c/MYZk8wfDQ9g6QxiMQPK71Y9+/2T/hKj+UTtJEGaXuCCF26HjSexF3QlI7z
+         2gEf8W4NlgbfQ4yIzB/9/oPU/yEfTVMS2ZZA0Aa30/veIKkSdlOOesOqmId48W7inyO9
+         T8wlo1T+d3iph/9fEGrhYRh6YurDA6NZY96a9KFacb9mtbggBEic6rFPn/FrIXlMnkfx
+         48Wn0eJAFVgrINIoKaXg5yaY7fPiBbNA78pqoB+ZYx7SREWopDAhFB+C83Q7+ouaZgsN
+         YpWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792622356; x=1793227156;
+        d=1e100.net; s=20260707; t=1792622362; x=1793227162;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=YorFNtdLTCPqnOJgGiZt6vRk0rsZ/6+OBLRyulcOSSI=;
-        b=nL9Fcq9tiKCwnR9U3N/OpH4RoZBcBGPZxiPiBhAz75J5peIJvoViHxwW7V6+WPjYww
-         EXZWSbAlHxjEiLPleFm+XEl3EcEIIrEtwcEzPMhN2QF4w9+LDzLKNK/Dc6JZ8JTYNpFT
-         yJhwsihDe/tv9TO5/GkdnlVn6Yz46xDw2L/6JW4Favn79bvxuIGpOBu9O1lKbr3NKVoI
-         NOP1BIYkDKMuK3R52NWMEGbB7ZYS/RO/5ru45NEIk0VmbQX/Ni0UXCG4pSsR9sAYZfq4
-         cnIP7zCO2gf0dZII6neY+yEw6EaTO7cZ0Am36GEfyk2eFFidcbxz6ciV5LHpjOU+xVK+
-         Zt2w==
-X-Forwarded-Encrypted: i=1; AKwUvBztVuEaCWWb32tHkJS6SDF0yU4ISzicNAuKW7OrB94oZpcYmkuqyxi73GENRsdtslqGbkqPMPPtN06TSGY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZQcgJ1m2+Bs3Y/N6wZcU61wpswLvDZlNm/0G4V4oI984c+Niy
-	YMqqahZdLwLT4ANzaEJq6cSfrobVKsMMQnBq7T14rKosnZ3m+ZS8GGyl1HSBcV96g3/h+FZCJ0L
-	3rOBweAaKug==
-X-Received: from dlbrx21.prod.google.com ([2002:a05:7022:1715:b0:189:931c:18ef])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7022:1715:b0:176:d885:4e94
- with SMTP id a92af1059eb24-190a5d6f72fmr3455318c88.26.1792622356129; Wed, 21
- Oct 2026 15:39:16 -0700 (PDT)
-Date: Wed, 21 Oct 2026 15:38:50 -0700
+        bh=vB8jpnv8Xp1K0hitsEdM1jNen9fLGs8xVviNmV/o/t4=;
+        b=IXJ6OuMlO9NJGGfWVbLFF2oqzklPV5XFaU10Dsy4NMLPc0oczdgqqJ8A8XsDIz9S/A
+         VByJkjAKXu3xE/NA76WRKD0pZob0i3EC+k6blKN1wZXN77N2rvS5uheb7hbhYItKUJ54
+         Q6FhhVM6DCp+C/jV0pOfi6O/IrEyHunXxnQ9oThcYk89fYvaVnyggegb94qOWIx5tD+P
+         GooI/UKIr54pzfqaYwagsB3wpQNAlBSBRP5pBcQ6GmmYTUquh9vyvTOop29fNhlGNe6O
+         +1HknjUUa8vMFt6kbAB4p4r6f+XPtN5B6EpkNMorMdmMFlSLoa3fRzDaFz6meWDnNNbd
+         DATg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgSuj6YGTjaP0Zhko/Cn4a64LnMPrwnkQCM9ijHP8nq/wRmjEsZ0Kxi503hXbEKXgxB2PDmMZMRbh+glE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGsUJeYGCBoJypMHTYwU7y0dQ983C+kvsW3F6ev9NK/QJBo2wJ
+	HIozWVvZ4soBG3sPP5+wBIwHAPHamqmLg/up6m+Ut2TwXMtqvpuTsbwaBeyV7+1LAQeCe4jrXG8
+	24tKnDSbtVg==
+X-Received: from dlbek5.prod.google.com ([2002:a05:7022:c85:b0:184:e9aa:8728])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7023:906:b0:14a:8cff:fbb8
+ with SMTP id a92af1059eb24-190a6adabb9mr4588334c88.28.1792622361562; Wed, 21
+ Oct 2026 15:39:21 -0700 (PDT)
+Date: Wed, 21 Oct 2026 15:38:52 -0700
 In-Reply-To: <20261021223905.715051-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,9 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261021171044.155240-1-irogers@google.com> <20261021223905.715051-1-irogers@google.com>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261021223905.715051-3-irogers@google.com>
-Subject: [PATCH v7 02/17] tools headers compiler: Synchronize compiler_types.h
- with the kernel sources
+Message-ID: <20261021223905.715051-5-irogers@google.com>
+Subject: [PATCH v7 04/17] perf mutex: Use kernel style compiler-context-analysis.h
+ annotations
 From: Ian Rogers <irogers@google.com>
 To: irogers@google.com, acme@kernel.org, elver@google.com, namhyung@kernel.org
 Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org, 
@@ -93,447 +93,703 @@ Cc: adrian.hunter@intel.com, james.clark@linaro.org, jolsa@kernel.org,
 	ndesaulniers@google.com, peterz@infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-Synchronize the non-__KERNEL__ sections of
-tools/include/linux/compiler_types.h and
-tools/include/linux/compiler-gcc.h with the kernel sources (including
-___PASTE/__PASTE, BTF_TYPE_TAG, object-size helpers, asm_goto_output,
-ASM_INPUT_*, asm_inline, __typeof_unqual__/__unqual_scalar_typeof,
-__signed_scalar_typeof, __native_word, compiletime_assert, and the
-__diag pragma helpers required by compiler-context-analysis.h), and
-remove the duplicated definitions from tools/include/linux/compiler.h.
+Enable -DWARN_CONTEXT_ANALYSIS alongside -Wthread-safety for Clang
+builds in tools/perf/Makefile.config, replace the custom lock safety
+macros in tools/perf with the kernel's compiler-context-analysis.h
+annotations (context_lock_struct, __guarded_by, __acquires,
+__acquires_shared, __releases, __releases_shared, __cond_acquires,
+__must_hold, __must_hold_shared, __must_not_hold, __returns_ctx_lock,
+__no_context_analysis, and __context_unsafe), and remove the redundant
+macro definitions from tools/perf/util/mutex.h.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 ---
- tools/include/linux/compiler-gcc.h   |  72 +++++++++-
- tools/include/linux/compiler.h       |  50 +------
- tools/include/linux/compiler_types.h | 206 ++++++++++++++++++++++++++-
- 3 files changed, 275 insertions(+), 53 deletions(-)
+ tools/perf/Makefile.config    |  2 +-
+ tools/perf/builtin-sched.c    | 16 +++----
+ tools/perf/builtin-top.c      |  4 +-
+ tools/perf/util/annotate.c    |  4 +-
+ tools/perf/util/annotate.h    |  8 ++--
+ tools/perf/util/comm.c        |  4 +-
+ tools/perf/util/dso.c         | 30 ++++++------
+ tools/perf/util/dso.h         |  9 ++--
+ tools/perf/util/dsos.c        |  6 +--
+ tools/perf/util/intel-tpebs.c |  6 +--
+ tools/perf/util/libbfd.c      |  4 +-
+ tools/perf/util/mutex.c       |  4 +-
+ tools/perf/util/mutex.h       | 90 +++--------------------------------
+ tools/perf/util/rwsem.c       |  8 ++--
+ tools/perf/util/rwsem.h       | 10 ++--
+ tools/perf/util/thread.c      |  8 ++--
+ tools/perf/util/thread.h      |  2 +-
+ 17 files changed, 69 insertions(+), 146 deletions(-)
 
-diff --git a/tools/include/linux/compiler-gcc.h b/tools/include/linux/compiler-gcc.h
-index e20f98e14e81..e005e8d5dfda 100644
---- a/tools/include/linux/compiler-gcc.h
-+++ b/tools/include/linux/compiler-gcc.h
-@@ -1,7 +1,7 @@
- /* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _TOOLS_LINUX_COMPILER_H_
-+#ifndef __LINUX_COMPILER_TYPES_H
- #error "Please do not include <linux/compiler-gcc.h> directly, include <linux/compiler.h> instead."
--#endif
-+#endif /* __LINUX_COMPILER_TYPES_H */
+diff --git a/tools/perf/Makefile.config b/tools/perf/Makefile.config
+index b4764f69f47f..3eb8d095cda0 100644
+--- a/tools/perf/Makefile.config
++++ b/tools/perf/Makefile.config
+@@ -64,7 +64,7 @@ ifeq ($(CC_NO_CLANG), 0)
+   endif
  
- /*
-  * Common definitions for all gcc versions go here.
-@@ -33,10 +33,76 @@
- #define __packed	__attribute__((packed))
- #endif
- #ifndef __noreturn
--#define __noreturn	__attribute__((noreturn))
-+#define __noreturn	__attribute__((__noreturn__))
- #endif
- #ifndef __aligned
- #define __aligned(x)	__attribute__((aligned(x)))
- #endif
- #define __printf(a, b)	__attribute__((format(printf, a, b)))
- #define __scanf(a, b)	__attribute__((format(scanf, a, b)))
-+
-+/*
-+ * Turn individual warnings and errors on and off locally, depending
-+ * on version.
-+ */
-+#define __diag_str1(s)		#s
-+#define __diag_str(s)		__diag_str1(s)
-+
-+#ifdef __clang__
-+#define __diag_clang(version, severity, s) \
-+	__diag_clang_ ## version(__diag_clang_ ## severity s)
-+
-+/* Severity used in pragma directives */
-+#define __diag_clang_ignore	ignored
-+#define __diag_clang_warn	warning
-+#define __diag_clang_error	error
-+
-+#define __diag(s)		_Pragma(__diag_str(clang diagnostic s))
-+
-+#if __clang_major__ >= 23
-+#define __diag_clang_23(s)	__diag(s)
-+#else
-+#define __diag_clang_23(s)
-+#endif
-+
-+#define __diag_clang_all(s)	__diag(s)
-+
-+#define __diag_ignore_all(option, comment) \
-+	__diag_clang(all, ignore, option)
-+
-+/*
-+ * clang has horrible behavior with "g" or "rm" constraints for asm
-+ * inputs, turning them into something worse than "m". Avoid using
-+ * constraints with multiple possible uses (but "ir" seems to be ok):
-+ *
-+ *	https://github.com/llvm/llvm-project/issues/20571
-+ */
-+#define ASM_INPUT_G "ir"
-+#define ASM_INPUT_RM "r"
-+#define ASM_OUTPUT_RM "=r"
-+
-+#define CC_HAS_TYPEOF_UNQUAL (__clang_major__ > 19 || (__clang_major__ == 19 && __clang_minor__ > 0))
-+#else /* !__clang__ */
-+#define __diag_GCC(version, severity, s) \
-+	__diag_GCC_ ## version(__diag_GCC_ ## severity s)
-+
-+/* Severity used in pragma directives */
-+#define __diag_GCC_ignore	ignored
-+#define __diag_GCC_warn		warning
-+#define __diag_GCC_error	error
-+
-+#define __diag(s)		_Pragma(__diag_str(GCC diagnostic s))
-+
-+#if GCC_VERSION >= 80000
-+#define __diag_GCC_8(s)		__diag(s)
-+#else
-+#define __diag_GCC_8(s)
-+#endif
-+
-+#define __diag_GCC_all(s)	__diag(s)
-+
-+#define __diag_ignore_all(option, comment) \
-+	__diag(__diag_GCC_ignore option)
-+
-+#define CC_HAS_TYPEOF_UNQUAL (__GNUC__ >= 14)
-+#endif /* __clang__ */
-diff --git a/tools/include/linux/compiler.h b/tools/include/linux/compiler.h
-index f2f54b038168..86d628ba8d60 100644
---- a/tools/include/linux/compiler.h
-+++ b/tools/include/linux/compiler.h
-@@ -1,41 +1,11 @@
- /* SPDX-License-Identifier: GPL-2.0 */
--#ifndef _TOOLS_LINUX_COMPILER_H_
--#define _TOOLS_LINUX_COMPILER_H_
-+#ifndef __LINUX_COMPILER_H
-+#define __LINUX_COMPILER_H
+   # Enabled Wthread-safety analysis for clang builds.
+-  CFLAGS += -Wthread-safety
++  CFLAGS += -Wthread-safety -DWARN_CONTEXT_ANALYSIS
+ endif
  
- #ifndef __ASSEMBLY__
+ include $(srctree)/tools/scripts/Makefile.arch
+diff --git a/tools/perf/builtin-sched.c b/tools/perf/builtin-sched.c
+index 39571f03eda2..ee74a6aa5ea3 100644
+--- a/tools/perf/builtin-sched.c
++++ b/tools/perf/builtin-sched.c
+@@ -828,8 +828,8 @@ static void *thread_func(void *ctx)
+ }
  
- #include <linux/compiler_types.h>
+ static void create_tasks(struct perf_sched *sched)
+-	EXCLUSIVE_LOCK_FUNCTION(sched->start_work_mutex)
+-	EXCLUSIVE_LOCK_FUNCTION(sched->work_done_wait_mutex)
++	__acquires(&sched->start_work_mutex)
++	__acquires(&sched->work_done_wait_mutex)
+ {
+ 	struct task_desc *task;
+ 	pthread_attr_t attr;
+@@ -858,8 +858,8 @@ static void create_tasks(struct perf_sched *sched)
+ }
  
--#ifndef __compiletime_error
--# define __compiletime_error(message)
--#endif
--
--#ifdef __OPTIMIZE__
--# define __compiletime_assert(condition, msg, prefix, suffix)		\
--	do {								\
--		extern void prefix ## suffix(void) __compiletime_error(msg); \
--		if (!(condition))					\
--			prefix ## suffix();				\
--	} while (0)
--#else
--# define __compiletime_assert(condition, msg, prefix, suffix) do { } while (0)
--#endif
--
--#define _compiletime_assert(condition, msg, prefix, suffix) \
--	__compiletime_assert(condition, msg, prefix, suffix)
--
--/**
-- * compiletime_assert - break build and emit msg if condition is false
-- * @condition: a compile-time constant condition to check
-- * @msg:       a message to emit if condition is false
-- *
-- * In tradition of POSIX assert, this macro will break the build if the
-- * supplied condition is *false*, emitting the supplied error message if the
-- * compiler has support to do so.
-- */
--#define compiletime_assert(condition, msg) \
--	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
--
- /* Optimization barrier */
- /* The "volatile" is due to gcc bugs */
- #define barrier() __asm__ __volatile__("": : :"memory")
-@@ -48,10 +18,6 @@
- #define __always_unused __attribute__((__unused__))
- #endif
+ static void destroy_tasks(struct perf_sched *sched)
+-	UNLOCK_FUNCTION(sched->start_work_mutex)
+-	UNLOCK_FUNCTION(sched->work_done_wait_mutex)
++	__releases(&sched->start_work_mutex)
++	__releases(&sched->work_done_wait_mutex)
+ {
+ 	struct task_desc *task;
+ 	unsigned long i;
+@@ -878,8 +878,8 @@ static void destroy_tasks(struct perf_sched *sched)
+ }
  
--#ifndef __noreturn
--#define __noreturn __attribute__((__noreturn__))
--#endif
--
- #ifndef unreachable
- #define unreachable() __builtin_unreachable()
- #endif
-@@ -68,11 +34,6 @@
- #define __naked __attribute__((__naked__))
- #endif
+ static void wait_for_tasks(struct perf_sched *sched)
+-	EXCLUSIVE_LOCKS_REQUIRED(sched->work_done_wait_mutex)
+-	EXCLUSIVE_LOCKS_REQUIRED(sched->start_work_mutex)
++	__must_hold(&sched->work_done_wait_mutex)
++	__must_hold(&sched->start_work_mutex)
+ {
+ 	u64 cpu_usage_0, cpu_usage_1;
+ 	struct task_desc *task;
+@@ -930,8 +930,8 @@ static void wait_for_tasks(struct perf_sched *sched)
+ }
  
--/* Are two types/vars the same type (ignoring qualifiers)? */
--#ifndef __same_type
--# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
--#endif
--
- /*
-  * This returns a constant expression while determining if an argument is
-  * a constant expression, most importantly without evaluating the argument.
-@@ -237,11 +198,6 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
- 	__u.__val;					\
- })
+ static void run_one_test(struct perf_sched *sched)
+-	EXCLUSIVE_LOCKS_REQUIRED(sched->work_done_wait_mutex)
+-	EXCLUSIVE_LOCKS_REQUIRED(sched->start_work_mutex)
++	__must_hold(&sched->work_done_wait_mutex)
++	__must_hold(&sched->start_work_mutex)
+ {
+ 	u64 T0, T1, delta, avg_delta, fluct;
  
--
--/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
--#define ___PASTE(a, b) a##b
--#define __PASTE(a, b) ___PASTE(a, b)
--
- #ifndef OPTIMIZER_HIDE_VAR
- /* Make the optimizer believe the variable can be manipulated arbitrarily. */
- #define OPTIMIZER_HIDE_VAR(var)						\
-@@ -258,4 +214,4 @@ static __always_inline void __write_once_size(volatile void *p, void *res, int s
+diff --git a/tools/perf/builtin-top.c b/tools/perf/builtin-top.c
+index a3442d2d6edf..9049db154fa4 100644
+--- a/tools/perf/builtin-top.c
++++ b/tools/perf/builtin-top.c
+@@ -201,7 +201,7 @@ static void perf_top__record_precise_ip(struct perf_top *top,
+ 					struct hist_entry *he,
+ 					struct perf_sample *sample,
+ 					u64 ip)
+-	EXCLUSIVE_LOCKS_REQUIRED(he->hists->lock)
++	__must_hold(&he->hists->lock)
+ {
+ 	struct annotation *notes;
+ 	struct symbol *sym = he->ms.sym;
+@@ -730,7 +730,7 @@ static void *display_thread(void *arg)
+ static int hist_iter__top_callback(struct hist_entry_iter *iter,
+ 				   struct addr_location *al, bool single,
+ 				   void *arg)
+-	EXCLUSIVE_LOCKS_REQUIRED(iter->he->hists->lock)
++	__must_hold(&iter->he->hists->lock)
+ {
+ 	struct perf_top *top = arg;
  
- #endif /* __ASSEMBLY__ */
+diff --git a/tools/perf/util/annotate.c b/tools/perf/util/annotate.c
+index 86a4beec6528..c466757e8508 100644
+--- a/tools/perf/util/annotate.c
++++ b/tools/perf/util/annotate.c
+@@ -655,7 +655,7 @@ static struct mutex *annotation__get_mutex(const struct annotation *notes)
+ }
  
--#endif /* _TOOLS_LINUX_COMPILER_H */
-+#endif /* __LINUX_COMPILER_H */
-diff --git a/tools/include/linux/compiler_types.h b/tools/include/linux/compiler_types.h
-index b3adbf5682f0..31e9f7d2a466 100644
---- a/tools/include/linux/compiler_types.h
-+++ b/tools/include/linux/compiler_types.h
-@@ -2,8 +2,6 @@
- #ifndef __LINUX_COMPILER_TYPES_H
- #define __LINUX_COMPILER_TYPES_H
+ void annotation__lock(struct annotation *notes)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ 	struct mutex *mutex = annotation__get_mutex(notes);
  
--/* Builtins */
--
- /*
-  * __has_builtin is supported on gcc >= 10, clang >= 3 and icc >= 21.
-  * In the meantime, to support gcc < 10, we implement __has_builtin
-@@ -13,6 +11,23 @@
- #define __has_builtin(x) (0)
- #endif
+@@ -664,7 +664,7 @@ void annotation__lock(struct annotation *notes)
+ }
  
-+/* Indirect macros required for expanded argument pasting, eg. __LINE__. */
-+#define ___PASTE(a, b) a##b
-+#define __PASTE(a, b) ___PASTE(a, b)
-+
-+#ifndef __ASSEMBLY__
-+
-+/*
-+ * Skipped when running bindgen due to a libclang issue;
-+ * see https://github.com/rust-lang/rust-bindgen/issues/2244.
-+ */
-+#if defined(CONFIG_DEBUG_INFO_BTF) && defined(CONFIG_PAHOLE_HAS_BTF_TAG) && \
-+	__has_attribute(btf_type_tag) && !defined(__BINDGEN__)
-+# define BTF_TYPE_TAG(value) __attribute__((btf_type_tag(#value)))
-+#else
-+# define BTF_TYPE_TAG(value) /* nothing */
-+#endif
-+
- #include <linux/compiler-context-analysis.h>
+ void annotation__unlock(struct annotation *notes)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ 	struct mutex *mutex = annotation__get_mutex(notes);
  
- /* Compiler specific macros. */
-@@ -20,14 +35,101 @@
- #include <linux/compiler-gcc.h>
- #endif
+diff --git a/tools/perf/util/annotate.h b/tools/perf/util/annotate.h
+index 1b47c1156b9a..f5465c931721 100644
+--- a/tools/perf/util/annotate.h
++++ b/tools/perf/util/annotate.h
+@@ -369,7 +369,7 @@ struct annotated_branch {
+ 	u64			*br_cntr;
+ };
  
-+#ifndef __compiletime_error
-+# define __compiletime_error(message)
-+#endif
-+
-+#ifndef __noreturn
-+# define __noreturn __attribute__((__noreturn__))
-+#endif
-+
-+#endif /* __ASSEMBLY__ */
-+
-+/*
-+ * When the size of an allocated object is needed, use the best available
-+ * mechanism to find it. (For cases where sizeof() cannot be used.)
-+ *
-+ * Optional: only supported since gcc >= 12
-+ *
-+ *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Object-Size-Checking.html
-+ * clang: https://clang.llvm.org/docs/LanguageExtensions.html#evaluating-object-size
-+ */
-+#if __has_builtin(__builtin_dynamic_object_size)
-+#define __struct_size(p)	__builtin_dynamic_object_size(p, 0)
-+#define __member_size(p)	__builtin_dynamic_object_size(p, 1)
-+#else
-+#define __struct_size(p)	__builtin_object_size(p, 0)
-+#define __member_size(p)	__builtin_object_size(p, 1)
-+#endif
-+
-+/*
-+ * Determine if an attribute has been applied to a variable.
-+ * Using __annotated needs to check for __annotated being available,
-+ * or negative tests may fail when annotation cannot be checked. For
-+ * example, see the definition of __is_cstr().
-+ */
-+#if __has_builtin(__builtin_has_attribute)
-+#define __annotated(var, attr)	__builtin_has_attribute(var, attr)
-+#endif
-+
-+/*
-+ * Optional: only supported since gcc >= 15, clang >= 19
-+ *
-+ *   gcc: https://gcc.gnu.org/onlinedocs/gcc/Other-Builtins.html#index-_005f_005fbuiltin_005fcounted_005fby_005fref
-+ * clang: https://clang.llvm.org/docs/LanguageExtensions.html#builtin-counted-by-ref
-+ */
-+#if __has_builtin(__builtin_counted_by_ref) && \
-+    !defined(CONFIG_CC_HAS_BROKEN_COUNTED_BY_REF)
-+#define __flex_counter(FAM)	__builtin_counted_by_ref(FAM)
-+#else
-+#define __flex_counter(FAM)	((void *)NULL)
-+#endif
-+
-+/*
-+ * Some versions of gcc do not mark 'asm goto' volatile:
-+ *
-+ *  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=103979
-+ *
-+ * We do it here by hand, because it doesn't hurt.
-+ */
- #ifndef asm_goto_output
--#define asm_goto_output(x...) asm goto(x)
-+#define asm_goto_output(x...) asm volatile goto(x)
-+#endif
-+
-+/*
-+ * Clang has trouble with constraints with multiple
-+ * alternative behaviors ("g" , "rm" and "=rm").
-+ */
-+#ifndef ASM_INPUT_G
-+  #define ASM_INPUT_G "g"
-+  #define ASM_INPUT_RM "rm"
-+  #define ASM_OUTPUT_RM "=rm"
-+#endif
-+
-+#ifdef CONFIG_CC_HAS_ASM_INLINE
-+#define asm_inline asm __inline
-+#else
-+#define asm_inline asm
-+#endif
-+
-+#ifndef __ASSEMBLY__
-+/*
-+ * Use __typeof_unqual__() when available.
-+ */
-+#if (defined(CC_HAS_TYPEOF_UNQUAL) && CC_HAS_TYPEOF_UNQUAL) || defined(__CHECKER__)
-+# define USE_TYPEOF_UNQUAL 1
-+#endif
-+
-+/* Are two types/vars the same type (ignoring qualifiers)? */
-+#ifndef __same_type
-+# define __same_type(a, b) __builtin_types_compatible_p(typeof(a), typeof(b))
- #endif
+-struct LOCKABLE annotation {
++context_lock_struct(annotation) {
+ 	struct annotated_source *src;
+ 	struct annotated_branch *branch;
+ };
+@@ -379,9 +379,9 @@ static inline void annotation__init(struct annotation *notes __maybe_unused)
+ }
+ void annotation__exit(struct annotation *notes);
  
- /*
-  * __unqual_scalar_typeof(x) - Declare an unqualified scalar type, leaving
-  *			       non-scalar types unchanged.
+-void annotation__lock(struct annotation *notes) EXCLUSIVE_LOCK_FUNCTION(*notes);
+-void annotation__unlock(struct annotation *notes) UNLOCK_FUNCTION(*notes);
+-bool annotation__trylock(struct annotation *notes) EXCLUSIVE_TRYLOCK_FUNCTION(true, *notes);
++void annotation__lock(struct annotation *notes) __acquires(notes);
++void annotation__unlock(struct annotation *notes) __releases(notes);
++bool annotation__trylock(struct annotation *notes) __cond_acquires(true, notes);
+ 
+ static inline int annotation__cycles_width(struct annotation *notes)
+ {
+diff --git a/tools/perf/util/comm.c b/tools/perf/util/comm.c
+index 9880247a2c33..6343a3c9debe 100644
+--- a/tools/perf/util/comm.c
++++ b/tools/perf/util/comm.c
+@@ -24,7 +24,7 @@ static struct comm_strs {
+ static void comm_strs__remove_if_last(struct comm_str *cs);
+ 
+ static void comm_strs__init(void)
+-	NO_THREAD_SAFETY_ANALYSIS /* Inherently single threaded due to pthread_once. */
++	__context_unsafe(/* Inherently single threaded due to pthread_once. */)
+ {
+ 	init_rwsem(&_comm_strs.lock);
+ 	_comm_strs.capacity = 16;
+@@ -120,7 +120,7 @@ static void comm_strs__remove_if_last(struct comm_str *cs)
+ }
+ 
+ static struct comm_str *__comm_strs__find(struct comm_strs *comm_strs, const char *str)
+-	SHARED_LOCKS_REQUIRED(comm_strs->lock)
++	__must_hold_shared(&comm_strs->lock)
+ {
+ 	struct comm_str **result;
+ 
+diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+index ce98613868e7..24ff066b9878 100644
+--- a/tools/perf/util/dso.c
++++ b/tools/perf/util/dso.c
+@@ -525,14 +525,14 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
   */
-+#ifndef USE_TYPEOF_UNQUAL
- /*
-  * Prefer C11 _Generic for better compile-times and simpler code. Note: 'char'
-  * is not type-compatible with 'signed char', and we define a separate case.
-@@ -45,5 +147,103 @@
- 			 __scalar_type_to_expr_cases(long),		\
- 			 __scalar_type_to_expr_cases(long long),	\
- 			 default: (x)))
-+#else
-+#define __unqual_scalar_typeof(x) __typeof_unqual__(x)
-+#endif
-+
-+#endif /* !__ASSEMBLY__ */
-+
-+/*
-+ * __signed_scalar_typeof(x) - Declare a signed scalar type, leaving
-+ *			       non-scalar types unchanged.
-+ */
-+
-+#define __scalar_type_to_signed_cases(type)				\
-+		unsigned type:	(signed type)0,				\
-+		signed type:	(signed type)0
-+
-+#define __signed_scalar_typeof(x) typeof(				\
-+		_Generic((x),						\
-+			 char:	(signed char)0,				\
-+			 __scalar_type_to_signed_cases(char),		\
-+			 __scalar_type_to_signed_cases(short),		\
-+			 __scalar_type_to_signed_cases(int),		\
-+			 __scalar_type_to_signed_cases(long),		\
-+			 __scalar_type_to_signed_cases(long long),	\
-+			 default: (x)))
-+
-+/* Is this type a native word size -- useful for atomic operations */
-+#define __native_word(t) \
-+	(sizeof(t) == sizeof(char) || sizeof(t) == sizeof(short) || \
-+	 sizeof(t) == sizeof(int) || sizeof(t) == sizeof(long))
-+
-+#ifdef __OPTIMIZE__
-+/*
-+ * #ifdef __OPTIMIZE__ is only a good approximation; for instance "make
-+ * CFLAGS_foo.o=-Og" defines __OPTIMIZE__, does not elide the conditional code
-+ * and can break compilation with wrong error message(s). Combine with
-+ * -U__OPTIMIZE__ when needed.
-+ */
-+# define __compiletime_assert(condition, msg, prefix, suffix)		\
-+	do {								\
-+		/*							\
-+		 * __noreturn is needed to give the compiler enough	\
-+		 * information to avoid certain possibly-uninitialized	\
-+		 * warnings (regardless of the build failing).		\
-+		 */							\
-+		__noreturn extern void prefix ## suffix(void)		\
-+			__compiletime_error(msg);			\
-+		if (!(condition))					\
-+			prefix ## suffix();				\
-+	} while (0)
-+#else
-+# define __compiletime_assert(condition, msg, prefix, suffix) ((void)(condition))
-+#endif
-+
-+#define _compiletime_assert(condition, msg, prefix, suffix) \
-+	__compiletime_assert(condition, msg, prefix, suffix)
-+
-+/**
-+ * compiletime_assert - break build and emit msg if condition is false
-+ * @condition: a compile-time constant condition to check
-+ * @msg:       a message to emit if condition is false
-+ *
-+ * In tradition of POSIX assert, this macro will break the build if the
-+ * supplied condition is *false*, emitting the supplied error message if the
-+ * compiler has support to do so.
-+ */
-+#define compiletime_assert(condition, msg) \
-+	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
-+
-+#define compiletime_assert_atomic_type(t)				\
-+	compiletime_assert(__native_word(t),				\
-+		"Need native word sized stores/loads for atomicity.")
-+
-+/* Helpers for emitting diagnostics in pragmas. */
-+#ifndef __diag
-+#define __diag(string)
-+#endif
-+
-+#ifndef __diag_GCC
-+#define __diag_GCC(version, severity, string)
-+#endif
-+
-+#ifndef __diag_clang
-+#define __diag_clang(version, severity, string)
-+#endif
-+
-+#define __diag_push()	__diag(push)
-+#define __diag_pop()	__diag(pop)
-+
-+#define __diag_ignore(compiler, version, option, comment) \
-+	__diag_ ## compiler(version, ignore, option)
-+#define __diag_warn(compiler, version, option, comment) \
-+	__diag_ ## compiler(version, warn, option)
-+#define __diag_error(compiler, version, option, comment) \
-+	__diag_ ## compiler(version, error, option)
-+
-+#ifndef __diag_ignore_all
-+#define __diag_ignore_all(option, comment)
-+#endif
+ struct mutex _dso__data_open_lock;
+ static LIST_HEAD(dso__data_open);
+-static long dso__data_open_cnt GUARDED_BY(_dso__data_open_lock);
++static long dso__data_open_cnt __guarded_by(&_dso__data_open_lock);
  
- #endif /* __LINUX_COMPILER_TYPES_H */
+ static void dso__data_open_lock_init(void)
+ {
+ 	mutex_init(&_dso__data_open_lock);
+ }
+ 
+-static struct mutex *dso__data_open_lock(void) LOCK_RETURNED(_dso__data_open_lock)
++static struct mutex *dso__data_open_lock(void) __returns_ctx_lock(&_dso__data_open_lock)
+ {
+ 	static pthread_once_t data_open_lock_once = PTHREAD_ONCE_INIT;
+ 
+@@ -541,7 +541,7 @@ static struct mutex *dso__data_open_lock(void) LOCK_RETURNED(_dso__data_open_loc
+ 	return &_dso__data_open_lock;
+ }
+ 
+-static void dso__list_add(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static void dso__list_add(struct dso *dso) __must_hold(&_dso__data_open_lock)
+ {
+ 	list_add_tail(&dso__data(dso)->open_entry, &dso__data_open);
+ #ifdef REFCNT_CHECKING
+@@ -552,7 +552,7 @@ static void dso__list_add(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_o
+ 	dso__data_open_cnt++;
+ }
+ 
+-static void dso__list_del(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static void dso__list_del(struct dso *dso) __must_hold(&_dso__data_open_lock)
+ {
+ 	list_del_init(&dso__data(dso)->open_entry);
+ #ifdef REFCNT_CHECKING
+@@ -567,7 +567,7 @@ static void dso__list_del(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_o
+ 
+ static void close_first_dso(void);
+ 
+-static int do_open(char *name) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static int do_open(char *name) __must_hold(&_dso__data_open_lock)
+ {
+ 	do {
+ 		int fd = open(name, O_RDONLY|O_CLOEXEC);
+@@ -670,7 +670,7 @@ void dso__put_filename(struct dso *dso __maybe_unused, char *filename, bool deco
+ }
+ 
+ static int __open_dso(struct dso *dso, struct machine *machine)
+-	EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++	__must_hold(&_dso__data_open_lock)
+ {
+ 	int fd = -EINVAL;
+ 	char *name;
+@@ -703,7 +703,7 @@ static void check_data_close(void);
+  * list/count of open DSO objects.
+  */
+ static int open_dso(struct dso *dso, struct machine *machine)
+-	EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++	__must_hold(&_dso__data_open_lock)
+ {
+ 	int fd;
+ 	struct nscookie nsc;
+@@ -729,7 +729,7 @@ static int open_dso(struct dso *dso, struct machine *machine)
+ 	return fd;
+ }
+ 
+-static void close_data_fd(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static void close_data_fd(struct dso *dso) __must_hold(&_dso__data_open_lock)
+ {
+ 	if (dso__data(dso)->fd >= 0) {
+ 		close(dso__data(dso)->fd);
+@@ -746,12 +746,12 @@ static void close_data_fd(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_o
+  * Close @dso's data file descriptor and updates
+  * list/count of open DSO objects.
+  */
+-static void close_dso(struct dso *dso) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static void close_dso(struct dso *dso) __must_hold(&_dso__data_open_lock)
+ {
+ 	close_data_fd(dso);
+ }
+ 
+-static void close_first_dso(void) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static void close_first_dso(void) __must_hold(&_dso__data_open_lock)
+ {
+ 	struct dso_data *dso_data;
+ 	struct dso *dso;
+@@ -796,7 +796,7 @@ void reset_fd_limit(void)
+ 	fd_limit = 0;
+ }
+ 
+-static bool may_cache_fd(void) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static bool may_cache_fd(void) __must_hold(&_dso__data_open_lock)
+ {
+ 	if (!fd_limit)
+ 		fd_limit = get_fd_limit();
+@@ -812,7 +812,7 @@ static bool may_cache_fd(void) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
+  * for opened dso file descriptors. The limit is half
+  * of the RLIMIT_NOFILE files opened.
+ */
+-static void check_data_close(void) EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++static void check_data_close(void) __must_hold(&_dso__data_open_lock)
+ {
+ 	bool cache_fd = may_cache_fd();
+ 
+@@ -834,7 +834,7 @@ void dso__data_close(struct dso *dso)
+ }
+ 
+ static int dso__find_binary_type_locked(struct dso *dso)
+-	EXCLUSIVE_LOCKS_REQUIRED(dso__lock(dso))
++	__must_hold(dso__lock(dso))
+ {
+ 	enum dso_binary_type binary_type_data[] = {
+ 		DSO_BINARY_TYPE__BUILD_ID_CACHE,
+@@ -926,7 +926,7 @@ static int dso__find_binary_type_locked(struct dso *dso)
+ 
+ #define FIND_MAX_RETRY  3
+ static int __dso__find_binary_type(struct dso *dso)
+-	EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++	__must_hold(&_dso__data_open_lock)
+ {
+ 	int ret;
+ 	int retry = 0;
+@@ -966,7 +966,7 @@ enum dso_binary_type dso__find_binary_type(struct dso *dso)
+ }
+ 
+ static void try_to_open_dso(struct dso *dso, struct machine *machine)
+-	EXCLUSIVE_LOCKS_REQUIRED(_dso__data_open_lock)
++	__must_hold(&_dso__data_open_lock)
+ {
+ 	struct dso_data *dso_data = dso__data(dso);
+ 
+diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+index 3329f417810c..fa5669709eb3 100644
+--- a/tools/perf/util/dso.h
++++ b/tools/perf/util/dso.h
+@@ -629,6 +629,7 @@ static inline void dso__set_loaded(struct dso *dso)
+ }
+ 
+ static inline struct mutex *dso__lock(struct dso *dso)
++	__returns_ctx_lock(&RC_CHK_ACCESS(dso)->lock)
+ {
+ 	return &RC_CHK_ACCESS(dso)->lock;
+ }
+@@ -809,7 +810,7 @@ void __dso__improve_id(struct dso *dso, const struct dso_id *id);
+ int dso__name_len(const struct dso *dso);
+ 
+ struct dso *dso__get(struct dso *dso);
+-void dso__put(struct dso *dso) LOCKS_EXCLUDED(_dso__data_open_lock);
++void dso__put(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
+ 
+ static inline void __dso__zput(struct dso **dso)
+ {
+@@ -919,9 +920,9 @@ void dso__set_module_info(struct dso *dso, struct kmod_path *m,
+  * TODO
+ */
+ bool dso__data_get_fd(struct dso *dso, struct machine *machine, int *fd)
+-	EXCLUSIVE_TRYLOCK_FUNCTION(true, _dso__data_open_lock);
+-void dso__data_put_fd(struct dso *dso) UNLOCK_FUNCTION(_dso__data_open_lock);
+-void dso__data_close(struct dso *dso) LOCKS_EXCLUDED(_dso__data_open_lock);
++	__cond_acquires(true, &_dso__data_open_lock);
++void dso__data_put_fd(struct dso *dso) __releases(&_dso__data_open_lock);
++void dso__data_close(struct dso *dso) __must_not_hold(&_dso__data_open_lock);
+ 
+ int dso__data_file_size(struct dso *dso, struct machine *machine);
+ off_t dso__data_size(struct dso *dso, struct machine *machine);
+diff --git a/tools/perf/util/dsos.c b/tools/perf/util/dsos.c
+index e927e707abac..a2cd37bd1660 100644
+--- a/tools/perf/util/dsos.c
++++ b/tools/perf/util/dsos.c
+@@ -157,7 +157,7 @@ static struct dso *__dsos__find_by_longname_id(struct dsos *dsos,
+ 					       const char *name,
+ 					       const struct dso_id *id,
+ 					       bool write_locked)
+-	SHARED_LOCKS_REQUIRED(dsos->lock)
++	__must_hold_shared(&dsos->lock)
+ {
+ 	struct dsos__key key = {
+ 		.long_name = name,
+@@ -266,7 +266,7 @@ static int dsos__find_id_cb(struct dso *dso, void *data)
+ 
+ static struct dso *__dsos__find_id(struct dsos *dsos, const char *name, const struct dso_id *id,
+ 				   bool cmp_short, bool write_locked)
+-	SHARED_LOCKS_REQUIRED(dsos->lock)
++	__must_hold_shared(&dsos->lock)
+ {
+ 	struct dso *res;
+ 
+@@ -330,7 +330,7 @@ static struct dso *__dsos__addnew_id(struct dsos *dsos, const char *name, const
+ }
+ 
+ static struct dso *__dsos__findnew_id(struct dsos *dsos, const char *name, const struct dso_id *id)
+-	SHARED_LOCKS_REQUIRED(dsos->lock)
++	__must_hold_shared(&dsos->lock)
+ {
+ 	struct dso *dso = __dsos__find_id(dsos, name, id, false, /*write_locked=*/true);
+ 
+diff --git a/tools/perf/util/intel-tpebs.c b/tools/perf/util/intel-tpebs.c
+index b41171b5df77..7c0b8b15bd10 100644
+--- a/tools/perf/util/intel-tpebs.c
++++ b/tools/perf/util/intel-tpebs.c
+@@ -69,7 +69,7 @@ static struct mutex *tpebs_mtx_get(void)
+ }
+ 
+ static struct tpebs_retire_lat *tpebs_retire_lat__find(struct evsel *evsel)
+-	EXCLUSIVE_LOCKS_REQUIRED(tpebs_mtx_get());
++	__must_hold(tpebs_mtx_get());
+ 
+ static int evsel__tpebs_start_perf_record(struct evsel *evsel)
+ {
+@@ -244,7 +244,7 @@ static void *__sample_reader(void *arg __maybe_unused)
+ 	return NULL;
+ }
+ 
+-static int tpebs_send_record_cmd(const char *msg) EXCLUSIVE_LOCKS_REQUIRED(tpebs_mtx_get())
++static int tpebs_send_record_cmd(const char *msg) __must_hold(tpebs_mtx_get())
+ {
+ 	struct pollfd pollfd = { .events = POLLIN, };
+ 	int ret, len, retries = 0;
+@@ -321,7 +321,7 @@ static int tpebs_send_record_cmd(const char *msg) EXCLUSIVE_LOCKS_REQUIRED(tpebs
+ /*
+  * tpebs_stop - stop the sample data read thread and the perf record process.
+  */
+-static int tpebs_stop(void) EXCLUSIVE_LOCKS_REQUIRED(tpebs_mtx_get())
++static int tpebs_stop(void) __must_hold(tpebs_mtx_get())
+ {
+ 	int ret = 0;
+ 
+diff --git a/tools/perf/util/libbfd.c b/tools/perf/util/libbfd.c
+index a4dcb406c79e..38991987f67c 100644
+--- a/tools/perf/util/libbfd.c
++++ b/tools/perf/util/libbfd.c
+@@ -51,13 +51,13 @@ struct a2l_data {
+ 	asymbol **syms;
+ };
+ 
+-static bool perf_bfd_lock(void *bfd_mutex) NO_THREAD_SAFETY_ANALYSIS
++static bool perf_bfd_lock(void *bfd_mutex) __no_context_analysis
+ {
+ 	mutex_lock(bfd_mutex);
+ 	return true;
+ }
+ 
+-static bool perf_bfd_unlock(void *bfd_mutex) NO_THREAD_SAFETY_ANALYSIS
++static bool perf_bfd_unlock(void *bfd_mutex) __no_context_analysis
+ {
+ 	mutex_unlock(bfd_mutex);
+ 	return true;
+diff --git a/tools/perf/util/mutex.c b/tools/perf/util/mutex.c
+index df3b7cce3d5a..f1b99409ea91 100644
+--- a/tools/perf/util/mutex.c
++++ b/tools/perf/util/mutex.c
+@@ -125,14 +125,14 @@ void mutex_destroy(struct mutex *mtx)
+ }
+ 
+ void mutex_lock(struct mutex *mtx)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ 	CHECK_ERR(mutex_take_over(mtx, pthread_mutex_lock(&mtx->lock),
+ 				  /*give_up=*/false));
+ }
+ 
+ void mutex_unlock(struct mutex *mtx)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ 	CHECK_ERR(pthread_mutex_unlock(&mtx->lock));
+ }
+diff --git a/tools/perf/util/mutex.h b/tools/perf/util/mutex.h
+index 5de1065ea2b9..fc01a038aefe 100644
+--- a/tools/perf/util/mutex.h
++++ b/tools/perf/util/mutex.h
+@@ -4,91 +4,13 @@
+ 
+ #include <pthread.h>
+ #include <stdbool.h>
+-
+-/*
+- * A function-like feature checking macro that is a wrapper around
+- * `__has_attribute`, which is defined by GCC 5+ and Clang and evaluates to a
+- * nonzero constant integer if the attribute is supported or 0 if not.
+- */
+-#ifdef __has_attribute
+-#define HAVE_ATTRIBUTE(x) __has_attribute(x)
+-#else
+-#define HAVE_ATTRIBUTE(x) 0
+-#endif
+-
+-#if HAVE_ATTRIBUTE(guarded_by) && HAVE_ATTRIBUTE(pt_guarded_by) && \
+-	HAVE_ATTRIBUTE(lockable) && HAVE_ATTRIBUTE(exclusive_lock_function) && \
+-	HAVE_ATTRIBUTE(exclusive_trylock_function) && HAVE_ATTRIBUTE(exclusive_locks_required) && \
+-	HAVE_ATTRIBUTE(no_thread_safety_analysis)
+-
+-/* Documents if a shared field or global variable needs to be protected by a mutex. */
+-#define GUARDED_BY(x) __attribute__((guarded_by(x)))
+-
+-/*
+- * Documents if the memory location pointed to by a pointer should be guarded by
+- * a mutex when dereferencing the pointer.
+- */
+-#define PT_GUARDED_BY(x) __attribute__((pt_guarded_by(x)))
+-
+-/* Documents if a type is a lockable type. */
+-#define LOCKABLE __attribute__((lockable))
+-
+-/* Documents a function that expects a lock not to be held prior to entry. */
+-#define LOCKS_EXCLUDED(...) __attribute__((locks_excluded(__VA_ARGS__)))
+-
+-/* Documents a function that returns a lock. */
+-#define LOCK_RETURNED(x) __attribute__((lock_returned(x)))
+-
+-/* Documents functions that acquire a lock in the body of a function, and do not release it. */
+-#define EXCLUSIVE_LOCK_FUNCTION(...)  __attribute__((exclusive_lock_function(__VA_ARGS__)))
+-
+-/*
+- * Documents functions that acquire a shared (reader) lock in the body of a
+- * function, and do not release it.
+- */
+-#define SHARED_LOCK_FUNCTION(...)  __attribute__((shared_lock_function(__VA_ARGS__)))
+-
+-/*
+- * Documents functions that expect a lock to be held on entry to the function,
+- * and release it in the body of the function.
+- */
+-#define UNLOCK_FUNCTION(...) __attribute__((unlock_function(__VA_ARGS__)))
+-
+-/* Documents functions that try to acquire a lock, and return success or failure. */
+-#define EXCLUSIVE_TRYLOCK_FUNCTION(...) \
+-	__attribute__((exclusive_trylock_function(__VA_ARGS__)))
+-
+-/* Documents a function that expects a mutex to be held prior to entry. */
+-#define EXCLUSIVE_LOCKS_REQUIRED(...) __attribute__((exclusive_locks_required(__VA_ARGS__)))
+-
+-/* Documents a function that expects a shared (reader) lock to be held prior to entry. */
+-#define SHARED_LOCKS_REQUIRED(...) __attribute__((shared_locks_required(__VA_ARGS__)))
+-
+-/* Turns off thread safety checking within the body of a particular function. */
+-#define NO_THREAD_SAFETY_ANALYSIS __attribute__((no_thread_safety_analysis))
+-
+-#else
+-
+-#define GUARDED_BY(x)
+-#define PT_GUARDED_BY(x)
+-#define LOCKABLE
+-#define LOCKS_EXCLUDED(...)
+-#define LOCK_RETURNED(x)
+-#define EXCLUSIVE_LOCK_FUNCTION(...)
+-#define SHARED_LOCK_FUNCTION(...)
+-#define UNLOCK_FUNCTION(...)
+-#define EXCLUSIVE_TRYLOCK_FUNCTION(...)
+-#define EXCLUSIVE_LOCKS_REQUIRED(...)
+-#define SHARED_LOCKS_REQUIRED(...)
+-#define NO_THREAD_SAFETY_ANALYSIS
+-
+-#endif
++#include <linux/compiler.h>
+ 
+ /*
+  * A wrapper around the mutex implementation that allows perf to error check
+  * usage, etc.
+  */
+-struct LOCKABLE mutex {
++context_lock_struct(mutex) {
+ 	pthread_mutex_t lock;
+ };
+ 
+@@ -150,10 +72,10 @@ void mutex_init_recursive(struct mutex *mtx);
+ bool mutex_init_pshared_robust(struct mutex *mtx);
+ void mutex_destroy(struct mutex *mtx);
+ 
+-void mutex_lock(struct mutex *mtx) EXCLUSIVE_LOCK_FUNCTION(*mtx);
+-void mutex_unlock(struct mutex *mtx) UNLOCK_FUNCTION(*mtx);
++void mutex_lock(struct mutex *mtx) __acquires(mtx);
++void mutex_unlock(struct mutex *mtx) __releases(mtx);
+ /* Tries to acquire the lock and returns true on success. */
+-bool mutex_trylock(struct mutex *mtx) EXCLUSIVE_TRYLOCK_FUNCTION(true, *mtx);
++bool mutex_trylock(struct mutex *mtx) __cond_acquires(true, mtx);
+ 
+ /* Default initialize the cond struct. */
+ void cond_init(struct cond *cnd);
+@@ -164,7 +86,7 @@ void cond_init(struct cond *cnd);
+ void cond_init_pshared(struct cond *cnd);
+ void cond_destroy(struct cond *cnd);
+ 
+-void cond_wait(struct cond *cnd, struct mutex *mtx) EXCLUSIVE_LOCKS_REQUIRED(mtx);
++void cond_wait(struct cond *cnd, struct mutex *mtx) __must_hold(mtx);
+ void cond_signal(struct cond *cnd);
+ void cond_broadcast(struct cond *cnd);
+ 
+diff --git a/tools/perf/util/rwsem.c b/tools/perf/util/rwsem.c
+index 9d26832398db..cc720b482333 100644
+--- a/tools/perf/util/rwsem.c
++++ b/tools/perf/util/rwsem.c
+@@ -27,7 +27,7 @@ int exit_rwsem(struct rw_semaphore *sem)
+ }
+ 
+ int down_read(struct rw_semaphore *sem)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ #if RWS_ERRORCHECK
+ 	mutex_lock(&sem->mtx);
+@@ -38,7 +38,7 @@ int down_read(struct rw_semaphore *sem)
+ }
+ 
+ int up_read(struct rw_semaphore *sem)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ #if RWS_ERRORCHECK
+ 	mutex_unlock(&sem->mtx);
+@@ -49,7 +49,7 @@ int up_read(struct rw_semaphore *sem)
+ }
+ 
+ int down_write(struct rw_semaphore *sem)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ #if RWS_ERRORCHECK
+ 	mutex_lock(&sem->mtx);
+@@ -60,7 +60,7 @@ int down_write(struct rw_semaphore *sem)
+ }
+ 
+ int up_write(struct rw_semaphore *sem)
+-	NO_THREAD_SAFETY_ANALYSIS
++	__no_context_analysis
+ {
+ #if RWS_ERRORCHECK
+ 	mutex_unlock(&sem->mtx);
+diff --git a/tools/perf/util/rwsem.h b/tools/perf/util/rwsem.h
+index b102d8143181..235bb63c92d0 100644
+--- a/tools/perf/util/rwsem.h
++++ b/tools/perf/util/rwsem.h
+@@ -10,7 +10,7 @@
+  */
+ #define RWS_ERRORCHECK 0
+ 
+-struct LOCKABLE rw_semaphore {
++context_lock_struct(rw_semaphore) {
+ #if RWS_ERRORCHECK
+ 	struct mutex mtx;
+ #else
+@@ -21,10 +21,10 @@ struct LOCKABLE rw_semaphore {
+ int init_rwsem(struct rw_semaphore *sem);
+ int exit_rwsem(struct rw_semaphore *sem);
+ 
+-int down_read(struct rw_semaphore *sem) SHARED_LOCK_FUNCTION(sem);
+-int up_read(struct rw_semaphore *sem) UNLOCK_FUNCTION(sem);
++int down_read(struct rw_semaphore *sem) __acquires_shared(sem);
++int up_read(struct rw_semaphore *sem) __releases_shared(sem);
+ 
+-int down_write(struct rw_semaphore *sem) EXCLUSIVE_LOCK_FUNCTION(sem);
+-int up_write(struct rw_semaphore *sem) UNLOCK_FUNCTION(sem);
++int down_write(struct rw_semaphore *sem) __acquires(sem);
++int up_write(struct rw_semaphore *sem) __releases(sem);
+ 
+ #endif /* _PERF_RWSEM_H */
+diff --git a/tools/perf/util/thread.c b/tools/perf/util/thread.c
+index 91118c301913..616d5bf87baf 100644
+--- a/tools/perf/util/thread.c
++++ b/tools/perf/util/thread.c
+@@ -41,7 +41,7 @@ int thread__init_maps(struct thread *thread, struct machine *machine)
+ }
+ 
+ struct thread *thread__new(pid_t pid, pid_t tid)
+-	NO_THREAD_SAFETY_ANALYSIS /* Allocation/creation is inherently single threaded. */
++	__context_unsafe(/* Allocation/creation is inherently single threaded. */)
+ {
+ 	RC_STRUCT(thread) *_thread = zalloc(sizeof(*_thread));
+ 	struct thread *thread;
+@@ -203,7 +203,7 @@ int thread__set_namespaces(struct thread *thread, u64 timestamp,
+ }
+ 
+ static struct comm *__thread__comm(struct thread *thread)
+-	SHARED_LOCKS_REQUIRED(thread__comm_lock(thread))
++	__must_hold_shared(thread__comm_lock(thread))
+ {
+ 	if (list_empty(thread__comm_list(thread)))
+ 		return NULL;
+@@ -250,7 +250,7 @@ struct comm *thread__exec_comm(struct thread *thread)
+ 
+ static int ____thread__set_comm(struct thread *thread, const char *str,
+ 				u64 timestamp, bool exec)
+-	EXCLUSIVE_LOCKS_REQUIRED(thread__comm_lock(thread))
++	__must_hold(thread__comm_lock(thread))
+ {
+ 	struct comm *new, *curr = __thread__comm(thread);
+ 
+@@ -308,7 +308,7 @@ int thread__set_comm_from_proc(struct thread *thread)
+ }
+ 
+ static const char *__thread__comm_str(struct thread *thread)
+-	SHARED_LOCKS_REQUIRED(thread__comm_lock(thread))
++	__must_hold_shared(thread__comm_lock(thread))
+ {
+ 	const struct comm *comm = __thread__comm(thread);
+ 
+diff --git a/tools/perf/util/thread.h b/tools/perf/util/thread.h
+index d82fce8173ae..9d0ce7742c06 100644
+--- a/tools/perf/util/thread.h
++++ b/tools/perf/util/thread.h
+@@ -251,7 +251,7 @@ static inline struct rw_semaphore *thread__comm_lock(struct thread *thread)
+ }
+ 
+ static inline struct list_head *thread__comm_list(struct thread *thread)
+-	SHARED_LOCKS_REQUIRED(thread__comm_lock(thread))
++	__must_hold_shared(thread__comm_lock(thread))
+ {
+ 	return &RC_CHK_ACCESS(thread)->comm_list;
+ }
 -- 
 2.56.0.218.g1ec904b173-goog
 
