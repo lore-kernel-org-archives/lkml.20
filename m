@@ -1,102 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792569003;
-	b=dZfRoziPPL+OuvHf2DnOdUGeDd3XteF9aCfph1Lvrm28eYRPpgqHkztJRe4KEPbndiYv
-	 phjJIgkuIAqsfI53Fk1UjeuzY23fVCa3aFSZnipXDAlAlFPQgokkNsorRpGbnGUp63tPa
-	 /0YJEFLc7TFzTyfpsWaHDiLC4RQO3Nd1bTm3sN2d55e5tbwrrZUNuPCC+l/vZAh7GG+yA
-	 TUdbPdOlpqTcK6FQ7CGS9TGWjI7I+QAJs/YikRWQcfEGhWt4EAq9D5X3ZrSCRr1FHOR0W
-	 I9gty4oXtNUt5LkH5W/3zbbY4Fj1S5HG4x5DtmSoEtpIythNzRPKLAyVL/4nyCBJrgQ==
+	t=1792569011;
+	b=cfCkkMddit6MRLT4dgAERIZ2mCrfPpo+ofPhcZzmAgGeiDPwbnoz8IGxLIAqIvgg0Zld
+	 cIHrKOs+jYkOt49BwU6jb8qGZE2wRYulEh5Ypb+l6o49NKjnRaJrQmkXpFeIeMF0nWJ7j
+	 A9MzXmTYQ8VkVbUt12aVSmeyjIEyfuH1KzDO08cMarXQaIFt6sCCddKjyoSFMwJs3Lz54
+	 W+zACDVLw4o9sNwbz0hcSPa/cM2Adl49nuBs5MAepriOe6/VYaYdao2RN8pqMBxvcnawG
+	 ieEymA2VVByYe2XyAXk60DItTJu82+2VHbay9QXovYddFFWwpw3fRLzEGekVG02P3TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792569003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792569011;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
 	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To:X-Mailer:X-Mutt-Fcc;
-	bh=8bDfpp7sAel4FSdNGE9WjbJ8LMrLDJQ/k3zaoUEgNSo=;
-	b=rkfgFfiYZE2MdgTk1O5OhEz/k6wi0P91uLurhIvyNKyi7fTwb4j0wBPLTgFKkYl7lKsm
-	 j8sWCvDvIhtWfqokNZSOzx0Rdq0cB8XZs3dLNETayYYV5BTZNdNXf0jHHZRhWBo9IX1W8
-	 SeOv7ly97kVRzDCh66andDyJ3PnShOcDSxlRy+FsBj9hpooWyZ8SwtXBpQdZ/QcwuklH6
-	 pwDeK/bYup2rOftYK22o2kRF9NE6NTdwelklM8lHaQlpWR7jgVt2AuaFKTxHS6xwJHzOv
-	 BAYS7G8iDI4H6KRhUn6xHhBM3k5+9T8I2HtpnaN6GMa3vlOBPtmLO55aTW1mU9M7M+A==
+	bh=S1Ljpx3K0TsunXTQsBg1qLfEDbRJPKA2AvrXipDaWMA=;
+	b=v5whgzLKwvxa3xgNs1rruS0X7QhoGlHuVxB9LmzUORES91al3GaqO5LDMvBr/LKZPHaJ
+	 //+u+milyXO1lqsMaQ/Q69lyA6IXm40LLFIuKyWKie/mjVV5/f4UA7yK+Vt6KR4q8ipRU
+	 UtMXMsqhYr6CiBOkc3JF+bWQczovWwhrP4YSy6tfTd52W89VBXXV4KYRAEGmAOOZVxREo
+	 7rxrNqFgivvf8YL1IDs6qepYqwLdPnnwWc0U+raub7+fyVHG3AwZdE/nG1W+h3V1dmP72
+	 wvqGWS7FiosHU2OINW7JMrt8tUhhdhbwtiy974Tj4LchWegrjVLXawwmo2or+MWvS4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BklG6k+g;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BRQoEBNY;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XAZJu4yu;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=k4xykH1n;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAC2606A31A
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAC2606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1B1606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 07:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D1B1606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BklG6k+g;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=BRQoEBNY
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XAZJu4yu;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=k4xykH1n
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792569000;
+	s=mimecast20190719; t=1792569009;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8bDfpp7sAel4FSdNGE9WjbJ8LMrLDJQ/k3zaoUEgNSo=;
-	b=BklG6k+govS8Ik+bEgRDu5xZFrJNgwLPoeu0umg4KdkPm+osJAxa0l86Ug0tKl10Zi3/CB
-	9uG30Iq/yrej8xP7MLSZRSkD5d9iBll3torNCQYWGKY1HePSa5KcICY9pIBsO66SwYiH5L
-	Qrxd/DsJ+jULZWVcGm1CWxyMx0ec1yU=
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
- [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=S1Ljpx3K0TsunXTQsBg1qLfEDbRJPKA2AvrXipDaWMA=;
+	b=XAZJu4yuqPigM07eZvS917OEwUeLa6k4mU1hFcLBBc/LDFDH2j1To5vSjXw+QEwUHBzNXZ
+	m8qJyMmHyrFOXii1ohaV7E/VXSf6Uhn+duE1KvicjlONPXs73vAKhJXZ9r7O7tHCKMDauV
+	5FLTl6JJl5ImTmXV62l2d0lpPaFJvoc=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-169-66G5HzAUMEKqrp8Q4ZoZwQ-1; Wed, 21 Oct 2026 03:49:59 -0400
-X-MC-Unique: 66G5HzAUMEKqrp8Q4ZoZwQ-1
-X-Mimecast-MFC-AGG-ID: 66G5HzAUMEKqrp8Q4ZoZwQ_1792568998
-Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e00f3929bso1080090f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:49:59 -0700 (PDT)
+ us-mta-66-I5hIUKBBMTmJsPz5jovefg-1; Wed, 21 Oct 2026 03:50:08 -0400
+X-MC-Unique: I5hIUKBBMTmJsPz5jovefg-1
+X-Mimecast-MFC-AGG-ID: I5hIUKBBMTmJsPz5jovefg_1792569007
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a019d53f46so4235115e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 00:50:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1792568998; x=1793173798; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1792569007; x=1793173807; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=8bDfpp7sAel4FSdNGE9WjbJ8LMrLDJQ/k3zaoUEgNSo=;
-        b=BRQoEBNYKFpU8aToIoApwGJeaLTpKV1ju9zqRtxOrRTEDQ8lJ5Nj9xh1+N9Csd0J4K
-         isq8sjuiYEvbLx/vqtlJphsyYUryg02eo65px7ME9Ki07YToVZb1m25jsv9U1hSbnh0w
-         /vcWSvuf9iAyWvJUOIFVpuI76bi81MInhBDYrbigWTEFkMTbftUCLiv3boopFVXwgn4H
-         1ftXrVx5KGqpurtAwD6bAaJzWh1AXWOJQUWwzRSS+MgEByRA83gQZYukurYosRMOCeTU
-         S7e6cMXloqgWr0eMzzFF5Lt05CGVhMb19Rc+Myr0uJjd00or6yQNBZ1esie3zm+u1Vg3
-         j1WQ==
+        bh=S1Ljpx3K0TsunXTQsBg1qLfEDbRJPKA2AvrXipDaWMA=;
+        b=k4xykH1nibeaCDD6ipOf73IiO7VNahxh06QAM4lZnuuGj3ks9sCtbLF4FE93pgDNtf
+         Z5tctIinXVkFoAaCitWJQrrmrG37qyOgtmMY6eRQhqfZiMdA1D7Kg2j7HccDtNOEK/4i
+         9IdPoM1NBXgGgopZYyzlzAhJXtRbwyq3AQuZ+LDwOXGfVS9cllT7MbslM9Wgy+lhKRdw
+         jCLDn9lPG3zhItvko0FGnDNzPQAD/dMmUvBXPZyft9vsV9YixX9I5qldyKYpaXXJxuEh
+         LQaetUt5mDauzMBc3cgeXaaXGqOVNs9KmTo2mMLxnAi2WgjRbMjp1/lMER6ziAwCD0Kj
+         a7Dg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792568998; x=1793173798;
+        d=1e100.net; s=20260707; t=1792569007; x=1793173807;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8bDfpp7sAel4FSdNGE9WjbJ8LMrLDJQ/k3zaoUEgNSo=;
-        b=Sg9k4ROjslmk4wS2j/IRqon34din+PPiAsp55vtL2F+WeN9djQDlZMQcwYe3tqoAWi
-         RPc3yCxHadb7GTVuLDpr1DsKacrv3W4Q+tHJWChR7+fMCQzLUU2xS7SVybQWvBcn2vd+
-         pUQMQZV5YGrRgz0J70devT7qNutvAHATWEK9cA3bU0tcdSe/zwUpwQGaGHlcblfF5qPk
-         u+p+mj5Ie7oTUmCvjpAnMKA7rbwEqvgODs2V2EHYxM/QuASLK8qwsmod3WP8U2vZIkhk
-         69DvLNk1Xx6RkI9zuEyWoI43mfyW92c5uS4+6FHt52V+6dUNfMLwoJPNSW19mEexQyCD
-         vNNA==
-X-Gm-Message-State: AFq9FYLZhXtlLB1Keo32gW7mjb5yCcE/VDIcnpm6B0XA13DuXGY5zhnn
-	k+ELvBU9LWoGchiEKIfwNqNfw2rpgRaGxudu/nUvcCWlKODTS2gCwuOUCHaC2Oxs1bg0ZIUasjG
-	VST/z6mgfGWItu/XTXvJJMfE6IyGs7lNoou0Y72obNZ6JiaUkEJFuxxxdCU+sy6udZGy4LzGgTv
-	K7UwGI5l8IVUhBIONkRAaom6V8I3JGoSd4MB/bNmwFTmA=
-X-Gm-Gg: AYBFou2FrD9ORnLm5YfZCdIegMEcn5u4RKZypfNtr3h44H7V5Gfm/yW7dN36QHqPJcD
-	mR2mx7F5Czxbbx/yLEekOcpIN2t/KFWRK4rRzcJFlX4LgpmNzLO2/vD1XiM6ta97yvK52KNNwn9
-	OqwpHeQnTia+WZqJv3VGhvpdkqQ3xoOqMdQ/3yfSMIFg5AYPgIfdxkNs6FIO8bjlLdwmiLH4dqk
-	B2a4ftM8iEr3WPpJkerW+8fIAvBtlPX4QdraXiKmfm4jukyb8SJIj6ZETQccfeZFSS4BmvNqR3r
-	K2A/UVt5e8tjD3qmG8+P5EudIyruOJ2qm+UIZnvbA9ZsFQN4JqYsQsx5TbSy6bIQYQhjmA==
-X-Received: by 2002:a05:600c:3f0d:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a1fdd29c19mr24760835e9.14.1792568998330;
-        Wed, 21 Oct 2026 00:49:58 -0700 (PDT)
-X-Received: by 2002:a05:600c:3f0d:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a1fdd29c19mr24759945e9.14.1792568997732;
-        Wed, 21 Oct 2026 00:49:57 -0700 (PDT)
+        bh=S1Ljpx3K0TsunXTQsBg1qLfEDbRJPKA2AvrXipDaWMA=;
+        b=rAtty4A4S64KJ5ZSace6rESw/Qu4M6LFY62HjZzpN3b/p0f4gdMg0fh5EA5dg/7dVW
+         SU/k7gUq4vGhUBcmvNH8JjXK6jKnuMpqL1XD6w0hq/23zjTX/JPp20lO1Ql66IWyedDN
+         9Nmh0LHTIwZnKYzghQ+oNV7rl51jyNp4XPEsa0SWCfu83iMVHQKFpXJtUKeI5usxESWf
+         vglcbsslMnjj3MoC2G9CkBIFYVzUa+acYZSvXH9BFGjXGbG+I/Xec3C9ELhcKdhk86Ls
+         0RUB+uJEULiLK7UoldB4jKiPdUR1K1V//umj/871J1xfkkbvJbvGZkVtG/Zq330yCfgp
+         UFWQ==
+X-Gm-Message-State: AFq9FYK5TNcRl8yYYj8vgGmX/NQ1uMUaSuiwAkK2sQCGlhxGYgziMePq
+	OySsm1NnWBCPMPYTer/XTOQY3qfa/A8k/ty5zdFkwwFWueYe61auW9rI2QJFQJgXithRBJ3ynrV
+	riWephP7NRy7ygwuuTfHw/uu3GMwkpn1zIZIcclHvfQOI7IVZpkiMmfyEOmMVw8HJEwEL9XhY3I
+	hcOAlPnmnmTPpy7qs6gOxg1P/a6le9q1elt9UfPQSFCuE=
+X-Gm-Gg: AYBFou2RoHueeiEt++1w1oKZAHj7IBImUH4ao0gngVjq9KvZfdImO0378ktU6JI+J5I
+	RkfkAoSUSWpAHchVcesU5hMHsBdS7W0klL0kXGhvjlxO6U4chdISn9WL0VtBy4OEGJhurPBGmN7
+	xvrhYHFRF4UfJC7abD+zpkvZkvO8cRP8P3JtlGIWre9qBVnMFMfZaKTm92ZCyHW5QfZXklBA0h0
+	P5oX+0H5nAwN+LLsKEGLNYrD6/DuD+HMK7Lp/KoQilN7r+oEl9WwscKprC9eAuL4LNI3Ulky9W+
+	EQaGkLmBBFiwdw1DpN/EBKlW9Qp5bPhePBbEJLYRi+ucg4bNSIOYhvoeyipi2Czx6F/f+A==
+X-Received: by 2002:a05:600c:e557:20b0:49e:74b6:740f with SMTP id 5b1f17b1804b1-4a1fdd20e2bmr13155825e9.17.1792569006329;
+        Wed, 21 Oct 2026 00:50:06 -0700 (PDT)
+X-Received: by 2002:a05:600c:e557:20b0:49e:74b6:740f with SMTP id 5b1f17b1804b1-4a1fdd20e2bmr13155225e9.17.1792569005712;
+        Wed, 21 Oct 2026 00:50:05 -0700 (PDT)
 Received: from redhat.com ([2a0d:6fc0:3fd7:5300:3d6b:52a4:a23f:9d0b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc1060f3sm34363505e9.1.2026.10.21.00.49.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1f69d9b1esm106175985e9.7.2026.10.21.00.50.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 00:49:49 -0700 (PDT)
-Date: Wed, 21 Oct 2026 03:49:45 -0400
+        Wed, 21 Oct 2026 00:50:04 -0700 (PDT)
+Date: Wed, 21 Oct 2026 03:50:01 -0400
 From: "Michael S. Tsirkin" <mst@redhat.com>
 To: linux-kernel@vger.kernel.org
 Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
@@ -112,12 +112,9 @@ Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
 	netdev@vger.kernel.org, virtualization@lists.linux.dev,
 	Max Krasnyansky <maxk@qualcomm.com>,
 	Rusty Russell <rusty@rustcorp.com.au>,
-	Richard Weinberger <richard@nod.at>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	linux-um@lists.infradead.org
-Subject: [PATCH net v4 2/7] um: vector: trim skbs before verifying the header
-Message-ID: <26741a9a64c28e8de6d13e04972d296d89e1c95d.1792565282.git.mst@redhat.com>
+	Paulos Yibelo <habte.yibelo@gmail.com>
+Subject: [PATCH net v4 4/7] net: resolve uncommon partial checksums at ingress
+Message-ID: <5de86f1afe1165a1a13ac4ef0615b19f4a10cb7a.1792565282.git.mst@redhat.com>
 References: <be251d104f881a309cfef150455efa128ebb101d.1792565282.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -134,59 +131,461 @@ In-Reply-To: <be251d104f881a309cfef150455efa128ebb101d.1792565282.git.mst@redhat
 X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
 X-Mutt-Fcc: =sent
 
-The vector receive path over-allocates the skb and only trims it
-to the received length after the transport header is verified.
+As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+others, credited below, found more ways the bug can affect users) a
+virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
+If that state is retained, later checksum completion can modify the
+packet after protocol processing has made decisions from it.
 
-A follow up patch will complete the packet checksum in software within
-virtio_net_hdr_to_skb so we need the packet trimmed (otherwise the
-checksum would be computed incorrectly over the unreceived tail of the
-buffer).
+Let's fix that: let's validate csum_start and csum_offset and only keep
+CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
+UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
+headers.  Complete other non-GSO checksums immediately, before any
+protocol processing runs.
 
-Trim first, so the import sees the packet as it was received.
+We can't easily "complete the checksum" for GSO we don't recognize - GSO
+assumes knowledge of the protocol. We could segment ignoring the
+checksum then do whatever csum_start and csum_offset say, but that
+seems like an overkill for something that shouldn't happen.
 
+There's some risk here:
+- non-gso packets which can't be parsed get checksum calculated in
+  software, adding performance overhead
+- gso packets which can't be parsed get dropped
+
+To mitigate the risks, the following patch will add a sysctl knob to
+bypass the resolution. This is reasonable if the setup is such that
+there is no protocol processing at all.
+
+UDP tunnel headers get the same handling on the inner header.
+
+Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
+
+Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+Reported-by: Chris Arges <carges@cloudflare.com>
+Tested-by: Chris Arges <carges@cloudflare.com>
+Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- arch/um/drivers/vector_kern.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/net/tap.c          |   8 +-
+ drivers/net/tun.c          |   8 +-
+ drivers/net/virtio_net.c   |   3 +-
+ include/linux/virtio_net.h | 276 ++++++++++++++++++++++++++++++++++++-
+ 4 files changed, 281 insertions(+), 14 deletions(-)
 
-diff --git a/arch/um/drivers/vector_kern.c b/arch/um/drivers/vector_kern.c
-index 8a70b3a62553..1afbef78df72 100644
---- a/arch/um/drivers/vector_kern.c
-+++ b/arch/um/drivers/vector_kern.c
-@@ -865,6 +865,7 @@ static int vector_legacy_rx(struct vector_private *vp)
+diff --git a/drivers/net/tap.c b/drivers/net/tap.c
+index d7520622e809..f2a9bb443980 100644
+--- a/drivers/net/tap.c
++++ b/drivers/net/tap.c
+@@ -653,9 +653,9 @@ static ssize_t tap_get_user(struct tap_queue *q, void *msg_control,
+ 			rcu_read_unlock();
+ 			drop_reason = SKB_DROP_REASON_DEV_HDR;
+ 			goto err_kfree;
+-		}
+-		if (err > 0)
++		} else if (err > 0) {
+ 			atomic64_inc(&tap->rx_csum_sw);
++		}
+ 	}
  
- 	if (skb != NULL) {
- 		if (pkt_len > vp->header_size) {
-+			pskb_trim(skb, pkt_len - vp->rx_header_size);
- 			if (vp->header_size > 0) {
- 				header_check = vp->verify_header(
- 					vp->header_rxbuffer, skb, vp);
-@@ -879,7 +880,6 @@ static int vector_legacy_rx(struct vector_private *vp)
- 					skb->ip_summed = CHECKSUM_UNNECESSARY;
- 				}
- 			}
--			pskb_trim(skb, pkt_len - vp->rx_header_size);
- 			skb->protocol = eth_type_trans(skb, skb->dev);
- 			vp->dev->stats.rx_bytes += skb->len;
- 			vp->dev->stats.rx_packets++;
-@@ -981,6 +981,8 @@ static int vector_mmsg_rx(struct vector_private *vp, int budget)
- 	for (i = 0; i < packet_count; i++) {
- 		skb = (*skbuff_vector);
- 		if (mmsg_vector->msg_len > vp->header_size) {
-+			pskb_trim(skb,
-+				mmsg_vector->msg_len - vp->rx_header_size);
- 			if (vp->header_size > 0) {
- 				header_check = vp->verify_header(
- 					mmsg_vector->msg_hdr.msg_iov->iov_base,
-@@ -1005,8 +1007,6 @@ static int vector_mmsg_rx(struct vector_private *vp, int budget)
- 					skb->ip_summed = CHECKSUM_UNNECESSARY;
- 				}
- 			}
--			pskb_trim(skb,
--				mmsg_vector->msg_len - vp->rx_header_size);
- 			skb->protocol = eth_type_trans(skb, skb->dev);
- 			/*
- 			 * We do not need to lock on updating stats here
+ 	skb_probe_transport_header(skb);
+@@ -1089,9 +1089,9 @@ static int tap_get_user_xdp(struct tap_queue *q, struct xdp_buff *xdp)
+ 		if (err < 0) {
+ 			rcu_read_unlock();
+ 			goto err_kfree;
+-		}
+-		if (err > 0)
++		} else if (err > 0) {
+ 			atomic64_inc(&tap->rx_csum_sw);
++		}
+ 	}
+ 
+ 	skb_probe_transport_header(skb);
+diff --git a/drivers/net/tun.c b/drivers/net/tun.c
+index 19cb443c89b0..197fb8726f8d 100644
+--- a/drivers/net/tun.c
++++ b/drivers/net/tun.c
+@@ -1941,8 +1941,7 @@ static ssize_t tun_get_user(struct tun_struct *tun, struct tun_file *tfile,
+ 		atomic_long_inc(&tun->rx_frame_errors);
+ 		err = -EINVAL;
+ 		goto free_skb;
+-	}
+-	if (err > 0) {
++	} else if (err > 0) {
+ 		atomic64_inc(&tun->rx_csum_sw);
+ 		err = 0;
+ 	}
+@@ -2617,9 +2616,10 @@ static int tun_xdp_one(struct tun_struct *tun,
+ 		kfree_skb(skb);
+ 		ret = -EINVAL;
+ 		goto out;
+-	}
+-	if (ret > 0)
++	} else if (ret > 0) {
+ 		atomic64_inc(&tun->rx_csum_sw);
++		ret = 0;
++	}
+ 
+ 	skb->protocol = eth_type_trans(skb, tun->dev);
+ 	skb_reset_network_header(skb);
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index b0441bf8e875..5821ddabde80 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -2529,8 +2529,7 @@ static void virtnet_receive_done(struct virtnet_info *vi, struct receive_queue *
+ 				     hdr->hdr.gso_size, hdr->hdr.flags,
+ 				     vi->rx_tnl, vi->rx_tnl_csum);
+ 		goto frame_err;
+-	}
+-	if (ret > 0) {
++	} else if (ret > 0) {
+ 		u64_stats_update_begin(&rq->stats.syncp);
+ 		u64_stats_inc(&rq->stats.rx_csum_sw);
+ 		u64_stats_update_end(&rq->stats.syncp);
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index 013c6c7e2dea..ec6f47ce1c97 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -5,7 +5,11 @@
+ #include <linux/if_vlan.h>
+ #include <linux/ip.h>
+ #include <linux/ipv6.h>
++#include <linux/netdevice.h>
+ #include <linux/udp.h>
++#include <net/gso.h>
++#include <net/ip.h>
++#include <net/ipv6.h>
+ #include <net/tcp.h>
+ #include <uapi/linux/tcp.h>
+ #include <uapi/linux/virtio_net.h>
+@@ -48,6 +52,202 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
++/* TODO: nothing virtio specific here, move to ip.h */
++
++/*
++ * Pull and minimally validate the IPv4 header at @nhoff.
++ * Returns the header and stores the transport header offset in
++ * @thoff, or NULL if truncated or malformed.  Only the fixed header
++ * is guaranteed linear; callers that need the options or the
++ * transport header must pull further.
++ */
++static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
++						  unsigned int nhoff,
++						  unsigned int *thoff)
++{
++	struct iphdr *iph;
++
++	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
++		return NULL;
++
++	iph = (struct iphdr *)(skb->data + nhoff);
++	if (iph->version != 4 ||
++	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
++		return NULL;
++
++	*thoff = nhoff + iph->ihl * sizeof(u32);
++	return iph;
++}
++
++/* Where does the L3 header start, and what protocol is it?
++ * Handles Ethernet and VLAN headers; other devices use the
++ * network header offset the caller set up.
++ */
++static inline bool
++virtio_net_l3_start(struct sk_buff *skb, int *nhoff, __be16 *proto)
++{
++	/* skb->dev is only guaranteed to be set since 44378d02c5aa
++	 * ("net: always dissect GSO packets in
++	 * __virtio_net_hdr_to_skb()"), do not crash when it is not.
++	 */
++	if (WARN_ON_ONCE(!skb->dev))
++		return false;
++
++	/* Loopback carries ethernet frames, too:
++	 * loopback_xmit() calls eth_type_trans() on them.
++	 */
++	if (skb->dev->type == ARPHRD_ETHER ||
++	    skb->dev->type == ARPHRD_LOOPBACK) {
++		if (!pskb_may_pull(skb, ETH_HLEN))
++			return false;
++		*nhoff = ETH_HLEN;
++		*proto = eth_hdr(skb)->h_proto;
++		if (eth_type_vlan(*proto)) {
++			*proto = __vlan_get_protocol(skb, *proto, nhoff);
++			if (!*proto)
++				return false;
++		}
++	} else {
++		*nhoff = skb_network_offset(skb);
++		/* An unset network header shows up as an offset
++		 * outside of the packet.
++		 */
++		if (*nhoff < 0 || (unsigned int)*nhoff >= skb->len)
++			return false;
++		*proto = skb->protocol;
++		if (!*proto) {
++			const struct iphdr *iph;
++
++			/* A packet socket bound to ETH_P_ALL leaves the
++			 * protocol unset: infer it from the IP version
++			 * at the network header.
++			 */
++			if (!pskb_may_pull(skb, *nhoff + 1))
++				return false;
++			iph = (const struct iphdr *)(skb->data + *nhoff);
++			if (iph->version == 4)
++				*proto = htons(ETH_P_IP);
++			else if (iph->version == 6)
++				*proto = htons(ETH_P_IPV6);
++		}
++	}
++	return true;
++}
++
++/* Walk the L3 header at @nhoff: where does its transport header
++ * start, and which protocol is it?  Returns false if the header
++ * is truncated, malformed or fragmented.
++ */
++static inline bool
++virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
++		    unsigned int *thoff, int *ip_proto)
++{
++	if (proto == htons(ETH_P_IP)) {
++		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
++
++		if (!iph || ip_is_fragment(iph))
++			return false;
++		*ip_proto = iph->protocol;
++		return true;
++	}
++
++	if (proto == htons(ETH_P_IPV6)) {
++		const struct ipv6hdr *iph;
++		int flags = 0;
++
++		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
++			return false;
++		iph = (const void *)(skb->data + nhoff);
++		if (iph->version != 6)
++			return false;
++		*thoff = nhoff + sizeof(*iph);
++		*ip_proto = iph->nexthdr;
++		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
++			*thoff = nhoff;
++			/* Find the transport header behind any
++			 * extension headers, AH included.
++			 */
++			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
++						  &flags);
++			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
++				return false;
++		}
++		return true;
++	}
++
++	return false;
++}
++
++/* Does checksum metadata match a known TCP or UDP header? */
++static inline bool
++virtio_net_csum_partial_ok_at_offset(struct sk_buff *skb, u8 hdr_gso_type,
++				     unsigned int nhoff, __be16 proto)
++{
++	unsigned int thoff;
++	int ip_proto;
++
++	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
++		return false;
++
++	if (skb_checksum_start_offset(skb) != thoff)
++		return false;
++
++	switch (ip_proto) {
++	case IPPROTO_TCP:
++		if (skb->csum_offset != offsetof(struct tcphdr, check) ||
++		    !pskb_may_pull(skb, thoff + sizeof(struct tcphdr)))
++			return false;
++		break;
++	case IPPROTO_UDP:
++		if (skb->csum_offset != offsetof(struct udphdr, check) ||
++		    !pskb_may_pull(skb, thoff + sizeof(struct udphdr)))
++			return false;
++		break;
++	default:
++		return false;
++	}
++
++	switch (hdr_gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
++	case VIRTIO_NET_HDR_GSO_NONE:
++		return true;
++	case VIRTIO_NET_HDR_GSO_TCPV4:
++		return proto == htons(ETH_P_IP) && ip_proto == IPPROTO_TCP;
++	case VIRTIO_NET_HDR_GSO_TCPV6:
++		return proto == htons(ETH_P_IPV6) && ip_proto == IPPROTO_TCP;
++	case VIRTIO_NET_HDR_GSO_UDP:
++	case VIRTIO_NET_HDR_GSO_UDP_L4:
++		return ip_proto == IPPROTO_UDP;
++	default:
++		return false;
++	}
++}
++
++static inline bool
++virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
++{
++	int nhoff;
++	__be16 proto;
++
++	if (!virtio_net_l3_start(skb, &nhoff, &proto))
++		return false;
++
++	return virtio_net_csum_partial_ok_at_offset(skb, hdr_gso_type, nhoff,
++						   proto);
++}
++
++/*
++ * Handle a packet whose checksum metadata does not match the packet:
++ * GSO packets are dropped, as segmentation needs one checksum per
++ * segment; others are completed in software.
++ */
++static inline int __virtio_net_resolve_csum_partial_mismatch(struct sk_buff *skb)
++{
++	if (skb_is_gso(skb))
++		return -EINVAL;
++
++	return skb_checksum_help(skb) ?: 1;
++}
++
+ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 					  const struct virtio_net_hdr *hdr,
+ 					  bool little_endian, u8 hdr_gso_type)
+@@ -194,11 +394,35 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
++/*
++ * Return value:
++ * 0 - success
++ * >0 - checksum was completed in software (slow path)
++ * <0 - failure
++ */
+ static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 					const struct virtio_net_hdr *hdr,
+ 					bool little_endian)
+ {
+-	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
++	typeof(skb->transport_header) old_transport = skb->transport_header;
++	int ret = __virtio_net_hdr_to_skb(skb, hdr, little_endian,
++					  hdr->gso_type);
++
++	if (ret < 0)
++		return ret;
++
++	if (skb->ip_summed != CHECKSUM_PARTIAL ||
++	    virtio_net_csum_partial_ok(skb, hdr->gso_type))
++		return 0;
++
++	/*
++	 * Here we do not trust the checksum metadata.
++	 * __virtio_net_hdr_to_skb set the transport header to csum_start
++	 * from virtio hdr, restore it to a known good value.
++	 */
++	skb->transport_header = old_transport;
++
++	return __virtio_net_resolve_csum_partial_mismatch(skb);
+ }
+ 
+ /* This function must be called after virtio_net_hdr_from_skb(). */
+@@ -282,6 +506,35 @@ static inline unsigned int virtio_l3min(bool is_ipv6)
+ 	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
+ }
+ 
++/* Do the tunnel offsets match the outer headers in the frame?
++ * The L3 header the tunnel claims must be the one the frame
++ * carries, with UDP following it at @outer_th.
++ */
++static inline bool
++virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
++			  unsigned int outer_th)
++{
++	int nhoff;
++	__be16 proto;
++	unsigned int thoff;
++	int ip_proto;
++
++	if (!virtio_net_l3_start(skb, &nhoff, &proto))
++		return false;
++	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
++		return false;
++	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
++		return false;
++
++	return ip_proto == IPPROTO_UDP && outer_th == thoff;
++}
++
++/*
++ * Return value:
++ * 0 - success
++ * >0 - checksum was completed in software (slow path)
++ * <0 - failure
++ */
+ static inline int
+ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
+@@ -293,6 +546,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	unsigned int inner_nh, outer_th, inner_th;
+ 	unsigned int inner_l3min, outer_l3min;
+ 	u8 gso_inner_type, gso_tunnel_type;
++	__be16 inner_proto;
+ 	bool outer_isv6, inner_isv6;
+ 	int ret;
+ 
+@@ -335,9 +589,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	/* Let the basic parsing deal with plain GSO features. */
+ 	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+ 				      hdr->gso_type & ~gso_tunnel_type);
+-	if (ret)
++	if (ret < 0)
+ 		return ret;
+ 
++	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
++		return -EINVAL;
++
+ 	/* In case of USO, the inner protocol is still unknown and
+ 	 * `inner_isv6` is just a guess, additional parsing is needed.
+ 	 * The previous validation ensures that accessing an ipv4 inner
+@@ -353,7 +610,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	}
+ 
+ 	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
+-						 htons(ETH_P_IP));
++			    htons(ETH_P_IP));
+ 	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
+ 		if (!tnl_csum_negotiated)
+ 			return -EINVAL;
+@@ -368,7 +625,18 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	skb->inner_mac_header = inner_nh + skb_headroom(skb);
+ 	skb->transport_header = outer_th + skb_headroom(skb);
+ 	skb->encapsulation = 1;
+-	return 0;
++
++	/*
++	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
++	 * set CHECKSUM_PARTIAL.
++	 */
++	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
++	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
++						 inner_proto))
++		return 0;
++
++	/* A tunnel header implies GSO, so drop. */
++	return -EINVAL;
+ }
+ 
+ /* Checksum-related fields validation for the driver */
 -- 
 MST
 
