@@ -1,76 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792613840;
-	b=w4MoVAythfxE/GM+i/dIf/gdc1dNSHRJpEY5i3Lq0ApRSwSob0UcLGqiTBA9+l8SWY6a
-	 7mXK+/iiFUdRRVHO4/b0FfTOAte/KZ4c7vcWpaBqK7U3PNAAPG3uFccwfqFFS0Efyfkby
-	 pSg1rzjjIuumUnr8dJ+tqHBGpfhguv2Z6VVxuTRvzv9DNuERJx//Ya0vD9JkpnAS26Q8r
-	 GX5gSKPEwLIfTA06UQjqoiNGMJuw3LkGQDTxBEtP+mo3rG5gBBXsTrxd7SEpTdNfhQQdC
-	 FwbO3F/503ehZZa9Ff/sd2jbMWuUnO+yGiFrHeALssu657pppXNSBKT1+mOJMZU09bg==
+	t=1792613941;
+	b=kCuM3xsQYJEjmwf3HMFa3v+/Rbw3Z8xF14+1ZFIdcrkIEa2E9DGqz3sue0AGmEcfgAzf
+	 NGhAFoqGLKz2S9oORCcBQpdytqhmspg21I46uo4QrpMFFzAG1t821FG1cC/zySZo/ZT4s
+	 D+EbJtUB+7jaqmubBmiS6BFDo09paAA335mdeuO0r94g8Fc+160Q1ByvGov9WpKwUiEQW
+	 1cKiVqy5W6IqCoDMrtMhahnE58ut+2nQV9fAUTch8Tz1VS2kwGzDorcCoBUjLfCr0JPKd
+	 9Xk8LHbsKq5XcwURtM781poLXfYRTWwmlN65UrllDeejmut9HvywuMgg+4m6o29BjZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792613840;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792613941;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=y5zGwiWlY/+7u7tVy4Nz9l+XQayzXqtSRL/HPTqEiC4=;
-	b=BUeMFcwLPJmwA3c2TNXTP4r/e4q15QHvVXCbr3KMAw2K6VPopCsf8MuiYRlcHFGg/+2Q
-	 CI+F8OEA/cgQXNwjc9E+tkskHnnPETFSReLYhJAqDaoD6rMnKxrZ6Ed1cQFcdtY0IMZLt
-	 HwPRajfvrNaIz80cmdYP6hZHreGZan3dfIoMSEmyt4Et9KIo/xR1ih23uoAfcTo9jr/d5
-	 w6BE1trBVzzS6OPrvYRM78/1hz+orQmvhhNSJXMnbDDtl7qGUq/mPGVPk1SLo0jP9mOEB
-	 AdLtbrzKvD3dZ/7mg0mkjgWyeDHfK7Sdz6gCuptF0O3lftpmkm4AaIMnUxg6dmw9VEA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=A7A3Qu4FeRo1KfTu4t3Hb9gLExSWYXnRTXONAqoE3Ds=;
+	b=2ZsQRmwcsMu8NwyHiUC0Yo1XMi08inupLZGy8nQHP6ELuMdlU/XvcN1lEFmE8uIzN21L
+	 0gYv55DC4jvdVorGbixENI5h3nw21uJCXMdusfGpKbnY2fMfikXlKYDyDCEVvUQ9s0PfY
+	 dV4RjQR3Lq6s5al2VVZHNi1V1/QgHFma6sQMgGcCEItOFe/aK7/9EmViFC7OQtjcMNOhG
+	 ll2cg1LlH2wdwBETsPFBE9lI6uGMpB8OJjQjGF/LiM8UCAKTytXt4/WBGHsgKEm+tuQIv
+	 lUIbykh2CYMxKAUKX4u2pEpJL+E2/cyA4/NNENMwh2QuIKegMWMd8kCGT7hL+2S02OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JAetp1ki;
-	arc=none smtp.remote-ip=209.85.215.200
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GVpPm9bc;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB63606A320
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:17:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBB63606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80E29606A31A
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:19:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80E29606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JAetp1ki
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd67d4bbdffso711739a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:17:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GVpPm9bc
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-170135e43c7so1058251c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 13:19:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792613839; x=1793218639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y5zGwiWlY/+7u7tVy4Nz9l+XQayzXqtSRL/HPTqEiC4=;
-        b=JAetp1kiqkjzlxZL8Jo5eBGSC5QmvhuD0DO3wx9QMVFZM2GFR+8xAh4BTJruUr8+IP
-         Xl7a+9mL4boAb+Uz1za5fjJgByqs7v+sNwrcTn204r/O7aUk4OOsFjq/Jv/ahitzpduV
-         SVCruaUS5OUIAiPfcVSDyxjxx4tpRF1VTr4UajXW02W24ozBnI8JIfkBnU6lq41gP00b
-         0wMd4qv9FpV+lQ5uCEBTIDAr6bj5g13v2x70/KA8Y5FfYVE1HVYwopLs75ilUgrjqF6C
-         jBVSZAAwjC7E+RN/cj7QIp5JkBjiyxEv+AvSyh+KfxItcved4Ol/oaBkFVVjVoqQV+Oa
-         PBww==
+        d=gmail.com; s=20251104; t=1792613941; x=1793218741; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=A7A3Qu4FeRo1KfTu4t3Hb9gLExSWYXnRTXONAqoE3Ds=;
+        b=GVpPm9bc+zIPk9hn5LNpctKd9MALwZe4t9kAyynMR/UyShtLooLptrHIB1nyip76ij
+         e0yqiaPmGpYl8xvlp352dmUwFkxYzbMNmT2ZLMglhApwLUibVlRTMuBXpDT9hfDob0Lw
+         cfsl/2z9t9lJkKCJ+L/eJgNmICGJ98IOU2j7S91LqgUWx0k59mOwGEMbFvKFOOTrKCxD
+         eYVJe9qDJiL0A5UYeMDsuXarkUsP3C0QbX+tzVqbyIjoqCtl7gm3pWKNO1GDLMGOdTVC
+         IPufgah6it6sHqVuCdI1hdNDCWNGFyS7rNh1ijEDfIxbOX7/JpmK6n+qJ4R0PR9jkz4F
+         LHEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792613839; x=1793218639;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1792613941; x=1793218741;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=y5zGwiWlY/+7u7tVy4Nz9l+XQayzXqtSRL/HPTqEiC4=;
-        b=kYC1UW3zIEHo5L19IvX5ZpSb80nyDuIZg2VmOk64gyn68d+rvH2e5FFfk0SDfzfIVq
-         hyMrRBeIm6rziUhw/9wovEH9SrVyPC9DxinZn+JZXCCbrDU1HRm356kdagJPx8vUMc7g
-         RdOtapQPTG6TzUXtUgKUe0816hoMG+UNqh6B4OpBGCiksieTpx7WGcySBxSx2aZGplyO
-         bXYIKwXaQGY5lxJcTBKuIZrY2XuOFPVE+U+5guwqN+TM88gXRTdBOiJmAi+1O9FOvXiS
-         Vg7RwnTO8x85Lhom1aWLdBQsWwlKC24SfReTAVN5WQxcfGBr6+NiP1cCPeaweqB1X8U6
-         atJg==
-X-Forwarded-Encrypted: i=1; AKwUvBzV+1J+YZ0RpEbCXjXfmllTwChpL3ntVv4GdKFM2KQ4fDMMHcP1wHJz5zblpkaDVC8tjLZ+QjYEUwk7VM0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIDIUJjEQWbj35vuKIPbtnKpejFVd1m2BkDgghn1nAAR/H5Nld
-	9dUwcNRPG5SMEKwXhsQ9AVDyb6pw39S0p0wC+xnQQFc6ocI9AXJUaEYIS6/vTo8/KBvgBthg01E
-	mfwc69A==
-X-Received: from pgbda1.prod.google.com ([2002:a05:6a02:2381:b0:cd6:9aa1:6906])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6e8d:b0:3db:4e0a:df51
- with SMTP id adf61e73a8af0-3e287dd6182mr2176941637.22.1792613838826; Wed, 21
- Oct 2026 13:17:18 -0700 (PDT)
-Date: Wed, 21 Oct 2026 13:17:18 -0700
-In-Reply-To: <20261019135441.1420968-127-sashal@kernel.org>
+        bh=A7A3Qu4FeRo1KfTu4t3Hb9gLExSWYXnRTXONAqoE3Ds=;
+        b=gYUoKDzgqZutYoub+8n7egVzxK4cKbtn3+RL7Qh+OAV6xZ9Qw63lcsYT9xTSLQJbdW
+         /5eWySE1zaTdWNTSQ3i/8roF9XHTu3xNF/pManM7adqP9e5854qGbX1hxmFRpees4Wbi
+         dmf37JrdtTukFA4lUwh/GW82NAb/QN/BwLvZxf0bqJpCsSwBW9AWiLT9m41vNnOxMunb
+         XiwJI94lkoNhLMcpjLo7wo6m1NpLDX2ciGr+fwLEtzfj9nPRilB0BH3Vc1Nv6HRUzEsR
+         8bTa18a5n40tzlrJ4AEGLoFEcEC1LiZRC5t+mk/FPKABU0GiGkhs93Ci0bHyzV2HF+BU
+         n/oQ==
+X-Forwarded-Encrypted: i=1; AKwUvBze87XZoARaSC/FpvxWWSCpdNPHFtDhgmA+bRCjAkBE3T0Jxn2uYy41q2yjqDyD0Gf/cBpmx94VKsQOAI4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhoZUtaXKdwMnk+PlEy7gxBKHqkpEYZeThyrClRskOUkH7QiGm
+	/Wl1792sEUSbGUeJ+cMEPnveUF7rw8Nu7e8op/jlwGzaonmbphbk8lNU
+X-Gm-Gg: AYBFou2upXaLvIjSADyJzWf9f0qw3iaY0GCv64Xpnsv9FX/4Ll3OCyCsN9fayF1aeaF
+	LYIc8+W0EqutsijaJJ0PgttLhVayYX1vUwx1nnrMeLZ2ij2BXKHdTfV4/DuID6K+9hWRRfQMp+R
+	uN/Ge6aRTVFsfQZI9UTnadOYQiUGgL+Yy1mpEqAqIIehtntc0L5ut5eka7AiSedrUgb0E2LyW9r
+	ELTI1fugOSiNdDjsyn3yr/DIMqyAW5XYpFFi5xXop6ugn5MCEIF7CoUkbyw8LO0vlfYK15RNCgG
+	qeLpTYl7gxB7E+ZTHA62HzpI8maI5u/oWxS1cIcFPI2GeaXFh8lXWzgttRRrCNacwY0cnG78bqc
+	vr21LuRU2K5aUwI8YO4E99N9gj0YIPiXApKjuUNReX9Wc+g0ITNE/HFZvPiGyrpnNGecZmaBgXa
+	CaIE8LP1S22WK3rU6Hcot/7VoC+kVRrew4XxlsLltjupgTdnR8jKGsD2THrcmi1P/oQGZ3703jZ
+	Z/XNFDYi9/W2NezW5sXJsOTPgcAuDh5o4xIqEMSaiez6O1SxOmbAdvXY6prcEs4
+X-Received: by 2002:a05:7022:e1d:b0:141:4c37:a212 with SMTP id a92af1059eb24-190a051dd9amr5401751c88.2.1792613940370;
+        Wed, 21 Oct 2026 13:19:00 -0700 (PDT)
+Received: from localhost ([2409:4062:21d:8dc5:7fa7:1adf:a854:c40c])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e4f2eacsm7986001c88.23.2026.10.21.13.18.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 13:18:59 -0700 (PDT)
+Date: Thu, 22 Oct 2026 01:48:55 +0530
+From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+To: Alison Schofield <alison.schofield@intel.com>
+Cc: Davidlohr Bueso <dave@stgolabs.net>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	Dan Williams <djbw@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Breno Leitao <leitao@debian.org>, Ira Weiny <iweiny@kernel.org>,
+	Li Ming <ming.li@zohomail.com>, Richard Cheng <icheng@nvidia.com>,
+	Naoya Horiguchi <nao.horiguchi@gmail.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
+	linux-cxl@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, David Hildenbrand <david@kernel.org>,
+	Oscar Salvador <osalvador@suse.de>,
+	Kiryl Shutsemau <kas@kernel.org>, Harry Yoo <harry@kernel.org>
+Subject: Re: [RFC PATCH 0/5] cxl, mm: Keep device-reported poison out of the
+ page allocator
+Message-ID: <atkeL1aBD9p5hQgN@acer-nitro-anv15-41>
+References: <20261010162017.62506-1-shaikhkamal2012@gmail.com>
+ <ata_pfACXdlQuM_e@aschofie-mobl2.lan>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,98 +112,54 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261019135441.1420968-1-sashal@kernel.org> <20261019135441.1420968-127-sashal@kernel.org>
-Message-ID: <atkdzsPJgcu123DO@google.com>
-Subject: Re: [PATCH AUTOSEL 6.18-6.6] KVM: x86/xen: Prevent runstate times
- from becoming negative
-From: Sean Christopherson <seanjc@google.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: patches@lists.linux.dev, stable@vger.kernel.org, 
-	David Woodhouse <dwmw@amazon.co.uk>, Paul Durrant <paul@xen.org>, dwmw2@infradead.org, 
-	pbonzini@redhat.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, x86@kernel.org, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <ata_pfACXdlQuM_e@aschofie-mobl2.lan>
 
-On Mon, Oct 19, 2026, Sasha Levin wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
->=20
-> [ Upstream commit 36a85200643e62d20a91f0bc1a811187b59f7762 ]
->=20
-> When kvm_xen_update_runstate() is invoked to set a vCPU's runstate, the
-> time spent in the previous runstate is accounted. This is based on the
-> delta between the current KVM clock time, and the previous value stored
-> in vcpu->arch.xen.runstate_entry_time.
->=20
-> If the KVM clock goes backwards, that delta will be negative. Or, since
-> it's an unsigned 64-bit integer, very *large*. Linux guests deal with
-> that particularly badly, reporting 100% steal time for ever more (well,
-> for *centuries* at least, until the delta has been consumed).
->=20
-> So when a negative delta is detected, just refrain from updating the
-> runstate times until the KVM clock catches up with runstate_entry_time
-> again.
->=20
-> Also clamp steal_ns to delta_ns to prevent steal time from exceeding
-> the total elapsed time, and handle negative steal_ns (which can happen
-> if run_delay goes backwards across a scheduler update).
->=20
-> The userspace APIs for setting the runstate times do not allow them to
-> be set past the current KVM clock, but userspace can still adjust the
-> KVM clock *after* setting the runstate times, which would cause this
-> situation to occur.
->=20
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Reviewed-by: Paul Durrant <paul@xen.org>
-> Link: https://patch.msgid.link/20260728144954.355376-21-dwmw2@infradead.o=
-rg
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
+On Mon, Oct 19, 2026 at 06:11:01PM -0700, Alison Schofield wrote:
+> On Sat, Oct 10, 2026 at 09:50:08PM +0530, Shaikh Kamaluddin wrote:
+> 
+> snip
+> 
+> > 
+> > Applies on next-20260908 plus [1] v5. The num_poisoned_pages_inc()
+> > change agreed for v6 [2] does not touch these patches. Patches 1, 2 and
+> > 5 touch only drivers/cxl; patches 3 and 4 touch mm.
+> 
+> Hi Shaikh,
+> 
+> Can you share a public branch with all this code in one place?
+> 
+> -- Alison
+> 
+> snip
+> > 
+> > 
+> > base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
+> > prerequisite-patch-id: fe9d44deb8ccc48c0311bc4131bdf733eb353b34
+> > prerequisite-patch-id: 4cabe6adb37cd8c218bd43c97970bc65f313b671
+> > prerequisite-patch-id: 52ad24bceedb9c03df167f10573166a1d97ba97d
+> > prerequisite-patch-id: 44bfbc8aa3c4b19593f7b0d466fbc0cb99b99f76
+> > prerequisite-patch-id: 2d344a5322ff07c7895a59d2425540a30e4e0630
+> > prerequisite-patch-id: e776f306dcbdda3f6972187ad1e43a62c2754890
+> > prerequisite-patch-id: 3ef887599e31ef973d6d9ca15d0462d55f5f0409
+> > prerequisite-patch-id: a23fe88ab4529b6a6669a991e15cf1631311391c
+> > prerequisite-patch-id: 111c69880ed0e148cdda285896c006e8d1fc98a8
+> > -- 
+> > 2.43.0
+> > 
 
-...
+Hi Alison,
 
-> **Step 8.1: DETERMINE WHO IS AFFECTED**
-> Xen-ABI KVM guests with runstate/steal enabled (`CONFIG_KVM_XEN` + VMM
-> setup). Not all KVM users.
->=20
-> Record: [config/driver-specific: KVM Xen guests]
->=20
-> **Step 8.2: DETERMINE THE TRIGGER CONDITIONS**
-> 1. `KVM_SET_CLOCK` (live migration/snapshot) after runstate SET_ATTR =E2=
-=80=94
->    documented, exists in this tree
-> 2. kvmclock discontinuities from masterclock re-snapshot =E2=80=94 still =
-present
->    here; the rest of the series is **not**
-> 3. `run_delay < last_steal` unsigned wrap (ioctl uses VMM `current`;
->    vCPU path uses the vCPU task)
->=20
-> Unprivileged guest cannot call `KVM_SET_CLOCK`; the VMM can. Guest then
-> sees broken steal forever.
->=20
-> Record: [migration/SET_CLOCK and steal wrap] [realistic in production
-> Xen-on-KVM] [VMM-triggered, guest-visible]
->=20
-> **Step 8.3: DETERMINE THE FAILURE MODE SEVERITY**
-> Not a host oops. Guest scheduler steal accounting becomes permanently
-> wrong (100% steal for ~centuries). That breaks guest CPU accounting,
-> load, and can stall workloads/watchdogs. **HIGH** for those guests (not
-> host CRITICAL).
->=20
-> Record: [guest steal corruption / apparent 100% steal] [HIGH]
->=20
-> **Step 8.4: CALCULATE RISK-BENEFIT RATIO**
-> Benefit: stops a permanent guest-visible accounting failure on a path
-> used in migration. Risk: ~20 lines, no locking/API change, skip-
-> accounting is conservative.
->=20
-> Record: [high benefit for Xen-on-KVM] [very low risk] [favorable]
+Here's a branch with everything in one place:
+https://github.com/shaikhkamal/linux/tree/cxl-poison-rfc-Breno-v5
 
-Two questions: do we care abou this specific flaw, and does anyone run Xen =
-guests
-with KVM using an LTS kernel?  I agree with AI's assessment that this is lo=
-w risk,
-but unless this will actually benefit someone, I don't see the point.
+(top: 9e63fdb "cxl/region: Register device poison before exposing RAM")
+
+It's next-20260908 + Breno's hwpoison-kho v5 + this 5-patch RFC,
+matching what was posted.
+
+
+Thanks,
+Shaikh 
