@@ -1,98 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.19
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792596531;
-	b=DGn97bYDgNxCKvhHUbfFsWtDuik6m7aV8l/izxStF2CO42QWrJUlOVDruF7wEI/VUM9/
-	 Bsh8KhxQFERbvqW0mUvv03bNiJE9UH3B3OjVT/1biigHJBURTBsAlWESvO0Lrj547nqde
-	 4EpJARCKC/JnwoQQHfHD0xreO8gUvS6IEoDt8R3akHn6D/AjsJSbJuS49uaXRNTeXHXpO
-	 kmkMAeYQ4fBcu13zNOI8i7zCA9BfRqLm/v5BoGO52+ySMN3uiXd/aOFwbFzvjQPxRf3he
-	 qODtlnilH1uXL70g1lUAm1edUpexqCEysUl7rNzaV/55M/wW/BOSLCiS7lf4ToMc4mg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792596531;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=V0g6LvwyjKaJEnlWTGPOt+g0tKGbnoVSqToI+MLB8oc=;
-	b=HtRQh3QAaF4jHB3POWqCtOiip8MYvb/B8dAb8JTahM9Z1kQZjCAfEEEr1dbUCth7W+qI
-	 VWuncLE9s0pHNd5A10XcSXekNJuZcVjl8+TP1K9JdnOG3bNosEJkBaLGIUhC8YYZwfRA3
-	 E/+ciCAYHCrapLi24Rkx64EBaXf+rO3625dTrnJ/CGb0xt3V9Gt82qK4+v13xNWVTTjEp
-	 AnKEpyVT/8sLqpYmJbLxf7IYEWtFIq1o0CJ6v9bGNnVGQNIj+ta87xbID3BPgOL+rRtGl
-	 YuPlCoz3+84xYOaEfzS45tGh7cba1oUwZbBqmCkUQzvNYNOZ0+SUlmBZLxyI2PelFuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rqZXuYX3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.19
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011019.outbound.protection.outlook.com [40.107.130.19])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792596607;
+	b=GIgtrnXRJEUiWVB2j6T15UV6rEXGZ6CVrZwWWvLoOcnEQFrZ0JxNvbdbdKeQs6PvtB3V
+	 +FHszeBTKvIw/Q1wf7g5OzwY1nm7++7e+gAwzZkODktJpg+a+KqFrMMKJG4QAr6mE5mOQ
+	 4t2fXW2MLf5RzbYxugqgMAPf4S9uak7q5FoLO1RygalOCrJxvkqQXpAayvnrOZMXv7rph
+	 j4uPrBG307uPFQMk/iuFy/EFqFJL2t3iYjFtkpcXmmWk6K0vN3uupBVuYe+L0vTaM0G0y
+	 25CKwPyd1QM/T+it9XhOPh+pNuwCtihSUduBtxzWPtwgt3ErKaINeNAguv9fOrov+kg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792596607;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=P6ZhE3cbdkX+3SGreolWTdLTCnWCrWLY8GG3c33iZbEScsAR4TzMQKYbdz5IcJKAHA1x
+	 eEYkQxU2Y5UGmrXXyls9SxRhyhz9avgQIWk9pBM+mkEghS2mlU+sIDcFAZTmSr9T4Y7Vk
+	 IUGePbuCy2C+b4xgENQYgL1R+tabg/wGwS9iEFV6TMF9V3I9Mf/y2hjRaUOUFjsysiWBQ
+	 02lXsJ46rnkJvYjyMdB1Kflhg/v2h94ntDEICR95cz1AmxpXi/j2XMb8H+bSoCeNTFo1w
+	 SessXkM5h4Y0AqR+e7n1DuUhDWdVJ/kjKmbNp0liJkYmTF5bu1UDjWRhJNx+Lx+BS9Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JUz+9Pzj;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="re/OyTLv";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f279zzle;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=niU1uIJq;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DEE606A31D;
-	Wed, 21 Oct 2026 15:28:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7DEE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E6606A31B;
+	Wed, 21 Oct 2026 15:30:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A99E6606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=rqZXuYX3
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k8SJ9udvPCSOfIxzroSyvTzTI12sk6C4zrsK068EmSaDWoGrK2kbQ+ByjNSk9f7OOuIUpXLS8UpSVqa3VRitEhewRCjffJPwyVtIHEZSbrg+jVjTQPSr0tN3Zn9pD1ST25+ZZB5dgYlYxISjiFhJctEdLUpco2m6EIF0Gfy1MFO2/RJP+5LqbDexT8qAF8gyo2LHp1HXGqxUSCPXCPYBAbfLiNNarvOB7Rd4Rq08lHT1sOjPLm1fwSADIcWc3ooLZSAC0FjKy1qxIf3yJIIfLnzPTdIGpGdUVSCZ6Ti6/1wBTCPEBs0SI/vusjFqY/Ed65evPWEUYKTspOZO/0Bc0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V0g6LvwyjKaJEnlWTGPOt+g0tKGbnoVSqToI+MLB8oc=;
- b=OczRHO5Ntu58bR1VM2Vfrj2Fde3fMnqm1znvYkYH+f+Dw+lmZ2RWPxLWBYBkoJSigdYhbuFuFmM7f/W1NfRpeqp9OnBFFRxlUDr41ZNUs9qd8uVdnChxE7Na2q2c3SO/9+OoazyljmFMG3so+YM1HnCBZG8O9hh9wJMDFEyzQIf7dX5mqXnmfX87ZB7pwBAagQRU9BrcyxDHaX5gdmBfHWbJr5fVGxkuU/gHDi0T1cdELRC0obLt76luVkRB71HZqDWGsXqumzXqFwMTb9kA/CnR/Qv+BYHfj6jm4aSd2kmGFSiDTXD8p+2vCUZqTH31Vji81rdXZhTf/EuC83Z/kw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V0g6LvwyjKaJEnlWTGPOt+g0tKGbnoVSqToI+MLB8oc=;
- b=rqZXuYX3EpDxBnQrJgvZ4WGOO28fwftzfDPpIHsVYdYxMxWb4YJG7SOiRGwvMB4vJtZF0y5dQpcIOUZc6hvlv9Zlu8m279F7dJfG9P+6jzL/H6qsDIwRukcrkCRqnBrAxg29hWMK/wbJEvOvUCL8LSXskmkRRYKI7aiiSlXasJIcCtde+J7gpPc+sU/m6SlIaaofETBkYJX59ow5LE8eYTV7DBGonR3vhDCVEMR+F/okkFI394Wn66YJZ8/pJoGERt1xk/P95A9CUV2E0LpeZZbgLcBMVXY1vqsacRxLH4h0yKh07mCNwOH4a8uHEuRBdkbT9S6m9VSJkVjdNHdCmA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU4PR04MB10861.eurprd04.prod.outlook.com (2603:10a6:10:592::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Wed, 21 Oct
- 2026 15:28:46 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Wed, 21 Oct 2026
- 15:28:46 +0000
-Date: Wed, 21 Oct 2026 10:28:35 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
-	bhelgaas@google.com, linux-pci@vger.kernel.org, robh@kernel.org,
-	thierry.reding@kernel.org, jonathanh@nvidia.com, kishon@kernel.org,
-	Frank.Li@kernel.org, vidyas@nvidia.com, cassel@kernel.org,
-	den@valinux.co.jp, marco.crivellari@suse.com,
-	andriy.shevchenko@linux.intel.com, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 06/10] PCI: tegra194: Check for L1SS capability before
- programming
-Message-ID: <atjaI9HAoB_KBUaZ@SMW015318>
-References: <20261021061349.1265704-1-mmaddireddy@nvidia.com>
- <20261021061349.1265704-7-mmaddireddy@nvidia.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021061349.1265704-7-mmaddireddy@nvidia.com>
-X-ClientProxiedBy: PH1PEPF0001330D.namprd07.prod.outlook.com
- (2603:10b6:518:1::1c) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=JUz+9Pzj;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=re/OyTLv;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=f279zzle;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=niU1uIJq
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id D70E222019;
+	Wed, 21 Oct 2026 15:30:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792596605; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=JUz+9PzjFFvT68FU8KbVKnG9ONPa90Jx1jDJjXCpX1ap3DuKTdLsMyqj/clMsUJ8ON4w4p
+	wLf5XGQl0b4RHWITx5eE9YjHWBAn5i+eTvtBwnV1WXjV0Wa1Nx/y7dLizZ43PBtASZzUWo
+	SZJSdK/b/ygQDeqUSo9McPrB2hyyL6s=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792596605;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=re/OyTLvyhxvPBv31y3qG45QYv69fN91b+v856lgqv2vQIdrGMx5g+cRSgf81p7FnaRSbz
+	1NsqT92yn5MchNDg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792596604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=f279zzleEbbQn+5QK4zJCFpw82PKJ3T99LUEwIjcfY8H45YQWvMYuCLGvVsEm/vWPDZlh7
+	b8kC4TyIc9JOB9ID9quFLa/1fdFddOIb55NyihyU6xqDIQRgiWYs6CT/lmAHmSz2RinUbi
+	/pLQrFgsEIwRAgm4S1LZMJhiQViVcwo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792596604;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HaSw9CI+ZF+Vt07rKhd2TFzurUYhiAv7ZJ2gF8vcgyo=;
+	b=niU1uIJqowBJeRdaiquQw54mbqjXEIup3RWdChZ+madKbfWqR31SagOEFJfBCwCSZ2RnVK
+	Vez1AXPIIWH2M5CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B72AC134A5;
+	Wed, 21 Oct 2026 15:30:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id HlWtJXza2GrqFAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 21 Oct 2026 15:30:04 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 4E115A1418; Wed, 21 Oct 2026 17:29:56 +0200 (CEST)
+Date: Wed, 21 Oct 2026 17:29:56 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Miklos Szeredi <mszeredi@redhat.com>, 
+	Jeff Layton <jlayton@kernel.org>, shaos <shawnq1@163.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 5/6] listns: don't wrap around with a U64_MAX cursor
+Message-ID: <mlpsaezfk3apjsk3jl6nksrxp7fmmpsahxwljs2ilornsovgyu@ohmycilav6el>
+References: <20261021-work-mount-statmount_listns_fixes-v1-0-8917a4c1bd14@kernel.org>
+ <20261021-work-mount-statmount_listns_fixes-v1-5-8917a4c1bd14@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,177 +112,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB10861:EE_
-X-MS-Office365-Filtering-Correlation-Id: fb5de7c2-1500-4ea6-5959-08df2f87ff4f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|19092799006|23010399003|366016|376014|1800799024|10067099003|261009223027099003|11063799006|56012099006|4143699003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	r8xz7suoLr0DlSdGKy7DbT9cAy6tKFLZovzg1ORC80XdQ9iNsJXiQJCV1bxuwHvf91p3LCULj6xCwfdu7Wbi+cwZ8aEgcLura5n7iExQv+melfa5EMw7YskGwMf9PEiSO4ZKK7WI3gxjV+1aaOKhqoG0k3w7v7ilksBlWdL89DpBIQenPN+uvPdaSeI64kvhNde4VDNalV83VclW0r/C2prA6fq3+ZKmAAQYoDT7Us8yU2tnB3JM1524vg20mCCtQLBMJoFDyy9ckM8qfDcTT+4pzEitjsErsZwwaGkjNlCfl7uLcqRvTUtRmArXanTfoX+yWJfIYZgcTdpChJy9wMdvTHasAzG7vETvpFLVsPx4F6a0JRIbbKtc5o7npmoVB7NEyUjEoxFA1noCm3eKm5e/JBVHsLRfQgZod0T7rrzI3YrRUtG/IC1hXmWGGxswWzQl63o54zsT9u6LDnHF+8EJ+y5M7KBdp3seyjjj6u1ln4wEfm/3B1ivvcelWaw4q2YfR8c3UBMnjZTbIdl6NS4WrHxd/IXK2J7fg8jr540ZCDX+/NPE/W6TnH/x6pztf+H6DgIbqJIX4EQjDf0I0iVW3GqCGsjmGrCijTVqXtv/3G27q81vdAAZa0DRq/ji97sI67t0qSrQo1QKeqWbpb2OnRN+nmhpang9FBjZcD4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(19092799006)(23010399003)(366016)(376014)(1800799024)(10067099003)(261009223027099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Yt+DeCxR0sYWHrHD6l0Sm/tYj3heAGsFApwA807jIweQsPJaNhTq0juKvU4C?=
- =?us-ascii?Q?1UHB0TAa58GwdoheUDrTxGjSD5r9D1kroLIR7l6vhqVRXjEmcg3/HF3Om7q3?=
- =?us-ascii?Q?pW9kxx9VewWqG/J6AAch5aspOddeBhIklYVZ3QnDK4g8bJbBKvjuvqL3LIPk?=
- =?us-ascii?Q?2mHLsvXbaZ/eQeGrPYky6UH8MekZ1hjnVxL2MAtmnblnQC+6JfEcjUtnQ7o2?=
- =?us-ascii?Q?FIXi660WSmtGNxtB1PpM1RzKFDlugKcaSBCWDiKK5adFBuoM4yEMXQGvTMT8?=
- =?us-ascii?Q?NU5s5SXRqsXk09lfIjHzAXXn2IG4e1QXucXYfhxWBSysQVDxldxr5+ns64W8?=
- =?us-ascii?Q?F7bHIwcq/EOlh4c0Jy4VKV/llheYQMtaC/BhS/Q/9lYSrHIinFkRRGoTd173?=
- =?us-ascii?Q?oenW2rgZJqnelGj8Fn2QMofsyQJjy7p16BRVMJneqTcTFqafwbvy4rBAQox5?=
- =?us-ascii?Q?G82BKkbaY1JOP4QIJAisYocLqyD3C3XMzPU4F4GUjoK6UuEfiHbTeeGHjTYe?=
- =?us-ascii?Q?NztAnclR68FZRjzKX/lxeu6pB+ZVabGrIKM4q1yISU62Yy9z8Mq+MWZKEN/u?=
- =?us-ascii?Q?44fxY1jHrf5P+Usu7bwfI+2Ms+Ss/IsTeEoak8zcuKOO2iLfIoME1yJ9TIWO?=
- =?us-ascii?Q?PF6hxrIz4CLojVMYH7MCbVLO/M43+otFfeXXLRdXJoLqZU+MlVzJy443NC8A?=
- =?us-ascii?Q?IwnYSunPzYCWQYL+3O16q3KqyLa5yjXS3tD1g3J7yQ1kyH07ZLKub/dVSxi3?=
- =?us-ascii?Q?J8jY3scatj7tcNkI+OQx395Pr6f1Y+booXrHk8F+bwZRm6tsgD1nS87Liwd7?=
- =?us-ascii?Q?WA/+VOwyqIkvgSrMgp+c21QSftG+oq87cxxxLbkVHiWBPoydQrUmebLbpQwD?=
- =?us-ascii?Q?G9OFO5Q4Dak8+qROPE9U6vC7ATE6GS/MFroUiTgpUOVFuddfBpSjC2dcBe55?=
- =?us-ascii?Q?Xwn6bQhUisZlGKZECasURY/lzaUeYZ/pXfJRiLItZIw3jNfMDPxBFDtPWNjU?=
- =?us-ascii?Q?ITx4FONqAqNvSBKDS4YnUG9yet8Oboai6eR262j/D5Ge8nJV3eA/RqYaw4JI?=
- =?us-ascii?Q?0VgpHJWLO2hk6wymNBoaJvoeOgInHXC0mFIcfkEzcpQswVM3VWwKjxFddmPc?=
- =?us-ascii?Q?24IW2uOExaAFDEWT7wZjWMU/RTsCIcCCY+BLJf4xXZyNDb129tLTZtES2f9i?=
- =?us-ascii?Q?BoGrp6e1kHukMZHud1nwYHJrW2Oq6pp5Lv9zqFTvsRgzeknekwO9uOopNklD?=
- =?us-ascii?Q?ibHznPuLuMeVblgUdVFoksAOIPMr8WV+uVX/cevEqxIaGSCD0+KA9cc3U70n?=
- =?us-ascii?Q?55tLcVdR15diHMy/w5YIZktHXUcW64c3B3piGvu8lReM78Gvf3PNXKa5QBQN?=
- =?us-ascii?Q?p0c8aTpvJhjzXlII5T1VaJz1H7lMQwuEqO8Aab8kzPkAY4iJWbPN+gdCnOd6?=
- =?us-ascii?Q?2pEz4V45DdatuHFKbMfyHcm/BpnMwvbCdx6b2ive8/C5UT7iRQFM8NxUXn6Q?=
- =?us-ascii?Q?pZQWaSSpCEbWAHR/q4CHJ3tpPDZJFoUqAiweHDxB5GvCZoW0qN85BZJ8fRqT?=
- =?us-ascii?Q?R4tIStK6OHbr80gnCaQfxhMX95WSvJ+f6IXQgYX9TbRgD22tdJasDwE+cyUT?=
- =?us-ascii?Q?2wnpNSHccd/DDP8dzDNKSAs5vY/yb7uKXzxTqbA8YGkRyHEbtH53kw4hNPTI?=
- =?us-ascii?Q?b0TxSWgMN2kZT9U8zoP09V/4tqrpZEAUm4gGs7rH4Wuh0x9lVjIQU8CbzUBa?=
- =?us-ascii?Q?NipvutZN7hOqIDbKsoZQnWEMpoiQ1YFZoWi6VW9zN0n8PYgcIL7C?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fb5de7c2-1500-4ea6-5959-08df2f87ff4f
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Oct 2026 15:28:46.1132
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SEgZKnl238HmPCaoRO1VfQWbffwjDbHRxfb17MEZMv6YS+MeJcwTLDE0Uf7mN38JaJZzbWxks6aSz8y9hs9UhgJ7KlWP1zlezIVUjU739WRja7xHXZKYFM+4OUUOeiem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB10861
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-work-mount-statmount_listns_fixes-v1-5-8917a4c1bd14@kernel.org>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[163.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,redhat.com,kernel.org,163.com];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Wed, Oct 21, 2026 at 11:43:45AM +0530, Manikanta Maddireddy wrote:
-> init_host_aspm() programs the L1 PM Substates capability without checking
-> whether the controller advertises it. If the capability is absent, the
-> code writes offsets from zero instead of L1SS registers.
->
-> Check for the L1SS capability before programming L1SS-specific fields.
-> Keep RAS-DES discovery, ASPM counter enablement and AFR latency
-> programming outside that guard because they do not depend on L1SS.
-> Only create the ASPM counter debugfs file when the RAS-DES capability is
-> present.
->
-> Fixes: 56e15a238d92 ("PCI: tegra: Add Tegra194 PCIe support")
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+On Wed 21-10-26 13:46:58, Christian Brauner wrote:
+> do_listns() and do_listns_userns() take the last namespace id the caller
+> saw and look up the first namespace after it by searching the rbtree for
+> last_ns_id + 1. With U64_MAX that wraps around to zero and the search
+> returns the namespace with the smallest id. So a cursor at the largest
+> possible id restarts the listing from the beginning instead of failing
+> with ENOENT like a cursor of U64_MAX - 1 does. That's the case for the
+> unified tree, the type-specific trees and the owner tree alike.
+> 
+> No namespace will ever have that id. They come from a counter and a
+> caller that only feeds back ids it got from us can't hit this. It's
+> still wrong.
+> 
+> Instead of adding one to the cursor and searching for the smallest id
+> that's greater or equal make the lookup helpers search for the smallest
+> id that's strictly greater than the cursor. That's what both callers
+> want anyway and there's nothing left to overflow.
+> 
+> Reproducer, unprivileged:
+> 
+>     #define _GNU_SOURCE
+>     #include <errno.h>
+>     #include <stdint.h>
+>     #include <stdio.h>
+>     #include <sys/syscall.h>
+>     #include <unistd.h>
+>     #ifndef __NR_listns
+>     #define __NR_listns 470
+>     #endif
+>     #define CLONE_NEWUSER		0x10000000U
+>     #define LISTNS_CURRENT_USER	0xffffffffffffffffULL
+>     struct ns_id_req {
+>     	uint32_t size, spare;
+>     	uint64_t ns_id;
+>     	uint32_t ns_type, spare2;
+>     	uint64_t user_ns_id;
+>     };
+>     static void list(const char *tree, uint32_t type, uint64_t owner,
+>     		 uint64_t cursor)
+>     {
+>     	struct ns_id_req req = {
+>     		.size = sizeof(req), .ns_id = cursor, .ns_type = type,
+>     		.user_ns_id = owner,
+>     	};
+>     	uint64_t ids[8];
+>     	long ret;
+>     	errno = 0;
+>     	ret = syscall(__NR_listns, &req, ids, 8, 0);
+>     	printf("%s cursor %llu: ret %ld errno %d", tree,
+>     	       (unsigned long long)cursor, ret, errno);
+>     	for (long i = 0; i < ret && i < 3; i++)
+>     		printf("%s%llu", i ? "," : " ids ", (unsigned long long)ids[i]);
+>     	printf("%s\n", ret > 3 ? ",..." : "");
+>     }
+>     int main(void)
+>     {
+>     	static const uint64_t cursors[] = { 0, UINT64_MAX - 1, UINT64_MAX };
+>     	for (int i = 0; i < 3; i++)
+>     		list("unified", 0, 0, cursors[i]);
+>     	for (int i = 0; i < 3; i++)
+>     		list("userns", CLONE_NEWUSER, 0, cursors[i]);
+>     	for (int i = 0; i < 3; i++)
+>     		list("owner", 0, LISTNS_CURRENT_USER, cursors[i]);
+>     	return 0;
+>     }
+> 
+> Before, on 7.3.0-rc7-00252-g4e3259b08c54 (vfs.fixes) in a VM:
+> 
+>     unified cursor 0: ret 8 errno 0 ids 1,2,3,...
+>     unified cursor 18446744073709551614: ret -1 errno 2
+>     unified cursor 18446744073709551615: ret 8 errno 0 ids 1,2,3,...
+>     userns cursor 0: ret 1 errno 0 ids 3
+>     userns cursor 18446744073709551614: ret -1 errno 2
+>     userns cursor 18446744073709551615: ret 1 errno 0 ids 3
+>     owner cursor 0: ret 8 errno 0 ids 1,2,4,...
+>     owner cursor 18446744073709551614: ret -1 errno 2
+>     owner cursor 18446744073709551615: ret 8 errno 0 ids 1,2,4,...
+> 
+> After:
+> 
+>     unified cursor 0: ret 8 errno 0 ids 1,2,3,...
+>     unified cursor 18446744073709551614: ret -1 errno 2
+>     unified cursor 18446744073709551615: ret -1 errno 2
+>     userns cursor 0: ret 1 errno 0 ids 3
+>     userns cursor 18446744073709551614: ret -1 errno 2
+>     userns cursor 18446744073709551615: ret -1 errno 2
+>     owner cursor 0: ret 8 errno 0 ids 1,2,4,...
+>     owner cursor 18446744073709551614: ret -1 errno 2
+>     owner cursor 18446744073709551615: ret -1 errno 2
+> 
+> Reported-by: shaos <shawnq1@163.com>
+> Link: https://lore.kernel.org/r/20261020110732.959552-1-shawnq1@163.com
+> Fixes: 76b6f5dfb3fd ("nstree: add listns()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+Looks good! Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
-
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-
-> Changes V1 -> V2:
-> - Use RAS_DES_EVENT_COUNTER_CONTROL to match the preceding DWC register
->   renames. No functional changes.
->
->  drivers/pci/controller/dwc/pcie-tegra194.c | 72 ++++++++++++----------
->  1 file changed, 41 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-> index 14031cfaee8b..7c349478556d 100644
-> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
-> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-> @@ -673,37 +673,46 @@ static void init_host_aspm(struct tegra_pcie_dw *pcie)
->
->  	pcie->ras_des_cap = dw_pcie_find_ext_capability(&pcie->pci,
->  							PCI_EXT_CAP_ID_VNDR);
-> -
-> -	/* Enable ASPM counters */
-> -	val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK, EVENT_COUNTER_ENABLE_ALL);
-> -	val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK, EVENT_COUNTER_GROUP_5);
-> -	dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
-> -			   RAS_DES_EVENT_COUNTER_CONTROL, val);
-> -
-> -	/* Program T_cmrt and T_pwr_on values */
-> -	val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
-> -	FIELD_MODIFY(PCI_L1SS_CAP_CM_RESTORE_TIME, &val, pcie->aspm_cmrt);
-> -	FIELD_MODIFY(PCI_L1SS_CAP_P_PWR_ON_VALUE, &val, pcie->aspm_pwr_on_t);
-> -	dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
-> -
-> -	if (pcie->supports_clkreq)
-> -		pci->l1ss_support = true;
-> -
-> -	/*
-> -	 * Disable L1.2 capability advertisement for Tegra234 Endpoint mode.
-> -	 * Tegra234 has a hardware bug where during L1.2 exit, the UPHY PLL is
-> -	 * powered up immediately without waiting for REFCLK to stabilize. This
-> -	 * causes the PLL to fail to lock to the correct frequency, resulting in
-> -	 * PCIe link loss. Since there is no hardware fix available, we prevent
-> -	 * the Endpoint from advertising L1.2 support by clearing the L1.2 bits
-> -	 * in the L1 PM Substates Capabilities register. This ensures the host
-> -	 * will not attempt to enter L1.2 state with this Endpoint.
-> -	 */
-> -	if (pcie->of_data->disable_l1_2 &&
-> -	    pcie->of_data->mode == DW_PCIE_EP_TYPE) {
-> +	if (pcie->ras_des_cap) {
-> +		/* Enable ASPM counters */
-> +		val = FIELD_PREP(EVENT_COUNTER_ENABLE_MASK,
-> +				 EVENT_COUNTER_ENABLE_ALL);
-> +		val |= FIELD_PREP(EVENT_COUNTER_GROUP_SEL_MASK,
-> +				  EVENT_COUNTER_GROUP_5);
-> +		dw_pcie_writel_dbi(pci, pcie->ras_des_cap +
-> +				   RAS_DES_EVENT_COUNTER_CONTROL, val);
-> +	}
-> +
-> +	if (l1ss) {
-> +		/* Program T_cmrt and T_pwr_on values */
->  		val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
-> -		val &= ~(PCI_L1SS_CAP_PCIPM_L1_2 | PCI_L1SS_CAP_ASPM_L1_2);
-> +		FIELD_MODIFY(PCI_L1SS_CAP_CM_RESTORE_TIME, &val,
-> +			     pcie->aspm_cmrt);
-> +		FIELD_MODIFY(PCI_L1SS_CAP_P_PWR_ON_VALUE, &val,
-> +			     pcie->aspm_pwr_on_t);
->  		dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
-> +
-> +		if (pcie->supports_clkreq)
-> +			pci->l1ss_support = true;
-> +
-> +		/*
-> +		 * Disable L1.2 capability advertisement for Tegra234 Endpoint
-> +		 * mode. Tegra234 has a hardware bug where during L1.2 exit,
-> +		 * the UPHY PLL is powered up immediately without waiting for
-> +		 * REFCLK to stabilize. This causes the PLL to fail to lock to
-> +		 * the correct frequency, resulting in PCIe link loss. Since
-> +		 * there is no hardware fix available, prevent the Endpoint
-> +		 * from advertising L1.2 support by clearing the L1.2 bits in
-> +		 * the L1 PM Substates Capabilities register. This ensures the
-> +		 * host will not attempt to enter L1.2 with this Endpoint.
-> +		 */
-> +		if (pcie->of_data->disable_l1_2 &&
-> +		    pcie->of_data->mode == DW_PCIE_EP_TYPE) {
-> +			val = dw_pcie_readl_dbi(pci, l1ss + PCI_L1SS_CAP);
-> +			val &= ~(PCI_L1SS_CAP_PCIPM_L1_2 |
-> +				 PCI_L1SS_CAP_ASPM_L1_2);
-> +			dw_pcie_writel_dbi(pci, l1ss + PCI_L1SS_CAP, val);
-> +		}
->  	}
->
->  	/* Program L0s and L1 entrance latencies */
-> @@ -727,8 +736,9 @@ static void init_debugfs(struct tegra_pcie_dw *pcie)
->
->  	pcie->debugfs = debugfs_create_dir(name, NULL);
->
-> -	debugfs_create_devm_seqfile(dev, "aspm_state_cnt", pcie->debugfs,
-> -				    aspm_state_cnt);
-> +	if (pcie->ras_des_cap)
-> +		debugfs_create_devm_seqfile(dev, "aspm_state_cnt", pcie->debugfs,
-> +					    aspm_state_cnt);
+>  kernel/nstree.c | 29 +++++++++++------------------
+>  1 file changed, 11 insertions(+), 18 deletions(-)
+> 
+> diff --git a/kernel/nstree.c b/kernel/nstree.c
+> index 831f279d174a..58b2b55fa8d2 100644
+> --- a/kernel/nstree.c
+> +++ b/kernel/nstree.c
+> @@ -459,10 +459,10 @@ static inline int prepare_klistns(struct klistns *kls, struct ns_id_req *kreq,
 >  }
->  #else
->  static inline void init_host_aspm(struct tegra_pcie_dw *pcie) { return; }
-> --
-> 2.34.1
->
+>  
+>  /*
+> - * Lookup a namespace owned by owner with id >= ns_id.
+> - * Returns the namespace with the smallest id that is >= ns_id.
+> + * Lookup a namespace owned by owner with id > ns_id.
+> + * Returns the namespace with the smallest id that is > ns_id.
+>   */
+> -static struct ns_common *lookup_ns_owner_at(u64 ns_id, struct ns_common *owner)
+> +static struct ns_common *lookup_ns_owner_after(u64 ns_id, struct ns_common *owner)
+>  {
+>  	struct ns_common *ret = NULL;
+>  	struct rb_node *node;
+> @@ -476,10 +476,8 @@ static struct ns_common *lookup_ns_owner_at(u64 ns_id, struct ns_common *owner)
+>  		struct ns_common *ns;
+>  
+>  		ns = node_to_ns_owner(node);
+> -		if (ns_id <= ns->ns_id) {
+> +		if (ns_id < ns->ns_id) {
+>  			ret = ns;
+> -			if (ns_id == ns->ns_id)
+> -				break;
+>  			node = node->rb_left;
+>  		} else {
+>  			node = node->rb_right;
+> @@ -565,7 +563,7 @@ static ssize_t do_listns_userns(struct klistns *kls)
+>  	 * then use it's list entry to iterate from there.
+>  	 */
+>  	if (kls->last_ns_id) {
+> -		kls->first_ns = lookup_ns_owner_at(kls->last_ns_id + 1, ns);
+> +		kls->first_ns = lookup_ns_owner_after(kls->last_ns_id, ns);
+>  		if (!kls->first_ns)
+>  			return -ENOENT;
+>  		first_ns = kls->first_ns;
+> @@ -613,10 +611,10 @@ static ssize_t do_listns_userns(struct klistns *kls)
+>  }
+>  
+>  /*
+> - * Lookup a namespace with id >= ns_id in either the unified tree or a type-specific tree.
+> - * Returns the namespace with the smallest id that is >= ns_id.
+> + * Lookup a namespace with id > ns_id in either the unified tree or a type-specific tree.
+> + * Returns the namespace with the smallest id that is > ns_id.
+>   */
+> -static struct ns_common *lookup_ns_id_at(u64 ns_id, int ns_type)
+> +static struct ns_common *lookup_ns_id_after(u64 ns_id, int ns_type)
+>  {
+>  	struct ns_common *ret = NULL;
+>  	struct ns_tree_root *ns_tree = NULL;
+> @@ -643,13 +641,8 @@ static struct ns_common *lookup_ns_id_at(u64 ns_id, int ns_type)
+>  		else
+>  			ns = node_to_ns_unified(node);
+>  
+> -		if (ns_id <= ns->ns_id) {
+> -			if (ns_type)
+> -				ret = node_to_ns(node);
+> -			else
+> -				ret = node_to_ns_unified(node);
+> -			if (ns_id == ns->ns_id)
+> -				break;
+> +		if (ns_id < ns->ns_id) {
+> +			ret = ns;
+>  			node = node->rb_left;
+>  		} else {
+>  			node = node->rb_right;
+> @@ -708,7 +701,7 @@ static ssize_t do_listns(struct klistns *kls)
+>  	}
+>  
+>  	if (kls->last_ns_id) {
+> -		kls->first_ns = lookup_ns_id_at(kls->last_ns_id + 1, ns_type);
+> +		kls->first_ns = lookup_ns_id_after(kls->last_ns_id, ns_type);
+>  		if (!kls->first_ns)
+>  			return -ENOENT;
+>  		first_ns = kls->first_ns;
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
