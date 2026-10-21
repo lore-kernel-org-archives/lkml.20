@@ -1,85 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792575471;
-	b=aO7POjCnSc71RM/BLq2aTXHTj6t1ceapb+QtjfOUvg7XbHiqfgb5JMdWyX35C7CVjWvg
-	 ygYeA8vFN8uLZdL9RemyU7jrvl6Nq9D/NYznvP7C8wk9HXB+Ioth83CrYw565kXEdwyaf
-	 DL/HxUyl/YFQ2fhfJJW9eBy+sHrAkfZ1OUtv9/7lv5e3xKOyZnmtdSFqiT5V+oRN3JFvV
-	 73DLXdtOtpcBjvGXQI7OHw+iRgWN6aQozFbZFVDT+O4vfdop6F7uixjBmR5a052PJJi9P
-	 PV1lz7Qi6sXoibVNr951zTlvNNb6kwp6t2wt67s/UacPtvU1ZpT5x89FSqHLBnGnHeg==
+	t=1792575498;
+	b=bHPnWayEop4Yrh3p81zLDxUU9HK7vpvwCuuRjYmZcNegbhWT06pwMtEO6KXyKsETlGmy
+	 b4xSowBlmTguF3X3B/don2X2ryWbg+qSCbVtSwmKJIX40/2OELWB2f92Aaaqoq5jBj4AN
+	 SbFmzhxCRwTaS9lDP1EuqcMVmnDuIGnzSg+lqKEAfidHvBchy7XHlMS+89PSui9q9eKQG
+	 MAyD5Q4twK+KWjaSuxgQDcdqLPWP+jCUhuus3I/Tx9hAyw5HZxf28FnzF6Jqi9ChDDrWr
+	 Xo7k7kWYfmB8SKtunkD4fMj84CmnPkkt0fpkEef8XIGfHX2v8Nefo7jkBa0mLG+Tphw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792575471;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=zYYaJ3Cx83d1i6W0tWGXSMXeldqRUTYijFYdQSWTCqk=;
-	b=VWWARsxDFUIkJOv6UKzHuExURzP01C0/+CO7yRtXnhEDj03NBGYdLI/hWK1vrr2tvBJh
-	 Jxu//calZ/z8D5aCJivDTnI5VvCA8ki/3736yraH+Mj/zUe1QFurpFZnPTyt+ZL3Ap03u
-	 yVCRVRmFKxzSO78fbK4AG2cuzoBlqVwigqdpTBwnZq3NANzzWivABaEdgSQ1YeOkYWqcD
-	 7VtYUPu8fd3Ezux6g7zXFF6REeC/02Wo3nJg3dnpbRSwq7q4/8BG1xssrWpfudC73wwy7
-	 HQTP0OYJDbwwsb/mO7xeq59MVfWacXZZWr/hHXMWzC6WZKAff1oYL2utpT2sL/j9Tgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792575498;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=DMEarNjccdTmA6jkwGLogCoUkmgNrujCfqG0VHqUqZ0=;
+	b=PRjsTefZrkS1TWrI/VkU1igAOQOs2WppfYEpo35SuFLzxHGCb5unZzw7V3WIgC9b5Zqk
+	 I6XQVzYy8bVwdhH2F2UZpaO8pn1i+fRwkzXrxIqAH3XmydUFEchGSH/RRkhxIbfm9Yvnh
+	 ZSuwAK+9f2YAbvUNi3FOhzPecCZf6prCQ0rQY8XeTzaiON9LYRxw4/lXD+OQTnDpaIcUD
+	 k2gBXQL1YsW13du/QzLZtkuerO6QnUflH/tyqfvgaghjlxOSm5VsRhSbezdmijRisr4o/
+	 GX2skQcSLlMGUE3iRgkGH3c0/piIKyItEhSoDKq6tJkVRCeqbzfZs5yn2fIgbKCa9IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cgHOGJgN;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fsZgqehe;
+	arc=none smtp.remote-ip=209.85.128.71
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C07606A31D
-	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:37:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60C07606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7195D606A319
+	for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 09:38:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7195D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cgHOGJgN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792575465;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zYYaJ3Cx83d1i6W0tWGXSMXeldqRUTYijFYdQSWTCqk=;
-	b=cgHOGJgNDHQVftR29sZ0Y8W3uymfxOZ+PpcOBOJTkNNPmFV5j/ClsawhkJkyJi3YkR0sLZ
-	P9dKxHC+Ax7IMn0ckxA+pUEX+iIAPQuKXXjVjJEyrQzDAuWnsBsbTBZfGX7A7G1nigD6Rx
-	Xp3PEQNmZ+pv8WLEqclCCFdGIIS3MHc=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-613-_u7xX48KOf-yVVlOyNLt4A-1; Wed,
- 21 Oct 2026 09:37:41 +0000
-X-MC-Unique: _u7xX48KOf-yVVlOyNLt4A-1
-X-Mimecast-MFC-AGG-ID: _u7xX48KOf-yVVlOyNLt4A_1792575460
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 826651800847;
-	Wed, 21 Oct 2026 09:37:39 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D87471956087;
-	Wed, 21 Oct 2026 09:37:35 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Wed, 21 Oct 2026 11:37:39 +0200 (CEST)
-Date: Wed, 21 Oct 2026 11:37:34 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Allison Henderson <achender@kernel.org>
-Cc: Joel Granados <joel.granados@kernel.org>,
-	kernel test robot <yi1.lai@intel.com>, oe-lkp@lists.linux.dev,
-	lkp@intel.com, linux-kernel@vger.kernel.org,
-	linux-m68k@lists.linux-m68k.org, linux-s390@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, netdev@vger.kernel.org,
-	wireguard@lists.zx2c4.com, rds-devel@oss.oracle.com
-Subject: Re: rds_wq UAF
-Message-ID: <atiH3sYO8XvnP-Vn@redhat.com>
-References: <202610190310.9737b2e3-lkp@intel.com>
- <atYB0bm9eEXp8A2g@redhat.com>
- <atYW0K3t57puHeLW@hobbes>
- <atYuE1xnVYe0BDG4@redhat.com>
- <atY42k00k0Waj6o4@redhat.com>
- <42964fa071bd8dcafd418c89be6d66856def4dc5.camel@kernel.org>
- <atdoGiW_sHlWgOwt@redhat.com>
- <e7888169bdc76ea40fcfe782c2bc9b70e037dfc6.camel@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fsZgqehe
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49953abe51fso3971155e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 02:38:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792575496; x=1793180296; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DMEarNjccdTmA6jkwGLogCoUkmgNrujCfqG0VHqUqZ0=;
+        b=fsZgqeheiv0RIdAR84vZtdUXPTLyDINb3a1D8w141uuL0dqh8VGYlH0FqG2+lQ2fHL
+         t56sKssJcbTljcPyBpGjln760D1KYiq+ozTLJS3OZDSIxkvwsuLXyGmx/776ggtSa+r2
+         eE+1UX0B3sZLRMbELxavrXhs9QTKoclD5xgORykE1uNoqj4gCwHol5dJE2Bm14lfmOE6
+         442uChcvZY3RqdZ41GZcORbaliRWtnFDTXn6Pb0i1APjZkvAGpEJCp+f3P5Cr9dGEg1V
+         E8ruupPSbmJn9qYc5RyB5Wlk1vn1JN7LWUz0ZhapMFmpu77UhmGtK60axuJEOqqx17Ye
+         /oUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792575496; x=1793180296;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DMEarNjccdTmA6jkwGLogCoUkmgNrujCfqG0VHqUqZ0=;
+        b=hOGNwkQEgBerU6fT2gNo5G4QvJgmgrK0dafDwex3EK88EIQimISOVpa5DJkLRm3BJg
+         UlJSRAlm+bGIy7LybMxhb9p7nTAWkrv1+xVPhXkjUc4OgEuVsw5/KXbg9tV0KV2iX3ZO
+         PbjAJRMNssR5H3Op0Zneconua7QRF29XUEvmrbvdEgtW+hd7bbly/YOzvmbNCi3lrtKb
+         3VJppSSsF+mfgyQOwvEB5ZhbudKp7NuYdlXliz6AJ8mLwxPBcN4BMN3OWi4oIO/1NPoS
+         YUJDILOEi+kTWFEG4+hv9elaFUYRCQ550yFSdwAIP1zn0v3KS9OEiITO0QnGRW6EtGUw
+         /IXg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3HKuqUoBW6EXQ+Y0aQkQ+dsZuLhyl2iu5MEmp86OHMBOpH99wE9ElA+gsNNwzGGWWAJChVTd8jlM1IGk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIvF8l4KJ7D89y4xExk7VUIOF4/zTD7m/U2W3cSLJnhjXof9QrH
+	0AC91FgxhOSkP+bL0SpjOwmxmnNZrtR4A2FwKi29voEVc2DE6+CBDJJaR8rLv74jdeezw6ZlaH7
+	LjQdtv3kXqGEU7QFOUg==
+X-Received: from wmix23-n2.prod.google.com ([2002:a05:600c:e557:20b0:4a1:f553:f96b])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:5391:b0:4a1:d537:1c8d with SMTP id 5b1f17b1804b1-4a1fdd23e21mr30007175e9.19.1792575495499;
+ Wed, 21 Oct 2026 02:38:15 -0700 (PDT)
+Date: Wed, 21 Oct 2026 09:38:07 +0000
+In-Reply-To: <20260823-tyr-gpu-unplug-b4-v1-2-e99c07d4c785@onurozkan.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,52 +79,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e7888169bdc76ea40fcfe782c2bc9b70e037dfc6.camel@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+Mime-Version: 1.0
+References: <20260823-tyr-gpu-unplug-b4-v1-0-e99c07d4c785@onurozkan.dev> <20260823-tyr-gpu-unplug-b4-v1-2-e99c07d4c785@onurozkan.dev>
+X-Mailer: git-send-email 2.56.0.212.g129ede20d9-goog
+Message-ID: <20261021093808.1128449-1-aliceryhl@google.com>
+Subject: Re: [PATCH 2/2] drm/tyr: unplug the GPU when reset fails
+From: Alice Ryhl <aliceryhl@google.com>
+To: "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>
+Cc: Alice Ryhl <aliceryhl@google.com>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	dakr@kernel.org, daniel.almeida@collabora.com, airlied@gmail.com, 
+	simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org, gary@garyguo.net, 
+	bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org, 
+	tmgross@umich.edu
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/21, Allison Henderson wrote:
->
-> On Tue, 2026-10-20 at 15:09 +0200, Oleg Nesterov wrote:
-> >
-> > Let me try to summarize.
-> >
-> > If rds_init() fails after rds_threads_init() for any reason,
-> > rds_threads_exit() will destroy/free rds_wq.
-> >
-> > If rds_rdma_init() is called after that, and rds_ib_init() fails
-> > after rds_ib_mr_init(), rds_ib_unregister_client() will try to
-> > flush the already freed rds_wq.
-> >
-> > But we have
-> >
-> > 	module_init(rds_init);		// net/rds/af_rds.c
-> > 	module_init(rds_rdma_init);	// net/rds/rdma_transport.c
-> >
-> > and IIUC the order of these initcalls is not defined. So if
-> > rds_rdma_init() -> rds_ib_init() is called before rds_init(), it
-> > can do flush_workqueue(rds_wq) when rds_wq == NULL on failure.
->
-> It is sort of defined.  When built as modules the order is enforced by
-> symbol dependencies. rds_rdma and rds_tcp need symbols exported by rds
-> (rds_wq itself is one of them), so they can't be loaded unless rds_init()
-> succeeded.
+On Sun, Aug 23, 2026 at 01:50:08PM +0300, Onur =C3=96zkan wrote:
+> @@ -56,7 +57,7 @@ pub(crate) struct TyrPlatformDriverData<'bound> {
+>      // ensure the correct drop order.
+>      #[pin]
+>      _reset: reset::ResetHandle<'bound>,
+> -    _reg: drm::Registration<'bound, TyrDrmDriver>,
+> +    _reg: Arc<Revocable<drm::Registration<'bound, TyrDrmDriver>>>,
+>      _device: ARef<TyrDrmDevice>,
+>  }
+> =20
+> @@ -161,17 +162,18 @@ fn probe<'bound>(
+>                      gpu_info,
+>              });
+> =20
+> -            // SAFETY: `reg` is stored in the platform driver data and i=
+s not leaked or
+> -            // forgotten, so it is dropped before the `'bound` registrat=
+ion data can become
+> -            // invalid.
+> +            // SAFETY: `reg` is wrapped in a `Revocable` owned by the pl=
+atform driver
+> +            // data and its reset handle. Neither is leaked or forgotten=
+, so `reg` is
+> +            // dropped before the `'bound` registration data can become =
+invalid.
+>              let reg =3D
+>                  unsafe { drm::Registration::new_with_lt(pdev.as_ref(), u=
+nreg_dev, reg_data, 0)? };
+>              let device =3D reg.device().into();
+> +            let reg =3D Arc::pin_init(Revocable::new(reg), GFP_KERNEL)?;
 
-Yes, somehow I forgot that rds_rdma depends on rds ...
+`drm::Registration::new` requires that the `Registration` is dropped
+before `'bound` expires so that `drm_dev_unplug()` runs and
+`TyrDrmRegistrationData<'bound>` is dropped while `'bound` is still
+valid. Wrapping it in an `Arc` makes this invariant fragile: if any
+`Arc` clone outlives `TyrPlatformDriverData` or is leaked,
+`drm::Registration` will not be dropped on platform unbind and
+`TyrDrmRegistrationData<'bound>` will outlive `'bound`.
 
-> So the rds_wq == NULL case can't happen.
+With `pin-init`'s new safe self-referential struct support in `rust-next`
+(see e.g. [1]), you can avoid both `Arc` and raw pointers altogether by
+storing `_reg: Revocable<drm::Registration<'bound, TyrDrmDriver>>`
+directly as a `#[pin]` field of `TyrPlatformDriverData<'bound>` and
+having `_reset` borrow it via field + existential lifetimes:
 
-Well, in theory rds_threads_init() -> create_singlethread_workqueue() can
-fail too and leave rds_wq = NULL. Nevermind.
+    #[pin_data]
+    pub(crate) struct TyrPlatformDriverData<'bound> {
+        #[pin]
+        #[uses('_reg: invariant)]
+        _reset: reset::ResetHandle<'_reg>,
+        #[pin]
+        _reg: Revocable<drm::Registration<'bound, TyrDrmDriver>>,
+    }
 
-> So I think the fix belongs at the transport init: if the core didn't
-> come up, rds_rdma_init() and rds_tcp_init() should return early,
-> before they register anything.  I can send that along with the
-> sysctl change tomorrow.
+and in `reset.rs`:
 
-OK, thanks.
+    #[pin_data]
+    struct Controller<'ctrl>
+    where
+        exists<'bound>: 'ctrl,
+    {
+        pdev: &'ctrl platform::Device<Bound>,
+        state: Atomic<ResetState>,
+        hw: Arc<HwGate<'ctrl>>,
+        #[uses('bound: invariant)]
+        registration:
+            Pin<&'ctrl Revocable<drm::Registration<'bound, TyrDrmDriver>>>,
+    }
 
-Oleg.
+Then `probe()` simply initializes `_reg` first and passes `_reg` to
+`ResetHandle::new(pdev, hw, _reg)?`, `reset_work()` calls
+`self.with_registration(|reg| reg.revoke())`, and `#[pin_data]`
+statically checks that `_reset` drops before `_reg`.
 
+Also, as a heads-up for rebasing onto `drm-rust-next`:
+`_device: ARef<TyrDrmDevice>` has been removed from
+`TyrPlatformDriverData` (along with the empty `PinnedDrop` impl), and
+`drm::Registration::new()` now returns `impl PinInit<Self, Error>`
+directly without the `flags` argument, so `_reg` can be initialized in
+place via `Revocable::new(unsafe { drm::Registration::new(...) })`.
+
+[1] https://lore.kernel.org/r/20261019133647.1279779-1-gary@kernel.org
+
+Alice
