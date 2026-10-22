@@ -1,111 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.80
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792687807;
-	b=uiXo0sVm1S57+mfhzC0Sq4i1AhjjJ4SK0SjnFPv1uYoaP7uh9msWPFouuCvH0q3ZFu5u
-	 3UBV5T3bdKJIwdjCFpyKkoMd9WLdQMxc+Mqwh5aipvAqSDDi6J2TIrVKdNm0Ap6S1q6O9
-	 xdznZc6axclSVgJdZYuxGbBjWXD3aBxSbU+lSsc6h+ZWpVmZBbZqbRXcFUgDmPgfCCkg2
-	 vXGbDriTXbXVGkyEIq7VD8iNnhiEycIIBemikID30ds8Oi/jwGKYNDHK0DXu7/MlDW39p
-	 U8RAtl3z0WAHqmShTX9mm2jH+dGkKgQf6FogJ6NC3DAFbqAGpsmYECPHtG+eH/TjOVw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687807;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Subject:To:Cc:References:From:Organization:Message-ID:Date:
-	 X-Mailer:MIME-Version:In-Reply-To:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792687907;
+	b=TKaOT9dYDqCpTzyhE1CZ2AXSj91qkEN5Hkl9HdlxQJjhJYGfxLTQl1MaF3kXQS+lBUPt
+	 bqTJVCeYASVvkMbb4Bh3y7XfznvQySOI/vMgYIrrNhnJuZvs9l0x/KhAMqbs4GlqE2gJP
+	 RoZpAdSDHRZMpUF7iDgwKZdMFR1bbjEeX3aSgon3i5VrceEFaI0Rrwf5h5+LsKBlDQ6zV
+	 0lKzfn1/ApQ/8/U6iqmz/jT3i26kqLJOpidGxYs+lg0wVlUDSarLCQfJSjsmUKxdOW8Si
+	 zBZuY/R9gqjffFM+m9QWs0M2yuuc8cuiNYdMVh5bPS1x8i/gFjsDhRjHqxV0HrOrquQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687907;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=c9UuZNrtT9j3BmRS2G0fSk+x18niOMWM7XsMCgG28vk=;
-	b=toM+96kEK9QBDdFTA3q0RDV27o0D+vjYkGugszZ7SaS/uprIjcRZbbi3hjb8Fp/Tc4HI
-	 CgMY+K90Q7AkfmkcjQM9ZHHCJ+E3yZQYbak7iSNAoxUgczVZRbLt54JyLg9919BNG3PSU
-	 rGWq11lYUJKGRcIcIRUPq/k9o9ts5Ty59rSgOTF/vX2gXgkD18qx5nUUuyjYLTR3I63zs
-	 M2HtO5Qm08RLWkOC3vVI7TV1Ri5Q+0k3I3V5JuqL9U2bATYnIKug1Y+VlWzPhaYXYDm9t
-	 yAa0Nxq3lqJU0l/lXLgdGWVY/UJFr1PFIhWo2RQwoyw8ujAEl50LbCSyyS/iOHVcucA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xenosoft.de;
-	spf=none smtp.mailfrom=xenosoft.de;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=igDPq65G;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=z52wK+qT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.80
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.80])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=MDRQGAeJLdbef9dVZwQAv7nGIbRRq1DpVqeg51obZuA=;
+	b=T+6ScnDsZQypBKA25qhN1tZycIgJMNqLOohEti/Eh7/03y9Mk2JkZ5vgMgTvApP0mRKG
+	 I6Eozt8ZAuj04YIMZz0SwA+MR8Ib3Q1Qdeu4sp35Fywp7YAcfs5qfWwFiSH1gr2k1YCvK
+	 zhnh/urOfv9bxLcuDtID3dTXQPRXQSmtfKBg12jxdGH1QdqLb/zpos1qxSEvWrMWwPBNL
+	 0WTMy8rfdLDe4xM4GKjD9g49kvQrWi7ny9zW4D7OCWejE6Ljn4UI8EvhjpQx27M/IfrDl
+	 MI2v1I66suo3kRwaazZEp3IdWhBMAa8R41k9+7Noz24Bc+NriFHXvMf1YcVr9j/pn5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KBp3mBBV;
+	arc=none smtp.remote-ip=74.125.82.52
+Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C5A606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:50:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10C5A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9663606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:51:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9663606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=igDPq65G;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=z52wK+qT
-ARC-Seal: i=1; a=rsa-sha256; t=1792687766; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=bgvjnoE5/u/B6zWjKIKwHSbWLwFKSHpsIjgnRILwqNAOEjtT7VJxIYjlQ2iH+Drzdw
-    UgwwyCSNqS23El37iJjfCOGGxob53z5i4JagxCo25i3M2ZI6nCcBcTqQH6fPZWSon+kr
-    2uKIImRfutLMoMCKGWYAeDlxgG2IhE8YX7cJGqjZR3CKJ8MMFgS+U6EWiyXW/a/s1xm6
-    HPcATaVE1E57O/6OkDxwzSxFkHy93koAI4GtKtmd9ONdPvQh+XP/ii67TIP1YGvY+wkQ
-    3JIPRCHcZErS04hzaLLqh2GEVNKSGnDmGmri94WV0DvTrbdAOgObQNUHHo75ExD+oBv3
-    i9uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1792687766;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=c9UuZNrtT9j3BmRS2G0fSk+x18niOMWM7XsMCgG28vk=;
-    b=KCdlwYjvNnegP8f5gWcbjh0z/HtNdHy0kXTm+vWysn0rqV9j1FM1rWGfKQBo31PqQ9
-    UAPs7dVPgvD63UUpgr4YSB5McYD+oRnRmBGm9RRhPbJSMzkhpCyaaELliYXJC7ZgCS2b
-    I/NXrUogYeLOCw43xhtQY3reoq68UxROv34+oLljIok4dFwgPDoCpniJelupIdwUY8R9
-    Q3/BDwVt8q6VLscY0DNYJ0uAiNYM19+AiiTbMuH/s7d5MW/qNqpQe7+GxM/No9xfvlZI
-    HRlucOZ7JKReqD53eQiaz2YaoP547OiwFXhOE5yUNvrpDBtBsfNlLTd+uUNJ+piuwumh
-    b6Bw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1792687766;
-    s=strato-dkim-0002; d=xenosoft.de;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=c9UuZNrtT9j3BmRS2G0fSk+x18niOMWM7XsMCgG28vk=;
-    b=igDPq65GiY2KB7hMRFvtg+dkeM+CXZwlVuohKOLeR00oh6yOpE/EcXOhp2lmAjE0pV
-    ooJIEdWRfWWr7AveyNQlyUf5nKumoOlgW4Q+yhFp0TtlPQG5PVADYYp6whJkCpbT0vfX
-    FNrMIYIQdSrsxmYcVPiopNuk3koUT6mxzRq+5d0rowYNXoUltpQqAdYK93OqN0m1qdfU
-    kDmRjAR5lvO5w9j+jMtdeDlsXTLFMfhOUZrxkxjgraUMNrg3Mxrhfv0WWlqjeeDIivda
-    B4LjIcRR9ZcX/I4eLZQxsoWgh4035Ot/F8ru1J3IraNFmaNTcoqHIa7FyXtEQnhaMPnv
-    hk2w==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1792687766;
-    s=strato-dkim-0003; d=xenosoft.de;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=c9UuZNrtT9j3BmRS2G0fSk+x18niOMWM7XsMCgG28vk=;
-    b=z52wK+qT5NOnKK45L+07BrB3LBDIX4ykBvT/OQNFcRnayROqiKoeC9uvmJIp9oXufA
-    xgCjBUBBpscFHHPDrtBw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIS+l7Bng"
-Received: from void-ppc.a-eon.tld
-    by smtp.strato.de (RZmta 55.6.3 DYNA|AUTH)
-    with ESMTPSA id e825d929MGnQXf5
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Thu, 22 Oct 2026 18:49:26 +0200 (CEST)
-Subject: Re: [PATCH] Connecting the SB600's i8259 controller rather in
- pasemi's pci.c than in pasemi's setup.c.
-To: Philip Li <philip.li@intel.com>
-Cc: kernel test robot <lkp@intel.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- "(open list:LINUX FOR POWERPC \\(32-BIT AND 64-BIT\\))"
- <linuxppc-dev@lists.ozlabs.org>, linux-kernel@vger.kernel.org,
- oe-kbuild-all@lists.linux.dev, "R.T.Dickinson" <rtd2@xtra.co.nz>,
- Darren Stevens <darren@stevens-zone.net>,
- Damien Stewart <hypexed@yahoo.com.au>, Christian Zigotzky <info@xenosoft.de>
-References: <20260701125941.906-2-chzigotzky@xenosoft.de>
- <202608142355.4AeDorvg-lkp@intel.com>
- <5ad17e60-7c02-2cd9-7cad-0c14896b8f3d@xenosoft.de>
- <aoFPwEi0iQRSmmSu@rli9-mobl>
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Organization: A-EON Open Source
-Message-ID: <9baed4e5-2bc2-c3f9-9a27-24f7ec8dcbd9@xenosoft.de>
-Date: Thu, 22 Oct 2026 18:49:25 +0200
-X-Mailer: BrassMonkey/35.0.2
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=KBp3mBBV
+Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-185fd3a4ca3so1330245c88.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:51:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792687906; x=1793292706; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MDRQGAeJLdbef9dVZwQAv7nGIbRRq1DpVqeg51obZuA=;
+        b=KBp3mBBVD8mfQPf1xPzMq78aeOa7OjwZrfrkFTLv2MOomwMfKo99PpbcsyR98PDW6g
+         tlLlCzCxgP+Il1BNJNs21b8d88NZyIipvWgy701LcDZjekp2TPyi5kfoqZfNifcoLnQv
+         pCVLLkfC4iJTo11uUocrgB6P+bNIQhMrcr3Cv9WAYYPQZkoL0MmkkQ7cBgqIb1s5+SD/
+         LdLxXBZC6br+p7I05cm4zZ1V/+dSp/OcLLSiBU5OkH5QNaEfFB4qR6ZPQX1+MzBum8nj
+         vJ8XEp1KCdtY9mQCDytv2jub6UXE3/+3BsU17StIu8Qf4QJpxIAuxzHzaPZxmwuEzTC1
+         UUzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792687906; x=1793292706;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MDRQGAeJLdbef9dVZwQAv7nGIbRRq1DpVqeg51obZuA=;
+        b=gtZG21tzjJ+N2cV55kmnrmdYslSTNeeQs0GGDd9DBKbSFr1pmfQI7III0eefc6Xyvq
+         Tz/Y9/f0J6Qlv51d1rmTGzkPuoyViVIBsAok7jDjL6achyKQCZ22OoJXFIXNzJxaMRYU
+         gVNcQP8lx5FYQsrr3/co866xj4wNNtV3+/EhTcW74gUkAcj21yhEPgjljrORG2kGQCUd
+         W/U+b0sIVbrS9o82pryoB5yG4D0e1rxMybbBWt4SieIkvAklv1POe9Ntw68t9wWPqj0y
+         OftnotRUwunzijduWpetNdMB04XlukyJ9vOscG8XnTNAI3lBTBqdXyllyRq1sZ4Fioyf
+         npLw==
+X-Forwarded-Encrypted: i=1; AKwUvByY/uiEL6VrFRgi1fHjA+GbhFIIiJ/l5C4boGo7xqfPXg+p06SzjpTX3Ed4Xs44TruJ9n2VlaxpAwA06Co=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI3iRfR5HLocBVJTSvf9DNgXVL99CXo29UMXnAxLNEIxVugIS5i
+	7QTvalh9+aaeIam3Crx/WJkha/ovvY+u9h0U2eZ42vKb9K347hRcO0U1
+X-Gm-Gg: AYBFou3ETTx9RN525mRKTxzVLmD70F8OJFN5i6s/o792UdtSMA3/475Sl+akbYcTAui
+	E5XinH8qZcUjz4rUPplBaOgGMegSUyRv8g8VSe0Na1fUSLyFAVZy7hnTuGO/esd3GJn1J5vEmgX
+	JLhweDb0NrUKFyvwtgNbMFrvOK6ijxgpAaxfCvQk/stT5q5+gtoRZVCwfkj2rc8WZ3Azmih1vBl
+	jP3IeecqTdVem6jHluzkZRSSYUNo3P5wklb6a3m/bH6Bm6sY9kUZENlt3XHiBnL/F681Ao5O/Yf
+	ayG2qRmTo4Mf/wkkNpaGEZUF3a1SOQf6UcSzNA6n2Yml/8OtG5M10Ozz9a0cnOFs3ZQylaf6uYf
+	FWhc8t9J8wciUbLwykVjjLNuXyRGfoGlZvZiBa1/oFd27/jZHCajCVBaIlfxjPIN/UVpc6nVe7u
+	JpIJpYCZqDqMBmSNqSJQ236QXTdD0lJejSeIQsRZcqamsobqLWrdFhOkco8DfuI85Ho5TobH90G
+	c7N+lANSX7CRwiGX1PASA68zvwKaDBteHvVVUrXFJIw0Jk0MxUMxGN+jmNlExCx30N84w0=
+X-Received: by 2002:a05:701b:42d4:20b0:191:444:425 with SMTP id a92af1059eb24-19104440440mr6489634c88.2.1792687905761;
+        Thu, 22 Oct 2026 09:51:45 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1959dd144aasm46566c88.0.2026.10.22.09.51.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:51:44 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: heikki.krogerus@linux.intel.com,
+	gregkh@linuxfoundation.org
+Cc: neil.armstrong@linaro.org,
+	linux-usb@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: typec: mux: fsa4480: Keep the USB 2.0 switch on in DP-only modes
+Date: Fri, 23 Oct 2026 01:51:43 +0900
+Message-ID: <20261022165143.1327-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,49 +96,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <aoFPwEi0iQRSmmSu@rli9-mobl>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 16/08/26 07:50, Philip Li wrote:
-> On Sat, Aug 15, 2026 at 11:56:56AM +0200, Christian Zigotzky wrote:
->> On 14/08/26 17:42, kernel test robot wrote:
->>> Hi Christian,
->>>
->>> kernel test robot noticed the following build warnings:
->>>
->>> [auto build test WARNING on powerpc/next]
->>> [also build test WARNING on powerpc/fixes linus/master v7.2-rc7
->> next-20260813]
->>> [If your patch is applied to the wrong git tree, kindly drop us a note.
->>> And when submitting patch, we suggest to use '--base' as documented in
->>> https://git-scm.com/docs/git-format-patch#_base_tree_information]
->>>
->>> url: https://github.com/intel-lab-lkp/linux/commits/Christian-Zigotzky/Connecting-the-SB600-s-i8259-controller-rather-in-pasemi-s-pci-c-than-in-pasemi-s-setup-c/20260813-054214
->>>
->>> All warnings (new ones prefixed by >>):
->>>
->>>>> arch/powerpc/platforms/pasemi/setup.c:217:6: warning: no previous
->> prototype for function 'nemo_init_IRQ' [-Wmissing-prototypes]
->>
->> This is the old patch.
-> Sorry about this meaningless report, we will improve the bot to check
-> new patches to avoid such report.
->
->> Here is the new patch with pasemi.h: https://patchwork.ozlabs.org/project/linuxppc-dev/patch/20260801043458.12500-1-chzigotzky@xenosoft.de/
->>
->> Thanks
->>
->>
->>
->>
-Hi All,
+DisplayPort pin assignments C and E give all four SuperSpeed lanes to
+DisplayPort, but the USB 2.0 D+/D- pair is not part of the pin
+assignment and stays available. The FSA4480 sits on that pair, and in
+these modes the driver turns its USB switch off, so a USB 2.0 hub or
+device behind a DisplayPort sink is disconnected as soon as the
+DisplayPort mode is set.
 
-is it possible to add this patch to the kernel 7.4 too?
+Configure the USB switch the same way in all DisplayPort modes.
 
-Thanks,
-Christian
+Fixes: c7054c31c1c9 ("usb: typec: fsa4480: rework mux & switch setup to handle more states")
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
+---
+Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali; out-of-tree board
+support) with a USB-C monitor in pin assignment C: its USB 2.0 hub was
+disconnected when the mux was set; with this change the hub and the
+keyboard behind it stay connected.
 
+ drivers/usb/typec/mux/fsa4480.c | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/drivers/usb/typec/mux/fsa4480.c b/drivers/usb/typec/mux/fsa4480.c
+index bea0c1deec94..e05ab3c10c81 100644
+--- a/drivers/usb/typec/mux/fsa4480.c
++++ b/drivers/usb/typec/mux/fsa4480.c
+@@ -93,16 +93,9 @@ static int fsa4480_set(struct fsa4480 *fsa)
+ 		sel = FSA4480_SEL_USB;
+ 	} else if (fsa->svid) {
+ 		switch (fsa->mode) {
+-		/* DP Only */
+ 		case TYPEC_DP_STATE_C:
+-		case TYPEC_DP_STATE_E:
+-			enable |= FSA4480_ENABLE_SBU;
+-			if (reverse)
+-				sel = FSA4480_SEL_SBU_REVERSE;
+-			break;
+-
+-		/* DP + USB */
+ 		case TYPEC_DP_STATE_D:
++		case TYPEC_DP_STATE_E:
+ 		case TYPEC_DP_STATE_F:
+ 			enable |= FSA4480_ENABLE_USB | FSA4480_ENABLE_SBU;
+ 			sel = FSA4480_SEL_USB;
+
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
 -- 
-Sent with BrassMonkey 35.0.2 (https://github.com/chzigotzky/Web-Browsers-and-Suites-for-Linux-PPC/releases/tag/BrassMonkey_35.0.2)
+2.43.0
 
