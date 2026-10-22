@@ -1,95 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.236.72.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689777;
-	b=mJie1gO+u67zTxHSJ1UhjtcbjNtj6e4qVZenmSLiim1tp0xcNzVciJAIbRhS2FzZ1tO1
-	 zGPjARqzgAUCfTfMJnOwQojmunQGTXxFcy3O+ZmhkTDCrHG2SMAGyqfX8bG6B+dsjsI9i
-	 yicfqILmXZL9oHDPGYDSTSSgrjZhSAn+wMjkqJE50787GGbBXKo/5Dz221ZtvBY2GwLfz
-	 9VRbxK8rs3DTrnd/MRvGsr1aXcHhcuESDiRVXs9JvDrzDMBDzo01wQa2SbswCtdaeZUDX
-	 +3LkoDr/lpGffhV2wOj4zXhMg9m4onuDAzZPVhCxJuzGKahGw480iawj39vaoK1BQnA==
+	t=1792689804;
+	b=S1/OS+LKXw0SQ+aI5CgSYNLMHTxxfpDBoqWcWdqXeWgcJBAZRCPdC+KXBCX0ZmCTkz8H
+	 tp/fzDjFlGWVQv+XxBtG1hADi0eJGUZEV89uItzVDXSJ7vV7Gw46/Yb6+p8DAxqMDef69
+	 lCQe+hdedHx2Tar5XzwnPNZYHBiOI/F2+rgoOxV8/ZfnXcQALjhjE09ux2pDjV/yW5UgX
+	 VQXxN5YuyhuMYLC5554f3qX+FTqGXXfbv51hp4rvpE61A6DgeuOwVJyVoYmev9ggXq0wF
+	 Pz9GLAcXQZQvcIsWd1z/bnpEn6ozKHjsbtfLeUk36EuyDqkepUw66tdebOJ7y3HGdyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689777;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3Fxnb+tmDz8vD/RCSb1yDfS8uHLVRtbiJwimxAWXwl8=;
-	b=s2llSi9IT3BIk1Kq5ZrexDWOicDlza87CB0E3g8H4Qr4BjAkPVLJxrytgujAGFIMEbd/
-	 Qb7qXNCgQompYVydEVHQN9W7Z6SpM9MC35Nd8/GYcEx+Qlmrcq12S7YoaROlsYlsTRMgH
-	 oePG1T7zQjpezFn2aqAGlEBM0jrU94o1Kl5+Qpx9vxArBHwHoSw8dDX2vXtgt8zDEFueF
-	 0CPdJklD4544nsv1XJSvcQetsDZ0Oof926Nm1y9XlPtlIWXwFwGH6j4/qn4pODFAlKMVN
-	 IQ7u1jC6KAYCBw/JaFfyM5l9TYB6KbOnod/xkgKl1bTmUEKUAPzT63ter4xgi0KX3Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689804;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=thSJ3bCn/tf8G8rEiYpl8FC1iITEPQN8q2L25+07Du4=;
+	b=f5rZRDhUSH/f1p73E4wKzxbO6k9E4s4RgY2WH6CXfeuW6Vndqe1p8hKvRKED280+IRhe
+	 42hW/NCJUYdVgHxr4OHkcH4bnEtQM40FKuMngKsM9gCkRoyCU2HlY1VSTbiqpp9k6mABa
+	 Vg9qGRzK9T5cP+Q0w3hvCwQMV4CMrOSmIGItj0vnH7xgNzFGY8fHEQeOSaMkv6jD73bzD
+	 0kj57J5YJ3t8XdcG/TMBD2a0mr7BW8g5SpxDIDmQcamy3IOxzd5uDyEZlPN6Q+Mf9Ho2r
+	 ILeaKMCW+BarPuIcdco/LBtME6+xZHGtxuj2csw/MAT+XvJZnwiMBJlzlkOjCfRlmOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D7y+e548;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=tpz.ru;
+	spf=pass smtp.mailfrom=tpz.ru;
+	arc=none smtp.remote-ip=109.236.72.118
+Received: from mx1.tpz.ru (mx1.tpz.ru [109.236.72.118])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1986606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1986606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=D7y+e548
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e9e53d011eso13170205ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:22:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792689776; x=1793294576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3Fxnb+tmDz8vD/RCSb1yDfS8uHLVRtbiJwimxAWXwl8=;
-        b=D7y+e548RrVflPxq20p6GTx6fhtREdk3YQuLBVSgVzBv+bTswPoGTzj3iua7j9o1dk
-         6YR/zzZ5fm9OmD91z2AUk2nEWIDH5+2Hv5gClEbE+knloO7Y4EiOheYnaoQc81H9Zp4B
-         XWFsHK0v+nRiIcSyej8SvGnzPruFGf0D/+D6vPIJU+ZOQ32+dHKDgWBYjAnfpK4HXygv
-         RzeRMc5jur2GRVX5+GDojE4Dcyy0ZLU5AHJxovZSFddDPdli05xu93cgEXlL/d0ZXMVw
-         2TxF61j6SxekpAzrwUvE9mm3i8GCMX17RUE/tqzyT2Hc4OjX32M0fY2ovHrIRIHpizwn
-         4S1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689776; x=1793294576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3Fxnb+tmDz8vD/RCSb1yDfS8uHLVRtbiJwimxAWXwl8=;
-        b=asrjDsDWQwUPiejkciNZF66uqw64EphY6lUJciMeTon55gIPLFJxPY69y4KBKP1xV0
-         n4IfJ5UBoTGGPqBfyCFVUu+OJvjIkETXjs2lpSltoZQ5WdAvSxfn79C9GaO6HPDVHe/r
-         ldMj3PIZZgzMZSmznajJgK6GKA01OI1EBCnnB4W9TUdFXFeXdE48k1oh3IkjsbwphMRZ
-         ghIGwLaZKzrr0n+xdqJzzBEWN0wpn0weydoM9T+bVNGuqMPNRo4t8dYGog2HTXSeSMSh
-         usqroeXeS47flWoO8RkQ45cRiUxjyvBAkT0sOcXPh8XCAyFRmHW2qbc0wvPBMD6+K+Px
-         XdVA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrEb1wa6KjkRljPNZoO195/Cj4/BmrRWkUdI93ELedE6OXX9IO/rku0Zfsh4D6sZixcmUG2vJl4hpool8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKIO8VZ0zsaVMxKroYbBDnCmiZd+wDqfsvV37ZRrNXHFY1yAkot
-	pzdwGXxPrDhqyWZa6H6NansbT2uzLzJegzue/trS1v0kUCT1SEzru4+g
-X-Gm-Gg: AYBFou1YeB8S814Bq1dUTOClIfRQ3dUpZ9cToXTIxONrZEEpvTwsTqbad8K5VduVgha
-	ylOkqCPh+66ACMJRGskrcFnmMVtfVtidQZER/SXGrNuaPfSaEp6Fa10ts4HqwzrnCIsXSo87ho8
-	pK29aV9slm+uU+yJqOFuYynXCMOISYIGtjVX5unX9K+SjiUluMu/gRxU1qvqtD/hxG9/ETRzPAW
-	NdfVkmDFjySrCInnMrd937RLUXnN6Lf+t/X0TudKrYznQVB3eovSeuOqyqWkt6DLCUbfHHalK4e
-	Ctmh21SmE5RLEwaai8F/mN4Lh9quNiDZmBy2Freah5VJ070lfL/JVXn7BbzfNcVZjg0ZIsZ0AaZ
-	G/09WJ5XFfzdV2XE6ifDC7wNLS6DcdPOC7HM79rIqm01afLrD3c9VMKY03jK/wSv2TUoqKVikbi
-	aJoTluImDdfxggPEDoTgShXCpZb9W6S8z9ASRV5acvnWrfXwJjBw1SU4gq1VM6XlPbaN/QWbHS6
-	tr3JNO6GvcqhizcFCh+fo/FOGjX6WnWUZhiR6ouqRjJXHogR82SEUKk/YcZXRNbgd1gqUFSRlT3
-	bWTq94LLMGx9wY4PXYHliitehhbyPtQRxXMSYDSyqlSDy8CrUZAz8SXI9sNlovFjhisq9sDm8rT
-	/qXkx6ncEYLI=
-X-Received: by 2002:a17:903:1acc:b0:2e5:cb1f:898c with SMTP id d9443c01a7336-2ea43fb8270mr49485025ad.46.1792689775940;
-        Thu, 22 Oct 2026 10:22:55 -0700 (PDT)
-Received: from test.. ([118.68.116.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3bc816sm1217915ad.51.2026.10.22.10.22.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:22:55 -0700 (PDT)
-From: Duc Anh Luu <luuducanh05051995@gmail.com>
-To: pablo@netfilter.org,
-	fw@strlen.de
-Cc: netfilter-devel@vger.kernel.org,
-	phil@nwl.cc,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1288606A31A;
+	Thu, 22 Oct 2026 17:23:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1288606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tpz.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tpz.ru
+Received: from lvc.d-systems.local (unknown [109.236.68.122])
+	by mx1.tpz.ru (Postfix) with ESMTPSA id 4j9Xzf4l6Xz10QYQ;
+	Thu, 22 Oct 2026 20:23:10 +0300 (MSK)
+From: Ilya Krutskih <devsec@tpz.ru>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Ilya Krutskih <devsec@tpz.ru>,
+	lvc-project@linuxtesting.org,
+	Sergey Shtylyov <s.shtylyov@auroraos.dev>,
+	Kees Cook <kees@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrick Boettcher <pboettcher@dibcom.fr>,
+	Olivier Grenie <Olivier.Grenie@dibcom.fr>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Duc Anh Luu <luuducanh05051995@gmail.com>
-Subject: [PATCH] netfilter: nf_conntrack_sip: fix out-of-bounds read in ct_sip_parse_transport()
-Date: Fri, 23 Oct 2026 00:22:48 +0700
-Message-ID: <20261022172248.554687-1-luuducanh05051995@gmail.com>
+	stable@vger.kernel.org
+Subject: [PATCH] media: dib8000: validate SNR exponent before shifting
+Date: Thu, 22 Oct 2026 17:23:07 +0000
+Message-ID: <20261022172308.224576-1-devsec@tpz.ru>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -102,63 +59,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ct_sip_parse_transport() compares the "transport=" parameter value against
-"TCP" and "UDP" with a fixed length of 3, without first checking that the
-parsed value is that long:
+Decode the SNR exponent as a signed value instead of storing it in a
+u32. Subtracting 0x40 from the unsigned exponent currently causes it
+to wrap around when the encoded value represents a negative number.
 
-	if (ct_sip_parse_param(ct, dptr, dataoff, datalen, "transport=",
-			       &matchoff, &matchlen)) {
-		if (!strncasecmp(dptr + matchoff, "TCP", strlen("TCP")))
-		...
+Keep the signal and noise mantissas unsigned, as they are used in
+unsigned fixed-point arithmetic. Check exponent values before
+shifting by check_shl_overflow().
 
-ct_sip_parse_param() sets the value end to the surrounding limit when no
-';' delimiter follows, and that limit can be the end of the SIP message
-(dptr + datalen) when no ',' is present either. A Contact/Via parameter
-such as "transport=tc" placed at the very end of the payload therefore
-yields matchlen < 3 with matchoff + matchlen == datalen, and the
-strncasecmp() reads up to two bytes past the end of the message buffer.
+Return the existing invalid SNR value when the exponent cannot be
+represented safely.
 
-The value of the over-read bytes can also flip the detected transport,
-so this is not purely a read: a crafted short value can make the helper
-classify the transport using out-of-bounds data.
-
-Both call sites (process_register_request() and
-process_register_response()) are reached from attacker-supplied SIP
-traffic when the nf_conntrack_sip helper is active.
-
-Bound each comparison by matchlen. A value shorter than three characters
-can never equal "TCP"/"UDP", so this only rejects already-malformed input
-and leaves valid transports (TCP, UDP, TLS, SCTP, ...) unchanged.
-
-Reachability and behavioural equivalence were verified with a userspace
-ASan harness built from the verbatim parser functions: the over-read is
-confirmed as a read past dptr + datalen, and the fix removes it while
-producing identical results for all well-formed transport values.
-
-Fixes: f5b321bd37fb ("netfilter: nf_conntrack_sip: add TCP support")
-Signed-off-by: Duc Anh Luu <luuducanh05051995@gmail.com>
+Fixes: 77e2c0f5d471 ("V4L/DVB (12900): DiB8000: added support for DiBcom ISDB-T/ISDB-Tsb demodulator DiB8000")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ilya Krutskih <devsec@tpz.ru>
 ---
- net/netfilter/nf_conntrack_sip.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/media/dvb-frontends/dib8000.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/net/netfilter/nf_conntrack_sip.c b/net/netfilter/nf_conntrack_sip.c
-index 64bc440b1181..1f9cf75c7bd5 100644
---- a/net/netfilter/nf_conntrack_sip.c
-+++ b/net/netfilter/nf_conntrack_sip.c
-@@ -701,9 +701,11 @@ static int ct_sip_parse_transport(struct nf_conn *ct, const char *dptr,
+diff --git a/drivers/media/dvb-frontends/dib8000.c b/drivers/media/dvb-frontends/dib8000.c
+index d291113291e0..442ec06e34dc 100644
+--- a/drivers/media/dvb-frontends/dib8000.c
++++ b/drivers/media/dvb-frontends/dib8000.c
+@@ -11,6 +11,7 @@
+ #include <linux/slab.h>
+ #include <linux/i2c.h>
+ #include <linux/mutex.h>
++#include <linux/overflow.h>
+ #include <asm/div64.h>
  
- 	if (ct_sip_parse_param(ct, dptr, dataoff, datalen, "transport=",
- 			       &matchoff, &matchlen)) {
--		if (!strncasecmp(dptr + matchoff, "TCP", strlen("TCP")))
-+		if (matchlen >= 3 &&
-+		    !strncasecmp(dptr + matchoff, "TCP", strlen("TCP")))
- 			*proto = IPPROTO_TCP;
--		else if (!strncasecmp(dptr + matchoff, "UDP", strlen("UDP")))
-+		else if (matchlen >= 3 &&
-+			 !strncasecmp(dptr + matchoff, "UDP", strlen("UDP")))
- 			*proto = IPPROTO_UDP;
- 		else
- 			return 0;
+ #include <linux/int_log.h>
+@@ -3873,7 +3874,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+ 	exp = (val & 0x3f);
+ 	if ((exp & 0x20) != 0)
+ 		exp -= 0x40;
+-	n <<= exp+16;
++	if (check_shl_overflow(n, exp + 16, &n))
++		return 0xffffffff;
+ 
+ 	if (state->revision != 0x8090)
+ 		val = dib8000_read_word(state, 543);
+@@ -3883,7 +3885,8 @@ static u32 dib8000_get_snr(struct dvb_frontend *fe)
+ 	exp = (val & 0x3f);
+ 	if ((exp & 0x20) != 0)
+ 		exp -= 0x40;
+-	s <<= exp+16;
++	if (check_shl_overflow(s, exp + 16, &s))
++		return 0xffffffff;
+ 
+ 	if (n > 0) {
+ 		u32 t = (s/n) << 16;
 -- 
 2.43.0
 
