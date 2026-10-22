@@ -1,92 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.227.128
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792646051;
-	b=e8nyYWCUjOVyD3evef3n4zRufme4r48vXKXmHsKnzBagIe2jW3vO0/hggkOxWWeYxkGv
-	 rrtWF9rIueYyE0uj7ds/XT3omfgXOOctNtsUnhrD+0bPGrQSxqOwKMRrZi1TZ9NR8fVfo
-	 vTcspuVbPLuotKOxNY2Xm4bBvMTu5RgHNQjN3xa1cYM4eXRwF2PKjCxjuNPjLm6FjPfoR
-	 qKO6JAPlaASyy959nkTOeJnuwXC9g6Kxfj+C3acKHGpOQBXFhp9PfE266S0BROkBQxKBU
-	 aE+frHEbPF9VYmPfOIi1ro0+DubhlJCqwDYhKbrir64mMxan6hyn7xwPBNmus9vyQ5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646051;
-	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:Content-Transfer-Encoding:
-	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=RQ7IGcVrKb0N/CaWCdY6nCwTG7a0sFHMi1qhS+cakIA=;
-	b=N0Ve+ucKFe9Nrqf/AsxT0fUSlJrjxOIjjfkhx5PGYy0zLxZdUbyldKLOuWCidnSsXMWH
-	 8Cl3A99CUudpvVMlgAGpbYxE0nwXK4hkBGJaSzqib6LTBZWdFjZP+KNcGUM5SZyoVp6al
-	 oMJNkwdcNzIyNndCZEC8Sc1uZHz8bH6tzZBMUWcl+8AO94YFcJn8yBWzgFXZeEqax64FU
-	 8mseYXov/KbQeowz7Py8jfgbxEcDy0nHvimf/28MyNIqbNU6s0FBK7zR0s9G2Tg6/7D7I
-	 2kNX2MMcH+CWbeeNOFlbNKFZIKvpvKovjopdtrVPqdgom7JLR9gJCmAegnCp3RiJIuw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=ebytelogic.com;
-	spf=pass smtp.mailfrom=ebytelogic.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.227.128
-Received: from MA0PR01CU009.outbound.protection.outlook.com (mail-southindiaazon11020128.outbound.protection.outlook.com [52.101.227.128])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792646236;
+	b=vKhwuITCKTUfuGtd5z/uj8/07GAzRDfCWbX51F/wOjF68v3Wr8GY8lrgNQlQ7u/Lfhpl
+	 wSLeYpSkqh2Zg10BGVNC7v7Oz7bwQtok29/TEOqMYCNZZ/wtgvu3wPWIplCtEaNMsoDqJ
+	 FKixNUxovI14+vRX34yE6QgNRbFAYMXgdiT/3SMsuDf8/K8WCkL0xoJ4v5LKsYXLRtY8Z
+	 oaX292JNL4KV7/l8Kdz3ZamiWHKq+BZtOcZbvux5PdfHZRrxJxGQsa7sb7DX4hvxnFJeE
+	 kjwAeOoBcNLpMUILAzCSP5tVFyr5jRPF9mNck4LMJihz026rsbdbkVN6HpXkTrURToA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646236;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=H/SXDgdhEaQ9Leps7ngp4tdnFYLEJykx5g1h92ea+nY=;
+	b=rBv5E7vkuV4tn5mkSl7Pr9pce5jtSgDRsBxjfMECn68NwxkDWLPRVoySG2vdSvgjH1SV
+	 qXwe52P9YDhhli6ssFc4C8DlOf3SofXJqww63Fv4rYZx49NcnZ2bjf35h5F+toDZX9fQp
+	 6oKcWeEll1Hx+h/rOYORerue0z6xEpnKyUIm5yjvJcUlc9Ho+t8sV/rzSP5EGAkS75QN7
+	 RXmhC7yWYJFnynJdugu9ROwf6Ma664jDdb5jc9Mv2OJcC0OhmyGRGgFwcmOWStDuaCKlV
+	 ApQdlwf8B9Vpl9QdTDQxfAloVTshbR9Ngki36DeLZ+u1B5ET+wW6RWqmDWHYBzaT6Og==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PwoDzxWk;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B021606A319;
-	Thu, 22 Oct 2026 05:14:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B021606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ebytelogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ebytelogic.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lyNmGjJbETbOWLVBnUhSrQvf8vJVC+1lt8U8TyNCUsaTON3HOVYoUE9OViGZKCNHa+Ya1SPf3DeNFZznIgWbNMAtF1EcwI52NSWmKhGrcod1S2C8Ck8KNoNxgOVA8DXMs1haneE+XgPPMZ/rPdYgDNEi+q6ZDhtMonjJeaMcJkxJggrCP6FXVht3Pmxc1fU8kQRA/OMC0ZIxOJzU2RvRHHdL+E21xzYBMErbTPBNN7VE/RhvzgJSNAY11ylbyN1m27kEf7OJ3gXwNhZG72ecEf62n2cl5g6sEs3KTjWwjHwBNHbNQZisGLnyvMveMvZDzyIgzs0Pah40ZeoYjkF2qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RQ7IGcVrKb0N/CaWCdY6nCwTG7a0sFHMi1qhS+cakIA=;
- b=NQbyTyM6Jah446WGv7nA+saBE0LRiLdVVZNqTE6XPlhZ/hHbGXEZwPv1P4bo1OSFhsTgBy5RVigSC7ihI+P2g2uhRrabyC+UP8TEnAsVRdt0jhzXQwHVQiz0sF4GpNb/WrkO+Ic00pEMgb1+PxotDyVw8M7b6olwhoNhv+z9kyMilnu6kCL93QP5K/DF15O3hXi2OAxtGXK1ZX0f+WeHck9pzr4BHu8OoPwFU5rFPk57ZKn2qcdHJW9h0p7UAnusIMc1cx88TNmPegoLnvfm/MOSleUmBlybu7fkbEewGtHjiSnOdTVqPLvFhcl8q8aoLRdyI2j17ruB+5Q/7eZwdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=ebytelogic.com; dmarc=pass action=none
- header.from=ebytelogic.com; dkim=pass header.d=ebytelogic.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=ebytelogic.com;
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::97)
- by PN3P287MB1480.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:194::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Thu, 22 Oct
- 2026 05:14:05 +0000
-Received: from PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::4cf2:bb74:999f:d6b8]) by PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- ([fe80::4cf2:bb74:999f:d6b8%8]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 05:14:05 +0000
-From: Hitesh Patel <hitesh@ebytelogic.com>
-To: linux-media@vger.kernel.org
-Cc: Hitesh Patel <hitesh@ebytelogic.com>,
-	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ravi@ebytelogic.com
-Subject: Re: [PATCH v6 0/4] media: qcom: camss: rebase fixes and SC7280 enablement for the streams API
-Date: Thu, 22 Oct 2026 10:43:53 +0530
-Message-ID: <20261022051354.256645-1-hitesh@ebytelogic.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261021134959.2599575-1-hitesh@ebytelogic.com>
-References: <20261021134959.2599575-1-hitesh@ebytelogic.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN3PR01CA0015.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:95::19) To PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c04:1::97)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB772606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:17:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB772606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PwoDzxWk
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a1fe9efc0eso15951805e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:17:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792646234; x=1793251034; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H/SXDgdhEaQ9Leps7ngp4tdnFYLEJykx5g1h92ea+nY=;
+        b=PwoDzxWkA70Wmef14Vvpr9c4fHpU4ChmSg7Dc5eGutsiHbtTrYWNl05zc02Gtlv72r
+         4Zq5Cp5q/leY/52RfvlkHWYrZVWtP80pZpjpJU07hEV0rT/E53N3KO4IWShg7/l5ZzfB
+         poj2nHlLy8FnxKAmRNLKQsThjETb6zYQCRZnWh+D2hQsraNpceIfbDQoN1EdtuazyWtG
+         Xz239Xqggu0HrKDQNYqGFznDgrbku+UIu/jVnKeOMCTNYn8ak5Bg9ETNi333RYgws0vD
+         8vT7cU2/CuH54hAwzM/b+N0RwJToGTeuGLcM3zg4fHgXkQRw2e7ZuoNShYA6nVFSLNH8
+         xmQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792646234; x=1793251034;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H/SXDgdhEaQ9Leps7ngp4tdnFYLEJykx5g1h92ea+nY=;
+        b=aDGdpOjPcvr85O64UGstrFwchO57rGu1rAtD4DSa57AZNdjH6gXq0peUF+TxSojX7U
+         3u3aQ7Nk2vcqaPUho/g1kLTH7FVAHOLi/kMr65Q5rjlFRdCITQTKa3FfeowZkmYiB0vW
+         SlsDApkXUJrtPaAcaaxtobuvnwcrKreJNcg3IforqmhQA0P4X3Q7URXZgYNkXhzU769i
+         2js/EQvu1cwyAOCOJJyLMylNE+bbz/4SLH39hXAV9b7BTzsDon/l9CSNCVlV20u856jA
+         K8Iwz3lyZtyfCLSoBY+lVtKeh7jPPmJWg4KjlsI9ZDUxOLFYEEaip2tAzkA5bIaZ943E
+         1UXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwkqGuR8C2qhurwVBUxbmmBGJxfTYvK4V/flN+qQNAKsN4b01fkPGymrOblNKvcWEvlxm4S2cn5oqwJnek=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIu0Df8ZrXa6ysygLo0YuIwMqNR+yPiv74Hr6LJsb8NIuCTzMki
+	37oECB0xfGrLLKic2Yysk5H4Zx1U+Ag3I4h3I0gRXrmtTjGYktzroAn5
+X-Gm-Gg: AYBFou1KriJJqBGt+MNO+NDG+hf1nD9AMKqEx7RzU653kZ+rscTL70/4vhtRZfWK/lq
+	FZb5wRHkmXQKI2rGOtC7PKlB/J3PDXuMOW0jA9N/Ooo6xiQM6WvRbuIjXaQMQ2BPGqGnrpSH+3L
+	lt05XDYL5mnle6WrG8+ZuAcHMpzR27hzzS2A2PzscHcnwqYug/8/+SdDOQJsKp48j3jmUgpEGn5
+	Vm+dx8AVU88FNjsJLYRQsxbBUw+UqH+hSv/4rTnIUvGi/nTEeWnb8MN7Fmb9V+P7dCD3864hS92
+	n2OO/xJzVtiOfCNXx6vjG5ZMNLlJTfoRcoJGrwKJkX+N83HYRi0DZsH3zsrNIRw6ItA+rU/acYN
+	WzEEkDYZy3BO9+rEl/EDwzuTmpAfWTSzVbxvRXe7SW5pEXjljly6J6bzCnpby7QG6ULUlAh3lSw
+	dtDxRnOssFeBRjlzLoX4frYtSdvUU/j8UjB4UPADou0BVzmDNZAjm6wxwYa2zcxYcoOkr4eKj/1
+	1PoS+FOgbIWJ+JGsK7IavNZRdRxizGoAWlYAaYMgzm4Oq7jTPZPua8ZjwcrvogThaLhKO+m1QKV
+	I2HRg1TuewGWRATxBeVPSrHeAh+CPOHuA5tshTNTtvq3NRhFFUrtqAL41fuHZP7dpUAzbwlxvcW
+	mjr7ntEAxX4TqUuymAcIMlV+4njwkisuWGnqqKO6/S5nZXvhETRH+e6dmaIU=
+X-Received: by 2002:a05:600c:3513:b0:4a1:cedc:ab49 with SMTP id 5b1f17b1804b1-4a1fdd1e97emr87433205e9.31.1792646233938;
+        Wed, 21 Oct 2026 22:17:13 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm90362275e9.3.2026.10.21.22.17.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 21 Oct 2026 22:17:12 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	"Paul E . McKenney" <paulmck@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Boqun Feng <boqun@kernel.org>,
+	Waiman Long <longman@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Hongyan Xia <hongyan.xia@transsion.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	linux-doc@vger.kernel.org,
+	llvm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 00/12] entry, tracing: Classify early hardirq entry and return tails
+Date: Thu, 22 Oct 2026 07:16:42 +0200
+Message-Id: <20261022051654.79224-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,102 +128,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN3PPF28092842E:EE_|PN3P287MB1480:EE_
-X-MS-Office365-Filtering-Correlation-Id: aeebbd94-b5d9-4f6e-a612-08df2ffb4ab0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|52116014|366016|376014|1800799024|23010399003|56012099006|5023799004|261009223027099003|10067099003|18002099003|22082099003|261021121427099003;
-X-Microsoft-Antispam-Message-Info:
-	vCl0XeG8x0/I26dyU/naxarzH7MZiUR5E4NG3SaTDGeT/SiKGGeJFBN49AfDOo5FRKXhqt6GwvJz3l4YESIvc4YfypBN5kKP0omnbWoI++Mw5X9sh3OIrw4WFK9U3+GCzL5YObjSPF1fH4tFgxyYYkNMWR35UZOFuRo81VInmAnPBeP7p5PUzOuWijTtyUz2DovumzSjKCHUZvrGb0McXKke2WxpmqdjYF/UQUXndcpVgar1qd//V/xA30BBjEKhJa2TQUlguWAJ0TIb1uOFAIa3DUV40NbkxQSQLJVMTdVveQ0lnsl4mWQEUUom5IvCGaEk/eEciPsteHANGF3evkQLHK3mbB0FfmOj5BHWHJWZyw6o0Z68TlzsvI6MnURIty9iSxTOMWFDB9PxR56BYxtyes5IXTNadsc1baDj4CwH3U/P9RqDhVDKp5cznBtafjVN7atZvBWsvviacgsV1nBb8solnvD6pxtTAhXo4QLxEggRLdjvu3CYVUnJsNRJIGBjjWRg0Cnon50EAcRvvo00KpnqxsWCgC42rBy0JBGLyQQ+Hp1yYPpj/K3uKiBvgBmEGY4DkNDjmGmfsF9YaA3cCC9GB9U3eGSsx3ORIczDrGWW0VY3BD6v9Q5r/kcWdx9ajsjs4u6pOf+v7PTyrnw3lfUufsqD8TJVKYIgOM0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(52116014)(366016)(376014)(1800799024)(23010399003)(56012099006)(5023799004)(261009223027099003)(10067099003)(18002099003)(22082099003)(261021121427099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?twRQcfLjF5sj5JmjeckrudGsN44q71fSePm7ZU7KyWKJa3q3iWySYDFy0/zD?=
- =?us-ascii?Q?L7b17cq7WN5X8x3Gn14j7TJa6qsOK4C5a1L0AiSF4Ks06CKrClU2SDIqdrsD?=
- =?us-ascii?Q?qMPV7iUaqnKoMcyQbEEHNK8MfCIjnEc5UAt4yWYvXPWtJXk4YB9xpM4OyjAo?=
- =?us-ascii?Q?2wp90SrhV0+SjoZyKWu1uJXbeoGvXtbSsirNnJbVa06ux6GJFQ54EIVPbyOm?=
- =?us-ascii?Q?SmisIa3ccDuTXiioaLE2KbSJAw//1ABNaufuUsaRGKAZiBwGDEcPH5ElR8ao?=
- =?us-ascii?Q?MVOFaETx2aICddPbks99qpdBd1VuA4+WEUcqDnan0QreimqFxzgtcfvfgw2C?=
- =?us-ascii?Q?71Uet5MeLoqA+SUqklZ2mQfnu0SZHvtxmY7EVQuaaA+STSMC2AC51hPd8T1r?=
- =?us-ascii?Q?am1tYgsP/99SjmogQuO18wene5Cm2+DzXRI3FlEGbFCIBiXDOzfknEh6XpS+?=
- =?us-ascii?Q?p1GdJGpSQO3/0f2f5zYTuhs0rhVtwJ+1ujLyHnBWDjS2b/Zd6BluXi/+P79e?=
- =?us-ascii?Q?G/Hk5g0ry2EzkSLXqfE1MbC1z/IEs4rsfTUH56n4cHyJ6ibeXQlsJ/To080k?=
- =?us-ascii?Q?bwOrHizMo6Urg9NVjXsodOWuzVt2RV+55YOinufFMV+D+XPKaGFFV+ERn3eO?=
- =?us-ascii?Q?yKe6goaOltzSQZU2/BHOThHLBaaTTqpcjc6RmGh+xY+ODVD0kZz0I1Qs5ehA?=
- =?us-ascii?Q?4Gc4wMOPyuktBAQ165xRrZfiUnqYj//6ZoS3OILWakX5qmsb6a3/K64GylT1?=
- =?us-ascii?Q?ytnV8bIwvA/6pIhf7VmLUt2JqFwOMNJlJ0CtmEtMlfzUdCjHvjmF0Te3rbHU?=
- =?us-ascii?Q?rbKxZ9rlVk3zxT7xm02PeK7/PtkGTtiKTCrVP2uwIxBDeSmMk8rhhx9CeIim?=
- =?us-ascii?Q?4GZVLfG8VO7MT0i9SWmW4IaZKZqrZ3xn7mK/x6HaeZBxMScw1o8qfIz53N/j?=
- =?us-ascii?Q?KADIvWP9QTt4ihiVfTNwt7bud5WKr+VhNMRuF5bT68aep5PqRtuL9vrGLwv7?=
- =?us-ascii?Q?Npt/iLWZ3opY95CNFPrPGuc5yMMolhNpaktqT8ULMBVeAeLiW3JzBqUrgQmV?=
- =?us-ascii?Q?QwWdvG2ox4RMUVjGIQFKyUv9DNeVTa+nKjY+ImEvhwnjsEwfulQHAEEaF3Dg?=
- =?us-ascii?Q?NQ7hccOitjFgV1wGhuBXvlLY+A4zPJsCZvgaY2q+/fEjzPuhxS2CwcbsGyzY?=
- =?us-ascii?Q?xlMmHcJ0BQufLFYdGdbLxP6uaAg21Lty0x5JXczwjdKDOglh/a5ttX4HsIDt?=
- =?us-ascii?Q?g07ayy6BAV/geOYkYCAJrW/Kjc2jRFqF2udbLjg7IaJGMx9dTKos9wTSupPv?=
- =?us-ascii?Q?KxRG5PD8OR31hHavLDDRU/C6rYMvYwNuLEzWhJDR8O7j5HOtYoYGrPe0cVEL?=
- =?us-ascii?Q?yMFFZujClqbWyTmkYEvAtH826rq68rVItNRYpQjaxXJ+EEg2/7ITWRTSs4B7?=
- =?us-ascii?Q?PNTUfaBH+b3gBExTlYKDlzUHtShgkaN/HnZkwHQ3yQvFoWaVD+D0B7/NGmqg?=
- =?us-ascii?Q?VKSROBbZzadv5ToKUjjCRDOyp5HedClYdTufz7qbiN+YexWo0o994XJlqgw9?=
- =?us-ascii?Q?LE+5Qad57Na/SVf457Eo7FrckbDXlqq+NrD/B2oOruI1SK/Eg1MMpr6UJ4MS?=
- =?us-ascii?Q?/fhjmszZan+KdI3UCO0cyRUpwpuYIVqCGuQaD8wXw5XFqXr6azR+KH4xKexe?=
- =?us-ascii?Q?OgT5SPuAY5+Qcee5Vum7/l3bZ3mnAzVfBUWFF28fDxIpVaBLLG+tmN0McyCB?=
- =?us-ascii?Q?lSzaWimkYSFREa+dTT4NtlIkju2Vnd6WcjppnCXTyBdl0J4AMoQqyw9T5qOT?=
-X-MS-Exchange-AntiSpam-MessageData-1: ZhDU6gHDnQjDjg==
-X-OriginatorOrg: ebytelogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aeebbd94-b5d9-4f6e-a612-08df2ffb4ab0
-X-MS-Exchange-CrossTenant-AuthSource: PN3PPF28092842E.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 05:14:05.0924
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 13bdb17c-4ae8-490c-90c1-ec8121ef96ee
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ktltnMdRMJVlQFm2filVuqqIwKI9m/bptT47YMXlzULZINLTUkuTXp3JRfZ8WWghc2woCR03E6f9yYMgCMxWDA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB1480
+Content-Transfer-Encoding: 8bit
 
-The CI cannot apply this series, and the reason is on my side rather
-than the robot's. Details below for anyone who hits the same thing.
+Tracing's transition recursion slot exists because a callback can run after
+architectural hardirq entry but before generic entry increments
+preempt_count(). Steve asked whether the count could be updated soon enough
+to remove that slot. This RFC establishes that entry contract on arm64 and
+closes a separate recursion window exposed by the same tests.
 
-v6 restored the base-commit and prerequisite-patch-id trailers that v5
-had lost, and those did work: b4 located the dependency series and
-applied six of its eight patches. It could not match two of them,
+This is a design RFC, not a merge-ready proposal. I am looking for
+feedback on the entry contract before extending it to other architectures
+or removing TRACE_CTX_TRANSITION.
 
-  [PATCH 1/8] media: qcom: camss: Add streams API support for CSIPHY
-  [PATCH 2/8] media: qcom: camss: Add streams API hw_ops to CSID interface
+Clang can outline raw preempt-count updates and
+__kern_my_cpu_offset() from noinstr entry code. This series applies to a
+tree with the following two patches added:
 
-so camss-csiphy.c and camss-csiphy.h are missing the code that 2/4 of
-this series then patches, and the apply stops there:
+  - Hongyan Xia, "arm64: Always inline raw preempt count updates"
+    https://lore.kernel.org/all/c3a90368dd6c096af9d918e036a27728696fb8a4.1786603168.git.hongyan.xia@transsion.com/
+  - Will Deacon, "arm64: percpu: Annotate __kern_my_cpu_offset() as
+    '__always_inline'"
+    https://lore.kernel.org/r/20260918161407.2300-12-will@kernel.org
 
-  Applying: media: qcom: camss: Set the streams API flag per SoC
-  Patch failed at 0008
-  error: patch failed: drivers/media/platform/qcom/camss/camss-csiphy.c:1157
-  error: patch failed: drivers/media/platform/qcom/camss/camss-csiphy.h:86
+Those patches are external prerequisites and are not included in this
+RFC.
 
-Those two patch-ids do not match what is on the list because my copy of
-1/8 carries the CSIPHY rebase I described in my reply on Gjorgji's
-thread - SC7280 has no camss child node named "phy", so the lane enable
-has to dispatch on camss->legacy_phy. That changes the patch, so it
-changes its patch-id, and prerequisite-patch-id can no longer find it.
-The trailer mechanism is working exactly as designed; I am advertising
-an id for a patch that was never posted in that form.
+Patches 1 through 11 split raw preempt-count updates from generic IRQ
+bookkeeping. On arm64, ordinary interrupts add HARDIRQ_OFFSET after the
+pseudo-NMI decision but before instrumentable generic entry work. The
+remaining accounting still happens in irq_enter_rcu().
 
-The base-commit is a second, smaller mismatch: I generate against
-linux-next, and the CI builds media-committers next, so it reports
+The exit side has a similar gap. Function-graph and MTE callbacks can run
+after the real hardirq state has been removed, and kernel return may
+schedule before them. The series records ordinary-hardirq provenance and
+restores a synthetic hardirq classification after the preemption decision.
+That tail changes only preempt-count and lockdep state. It does not repeat
+interrupt accounting, RCU, or tick entry.
 
-  Base: base-commit 8f7df005a756... not known, ignoring
+Patch 12 keeps tracing's recursion state inside one preemption-disabled
+interval. It closes the transition collision reproduced at the IRQ-exit
+reschedule boundary. TRACE_CTX_TRANSITION remains unchanged because
+unconverted architecture entry intervals can still run before
+preempt_count() reflects hardirq context. An x86-64 no-transition control
+still recorded recursion at system-vector entry and exit and in the
+deferred hrtimer return tail.
 
-and falls back to its own branch. The series does rebase cleanly onto
-media-committers next, so that part is straightforward to fix.
+The base includes "entry: Account the deferred hrtimer rearm as hardirq
+context for lockdep" and "softirq: Preserve interrupt context on return
+from interrupt".
 
-I am not going to repost to chase this. Gjorgji has asked to fold these
-four into his v2, and once 1/8 is settled there the dependency becomes
-reconstructible and the CI will be able to build the result. If a
-standalone revision is wanted in the meantime, say so and I will send
-one generated against media-committers next, with the CSIPHY amendment
-included explicitly so that the series is self-contained.
+The main questions are:
 
----
-Hitesh
+  - Should generic entry expose separate raw-update and bookkeeping phases?
+  - Are preempt count and lockdep state sufficient for the return tail?
+  - Is arm64 a suitable first user of this contract?
+  - Should the recursion-lifetime fix travel with the entry conversion?
+
+Karl Mehltretter (12):
+  sched: Split preempt-count bookkeeping from raw updates
+  lockdep: Use raw access for pinned hardirq state
+  entry: Add the pre-counted ordinary-hardirq entry/exit contract
+  entry: Skip inactive IRQ-return reschedule calls
+  context_tracking: Split IRQ-exit preparation from the EQS transition
+  lockdep: Prepare IRQ-on state from a hardirq return tail
+  entry: Carry ordinary-hardirq provenance through kernel return
+  entry: Classify ordinary hardirq return-tail work as hardirq context
+  arm64: Use the pre-counted hardirq lifecycle
+  docs: entry: Describe the pre-counted hardirq lifecycle
+  locking/selftest: Exercise hardirq return-tail preparation
+  tracing: Pin recursion state for its complete lifetime
+
+ Documentation/core-api/entry.rst     |  75 ++++++++++--
+ arch/arm64/include/asm/preempt.h     |   2 +-
+ arch/arm64/kernel/entry-common.c     |  25 ++--
+ include/linux/context_tracking_irq.h |  32 +++++-
+ include/linux/hardirq.h              |  29 +++++
+ include/linux/interrupt.h            |   2 +-
+ include/linux/irq-entry-common.h     |  96 ++++++++++++++--
+ include/linux/irqflags.h             |  14 ++-
+ include/linux/preempt.h              |   9 ++
+ include/linux/trace_recursion.h      |  14 ++-
+ kernel/context_tracking.c            |  78 ++++++++++---
+ kernel/entry/common.c                |  38 +++++-
+ kernel/locking/lockdep.c             |  48 +++++---
+ kernel/sched/core.c                  |  68 +++++++++--
+ kernel/softirq.c                     | 166 +++++++++++++++++++++++----
+ lib/locking-selftest.c               |  53 +++++++++
+ 16 files changed, 648 insertions(+), 101 deletions(-)
+
+
+base-commit: 779ab5d73a22c798d1273b4aaf50cf5b8d750be9
+prerequisite-patch-id: 9c009809614854fbff979d65aad6732757d006d5
+prerequisite-patch-id: 764fd197db36a3889548bbc41890dd5b3d902f99
+-- 
+2.39.5 (Apple Git-154)
+
