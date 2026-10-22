@@ -1,67 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792654358;
-	b=3gbV2lKgfTJrH8nfDH2F3S4nns/i6aUP0+RVI1HrFu6tJHlWltevAKOmPZfVGOL+CDo/
-	 MSkyAg3rzUkx2pO/BHvDMq913HD1N4uiWqLlizH/5Q2Kn6UVwsuAA8q5BvlsGgmYMiKK+
-	 z79p22JP8O//Np4CJxf116HtvLoR9unENW+wNoqhw3KChbHa8mfIKj8zXBh8PhY4F3ATL
-	 kUBUeu3meLH0Rknvucplan6+5kRPuQoZPIhER+odIXtFKOpWUNjEpdDDsYNWK7xx5uLQx
-	 CB7nk2GqqrDuX7RjZB10TJYQfqq2gtirXlPEMsGd57eNtSjp5sxzCp99hqZSxPVt6NQ==
+	t=1792654444;
+	b=pgIAd6vnP8PvV1hXc3a2yUoMLdkMKO3wjjFqp8G3tb2LhOZ8HclwOd7+2E91vjScVp2W
+	 3ngRbXvI480FZhNTnt1Aa+pM/APfK8j+F/TV4spWl2zqU6BM69r8Vih8mckICPOriNDaN
+	 q4ypmOIM9Tf+6oCOvo/HsE4+QdCAAbfFm95NxXKQ9B1DjL2S76AuYIc3s8mvf2NW7iUpY
+	 OnjclzDQ0qr7PgN0QIYpOw6O/ayfptc4L197UYQrAw2m3pOm5xBY87vnXNnx6m7JtsluG
+	 ILYvZuX3z98XByvfXRk76K5JM3+l4vLurUkH+zRW82gssJfzW+UQ4GMXrF0Whff3NJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654358;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=t96VkQI1QtBR4oHBW18DVNKMMxlz6mxmTHkgR+EXUQA=;
-	b=anYqIMf3KO5QdEGr9Zf3a+U876oPY1029IMcNEX3SallT0OUAJ+jXGjSdPTtAAh/7R3A
-	 tPZBWu77Dm0OlRg4RHg0UOyuEPxYIT0fk1ucAN3AimhUAJZMtmFNT7DlllBw4jOWcbges
-	 dsWBVbll46niwOTJZQyBzVKTWLJpieBtB9Bb2tfKxE0d+kCBE6taqtL2TRMHnu8D6tb1m
-	 AFcPv5jZ1KjVIM9iyZ/slZB37zh6gmDCcfNsfKI5e/OU26WxhtTVtEwlkpNyQICPMzHyn
-	 OXLSWtolrGVgU+6n5cKJEivcLndqNE1gz3h4n59uEP2bJW917HtyNphKN06ZJfVyY6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654444;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=EXmo14MNykGN07bA6sS/UaZhsjisvLhN9+lktwXS9t4=;
+	b=dh6rkh5woRWXkUYHSJFtlvN36YA3dId9KLk6L/N7qi/VwdhZOmqv9S5zopldFjY621UG
+	 G9zsKPvgeAuz1Y4S/JqF0Sxu5eThOPjoew/tXw5J/j+nwLpiG7YMDes5l1l6jto1j9N4o
+	 I++pmKTC/ml1N6n0zvbg/Mp1Y8hNl82KN6ZPFb8trgydDxYkjUWVO/UJ5BO+HJAe7XRWc
+	 i1mSEO7Q0Aj3uOHvYEHhFiKki6p5wHZxccZpaF5iFCrm154EMvH0lKDxOSt4SdEvwDh90
+	 j/ApIbzqn4p+PPtSKMNGQ0mdLaIFl6lZ4QMuhUEsJUF36f0Cmk1cs4LZ8e9f2FHU8ng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dprvjl+K;
-	arc=none smtp.remote-ip=95.215.58.175
-Received: from mta1.migadu.com (out-175.mta1.migadu.com [95.215.58.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ih+gmNB1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C57A606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:32:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C57A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB9F8606A31D;
+	Thu, 22 Oct 2026 07:34:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Dprvjl+K
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IX4lDX3UPiFBBi3OMqFi2xks6o7jTO1Q2KveUJZdLoE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792654355; v=1; x=1793259155;
- b=Dprvjl+K7btLYtHWi7GpHLwvqywaLkMghRAhwwilncey2TifpQswpbEfX1sdQ78QgoK2LnAA
- QEYJw4kM8YPBUICq/eEM6TgQjrI+NDoBqqv+LJokonH/rjpufA6xnU3wOk7qtWlXvOdJxjcHmBv
- g9anrEhaUnQ7X0uqYN24Mrc0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7539dc5461ec0d7f;
-	Thu, 22 Oct 2026 07:32:35 +0000
-X-Mizu-Trace-ID: 7539dc5461ec0d7f
-X-Migadu-Flow: FLOW_OUT
-From: Qi Zheng <qi.zheng@linux.dev>
-To: muchun.song@linux.dev,
-	david@kernel.org,
-	osalvador@suse.de,
-	akpm@linux-foundation.org,
-	azpijr@gmail.com
-Cc: linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: [PATCH v2 5/5] mm: hugetlb: enable CMA allocation for PMD-sized pages
-Date: Thu, 22 Oct 2026 15:31:49 +0800
-Message-ID: <5edd1dc82bd3b0b09005c0b36cafa2f7baea6d3d.1792651104.git.zhengqi.arch@bytedance.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <cover.1792651104.git.zhengqi.arch@bytedance.com>
-References: <cover.1792651104.git.zhengqi.arch@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ih+gmNB1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B171F000C1;
+	Thu, 22 Oct 2026 07:34:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792654443;
+	bh=EXmo14MNykGN07bA6sS/UaZhsjisvLhN9+lktwXS9t4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ih+gmNB1PknqfRTD3S0H7jnj02GqqPSb69Y9zURlWSixrqKzMkiELJfykibd9LZHS
+	 66TeG6jXBNUeU1y3tIKZ8GzCKn8Cq5MATLdQ8wFEnSd0GuFViFkqYUqOuzwnmksFWD
+	 4zASIIWYe4te1IEHNIail4FKp3nHlY7iUCw3FPq+zJXBZ4xdGKyGiDOzMQu6wVowhQ
+	 i/TeZltDSqo2zCjUUhPf5KGhUO5iuRfC19l3cLIVuoeY4Ba+SwD+cMGCw0X0tplY4v
+	 AmVkSgiFvKZ2EHn0oxxGTIyHZHnHB57cjMga27o6xmFFcaz0db+a7TSGOZqVi+r8qc
+	 fs4sr0cNIKI/Q==
+Message-ID: <10bb721f-43bb-4a22-a9c5-6ebacda9b6b4@kernel.org>
+Date: Thu, 22 Oct 2026 09:34:01 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,192 +51,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] block: annotate lockless task ioprio accesses
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+ Jens Axboe <axboe@kernel.dk>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
+References: <20261019125811.21666-1-ngocthang2710.1999@gmail.com>
+ <20261020125233.9820-1-ngocthang2710.1999@gmail.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261020125233.9820-1-ngocthang2710.1999@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+On 2026/10/20 14:52, Nguyen Ngoc Thang wrote:
+> __get_task_ioprio() reads task->io_context and ioc->ioprio without
+> task_lock() when called on current, e.g. from init_sync_kiocb() on every
+> write.  set_task_ioprio() can update both for another task at any time,
+> including the first publication of a new io_context.  KCSAN reports it:
+> 
+>   BUG: KCSAN: data-race in __kernel_write_iter / set_task_ioprio
+>   value changed: 0x0000000000000000 -> 0xffff888109813730
+> 
+> A stale or torn value is harmless, a task simply gets the old or new
+> priority, but the compiler may tear or refetch the accesses and the
+> io_context fields must be visible before the pointer is.
+> 
+> The io_context itself needs no extra protection: only the owning task
+> drops it, in exit_io_context(), so it cannot be freed under a lockless
+> reader running as current.
+> 
+> Publish the pointer with smp_store_release(), read it with READ_ONCE()
+> (address dependency orders the ioprio load), and mark the ioprio
+> accesses.
+> 
+> Reported-by: syzbot+feeb9b5352b9ff89618a@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=feeb9b5352b9ff89618a
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
 
-Allow hugetlb_cma=<capacity>@<page-size> to select the architecture's PMD
-size in addition to its existing CMA size. PMD pages are 2M on x86-64 and
-2M, 32M or 512M on arm64 with 4K, 16K or 64K base pages.
+The patch title still mentions "annotate", which is really vague. Please change
+the title to be more descriptive. E.g. "use READ_ONCE() to access a task ioprio
+context".
 
-Give PMD pages their own pool while preserving the existing sharing among
-gigantic sizes. Unsuffixed arguments and an explicit default size continue
-to configure the default pool. Gigantic PMD sizes retain access to that
-pool when no PMD pool is reserved. Apply this mapping consistently to
-allocation, CMA-only policy and boot-time accounting.
+> diff --git a/block/blk-ioc.c b/block/blk-ioc.c
+> index d15918d7fabb..12ddc672f41d 100644
+> --- a/block/blk-ioc.c
+> +++ b/block/blk-ioc.c
+> @@ -277,9 +277,10 @@ int set_task_ioprio(struct task_struct *task, int ioprio)
+>  		if (task->io_context)
+>  			kmem_cache_free(iocontext_cachep, ioc);
+>  		else
+> -			task->io_context = ioc;
+> +			/* Pairs with READ_ONCE() in __get_task_ioprio() */
+> +			smp_store_release(&task->io_context, ioc);
 
-Try buddy allocation first for non-gigantic PMD pages, with CMA as a
-fallback, to reduce CMA migration and leave CMA capacity for later
-allocations. Preserve CMA-only policy and CMA-first allocation for
-gigantic pages.
+This is normally paired with smp_load_acquire(). The generic implementation of
+that is simply a READ_ONCE() followed by an __smp_mb(), but some architectures
+may have their own implementation. So why is it always correct to pair with
+READ_ONCE()? Why not use WRITE_ONCE() here?
 
-Align reservations to both the selected page size and CMA's minimum
-alignment, and use a bitmap granularity no larger than the selected order.
-Keep the original CMA area names and give PMD areas distinct names.
-Document the syntax and pool selection.
+>  	}
+> -	task->io_context->ioprio = ioprio;
+> +	WRITE_ONCE(task->io_context->ioprio, ioprio);
+>  out:
+>  	task_unlock(task);
+>  	return 0;
+> diff --git a/include/linux/ioprio.h b/include/linux/ioprio.h
 
-Assisted-by: LLM
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- .../admin-guide/kernel-parameters.txt         | 40 ++++++++++++-------
- mm/hugetlb.c                                  | 18 ++++-----
- mm/hugetlb_cma.c                              | 22 +++++-----
- 3 files changed, 45 insertions(+), 35 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index c06cb660a3ce4..0cc77e648f396 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -2065,31 +2065,43 @@ Kernel parameters
- 			Note that this parameter only applies to non-gigantic huge pages.
- 
- 	hugetlb_cma=	[HW,CMA,EARLY] The size of a CMA area used for allocation
--			of gigantic hugepages. Or using node format, the size
--			of a CMA area per node can be specified.
-+			of hugepages. Or using node format, the size of a CMA area
-+			per node can be specified.
- 			The size can be an absolute value (e.g., 2G) or a
- 			percentage of the total memory or node memory (e.g., 20%).
- 			Percentage-derived sizes are rounded down to a multiple of
--			the architecture's gigantic hugepage size and may become
--			zero.
--			Format: nn[KMGTPE] or nn% or (node format)
--				<node>:nn[KMGTPE][,<node>:nn[KMGTPE]] or
--				<node>:nn%[,<node>:nn%]
--
--			The size must be a multiple of the gigantic page size.
-+			the larger of the selected hugepage size and CMA's minimum
-+			alignment, and may become zero.
-+			Format: nn[KMGTPE][@<page-size>] or nn%[@<page-size>]
-+				or (node format)
-+				<node>:nn[KMGTPE][,<node>:nn[KMGTPE]][@<page-size>] or
-+				<node>:nn%[,<node>:nn%][@<page-size>]
-+
-+			An optional @<page-size> suffix selects the architecture's
-+			default CMA hugepage size or a supported PMD size. If
-+			omitted, the default is used. For node format, append
-+			the suffix after the entire node list. Repeat the
-+			parameter to configure the two pools independently.
-+
-+			For CMA allocation, PMD pages use the PMD pool if reserved.
-+			Otherwise, gigantic PMD pages use the default pool. Other
-+			gigantic page sizes always share the default pool.
-+
-+			The size must be aligned to both the selected hugepage
-+			size and CMA's minimum alignment.
- 			When using node format, this applies to each per-node size.
- 			Missaligned values are dropped with a warning.
- 
--			Reserve a CMA area of given size and allocate gigantic
--			hugepages using the CMA allocator. If enabled, the
--			boot-time allocation of gigantic hugepages is skipped.
-+			For gigantic page sizes with a reserved CMA pool, normal
-+			boot-time allocation is skipped. With hugetlb_cma_only=1,
-+			early CMA allocation is used where supported.
- 
- 	hugetlb_cma_only=
- 			[HW,CMA,EARLY] When allocating new HugeTLB pages, only
- 			try to allocate from the CMA areas.
- 
--			This option does nothing if hugetlb_cma= is not also
--			specified.
-+			This option only affects page sizes with a CMA pool
-+			successfully reserved by hugetlb_cma=.
- 
- 	hugetlb_free_vmemmap=
- 			[KNL] Requires CONFIG_HUGETLB_PAGE_OPTIMIZE_VMEMMAP
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index c1a8d00be11ac..bad5cd4978c5e 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -1835,22 +1835,20 @@ static struct folio *only_alloc_fresh_hugetlb_folio(struct hstate *h,
- {
- 	struct folio *folio = NULL;
- 	int order = huge_page_order(h);
-+	bool cma_only = hugetlb_cma_exclusive_alloc(order);
- 
- 	if (nid == NUMA_NO_NODE)
- 		nid = numa_mem_id();
- 
--	if (allow_cma && order_is_gigantic(order))
-+	if (!order_is_gigantic(order) && !cma_only)
-+		folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
-+						 node_alloc_noretry);
-+
-+	if (!folio && allow_cma)
- 		folio = hugetlb_cma_alloc_frozen_folio(order, gfp_mask, nid, nmask);
--	if (!folio) {
--		if (hugetlb_cma_exclusive_alloc(order))
--			return NULL;
- 
--		if (order_is_gigantic(order))
--			folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
--		else
--			folio = alloc_buddy_frozen_folio(order, gfp_mask, nid, nmask,
--							 node_alloc_noretry);
--	}
-+	if (!folio && order_is_gigantic(order) && !cma_only)
-+		folio = alloc_gigantic_frozen_folio(order, gfp_mask, nid, nmask);
- 
- 	if (folio)
- 		init_new_hugetlb_folio(folio);
-diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
-index c279c3f548705..5071f0ae012bd 100644
---- a/mm/hugetlb_cma.c
-+++ b/mm/hugetlb_cma.c
-@@ -180,11 +180,13 @@ static int __init hugetlb_cma_parse(char *p)
- 			pr_warn("hugetlb_cma: invalid parameter %s\n", p);
- 			return -EINVAL;
- 		}
--		if (!order || page_size != (PAGE_SIZE << order) ||
-+		if ((page_size != PMD_SIZE &&
-+		     page_size != (PAGE_SIZE << order)) ||
- 		    !arch_hugetlb_valid_size(page_size)) {
- 			pr_warn("hugetlb_cma: unsupported page size in %s\n", p);
- 			return -EINVAL;
- 		}
-+		order = ilog2(page_size) - PAGE_SHIFT;
- 	}
- 
- 	if (!order) {
-@@ -339,14 +341,7 @@ static void __init hugetlb_cma_reserve_pool(struct hugetlb_cma_pool *pool,
- 	if (!pool->size)
- 		return;
- 
--	/*
--	 * HugeTLB CMA reservation is required for gigantic
--	 * huge pages which could not be allocated via the
--	 * page allocator. Just warn if there is any change
--	 * breaking this assumption.
--	 */
--	VM_WARN_ON(order <= MAX_PAGE_ORDER);
--	hugepage_size = PAGE_SIZE << order;
-+	hugepage_size = max(PAGE_SIZE << order, CMA_MIN_ALIGNMENT_BYTES);
- 
- 	if (config->percent) {
- 		unsigned long orig_size = pool->size;
-@@ -437,14 +432,19 @@ static void __init hugetlb_cma_reserve_pool(struct hugetlb_cma_pool *pool,
- 			size = min(per_node, pool->size - reserved);
- 		}
- 
--		snprintf(name, sizeof(name), "hugetlb%d", nid);
-+		if (pool == &hugetlb_cma[HUGETLB_CMA_DEFAULT])
-+			snprintf(name, sizeof(name), "hugetlb%d", nid);
-+		else
-+			snprintf(name, sizeof(name), "hugetlb-%lukB-%d",
-+				 (PAGE_SIZE << order) / SZ_1K, nid);
-+
- 		/*
- 		 * Note that 'order per bit' is based on smallest size that
- 		 * may be returned to CMA allocator in the case of
- 		 * huge page demotion.
- 		 */
- 		res = cma_declare_contiguous_multi(size, hugepage_size,
--					HUGETLB_PAGE_ORDER, name,
-+					min_t(unsigned int, order, HUGETLB_PAGE_ORDER), name,
- 					&pool->cma[nid], nid);
- 		if (res || !cma_validate_zones(pool->cma[nid])) {
- 			pr_warn("hugetlb_cma: %s: err %d, node %d\n",
 -- 
-2.54.0
-
+Damien Le Moal
+Western Digital Research
