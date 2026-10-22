@@ -1,64 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668176;
-	b=1euZKYwk43FCqLR/Dj1HV/+c+sEgxTSK7oLvAvMeE3/l7NM7zcKaaErJMH3W7zgynLgS
-	 O0X4qfv+2p+pIb0L8K6wtf4XSjhTqRmXqUx9KO3QziP35GLNZodSeJ35rsKObYzkDGElv
-	 AtHfdgfQginWcarQPIqZlk+aKcSh1sjxJTsa95A1UdfU0ADjArZrX6MCbeM9bGIOxsx0j
-	 MaovGFtenREjvAxfP9haoOhw708bWAdTAd0IVZF1X7MrBZCaQ7x8eCFjXBu88kIJoI3fd
-	 VImfdH/XONw3v18qXZpdW0O7bcJEkHcoL8SLTdrGZR+K0EOW+XbmVGIG23AU7rJ4vbQ==
+	t=1792668227;
+	b=urnE1bLapYdozhYmktQK7rBKsWvn+tZJnN/rOfB/Yjw+tTxNjtcN4pUNK53PxMi0UAOx
+	 ygRgORIdum2+0i6mhLouWSH8sh5bDU0//g2Y61QJKLR3Nquk7X6XvKRO2uHcXsYc+ioRD
+	 i+OqVgEFBudULaPZBPEYP+DfIIN5gwrx8OhYECt10gZGD/suWHf/jZfzTFem2wTxwq6TX
+	 LMXXiCwY5meblzOnoIAJj2IMRb8a33UHCmnLfpYE0OPxyiiFgyOJ9+79ANcOfRux2ZaeH
+	 AuBuXLN6KU2Bsfvjkm9l//KYFSqMxnV7lwfTOBP25+gZV6RvzrdX7gyy2seAzWwjXpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668176;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=lIovBDsxm3c+1AuHfs1HngEsYYIn9NYcLWoRryp26/w=;
-	b=YjDdqkuTV6jA81t+9j9lf1e43We2sBKXEi1IF1GVQgTP0IPK17MZQkBLURtFOMgr9Z2y
-	 aVmVytTQ5hlv5bgDem5HQJyKj8elKsFH0EPZsMY5P7q0Rz1YQECVgiT0z+B9rXMJPTxTi
-	 c40LCXQ/WI7WK7BJifQ5HSFMXuxlrOg+P27pgZJm4NP0NuCOEa/V99mRuH23zOHGoKJfH
-	 2tyt45271aS822xM/Y4KEI7NNzyCxcJzNd3zAJjUmWVg9dk/TfWWnumhTBplTh2W1EGB1
-	 Nw2ZSUr5FSvcs5lbw9lXjmVYRpfcsOziE812Ua8NYnwZVrsPIL44+8UHRjbSqTwJgDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668227;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
+	b=2UZHO1vZamrbnCgZgdcLVomHcbnafxy5AeO5VZzZs2FMoyDLqUyHSvRq4y6l8dxpt3iN
+	 I2oCRP2FzFSyPdxsFeN7AjMbrtg5kNFVG76y82CIKTJKpSar4RZ1odk3T54ApRn3mUp7i
+	 Dl9K87t+0FIV23Ob/j1vaYLMzReP3hO/b2TIqmeAsiQzouv1yo87RSR1UbnZfAiWMWw8t
+	 Xeh9tWpBgXByeLX7zYEQ82Y1o1A1wuLneHrNiEIYoj+7kYo0+Zoc5iOKxhTY7bFws17pn
+	 f0YFoLM3Cs4xo+WxkV3kVsL6vtDdMaupLoMTIf0Gm991zqNjsdPPtr7ETMFXdXkDRxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OrJVOppd;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CAD7606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:22:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CAD7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=lIov
-	BDsxm3c+1AuHfs1HngEsYYIn9NYcLWoRryp26/w=; b=PRRAxsOXcrEuZF1KxMnl
-	bShB1Mhpseyoa1fktDWDt9zMaa+BTseTg6ixm06gGfRM8SC8197/Q9kayDAAU7W7
-	srwoktpg+lgGcW5TAE+FY5xdRmDt9ydpa1MUZMdYsoBedU38DRZIzFdOIH6c2zh6
-	1GTu7j4xOpwsMyqGvYXWuFjr/TlwqaOEyMAzFR2+ELVWTYWnYbwLb96F47YF0vFf
-	CLO520wm4nTb9fWzyFvyb5jfmJlhchkubmvLudu0vfhDk7ArWUOpqdHd+cCyWvn/
-	aT50KZamVh6fR0ps6X9E007mgBy/yfMBB1IzN3gCA30G7z6nEv7KELrSm+7LL/9Q
-	6g==
-Received: (qmail 1121144 invoked from network); 22 Oct 2026 13:22:43 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 22 Oct 2026 13:22:43 +0200
-X-UD-Smtp-Session: l3s3148p1@AWMWFWxeQpkujns/
-Date: Thu, 22 Oct 2026 13:22:41 +0200
-From: wsa+renesas <wsa+renesas@sang-engineering.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: "biju.das.au" <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 11/15] mmc: renesas_sdhi: Add RZ/G3L SDHI support
-Message-ID: <atnyAfePwJ_9kenH@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-12-biju.das.jz@bp.renesas.com>
- <aplhlynkb_LUiVhS@shikoro>
- <TY3PR01MB11346596836AD38371FC3568A86B22@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <TY3PR01MB11346D30496CABEA390A2385986832@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07F3B606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:23:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07F3B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=OrJVOppd
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-33bb5afa736so233815eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792668226; x=1793273026; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
+        b=OrJVOppdJmpQzpESNnbFh7FZ8bViWXC3cUjorcBi7DoWTRLoNWKjqoq3ED5QmGPJ60
+         TFiku3HnfFCx/qDcUdPyYOK1MMrLUH4jwgZ03+npwHiehHjRednoyIgHL2zHTFqtOFPO
+         rvVQC//0bD4RTn47Nxh8PIFp31JO8cMFvp8SbdcOPrup676IWiqy/2MzqurMnkI5L/bY
+         9mJ+KRF1njvlEhevTmjxP7VpF5inuFMe44cPCDKJLM46OX6MizS8Tnhj1HQ1CqsFQeNP
+         ofih15laI4RkIeNh2qhO27Y4IchRphFPcLZOCgrz8RJlYK2EJb80Axw6EV/njxNWq6qH
+         rXYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792668226; x=1793273026;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RbuYOQqzgIfOAiaZGXnsrc5kralu1woOsjsJovLSjjs=;
+        b=q+MH4vvj/2579cVHz7kZfBFOC6RKaELnw4DhcuLXPQTX+xY5brx93UpjvRo6/lr7UR
+         LFhGcdxqCFgFmH8/+SgxSXELbb50RZPfHNgg1uFXBTPXHiXmYUpv4WiDeIgudUtrNsnM
+         45crwJrsocF/TSVMDckYQ3VRcQFLRZEPRrIqDZKrZtKN1vypCKoOvIHejStGtHYRhZWl
+         j2v0zOvOyo6urY8jcWjjPS5P06hHrh4Yf8kLBy/SchUNTkAD3IosvihwqXEER2AS+raX
+         AnSZiCQj0rs/3hGY51tsVRhSO8b02ONGJq8sPKLnNPP5bG+ZFLmP7zpwErLMTbb738Vy
+         ReLA==
+X-Forwarded-Encrypted: i=1; AKwUvBxn7NmeI4OrdMhDLdxqBtauUQCZ6fLGoB50OtAXg2hQzKF4i153JVOhYSQ2vHa7B3Bu6CYuPqV4J+dYwoc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ8WVzmcs/o21EvIT9zQnr8LUUeNgQvb9kf6VNyhWM1K5FE7T8F
+	Rv+wGUjEMUqH7efZDO0wSPM9PD9rwJyj4mVpAOXKjExqyMod3AT6By5v
+X-Gm-Gg: AYBFou1Brp3Vgdf/14W5AyuI256uJmNF9aLuDssT16P9Kt47RoqL/ejNIjkt8DPMonh
+	aWEV30EegA3XPKTRtiGduGSWEazTOJfmxMo2pl9ciUXUyNWe8+ACXTStpCW0LPcmVWBaVGl4D2w
+	r1uFB9PBjCqLdBkvzrkrdR5VISGYEdIAK/HAPyt/X8YVR/+x7no7967Af5hMRTSf8HV1TJ1tEFt
+	lS8i+0aqWWmXa8xvuFjcxHqUZO5KMVDks4b+Z2UZEOkSD6grd1ssyNhxjo/DKFFuYocQWGzsPNG
+	bcCpyYxkkUVMFmlYLYPDa/EeZ4kQE8pDzj7FYKo97bGHysjtMWakGx4EP7c3zoVLHthdCmNn6pW
+	/gIceHWiSnzrBqz8J9XiJRSR688kqw75iP8HhQKBoqF2IBIpdHxHmWfjZ7KjDdOvmQKPIVddUtC
+	MVwSHmutvt7NZTOCVg8g9WHaSE4M2+As//xAYxegSooJyUn/iGj3vbRbDwnZOEuMPMHhfkTnK7w
+	77r4ZAOaETjQSGGM2EMt6ffKxTCjCZG6hTBk9wUmFvyH0zATqINaUQL+MQ7z4WAasR1wYjkZQVo
+	m2iDZLmPb7LtIsOrHg==
+X-Received: by 2002:a05:693c:42d6:b0:368:5521:612f with SMTP id 5a478bee46e88-3685522022emr5243257eec.0.1792668225739;
+        Thu, 22 Oct 2026 04:23:45 -0700 (PDT)
+Received: from o6.lan ([2602:fce1:44f:115e::])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36740cc88b5sm16249400eec.10.2026.10.22.04.23.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 04:23:45 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,90 +88,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ysZcyI4lULtAi+wb"
-Content-Disposition: inline
-In-Reply-To: <TY3PR01MB11346D30496CABEA390A2385986832@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/vma: avoid broken uffd merge on mremap
+From: Xueyuan Chen <xueyuan.chen21@gmail.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Xueyuan Chen <xueyuan.chen21@gmail.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+ Mike Rapoport <rppt@linux.vnet.ibm.com>, Peter Xu <peterx@redhat.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, shaos <shawnq1@163.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <atniL5lYyE28HSTm@gremlin>
+References: <20261020-uffd-remap-fix-v1-1-0f34fc181f0a@kernel.org>
+ <179266301162.763593.1501773594946042790.b4-review@b4>
+ <atniL5lYyE28HSTm@gremlin>
+Date: Thu, 22 Oct 2026 19:23:38 +0800
+Message-Id: <179266821816.763593.10189260302790417327.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
---ysZcyI4lULtAi+wb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 2026-10-22 11:15 +0100, Lorenzo Stoakes (ARM) wrote:
+> On Thu, Oct 22, 2026 at 05:56:51PM +0800, Xueyuan Chen wrote:
+> 
+> > > diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+> > > index be8f5161f92a..f786a585caf0 100644
+> > > --- a/tools/testing/vma/include/stubs.h
+> > > +++ b/tools/testing/vma/include/stubs.h
+> 
+> > > +static inline bool vma_has_uffd_without_event_remap(struct vm_area_struct *vma)
+> > > +{
+> > > +	return false;
+> > > +}
+> > > +
+> >
+> > Would it make sense to have the stub in tools/testing/vma/include/stubs.h
+> > return a configurable bool, e.g. uffd_without_event_remap, and add a test
+> > for the true case? The existing tests would continue to cover the false case.
+> 
+> No, stubs.h are for simple stubs.
+> 
+> Changes like that would be only be made if needed.
 
+Got it, thanks!
 
-> > So initially bit 8+9 will have a value. This will be moved to bit 16
-> > + 17 first Then we clear the bits 8 + 9. Bit8(SCLKEN) and
-> > Bit9(SDCLKOFFEN)
+-- 
+Thanks,
+Xueyuan
 
-Okay, I get it now. Thanks for the explanation.
-
-> > > Does RZG3L have a dedicated naming? I'd guess *_HWADJ1. I wonder if it
-> > > makes sense to have a dedicated define for it. I tend to think so.
-> >=20
-> > There is no *_HWADJ1 mentioned in HW manual.
-> > Hardware manual mention this register as "SDm_SCC_HWADJ2"
-
-OK.
-
-> >=20
-> > >
-> > > > +		if (hwadj2)
-> > > > +			sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ2, 0x3FFF);
-> > > > +	} else {
-> > > >  		sd_scc_write32(host, priv, SH_MOBILE_SDHI_SCC_TMPPORT2, 0x1);
-> > > > +		if (hwadj2)
-> > > > +			sd_scc_write32(host, priv, RZG3L_SDHI_SCC_HWADJ2, 0xFF);
-> > >
-> > > Magic values?
-> >=20
-> > HW manual mentions the following,
-> >=20
-> > HWADJ2[15:0] 1FFh Hardware Adjustment.
-> > For 1.8V operation, specify 00FFh.
-> > For 3.3V operation, specify 3FFFh.
-> >=20
-> > Is the below macros ok for representing magic values??
-> >=20
-> > SD_SCC_HWADJ2_1_8V 0xFF
-> > SD_SCC_HWADJ2_3_3V 0x3FFF
-
-If you replace the 'SD_'-prefix with 'RZG3L_SDHI_', then yes :)
-
-> > > I wonder how likely it is that a SDHI variant has either only this or
-> > > only TUNING_DELAY. Do you know of one? What would you think about mer=
-ging the two? You know the RZ SDHI
-> > much better...
-> >=20
-> > HWADJ2 present only on RZ/G3L,
-> > whereas TUNING_DELAY present on both RZ/G2L and RZ/G3L.
-
-Ok, no merging then. Was worth asking.
-
-One more thing I noticed. I think you can drop 'sdhi_quirks_rzg3l' in
-favor of 'sdhi_quirks_fixed_addr', or?
-
-
-Good luck hacking the updates. And thanks for the patience!
-
-
---ysZcyI4lULtAi+wb
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrZ8gEACgkQFA3kzBSg
-KbbuMA/9F2eYMU4tnooba8JXs1gnFf/8HwQK+UeX89ohclYiQ7xHJIXCE6bBdzc+
-edscvXMtezLEhrnbQOcZZKlfoFML73OJprbGywMgTrNDTP8gBQgO29nwHGLst0yt
-AqD7qIKDh5eJxIaQ/vH2wScAkcEPKHpSgbgvX+O+p4MtHYyO68fmG8TuySpbnfzO
-nmywJnVvdZM7pPM3DuO/JtWTrSeULWT01FrFT5v8pVKSZr4PUvHNBJVnWVJN2y0T
-xF0REiv2lvgomhxLe8lQLHUqBMiv790y8pw+MPEGiN5PsNWFwwytoKTgIGsMOGlD
-7l+RAWrFkhwfAAxAIZJ8EZJQaM/f39s+Y6t01f/T/dqIC7rDT6hx/iI21BH2y/5s
-y70uV1uxZiwm137ukX4larfwCxXkdSs2L4N4ib6h2wm671uMOc7s4TsV46dlSZMk
-cZFexzBZCWZBB48UjOrjQadeIU5o0FDNigp1VQVXao+9IROLYyhUJa6lewCtvyPc
-lNuSTUKNTXEqvABNTGcp4tqBWEYlML0XSdzKV6Zvcp7v/UbO3iQ+VxXx2uz5U4IF
-v2wY5Yf9REu8+jB/z3+Jd4+RVdHqV7piuGG2PpxrijcslmRHg5CnYUvjY72+J0eI
-A7CZUqDJAN/RbaHtDWXFL5L7JAjqv7WSi3Wt4W4cEbmgyw6eebs=
-=9eXK
------END PGP SIGNATURE-----
-
---ysZcyI4lULtAi+wb--
