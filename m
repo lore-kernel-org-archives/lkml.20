@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707598;
-	b=0P8ZsDHGlOln5ahrWLed9U1P4tY7BDaAO7XAAvXfzRqfTKzZ4wthS0Tvy9iW35cElgmB
-	 Ob75LqIitMRMWRLDZ4S41ag0LFxs62VGfTvazSk7fGa6fOP06hBicvm0q6qu9oW/1aTZC
-	 oiU7pRrjZb2TQzDXxQ6rP8dIOw03976w/w/LI4NUozkgTqWZyOjFB7OuLnMiuX3oJLjlc
-	 0kicFy6iExJhj+w/XfXPhv7M8Y3XS5nN9qm/mBM7tkFAWg6GcVX+j7xSlwQ19mOFWBv/n
-	 BgqYHRIpVyY3ez2Rvn1CCf/oczBXeSXk8jw4CZDxULmJl+yvHalA0Q7S1kRXMWXmDcQ==
+	t=1792707634;
+	b=ka3QAWTlwu3dShBgyV3egFXmCY0lfWj3xKlUfR/bzQJtCL8A0Wo39E0GrfyW6xuwRioy
+	 /Pj/stDQN3NnAGPkadx8Vw2PwFwXUE010qKg8GJEZF8hFo2CLnYiaEf4LWoOP6wI69AMY
+	 xxshoenKx8IK14DGf3nwZCKITyRL+hDbYYaArvafMkCojdhQpHCThQeEIF1b9EKyitrTx
+	 I3DbUQqYx9AUljQqMYWk0/m3FGK5mUBtl88c+YECgQmt12xGgiY/mKbexaN/Wa/imn4Qs
+	 DajfWh00r/7BsC0yuJo9lPWy12DEkUTWcSvor3DLjN4Yrzj/FeMFnzyuXwqeSCvfRLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707598;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707634;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ZWgLZl94yfWWHBwe8ZSS9sK2vaYD91ERYkHK7zkpQtw=;
-	b=GFdSvpxLX5gQvCJwkTv+knp27568uFVD0rykC3zb0a6p/TY/UFv6UdLg1o3vSyAkUU8N
-	 2dF7/FdLYRoQPanTWOaz2rzHU6cWSORnynQhMU0dt1pvu3jpudVHOCAhj8NmSrugceM7U
-	 zdkFuZeHqhrUFMkKDaiLcvYdnqXhRUdHiqeLXs+5bsS6VzFu0UGmZmP9HV/xVzMdANPN8
-	 WXmtnI5lVgq42i3mxTsudj7wXgkU6CdmwH7gX4LzqTiQ/sT7LTSrOHtD80jtN/tad+r6o
-	 m5tdXBavlTiDlip5ydw+g3HDF5kHLfd4D7fsn2fhJLqs1SHja3QI32DDGyckyejy+0g==
+	bh=FPgAzjNkQiqM+WkpAExnh3Qvvaifknshl6X+/hr43fA=;
+	b=rhv70g9xb1lI3io+VrzDhJ4C+PTOJbhJ1n5+PF21WHJagySo6ka63WqR/cY6AI3WkV64
+	 jsbICmGfVj6xDinbxAsp1t4WVWTmgDh548iHHqa8fB6st7E+/D66bhVRjlKuTMzfwlROn
+	 ryhAhcGwRYQVX/aCxcJQEpIDXUpcF/rWQ9QlZ+ZGjpbyoYO9alRbvAvXM0H/zCriWafpV
+	 KRWyIAWSB3zDdu+Yig3kNRAaP9LUIsOwbidAc+KI3cE1ECf4XRE+VXJEjmWJNHFEX/IDV
+	 tFAgr3vT9ErS2shGksCDjPLkOgbTAhRpY2wNeVequs4jOJptry0yY4UwkNH66+JATjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G5T8AON7;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7CI7iwW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B556E606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:19:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EECF606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:20:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G5T8AON7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DC491F01829
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:19:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U7CI7iwW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 169C41F01825
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:20:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792707597;
-	bh=ZWgLZl94yfWWHBwe8ZSS9sK2vaYD91ERYkHK7zkpQtw=;
+	s=k20260515; t=1792707634;
+	bh=FPgAzjNkQiqM+WkpAExnh3Qvvaifknshl6X+/hr43fA=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=G5T8AON76TT8gpbtQKF1JmSrAGG4M04UAl1w44ScxNRfkcmxSCfhB7F6cwnZMhdCO
-	 GAhukxyV0WSYVhpoOqtgeBhLi0Zrn0Yatc48REFP4fyQKaGekhsGhgaUS9GuQ/MKPq
-	 p8ARJPktwuv1Psg6ZwYHKeAOKhBV6rw0bVEQY3c1EVLqam9PYAHYc9JexIFE4PUJPj
-	 dq+yfp0eVzJO4f2kkv9JlEIHWhMASTAge/qL7i1hs/j2C7ZTmhtha/zSK99l11vaGd
-	 Er2n1t8jFBibCZz4/vOM6NM7uv5z6+Ha9uJSGTengjCvjcNjAdj701gdyP4F63OIHx
-	 WI4YS4cw1ZNXg==
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4203bbb1e9so44941966b.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:19:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz+5xgOlAxsq+75RaqxqS1nREprYUeDXQCh24L7neCOPAkr6xrgBdivDYo3U+SiDGx9WYob0cjE6+G47JU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJMCv0UrQ1cOXEiLepQXV9lfNKhozmE27oIyDovwchatxSmU3J
-	PfpyYG2mqqQIW6ihWiLfQ9LUyyzLWFuy5IBijKxxIGYuS2eaJUntVm9coW0TJvLkMrnctIB7nR9
-	2sADdDW84ezlKyEi3RV/4KlWPBMV5NiU=
-X-Received: by 2002:a17:906:9f8b:b0:c43:6d40:4f84 with SMTP id
- a640c23a62f3a-c46a8d5e426mr93984966b.4.1792707596230; Thu, 22 Oct 2026
- 15:19:56 -0700 (PDT)
+	b=U7CI7iwWy/UsWWO4i3RccVaPj+tzN6BNF90oNNKhhno5jxftGJSP0bPFEtpn6rkHu
+	 RLrWnxoYMB3eFUIxb0xmTAn2DFpRboRc6wnUn+qFXog0d4qv1b68912bWXkMcJ5/FD
+	 Ay3v2pbV4WEKxhGEvZcc8zWdukJzy8+6udHBFW/c3Zmb12ipmiUEEx1IoHhAP5scV9
+	 gRl0h5DM1byicpESdI+HtndXbhNswRXtt9Ow0zOAK2UntREH6+W4hHDmXIBKQwb2m9
+	 +JPs/fjgnC14iOicZUsZysJePS0MAkmqwXjdq2HdI42ZQkyZnwW4JdH3ww1ch1QVmF
+	 VpYanze6gpCtg==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f2b8cf037so23091585a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:20:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw7reTN+v3UGutdmoo+SPwaxUA09douJatnHCZI6kNLuuCmfMZ2rGBrwiMDzDt8JhppL9pSQL586fTWKM8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLo8Cb4xIWH6rUz96r0T/WMCXeypBycT8iQu7IlmBzQe/BKnWNO
+	+c2IkkIY2V778vozgmJ1eEEeLfIT4v6b18u6v1IWVnOa0HMqucpZSrACYiuEWU1xBY9ErT4bL+Z
+	PZut9cidZPhB0ST9KYEk7FA5s7xSBGxY=
+X-Received: by 2002:a05:620a:6848:b0:93e:e394:78df with SMTP id
+ af79cd13be357-93f6f879ee3mr154580885a.58.1792707633528; Thu, 22 Oct 2026
+ 15:20:33 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,87 +59,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021205626.3286270-1-suseendranb@google.com>
- <20261021205626.3286270-2-suseendranb@google.com> <atnFygk8xsQ-8Mj5@gondor.apana.org.au>
- <CAO9r8zOtFTuPm_aR8wrzYsxzNGKQ9pUy76g0eNk_HsPmi6YW-A@mail.gmail.com>
-In-Reply-To: <CAO9r8zOtFTuPm_aR8wrzYsxzNGKQ9pUy76g0eNk_HsPmi6YW-A@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Thu, 22 Oct 2026 15:19:45 -0700
-X-Gmail-Original-Message-ID: <CAO9r8zP2cNFQ=CW4LZ0ttXtr3Q2PLs4A=rgMDZoSo=JVNuYpKA@mail.gmail.com>
-X-Gm-Features: AclHuK8jTz73VDjeomuMASBJUg8buDlto1wF_KsKwup243lKYN2RVWgimlLIvpQ
-Message-ID: <CAO9r8zP2cNFQ=CW4LZ0ttXtr3Q2PLs4A=rgMDZoSo=JVNuYpKA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] crypto: return -ENOSPC on compression destination overflow
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Suseendran Bhaskaran <suseendranb@google.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	"David S . Miller" <davem@davemloft.net>, Johannes Weiner <hannes@cmpxchg.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Nick Terrell <terrelln@fb.com>, 
-	David Sterba <dsterba@suse.com>, SJ Park <sj@kernel.org>, Chris Li <chrisl@kernel.org>, 
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>, 
-	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>, linux-crypto@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20261015080157.269079-1-hui.zhu@linux.dev> <CAMgjq7C+EXJBdLUh-JxLGkZHb6wiuvLsq85V7ph6+gPND6mq2g@mail.gmail.com>
+ <94afeb74-44cc-4e02-97dc-961309a12364@linux.dev>
+In-Reply-To: <94afeb74-44cc-4e02-97dc-961309a12364@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Fri, 23 Oct 2026 06:20:22 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yXe0hEG7pUhddas+ex6QmA1A6u_P04UKYF8mPxrW31xA@mail.gmail.com>
+X-Gm-Features: AclHuK9qP1mgPJEEaUrfuuFK_eh9pkbInHEkTI7TgyHOfXSR0gKxedCumCxDQdU
+Message-ID: <CAGsJ_4yXe0hEG7pUhddas+ex6QmA1A6u_P04UKYF8mPxrW31xA@mail.gmail.com>
+Subject: Re: [PATCH mm-unstable v7] mm/vmscan: throttle MGLRU eviction when
+ isolated folios pile up
+To: Hui Zhu <hui.zhu@linux.dev>
+Cc: Kairui Song <ryncsn@gmail.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22, 2026 at 8:34=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
->
-> On Thu, Oct 22, 2026 at 1:14=E2=80=AFAM Herbert Xu <herbert@gondor.apana.=
-org.au> wrote:
+On Tue, Oct 20, 2026 at 5:29=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote:
+[...]
 > >
-> > On Wed, Oct 21, 2026 at 08:56:25PM +0000, Suseendran Bhaskaran wrote:
-> > > In the acomp/scomp compression interface, callers pass a bounded
-> > > destination buffer and rely on the return code to distinguish a
-> > > destination buffer overflow (incompressible input) from genuine
-> > > compressor failures (such as invalid parameters, uninitialized state,=
- or
-> > > hardware errors).
-> > >
-> > > While the multi-segment streaming path in zstd_compress(),
-> > > crypto/deflate.c, and lib/842/842_compress.c returns -ENOSPC when the
-> > > destination buffer runs out of space, the single-buffer path
-> > > zstd_compress_one() (taken when input and output are contiguous singl=
-e
-> > > pages, such as in zswap) as well as lz4, lz4hc, lzo, and lzo-rle retu=
-rn
-> > > -EINVAL instead of -ENOSPC on destination buffer overflow.
-> > >
-> > > For users such as zswap, which reduced its per-CPU compression buffer=
- to
-> > > a single page in commit 0b1bf60c324a ("mm/zswap: reduce the size of t=
-he
-> > > compression buffer to a single page"), incompressible pages typically
-> > > overflow the PAGE_SIZE destination buffer due to compressor header/to=
-ken
-> > > overhead. Because these compressors return -EINVAL rather than -ENOSP=
-C,
-> > > zswap cannot distinguish a destination buffer overflow from a compres=
-sor
-> > > failure, causing broken debugfs error accounting (reject_compress_fai=
-l
-> > > vs. reject_compress_poor) or masking real compressor errors.
-> > >
-> > > Update zstd_compress_one(), lz4, lz4hc, lzo, and lzo-rle to return
-> > > -ENOSPC when the compressed output overflows the destination buffer,
-> > > matching the streaming path in zstd_compress(), deflate, and 842.
-> > >
-> > > Fixes: f5ad93ffb541 ("crypto: zstd - convert to acomp")
-> > > Signed-off-by: Suseendran Bhaskaran <suseendranb@google.com>
-> > > ---
-> > >  crypto/lz4.c     | 2 +-
-> > >  crypto/lz4hc.c   | 2 +-
-> > >  crypto/lzo-rle.c | 2 +-
-> > >  crypto/lzo.c     | 2 +-
-> > >  crypto/zstd.c    | 5 ++++-
-> > >  5 files changed, 8 insertions(+), 5 deletions(-)
+> > It seems a lot of trouble is caused by the design of the reclaim loop,
+> > so will it work better if we calculate the number & type to reclaim
+> > first like CLRU?
 > >
-> > I can take this patch through the cryptodev tree.  Is that OK with
-> > you Yosry?
+> > There is a demonstration from Barry:
+> > https://git.kernel.org/pub/scm/linux/kernel/git/baohua/linux.git/log/?h=
+=3Dkairui_scanbalance_0.3
+> >
+> > And instead of throttle at the reclaim loop, balance the scan budge
+> > based on (size - isolation) number, and throttle a while LRU simply
+> > when the total isolated number is larger than total size /
+> > MIN_NR_GENS.
+> >
+> > Just an idea for reference, seems could help get rid of a lot of comple=
+x logic.
 >
-> Thanks Herbert. I think we should wait to see how patch #2 turns out.
-> If I understand correctly, as of now patch #2 keys off -ENOSPC to make
-> a behavioral change in zswap, so the zswap patch would need to land
-> *after* this patch. Unless you want to fast track this to Linus right
-> away?
+> Hi Kairui,
+>
+> Thanks for the pointer. I had a rough look at kairui_scanbalance_0.3 and
+> I am quite interested in it.
+>
+> I think that branch still needs an over-isolation guard. The scan budget
+> answers "which type and how much", but it is computed once per
+> try_to_shrink_lruvec() and does not see what other reclaimers are
+> holding. Each reclaimer's in-flight isolation is bounded by the batch
+> size rather than by the budget, so N reclaimers entering together all
+> see the same state and all proceed.
+>
+> On the other hand, that branch would also make the guard much simpler
+> and clearer. Since evict_folios() already takes the type from its
+> caller, the allowed mask, the type rewrite and the fallback restriction
+> in isolate_folios() all go away, and the throttle reduces to a single
+> check on the totals in the shrink loop, which is basically the second
+> half of what you suggested.
+>
+> So I would like to ask what the development plan for this branch is,
+> and whether you think it is worth moving the MGLRU too_many_isolated()
+> work over to it.
 
-Patch 2 will be re-sent separately, so please feel free to take this
-patch as-is. Thanks!
+FYI, here is the RFC:
+
+https://lore.kernel.org/linux-mm/20261022220203.91911-1-baohua@kernel.org/
+
+Best Regards
+Barry
