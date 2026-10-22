@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668411;
-	b=AUCpEFGgAuo/qANbGz/7JLKYgQJRX/aTclICgU+LHF30wiZSUPkNX4ClBoCXVHkqtwjf
-	 f7fShAv3vmxTZsuD3YAPJ4xaWdf5MnJ+d3gFP2AqsJYJ3gAT5FzZNGbbw4MUZFiesuCCW
-	 5c8vLmF+3TfQUthofnURYKSyTauS7/lK8qI60fSppZDZTdeJQtA3TvVZ6/+IvFi5YE8Dw
-	 0rJ6RFES9IhdMLmCcMi0lgPh/sSmXXTdsHL83TevWuigCMkBdgdyd+9hVR4FVbpCj9gz1
-	 a6IPl6wCRvT3r86/2GoLig5Ub2kTOG01hFBruycn91lmIePwX/zeKBx0ukxhmFnrrQA==
+	t=1792668419;
+	b=M9tG7P8qxLDiyEokeWHnNQ/VA0Dl1EDAFq4KVCrakW6wGVLSpyyNxI1mGoAKh6UvWLMF
+	 9K98fC7xsI2VEPyClScXHaiDfaQFdb1TOc2cdhfGuT7NG3802kyIrn/cAc/QgF+RdmW0X
+	 avMsV75vIljwoRCby487qX84u1oP1zl3uu3i70wdqFF1MMxnMmpQS+Rmq1XejkaARm45Q
+	 CfD+ihMbZCsZIcavmHRjbUYBggNjYrTPDfosomCwF+SVrx8KpJArz1dhK7wmNMStG7e/d
+	 MoAuBF2iiQjv9v4WRlo0e4e08OdRXc5JKTiXT1UBkYIPk1SgdZgk82Y9j0HzCFuipfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668411;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Virus-Scanned;
-	bh=4E50WilOxFb8qDQvr3/oMZLrfE8a1b0B9JLvVN7EQv4=;
-	b=oXCOgsUJBtZ3Ql/YJOLgPQm7chGb6GZKCqSBoOL4USJfvZPQrUrSVPKyPPwmO0mFWuXV
-	 cXyqhEoYExjier78SfnIfl9ScO//YT6XMRPy19RCkEsv+CyePDblyTI75gSks447/R/Zj
-	 PP7dAJv0GOIVK74MC9/KfBaCC8lSYgb6+MoHhVsx/Gv9xN4EgFTvOg4L7gfK3ZmoSScLb
-	 iKQeNZ/Ovjv1O+cY9oEcwf0l9lkMMS+XiO9OSUi4wlYbYAbb3LfbAIFz5K8C/IfCrwgPU
-	 O4KNZzLPmN1LONsH6xFRtGn2NPFg8gFAZNmTqUYXW8FRV2IijIvqdCxXQKuqY/iTnUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668419;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=m2XW18vNW4o1eqMkNJZgcsexX3BdEqPbWYsFQmtVUt8=;
+	b=laSIT4SqM3CVn71OD9otOvnVxVJZzfdVEfAgit5vECw5XOWUJW0orTBN1tKe5PeG91AW
+	 9KYhl0cwDLt26hbFX/dcQViHbTK/No0lJ6eUj84dnt7ZWQ8uQLXRM9zjm64M+1epLbzwB
+	 UG/91d+MoO1yvJBR4Er0X9d7nhcS7ti9/xQDGZzYTB0NCEjOmxBMa7g7ZPGa9+VPOu67w
+	 O00z7uuDzqPDUOBil0hX+MJPc9xvvD4ggIab6YYohUJ23h1RB+XZ45SDD8ag+5hD3TEgf
+	 KfSjUwjxoDVng+BvidMEUGj6znZ+yik4uemt5Jvsnp1odufLz1dDMiMbQFV8hOACyuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ew.tq-group.com;
-	spf=pass smtp.mailfrom=ew.tq-group.com;
-	dkim=pass header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=N2IfWaRR;
-	arc=none smtp.remote-ip=188.40.3.216
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN3uGCdJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C323606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:26:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C323606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0DC606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.a=rsa-sha256 header.s=default2602 header.b=N2IfWaRR
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=4E50WilOxFb8qDQvr3/oMZLrfE8a1b0B9JLvVN7EQv4=; b=N2IfWaRRFCP71nXTaBs8S22HaM
-	tdYmyWemDBu5SHWNJAdZX9mVgBAMF6SpOlfnXayVGXnPF8dOrbh2d9df1CqzqGlgTrxjyabvTyEBn
-	G6pR4bhYZdWA8ULRUcOsAxUUcSjLRnYB4EkbmYNfsHAkzoZ33E/aqXAmZC0d6zZI5AJaKEo9dYBI0
-	f0ludMn0TsjmlHcmkoG4os71sHZL/FQkaV8lgt6y1GywbtW08jiIfBy82wAdMQGFcip5LZHfVaMDB
-	7vOsoMXWlVJGuoGztWmYKbuebxm+lA+5bY1+llBdcPQSfESeF2a+9dDKla5pmmpQwbgrJXhyFd1Rk
-	apd5EKfA==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xJqwU-0004EC-1d;
-	Thu, 22 Oct 2026 13:26:42 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xJqwU-0008wb-2k;
-	Thu, 22 Oct 2026 13:26:42 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Richard Weinberger <richard@nod.at>,
-	Zhihao Cheng <chengzhihao1@huawei.com>
-Cc: Alexander Stein <alexander.stein@ew.tq-group.com>,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/1] ubifs: fix typo in comment
-Date: Thu, 22 Oct 2026 13:26:39 +0200
-Message-ID: <20261022112640.11822-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN3uGCdJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C0D01F000CC
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792668418;
+	bh=m2XW18vNW4o1eqMkNJZgcsexX3BdEqPbWYsFQmtVUt8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=PN3uGCdJxdI7P19DHlNpW+xffMvvBjssKle0WuOyYYL/cJJdoJ9TbEmwSRlCMyOB0
+	 J7VnHtiGw29voyaEhFmjar/xxfwqgbQXDKFZjWr7QQsCosBB2syyTyM4teDufVZS1Q
+	 TxjJj2mnSylQWvIoC9n03gWbyu/E3WBQJf5uhI+zy5InWLcSnfy0U/OIPPtXCgTmC1
+	 BL4DipFoeD0YW4tyIXAGWGxN5iSDJVvD2gJjChBfVD+1Kh0eGSsUO73B3UT9ru52pf
+	 KMdBFcvRtSb552vdLFGXD1tqtqEHHYXDy42HKj6DW03H1yTJZduH5qWCjbxF84OXtd
+	 GdxviGglTCt2Q==
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso1429900a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:26:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxpsGof9WjdLX9FveMX6FZMCVv3vMnL0ksfGL0ibUDVDP3NvZYCh2MNJL2F9F9dfPDw31UFTLFdTSBSH2g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZu9FJLYOPvofk8pWAG5nn6lCJvulYbTlzxThhuObalRIoxfLA
+	hPZuVmTV/VE4hROLUuOqq9X3swGPE6pbrLf9DjRJg79ZnAuxc62cPy5iH4hsc/1P6aW4g8P1Dya
+	d+lx+m/O0p2/6Mabxjc+R/8HD+VxOivI=
+X-Received: by 2002:a17:907:6e87:b0:c29:4b57:503e with SMTP id
+ a640c23a62f3a-c468d5dafdbmr240442766b.1.1792668417000; Thu, 22 Oct 2026
+ 04:26:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,29 +59,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28161/Thu Oct 22 08:24:11 2026)
+References: <20260928012812.2890035-1-neilb@ownmail.net> <20261021-sodbrennen-ausdruck-kurven-72d0b7cc7db9@brauner>
+ <655e5d4f-7890-4956-88d2-cb571be218d6@talpey.com>
+In-Reply-To: <655e5d4f-7890-4956-88d2-cb571be218d6@talpey.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 22 Oct 2026 20:26:43 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-_WQTr_5zNLjrp3Q1+zBtRNTFYkvMpC6RpDEjY0xi=zg@mail.gmail.com>
+X-Gm-Features: AclHuK8zNS3wgHEO5R7ujwkr3nixmETTfEc_4BRtiMijOW7Jer_U3sEFhzfjwKY
+Message-ID: <CAKYAXd-_WQTr_5zNLjrp3Q1+zBtRNTFYkvMpC6RpDEjY0xi=zg@mail.gmail.com>
+Subject: Re: [PATCH 0/3] smb/client(cifs): prepare for locking changes.
+To: Tom Talpey <tom@talpey.com>
+Cc: Christian Brauner <brauner@kernel.org>, NeilBrown <neil@brown.name>, 
+	Paulo Alcantara <pc@manguebit.org>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jeff Layton <jlayton@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Small typo which stayed hidden so far. Fix it.
+On Thu, Oct 22, 2026 at 12:32=E2=80=AFAM Tom Talpey <tom@talpey.com> wrote:
+>
+> On 10/21/2026 5:55 AM, Christian Brauner wrote:
+> > On Mon, Sep 28, 2026 at 11:25:01AM +1000, NeilBrown wrote:
+> >> I am working on changes to directory locking.  The medium term goal is
+> >> to lift d_alloc_parallel() locking above i_rwsem, so d_alloc_paralle()
+> >> can be run unlocked, and consequently cannot be called when ->i_rwsem =
+is
+> >> held.
+> >>
+> >> The requires:
+> >>   1/ that d_alloc_parallel() not be called while i_rwsem is held.  cif=
+s
+> >>      does this in a couple of places.  A new interface d_alloc_trylock=
+()
+> >>      is now available and can be used instead.
+> >>
+> >>   2/ a dentry must not be d_drop()ed while an operation is ongoing, as=
+ an
+> >>      unlocked d_alloc_parallel() would then be able to create a new
+> >>      dentry with the same name.  In particular d_rehash() must be phas=
+ed
+> >>      out as it won't be safe.  This particularly affects the mechanism=
+ to
+> >>      block lookups/revalidates while an unlink/rename is happening.  T=
+he
+> >>      mechanism is changed to use one similar to how NFS addresses this
+> >>      needed, though using the new LOOKUP_PRIVATE flag.
+> >>
+> >> The patches depend on patches recently added to the vfs tree.  I would
+> >> prefer these land in that tree too with an Acked-by or similar from ci=
+fs
+> >> maintainers.
+> >
+Hi Christian,
+> > Can do, will need an Ack.
+> I will defer to Paulo for the Ack, but for the series, modulo my nit
+> on DCACHE_BLOCKED:
+>
+> Reviewed-by: Tom Talpey <tom@talpey.com>
+There is a v2 patch series. Please make sure not to pick up the older
+v1 patches.
 
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
- fs/ubifs/scan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+https://lore.kernel.org/linux-fsdevel/20260929024352.1433257-1-neilb@ownmai=
+l.net/
 
-diff --git a/fs/ubifs/scan.c b/fs/ubifs/scan.c
-index cbff2d800e27a..50740e9dabf73 100644
---- a/fs/ubifs/scan.c
-+++ b/fs/ubifs/scan.c
-@@ -245,7 +245,7 @@ void ubifs_scanned_corruption(const struct ubifs_info *c, int lnum, int offs,
-  *
-  * This function scans LEB number @lnum and returns complete information about
-  * its contents. Returns the scanned information in case of success and,
-- * %-EUCLEAN if the LEB neads recovery, and other negative error codes in case
-+ * %-EUCLEAN if the LEB needs recovery, and other negative error codes in case
-  * of failure.
-  *
-  * If @quiet is non-zero, this function does not print large and scary
--- 
-2.55.0
-
+Thanks.
