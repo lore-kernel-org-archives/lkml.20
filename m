@@ -1,108 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.27.42.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678452;
-	b=MnBicssEBfR1TkJ0afLCaeL52Ci4ONgXK8/FzPBh1U3DGGmk6ZCPcIl3NTa/Rhnx0qK0
-	 ybMN4m25egYFfeuRZhg6jzXM4g8r4deauV7MT3GwExuLxR1cwX4C5qPDKc9Prwgrm6uBY
-	 2/2nDUlVdA2Rf3F1YJhfvAebLSrSqD4xpiUb0uh7GTcdS77w85nNxHa4koZJedGMhc1iY
-	 sd+fspZgunDA0UZNKWfZjZumcdRlkxpURSpsT/wXFNbmoiJKXBv8edleGyYFpMkzXppSP
-	 o6saq9YHPm/KjWkudQtvUd24Bwh4sy4eJuhDmJXM0l5zPUJFk540on5W79abFMA6sKg==
+	t=1792678472;
+	b=zHdd4sOamqUjM/EtP2GCKShMp1HZ6cgclxi6/Y8I/o6qk5hpuyeoFFO0Urqk7ar11jX4
+	 OhPKiRcsGhglLUpjduaURqzEAL+2B5HXI4peYVXVB4GCeA1/b6J74kb1gzz4FdoPpXyLN
+	 N3g62Lr/zJnLu0U20vFqOVnzNo8dDlRWTD0IK4AWQ23pzbrFJYfn6tHdovadif+zGC4EA
+	 CgVsZNlhMXUOqp2YDOIRnetn+cVnRcrjtIHSmNiE3ueiUIOSmC+6wPjhlDABSkJ9AjxP+
+	 cg7kAf1rrXvp2FTF17XcsXrcpyunKA5/hLlfidUebiU/+5nrg2LV9diBDUdSvPBQzpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678452;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ar1E8sP3jvEI9uhwbxm9hO7paRp/1SObcXepAZxmBtQ=;
-	b=KLSsIV+awl+JUJkwU9ztoLfgaIAJ7y0AiGMmy4Gb/m4OGnNsiNQ1Z2dHZ41xzgyudVKN
-	 7H+5EhDOcdxSYTCt506l3sB7u8ILEnlHP+RobAlIZod0xoYYNZ53hse0ylAZUopTb+e/e
-	 dzQhCPsyPLrOCVscD+Hi29K7BtVj+r+zdZApU4bwyaMJnC4nXeA88aHgXKxZ2ShhJMJN0
-	 nxzuaZSJNClzBjT/qU6VM671YRkPmJl1j9LGxd5DeMQTF/AV4G6rp5yQS3iciEF80RKVT
-	 7JVFZW3MRTPxqzkLSnIBM+i8tEWsiVaWXvqBVpx0rooa44cqkDoS4uD06Lcb4T5Bbdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678472;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Toe3fW/9OcEs91PQjKDA3fusgEgWleJga8wYfhw7eus=;
+	b=dBz4xcjW9mQcfxLqZ3e6P64I+4CgU1+GDC1gucXIStQELd/BwNYzyTPXwaW7yOubZsN/
+	 tMfeMJjH89VqTIDYAauLkcvZBo/V0Cgbt8yXI2jmaQJe70dBnmSVLDX/TeCppKeyeqga2
+	 lFqnO1Hz27KiKAtwjRy6VnQdUrdGaUaKhPlBiWkOyZZuBGlm0h8ryh1dqP1eewXopCXkb
+	 NUo6jku3BK2ugY+Jmrp0n+5GOwcPJEEr3cgax8ImcvJ/WxANY9Wv39RcdEmAaOAW8uwDQ
+	 7Vgq8rchnddk0F3tIsPlwAMHyfH/8pdwrpcfAng4tXhdvTCajs33EJN/rc6rkzu2oJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oarfeyxf;
-	arc=none smtp.remote-ip=209.85.222.50
-Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=free.fr;
+	spf=pass smtp.mailfrom=free.fr;
+	dkim=pass header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=PlE4nS6A;
+	arc=none smtp.remote-ip=212.27.42.1
+Received: from smtp1-g21.free.fr (smtp1-g21.free.fr [212.27.42.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CB34606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:14:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CB34606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1AF606A319;
+	Thu, 22 Oct 2026 14:14:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB1AF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oarfeyxf
-Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-98c78660542so1241014241.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:14:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792678451; x=1793283251; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ar1E8sP3jvEI9uhwbxm9hO7paRp/1SObcXepAZxmBtQ=;
-        b=oarfeyxfEjEhCOV2PRbr2HmPUgigNYcvYFz+Bo0jWDOGvyJEyzRACvL0BB5m5iwLam
-         la+JCSgOlKiVLTki/x5TP/kzdLaD45y4DUyehUyLTAUpLb1GuphHqCoVbnf7oevFUSMO
-         YK0J9bOin5mX7i1si8hc30kK2l0zD1uVHSMxxTBIO5sk/YpzjhO4xk4JZXHsboQGB1B0
-         p36y/RBJilfJA19LJP0ODeDhnuSC95jR6wY+8zsCMeRzGkufuSbetiutPLLy6dd8sxW8
-         mEpbeZ0sY3nJRFE2CDesoZPmW/58xDFqgNs2Q9dhIJxFf/OK5rU0dtJGhSNHRHWaaf1q
-         4nxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792678451; x=1793283251;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ar1E8sP3jvEI9uhwbxm9hO7paRp/1SObcXepAZxmBtQ=;
-        b=XI8uyTeBtq+FS9UzNd8oxbqS3i5G5pa8DDdWJx8o+BBeHsKRyR84YlntVCqGnsvGcn
-         O0QVM6jC/JWnulYguTF5SJjMNTvvHZszSgDkeQbeuUiwTKO+CeaqqSj/qJhLpiru3mx7
-         4dhVgv8oyqB1Yz5v9sHK4PrrTyQg4zFoVemSFKbKNgktJ9KB3jbNtM11kKBzwqREBNEp
-         6wPPDwO12CZrScEgKTKKUtQkUhmwvsgBlX9HImZ8k1J2AFiwDALUBecNcdAB8DftdZll
-         YDnKVzVuewt8u+BKzyjmjCZGdSTtpggxMDoLz532Zi3rNoNYkKaqoaLqT7KYdBn4qHIw
-         JX8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzFDsCDpyP8HuqeiaR6r5jX0QPJ0PJhXWflm8+UdhXN076B6SuN6d8zbWbgZcq741kIURtz25uw4vQE1gM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIx2GCUYJv5R6603EkuK3gQkNCypuPo1ix3wVfGx8x50mpmyQh
-	0SLnQ4QWa7Z2qp22v92ULrIfENvCBc2LthmOzZRIFRbyeLmkhSRhsCir
-X-Gm-Gg: AYBFou14CnJsq83do5DYE440HIGaFMEmNJIIQMP6A8ksljtE65a9LuquiZDUP8moJ1P
-	5+z9cmvDQHii62jQkTOrKaV/yCzeGXoYJAcPm91xik4YHlLcTR12cJvklKfGvWdoSaHxeO06ZbB
-	C+IAq/calekBCj3lai1sGXjckf79mO++hkZKpKlxUB6DoWYIz/E2tWnedDcCWYCoNSm463mRiXb
-	e22wwXcAYHg7aOCIvJhnkmVIZeosH/OF1gmxOoSNrsqr1XrnTyn9y+QtCFrK/YxcwUx8Rh6X96K
-	OyirZ1bAJzGiikvHFJGmPy3QzJpLc+wlqY1wUSbht+M5P581rQ9CtQhP1AeeSBKDBNkcVDPetKC
-	zxHimPHlrmgQOfuTod3G4ugXS4SJHEQmZ5nRT9KJZrT5YFJOVBksYjCoGuRuYH9rdQJS9c7mTcR
-	EO1ZqEA5mcdFokWb5pHQc3oO+eUjAS5ym8A19ycJ8GUAqsSIkOEQkUyopdsZkHiiQfW7cMbYjYf
-	4UbYAJlVqZLl/BCj4+k/L+G8dflOgWuCvHb0YJXDpAZPvKhpv0rd2D4TOSh6U2ke1//WZVzd0rh
-	AX7g77SaDWIcEM1QP6tzrkHo5KhONMbrsxLzjjWIjvoWquXRi0N0HoEQY8LsMG6PQ7NeltzC98z
-	iZPvmWQgdQts7d1535YE=
-X-Received: by 2002:a05:6102:160e:b0:7c3:f07c:f49c with SMTP id ada2fe7eead31-7cc9264273fmr2170632137.11.1792678451117;
-        Thu, 22 Oct 2026 07:14:11 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ccb8fd4dfbsm1074530137.10.2026.10.22.07.14.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:14:10 -0700 (PDT)
-Date: Thu, 22 Oct 2026 10:14:10 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>, 
- Cheng Yongkang <teel4res@gmail.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- Jason Wang <jasowangio@gmail.com>, 
- "Michael S . Tsirkin" <mst@redhat.com>, 
- Eugenio Perez <eperezma@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S . Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, 
- Jakub Kicinski <kuba@kernel.org>, 
- netdev@vger.kernel.org, 
- virtualization@lists.linux.dev, 
- kvm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Message-ID: <willemdebruijn.kernel.78222817ba37@gmail.com>
-In-Reply-To: <9756cf25-6951-4330-959b-3260f4760c3e@redhat.com>
-References: <20261022091847.3654028-1-teel4res@gmail.com>
- <9756cf25-6951-4330-959b-3260f4760c3e@redhat.com>
-Subject: Re: [BUG] net: tun: zero-copy path can expose uninitialized packet
- data
+	dkim=pass (2048-bit key, unprotected) header.d=free.fr header.i=@free.fr header.a=rsa-sha256 header.s=smtp-20201208 header.b=PlE4nS6A
+Received: from stf-laptop (unknown [IPv6:2a02:8424:8fef:6e01:68ea:cb82:d40f:9275])
+	(Authenticated sender: stephane.grosjean@free.fr)
+	by smtp1-g21.free.fr (Postfix) with ESMTPSA id B2E2DB0051B;
+	Thu, 22 Oct 2026 16:14:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1792678470;
+	bh=Toe3fW/9OcEs91PQjKDA3fusgEgWleJga8wYfhw7eus=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=PlE4nS6Ai9CJdR5448FJ13bTPd0dPxoWoERcO3zNNdAIWKCEkUc4mSoICGTnibzmt
+	 xsYSUoW2ursUOsavPFBYzfv3b0thood/rVSR5SWeawNkkawZx5qV29gPiA5gj0N9ej
+	 iMPt4v+suy71mUypwqBqwXiSr4lhdlNDxoGkl73l8SnmBefur6l9uoRYpN23RgKaYh
+	 MxIBYLDtYOkFIkb0D13CpkmfkMTpe0pbWLoxWPwvxl0dMFL73JboPB83PR10mHovTW
+	 9uvRP26ymf30QZrRW8fFofhXgjGqfgFnmwxTSmMRYd4rFhZ7mmto/9kLchwYwrAIVm
+	 p9Eaa+8s15Vww==
+From: =?UTF-8?q?St=C3=A9phane=20Grosjean?= <stephane.grosjean@free.fr>
+To: netdev-bot+sashiko@kernel.org
+Cc: mkl@pengutronix.de,
+	mailhol@kernel.org,
+	error27@gmail.com,
+	wg@grandegger.com,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kuba@kernel.org
+Subject: Re: [PATCH v5 08/10] can: peak_usb: reject records for unset channels in PCAN-USB Pro
+Date: Thu, 22 Oct 2026 16:14:10 +0200
+Message-ID: <20261022141410.222366-1-stephane.grosjean@free.fr>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <179264019905.3131.17443314322038603114@kernel.org>
+References: <20261020-canfd_check_channel_idx-v5-8-a62b35b867f0@peak-system.fr> <179264019905.3131.17443314322038603114@kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,77 +72,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Paolo Abeni wrote:
-> On 10/22/26 11:18, Cheng Yongkang wrote:
-> > The experimental vhost-net TX zero-copy path can hand TUN a user buffer
-> > whose effective vhost virtio header size is smaller than the TUN
-> > device's configured vnet_hdr_sz.  TUN computes an skb copylen that
-> > remains larger than the bytes actually available after stripping its
-> > configured header, publishes skb->len from that copylen, and
-> > zerocopy_sg_from_iter() initializes only the real payload.
-> > 
-> > The resulting frame contains an uninitialized tail.  The tail can be
-> > read by userspace from the TAP peer through normal forwarding.
-> > 
-> > Observed on Linux v7.3, commit
-> > 08ab31164c55f20c7a2653de3186ae333470e2c1, with:
-> > 
-> >    init_on_alloc=0
-> >    vhost_net.experimental_zcopytx=1
-> >    TAP vnet_hdr_sz=200
-> >    vhost TX total length=256
-> >    real payload length=56
-> >    TUN copylen / skb len=128
-> > 
-> > The exact control with vnet_hdr_sz=10 delivered the expected 246-byte
-> > frame.  The corrected trigger delivered 128 bytes after submitting only
-> > 56 payload bytes.
-> > 
-> > Sixteen of sixteen corrected triggers produced the overlong skb.
-> > Eleven of sixteen had nonzero bytes in the 72-byte uninitialized tail.
-> > Several contained recognizable stale kernel allocation content from
-> > previous skbuff_small_head users, including fragments of environment
-> > entries.  Those bytes were never supplied in the virtio TX buffer.
-> > 
-> > This is a userspace-observable kernel-memory disclosure on a
-> > network-forwarding path.  It is configuration-gated by experimental
-> > zero-copy and an enlarged TAP vnet header, but the overlong skb occurs
-> > regardless of init_on_alloc; init_on_alloc=0 is needed to observe the
-> > stale tail in this test build.
-> > 
-> > This is distinct from candidate BR-023/BR-025, which exercise
-> > IFF_NAPI_FRAGS.  This reproducer uses the non-frags tun_alloc_skb() /
-> > zerocopy_sg_from_iter() branch.
-> > 
-> > I found no direct upstream fix or CVE.
-> > 
-> > The vhost ring reproducer and complete program/console logs are
-> > available on request.
-> > 
-> > This was found with a multi-agent workflow; the
-> > information disclosure was reproduced in QEMU/KVM.
-> Please stop this AI-generated test-walls dump: it's not very helpful
-> except for other agents consumption.
-> 
-> Really, please stop now.
-> 
-> Please instead ask your LLMs to try to generated fixes for each of them,
-> manually review the generate code if you have the skills, and share
-> the patches on the ML, at a very limited rated (no more than a couple
-> of series in flight at any given time, with no more than an handful of
-> patches overall).
-> 
-> Please consider collaborating with other already in place projects
-> (i.e. nebusec) to make you finding available to the community in a
-> responsible way.
+On 22/10/2026 05:36, netdev-bot+sashiko@kernel.org wrote:
+[...]
+> [Severity: Low]
+> Should a well-formed record for an unset channel cause the rest of the
+> transfer to be dropped?
+[...]
+> Would it be better to skip just this record, for example by returning 0?
+> The same applies to the new check in pcan_usb_pro_handle_error().
+>
+> Later in the series, "can: peak_usb: register the netdevs only once all
+> channels are set up" moves register_candev() into peak_usb_probe(),
+> after all channels are initialized. That seems to make this branch
+> unreachable by the end of the series.
 
-+1, see the documentation on how to report and help address potential
-vulnerabilities at
+Right, the rest of the transfer is dropped, as for the other malformed
+records, and as patch 6 does for the PCAN-USB FD. I kept it that way on
+purpose: as you note, patch 9 makes this branch unreachable, so this
+only matters to a tree that would take this patch without patch 9. The
+v6 changelog says so.
 
-    https://docs.kernel.org/process/security-bugs.html 
+[...]
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch. Since
+> this function is being changed anyway: can the payload memcpy() further
+> down in pcan_usb_pro_handle_canmsg() read past the record and past the
+> RX buffer?
+[...]
+> Could the code
+> reject len > CAN_MAX_DLEN? It could also reject any length larger than
+> the record format provides: 0 for RXMSG0 and RXRTR, 4 for RXMSG4, and 8
+> for RXMSG8.
 
-Do not just send reports of unfixed bugs to a public list.
+Confirmed. v6 adds a new patch, "can: peak_usb: validate the data
+length of PCAN-USB Pro CAN records", which converts the DLC with
+can_cc_dlc2len() and rejects a data frame whose length exceeds the
+number of data bytes of its record type. Tested on a PCAN-USB Pro:
+frames of all lengths are still received.
+
+> [Severity: Medium]
+> This isn't a bug introduced by this patch, but does the caller,
+> pcan_usb_pro_decode_buf(), read pr->data_type before checking rec_ptr
+> against msg_end?
+
+Confirmed too, and pcan_usb_pro_wait_rsp() had the same issue, with a
+32-bit record count and no bound at all. Another new patch in v6, "can:
+peak_usb: don't read past the message in PCAN-USB Pro decoders", stops
+both loops at the end of the received data.
+
+[...]
+> [Severity: High]
+> This is a pre-existing issue and was not introduced by this patch, but
+> can usb_if still be used after this kfree() for channel 0?
+[...]
+> Later in the series, "can: peak_usb: register the netdevs only once all
+> channels are set up" removes register_candev() and the
+> lbl_unregister_candev label from peak_usb_create_dev(). After that, no
+> netdev can be open when adap_dev_free runs, which seems to fix this.
+
+Agreed, this is fixed by patch 9 of the same series.
+
+Thanks!
+
+Stéphane
