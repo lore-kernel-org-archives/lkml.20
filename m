@@ -1,121 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665278;
-	b=gMv9rltHV+lf/Wl1atisFhLGpeYt2+9+HScTMkNre/f47DVKS6TpkdeMp3qQ4KzY+1/J
-	 8qjzOouSabVBHAdZCbl0VBNcTXn3hZx7Xn7+gx6cM8j9WR16YFfOlzmb5KdgP8MyFATbX
-	 Fr4WHlDlJHhkKuf+CYnEiG+oNeefjFXkIi8f/IXtt7XwmUSiNkeIhKZiSGSX5P3U/+D3B
-	 0iik2zgUbBRKzjIezCdWIxSMBdPQTYBEbNz7UqJYv/1Hm0AWBrnfZSXkNVk7345KoOCIC
-	 Nw1Pka5K+lZSFhKScYgl3zYW4Ot5omNTqEL8AZi6RfGA0e7wAav1wmFg9XrbLDYXpuA==
+	t=1792665286;
+	b=ld0PFcPMbWZZd8/dLW8+iL5/8P1U4j+BFoZEsgB0ryWrmJSW7n1iWj0hv+tBpW8QdRyw
+	 lQsgaNHm1+pscnsx9MA/skMoxiqApZRs3BAWWJ2Xuh4G1TouEiyjcUZ57XzfZfWKDsZ++
+	 knSXjGmpbGl08LKo5aqizLUbIYamA1tMCgJJnATO7OQYiOej6hIg2BydiHNqdOL6K4Hxx
+	 kvHgk+/sge0dmIboerHUMzkAIUI+u/A9Zjnwcuj0pk03IshjVJk4caqPWZtu3XRzfLVoP
+	 mkEL9HtjIsZu5ixZRj1YQI03xoOvma6KwucTcnmt2GKvXiO6xTO0dwwZ+eLjwTbg4bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665278;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rshDlqNejxJRqysNErHRTceLWSA4tGMQL8Av9Q+N4/4=;
-	b=5WwXzlSRWIGm9SbUAq2cgc4lsYCyAnSPGRLjXZyf9JWAa5KZdcpuXOBPGxc1uY1d5W6x
-	 68BMItGHeuReRJyQ0+UjCnLItwHS3aM3kmzBGdySxT63G8EgMdqPeg/jgfFAm4J8mfEoW
-	 AFOB2KGTGSVRxFEhVPDbQZZNaYZHP+4UBsGuufFjOj1NYzktWXvncd3UPUxlJ46hbkyKl
-	 4Lspw8hke+MPByGyPDq3Xh+KwDdtnKbfwSUtxoBP+B+ticPF/OYKQV2+57FUGAwf0OG8m
-	 ULXAgEmUEQONu/pKwUA+Zc/iLnnaQoPa4GIQLq3aQb2knQPP1dqvpfNNdGu8P4sx4sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665286;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fGLqzeHj9nniEWw/kgUcLX4W43BoRvMfa82J3ope2Mw=;
+	b=WU61AsZsRwNsRmIpIPccZscdxoHLZO7bOMEdnaTKsuc7epfj5Cn7nR+u9f3Ji7/nIi8D
+	 96CIREDfH13fd3xS2yIqi3BHuJVtsaYo/tvzxLqyPlI/8aG7N0RD3lbgxEvq4tXu1fQWz
+	 8atMNebEBEp7/Zg96csTIZsAbY0tSWlONbE/Ewr6a/7H6ui4twjfVatyE54MWnSAckMOY
+	 JGI+8ndeaMg4JFmlr9IQjJ2st6h96g5N4+rbXLhgXg49+deU/WsleEP1TI59MpWUhEIQS
+	 JO0xptY+rJYIQh4btqLZSme7lAyhOhpMAnBWAvBmTAhLnauKfhQQrLQ6Ph2+dJHFI8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DF9e5OOz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=juehq+nP;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHCLlY+X;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A503606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:34:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A503606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9F1606A328
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=DF9e5OOz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=juehq+nP
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA0E6h3116058
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:34:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=rshDlqNejxJRqysNErHRTceL
-	WSA4tGMQL8Av9Q+N4/4=; b=DF9e5OOztgxDFBfoNZE41kJRB6u9wLpmPK1XzOZg
-	oxLaxAl0b1ueQKf3DNODFKVFJ8MAkm4pdf8WFCJ6WjADdknDxIvm9UBMJvBBQ357
-	wQky2aAKhtAsGUTPpmtY1YC6w+NuAlAfGF52yXT4fW3w4s6B/QGaQnvtcVd+7CV8
-	fPykJt85SxqvASAV9tEiX0gccsQDSVFEpXg2OxuwaAcA52QCf3nwmYe9vfkKV0N1
-	3r7wpiahDDm3aXpJvvDm/EJG7m2R5zmE19VnbhnZwYyg6HnBcE/E/7oWnWXjYOXA
-	eWPnPkLRxjz5GnlBMnG+vqLGh7RF/+G0R6yx52GQowNn9w==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93bt2gs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:34:36 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93caf6c528aso285385685a.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:34:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792665276; x=1793270076; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rshDlqNejxJRqysNErHRTceLWSA4tGMQL8Av9Q+N4/4=;
-        b=juehq+nP7MT/cbJ/3m4kgEFz/QpT4AG56cXY6ag5yN5huxsuP8TxHocCgNpB0XRnRm
-         CNr47TBXY94VbFHh3VkUHQxwfsZMs0vkXNTXWjo6k9566M3nKrttfvQdAMFKu/RyQ/Ii
-         Tl6iuSBNygxi9OXHbhb8Fh/FBXrDrkXQPci+MkVpnsPtoG03JBWVWQ+qzcxvY7P1V52P
-         fvpIZ21lXtQ7Wl1ry8F6RO576bPTGOpVC0wd6ClLqpg0RMMP5dTAD5z/YCS+MBOhprrw
-         zg2CIibAXdhDOTCORD+RzbrGjoAAwDEY1HljmUxlmYR05UlWYEYcwCR3VMJAWTJ4s746
-         jr7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792665276; x=1793270076;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rshDlqNejxJRqysNErHRTceLWSA4tGMQL8Av9Q+N4/4=;
-        b=oYFTrMu0uLEI2KgMRqgzwSRU6q1bwvJVj3af6cGhTDaxJlIOWC1VviunZB35zHzzIv
-         wv8dx6yn86FXQwWssxcd4s5Wnh9ss50j33QwGz3mdyKk/nRlYB5CQ2vCt/knk4DDwDZg
-         6/iJViYxxmEurxd6jKfNkyKvCE2rJd07Rb07WD8u7t4w0syMjF8ksgWnebWj1OLV6ETc
-         Ax4joWdw1MR6VARjux8ji1VPSLJgTjzOyHGTX61lS4AJslgJ9nso9wgQScQkPWZJ01Fh
-         GMQsMBM2zP9vwLG6kSfXysSB5swrPqmE7zS97SIs9KPIHglQiYWD6iXf5GPtF2GnxJbz
-         3uLg==
-X-Forwarded-Encrypted: i=1; AKwUvBykXWMBYte7zMV7zItrzw5S1Dhto43XoXG+439nJo9Scpq4qIU+5UqxqRdK/l/8UrU11a0yr9wgwBuuj6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdFZI950UFk9qtbxxGI6uOYjtflNJFgVVE9Va2gN/eQE1Skfk6
-	qvaIKCyOHS/ubkFD4sCv2DO9Cmx1Xj5x0k7VQJMce2p86JtQHJGPyGMMh+TAANMCgOgTMOCctSY
-	1Z+8tKckSnY5Js1DyYr5PNAp1AVSEkUmDnaxgkMWo24rJXhmQsVpGL+FowlWBaeBDGrs=
-X-Gm-Gg: AYBFou1IK5yOOcmErY6TloJmAW8bab+l3Aa5H5SBGKLniEJEpINbuTtDv0Sk9rRToxQ
-	qQHXpAdMZvfghztrtJQSAFYoG1g9oTuw1jpLH3Dnd1zrPGEvDLB42FLinwbHMY6BfndNrFB3WML
-	a4hxD5Rtw0QZwkgdeKnisF6nA/okorS3bdtT7preWv1JM0Gy//2nVTpfkpdi+ILN4KRga9xCepx
-	OlhdeaClSd+a9mmABL237yGBvg/0qHAX8EAbBnM2bsEa1qSgZenup3xy8PvG+v4Ye+UgODZn+5G
-	FNGNBAxqpGJIT/4UcdwRvFhTq/Y2EqVorEtcANC2xVR3Y9C2nfJHnorUz6ZiLF+xXavTw4VLieA
-	WS/nATGfR+1qxbs3Dqtp/4l2SWf4oQGCaZi/ednXvl4utnqgZB9k42PqOhwYJOmkVlPnbhx+8wm
-	FfR4r+hQ0H1fx9
-X-Received: by 2002:a05:620a:31a8:b0:93f:3d2e:6bdc with SMTP id af79cd13be357-93f57f05947mr842711485a.16.1792665276331;
-        Thu, 22 Oct 2026 03:34:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:31a8:b0:93f:3d2e:6bdc with SMTP id af79cd13be357-93f57f05947mr842707685a.16.1792665275869;
-        Thu, 22 Oct 2026 03:34:35 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa1227da6sm1020083e87.64.2026.10.22.03.34.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 03:34:34 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:34:32 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: sm8450-hdk: add DisplayPort audio
- playback support
-Message-ID: <aihlxadn6dtiskx6ge3li7h2ixmmio72zgipovlnllzjybilpl@wiwzt4dkw3gl>
-References: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-0-8a189c71938c@linaro.org>
- <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-1-8a189c71938c@linaro.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MHCLlY+X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79891F000C5
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:34:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792665285;
+	bh=fGLqzeHj9nniEWw/kgUcLX4W43BoRvMfa82J3ope2Mw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MHCLlY+Xc56pt8QLRulcrwwdF48u42TrTpa48yqx3RNs+88nrhDsk+LKVPTcS4KpW
+	 RkyYhi0PWtWcqBKEY427pL23BbmabOCZIrOgTAnNoT7urFCFro7O+6DJTZ6sTOK6ev
+	 AXS/ydX+IZuPd8naGMhUF4oPI4xweL6kE5jAxde7e0oyLwrZxzlhrhmjzgB5OpTZj5
+	 f71vi8PuD1yWA8Zbk3srlfPqjKVpyg5dpNMMLtuzWDSnxw5j9JeO28TFVTNBk3jHmG
+	 qrn3tNFM75H4F9w5Oun9V4zv6UnQbBcPRF6rKbjPMplWWwWaCmVSmYKDFZFSjq7LD7
+	 qaNy+DzAEF0Gw==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bccecba199so1606565e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:34:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBw5NO6jaS156RmMF7symNftsFJiatQIc4kZBkUtEebkNO+5kA03BA/y54hhxrSvDwE6XQ2wt2wQuyQSrPQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYILkqUbulv7EGUGa0pd8Wqy8eCpTYnz4m/kz36ciMceCL26uqcF
+	4VqIt3nqe2uEx3J6aANT/0BDSq9qX59p6Z+PwIQPWKT/IhAnzD30Bq34hoaCNg4T+SH7BR2wibI
+	rYjWX/zXOzjJUwCB5bkO2D/EtiezOybk=
+X-Received: by 2002:a05:6512:1593:b0:5be:50d5:1909 with SMTP id
+ 2adb3069b0e04-5bfa1bee9bbmr1886774e87.27.1792665284175; Thu, 22 Oct 2026
+ 03:34:44 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,50 +59,160 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022-topic-sm8x50-upstream-dp-altmode-playback-v1-1-8a189c71938c@linaro.org>
-X-Proofpoint-GUID: D-LKMHgtVzjrxr8jzGF_QJgxcE4c8dxg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfX/d69Pz6F9jtn
- Rg0O76ktmhjwh5AhhRvYR+ih69Ef5fOIeQiwXwq8lq566KkvxYuCGUyqlxsTm29ueHs6onMtkCy
- +Ke3XUX844rKHm0ZNrt/lcpjVzQUcEzHLD8eDp2jMQCIq2feyfAgQEQaI95u+i5Y8DAskMjm+Sv
- Q0O5XohsoABva1GQ1WB5xSRWphJQjAM4SNuCKudOT62Q0NR5AfEKX3hFc4Sz8QReWbAbh3Z4Gd2
- ardofVUGagsY5dFWP6oX+bGxRrvh4pz+09dVckOCYXyqlYAal8RRoGMNw3dV8qrUiARErq16OOT
- BNWFdHD0dG74iow80sYBulWqPyWE59/BeItw/31A9A+6y4wr/EN7JFkAT03J9SQQgs+ZDzgrUrc
- pZ7V1GM0//4NOU5srsGN12Fw4k92P7G9UAEdrzEMZLMVCwP2/yVtaYXnpque6yEWeUMxmtarAjm
- XCT0l5tYNBUcYSaiZHg==
-X-Authority-Analysis: v=2.4 cv=HJxWhYtv c=1 sm=1 tr=0 ts=6ad9e6bc cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8
- a=EUspDBNiAAAA:8 a=DIY0J-lBf1P88TKvtt4A:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfX034d9QZYbbbC
- MRFMvJpAN0Ba1AThEb+v7mXz5YDc6kibkVJ+UOD6p0tNYdvNYn2u4NNWRq5OIoWdQM4tbnKksdm
- FYuG+Zzm8va3t0qocI0b9qrpL4FOjcs=
-X-Proofpoint-ORIG-GUID: D-LKMHgtVzjrxr8jzGF_QJgxcE4c8dxg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 phishscore=0 lowpriorityscore=0 suspectscore=0
- clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220042
+References: <arqSqcoWAkhy-8do@red-moon> <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
+ <asieTvinZ7c2QpQm@red-moon> <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
+ <atXyIadz1TEKSodg@red-moon> <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
+ <ateI-JcExDyfXKrs@red-moon> <athimRqtDvQu1ZzA@ashevche-desk.local>
+ <atiAmZSPiRNBAO5O@red-moon> <7f077fd3-9c67-409a-b46f-7f28a55c180b@arm.com> <atmwo3Bpi62kB8_n@red-moon>
+In-Reply-To: <atmwo3Bpi62kB8_n@red-moon>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 22 Oct 2026 12:32:23 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0g56LP+EQc6MQ1H_5XnQALEn3CV9Q9HGCoiuMvpkK+N+A@mail.gmail.com>
+X-Gm-Features: AclHuK_l7z2nlAJujq_gWhjivoVbKF5EgcQYOoHNkTz7qy_TJ117SkG3BFjwQLM
+Message-ID: <CAJZ5v0g56LP+EQc6MQ1H_5XnQALEn3CV9Q9HGCoiuMvpkK+N+A@mail.gmail.com>
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Hanjun Guo <guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, driver-core@lists.linux.dev, 
+	linux-watchdog@vger.kernel.org, Grant Likely <grant.likely@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 22, 2026 at 11:36:21AM +0200, Neil Armstrong wrote:
-> Add the DAI link needed to enable audio playback over the
-> DisplayPort altmode output.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
+On Thu, Oct 22, 2026 at 8:43=E2=80=AFAM Lorenzo Pieralisi <lpieralisi@kerne=
+l.org> wrote:
+>
+> On Wed, Oct 21, 2026 at 12:18:39PM +0100, Robin Murphy wrote:
+> > On 2026-10-21 10:06 am, Lorenzo Pieralisi wrote:
+> > > On Wed, Oct 21, 2026 at 09:58:33AM +0300, Andy Shevchenko wrote:
+> > > > On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
+> > > > > On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Inte=
+l) wrote:
+> > > > > > On Mon, Oct 19, 2026 at 12:34=E2=80=AFPM Lorenzo Pieralisi
+> > > > > > <lpieralisi@kernel.org> wrote:
+> > > >
+> > > > [...]
+> > > >
+> > > > > > Basically, yes, the idea is to defer the creation of the platfo=
+rm
+> > > > > > device until the dependency is met.
+> > > > > >
+> > > > > > > till the dependencies are cleared but then, without a _CRS, w=
+here will
+> > > > > > > the consumer driver find the platform device resources ?
+> > > > > >
+> > > > > > Well, good question.
+> > > > > >
+> > > > > > > There are multiple facets in this issue and possibly some of =
+them have
+> > > > > > > been already solved but I need to pull them together.
+> > > > > > >
+> > > > > > > > Note that the dependencies can be added to acpi_dep_list af=
+ter
+> > > > > > > > creating a struct acpi_device with acpi_add_single_object()=
+ and
+> > > > > > > > acpi_scan_add_dep() is not really suitable for that, but it=
+ should be
+> > > > > > > > doable if the dependencies can be found.
+> > > > > > > >
+> > > > > > > > > I need to have a deeper look into this next week but I wa=
+nted to ask first
+> > > > > > > > > whether there was something I missed - most likely.
+> > > > > > > >
+> > > > > > > > Well, it is not really straightforward.
+> > > > > > >
+> > > > > > > Yes it is getting messy. This RFC, with all its flaws, does n=
+ot transparently
+> > > > > > > prevents enumeration but rather relies on -EPROBE_DEFER to so=
+rt out
+> > > > > > > dependencies - though it does so by adding more stuff into AC=
+PI static fwnode
+> > > > > > > that to be honest I'd rather see gone.
+> > > > > >
+> > > > > > I think what you need is a notification mechanism that will tri=
+gger
+> > > > > > when a specific device (enumerated via the ACPI Namespace) beco=
+mes
+> > > > > > operational.  It doesn't look like any of the existing ones (pl=
+atform
+> > > > > > device probe deferral or ACPI device dependencies tracking) is =
+really
+> > > > > > suitable for your use case.
+> > > > >
+> > > > > Yes. It might just be a notification from ACPI core to say "the d=
+river for
+> > > > > this ACPI device probed, go create platform devices that depends =
+on it".
+> > > > >
+> > > > > We can check and track the dependency in code that does create th=
+ose
+> > > > > devices today.
+> > > > >
+> > > > > I will think about this to see how bad this might look like.
+> > > >
+> > > > Don't we do something similar in drivers/acpi/x86/lpss.c?
+> > >
+> > > I suppose I can add a notifier that checks whether the device whose
+> > > companion represents the ACPI device a given platform device IRQ depe=
+nds
+> > > on was bound to its driver and then map the IRQ and add the platform =
+device
+> > > _then_ - after all that's what acpi_dev_clear_dependencies() does (si=
+milar
+> > > at least).
+> > >
+> > > There is still the question - where the GSI number, flags should be
+> > > stashed so that the notifier can grab them in a uniform way. We
+> > > could simply attach platform data storing those values to a pdev, eit=
+her on
+> > > a per static table basis or generalize the data so that a single noti=
+fier
+> > > would be able to deal with it.
+> > >
+> > > That or I can just piggyback on acpi_dev_clear_dependencies() and add
+> > > a separate dep mechanism to acpi_dep_data that instead of being acpi_=
+handle
+> > > based the consumer is fwnode based (something Rafael mentioned before=
+).
+> > >
+> > > I will have a stab at this and see what's the least bad solution I ca=
+n
+> > > come up with.
+> > >
+> > > I suppose we are scrapping the -EPROBE_DEFER solution (ie this set),
+> > > what we are talking about above won't need to defer anything other
+> > > than the time when platform devices are added.
+> >
+> > I dunno, that seems pretty drastic for some use-cases - the fact that a=
+ GSI
+> > is described in a table doesn't necessarily mean it is critical to devi=
+ce
+> > operation. If we don't even create the device until all possible resour=
+ces
+> > are available, then its driver never has any chance to decide whether i=
+t's
+> > happy to ignore the deferral and just use MSIs or polling instead...
+>
+> I agree with you (but that's what we do for ACPI autodep and AFAICS OF
+> devlinks - though there there might be opt-outs).
+>
+> To make -EPROBE_DEFER work I have to pursue the approach undertaken in th=
+is
+> set and apply requested changes - I don't see any other way.
+>
+> Are we willing to accept the approach taken in this patchset (I can remov=
+e
+> software nodes and make the whole thing ACPI static nodes self-contained)=
+ ?
+>
+> One way or another this ought to be sorted, please all let me know your
+> take on this.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+Please make it as simple as reasonably possible. :-)
