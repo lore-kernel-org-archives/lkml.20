@@ -1,108 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684092;
-	b=cL0POjdgLV5S3mhYutFbjFKSHjit4sAAVIK05ssZIFRAVeh3Efc7h3BlFlOghSR4gI3m
-	 oOwbbfZ2HcI4cry2ZrvBc3TxizchpkOXUnWp/g8FbL8eYYFmIMQpv7UrbTxjVe3JFG7fD
-	 vU6DFcNLoKWELsk7cbir+zMXvhATi4MGjxTxtmANG2pdezKAJm7DVhb6WGbg8RIMNFAsP
-	 UiLnHB6SOe+5uCOaXr4Cu7QjEcQuUNDXFsCCg0y3giIeJUOuFPbmwzBjJ9U2GkBNRmtQ5
-	 J5AcixUeTZLb7LcIDl5iGQdLUOK7ImSPWgmpuSM35hINDW+peCP67vHN3fkKv92MyQQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684092;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=+gv65TDuZb0udmDXHCqAUeTW9G0DtOsFffC0G6gnss4=;
-	b=ns6knzcWAIt2q0Y3qX96pt0xMBXZUNjQjeY3Z2huQj5Gt3QLMbgoGZGiDetBzFG6SqH8
-	 H+JzIeL3pcE5Q+PBr7ewM1EcrhHayW0r87DzQ4F5wY2Qt1NmA2sP/m6q68mz82E0bS5b2
-	 MoK2fq4RCR2MHReSc4AUU9ofNHGzUW44lxR/t+hIgrqamXSBO2q7rW7egYbhEEWNcU5JB
-	 GEmVi/7pbr3pLU7N94rcGxpvy5x8MmlQ1dJTABYhKZldxstF726bjRujSzJlPOC/EDl8y
-	 /28CMODZTkILM/hY+DRe08MvaKmV5X3jmnAsZLUCEM0s6f0Vp+8wKFjvaLgoDMwEyWA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="J/g/jmIP";
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LCY+U2R+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b="J/g/jmIP";
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LCY+U2R+;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792684112;
+	b=L61IfRT9HixrsgDTUoMPVeT5S0xzVORcRm1DCqNT70jaqzGtAM4bxmjnHe8yYilRCVkO
+	 wpQvbyAKF5To2IZjf5UKMszEjJtev/bV78KLZ5GTEmkyWLL0xWT9Lsve5YkLp/1UrOM7J
+	 S2CDJXky7nljHZRuQ1UrXu4oLDZ14TsMj8U1Keqmfccw8UQcBLPz4l0ioH2xKCRHe4uAH
+	 m2x7P6+kBLDYHBKgqlyBzViXZI5n85WjxDPE1w9mS1GlP6lN1kNLbh4Kx8qHnh4EH2/CR
+	 J4T4x7MleEXOYSTWezHSqcj82WhOW1o8Hi5vqxm6NERkZ/tu7namDYXs9oS3P6zOfOg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684112;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=8bJTRxbj/+xtKs5WrYdu78XioBjVWGyc6iaDHF9orK0=;
+	b=qNzg48LBzWxPWMoruMDH47pQj4095Dg8l3s/2UcINlf4m2lDFPz7wMpgLoRoocWrQ0Ws
+	 AX+qqQObllM7kwHHNF4BRrSm9DjhvfM/wgS4nt/Hxcc4E0XuPjPvw68MFVsMhj1/N1Ecp
+	 hiYJ3DGxy0nimjJp6Shq6hIHdH2lpMquucJ4IYNTLbQEcDIeySrCp6p0jGaW5+Ublx+Kv
+	 qbUKd6Fumzdd4zLa/rr6Fjdi67ExLSHkRD/csRvKS64EDtFOIeZzW8ibY1lIZnB+FZHPO
+	 B+c48scEETjnPqVB1SMQ6nsuvFmK4wwVg1DhYFuDIpRYzpaLtWImRKxRFIfhVJOObyw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JNewx6r4;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8713C606A31B;
-	Thu, 22 Oct 2026 15:48:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8713C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D492C606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:48:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D492C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=J/g/jmIP;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LCY+U2R+;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=J/g/jmIP;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=LCY+U2R+
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 2D6421F78C;
-	Thu, 22 Oct 2026 15:48:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792684084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+gv65TDuZb0udmDXHCqAUeTW9G0DtOsFffC0G6gnss4=;
-	b=J/g/jmIP8Ha4w3JDl6OU7U7CybVmmtEgh/NxXGUvSzTTla6oTynKpGIhAUsJzZkxhAyARA
-	ctXJPGI1zwRTzU+tm/wCEaupwrFxyIIS/XGSNgzg6nr32619A3CRc3SZREk3pA+Cumf9wT
-	tW03ST0tcqpvMvJPFz0i29xLK5OM4Q8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792684084;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+gv65TDuZb0udmDXHCqAUeTW9G0DtOsFffC0G6gnss4=;
-	b=LCY+U2R+7Z9N6/B7tr+0Sp3C38QRy3sZMI29T9kq4wWzq73faLkY6W3ocbTHQCGedgte9M
-	iVQG0qUEkuj8zXAw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792684084; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+gv65TDuZb0udmDXHCqAUeTW9G0DtOsFffC0G6gnss4=;
-	b=J/g/jmIP8Ha4w3JDl6OU7U7CybVmmtEgh/NxXGUvSzTTla6oTynKpGIhAUsJzZkxhAyARA
-	ctXJPGI1zwRTzU+tm/wCEaupwrFxyIIS/XGSNgzg6nr32619A3CRc3SZREk3pA+Cumf9wT
-	tW03ST0tcqpvMvJPFz0i29xLK5OM4Q8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792684084;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+gv65TDuZb0udmDXHCqAUeTW9G0DtOsFffC0G6gnss4=;
-	b=LCY+U2R+7Z9N6/B7tr+0Sp3C38QRy3sZMI29T9kq4wWzq73faLkY6W3ocbTHQCGedgte9M
-	iVQG0qUEkuj8zXAw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D77C2133F3;
-	Thu, 22 Oct 2026 15:48:03 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 0b+MKzMw2mr2fAAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 22 Oct 2026 15:48:03 +0000
-Date: Thu, 22 Oct 2026 17:48:03 +0200
-Message-ID: <87o6clbuto.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: jasmeet.bhatia.us@gmail.com
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	"Geoffrey D . Bennett" <g@b4.vu>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: usb-audio: Reset Blue Yeti firmware 0.20 after resume
-In-Reply-To: <20261021231754.16928-1-jasmeet.bhatia.us@gmail.com>
-References: <20261021231754.16928-1-jasmeet.bhatia.us@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JNewx6r4
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-35ca5244753so235252eec.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:48:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792684111; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Eey728nnp07SnfCS1lrs0RfR5UYCjMVC5cGPbVxUQGER1TdZEHit91IEpUTUoGQdvg
+         wn/mIw/icBi9p8cYdwsdoxjVU0W23CxX/rzg814stEZmPjpKXraw/PL3sl13lH4SArfG
+         5EUjlF8j24oIS/YrUMUIU73ZNXYlq1wBQRw6yzla5Db+cZwv/WLOIAb2TPMfC2MIptpE
+         o96dci3wU59c1NPuEywTWb0Z3TSyYhP6elRTfpYQJsvYSD9LxtwU5UeLoDuPidvSZY/4
+         d67i0tuxpiEdqMgfYg/ZkxNtZtTOClK3eOKjr/YOje7BRcvhvUQ3T2zh15bClhDe5e6M
+         OumQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8bJTRxbj/+xtKs5WrYdu78XioBjVWGyc6iaDHF9orK0=;
+        fh=1IQKuVOvOniaGfgkjqszTBwzUxtuQVgABsCwMdB6Ebg=;
+        b=E7HnWoWnyz4TpU9GjTHckmiRPK/ZsevoFsWtxYg5BxlZaHA3FYIGa7n/wFpR4OUp5S
+         bUkhlRf+tcnecxjaJfNb+JwKPe973NSwACSY9ewqVUCdm7Dw1yY9kyYUKfGEzqTVt2f3
+         Ax+fI4WxaRVzMvVhopFOuwM02Sdb95//KafJUNJ1FQQU7S0jDHUK4+n4hnEIrTbg9kj5
+         KQexPyx4xV2z3Gj1UWH9QEgcX6GsZU3+EsoIl/vadeGCsus+E4waGUuelLaXQsPXlInD
+         Ax0Nv6YwzeDN+FxBF4lNEVdwwg9Jy9DtcnbT5hukRh+c4PWL6PK+0a1kg0EDvwlmzB2E
+         Mddw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792684111; x=1793288911; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8bJTRxbj/+xtKs5WrYdu78XioBjVWGyc6iaDHF9orK0=;
+        b=JNewx6r4EQHNAuLs6G852fJhVAhlQip9NRxYhUWunI5sHjt2T+nrFIiChDS1/vR/QP
+         sZ6dXxtEdKSKtt8wRsyHiqFDFxNKGLvjHlohrcj4yyh1hQHCRXvwxl89siHQ719WiQfO
+         Iz3pvh+2ECWk61Wb4btYWUAdugPPimMXs8Ntnpxdw6vFaGGr/2l+Ea0U+fh/HbVgqWGe
+         4JtXHxgniYDmhkOrQcSxJjlvFi1hBR8Q29YxfprFQV4vjfa45nHhfxxJQvX54/xLdcQm
+         DOywIVpU3LOVxfwDEEY7idCMmUBbfEuynXLEpxp7XgTJ9WmWuPJQUiOOTvg6lPvVRqtH
+         8tVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792684111; x=1793288911;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8bJTRxbj/+xtKs5WrYdu78XioBjVWGyc6iaDHF9orK0=;
+        b=IqaBXumfjsOO68o8JXyhVTKp902rDMKY7UTwoEH8nrcOOCEcvrMadyAkAkPnoBnsOP
+         85BGm+fFZ4CFzAIJK2QWEinx2KFWV9HiPbfW9fgAQBCdVscNGW4JemYpYVs8Kh+hWnDd
+         qkanIRFRpdH8Ya634HT9v3jZDD+i1DOru44qD/6pV7BiXmC6dNllssdBuB5qUbxLG8IY
+         62kcyk+gxz6RglVCQPa7vBEsm2HPbTwnFgIIjKw62tz02CSvb7BzhhyhCjtDlwgUFD6N
+         /hgKHuEit1qe6eKYGAT5s4+SbwljCpkD5ll6Si2DDgcNKC9PwgQ1xOUTp/iKAIzBiKf0
+         4HBw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+OoMrEiJhia2QfS7MaEx8GdDH7s5KDhevIV5v1UInh3qPxMyaNs1cX8iB6QrAMwVvOq3Ni7qE19PW6TA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIStzoFoYVM7Zc8yVRgJfKimdYcmpitQveZKQ7yjfMDlQ9BdIGr
+	tDNry4/9XiD3MgULvlDn/kNqDXH2ewEaRaSYEFH0UufXg0ekex2yZGK1SP3bnFBSpHHSPqph4Sk
+	Sf85jrQdPeOioLdw1fwZ8R0EKxFHWyDA=
+X-Gm-Gg: AYBFou1oHNfm+ZxgM2d4fMgUIv00vliZWB8pnkv+BgnZbqlUvcX4EbhOHuIq8/tF6Zb
+	SXQDJ+HKAnpp0pNr9tIPpod5HU4zhHGwm7l+aS5TagZYHDk/Hi3p48uLD4vXVWoxBxK6WAyh6q9
+	CxuzYSWwDywopAQgIR3cNXq1uE7zpn+B8O/Tb/fbL/q9DMSvH16XWXxzOKTn8rYOHjdzO8PM3Px
+	3xrHIf9cYeg1RsYGGqRWG0D4f0UNaTzSLVCdz2x6xvRby3uCGFVlM7vjF/YTBWfPODZDR/xDk/i
+	9RLBptv7AFuvD+7tkTglA4y+rSYP7L46mx+FpYzQ5+WIO/+spyU9b1CcqTvqmEuLxelKmGqY9+g
+	gDMvvcoFd4j6QkKL10EfKYYcNHTG15+RmC7FsT4qJ1DHnV79SRaa3lAcXfcUqBgGBNsuYFLOLc9
+	G2majvjyQ0sk+AFEhRP5SYGByMahvEyqw6MB37q+Jou/s+JRcvWj0aFp7Vru6jWnNVSeC6pVPXX
+	VUcrDsCNSe4oNpuN94P/TfBFkLkwfoXUxmn1CcLwLn8YBr+6YRCxrKUGQ==
+X-Received: by 2002:a05:7300:e9d3:10b0:35e:d21c:f33e with SMTP id
+ 5a478bee46e88-3674ba26154mr13178380eec.1.1792684110767; Thu, 22 Oct 2026
+ 08:48:30 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,197 +105,43 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-10.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -10.80
+MIME-Version: 1.0
+References: <20261018163459.80579-1-ojeda@kernel.org>
+In-Reply-To: <20261018163459.80579-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Thu, 22 Oct 2026 17:48:16 +0200
+X-Gm-Features: AclHuK9JREIBEYuiD1RQ91TL9RmX3pQK5wN_Po_GP3ZAut4w-NocityfU9dUQvQ
+Message-ID: <CANiq72mGByRrOG5338Z2ntgrA=e+5-BpAO6j4cOVt4Xd1vasGw@mail.gmail.com>
+Subject: Re: [GIT PULL] Rust for v7.4
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 22 Oct 2026 01:17:54 +0200,
-jasmeet.bhatia.us@gmail.com wrote:
-> 
-> From: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>
-> 
-> Blue Yeti Classic microphones with firmware 0.20 remain enumerated
-> after a system suspend/resume cycle but stop delivering capture
-> samples. This results in an attempt to capture audio failing with
-> -EIO.
-> 
-> Instead, the device should be recovered by sending its volatile ROM
-> reset command after a system resume. The command restarts the device's
-> MCU and USB logic, causing it to disconnect and re-enumerate with
-> working capture.
-> 
-> Defering the reset to system_freezable_wq provided best results when
-> testing, ensuring device resumes only after callbacks have completed.
-> 
-> Limits the quirk to USB ID 046d:0ab7 with bcdDevice 0x0020.
-> 
-> Signed-off-by: Jasmeet (Jazz) Bhatia <jasmeet.bhatia.us@gmail.com>
+On Sun, Oct 18, 2026 at 6:35=E2=80=AFPM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+>   - The DRM one in `rust/kernel/mem.rs` should clean `rustfmt` with:
+>
+>         use crate::prelude::*;
+>
+>         // TODO: `Alignment` should be moved here as well, Rust moved it =
+upstream in 1.96.
+>         pub use crate::ptr::Alignment;
 
-Apart from the issues Sashiko already reported, I find this way a bit
-too scary, and I'm not sure whether the usb-audio driver is the right
-place to perform such a thing.  Couldn't it be better done in the
-lower USB layer somehow?
+This is needed after the driver-core pull (the commits were shared
+with DRM) -- replying here in case it is easier for you (Linus) to
+notice:
 
+  https://lore.kernel.org/rust-for-linux/20261022153844.30689-1-ojeda@kerne=
+l.org/
 
-thanks,
-
-Takashi
-
-> ---
->  sound/usb/card.c   |  3 ++
->  sound/usb/quirks.c | 77 ++++++++++++++++++++++++++++++++++++++++++++++
->  sound/usb/quirks.h |  1 +
->  3 files changed, 81 insertions(+)
-> 
-> diff --git a/sound/usb/card.c b/sound/usb/card.c
-> index 9307da95efbe..ebacb98fc34e 100644
-> --- a/sound/usb/card.c
-> +++ b/sound/usb/card.c
-> @@ -1280,6 +1280,9 @@ static int usb_audio_resume(struct usb_interface *intf)
->  	if (chip->num_suspended_intf > 1)
->  		goto out;
->  
-> +	if (chip->system_suspend)
-> +		snd_usb_apply_resume_quirk(chip);
-> +
->  	list_for_each_entry(as, &chip->pcm_list, list) {
->  		err = snd_usb_pcm_resume(as);
->  		if (err < 0) {
-> diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-> index a54fabce7920..42d955c7b7a4 100644
-> --- a/sound/usb/quirks.c
-> +++ b/sound/usb/quirks.c
-> @@ -10,6 +10,8 @@
->  #include <linux/usb.h>
->  #include <linux/usb/audio.h>
->  #include <linux/usb/midi.h>
-> +#include <linux/module.h>
-> +#include <linux/workqueue.h>
->  #include <linux/bits.h>
->  
->  #include <sound/control.h>
-> @@ -1626,6 +1628,81 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
->  	return 0;
->  }
->  
-> +/*
-> + * Blue Yeti Classic firmware 0.20 may stop delivering capture samples
-> + * after a system suspend/resume while otherwise remaining enumerated.
-> + *
-> + * Sending the device's volatile ROM reset command restarts its MCU and
-> + * USB logic, causing it to re-enumerate and restoring capture.
-> + *
-> + * Do not send the command directly from the USB resume callback because
-> + * it deliberately disconnects the device.  Queue it on the freezable
-> + * workqueue so it runs after device resume callbacks have completed.
-> + */
-> +struct snd_usb_yeti_reset {
-> +	struct work_struct work;
-> +	struct usb_device *dev;
-> +};
-> +
-> +static void snd_usb_yeti_reset_work(struct work_struct *work)
-> +{
-> +	struct snd_usb_yeti_reset *yeti =
-> +		container_of(work, struct snd_usb_yeti_reset, work);
-> +	struct usb_device *dev = yeti->dev;
-> +	static const u8 reset_cmd[8] = {
-> +		0x00, 0x09, 0x00, 0x00,
-> +		0x00, 0x00, 0x00, 0x00
-> +	};
-> +	int err;
-> +
-> +	err = usb_control_msg_send(dev, 0, UAC_SET_CUR,
-> +				   USB_DIR_OUT | USB_TYPE_CLASS |
-> +				   USB_RECIP_INTERFACE,
-> +				   0x0a00, 0x1900,
-> +				   reset_cmd, sizeof(reset_cmd),
-> +				   USB_CTRL_SET_TIMEOUT, GFP_KERNEL);
-> +
-> +	if (err && err != -ENODEV)
-> +		dev_warn(&dev->dev,
-> +			 "Blue Yeti resume reset failed: %d\n", err);
-> +
-> +	usb_put_dev(dev);
-> +	kfree(yeti);
-> +	module_put(THIS_MODULE);
-> +}
-> +
-> +static void snd_usb_yeti_resume_quirk(struct snd_usb_audio *chip)
-> +{
-> +	struct usb_device *dev = chip->dev;
-> +	struct snd_usb_yeti_reset *yeti;
-> +
-> +	if (chip->usb_id != USB_ID(0x046d, 0x0ab7) ||
-> +	    le16_to_cpu(dev->descriptor.bcdDevice) != 0x0020)
-> +		return;
-> +
-> +	yeti = kmalloc_obj(*yeti);
-> +	if (!yeti) {
-> +		dev_warn(&dev->dev,
-> +			 "Blue Yeti resume reset allocation failed\n");
-> +		return;
-> +	}
-> +
-> +	INIT_WORK(&yeti->work, snd_usb_yeti_reset_work);
-> +	yeti->dev = usb_get_dev(dev);
-> +	__module_get(THIS_MODULE);
-> +
-> +	if (!queue_work(system_freezable_wq, &yeti->work)) {
-> +		module_put(THIS_MODULE);
-> +		usb_put_dev(yeti->dev);
-> +		kfree(yeti);
-> +	}
-> +}
-> +
-> +void snd_usb_apply_resume_quirk(struct snd_usb_audio *chip)
-> +{
-> +	snd_usb_yeti_resume_quirk(chip);
-> +}
-> +
->  int snd_usb_apply_boot_quirk(struct usb_device *dev,
->  			     struct usb_interface *intf,
->  			     const struct snd_usb_audio_quirk *quirk,
-> diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
-> index 0a723c266bb4..9988e185538f 100644
-> --- a/sound/usb/quirks.h
-> +++ b/sound/usb/quirks.h
-> @@ -15,6 +15,7 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
->  				  int iface,
->  				  int altno);
->  
-> +void snd_usb_apply_resume_quirk(struct snd_usb_audio *chip);
->  int snd_usb_apply_boot_quirk(struct usb_device *dev,
->  			     struct usb_interface *intf,
->  			     const struct snd_usb_audio_quirk *quirk,
-> 
-> base-commit: 4df4d2a577db2d3d57b888bcfb1206fc74661d16
-> -- 
-> 2.56.0
-> 
+Cheers,
+Miguel
