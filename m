@@ -1,71 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689108;
-	b=xZtCWQ2hdw9kxUzCqpQxl5D9RNrWJFX4h3Jx0yGPBSwIv8dqpwP2PU1ERbBfC8edO3i4
-	 dDLCjoweYX6kLjPVtzGw2OQwn1DHXB/OXUlhMLW7ds+ZlSugFJ3ynpzunfgQgTQV3/5xs
-	 fy0WceAhQ3sBMGs1owK3AXS5j2hBYzNWNYFOOASVyYmHiYJmiZvwdumAD+QLi1M5EvuVu
-	 mKSsoiCuAA6NXWROYeaPYCUI1nEdwcvxjlAc2ZCuSG5R/f2LoQt7x71WWEEbkT01m8WDA
-	 67FCBVi3xoL3q8kflUkIv91TwVy8dOCnIiP/tgmrK+eENoJIEPDZ/Pz7NnWi71b75zg==
+	t=1792689126;
+	b=IQ9O2VYlcjFAPKqwP/79ZuXNflIRprfmLswBj/rvE2lT2Gh8tTNKvPUaJHOVgVaVKNOc
+	 sDJsDF3Q4AXVgYjPYBiensEcOG5DDV3+m8MIlSsrnrNNZ4s5dX0O/gz0+wz/ukGSuV7Vj
+	 /etUf0wm24Qj1v9jmZdCvakOeH8pebW3nG7sTbdyHP5X0MVf9f4c3k/mm/+7VEJ8QAyEL
+	 HwyO4IhtlzaKs8SYw/dNkN50swK/Vgh7DwInVfsmf4uMyc4Jzgq+dcg/5a5wdoRgwYroG
+	 wuAUnkLNlcTFMwZ2q+n9k6NNckRUF68ZOUWixJbCuof2HO/xF5VmiS3XgXyImgwLVKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689108;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=X2uug97+9g9Ifw2alnlucQZ1byzTMHdm0Mg+gmOCcls=;
-	b=TKf47l7ZiHvU8yDZ/rBYVW53J3JgONSqxVfbONpOmVqIRLZHs05oDysQJvnK2z/589gU
-	 tPECFwWLNWKiOm/KUKIfGt2kCLFhz7RakZaAv2HcKAwUsvZm6k8XKtq1IF+mFJIloTu2W
-	 Y+T+EH32PwER8Yp6NKfu0CrEA58D8hajfu71V/xQNqKKMyGKuhmJvqYmPdWx4oK3vahNF
-	 80dN949kvoD0+tLc38NGAXwvfeG/wzw5x7n64XiaKAXjjwr3mC//Cspm+5tPXFhbuN1Tw
-	 oM7De9pxP3lW4GL7qH5V80f5fWEN9zYJTtKjVxn7jM53qJCU2eSXFtFYAarkifA5Khw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689126;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n7Br3JhObZ+cMngMR4TAWta4unZgJ8LU9Y4mC/cr9HU=;
+	b=vgqSPwjD1AX5muxcG/A+yaYwRF1T6TsL7NGNKjfR6b8SSj2HRUap/9Pq7/PkexZ3Koso
+	 VFNHwH8Bo0P8HRvXMS+pZ4vLUAUs7ohwEuAjLUOq09r1qwjXzwSVY5UG+UHCjE2pes3wI
+	 sf2ynVBaKT1ACmkcHCm5mmnfFFP05UCYimq+Z58WulW2cGY64Jwk5z7GJmERvlIkvcOER
+	 H+W/L5Bg/0IebRPM5VsY0h9ortxWndAc31buAgai2UU7lbJ1qrsKc9Y6fcWh2PvoeV6fE
+	 CUtwzYRv2E05CU2lhzBz47VrSJLhwH5ZyD6+0tt0f0jf+hv79FzY1Kusvqs5Vhk+jzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=acm.org;
+	spf=pass smtp.mailfrom=acm.org;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=jfXNhyMA;
+	arc=none smtp.remote-ip=199.89.1.14
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3506606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:11:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3506606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4649b35bso22593f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:11:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689106; x=1793293906;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X2uug97+9g9Ifw2alnlucQZ1byzTMHdm0Mg+gmOCcls=;
-        b=NM/+bbiWLlx45KQgIy4mYNqCKebZBrLDup9Iboy4E3CYJGVeUFXdEHVGSefJXZInYN
-         BcwiUx1dq2JMZUCLyG+HstDaVNhSFyN/WNYdPLDvGfPE6ofDNZblgas1uDT7JLOdDJ2G
-         dZd9Kejebtz5GNzhXyvSNKZJvuFrhE+qocq5KgIwt5+XmnB3RBS65OeKRQjqa1jy5V3L
-         jY4o/ZIwrXS4O9Rt2lYGZ54pqNMT68Hf80p0w1aKPH6MGFPILl10e2baUqD3EYWnmIrv
-         oPCPyPJKBiUJr0SmWWYgajWUWXFzraJ66OwSdPClC+UMJxzuUvHgyPCgiSt0kJsOxIe9
-         nf8w==
-X-Forwarded-Encrypted: i=1; AKwUvBxDYsLawM8uxEpSe0tBMJTu5h0K4ACc5SDfK6M4oEqAlYx6MazyY9G9GIeQ7Vfvb7XzVYg5FHH05FHNTL8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC5c1HuwKwnp01oj+Z2CHf2bGGAJ4cbbhE7uMU0GGhR396+ud/
-	K8lxbEHaNRHNbCNj2o2rpyc7AhN0WsX84NVXxJ5/22ZFBhG9sSZ8bshW74AyRXpSVPw=
-X-Gm-Gg: AYBFou2ZZt3mxg4p0R0Ur51zGYjd5Y/+5uzfIF26/gyCr5AontI3DQkY18hO3K81h6L
-	HGK0wUTQgXW3kn5tXAVJ2BhW7VYxK3XRoKJZaYQQ1ZkqKNq59EqYOnk9wwh+t7WqKo/RlIs+04U
-	PaJ183Y05sQ7MFxecj4CRfrF+2KD+nuOCDGGnPJbIlM9aLwTaLmqIanXkbIX9weEmff9DQmAoIk
-	wW6w9Qh1A4wLuJ0NTVVZas3oKLAFQmF2If747EJH2RUklU3Lzuhezjzyv/oqkKTugy2awUo+piQ
-	g+lBmSJmdGnppS8WZinlMlK/DggMygz00uXUp9/LEQ7XnsudulEJkj4YFrj7k5yEja1JZpegYH7
-	3sW4RdnqblECOyXxf8v60uJdi1PzmTHDK4P/Vqc1S6tWztIGrN5gbho+2zda6xlmx+8AGUxWeuI
-	R9QkCchnnexVshoXv6D0YcrRJEPXfNKhCY/548hWZhHcJsGhneiK24t4nwqvbod63W/Q6SzZxMB
-	1A2QkEXMBi0uOfu4/i79dIkGoykCUDJ9Yq/6US7NBfgaxJWTRE+CC827jumKb1aZD5HUNy6/Icn
-	Shmf13Z5TyE9jbns71rFd1wanMlB9vw=
-X-Received: by 2002:adf:e004:0:20b0:487:1ddc:aaff with SMTP id ffacd0b85a97d-48e264a640dmr8341797f8f.44.1792689105826;
-        Thu, 22 Oct 2026 10:11:45 -0700 (PDT)
-Received: from [192.168.1.135] ([81.79.62.202])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2582a53fsm13532427f8f.32.2026.10.22.10.11.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 10:11:45 -0700 (PDT)
-Message-ID: <5100a774-9c85-44bc-abf6-9679f8395856@linux.com>
-Date: Thu, 22 Oct 2026 18:11:44 +0100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A02F606A31F;
+	Thu, 22 Oct 2026 17:12:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A02F606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=jfXNhyMA
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4j9Xkr60Cxz1XM4Tn;
+	Thu, 22 Oct 2026 17:12:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1792689119; x=1795281120; bh=n7Br3JhObZ+cMngMR4TAWta4
+	unZgJ8LU9Y4mC/cr9HU=; b=jfXNhyMAomYDc87gZ8EaMxEFCmeqVZIrEYrjFmKY
+	GAuY4OupEBkPfVA5wuTjoP0rCABXxKqMAMLyYQjHuSEZeX2q00aplx4SEMFRCb7C
+	o5+bcT7mCE39dEtLD1BGRiXcAYlNwhy7UsPynIuNhl3aQoKA2+/2cFtn8UjxaofA
+	PN33s1T4y1RpmsfqWg6qY6e38BK4rJGc1ukhMmzVwHBJP9PI+kL65HEQoicRWw8Z
+	q1/Gf//4WAo5kBvgPJXu2zgbdrYWvWhp9b2nzUmAid1CjlUdymMBtuTzN3wgQH0d
+	kntDP8kte2JYqT2/t8cgz0PN1QertbA2tg62NDqPrOzeoQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id O6uKvDqwU_YE; Thu, 22 Oct 2026 17:11:59 +0000 (UTC)
+Received: from [IPV6:2a00:79e0:2ed2:d:356:46f6:e804:1d44] (unknown [104.135.182.40])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4j9Xkl0SLvz1XM4Tl;
+	Thu, 22 Oct 2026 17:11:58 +0000 (UTC)
+Message-ID: <a45d2377-e4c4-45ea-8405-3342794ab413@acm.org>
+Date: Thu, 22 Oct 2026 10:11:58 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,70 +71,27 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/8] dt-bindings: net: amlogic,meson-dwmac: list the
- compatible combinations
-To: Conor Dooley <conor@kernel.org>
-Cc: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- Conor Dooley <conor.dooley@microchip.com>
-References: <20261010105900.247342-1-tanure@linux.com>
- <20261010105900.247342-2-tanure@linux.com>
- <CAFBinCAejxmeeHyDy+vMSg6dBm+9prhEo9qZ7FAsiWNB1W-HXw@mail.gmail.com>
- <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
- <20261011-starship-foyer-1105c1b35e31@spud>
+Subject: Re: [PATCH v5 0/6] scsi: ufs: core: Factor hba->outstanding_reqs
+ helper and fix double completions
+To: Stanley Jhu <stanleyjhu@google.com>, "Martin K . Petersen"
+ <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Alim Akhtar <alim.akhtar@samsung.com>, Bean Huo <beanhuo@micron.com>,
+ Peter Wang <peter.wang@mediatek.com>, Can Guo <can.guo@oss.qualcomm.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261022034443.3034432-1-stanleyjhu@google.com>
 Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <20261011-starship-foyer-1105c1b35e31@spud>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20261022034443.3034432-1-stanleyjhu@google.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 11/10/2026 22:13, Conor Dooley wrote:
-> On Sun, Oct 11, 2026 at 03:16:18PM +0100, Lucas Tanure wrote:
->> On Sat, Oct 10, 2026 at 11:04 PM Martin Blumenstingl
->> <martin.blumenstingl@googlemail.com> wrote:
->>>
->>> Hi Lucas and Conor,
->>>
->>> On Sat, Oct 10, 2026 at 12:59 PM Lucas Tanure <tanure@linux.com> wrote:
->>> [...]
->>>> +          - enum:
->>>> +              - amlogic,meson8b-dwmac
->>>> +              - amlogic,meson-gxbb-dwmac
->>>> +              - amlogic,meson-axg-dwmac
->>>> +              - amlogic,meson-g12a-dwmac
->>>> +          - const: snps,dwmac-3.70a
->>>> +          - const: snps,dwmac
->>>> +      - items:
->>>> +          - enum:
->>>> +              - amlogic,meson6-dwmac
->>>> +              - amlogic,meson8m2-dwmac
->>> Meson8m2 dwmac reports: User ID: 0x10, Synopsys ID: 0x37
->>> In case it helps I can submit a patch to change the Meson8m2 .dtsi to
->>> use "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac" - then
->>> we could move it here too.
->>> That leaves only Meson6 with a single fallback compatible. I don't
->>> have any Meson6 boards, so it'll have to stay that way.
->> Hi,
->>
->> Fine by me. But I think it is best to wait for this series to be merged.
-> 
-> In the second sentence, you're referring to the dts patch I assume?
-> IMO, you should submit a new version of this with the 8m2 moved to the
-> other enum and Martin can submit the dts patch now, since the current
-> binding permits using dwmac-3.70a, no need to wait for this to be
-> merged.
-Ok, I will move.
-I will sent v4 with your Acked-by, since this is the change
-you asked for. Tell me if you want it dropped instead and review the new 
-patch instead.
+On 10/21/26 8:44 PM, Stanley Jhu wrote:
+> In Single Doorbell (SDB) mode, multiple completion and error handling
+> paths can race on the same transfer request when bits in
+> hba->outstanding_reqs are not claimed atomically with completing the
+> request. A stale bit in hba->outstanding_reqs lets a later poll or
+> reset complete the request again and unmap its DMA buffers twice.
+For the series:
+
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
