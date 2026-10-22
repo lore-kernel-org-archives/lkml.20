@@ -1,98 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686836;
-	b=RmKR03/q1t/0ajBxIcvn9tUME4/wD9/+bXqkCnX9/9QMNXNzK+RDTJc5Sdo7iZcir0as
-	 Z8cPKt5Lgi7j/ejO8+MPgardBeM1qBziV2zBCiS8+FOA45YzkDP9xG+Fr8EYsLlZlbB/c
-	 73RAiX6K57kgLLg/GwzyjkbsEqR6FxpxYjTFCgIiuvjrLaf180KUWcqSPurkrJakGdR33
-	 UU4bysvUBwIz6FEGce1Ej+6P++CoQoJGOgXB8QFwc1IbXII5CLk4SIf4z4tjZfiPcOAXU
-	 jqKs2p04kV16qHqGBxhAQSxJ86WyKJq35iWe0fDqVeGB0f0hnlbdxE80WjGAFH4P4QQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686836;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792686873;
+	b=CCyg1GXwpJl3n1QVu+PLbdm+0L772oByzw1d8s9XILrPA/dHJybBvzjyOXpLMN28p7dG
+	 EaJ3k6uho6nzpdpwxwMvqcoBXppJPM4fMcpizOguRVkvRkuSLaLywxlojd/dZqMuC/5Jr
+	 IPWa4Ko17wFd27LA+k9rG+i8EgQJJ2Eg5MNF1FRkaGUf+HO3tyfdt1ogT1POeflTCh7R5
+	 crxS1rtPk8c9eEwSnugNPA16dK0FLESPoRM0Cq8fUuGKW0v5eFCBjJUVHeK+SLjXYfISf
+	 eQw1PRIZvuIVaCDRKZ5mP5tLLoD7prf64dAHAJwJua3TAfU7Ok6Evd8viE6aQHq0EFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792686873;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=68+IeagKgDrW1nl1tCiiDqs5Zxn2UgVcp46ojvUcCbA=;
-	b=mCcecUkHTqprENmH4vYOWj35ps0b8osyazl/cgdIUUZVdyD+8lrji/GmwsHhC+DH2cd1
-	 strIOHiUwxZ+q/1eaguU+xNyAVftKT0OkL+j77FsHeUTxRKdg2Nnu6pyx3BubynVNEa7Y
-	 koYVjdtsgjCp9TH0OJ9x0a8+7kjPe3LXGh/iudkSkFe/AY3aucRUQyEzjl2+RkAe9VzsH
-	 EK2XDxjVe0bRJYYtbw6LiVaPbHb7iSbjr3uaKAN1MNfPEmj8GHT5qrLWeyjZ7R2NT8utG
-	 nYP2dpgJ74IpnUJycEfg8rq0eUmzw5dfJH6nbpPPGzJcJaNaLF0s+iJDhI6zcSA2wFQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IOBIbPIx;
-	arc=none smtp.remote-ip=209.85.219.44
-Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=KdgvyfyGLF6xVqvT4lRhkOaHE+7q7+9ylmI+jmCxxss=;
+	b=KIIdIej3LL1e+a8F96BmAGNnbghqQS+8xChxTYsk+RylgIZPzlzCXfERY58Lq5Gyx+9o
+	 8nXWuxi5Gdx9qhRsLlE792nC99SBUml5x36/xmKIEHTar/XDe/HYVCsEIqkxO9M1QERgy
+	 0GO8eLOVM4WoE2KH0zr2YgEj7hVtDRTc5ED4hCDP9+SHfqA+ERkL4QX16nfI6U/SAdrTZ
+	 jlxKObUgMLCi0s5nWAv7vqKg0r3M75yeIi4e6maoVDtI2JtMEuaeAIV2Vgouz5EimS9h0
+	 NXbFFmlJOnJqhJoqX/Zjiuj00hnvcezx5SLdoJ9PIjhJTAjS3bn0TSvJRrcOMO0bUUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=soleen.com;
+	spf=pass smtp.mailfrom=soleen.com;
+	dkim=pass header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PZng0QPq;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B3E6606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:33:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B3E6606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F5C606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26F5C606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=soleen.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=soleen.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=IOBIbPIx
-Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-91befe703c4so531016d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:33:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=soleen.com header.i=@soleen.com header.a=rsa-sha256 header.s=google header.b=PZng0QPq
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b170129413so4587939a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:34:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792686871; cv=none;
+        d=google.com; s=arc-20260327;
+        b=a4HGiTrdFuHz6XYpfWperl1scWYeS2CezSLAb+W3r4O5NkHnfLTGekSg0i0ruyPkTE
+         pV1JWxvcOH4kAtLPriwlbgjaXPVxA3/LZ8ydzc692kBUhuNm+b4jBFLeO7/5tsblkFqZ
+         poRSt/6Q/+bn4bMsAp+PUTolL63adZXp+GAv+Ykw0S/Byjd+QXdau+24OU1wv8vG3fJI
+         CfzcIFG1Wzof51Jgwsb5QpSopEVvplT0P629Rc49oIHSq9N3/KDIwe1YTk4iOkx4e4W1
+         pYQfllGvzUjzaZQ9SLzw2n26WbsMnf6Re1L3DE3XVa/dkfJ+CHPfgtegc/KDBphrwyQ/
+         Rp4w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=KdgvyfyGLF6xVqvT4lRhkOaHE+7q7+9ylmI+jmCxxss=;
+        fh=1mSbe/Az/9jbQSOnMZFu7FEuSn/wiu0KQjGtUPF3N0U=;
+        b=UareEIhycbO5bg1o5NIFko7lnyOq9ylTOOCh176EIEiYGZXEsIjDABNa2eQZFjjMbu
+         3M4HE6iN/KxprcQvplYcL4C8Fpad7pco3t3+FwrQXnTML5Pv8/aLiK7Q481kDeR9eL1K
+         B3QAcG0FdTZz/V02RAqdAQHn3TCxi/JJYpbAxCd+0ATUbjQ12iBXJxYMJWYsraPU55CU
+         +j3psIWEFiNB2khRqgQFc5nmhX260FLnGYINORPwMb7Va9ao6+sID5tMCbheLD2fjhoG
+         lFYMtA03AZ71fZi8dk2PD/B3Asy019WcvQ7wmxvgEn6Ti5lWVDU/uJOlQiOC8cc+5xYF
+         GgWg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792686835; x=1793291635; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=68+IeagKgDrW1nl1tCiiDqs5Zxn2UgVcp46ojvUcCbA=;
-        b=IOBIbPIx++wXgJQhVh5zljVaVm6y0IhHKVt3mkz1epnvO/4MJwCZDOTbKtB68AfzGM
-         BsZmaDMftEYt/qi50geTfZCh8RCICIqTMlPAb2CtwyZMTpysYIiM6tMCD7aXfPKSj3MX
-         kMeCSjPvoI2o/3pmninKBB+b5spymMreCc6QQmUmdLy9NzaUo3qDuLTKnbvLhYQoHf2x
-         HPk5pZP+8QF9RrJHpOUm6v6sZaE4jWDLh3CcZSSHNhLUhjUL02nSDuyQwxCYRrYxZk43
-         +xuBuoPyfzjnIg95/91C4+XdnH/8P6VMV0kKEs0NXPmWn9V+Azi8BdZR6K6ISzlyzxjN
-         DizQ==
+        d=soleen.com; s=google; t=1792686871; x=1793291671; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KdgvyfyGLF6xVqvT4lRhkOaHE+7q7+9ylmI+jmCxxss=;
+        b=PZng0QPqnkPtt42LAfKVBRavC2IhEv5q9gK9vz0hM4RHNUKOd1Z4E/+UnW1dFtDIgj
+         oH8nk9TzVQKQXKQiOC7J0KhqN1VeoX0yzD7cGOEg9cVfVhkss8D3H61XifTitynoFc/v
+         BTMiu27aMFrpkc2uKtjF88GrWc/GKL55QFfn3zvKe0JuRopaiif0JgxKrmKrXlerAjCh
+         vBYOGSW0FaswNMuYAMDdlLJ24kjttb+m0JVuCOFog80ZejKTpx9YIMMG3vsVWzUOBAsk
+         RN0pooI9g3mRd6wY6klKUv4QZ5TNH/RNbCCxs8JMbdSJCVXnBejKeF1DYvx8tecfqcvh
+         J2ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792686835; x=1793291635;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=68+IeagKgDrW1nl1tCiiDqs5Zxn2UgVcp46ojvUcCbA=;
-        b=SSOql5ZJpNhQ4YHX4T6rGUwWUU36oFetC2EyaFpJ2yAF6nLDMjtmKVQvG0pdGQCpvS
-         p3XM/7qU5OeU4TzcThPOfKgN9UY0c31JDNa0oDv7xCJ9HlSKgkcntifHWhGuOFa3bSQE
-         XitMACcCxUoleP4BHMR9tjutA4/jpiUopQ1FYzMB0JIFh+BdgBdXg4OYPrNrouI1n6wb
-         NcQGnwH7hcifNBxrjH1LLOmzV5ojimK4kHgrnsHCbAj/ZCAALFX1JYFUZXMtT40uF7p2
-         ejJOEnh+MdyLcN5c9rnRw3ncL74BGdM6Bi4iKHxCI57pfdhrB3mZMdm4/+mc0clqRY6Q
-         b+lg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuNV144SO4t+yvR3WYiyd+n4cMnXqxNfiXKyw4rCC6gGbfeXGhK6wqFKF+bqCE/1qWomg3bx0FY5Q7ito=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvpviX0cr4bu0MNaUvSpu3ElqE84zXTvyCXjltgUAhPhsIKEgK
-	1NWe0NAWthXzeg666F/6uvjF8zP9jwWE8lS9KuPb9sq7LWzKxetUUarpc+Rb0w==
-X-Gm-Gg: AYBFou3NfcQH8Iytq8URpUBZBSVjaFzUxXU5yBswWXBBiASLhby/S0UNCSKMhsNUm9u
-	Ep7pi6bi8VFK/MWHbUH9kZIMn+OF0M0Bs2wKmOEp3EKCsIBSj1u7Dn+7AGfzKOghl57y3pbhjfw
-	EgBb2z8TdyZgih7EZoAc8rXSzFaZNxaUMhrLPXNUx+Wj625xWyiiGI4tJoXd5s3H3LCwRxYpfOr
-	BxaTD+9/ovFPAf4mrZ3MmuL3SYSVvxC4tjXi8UBs47RknXswejEdYaP0UlkdQxmx30pu/BSZ3li
-	s5HiUa5OGYuHUgguvA5pXT2huaCKmPKb7/AmgoF/xD/wxIXunbw18zYcUY0IFAyCMeAQPKZVOY6
-	xan9ei4gC3DBtcDQXdAmjuN732zXj9zqs86EfwKR9aiUaSkdT2QHHthxnGq9jrs0DU5tiWIwlYi
-	XgLJBIL3Kg4stzAXeuKRJlktppn1hNgwOI81nhYr8wApxnW0qqwnnKMAoSbdBBHbpFZsQK/6V4J
-	x4WxbOer431CzWgR1Agx16134ywRkNi7oF6kvfTWkwVSeN+WuENoAj0cNGkiFktUg+DohBv/nRX
-	cHi1WWOVK6IFoaktj0xN4yQe
-X-Received: by 2002:a05:6214:2026:b0:91b:5d3a:4fcc with SMTP id 6a1803df08f44-91c12f57cd8mr99901036d6.57.1792686834990;
-        Thu, 22 Oct 2026 09:33:54 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c36f0abedsm1511396d6.3.2026.10.22.09.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:33:54 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Sven Peter <sven@kernel.org>,
-	Janne Grunau <j@jannau.net>,
-	Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>
-Cc: Neal Gompa <neal@gompa.dev>,
-	Robin Murphy <robin.murphy@arm.com>,
-	asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v1] iommu/apple-dart: Report TLB flush failures from iotlb_sync_map
-Date: Thu, 22 Oct 2026 12:33:40 -0400
-Message-ID: <20261022163350.23743-2-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1792686871; x=1793291671;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KdgvyfyGLF6xVqvT4lRhkOaHE+7q7+9ylmI+jmCxxss=;
+        b=Oxp8p1n8d/vwUzVt7zVYhhubH/9oxYKzWR132v+oi2oyoWffaB70L505Dk08JZBFCX
+         A15fX73LHMDYHwIdYrAD6dRvzVA6bnVUs/zUyuVjYMCoKUd3N17Kmkph3c0UKaAlV4kl
+         G7429CsZ7blmHolDqVxWoxw01Z8qC6Ma8Asn5WoSuvlm/9eU8G22CLfIOKF2Ue4dgkWa
+         Qe8vuHyf+xECr1PjcEmfgRaWLD5O4b1HBdMozjxS8uJczP5o/ZG/ZtIrGwKhn5XC8SAP
+         g8ASDohEtPn18T1+QS4cncSu2+oMu5uacTc3yL5bpTzjJ4jdh/FAkw1F0rOnr8a+H//n
+         kpng==
+X-Forwarded-Encrypted: i=1; AKwUvBw+SkkBRXNuIp5urVoOFF0acUiP+2eZGmzWxXsIoJff+2OHies3Ql6+ydULQDMzyhlLulfZALnfPOvA8GY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKuLPwKq2wvTsYd/Rf7+sX34Fz23RzXJbRdz/RcWrUFUzttypO4
+	bx+93JQA4HiRA2Tw24te0okVOaUg3Qm/4Zuy2hhnM+yA5OJSImIknf8EG1VECuu5vmDr7yu/YJ9
+	nY2gU6aZcJHYjUiy7Rh/XL7nXFfibhwg9cur45TwuBQ==
+X-Gm-Gg: AYBFou3795MxCc5ql5dAuxWuJFnist3FpKNW0AKhff+aeL4/7fVVy26s9b9t/NH8pzZ
+	YJ0lkIz21YcS75awqqGc+CQrS6NURGfYETwL5qSq7AmkGY84u9OmLIKdPYretpDA/FOehHdImiY
+	3B9zk9xUGtxrR5t4DIK9Z65+sKnZKoSgGsHDfexdWKFAfm8WaHPQu/8+AsaV9i4wNuHc/fyasn/
+	emfuov/j5qeRZKevEWavGwtIKV/IBynEgyEvUShLcAOmXNXsSD1X9QscFZLP1u4XnXkXADQjaTE
+	NZFtaea+90p8x8eIdYNOIJ8xYE03F+8IQydBQcFmAkh0OLubut69k2h4dVzdHs8+X6ubSFyoT1A
+	3w1caj7e8QNxnS072LLncmlnvH2z9oVZoxsWg/4v3F9b+Re1GAHBU91blO6yiLPCGVByf
+X-Received: by 2002:a05:6402:21c3:b0:6ac:8dce:5a8a with SMTP id
+ 4fb4d7f45d1cf-6b408e97bc7mr4806912a12.9.1792686871349; Thu, 22 Oct 2026
+ 09:34:31 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,70 +104,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261015020313.946940-1-pasha.tatashin@soleen.com> <87y0bp20pn.fsf@trenco.lwn.net>
+In-Reply-To: <87y0bp20pn.fsf@trenco.lwn.net>
+From: Pasha Tatashin <pasha.tatashin@soleen.com>
+Date: Thu, 22 Oct 2026 12:33:53 -0400
+X-Gm-Features: AclHuK8Otm0xJpYhkHmHhBvYvdF9NjZJWWHbtCPr-MhhnCbHqDLRJoujsYa2diA
+Message-ID: <CA+CK2bCj9mSc5xu0B3QtxgRd=P1fo910pO_fx6f5o_Wu2YDTbw@mail.gmail.com>
+Subject: Re: [PATCH v1] docs: xforms_lists: Handle DECLARE_KHOSER_PTR() struct members
+To: Jonathan Corbet <corbet@lwn.net>
+Cc: rppt@kernel.org, tudor.ambarus@linaro.org, mchehab+huawei@kernel.org, 
+	skhan@linuxfoundation.org, linux-doc@vger.kernel.org, linux@weissschuh.net, 
+	linux-kernel@vger.kernel.org, aleksandr.loktionov@intel.com, 
+	kexec@lists.infradead.org, pratyush@kernel.org, rdunlap@infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-apple_dart_iotlb_sync_map() flushes the TLBs of every DART the domain
-is attached to after a new mapping has been written. The
-invalidate_tlb() callbacks return -ETIMEDOUT when the busy bit does not
-clear in time, but apple_dart_domain_flush_tlb() drops the result and
-the callback always returns 0, so iommu_map() reports success although
-the flush did not complete.
+On Thu, Oct 22, 2026 at 11:51=E2=80=AFAM Jonathan Corbet <corbet@lwn.net> w=
+rote:
+>
+> Pasha Tatashin <pasha.tatashin@soleen.com> writes:
+>
+> > KHO ABI structures declare their preservation pointers with
+> > DECLARE_KHOSER_PTR(name, type), which expands to a union of the pointer
+> > and its physical address. kernel-doc does not know the macro and does
+> > not see the member: it warns that an unnamed member is not described
+> > and that the description of the member is excess.
+> >
+> > Translate DECLARE_KHOSER_PTR(name, type) into "type name", as is done
+> > for DECLARE_KFIFO_PTR().
+> >
+> > Signed-off-by: Pasha Tatashin <pasha.tatashin@soleen.com>
+> > ---
+> >  tools/lib/python/kdoc/xforms_lists.py | 1 +
+> >  1 file changed, 1 insertion(+)
+>
+> Applied, thanks.
 
-Since commit fa4c4507099f ("iommu: Allow .iotlb_sync_map to fail and
-handle s390's -ENOMEM return"), iommu_map() unmaps the range and fails
-when .iotlb_sync_map() returns an error. Return the error from
-apple_dart_domain_flush_tlb(), after still flushing every DART of the
-domain.
+Thanks!
 
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-The unmap path is not changed, as .iotlb_sync() and
-.flush_iotlb_all() cannot report a failure.
+>
+> One note... these:
+>
+> > base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+> > prerequisite-patch-id: 557b4f406b7530b8be07d3e3aa6015ad89ceaa6d
+> > prerequisite-patch-id: c0430a4f0096e4be93a6200aa4e8a1d392238ca5
+> > prerequisite-patch-id: 524c71eab38a9175f9920f38717c8ed3b157299f
+> > prerequisite-patch-id: 61cfc274edef2fb23a1b867c9e0d063578387c45
+> > prerequisite-patch-id: ac022b05628f8e495a224216352aa037a022aae4
+> > prerequisite-patch-id: 50668baf257da9873190d08f21538ddc453261a8
+>
+> ...make b4 go off on a wild goose chase and caused the application to
+> fail.  They aren't prerequisites at all, I'm curious about how they came
+> to be here?
 
- drivers/iommu/apple-dart.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Sorry about that. I had this patch as part of a larger tree with a
+bunch of dependent branches, and I generated it with "--base=3Dv7.3-rc1"
+without first rebasing the patch onto v7.3-rc1.
 
-diff --git a/drivers/iommu/apple-dart.c b/drivers/iommu/apple-dart.c
-index b160fb464c5f..1119769f9f51 100644
---- a/drivers/iommu/apple-dart.c
-+++ b/drivers/iommu/apple-dart.c
-@@ -494,9 +494,9 @@ static int apple_dart_hw_reset(struct apple_dart *dart)
- 	return dart->hw->invalidate_tlb(&stream_map);
- }
- 
--static void apple_dart_domain_flush_tlb(struct apple_dart_domain *domain)
-+static int apple_dart_domain_flush_tlb(struct apple_dart_domain *domain)
- {
--	int i, j;
-+	int i, j, ret = 0;
- 	struct apple_dart_atomic_stream_map *domain_stream_map;
- 	struct apple_dart_stream_map stream_map;
- 
-@@ -506,8 +506,11 @@ static void apple_dart_domain_flush_tlb(struct apple_dart_domain *domain)
- 		for (j = 0; j < BITS_TO_LONGS(stream_map.dart->num_streams); j++)
- 			stream_map.sidmap[j] = atomic_long_read(&domain_stream_map->sidmap[j]);
- 
--		stream_map.dart->hw->invalidate_tlb(&stream_map);
-+		/* Flush every DART even if one of them fails. */
-+		ret = stream_map.dart->hw->invalidate_tlb(&stream_map) ?: ret;
- 	}
-+
-+	return ret;
- }
- 
- static void apple_dart_flush_iotlb_all(struct iommu_domain *domain)
-@@ -524,8 +527,7 @@ static void apple_dart_iotlb_sync(struct iommu_domain *domain,
- static int apple_dart_iotlb_sync_map(struct iommu_domain *domain,
- 				     unsigned long iova, size_t size)
- {
--	apple_dart_domain_flush_tlb(to_dart_domain(domain));
--	return 0;
-+	return apple_dart_domain_flush_tlb(to_dart_domain(domain));
- }
- 
- static phys_addr_t apple_dart_iova_to_phys(struct iommu_domain *domain,
+Pasha
 
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.43.0
-
+>
+> Thanks,
+>
+> jon
