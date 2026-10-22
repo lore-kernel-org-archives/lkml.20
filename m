@@ -1,102 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660739;
-	b=hO5zACUf+FOBNwhb53G55BiU29VR/RH2zCrDv5Oh3iMrRIysiZNJYFbtiW8BaeCatTqi
-	 RzFJL03cjKsZ+ffX0KPpkQ/t49VQmutxKhdvQsHm+pTdN8Qa4fip0JGfOxtgP7MRu0mY3
-	 rY5zzIQbZPnaM2Bp+X6HCHAt9GZYkvnEqW4WDBfZRAjFDjtqF9tMZUmOoODOZ3aaYC4zr
-	 gPKetOpviuw9IhCCREeH/w+lR6D4paDG8ZnaIuHMfTVvwLScMjQBIxyj/tfo3MrR1kmaH
-	 3joT+j3COt7JwvJF7zS9jb1wGrDI+R9JwzHyszr2BXbvlj8BC8TR5WuvzBIlLLkuLcg==
+	t=1792660761;
+	b=fweXLqjG+q0cSKoJHhc3Srnu9gyHvLRsFiE4smQZPKV8Vluv+UR12qPgTcnJdQKyzfL+
+	 5snFrrtyE4M0RSrUmwct0WLfNiHS0Xrv+RRFc3GcyGSwo7hqmL4LZ9ApTLtr3rx4Wj6LJ
+	 IidJKs5ht6beAORAWFu/UCMXuc3BZazNw/O4I59mmJKCVRw9IOPj8iHmUXDPdixy/MHnP
+	 eW5X6kHYP6nG5Y2PAPYNABGaWlKKhMoc8336jkNPlKMb+ZeyNznQYPv2OPa+HZv/HbkcU
+	 fuGST9khzwzTonChTSXMIMG9xEcOUQdBr4WQFSEyjfpkVGqLEE/2fgoWfxmyMzO32pA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660739;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660761;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+3+RimD4u8oBrFVN6CFkCZt6Ny3U/0D/dKYnMLBj9z0=;
-	b=ugwTsFUWKLa67l1F+lX/eQM74RCk4ke0OpFd8mHuzRZaye+/h61UBwYsAh2juUgM1JXC
-	 D/D9aoma8vtKsB6zr/SJy3M7TMR9Y6bxzL1xNmCRc1od/esg8mRa8TSjN+Ad+aEf35jl+
-	 Jp/e67HNYIluZLISy/oK7Ks1w20B80RRQutEBQM2paOVbDEvXljoh7iv9e76wmLhl2vSs
-	 VAheMjXIqNeBebg0bQ/d84YajWTMZ501ckmezRuJ0du+Bo4LeHTLHwMjDLWlloVHJjT4S
-	 SftTPOtXxUtUWHemJ+MBnTHK6HRq641t3J/WIkkR2nsXQYDfa+dYdpIbaFdgFwF8y7A==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=XmLU67b9anSH351lrdK4RsIBICbIuOZ+JS/MULhXqf8=;
+	b=CCLexz4v/qN7aw/fvE0EoK2K5iBPnX/PKJWz5jEMzLbv7UZ4ObPBbg++HpNSGkkUROWP
+	 B6JsKL/V7Q2xD6L1q2kETtC8cXU2zpMzdE36tonMTIi0CCj+PlMMbANGgWVvNqYEiD0RV
+	 fTeHlzWKi8UZOXBX3ukNIkyP+VyEJHV535l3mCocjvo/bkPSV6rliI4HnOzvXyUzE8VCO
+	 hQEil31KzkLwUsZNawonvQEvqRs14vuz8jHt8qFyG+QHDyHQYbKXlVFn7ut7t40pdtyS6
+	 17OzNW2M6qgaU9aakkDFwTeGfccll86TpVNZjBCzJutnr4Otyof9MZqZ/LNTc9IQklA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e1FUsMFr;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dmarc=pass header.from=fairphone.com;
+	spf=pass smtp.mailfrom=fairphone.com;
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=eerU79Dn;
+	arc=none smtp.remote-ip=209.85.218.52
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F047606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:18:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F047606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EF4D606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:19:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EF4D606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=e1FUsMFr
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-16079d54c17so3058156c88.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:18:59 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=eerU79Dn
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c414e5d282eso202322666b.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:19:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792660738; x=1793265538; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+3+RimD4u8oBrFVN6CFkCZt6Ny3U/0D/dKYnMLBj9z0=;
-        b=e1FUsMFrTAW6QUpswIa27YiiEcGG5ijLLfxGR6RmpqWQsR4NH+jWQrxhV4Cd+WZeqY
-         SilvJXZEpx8dcyIkaaG3dqf/oi7lQCdZL+hVZunr6sh4Xz9x5EkYUgclVMFHIEoFcMqR
-         WqjZl8Cd1Grb3KGpm5TB3loCliDh2wioVKem9bzi8huMz+rIPBvWX4cJnJ0k659DA7Xc
-         y5M61fbbg/QUgdxQdy5EkaEHvmYzS+AJBOM3weQgQR0F6yzcdhkdN6S25ZJY8SSkNGeh
-         LVESuY1D4biD13sEGWrOUFQsr+/HnjxyVx0rlOXU2oXSzxWSKgm+Q6/OsvgJEdaxt2C3
-         xorw==
+        d=fairphone.com; s=fair; t=1792660759; x=1793265559; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XmLU67b9anSH351lrdK4RsIBICbIuOZ+JS/MULhXqf8=;
+        b=eerU79DnBIXSgkNX9XH5RvEx6v2IJwgHnx6cLavomh9+/x0S0S/nzMd/T8E7dX5dGX
+         bbtHQZvIpitzL0W2/wWvPZYaE1stMzV+29nM+scZxGiDqIbP5ct3kZMfLVmGdvgsDGAM
+         qTXoO594N5NrexjsKhZU+5ozQ1D0AepRPEgqXRUE0d6jdwLDQjge3ObyOjSciuomQF18
+         NLTywnjVXikcxzX/HLHwQNIfxSfEmelm2GR/sVxIWNlqOA+t18EL2+jjjEEblZ+i0g+V
+         ec31CyLmK5pVAGSaUmSO0UeJTDfwc7hSoqr19PSe4vB87eSLN8ud7gV8Zm4TIBkK17r4
+         imTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792660738; x=1793265538;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+3+RimD4u8oBrFVN6CFkCZt6Ny3U/0D/dKYnMLBj9z0=;
-        b=DujgfX4YPncol0pRYHTR35zsDNaNiBTqVjHuJ9Sw8brIIm+LbUPua8AlvBF8+Zqyd2
-         EzjOY/Yhuh1ZoPGfLp6NZI/S7AR/FN1PuHX3x1TdnJDoDkYPG+se/oWX93NuTFPaUhNT
-         5q0BJ4xBIqzZhHqoJoevgJ/BhrDyVSofTEJmB2+TbxDs2SUTBnD/NO6hcCYv78YRSZpo
-         7xT+jfRYoeUUhFVpg02aafJ6rQ5/NVvWJSJWM3fy+hmm22vX19uiIHVGhjtjWhEao1gw
-         ESJPNf7rr/MGyAaXfz3+r+aG92gFEGLHxfop+nr79vygW5bbiEVG/X2f6lG70Nh6KEzo
-         pe2A==
-X-Forwarded-Encrypted: i=1; AKwUvBywtIWSqfvs+yJF0seBc58fwdfkbvHyc/RsVvrQU4vlOWefh8OmTXfSWvyBR+WMBLaNqzG4JWuRSeTWe6I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIxOMWlT7sn/KUPl4LaQ5JJciGcyp7L/T82VKd5uWAO6+W9/lGS
-	gEj5zfQGuX4jgKmC8mJNXN8vRnKMBVDH086ZyIiqOhVVrTqSeaKiqARD
-X-Gm-Gg: AYBFou3iFLC7g4ps+Mimm7PKzB4y/pChLomoL6CPcaId3u6IyHVVybj3s+j/tYmB0Bz
-	TlecDyMXmhWA26C4NW02Vji1RanUTFZTbBtOp/GjK4ZmdrWMfQ3khUlw7RjjvUKCXfWd/FGxuSo
-	/aK/+r+XCROPdKUeQ/KvszQ1KWLuesCR1nhgOKXHEI8sq0h0eQRtnDmLwigG3AxfiGV5PsBMV5K
-	5AsbJMLxAGe+40C7rXIa3mGCOln4Lg+BalbliAiGv9ohI8APRKUzm93nWshnga6eN7P3AoR5pj/
-	tbk7fW/UIQMklSSbA+xX8ye2x8s3eWASP6foBdjJVmhVU4eK64u+0vh5hhsjFJKkVK6ZHw/8mL/
-	WPr66g32OnZgGoF1C0X8WN5RrqPXdrxYYQb+ZfhHr8jal1jFhAvDn/yVXlvrnkkbmLB2OW9wxES
-	JJrvq4Hv7Nwt+DLbCPUv0Dflt9fofzUbIwAw7Y+lo1IExe/4AcUN+iumcvrQjrAWKw3bv62R/ZY
-	5bgS06kFfcW2TvOqczxLG+NZH2MHmeXCHr76ZeDfVJ/5nVViMqHn8CK1TagDVDGUClNtkV1jEGQ
-	rQGotMxPgBOf5TQyAME7Kt2lfo0e5dMm7UMjADnu
-X-Received: by 2002:a05:7022:ea57:b0:144:f089:b189 with SMTP id a92af1059eb24-190a74775b8mr5453836c88.36.1792660736253;
-        Thu, 22 Oct 2026 02:18:56 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-19035926035sm11607230c88.1.2026.10.22.02.18.51
+        d=1e100.net; s=20260707; t=1792660759; x=1793265559;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XmLU67b9anSH351lrdK4RsIBICbIuOZ+JS/MULhXqf8=;
+        b=tNLcBz//yrnEwIF1EWgn4Oqs6V501Lhpgn4Zjf3D1V3FbVTmxam+qs8Z8fveFrMKH1
+         CZt/RPoBzxMBdCQlqq0ELNwen++rN5VxSP+YrTyLuUsxCTrlC+z3LzSrjLild3n//W26
+         AwY+GR4WTLnqwIAHr4bGy9U5e3GkomAPGbAb+TEYI6aNpxoD7RkdqcAoDU1NJD8flP9G
+         mrRGH8CodQeB8l48YGz1z5MudNqnMYeiMBbbCRH2irk7GZyUVVa0ptWyp0NC2mA1l+GW
+         ml3NIe06NgnOejt53L/QN6f7aGRV/3VEullj+Ip1VjOMCRMypWFpJrw2pJcOw01kJWES
+         wrNg==
+X-Forwarded-Encrypted: i=1; AKwUvBx42OaATZmFJ0AUw1H9dg0VFZksEzIVTSv7xhGA3Z6UWlChXd3vvXSel1JD/3VUkcjmlcLOlkunY30NDTU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLMWCZwgyRr7Iwzv+5YXPXqxDHEOh7xdfbOrFFxt/KCOeZjeYsX
+	dLqhX1c0qtuTfdtKFrxLgU6wFC/5KvwfzmECdRdzwWdC/wuVpBFNsWENjV4sd0qdUlU=
+X-Gm-Gg: AYBFou3RIdEhzVNzN5Dnmerjh7BjOO++D1IGdqh4LJ0xFYj+6V25hnl7ZgoV2UbjeDd
+	FbRP8LN4ufr58L+nAxeyuqJTs9Gx1aWxw57JhjJWDhxuBH6KSId4TKjnDwO8HRJYo/PJWrdbGJT
+	VEWqWEQV0D2yqG+hDj5moW4w6347yu3MJ7Q2iCZL/Ace5OEugFvZAGkPbM6DM+2HDBGjFFZWTwd
+	cG5KdFrQqYIOl4y30rUE+y3aJptx16QNJUPbeloek9S73co6EPsSg9n/7WmcJtRs7Tt4Lj6+8RQ
+	EJjZeQA6sLk7BaQ2guBohnlmww0OxPWgbcvqsXYL1pgiwwgAoHIYBlbWHNJcCGl3fwtRKc4swni
+	fsU7tiMZwVgm4+Ewjh+LQs46/zCwrOge3JlIRFtxoIhsYPd8ikqFg0yYgVY20Ess0utmyq9uU0S
+	AHAqL+8RzSWRhoWmr9zm061v7P/D3LGdztGVcy5A6eXCI/KF83rXrnw+qz94fjyWFw4S1H3oVJj
+	cLz70rQj8zJaxr0K+HWCfgZAZPpq4eTNgNTiYheeQ9o0N2e18BXUJuWYw7Z3Umrlxr8TbEMkOEq
+	CLZXu5qtUjs769BD2k3zAOZbZY6XYOA1m/DX5K2Ozd1526fSu5h2TG1Scp0dYqz4Hj29ea80/98
+	5pYAja60JPKl63YBrG4RLhWqDFPt9ZVf/mgPp7VI/H0iL0/dMe/O4OYKCiyvWBtQJpyNV
+X-Received: by 2002:a17:907:9711:b0:c2e:6498:5bb7 with SMTP id a640c23a62f3a-c46796bb426mr444488566b.31.1792660758671;
+        Thu, 22 Oct 2026 02:19:18 -0700 (PDT)
+Received: from 2001-1c08-080f-fd00-57f9-c36c-aa93-fd36.cable.dynamic.v6.ziggo.nl (2001-1c08-080f-fd00-6fe5-b143-671a-f202.cable.dynamic.v6.ziggo.nl. [2001:1c08:80f:fd00:6fe5:b143:671a:f202])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c468a50aa01sm85790866b.22.2026.10.22.02.19.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:18:55 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Eugenio Perez <eperezma@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] net: tun: zero-copy path can expose uninitialized packet data
-Date: Thu, 22 Oct 2026 02:18:47 -0700
-Message-Id: <20261022091847.3654028-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 22 Oct 2026 02:19:18 -0700 (PDT)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Date: Thu, 22 Oct 2026 11:19:15 +0200
+Subject: [PATCH v3 1/4] dt-bindings: input: Add compatibility for Awinic
+ AW8695
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,58 +94,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-aw8695_haptic_fp4_driver-v3-1-ac8c14377e82@fairphone.com>
+References: <20261022-aw8695_haptic_fp4_driver-v3-0-ac8c14377e82@fairphone.com>
+In-Reply-To: <20261022-aw8695_haptic_fp4_driver-v3-0-ac8c14377e82@fairphone.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792660757; l=1075;
+ i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
+ bh=zMc7fnFtbUBSVjfmEWHaUyV/0ui2OWBr6T8F5VhNG4U=;
+ b=VeVZAjOe4nh9A7LEj+L1Elp95Otpjsl/9uITlARbofk85O4zyU4uaNHE2dHFfXgq0BYw4byC4
+ 4vmCiqOGmW7D8nLkwe/t/3Aex4MoT4fYW6/E2SJVdNGCJp19WAcmA9T
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
 
-Hi all,
+Add the AW8695 haptic driver to the binding documentation for the
+AW86927 and AW86938, as this binding needs the same properties.
 
-The experimental vhost-net TX zero-copy path can hand TUN a user buffer
-whose effective vhost virtio header size is smaller than the TUN
-device's configured vnet_hdr_sz.  TUN computes an skb copylen that
-remains larger than the bytes actually available after stripping its
-configured header, publishes skb->len from that copylen, and
-zerocopy_sg_from_iter() initializes only the real payload.
+They are not compatible though, because the chip identification works
+differently compared to the 86927/86938
 
-The resulting frame contains an uninitialized tail.  The tail can be
-read by userspace from the TAP peer through normal forwarding.
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+ Documentation/devicetree/bindings/input/awinic,aw86927.yaml | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Observed on Linux v7.3, commit
-08ab31164c55f20c7a2653de3186ae333470e2c1, with:
+diff --git a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+index bd74b81488f61d72b675b5701b321b30b3430be0..58908ac4ca7964f63e392050aff5e15e836983f5 100644
+--- a/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
++++ b/Documentation/devicetree/bindings/input/awinic,aw86927.yaml
+@@ -12,7 +12,9 @@ maintainers:
+ properties:
+   compatible:
+     oneOf:
+-      - const: awinic,aw86927
++      - enum:
++          - awinic,aw8695
++          - awinic,aw86927
+       - items:
+           - enum:
+               - awinic,aw86938
 
-  init_on_alloc=0
-  vhost_net.experimental_zcopytx=1
-  TAP vnet_hdr_sz=200
-  vhost TX total length=256
-  real payload length=56
-  TUN copylen / skb len=128
+-- 
+2.43.0
 
-The exact control with vnet_hdr_sz=10 delivered the expected 246-byte
-frame.  The corrected trigger delivered 128 bytes after submitting only
-56 payload bytes.
-
-Sixteen of sixteen corrected triggers produced the overlong skb.
-Eleven of sixteen had nonzero bytes in the 72-byte uninitialized tail.
-Several contained recognizable stale kernel allocation content from
-previous skbuff_small_head users, including fragments of environment
-entries.  Those bytes were never supplied in the virtio TX buffer.
-
-This is a userspace-observable kernel-memory disclosure on a
-network-forwarding path.  It is configuration-gated by experimental
-zero-copy and an enlarged TAP vnet header, but the overlong skb occurs
-regardless of init_on_alloc; init_on_alloc=0 is needed to observe the
-stale tail in this test build.
-
-This is distinct from candidate BR-023/BR-025, which exercise
-IFF_NAPI_FRAGS.  This reproducer uses the non-frags tun_alloc_skb() /
-zerocopy_sg_from_iter() branch.
-
-I found no direct upstream fix or CVE.
-
-The vhost ring reproducer and complete program/console logs are
-available on request.
-
-This was found with a multi-agent workflow; the
-information disclosure was reproduced in QEMU/KVM.
-
-Thanks,
-Cheng Yongkang
