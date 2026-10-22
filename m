@@ -1,111 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792686634;
-	b=vRAjW5iPqYwtrnlGuz3t0KEimGxjlZt4IXHxltHFo5VhTemTbGrZp17h1PqKguGH+Mmw
-	 4gvnInUfWU47Eq7wushoaUgyXNNhS1TbFBTT4iLwoXUF0S2sdFPc+0PxXcMGfG+qsbNjf
-	 hnCC6TWl5YdWfM7mDk2sUF/yxJ6SfMd+gjj0zhNDCPK7SHH8OpJGW5+VlYgElFhQdingG
-	 AUstV6S+5Ab+7/tmmLCo4F8yTq5kDXHu/GZVirhfOrScklV7K57ZwnDlsMcpboE5lN3vH
-	 CBi3KYtrIDPx//FXCWEputouI7BZVUe7C3aTQCZ2/ZubPz03Vn4TyLfHfltE4U1cenA==
+	t=1792686670;
+	b=2A+uDY4PFtukoQXwYDZIKmWKDHG5s6ZEItA9Vo7uTqgrTXMVx2F6zUI2OKRSQPuFIT0S
+	 EGuDCnZ1mR08QvuTpTb7v2L56MdVA15zpSkRENq/kbU4blYE1clpTVgVRvIsCVM9IgzV5
+	 vs1i9Yh6Lbou/YvkDbW/XXS/toFeAwZUZSBTdHxZ0VXrlmwRVuZ/b56iie62+sDzCnnG2
+	 NlszwzoFlAvHSPqEP6RV8eDdhoiu7qdSTIDi4Rvf+pnRERfZUCZVxCxml1aPEEj2kFNx9
+	 FJ2dOPhSfFxH8vVLPlCXj1MnWPJpnYGeEBI2CG5QSSqb4h8rS6KLxj5EvDBS9GBsV2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686634;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=lrrjHTsXX+lF0K8S1G4KJ7467S0hYPsoCwX9ER6dD6Q=;
-	b=0A2WWnAkl500AMIajke1qiLaToMyxM96NC6sx/qiG9Q9ui74st9WDRZGNKjjs+BekBaf
-	 1rPHOcZYWoimO1U9L0dpTuPsoCO438Nc53N7YKR/uLuAr254BrP5zXr3oUFt9biW3sPn/
-	 LQJiDySxWVLwXSPiZgt8YP3mAhKIwYW26Z/XJXlU2rtPdMzPUliUWxcnLdtl47CM4l4Qz
-	 aj+pgpN6GaEyT1+8CiEfJWtYHKmHxkoevcHNSuX0OW18yxxkoCDjVNIQejV7emIYMUtHQ
-	 LAnmdznvfUYXTw0N7oQsARH1uj1QJnD+bzJOf0766WV0Ep1ZWi4L6nvquTrXilOKfww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792686670;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=C3JsDYA+dHKiHzDhkGjt5ijrcUWz60I62RAqv7JIoHo=;
+	b=fgqKsiUjKEzSexoE6E9KWgws3qpCk8SiGjDSLHbqIn4ZBeCy/rND73kV1MikIWjZ85uc
+	 xJlpZq5i2HidDPQiFRaWWyWtPiDGBXilLuARfQR5Nk/7tqfzykzuHtcUYJRTBrTUnezxt
+	 8XE3HQ0eAniA2KIdccUQbVST1EqFFYoVPR8JCffcZrLKkIRv9I/ke23rW2rXd1GofDDw5
+	 kZHc9f4iX78i/FzrN98zOdAm5PVc1Ha6bBss0NwSGP198JQYYlf2RuQWtKV8xtdtdOQKW
+	 1xm75W5DLU4wUR+Cai3ZLPbtUc2EvtMRLScKWkn/4DmJyYZts11Va1WQVonDrU2fpnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=fn76BIqq;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=By5KtG9G;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G9axl0ZW;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B0AC606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:30:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B0AC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 714CA606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:31:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 714CA606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=temperror header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=fn76BIqq;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=By5KtG9G
-Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEWwlp2478261
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:30:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=lrrj
-	HTsXX+lF0K8S1G4KJ7467S0hYPsoCwX9ER6dD6Q=; b=fn76BIqq4yFfeOp3x2E/
-	B4Zq8cvnp6BCl73ATfof2p1JtnWqJyCMxxWMssNgd3kjOdhXQM/mulvQdG2RZKHx
-	FjdlBOcHSLYNx8DaZJTeHGLj1fZx6p1u71reb54QROoVj1UGh7MSxGJ2Lvx5hG3w
-	RHccPNHEuGTgSzfTplrm2yGzfIQp9QavXsECYOK+7lO/Pf19+XdV+vWjFu7dwshP
-	lR0cT6IunRxWYcYP+YOXChKHrHi5Q9DeqhU2AK7fzZvz7Y2MTaORjoEpXiBiDBDU
-	Z+5xjSbKxF9TXQZTWotEXnyBYaSokHe+W1xUKmaLnQFziFJdcJBtGcMUNZnAgbyC
-	EA==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hf928f6kk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:30:27 -0400 (EDT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91b529a8610so1331696d6.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:30:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=G9axl0ZW
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so5753eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:31:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1792686627; x=1793291427; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lrrjHTsXX+lF0K8S1G4KJ7467S0hYPsoCwX9ER6dD6Q=;
-        b=By5KtG9GGGVHjzcmCwfWTRdul9yG2TGlKlBIAJ32mi1pzd50OoqfXS0hb3KbTOYQ/S
-         cNEgEDO5WOK/J1S29Sp4Hh5PkBd4DsdFsMkdD5K4qlMZk/08dW4Fa/4R5YCACEBPrsvm
-         gwOK/O8b71H/ufFYlODBJJOEwBT9axEhf2nuF8ka6h7OhOBAvHwV1/auVG6N6tbF123U
-         JFnGSP5LJxk8k8T9y06Vl8TB+9qokStdgm1Bh55bfOUy81jUv4DFKLCmAGtGu5hdAlN/
-         Dr31tXvWlm5zaGeFhEW5Rn/zH9DLNslE2zD0+WG/306O57f6DYlOhIWk6SwHpGpp7FGu
-         8VhA==
+        d=gmail.com; s=20251104; t=1792686669; x=1793291469; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C3JsDYA+dHKiHzDhkGjt5ijrcUWz60I62RAqv7JIoHo=;
+        b=G9axl0ZWjA7BHFiUel4w/TY/I18yCQTA+YWuou9plV+jjnH0qQt+lyaRuZr7rlcr0N
+         5pleDG2nV7+fKtdKO9f0HQU0hzjtb6Yjv3rt6AGf78oa/RktR1NVu75dr8pddYnvQEWP
+         KmVX18kDv0UDtEt+0FeP1nFXpafHXToc7NL7LRUo74UMpQ3T6Trz+4Y2gMPVpAsdq9vo
+         oVw3Noz4zjJHEm3wMUgf0mPly7S7tzXHyyzVvi0d3ztqyDsD0W0Oecqb9cv7lnlJhrAL
+         nlt5/ytKDMeYjye5IS/tVacDMFenh8Wp+zMeONVfitTJzXO7QsU0vtcV5DioZapbUOIM
+         4VMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792686627; x=1793291427;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792686669; x=1793291469;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lrrjHTsXX+lF0K8S1G4KJ7467S0hYPsoCwX9ER6dD6Q=;
-        b=Dd8ralFLeQGXdImxeCHKG8FuOLoRD2zwoXrBIJ70+6huRPpKS55ePinGg4KGU62M33
-         AUUQDEKfUj5jMSxmuInwSnQpIGP9cqJ27qwGMo1FFXtD3RmS6Obc3TVq+0GvZP9vfd0R
-         WzdMbpfgP60N6K8wmRF0/8NmQ4jpYqgQWLJ9/XaIfKPNACcV8+4HYqbZYd+L1gDPQ/2E
-         O1LAY0cZOeRWaG91B1N4/SnSl0NYnoyexqYT8TvBZD4Zk0+c3484TqulJO5fh4pRp3Oa
-         b421HfTINpV1eSMGYQBe2vst/ApI7+kVemHFfEDy1wTEZVU0kOZbN5Wf+Yc7UNhAuNAY
-         pjOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz8VxPLnB7IJYE6U6TUHX/N4d4MmlMLxPuAB1dOwX4amTOf3INmFNtj06yp5jaJl3oj3BBWiZXVfE2cY1A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImSyKEctdyhDTuzacuKAinS84BjeX6lw6mIzlrQFNY7Uq0zXn7
-	dcOUNDMmpxWlB2SWvFxHzTP0USr21Ai1fq76jkBgdO9Lfujz3U3K+HPqNfGv3jKfSXGIRrXjJLi
-	fMHoe3a7DrX70qWP0q/Y77L2a9vXXQ6DvdTb0czA3bSQ+009ZZN1qTStCPyypqQ==
-X-Gm-Gg: AYBFou1p8D5qnCdOEDQp5TAj167C63LVawjGUaU3CdVy2uPEdIHUwfyKvfoizE9T38m
-	MSL/ZjkhLhTK1pVNO7I/+BJYt+wXzbpHQkyTyYXniiw0ebV+D53M95Oxtj1JOOE5jzRWSOkGnGi
-	+beJ5TL21+/Z6ZTSuq1cW6ZZdjEpu7Nn9MMILjkqoFnBdWitojDEj5Imrou+EpWorEIqHWF7Noa
-	EfWACMn0xf5ymW47yL2pme5Mw6sjSMmJYaX0hRp41SKw1f4lFUC9MUira98YcRzwbVrn+5BqnVd
-	5Q2s8ItrY139ZvXjNoV3Bk/hb5KUFl4Ri7q/19WIGE0uTNa8GMV8ljmK6A1J99oAeTg4AQnTNbx
-	mjX/dVaH7mI4WUnD10FdcBKRbFh8wDMCREIf4vM9q3+NEdwHF2lQ=
-X-Received: by 2002:a05:6214:5283:b0:91c:305:a955 with SMTP id 6a1803df08f44-91c12ee13femr95696836d6.31.1792686627090;
-        Thu, 22 Oct 2026 09:30:27 -0700 (PDT)
-X-Received: by 2002:a05:6214:5283:b0:91c:305:a955 with SMTP id 6a1803df08f44-91c12ee13femr95696026d6.31.1792686626376;
-        Thu, 22 Oct 2026 09:30:26 -0700 (PDT)
-Received: from [10.207.2.202] (nat-128-59-178-167.net.columbia.edu. [128.59.178.167])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c370ed672sm1061766d6.42.2026.10.22.09.30.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 09:30:25 -0700 (PDT)
-Message-ID: <816dcdc4-7b4f-4d8a-982d-5fe45c3c3e99@columbia.edu>
-Date: Thu, 22 Oct 2026 12:30:24 -0400
+        bh=C3JsDYA+dHKiHzDhkGjt5ijrcUWz60I62RAqv7JIoHo=;
+        b=s26VdU3rqPC7aT7993grxmHNIBT/FwVQYCnQB8AifUrMHP7i8YIgLFqz/nJJpga9Uw
+         tYPsQ9S7G4mDUVdCHjIhZDrS++6BrtbTQYw7VMWcXYVV45aFiq0UR7fXCgnWz3KMEH6c
+         yGJVehAMLWgVdgm9FxtFJwderR8UcegfucWnJtEjYdUzAyY7oFGv+hWPpIq7VNsBokvj
+         DZTRCgNEEyQVa9WUM7bqJmTQWzOW7kCIXJovCeSoX0DPDVZyDuXvQJ0AIw9pbZ2pqaRO
+         vatmie32IhbM5vHuk7MecPmFl8WHhcTdjKVW/Z6Tw7wHJuErTpkJM48w4zHwNNP8qCLU
+         T/og==
+X-Forwarded-Encrypted: i=1; AKwUvBz0geNd3CwvmAVvtJuZFlcFIcTQjuPkFxvq1csg8B4uMmJn5GulD39ejQzPnxqCdG+zodYy8xDd2G9xR3Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIPaJKHRQp13dLnfYmjXmcIOQT858VIJVJCt/Cb45qxNA32hOum
+	ZhVs+WDQ0OrTBmh7D4gqMZkDgLWmVpkMtHI8HP2MbKOFThlXCGkEiKyk
+X-Gm-Gg: AYBFou10tIYZa8bfXNCwLi27ltxayjbKIIKAimLVL0pvWQ8kvEr157zbyHCor2T6dWc
+	zyDwKriYcMtJhPlucmBKiufvg7SUwK5KZg72dO1smQ8RWNdliUkGCIXJ7S1TVhBAXHJI8f8R9eD
+	oIdLGpInUQw4IUmALRVzK6JcSkHZSTDQ9pkvva12dVnOTQZniqudYSi2VzeTSZRKN/MZyCfRba8
+	4n/TbqdHeOiybfD2X3MqPWRdqBzwFpPpmsrp13DuNccqQw9YqQn5jQL1w7Vqfi4LSV/0uI32kz2
+	G0N0IpsjQAOXZw0z6xb0ox719LBplo8YVTEnO3H2mDNqM+WFATnk8+N/fY2Uxt7z0Z3va8ia9dL
+	sGatHiSd3+PiBzfYykIiojWaeUP1c0JtXBAstSa66zA1OdXv3St1pE2D69vf2KuX8lvLxF44/64
+	jeTUsHunMuExBw1/N3sF3pE3F0mTlLa7Pr1I8xvS1nLgECEYV46Yd7dAOeAW1bT+QTj78snUpzi
+	M2abAOwUrKO+FSElfb1GuQkrlE8K26/98E=
+X-Received: by 2002:a05:7301:618e:20b0:35e:2c6:d46c with SMTP id 5a478bee46e88-3674c63d579mr7766127eec.10.1792686669328;
+        Thu, 22 Oct 2026 09:31:09 -0700 (PDT)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198e2d6sm15771540eec.22.2026.10.22.09.31.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:31:08 -0700 (PDT)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-mips@vger.kernel.org
+Cc: macro@orcam.me.uk,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] MIPS: Cobalt: Include legacy IDE ports in the PCI I/O window
+Date: Thu, 22 Oct 2026 09:31:00 -0700
+Message-ID: <20261022163106.1410595-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,70 +97,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] ecryptfs: remove the remaining struct page usage
-To: Tyler Hicks <code@tyhicks.com>
-Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>
-References: <20261014-ecryptfs-folio-v1-0-f4412187b1d3@columbia.edu>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20261014-ecryptfs-folio-v1-0-f4412187b1d3@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: AEsupXpFeOcbjl0z3GZLoMtPUXWFts7I
-X-Proofpoint-ORIG-GUID: AEsupXpFeOcbjl0z3GZLoMtPUXWFts7I
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA2NSBTYWx0ZWRfX3XP7JU6s+VUp
- f+OETR62G5p6oPz8/THNR74cl/IJH+ndw96FUkDpXh3xdcZQMjLJPbLNyUxMZKVGjXTc1qpY51e
- jxB34tKSM1DKIEsyu+giF780k6KlqODhUiYvW1ixFfU0mLkqf18EIa934CX1ZMuAqwk/Vn3ty95
- HqwyrkFlzbEjGeURG7oqbXWbvtauym+Rl0tkdjhBxtBvQ2NwQs3GgXdArtZvHKpo2fAg7HYBuKl
- bokxq+5iBP16g6iMbpV+3Cmt+LEYFWDRou4Xges1OFiQiqvQuEOoi+O6O73oz33Knb9TEMk1nA+
- j2LXgsXpfp2AK8aAVKtCCxNE/s4CElQ8OMgObMN9uDgl5XtR7bfINDNJsxJ2sL9n3Cj+ynqKPIH
- YqxY0cuYaag/NrO5fygNqjw7UkGmuAuHwErck1QTPGI4hShqE7nm2jTY/YRBR4mbqSeVOAYbKbW
- Dp2Ig5si0J2FPN/DDSQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA2NSBTYWx0ZWRfX1fAotz/k2g2M
- TvHAv32bKERJkIOvoCPxpHj9vFH9aEUpdRDH/K85r1af+txOpPPBH/GPK2eR/W57Hmpxki7O0Ii
- CKbP53afXJlLoO0oyh6o8GhI29dfxFyAL9CbAgUU5Y7j8fzpOXBJ
-X-Authority-Analysis: v=2.4 cv=dcIVTnXe c=1 sm=1 tr=0 ts=6ada3a23 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=2Da5xiS/qB/F0tTsr62afA==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
- a=gF-yDPsWzASaGOsw9AEA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11942
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 adultscore=0 priorityscore=1501 malwarescore=0
- lowpriorityscore=10 impostorscore=10 bulkscore=10 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220065
+Content-Transfer-Encoding: 8bit
 
-On 10/14/26 9:35 PM, Tal Zussman wrote:
-> Convert the page cache side of the encryption path to folios, and use
-> plain kernel memory for the buffers that were only pages because of the
-> old interfaces: the ciphertext block, the header buffer from
-> ecryptfs_get_zeroed_pages(), and the scatterlists built by
-> virt_to_scatterlist(). Also make a shrinking truncate zero the tail of
-> the last folio in place, as other filesystems do, instead of copying
-> from the zero page through the write path. After this, fs/ecryptfs has
-> no struct page usage left.
-> 
-> Ran cleanly with fsx and fsstress on ecryptfs over ext4 in the default,
-> xattr, and passthrough mount options.
-> 
-> ---
-> Tal Zussman (7):
->       ecryptfs: remove struct ecryptfs_page_crypt_context
->       ecryptfs: use a folio and a buffer in crypt_extent()
->       ecryptfs: use kzalloc() for the header buffer
->       ecryptfs: use sg_init_one() instead of virt_to_scatterlist()
->       ecryptfs: zero the tail of the last folio in place on truncate
->       ecryptfs: rename functions to refer to folios
->       ecryptfs: refer to folios in comments and printk strings
-> 
+The Cobalt PCI I/O window starts at 0x1000, excluding the VIA IDE
+controller's fixed compatibility-mode ports at 0x170, 0x1f0, 0x376 and
+0x3f6. Since pcibios_enable_device() was converted to
+pci_enable_resources(), these unclaimed resources cause pata_via to
+fail to probe with -EINVAL.
 
-Sashiko found some issues with patches 4 and 5. I'll send v2 with fixes
-soon.
+Start the PCI I/O window at zero to cover the southbridge legacy ports,
+retaining 0x1000 as the allocation minimum via PCIBIOS_MIN_IO. Register
+the PCI controller from plat_mem_setup(), before the VIA reservations
+and i8259 initialization, so the legacy resources do not conflict with
+the host bridge window and prevent PCI bus scanning.
 
-Thanks,
-Tal
+Keep the VIA resource reservations in plat_mem_setup() after the PCI
+controller registration and use insert_resource() to nest them beneath
+the PCI window. The i8259 and RTC resources are also claimed beneath it.
+
+Boot-tested on a Qube2 with a MIPS64 kernel. All seven PCI functions
+enumerate, both tulip devices bind, and pata_via initializes both ATA
+hosts and detects the ST380012A 80 GB disk. All 18 boot checks pass,
+including a read-only disk test and Ethernet ping.
+
+Fixes: ae81aad5c2e1 ("MIPS: PCI: Use pci_enable_resources()")
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+Changes in v2:
+
+- implement Maciej's suggestion to reserve PCI resources first
+  and then the rest of the peripherals
+
+ arch/mips/cobalt/pci.c                     | 11 +++++------
+ arch/mips/cobalt/setup.c                   |  4 +++-
+ arch/mips/include/asm/mach-cobalt/cobalt.h |  1 +
+ 3 files changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/arch/mips/cobalt/pci.c b/arch/mips/cobalt/pci.c
+index 85ec9cc31d66..29fd052766b2 100644
+--- a/arch/mips/cobalt/pci.c
++++ b/arch/mips/cobalt/pci.c
+@@ -14,6 +14,8 @@
+ 
+ #include <asm/gt64120.h>
+ 
++#include <cobalt.h>
++
+ extern struct pci_ops gt64xxx_pci0_ops;
+ 
+ static struct resource cobalt_mem_resource = {
+@@ -24,7 +26,7 @@ static struct resource cobalt_mem_resource = {
+ };
+ 
+ static struct resource cobalt_io_resource = {
+-	.start	= 0x1000,
++	.start	= 0,
+ 	.end	= 0xffffffUL,
+ 	.name	= "PCI I/O",
+ 	.flags	= IORESOURCE_IO,
+@@ -38,11 +40,8 @@ static struct pci_controller cobalt_pci_controller = {
+ 	.io_map_base	= CKSEG1ADDR(GT_DEF_PCI0_IO_BASE),
+ };
+ 
+-static int __init cobalt_pci_init(void)
++void __init cobalt_pci_init(void)
+ {
++	PCIBIOS_MIN_IO = 0x1000;
+ 	register_pci_controller(&cobalt_pci_controller);
+-
+-	return 0;
+ }
+-
+-arch_initcall(cobalt_pci_init);
+diff --git a/arch/mips/cobalt/setup.c b/arch/mips/cobalt/setup.c
+index 9a266bf78339..502acc92969b 100644
+--- a/arch/mips/cobalt/setup.c
++++ b/arch/mips/cobalt/setup.c
+@@ -83,9 +83,11 @@ void __init plat_mem_setup(void)
+ 	/* I/O port resource */
+ 	ioport_resource.end = 0x01ffffff;
+ 
++	cobalt_pci_init();
++
+ 	/* These resources have been reserved by VIA SuperI/O chip. */
+ 	for (i = 0; i < ARRAY_SIZE(cobalt_reserved_resources); i++)
+-		request_resource(&ioport_resource, cobalt_reserved_resources + i);
++		insert_resource(&ioport_resource, cobalt_reserved_resources + i);
+ }
+ 
+ /*
+diff --git a/arch/mips/include/asm/mach-cobalt/cobalt.h b/arch/mips/include/asm/mach-cobalt/cobalt.h
+index 97f9d5e9446d..c7a8607cd651 100644
+--- a/arch/mips/include/asm/mach-cobalt/cobalt.h
++++ b/arch/mips/include/asm/mach-cobalt/cobalt.h
+@@ -19,6 +19,7 @@ extern int cobalt_board_id;
+ #define COBALT_BRD_ID_QUBE2    0x5
+ #define COBALT_BRD_ID_RAQ2     0x6
+ 
++void cobalt_pci_init(void);
+ void cobalt_machine_halt(void);
+ void cobalt_machine_restart(char *command);
+ 
+-- 
+2.53.0
 
