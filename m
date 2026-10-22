@@ -1,77 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687235;
-	b=rgcHdeaBz5TyYmy6aBaZjhewyButWXnkRmXInjXJ0wpNcGHNdYxoTsmXiHNjf8rPZcaV
-	 R6jXM6fJvlZ7Lc2Jm6rj98J3JdGc98qPZL5epvpXoMecunquDHEsIZ5q4dY/O30yBkycU
-	 5IVcdWBJYLXUigT5CcWyi5Hzs5avSpxCIC3eT0OanWU77y2OIE53tlIdo3RL9tBU/wr+Z
-	 lngmZ8T+sUzuvSoAsVTQOn4sODqbzZdbq8EbaON31Eb1RBqZ/Y/6NgwZ1pvpPJv+2tmaG
-	 bwFX3xAhPVxIe9jwWQe3sgFLHR6S4hlh3qvz7H/jG6wSkUpH3DZsa8Iv+3IPkSMuRQw==
+	t=1792687261;
+	b=YELSzm+w3Cz11l9wdKN7aC9RnoyJB7fNzx5EutnKbCjFAtXjoxRazQPJzunQTI+9FrSw
+	 S32d4ZzUO/u8d34VkMtP+EwL3fuKeuUUPZ8eTPCi+68d/taljZHv7HPGB1tB6wY2ZGIBO
+	 h3mQW4+tg0EIUtevf+1Fe8Tz2wmgnNta914OKEMUimlBxv+4Qt8dD9kl3l7IAXDNLcnHO
+	 JyYL8E3d3kn5IinzfWuj0ydS+08YGqwmcwUQjiNTpmVMx6GXrV1VdNMrn85PAQwikj/NR
+	 Ya5HjFzSete0lrRNlL0UFXeEjuWSHnDzQ5ouq+iGNcvvHVAxSDh9EXU9/fNx+gRNJUw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687235;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Nu0uZjnjC1dudhj0yygthv/OZM3heiR+aoIBI9kPycc=;
-	b=OyihatBJxYIVGJ2TcCWXV3pg1EKPPeesFZwYzEXYwkxx7LBHHgRMiZmg5wPU0CkxXbaU
-	 H6dWm615VtJ2PGRrH8rcrMrQIRnkrQ5AsouUHwjliE/cHLVjLUtBxyJjB1xN0BcB1OnPK
-	 /+kCu6zzn6SjnVPYAwxL2xY2IUt6qIlZ2h0joL/RvUJ2KVjba8GjJR0YXly42GsHAaZ0i
-	 Kk9uDQ5Q9mrnTMZKFKxbc3VAeT6X9/HrtQkOhHBiZ+UJu2YGbSKwAuBe9kdgPzj3hd9Bz
-	 J4TLAVooi4MjP/3f/jxMk/pnRI1iWejO6u3mZHas6Go/YC11DrPfkqApNNxrs7oZ8Sw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687261;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:X-Developer-Signature:X-Developer-Key:
+	 Content-Transfer-Encoding;
+	bh=4ukBa9EJ7USEtoaEi8e1+b7Z6heRCBugWO7Lj117fXc=;
+	b=2aPe9x4xWoZrSpRieYkSg2J9gqes+Dvo1COEGMzFu1fu2mftP8bQzxx/+ff2Z3JIYY6d
+	 g27n+WLYxATcZi+cdTxZ1biFw5xDIn5SufzpESmJDQzcRUfKhjNPja+02POjFPlZEFzyj
+	 YhkugM+sgDAcd1x2ISYdsUNJBZXAMLh2LeOzUtmjbbzz6sI8y3A+KhqDbZzNt6N7haFUD
+	 TVUXrR4SKMGfnQsDtoOre7kehkMlIFr9Sk7PozGks7ur/mcdfFPDhYCbZdkSzfORPDdfS
+	 kyrWTRPzi9Dd5zwaKfRqgzAEMP8fjwirOItYWHx6M7HMxzPsgN6w8DcMfKV2bB3EAdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="CzAt/frj";
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+ogSzb+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FE0606A31F;
-	Thu, 22 Oct 2026 16:40:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22FE0606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B624606A31A;
+	Thu, 22 Oct 2026 16:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=CzAt/frj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792687234; x=1824223234;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=iH37BBIcnu6/dIwqjUxNoO3ZrGEAlpO5JETQSqjyYWc=;
-  b=CzAt/frj8y3S8L73+p1ZtkW8/0azWpOHxvOaDmWRIaiHeAE5uMr7QtWF
-   z/jHMb6H3rHrOG2ee5uO9BvHTIzprsSprnGfyiHwvxIRU264HqkKBd/FV
-   ogoTSkYsdxlGHpeWnQPC5/nQOVu0lTaXxlhImP1Ex2tZ4/KnlqNiWGzAn
-   2UW78QhxedVp1evaq1mKR37ntbwCnBhXnoavD2dLFYdd7HlPoN/qTn5ob
-   U+xNqLve0g/zI4SXeXdzPGXxZrlcTjQLlH4Nx9XVzM3z7xxxgkbzg0faY
-   9/++RibG0TA3E1yfbMItBdAM831PWM8+VQEX/nuq3O9PPUdC/eRpBqkiE
-   Q==;
-X-CSE-ConnectionGUID: uF6D5W3OSj6km6WQ4X6/ug==
-X-CSE-MsgGUID: j1HbAsmjS5uWwUpZ39vD3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1449980"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1449980"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:40:33 -0700
-X-CSE-ConnectionGUID: kOFHyUTvRPeABbuMkNzV0w==
-X-CSE-MsgGUID: DeQuPlEQSnCtcHtp7frXuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="3751327"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:40:32 -0700
-Date: Thu, 22 Oct 2026 19:40:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a+ogSzb+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2791F01825;
+	Thu, 22 Oct 2026 16:40:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792687261;
+	bh=4ukBa9EJ7USEtoaEi8e1+b7Z6heRCBugWO7Lj117fXc=;
+	h=From:To:Cc:Subject:Date;
+	b=a+ogSzb+XHWaDhzjVgwNiMDxYQh0piVfMTZV65FuTVIJza/1WFrQiMhYmJA0rOf8r
+	 Ak0nJu97MWTk9mQpLih6Y4QoQHuDbx/HspbDJKfoGfuRmq5aF2IEmSLQcgxciT4POG
+	 0tH/JJHrNxv18E4CU0Nbk8xtOXlCM0sNUlBvhNh6zrULlcwUyuVaM6tID9iNuvjq/Z
+	 2waJyj4XHVfN2BOWc/h/Jv7EB6ke1zuKSxey/d+0b78ui4kflzG8/EOFTrT/XVGjk5
+	 nWOdPvHraIfW4pjuOU5n163qzklatB6wekBeUIXgQNFrwhrEpxQY0czuHgz2FkTmRM
+	 bsEzkisxW8ZaA==
+From: Thorsten Blum <blum@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Zhao Dongdong <zhaodongdong@kylinos.cn>
+Cc: Thorsten Blum <blum@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] iio: proximity: sx9324: fix out-of-bounds read of scan
-Message-ID: <ato8fTSWub91Fy2R@ashevche-desk.local>
-References: <20261021225417.626946-1-kapoorarnav43@gmail.com>
+Subject: [PATCH] ALSA: cmipci: Use strscpy() in snd_cmipci_create()
+Date: Thu, 22 Oct 2026 18:40:11 +0200
+Message-ID: <20261022164013.95811-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,57 +62,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021225417.626946-1-kapoorarnav43@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=blum@kernel.org; h=from:subject; bh=HgltFDZWqkou11AuRCrLgqLX6WZWPGoGqfLHpuG8SZI=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFm3bHJnF86wDjQ+tp655uSPZYcF5pseELGMD85sqihYZ MxendvRUcrCIMbFICumyPJg1o8ZvqU1lZtMInbCzGFlAhnCwMUpABO5ocfwz6zl/o8lgf/nekvd f7ltwoJsOf2+DfMaKvbtZt/aoybkrs3IcIGN8XxH7PrAkASG7ENZ6Ud2XDV1mNT0NEno9p5N9Zd uMgAA
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 04:24:11AM +0530, Arnav Kapoor wrote:
-> The scan period of the SX9324 is selected by the 5 bit wide
-> SX9324_REG_GNRL_CTRL0_SCANPERIOD field, so it has 32 possible values.
-> sx9324_scan_period_table[] however only has 16 entries, it was copied
-> over from the SX9310 driver where the field is only 4 bits wide.
-> 
-> sx9324_wait_for_sample() indexes the table with the raw field value, so
-> all the codes from 16 to 31 read past the end of the array. The default
-> value of the register is SX9324_REG_GNRL_CTRL0_SCANPERIOD_100MS (0x16,
-> i.e. 22), so the out-of-bounds read happens with the default
-> configuration of the device. It is only avoided when the device has an
-> interrupt line, as the wait is only done in the polling case.
-> 
-> The value read is then used as the duration of an msleep() call, so the
-> sensor is polled with a completely random delay.
-> 
-> Fill the table with the scan periods of all 32 codes, which are the
-> periods documented for the corresponding sx9324_samp_freq_table[]
-> entries, and add a static assertion to keep both tables in sync.
+To prepare for removing strlcat() from the kernel [1], use strscpy()
+instead with the current driver name length as the append offset. Also
+use size_t in the multi-channel branch to match strlen()'s return type.
 
-...
+No functional change.
 
->  static const unsigned int sx9324_scan_period_table[] = {
-> -	2,   15,  30,  45,   60,   90,	 120,  200,
-> -	400, 600, 800, 1000, 2000, 3000, 4000, 5000,
-> +	1, 2, 4, 6, 8, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50,
-> +	56, 62, 68, 74, 80, 90, 100, 200, 300, 400, 600, 800, 1000,
-> +	2000, 3000, 4000,
+Link: https://github.com/KSPP/linux/issues/370 [1]
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ sound/pci/cmipci.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-NAK to this hunk.
-Homework:
-read my comments regarding formatting such arrays in linux-iio@ mailing list
-for last calendar year or so and summarize the idea.
-
->  };
-
-...
-
-> +static_assert(ARRAY_SIZE(sx9324_scan_period_table) ==
-> +	      ARRAY_SIZE(sx9324_samp_freq_table));
-
-This is fine, but I would dare make it a single line.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+diff --git a/sound/pci/cmipci.c b/sound/pci/cmipci.c
+index 9d9f784e3a8c..5722b722da95 100644
+--- a/sound/pci/cmipci.c
++++ b/sound/pci/cmipci.c
+@@ -2980,11 +2980,15 @@ static int snd_cmipci_create(struct snd_card *card, struct pci_dev *pci,
+ 		query_chip(cm);
+ 	/* added -MCx suffix for chip supporting multi-channels */
+ 	if (cm->can_multi_ch) {
+-		int l = strlen(cm->card->driver);
++		size_t l = strlen(cm->card->driver);
++
+ 		scnprintf(cm->card->driver + l, sizeof(cm->card->driver) - l,
+ 			  "-MC%d", cm->max_channels);
+-	} else if (cm->can_ac3_sw)
+-		strlcat(cm->card->driver, "-SWIEC", sizeof(cm->card->driver));
++	} else if (cm->can_ac3_sw) {
++		size_t l = strlen(cm->card->driver);
++
++		strscpy(cm->card->driver + l, "-SWIEC", sizeof(cm->card->driver) - l);
++	}
+ 
+ 	cm->dig_status = SNDRV_PCM_DEFAULT_CON_SPDIF;
+ 	cm->dig_pcm_status = SNDRV_PCM_DEFAULT_CON_SPDIF;
