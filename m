@@ -1,55 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673911;
-	b=XwNEH0UcEhZ8zJAMMGVcE3+YWRm6IQ60i8noCtf6SGqsrfBcfwGswHI+I7aRebER5pQV
-	 DPnPB0GpNZaaOeBYZcDw0sTpU4KWB3NHwAQu0FVWKM9Vey4ZY0UOIxNGYhMPw22xNnbRv
-	 zvOBpL+wAicdLLR8yIRfFt4RTGTHQuG+BtsxwHGaPbMkPWosfN5dCB5OcSKdeSGb9TUgp
-	 Env+QdxJwfa9ds/MHvyg9fUY7LZApNWf3Fwlt6qsDVIo4PU213Uf3Kr6y8DmrZIC2zWAi
-	 6WxKsSUU/QDWvP1U5chnyGjHHRl4RIudLj7m8gqt4DcndQmNq4XtwYHi/cSCWAKADJw==
+	t=1792673916;
+	b=fVRjXlLDy/aK3Br08Cvo+2OFN/gPiJtHP6YDsSCkzKRxWFkLiIVZ1IrSkwX8V475Pu+5
+	 boyra2tOWae7SIlB6PHekjNtsX+znaouyAyTi3ZuetiUqLBgeVKu2mV2uiFPU6eTmoaB+
+	 eaeXo5Jt7ZmGUTkutRcTxuO04KKIYuGVitcEoKQr0zEokH2QmB1zCM0+cEIy/StfPFcis
+	 HkykIh3XJhAU0FSIZEEq7a88EhpZe9+JZsAg6679i4ltiTq5dQ2PTiZ0CBr3GqvfNzdMG
+	 N1Hhz8NeOX6y1Eg0LuClSTaCCh5XJ76u1wprfUjG3NK3xs3ngRMylAS1sBxgmryx5tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673911;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pWzqtLm0ZZ5WjhUPz/kGpvJQe+XdRiWDlUmfhZy9YDk=;
-	b=2kC3voVUJV0OTS2UyNMDp5oPi3+ceIbxe24E9aJ+kJVTLNIaIOcnKrIH2MUqQGxQvcx/
-	 V0BAmrk2rh+jqxnBFcTw7L1JIssbeio+cUJU4yhaB7CxJXK4rsZ9dHEU/bOoXRFNf2JN8
-	 qastJOwIQAYaMazRayAooRYcpqcMwU3QW3yKBBuDKO0rhKl9JPgEehR/ndwLKGzVepink
-	 //nTWfam92kZTBnIRE+/ZfXYnO1ZENwTHwY5SBmZa+KYu/EZ0JAm3xUf7g3cS3XDe5Kdt
-	 bfdW5/0cMGRfqjvTL6MSgbwK7l2+MDlx7yEmSi46Jtl1zpzWmEhV5U2el7kR9jU9n3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673916;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Mailer:X-Mutt-Fcc;
+	bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
+	b=pcw0tuwii86+VzdyxwHDKjhwB6H4ZN2IzmKZ31UnpLKDU477eyg0x0i7EvrvL8wb3h0V
+	 D8FW1QmPqbFaKbaI7Whpd2RMNhK9PGeryjCO7M/RlooBZBzlgZ55/VxgTNykknp9ruBYs
+	 bxz3kKQ0WzjkA8/9Nb4jfm08OWjZw3E5mzZeG6SHypFcP92TZp0T0LXI7z3UKJ2BQatYg
+	 fhwz/ifj0fn5f/F9jpHRR+yYRfyJU5JqtzxIKtgt16V86Z+MgwTtZge8/GoBHBUXObfq3
+	 Iurk6cGk9VZmpamun1fsBB9xEl7DdxSVW1+OO4nWyRhVERAc+L4AJ2QFsfTMrv70Cwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1shWm6V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BVhAC2n9;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QMG4QEV4;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37FB606A333
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C48160A3806
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:58:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C48160A3806
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1shWm6V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D581F000C4;
-	Thu, 22 Oct 2026 12:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673910;
-	bh=pWzqtLm0ZZ5WjhUPz/kGpvJQe+XdRiWDlUmfhZy9YDk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W1shWm6VfUIlHC/evnjY5tYREQ8PU6kdaDwx0SyjRScPCzcLBPMjoxe4G7vyI3jT8
-	 /Ea2uuUi1r0/ZM2Qq7abb4BHyKaTNvIv/CdA2g5CIWHyv2g2QRAWBow+ZTcP7xvjer
-	 gkG47yJD1NQEsTDunexd+Wc8UNyxRuHjq/sQQJMlcxdR6NSOyasuLRla1Ce6PtOjQe
-	 I+ouS9rYQjEy1YjSQj5QItx349L1GVy1EV+4fh2iQZGTmCv36pkCgDPhCrxZ1CdXTd
-	 UWhoARkSRupiSj8omZ6HVls1I2UDsTyUphCTYVHSmAGB7q+fciRrr34nhGNQm7Szpz
-	 AeB7ZgueojH8Q==
-From: Chao Yu <chao@kernel.org>
-To: jaegeuk@kernel.org
-Cc: linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Chao Yu <chao@kernel.org>
-Subject: [PATCH 2/3] f2fs: introduce max_write_bio_{folio,entry}_cnt module parameters
-Date: Thu, 22 Oct 2026 12:58:19 +0000
-Message-ID: <20261022125820.2210579-2-chao@kernel.org>
-X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-In-Reply-To: <20261022125820.2210579-1-chao@kernel.org>
-References: <20261022125820.2210579-1-chao@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=BVhAC2n9;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=QMG4QEV4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1792673914;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
+	b=BVhAC2n9JHxM49DObKbM/nuVFdvR++IGzarXFA41LE4K3BhErEFn/oOrysfvi8p62IOowd
+	TzJxsMR3jtMyY9C9wgiFm48bR97IY1l5EJjZfp6oQbyjykN/cxl0U+WlLx4QoxJF5Gf19o
+	Xrey7lwtaJ0eOnVKNTqhehZX6BCIpeo=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-606-ilPerWLvNFq8xndTIg9ILQ-1; Thu, 22 Oct 2026 12:58:27 +0000
+X-MC-Unique: ilPerWLvNFq8xndTIg9ILQ-1
+X-Mimecast-MFC-AGG-ID: ilPerWLvNFq8xndTIg9ILQ_1792673906
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48b02d63407so1184301f8f.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:58:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1792673906; x=1793278706; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
+        b=QMG4QEV49fZe5ws1VbdM/x5dcWdh0Ve//Fsm8F8xqXVGUxxte0UD5HXhJSrDzxZjkM
+         FNxMPsPVBcPFYggBYvMxaUoouadikrargATm4CYDLE5wQsuj35kxXxQAuzR4+pg/Wap0
+         F/YKWRmHulkBym/Ct/N37epnpSrINSnRBnSIWAv06ekei6+U7sJas3xonCxNbVJUb/tF
+         o9uX7+Dyk2cRFWu6QhDI0xrgdYxjGOE2PH6R2htPa2A18DLXaBqwoudI9K71vvEO8SWx
+         YfLB1Nerj51GJ5gLqMrAy7doAqiN3B8A4WW+VtjNmwR1boaMSFc2HcuF1RkzShvYTQCz
+         RcOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792673906; x=1793278706;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kotNI+NV8koDhHE4Okh6cXBlCdjWFXScAsrnexeAUHw=;
+        b=yWx52LdVdmXhUnv06AEgLieLNeYL4OjAftTcg6bXk0OlquIVsMZvNLW7XuwQF8x8aj
+         F2Y0Av4J94A43Q40fQTnvsmo2YSHBYIvxyRCXd2YP3nQZdsM4vC4biDlfnoSAc7h0Evk
+         k6ydJGQF3XW8XBQk4MuvmTXB2I8DiSpNuCrSSQ+2zaJl0TzsVWABvo0wWXqmwI1abENk
+         sXHEv66VkZwyUUMb7A3pyrIwbRW7LS5nc6bwpBkjy8mldXCOPVmiohyF80Xjj8f5gAyn
+         J3h+M0xmBNOY7gh60Pfmj0Bj9A1/FgHXESRy9SKHUqH6BcMZIjj4ykdXKqDPYhZwbp6/
+         /OEQ==
+X-Gm-Message-State: AFq9FYLtwziOkiBkh9tq85+znG9mtWYmZU2ErKqXvw1jfuuhdUKL/BkE
+	DFY3teRYXaJGPRyZ85GKSBHWcz7wskS3HhnactWs12HFvKlqM7kWABaxi6ufJxT7ZHOBVr3BmF4
+	Pd9XRRWGclv+ZWoLCSKjfJG/7Xucon59oFd4vaRELNRR7Och/GHLuGAMeRgcv3mqhH/DlFgKqW7
+	KuFCWQ4vyB2KZ12AIJRPfiSmjzPLABw8iVd2FT58LvEIs=
+X-Gm-Gg: AYBFou39KMJWd/Kf5cnfS5FrYXzfUGeLdSr/m115zCdlsYRwR4LPjH4LfpiX+NdGcGZ
+	b8jSuHuPDdbGBoq6uDoF+i1rpofsuTXcg/I5ueW9tQ1s5Kdelf9aFr12TVFYHGT+BmPs7ucuXOq
+	Dfmvq+Dnt+Iq47Lx9ReDWIegEj7MbkEMDvA6hDxNFt9TUdcO8nvC5gk2AIaudS4pf39RP4YYixt
+	lZeN88qP9QM/uGuh8t7chy/lpOwDK0Tm0e+s3tYasP05N4qxikVIFlaMnUhq4WEMa24pEsbcuMM
+	zveY5qpZ9V85+yv6ytZUQJApKDrVrHUsneaY6jwjljuu/HWI7gqWznvhLdUovSI4KW0=
+X-Received: by 2002:a05:6000:186b:b0:48d:fdc0:8bf2 with SMTP id ffacd0b85a97d-48e264d6ac5mr10492470f8f.41.1792673905737;
+        Thu, 22 Oct 2026 05:58:25 -0700 (PDT)
+X-Received: by 2002:a05:6000:186b:b0:48d:fdc0:8bf2 with SMTP id ffacd0b85a97d-48e264d6ac5mr10492388f8f.41.1792673904824;
+        Thu, 22 Oct 2026 05:58:24 -0700 (PDT)
+Received: from redhat.com ([2a0d:6fc0:1536:fc00:b838:383:1c7:6e81])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f093asm12758884f8f.4.2026.10.22.05.58.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 05:58:21 -0700 (PDT)
+Date: Thu, 22 Oct 2026 08:58:18 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: linux-kernel@vger.kernel.org
+Cc: Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Chris Arges <carges@cloudflare.com>,
+	=?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+	Phil Sutter <phil@nwl.cc>, Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?utf-8?B?UMOpcmV6?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, virtualization@lists.linux.dev,
+	Max Krasnyansky <maxk@qualcomm.com>,
+	Rusty Russell <rusty@rustcorp.com.au>,
+	Paulos Yibelo <habte.yibelo@gmail.com>
+Subject: [PATCH net v5 4/7] net: resolve uncommon partial checksums at ingress
+Message-ID: <342bf5331e12b2e5b940510293233bb8bce46127.1792668082.git.mst@redhat.com>
+References: <cover.v5.git.mst@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,160 +125,417 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.v5.git.mst@redhat.com>
+X-Mailer: git-send-email 2.51.2.2891.g4157995a80.dirty
+X-Mutt-Fcc: =sent
 
-From: Chao Yu <chao@kernel.org>
+As reported first by Paulos Yibelo <habte.yibelo@gmail.com> (after which
+others, credited below, found more ways the bug can affect users) a
+virtio net header can place CHECKSUM_PARTIAL at any in-packet offset.
+If that state is retained, later checksum completion can modify the
+packet after protocol processing has made decisions from it.
 
-Commit f32744a8b83d ("f2fs: introduce max_atc_write_bio_entry_cnt")
-added a per-superblock sysfs entry, max_atc_write_bio_entry_cnt, to
-offload the completion of a write bio to sbi->wq if it contains too
-many entries and f2fs_write_end_io() is called in atomic context.
+Let's fix that: let's validate csum_start and csum_offset and only keep
+CHECKSUM_PARTIAL when csum_start and csum_offset match a parsed TCP or
+UDP header, while handling VLAN headers, IPv4 options and IPv6 extension
+headers.  Complete other non-GSO checksums immediately, before any
+protocol processing runs.
 
-However, it has two issues:
+We can't easily "complete the checksum" for GSO we don't recognize - GSO
+assumes knowledge of the protocol. We could segment ignoring the
+checksum then do whatever csum_start and csum_offset say, but that
+seems like an overkill for something that shouldn't happen.
 
-1. The limit is used to bound the CPU latency of f2fs_write_end_io() in
-   atomic context, which is a property of the platform (CPU and storage
-   completion path) rather than of each f2fs instance, so a global knob
-   set once at boot fits better than a per-superblock sysfs entry.
+There's some risk here:
+- non-gso packets which can't be parsed get checksum calculated in
+  software, adding performance overhead
+- gso packets which can't be parsed get dropped
 
-2. Pagecache folios and cached metadata blocks are completed in
-   different loops with different per-entry costs, i.e.
-   f2fs_write_end_bio() and f2fs_cache_write_end_bio(), so it's better
-   to tune them separately rather than sharing a single threshold.
+Note that for zero copy, userspace can change the data after the
+checksum has been calculated.  This is fundamental to zero copy by
+design, and the only outcome is a bad checksum and a packet drop.
 
-To address these issues, let's replace max_atc_write_bio_entry_cnt
-sysfs entry with two module parameters:
+To mitigate the risks, the following patch will add a sysctl knob to
+bypass the resolution. This is reasonable if the setup is such that
+there is no protocol processing at all.
 
-- max_write_bio_folio_cnt: for write bios of pagecache folios, which
-  are completed in f2fs_write_end_bio().
-- max_write_bio_entry_cnt: for write bios of cached metadata blocks,
-  which are completed in f2fs_cache_write_end_bio().
+UDP tunnel headers get the same handling on the inner header.
 
-Both parameters are read-only at runtime, they can be set via
-f2fs.max_write_bio_{folio,entry}_cnt=<n> in the kernel command line, or
-via modprobe, and apply to all f2fs instances. The default value is
-UINT_MAX, which means this functionality is disabled by default.
+Packets without VIRTIO_NET_HDR_F_NEEDS_CSUM are unaffected.
 
-Suggested-by: Jaegeuk Kim <jaegeuk@kernel.org>
-Signed-off-by: Chao Yu <chao@kernel.org>
+Reported-by: Paulos Yibelo <habte.yibelo@gmail.com>
+Reported-by: Chris Arges <carges@cloudflare.com>
+Tested-by: Chris Arges <carges@cloudflare.com>
+Fixes: f43798c27684 ("tun: Allow GSO using virtio_net_hdr")
+Suggested-by: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
 ---
- Documentation/ABI/testing/sysfs-fs-f2fs | 11 -----------
- fs/f2fs/data.c                          | 18 +++++++++++++++++-
- fs/f2fs/f2fs.h                          |  2 --
- fs/f2fs/super.c                         |  1 -
- fs/f2fs/sysfs.c                         |  2 --
- 5 files changed, 17 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-fs-f2fs b/Documentation/ABI/testing/sysfs-fs-f2fs
-index e7e968c6df92..65d45d8edc68 100644
---- a/Documentation/ABI/testing/sysfs-fs-f2fs
-+++ b/Documentation/ABI/testing/sysfs-fs-f2fs
-@@ -1014,17 +1014,6 @@ Description:	Every time a write operation completes f2fs_write_end_io() is
- 		(atc) context. The default value for this attribute is UINT_MAX
- 		which means that this functionality is disabled by default.
- 
--What:		/sys/fs/f2fs/<disk>/max_atc_write_bio_entry_cnt
--Date:		October 2026
--Contact:	Chao Yu <chao@kernel.org>
--Description:	Every time a write operation completes f2fs_write_end_io() is
--		called. This function may be called from an atomic context,
--		e.g. from inside an interrupt handler. This attribute controls
--		the maximum number of entries (folios or cached blocks) in a
--		write bio that is completed in atomic (atc) context. The default
--		value for this attribute is UINT_MAX which means that this
--		functionality is disabled by default.
--
- What:		/sys/fs/f2fs/<disk>/pinned_area_max_secno
- Date:		August 2026
- Contact:	"Daeho Jeong" <daehojeong@google.com>
-diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 16ab2c693aa9..e2f5b95b5c6d 100644
---- a/fs/f2fs/data.c
-+++ b/fs/f2fs/data.c
-@@ -36,6 +36,16 @@ static struct kmem_cache *ffs_entry_slab;
- static mempool_t *bio_post_read_ctx_pool;
- static struct bio_set f2fs_bioset;
- 
-+static unsigned int max_write_bio_folio_cnt = UINT_MAX;
-+module_param(max_write_bio_folio_cnt, uint, 0444);
-+MODULE_PARM_DESC(max_write_bio_folio_cnt,
-+		"Maximum number of folios in a write bio completed in atomic context");
-+
-+static unsigned int max_write_bio_entry_cnt = UINT_MAX;
-+module_param(max_write_bio_entry_cnt, uint, 0444);
-+MODULE_PARM_DESC(max_write_bio_entry_cnt,
-+		"Maximum number of cache entries in a write bio completed in atomic context");
-+
- struct f2fs_folio_state {
- 	spinlock_t		state_lock;
- 	unsigned int		read_pages_pending;
-@@ -390,6 +400,12 @@ static void f2fs_write_end_io_work(struct work_struct *work)
- 	f2fs_write_end_bio(bio);
+Notes (changelog):
+    v4->v5:
+        caller changes moved to "account for ingress-resolved
+        virtio net hdr state" (Willem de Bruijn)
+        a packet too small to be GSO: ignore the tunnel GSO request,
+        complete wild metadata in place (sashiko)
+        document the zero copy interaction (sashiko)
+        honor a preset skb->protocol on ethernet: the stack uses it,
+        except on loopback which re-parses the frame (sashiko)
+
+ include/linux/virtio_net.h | 283 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 279 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/virtio_net.h b/include/linux/virtio_net.h
+index 013c6c7e2dea..52852a33a2db 100644
+--- a/include/linux/virtio_net.h
++++ b/include/linux/virtio_net.h
+@@ -5,7 +5,11 @@
+ #include <linux/if_vlan.h>
+ #include <linux/ip.h>
+ #include <linux/ipv6.h>
++#include <linux/netdevice.h>
+ #include <linux/udp.h>
++#include <net/gso.h>
++#include <net/ip.h>
++#include <net/ipv6.h>
+ #include <net/tcp.h>
+ #include <uapi/linux/tcp.h>
+ #include <uapi/linux/virtio_net.h>
+@@ -48,6 +52,205 @@ static inline int virtio_net_hdr_set_proto(struct sk_buff *skb,
+ 	return 0;
  }
  
-+static unsigned int f2fs_max_write_bio_cnt(struct bio *bio)
++/* TODO: nothing virtio specific here, move to ip.h */
++
++/*
++ * Pull and minimally validate the IPv4 header at @nhoff.
++ * Returns the header and stores the transport header offset in
++ * @thoff, or NULL if truncated or malformed.  Only the fixed header
++ * is guaranteed linear; callers that need the options or the
++ * transport header must pull further.
++ */
++static inline struct iphdr *virtio_net_ip4_parse(struct sk_buff *skb,
++						  unsigned int nhoff,
++						  unsigned int *thoff)
 +{
-+	return f2fs_is_cache_bio(bio) ? max_write_bio_entry_cnt :
-+					max_write_bio_folio_cnt;
++	struct iphdr *iph;
++
++	if (!pskb_may_pull(skb, nhoff + sizeof(struct iphdr)))
++		return NULL;
++
++	iph = (struct iphdr *)(skb->data + nhoff);
++	if (iph->version != 4 ||
++	    iph->ihl < sizeof(struct iphdr) / sizeof(u32))
++		return NULL;
++
++	*thoff = nhoff + iph->ihl * sizeof(u32);
++	return iph;
 +}
 +
- static void f2fs_write_end_io(struct bio *bio)
++/* Where does the L3 header start, and what protocol is it?
++ * Handles Ethernet and VLAN headers; other devices use the
++ * network header offset the caller set up.
++ */
++static inline bool
++virtio_net_l3_start(struct sk_buff *skb, int *nhoff, __be16 *proto)
++{
++	/* skb->dev is only guaranteed to be set since 44378d02c5aa
++	 * ("net: always dissect GSO packets in
++	 * __virtio_net_hdr_to_skb()"), do not crash when it is not.
++	 */
++	if (WARN_ON_ONCE(!skb->dev))
++		return false;
++
++	/* A preset protocol is what the stack will use, except on
++	 * loopback which re-parses the frame: loopback_xmit() calls
++	 * eth_type_trans() on it.
++	 */
++	if (skb->dev->type == ARPHRD_ETHER ||
++	    skb->dev->type == ARPHRD_LOOPBACK) {
++		if (!pskb_may_pull(skb, ETH_HLEN))
++			return false;
++		*nhoff = ETH_HLEN;
++		*proto = skb->protocol;
++		if (!*proto || skb->dev->type == ARPHRD_LOOPBACK)
++			*proto = eth_hdr(skb)->h_proto;
++		if (eth_type_vlan(*proto)) {
++			*proto = __vlan_get_protocol(skb, *proto, nhoff);
++			if (!*proto)
++				return false;
++		}
++	} else {
++		*nhoff = skb_network_offset(skb);
++		/* An unset network header shows up as an offset
++		 * outside of the packet.
++		 */
++		if (*nhoff < 0 || (unsigned int)*nhoff >= skb->len)
++			return false;
++		*proto = skb->protocol;
++		if (!*proto) {
++			const struct iphdr *iph;
++
++			/* A packet socket bound to ETH_P_ALL leaves the
++			 * protocol unset: infer it from the IP version
++			 * at the network header.
++			 */
++			if (!pskb_may_pull(skb, *nhoff + 1))
++				return false;
++			iph = (const struct iphdr *)(skb->data + *nhoff);
++			if (iph->version == 4)
++				*proto = htons(ETH_P_IP);
++			else if (iph->version == 6)
++				*proto = htons(ETH_P_IPV6);
++		}
++	}
++	return true;
++}
++
++/* Walk the L3 header at @nhoff: where does its transport header
++ * start, and which protocol is it?  Returns false if the header
++ * is truncated, malformed or fragmented.
++ */
++static inline bool
++virtio_net_l4_start(struct sk_buff *skb, unsigned int nhoff, __be16 proto,
++		    unsigned int *thoff, int *ip_proto)
++{
++	if (proto == htons(ETH_P_IP)) {
++		const struct iphdr *iph = virtio_net_ip4_parse(skb, nhoff, thoff);
++
++		if (!iph || ip_is_fragment(iph))
++			return false;
++		*ip_proto = iph->protocol;
++		return true;
++	}
++
++	if (proto == htons(ETH_P_IPV6)) {
++		const struct ipv6hdr *iph;
++		int flags = 0;
++
++		if (!pskb_may_pull(skb, nhoff + sizeof(*iph)))
++			return false;
++		iph = (const void *)(skb->data + nhoff);
++		if (iph->version != 6)
++			return false;
++		*thoff = nhoff + sizeof(*iph);
++		*ip_proto = iph->nexthdr;
++		if (*ip_proto != IPPROTO_TCP && *ip_proto != IPPROTO_UDP) {
++			*thoff = nhoff;
++			/* Find the transport header behind any
++			 * extension headers, AH included.
++			 */
++			*ip_proto = ipv6_find_hdr(skb, thoff, -1, NULL,
++						  &flags);
++			if (*ip_proto < 0 || flags & IP6_FH_F_FRAG)
++				return false;
++		}
++		return true;
++	}
++
++	return false;
++}
++
++/* Does checksum metadata match a known TCP or UDP header? */
++static inline bool
++virtio_net_csum_partial_ok_at_offset(struct sk_buff *skb, u8 hdr_gso_type,
++				     unsigned int nhoff, __be16 proto)
++{
++	unsigned int thoff;
++	int ip_proto;
++
++	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
++		return false;
++
++	if (skb_checksum_start_offset(skb) != thoff)
++		return false;
++
++	switch (ip_proto) {
++	case IPPROTO_TCP:
++		if (skb->csum_offset != offsetof(struct tcphdr, check) ||
++		    !pskb_may_pull(skb, thoff + sizeof(struct tcphdr)))
++			return false;
++		break;
++	case IPPROTO_UDP:
++		if (skb->csum_offset != offsetof(struct udphdr, check) ||
++		    !pskb_may_pull(skb, thoff + sizeof(struct udphdr)))
++			return false;
++		break;
++	default:
++		return false;
++	}
++
++	switch (hdr_gso_type & ~VIRTIO_NET_HDR_GSO_ECN) {
++	case VIRTIO_NET_HDR_GSO_NONE:
++		return true;
++	case VIRTIO_NET_HDR_GSO_TCPV4:
++		return proto == htons(ETH_P_IP) && ip_proto == IPPROTO_TCP;
++	case VIRTIO_NET_HDR_GSO_TCPV6:
++		return proto == htons(ETH_P_IPV6) && ip_proto == IPPROTO_TCP;
++	case VIRTIO_NET_HDR_GSO_UDP:
++	case VIRTIO_NET_HDR_GSO_UDP_L4:
++		return ip_proto == IPPROTO_UDP;
++	default:
++		return false;
++	}
++}
++
++static inline bool
++virtio_net_csum_partial_ok(struct sk_buff *skb, u8 hdr_gso_type)
++{
++	int nhoff;
++	__be16 proto;
++
++	if (!virtio_net_l3_start(skb, &nhoff, &proto))
++		return false;
++
++	return virtio_net_csum_partial_ok_at_offset(skb, hdr_gso_type, nhoff,
++						   proto);
++}
++
++/*
++ * Handle a packet whose checksum metadata does not match the packet:
++ * GSO packets are dropped, as segmentation needs one checksum per
++ * segment; others are completed in software.
++ */
++static inline int __virtio_net_resolve_csum_partial_mismatch(struct sk_buff *skb)
++{
++	if (skb_is_gso(skb))
++		return -EINVAL;
++
++	return skb_checksum_help(skb) ?: 1;
++}
++
+ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 					  const struct virtio_net_hdr *hdr,
+ 					  bool little_endian, u8 hdr_gso_type)
+@@ -194,11 +397,35 @@ static inline int __virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 	return 0;
+ }
+ 
++/*
++ * Return value:
++ * 0 - success
++ * >0 - checksum was completed in software (slow path)
++ * <0 - failure
++ */
+ static inline int virtio_net_hdr_to_skb(struct sk_buff *skb,
+ 					const struct virtio_net_hdr *hdr,
+ 					bool little_endian)
  {
- 	struct f2fs_sb_info *sbi;
-@@ -400,7 +416,7 @@ static void f2fs_write_end_io(struct bio *bio)
+-	return __virtio_net_hdr_to_skb(skb, hdr, little_endian, hdr->gso_type);
++	typeof(skb->transport_header) old_transport = skb->transport_header;
++	int ret = __virtio_net_hdr_to_skb(skb, hdr, little_endian,
++					  hdr->gso_type);
++
++	if (ret < 0)
++		return ret;
++
++	if (skb->ip_summed != CHECKSUM_PARTIAL ||
++	    virtio_net_csum_partial_ok(skb, hdr->gso_type))
++		return 0;
++
++	/*
++	 * Here we do not trust the checksum metadata.
++	 * __virtio_net_hdr_to_skb set the transport header to csum_start
++	 * from virtio hdr, restore it to a known good value.
++	 */
++	skb->transport_header = old_transport;
++
++	return __virtio_net_resolve_csum_partial_mismatch(skb);
+ }
  
- 	if (bio_in_atomic() &&
- 	    (bio->bi_iter.bi_size > sbi->max_atc_write_bio_size ||
--	     F2FS_BIO(bio)->entry_cnt > sbi->max_atc_write_bio_entry_cnt)) {
-+	     F2FS_BIO(bio)->entry_cnt > f2fs_max_write_bio_cnt(bio))) {
- 		struct work_struct *w;
+ /* This function must be called after virtio_net_hdr_from_skb(). */
+@@ -282,6 +509,35 @@ static inline unsigned int virtio_l3min(bool is_ipv6)
+ 	return is_ipv6 ? sizeof(struct ipv6hdr) : sizeof(struct iphdr);
+ }
  
- 		w = &container_of(bio, struct f2fs_bio, bio)->work;
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index d6b3955f9a6f..05a7e96febdf 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -1808,8 +1808,6 @@ struct f2fs_sb_info {
- 	/* for bio operations */
- 	/* Largest write bio size completed in atomic context (atc). */
- 	u32 max_atc_write_bio_size;
--	/* Largest write bio entry count completed in atomic context (atc). */
--	u32 max_atc_write_bio_entry_cnt;
- 	struct f2fs_bio_info *write_io[NR_PAGE_TYPE];	/* for write bios */
- 	/* keep migration IO order for LFS mode */
- 	struct f2fs_rwsem io_order_lock;
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 12a051ba51ac..bd79cbbeba20 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -5262,7 +5262,6 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
- 		goto free_sb_buf;
++/* Do the tunnel offsets match the outer headers in the frame?
++ * The L3 header the tunnel claims must be the one the frame
++ * carries, with UDP following it at @outer_th.
++ */
++static inline bool
++virtio_net_tnl_offsets_ok(struct sk_buff *skb, bool outer_isv6,
++			  unsigned int outer_th)
++{
++	int nhoff;
++	__be16 proto;
++	unsigned int thoff;
++	int ip_proto;
++
++	if (!virtio_net_l3_start(skb, &nhoff, &proto))
++		return false;
++	if (outer_isv6 != (proto == htons(ETH_P_IPV6)))
++		return false;
++	if (!virtio_net_l4_start(skb, nhoff, proto, &thoff, &ip_proto))
++		return false;
++
++	return ip_proto == IPPROTO_UDP && outer_th == thoff;
++}
++
++/*
++ * Return value:
++ * 0 - success
++ * >0 - checksum was completed in software (slow path)
++ * <0 - failure
++ */
+ static inline int
+ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 			  const struct virtio_net_hdr_v1_hash_tunnel *vhdr,
+@@ -293,6 +549,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	unsigned int inner_nh, outer_th, inner_th;
+ 	unsigned int inner_l3min, outer_l3min;
+ 	u8 gso_inner_type, gso_tunnel_type;
++	__be16 inner_proto;
+ 	bool outer_isv6, inner_isv6;
+ 	int ret;
+ 
+@@ -335,9 +592,12 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	/* Let the basic parsing deal with plain GSO features. */
+ 	ret = __virtio_net_hdr_to_skb(skb, hdr, true,
+ 				      hdr->gso_type & ~gso_tunnel_type);
+-	if (ret)
++	if (ret < 0)
+ 		return ret;
+ 
++	if (!virtio_net_tnl_offsets_ok(skb, outer_isv6, outer_th))
++		return -EINVAL;
++
+ 	/* In case of USO, the inner protocol is still unknown and
+ 	 * `inner_isv6` is just a guess, additional parsing is needed.
+ 	 * The previous validation ensures that accessing an ipv4 inner
+@@ -353,7 +613,7 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
  	}
- 	sbi->max_atc_write_bio_size = UINT_MAX;
--	sbi->max_atc_write_bio_entry_cnt = UINT_MAX;
  
- 	INIT_WORK(&sbi->s_error_work, f2fs_record_error_work);
- 	memcpy(sbi->errors, raw_super->s_errors, MAX_F2FS_ERRORS);
-diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 430356e500af..3f50c291b355 100644
---- a/fs/f2fs/sysfs.c
-+++ b/fs/f2fs/sysfs.c
-@@ -1285,7 +1285,6 @@ F2FS_SBI_RW_ATTR(umount_discard_timeout, interval_time[UMOUNT_DISCARD_TIMEOUT]);
- F2FS_SBI_RW_ATTR(gc_pin_file_thresh, gc_pin_file_threshold);
- F2FS_SBI_RW_ATTR(gc_reclaimed_segments, gc_reclaimed_segs);
- F2FS_SBI_RW_ATTR(max_atc_write_bio_size, max_atc_write_bio_size);
--F2FS_SBI_RW_ATTR(max_atc_write_bio_entry_cnt, max_atc_write_bio_entry_cnt);
- F2FS_SBI_GENERAL_RW_ATTR(max_victim_search);
- F2FS_SBI_GENERAL_RW_ATTR(migration_granularity);
- F2FS_SBI_GENERAL_RW_ATTR(migration_window_granularity);
-@@ -1538,7 +1537,6 @@ static struct attribute *f2fs_attrs[] = {
- 	ATTR_LIST(gc_segment_mode),
- 	ATTR_LIST(gc_reclaimed_segments),
- 	ATTR_LIST(max_atc_write_bio_size),
--	ATTR_LIST(max_atc_write_bio_entry_cnt),
- 	ATTR_LIST(max_fragment_chunk),
- 	ATTR_LIST(max_fragment_hole),
- 	ATTR_LIST(current_atomic_write),
+ 	skb_set_inner_protocol(skb, inner_isv6 ? htons(ETH_P_IPV6) :
+-						 htons(ETH_P_IP));
++			    htons(ETH_P_IP));
+ 	if (hdr->flags & VIRTIO_NET_HDR_F_UDP_TUNNEL_CSUM) {
+ 		if (!tnl_csum_negotiated)
+ 			return -EINVAL;
+@@ -368,7 +628,22 @@ virtio_net_hdr_tnl_to_skb(struct sk_buff *skb,
+ 	skb->inner_mac_header = inner_nh + skb_headroom(skb);
+ 	skb->transport_header = outer_th + skb_headroom(skb);
+ 	skb->encapsulation = 1;
+-	return 0;
++
++	if (!skb_is_gso(skb))
++		skb_shinfo(skb)->gso_type &= ~(SKB_GSO_UDP_TUNNEL_CSUM |
++					       SKB_GSO_UDP_TUNNEL);
++
++	/*
++	 * We know VIRTIO_NET_HDR_F_NEEDS_CSUM was set so __virtio_net_hdr_to_skb
++	 * set CHECKSUM_PARTIAL.
++	 */
++	inner_proto = inner_isv6 ? htons(ETH_P_IPV6) : htons(ETH_P_IP);
++	if (virtio_net_csum_partial_ok_at_offset(skb, gso_inner_type, inner_nh,
++						 inner_proto))
++		return 0;
++
++	/* A tunnel header implies GSO, so drop. */
++	return __virtio_net_resolve_csum_partial_mismatch(skb);
+ }
+ 
+ /* Checksum-related fields validation for the driver */
 -- 
-2.49.0
+MST
 
