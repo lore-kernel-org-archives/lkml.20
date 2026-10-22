@@ -1,72 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792711659;
-	b=iso5ChS79jzUcu3kT4nZD0zMcBX3xa/wvEfJozVMgoJnd36skhWXn87MGkzK+qyxXXP4
-	 JFcGmABngiSU9Ktjm+FVdWZOLvwFEDrYeohSRLa6fr4DSlqJkXT1LEhK4/xZlh6wJA0Fl
-	 aSzt4gXyTM+LvNdyptaijXm9Fl8+ej/+KjRjGb49fgd/ZAJ+fLzHbTURwdiPsAjRMJHSW
-	 rcxVoWtuMZXr3izZSIxi3RNryXJrPCwmodvvQ7DwgSggPomOrTUlu8kM6vuv6kREdFcCH
-	 Cpq4fsvsZGPLBH0cnadgwncWBE86Qt2GAH7QAQqqdo+dHf7cebel+TxGtrQeU6KkO2Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792711659;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=VDRZ+CQOwSmX2v/BIgM0gLF5iLJG2Nr4i5jrVs22WNA=;
-	b=t2XNlS67pRFaGkTYLYQDGxkcfWA5t8X/fMVBOh1Z7jO0FXsDHAklW9F22x3e4UN5Q1v9
-	 kxMpbUAkQvybh22yHAPksLFJoS8BEZKkDM5rND4Rjk9EIg4cUnkkQ8uvrXKxG5lI4VQIi
-	 isGR/TwpqHf21umxR1kVsZiv40tZ7f+pxwjIDBMNUgmdrDl1+aHRBLU/b0/X7EMoAhHNR
-	 ajCf6dvstwwuvDqup23Q0qvj1ZkLQejCW8nQAUXVhfvlbFd7LSzwYVlsHKtqXjdKRIgwg
-	 37ePVIcuAbu33/pGmri4U2nfc4sriV6xiE6ZWCVYY2THzADrYT2UkdJrub+Axis2HKQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XfHnRs90;
-	arc=none smtp.remote-ip=209.85.216.72
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792711670;
+	b=LZOdUeS01OaB+HkMiQfFhYYAdq15SsCpii5uCzSlwTnLOuPTZdEnjVYEOSnwzbwlQacl
+	 w3ZMwBpf4XFaKVIqfwk56X98cJvsUbpcDw8dTKBFkcs/Aurwf/TjGRJppsjitNK7bB2oX
+	 qPthla3QGd1eGCMtjxYMFXmQUx3J5L61lrdcmTkW/zligzHjD4l7R2+kt7esipumtUnwp
+	 kMUZ+FXR7NMfcEIl4ZMuwe24B/mGfE05E0vbDXb9ojiHSXXD3T0Hx8Mt/KDYAHyJVGOi0
+	 z98SkW2rpeJs5b3ZU4A7I9j596T2EYkLNScdQTWGEDfqQWFSrjHmviv62D0hRG4pXnQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792711670;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=c/PcMTlVSiDoElKibJKXS/wLSV8AGDaIx0CeSsAhKHo=;
+	b=VcXEGWxcbVG9vLRjck+3wUvjw2VTZ2wPvOROFi4j0ThuEnSzaV8ruJKATRLv5I8wpzxZ
+	 Re+mvh2zDUXg5yuPdW1uCDlrhaYrWM0BWJ3O2Zjwn2YMLkvf0XzrJECMaIFtf+I+MFlUt
+	 olsx1sGziRGXHCAKrAdTUf1kOgGnOr1yNWCx1q817GsYLeImeSsK6AonE7k29IVMz/MLU
+	 8+pey3NIbz/WpD4lOpneVhETKQn2C/5t24AZ+Z8K+S6c9en73sRgfIaygsnbK7+OmEoyO
+	 ljxiyZKY8B2cumhnJiWDk+zUARkKWMufoXhzkbYmRitvgTbXmgrIKnczi1eyqh9r4Ow==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQSKULeX;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88B3606A31A;
+	Thu, 22 Oct 2026 23:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQSKULeX
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792711669;
+	b=OdDnDGzY56DvWwp1T7EniCdmw5xdvE7vJTuSKosrNSp/5AWscd91/7h+sEnwRSj+xTG2
+	 a7bCfY4/zjzPnz9SKB9rnpjBDbqAXEf2bj3FeoEC5jj78POiBHpkDTOhVSE2c/5bx1Ou+
+	 FvOWuCZ0Pp1ONg0cKVLOQeZ1ZYfdolPZyfWxzFMFOIMkhkFfbW7EHbOTtgMdOtLbWgpBV
+	 FEOSSzdVs7TV9vq5uPmMts48HdWOkzMQayTzgwrofTGWrf3Sc8wqumAsStnszzZm2cnLX
+	 Uze+yd72D/Cdeyjuj8p1HAjttumFPyB1mmqRAs193fEp2/JG2GWYJ83WzfJHlljjtAQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792711669;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=c/PcMTlVSiDoElKibJKXS/wLSV8AGDaIx0CeSsAhKHo=;
+	b=vazLOo4FNvuZeDEN3cla2JHMcyVdZ6JD+Y+Tin39CdAOvsOqAP/LEkYyWBdJDw26TIOL
+	 hHDWaTWuRrfEwy3ZXnrLa1wWmDXT4WiSQp8+9kxVw0sxvyNFNrAaqk6+3Q6ocNpfm3gBI
+	 yh3Cc3APB7WZTsbFKN/XmiGlwWfK5IFFfp0+EpWAGmUVWKJaP34riVASSgZyoE88UJKfB
+	 kp6/8iEM5J0rXOP723hFqFIKJrmOBQSxI9GviW5uoego432m7wKnwN/GEwsFe+jeykCZu
+	 29n0m2cDQa0PWZkct19DZ1vazhOD6TmnKxW067AckI4BOesP55OsFtPUc9s7HoSUNjw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB010606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB010606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--suseendranb.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=XfHnRs90
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ac6795617aso273619a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792711658; x=1793316458; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VDRZ+CQOwSmX2v/BIgM0gLF5iLJG2Nr4i5jrVs22WNA=;
-        b=XfHnRs90VooasADCCSpYl/nGudHwVvDvNm2HopkUkhLsWDw0pllP2ktQbjtZlMVKdR
-         VzjFrBdGpbChpmhf7NQHL+GMxqmVAGWcG4y7ED7hqWE7hZ2eLMmPVZhYOYvNI5DJRY4E
-         88b3mgtG+mR6EaU3GzeMNSRtrOOzNmaGq9y1lsU4LNPfC3mXDEbojuMaaySERz4GlLgn
-         a1/nnEsccYoACQkho9vUFShVpD6VuGEeK9mpT7rE59cyZ3vuBV47FrI3McfzYy4lp8Gt
-         4GlcHKsKzkOOdGNQE3aY5IxhLZKlLPZdY0oxcxjTQikhyj85xg+nsrLNZnxlSJKnH07u
-         l6Xw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792711658; x=1793316458;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VDRZ+CQOwSmX2v/BIgM0gLF5iLJG2Nr4i5jrVs22WNA=;
-        b=0Faani+W4ZXPDQUFSEb2vWaq+PAjHy3vxP06Fb6EbCzZL+9G702P3IY8kEh4kE0YEv
-         jN2IBmUeTKgs5RsJX+DPG/RfF+Ar/zqltvJSN8ubhamj7ABRqQgOCqQHtNnWu3VSjt6f
-         jRCVu0RXzoyKC9xs3YDTkUWB70Izk9/FEffatu7Hsx34wCOloY4afe7e1seqC+dnaNxJ
-         Uu/MEaajgeEfTfqKgChBHmghjyfLkySb0l6pE+EHRaf+BMI60b+4EqJZSB8L37/EAWfN
-         yBYzqVfbUROIXSpvUSgHOND2EfJRo942guG0KsrP1yvxw+5nL3lHOOxjCHL0/v9B4Fs6
-         p8ew==
-X-Forwarded-Encrypted: i=1; AKwUvBzE0YF6tznhrH84h2hYMCrnZkELEbyEMtrezqWt/jbQernOdRe1dZhHIRiwAKXFTLh8FtnCCVgcKh44SkY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhafP3Hqqs0Pwt/PC1FVU8DZK5DfaGt4GXKS5Wz5EHSAvccGOv
-	bnWpot1A3ZypC/r1F9FdQZ2sO+6IBD7kMynNLiq32b5YsiMuJ57DxOJyD1O5epO3nSXcqxDOMO/
-	7nFUnFaotwa/8d9H92kex6x+Zlg==
-X-Received: from pgp15-n2.prod.google.com ([2002:a05:6a02:62cf:20b0:cc7:d8ea:a7b5])
- (user=suseendranb job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3dc5:b0:3ac:9c37:942e with SMTP id 98e67ed59e1d1-3adce0ccfb4mr376742a91.49.1792711657929;
- Thu, 22 Oct 2026 16:27:37 -0700 (PDT)
-Date: Thu, 22 Oct 2026 23:27:33 +0000
+	by smtp.kernel.org (Postfix) with ESMTPS id D8D641F031E1;
+	Thu, 22 Oct 2026 23:27:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792711669;
+	bh=c/PcMTlVSiDoElKibJKXS/wLSV8AGDaIx0CeSsAhKHo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=ZQSKULeXnXScbq7el8zdVZpkJ4TsdFH28e0FrTRaOeA5cfWnmSS3QuwU98oDrZxKr
+	 FnwxemLVFmqsHggH/zit2cS6iMXxsfeqoX/IUltqaTbPtCWiJKJdbalR93Iu2ps2pv
+	 +mrBKDVyE85rlBQhbKd+zp/dzKzlQzjYF7V6DfOEsy4sKR6KCCSpiFOKZi89PTcE2r
+	 UpW2/p8pFA5DUxGHo7LO7KWvX24MGBFsESXz7ah8CYy/Y23M0lI5gEPUN+KZu4whjb
+	 rNupZnuwugqT1wkU5rYDz773icp7ZX7J6SAzxvxD4h2a4yadhHBEu2B7I4Jau4Q96N
+	 edrYiTZY1O0tQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 41C5041FDA;
+	Thu, 22 Oct 2026 23:27:48 +0000 (UTC)
+From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Date: Thu, 22 Oct 2026 16:27:33 -0700
+Subject: [PATCH RFC v2 01/50] KVM: guest_memfd: Split folio allocation and
+ insertion in kvm_gmem_get_folio
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,78 +82,141 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022232734.496064-1-suseendranb@google.com>
-Subject: [PATCH] mm/zswap: validate dlen and normalize comp_ret on compression success
-From: Suseendran Bhaskaran <suseendranb@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>
-Cc: Chengming Zhou <chengming.zhou@linux.dev>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Suseendran Bhaskaran <suseendranb@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-gmem-alternative-providers-v2-1-5dd1dc6c660a@google.com>
+References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
+In-Reply-To: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
+To: Alex Williamson <alex@shazbot.org>, Alexander Graf <graf@amazon.de>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Alexey Kardashevskiy <aik@amd.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Ashish Kalra <ashish.kalra@amd.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Baolu Lu <baolu.lu@linux.intel.com>, Bill Wendling <morbo@google.com>, 
+ Borislav Petkov <bp@alien8.de>, Catalin Marinas <catalin.marinas@arm.com>, 
+ Christian Brauner <brauner@kernel.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Connor Williamson <connordw@amazon.com>, 
+ Dave Hansen <dave.hansen@linux.intel.com>, 
+ Dave Jiang <dave.jiang@intel.com>, David Hildenbrand <david@kernel.org>, 
+ David Rientjes <rientjes@google.com>, David Woodhouse <dwmw2@infradead.org>, 
+ Erdem Aktas <erdemaktas@google.com>, Frank van der Linden <fvdl@google.com>, 
+ Fred Griffoul <fgriffo@amazon.co.uk>, Fred Griffoul <griffoul@gmail.com>, 
+ Gregory Price <gourry@gourry.net>, "H. Peter Anvin" <hpa@zytor.com>, 
+ Hugh Dickins <hughd@google.com>, Ingo Molnar <mingo@redhat.com>, 
+ Jacob Pan <jacob.pan@linux.microsoft.com>, 
+ James Houghton <jthoughton@google.com>, Jan Kara <jack@suse.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Jianxiong Gao <jxgao@google.com>, 
+ Joerg Roedel <joro@8bytes.org>, Joey Gouly <joey.gouly@arm.com>, 
+ John Starks <John.Starks@microsoft.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Justin Stitt <justinstitt@google.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Marc Zyngier <maz@kernel.org>, 
+ Michael Roth <michael.roth@amd.com>, Mike Rapoport <rppt@kernel.org>, 
+ Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Nicolin Chen <nicolinc@nvidia.com>, Oliver Upton <oupton@kernel.org>, 
+ Paolo Bonzini <pbonzini@redhat.com>, Pratyush Yadav <pratyush@kernel.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Samiullah Khawaja <skhawaja@google.com>, 
+ Sean Christopherson <seanjc@google.com>, Shuah Khan <shuah@kernel.org>, 
+ Steffen Eiden <seiden@linux.ibm.com>, Steven Price <steven.price@arm.com>, 
+ Suzuki K Poulose <suzuki.poulose@arm.com>, 
+ Tarun Sahu <tarunsahu@google.com>, Thomas Gleixner <tglx@kernel.org>, 
+ Tom Lendacky <thomas.lendacky@amd.com>, Tycho Andersen <tycho@kernel.org>, 
+ Vishal Annapurve <vannapurve@google.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, 
+ Xu Yilun <yilun.xu@linux.intel.com>, Yan Zhao <yan.y.zhao@intel.com>, 
+ Zenghui Yu <yuzenghui@huawei.com>, x86@kernel.org, 
+ Shuah Khan <skhan@linuxfoundation.org>, Fuad Tabba <fuad.tabba@linux.dev>
+Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, linux-mm@kvack.org, llvm@lists.linux.dev, 
+ Ackerley Tng <ackerleytng@google.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711664; l=2189;
+ i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
+ bh=GfiMpI8weIzEfe3dYmoSriDA9qkD3c7kHqz6/C+y+ss=;
+ b=hnkT7p+18c3Sr3N7f/u3g+FKFjdGy3FOvIKfYK/1YmHBg8FczOXDkZtiTAqtDKGFzJtjTl5qg
+ X9gbb0h7mF2AhytYyzNbn1jwp69oDXywATpu4DdnG1D0luF/0cv4Pae
+X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
+ pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
+X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
+ auth_id=649
+X-Original-From: Ackerley Tng <ackerleytng@google.com>
+Reply-To: ackerleytng@google.com
+Content-Transfer-Encoding: 7bit
 
-In zswap_compress(), dlen is only meaningful when compression succeeds
-(!comp_ret), as compressors do not consistently set req->dlen on error
-(e.g. zstd, 842, and qat set dlen = 0; lz4, lz4hc, lzo, lzo-rle,
-deflate, and iaa leave dlen at PAGE_SIZE; hisi_zip sets dlen to the
-hardware-reported produced bytes).
+From: Ackerley Tng <ackerleytng@google.com>
 
-When !comp_ret and dlen == PAGE_SIZE with zswap writeback disabled,
-zswap_compress() sets comp_ret to -EINVAL instead of -ENOSPC,
-miscounting the page under reject_compress_fail instead of
-reject_compress_poor.
+Separate __filemap_get_folio_mpol() call in kvm_gmem_get_folio() into two
+distinct steps:
 
-When !comp_ret, set comp_ret = -ENOSPC if dlen == PAGE_SIZE, or
-comp_ret = -EINVAL if WARN_ON_ONCE(!dlen || dlen > PAGE_SIZE). This
-allows simplifying the failure check to 'if (comp_ret)' and dropping
-the ternary assignment in the writeback-disabled path.
+1. Allocating a folio via filemap_alloc_folio() with the NUMA policy.
+2. Inserting the allocated folio into the inode filemap.
 
-Fixes: dca4437a5861 ("mm/zswap: store <PAGE_SIZE compression failed page as-is")
-Signed-off-by: Suseendran Bhaskaran <suseendranb@google.com>
+Handle -EEXIST from filemap_add_folio() by retrying filemap_lock_folio()
+safely to manage concurrent insertions.
+
+Decouple folio allocation from filemap insertion to prepare for supporting
+other memory providers.
+
+No functional change intended.
+
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
-Previously sent as [PATCH 2/2] of:
-https://lore.kernel.org/all/20261021205626.3286270-3-suseendranb@google.com/
+ virt/kvm/guest_memfd.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-Changes since v1:
-- Split from patch 1/2 (which is going through independently).
-- Keep existing writeback-enabled behavior for comp_ret != 0.
-- Normalize comp_ret under !comp_ret and check 'if (comp_ret)'.
-
- mm/zswap.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
-
-diff --git a/mm/zswap.c b/mm/zswap.c
-index 37f34e406c8e..1e727abcf9fb 100644
---- a/mm/zswap.c
-+++ b/mm/zswap.c
-@@ -873,6 +873,12 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 	 */
- 	comp_ret = crypto_wait_req(crypto_acomp_compress(acomp_ctx->req), &acomp_ctx->wait);
- 	dlen = acomp_ctx->req->dlen;
-+	if (!comp_ret) {
-+		if (dlen == PAGE_SIZE)
-+			comp_ret = -ENOSPC;
-+		else if (WARN_ON_ONCE(!dlen || dlen > PAGE_SIZE))
-+			comp_ret = -EINVAL;
+diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+index 93f3d29d5751a..f865fa0e46840 100644
+--- a/virt/kvm/guest_memfd.c
++++ b/virt/kvm/guest_memfd.c
+@@ -131,7 +131,9 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
+ 	/* TODO: Support huge pages. */
+ 	struct mempolicy *policy;
+ 	struct folio *folio;
++	int r;
+ 
++retry:
+ 	/*
+ 	 * Fast-path: See if folio is already present in mapping to avoid
+ 	 * policy_lookup.
+@@ -141,10 +143,19 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
+ 		return folio;
+ 
+ 	policy = mpol_shared_policy_lookup(&GMEM_I(inode)->policy, index);
+-	folio = __filemap_get_folio_mpol(inode->i_mapping, index,
+-					 FGP_LOCK | FGP_CREAT,
+-					 mapping_gfp_mask(inode->i_mapping), policy);
++	folio = filemap_alloc_folio(mapping_gfp_mask(inode->i_mapping), 0,
++				    policy);
+ 	mpol_cond_put(policy);
++	if (!folio)
++		return ERR_PTR(-ENOMEM);
++
++	r = filemap_add_folio(inode->i_mapping, folio, index, GFP_KERNEL);
++	if (r) {
++		folio_put(folio);
++		if (r == -EEXIST)
++			goto retry;
++		return ERR_PTR(r);
 +	}
  
  	/*
- 	 * If a page cannot be compressed into a size smaller than PAGE_SIZE,
-@@ -881,12 +887,11 @@ static bool zswap_compress(struct page *page, struct zswap_entry *entry,
- 	 * only adds metadata overhead.  swap_writeout() will put the page back
- 	 * to the active LRU list in the case.
+ 	 * External interfaces like kvm_gmem_get_pfn() support dealing
+@@ -153,7 +164,7 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
+ 	 * to be updated for anything otherwise (e.g. page-clearing
+ 	 * operations).
  	 */
--	if (comp_ret || !dlen || dlen >= PAGE_SIZE) {
-+	if (comp_ret) {
- 		rcu_read_lock();
- 		if (!mem_cgroup_zswap_writeback_enabled(
- 					folio_memcg(page_folio(page)))) {
- 			rcu_read_unlock();
--			comp_ret = comp_ret ? comp_ret : -EINVAL;
- 			goto unlock;
- 		}
- 		rcu_read_unlock();
+-	WARN_ON_ONCE(!IS_ERR(folio) && folio_order(folio));
++	WARN_ON_ONCE(folio_order(folio));
+ 
+ 	return folio;
+ }
+
 -- 
 2.56.0.257.gf7497c7d27-goog
+
 
