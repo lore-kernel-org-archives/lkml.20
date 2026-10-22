@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689286;
-	b=CkoTkZZ1VbNWrOvjZvDpKXOuzc0RACg8n3U18u7gOGmPAptnPoNegMnOpBt2OpT5QPfy
-	 JVZNNWsmku0DUgqQw4tdTB1LGXhi95TP0mH9uanKMrJ+1P3nxiaf/MLFa1TEf1HnUXNqM
-	 6QcHETzeWRWTziL2Ye39ONr/bJNIjnQgSD7mUPcnr4yFAs4QdUVdLXXBP1U/on6HgBZR7
-	 FatIuqmLrhka/8J5jTrJ1Qb1ePfhN7HOEISK90eSEBA31CuD7D86EvfG0oYH3BkzxzRzW
-	 8hTYGqSaRVS4yX52vipJfn7gyMb4rkUabnUWJfesx8IVRPNN+Jy/lqG9bCd/hOpo3pw==
+	t=1792689377;
+	b=XFezGLrvz9VYzOXg62BX1CAl3aDDiKV2Sy7F2px3XcwqdbKH1sjN18iKj3Wgicr6RAXS
+	 HPuYffEl70z3Rv3Tv7z5fFG9ykuevYkmHzo78lahPl1KtxVRT6ytaQqmWKa4gkJCV8QKA
+	 76CjJTPujOyn0PvA16q/ItRZhZohLjP8TeOQQ4oClEWSSGOl83Xyhtpdcbp/TdWzLfc2p
+	 y4/Uwa/YvJSoAkwJ5gfNnMPriAxyJxti9GNwX+j+WaHVd3g1/xMGegE58xZIDDch4h8nY
+	 xo73oa7XZrPbJ8z1i5rqAFkwmLbOLI/Myu1Sebi+iSsTZL/PHdYBY4zXrDuzpj+Vsdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689286;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689377;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=3DFHN/osUdzyJRwdOHyKkTlNrKLynKFcwarVbxA/Iho=;
-	b=aIipeJUNx1dG9VGgEifh+4Vd6OUw+vJmkUmKWBPLBMk2njzYZer77Qc+biX+XWNGzOqx
-	 HXSKUri4J1hVNFGUAxOjh2Zpjrh/AswfiONy2jVKxgX2m5FhxwzCUkQ7+RFnz2VZeTvz6
-	 rCoa62k+1Y+Axkd2t6QzAYUUlc4wyPHNbw6hFn15eJXdwUqeehNYVoWcJoeKaXBCNmAGF
-	 aSmExsOpxlpk7wWi1WhiyupmcWDkiQi6H4VbvDwxawFHKX/Oz+Q+enwEDioVhTLX5vzBz
-	 d03pFBWw68dssVENu2q7YUrI8IphbXezJTjpLxcv9po5+iVMFtRLjpQGNYcjCPS1rRQ==
+	bh=MMBG8QKSR0rhDtOWejNhaXgUwJDCAE1G7Lk1+og1YAE=;
+	b=2pXYRqfzRDu/JYDuDN3VWd+B+cFJQhUdTXaJdCcscp4KwUjAyzp81BP4usiXK1Czghf5
+	 wCX+XZnkhgoGlFXXtQxFupYFOMvLkESDh2bzRQ8KrHGiJcnbc0iTG/zoal+VskZUmqYp/
+	 Y5e2e1DQMU33rXdq1NF5dQGfPWfRs0Nb6Wp/v2n04PViYmUOqLnjXPKNWVbmKpzFiTZwE
+	 0NmZ9p7NZ/u51a0lT40Ny+RdFQ09PkkxJCRNYAoQ/a3poCk4pAjMnZcg2/ZbOC1SrvAHE
+	 1DyT6jPwn42qYOFHagL+iOZYwYLgYukHVFzx4KDZTEXaz4PSv3JRZG9HNmsl9ArBGdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PmAP2l2f;
-	arc=none smtp.remote-ip=209.85.161.49
-Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com [209.85.161.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZbAFahrD;
+	arc=none smtp.remote-ip=209.85.160.54
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE94606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDE94606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01183606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:16:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01183606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=PmAP2l2f
-Received: by mail-oo1-f49.google.com with SMTP id 006d021491bc7-6ddef424972so14213eaf.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:14:45 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZbAFahrD
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-451a49abd8aso45652fac.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:16:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792689285; x=1793294085; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792689376; x=1793294176; darn=vger.kernel.org;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=3DFHN/osUdzyJRwdOHyKkTlNrKLynKFcwarVbxA/Iho=;
-        b=PmAP2l2fgTOlTs7Js+AOQ0lKPXSwKMPjR4pTxJ+C7QzACp4jbRhJJ4pbDv9s/bfAqw
-         g+RLeZPhJrDH+jPccM7dyh4WeC6wI00zY2nd1QGxJgWBDub6ifWx0edBVBjBX6D7fJd8
-         GXFqzYrL4IvRNsRY9CjB3pgKUdP2foPfiK1VYFV1yKPlNdgi4nkvTThGUulEVZ/1UwcD
-         g9TmBOmATybrseMzhD3BlgD/EjzK277/R1OuYfrF+mRDMurxqUkpcXb+D4XWYVTLgOMu
-         cAT4pNfsKbanDKvSkkV6m6iiRF0fKP5av++FqGJwCyUmYxK/CWzGC8bPtqdPVJhgcaXf
-         gOfA==
+        bh=MMBG8QKSR0rhDtOWejNhaXgUwJDCAE1G7Lk1+og1YAE=;
+        b=ZbAFahrDCUfbmLIcschgp3VGFEBHdDfeNAh65p58FNTDyCjJ2NI6XbX/m6jzfRzwrU
+         ZLlJlXH5cTS+21RnZbnQfRWIDIDJuda51lAWKfLX1frlpGcZPhcGzpLuIw6h250/nupg
+         cvx8h3oGM+di9E8dI+lvuZ/pjIu5PMuaRrdak+BTFkuPcl/OGx9VuzjFC6lroz7k/xQa
+         PCAc93OGEoqDpohaFYQfx41aEgcWQKJo8NAfBslJZ/qqluyXo2yKUGWR85mikyTE1FzD
+         L2RAhqlTgjOPMqYvZRKNx19JZd0ZWvF/D8N3SmF5Rl7urnninYZZGonNpMUICOpEuqEC
+         X/xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689285; x=1793294085;
+        d=1e100.net; s=20260707; t=1792689376; x=1793294176;
         h=cc:to:message-id:content-transfer-encoding:content-type
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=3DFHN/osUdzyJRwdOHyKkTlNrKLynKFcwarVbxA/Iho=;
-        b=LdlB9wk1geeD0GqQeo1uVGPchUFNUIh54EHsaWdqEKN77EJHO9wSyVjk25HddG5mrH
-         4FTtczPLqsCEWOITdhgZ3TS7SwMTsHeTLwxXpewl+gp6trTPJfvCTgzi7Eg4CLAq9t8h
-         8jP2+4mYJ4tlzbl4ly1FsEwo3gO7pxZhoEBINqVj6pk2KFpWGaKgeeimyFZuBy3dOAgJ
-         KPBCAyvk3//sRbV9Q8zdk72cotA/PXUqtsnPfXV5zQsHAhxYfsucHVFYgQ+vA1+zPVjF
-         zQ25pGsdxGoTg5PG6i2xWnsrLQsy2hrHrLsE8yoMGcqKpde+oeuKrB5gyd/zQR3WN6ft
-         +dlw==
-X-Gm-Message-State: AFq9FYIaSyqIKieaXDdgLMZjSvRsJmegCvV2twg4lUT+XTF6YFaAJ+FL
-	muK+wuGrDROl/aBj7hBJiBDr9bWkJNIAyfLbc6VruuqwA7acD4wW+4Ww
-X-Gm-Gg: AYBFou0xckSgUR4za/5ct0CrERQwuOIHNsINn+S5QkWBC3rdO5TN7mrOgcFD9+WXneO
-	HW4QcXOyeJnLVjMz5fq3ob303d2a/eE3PbwOVbAwFGZ3T4RkuY6LfEcQ54rKDBVaXmuLptwIOSc
-	kvRaOcMZQOj7vNVzA7FmZBZdK20a5e93dA0xsmaGc67CAANeen/S1/Rgu6J2rm+iDIkkkHxuEjc
-	q7utRS57MXA5WnIY4q8xySV5okQdEa5CdBbwoWy2qa3oKkh5V5Jxh9eFd/bIECTO++Zu9hKNwSj
-	IkNvN7YBLR64eKpTBHSX/Hrg97/YztmYuzh+Ye0ewV8VQe3RHtSmu1PHg1JAZMnbL8scW5/2PhD
-	UhOQB+soeLyFn/vcfpahpnfcpLOrswQ2Bj4w53zCDOs0HzFUkYcbH6pPOBjtBiL7NWO+CCggVrn
-	k7Eo2IDz/Qd25uhge2FquiPcQGQq//KULIvhYblS5DI51b8r58EiT+zKMkeElL2+/VwJKR89om1
-	Pr79iWzgD9er+Zo5YvzakOzzqWkuELcOndDjJUdUmgqt0Sl6ex2OglVtq57aY8IZhVgS/JIBv9H
-	hKTdJpSyzBQAMM2nhHanIMqrgj6zHfw/i+22wMRWxi6ehyjJIN/sDS/7yvxU/ggJQpljbCXRrQq
-	BQklAwZOqbwHgTUwPOfgxsWTT/Tgod2mB53xsNFL00BJeWpZL6Cp5giO6+X5Da3TtlcnNuPzJNT
-	ZHhEEDF6TLRi7YiAFjiNnT1r47
-X-Received: by 2002:a05:6820:2007:b0:6fc:373a:176a with SMTP id 006d021491bc7-70b88af0e4fmr33116eaf.77.1792689284805;
-        Thu, 22 Oct 2026 10:14:44 -0700 (PDT)
+        bh=MMBG8QKSR0rhDtOWejNhaXgUwJDCAE1G7Lk1+og1YAE=;
+        b=SULvYujDB52qf3OjvVf4i4dmvEim+lv62UBu0Ow6BmQpUBHNy8YPj1cr5BEhfHr7wE
+         4PGYkFufgmUhx2wPDjFcjMW3NfodfFMnTLszKaGtt5He2UK0D0ow8XDzGFJIISU/L14I
+         2KIDRVw8ZsmtVjalkSTaXWmqAcMlxkFXPv4As20nPGuI2kLqNbB6y+ukHfcX3s3GoYZv
+         2j2mbhgT76LfsvtZJOByQSEM9IWhHFmIwlJUA0MPadiOeMG7FeBK83DTbsuRlpQtQcXD
+         VXrW8FXb2VcysBppdk7cV3mjjt7ZHCQSPP9uXXtTf8dFfBFcx4sHR7n1LMHtE1FrWLS8
+         arAQ==
+X-Gm-Message-State: AFq9FYKoIBPVitu4rJsCNvHak9FEKJVjrvc4BNGLFOvSljM2AwYBqFh5
+	es9hISo3Qas5p3NBGpRq2tnudON8PWw8wzNWd1c0SNOvpzYos69Aq2Eo
+X-Gm-Gg: AYBFou1gYJsrTH03oVz9mzNwGK8KgYrIibo1m5jHyqwHjHiNS97NWQf3uG1w4D656jO
+	r6hbVQ4ZJDOLnJJfOUonAf9Arn3mL7Y/e01PQy8PhAWVfliE1n9zUnrHFiMSsEZ6nH72G3WdEAH
+	6uaN/HCHj0r54HbahLt3Y/HLYCVRnE55gHF0Be9oEKg6Vl2btKAQ7UxJYqCXE9UVOrdc0s6GqwI
+	RFiy7kg9l6jKMuWx5izLHMi0p3sOjLhS7vDdmlFIR7uv+NNJQ2N4mEuxXQsmoXWD5wsGJq6MOlB
+	9g7bCwvon8cPJMp/G2aY3gLeGzj7Ic4TpZNsEt9jic+rPMU0J5M/rUEsDtdQKiio3AyJu5//iKf
+	x3U3ZIiqiuui26dIG/1w4pzd2tXiCciFM3+aJSSXCSJr0hbRw1xxiZW5W0iBi9k6UZpTxmG/PCl
+	L9lCg11QAVeU1oW7fFsEcySEpQCjYbOY6VdQr+PZjLe00vJndJQa9CU8tTmfn2h+dZrXmhrV+Ft
+	vs/caS1AMkjDSa6HFFYNsyxP8n7ZKU/+jE/ZiA90EMkaL858FMOIi0ZdKdIOE4Z91lqcKBFkGSk
+	iCv7k7l7e+F7Q5PTS9qiOH29QqsT5EA6fIXyMbVhd2RcPVO3BjgmATnUJdLeQOjj8oxzaodsOJO
+	wWK4cj8t2ILpMXqjiUVHdI8TPz47yjKQm7QrNwvqu/YBLh8llF/9geabaP7oLy7ZEao6B/Y5HUA
+	5mQPk=
+X-Received: by 2002:a05:6870:b3e8:b0:47d:f10:686f with SMTP id 586e51a60fabf-4a7dc1bdb12mr4297357fac.23.1792689375838;
+        Thu, 22 Oct 2026 10:16:15 -0700 (PDT)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84f788ec31dsm270811a34.24.2026.10.22.10.14.44
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a7d611b380sm4997022fac.5.2026.10.22.10.16.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:14:44 -0700 (PDT)
+        Thu, 22 Oct 2026 10:16:15 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 22 Oct 2026 11:14:41 -0600
-Subject: [PATCH] serial: 8250: calculate TX length before preparing DMA
- flow control
+Date: Thu, 22 Oct 2026 11:16:11 -0600
+Subject: [PATCH] serial: 8250: release the transmit PM reference on
+ shutdown
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,63 +94,102 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-submit-serial-8250-dma-tx-length-v1-v1-1-18cecc89a099@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNQQ6CMBBFr0Jm7UQ6iYBexbBoYaA1UE07khrC3
- W11MYv38/+bHSIHxxFu1Q6BNxfd02dQpwoGq/3M6MbMQDU1qibC+DarEywzvWBHlxrHVaMkXNj
- PYnFTaKaGWmo7RVcN2fQKPLn0+3Lv/5w1Dx6kqEvD6MhogvaDLZHI55wPPSeB4/gCSLEWKKYAA
- AA=
-X-Change-ID: 20261022-submit-serial-8250-dma-tx-length-v1-bf627278129a
+Message-Id: <20261022-submit-serial-8250-tx-pm-shutdown-v1-v1-1-0e894afa3bb8@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAxEr1J5jUUSCWi5CmKRj0uCaFolbimqe
+ ncSWHjxRjPPG2RKgTJcmw0SLSGHMRaQhwas1/FBGFxhUEKdpVAK82yGwFhn+oWtOgnkFacBs5/
+ Zje+Ii0RnOtFJ56jtL1BUU6I+rL83t/ufi+dJlqu7NozOhCbpaH2NmD/HchhpZdj3L7ZQCsynA
+ AAA
+X-Change-ID: 20261022-submit-serial-8250-tx-pm-shutdown-v1-db9091dde8f7
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
  =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
  Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Miquel Raynal <miquel.raynal@bootlin.com>, 
- Phil Edworthy <phil.edworthy@renesas.com>
+ Tony Lindgren <tony@atomide.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
  James Hilliard <james.hilliard1@gmail.com>
 X-Mailer: b4 0.15.2
 
-The Renesas RZ/N1 preparation hook programs the UART DMA block size from
-dma->tx_size. The generic TX path calls that hook before calculating the
-length of the new transfer, so it programs zero on the first transfer and
-the previous length on subsequent transfers.
+Transmit holds a runtime PM reference until the transmitter-empty path
+clears THRI. A hangup can shut down the port while that reference is still
+held. Shutdown clears the interrupt enables and stops DMA, leaving no TX
+interrupt to release rpm_tx_active. A suppressed DMA completion cannot
+release it either.
 
-Calculate the scatterlist length before calling the preparation hook so
-the UART flow controller and DMA descriptor use the same transfer size.
+Drop the transmit reference after shutting down TX in both the generic
+and OMAP shutdown paths. Their separate shutdown PM references keep the
+UART accessible throughout cleanup. The exchange in the helper also
+handles shutdown after the normal TX path already released its reference.
 
-Fixes: aa63d786cea2 ("serial: 8250: dw: Add support for DMA flow controlling devices")
+Fixes: d74d5d1b7288 ("tty: serial: 8250_core: add run time pm")
+Reported-by: Raul E Rangel <rrangel@chromium.org>
+Closes: https://lore.kernel.org/r/20261022152019.1621716-1-rrangel@chromium.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/tty/serial/8250/8250_dma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/tty/serial/8250/8250.h      | 1 +
+ drivers/tty/serial/8250/8250_omap.c | 1 +
+ drivers/tty/serial/8250/8250_port.c | 5 ++++-
+ 3 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/8250/8250_dma.c b/drivers/tty/serial/8250/8250_dma.c
-index 1da605cc8601..2dc47adafec0 100644
---- a/drivers/tty/serial/8250/8250_dma.c
-+++ b/drivers/tty/serial/8250/8250_dma.c
-@@ -110,8 +110,6 @@ int serial8250_tx_dma(struct uart_8250_port *p)
- 		return 0;
- 	}
+diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
+index 21ed9c41b751..4a7d26e2dbf0 100644
+--- a/drivers/tty/serial/8250/8250.h
++++ b/drivers/tty/serial/8250/8250.h
+@@ -190,6 +190,7 @@ void serial8250_wait_for_xmitr(struct uart_8250_port *up, int bits);
  
--	serial8250_do_prepare_tx_dma(p);
--
- 	sg_init_table(sgl, ARRAY_SIZE(sgl));
+ void serial8250_rpm_get(struct uart_8250_port *p);
+ void serial8250_rpm_put(struct uart_8250_port *p);
++void serial8250_rpm_put_tx(struct uart_8250_port *p);
+ DEFINE_GUARD(serial8250_rpm, struct uart_8250_port *,
+ 	     serial8250_rpm_get(_T), serial8250_rpm_put(_T));
  
- 	ret = kfifo_dma_out_prepare_mapped(&tport->xmit_fifo, sgl, ARRAY_SIZE(sgl),
-@@ -122,6 +120,8 @@ int serial8250_tx_dma(struct uart_8250_port *p)
- 	for_each_sg(sgl, sg, ret, i)
- 		dma->tx_size += sg_dma_len(sg);
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index 29a203ed93fd..bb6c312c8cdf 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -795,6 +795,7 @@ static void omap_8250_shutdown(struct uart_port *port)
+ 	if (up->lcr & UART_LCR_SBC)
+ 		serial_out(up, UART_LCR, up->lcr & ~UART_LCR_SBC);
+ 	serial_out(up, UART_FCR, UART_FCR_CLEAR_RCVR | UART_FCR_CLEAR_XMIT);
++	serial8250_rpm_put_tx(up);
+ }
  
-+	serial8250_do_prepare_tx_dma(p);
-+
- 	desc = dmaengine_prep_slave_sg(dma->txchan, sgl, ret,
- 				       DMA_MEM_TO_DEV,
- 				       DMA_PREP_INTERRUPT | DMA_CTRL_ACK);
+ static void omap_8250_throttle(struct uart_port *port)
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index db066a42f61d..76f35d1b3203 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -672,7 +672,7 @@ static void serial8250_rpm_get_tx(struct uart_8250_port *p)
+ 	pm_runtime_get_sync(p->port.dev);
+ }
+ 
+-static void serial8250_rpm_put_tx(struct uart_8250_port *p)
++void serial8250_rpm_put_tx(struct uart_8250_port *p)
+ {
+ 	unsigned char rpm_active;
+ 
+@@ -684,6 +684,7 @@ static void serial8250_rpm_put_tx(struct uart_8250_port *p)
+ 		return;
+ 	pm_runtime_put_autosuspend(p->port.dev);
+ }
++EXPORT_SYMBOL_GPL(serial8250_rpm_put_tx);
+ 
+ /*
+  * IER sleep support.  UARTs which have EFRs need the "extended
+@@ -2486,6 +2487,8 @@ void serial8250_do_shutdown(struct uart_port *port)
+ 	 */
+ 	synchronize_irq(port->irq);
+ 
++	/* TX interrupts can no longer release the transmit reference. */
++	serial8250_rpm_put_tx(up);
+ 	serial8250_rpm_put(up);
+ 
+ 	up->ops->release_irq(up);
 
 ---
 base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261022-submit-serial-8250-dma-tx-length-v1-bf627278129a
+change-id: 20261022-submit-serial-8250-tx-pm-shutdown-v1-db9091dde8f7
 
 Best regards,
 --  
