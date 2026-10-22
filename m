@@ -1,98 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660607;
-	b=Y66aEdbpaTlwmTMdiTOcyNXolTrI6iYfsgMc3DOFPFmHM96si0BiMukcTQCJiPQ0Hm2e
-	 JD9xHQzQo5EQxvOWrLiyRVxpCMw6SqAE1395D2nfSycXw1pAer7moYfB8JbeVdb+zhIY/
-	 5dNAQ6wRXpZf9N030a2FTMY9HG/iw+c9MmlMtmv/LUFE4TiYh42BfMpgGqNroAsRSKAXe
-	 bVOBZBzUXFRo0+ZjSvt/TdsrwhCVpCIMJhIPshjdJf56aEEY4gr0/wT1FHRRsYQFS7c3B
-	 zdmWpUv2wVQEC6dvHLIfpk8YlPxRgSE2OnAymiugs1qEgycAAKZztHA8trCd4jqKo/A==
+	t=1792660624;
+	b=gKb63J71AKsjtm3kRL4khjDOobMwSks7ulErF94Dt8YH1nArxXHS+OAgNOENb3or8C/E
+	 Ik6ONuvri3VKkt/7Jdb297nxoS6fGq7V/8kqsuyrPBA5P1ULF91AVQi58aNxsA/8Zd6mT
+	 QqSAmv34hOSfIMNNPEvagFHViJKc1MQdEuFYwp4mcnVD80ZAcFgKC8pKV/8sd4qT+zaId
+	 CKhiE1o1ffT5/1MjvpFmDRY6isxxoHArWsNwfUxVjG33K2+FTIfqqitA/dWnMctaGv5yZ
+	 RQAt0L31KrhPIgYx202ObI97EWmxkOy2bDExbbx6sOUK/+8b02YrQ7H8ZuhTGKExNBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660607;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660624;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Pv1Dk4E92+Y81x316CmYEZVjvBF08c29+bZvlM2Ctvc=;
-	b=HxAWS3ieKnuNIzyqbBzMdjdsXw2ulgOxBefgd6Rkd8kCLVPXmoPGqEwgHcsp55kUwZRE
-	 bXc57y6BLaRih+X9UVBdjZBPeUsCUH7RwXLhpjW9N6prUBobEnSuJGwJuMILYadYEpwLd
-	 pzDZgzusVL/sthb+v8VNBm1RNAif1mwZ4/O7jLYYlaHa2bvU/DJtB1BRHMdL74R9q5OCp
-	 UWa5l9ag/2fZTsqLV3m5rdncwG83+z4/ok0Ze1gTi6L0CaWG1h1IGdQxxouxrmopaR6yQ
-	 zmmIRNGiFjVu5UH1fjdS74LlSUuorm2MrdeE/LGv9RDvan72iI7LUPHVBs9PwYD91EQ==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=EXk0lrhnVKL0TKuzMjlB4VAJbrmt9Kcb6wBpv74sthk=;
+	b=ZHbxfqoMktrOMka+F1Y+N7yOJ70Tkz7rB/gX3CrWq3HIqnVPsiNrup/98PbC0lZSUOIS
+	 n11TNXkkXzDlYvFRWCKU3Tfj9nRHN+MKgL8XjdlsqMomndw2A204I2aEXJ8EugYiUlq+t
+	 X3LFJLbYFddiVTwb5DJcwx91Rc16OL1240KVT5jGj2KpCBuAVrH5QuWme9zHnbZWJQBMe
+	 xwmjd9FX6FqQI6YRfHao+2zsPWFXZwt/SC6fzP8pJdG6yc/cRkpzyaF/penW9Lab//VCP
+	 9Dj32cDWiKivC5bafNgXVFtYaSH+gxrDzDbzr9ba9Yu+EQkmatAvMZxcyzNvijV9sLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oBDig0Gy;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mT53uFFK;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876BC606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:16:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 876BC606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04A12606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:17:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04A12606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oBDig0Gy
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1931ff67a29so1587636c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:16:47 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=mT53uFFK
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48dee593f18so1310734f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:17:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792660607; x=1793265407; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Pv1Dk4E92+Y81x316CmYEZVjvBF08c29+bZvlM2Ctvc=;
-        b=oBDig0GyceFjeMjouhbaHdVz8glcE6nwPqlqfYYJQ9xnRX4ItsNi/O6LX+JHJ1mQcx
-         38oPo9ZYyKHz/xkZTQjWD4+ZwFoFqbAgkskL4gShySEx4wGghy8XJg30/AxIPEC17LKC
-         5dxPb9CjKF0L5WvLc71m19Jf3zxSj47ztTndtkF8udzBk6tCcEIgxoOVwe4yHWoosQTx
-         PK2X43kI/Nqh0POmwy758utryhdmqzJd+ronRlbF1sBE7bzZ5HAIvOS4gpuhPDydM8WP
-         vgVt55TO6Lv1ucxLKvKjrxPbbw6d1FrQQDkCtV6287BBr1lMs8WmnW/ctxoPLaZNrGsO
-         hZoQ==
+        d=linaro.org; s=google; t=1792660622; x=1793265422; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EXk0lrhnVKL0TKuzMjlB4VAJbrmt9Kcb6wBpv74sthk=;
+        b=mT53uFFKOjtIzV+vEqL8G8ktBCtprByu/Qvz3ZYgZpu59TEtlslo/bOUHU3p36PadF
+         z4DBv77TycywXqlndC2ejK063xd/9jQH90f+SrIxCx7Cup5wg+mxcsPSomgQ4jfh+pqB
+         qZ75E9Eb5TIqL0flAjFo/YdwA9IBVrlY+HUZbW/CCGEbTpZJ/QSZJ6kEQ17dhCr/63JP
+         U27M0QCKtcpZAYOUFRLuvQT40SJ5ROhT7G+Xe7n2i13YvjTSw5ZgtDWPj2b6R/NTGxmy
+         rIRXn2Gr4V+u6Clkxp+p3C1XoYH/0YBQcjpV80uyNe/jlgd+0NJs7Zn7mOmEOc4+mPDN
+         Ebbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792660607; x=1793265407;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Pv1Dk4E92+Y81x316CmYEZVjvBF08c29+bZvlM2Ctvc=;
-        b=gDTmFge3ORmGtBSknIZwXkcHLBRpCHBKDP99VkNSEieBaCpFAHEx5fkcWRsf/UIZBP
-         ITVG0klvmye0ZYqadi9LDCvvnbLD0J7kJslrOnUoFDSwP2taNLEe4ToH1R0I+Pz0PyqU
-         iCU7kfwe0Gis8XuJYb+lOueykQq5wLxK+bYx72UmK+c1IYCKOFMTbWj0HjyoEdf5ZoMr
-         hYRPqE5uBBX6pByn0jE+AP7T4OLyjQKJKDlhk7V3biXPaeIn7cH9huN/T3KwfFF7PLX6
-         siN/Kl/cyQ0ZoR1jv7b+j1DLhkfT4VrgHOEJPJNnYpH3ROKDpAvwaOu4JLLdW5vO6IWY
-         4ZUA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLIYYdiR28gPyzBuN32kD/ZMatgNP+6ENH59dKmkIL872B7hDkqdDSlv7IshXcf0ZTD33tTlMLj8HRrbg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLK4q1hO0N0yqR+aIquYgrPPI8+VRUD7cj9hhgscbEZdPQ+SOw+
-	yQiNPIt1fOo+bMlnKpCBftuKJbFTBMlWNpWO6flPt0AI82jQvDn99hjpAjNSOcr5
-X-Gm-Gg: AYBFou2/PMTwEvkX4/s0443aWJU9oYnzggtOavDI/SxYTf0PFUIo9D2zw+2NbtcrUG2
-	ybotpl/YSkNPCGFmMrF1KxxGhGXK+v5noM3N+r5lnA4q0kDXlShLbZZJrGmepZy83nS0jDxJiXF
-	8z0pTx5lDw6u9CPpRajQbppORn5vWk0BTpoDwskkAZJHIsh9Avdb7XlWn67ailVscs6EB21810Q
-	zcxZ/j51uJaN7zwRRHY+LOJG/qDEncOn8HHCtvueTQ9wSRavCiXDOI/jeULsI+zCIouHiad13hH
-	Hr/FIoQnKID98Z9GqTiU7yLn+zZ/ROE8sIN7xn/uCPsiNgg6gw1gQ5+oEWVBWinimfjcnyhhDaA
-	Gd6AS+KRjqxfDCA0YBr+PStyJd0LLOO2nr1y7uv7ohNojuCaBcjYm18nfU7d/zdwlEw/hxtf/xs
-	s3ceT7oRneRy4XO2aj1lC7D2ngymRd7MfMBK3QIo6sSoP7ikkcD9yWaCDNFDqthJ6MwlZQDvhD0
-	qSLH+RYKkAxxL2Rt+n1p994+BIX9nGYb4zASzKj7QKQfiZ9r1TrCgqfpx/EtmFMXVsbbcsLZ27q
-	M6My5DNZt7ZYckSD/84=
-X-Received: by 2002:a05:701a:ca01:b0:149:50cb:2175 with SMTP id a92af1059eb24-190a67f9f1fmr6394878c88.33.1792660606730;
-        Thu, 22 Oct 2026 02:16:46 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bf5d61csm13188815c88.15.2026.10.22.02.16.43
+        d=1e100.net; s=20260707; t=1792660622; x=1793265422;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EXk0lrhnVKL0TKuzMjlB4VAJbrmt9Kcb6wBpv74sthk=;
+        b=nMnoMDqiJ0K+7zod2ltsm2aImItwSeuvzVgoTaBdoK2wrE0gyAC1TL419L3AyYi9Sl
+         c0rnq+0f/pmRp2N6ML3aGTQGgKA6N5FD48KxoCJkwTCNMFHlgdYTXc9Lt40KwdcFOgQf
+         0z51h1/zaiqY9dRdQAyAEAZ1x/pq0aaMGGnvBKD1exJALATjiGh09JcJgaiFra9lWvrd
+         Lob2MyIRtdGCY4AzaBGvMq92KwtXJHnahRthRgrOHMqum/XywMAgGHXsbSkvpToB9cwe
+         H8eEhg2cD6C9BoSvGAqEVT08KSIt2TAgq9JODMC2K+3wZ12t00fUO1QsZKnsEuohd7DK
+         aXhQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw76QsgUw1c+Hzxk3p3iZJhm868HLUV0HY+61mHp5Gpv0jxkmY1NIiwzJCAbcymrx6zs8Arn3whpD5c6F0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+Fign/u/cKMXxuZnp1fpBIC05h7vo55fl3PJgfl7I6HuDR2oE
+	xOvawsirgV+Xl0agFZF139l9U6p4u5uxNFZBgWxzLHN+8yGoHy7oY5lw/D8vfPBVbhg=
+X-Gm-Gg: AYBFou0cle5/aBrjg7sDyRzATboRIPObaztAezJ0PJOxyQEmAXuyojKSdNjEz07syJ6
+	cqeSvZJ9g+hW1cWZlxP/pQOKi2y7KV4pyGF4/IeSGrpGN+6YidzS53ssyTGR+hHh/fDuGFfEboX
+	B42rRNhKLAnAWAZtAlTbrRnG+yuRaOFsHjQy4lylgQKXBC9iQQvp6BYv2J2Je+uIeb8WoxSNtqE
+	LnyicQUXo4745ZpHaSZgegBBQCOpkk7r9rct1oSI8CZTXeAeltNnWtHwKc0sorCGbWm1bCfaIFn
+	bkyg+VpwCR02XGXoPFN1f+vmnrLHNRAbBzgO/5I4C0otu3qzQvm+C3WdIyCKQ2GVzjmM1F3xbYo
+	6QfM8KC7uIFl93Swe+0pgzI5bT3Bu7sKITEv4wFFPjC+TAtda4/SVRVwZKIkNOM1Rgn3IoSRt1+
+	NhXCswLhD1ubwSRUIN1YbAVutWd5dSTRO3lY+Cd2yJHhYOZ439XxwzpYK25/B+6nyt+NMdErXBn
+	7SVY9KAdovbYXFc1wgwkBWEqjUE4q7xDET+qhifmKJKrHiXSgB6bx1C5V8bEOSR9mixWaY=
+X-Received: by 2002:a05:6000:46dc:b0:48e:f10:ceb8 with SMTP id ffacd0b85a97d-48e264a38c3mr6535353f8f.11.1792660621821;
+        Thu, 22 Oct 2026 02:17:01 -0700 (PDT)
+Received: from arrakeen-2.home ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258213cesm11293672f8f.11.2026.10.22.02.17.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:16:46 -0700 (PDT)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Nikolay Aleksandrov <razor@blackwall.org>,
-	Ido Schimmel <idosch@nvidia.com>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] net: bridge: tunnel ID zero works on ingress but not egress
-Date: Thu, 22 Oct 2026 02:16:40 -0700
-Message-Id: <20261022091640.3652180-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Thu, 22 Oct 2026 02:17:01 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Date: Thu, 22 Oct 2026 11:16:57 +0200
+Subject: [PATCH v5 1/3] arm64: dts: qcom: sm8450-hdk: Enable I2S for HDMI
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,45 +91,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-topic-sm8x50-next-hdk-i2s-v5-1-aa1030a75e46@linaro.org>
+References: <20261022-topic-sm8x50-next-hdk-i2s-v5-0-aa1030a75e46@linaro.org>
+In-Reply-To: <20261022-topic-sm8x50-next-hdk-i2s-v5-0-aa1030a75e46@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3043;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=nirOm0LzsMYxE5nXP5ruQK9hlLXAQcicRF97oQT4n0I=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBq2dSKPGZxr8Bh7XEZbTHPR6k3Kr7jt/JG5MeQpQ3o
+ jMhoLXqJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCatnUigAKCRB33NvayMhJ0UsbD/
+ 9wmHZ8hvmpuIiGVSlxQGpYyJJ3wFlg9TrtZ615Sl7tx+aRg2Eu9iurS9MQ1VKXGGPaomNBp0/MyALG
+ NfueyyvRHqcSSAX/0u52f+P5lXED1AXmlyQ92vRCcvRDdbR53WgKxlLEE1WUC0YySLLCM1sfpvjFt4
+ jX8j/vC6rj0GVHbi/KcsVuL+gg8xY5oUo205lQ/W59pla0gE7flfkRU6qLzaavdCPvXOmO96TtNPqN
+ 6r5uskbCG55kSuzFyp2rhNpg3pB/iVPQHf6loyN9ts0yCnAEbffvduc5EOtQLsT+nPc2s5+j5n4wh4
+ 3skrzeL61sItx6xykJ7Fs3Ma7LBwkpme/bh50AJ1aeGNBLsuPrFjiNA/ADQHZpUMJDTg6hZpIQTy2V
+ a6r+zD4o8om21ACcuEFKcZmoONwWdL8C8gr8CFNe368VBzChd0sTlgxpqNi9QyhgrP6chw1gtGbalT
+ V39c1VA2ReYD5p9f6GLxgiaQ3V7n4GnOPgQKxko8g3h8BqbBeynPRc8GUJYoHS6Kl1qiBdEmEaknG/
+ Nwpnb7dgjWsCiqHhA0Qu4zDRsrUVwc9Ldtbc6X5pgdLY97/ufUhZTwuL6wg3rpmvgLPw9LZkkowVMp
+ 6aefXS/AuPcembtgk7m+d0wOobDbdh5PwajYXwOoSsGVJGXgG9dudqngAyTA==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Hi all,
+Add the necessary nodes to configure the right I2S interface
+to output audio via the DSI HDMI bridge.
 
-__vlan_tunnel_info_add() accepts tunnel ID 0, creates a valid
-tunnel_dst, and inserts the VLAN into the tunnel hash with key 0.
-Ingress looks up key 0 and retags the frame.
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sm8450-hdk.dts | 36 ++++++++++++++++++++++++++++-
+ arch/arm64/boot/dts/qcom/sm8450.dtsi    | 40 +++++++++++++++++++++++++++++++++
+ 2 files changed, 75 insertions(+), 1 deletion(-)
 
-The egress path treats tunnel_id == 0 as "not configured" and returns
-before installing tunnel metadata.  The same mapping therefore works in
-one direction and is inert in the other, while RTM_GETLINK reports it
-as present.
+diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
+index 4ade28f40cae..9b55d17869b4 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
++++ b/arch/arm64/boot/dts/qcom/sm8450-hdk.dts
+@@ -665,7 +665,12 @@ lt9611_codec: hdmi-bridge@2b {
+ 		vcc-supply = <&lt9611_3v3>;
+ 
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&lt9611_irq_pin &lt9611_rst_pin>;
++		pinctrl-0 = <&lt9611_irq_pin>,
++			    <&lt9611_rst_pin>,
++			    <&i2s0_default_state>,
++			    <&audio_mclk0_default_state>;
++
++		#sound-dai-cells = <1>;
+ 
+ 		ports {
+ 			#address-cells = <1>;
+@@ -947,6 +952,19 @@ channel@44b {
+ 	};
+ };
+ 
++&q6apmbedai {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	dai@10 {
++		reg = <PRIMARY_MI2S_RX>;
++		clocks = <&q6prmcc LPASS_CLK_ID_PRI_MI2S_IBIT LPASS_CLK_ATTRIBUTE_COUPLE_NO>,
++			 <&q6prmcc LPASS_CLK_ID_MCLK_1 LPASS_CLK_ATTRIBUTE_COUPLE_NO>;
++		clock-names = "bclk",
++			      "mclk";
++	};
++};
++
+ &remoteproc_adsp {
+ 	status = "okay";
+ 	firmware-name = "qcom/sm8450/adsp.mbn";
+@@ -1079,6 +1097,22 @@ platform {
+ 			sound-dai = <&q6apm>;
+ 		};
+ 	};
++
++	prim-mi2s-dai-link {
++		link-name = "HDMI Playback";
++
++		cpu {
++			sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
++		};
++
++		codec {
++			sound-dai = <&lt9611_codec 0>;
++		};
++
++		platform {
++			sound-dai = <&q6apm>;
++		};
++	};
+ };
+ 
+ &swr0 {
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index 05417cb5c4e5..cf25e16b2f68 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -4296,6 +4296,46 @@ qup_uart20_default: qup-uart20-default-state {
+ 				pins = "gpio76", "gpio77", "gpio78", "gpio79";
+ 				function = "qup20";
+ 			};
++
++			audio_mclk0_default_state: audio-mclk0-default-state {
++				pins = "gpio125";
++				function = "pri_mi2s";
++				drive-strength = <8>;
++				bias-disable;
++				output-high;
++			};
++
++			i2s0_default_state: i2s0-default-state {
++				sck-pins {
++					pins = "gpio126";
++					function = "mi2s0_sck";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++
++				data0-pins {
++					pins = "gpio127";
++					function = "mi2s0_data0";
++					drive-strength = <8>;
++					bias-disable;
++				};
++
++				data1-pins {
++					pins = "gpio128";
++					function = "mi2s0_data1";
++					drive-strength = <8>;
++					bias-disable;
++				};
++
++				ws-pins {
++					pins = "gpio129";
++					function = "mi2s0_ws";
++					drive-strength = <8>;
++					bias-disable;
++					output-high;
++				};
++			};
+ 		};
+ 
+ 		lpass_tlmm: pinctrl@3440000 {
 
-Observed on Linux v7.3, commit
-08ab31164c55f20c7a2653de3186ae333470e2c1:
+-- 
+2.34.1
 
-  VID 100 -> tunnel id 0:
-    ingress VNI 0 is retagged to VID 100
-    egress emits VID 100 tagged but installs no VXLAN metadata
-
-  remap VID 100 -> tunnel id 3000:
-    egress immediately produces VNI 3000
-
-Two independent cold boots produced the same result.
-
-Either reject tunnel ID 0 as reserved or stop using zero as the egress
-presence sentinel and make ingress and egress interpret the mapping
-consistently.
-
-This is distinct from candidate BR-063's netlink-size undercount for a
-tid-zero entry, which has a pending sizing patch.
-
-I found no matching functional fix or CVE.
-
-The self-contained PoC and both console logs are available on request.
-
-This was found with a multi-agent workflow; the
-ingress/egress asymmetry was reproduced in QEMU.
-
-Thanks,
-Cheng Yongkang
