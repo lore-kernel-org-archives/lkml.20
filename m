@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792637004;
-	b=ESguGjo1dT6xbrWuZTaruiQXSqmFDgxhgsAME4yby3Wt3CQd6lde8tzVGZHTGBSTKtSy
-	 voUXC7beLM5SjOjige22JfKhuuzbBaD6mCT6r7p9nBLT9OHubjLHUnuE18O+ztm2mJ1nn
-	 +FfVs1zJwUO0vZA2klxX4JuV0az/Wao3IEeAkK+YrbLGnoLdhUlz4BxA3N9v0dUV8zrDt
-	 kqu9fQprqrXjaVl58KDG/ctOpykGlwT/+fC3WwmRR9OJXFhTgz0yRayx3TiOcJrEjBWoV
-	 /0UfJJ4AWjwrjghnrbacYQkoHbqfdWJIRd2l2HtmvRgM+qTYmRQCokqnrGYhWu+LI5g==
+	t=1792637011;
+	b=TcaUnvgp2JEisvneev8pZRvW/RAKCCFh9mxkn+J47aS3hnPK/eReXI88yOQywz+QEp5y
+	 NHrDMz9vdMaBINkcXhWy7Do4FeC0nu7H0RyhiFGdbyyjIqKhW+ieEAtbMbBcjV6Lz4UR+
+	 QGM10rnJumhxKTSaQjxRQTctqjLci94Adpl1WX7capUVLCm2yU54UB4ngH0OdB47g/Pry
+	 9Py7Hv2etmIVPA06hidyzqvZcGoOtNsoGCwOs8vf39/09DCGBfXkAF2itJ0nrAm/zn6mi
+	 4vAqJaMSz0tkOf8k6a/PvHat1AjqDtuFKxlpD2NRCjWRCVekEvPetfuhbP0kiYreaaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792637004;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792637011;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=xLBRusOCzgaX2ifJa7rH6HLwuWuCZ8NlzSUvqTQo+pk=;
-	b=PcE6Ba/K1ejZmYFuWChrSixqyYDeJ/a1S9HGqrEky37hG0S+igaidpMK8cR8HBL6O41/
-	 aWMQdm+FkLnX0ZsnDyTrHnRMp493FvIybA67eanym8IbyDhZ1DEgKXg9qnh/T/kqIyj95
-	 5YRUKHwgnvwUxHF0xoBrrIJLob3pm5pMHnF/hVF79fANv4sWC2+gNh9JGk2mC9Pvp5Dnz
-	 d+qSyyQDeKuFSCzQIU0he6MG6IwXZNixxDykV4YaO7t1LWei250bWNNcD4icRKHxrMlYI
-	 Ju7sww8CWNs5Yn/PazhySted3sOdaQOH/Oz7FaO1V6Zx7A6r3v0LlvOe1PUpcorjnLQ==
+	bh=TUkEOgHWS4CYXansuqJaAAhK76CRt/42A/p2kv2zT+8=;
+	b=wM9305RAt+9jkNmG/1FAn7eD8Y8M8EaQl1PuEgVdMymxtQ7oxdFhvAsNkxBfFYJHuDlV
+	 Z6sFg4Oz7kM1hx+zWRv88nONJk0YIfoOgMAnMBoSztyFoCwl3wiIgc/f01x+Mepuuo473
+	 XN9TJgX/rTRDZZ9ImZMmYGIu/M6zTtQT4TJB7jm21Sk7iEWmj3fS20LWdJotILz2WZt7a
+	 kvw/Ka440vIHP2a3p9yCOMEdQnzHz47tx4Xxlu0QkOAUFh23vYvu1lp6MuRmOAqaN7hY/
+	 ws7XLb+Ai1HVxs+sYEWDmod5hRg56OSHuf/7Rgsg534Zg5SP/PDmk8Zl4KnK7emooAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="lEOeH/dn";
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="gPtjrI/e";
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9244606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:43:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9244606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C049606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:43:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C049606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lEOeH/dn
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso2472987eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:43:23 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gPtjrI/e
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-19305bcb72cso217863c88.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:43:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792637003; x=1793241803; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792637010; x=1793241810; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xLBRusOCzgaX2ifJa7rH6HLwuWuCZ8NlzSUvqTQo+pk=;
-        b=lEOeH/dnS2B8e24Xu5MT/xOA4CXNQvVwRiWzn1q6J5IGjpptVfq5b+/5WRy4Jt181V
-         kQ29p1mhMmGtlWmQjecdyuM9lpfn/y4VoKo/3iQ1IgrOZB13VGtGi4Y6L0I+2JApQ3kO
-         dPAV/vSznGHQxXrgTK1IHecyiseu50E0Esu2XY0JE7ibdN6RHcmkq8KW/SsvMkejqIGt
-         1Y/fJ3etsqCdIKvSJHmOhiVlH1g5+NXiS81QoK9vakry8whH/+pbLTS2XS9lwtKKyv6g
-         +arvr34PT3qOsU7/zeIn09hT3IvuLN5fdyhHSr1NF5p3K0vOfE3yU/UcqQXB6/gycC+O
-         htTg==
+        bh=TUkEOgHWS4CYXansuqJaAAhK76CRt/42A/p2kv2zT+8=;
+        b=gPtjrI/eWprmSXkYZrgsAw966UMXBi3d6Emxbngsphu8FZ9HCv1WfBOsb9sEAR5cg+
+         swmJqk+cNtexTXQEXbYGtHcI04gopVzmJnd2DQ9HzYjhxvcbg0hL8E1pGUuGw3BXqbR1
+         19YqykZlrsfeMoZk4/F6I9g7R46VwOh0HPbPfbdqtq8hyHhzYSW62aWkhmrr/TXaZ8K2
+         51zNSRqckBDI0MA5sT9jFD/GC84pzyTpdH8QOCeu8RRJ5ueFkyn0+lM1/FB/wU/FVMKb
+         tpVg/WDhkGmobFxoGCbHSAVWnqAaiARd6fqCfTY4h/qf1AEESpEDLmnrUXwaIJMRPeJS
+         GzzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792637003; x=1793241803;
+        d=1e100.net; s=20260707; t=1792637011; x=1793241811;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xLBRusOCzgaX2ifJa7rH6HLwuWuCZ8NlzSUvqTQo+pk=;
-        b=m6G4D4bOggYyRyJnKufkmuFh0oAAA4ddTuphqLSEG2SEy2h7uImVE6+QlyLhpLbf3T
-         weV01HiEjnnzno0M1cC1V0KV3PwivMT9xx3AzzUjXFVj+azD2bCZByewZcVKMIccNY3G
-         ZwQCF7fORYBJFYqkzI6Zl+p9cT+U5qkS1PnFXqN3ipNaX3D0WcDDy3aT4wFah/bl6Vaj
-         qAm763+MrXiopeST50TUXfgf2km1HXRLZdZsETlMjhy3sA0KYs5aUiha7lz46R+m5mG0
-         yvnuXc3FQyUuUpzgIiLO5ZCe4ox/eMQuYfJwYonry6bgrfy9SegElQLau3w1Uf8f5F25
-         nNnA==
-X-Forwarded-Encrypted: i=1; AKwUvBxVmktJV4eN4+lV4DG+t5rnBeEde8xyZZrRP/YDbwBSV6/kIOby9oxkbsdLjC5MAe6klYWXuBwo+U9Rpmg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdXpvHr/l6aox7FaXc8ZQGINToU2XMUXnqmVDioHZAtPA9Q7kG
-	sVMuv0aoFNuXRkyqSN8I8Z2l78QtpeCpm80ZMT4gTEKRgm+vExzwHLw5
-X-Gm-Gg: AYBFou2A9ItdmuCqlQdO51g0fZe09Rhb+yEAWKvd+vCjdw07mMB4ukVE1q2zpwGUZsb
-	DdwdK3458b3oHsmUWDM2LMQt0rzy1+zEW+b4aBU63UnxFFFaldY3VQ0ijjexDQ+s2sYLrg5xvsL
-	rfqoHXL+IAF+uFRCbBF4kvWPKygV9CF8hAQWhLSccU2k5Oq9Um/wqhjWM/DVxePviH2e/nv4qoU
-	F2BGbngX0rRFAzZiAP3DwtCNAVY1/2Iqwu54KgZtI1v0eGsrEqNCxSfKr08053sYUV/pCEGjAas
-	pBEb0tzUis7hhi2mrKl1gwfkC6UpU2XynxBOUhUrAO8V0nQcaBcDBwXLK7/gVt8E2HU0Z9A1a7i
-	RvvkEDvqrUhl8eTSu6VIiiL9cOZZCkHvYuzDuMNS8/FpuqHy1+DqmTdQ1Kw6BdymZjUENVJJuNn
-	lNtH7XMn0ZTdg2c4Ki+WLOiCt0MVwQhkvI5b1Bf87yUYySQnFYTeE7IpsnyuoJ9zdZHBHXAgSJr
-	UGeYuEjTPu+JvUyT8J9ru+xMqFxf94lhCE2+jM2WwFTSjkNP2NXFYpwAMlApqY9m71RSsSRdAP6
-	XmIm5WrVeL16EKfCAA==
-X-Received: by 2002:a05:701a:ca01:b0:149:1feb:6da4 with SMTP id a92af1059eb24-190a5e65d52mr5119789c88.32.1792637002767;
-        Wed, 21 Oct 2026 19:43:22 -0700 (PDT)
+        bh=TUkEOgHWS4CYXansuqJaAAhK76CRt/42A/p2kv2zT+8=;
+        b=IcrX0nBTzZbmKsCvkqv8F0B6GiEdqGpwbUEkwU2koyN2/MVJV8+l1xYZ5xHV7tpUMN
+         35VpmpXmCWjqYZSWxa7ugV4pKvtRybRnINoz8gOkueA00KK+QP4CpoGRt5lXn1vY3BZ/
+         BEX4q8MVcbXGmirgdXOZHnFWB73UDUQ3dw4wUua8vBg3NpAiosJS1C1Y9eUAcef+texU
+         1ER0d+oouRb69ZkO5ysHukSOTBeMZxkr4OSW27fOmvb5xLsVKTXMWuTQdyj+AjRgDSq4
+         gl2ByyC4lXkIkRNr5Y/b4MKlmdPccWtSdJVjy2z7zv73SFraRrjhHbuDZG47DWqxLkNL
+         Vqkw==
+X-Forwarded-Encrypted: i=1; AKwUvBy20dYyrekiL0YyH4VptvAbHZuexqYxs7Sy1eBgaWq/NNBOoWHJPAgMOdiNdR3jKluSiCczOg9B8uS5su8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnmJNwA3ImR+msaQancxD5CkVh/QHLBRsh9gRpM1OuCJYTvo4T
+	4LCH6BbpjWsp+xleJRk/ZR8NJMa5hVFjuc4w9UxuNg2e07pTRF/hJwcx
+X-Gm-Gg: AYBFou2CrNMTUnnGoMFIs3NM0ZZpFSyg7jj041l2SD6GUW5Rd6ImhFRAx8MozVZIx5o
+	Kx/5VnEj/LVOfDFOa6flWQDPOhHv5krNTdwNI0DMRm/ylh4At/vZOW04sQMLcoQQw3yIXh6A5v+
+	Oe9nSb/N+kPPIXn1DmonmJrQdvGfhTmGcoYUDvN0tgagYjKH+o56dbx7JLs9uh1hGDdfQ8YsyfO
+	irFuaIPsZHwfkW7nEWDyF5L3fVrebi2a/E61CLQ5VZFHsT7F4SSatV5Dw1A3Ahefr4CClmuWW0m
+	iYbcaePFhulrxn0o8VnpCgq4c2rQEyl38/kHpz6fZfEEz231DfcCJLi/5Xta0ERhbpT1gyDC3LF
+	dDm4HBN2i1EfmLAkQSaWWR0BjwWP9VcR+pp6tuuYLYTn48vWPkO0g8PwN90lIKbhlCqSEXzQYqu
+	XEHJpndZzI6Lj0FoBR2V0jCkJSALXAo3CCOkc1l9TfBfni0oWz6dH3mLMmLRQum7Ar8m/TiJwhm
+	IgimZsQMd2uwB892rMQJk/UL/4tIrKQOdqDbA/7Hq/VRXDIhHAHupOL+CtvR2fo/Mu9M+sbfL78
+	l1g6gnZWNl3VgLdTfg==
+X-Received: by 2002:a05:7022:7a9:b0:187:eb7f:b8f with SMTP id a92af1059eb24-190a50efe13mr6277201c88.13.1792637010372;
+        Wed, 21 Oct 2026 19:43:30 -0700 (PDT)
 Received: from debian.prasanth ([103.183.205.34])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903ca044d4sm11077386c88.17.2026.10.21.19.43.18
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903ca044d4sm11077386c88.17.2026.10.21.19.43.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:43:22 -0700 (PDT)
+        Wed, 21 Oct 2026 19:43:29 -0700 (PDT)
 From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
 To: linux-aspeed@lists.ozlabs.org
 Cc: linux-gpio@vger.kernel.org,
@@ -87,12 +87,13 @@ Cc: linux-gpio@vger.kernel.org,
 	tan.siewert@9elements.com,
 	billy_tsai@aspeedtech.com,
 	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [RFC PATCH v2 0/1] AST2600 global GPIOP passthrough handover experiment
-Date: Thu, 22 Oct 2026 08:13:13 +0530
-Message-ID: <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
+Subject: [RFC PATCH v2] pinctrl: aspeed: Hand over global GPIOP passthrough to local mux controls
+Date: Thu, 22 Oct 2026 08:13:14 +0530
+Message-ID: <20261022024314.48623-2-prasanth.padarthi10@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261015035118.9495-1-prasanth.padarthi10@gmail.com>
+In-Reply-To: <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
 References: <20261015035118.9495-1-prasanth.padarthi10@gmail.com>
+ <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,113 +105,231 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+On B650D4U, GPIO-only host power control fails when SCU51C[9]
+selects GPIOP passthrough even after the normal GPIO request path
+clears the per-pin SCU4BC selections. The THRU expressions currently
+model the local controls but not the shared strap source.
 
-This RFC v2 explores a different implementation from the October 15
-GPIO-request callback. It is not presented as a completed generic fix.
+Experiment with transferring globally selected GPIOP0-P5 THRU roles
+to SCU4BC[29:24] before registering the controller, then clear the
+active shared sources. Leave PWM selection and the strap-source
+selector unchanged. Subsequent requests use the existing mux helpers.
+Clear SCU510[28] through SCU514 and verify the shared enables cleared.
 
-The intended software model remains ordinary GPIO power control with
-x86-power-control software button forwarding. No board-specific sysfs ABI,
-Devicetree binding, or per-operation userspace SCU switching is introduced.
+If handover fails, record an instance-local error and reject GPIO and
+mux requests involving P0-P5 before changing their mux state, while
+attempting to register the controller for unrelated pins. A P0-P5
+controller hog can still cause registration to fail. Retain prepared
+local selections after partial failure rather than blindly restoring
+a shared enable.
 
-Changes from v1:
-- Move shared-enable handling before pinctrl registration.
-- Preserve global THRU selections in per-pin SCU4BC controls first.
-- Handle the SCU510[28] source using SCU514 rather than rejecting it outright.
-- If handover fails, block affected GPIO/mux requests while attempting to
-  retain unrelated pinctrl functionality. Check all group pins before muxing.
+This RFC explores probe-time normalization rather than the previous
+request callback. Mandatory initialization policy, signal continuity,
+concurrent SCU writers and post-handover registration failure remain
+open design questions.
 
-Problem and observations
-------------------------
-On B650D4U, a baseline with SCU4BC=0, SCU510=0, SCU51C=0x1e80 logs
-a 200 ms power pulse but times out waiting for power-good after 8 seconds.
-The earlier callback candidate clears SCU51C[9], permitting power-on.
-The current implementation transfers the global selection to local mux bits
-before registering consumers; observed post-daemon state is:
+On the tested B650D4U, the new image powers on the host with unchanged
+GPIO-only power-control userspace. SCU4BC remains 0x30000000 and
+SCU51C remains 0x1c80 before and after the request. The operator also
+reports successful power-on after complete AC removal. Actual P4/P5
+forwarding, transition glitches, PWM coexistence, SCU510[28] hardware
+handling and restricted failure paths have not been validated.
 
-                    Before power request       After power request
-  SCU41C                 0x000000c0                 0x000000c0
-  SCU4BC                 0x30000000                 0x30000000
-  SCU510                 0x00000000                 0x00000000
-  SCU51C                 0x00001c80                 0x00001c80
-
-Current implementation journal excerpts (boot-relative seconds):
-  182.265233 power-on request event received
-  182.267277 control-power-n set to 0
-  182.467530 control-power-n released
-  182.496345 power OK assert event received
-  182.496404 Moving to On
-
-The logged pulse lasts 200.253 ms; power-good arrives 231.112 ms after
-the request. The operator confirms physical power-on, including after
-complete AC removal. The supplied timestamped trace is not separately
-identified as the AC-removal run. P4/P5 local THRU selections remain set;
-actual forwarding and signal continuity have not been measured.
-
-Runtime SHA256 matches the earlier A/B tests:
-  eb98e896b67c2742db5ea127a40eecc6d23659a69a635ba9e2c5495bb32bd8bb
-    /usr/bin/power-control
-  47d323408e754c692f9f8764f2369e8bdbe76f56c59b804f52428a6229a7b4d3
-    /usr/share/x86-power-control/power-config-host0.json
-
-The locally patched x86-power-control permits omitted optional GPIO
-configuration entries. A comparison patch removes the earlier custom sysfs
-passthrough switching and 300 us delay, restoring the original GPIO pulse
-helper, including its masked-output handling. The configured power pulse is
-200 ms; software button forwarding is enabled. This is not a logging-only
-change or an unmodified upstream binary. The same executable/configuration
-hashes were captured in the baseline and candidate tests. These source
-changes are not intended to introduce different GPIO request flags; the
-captured hashes identify the tested executables rather than independently
-proving their build provenance.
-
-The image build completed successfully. The kernel base is the local
-OpenBMC revision 68da063267662da17b990c3384d5beceab1cdc80, whose
-Makefile identifies Linux 6.18.24 (VERSION=6, PATCHLEVEL=18, SUBLEVEL=24).
-It is not claimed to be the current pinctrl maintainer base, and equivalence
-of its Aspeed pinctrl code to an upstream stable release has not been
-verified. Runtime release: 6.18.24-68da063-patch-157ea07.
-
-Open questions and validation limits
------------------------------------
-1. Is local/global THRU equivalence valid during the transfer, including
-   PWM priority and signal continuity? Only steady-state selections were
-   checked; no electrical measurements or mixed-pair functional tests exist.
-2. Is mandatory normalization at probe acceptable, including platforms that
-   never request GPIOP? Would an ownership-aware request path be preferable?
-3. What shared serialization should protect the complete handover against
-   other SCU writers, including concurrent driver probes? Would a common
-   SCU-level locking mechanism be appropriate, and which writers must
-   participate? A pinctrl-private mutex would not serialize independent
-   drivers, and regmap_fields alone does not make a multi-register sequence
-   atomic. Regmap locking currently covers individual accesses only.
-4. How should partial handover and subsequent registration/hog failure be
-   handled? Current restricted mode does not guarantee registration if a
-   controller hog itself requests a blocked P0-P5 group.
-
-Protected-write/fault paths, PWM coexistence and SCU510[28] behavior have
-not been hardware tested. All presented register captures are after daemon
-GPIO initialization, not a direct trace of the handover. Exact flashed-image
-hashes and standalone raw evidence archive references are not yet attached.
-BMC NotReady, missing BootProgress and LPC snoop failures remain separate
-port issues; successful power-on is not full platform qualification.
-
-Feedback on this implementation direction and its ownership assumptions
-is requested before extending it or treating it as a generic solution.
-
-Previous RFC Message-ID:
-20261015035118.9495-1-prasanth.padarthi10@gmail.com
-
-Regards,
-Prasanth
-
-Prasanth Kumar Padarthi (1):
-  pinctrl: aspeed: Hand over global GPIOP passthrough to local mux
-    controls
-
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 147 ++++++++++++++++++++++++++++-
+Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
+---
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 147 ++++++++++++++++++++-
  1 file changed, 143 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+index b0c7e4f6df9c..54396f2ba91b 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+@@ -10,6 +10,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pinctrl/pinctrl.h>
+ #include <linux/pinctrl/pinmux.h>
++#include <linux/slab.h>
+ #include <linux/string.h>
+ #include <linux/types.h>
+ 
+@@ -40,6 +41,8 @@
+ #define SCU4D8		0x4D8 /* Multi-function Pin Control #23 */
+ #define SCU500		0x500 /* Hardware Strap 1 */
+ #define SCU510		0x510 /* Hardware Strap 2 */
++#define SCU514		0x514 /* Hardware Strap 2 Clear */
++#define SCU51C		0x51c /* Hardware Strap 3 */
+ #define SCU610		0x610 /* Disable GPIO Internal Pull-Down #0 */
+ #define SCU614		0x614 /* Disable GPIO Internal Pull-Down #1 */
+ #define SCU618		0x618 /* Disable GPIO Internal Pull-Down #2 */
+@@ -2747,12 +2750,56 @@ static struct aspeed_pinctrl_data aspeed_g6_pinctrl_data = {
+ 	.nconfmaps = ARRAY_SIZE(aspeed_g6_pin_config_map),
+ };
+ 
++struct aspeed_g6_probe_data {
++	struct aspeed_pinctrl_data pdata;
++	int thru_error;
++};
++
++static bool aspeed_g6_is_thru_pin(unsigned int pin)
++{
++	return pin >= AB22 && pin <= AB23;
++}
++
++static int aspeed_g6_gpio_request_enable(struct pinctrl_dev *pctldev,
++					 struct pinctrl_gpio_range *range,
++					 unsigned int offset)
++{
++	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
++	struct aspeed_g6_probe_data *g6 =
++		container_of(pdata, struct aspeed_g6_probe_data, pdata);
++
++	if (g6->thru_error && aspeed_g6_is_thru_pin(offset))
++		return g6->thru_error;
++
++	return aspeed_gpio_request_enable(pctldev, range, offset);
++}
++
++static int aspeed_g6_set_mux(struct pinctrl_dev *pctldev,
++			     unsigned int function, unsigned int group)
++{
++	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
++	struct aspeed_g6_probe_data *g6 =
++		container_of(pdata, struct aspeed_g6_probe_data, pdata);
++	const struct aspeed_pin_group *pgroup = &pdata->pinmux.groups[group];
++	unsigned int i;
++
++	/* Check the entire group before the shared helper changes any pin. */
++	if (g6->thru_error) {
++		for (i = 0; i < pgroup->npins; i++) {
++			if (aspeed_g6_is_thru_pin(pgroup->pins[i]))
++				return g6->thru_error;
++		}
++	}
++
++	return aspeed_pinmux_set_mux(pctldev, function, group);
++}
++
+ static const struct pinmux_ops aspeed_g6_pinmux_ops = {
+ 	.get_functions_count = aspeed_pinmux_get_fn_count,
+ 	.get_function_name = aspeed_pinmux_get_fn_name,
+ 	.get_function_groups = aspeed_pinmux_get_fn_groups,
+-	.set_mux = aspeed_pinmux_set_mux,
+-	.gpio_request_enable = aspeed_gpio_request_enable,
++	.set_mux = aspeed_g6_set_mux,
++	.gpio_request_enable = aspeed_g6_gpio_request_enable,
+ 	.strict = true,
+ };
+ 
+@@ -2782,15 +2829,107 @@ static const struct pinctrl_desc aspeed_g6_pinctrl_desc = {
+ 	.confops = &aspeed_g6_conf_ops,
+ };
+ 
++/*
++ * Experimental: transfer the global GPIOP0-P5 THRU selection to the
++ * individual mux controls before registering any pinctrl consumers.
++ * PWM selection is higher priority and is deliberately left unchanged.
++ *
++ * Do not undo the local selections on error: a shared enable may already
++ * have cleared. Keeping the equivalent local selections preserves routing
++ * while rejecting affected requests, rather than granting an unsafe GPIO.
++ * Signal continuity during this transfer still needs hardware validation.
++ * Running before pinctrl registration excludes this controller's consumers,
++ * not independent SCU writers. Regmap locks individual accesses, not this
++ * sequence; coordination with other writers remains an RFC design question.
++ */
++static int aspeed_g6_thru_handover(struct regmap *scu)
++{
++	const u32 local_mask = GENMASK(29, 24);
++	unsigned int strap2, strap3, local;
++	int ret;
++
++	ret = regmap_read(scu, SCU510, &strap2);
++	if (ret)
++		return ret;
++	ret = regmap_read(scu, SCU51C, &strap3);
++	if (ret)
++		return ret;
++
++	if (!(strap2 & BIT(28)) &&
++	    ((strap2 & BIT(30)) || !(strap3 & BIT(9))))
++		return 0;
++
++	/* Preserve every globally selected role, including under PWM. */
++	ret = regmap_update_bits(scu, SCU4BC, local_mask, local_mask);
++	if (ret)
++		return ret;
++	ret = regmap_read(scu, SCU4BC, &local);
++	if (ret)
++		return ret;
++	if ((local & local_mask) != local_mask)
++		return -EPERM;
++
++	/* Leave the inactive GPIOZ6 source alone in dedicated-strap mode. */
++	if (!(strap2 & BIT(30)) && (strap3 & BIT(9))) {
++		ret = regmap_update_bits(scu, SCU51C, BIT(9), 0);
++		if (ret)
++			return ret;
++	}
++
++	if (strap2 & BIT(28)) {
++		/* SCU510 is write-one-set; do not use an ordinary RW clear. */
++		ret = regmap_write(scu, SCU514, BIT(28));
++		if (ret)
++			return ret;
++	}
++
++	ret = regmap_read(scu, SCU510, &strap2);
++	if (ret)
++		return ret;
++	ret = regmap_read(scu, SCU51C, &strap3);
++	if (ret)
++		return ret;
++	if ((strap2 & BIT(28)) ||
++	    (!(strap2 & BIT(30)) && (strap3 & BIT(9))))
++		return -EPERM;
++
++	return 0;
++}
++
+ static int aspeed_g6_pinctrl_probe(struct platform_device *pdev)
+ {
+-	int i;
++	struct aspeed_g6_probe_data *g6;
++	struct regmap *scu;
++	int i, ret;
++
++	if (!pdev->dev.parent)
++		return -ENODEV;
++	scu = syscon_node_to_regmap(pdev->dev.parent->of_node);
++	if (IS_ERR(scu))
++		return dev_err_probe(&pdev->dev, PTR_ERR(scu),
++				     "No SCU regmap for THRU handover\n");
++
++	g6 = devm_kzalloc(&pdev->dev, sizeof(*g6), GFP_KERNEL);
++	if (!g6)
++		return -ENOMEM;
++	/* Copy per-device state; referenced mapping tables remain shared. */
++	memcpy(&g6->pdata, &aspeed_g6_pinctrl_data, sizeof(g6->pdata));
++
++	ret = aspeed_g6_thru_handover(scu);
++	if (ret == -EPROBE_DEFER)
++		return ret;
++	if (ret) {
++		g6->thru_error = ret;
++		dev_warn(&pdev->dev,
++			 "THRU handover failed (%d); GPIOP0-P5 mux requests blocked\n",
++			 ret);
++	}
+ 
+ 	for (i = 0; i < ARRAY_SIZE(aspeed_g6_pins); i++)
+ 		aspeed_g6_pins[i].number = i;
+ 
+ 	return aspeed_pinctrl_probe(pdev, &aspeed_g6_pinctrl_desc,
+-			&aspeed_g6_pinctrl_data);
++			&g6->pdata);
+ }
+ 
+ static const struct of_device_id aspeed_g6_pinctrl_of_match[] = {
 -- 
 2.47.3
 
