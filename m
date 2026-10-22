@@ -1,49 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792629607;
-	b=dAQknozzccIZ0leXfh52PpCnlpTfxkqmeI2fG1f5T4LTRR4acYku9FRu5Vwe7fvs140W
-	 R6lDFe5jxQ7vxrlkI5JVBlMFJFEqEhyaKzXiW85UwXGL0SEf/CQqz2x4eZE2fqkJrLkae
-	 WRQZWO62SPj01NWdl73En9TR0/8OZwxgnss4TiPpLxBt1ECGujt19iG4Y5tGMy5VIYZKW
-	 w5bP4JjILL7xTSCHSvxZeq0WfnCViIeW03ktuipLb0F3dCUseDcgP02gi5UO6BfyXBtBf
-	 LazYoW1XPtIIlI86By1riatI2wxQCnQFUrPfWZat04G6HJL+RukEtNrGcBggjPTLq7w==
+	t=1792629674;
+	b=sxr/N1n9oLEQ7dgyfNtxHe5M7yZuhWn7f/pXKq/HBeJkOuTj+IQ77uOLvJO13aFMfUEj
+	 qzA2wUZQ35tzsmM8xMbTFK6n2Mcf0C7q0BLkmKvt1DIfK2zZLgTM/WkLjoNfNhLMVYkTu
+	 /nQmtgsKIaRTGkoUB4Ruw+G4ZxgoKFXU/xEMn/yerS849PKZ/sF9m7DhJorEkPVNgOat2
+	 exgKWF6CrOT9NO4SoJZa5fbVpzZL6YszPX0s8tsWquJRjkZHrwNCTafM8x7KHENZC8zp8
+	 V66maHP1cRbxfCDLj1kS18+vNjFcQWZCosSI5NyngWLWdFsjB1wYyW5Q04oCYgXGgVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792629607;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=klp9h556s2dmmsj3dIxpAq/gnwvQTRBEk3BCnmqimjQ=;
-	b=2Az4PCP+z1rcomQWG+gjaBHVCMDepp+Zd/MWHKyp6l26cBBdVrLI38o+F+uxXDqcayXg
-	 vUFxSp3eMvEMZdGR825JsrJF5w8HGG4aqJSfHKzhyGddp6q0tQu18yocOCBeTqx02Usfz
-	 8xAnbV/VWvX2ZfXj+LiIUZWqth4AI5FhIsPLqhRrKEkM6RdqhmOtIYDpZvE/ZHfwde5T9
-	 1a1tNFNmnMlpW++jtO7kdVJHko5Z2Up0pgFUpifsIZFamdT/SmLoMFTTImUH/Frd/6Hp7
-	 aBDBuQW+/E9FSXUqzX6YNXlcf30yBy6AyipOFm2NN44UXS4Wty3HuNMz/GMtPxkjZ4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792629674;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=jkSLV5hnId9MX4IRs6XHMh3z48IgTlOHlE1daB8n3lw=;
+	b=nVcF46H86uWjTA7AKx09cQCrWCobrPJb6ejXa4Q2gsI+5fvKwYa5GYejTQIzjWMUzBXI
+	 EOjLxrUsouejaok44LL8IK7fGC6/uudZ5XvDf6fTo3SEK2qshY1bHbO0K8VlIaKuhFf4c
+	 7iT/e6TgYeMWSzn6nUVP3dWvXZk4pFzY4415Xe4CkQv3BpTHNcJI5Pi+yBytoPV27R2mw
+	 2SOVGlHyBkE5RlhCrIDtAywzN4oAy6LcOyVBERAFVhA+YmatEYnntXLpJfEff7MOHfyl5
+	 pw4zW9g8Cl0v5B24C4h9PAMrJSwwvMWYQkcSa9TA16yLlfiHEm1AgdhJeyJ7Y7mctRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJFzU+j+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RS4o8OPr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3CE606A329;
-	Thu, 22 Oct 2026 00:40:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6289606A31D;
+	Thu, 22 Oct 2026 00:41:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dJFzU+j+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 454691F000C3;
-	Thu, 22 Oct 2026 00:40:07 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RS4o8OPr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2E91F000C2;
+	Thu, 22 Oct 2026 00:41:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792629607;
-	bh=klp9h556s2dmmsj3dIxpAq/gnwvQTRBEk3BCnmqimjQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=dJFzU+j+Ojm+kqvGzgUK2upk7XOosNqQ94rKuHbC/83jXPCXYbs+NQ0lBxzU7ASNG
-	 d4Q0DdTUoMcOHtaij9+d5vomwQziECmWzWbfV9VYCuFSuOfdqAfFpYPyM23ilptOgQ
-	 KRgAjZSgisgLW7NOlaOdFENjJh8MXkU6ReR0NpSgcW2RbnXzrK4LfMyOXj5LLsHnFn
-	 yJov5jaerk7Itxzb/GK379iEtVoOT+P2EtHpVFfnGQCyD0r7zBGOmTGpV7tt8/a3BF
-	 zcAgiDX24lSCek+kgZNMzif9M2o9h8QTaFtd7QgKYaO5wU1F1lTsryHwmd1buNOh/U
-	 r3SdULZQdCUgw==
+	s=k20260515; t=1792629673;
+	bh=jkSLV5hnId9MX4IRs6XHMh3z48IgTlOHlE1daB8n3lw=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=RS4o8OPrJ558Aaw3WaofENp4tbANIeLXraXij3u1JaBkoMzxtvXjYKDMBM1bXjIbK
+	 1s6dPzjcz6CjprRPqPSbx+KOeb6DdZxPCsoeIR6GcEXt88WrrEZfwP8WzwF44Lkxo4
+	 78ua6jT/AmMvDD6W15v2iyNmepg6AM/DnBXOPjb25vsDm3JlYHjqVG14oxR5HIsOdh
+	 T6Qs2BQjY9qkmnS3mLLzYDBOhKn3dLcO8nlPwZH2h8pdDmGxFweXXfjMPCf5vu8FE8
+	 IU4gvNtR12i2Y0ebS1a9ktlmT4ZfEZY/TDWAuNEZCFF2PjFZe0I23J/WJAodQnWVix
+	 Q/nlsbmGfy5jw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 3A385380A963;
-	Thu, 22 Oct 2026 00:40:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id B4557380A963;
+	Thu, 22 Oct 2026 00:41:13 +0000 (UTC)
+Subject: Re: [GIT PULL] Power management updates for 7.4-rc1
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <CAJZ5v0igpXbgU7i0x87GZwhAOmMXeT4A4fnKC7y0MPB_CSv6eg@mail.gmail.com>
+References: <CAJZ5v0igpXbgU7i0x87GZwhAOmMXeT4A4fnKC7y0MPB_CSv6eg@mail.gmail.com>
+X-PR-Tracked-List-Id: <linux-acpi.vger.kernel.org>
+X-PR-Tracked-Message-Id: <CAJZ5v0igpXbgU7i0x87GZwhAOmMXeT4A4fnKC7y0MPB_CSv6eg@mail.gmail.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git pm-7.4-rc1
+X-PR-Tracked-Commit-Id: 6c326a54b0738ec3b2cc89e1da953a3586c6a8c4
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: df37e3924292fb41d325721008520ba93deced42
+Message-Id: <179262967255.1381797.5728625255497277598.pr-tracker-bot@kernel.org>
+Date: Thu, 22 Oct 2026 00:41:12 +0000
+To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Linux PM <linux-pm@vger.kernel.org>, ACPI Devel Maling List <linux-acpi@vger.kernel.org>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>, Mario Limonciello <superm1@kernel.org>, Christian Loehle <christian.loehle@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,47 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: wwan: iosm: validate msg_head before indexing
- msg_ring
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179262960577.1381785.17602246093034540225.git-patchwork-notify@kernel.org>
-Date: Thu, 22 Oct 2026 00:40:05 +0000
-References: <20261020094254.4017726-1-liuc63@xiaopeng.com>
-In-Reply-To: <20261020094254.4017726-1-liuc63@xiaopeng.com>
-To: liuc63 <liuc63@xiaopeng.com>
-Cc: m.chetan.kumar@intel.com, loic.poulain@oss.qualcomm.com,
- ryazanov.s.a@gmail.com, johannes@sipsolutions.net, fangxy@xiaopeng.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+The pull request you sent on Mon, 19 Oct 2026 19:16:52 +0200:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+> git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git pm-7.4-rc1
 
-On Tue, 20 Oct 2026 17:42:49 +0800 you wrote:
-> From: Liu Chao <liuc63@xiaopeng.com>
-> 
-> ipc_protocol_free_msg_get() reads msg_head from shared memory and
-> uses it directly as an index into msg_ring[]. If the head is out
-> of range, the subsequent memset() writes beyond the message ring.
-> 
-> Validate head against IPC_MEM_MSG_ENTRIES before using it as an
-> index. The ring is a circular buffer, so a value outside the valid
-> range indicates a corrupted head pointer; report the error and fail
-> the allocation instead of writing out of bounds.
-> 
-> [...]
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/df37e3924292fb41d325721008520ba93deced42
 
-Here is the summary with links:
-  - net: wwan: iosm: validate msg_head before indexing msg_ring
-    https://git.kernel.org/netdev/net-next/c/46cbf85155e5
+Thank you!
 
-You are awesome, thank you!
 -- 
 Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+https://korg.docs.kernel.org/prtracker.html
