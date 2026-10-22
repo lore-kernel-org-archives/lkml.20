@@ -1,83 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.115
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662257;
-	b=WmTi54If0FgJ9DfhQK1lZCft5TxEW/nH0W2qCfJy7QWLZYaiiTOZpfq1csOowLt0iwLy
-	 /GnqhlDCLBABWw2DWml2uTX5Sw9x0G0zivo/SOa0yfap7MKM4wdDoYR+gPgqDqxzAm3wQ
-	 LwsYSmRQNNKWD4AbVOBVrm1J+sDSFJFSrUxtB+WlTqKB4CD7DnuBs8/ZBJRpCKt/lmO97
-	 9puDgqcA5g9ZuT6PS/jLd59mGE5BkX+0Au/4xnBexYWca37faXnfvs7v3QjDPDiJGO8/I
-	 IGjv5bHDTxdvFYGrxyY+z0O/NMALBuqGb+wSn50UuO7CPpo3TJ/9YeuWPSWf2iMvBbw==
+	t=1792662260;
+	b=Mzy07Y9pYi5OWwm3Z8Rjt0t9zP5dcMj/Cmfle6FP8V4YivgRL313WbnjK5GfpxT9UbSv
+	 xirCnAsd/8d4H2rE/alnXuF+vzVwUIaheiZOGeecNAuMfZ1hWssIWAw/Z+dTyvWfFdoMK
+	 HaEpeo1XK4YiuX0Pci22SsF7ghoiDlwICFa6y8UoHuH1R42MRx5XKXv5JJfP+SuVmabad
+	 +6+P9M9uqISiiMkCLfmDz0l2FKYLL3rYT3F7N0X22b7ZHx1vwwTDgCxpVjRegaGa8GPRM
+	 nMXh9PNwNCRo6IH6CAdqOxH47IY2c4XWaGt9+PrLkCl4qhw9pcHDAbhfMSNEUP1jFZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662257;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
-	 X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=QMYP8ijA1WpgdLtyfabSG4b/YDwMHHYnoLHhmHn5e5c=;
-	b=E1YztvlshRRJLdIkq/gEKUCIyYRseFJGZKv12F/bg6qUk3wwYv+nBbsGqf3nxg2aFhF/
-	 5rc04RS5DuElNWuL+ufumxRKQiqcZKzDvd4OSVnasIyPqRMGWS1vzVs89d+/mbd1EQ6/7
-	 yD3/fR78SYI4oaz/TRcoeiuw0PfAMa00cYQy3jEkIEP1CWzBMxHtIeZHfK+1QFjHGtW6j
-	 T7GVgopeCfnS66ypUQiEqcID34zPvb5RoygWOL5jSlFaKjVaHNa0M7c8zWJBj68OH2mix
-	 KZySjc0SHERkq1+ZugtpTVuGwqaGJwZHO3a8cbsPay7522axHCni7xCSat7zt1HMrlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662260;
+	h=DMARC-Filter:DKIM-Signature:Message-Id:Cc:From:X-Original-From:
+	 X-Lms-Return-Path:To:Mime-Version:Content-Type:User-Agent:
+	 Content-Transfer-Encoding:References:Subject:In-Reply-To:Date;
+	bh=OUGHKG75J/Ha1UT9SfogPm3T2YK7q5WmnJNj8nl5ncM=;
+	b=3PXndRWbmBp/+duHCrJqXupb7ZhcK+0SFaGpSHbrpFhvzo4DoNiLCknK6X9XMfvj63oZ
+	 4GBG9wCSFNWpQslALO80bAd2RUUosabOyexkcWsBzbVFsUPofa40PhkQVyfYUnLhVvcHx
+	 LFCPi5tzuziGto2liQyOBC9devrXi8nk+2Rayqb1D8vqHcZfq9mkjtdjrg/fTiMu6XITI
+	 zjoJpCGjOItGf6STfy+P+2ALZlftrv5MrpY3y6qLGu4aDuRpyys4JekVbLOEWJKYX8Uj7
+	 4HWzwZEc1r53bo3PNqNTTlv0A3o4T2H7ytlTVAGnlSvdhRpAols9tHK/cQHS3RO0BLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cq5gZEIk;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QgXszFg8;
+	arc=none smtp.remote-ip=209.127.231.115
+Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C63F606A319;
-	Thu, 22 Oct 2026 09:44:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C63F606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853C5606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 853C5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cq5gZEIk
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8LoR43194761;
-	Thu, 22 Oct 2026 09:44:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=QMYP8ijA1WpgdLtyfabSG4b/YDwMHHYnoLH
-	hmHn5e5c=; b=cq5gZEIkEE9Q4T92glONakzhZVapGP9iUBGHH+JP8HVKzQHWcjn
-	5t8e8SVCHaAlhwWy40IBHe9h75bhN1WhUFKnVay7WJzKx5up7efVpvcB2C+90FSs
-	H6TOObPbhCqn6PZcER3laDf7hEb4jFLgbiFcGFWHQ+gXLYaP9ZB2GmH/t+zcriL9
-	/3nOM+jKhQWSNKnMqcqQ3+uy1GRKPZkk60a0LAEC8JmzTN/G8ZbzS2J0oRUanQWi
-	EZkSemlRXjor+BP2uedHWf9IMcGb/Q8REQOHjY3PoTADBb06oAIET2fGWAgZlwJN
-	ktwuOVPUsxl84JJ4AWlQtnkho9qPvY6xXjQ==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq0c4u-60
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 09:44:08 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9GchS2029604;
-	Thu, 22 Oct 2026 09:16:38 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M9GbvY2029594
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 09:16:38 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 0777B655; Thu, 22 Oct 2026 14:46:37 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 3/5] ASoC: qcom: q6apm-dai: Add 32-bit sample format support
-Date: Thu, 22 Oct 2026 14:46:21 +0530
-Message-Id: <20261022091621.1063237-1-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QgXszFg8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1792662252; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=OUGHKG75J/Ha1UT9SfogPm3T2YK7q5WmnJNj8nl5ncM=;
+ b=QgXszFg8BQyFzMHr+mS9D6ndBB9hF1GzlRV9C+V1WtRI0Da2uvUB2pOW7NBZM91KwRp8ge
+ ECBtD77JopJSEPqWADA2RGCbdf7HlvhOPgm5jeY0WEM0y2v4dR6+vFliA+LfOGIzagobu0
+ ZXhAArMow6hYHmdIIsTdsSMcBSXl6TQNvhAJ4GADIBJmpXqZtc2LqaHnDuLrIxhZfzj0hc
+ rnV2MJmkp9PmZx5bceIzAUPApsI/MhQ+YmpZcp5zCIHi5wY/EcEzbAbpdAdtmYbiR/D8Q4
+ ozameHasAU8fGA7RTuzeaxBP4GVu2EYi9bL4yR0O8WyC/EPfdjdbMh0cRkGcVQ==
+Message-Id: <9b715272-3ed9-42da-a6ae-467e8ae00c0b@bytedance.com>
+Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <ziy@nvidia.com>, 
+	<joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>, 
+	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <mhocko@suse.com>, 
+	<muchun.song@linux.dev>, <roman.gushchin@linux.dev>, 
+	<shakeel.butt@linux.dev>, <weixugc@google.com>, 
+	<cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
+From: "Li Zhe" <lizhe.67@bytedance.com>
+X-Original-From: Li Zhe <lizhe.67@bytedance.com>
+X-Lms-Return-Path: <lba+26ad9daea+d8d221+vger.kernel.org+lizhe.67@bytedance.com>
+To: "Gregory Price (Meta)" <gourry@gourry.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,80 +63,131 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: DU5BWrGgEJ3v2fD5tEd7CyJfCfuaGJ-C
-X-Proofpoint-ORIG-GUID: DU5BWrGgEJ3v2fD5tEd7CyJfCfuaGJ-C
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzOCBTYWx0ZWRfXysH7OnluXZKj
- 3CGN9Z/xUdAzm4KBdu5zGU3yMN6hFWGco8g+FoYo/VMdPPgECIZyIi21myWPjVCuo1WFsUTpsJ2
- Q7LDpASD2TsoHhQfWGQ4n8x7wnxOWsI=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9dae8 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=0GeEMZVGUYcv1euD6hYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzOCBTYWx0ZWRfX0g1QDGAe6Q/T
- OBlf5tLzTvbroXL3vE8HW2Q7n57A8D2zJULB13oGRtbkkNXXMQqSJ/sx9iABPdtf207P8+7kVpj
- yz10F1sB6xp7Rzm9bEsy9KJwcVmmbGVpJ6+9TnMLWQwkkdv0Ijrjv31KVdoV2YWLIFZIcENRsL1
- xIymY/eELDdPrjfFVwdTlt8OJVd/hUKvf6UVWxY27XpnOALB3PE8tZiZQ8JEFpLryLO5j55ZR2u
- 4/PTR4L3UYthzI/5sJzPwuPDs4GEI1Ni5mnyzcH52T7L0V7XpiU2erkCiRKtZoASWXmowapWKUr
- j2aE5a/RyvammxvA34sE0RDuw/AKiL4eeIXz4EbOV4r6uWERWkmyCAG4Bamzc8Xdl60JM6s/pBn
- Otp1HO6TLo7Uth7BUwPG5JgzzTomZeoGbUSfzESNePWGNal43brRpHXGd+ZuWI/WVuFobUg+tll
- I4QTJXf+sn87s//ftTw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220038
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Content-Transfer-Encoding: 7bit
+References: <20261019141401.11927-1-lizhe.67@bytedance.com> <atY-LD2AzCYATRii@gourry-fedora-PF4VCD3F> <30457046-a662-4ff7-a6a8-100398d7a806@bytedance.com> <179264138036.2549665.17429111144570830454.b4-reply@b4>
+Subject: Re: [RFC 0/2] mm: add source selectors to memory.reclaim
+In-Reply-To: <179264138036.2549665.17429111144570830454.b4-reply@b4>
+Date: Thu, 22 Oct 2026 17:43:49 +0800
 
-Add SNDRV_PCM_FMTBIT_S32_LE to the supported formats for both capture
-and playback hardware descriptors, and handle SNDRV_PCM_FORMAT_S32_LE
-in q6apm_dai_hw_params() to set bits_per_sample to 32.
+On 10/22/26 11:56 AM, Gregory Price (Meta) wrote:
+> On 2026-10-20 21:01 +0800, Li Zhe wrote:
+>> On 10/20/26 12:10 AM, Gregory Price wrote:
+>>
+>> I agree that the kernel reclaim and demotion behavior still has room for
+>> improvement, and the watermark changes and the bottom-up proactive/async
+>> reclaim idea you mentioned may be useful to explore for some tiering
+>> scenarios. But I think there is also an unavoidable userspace policy
+>> component here. The kernel can improve whole-cgroup reclaim, but it
+>> cannot know every controller's placement goal.
+>>
+>> For example, one controller may want to keep a specific per-tier
+>> resident ratio for a cgroup. Another use case, as Joshua pointed out in
+>> another reply, is reclaiming from a lower tier first so that later
+>> top-tier reclaim has room for demotion. A single default memory.reclaim
+>> algorithm cannot express these per-cgroup policy choices.
+>>
+> The latter of these should probably be some level of the system default,
+> that's why I brought it up as well.  (proactive reclaim should prefer to
+> make progress from the coldest tier first, then work its way up).
+>
+> I'm not convinced a reclaim interface is the right way to affect a
+> per-tier resident ratio policy.  That feels like a hack to get around
+> solving the harder problem of something like tiered memcg counters
+> (which would otherwise drive reclaim to work exactly the way you
+> describe for resident ratios).
 
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
----
- sound/soc/qcom/qdsp6/q6apm-dai.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index 033197bdd870..ec9ae2276361 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -93,7 +93,8 @@ static const struct snd_pcm_hardware q6apm_dai_hardware_capture = {
- 				 SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME |
- 				 SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_SYNC_APPLPTR |
- 				 SNDRV_PCM_INFO_BATCH),
--	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE),
-+	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+				 SNDRV_PCM_FMTBIT_S32_LE),
- 	.rates =                SNDRV_PCM_RATE_8000_48000,
- 	.rate_min =             8000,
- 	.rate_max =             48000,
-@@ -113,7 +114,8 @@ static const struct snd_pcm_hardware q6apm_dai_hardware_playback = {
- 				 SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME |
- 				 SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_SYNC_APPLPTR |
- 				 SNDRV_PCM_INFO_BATCH),
--	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE),
-+	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+				 SNDRV_PCM_FMTBIT_S32_LE),
- 	.rates =                SNDRV_PCM_RATE_8000_192000,
- 	.rate_min =             8000,
- 	.rate_max =             192000,
-@@ -522,6 +524,9 @@ static int q6apm_dai_hw_params(struct snd_soc_component *component,
- 	case SNDRV_PCM_FORMAT_S24_LE:
- 		prtd->bits_per_sample = 24;
- 		break;
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+		prtd->bits_per_sample = 32;
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
--- 
-2.34.1
+Thanks for the detailed comments.
 
+I agree that improving the default proactive/async reclaim behavior can
+be useful, and I also agree that tiered memcg counters/limits would be
+useful. I do not see source=nodes as a replacement for those directions.
+They solve different parts of the problem: tiered counters/limits provide
+accounting and policy targets, while source=nodes is only an actuator for
+proactive reclaim.
+
+So I think these directions are compatible. A better default reclaim
+policy or tiered memcg limits can improve kernel-driven behavior, while
+source=nodes gives userspace an explicit way to apply reclaim pressure
+to a selected resident source.
+
+>
+>> I am not sure whether changing the default whole-cgroup reclaim behavior
+>> in this direction could affect existing userspace dependencies. In the
+>> old nodes= discussion, Mina mentioned that Meta's reclaim stack relied on
+>> memory.reclaim triggering demotion [1].
+>>
+> Yes and on its surface this is something I could see Meta using, however
+> I question whether we're simply trying to find a convenient way around
+> fixing reclaim to do the right thing (not invert the LRU, apply per-tier
+> memcg limits, etc).
+
+
+That is fair, and I do not intend this to avoid improving reclaim or
+adding better tier-aware memcg accounting. A better memory.reclaim
+algorithm would also make source=nodes more useful, because source=nodes
+still uses the existing reclaim path after selecting the resident source.
+The goal here is narrower: expose a source-scoped proactive reclaim
+actuator while keeping the kernel's reclaim policy in control. The old
+nodes= discussion had ABI problems, but it also showed that a
+nodemask-like source selector is a useful primitive for finer-grained
+proactive reclaim control [1].
+
+>
+>> I also do not intend source= to lock in current reclaim implementation
+>> details. It should stay consistent with the current design: source= only
+>> selects the resident source to which reclaim pressure is applied, while
+>> the kernel remains free to change the reclaim policy.
+>>
+> Well, sort of, you get exposed to the implementation details by having
+> to negotiate what is considered progress under different scenarios.
+>
+> Lets take one example - what should happen when:
+>   - 2 node system, node0=DRAM, node1=CXL
+>   - zswap is configured
+>   - echo 1G source=nodelist:1 > memory.reclaim
+>   - node 1 is pressured, zsmalloc falls back to node0 to allocate
+>
+> Should that be considered progress? We reclaimed from node1, but
+> increased pressure on node0 - which might have kicked kswapd or memcg
+> accounting to demote memory from node0 to node1.
+>
+> Should zswap also take that nodelist as a constraint?
+
+
+This is a good example of why source=nodes should not be described as a
+one-shot net footprint guarantee. Assuming source=nodes:1, the request
+applies reclaim pressure to memcg memory resident on node1. That may
+free some space on node1 in the short term, which can provide room for a
+later node0-to-node1 demotion step. If zswap allocation, kswapd, or memcg
+reclaim later moves pressure back across tiers and node1 usage rises
+again, that is part of the dynamic reclaim/tiering behavior.
+
+So userspace cannot rely on one write to memory.reclaim to produce a
+final per-node distribution. The intended usage is a feedback loop: the
+controller observes the memcg's resident distribution, chooses the source
+nodes it wants to relieve, applies source-scoped reclaim pressure,
+observes the new distribution, and iterates.
+
+I do not think this patch should make source=nodes constrain zswap pool
+allocations. That would be a different and much stronger semantic. The
+current intent is only to constrain the resident source from which memcg
+reclaim applies pressure, while completion accounting remains the
+existing memory.reclaim accounting.
+
+>
+> At the very least i think you need to add details in your cover that
+> demonstrates the process of doing something like per-node resident
+> ratios, and show that it works as you intend.
+Agreed. I will update the cover letter to make this model clearer. I
+will also make clear that source=nodes is not a final net per-node
+footprint guarantee and does not change memory.reclaim completion
+accounting.
+
+[1] https://lkml.org/lkml/2022/12/14/194
+
+Thanks,
+Zhe
