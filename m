@@ -1,103 +1,147 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664863;
-	b=Jg+xbHYxLiOlOSEr6r2eB/3Phoooi348hI1muT7sfeOSUym5g9l6vNvuDKPtgDcpoQAf
-	 izUOZxHQCXlJ3CPDmcCRSHRHrCbl/aLLM515ERV7cLbZkk2TVXvYm8wpUNP6cB+8gkb72
-	 cBJb9YcQ3AzPlfEMcqWYWQQVVWKr65ouJkPQCJM1CYJT7tOs2CM2/a8S/HaraDiJdBQOy
-	 EfgiMP1KdzcSSPcRanIy3PJZEZ6bOTBTHxuaQybZ3dVB4OJ0e4oxOR7FtIicT7QU07lWg
-	 4B1egdRc05+HXrgq+9af+UlneENCev1yJt9tzwp8273F7/vW8YFbuChfewo+Ylm3umw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664863;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=W/St7nz9trNJLzodDEvl9jP1VNCe7LII2kl/X5vpWFI=;
-	b=sp44Y/PjLKWg7p9KRDMPPNVxnS2hTdgma6UNz92/9LhkKCeqcu9bSws5vLKAzOOqIacX
-	 GT6BDtkPjfDJ6ZlWmbyFqZ96O3s17J0SIQl9sww0RhKkLFMo0qTKPF0i+7ZuKrARfWccw
-	 jxobPy0pTEh4ujc1ex+VKyYfbNcGBxAhU60fSYmZ321hv/Hn+qS69r3sQ39kSKj2TOBS+
-	 Mk58JjF6dJ27dAOjd7ASpEv1OzLCG2Ol7sL+HDkntonONvwO7D8p7/J0ywVY1LTqi2q2l
-	 cjs9dAIbc3gK93XJ/CaQxAOtpzuYCCtadGXr4t9o/WYXyVtkm0knn5DDvx5K8jR2tWw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="P/FmqH7d";
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.134
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792664868;
+	b=wcOiipsxr6CZGG83esy+w8Mygi31lSxlQXCAjsMx/oNjm0Qsq2xFMAR54wqvzQSdtLNR
+	 uji2XMIabMRdUGZ0BgsDy+WwB9zVw0BEHsbnBNWsX1vuDrPmObBs/bcgN9NvTHyfj14LV
+	 EJlg5eWYBklIFGJO9rc8eGSVzN3N4EBNlw5NWvRAABcK0ENcZSCJvaXk8LsF9AaY05AkU
+	 A5+Ks5SLmzamsudMH9SZnyn4NXekSLXPeRaJU/6cv1tm1uYCufAuCvTBUHiQIvuDDTIms
+	 k5uZi+dg8445X8AxKEnAAhU88ZhBexjC0lllYEHYP3VjqiBq3lU6IqvbqZlT8n6gypg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664868;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=2eR1m4l7TTDavYC1Fnb5lw8KBYw+Thf7HynWa782pZs=;
+	b=HW5xW0prpbUjFWxsgUR0LEudkTtBdrfqWXGPCYkRnS4B3lVlf7rqBjKNN04Ux5PiQ/mV
+	 NQln5IWImyGcagmUCVmSkAE+MdU1F/OOHJnt0Pysbcj4OuQeFMkS9eDTaCyRWGF3x2v47
+	 v9QFFvh546Zd/zg7nsdqDxqeherbhZB5PnJ8iwLYBQzA7JPvKI8zuUg0N5XxAAtPeINiz
+	 bfsbFzfXB5nSrjgz/xrWmqgiFDNVmmcPVY/kuIniYffyBkkGJts+eI6zYdJTZtEJEiwzg
+	 lG+urgiEdT+lumBDmX82W0M2DqLF7UJs9+LKChJnWiwuvhz2Hj65bVjt6LaJP2UWBmg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=blueye.no;
+	spf=pass smtp.mailfrom=blueye.no;
+	dkim=pass header.d=blueye.no header.i=@blueye.no header.a=rsa-sha256 header.s=selector1 header.b=CevJ7FfM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.134
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11022134.outbound.protection.outlook.com [52.101.66.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2CB3606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2CB3606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B261606A31A;
+	Thu, 22 Oct 2026 10:27:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B261606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=blueye.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=blueye.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=P/FmqH7d
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3acb512a7a0so966084a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:27:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792664862; x=1793269662; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W/St7nz9trNJLzodDEvl9jP1VNCe7LII2kl/X5vpWFI=;
-        b=P/FmqH7dflDIVdHdK3bz8NzpvG7c0lGqndu/uBhyb0zlWiPZK+whRtLLFG/MHojFiA
-         YMGpEZsJRsJymmftWFBc7xCcziIKb3z0k1l4VOJWaVVHcmvaw+icYbwK5HFk5miBQG0H
-         G9nu8I7OQBFqhw7ZN4WbHfd4FTDQCMKbv+Agje73ddezTiQiGGG1DvFRU8pgR89UmSN6
-         +w1SwM22qqnsopnkayudZNdDF935w25Knrn6xK7Dsg62v+IE/iEnHieFBSS03uXfUb7a
-         vbTD4CA620QeivRHj5KXMChNM4oNysD73b8jewnZe/6c1ec9V3x3RRbU50M188gJ+1kP
-         hJwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792664862; x=1793269662;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=W/St7nz9trNJLzodDEvl9jP1VNCe7LII2kl/X5vpWFI=;
-        b=b1xQh4ebjizUFiyg4oJ9t365WfNQrS9y8KRUPm1g7ZguRyBtZzIqDSq2cUE11jUZA9
-         cUdeN8IUWIiKDiMgcr30MTK1VATgwp1El8UQktsmBwwtZ3FNUmqcRC53emduuJ3/x3V8
-         fzkGPfThAh4aW3LkZ/JLCKFqRM5bFyVpAx4jgCeSq0fdrCCpRkoKGkmpcDCP4C0GESky
-         2A40debzAfpVNFh5lvIB0nPxjYNkQgn/d5xCmFOg3l3Kl2jrBK2zh6HmuuvLIIeKYapj
-         tAci/9r1FMm2t1zLyzde58JxQGbEZGn31NiyPra3+fEe9yIB5UE3KNYJlNEfxjM/fHt3
-         EzWA==
-X-Forwarded-Encrypted: i=1; AKwUvByx0ER+YoVDS4AhFWHm8UTtwHChczvyrADbOVTBWT2PumVgGxxkvSVOJKweYUTaUAdZu/zhN8gnBoOGkhE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLOMIlhTetQ++tgFMoqcgFQd0c2ljTFnGVXIhTYXmkQdE/vqI26
-	NZwZAZBWfesZIEyJ6C8uj/qYPeC76W2988YjvD3FbHvRBchbbsWXaaSc
-X-Gm-Gg: AYBFou2AKD8nvSytKjNN3BKv9SPZzo+9KtQQpyyDA0v+BTlePo+QnIbWrO2rGIHxpe8
-	V77PG2E7Ll8GqcvMZUHGeqrRZOumk7XwQCRnxUzs08o6vNCxZg6zgUXkETMlp56g+8pbaD//pNJ
-	JpRSfuWTiIo5/SgNNAPdg+aqfd6MI+Of9qaG4rppD/muHDQc6eN0h4gWE9iEpXPwS0g0Ot+qGMg
-	xcnX417at0HZg3Fq8rXq9yK6R1Phwi2xBmiuK1XKiQepuLPPwKsRYMsngHDfeyRM2by7xEXtK+q
-	5JBe8pocwRcEO6iN6P4rQj3eDJO15DsekIGsrVAaH2GE7lKvc53JEZOl5CpNdbU9/4XoqzTua5M
-	BLDUweOoUsmGWtyWEJwD0rsbR0FaI8NHY0RedXI60UBH43xVRYF8/tGPAJe7NBlhtg9OwtZtEGd
-	Yrge3XKk48BaSA/mjaPJKnFuKG2CIn9xQU2NKxgxvYa8TxDp7WjzC9DuLKO7UjELP4Ifhc93d00
-	5C9J2WZzQDzKKw1PQOLSo6wXwjuVCGKcIsltCzGS4M1Mw1PTq/oPgVCg6uWur+ezEnCjxHa4/qe
-	br/bAWaIvM8olwToQM3woR9deOzSpXNDP1mCH6iHR898G50UElOWgTD1MwxfOh+f41OyOycoMeS
-	nYAioay1qYQ1IBmzJ
-X-Received: by 2002:a17:90b:1b0e:b0:3ac:a993:5b5c with SMTP id 98e67ed59e1d1-3ad86afc038mr4253866a91.6.1792664862134;
-        Thu, 22 Oct 2026 03:27:42 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48a55d5sm3702279a91.9.2026.10.22.03.27.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 03:27:41 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Mark Brown <broonie@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	u.kleine-koenig@baylibre.com,
-	Igor Prusov <ivprusov@salutedevices.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 2/2] ASoC: codecs: ntp8835: Fix hw_params return values
-Date: Thu, 22 Oct 2026 17:26:38 +0700
-Message-ID: <20261022102638.38606-2-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022102638.38606-1-phucduc.bui@gmail.com>
-References: <20261022102638.38606-1-phucduc.bui@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=blueye.no header.i=@blueye.no header.a=rsa-sha256 header.s=selector1 header.b=CevJ7FfM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=trLKAQc33lzUWXYlkJz6m7w2VsWYHn5UR5YCOx5xbhWiDMS0L7s3Fzer8S5o/FOCuEIQSlMr2QpbjFqSY75oac4LAMKdq/xowk2GmzUyuGUXdVnStmSzdPOSTantkbx1cu6zkF5+pW2curoJDExoNzGI0fZldsVcQX6eWW1HGz41D/tiXrT7iZyA+1wfa4gUckP6/qtS3uNawdBxf7S3ZJmdbRinXpNZ44c3Tow6KlZ30BF5l6ClEx3A5rUlSBEcGHDkzG041ZjFQRZeW9DBRoEn0lmPyQXh5ADnLlfZogjOgCEmein8RRVsJtKHXV8fqy1+6y0SyVvkE4C7NM1H6w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2eR1m4l7TTDavYC1Fnb5lw8KBYw+Thf7HynWa782pZs=;
+ b=si9mBDXlZ06dYBSVJUhyhJ4oGp8aUUsSFz8teuXQ3IspqvvI4MjE72ieKXGiDqm4tIpjBfSuNT+Chg4UiYN2OAcvX3NGCVhHCicExVIr2ZZ8CMusRQbYsxaMXcUsJ+x3WmktYdfUmZb2fo6zT0dfjJK7SSLzQ+98874uFqGTAiXNGOABiVn2gzg8fzAJp3pC1a/VXNEVq80CZ9gfGgEbrvW0tRxVj9ZB9NOqaZ7xph3ETuWVxGkSs6f1jjwgT+2UBDLnmiHvmApRw4c568CCqsH2cXyK1AwJoMHSkzXVLD6pIRvxp5eStKFCKpmZT5J9wTqczSCEHI3G29zajD+WSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=blueye.no; dmarc=pass action=none header.from=blueye.no;
+ dkim=pass header.d=blueye.no; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=blueye.no;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2eR1m4l7TTDavYC1Fnb5lw8KBYw+Thf7HynWa782pZs=;
+ b=CevJ7FfMDFwT7kphGybfdhodA5HPoB5Y29GiDNQz8XRNK5Wh8GhxdVfXcVaWbHEype+k8PA2JzXRbLTbDEL77O7dv5LzvFBGurLSnXE9mj/dsLdqHfvJtPnEk1dZH5BD8LBr8ZaIh/NXDHVZIBtlcArhAyOaOhsX+C9hZAfbtuM=
+Received: from PAXPR04MB8799.eurprd04.prod.outlook.com (2603:10a6:102:20e::5)
+ by VE1PR04MB7293.eurprd04.prod.outlook.com (2603:10a6:800:1a8::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 10:27:41 +0000
+Received: from PAXPR04MB8799.eurprd04.prod.outlook.com
+ ([fe80::7546:6bf4:fe97:8e08]) by PAXPR04MB8799.eurprd04.prod.outlook.com
+ ([fe80::7546:6bf4:fe97:8e08%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 10:27:40 +0000
+From: Johannes Schrimpf <johannes.schrimpf@blueye.no>
+To: Ricardo Ribalda <ribalda@chromium.org>
+CC: "laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
+	"hansg@kernel.org" <hansg@kernel.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "hverkuil@kernel.org" <hverkuil@kernel.org>,
+	"mchehab@kernel.org" <mchehab@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] media: uvcvideo: Release streaming interfaces at
+ disconnect, not last close
+Thread-Topic: [PATCH] media: uvcvideo: Release streaming interfaces at
+ disconnect, not last close
+Thread-Index: AQHdW/DA3JWwOJKcXUqhzV8Ax8XmbrcER3sAgAUghIA=
+Date: Thu, 22 Oct 2026 10:27:40 +0000
+Message-ID: <F25B5C94-B856-4074-AB74-920FA3049670@blueye.no>
+References: <20261014-uvc-release-intfs-v1-1-18d6e8dfaad8@blueye.no>
+ <CANiDSCuv7q2oKbxqVj+4ctT3FChh81a691hzt_S1n5szXRTvXw@mail.gmail.com>
+In-Reply-To:
+ <CANiDSCuv7q2oKbxqVj+4ctT3FChh81a691hzt_S1n5szXRTvXw@mail.gmail.com>
+Accept-Language: nb-NO, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=blueye.no;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PAXPR04MB8799:EE_|VE1PR04MB7293:EE_
+x-ms-office365-filtering-correlation-id: aac9b760-b289-4c78-5cf6-08df30271a0b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|42112799006|366016|1800799024|376014|23010399003|18002099003|22082099003|261009223027099003|4143699003|10067099003|38070700021|56012099006;
+x-microsoft-antispam-message-info:
+ drBWIKMoIgwRfaxMcUBkwL4zUXDB/J5yklKtkchHK7x4PTSDa0NMBMid13gsxItgzknC9QezP3WvdpcsnbdnXE3O54n8ZRtdFf5fp8boBPfP2ti2pS7724gxQTUZT08a9Y7QnS0KzLbFti5WY1eC2Gih7jQXqrhhAU+2mj04nC8k99woz9Ah5DcSAHVzmYULN+dM8tbWhNGbDqLJY1cf6YVeql+IeavEUmhmEbjyalXZwKk0Qord2zF0p45RtVPlJcmuDvrO0QmqBZJwaQgAeFTKtBU6bfXyceos4swRwGWQZeAF3bvCjrm0S6dr9urleNGpnmXapZ/seqSWvFeUMC5uJgaV6xMaYwxTI01k7qw87qzfUL1H7sEL5CgH/p1znQmLlD3VV0zGtdw3yhGRROEL4xftokw8IsQXW0XRFc89a8fyTWbQn/C0pBvNsiF8vYYtH9WPrq7O09/BEXn+z5c7NRdmZWCjXxxD8lVG5hSlnF2G+XBti5yFY9IKlinxOn+rb5NoPFh/B8g94W/ynK/j/dflfK0uvldddUipIQ3cfZG6vj/G9AFIDMaMJopKs++afSJ1pKUgpW8goKp4jTU2S50SYKElmOrvgkpQJ3YhrqPzC6IG592hlk3pYGSeniDcbESjHFdRQi7AO5t4V1xE8G87VcU3KWGMgxUWYaY=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(42112799006)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(261009223027099003)(4143699003)(10067099003)(38070700021)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?TwvLoQazeC57ClSXKPpNTZCJXhaFf63ulreKCgYbG+QDfh+HmmiF4IbfWX87?=
+ =?us-ascii?Q?/X+qS27dfbLBq4mzC2tT8cMZs8y/yPecOl/t3YGHus9AoFA4mfBAhQXK9/iR?=
+ =?us-ascii?Q?3wq/y4r2b+833NrLK2dkiUY8NalRmJpEbFZzUQmmrwYYNFNzs3x74FGF0T/n?=
+ =?us-ascii?Q?2PXfAjCIMb2K9ujI0JPOyHO1S2VTLnThXIlNEAZIrHRugR+CGfQS8MFWTfM+?=
+ =?us-ascii?Q?xVWBuOXsIXxWZwtrQmsyFOANTI67pQEO9qY4zvyKwAmUabOigZ0HSI7/Phd1?=
+ =?us-ascii?Q?iHQH+G1NPEDq/WrjXG3MXmNgfqC6mIrA+VJmLybI1i4jDm/nXtGjthSWcWpS?=
+ =?us-ascii?Q?Doyhbn8YODPhTLsv6yhBlivLXneqXGP1fZCtur1+F4RmpHFuyLwjwpp2EphU?=
+ =?us-ascii?Q?WR5Db18nfEM+tObmblnqK+Wq01c7BjiC0txoAwRY4i0cXjxZ9aAahFbYc65l?=
+ =?us-ascii?Q?TA+Vk5Jp3NX/bYK999V5PFzAhVrGQ9o8hSJjr4a+5gVzGAGaTTlPhUmwpwcx?=
+ =?us-ascii?Q?38Q0LXlgTaZAqfprM0CI3QJWLwjH6C5gL9mmbCbrMkdo7bwqOpoJeKyT9Shy?=
+ =?us-ascii?Q?W7ptTCZguuOibRDgh3mvTWgoxSZr/OTIEPelU0GB0a4bIZ9Efw9PGToEuGYB?=
+ =?us-ascii?Q?OO10x/CQBvALfIIm3WXEyptkVtaPBgnij3Ccrv2LvZjq3RQLifoyJadK5PQe?=
+ =?us-ascii?Q?UbKtnngdgVxigE6TTrMLfbdQsBXVWVXB/jfryWrTzzj97tTxFshuQ+xxj1Qz?=
+ =?us-ascii?Q?5iqyZM/Oa3WeW22YxPgZot1cWoTRlD9tMhVf+XZTb6/UScYHwwhSzlFP/qab?=
+ =?us-ascii?Q?t1aEtYaQQ0p6NMww41zTU9mYUWISepaeldCmjewwvjYo1HAWBvQEgS1Wy/1H?=
+ =?us-ascii?Q?p1/KHM1BUswdRLTkpOrdQFPy8Jn6eEkIeEA1w7zhWGOJJyHEE2xSd1HIcMAJ?=
+ =?us-ascii?Q?JAa+/aZMARCreXLlgf0OsFLSWM8Uuub5ZzJy/FQMc4QnWbnvQkJW0nzLgldh?=
+ =?us-ascii?Q?GTL6Yqk249J/AFl8d6cjwSeg0KB3k5u2DUJuhx3qWxq9ISFGkdHWfPJ7QxTI?=
+ =?us-ascii?Q?TV0HSQd+A3TvazVi5Jkvg+Z34A+lbwoKfbSmfn5P3aDY+2P/RG6IXd4UenxB?=
+ =?us-ascii?Q?TDQR7O/JeKWsLF3LEYuK3TyXfJ7LhrLosZvQ8zlYH9MOk5YC2a3azBCTJ1UH?=
+ =?us-ascii?Q?nGK8cV6/VrAGqg0Ew/oW1ZWHEPe8wo/U+RM9GW3TQwdr66GAC/jepkR2fqVI?=
+ =?us-ascii?Q?TblVgEtkgqpHB116wgsHdrOUpyO6kZjag9rE0cLkw4mjBAfPOoLoonjSbIX1?=
+ =?us-ascii?Q?d/0tIdaPYZbZvi+7l5HHhhRTqGiAH65rxzj1L4dOhPFWyMd62nvW4GersMCS?=
+ =?us-ascii?Q?KjW/Pm/JYYQytmRJq2t1K+lfdAXJQVX4QKQcpSyY4/F6e1PwX3gbzUiawFTD?=
+ =?us-ascii?Q?twxUkGOmBMj11MTeBNl/XYEea04JSFSPvMdm2iP4ANs9fBshDnD5AF1uHmuX?=
+ =?us-ascii?Q?U7PWJ+AGtzsecEihu9nE1RtRuLpNnoL/wnetfoFapkZDMi3RLJS39nVauCwe?=
+ =?us-ascii?Q?M9b18hPjV2/7hQIzAAx6XHyLwAdjbTkh0+Bx8uEwj9WEXonWGh4PMchDR7BL?=
+ =?us-ascii?Q?jygTukwoMVLJiV+prwDlqnzQ8Ds5mrlO8SnLYsKaKTj7aNlICLiVbnzv5uCg?=
+ =?us-ascii?Q?/IIRD6Lgn8Ooh3tYDKp3KCRdrSaQ31MFucszLS8lMMCrYxyPtAqMFACBwwFr?=
+ =?us-ascii?Q?FTwYROa506rnyNT5l/+Uuiz1VgYcJDs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <B4E3208D5EB8824D9068A50B53650616@eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,71 +151,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: blueye.no
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aac9b760-b289-4c78-5cf6-08df30271a0b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 10:27:40.8312
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dbc4cd1-1d79-4d06-ad6c-d195dd1113de
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Bkgygpmv+C5K6lK377oxFxy8UMqen8BYNTQORp/vHROWKTTJg95gtJ7mlthj1cxa5lJaYcy38e+RN5JRSczZrpzrD6M/GMGbsuukXWyjUPo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7293
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Hi Ricardo,
 
-snd_soc_component_update_bits() returns 1 when the register is
-updated successfully. Treating this as an error causes
-ntp8835_hw_params() to return early with a positive value, skipping
-the remaining configuration.
+Thank you for the review. v2 is out, with the shorter commit message,
+the release folded into uvc_unregister_device(), and your Reviewed-by.
 
-ASoC expects .hw_params() to return 0 on success to mark the
-operation as completed.
+v2: https://lore.kernel.org/linux-media/20261022-uvc-release-intfs-v2-1-901=
+bc1c47cfb@blueye.no/
 
-Check for negative errors and return 0 on success.
-
-Fixes: dc9004ea273a ("ASoC: codecs: Add NeoFidelity NTP8835 codec")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
- sound/soc/codecs/ntp8835.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/codecs/ntp8835.c b/sound/soc/codecs/ntp8835.c
-index 39620b84e214..2be713e99eab 100644
---- a/sound/soc/codecs/ntp8835.c
-+++ b/sound/soc/codecs/ntp8835.c
-@@ -321,7 +321,7 @@ static int ntp8835_hw_params(struct snd_pcm_substream *substream,
- 
- 	ret = snd_soc_component_update_bits(component, NTP8835_MCLK_FREQ_CTRL,
- 					    NTP8835_MCLK_FREQ_MCF, mcf);
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 
- 	switch (ntp8835->format) {
-@@ -341,8 +341,10 @@ static int ntp8835_hw_params(struct snd_pcm_substream *substream,
- 					    NTP8835_INPUT_FMT_GSA_MODE,
- 					    input_fmt);
- 
--	if (!(input_fmt & NTP8835_INPUT_FMT_GSA_MODE) || ret < 0)
-+	if (ret < 0)
- 		return ret;
-+	if (!(input_fmt & NTP8835_INPUT_FMT_GSA_MODE))
-+		return 0;
- 
- 	switch (params_width(params)) {
- 	case 24:
-@@ -364,8 +366,17 @@ static int ntp8835_hw_params(struct snd_pcm_substream *substream,
- 	gsa_fmt_mask = NTP8835_GSA_BS_MASK |
- 		       NTP8835_GSA_RIGHT_J |
- 		       NTP8835_GSA_LSB;
--	return snd_soc_component_update_bits(component, NTP8835_GSA_FMT,
--					     gsa_fmt_mask, gsa_fmt);
-+	ret = snd_soc_component_update_bits(component, NTP8835_GSA_FMT,
-+					    gsa_fmt_mask, gsa_fmt);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * ASoC only marks the DAI hw_params as done when .hw_params() returns 0.
-+	 * Since snd_soc_component_update_bits() may return 1, explicitly
-+	 * return 0 to ensure the DAI is correctly marked.
-+	 */
-+	return 0;
- }
- 
- static int ntp8835_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
--- 
-2.43.0
-
+Best regards,
+Johannes=
