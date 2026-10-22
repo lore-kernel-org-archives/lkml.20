@@ -1,91 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792658618;
-	b=0dcJCzhUxSP9+m8l70/f36H9oWrrz4tnzAkk2l6Az7JNOsKDHZejAc5qSn/NxWwOnTC+
-	 lf2s1cnkRqkkYf2Mj+DjzAFvqu1hGHujlr1y9rqKmEazVREigwuw+NfDBcDRgtLjMXzaw
-	 18RUYf58h2MA7UrDvS2meTyvGoMxa5535Ng66uKLvja4vZoYijKtxhw+TU+CfxCNksq4N
-	 /rShc67C8xPu0B3Tb/lcUd7rA2ieGJQEQceB1p3W1mdY6AF/ogtBTjzv0hQ7mnZegNaD9
-	 yzmH1W/WRlDRdO6eiVU+xNRCFbeGWPnu+pf2wmn3o8goku7JQR3fnjiXdQ6ADjuQS5w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658618;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=KkSwwAGW7bSa7CAddKjsk/PhMiB8SZPp1DiWuNFu1PM=;
-	b=cMuemlE7R4N8NDGAorD96BEs/kG2q8GsGqq3RNT4ESM4EBPtNIi0CN29US9n65ufa5WF
-	 byHw6rGVN/YRFTzu/Xcih1cMFST7f6kbiTQYQpWYFDsOKQItvTyvifmPGR5tHjojrRFAo
-	 PiUVfzKLsXiGdRvUa48lU7/QaIg+txpblyGysastpma082r1I9UV2VCK1df0943onpkm+
-	 cNrS0U71QXD5HIG1xiPnguBWV6abobm5t4mXHpUCMCFikhZdKOaNv6jQo5m+ZzqJJMy3j
-	 LAXyHzxuMlhm6tsrxnhusQn3jqWUH7azLu5L0rGL+arlzEPomeeonx8hCCQkzDVp9Vg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="TZv/3e0a";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792658665;
+	b=Zd7APd0MehG9QfwZnJ2FFRHUn/ebenrRaAZq4VQyGM0v0eAvcF/OXr8vtnU+UwF5sXhA
+	 cQGtmdShF5+W139u3Yv3ut/3Ddl89uKKkFCcMlHz28p0op6mrR4rnHhr4zb9K2/CHm13/
+	 RddJgoRL55Zv+sPZeqGfBO6r99Il6gQgqO50rQ9nkqD3t9r7EXjJQEBsEbXAPVbbTJdTM
+	 q908U+VLFb+lpEbccRcfbIEFQ/97+YcQ++3ouA6H8tAndR/IFO5y9Q/PJR3XKGtbVBQ57
+	 mKUMER24S0L9hJJBcVz/bHXjJvMEqqPCECX5p+ZprVDIfJ62oJNWAqr9lXxU4XJrIcw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658665;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=4D0rJHqRh/8AKwxOHlD/axx4zgHO0+ep+YacbjEkTGs=;
+	b=cU7mUjTF6CFUdKE1s1WQ8HaTlc9jFHY1Ij44TGXrEt3YjsIzHJwbuNTy+GBbGrT47p1r
+	 hgv/wrlJkYXRJOCatPcXSF/9R4ibzglXsjH2HhbYlQVOuoZv3BVAI4Ooj8axzutb/VClz
+	 MlSvB2OnDZvtiqXKjqCL8c7LC9iDctRUIhJyGHXqWBOtd9N2jC92mM6Kjf4b/Z4KFH3zv
+	 mTK03ThR+3RtO7mfICY1auupQpUvt3rBYKTkjTGUvkor/PBb8YlbFcHnbxNQ/pCqJwNCl
+	 L1iS2DiLnIa3fspX+EG0m18cxu7XMvf1+BlD8M/FSQIMi+wGyIMvPs+PdS+RJLtg7eg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="H/JIqzv7";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091EC606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:43:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 091EC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC246606A319;
+	Thu, 22 Oct 2026 08:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=TZv/3e0a
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 324A02009B1;
-	Thu, 22 Oct 2026 10:43:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792658615;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KkSwwAGW7bSa7CAddKjsk/PhMiB8SZPp1DiWuNFu1PM=;
-	b=TZv/3e0aud15HS2g+0Ri7uG2VJn93G+qMsxsWmOgLKzQamPLKM1298UWXKYo5/mx21cYaK
-	LAFFlcKq0RpKhZlYz7xpUaoo1NsqSpbOVoM+7SpajXkU72GROQ1Pe9R5q6ZICrnmkcI7dB
-	sua2DDtcmam/ukkLtqRwQm4nycbxiv5WhVIV3jAmhfoWPQOm0F0u3tZ8rI9ytMjBr+5cAx
-	+b98DEoMjg+Vv7WpdexSWKLmMg4/UVrFBUCwVJDxN6cEDQyUU2fxX68Ctru3BpYOk9TeSn
-	Oy3Owdysa1aMK7rlG9jwYsGC+pZeRjRxfFmsqA4VlL+QSWrVruWfMN8FC6YJ6w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792658615; a=rsa-sha256;
-	cv=none;
-	b=WsNpO+0XW/FpvE//VYM3VnM8kwg38A7aiDepA8VXuTZwcCEzhgo/Nb898dTMVM68/dsU9s
-	lk7Q7idCHQ2cENaZMyk4xCCEvAVD2vSxgBr5nWrN3BJIP7Em7y7bJl6j3yLqzOmN0cM/OS
-	MUUaga3GVKsn03JEhUOwM+WtRYkuIESVzafLhb25BZNMhcZgUN9/HyWD38J87Ggc1dGmum
-	Ich1e2I32X3mWGbDS4WLVBk/g5bod7P17QFN+ff6BIAEvKPJK65ouvkNGKYOdS7Ro2uEcB
-	MLyXyBnG6DbxaNUSqiheU+xmWe6/Cg9GHfvBGoGUeNgN0fCzvv0f7GGZH7T1RQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792658615;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KkSwwAGW7bSa7CAddKjsk/PhMiB8SZPp1DiWuNFu1PM=;
-	b=HJtOWQ9SdOTYOj2QdPHJOQs/qLdDun6YGQJiN99V3ySh0iJYDTXrO7RpDvWbuntxneAfjN
-	O1Wm8gyYLlGisAuStZ+cWARFQQrhRLqNNrHAqD1L4iIj+d6tfQoOZRjdKQCURcoxk3qPX3
-	C/QHJBhRfYomun3AZeozyWcONJL93L5dzNbEykx7pXSXOKeuvfEhV23DvjGPJuC4Uz8x1X
-	HIccE4wWbGZe79CKYi7Naj0B7dzlnW9ZWr7SxwTFE+e4SxJNZwEq/A50lZS+ZX+uGomAhA
-	1vHlPIyp03EQ5ysylprxv7rA1oVgEsOpu2L8OeUa+WAPWhBSG0GPnJSi/iAC8g==
-Message-ID: <ee622e48006681f9a25e556e3db360378213a5ce.camel@pengutronix.de>
-Subject: Re: [PATCH v3] reset: core: Serialize concurrent deassert/reset of
- shared resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alvin =?UTF-8?Q?=C5=A0ipraga?= <alvin.sipraga@analog.com>
-Cc: shengjiu.wang@oss.nxp.com, krzk@kernel.org, hansg@kernel.org, 
-	linux-kernel@vger.kernel.org, broonie@kernel.org
-Date: Thu, 22 Oct 2026 10:43:35 +0200
-In-Reply-To: <atjA6l3H5kdrC6SN@analog.com>
-References: <20261021030925.3543841-1-shengjiu.wang@oss.nxp.com>
-	 <ef5277d07f977a82030b1e61ef8db2609a5d6aa1.camel@pengutronix.de>
-	 <atjA6l3H5kdrC6SN@analog.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H/JIqzv7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBEE1F000C1;
+	Thu, 22 Oct 2026 08:44:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792658664;
+	bh=4D0rJHqRh/8AKwxOHlD/axx4zgHO0+ep+YacbjEkTGs=;
+	h=From:Date:Subject:To:Cc;
+	b=H/JIqzv7+kmqbSZvX22m8YEdAh6qzL+PaKtQ0+9YbjorYlyvXIspDI8Os/Vvnjl9q
+	 e3zkxPCcxf7J96Z2GXMfSttpQzfr5jESj3SXrWlcA1U1xnEk8Nc+0h6sZMxkO/kpSk
+	 GiOe2Hbqkm3LL/GWZg0mDhV8yl2f5TJ0PDU9zEOBZ6WucsHabG97xsKXphCIlE903s
+	 GypxQnSjN948mxsxVAP348lW8CoC9/02MBtQEi1nagBn/kBG0nhFsrAcvw1fjQhPnh
+	 /EUdmjAZGr04b0IsrGIUarZxOlBID/GMpFFA5uVreUVq9QIab//a4yMmmu5v5sRh2H
+	 yozhiZ4W6h2aw==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Thu, 22 Oct 2026 10:44:02 +0200
+Subject: [PATCH] irqchip/qcom-pdc: Handle ESPIs in qcom,pdc-ranges
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,61 +52,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-topic-pdc_map_espi-v1-1-7c481a42bac5@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAxA0atI1hZqdUS8iog4TUYjqKHRYUC8+
+ 1RdvsX/BygFJoU6OSDQl5XXJSJLE/BjvwxkGKPBWVdm1jmzrcLeCPpu7qUjFTZFjkVuLWL1KiG
+ GEujDv3vatI91f0/kt+sE5/kHKOkutXYAAAA=
+X-Change-ID: 20261022-topic-pdc_map_espi-43d4300dd856
+To: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
+ Stephen Boyd <swboyd@chromium.org>, Marc Zyngier <maz@kernel.org>, 
+ Lina Iyer <ilina@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792658662; l=2155;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=EUD3WqUHZTgz9OzY3594TzoRv+NP0oCm8r97bGUg0+E=;
+ b=MGVSWM+DLFxT1bMRvgkyPSLsALY26JnPMfu3jrU0us6zcGputJ4ixQDI8s+Hth5X8mk8T185T
+ 7pK/x1/0zSfAE95yOYrTimL3ADjz8XsXvXLzumLj5Prq3ZkeKSOHkFz
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Mi, 2026-10-21 at 16:16 +0200, Alvin =C5=A0ipraga wrote:
-[...]
-> Looking forward a bit to the second phase where we have everything
-> serialized, maybe it will make sense to also lock around the call to the
-> .status driver op too? Not suggesting we do it here (as this is just a
-> bugfix), but in general I like when subsystems offer a guarantee that
-> driver ops can't be called concurrently. Also the status is kind of
-> undefined if you're currently in the process of manipulating the reset
-> line.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-That doesn't change with locking if you can't act on the result of the
-status return value under the lock.
+The qcom,pdc-ranges property maps GIC interrupts to PDC output pins.
+That data is then subsequently used by irq_domain to resolve into the
+interrupt parent (which again, is always GIC).
 
-A concurrent assert/deassert may lose the race against status and
-toggle the reset line right after status unlocks, before it returns.
+The code that handles this hardcodes parent_fwspec.param[0] = 0
+(GIC_SPI). Make that conditional to prevent this warning at boot:
 
-> What I had in mind later on was to rename what Shengjiu has called
-> shared_lock to ops_lock instead.
+GICv3: SPI 4115 out of range (use ESPI?)"
 
-We could also combine this with the exclusive reset control's acquire
-"lock" if we move that inside the SRCU section.
+Fixes: 81ef8bf88065 ("irqchip/qcom-pdc: Add irqdomain for wakeup capable GPIOs")
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ drivers/irqchip/qcom-pdc.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-> With the following primitives:
->=20
->   can_sleep?    CONTROL TYPE       LOCKING PRIMITIVE
->   --------------------------------------------------
->   no            shared             spin_lock_irqsave
->   yes           shared             mutex
->   no            exclusive          none? see [*]
->   yes           exclusive          none? see [*]
+diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
+index 29025a212ece..bf4951dfa0a6 100644
+--- a/drivers/irqchip/qcom-pdc.c
++++ b/drivers/irqchip/qcom-pdc.c
+@@ -9,6 +9,7 @@
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
+ #include <linux/irqchip.h>
++#include <linux/irqchip/arm-gic-v3.h>
+ #include <linux/irqdomain.h>
+ #include <linux/io.h>
+ #include <linux/kernel.h>
+@@ -21,6 +22,7 @@
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/firmware/qcom/qcom_scm.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
+ 
+ #define PDC_MAX_IRQS			256
+ #define IRQ_ENABLE_BANK_MAX		BITS_TO_BYTES(PDC_MAX_IRQS)
+@@ -597,8 +599,13 @@ static int qcom_pdc_alloc(struct irq_domain *domain, unsigned int virq,
+ 
+ 	parent_fwspec.fwnode      = domain->parent->fwnode;
+ 	parent_fwspec.param_count = 3;
+-	parent_fwspec.param[0]    = 0;
+-	parent_fwspec.param[1]    = pin_to_hwirq(region, hwirq);
++	if (pin_to_hwirq(region, hwirq) >= ESPI_BASE_INTID) {
++		parent_fwspec.param[0] = GIC_ESPI;
++		parent_fwspec.param[1] = pin_to_hwirq(region, hwirq) - ESPI_BASE_INTID;
++	} else {
++		parent_fwspec.param[0] = GIC_SPI;
++		parent_fwspec.param[1] = pin_to_hwirq(region, hwirq);
++	}
+ 	parent_fwspec.param[2]    = type;
+ 
+ 	return irq_domain_alloc_irqs_parent(domain, virq, nr_irqs, &parent_fwspec);
 
-Yes.
+---
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+change-id: 20261022-topic-pdc_map_espi-43d4300dd856
 
-> Where all reset control operation functions look like:
->=20
->   reset_control_op() {
->     ...
->  =20
->     lock(ops_lock);
->  =20
->     __reset_control_op(); /* inc/dec, ->op() call, etc. here */
->  =20
->     unlock(ops_lock);
->   }
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-It might make sense to split these into _exclusive and _shared
-variants.
-
-> [*] I'm not sure if it makes sense to add any locking here? I can only
-> see it as API misuse if somebody is manipulating an exclusive reset
-> control from two places at once.
-
-Right.
-
-
-regards
-Philipp
