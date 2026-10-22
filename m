@@ -1,102 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792654456;
-	b=AOGNCXvHV75+8wtRbgxDhKfQwS6l6yncXhEbXClzfJ33OtxdyP7ZKuqkUvAVGb+KYfQx
-	 GmxjU6spfovqFkUYS8jOapfUxc/eFS1fiapbdi7vaNup5q1mIFaoFrE69tq3/OwJeUPGA
-	 FIIz6TD7TOxllqvA3rXP3JYlegtjyBqkEP++wP+KN9il+RR1aWWPLxzTGsC4FJS26gwOU
-	 2MWuoac0sKBKDw7SklOxdAsnz/N27UOmAJDxqqEKCda3VviguXnPbZ4Sm5t0N92+hiIHl
-	 nriS/mjgEZyqpnll0x+A+UEAioEyLxjvdLJKjOjbBOfli3Pe5gSEPBNR9gpwuxjNhDA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792654456;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=xROOygMrC7yI0A+nFF4ZYUpCmGBkajWRjJ/AHQXTEQ4=;
-	b=JwsB/wP4dcpE9Hmfwoplp2PZq5HO083qFxR+GDleth7CZfB5D5lacybO773CbyK6Gy6l
-	 exBx1JUK9yne2BN1s/zZ9jQkDHPLbs70pJDdUlT38I+wV8v0JNHxIvr3Yc1F23RB0/pUr
-	 10Zg9JXO368PUqs0wNcXH8r8SxKEDtjzXMShILnnxSGpJ1v0lPfwsa65J0uy34BXgJDri
-	 v3asMOEEebpRgnWnJCUUdawzDNm8MNzWecSSxTNb5zfKP7YwlxedZ/jtSkVYHFidqcl/F
-	 5zgxM5TpoK/+10WpjgPbFLzwZIm8h9NHOnxt1+Gs3RkAEaxdKFrTqlER6u8MqFEVIBA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Gdj024Nn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792654604;
+	b=Nl51yLo+ww8HcSmApjlKHxen2pRoVmrqYSgxJe8gNExXhaMc6jMQNtur3YieNz7pLNJr
+	 wTM1DGgQnK++Gxl8l32cNbv4MnRtAMu2Ji14AigYoGDIEV7NLKJ1xaX0sN4pExCQmN3nS
+	 QcHMbDxmcxOjfeAKtp3hdu8e8rYCa0P2n9AeQeAPaIrqsaI79Vn5Fi+GPrNZWHriydoIt
+	 dI1kuYa4KkesQ+SuSem7eCElg3QzuF0jV24A+EDvQxNxupUNCXbZNMpUVNJ/9DjGUCCdq
+	 wVpinwW2GFU+/3iAmGgq0JRq6SuDEtcl9bKbXy5x3TExRVI46sfnoWG5GObVUWZj4sQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792654604;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vhZJaErBTvR4/vMLVwCau5Oaj0vnh/Fm4H8k4FT36Fk=;
+	b=aCpIAJN+uCQbIuq7o1Rrx2gB6fZrMXv0t30e9llyBcUzBrto5nqUhWJUlvUxaILRJTrY
+	 BCYzw94vl/m4n4uuyZlUmyZbWLBAt1uWjU3jW5MzE83TtUjgLE9QJgMlXKsempLXaejL4
+	 iEvUo8X8mS76zSji5jfxkjrCS1vNnKHmSu82g4I5Hq11PM5bMy5S7Zmiv02CtUV/ugGZc
+	 GhWS2FQsbhAmzwlPU/PnuEuqJ1ocslHfdMcZFIUVETh0WP5K+7GvAm7kUTBKnk5t07vu2
+	 DsXrm4/KazwOyOywyNhb3dl1X12sfh+FUVgh/YAq1YzYI/GyjejckafZPf01vKUpVDg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dN08mXkf;
+	arc=none smtp.remote-ip=74.125.227.138
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E3FB606A319;
-	Thu, 22 Oct 2026 07:34:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E3FB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 931BF606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:36:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 931BF606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Gdj024Nn
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E1A60200208;
-	Thu, 22 Oct 2026 09:34:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792654451;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xROOygMrC7yI0A+nFF4ZYUpCmGBkajWRjJ/AHQXTEQ4=;
-	b=Gdj024NnjPJEMCrSkozLYT9/WBzs9FO1ppOoT49t0QpZLCA0xTLzxP1EEZLbcOYavI/BMV
-	YR/dlWITmq6Hjzp0AUBN6laD4H41EDyDFzkYWR1r87C6FyU8vKJcvhhNcXtVIQ89g6CVj4
-	kpB8RgcOsiU82kgg71M1fAlmHZ+DqCGglsvf+Dj4kacIc81bkOOy2v5+dzcDFh23L6TM1b
-	K8nTJ9xPTsHHq2hcTxiylI/5v1FDelwuRKfS2c3jeDRGsox486yu+AiMykmTcUOzbJ8q4A
-	4m13khCmaUgfi1sn9G/o92UxQX7On5YVHjXndBwhnH5SLoI1cT8Mou5cgUZL8g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792654451; a=rsa-sha256;
-	cv=none;
-	b=K6tDTmGVqttjIvUA0277WHeDrW3c+DgDD27uydGhNehJBcJ8Gxv0S3C7d6OwD/qofX91Vn
-	u8vVR53KchcdYnKixAgG9wHVSymtWBQSm2WcFw81eilE6g/MvSlu26bWJNv4Uxf7o6vnJ8
-	skxSl5hmyaLt3ViGImyI6+M158H5948PNRZB+Twfl2ZF1AQcZPdaqBmWR11CtuRoTveLab
-	hF3zX26qmlJGP6h2ny+ofR9lZblP1J4ggYdkGtGOMm2Pp7SmCAWFVhHis4BgQECOYWJ+VA
-	OHCRpTKC8ZZE1IwV/qTv3NrzwkBWJ+kDNURLt6c05N0PwzrBS278tFFcYUGpsg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792654451;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xROOygMrC7yI0A+nFF4ZYUpCmGBkajWRjJ/AHQXTEQ4=;
-	b=MfEaOCMl7VqKc0pwv8/hpBfooUhVlnIPhn5l0aiCUHmHZ7kSWZ0A6PWlWzni8oB1wa98PE
-	RnGd4kqB0nNCK0vwXdVwcoNi55TDTv/FdeS6DNfrw0OX0oL8RW1H4xzf5Z2P2dHH2iPzCN
-	K1M2r13Ru1bl7pLr7MQxyRuZje1Fr8CndEHvPLMjAJbhYxqQ+/3uOCrIsXTD9bsB3TyMw4
-	3N8OHflOeO22sAdmawTbjsw++AI0vlxnNxzYguzHJ6JZZ1AziGUiPViLoE4+373lSrLseT
-	WEhjUqwXU8qm2Q4ARRAF/Q3NJWYnH2lu+TrowA945riRiNigqQ6Yk9RkWx0Vxg==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJnJT-000fgG-2h;
-	Thu, 22 Oct 2026 09:34:11 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJnJT-00000009QzU-2zGy;
-	Thu, 22 Oct 2026 09:34:11 +0200
-Date: Thu, 22 Oct 2026 09:34:11 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
-	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 10/14] net: pse-pd: keep the PI data until the PI
- regulators are gone
-Message-ID: <atm8c3oJomYY3RH6@pengutronix.de>
-References: <20261020171249.853085-1-github@szelinsky.de>
- <20261020171249.853085-11-github@szelinsky.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=dN08mXkf
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-3abe4821449so826358a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:36:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792654604; x=1793259404; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vhZJaErBTvR4/vMLVwCau5Oaj0vnh/Fm4H8k4FT36Fk=;
+        b=dN08mXkf79FFDAxGBHR+VMNEFIyIUS6++BEmKBtNUdHXM63ew7nmjMsMUQn/Wa+QyB
+         jwEHtTzMruw8Snt0J9YMI8P+3n2jNtTxLWbROTcI/TFckIX8xdVZ+XekmcVVnn8VoODl
+         ikt1YVFz9mh+TT8fv/FA0/qBzXde1lJfmVfwvkjZ0Hax5xYGgrRPoy7vVaEpiFfrWvEq
+         S6U7av0tL+2k/pCCeaON5a608/VhzdCJgqIvizv+juQmWcAhhE0nDfaW12Y6L9FvjDCg
+         P5riTgwu3V09dwBwrLRd5GBeWmoryrEWaFdCz6OeXX7dCxZZxSxjc4GRo1PygV9GcRbL
+         wUPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792654604; x=1793259404;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:mail-followup-to:message-id:subject:cc:to:from:date
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vhZJaErBTvR4/vMLVwCau5Oaj0vnh/Fm4H8k4FT36Fk=;
+        b=ASgcvpquVvJYT+W+J7vcLqul1mjmzRHU/Aej5FH+O/syxxy7I6TiEOyhFAWkAC2TdF
+         uTEKjp/lkio8WiJyWyfAA0D9H2xBTDQ5yaW4lS9xuRxi0W1vLaMO5P5RSS3AzWVxgNYr
+         uU7kLf2yeDJoTEHyFTtZasGSggXVfGcMBj3wlJLKaYdTyQKZT5pymsNPUTYJ5QdlC+An
+         0wqhQswkQFOzrhWwq6CrWMmtg/CHKpGrTh+a+dVqjY8gQ6aSmy99P3apaqNig+pLss96
+         aEsQi2uO6l9FCY/C0m2iVE9MusXpJoaa4jWNuY6YT+RYTfb/GvhbLxMO19UVLRrGwFy9
+         9jRg==
+X-Forwarded-Encrypted: i=1; AKwUvBxOdG3iqWaD2Uy1zlh7P372IdElZb3/2aG3iqLVz3hO/QJLtEe155mXBwVan2W3YSnS/Y7Z0FJLxhcOrqc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK86gw+G2Zn/E30XDqs5A0be5l0HwpZo8I+nFP6m/BVOCxGzLzT
+	2oZ0zcM68IgQdV/pOJOhJOZ0RZUki9TiUV7Bg5SdD8SEN+AmNsI6w/3m
+X-Gm-Gg: AYBFou3RFrQbPA+D3kHY+YgDvHKIXv5RyJS3Wgec5bVPLFP2UbCHsphf3IUkdPcEh/F
+	Aci6Zpj4t3ZxR8Le4eqI0/wHRJihVGuzKdpePt99lCTtJdivQ5aNtD87VLQczkUd63BTZkU4sOv
+	K+ssc1igAmShAAnsRf7PXnWhU0pIGWGAibp1LPNwlRcNfmVidv3CW1/FpHQVirPlaS8i7j5Ckfx
+	N2wdHwoLVG6bDktHE2Lh8wApjSBuZB0sTSn6xVskNdz+DT86ZEPo66jMeFQzZM4K+xYae96ikLN
+	pJIThVPz9YyC2CHJhQdAJXJT4H3a6WU74+stzFry4bofroi4mY4MFZXQQine2o8FKU4Wi8Izbmc
+	urDhbwiBBPJF+nNngKa09IYIfYbRSJXT/T+wizmS8Klq52TrNwdk9JYCss1A8/2V5u1tl4PK9SE
+	MivR26N/MtwUSZOu4j5mt9Eh1vW/f/kLXhe+GHv9HHa01LDOMKsjWyR/q6cFi1EuKJ3N9UdYmrI
+	u5wFMzV7RUtDU3MYQyxbaivoLHw9vgIIs/xk3eF4VYnolMcLCo8m1mBbYFEeoQJ7HI17tUibRpl
+	fqrSvKg=
+X-Received: by 2002:a17:90b:39ac:b0:3ad:85fd:711c with SMTP id 98e67ed59e1d1-3ad86ce82a7mr3886173a91.28.1792654603953;
+        Thu, 22 Oct 2026 00:36:43 -0700 (PDT)
+Received: from J4f-Laptop.localdomain ([183.36.237.113])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48876ebsm2951117a91.1.2026.10.22.00.36.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 00:36:43 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:36:39 +0800
+From: Shihuang Liu <shlomojune6@gmail.com>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
+	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] Input: joystick - use usb_make_subpath()
+Message-ID: <5wdnvsf6bepzpxzfizt4fs3325denwzeeksg3b3hpmzu3257tk@ms7kh4fcgz2k>
+Mail-Followup-To: Alejandro Colomar <alx+linux-hardening@kernel.org>, 
+	linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
+	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
+References: <20261021123146.17202-1-shlomojune6@gmail.com>
+ <20261021123146.17202-3-shlomojune6@gmail.com>
+ <ati7yINv0_Z3yPMg@debian>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,87 +105,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261020171249.853085-11-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
+In-Reply-To: <ati7yINv0_Z3yPMg@debian>
 
-On Tue, Oct 20, 2026 at 07:12:45PM +0200, Carlo Szelinsky wrote:
-> pse_controller_unregister() frees the PI array, but the PI regulators
-> are only unregistered after it, by devres. Until then their ops still
-> run, for example on a read of the regulator's sysfs "state" or when a
-> consumer enables or disables the PI, and they read the freed array.
+On Wed, Oct 21, 2026 at 03:21:28PM +0200, Alejandro Colomar wrote:
+> Hi Shihuang,
 > 
-> Free the PI array from a devm action that is added before the PI
-> regulators, so devres frees it after them. This also frees it when
-> registration fails, where it was leaked before.
+> > Date: 2026-10-21 20:31:42+0800
+> > From: Shihuang Liu <shlomojune6@gmail.com>
+> >
+> > The pxrc and xpad drivers build their input device physical paths
+> > by appending "/input0" with strlcat() after usb_make_path().
+> > 
+> > In preparation for removing the deprecated strlcat() API [1],
+> > replace each pair of calls with usb_make_subpath(). The helper
+> > formats the USB path and the "input0" subpath in one call,
+> > avoiding a separate buffer scan and append operation.
+> > 
+> > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+> > ---
+> >  drivers/input/joystick/pxrc.c | 3 +--
+> >  drivers/input/joystick/xpad.c | 3 +--
+> >  2 files changed, 2 insertions(+), 4 deletions(-)
+> > 
+> > diff --git a/drivers/input/joystick/pxrc.c b/drivers/input/joystick/pxrc.c
+> > index 52d9eab667b7a..1a11e73d7cd04 100644
+> > --- a/drivers/input/joystick/pxrc.c
+> > +++ b/drivers/input/joystick/pxrc.c
+> > @@ -169,8 +169,7 @@ static int pxrc_probe(struct usb_interface *intf,
+> >  
+> >  	pxrc->input->name = "PXRC Flight Controller Adapter";
+> >  
+> > -	usb_make_path(udev, pxrc->phys, sizeof(pxrc->phys));
+> > -	strlcat(pxrc->phys, "/input0", sizeof(pxrc->phys));
+> > +	usb_make_subpath(udev, pxrc->phys, sizeof(pxrc->phys), "input0");
 > 
-> While the controller goes away, the PSE core must not power a PI.
-> pse_controller_unregister() now first sets pcdev->unregistering under
-> pcdev->lock. After that, enabling a PI fails with -ENODEV, and so does
-> _pse_pi_delivery_power_sw_pw_ctrl(), which pse_isr(), a priority change
-> and the retry after a disable use to power a PI. Disabling a PI still
-> switches it off and frees its budget.
+> To be honest, I think the composed approach is more readable.  You don't
+> need to learn a new _subpath function with all the details it has.
 > 
-> pse_flush_pw_ds() also switches off each PI that holds budget and gives
-> the budget back before it drops the power domain. Nothing controls such
-> a PI once its controller is gone, and before, its budget stayed
-> reserved on the supply. If a PI cannot be switched off, its budget
-> stays reserved, as the PI may still draw it.
+> Everyone knows what a str*cat() (or str*cpy, FWIW) function does.
 > 
-> Triggered in QEMU (arm64, KASAN) with a test-only PSE controller:
-> reading the PI regulators' sysfs "state" while the controller unbinds
-> gives
+> I'd rather improve this by adding strscat().  The reason for removing
+> strlcat(3) is that it is vulnerable to DoS, and that it is inefficient,
+> but it is good at producing readable code, and a replacement should not
+> degrade that.
 > 
->   BUG: KASAN: slab-use-after-free in pse_pi_is_enabled+0x294/0x2d4
 > 
-> and unbinding it with budget reserved leaves that budget on the
-> supply. With this patch both are gone, the PIs are off after the
-> unbind, and a priority change during the unbind no longer powers a PI.
-> pse_isr() is not covered by the test, as the test controller has no
-> IRQ.
+> Have a lovely day!
+> Alex
 > 
-> Fixes: d83e13761d5b ("net: pse-pd: Use regulator framework within PSE framework")
-> Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+Besides that, strscat() has other issues:
 
-Freeing the PI array from devres after the PI regulators, and refusing
-to power a PI once unregistering has started, look good to me.
+- The `sizeof(buf) - len` arithmetic is a classic source of
+off-by-one bugs.
+- any future change means re-deriving the offsets all over again.
 
-Please drop pse_pi_power_off() from this patch, and the text about it
-in the commit message and the cover letter.
+I'd prefer to avoid strscat() here.
 
-The PI regulators follow the regulator model. A regulator that goes
-away does not switch its output off; the consumer has to disable it
-before it calls regulator_put(). For a PI the consumer is the PSE core
-itself, on pcdev->dev. So on unbind every enabled PI should go off
-through the normal disable path, before pse_flush_pw_ds() clears
-pi->pw_d. The disable path also gives the budget back.
-
-pse_pi_power_off() switches off only the PIs that hold budget. That is
-not enough: a PI under hardware control, or under software control
-without pi_get_pw_req(), can deliver power with no budget allocated.
-
-Switching the PIs off on unbind belongs to the fix for a pse_control
-outliving its controller, not to this patch. Patch 11 calls
-pse_pi_power_off() from pse_pi_take_pw_d(), so patch 11 needs to drop
-that call, and the comment above it, too.
-
-Here "off" means what IEEE 802.3 calls mr_pse_enable = disable: no
-power and no detection, as if there was no PSE. pi_disable() does not
-do this on every driver today. tps23881 turns detection and
-classification back on after power off, and the core relies on
-detection staying on, since it also uses pi_disable() to power off a
-PI that stays admin enabled. Fixing tps23881 is not part of this
-series.
-
-pw-bot: cr
-
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+Thanks
+Shihuang
+> >  	pxrc->input->phys = pxrc->phys;
+> >  
+> >  	usb_to_input_id(udev, &pxrc->input->id);
+> > diff --git a/drivers/input/joystick/xpad.c b/drivers/input/joystick/xpad.c
+> > index feb8f368f834e..0f7ca5adaeee7 100644
+> > --- a/drivers/input/joystick/xpad.c
+> > +++ b/drivers/input/joystick/xpad.c
+> > @@ -2059,8 +2059,7 @@ static int xpad_probe(struct usb_interface *intf, const struct usb_device_id *id
+> >  	if (!xpad)
+> >  		return -ENOMEM;
+> >  
+> > -	usb_make_path(udev, xpad->phys, sizeof(xpad->phys));
+> > -	strlcat(xpad->phys, "/input0", sizeof(xpad->phys));
+> > +	usb_make_subpath(udev, xpad->phys, sizeof(xpad->phys), "input0");
+> >  
+> >  	xpad->idata = usb_alloc_coherent(udev, XPAD_PKT_LEN,
+> >  					 GFP_KERNEL, &xpad->idata_dma);
+> > -- 
+> > 2.43.0
+> > 
+> > 
+> 
+> -- 
+> <https://www.alejandro-colomar.es>
