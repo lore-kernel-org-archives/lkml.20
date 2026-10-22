@@ -1,95 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687568;
-	b=slbL8tdDN+xFUooDmTcj7ijhbNyMiAuZpu1XswHuO7Xsf6fjwaDb5MD0jsoq6I1AR7Vf
-	 iyKvCO4QejxJQ2/WBJ8WiGF8r8YdQt87hO0fV6cWESqQzBwaZgOnimTApnAgB0fCHgX6o
-	 I8w/hLH/SUr7r4KDCyPa46clNC/ZzBlp32PK77TbxTFkk3B23OeWMazh+MnRhSsPw2qLP
-	 iBe2wqatId+u0SkiLMwO+b4TPei5BWrb0QSWFPfqfySA4+dvfVNttdYXtD/gFC59Drp/+
-	 LsgwNA+PxnSWV5yUTwFIfX2rUR3jTPoKlORlYlzCDJyelPQOSlsiFrPr8n0++lVDwvQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687568;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ulbhMpPNAEqRrIOhtV5MGUC4m/y05Tb2A9NkmVyj/X8=;
-	b=hpL6OMasVsoWk3xbdEPx1rTCPpf9DUFGLIGknefkrItrz+6JfQklrlqfusDIfTGuO/jS
-	 ASz6cmlp+qmq6UO0A12PyjJMO7FVHGdl6dOsdqnXiXHjj8tVEPnELn3u7S3C9p8vf5Sl+
-	 0rCK8PAIaLzzKNWrRP+GUkcmJjWPDIAdMSZ3Ow5uA0kYzM1ioyLcAebJUQQR0gm60Io9y
-	 t4Ts/58Nn9mXMCeM6h5j/xioCaaKvMjomwa64ZYFrWfidJao6PmDL3uTlhug+TKtxeDRN
-	 zdn1wpY95nU4b/rrYAI9tMcNI1J8G+0jMw6OmxLh5kJQUE1aePXY3n+F8XjiEbq+JUg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V02IlN5i;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792687599;
+	b=1Q4PrQ6rr9pPe2RNG2cJIae0HNoc1fsU+8MEBqX5TBNiXLPeKcAh3RkQS9Ubqb5dl+h4
+	 EpShriiBhiKXXq8ggBfSSGXmPh3hQCSPhtJP5gwrxgp5PTdtgwfyESjhSNfmvz7hLDYIS
+	 UfhPW5I95M8u1TRW1PxvLMY2d8yLy5Mtxt3loXpj39LMeCa2WnntD1MWw4n2RF79MITNt
+	 EXKDn61GYZKCa5E8zEMx2GcFxZ8vozOm4STuZdhv0vaONN3ztWC05qNiPErH4/Ez2jANt
+	 Ptll47qNYoHnYLc8nXm+SizktK6RmjGO04Cdi3Zn1s+6+TCf0h6699HMsfD91TLJKcA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687599;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8MPpLo9g8WmfTBzYjDgl1YuODB/LFoNptN280IeFyBE=;
+	b=yLAHK5XAp5fbzfcRQzpx7C5QIlpnHOXYbjG69NidCvUldlPGGTOg7nNg2PckatCkJNAn
+	 UV1zxfSzO/z5W3C3ioSwhiP5eCyBmEY059u960hlMbKo8XDqF9ERnmNrikwYVu03rJw8h
+	 4w5Ak+yxn9UuSsWWowmgKYP5G3YawD2XGjp67LiQAPWZoCxinwlORCP0JMfppMQOyWMPE
+	 m2oKSD5yo3PlIrprxf6fTJa/mRN88JXwwBlyppO1XVrNUFAd/1fhtuz4qFjTCdqozZJUv
+	 pACmbW42GP14zZhMf6vpT4jmzbw8rRgVMTRVL7/P4ISAWq94P/zQTcu8AOBfvneNuQw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5QWTSwY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84AA8606A319;
+	Thu, 22 Oct 2026 16:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V5QWTSwY
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792687599;
+	b=EE77ZGeAuyizkhiMFaBwPiMGDYDSDDaBaceEhj3/RYsshZJ7vTFihKarumEEovWrX/fc
+	 Dl3KzPWTdFkGAf2xc9ofklmBsbvebw30ILCmUigtMoAjtX6uLrxMlYGhr/ldvm7pWlnut
+	 /ZHg6Kb/prp8BCLhpousGODVQM8f0qCj0rFPCOvFue8EQ4uJUoK1iUsvVstvG3Ur3VWiF
+	 MGIGkid/PKeoMmTXQwZwtIu/XDfZKbm3w+vnTYkztvp1d1W+KBJ86HhamuSgAJ4r5XdkZ
+	 pnvoYUoK/c3hgz7RGe7MaD/x7TawW5Ma+5HIZGD0nzoNo92aIVYTIXn2m0VSDcL2HKg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792687599;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8MPpLo9g8WmfTBzYjDgl1YuODB/LFoNptN280IeFyBE=;
+	b=WxfQjnkrBQoK3f6aU6ZEQyD1NcfB8y0J3e8l7S/ThZGdH61N78NzzmQdOIcfxe1apfOw
+	 GK/smtg5Ppjn7qALT+G1SxY97rk+4TqITBQqASWcjCq1dI5aYyXwjxnmIeI2Dkn7t+kKd
+	 57mmfTnRbNNm+sgl12oCSNqISrG2Pwrca497P8aNLYT6mHogjj+aKx82o37/+MVIN/rll
+	 K3ItgQ2PofTMz7kPRPnj+TWMwMh0pKaCgIGFvAL7InN010xhg9ap33UEH7luhqNBE0bsY
+	 hqoFi0/z44gy7qCDC4kIgUbDbbzE18gnkNrzFtIDECLDihUWRYL/aKMHYIlqHlMIxqw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F641606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:46:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F641606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V02IlN5i
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b001cd92bso3113f8f.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:46:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792687567; x=1793292367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ulbhMpPNAEqRrIOhtV5MGUC4m/y05Tb2A9NkmVyj/X8=;
-        b=V02IlN5iKRq9f3UIaNYf4qBsqYnr4l/l1KhUDGmkCUKaiS/X9h8h9pTCOlP26lwQBC
-         6Ubo3bRbASFVUO4Y7aV5Y64cxTndUcxU/M6oXGrVQ3ELWe570k2A4i3i0PsUFmHqzp4P
-         0f3+1STiGrSkfsyvMu+W4LkrN0rmNffD7yVa1JgTHvgfENNl8fAjnlx5rvoEkjZ/vPzP
-         Y5dDTjkUxE/rt6PLd0grpYr1GCPmQyJ/xCiy30snNwiYKXfzuWV/+trMSrl2r+h+WmUO
-         FTUjZUb39eJzoOFjrJUCip+qBfMpKBe8IjpfrVVVgAt3UtV2J/0G93rbhBm76lZeGdkx
-         ZTbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687567; x=1793292367;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ulbhMpPNAEqRrIOhtV5MGUC4m/y05Tb2A9NkmVyj/X8=;
-        b=Bd5ujg8uy9S1ubHBdhxXHT4sgoHNSpD7Xr8Jl7Eb0LJInaArADe/DsQDvX1/vIQ2qa
-         0Z5lh1K8PqNiZdf4p94qYFFQqKqORtaM6f3FrinGBnVS1+xFmcWsW8BmZQZI4UH0uR3x
-         MppLPKjwDBE4Y5Wh+FpEKgYx/a22LfdnB8wA8SNPaUxuKC0QaraSdkEADBAo9JpwP45W
-         rNQ3ZnV7/B+Qd/HXc2Mro9n5DbvM4CiFxX3d00Q9gK4sWI6wGZ8BhGpKHq/HpxpgPsNX
-         1LLamYsXnmERJq4B0pYL+laL+aTyT7WK9CuLsq0t5zr7gsUtvDEmVaSQZkulaYQmmNYF
-         D1yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw52lGc7q6V3oHf7SM/Plgm+GkNHklgxDoqm8UOY6+dhMn3APWkEvY5f/MfTioJaoPoP5sKgmwvyOlvB8c=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLm1ZpZ2yKlpssIqlrkhXJYH1acmZCdndHGwCbv6TP1THdIKj2/
-	UhdKI1zYF6ZkFQ9JFp71NuEzj3VOq/b7bXqbBQc0INwQgyNQHEDdAuQ=
-X-Gm-Gg: AYBFou0+fCC5ZfjmMIiGhpqbjOoHHikiI8AS1mV9mhq7/hkQ8tVdmgQZVnKpvJif8/a
-	c8yKE6ImcAhXEvPtvz093rUpunaACzTVJ0jlT5cgu9pfYr+nycajxJEP+HRfeG17tvoU2QXB88f
-	Y2K7UMdngsfPR2FhxOMjcp+E5ih3x3s8d/7x9dh7VNMvZrGAOVKZfyTpZVetjhnV3naCK6l0yow
-	UTXnHnvNVetKxtQiaq3CAyIogKGLbMkOZj4M1StXYSDHeeQVA4P3LyO+sCHjZJa8Nm3dB15Le1t
-	GcJoeNnKrgkQ9Av2FzvtEYu6WrtE3q//UPCd4MqRWcWNXAK7Tuo0K8B/WtQF9b59vc9/HJBTZhq
-	6zsvnvVIozKacLkuL1zKBzq2Zu8/LfdxxrKY8iJTBy/DZknLCVyMm6/WGHdFeBFA7tLXw0nd1NP
-	rEE1FEPJS7iecsO4qK+gyhFQN/XW5ySwCNC0M5w1J+3f2xBf/mpTRb0sLTvU1xC3IaJjSG4jZbM
-	YnW+3zqDEVAFdMOOAWe3eXSwwY3D0pk40iE9LkW7/9oy//o7urDoUBc49a8+mMOZm4sP8YCu6R0
-	lF/KYpYdWjK1kROBSMStD1wNFQdF1EQ9Sr32KHB7He125Fw1lZdUjrBYjQ==
-X-Received: by 2002:a5d:5f95:0:b0:48d:ffce:6cef with SMTP id ffacd0b85a97d-48e263ac3a5mr12539089f8f.0.1792687566645;
-        Thu, 22 Oct 2026 09:46:06 -0700 (PDT)
-Received: from localhost ([2a02:810d:4a94:b300:7204:b73f:b5ab:d041])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e25827087sm13154209f8f.21.2026.10.22.09.46.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 09:46:06 -0700 (PDT)
-From: Florian Fuchs <fuchsfl@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org
-Cc: Kees Cook <kees@kernel.org>,
-	Markus Elfring <elfring@users.sourceforge.net>,
-	Adrian McMenamin <adrianmcmenamin@gmail.com>,
-	Florian Fuchs <fuchsfl@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ALSA: sh: aica: Fix spu_memset() stride
-Date: Thu, 22 Oct 2026 18:32:41 +0200
-Message-ID: <20261022163241.2504922-1-fuchsfl@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 9A8EB1F01825;
+	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792687599;
+	bh=8MPpLo9g8WmfTBzYjDgl1YuODB/LFoNptN280IeFyBE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=V5QWTSwYr/J+3WexfvGixiQ5Xczrz43XYlHletgDdEGGa7Af/ljYYH231HBeZEazL
+	 hgGPN4OD6GppuYxIC9DOdReVCOREhkWoCWg8EX0WDZ0MinIFwjK4zpqRlYxPRfNpg5
+	 J8NwMhhYfc28t+xsseQ90+IipUzpgAiu6IyAbwKQb7HslqhjRPG1jXaQwAT7v7FdrY
+	 aiQvtUrcpJczV3qLetmVv1InNTAMmdelS5IBTNSQzV8UA+a91sW3OJHgIDV3qDUDIP
+	 1QaZIv/F5VqzhqcNgsaeHe/P1sfFwj8D6iqCWxTZmHNiJabWRmOCB82ne4cVD4vtll
+	 lwZoKtNAKIcKg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0083441E7F;
+	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
+From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
+Date: Thu, 22 Oct 2026 17:46:36 +0100
+Subject: [PATCH 1/2] dt-bindings: phy: samsung,usb3-drd-phy: Add Exynos5515
+ compatible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,58 +83,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261022-for-next-lucky7-usb-phy-v1-1-2e47f8484bf4@member.fsf.org>
+References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Aiden Isik <aidenisik@member.fsf.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1354;
+ i=aidenisik@member.fsf.org; h=from:subject:message-id;
+ bh=TSsA+fRx4RBo19oCHI+BqN+RycpJHWo/dLkXD94y3zQ=;
+ b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq2j3ssieeYp5OpBBa7/6qfdEtFIdA4uG3F7T2S
+ 7t+nJe7sCeJAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCato97BsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+sn+RAA5RsY9YeLzM9rKsLA3zt2qepMy9qla5K
+ 8Ym4GmxLjGv4RGD1b34/5GxOOjTG19kRdtsQQkK8Cai+N79QSEw3IcfiMIjplw/iIbdgGyLRdBo
+ X4lyTKCnB6ElPcURLBg5hdUuw5nzs820738ld96WELDcelDiZFmzfSQgjWORZYlRdZXK35ODdBA
+ 0Eo3SDYoExdOsqjcQEb7yfRdwhU5q5D3/vaub0F/JjmbaHk7JWAn48PCTOf6SLr/kAO8tA6GU56
+ Z+0G6oVqzGXSBI4TyXnXQwbWB0eMCgVYedtNByQhWs5w+GdwJKUhJVce/AloHaTBvKbj6154NeE
+ ZLFcNZ6usUTnzGQtY6tLQcHkGGYC56oJdpinpvOpzpndeLrSmP3ySjjgJDGYb8vAIeSaus8Kbg+
+ iKtSuTBqWviOXF0+IB03T6BAQ8bvaIH2LPuUrtzuGy9se5e6cx0SmJe6lRnf0mTVAoh5qDczFnJ
+ 56gC8Lvhqrq3VpqKl8oMLpREgn1qU9P810ITZjTW12Scj7tsXvojTZ/myNUzdGSRAzcrt121o1Y
+ PcpwzYnU8uJFz6VCUFBYar3Y+mX3KwjVdUsBRK92wZkpoZX5pwDcnQcHmyG9f1YI0WSGVadHQ9h
+ MJ53kzDKK+VyQmOdwT4B8ScpFh33mcRrmFTcA/flKQUU/9jCZYOs=
+X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
+ fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
+X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
+ auth_id=956
+X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
+Reply-To: aidenisik@member.fsf.org
+Content-Transfer-Encoding: 7bit
 
-spu_memset() writes one 32-bit word per iteration, but advances the
-destination offset by only one byte. spu_reset() calls it with
-0x200000 / 4 words to clear the 2 MiB of sound RAM, so:
+From: Aiden Isik <aidenisik@member.fsf.org>
 
- - three out of four writel() calls target an unaligned address. The
-   SH4 can't do that. Each one traps and is emulated by the unaligned
-   access fixup. This call to spu_memset() causes 393216 unaligned
-   accesses, visible in /proc/cpu/alignment.
- - the clear covered only about 512 KiB of sound RAM, not 2 MiB.
+Add the compatible string for exynos5515-usbdrd-phy. This PHY is
+compatible with the Exynos5420 PHY when running in High-Speed mode,
+in that it uses two clocks, phy and ref, so document it as such.
 
-Advance the offset by the size of the written word, to clear the full
-sound RAM using aligned writes.
-
-Fixes: 198de43d758c ("[ALSA] Add ALSA support for the SEGA Dreamcast PCM device")
-Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
+Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
 ---
-The patch has been tested on the hardware and sound is also still
-working well, the boot is faster by about 4s due to less unaligned
-fixups.
+ Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Previously: 7.9s to boot:
-[    2.900000] AICA AICA: ALSA Driver for Yamaha AICA Super Intelligent Sound Processor
-..
-[    7.872000] ALSA device list:
-[    7.876000]   #1: Yamaha AICA Super Intelligent Sound Processor for SEGA Dreamcast
+diff --git a/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml b/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml
+index a1b3d9e6a094..a9af03066d8d 100644
+--- a/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/samsung,usb3-drd-phy.yaml
+@@ -30,6 +30,7 @@ properties:
+       - samsung,exynos5250-usbdrd-phy
+       - samsung,exynos5420-usbdrd-phy
+       - samsung,exynos5433-usbdrd-phy
++      - samsung,exynos5515-usbdrd-phy
+       - samsung,exynos7-usbdrd-phy
+       - samsung,exynos7870-usbdrd-phy
+       - samsung,exynos850-usbdrd-phy
+@@ -233,6 +234,7 @@ allOf:
+             enum:
+               - samsung,exynos5250-usbdrd-phy
+               - samsung,exynos5420-usbdrd-phy
++              - samsung,exynos5515-usbdrd-phy
+               - samsung,exynos7870-usbdrd-phy
+               - samsung,exynos850-usbdrd-phy
+               - samsung,exynos990-usbdrd-phy
 
-After: 3.8s to boot:
-[    2.892000] AICA AICA: ALSA Driver for Yamaha AICA Super Intelligent Sound Processor
-..
-[    3.796000] ALSA device list:
-[    3.800000]   #1: Yamaha AICA Super Intelligent Sound Processor for SEGA Dreamcast
-
- sound/sh/aica.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/sh/aica.c b/sound/sh/aica.c
-index 078fc7fc08f9..04f80c8c89c0 100644
---- a/sound/sh/aica.c
-+++ b/sound/sh/aica.c
-@@ -94,7 +94,7 @@ static void spu_memset(u32 toi, u32 what, int length)
- 		local_irq_save(flags);
- 		writel(what, toi + SPU_MEMORY_BASE);
- 		local_irq_restore(flags);
--		toi++;
-+		toi += sizeof(what);
- 	}
- }
- 
-
-base-commit: c1b1c25de0d6008c3fcabc942fba635ea3693c3f
 -- 
-2.43.0
+2.54.0
+
 
