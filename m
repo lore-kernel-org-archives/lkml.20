@@ -1,17 +1,17 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.42
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.32
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792643161;
-	b=P29x8wGA4HKxUUYDTMdxQhgSWDmaHGnmK4Px7WqE5X/S6e318UlrMkwXiCBR7DfbmfzX
-	 54MFV354HgFLgc5Y9SsMS/M+f07Qg28QdYfQdAiL+aok0nVOM445Fk6lKbqXTppotd2SR
-	 L4G53blRX7P3rH4sZj0mUc4b7LvKDdLzxWiYH9HBzl97LeK/7r7F0+J3nLSaFtThwpiXP
-	 6KzL14G+Mv18JPVNjOTxEKr6YnrjrF9CvNgvVrOFypdq5MCbeCgsvcJxRHJN2WmSjuZZr
-	 lfdK+RsFpDgJltOGvl3trSOcW6kHpHsNs/xAxLO/d9mlZOovYq04JypsPTjRujVrpCA==
+	t=1792643179;
+	b=z9zJYhxC9ZdUuO/aLHOiDcEzL2byJtTxAnkdo6iW5iG2r4q1rfqfxGOaWuhY51DU18n8
+	 PveAUGqcwKN58A6ZmKq53hvsA9tewPCLNAFS2JPgbu8YBqVuCMLaAdzKFa/fHnNSrm06H
+	 VWOJ80+MlmeAabQQcyp1y2QYByw35y3ScGhLhiA0SN/kcl5exwE1oRiGfLOILlXOYYAGG
+	 fRofpzTBVf8NPSO8oSqWM8yJvNLeT17aHH5LB66lv5E7NOwvyXwSnAIP5LSPwcYSF0opt
+	 RsK/8mrroWMrhl9EDXLJ/rzbn0YiMra9Um6Q2mNSJAlxk/tTWU+VZd5b9Kx5L5zmr1Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792643161;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792643179;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:
 	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
 	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
 	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
@@ -26,53 +26,53 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
 	 X-MS-Exchange-CrossTenant-FromEntityHeader:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=JhtDxeY5PDczhLqmcC9tlVIyt9VuBxhgsTcI8SS6E9o=;
-	b=wLcjrSrmi1huHm6o29WcS1j0cs0yO30VQejAfQAjuKYrreuEJIBsLDiOEH9nK1p4zJfD
-	 xmYl1rGcORSJxbJAXE2SyXvFPHkEv3H/Ryn/tCc63Veg960Fm4f35Ja48/VerENJx/kbA
-	 /wJ8OmdN2JEbGSaa/IxKJKAZHu/lz5ELdFa3RYfpZLc9uHp9cgxUr+vwcaQjsZJXXWP7S
-	 WRhNvUHUrGNBTFd30FAU0XIZrwBPD1AD0vhAehaNAME/drLvIXKmfVDYnHpcIl1pOxKkO
-	 vWhFxJgAINPmfPt0K8+5rF4bKwUiL9ZP8c9MElb4m/ejP5Tma8REdQistw6qWG2+lVQ==
+	bh=Hc+2yBSGwjL2He+cmSxMSDP+j0j9ionMb7nVpKMcjyY=;
+	b=mCKfUTbxi7MhQNB1HEzxTWez0mlOC2xic30E00n9LuJkjCYmcI4RJBAn6Ae5riX52+TE
+	 R6+Y6H+/HTRla/PFajlFU+3TjxUh/HKVEHI2WfyrSTJ57MpE1vcZgs3z0bUrFARZdYhzC
+	 U5RX+Pvha15n2zWq+i3LHRYxMX6ULuxZZJrw3rkfpMQPyMyKBPFcOFzZPZKpXcuHi3eqV
+	 vnKM22hCmuCO4NCSdznja0Ss7N2DdMOrpxF9kPMzDwNNoF43XPFnsv1vpp9H08GonY7NE
+	 jPt/Juxb0JbpXN6s5FhiIE1xpTel+FUEvdCE8G7V8euRPMOZVvHZJ9vqe82qK5axZRA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amd.com;
 	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Mfv3uQCQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.43.42
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012042.outbound.protection.outlook.com [52.101.43.42])
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b="NBSUi8n/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.194.32
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011032.outbound.protection.outlook.com [40.93.194.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 319D3606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:26:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 319D3606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221D4606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:26:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221D4606A319
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Mfv3uQCQ
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=NBSUi8n/
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sBrMosHJOCIxhGM4LpNiUbimEo2M6eHyh77Hv5603XTPv5n+ppSngRuCiF6kNa4wSEQNTFC6m+rbhA+Lh+EhQ6K+u60V3gmoYpx2Nuaj05Z88zheyKZdmpRlNxDuzK5gbWfw+xbPJwlvXYErriNfp4SWIwxDK3LrZluZiNZFaWrX77gndQ3LO7u5N7fTlxBBJDjmhsXs+wVA7kYAzYx8n1ezp8cNQIP6rpksy6mGq8+FFDpIM4L9ONdyPHMrx6wDJh2ToluApEa/PH5UGeVX3vDc7JtSJSuzvqjDVOXMV7NO5IxVoXtOZ2fTyU95ijTZTFm8vkpHN5OuDJYy+k/LZw==
+ b=T+3hQC3CD3CN2+RtoVYQXdQ1/wDVXCQAI04/EzhA66leOs/N2HBpCU/WRvHHPrnoK4mGC3MBHLRcU2RamJ4z6dSx3kyOQ+VFHrbvxnuPA14KP+BseJ0dTFni0sClrZGHo0BxBnU/I6QT8H+vPjoDyHUD17bQgRyXXw9q0n2FMh4eV7PLdSaZyTY3laFAYWqxjKHzBo/oLukGq+JzkRT/hsYKZN4h66ADRteShRUhb2fT0H3g/VWd7ObiRp65A0wex8yfWeyrALw5yvO3Qx8mkajwtG1Mjt6GMCEoSx1J27IQ2C3QITzhfrAtoTfLhbHGn/2EL2ctVSgPDpSAt341Fg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JhtDxeY5PDczhLqmcC9tlVIyt9VuBxhgsTcI8SS6E9o=;
- b=ZGysEgStyzwWCQqP2d+PsbbWwEVPGWMwnD+xvBIIkfmweLgA6ivXFkEM0nHMN97HuWeA8UHqGTj4WSWGUL9gcJP7rk9PNnn5lCaacu+xvRdaogXle9MHUdoXNOvhbe1FlS7UOZlCCSFhYnI/zLFWLt1qvDaflBpcm9p9c/MvJefb2cGMSzt9tT4dvvrZqkmwqbsTMXAal2ZW9mb1W8pGd1L8sLmuYly2uosCSbKBtqNUZ6d6jzcF0suydQeRkSLvD/INjoXLvTReKapnFDoxp6tqek7LzGUuDBiwNNToqPnbHaY1CW9vs65NKvQGr7eZkkjIM35PJ4f/qj6288uTgw==
+ bh=Hc+2yBSGwjL2He+cmSxMSDP+j0j9ionMb7nVpKMcjyY=;
+ b=iHLfaBlbvOSkKe0/s77jq8oHdkwCh+T2A/CJRESevnUa5UQ3dCvFEF57dcOBydCDTdjc1r5j0dZNVSJ28FQaZAWfI0M+iL3ssF3T/XRG1+wTu/JAgMXU42jWzMCEjohUrf9Yfk93q0SU+mQjSyTMVGxd4W+MPSi+58eASFrQGs+aHGN6WyRUx5vURxpIUDOnoxYiNlxovEfq5OccU8cKUNNEnEv+Iwf/7VoWymj4BbVm6eU/uPumklnnp1E7Bd60tGAqp6NV7w4+jiT/43SKHBfKVe86FJbdp1uL/xIYG6xwpM8/aHPxhVRKwFuKz1+iAEs0Z9aGgaZ6p3UpkJMYsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JhtDxeY5PDczhLqmcC9tlVIyt9VuBxhgsTcI8SS6E9o=;
- b=Mfv3uQCQKSLggcZ2NGhTlBJE59NgVu8MJ8rnANJVUO9EY8Z+4OgwHp3fx5lJXUXiVMvH2Lq4+4wJhUDFyvr2SfrWS8swC7SQc2EhxCdpV5fSrQwKP5ZWNKUmBZcunGjgTUir9Tp00z2f0Fc0tO+k4G25IneFGzAfyhyHPe+Hd5Q=
-Received: from MW4PR04CA0289.namprd04.prod.outlook.com (2603:10b6:303:89::24)
- by CC6PR12MB259526.namprd12.prod.outlook.com (2603:10b6:170:209::13) with
+ bh=Hc+2yBSGwjL2He+cmSxMSDP+j0j9ionMb7nVpKMcjyY=;
+ b=NBSUi8n/hFpjdjJfvNLTfd3jTk7i2dBHo1xfHOl+U5bjn4s1SLPOUspmxU/OvKdekeEmFrAGb57T5DRoo/p6H5XCL+lpYo18yiAHQxgcZH0orw+3HLlQqDIhHqsXlwjELhLDkp2TLA2oNYB86Olt3PA7+wwWocXAZ5Zf3zdN7ac=
+Received: from MW4PR04CA0272.namprd04.prod.outlook.com (2603:10b6:303:89::7)
+ by IA0PR12MB7723.namprd12.prod.outlook.com (2603:10b6:208:431::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 04:25:58 +0000
-Received: from SJ5PEPF000001ED.namprd05.prod.outlook.com
- (2603:10b6:303:89:cafe::33) by MW4PR04CA0289.outlook.office365.com
- (2603:10b6:303:89::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
+ 2026 04:26:15 +0000
+Received: from SJ5PEPF000001EC.namprd05.prod.outlook.com
+ (2603:10b6:303:89:cafe::93) by MW4PR04CA0272.outlook.office365.com
+ (2603:10b6:303:89::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
- 22 Oct 2026 04:25:58 +0000
+ 22 Oct 2026 04:26:14 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -80,22 +80,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001ED.mail.protection.outlook.com (10.167.242.201) with Microsoft
+ SJ5PEPF000001EC.mail.protection.outlook.com (10.167.242.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 04:25:58 +0000
+ 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 04:26:14 +0000
 Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Wed, 21 Oct
- 2026 23:25:57 -0500
+ 2026 23:26:13 -0500
 From: Melody Wang <huibo.wang@amd.com>
 To: <x86@kernel.org>
 CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
 	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
 	<huibo.wang@amd.com>
-Subject: [PATCH v5 0/7] Alternate Injection: Secure Interrupt Delivery for SEV-SNP Guests - Guest Support
-Date: Thu, 22 Oct 2026 04:25:36 +0000
-Message-ID: <cover.1792206487.git.huibo.wang@amd.com>
+Subject: [PATCH v5 1/7] x86/sev: Add support for Alternate Injection
+Date: Thu, 22 Oct 2026 04:25:37 +0000
+Message-ID: <fbfe17098b8ba7dd4e55746ae98da5f793549d43.1792206487.git.huibo.wang@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792206487.git.huibo.wang@amd.com>
+References: <cover.1792206487.git.huibo.wang@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,183 +113,167 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001ED:EE_|CC6PR12MB259526:EE_
-X-MS-Office365-Filtering-Correlation-Id: ab226d99-fe19-4557-aa8b-08df2ff49237
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001EC:EE_|IA0PR12MB7723:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5dbe9170-b7bf-40cd-ea74-08df2ff49bca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|1800799024|36860700016|82310400026|261021130227099003|261021121427099003|56012099006|261021135927099003|11063799006|261009223027099003|10067099003|18002099003|261021123027099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|36860700016|82310400026|261021123027099003|56012099006|11063799006|261009223027099003|10067099003|22082099003|18002099003|6133799003|261021121427099003;
 X-Microsoft-Antispam-Message-Info:
-	v+UaVpq85uTICu86mIaEVWTYkpfDfc1VDjpsMtKGzw2Lf1PUNgE1oC2EUw1r3juTvWi02nVaes2H6nUY06quR2uOfD1TbM3jym4l31rFjoZt8aCr0OWGXy/X+YHy59o9PFC8ykpBqnMbw2xCvolDNCNqgF/49LmWpb6SIg6O0B3bDoz86ltNZQPGWesJScz+ASo1iSEiFkdsZJz7yFXbRcDhubyE9ikJ+F6/ex98mZYsEnNAiaxwc4qNett51t4ASA6EgCiS9/FfM+Cu+Oc+2EIbelRfq5zIXxY8iWRB7XVrGppxkcm6fsPBYZV/ZZbl7vDEJRdcSQq/AqM05pqmzyw+K+KfMdT0ZHUavGpGnctdV1veUeTNmldbu0Y9KTe1oFAC0Qq1IU2u+qpD4Yz/ALFQnu8T8yUDvzjXEdAkTRuceZKUiKBvMddR30hlByCUM1xyB4BWkE4G1x8QObuxsilXI5ueIja6HjjTNoPkKUjFAwWoD40ZIzLrkb4SCjOTMvRqAL6GbrKc3klJ9rVxBkXSb5TDsYBV3cg+FSxk6AcYn3KWRGPI2tU9YEXnhtpMdqbZSazHJv2QPWdJ+JN9MKe9Hjp101g/wX7IqDASjgzNHntbbvEojDEgYOPAZJXJMILmkW1oKQR2PWSlYaMssCCgBOAEGY/nkyN0m9XokCWO9wRqiwx3ZROACjG2UGpdZ4SiZuwAm40Y22c696XCKA==
+	vWPX30pa/zsOK1ms3xpDHEB5jmjvalQubSw/0z3XNxMZf/x69JpsaXihbFucf01UiEnrliVUb/zirmOtGTCf9zlU3hOdz8whF+3y7vVqnGpglv9SkpioSiI/9p4qNLgNrJ6nEHy/kgdes+SgRSH9ApbxgGtrxR3J2ihU+pZLXDMOP6HZgVzFzMApQ0RRYoLCOoECSJHcIdnXgyv9+pa94fxTQC5Cf9+9JJKDNW+KdK35OXlcwfEi6H6pyN7l262HcZFTZASf3/0jrm+NBe1vD5JOk5V53aO//fLc01X+mw1eRPSoPlUWFPxKHF6sW0xS6Nle1OQMN1ZJTBJPGXk9yAxMpsUXGWBsQQeiTpRR56RZF+f5aGh/Sa7BVWOT62H93NhgUZwBddrwuNOm9Tq7mXgTBS+408JUDmGqhlkIw4CGHaMwQEyDfQ26ZApqjnu7aMxJsrwpr0FV3DZx2tMv6ouK/0myX3dYrvEnTtBPNXrd9zfKrLSWAHQm0M/z43CQ4x+b+T+2lkI4ihWHh1S3FOUAmUu+G6+NWpS+Huc/+5Fek3yNuM8XofMteK/Nm442nQLXJ8Bcg/fk+6J/ctWGXaPJhVw4h1iTGj8uJA4tY1NqglugZYFhe7sPSPwVDwUvFrPgXWHVWhe1A5dx5E/HlOGT+K6RNmqgKEVOHyxXswN+40XOd9VThu/L0+eVJmog5xfJRQ+dLxXQjiQoi7TGLQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(36860700016)(82310400026)(261021130227099003)(261021121427099003)(56012099006)(261021135927099003)(11063799006)(261009223027099003)(10067099003)(18002099003)(261021123027099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(36860700016)(82310400026)(261021123027099003)(56012099006)(11063799006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(261021121427099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	f3a62ZhIZkJDcWPWYGARX57rokk/h1Qid6FxCox+6Vd/MueoIy1bVX9HU7MUHoaUyXSBNS2807DILK+pdbBFKX3y8KAyI3QweOW+3fBKsjYKwxCcPDx9MB9o+iKAQiWZIovEADMG8jPEu63EbrG8U7rpJAeDnGheFEEa44YJLbjNB1UzX5loVj0QNLPKmk0tGUbvdMKruDQYzSmwsZ+UkLgmyGRXxDurrm9F1kZiwY+ZqfB94rWVs4dtLiMGYyVslrkSjAisR26P+XbhO0VoFH/KkJRLsymd3Gqya01qUNdVBr/W9HfbvcWRtGmEGbHCCOhUwL7efJO7Y78bK0faNPNuPxMHSxLJ4pB5ag3xbScdHmKHrr1XMSK4Cw8nWKcWUtYdnKOBINcjdlTncJ0dsHayOEkCIeMeFWNY/3RhRkY264G4dkhMJ7qvmnrOO860
+	j7HBBNA3gsdREb6tr/DlK0auu+IENmOvumI+AJzsuaW0MqG6HgPE7J55B8+gODceYMrUdiTRZabW97R4mfZ3nT3cRkgglwjlV665BLIz58suQv1vslgUU2+mlOJoc4R9jUkDeCnNPx9kMbFsMYLaJOZUM7LVJBylXaYS1awMEJ+Psy5Ak53tnnruxtaebE7jgiqoT7VEymxpGPVCatOYmFhz9u1bPltSXPcOBxldLeGIYDgxgqUPEaE7+5ryCRZxVxoHsQzrFW1fKJd1ZDdGzrB/tDjH561aHumZ81/R2qMOWH3T+Hd5PCBXYftA8zlgT/zGNDfFSPOi41meyAgPpW0AoIfWFPRj8UeB0DnQz5rPWLDlLsTGFKNEa7zCtBk8WbyMkJ+vWZ9+DP20t0Oe7oK7n1vJg2aTrVB31516JxpIAReTgdGIP/XHuEWPzuTQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 04:25:58.0870
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 04:26:14.0917
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab226d99-fe19-4557-aa8b-08df2ff49237
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5dbe9170-b7bf-40cd-ea74-08df2ff49bca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001ED.namprd05.prod.outlook.com
+	SJ5PEPF000001EC.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR12MB259526
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7723
 
-Hi all,
+The Alternate Injection feature is a method to protect a SNP guest from
+malicious injection attacks. It allows the guest to control the
+interrupt injection.
 
-This revision addresses all review comments from version 4.
+When this feature is enabled, interrupts are injected with the help of
+an agent called a Secure VM Service Module (SVSM) which executes in the
+security realm of the guest and uses Restricted Injection as the sole
+method to receive interrupts from the hypervisor.
 
-1. As Ard suggested, used a bool as return value for svsm_register_alt_inj()
-   instead of int. Adjusted code with it.
+Add support for Alternate Injection.
 
-2. Added more comments here for better understanding.
+Signed-off-by: Melody Wang <huibo.wang@amd.com>
+---
+ arch/x86/Kconfig                       | 14 ++++++++++++++
+ arch/x86/boot/compressed/sev.c         |  2 +-
+ arch/x86/coco/core.c                   |  3 +++
+ arch/x86/coco/sev/core.c               |  2 +-
+ arch/x86/include/asm/msr-index.h       |  4 ++--
+ include/linux/cc_platform.h            |  8 ++++++++
+ tools/arch/x86/include/asm/msr-index.h |  4 ++--
+ 7 files changed, 31 insertions(+), 6 deletions(-)
 
-Thanks,
-Melody
-
-Changelog:
-v4
---
-
-This revision addresses all review comments from version 3.
-
-1. As Ard suggested, handed over the registeration of kernel guest for
-   Alternate Injection with the SVSM to the OVMF insteading of calling the
-   SVSM for registration from kernel guest before ExitBootsService().
-
-2. Added a common function for SVSM APIC ICR read and write.
-
-3. Added a common function for sev_apic_ghcb_msr_read/write.
-
-4. Changed some comments for better understanding.
-
-5. Patch "Make-SVSM-calls-preemption-safe.patch" was merged to the tip tree.
-
-v3
---
-
-This revision addresses all review comments from version 2.
-
-The changes include:
-
-1. Moved sev_prepare() from decompressor to EFI stub.
-
-2. Changed "Register Alternate Injection" and "configure all interrupt
-   vectors" as two APIs located in compressed/sev.c since they are
-   self-contained, avoiding exporting functions. 
-
-3. Added more comments for better understanding.
-
-v2
---
-
-This revision fixes all the review comments from version 1.
-
-The changes include:
-
-1. Changed a few comments for better understanding, deleted some unnecessary
-   code, corrected some typos, and some minor code fixes from the review
-   comments by Sashiko and Boris.
-
-2. Unified sev_apic_ghcb_msr_write() and sev_apic_ghcb_msr_read(). 
-
-3. Move x2apic_svsm.o after x2apic_savic.o so that the secure AVIC gets
-   preferred on machines supporting it.
-
-4. Reworked svsm_apic_probe() as Boris suggested.
-
-5. Updated tools with renamed MSR_AMD64_SNP_ALTERNATE_INJ_BIT and
-   MSR_AMD64_SNP_ALT_INJ for completeness' sake.
-
-6. Changed svsm_apic_send_IPI_self() with writing to the dedicated
-   APIC_SELF_IPI instead of writing to APIC_ICR.
-
-v1
---
-
-The revision fixes all of the review comments from version 0.
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index a47a6beebfe3..52d627bb33f4 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -496,6 +496,20 @@ config AMD_SECURE_AVIC
  
-The changes include:
+ 	  If you don't know what to do here, say N.
  
-1. Changed a few commit messages, new file names, variables name and order,
-   function names and more comments for better understanding.
++config AMD_ALTERNATE_INJ
++	bool "Support Alternate Injection"
++	depends on X86_X2APIC && AMD_MEM_ENCRYPT
++	help
++	  Enable AMD Alternate Injection support for SNP guests.
++
++	  The Alternate Injection feature of SEV-SNP enhances the security of
++	  a confidential VM by preventing the untrusted host from presenting
++	  unexpected interrupts or exceptions, while still preserving the
++	  standard interrupt dispatch semantics inherent to the x86
++	  architecture.
++
++	  If you don't know what to do here, say N.
++
+ config X86_POSTED_MSI
+ 	bool "Enable MSI and MSI-x delivery by posted interrupts"
+ 	depends on X86_64 && IRQ_REMAP
+diff --git a/arch/x86/boot/compressed/sev.c b/arch/x86/boot/compressed/sev.c
+index c6512f2ea31e..fc2029746c50 100644
+--- a/arch/x86/boot/compressed/sev.c
++++ b/arch/x86/boot/compressed/sev.c
+@@ -179,7 +179,7 @@ bool sev_es_check_ghcb_fault(unsigned long address)
+ #define SNP_FEATURES_IMPL_REQ	(MSR_AMD64_SNP_VTOM |			\
+ 				 MSR_AMD64_SNP_REFLECT_VC |		\
+ 				 MSR_AMD64_SNP_RESTRICTED_INJ |		\
+-				 MSR_AMD64_SNP_ALT_INJ |		\
++				 MSR_AMD64_SNP_ALTERNATE_INJ |		\
+ 				 MSR_AMD64_SNP_DEBUG_SWAP |		\
+ 				 MSR_AMD64_SNP_VMPL_SSS |		\
+ 				 MSR_AMD64_SNP_SECURE_TSC |		\
+diff --git a/arch/x86/coco/core.c b/arch/x86/coco/core.c
+index 989ca9f72ba3..aabda3ddc0e2 100644
+--- a/arch/x86/coco/core.c
++++ b/arch/x86/coco/core.c
+@@ -107,6 +107,9 @@ static bool noinstr amd_cc_platform_has(enum cc_attr attr)
+ 	case CC_ATTR_SNP_SECURE_AVIC:
+ 		return sev_status & MSR_AMD64_SNP_SECURE_AVIC;
  
-2. Added a pre-patch to fix the problem that in two functions in the the SVSM
-   vTPM guest implementation do not disable preemption when fetching CAA. It
-   is moving the CAA fetching operation inside svsm_perform_call_protocol().
-
-   This series relies on this fix too.
-
-
-3. Removed svsm_do_call() helper function and some intermediary layer
-   functions in SVSM APIC driver.
-
-4. Removed the Secure AVIC check in SVSM APIC driver since it will never be
-   touched. 
-
-5. Terminate boot when Alternate Injection is enabled in vmpl0.
-
-6. Added a common function for SVSM APIC read and write.
-
-7. Added a new SEV_TERM_SET_LINUX value for Alternate Injection and APIC ghcb
-   msr read/write.
-
-8. Reworked sev_prepare() to reflect the error conditions correctly. 
-
-9. Moved allowing all of interrupts right after registering the SVSM APIC
-   protocol.
-
-v0
---
-
-Alternate Injection is a method to provide secure interrupt delivery for
-SEV-SNP guests against malicious injection attacks. By handing over the
-control of the interrupt injection to the guest itself, the security is
-applied. Alternate Injection use Secure VM Service Module (SVSM), and APIC
-emulation in the SVSM to secure interrupt delivery.
-
-This is the guest side patches. The patch set includes the following:
-1. Add support for enabling Alternate Injection.
-2. Add support for the SVSM APIC protocol which uses a subset of the
-   X2APIC MSRs.
-3. Add support to allow the guest OS to request Alternate
-   Injection.
-
-Melody Wang (7):
-  x86/sev: Add support for Alternate Injection
-  x86/apic: Add an SVSM APIC driver
-  x86/sev: Route unsupported APIC register accesses to the hypervisor
-    APIC emulation
-  x86/sev: Add a function to contain all SEV-specific setup operations
-  x86/sev: Register the guest with the SVSM APIC protocol
-  x86/sev: Allow the guest to configure interrupt vectors for the
-    hypervisor
-  x86/sev: Indicate that Alternate Injection is supported in the guest
-
- arch/x86/Kconfig                        |  14 ++
- arch/x86/boot/compressed/sev.c          |  11 +-
- arch/x86/boot/compressed/sev.h          |   2 -
- arch/x86/boot/startup/sev-startup.c     |  20 ++
- arch/x86/boot/startup/sme.c             |   3 +
- arch/x86/coco/core.c                    |   3 +
- arch/x86/coco/sev/core.c                |  48 ++---
- arch/x86/include/asm/msr-index.h        |   4 +-
- arch/x86/include/asm/sev-common.h       |   2 +
- arch/x86/include/asm/sev.h              |  28 ++-
- arch/x86/kernel/apic/Makefile           |   1 +
- arch/x86/kernel/apic/x2apic_savic.c     |   8 +-
- arch/x86/kernel/apic/x2apic_svsm.c      | 245 ++++++++++++++++++++++++
- drivers/firmware/efi/libstub/efistub.h  |  11 ++
- drivers/firmware/efi/libstub/x86-stub.c |  42 +++-
- include/linux/cc_platform.h             |   8 +
- include/linux/efi.h                     |   2 +
- tools/arch/x86/include/asm/msr-index.h  |   4 +-
- 18 files changed, 406 insertions(+), 50 deletions(-)
- create mode 100644 arch/x86/kernel/apic/x2apic_svsm.c
-
++	case CC_ATTR_SNP_ALTERNATE_INJECTION:
++		return sev_status & MSR_AMD64_SNP_ALTERNATE_INJ;
++
+ 	default:
+ 		return false;
+ 	}
+diff --git a/arch/x86/coco/sev/core.c b/arch/x86/coco/sev/core.c
+index eb2e853e950a..900a7ff8b639 100644
+--- a/arch/x86/coco/sev/core.c
++++ b/arch/x86/coco/sev/core.c
+@@ -78,7 +78,7 @@ static const char * const sev_status_feat_names[] = {
+ 	[MSR_AMD64_SNP_VTOM_BIT]		= "vTom",
+ 	[MSR_AMD64_SNP_REFLECT_VC_BIT]		= "ReflectVC",
+ 	[MSR_AMD64_SNP_RESTRICTED_INJ_BIT]	= "RI",
+-	[MSR_AMD64_SNP_ALT_INJ_BIT]		= "AI",
++	[MSR_AMD64_SNP_ALTERNATE_INJ_BIT]	= "AI",
+ 	[MSR_AMD64_SNP_DEBUG_SWAP_BIT]		= "DebugSwap",
+ 	[MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT]	= "NoHostIBS",
+ 	[MSR_AMD64_SNP_BTB_ISOLATION_BIT]	= "BTBIsol",
+diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+index 82ca6356dc62..297c7dec795c 100644
+--- a/arch/x86/include/asm/msr-index.h
++++ b/arch/x86/include/asm/msr-index.h
+@@ -728,8 +728,8 @@
+ #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
+ #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
+ #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
+-#define MSR_AMD64_SNP_ALT_INJ_BIT	6
+-#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
++#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
++#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
+ #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
+ #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
+ #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
+diff --git a/include/linux/cc_platform.h b/include/linux/cc_platform.h
+index 559353ad64ac..80d9f1de2ae8 100644
+--- a/include/linux/cc_platform.h
++++ b/include/linux/cc_platform.h
+@@ -104,6 +104,14 @@ enum cc_attr {
+ 	 * to run SEV-SNP guests with full Secure AVIC capabilities.
+ 	 */
+ 	CC_ATTR_SNP_SECURE_AVIC,
++
++	/**
++	 * @CC_ATTR_SNP_ALTERNATE_INJECTION: AMD Alternate Injection enabled.
++	 *
++	 * A Secure VM Service Module (SVSM) has started the guest with
++	 * Alternate Injection enabled.
++	 */
++	CC_ATTR_SNP_ALTERNATE_INJECTION,
+ };
+ 
+ #ifdef CONFIG_ARCH_HAS_CC_PLATFORM
+diff --git a/tools/arch/x86/include/asm/msr-index.h b/tools/arch/x86/include/asm/msr-index.h
+index 18c4be75e927..e4eab2210518 100644
+--- a/tools/arch/x86/include/asm/msr-index.h
++++ b/tools/arch/x86/include/asm/msr-index.h
+@@ -721,8 +721,8 @@
+ #define MSR_AMD64_SNP_REFLECT_VC	BIT_ULL(MSR_AMD64_SNP_REFLECT_VC_BIT)
+ #define MSR_AMD64_SNP_RESTRICTED_INJ_BIT 5
+ #define MSR_AMD64_SNP_RESTRICTED_INJ	BIT_ULL(MSR_AMD64_SNP_RESTRICTED_INJ_BIT)
+-#define MSR_AMD64_SNP_ALT_INJ_BIT	6
+-#define MSR_AMD64_SNP_ALT_INJ		BIT_ULL(MSR_AMD64_SNP_ALT_INJ_BIT)
++#define MSR_AMD64_SNP_ALTERNATE_INJ_BIT	6
++#define MSR_AMD64_SNP_ALTERNATE_INJ	BIT_ULL(MSR_AMD64_SNP_ALTERNATE_INJ_BIT)
+ #define MSR_AMD64_SNP_DEBUG_SWAP_BIT	7
+ #define MSR_AMD64_SNP_DEBUG_SWAP	BIT_ULL(MSR_AMD64_SNP_DEBUG_SWAP_BIT)
+ #define MSR_AMD64_SNP_PREVENT_HOST_IBS_BIT 8
 -- 
 2.43.0
 
