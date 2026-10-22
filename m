@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.107
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792648920;
-	b=4tB3ovIhulWmVwQp5Z/smvhsF4lSHbP0p6/utx+DWqy5h4Bwp/IBkyk6Va1eyLK82zcT
-	 dYODBeawBBbQXwI1mJ9fPRHSNjXKcQbQnwXKP5OBQK5LS+jrWI9ys+8QhjtymV9pQhj4P
-	 jQjBlHGBRY465mEa8hnV3KXmewE/6KOwtzv8PqbwJhjnyRAJvoFvtq/7RW5Yage2y/tvP
-	 rBhvtbIdQDuy1ezQ+zQyqQwqTRSDDrUM89bWSX216df0c132xkAtKWfrpkoD1iHU0ANSQ
-	 adDgFwzdIDt5LNHNh4o0F/YIlTrA4jmFhuQKhb4JzaQvbeDxFpduYKLaqgsHtLhQMTw==
+	t=1792649016;
+	b=kDxBp8xeLlszM9gHIjdONhVhgrUj6kS5kEOpuLJx45VTdVMS1pVrOUsLMN5ZwcIV8ZAW
+	 g7DKCEpwaypey6u/fSIzycYNDCOtCoX8V2aXj+8UVK9RvyAvvJpsOyTp7bNvjwGzs0Lbe
+	 m7cqyV7X5c+RoyIydKRKx0jh+/CuGqZ3+bonuPS4vn7qQ3d8V5Y1+8MbFx2qYAz1cV9NB
+	 EDk6eio7gjf2o4Kzg6Hvd1Zcsf6S3urYIMedxoopoSjWvcJQmEDh0ye2T157fA6SfzxeQ
+	 EXz9eRbfnaRkoBSJMrEstizhUAIQvnwVYhHQbnXyxIVeJyeQhBzLoCii/RSA5q7eMdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792648920;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=aYOG0+2yMHEwlM5WXi+wtVEkUkFc7Rz+pgS8X+MUUx8=;
-	b=yydwjGBp5Vn193EDhdS9mMNmJf/yMhR5Huie0VQW0VYaEEwCgZEW8brbPQZHxxVsUZnP
-	 v5dkVNBRMkDwhRJx2RtsgwT9c02KgnFt5/yelOg8IOqhTV5jpGhH4ESDCX9IFEDDDqcdV
-	 4xUZMjwKStN/AIeyj6BeRNR7JQShnYBfGqvhcJ32swc8wpbr1pmwmBgGbjDzwbt7VPOfB
-	 CZk78/lAmyW/UQAnxrpi/XJZ15qgOExfd6sjyXfLmLBokEcG+KRoHgMJMhbFucGP4uzyn
-	 ye+eoszHO9aT9av5ho1LaQiyvcEem8tJDuk5uT9a4kfHVnzuWqTucirxjBIQA6r09Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792649016;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=P7zxgzzTYI172zwYyaCUL/lcmGtqRhZjbLJauuKN8eM=;
+	b=VuTDn2qBMpsOF3ULwzsU1Qk3lrcrFBGGwU6cdsXA0BSk2gbOzU06dgLrQtrFPBy0IlzN
+	 myzSH07U/No+YBJ7+3urqKKO4p7amwMMlj7jIDY1rzdZMdCHpwoP54P4T3Ozfappnp0NC
+	 7zX9snPGVJOSiawaxdNcClKMApqhqA1p0SR93BwqWXzutuT8ipwFJhY4sFVclweeDEkUx
+	 JiSX+A7wU6zEyY5bRK5phpL+v3+RtJziDbWh47lNQSrWDGhj2ac/HoDKnZm0UDYsqUo8+
+	 vXq4X2r2ugQ/QQzTlT5P1fqBAkGysWhH3p+07SvtccTKGpW5v89f44Lg5OV+uY7E94w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M7aVjHXF;
-	arc=none smtp.remote-ip=91.218.175.107
-Received: from mta0.migadu.com (out-107.mta0.migadu.com [91.218.175.107])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=iCea2MQt;
+	arc=none smtp.remote-ip=43.163.128.52
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.52])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F95606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8F95606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67910606A31A;
+	Thu, 22 Oct 2026 06:03:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67910606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=M7aVjHXF
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WT+CIFhZntE5BE5eqiNouZOxVvcxtEu7JEGWI4ZMUMs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792648918; v=1; x=1793253718;
- b=M7aVjHXFu28T7XQJ40fE36+Tg7vjSogHkIOOSUHQVXqJfGcJ+gh54Uk+u1jk33naaI498NUi
- Ouj+iN2+o6VvqWhGQYv9+vCtrCHd50QDVTkkM08TrAOKZ5JfOjA5lpZBDbUjuHvdL13RUNiPSrI
- CZ3t7UcPi2zjDEJZzfaQpgtA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ef379f53ce47e711;
-	Thu, 22 Oct 2026 06:01:57 +0000
-X-Mizu-Trace-ID: ef379f53ce47e711
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <96d314a5-09b8-42f1-bed8-a5e755cda982@linux.dev>
-Date: Thu, 22 Oct 2026 14:01:50 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=iCea2MQt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1792649004; bh=P7zxgzzTYI172zwYyaCUL/lcmGtqRhZjbLJauuKN8eM=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=iCea2MQtZFsBRko5lmT234iGtA8hnpAaMIAIMC9xxhHSYsKLv/dyorPMsRnk8tOz3
+	 +YqFVQeHFESL7IhfzGpYEBaBcXZq35Lcq8o1hdjvoQ3muhfPIDB3TfzPTO1oH7okDk
+	 zCKuGfDMCmy2cPvRSdZRC3m9/BhG2PXeckJ1PBB8=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-XMAILINFO: NNWesLkrH+Yr/HKZIoi0WG9ez0k2A56Ft9TfkyVosLzXtqN3ayo1wQKS32Od7J
+	 rsntzRg61vrbIc0ur6zvUNfs5Z0Re/GHeEv4ABijBGztu7S4IhbA2O+W1V7isKOEZVyEFsz5k3dDi
+	 Fw96qK5EVfIwuEDJFdThOYDlYsVIXiS/39W2CSw+JjCJAlOop4GuZtBTTjddg3ezS9o/f5jA8aHs+
+	 XQdSfw0ncmKJuOpqTPa7o5RWNdr/SDH3/P/I3NNkriRZdoda4WF/wVqhkP8aVExTwMK6cAc6yb93+
+	 uTFozLSsJUDtFFKy6kcpcdfD/ibIoASJAdvZOoGAA9dcCJcBjI5SX7tf+7jbYjS0rOJ8P1Sl6rHaj
+	 tnNhsguhs8jmuI+950uv9/ZPhoAiUQWdmIZIID6UF+NxV7+BwQwOUFfyCitiGG3LiLyw0Zo+2mbTN
+	 6qWZpMFBBE2DBqHF2hu8v0voOhTRovfiFW7P6pttu60Yum6oKPbGqROsXD+tcNl1iAVb5tLvZxcGm
+	 IRGGWv3+znRwYSFxMJT65PqDcaB8fGJVFl82H/BQnybDL2SvB38hjs6FB9zh/EjZH7xjnCFvvvBsg
+	 qzdHXanXjUGfqhte38SjEugNz/onLzs0c2/QUSELOnonEtlQusHT1ODInD1sGno5jj8yFMfnswkpt
+	 GPJ7GVycb7ZJ7nyjFqpBYDrBXDwEYC3qXastmifzSA2fYA6WEKMCk/YLkvI9nVknBf03OHpLGo+Qy
+	 by6MY9w2tvMlbvBJwj2+DAqyiJBQQ+PIkt7pM9vVeeP+vltmP8R+wCl2WgEqGq7i85hQhj8TL6Gyy
+	 4WTFw/ScLocaTGF1qQUcgr5m4UyLE+aV8IxB/rqKVeI69+yWx6UdxbE2giq6P1bBxZ6VI84YPGc6s
+	 5K0O3yZbd4Bhj7lzdB8/OaqtO3323krcv0Ot5FPMRAXQSuxTvVlWbQBftvYNiwND9nw6vVSugWvlP
+	 v4ekI+BK/6J1KNAhJrwn8jeBPTt/Ky1cwMsQlXt57y15zysSbK4UjFP3/6/ycTYqBVYa35JsdueXt
+	 +ha4B7IrhED883s22djs80FgGg4BPFwN6TOaw
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?QW5kcmV3IEx1bm4=?=" <andrew@lunn.ch>
+Cc: "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, "=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, 
+	"=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
+Subject: Re: [PATCH 14/27] dt-bindings: net: rockchip-dwmac: Add RK3572
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,117 +68,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Fix partition recovery with unavailable
- CPUs
-To: Waiman Long <longman@redhat.com>, tj@kernel.org
-Cc: ridong.chen@linux.dev, hannes@cmpxchg.org, mkoutny@suse.com,
- shuah@kernel.org, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
-References: <20261020133315.123890-1-guopeng.zhang@linux.dev>
- <71bc8d63-456c-4dcb-9d03-c2881f41af78@redhat.com>
-Content-Language: en-US
-From: Guopeng Zhang <guopeng.zhang@linux.dev>
-In-Reply-To: <71bc8d63-456c-4dcb-9d03-c2881f41af78@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Thu, 22 Oct 2026 14:03:22 +0800
+X-Priority: 3
+Message-ID: <tencent_5D642036FAE534DDD2B8C81424688CEC060A@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-14-0b0fd85a31ee@qq.com>
+	<09c223e6-6872-4bb6-a915-870c3ee614cb@lunn.ch>
+In-Reply-To: <09c223e6-6872-4bb6-a915-870c3ee614cb@lunn.ch>
+X-QQ-mid: xmsezb41-0t1792649002tmzzbeu1c
 
-
-
-在 2026/10/22 11:31, Waiman Long 写道:
-> On 10/20/26 9:33 AM, Guopeng Zhang wrote:
->> From: Guopeng Zhang <zhangguopeng@kylinos.cn>
->>
->> An invalid local partition can become valid again even when its
->> exclusive CPUs are no longer available from its parent.
->>
->> This can be reproduced on a cgroup v2 system with CPUs 0-7 online:
->>
->>      cd /sys/fs/cgroup
->>      echo +cpuset > cgroup.subtree_control
->>      mkdir A
->>      echo 1-4 > A/cpuset.cpus
->>      echo 1-4 > A/cpuset.cpus.exclusive
->>      echo root > A/cpuset.cpus.partition
->>      echo +cpuset > A/cgroup.subtree_control
->>      mkdir A/B
->>      echo 3-4 > A/B/cpuset.cpus
->>      echo 3-4 > A/B/cpuset.cpus.exclusive
->>      echo root > A/B/cpuset.cpus.partition
->>      echo 1-2 > A/cpuset.cpus.exclusive
->>      cat A/B/cpuset.cpus.partition
->>      root
->>      cat A/B/cpuset.cpus.exclusive.effective
->>      cat A/cpuset.cpus.effective
->>      1-2
->>      cat A/B/cpuset.cpus.effective
->>      1-2
->>
->> B is changed back to a valid root even though its exclusive CPUs are
->> no longer available and cpuset.cpus.exclusive.effective is empty. B
->> should remain invalid until A can provide its exclusive CPUs again.
->>
->> Shrinking A's exclusive CPUs invalidates B in
->> compute_partition_effective_cpumask(). The subsequent walk in
->> update_cpumasks_hier() tries to recover B, but
->> update_parent_effective_cpumask() skips the recovery checks when xcpus
->> is not a subset of parent->effective_xcpus. Since part_error is still
->> zero, B is changed back to a valid partition.
->>
->> Set PERR_INVCPUS when the subset check fails so that the partition stays
->> invalid. New test cases are added to test_cpuset_prs.sh for removing and
->> restoring the parent's exclusive CPUs.
->>
->> Fixes: 0c7f293efc87 ("cgroup/cpuset: Add cpuset.cpus.exclusive.effective for v2")
->> Signed-off-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
->> ---
->>   kernel/cgroup/cpuset.c                            | 8 ++++++--
->>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 4 ++++
->>   2 files changed, 10 insertions(+), 2 deletions(-)
->>
->> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
->> index 585a982249ad..be80763953ed 100644
->> --- a/kernel/cgroup/cpuset.c
->> +++ b/kernel/cgroup/cpuset.c
->> @@ -1986,12 +1986,16 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
->>                   cpumask_copy(tmp->addmask, cs->effective_xcpus);
->>                   adding = true;
->>               }
->> -        } else if (is_partition_invalid(cs) && !cpumask_empty(xcpus) &&
->> -               cpumask_subset(xcpus, parent->effective_xcpus)) {
->> +        } else if (is_partition_invalid(cs) && !cpumask_empty(xcpus)) {
->>               struct cgroup_subsys_state *css;
->>               struct cpuset *child;
->>               bool exclusive = true;
->>   +            if (!cpumask_subset(xcpus, parent->effective_xcpus)) {
->> +                part_error = PERR_INVCPUS;
->> +                goto write_error;
->> +            }
->> +
->>               /*
->>                * Convert invalid partition to valid has to pass the
->>                * cpu exclusivity test as well as the housekeeping
->> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
->> index d04aad697b96..f1d517647ade 100755
->> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
->> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
->> @@ -427,6 +427,10 @@ TEST_MATRIX=(
->>       # cpuset.cpus is allowed, but those extra CPUs are ignored.
->>       "  C2-3:P1   C3:P1  .      .      .     C2-4    .      .     0 A1:|A2:2-3 A1:P1|A2:P1"
->>   +    # A child cannot recover until its exclusive CPUs are available again.
->> +    " CX1-4:P1 CX3-4:P1 .     .     X1-2    .      .      .     0 A1:1-2|A2:1-2|XA2: A1:P1|A2:P-1"
->> +    " CX1-4:P1 CX3-4:P1 .     .  X1-2:X1-4 .      .      .     0 A1:1-2|A2:3-4|XA2:3-4 A1:P1|A2:P1"
->> +
->>       # Taking away all CPUs from parent or itself if there are tasks
->>       # will make the partition invalid.
->>       "  C2-3:P1   C3:P1  .      .      T     C2-3    .      .     0 A1:2-3|A2:2-3 A1:P1|A2:P-1"
-> 
-> Patch 2 of my series should fix this problem too. I do borrow your test cases in my patch. I hope you don't mind about it.
-> 
-Thanks for addressing this issue as well.
-Of course, I don't mind. Glad the test cases are useful!
-
-Thanks,
-Guopeng
+SGkgQW5kcmV3LAoKPiBTaW5jZSB0aGlzIGlzIGEgbmV3IGRldmljZSwgcGxlYXNlIGRvbid0
+IGFsbG93IHR4X2RlbGF5IGFuZCByeF9kZWxheSwKPiB3aGljaCBzaG91bGQgYmUgY29uc2lk
+ZXJlZCBkZXByZWNhdGVkLCByZXBsYWNlZCBieQo+IHJ4LWludGVybmFsLWRlbGF5LXBzIGFu
+ZCB0eC1pbnRlcm5hbC1kZWxheS1wcy4KClRoYW5rcyBmb3IgdGhlIGZlZWRiYWNrLiBJIHJh
+biBhIG1hdHJpeCB0ZXN0IGFuZCBmb3VuZCB0aGF0IHJnbWlpLWlkIGhhZApsb3dlciBwYWNr
+ZXQgbG9zcy4gRm9yIHYyLCBJJ2xsIHVzZSByZ21paS1pZCB3aXRob3V0IHRoZSBkZWxheSBw
+cm9wZXJ0aWVzLgoKQmVzdCByZWdhcmRzLApDdW5oYW8KCg==
 
