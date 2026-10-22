@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.216.245.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792666097;
-	b=U9rBO42PEssPSuSrVt2vMQMw5lKrD40iEvn78gVLIoNTweNBcdJhWxV8omv9VsiLYCZq
-	 uNStCX1haINN3dTaBv6b/nrBJBlu3LjdOqA6agUkwncq1CE9qfwYRN96Mg04OfmsGIRkn
-	 iaWNZLf94e7VpRCkD7CbITudbXb5gTDzejhYPbTwlllKsZxazvyNWectVWIAnIi4QZiW4
-	 a84LqP5Z0ar997H+8z8VEm9OeyOz1sIeMb6+cHPh3aUcPXbVTiaPSJbdTIyAt4ROMCE4o
-	 9FYaxs0zjfkLaPxl0VrKPzWAl+mqlrZLFXjJSzQJPU1Ck2V2WVPoS9oGz6M84y+DfRQ==
+	t=1792666092;
+	b=ingl3wjhfTKqzeN/7BSaW6r2KWAzxKJAA2vxDWVI5eljSDHaBbYTwUFZCvcH526+Dj+t
+	 RYRE3b98TI88nprLmSHAPxnfxKmrNy2NAN19+dqr94y/PTyW8rj16J4bFFCIXJq+dYOkg
+	 LngVSCbNR3H0FIRawLGuFq8NT6w3ygNyCabi0kIC48UZ+KV6DhhKJE3pY9u08I5FFFOIv
+	 gUvmzOBSFc+1drTnsJ24vdBMZcszD3vGJU/SeaX86zOJd0qxX3SxAoc0wNaIpqLlj5FDf
+	 9U6Kd+WxS4Gx8FR+e0Z17EwVjeP9SsbCox8DLgy90gj/FURc/+R4BOZbrsdpOdUR/wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792666097;
-	h=DMARC-Filter:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gxHu+OsACNNKDOs52BFr5ziYno8vbDilu9o3NOvqrIs=;
-	b=uoxtXfMW9hfhsQpoI38asms/mQccWyOPT2ED1GUPRx/XeUeaF6mDcNqt2RpOEjEuOwFf
-	 WCChNY5HN1x0GsjXvWvUn+C942a5UmgQKh2cjax3xoC9pG/o58n45x+IPZeEKLeYK0uGq
-	 8ZBTxTRPbZm9Vc/spkeNuRWs/0y6zlYDvJ3L6JxQgLMjbAtUm4STKjXUR8VY5ljwjj+qG
-	 qjWEgECaLtzdv1N3u/hJhMizBN78mcSCGqDn7sp+oOs5Hlm1lniOUxLPG7rXjorqiniM7
-	 FDyHz0sRbPj5cToRw5BORhoCYO7Js0VAZYsYmVFrJD7oNjn5oBWGUa77WoJymkzDqqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792666092;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=VMFYo8TGf9T7pW22h9oeX3BwhYw9aJUZp60dfxtT1R4=;
+	b=jYvv7YTdoqqQdekiwQSSRnxMB7cjQOFa4FHuzRrmZHoSqrbn+FTcX67uEyIavL5kAke9
+	 nPOqNIVFPwpr6GGC9PLyY301Q6PRi1SQ8xubKuTd+OGkaVHlZURckLcbEi1Z11D27gzvy
+	 3yUGYOnTMYmgkUCCAM/Je2gsX5pO911/URfLcbZ5mWItxIHHqKwRfI2PT7DY+rJRzv0vs
+	 110BtAXDUTrCk1/CcNKvhTc8WM7gUMSeIYu1QdeTTwLvdv7ArXRgf2i9F19IRsnOuIF0h
+	 Be+BuQt8eWvLskADyxymmMoJzTa73DpeJ1KCbKppKBmqNwxqKIy+9r3Ouv4bisTnKTA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=strlen.de;
-	spf=pass smtp.mailfrom=strlen.de;
-	arc=none smtp.remote-ip=91.216.245.30
-Received: from Chamillionaire.breakpoint.cc (Chamillionaire.breakpoint.cc [91.216.245.30])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvlUYCw0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 325A6606A320;
-	Thu, 22 Oct 2026 10:48:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 325A6606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=strlen.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=strlen.de
-Received: by Chamillionaire.breakpoint.cc (Postfix, from userid 1003)
-	id D066D60F16; Thu, 22 Oct 2026 12:48:07 +0200 (CEST)
-Date: Thu, 22 Oct 2026 12:48:07 +0200
-From: Florian Westphal <fw@strlen.de>
-To: Eduard Zateev <hackerowskiy@gmail.com>
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+f3f4fce0609f8e91b540@syzkaller.appspotmail.com
-Subject: Re: [PATCH] xfrm: disable state hash resize work on netns exit
-Message-ID: <atnp52JxdGXixDge@strlen.de>
-References: <20261022102641.1429128-1-hackerowskiy@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBF73606A319;
+	Thu, 22 Oct 2026 10:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RvlUYCw0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52C031F000C1;
+	Thu, 22 Oct 2026 10:48:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792666091;
+	bh=VMFYo8TGf9T7pW22h9oeX3BwhYw9aJUZp60dfxtT1R4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=RvlUYCw0CtlY60DoP88XkLQ6JHIs7ZxwPtxTG+Y4yFYLmMGdm35H1l5u3XoiC3A83
+	 ignsYiKwBrVlI0jzk9Yk8c8sT5teVlloKMtWGFQEkfX7OEfZib79K08yqjeEPNvlYB
+	 6YgnVzcWcgQYR+FGzCuBhaILnrxVBA85WF7OPx2b1zwdT6inZSqOepqaVUBkVW2TZG
+	 k1gEc6PgLXZbbuG7KeetfKTRrgdChT925Fs2faM38AXQzFrRmVgxOj4MZ3dAC9mhEg
+	 myirXaYF6U83jT5zO2zephD+oXAQOhH3bpImQa+m2bPr3QCCuJ92WEeVhki1waTYs4
+	 Ci6yxcBmZkF5g==
+Message-ID: <fa143c9a-722a-402e-84fa-a127494b3f5c@kernel.org>
+Date: Thu, 22 Oct 2026 12:48:05 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,41 +51,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022102641.1429128-1-hackerowskiy@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
+ support
+To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com
+References: <20261021-lyra-display-upstream-post-v1-0-585caa39cd7c@oss.qualcomm.com>
+ <20261021-lyra-display-upstream-post-v1-5-585caa39cd7c@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261021-lyra-display-upstream-post-v1-5-585caa39cd7c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Eduard Zateev <hackerowskiy@gmail.com> wrote:
-> xfrm_state_fini() flushes state_hash_work before it inspects and frees the
-> per-net state hash tables. A concurrent state insertion can queue another
-> resize while that flush is in progress. The resize worker may then replace
-> and free a table while teardown is still walking it.
-> 
-> Disable and drain state_hash_work before flushing states and freeing the
-> tables. This also prevents a new resize from being queued during teardown.
-> 
-> Fixes: f034b5d4efdf ("[XFRM]: Dynamic xfrm_state hash table sizing.")
-> Reported-by: syzbot+f3f4fce0609f8e91b540@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=f3f4fce0609f8e91b540
-> Assisted-by: LLM
-> 
-> Build-tested: W=1 ARCH=arm64 net/xfrm/ (out-of-tree build).
-> No reproducer was available to run the teardown race locally.
->
-> Signed-off-by: Eduard Zateev <hackerowskiy@gmail.com>
-> ---
->  net/xfrm/xfrm_state.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-> index e45aa1ed5b9..8a2e465bd73 100644
-> --- a/net/xfrm/xfrm_state.c
-> +++ b/net/xfrm/xfrm_state.c
-> @@ -3392,7 +3392,7 @@ void xfrm_state_fini(struct net *net)
->  	unsigned int sz;
->  	int i;
->  
-> -	flush_work(&net->xfrm.state_hash_work);
-> +	disable_work_sync(&net->xfrm.state_hash_work);
+On 21/10/2026 17:17, Anand Tiwari wrote:
+> Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
+> available, used by the Talos Lyra EVK LVDS panel overlay backlight.
 
-This is already done in xfrm_net_pre_exit().
+We do not have Talos vendor, you sure you did not miss dependencies?
+
+Best regards,
+Krzysztof
