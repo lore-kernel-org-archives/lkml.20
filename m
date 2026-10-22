@@ -1,106 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702264;
-	b=ptSwRF+2ne2wTd3+Sbae3MZscCA3hkcoxoMZ+/pFq+HUufMTZ8LgRGbmRoh5+cZHBMOt
-	 BJrjQ1OPIvQLjfOmNyfxOfPpkfdmAX5kCaAO/Pj/4bcq/DzJrFv74RDzYlS+Qm8VehLw6
-	 WjLaJX4zGXlWXMNa8kmqen1ITGs0md9MugwLLXbuMm7Fy63mQefjhpXBUOV3Ysw2KRUpz
-	 N4qi0Fop7/4gwacsUO5zXjWgdBTOcvhI/8uKxj2rQk2kWmHKWKui01ILTFJGegi6TRzz6
-	 T7dyHzsmNoZeOaGKtr5ThhAK39nmEsKDKrH5J1XnTg2fdnGNQL6iMDc/+tQLptYrCyg==
+	t=1792702427;
+	b=i8/dYfQGjxzqgGL+pgMf3WU/8OAiC2hGHEazw4w3jH2Q4iH60v5kSJCGGx6KFaz1Yt6z
+	 DkSwmSjJCHax7zUrGnOWTYq79cGw2QgtF6S0BLOslzJFK7F+/rv//tB+IRi5iT8pcACxP
+	 ZnmlJhTtJaahFs3Ar5ztSQCE6EWlB7iKkPWpMoWUhKZIWt7U4TE8Mpw2VXdMPvZuNZg8e
+	 i3kLcPEiXmCBdov+IgEyQqC24QBqwXR3Ep7McDOCEyAUoowoWmTHzMJdHmXrEYi18nBaJ
+	 L6VQVqYycvzNZwSCW7l9Dnsk45BFhAuuNj8W5aX7GHhzu0ROWwvQ48IV0y+TJjh4F1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702264;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yzKfe/HIkfkdztp3Uz7ZvCiWpLjrHeTj8pQ7u7u4b7g=;
-	b=uSjICy/HVcM2fTBRW7AdAITtvlxqMgrAfeTT22TgtwtJaU+2KmUpuVIpprys1rngYuZy
-	 1gYD3pT3vGOJMTz6e3mv8HPVZfiHoTMeL7NiFJYBWvxcXKapMYjDkHSZQ4v5Z8MuU5vtF
-	 aLm4DSr5FWwjc9hVtRB1TPzW0SwnB+7v28hs/ekHl8t86cN3RoQ7dZL/KFJOXDmMvl+Zs
-	 a3hBTjsUW1tNKgwjq1P2gDxWs8BHjroZh5z6oMXfUSYiqaJGB7APIYkCq1D9DnLaMg2iF
-	 7F8Z4KiyqH8mPeSN8zwOjEX0Am4+meu4n1z7XmLjv0+LzV01tOFPmvpPhG47M9bdZ7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702427;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
+	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=mQjVuzb1/ppGtpvK3P8ELxGZQm6eXc6OPqUh5D7uJdg=;
+	b=MWhawvKsXZ+Le7pw0iDi5QlXE28XXStxxu6uHxPm/S4qYDpfQ6IeqMWvpfAsgUJBYNr9
+	 Z7BxhR7Pd/fc3V8AMOQ9UqXwPfrA59xjRmcPoS25XwGYggh1EByH6gmvNYUexHhFkulAC
+	 LXe366HyaL2m/T4ZZUOD+5mCvdHtPZzML6opBD5rGGWns82jL/DANOFnOCe9G1RbZxfQd
+	 MwlTib7ACHb0z2G4qued1iZjStimkmocqN99yDAP5qwBrtSN5Kdu0Z38JGot7DR0cIG73
+	 fcDmH2ml55h/qlBrQZD8VdvRZtDRa6MTQiB2Py1HnUVji9/7DBC0FaJCZ+hk+lQId1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=omDFPABZ;
-	arc=none smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=DGjxdF7x;
+	arc=none smtp.remote-ip=216.40.44.17
+Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241DB606A32E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:51:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 241DB606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5897606A319;
+	Thu, 22 Oct 2026 20:53:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5897606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=omDFPABZ
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c40e02b2ebaso37876166b.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:51:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792702261; x=1793307061; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yzKfe/HIkfkdztp3Uz7ZvCiWpLjrHeTj8pQ7u7u4b7g=;
-        b=omDFPABZWukNshfcvKsiAfrd5oEwJzH92xrxWZfyaxZT87hQuuvMlXKLnDRDKgUo68
-         C687Ocg8hgOdeFsVYpvaLK7qc3vT7yod2iXu3Yh8iI1a1pXcb/xaQ2z5ShwQ5elPU59/
-         0cR2ftqTCpoVQKKyg+pjRrIU/UCAx47Ju9Ls1R0yubnoGA90oYnKjGgK5HMBzyVVJNtU
-         o/KKMcLmyZZ4zmrjnL8NQ7AEpYUB8nCkBnrQ/eTB5xNIpIGgBeTxeY5p1doKvmboCNr3
-         o0IiLb/7eTirYlQmUmAn0+nG8dyjyX0IF52mJTmKuEeioyHDw7I/UJXyfxVxKr8cM3B8
-         TeNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792702261; x=1793307061;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yzKfe/HIkfkdztp3Uz7ZvCiWpLjrHeTj8pQ7u7u4b7g=;
-        b=knkoJ8edpO2IIeGUzffZ7p2fjWuNCPy7eJr8CwRLzfYsNuAR2bVUisC12ltWzW8bsY
-         I/Kah/vUvqqocgA6YuiobrSnuwcK/C6UdwixhUbxcU++Psimt2bOWXkAiWJFui5sXohP
-         mVS4evKIXMLFrxYmqz0davHx+UAIWbtqT3T0CHeum0R97L2Lh5Fbq3Xa7FYLp9xQ73qC
-         DAXJqNPMQFsrJ8YROWS5MO6fZfBKR3+/bNlBYd948eBlolHkopbYv/PAvsEDpKQUVzwY
-         8onaKYAKXMjCX61b883rubiX0hkcwZeiFyRf7o404TYYdwzURjghoF7i3558pV7Ajt3c
-         pRLg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfAiBS6jGpthaZT6cdJuME4SHyme8J5g98/3Pb9uayXM0KWWZZJJZ+ax4WvNbHQXVOicSmxsGjgx26qi8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYITXBQKMQ2r1Ae1zeQfBEPE4uLZDdfe+Eeg5gZWl3ugnBCOA1PT
-	cnzn62AK3YOURHuj7G5km47/vlVKOzlwxH/hQRERQAOwORcsXR/mC79I
-X-Gm-Gg: AYBFou0ez0Hi5zLisC462o6q3txb4AVYbW8tsJ1lm0C7GmyHBZuKPF0ebItsi/KmBLq
-	/jS8kXPI95tsaaLu9mvCGOaGseRCebm47BTTJ/S0LSRgVaaqe6BXPDthbpjKro91UAavoBLDrbL
-	mOIGdKZWSKtA0fnaMqgHtxBJUrOTw7KlCN/Z6031QFTHQhZmlVKpuwwBtHml2hA3HuqgGYmnWhj
-	Y4SQvp1iBbFyQd6K0x6meyx9F+R4tkFWJkLh99a5sY/kbORDtaiPSOcX488E7Y7k8uwBrrOHqrL
-	qIB6fD6zE1tw/y5l0iMLJoEWw0OayGj+pTkobpZBoQ5VGX9LLI8VzcA6Z1PwdoTA3biCjy0vW6e
-	0PbQVSRwiin+5d7ROD0CkQeAjUv9wNcTOAYwjtUSDRAXramtPh09S0R6ogy/JwpWoaR+jJS+BXv
-	CzJ8lrDZ7uUI/1VPQvnelx+wC2QG76lcUhbgCCj18ME8ac+AnuuzZMAKz1VjH9r9uYd198FCLlo
-	JbWpM3+JtG9GxwVCdVc2Oy3LDsxA6ExMNuD0e1Q/f8Z6Tlw9lV8zy/9M/myWvsNiTU9QVaMxhXa
-	vdz9zCSKjpwwEdw552/kmwQn+xIvuCfmNIJJF33ma7/VPavxMC31ksXbhrJXrACfV++jD7/ZXMk
-	VyFDlmVpGnVYXrKeAgyLjP7PS8jgg9Eccb6hLqIeUvSrPCr73eedVqQo/+w==
-X-Received: by 2002:a17:907:3dab:b0:c2e:3b23:1468 with SMTP id a640c23a62f3a-c46a94b7c7amr47733066b.48.1792702261240;
-        Thu, 22 Oct 2026 13:51:01 -0700 (PDT)
-Received: from martin-Virtual-Machine.mshome.net (h-98-128-181-228.NA.cust.bahnhof.se. [98.128.181.228])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5c4d518sm28898066b.17.2026.10.22.13.50.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:51:00 -0700 (PDT)
-From: Martin Nordholts <enselic@gmail.com>
-To: rust-for-linux@vger.kernel.org
-Cc: Martin Nordholts <enselic@gmail.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Nikolai Grlica <nikolai@nikolaigrlica.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] rust: list: Improve `List::remove()` SAFETY comments (and remove TODO)
-Date: Thu, 22 Oct 2026 22:49:23 +0200
-Message-ID: <20261022204924.230453-1-enselic@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=DGjxdF7x
+Received: from omf02.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay06.hostedemail.com (Postfix) with ESMTP id D77D8A78FC;
+	Thu, 22 Oct 2026 20:53:39 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf02.hostedemail.com (Postfix) with ESMTPA id 89DD18000E;
+	Thu, 22 Oct 2026 20:53:37 +0000 (UTC)
+Date: Thu, 22 Oct 2026 16:53:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Alejandro Colomar <alx+linux-hardening@kernel.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, "Matthew
+ Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr
+ Mladek <pmladek@suse.com>, Shuvam Pandey <shuvampandey1@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <20261022165336.3100a5be@gandalf.local.home>
+In-Reply-To: <atpyCU3fDyU95hbY@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+	<20261005155708.1471260-6-kees@kernel.org>
+	<20261016145928.16eddc9a@gandalf.local.home>
+	<202610221058.C5626C5172@keescook>
+	<atpmAQ932J3_8IvJ@debian>
+	<20261022155726.7f20c4cb@gandalf.local.home>
+	<atptYsHyS6YGtzPV@debian>
+	<20261022162000.18aa4162@gandalf.local.home>
+	<atpyCU3fDyU95hbY@debian>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,45 +71,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout03
+X-Rspamd-Queue-Id: 89DD18000E
+X-Stat-Signature: e3zcrciaahepohnd8bwhgbwpqr1xm7z1
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18ehAJFysVrxrSXVnagrmOUwNFzCDmggN8=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=mQjVuzb1/ppGtpvK3P8ELxGZQm6eXc6OPqUh5D7uJdg=; b=DGjxdF7xZ8us3s/XmpfqyfBKArNugJ0yae+fRnOXGhT+ZJbzOWuSC9C0MiA6HGLLdC5Zl+fvwdJh1ALnsDVtgArQl9QtPXfjRImyk7FESju2kUNXcyqTQCSKKaGCZ8FuG4qdO5MMNKa1ZpQxQ5loeJp8sBJDNefmOdv5obwiKoI=
+X-HE-Tag: 1792702417-726029
+X-HE-Meta: U2FsdGVkX1/7qo9H3VOZWiT76OrpxlDNhstfzpILz+eyXPsnf+BsdappRpV/FYC+L5vZ3fG9uGRth+GEjNbGEddnIyQkVdyqYQ+GBwFzSr8GrcM0GGZNGfh8dLTG7M9TdDmT/YNMOakP0wP/90bhoShrKqElw8DfqxHHDV+BHDMFJe9/sOf8TpKS46mnAirFSenVbOU0ReP8GS9HTn3QICygSrCUXVJefGG5Su6p/9LgPnqMxNHQU7mxE48zyGj76WaCdkNAieIqu/c5rlyGxYkadZ/5hzvUccaeKDAxDTxHMQWOSX/654g7cUaDzRQp78yPPaNUX/LJGDBj5ueu7I/xLycuhuSJ
 
-See the comments themselves for more details.
+On Thu, 22 Oct 2026 22:38:03 +0200
+Alejandro Colomar <alx+linux-hardening@kernel.org> wrote:
 
-Signed-off-by: Martin Nordholts <enselic@gmail.com>
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Link: https://github.com/Rust-for-Linux/linux/issues/351
----
- rust/kernel/list.rs | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+> No, it doesn't lose data.  My proposal is to have this:
+> 
+> 	struct my_seq_buf {
+> 		// .buffer points to the start of the buffer
+> 		char  *buffer;
+> 
+> 		/* .p points to the current position.  This is the last
+> 		 * '\0' that has been written to the buffer.  On
+> 		 * truncation, it is a NULL pointer.
+> 		 */
+> 		char  *p;
+> 
+> 		/* .end always holds ARRAY_END(buffer).  It is a pointer
+> 		 * one-past-the-last character in the buffer.
+> 		 */
+> 		char  *end;
+> 	};
+> 
+> This would be initialized as (of course, wrapper in static inline
+> functions as needed) this:
+> 
+> 	char            buf[100];
+> 	struct seq_buf  b;
+> 
+> 	b.buffer = buf;
+> 	b.p = buf;
+> 	b.end = ARRAY_END(buf);
+> 
+> Then, you would write to it as:
+> 
+> 	b.p = stpecpy(b.p, b.end, "foo");
+> 	b.p = stpecpy(b.p, b.end, "bar");
+> 	...
+> 	b.p = stpecpy(b.p, b.end, "baz");
+> 	if (b.p == NULL)
+> 		goto fail;
+> 
+> Then, at some point, you might want to initialize a new buffer out of
+> the remainings of it:
+> 
+> 	struct seq_buf  b2;
+> 
+> 	if (b.p == NULL)
+> 		goto fail;
+> 	b2.start = b.p;
+> 	b2.p = b.p;
+> 	b2.end = b.end;
+> 
+> See how simple this becomes?  (So much that you may doubt the necessity
+> of the set of APIs at all, but they don't hurt much either.)
 
-diff --git a/rust/kernel/list.rs b/rust/kernel/list.rs
-index 0f367264ee2e..24f2896feff2 100644
---- a/rust/kernel/list.rs
-+++ b/rust/kernel/list.rs
-@@ -599,11 +599,12 @@ pub fn pop_front(&mut self) -> Option<ListArc<T, ID>> {
-     ///
-     /// `item` must not be in a different linked list (with the same id).
-     pub unsafe fn remove(&mut self, item: &T) -> Option<ListArc<T, ID>> {
--        // SAFETY: TODO.
-+        // SAFETY: The user provided a reference, and references are never dangling. Additionally,
-+        // our pointer will not outlive the lifetime of the reference.
-         let mut item = unsafe { ListLinks::fields(T::view_links(item)) };
--        // SAFETY: The user provided a reference, and reference are never dangling.
-+        // SAFETY: The raw pointer is valid because we just derived it from a reference.
-         //
--        // As for why this is not a data race, there are two cases:
-+        // As for why deferencing is not a data race, there are two cases:
-         //
-         //  * If `item` is not in any list, then these fields are read-only and null.
-         //  * If `item` is in this list, then we have exclusive access to these fields since we
-@@ -628,6 +629,7 @@ pub unsafe fn remove(&mut self, item: &T) -> Option<ListArc<T, ID>> {
- 
-             // SAFETY: We just checked that `item` is in a list, so the caller guarantees that it
-             // is in this list. The pointers are in the right order.
-+            // Mutating `&T` is ok, links are behind `UnsafeCell` (in `Opaque` in `ListLinks`).
-             Some(unsafe { self.remove_internal_inner(item, next, prev) })
-         } else {
-             None
--- 
-2.53.0
+I rather not increase its size. It is embedded in the trace_seq.
+
+Yes the seq_buf code can be complex, but it's in one location where it can
+be highly tested and verified. The point of seq_buf is to do the complexity
+so that other places in the kernel doesn't need to.
+
+-- Steve
+
 
