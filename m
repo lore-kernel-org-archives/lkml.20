@@ -1,102 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792703676;
-	b=A0/sXr8un4pzcjvQj5iR3F//qC28mRfBRuouJrCJC7DjvXvCxzesm8hqygZiek8zZ9CT
-	 SwM+ym2IXi9umkta6d2RX+lSmcE5eRUWWLgwFT/ko+sU4js2sGV0D6T7+DDTnbo8U+xmi
-	 g8FGyDfe9wvKkQehxdu41YRer91aR9YbtrVqu6w17+KXdzm8Yyy3vtrDwuaonqguVGmss
-	 bbJYmdmGU16+dzf2dGjJ90Y46fgL9H3EddM4WPGHhlg7sQpqxX0fRzvbClPD7Driv3m+R
-	 6aJ1mXR29zwGPyOiGE8QxthV7At1AkeHq5y1+qEvfOuo4H3T/9XcNCfQ72JNCDej/2g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792703676;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=96ZHwzjqsG6CUxMd5Tj8dG+Gsl2GLdgDoem+sCHFR+Y=;
-	b=o3RuJ3MTmElKErrfTwYCz13LUzrxmfKJbpfQ9QOmhOw5z4cM3MafYfXXsUPWQ1KhLymB
-	 wfWj/JfwF6FXjnjOVdVeLGPGH9s09C29zASaRXCbJxgm/mfOJGoYfWvmItuMo4GiL3GUm
-	 dSNVzwP0dFqWfFTgu6wy912jdzzwGUaxpt+zkELSi04QaZTQLf5Ih0av87sZEn6FDpclm
-	 lGdx4/ifOqhnPuJIl+R/uPuIc0NPjPc4pyxyl4SGTHI0AWj7TGQT60exJuEYbXUYM78PA
-	 TN9HUYIaRiuDd1GbYRRp4CcJid3ZHZufMRigqrRmp4H/bxYGsooPJHKLDIiXNR88qwg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JGperKwS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792703775;
+	b=J/Wv9v3N+a+/UvvLlCl2hAvaQQpHgsSc+WTSkW3Mv6R6a6O2oOgl8diStoOnCPW7Enr8
+	 Os4oZNkpP4UquI5kG9RNu+YwL//ZTnPodB27awVK9pEZO1837ax6vf19zYLT29BC/Xyup
+	 ts65jylpOGEH2iXq4pWWZz2+cWWx1pxroX65sPuUIC3U/Ns7EshYB4TD5Rv2wQwaCMnu5
+	 OtZ1O0cmk1Jzfa7W/upeq0paosjTF/iBtDHZEEX97K1LJQ/CorIliMHkbjqQ3nLDnKAPc
+	 l5/kgMGW0lrsCDxykHqriS5tm7db00XykVrFJeXCeDZCBq1EYznxvnJDgXpdB5eayzw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792703775;
+	h=Received:DKIM-Signature:Date:From:To:Subject:Message-ID:MIME-Version:
+	 Content-Type:Content-Disposition;
+	bh=ULiUyno5q/1ByPzV5Oc12QZ9vof4bDO1Z38qpJk8WTc=;
+	b=4FtjvGXJI/Xqm/E7PuNoUH/eKuKCYh52w66G2V1sxmyTK8HuuxpcnqwOWvp9wXMwyqA0
+	 34GM/9qoeTQBVvkSiY+fvrqsKOFfI+uNxDKNAGmxFLNOZI1zrHfwsGTtsdjNzlAqRVOKj
+	 Bf3EVIOlY1kKz9jf58DEhvc8E1YlgwH8HBVU16OzvzlO1Yczz538iuWrtPnmobRL6FTr8
+	 0YdqyxC5Z+gecIh6nBUqM9fclAzQnbj+w52NdKUZw/Ut0NkjkW5ftpS3lEQJwRStw65aU
+	 1b0qJDPvkw0W4RHGKkNfkcCYc8mDzFQZgx4oVOelHiK/vE3pkvkAWzas4sVPFS6rh6w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncc1etqj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3C6606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:14:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D3C6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0667606A319;
+	Thu, 22 Oct 2026 21:16:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=JGperKwS
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so2655285e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:14:36 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792703675; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aCbUCCuKJOiilaAcKHIi9pCt9XzBP+QaRGjxbo2QSA4KmKbH+SlLXGyJKzr2yfO6mE
-         sTT3gkqzSWEz4Sv0lLMnOPv3jHWzYHZ8uLgU0GPr9PcA3yacmvAOCg/9L7rbdu0YVei2
-         qY6tSZnZIWD0QUzPP7dyGTqOkShab4G4fom8oLvU0wfGc31fXkzUTGpBNhd2mnsBsG9p
-         A0M5TPJY11JE6S4AvbayW/HMCtOO6Ly972dH7yPynqUiGVUjAC0E9JersAUABx5Iu5YI
-         lKg0Ri7VvWoyw8awutmkymLudxYp4WFZP+WBKGQiD33IfKF7Dmyow2Wizt9kgO7OgqEH
-         Y+qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=96ZHwzjqsG6CUxMd5Tj8dG+Gsl2GLdgDoem+sCHFR+Y=;
-        fh=BWqnlr6mtyZNbB4mijcQhlydA0OA1EyPhlONnEdzLj8=;
-        b=W3s6AAB3ZfVUCP0+HWlZ9YREok9QhlfsB07ItCpErqoFpAhnqykDm4eBMx9zLjnXab
-         ezT2JhEtv+tXPHWzJoxiRpy8G/Xqyin28nYo5DqrW2jsDM39ND6rGdaksP8yOcKF59FS
-         oSeJmMzTP2DNWsF9KMnIg/E5RMYbdZOgeGpQfDVetL63WNjmvPAOu4+zpjphyI8dsd+Q
-         jWMbxKLPSaDwdQ+mm2cLcR/KLH6AWaVYaIo4/biYbe+EysIgVZPlcWA/qq/qpr/Mkj49
-         8ZnUzjy29Ha8zREy9Hugl3CVHzL6fkFyJ+c6YR5+Xw11FBYCERnOjrOfjaD7svRR/Wnb
-         THiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792703675; x=1793308475; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=96ZHwzjqsG6CUxMd5Tj8dG+Gsl2GLdgDoem+sCHFR+Y=;
-        b=JGperKwSxAFOqSeYlcMY8VSYQUgTD30IBeJ9wSJNKJ3+n2Z7YV6NznJ3XrPQPJX36U
-         nER8VF+WL+ECv3b7q3hFgQY1v87teuYQiGVqDMLfIB/lwM0bkkKSCf54FEPAqCw3xp6T
-         7n6Ny4Ndo1595EjB3mi3JKnhX7Hdb2rJO8/mcsUuyzhYhpP6W8iZYHkbvpYBxPrgevxv
-         5yvWZfd/HF1yXOIrGkXNDxn+r4X2cS/DVqOgFUAehFTHWgioHR9JLTlpm+UG6IJi49/r
-         We00WdpozzQvANAHZLd/Uoox+CwiNXBkFQjOsAqYOUc/IiMn0gWu5sbiEuRIqBuRoQvv
-         iW5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792703675; x=1793308475;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=96ZHwzjqsG6CUxMd5Tj8dG+Gsl2GLdgDoem+sCHFR+Y=;
-        b=fzobriU11n6GINLvzsTGvwRjSl6LNpJ201JkLpT/pVKuWCNhTjBJTwliCpzQEe7VH6
-         S5XPmz4hwWk2dYI5r+7QzSBx3oRbEtTux1gfokz/X2XGXfNoYtI5bIu77CzYmCctUQ0Z
-         m5/4JnHfHr6Uweqnce2EAaxwbsIbbes9z1XXqHLV+PrsOWDzS73fvxYhEPM6Y6BMLU/m
-         YJnNhb6x9cde9L1h62iaa9SBdjjsS3WmpJxICAYI17E53KErU83G2876Ejh+2WhNZSUX
-         NNh76Ea/mnTrJOCymaOhuxpVD3PATUoeknQ0wEyqSEGymS22pu5qp5ZioHEMpq0HxT0U
-         nJAA==
-X-Forwarded-Encrypted: i=1; AKwUvByYuNwrkLbz2TBkzqBrpwkYCItV0FWoQGkB4xA2EwR4/r0BLO5CtqK7F9NV3KBow1Es4LKbBENgtWjoLa8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZfyac5JfQtew5EULioMPQv++5J232NNO4iy6SSNPx7J+m9VAY
-	yjaMFeu//JIMXG4Gwp70cYzgPixSS9X6jlTHs0n0N7VLRgSKs4W+ASbStGAGEE1sTCpxIBdYhNu
-	xXHLjwJ1S6m1mSaSGmUuW6e7Ndr4GylksHcOB2W0=
-X-Gm-Gg: AYBFou2zbp9MvDXxFNgJ0cyeT8IENof9bwPCNLfY+HRi1Ez8/VBKzGXRQ8rnZxJA/f1
-	RbzdwBiNq7xBijP824NolXTC51iGdunG0tdJSfu3VLvVuSE+ueqn+4kluXmzyj1HX7TM8zuKhQF
-	W/wWRcAEYkQvFsctOJZmZBFWspjgXOwgV6iyTRR3vqYLkJ+9uxp+QuLXtQnGXQTDsRg5wP7ISDA
-	xQbLbvVfUvGjeORb88rJhHki7wTFk8CrPVSsRZ3KkhxfS+s1NiAanNHw1Q5FMPDKYZ8l38QgEAM
-	ktbWeOJW+RuAGLFIfMO0m7avM06dT+ULSwkGbo/xHTKjpgILo07HvlGL2SVSEBZ5GvmdVRsDZT0
-	uPo/+OHBTGRrIfIA8yB9Dg2FLZb+mf7FwQkImrWEAJxRpofo6QLLDexF8kZ8hQ6XW3i0zrhz+yf
-	YDENE7RPZA3ilfRiPJZCUxnrAReVUHFxlpkRZ1AlsF+6+6mGuzTBHLlXfSobbwwssK1cQxi6GaG
-	XdmkSU226zLM+oWaGFUzjG3eIjqEN+I5UyQFOm/HqgBlPp/wYvKL5717mYdWNxQz9Z1tyYieA==
-X-Received: by 2002:a05:600c:3114:b0:4a1:d492:1604 with SMTP id
- 5b1f17b1804b1-4a211eef48cmr3769275e9.11.1792703674569; Thu, 22 Oct 2026
- 14:14:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ncc1etqj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DD8A1F01825;
+	Thu, 22 Oct 2026 21:16:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792703774;
+	bh=ULiUyno5q/1ByPzV5Oc12QZ9vof4bDO1Z38qpJk8WTc=;
+	h=Date:From:To:Subject;
+	b=Ncc1etqjoKYP2taNTsSlTYum2oye1Y8LhmHqk/IxJTZAbTUGi+NCXEr1v5ul3JyY7
+	 7vu3wug+MiFHEvZ0PKAC/hIgXQkuCrlW538sI7RM92Cs5adswCD/D1CeXrG1Nq0V/0
+	 fTUvSJmEsXh4dtWAaW647MnHqPD+sjx/xBYgg5HbzCxlylMfPA8k/05qm+WqBLSeJQ
+	 LfxfIQuy3q+xBmqjTuYO+JI5deozTOXh5TbU3W/SPQn9Q84mV+4KcKjO0KZP6vG4rR
+	 vnPI37JaSAtT/hisAX2BZm+sa3Lf/TsnGwvumk9sPF/VzvgpTNvrKJ5HPhQUOBZq2N
+	 ij2ZH0WUsvxCQ==
+Date: Thu, 22 Oct 2026 23:16:10 +0200
+From: Helge Deller <deller@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+	linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: [GIT PULL] fbdev fixes and updates for v7.4-rc1
+Message-ID: <atp9GlM3gE8uF0xo@carbonx1>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,48 +55,195 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261001202134.33929-1-dwmw2@infradead.org> <20261001202134.33929-4-dwmw2@infradead.org>
-In-Reply-To: <20261001202134.33929-4-dwmw2@infradead.org>
-From: John Stultz <jstultz@google.com>
-Date: Thu, 22 Oct 2026 14:14:22 -0700
-X-Gm-Features: AclHuK9URtH2ON3X6rfc3JDMMJdWLGe0oJiD0me7jB_6EoRn-wwYn9IXCmD2lyg
-Message-ID: <CANDhNCoQM0TR1pxX9rRSHv5OZQQnobFpZ3ZUw_rn3gEKMvSUVA@mail.gmail.com>
-Subject: Re: [PATCH 3/5] timekeeping: Bound idle sleep while a phase slew is
- in flight
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Miroslav Lichvar <mlichvar@redhat.com>, Rodolfo Giometti <giometti@enneenne.com>, Ryan Luu <rluu@amazon.com>, 
-	Julien Ridoux <ridouxj@amazon.com>, linux-kernel@vger.kernel.org, 
-	David Woodhouse <dwmw@amazon.co.uk>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Thu, Oct 1, 2026 at 1:21=E2=80=AFPM David Woodhouse <dwmw2@infradead.org=
-> wrote:
->
-> From: David Woodhouse <dwmw@amazon.co.uk>
->
-> Phase offset for adjtime() can be delivered at a rate of 500=C2=B5s/s, an=
-d
-> for STA_PPSTIME potentially even more. The skew is recalculated in
-> second_overflow() each second, and if that's missed in a tickless
-> kernel, the skew continues to be applied for the whole of the idle
-> period. While skew is active, clamp timekeeping_max_deferment() to the
-> top of the current second to avoid the overshoot.
->
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Assisted-by: LLM
+Dear Linus,
 
-So, again, this looks ok at a high level to me, but I've not really
-worked through the __do_adjtimex changes.
+please pull the first bunch of fbdev fixes and cleanups for kernel v7.4-rc1:
 
-My only hesitancy is shashiko has thoughts but I haven't quite sorted
-out if its a real issue or not:
-https://sashiko.dev/#/patchset/20261001202134.33929-1-dwmw2%40infradead.org=
-?part=3D3
+A whole lot of small fixes all over many drivers, but the majority of changes
+are related to code cleanups regarding the cursor handling in vt and fbcon.
 
-But assuming you've evaluated and dismissed that concern:
-Acked-by: John Stultz <jstultz@google.com>
+Thanks!
+Helge
 
-thanks
--john
+----------------------------------------------------------------
+The following changes since commit 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907:
+
+  Linux 7.3-rc7 (2026-10-11 20:04:55 -0700)
+
+are available in the Git repository at:
+
+  http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.4-rc1
+
+for you to fetch changes up to 61e1a43ca5825acb137a10ac7d52746632bfb124:
+
+  fbdev: xilinxfb: Use FB blanking constants (2026-10-20 22:36:14 +0200)
+
+----------------------------------------------------------------
+fbdev fixes and cleanups for 7.4-rc1:
+
+Fixes:
+- core: initialize modelist in framebuffer_alloc()
+- core: bitblit: fix glyph clipping when fbcon pans
+- fbcon: restore font geometry if font rotation fails
+- sh_mobile_lcdcfb: restore the per-overlay sysfs attributes
+- udlfb: don't rebuild the mode list while the framebuffer is in use
+- atmel_lcdfb: prevent FIFO work after removal
+
+Cleanups:
+- vt, fbcon, vgacon: cursor code rework & cleanups
+- MAINTAINERS: name the deller/linux-fbdev for-next branch
+- drop unused FB_IOMEM_HELPERS_DEFERRED Kconfig option
+- acornfb: remove unused code
+- atafb: fix sparse warnings and avoid casts
+- sstfb: use managed PCI device enable
+- gxt4500, kyro, nvidia: release write-combining handle on probe failure
+- various drivers: typo fixes in comments
+- various drivers: fix error path on fb_deferred_io_init() failure
+- various drivers: use FB blanking constants instead of VESA constants
+
+----------------------------------------------------------------
+Andrey Misiurov (1):
+      fbdev: core: Initialize modelist in framebuffer_alloc()
+
+Ethan Nelson-Moore (1):
+      fbdev: acornfb: remove unused code for 26-bit hardware
+
+Helge Deller (3):
+      fbdev: Drop unused FB_IOMEM_HELPERS_DEFERRED Kconfig option
+      fbdev: atafb: fix sparse warnings
+      fbdev: atafb: avoid cast when assigning buffer address pointer
+
+Hemanth Selam (20):
+      fbdev: s1d13xxxfb: fix typos in comments
+      fbdev: sticore: fix typos in comments
+      fbdev: viafb: fix typos in comments
+      fbdev: sstfb: fix typos in comments
+      fbdev: tgafb: fix typos in comments
+      fbdev: tridentfb: fix typos in comments
+      fbdev: mmp: fix typos in comments
+      fbdev: au1100fb: fix typos in comments
+      fbdev: efifb: fix typos in comments
+      fbdev: grvga: fix typos in comments
+      fbdev: kyro: fix typos in comments
+      fbdev: maxinefb: fix typos in comments
+      fbdev: pm2fb: fix typos in comments
+      fbdev: skeletonfb: fix typos in comments
+      fbdev: ocfb: fix typos in comments
+      fbdev: omap2fb: fix typos in comments
+      fbdev: radeonfb: fix typos in comments
+      fbdev: mach64: fix typos in comments
+      fbdev: aty128fb: fix typos in comments
+      fbdev: atyfb_base: fix typos in comments
+
+Karl Mehltretter (1):
+      fbdev: sh_mobile_lcdcfb: Restore the per-overlay sysfs attributes
+
+Lorenzo Stoakes (ARM) (6):
+      fbdev: ssd1307fb: check for fb_deferred_io_init() error
+      fbdev: xen-fbfront: check for fb_deferred_io_init() error
+      HID: picoLCD: check for fb_deferred_io_init() error
+      fbdev: udlfb: check for fb_deferred_io_init() error
+      fbdev: smscufx: check for fb_deferred_io_init() error
+      fbdev: sh_mobile_lcdc: check for fb_deferred_io_init() error
+
+Matthias Goergens (1):
+      MAINTAINERS: name the deller/linux-fbdev for-next branch
+
+Myeonghun Pak (4):
+      fbdev: gxt4500: Release WC setup on probe failure
+      fbdev: kyro: Release WC setup on registration failure
+      fbdev: nvidia: Release write-combining handle on probe failure
+      fbdev: sstfb: use managed PCI device enable
+
+Thomas Zimmermann (10):
+      vt: Add cursor-size helpers
+      vgacon: Remove trailing whitespaces
+      vgacon: Use vt_cursor_{start,end}()
+      lib/fonts: Add font_glyph_cursor() helper
+      fbcon: Replace fbcon_fill_cursor_mask() with fbcon_cursor_glyph()
+      fbdev: au1100fb: Use FB blanking constants
+      fbdev: i810fb: Use FB blanking constants
+      fbdev: sa1100fb: Remove comment on VESA DPMS modes
+      fbdev: platinumfb: Use FB blanking constants
+      fbdev: xilinxfb: Use FB blanking constants
+
+Tingjie Zhong (1):
+      fbdev: bitblit: Fix glyph clipping when fbcon pans
+
+Xiang Mei (1):
+      fbdev: udlfb: don't rebuild the mode list while the framebuffer is in use
+
+Yao Yiqi (3):
+      fbcon: Include font geometry in the rotated font cache
+      fbcon: Rebuild rotated font buffer on font change
+      fbcon: Retry rotated font allocation after failure
+
+Yibo Tan (1):
+      fbdev: atmel_lcdfb: Prevent FIFO work after removal
+
+ MAINTAINERS                                     |   2 +-
+ drivers/hid/hid-picolcd_fb.c                    |  12 ++-
+ drivers/tty/vt/vt.c                             | 114 ++++++++++++++++++++++++
+ drivers/video/console/vgacon.c                  |  43 +++------
+ drivers/video/fbdev/acornfb.c                   |  57 +++---------
+ drivers/video/fbdev/acornfb.h                   |   9 +-
+ drivers/video/fbdev/atafb.c                     |  28 +-----
+ drivers/video/fbdev/atmel_lcdfb.c               |  11 ++-
+ drivers/video/fbdev/aty/aty128fb.c              |   2 +-
+ drivers/video/fbdev/aty/atyfb_base.c            |   4 +-
+ drivers/video/fbdev/aty/mach64_cursor.c         |   2 +-
+ drivers/video/fbdev/aty/radeon_base.c           |   4 +-
+ drivers/video/fbdev/aty/radeon_monitor.c        |   4 +-
+ drivers/video/fbdev/aty/radeonfb.h              |   2 +-
+ drivers/video/fbdev/au1100fb.c                  |  20 ++---
+ drivers/video/fbdev/core/Kconfig                |   6 --
+ drivers/video/fbdev/core/bitblit.c              |  10 ++-
+ drivers/video/fbdev/core/fb_info.c              |   1 +
+ drivers/video/fbdev/core/fbcon.c                |  91 ++++++++++++-------
+ drivers/video/fbdev/core/fbcon.h                |  21 +++--
+ drivers/video/fbdev/core/fbcon_ccw.c            |   3 +-
+ drivers/video/fbdev/core/fbcon_cw.c             |   3 +-
+ drivers/video/fbdev/core/fbcon_rotate.c         |  10 ++-
+ drivers/video/fbdev/core/fbcon_ud.c             |   3 +-
+ drivers/video/fbdev/efifb.c                     |   4 +-
+ drivers/video/fbdev/grvga.c                     |   2 +-
+ drivers/video/fbdev/gxt4500.c                   |   1 +
+ drivers/video/fbdev/i810/i810_main.c            |   2 +-
+ drivers/video/fbdev/kyro/STG4000OverlayDevice.c |   2 +-
+ drivers/video/fbdev/kyro/fbdev.c                |   4 +-
+ drivers/video/fbdev/maxinefb.c                  |   2 +-
+ drivers/video/fbdev/mmp/core.c                  |   2 +-
+ drivers/video/fbdev/mmp/hw/mmp_ctrl.c           |   4 +-
+ drivers/video/fbdev/mmp/hw/mmp_ctrl.h           |   4 +-
+ drivers/video/fbdev/mmp/hw/mmp_spi.c            |   2 +-
+ drivers/video/fbdev/nvidia/nvidia.c             |   1 +
+ drivers/video/fbdev/ocfb.c                      |   2 +-
+ drivers/video/fbdev/omap2/omapfb/dss/dispc.c    |   4 +-
+ drivers/video/fbdev/platinumfb.c                |   8 +-
+ drivers/video/fbdev/pm2fb.c                     |   2 +-
+ drivers/video/fbdev/s1d13xxxfb.c                |   6 +-
+ drivers/video/fbdev/sa1100fb.c                  |  29 ------
+ drivers/video/fbdev/sh_mobile_lcdcfb.c          |  45 ++++++----
+ drivers/video/fbdev/skeletonfb.c                |   6 +-
+ drivers/video/fbdev/smscufx.c                   |   9 +-
+ drivers/video/fbdev/ssd1307fb.c                 |   6 +-
+ drivers/video/fbdev/sstfb.c                     |   5 +-
+ drivers/video/fbdev/tgafb.c                     |   6 +-
+ drivers/video/fbdev/tridentfb.c                 |   2 +-
+ drivers/video/fbdev/udlfb.c                     |  14 ++-
+ drivers/video/fbdev/via/dvi.c                   |   6 +-
+ drivers/video/fbdev/via/hw.c                    |   2 +-
+ drivers/video/fbdev/via/viafbdev.c              |   4 +-
+ drivers/video/fbdev/xen-fbfront.c               |   7 +-
+ drivers/video/fbdev/xilinxfb.c                  |   2 +-
+ drivers/video/sticore.c                         |   2 +-
+ include/linux/console_struct.h                  |   8 ++
+ include/linux/font.h                            |   4 +
+ include/video/mmp_disp.h                        |   6 +-
+ lib/fonts/Makefile                              |   3 +-
+ lib/fonts/font_cursor.c                         |  56 ++++++++++++
+ 61 files changed, 444 insertions(+), 292 deletions(-)
+ create mode 100644 lib/fonts/font_cursor.c
