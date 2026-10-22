@@ -1,60 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.35
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792640235;
-	b=E+o5fbHjOV7ny4uYczyrJpB+9O2grxYRLeLjG6gRuI+WfnXeswyn3md1DoQBd0NAgVbT
-	 KxhvnoCemMXZi7vtzidbRPaX6zwGbK2T9x8hVxOYHJVjL1I9toa8ZHEEi/geb7qySAqUo
-	 kVh5u7FucVS7/0p9sZ4rKL9F1v4A1EPK8jhtJHtmD45Wkb4DGOm0udlo/ERshu594xbbJ
-	 JqOZCQbmaTlZg5qYkRKcpmbRB2w8jznwfuxOctDb32Pk9dCKBxocnUfedMIiPRFQLbdRN
-	 +kAJ0udFB/r6RLt3BygIkjZzOAd0kRgOlbGCHK64MRkTEMSs5w0Ii/Y1wO2WUP1sotw==
+	t=1792640648;
+	b=t7mB6ov0y36nnD4i7PQN5F/wtPGxiQT3jF73A4MGZ46UNtR5OjTmpntWG8dbPF6oWjpF
+	 hQd7HQydk1Qqee650JFzzcXXZsn7uwikeiP47oMvf4F07omEPUKV+0bVahPD1yMe7hlnI
+	 xbdGWv7ldAgFj9rWDKOenrXamjyk1l4r8yo0z00uBXHrIolrsq/g0QeTZaNp1avsrrxy1
+	 GaOoI9OKQV/m1xPAb80FTbQKv+oxbrr9wM5o9YcphAiiFyE/vh3sWl/YOrS0Vg/wUrCGQ
+	 c4qE5SAWmFS6K9elS+iWRQxV6zttjOiCB4QaVkR0/Su0vtpj7GnAGE5bOkSem6mHC4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792640235;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=wiOrzvAWE54RUecfoYSwa4qYrJQIt8QNmZHHKyYFVK0=;
-	b=LD4BoA5mkn+aJHt+mMxRM2LMYI3YSIJZNwsV7cDABbGkEEl4Ydv10gmKM7IH6GrKaAmY
-	 I+wGVutKQn2/MJPnYmNSu2jmZiFkLxVctk0CN+Ln9sdpKm6AzK5Jn1ttAFw8i/xsJRMuG
-	 sgYA2Gv558WtcWxGghu9XIWOYIeY0SQcVxabRw+vjZn1HONwIK2fzINCkXjcND4svfDdS
-	 /IQuqMMK5XjWbHv+PKxCDqMMRwEaSd7W6iGEhRoPC8wneNmISPyHfcsoHYekjEKyTaaTy
-	 DJ/Sl2wXgTJ5RBmcQdDpb+8k7TlT7+ikB201urGEhwo104Lk2iIYsihuJx8ecDYk5LQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792640648;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=IGL2LF3kJfnJotSm7Ou+7Cd5xevBu/wfRGoJVJcdsiA=;
+	b=tx7XdGSUFfk2ATQ6uhPiebMkD5VRd2LoiS9soCXVY76WKVymBdInY626RS6PCrWMPpkf
+	 sB/BpV+PLFH4/8fye8bG61pjmLiJzMaU7pD6HKo3hq51ub1CudYUuQS8vOESoSjt4Duio
+	 0wRF8hdchS0uB3kHKcb/JKAzokn/Rb7nDUl+ijdnxVVKLV3w5RLiR+RnsuwVHBJ94+CJD
+	 ze4Si+QgZk6KttiFsWcZ7/PEPAy5XAJDuKFzJCLWBKyIAwGlgNHAs8+vp+8Kiu7jSDDNQ
+	 Jb5/ENpBAlhJkeU+dL7CB8FT3BQZkYngo4VaLklnFl9T2Mw+fwoo2VH5TmFYj2a1o9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTvaCW2A;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EemzBdJL;
+	arc=none smtp.remote-ip=91.218.175.35
+Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFD1606A31B;
-	Thu, 22 Oct 2026 03:37:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F563606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:44:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F563606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTvaCW2A
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1965F1F000C1;
-	Thu, 22 Oct 2026 03:37:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792640234;
-	bh=wiOrzvAWE54RUecfoYSwa4qYrJQIt8QNmZHHKyYFVK0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nTvaCW2A8PtFlz2WBPFWTQKpyVIVR2r8NgeRnmsZfqMR4MY5ntT96Wkm+8rQDboSS
-	 KKQzN2Gnbt26IsIfre9+xrjhGBVXt4sggbZhJQ0AhAaZIo2FfY87bCGK2VywdgEYhg
-	 nKJaRQGBp6ErXezG83eUQ17Pb+d+w+NKG4gcQ8lOKAIptCzgkEU/zp87ZdyHqhCam5
-	 cVk4qqUONgK9Ep5Ak0iXYXtLkIIHsHoq2APv7zlnACCo2PRtdVqKiR5hnqafvTXi0o
-	 0f2rqT8QbgxgBEFRr6Rrwwp8m7VOujOhegcP5v0rjMUkpNtURoXFAIgp9y42MQ+XQ0
-	 jMNam+/q5e7+g==
-Subject: Re: [PATCH net] net: ethernet: ti: am65-cpts: fix support for
- PTP_EXTTS_REQUEST2 ioctl
-From: netdev-bot+sashiko@kernel.org
-To: jjc@jclark.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, richardcochran@gmail.com,
- jacob.e.keller@intel.com, kory.maincent@bootlin.com, s-vadapalli@ti.com,
- c-vankar@ti.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 22 Oct 2026 03:37:13 +0000
-Message-ID: <179264023362.3135.17895429756190814680@kernel.org>
-In-Reply-To: <20261020003525.1237742-1-jjc@jclark.com>
-References: <20261020003525.1237742-1-jjc@jclark.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EemzBdJL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IGL2LF3kJfnJotSm7Ou+7Cd5xevBu/wfRGoJVJcdsiA=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792640645; v=1; x=1793245445;
+ b=EemzBdJLgzf4lhA6aMHbAJOCPffQw+e5zVl+lHrgS2T1nZecoxmi8smyCmiKdWunBwVwltxe
+ NOBI5nKmzuWGbL5tPS2iywxbAsiabv1KJrIgSRQ5eJqABYN7wtpc63zzCNBW5Duq2D5YooU/aFP
+ 2GQEogvLzX5FHGJ1umDcUGYU=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d29a87ff2bdc911e;
+	Thu, 22 Oct 2026 03:44:05 +0000
+X-Mizu-Trace-ID: d29a87ff2bdc911e
+X-Migadu-Flow: FLOW_OUT
+From: Lance Yang <lance.yang@linux.dev>
+To: songmuchun@bytedance.com
+Cc: osalvador@suse.de,
+	akpm@linux-foundation.org,
+	rppt@kernel.org,
+	qi.zheng@linux.dev,
+	lance.yang@linux.dev,
+	jthoughton@google.com,
+	david@kernel.org,
+	muchun.song@linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/12] mm: hugetlb_vmemmap: remove HugeTLB-specific vmemmap optimization macros
+Date: Thu, 22 Oct 2026 11:43:58 +0800
+Message-ID: <20261022034358.44302-1-lance.yang@linux.dev>
+X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20261020115306.813483-2-songmuchun@bytedance.com>
+References: <20261020115306.813483-2-songmuchun@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,92 +74,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+On Tue, Oct 20, 2026 at 07:52:55PM +0800, Muchun Song wrote:
+>Vmemmap optimization is no longer HugeTLB-specific, so the remaining
+>HugeTLB-local reserve macros are redundant.
+>
+>Replace them with the generic definitions to remove duplication and keep
+>the HugeTLB vmemmap code aligned with the common optimization macros.
+>
+>Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>---
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] Adding PTP_STRICT_FLAGS to am65_ptp_info.supported_extts_flags
-  in drivers/net/ethernet/ti/am65-cpts.c also changes the legacy…
-
---
-
-net: ethernet: ti: am65-cpts: fix support for PTP_EXTTS_REQUEST2 ioctl
-
-This patch sets .supported_extts_flags for am65-cpts to
-PTP_RISING_EDGE | PTP_STRICT_FLAGS. The PTP core then stops rejecting every
-PTP_EXTTS_REQUEST2 for this driver. After the change, PTP_EXTTS_REQUEST2
-succeeds for the rising edge and fails with -EOPNOTSUPP for the falling
-edge or for both edges.
-
-> diff --git a/drivers/net/ethernet/ti/am65-cpts.c b/drivers/net/ethernet/ti/am65-cpts.c
-> index efbf2ef976a3..df5659ead72f 100644
-> --- a/drivers/net/ethernet/ti/am65-cpts.c
-> +++ b/drivers/net/ethernet/ti/am65-cpts.c
-> @@ -779,6 +779,7 @@ static long am65_cpts_ts_work(struct ptp_clock_info *ptp);
->  static struct ptp_clock_info am65_ptp_info = {
->  	.owner		= THIS_MODULE,
->  	.name		= "CTPS timer",
-> +	.supported_extts_flags = PTP_RISING_EDGE | PTP_STRICT_FLAGS,
-
-[Severity: Medium]
-Does this also change what the legacy PTP_EXTTS_REQUEST ioctl accepts?
-
-In ptp_extts_request(), the v1 branch keeps the edge bits and never sets
-PTP_STRICT_FLAGS. Whether the edge bits count only as hints depends just on
-the driver's mask:
-
-drivers/ptp/ptp_chardev.c:ptp_extts_request() {
-    ...
-	} else {
-		req.extts.flags &= PTP_EXTTS_V1_VALID_FLAGS;
-		memset(req.extts.rsv, 0, sizeof(req.extts.rsv));
-	}
-    ...
-	if (!(supported_extts_flags & PTP_STRICT_FLAGS))
-		supported_extts_flags |= PTP_EXTTS_EDGES;
-	/* Reject unsupported flags */
-	if (req.extts.flags & ~supported_extts_flags)
-		return -EOPNOTSUPP;
-    ...
-}
-
-Before this patch, supported_extts_flags was 0 for am65-cpts. A v1 request
-with PTP_ENABLE_FEATURE | PTP_FALLING_EDGE, or with both edges set, was
-accepted and reached am65_cpts_extts_enable(), which ignores the flags.
-
-Now the mask has PTP_STRICT_FLAGS but not PTP_FALLING_EDGE, so those same
-v1 requests return -EOPNOTSUPP before ops->enable() is ever called.
-
-The same check runs when PTP_ENABLE_FEATURE is clear. Through either ioctl,
-a disable request that still carries PTP_FALLING_EDGE is now rejected.
-
-One in-tree example is tools/testing/selftests/ptp/testptp.c run with
--e N -E 2 or -E 3. That sends a legacy request with PTP_FALLING_EDGE set:
-
-			extts_request.flags = PTP_ENABLE_FEATURE | edge;
-			if (ioctl(fd, PTP_EXTTS_REQUEST, &extts_request)) {
-				perror("PTP_EXTTS_REQUEST");
-
-On am65-cpts this worked before the patch. It now fails with
-"PTP_EXTTS_REQUEST: Operation not supported".
-
-Rejecting falling edge requests that the hardware can't honour matches how
-the core treats other strict, rising-only drivers. However, the commit
-message says:
-
-    Only the PTP_EXTTS_REQUEST ioctl still works.
-
-This suggests v1 behaviour does not change. The patch has a Fixes: tag and
-is likely to go to stable. Could the commit message say that v1 requests
-carrying PTP_FALLING_EDGE are now rejected as well?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020003525.1237742-1-jjc%40jclark.com
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
