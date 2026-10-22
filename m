@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792711689;
-	b=GiJ0OxHkHLuaGU6uiTypG6sEdNP8ilVKunyR1JKN3zPbE9dOlf/24j30POojWla/CMtM
-	 aSGZ+NPDF5LMuVIDRT8FHvxuZBkMEM5k0a8XQ7UK4voh/mi+DbMWnTV7s9vAYVUPU1JrR
-	 Hy1RZfThUB5XiV3Ed+bSYdL9mQTN2dKS7NJW3PhdOnnSWBt97EXfJ4U6XrDBmwPphpa6x
-	 89XO//XBsqT7YV/RRiGE9ZSG2imh3tdkZSokr7zukpXroUTspx2Ggog0mkU9C52tqycoS
-	 eK8whARlwYFLmRbaG/DfBWqPI4tY349RnoSiNMHHBWSjRuNsPbTeQ6PND9tb2ZSmjMA==
+	t=1792711698;
+	b=w+OG9W2CcbzP4Ccp7dgt6bGBo2BH3LnfGmZtLGoL5dymj/ijlzC0YFzbteMlp8DFJ0WH
+	 6nyG1whYQuvB8PYAgcBKjykGVuNcwPhdRa+E6Wl5Y3GXuzYhko+cTWIDlYXri8Tpa5r4i
+	 PxmrccDOkSsY4f9p1X65sPnRQfjjpTT8kosft10OPCkngxJ5IQk1f0O5+0NCq3E6mn5Iz
+	 FtP4XYkdHkofOAsBw6ou3gbj99BciCEzDu1QQWCY5MUKz2HNlpCvyEIeMvr6634xJEEjS
+	 BlGuvxOXOF6u4e/el7qHos7YZ3pk85RVD4p03B6NEJ1dOOfiS+C0r6MCofXGKokaTUQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792711689;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792711698;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A1G1Rf9O2BcjH5Ek8619fSE6q5ICyMfGfc6AaIv7KWc=;
-	b=XgE+4/C+HfjAQskjNElAEdxTJjVdIfY/u70bqhKQXwioaJfnQ1BzdEfpDj/rD2l1Mr8g
-	 wUbsZvqUUIhksXoPtYQZwR/GtVfPIPDShwLojv2qECJQgmXnYYdh21Sr/zTEV7WgrYLSr
-	 H5zedmevfuo3BSu8lA7doGKWzGTFDzPqoZPA1Ic6RwwETKBsxbvq6PNK2uzgzxCGCcI2A
-	 MGZB5TRxwOfjBRzR2v5zmR3Uyw1RFEQdxMsCQEHCxfylKaJyHdo1jwFHE+/rXdHLTQmpU
-	 XoGGFSC5RLntT7Sxku5d9umq0XBFEARemzRaA5Swocd8oewZyUbmN5qUycE5pfDnOUA==
+	bh=aB8+j9B9rOi2goIvl66WjEN0Kr+n4FfUHBUuzxrcyGg=;
+	b=PmJJXm8e8aWSfxm4AnQT8uVzuc86XoL9DoGu6Pbtbs33ZC/gW6vQO0KGu1rpcFS2xVof
+	 2djG6aui9PUSO7vuFoNLKObo6bsrK5Zs4kwElIH4NURDH42LWyR8i5Lg4lqS7ha3nEoBW
+	 zoYvrkxGUOfZ4uSgSwQXXKoizccCSj8fRNydfeEyV+jNRH/gtrP5mzABe1qwDt/8Kwm7T
+	 HbCeQi7h88HrIZ+fZ64DKy/oSXwB4YoV0xh4oKBXOasuegAStBPxWFBLDBZr+l6vDIwle
+	 G6zXpu7sN40xC801SdzS5V2jYdIpxwSnh9uOEr921izw4WXueHIflerEtamIfcbClTg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWEffl76;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFiWcrUI;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B1F606C0B3;
-	Thu, 22 Oct 2026 23:28:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2818606FF21;
+	Thu, 22 Oct 2026 23:28:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GWEffl76
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFiWcrUI
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792711688;
-	b=MwmGHrSt1eJMuBBBulqnE1bWSoSCJp1yjqiE1FtTi4euGZrXLoSRqVgGVenBu+uFpdVF
-	 QMNnRFqrnjBSRDIzzgHW/UU1/HzYqVFLHn3fomAzJGUuhhjsIwaytTOsgQIUy8krIHzLu
-	 Z8XRgIIAkhWf81wDq4nIAErqAz6GdTDfUx9a5/1EkwGH9FRQhs9AbWkQ0t08bCtHlGHko
-	 DtCss9ZW9BBiy8trVfyHoSMWz1hLwczHA2DXkhlBigxt0hvBsySnshCmk25T75RMW5vaN
-	 YVaVEiHG7vZYrdUk9a0A73e2/u4wC/OZop0zc7XF6yNP+5bdy5azKjud10xL1oHFGSQ==
+	t=1792711697;
+	b=dVI75+fEAEU+6IVnA3jda9pavEvFMpnYNHGqYpSrU4rtL91+kyhmqmxJ3IikDvbqMGke
+	 sVwdAlD6u+eDi/DHIaS+1/1MpcWL74Z6XS3ywDnWZfjd8X+NcTzeLm81oDJiLDxWjB7P7
+	 6KXSDQ4PP4bOIO8ldsUeYoz3STFwNqkkEhCyqb72m9x2rhcFqnHMYCUX2hLOA7u4f41a7
+	 Y+VVTMN8/ubC1A9dcBjic+TGXxnsCYhf+Pzf2YqhP2n7SKUC1hsJ16E9HnjGdBN5quiKG
+	 Gdp3taXOF8D13jXMsFKQsI4EmxidE6JHOHJpnAJKNAxT9JT0xpuqgaSHUUJ/CJVeVjg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792711688;
+	c=relaxed/relaxed; t=1792711697;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=A1G1Rf9O2BcjH5Ek8619fSE6q5ICyMfGfc6AaIv7KWc=;
-	b=C2sOJVvJh++jf+Kox7SO9iASpaLO2+WJTpWTM/8Y5IR6F1k28s93JSn9a60ckmN8R/Gl
-	 aMTgOO/tg1JSSPJL7XGwjyQtUOEZsuUxUiYnDUlBS/EeEQBwDNeLbG7gOK+wrp/ivF/nI
-	 XQk/fRMI8R5vJEfrOeqeBiDJWvq5KBikwBlX8pYJBj2gzHZpDsMXcSHtPO5l/mSVgJd9a
-	 +oV+JYngat++1sbc4t477plPBDERD6rnnmtf7mk2vifaDgkeaWWW650TPkzDhKMG5J152
-	 sg17zYZHUvQIgGhkdVzqUgdd6eIJRQVA6Gf2+WqC2ac+XGTD2MJtG+3pPmmsOcKlBRg==
+	bh=aB8+j9B9rOi2goIvl66WjEN0Kr+n4FfUHBUuzxrcyGg=;
+	b=lO8jWnTdg2yGBzG1cYiI6dFHlcvXqny//rHg8F0OCjsoFDOA06McZZED6OOmBQBowuIJ
+	 jt8QCpcn7aXUKeVV7Ps8ojTP302xa7c6H6FHTXA3jcfGqbA4mBbCKOsl/KE/fBD51sJfi
+	 ivSCACVG+YaoXITNybr+haNU2DZnSeuUVf4s9gFDKVpuumI3Xd4wAn+07IkJ4VKcOOkdY
+	 vfTvEWeaWyhClCtQGRRMkBy5y0pAJnDLwUAi70PeSeoHRS1mCDgF8y9V9IOhjF2B7TDK8
+	 dn7f8AlW+xykZ4nzcEBsA5+bsw5DeFeKkp6vXfMQDw1alx/bu8qxIgEJb1TGj+lHM6g==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D34AB1F0119C;
-	Thu, 22 Oct 2026 23:27:56 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id BF8D91F01190;
+	Thu, 22 Oct 2026 23:28:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792711688;
-	bh=A1G1Rf9O2BcjH5Ek8619fSE6q5ICyMfGfc6AaIv7KWc=;
+	s=k20260515; t=1792711697;
+	bh=aB8+j9B9rOi2goIvl66WjEN0Kr+n4FfUHBUuzxrcyGg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=GWEffl76SBhdGZp6Tjxw+CdTc/RVflP5XJVPPI1gIypHV6RPrNSNlNxKOwu0HLRLR
-	 zeApewmaH/8/h9x+oSK3en2gX7TLz0rwAGV0t4gItJAmYD47cSRI/6SUONtFsXnzAV
-	 65SaOgtTRC2bzwEUmhNypyxr1IpBxW3nWJb3iFrsg3Wz7KK5oMha12XMeoMMGjtkN8
-	 LqU2SZj8YPholGtjtMgCWBL14MBw2S4aGbkY7clv9rro/WOfF1HsWdSssacTQ80Pd2
-	 7NxV5jycZDIHJYmqvhvx8xVVY65xX1rwZyTHVxYvOKZiERI3fIDpwia0WmH50Wo7GN
-	 TnLBCKd4YQ/Rg==
+	b=lFiWcrUICzTQLBdVd17MJXIUiXdRXOplomn++FzAilPPV1xm1G4JqriXtmUiJoVNa
+	 8A1zVdlfxAHrIDedQnaY6i3oGmL0hKSMk9DTJjaqbGkiZL+TFQWX1F0f2OWysl1ETA
+	 mO1w6yyypEFbvIUA2EfTzd+L1VACc3KcfzSqAOrAoWcauePuRIEa/G0wpNPgt+vnP3
+	 WkstdG5SaCqfxWi9uW+2JXr6IEyE6Tt1SVaNwPY83nD22ZDCbZ+JQNR3/hsE39m6Up
+	 1794et8OcBvGmy5KdrU6qJodE//Rtlq5C785fA1j/LpccBY4hchUD99w5zmSVSe9jX
+	 FpRQp6g8cDnKQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1464042087;
+	by lkml.kernel.org (Postfix) with ESMTP id 82107420AC;
 	Thu, 22 Oct 2026 23:27:49 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 22 Oct 2026 16:27:49 -0700
-Subject: [PATCH RFC v2 17/50] KVM: selftests: Test guest execution with
- tmpfs-backed guest_memfd
+Date: Thu, 22 Oct 2026 16:27:58 -0700
+Subject: [PATCH RFC v2 26/50] samples/kvm: Remove fixed address and length
+ module parameters
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-gmem-alternative-providers-v2-17-5dd1dc6c660a@google.com>
+Message-Id: <20261022-gmem-alternative-providers-v2-26-5dd1dc6c660a@google.com>
 References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
 In-Reply-To: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
 To: Alex Williamson <alex@shazbot.org>, Alexander Graf <graf@amazon.de>, 
@@ -135,11 +135,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, llvm@lists.linux.dev, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=2755;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=4776;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=N/vFySqhzz3dW65J5EFhyRFk6LB15JoXBGCroknEhCY=;
- b=3+azDMpNzGZAiJkCGhllbXDoBCpuaO/CIda4zJwz+p2iQFNCnYOkkJsCYKEeJ8sHTzGm/Ysn5
- 3a9n4kDRMwxBk2Rd61BgxYePCJBJJicbcrt0PQ/kcPF9PlmC9M9qTi7
+ bh=ZvgRlCQoX8aAOrmBNmY778ViCyt2HTQ8fDZpwcewiX8=;
+ b=hMQxwei6fo+VWEPARf94RDMkjPiXa+ZvJwZ4AhdrwKCCaWXn8vnLqltUKdpAyZOGn4NdnyfGr
+ LnjlZ8YhxflCPm+xo9J+Bmw3RSJruFNHUioJ+FO3GfZblRoOKJxiBWk
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -150,87 +150,138 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Test that a guest vCPU can execute instructions and read/write memory
-mapped into a guest_memfd instance that is backed by a tmpfs resource
-pool descriptor.
+Remove the addr and len module parameters from the sample memory
+provider.
+
+The prototype doesn't require pre-carved out memory ranges, since
+MPS_NEW_CHILD already allows carving out memory on the fly. Being able to
+carve out memory on the fly makes testing easier.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- tools/testing/selftests/kvm/guest_memfd_test.c | 56 ++++++++++++++++++++++++++
- 1 file changed, 56 insertions(+)
+ samples/Kconfig                   | 12 +++------
+ samples/kvm/mem_provider_sample.c | 53 +++++++++------------------------------
+ 2 files changed, 15 insertions(+), 50 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
-index 20de24ad535f1..8e9261db23354 100644
---- a/tools/testing/selftests/kvm/guest_memfd_test.c
-+++ b/tools/testing/selftests/kvm/guest_memfd_test.c
-@@ -799,6 +799,61 @@ static void test_guest_memfd_guest(void)
- 	kvm_vm_free(vm);
- }
+diff --git a/samples/Kconfig b/samples/Kconfig
+index 3c870bca076af..a06eafb5d7ba4 100644
+--- a/samples/Kconfig
++++ b/samples/Kconfig
+@@ -331,15 +331,9 @@ config SAMPLE_KVM_MEM_PROVIDER
+ 	depends on MEM_PROVIDER && CONTIG_ALLOC && X86_64 && m
+ 	help
+ 	  This builds a sample memory provider (include/linux/mem_provider.h).
+-	  Its files can back a guest_memfd and be mapped by iommufd.  Loaded
+-	  with addr= and len=, it lends a fixed physical range that has no
+-	  struct page, for example memory hidden with memmap= on the command
+-	  line.  Without them, it allocates a contiguous region with
+-	  alloc_contig_pages().
+-
+-	  It shows how a memory owner moves pages between VMs, takes them
+-	  back or makes them read only, and how guest_memfd and iommufd
+-	  follow each change.
++	  Its files can back a guest_memfd and be mapped by iommufd.
++	  It allocates a contiguous region with alloc_contig_pages()
++	  and carves out child provider files on the fly.
  
-+static void test_guest_memfd_guest_resource(void)
-+{
-+	const gpa_t gpa = SZ_4G;
-+	const int slot = 1;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	int pool_fd, fd, i;
-+	size_t size;
-+	u8 *mem;
-+
-+	if (!kvm_check_cap(KVM_CAP_GUEST_MEMFD_FLAGS))
-+		return;
-+
-+	pool_fd = create_tmpfs_pool_fd("never", true, page_size);
-+	if (pool_fd < 0)
-+		TEST_REQUIRE(false);
-+
-+	vm = __vm_create_shape_with_one_vcpu(VM_SHAPE_DEFAULT, &vcpu, 1, guest_code);
-+
-+	TEST_ASSERT(vm_check_cap(vm, KVM_CAP_GUEST_MEMFD_FLAGS) & GUEST_MEMFD_FLAG_MMAP,
-+		    "Default VM type should support MMAP, supported flags = 0x%x",
-+		    vm_check_cap(vm, KVM_CAP_GUEST_MEMFD_FLAGS));
-+	TEST_ASSERT(vm_check_cap(vm, KVM_CAP_GUEST_MEMFD_FLAGS) & GUEST_MEMFD_FLAG_INIT_SHARED,
-+		    "Default VM type should support INIT_SHARED, supported flags = 0x%x",
-+		    vm_check_cap(vm, KVM_CAP_GUEST_MEMFD_FLAGS));
-+
-+	size = max_t(size_t, vm->page_size, page_size);
-+	fd = __vm_create_guest_memfd_resource(vm, size,
-+					      GUEST_MEMFD_FLAG_MMAP |
-+					      GUEST_MEMFD_FLAG_INIT_SHARED |
-+					      GUEST_MEMFD_FLAG_USE_RESOURCE,
-+					      pool_fd);
-+	TEST_ASSERT(fd >= 0, "guest_memfd with tmpfs pool should succeed");
-+
-+	vm_set_user_memory_region2(vm, slot, KVM_MEM_GUEST_MEMFD, gpa, size, NULL, fd, 0);
-+
-+	mem = kvm_mmap(size, PROT_READ | PROT_WRITE, MAP_SHARED, fd);
-+	memset(mem, 0xaa, size);
-+	kvm_munmap(mem, size);
-+
-+	virt_map(vm, gpa, gpa, size / vm->page_size);
-+	vcpu_args_set(vcpu, 2, gpa, size);
-+	vcpu_run(vcpu);
-+
-+	TEST_ASSERT_EQ(get_ucall(vcpu, NULL), UCALL_DONE);
-+
-+	mem = kvm_mmap(size, PROT_READ | PROT_WRITE, MAP_SHARED, fd);
-+	for (i = 0; i < size; i++)
-+		TEST_ASSERT_EQ(mem[i], 0xff);
-+
-+	close(fd);
-+	close(pool_fd);
-+	kvm_vm_free(vm);
-+}
-+
- int main(int argc, char *argv[])
+ 	  If unsure, say N.
+ 
+diff --git a/samples/kvm/mem_provider_sample.c b/samples/kvm/mem_provider_sample.c
+index f7ecb2ea1d75d..574c712a11389 100644
+--- a/samples/kvm/mem_provider_sample.c
++++ b/samples/kvm/mem_provider_sample.c
+@@ -8,17 +8,9 @@
+  * guest's devices.  The module calls neither KVM nor iommufd: it answers
+  * "what is page N" and revokes a range when the answer changes.
+  *
+- * The region is either:
+- *
+- *  - a fixed range given with addr= and len=, which has no struct page, for
+- *    example memory hidden from the kernel with memmap= on the command line;
+- *  - or, without those parameters, a range from alloc_contig_pages().
+- *
+  * The control device /dev/mem_provider_sample creates provider files.
+- * SETUP makes one file over the whole region.  NEW_CHILD carves part of the
+- * region into a child file, and MOVE, DONATE and RECLAIM change which child
+- * has which page.  A page can also be taken away or made read only.  See
+- * mem_provider_sample.h.
++ * NEW_CHILD carves part of the region into a child file. A page can also
++ * be taken away. See mem_provider_sample.h.
+  *
+  * Confidential VMs are not supported.
+  */
+@@ -38,15 +30,6 @@
+ 
+ #include "mem_provider_sample.h"
+ 
+-static unsigned long long addr;
+-module_param(addr, ullong, 0444);
+-MODULE_PARM_DESC(addr,
+-		 "Physical base of a region with no struct page (optional)");
+-
+-static unsigned long long len;
+-module_param(len, ullong, 0444);
+-MODULE_PARM_DESC(len, "Size in bytes of that region (optional)");
+-
+ /*
+  * One provider file.
+  *
+@@ -314,32 +297,26 @@ static struct page *mps_alloc_region(unsigned long npages)
+ 
+ /* ---- Root and children -------------------------------------------------- */
+ 
+-/* Create the root on the first NEW_CHILD, from addr=/len= or of @size. */
++/* Create the root on the first NEW_CHILD of @size. */
+ static int mps_root_ensure(u64 size)
  {
- 	unsigned long vm_types, vm_type;
-@@ -819,4 +874,5 @@ int main(int argc, char *argv[])
- 		test_guest_memfd(vm_type);
+-	struct page *pages = NULL;
++	struct page *pages;
+ 	unsigned long npages;
  
- 	test_guest_memfd_guest();
-+	test_guest_memfd_guest_resource();
- }
+ 	lockdep_assert_held(&mps_root.lock);
+ 	if (mps_root.npages)
+ 		return 0;
+ 
+-	if (addr && len) {
+-		mps_root.base_pfn = addr >> PAGE_SHIFT;
+-		npages = len >> PAGE_SHIFT;
+-	} else {
+-		if (!size || !PAGE_ALIGNED(size))
+-			return -EINVAL;
+-		npages = size >> PAGE_SHIFT;
+-		pages = mps_alloc_region(npages);
+-		if (!pages)
+-			return -ENOMEM;
+-		mps_root.base_pfn = page_to_pfn(pages);
+-	}
++	if (!size || !PAGE_ALIGNED(size))
++		return -EINVAL;
++	npages = size >> PAGE_SHIFT;
++	pages = mps_alloc_region(npages);
++	if (!pages)
++		return -ENOMEM;
++	mps_root.base_pfn = page_to_pfn(pages);
+ 	mps_root.allocated = bitmap_zalloc(npages, GFP_KERNEL);
+ 	if (!mps_root.allocated) {
+-		if (pages)
+-			free_contig_range(page_to_pfn(pages), npages);
++		free_contig_range(page_to_pfn(pages), npages);
+ 		return -ENOMEM;
+ 	}
+ 	mps_root.cma_pages = pages;
+@@ -489,12 +466,6 @@ static int __init mps_init(void)
+ {
+ 	int ret;
+ 
+-	if ((addr || len) &&
+-	    (!addr || !len || !PAGE_ALIGNED(addr) || !PAGE_ALIGNED(len))) {
+-		pr_err("mem_provider_sample: addr= and len= must both be set and page aligned\n");
+-		return -EINVAL;
+-	}
+-
+ 	mutex_init(&mps_root.lock);
+ 	INIT_LIST_HEAD(&mps_root.children);
+ 
 
 -- 
 2.56.0.257.gf7497c7d27-goog
