@@ -1,87 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792694199;
-	b=SoudSgHszED5Yb3jhJT5IC5qcnExy12eiNTaC6lS0oCEf5icRJiZRXwGuSeAEqbqNrhr
-	 b+/NwaHvYAKcgXozq7TdiAIGflCVELCcrGbxHIsQmgX17i7mWuqlFxXMoMj5wBreRw7AX
-	 m4QAsd8Mqj4Thtwwhc6pDy91/pkNRGYjZIk36sV488aGBxDmcUfKz2pAY3RHGo7EBLpMi
-	 8d4anZdPYBGEABK6TLtQGlfdvNhVyqgj0UsIwiF33gvSH72Qj/QlMgNPqm8WTsD69q6y3
-	 PPdzaUJ4Q8EQW6d1YNW73g/I7V953C1LLBRDNCP7yqDZjd25oLkpBBdYC8nNd41zlIw==
+	t=1792694216;
+	b=uWwxQWFhzmWGO5b6aEi+wa8MpZGzDy9pz5UeZSgqqoVlVoMPnKee8UcmW+bBg+R+gnrj
+	 Ec0nbZUeT6wY6xxgo29p4aSekdJ36Muh7z5GzuN0JvsQUkxW67Y0vKUowFkqp5pYOCCN0
+	 wpdimrNdXIETz3JyhhC4ij3DtyX9wPwsrFWfIj4pKfIOZ/RgG2kG0/VBs9nUWBAgJsQfT
+	 vyluOvkMoQMeZSn9g1uJbFlPoLupyH2i3dI2mpRqgPluAoYtIKTUsWZvdMpA6h5n1t4eh
+	 wcXMuPhrCyjzTJJXQs1T5rpQVekGKkUdYLYBcIwBA5F/muQQhHO43F5cge6zyBVx7pg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792694199;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=2HByHUi2YpmsLQonsK5yG9lvFZV5+xRUKZvYtQ5pzKU=;
-	b=AWnxhQgVTkN+om0I8AEwf9BBe6ir4/S6SMaqP8eUjgzbAg4UvhfqmpIoE8k9NjrFkdml
-	 UcL4T+nQcFHhdf/f9QYf9gBVjj1tfSYmJOwg8feEfNiWu+94fDmoYesiOVb1HViZmCHwU
-	 yRpbfT2gcA1qYZO7hDUdYNRN6Aqu9I2dBpDa7CExve5k/72O+uYL02Na4lsD+ZpcqN3mP
-	 fkKSluPaS83oSc5f1Kn0sVQ8kV4WR+/dHVe/CqL4D+66e2N0MY5XF0MmEsWfglGBTAV7J
-	 lboj6R6Fs6/dmDSZBXeklc8A0czUFeY1pg46gYSEZwBbDw+BPuwHR1ULv87uBvDftmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792694216;
+	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
+	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=V8UYp7qVy64yxBL1iZ5RNTwYBzXsnnh4TVvEsNUf1A8=;
+	b=wcfhKjE7e+xIVoGbM9Tdcbm1OjudgE8scNxlCkcQ3mcpLRSMswlm4zos/ZIZqlbNly8B
+	 /jo9ZTt2sM4K24sjSQK0YPJDqAqnex8Kz5Ey6spIVt/BB2/YuS6sTJI/wXq5rKhzt9UT5
+	 xUb/Q4PAItAJrAVum+4BO7PTpC2D95cK0cvN7O7JFWF8Zobg2nsodkRq1HsqH/put73Wj
+	 xXZV69uC+Hsqa7pI9Id0z3e3JYMFjhQRQ/vYrC1cF9xS3jzOOVHWO6pRQ5SLWOnQnV0gZ
+	 PVFiMN1r9+JPGSCXMsKxAO/s/yBFT5lG7pK9EO7dQXcToG6I2K4pyQNlmMgJFtYOMQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=toxicpanda.com;
-	spf=pass smtp.mailfrom=toxicpanda.com;
-	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=mt6hYE5Q;
-	arc=none smtp.remote-ip=209.85.222.176
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=HT8csTrz;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3BA606A33D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:36:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F3BA606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5C8360A2615;
+	Thu, 22 Oct 2026 18:36:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5C8360A2615
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=mt6hYE5Q
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-93e63ee7b4cso7198385a.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:36:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=toxicpanda.com; s=google; t=1792694198; x=1793298998; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2HByHUi2YpmsLQonsK5yG9lvFZV5+xRUKZvYtQ5pzKU=;
-        b=mt6hYE5Q7AhhNwO4S9N8tsyDK3PkX6HKFcbPXq/1lIAC9MK0t/JIQe4AIFPRUceKoz
-         7XO+iQt+2sVnngQlwPD9BJPUdmpkz4T6QK12SBOUPRxqIMrOOTtwvYKQOPBWSNYSiKUc
-         Td61bCvdpSsRJT6rEKukX+FOfjXZtIQkPbVDTN5PQKR33o0egYr8ncFP6VpAkZ7UI5ZF
-         sEMos3/aerBZ+4cWHsWFSd1JMiHcTOM6ejum7T4ObjRRGjRk2AMYZDE7U9AHo6SgyX7Y
-         cUjdxzu7XN5BpweLSVPOaHJxBpu2dy4JGz3qRMFsQG/jFb0b9lPiKXllErHu/dNRgmRH
-         /rGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792694198; x=1793298998;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2HByHUi2YpmsLQonsK5yG9lvFZV5+xRUKZvYtQ5pzKU=;
-        b=d9BmpG7nxTRHYHojRkVl7awaPXgx5VeEbWRMkdrqV5KjPGxlumET9TJ+H1KKNGckC+
-         /eFZC8IANXaUUDkKTFci+s9R2w1OnMMKHKxhDldGnzEFFK5rnzEYATQSieCwZ8K0dZVz
-         mKOCqCznFOl0c81rJMgeRzR6Zz2YQQpEROen+WhHAjCYdU0UaSWKk9KTapK2dxqDiTHq
-         lg+aXkRXpVcUkS8Zn4dC0IGRbTmKQ9EYEGKAgEWT51S+ZDRpRgEsOnpFiDimX60J9rHD
-         VNCiA2r80OraJARoSEinJmnwhsB1A3kpbhpTtS+s0N/bbkMQ3pU+l/mrCFI7zTvcX6wi
-         lBPg==
-X-Forwarded-Encrypted: i=1; AKwUvBz2TrHWWcj0W5VlSwHyLva30pz4ZFardk5GT/HbYQcY+a+dU0Rs9B97AO7i9WmmHQWu5urC6DeIAEMAj5E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlQGtjMJ/lpy0/66Dxb9PHmEPI0+DMDzbyshF3v+RxgLKDpXjD
-	7yvwfLohdgAuLj0KvDg3eYR12g/bXnL70ZEWy9dgbEY5p66LcRNe+EBBYGQizv7EpFs=
-X-Gm-Gg: AYBFou3ydMjCMhLj0pXHjWwh30NpooIPG/Pt4M0+1amkijkXNelZmH0F4YbbsgFdPSH
-	6sqg2o49maKM0k3q9CtZBgFAujpCx21IEcvC6MjGBFNrT9T8atT5b8mKlXKJPfs1bQny0SVR/9h
-	BojNMLm442MhLS0tsb+GAwFe++d21mhO8VkwgXsTA6Ke5jylShJK0hWClEt6WFIStDNU+3clp+/
-	G0TG4IhbrilkHamdXhiHYWHePfjTmaW7FGU0mulWufgCtjMViIG4enB6BcoGzFxRrOba0FbaAeO
-	x2scNkfBFC1KhEtu2SopQ+bj/ycvsvPuA0dT5MYPM3TZA+DLyzfLO9jzH02mpY4MP4M7ZeB+eOv
-	RGT3MZMiGzqnskuwai9/sjzh3VK/Lj5uiLpJM2Mfkxbx6K5DHA1cYvof3nHgPk477C7de+d4Gky
-	4mKnPm6VE7jQgj4K7AMSI5fAhBfWKR67YFLW40o3xQ67K4qMuFrJ5dURbBObHYdQJ/D4eae5qu7
-	VlMh/BNATY3P6mS+6vvIqVb1x9WebQkZ7Y4mwadPJCzy8VMLb+7UhEgJaa+7VxPgolH2Xe/
-X-Received: by 2002:a05:620a:261e:b0:93e:a51e:7ffb with SMTP id af79cd13be357-93f6f54da56mr69362185a.2.1792694198543;
-        Thu, 22 Oct 2026 11:36:38 -0700 (PDT)
-Received: from toxicpanda.com ([153.61.196.253])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f6fc33098sm17185585a.35.2026.10.22.11.36.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 11:36:37 -0700 (PDT)
-From: Josef Bacik <josef@toxicpanda.com>
-Date: Thu, 22 Oct 2026 18:36:19 +0000
-Subject: [PATCH v4 1/5] userns: record how far up CAP_SETFCAP reaches
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=HT8csTrz
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
+	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=V8UYp7qVy64yxBL1iZ5RNTwYBzXsnnh4TVvEsNUf1A8=; b=HT8csTrzXZtDDxrBa9FBDoxRbX
+	o+8tyr5/Th61ko7LJS71QLW+4GwHxIKzL5eqs571eSv14Fma/4pnv6Ai7EyUEF1ZjYIE+lVblxXEJ
+	rifipuahKXrxq513U2fgW0nUMXWpuIOIbjnQw2k0baWUK35AmgROl20nH8KadFnUWweEP62DSoKbD
+	cCbFml9j2gTYtH/bhmvZj7jGUTe/5BgQa9jCF0Pv2FeXECgp7itGrgk4nQoUvJfT1EV62yR4zNw+K
+	k86lothh+an0hffCDqVLhLEkZXkwB6Y+GqWMf5JGLfjak8dFEfQ2zRtlmwi5HEOAc9jkvyte2FJZP
+	WPCBeS4w==;
+Received: from [::1] (port=41390 helo=pf-012.whm.fr-par.scw.cloud)
+	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
+	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
+	id 1xJxeo-0000000BPPs-17qD;
+	Thu, 22 Oct 2026 20:36:53 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,158 +60,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-b4-setfcap-userns-v4-1-88aa0ffaa08f@toxicpanda.com>
-References: <20261022-b4-setfcap-userns-v4-0-88aa0ffaa08f@toxicpanda.com>
-In-Reply-To: <20261022-b4-setfcap-userns-v4-0-88aa0ffaa08f@toxicpanda.com>
-To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
- Christian Brauner <brauner@kernel.org>
-Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
- Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
- linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>, 
- Josef Bacik <josef@toxicpanda.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openssh-sha256; t=1792694192; l=5250;
- i=josef@toxicpanda.com; h=from:subject:message-id;
- bh=8IuY/d3QkcyzNsZWg+ftGcwOPwv9NKh0B+T0u35iHR4=;
- b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
- JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
- QGePxagh+fbAEyc1wz/hoXXG8Q9CM8gkmQHGJtfvXx4v5PnFeI78R27OfkrwTMlImXDAKQ6r4pZ
- z3pIr5riTFwA=
-X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
- fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
+Date: Thu, 22 Oct 2026 20:36:53 +0200
+From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima
+ <kuniyu@google.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] tcp: fix authentication bypass via unsupported TCP auth
+ options
+In-Reply-To: <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+References: <20261021193151.1819085-2-Jeremy.Jean@oss.cyber.gouv.fr>
+ <CAL4WiiqYwtZ0851Y0M1gOAQ5uU=kjU29Puwjx7+kyR7BqKEpUg@mail.gmail.com>
+User-Agent: Roundcube Webmail/1.6.19
+Message-ID: <76cd85fa3315cd7efbd99c791514f22e@oss.cyber.gouv.fr>
+X-Sender: jeremy.jean@oss.cyber.gouv.fr
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-create_user_ns() records in ns->parent_could_setfcap whether the creator
-had CAP_SETFCAP in its effective set, and verify_root_map() trusts that
-when a task in the new namespace maps the parent's uid 0.  A bool only
-describes the parent, though.  File capabilities belong to the kuid of a
-root user, and a namespace that maps the parent's uid 0 shares that kuid
-with the parent and possibly with ancestors further up, so what matters
-is how far up the creator's CAP_SETFCAP counted.
+On 2026-10-22 16:46, Eric Dumazet wrote:
+> Le mer. 21 oct. 2026 à 21:32, Jérémy Jean
+> <Jeremy.Jean@oss.cyber.gouv.fr> a écrit :
+>> 
+>> tcp_inbound_hash() parses both TCP-MD5 and TCP-AO options when at
+>> least one of the two features is enabled. With TCP_MD5SIG=y and
+>> TCP_AO=n, a packet with an AO option reaches the disabled
+>> tcp_inbound_ao_hash() stub. That stub returns success, so sockets
+>> configured to require MD5 authentication end up accepting
+>> unauthenticated data.
+>> 
+>> The inverse configuration with TCP_MD5SIG=n and TCP_AO=y has the same
+>> problem for an MD5 option on AO sockets.
+>> 
+>> Make the disabled stubs reject options for the unsupported
+>> authentication scheme.
+>> 
+>> Fixes: 0a3a809089eb ("net/tcp: Verify inbound TCP-AO signed segments")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+>> ---
+>>  include/net/tcp_ao.h | 2 +-
+>>  net/ipv4/tcp.c       | 2 +-
+>>  2 files changed, 2 insertions(+), 2 deletions(-)
+>> 
+>> diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+>> index 9a2333e62e994..bb249d6df8723 100644
+>> --- a/include/net/tcp_ao.h
+>> +++ b/include/net/tcp_ao.h
+>> @@ -303,7 +303,7 @@ static inline enum skb_drop_reason 
+>> tcp_inbound_ao_hash(struct sock *sk,
+>>                 const struct request_sock *req, int l3index,
+>>                 const struct tcp_ao_hdr *aoh)
+>>  {
+>> -       return SKB_NOT_DROPPED_YET;
+>> +       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
+>>  }
+>> 
+>>  static inline struct tcp_ao_key *tcp_ao_do_lookup(const struct sock 
+>> *sk,
+>> diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+>> index 87ef6d5cbfeba..7d800b6283bd2 100644
+>> --- a/net/ipv4/tcp.c
+>> +++ b/net/ipv4/tcp.c
+>> @@ -4962,7 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, 
+>> const struct sk_buff *skb,
+>>                      const void *saddr, const void *daddr,
+>>                      int family, int l3index, const __u8 
+>> *hash_location)
+>>  {
+>> -       return SKB_NOT_DROPPED_YET;
+>> +       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
+>>  }
+>> 
+>>  #endif
+>> --
+>> 2.47.3
+>> 
+> 
+> Good catch, thanks.
+> 
+> The forged AO option makes us skip the unsigned fast path, which is
+> the only place where tcp_md5_do_lookup() can return MD5NOTFOUND.
+> An attacker able to hit the window of an MD5-protected session (BGP...)
+> can therefore inject RST or data with a junk AO option, which is
+> exactly what RFC 2385 is supposed to prevent.
+> 
+> Please mention in the changelog that TCP_AO depends on 64BIT: every
+> 32-bit kernel with TCP_MD5SIG=y is in the vulnerable configuration.
+> 
+> With your patch the stubs now return what the real helpers return for
+> a socket without keys (AOUNEXPECTED / MD5UNEXPECTED), so behavior
+> becomes consistent across configs. One visible change is that MD5=n,
+> AO=y kernels will now drop segments carrying an MD5 option to unkeyed
+> sockets, as MD5=y kernels already do. That is fine, but worth one
+> sentence.
+> 
+> Optional: bumping LINUX_MIB_TCPAOKEYNOTFOUND / 
+> LINUX_MIB_TCPMD5UNEXPECTED
+> from the stubs would make these drops visible in nstat.
+> 
+> This is a fix, please send v2 as [PATCH net].
+> 
+> Also please CC TCP-AO folks from Arista
+> 
+> Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 
-Replace the bool with ns->setfcap_level: CAP_SETFCAP held in the
-namespace counts there and in its ancestors up to the one at that
-->level.  cap_setfcap_level() computes it from the creator's cred.  A
-creator that holds CAP_SETFCAP passes on the setfcap_level of its own
-namespace, one that doesn't gets the new namespace's own level, and the
-initial namespace has 0.
+Hello Eric,
 
-verify_root_map() keeps checking the same condition: the bool was false
-exactly when the level is the namespace's own.
+Thanks for the quick review.
 
-No functional change.
+I have prepared a v2, which only adds some bits to the commit message,
+and leave the actual patch untouched.
 
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Assisted-by: LLM
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Noted for the Cc:, I will use the 3 @arista.com addresses at the top of
+the tcp_ao.c file.
+
+For your optional remark, I was thinking of adding a second commit as
+a 2/2 in a 2-patch series. Something like the below diff, which AFAICT,
+would make the drops visible under TCPAOKeyNotFound and TCPMD5Unexpected
+in nstat. Is it what you had in mind? I am not particularly familiar
+with that subsystem; yet, while getting this kind of feedbacks in nstat
+seems good, I am opened for advice. Do you prefer that I add this
+in the same fix instead?
+
+Regards,
+Jérémy
+
 ---
- include/linux/capability.h     |  3 +++
- include/linux/user_namespace.h |  7 ++++---
- kernel/user_namespace.c        |  4 ++--
- security/commoncap.c           | 27 +++++++++++++++++++++++++++
- 4 files changed, 36 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/capability.h b/include/linux/capability.h
-index 622137f66f09..026974a5111b 100644
---- a/include/linux/capability.h
-+++ b/include/linux/capability.h
-@@ -34,6 +34,7 @@ struct cpu_vfs_cap_data {
- #define _USER_CAP_HEADER_SIZE  (sizeof(struct __user_cap_header_struct))
- #define _KERNEL_CAP_T_SIZE     (sizeof(kernel_cap_t))
- 
-+struct cred;
- struct file;
- struct inode;
- struct dentry;
-@@ -222,4 +223,6 @@ int get_vfs_caps_from_disk(const struct mnt_idmap *idmap,
- int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		      const void **ivalue, size_t size);
- 
-+int cap_setfcap_level(const struct cred *cred, struct user_namespace *ns);
-+
- #endif /* !_LINUX_CAPABILITY_H */
-diff --git a/include/linux/user_namespace.h b/include/linux/user_namespace.h
-index 91232053775d..f3753b6b6d29 100644
---- a/include/linux/user_namespace.h
-+++ b/include/linux/user_namespace.h
-@@ -86,9 +86,10 @@ struct user_namespace {
- 	kgid_t			group;
- 	struct ns_common	ns;
- 	unsigned long		flags;
--	/* parent_could_setfcap: true if the creator if this ns had CAP_SETFCAP
--	 * in its effective capability set at the child ns creation time. */
--	bool			parent_could_setfcap;
-+	/* setfcap_level: CAP_SETFCAP held in this ns counts here and in the
-+	 * ancestors up to the one at this ->level, see cap_setfcap_level().
-+	 */
-+	int			setfcap_level;
- 
- #ifdef CONFIG_KEYS
- 	/* List of joinable keyrings in this namespace.  Modification access of
-diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
-index 50c374ed4687..a5a94367600d 100644
---- a/kernel/user_namespace.c
-+++ b/kernel/user_namespace.c
-@@ -125,7 +125,7 @@ int create_user_ns(struct cred *new)
- 	if (!ns)
- 		goto fail_dec;
- 
--	ns->parent_could_setfcap = cap_raised(new->cap_effective, CAP_SETFCAP);
-+	ns->setfcap_level = cap_setfcap_level(new, parent_ns);
- 
- 	ret = ns_common_init(ns);
- 	if (ret)
-@@ -921,7 +921,7 @@ static bool verify_root_map(const struct file *file,
- 		 * the new namespace.  Verify that the parent had CAP_SETFCAP
- 		 * when it unshared.
- 		 * */
--		if (!file_ns->parent_could_setfcap)
-+		if (file_ns->setfcap_level >= file_ns->level)
- 			return false;
- 	} else {
- 		/* Process p1 is writing to uid_map of p2, who is in a child
-diff --git a/security/commoncap.c b/security/commoncap.c
-index d47ab3022343..4f49dba65426 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -131,6 +131,33 @@ int cap_capable(const struct cred *cred, struct user_namespace *target_ns,
- 	return ret;
- }
- 
-+/**
-+ * cap_setfcap_level - Determine how far up CAP_SETFCAP of a cred reaches
-+ * @cred: The credentials to use
-+ * @ns: The user namespace to look from
-+ *
-+ * File capabilities belong to the kuid of a namespace's root user, and the
-+ * same kuid can be the root user of ancestors of that namespace.  Every task
-+ * gets CAP_SETFCAP when it enters a user namespace, so having it there says
-+ * nothing about those ancestors.  user_ns->setfcap_level does: it is taken
-+ * from the creator when the namespace is created.
-+ *
-+ * Return: the ->level of the topmost namespace, from @ns upwards, for which
-+ * CAP_SETFCAP of @cred counts; @ns->level + 1 if it doesn't even count over
-+ * @ns, which includes an @ns that isn't @cred's namespace or a descendant.
-+ */
-+int cap_setfcap_level(const struct cred *cred, struct user_namespace *ns)
-+{
-+	if (cap_capable(cred, ns, CAP_SETFCAP, CAP_OPT_NOAUDIT) != 0)
-+		return ns->level + 1;
-+
-+	if (cap_raised(cred->cap_effective, CAP_SETFCAP))
-+		return cred->user_ns->setfcap_level;
-+
-+	/* All we have is that we own a child of our namespace. */
-+	return cred->user_ns->level + 1;
-+}
-+
- /**
-  * cap_settime - Determine whether the current process may set the system clock
-  * @ts: The time to set
+diff --git a/include/net/tcp_ao.h b/include/net/tcp_ao.h
+index 9a2333e62e994..xxxxxxx 100644
+--- a/include/net/tcp_ao.h
++++ b/include/net/tcp_ao.h
+@@ -303,6 +303,7 @@ static inline enum skb_drop_reason 
+tcp_inbound_ao_hash(struct sock *sk,
+               const struct request_sock *req, int l3index,
+               const struct tcp_ao_hdr *aoh)
+  {
++     NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPAOKEYNOTFOUND);
+       return SKB_DROP_REASON_TCP_AOUNEXPECTED;
+  }
 
--- 
-2.55.0
-
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 87ef6d5cbfeba..xxxxxxx 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -4962,6 +4962,7 @@ tcp_inbound_md5_hash(const struct sock *sk, const 
+struct sk_buff *skb,
+                    const void *saddr, const void *daddr,
+                    int family, int l3index, const __u8 *hash_location)
+  {
++     NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPMD5UNEXPECTED);
+       return SKB_DROP_REASON_TCP_MD5UNEXPECTED;
+  }
