@@ -1,143 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.49
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792695002;
-	b=jtT21w04piRr7q6oaiAyLHt50vxKuo0AVeAEPZdDpmgHWx7DfjVqC+0f/WLzgMouoAUy
-	 H6MJKbYdtWf2Ct7Hkc9fUW9ov+GxIOzmcIhUvnQQnLvkLkffswIxgTq/KjzVfoiBhH0wU
-	 aAFhHo99+vEGHaczbIh33BYYPITrpczJWRpwnkFh/C9bQvH3n11qc5W6XnxKZjveKPMv6
-	 z3LxDmcMNRBRZEecKtrpppImYSoUQmt6twltFNqOLYsJ84ArCb6pY0hkODDBeeQkGwUzG
-	 L0R9oDWVhDiubqKnYCGhEP9jTf+jSqnfLQ94SW+PLAg8stndTmFQUW2g1QudMP9ITpg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792695002;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=4qvmDiHEwTv6lkZ2XdFtXA3yyxYvfoE67suroCO1YPE=;
-	b=Er286PKzkK0QsghbXLuvPP3lzYYacuvDp7QJZxu/EOFGds02Y1+rM5bWdFN80qxJaHlZ
-	 pqslSEtz0DZTdEpjZ4WTyEEX4Jra4nDp99kAaVZCKqUXa7blmLE744cd6YpIl2L6/nHjg
-	 RsU0CrIXCt+c54R8Duv1gsFusPNrKaxBkLMdVkgqutSaXYsVDEw+hXP7x1mCKLAj0QupV
-	 i03veb8IQRUrAy87MSLjGU/43Vqv/jLETKe4ikLDSZf+VkEsgCumnUptPCGNOYnxhm9sM
-	 AI/TQKavEOTDX1P+z3Xrzut8xtpKdVsrZ9ESP0ulUnHk5qDqE1astpTbVu4QpOpmaUA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="Y80/5xT6";
-	arc=none smtp.remote-ip=74.125.224.49
-Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792695049;
+	b=EEGXf/ivAdxT2piGTIfpwoULbpwzXi75ebTkTz4/GgHHWCCA6zeTU5Ic00S7AbO7Faof
+	 5D3EigeUtcYEO8RgIk5ZTG4YPWyAbtE4k1KyyfgsqwrXk2LT4fFRzUKwiPQvKjUqA8bni
+	 5mBZQpAsbhddJ76GvtKPaTOjkajZNX7V3UMrWoSo2qcc51q5vCepOekms0al9uhbsnKsZ
+	 LO8AKM6/GC+WKMAjGnJafma6LKmE8grYlnJqjy8utRtHLztiircIF63fxTl77q/Y5uGZT
+	 Tvgu+cvop3U9XSsKZHiFfbTuX29+UHh9RU6fbC/AQ1xNFzluzcQAmeNKx2GP8K9YYUg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792695049;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=SXssp4o7lowZ6lzZvocU+0yBUrAlU/2wFDVrGbf+5cY=;
+	b=AGJvWG/FZlK+KTDyzxUE6rQFqDTGQIoHBUGyUbyQFQkyCOfe3upY7CzTWwIB0DNTFV9A
+	 BQtS/exmZb7f3+BUk0dzGwywoHVVBkDXy6xfPmI2VfjSoOSwMCSs5cfRfCCF4LUhV1OXo
+	 aK0nGhFgdC2lJhZrMTwDdDasTbXE0EjQbiFeyvEvmYSFtF6hWl/U6taGBn2i1n1zxHnxh
+	 jgljY3jrgHkRsbP8NSrPzt+eeNCTGbhE+npiBZE5WJPEev4DagAmyrxR14HY1IOdQEDDz
+	 lkz2LudJCV4XG7wm1rZ/jMczlOVkF6yTStMDcKfyZXM9T7RVx9u0AukEVUr5TRD6bgw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FAk+9CQL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.4
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013004.outbound.protection.outlook.com [52.101.83.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533F3606A328
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:50:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 533F3606A328
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581FD606A31A;
+	Thu, 22 Oct 2026 18:50:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581FD606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Y80/5xT6
-Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-67989a2f9bfso187809d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:50:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792695001; x=1793299801; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4qvmDiHEwTv6lkZ2XdFtXA3yyxYvfoE67suroCO1YPE=;
-        b=Y80/5xT6RQdtVxnlxfHG+AVNqCuBLe7snoBueXb5p/Qjs2La7QNzsGb2V52286vOR+
-         nyvK+l9XYof7HSB24Pned7AUCVhFIb0hrJiJ8YhUOjoJuPXScNMosQl4k40aOovI5zA4
-         gNlJ342f2Oj4yLu95cv+Q3P0rHjOia3Qfq8rcVmCDy1AKPQEHyLm8QIUDQZrTjODYd+R
-         zxYr7LWm6EvwmNKHIrUOZBYcWFL1IcplejCiDZYU7OsKfG75J5K6T3sip44zRsLfkTHN
-         vzlnM3yHDfQ23rSbXZSNcFQOdNRLU1WG9feNbkA/rSkqjV7rzOcS/qRJgUrtVHfL7RsX
-         kMQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792695001; x=1793299801;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4qvmDiHEwTv6lkZ2XdFtXA3yyxYvfoE67suroCO1YPE=;
-        b=x0yCwArjU/lpjTO8EZzgNYm+KuQ59X/GiQghJhsNjTx5fvmAhCJqS1zE9RDSkygXwL
-         T48vyMYEUqQXIuiRdy8Yeyen2eImQMe5VJ3zTnLJqXA8wvGqwwKQKXkf3IiTclgrUmV3
-         zkOtOVHlHqaVi8rHYcb7PpwiV9t0h1U5cSsUZG5v8PvG0v44QxAJuc7PVg+0TmNjNBxe
-         HS6if+5Gat6D3NcR2VySRa6tONHmC4XCTAFekytX5osSibN//QbNV0bxRDWzMjpUfDph
-         ufFZjFoFeL0DAirL7ELqVIHKQGQqmCrOsQrBIWxDuf2/wrkF4SDfOZIwL3sOLWzGSocg
-         ymdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxn9vg5wVE67eM2QXSv7oLAior0YqMmMdcuZDLc84elyF8D0uW2yYLLyWF0ATe/enkAVVtkWA5PvezuhWw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYoWsQ01mARme2/Hcgr7kz82vZyAmbXLai01tIBbKW61KeVyk3
-	p49Z8rgl0vWVWpUteXb3uHUezrnnAknCFNJzzpdCnvxpTfdDC+PhA7VD8KvUvF4aKMw=
-X-Gm-Gg: AYBFou34D6TlQB6jqXScAQkjJ9WRjscZ2rlJ0zfApEvrChm5w97nT/zJ391CW4UHzPK
-	J12V+EHo6a98Yh5ZxWAhGzZVJ8H+Gvgr9TNNwMmQtc4ViNtHYfOuSB+wFPB2SyPTMHfkWxf9ZJa
-	5WTwj1RgXIQrYK52w2Y7CUkgrEmTVMBTWmaPnUbf+uKvdhUhy8p8iKBZgFB7WfTSNlV/Vp7DuoZ
-	s+gb56xAkJJX58grX6I29IlaU1mqVdINeWc/m7HAt9vYUwZPE0waxb419u1c1Op0JZ0Hp/s2MYj
-	d0m5ZnUVgPc8kSaqE8uX52TG6o1yZySy10oUajCBVs3xqN1BvwcVs6HyBtbP9CYqDeMGuAcCMXA
-	eB8QNP9KJXEmEMmWlE0qJzFTZBe54PwHJIiDE4III+DVuDh1nRhM01bN8m39nD0lTixttuPn4Nx
-	xiyxwgpdCum9t7qZbEhq/foe+C228WdHywO1/MRlV6dQKjGiGbetg6OEb0qs+s3zGVhMBgInCcw
-	bnieHH/R4ETnYY4/dZOYjs/cjDWj8yF6hAXdV88Ocsn9vyBfNqZcFOkw4oMmI43QX4IYg9U2wAl
-	SK/s+rDKXrZdWDLypKmXMbzjGC8KkD/GsTs/pJX4nGrtpg+lhoVMXe7k6VIL51tSv0KRR+rdGTL
-	Kw2XuX+a9qKmQ59NsKh2/Fdug00Okie5DTXSN++F/wtMotA==
-X-Received: by 2002:a05:690e:400e:b0:677:d89c:5f52 with SMTP id 956f58d0204a3-67a0e5795ecmr2838241d50.73.1792695001172;
-        Thu, 22 Oct 2026 11:50:01 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:d350:a0e4:db9b:3217? ([2600:1700:6476:1430:d350:a0e4:db9b:3217])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a33eea199sm175680d50.3.2026.10.22.11.49.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 11:49:59 -0700 (PDT)
-Message-ID: <a5830eb2ef9f0dfd43a9cd1255caa3f9f77541f1.camel@dubeyko.com>
-Subject: Re: [PATCH v2] hfsplus: preserve FinderInfo when listing extended
- attributes
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Hengyu Liang <hengyul@cs.unc.edu>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 11:49:56 -0700
-In-Reply-To: <20261022094058.1169039-1-hengyul@cs.unc.edu>
-References: <20261022094058.1169039-1-hengyul@cs.unc.edu>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=mQINBGgaTLYBEADaJc/WqWTeunGetXyyGJ5Za7b23M/ozuDCWCp+yWUa2GqQKH40dxRIR
- zshgOmAue7t9RQJU9lxZ4ZHWbi1Hzz85+0omefEdAKFmxTO6+CYV0g/sapU0wPJws3sC2Pbda9/eJ
- ZcvScAX2n/PlhpTnzJKf3JkHh3nM1ACO3jzSe2/muSQJvqMLG2D71ccekr1RyUh8V+OZdrPtfkDam
- V6GOT6IvyE+d+55fzmo20nJKecvbyvdikWwZvjjCENsG9qOf3TcCJ9DDYwjyYe1To8b+mQM9nHcxp
- jUsUuH074BhISFwt99/htZdSgp4csiGeXr8f9BEotRB6+kjMBHaiJ6B7BIlDmlffyR4f3oR/5hxgy
- dvIxMocqyc03xVyM6tA4ZrshKkwDgZIFEKkx37ec22ZJczNwGywKQW2TGXUTZVbdooiG4tXbRBLxe
- ga/NTZ52ZdEkSxAUGw/l0y0InTtdDIWvfUT+WXtQcEPRBE6HHhoeFehLzWL/o7w5Hog+0hXhNjqte
- fzKpI2fWmYzoIb6ueNmE/8sP9fWXo6Av9m8B5hRvF/hVWfEysr/2LSqN+xjt9NEbg8WNRMLy/Y0MS
- p5fgf9pmGF78waFiBvgZIQNuQnHrM+0BmYOhR0JKoHjt7r5wLyNiKFc8b7xXndyCDYfniO3ljbr0j
- tXWRGxx4to6FwARAQABtCZWaWFjaGVzbGF2IER1YmV5a28gPHNsYXZhQGR1YmV5a28uY29tPokCVw
- QTAQoAQQIbAQUJA8JnAAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBFXDC2tnzsoLQtrbBDlc2cL
- fhEB1BQJoGl5PAhkBAAoJEDlc2cLfhEB17DsP/jy/Dx19MtxWOniPqpQf2s65enkDZuMIQ94jSg7B
- F2qTKIbNR9SmsczjyjC+/J7m7WZRmcqnwFYMOyNfh12aF2WhjT7p5xEAbvfGVYwUpUrg/lcacdT0D
- Yk61GGc5ZB89OAWHLr0FJjI54bd7kn7E/JRQF4dqNsxU8qcPXQ0wLHxTHUPZu/w5Zu/cO+lQ3H0Pj
- pSEGaTAh+tBYGSvQ4YPYBcV8+qjTxzeNwkw4ARza8EjTwWKP2jWAfA/ay4VobRfqNQ2zLoo84qDtN
- Uxe0zPE2wobIXELWkbuW/6hoQFPpMlJWz+mbvVms57NAA1HO8F5c1SLFaJ6dN0AQbxrHi45/cQXla
- 9hSEOJjxcEnJG/ZmcomYHFneM9K1p1K6HcGajiY2BFWkVet9vuHygkLWXVYZ0lr1paLFR52S7T+cf
- 6dkxOqu1ZiRegvFoyzBUzlLh/elgp3tWUfG2VmJD3lGpB3m5ZhwQ3rFpK8A7cKzgKjwPp61Me0o9z
- HX53THoG+QG+o0nnIKK7M8+coToTSyznYoq9C3eKeM/J97x9+h9tbizaeUQvWzQOgG8myUJ5u5Dr4
- 6tv9KXrOJy0iy/dcyreMYV5lwODaFfOeA4Lbnn5vRn9OjuMg1PFhCi3yMI4lA4umXFw0V2/OI5rgW
- BQELhfvW6mxkihkl6KLZX8m1zcHitCpWaWFjaGVzbGF2IER1YmV5a28gPFNsYXZhLkR1YmV5a29Aa
- WJtLmNvbT6JAlQEEwEKAD4WIQRVwwtrZ87KC0La2wQ5XNnC34RAdQUCaBpd7AIbAQUJA8JnAAULCQ
- gHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRA5XNnC34RAdYjFEACiWBEybMt1xjRbEgaZ3UP5i2bSway
- DwYDvgWW5EbRP7JcqOcZ2vkJwrK3gsqC3FKpjOPh7ecE0I4vrabH1Qobe2N8B2Y396z24mGnkTBbb
- 16Uz3PC93nFN1BA0wuOjlr1/oOTy5gBY563vybhnXPfSEUcXRd28jI7z8tRyzXh2tL8ZLdv1u4vQ8
- E0O7lVJ55p9yGxbwgb5vXU4T2irqRKLxRvU80rZIXoEM7zLf5r7RaRxgwjTKdu6rYMUOfoyEQQZTD
- 4Xg9YE/X8pZzcbYFs4IlscyK6cXU0pjwr2ssjearOLLDJ7ygvfOiOuCZL+6zHRunLwq2JH/RmwuLV
- mWWSbgosZD6c5+wu6DxV15y7zZaR3NFPOR5ErpCFUorKzBO1nA4dwOAbNym9OGkhRgLAyxwpea0V0
- ZlStfp0kfVaSZYo7PXd8Bbtyjali0niBjPpEVZdgtVUpBlPr97jBYZ+L5GF3hd6WJFbEYgj+5Af7C
- UjbX9DHweGQ/tdXWRnJHRzorxzjOS3003ddRnPtQDDN3Z/XzdAZwQAs0RqqXrTeeJrLppFUbAP+HZ
- TyOLVJcAAlVQROoq8PbM3ZKIaOygjj6Yw0emJi1D9OsN2UKjoe4W185vamFWX4Ba41jmCPrYJWAWH
- fAMjjkInIPg7RLGs8FiwxfcpkILP0YbVWHiNAabQoVmlhY2hlc2xhdiBEdWJleWtvIDx2ZHViZXlr
- b0BrZXJuZWwub3JnPokCVAQTAQoAPhYhBFXDC2tnzsoLQtrbBDlc2cLfhEB1BQJoVemuAhsBBQkDw
- mcABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDlc2cLfhEB1GRwP/1scX5HO9Sk7dRicLD/fxo
- ipwEs+UbeA0/TM8OQfdRI4C/tFBYbQCR7lD05dfq8VsYLEyrgeLqP/iRhabLky8LTaEdwoAqPDc/O
- 9HRffx/faJZqkKc1dZryjqS6b8NExhKOVWmDqN357+Cl/H4hT9wnvjCj1YEqXIxSd/2Pc8+yw/KRC
- AP7jtRzXHcc/49Lpz/NU5irScusxy2GLKa5o/13jFK3F1fWX1wsOJF8NlTx3rLtBy4GWHITwkBmu8
- zI4qcJGp7eudI0l4xmIKKQWanEhVdzBm5UnfyLIa7gQ2T48UbxJlWnMhLxMPrxgtC4Kos1G3zovEy
- Ep+fJN7D1pwN9aR36jVKvRsX7V4leIDWGzCdfw1FGWkMUfrRwgIl6i3wgqcCP6r9YSWVQYXdmwdMu
- 1RFLC44iF9340S0hw9+30yGP8TWwd1mm8V/+zsdDAFAoAwisi5QLLkQnEsJSgLzJ9daAsE8KjMthv
- hUWHdpiUSjyCpigT+KPl9YunZhyrC1jZXERCDPCQVYgaPt+Xbhdjcem/ykv8UVIDAGVXjuk4OW8la
- nf8SP+uxkTTDKcPHOa5rYRaeNj7T/NClRSd4z6aV3F6pKEJnEGvv/DFMXtSHlbylhyiGKN2Amd0b4
- 9jg+DW85oNN7q2UYzYuPwkHsFFq5iyF1QggiwYYTpoVXsw
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=FAk+9CQL
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qIShblDn6XtTqYPJcSg9VBKgH6e9vTHYZ6oH01qp0Yxms4uit/jxKzWFo5WFQK2Vm1Euo9Ef5OC0uINdvX+oUkCYwC5t6ZNmhJ5EWr5BGUS3MS5kZ7SgNAV3w9IibNa7/SU0ZKn5Pvj1tHSsAJBpxlZXxLekJZ0fP3JwXQPhoohbgJLkYKWNsLYPFeD8VSzED1Mj6ZyEUJiNBddcdguugjqjWypUVRAMgE7rs1LC1AsrCEK06YOPgCPFNtWMbBNyewOA9wTSltzdc5+UMK1yzejBNwAhqO8w5+yJh+2O42BcIBH2by7MmiplEHTImDcuE8JJJkavvnl8viB0z9DJvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SXssp4o7lowZ6lzZvocU+0yBUrAlU/2wFDVrGbf+5cY=;
+ b=SNOXvZdxfIgFCl+nxH6sSVKcYLRqnYoYURo7NWYWfsOJntOUR4bbRha9N821z2hBmAeFE/iSMhxG8fZ5e2V6fGKXDAy5vdb/XK8cPdCi+j88xMGXNdanm4bkAIHuBnwNu8PLo5PIF9jvvt0GAFANY+UvgbGUev5pUquyicJMsSOQjrisSt7ti+QDdDtkfjQL/HUA+XTKva8yKHLQNrw1lSNTMTMSlGOldnv6Rx9IFiLmffYNd2GfsYLjLFtVghZCjX1P0hUqXPBCDvXd1FGPQM8PrysQewFPz69iGlsLGJO8lK+lZpEWzdBO0MZhFNEq8QAmhD0NKagsx5n4QTXqEA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SXssp4o7lowZ6lzZvocU+0yBUrAlU/2wFDVrGbf+5cY=;
+ b=FAk+9CQLqew5s0thRfkA5DIyIJ/522lu1sxOJgGbrrGQ4TZv9uzdq79rxGm554iZjBwj0UJeIkjLO8wqJYrp1Mubq3ypfbEjZkUEuRXpvsIaprWzf5nLr+tQQZ7YoHWi+67gH+75Z0fbPKMlVTDT9VSLWq7OdNuSYFUypL1+nMw3DjkdLhZwaioy+NUMNGMM9Gvm6uhDX2Kf848BEHK2PKaMUrOE+oTibjSi6L69QFy+Ssqm7dtrLA4En45jGxSw/FyIO5JbUtWodw9gvrkF5yj40OyoaStkIWpJ0cUgS9JE7Q2GoeNTUpmzIAZQrXPDEKmlEMaTz2mbh32WTQ7eCg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by CPH1PF95694F931.eurprd04.prod.outlook.com (2603:10a6:388::3ce) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 18:50:45 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 18:50:45 +0000
+Date: Thu, 22 Oct 2026 13:50:35 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Shuah Khan <shuah@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Padmanabhan Rajanbabu <p.rajanbabu@samsung.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Aman Gupta <aman1.gupta@samsung.com>,
+	"open list:PCI ENDPOINT SUBSYSTEM" <linux-pci@vger.kernel.org>,
+	"open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH] selftests: pci_endpoint: Do not link with pthread
+Message-ID: <atpa-0Ub1fYndTpg@SMW015318>
+References: <20261022180022.1282641-1-florian.fainelli@broadcom.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022180022.1282641-1-florian.fainelli@broadcom.com>
+X-ClientProxiedBy: DM6PR02CA0152.namprd02.prod.outlook.com
+ (2603:10b6:5:332::19) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -147,107 +104,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|CPH1PF95694F931:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4b08662b-17ce-4e14-2e83-08df306d6195
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|19092799006|1800799024|23010399003|261022105027099003|56012099006|11063799006|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	jSBfv6gFnSxcGwG2MZVWuBIHYmn5wRhsIplRlm/o+49dnLkMfG85u6YdxJ7XSu7aHDd/M9NGcmul9Pq0RD29JSybsOc1KTmsNpcP6fFGp8N1qZRIDz/2WZtNMwpP7cmmpTOm3gZGOI8rpnVyHSo0HzVyEgSDl2cnH+yUVLLEGnSwVts/mSEwoT9fEpEQzklObAV0eoLaafOTCluHbLDQJgSv4TP8QT6BOXYgr7Ckzd2SVXdzwA4EKmz2YmXWiMa3zvkEcLDrKoMoAsM7AsPS4QnZJUFI5Cum1hw9sjAGOdDPuUHzaLI3TQ0LnXm4ovMJrQf9vmpf2o2cxK01paGe83wjhyVGtFcp0oLWFzdpnJHVw1mQ7IjkOy3HMbQvEDsyEc4JJZP1hyWWhtxverXMBv5if8XgFQaIOTvXDKoGBnLxvHhEznzlTY222U5+MOnHbBqJU5cKQw0YkyR/co7G0OgypfJ2+2IPVlV1GRUwYrF7LwyHxg4mXsJhjnEWObKazc08Uqz41TI8eM9JHiYkSe/vdlFvUW1/jrzDApXyOYV3XYRgDhMxii8KV+9EDTs31Ffd3dqYQlgkCKyCZQLlvoY5QerBJtyUhM4vGiyJ+0u4JDU2I2j3mRN2p+CqcooQ3+xWYHZRYOGnCoj5Y6GprVKUDwAYfe5MJ/MliMJVbRg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(19092799006)(1800799024)(23010399003)(261022105027099003)(56012099006)(11063799006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?TA9UAkpkgFtme5LvgqwJinFwtBdpdOz9kz2JOuGXYVPHzPJJ6WF+3EZQlYoA?=
+ =?us-ascii?Q?H2WBOwhKFEFra30mJXp7JesTSmFa2yxkbBiz+S+zFk7Jj35GL8NJArri+1Tn?=
+ =?us-ascii?Q?upYIqUrJZ4clVUb9jQw+0QkSabLdMLCrJPSPMtcKzd8s0I1c9ndiNTHGalxt?=
+ =?us-ascii?Q?lFXq8gRttBA9kdUuZiPOHGcj1RHjfSbBdfM2DND+n3R+uilEYuJbUNDiAv3L?=
+ =?us-ascii?Q?xbvFLu6sQmK7xty5Oz1zMzridQfjrJcwHiMM4i/IRwlTPto964Q5Fk9x5xf3?=
+ =?us-ascii?Q?Ptl2fMFc/zoLkVpw5aaym1re+f8zeZAX4exSRWMHUKrjACSAysA5Nf/4n6zT?=
+ =?us-ascii?Q?byF5OPbLiU0DooJXmi5JAqLMTUBUQPafrOXKjk10PndZ9xJu8GFRMfUlEa+8?=
+ =?us-ascii?Q?ir3RJGDZOkvxWIrc1uqKVPJ+JAIdXJ+Ec2TYh/xB1DDP+oEDq6QQ6eFE21t6?=
+ =?us-ascii?Q?DsLhUxR9MIX1Eytv/tSuO8Q8ET7+TgKehVB6T4zCTgzza82q1AMXgsbW/ett?=
+ =?us-ascii?Q?UxMmjq6VgtAfIOHhy8DfeYUGhgBFT20poYS8lC2nVXqbvw/E2A8L6xdT92ib?=
+ =?us-ascii?Q?nmhmiZh8dQmiyaUmSyd9tONSzPIf9l3AyyGuy0ZxPIRuyBbyG37cGV9CrPw7?=
+ =?us-ascii?Q?erAmrHc4kAM+G5AD1BZ9EU1bgTlUQ5HqXJ3huhtbRXOO/uuoztO2jESSF1ib?=
+ =?us-ascii?Q?LGOROPHgjrsMfA1cP/nhiyD/xBxgPeyVT0DEziIyaMqbrIifbAV0QYVY3w8P?=
+ =?us-ascii?Q?Gxk2lXf1gJHyekkdKDLrIwBeNDlYBWwW+G6HNCiJA/8NYD9GVqbwlwL63sdp?=
+ =?us-ascii?Q?abqvxsBdLIEUe5NR3xNojhYWlVfwK5PG4BH++5zILOh8Rt+NRZn7gwqPUZGH?=
+ =?us-ascii?Q?zJNqexMCfWHeVqGDZc9r4xKYLHcriC/7SMPO0W7NnUCCixWxOmTRh5fhti99?=
+ =?us-ascii?Q?QQsQxnX2C9s75Fq/mIvl8NgcyD+vrLqMICyeYnLhweLD3mYkZMM+dwm602At?=
+ =?us-ascii?Q?awkKEnHCaNVtNgsqhNe/+QrMj4ulI0nueImuAO+sz4c1EHuLtn206/Yx5uMM?=
+ =?us-ascii?Q?+sNbIZkzKEmDVeOOiWhpnJ+FenQs8IpnSU95F60gTRrvjk/N4JVcCctXzaku?=
+ =?us-ascii?Q?LngdYl8E9aHccfXGmf+vbHdM7Rl63PNVHzM/SNDEE1iqMZkGhzYTp8QToNPM?=
+ =?us-ascii?Q?AywIsBjlNI8HFYn5sfsm4NB0wqXa1yC3LAUrE2AJ80fS6Ex1yv+Hg2I2FHvH?=
+ =?us-ascii?Q?cZE2TZ7FFbXXUCoxd5kZ7uweFDUjFUZD9lWcOJNlGJMMP+q1wao4OCd0LB+u?=
+ =?us-ascii?Q?nouXbQWi3qv+UcQRUi/+LJNBCQ2CpyV2r9hiqmMH8jRqkL23gLmfUPeJ3aDA?=
+ =?us-ascii?Q?u53sh5tOfPr6PnOBajAoaYOvraE/wwu/cvSLaILAqe6m/iR7+SU00/u+Kxnx?=
+ =?us-ascii?Q?OLkhXK90ILyCj9dlmTqnLqHPKVw3BTyqESeURPuRDeiJ4PAwi2Is1NCzn5nr?=
+ =?us-ascii?Q?hBrjDv5k3YDIj9G/+NhhPKFPYJwhtdqCceWMOB64r5Wiq/5htjmtlJZ+s4cg?=
+ =?us-ascii?Q?5i/hKKx9EhEdrLv003ziHs5e+39RpvjaCqr6Huk9nyst+P6zCBGlbn6W0Nyl?=
+ =?us-ascii?Q?JE0LApCP8uSEwkrf/3OoK2sgpPY0q3H4vplPfYts8aJ4KzjSzhOl9Smr7qy/?=
+ =?us-ascii?Q?QPePme83qLbMy9s374zokp/WrQ3anzA8eAwa754LzKaQxwaDa9qnOM0P4Y7I?=
+ =?us-ascii?Q?eExFQx/6BpKOX4yWZD7N+UOYCDiEhhhxjWa2JA8/9iJrC1w9c0NK?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4b08662b-17ce-4e14-2e83-08df306d6195
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 18:50:45.7282
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6VH5gBvBObTXUKh9wvNAVhgv1nWmjLeaFdBtOrKQsmWZK2O8ME4NtVgIo+R+bGKHwPT9/gjfELRpw7z1+K8wJCYcfFs994WM+RkW1aoRqaKQhQE2j2SNBAKSaBMDQmlo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CPH1PF95694F931
 
-On Thu, 2026-10-22 at 05:40 -0400, Hengyu Liang wrote:
-> Commit aef507847129 ("hfsplus: fix generic/062 xfstests failure")
-> made
-> hfsplus_listxattr() return zero when the inode has no records in the
-> attributes B-tree.
->=20
-> However, osx.com.apple.FinderInfo is stored in the catalog record,
-> and
-> hfsplus_listxattr() has already added it to the result at that point.
-> Setting the result to zero drops it. As of now, a file whose only
-> extended attribute is FinderInfo gets an empty list on a volume with
-> an attributes B-tree, which mkfs.hfsplus creates by default.
-> getxattr()
-> still returns the value.
->=20
-> The issue can be reproduced with:
->=20
-> =C2=A0=C2=A0=C2=A0 truncate -s 64M hfs.img
-> =C2=A0=C2=A0=C2=A0 mkfs.hfsplus hfs.img
-> =C2=A0=C2=A0=C2=A0 mount -o loop hfs.img /mnt
-> =C2=A0=C2=A0=C2=A0 touch /mnt/file
-> =C2=A0=C2=A0=C2=A0 v=3D0x54455854$(printf %056d 0)
-> =C2=A0=C2=A0=C2=A0 setfattr -n osx.com.apple.FinderInfo -v $v /mnt/file
-> =C2=A0=C2=A0=C2=A0 getfattr -m - /mnt/file
->=20
-> Without this patch, getfattr prints nothing. With this patch, it
-> lists
-> the FinderInfo entry.
->=20
-> This patch keeps the result of hfsplus_listxattr_finder_info() when
-> no
-> attributes B-tree records are found, as is already done when the
-> volume has no attributes B-tree. A file without extended attributes
-> still gets an empty list.
->=20
-> Fixes: aef507847129 ("hfsplus: fix generic/062 xfstests failure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+On Thu, Oct 22, 2026 at 11:00:21AM -0700, Florian Fainelli wrote:
+> This tool does not make use of POSIX threads there is no need to link
+> with libpthread as a result.
+>
+> Fixes: 392188bb0f6e ("selftests: pci_endpoint: Migrate to Kselftest framework")
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 > ---
-> Changes in v2:
-> - Restructure the error check as suggested by Viacheslav Dubeyko. No
-> =C2=A0 functional change.
-> - v1:
-> https://lore.kernel.org/r/20261021174534.482192-1-hengyul@cs.unc.edu
->=20
-> Tested in KVM with KASAN on a804c5742bff, without and with this
-> patch:
-> - The commands above, and a C test of listxattr() sizes and buffer
-> =C2=A0 lengths: a file with only FinderInfo gives 0 without the patch and
-> =C2=A0 25 with it; a file without extended attributes gives 0 on both.
-> - generic/062: 10/10 passed on both kernels.
-> - Full fstests (805 generic tests, 608 not run on both kernels): 186
-> =C2=A0 passed and 11 failed without the patch, 187 and 10 with it. The
-> only
-> =C2=A0 difference is generic/795, which fails at random on both kernels
-> =C2=A0 with fsck "Invalid volume file count" (1 of 11 runs without the
-> =C2=A0 patch, 2 of 11 with it). generic/089 and a small test that only
-> =C2=A0 creates files and unlinks them while open hit the same error on
-> both
-> =C2=A0 kernels. This looks like a separate race: hfsplus_file_release()
-> =C2=A0 updates file_count without vh_mutex.
->=20
-> With this patch, getfattr above prints "osx.com.apple.FinderInf". The
-> last character is lost by a separate bug in copy_name(), which
-> Maurycy
-> Pawlowski-Wieronski's patch fixes:
-> https://lore.kernel.org/all/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f3=
-78c@maurycy.com/
->=20
-> =C2=A0fs/hfsplus/xattr.c | 8 ++------
-> =C2=A01 file changed, 2 insertions(+), 6 deletions(-)
->=20
-> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-> index 71364e093fa7..45571d6f3abd 100644
-> --- a/fs/hfsplus/xattr.c
-> +++ b/fs/hfsplus/xattr.c
-> @@ -837,13 +837,9 @@ ssize_t hfsplus_listxattr(struct dentry *dentry,
-> char *buffer, size_t size)
-> =C2=A0
-> =C2=A0	err =3D hfsplus_find_attr(inode->i_sb, inode->i_ino, NULL,
-> &fd);
-> =C2=A0	if (err) {
-> -		if (err =3D=3D -ENOENT || err =3D=3D -ENODATA) {
-> -			res =3D 0;
-> -			goto end_listxattr;
-> -		} else {
-> +		if (err !=3D -ENOENT && err !=3D -ENODATA)
-> =C2=A0			res =3D err;
-> -			goto end_listxattr;
-> -		}
-> +		goto end_listxattr;
-> =C2=A0	}
-> =C2=A0
-> =C2=A0	for (;;) {
->=20
-> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
 
-Looks good.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-
-Thanks,
-Slava.
+>  tools/testing/selftests/pci_endpoint/Makefile | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/pci_endpoint/Makefile b/tools/testing/selftests/pci_endpoint/Makefile
+> index bf21ebf20b4a..b4ddfc52e79d 100644
+> --- a/tools/testing/selftests/pci_endpoint/Makefile
+> +++ b/tools/testing/selftests/pci_endpoint/Makefile
+> @@ -1,6 +1,6 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  CFLAGS += -O2 -Wl,-no-as-needed -Wall $(KHDR_INCLUDES)
+> -LDFLAGS += -lrt -lpthread -lm
+> +LDFLAGS += -lrt -lm
+>
+>  TEST_GEN_PROGS = pci_endpoint_test
+>
+> --
+> 2.53.0
+>
