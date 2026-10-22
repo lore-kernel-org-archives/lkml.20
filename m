@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1792646835;
-	b=e8FfZg8Hbv3CJqjgqg/9hCs1x5I98gxTIVP/s+nRjsKG++2FNGjLyu93s9ipQ4ZVhD9/
-	 EeJIfjtmneLymvRDxIMKOLzO+r9VCH4Xce8RMnUgqV6U4s9JDlbHnGVTB7LT+12IhTPgA
-	 +OSkiMhW3ZKeCPY0GsQ1IvHh3/FG6yeAVHYQwPH41Opshw5JpoHlOtbliEgzU13FJ/9ZR
-	 H5psYAIjuiWrLdMN00YQTlt3uGB4fMSs/pc0IAU+fR5tQ4VODe3Ppci8/TXOT4+1V/Dis
-	 /rTewyBj1dVQpawn7lAIhBch83JF8OrVbhvHWJnvp4DEaNsz/HYdSeMQlcsIUqfxY+Q==
+	b=gb+WwKsvKeFu9KVaCGw1xGpizhUy8ARiArLUEowWRtIpyUT0P8I0ejf6240D1OYn3lul
+	 npU75o2Yg19KkezJBFlq2FRR4VH1WCxFaksandCCLfORpi1UdlpwIdCoeXvDFCBOdcBlD
+	 BFSIk9IP5XxluZ1JYkZRxNcU9FrsVI0rFF52VQt61cfwqxoZAq+TeaA8eQXIuzjSHKdyE
+	 IOajm7Eokfi6ikdFin+aS7gye5O+ORUBgxEkki7cqV0qod47+SE7f2q5WwlNNAbfHgbV5
+	 HNFxna+Eu3Om5K0vaakSgBekvxZvae7ZMiQvd/lAobqn/hMnH5vwHFu5SisEv3by7Iw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792646835;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=aJhSp5FQgDQDLiRKd4qpwkqXiFacPMHlJzlZVfDeqvg=;
-	b=nQDuvsKkLzrg0grwKoPW/alRThvldL85uvvY2h3B5LO33ZRBjPhMHlZoFE2YpoggMoIX
-	 /M3wnSslnXa+hTX/J0Oj5+KnGyD0yffBxEbO6zQoYxn+VyJ1sXmYvta9jJYCD/IRVIzDV
-	 M6T9e6JQHs3s4Tp/r0owlpBVWSbp7yTzxL3qNoXiTUZqg9XWPK8X0Gv5+4NSpkiiJOYlW
-	 aJmXJ/Htg7IkvKn2K3wVB50H2sAJqF1520T5M3dqmRQGslydBaxh3v2r05bUx/JMtHFHX
-	 sYMkvtaMMD7dcvBXlRMT6pYBfqZQhLc5dms7Db+2qNUEuurqAzap1MTyRD9kNx/G/JQ==
+	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
+	b=gvTj6MlmyNA/Z47k7o5Ffij39amdFDZHw9k7K5OT/Fu19MP0qYS5gdf/LpnkKJBJ4BZb
+	 aqkV1oksTc9O7zBgUMO1QuTLlkEOq5kOWGM617Y7YFnmxoUAbCVSTONvor96xfhFtlp4+
+	 PVmKl/vymWPgWGOZ/245C9sBRFDqToNQGCwLLkVFFHlaTe6P+mOwTYYelBYHbEliucKoE
+	 ZHk4qAbO2vIw3A/i3MfGK4rpyFy7D1tB6/W0o22U4RidGHTNi7RsjNUi3KqtXShAVakBk
+	 MXozyrVDytjhqfTe/9xPsi7Kd3pW2mZMA3hjKUPI4L7ONz+w6Yytjb7ur+9Vf8Ykx5w==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erOZXdar;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE9PSI1B;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38756606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68868606A31F;
 	Thu, 22 Oct 2026 05:27:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=erOZXdar
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE9PSI1B
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792646834;
-	b=14SjCSBg2m+a6emjQ5IiA/PfRQvTEAcwPIVDQUhQp5DbEjdAKW/MR2loxysd3nMPhera
-	 +Zae5x0VE4NGWiZOJxH5B/QTWfLZAcRmf8kKcZa/QrHAQNE4f5G3aT50b+i+0eRAUhVfM
-	 2xZDzk4DXtcY9WecjfcCbNrYtrb7C/vm5RsQgFPdGY4TpORHVivptvxHsXSv7evjII7Xy
-	 2fFoMa3zH+odUYRoxMocJqylm+i8FATZEPPTbIfHTtY8rEDDL0P85uaruR6KCl5/drWuo
-	 dXtKDtTYZZ4w40e0YlEvfSo+AUqJhAWAK0cMAzpxuOZc48sDzVS+wvT0tsmeGj+/VgQ==
+	t=1792646835;
+	b=m3r7tcjnBXTd+X8wnNnjUljdNzM79xURcz28VK3iFotYLctYACR6GFv/tfHW/3KZ58Er
+	 BannArVORXj76rnc9JKu2pRGBODPMepR2KVo7IYTx/eXN+tCwHknv52hLfsJ/t2QBW2aV
+	 q1yTec6htU6hSk4C83SP07oj2TT05YIo7qJ1wYxoqBSNyeygmtOmiSVDb23gJ07VvAmEy
+	 YpYRnBU3hu2kozsrG9Q9PM5rMpdiD3OHk+hLXKyZTECMZnXYDVK7C2IfcWJIZ+6A55IER
+	 4SVsyotjHKXywlcgvVGAqADOsN9qPEYQelNAl2pTRWvcF288JhrSH+eOloGyaSDsOQw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792646834;
+	c=relaxed/relaxed; t=1792646835;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=aJhSp5FQgDQDLiRKd4qpwkqXiFacPMHlJzlZVfDeqvg=;
-	b=pj1Mdue1krE6TPI6PXIKtiz91+sEubM5lu6sbP+zLSovP+FQX0bUp8qISb6lRjGsI6Vq
-	 R4LCkSqSl6re4boMk9HZexsbvBabQH4/f07gP7XKRmVpQkZQb/BX54Hr/SaajFYdz7Nww
-	 FyLkJJSpdX+iUXkptgkNgwX2se8ieQylwW7V+OL63Dlk642zx5vzMZNzQTGmvVRCMZnzH
-	 ja0c2FFqgV/Ihm2Zs3GzhUT9XAKAafoEfTKDWHISj22mOA29g6hCla5Bg4AHYuY31zZMV
-	 I76QJbHy14mhEb8fyEBqyx11niKBAlo9FdYwNeiFH4wLd7CIGUcoHgpOFEuqGfjRzEw==
+	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
+	b=Zg/GoOg2lqqHmZQ7IPhKNXC+4cxywKbG48aFV6nsHj6UeaLeVLIUVvxXO58P82YCj0po
+	 YSpe1UsuFdCrZghULqSQKCsKi9jKmBnGvN6HN2yILfBH5BGWp3Awiq72gf08v32mOe0wD
+	 iXqsOw+S3vJS8xmKxNU/wWUUPevD5SpW5ZfzvzTE/cy5vdS/B8T/YKZyl/0N6y7iF+9hG
+	 eGn5JdZlevkSJRZlRLVjKKqLne0HVuznUAxo09ceK+VNxs123PSwQyMrDxFRQWd/O84/S
+	 yzQpazJ/Z4dh33fbTJRHCyBGTHcemjinw3sA3ub2Ngzm96LH/yMmZui46AhIQcwFOqw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id DB18C1F000C2;
+	by smtp.kernel.org (Postfix) with ESMTPS id DB12D1F000C1;
 	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792646834;
-	bh=aJhSp5FQgDQDLiRKd4qpwkqXiFacPMHlJzlZVfDeqvg=;
+	s=k20260515; t=1792646835;
+	bh=vZw7X4lb3ksfrAnMAuxx2fg6EzYIhAqap3eUmHgRVu0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=erOZXdarjU7UXewRLGyVa4HXBWWvFOTUgo7HPqkDVfD6XYKvCV1X8KBypfUbda/lF
-	 sQtRildmZqpudgHYF3oLRV/xIE0lFNMQ6FRHeHu9qzcxQ66lyaZCypXz6sg+aoi7nd
-	 j5cLtJ05Vfb9NLNxK1JGaZJjbJXqTao94R0Cf3TGzIlR6uRS/M6S1NchQ4mQUzY+H6
-	 XxQ20RmgcHZNhaVUmzJWvkIopV9PfOg69WBlaNQYS3zHDC+UMSVlXk/WucZSYrmhgq
-	 Bws78IcFuOiofiOXwZA9xksDU6pgQFYpfP58Fwtky0JB+Z5XfqUDvknqIDXDhxU11L
-	 xB6MsAFsnC0/A==
+	b=nE9PSI1BkQuX2JUDgREpDWRGo7njCyJXhZe28t7966XvBP7eHNTW33TFCAJuh/m+7
+	 hZQ863cuG5OXkk5m3bYA/aBsNvj346k5j11xK+DS/Cc3tdSXZYFPkLWMAnhmFS6DE9
+	 I7ssWcD2EyMiRqJsKrStswgVAm0GTWo783Diy3ysdBUXbxxRp7kSvX5gUUYHBYgyGb
+	 20raI00TICV+o9rs9TPs+ycE7dSfu3/LJD8e+IitHwBbNJzxdfl5MP4JMXWq5LEpJi
+	 3eD/twfgzHDnW2HXFsh8Ob4/drVQXa8Jv5feXRP28ZZwEISGWHxv0XFRLjaOU6+vPH
+	 7QCThpYUSU2xw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 48493434E5;
+	by lkml.kernel.org (Postfix) with ESMTP id 4F315434E9;
 	Thu, 22 Oct 2026 05:27:13 +0000 (UTC)
 From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Thu, 22 Oct 2026 13:27:00 +0800
-Subject: [PATCH v12 2/6] firmware: meson: sm: Add video firmware loading
- SMC call
+Date: Thu, 22 Oct 2026 13:27:01 +0800
+Subject: [PATCH v12 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-s4-vdec-upstream-v12-2-616240978792@amlogic.com>
+Message-Id: <20261022-b4-s4-vdec-upstream-v12-3-616240978792@amlogic.com>
 References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
 In-Reply-To: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -96,13 +95,14 @@ To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+ devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792646831; l=711;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792646831; l=3663;
  i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=wZ/Fw+jH+tOBVIXbBc8zSjH7Kx36sATJ09qPRAeyKKk=;
- b=W+y4VY/oZ+d/v2st9z7kzOz8+zDimrATVD4uEFbPvPFcmKfAdJL+iPdXjmOr4VKVIwdS/Lf5+
- ORYnYIWBfJKAmpkXJSHaI4FBTDE62ksaJrcEDB2XOXbVvCWStqunkfH
+ bh=sdpnxZqgnjpHOtW3zEsr+0hEfJ2Oq9V4xODbhYXkAYs=;
+ b=GOiymRYreeaoKRFwe4SQyASgsTUzFHSGFZZar2eJxjGY5P2HmFfDGJF67XUBGD1zFrFlrHyQ5
+ OjEiadj7KuICaBsHqr6TQgdztMOB0ZGWycEd3yPlExUDi8O2jU81bF7
 X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
  pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
 X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
@@ -113,26 +113,134 @@ Content-Transfer-Encoding: 7bit
 
 From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
-table to load video firmware.
+Add bindings for Amlogic hardware decoder accelerator.
 
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 ---
- drivers/firmware/meson/meson_sm.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 114 +++++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
-diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
-index ab9751a59b55..887caa5c625d 100644
---- a/drivers/firmware/meson/meson_sm.c
-+++ b/drivers/firmware/meson/meson_sm.c
-@@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip = {
- 		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
- 		CMD(SM_A1_PWRC_SET,		0x82000093),
- 		CMD(SM_A1_PWRC_GET,		0x82000095),
-+		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
- 		{ /* sentinel */ },
- 	},
- };
+diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+new file mode 100644
+index 000000000000..75b9ba3cb08d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+@@ -0,0 +1,114 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# Copyright (C) 2025 Amlogic, Inc. All rights reserved
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Amlogic Video Decode Accelerator
++
++maintainers:
++  - Zhentao Guo <zhentao.guo@amlogic.com>
++
++description:
++  The Video Decoder Accelerator present on Amlogic SOCs.
++  It supports stateless h264 decoding.
++
++properties:
++  compatible:
++    const: amlogic,s4-vdec
++
++  reg:
++    maxItems: 2
++
++  reg-names:
++    items:
++      - const: dos
++      - const: dmc
++
++  interrupts:
++    maxItems: 2
++
++  interrupt-names:
++    items:
++      - const: hvdec
++      - const: vdec
++
++  clocks:
++    items:
++      - description: Clock for dos core
++      - description: Clock for vdec core
++      - description: Clock for hvdec core
++
++  clock-names:
++    items:
++      - const: dos
++      - const: vdec
++      - const: hvdec
++
++  power-domains:
++    maxItems: 2
++
++  power-domain-names:
++    items:
++      - const: vdec
++      - const: hvdec
++
++  resets:
++    maxItems: 1
++
++  amlogic,canvas:
++    description: Canvas maintains an index-to-physical-address
++     mapping table that allows the 16-bit AMRISC decoder core
++     to access 32-bit or 64-bit physical address.
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  amlogic,secure-monitor:
++    description: Used to decrypt and load the signed decoder
++     firmware through ARM SMC (Secure Monitor Call).
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - clocks
++  - clock-names
++  - power-domains
++  - power-domain-names
++  - resets
++  - amlogic,canvas
++  - amlogic,secure-monitor
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
++    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
++    #include <dt-bindings/power/meson-s4-power.h>
++    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
++    video-codec@fe320000 {
++      compatible = "amlogic,s4-vdec";
++      reg = <0xfe320000 0x10000>,
++            <0xfe036000 0x20>;
++      reg-names = "dos",
++                  "dmc";
++      interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
++                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
++      clocks = <&clkc_periphs CLKID_DOS>,
++               <&clkc_periphs CLKID_VDEC_SEL>,
++               <&clkc_periphs CLKID_HEVCF_SEL>;
++      clock-names = "dos",
++                    "vdec",
++                    "hvdec";
++      power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
++                      <&pwrc PWRC_S4_DOS_HEVC_ID>;
++      power-domain-names = "vdec",
++                           "hvdec";
++      resets = <&reset RESET_DOS>;
++      amlogic,canvas = <&canvas>;
++      amlogic,secure-monitor = <&sm>;
++    };
 
 -- 
 2.42.0
