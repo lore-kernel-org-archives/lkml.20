@@ -1,55 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661290;
-	b=KCuTQ4FZPR6feJmeFClw+fpvhfu3E61JmNBGwkr66xXLk5M0n+YmKHf7354AQ+JNs/cB
-	 8E4+ukJDt3eRxaocCjHr6AnstDKIx+J9jJse+NeGXmLJZf3qV39ktkp8FIbcZ4/AhMwh6
-	 Yfr726zCKtvjIJXJOQLN9dcBPLjCPOyhwr1F6fNCX3ndJ2KrU5lbKt3dySV+b3bsvRspk
-	 NDgURyViW3RCQFR601Mc5AS8v92CzhO7inVIFpXxwh8aGGHtsZHFg5EKmI3j2oJzMNWYU
-	 IQSyZEAKWPQoRZTYMziqpmSf8TceDMWiyqoJ3TT9wOLQe5FNF8XpXaMyCNFPGL1dvCQ==
+	t=1792661331;
+	b=DbuudFXS1WEOpSO6AmyKF55bq4VKMkMCwydnMN0kHzTkfEQaNDmtgZ8Dd7IYcrAMx9mp
+	 pjPLROd7xSRGqHjG08X+xAmxF/ZXwCV1XmusE9T2rNO7kqeEMUVD83Zj1kRuda82N7cP+
+	 X36P93vdmZFNn7/4Z3u8cw5MiWo1N5krySClyRLsuNNtAWuVzdRO6oavXMx7SxPe3iy9Q
+	 WN8Ad97Y56lpRc+TqsvG3w54e63rXVnXF13JkYC9vGWrfQ4UnNpH/0yKSFJz2Y8IjLrNS
+	 xDcm5jOtvAwG6jleRcs1xmD8zSUR5PLrwyA3DFpFd94Zd9fAD56GI4vsIvPCMXemI8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661290;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=b16AqzWrmx6PCjjmVkdtVIc26QQOCuhEY/Lbc4sfw0A=;
-	b=v7FCEkC7+Vf1czkBpZ2DWyUF81c6Z1jpvuhT9dhXO0HuO4cif24QSMiWRg4LCvXHEnnh
-	 Zd21/3TYqIt6UOs6xNpA0UKWqpd/u72HOIw1a58ghqWi4BGWx1qlQKxgeBC1TvmLH4n86
-	 sX+Hm0S8JjrXUgnhJGW9Z4n7savx4aXEYzNX3r1Is5CvAhE9f6qGDYzYKhUqTCMTIctss
-	 rVkKveBwTRltlIM48JQnblwCw+KHTiAlRZWxyo8KXYP8Lt1HXZOSOTQz6uPrFxqKFa1n6
-	 gBJad+/qGLfbsKHtC5dFhYYeglYXm+V4eitjz6ZvacsY86Tz/01v18Q3VcVDrtuCFiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661331;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Reinject:X-QCInternal:
+	 X-QCInternal:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=SkZddS+miUPG28nvMCm9Vl6i3WtxcHtjfJbOTS7q09g=;
+	b=RKJ92nYGqCgEHLuRrQ2qNZ1XHTXyHQj7FCEn4AKafuuKU/Td1z4mrO7/9MGVIxjI2kfb
+	 WSDVOto+0+4AJ3XpTlY25oW48Gi2hq38qoXBWhhUWSm9f5yNxuk77LoGflgmsKcoFDPJQ
+	 SG0fIS2tDpntFgI41THswp9QTo5bNGBBoAxd8HMK2ae9exms2hXrjcr8xHC5Ll1X2ahLE
+	 DPkHoiWRxXRvlvMWotAHvZGL5MNKqjUkswLXRxet2yV70yeTIAVy6Pdh9U5XF1EdM/b1/
+	 InbNLUltQgD/+qNAzs/b8raowNI4cQVK8i1ec2mdQ2QZXroSJosNbb6QGOOAsK1OqSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOqbMHwP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UmFHeFxH;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B253606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:28:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0A99606A319;
+	Thu, 22 Oct 2026 09:28:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0A99606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SOqbMHwP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD1F31F000C6
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:28:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792661289;
-	bh=b16AqzWrmx6PCjjmVkdtVIc26QQOCuhEY/Lbc4sfw0A=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=SOqbMHwPQWFi2YRT3gLRpyy8kS0AYPzz7YKl/yzqATxW9ta/dm6RhhDSfjkwA4amX
-	 g/tTTeX5NXjQnfQXtbIdL97EgeJq8IXdqtOOa5JnfqBigVr6pNhdGOuuWPwSbz63k/
-	 tzAI3vIllHt2tYqlzyshzMJqPwtb+J2xw3KrFEZukUufJA4RMwksRmiIuhvWeJiZ7n
-	 dJEb0T+pg13rQbtKwNBIYyy6lJ+Y5zmiHhjAy6iq19ZsOI4Wu2NfzwyeiIXICAF/at
-	 we1+CP0j/Mm1Rb3ASiPxyWArpqwlgckHqGZ6ES2hB/uQhc5NakCOEyEzwHSN5RIoxb
-	 wni9+cctFAlYg==
-Received: by mail-ot1-f41.google.com with SMTP id 46e09a7af769-8490a7d6696so1023057a34.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:28:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwhh+otRgOn5o/Gegcqr459QKP9iGZeLd+Jm6qhzl3iRo1f2/nOC5sk2SZtBVu6pQU4Ni9bg/lmJF/zUGg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLIORImtAV7QUiFsdBNVRGsW76yUxvg9ZI5hs6NZxATamkubqv6
-	rxaM0coqP9I5EJsvqSvUI8DNxO/7iBs6EMgj2CZu0MBKFiu6ky6gHSKq7LYjsAFyAmiN8JPp5Jx
-	gIVqXqUo3SGkehjRuWaZZSMGUgUS2Hrg=
-X-Received: by 2002:a05:6871:6681:b0:49d:c3f6:4191 with SMTP id
- 586e51a60fabf-4a7dc15cb9emr2583880fac.18.1792661289186; Thu, 22 Oct 2026
- 02:28:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=UmFHeFxH
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8LoM93194761;
+	Thu, 22 Oct 2026 09:28:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=SkZddS+miUPG28nvMCm9Vl6i3WtxcHtjfJb
+	OTS7q09g=; b=UmFHeFxH+2bQEKWMDaTCw9LxvUNVU0rWwTZks3X1i1TyL4YA2QH
+	JNqxvdwk5lQ1tHSwv5MIn/MWTpL2KV5zMz5WDSa4vJgVcgyrxf77LYVBIHNiif4k
+	NXNjvIQ2GCvh1WsMqUSgLQE6go4X6H3IIhFQSxI6QSNrVIgr7r4UzrCqh1ZaKD41
+	KZPvRIFrWOnv9tcxbAbsJPZ1LRNO+a1iXO13XpdLVk85AlmWj908rB0LaI5ITLIr
+	NxuWpzebSfn4OjlTQ8kuNDHlHRMdMaz8bdZ25FJIS3e3K3JxBcQLcJZQo89P0pPI
+	vavFxBafGJ6x48k2P4yTwR/DrQGV/Kd4PeQ==
+Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq0a50-43
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:28:42 +0000 (GMT)
+Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9CU032022520;
+	Thu, 22 Oct 2026 09:17:00 GMT
+Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M9GxDb2029758
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 09:16:59 +0000 (GMT)
+Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
+	id DAF1A655; Thu, 22 Oct 2026 14:46:58 +0530 (+0530)
+From: Karthik S <karthik.s@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Karthik S <karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Add shikra-iqs-lt9611uxd-evk compatible support
+Date: Thu, 22 Oct 2026 14:46:56 +0530
+Message-Id: <20261022091656.1063385-1-karthik.s@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,84 +87,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022090431.3641707-1-teel4res@gmail.com>
-In-Reply-To: <20261022090431.3641707-1-teel4res@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 11:27:57 +0200
-X-Gmail-Original-Message-ID: <CAL4Wiip9-oGNjrgQV-VSkDR_hfq35d_+ymX_itYk29u9scY=Mg@mail.gmail.com>
-X-Gm-Features: AclHuK-mJUESD7RYwjo_wmXzNyLsWvwMRTYfXqXRI4IDUC_o01XXw1PdqN8O9Bg
-Message-ID: <CAL4Wiip9-oGNjrgQV-VSkDR_hfq35d_+ymX_itYk29u9scY=Mg@mail.gmail.com>
-Subject: Re: [BUG] net: bridge: late FDB learning can outlive an MRP port
-To: Cheng Yongkang <teel4res@gmail.com>
-Cc: Nikolay Aleksandrov <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, bridge@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Proofpoint-GUID: x8ibBFG0jwFYHjtlLwGvXS7w2OCN91JJ
+X-Proofpoint-ORIG-GUID: x8ibBFG0jwFYHjtlLwGvXS7w2OCN91JJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNyBTYWx0ZWRfX7e8ysxi4+UCm
+ j1Kl81cdOZSts1yUVhNrFUVEDC80ebqidPziEE+bHrY0SDUB4kN/67iOjPk8PjdZcCfzxhjgW1/
+ fC/JGJM5Zsi6aBP7ghfPPkx/6jKqnlk=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9d74a cx=c_pps
+ a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=J8V9vG3e9rXIWQFow8gA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNyBTYWx0ZWRfX8QEfuSsQG16l
+ T9I/zjEXxJeWEbW5c6TMGOfSDezsv6GnCNop/N2ALpaL2vQaByR6ErTtdse47r//GpjjA6jTdRa
+ UdFHEvlTW8S24SLejqPEljGd6EWIi8KWsJmoHYZJ2nivpDd/YpyUJAmonLhmiOSnbDI7NzdqQXj
+ TzhL/5c/qosDSa5Xs8XMYfHvFyMxY5UaoAu5a3HrR0XKGN6dVhqvHVbBiaLZfSjgKmX07aLr/HE
+ wzYP8aNV2UrNKqprqogRoCI+0GUOsal+JiwIzYcTQAPei3IFgQnRrPsMW3wBn/HwvRGFsghZBBj
+ 0EzzWFTt5m5l1eYl62Qv2/+E97OXmncfXdM+btTUZNxSNtQrdI13Nk0dLUe3BeVwMJn6onuA+Qm
+ wOXwJ9YJfWZw50MADq06+eoaMT0eQGsGZKz29i1AAMTKPxoMpIXLJKRfgLZaGiJ6kR5XdfaR3Aa
+ BXEdUU6ohMUc8xJq+4Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220037
 
-Le jeu. 22 oct. 2026 =C3=A0 11:04, Cheng Yongkang <teel4res@gmail.com> a =
-=C3=A9crit :
->
-> Hi all,
->
-> An MRP-aware bridge port can remain in BR_STATE_FORWARDING during
-> del_nbp().  The terminal br_fdb_delete_by_port() runs before
-> netdev_rx_handler_unregister(), so a frame received in that window can
-> learn a new FDB entry whose dst is the port being deleted.  No second
-> FDB sweep follows.  The port is then RCU-freed, leaving the FDB entry
-> with a stale net_bridge_port pointer.
->
-> Observed on Linux v7.3, commit
-> 08ab31164c55f20c7a2653de3186ae333470e2c1, with KASAN+UBSAN:
->
->   BUG: KASAN: slab-use-after-free in br_forward+0x55/0x3c0
->   Read of size 8
->     br_forward
->     br_handle_frame_finish
->     br_handle_frame
->   Allocated by:
->     new_nbp
->     br_add_if
->   Freed by:
->     kfree
->     kobject_put
->     rcu_core
->
-> The failing sequence is:
->
->   br_stp_disable_port() leaves the MRP-aware port forwarding
->   br_mrp_del_impl() restores BR_STATE_FORWARDING
->   br_fdb_delete_by_port()
->   ... late ingress frame learns fdb->dst =3D=3D p ...
->   netdev_rx_handler_unregister()
->   call_rcu(&p->rcu, destroy_nbp_rcu)
->   later frame -> br_forward(stale dst)
->
-> This reproduced in three independent VM boots.  The target bridge code
-> was unchanged.  Because the test VM has no driver that accepts
-> SWITCHDEV_OBJ_ID_MRP, a small diagnostic switchdev endpoint claimed the
-> MRP object and widened the already-existing post-FDB-flush/pre-unregister
-> window.  It did not replace bridge logic, modify FDB entries, or alter
-> net_bridge_port lifetime.
->
-> The deletion path should stop new RX processing before the final FDB
-> sweep, or drain the deferred/FDB state after the RX handler is
-> unregistered and before queueing the port for RCU free.
->
-> I found no matching upstream fix.  Candidate BR-007, BR-040 and BR-058
-> are consequences of this same root cause.  BR-040 gives the forwarding
-> window; BR-058 independently describes the stale-FDB lifetime.
->
-> The reproducer, module source, and complete serial logs are available
-> on request.
->
-> This was found with AI-assisted source analysis and fuzzing; the kernel
-> behavior above was reproduced under KASAN.
->
-> Thanks,
-> Cheng Yongkang
+Add machine driver support for the Shikra IQS EVK variant that uses the
+LT9611UXD HDMI bridge as an I2S audio codec instead of the MAX98091.
+The new compatible reuses the generic sc8280xp DAPM widgets and configures
+the codec DAI format for I2S with bit/frame clock driven by the codec.
 
-I suggest you stop sending these emails, we all have LLM you know.
+Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+---
+ sound/soc/qcom/sc8280xp.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-What is the point, if you do not send patches?
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 9860a68e2add..66064c31136b 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -541,6 +541,15 @@ static const struct qcom_snd_soc_common shikra_iqs_priv_data = {
+ 	.mi2s_bclk_enable = true,
+ };
+ 
++static const struct qcom_snd_soc_common shikra_iqs_lt9611uxd_priv_data = {
++	.driver_name = "shikra",
++	.dapm_widgets = sc8280xp_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
++	.codec_dai_fmt = SND_SOC_DAIFMT_BC_FC |
++			 SND_SOC_DAIFMT_NB_NF |
++			 SND_SOC_DAIFMT_I2S,
++};
++
+ static const struct qcom_snd_soc_common sm8450_priv_data = {
+ 	.driver_name = "sm8450",
+ 	.dapm_widgets = sc8280xp_dapm_widgets,
+@@ -608,6 +617,8 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
+ 	{ .compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data },
+ 	{ .compatible = "qcom,sc8280xp-sndcard", .data = &sc8280xp_priv_data },
+ 	{ .compatible = "qcom,shikra-iqs-sndcard", .data = &shikra_iqs_priv_data },
++	{ .compatible = "qcom,shikra-iqs-lt9611uxd-sndcard",
++	  .data = &shikra_iqs_lt9611uxd_priv_data },
+ 	{ .compatible = "qcom,sm8450-sndcard", .data = &sm8450_priv_data },
+ 	{ .compatible = "qcom,sm8475-sndcard", .data = &sm8475_priv_data },
+ 	{ .compatible = "qcom,sm8550-sndcard", .data = &sm8550_priv_data },
+-- 
+2.34.1
+
