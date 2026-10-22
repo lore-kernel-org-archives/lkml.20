@@ -1,103 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.122
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653286;
-	b=dXRaHHiAMlHJeoYM9aMiVcispnQ16Vvqe7VRzoIIjr6k+K/8yfSlxmXCr3ZNarsh9r80
-	 a4akp0Rj3rU50jPiCRP5NeiPki0C3c/muX8Bko2GAQT4SjPMlpbdnrhuuLGgcwTz75cf4
-	 dp/Ni5FKIM7tTFC4Z+RZ/lx4O6OWIoRb/Me+aqelBpMNCtCyv0l28EeVYjQ0WFLCqLFQs
-	 norj8ueDE5CPCRkF1TFpNxgjrrP9Wx5EBDYYnpKwAtZ/AXoe1mMYkA/XwSQ7iwYo2Za3t
-	 EM1GTM2Myen9bVMOrJ41N5DFQT6j6nARS5HsSod2pjVk1Ji07XIBLivr/W/boHABTfw==
+	t=1792653301;
+	b=HAu4dQiQDWhOEq3J1TqVdJrrgkiDSHnfy9pxHdn2RK8CaPOExgeyT0qErlrmRMZrjwhA
+	 qlNpt4kdoYBGcUR9Ca3MPrmoemzv594P1n+YR1wwSyX1QjoniOdGRIteuBl40awmLP5VJ
+	 P6OTEmCEURPg91yD60I/X9N0zYIkVtbcrgLvqp61sxiYGtaihwZ1kFTYqfB27RhlIwU28
+	 wsxxZ9DOk5pQsTiKEZGxER7LUAW+nNt4Jl1idn7cihF+E8p+Qj49pm0pjM5Ky/QHBhht4
+	 A7ysKHKJFCG68RA9MQTh1339V6N2C0mqDMfGZmZGaQRRV/0SNBLaRbxuHr/JVTEpGKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653286;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
-	b=Z33/06ekfo7qOVO/9sI1W5fGZI1GP7Re4/CxUQH5elgnQysPyLpKu52b9xgC/HykU5d3
-	 s3Vm+FqEXsg8WzpDG40DIae2T3goH/1XpNULPoeVFj4TGuPFXiPbfyw/d8havt31pnr6d
-	 2ryO+3eL23+rszeHzWcczTWuF7I4kAevUFIl7WTg6dtM+8zFGiDkhUDr+6MvmyY6+nNDJ
-	 LlaATbfFOlNByHQYsCCNBy6bvSz8eGxgmwOsQpTp5UVBkZxon91wj1fCGa6dtQswEOdeA
-	 Zcer85J69y/dsQU6297sa7on/gXgwPpyS/UkDP9Gf589Qoci/j9x07NaN/mb11ebiqw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653301;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Date:From:To:
+	 Cc:Reply-To:Message-ID:Subject:X-Mailer:MIME-Version:
+	 x-aliyun-im-through:x-aliyun-mail-creator:x-aliyun-mailtrack:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=IXslyo3svzvvM0WBQuHyfy17WFzlnrNdUcm/DdWmIwA=;
+	b=WS7H2djkJSBi/mYVSfrzfOpnkbJb3pmRzmxBnOC5HmUoeBwbjRu9e+tx2R6vRnos4n2Q
+	 rUWmzuU5sA7szsofXZrebG5yxTk1AXsfMAK7f1x1n0Xt5Gy2JQiMOTlaOd0p7sZTosAUV
+	 WIwAWx9O4ERIzfV0DouIKTV+DHP5V1Wz4qhFHVIa6tIKdr3fj1wDEGxC6moCdV/RyO6se
+	 YDPtgWE7SmLlRr2uUrqm9d7xQ4fpIa2EQWcUCjZGGk9yi62EnOPu74OPN+RHgTYT+xvl8
+	 +hCCY1Vne1AC6+fbwxBlEu1FBc3cVBsZryuDd0I3c/FLuIKTP++ZAtys8NRa4/JuDfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BFZUQwc0;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=antgroup.com;
+	spf=pass smtp.mailfrom=antgroup.com;
+	dkim=pass header.d=antgroup.com header.i=@antgroup.com header.a=rsa-sha256 header.s=default header.b="Cfp/iAJR";
+	arc=none smtp.remote-ip=115.124.28.122
+Received: from out28-122.mail.aliyun.com (out28-122.mail.aliyun.com [115.124.28.122])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF9A606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:14:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFF9A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05BEB606A319;
+	Thu, 22 Oct 2026 07:14:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05BEB606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=antgroup.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antgroup.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BFZUQwc0
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1931ff67a29so1329089c88.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:14:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792653285; x=1793258085; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
-        b=BFZUQwc0glnGG0PC89J6I5yzkEC2MR9OBVnxAlTWSNJ8PjQOGdEdTojkyZ000fkN7e
-         /dLlw/5WtvHT5jU1Yxb+WnqLDWSfzrof6bbJL5BZmrl46WtCGkJg1OKvHcF6eU990bAV
-         QkHS0G/s1TMlcc/SSQtVmAUmBSr7R0IzoGXCX5PvLjuokmEWSK3+cL7NJtu2hTzoBPQw
-         GG0wDpoO3cgyMe2DJJPE3vuBX0vjYr5isphipLLx2VirrFABjVhrX9oCuv1HUbrkPgMw
-         PJJ41YcltJaXXf0As8L62f7a0Q+dPDQjyiJoOoXy2zqV4PouQ59trMIUpagKBt8KDJSM
-         FKHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792653285; x=1793258085;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rbQd37yNdLoEoUUb1uI07DktRFDbgbFgP3dMH/u8vgc=;
-        b=2vXN7gCRCQMb8iNlzGEIZ4ATQ4n8ltGlwYxOemwIL4pAMU30d2u6eo8vwBb6R1Bd+7
-         5lZlrTtint0w1cJcokV6Bc3PADo4Pu/1/bimXDAHtckiz1khvzx5SQKLN9gwpv0kxNS3
-         MR/j+ms1Aoy0Cdo64SaAQCLaxYO0rB8x7riuVsI0xBVFhHPFx4z0BwNKCp7POv4pDBcx
-         bYCOQ6+Zbl06fhI3CrzaGwvcYpm8AKQupXmnFgMawqlyC8URSqP0vySzF2rud13Aafet
-         u+/X8i2M3Wvhh9FZ8B9TjgoMFM6lLRw9KrCe7PD3vXzeoENuyaKwcCJF46UEUHOojoIk
-         HEFg==
-X-Forwarded-Encrypted: i=1; AKwUvBxWcQDUhHHW0o86VR5psMoYg8fD8/3evG5VdYkblMsF7p6q3p8L8TqYaSFJf7ptNUDRPmr7QT7+aQFO/1U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKVpOR/JXLytBnkgZAAZmTdZm3Id53XMDQ+q/W05MMVps+c63NK
-	Ug89+ggkqjr+Vj9hTs/ocfqAEyJmMwsEb+VZ5M2kVIpCmzo+PFVxIOLi
-X-Gm-Gg: AYBFou1ONTPys7am86jl2vUnLVvjWPxVXLzqW3ILfDlu6+M3TkKeCxctXFycjS55Eh4
-	FmVkVr8NsShQh3zh2NSoHzYJfmC0ecmDzHyMq/0u7BRZTza4yOmk3/jajVWnLbeQ/2nwFYevWlv
-	BwfMPs28yp6Ee73YyyID4rbbIRZKp1Fh2Fd/3jGbALVlmNB1Gt1BKzdk1CLiI0j0Q/Nikbea38G
-	l/t3bEdyO+D34wDtvU0TlmR9CLV/8ZG6nCf/rlLF7t68SUM3ntMLBnWK/g5LmoiD+G800wVCac2
-	aDXuK1g+QYR8uMj3vt9vmBT5VNrpbA8/LmzONb3RMlJxxZ4wuhPKyQjGwvgBUD1j+H1TZIAKIOw
-	3pZM7GUQR6/IgUefrm3rp7OTjUQEUJ0WKPq+fVuEE+BT2Uz9Xn4nBonf7FtlG5OQdhiNS3UiZhF
-	RqrlMYRZpejjuFJ8kDXTVsPICfhFcprETIVY3zqKX/EtSTOUFZ6BDFrJ1FP7yfTrFMqUtqpg643
-	deRxpMZpgRQtzBfhI99s4bV26pFzY+UzA6VbX09mPOjFmaBrD2pjjonPeKVD02oDGj6ztWjats=
-X-Received: by 2002:a05:7022:c43:b0:194:3a84:e67a with SMTP id a92af1059eb24-1943a84eaabmr325046c88.41.1792653285121;
-        Thu, 22 Oct 2026 00:14:45 -0700 (PDT)
-Received: from fedora-x1e ([210.89.35.119])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bd6b7ccsm11112321c88.13.2026.10.22.00.14.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 00:14:44 -0700 (PDT)
-From: Saikiran <bjsaikiran@gmail.com>
-To: loic.poulain@oss.qualcomm.com
-Cc: rfoss@kernel.org,
-	andi.shyti@kernel.org,
-	sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	bod@kernel.org,
-	mchehab@kernel.org,
-	vladimir.zapolskiy@linaro.org,
-	jishnu.prakash@oss.qualcomm.com,
-	birk.skyum@pm.me,
-	linux-i2c@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH v1 2/2] media: ov02c10: Fix sensor power sequencing
-Date: Thu, 22 Oct 2026 12:44:18 +0530
-Message-ID: <20261022071418.26895-3-bjsaikiran@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261022071418.26895-1-bjsaikiran@gmail.com>
-References: <20261022071418.26895-1-bjsaikiran@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=antgroup.com header.i=@antgroup.com header.a=rsa-sha256 header.s=default header.b=Cfp/iAJR
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=antgroup.com; s=default;
+	t=1792653288; h=Date:From:To:Message-ID:Subject:MIME-Version:Content-Type;
+	bh=IXslyo3svzvvM0WBQuHyfy17WFzlnrNdUcm/DdWmIwA=;
+	b=Cfp/iAJRihbtSkH45+kPnaKJemgXowgyyQUkzokXQ8GUfSQR5TZuauwE46ieek6k6s6tDOLFjj0hqm1PevLAlfmjivbqjGTbK3nr7pCr8Gc9dnJY4UBX4AZmO7j8Dq9c0+pz7bfXXwSkVi/eshez5gmP+NGsl0x7mT1LQWmeaRg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R151e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026024;MF=luojunrui.ljr@antgroup.com;NM=1;PH=DW;RN=5;SR=0;TI=W4_0.2.3_v5ForWebDing_21252944_1792652413528_o7001c73p;
+Received: from WS-web (luojunrui.ljr@antgroup.com[W4_0.2.3_v5ForWebDing_21252944_1792652413528_o7001c73p] cluster:ay29) at Thu, 22 Oct 2026 15:14:43 +0800
+Date: Thu, 22 Oct 2026 15:14:43 +0800
+From: "=?UTF-8?B?SnVucnVpIEx1byAoQU5UIEFJIFNlY3VyaXR5IExhYik=?=" <luojunrui.ljr@antgroup.com>
+To: "Ali Ahmet Memis" <ali@iusegentoo.com>
+Cc: "Jan Kara" <jack@suse.cz>,
+  "Christian Brauner" <brauner@kernel.org>,
+  "linux-fsdevel" <linux-fsdevel@vger.kernel.org>,
+  "linux-kernel" <linux-kernel@vger.kernel.org>
+Reply-To: "=?UTF-8?B?SnVucnVpIEx1byAoQU5UIEFJIFNlY3VyaXR5IExhYik=?=" <luojunrui.ljr@antgroup.com>
+Message-ID: <adb0ff6b-7f0d-42db-8cdb-6f75810b59d1.luojunrui.ljr@antgroup.com>
+Subject: =?UTF-8?B?W1BBVENIXSB1ZnM6IHZhbGlkYXRlIHRoZSBpbm9kZSBiaXRtYXAgcmFuZ2U=?=
+X-Mailer: [Alimail-Mailagent revision 74][W4_0.2.3][v5ForWebDing][Chrome]
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,79 +61,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+x-aliyun-im-through: {"version":"v1.0"}
+x-aliyun-mail-creator: W4_0.2.3_v5ForWebDing_QvNTW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNTM3LjM2IChLSFRNTCwgbGlrZSBHZWNrbykgQ2hyb21lLzE0OS4wLjAuMCBTYWZhcmkvNTM3LjM2La
+x-aliyun-mailtrack: {"foreign-track":"0"}
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
 
-The OV02C10 driver enables MCLK before the sensor supplies and disables it
-after the supplies. This can back-power the sensor through MCLK while its
-supplies are off and contributes to camera brownouts on the Lenovo Yoga
-Slim 7x.
-
-Follow the power sequence used by the firmware on this platform: enable the
-supplies before MCLK and disable MCLK before the supplies. Hold reset for
-at least 1 ms before disabling MCLK on power-off, and wait at least 10 ms
-after releasing reset on power-on to allow the sensor to start up.
-
-Update the power-on error path to disable the supplies if enabling MCLK
-fails.
-
-Tested-on: Lenovo Yoga Slim 7x (Snapdragon X Elite)
-Signed-off-by: Saikiran <bjsaikiran@gmail.com>
----
- drivers/media/i2c/ov02c10.c | 20 +++++++++++---------
- 1 file changed, 11 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index 221cb93126ec..42aa43ea0a22 100644
---- a/drivers/media/i2c/ov02c10.c
-+++ b/drivers/media/i2c/ov02c10.c
-@@ -661,12 +661,13 @@ static int ov02c10_power_off(struct device *dev)
- 	struct ov02c10 *ov02c10 = to_ov02c10(sd);
- 
- 	gpiod_set_value_cansleep(ov02c10->reset, 1);
-+	usleep_range(1000, 1100);
-+
-+	clk_disable_unprepare(ov02c10->img_clk);
- 
- 	regulator_bulk_disable(ARRAY_SIZE(ov02c10_supply_names),
- 			       ov02c10->supplies);
- 
--	clk_disable_unprepare(ov02c10->img_clk);
--
- 	return 0;
- }
- 
-@@ -682,23 +683,24 @@ static int ov02c10_power_on(struct device *dev)
- 		usleep_range(5000, 6000);
- 	}
- 
--	ret = clk_prepare_enable(ov02c10->img_clk);
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ov02c10_supply_names),
-+				    ov02c10->supplies);
- 	if (ret < 0) {
--		dev_err(dev, "failed to enable imaging clock: %d", ret);
-+		dev_err(dev, "failed to enable regulators: %d", ret);
- 		return ret;
- 	}
- 
--	ret = regulator_bulk_enable(ARRAY_SIZE(ov02c10_supply_names),
--				    ov02c10->supplies);
-+	ret = clk_prepare_enable(ov02c10->img_clk);
- 	if (ret < 0) {
--		dev_err(dev, "failed to enable regulators: %d", ret);
--		clk_disable_unprepare(ov02c10->img_clk);
-+		dev_err(dev, "failed to enable imaging clock: %d", ret);
-+		regulator_bulk_disable(ARRAY_SIZE(ov02c10_supply_names),
-+				       ov02c10->supplies);
- 		return ret;
- 	}
- 
- 	if (ov02c10->reset) {
- 		gpiod_set_value_cansleep(ov02c10->reset, 0);
--		usleep_range(5000, 5500);
-+		usleep_range(10000, 11000);
- 	}
- 
- 	return 0;
--- 
-2.56.0
-
+dWZzX3JlYWRfY3lsaW5kZXIoKSBjYWNoZXMgY2dfaXVzZWRvZmYgd2l0aG91dCBjaGVja2luZyB0
+aGF0IHRoZSBpbm9kZQpiaXRtYXAgZml0cyBpbiB0aGUgbG9hZGVkIGN5bGluZGVyLWdyb3VwIGJ1
+ZmZlcnMuIEEgbWFsZm9ybWVkIG9mZnNldApvciBiaXRtYXAgbGVuZ3RoIGNhbiBjYXVzZSBvdXQt
+b2YtYm91bmRzIGFjY2Vzc2VzIGR1cmluZyBpbm9kZQphbGxvY2F0aW9uIGFuZCBmcmVlaW5nLgoK
+UmVqZWN0IGN5bGluZGVyIGdyb3VwcyB3aG9zZSBpbm9kZSBiaXRtYXAgZXhjZWVkcyB0aGUgbG9h
+ZGVkIGJ1ZmZlcnMuCgpGaXhlczogMWRhMTc3ZTRjM2Y0ICgiTGludXgtMi42LjEyLXJjMiIpCkNj
+OiBzdGFibGVAdmdlci5rZXJuZWwub3JnClNpZ25lZC1vZmYtYnk6IEp1bnJ1aSBMdW8gKEFOVCBB
+SSBTZWN1cml0eSBMYWIpIDxsdW9qdW5ydWkubGpyQGFudGdyb3VwLmNvbT4KLS0tCiBmcy91ZnMv
+Y3lsaW5kZXIuYyB8IDggKysrKysrLS0KIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyks
+IDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZnMvdWZzL2N5bGluZGVyLmMgYi9mcy91ZnMv
+Y3lsaW5kZXIuYwppbmRleCBiOTMwZWUxY2Y4NTMuLjJiMzczNTlkNzQ2NCAxMDA2NDQKLS0tIGEv
+ZnMvdWZzL2N5bGluZGVyLmMKKysrIGIvZnMvdWZzL2N5bGluZGVyLmMKQEAgLTMzLDcgKzMzLDcg
+QEAgc3RhdGljIGJvb2wgdWZzX3JlYWRfY3lsaW5kZXIoc3RydWN0IHN1cGVyX2Jsb2NrICpzYiwK
+IAlzdHJ1Y3QgdWZzX3NiX3ByaXZhdGVfaW5mbyAqIHVzcGk7CiAJc3RydWN0IHVmc19jZ19wcml2
+YXRlX2luZm8gKiB1Y3BpOwogCXN0cnVjdCB1ZnNfY3lsaW5kZXJfZ3JvdXAgKiB1Y2c7Ci0JdW5z
+aWduZWQgaSwgajsKKwl1bnNpZ25lZCBpLCBqLCBjZ3NpemU7CiAKIAlVRlNEKCJFTlRFUiwgY2du
+byAldSwgYml0bWFwX25yICV1XG4iLCBjZ25vLCBiaXRtYXBfbnIpOwogCXVzcGkgPSBzYmktPnNf
+dXNwaTsKQEAgLTY5LDExICs2OSwxNSBAQCBzdGF0aWMgYm9vbCB1ZnNfcmVhZF9jeWxpbmRlcihz
+dHJ1Y3Qgc3VwZXJfYmxvY2sgKnNiLAogCXVjcGktPmNfY2x1c3Rlcm9mZiA9IGZzMzJfdG9fY3B1
+KHNiLCB1Y2ctPmNnX3UuY2dfNDQuY2dfY2x1c3Rlcm9mZik7CiAJdWNwaS0+Y19uY2x1c3RlcmJs
+a3MgPSBmczMyX3RvX2NwdShzYiwgdWNnLT5jZ191LmNnXzQ0LmNnX25jbHVzdGVyYmxrcyk7CiAK
+KwljZ3NpemUgPSBVQ1BJX1VCSCh1Y3BpKS0+Y291bnQgPDwgc2ItPnNfYmxvY2tzaXplX2JpdHM7
+CisKIAkvKiB0aGVzZSBvbi1kaXNrIHZhbHVlcyBiZWNvbWUgYXJyYXkgYW5kIGJpdG1hcCBpbmRp
+Y2VzICovCiAJaWYgKHVjcGktPmNfY2d4ICE9IGNnbm8gfHwKIAkgICAgdWNwaS0+Y19yb3RvciA+
+PSB1c3BpLT5zX2ZwZyB8fAogCSAgICB1Y3BpLT5jX2Zyb3RvciA+PSB1c3BpLT5zX2ZwZyB8fAot
+CSAgICB1Y3BpLT5jX2lyb3RvciA+PSB1c3BpLT5zX2lwZykgeworCSAgICB1Y3BpLT5jX2lyb3Rv
+ciA+PSB1c3BpLT5zX2lwZyB8fAorCSAgICB1Y3BpLT5jX2l1c2Vkb2ZmID49IGNnc2l6ZSB8fAor
+CSAgICBESVZfUk9VTkRfVVBfVUxMKHVzcGktPnNfaXBnLCA4KSA+IGNnc2l6ZSAtIHVjcGktPmNf
+aXVzZWRvZmYpIHsKIAkJdWZzX2Vycm9yKHNiLCBfX2Z1bmNfXywKIAkJCSAgImluY29uc2lzdGVu
+dCBtZXRhZGF0YSBpbiBjeWxpbmRlciBncm91cCAldVxuIiwgY2dubyk7CiAJCWdvdG8gZmFpbGVk
+OwotLSAKMi4yNS4xCgoK
