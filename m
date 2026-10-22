@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792658381;
-	b=qd70k/f8H8+AimezmJ3w+/GfmJ9Kt+oW+UkpsUHgTcBzvDYBunL31KGmeyGUV+rcQ5xT
-	 qF93ES/tsXOPub7gF8bCxnGYPUYgnHguOFn95RimK8Kuro+h8If++fXbqnxqTjY9OsGAN
-	 UFHhZNIsIFL/aYkfnXx0uLHjPz9qFjZ25ipPYIEehbn3DyXbOeiLw31/9MXjGYyAxiPaB
-	 O8JKN0cvKfj7uGvmu+NU5Qc0Fw4bqV/K6w2fTRdUdTd7zLXyA+YP9gooOYYKvE3SGT4BA
-	 15WHn0cF88xqe99LunAp72lEpDAZontUcoRY8g65K8YD8Cs3UXDcBHOAjDTgVHicRZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658381;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792658457;
+	b=RV2UjqZZZNrOWXxBC+d8XATUS/7+KrIQEZnC6p4W9ndTToy0hFverGCGsUKx2xxfbI3h
+	 5auLdMrlB3bVrtuUo49dGBln4y+hbYHNbc40kt6fdLzCA0mfW2aMEUbzboWDPaaNCc8ah
+	 Y/Sdwekk2gXZrlX6FbWi4nmUozdiWIFAWfWazq4WBSFkgPBzeum7dfcj6wPjT0SY5VegP
+	 lZla+ZPM0vEfbz+h9yXe/PqPsDGgWU8Qb8mkAGJOedfxGJM6K5loWg8p2laPv5MZSklCU
+	 rT6OMtoz4s/45mGk/ab1OzgF4MTqdea8wdJ8Hzqn0Y1JByXzw/9gX/UO3uSWAAouHEg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658457;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
-	b=XImI1A1p5u793+3caIaL/zJwb+PDdMqYsLeVJSgW6XSJfuCIlXPUXf1yw8g+RQmjGpWr
-	 +Qv4GM5kL9PRXj81JVD1KQjwEPvbzJjgRJFBbpGsVSdeuXUkXEhmZufAnlrWt5EaVbhKk
-	 f0ZafB/PHvL9kiar7wvlwJV0Mb6aGub231hsWyfcH2Gt5q5XCtKrNWB+DLIuducdjMX9r
-	 FSd5H4AOU2+fQuxsKOy8DiZZHzD5OibBAAV9UD02L1qZHrRe9GW2OLMfEeeom82UecaJ6
-	 OWzN1z2ZQgdnFGkeHpSqtVjagCYXRDVcDYA72KyHVJnRTVPa2jyszkVsOzRB3+5nk+A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwgNe1yP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vZJR8BniHZC6210HXXytWLIaZ0maMiLYh83E0jmYRSE=;
+	b=Bbp4Rmpaz5F5z16K61NFMCaioq6p6jkHEE1CJCWkAquxoaU+igFjRqOdqMFe39ZYGoYc
+	 cpPVDyEiSEjn1uwSSwkPBI43vUQQx1q1HdmTWBKZkDNaPi2oLpqZkVzsZjXN8BGnK2iCH
+	 t9u7WGuEFrvdL+AnUWF9E+b2rxSUx3qU5OwMscw7/qiGCuESGJauatEq4EuEjHMDEC6UH
+	 xNXhLgtwtDDbZ7gjcFMX+WD/gw1F3moIEuNbdfxcxWC933sueWNyBucqjTufrYN5/XsA5
+	 HLWoYVF6p/GQ8Z40vkv3KGLwIlUIk++Az+w4jzGck9AUMa6x7DBod2z65JRACOndJzw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JgYsV813;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCAAB606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCAAB606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FAE2606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:40:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FAE2606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=IwgNe1yP
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so1800047a12.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:39:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792658379; cv=none;
-        d=google.com; s=arc-20260327;
-        b=emFQLbCqbDx1sxLPK/7xRZ9JtNFQgx+DbUjM0lypCNYjkJYJmCJouWsERcJvGajKAQ
-         WdNtUC8bwhyguoGw6HfMsF96WmvGwK/PDpD1MsoanYWngNjbkDqFXeYugAozTYIhFEGc
-         ioqrdj2pfSShnRP5R2OxOOx+QmAjq+S7cLucSwXZLCtk3o3L2HCMeUFanOemjqd3KT1p
-         Venv7AaJd7tz2iCLmfjKGzKaBd2owbWJCSLcB+Aa1oDesg0YXkSd0+9Sgg5W6Ytl4svZ
-         NAqv3gLUmZjGF2l96R6WjX827Myu7YuUf/1E2YjVVfEDOYnR0wPOLQjlWTbQfwWZ69Oz
-         2qvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
-        fh=CCYZkvZk9x7ZoqMQWt4s/BqsgH6jDPVmkFuTQ7STeKQ=;
-        b=TLAfcVSkxomJmoJXr1ava/aF9kA6RHmZMvoLRjMNaBz4Hav9ZODa238Sa+OllY4rqj
-         X8ikqRWrqowBeiXssgvDDcyoKFKY6nlR1LVATSUJbgxthUFclhJ/EeJoYCqjbqhZAvf9
-         o86vZD7YRY6sQwsrL84nXbRMHPWsQPY+uONQu6UMiNQZCH5AZsPdsXyQMUvipA1Mkyns
-         ksPG2a/mpfrdpX9S7tAkswpLZZfwQaw7y9bFFXhPsSHgywEUsxEXc6qkNIBv9x0897jb
-         CqB27K+2f88nIl6Zti+G1P1zKIYVQHnV1Iudzuo8aTrkCUsPYuqceHxxsllcHZZCY3J/
-         +95A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=JgYsV813
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so849391a91.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:40:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792658379; x=1793263179; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
-        b=IwgNe1yPf1MqsGE7n/CrAJQMA7+Zdw+zButTvfDZHlosqLH90QBB/TzJT5sZPVLA91
-         Vww3t7Zduor5C8ApHggkE5jbbSpzyrtAGwOsc+WTfis5PgPxP/k442YTq1ea0/Kg2HSq
-         tWQK0lKrDakdLmkhbapm9yRmZjH2PTOq5ezv62DYVkGc1RWiPOsgTwO77e/v/hHLxmJZ
-         pzu7qvKTzAOz0Z03mcIIqP0MPPBgGMXgLfyFU4mQForQaduQ0lkbb454JysjzEdewa8T
-         4MIx+bo5MGgWuvaiDhXQwoNQnCCesVqr4TvPtr/i3yeRZ4astwLPjmD1kyFF9n2J+aEE
-         NU0A==
+        d=gmail.com; s=20251104; t=1792658456; x=1793263256; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vZJR8BniHZC6210HXXytWLIaZ0maMiLYh83E0jmYRSE=;
+        b=JgYsV813C5SSPUbmcv0Vcd/D8Uudwin5r7gCakzyly3uZ7qoNvV7XPcT0mmH8EFZKO
+         0lvtSkJqldaT3HqnkkoLXCoZTNuw90ulSkXpsnrJACmbRoRsfGdQux9ED80yNL8q4RB1
+         tvN4wDFjlDbXwvq318GF0Tuvrbwj/9RNmWr6BZ0DVw9zl1r7VCI7uMVLGFOlajsrdZ0y
+         eEgJ9PhaOqcH/6/ajNP90VnXmMVRlsmQq6up96Gd+87v0UbpgyU+T7pHo0aJ/tC+xH3c
+         JNLk4/sR4qpNBBW5CrVCwJFpWZXorgScMbniNwTdTDttWlwi11nSBo4lTOhwEQ49+O8Z
+         nsag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792658379; x=1793263179;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=2KPZKwtR8gVUogjYFjLaVtZoRLBRnCeb8v4XzpPQbCY=;
-        b=b2KeQ4QQsmqxiKKqfah/S/pX0YVO5B/r5gVExKEnZYZibxjiVo2Z2nZeEer2YUpWyQ
-         KL3Td1it4xxPh293LplTGF1An7isUZovPCpIP2uv9tX4yr3r8PJ+/xF81zTFrDoqhca1
-         FP5xvuRXAm7n29z/GQ3HCrvxFqLjG+H7newyuLKRkfrin9KVi/uZ2fcPTD5voYvMC6SM
-         A/8NgKlnEL2i50Ngpmwkxq0b/KmWJtDlHh/L/C0J/FznJglo8QUIG31uWp1elIbotf0Y
-         lfsZ2+cD4UnhckDWaWetTlWgi98aJZTKXR06evxvlI9gKVpBwexMTbLH+/EUQ1GccNsx
-         pMow==
-X-Forwarded-Encrypted: i=1; AKwUvBzJMMiwx3zEmMzNcFeCzppSXE97ghRK3bVCH+bfoZ+w1e5qe7xIE5JDPH7CAfzM1OnGLAJgDujOP7hMowM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLeIz7MDVfIfBZVd7zO7t8oh5lI+yaRs/AykaqVrikm9gnDBLFv
-	9xuOBqPePoUqag2vcdJShw5AhGLezOOa5WnaJ62yeX+UPPA94uvb8mptEpOoj3ydvBL2hChbtzk
-	xNv33VyA3aX8N0KUHjRRbZs3DALmdMK1jfVP/yQJ4hg==
-X-Gm-Gg: AYBFou3YKDHeAjS0LUC/8lC53+6teq7RNKAT6P0O0CVNG//sZI5MmvpiXxnPsshxFXB
-	SrOZ5rpGsG8fUTx9o83jzaClx6ozjvOtMjLfznrCjtW+00hZtDD9TcusnJ5Gwzd5FYH0j8FFYXL
-	oyP9kwNwJzfWoeoZc1GS1+EEz2jVsbtLHoN3Gg8e0SkQ5ZFGthXQxKRgeFqbhpeFnLdvOvOEZ27
-	/BmV2l7J0+XhDRYi6/iatl+HxUe5PWTyzzLcBg9q+Z1bCgP2zr0u5hMsdZesBIbql/zaBrbCtF4
-	0ErnSySxcBjnDBo8qwwOxFFL3OvJm2ltfaEqo+1J4/be1D9hx9QNo47jExE/67MUrGxkWIIdIR2
-	Xp1FZfMyR/1InL2tCkVAZKvALZhw+4wUWdPMggUps2V5ImcYiu5JJs1/ERmHGAy3GbnyQiiQ=
-X-Received: by 2002:a05:6402:51cb:b0:6b1:d661:d37f with SMTP id
- 4fb4d7f45d1cf-6b408e8a023mr3631901a12.9.1792658379043; Thu, 22 Oct 2026
- 01:39:39 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792658456; x=1793263256;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vZJR8BniHZC6210HXXytWLIaZ0maMiLYh83E0jmYRSE=;
+        b=Xmhve0nOEDVupiNQdU/ucroRddXYSbbTmUIEiY9bBRB9Zp8gL7RZGFQeiOCUQ34Yih
+         yQVCFOYfe+pJT6WQ309ptj/1fMmzVHA84Fp4qlUsBqew8Vbdf5yQ97csV9PgcxJrZIiF
+         PDpt22EjcpRt3uYqXJ11KkMMvjhFi/q7Yis5pZPzMdnWOwlEzgh/fGX5TwRwUGmaO6za
+         0GyQVHIM1NZ9qkf/WvFjJQI3aE6bqxOr/uwm5leqxltp8R9n9ppArxKvJ+lmu8FmFVaD
+         BK9Vmq+vFsjznRRUZ7YFtJifdRopBGQ/5QHBymYoCUWKdSmolXIcnnZY7+VGg4U3sSWx
+         ZlOw==
+X-Forwarded-Encrypted: i=1; AKwUvBzMiBBUTO0TuQnfOBLEg7IIyn4bERXJXMsx6+hXZa3A+vtuIAE4oHTnKEZFIQdiucZm2375x7DIp9hB76k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJ/3tdO9TzFzoyaFW+EBfnqtjxO021gbndpGrM5MUHzQoCmfAQ
+	5m7FPQv+w61hKVs7PLJxSLF5R2t+e9RLoBvpw+PrK8RBIB9OtpIl5WFY
+X-Gm-Gg: AYBFou1XHkeS7+WA5S554qia3PNsVYQ9ECGy8TWiXVTtWA084yhuZoxzOuaQKNadYWB
+	E2NBo44WRMiJBden0eu1IL+kWwUCOKLQ9AyhuRzSDDzJk4ZbwklXtOul3krOJ5sVPkRmCkoWgsC
+	32IO95hcxQJHj9GSeuKBNmq/OkbRy9gVHVMMGc4OoaYozyAF1Wg0r5kZxtayGu8lExFl9Jrs24V
+	0lIzdLqCFsHMtGOUz+9qYo0enYJsXUA2S2ghpw2E1llIXm6SYMa8mpDcHBbQuGujTbXap5FGt+Q
+	t1ncxs7TsswQUJtu4SUxw+baL/Bu4wPLVaz/YDJO7IpV401PeQTOU2PvqYuEOxiEhdKhN2y3Ahn
+	B9dDRhioONntWdS8M55gIpP2XDnEbom2G/eY4SWrJPvZdQ5dt5JNrUwSktDt6D2Nu/J1/c79sFK
+	mj18r1a2xrEXtJw0HUWFwE9EWTaK0nTvRlW1t+QSM2RX8KzlI2zRQVhgHZSPzl96EzmB7iihSeo
+	4ySQKiL9PInHbbKDaNBuynvS/3TOeciwQkqtPjm8+dqxe5xNfB70vhFk8/tlEy/kGBmqJmHulJ3
+	QMQH4k/zjubSIb5qCosS9EXnJR5sJ3bUTKeuaOOVVPJzhkmgDC8U5cqxfSoYfzMFeyyK85E=
+X-Received: by 2002:a17:90a:cf10:b0:3ad:8963:344a with SMTP id 98e67ed59e1d1-3ad896335dcmr2485793a91.66.1792658456409;
+        Thu, 22 Oct 2026 01:40:56 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48a573fsm3340992a91.10.2026.10.22.01.40.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 01:40:55 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Yingkun Meng <mengyingkun@loongson.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [RFC PATCH 0/2] ASoC: loongson: Fix configuration and clock error handling
+Date: Thu, 22 Oct 2026 15:40:38 +0700
+Message-ID: <20261022084040.31181-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,73 +100,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022034930.225042-1-sh_def@163.com> <aa72774f-ad04-4733-8faa-0853a32c2e4c@amd.com>
-In-Reply-To: <aa72774f-ad04-4733-8faa-0853a32c2e4c@amd.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 22 Oct 2026 10:39:27 +0200
-X-Gm-Features: AclHuK8P98O-t4awgDeQ5jLhEb2zvpNyr3a5E4rtkHFskJomj1mGvJaM0F9UtTI
-Message-ID: <CAKfTPtAdVwjvXnLcK6b=msaTnJ6quTFeL=gt16nAoCmwQrEVVQ@mail.gmail.com>
-Subject: Re: [PATCH] sched/pelt: Fix truncation of the PELT period count
-To: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Hui Su <sh_def@163.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Thu, 22 Oct 2026 at 10:35, K Prateek Nayak <kprateek.nayak@amd.com> wrote:
->
-> Hello Hui,
->
-> On 10/22/2026 9:19 AM, Hui Su wrote:
-> > accumulate_sum() computes the number of elapsed PELT periods in a
-> > u64 but returns u32. When the count is a multiple of 2^32, it is
->
-> So at least an hour between PELT updates! I suppose it is possible
-> with nohz so not too far fetched.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Period is 1ms so it's more in the range of 50 days
+Hi all,
 
->
-> > truncated to zero even though the PELT sums have been updated.
-> >
-> > The caller interprets zero as no period boundary crossed and skips
-> > recomputing the averages, leaving *_avg stale relative to *_sum.
-> >
-> > Return only whether any period elapsed, which is all the caller
-> > needs.
-> >
->
-> Probably needs a:
->
-> Fixes: a481db34b9be ("sched/fair: Optimize ___update_sched_avg()") # c079629862b2
->
-> > Signed-off-by: Hui Su <sh_def@163.com>
-> > ---
-> >  kernel/sched/pelt.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
-> > index 779eb58a4261..519bc9c40043 100644
-> > --- a/kernel/sched/pelt.c
-> > +++ b/kernel/sched/pelt.c
-> > @@ -146,7 +146,7 @@ accumulate_sum(u64 delta, struct sched_avg *sa,
-> >       if (running)
-> >               sa->util_sum += contrib << SCHED_CAPACITY_SHIFT;
-> >
-> > -     return periods;
-> > +     return !!periods;
->
-> I would actually favor changing return type to u64. Since
-> accumulate_sum() is only called in one place, and that too within an
-> 'if' condition, I'm sure compiler can optimize it similarly.
->
-> >  }
-> >
-> >  /*
->
-> --
-> Thanks and Regards,
-> Prateek
->
+While reviewing the driver code, I noticed two potential issues and
+looked into the Loongson I2S documentation to investigate them.
+This RFC series proposes fixes for these issues.
+
+I don't have the hardware to test these changes, so I'd appreciate
+your review and feedback.
+
+Compile-tested only.
+
+Best regards,
+Phuc
+
+bui duc phuc (2):
+  ASoC: loongson: Fix IISConfig0 update in hw_params for rev 1
+  ASoC: loongson: Handle clock enable errors in set_fmt
+
+ sound/soc/loongson/loongson_i2s.c | 44 +++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 11 deletions(-)
+
+-- 
+2.43.0
+
