@@ -1,74 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.70
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792676390;
-	b=3CB1o4zf0w2Yb1/LqJ2rgGs7r0Va7TiiJ+GkKVa9/ejpfRyduwHSe2cNY+aIP3w3ByJl
-	 +aflDqlGKnrdBS8d/1IDvKKNV1LCzWBqJHIUJW70aqNq6dktEZPmlKvd+rf4l+IfKvJMh
-	 5wlGTXKTlrJhWBEsPpYIQlMtOOKyEi0PaBfbLxLTEvArQdOycTtmNnUAob2iCOQEQiTbn
-	 VVBOu1gkqWupyLlZgqBIxnW0SiP4viS8YLVGOaL+PJ55gPOFyWbO1a3f3jXXOvZ+2PG09
-	 uCnJq2iFiAsfOhYQ2CCzIOyhMxZNWrbD2DnCKVsIhcJeKsbxXal1KxR0yMFmLgxR+Aw==
+	b=ZZaTvvJnYVSnltP6PaEte7GyUDeKnJtw2BkJX8Q3Ys8rvlanY23tqswWNorSsZioDqpD
+	 BYrwkD/IgNAhzkYWllVk+EsYOHi6ECljWZTUGAwY2sjhXs6j9JnbFiA6z//CDm8OQLF1R
+	 8fSKVJltWJprLo7kI/uFUhLDq5tmnwF/zO/dSZpaNMSn8VqZGqxh28zj78/IFyqFyBD9f
+	 g5yeM7lg23BC5f384Qu/hl98t3G5BJk0vxk7AwPmqB7gM0afUPWTgfhjMVu9GpVIY7xvt
+	 tzLAM4I5EPNAOCQdYnM/N7N5AckWBBRorW3CBuEuJFLa1vVH3EXAmma4B300HIM+xdA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792676390;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-B4-Tracking:X-Change-Id:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=PhIrUCHACphB3JfI1J33l4nIMBCZM/xcTUwZ3X7IPJQ=;
-	b=varKDqFn9I2Mt9emxzyl/GjU5EWLw9ynMCjJ0i5Gb6xtIQ0fIFlb/M0/szhxJqvcsoYD
-	 zM30hltclBSA9jGH2FZjLOKKg/Dljk1lCFWG5+sjXOQZaflmYcPn5ruZp3lXHL5EymuSY
-	 krflKz0prBLQVZdRr+Kwg30JlG/Xhf+4s7NMePjCOWT+kh2rX/MIQ2mricm42jTR2NUSn
-	 xJ08n/NHwGueAc/r2vtEFboqrhHA1c+oTQJYTAtEvmCfh0j96kN1/ijqD8WwMGxzUnuYS
-	 q24/YZkfigNVtq6XvQGbGQydi/cpIYjg7fLhh4AslsCnOZcMinov/ecF1WyyUsAeCww==
+	bh=iS9Ptv4gJD9ISiPFn7gETnJRBJhb+zthiQ0gRNLw8KM=;
+	b=1VaHxpbK22Dx3ckQmRbX6e+S7bkXyKUSE5y5PdlymHdk2iVmw4PiYDAZjzaoaeM2OKIt
+	 u2gH+Z5/W0QUNNw6EOpSVWmWhEH7HOQpfsGXbt2ddNn9ktObCdOILH90tUFH6KJjcdbrZ
+	 BgalhLH+XsIL+W5EDXrKIL+BDir033axIeou7gSBDQZHH5TYoKlGqYhw0euolK/NyrQq4
+	 jbZvRr/sDfXZLqkTq2Wch9z4/Ufa8hOHjqd15jvSayqrey57XAbo2X4SJhEtq0NP2n0zq
+	 3YzqSz+W7ZI3aRW1AHLVbslY4WU8TXFjkfwJ9M+wUbdVEwVMJa9xcNhnHZhpYgRJ4Fw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--korneld.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="hK9qvA/2";
-	arc=none smtp.remote-ip=209.85.167.70
-Received: from mail-lf1-f70.google.com (mail-lf1-f70.google.com [209.85.167.70])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ntUxXo4C;
+	arc=none smtp.remote-ip=209.85.208.72
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4B7606A319
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27D1E606A321
 	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D4B7606A319
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 27D1E606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--korneld.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=hK9qvA/2
-Received: by mail-lf1-f70.google.com with SMTP id 2adb3069b0e04-5ba4284e23eso1085466e87.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:39:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=ntUxXo4C
+Received: by mail-ed1-f72.google.com with SMTP id 4fb4d7f45d1cf-6b1f5b673baso2163657a12.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:39:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792676387; x=1793281187; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1792676388; x=1793281188; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=PhIrUCHACphB3JfI1J33l4nIMBCZM/xcTUwZ3X7IPJQ=;
-        b=hK9qvA/2wkDz3cUz12XiUq5KIVCnZFtzrRy1aK2CJFaMKcZ0PL5Y2oLtSj8bwZiRJv
-         8lSDOAiKx4LbBiPx2GC/QiBmUpw0yXDRGIVb0bWKsNdvAlXNrrRGvy3TWqXwykkldBU5
-         fusQE4A3NY+RHR2IT6RuHeyVcR0OPGoft1UEx7tilvq6Id3nP/FkRq/cbF3gfH4MQJav
-         uf606f6m1eE28YW7vFcPcWtKkEJZLrPKZDDrcFcDB3fhQdCvyHp2pDV/Ix8r2bJluSSi
-         CgVoFCDBEA+IjcxD9zWcMSVz5oPtNia5vxKp4aH/eu3GPeiqBsybmxxojeL3cXdqTzrl
-         sLEQ==
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iS9Ptv4gJD9ISiPFn7gETnJRBJhb+zthiQ0gRNLw8KM=;
+        b=ntUxXo4CAIFgiTl+mB+ZQdJMfe1A/Zpa0HXlouJZsfldUSvRUHoLlmgO2NUE9Yn1Gp
+         ZTDquvLfsKpKmSH/HQ+h3gQP+ATKihzsrU0GYcDOUAvtR0G23gMc9OhtK+N+bAVAVdIA
+         FJAFfnmGXk4NnMmhswVWoPmwZwesAatpNQcaX9hLgyuXMjFVWv7ZxAlOHGULca1GEhlG
+         w1wnU6RMDimY+XhTpUBSaz7Gu7hByE10cz398aIcwj+VAz6zOiSnMVA2Rn5SbuC9DXQ0
+         oIcMrPSDmqSl+EMGv8LkiO8lf+GQ0Wr4/7hlPjxELTyXn0l2ZUakB39nNh/Pgdh4iWF9
+         1l2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792676387; x=1793281187;
+        d=1e100.net; s=20260707; t=1792676388; x=1793281188;
         h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:mime-version:date:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PhIrUCHACphB3JfI1J33l4nIMBCZM/xcTUwZ3X7IPJQ=;
-        b=p5LNF/Q7ePYQIOqZ8wrlOSnZDiAX7yvJcxPjhLdEAGkoqdEN7i0lnJTOkTNQp/UXVL
-         cNIvnp8uLnaSwUAuvq3T0dpjB8zDrawJC6/qEs+ytyYriGm1JmMKAiVusSXooPsC8bNP
-         RNUsr28mS7xhTMe2qkYBfsBTtXVoaLIc2uQuR8iw4GlcQfc2RpQF0q3VfX8+ymXbcMDi
-         poeLExLnTWpQR1nkCmMGFU9lf3iN6Sz+dHE9nh2WZV0zeQvYAfSPorFnvZ7jIi1m6+rY
-         Uk4GX860CCAkZgE83jF4XnGJQivfD+9Y9FMW5GY4LqMWbSaaTFS+9pRSuojEGyx94p5y
-         MTFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzTQokbgriD0NeEuM40VwtQ/IjgCcMRZSEvnfVjQftk7Po1HW/VOXmljWeCjWuo3VFZQ4VGFArcss7F4IU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPvq3D8JV6OoLVwIY9PeNFPm1G8xwL6h+IR+Hkt5hd3I/PVvvT
-	9/DgDsfgPdldlNEMoQb/1uMxTxRvhxOrLpLIP1GH/99KeF0OXEL9ZOMoYC/VVMXKkdPTKM/d/ri
-	c9Hu972ZXDA==
-X-Received: from lfjj4-n2.prod.google.com ([2002:a05:6512:24c4:20b0:5bc:e5bc:7495])
- (user=korneld job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6512:158f:b0:5b8:f271:264f
- with SMTP id 2adb3069b0e04-5bfa1c43ab8mr2145106e87.45.1792676387137; Thu, 22
- Oct 2026 06:39:47 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:39:11 +0000
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iS9Ptv4gJD9ISiPFn7gETnJRBJhb+zthiQ0gRNLw8KM=;
+        b=UF9+lT6aJDZBkRL+TP8BxUPwMLIdYMbK/9nI10Uo/rYrS2Jkz4cQglBwdsLnoy47d3
+         Xvcuy1krOZSbai2NUvWKfmvcE6wvdnR0TuSG4hXL/pC3pUtVMsh1E6gCMQfgXp1oxhnH
+         EfpO/qLSl80WbGi3+DqKwL0LEXPBJiYgTNkcfXjbjcltw9lg8B/h27IZa78syRr6rLKO
+         SwWy5lX1AOnvkWbcD3wcFZW1ytC9wom5kf/SayfhzGBVYC3Tc5d2WBJGMgWQCk10rmYA
+         dh3iu9wcjiGgXzs20vsSm9frw2chCpEdug+9j9AQIcmTZgopdq8E7guPwatS9vzimYGi
+         NGcg==
+X-Forwarded-Encrypted: i=1; AKwUvBz5i4eZtmxs3RJzf5cJ7hVgmm/G5xvhtJf9Q8BRT84PY8S6FW+Pt9fT+pj2WGkTJrc37sfv5VsLiaMoYug=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJX+nWqbnHeXPa3ycNT3uBepBoatevKeqwQ+lZV+6jRc5EEbBZj
+	HyonmagFA7VBmURVR6/qOZbk03q2/oWNUhLKZjOXap9lOMIl3b3ZHwtXq5S3ApEymRzKO4L5szz
+	eptGPdZoOfg==
+X-Received: from edrd18.prod.google.com ([2002:aa7:d692:0:b0:6b4:1721:3ad7])
+ (user=korneld job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6402:1d53:b0:6b3:c434:b8e9
+ with SMTP id 4fb4d7f45d1cf-6b41bbb061emr3468614a12.9.1792676388370; Thu, 22
+ Oct 2026 06:39:48 -0700 (PDT)
+Date: Thu, 22 Oct 2026 13:39:12 +0000
+In-Reply-To: <20261022-evdev_syndropped_fix-v1-0-b5400740e1f7@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,12 +80,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAP8R2moC/x2MQQqAIBAAvyJ7TsiNNPpKRFRutRcVBSnCvycdZ
- 2DmhUSRKcEoXoiUObF3FVQjYL9Wd5JkWxmwRa1aREnZUl7S42z0IZBdDr6l0V2P/WC00hvUNES q+t9OcykfEjgkOmYAAAA=
-X-Change-Id: 20261022-evdev_syndropped_fix-76352587616b
+References: <20261022-evdev_syndropped_fix-v1-0-b5400740e1f7@google.com>
 X-Mailer: b4 0.14.3
-Message-ID: <20261022-evdev_syndropped_fix-v1-0-b5400740e1f7@google.com>
-Subject: [PATCH 0/2] input: evdev: Fix how SYN_DROPPED is generated
+Message-ID: <20261022-evdev_syndropped_fix-v1-1-b5400740e1f7@google.com>
+Subject: [PATCH 1/2] input: evdev: Always terminate SYN_DROPPED with SYN_REPORT
 From: "=?utf-8?q?Kornel_Dul=C4=99ba?=" <korneld@google.com>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
 Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
@@ -91,49 +91,78 @@ Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 
-This series fixes two issues discovered while working with a gpio-keys
-backed device on Android. In short:
+Per Documentation/input/event-codes.rst, on SYN_DROPPED:
+"Client should ignore all events up to and including next SYN_REPORT
+event and query the device (using EVIOCG* ioctls) to obtain its
+current state."
 
-1. When a gpio-keys backed device is opened, its initial state is
-   immediately reported.
-2. Android issues EVIOCSCLOCKID right after, before reading any data.
-3. evdev flushes the queue, enqueues SYN_DROPPED, and caches the current
-   time as the device timestamp. Notably, it does not enqueue a
-   SYN_REPORT.
-4. When the next real event is reported by hardware, it is enqueued with
-   the stale cached timestamp and a prepended SYN_DROPPED.
-5. The whole packet, up to the first legitimate SYN_REPORT, is then
-   ignored by userspace.
+Currently, __evdev_queue_syn_dropped() queues a standalone SYN_DROPPED
+event without a terminating SYN_REPORT. This causes two issues:
 
-SYN_DROPPED needs to be issued after EVIOCSCLOCKID to ensure that any
-partially read packet is dropped. At the same time, evdev only defines
-the batched events() callback, not the single-event event() one. All
-events in a packet up to SYN_REPORT are written to a client's queue at
-once while holding client->buffer_lock. The EVIOCSCLOCKID handler takes
-the same lock when flushing the queue. Therefore, EVIOCSCLOCKID cannot
-inject SYN_DROPPED in the middle of a packet while it is being written
-to the queue.
+1. The queued SYN_DROPPED event remains unreadable until the next
+   hardware event frame arrives and finishes with SYN_REPORT.
+2. When the next hardware event frame arrives, SYN_DROPPED is prepended
+   to it in the same packet. Compliant userspace clients then discard
+   the entire hardware event frame up to its SYN_REPORT.
 
-Based on the above, I believe that the best fix here is to emit
-SYN_REPORT right after SYN_DROPPED.
+This was discovered on an Android system with a gpio-keys backed device:
+1. gpio_keys_open() reports the initial state on open().
+2. Android follows open() with EVIOCSCLOCKID.
+3. This creates an unterminated SYN_DROPPED, causing the subsequent
+   event to be discarded by userspace.
 
-Patch 1: Always follow SYN_DROPPED with a SYN_REPORT.
-Patch 2: Stamp the SYN_DROPPED+SYN_REPORT events with a timestamp read
-         directly from the clock, bypassing the cache.
+Fix this by appending SYN_REPORT after SYN_DROPPED in
+__evdev_queue_syn_dropped() and updating client->packet_head
+accordingly.
 
 Signed-off-by: Kornel Dul=C4=99ba <korneld@google.com>
 ---
-Kornel Dul=C4=99ba (2):
-      input: evdev: Always terminate SYN_DROPPED with SYN_REPORT
-      input: evdev: Read clock directly in __evdev_queue_syn_dropped()
+ drivers/input/evdev.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
- drivers/input/evdev.c | 29 ++++++++++++++++++++++++-----
- 1 file changed, 24 insertions(+), 5 deletions(-)
----
-base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
-change-id: 20261022-evdev_syndropped_fix-76352587616b
+diff --git a/drivers/input/evdev.c b/drivers/input/evdev.c
+index 8bfaaa45e0b9..c6da2601480f 100644
+--- a/drivers/input/evdev.c
++++ b/drivers/input/evdev.c
+@@ -147,6 +147,7 @@ static void __evdev_queue_syn_dropped(struct evdev_clie=
+nt *client)
+ {
+ 	ktime_t *ev_time =3D input_get_timestamp(client->evdev->handle.dev);
+ 	struct timespec64 ts =3D ktime_to_timespec64(ev_time[client->clk_type]);
++	unsigned int buf_mask =3D client->bufsize - 1;
+ 	struct input_event ev;
+=20
+ 	memset(&ev, 0, sizeof(ev));
+@@ -156,13 +157,24 @@ static void __evdev_queue_syn_dropped(struct evdev_cl=
+ient *client)
+ 	ev.code =3D SYN_DROPPED;
+=20
+ 	client->buffer[client->head++] =3D ev;
+-	client->head &=3D client->bufsize - 1;
++	client->head &=3D buf_mask;
+=20
+ 	if (unlikely(client->head =3D=3D client->tail)) {
+ 		/* drop queue but keep our SYN_DROPPED event */
+-		client->tail =3D (client->head - 1) & (client->bufsize - 1);
+-		client->packet_head =3D client->tail;
++		client->tail =3D (client->head - 1) & buf_mask;
+ 	}
++
++	ev.code =3D SYN_REPORT;
++
++	client->buffer[client->head++] =3D ev;
++	client->head &=3D buf_mask;
++
++	if (unlikely(client->head =3D=3D client->tail)) {
++		/* drop queue but keep our SYN_DROPPED and SYN_REPORT events */
++		client->tail =3D (client->head - 2) & buf_mask;
++	}
++
++	client->packet_head =3D client->head;
+ }
+=20
+ static void evdev_queue_syn_dropped(struct evdev_client *client)
 
-Best regards,
 --=20
-Kornel Dul=C4=99ba <korneld@google.com>
+2.56.0.307.g5fe7bd680c-goog
 
