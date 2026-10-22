@@ -1,98 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697280;
-	b=AAG9Ckt1OYldX+yn0vme7F+nx2rtNiZQntZCJLHY2C7GoJWHkvv7LCrX6N+E/oXujSVH
-	 3pg9ySyhADMMhiu9ednP88ShHhdaTF7j7qsuEyINvux7VnLbfcvzxNzKknBA45//YgiH0
-	 DPxq8TznoQ9OUW/HKkco6YDU3w8DBjxWGS7TXPDPQJVU3zd9O8M/EO/C7L4i1FFajz25w
-	 lonOMlEcqR0ENQHrUNBLltIpe5hgv+BB/n406XOzKMMlzLMdUPJ9Uu1lXKxzl5DtETJdj
-	 XaUDkxxIRWo/XIsDOslXudUL41fotmOqwUhVSDxLWKYJ5/MgbH6j3xFpgLkVC1fOL0g==
+	t=1792697311;
+	b=XB4V+Po99+OuMeCJpZsolI2kG1PLPNc0nvWbkZJ+CGklmKMYcK+L1z8aFPqAqOxtVNff
+	 xy5yw91qaWEc6q7ZtW7mVlJtzvkauv97SGkboZSdwcD+8KLPHsyYFhUpAsWP2XDS3VXu4
+	 K0otXeOgoIop3s30xjC5+F9uDEnhag2AtYxLltrqLDjhGSSZ77iHqFWclurjLHr4ouXkk
+	 XZgB9oHsLqMo5GFyDd2vrUu1zuDnyeaH5Kxq1NyNOqJ2CdssV2B84OK3gGa7Nx2oxJ0Qf
+	 Q+rFvfXIgwxjxrhhqAsD3s3tzJ5wwUGWAPxmYfZUlikY3x1DqFz9NZPSPpUfmb7Iw0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697280;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7i5zp/nMBoh4FpTzc2q5LQUaQs09zWC1CfEISFvjXJc=;
-	b=fXMsMejbLP8YtUA1JiEAYShP4/fjXXP/2t5/jfrp9YRMOBgmZkoqzIHlXDpCMcYJpCS8
-	 rjwFNvGZh5qHDVWCQaxqslYCYYOTQcLFaZ/bBUbuwWwfRew/iA34IMH6UEePebILqTqEC
-	 VfdpoR5GgYzuihlJzOTXiSvq6PuDrylaiSk/xjhsR/Mu0zx2OWoYOY+2WT7RyYN81h5cD
-	 gNtqZkLmOBRFznGE/DR8CcOXDEkXghKBKD7Md7QlpdyokMImQB4KA66fPOZbK+AC07LGt
-	 BrKv5UAXwp0zOqYPzx5gzlCNZ5mUlleoCjcVIyl0r9tGI6Whu4O5rOo9qqd+1g3S4Ng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697311;
+	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
+	bh=MzbjIiGq5wiJfmZJ63aC+LL2BZBa5CdrmsF8cqDfJW4=;
+	b=PcmUub2XtpjpdrF83Ko3ZsC081XSIVsb/CgikxKhWmcszHmqpuGu06/OxWFtWXQGPlFr
+	 34oxnFAotXuTo79+Cmj0qb1T1ZVJ6YTpbE9CyElNMze5l+QJ2az2fzP5PiMWgr9Rt0FDS
+	 HEtt24IAdi2Hq77lsPtDSI0oKY0gqSNiMo2fqX7AMJBk0aQinleKwl7zgWh/DPYVoD7fc
+	 T9/FAweLxcR5XLJ0fKkzA3oUMxiGPcKtiq0zbVdEVclmL1Y0eWEyRm910F5pd1crdFwpU
+	 LWzYOsAchtgywch0GLD0/MxLCfXBf64Krv1OgYO9ZslQOHh56+IVsA1pTYGSUrd/+Mw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jcVNGsST;
-	arc=none smtp.remote-ip=209.85.219.46
-Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683F8606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:28:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 683F8606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=jcVNGsST
-Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-917bab38b14so2488656d6.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:28:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792697279; x=1793302079; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7i5zp/nMBoh4FpTzc2q5LQUaQs09zWC1CfEISFvjXJc=;
-        b=jcVNGsSTUgOJZcsD4vjQuyUcr+VHbKW452Ay+18BZmBjCtAmtShccx2Mm2NqZJqVrL
-         iA0pkDn622MxPFIfy2TOVL8bEutW1ghtxtQRpbTilXonVWn6Pi3WZ6M6NXcjDjui0fUq
-         GDfocVuIHpVgJtVD3OvAuGo9GBEyOM4Bugcy52PrhM6KS76zbcrDXkPzVwmazuFERIMp
-         QTGwZUp/pwg/X3m9uyy8q2qjO3p7oKuT9+YpuaTKAu+eQ57cg+/vbTsw42DJtwVYX6oX
-         2ByBAGegWuUra3lxMOOJtliqlhHHFSy/Peg0tKviIpbbNYFkYe/yCoJrvA+TtvB9lwd3
-         Lnyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697279; x=1793302079;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7i5zp/nMBoh4FpTzc2q5LQUaQs09zWC1CfEISFvjXJc=;
-        b=wMbgF7/X28v0LbvfR/Y5tfEEEaT4EwcZipFIZnyeS3L8Ve3S+O12gmBnImccxz+LbN
-         AaPJI91F6LQWp5Fk6xZOHyEoYBiP476U5U1BbUj/V58hY44F8TNVnBbpGnd0Fip3M0eF
-         Zk791LlY23T1aSD59vGOW5m2C9jZoMf3A8xRxbhYlUoDF0d/lzyPEv+gUhONxK4G9xy9
-         qn43b6caIB2P6OSTHnSaFvpViKphaKnYWD6+j7Pl4zIMojsixKqMgtvokvAQIX0yGT/x
-         S9cHlElUaYzquKXIaWTLoUPJZYA9PRyu6EPZWGjok/M1Uca0DJ2RQzGDvoU5nVdzEMxi
-         bDpg==
-X-Forwarded-Encrypted: i=1; AKwUvBzt2hniEYDOEJ7q2OG714FGX0QEYlvF+Lb3qA812ursdPnVEJCzr4+ouAB+3LhXPYzmEyW/6HFsmZu2x6s=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJTQ7oKk3FAn2IRBzwPcha+pT1OtSEYI1RqpSZzRkBxMHKiaZw8
-	eJf/f/nHMzr1Upo1rV0kJ1TWGizHRoT14V7QsQ+QxYZMi6DajrPdSAlFO/EG3A==
-X-Gm-Gg: AYBFou3xnbm1n/DHSonO34xguZayjr+DdB/N9NrFU7aT/acBAeQZfxjYdujTjfReHdd
-	D7OYuv+HWEFWJL4yJZslUtHCIt+6OG8b1ptjz/xJIhEYfDZl8+BSxSGm9Pr5MIx44zFRIKDb02d
-	6uNFdUVx603YK64ivar1Oxmg9RUW0V1TFL5FbZ/InCtTAaJU3Yt2s7zhP3S4ckOJMUFSXm4o92j
-	S+44We7Ex9bx8AZRXaKMfdeeixdL3I6bPZmlr+s+dBODROZ8A4hlNaqQFLB+O2NqKVX51txPHEm
-	s9WVUEhDuRmSNHX2gYA7UzKbjhA2KSRFN2W2Y5vPIVpQQRmpBLDID6FOqcj2rDOzuwCKQOGvQ0B
-	nZDASPtXzrhGbMAqE3OCNlWW9dw564MqLXm9Xzb4swHHjd9100vVJcEkHwKmj2dBKpao1mm+AXS
-	dB2LtTkUPj2khCuPqGFLX8vw5zCUboP7IaulUbEG66Q2HDBUJG66vJuLUXnNum/6+OwsGIEswGc
-	iS+xQgqfSPkZzhJSbOgmYZNs4lfr8NQwnDBCMKK+Ie4WxZJzhp7QAKO01olouO3ab52QokEnopq
-	lHI=
-X-Received: by 2002:a05:6214:509d:b0:919:5a24:d20d with SMTP id 6a1803df08f44-91c12eb53a6mr104325966d6.11.1792697279221;
-        Thu, 22 Oct 2026 12:27:59 -0700 (PDT)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91c396afa91sm370296d6.11.2026.10.22.12.27.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:27:58 -0700 (PDT)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH iwl-net v1] iavf: reset the VF instead of freeing rings when queue disable fails
-Date: Thu, 22 Oct 2026 15:27:46 -0400
-Message-ID: <20261022192753.69765-2-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dmarc=none header.from=orcam.me.uk;
+	spf=none smtp.mailfrom=orcam.me.uk;
+	arc=none smtp.remote-ip=78.133.224.34
+Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF882606A31F;
+	Thu, 22 Oct 2026 19:28:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF882606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
+Received: by angie.orcam.me.uk (Postfix, from userid 500)
+	id 65FAB9200B3; Thu, 22 Oct 2026 21:28:25 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by angie.orcam.me.uk (Postfix) with ESMTP id 5F8E692009E;
+	Thu, 22 Oct 2026 20:28:25 +0100 (BST)
+Date: Thu, 22 Oct 2026 20:28:25 +0100 (BST)
+From: "Maciej W. Rozycki" <macro@orcam.me.uk>
+To: Jakub Kicinski <kuba@kernel.org>
+cc: Imre Kaloz <kaloz@kernel.org>, 
+    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    Lee Jones <lee@kernel.org>, 
+    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, mfd@lists.linux.dev, 
+    linux-serial@vger.kernel.org, 
+    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+    linux-rtc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+    "David S. Miller" <davem@davemloft.net>, 
+    Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+    netdev@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>, 
+    Niklas Cassel <cassel@kernel.org>, linux-ide@vger.kernel.org, 
+    Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org, 
+    Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+    Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v2 00/53] MIPS: SGI-IP27: add support for the IP35 (Bedrock
+ hub) machines
+In-Reply-To: <20261021073921.07632a37@kernel.org>
+Message-ID: <alpine.DEB.2.21.2610222009000.22065@angie.orcam.me.uk>
+References: <cover.1791890466.git.kaloz@kernel.org> <20261020110619.12774a1c@kernel.org> <20261020204214.28625-1-kaloz@kernel.org> <20261020145611.4e277615@kernel.org> <20261021090556.21168-1-kaloz@kernel.org> <20261021073921.07632a37@kernel.org>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,61 +65,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-iavf_close() leaves the Tx/Rx rings in place because the hardware can
-still DMA into them, and iavf_virtchnl_completion() frees them once the
-PF has answered VIRTCHNL_OP_DISABLE_QUEUES. It does so whatever the PF
-answered: for a non-zero v_retval the error is only logged and the
-DISABLE_QUEUES case runs anyway.
+On Wed, 21 Oct 2026, Jakub Kicinski wrote:
 
-The PF can fail the request while queues are still running. ice and
-i40e give up before the Rx queues when a Tx queue cannot be stopped,
-and ice also fails when an Rx queue does not stop in time. The rings
-and Rx buffers are then freed while the queues still point at them, and
-received packets and descriptor write-backs land in freed memory.
+> > The users are the people running these machines, the same population
+> > as for IP27 and IP30, and the ioc3-eth driver in net/ exists for them
+> > today. The series was developed and tested on a Fuel and a Tezro in
+> > regular use, so "nobody is using it with Linux" is true only in the
+> > sense that the support isn't merged yet; that was equally true of IP30
+> > when it went in for 5.5, and of every port before it.
+> 
+> Not sure if you followed the discussions at the recent maintainer
+> summit but we are now allowed to be more opinionated about code
+> we merge. Merging code just to test that code seems like entertainment
+> for the authors, not useful development.
 
-Keep the rings when the PF reports an error and request a VF reset
-instead. The reset makes the PF stop all queues of the VF, and
-iavf_reset_step() frees the rings once it has completed. Until then
-iavf_close() may warn that the resources are not yet released, and
-iavf_open() returns -EBUSY. During removal no reset is scheduled, but
-iavf_remove() resets the VF itself before it frees the rings.
+ I thought the event was by invitation only.
 
-Fixes: e284fc88dfb6 ("i40evf: delay releasing rings")
-Assisted-by: LLM
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-This was found by code inspection as part of ongoing, not yet
-published research. It has not been reproduced, as that needs a PF
-that fails VIRTCHNL_OP_DISABLE_QUEUES.
-Compile-tested only (x86_64 defconfig with IAVF, I40E and ICE, W=1).
+ Anyway, this seems to me like discouraging enthusiasts who do their work 
+outside their day job from making contributions.  Their natural target are 
+commercially worthless systems, since working for free on commercially 
+valuable systems would be taking away someone's bread and I think grossly 
+undeserved support for corporations.  Taking this stance effectively would 
+be cutting Linux off from its origins and making it a commercial project.
 
- drivers/net/ethernet/intel/iavf/iavf_virtchnl.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ Please let's not go down this route and only base the acceptance, or not, 
+of submissions on quality merits.  Many of us took this route to Linux, by 
+showing competence in public with work done for free, and some of us still 
+enjoy such side project even if we do have a day job now that involves 
+Linux development.  Let's not close this option to people.
 
-diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-index e6b7e8f82c7c..178bba609677 100644
---- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-+++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
-@@ -2718,6 +2718,15 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
- 		adapter->flags &= ~IAVF_FLAG_QUEUES_DISABLED;
- 		break;
- 	case VIRTCHNL_OP_DISABLE_QUEUES:
-+		/* If the PF could not stop the queues, the hardware may still
-+		 * access the rings and Rx buffers. Keep them and request a VF
-+		 * reset; the reset path releases them after the PF has reset
-+		 * the VF.
-+		 */
-+		if (v_retval) {
-+			iavf_schedule_reset(adapter, IAVF_FLAG_RESET_NEEDED);
-+			break;
-+		}
- 		iavf_free_all_tx_resources(adapter);
- 		iavf_free_all_rx_resources(adapter);
- 		if (adapter->state == __IAVF_DOWN_PENDING) {
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
--- 
-2.43.0
-
+  Maciej
