@@ -1,65 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.207.212.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657566;
-	b=UlXJt53of8gIlVqQc5ayyblLjurJcOX7D6VHrFk0FbtHO13Zr2iI8dZikCVZFH4Ps0L6
-	 mIbWkBpjigCqu1yJGG5Hh/z6CpZ9LXWZlHxnRcT3Oknk4VXYNUShFJ5vq3pMxvDYBDFKk
-	 JMznFgNBtPcWMTpC3+o9mZHkVoiRv8A07yKkNZQcKYzYSjJZrU7aIG7f5vrGKbEeTeKp5
-	 dA1eAia98T23/3Y9X9Y6+6/qNpvtALTL3bfgn19+Z7dGCUfRAWR8HAYCelV6kjhsEqHmS
-	 ZfSH4Thu7GuKFuOPuQ89CtHIyVizVYqdEFytXoHGn9n1pEjq7G0GAmCjsRWn2uTkOVg==
+	t=1792657565;
+	b=QqC2IdMcpT6rrNfFzev93II105MrBDrh1bDAhQFEekI8jhQMy+tyGtHWAVRW+mBQojwG
+	 o6ifnSdCO8LtD2HlXgrh+zzCeKz2a+FAaxfdwmbI5OCriUSWimYxhUYfaXDrtYH+dFuNe
+	 k/hQJ6UeSpvIf8/PojnWmxTz2UZ6PiT9Z8/Ik7ilJtBpSFCI/XZoJybBY5+j7LhU7+vyG
+	 8yN0ouWU0nbYElldDV1qtmDVFyFAWEm0GH1Et/WsSGhIVMH9tJ23GO93Bi5TJymQ+vj4G
+	 um6bsl8mFFLjnfMpbMfeRLwtTQZYYUJJKuXBJF6VlD6fLF22h/2NZXlOc0m99YQD4ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657566;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657565;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
 	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-ID:References:In-Reply-To:To:CC:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
 	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc;
-	bh=LBn4nh2d916uaCDPE284y3FtCySZhz+sRoOBYWGfxDg=;
-	b=48gqnDJNwkaw71ep9LUQadz5Afm1LJBKkRjQuEg3rcZTDxaQmOrwBhY8H9TZOtGr0cZj
-	 rLJR/nZrTxJQ8QsepphsV1Vvlh2FmB04fKE7AlJFtrbUjXz76dV+wfqULUSe06w1ncuMN
-	 uuu3TbPg3wJbM3KV4e4NDCVaObawuUqMGtYJTNY5aG+FzlyUbvNuANmmbAm434V/8qrUm
-	 X317YbMbPXJiXQ/6thqLwXIN5JyqaXh1S2n39/+8kuujcS9+8SfWToRGcWJbhWMLEH5LT
-	 rkcVyx1Kvt0Amr9ak0SdnNyrbJXorst+RL+lRHgHDwr/U2bF/m8fO/YfZyU3rBv7/4w==
+	bh=eZcYzkpyQWEaCYtn0Acvdo4iHyYDOe8CPaTxuGDlPBc=;
+	b=k6Jerx2iQqQOIy6bGLCeXdkHEGEsbKwAURpo/eucwkyYnUFY4KE33Yj2N2deljy1pz5u
+	 zN+Ll7NScIcvNltdrFOHH+9SVFCeC+pQ/hH+szF7xFJBMngYA781xTgHrZn2JubvIjpZ+
+	 DzP8J9NhNG0QmX4Z/laXQ+7KzYXWj10xOTSyVu92JcRgzXhnjCdIlXC6KOEDZBkGfJB61
+	 xiGKVCpyM/7/6UJ2iQCNtq/8aAufXe9ewelo3z0kiRvdcNrsx5IykURic6nkodydiyLVx
+	 O8ISkAK4fmk3Mg0nCtS1ONlnw8ftHo8Ikf0z425IsmCbdqFve/dAxcs+aIV+01DtjdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=imgtec.com;
 	spf=pass smtp.mailfrom=imgtec.com;
-	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=DKsPtTR+;
+	dkim=pass header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=AlgnP31Z;
 	arc=none smtp.remote-ip=91.207.212.86
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com [91.207.212.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAFDD606A328
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:26:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAFDD606A328
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09569606A326
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:26:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09569606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=DKsPtTR+
+	dkim=pass (2048-bit key, unprotected) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=AlgnP31Z
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
-	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M751731909612;
-	Thu, 22 Oct 2026 09:25:14 +0100
+	by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M71KEI1904281;
+	Thu, 22 Oct 2026 09:25:12 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=L
-	Bn4nh2d916uaCDPE284y3FtCySZhz+sRoOBYWGfxDg=; b=DKsPtTR+N3oYDzGtL
-	tiqwR0XU3GTFtDl3Oc8Eha9XLkGhdFGjLuoq7MSfjP8WJ2G4bLqJ1Ap3AFdpBr6W
-	a4uU54+saheY9546YbHgRhinnc6krSJZrx5fketwdPgGBFhiEMZ4gWP6Xev58Ose
-	tzFkM/gMe3KOvU8ylnc7bBvrb4aFNzASD0nmqReLvvB/X23WOjV4hH2XmglzErwX
-	l1F8uBqkjpaW8vCgzTVr5rPl+S14LisZ0ntV7jCVn8SyVSDF4uAPomB5ar95w3N+
-	B3ys2XZtQk/QtnofJ61fUTKsvvrSVQ7qgWICkkwy6xIaXbIH6gL5mYeKryufRBtZ
-	g1Jjw==
+	:message-id:mime-version:references:subject:to; s=dk201812; bh=e
+	ZcYzkpyQWEaCYtn0Acvdo4iHyYDOe8CPaTxuGDlPBc=; b=AlgnP31ZNx+fdocBn
+	jBWAzm3MAe5OCAhPV3vE78r2zzuMD1L7N1eWDu3A57nIktMVXzs7JLsjSVJYh7TG
+	NAnabfG1ORfVHoDU5DIuGJYOSvSFY3KwEduEL/nPzKqR/IT7Suj+RDYiUW9I591e
+	coTPpR/xmJRXukqVojfnMYIOCL056Dk3Gq6/Vt2HwluSIR4RatRnEO1evYaK4Z3A
+	ks+F7NWbrXfBbPWUu6o6hX/Yf4ytzlkoUdsJxZhsTl7S+NkEvlVHslnEJ+yzua5N
+	o65J4qPcTntCMYTDYavVjbkXMOB59mOlsic6cs4oHlbAKgbSsd8/DiRMaHfVEHzt
+	05QTQ==
 Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hf88f87nq-1
+	by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4hf88f87nn-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 09:25:14 +0100 (BST)
+	Thu, 22 Oct 2026 09:25:12 +0100 (BST)
 Received: from [127.0.1.1] (172.25.5.18) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 22 Oct
- 2026 09:25:11 +0100
+ 2026 09:25:10 +0100
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Thu, 22 Oct 2026 11:24:54 +0300
-Subject: [PATCH v2 4/4] drm/imagination: Simplify MIPS PTE definitions
+Date: Thu, 22 Oct 2026 11:24:53 +0300
+Subject: [PATCH v2 3/4] drm/imagination: Improve some logging in error
+ paths
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,7 +72,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261022-b4-simplify-mips-pte-defs-v2-4-ee2402c03a4b@imgtec.com>
+Message-ID: <20261022-b4-simplify-mips-pte-defs-v2-3-ee2402c03a4b@imgtec.com>
 References: <20261022-b4-simplify-mips-pte-defs-v2-0-ee2402c03a4b@imgtec.com>
 In-Reply-To: <20261022-b4-simplify-mips-pte-defs-v2-0-ee2402c03a4b@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>,
@@ -92,205 +93,96 @@ CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
         Matt Coster
 	<opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792657504; l=7605;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792657504; l=2502;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=fYUuDJCGw+bUiTZrYP9KqZOOsb0T75WjC8ockX0EDnU=;
- b=kO/U8ABSgkKqbJj9jynq2ZEnnh7WbcWdBU5H6IijIb3DuGUHr1z/wsHpToM5GTcW4Sgdf8z7l
- uL4tCFFbZjUBUaE0pRV/ni9O+Wls3ImVDvreHPJUMiDPbiZYYDZymO/
+ bh=e1cRmT+yMrC8uWEwbhuCZhCzCKOigZi3J3Ef7bHnPiQ=;
+ b=ZqkR1XtVMLzfjawWjgUE0ht3WHHTooxbc3vtQgm2lwCO9Cgk56qluHKQn8sHOHoIRfhFOB2AB
+ IwvUXxS20ZEDEiI0XpLGNu4uc7ljiEn1gIVt1yB1ulIDG3FKE9Z95lO
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-GUID: XQ9Vdo3B-2fqNFcBZ10LfTwavctfBBoa
-X-Proofpoint-ORIG-GUID: XQ9Vdo3B-2fqNFcBZ10LfTwavctfBBoa
-X-Authority-Analysis: v=2.4 cv=e7+T2qp/ c=1 sm=1 tr=0 ts=6ad9c86a cx=c_pps
+X-Proofpoint-GUID: NDZ2m9rjWwD1ZyjOlQxXxQoHOyePz9oR
+X-Proofpoint-ORIG-GUID: NDZ2m9rjWwD1ZyjOlQxXxQoHOyePz9oR
+X-Authority-Analysis: v=2.4 cv=e7+T2qp/ c=1 sm=1 tr=0 ts=6ad9c868 cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=sVS2Dey4ZWMA:10 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=2Pulcj8D2IyI57IxkyQA:9 a=QEXdDO2ut3YA:10
+ a=r_1tXGB3AAAA:8 a=CNbiELROydHnTOGMemMA:9 a=QEXdDO2ut3YA:10
  a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX/dvmecJYRQf5
- zaQ+Zn/V1FpGyQu0JX57lwgdzRFKrFpvilxHzgHac4TdNhYsftSbXpglTuiGoh8SEnXU1PaZ3d6
- tX/+F6N8D6CWE5yNlxE1CaGwaH1mDME=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfXxNg0ICkS3Wei
- fpyR1UfvckMlyJYzJuso6yBiDPNVDG4CzET3Nt4WZyp0Q7+j5xq2tz1PDFcalm3I9dARzUjfPX1
- 6OFKuDZLEOcNwWk0A2B/IkF9ahHgXWGy/6m7EmxgCuQBDPgaeBY/7nbLlLIhB3VhZojTY8Qbmvp
- 3hRR8TEYfdUZ/gkoQQp5OoFXdHTG7XJZKb4USaLgeEYn+JIPFfqDEhUBHMQAa7abFoZ6vXWaTlH
- BGiMLU+IpXqhT4qMNAmyDcF6f8FPBMTUjk+7rkthmOG3epoUkjZM2C66qPDuQTZsyzXak2loVAV
- e+62aLVXXPnJQ3IOaPPmjzfNR18dN05GRlir6rQOj1q9H0wNF0PLO0252i3K4dJehUrYzMHFhc7
- BOu7VFs8//pnCXl0yFP7auWgaC1gl/oRR868Oct/Ng9VS1JVdhlUn5x2WVt8sZV34+ogg7hEZYR
- tgYHKiOJRDPm1jkD0sw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX+XMBJVhwKbmT
+ v0q5BfE/ph4otPO6ndIIDg7EK5Kjro1c3A/uczNDgxBj60aX6q67GvFtSW/6VquwcfN6ATiVMy6
+ RQ2lKX3BCZ01c5i1lGXbfL0INIanUZM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX3YzqXQPDA3vn
+ 9s/w5o5mtTbRoMySNn+yUYi4D1muoFASBa+C4jv7IKxP2vfWX8GE5DKeQmQi+WuvEByFI/l6aec
+ b/KZnoJrDiIwMH1Yf5y/mxkNxqIYoH7wQpYzJhPGfx6YLXz6zpVeSjaEGyzPq+1/CRA/5Dnxt2a
+ NF+ZEYv1xBph0spCoBQEjvyex64p3TDDadXgLwcxQmCqwmgou359VX+bCeRJyESuX1GyFYy6QWs
+ ZVcI26qIe6OJTakOwrXLD2joH6wdvO/1uWqmqOSAFyaPbR5ZQZQSsljLAd+PRComewHRItyu3WI
+ NjhvVSKU+9USQWtnlTVPlC1b7BlCP7b5lKzXhY91l2X+BrOouO1BLEqEERLx9v1p5LD44/dGc2I
+ na3pmOnB2DnhVUTH9zeUx3gfXVkddFrJSMLZcC9tIgIqSZIktnxlrZGM/AtjPHcKii3Hq4alhaV
+ TTj36ZP+QOO52+svlrQ==
 
 From: Matt Coster <matt.coster@imgtec.com>
 
-Use BIT() and GENMASK() in the definitions of the MIPS PTE format, and
-remove some unused definitions that add no value.
+Add error messages for attempts to map an already mapped firmware
+object, unmap an already unmapped firmware object, and provide too few
+DMA address slots for the firmware page table.
 
 Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_mips_internal.h | 74 ++++++++-----------------
- drivers/gpu/drm/imagination/pvr_vm_mips.c       | 25 +++++----
- 2 files changed, 35 insertions(+), 64 deletions(-)
+ drivers/gpu/drm/imagination/pvr_fw.c      | 6 ++++--
+ drivers/gpu/drm/imagination/pvr_vm_mips.c | 7 ++++++-
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_mips_internal.h b/drivers/gpu/drm/imagination/pvr_mips_internal.h
-index 732730d64bf5..750ec7cd3650 100644
---- a/drivers/gpu/drm/imagination/pvr_mips_internal.h
-+++ b/drivers/gpu/drm/imagination/pvr_mips_internal.h
-@@ -39,63 +39,33 @@
- #define PVR_MIPSFW_MAX_NUM_PAGETABLE_PAGES (4)
- /* Total number of TLB entries. */
- #define PVR_MIPSFW_NUMBER_OF_TLB_ENTRIES (16)
--/* "Uncached" caching policy. */
--#define PVR_MIPSFW_UNCACHED_CACHE_POLICY (2)
--/* "Write-back write-allocate" caching policy. */
--#define PVR_MIPSFW_WRITEBACK_CACHE_POLICY (3)
--/* "Write-through no write-allocate" caching policy. */
--#define PVR_MIPSFW_WRITETHROUGH_CACHE_POLICY (1)
-+
-+enum pvr_fw_mips_cache_policy {
-+	/* "Write-through no write-allocate" caching policy. */
-+	PVR_MIPSFW_CACHE_POLICY_WRITETHROUGH = 1,
-+	/* "Uncached" caching policy. */
-+	PVR_MIPSFW_CACHE_POLICY_UNCACHED = 2,
-+	/* "Write-back write-allocate" caching policy. */
-+	PVR_MIPSFW_CACHE_POLICY_WRITEBACK = 3,
-+};
-+
- /* Cached policy used by MIPS in case of physical bus on 32 bit. */
--#define PVR_MIPSFW_CACHED_POLICY (PVR_MIPSFW_WRITEBACK_CACHE_POLICY)
-+#define PVR_MIPSFW_CACHE_POLICY_CACHED (PVR_MIPSFW_CACHE_POLICY_WRITEBACK)
- /* Cached policy used by MIPS in case of physical bus on more than 32 bit. */
--#define PVR_MIPSFW_CACHED_POLICY_ABOVE_32BIT (PVR_MIPSFW_WRITETHROUGH_CACHE_POLICY)
-+#define PVR_MIPSFW_CACHE_POLICY_CACHED_ABOVE_32BIT (PVR_MIPSFW_CACHE_POLICY_WRITETHROUGH)
-+
- /* Total number of Remap entries. */
- #define PVR_MIPSFW_NUMBER_OF_REMAP_ENTRIES (2 * PVR_MIPSFW_NUMBER_OF_TLB_ENTRIES)
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index c6c77b152342..4f2b5c4df600 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -1165,8 +1165,9 @@ pvr_fw_object_fw_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj, u
+ 	spin_lock(&fw_dev->fw_mm_lock);
  
- /* MIPS EntryLo/PTE format. */
--
--#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT_SHIFT (31U)
--#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT_CLRMSK (0X7FFFFFFF)
--#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT_EN (0X80000000)
--
--#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT_SHIFT (30U)
--#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT_CLRMSK (0XBFFFFFFF)
--#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT_EN (0X40000000)
--
--/* Page Frame Number */
--#define PVR_MIPSFW_ENTRYLO_PFN_SHIFT (6)
--#define PVR_MIPSFW_ENTRYLO_PFN_ALIGNSHIFT (12)
--/* Mask used for the MIPS Page Table in case of physical bus on 32 bit. */
--#define PVR_MIPSFW_ENTRYLO_PFN_MASK (0x03FFFFC0)
--#define PVR_MIPSFW_ENTRYLO_PFN_SIZE (20)
--/* Mask used for the MIPS Page Table in case of physical bus on more than 32 bit. */
--#define PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT (0x3FFFFFC0)
--#define PVR_MIPSFW_ENTRYLO_PFN_SIZE_ABOVE_32BIT (24)
--#define PVR_MIPSFW_ADDR_TO_ENTRYLO_PFN_RSHIFT (PVR_MIPSFW_ENTRYLO_PFN_ALIGNSHIFT - \
--					       PVR_MIPSFW_ENTRYLO_PFN_SHIFT)
--
--#define PVR_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT (3U)
--#define PVR_MIPSFW_ENTRYLO_CACHE_POLICY_CLRMSK (0XFFFFFFC7)
--
--#define PVR_MIPSFW_ENTRYLO_DIRTY_SHIFT (2U)
--#define PVR_MIPSFW_ENTRYLO_DIRTY_CLRMSK (0XFFFFFFFB)
--#define PVR_MIPSFW_ENTRYLO_DIRTY_EN (0X00000004)
--
--#define PVR_MIPSFW_ENTRYLO_VALID_SHIFT (1U)
--#define PVR_MIPSFW_ENTRYLO_VALID_CLRMSK (0XFFFFFFFD)
--#define PVR_MIPSFW_ENTRYLO_VALID_EN (0X00000002)
--
--#define PVR_MIPSFW_ENTRYLO_GLOBAL_SHIFT (0U)
--#define PVR_MIPSFW_ENTRYLO_GLOBAL_CLRMSK (0XFFFFFFFE)
--#define PVR_MIPSFW_ENTRYLO_GLOBAL_EN (0X00000001)
--
--#define PVR_MIPSFW_ENTRYLO_DVG (PVR_MIPSFW_ENTRYLO_DIRTY_EN | \
--				PVR_MIPSFW_ENTRYLO_VALID_EN | \
--				PVR_MIPSFW_ENTRYLO_GLOBAL_EN)
--#define PVR_MIPSFW_ENTRYLO_UNCACHED (PVR_MIPSFW_UNCACHED_CACHE_POLICY << \
--				     PVR_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT)
--#define PVR_MIPSFW_ENTRYLO_DVG_UNCACHED (PVR_MIPSFW_ENTRYLO_DVG | \
--					 PVR_MIPSFW_ENTRYLO_UNCACHED)
-+#define PVR_MIPSFW_ENTRYLO_READ_INHIBIT BIT_U32(31)
-+#define PVR_MIPSFW_ENTRYLO_EXEC_INHIBIT BIT_U32(30)
-+#define PVR_MIPSFW_ENTRYLO_PFN GENMASK_U32(25, 6)
-+#define PVR_MIPSFW_ENTRYLO_PFN_ABOVE_32BIT GENMASK_U32(29, 6)
-+#define PVR_MIPSFW_ENTRYLO_CACHE_POLICY GENMASK_U32(5, 3)
-+#define PVR_MIPSFW_ENTRYLO_DIRTY BIT_U32(2)
-+#define PVR_MIPSFW_ENTRYLO_VALID BIT_U32(1)
-+#define PVR_MIPSFW_ENTRYLO_GLOBAL BIT_U32(0)
- 
- /* Remap Range Config Addr Out. */
- /* These defines refer to the upper half of the Remap Range Config register. */
-@@ -293,7 +263,7 @@ struct pvr_mipsfw_boot_data {
- #define PVR_MIPSFW_TLB_GET_PFN(entry_lo) (((entry_lo) >> 6) & 0XFFFFFU)
- /* GET_PA uses a non-standard PFN mask for 36 bit addresses. */
- #define PVR_MIPSFW_TLB_GET_PA(entry_lo) (((u64)(entry_lo) & \
--					  PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT) << 6)
-+					 PVR_MIPSFW_ENTRYLO_PFN_ABOVE_32BIT) << 6)
- #define PVR_MIPSFW_TLB_GET_INHIBIT(entry_lo) (((entry_lo) >> 30) & 0x3U)
- #define PVR_MIPSFW_TLB_GET_DGV(entry_lo) ((entry_lo) & 0x7U)
- #define PVR_MIPSFW_TLB_GLOBAL BIT(0)
-diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/imagination/pvr_vm_mips.c
-index 40495b1486a2..7f49314bc6be 100644
---- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
-@@ -97,11 +97,13 @@ pvr_vm_mips_init(struct pvr_device *pvr_dev)
- 		goto err_free_pages;
+ 	if (drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+-		err = -EINVAL;
+-		goto err_unlock;
++		spin_unlock(&fw_dev->fw_mm_lock);
++		drm_err(from_pvr_device(pvr_dev), "FW object is already mapped!\n");
++		return -EINVAL;
  	}
  
--	vm_data->pfn_mask = (phys_bus_width > 32) ? PVR_MIPSFW_ENTRYLO_PFN_MASK_ABOVE_32BIT :
--						    PVR_MIPSFW_ENTRYLO_PFN_MASK;
--
--	vm_data->cache_policy = (phys_bus_width > 32) ? PVR_MIPSFW_CACHED_POLICY_ABOVE_32BIT :
--							PVR_MIPSFW_CACHED_POLICY;
-+	if (phys_bus_width > 32) {
-+		vm_data->pfn_mask = PVR_MIPSFW_ENTRYLO_PFN_ABOVE_32BIT;
-+		vm_data->cache_policy = PVR_MIPSFW_CACHE_POLICY_CACHED_ABOVE_32BIT;
-+	} else {
-+		vm_data->pfn_mask = PVR_MIPSFW_ENTRYLO_PFN;
-+		vm_data->cache_policy = PVR_MIPSFW_CACHE_POLICY_CACHED;
+ 	if (!dev_addr) {
+@@ -1232,6 +1233,7 @@ pvr_fw_object_fw_unmap(struct pvr_fw_object *fw_obj)
+ 
+ 	if (!drm_mm_node_allocated(&fw_obj->fw_mm_node)) {
+ 		spin_unlock(&fw_dev->fw_mm_lock);
++		drm_err(from_pvr_device(pvr_dev), "FW object is already unmapped!\n");
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_vm_mips.c b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+index 84e023fffe5a..40495b1486a2 100644
+--- a/drivers/gpu/drm/imagination/pvr_vm_mips.c
++++ b/drivers/gpu/drm/imagination/pvr_vm_mips.c
+@@ -11,6 +11,7 @@
+ #include "pvr_vm_mips.h"
+ 
+ #include <drm/drm_managed.h>
++#include <drm/drm_print.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+ #include <linux/slab.h>
+@@ -278,8 +279,12 @@ pvr_vm_get_pt_phys_addrs(struct pvr_device *pvr_dev, u64 *phys_addrs, int max_nu
+ 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
+ 	struct pvr_vm_mips_data *vm_data = fw_dev->processor_data.mips_data.vm_data;
+ 
+-	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs)
++	if (ARRAY_SIZE(vm_data->pt_pages) > max_num_addrs) {
++		drm_err(from_pvr_device(pvr_dev),
++			"Minimum %zu pages required for FW PT, but only %d DMA address slots were provided\n",
++			ARRAY_SIZE(vm_data->pt_pages), max_num_addrs);
+ 		return -EINVAL;
 +	}
  
- 	pvr_dev->fw_dev.processor_data.mips_data.vm_data = vm_data;
- 
-@@ -145,15 +147,15 @@ get_mips_pte_flags(bool read, bool write, u32 cache_policy)
- 	u32 flags = 0;
- 
- 	if (read && write) /* Read/write. */
--		flags |= PVR_MIPSFW_ENTRYLO_DIRTY_EN;
-+		flags |= PVR_MIPSFW_ENTRYLO_DIRTY;
- 	else if (write)    /* Write only. */
--		flags |= PVR_MIPSFW_ENTRYLO_READ_INHIBIT_EN;
-+		flags |= PVR_MIPSFW_ENTRYLO_READ_INHIBIT;
- 	else
- 		WARN_ON(!read);
- 
--	flags |= cache_policy << PVR_MIPSFW_ENTRYLO_CACHE_POLICY_SHIFT;
-+	flags |= FIELD_PREP(PVR_MIPSFW_ENTRYLO_CACHE_POLICY, cache_policy);
- 
--	flags |= PVR_MIPSFW_ENTRYLO_VALID_EN | PVR_MIPSFW_ENTRYLO_GLOBAL_EN;
-+	flags |= PVR_MIPSFW_ENTRYLO_VALID | PVR_MIPSFW_ENTRYLO_GLOBAL;
- 
- 	return flags;
- }
-@@ -199,7 +201,7 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- 	end_pfn = (end & fw_dev->fw_heap_info.offset_mask) >> PVR_MIPSFW_LOG2_PAGE_SIZE_4K;
- 
- 	if (pvr_obj->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
--		cache_policy = PVR_MIPSFW_UNCACHED_CACHE_POLICY;
-+		cache_policy = PVR_MIPSFW_CACHE_POLICY_UNCACHED;
- 	else
- 		cache_policy = vm_data->cache_policy;
- 
-@@ -216,8 +218,7 @@ pvr_vm_mips_map(struct pvr_device *pvr_dev, struct pvr_fw_object *fw_obj)
- 		if (err)
- 			goto err_unmap_pages;
- 
--		pte = ((dma_addr >> PVR_MIPSFW_LOG2_PAGE_SIZE_4K)
--		       << PVR_MIPSFW_ENTRYLO_PFN_SHIFT) & vm_data->pfn_mask;
-+		pte = field_prep(vm_data->pfn_mask, dma_addr >> PVR_MIPSFW_LOG2_PAGE_SIZE_4K);
- 		pte |= pte_flags;
- 
- 		WRITE_ONCE(vm_data->pt[pfn], pte);
+ 	for (u32 page_nr = 0; page_nr < max_num_addrs; page_nr++) {
+ 		/* Firmware expects 4k pages, but host page size might be different. */
 
 -- 
 2.43.0
