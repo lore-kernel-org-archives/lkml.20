@@ -1,93 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792660652;
-	b=zKd9Uy//GRzTFN5QHjyAILnbEhvClPjWnr9q5r0PvNjSPZbQR2iAyTB5ggBGbQez7Iqr
-	 5+b61VSDoGFEhwfi7YZ5Tz4+Rm7L9XtHHYoJUwTwFkSDuUfqQ4/27bV8RX7m1TOX+CRt6
-	 3zviqFRJ0TMQ//XhP1o3WzCIfS67lnwcUpuQZCGzn77J0h6C/IsMvhPPnvIRkX91FnLR8
-	 tvDc7ZgFc43dNJDISmXRNquA7DuR5QqXqS9ISylE6UHij7GkB/LTx0WvaIdSC5Bpo+z5w
-	 VmtIaBC7kbo4Tp+LPOjDKSJ/28l4G1poU0HhKtYFHGUSVOns//t22YZhH5OxeeZ9u2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=JIFTdKlzmIh1sCJl852pSaIQqdp3tW3Ga6T9+ygOQ20MXJaPnUPLb2S29kgDRzpaZ+U0
+	 wPOgOLn54SPnjTy2vVrPE0Ay/XyCa+7MVLw0pVjE/ATpbkJfPZ15ddhYfWCSc9iT89VNb
+	 pEg/Cr2gZptfbC/VtQznMt8TDjcPuMmUFpQDzrMICRYCAcCLBcLKBWbqXj272B4vpuG80
+	 cvDP6jI6lTxUQ77y8UqebjizSV7Mb10vXT9d2XFCGhaCh4Oh/sQXa75MEQu1Gi211qgrs
+	 krOMRtjaybR/9TeKhLlQ1dsr0QkuMkz5Yuz+ZvM8j7kwa3g2Yaj4wNlNYCI8kVEx59g==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792660652;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=T75Ev+zmY9+TyBZeNfZa9ivEcQCv7sC4JnP+VJ1K3fY=;
-	b=E2M9DiadMmfChU23R2RdHOKTJksiZ3TlLJ9oCxIGdfln8FCyUVr9aPmDa6XZcYVDHYFb
-	 ZZ1T3vIsOmncC8Z9X+TavSxeQfsJu9HggTf39D9zeolnrglOkkNnMpyw+wtdaDLtROUj5
-	 X+I9GRwciGb8C7XXcwNfcxC8xG6NTL5iU3YyTlHkZyT2XTTWU0B0bAAoM/TAAqhADXBwD
-	 TjEwnXayTFDlu6s/UwifM/8FXVyE1KBZI3uye7MbM2bCGVf6GksIB6VINyicg+XB2nV5H
-	 8Idripu2aLyuxLj1pWi+Y3ASdVyEuBN20NNbEiLxEgGebl11IlICEpfGO83kKCFPp4g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=0x0f.com;
-	spf=pass smtp.mailfrom=0x0f.com;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.179
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=YrU9NXkLhPc11UNj4ze98iYIGfoVOje0QPpEBEMUH0Q=;
+	b=l98jMnQI0LB3LzO8TSmws6bUshQ7riWtZig90jeg1jHbh/c/dyF6jQVOAlZUyPycbga9
+	 XmbUgE27l69TzAjJtfLkcfjCHZUZnj9cuDKBq4FooSojMd3fA53WcMvtenzTJ2UZlP9gZ
+	 MltNWIvB1Et3leFg3s7z1+ecJAafNJSTy3d+ilFpdmhV5e62mVstsONzv1XfQyz8r/OyW
+	 vbufjiNs05nCV9la44H1ciVy0cM+/8xcvWTNa+d/ShfIgMI7LUQBmr1colufTxZzQkh5M
+	 srJD/2UhrNU0Z751O5uAbtITU8L8zz+J0rHqJQkeczcimr9YFY7FmbTMqOVbBpWSwkg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YoqQ2qEo;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBEC2606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:17:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBEC2606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8b0a28a720aso16457727b3.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:17:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792660650; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AvHl1RiXAmd+D6SqOisIE0iTPnV+TyKoiJun7OMa0bJ+5AbcTlwCW3FIeu4zuTydc2
-         LQsifCthmR0CeB9y6slKqqHyFROP7o+Kysfbxj7LApK3/c+HuYbYncV63QwCOR2qZwfB
-         JcUKWoBi8jndZspD5peooS3Fwlk/SJIQTONTw1/VLLuVrux+XbiKlA1KsviIvIYga7DW
-         F/fJ2Agd9OiWKpJypk1F3E3b5GQN/28JzpEHMprNv+fWHynXVyVdUFw/yXv1nB/SmuL8
-         Ga1R07E1IU07Pcbj0wHvn/kup3odKcz2LHNIA3FRo1Bnl1KVdHQbZagGy4sbS17bLbaj
-         JaeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=T75Ev+zmY9+TyBZeNfZa9ivEcQCv7sC4JnP+VJ1K3fY=;
-        fh=gCcAhe2G32mSXIgMYFZXorIAa9K9oA/wW209Mo4mW9g=;
-        b=gb5KyKmM87vxwAnMtN4wJCCwq6A/sSTqYyK3zo5JRIMJw7q6H4EyzJiLgIqxgUN6L7
-         1k5NtvcszgjhXVL6VE/ML4pQuqXiEqZEj5hiJ1nXmUfMgK0ur/f6Uuy45scfitK1+Qno
-         s2zPgGI9v2QSjcDGWUQeTFE7xv12Z3lP8tYsqPQBYZ2g/lVxhqJHR1QjWGYwUEwAIUf+
-         hNieGsrRvxNU4ErO7iidHQ9nHIkhgTSb+W7nhqQ9C/y0cvzFitLfYSbzRlirdHzSAWI+
-         W2nFWLMKyEjIpoZ/wDCHzFfW1ZJ0NYGdfImtLfhPHoApHL89GlZvKs9Gh51R0IcMTI15
-         uD1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C2A2606A32A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:17:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C2A2606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=YoqQ2qEo
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-354ba08cfd1so2803654eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:17:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0x0f.com; s=google; t=1792660650; x=1793265450; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1792660651; x=1793265451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=T75Ev+zmY9+TyBZeNfZa9ivEcQCv7sC4JnP+VJ1K3fY=;
-        b=QS/VIZ4dgQSENDa+6BaYJAzoA5uVw9/TbVenjpW14qvL7kCWLJmEy1T6yUrMG7IJGj
-         b3SCPtOwZwfsm80dgzNO2ImjhSOS7GLSif2dCBM0/YMP3shuzQbXoh4j/pcS1jK0Ja6f
-         7zAx/FHVVcFAXfvPrdlute4fKZdAjeL2Zc1Yw=
+        bh=YrU9NXkLhPc11UNj4ze98iYIGfoVOje0QPpEBEMUH0Q=;
+        b=YoqQ2qEoUEfKXEqbta2HMACEfMy+lta0Cv6sAawZGIhlTO61tZUOyOPCCiiMxW7Cdg
+         Ew9z2G5Ob7q5DTIGNmZcPFSgoWmBbGiihn91T/Oe1rKc51mtUQFvsM7c8uEgOZKGSfw+
+         0VR8xm2hETmRmDJyP6b83Im8rpVOhKB7RxnbKvg3YWAjWzZrk44jbnUk5Rf2CW2PmTy0
+         ChHcvJlJXNp21zKMK29jVvbCO6IHpx9+8QlNcCkOwzRRfs/Ppb57C+QMM649U2AqgMt/
+         lsg+C0ZdnybAUSjrB9QIdOt/5GNWZKvQE2Mh6ndUGnCOyNaQjOX9oZTR+pt4Hoh8b4Dw
+         MtrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792660650; x=1793265450;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=T75Ev+zmY9+TyBZeNfZa9ivEcQCv7sC4JnP+VJ1K3fY=;
-        b=xdC+kmzkKAYTcQhIMEviYtz5CqMFfiUvQWLliZ0l5fFsgdGUI073u7N5Fho6I9WNH9
-         6QU+cJVOfBSk1N3XLsoHIS+V/mGc5Y87nbCIS5o7IHqOLyLVMXfPzBd3P14q+OFlQbAN
-         hfAEUX8HjRVCjlP7cBpOJd8if7WEEJgjKSh7bXW6rD1R2gLFeF0nfopW/xrp1XD64IO0
-         Mco7BUjE0CzEg6tM3qtJn4oRh8b1N2biWp5+8JCpD8idU1AYqkfBlpiRpf+Tl7d296Yu
-         wcTrwQNSBW3jeJ9xHcYfIG2ObAnrUOJZQW1AJ+R24fxspYe78z1EDJk8ytWnTnKYeDpn
-         +kkg==
-X-Forwarded-Encrypted: i=1; AKwUvBxeKphmj0ms21TnhiiRbO/qFRn71JUgSeEd7MnJeDFo3+4XUm6CElRwCd2zAeyMELfkjo088mtOHq4VckI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8wU7CQafvZ1NA/2pDLqFhKrGWxQc/3ThkpPmlgJ+TS9QGwbsD
-	N7BcVWbl6JsndprQJkdDCjNObGvdD2d9dVyCJhFay/LqDoEz1OmMjLCS90fbvYXODFoHY4KsSUc
-	UX6Iptp2c5kr6xFIfiJmmY2KTp+n5bPF3dUDoZIqSVg==
-X-Gm-Gg: AYBFou2Hk3m13Bs+wkm2fL2CLVJxVO/allc9hzSG9/WtBRu6VfjI4Y9X2pe74nRNPe+
-	dcrMkjFDZEHAWz5H3xldMEE/tBjmNZh05z/ZHWe+Msy2TCjR1sZlVjfCLfz/S1OmAatjLUZvhPF
-	yG423wKFo9sJAmsZ7L2vGRJA7I3FbDzCx+fiVoT4ILQmwrx0Wa54h85a8qxGAU+uS96NZUoDmAl
-	Fp4yo7lbzdQxIy2yEYZXsKhYo/VcxTFsp9Lp+KwPxnPpEJacTMjJS5HaS1HPibGstid1xp0GcA+
-	s2aBcv9lEK+agdZboV5778j9GiYOjwMe4tiLDnKPjonCiyxYOQ0+1ZJzujwdsxyZNOlPmRQAUqM
-	9XD062h/a1XdlYOJlnSGYbN0HbOpvDH54kOF6avqZ5LiVPrMs02ox0dUkGWp8
-X-Received: by 2002:a05:690c:6603:b0:873:5c7b:c102 with SMTP id
- 00721157ae682-8b133f865b4mr28955697b3.58.1792660649848; Thu, 22 Oct 2026
- 02:17:29 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792660651; x=1793265451;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YrU9NXkLhPc11UNj4ze98iYIGfoVOje0QPpEBEMUH0Q=;
+        b=BOlf8jd9DpH5XEIspOHU6LR6KXZ7lTSo6BDfX3RZmX6d077D5OFB5Vj2cMxX2zmowW
+         SFUAbUCOFoKfFDq38YHo2speStwzrHapZ1ujOdNYscaPf4LJaSiZtcXzN57LA+gTyeYD
+         BC3o2269ms9qpPILtYKJD8CY+oxtVDr7qZ7euGUMfkpku5puLkMAgmX4w1jo3gTiHP/v
+         Yc2f910SQROPpAwegaOnUqkijRt9Dy3HXBqO5sHBYjpaPW9ulIYZvwANB1RKt9AWsEz4
+         NYhldVeAHB+0JHZ9NQEEiJw4MspZ1NONSEIwNWrv1tRVZXWdSFMNkPWMCszOXbrR94lz
+         6pjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwAxBg9w+eKASFK4UlFGlxXz69YkbS/lwhqzElMr7NtQA2USzrwAUzVLyPfEZe9lq1XZO8Z2dVzmhX4nCQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhmnqA+hIezAz+zjf3RYbCGZvau0/+GujqHiSr9hbpd8iZ2yi/
+	gUZtdlO6oGjXRo/FQHsxQeKrs3v5ddYonw3OqRXxZeloJcUki3G0jbk/
+X-Gm-Gg: AYBFou18I/zxUkuuiqACBcl9OtS8m/I+YuFJAphvbAFe2jVq39Nzro5Eg+39T+C9Kl8
+	bm5JWyKdsMhyTkTgErMPuhM2XmZ4QGY5toQVE91+nXUS/B5rV/RHwXW//nvDzRXp28TgeiG9yyS
+	Iuk5Xccb+zHtMV1UT/HD72lysXG7lD+MRcewzud8d60sL2uVbvQSBlCTviDJ54hgTMuAt1v5zTL
+	cOZQjGXahvdHkOWVg2dclJZA7kGQvCXgm32S7pOkZX5a2aFjBNsAn7JUDBoGPA66x4yWGOlzz59
+	q3qcaY/iPiJXDsy0s2X4q/ipzPFMJsKfWlbqObo5MNKcXX7WS+RJPTTkw/Sb3bCKMKg0i469BzO
+	5rP3CIP/VUcFMh+W7Mk1rdDwIRn51is9sWu6rgVLghTrFbKGiWl2DRHsQhhFalbqCLR6Z60xWsa
+	fNVFtRNh1EhEyrs6oEDnW/OF95LVDWIf9uFutD8GQepqKtDa8gZCPAM3a5J4IArbJIrLN/aseU6
+	Dkp8cqrqn+eRep8wz86+Nkt4OT/Qd7R3pllo9L1dVDMaE8/z9oDeKngM9b2hvjyTcxvRsEpCVUp
+	oif87qmS4Uado4qo07E=
+X-Received: by 2002:a05:7023:a82:b0:149:1b5b:1f25 with SMTP id a92af1059eb24-190a4c1fa39mr5950603c88.15.1792660651419;
+        Thu, 22 Oct 2026 02:17:31 -0700 (PDT)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e4f2eacsm12227509c88.23.2026.10.22.02.17.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 02:17:30 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [BUG] net: ipvlan: down-slave deletion leaks parent allmulti state
+Date: Thu, 22 Oct 2026 02:17:25 -0700
+Message-Id: <20261022091725.3652834-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,60 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017041419.311921-1-daniel@0x0f.com> <20261017041419.311921-2-daniel@0x0f.com>
- <3f657b75-64c9-442b-a609-987cc16f5501@kernel.org>
-In-Reply-To: <3f657b75-64c9-442b-a609-987cc16f5501@kernel.org>
-From: Daniel Palmer <daniel@0x0f.com>
-Date: Thu, 22 Oct 2026 18:17:18 +0900
-X-Gm-Features: AclHuK_xkZziVetz0qA3HvsssgwelX2fb-dhEKVmNQmS_hEtJeTxKXJZsKa-iK4
-Message-ID: <CAFr9PXnNKfZtXpBe2OVZvu=rf+fsx5NEp7tSGS_FxRKsL3+wQw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] ata: pata_artop: read the ATP865 mode register
- through pci_iomap
-To: Damien Le Moal <dlemoal@kernel.org>
-Cc: ysato@users.sourceforge.jp, dalias@libc.org, glaubitz@physik.fu-berlin.de, 
-	cassel@kernel.org, linux-sh@vger.kernel.org, linux-ide@vger.kernel.org, 
-	geert@linux-m68k.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Damien,
+Hi all,
 
-On Thu, 22 Oct 2026 at 16:01, Damien Le Moal <dlemoal@kernel.org> wrote:
-> > +     case 2: {       /* 6280 or 6280 + fast */
-> > +             void __iomem *bmdma = pci_iomap(pdev, 4, 1);
-> > +             u8 cfg;
-> > +
-> > +             if (!bmdma)
-> > +                     return -ENOMEM;
-> > +             cfg = ioread8(bmdma);
-> > +             pci_iounmap(pdev, bmdma);
-> > +             if (cfg & 0x10)
-> >                       ppi[0] = &info_628x_fast;
-> >               else
-> >                       ppi[0] = &info_628x;
-> >               break;
-> >       }
-> > +     }
->
-> This is really ugly... Please move the "case 2" variable declarations to the top
-> of the function so that you do not have to do something like this.
+ipvlan_change_rx_flags() increments the parent netdevice's allmulti
+reference for an ipvlan slave with IFF_ALLMULTI.  Unlike macvlan,
+ipvlan_stop() does not release that reference and ipvlan_open() does not
+reacquire it as an ownership pair.
 
-That's fair. I'll fix that up.
+If the slave is brought down while IFF_ALLMULTI remains set and is then
+deleted, netif_close_many() skips the already-down device, so
+ipvlan_stop() is never run.  ipvlan_uninit(), __ipvlan_link_delete() and
+ipvlan_port_destroy() also contain no decrement.  The parent therefore
+stays in all-multicast mode after every such cycle.
 
-> Of note also is that this switch does not have a "default" case, which is really
-> bad practice, even though in this case, we should never hit unknown values.
-> But I would still prefer seeing something like:
->
->         default:
->                 pr_warn("Invalid driver data\n");
->                 pci_disable_device(pdev);
->                 return -ENODEV;
->         }
+Observed on Linux v7.3, commit
+08ab31164c55f20c7a2653de3186ae333470e2c1.  Three
+create/allmulti-on/down/delete cycles changed the parent's
+IFLA_ALLMULTI count from 0 to 1, 2, and 3.  A later live-slave
+allmulti-on/off test changed it 3 -> 4 -> 3, showing that only an
+explicit off transition releases one reference.  The leaked reference
+survived deletion.
 
-Can we fix that later or should I roll it into this patch? Being an
-old driver I think it probably has a bunch of preexisting style issues
-that need to be fixed but that seems like a separate issue from making
-it functional again.
+The 2019 review of ipvlan multicast propagation already noted that a
+dev_set_allmulti(1/-1) open/stop pair was missing.  Current source still
+has the asymmetry.
 
-Cheers,
+A fix should pair acquisition/release in open/stop, as macvlan does, or
+provide one release path that runs for deletion in both up and down
+states.
 
-Daniel
+Candidate BR-014 is the broader deletion-path description of the same
+root cause.
+
+The self-checking reproducer and serial log are available on request.
+
+This was found with a multi-agent workflow; the
+refcount growth was reproduced in QEMU.
+
+Thanks,
+Cheng Yongkang
