@@ -1,55 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792712790;
-	b=SePM13Y9/F9tLizGX/9Ldq5QQWSuNtczSB+nWYZ8TrdHwxGZDAeOmYNskcd9m61lI0DP
-	 mpI5aQg/qnvuMx7x8y6e0szx3HJUN9gT+rQPNbe1NE0u8cesA/QReRHaRd1XKNFT9l9OT
-	 qFeDo3gp5GYxro4Hqn8b2cJkDfCP6dsu7RpV251DQlydZ7n9OE1v/wz2ux9hy46h4ssTK
-	 1BdP66HiJusWEr1TP8zr6Fdg7r81X0JnqcWxTmFft1wX/8Fg5M3Dg1tGsJ2QzMKPIxfri
-	 wientgY+EVaDVLpjURzqRk3Vu1ulSk62STvDsCrH44EhVDVZYJiezqxAydtidaCX3sw==
+	t=1792712879;
+	b=qZMhgLdaA7glbt21sdV3dFnTRVccwmKRMQ+7nobTzimGWRVEzyQN3VAIEM0NXpspuv8o
+	 QXQ8ng2b4bbPe8KjxXye91rTdXsC0F0eN/yLa+EcSWvHppFPEFGVZoCbyBQ++kaIn0pqg
+	 oMYoliseCC0ysWHP25dLqcUd+wH0UxQNP3CTKqwsotm7QFcnkzMFfuv+fxGtqiTXxIJ9D
+	 6974jM/jX9T55kDpJQFAXA4unXKcuBWOLERQJTqorRBWPbqjbuPwjmD7XiU8QZILhSBY0
+	 OPxc3UZdCKgKUumNtVfYlIsqSW8+kSUfdSDWdEyIK47nh0RPrP8w8h8TRjQmtRVt2aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792712790;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fi4Wn+lh1Z/zpvInQk71rHUv00wJPQShP80oT8WfkFc=;
-	b=lPaoHPI+dPmnc6GUkWwgrfQksztHBd685/AAbPo03PccgmUdMGrFjSJsil+RUGYYtx4e
-	 O+SSRdlTR0rPLLzoXzn3RlnSfxne6Irj1E8A0lG8ka03ISkg/zOadLOIx5j2BN6P/pv5a
-	 RD0Hoj015xDi2ZqIfyq1TRGD5YjVBmfQP8i19hBN0IB847e4f8jVaKsEfiC2Gzbduindc
-	 5zD6uczhMLqk4ol/JXbKsGdxQfK+nHMXo3aEqyy8Fe9ar6XeAueH0g1+A4HJow/a2ibBk
-	 FdAoY9O896uGx8ozLF+IEfPsi4RqtiU2hDI5Qrgcym6U0skPg0iaoXZk3SMoxWn5f9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792712879;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 MIME-Version:Content-Type:Content-Disposition:X-Stat-Signature:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Spam-Status:X-Session-Marker:
+	 X-Session-ID:X-HE-Tag:X-HE-Meta;
+	bh=/BddbnAMzLZHxU5xn6ZvfrdLsYLiDnboj+DQVIg7lXw=;
+	b=akpGIN0zkDjjKhRsQoeqWW525ixmbK2rvijrSi40rhxZfrh9/4t0TrUN+gZBxU4+0A47
+	 NZC11u61+8wxnzqfakL8jtB6fxDQunALlbZYYUR4o72Xi6s9X3/1MrNNgyw7Wn7wYz+C6
+	 tVYM+nxfvJTTmcW0UYROKY0WaU5b4VSpLbO4koZGXIRnv4PLUK8GjSb4MFvwnT/q4hiiV
+	 wIdPMvphSZB58IuoaO9JUws5YqxoBFRYfWswqcQTX6tz22pnrk/GyQ/oVdvyHWvf/REcp
+	 cAId/jkwMoMqAE+jEZMaugS5dGzE/9xFIxlIb+cB83ruHcVo6t7TK/flfmTqoDJk7qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKVEd+Un;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=groves.net;
+	spf=pass smtp.mailfrom=groves.net;
+	arc=none smtp.remote-ip=216.40.44.12
+Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com [216.40.44.12])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1C31606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:46:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TKVEd+Un
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C74E1F031E0
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792712789;
-	bh=fi4Wn+lh1Z/zpvInQk71rHUv00wJPQShP80oT8WfkFc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=TKVEd+UndD438MIOUAjwBqyuR8mYz7+RLGZ7ygAaY/4FUMdjnIUfQenwO3XDqRGSu
-	 FAd6PeGLQZRzqTVxZ9ptmBWiX6mZpgtBffWDr080VBU1t1cSVN/itZnT9zFYiNFzr8
-	 4qQR1UZIIwxFVA6ckYci6rOVhV04/joFykfAqtQL4D5V15dJWBVcPX+2ZW7sHtym4D
-	 HvF6csEwwq51usBjazqfWR9piIdwqv5iieyionnaX5b1THVwrReWrB0LN0p1+06eVg
-	 KRPKycHYrat+2bOECzKYYH55FrZ6ex7FDKikxQVb126mcHHiwYtbSzM8drkKq5Og8I
-	 AxAXnJF459PVg==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c4697404c2bso41605066b.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:46:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxNOR80ew95Z80fwlwWQ2aiOr9cQqsY7iODdaos5EpngvQdDt9FIX7dtEVkXpV1sz5ViWUvu0VY4O3dunc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaj4/IdXU1xaDcO0Y2/KHk2+LgyjvoVMlSgiBSXrCVfKmgnRQt
-	bED+8sk8wjg0juQPC5RXb++7GZA1IezRNUd6OqpO53qDR/JaGke8gCmsldH+wKlD7pHKZjbjYaA
-	hyhvtiV4hLunaoVTIywxdI5hHzcNojZ0=
-X-Received: by 2002:a17:907:9446:b0:c29:4fcb:2886 with SMTP id
- a640c23a62f3a-c46a948d935mr87657766b.39.1792712787878; Thu, 22 Oct 2026
- 16:46:27 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2BD606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:47:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2BD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=groves.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=groves.net
+Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay03.hostedemail.com (Postfix) with ESMTP id 9B3CAA0249;
+	Thu, 22 Oct 2026 23:47:50 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: john@groves.net) by omf18.hostedemail.com (Postfix) with ESMTPA id B3D5631;
+	Thu, 22 Oct 2026 23:47:48 +0000 (UTC)
+Date: Thu, 22 Oct 2026 18:47:47 -0500
+From: John Groves <john@groves.net>
+To: Miklos Szeredi <miklos@szeredi.hu>, 
+	Amir Goldstein <amir73il@gmail.com>
+Cc: "T.J. Mercier" <tjmercier@google.com>, Shai Barack <shayba@google.com>, 
+	fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Aravind Ramesh <arramesh@micron.com>
+Subject: [PATCH] fuse: handle extent map files in fuse_passthrough_fadvise()
+Message-ID: <atqdWUCzGxs3wwXw@groves.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,82 +54,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022173832.14696-1-d3bugee@gmail.com>
-In-Reply-To: <20261022173832.14696-1-d3bugee@gmail.com>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Fri, 23 Oct 2026 08:46:15 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_BRG+M96UurdeeeUaWmhkQSnXupk5JWRmKAf5g26kaZw@mail.gmail.com>
-X-Gm-Features: AclHuK9yKdvGpizgGXSa7ZGgAUoWzc6AaCk5JarpvFhKat0FEK8DS9LWvWooc7Y
-Message-ID: <CAKYAXd_BRG+M96UurdeeeUaWmhkQSnXupk5JWRmKAf5g26kaZw@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: serialize directory emptiness checks with readdir
-To: Yongjun Gwon <d3bugee@gmail.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Stat-Signature: hxy4okpm8cxr4ntrk99nd5orw4umuj54
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: B3D5631
+X-Session-Marker: 6A6F686E4067726F7665732E6E6574
+X-Session-ID: U2FsdGVkX1/uT6Bt+cMHYMb/ZB4hit0s0sG5FZmh2OA=
+X-HE-Tag: 1792712868-64953
+X-HE-Meta: U2FsdGVkX1/qqLBHtgyydqZfILDj3gV4s7RgYvxMWhURNWDSduXEwslhfq53rxZEGQ0LjOXKbdZjtkCRAhML0oz3QLL0TUNBnhGmRdDegAnjvU4twUks0Y9cPN8CSjlM+Kdf6MEHcFlNNDJRNFtd3qQIMHYNi1q7esIUyIL15B7amekqUjI1Wpg+aVDy7hjdwPIvKjVwqexiv9hkuIONXeY02IbdMI9PqIDl1TuqjPVI/NFVIB+Nfx1qXABbEwCJbNylz2nTi6e8Zl6KUfHCUExtf3s2WYbrnNdKj3SWtkxa0CGPvk9geQH9kE8gvdj+1tSYyw9COEHX6Bm8EzqZXKVYhefiIehWZp8E7CsMNUtiTh/U/+7uv7cT4h8SGtoFnryCF+ZgW/OtIQ1JfD8XV+XDFbE4j2W+FE3ge3HRZDIrGWeuPWZWrKy2spRue2IF
 
-On Fri, Oct 23, 2026 at 2:39=E2=80=AFAM Yongjun Gwon <d3bugee@gmail.com> wr=
-ote:
->
-> SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
-> on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
-> can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
-> filp without that lock.
->
-> iterate_dir()'s inode read lock permits concurrent readers and does not
-> serialize per-file iterator state. ext4 stores its dx readdir cursor and
-> fname RB tree in file->private_data. Concurrent reset or refill can
-> therefore free a fname node while the other worker still traverses it or
-> retains its RB-tree link, resulting in use-after-free accesses.
->
-> An authenticated SMB client with list and delete rights on a directory in
-> a writable KSMBD share backed by ext4 can trigger this when the directory
-> takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
-> request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATI=
-ON
-> on one live FileId.
->
-> In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
-> 171df27077fb, the unmodified kernel reported a cross-worker use-after-fre=
-e
-> before a panic. The first report's access and free stacks show the two
-> request paths directly (trimmed):
->
->   BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
->   Read of size 8 by task kworker/2:0/29
->   Workqueue: ksmbd-io handle_ksmbd_work
->   Call Trace:
->    ext4_htree_store_dirent+0x488/0x550
->    htree_dirblock_to_tree+0x535/0x990
->    ext4_htree_fill_tree+0x319/0xba0
->    ext4_readdir+0x175a/0x2f40
->    iterate_dir+0x1b6/0x630
->    smb2_query_dir+0x1003/0x1cc0
->
->   Freed by task 279:
->    free_rb_tree_fname+0x67/0xc0
->    ext4_readdir+0x13a9/0x2f40
->    iterate_dir+0x1b6/0x630
->    ksmbd_vfs_empty_dir+0xa2/0x100
->    smb2_set_info+0x2ffa/0x45d0
->
-> Take fp->readdir_lock across the entire emptiness check. This places both
-> iterators over that handle's filp in the same lock domain while
-> preserving the disposition status handling. The exact code change
-> completed a warning-free x86_64 KASAN bzImage build. Tracing three reques=
-t
-> pairs showed that the two iterate_dir() calls no longer overlapped and th=
-e
-> expected statuses were preserved. A further 1,600 reproducer iterations
-> completed with expected statuses and no KASAN report, Oops, or panic.
->
-> The reproducer and complete guest configuration are available privately
-> to maintainers on request.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
-Applied it to #ksmbd-for-next.
-Thanks!
+This addresses a collision between the pending backing_file fadvise
+patch and the new extent-mapping code for famfs (which falls into the
+passthrough bucket.
+
+A file opened with FOPEN_PASSTHROUGH on an extent map backing has no
+backing file: fuse_passthrough_open() returns before setting
+ff->passthrough and ff->cred.  fuse_file_fadvise() routes every
+FOPEN_PASSTHROUGH file to fuse_passthrough_fadvise(), which installed
+the NULL ff->cred on the task with override_creds() and then passed the
+NULL backing file to vfs_fadvise().  Any posix_fadvise(), readahead()
+or madvise(MADV_WILLNEED) on such a file oopsed.  fio triggers it at
+file open with its default invalidate and fadvise_hint settings.
+
+Fall back to generic_fadvise() when there is no backing file, as the
+other passthrough helpers fall back to their extent map or generic
+implementations.  generic_fadvise() already ignores advice on DAX
+inodes while keeping the EINVAL and ESPIPE checks.
+
+Reported-by: Aravind Ramesh <arramesh@micron.com>
+Fixes: 69f77a06ffad ("fuse: Forward vfs_fadvise to backing_file in passthrough mode")
+Tested-by: John Groves <john@groves.net>
+Signed-off-by: John Groves <john@groves.net>
+---
+ fs/fuse/file.c        | 2 +-
+ fs/fuse/fuse_i.h      | 2 +-
+ fs/fuse/passthrough.c | 6 +++++-
+ 3 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index da73d1e183c4..eb5ae11b6010 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -3129,7 +3129,7 @@ static int fuse_file_fadvise(struct file *file, loff_t offset, loff_t len, int a
+ 	struct fuse_file *ff = file->private_data;
+ 
+ 	if (fuse_is_passthrough(ff))
+-		return fuse_passthrough_fadvise(ff, offset, len, advice);
++		return fuse_passthrough_fadvise(file, offset, len, advice);
+ 
+ 	return generic_fadvise(file, offset, len, advice);
+ }
+diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
+index 311252eef2e9..c91af283aef2 100644
+--- a/fs/fuse/fuse_i.h
++++ b/fs/fuse/fuse_i.h
+@@ -1368,7 +1368,7 @@ ssize_t fuse_passthrough_splice_write(struct pipe_inode_info *pipe,
+ 				      struct file *out, loff_t *ppos,
+ 				      size_t len, unsigned int flags);
+ ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma);
+-int fuse_passthrough_fadvise(struct fuse_file *ff, loff_t offset, loff_t len, int advice);
++int fuse_passthrough_fadvise(struct file *file, loff_t offset, loff_t len, int advice);
+ 
+ #ifdef CONFIG_SYSCTL
+ extern int fuse_sysctl_register(void);
+diff --git a/fs/fuse/passthrough.c b/fs/fuse/passthrough.c
+index 1c1cf1085c9c..0ed964c479d9 100644
+--- a/fs/fuse/passthrough.c
++++ b/fs/fuse/passthrough.c
+@@ -159,12 +159,16 @@ ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma)
+ 	return backing_file_mmap(backing_file, vma, &ctx);
+ }
+ 
+-int fuse_passthrough_fadvise(struct fuse_file *ff, loff_t offset, loff_t len, int advice)
++int fuse_passthrough_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
+ {
++	struct fuse_file *ff = file->private_data;
+ 	struct file *backing_file = fuse_file_passthrough(ff);
+ 	const struct cred *old_cred;
+ 	int ret;
+ 
++	if (!backing_file)
++		return generic_fadvise(file, offset, len, advice);
++
+ 	old_cred = override_creds(ff->cred);
+ 	ret = vfs_fadvise(backing_file, offset, len, advice);
+ 	revert_creds(old_cred);
+-- 
+2.56.0
+
