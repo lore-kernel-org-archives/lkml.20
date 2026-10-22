@@ -1,140 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792670371;
-	b=1UcplK6qGlzOYKGhkZHqPiUjpiLuCCczuTPaRZBI2tI+ID3aHVyFMePb6NuTIV6wxHPn
-	 CUpZBAZ+IV7JqUuqrPG5TiI836CR45KpEaJ1TIoRsG8M/FWJcNPBOwhoyjHgo46triwQt
-	 oNa5d3ll2u1NbjHCIL37rNWyvxO6uWgqfyHiG6LPaJE2OplSaTOU6OXOvKMUGnmYOeM3C
-	 16LHDIG3Zfjdz7sjrOb40zoBDVpt7wzvcTM53O7nIw1sid2wPldleyOFVZ/Y/FRT1CmUl
-	 mKcoFfFdS5E4nZDZeHGtNE6wFu4HLn7YhsF8/EcAMtAW8AFcSBbamxhAvci5Sqz+U7Q==
+	t=1792670376;
+	b=OrATcVoXFkkK6Q5pOH6BQ/9rEtGW0WMVgmUQKbTdzXezo1+wXiGw7hKDlUyG/dfwvBe+
+	 8nrHfxKY0PpXeTGYKH1ro4AvCag1naE7TDkIKNTS/YC2hhbMpeK2U/BBLfrhJKO8Cyl/u
+	 LSgpQdkBa0SG55hk0g69jxrh2LwVV8uam8ARtHHtP7QTGixDO8QcC0YB2nGi6FVx0HFg0
+	 rffoc8FFjTndVLXLg5rTuywpHzOfVqucf1f67g9rpp39kjXk2ZaSftA6qVziD3uec5nke
+	 uM/lZtMoLLmVfeJIDeHcIdIfr/ZIoi70y+sbRdX9GOwXYzC09A9A7vLTLhoib4Esr/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792670371;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aPE/s6P0svckbKbkPg294wPN+bCnxy9mUDtCKQb3Cvk=;
-	b=sIJzHpCwL5DL/Yvbl2K7223++7nVD0YCK7Av5K8gP/uL27Sg2QGG1uJm9+Ze/b8Jn/rS
-	 N3unAHOjYMaKM5nwguDvP8r+Lvsquz6sJVpDcS6kuIkPu4gOmUV3E2sMpEyaKV1pyOSSH
-	 b1laJkHf/rc4e56EirDdXvSwJOPlVVobu+4cTa8OuS+Tf5zl0cTfu2z6jxI5shEH0ijuW
-	 D0Z0UXzTo9/FX5ncbTQFXvy3wAO6apO9f5H305P9fPoxRmJaVxu22kFCPWzbgFsr7QVZL
-	 CICCv7TXFrZSslwqtgIdhAHPAL8zMqoeZmFodACvUnAoImMw4veA8EO1roDBGkqOSUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670376;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=XINGVnXS/59fmZDTv/3fLoxUfeQVR9Y3Vo1ejBBatBE=;
+	b=gxaWyk5pinrB2b6RfiZCrdW3INgb6okAFzDUwtpnY+76bY4yV6ED//0q9heI7RMnT3Lk
+	 N2DunHfpTx288JF8AOc1DXkNfUNjN6RRpThiZP56iGYCf3tRskTHZHQ+UpXtN8dRcDtiP
+	 Kl1iuHxba8DyWriyQM8HFkh+LWIVCdzLveRzHwPYhIBuQF2/8eQ8gcTzzdXTDX6LLbHgc
+	 HaIURxNknyDpaA9qJ4hz7bk+srXcVG3uooWnqI5ZEHOdO6mLbyvfC+Sv/5JzZf2kPpeQ/
+	 NZKnqhNSbnTOOH40ZK3utyjoJiU0kF/ivGMHyyzL5sAwBJMLeKo1K1BS3O16rBVuN2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Par7Xu1q;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IkCTlfuJ;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H8MV5mHe;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D75606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:59:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81D75606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5238606A321
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5238606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Par7Xu1q;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=IkCTlfuJ
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MBuJ6A3734960
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:59:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=aPE/s6P0svckbKbkPg294wPN
-	+bCnxy9mUDtCKQb3Cvk=; b=Par7Xu1qoevn8z3nPGjiV5KdFK0FBaEyRpwV76VE
-	XGRuwy0Lu2kpYODoox0SU+jVM2P7MFEMMtiFHFZ7RkE97F+nuoWXXvfr6GtyoJPc
-	vLI6afKNFzZv/os2z+ZIx3ocCUgI9uZfDaPrPpPY7jeQd+62LOD0PTq71TfSQOt9
-	17QMYOMPtEnRT5ilsJrZNLa7reoASTXKljuA9EySM84j1UR5+ZSyiZW7JtCEM67i
-	O8URo3Pmo6PZGp/sCiaRuxD/HDDNkVXArnLamvIYm/lUbV5bUnoy9itQuo2hgYhW
-	3PCwEIz465UhVyGfBaT3boW9mBdrU5Z/aso6OnotODBdwg==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93au082-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:59:29 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91bc57d4d11so42136296d6.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:59:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=H8MV5mHe
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cc502d509c0so576871a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:59:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792670369; x=1793275169; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aPE/s6P0svckbKbkPg294wPN+bCnxy9mUDtCKQb3Cvk=;
-        b=IkCTlfuJ6w2eatTw9w/zM2HMD8z9L7ZfjsBHrDOYEnMVzQvqaEvff9tmNZKeDqmNVm
-         oXJ74xauQHtRvIxpmrTHNWJ1iMGaz/pIBM9wCyWzghZ3aICdMZBvEtUvAYXaRsuFK+os
-         XEjgpl2N+qLYc1OA3UbLGw4v7NpIsjXRIGcspI8q+/pg/TBnMXn5OEOOaiN2JXWlQnZl
-         zeESyRc3D31gf6b890uH68Xr4kLL1zU5UMoqeBphpdyxVdECzXR766iL98nVz4nzfHT7
-         YDep9og8nwfQbIOhMBX6DwrNjaEy9MXm2eMP4yxZNGa3Wbw4lJD4oE+YYRs1zF7M0KTy
-         m2DA==
+        d=gmail.com; s=20251104; t=1792670375; x=1793275175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XINGVnXS/59fmZDTv/3fLoxUfeQVR9Y3Vo1ejBBatBE=;
+        b=H8MV5mHePY61sZTF1PItFLG8m+SDaYKHDRqB1gr5Vk0h4SfvTU4pYNyiZPg0K1UtGX
+         sOlN/iywGbBkOgN8XVRD/VqYX2zs3GMNNE9jX7GPoIc4s3VAqly7omE37kAtT8YZMn/z
+         jRnpFa/jLmT3sHPgV/+BE0TthFw3r/rnYFCjb3NJAqfGC6Ls0HIJM6wM9pKJnMI7lS4L
+         spW10lbuM/JoZQFK7Cq3leTxmQbymKQVyg+lfXJqQmWUejs1IsMgzhfQv90o4KmQRbTp
+         DhL04C/PhxI3aS8HZZrrw4YXzhJ+G6t6vYVGV2KbRqoUNyQ1IICC5+534NwP/Gkfbpba
+         alyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792670369; x=1793275169;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aPE/s6P0svckbKbkPg294wPN+bCnxy9mUDtCKQb3Cvk=;
-        b=gDWNSBi1jAM9hs2SxhJtIlqmM2krmtKzPB7WMj2+3kUix46zD7BorB/DZ/y6BUUD4h
-         WvsU+yjO4ZHf1+B+c5rtUmzmOC90GG6r0yzfUvzOrFGNSWfo+RPUcjGH2CDUh0wmv9rY
-         OCAG2Y2w/RSrPhvQm/F95yFqEg660Vav41HCP7fDrXvz6rREeu0JhA3YW3UwKygIHlFS
-         z8fxJ5SIC7dswWc6ZKgZJbJFrORkYpBgqZCbgOTT851qM4izC9rhqnll3M+vtFY4/H3R
-         NMQ/7MCI0s+ipPooc9n1wQBh2ocQHOmtrtz//YSEHQZvPXiuk+nGFmGuLEHJVhjYOMyM
-         J/FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6ajMmh+0idTw/NoZtGrh6BvYaJB2nnlxmfZ3vAiWWSKhOrc1z55YL9FOBOmpGq1bSU26wq5CZ5MoFfZQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK8YF/h9Uk/d4CRamcKZp+EDalW2XQAf4oy/vLaSzMvykljy7C8
-	yJ5pOcvtv1qaTtJxXK2wERb23O7vXqzBwuk9L8U7W7HyYYQOLkObZXwOY6PfJC/B+JaPs1pEjVx
-	sPLC4MuBEpN2LJYzzJsA8oXE1lcoXAiPbHUiVsI7ENG/s4EOFvmrUMmyFmhAA9GmA2kk=
-X-Gm-Gg: AYBFou0XnDf2cRQztzAL0na4n/W/FxwbVw1L+hHNP4OFG+TDRLCrHC1AbYpZ3uJci2X
-	XBY6EiuW0oK+YWMv8M131Jf8ORh9tC3kW2trC0+1mHUoOB3XidtWgOR0oxtfoiNTKw2EGJcT8sK
-	XcPr1hpkuML6wgZdRsIFNay6ireaeBvCYsj03JduX1BQkR4qwt1eDHQsnK8qa9Cs2fYlscBKQ9V
-	fsGZjB2ITRXTJpHQy452TlxqXKCZjSiQMHxy9NfHBZoAuLgGtZ4hFTj9bHbAuif9GgHNq+n4oKa
-	TNnKVvwZi3uaz7uynhUr9r/d0m7m0W3FQxZnd9n0C0+zRRm8fEqpDFJ0Wwg83ZqB87Twy+7if1X
-	VXzIry1YjPgKSK4aOv3DlcvReV3q6G8kkUSZQnJaChKKR7EphxOTm7fgOWiS4Doi2ZPIS4MyMvb
-	jNYmF1Fy/IWw/t
-X-Received: by 2002:a05:620a:4086:b0:939:733d:cbe0 with SMTP id af79cd13be357-93f57e5e514mr788969185a.3.1792670368763;
-        Thu, 22 Oct 2026 04:59:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:4086:b0:939:733d:cbe0 with SMTP id af79cd13be357-93f57e5e514mr788966485a.3.1792670368330;
-        Thu, 22 Oct 2026 04:59:28 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfa4adbb65sm626196e87.52.2026.10.22.04.59.26
+        d=1e100.net; s=20260707; t=1792670375; x=1793275175;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XINGVnXS/59fmZDTv/3fLoxUfeQVR9Y3Vo1ejBBatBE=;
+        b=MHZinFuJRqwuFbZ2TyysT5DqtR1v4+4wGvv7v0lOJu4nbztub7fHoYIrE0ynehLB4s
+         8F+q/V5dO66jHU4BS7Am+1HTTFa+Nd0QbTQD21YwLaLii+2UTVyzPtZ2BQYB1leTE+ZE
+         g6C1GzTDefVgVfhzfLj+xIf0gXauZc9IZIPlhFwBo3BMPKyNFel/RQpw4/hvqsf2DCKX
+         ZJgP7/OcnP4WEaxZ9VKO8HBgtUP/VUrC6P9C+G1xZvjCJEHow3dKc5OPqar490DhJq0H
+         8whpy8NEjxxnPiAmIe7Yir+YIpQs7Vy0xxiilJUQY5YXBsE4YX/41/jt3gNO98I0/Wzt
+         SJgw==
+X-Forwarded-Encrypted: i=1; AKwUvBycywLiOa2uIYL87QfHdCEKdwB85oWbI+j9guV6dKav5pb55dHSD5sbQ4Ky2XxV4aMJ+oo2RRcXgg3fMuc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtqNSPG9tovRmwNCBZ407i5bRaojw6V/q6tGZGBq9ZYp2dHiiT
+	QneuWhO5WcLi7H6j8jlq0LF9itmOQZdJi8MZzpLGvUx7980VyDHuB++o
+X-Gm-Gg: AYBFou39peHWnrqtRd6lugKypGlGM0DMOEq7Mpts7DWrnA6UO86p5oTeXMKODckVrlC
+	JsV+J0WCbVdVuF6cdQEAfWjbgTP8V36Qloz1tAfxB65v1NHvc5dYPEY2eG0vMANLKqfb8Bwhicn
+	j9HRW5/SFFnA38dW+N8T8Z6h0Ag3IH8JHMpumBh7bhl2aNplr3PyJpmqQuwl8r5N3tuFV7P3XcR
+	bJHngxg+MLU5yABQAvYUh6YxP2JDCLdXkG9ICEQx8PWmFeXMZPUSlYSwetnJHSIeNdG2ohdZWbD
+	0l3eJaHl25pXITtwy+nfctQwL83gEhVafrDxJWAPj0bbyRQUCscPWxBc0VY0xOiXxoWHhzb50EE
+	l0XFPrwIZfeFkC4LzQvpCagZLSoazV7k/eiNmVa/lQH9PxVFdR8fhXRUZS5eXbJDJqPQ6IDO+q9
+	4EmP64uW9DTCeIWaVyExtz0g25bfo1jSmJjBL0NqeHrpjKPPObXfvNC1YmFCGpvAXvIytEI7JCi
+	Ur/qiTVGgskpq5VKJpPzv+GGZYZR0S5niEX8isX+xEVqW1sgX9KVfjRckCg
+X-Received: by 2002:a05:6a21:48b:b0:3dd:a195:fa25 with SMTP id adf61e73a8af0-3e287eea3a3mr3590304637.74.1792670374907;
+        Thu, 22 Oct 2026 04:59:34 -0700 (PDT)
+Received: from arm-a100.. ([140.112.28.118])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0894b49d1sm2035007b3a.12.2026.10.22.04.59.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:59:27 -0700 (PDT)
-Date: Thu, 22 Oct 2026 14:59:25 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: John Harrison <John.Harrison@igalia.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-        Rodrigo Siqueira <siqueira@igalia.com>,
-        Alex Deucher <alexander.deucher@amd.com>,
-        Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-        Liviu Dudau <liviu.dudau@arm.com>,
-        Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-        Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
-        Geert Uytterhoeven <geert+renesas@glider.be>,
-        Magnus Damm <magnus.damm@gmail.com>,
-        Dave Stevenson <dave.stevenson@raspberrypi.com>,
-        =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
-        Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-        Louis Chauvet <louis.chauvet@bootlin.com>,
-        Mihail Atanassov <mihail.atanassov@arm.com>,
-        Eric Anholt <eric@anholt.net>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Brian Starkey <brian.starkey@arm.com>, dri-devel@lists.freedesktop.org,
-        linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
-        linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v7 8/9] drm: writeback: clean up writeback connectors in
- drm_connector_cleanup()
-Message-ID: <gjeqgaewd5omwhdmepqcsrjq3pph722j6rjtoedot5rqsjsaht@h55ako6z42dt>
-References: <20261019-wb-drop-encoder-v7-0-d4288a26eb54@oss.qualcomm.com>
- <20261019-wb-drop-encoder-v7-8-d4288a26eb54@oss.qualcomm.com>
- <d792066e-c857-4e80-8587-44a58ab75815@Igalia.com>
+        Thu, 22 Oct 2026 04:59:34 -0700 (PDT)
+From: Tzu-Ching Yang <shingekinocore@gmail.com>
+To: Guo Ren <guoren@kernel.org>
+Cc: linux-csky@vger.kernel.org,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-arch@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] csky: bitops: Use the compiler builtin for __fls()
+Date: Thu, 22 Oct 2026 19:59:22 +0800
+Message-Id: <20261022115922.1210342-1-shingekinocore@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -144,83 +97,84 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d792066e-c857-4e80-8587-44a58ab75815@Igalia.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0NyBTYWx0ZWRfX3/et/tAeqG9h
- Gtt5MjNN4BKtiO93DJZL/hjX6Ryx/54ya3+0qhWD0ZKiArUnB44aZClDv9Lmyx28tPVWnLU9Fw2
- aTjELodXKZefU6ZP1dsh5mnB09k7qBg0UaYCP85E55DNtMcGSFC4u4RnGviRVFIq4zREuYZfAtI
- wrVxt85q460aUaakidnLbxdqG3sWXH7R9Q2x41/Sxpy8O2H8OSeA4T//JE7Tyg8m4zTb4+1jAiH
- We7Qjmv1WGgwZr/jBiaVwvZXMgXG1nqiL06isRw417Bul44PBpMqoc2553kdG/uIq0TL3lasHG3
- xzl/tpjJMNEVUtJUtsakAa6mRp3ktlJYbkilJ+I8DwCMt8mqa7wMFxoXzmJzJBFkS9DHZ1iy9zB
- BnWtC1GCb8xzCIZowfFgHHYh5jMu94s/dtM/rz8yPqSdAiZDP0XpnkRPaXDIqGz0xkkB/o23c5z
- cgeg7lb8GRiPnjeu3Ig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0NyBTYWx0ZWRfX+NS726PK46DK
- qfkpVxzEqMtSY/sN7Lz2EZgyylY4JZxX0AVWU5+6I5P0rO5eiMIRAwW7X/bL0A0fOakCrQjf/6w
- ymlGbewag/yHES0Jz/T6L+rJh6bjae8=
-X-Authority-Analysis: v=2.4 cv=QPn91QLL c=1 sm=1 tr=0 ts=6ad9faa1 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=dAgu92QZlaad2esalq8A:9 a=CjuIK1q_8ugA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-GUID: 4H8sU-zOEmVadgkEUeLJgwLWdBWhps2t
-X-Proofpoint-ORIG-GUID: 4H8sU-zOEmVadgkEUeLJgwLWdBWhps2t
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220047
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 21, 2026 at 11:22:48AM -0700, John Harrison wrote:
-> On 10/19/26 06:12, Dmitry Baryshkov wrote:
-> > Only drmm_writeback_connector_init() registers
-> > drm_writeback_connector_cleanup(). Connectors set up with
-> > drm_writeback_connector_init() (amdgpu, komeda, malidp, rcar-du, vc4)
-> > never drop the formats blob or free the jobs still on the queue, leaking
-> > them together with their framebuffer and fence references.
-> > 
-> > Call drm_writeback_connector_cleanup() from drm_connector_cleanup() for
-> > writeback connectors, the same way the HDMI audio and SCDC state is torn
-> > down there, so it runs for both kinds of initialization. The drmm action
-> > now just wraps it. Clearing the blob pointer makes the second invocation
-> > a no-op and also covers drm_connector_cleanup() being called after a
-> > failed __drm_writeback_connector_init().
-> > 
-> > Fixes: 935774cd71fe ("drm: Add writeback connector type")
-> > Assisted-by: LLM
-> > Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > ---
-> >   drivers/gpu/drm/drm_connector.c     |  3 +++
-> >   drivers/gpu/drm/drm_crtc_internal.h |  3 +++
-> >   drivers/gpu/drm/drm_writeback.c     | 30 +++++++++++++++++++++++-------
-> >   3 files changed, 29 insertions(+), 7 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> > index 893716a9e489..1c2bef5e0636 100644
-> > --- a/drivers/gpu/drm/drm_connector.c
-> > +++ b/drivers/gpu/drm/drm_connector.c
-> > @@ -929,6 +929,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
-> >   	if (connector->hdmi.scdc_work_initialized)
-> >   		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
-> > +	if (connector->connector_type == DRM_MODE_CONNECTOR_WRITEBACK)
-> > +		drm_writeback_connector_cleanup(connector);
-> > +
-> Could this be done via a new connector->funcs->cleanup() vfunc or something?
-> Set that inside the writeback init path and it is guaranteed to then only be
-> called for objects that explicitly requested it. That would be more robust
-> and would keep sashiko happy. It would also keep a writeback connector
-> specific declaration out of the crtc_internal header.
+The csky __fls() is a C wrapper, fls(x) - 1, around the ff1 asm
+volatile in fls(), so the compiler can neither fold it for a constant
+argument nor merge repeated calls. GCC implements __builtin_clzl()
+with the same ff1 instruction for CK807, CK810 and CK860; CK610
+(abiv1) cannot be built with upstream GCC.
 
-I'd rather not do it. These are the generic properties of every
-writeback connector. The answer to Sahiko would be that yes, currently
-all DRM_MODE_CONNECTOR_WRITEBACK use drm_writeback_connector. Once that
-is changed for the Intel driver, the condition might/would change here.
+Use the asm-generic builtin __fls() instead. ffs(), __ffs() and fls()
+keep their asm: GCC has no ctz pattern for csky, so builtin ffs() and
+__ffs() would become calls to __ffssi2() and __ctzsi2(), and a builtin
+fls() needs a test for zero that ff1 makes unnecessary by returning 32
+for 0.
 
+__fls() now returns unsigned int instead of unsigned long, like the
+asm-generic version; both are 32 bits wide on csky. __fls(0) remains
+undefined.
 
+With GCC 9 to 16, the text of every defconfig-based vmlinux tested
+shrinks by 128 to 320 bytes.
+
+Suggested-by: Arnd Bergmann <arnd@arndb.de>
+Link: https://lore.kernel.org/all/affe7da1-41aa-4710-bee0-5e3c2b8a8dfc@app.fastmail.com/
+Signed-off-by: Tzu-Ching Yang <shingekinocore@gmail.com>
+---
+In a test function, __fls(x) takes 4 instructions (return included)
+before and after with each GCC and CPU tested, at -O2 and -Os; with a
+constant argument, it now folds.
+
+CK610 needs an abiv1 GCC; the only one I could find is the vendor's 6.3,
+older than the 8.1 minimum and without a clz pattern for abiv1. There,
+__fls() would become a call to __clzsi2(), which lib/clz_ctz.c
+implements with the fls() asm, so it would still work; a builtin fls()
+would make __clzsi2() call itself.
+
+Testing: 35 defconfig-based kernels for CK807, CK810 and CK860, some
+with KUnit or SMP, built before and after with W=1 by kernel.org GCC 9.5
+to 16.2 (GCC 8 has no csky port, and GCC 9 to 11 reject -mcpu=ck860): no
+new warnings and no calls to __ctzsi2(), __clzsi2() or __ffssi2().
+allmodconfig with GCC 12 and 16 compiles the same objects with the same
+warnings, but does not reach a vmlinux because of GCC internal compiler
+errors, before and after. Under XuanTie's qemu-cskyv2 user mode, the old
+and new helpers return the same values for every defined 32-bit input,
+built with the kernel's flags by each GCC for each CPU at -O2 and -Os.
+On qemu-system-cskyv2 -M virt, the ffs and bitops KUnit tests pass
+before and after; test_bitmap passes with GCC 12 to 16 and has the same
+one failure with GCC 9 to 11 in both, from a test bug fixed in
+linux-next. No csky hardware was available.
+
+Against the linux-next branch of c-sky/csky-linux.git (abb81e5ce7d9);
+also applies to next-20261021 and to bitmap-for-next. Full build and
+test data on request.
+
+ arch/csky/include/asm/bitops.h | 9 +--------
+ 1 file changed, 1 insertion(+), 8 deletions(-)
+
+diff --git a/arch/csky/include/asm/bitops.h b/arch/csky/include/asm/bitops.h
+index 80d67eee6e86..118fb0df5267 100644
+--- a/arch/csky/include/asm/bitops.h
++++ b/arch/csky/include/asm/bitops.h
+@@ -49,14 +49,7 @@ static __always_inline __attribute_const__ int fls(unsigned int x)
+ 	return (32 - x);
+ }
+ 
+-/*
+- * asm-generic/bitops/__fls.h
+- */
+-static __always_inline __attribute_const__ unsigned long __fls(unsigned long x)
+-{
+-	return fls(x) - 1;
+-}
+-
++#include <asm-generic/bitops/builtin-__fls.h>
+ #include <asm-generic/bitops/ffz.h>
+ #include <asm-generic/bitops/fls64.h>
+ 
+
+base-commit: abb81e5ce7d995baa41556b8125fa59e28ba3be8
 -- 
-With best wishes
-Dmitry
+2.34.1
+
