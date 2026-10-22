@@ -1,70 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665970;
-	b=fyY4y71MLcpRcFqusiUT1NItMdaqm5jGVKET1qF8AkIg/DGTHDcG/TVyKU/TJXEMQGAB
-	 fzC3+N7Y/Z7sTWqK67xCFDgiizDxbW3lt3nrTBOjbYqPUzbmnek6Bz30QeBz3ByChn5/7
-	 lvP178Y9DjP3UpEQm2Yl9AZkqrinClT0oW4fL6yYMBBIQpDtj94J46hBLsN/cbx6C1Qzx
-	 Sckx50gUB5amk5842VkgQx4CiVIhR/88rQkwOqjxZ3l/jEk2U4HHze67mDVFtWpUV27Z5
-	 vhpak6xYx2a7QIHsboMIEenHr5mEVEITN0NjBMJ3w3IuPiGIrA5fo+QxslWmb+D3TLg==
+	t=1792665957;
+	b=ekPEZ+vp8tZCJzG8Z3t3orSvJvMxZ5OusIbm9P3o03AsjknAhZX1kCcij/w6qUGpkg0X
+	 WrNAFrJFqa64jFxYVoRcsvuNuLk918NVFKt9yp+RK7jf+QvuhrqmRLU631cBcpiQLpPIj
+	 1PreRLSbVA5zqg+ifnuOw/QDauGJl6JWPh7aWlptpN7RQrojOEnTE2oVeS/W+1tiL6EZx
+	 oKpKNZdXwHCLAPFulvh1Z5rWkbTcXPvW60Ba7yi13pdVZuLKySQyErWTxq1FwWB85V6KJ
+	 ubiNJRa3WpNlgkWcaFdvrwTTHKm5UOY+2iA8c1Fd1Yx/nOrEWLDTWIVc9GxbQMVlFfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665970;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:X-Last-TLS-Session-Version;
-	bh=uytOd5S7nxvQrfDc9PxXqBZPkguyREFdfHpWXeT+neo=;
-	b=n4PnhmFaPnV87iLwSYlHFN/i73T+33NGH+DA2Y8anTDS0IDSPZ4AFf/XPqsuIEagnNaK
-	 FhlpXDO3xwr0KJk3u+fpBhFbNU1VuVjSpSF8jxqvvwixDF9J7ZiUekK8H9YruKf73xKRt
-	 5z9bImR+QzgqapBHp2waOKigxgAuHdB/+fS+rdlG2wo6UNauO2iJmu+41ZXGA/A5UuDWh
-	 xK0pjzfGPeSqXD5O7DfFmEo3SyTWDCTonzH9biKoLgeZseBSRolDn5J6bOcy7+a+Z+lS8
-	 VkF4BDhG21x0+beyegVcD8neHgpcQ9m3B3EqmAl/5QxyyxjbcscXQjgZFwrWiXV2TJg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665957;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=mLI4vlEwT6S7YaCRg4HD02ImP+QgcIYMVxuK/6xOYeE=;
+	b=PE6A4loVi2W9QlZAJkZg+wkakiN5Rtza9tS5qH7OCScfaNOw152iqbWraItAvDxjh68g
+	 MoyIxg7RwO7qM0I/qhEsp8dmn5TslJyyiZlaOYvEticna0SYSAeNMbri4IW3JlW87s8yE
+	 obClvMhH7uufnmZKv2jIp1FuLeksckZTAUa3YBPxD+4gn3Np2Fb5svUETQl6KQDqdLqqR
+	 o+5HhRiU1etaG/AWX8aEZmkeMJO+V8vmSwNc8wVYgpg4kSFGvQkiPu72QUawmWDcFR05r
+	 oyyxuI766pJ4t4pYjnglQs+Dd3wTzqWLKjUZUVFuJhMYac3EtlHv0qs5/e8VT0OW14g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=znPTKa0j;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHQZhDse;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAD0A606A31F;
-	Thu, 22 Oct 2026 10:46:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EAD0A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34EE7606A319;
+	Thu, 22 Oct 2026 10:45:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=znPTKa0j
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 573854E4125B;
-	Thu, 22 Oct 2026 10:46:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 284A760360;
-	Thu, 22 Oct 2026 10:46:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0417C10328E3D;
-	Thu, 22 Oct 2026 12:46:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792665967; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=uytOd5S7nxvQrfDc9PxXqBZPkguyREFdfHpWXeT+neo=;
-	b=znPTKa0ji9r2gpzA1zBt4X1noMCjJRu2rGiZZEfrJnY+MhfXEfRNJWuM6iZDg4Aol2mJG5
-	5QenYglDrfA88d47VcyVjX7bXG5tjomZvhtJLk7OAoCgJ+UMbmFxiCWYehDlXopYX+pV5p
-	twlz4wmmHQ2hSCa/C0hHcndpuJxtKU3rZculMgWu99JJvmdPJCJm+4/G5Ksc/alM9Ce1HH
-	UA0kNvNs3u+pqoi0Lz3AnRM7DX5V2MK7yGLj/2mIwrFABvNQc1EwYfzck0fbfn4jRfGPAJ
-	iB+A00oLsB59U4o+VzPJSXeQWtkE938SmMwXfquuQNtXeNAktofetqLVVg9bFw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
- <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-  Mark Brown <broonie@kernel.org>,  Richard Weinberger <richard@nod.at>,
-  Vignesh Raghavendra <vigneshr@ti.com>,  linux-spi@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-mtd@lists.infradead.org
-Subject: Re: [PATCH v1 3/4] mtd: spi-nor: debugfs: Correct DTR protocol
- names for 1S-xD-xD modes
-In-Reply-To: <20261022102614.75696-4-changhuang.liang@starfivetech.com>
-	(Changhuang Liang's message of "Thu, 22 Oct 2026 03:26:13 -0700")
-References: <20261022102614.75696-1-changhuang.liang@starfivetech.com>
-	<20261022102614.75696-4-changhuang.liang@starfivetech.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 22 Oct 2026 12:46:05 +0200
-Message-ID: <87zew6ovwy.fsf@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SHQZhDse
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60C7A1F000C1;
+	Thu, 22 Oct 2026 10:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792665956;
+	bh=mLI4vlEwT6S7YaCRg4HD02ImP+QgcIYMVxuK/6xOYeE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SHQZhDsetPxBZBByiYjZBJ+4gLVGaaWNL9UQtERiAE96Lz/7MAaIGxbylA6E47Mwe
+	 2wIj8sIBBCmjUwmXCfD8JHH5kAkngQH/YLdMpshMWIuOLl2d1aL3ft3vnpC1Xnnjsw
+	 I3xfXOBO+Z7AVBS/MciLaSXjElTa8hirHxAwMQwHH7lWklt8KRQ5tCHP5CgqNpPGQT
+	 HYiFo7TToFCxC7twfnjmRbQW183+qxZykaiy3/PsRuB489FRgUuXUa3F7UQx2ZYf8S
+	 X2beLjCSHBiYbUWFeQR3ruM0YzJ1TG597V0qded7RiXsehzECXW5AaoP4Rk+FOuz+5
+	 MsT7cVVwlQfAQ==
+Message-ID: <4b05475b-443e-49d0-9bfd-d78388246706@kernel.org>
+Date: Thu, 22 Oct 2026 12:45:50 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,28 +51,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/7] arm64: defconfig: Enable RPi touchscreen V2 regulator
+ and ILI9881C panel
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>
+References: <20261021-shikra_display_overlays-v1-0-adaea735999f@oss.qualcomm.com>
+ <20261021-shikra_display_overlays-v1-4-adaea735999f@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261021-shikra_display_overlays-v1-4-adaea735999f@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 22/10/2026 at 03:26:13 -07, Changhuang Liang <changhuang.liang@starfivetech.com> wrote:
+On 21/10/2026 16:21, Vishnu Saini wrote:
+> Enable the regulator driver for the Raspberry Pi touchscreen V2 power
+> and backlight controller, and the Ilitek ILI9881C DSI panel driver, as
+> modules, for the Raspberry Pi 7 inch DSI panel on the 22-pin JDISP1 DSI0
+> connector on Qualcomm Shikra EVK, Talos Lyra EVK boards.
 
-> The debugfs protocol names for the mixed DTR modes (1-1-1, 1-2-2,
-> 1-4-4, 1-8-8) currently print the command phase as "1D", i.e. dual
-> transfer on a single line.  That does not match the protocol
-> definition: these modes issue the opcode on a single line in single
-> data rate (S), and only the address, dummy and data phases use DTR
-> (D).  The "1D" prefix is therefore wrong.
->
-> Rename them to "1S-xD-xD" so the names reflect that the first phase
-> is single-data-rate on one line, consistent with the "8D-8D-8D"
-> naming for SNOR_PROTO_8_8_8_DTR.
->
-> This only changes the strings printed by debugfs; no functional
-> behavior is affected.
->
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
+I don't understand - next commit is saying that it is enabling this for
+"Qualcomm Shikra EVK, Talos Lyra EVK boards."
 
-That's likely correct.
+so why same work is visible twice?
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Best regards,
+Krzysztof
