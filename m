@@ -1,70 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662887;
-	b=l2SgZSVemdb1zCcGMn0dbIwa7BbT3tgTt49Bz9xs/56F1OBsseC+rIZQibEUszzZpt14
-	 /dkzXEhdFXJE1kSPYUmG5u9MrWiW+bflL+3jvb92OTfcjiocoUMAaF8omfRXWQkAdUh+Q
-	 0B0d+e8Hc1s10+onc7j3Icews0fTGxcgFtovdVtP7/zj5aZYwU+QDy9KK4cuf25thzIVi
-	 jiCrWeg8MW4Yqdm2NkLjOYavJ24TVQhy1NNkGAHmXZ/E3u6cITAV4nNYwKyRxB5Ag7m84
-	 7ZqHPT/aferCZmRfCBRPNI8AnSOO5g+p114RaTsBKxAzOrWwozzyOx3ucz+VOphRPzg==
+	t=1792662956;
+	b=A1fRWVaeErbHcRdDSACdxtyO7TIirA1RykCwSr3jyi7gR3YJKxo2txvIFLuk/XleQFxj
+	 Hpm7hQmiOS0Dn0Mkv/Y7F0NKNDs4Nj9u+4xXSN+KpbGVY68keqpkDJ1NaX7lzHT64E0eO
+	 14ynsuInh5mcNLTwDomHKJgbp99Gu6/AbxDhrYm/cpe9osBWjDg92YHEp3YLtxdanfHkB
+	 MqkF+FN2vRxE3rqH2kAi1e4BzhXmlmtzlnj17lLv2tFYJXGqfbfDmdSweZBz1STMsj+p6
+	 D/sj4waaScy9LOoyZdUF1T/XSlMa1dh/hwx8qxXWmlR/vy0Fo5XbYg4IY/rVTxQ4GWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662887;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=nHg2CtDYnhzmh3YtcQ7O4biqYpDTU6yA/OkG9YS9llE=;
-	b=mV3yr6oi4Eidk9Za2fbPAM+9ifZxxOkbvP1wjZcWHprhIbXMpR4B8YN8th4RyY4NaKQL
-	 cD0z7fE9fzp+/fpSjUhATANaPuRab/W/SVNboqh3rgedFROV9tICBfEJEPHcEpqG3f6Uq
-	 aMVjQx9l3a9Aj+iMvOQk9NL4sjtYZtOnly9ezBAfKqIrhhLjiH6eeFfSjFN+0xFYPibVF
-	 ShYrshYRlwNHO2g0Mu7+Fb0sbU/VTBdbn7eM7KVW8orbpXVTQON08xlH02JzHRihb+Vb+
-	 9dy0SAs0X76Mp8z9q9n3irrwzmTLxkEuKUCu1rBgX2/yLWgufUhKGijX7iaTy7txOUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662956;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=qaKCa+TjoD1OzgCla43bUHaZNaOHmxBbECmuWAdteZU=;
+	b=OUwhChYVm6l0F1RaGKFSKV+35kizMKdytXYJ1AV4B/W1PaW6CrsOjZ1NslSqqDq+NgXF
+	 /MohJ0fDOryt/mtYlqZh9b/Rpb0t7JPkOOsIYq879VSR9RaV4TmfvCg1RJSmZf7S9IsSi
+	 P8a2Xj880aMhGrGvoHiQUlZBlBxupDmp1qkvSk4oV3r78nMe01uy8PysquMVg2oKkyVDt
+	 VEsKF0YwgMmcw4+uz4wLV3QEwZpNnStQQKw3kDURXwxJIUjbiYzjpR3FaQEdxl2+3pXvQ
+	 oDnXw+OfgKFTze0NyWj54JHt0BHBGJPWE8e1KVjtX7uXfkUaxNHQUCpSCIg9kNFd/Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xEw5QBae;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=jkGd8yDi;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EF3B606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:54:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EF3B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6E95606A31A;
+	Thu, 22 Oct 2026 09:55:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6E95606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xEw5QBae
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 19F0B4E412AE;
-	Thu, 22 Oct 2026 09:54:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D855760360;
-	Thu, 22 Oct 2026 09:54:44 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A79B010328E3D;
-	Thu, 22 Oct 2026 11:54:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792662884; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=jkGd8yDi
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7DD1DA002E;
+	Thu, 22 Oct 2026 11:55:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1792662952; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=nHg2CtDYnhzmh3YtcQ7O4biqYpDTU6yA/OkG9YS9llE=;
-	b=xEw5QBaec+7jpKtEp6uNZOPd61u96/vZs5eY50LES0ZzRIv3effCrRi7jpQ60y/9uDMI0T
-	2O1m8m/x+X8ByJk9jlXciHOgEc9lZEnrNi8cvU89rFvadbT+uTIJnKJqpj8bsQjvljmeDy
-	g4z0NwdPafdm2BsxFiy/LxwoHsZcFSapyrh98iOAYAl5wkFmY9qmpGRVLKGYXi2Jpf6Esf
-	TvH3DMnF5vnmb9sLRu4hHBTiG7zj44Dnu02etx4zKd881fLXGvhMsRgfZAcO9NotF5dNPn
-	RNcZIVhPrwk5FzQB5dUExC0PmrnsRWNIWyiTKOp0NKGvjXyfdcbO6HUUmd0AEg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: =?utf-8?B?5b6Q5pmX57+U?= <xuhx@hust.edu.cn>
-Cc: stefan@datenfreihafen.org,  alex.aring@gmail.com,
-  linux-wpan@vger.kernel.org,  linux-kernel@vger.kernel.org
-Subject: Re: ieee802154: mcr20a/mrf24j40/at86rf230: unbind while the SPI
- completion chain is in flight operates on freed driver data
- (use-after-free, three same-shaped drivers)
-In-Reply-To: <4d2e91a4.14801.1a162d3f5d6.Coremail.xuhx@hust.edu.cn>
- (=?utf-8?B?IuW+kOaZl+e/lA==?=
-	"'s message of "Thu, 22 Oct 2026 16:57:00 +0800 (GMT+08:00)")
-References: <4d2e91a4.14801.1a162d3f5d6.Coremail.xuhx@hust.edu.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 22 Oct 2026 11:54:40 +0200
-Message-ID: <87se1yqcv3.fsf@bootlin.com>
+	bh=qaKCa+TjoD1OzgCla43bUHaZNaOHmxBbECmuWAdteZU=;
+	b=jkGd8yDibczG1IzorFlU0eIzFeR7ouTn8kpjRjh7Z8+AH6tILxsPy7X8E6zi1qSBFO3315
+	jQlgC/jX1h+tP+NaF80fxQlpB8233HvEKYYKL800t+7a4eKgLcXQR2u8HzuPl1gDTMsHzz
+	SbuOVUx5ThCI120xgTHKGO+alPwUBXrcwj2lJh6sPxzUTMuQ34ZbLN+XkJgYdC4lOKq9On
+	S/X935HMwWM3CjrtsQS+LxSbro1EOAqgNMuJDxX+kLIiGC2r1HZhdit+DfyxjJ4QQM3z2w
+	nRmDL/QS1EoyeIDeuP/hln1d3WluMMJ2ILpq7LHM2WnI1LG3GqhAoy9hyZs7Ww==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,32 +53,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 11:55:49 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Steffen Dirkwinkel <lists@steffen.cc>
+Cc: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, Conor Dooley
+ <conor.dooley@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, Kevin Hao <haokexin@gmail.com>, Sebastian Andrzej
+ Siewior <bigeasy@linutronix.de>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, Christian Taedcke
+ <christian.taedcke@weidmueller.com>, Andrea della Porta
+ <andrea.porta@suse.com>, stable@vger.kernel.org, Steffen Dirkwinkel
+ <s.dirkwinkel@beckhoff.com>
+Subject: Re: [PATCH RFC net 0/6] net: macb: fix TX stalls, IRQ storms and a
+ lost NCR update on link-up
+In-Reply-To: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+References: <20261022-std-macb-v14-send-v1-0-9187bc545bf6@beckhoff.com>
+Message-ID: <21335ef00521312c158b0a71bf8ef08d@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Hi Steffen
 
-On 22/10/2026 at 16:57:00 +08, =E5=BE=90=E6=99=97=E7=BF=94 <xuhx@hust.edu.c=
-n> wrote:
+On 22.10.2026 11:38, Steffen Dirkwinkel wrote:
+> Hello Théo, Christian, all,
+> 
+> I've been looking at RCU and TX stalls on macb devices (Xilinx ZynqMP 
+> on
+> Beckhoff CX9240) for a while and have been carrying downstream patches
+> similar to Christian's. A while ago I let Claude try to reproduce this 
+> on my
+> devices, it was able to reproduce and found some fixes but I wasn't
+> happy with the quality of the patches and my understanding of them. I
+> briefly talked to Théo in Prague and he suggested I send what I have as
+> either the patches or the reproducers may be useful for ideas.
+> I've finally gotten around to it and also ran some more testing and 
+> improved
+> the patches in the meantime. The series includes Christian's patches in 
+> the
+> original form (should also at least be reworded) and I also have Patch 
+> 1 in here
+> since the bench seems to have reproduced the issue on hardware (see 
+> below).
+> 
+> If anyone has other ideas / patches for these issues I'm also happy to
+> run tests on devices.
 
-> Unbinding (or rmmod-ing, or hot-unplugging) any of the three in-tree
-> ieee802154 SPI transceiver drivers while their IRQ-driven completion
-> chain is in flight leaves the chain running on freed memory: the async
-> SPI messages and their completion context are owned by the controller
-> queue, but the callbacks only hold bare pointers to the driver private
-> data and regmap, so after remove() frees the private data (and devres
-> later frees the regmap), the still-queued chain steps read and write
-> freed memory and even derive new spi_async() submissions from the freed
-> spi_device -- a use-after-free family confirmed with KASAN on mainline
-> 7.3 (42 reports in one unbind, three-stack closure probe/unbind/kworker;
-> clean unbind when the chain happens to be idle).
+Thanks for posting this RFC. I will go later through the details, but 
+wanted to let you
+know that I'm also investigating the macb watchdog issue on RPi RP1 [1].
 
-This is indeed possible, even though not a huge deal since SPI devices
-are by nature not hot-pluggable and the two other operations require
-to be root.
+Yesterday Théo also shared some findings in the thread.
 
-You can send patches if you want to see these fixed.
+Three things from that work which touch your series:
+
+- Patch 3 changes the IER write in macb_tx_poll() that I need a readl 
+after. The write
+   is posted, a TCOMP landing between the ring check and the write 
+reaching the MAC is
+   lost. That seems to be the RP1 stall, masking TXUBR does not change 
+it.
+   The two patches need ordering.
+
+- The watchdog only recovers a lost TSTART. With a missed completion 
+TBQP == tx_head and
+   macb_tx_restart() does nothing, the queue never comes back. I have a 
+patch that
+   schedules TX NAPI from macb_tx_timeout() when the tail descriptor has 
+TX_USED set.
+
+- RP1 has a single TX queue, so the starvation from patch 6 is not what 
+we see.
+
+I can run the series on an RP1 board with my reproducer if that helps.
+
+[1] 
+https://github.com/raspberrypi/linux/issues/7661#issuecomment-6322904343
+
+> [...]
 
 Thanks,
-Miqu=C3=A8l
+Nicolai
