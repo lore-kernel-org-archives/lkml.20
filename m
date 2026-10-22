@@ -1,79 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792687600;
-	b=W62rryGh52R9tLThJZ3c4L3B2hWIhKvckXLP/q+I4sCwyTtpV7sFbRrbfM3n7BB+qwLh
-	 rx7xc1x5k1i137B7N3lPFhVd9sAUl9XPGcT6zyRhspCGW4q9Z9FK9RVIjEZ8N+BtlD3fW
-	 OoypwOQMojIVZOA9mOslNc5LIEBCp7NYdZy1tbNqJM+UT6cJdRsuJb2mNuK/uc6llCICX
-	 hMI9BBlDLygKpwMBmnkveMIU6+jiiPynN8hqElUmMAplKXrKRDJdSeBGYE3RqAmum6Sds
-	 miWrcEhddrErj/L90jOf/kEsBqy4Wy+96I/c7sqc73QsNu3OVWiyojtr6gYbKxpNLFg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687600;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=VvpB1tM48A+liP8mzjt8BtWT/WMCCLO82+YYkxT8nvc=;
-	b=OKq5bqJtHLfiJ3QJoxuU9DpCzvHmMD+D5N2o/iCbQHHMvc6OkkXGptOpGLwTu3TBXbv8
-	 CxvgxWW9TuYLOdMZNeayUkV5LF4xEXnCtRwzcpUzfoEUR9cNbJscUrwE0lNw61ej9+4Ig
-	 DUgSFEb7HJiaZe6yYjIxRmqL9euueXCHM/RnF/q8IwoZe8s1SNX22N2OsfoGJZnKWOTRK
-	 +NuW49HzMu/CLEhG0Cau6f3glX1EmkCVbnWzM+Zp8UhXVgii88KiI67qScoiIUJrh0A9B
-	 J2erDtUaE1CdQU8/4NhFKkog1O6qcDgfL/kR+WarzJVeiWc3J4UVoH9xpklU4x1C+tg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbOhdxIe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52832606A332;
-	Thu, 22 Oct 2026 16:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbOhdxIe
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792687599;
-	b=2y+Wk8A4WlWscYoJu+mTGY1nAyZ5+dw8L+IqgiMgARBs5tcalNsi85fcQGPZGYitm2pp
-	 D4DHiZ4O5IN3cTQrMVIWtx2v1Kg8DqhBbAPXGTvczdZ6fHI2uPaF3Njd0jCpMD2Sx9/he
-	 W78v039lIHYX43AZ5oSnTuEOutta1TPb1oDhN2NfKYSr5nti7WMsHRzMhX+9v3cDcI7y6
-	 vp97afP7RD4uCdGswzi920IRy6tPwZhiiMao1GJwBTotbI0iiGYkE3rKP9zG9x9Cf6a2J
-	 WFL+I599Yg5rhgivDE81EEBaqUs1VKp4xq1267GHcOn6fWJnFNWwSgfJvR0uQ6z5ICw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792687599;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=VvpB1tM48A+liP8mzjt8BtWT/WMCCLO82+YYkxT8nvc=;
-	b=wbY0dNG62vTrHqXrx3UglHHMsqAtViUr8pEpA5eotwgE/+q2QRPPTlYcBU64RcsagjdZ
-	 JJArWUCfYiGSA0lm0HnkCMEQBP2vrL7P6i5o2wC4P8EDKRa74lkWp80HzDRNSGwbLPoOb
-	 /hIAA/Ev0tEhxn8fUVXCCkRu3qOkd+2Di8LLaTOXU9k/vulaCPWaUqoaqKGQi8Rk7jVeE
-	 pJhf2BjKRytnAjY8/rPYas0MhQxkFTZGsKspbXOTLZvomvZ04m01TTePOXzBQHcyBBs3m
-	 C5JHccqyK5kLi86rGMeE5LolvCvvdpMW2ysEjj2P5knuFKz6fhGyU3HSJ9RIfENBmng==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792687810;
+	b=p0UNy0CMa0iTLvPZ6UgcwJoBnzPwK0bn4BzVmtmUgXIFxh06ujxu23w21Gjg1zh6wIeP
+	 R19C49FM7X66xrtgD1Wg2+pAqgHEBAJJ5zTKYP8aiyh8/4NonEuOt2IkEuTPo0f4LGG2F
+	 FeBdtubelkiRsLp4kTJMe2LcOlHcPscFNQTptB6XUO0CS4m93mw4TIVCI3C+5kec52psn
+	 DC+tm5LobTnS+z2HkIkzKJk64WZJMcKp2nzPVqIaLguhjEY2KENfjDcYc3/o5w2feXxnu
+	 3e623HvltpfnXoNbdlTPeKbnxO7qaiod9ncJKfjxCIAmM8L3mhrwbCiCXzAlnyk8tqA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687810;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=DYshgIa6KnBet2+0IXua2x2TyzIJmXFM77y+p9+FuZQ=;
+	b=Vk10zpAmcf/18QJDNXE848aNBYk5MjaRAlbFgg8AFM5/lzdcQL6ZPkR532ndx7hQN1Yo
+	 OK+1Pm4S649uHmo50kKrbNWGsraUW/kuU66FRt0B6NOBZT2+VRzlgkxrESGNIXjSzjIQ7
+	 VTlg8gWErZCOVLphjn2sEc5iCPhQSATDLA38MwtSFKlWc9Nl6knB4z7qr6uZrZFRH512W
+	 4eE1C8TGJ3wXBxJ5WyvPb1jlWxUqOAc/yoUH1pd7rQjZo+3JP8RXkc1D0NWaDlZGfeSW4
+	 tsxBOs7KNjAeC8qpCOoKtpRkwNp4qwiWzxdEeYTOb56ty7F1k5FqsmtsPuxsf9AJZag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="nus/qRN7";
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9AB1D1F01829;
-	Thu, 22 Oct 2026 16:46:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792687599;
-	bh=VvpB1tM48A+liP8mzjt8BtWT/WMCCLO82+YYkxT8nvc=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=IbOhdxIeoYiTur9d8wLjrXRyNNq0SFkMet8Npxu/1fww9/0i0uj6qXa+8Qj4ewyL3
-	 Y7DDdNNCLAbSNq1CXy4cyllCBWtC4xjkBblmhAHokcC/HuqpNTji2Dc70LOlQFqGW4
-	 sVb/KqJiWpeknjns3Cm2UJXQcm0ZI0MW3SWw6y8+bMC9mZI1+6LQSXKcpZ0XFTvtyI
-	 HsMx1t3Iw0jUnIiDqpbmfMF1nTXShDoPjx8ZVBLRIr+jxyBbMZxeZTga5vZ6sLRm+w
-	 mFqeyrAOK4TmK6ONzaea12cLPTZhS8Uma0HIITYFPh16GVZ4SaIZNBncKk0tG57u8L
-	 YGIDMjBRi6dSQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E8F9441E73;
-	Thu, 22 Oct 2026 16:46:37 +0000 (UTC)
-From: Aiden Isik via B4 Relay <devnull+aidenisik.member.fsf.org@kernel.org>
-Subject: [PATCH 0/2] Add Exynos5515 USB PHY support
-Date: Thu, 22 Oct 2026 17:46:35 +0100
-Message-Id: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 387E5606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:50:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 387E5606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=nus/qRN7
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so11658a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:50:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792687809; x=1793292609; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DYshgIa6KnBet2+0IXua2x2TyzIJmXFM77y+p9+FuZQ=;
+        b=nus/qRN7Tkld78bj3tzJ6Nx4QFUDBHzOCLPO/PimuYIVcI7+dVmbPTw7K9WR+Jsww3
+         o7DIsENk8rW7Peienxm8dB/tzVLd5Vum320SXU7uJN8ykGHXnF6A9vM9/seZ5upCMI77
+         m+VXwJstz78OED2Wq1Yq4JlRUMInBKRz9RzW5nBLHcFqSuJqLV2cFs2/QOiQkG6p9/w3
+         RHBT88gK6TMEWYhIwnZGHIO7vBEzyJLuknEwElthdRTi4tTPLnmv2Tk7JZaaGmpQKk1V
+         TDX91oF8kDMwXi1IIH+Kivp5fBeXZCzYQqAmPkLrj3yLFa1Mfm/+nqPlefMpKcovBv54
+         qb3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792687809; x=1793292609;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DYshgIa6KnBet2+0IXua2x2TyzIJmXFM77y+p9+FuZQ=;
+        b=no82r7mQ5OWxkD9OzS8K7B7CCIqdF8IyOOLs/gkrsVSmURk+BoBkxDdVWAGphuQdhK
+         mcCDekFDN2UlFesPz6S08zu1SD6P1vj0UCg8hMuI5kktW8bUB8kMOjMEBTqLhzQzdWAH
+         EdHZ5xClhW2ODo6nM4is4xcdsbw4A4kPu5Uz7M/PCLNtwUcY4qjBnvB9RGIBv5bmCclB
+         thaKIizqYFUM7hFcM0//IvrN0RwPPaSonVqQbuQbPZETwP9FyUBD+skhGL07LHnmWyAS
+         WvofsFvCQyl1QGElxBWXomrmi4UwA2Nnr3Iud0qUsJoIbQ1p9lWGx0FSsyjuPyOnTm6h
+         f5dQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw74IyRR7Sfm3LBlNzfdlWDXTdjloCsWIZkm3rQEDiPDs9pcfJRStzdvoa8kfTLrmeGOkj+vq8TjvkGgzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJxFqHCzMF9iPtqz+yHXpEVMifYhSSOsofT//brordvPkIh1uZ
+	B28SnFIbL31untpYWuEpaUBpSRkw4CqVMZEwL1fTF2ybagDwGOmoiIj3
+X-Gm-Gg: AYBFou2E2KL1nAu8BCDiUtiYVad3zRdFFxaHSyl4ZGzg4y/vPf5simi1a34EX63msn4
+	BUq3DyOs5vUuD4ZkWTzmNTDq8D8xb4Gta78txe3O4iDfH+r7Hzb/U82a9NOJO3q1YJhacbKBl6q
+	Ulr0PDWGdYBmRRG+NdcV8SmyH/BGaTQFtaXtblFxR0ynNL0yjdyG6vkfscAhNI9VrYN+RKpFCvm
+	FCvn5dD9wyNjW5ko8eEQjJuT2l2JvL1FGeCx3VYsdPOSm65luSq7B7LyqOMkK6BbB99t6VlomNX
+	Tewxhy2vfXrSLyVyd5acdJHqd4H5lCGDmEb8GLa/1Z59rR5SulFQmlnSHDNayjEcujIRED7cLyz
+	nlmWZEvms6u64d+BfeNnRSTgwXl+JNuft/cNgl8Kta8ZgAxqBLiRHbsh4Okf38QAzZQgCB5t+06
+	BqdZHx1janL/s+UmjF4cGenCu6Lvrk9JHK5kpP90TkkN/kWjyAROemgGUbdxBq4HRN9B66lEVTm
+	/avkxMhgpWZX4JaqRQoYuVd5mMmIU9EZLJEbCYFhEXL3uBM3jN6eELFI8SflBUr1YHYavbG
+X-Received: by 2002:a17:90b:4d06:b0:3ac:9e76:aa93 with SMTP id 98e67ed59e1d1-3ad86dbc0c6mr4089294a91.7.1792687809336;
+        Thu, 22 Oct 2026 09:50:09 -0700 (PDT)
+Received: from DESKTOP-NM9EKIA ([125.134.240.130])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48bb3b6sm5160804a91.13.2026.10.22.09.50.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:50:07 -0700 (PDT)
+From: Joonhoe Kim <26rote@gmail.com>
+To: mani@kernel.org,
+	mkp@kernel.org
+Cc: James.Bottomley@HansenPartnership.com,
+	bvanassche@acm.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] scsi: ufs: qcom: Reprogram ESI after a host controller reset
+Date: Fri, 23 Oct 2026 01:50:06 +0900
+Message-ID: <20261022165006.1275-1-26rote@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,93 +97,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAOs92moC/yXMQQ6CMBBA0auQWTsJTAhFr2Jc2DKFUVNIhxoI4
- e5WWL7F/xsoR2GFW7FB5K+ojCGjuhTghmfoGaXLBiqpqUoi9GPEwMuMn+Teq8GkFqdhRWOori1
- 5d20Zcj1F9rIc5/vjtCb7Yjf/d7DvP+kvrUl7AAAA
-X-Change-ID: 20261022-for-next-lucky7-usb-phy-77244b2fc98e
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
- Aiden Isik <aidenisik@member.fsf.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1831;
- i=aidenisik@member.fsf.org; h=from:subject:message-id;
- bh=me8mjqkDEH3k+r4GPGLnzrCNkQZFbNxiQ3wp8aaLBNU=;
- b=owEBiQJ2/ZANAwAIAUknAbLEetfrAcsmYgBq2j3s5XBlupmzJ4a/zgSIyMg+7QLmOCmMMMq4H
- 3sVdzbgdE+JAk8EAAEIADkWIQSDy8UkXGpc3JNbEaVJJwGyxHrX6wUCato97BsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQSScBssR61+sJbBAAytJ84YhHRR+XnuUu8QYoumKEKfprYYg
- Hu7gNBMqyPPPHZOWq0yopgsvDpLJnyL97ZhTkLK4OgNKhcugsq+Di+lbsY1wk9koHodBB+db4oP
- yi7S+wwCkhx7PbKzcjJXPUvmlSdzl0uXnobwKUVPMCXj5oh2OlWNrwC6ropbfeNL+726eRAs9qZ
- 9snYCyTj0W40RWvsc52Ye7x8aq3ath/iuJZwJMVk4JV7rnN7z2L4mKEu3sHHhfrymAi9EtxR6S/
- tFk6lmv8gESSH65GXAvTPru8modWt3P5fwD/RpIDITiJe2gIppo9qrDuYTzBNaZtHHkqpMHWLCt
- grFKLjfJ2JV+fENCrKd97EiH8qOZ4//rcUV29mMBnaKr0MvmYuj/ZO+JYFlfPnIWeFMxTIbFIvo
- 1GvJveA7UxEwWiiOB8ORN+jndCA7tN317WgX6FotzhLtR4Lw6zS+hcvWmYTQrHR4/iOc/os1vjn
- Q9U5NTQF/78j/MtfGUzJ4l5ZVCrwSmPxhGOHzrcQGed16K2t72oumof33ZaxrGamJSNXk7vpVjJ
- dVFv8/SfR1te3m/6ldQBsaIFt0j1bz3uuQSUbnJo+Nph6bB8UxgdZPHBpB4uqwhG2+yajdXALfN
- pLZjQS9P/GcCAW2U1HxJKsHDiczkCn8MgYw+WB9ZY3zE2traehEY=
-X-Developer-Key: i=aidenisik@member.fsf.org; a=openpgp;
- fpr=83CBC5245C6A5CDC935B11A5492701B2C47AD7EB
-X-Endpoint-Received: by B4 Relay for aidenisik@member.fsf.org/default with
- auth_id=956
-X-Original-From: Aiden Isik <aidenisik@member.fsf.org>
-Reply-To: aidenisik@member.fsf.org
+Content-Transfer-Encoding: 8bit
 
-Hi there,
+ufs_qcom_config_esi() returns early once the ESI interrupts are set up.
+ufshcd_config_mcq() also calls it after every host controller reset,
+which clears the ESI base address, the vector mask and ESI enable. After
+the error handler has reset the controller, the completions then arrive
+only on the legacy interrupt while mcq_esi_enabled stays set.
 
-This patchset adds support for the Exynos5515 USB PHY.
+Allocate the MSIs and request their interrupts only once, but program
+the ESI registers on every call. The MSI message is not cached for
+platform MSIs, so keep the one written at allocation.
 
-The PHY supports High-Speed (UTMI+), and also appears to support
-Super-Speed (PIPE3) USB according to Samsung's own code to drive this PHY.
-However, none of the Exynos5515 hardware which I am aware of actually
-supports Super-Speed, therefore I am unable to test that part, hence PIPE3
-support being omitted.
-
-This patchset was tested on a Samsung Galaxy Watch FE using the USB serial
-gadget.
-
-This patchset also depends on [1], due to using an
-exynos5_usbdrd_phy_drvdata member (.n_phy_cfg) which was introduced to fix
-an out-of-bounds access bug.
-
-It also depends on [2] and [3] in that they are the clock and pinctrl
-drivers for Exynos5515, and without them this driver cannot talk to the
-PHY. It does however build without them. [2] should be close to being
-merged into Torvalds' tree, and [3] was just submitted by myself a few
-days ago.
-
-[1] - https://lore.kernel.org/all/20261020063559.3530901-1-selvarasu.g@samsung.com/
-[2] - https://lore.kernel.org/all/20260818-for-next-lucky7-clock-v2-0-cda0cc80f158@member.fsf.org/
-[3] - https://lore.kernel.org/all/20261020-for-next-lucky7-pinctrl-v2-0-b6b0e6065452@member.fsf.org/
-
-Kind regards,
-- Aiden Isik
-
-Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+Fixes: 519b6274a777 ("scsi: ufs: qcom: Add MCQ ESI config vendor specific ops")
+Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 ---
-Aiden Isik (2):
-      dt-bindings: phy: samsung,usb3-drd-phy: Add Exynos5515 compatible
-      phy: exynos5-usbdrd: Add support for the Exynos5515 usbdrd phy
+Tested on a Lenovo Y700 Gen 5 (TB323FU, Kaanapali; out-of-tree board
+support) on v7.3-rc4 with commit b52d695d0620 ("scsi: ufs: core: Keep
+internal commands dispatchable during error handling") applied, forcing
+a full reset through the debugfs saved_err file: before,
+REG_UFS_MEM_CFG, ESILBA and ESIUBA read 0 after the reset and all
+completions came on the legacy interrupt; with this patch they come on
+the ESI interrupts again.
 
- .../bindings/phy/samsung,usb3-drd-phy.yaml         |  2 +
- drivers/phy/samsung/phy-exynos5-usbdrd.c           | 43 ++++++++++++++++++++++
- 2 files changed, 45 insertions(+)
----
-base-commit: 5260a8a68459dd67262970d38f1b2496f0cad371
-change-id: 20261022-for-next-lucky7-usb-phy-77244b2fc98e
+ drivers/ufs/host/ufs-qcom.c | 12 +++++++++---
+ drivers/ufs/host/ufs-qcom.h |  2 ++
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-Best regards,
---  
-Aiden Isik <aidenisik@member.fsf.org>
+diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+index fee9b54ba5e1..ea2a106cbe26 100644
+--- a/drivers/ufs/host/ufs-qcom.c
++++ b/drivers/ufs/host/ufs-qcom.c
+@@ -2414,7 +2414,9 @@ static void ufs_qcom_write_msi_msg(struct msi_desc *desc, struct msi_msg *msg)
+ {
+ 	struct device *dev = msi_desc_to_dev(desc);
+ 	struct ufs_hba *hba = dev_get_drvdata(dev);
++	struct ufs_qcom_host *host = ufshcd_get_variant(hba);
+ 
++	host->esi_msg = *msg;
+ 	ufshcd_mcq_config_esi(hba, msg);
+ }
+ 
+@@ -2442,8 +2444,10 @@ static int ufs_qcom_config_esi(struct ufs_hba *hba)
+ 	struct ufs_qcom_irq *qi;
+ 	int nr_irqs, ret;
+ 
+-	if (host->esi_enabled)
+-		return 0;
++	if (host->esi_enabled) {
++		ufshcd_mcq_config_esi(hba, &host->esi_msg);
++		goto enable;
++	}
+ 
+ 	/*
+ 	 * 1. We only handle CQs as of now.
+@@ -2481,12 +2485,14 @@ static int ufs_qcom_config_esi(struct ufs_hba *hba)
+ 		}
+ 	}
+ 
++	host->esi_enabled = true;
++
++enable:
+ 	if (host->hw_ver.major >= 6) {
+ 		ufshcd_rmwl(hba, ESI_VEC_MASK, FIELD_PREP(ESI_VEC_MASK, MAX_ESI_VEC - 1),
+ 			    REG_UFS_CFG3);
+ 	}
+ 	ufshcd_mcq_enable_esi(hba);
+-	host->esi_enabled = true;
+ 	return 0;
+ }
+ 
+diff --git a/drivers/ufs/host/ufs-qcom.h b/drivers/ufs/host/ufs-qcom.h
+index 944b2e532a09..d2647695abe3 100644
+--- a/drivers/ufs/host/ufs-qcom.h
++++ b/drivers/ufs/host/ufs-qcom.h
+@@ -5,6 +5,7 @@
+ #ifndef UFS_QCOM_H_
+ #define UFS_QCOM_H_
+ 
++#include <linux/msi.h>
+ #include <linux/reset-controller.h>
+ #include <linux/reset.h>
+ #include <soc/qcom/ice.h>
+@@ -360,6 +361,7 @@ struct ufs_qcom_host {
+ 	u32 phy_gear;
+ 
+ 	bool esi_enabled;
++	struct msi_msg esi_msg;
+ 
+ 	u32 saved_tx_eq_g1_setting;
+ 	u32 boot_spare_cfg;
 
+base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
+-- 
+2.43.0
 
