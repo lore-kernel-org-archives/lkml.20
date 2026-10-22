@@ -1,97 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691353;
-	b=YsGuIXavFJ0dWD+eZCXX0rpZAUfm4s9KOCGii31Bj8OWhoazVuveJ88357E6s48yi5bd
-	 CSZhMVZ2sTZsWr0NSCwzu4badzE/BbD6qBbyt0yyxn5fIFyPwPUvsCCf5UeFH3prU0Ol3
-	 k36+gvgq/jS0xjVH7ItiPPeDFcHGfdYhxzUfmFt9tJPWr+ZHQBa3FF21ginqJuionXEXx
-	 ONDRNcYnjwI3IbJcIXqyzJeLjhUfav9QlAEovwPbSmkkyUl2ywepZhUvv2y13tetk1bsi
-	 ilXnLRXeBKCj5pzPPsiPvdRDOm8oGbv8L0SSLCKyllngyDEyvGp+kc7gtD6YLsh2X5g==
+	t=1792691377;
+	b=5ZzOWzhIV7g45jXeshN2+vwUz7IAhJzSEdWl9H0hIfwDSNtF2/ZlrAYsom/HtyJnGf5X
+	 e0Xj9WNB5LCufm7+jZ+RyJraVa+sV2fYqWeSNDjc2pASh9FpaFe47kto9HyLask05J2hO
+	 7goiQxhEDQGgP8eQU2Yk06dhmZnxPepFywII/MpZfBQeYNGb8dwmLGFy0qUmBPvRnVeVA
+	 zWVNSCV/ops4TOGI3Pj0uUxUj0ypcd+uyQ4eRLiVmRKyVd2ip6ZX9ZKFp0lkIPkDC5V5m
+	 VwhBwsVM0kk4YR0FnqcdMJA/IgTPy9qa7WKFHMjn7Ba/9bbn7coROFKx+3PMFyTSXIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691353;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=f0ZLBISeyce6U7/hTVm4ywHVaFNN2V0ZlhVxxqx6eaw=;
-	b=yAyLJA3zdKtRY7TsMaQTWXVnlfTOSTzgfV+ksP9OeouPprVbLYzqz8aOBFaoYfeov1wk
-	 SsrTnFOpKG7R9EWimOuiSSF/yPiGr9n7sP9BVUQGnmYSWOo/6/iHGscd++DJEla/jB0Lb
-	 DE3em20HpOZC0WN3bUSsP1ej1lpE0N2leqV8hj1tKaPkzHE0QIHIwLirLfTnzc0c/UBYV
-	 eSPw/k3w1AX9hiWP2OpFc36NdL2RB6I4HcSEXap6agNKTyOZGR6I5PIOn5ydLC1a0bQuz
-	 PBVRdZAqIoM1hTGOuQBGC9lF9r7P3Q7htkEzrXLEu1BqxqTF1TJ5PTQHl+aOCpJO2xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691377;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HmShLIi0Try9xlFwdP7Bt6IdYlCRVmbmMWtY33HkzA4=;
+	b=wwT2tyyrIYyZ2EeoX2EfQaaB5Gg9YTncFRdmaGEmeYNSKLsibOidF6MIbke8Us3sPkKr
+	 XALBTMxQA5z94m8Q7KlDUKj9j2FUK8pDnexlokcWnsHdCDgZEnOw+9pPuqqPnBtrVqFAX
+	 oglJXV4wHFrGFBWOGE9YhCMUzZOxjNBzokvGPyWe+b7yB7NS4yfDv6grBLnpSXiuD1iyL
+	 YOog77xcFoIdHOdD5A8a8+4zsbjGg/6t70vW7UM1qd2wDTkDI4Q1xAeopYOOdMgxpLtYe
+	 wi9V0clEiOh0CohZ3pj/Yf+EyhiL2Z8FFdpkAyVAv0F6EfSkh9LsU2DcMVgLFzqQLZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=linux.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BzfT9vcQ;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D5D606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:49:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41D5D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4745606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:49:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4745606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BzfT9vcQ
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e98798cbddso105345ad.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792691353; x=1793296153; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f0ZLBISeyce6U7/hTVm4ywHVaFNN2V0ZlhVxxqx6eaw=;
-        b=BzfT9vcQo0dX9K6hykJfFHWOLKclttgOrxAGaeJvwHPh40AsSaB2+B6F9Pxqkm7hb8
-         YF/EKuS3WzwcPYEUI8mQTzKQe57H7DY2pRVx9fKu2nFT96xhQgLhXITu7gs0lhAsElfh
-         uATNeLWjFzfIEHZiN6z89LhNyNM39SBZCGe3mpU2mHEuJBeqdt5Q6CWVotqLk2Sdyw29
-         o6+Vuz73ku9T1FK0v1w02r2HKp5n2hEk0T404r5gRbt4CykpuinAHNPT1HaWYCjfO8OT
-         LTLvQHdDMTG30GSCGhC2peA8PWMd3dWf4DPJopyezHSD4rzWwsCcE4QjbbcwLTWAnQfe
-         eHOg==
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a1e266fca2so532085e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:49:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792691353; x=1793296153;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792691374; x=1793296174;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=f0ZLBISeyce6U7/hTVm4ywHVaFNN2V0ZlhVxxqx6eaw=;
-        b=qTIsMCM81+TQQoK7V5eJob4OWpkIsZiieJVaTy3BQrnS0QgiYETNMEAQ1B4lHn75+p
-         KJKe7/qNpjhEccYEKOVfuLR8Xs8JXHOrCuOjnIYx6ZZZ+cmuA8Yd8f5Yt/LT0GPmDKNu
-         JgY6SXELokayxEW/SGxsqvts9SGiJotGsVFG9SmcfVqqpSQCvO1lOzFttdBNoB2LwCxC
-         JD1qnHY42t+3X0qDtU/5EaDu4zOVWDYsp7gOh2in+UskFBBDPUlUQ+4JxUGRklts0K0Z
-         t7n7ExntRG9hnqLir0/zbP64w4CqG5Ipiwxb49bfV5z5vDAhjpS16C6cw/M+2dS3kLsF
-         WGcg==
-X-Forwarded-Encrypted: i=1; AKwUvBxzes+G1da5hnIuFYaWjItjwgVef2jJ3VDHqaU/mIuLWVgn85LvIz8My9Hm+ojW9kmvCki05u/e3TFFy2Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGUVSH/Q6GImAjR8fMgsSgZXSxL6f5O9JqoUqaI7vxQNIZJ/6G
-	JXsxxYitaz0dMGdJuHwlbfnq3p+8U6qiVsABJRcPszbgq8cHh5c9scND
-X-Gm-Gg: AYBFou2SIRH8bvvH/N3nPkgcvQDXCbO10CrTc2NtCL7rirCvR8ceTvA1t93KwOCSOG+
-	iUrBj33Q27pv94Tfg6OR3cf81HIdE4RlCzL5rspuwjw61jdCNSLeXkEoFETWefsEHw4BCZKGnz2
-	x9CFqZeLrU4/zF3BqcRuzTVHXhKQOGYe0+qM/QoLaQpKe5eICgAc5jjdCUcR/9h0hk80NNCRRZ0
-	+dQtrqWN3sj5tQxZjcrT5u2U/tWw8QVm5XtzIZfOnry3DGDG8hUJLngLXdhTXo21jNYbJ7PI/vr
-	wc2o3rrqs1M05Dc2VuI5i1qo/NXLYFqLHp4qudUPiBMRfohUIa+ES+IVcZ0rGK6n6gNZMj+NN1R
-	KTKErchtot99CbDUHuawMYf5uQ7SX5yGOAwcKnBsMRquNhIPezPDbGCl3XNGIrCajJVNOAqIo2J
-	fEb+GuVVZ8L2T5qFiNEv0jcxDpwIGhjjknMPa3Rk2c31j17Vq2Xoo/9nvS0Qv2RnlZPg0J/y0LB
-	gS601PxL9nGGG+dwwtk1gTDP7FuCZqpXlUFz2wEVJCQCb2y8G4ypL4WmIlUDmbDNLJA8U803+Zx
-	yQKjaqV+7sLIi+MRRMcytnR3uOIFunmesPgoBq8YAOazb/Tu90Ekb9IZdmMZ96rYYCwD7bAXnxd
-	6hRof+f3x8Cg=
-X-Received: by 2002:a17:903:2f8f:b0:2db:733c:fd1f with SMTP id d9443c01a7336-2ea7c169201mr1589395ad.8.1792691352522;
-        Thu, 22 Oct 2026 10:49:12 -0700 (PDT)
-Received: from test.. ([118.68.116.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7af67e12sm1722565ad.10.2026.10.22.10.49.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:49:12 -0700 (PDT)
-From: Duc Anh Luu <luuducanh05051995@gmail.com>
-To: pablo@netfilter.org,
-	fw@strlen.de
-Cc: netfilter-devel@vger.kernel.org,
-	phil@nwl.cc,
-	coreteam@netfilter.org,
-	eric.sesterhenn@x41-dsec.de,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Duc Anh Luu <luuducanh05051995@gmail.com>
-Subject: [PATCH] netfilter: nf_conntrack_h323: fix out-of-bounds read in get_bitmap()
-Date: Fri, 23 Oct 2026 00:48:55 +0700
-Message-ID: <20261022174855.615855-1-luuducanh05051995@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=HmShLIi0Try9xlFwdP7Bt6IdYlCRVmbmMWtY33HkzA4=;
+        b=0kEND2xf3fBy1KJqmJVDswWYa9ne+xTAHgwzJwiaTBM1RPiVkbi5NpkqgMmVMTDirH
+         1ychTUA0XbQrHKj0KFydqlIyCEKKBsT7GUdj688usg8ta3HW0b5LrHUW40M/LKmalEeC
+         Y1lTAX63iLUNGD/ZgT5rOpZp0umuFFEdEQzJZl6y/dnK6DS4zT0XxUT5P2talVcQQnEr
+         PST5eTK91SvpgLxlZkXbpCdi7rziqyTDPs7hhvzsZKA2UMr6AxqrmlKtj0DvB8gT4r2O
+         WDEuvTs+yfU6JHW2HF0SEHq3W4jkXAzEBbLIOOrPKkaelIofp0OSUvg7O1Qc0P5mMzCJ
+         G6Ww==
+X-Forwarded-Encrypted: i=1; AKwUvBx9CTnMLhEpwDHzoyPLOD0uZQjMewVFYWwDypiK0pPgUtIgHccXVjmBDXDwaiVGLF3YSNVBzTzJrP4EoyU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLn+LOCZGI1e8faByq7WFWFRqQl+K9HGHO4WDKWmbHdqATa2eGJ
+	cA/QhI7ivHIOb3XGyqFGS+YA+Zm5W8Bnk4MWKdFpSMSTzoAHeAI3Vajv
+X-Gm-Gg: AYBFou1BHZUhcU+IdNgW8kepkt8O1QAUh3f1Lunj/ki0C2GL59a5dlwdeLVwqkviQTA
+	SrBb3XMnpCP54EVLnzXF1xtXqmeOQbAXlQNBGqTjLuU6K3FUaG2OW4XIvYKdxSjQkpUOtRe3V5b
+	IIqRxqv+45t5XJlOxJ3g16MyaqGcpETJbEq7v7iT41YMouT3ltxWsIilRTQyvuSogSgwAxg7B9P
+	R90rsNOAopN1aXcc9HRxcHesiqXnDl4EMoKiqWI2MX5ncJ6AWu4eSXEV+8bL5IgvLEn67E5xHfV
+	9sTPMDdGi+OSOik+BzDBONchFJb9KpUvlgUxXWSIuID3Pix4+Hp9Ehx3q/5suDMQ8C742ZZ5wCG
+	NxQq5pDuCRYgCrM6t7JcYLapiUs9NtSdX9Y6lrwNZ4KsIGOQ8G1RElxl3q5MAvjO2vROOBQMSBf
+	iCKOtMi7zqolvSvZjfeqHN5VWGf4q3Y/ixmi344uC9GfqTFgvTqRL0WuySJPGr731khe/Zj1n1Y
+	EeIBqp5R0S3tZsuCmRv9/vHksXWbZOtziX9MNUN/oAzC7H4snV4K549plIx1dVja9qZ/vOrpp3/
+	wP3AEJ8vBg==
+X-Received: by 2002:a05:600c:4684:b0:4a1:d36f:1ba0 with SMTP id 5b1f17b1804b1-4a1fdd74b6cmr122177475e9.35.1792691373949;
+        Thu, 22 Oct 2026 10:49:33 -0700 (PDT)
+Received: from [192.168.1.135] ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a21047b2absm13451355e9.13.2026.10.22.10.49.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 10:49:33 -0700 (PDT)
+Message-ID: <a23b3a53-9cdf-4e32-8ca8-a80d927d65e2@linux.com>
+Date: Thu, 22 Oct 2026 18:49:32 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,68 +75,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
+ who adds the RGMII delays
+To: Conor Dooley <conor@kernel.org>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-9-tanure@linux.com>
+ <20261012-suds-karaoke-efc4acf056af@spud>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <20261012-suds-karaoke-efc4acf056af@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When get_bitmap() decodes a bitmap whose end falls on a byte boundary,
-it reads one byte past the position that the caller's
-nf_h323_error_boundary() check validated.
-
-For a bitmap of b bits starting at bit offset bs->bit, let
-l = bs->bit + b.  The caller guards the call with
-nf_h323_error_boundary(bs, 0, b), which reserves ceil(l / 8) bytes.
-In the (l < 32) path get_bitmap() first consumes l >> 3 whole bytes in
-the loop and then unconditionally reads one more byte:
-
-	if (l < 32) {
-		v |= (unsigned int)(*bs->cur) << shift;
-		...
-
-When l is a multiple of 8 (l == 16 or l == 24), l >> 3 already equals
-ceil(l / 8), so the loop has consumed every byte the boundary check
-reserved and the extra read touches *bs->end -- one byte out of bounds.
-The value read is shifted below the final mask (0xffffffff << (32 - b))
-and discarded, so this is a pure over-read, but it still crosses the
-boundary nf_h323_error_boundary() is meant to enforce.
-
-The extra byte is only needed when the bitmap spills partial bits into
-a further byte, i.e. when (l & 7) is non-zero; for a byte-aligned end
-the loop has already read everything.  Guard the read accordingly.
-
-Both get_bitmap() call sites in decode_seq() (the field bitmap and the
-extension bitmap) are affected, and the decoder runs on
-attacker-supplied H.323/H.245/RAS payloads when the nf_conntrack_h323
-helper is active.
-
-Reachability and behavioural equivalence were verified with a userspace
-libFuzzer/ASan harness driving the unmodified decoder against
-exactly-sized buffers; the fix removes the over-read while producing
-byte-identical decode output across the whole corpus.
-
-This was found by incomplete-fix analysis -- reviewing the recent
-out-of-bounds read fixes in this decoder (decode_choice(), decode_int(),
-DecodeQ931()) for sibling sites of the same class. The code review and
-harness work were LLM-assisted.
-
-Fixes: ec8a8f3c31dd ("netfilter: nf_ct_h323: Extend nf_h323_error_boundary to work on bits as well")
-Signed-off-by: Duc Anh Luu <luuducanh05051995@gmail.com>
----
- net/netfilter/nf_conntrack_h323_asn1.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
-index 6830c9da3507..8c04925b7007 100644
---- a/net/netfilter/nf_conntrack_h323_asn1.c
-+++ b/net/netfilter/nf_conntrack_h323_asn1.c
-@@ -229,7 +229,8 @@ static unsigned int get_bitmap(struct bitstr *bs, unsigned int b)
- 			v |= (unsigned int)(*bs->cur++) << shift;
- 
- 		if (l < 32) {
--			v |= (unsigned int)(*bs->cur) << shift;
-+			if (l & 7)
-+				v |= (unsigned int)(*bs->cur) << shift;
- 			v <<= bs->bit;
- 		} else if (l > 32) {
- 			v <<= bs->bit;
--- 
-2.43.0
+On 12/10/2026 20:18, Conor Dooley wrote:
+> On Sat, Oct 10, 2026 at 11:59:00AM +0100, Lucas Tanure wrote:
+>> The informative section explains in prose how phy-mode, the delay
+>> properties in the MAC node and the mode handed to the PHY fit together,
+>> and says itself that developers often get this wrong. A reader has to
+>> work through several paragraphs before answering the one question they
+>> usually have: for this phy-mode and these properties, which part adds
+>> which delay.
+>>
+>> Add a table that answers it at a glance, with one row for every
+>> combination the properties allow.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> 
+> If the net guys think this is valuable,
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> 
+Thanks, but I will drop this patch as is wrong.> (although for something 
+like this, us acking probably ain't needed,
+> ehh?)
+> 
+>> ---
+>>   .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
+>>   1 file changed, 18 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+>> index 1bafd687dcb1..bba27a9feb61 100644
+>> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+>> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+>> @@ -339,6 +339,24 @@ additionalProperties: true
+>>   # has added. Failure to remove the delay will result in a
+>>   # non-functioning link.
+>>   #
+>> +# Put together, with the two properties in the MAC node, this is who
+>> +# adds each delay:
+>> +#
+>> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
+>> +#   rgmii       -                     -                     PCB trace   PCB trace
+>> +#   rgmii-id    -                     -                     PHY         PHY
+>> +#   rgmii-id    present               -                     MAC         PHY
+>> +#   rgmii-id    -                     present               PHY         MAC
+>> +#   rgmii-id    present               present               MAC         MAC
+>> +#   rgmii-txid  -                     -                     PHY         PCB trace
+>> +#   rgmii-txid  present               -                     MAC         PCB trace
+>> +#   rgmii-rxid  -                     -                     PCB trace   PHY
+>> +#   rgmii-rxid  -                     present               PCB trace   MAC
+>> +#
+>> +# A property for a clock the PCB already delays is not in this table.
+>> +# It is either the fine tuning described next, or a mistake the MAC
+>> +# should report as a fatal error.
+>> +#
+>>   # Sometimes there is a need to fine tune the delays. Often the MAC or
+>>   # PHY can perform this fine tuning. In the MAC node, the Device Tree
+>>   # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
+>> -- 
+>> 2.56.0
+>>
 
