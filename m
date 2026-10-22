@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792672464;
-	b=Xwckt1lEYE9eVaHY9J0f2X4txRSv0WCYPL/HsyW0NyX76TeUP/hHxbZ0xjDjIFb7ClKs
-	 zKxMTvUyjjlcAZjycJxVR4tig/IPMK3r9JHusKABocl8JM1XlQXxDmD9npyRL56dury7u
-	 LkEWz3Rlh3EUzj/Xsnv4DJUx0WdDkN4ifzLeLIpE+S/7FmtZAvrn9pW3GaDRcSE/Gfqb9
-	 85ZHFeyNiNnrVHhyfiLYh5biQs9q63Tko+RXtIHUODh4hiT3iOHAyBh5X2bEIZFDhZbEV
-	 Jle26jkEqWs8b0QSeG0RJLLyk12XzOndR24TXTRW6gjTINj1+1Hnby0UY2Zhq1TE6qg==
+	t=1792672484;
+	b=SHPv8vSQQN/izN+coaHeckripRUMjujOJQp5XjK6JC5f3Mr3JzlDndhgoKMhCSLn41DF
+	 Nj8Ub/NIFrFTxmLCJ88Z2uMP4Vo9iew6rx+w9yZ1LkMmspaolq9SixvT1kzU3Mzay2yLQ
+	 LDqVxrv8LOgsuQjLBfNsk1GqrYoZejUwA7JazMCSQ3GEeDiqcyp2jO3M2KPdBVwubaTkc
+	 i+czrmyXr64WYVRI4O3gP/fLKrVDPWjXfEk8JezRsYoV/EJIAJM6htR6cQJKcf7R1MpzJ
+	 oZkJlVAjwF2JyREK3dm+EitabndgfRYaavrv3/KG1aqWY80zGyviTbzuRAApYHTwKTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672464;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GuRTRP+tWmDDUV9Gr8C/q+Rt7EjQK+r6xiZzyNtXQEE=;
-	b=lPTAlA0TVugNCj9iW+XFZFM6GH8L1PSW9iblZKWPfmjEx13JTto+DlhYht+tbupvVVzF
-	 6mbf0jzKcXkq1jfn0nrzv7bmD0znmVFvQcEF1iA0XWmkNQbMvWUM5D+cvIOHAzrwlDYTm
-	 eF6soW9T7UlSuA5lwkYReYJX5IRIhmbwmFBRLXof1j3q0PNjthl9wZ2em87LAnPZ0p3vY
-	 4o+Lgs63Bxi3TkDCMvK+YZb7gEnAkGGIaxdbzEubsAey5frEIpYY7o6qu9OmL22cI48TD
-	 f1V+vfoAZ9OL8NISrtPYfv2Q3/SvMH+5ylyh54NYAakDz6UQXShP87JIL2Yk0zTS37g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672484;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VxTZnnG66pwJ9HY2lI8ifKVWqHAeCYrvLO5TVkcU4YI=;
+	b=dnJ1BVXIjSt2kiTIw7+SB7PNBZtC/xYjV0Ql6O3bVRCuW/ebRizqBIR9X8u3WBU8Xezt
+	 Bs2nEzPcxugDdbYxfAO0oFnO4QiNRfTT1dH13Bo/WpbubvnJPBgR3q8cqOfcksHmZU7QZ
+	 uM5UO/guiGOrqH31NWdFACipUOp+PYLBsZLR+Cn9Svs5D7PNiM4yFq5Fwi3nd/yGL+J2e
+	 rzPTwY2YXkOE5iqVHPK4KO5jbsZMLOxXQKew9wDQ5OKo00z0cdDjseNnbO+UzvHSTA224
+	 ybrPC2Q1gd3ItfpCUJpHcbxJ5sedbUZxiLXr/SfbS8ehbapRqoOjEmZKCw2bGzBh4wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJLAzZsb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC32606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:34:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJLAzZsb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B32F31F000C1
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:34:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792672463;
-	bh=GuRTRP+tWmDDUV9Gr8C/q+Rt7EjQK+r6xiZzyNtXQEE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=aJLAzZsbwhfAkbBp6TvvueOTZoLZqHHdP0TcmUIQq2+KVcU7lDROqeNvzp3o4rvYy
-	 0986rSNDP+TR/3JeW7qwVF0rR26mEWMTWy73+NMHjBXPozRp/8MlpXrk39kjDC3vne
-	 KcboOKN16DQ6XfTuqhJOMAbTcXo4mnviQGESwytExHtuucH5kRSF2tHS96aveTQ9Oc
-	 pi/U5iusFKb5bph94R2yGzCqnek9neRE6xIcNK9M+3cpvf6kf6iy6lXPLlfm0RG4V+
-	 k8U8q0f1Zbg22L5DekMbo8eyCE2PwXCzCnWafJvRB700PrROm2CYPFbKQiB1ujFn3J
-	 KgIjJqm98CvHA==
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-49e5f85ce89so730285fac.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:34:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByMJsObnOaVKlhSN1NzQwwXOYYl7agIdewAE5YkTRTYMv8mI9B1smrbH+0fVPsOtAJykM2IhEVO1osQc40=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJKR+XSyOgFUGRfzE3UUZsD8oNPjGg3fCoPFw5JOtFQF895bEjm
-	1joi0uw9CUKZE+J/mIo+b9x9f/SFpQIvII0zwRvAycuNXPKjlCzQl8jdlBwRzkt0L3sVY1KxHxa
-	R+NrP5qx1QWOxT7WG6dQ5x/VFu/VcJxY=
-X-Received: by 2002:a05:6870:8112:b0:491:86d7:4ccf with SMTP id
- 586e51a60fabf-4a7dc14b430mr3782819fac.15.1792672463060; Thu, 22 Oct 2026
- 05:34:23 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49717606A319;
+	Thu, 22 Oct 2026 12:34:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49717606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: ede30ec2ce1411f19a56ed5b684f684d-20261022
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7b9ccc3a-1805-460e-bbb8-a3ece45eacc6,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:a6f73f7be717ca63da50b71566187043,BulkI
+	D:nil,BulkQuantity:0,SF:102|865|898,TC:nil,Content:0|15|50|99,EDM:-3,IP:ni
+	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
+	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: ede30ec2ce1411f19a56ed5b684f684d-20261022
+X-User: lijiayi@kylinos.cn
+Received: from thinksys.tail1c7620.ts.net [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lijiayi@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1085046884; Thu, 22 Oct 2026 20:34:31 +0800
+From: Jiayi Li <lijiayi@kylinos.cn>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Alan Stern <stern@rowland.harvard.edu>,
+	Michal Pecio <michal.pecio@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] usb: uas: wait for pending commands before unbinding
+Date: Thu, 22 Oct 2026 20:34:01 +0800
+Message-Id: <20261022123401.319479-1-lijiayi@kylinos.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,54 +72,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
-In-Reply-To: <tencent_53CDCF8AA0022B75CF72A294CB9993D2FF07@qq.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 14:34:11 +0200
-X-Gmail-Original-Message-ID: <CAL4WiirNg+P9X3KxMJSPPgLmcZNFxRbKaUpxmvTV+DENYfpsDg@mail.gmail.com>
-X-Gm-Features: AclHuK-yKPdl_9G1QZvnwsU-TznHvBSlt_rN2B7pK0yxpM3nsyJH4RIvlWVUYo0
-Message-ID: <CAL4WiirNg+P9X3KxMJSPPgLmcZNFxRbKaUpxmvTV+DENYfpsDg@mail.gmail.com>
-Subject: Re: [PATCH net] tcp: limit tcp_tso_rtt_log to a valid shift count
-To: Yingjie Wang <1075151112@qq.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org, 
-	pabeni@redhat.com, horms@kernel.org, ncardwell@google.com, kuniyu@google.com, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Le jeu. 22 oct. 2026 =C3=A0 14:28, Yingjie Wang <1075151112@qq.com> a =C3=
-=A9crit :
->
-> tcp_tso_autosize() right-shifts the u32 returned by tcp_min_rtt() by
-> sysctl_tcp_tso_rtt_log. The sysctl uses proc_dou8vec_minmax() without
-> an upper bound, so it accepts values through 255. Values above 31 make
-> the shift undefined.
->
-> A process with CAP_NET_ADMIN in the target network namespace can set the
-> per-netns sysctl. With CONFIG_UBSAN_SHIFT=3Dy, setting it to 32 and sendi=
-ng
-> TCP data over loopback triggers:
->
->   UBSAN: shift-out-of-bounds in net/ipv4/tcp_output.c:2264:30
->   shift exponent 32 is too large for 32-bit type 'unsigned int'
->   Call Trace:
->    __ubsan_handle_shift_out_of_bounds
->    tcp_tso_segs
->    tcp_write_xmit
->    __tcp_push_pending_frames
->    tcp_push
->    tcp_sendmsg_locked
->
-> Limit the sysctl to 31, the largest valid shift count for a u32, and
-> document the accepted range. Writes of larger values now fail with
-> -EINVAL.
->
-> On a UBSAN/KASAN build of the net tree, values 0 and 31 remained
-> accepted, values 32 and 255 returned -EINVAL, and TCP traffic with the
-> valid boundary values produced no sanitizer diagnostics.
->
-> Fixes: 65466904b015 ("tcp: adjust TSO packet sizes based on min_rtt")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <1075151112@qq.com>
+USB core normally disables interface endpoints before calling
+uas_disconnect(). This cancels pending URBs while the device may still
+be processing the associated commands. Some storage bridges then stop
+responding after a driver rebind and need a disconnect and reconnect
+to recover.
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Enable soft unbinding and block new SCSI requests before waiting for
+pending commands to finish. This keeps the endpoints available until
+the wait completes. Stop waiting when USB core marks the device as
+not attached, and continue with the existing cleanup on timeout.
+
+Keep requests blocked when leaving the preparation step, including on
+timeout. Set resetting before unblocking the host so that queued
+requests cannot submit new URBs during teardown.
+
+---
+diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+index 2651629..58a67d7 100644
+--- a/drivers/usb/storage/uas.c
++++ b/drivers/usb/storage/uas.c
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include <linux/blkdev.h>
++#include <linux/delay.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/module.h>
+@@ -1211,16 +1212,55 @@ static int uas_reset_resume(struct usb_interface *intf)
+ 	return 0;
+ }
+ 
++static void uas_pre_disconnect(struct usb_interface *intf)
++{
++	struct Scsi_Host *shost = usb_get_intfdata(intf);
++	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
++	unsigned long flags, start_time;
++
++	spin_lock_irqsave(shost->host_lock, flags);
++	scsi_block_requests(shost);
++	spin_unlock_irqrestore(shost->host_lock, flags);
++
++	start_time = jiffies;
++	for (;;) {
++		if (READ_ONCE(devinfo->udev->state) == USB_STATE_NOTATTACHED)
++			return;
++
++		flush_work(&devinfo->work);
++
++		if (!usb_wait_anchor_empty_timeout(&devinfo->sense_urbs, 5000))
++			break;
++
++		if (!usb_wait_anchor_empty_timeout(&devinfo->data_urbs, 500))
++			break;
++
++		if (time_after(jiffies, start_time + 5 * HZ))
++			break;
++		if (uas_cmnd_list_empty(devinfo))
++			return;
++
++		msleep(20);
++	}
++
++	shost_printk(KERN_ERR, shost, "%s: timed out\n", __func__);
++}
++
+ static void uas_disconnect(struct usb_interface *intf)
+ {
+ 	struct Scsi_Host *shost = usb_get_intfdata(intf);
+ 	struct uas_dev_info *devinfo = (struct uas_dev_info *)shost->hostdata;
+ 	unsigned long flags;
+ 
++	uas_pre_disconnect(intf);
++
+ 	spin_lock_irqsave(&devinfo->lock, flags);
+ 	devinfo->resetting = 1;
+ 	spin_unlock_irqrestore(&devinfo->lock, flags);
+ 
++	if (shost->host_self_blocked)
++		scsi_unblock_requests(shost);
++
+ 	cancel_work_sync(&devinfo->work);
+ 	usb_kill_anchored_urbs(&devinfo->cmd_urbs);
+ 	usb_kill_anchored_urbs(&devinfo->sense_urbs);
+@@ -1260,6 +1300,7 @@ static void uas_shutdown(struct usb_interface *intf)
+ 
+ static struct usb_driver uas_driver = {
+ 	.name = "uas",
++	.soft_unbind = 1,
+ 	.probe = uas_probe,
+ 	.disconnect = uas_disconnect,
+ 	.pre_reset = uas_pre_reset,
