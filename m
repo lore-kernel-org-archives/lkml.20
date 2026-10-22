@@ -1,72 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665726;
-	b=LvfBYc4qIg9rO+HBOEW/v3JJV8AIP7Qtid8BGzO2AM0AlaUsgsxeUg5OQcFTCMwCVzRl
-	 5noA912SshqXtXRPJHum+8kkD1U3h0RtMZfuBDIAP0DJnSxrm2JtYVm9meyTDGzQbUffn
-	 aBxdvRHb4k0EE1yE6HfVcFraXbEsAKDR1AniQxiBE3e5e4t0TezGiRYkzLoqHwA74hsnK
-	 eytBFzcUkN/EqAT/am9ynCA5YzT+BvehhJevppsMSocNxrbsZvzyJ1xshi7AWkYkGvxa5
-	 es6ksBHa1onM6wf0mLjVZVgZEXxTfW4OjijdSsKi4w0rUxBl2akzvxc9LMhloYK/mjg==
+	t=1792665810;
+	b=IbJktU4AOUYNenZS+8T0Kmt7r+Kn4AZ/UUNkhMHQORL8g0vpFw2Egv2W8VTFGe221rZj
+	 5Yv+PR2gVyA3Gs5kx5Fb14+dANN+FZMkw1ROVV5iEaNbrbwKgMGo68tCxe76GstSEQuIl
+	 i0XPnYQbp+d0UuZDtkvFBt8sA7r35ihmKjICVzY4m9Zozk0sbKjt0mcWbYTHV4NDz4NhH
+	 E83K5kLN5rgzhZPb62Bvl1DapOonlsNgaSzrN99vXI6w3+o7KECecBjd4XfGksYIPgAOp
+	 epv64t/A8TD/UCMcRa6uBaIA4Stq74UnwQaD9bk7LEFHpkZvewIQH5OjPXkAlNr7yZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665726;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=9bhyu6Fq5WX64gBWqODlDauOfgdVOt8rSIb/Nnq5zxI=;
-	b=X4TyV3orXm2jIjJPuOpHA2xr3tUxSxVAQ+WHKyDa8hwp4HnB2wfTk9Nib10Mh5dTpAGo
-	 pzx+uNOl77aGED9+dNRPmhf3xEQXYyd0OAqB1BEWgAdnYmquvM9BGUqlEZTdhV+ti5kJn
-	 7BC+kePPesh8fEu0a7d1KVJFrSr8uM4fcVafYH+kYYaTK7jNF+BCMkPULIeXNdRSkxkH/
-	 JLCnhRio+mMUNblfYseLiCBV3memVBxS1EdkGkZXy3OJdr7eP33imHSq4S0a9A+n0aPiW
-	 9QHjOGZN3Ca59SuPq2bVf2/U8V1K7lvLeqdGF2U2bgydCLRqdDhobQMwGcXuyOFnuuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665810;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=2gbrInL419R6hHZSv2+xMg3r+A2bgFZW0N0Re/fN6sw=;
+	b=hcMzWbonEMa7jSqmWjtBcA9DCuXG/ZJXmZWpCtxMmGc5KBjFnxqaq/j1zaTHWd6hqQch
+	 Ny7j9PiKZrM5sMi4sTsNKC6htvDPSoZHFlolOXxrHa56HKWfIPA7aqzTv+xpkJPV6YI/h
+	 svCGhDrGSVm0oUQrwDjGlPSBlKheAEZqOBg9Yy12VDRU1h1lg3jmpR0X3RoUA1bMz/XV3
+	 JUiJ95PrMZLwfTrAWJ1G5J/xeYlFaOOj+IdGeiLF3FAqx2ABqq5t3hv96cJg3R+yQ2QuB
+	 J5lAdtJCW2fLCxyp5zUugDmCb1ptiK1tDUGl+tl7LLo8lm89U54QuaTqu1sLTMQwjxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EUEGdVPF;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=daewYeES;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DUp7Wvwf;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D683606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:42:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D683606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C3FA606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:43:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C3FA606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EUEGdVPF
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 900814E412B2;
-	Thu, 22 Oct 2026 10:42:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 53B3260360;
-	Thu, 22 Oct 2026 10:42:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B5AE010328E44;
-	Thu, 22 Oct 2026 12:41:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792665721; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9bhyu6Fq5WX64gBWqODlDauOfgdVOt8rSIb/Nnq5zxI=;
-	b=EUEGdVPFTYk5khJc1VK6CVPUbxP0IK7ec4fVAcfzk1qv3UL5Pq3Ssb43xTFvHVsY4zxh8W
-	I46jppsRM6ZjRQ9lAKjWgwKOBgfRPqgrWqFwyvwuPtctpexgbwu5T7hQ2WhfDeGp6HXn2+
-	GpouL93ityupT0o9RI0zU9g/ys/9BxS+PXEFKxQjjbWfK3xvDA6HzVK8kPOpiKYqrxKgrN
-	zM5Ws+G9N4d0gnVH90MCRn1rrsEseq8Zil4OeIbiMQUM6Sf5hFV7Uv7/7prKnLljr8GobO
-	aIM7BjP1AFtCIocKOExsQzUuxuzdbvbJw7/JNq+RrTrPp8vAs7qiXCHQ+Byydw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Pratyush Yadav <pratyush@kernel.org>,  Michael Walle
- <mwalle@kernel.org>,  Takahiro Kuwano <takahiro.kuwano@infineon.com>,
-  Mark Brown <broonie@kernel.org>,  Richard Weinberger <richard@nod.at>,
-  Vignesh Raghavendra <vigneshr@ti.com>,  linux-spi@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-mtd@lists.infradead.org
-Subject: Re: [PATCH v1 1/4] spi: dw: Add DDR (Dual Data-Rate) support for
- enhanced SPI mode
-In-Reply-To: <20261022102614.75696-2-changhuang.liang@starfivetech.com>
-	(Changhuang Liang's message of "Thu, 22 Oct 2026 03:26:11 -0700")
-References: <20261022102614.75696-1-changhuang.liang@starfivetech.com>
-	<20261022102614.75696-2-changhuang.liang@starfivetech.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 22 Oct 2026 12:41:52 +0200
-Message-ID: <87bj8mqaof.fsf@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=daewYeES;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DUp7Wvwf
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M9xphh346110
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:43:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=2gbrInL419R6hHZSv2+xMg3r+A2bgFZW0N0
+	Re/fN6sw=; b=daewYeESSfna48Z7aDymFvsZzyPleeuq/V+ZWtxso4EREZCT/zT
+	1XstK8fzR9YaH3aaW0cFy+gXmDj/vnw+Ysojty49uGV+2VIX2NX7I7bjKde3+qvt
+	p0Cr/0v80+bKA9gK1qw/F0TPKxMDLgvF5i8x4ZLl34wJW20hw0pUOOiyFou6zakE
+	gBGoRVMOkGvoLREnlYvGiWXFnF1hNcVS/rq188YZqln93tRD/yfUVLUdeFC9vlF2
+	3KMRA69gol89xu8CkdnYQzQgoWQqdZ8QPG1YUkm9kgk/zYOG9bLJmJMNn+lcj52M
+	MrW5qlR6uRSHxcn2Pxf2TD3xKjyD+nNO3Kw==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93da5ud-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:43:29 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cd0b795aa8cso478615a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:43:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792665808; x=1793270608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2gbrInL419R6hHZSv2+xMg3r+A2bgFZW0N0Re/fN6sw=;
+        b=DUp7WvwfU/ao3Tjo0cY54Rmd8tSF0/mWX8XzRKiMIJyJXS4Hl0KJxP2e6S0BR3OIEG
+         wIbxuakFmYuGvkOFWSc+fLfRAJVpuX0eUxEffMyjl5lmd1OAjOrP/keB61qk6aF/Oho8
+         XYhUe9tnjhniOwy8QHr/bykffRHAcgfBmH3yP/iVWk1P2U+XebHrBqvIBIsjGNILF6NR
+         P31rFZui0c3lWJ4rXr92Y0I4VlAqjHiub/ePBc52/GpQT1JkfaYUYeH4lchqT/7jmeXI
+         rjmfsxBZGsTlORybWPMOcMMLiB3NjH7rGRbv8ldMj+Ka2cpqB2wxGSpCXu7BCDVty2vf
+         1Srg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792665808; x=1793270608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2gbrInL419R6hHZSv2+xMg3r+A2bgFZW0N0Re/fN6sw=;
+        b=WmLyb0YuE6P5mw60urnKu8CtY8wyWXoF10g3hN5iS/EEMw428AQ/KrtbQHiURn9SsR
+         QvGFhQTqHzNp3SsC0JZHO2W8arGQZzcbEG2G64z0ONB+/CmrelaZDZ4j0EzX2H0twbJv
+         dv3sxc+6LXj2jObOkyK0P8/TzfL8HHyHoh5vgEKiI5xEC7L+CVoTUmK5h76IwY8nZI76
+         nqoAGwZvprbF0VQ2ysasYziSE4kVyvF4OGeXeOuxuSCVrFi4qjF4Ns8akwGaxHnZEjtf
+         kdS8Bb4bgzFHYZlSP3cLd2ki/KnkXya8nhdwViBEnI3HCp5QUITWCkKdMFhoEOwX2zV3
+         NEyw==
+X-Forwarded-Encrypted: i=1; AKwUvBw/VQBCKUd4lyugLxtoGfLD9CoM6rx6vvbkgtZEI8Z/P2Gswq2eT29O3w5TbfuXjCIpkuX/QS0dyY+HfHA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxuQv4VnpDktHGBax4a7LYPHDgookXIQd4yZ2WDrp4tpRVodYn
+	o3r5WOHQrasd/JV7I757EjkLW2Z0seXvVaU6jOClGskD6n8KxmQVcUC+ex7P0qZH8uMVg+0OV3t
+	SNuA6dof7KhK7AkJ3ADITHGozp02LpjJJcoi+LRqoIVkriE3dNrYsuy8HLOE3Bzopkhw=
+X-Gm-Gg: AYBFou0eg0SH8a4RKcekzm1vRT1AHVekn5Z2QMBdIHD4bsMxnBPvIPdpS4OqcTvOEHA
+	/mGRyOS4lG+n0YQC+8Y0MoXRUumxx/FLrEj9cKU1OrZxBgnrEpRtJ2FZsB5q/M53rU2PJ9LuwnP
+	KOruKp3zxBT+yQxUT21UiLJ0SPX1CzjrRA/Njbso5ylfhpOvC4VDj6YavWUbLxCm7cAn+rFxyKx
+	KPnNGLc2y8Q24LEt4lepbSpt84BWn8Ca7kgx+JiHlBTYJH/KjtdZofbpPHeWXsLRTTEgDh48Dkn
+	qxT6YnwXABzTSMILklFxiwjmb59DgmqKZHi3dTZgSKUNelCGF22uiMDJskIfc9+WHX+JZqawthK
+	OKjI172Zzx/i22tUKMsm/+3wJTlIY
+X-Received: by 2002:a17:902:ce82:b0:2e5:debe:cb50 with SMTP id d9443c01a7336-2ea6263513dmr13737705ad.4.1792665808423;
+        Thu, 22 Oct 2026 03:43:28 -0700 (PDT)
+X-Received: by 2002:a17:902:ce82:b0:2e5:debe:cb50 with SMTP id d9443c01a7336-2ea6263513dmr13737625ad.4.1792665807987;
+        Thu, 22 Oct 2026 03:43:27 -0700 (PDT)
+Received: from hu-prashk-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea3b43b53dsm22327565ad.39.2026.10.22.03.43.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 03:43:27 -0700 (PDT)
+From: Prashanth K <prashanth.k@oss.qualcomm.com>
+To: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>
+Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org,
+        Prashanth K <prashanth.k@oss.qualcomm.com>
+Subject: [PATCH v1 0/2] Add the PM suspend/resume callbacks for qcom-combo phys
+Date: Thu, 22 Oct 2026 16:13:19 +0530
+Message-Id: <20261022104321.306679-1-prashanth.k@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,58 +118,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfXzFiNs/VSstG5
+ G+HxB0Tb8SJ+66LVv5D0ZQ4nrKdWhLFKpFbzi2MgdaZMq29XgCP8R8X3qfdjVqdxQ1lGlF1Xywa
+ 9CDCLjsX9quR45q2z2okyS2tL9LunXo=
+X-Proofpoint-ORIG-GUID: ZKCKvjMJt9kTPSGUu-ZPeMLs0DS_HfyU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfX074FnUIRezoF
+ wLI8WKYBurMG7fS4v8JFhgtgYsVyt0nzpmuKhmO7wGCjZwVag5pn0JlyvzVHas/0DdL7bu0sAaz
+ rouWfAEWgdFgxWLiO/YDGuk00P8yN2hsnBKVYOcurZ5ied+7aqS+pNDkfZo+JTMeEEl+T8MX0C8
+ OPt4qypVHr4D6zBbnm1rwdBnNWh33elm67VNFInPSamUrQQfIc+5Sc9nMPtpPSLyyT5R6iQoh07
+ 0rIU8l9MmKYieHxKUQ9Wzp5mo5OniLmRVx7aaWZB2k3sNZh8QJwcAJSwIZPnYLRsatLe6xVps5R
+ TjzUmX4X/L7Zm3ET4RrxhpgcvaqoAxzAEEQ60Qvs+3IjB4JFnLWASOzkmH3cvthjyhhcZ0S5Exf
+ kV3nBUAH+hk8uyIW8qUO3gqaxYWKeN3uMiHsO1FmTJ/OyBYf4mfpr7LESi5p3b8IFQrzz6yibAq
+ yWESzxb6ADNb8k9y92Q==
+X-Proofpoint-GUID: ZKCKvjMJt9kTPSGUu-ZPeMLs0DS_HfyU
+X-Authority-Analysis: v=2.4 cv=TIPQ2Fla c=1 sm=1 tr=0 ts=6ad9e8d1 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=cP5vnYSvVPmSLNQO43UA:9
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 clxscore=1015 adultscore=0 priorityscore=1501
+ suspectscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220042
 
-On 22/10/2026 at 03:26:11 -07, Changhuang Liang <changhuang.liang@starfivet=
-ech.com> wrote:
+Currently the phy clocks are left ON during system suspend, this leading to
+power leakages. Prevent this by disabling the phy clocks during PM suspend.
 
-> Add support for DDR (Dual Data-Rate) transfers in the enhanced SPI
-> mode of the DW SPI controller.
->
-> The enhanced SPI control register (SPI_CTRLR0) has dedicated fields to
-> enable DDR mode for the instruction phase (INST_DDR_EN) and for the
-> address/dummy/data phases (SPI_DDR_EN). Populate these from the
-> corresponding dtr flags of the spi_mem_op.
->
-> For DDR transfers, the dummy phase consumes two bits per clock per
-> line, so the computed wait cycles must be halved. Factor the wait cycle
-> calculation into a helper, dw_spi_enh_wait_cycles(), so that both the
-> supports check and the exec path use the same value.
->
-> When SPI DDR is enabled, program the DDR_DRIVE_EDGE register. The
-> recommended TDE value is clk_div / 4, clamped to clk_div / 2 - 1 and to
-> the field width.
->
-> Finally, advertise DTR support to the SPI memory layer through a
-> dedicated dw_spi_enh_mem_caps, selected when the controller has
-> DW_SPI_CAP_EMODE, so that spi-mem may issue DDR operations.
->
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->  drivers/spi/spi-dw-core.c | 52 +++++++++++++++++++++++++++++++++------
->  drivers/spi/spi-dw.h      |  6 +++++
->  2 files changed, 51 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/spi/spi-dw-core.c b/drivers/spi/spi-dw-core.c
-> index 47434fa78e4b..6ff142c8a6bd 100644
-> --- a/drivers/spi/spi-dw-core.c
-> +++ b/drivers/spi/spi-dw-core.c
-> @@ -46,6 +46,8 @@ struct dw_spi_enh_cfg {
->  	u8 inst_l;
->  	u8 addr_l;
->  	u8 trans_t;
-> +	bool inst_ddr;
-> +	bool spi_ddr;
+Prashanth K (2):
+  phy: qcom: qmp-combo: Add PM suspend/resume callbacks
+  phy: qcom: qmp-usb: Add PM suspend/resume callbacks
 
-If I understand this correctly, spi_ddr is quite a bad name because it
-means address and dummy and data ddr (but not instr). Can you try to
-come up with a better name for this variable?
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 17 +++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c   | 17 +++++++++++++++++
+ 2 files changed, 34 insertions(+)
 
-Also, if my above understanding is correct, you must provide a
-supports_op() callback which would refuse any xS-xS-xD but allow
-xD-xD-xD and xS-xD-D modes.
+-- 
+2.34.1
 
-Thanks,
-Miqu=C3=A8l
