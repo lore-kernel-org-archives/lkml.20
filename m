@@ -1,98 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702942;
-	b=pyDTx4HGW/18A5cf1uiR2dlkaivxUMx4HjBYUeWbUG4ChUz459J5LsA1mx01kijGXyMS
-	 LRaQsFn8JmBvVo2ESkylUrvWGcYHdKlkv+UkUhRcRu5tZdGSFddk5o4PHrWNTuLiwI+JT
-	 qlaJe55WCrBHIKjvhAat7nvHJ8b6IrmZ5il19IPF0xKAMW0hlRAR1SDHAIN+qKYbzK5uW
-	 doWpiBHLyKZNbcJcLi+Y2aCYpzLg4Di5XPyjs0pn0owwVgjaoto93ZTd/ks2Lp2+ZiAtE
-	 tjkt2T8fD+YkS56w1cuixFVYXzJKrmNRc+7aLZOiS37Dkpski0iyDAkOcsYR3sXSGgw==
+	t=1792702966;
+	b=nyK2BXe6gkCvcDmtiLaJ1OYwccnlBtUNBvmnxnpYctpEDoeBrSfBlXOmFrD7nk4awzwh
+	 2d8mp/E9GpGMCK60YPP1tswRA44Jj3U/2rrMtc81N4GerQ7ViTK5cwr5ghREH6bKVU3kf
+	 Y8BwrtpkBYuqKeTJGPrhw8mqwebmBx6r2fykXrV52+70pB6T9hJj6gNQOG0HT+m9hDJHY
+	 g2G8fJeLX97k+GiVrRwySsH4gFrEa8hSW6ez0g0sEh6grKQDFlKTFSDul2tYD640AySMD
+	 4O9PI8ZsnRAv/W2Jsx2MR+qG/Qqwjgcto1gFJEu7gTqzNqhimI2KIZHv2vZwjoPvm2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702942;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=KckalmaIjViMDWQxTjgX00osy9mL7j2AOuEfTdMk044=;
-	b=ZwQnWianUcXFRjTZj993MuRedOFIMm0DTjckKqR1uKljOHF7U7Wq77+mLGBMYmZrZ4pa
-	 Q4wb04ilzIUa+Zygtzdb84K2B2OJMWrJ+8YJgtso+pMsIKcKhkE9m8ukNsB1XHuyM+W7Y
-	 0mD9o/bpvgjl3kYOKl/h967nIVqTQOxPkIjgOko+hc1PSHTAxS27FFxw2NuNr6qVfKy5x
-	 yi3gidex55secBDTm5yNqLDrYzE85GyemaxUpOnfAlopEGX74MUQpEc19LDG+eUHZluA4
-	 3FLldzS1aTS7WwWL87N/JpmKDeqgCc03aOdtfrGbAUqHtWFXaG9dB5AF+LReGulTm7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702966;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Tj37OmA+fKNRhE1Yis70rKCpc+GQO8jtJOfAeK4DI24=;
+	b=qGMTGCC3kuDWrouz2MDM6AsmM01Vv7oybZ8mY3rU7qw0a8KCWcegvIUl/A6jFGYOBV1k
+	 Zw9Gr5llWIGMtuxJSqQ+9oKU/zSoHi68JqwQBTGIWVWiVzs4uOM2Kshlz6AujZVW2SENP
+	 cDaAGpkbZWndyCJOahkLgAztCigW6glJn1r8m+A09tYzOHQfYIn1l9Msi5i04zpRMkRCr
+	 Nl4PtaqTU+0r5cIgrx1lmXJ0lLDKWJOuf5ZKqJQ712tvZP9d2gdSPwmGhYakVeUOJAcj1
+	 /TeLCx0z2augivdq2PTr6PJNSPUwzwaHqxUZ3gbVCg5e6VmRJZ8BJIAyfFhBeIE1C0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pKU92BEi;
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAquE23J;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C57606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:02:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C57606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AA95606A31A;
+	Thu, 22 Oct 2026 21:02:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pKU92BEi
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5e9528732b4so246342e0c.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:02:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792702940; x=1793307740; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KckalmaIjViMDWQxTjgX00osy9mL7j2AOuEfTdMk044=;
-        b=pKU92BEisp2UH5kF8w71Obqwmk/mLZisDs7hvnFMmyu4nRGDXSa5eJ7b0QgZIBStrn
-         3UwaHFWyA9CCPJ1sSNXuhipenYht93LDoC/6/GqQCxNjNl4cQA/z2PXHWWLlf5+ay+/V
-         2zwhIwLybkEkkfF/xxBLK5KGKdKuK6B91PX+npzElatDPJ6uIQ+VWGUqGU6vNCnaD/9J
-         Oz9YKH7GAFyZApOLdOH03NOxyZ0QFWAu8DOWQOlHLoxSD9EDlOfmSLWG4fjEYXamW763
-         T55o7g+3/jLdO1AZtl6MOucRtsEh3jAHQqe9dRV0h1OlX8BRFtpwtawjMRm4YxtsC3pC
-         nPeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792702940; x=1793307740;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KckalmaIjViMDWQxTjgX00osy9mL7j2AOuEfTdMk044=;
-        b=NZ7twYszE7VU/axJ6s1wYWpLLwipuaJ0pcnt7Y/DOUVn/uw0YYQu3oJQgGsmm6o+r3
-         8PnCgVIJnh3GGLj80rG5c7ZtvvQmeI9m5P/H8NPGebaFKtX7y3UGySVsGfTOObuR+1Dn
-         W57+FhcrVYnCXk1qvKFPHiPEdwtAbQ+wxL/2N0TkDbfz+xMpoz61Qxp609WFel2Fcxl6
-         +I1W6CAt/RAvTpwFzP7/zEnrMjxSdfNIBtZyqGLEpGDJo391HNNGeS/ZlP9BmANSlJ9+
-         8PauYeV6ndRDT04+2jPhBV6UnuZk3KHG6yKkrVyDVBbTaaVIvf/S1hwagpYTWkigpZye
-         9Hbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxw5aU9UQdPXt78DtOHZp1RnnTt8PYlOBkm/nHeG5A/R89Jje0PquZG1cQ1QOnCtzztWJ6z6twHb7U+FJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9lZr60mqM1NHbwwDRQb5YPWQ0Jc8nR/0Qb4EWfG3HZtEJYZ9l
-	dFvdIBiZLHvYYo+bAPySFqw9nWwRC2x5hHRP9PpBq+pgOTRqYRfcfvq0
-X-Gm-Gg: AYBFou1jAyi1CYii5xJIwjp1aTbt0E2uSCvx69EnhvoTE1aHvitaklSRdXii6UIDUN+
-	EFevqbpLHNeqMU1pwwfYsc3GZ31Rqxm6KgJYW1B6u5uvIYH0H6A+9uJImusKOMJDZsF4BxoAdEp
-	Ljdu84cnTEUVzcvpeZfwyVNgCLRcM5FBbT24dapnlyT1uqArnzfav4hZR8qScQIZuSCVadJjaDL
-	r22/VLR/FR28Kt1VQ3wl1Xvd6cwMRv5JtWiSqbnJ2Ms77sGYNq2G1eDmGQPBiBkvGVUUQOvGS9C
-	CZQXC8iGMReOUY+nIVtT/dX5TYgLgKJHbln7SPfWM8OZ5ed+nYaKnjLKCuSAVMOJXKxtisGDs+N
-	VXba13f3rHmfy5k/4t7BThG8ujQcPMPIp7VyhHm4kTYlTDuGNKQUZ9LgiP6YMIZg+Qlko1/NFa5
-	F+J5e84OofqKHNUQdG9KJH73Ch8p0OwfvLmZO5GWndQLn3DSHO17k9uewoQms1LC3y3eHneonSa
-	B1vqCeUG3vcQZIyuSzgwny3f1wKZuiT1XaMTgjkoIfjXaquGCGC6Wn6u/OSfoqwa11gLMrJhfSb
-	qRJVDlVEu3UiS0CjSSju
-X-Received: by 2002:a05:6122:4909:b0:5ea:cd69:7cda with SMTP id 71dfb90a1353d-5ec14a6ff12mr25880e0c.7.1792702940525;
-        Thu, 22 Oct 2026 14:02:20 -0700 (PDT)
-Received: from Biostar-A520MT ([187.94.15.233])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f061cfsm303526e0c.11.2026.10.22.14.02.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:02:19 -0700 (PDT)
-From: Breno Rodrigues Alves <breno3011alves@gmail.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: linux@armlinux.org.uk,
-	James.Bottomley@HansenPartnership.com,
-	mkp@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: Re: [PATCH v2] scsi: arm: Convert acornscsi-io.S to C
-Date: Thu, 22 Oct 2026 18:02:03 -0300
-Message-ID: <20261022210203.80641-1-breno3011alves@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <4e2383f0-9791-4840-a4d9-93fbe51b7a40@acm.org>
-References: <20261022183658.58090-1-breno3011alves@gmail.com> <20261022185224.60700-1-breno3011alves@gmail.com> <20261022185224.60700-2-breno3011alves@gmail.com> <4e2383f0-9791-4840-a4d9-93fbe51b7a40@acm.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jAquE23J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049CB1F01825;
+	Thu, 22 Oct 2026 21:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792702966;
+	bh=Tj37OmA+fKNRhE1Yis70rKCpc+GQO8jtJOfAeK4DI24=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jAquE23J1qKmy9gw4YNOQvQ8blj+GO1/UfILYA3orebphMxHa++Fj+H1EWQ007chh
+	 oOcWf+Rz5eplf8HuGz3GTmlqoR1+oq5APAgjLvV/3EOYOxgTdnKAV7545npyLtGYei
+	 pBnNvSNli3CZJ/x0QpsF6MNpqLZwj5rrAaRqtPBr9VW9ryG7shuMfZGz//KstmaUFt
+	 6EPAND4+ETavC7bLqUs5/Hjo0bGlnRewTARfgS6xpXiBnNEZw8LexUSzkMskFfDeW1
+	 tl+CawI0Pxa6BQgRYoXLtPGNTbwMct+A6rXRc8kWuO2ZPeRzpozIQEhVfFh2w0x+uQ
+	 BAA73Wlqv505g==
+Date: Thu, 22 Oct 2026 23:02:36 +0200
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, 
+	Shuvam Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <atp4vVMyX65qYcAt@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+ <20261005155708.1471260-6-kees@kernel.org>
+ <20261016145928.16eddc9a@gandalf.local.home>
+ <202610221058.C5626C5172@keescook>
+ <atpmAQ932J3_8IvJ@debian>
+ <20261022155726.7f20c4cb@gandalf.local.home>
+ <atptYsHyS6YGtzPV@debian>
+ <20261022162000.18aa4162@gandalf.local.home>
+ <atpyCU3fDyU95hbY@debian>
+ <20261022165336.3100a5be@gandalf.local.home>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +67,131 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nwadrhiqndqcdlwt"
+Content-Disposition: inline
+In-Reply-To: <20261022165336.3100a5be@gandalf.local.home>
 
-Hi Bart,
 
-> Shouldn't this "while" be changed into "if"?
+--nwadrhiqndqcdlwt
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Kees Cook <kees@kernel.org>, Bill Wendling <morbo@google.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, David Gow <david@davidgow.net>, Petr Mladek <pmladek@suse.com>, 
+	Shuvam Pandey <shuvampandey1@gmail.com>, linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
+Subject: Re: [PATCH v5 06/12] seq_buf: Add seq_buf_strlen()
+Message-ID: <atp4vVMyX65qYcAt@debian>
+References: <20261005155653.late.426-kees@kernel.org>
+ <20261005155708.1471260-6-kees@kernel.org>
+ <20261016145928.16eddc9a@gandalf.local.home>
+ <202610221058.C5626C5172@keescook>
+ <atpmAQ932J3_8IvJ@debian>
+ <20261022155726.7f20c4cb@gandalf.local.home>
+ <atptYsHyS6YGtzPV@debian>
+ <20261022162000.18aa4162@gandalf.local.home>
+ <atpyCU3fDyU95hbY@debian>
+ <20261022165336.3100a5be@gandalf.local.home>
+MIME-Version: 1.0
+In-Reply-To: <20261022165336.3100a5be@gandalf.local.home>
 
-Yes.  After the preceding while (length >= 4) loop, length is in
-{0, 1, 2, 3}, so the trailing loop runs at most once.  The same
-applies to the corresponding loop in __acornscsi_in(); both are now
-'if' in v4.
+Hi Steven,
 
-> The above code can be simplified as shown below, isn't it?
+> Date: 2026-10-22 16:53:36-0400
+> From: Steven Rostedt <rostedt@goodmis.org>
 >
->                void __iomem *cp = (void __iomem *)card;
->
->                writeb(buf[0], cp);
->                writeb(buf[1], cp + 1);
+[...]
+> > 	struct my_seq_buf {
+> > 		// .buffer points to the start of the buffer
+> > 		char  *buffer;
+> >=20
+> > 		/* .p points to the current position.  This is the last
+> > 		 * '\0' that has been written to the buffer.  On
+> > 		 * truncation, it is a NULL pointer.
+> > 		 */
+> > 		char  *p;
+> >=20
+> > 		/* .end always holds ARRAY_END(buffer).  It is a pointer
+> > 		 * one-past-the-last character in the buffer.
+> > 		 */
+> > 		char  *end;
+> > 	};
+> >=20
+[...]
+>=20
+> I rather not increase its size. It is embedded in the trace_seq.
 
-Agreed.  v4 drops get_unaligned_le16() in __acornscsi_out() and
-writes the two bytes directly.  Note that __acornscsi_in() still
-needs put_unaligned_le16() because the bytes come from the low
-half of the 32-bit card word and buf may be unaligned.
+The size shouldn't change:
 
-> Isn't the above (void __iomem *) cast superfluous?
+	alx@debian:~/tmp$ cat seq_buf_size_comparison.c=20
+	#include <stddef.h>
+	#include <stdio.h>
 
-Yes.  u32 __iomem * converts implicitly to void __iomem *.  Removed
-in v4.  The cast on the earlier 'cp' variable is kept because cp is
-used for byte-level pointer arithmetic (cp + 1 must advance one
-byte, not one 32-bit word).
+	struct seq_buf {
+		char    *buffer;
+		size_t  size;
+		size_t  len;
+	};
 
-v4 follows.
+	struct alx_seq_buf {
+		char  *buffer;
+		char  *p;
+		char  *end;
+	};
+
+	int
+	main(void)
+	{
+		printf("%zu\n", sizeof(struct seq_buf));
+		printf("%zu\n", sizeof(struct alx_seq_buf));
+	}
+	alx@debian:~/tmp$ gcc -Wall -Wextra seq_buf_size_comparison.c=20
+	alx@debian:~/tmp$ ./a.out=20
+	24
+	24
+
+size_t and pointers should always have the same size, so this doesn't
+change the size.
+
+Am I missing something?
+
+
+Cheers,
+Alex
+
+> Yes the seq_buf code can be complex, but it's in one location where it can
+> be highly tested and verified. The point of seq_buf is to do the complexi=
+ty
+> so that other places in the kernel doesn't need to.
+>=20
+> -- Steve
+>=20
+>=20
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--nwadrhiqndqcdlwt
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmraeewACgkQ64mZXMKQ
+wql3NA/+J2kecD0AF8NgnxOuKJBkL6tW7SHIExPHo7ltr04Has8hMB0XCSRA83W9
+k8S89DHv6ChbLZ/ubST01VPhdRFlUJIKG4Vw2UFpK4ejbWwI8V5Bqf1A5muKHXm3
+AEmTVxbGgJmqdZmbYKTnpkYpbc8x9Czvg77j6jWQaPXq8lE39b8kCCNwrIYHfki1
+Z7J3cYuOP10wzC3vb7cwDpmwSuveGl1KmMYDDngeufU99h0A6r6iG5i3qyJKAbID
+pl2yK/i61vHGKVwieh+zT0dXfQU9Mh+Kjd+4X9f6UqLlJEreNPocJR+5M3uDByoT
+6NGFsBjKngtllmmF+43cJISwGwFIPPmIxcue/WPgXM0hsQar2oyk3TRm4BWViswX
+dqDt20Q0Bmhw5cps6jmCvGsMGtMUlD6t2/tICMgukjt4+Gsa8YddRMt+jFucN6c5
+nIJA2Z+Vc/U3r0+2pDYaX+Qk8U23zVarsS2CGF9W5vYAsWEeJo76a/L4AgE9wYaP
+CQhBJ6krYcuI45JP/Bz7A9DJEe3L2s/caQjb+TdmBwaZ2ARLnkKbzRKNUWeb0DFG
+Y/NcQYn7LZrnFaOI8nx7XWDflFthzKFD3CfsETu5V7ur6nVQDd1bitMZrzK6s6Cu
+8aUmZwMCydAdpaLhFclr18aKIR5dkebk90FV+FkpyccJ5XCCoNI=
+=BPHW
+-----END PGP SIGNATURE-----
+
+--nwadrhiqndqcdlwt--
