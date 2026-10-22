@@ -1,118 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792644651;
-	b=OM6FnTeO2yHAqWDMRoG0LTcKrmXadyTBFSc9eEmpLz8AFr6g9uqIPP9IBRVgp/RtrIuC
-	 ed/7sw/OoByHIpiSAeB+4t6BBP0Xf3DgFL3ypbh4KKFVHOgP8wZ6ti5ve9Ipv7twaIB+e
-	 2TjEkIq6EQw2zJwoUp8j0qlULTRZeXLu8BnYt/KhzjfDSNqdU+am4qK2aNX9L6GNeZd4O
-	 rK9pRY/OP5p7q72YJ4G9nOATpxYyWVLwJ0LCnFsF+HfZNEtEzqSauFxXN7quEtEd7XHXP
-	 Oa6chpYUvyIRiWprOn03OvHOrBmx1+M9S4L62rWwuaDUw/7ZRyuURAo0BaCuu+X6IkQ==
+	t=1792644660;
+	b=WCG4FgJI2PmKD5rcDnQq7rOyOfOIvrt4Y4l9s5UkGcGxTEqztjngiNT9vE11MldaY8yQ
+	 v9hh2jp32HGYH3W+2y83qdqqAU6kvEOYdwZIQqCiUNtCUxI/9D4CLMzUTpEd6IR8jdDvz
+	 oknKjNQUChQdQVOtGmKF7aNKgsxLL1DgzLgrYYe7hIzKch7WID/fD4MibDhW2F0DiJN00
+	 R0TBlcPFlrvJoG9klS41Xzl887dLHVEBzS4Ij6gr20/HyQdX1L2aaHllB6GoqKaHIf7ii
+	 l4BQCvOPnuYNTDtaGBAlxeW49+rlaXLlVJI3S+Q2UR7kJMretSpEJ3SdRqvLUIVZieg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792644651;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:X-Mailer:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ym/p15vY9LRR9KjWVZcGx4l8rH8bizW2mZgnoIkhP7k=;
-	b=qpefVMzY7Jm3Mn9VVh4UA4OvqR2yAX6l+iBXxwq1ctTVEeWH10GvVGMxRN8ikZNmp5ci
-	 eX/rtdwyv3/p5CFAJGYQJsMaB8MowqjXRv8fsv/So9cNaF2ThAvsFSunxCBOfruLWvm9l
-	 CqI5bui2VDkNa4HuFf8YIqUN22GIV+tvLqhfRF7+Jk8+f5TSgnKEf+Sk/lH1iY4tQ0LOI
-	 FldJMLsGG7ofZ5vP1LVcshrR3IbMzQi78+VTfen+5PGIK4MxbiOVKc3hSO2LUs+IhRNX2
-	 W6um/u0Yd6SIwgYrUijSIGLNhH9tby+VrkipbKXySXlnQXoOHf9/6scBc+Q6Wsgj/Fg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792644660;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:Message-ID:From:To:Cc:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Content-Disposition;
+	bh=vOO2/UqSFvP0eLpj9/3uPUE4+nv1U6cbi6EZXtRMkW8=;
+	b=jPqO/2I+uPQTkhKMh0uqfPskVjX+/PXU1yqWoWZPb9hdY45fLe3N+gd9u7yGoR97vl/x
+	 5zYs1RbmCk4bh9gCxC6Mal6BC5cpEWJnucB+p2XaPG2bpFx6HtnqHfkckKbSQh5BoDREj
+	 N5c7up2dYqRkgg6ChMM6JmsTMnaTvI/8KhvFzX3henf7ANruSTKC1lU15f/xMH13DKav4
+	 6y5vqc10uAgRCKw40s09c8SRqQ6q2llAu5OmFy8bP5sdRGcZf6qSv5zqTHX+bjrvnf40O
+	 5Up4vxJLxM6qZ/RtsJyOjkfYPJ/fM472/DRsxDwApstEP5dlDej+C3igfyD2uuz4IBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=shazbot.org;
-	spf=pass smtp.mailfrom=shazbot.org;
-	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=dal1QKMh;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bLk50grs;
-	arc=none smtp.remote-ip=103.168.172.157
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f0lYSkuO;
+	arc=none smtp.remote-ip=74.125.82.53
+Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48662606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:50:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48662606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 96EA2606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:50:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96EA2606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm1 header.b=dal1QKMh;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=bLk50grs
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 5D68D1400199
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:50:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Thu, 22 Oct 2026 00:50:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm1; t=1792644649; x=1792731049; bh=ym
-	/p15vY9LRR9KjWVZcGx4l8rH8bizW2mZgnoIkhP7k=; b=dal1QKMh2QTuuA9Y1/
-	jRVfkmCZT5ZpMmKX24Bs3tEC06qmUeq0qmrK14CvnFFnAw3mjIefMBAeuE+V3yXy
-	hCaeeUVNL/2IrdcA+j3HzpME3MurhON9MED4WVWsicLHxZrJWT3A1kWaBfy2CKhd
-	HvsQpOX6WH1zi3jeczbxFIxll3WliIGvh+UD0MBcda4o28LMCs/IyMezdVs5nNjR
-	DQGXBRSFwHV51t5cNfQA15d2tJAVdl1LvihczYlpe2YLVPaVOVwaeU8BCbtcdtyV
-	nJ/KyNHdLhVAM9W5eMqoUlyp9vDVSr+hUk/OV+E2r5A8qefUpIIJpUPYpkSctsqT
-	m1XA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1792644649; x=1792731049; bh=ym/p15vY9LRR9KjWVZcGx4l8rH8b
-	izW2mZgnoIkhP7k=; b=bLk50grsdBvD4e2PrQnn6IG+R3r/pR7Oa6Ve+9onSO0M
-	1HfOuzT993n8p8xcsW9s3MqAW7Jf3qklg60OUV7NoSQamQe0RnDJbGFhDTdly3Pi
-	nLqCk1dWD2oyF2Hi4+JomXJH5rzs5m+o1KAQOqOFq7gESw4SdE0nv1hOPIoEh+6w
-	bzAcjdz2zZJXaBlLAgCbGVoEXFuRvFmtSb8X3Htekw1K4MhAXDwguhxHzD3qEF+Q
-	n2OBjj2Y2wVyGHqmUSjw7Oy4LSjPE0sB9RoSEwJIuay2asxnpiLrqqScrQQTS8/e
-	rXnFRMvd7FHyLORdyQ5IopvCcEdTpE3Xq0isZTodOQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=sign d=shazbot.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1792644649; d=shazbot.org;
-	mf=PGFsZXhAc2hhemJvdC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:yf+8pMPW23BRHWh+9quBHRzONoBn3yV8mZhKZDfzyc00Q6y
-	ECSLAWIOTPqu1M6aAiU5xo2UNDw36uSre1um62e4e9Vm9B1gUYK5b7Pi4EVqc2mr
-	DG+ZSeP8aH5L2Xk+S/dmyAou7KgffSDInPv88ieH8kUMp20PqrHiMkzdGgrdhirj
-	qSdtZ5nl4k010dDlqONrs4b8Rwjqh5Fx6UcCi31VbzpmtNdauS8ceKvFeuYzAatE
-	HiqAPBeai2y4div8bn+h6jkTZUaOV60J4E3OPMpzSb5G4UijhcjsrNK59mHNfct+
-	Ol5Y0WQnYA3sT42wLC664/2N7urGMS96MJti/ZQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
-	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
-	action=mi-m=1; hc=10;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:6YItON7O7c/YzudyeDccVSEXj43fP83sWMvwLUj84qM=:8ohcEE/rLk0E3/+WX+kstNWHwLl8TZOTwGF14huRAOQ=;
-X-ME-Sender: <xms:KJbZaiwwF0VKvimavZ2cXcpFubCUv_JAQAAtj8LRduDZPJVsjhGBTg>
-    <xme:KJbZasEY16ky0v5mDy32TTaWZyL82LZ9OM98emiqKsfbYeDSd95GFOnnKjSe1uKcM
-    MKjj2r2v60A8_Gr04beEfW585LPd_D1MP53HS6n9Ls4zMgscTH4RdA>
-X-ME-Received: <xmr:KJbZauwlAG6PmilFDng1KH4eWTlsJ5nrrdHogtmGia_pHPMc24P5bK9_qQsPYQ>
-X-ME-Proxy-Cause: dmFkZTGe3BStMcb/4fibXhFSxm2NY+YNOSyPm8yC6ti1/yqmwu0QTf1wmxwWbroI17RvDB
-    7Ljd1+OR/eU2MrXfx0hvrCAXQxYt2ENcteXvZpnH/iWbCE+2kZbx5Ro4t44eLu+RLoUYne
-    IegmPuk/+O1p2d+Pva/gfnwjG3V95ATWJJa67c0qC5CrjCdzjqrj5xCpbvAoUAgupvsoNy
-    q/JL+LUWcbXxL7y77KxyIxaQTybJ+cTpwnofu5DzLPaNIocxBOLvHO7JGuYb0b7N0Fay2s
-    LH6PD8eazM9Rm58CBp5ujPxn7mAS47FW8IdIHzpfSLnVPymmMrtACaUUUNdrUjjDv++ebA
-    AOLgUS+tFk6L3Dro4n5lb/VOQIkq5zAdLgfxqW863lVU900ETu25FB4HcY8fHmNFsbVC4l
-    s1ptLbS/bQG+PQ6WHkCmyaHg09Rg+TM+aWdtUwhwDKzUzVIsNJ49QLUmULf9CEfkBVjd/r
-    kfxPo51tQE75Pl8gSIoe4Mn0U3X9UNJgPhB6Gpo8ODaCn2LWvSdVoTZose9U3YhLr93MuO
-    Z0Dt3LsLAuyEqJbRkanWlJeffACRqsCYkFnqGu54HOGQqE5FrZri+ygXVUimQ30s1pwqGB
-    Kci71craQMp4hkpqOtL8e7lL+byCvXFPdq8bOwTbyw3ko4VnIpsa/k5/NPxA
-X-ME-Proxy: <xmx:KJbZalt7SORsirNRudw4_JwuT-TzfV7H_iqOWGa68C_QihusnQLF8A>
-    <xmx:KJbZaj1bf3veED_u7SGeyqukz3-d9RnlJlVfm9YxJ30k5rIsUFzVpw>
-    <xmx:KJbZao-Nmx5_wJ8teNj5pxRBEVo0OnnvvnofzIx1lakNH2gKAIDJYA>
-    <xmx:KJbZasNSUO5xQuZ0ZG_6dUjVfqVq120oX5RzrEH-qZdr08I-gSGpVA>
-    <xmx:KZbZakILLlQaYjy9ElAPB-m9ybftVc-XwtjiTjJ_0ZODU6sLioI3BMV9>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Oct 2026 00:50:48 -0400 (EDT)
-Date: Wed, 21 Oct 2026 22:50:45 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: alex@shazbot.org, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>
-Subject: [GIT PULL] VFIO updates for v7.4-rc1
-Message-ID: <20261021225045.519bf535@shazbot.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f0lYSkuO
+Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-16079d54c17so2700853c88.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:50:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792644659; x=1793249459; darn=vger.kernel.org;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:subject:cc:to:from:message-id:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vOO2/UqSFvP0eLpj9/3uPUE4+nv1U6cbi6EZXtRMkW8=;
+        b=f0lYSkuOnh4B/HImkJPwznbL7jCvRNq9v/HNp92nPLW3P0fXdn5F4xBPSZqPJKMa07
+         9qMBTZxsG6fqFT8kgwEuyylCQXtBVmLF1iFn7gcFMhF2h0FiWH5udIHSR65c97GAvpJ3
+         X8dDx8fQXTZsH4P3R1MsTVX98i5kz8OT9lkHAKjqNqtFZ/mH//FO9Nbbugp9/uycQErF
+         SM4Ti1duMW6dRhtcfMtAGDzflNGv0ySItD4RhpRpiKAk4LpAUNZIsVm5AUG4PUv5uaHq
+         fQw6Y/PQiTddv7UsslX2Gzc4PO3rEIej4U9YTQeIfhS99/w5uiFohPmRNJIzm/KnGF5K
+         30iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792644659; x=1793249459;
+        h=content-disposition:content-transfer-encoding:content-type
+         :mime-version:subject:cc:to:from:message-id:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vOO2/UqSFvP0eLpj9/3uPUE4+nv1U6cbi6EZXtRMkW8=;
+        b=QIU9pE38RbhMyRd2DPDzhnfF35Qmg5hiOOLhR/8o2e5v9B+8BZYdSqMgTt5IJD1cz+
+         Ufl0l/7YRyf4l8lywul4bQILNUY3n8peMFt3fd+W0ln28Dydv+cER0YXWQ+ku9y2F6H/
+         Kj5B4iQwureQHX/4MdhdDgx3Ss5lH4NmmwjZvthkKYivfyAP4dwZuiufzFJpMIArFPlr
+         fzk1c18ra67kLs9n3Ch22UjINfJFfPjQjiOwZJIjKK9Dih+OvrgbdQi0IJGDRoY8kIhb
+         PAFo0VbQDaciltdxPZuYqtlaya50mYxaxRTb9WqhcIkhEzR28K2BDGcte8t0pKWF1Jcu
+         ccSw==
+X-Forwarded-Encrypted: i=1; AKwUvByknVi11bLdM2kSoc2xoyfCIA5xegZl6GUFC6LIIA2qkSxrZYyiS8kB//PrdJA5e1dlnSYPJ+SqdT7IAHM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJdsWKWG2pyGaGqzl7lNA9abFhwSW4Cm8UlxaAKD4vycF1IyCK
+	uGa0qdf5v9tloJ4zyr+SiQ6kqnOXStQ7SZJ3+uNKvZV/Y7dn3XdqbDM9
+X-Gm-Gg: AYBFou1u9LNTT1Rz/yw8T4/ULoh+vM9Ns9vPL8EPellGb8Ru46tB6mdfhOzMXsbNyzO
+	5qgsFAXKx2geRrguyHBoPmgNKMaE5Nq4UaqPv832ZD/w5C1FMy1iDbDG0N/AqB6gkAnDp44oLFe
+	1bytB/bbpEYY0XuZ6ZcMPVtdZhKdRnVmlD2w4w7C5OK4U/Jx4Mzdd6VpasIkityycCrsJe3ba/I
+	DibTCyxpgUkcjhYtOilXVfCt85YY42/wVekLZdQbeg011RWpfeBAElwC4W8V1OzCbzN86HXh6ls
+	6aB3T6XQoVATLjA9NK055tXWgK+dgMUAtahKOzc33T8rNYADfC7O+QbbBsg8Q1LcTKAlHIFJIk0
+	0YjlkXvzXM2zyK0OFIzASl3TJMMLTDip3jBMcgd3rx7MzrBCxQEPuKhqSJfXfNrDyBuuiCOvB3P
+	XUPryz+mYsDvzbeOPumg7uRJOUNxJp3mzpJeFQLUVobQ/fq6pLlwPaKLqwQOFfjjAO5eH1/zPyj
+	irA4dXDw9HqYMABrqiYE/qLwGctEoDymJQ99NK3axfbPCofvabid+f4EjizOPtqm25s+J5IQXNx
+	IzcOys4yJPBPzsUeG9tE
+X-Received: by 2002:a05:7022:7e89:b0:14c:be8e:69f2 with SMTP id a92af1059eb24-190a599a074mr6125893c88.21.1792644658431;
+        Wed, 21 Oct 2026 21:50:58 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2ebe:8:1761:399a:3c8c:31ba])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bb7f098sm16855697c88.12.2026.10.21.21.50.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 21:50:57 -0700 (PDT)
+Date: Wed, 21 Oct 2026 21:50:56 -0700
+Message-ID: <4b2f60a7ceac543bd8b889b9c0772b2c@gmail.com>
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, Ike Panhc <ikepanhc@gmail.com>, Hans de Goede <hansg@kernel.org>, "Ilpo Järvinen" <ilpo.jarvinen@linux.intel.com>, Maxim Mikityanskiy <maxtram95@gmail.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3] platform/x86: ideapad-laptop: do not poke keyboard controller
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,222 +94,321 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Hi Linus,
+On Ideapad Z570 the driver tries to disable and re-enable data coming
+from the touchpad by poking directly into 8042 keyboard controller.
+This may coincide with the controller resuming and leads to spews in
+dmesg and potentially other instabilities.
 
-The following changes since commit 93f51579e7df248780214094418f205253383cc5:
+Instead of using i8042_command() to control the touchpad state create
+an input handler that serves as a filter and drop events coming from
+the touchpad when it is supposed to be off.
 
-  Linux 7.3-rc4 (2026-09-20 13:48:15 -0700)
+Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
+Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+---
 
-are available in the Git repository at:
+v3:
+- add missing header includes (compiler.h, container_of.h, errno.h,
+  mod_devicetable.h, slab.h, spinlock.h)
+- drop stray blank line in ideapad_tpswitch_filter()
+- collect Reviewed-by from Mark Pearson
 
-  https://github.com/awilliam/linux-vfio.git tags/vfio-v7.4-rc1
+v2:
+- fix inverted condition in ideapad_tpswitch_filter()
+- mark the handler as passive_observer so that touchpad is not activated
+  until there are real users
+- use READ_ONCE()/WRITE_ONCE() to access shared state flag
+- drop stray semicolon in to_tpswitch_handle()
+- update comments
 
-for you to fetch changes up to 076d7e989cb69f6ded7d60f2a080eb909930061b:
+ drivers/platform/x86/lenovo/ideapad-laptop.c | 189 ++++++++++++++++++-
+ 1 file changed, 180 insertions(+), 9 deletions(-)
 
-  vfio/nvgrace-gpu: Drop the usemem length check in open_device (2026-10-16 09:32:02 -0600)
+diff --git a/drivers/platform/x86/lenovo/ideapad-laptop.c b/drivers/platform/x86/lenovo/ideapad-laptop.c
+index 8213524504ee..be890e82b9ef 100644
+--- a/drivers/platform/x86/lenovo/ideapad-laptop.c
++++ b/drivers/platform/x86/lenovo/ideapad-laptop.c
+@@ -14,23 +14,28 @@
+ #include <linux/bitops.h>
+ #include <linux/bug.h>
+ #include <linux/cleanup.h>
++#include <linux/compiler.h>
++#include <linux/container_of.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/dmi.h>
+-#include <linux/i8042.h>
++#include <linux/errno.h>
+ #include <linux/init.h>
+ #include <linux/input.h>
+ #include <linux/input/sparse-keymap.h>
+ #include <linux/jiffies.h>
+ #include <linux/kernel.h>
+ #include <linux/leds.h>
++#include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+ #include <linux/platform_profile.h>
+ #include <linux/power_supply.h>
+ #include <linux/rfkill.h>
+ #include <linux/seq_file.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
+ #include <linux/string_choices.h>
+ #include <linux/sysfs.h>
+ #include <linux/types.h>
+@@ -210,6 +215,13 @@ struct ideapad_private {
+ 		struct led_classdev led;
+ 		unsigned int last_brightness;
+ 	} fn_lock;
++	struct {
++		bool initialized;
++		bool active; /* true means touchpad is enabled */
++		struct input_handler handler;
++		struct input_dev *tp_dev;
++		spinlock_t lock;
++	} tp_switch;
+ };
+ 
+ static bool no_bt_rfkill;
+@@ -234,7 +246,7 @@ MODULE_PARM_DESC(set_fn_lock_led,
+ static bool ctrl_ps2_aux_port;
+ module_param(ctrl_ps2_aux_port, bool, 0444);
+ MODULE_PARM_DESC(ctrl_ps2_aux_port,
+-		 "Enable driver based PS/2 aux port en-/dis-abling on touchpad on/off toggle. If you need this please report this to: platform-driver-x86@vger.kernel.org");
++		 "Enable driver based suppression of touchpad events on touchpad on/off toggle. If you need this please report this to: platform-driver-x86@vger.kernel.org");
+ 
+ static bool touchpad_ctrl_via_ec;
+ module_param(touchpad_ctrl_via_ec, bool, 0444);
+@@ -1462,6 +1474,159 @@ static void ideapad_check_special_buttons(struct ideapad_private *priv)
+ 	}
+ }
+ 
++struct ideapad_tpswitch_handle {
++	struct input_handle handle;
++	struct ideapad_private *priv;
++};
++
++#define to_tpswitch_handle(h) \
++	container_of(h, struct ideapad_tpswitch_handle, handle)
++
++static int ideapad_tpswitch_connect(struct input_handler *handler,
++				    struct input_dev *dev,
++				    const struct input_device_id *id)
++{
++	struct ideapad_private *priv =
++		container_of(handler, struct ideapad_private, tp_switch.handler);
++	struct ideapad_tpswitch_handle *h;
++	int error;
++
++	h = kzalloc_obj(*h);
++	if (!h)
++		return -ENOMEM;
++
++	h->priv = priv;
++	h->handle.dev = dev;
++	h->handle.handler = handler;
++	h->handle.name = "ideapad-tpswitch";
++
++	error = input_register_handle(&h->handle);
++	if (error)
++		goto err_free_handle;
++
++	/*
++	 * We need to open the input handle so the input core invokes our
++	 * filter, but since we mark our handler as passive observer, this
++	 * will not cause the underlying touchpad hardware to be started
++	 * if there are no other users.
++	 */
++	error = input_open_device(&h->handle);
++	if (error)
++		goto err_unregister_handle;
++
++	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
++		priv->tp_switch.tp_dev = dev;
++
++	return 0;
++
++err_unregister_handle:
++	input_unregister_handle(&h->handle);
++err_free_handle:
++	kfree(h);
++	return error;
++}
++
++static void ideapad_tpswitch_disconnect(struct input_handle *handle)
++{
++	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
++	struct ideapad_private *priv = h->priv;
++
++	scoped_guard(spinlock_irq, &priv->tp_switch.lock)
++		priv->tp_switch.tp_dev = NULL;
++
++	input_close_device(handle);
++	input_unregister_handle(handle);
++	kfree(h);
++}
++
++static bool ideapad_tpswitch_filter(struct input_handle *handle,
++				    unsigned int type, unsigned int code,
++				    int value)
++{
++	struct ideapad_tpswitch_handle *h = to_tpswitch_handle(handle);
++	struct ideapad_private *priv = h->priv;
++
++	if (READ_ONCE(priv->tp_switch.active))
++		return false;
++
++	/* Allow passing button release events, drop everything else */
++	return !(type == EV_KEY && value == 0) &&
++	       !(type == EV_SYN && code == SYN_REPORT);
++}
++
++static const struct input_device_id ideapad_tpswitch_ids[] = {
++	{
++		.flags = INPUT_DEVICE_ID_MATCH_EVBIT |
++				INPUT_DEVICE_ID_MATCH_KEYBIT |
++				INPUT_DEVICE_ID_MATCH_ABSBIT,
++		.bustype = BUS_I8042,
++		.vendor = 0x0002,
++		.evbit = { BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS) },
++		.keybit = { [BIT_WORD(BTN_TOOL_FINGER)] =
++				BIT_MASK(BTN_TOOL_FINGER) },
++		.absbit = { BIT_MASK(ABS_X) | BIT_MASK(ABS_Y) |
++				BIT_MASK(ABS_PRESSURE) |
++				BIT_MASK(ABS_TOOL_WIDTH) },
++	},
++	{ }
++};
++
++static int ideapad_tpswitch_init(struct ideapad_private *priv)
++{
++	int error;
++
++	if (!priv->features.ctrl_ps2_aux_port)
++		return 0;
++
++	spin_lock_init(&priv->tp_switch.lock);
++
++	priv->tp_switch.handler.name = "ideapad-tpswitch";
++	priv->tp_switch.handler.id_table = ideapad_tpswitch_ids;
++	priv->tp_switch.handler.filter = ideapad_tpswitch_filter;
++	priv->tp_switch.handler.connect = ideapad_tpswitch_connect;
++	priv->tp_switch.handler.disconnect = ideapad_tpswitch_disconnect;
++	priv->tp_switch.handler.passive_observer = true;
++
++	error = input_register_handler(&priv->tp_switch.handler);
++	if (error) {
++		dev_err(&priv->platform_device->dev,
++			"failed to register touchpad switch handler: %d",
++			error);
++		return error;
++	}
++
++	priv->tp_switch.initialized = true;
++	return 0;
++}
++
++static void ideapad_tpswitch_exit(struct ideapad_private *priv)
++{
++	if (priv->tp_switch.initialized) {
++		input_unregister_handler(&priv->tp_switch.handler);
++		priv->tp_switch.initialized = false;
++	}
++}
++
++static void ideapad_tpswitch_toggle(struct ideapad_private *priv, bool on)
++{
++	guard(spinlock_irq)(&priv->tp_switch.lock);
++
++	WRITE_ONCE(priv->tp_switch.active, on);
++	if (!on) {
++		struct input_dev *tp_dev = priv->tp_switch.tp_dev;
++		if (tp_dev) {
++			input_report_key(tp_dev, BTN_TOUCH, 0);
++			input_report_key(tp_dev, BTN_TOOL_FINGER, 0);
++			input_report_key(tp_dev, BTN_TOOL_DOUBLETAP, 0);
++			input_report_key(tp_dev, BTN_TOOL_TRIPLETAP, 0);
++			input_report_key(tp_dev, BTN_LEFT, 0);
++			input_report_key(tp_dev, BTN_RIGHT, 0);
++			input_report_key(tp_dev, BTN_MIDDLE, 0);
++			input_sync(tp_dev);
++		}
++	}
++}
++
+ /*
+  * backlight
+  */
+@@ -1799,7 +1964,6 @@ static void ideapad_fn_lock_led_exit(struct ideapad_private *priv)
+ static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_events)
+ {
+ 	unsigned long value;
+-	unsigned char param;
+ 	int ret;
+ 
+ 	/* Without reading from EC touchpad LED doesn't switch state */
+@@ -1810,12 +1974,11 @@ static void ideapad_sync_touchpad_state(struct ideapad_private *priv, bool send_
+ 
+ 	/*
+ 	 * Some IdeaPads don't really turn off touchpad - they only
+-	 * switch the LED state. We (de)activate KBC AUX port to turn
+-	 * touchpad off and on. We send KEY_TOUCHPAD_OFF and
+-	 * KEY_TOUCHPAD_ON to not to get out of sync with LED
++	 * switch the LED state. On such devices we use an input filter to
++	 * suppress events from the touchpad.
+ 	 */
+ 	if (priv->features.ctrl_ps2_aux_port)
+-		i8042_command(&param, value ? I8042_CMD_AUX_ENABLE : I8042_CMD_AUX_DISABLE);
++		ideapad_tpswitch_toggle(priv, value);
+ 
+ 	/*
+ 	 * On older models the EC controls the touchpad and toggles it on/off
+@@ -2018,8 +2181,8 @@ static const struct dmi_system_id hw_rfkill_list[] = {
+ /*
+  * On some models the EC toggles the touchpad muted LED on touchpad toggle
+  * hotkey presses, but the EC does not actually disable the touchpad itself.
+- * On these models the driver needs to explicitly enable/disable the i8042
+- * (PS/2) aux port.
++ * On these models the driver needs to explicitly suppress data coming from
++ * the touchpad.
+  */
+ static const struct dmi_system_id ctrl_ps2_aux_port_list[] = {
+ 	{
+@@ -2402,6 +2565,10 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+ 	if (err)
+ 		goto input_failed;
+ 
++	err = ideapad_tpswitch_init(priv);
++	if (err)
++		goto tpswitch_failed;
++
+ 	err = ideapad_kbd_bl_init(priv);
+ 	if (err) {
+ 		if (err != -ENODEV)
+@@ -2478,6 +2645,9 @@ static int ideapad_acpi_add(struct platform_device *pdev)
+ 
+ 	ideapad_fn_lock_led_exit(priv);
+ 	ideapad_kbd_bl_exit(priv);
++	ideapad_tpswitch_exit(priv);
++
++tpswitch_failed:
+ 	ideapad_input_exit(priv);
+ 
+ input_failed:
+@@ -2507,6 +2677,7 @@ static void ideapad_acpi_remove(struct platform_device *pdev)
+ 
+ 	ideapad_fn_lock_led_exit(priv);
+ 	ideapad_kbd_bl_exit(priv);
++	ideapad_tpswitch_exit(priv);
+ 	ideapad_input_exit(priv);
+ 	ideapad_debugfs_exit(priv);
+ }
 
-----------------------------------------------------------------
-VFIO updates for v7.4-rc1
-
- - Fix missing selftest <libgen.h> include for basename() to support
-   non-glibc builds. (Hisam Mehboob)
-
- - Add vfio selftest documentation covering the libvfio helper library
-   and guidance for developers to aid in adding and understanding the
-   framework. (David Matlack)
-
- - Fix vfio cdev open path to prevent a second open from clobbering
-   the vf_token or clearing the KVM reference.  Add a selftest to
-   avoid future recurrences. (Alex Williamson)
-
- - Extend vfio selftest mix_and_match timeouts, in particular to
-   account for systems where generated faults can induce heavy SMM
-   load, delaying internal timeouts.  Also extend timeout for
-   execution via runner to account for various tests exceeding default
-   45s timeout.  (Alex Williamson)
-
- - Add tracking for non-reserved mappings into a vfio_dma object in
-   order to optimize the tear-down paths where per-page tests can be
-   entirely skipped.  This resolves a soft lockup for large memory
-   GPUs. (Samuel Crossley)
-
- - Add vfio selftest driver for mlx5, providing another target for
-   exercising DMA and interrupts against a physical device.
-   (Jason Gunthorpe)
-
- - Hardening against read-only region promotion, preserving vm_pgoff
-   for unmap_mapping_range(), and reject non-shared MMIO mmaps as
-   necessary through vfio-platform, vfio-fsl-mc, and vfio-cdx.  These
-   prevent future issues, though none are currently reachable.
-   (Abdifatah Suruur)
-
- - Fix 8-byte ioeventfd support, removing a static error test that was
-   erroneously left in place when generalizing 8-byte io accesses.
-   (Li RongQing)
-
- - Fix missed RCU drain on module exit. (Jiale Yao)
-
- - Fix off-by-one boundary check in migration support within the mlx5
-   vfio-pci variant driver. (Seongjun Hong)
-
- - Remove drvdata usage convention across vfio-pci-core, allowing
-   variant drivers to freely create their own conventions and enabling
-   a future Rust-based variant driver.  A DRM topic branch is also
-   merged in support of this effort, modifying the vga arbiter API
-   to more cleanly remove the drvdata dependency. (Simon Song)
-
- - Fix hisi_acc vfio-pci variant driver to avoid NULL pointer accesses
-   when bound to unsupported devices and also disabling migration
-   support when running on 64K host page size due to BAR mapping
-   constraints. (Longfang Liu)
-
- - Add device IDs for Crescent Island and Nova Lake devices to the Xe
-   vfio-pci variant driver. (Satyanarayana K V P)
-
- - Fix fallback mode in nvgrace-gpu variant driver to use symmetric
-   open and close handlers to avoid reported use-after-free issue.
-   Remove the resulting unnecessary test in the now single-purpose
-   open function. (Andrea Parri)
-
-----------------------------------------------------------------
-Abdifatah Suruur (7):
-      vfio/platform: prevent read-only region mappings from becoming writable
-      vfio/fsl-mc: prevent read-only region mappings from becoming writable
-      vfio/cdx: prevent read-only region mappings from becoming writable
-      vfio/platform: keep logical vm_pgoff in MMIO region mmap
-      vfio/fsl-mc: keep logical vm_pgoff in MMIO region mmap
-      vfio/cdx: keep logical vm_pgoff in MMIO region mmap
-      vfio/cdx: reject non-shared MMIO mmaps
-
-Alex Williamson (6):
-      vfio: Reject a second cdev open before mutating shared device state
-      vfio: selftests: Extend mix_and_match timeout to 90s
-      vfio: selftests: Extend timeout for runner executions
-      Merge branch 'mlx5-vfio-selftest-v7' of https://github.com/awilliam/linux-vfio into v7.4/vfio/next
-      vfio: selftests: Verify a failed second open preserves the vf_token
-      Merge tag 'topic/pci-vgaarb-rework-2026-10-01' of https://gitlab.freedesktop.org/drm/kernel into v7.4/vfio/next
-
-Andrea Parri (2):
-      vfio/nvgrace-gpu: Use a core-only open_device in fallback mode
-      vfio/nvgrace-gpu: Drop the usemem length check in open_device
-
-Dave Airlie (1):
-      PCI/VGA: pass a data pointer to be used in the decode callback (v2)
-
-David Matlack (1):
-      vfio: selftests: Add documentation
-
-Hemanth Selam (1):
-      vfio: fix typo "stucture" in comment
-
-Hisam Mehboob (1):
-      vfio: selftests: Include <libgen.h> for basename() on non-glibc builds
-
-Jason Gunthorpe (10):
-      net/mlx5: Add IFC structures for CQE and WQE
-      net/mlx5: Move HW constant groups from device.h/cq.h to mlx5_ifc.h
-      net/mlx5: Extract MLX5_SET/GET macros into mlx5_ifc_macros.h
-      net/mlx5: Add ONCE and MMIO accessor variants to mlx5_ifc_macros.h
-      selftests: Add additional kernel functions to tools/include/
-      vfio: selftests: Allow drivers to specify required region size
-      vfio: selftests: Add dev_dbg
-      vfio: selftests: Add mlx5 driver - HW init and command interface
-      vfio: selftests: Add mlx5 driver - data path and memcpy ops
-      vfio: selftests: mlx5 driver - add send_msi support
-
-Jiale Yao (1):
-      vfio/pci: Drain eventfd RCU callbacks on module exit
-
-Li RongQing (1):
-      vfio/pci: Restore 8-byte ioeventfd support
-
-Longfang Liu (2):
-      hisi_acc_vfio_pci: fix NULL dereference in reset_prepare on PF passthrough
-      hisi_acc_vfio_pci: reject live migration on 64KB page with QM_HW_V3 hardware
-
-Samuel Crossley (1):
-      vfio/type1: avoid walking reserved-only mappings while unpinning
-
-Satyanarayana K V P (1):
-      vfio/xe: Add CRI and NVL device IDs
-
-Seongjun Hong (1):
-      vfio/mlx5: Fix boundary check in set_report_output()
-
-Simon Song (1):
-      vfio/pci: Remove the core dependency on driver data
-
- Documentation/driver-api/index.rst                 |    1 +
- Documentation/driver-api/vfio-selftests.rst        |  252 +++
- MAINTAINERS                                        |    1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |    9 +-
- drivers/gpu/drm/i915/display/intel_vga.c           |    7 +-
- drivers/gpu/drm/loongson/lsdc_drv.c                |    4 +-
- drivers/gpu/drm/nouveau/nouveau_vga.c              |    6 +-
- drivers/gpu/drm/radeon/radeon_device.c             |    9 +-
- drivers/pci/vgaarb.c                               |   13 +-
- drivers/vfio/cdx/main.c                            |   17 +-
- drivers/vfio/device_cdev.c                         |   12 +
- drivers/vfio/fsl-mc/vfio_fsl_mc.c                  |   15 +-
- drivers/vfio/mdev/mdev_core.c                      |    2 +-
- drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c     |   73 +-
- drivers/vfio/pci/ism/main.c                        |   19 +-
- drivers/vfio/pci/mlx5/cmd.c                        |    2 +-
- drivers/vfio/pci/mlx5/main.c                       |   13 +-
- drivers/vfio/pci/nvgrace-gpu/main.c                |   42 +-
- drivers/vfio/pci/pds/pci_drv.c                     |    8 +-
- drivers/vfio/pci/pds/vfio_dev.c                    |    5 +-
- drivers/vfio/pci/qat/main.c                        |   12 +-
- drivers/vfio/pci/vfio_pci.c                        |   33 +-
- drivers/vfio/pci/vfio_pci_core.c                   |   46 +-
- drivers/vfio/pci/vfio_pci_rdwr.c                   |    3 -
- drivers/vfio/pci/virtio/main.c                     |    8 +-
- drivers/vfio/pci/xe/main.c                         |   13 +-
- drivers/vfio/platform/vfio_platform_common.c       |   15 +-
- drivers/vfio/vfio_iommu_type1.c                    |   12 +-
- drivers/vfio/vfio_main.c                           |    7 -
- include/linux/mlx5/cq.h                            |   10 -
- include/linux/mlx5/device.h                        |  231 +--
- include/linux/mlx5/mlx5_ifc.h                      |  178 ++
- include/linux/mlx5/mlx5_ifc_macros.h               |  185 ++
- include/linux/vfio_pci_core.h                      |   41 +-
- include/linux/vgaarb.h                             |    8 +-
- tools/arch/arm64/include/asm/barrier.h             |    4 +
- tools/arch/x86/include/asm/barrier.h               |    5 +
- tools/include/asm-generic/io.h                     |   28 +
- tools/include/asm/barrier.h                        |    8 +
- tools/include/linux/stddef.h                       |   10 +
- .../selftests/kvm/include/arm64/processor.h        |    4 +-
- tools/testing/selftests/kvm/irq_test.c             |    2 -
- tools/testing/selftests/vfio/.gitignore            |    1 +
- tools/testing/selftests/vfio/lib/drivers/dsa/dsa.c |    1 +
- tools/testing/selftests/vfio/lib/drivers/igb/igb.c |    1 +
- .../testing/selftests/vfio/lib/drivers/ioat/ioat.c |    1 +
- .../testing/selftests/vfio/lib/drivers/mlx5/mlx5.c | 1928 ++++++++++++++++++++
- .../selftests/vfio/lib/drivers/mlx5/mlx5_hw.h      |  114 ++
- .../selftests/vfio/lib/drivers/mlx5/mlx5_ifc.h     |    1 +
- .../vfio/lib/drivers/mlx5/mlx5_ifc_fpga.h          |    1 +
- .../vfio/lib/drivers/mlx5/mlx5_ifc_macros.h        |    1 +
- .../vfio/lib/drivers/nv_falcon/nv_falcon.c         |    1 +
- .../vfio/lib/include/libvfio/vfio_pci_device.h     |   11 +
- .../vfio/lib/include/libvfio/vfio_pci_driver.h     |    6 +
- tools/testing/selftests/vfio/lib/iova_allocator.c  |    7 +-
- tools/testing/selftests/vfio/lib/libvfio.mk        |    1 +
- tools/testing/selftests/vfio/lib/sysfs.c           |    1 +
- tools/testing/selftests/vfio/lib/vfio_pci_driver.c |    6 +
- tools/testing/selftests/vfio/settings              |    5 +
- .../testing/selftests/vfio/vfio_pci_driver_test.c  |    5 +-
- .../selftests/vfio/vfio_pci_sriov_uapi_test.c      |   35 +
- 61 files changed, 3080 insertions(+), 420 deletions(-)
- create mode 100644 Documentation/driver-api/vfio-selftests.rst
- create mode 100644 include/linux/mlx5/mlx5_ifc_macros.h
- create mode 100644 tools/include/linux/stddef.h
- create mode 100644 tools/testing/selftests/vfio/lib/drivers/mlx5/mlx5.c
- create mode 100644 tools/testing/selftests/vfio/lib/drivers/mlx5/mlx5_hw.h
- create mode 120000 tools/testing/selftests/vfio/lib/drivers/mlx5/mlx5_ifc.h
- create mode 120000 tools/testing/selftests/vfio/lib/drivers/mlx5/mlx5_ifc_fpga.h
- create mode 120000 tools/testing/selftests/vfio/lib/drivers/mlx5/mlx5_ifc_macros.h
- create mode 100644 tools/testing/selftests/vfio/settings
+-- 
+Dmitry
