@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792674054;
-	b=sACqZunJSwdzTCAuYEG/gOwirV6oZ/s3wh8A+Q0ozReq+MX2zJPAFCCrdCbk3FyrXNW+
-	 zRJiBpoFAI04plis5/ws4DB7qUR1ibpMeCX8/j+tbovHHLqNATdJeSpaB/kstASkQ/1BK
-	 5H3dvo8I50KEVb46ac3Ec71yeX/kUL5wx53LfrJKki81UX5rL/xtQqwkiIKf+XwHiAxw/
-	 JCgtwRgC1JWyMSN2wCyf2VTTRTlbU2zkqa21QCubt7Gt3aGhSa0mzqXRGH8mlS38dshVO
-	 GfWT8SxTWmspld4YxZiBa3/Xkc0TkOdHzcxLGN4b0A/YnsFYrzl5JEUp3jqQwg6aG5Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674054;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tcvsiiLHqQEogFe4jcE5sMu10sQpK4YUcpJ25LK0ci8=;
-	b=Z7K0l0fvdpxg93xssfaBHu1gThrn1OKWWjOwqQ3navaMvH0nqWT/6SB0mHtGZ/0vPaZ2
-	 R0Mmh4O5aDGvDDlOAkFEJnB3oJ0vYZ+t4DSMPraofdkNxvx/PFOKIKDN3NRgCZwpjvFsW
-	 LK7LJnCFvB6YIDMerNPb4HFWG2oxneDhDya54nq80XhS8zTDTz6QWK9N4xLJruxJTZVk1
-	 HFGAaT0yf1VXMoqRCoXJmnElkWPPkdlneabp2U4cMTUvcAulwPGBPahvReQd2DoUih4HW
-	 LzN77nRYPrJaWNKUnFH6GmpvRpMPlEv5f++py16kZqrqbGI/nPNMwHWPvzc3rwvyBqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="P/AD3ZZx";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1079B606A319;
-	Thu, 22 Oct 2026 13:00:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P/AD3ZZx
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792674053;
-	b=W2780CmNb6wtpNBbQ6IAb8t6EIXmOJOOfIqodVhqd19nS4FB4CbdxtI3jrDtpifMD0Bc
-	 Z8VgNT/6eIoPqpMxeA8TJ+nY9Z6xPXFnqarB9PsnxB6FxgE2pYyZ6IIhw4W6VYIbaJosf
-	 h2O0OnBf30coWkTXS9g8KVgGskpWRQ07Z8JEa6yzSGMNspRAnf7MPI7dm47di5CJ9eLeH
-	 EDrBu5DrTqimKK35ZaMwlzlFWVm3j0kQOX+wxG9+COnb71+Hkt4MouVk6Pcj5EIhwW4bJ
-	 h0ZUnn6MVOTMbUGma661xDFefVUd2cK3LaIOpSmIoAVaK6FDq/UPwQGdOkTE/VnjIWQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792674053;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=tcvsiiLHqQEogFe4jcE5sMu10sQpK4YUcpJ25LK0ci8=;
-	b=Ix2M+HgeFV7UQ6powAIwjBZYoC+d7p84csTADk553xg45CrtxhyNT6ZdbkaS1ZhMVpVt
-	 6UfVbZgY5NzUk8MISJzJHarnAvQ1ppyMF1RT6Qx/iVveE2cS8ZM85WZ0YYs9P5xZYeEzz
-	 X1iSw6PbQxYuYeaR/yQ8ydyxkwo4/xwKod9pXXUQCB9eWwsHnTEacobkt7Y3obvlqK9Ws
-	 VDmZYXKQ706Kjd2Byl6MmfiKrkHxuSQC9yRH88zOWpTNflVRQrcO7RoSer9H5vufKEpuJ
-	 BOytpKGHnlLxytwGorICUrMssrQavWauux+XXLdSDqg6QUNCxXxHlpRuUk2BorB1p8A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792674090;
+	b=kC9dApiMGzIFAgFsvtvxXyNXH07RGNaoLOUfH7hrR+H+gqdPi+i/dlEVcQ06Z6bsQxSi
+	 CxOcSxqwepaCL+EKBaYmEG60euyqdYbZ0FvdvTPBPuPUrzBdSZ+n1yJ5/bNG5DpVgrfKI
+	 H1Pls+qgzCJVvIeYYo3SEelXrmZ3wb1DJuHZ9dkOyVNxfb7SlAUbRi2jiypDJ6cw1cGXa
+	 UdeNzi6hlEcVHJMAfBEK1HDjgpe00QYqrFEKj3sLlCE8/kAV1eqqxLMlOah19vOV+9OdT
+	 UiUIFdDkiT0czdS5ODZ9x06wQirqEetr5vT+vTfVtdj2ZrzNXMfBltFxMzcY7Yhp3pQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674090;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8aJ+ZgjrOzJ2MQ0XsYDbjZR4GMqieJUK4jmHnZipazA=;
+	b=XuX5jED9mAggLJO7ltYLBW2BuDOs19Xflfg5U+3e/Cvnf9a4yjSHZmX4phRwnSY5bZKi
+	 KI7Tah6lLFMChT9YRaMhZg8FRZ6PhhfflxBMpEgEl+tzHjnq5viaqflzvrWAuZdlxLMEc
+	 9742/A18QjOIhlWLeFeauu/cDgc44K8y3pPkIxvnyvv2pVFOiWPEhQBSr6HIBhF/7BiJT
+	 CBGYHdwIXGizAT48Jb5nZoebqdHqgeFwGfxmMTI2b0poiB6Zn+tS8MDQOR6bjqQb4nIa6
+	 4r1F+FlxfXrOsxa/rmPZKBKKJbsyWTpSE6cjP4mAlHo2l+HgpsGNUPM0xC4gTflMBwg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VxcSf6CI;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 23B271F000C1;
-	Thu, 22 Oct 2026 13:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792674053;
-	bh=tcvsiiLHqQEogFe4jcE5sMu10sQpK4YUcpJ25LK0ci8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=P/AD3ZZxEoLjPbsbT+O8X8ePsJfD2jFxIDXbXN2jSLM70AQR2FoE/+SDZ6hpcHytG
-	 ZOh6DgVh1Ifr4bKhpKsa7wJg9jRYkIycP3dtpSHBkYOxBXpq1VV6mQ1+oT6YgvgMUX
-	 cChKJ5cttWopr1IatETt+s42udkrFiGUEGoWjbUSGmN+LpoWCZcxw3haAp6Waf9JQd
-	 jRWB/308JsPp5Oba1eiz9Wj5dc0Pe9sRc/NDckU3M8IQRQtC2c7Qm3EPg1b10+UPaL
-	 cTNRn+/YgK80O2BIc1MZFcHcUOjFqsWzIw1vsVmbBlj15OJbcdNkEr9/OkwtaNfr9o
-	 RlDMo2fYiYOiw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 790EC43397;
-	Thu, 22 Oct 2026 13:00:52 +0000 (UTC)
-From: Sercan GOKMEN via B4 Relay <devnull+gokmensercan.gmail.com@kernel.org>
-Date: Thu, 22 Oct 2026 16:00:52 +0300
-Subject: [PATCH] platform/x86: asus-wmi: Add keyboard backlight read-back
- quirk for ASUS ExpertBook Ultra B9406CAA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D39606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:01:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3D39606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=VxcSf6CI
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so12494775e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792674088; x=1793278888; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8aJ+ZgjrOzJ2MQ0XsYDbjZR4GMqieJUK4jmHnZipazA=;
+        b=VxcSf6CIKAoagWCSIk4OdejyY4PIlSMFBre+qTk0yUCEjbr8jPstuWf4c3hOiSaohB
+         7f6xKeqOMebzGnhOQQ9ePVAx1VBCJX6b7uE4867QQJClJnCDDfiL/i9WXXqRjEIRLYiT
+         px6c5t+fcMzSygiMFvy6cb9Ob5QIX5cQgnLalF7EuhTsp5RRvI6bkWfSMplSO5zozwbP
+         BqkFAWGFYItDrPJTXFx/mwdCzIxKtdAQ9AR6hnI8OWzUuKQOqeuRjLhQSekeTpJRfz4g
+         ARtYn+UrMYcfS7Bq1znNG8eGJZogXbKlf2W+AkAw0ChUd2n2sdcb7eM1BFQ4IoKhQvOy
+         0w2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792674088; x=1793278888;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8aJ+ZgjrOzJ2MQ0XsYDbjZR4GMqieJUK4jmHnZipazA=;
+        b=v8REyPDyJ/uRx6Dn7bjfF2j3JWmxi3lh50SRPsEjfnFVxioa15/ebaW3Qmv/GEhV1G
+         INzs42xf5YPEXJzmVNsUlNgwRnJW4leH/5+5zvBItWvCyCUMW4yOI1h12n/UtbUjaQlP
+         Pk3pwhPUQeZAPtwsuif0o5FX8Bc0Et+ta2cvZvr1BnAYqc6Ihzi4MMv6nRo/9mlk0gX/
+         5FOYeaE6vFuHgYAJl8JlpFdZi2Ihq4f6N1C/huD2PIhPYe07qIlY5Fvku8fVozSKx4+z
+         fwBu+jQxSbzfOuVf+iGA9J25D3roPREJwKa7De9uGrOeQDZ26Y5YK2dLumk7ypuh5Jh9
+         as0g==
+X-Forwarded-Encrypted: i=1; AKwUvBzYZdtfv2Q0vHKxXDXjoLS79xJFSEBWdk/yEygGIW57PIQ4HEMxPLtXbmBAGusn90iin2MiCR0zJ29EYHU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrzJJbb+6aams6KUZV73tB8I6MXs1tW0ESAzDLSXZbjChxXBSI
+	bYeJZ13DYV8n+724dlwP0ddjsLxt/AygR29mob1H6BCME6+adOP+Izda
+X-Gm-Gg: AYBFou3ry5lRpF2mivQfvvHEtPhU3kuUSEoCZu2h6+MpYmBKltYQhJ8tUXKL4F1Ad+0
+	IvReb/AnnzkCGvJL6Qz7nS+6HR7W29ONC0FcdV2kjAifB8OklRDJnM1qr4wDtJAhvHY8XdXV7JB
+	qtPNX3yyh5ptpBSh7S0Hp+moHzZShTeXv/ef59KMcOSVIWK7Gws6v6YBOYUW4PATOkTkrU5I+eN
+	ZU90SuDu54hLpe+oEJ7XBrR3lcc0EbVmcAcIwGKlGy8pP9BqyBdPAmkBuFoKFoVMXf7HqAgcUab
+	qIseRLq/IZgmji1cNLjhXE0VNs9BuEGd9k3ZYBBdhTHbh9sKVyzufRn4vemKIJEGIN1DldSNSZ7
+	4EFsO8EOYTTYRhnvU1GE/g6ABheq/as/Zk8yFR6GF+DyoFfLoAtYgdPmCjRhK2bMzSHMJyJ5cG0
+	bGGYZhbTKx7qxmk08UopW4v3v0aMaZfF5kUAtoxnKU34xApci/N+GFGIFh3s1XMnjXXEykK+7Ax
+	H7EZAOfd0FxKFHbn6AcOi64DcXZFUmD7Ytjm7+3gDtbOMh2K9uzfZ0CPdqKOTv7NmqhApHBKEiE
+	L2nmP1ft1TAaq9vYKymKT9HCH69vAC3XkNiHwseITgpWqFOHSUu89UE=
+X-Received: by 2002:a05:600c:3548:b0:4a1:e774:370c with SMTP id 5b1f17b1804b1-4a1fdd145edmr104588835e9.30.1792674085847;
+        Thu, 22 Oct 2026 06:01:25 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fc1066cfsm116512435e9.1.2026.10.22.06.01.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 06:01:25 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:01:23 +0200
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 1/3] arm64: dts: freescale: imx8-apalis: Add NAU8822
+ Bridge Tied Load
+Message-ID: <3hd6y6f2lb73mrz2xi5pgsgzvahzmsmktfbyx7n7uewmobk22i@encqv6tasfzo>
+References: <20261001-v1-apalis-colibri-imx8-dtsos-v1-0-21881dc324c1@toradex.com>
+ <20261001-v1-apalis-colibri-imx8-dtsos-v1-1-21881dc324c1@toradex.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,158 +102,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-b4-asus-wmi-b9406caa-kbd-readback-v1-1-fb33ed98dd16@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ6CMAyA4VchPdtkFCTMVzEeuq1qJaJZRUkI7
- 87U43f5/wVMsorBoVogy1tNH2NBvasgXnm8CGoqBnLU1Y4IQ4tsk+Hnrhh867rIjENImIVT4Dg
- gS+rJ75vUNx5K55nlrPPvcTz9bVO4SXx9w7CuG/Khba2FAAAA
-X-Change-ID: 20261022-b4-asus-wmi-b9406caa-kbd-readback-aed82953d839
-To: Corentin Chary <corentin.chary@gmail.com>, 
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sercan GOKMEN <gokmensercan@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792674051; l=5290;
- i=gokmensercan@gmail.com; s=20261022; h=from:subject:message-id;
- bh=fSTmrfZTjXJhJvDRdGbk0K/+rwI2QBECNtaYIr3fMRU=;
- b=QxmCus+1hrgSGoq6KlRU6n1u9s+4iePiNgCTGkltxKKVejqhos/B/9600VXxtAZJ019OftfT4
- a7biuSGhUQdAdxCD2n1EDzB/o3Cv1Ecz3leVubsy0yrtiz+dvVNfTZj
-X-Developer-Key: i=gokmensercan@gmail.com; a=ed25519;
- pk=nFIlLCcGouUfBov8xxW0K4qUtEjdhJniMOO8WCSqghU=
-X-Endpoint-Received: by B4 Relay for gokmensercan@gmail.com/20261022 with
- auth_id=1282
-X-Original-From: Sercan GOKMEN <gokmensercan@gmail.com>
-Reply-To: gokmensercan@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-v1-apalis-colibri-imx8-dtsos-v1-1-21881dc324c1@toradex.com>
 
-From: Sercan GOKMEN <gokmensercan@gmail.com>
+On Thu, Oct 01, 2026 at 10:43:10AM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> 
+> The NAU8822 on the Apalis Evaluation Board V1.2 can combine its two
+> loudspeaker outputs into a Bridge Tied Load output. Add an overlay to
+> select this mode when using the board with the Apalis iMX8.
+> 
+> The overlay is also combined with the Apalis iMX8QM V1.1 on Evaluation
+> Board V1.2 device tree to provide a ready-to-use DTB. The codec and its
+> routing are already described by the carrier device tree.
+> 
+> The overlay supports both Apalis iMX8QP and iMX8QM modules.
+> 
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> ---
+>  arch/arm64/boot/dts/freescale/Makefile                    |  6 ++++++
+>  .../dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso  | 15 +++++++++++++++
+>  2 files changed, 21 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+> index 9971b34f7301..2732b223eb3d 100644
+> --- a/arch/arm64/boot/dts/freescale/Makefile
+> +++ b/arch/arm64/boot/dts/freescale/Makefile
+> @@ -801,13 +801,19 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mq-zii-ultra-zest.dtb
+>  imx8mq-tqma8mq-mba8mx-lvds-tm070jvhg33-dtbs += imx8mq-tqma8mq-mba8mx.dtb imx8mq-tqma8mq-mba8mx-lvds-tm070jvhg33.dtbo
+>  dtb-$(CONFIG_ARCH_MXC) += imx8mq-tqma8mq-mba8mx-lvds-tm070jvhg33.dtb
+>  
+> +dtb-$(CONFIG_ARCH_MXC) += imx8-apalis-eval-v1.2-nau8822-btl.dtbo
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-eval.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-eval-v1.2.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-ixora-v1.1.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval.dtb
+> +dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval-v1.2-nau8822-btl.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval-v1.2.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.1.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.2.dtb
+> +
+> +imx8qm-apalis-v1.1-eval-v1.2-nau8822-btl-dtbs := imx8qm-apalis-v1.1-eval-v1.2.dtb \
+> +	imx8-apalis-eval-v1.2-nau8822-btl.dtbo
+> +
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-mek.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-tqma8qm-mba8x.dtb
+>  dtb-$(CONFIG_ARCH_MXC) += imx8qm-var-som-symphony.dtb
+> diff --git a/arch/arm64/boot/dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso b/arch/arm64/boot/dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso
+> new file mode 100644
+> index 000000000000..b2f9c43d29cd
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso
+> @@ -0,0 +1,15 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
+> +/*
+> + * Copyright (c) Toradex
+> + *
+> + * Enable Bridge Tied Load (BTL) speaker mode on the Apalis Evaluation
+> + * Board V1.2, combining the two loudspeaker outputs for higher output
+> + * power.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&nau8822_1a {
+> +	nuvoton,spk-btl;
+> +};
+> 
+> -- 
+> 2.43.0
+> 
 
-On the ASUS ExpertBook Ultra B9406CAA (BIOS 312) the keyboard backlight
-query DSTS(ASUS_WMI_DEVID_KBD_BACKLIGHT) always returns 0x550000: the
-presence bit is set but the level bits are 0 regardless of the level the
-EC is actually driving. The DSDT's DSTS handler for 0x00050021 builds
-its reply from constants (0x400000 | 0x350000, masked by the KBLT flag)
-and never reads the level from the EC, so no query variant can return
-it. Writes work: DEVS hands the value to the EC method SLKB and the
-0x80|level form the driver uses steps the keyboard through all levels.
+Hi Frank,
 
-kbd_led_get() re-reads the firmware on every sysfs read and stores the
-result in asus->kbd_led_wk, so on this machine every read overwrites the
-cached level with 0. The visible effects are:
+Patch 1/3 (imx8-apalis: Add NAU8822 Bridge Tied Load) is superseded by
+the shared NAU8822 BTL overlay series:
+https://lore.kernel.org/all/20261022-imx-nau8822-btl-v2-3-b4221ed43650@toradex.com/
 
- - /sys/class/leds/asus::kbd_backlight/brightness, UPower's
-   GetBrightness and brightnessctl always report 0;
- - systemd-backlight saves 0 at shutdown and restores a dark keyboard
-   at every boot;
- - the Fn backlight key on this laptop raises ASUS_EV_BRTTOGGLE, and
-   asus_wmi_kbd_led_hw_event() computes the next level from the cached
-   value, so after any read has zeroed the cache the next press always
-   yields level 1 whatever the keyboard was actually showing.
-
-Add a quirk_entry flag, kbd_led_no_readback, which makes kbd_led_get()
-return the cached level the way the existing !kbd_led_avail path
-already does. Every path that changes the level (do_kbd_led_set(),
-kbd_led_set_by_kbd(), the hotkey handler) keeps kbd_led_wk current, so
-the cache is the only trustworthy source on this board. Match the
-board with the same DMI strings the accepted SoundWire quirk for this
-machine uses (sys_vendor "ASUS", board_name "B9406CAA").
-
-Tested on the B9406CAA with Linux 7.2.3: after the quirk, brightness
-reads back 3/1/2 after the corresponding writes, UPower reports the same
-value, and three presses of the Fn backlight key from level 2 give
-2 -> 3 -> 0 -> 1 (the ASUS_EV_BRTTOGGLE wrap), each step read back
-correctly. Re-tested on Linux 7.3.0: writes of 3/1/2/0 read back
-unchanged. Also compile-tested on this base with W=1 (clang).
-
-Signed-off-by: Sercan GOKMEN <gokmensercan@gmail.com>
----
-The patch is also tracked, with the other B9406CAA upstream patches,
-in the community support repo for this laptop:
-https://github.com/burakgon/asus-expertbook-linux/tree/main/upstream-patches
----
- drivers/platform/x86/asus-nb-wmi.c | 21 +++++++++++++++++++++
- drivers/platform/x86/asus-wmi.c    |  3 ++-
- drivers/platform/x86/asus-wmi.h    |  5 +++++
- 3 files changed, 28 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index 3b0f3346d..894f622c8 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -93,6 +93,18 @@ static struct quirk_entry quirk_asus_unknown = {
- 	.wmi_backlight_set_devstate = true,
- };
- 
-+/*
-+ * ASUS ExpertBook Ultra B9406CAA (BIOS 312): the keyboard backlight query,
-+ * DSTS(0x00050021), always returns 0x550000, i.e. level 0, whatever the EC is
-+ * actually driving. Writes work. Without this quirk every sysfs read
-+ * overwrites the cached level with 0, so UPower, brightnessctl and
-+ * systemd-backlight all see a dark keyboard and restore level 0 at boot.
-+ */
-+static struct quirk_entry quirk_asus_b9406caa = {
-+	.wmi_backlight_set_devstate = true,
-+	.kbd_led_no_readback = true,
-+};
-+
- static struct quirk_entry quirk_asus_q500a = {
- 	.filter_i8042_e1_extended_codes = true,
- 	.wmi_backlight_set_devstate = true,
-@@ -167,6 +179,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
- }
- 
- static const struct dmi_system_id asus_quirks[] = {
-+	{
-+		.callback = dmi_matched,
-+		.ident = "ASUS ExpertBook Ultra B9406CAA",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUS"),
-+			DMI_MATCH(DMI_BOARD_NAME, "B9406CAA"),
-+		},
-+		.driver_data = &quirk_asus_b9406caa,
-+	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. Q500A",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index fb1d4a085..19a0b3a0c 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -1966,7 +1966,8 @@ static enum led_brightness kbd_led_get(struct led_classdev *led_cdev)
- 	asus = container_of(led_cdev, struct asus_wmi, kbd_led);
- 
- 	scoped_guard(spinlock_irqsave, &asus_ref.lock) {
--		if (!asus->kbd_led_avail)
-+		if (!asus->kbd_led_avail ||
-+		    asus->driver->quirks->kbd_led_no_readback)
- 			return asus->kbd_led_wk;
- 	}
- 
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index b45f81b38..4f010f634 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -52,6 +52,11 @@ struct quirk_entry {
- 	 */
- 	int no_display_toggle;
- 	u32 xusb2pr;
-+	/*
-+	 * The firmware never reports the keyboard backlight level (the query
-+	 * always returns level 0), so trust the driver's cached value instead.
-+	 */
-+	bool kbd_led_no_readback;
- };
- 
- struct asus_wmi_driver {
-
----
-base-commit: 893018d51f27ec0449155b0afe371aaf65380630
-change-id: 20261022-b4-asus-wmi-b9406caa-kbd-readback-aed82953d839
+Patches 2/3 and 3/3 are unchanged and still apply to imx/dt64 without
+patch 1.
 
 Best regards,
---  
-Sercan GOKMEN <gokmensercan@gmail.com>
-
+Ernest
 
