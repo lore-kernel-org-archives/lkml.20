@@ -1,49 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792674767;
-	b=cSGLesfm6f7fcLrOajhMukh4dcr7xz3fIEcUvXjAfueeE/OCDMsZYCE47oKrZWk0sFo3
-	 sJd++9MRIqDuExIQE/5L8FJzhQbX4yTZkQoEWVo10ezrVhvxznqQW+XhlmDtGXunUzSTx
-	 jHAI0I+XL5kACZ6Oz5l5uavj5rhY682kZBfmTz85cMe16RNMOKrlxX+V4qIx8qk5qEAmI
-	 HmlPfeAqkr1Hp9NvGGGsYqdEjbU4jYQ8lrBTz2w+VD3EFuAMthXHIX9KX5yknD4Pd++gb
-	 L1A0xnm9Q4iP7c8f1JjZkxXxrzJ6tL/xke1vrQvhFU6zttKppLsWRcgB3XC/FvNiksw==
+	t=1792674777;
+	b=ojtIfRXVvnMvq6UukeboyJULRSRcl/0L0ETMhFNuMH/CYJ+MiNI3YHOUb9GhpPWXFGI7
+	 HJCZN7Eei9hOMJARrMZ6Nb5nxlNeJxAxU+O3WgYcs9Lr79bC2gcuZY6OQPSNb1reuOjVS
+	 U5Kjg6NZOpDpOJ1OeAQjJNZ0D57hY0QhsDyGfMWmHgM6TktrM6ubGh6Ix9c8Ni6YUJD3N
+	 8tUIxAt32pBou5v+a4bwmV6l4zRE9zs2fKc4zhQWR4tdf3/msihaqFFBMtRAWRU2r3IOI
+	 LGp2F2GL7GLAkhn5+qufn8gkTVhS3SzaSvHLmZLfjkk1By1pCz8FjBlsZzlsITNsfgw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792674767;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=bWeRZDGg5wgEIXQ2Q3Dog5Qq8cFNbVZQXYdNdnbIBxo=;
-	b=QTVQKKks4/Zgrq09PS6ob1SzusP5VN0E+mGNcaC2xowPhso4TzhXsC+IpNyb/IcIRyK3
-	 BfwaZI1JD5kjHIBvSka7mBZjgmRHedjGZAhlZZg4zjakVJgfSUXrYa8D0pZB0fA3+E0Su
-	 uA2hkCyQM3H45G/acfL0kgqc3y6p3ZyvjN9uWYu6QriPcv3RtSfh181gqjQoUMkAZJKG6
-	 0xpCeLPjk8s5w9ktkR9vptbPriPe3iN7Ian/fPQS+PNXABp4CZFPAJZvKrR5qoiI3zACH
-	 ONVMCcbDittOJzMvAeJ5p4z4rSZlTgWT0kvQm699nOkZsrheTXHdxsqFatd9wu1jgvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792674777;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=XegirbRv61k8O/v8C9GqnTzvwKbCvCQRqzC7ceZuaqQ=;
+	b=NJ59FSUweQMWe6xmbBAwn147QnKnOfb0sA594rMn9LD98ivIO76QxF+GD6dGJwqBOsDI
+	 RnPZSg9QPpumv52AtVcwZOoZbGKakbrXCh4Hga3KDvfPDYIwJQv2UBI8wndWeHBk4rMG1
+	 5da5tPB6raeBKfT80t8VeBvvMtSaP+HRNPALEuRBHDpgXxtxa30J3fhQiQi+Pl0nVfKTc
+	 UaQQUBwEIHUbWCYN+4K/weyMuV2b9nuTOvhnPC5SdsVeHWWKBQP/FsiEspBu7X2UxSxD2
+	 jGlXhB6gkD7YBecP9j41jigmnQk5RkxcV+mqkEImA6/4mrkMilpmKIgQQnkwCHeQj+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YJ2pynxc;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id E156B606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:12:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E156B606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4bP49Mj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6211606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:12:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=YJ2pynxc
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F1B622C34;
-	Thu, 22 Oct 2026 06:12:42 -0700 (PDT)
-Received: from [10.0.129.145] (Suzukis-MBP.cambridge.arm.com [10.0.129.145])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 041FF3F673;
-	Thu, 22 Oct 2026 06:12:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792674766; bh=D+1s1qGz4upJyB30Lz7rpPwzUA1TglIBkh6n3/mG9JE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YJ2pynxcE4vfMZ7QttDPP2sI6JxzDHVm9lVgFn+frTUeMehwdXSm7LUIPYh2pCght
-	 VexFKqRbbXZx6Nr2WT7apXYQ1MW/rme9O4ZqnwBWnNTX1K6tYuOhC2deGdz5kdLAdT
-	 Eji8POU3FseNWV3rSXDBS4I2vRpLVVcaFFFQHjOQ=
-Message-ID: <a25c3ec1-ef58-4d70-b7c9-c1e213680541@arm.com>
-Date: Thu, 22 Oct 2026 14:12:42 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y4bP49Mj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5AA1F000C6;
+	Thu, 22 Oct 2026 13:12:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792674776;
+	bh=XegirbRv61k8O/v8C9GqnTzvwKbCvCQRqzC7ceZuaqQ=;
+	h=From:To:Cc:Subject:Date;
+	b=Y4bP49Mj/nxRncXjpAF0hximuF8uFviKaJ0SvcxSEtZr5+LeebPpZA1ivo4VxTolp
+	 OuLCEOtpOnQuR8/9jGyTWn9T15B3nAVF3A+MuoZrn5qovjXA9OdMbTKUtwV0a7l+gC
+	 XOrjoGPerPsJ8iT422KCuSfJ15jIbIF3+OaNSF1nigc4laudwjp28oRDzlv/0Aa+EY
+	 bl1/n05RGOezwuGfe2ERHCOyyE4ojAj9VBTZadqEeNWMigs8RgSjbnUEaw+83eqmw5
+	 kCsHgo2RoR0SdjyXfsQHXTYc82+KJOENx9vYufrTTEPH+0r21Wzm1cb7vp8r3QhBQ4
+	 +wbmLYN8JFBcg==
+From: Chao Yu <chao@kernel.org>
+To: jaegeuk@kernel.org
+Cc: linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	Chao Yu <chao@kernel.org>
+Subject: [PATCH] mkfs.f2fs: fix to align RO image layout w/ block size
+Date: Thu, 22 Oct 2026 13:12:48 +0000
+Message-ID: <20261022131248.3440239-1-chao@kernel.org>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,59 +57,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] KVM: arm64: Return on kvm_gmem_get_pfn() failure in
- gmem_abort()
-Content-Language: en-GB
-To: Fuad Tabba <fuad.tabba@linux.dev>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>
-Cc: kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Joey Gouly <joey.gouly@arm.com>,
- Zenghui Yu <yuzenghui@huawei.com>, Steffen Eiden <seiden@linux.ibm.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Vincent Donnefort <vdonnefort@google.com>,
- Wei-Lin Chang <weilin.chang@arm.com>, Fuad Tabba <tabba@google.com>
-References: <20261022123054.31729-1-fuad.tabba@linux.dev>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <20261022123054.31729-1-fuad.tabba@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 22/10/2026 13:30, Fuad Tabba wrote:
-> The kvm-arm64/mmu-fixes-7.4 merge dropped the return from the
-> kvm_gmem_get_pfn() error path in gmem_abort(). Both parents of the
-> merge keep that return. On a failed kvm_gmem_get_pfn(), gmem_abort()
-> then carries on with a zero pfn, and on a nested stage-2 it uses the
-> mapping it has just freed.
-> 
-> Restore the return.
-> 
-> Fixes: 65f95b2874a15 ("Merge branch kvm-arm64/mmu-fixes-7.4 into kvmarm-master/next")
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
-> 
-> Notes:
->      I went through the rest of the merge's conflict resolution with
->      git show --remerge-diff, and this is the only line it dropped.
-> 
->   arch/arm64/kvm/mmu.c | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
-> index a48f3f531e827..ba4fe58222ad5 100644
-> --- a/arch/arm64/kvm/mmu.c
-> +++ b/arch/arm64/kvm/mmu.c
-> @@ -1802,6 +1802,7 @@ static int gmem_abort(const struct kvm_s2_fault_desc *s2fd,
->   						      s2vi.vma_pagesize, write_fault, exec_fault,
->   						      false);
->   		kfree(mapping);
-> +		return ret;
->   	}
->   
->   	if (!(s2fd->memslot->flags & KVM_MEM_READONLY))
+From: Chao Yu <chao@kernel.org>
 
-Thanks for fixing this ! Looks correct to me.
+f2fs/015 fails w/ 16k block size, mounting an image formatted w/
+"-O ro" fails as below:
 
-Reviewed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+mkfs.f2fs -f -b 16384 -O ro /dev/vdd
+mount -t f2fs -o ro /dev/vdd /mnt/f2fs
+mount: /mnt/f2fs: mount() failed: Structure needs cleaning.
+
+F2FS-fs (vdd): invalid crc_offset: 0
+F2FS-fs (vdd): Skip to start discard thread for readonly image
+F2FS-fs (vdd): SIT is corrupted node# 0 vs 1
+F2FS-fs (vdd): Failed to initialize F2FS segment manager (-117)
+
+and fsck.f2fs reports:
+
+[ASSERT] (fsck_chk_curseg_info:3747)  --> Incorrect curseg [3]: segno [0x38] type(SIT) [0]
+
+For RO image, f2fs_prepare_super_block() hardcodes the start offset of
+segment0 to 8192 bytes, i.e. two 4k blocks for the two superblocks, but
+w/ 16k block size, 8192 bytes is only half of a block, so segment0_blkaddr
+and cp_blkaddr become 0, then the 1st checkpoint pack shares block #0 w/
+the superblock and is overwritten by it, so kernel and fsck can not find
+valid SIT journal entries in the compacted summary.
+
+Let's use 2 * F2FS_BLKSIZE as the start offset instead.
+
+Fixes: 50fd00b ("f2fs-tools: Support different block sizes")
+Signed-off-by: Chao Yu <chao@kernel.org>
+---
+ mkfs/f2fs_format.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/mkfs/f2fs_format.c b/mkfs/f2fs_format.c
+index 33d3da9..7390fa4 100644
+--- a/mkfs/f2fs_format.c
++++ b/mkfs/f2fs_format.c
+@@ -316,7 +316,7 @@ static int f2fs_prepare_super_block(void)
+ 		(uint64_t) c.start_sector * DEFAULT_SECTOR_SIZE;
+ 
+ 	if (c.feature & F2FS_FEATURE_RO)
+-		zone_align_start_offset = 8192;
++		zone_align_start_offset = 2 * F2FS_BLKSIZE;
+ 
+ 	if (c.start_sector % DEFAULT_SECTORS_PER_BLOCK) {
+ 		MSG(1, "\t%s: Align start sector number to the page unit\n",
+-- 
+2.49.0
 
