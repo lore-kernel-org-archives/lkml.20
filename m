@@ -1,103 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792658003;
-	b=mV3gu0Oz2ouPWgUgpz9xt8FIP/XcvmDd/svozWWy44gE8JMbLAfFvRRxNbeL3WZV8FAe
-	 Kb5rxedIj8M5/hrJmt5qGip3+GD5e2EkfPXSRxHD5K74BdgJobo9xkFIz0PV1XO9YyxEW
-	 1qE67uOw2uVM2ZdlwPceKT7aLvjF2zUvinAjBa6xlGHdA18JAgXHG+ZoO+C6Y8liX+v+S
-	 jTe9ajqw+obG1R8zGeZLAD+h9Z5qefONhwGouPXspyQ6a/+9FbA3OwGucxq40Kur07fsn
-	 XNEHgfhJli7Afwxx8KDO2/zLAzzq1fn5k3qfdhus3P/SlRsBmua6foWyFgf9VvpKgFg==
+	t=1792658015;
+	b=UY5sx1T9FjD8oYl9WObO9G3q7/A+Zyz4PHCFBmxff1vdyQ6j3vfXw/hsiIMY4Aldc+ZQ
+	 xOY8DYDB5Ou+8/oCf3VTPJxHHxMj7rSrghRD2Y5TcRNT3iS5IijQH0T47IbEzojenv2bv
+	 JLmhaDwYt1UOMJWRhTRQf72UZzW5iobQQsMa6SLFF7a6+37q5pZsGRmMfPoGBIvoZ6Alw
+	 0dTwbOpEquLoQjkMZHWXcEMOF4B/uj9fJhmTcdd5xoMQ2bMDmBGzSAUW5ueCqQHhvqruR
+	 UtSaMlLm57Uq4Noq6GQmaaZCWSePq4bzJqIIA6Tq0Q96WRkW86w6O7q7OC65UoqrktQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658003;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658015;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=htbP1Be5/tb7LgqEiuAX137LQm3n+SjOO/0MPt6z5aM=;
-	b=o57CP2wE3FXm840vl/YZKa8qfFDovFvNNvGHmb6/j7fxXHJ58TVP9ubuYJRStvXg+KZ7
-	 b0WgqnOjEbDVaQMbxZ1X41FZPMOZ8QXOq/zYZ3wJniVQvpU0Z4mT1NK6KixxENDp35iHU
-	 WsEicSqy1Bx/PQhuYOvD0tlKH/KGTQsxtqoHf4Y9fcqqUJyLWwvDMF7RQzrSS85KzO2sR
-	 POFcp/VYACGMSfOhr0qETzfnUu/SzIf9ZPmkOwFWpwFUiKuiHtSFdvKh0J4XhN6ZxQgM1
-	 iwy85I9al4H1i8ccffqgFg4IahZjyFwYdWTO/2PwO3Fok/WkTa4C5+hBgOMZU/hOq+g==
+	bh=Po10xs3c1tBUXr0/TED4BRLkJvTxT4ILiaYjl5lFoSg=;
+	b=x8uDNYo8YQoTDdgLgf6BYd4Q3TdvlMS3eXMy3bF7YRJOt2iGL6kQBLtCjP+kZuJRLDsd
+	 iSICyun8aoSfj10GltwhR/0GmoMsMEejHp0bMpr/Xk7NF6EuHsVsVNGmOGnalKCk85ZSP
+	 FsK1zxAY2V49tBMPVNpuwbe4pCcD07HyRnnRPD67euIoBDL416PeYu8MnkmNg3Kb0lae+
+	 TwPJ3WCV61Y3fDk2xIYoilqwDw7dDMIXvslrMlNKdNFJvwUdE3FWXRT6f0FQZ9XpDQ+0B
+	 CbY3CdTIoTE/MmKNcKfkC2y+s9SMe6R8wSEeU+N/ChxKaiYzBic1mhHB+aLoqP/B5Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ZvbmRVbB;
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	dmarc=none header.from=readmodwrite.com;
+	spf=none smtp.mailfrom=readmodwrite.com;
+	dkim=pass header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=QE2JDqYa;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88807606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:33:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88807606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFF61606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:33:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFF61606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=readmodwrite.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=readmodwrite.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ZvbmRVbB
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1266172a91.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:33:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=readmodwrite-com.20251104.gappssmtp.com header.i=@readmodwrite-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=QE2JDqYa
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dc202a60eso794385f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:33:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1792658002; x=1793262802; darn=vger.kernel.org;
+        d=readmodwrite-com.20251104.gappssmtp.com; s=20251104; t=1792658013; x=1793262813; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=htbP1Be5/tb7LgqEiuAX137LQm3n+SjOO/0MPt6z5aM=;
-        b=ZvbmRVbBIRxBLMdiu6sXsqn4FUagcLZYqMBg7GsnI33T70PtyPdF4VG6wkFZLnBo7n
-         Fh8b15/yDRJfZwdsvWRIRyG1Eo4LZCR7/BDQJET+hY/u8EocLSSkSB8s1hJ4GNiDitta
-         r51I7MMr6PVnw4CNUYZ8MY1HQVzwu2SHXV7AH8JABjHN9w+1onISaV/8sDcRmztxYmUP
-         +euotQWgKrZY+fAkv4OuSbyrAQH8MRutJHhBa/06gXfGS3yEeHd2CDXW3PNcmvbIres9
-         jxE5lIU3/8VxELzYklGO2zh0pWc3DQ3z/bPgRN4Ka28NJRa++/JzMO1CZt5pLYKPKFYT
-         Vfdw==
+        bh=Po10xs3c1tBUXr0/TED4BRLkJvTxT4ILiaYjl5lFoSg=;
+        b=QE2JDqYaeZ9AE/4y4mPeS+JG1LgvcHpDNB3jEMflyLtEqz07OnmA7FDZdqe2aeLx6z
+         eCqS2ANQ1LqmbazgV+Twirnnd6pkvaQnP8HB9EQkIxGjKp2CeJRZUHHjLpwZ2gaPa4kD
+         e4+nIhUX6nMMnmiIjgZqQwJkztE0nCXSNYZEEIUWAv3Bm0q+EwTu0xx9ypcuzr2dXCNm
+         D+znffkaCN9UtUiycQ3V8MWjQTFnrIbIz2Cg59Gax4Vd1z0CyCNS9Q3fij3bFYe2zguz
+         SnPgLeKmOHJ8YrMBOQc/xVKlUhrqxEYHUzi5Pkqz/rEX8Kwk9O8M5wsHqq8GNSUYI1pu
+         MAdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792658002; x=1793262802;
+        d=1e100.net; s=20260707; t=1792658013; x=1793262813;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=htbP1Be5/tb7LgqEiuAX137LQm3n+SjOO/0MPt6z5aM=;
-        b=T+I+HSoi72FORLCdI4FcjkDxXwYx25GLbfmPRpuCv9GiGFK8GvUaANT/2VUjc6rF0g
-         QWlM/rY9ATM4e0cMlsdqZ3akH3rP3l90GJW782Prk7xXaM8FFGWOjIqhJIc1E1+3xabV
-         Xm5PWtnMSDVPguymspP1WKZCMTN7A8ONOVhftmoL2wsjGPAEJDC65fMHmQ7qOzdwkCsd
-         LLah1zUnKvtD+PMJ1E2KinfPBROA9KRXBElI1ffcnhUz616tl9TpLQwMc8AKOqxK6VTo
-         37TPCrW1huqiKdtdLgqy7br0TGTfb1pWjH3ATYZRcILhVvchzMZxf96UVfKyxqCU1vAN
-         06nA==
-X-Forwarded-Encrypted: i=1; AKwUvBwHG/F6HPKUxQwAWBsS2M3Tq//ouoktVbkq67q3KxjEdiPXCjvwcMGOPphDllvg/ELQ7jMIUaFKFR3130Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRRGrfNKrP9JGX04kxcH4S8orkCVaE11nACHFkmQ4nceYCHSmv
-	5fksQ+PQgsIWBEomNZy5k/nJgpg76VFc+wDCKm5sQEG3ZIMV/ZC07dA8unkc3/Sb/yw=
-X-Gm-Gg: AYBFou1vx28QKlseel87e8VAYoVTwwKivbXeA1tXd6miaV1vJq8Lcn9yGW6c6nfkamw
-	aTEtzdyvmzaKFhOBQmQDNQpXOmbUGomD29hruyjwbQojhvU+sX8TZkkSter68yuNZ4GV32/CQoB
-	izK3RySCV+9Ickp6QxLiSNT47Bdn17W4i/UuezNJZ6AdgAviwriBj8pKdYmYJeGiXdF/wL3D3le
-	gbBDtAEfVa+MzEAA/Logc59WoZJtWqmk2lQP95KsPDexzSpwZzAQh4K/CTlaekq1HfgvwFEi1qK
-	wyQkMZIoxYkKxPjnVRpaKU8WM/OiBO+KzbX2ZxWGwT6t8hDeB4nXYY/tVZOjv6j2qsOgwzmWGNe
-	MMiguB5JhaJKD89ZkVNXRvQ8mkGT0c/Y3OZnU9KTvUSKu3C6XI9snd1DY7S0NTr81DobwNJQ4e6
-	Mi4uHaWt+UvL3AteC2ZfUjm9rAJcc9abNCFrjLOJhYyP/wxKf1fbsxv8+TJ3dUxef45J4dKzYdl
-	yo7fLTpXgS46syuLzkfjttrCpyHaNLJgEWtD4kzRAvmRYGCSUV95etS4rKjr5tFJUwJ0i17OnL5
-	xmAtMNxqkRydTR8n+w==
-X-Received: by 2002:a17:90b:48c9:b0:3ac:c23f:cf51 with SMTP id 98e67ed59e1d1-3ad8708b8demr3966898a91.49.1792658001786;
-        Thu, 22 Oct 2026 01:33:21 -0700 (PDT)
-Received: from FR9WL0RHKY.bytedance.net ([139.177.225.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4887669sm3302053a91.2.2026.10.22.01.33.14
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 01:33:21 -0700 (PDT)
-From: Yunhui Cui <cuiyunhui@bytedance.com>
-To: pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	zong.li@sifive.com,
-	wangruikang@iscas.ac.cn,
-	debug@rivosinc.com,
-	qirui.001@bytedance.com,
-	cuiyunhui@bytedance.com,
-	guoziyi114@gmail.com,
-	samuel.holland@sifive.com,
-	ben.dooks@codethink.co.uk,
-	cyrilbur@tenstorrent.com,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] riscv: Fix SR_SUM leakage across context switches
-Date: Thu, 22 Oct 2026 16:32:12 +0800
-Message-Id: <20261022083212.84721-1-cuiyunhui@bytedance.com>
-X-Mailer: git-send-email 2.39.2 (Apple Git-143)
+        bh=Po10xs3c1tBUXr0/TED4BRLkJvTxT4ILiaYjl5lFoSg=;
+        b=KW4MUa1fCrl6shIiDpyDgFE2ZnSnqBfTY8dN7kDoKsDHVdjI8eXN0MfftlmlYmJIpW
+         CLa+0Av24mV18nYx9PPeF+NIAw0o1zuchefsH2AgS5e5K4Ki7vFZnzvfy/oBneRtMKq/
+         WdMobaI6i1wILW3EB/4GThM0sTgPzDKE9bWOkqJ7FMCbGLPaETldWtkoBs3N2Y83Cefh
+         r74s+5/WxvS2t+73ml5/oWqfCTtKwRevs0cDkUg6ZzzhlTEX+jeX+IzIW8G9OYNrG2yu
+         GNqS3R/pb9sO82bGzhJhrBobp1Z4Rb2qTzM3+NBBJ/nHY9Df/IfrKHVtuHu1Wg7kOfnA
+         TPmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwaGUxmyCJuAXlqZoiKLUtuodKuIS2ToFMBxdCNOt8uP/VzBTSdiZF9CckfQK9chKNjaT9VzAkNOa8Fi98=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYIGYQ0kOQgQjH6uFX8uODZZA+8uCeIy+XlgBRy1O7SUTT7sIn
+	Fsw8Zfr4hQDVH2cVQPm9sBB3ujVLluPqOkt6UyziukhRmY9Ia7AxHnAvq4ufoVhtOJE=
+X-Gm-Gg: AYBFou1ajhqNZ+vqrDwV/77RDRl1sNNmy57SixsRAUUdd98InOskbh8yWNLOJ1QZ86s
+	x6czPehJmd6DtSrdjhaZYDqeQGcSWDFnaaOiu5SzGpd+KIWVKfb86CZn5etSGQC8+s7/5C16P5c
+	3UlIwm/L6JBe0GP+rwpqC2hKeF8BYbhzvKx32F85Zt1jgVdNU5yRX8m743NtylyEmQSZL2FExl4
+	yO5Ir9rhxCT1PiWyaWOzvERVIZivCynynH7UksfLeIDe5Ky8j3yTP0iKrM8UJacRKBL50kCvv4z
+	wxDK7qyGIvz9luP7IozOemL5B3edomf24FcbjdQgd/M5jhkOQyybBLVTdtGoUYr+ZAwukXmp43m
+	ItWz5/Q5AvQZhEQ8btMw0fZqlIB79h3QM6OUOUzxPElRvMNpSAwYl2n1yiNgV5NaMcrKIFt/BXR
+	zPUtNiAH+UVrypXB5wpJPM0b77462UIikuTGdB/pXKykdKW7RJLyOYmElSIqqn06Vv6v3JyMdEk
+	53W0F8vJL3N/bbL3pXa/vjx3cwTOnMPp1Ex0yOoRDZ8vKJfj3BS6cfdHw==
+X-Received: by 2002:a05:6000:2201:b0:48e:21d:7265 with SMTP id ffacd0b85a97d-48e264c48abmr10924136f8f.34.1792658012958;
+        Thu, 22 Oct 2026 01:33:32 -0700 (PDT)
+Received: from matt-Precision-5490.. ([2a09:bac6:37a8:294b::41d:9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e2581fa7fsm10280598f8f.17.2026.10.22.01.33.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 01:33:32 -0700 (PDT)
+From: Matt Fleming <matt@readmodwrite.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Marco Elver <elver@google.com>,
+	Andrey Konovalov <andreyknvl@gmail.com>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	Caleb Kan <calebkan1106@gmail.com>,
+	Alexander Potapenko <glider@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	stable@vger.kernel.org,
+	kernel-team@cloudflare.com
+Subject: [PATCH] stackdepot: stop preallocating after the final pool
+Date: Thu, 22 Oct 2026 09:33:30 +0100
+Message-ID: <20261022083330.3159793-1-matt@readmodwrite.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,48 +105,47 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__switch_to() saves the sstatus value of prev and restores the SR_SUM bit
-of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
-and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
-set in sstatus.
+From: Caleb Kan <ckan@cloudflare.com>
 
-This lets next run with user memory access enabled even though its saved
-SR_SUM state is clear.
+depot_init_pool() decides whether another pool is needed before it
+increments pools_num. When it registers the last allowed pool, pools_num
+is still one below stack_max_pools, so the existing comparison clears
+new_pool.
 
-Use csrrc to save the sstatus value of prev and clear SR_SUM from the
-live CSR before restoring the saved SR_SUM state of next. This keeps
-prev's SR_SUM state intact, while preventing it from leaking to next.
+With new_pool cleared, stack_depot_save_flags() can allocate another
+order-2 pool after a lookup miss. depot_keep_new_pool() retains its pointer
+in the global new_pool, so the allocation is not lost. However, pools_num
+has already reached stack_max_pools, and depot_init_pool() rejects every
+attempt to register the pool. It remains allocated and unusable until
+reboot. The non-NULL pointer prevents later saves from allocating more
+spare pools.
 
-Fixes: 788aa64c01f1 ("riscv: save the SR_SUM status over switches")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+Account for the pool being registered in the limit check so registering
+the final pool installs STACK_DEPOT_POISON and prevents the extra
+allocation.
+
+Fixes: 31639fd6cebd ("stackdepot: use variable size records for non-evictable entries")
+Cc: <stable@vger.kernel.org>
+Reviewed-by: Marco Elver <elver@google.com>
+Signed-off-by: Caleb Kan <ckan@cloudflare.com>
+Signed-off-by: Matt Fleming <mfleming@cloudflare.com>
 ---
- arch/riscv/kernel/entry.S | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Previously posted as patch 1/11 of the stackdepot RFC v2 series:
+https://lore.kernel.org/r/20260908-stackdepot-trie-v2-1-1996d5cef732@cloudflare.com
 
-diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
-index 61b7a77166971..628b85e3915a7 100644
---- a/arch/riscv/kernel/entry.S
-+++ b/arch/riscv/kernel/entry.S
-@@ -443,15 +443,15 @@ SYM_FUNC_START(__switch_to)
- 	REG_S s10, TASK_THREAD_S10_RA(a3)
- 	REG_S s11, TASK_THREAD_S11_RA(a3)
- 
--	/* save the user space access flag */
--	csrr  s0, CSR_STATUS
-+	/* Save and clear the user space access flag. */
-+	li    s1, SR_SUM
-+	csrrc s0, CSR_STATUS, s1
- 	REG_S s0, TASK_THREAD_SUM_RA(a3)
- 
- 	/* Save the kernel shadow call stack pointer */
- 	scs_save_current
- 	/* Restore context from next->thread */
- 	REG_L s0,  TASK_THREAD_SUM_RA(a4)
--	li    s1,  SR_SUM
- 	and   s0,  s0, s1
- 	csrs  CSR_STATUS, s0
- 	REG_L ra,  TASK_THREAD_RA_RA(a4)
--- 
-2.39.5
+ lib/stackdepot.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/lib/stackdepot.c b/lib/stackdepot.c
+index dd2717ff94bf..90c52f2e0d3f 100644
+--- a/lib/stackdepot.c
++++ b/lib/stackdepot.c
+@@ -323,7 +323,7 @@ static bool depot_init_pool(void **prealloc)
+ 	 * NULL; do not reset to NULL if we have reached the maximum number of
+ 	 * pools.
+ 	 */
+-	if (pools_num < stack_max_pools)
++	if (pools_num + 1 < stack_max_pools)
+ 		WRITE_ONCE(new_pool, NULL);
+ 	else
+ 		WRITE_ONCE(new_pool, STACK_DEPOT_POISON);
