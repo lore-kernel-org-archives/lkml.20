@@ -1,40 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.31.26.27
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792676118;
-	b=Wpcf6cdIOXBv/Ev0SpU/W+A0BiO+rWB8jW248xvrqbTKWrAeZtVMY8N1EFPh1H7L2N+i
-	 R0wkRtvViqMt051EKYbX+jpnpjf4eBYM+9dEku+4numiaXNT7DjpoyT3x6r/TR/LhyrKx
-	 LwJuiJOqbMYpBFZCrMCnzVrPlG1Weot75DL8pej1CNtu6scgTxywjPhgsEkzFkqve+1+O
-	 IHe6gXM14eB1RpjrTw+QM5tf/wprCgULlxzE50CR5/lFoEeHCbmAGv1e6K93RiCZ/pY4H
-	 lWiUCob7YxPTQAHamTqoMJdm/izOdEErpdl6CP3Hup1yGWwIrug45Lh69qxyaR/usuA==
+	t=1792676120;
+	b=RMT6WfdhdA8EtCaWQhKzRdgUpb428KVELcHifpr1WtrtzdBQEIR/6KFMJT5ZofIP6P68
+	 gZebe3nMwKmtaeADbO4RWEoQr0SQ95xqyGhsILObKHKjohidjKel1IXABRx8c7t74dWjz
+	 8Lj5CnKwILVLIVLZpbLCtWTnygfDuKjiYPwX5Qtc1e6WU9NmoH57qq54NTdBLG4g3D64F
+	 ULH4mL8YGxiBzvlNcKVCw7fCyEXr/Hb0IZTTiuxKkmoP58W+OVqlWdc/gq9hnzxGEbc1u
+	 K1iv7qtyLcQ6Ot2OMf0I7yPL1SDwdNSMjeiNdcylDIZT6vlf3v4WzfLJbLAkWAdYzbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792676118;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=oVTm7ek0li3Y8+8HmSzHDQ7p121jD4gpshcVEU+XW1A=;
-	b=eR/RVkLrLrGGdyHp7Y+zQpm1AIRC6KnK8YuaL3fPhP9zgyZMuqaZXZFuOgWuN5tO9/2q
-	 Vx+RZkHaBlzIj6snjfl4G+X9yFzeiRFN5yfg7yJ3dnpL8pj45N7n3zQE7eqKYCFkgizL/
-	 usmUCWKTlE20XDHS5PFvPDzy/ZOcvVCXm7Qysj17cjOyPpI/RmHBVZq62P9ts8mWQdVmI
-	 O+0wa0PnVt1aiQ62exmcBxINMBBYlVxlMt+RvGPM8KeG+1I3CDhKnBpjXJD+WVFQGNrbp
-	 l6Oe77d7AQTSM/7UGxbXFh877twOdzW9g6f7ceQC+JmTadN3zJihZejV1EnYBbL1ZcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792676120;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:In-Reply-To:
+	 References:Subject:Message-ID:Content-Transfer-Encoding:Date:
+	 MIME-Version:Content-Type;
+	bh=9ymqfdl1jZATM/FkaJLRY1iq5WTfWLIc1I8BevTEss4=;
+	b=xFlHgTLh+cPKcjBh05w+RGxKOp2HaY5BvpwL9HO0r4NxS/5CSftkwBZvJmauNVea6900
+	 ysJCQFzuMMz2+4s1ZhX7kFdSDrwTWwpy7zxh9nBdztWBimNqOPesYp+PwlcoCypimEe9b
+	 3l4SvPJLnyKLd6BF+lto19nGSL3yxYbCCGpwng3nFuk8OALw7hRWHnAuswfUi6REZPBqQ
+	 uZwSvkRUCJMQv7WMFTmmVvqrGGn5/1gm5LkaTvjy4hJixKc6GFDH4nfBwKIZ2sLDN0lCc
+	 V+5lg1RJe7iYmsgEXe0GBuDD2fOqwjylkJJKJyLPYH2ZLRpM1K1TDAQT4/DYrU1RhHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rudorff.com;
-	spf=pass smtp.mailfrom=rudorff.com;
-	arc=none smtp.remote-ip=193.31.26.27
-Received: from rudorff.com (rudorff.com [193.31.26.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=replytech.co;
+	spf=pass smtp.mailfrom=replytech.co;
+	dkim=pass header.d=replytech.co header.i=@replytech.co header.a=rsa-sha256 header.s=google header.b=QiJ6U17O;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB120606A31A;
-	Thu, 22 Oct 2026 13:35:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB120606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rudorff.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rudorff.com
-Received: from [IPV6:2a02:3102:b60c:d00:92f6:52ff:0:bd0] (dynamic-2a02-3102-b60c-0d00-92f6-52ff-0000-0bd0.310.pool.telefonica.de [IPv6:2a02:3102:b60c:d00:92f6:52ff:0:bd0])
-	by rudorff.com (Postfix) with ESMTPSA id DC2A0404C5;
-	Thu, 22 Oct 2026 15:35:07 +0200 (CEST)
-Message-ID: <2b091dc3-9588-4042-8908-2fc3adba6cf5@rudorff.com>
-Date: Thu, 22 Oct 2026 15:35:06 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B72606A329
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:35:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90B72606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=replytech.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=replytech.co
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=replytech.co header.i=@replytech.co header.a=rsa-sha256 header.s=google header.b=QiJ6U17O
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-89ff475a152so687610b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:35:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=replytech.co; s=google; t=1792676119; x=1793280919; darn=vger.kernel.org;
+        h=content-type:mime-version:date:content-transfer-encoding:message-id
+         :subject:references:in-reply-to:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9ymqfdl1jZATM/FkaJLRY1iq5WTfWLIc1I8BevTEss4=;
+        b=QiJ6U17O+YnhhVUoztZy2xIwoeTCSOy5CgnLD4d6ElHxjJa1aP+yg3o5yH5v/F4c9x
+         CoZxhUQhh37O++vYj0C9VoUv4kJVT4PLyxa0QAKOHKyyRipEGVw+3cgnM24FiRSetfd0
+         wQliEqHbRkAsLOhfpHcon6qwGp3JfmNagfbJ5g+dCmq54e66kqWhSTgHx+L4snIc/YpN
+         xUY94z5vTnt8TYXusR76iMnaMr/rZiMCuCorXc0bziHJcLI8VBcl50MlqVuvYFeQMiNU
+         r0vgJgQspbBTpvJzKyNj/5rMDV7qm83QASveI2Nf6A0H/nH5wOINk5w7/QLqLfTX3nwN
+         rwGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792676119; x=1793280919;
+        h=content-type:mime-version:date:content-transfer-encoding:message-id
+         :subject:references:in-reply-to:to:from:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9ymqfdl1jZATM/FkaJLRY1iq5WTfWLIc1I8BevTEss4=;
+        b=Ga31uGIfMREnu5DVLLCA1CfBgT/COW8SUcXDpn5duo5Fz328atqYdZSO1oSCdGC7OZ
+         MIG2Fqfdz0aYx23q13Sm1+r0agCI7HKPp/av0olS0/9vAePS1+A5nD3ndDxbbHGCJjWH
+         rCpsbrm4TgohQtfA7uJSUc3jhj+eniHAAazpuZW+D6TEDrgoAgA0qMFLMi4HLd8EeVB+
+         739mt0I+56nvkovqMdDtNWQOwKv7mBlLAxoORLHMbU/Qwy8+Bh0O9KQ3mfVVjk4raE6c
+         wXD2SbI+jMEHWOjnyiHbN2qynlTS/4JwSrGbUmT+/QBGCn6X3VoHpL7s/ed7bcm5kxZo
+         d9aw==
+X-Gm-Message-State: AFq9FYIlpcTORyMPY/a0i1xu5VxWh7a96Fpon/wJGoZ2IPZ+F3ON0m7b
+	mrkWhHtvGmOdYkUpwr6FmxaCFQq8VbeSchc3XpqIDilhiPN1bY730Uh6LNWEuXJdITtftaeCaza
+	1CZH7FQ==
+X-Gm-Gg: AYBFou2bo0jEJyYVdeky8XInrKVedrA45q9s0vHuLQ39vWJvF4gdNpygdNodb5OUfK8
+	lZFTO8LN/wSBK1uYvDRuA4uWUlkQIDox9A0db6tU9++zRlahVmOehuuH1sd1nGrrS0zrdl1Ipi4
+	fCt1JxnxBAxPxcIRGQS/E/dumKIQVPBw1UtJ7GBkYi7yG7hti4V5HRTw40voO81A0pvQ7Ag8S4c
+	EvUjTLiJK2iW6kwZHvL7iGN/D/lhgONHrYm/HgoVozwrJIZP377o4qSRevlZfbPzE+CVWAhCfDO
+	v+yEL22eoT6AsPxelQ1kVjlG5MCzmKMxscpMcqd18LMvKwU2WferyzDIGmkTs0rtEq++0uCTB0z
+	mFk8Lj9hOd633RShkFO8oMEsrRuI7my877eB3goi06r+2faDCYWhCIC+mIbKv5mApB/+XAc+vFd
+	xdPI/rHtwhtHCCS11LaQX2UgF4pnMplkJnUMCetMPPtS6bbx8FW7DVY96d0qXx9BYutte582bf0
+	U0/tk17c7I16IHtKKAVfeGFjeOYPLH5kkOrSgHbVfUvCIKI62gTp/jDO24TvlW3juTfL00SRGt1
+	isda4TFx0weHQSb2UFfe5MpL25N4OYVYpiQWGL6V3az2n08=
+X-Received: by 2002:a05:6a00:4612:b0:8a0:4807:456b with SMTP id d2e1a72fcca58-8a089f5bca8mr4197088b3a.37.1792676118789;
+        Thu, 22 Oct 2026 06:35:18 -0700 (PDT)
+Received: from replytech.co (ec2-15-168-14-174.ap-northeast-3.compute.amazonaws.com. [15.168.14.174])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a0895e6b14sm2212341b3a.43.2026.10.22.06.35.17
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 06:35:18 -0700 (PDT)
+From: John Brooks <john@replytech.co>
+To: linux-kernel@vger.kernel.org
+In-Reply-To: <55e084b1-365f-48c1-88dc-548319021338@replytech.co>
+References: <55e084b1-365f-48c1-88dc-548319021338@replytech.co>
+Subject: RE: Publishing Sponsored Articles on somoslibres.org
+Message-ID: <5f29bd69-9781-4032-afe5-38187fbd9148@replytech.co>
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 13:35:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -44,50 +96,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: msm8916-samsung-j5: Add proximity
- sensor
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20261016-iio-light-gp2ap002-v1-0-7c93312fa8d5@rudorff.com>
- <20261016-iio-light-gp2ap002-v1-3-7c93312fa8d5@rudorff.com>
- <5531e454-0d84-48f2-af0d-1ab34c149760@oss.qualcomm.com>
-Content-Language: en-US, de-DE
-From: "chr[]" <chris@rudorff.com>
-In-Reply-To: <5531e454-0d84-48f2-af0d-1ab34c149760@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
 
-Am 16.10.26 um 17:11 schrieb Konrad Dybcio:
-> On 10/16/26 4:43 PM, Christoph Rudorff wrote:
->> J5 got a gp2ap002 sensor, add it and it's supplies to the device tree
->>
->> Signed-off-by: Christoph Rudorff <chris@rudorff.com>
->> ---
->>   .../boot/dts/qcom/msm8916-samsung-j5-common.dtsi   | 19 ++++++++++
->>   arch/arm64/boot/dts/qcom/msm8916-samsung-j5.dts    | 40 ++++++++++++++++++++++
-> 
-> It's odd for the regulator and pin setting to be common, but the
-> sensor to only be there for one of these devices
-> 
-> Konrad
+Hello again,
 
-Hi Konrad,
+I know you are very busy these days.
 
-in patchv3 I removed the settings from common
-and renamed some labels.
+But, I would be so glad if you can take a quick look at my last mail.
 
-Is that ok?
+Thank you for your interest in advance.
 
-regards
+On Wed, Oct 21, 2026 at 01:22 PM =
+UTC John Brooks <john@replytech.co> wrote:
 
-chris
-
-
+> Hello somoslibres.org Team,
+>=20
+>=20
+> I hope you=E2=80=99re doing well.
+>=20
+>=20
+> I=E2=80=99m contacting you from PressWhizz=C2=AE, a marketing and SEO =
+agency based in the US. Our clients regularly publish sponsored articles on=
+ websites relevant to their industries.
+>=20
+>=20
+> We would be interested =
+in publishing content on somoslibres.org if possible. Could you please =
+share your pricing details and any guidelines we should follow?
+>=20
+>=20
+> Also, please let me know whether you accept content from niches like =
+casino, CBD, or other restricted categories, and the pricing for those =
+placements if available.
+>=20
+>=20
+> Thank you for your time, and I look =
+forward to your reply.
+>=20
+>=20
+> Best regards,
