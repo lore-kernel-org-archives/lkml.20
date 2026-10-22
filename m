@@ -1,56 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697990;
-	b=N/ICGNMlyQSyAGMA9ULRbkBG8G+qp7C8jR+DyjrRer/GXY+jWRXXggwjl9Ue4QDbMwpp
-	 EGtHOo6fEm334Wl0nSC3slt2UbC3SCVJ7q3jtBR4JSn7bvmBFLYxXHHPdn7NL5+FSrREs
-	 Sq6sX5UMAgqzZYw8Q6gM4QD3emVJjlckwR6T6k6TKaZAtuZ/4tSD9rp4dFPRV+DUi9toH
-	 n+iyVr5LGhuh0+yZsWPBMFVmoh664sjsdyIEBdV21+a7E8r2FnglxUJj2PwGBS47Ndw+S
-	 YEMvWi37DAtu6JrfbAPxXEMzo/6QwNXHg4xxF6lFrL6wpYOcDNJCt6lzcNs7JHpDAbQ==
+	t=1792698012;
+	b=MZDZUJpiOwyxnYneP3wZyYNP/2dxwFYawflClkVof4hQsOsp8X5LyHiTkmDxRDSlNbWY
+	 MzxwHyJ9GVOdJ4kwLsVumbTouop1FUvRzYOsSJM5bLVhriqTrpD19xF4Q/JU9Q5IF2nMm
+	 F08MAQN5WtpDJk2BLI4MV9g/ve1GVR33nAbsi36lUbI9jQsPbBIP2wPrGTA0UaoyijN3k
+	 X8rDTzgMPS+4w7sgWXEsCOJS7KaP6t4tcMgEiXsln73xALYqbbdyYavSGernOHkxNC7MF
+	 mBYaZImAzckFz2kP+k6FYTp5PJawF8oxpvPUMbstH4SrlFNPaqru4DNBUM+k7c4eUjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697990;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Stat-Signature:X-Rspamd-Server:X-Rspamd-Queue-Id:X-Spam-Status:
-	 X-Session-Marker:X-Session-ID:DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=84oPn/1DzKyrYik5POoJOGSmwXIfTEl8rAG9I8F9rV0=;
-	b=He60XobVtxGJhRUx6vOkPIKZkfTeu/mJ9f2Ql0hJSlopzXfsiJRSQCbkJfncqCbWDQhW
-	 yTJqM3CNW9EryI0H1oUXGMlyxtZozBuFfcCONm70m6IeVTZQfKajJSMggcXYDUuZIlXfF
-	 9WQ1roNvReb5+6/6VRDT9WbP/61+2jwWgUDqyhfsGcx2RmzjK2J8fPgCR4+6IeV6QBICi
-	 M2OGt9K+/ZHRxQSwvm2k+lX9Yx/09VLv+FAJKNMgcvShTw5TUd4ELuoO4rqCWFCGhBQqd
-	 pwnNBDx2xiTz/v1n9sKK3BtzcIf2oI5XBTonRYCMmv3WLzT5ot3nnOptaqJ4YxRmC+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792698012;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=q5JTgohXUR8Op6NlSpjnxP0zgVyww3zZN/iYh+n3im0=;
+	b=2lHL6VzxLe4IqeNkn0Nr0K8v0+0scoz2mgKNzDlhNmIornsx7Pf1uZ7hvwf7AL5QlAo5
+	 DAEBnr9hH/AKXREX5jo7/ldCgSBhMY2cxx2KJjaLgLqftrQhdvOAhXEHlyfg5uU5X0S2T
+	 kdXlHu/eE8H3dx6dHzUlKJ3tIOqI9wfCR+rfrRgATjBuP06ZzAY9D1cAu+pFWhuYGo1Mp
+	 A6TNHY4TpevuTEN3dkxs9KaqEF+Cv/xDhAjevX6LH6xKM1acyhC/ktWeHbidc4CccpBCC
+	 Dwk45ACmCW1RTKnYAUOeY6sEBZ+4aZ53/wfJ7F50b8/nFJs6/pYhr/v2mA2GWP7HTcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=K6DKij9M;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfnsLZh2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AC4C606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:39:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AC4C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 9FAEB606A31B;
+	Thu, 22 Oct 2026 19:40:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=K6DKij9M
-Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay09.hostedemail.com (Postfix) with ESMTP id F3F6C801A3;
-	Thu, 22 Oct 2026 19:39:47 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id BE5B933;
-	Thu, 22 Oct 2026 19:39:45 +0000 (UTC)
-Date: Thu, 22 Oct 2026 15:39:44 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: LKML <linux-kernel@vger.kernel.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Mark Rutland <mark.rutland@arm.com>, Andrew Morton
- <akpm@linux-foundation.org>, Aaron Ahmed <aarnahmd@amazon.com>, "Jose
- Fernandez (Anthropic)" <jose.fernandez@linux.dev>, Yun Zhou
- <yun.zhou@windriver.com>, pengdonglin <pengdonglin@xiaomi.com>
-Subject: [GIT PULL] ftrace: Updates for v7.4
-Message-ID: <20261022153944.4e66e8c0@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HfnsLZh2
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E04F11F01828;
+	Thu, 22 Oct 2026 19:40:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792698012;
+	bh=q5JTgohXUR8Op6NlSpjnxP0zgVyww3zZN/iYh+n3im0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HfnsLZh2mR0+/B55NAr+FDqKkXP3gp8VdcfFaDuzdDFhGd8HslFepY4FSDOsg5TC8
+	 9TGoS10sS4qDN+u+S/yBZkD5toajxWzyof1x0YkJrraLJAU+0im1NSsgvIYJnO2E+Z
+	 sMEK6bo4G1yrEyVCLvyGS9miMNKhqjILvQ7ireFl/idxEl1/IR2UvadcGz2QO+jkFi
+	 lvMDcdI9iQdWnq6DhrFuw2sZ5mFtoa+4uNOko8j1DJvWEVs1++UeNSPwDqgh0l8ee5
+	 hjOS0mztl6thTUKCfs/mG5f+JVhBkRDcY1YFpq4QBUBfF6mXTv/tiCDiTb5QJQ+6ni
+	 JpyUKDRu0j7pA==
+Date: Thu, 22 Oct 2026 22:40:08 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: Mimi Zohar <zohar@linux.ibm.com>, Jiri Pirko <jiri@resnulli.us>,
+	Dionna Glaze <drdeeglaze@gmail.com>, linux-coco@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
+	x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
+	david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
+	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
+	James.Bottomley@hansenpartnership.com, aik@amd.com,
+	jpiotrowski@nvidia.com, qinkun@google.com, pgonda@google.com,
+	jic23@kernel.org, alistair.francis@wdc.com, ankita@nvidia.com,
+	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com,
+	elena.reshetova@intel.com, dave.hansen@linux.intel.com,
+	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
+	roberto.sassu@huawei.com
+Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
+ support
+Message-ID: <atpmmFnAVtOYLlOY@kernel.org>
+References: <20261019225658.GS13920@nvidia.com>
+ <ath4vwt7KGyDXKVJ@FV6GYCPJ69>
+ <103486a4a29ecc7b72940dd051c00ae59266bd05.camel@linux.ibm.com>
+ <20261021143529.GP3008132@nvidia.com>
+ <8d8833fac61558a94af415143530884349584a2f.camel@linux.ibm.com>
+ <atnqmDhgaJycTf_Q@FV6GYCPJ69>
+ <2342b42699292d4e5fc85e5dd4d351a3f29ae336.camel@linux.ibm.com>
+ <20261022185133.GA3746973@nvidia.com>
+ <atphzdVThE9L5Kmv@kernel.org>
+ <20261022192322.GD3746973@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,124 +78,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: nu4pb7rbp4yfmi4m79zk796cak44icma
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: BE5B933
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX19gmJBnaKg0H6ziGjo3MNPsxH2uZrpWCjU=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=84oPn/1DzKyrYik5POoJOGSmwXIfTEl8rAG9I8F9rV0=; b=K6DKij9MRKs+a8kpPG29t7s7G9F1SFpRsx38jX8lNWqIe1k7gV85von4OBim23hV1jT07QzZy2KLD/EBoCxazAG+i1FaF8UiKERiTwocfoPdMV8eJj65oA9bnZR1UW7KFKzlG8gwKSbM/i5aXvT3oeortFAYXBu8gcBR28iMdTM=
-X-HE-Tag: 1792697985-841281
-X-HE-Meta: U2FsdGVkX1+z6ETAFyAfpLGlduXbQLD2PrfesbPkBJazzlXuBPOfMHsASOgtXM3p1JyXvC3rmiypYX5m0FX6/3H9gEipR5AHkWZW80sjyZddzazrctivqQoxWuF9bFk3imNfr0ujrQQzoZruupDLC1bizifsH4nVDljsbiZVmUw3pnUPClBpvTWMkXXw6oZPZNyOBjn/wrVVavwk2rQUo1xL+cpIsuLqmLYhKcXkeGM+GwzGQ5S2G8TIqPwfJNizydcdCGNVsKK17eSho8y7YmLr4P2Y3ElaGx20vDNz1W75PetZx4L1T/4Z0S9JrFhw1Mj4oWAuWXwxilRTnee+9HW2gF4ODv3m
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261022192322.GD3746973@nvidia.com>
 
+On Thu, Oct 22, 2026 at 04:23:22PM -0300, Jason Gunthorpe wrote:
+> On Thu, Oct 22, 2026 at 10:19:41PM +0300, Jarkko Sakkinen wrote:
+> > On Thu, Oct 22, 2026 at 03:51:33PM -0300, Jason Gunthorpe wrote:
+> > > On Thu, Oct 22, 2026 at 07:24:57AM -0400, Mimi Zohar wrote:
+> > > > > Isn't the hypervisor what we are doing now? I mean multiple extension
+> > > > > originators share the same register and eventually the same log. Or do
+> > > > > you suggest to go even further having a "generic_registerX" exposed for
+> > > > > every hw implementation allowing the user to have full abstraction?
+> > > > > The "generic_registerX" would be always alias to something hw specific,
+> > > > > like RTMR2 for example of TDX.
+> > > > 
+> > > > I definitely prefer the latter, as everything continues to work as is with
+> > > > minimal, if any, change.
+> > > > 
+> > > > AI's wording:
+> > > > • The Virtual Mapping: The [attestation] subsystem exposes "Virtual RTMRs"
+> > > > (vRTMRs) internally to the kernel.
+> > > > 
+> > > > • IMA's Dedicated Lane: The kernel config routes IMA to vRTMR_IMA.
+> > > 
+> > > I was thinking something similar too
+> > > 
+> > > I called this "PCR policy" in my previous posting, but in-kernel I
+> > > would expect something like IMA to request the "IMA PCR" from the
+> > > current attestation policy.
+> > > 
+> > > This could be a locality 0 TPM PCR, a locality 2 PCR for a DRTM
+> > > launch, a TDX RTMR, etc. It keeps the layout in one place, and lets
+> > > the multiplexor steer it to different hardware.
+> > 
+> > 5 Authenticated hibernate [1]
+> > 
+> > This is on the table at least.
+> 
+> Yeah, any in-kernel use of PCRs has to fit into the overall system
+> policy. Like maybe you don't want to use PCR 5 if you have DRTM, or
+> you want to do hibernation using an alternative ROT from TPM..
 
-Linus,
+Just mentioning it for completeness but it is, of course, not a
+committed reservation as the patch set is still only an RFC.
 
-[
-  Note, there's a slight conflict with Masami's probes pull request as they
-  both touch code in kernel/trace/trace_btf.h where one touches a parameter
-  in a prototype and the other adds a new prototype near that location.
-  It should be a trivial fix up.
-]
+I'm looking forward to test the feature as soon as I have the
+bandwidth to setup a proper environment for it.
 
-ftrace updates for v7.4:
+> 
+> Jason
 
-- Have the stacktrace option work with func-args
-
-  The func_stack_trace option has it's own ftrace handler and so does the
-  func-args option. When they are both set, neither would run. The function
-  tracer itself would error out.
-
-  Allow the stacktrace and function args to work together.
-
-- Avoid BTF lookup in atomic context
-
-  The ftrace_dump() can call function graph tracing output from an atomic
-  context (like an NMI watchdog going off). The BTF lookup is not safe to
-  call from atomic context. Have btf_find_func_proto() return if in atomic
-  context.
-
-- Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled
-
-  New code is depending on trace_btf.c but that only gets built when
-  BPF_SYSCALL is also enabled. As the new code doesn't depend on that, have
-  trace_btf.c get built with just DEBUG_INFO_BTF set.
-
-- Have function graph return values have BTF processing
-
-  Have the return values printed by the function graph tracer use BTF to
-  print the values in better format. For example, if it's a char, short,
-  signed or unsigned, print according to the value defined by BTF.
-
-- Add a "max" field to the function profiler stats
-
-  The function profiler shows all the functions run in the kernel, the
-  number of times they are called, and the total time they took up. Also add
-  a "max" field which holds the longest time a function ran for.
-
-- Fix memory leak in module with all skipped functions
-
-  On module load, the ftrace entries are recorded to keep track of what
-  functions can be traced or not. Some functions may be skipped for various
-  reasons (some defined by the architecture). If all functions in the module
-  are skipped, its data page is not freed and can leak. Catch this case and
-  free the empty page.
-
-- Allow architectures to reject functions from being traced
-
-  Allow architectures to skip a function address by returning zero from
-  ftrace_call_adjust().
-
-- Initialize modname and offset in print_rec()
-
-  The variables modname and offset are initialized by kallsyms_lookup().
-  If that fails, the values are not set, but the code continues to print
-  other information. The modname and offset are used later, but if the
-  kallsyms_lookup() failed, they will not be set.
-
-  If a module is being loaded and unloaded at the same time as reading
-  the available_filter_functions file, it can cause a fault due to the
-  lookup failing and modname and offset being used uninitialized.
-
-
-Please pull the latest trace-ftrace-v7.4 tree, which can be found at:
-
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
-trace-ftrace-v7.4
-
-Tag SHA1: 653342b1940a468bfb7104867950db0d5c92a5d8
-Head SHA1: e1f339ff3b83857b93baf8b88186275a413d445e
-
-
-Aaron Ahmed (1):
-      ftrace: Initialize modname and offset in print_rec()
-
-Jose Fernandez (Anthropic) (2):
-      ftrace: Do not leak a module's empty page group
-      ftrace: Let ftrace_call_adjust() reject a patch site
-
-Steven Rostedt (1):
-      ftrace: Have stacktrace option work with func-args
-
-Yun Zhou (1):
-      ftrace: Add max field to function profiler stats
-
-pengdonglin (4):
-      tracing: Avoid BTF lookup in atomic context
-      ftrace: Build trace_btf.c when CONFIG_DEBUG_INFO_BTF is enabled
-      fgraph: Enhance funcgraph-retval with BTF-based type-aware output
-      tracing: Update funcgraph-retval documentation
-
-----
- Documentation/trace/ftrace.rst       | 96 ++++++++++++++++++++++--------------
- kernel/trace/Kconfig                 |  2 +-
- kernel/trace/Makefile                |  2 +-
- kernel/trace/ftrace.c                | 32 ++++++++++--
- kernel/trace/trace_btf.c             | 86 ++++++++++++++++++++++++++++++++
- kernel/trace/trace_btf.h             | 18 +++++++
- kernel/trace/trace_functions.c       |  5 +-
- kernel/trace/trace_functions_graph.c | 56 ++++++++++++++++-----
- 8 files changed, 239 insertions(+), 58 deletions(-)
----------------------------
+Br, Jarkko
