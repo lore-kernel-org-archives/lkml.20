@@ -1,61 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657980;
-	b=szcw4N6yu617RH0inUyYzMIxXNuisuM1ZcXp3wJfHomBChq+wgGHbv696kXJB0fE16qq
-	 oAbDuHeb55/F/1B+w+MW79YnXUlJEN2+oHHpqmda2OVf+22Ck4sTb3Hp395Yxcg+GUJOk
-	 pHBcYISXizpf6IU+r60kzlwn8XOLTK+XuQsUmNI/Bz8qXOakfsGRZWD9+36ZRaA+9DcyH
-	 QIncEHMIuakxktPCnTjzyqSv4na0zFl6LwsmjCFeHlT/4Cxck+o4xJXeVvbr7TnHXJMwP
-	 9Z3a5XvUgcGqmHWWJJZi5Dy8uvfcx+8l7otc8bQGGyhLqfK2+eoKj+2YGH9c1ksjtDw==
+	t=1792658003;
+	b=mV3gu0Oz2ouPWgUgpz9xt8FIP/XcvmDd/svozWWy44gE8JMbLAfFvRRxNbeL3WZV8FAe
+	 Kb5rxedIj8M5/hrJmt5qGip3+GD5e2EkfPXSRxHD5K74BdgJobo9xkFIz0PV1XO9YyxEW
+	 1qE67uOw2uVM2ZdlwPceKT7aLvjF2zUvinAjBa6xlGHdA18JAgXHG+ZoO+C6Y8liX+v+S
+	 jTe9ajqw+obG1R8zGeZLAD+h9Z5qefONhwGouPXspyQ6a/+9FbA3OwGucxq40Kur07fsn
+	 XNEHgfhJli7Afwxx8KDO2/zLAzzq1fn5k3qfdhus3P/SlRsBmua6foWyFgf9VvpKgFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657980;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=JzuUCJEZ07cKJ0g5MRkVm/x+PBn5nOwGygGzn+vt7z8=;
-	b=uyQVmkQBdTb9a1SfpuNbd2ev3Gdw3eKwZXn4UXfVo2utBAedx7/ND0seitQRyHg3qDd+
-	 m+2jqWuQ/lbLP6ab8wAivewq/fBmQszsRA5ZKhkFIuEfyVDRdb1fhtGDhU5vxs6Uo4Ww7
-	 2YfpL88xAPf1N7bxHPARL6f+KUM5XDO1UwbP49jXLtzl3ard00OMkTfnF8bABEj/IlZjw
-	 EFwa84IfdXAcHvIsAI4cT8LUxtFkgzymV9OQM6l15ruClPZRauFlIGy6FsCheLVoQynjW
-	 FPFRyjqss8H40HWUFo3MrdWPsGCgCUFETedyMAw+lg2C75ud2eNfUsK/MNMk08KpvGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=htbP1Be5/tb7LgqEiuAX137LQm3n+SjOO/0MPt6z5aM=;
+	b=o57CP2wE3FXm840vl/YZKa8qfFDovFvNNvGHmb6/j7fxXHJ58TVP9ubuYJRStvXg+KZ7
+	 b0WgqnOjEbDVaQMbxZ1X41FZPMOZ8QXOq/zYZ3wJniVQvpU0Z4mT1NK6KixxENDp35iHU
+	 WsEicSqy1Bx/PQhuYOvD0tlKH/KGTQsxtqoHf4Y9fcqqUJyLWwvDMF7RQzrSS85KzO2sR
+	 POFcp/VYACGMSfOhr0qETzfnUu/SzIf9ZPmkOwFWpwFUiKuiHtSFdvKh0J4XhN6ZxQgM1
+	 iwy85I9al4H1i8ccffqgFg4IahZjyFwYdWTO/2PwO3Fok/WkTa4C5+hBgOMZU/hOq+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtkvA5ki;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ZvbmRVbB;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A19C606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:32:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88807606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:33:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88807606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mtkvA5ki
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CECA91F000CB
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:32:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792657978;
-	bh=JzuUCJEZ07cKJ0g5MRkVm/x+PBn5nOwGygGzn+vt7z8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=mtkvA5kia4TZLAcwzqEP0BMuwW8A2Y55jnGJclt078O354OLEL0lbh6mCx4znavko
-	 84qk6/mZwkqHrCV+armLy+kxhO9E1iLXiUJ30DQMaU0y+vFjsliZoy1uVSGsvNeqHS
-	 DaomkmpOSWapsIhAT3iS0i/X5ympd20y7zKITihGw6BaCcquxeDzNEsQetbClSQT6E
-	 vu85H9TyySoJhScu3H9xhF2e2Az6kRf/HLQ90rbsObi4kOYrnRIUxfPf21LzE0uMns
-	 deHe7JD2wLwdTpAH//C/GQyhI9L0uIP24ZrEhwcI2/HjSW7pQqkaRrDwlcWdz3kKIh
-	 vpAmtmPnSQXcw==
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3a60cb94b80so16339101fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:32:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz3gD+x+A+iCTBJfOiAOvMoVMWrgqzpb9KS//attx7rYu6XjNP1HjUiLQXQw8ACLqV1+xCktKTBPJLxP64=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJPzQdUTT4RyWA0UQMFXI1MQfenWwuBoL0KYQErHoDiDDYSaFYB
-	7pHlMkJCgPWScUaDm5hp3Vzff3XpMYfFxDaENuPepPYmH13wqTWPO+jT6bnTUbwoz43UxfqYWUf
-	34+f1f4CmtnGXlvgRtHw3+GIQ9Rxmv49TN8cnCPlBpQ==
-X-Received: by 2002:a2e:b8c7:0:b0:3a9:d9db:61b0 with SMTP id
- 38308e7fff4ca-3ac441b9da4mr11909201fa.24.1792657977498; Thu, 22 Oct 2026
- 01:32:57 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Oct 2026 01:32:56 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Oct 2026 01:32:56 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=ZvbmRVbB
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ab752f6244so1266172a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:33:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bytedance.com; s=google; t=1792658002; x=1793262802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=htbP1Be5/tb7LgqEiuAX137LQm3n+SjOO/0MPt6z5aM=;
+        b=ZvbmRVbBIRxBLMdiu6sXsqn4FUagcLZYqMBg7GsnI33T70PtyPdF4VG6wkFZLnBo7n
+         Fh8b15/yDRJfZwdsvWRIRyG1Eo4LZCR7/BDQJET+hY/u8EocLSSkSB8s1hJ4GNiDitta
+         r51I7MMr6PVnw4CNUYZ8MY1HQVzwu2SHXV7AH8JABjHN9w+1onISaV/8sDcRmztxYmUP
+         +euotQWgKrZY+fAkv4OuSbyrAQH8MRutJHhBa/06gXfGS3yEeHd2CDXW3PNcmvbIres9
+         jxE5lIU3/8VxELzYklGO2zh0pWc3DQ3z/bPgRN4Ka28NJRa++/JzMO1CZt5pLYKPKFYT
+         Vfdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792658002; x=1793262802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=htbP1Be5/tb7LgqEiuAX137LQm3n+SjOO/0MPt6z5aM=;
+        b=T+I+HSoi72FORLCdI4FcjkDxXwYx25GLbfmPRpuCv9GiGFK8GvUaANT/2VUjc6rF0g
+         QWlM/rY9ATM4e0cMlsdqZ3akH3rP3l90GJW782Prk7xXaM8FFGWOjIqhJIc1E1+3xabV
+         Xm5PWtnMSDVPguymspP1WKZCMTN7A8ONOVhftmoL2wsjGPAEJDC65fMHmQ7qOzdwkCsd
+         LLah1zUnKvtD+PMJ1E2KinfPBROA9KRXBElI1ffcnhUz616tl9TpLQwMc8AKOqxK6VTo
+         37TPCrW1huqiKdtdLgqy7br0TGTfb1pWjH3ATYZRcILhVvchzMZxf96UVfKyxqCU1vAN
+         06nA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHG/F6HPKUxQwAWBsS2M3Tq//ouoktVbkq67q3KxjEdiPXCjvwcMGOPphDllvg/ELQ7jMIUaFKFR3130Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRRGrfNKrP9JGX04kxcH4S8orkCVaE11nACHFkmQ4nceYCHSmv
+	5fksQ+PQgsIWBEomNZy5k/nJgpg76VFc+wDCKm5sQEG3ZIMV/ZC07dA8unkc3/Sb/yw=
+X-Gm-Gg: AYBFou1vx28QKlseel87e8VAYoVTwwKivbXeA1tXd6miaV1vJq8Lcn9yGW6c6nfkamw
+	aTEtzdyvmzaKFhOBQmQDNQpXOmbUGomD29hruyjwbQojhvU+sX8TZkkSter68yuNZ4GV32/CQoB
+	izK3RySCV+9Ickp6QxLiSNT47Bdn17W4i/UuezNJZ6AdgAviwriBj8pKdYmYJeGiXdF/wL3D3le
+	gbBDtAEfVa+MzEAA/Logc59WoZJtWqmk2lQP95KsPDexzSpwZzAQh4K/CTlaekq1HfgvwFEi1qK
+	wyQkMZIoxYkKxPjnVRpaKU8WM/OiBO+KzbX2ZxWGwT6t8hDeB4nXYY/tVZOjv6j2qsOgwzmWGNe
+	MMiguB5JhaJKD89ZkVNXRvQ8mkGT0c/Y3OZnU9KTvUSKu3C6XI9snd1DY7S0NTr81DobwNJQ4e6
+	Mi4uHaWt+UvL3AteC2ZfUjm9rAJcc9abNCFrjLOJhYyP/wxKf1fbsxv8+TJ3dUxef45J4dKzYdl
+	yo7fLTpXgS46syuLzkfjttrCpyHaNLJgEWtD4kzRAvmRYGCSUV95etS4rKjr5tFJUwJ0i17OnL5
+	xmAtMNxqkRydTR8n+w==
+X-Received: by 2002:a17:90b:48c9:b0:3ac:c23f:cf51 with SMTP id 98e67ed59e1d1-3ad8708b8demr3966898a91.49.1792658001786;
+        Thu, 22 Oct 2026 01:33:21 -0700 (PDT)
+Received: from FR9WL0RHKY.bytedance.net ([139.177.225.244])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4887669sm3302053a91.2.2026.10.22.01.33.14
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 22 Oct 2026 01:33:21 -0700 (PDT)
+From: Yunhui Cui <cuiyunhui@bytedance.com>
+To: pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	zong.li@sifive.com,
+	wangruikang@iscas.ac.cn,
+	debug@rivosinc.com,
+	qirui.001@bytedance.com,
+	cuiyunhui@bytedance.com,
+	guoziyi114@gmail.com,
+	samuel.holland@sifive.com,
+	ben.dooks@codethink.co.uk,
+	cyrilbur@tenstorrent.com,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] riscv: Fix SR_SUM leakage across context switches
+Date: Thu, 22 Oct 2026 16:32:12 +0800
+Message-Id: <20261022083212.84721-1-cuiyunhui@bytedance.com>
+X-Mailer: git-send-email 2.39.2 (Apple Git-143)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,89 +107,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020-fw-devlink-nexus-ready-v3-0-fd6f1c17e16d@toradex.com>
-Date: Thu, 22 Oct 2026 01:32:56 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeBqQZ4eDTz0fNDADt4MyOaZ=a2C9kep=NODdLzX_k8jg@mail.gmail.com>
-X-Gm-Features: AclHuK9cCXPq3RuWqctjqZAMOOYPR-7SmQD-Nd8Sfol_hYf30-8yyMIOuci572g
-Message-ID: <CAMRc=MeBqQZ4eDTz0fNDADt4MyOaZ=a2C9kep=NODdLzX_k8jg@mail.gmail.com>
-Subject: Re: [PATCH v3 0/8] of: property: Make fw_devlink follow GPIO, PWM and
- clock nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	Frieder Schrempf <frieder.schrempf@kontron.de>, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	stable@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 20 Oct 2026 15:00:11 +0200, Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> said:
-> This series fixes an fw_devlink supplier-resolution problem reported by
-> Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
-> resources routed through an LVDS connector. Consumers referencing the
-> nexus could remain deferred because fw_devlink linked them to the nexus
-> rather than to the providers selected by gpio-map and pwm-map. [1]
->
-> GPIO, PWM and clock consumer APIs use of_parse_phandle_with_args_map()
-> to resolve specifiers through gpio-map, pwm-map and clock-map
-> properties. The corresponding fw_devlink parsers use direct phandle
-> parsing instead. Given a consumer which references a nexus, the consumer
-> API and fw_devlink therefore resolve the reference to different nodes:
->
->   consumer API:  consumer -> nexus -> mapped provider
->   fw_devlink:    consumer -> nexus
->
-> A nexus is a translation node rather than the resource provider and need
-> not have a driver. The link to it can consequently remain unresolved and
-> defer the consumer even though the mapped provider is available.
->
-> Make the fw_devlink GPIO, PWM and clock parsers use the same map-aware
-> resolver as their consumer APIs. The resolver also handles valid direct
-> references by returning the original provider when no map is present.
-> Use dedicated exact-name and suffix declaration macros to opt these
-> bindings into map-aware parsing without changing unrelated property
-> parsers. Retain GPIO's existing exclusions and compatibility handling.
->
-> Since fw_devlink runs the resolver for every consumer when its device is
-> created, patch 1 first fixes a stack buffer overflow in the resolver
-> when the provider referenced by the consumer has more than
-> MAX_PHANDLE_ARGS cells.
->
-> The regression tests call the OF add_links operation and verify that a
-> mapped reference creates exactly one link to the provider selected by
-> the referenced map entry, not to the nexus. They also cover valid direct
-> references. The GPIO tests exercise all property spellings recognized by
-> fw_devlink, including the deprecated singular and unprefixed forms.
->
-> The clock patch fixes aacc54c67869 ("clk: Add support for clock nexus dt
-> bindings"), which has been in clk-next and linux-next with the same hash
-> since next-20260907. There is no build-time dependency on it, but the
-> clock patch should not reach mainline before it. The series applies to
-> next-20261014.
->
-> Tested with:
->   - The CONFIG_OF_UNITTEST cases under QEMU/x86_64: all passed. With the
->     fw_devlink parser changes reverted, exactly the six mapped consumer
->     cases fail.
->   - W=1 builds of each patch on arm64, including the OF unittest data
->   - Toradex Verdin iMX8M Plus hardware using a connector nexus for the
->     display GPIO and PWM resources (v2, same fw_devlink changes): the
->     display probes successfully
->
-> [1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
->
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> ---
+__switch_to() saves the sstatus value of prev and restores the SR_SUM bit
+of next with csrs. However, csrs only sets bits. If prev has SR_SUM set
+and next has SR_SUM clear in its saved state, the old SR_SUM bit remains
+set in sstatus.
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+This lets next run with user memory access enabled even though its saved
+SR_SUM state is clear.
+
+Use csrrc to save the sstatus value of prev and clear SR_SUM from the
+live CSR before restoring the saved SR_SUM state of next. This keeps
+prev's SR_SUM state intact, while preventing it from leaking to next.
+
+Fixes: 788aa64c01f1 ("riscv: save the SR_SUM status over switches")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yunhui Cui <cuiyunhui@bytedance.com>
+---
+ arch/riscv/kernel/entry.S | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/riscv/kernel/entry.S b/arch/riscv/kernel/entry.S
+index 61b7a77166971..628b85e3915a7 100644
+--- a/arch/riscv/kernel/entry.S
++++ b/arch/riscv/kernel/entry.S
+@@ -443,15 +443,15 @@ SYM_FUNC_START(__switch_to)
+ 	REG_S s10, TASK_THREAD_S10_RA(a3)
+ 	REG_S s11, TASK_THREAD_S11_RA(a3)
+ 
+-	/* save the user space access flag */
+-	csrr  s0, CSR_STATUS
++	/* Save and clear the user space access flag. */
++	li    s1, SR_SUM
++	csrrc s0, CSR_STATUS, s1
+ 	REG_S s0, TASK_THREAD_SUM_RA(a3)
+ 
+ 	/* Save the kernel shadow call stack pointer */
+ 	scs_save_current
+ 	/* Restore context from next->thread */
+ 	REG_L s0,  TASK_THREAD_SUM_RA(a4)
+-	li    s1,  SR_SUM
+ 	and   s0,  s0, s1
+ 	csrs  CSR_STATUS, s0
+ 	REG_L ra,  TASK_THREAD_RA_RA(a4)
+-- 
+2.39.5
+
