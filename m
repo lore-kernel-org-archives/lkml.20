@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792670825;
-	b=0ObW7+9Dhb+q72JXHZmCe0f3U4/NidyIWxrIyMdmG9WbNG94aOdF/+dxjdK07IDsClf0
-	 IkM+Rf7Lt1NIaPtxPsD02TIzCD8dE18KEtt0p0pARBdNptDGybhe92ZY/+hYUwk+e8hi6
-	 SZuNyldao/ASAAxj0AGEv36QfhDgD33PRhZ1libVRjowfd84qhdY9OzrwJCwcTfU7S1PG
-	 ysJ1nJ7C/fVjGyySh7c+qstBlEG/elK53VQ/8xhCA9wqdSbmiu8XVhqGzVWi2E6ZjWI9a
-	 E6bGFoEKGjqqelmC+cxalSN1DscYsLWMSm0BhHIli5N6EbJXdzv/cNLdYPbKA67sHZg==
+	t=1792670868;
+	b=too+qO5Lz5Gw4KzpHgW0MS0ghVlRMkO2HZUNPke5JnxGI8LBtToodYcjrDLnkd3Zkhpm
+	 q7cnPAeA0013RKTq4gOB5+WxV/MPYR49cpK+Kl+aWZ0ssC0wYLncLKoPJ1DcrRuCS/R4t
+	 UL8lhNciYoMjoqV12t5vYn9iSwQ0K4TWrvyW/4KgbWS7AckY+bcaC7Q6IuWlr4/4nZbvl
+	 1oS5Zi7sElExF5pVgBWpdN0OSeiB51TCCbAQLMTayouFRFnwDkpDgF5yTE/t2h4fqk+2r
+	 RBoifv4oeaS+gnk7zrflwfOR9xkl2O2rNwPz2f5ilf+TSj0QHQ5Hd4peyQbNGKkasGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792670825;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=f4Pj7b5+BCbfAUSTsrmqLzkuYkoyWrTz+YeW1iMb6p8=;
-	b=ruNvUBDZJhYBfNS1+5mcRAqDQI6C6JDOL+de0oX3DWqq9zY73ROk+5DvOHJxi9rnklAt
-	 YL2EEDJv17jn99RUdZta3hNvUvg+bKeQ4SumLAFSRVpi3MU+3fvkd/GHYhSemYQ7BIe+X
-	 ByosiRHAlLqpLLJG100BowYq9lF/3PhpJQuWCU1FpK/OvnOp3qz6cWajc4VTcuVa6xHs2
-	 UV03kJK0n+ZliRXRjkpVtwYxCAIu6c50bSbmi3H+SJv2/z6HHcXVVKNCQoP4EoOQSx6QI
-	 7gloY82R78jEAPMPzKaeMNaZk7rLkDNdtHAD5BJ6CB9co294RWDLl+LiRfF7KZwh1xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670868;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=U+E2goX+603MK4R3YbLe0NZDVKTFLoXN52JzT924H9k=;
+	b=W0ycD1J44noTIACDYxPLH6YDFKZbZzNBCNaanmWXfn0z5+klAx5jA8tHk3Eu5GCN0uG4
+	 IAHskiRayaYefsmxgn9GtcvdoqBY+2AoACso/5uRZJtAiKIJYEep8qmfIRy/aUUyBoa0I
+	 YnsPuW0SPGwc0H80ovFAYvsVT1WoHJSe17fHLnwFmBxLOsqvHxLycsTQPPXIiRjn46ExL
+	 I96b665BZcwKCtID38F3K5NqgLRWq6uF3rpy8pZvB7tDXaxmD1Kv5TZxXOLIdZyhH+IBf
+	 P/5BOQ3KK28/Yb5hqs+ZZNMFl3dozoSvDjF8zTLMrN6TMq0v72eUvkpWrpNqYIXPpLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=DCho+HQ0;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23092606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23092606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F9rzmpQ0;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 632BC606A319;
+	Thu, 22 Oct 2026 12:07:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632BC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=DCho+HQ0
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0d91601bdso6849077b3.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:07:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792670824; x=1793275624; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=f4Pj7b5+BCbfAUSTsrmqLzkuYkoyWrTz+YeW1iMb6p8=;
-        b=DCho+HQ0HUQRh5vJ4m/7U8EaK1YUKYd0HqPcqV483E8mA8fjn+MUsZLKDRZAc54V2o
-         dq4aMXrXJqsfG0nTL8vatAr/OVoProMCvuAiOrYBGwToottVPhQ+JkGsA+pqysFAdqVU
-         WD2Tg54uWt6n1l51HQsRTxWtYDzUjdmgf1pSV6V2Eb9EHa1Wpo5jt9bSpqBEJY+DJsoR
-         owpIrpLxe1pfrNEaXNsZax7LCA+iPdJgPosYvSJ4YRVBHCCtDkm0Q7gbTwMCl5nAa3bL
-         Vppa5iAczQkqskWc/lpfDtHIuLdFFBMUcFsbFnPA/EttqYE0WiOBydE3whHqwbUFRdiH
-         BS1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792670824; x=1793275624;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f4Pj7b5+BCbfAUSTsrmqLzkuYkoyWrTz+YeW1iMb6p8=;
-        b=FMzJtflT4dvrFcvmwGt1MSn3lkVNS+moUpo/kI/phMxJCe810mENvRJd/blvekVnRw
-         wflmnFTsOe9dgCp3co/JFrPZBgqnsCe43g/caOS/juvdUcGi9E7M19G3Uwokg566kZri
-         aDegJToLb2ef3BOJ695efvBb5zC6jEeZW20o0lElQa2zftzuwQaVZTV1rYjcQTVCuue6
-         8Cx8oS/kTIZnHmIwNxwov2VNpFDwjCtxmatwqc6xtpoDKl3VM/F39fYCd2uef6XtxSaZ
-         nhNx2FL0z4ndtdUuK7/RtcY8t5HSviIvd/kZF+vNyukQ/zlkulLf5NZf3esXebXrTkLT
-         RRBw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1gY3cTpDU/UhMjvvslHItzHOZ+Sv/5U+ZOY4tYLbcjITBfkW+pFfoj2m6ROTxanfv2N8R0ZxcQr+BwJU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKI8NxWVXx3zDiByhkX4r8+hUHmyjCmvYCkevYy298TcpYKlyOd
-	lvBSXunMqO39OkZg/3m9zbl5tkgEvQ+54Bf+eoCkONCDCS53X62+UBYfEydR6VwHPA==
-X-Gm-Gg: AYBFou2Q0alHbI6+ZjanWY5I8IbKJSV/LKUtVNgyrNtC8/e2zgG/JwaqOdgPyvR/JMs
-	rTumYh7vTVtuojvw+KaAnItb+hBaSnHyfmjytDHkLHd/XhvDOIx77ROhU3Md22HjRTydQJOM13s
-	bH31rSZ9yevoY35F3hsNYe0LMfJI3FYheOavbFYlMgp+9+lDfvXzqxQf8HM5L5Ba23ugGOdFFDE
-	CDIgNSL6bRBIyx1DRyyQMpk/fWX4fIZSUPokYXan8i6WzkF6s4Y1FhvNmaBNPwjcyTFCiKlUOYD
-	ZgrM2dwxCN7P2KdoTTb6NmPeEf+WTkiKbDlTUgm2BDSwACb7ILKZ+TozHJP6gN0GhLT51L+LBC1
-	8ZT4c8xO3WVcPAlFYYPCEaKtanbKIgzfxUaCu58d2bK1fj54ZCJAmWNV/5AKePEyzNxad8hXhkE
-	11peeR25xne6lRdoEXhARo92uRjiVheiA8nfW30LxhOd+Wv+Rzh9hk+pa0P4RC8Jyt76Sj+gSNK
-	YRxWFlw7DGz/Zvt5HY//WPKT04E8B1cqvNvMq86BuYMlDVsx8yr+V+MPXuYdAlBv9qoitYiRtMb
-	TETO
-X-Received: by 2002:a05:690c:39a:b0:8b0:a171:65f7 with SMTP id 00721157ae682-8b145716d60mr15017307b3.19.1792670823891;
-        Thu, 22 Oct 2026 05:07:03 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300ae236sm25232857b3.20.2026.10.22.05.07.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 05:07:03 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: slava@dubeyko.com
-Cc: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] hfs: avoid reusing occupied CNIDs after deletion
-Date: Thu, 22 Oct 2026 08:06:57 -0400
-Message-ID: <20261022120658.1328124-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
-References: <20261015110114.1649059-1-hengyul@cs.unc.edu> <b6f1cb66778d09015ad5862ff273edc37c44ef28.camel@dubeyko.com> <20261021153141.311425-1-hengyul@cs.unc.edu> <1797b66dee80c9553748d4a961470894c917bf5f.camel@dubeyko.com>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F9rzmpQ0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 405C92C41;
+	Thu, 22 Oct 2026 05:07:43 -0700 (PDT)
+Received: from [10.0.129.145] (Suzukis-MBP.cambridge.arm.com [10.0.129.145])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DDB643F7B4;
+	Thu, 22 Oct 2026 05:07:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792670866; bh=YaugAaOmXpQMbGlR3yQjGJIUa/UWqthL0o7dDmiSzso=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=F9rzmpQ0ewydjOM5Qv2BdnCe/OuDpwBhtCFdR50SESHcFJQn+h++HvTUD+D4WLr/k
+	 xknS5QY+Wgn8HOgpNw40KmbQhMVVOHGQw3OcgSl7If9mgbz6AA7Lavl4a7hIeoBXK6
+	 xRiC9nve68kc1VzLusRjYJgPqEkbyCJGZX+vwlwg=
+Message-ID: <0ab0d3a1-a225-4a88-91bf-04f8f0e42eb7@arm.com>
+Date: Thu, 22 Oct 2026 13:07:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,58 +53,202 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v22 06/10] firmware: arm_rmm: Ensure the RMM has GPT
+ entries for memory
+Content-Language: en-GB
+To: Kohei Enju <enju.kohei@fujitsu.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
+ will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
+ aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
+ joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
+ linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
+ sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
+ WeiLin.Chang@arm.com, lpieralisi@kernel.org, sudeep.holla@arm.com,
+ jonathan.cameron@oss.qualcomm.com, Soby Mathew <Soby.Mathew@arm.com>
+References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
+ <20261002061507.1600269-7-suzuki.poulose@arm.com>
+ <atiyZ7_S7aBxowIQ@FCCLS0092175.localdomain>
+ <34bf0c98-35b1-4402-842f-a100245cb9a7@arm.com>
+ <atjEkyLimpQSL4d4@FCCLS0092175.localdomain>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <atjEkyLimpQSL4d4@FCCLS0092175.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Slava,
+On 21/10/2026 15:00, Kohei Enju wrote:
+> On 10/21 14:35, Suzuki K Poulose wrote:
+>> Hi
+>>
+>> On 21/10/2026 14:07, Kohei Enju wrote:
+>>> Hi Suzuki,
+>>>
+>>> I've tested this series and found a possible TF-RMM issue.
+>>> Please  below.
+>>>
+>>> On 10/02 07:15, Suzuki K Poulose wrote:
+>>>> From: Steven Price <steven.price@arm.com>
+>>>>
+>>>> The RMM maintains the state of all the granules in the system to make
+>>>> sure that the host is abiding by the rules. This state can be maintained
+>>>> at different granularity, per page (TRACKING_FINE) or per region
+>>>> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
+>>>> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
+>>>> all pages in the region must be of the same state, this implies we need to
+>>>> have "fine" tracking for DRAM, so that we can delegate individual pages.
+>>>>
+>>>> For now we only support a statically carved out memory for tracking
+>>>> granules for the "fine" regions. This can be extended in the future to
+>>>> allow modifying the tracking granularity and remove the need for a
+>>>> static allocation by the firmware.
+>>>>
+>>>> Similarly, the firmware may create L0 GPT entries describing the total
+>>>> address space. But if we change the "PAS" (Physical Address Space) of a
+>>>> granule, then the firmware may need to create L1 tables to track the PAS
+>>>> at a finer granularity. Linux therefore checks if the platform firmware
+>>>> manages the PAR region. i.e., the firmware is in charge of managing the
+>>>> L1 GPTs (creation and the required memory for the GPT tables - via static
+>>>> carveouts) without host intervention. Support for dynamic GPT creation by
+>>>> the host will be added later.
+>>>>
+>>>> If the firmware requires us to manage the tracking or GPT memory,
+>>>> deactivate the RMM and reclaim any memory donated at RMM activation.
+>>>>
+>>>> Apply the same checks when hotplugged memory is brought online.
+>>>>
+>>>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>>>> Reviewed-by: Gavin Shan <gshan@redhat.com>
+>>>> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+>>>> Tested-by: Gavin Shan <gshan@redhat.com>
+>>>> Signed-off-by: Steven Price <steven.price@arm.com>
+>>>> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+>>>> ---
+>>> [...]
+>>>> +/*
+>>>> + * We do not support creating L1 GPTs yet. So, make sure that all the regions
+>>>> + * are managed by the firmware.
+>>>> + */
+>>>> +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
+>>>> +{
+>>>> +	unsigned long l0gpt_sz;
+>>>> +	unsigned long next, par_state;
+>>>> +
+>>>> +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
+>>>> +					  rmi_feat_reg(1)));
+>>>> +	start = ALIGN_DOWN(start, l0gpt_sz);
+>>>> +	end = ALIGN(end, l0gpt_sz);
+>>>> +
+>>>> +	while (start < end) {
+>>>> +		long ret = rmi_gpt_info(start, end, &next, &par_state);
+>>>> +
+>>>> +		if (ret != RMI_SUCCESS) {
+>>>> +			pr_err("RMI_GPT_INFO failed for %llx-%llx: (%ld)\n",
+>>>> +				start, end, ret);
+>>>> +			return -ENXIO;
+>>>> +		}
+>>>> +
+>>>> +		if (WARN_ON(next <= start))
+>>>> +			return -ENXIO;
+>>>> +
+>>>> +		if (par_state != RMI_GPT_PAR_PLAT) {
+>>>> +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
+>>>> +				start, next);
+>>>> +			return -ENODEV;
+>>>
+>>> When system RAM starts at a non-L0GPTSZ-aligned address, the alignment
+>>> in rmi_verify_gpt_firmware_managed() may cause the queried L0GPT range
+>>> to include a memory hole.
+>>
+>>>
+>>> On out platform, the relevant memory layout is:
+>>>
+>>>       800c0000000-800dc3fffff : memory hole
+>>>       800dc400000-82fffffffff : System RAM
+>>>
+>>
+>> Thanks for the report.
+>>
+>>> Consequently, Linux queries the following L0GPT range:
+>>>
+>>>       800c0000000-80100000000
+>>>
+>>> The query fails with RMI_GPT_PAR_RESERVED:
+>>>
+>>>       [    8.551855] GPT for the region is not managed by firmware 800c0000000-80100000000
+>>>
+>>> and arm64_init_rmi() subsequently fails.
+>>>
+>>> As I understand it, smc_gpt_info() in TF-RMM checks only the beginning
+>>> of the aligned L0GPT range. Since that address is in the hole, the whole
+>>> range is reported as RMI_GPT_PAR_RESERVED, even though it contains
+>>> platform-managed System RAM.
+>>>
+>>> I believe this should be addressed in TF-RMM. Do you have any thoughts
+>>> on the expected RMI_GPT_INFO behavior in this case?
+>>
+>> I believe the RMM should report a value that represents the situation
+>> better. In this case, there is a hole, and some conventional memory
+>> areas. For the conventional memory, the RMM has to manage the GPTs.
+>> (This applies to the tf-RMM implementation of TRACKING Granule state
+>> too. It only looks at the first granule and reports the type of memory.)
+>>
+>> RMI_GPT_PAR_RESERVED is not accurate as the memory region is not
+>> reserved, unless it is reserved for firmware (in which case the
+>> memory description is wrong).
+>>
+>> I would say RMI_GPT_PAR_PLAT  is accurate if the L1GPT exists, as the
+>>   region covered by the L0GPT has some memory that are delegable.
+>>
+>> Otherwise it must be reported as RMI_GPT_HOST_NOT_CREATED.
+>>
+>> The information that a given memory region is not "memory" (i.e. hole)
+>> is basically TRACKING_STATE returned as RMI_MEM_CATEGORY_NONE
+> 
+> Thanks for the clarification. Could you please raise this with the TF-RMM
+> team? Please let me know if I can help with testing or provide any
+> additional information.
 
-On Wed, Oct 21, 2026 at 03:26:10PM -0700, Viacheslav Dubeyko wrote:
-> I think I see your point. So, I think that fix is much simpler. We need
-> to add the thread records processing here [1]:
-[...]
-> The current logic simply misses the HFS_CDR_THD and HFS_CDR_FTH cases
-> processing.
+[Duplicating Soby's response, which may have been filtered due to the 
+HTML email]
 
-Thanks. I tried this in KVM on a804c5742bff. It fixes the example from
-my last mail only in part, for two reasons.
+--->8---
 
-First, a thread record's own CNID is in its key. rec.thread.ParID is
-the CNID of the parent. In the example, a's thread is (17, "") with
-ParID 2, so taking rec.thread.ParID sets next_id to 16, and the next
-create fails with -EEXIST on z. Taking the CNID from the key gives 18,
-which is right.
+Thanks Kohei for reporting this issue. I have pushed a fix for this in 
+TF-RMM which we hope to get merged soon.
 
-Second, even with the key, the scan still stops at the first record it
-finds, and the last record need not hold the largest CNID:
+https://review.trustedfirmware.org/c/TF-RMM/tf-rmm/+/55689/1
 
-    operation    allocated CNID
-    create a          16
-    mkdir y           17
-    create b          18
-    mv a y/
-    rm b
+Best Regards
+Soby Mathew
 
-The last records are now (17, "") for y's thread and (17, "a") for a's
-file record, with CNID 16. The scan stops at (17, "a") and sets next_id
-to 17, which y still uses, so the next create fails with -EEXIST.
+---8<---
 
-File threads are also optional (HFS_FIL_THD; hfs_cat_move() already
-handles files without one). If a (CNID 17) in the example has no
-thread, the next create gets CNID 17 as well, without an error, because
-hfs_cat_create() only checks for an existing thread.
+> 
+> Thanks,
+> Kohei
+> 
+>>
+>>
+>>>
+>>> As a side note, we tested this series and the v23 integration branch
+>>> with a Linux-side workaround to avoid the problem above, and we have not
+>>> observed any other major issues. Sorry for the delay in testing this
+>>> series.
+>>
+>> Thanks for the testing !
+>>
+>> Suzuki
+>>>
+>>> Thanks,
+>>> Kohei
+>>>
+>>>> +		}
+>>>> +		start = next;
+>>>> +	}
+>>>> +
+>>>> +	return 0;
+>>>> +}
+>>
 
-Result of creating the next file in each case:
-
-                        unpatched   thread ParID   thread key   patch
-    example (z, a, b)   -EEXIST     -EEXIST        18           18
-    mv a into y         -EEXIST     -EEXIST        -EEXIST      18
-    a without thread    17 (dup)    -EEXIST        17 (dup)     18
-
-So the scan needs the largest CNID over all records, not the first one
-it finds. This is what the patch does; the cnid - 1 lookup only avoids
-the full scan in the common case.
-
-If this looks right to you, I will send v2 without the != change.
-
-Thanks,
-Hengyu
