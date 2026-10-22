@@ -1,87 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792678986;
-	b=NN6loEOQrD8iK32tchpPNaYNCjUOG3rPPEzcdR8BDHwfoG4frJ+8EMMzTUlI9Y1OA6mv
-	 CbS7B727Fbj2OIcSkf+0VfXhn81kA/aVb+8YJ/PFPJdP6xQyZagRCicfx/6K3vE9pKvMX
-	 KsHb79Z7K3Occb+QtcjmbDm9fCuT1OUIuyXaUHHTPZY5DtPmcLwQx3IGui5Sdz6vZKF/J
-	 R/bPQhjz8sEkmc0ZrmmxK4nR2SXfbeP48Xq1dYtR81lbynTO95F5kEZWU93UmKNO9BbME
-	 rgfNHQqkVQo98xP0FSHGCkATc426WPbGucvv9812qjxlkA7Ix+3xs/LBPL0e33coMpg==
+	t=1792679011;
+	b=0OnEJuSQ+jx0bzWFSpPxIViiQKOsPObGtJuNH5zTdrj2YK/K/5G8bn4HboIAHWmuBKQE
+	 q73FpQe162aN26lCZSKjiGoo2dLMtIx8mJj0BaDuqE50nI/vhgG3qowsO+lcN+YnCr83I
+	 0/Ianr3rQdIrvlxjhZnCxsGfjFtot5Q1GaumAjMGaayV32E05M7TeFh3s+oRUkViJ6FCy
+	 8/64SJFa+FnYN2XunROFU33rPxzYR1IDfw4VDTKsQjm5Aqqk+6bkrT+0kRdJSBSPOTGYA
+	 wCjZyOsoK/d2RiWbA1SMpESnmQzvM7dIBPAxgDov7vNXw7Gv/UIob1p3J0fjsLl2+Ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer;
-	bh=myYidWIIbWAkZv9VR701i1PRbNKaJd28wzAcC9LDW4Q=;
-	b=SwER6iV/2p/NkOPSecIWgRGgTxsVGUR58MwtfU0EknuZVUoLTCUp5Ga77V0YCFTGZM8V
-	 skitq2/XZOChGplh0FWo/Z116uBtgXR+kAyr8Quk28OTggGcaTfGvGWPLYm+7vgJoYWaI
-	 NAgMAEtuIMvnIzRKbfC6AkOHGyOPq3mDaLxrEV3Xx6MO494CJAeOPM+8rDqiN89k0YBTr
-	 S0ZvxLCzMvM/d7L8gZqgP642oM8B7h5eVtew9LPg1Tf2QsWlZeO3cR9iIWoyo9X5rl0x1
-	 zXkJJDC9hXAE15B7+6bpayxoiMkZtZfUi5J8+iIa1vG8annNqE9ERyLF/BH91Xh1cbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679011;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=l4pPJAHIzCiz4ik/sPvwtmYl98ivKUwHi/L5wDE89bM=;
+	b=RpmiznEpzDNWtOPrzuER6EFOKuJiCcs/M/kdaAQSYkmC1VN/k5t7KM6Wx6ukyffJRjJX
+	 3OltpEDx+xa+J/ZirG0U8BJkuMap3WXS81rupHZrFiEl5svZWC4SBJ8UNPjF+HLA0EQ1/
+	 F9+MUAUKaZ9/1hPTDw+SMT31g+lt2oCcaDe8jKjvuFQ6fLRwWbcOElsN6eTULq6EWNfxE
+	 CmWssFCskpPd6dhGnRntzVWn019xZ13y5Cdf8ncbmYmGUKS0nDWhxsIzrSO3XbUhyF6qF
+	 UTP2au5hZ6q9tOnWT8pQPM2aGp54Ka3KxI3n7EwjduNtHMDBsKUl1CzLoU/LVp6cRHw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oefI+SRh;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MAXTKOWN;
+	arc=none smtp.remote-ip=95.215.58.71
+Received: from mta1.migadu.com (out-71.mta1.migadu.com [95.215.58.71])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD16606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CD16606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D93DF606A327
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:23:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D93DF606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=oefI+SRh
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2072b9832so4296065e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:23:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792678985; x=1793283785; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=myYidWIIbWAkZv9VR701i1PRbNKaJd28wzAcC9LDW4Q=;
-        b=oefI+SRhk4UgRTuRM47u+1b04l6u5XLZOSIZ66bQL0wJyvbFLyM4Ug/lbN3QkWZI0b
-         vZkYcN3S/tijHM0jbhSVJ9GrpeQ+VVma7DHe7Xe6o2cTEh2kFW9zVZP8Njct1r58gts1
-         K2vN+nVpb066Ma84PrlKbqLcb7FBWH3zjd/ojMYzg7/W3WbFRGAQDLFtgaP/mSoavT5q
-         MmvuNaBgH0kt4kr6S9AG4Rwuiz7eY+UpY66O+XI5zbk1BrNDxhrONRgMBHNqbZGaH8o0
-         EemoURaaZkqTZg3hfKpYE1pKu2e0FqTXt96gmF0D96zTEKF16Y+zZahIOkVqthsS1+LH
-         dChg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792678985; x=1793283785;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=myYidWIIbWAkZv9VR701i1PRbNKaJd28wzAcC9LDW4Q=;
-        b=sQGQ8wYP5bdqXj+FJY6F5grIBTP2g9J5WKrrSfzBLwPqPqmL0AFVnAfbhrKG6Yry3V
-         L0g1d8c4Gz/5tw8j7rBXzEIJQwpmuqacQhNhEieCUSQdjufq+D4wo7KGpcj3YvHvGe/q
-         /MQRd4pVe++kRqWIEeEZYTWtkSBiAFChCTrgH54Jyihh/8C1cTY7tMAvYIMd+1oS1q2l
-         4pY5470oPLfYIIV8sbSirwsmNKGxxwUq2YielfNGa4WAxG4A0DLJhy4tBrQ9BvI223XD
-         NAjMVUSVOvO/M9wxL42up15e0jITftx/OedYr2c/zlcABGUH7jnDggk1ilKBmunCxqEi
-         zfDA==
-X-Forwarded-Encrypted: i=1; AKwUvBwiAG+LKps5c6duQlEpj0kQre4pjWOFa5MH9HIFGTI3xppqoQda8VPngnj3Q8WxolCGxNiMMtQf/l3ITZs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDId73aMn+emv0R5FrJeNz8hCwR/2PaH8h5uYha07NdFwE0RuA
-	oKyty2XwCePVex6VWC2iKSZ3mplN+DZuB1k7qkIvOwJ2MRodZeUngYKG
-X-Gm-Gg: AYBFou39LcKpaD1AsOchS0TnhHlsWNY61UChkUst9OJCQ3yW6h2IptQK0YHS6w/S61h
-	EfgJfsgTgSI/D0m9JoJAK3egrcxsmnybgYkXvVFptc+Wqtoxcqdb8lP++eZd3BCQnEUlVSViUWP
-	O55dC79E9/LjFueiGGPqS5kWylj2ehWnp5JCKZZT/sUim/nJy9XjKpWsh3MtHR3nr4xaB7entF+
-	vYqmGJV1A5D07/+K0nlvMwWMt6crieYXN0rDVTwALwIA1F/Oo5+unoL2XrgLnmW3D6/D5U6518b
-	PTZOgmb5BjxpVa3575MkjQ8lJwTuJ1XLvhEJSXSF9/anOAsbYUPiA6sIpYcCm+x5xQIETRRF0a5
-	bBGr06+chJKrSAyVKvDvA+VWI22O3M7H7naHmdAUwj6KnuXUW7gKo6pc4vRg9AxxQnyv9x+RAIw
-	pPTNavnBsHR4W65o82fzYv4+0uG41HS0dY0KFfHRLoFUWuMaGWMmdIKPSy7E3bdPlFTgPv6hgCM
-	5nvVxpg9EG+GLN+a4DJLxf3qn1eyu+XNav6KGvtDv4ODhuFV1KEz/2BPl7AzIDcdSFLi4oncOoK
-	7q3YG2dL8mJ2Ay9V8HJwn5rQL7t/FDuf3LOB75FygGQ+LLDp8pNkjIU=
-X-Received: by 2002:a05:600c:a49:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a204b20321mr50739115e9.11.1792678984170;
-        Thu, 22 Oct 2026 07:23:04 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a207b29276sm95945435e9.6.2026.10.22.07.23.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:23:03 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 22 Oct 2026 16:22:59 +0200
-Subject: [PATCH v3] arm64: dts: freescale: imx8mp-verdin: Add Cortex-M7
- remoteproc
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MAXTKOWN
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=u+IWVqBqxlupddJdL1ZfQ+qoMepjEEQs03oihWDurP0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792679007; v=1; x=1793283807;
+ b=MAXTKOWN14PvtPFaLEzQWYPGDvFojHG/SdtlALC4OOP9h3N5KcK3RV6dEE2f6bvjmAC33dCa
+ Bt0vXa2/izycxVGsbCDERQ4Ht6bPMPCrmigvO30LxoJ2bh4pWy6JTnUSbh2cMcOyPkdIB9Fb+Hl
+ jk8eXdi0wm5Nx8MQUIGQt96U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d588a8abfc2b5b3c;
+	Thu, 22 Oct 2026 14:23:27 +0000
+X-Mizu-Trace-ID: d588a8abfc2b5b3c
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d2e1f385-6730-4ce4-8be9-1de3d830eeef@linux.dev>
+Date: Thu, 22 Oct 2026 22:23:24 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,103 +58,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-verdin-imx8mp-m7-v3-1-af284e28531d@toradex.com>
-X-B4-Tracking: v=1; b=H4sIAEIc2moC/4XNTQ6CMBAF4KuQrh3TH1KoK+9hXNR2kC4KpDUNh
- HB3BxYmunHxFm+S983KMqaAmV2qlSUsIYdxoKJOFXO9HZ4IwVNnkkstuORQMPkwQIhzGyeIDVh
- tUOpWt00tGM2mhF2YD/J2p96H/BrTcnwoYr8eGDfiF+spzkZMFhJav0ARwEE5o2qDzj9MdyXJe
- pzPboxsx4v8gIJz8ReUBDZeqFoRSPkGt217A40DcXcRAQAA
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH-next 6/6] cgroup/cpuset: Prevent recursive call of
+ remote_cpus_update() via update_cpumasks_hier()
+To: Waiman Long <longman@redhat.com>, Ridong Chen <ridong.chen@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Shuah Khan <shuah@kernel.org>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, Guopeng Zhang <zhangguopeng@kylinos.cn>
+References: <20261022031643.1351877-1-longman@redhat.com>
+ <20261022031643.1351877-7-longman@redhat.com>
+Content-Language: en-US
+From: Guopeng Zhang <guopeng.zhang@linux.dev>
+In-Reply-To: <20261022031643.1351877-7-longman@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Describe the Cortex-M7 remote processor available on the Verdin iMX8M
-Plus SoM.
 
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
-This patch was previously part of the Verdin iMX8M OV5640 series and is
-now sent separately, as requested on v2.
----
-Changes in v3:
-- Split out of the Verdin iMX8M OV5640 series (Frank)
-- Move the UART_4 overlay to the shared Toradex Cortex-M UART series:
-  https://lore.kernel.org/r/20261022-v1-imx95-overlays-v2-0-c769d6eb54fd@toradex.com
-- Link to v2: https://lore.kernel.org/r/20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com
+在 2026/10/22 11:16, Waiman Long 写道:
+> Guopeng reports that changing the cpumask of a remote partition root
+> may set the effective_cpus of the top_cpuset incorrectly. It is
+> due to the following call sequence:
+> 
+>   update_cpumask()
+>    -> partition_cpus_change()
+>     -> remote_cpus_update()
+>      -> update_sibling_cpumasks()
+>       -> update_cpumasks_hier()
+>        -> remote_cpus_update()
+> 
+> The second remote_cpus_update() call passes in the cs->effective_xcpus
+> instead of the trialcs->effective_xcpus of the first remote_cpus_update()
+> call.  As a result, the second call can revert what has been done in
+> the first call leading to incorrect effective_cpus of the top_cpuset
+> as well as subpartitions_cpus.
+> 
+> Fix that by adding a new remote_partition_updating flag into the cpuset
+> structure to indicate that a remote partition is being updated and
+> update_cpumasks_hier() should skip the whole subtree as update_cpumask()
+> or update_exclusive_cpumask() which calls partition_cpus_change()
+> will eventually calls update_cpumasks_hier() for that subtree anyway.
+> 
+> This new flag is currently set only in remote_cpus_update() to prevent
+> recursive call of remote_cpus_update() on the same cpuset.
+> 
+> A test case is added to test_cpuset_prs.sh to verify this change.
+> 
+> Reported-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+> Link: https://lore.kernel.org/lkml/20261010075947.333549-2-guopeng.zhang@linux.dev
+> Fixes: f62a5d39368e ("cgroup/cpuset: Remove remote_partition_check() & make update_cpumasks_hier() handle remote partition")
+> Signed-off-by: Waiman Long <longman@redhat.com>
+> ---
+>  kernel/cgroup/cpuset-internal.h                   |  5 +++++
+>  kernel/cgroup/cpuset.c                            | 13 +++++++++----
+>  tools/testing/selftests/cgroup/test_cpuset_prs.sh |  1 +
+>  3 files changed, 15 insertions(+), 4 deletions(-)
+> 
+> diff --git a/kernel/cgroup/cpuset-internal.h b/kernel/cgroup/cpuset-internal.h
+> index 2e44dc8634dc..1ba94ffaff9d 100644
+> --- a/kernel/cgroup/cpuset-internal.h
+> +++ b/kernel/cgroup/cpuset-internal.h
+> @@ -161,6 +161,11 @@ struct cpuset {
+>  	 */
+>  	bool remote_partition;
+>  
+> +	/*
+> +	 * Set to true when a remote partition is undergoing update.
+> +	 */
+> +	bool remote_partition_updating;
+> +
+>  	/*
+>  	 * number of SCHED_DEADLINE tasks attached to this cpuset, so that we
+>  	 * know when to rebuild associated root domain bandwidth information.
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index 6e1bef12f86d..952b31246d62 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1736,6 +1736,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+>  			goto invalidate;
+>  	}
+>  
+> +	cs->remote_partition_updating = true;
+>  	spin_lock_irq(&callback_lock);
+>  	if (adding)
+>  		partition_xcpus_add(prs, NULL, tmp->addmask);
+> @@ -1757,6 +1758,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+>  	 */
+>  	cpuset_update_tasks_cpumask(&top_cpuset, tmp->new_cpus);
+>  	update_sibling_cpumasks(&top_cpuset, NULL, tmp);
+> +	cs->remote_partition_updating = false;
+>  	return;
+>  
+>  invalidate:
+> @@ -2208,16 +2210,19 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+>  		old_prs = new_prs = cp->partition_root_state;
+>  
+>  		/*
+> -		 * For child remote partition root (!= cs), we need to call
+> -		 * remote_cpus_update() if effective_xcpus will be changed.
+> -		 * Otherwise, we can skip the whole subtree.
+> +		 * For a child remote partition with remote_partition_updating
+> +		 * set, we can skip the whole subtree as the this function will
+> +		 * be called eventually. We can also skip the subtree if the
+> +		 * effective_xcpus isn't going to be changed. Otherwise, we
+> +		 * will have to call remote_cpus_update().
+>  		 *
+>  		 * remote_cpus_update() will reuse tmp->new_cpus only after
+>  		 * its value is being processed.
+>  		 */
+>  		if (remote && (cp != cs)) {
+>  			compute_excpus(cp, tmp->new_cpus);
+> -			if (cpumask_equal(cp->effective_xcpus, tmp->new_cpus)) {
+> +			if (cp->remote_partition_updating ||
+> +			    cpumask_equal(cp->effective_xcpus, tmp->new_cpus)) {
+>  				pos_css = css_rightmost_descendant(pos_css);
+>  				continue;
+>  			}
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index 5bc144836bdf..19c50819065c 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -347,6 +347,7 @@ TEST_MATRIX=(
+>  	"   C0-3    C1-3  C2-3    C4    X2-3   X2-3  X2-3:P2 P2:C4-5 0 A3:2-3|B1:4-5 A3:P2|B1:P2 2-5"
+>  	"  C4:X0-3  X1-3  X2-3     .      .      P2     .      .     0 A1:4|A2:1-3|A3:1-3 A2:P2 1-3"
+>  	"  C4:X0-3  X1-3  X2-3     .      .      .      P2     .     0 A1:4|A2:4|A3:2-3 A3:P2 2-3"
+> +	"   CX1-6  C1-4:P1  .    C4-5     .    C1-3     .      .     0 A1:4-6|A2:1-3|B1:4-5 A2:P1"
+>  
+>  	# Nested remote/local partition tests
+>  	"   C0-3    C1-3  C2-3   C4-5   X2-3  X2-3:P1   P2     P1    0 A1:0-1|A2:|A3:2-3|B1:4-5 \
 
-Changes in v2:
-- Rebase
-- Link to v1: https://lore.kernel.org/r/20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com
----
- arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi | 33 ++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
+Tested-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
-index 9fee2cf9ef54..45a4713c260f 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin.dtsi
-@@ -77,6 +77,18 @@ key-wakeup {
- 		};
- 	};
- 
-+	imx8mp-cm7 {
-+		compatible = "fsl,imx8mp-cm7";
-+		clocks = <&clk IMX8MP_CLK_M7_DIV>;
-+		mbox-names = "tx", "rx", "rxdb";
-+		mboxes = <&mu 0 1
-+			  &mu 1 1
-+			  &mu 3 1>;
-+		memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>,
-+				<&rsc_table>;
-+		syscon = <&src>;
-+	};
-+
- 	sound_hdmi: sound-hdmi {
- 		compatible = "fsl,imx-audio-hdmi";
- 		model = "audio-hdmi";
-@@ -185,6 +197,27 @@ reserved-memory {
- 
- 		/* Use the kernel configuration settings instead */
- 		/delete-node/ linux,cma;
-+
-+		vdev0vring0: vdev0vring0@55000000 {
-+			reg = <0 0x55000000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		vdev0vring1: vdev0vring1@55008000 {
-+			reg = <0 0x55008000 0 0x8000>;
-+			no-map;
-+		};
-+
-+		rsc_table: rsc-table@550ff000 {
-+			reg = <0 0x550ff000 0 0x1000>;
-+			no-map;
-+		};
-+
-+		vdev0buffer: vdev0buffer@55400000 {
-+			compatible = "shared-dma-pool";
-+			reg = <0 0x55400000 0 0x100000>;
-+			no-map;
-+		};
- 	};
- };
- 
-
----
-base-commit: 7f47e8eafbf55a2ad0697e5d28f5e6cff2fa42f9
-change-id: 20261020-verdin-imx8mp-m7-a69e26868741
-
-Best regards,
--- 
-Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-
+Thanks,
+Guopeng
