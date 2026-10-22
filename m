@@ -1,49 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792627809;
-	b=xSbsrDjNX2VH5JbbmvICNW9qEjsb1VZBehwipqb+pPvGhXklY713GaHimvOErqn3C2iY
-	 y2sz/wKxjEFMevH6UqtuG74PICGbOhahB3dn48HRIiHsuidaInu+y8a39qk4/djcBt9PE
-	 uDz7InVAhuliyCl+XRVsybwSlhSCVx+BSu09HnHEYwLb22QN445WY1xx/xU44fnYb0eNx
-	 MzoBydC1crLXtqobTPOz8Q74OWj7sVrqLLA5EdVXiOQ4XsgajBARM+w6JHoo8tiT4t4c5
-	 08gsouBcZqB7OB6E9rc1BETrZtTGr+wzA8HIut8+UHhproHksxoFzVHGOGN2UbRbMXw==
+	t=1792628054;
+	b=LoE9TMOQJlITANN43BMrn7kKcxTfYYRopeEFNCXSrwnN11piNr80/Hp9X79zeUo/i3N4
+	 NMhIrSGABMG3oCp30X2R8J34w1QegIxV3i6kYAp15khpeuO5a33MGMP7RZlrmfz8ve1GK
+	 bJJZRfy27prV0ScuJxhKp9uhosJG4EkeUNc8H5S8B3Ndbr82/Qfl7o/wXVj6UD7l6aoKI
+	 dbG+xC9/48gXuIYCQGo0QUJ+NQiqGFLTqSg1vwMnrkQmIsCkxVuyq4/+MhSiivOPKlZEu
+	 jOFMg8jFh+ME9FMDTJMOMwGpwGMzBU6a8AoHOM8/b1zJ2VXxhRa+iXnUhNy115FnjwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792627809;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=dnyihWPEo2bF2vb9mxR/7VSP0rlZwsuun65P2lwCSHI=;
-	b=FFjqO5J9gNLTvIAOAwq+s2vnT3GRSZK4Rp1A1r2hEqwCteNiNJYn9gGDooipQTW0vnie
-	 XgwWIA+145HsIk/WhmrjzYQo4R2lo7tT1fsASH+T/VgHf0pPXX/LwW8m4HVd1p94O+++z
-	 gbMfucDLhUvlxCEGm21MpXwlauObhyQNVUC96CHOl1zSUQs8pKB73giCslHsZB7kCobc6
-	 CuSCQCVTwS9QiLlbu/FXUsWhp6zE/XAgh58blvCnG8GalHRV/q0J9DFoUWaoysuPkWrHk
-	 hmDNMEO44OOpgAet3F5TSg9+rirPnveMLyy46iwkE0/c6tT4doQUiYvqAtKFRiE2sog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792628054;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=k8xlh9codIzCBXzpgdPD44zFE417IwTxf7wmDzv42iQ=;
+	b=CvURuWxRLL5w56UKTT6Ai8WD29QgwZmVHS9U9T0ogyiF09aotjU8zWrixF5w1qwAgsoy
+	 K9PgFcQA22cRoDti4nht0OpKxODRyECfGmLTgBZSwVpfSYQpa0K/bm4SGC49rt2AubAQH
+	 Pza3EMAyd2zfHkR9lWpxkoGI3xT48UBy2vUboQCUyH1wqytLdQmgONK/RMVzSA+DVC84J
+	 4NGdDZmcGeOCE9/znSqKzPXT+juBTQdmaL0PAOa73a1T+06OsbsiZ1IKpHU1ShLbLlx55
+	 y2pKKkEbrrAJrOwK3B5DIL83lGkuF/ZcEJxgeaP4ePI9dDSEBXXCCFKqCGNfm8eHYsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IdTWf00/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FwPJPvzn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AACEC606A31A;
-	Thu, 22 Oct 2026 00:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C564F606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:14:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdTWf00/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 834681F000C5;
-	Thu, 22 Oct 2026 00:10:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FwPJPvzn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05A681F000C1;
+	Thu, 22 Oct 2026 00:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792627808;
-	bh=dnyihWPEo2bF2vb9mxR/7VSP0rlZwsuun65P2lwCSHI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IdTWf00/atJNKRcZSkeSvxFPLdWHKjjmlg5CyJGAaFz9BO1cV7tJB+7JXuEcRWRZ6
-	 +exu78ezLS7hR2iSuZxKMUMXMswgMHNywTY0So3Fi84HnSgv2POgS8CeHZykuXpCZt
-	 2ziLEw0WGkuVDf+Ep6OEzinHrPgIpPTpdWWy/HTpb5OqfD5TNB3dTj/ZZuE7xhhwVT
-	 2xZt9NQ4+CD2d/8Lbcx941hDg5SQ/tXU1t+L+o3cnEEB3JRLTxq3D1FrzV/D3CjJUE
-	 aFbAiZuWZ8gE9RlZOW0V/PJ6uG1vOpFd9rsht5QmanOUWqHMsSckg5Cn9WFYQUinLQ
-	 LcGqHhGpRNTfA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7741D380A963;
-	Thu, 22 Oct 2026 00:10:08 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1792628053;
+	bh=k8xlh9codIzCBXzpgdPD44zFE417IwTxf7wmDzv42iQ=;
+	h=From:To:Cc:Subject:Date;
+	b=FwPJPvzn/DKo/88t5krzGxUuyh6+NxYOoRTupwuQo7AGsqJ8nuOiHHpHTaeZ0L6CN
+	 ICTubVH8BiVU4dv+eWwkAs80ZXGVa8jA+DC/wSxCdN0UIBovCRt5EtH4pNxKRjTG4/
+	 QFyOvBnJWZ85l6BdXGaT57YrTiU4sHW0xxnnBsu9/8AF42DDalF0H24fwO9wD1VTXe
+	 fbMMjXAr/a/3oasS97QZb5P6pWQE8IU8uv8ojJc72jyoGJAcWreaC+bfp/T3Nb/NC/
+	 Fb0EIIYcJ9bu647ODRGMJqEO/SNz8iODyS/ntWssRbSkn7nmwaGWh2c9a7NGnDfZ6R
+	 +7wWSCzGkhGSw==
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: "Linus Torvalds" <torvalds@linux-foundation.org>
+Cc: Masami Hiramatsu (Google) <mhiramat@kernel.org>, Sang-Heon Jeon <ekffu200098@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Bootconfig updates for v7.4
+Date: Thu, 22 Oct 2026 09:14:10 +0900
+Message-ID: <undine-1792628050192621158-acf139ac8ccbe10b@undined.local>
+X-Mailer: UndineD 0.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,48 +55,610 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v1 0/2] netmem: rename non-pp ref helpers to
- *_inc/dec_ref()
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179262780702.1374404.5723531737292804675.git-patchwork-notify@kernel.org>
-Date: Thu, 22 Oct 2026 00:10:07 +0000
-References: <20261021015558.4124825-1-almasrymina@google.com>
-In-Reply-To: <20261021015558.4124825-1-almasrymina@google.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- john.fastabend@gmail.com, sd@queasysnail.net, ralf@mandelbit.com,
- sdf@fomichev.me, asml.silence@gmail.com, bobbyeshleman@meta.com,
- willemb@google.com, daniel@iogearbox.net
 
-Hello:
+Hi Linus,
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Bootconfig updates for v7.4:
 
-On Wed, 21 Oct 2026 01:55:56 +0000 you wrote:
-> Rename the net_iov and netmem non-page_pool reference helpers from
-> get/put_net_iov(), net_devmem_get/put_net_iov(), and get/put_netmem() to
-> net_iov_inc/dec_ref(), net_devmem_net_iov_inc/dec_ref(), and
-> netmem_inc/dec_ref() to follow the object_action() naming convention.
-> 
-> Use *_inc_ref() and *_dec_ref() rather than netmem_ref() because
-> netmem_ref is already the typedef for the generic network memory handle.
-> 
-> [...]
+- bootconfig: Parser robustness and validation improvements
+ . Skip printing early params to cmdline from bootconfig: Suppress
+   early_param keys from /proc/cmdline and warn the user, since bootconfig
+   does not invoke early_param handlers and silently ignoring them is
+   misleading.
+ . Reject unexpected data after null character: Detect and reject non-null
+   data following an intermediate null character in the bootconfig buffer,
+   preventing silently ignored configuration after an early termination.
 
-Here is the summary with links:
-  - [net-next,v1,1/2] netmem: rename get/put_net_iov() to net_iov_inc/dec_ref()
-    https://git.kernel.org/netdev/net-next/c/bbee99902520
-  - [net-next,v1,2/2] netmem: rename get/put_netmem() to netmem_inc/dec_ref()
-    https://git.kernel.org/netdev/net-next/c/2620efb2cec1
+- bootconfig: Code cleanups
+ . Merge _xbc_exit() into xbc_exit(): Since memblock_free() now handles
+   late freeing and NULL addresses, the separate _xbc_exit() helper and
+   its early argument are unnecessary. Inline it into xbc_exit().
+ . Remove redundant assignment in xbc_parse_array(): The node->child = 0
+   assignment after the loop duplicates what xbc_init_node() already did.
+ . Skip internal tree sanity checks in kernel: Move the node index bounds
+   loop from xbc_verify_tree() into a userspace-only xbc_sanity_check_tree()
+   to reduce boot-time overhead, since out-of-bounds indices cannot be
+   produced by malformed input.
+ . Move BOOTCONFIG_FOOTER_SIZE to include/linux/bootconfig.h: Share the
+   footer size constant between kernel and user-space tools, replacing the
+   hardcoded (BOOTCONFIG_MAGIC_LEN + 8) expression in init/main.c.
 
-You are awesome, thank you!
+- tools/bootconfig: Tooling improvements
+ . Remove unused PAGE_SIZE macro from the bootconfig tool.
+ . Consolidate xbc_init() to error message wrapper: Use
+   init_xbc_with_error() for all bootconfig initialization paths in the
+   tool for simpler and more consistent error handling.
+
+
+Please pull the latest bootconfig-v7.4 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+bootconfig-v7.4
+
+Tag SHA1: 8c84ad1d280719b36079cdd280da8214c3a8013d
+Head SHA1: 677f83795fdfc25ddc51b665a9111f5ff199f7ca
+
+
+Masami Hiramatsu (Google) (5):
+      bootconfig: Skip printing early params to cmdline from bootconfig
+      bootconfig: Reject unexpected data after null character
+      tools/bootconfig: Consolidate xbc_init() to error message wrapper
+      bootconfig: Skip internal tree sanity checks in kernel
+      bootconfig: Move BOOTCONFIG_FOOTER_SIZE to include/linux/bootconfig.h
+
+Sang-Heon Jeon (3):
+      bootconfig: merge _xbc_exit() into xbc_exit()
+      bootconfig: remove redundant assignment in xbc_parse_array()
+      tools/bootconfig: remove unused PAGE_SIZE macro
+
+----
+ include/linux/bootconfig.h          |  21 ++++---
+ init/main.c                         |  75 ++++++++++++++++++++++---
+ lib/bootconfig.c                    |  84 +++++++++++++++++-----------
+ tools/bootconfig/main.c             | 108 +++++++++++++++---------------------
+ tools/bootconfig/test-bootconfig.sh |  12 ++++
+ 5 files changed, 192 insertions(+), 108 deletions(-)
+---------------------------
+diff --git a/include/linux/bootconfig.h b/include/linux/bootconfig.h
+index deda507500da..260a6f46042e 100644
+--- a/include/linux/bootconfig.h
++++ b/include/linux/bootconfig.h
+@@ -27,6 +27,10 @@ bool __init cmdline_has_extra_options(void);
+ #define BOOTCONFIG_ALIGN	(1 << BOOTCONFIG_ALIGN_SHIFT)
+ #define BOOTCONFIG_ALIGN_MASK	(BOOTCONFIG_ALIGN - 1)
+ 
++/* Bootconfig footer is [size][csum][BOOTCONFIG_MAGIC]. */
++#define BOOTCONFIG_FOOTER_SIZE	\
++	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
++
+ /**
+  * xbc_calc_checksum() - Calculate checksum of bootconfig
+  * @data: Bootconfig data.
+@@ -266,7 +270,15 @@ int __init xbc_node_compose_key_after(struct xbc_node *root,
+ 			struct xbc_node *node, char *buf, size_t size);
+ 
+ /* Render key/value pairs under @root as a flat cmdline string */
+-int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root);
++typedef bool (*xbc_cmdline_filter_fn)(struct xbc_node *node, const char *key, void *data);
++
++int __init xbc_snprint_cmdline_filter(char *buf, size_t size, struct xbc_node *root,
++				      xbc_cmdline_filter_fn filter, void *data);
++
++static inline int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
++{
++	return xbc_snprint_cmdline_filter(buf, size, root, NULL, NULL);
++}
+ 
+ /**
+  * xbc_node_compose_key() - Compose full key string of the XBC node
+@@ -291,12 +303,7 @@ int __init xbc_init(const char *buf, size_t size, const char **emsg, int *epos);
+ int __init xbc_get_info(int *node_size, size_t *data_size);
+ 
+ /* XBC cleanup data structures */
+-void __init _xbc_exit(bool early);
+-
+-static __always_inline void xbc_exit(void)
+-{
+-	_xbc_exit(false);
+-}
++void __init xbc_exit(void);
+ 
+ /* XBC embedded bootconfig data in kernel */
+ #ifdef CONFIG_BOOT_CONFIG_EMBED
+diff --git a/init/main.c b/init/main.c
+index 16749bb7a219..861e07f6c05c 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -278,7 +278,7 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
+ 	int i;
+ 
+ 	if (!initrd_end || initrd_end < initrd_start ||
+-	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
++	    initrd_end - initrd_start < BOOTCONFIG_FOOTER_SIZE)
+ 		return NULL;
+ 
+ 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
+@@ -336,9 +336,64 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
+ 
+ #ifdef CONFIG_BOOT_CONFIG
+ 
++/* Check if a parameter name matches an obs_kernel_param entry */
++static bool __init match_obs_param(const char *param, const char *pattern)
++{
++	size_t n = strlen(pattern);
++
++	if (n > 0 && pattern[n - 1] == '=')
++		return parameqn(param, pattern, n - 1) && param[n - 1] == '\0';
++
++	return parameq(param, pattern);
++}
++
++/* Return true if the given param is only defined by early_param(). */
++static bool __init is_early_only_param(const char *param)
++{
++	const struct obs_kernel_param *p;
++	const struct kernel_param *kp;
++	bool has_early = false;
++
++	/* If handled by a regular module_param, it is not early-only */
++	for (kp = __start___param; kp < __stop___param; kp++) {
++		if (parameq(param, kp->name))
++			return false;
++	}
++
++	/* Check __setup / early_param table */
++	for (p = __setup_start; p < __setup_end; p++) {
++		if (match_obs_param(param, p->str)) {
++			if (!p->early)
++				return false;
++			has_early = true;
++		}
++	}
++	return has_early;
++}
++
++struct xbc_filter_data {
++	bool warn;
++};
++
++static bool __init xbc_kernel_param_filter(struct xbc_node *node,
++					   const char *key, void *data)
++{
++	struct xbc_filter_data *fdata = data;
++
++	if (is_early_only_param(key)) {
++		if (fdata && fdata->warn)
++			pr_warn("bootconfig: early_param 'kernel.%s' cannot be applied from bootconfig, skipping\n",
++				key);
++		return false;
++	}
++	return true;
++}
++
+ /* Make an extra command line under given key word */
+-static char * __init xbc_make_cmdline(const char *key)
++static char * __init xbc_make_cmdline(const char *key, bool is_kernel)
+ {
++	struct xbc_filter_data fdata = { .warn = true };
++	xbc_cmdline_filter_fn filter = is_kernel ? xbc_kernel_param_filter : NULL;
+ 	struct xbc_node *root;
+ 	char *new_cmdline;
+ 	int ret, len = 0;
+@@ -347,8 +402,12 @@ static char * __init xbc_make_cmdline(const char *key)
+ 	if (!root)
+ 		return NULL;
+ 
+-	/* Count required buffer size */
+-	len = xbc_snprint_cmdline(NULL, 0, root);
++	/*
++	 * Pass 1: Count required buffer size. Emit warnings for skipped early
++	 * params in this pass so they are logged even if all parameters under
++	 * @key are skipped and len becomes 0.
++	 */
++	len = xbc_snprint_cmdline_filter(NULL, 0, root, filter, &fdata);
+ 	if (len <= 0)
+ 		return NULL;
+ 
+@@ -358,7 +417,9 @@ static char * __init xbc_make_cmdline(const char *key)
+ 		return NULL;
+ 	}
+ 
+-	ret = xbc_snprint_cmdline(new_cmdline, len + 1, root);
++	/* Pass 2: Render into buffer with warnings suppressed */
++	fdata.warn = false;
++	ret = xbc_snprint_cmdline_filter(new_cmdline, len + 1, root, filter, &fdata);
+ 	if (ret < 0 || ret > len) {
+ 		pr_err("Failed to print extra kernel cmdline.\n");
+ 		memblock_free(new_cmdline, len + 1);
+@@ -432,9 +493,9 @@ static void __init setup_boot_config(void)
+ 		 * before this series.
+ 		 */
+ 		if (!from_embedded || !xbc_embedded_cmdline_applied())
+-			extra_command_line = xbc_make_cmdline("kernel");
++			extra_command_line = xbc_make_cmdline("kernel", true);
+ 		/* Also, "init." keys are init arguments */
+-		extra_init_args = xbc_make_cmdline("init");
++		extra_init_args = xbc_make_cmdline("init", false);
+ 	}
+ 	return;
+ }
+diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+index 89c88e359179..819685d6c68d 100644
+--- a/lib/bootconfig.c
++++ b/lib/bootconfig.c
+@@ -187,12 +187,9 @@ static inline void * __init xbc_alloc_mem(size_t size)
+ 	return memblock_alloc(size, SMP_CACHE_BYTES);
+ }
+ 
+-static inline void __init xbc_free_mem(void *addr, size_t size, bool early)
++static inline void __init xbc_free_mem(void *addr, size_t size)
+ {
+-	if (early)
+-		memblock_free(addr, size);
+-	else if (addr)
+-		memblock_free(addr, size);
++	memblock_free(addr, size);
+ }
+ 
+ #else /* !__KERNEL__ */
+@@ -202,7 +199,7 @@ static inline void *xbc_alloc_mem(size_t size)
+ 	return calloc(1, size);
+ }
+ 
+-static inline void xbc_free_mem(void *addr, size_t size, bool early)
++static inline void xbc_free_mem(void *addr, size_t size)
+ {
+ 	free(addr);
+ }
+@@ -539,18 +536,21 @@ static char xbc_namebuf[XBC_KEYLEN_MAX] __initdata;
+ #define rest(dst, end) ((end) > (dst) ? (end) - (dst) : 0)
+ 
+ /**
+- * xbc_snprint_cmdline() - Render bootconfig keys under @root as a cmdline string
++ * xbc_snprint_cmdline_filter() - Render bootconfig keys as cmdline string
+  * @buf: Destination buffer (may be NULL when @size is 0 to query the length)
+  * @size: Size of @buf in bytes
+  * @root: Subtree root whose key=value pairs should be rendered
++ * @filter: Filter callback (returns true to include, false to skip; may be NULL)
++ * @data: Private context passed to @filter
+  *
+  * Walk all key/value pairs under @root and emit them as a space-separated
+  * cmdline string into @buf. Values containing whitespace are quoted with
+- * double quotes. Returns the number of bytes that would be written if @buf
+- * were large enough (matching snprintf semantics), or a negative errno on
+- * failure.
++ * double quotes. Keys for which @filter returns false are omitted.
++ * Returns the number of bytes that would be written if @buf were large enough
++ * (matching snprintf semantics), or a negative errno on failure.
+  */
+-int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
++int __init xbc_snprint_cmdline_filter(char *buf, size_t size, struct xbc_node *root,
++				      xbc_cmdline_filter_fn filter, void *data)
+ {
+ 	struct xbc_node *knode, *vnode;
+ 	const char *val, *q;
+@@ -582,6 +582,9 @@ int __init xbc_snprint_cmdline(char *buf, size_t size, struct xbc_node *root)
+ 		if (ret < 0)
+ 			return ret;
+ 
++		if (filter && !filter(knode, xbc_namebuf, data))
++			continue;
++
+ 		vnode = xbc_node_get_child(knode);
+ 		if (!vnode) {
+ 			ret = snprintf(buf ? buf + len : NULL, rest(len, size),
+@@ -836,7 +839,6 @@ static int __init xbc_parse_array(char **__v)
+ 			return -ENOMEM;
+ 		*__v = next;
+ 	} while (c == ',');
+-	node->child = 0;
+ 
+ 	return c;
+ }
+@@ -1003,9 +1005,30 @@ static int __init xbc_close_brace(char **k, char *n)
+ 	return __xbc_close_brace(n - 1);
+ }
+ 
++#ifndef __KERNEL__
++/* Sanity check for regression: node indices must be within bounds */
++static int __init xbc_sanity_check_tree(void)
++{
++	int i;
++
++	for (i = 0; i < xbc_node_num; i++) {
++		if (xbc_nodes[i].next >= xbc_node_num) {
++			return xbc_parse_error("No closing brace",
++				xbc_node_get_data(xbc_nodes + i));
++		}
++		if (xbc_nodes[i].child >= xbc_node_num) {
++			return xbc_parse_error("Broken child node",
++				xbc_node_get_data(xbc_nodes + i));
++		}
++	}
++
++	return 0;
++}
++#endif
++
+ static int __init xbc_verify_tree(void)
+ {
+-	int i, depth;
++	int depth;
+ 	size_t len, wlen;
+ 	struct xbc_node *n, *m;
+ 
+@@ -1022,17 +1045,6 @@ static int __init xbc_verify_tree(void)
+ 		return -ENOENT;
+ 	}
+ 
+-	for (i = 0; i < xbc_node_num; i++) {
+-		if (xbc_nodes[i].next >= xbc_node_num) {
+-			return xbc_parse_error("No closing brace",
+-				xbc_node_get_data(xbc_nodes + i));
+-		}
+-		if (xbc_nodes[i].child >= xbc_node_num) {
+-			return xbc_parse_error("Broken child node",
+-				xbc_node_get_data(xbc_nodes + i));
+-		}
+-	}
+-
+ 	/* Key tree limitation check */
+ 	n = &xbc_nodes[0];
+ 	depth = 1;
+@@ -1119,24 +1131,30 @@ static int __init xbc_parse_tree(void)
+ 		}
+ 	} while (!ret);
+ 
++	if (!ret) {
++		while (p < xbc_data + xbc_data_size - 1 && *p == '\0')
++			p++;
++		if (p < xbc_data + xbc_data_size - 1)
++			ret = xbc_parse_error("Unexpected data after null character", p);
++	}
++
+ 	return ret;
+ }
+ 
+ /**
+- * _xbc_exit() - Clean up all parsed bootconfig
+- * @early: Set true if this is called before budy system is initialized.
++ * xbc_exit() - Clean up all parsed bootconfig
+  *
+  * This clears all data structures of parsed bootconfig on memory.
+  * If you need to reuse xbc_init() with new boot config, you can
+  * use this.
+  */
+-void __init _xbc_exit(bool early)
++void __init xbc_exit(void)
+ {
+-	xbc_free_mem(xbc_data, xbc_data_size, early);
++	xbc_free_mem(xbc_data, xbc_data_size);
+ 	xbc_data = NULL;
+ 	xbc_data_size = 0;
+ 	xbc_node_num = 0;
+-	xbc_free_mem(xbc_nodes, sizeof(struct xbc_node) * XBC_NODE_MAX, early);
++	xbc_free_mem(xbc_nodes, sizeof(struct xbc_node) * XBC_NODE_MAX);
+ 	xbc_nodes = NULL;
+ 	brace_index = 0;
+ }
+@@ -1189,20 +1207,24 @@ int __init xbc_init(const char *data, size_t size, const char **emsg, int *epos)
+ 	if (!xbc_nodes) {
+ 		if (emsg)
+ 			*emsg = "Failed to allocate bootconfig nodes";
+-		_xbc_exit(true);
++		xbc_exit();
+ 		return -ENOMEM;
+ 	}
+ 
+ 	ret = xbc_parse_tree();
+ 	if (!ret)
+ 		ret = xbc_verify_tree();
++#ifndef __KERNEL__
++	if (!ret)
++		ret = xbc_sanity_check_tree();
++#endif
+ 
+ 	if (ret < 0) {
+ 		if (epos)
+ 			*epos = xbc_err_pos;
+ 		if (emsg)
+ 			*emsg = xbc_err_msg;
+-		_xbc_exit(true);
++		xbc_exit();
+ 	} else {
+ 		ret = xbc_node_num;
+ 	}
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 17d971d47f87..56d76bdeaa09 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -17,9 +17,38 @@
+ 
+ #define pr_err(fmt, ...) fprintf(stderr, fmt, ##__VA_ARGS__)
+ 
+-/* Bootconfig footer is [size][csum][BOOTCONFIG_MAGIC]. */
+-#define BOOTCONFIG_FOOTER_SIZE	\
+-	(sizeof(uint32_t) * 2 + BOOTCONFIG_MAGIC_LEN)
++static void show_xbc_error(const char *data, const char *msg, int pos)
++{
++	int lin = 1, col, i;
++
++	if (pos < 0) {
++		pr_err("Error: %s.\n", msg);
++		return;
++	}
++
++	/* Note that pos starts from 0 but lin and col should start from 1. */
++	col = pos + 1;
++	for (i = 0; i < pos; i++) {
++		if (data[i] == '\n') {
++			lin++;
++			col = pos - i;
++		}
++	}
++	pr_err("Parse Error: %s at %d:%d\n", msg, lin, col);
++
++}
++
++static int init_xbc_with_error(char *buf, int len)
++{
++	const char *msg;
++	int ret, pos;
++
++	ret = xbc_init(buf, len, &msg, &pos);
++	if (ret < 0)
++		show_xbc_error(buf, msg, pos);
++
++	return ret;
++}
+ 
+ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+ {
+@@ -134,8 +163,6 @@ static void xbc_show_list(void)
+ 	}
+ }
+ 
+-#define PAGE_SIZE	4096
+-
+ static int load_xbc_fd(int fd, char **buf, int size)
+ {
+ 	int ret;
+@@ -197,7 +224,6 @@ static int load_xbc_from_initrd(int fd, char **buf)
+ 	int ret;
+ 	uint32_t size = 0, csum = 0, rcsum;
+ 	char magic[BOOTCONFIG_MAGIC_LEN];
+-	const char *msg;
+ 
+ 	ret = fstat(fd, &stat);
+ 	if (ret < 0)
+@@ -249,52 +275,9 @@ static int load_xbc_from_initrd(int fd, char **buf)
+ 		return -EINVAL;
+ 	}
+ 
+-	ret = xbc_init(*buf, size, &msg, NULL);
+-	/* Wrong data */
+-	if (ret < 0) {
+-		pr_err("parse error: %s.\n", msg);
+-		return ret;
+-	}
+-
+-	return size;
+-}
+-
+-static void show_xbc_error(const char *data, const char *msg, int pos)
+-{
+-	int lin = 1, col, i;
+-
+-	if (pos < 0) {
+-		pr_err("Error: %s.\n", msg);
+-		return;
+-	}
+-
+-	/* Note that pos starts from 0 but lin and col should start from 1. */
+-	col = pos + 1;
+-	for (i = 0; i < pos; i++) {
+-		if (data[i] == '\n') {
+-			lin++;
+-			col = pos - i;
+-		}
+-	}
+-	pr_err("Parse Error: %s at %d:%d\n", msg, lin, col);
++	ret = init_xbc_with_error(*buf, size);
+ 
+-}
+-
+-static int init_xbc_with_error(char *buf, int len)
+-{
+-	char *copy = strdup(buf);
+-	const char *msg;
+-	int ret, pos;
+-
+-	if (!copy)
+-		return -ENOMEM;
+-
+-	ret = xbc_init(buf, len, &msg, &pos);
+-	if (ret < 0)
+-		show_xbc_error(copy, msg, pos);
+-	free(copy);
+-
+-	return ret;
++	return ret < 0 ? ret : size;
+ }
+ 
+ static int show_xbc_kernel_cmdline(void)
+@@ -423,9 +406,8 @@ static int apply_xbc(const char *path, const char *xbc_path)
+ 	char *buf, *data;
+ 	size_t total_size;
+ 	struct stat stat;
+-	const char *msg;
+ 	uint32_t size, csum;
+-	int pos, pad;
++	int pad;
+ 	int ret, fd;
+ 
+ 	ret = load_xbc_file(xbc_path, &buf);
+@@ -433,9 +415,18 @@ static int apply_xbc(const char *path, const char *xbc_path)
+ 		pr_err("Failed to load %s : %d\n", xbc_path, ret);
+ 		return ret;
+ 	}
+-	size = strlen(buf) + 1;
++	size = ret;
++	if (size == 0 || buf[size - 1] != '\0')
++		size++;
+ 	csum = xbc_calc_checksum(buf, size);
+ 
++	/* Verify the data format */
++	ret = init_xbc_with_error(buf, size);
++	if (ret < 0) {
++		free(buf);
++		return ret;
++	}
++
+ 	/* Backup the bootconfig data */
+ 	data = calloc(size + BOOTCONFIG_ALIGN + BOOTCONFIG_FOOTER_SIZE, 1);
+ 	if (!data) {
+@@ -444,15 +435,6 @@ static int apply_xbc(const char *path, const char *xbc_path)
+ 	}
+ 	memcpy(data, buf, size);
+ 
+-	/* Check the data format */
+-	ret = xbc_init(buf, size, &msg, &pos);
+-	if (ret < 0) {
+-		show_xbc_error(data, msg, pos);
+-		free(data);
+-		free(buf);
+-
+-		return ret;
+-	}
+ 	printf("Apply %s to %s\n", xbc_path, path);
+ 	xbc_get_info(&ret, NULL);
+ 	printf("\tNumber of nodes: %d\n", ret);
+diff --git a/tools/bootconfig/test-bootconfig.sh b/tools/bootconfig/test-bootconfig.sh
+index fc69f815ce4a..530ce7e28d63 100755
+--- a/tools/bootconfig/test-bootconfig.sh
++++ b/tools/bootconfig/test-bootconfig.sh
+@@ -180,6 +180,18 @@ EOF
+ $BOOTCONF -a $TEMPCONF $INITRD 2> $OUTFILE
+ xpass grep -q "1:1" $OUTFILE
+ 
++echo "Intermediate null character test"
++printf "key = value\n\0extra = data\n" > $TEMPCONF
++xfail $BOOTCONF -a $TEMPCONF $INITRD
++$BOOTCONF -a $TEMPCONF $INITRD 2> $OUTFILE
++xpass grep -q "Unexpected" $OUTFILE
++
++echo "Trailing null character test"
++printf "key = value\n\0" > $TEMPCONF
++xpass $BOOTCONF -a $TEMPCONF $INITRD
++$BOOTCONF $INITRD > $OUTFILE
++xpass grep -q "value" $OUTFILE
++
+ echo "=== expected failure cases ==="
+ for i in samples/bad-* ; do
+   xfail $BOOTCONF -a $i $INITRD
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
