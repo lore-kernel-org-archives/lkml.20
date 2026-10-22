@@ -1,70 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792642349;
-	b=nd5IFZD0EgkEohWaq8S2030bav3jy0MrHVji0NU2+0Yq4ve6rzA7Sd1GZTVagYxywcDE
-	 1Xfc8LUBhJRGPHb9A+PPD5MTmuB4SIOucXTETC3sAjSIFue+F7je/hD1RmRqtHuildeNR
-	 ehjPm1IG0fRdjJUHGD5mUAfZuii4gsZAtP8oDIwWejF0XlFG8LLPgT+erJpYTtKFa8bwV
-	 TAvFYS4IOSdQXeoMOMRj4R/w3iJPa/NhJZ5QLfmwrKi9VIhiCfAnBcI9AEhd0Mn2ZQE6b
-	 JXTq98ZPSyhgLZ5whlVU3F5c+Zlfboy4VlVvkfIphHb7l9JutrHGdAq/oduktV6pAYw==
+	t=1792642352;
+	b=Tb/SagSLyg9Rejm2syA68NnZNPPSnDnh2phhZprnDa23xnK/lSQYX6qq+0+Y3bPXaNXA
+	 Lf9AS2cO/w55LNPFRCC8dm3kp3ocRLwWFL1mfc4xnIemxrgSwnYuBhLnjbygPuDe90o0a
+	 Yy6EMC/AIvNNejYati22I2vsMyJtmXkHbvTiI8Z0ybzvGZzjgNj0Kbw5K41xRsEAn2Fd3
+	 AdzFDCOw2oluVNhjE94wBnz3y5CI9F4pmQUa4LgHAXSqR+0xFN6qw7fLvvrGde0/PSxUS
+	 5TbBJte7gTTqAXSCHbd5rrKOXnWGjppt+B4HrLQDWCgf1wQkOeKk05ytFjshj2umhSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792642349;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=T5sh0GSvIKa5QjV6n2k1xFf9oAeZo2G5isZgHBiyq74=;
-	b=BhfEroB7oYR7aZZ6PVqJ1T1pr50Zrl/N25jmb8PrtfCA8ox5PlSZTNt6+GSjK865DXMt
-	 GLzwubUfkq5qV2ihbx0iih5H5PMkX/NsHgypLsMu8Lsyxkz5NEQ33iRgT4IvhUt8ltwBz
-	 7Kx51WOGQfjv2kGokZlwR0apLYBepZW8dFIsPYu+GbhkY4irUn1Ol1xSy5sN/lJoz78o+
-	 0V7KUlankc+PCewRifuYrf4YtrpvWK2nxHdg10Nvcl0E5ioZDPk9TukoCq1Y1+BckKLAJ
-	 BDkIIUW9x4NQgSRCY0UtuuklurgPOgxJ7BpnoEk1mHCpDy71fJ3sb6QrQNOnJFRrS3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792642352;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Spam-Status:X-Spam-Checker-Version;
+	bh=d+O7Dkr5gSsXrS8hwwvE3xGFoOZ+WROQM7tFy95u0ak=;
+	b=q1X6ImX0VPw0tnrOTiYeeo5rvhH0gbd+5wa8Lmx90ZRNtphxT8vgUMz0wigb7cN+V5sF
+	 9KpxwVO1c83txUMSL1FZwnzSJovQcKqMP9MgguWHwNGOpOcbF65if+wb6pSPNuwO52hR5
+	 HK+x4iOXzyKL4A8Hc93CHCI7AyFMW2jJTERnGzO8OEZhGpEkOC580Nq2dl5pprphjRz3/
+	 mjMnDEl6SBWOD2o/w36RWwNniRw+iMGyvyYKEHtKHzkVJabCiSjL6fUv51vFZ1xoc1gvO
+	 9BTdEV0qqiHklUR3J7P6VM+RMkoYE74o1ciJIBj9oZHuAFlmO+EqlCn0yIlz6+iPTeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cutW99xO;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3BE606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:12:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D3BE606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=KtjrY0f2;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D4D5B606A332;
+	Thu, 22 Oct 2026 04:12:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4D5B606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=cutW99xO
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
-	Content-Type; bh=T5sh0GSvIKa5QjV6n2k1xFf9oAeZo2G5isZgHBiyq74=;
-	b=cutW99xOCt5Ojc5FNWOGYpYZ6OWPu132bAWcVymoKq7KCexsyO/lhFhG4AiUiS
-	o3R5FARorTXT5TEqj/96f/k+mEryUNM0+qDx+Z11jxtLN8ItqHpQUIu+TkLI+tl9
-	/42G8qsNtcSX0dduwrVN/CmtJid1vKYWBbWJ2d3VsYRmc=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD339jOjNlqoTkoBg--.5005S2;
-	Thu, 22 Oct 2026 12:10:55 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: Tim Chen <tim.c.chen@linux.intel.com>
-Cc: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	baohua@kernel.org,
-	yu.c.chen@intel.com,
-	yangyicong@hisilicon.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] sched/topology: Balance cluster static-key updates
-In-Reply-To: <94773ec2c845d88b291df265935342eb1a3c9f7e.camel@linux.intel.com>
-References: <20261021043834.1140951-1-sh_def@163.com>
-	<94773ec2c845d88b291df265935342eb1a3c9f7e.camel@linux.intel.com>
-Date: Thu, 22 Oct 2026 13:05:47 +0900
-Message-ID: <20261022130547.250531-1-sh_def@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=KtjrY0f2
+Received: from mac.lan (unknown [4.194.122.162])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 8634220B7166;
+	Wed, 21 Oct 2026 21:12:16 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8634220B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1792642342;
+	bh=d+O7Dkr5gSsXrS8hwwvE3xGFoOZ+WROQM7tFy95u0ak=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KtjrY0f2cmtpolqk6LP+2vtTWx2MDNG5CyBBKh+b3t6qW2/aGToGslkmFHK3TG7qA
+	 uHBq7WakD7raErHsiDO2f90FGJOFDsltPjQ17AfoLm+/c7SyvMFId/zm6Rc2xpd0hn
+	 4KFtKX5fiXNE5bv3xiEC1ZRpwK9aQML9vwGXEUh4=
+From: "Cen Zhang (Microsoft)" <cenzhang@linux.microsoft.com>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Ronnie Sahlberg <lsahlber@redhat.com>,
+	Steve French <stfrench@microsoft.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	Cen Zhang <cenzhang@linux.microsoft.com>
+Subject: [PATCH] ksmbd: fix parent dentry lifetime in directory enumeration
+Date: Thu, 22 Oct 2026 00:12:16 -0400
+Message-ID: <20261022041216.8988-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,36 +67,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD339jOjNlqoTkoBg--.5005S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrKw1DGr15JF48Jw45CFy8Krg_yoW3tFbEk3
-	y8tr95J340gF4Yvr4Sk3y3Z3srCr18CryUG3yUWrs7Kr98JFs5J3yFganav3W8W3Wruw13
-	CFnYy3sYkw4a9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xR_QzV7UUUUU==
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6g9nxmrZjM8N7AAA3V
 
-> We should be able to combine with rcu_read_lock/unlock() and cpu_map walk
-> for cpu_attach_domain(NULL, &def_root_domain, i) below.
-> So we do the rcu and cpu_map walk operation once in this function
-> instead of doing it twice.
->
-> Moving the dec after the detach loop should be safe. It only say
-> that a cluster domain exists, and cluster code that will still test
-> for actual SD_CLUSTER domain flag on the relevant domain.
->
-> I will also suggest that this fix be backported to the stable kernels
-> (cc stable@vger.kernel.org).
+ksmbd_populate_dot_dotdot_entries() builds the ".." entry from
+the open directory's d_parent and passes that pointer to
+ksmbd_vfs_fill_dentry_attrs() without taking a reference. That pointer
+is only valid while the directory stays under this parent. If a
+concurrent rename moves the directory elsewhere, the old parent loses
+its last reference; a following rmdir then turns it into a negative
+dentry with d_inode cleared, and after the RCU grace period the dentry
+itself is freed. The worker still holds the raw pointer and
+dereferences d_inode through vfs_getattr() and vfs_getxattr().
 
-Hi Tim,
+A remote SMB client, authenticated or guest, triggers this by listing
+a directory while that directory is moved under a new parent and the
+old parent is deleted. It can be done by the client itself with write
+access or by other concurrent writers, triggering null-ptr-deref and
+slab-use-after-free on a KASAN build.
 
-Agreed. Combining the cluster check with the existing detach loop avoids
-the extra CPU mask walk and RCU read-side section.
+  KASAN: null-ptr-deref in range
+      [0x0000000000000000-0x0000000000000007]
+  Workqueue: ksmbd-io handle_ksmbd_work
+  RIP: 0010:xattr_permission+0x9d/0x160
+  Call Trace:
+   vfs_getxattr+0x9c/0x1b0
+   ksmbd_vfs_getxattr+0x82/0x100
+   ksmbd_vfs_get_dos_attrib_xattr+0x7f/0x130
+   ksmbd_vfs_fill_dentry_attrs+0x435/0x650
+   ksmbd_populate_dot_dotdot_entries+0x25e/0x630
+   smb2_query_dir+0xcf9/0x1a20
+   handle_ksmbd_work+0x5f1/0x1c80
+   process_one_work+0x90b/0x19d0
 
-I'll make this change in v3, move the static-key decrement after the
-detach loop, and add Cc: stable@vger.kernel.org as suggested.
+Fix by using the dentry reference counting APIs: take the parent with
+dget_parent(), take a matching dget() on ".", and dput() the dentry
+once ksmbd_vfs_fill_dentry_attrs() has returned or the pattern does
+not match.
 
-Thanks for the review!
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Cc: AutonomousCodeSecurity@microsoft.com
+Signed-off-by: Cen Zhang (Microsoft) <cenzhang@linux.microsoft.com>
+---
+ fs/smb/server/smb_common.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Hui
+diff --git a/fs/smb/server/smb_common.c b/fs/smb/server/smb_common.c
+index ec6ee56293ce..8e44b15a4177 100644
+--- a/fs/smb/server/smb_common.c
++++ b/fs/smb/server/smb_common.c
+@@ -478,16 +478,17 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
+ 			if (i == 0) {
+ 				d_info->name = ".";
+ 				d_info->name_len = 1;
+-				dentry = dir->filp->f_path.dentry;
++				dentry = dget(dir->filp->f_path.dentry);
+ 			} else {
+ 				d_info->name = "..";
+ 				d_info->name_len = 2;
+-				dentry = dir->filp->f_path.dentry->d_parent;
++				dentry = dget_parent(dir->filp->f_path.dentry);
+ 			}
+ 
+ 			if (!match_pattern(d_info->name, d_info->name_len,
+ 					   search_pattern)) {
+ 				dir->dot_dotdot[i] = 1;
++				dput(dentry);
+ 				continue;
+ 			}
+ 
+@@ -496,6 +497,7 @@ int ksmbd_populate_dot_dotdot_entries(struct ksmbd_work *work, int info_level,
+ 							 idmap,
+ 							 dentry,
+ 							 &ksmbd_kstat);
++			dput(dentry);
+ 			if (rc)
+ 				break;
+ 
+-- 
+2.55.0
 
