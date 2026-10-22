@@ -1,61 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697311;
-	b=XB4V+Po99+OuMeCJpZsolI2kG1PLPNc0nvWbkZJ+CGklmKMYcK+L1z8aFPqAqOxtVNff
-	 xy5yw91qaWEc6q7ZtW7mVlJtzvkauv97SGkboZSdwcD+8KLPHsyYFhUpAsWP2XDS3VXu4
-	 K0otXeOgoIop3s30xjC5+F9uDEnhag2AtYxLltrqLDjhGSSZ77iHqFWclurjLHr4ouXkk
-	 XZgB9oHsLqMo5GFyDd2vrUu1zuDnyeaH5Kxq1NyNOqJ2CdssV2B84OK3gGa7Nx2oxJ0Qf
-	 Q+rFvfXIgwxjxrhhqAsD3s3tzJ5wwUGWAPxmYfZUlikY3x1DqFz9NZPSPpUfmb7Iw0w==
+	t=1792697351;
+	b=tdJHwgwHIDHHdGqjG2PTapy2wK9sDZ7llbOGBN2LdR42gQX1feSSHD7gsraA+L4z+2HU
+	 jd52x3BLIluaq32Ip+0Beie/izve9za2oXq1Xescnj9UsvLbKYQQJHpqzJf6TITminczb
+	 7vwdQ5RosjtJzDhs+wyHhPy6I/VeYX5iKapzkGUw7kvWjq4JRFGGVb9xAk92OR/Z9MT1N
+	 r2aZd5Lp4dPMPNkOFg2RkXsj7EXqu8lqw7NMpDpsM+kNhRGQOMJxP8hN1vchexC8bWcch
+	 /7hCuH2X6xSoRA1hmsRIsHisJ/0bT0RxhDnnvNwTbnLihqwzBvzKJYWW4k+3pYYvhXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697311;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=MzbjIiGq5wiJfmZJ63aC+LL2BZBa5CdrmsF8cqDfJW4=;
-	b=PcmUub2XtpjpdrF83Ko3ZsC081XSIVsb/CgikxKhWmcszHmqpuGu06/OxWFtWXQGPlFr
-	 34oxnFAotXuTo79+Cmj0qb1T1ZVJ6YTpbE9CyElNMze5l+QJ2az2fzP5PiMWgr9Rt0FDS
-	 HEtt24IAdi2Hq77lsPtDSI0oKY0gqSNiMo2fqX7AMJBk0aQinleKwl7zgWh/DPYVoD7fc
-	 T9/FAweLxcR5XLJ0fKkzA3oUMxiGPcKtiq0zbVdEVclmL1Y0eWEyRm910F5pd1crdFwpU
-	 LWzYOsAchtgywch0GLD0/MxLCfXBf64Krv1OgYO9ZslQOHh56+IVsA1pTYGSUrd/+Mw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697351;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=Arx6jy0MOgeqv9tTVqXlk/d3btfDuiHwkJcNQqBQPR0=;
+	b=C406DCxEP3kmwv2YSvCV8ZMgoUUvZWR4uqHwWm3TBqwwgE1s4TdpWbNHUlhu3zYqc3bm
+	 3LWkT4cH5jTbMWIzyAE+bqH8zjkEfnHCGU4IEh1k0uhVYTWmUb6ZUYVUwswOXnseFj7gT
+	 AWox/oHpAgkZNoTGU2jJX1P0Da6QGOg17YLIzo9dhYrjAuC7g99buy4AqR1Gm1J6fJtM7
+	 EzVEjLAAMBCjGK+dmtIZL9tlnfzxFQFnIct3Oi51RKZGck+3SCgoDOWAMVaHWihtDK8MZ
+	 HjI0gD/HNjV0Kw8a/gNLQeU9cN/2tFVp8aZVOM1elQcYhC4Iz0Gq0zgkxH/ubtcA9eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BF882606A31F;
-	Thu, 22 Oct 2026 19:28:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF882606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id 65FAB9200B3; Thu, 22 Oct 2026 21:28:25 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id 5F8E692009E;
-	Thu, 22 Oct 2026 20:28:25 +0100 (BST)
-Date: Thu, 22 Oct 2026 20:28:25 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Jakub Kicinski <kuba@kernel.org>
-cc: Imre Kaloz <kaloz@kernel.org>, 
-    Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    Lee Jones <lee@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, mfd@lists.linux.dev, 
-    linux-serial@vger.kernel.org, 
-    Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-    linux-rtc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
-    "David S. Miller" <davem@davemloft.net>, 
-    Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-    netdev@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>, 
-    Niklas Cassel <cassel@kernel.org>, linux-ide@vger.kernel.org, 
-    Pavel Machek <pavel@kernel.org>, linux-leds@vger.kernel.org, 
-    Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
-    Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH v2 00/53] MIPS: SGI-IP27: add support for the IP35 (Bedrock
- hub) machines
-In-Reply-To: <20261021073921.07632a37@kernel.org>
-Message-ID: <alpine.DEB.2.21.2610222009000.22065@angie.orcam.me.uk>
-References: <cover.1791890466.git.kaloz@kernel.org> <20261020110619.12774a1c@kernel.org> <20261020204214.28625-1-kaloz@kernel.org> <20261020145611.4e277615@kernel.org> <20261021090556.21168-1-kaloz@kernel.org> <20261021073921.07632a37@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=glfJBT7v;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CCC606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:29:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80CCC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=glfJBT7v
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89fb6a45c48so227165b3a.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:29:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792697351; x=1793302151; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Arx6jy0MOgeqv9tTVqXlk/d3btfDuiHwkJcNQqBQPR0=;
+        b=glfJBT7v/vB1FELM8qGbuCUF2czjr7b1NMK5MamyEnEJjrgKkL39ExXtm/L3K/IB2r
+         aa40Bbhar82iZy8w0SSoGzdIJxOifChE+AN3Y4lYn8TI3l/YhRrvON1zZs7TR/Fr3eZQ
+         m+dOpAba07tiuw1d6WuOEKZRPLhQUYTYv7XX9l6CmfnpAF2VabkkXPegP7g/FowdWJUm
+         0R8Wxs9QcyBk9z0ZYxMJNlR6z7oYyYlTiCMuq1ONKK19Y4U4+XrotWyjGxTniGXiVD4q
+         zbNbkWiU8JY2smC/psRJul+Jgk0XQCyqdNUSYb/4n6cqY5R0F7kpSKpwxgXngpzsGmnM
+         hUyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792697351; x=1793302151;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Arx6jy0MOgeqv9tTVqXlk/d3btfDuiHwkJcNQqBQPR0=;
+        b=fMxz0uoAbKIknEE4kjJAAeRfi+9Z9Khy1oI70oEDK+sQzGD1RYug2jc3Uc+wcj1qn3
+         3c35KBRbfV9woj8HsMnGieF7YNnp41j8D0xZVthxsExUJETjhQsLh2r2Q9M6mkT9ayWD
+         PvnHHfeg1H8siBg8EwNwNCJuEjmRLYNV+CLWfpRRDuSLvhg0fFxYkrNqDs9RnsciBusu
+         Vvd/Uzv4swMrHKA1SI0Jsc8poi12loCoTTTOzLwrwJH5Cm+YN/CTVHVHtx7ydfrKMnnE
+         4auhvA26Dsp6yQFw/r6lQgoTeTA+VHIVj2S+4ljtY/lWpjxYeMQEIEU8tE/Ljwx85kpZ
+         B1XA==
+X-Forwarded-Encrypted: i=1; AKwUvBw1ohsOUthXLYfHQ/9gs6ZWuuryImrAlCn+D96sEfcg5cp+V62V8gXYnDczwrbsTmJkyvMBK+qmzO77dSM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9KejD+1fEoegIe+AZnYWLH8uvPj8rVDqpfrdw4f3RZELoJ2BH
+	7/y4oHRJzmMWeNYCeDtWON/boiQtA6vb11YHKyHGpIaW481KIK2vVyHWyRKxfVWIxWfpi/JvLab
+	nXNj13g==
+X-Received: from pgmt10.prod.google.com ([2002:a63:224a:0:b0:cd6:b0a6:8d94])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:d50d:b0:3e1:fcec:c724
+ with SMTP id adf61e73a8af0-3e287e6f7bbmr4535725637.31.1792697350460; Thu, 22
+ Oct 2026 12:29:10 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu, 22 Oct 2026 12:29:08 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,36 +76,61 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261022192908.554376-1-seanjc@google.com>
+Subject: [PATCH] KVM: nVMX: Clear nested.smm.guest_mode when freeing nested state
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Karthikeyan Bhargavan <karthik@cryspen.com>, Chris Mason <mason@kernel.org>, 
+	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Josef Bacik <josef@toxicpanda.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 21 Oct 2026, Jakub Kicinski wrote:
+From: Josef Bacik <josef@toxicpanda.com>
 
-> > The users are the people running these machines, the same population
-> > as for IP27 and IP30, and the ioc3-eth driver in net/ exists for them
-> > today. The series was developed and tested on a Fuel and a Tezro in
-> > regular use, so "nobody is using it with Linux" is true only in the
-> > sense that the support isn't merged yet; that was equally true of IP30
-> > when it went in for 5.5, and of every port before it.
-> 
-> Not sure if you followed the discussions at the recent maintainer
-> summit but we are now allowed to be more opinionated about code
-> we merge. Merging code just to test that code seems like entertainment
-> for the authors, not useful development.
+If an SMI arrives while L2 is active, vmx_enter_smm() forces a VM-Exit
+to L1, and records in nested.smm.guest_mode that RSM has to re-enter L2
+and in nested.smm.vmxon that the vCPU was post-VMXON.  free_nested()
+clears the latter, but not the former.
 
- I thought the event was by invitation only.
+Userspace can get KVM to free the nested state while the vCPU is in SMM,
+with KVM_SET_NESTED_STATE, e.g. with no VMXON region to say that the
+vCPU isn't in VMX operation, or by flipping the SMM flag back and forth
+with KVM_SET_VCPU_EVENTS.  When the guest then executes RSM,
+vmx_leave_smm() tries to re-enter L2 even though there is no vmcs12 any
+more, and nested_vmx_check_restored_vmcs12() dereferences the NULL
+nested.cached_vmcs12.
 
- Anyway, this seems to me like discouraging enthusiasts who do their work 
-outside their day job from making contributions.  Their natural target are 
-commercially worthless systems, since working for free on commercially 
-valuable systems would be taking away someone's bread and I think grossly 
-undeserved support for corporations.  Taking this stance effectively would 
-be cutting Linux off from its origins and making it a commercial project.
+Clear nested.smm.guest_mode along with the state that it refers to.
 
- Please let's not go down this route and only base the acceptance, or not, 
-of submissions on quality merits.  Many of us took this route to Linux, by 
-showing competence in public with work done for free, and some of us still 
-enjoy such side project even if we do have a day job now that involves 
-Linux development.  Let's not close this option to people.
+Fixes: 8fcc4b5923af ("kvm: nVMX: Introduce KVM_CAP_NESTED_STATE")
+Reported-by: Karthikeyan Bhargavan <karthik@cryspen.com>
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Cc: Chris Mason <mason@kernel.org>
+Co-developed-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/kvm/vmx/nested.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-  Maciej
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 9b0bfa2f854c..66a7b57c9f16 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -349,6 +349,7 @@ static void free_nested(struct kvm_vcpu *vcpu)
+ 
+ 	vmx->nested.vmxon = false;
+ 	vmx->nested.smm.vmxon = false;
++	vmx->nested.smm.guest_mode = false;
+ 	vmx->nested.vmxon_ptr = INVALID_GPA;
+ 	free_vpid(vmx->nested.vpid02);
+ 	vmx->nested.posted_intr_nv = -1;
+
+base-commit: 164405e8e9a0378c7e1aff2254625a6553a291f1
+-- 
+2.56.0.257.gf7497c7d27-goog
+
