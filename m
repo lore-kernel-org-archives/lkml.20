@@ -1,54 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691663;
-	b=Q36tRKrs+J08jQb2g4hiHBlTu67IJNxGBWcCs58aLqtPO0nnmK0bYSeaJCcUS/AoPpDs
-	 QfsSA1TJqhfoxMrwzDZZmk+VeoissieTvZuL/9TL6DPsyyLXWYZf1G438zcjNLReIisDu
-	 i1F+qgi7dZUyrjf8SIXzbx9qgnjkawBSiNUkH4SrhHXkkd0X35U3k7LXk3fTyFsQfzn53
-	 4XM9gNwkWzE1NzBL/ag1RqXZa9RTuAYYtPkBMKBFVsTmsFZjkvX9jB0AQeQwbuIP/4Vkd
-	 FmkNG2flrXP/btM2nP5/82/kaZ+WDgJn5LtMlZCM+jIw4phkXmDt0W3KlgQcvzVRE+w==
+	t=1792691670;
+	b=0aDXbULeaPNCZ5gOWBdOFyyo3wZVZ9a8jKUIXwPSuYK89dD32RX1kT7eQfZB8C5SM8ds
+	 gyHlTXhK1EUMDEs88s8qkRYcCthuJ+8kvpa1Vu43jOdrR5Lq8EzKDWUJXVdt+UnIhqq0S
+	 ARDUIz6jIb83/Z7gbjse68aeoEY1l59fe7+8gH03IrAJ3ZmmXdqP3sbN4XBEgky1ADtMP
+	 yIn09xYxWpeiMV6awVh6rJ5r4I0ZoLQgE+W9wtFjZEfuA4c4bYDCG4O9KSMs7VXExOoyU
+	 6q4oCCPNvF/Y9qf7E8e9I3hTg5Y5D8HbcqWlBGfzxl5oMDkxOcdiNO9aNO4/HBUuS8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691663;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=Oi7XNv5mS/eWn1AgXBY0jczs/XkSA3CUHI3YcqfAaos=;
-	b=OvMTIH5qFiU9NlBRAEzvK60HAt6BxI4T6RtStfX+VJ3qu6zoUeJ2r0PheCSyPCh40ApK
-	 F192DoCrYsyj+auI0O0vj1LopPLNv0X9qYGDSCWtbngjvlSPmVWdxnDnaIjNsRdmJp5cb
-	 YWyPrERq7IVCG/c0q7j/b2duqJPz4vJUt1ts/3I5CeOZfBhmVOGWR0m9bM6/6S0I3kvtN
-	 k7g7Xu0Yo8ZWk7QShGj6+wf1giZ8Jktzgy27Gvb4iQG9aakoXGb149jwom28Xd7pnth0D
-	 V6EXl8IXwVqPHL1rtGyGJBDuIaj+N+7KHNLoxExKBq6Ua6GeK9UbZtXXYeqCk7u8gzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691670;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=fbQibgxe69xuj6Tt/lcZHC3t8YlgVovN8bS/Jv4bVys=;
+	b=vqgAis3ApMNs0oTuEs6CSc+I67dfraon0K2s2wQTN6ZVIvRCLK/MCau6sMr6Kjh2rj2o
+	 pAkBbsbtgYT69moWgqyx0GXEiNe0zCQbCYJaFKOWCRXTqN3+7YnvXpoeGD/OdrtbfyOnM
+	 Kocy1IBhKVm5oeSX8l2V1NIJCcVkz0o/N3laaRZCr377OLuVR6Wr1O6/socifOOA1p1Vj
+	 GlGqJnkYJAjrpUO02l6YRnEHTWjd5TFNBnLim6QyeqFVm6A4Va5BC92tuMil1I9jDQzE7
+	 1dadWuW+nUduElnX/OZ6nkJJZj8mDbK+p3rAZWnZFickhdWM/apwuGu9P3tD2j6XfZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=zIcaFNGy;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71F48606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:54:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71F48606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4ab4f652f9bso148268b6e.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:54:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792691662; x=1793296462;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Oi7XNv5mS/eWn1AgXBY0jczs/XkSA3CUHI3YcqfAaos=;
-        b=eoAZ+kj0AjN5ldxd6HoTwXoPQA5iz1Wx1k8oeValvQheO2xma3mJvS5+Xe8J2k0PZc
-         02uv8RUfglsedb+S4mWzhbh/BV3C9HzDFD/vdcU8mrQsLgcMJeciHFU9Hic79+2STKnT
-         6HH5Oh2lGz56vsx1TqnaE7Jmtjhop1YP1Z33+FxEPa+VQL65B+srEYdWgjaEYyjeiJ1m
-         e/UzUVF0skEEnQoFaD7ovAYdZzbI17kLu8WsOoVzCpxe5Rs1jSJC+He/9D2tjnc5xS29
-         6UvKwOYpVaxFI6pyUkqlLmlxc1BSwfGQsDj8Qqj5KczNjiV7Jqf9DEkZimb/tQtHRgMa
-         zvbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxv4qgszwRmn9cbr/lCZtURKE6oO/SOS+3yxvYiP3zFviwjJqJfvi1kpZwl2Ogl2l81UZPbs7isZ8DnBrE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpqMNf2yq86TvTF0PKEXelCkRyUM+wAjSbgGKKBJ6ef3yLulxm
-	pYDX9Wdj61SMxuUUQW9k2w4yi2eYLIhPrsv+Nn27jEVQV42DYPRz4IC7RbVzWedZ82w6IAhpp47
-	2/urozIVLobSN8MdGc0lluLwZAMBz/UUMCYmNkkuuACQg5D6+Ls6ee2OWTLA=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC35E606A31A;
+	Thu, 22 Oct 2026 17:54:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC35E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=zIcaFNGy
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=fbQibgxe69xuj6Tt/lcZHC3t8YlgVovN8bS/Jv4bVys=; b=zIcaFNGyaMsCr9M0ia4+IPE/tX
+	At2HmdCrlpXOBQ2UyTUdnLUz5SvfLafFw10+N3to7x62m9+QhA7bAWAh/pFkG8hhgIpnxmIBiFfEH
+	xY90xURt7SvBjfa0W9XxmVqXd8+ys34f0CHpn1ZkAyoAFSw91p34YhxVSmfBpGB1fLCki/vGDw80f
+	DYRQhK0UzSSruakLqJVzk7iMCwxplhko4XmI4z35ZLwx0l0U/Ld/yCQgvuyncDj7l6CRdKhHzaItL
+	r0R2dC76Cbw1stEFGeuo5NVLmphxr8JI/sEPLRxvzlHK9d5qSlUloJ180gBjX1DlpCn8q4F+ovQHq
+	tAB8lFug==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xJwzh-0000000Ef54-0yRY;
+	Thu, 22 Oct 2026 17:54:25 +0000
+Message-ID: <3ea9c3c7-a5b8-4474-b2c6-c500cea29487@infradead.org>
+Date: Thu, 22 Oct 2026 10:54:17 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,342 +58,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2e43:b0:4fb:8469:fc4f with SMTP id
- 5614622812f47-5535a770280mr4159625b6e.29.1792691662505; Thu, 22 Oct 2026
- 10:54:22 -0700 (PDT)
-Date: Thu, 22 Oct 2026 10:54:22 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ada4dce.3ebfcf67.79b0c.00a0.GAE@google.com>
-Subject: [syzbot] [mm?] INFO: rcu detected stall in newfstat (4)
-From: syzbot <syzbot+04923483cd73f0f718e7@syzkaller.appspotmail.com>
-To: akpm@linux-foundation.org, brendan.jackman@linux.dev, hannes@cmpxchg.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, mhocko@suse.com, 
-	surenb@google.com, syzkaller-bugs@googlegroups.com, vbabka@kernel.org, 
-	ziy@nvidia.com
-Content-Type: text/plain; charset="UTF-8"
-
-Hello,
-
-syzbot found the following issue on:
-
-HEAD commit:    b88c841d1164 Merge tag 'input-for-v7.3-rc6' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=146d540d580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=129d675874dbf896
-dashboard link: https://syzkaller.appspot.com/bug?extid=04923483cd73f0f718e7
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/79043a1c3fab/disk-b88c841d.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ce311933da44/vmlinux-b88c841d.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/ac3d65b82833/bzImage-b88c841d.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+04923483cd73f0f718e7@syzkaller.appspotmail.com
-
-rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-rcu: 	Tasks blocked on level-0 rcu_node (CPUs 0-1): P5590/3:b..l P4962/1:b..l P5806/1:b..l P5600/1:b..l P5601/1:b..l
-rcu: 	(detected by 1, t=10852 jiffies, g=12029, q=787 ncpus=2)
-task:syz-executor    state:R  running task     stack:21760 pid:5601  tgid:5601  ppid:5599   task_flags:0x400140 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
- irqentry_exit_to_kernel_mode_preempt include/linux/irq-entry-common.h:468 [inline]
- irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
- irqentry_exit+0x205/0xa10 kernel/entry/common.c:167
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:kasan_byte_accessible+0x18/0x30 mm/kasan/generic.c:212
-Code: 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 40 d6 48 b8 00 00 00 00 00 fc ff df 48 c1 ef 03 48 01 c7 0f b6 07 <3c> 07 0f 96 c0 e9 8e 24 57 09 66 66 2e 0f 1f 84 00 00 00 00 00 0f
-RSP: 0018:ffffc900031e75a0 EFLAGS: 00000286
-RAX: 0000000000000000 RBX: 0000000000000000 RCX: 0000000000000002
-RDX: 0000000000000000 RSI: ffffffff81b9b261 RDI: fffffbfff1fbd8b4
-RBP: ffffffff8fdec5a0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000200 R11: 0000000000018b70 R12: ffffffff81b9b261
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- __kasan_check_byte+0x13/0x50 mm/kasan/common.c:584
- kasan_check_byte include/linux/kasan.h:402 [inline]
- lock_acquire kernel/locking/lockdep.c:5916 [inline]
- lock_acquire+0x132/0x380 kernel/locking/lockdep.c:5899
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- save_stack+0x162/0x1e0 mm/page_owner.c:183
- __reset_page_owner+0x84/0x190 mm/page_owner.c:338
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_noprof+0x2cc/0x840 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- tomoyo_realpath_from_path+0xb6/0x690 security/tomoyo/realpath.c:251
- tomoyo_get_realpath security/tomoyo/file.c:151 [inline]
- tomoyo_path_perm+0x276/0x460 security/tomoyo/file.c:827
- security_inode_getattr+0x116/0x280 security/security.c:1895
- vfs_getattr fs/stat.c:259 [inline]
- vfs_fstat+0x4b/0xe0 fs/stat.c:281
- __do_sys_newfstat+0x8b/0x110 fs/stat.c:551
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f5c9b79c7e7
-RSP: 002b:00007ffe84674818 EFLAGS: 00000206 ORIG_RAX: 0000000000000005
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f5c9b79c7e7
-RDX: 0000000000000000 RSI: 00007ffe84674820 RDI: 0000000000000003
-RBP: 00007ffe8467491c R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000206 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000012253 R15: 00007ffe84674970
- </TASK>
-task:syz-executor    state:R  running task     stack:23240 pid:5600  tgid:5600  ppid:5596   task_flags:0x400140 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
- irqentry_exit_to_kernel_mode_preempt include/linux/irq-entry-common.h:468 [inline]
- irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
- irqentry_exit+0x205/0xa10 kernel/entry/common.c:167
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x5e/0x380 kernel/locking/lockdep.c:5947
-Code: 05 cf 2e a6 13 83 f8 07 0f 87 da 00 00 00 48 0f a3 05 de f7 5d 10 0f 82 c9 02 00 00 8b 35 7e 29 5e 10 85 f6 0f 85 c7 00 00 00 <48> 8b 44 24 30 65 48 2b 05 6d 2e a6 13 0f 85 09 03 00 00 48 83 c4
-RSP: 0018:ffffc90003baf918 EFLAGS: 00000206
-RAX: 0000000000000046 RBX: 0000000000000000 RCX: 0000000000000200
-RDX: 0000000000000000 RSI: ffffffff8e3bd310 RDI: ffffffff8c625580
-RBP: ffffffff8fdec5a0 R08: 000000004fbfa448 R09: 0000000000000007
-R10: 0000000000000200 R11: 0000000000000001 R12: 0000000000000002
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- save_stack+0x162/0x1e0 mm/page_owner.c:183
- __reset_page_owner+0x84/0x190 mm/page_owner.c:338
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- kmem_cache_alloc_noprof+0x269/0x6a0 mm/slub.c:5010
- alloc_filename fs/namei.c:147 [inline]
- do_getname+0x35/0x390 fs/namei.c:187
- getname_flags fs/namei.c:230 [inline]
- class_filename_flags_constructor include/linux/fs.h:2589 [inline]
- user_path_at+0x26/0x60 fs/namei.c:3669
- do_mount fs/namespace.c:4322 [inline]
- __do_sys_mount fs/namespace.c:4543 [inline]
- __se_sys_mount fs/namespace.c:4520 [inline]
- __x64_sys_mount+0x1fb/0x310 fs/namespace.c:4520
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fe36f99f44a
-RSP: 002b:00007ffdfc81cdd8 EFLAGS: 00000246 ORIG_RAX: 00000000000000a5
-RAX: ffffffffffffffda RBX: 00007fe36fa35586 RCX: 00007fe36f99f44a
-RDX: 00007fe36fa3558b RSI: 00007fe36fa35586 RDI: 00007fe36fa3558b
-RBP: 00007fe36fa35500 R08: 0000000000000000 R09: 00007fe36fc267b8
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007fe36fa09668
-R13: 00007fe36fa09640 R14: 00007ffdfc81d048 R15: 0000000000000000
- </TASK>
-task:dhcpcd          state:R  running task     stack:27064 pid:5806  tgid:5806  ppid:5268   task_flags:0x400140 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- preempt_schedule_notrace+0x57/0xd0 kernel/sched/core.c:7556
- preempt_schedule_notrace_thunk+0x16/0x30 arch/x86/entry/thunk.S:13
- rcu_is_watching+0x90/0xc0 kernel/rcu/tree.c:754
- trace_lock_release include/trace/events/lock.h:68 [inline]
- lock_release+0x24d/0x310 kernel/locking/lockdep.c:5954
- rcu_lock_release include/linux/rcupdate.h:319 [inline]
- rcu_read_unlock include/linux/rcupdate.h:880 [inline]
- class_rcu_destructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0x3c3/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- save_stack+0x162/0x1e0 mm/page_owner.c:183
- __reset_page_owner+0x84/0x190 mm/page_owner.c:338
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:361
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kmalloc_node_track_caller_noprof+0x2da/0x870 mm/slub.c:5545
- kmalloc_reserve+0xe8/0x350 net/core/skbuff.c:637
- __alloc_skb+0x185/0x710 net/core/skbuff.c:715
- alloc_skb include/linux/skbuff.h:1384 [inline]
- alloc_skb_with_frags+0xdd/0x760 net/core/skbuff.c:6803
- sock_alloc_send_pskb+0x801/0x980 net/core/sock.c:3022
- unix_dgram_sendmsg+0x3c7/0x1810 net/unix/af_unix.c:2144
- unix_seqpacket_sendmsg+0x12a/0x1d0 net/unix/af_unix.c:2545
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:815 [inline]
- sock_write_iter+0x53a/0x5b0 net/socket.c:1266
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x1f8/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f4487f58407
-RSP: 002b:00007ffdf70f6870 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f4487ece780 RCX: 00007f4487f58407
-RDX: 000000000000002a RSI: 00007ffdf70f68d0 RDI: 0000000000000005
-RBP: 0000561ab88aa301 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffdf70f6d00
-R13: 0000000000000016 R14: 00007ffdf70f7230 R15: 00007ffdf70f6de0
- </TASK>
-task:klogd           state:R  running task     stack:25960 pid:4962  tgid:4962  ppid:1      task_flags:0x400100 flags:0x00080000
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- preempt_schedule_irq+0x4e/0x90 kernel/sched/core.c:7606
- irqentry_exit_to_kernel_mode_preempt include/linux/irq-entry-common.h:468 [inline]
- irqentry_exit_to_kernel_mode include/linux/irq-entry-common.h:539 [inline]
- irqentry_exit+0x205/0xa10 kernel/entry/common.c:167
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
-RIP: 0010:lock_acquire+0x5e/0x380 kernel/locking/lockdep.c:5947
-Code: 05 cf 2e a6 13 83 f8 07 0f 87 da 00 00 00 48 0f a3 05 de f7 5d 10 0f 82 c9 02 00 00 8b 35 7e 29 5e 10 85 f6 0f 85 c7 00 00 00 <48> 8b 44 24 30 65 48 2b 05 6d 2e a6 13 0f 85 09 03 00 00 48 83 c4
-RSP: 0018:ffffc9000385f440 EFLAGS: 00000206
-RAX: 0000000000000046 RBX: 0000000000000000 RCX: 0000000000000200
-RDX: 0000000000000000 RSI: ffffffff8e3bd310 RDI: ffffffff8c625580
-RBP: ffffffff8fdec5a0 R08: 000000004fbfa448 R09: 0000000000000007
-R10: 0000000000000200 R11: 0000000000000001 R12: 0000000000000002
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- rcu_lock_acquire include/linux/rcupdate.h:309 [inline]
- rcu_read_lock include/linux/rcupdate.h:849 [inline]
- class_rcu_constructor include/linux/rcupdate.h:1216 [inline]
- unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
- arch_stack_walk+0x94/0xf0 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
- save_stack+0x162/0x1e0 mm/page_owner.c:183
- __reset_page_owner+0x84/0x190 mm/page_owner.c:338
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_kmalloc+0x8a/0xb0 mm/kasan/common.c:417
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_node_track_caller_noprof+0x33d/0x870 mm/slub.c:5545
- kmalloc_reserve+0xe8/0x350 net/core/skbuff.c:637
- __alloc_skb+0x185/0x710 net/core/skbuff.c:715
- alloc_skb include/linux/skbuff.h:1384 [inline]
- alloc_skb_with_frags+0xdd/0x760 net/core/skbuff.c:6803
- sock_alloc_send_pskb+0x801/0x980 net/core/sock.c:3022
- unix_dgram_sendmsg+0x3c7/0x1810 net/unix/af_unix.c:2144
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:815 [inline]
- __sys_sendto+0x48b/0x4e0 net/socket.c:2281
- __do_sys_sendto net/socket.c:2288 [inline]
- __se_sys_sendto net/socket.c:2284 [inline]
- __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fcefc3ab407
-RSP: 002b:00007ffe305ea720 EFLAGS: 00000202 ORIG_RAX: 000000000000002c
-RAX: ffffffffffffffda RBX: 00007fcefc25bc80 RCX: 00007fcefc3ab407
-RDX: 00000000000000a1 RSI: 00007ffe305ea860 RDI: 0000000000000003
-RBP: 00007ffe305eac90 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000004000 R11: 0000000000000202 R12: 00007ffe305eaca8
-R13: 00007ffe305ea860 R14: 0000000000000086 R15: 00007ffe305ea860
- </TASK>
-task:syz-executor    state:R  running task     stack:22616 pid:5590  tgid:5590  ppid:5589   task_flags:0x400100 flags:0x00080800
-Call Trace:
- <TASK>
- context_switch kernel/sched/core.c:5533 [inline]
- __schedule+0x1259/0x6920 kernel/sched/core.c:7284
- preempt_schedule_common+0x3c/0xb0 kernel/sched/core.c:7463
- preempt_schedule_thunk+0x16/0x40 arch/x86/entry/thunk.S:12
- __local_bh_enable_ip+0x106/0x120 kernel/softirq.c:480
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
- __dev_queue_xmit+0xa75/0x4a40 net/core/dev.c:4993
- dev_queue_xmit include/linux/netdevice.h:3464 [inline]
- neigh_resolve_output net/core/neighbour.c:1616 [inline]
- neigh_resolve_output+0x51f/0x8f0 net/core/neighbour.c:1596
- neigh_output include/net/neighbour.h:560 [inline]
- ip_finish_output2+0x851/0x2400 net/ipv4/ip_output.c:236
- __ip_finish_output.part.0+0x444/0x6f0 net/ipv4/ip_output.c:314
- __ip_finish_output net/ipv4/ip_output.c:302 [inline]
- ip_finish_output net/ipv4/ip_output.c:324 [inline]
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip_output+0x39b/0xc10 net/ipv4/ip_output.c:437
- dst_output include/net/dst.h:471 [inline]
- ip_local_out+0x193/0x1f0 net/ipv4/ip_output.c:131
- __ip_queue_xmit+0x885/0x1f40 net/ipv4/ip_output.c:533
- __tcp_transmit_skb+0x3503/0x4f40 net/ipv4/tcp_output.c:1716
- tcp_transmit_skb net/ipv4/tcp_output.c:1734 [inline]
- tcp_write_xmit+0x1130/0x8470 net/ipv4/tcp_output.c:3062
- tcp_sendmsg_locked+0x2c02/0x4420 net/ipv4/tcp.c:1394
- tcp_sendmsg+0x2e/0x50 net/ipv4/tcp.c:1451
- inet_sendmsg+0xb9/0x140 net/ipv4/af_inet.c:865
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:815 [inline]
- sock_write_iter+0x4ea/0x5b0 net/socket.c:1266
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x1f8/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f4dac559357
-RSP: 002b:00007ffd050a5c90 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 0000555560ecd540 RCX: 00007f4dac559357
-RDX: 0000000000049be8 RSI: 00007f4da97b6418 RDI: 0000000000000003
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000049be8
-R13: 0000555560ee1ed0 R14: 00007ffd050a6270 R15: 00007f4da97b6418
- </TASK>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] changes.rst: introduce 'Required for'-column
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-kbuild@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-debuggers@vger.kernel.org, tools@linux.kernel.org,
+ "open list:DOCUMENTATION PROCESS" <workflows@vger.kernel.org>,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>,
+ Nicolas Schier <n.schier@fritz.com>
+References: <20261007163736.3942745-2-manuelebnerli@mailbox.org>
+ <d57ce591-2399-4bd4-ae70-8fdabf63ae82@infradead.org>
+ <6cfc3d91f725146c6d8c6c21b869b1d21a08044e.camel@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <6cfc3d91f725146c6d8c6c21b869b1d21a08044e.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+On 10/22/26 2:36 AM, Manuel Ebner wrote:
+> Hi Randy, 
+> 
+> On Wed, 2026-10-21 at 22:41 -0700, Randy Dunlap wrote:
+>> Hi,
+>>
+>> On 10/7/26 9:37 AM, Manuel Ebner wrote:
+>>> The optional tag isn't obvious nor defined. Therefore remove the tag and
+>>> add column 'Required for' to make it easier to define the need for the tools.
+>>>
+>>> CC: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+>>> CC: Nicolas Schier <n.schier@fritz.com>
+>>> ---
+>>> If anybody has info to add to or refine the new column I would appreciate it a lot.
+>>> Please forward this to list or people which can contribute to this patch.
+>>>
+>>> There's also the option to remove the 'Command to check the version'-column
+>>> and refer to scripts/ver_linux - and with this also removing the duplicated
+>>> information-issue.
+>>>
+>>> [v3]
+>>>  Rearange column space of the table in order to add column instead of replacing column
+>>>  add some requirements to the table
+>>>
+>>> [v2]
+>>>  Ditch footnotes in favor of a column
+>>>  Replace 'Check Version Command'-column with optional-column
+>>>  https://lore.kernel.org/all/20260831152523.638881-1-manuelebnerli@mailbox.org/
+>>>
+>>> [v1]
+>>>  https://lore.kernel.org/all/20260812122426.1636227-2-manuelebnerli@mailbox.org/
+>>> ---
+>>>  Documentation/process/changes.rst | 97 ++++++++++++++++---------------
+>>>  1 file changed, 51 insertions(+), 46 deletions(-)
+>>>
+>>> diff --git a/Documentation/process/changes.rst b/Documentation/process/changes.rst
+>>> index 28f2ca633..dafe0530f 100644
+>>> --- a/Documentation/process/changes.rst
+>>> +++ b/Documentation/process/changes.rst
+>>>
+>>>  
+>>>  ...
+>>>
+>>>  
+>>> +==============  ========  =======================  ========================================
+>>> +    Program     Minimal      Command to check                  Required for
+>>> +                version         the version
+>>> +==============  ========  =======================  ========================================
+>>> +bash            4.2       bash --version           general requirement
+>>> +bc              1.06.95   bc --version             Kbuild (
+>>
+>> Something missing after the '('?
+> 
+> There's something missing because I didn't know what to put there. I know bc is calculating
+> something during the build, but now how to put it.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Some concise summary of:
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+bc is used to generate kernel time constants (depending on CONFIG_HZ) for all
+architectures.
+bc is used to build a static OID registry for fast lookups.
+bc is used in package building.
+bc is used in lots of testing:
+* BPF
+* ftrace
+* math
+* perf
+* CPU
+* networking
+* kernel stack
+* memory hotplug
+* zram
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
 
-If you want to undo deduplication, reply with:
-#syz undup
+>>> +bindgen         0.71.1    bindgen --version        CONFIG_RUST=y
+>>> +binutils        2.30      ld -v
+>>> +bison           2.0       bison --version          Kbuild (.config)
+>>> +btrfs-progs     0.18      btrfs --version
+>>> +Clang/LLVM      17.0.1    clang --version          alternative to GNU C (gcc)
+>>> +e2fsprogs       1.41.4    e2fsck -V                ext4
+>>> +flex            2.5.35    flex --version           Kbuild (.config)
+>>> +gdb             7.2       gdb --version            Debugging
+>>> +GNU awk         5.1.0     gawk --version           objtool, CONFIG_SYSTEM_BLACKLIST_HASH_LIST=y
+>>> +GNU C           8.1       gcc --version            alternative to Clang/LLVM (clang)
+>>> +GNU make        4.0       make --version
+>>> +GNU tar         1.28      tar --version
+>>> +GRUB            0.93      grub --version ||
+>>> +                          grub-install --version
+>>> +gtags           6.6.5     gtags --version          to generate tag files through ``make gtags``
+>>> +iptables        1.4.2     iptables -V
+>>> +jfsutils        1.1.3     fsck.jfs -V
+>>> +kmod            13        kmod -V
+>>> +mcelog          0.6       mcelog --version
+>>> +mkimage         2017.01   mkimage --version        Flat Image Tree (FIT) or ARCH=arc, arm or powerpc
+>>> +nfs-utils       1.0.5     showmount --version
+>>> +openssl         1.0.0     openssl version
+>>> +pahole          1.26      pahole --version
+>>> +pcmciautils     004       pccardctl -V
+>>> +pigz            2.4       pigz --version           Compile and boot with KPGZIP=y
+>>> +PPP             2.4.0     pppd --version
+>>> +procps          3.2.0     ps --version
+>>> +Python          3.9.x     python3 --version
+>>> +quota-tools     3.09      quota -V
+>>> +Rust            1.85.0    rustc --version          CONFIG_RUST=y
+>>> +Sphinx          3.4.3     sphinx-build --version   build kernel documentation
+>>> +squashfs-tools  4.0       mksquashfs -version
+>>> +udev            081       udevadm --version
+>>> +util-linux      2.10o     mount --version
+>>> +xfsprogs        2.6.0     xfs_db -V
+>>> +==============  ========  =======================  ========================================
+>>> +    Program     Minimal      Command to check                  Required for
+>>> +                version      check the version
+>>> +==============  ========  =======================  ========================================
+>>
+>> On my build of 'make htmldocs', the table ending confuses docutils.
+>> Did you build this with 'make htmldocs'?
+>>
+>> Documentation/process/changes.rst:73: WARNING: Blank line required after table. [docutils]
+>> Documentation/process/changes.rst:75: WARNING: Block quote ends without a blank line; unexpected unindent. [docutils]
+>> Documentation/process/changes.rst:419: ERROR: Malformed table.
+>> Bottom border or header rule does not match top border.
+>>
+>> ==============  ========  =======================  ========================================
+> 
+> I'll remove the bottom 'head-row'.
+
+Ack. Thanks.
+
+-- 
+~Randy
+
