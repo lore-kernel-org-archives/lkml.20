@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705073;
-	b=bFt+45xIA78CbFcCAsC91aQoOHTyJQXVJHa0tnSMGSOiK1HyTfergVzfIGp70BXq3g21
-	 3SvPJPUll5Ssi/6RkuGGZOPXQIM6u9+D1RYFOmk4BVnglZu/6ZIZ+g34xrfEYFI0FmchI
-	 XQMZzwCX/6MBShadNcpby5fR0dfBLoty6QFsgJGNcH1MWxDmrmWZfMYU+h5DMMcOP+JRb
-	 gDXdi8od4OG+w1WA9ObyrHJ4vCn1OnBB3RyBJgWMf9iFSiZSnwN60gzdNtgf6Nfgaeniv
-	 DHeMrN1fLwEVzwHP1HiFWYOBXo1nYF8OjiushCq8BbekeiUSdWK9ACHozhLgeLygJqQ==
+	t=1792705118;
+	b=VULxZ0468a9aYyHRnWNtrkrS7Q0UFZT+Yd4P4xK1zQ+cwuPeY9m+LZIsF4LsQv2ZwoXC
+	 tzv9/RVL25BHgHIReYCvDSoIKmtDK1zNJvr6mTCO4VGWn+OBYqDb/xoGiheoxBVtjDxTL
+	 4DarEtlelG/+bOiTNVliPXw3Lr40oCf03ne7QCAo6tcvErPKEZ1xcQE6mUmiH9htR4rph
+	 GPxLtCH8SkWRP5erEyKlqJONCJX7GJAsLNgkdY7tcBXldCeb1Gbg9pRRx/6Q97FqlDiFn
+	 2gaa+6qmwZKyUlAXKbwzc/kYS2TvDz4LvH/mQcEl6wYjWLQVRvVEnXDyYI3PjcBsI7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705073;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=ebdtLrFU9WDszsLx3PS5gRNZJLuwUU1Xqqj6PvA7Tus=;
-	b=GMU/ebQvTJs+twxNUvj6kSifMKLFlCfda1OR3U4RnlKACONw09BAJupqn5yIYkVZsy7c
-	 U4cc4vbH+90FCs9kBa8dmVUWQ47X5AvEpeBXU97KvMFMlE8X1aoAnn4lQVn92zAknSQos
-	 hqvFC1MKn0Kw5B/APSi5bN1KiMNoL7olurhxBSR6mNOFbRmFjlzXAjU+rjbgP976xzvvw
-	 kJTvGKU5lOerE6DZ8GL46GcqFrUMPY0jnI933/5uiSGJ9Z/Gvr30WSNE83XogjtmkjK6O
-	 20wJ32YnC2SD9m4AGa9j2ARz/mtQ8XiLtcZ8Fv020F5Rgry3v8Ucb/EFXS04TkJIPvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705118;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=n+YjkxMsXC9SlMtlyl+JGAKtKmpwYJYkOLfhktvnxxE=;
+	b=Cz8oe+Ie9K/R6xAIfbUjTAAt5j3rYDsKeW0/RLNrkpuT9IXAgXgH/cbRQZ0bU/NaGPpI
+	 zokCOwS++9Gnt/JFhiGQQ2dmlMT3ucCIFrMSc3U+40/X0IAGOA3iigfWDEZgVQ9cnzkKu
+	 u3Dfs+IOoI2qFep7krjM/LHm6QtR6lADpHk6jpKz3IOZUJuXYBPCIBiNbs4R/98jucJ94
+	 6CM+oBVvnf4EPZH7GDEjGs8GZRv7ZYYyPu+MHeqHEVAuay9GXoYJoLMOQ/HupJyoQumuv
+	 RKwO+To89+LEVjiOj/8Gc5NNZfEblRs+RW6n9xkfu4bdvUUGHdOKd2M0ZmZyII3/IMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mv+R2sR0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZElVSnH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A891A606A31A;
-	Thu, 22 Oct 2026 21:37:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6B67606A31A;
+	Thu, 22 Oct 2026 21:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mv+R2sR0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D275C1F01825;
-	Thu, 22 Oct 2026 21:37:51 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZElVSnH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8441F01825;
+	Thu, 22 Oct 2026 21:38:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792705072;
-	bh=ebdtLrFU9WDszsLx3PS5gRNZJLuwUU1Xqqj6PvA7Tus=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mv+R2sR0wIr36wlhtOJR8wn7uB71LdWx9j/7QCbnem+mE/wenz7H57CQEZiivl2SZ
-	 9r9fcvYtSOTvB/SCgMzdiSWW5JEA199zaAjp+0qjBveulRFoy8++6GKEk3ZayVPu3u
-	 raiVu4/PnyOUOSPnP9qd9M8isJzfQsMGEjXsKgfPbvrwBdDRZi43SPwUxrTwCeFk0n
-	 ljGNBNjvCkJORvl/2roDkTD0B0VCZT0oHZwJyEjuUNUNtOAH1jk5BqTBK+tsCAlSUW
-	 eM04vyYDU/TbPgz7h7IyHRwluQqh4+OH0pcYeXAQcMnGWQNjuFLr1o0hRSzs1ZvJCh
-	 MSBK+g1bX4qfA==
-Subject: Re: [PATCH v2] ice: Lock TC flower filter list operations
-From: netdev-bot+sashiko@kernel.org
-To: 18983559317@163.com
-Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Thu, 22 Oct 2026 21:37:51 +0000
-Message-ID: <179270507139.1189532.11460797871093048971@kernel.org>
-In-Reply-To: <20261020033457.523151-1-18983559317@163.com>
-References: <20261020033457.523151-1-18983559317@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1792705117;
+	bh=n+YjkxMsXC9SlMtlyl+JGAKtKmpwYJYkOLfhktvnxxE=;
+	h=From:To:Cc:Subject:Date;
+	b=MZElVSnHTfzHt4OpTfMLAlQjib5EjoblP8NjWM/qqRGdUf+t5qgea+7J13aAMJwTk
+	 zMIko2sjPGBfmn8ccOi0csqimCHX2fhoDDPyRyJw/k8zBgr48xU2ISHEpvrIa3oRKF
+	 g6EzniDpp1ot2sKoedczJW0EXZo35gUAujaBxneL84k0tTdS3cr+xrgPgDSDKvBjgS
+	 CMbZnz98Bh2C1DKTzGn26bqJVkPMCTcXrp/H7TDts1SgPkKAHLyWAcVhiv0da0ya53
+	 8EoRrmzr34SIhgDRDD8/mcAn83Jlh/sDQC5aEfoFR6DGnTPn1evJmKl9q4dmY43V5u
+	 r960/+1RjxrIA==
+From: Tejun Heo <tj@kernel.org>
+To: sched-ext@lists.linux.dev
+Cc: David Vernet <void@manifault.com>,
+	Andrea Righi <arighi@nvidia.com>,
+	Changwoo Min <changwoo@igalia.com>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	David Dai <david.dai@linux.dev>,
+	linux-kernel@vger.kernel.org,
+	Tejun Heo <tj@kernel.org>
+Subject: [PATCHSET sched_ext/for-7.4] sched_ext: Fix bypassed sub-scheduler tasks stalling when the host lacks caps
+Date: Thu, 22 Oct 2026 11:38:22 -1000
+Message-ID: <20261022213836.2259069-1-tj@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,139 +61,97 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Hello,
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+A bypassing sub-scheduler's tasks run through the per-cpu bypass DSQs of
+its host, the nearest ancestor that is not bypassing. Caps are per cpu, and
+a cpu's dispatch descends into a scheduler only where it holds
+SCX_CAP_BASE, so a bypass DSQ on a cpu where the host lacks BASE is never
+consumed. Bypass placement and the bypass load balancer ignored that. A
+bypassed task could be queued or moved onto such a cpu and sit there until
+the host regained the cap or the bypass window ended, and a host holding
+BASE but not ENQ looped a bypassed task between its bypass DSQ and the
+reject drain instead of running it.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The fixes make SCX_CAP_BASE the one cap a bypassed task needs and keep
+bypassed tasks off the cpus where the host lacks it. A bypass consume puts
+the task on the cpu being dispatched for, to run right away, which is what
+BASE grants. Where the host lacks BASE on a task's cpu, the task runs under
+rescue at bounded bandwidth instead of waiting for a dispatch that can't
+reach it. The bypass load balancer spreads tasks over the cpus where the
+host holds BASE only, and when the host loses BASE on a cpu it drains that
+cpu's bypass DSQ to the cpus that can still run the tasks, or sends them
+home to be placed again.
 
-- [High] In ice_rem_all_chnl_fltrs()
-  (drivers/net/ethernet/intel/ice/ice_main.c), the patch adds…
-- [Low] The commit message says 'ice_replay_tc_fltrs() replays the same
-  list after reset' and lists 'stale filter state after replay' and…
+Running bypassed tasks under rescue leans on the rescue slice harder than
+before and exposed gaps there: a cpu could go idle with a runnable rescuee
+queued on it, the kernel's own slice writes under bypass served the grant a
+tick at a time, and a scheduler could extend the grant past the rescue's
+bandwidth. The grant is now a kernel-owned slice that the kernel's slice
+housekeeping leaves alone and schedulers can shorten but not extend, and a
+cpu no longer idles over a runnable rescuee.
+
+Tested with a three-level hierarchy cycling bypass under pinned spinners,
+fork and context-switch storms, with caps revoked under queued tasks. The
+balancer's remote move and the drain were exercised, and the holding_cpu
+handshake, the cap-revoke placement and the rescue keep were model checked
+for small cpu counts.
+
+Based on sched_ext/for-7.4 (1f5dde349ac2).
+
+This patchset contains the following 14 patches.
+
+ 0001 sched_ext: Pack scx_ent_flags' multi-bit fields at the top
+ 0002 sched_ext: Clear holding_cpu where the claim is confirmed
+ 0003 sched_ext: Fix bypassed tasks looping on a host without SCX_CAP_ENQ
+ 0004 sched_ext: Move refill_task_slice_dfl() below apply_slice_vtime()
+ 0005 sched_ext: Restore a rescuee's slice after ops.stopping()
+ 0006 sched_ext: Fix a cpu idling with a runnable rescuee
+ 0007 sched_ext: Mark the rescue grant as a kernel slice with SCX_TASK_KERNEL_SLICE
+ 0008 sched_ext: Refuse extending a kernel slice
+ 0009 sched_ext: Fix a cpu idling after put_prev_task_scx() queues its task on the local DSQ
+ 0010 sched_ext: Fix bypassed tasks stalling when the host lacks SCX_CAP_BASE
+ 0011 sched_ext: Fix the bypass load balancer stranding tasks on cpus where the host lacks SCX_CAP_BASE
+ 0012 sched_ext: Factor out bypass_lb_move() and insert with the donor DSQ unlocked
+ 0013 sched_ext: Let the bypass load balancer move tasks homed on other cpus
+ 0014 sched_ext: Fix queued bypassed tasks stalling when the host loses SCX_CAP_BASE
+
+The patches are organized as follows:
+
+- 0001-0002 prepare: pack scx_ent_flags' multi-bit fields at the top so
+  that the single-bit flags stay contiguous, and clear holding_cpu where
+  the claim is confirmed.
+- 0003 consumes bypass DSQs with SCX_ENQ_IMMED, so that a host with BASE
+  but not ENQ runs its bypassed tasks instead of looping them.
+- 0004-0008 fix the rescue slice handling that bypassed tasks under rescue
+  depend on: restore the remainder after ops.stopping(), keep a cpu from
+  idling with a runnable rescuee, mark the grant as a kernel slice that
+  the kernel's slice writes leave alone, and refuse extending it.
+- 0009 reschedules a cpu after put_prev_task_scx() queues its task on the
+  local DSQ through the plain insert too.
+- 0010 sends a bypassed task to rescue when the host lacks BASE on its cpu.
+- 0011-0014 make the bypass load balancer cap-aware: capacity and donees
+  from BASE cpus only, a factored-out move that inserts with the donor DSQ
+  unlocked, moves of tasks homed on other cpus, and the drain of a cpu's
+  bypass DSQ when the host loses BASE there.
+
+The patchset is also available in the following git branch:
+
+ git://git.kernel.org/pub/scm/linux/kernel/git/tj/sched_ext.git bypass-caps
+
+diffstat follows. Thanks.
+
+ include/linux/sched/ext.h                       |  22 +-
+ kernel/sched/ext/ext.c                          | 487 +++++++++++++++++-------
+ kernel/sched/ext/inlines.h                      |  15 +-
+ kernel/sched/ext/internal.h                     |  12 +-
+ kernel/sched/ext/sub.c                          |  57 ++-
+ kernel/sched/ext/sub.h                          |  16 +
+ tools/sched_ext/include/scx/enum_defs.autogen.h |   1 +
+ tools/sched_ext/include/scx/enums_abi.autogen.h |  29 +-
+ 8 files changed, 458 insertions(+), 181 deletions(-)
 
 --
-
-ice: Lock TC flower filter list operations
-
-This patch adds a per-PF mutex, tc_flower_fltr_lock, to serialize access
-to pf->tc_flower_fltr_list. The lock is taken in the TC flower add and
-delete paths and in ice_replay_tc_fltrs(), and a mutex_lock() is added to
-ice_rem_all_chnl_fltrs().
-
-> diff --git a/drivers/net/ethernet/intel/ice/ice_main.c b/drivers/net/ethernet/intel/ice/ice_main.c
-> index d88835482d3a..90031ba17b06 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_main.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_main.c
-
-[ ... ]
-
-> @@ -8882,6 +8884,7 @@ static void ice_rem_all_chnl_fltrs(struct ice_pf *pf)
->  		hlist_del(&fltr->tc_flower_node);
->  		kfree(fltr);
->  	}
-> +	mutex_lock(&pf->tc_flower_fltr_lock);
->  }
-
-[Severity: High]
-Was this meant to be a mutex_unlock(), with a matching mutex_lock() before
-the hlist_for_each_entry_safe() loop?
-
-As written, none of this work holds tc_flower_fltr_lock:
-
-  - the list walk
-  - the ice_rem_adv_rule_by_id() calls
-  - the num_chnl_fltr and num_dmac_chnl_fltrs decrements
-  - the hlist_del() and kfree(fltr)
-
-The function then returns with the mutex held, and nothing releases it.
-
-Can the race described in the commit message still happen?
-ice_del_cls_flower() can take the mutex, find fltr and send the firmware
-delete. Meanwhile the service task can run this on the same node without
-the lock:
-
-ice_prepare_for_reset()
-  ice_remove_q_channels(vsi, true)
-    ice_rem_all_chnl_fltrs()
-      hlist_del(&fltr->tc_flower_node);
-      kfree(fltr);
-
-ice_del_cls_flower() would then call hlist_del() and kfree() on memory
-that is already freed. Both paths could also decrement the filter counters
-for the same rule.
-
-The ice_is_reset_in_progress() check in ice_add_cls_flower() still runs
-before the lock is taken.
-
-Also, once any call to ice_rem_all_chnl_fltrs() returns (even with an
-empty list), won't every later ice_add_cls_flower() and
-ice_del_cls_flower() block forever in
-mutex_lock(&pf->tc_flower_fltr_lock)? The next ice_rem_all_chnl_fltrs()
-call would block as well.
-
-This looks reachable from ice_prepare_for_reset() in the service task, on
-a non-PF reset with ICE_FLAG_TC_MQPRIO set. It is also reachable from
-ice_setup_tc_mqprio_qdisc() on mqprio channel teardown, which returns to
-user space with the lock held:
-
-	if (!hw && !test_bit(ICE_FLAG_TC_MQPRIO, pf->flags))
-		ice_remove_q_channels(vsi, true);
-
-The channel-setup cleanup path that calls ice_remove_q_channels() is
-affected the same way. ice_deinit_pf() would then call mutex_destroy() on
-a mutex that is still locked, which CONFIG_DEBUG_MUTEXES warns about.
-
-Changing only this trailing mutex_lock() to mutex_unlock() would not close
-the race. The lock needs to cover the whole loop.
-
-> diff --git a/drivers/net/ethernet/intel/ice/ice_tc_lib.c b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
-> index d20357c04127..955ad3cc5417 100644
-> --- a/drivers/net/ethernet/intel/ice/ice_tc_lib.c
-> +++ b/drivers/net/ethernet/intel/ice/ice_tc_lib.c
-
-[ ... ]
-
-> @@ -2340,10 +2356,12 @@ void ice_replay_tc_fltrs(struct ice_pf *pf)
->  	struct ice_tc_flower_fltr *fltr;
->  	struct hlist_node *node;
->  
-> +	mutex_lock(&pf->tc_flower_fltr_lock);
->  	hlist_for_each_entry_safe(fltr, node,
->  				  &pf->tc_flower_fltr_list,
->  				  tc_flower_node) {
->  		fltr->extack = NULL;
->  		ice_add_switch_fltr(fltr->src_vsi, fltr);
->  	}
-> +	mutex_unlock(&pf->tc_flower_fltr_lock);
->  }
-
-[Severity: Low]
-Does anything call ice_replay_tc_fltrs()? The commit message says:
-
-  and ice_replay_tc_fltrs() replays the same list after reset.
-
-It also lists these as consequences:
-
-  stale filter state after replay
-
-  or reset/replay can traverse a list concurrently modified by flower
-  control operations.
-
-A search of drivers/net/ethernet/intel/ only finds the kernel-doc and
-definition in ice_tc_lib.c, plus the prototype in ice_tc_lib.h. The reset
-and rebuild paths don't appear to call it, so the locking added here has
-no runtime effect.
-
-Could the commit message describe only the paths that actually walk the
-list: ice_add_cls_flower(), ice_del_cls_flower() and
-ice_rem_all_chnl_fltrs()?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020033457.523151-1-18983559317%40163.com
+tejun
