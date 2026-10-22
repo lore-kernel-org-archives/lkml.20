@@ -1,100 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792636093;
-	b=AMnnaQXE3ol7Yydk7SO8A6WqzsKGtlOkx1b5uPPajZJjPMOGcGJzBonuW+paR3P7bcUh
-	 ByoQwA4iImtKYmDPGxTueu0lzvVDradG/nmAuUKNragChPgBRkabbasPXo6bcNBygpsrd
-	 hANv2K8+mDazBRz3jFPb8unQIkMctZ7HnEjnJmW3t+knTV3WptRMQa2iJGWHH084zcYxZ
-	 ilXAK/FbMtIPAEgp9lOP6l9AI1Lg6yW6/BmedQbptZu14c12wxTQCWOEhdyH2qhRlCUOp
-	 pm41hY4z1FITTjjY/oBF/vCgmfnuxmvI5ZnY8rBLEqOiaE5jCtoOOGKOBZ8Dce2n7lA==
+	t=1792636097;
+	b=bHROWkY7DVX1B/k7wOkM62SSW/OQtwa24G+incXYnNwPWGmvSJhDIkp2gCyYEQPzNoFQ
+	 qdjTbWxIvDA9GOGxTzODucAvYvq350glSDrD182XL/+Kn+0/rbUuC7EZz28HcsGYIeSwm
+	 80Jc9sc3FX9jw9iFtk2cuitXCNonZhsGErSMw436ih/8vGyLu/cJDd3XPKngs/Cijd9qu
+	 FWY/ZNlFIRO/IDJLfrmO2wLe4LkyP+eSdroEWtq5fH/Y7B/zYGAHMlGreCVb+PswqkW55
+	 uCX/ZPcBRE2hRqW1ooUZzTTlhDqYtl6RZ1PkGh0nQRpJxx6hTb+uMcU5UK30lBIw7Vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792636093;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792636097;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:From:To:Subject:Date:Cc:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=xruEMXmxKsYyy3/7Uv5aUsYVZ6xRBTshqU8cnD7X6m8=;
-	b=T5R6TwI96tYxvdNtR+mAbf60Jzar7NId6IjelU9/ckdsNRbU01zNcszZG26tlbHLefay
-	 ky3hZ5IjpwRI5sY91c40DOunBF6QLjS4McLSQdYF4ORdJmpTfwNVRmHz73QzZ6xlUAuwO
-	 4H5UVgONXLTs9iC6yfbt0Z6sKPUWYEqAcbu7VEAMdb+5iLjh6KI6WXpe1eDJZMIfqEuqz
-	 Zk2PvN/baJVU5Y1FIUAtB0AlDxxwdyCr6UkDOq9e9xoiFxFrEz6bs8R+cfG+YrCG5u3qP
-	 2oFGBWJyn6ZLZoQGtFu1i2Kv3faWZILq8yo1J91dMeqi0gSctMwuBi8K2SmbMaGiDaw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=WPfHOvXnP2pKxcZMYBNtzP6lSrkoM1jHg8H216tgeOs=;
+	b=0SBMUfnMhw50FFIMc+ETw/TEQIR3xSwwEV2KmLmZ1y++8hmzoE01OqC/ii3OPeSFv1ZJ
+	 Ty+zcM7dokl8x89RsKZlfSGehvipr9PO47Uu0iVR6u0oj5xH7xsqMwfY45jyfJfQqe29U
+	 zBD3/gu7RrFGC3uYFYwoePBRoMWuNClVFbktqkTIhHGmyKhtfXx6GRhul3ddWWLNxZ/f0
+	 2lixyWkKJdBap6miScymEhFst6kZ0/XL0N8NkuZJzLTByzd4GyliWtKaAmiUVRhZZAGRS
+	 onVWTuygWKZDt4kDZ7r1S9a93NdEsjWM+k6R+6DZbqVcmmfaH3au5zXuEzL5VQBbK5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=utexas.edu;
-	spf=pass smtp.mailfrom=utexas.edu;
-	dkim=pass header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=nXBXmYpB;
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jwyrxAbQ;
+	arc=none smtp.remote-ip=209.85.210.199
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031CE606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:28:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 031CE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=utexas.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=utexas.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516B0606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:28:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 516B0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=utexas.edu header.i=@utexas.edu header.a=rsa-sha256 header.s=google header.b=nXBXmYpB
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6d290b10a35so607825eaf.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:28:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=jwyrxAbQ
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-88c768885b4so1749003b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:28:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=utexas.edu; s=google; t=1792636091; x=1793240891; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:cc:date:subject:to:from:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xruEMXmxKsYyy3/7Uv5aUsYVZ6xRBTshqU8cnD7X6m8=;
-        b=nXBXmYpBirikcttyx9/5JLJT4vDIsSgTxxKc2Q+QM0P/YSHZVvJlli/wRgaW6jlwIJ
-         8gx+AYrpMZRCMw7qLUaMlg2yRrJo7k30lyCmwZzaeOHYU5b9NuXF1kSZmY7Un26bKGFn
-         ppwkRPzNEWkIv23LWxaLgs/glqQYstb1P19e1btE4ajwkgKywl59wDcz5Jy5VQUsYEiQ
-         B+KdRJE906oj/8ryBUMc2NdKfo4YMajjBqVxWoy89MxzxuTAl4Cd0y3yv1pI9JFjzNWe
-         3jYE5hrslakvLkCPbW8dZr/kWE8tjNUsDoG9aeTtgHbSwFwmmZVIk8iQbP1Z01jdbQMZ
-         ozow==
+        d=google.com; s=20251104; t=1792636097; x=1793240897; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WPfHOvXnP2pKxcZMYBNtzP6lSrkoM1jHg8H216tgeOs=;
+        b=jwyrxAbQ4bOb1X2JyCnE44KugX9B+o7wIyrOXYBJUdAfBVhufdhhZDaG/Q41E1rDi2
+         utJ9Y+sD/IKnafWGI7fWTUCRix9ZLtbAt5E5aXsQLRCeuq5GBoQjbg8zOBlRy54xbpl8
+         M1gYYyWhX/VYg8fGvR8RrWkPhmJpfJFrPTtpd04ojR2PXkk/2aU/biU/o1GpBEzHFkNT
+         p1aeodPltuaeXdcYNedEUQ4VUPOHKC7OM26D/t9PAOtlVaGQqkvSrPSkVBcVX8tIZmI9
+         HFJPtvhA2/48i0nPWZEfwVhAgDyNi3bx/qeQZCga0tOiSK70W+JEqZJpGsBLNg9cM2t9
+         8BvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792636091; x=1793240891;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:cc:date:subject:to:from:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xruEMXmxKsYyy3/7Uv5aUsYVZ6xRBTshqU8cnD7X6m8=;
-        b=XMBdbx7V2YI9mFvCKgGvvDdSUUdc4qzjQY3a3iAOGw/JkDfCxDzj9SjXvtx1MPdQVL
-         X5Az29MkA/T2zj1wThJO65rqaXsJfN0t7ehqhY4zaAKPQ5fwgsCjAqOR9TsCyvfXrXWq
-         mi+FdIUd/XosVu9sqMDK0w73X7SYEWu9PIYPBre6Cf5xFbPulJkyRQuWKzGERzyRfIJ9
-         xH3JtHDmvLgg9CAsFFG7xzWEAjkkXfL+y/N/g9kNDn7AMQSB1OMd44zL/2Czjw+JVQ2o
-         G2tMHScM21j+F9m3LTC51UT2RqO3tvwvJXTo+hZUeju6+PGCIs6x/7zA7NnfI1EIEySb
-         ZBRA==
-X-Forwarded-Encrypted: i=1; AKwUvBweXVS1zYdrkuOv/bF7hTJiAyspwdNB6bGe1druedM0UpkXzgkGtC/xknWrvSCwO3Wt9dJazhQcd1I+tso=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI2tPwabD8YOuGJVTQGz/nc7wuMVo+DOgixLTE6ymD4LbuT3e4K
-	dVJYtE6fIT20myvNSDjqtAdl6xR9eui1iB+QMCP/yQ1qT1NpndEPRMnWZ0lYqTZhtz8=
-X-Gm-Gg: AYBFou1uMjl99YjOIj2vhKci2LJ8Gbz3FRDt6PNZrz38702AteNvqK7Gm9Y7s7R1Ejj
-	mqljfO4Quq2yQ3iKLq2mTRV3XPHlSyEnV49h1+l8dS9EYU7vacqYgtgOq+E+WVwWRpN45DGIkoW
-	PDuUG/zBAjadWPtNDAoafRKi/h2i20/eQUohULVpHsKwj4PeMIYTFBezr03FPH8L2e2UZU3ZoVD
-	SQLMKKmxQCNqNJEpDasQNX1vfWetIABT2ggebfO/FNZny+1oVRtRr+9kMANQZTUdWXQrghb5x+I
-	xj5pBygiVqFbEo6aOXQ5LUkhfnXxqBIEa+67FnKbPqcUAb7nyGAxXiv6kIel25JnowwByZWG7ax
-	L9+gollZEhnRWCQsSBY4L4XJNXm2Hvvf2spIyxkRDYhnJhf1mu/172xDOw3JpFFCJ+CrenJWRip
-	sZch6wbo+MNQK34BUXnzVoOUjgVf0KT827kPcBanOi8DbYt419vnawGsusrjpLO9f74sUTxULl3
-	/nX7UrtkopXRhmuHnIhJxqPrE37Sya5kklceckD2Jvo+Qh8dySN5RRg7lbYI6fxU/M27qwNcZpt
-	vnEDgD5CPS6SAq6f5mWyNQrh7zeavzpzYfiP/TuMmFgumrlg7Q8MtlWRe83/9gC62ou90YiArPD
-	pJ2u49KxvAOpDPjrBw8lAf8m3BIOkZaKRAB41fDOx8SzAOuWyeiUMzKATKHh2VHSCDbcweLZ/9B
-	lsIm7l4xAHDPzpqBQryDc=
-X-Received: by 2002:a05:6820:813:b0:6b7:8396:f3d6 with SMTP id 006d021491bc7-70941fbb729mr2897081eaf.56.1792636090730;
-        Wed, 21 Oct 2026 19:28:10 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([173.174.112.101])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a7d5eb8fc0sm3431624fac.1.2026.10.21.19.28.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:28:10 -0700 (PDT)
-Message-ID: <6ad974ba.a8122b97.39a7e6.f867@mx.google.com>
-From: karim.sabar@utexas.edu
-To: matthew.brost@intel.com
-Subject:
- Re: [PATCH] drm/xe: Use kvmalloc for the VMA ops page-table update array
-Date: Wed, 21 Oct 2026 21:28:08 -0500
-Cc: thomas.hellstrom@linux.intel.com, rodrigo.vivi@intel.com,
- airlied@gmail.com, simona@ffwll.ch, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-In-Reply-To: <atkLLH47Zd6vMX3B@gsse-cloud1.jf.intel.com>
-References: <atkLLH47Zd6vMX3B@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+        d=1e100.net; s=20260707; t=1792636097; x=1793240897;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WPfHOvXnP2pKxcZMYBNtzP6lSrkoM1jHg8H216tgeOs=;
+        b=c/aLf01XFzBEV7su5JOH/cRatozlSOJLsuU5f9RGRRQ1eg3Z8ZhdFLZSyI/41BFE86
+         uqKRqHomj3BwIBbKf8jh6mqcgrrgLFo6zZgMmeVwmzJz/9/1s6ziDKV9w1RBLPDSVuBI
+         utQ/tQtYBmJXoBIigd5C35etKo9l36BDWziMxbsmy2kX3YRSvSCRv2/r0XOLvSsr3sC9
+         w9L6XKZW2SkRYdFij8jyk1f/ZibUP7/kRNcpesMzoUCCe2N92wbAhEEiCwootbKyCUZQ
+         /FhbC5EZtAnZHQF5rV1aftNJ4+xqNb8D6RpHcNsNRcBXPthOH/WoTAUA7U+XNNnRTy4F
+         uShg==
+X-Forwarded-Encrypted: i=1; AKwUvBz+1Ab4mJ2yIjlR/vaO1rPd6hqzzPQBNWgnf60D8gqsUcRmD/PFwb8r2PwUNnkIqI6ymbhNYtT9dCfmzpg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUd4g24Hjzkfhs90ISbSUsJ0pazpoU31Rob1F2ib/gG78aQbGJ
+	J7CcRj/8LJLdYYh5KHMKRGXI5LAHwV7W3RvL+VMa1B97nAuqH7sGrEdduol8SmnzkLryaogvP6R
+	3VNc/vg==
+X-Received: from pfhh4.prod.google.com ([2002:a05:6a00:2304:b0:88f:2ad7:b21c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:a24b:b0:882:7bed:3b3b
+ with SMTP id d2e1a72fcca58-8a089e99514mr3069913b3a.36.1792636096488; Wed, 21
+ Oct 2026 19:28:16 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed, 21 Oct 2026 19:28:12 -0700
+In-Reply-To: <20261022022813.303978-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,132 +79,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+References: <20261022022813.303978-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+Message-ID: <20261022022813.303978-2-seanjc@google.com>
+Subject: [PATCH v2 1/2] KVM: x86: Switch to vmcs01 to update EOI exiting
+ bitmap on-demand if L2 is active
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Content-Type: text/plain; charset="UTF-8"
 
-Hey Matthew!
+If KVM needs to update the EOI bitmap while L2 is running, temporarily load
+vmcs01 and immediately refresh the bitmap in vmcs01 instead of deferring
+the update until the next nested VM-Exit.  I.e. give the EOI bitmap the
+same treatment as the many other updates that were previously deferred.
 
-Sounds good to me, the fallback of trying to bind the vma one at a time sound=
-s good to me. And it is actually a bit broader than my patch since it covers =
-the -ENOBUFS case as well. It should also be easy to get through drm-xe-fixes=
- and then backported the normal way.
+Reported-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
+Closes: https://lore.kernel.org/all/20261017093016.32348-2-amirmohammad.eftekhar@cispa.de
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ arch/x86/include/asm/kvm_host.h |  2 +-
+ arch/x86/kvm/regs.h             |  6 ------
+ arch/x86/kvm/vmx/vmx.c          |  2 ++
+ arch/x86/kvm/x86.c              | 13 -------------
+ 4 files changed, 3 insertions(+), 20 deletions(-)
 
-I can write it as a v2 & test it on my Panther Lake device, I have a small re=
-pro that does about 20,000 mappings and fails after suspend (every time witho=
-ut the fix). If you'd prefer to write it, I can test your patch as well.
+diff --git a/arch/x86/include/asm/kvm_host.h b/arch/x86/include/asm/kvm_host.h
+index 0378577d9d8b..f2c53a5f40e3 100644
+--- a/arch/x86/include/asm/kvm_host.h
++++ b/arch/x86/include/asm/kvm_host.h
+@@ -113,7 +113,7 @@
+ #define KVM_REQ_HV_RESET		KVM_ARCH_REQ(20)
+ #define KVM_REQ_HV_EXIT			KVM_ARCH_REQ(21)
+ #define KVM_REQ_HV_STIMER		KVM_ARCH_REQ(22)
+-#define KVM_REQ_LOAD_EOI_EXITMAP	KVM_ARCH_REQ(23)
++/*#define FREE!!!  USE ME!!!		KVM_ARCH_REQ(23) */
+ #define KVM_REQ_GET_NESTED_STATE_PAGES	KVM_ARCH_REQ(24)
+ #define KVM_REQ_APICV_UPDATE \
+ 	KVM_ARCH_REQ_FLAGS(25, KVM_REQUEST_WAIT | KVM_REQUEST_NO_WAKEUP)
+diff --git a/arch/x86/kvm/regs.h b/arch/x86/kvm/regs.h
+index 97c17b120a57..04d047f46753 100644
+--- a/arch/x86/kvm/regs.h
++++ b/arch/x86/kvm/regs.h
+@@ -463,12 +463,6 @@ static inline void enter_guest_mode(struct kvm_vcpu *vcpu)
+ static inline void leave_guest_mode(struct kvm_vcpu *vcpu)
+ {
+ 	vcpu->arch.hflags &= ~HF_GUEST_MASK;
+-
+-	if (vcpu->arch.load_eoi_exitmap_pending) {
+-		vcpu->arch.load_eoi_exitmap_pending = false;
+-		kvm_make_request(KVM_REQ_LOAD_EOI_EXITMAP, vcpu);
+-	}
+-
+ 	vcpu->stat.guest_mode = 0;
+ }
+ 
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index b341af4c6057..59b48d959ee0 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -7082,6 +7082,8 @@ void vmx_load_eoi_exitmap(struct kvm_vcpu *vcpu, u64 *eoi_exit_bitmap)
+ 	if (!kvm_vcpu_apicv_active(vcpu))
+ 		return;
+ 
++	guard(vmx_vmcs01)(vcpu);
++
+ 	vmcs_write64(EOI_EXIT_BITMAP0, eoi_exit_bitmap[0]);
+ 	vmcs_write64(EOI_EXIT_BITMAP1, eoi_exit_bitmap[1]);
+ 	vmcs_write64(EOI_EXIT_BITMAP2, eoi_exit_bitmap[2]);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 32563a91fba9..0028d57e964a 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -8062,17 +8062,6 @@ static void vcpu_scan_ioapic(struct kvm_vcpu *vcpu)
+ 		kvm_ioapic_scan_entry(vcpu, vcpu->arch.ioapic_handled_vectors);
+ #endif
+ 
+-	if (is_guest_mode(vcpu))
+-		vcpu->arch.load_eoi_exitmap_pending = true;
+-	else
+-		kvm_make_request(KVM_REQ_LOAD_EOI_EXITMAP, vcpu);
+-}
+-
+-static void vcpu_load_eoi_exitmap(struct kvm_vcpu *vcpu)
+-{
+-	if (!kvm_apic_hw_enabled(vcpu->arch.apic))
+-		return;
+-
+ #ifdef CONFIG_KVM_HYPERV
+ 	if (to_hv_vcpu(vcpu)) {
+ 		u64 eoi_exit_bitmap[4];
+@@ -8240,8 +8229,6 @@ static int vcpu_enter_guest(struct kvm_vcpu *vcpu)
+ 		}
+ 		if (kvm_check_request(KVM_REQ_SCAN_IOAPIC, vcpu))
+ 			vcpu_scan_ioapic(vcpu);
+-		if (kvm_check_request(KVM_REQ_LOAD_EOI_EXITMAP, vcpu))
+-			vcpu_load_eoi_exitmap(vcpu);
+ 		if (kvm_check_request(KVM_REQ_APIC_PAGE_RELOAD, vcpu))
+ 			kvm_vcpu_reload_apic_access_page(vcpu);
+ #ifdef CONFIG_KVM_HYPERV
+-- 
+2.56.0.218.g1ec904b173-goog
 
-Thanks,
-Karim
-
-On Wed, 21 Oct 2026 11:57:48 -0700, Matthew Brost wrote:
-> On Tue, Oct 20, 2026 at 07:08:27PM -0500, karim.sabar@utexas.edu wrote:
->> From: Karim Sabar <karim.sabar@utexas.edu>
->>=20
->
-> Thanks for the patch. I do see the problem in the old code.
-> Unfortunately, we will not be able to pull this into drm-xe-next or
-> drm-xe-fixes, as 7.3 is already out and 0e33330f1238 is included in our
-> 7.4 PR. As a result, this would need to go directly to stable.
->
-> There is also a risk that predates the series containing 0e33330f1238.
-> If the bind has to run on the GPU, you can still get -ENOBUFS later in
-> the bind pipeline if the bind is too large to fit into the
-> migration-layer BB. If that occurs, the proper fix may actually be in
-> xe_vm_validate_rebind(). If xe_vm_rebind() fails with -ENOBUFS or
-> -ENOMEM, we could call a new function, such as xe_vm_rebind_iterative(),
-> which would run each VMA requiring a rebind in its own job. This is
-> effectively what Mesa does in userspace when a bind operation returns
-> -ENOBUFS.
->
-> We could probably still pull that approach into drm-xe-fixes + have
-> naturally backport to stable, and it may ultimately be the better
-> solution.
->
-> Let me know what you think. I can give this an RB, but I'd like to hold
-> off until we've settled on the solution we want to pursue here.
->
-> Matt
->
->> Big games die after every s2idle resume on flat-CCS iGPUs. The exec
->> ioctl keeps returning -ENOMEM even with 11-16 GB of RAM free.
->>=20
->> On suspend xe_bo_evict_all_user() evicts every user BO in XE_PL_TT on
->> these parts. On resume the first exec rebinds every VMA in one go and
->> xe_vma_ops_alloc() kmallocs one 384-byte op per VMA as a single array.
->> Final Fantasy VII Rebirth has about 33,500 VMAs which means a 12.9 MB
->> array. It's over the 4 MB KMALLOC_MAX_SIZE and can never succeed.
->> __GFP_NOWARN keeps it out of dmesg.
->>=20
->> Data from a Panther Lake handheld (SteamOS kernel 7.2.7), kretprobes
->> after resume:
->>   xe_vma_ops_alloc  -ENOMEM on 63 of 63 attempts
->>   xe_vm_rebind      -ENOMEM on 63 of 63 attempts
->>   BO validate, TTM populate, PT prepare  never failed
->>=20
->> The array is only used by the CPU and doesn't need to be contiguous.
->> This switches it to kvmalloc and kvfree.
->>=20
->> With the same change applied as a module on that kernel, the game
->> survives every sleep I tried with zero ENOMEM. The biggest array was
->> 30,753 ops (11.8 MB).
->>=20
->> drm-xe-next already does this through commit 0e33330f1238 ("drm/xe: Add
->> struct xe_pt_job_ops"), but that's part of a big series that won't go
->> to stable.
->>=20
->> I tracked this down and tested it on my own device. I used an AI
->> assistant to help with the debugging, i.e the kprobe tracing and
->> reading through the xe code. I ran every test, picked the fix and
->> reviewed the change myself.
->>=20
->> What I couldn't do: this is build-tested on drm-xe-fixes but only
->> run-tested on the SteamOS 7.2.7 kernel through an equivalent module,
->> not on a mainline kernel.
->>=20
->> Fixes: 2e524668c440 ("drm/xe: Add xe_vm_pgtable_update_op to xe_vma_ops")
->> Cc: stable@vger.kernel.org # v6.11+
->> Assisted-by: Claude:claude-opus-5-5
->> Signed-off-by: Karim Sabar <karim.sabar@utexas.edu>
->> ---
->> Downstream SteamOS report with the same data: https://github.com/ValveSoft=
-ware/SteamOS/issues/2962
->> ---
->>  drivers/gpu/drm/xe/xe_vm.c | 8 ++++----
->>  1 file changed, 4 insertions(+), 4 deletions(-)
->>=20
->> diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
->> index 99e42bd29..5caef443b 100644
->> --- a/drivers/gpu/drm/xe/xe_vm.c
->> +++ b/drivers/gpu/drm/xe/xe_vm.c
->> @@ -703,9 +703,9 @@ static int xe_vma_ops_alloc(struct xe_vma_ops *vops, b=
-ool array_of_binds)
->>  			continue;
->> =20
->>  		vops->pt_update_ops[i].ops =3D
->> -			kmalloc_objs(*vops->pt_update_ops[i].ops,
->> -				     vops->pt_update_ops[i].num_ops,
->> -				     GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
->> +			kvmalloc_objs(*vops->pt_update_ops[i].ops,
->> +				      vops->pt_update_ops[i].num_ops,
->> +				      GFP_KERNEL | __GFP_RETRY_MAYFAIL | __GFP_NOWARN);
->>  		if (!vops->pt_update_ops[i].ops)
->>  			return array_of_binds ? -ENOBUFS : -ENOMEM;
->>  	}
->> @@ -742,7 +742,7 @@ static void xe_vma_ops_fini(struct xe_vma_ops *vops)
->>  	xe_vma_svm_prefetch_ops_fini(vops);
->> =20
->>  	for (i =3D 0; i < XE_MAX_TILES_PER_DEVICE; ++i)
->> -		kfree(vops->pt_update_ops[i].ops);
->> +		kvfree(vops->pt_update_ops[i].ops);
->>  }
->> =20
->>  static void xe_vma_ops_incr_pt_update_ops(struct xe_vma_ops *vops, u8 til=
-e_mask, int inc_val)
->>=20
->> ---
->> base-commit: d2ce8fcd778ee6d92748c92d23a56d4416c29d86
->> change-id: 20261020-xe-kvmalloc-vma-ops-2637ebf81cfd
->>=20
->> Best regards,
->> -- =20
->> Karim Sabar <karim.sabar@utexas.edu>
->>
