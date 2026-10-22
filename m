@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792707160;
-	b=fbz7WA7F7oo3Jntvovt51p8nGUm36HmkNeTNRux/2n4KKs8M8ZZiKzNeYFjviF7pa9q/
-	 qGb+xgRcueUDTlDRCkepKJNidQQdFrB9QX4940xpW8A9YZlEHm9PmWClkDltaxOvSolNL
-	 f5m5M7PyZ1Ypg1RWr084HuZlgh/fuMPVJrGfVsv2nUWwpjfOMkPLtJJuDRjAEnfqz8HL3
-	 0e1QzLibuA8s0xF/eo750COqG6UnzvJyITXlIpLdjxaVqGnNiWpIVBW1yG1H4SmnyKjT7
-	 yKKjQyEZ3ta0DO10FdpAeOrle0/JXdaZzzz2mSzx/EY7Faqo9+z3l2uIWW+46MRYk7A==
+	t=1792707155;
+	b=UfsYJlW/Y/LcZsOw4h3k2hs5Kry6nzIDRdNNEG4Ha6DYzZwFTI/8JFaItX9YB+PZJV7u
+	 WEzkJOR/J3vWj1KmaE6+awV7ksyWIkfMEmK8IFMUIXXPDdKA7bDPzAQrihYjNt6QnMber
+	 I1uyOhYVqWp8PaNCbuk0y3e1lMyLyZlAfQr/Db8E/4A1jc7I0O2NlKCDtSFv5Eeq1XMRp
+	 oewqWyieZxqHFK51Rl578qUbUTO9FI0SesWz/Gd2xBSyimRX9Jwbj8qTWk9fBsB2P3nUo
+	 sn3Sh7+eNBBSDN3S0/YCqNQgv2Sfa5M54GHh8cR9ZgWPZSFceP5fmVAiTI5jN1tosRQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707160;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707155;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ub1wcWejjpZhi+639ya37TwcHArqYpKLVBaE2WfY3MM=;
-	b=WvQsUJfpZwCYnfgouZO22bz6/5IBmSRG4XyYnN5vTh2O+WIiaAHdx8z1WiIP+/ZaTlWx
-	 BBPNinOHom/7P1h1+0Ae03OPVOUqQqv9H+QdrAgIXTB1rn+mqp728rloJojBxI7kqv9QB
-	 TcxLJRmfnr2RHVmqVqrJvde792NNsgsniUioEaKmpLYH19/mc4IjSD9rWDNHXtVXUlAda
-	 kC/8bsg6mZ+T2PpHWSOZo6rEhUuflGmJDJh+5lwHwmuLRl2q0qZNOos9X9uXwdZBlgHDE
-	 FFOfD/xW5WmM8SWthHkGm1J/XekqudOTnt7y+j6nJsnPznnBzBQrp6kDqBTYSRJJFMg==
+	bh=kAJ91NX0cCLZ+POHR3WwhzVqOqKjKkASb0TQ3JzdZ8w=;
+	b=T68rPLr5UfKm8heatlLmf9zbEh3FW45VTAWlHrJHAfiAase4Lk9nEZ4TpNpgCVDO6Ni2
+	 OXdnlCYM6zSQbnOkNhCnjO+jWCa84XS9AV/JzQbAbT7AtN8IEgp9dsEHCKmqwhCQmVccw
+	 XnQrmomJ5P+X8Ex2O6JG06e0vCjO0mj3YDmOs2vEAR2ZdfiODK3sZuebNJiLdwi9lKt/9
+	 TK27nC5AcS9ObXg3T5QKNKlZOppIgJC1KyZzQ99PFlwqHsWboS8gmClsztus/uyO+fRGK
+	 NqP3Ik+1DtOlH0GHBzY57DHYIdiLPCxjw61FpsJcC57RjZ6uCZlRkd+CqMHCByu8b0g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVxwyTOW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFdAVH6t;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ADEF606A319;
-	Thu, 22 Oct 2026 22:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369E8606A31B;
+	Thu, 22 Oct 2026 22:12:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FVxwyTOW
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lFdAVH6t
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792707154;
-	b=m5wGTcu/BXMoYBFGvwHkoGeRO2XvVWp9aOcgt/Io65aIIuUAQwXrjtpqcpBH5D32guu5
-	 ZiPVZqzTdA01XhN0a+WzDJrtspr9maFg9WNLPS1BKwqjC/B6EgDOUbdzaduU902oNxvgu
-	 3nvlIy7+J+7rjYPT30I5eI9miYk3lGif5MJBKOEGFetSy1yoo/g0E3cjHir3ZuCIJf6zf
-	 AF0BvZW6HHynWONwNq6mhYMQP5kRrZ75HOAg5nTs3iaTlS4h8DRG1X7MOcMvbAoIW89im
-	 Zbizyv6T9Y/WMEjPhiIfFdmt1yNqv6Uc6e/DEc6fDc2RG492ot2f8m8ynVe9O16JCaA==
+	t=1792707155;
+	b=PgRuh5uEMzWcZ7I1L/a0nWDWt2xlIHdCgQza+omy5Nc16GwXRjdKnstXUB/1YGiwXnmJ
+	 Mn9TgFRLxYGKKE7FfULI3ZPfxtUELGT4sIR9+5sGsb5sSkJzRI3CGmXuFpByhYFsG1tN7
+	 F8//tuFxsGh9u4WdwOnpk+Q0VLfOwUS+3fci3lvzNxbnitofL08rc1pcyk/U7BWCsAnYI
+	 Iccco6/0iNjTl5Mv07AOf9nH2JzxrysBfx6mJYsRQ5yYwgWX1d109fu8OMQtEOwDUZfE3
+	 ciU9UFghUmLHNwl+swd7DE8mg/ijex9meCfqwk+KZ28KFRYmNfYiNxINSp25AECF3Bw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792707154;
+	c=relaxed/relaxed; t=1792707155;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Ub1wcWejjpZhi+639ya37TwcHArqYpKLVBaE2WfY3MM=;
-	b=hjnU0RNTvmhOk+Ogy28ohwA7DwuUFptP1uxBz4Xt0OLsMXuT+f5LRWBErFUyehy0p5c6
-	 o2fx77vJlkrZ+UcP4QWIBmUy0p4vbk+wHnLchyf4p3QmSk6q/wpUdUBWVcN+aru3Eynh+
-	 rsc3gesBrfCvWh6bDOhZR6VhARcDJWllyRYCBvYBVTATfRMIzqWXsuNzzTI8TDiBnDecS
-	 +doBZzYjUU1EJ5kf4s8zvVGaNNTnmPYW5wI5v9e6WNpd7TSY2aOgqUukBFrFhe/NCbD9J
-	 vuik13FsAZ+MmmEg1vGE29kwFnHK/dW5ZZbpXcCfwewSrN+o/zTpA04E4TOV1YtUGIA==
+	bh=kAJ91NX0cCLZ+POHR3WwhzVqOqKjKkASb0TQ3JzdZ8w=;
+	b=nN1kMGriabJefJw8BlIM4vvVJGqLdMFm1K4nU4sDsmlBcmCbkrAumHSjwdMpZkH+Cm98
+	 uBPG0F3jHqx9z6J0OUzZ0A6lXkMWoj39SiQMEVdJPWE8RulcQNJxwuwXMoBMHhejJ1CnE
+	 VxYJKQPH1nDiNbB6IBf3JHrwMuPsWkzJWS8kepjGV1LJxYxsuQh6WnyASDm0R7eU/O9WZ
+	 Z/YxTSM/XN6KFKBOljiDSbbUf7NhYap+8JjqUzszggjtjoWIPRKECmFA7DgxMY41Xo+Yu
+	 lAJy2U9O8vUUyxG8l6hS4Gq+S52DNQXTnEmemk4MoH7FuUkoJVdOiitO6Lb7Fzhz+GQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 1D6B81F01829;
+	by smtp.kernel.org (Postfix) with ESMTPS id 1D2251F01825;
 	Thu, 22 Oct 2026 22:12:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792707154;
-	bh=Ub1wcWejjpZhi+639ya37TwcHArqYpKLVBaE2WfY3MM=;
+	s=k20260515; t=1792707155;
+	bh=kAJ91NX0cCLZ+POHR3WwhzVqOqKjKkASb0TQ3JzdZ8w=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=FVxwyTOWmTH2qTxsVLhmKdG/T2wCfAINPkh3GNgY6U+3WtHjXZfWVkEDPCBhepg60
-	 ab/vn9glVV5OXKg0rkcWJf6rfpYTcZlXKA/ub658DrWyhLT+JV2OrUFP9KaHTZQW+s
-	 w+eq98xvFVbDnTdnUfW4PY25NHfRsUOXFt9Om5oTYTTLEBrUJ9hZyqUxvwcU9Qqa+t
-	 u1pecdhOIORsAnqGoqbb5z3FjeVY6K/oQm7ecEOGB+DU+CTOCfGvNMOdM13LpvDvxi
-	 EL93AH2XeBPVQPSoi7LjJFe0NuB6D2zOqXs/y0x3GLcrawPwkN9kHqRlbx1PCrtzMn
-	 2v17W4dK+9t9Q==
+	b=lFdAVH6t1O8moIF9VWLahDnAu/fwyj8D/ChmkmQL7gEd3vKSuoDJzXQgqgIlmFpqd
+	 6Ya+NcMfTcZg4ifEnygbgR+8rowbuvBv0XFhQ0WdJXKSKmOPQ/eVTE68RA1XOBk8UJ
+	 BxiKrHKSAWwbSmdPvSqWF2r40yQ1SXNQklg77vrgEL0V3bEL08bcfAp5gnCJ0imtnp
+	 pZRP30/jawX+csR8MBtcXUAae0ik1fEufmT+9A79t60YjClC8gSSxD7PWGU/jDvCav
+	 /e2aLRKv38fNr2eFhR/v0m8C+4QPUj54auBp9sure4rfxDvqSxBIena47SB3epxO1j
+	 TaW/VWI6iIQ8g==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 74FAA41FB2;
+	by lkml.kernel.org (Postfix) with ESMTP id 80DA441FC5;
 	Thu, 22 Oct 2026 22:12:33 +0000 (UTC)
 From: "Jeff C. Jensen via B4 Relay" <devnull+kernel.nullptr.com@kernel.org>
-Date: Thu, 22 Oct 2026 15:11:30 -0700
-Subject: [PATCH 1/5] dmaengine: xilinx_dma: Reject transfers that map no
- data
+Date: Thu, 22 Oct 2026 15:11:31 -0700
+Subject: [PATCH 2/5] dmaengine: xilinx_dma: Fix cyclic period count
+ truncation
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-xilinx-dma-work-v1-1-20faea2e7a80@nullptr.com>
+Message-Id: <20261022-xilinx-dma-work-v1-2-20faea2e7a80@nullptr.com>
 References: <20261022-xilinx-dma-work-v1-0-20faea2e7a80@nullptr.com>
 In-Reply-To: <20261022-xilinx-dma-work-v1-0-20faea2e7a80@nullptr.com>
 To: Vinod Koul <vkoul@kernel.org>, dmaengine@vger.kernel.org
@@ -97,13 +97,13 @@ Cc: Frank Li <Frank.Li@kernel.org>, Michal Simek <michal.simek@amd.com>,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  "Jeff C. Jensen" <kernel@nullptr.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2155; i=kernel@nullptr.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1808; i=kernel@nullptr.com;
  s=openpgp-2026; h=from:subject:message-id;
- bh=4HSoHWwpvRObiCk9NoS17klkZW5nP/aozCZjxK9JszY=;
- b=owGbwMvMwCV2439B4wpuQQ7G02pJDFm3ugIqTHk057113Wq+c/as+yY/3Xevzkhfa2C1dcoT0
- wN1vjZHOkpZGMS4GGTFFFmOH5u2M9/Wv66o+n4VzBxWJpAhDFycAjCRE3cZGS4df5qnIF2dcvm4
- vMHG08suzOv9fMFrZVi+6JOj8qb7V7AwMqxm+eHYnPjv4NmIuob0q3JKu8LvCliUH/EoXfXgzrT
- ldUwA
+ bh=uxgMXIyep7CAr1NQDXQw04MaelMXvUlXqqiFb7DgwaU=;
+ b=owGbwMvMwCV2439B4wpuQQ7G02pJDFm3ugKKJba5Hm3erCNbdtFg4qLV6yddETf5tpDhkMKdq
+ qiz1lWLO0pZGMS4GGTFFFmOH5u2M9/Wv66o+n4VzBxWJpAhDFycAjCRWUEM/1MeHOvqZrCZY/TV
+ WKRuf3XJvjdpsetiws1OSr9Yu8fYt5+R4WX0p+Ucl1ov3Ty8O2BPy3mu+IKYuXZH8huiD97xzDo
+ ZzgQA
 X-Developer-Key: i=kernel@nullptr.com; a=openpgp;
  fpr=C7C696B96F3D4F7E727BDF7AD8FF7081A80B1108
 X-Endpoint-Received: by B4 Relay for kernel@nullptr.com/openpgp-2026 with
@@ -114,60 +114,52 @@ Content-Transfer-Encoding: 7bit
 
 From: "Jeff C. Jensen" <kernel@nullptr.com>
 
-If every entry of a scatterlist or a DMA vector array has zero length,
-the preparation loops in xilinx_dma_prep_slave_sg(),
-xilinx_dma_prep_peripheral_dma_vec() and xilinx_mcdma_prep_slave_sg()
-allocate no segments. Each function then takes list_first_entry() of the
-empty segment list anyway, so desc->async_tx.phys, which is later
-programmed as the current descriptor, is derived from the list head
-rather than from a segment. For DMA_MEM_TO_DEV, the SOP and EOP bits are
-also set through pointers that do not point at a segment.
+xilinx_dma_prep_dma_cyclic() stores buf_len / period_len, a size_t
+quotient, in an unsigned int. On 64-bit builds the count can be
+truncated: a buffer of 2^32 + 1 bytes split into 1-byte periods becomes
+a single period, and the transfer covers one byte of the buffer the
+client asked for.
 
-Fail the preparation when no segment was allocated.
+Compute the quotient as a size_t and reject it if it exceeds
+XILINX_DMA_NUM_DESCS before narrowing it. Each period needs at least one
+hardware descriptor, so a larger count could never be prepared from the
+pool anyway.
 
-Fixes: c0bba3a99f07 ("dmaengine: vdma: Add Support for Xilinx AXI Direct Memory Access Engine")
-Fixes: 6ccd692bfb7f ("dmaengine: xilinx_dma: Add Xilinx AXI MCDMA Engine driver support")
-Fixes: 38433a6fdfb7 ("dmaengine: xilinx_dma: Support descriptor setup from dma_vecs")
+Fixes: 92d794dfb699 ("dmaengine: vdma: Add support for cyclic dma mode")
 Assisted-by: Claude:claude-fable-5-1
 Signed-off-by: Jeff C. Jensen <kernel@nullptr.com>
 ---
- drivers/dma/xilinx/xilinx_dma.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/dma/xilinx/xilinx_dma.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/dma/xilinx/xilinx_dma.c b/drivers/dma/xilinx/xilinx_dma.c
-index cffe7c6fa640..5ccc9f9d58a3 100644
+index 5ccc9f9d58a3..aa714effd10d 100644
 --- a/drivers/dma/xilinx/xilinx_dma.c
 +++ b/drivers/dma/xilinx/xilinx_dma.c
-@@ -2305,6 +2305,9 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_peripheral_dma_vec(
- 		}
- 	}
+@@ -2454,7 +2454,7 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_dma_cyclic(
+ 	struct xilinx_dma_chan *chan = to_xilinx_chan(dchan);
+ 	struct xilinx_dma_tx_descriptor *desc;
+ 	struct xilinx_axidma_tx_segment *segment, *head_segment, *prev = NULL;
+-	size_t copy, sg_used;
++	size_t copy, sg_used, periods;
+ 	unsigned int num_periods;
+ 	int i;
+ 	u32 reg;
+@@ -2462,10 +2462,11 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_dma_cyclic(
+ 	if (!period_len)
+ 		return NULL;
  
-+	if (list_empty(&desc->segments))
-+		goto error;
-+
- 	head = list_first_entry(&desc->segments, struct xilinx_axidma_tx_segment, node);
- 	desc->async_tx.phys = head->phys;
+-	num_periods = buf_len / period_len;
+-
+-	if (!num_periods)
++	/* a period takes at least one descriptor */
++	periods = buf_len / period_len;
++	if (!periods || periods > XILINX_DMA_NUM_DESCS)
+ 		return NULL;
++	num_periods = periods;
  
-@@ -2406,6 +2409,9 @@ static struct dma_async_tx_descriptor *xilinx_dma_prep_slave_sg(
- 		}
- 	}
- 
-+	if (list_empty(&desc->segments))
-+		goto error;
-+
- 	segment = list_first_entry(&desc->segments,
- 				   struct xilinx_axidma_tx_segment, node);
- 	desc->async_tx.phys = segment->phys;
-@@ -2613,6 +2619,9 @@ xilinx_mcdma_prep_slave_sg(struct dma_chan *dchan, struct scatterlist *sgl,
- 		}
- 	}
- 
-+	if (list_empty(&desc->segments))
-+		goto error;
-+
- 	segment = list_first_entry(&desc->segments,
- 				   struct xilinx_aximcdma_tx_segment, node);
- 	desc->async_tx.phys = segment->phys;
+ 	if (!is_slave_direction(direction))
+ 		return NULL;
 
 -- 
 2.43.0
