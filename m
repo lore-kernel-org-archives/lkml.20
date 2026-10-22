@@ -1,49 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.114
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663160;
-	b=BLxAxGXWQhvHKt42ovqIu2K3yHEMrMDQukL6Gf9OuYH2sEDFZKejv4TlKTXzz5TkYdEi
-	 kI5URYnj0L0CPU0Dnbp5w970mpxgoshNhTteiIem9uDMzf+SqiGCbhNGzBZiqsRlGqlPt
-	 slCxlFrImGSGWJfsGLHKmUKJh8Wg/IQd4rzu2XLZLQvStT4jJ/0FjzIjSzL5WDxo2ccLO
-	 cK7mjR3Wq/TFIFHJln4a3puM0JW+RS5yuW8n/IZMzJlYyMINc8WGZQgxj9kQJS3TjTwgE
-	 2tJB1HJnmukhy48yi5C407GkM+P6BrdquQQuaKtuXQntF/7/+zc/H4FrvcTusjo8Csw==
+	t=1792663164;
+	b=kk1zHlxKG/7Z9l9mULOIGBeB5DlaE5r0psOH2sWoVSB4puGlT2qw5BzMQ9T/fdlPL2Ga
+	 9Mfx/xCeUEi82ZypqD45cx0u0ZeALzyPWTMcjUzkR2Ed/U7YK2wcmbxR/CA0yX7zgOWSP
+	 BcYz1L+P+MWUX6lB4FcupaI9ldPvDzVQs4RXfrljhFOMI+mh+c7ViHZSWDCITQRjNtraF
+	 unJiGcb7YD3HXLrGvc1ZYX1OolLqpPLOGdrrf/CuKmKD8z/hMnm7LhqvJGMAftwEojHt6
+	 8Ec4wsL6HZBt3C82fJ2MbX8UwM45axAgfaljFIPlLwphipeCkixf3zSCpHmCLn3PVWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663160;
-	h=DMARC-Filter:DKIM-Signature:Subject:Mime-Version:Cc:From:
-	 Content-Transfer-Encoding:Date:Message-Id:X-Mailer:To:
-	 X-Lms-Return-Path:X-Original-From:Content-Type;
-	bh=oqq2H1oItHLFY10BG9vx49q9B4HFJpYgR3Eqv5tnJWs=;
-	b=lf9wUgILH0BDWarJwFEqpEmhl73doPlxDnmkaViwri2JXt0D3t7T3ul6A5DsSIg7eJZf
-	 mnrPJZgZM3LAvb/oMtr4a398KhZgGRmSA+FaImLPuZql+n2WxMX9MNe9BroumGyq1gUmx
-	 tFMY1o8JSsV+ypywDbs0ltxyQHlW+IRELUnhAZj1SJNQanz0GSbp/P8XNcOB8Yx+/9EaP
-	 p3OBI46jwPwu6lteyLWlg1pEP/Q1tzXtcIjvBrrI4PbGa+Gb632KtSZT2BUcNDdsw8DTJ
-	 pZiDY8HMPkoa35trf9g24XI1afIXyFD7CRT/nPQlT8VrJ++kCnuhnccIqAsJ9NiRe5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663164;
+	h=Received:DKIM-Signature:Date:From:To:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/LoPiQCUGfG3yrwonqTVIhmD3CZlxk4fMzhSbc/fjQ0=;
+	b=0Q7+cwp65rTrD83xPo3AvCYzhkt54KJHDQPxtAGvZ3tKMJg3YUHQwIjudLVuvNYmQgN+
+	 ZSrWZcr0bQP//m01q/Ls+erS2JsnUSFux/CeTNzlme0+LOXAdTL1bMOQiAdcP/TKzzufF
+	 Ae8Y4j73zKnFhNHhgiU4gL/rrW6MqaE5InkuTT5kf4srMrQ+3llZSUj0f4PmPl4agaXW0
+	 bHsV68OkSwCHR9CWuF/MJLnOuO7loQZXVT8Elm5MdBDrOYmdWZEvQrmRw1Nm95SKNXaeV
+	 uT3V8gVzf0uJqwNl1b1OCe4GDqpt0A/ECdmPV6n+UrqUN6/9fU7jrJSeR+eLHitDNsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=bZC1DzsI;
-	arc=none smtp.remote-ip=209.127.230.114
-Received: from va-1-114.ptr.blmpb.com (va-1-114.ptr.blmpb.com [209.127.230.114])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KzieFDRu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE12606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:59:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFE12606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73184606A319;
+	Thu, 22 Oct 2026 09:59:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=bZC1DzsI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792663153; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=oqq2H1oItHLFY10BG9vx49q9B4HFJpYgR3Eqv5tnJWs=;
- b=bZC1DzsIIxCXCCUKnCEUsloFBq5SC7cHlB7E3ZlGeJThw96ltK8xYocAR/9uhCZzLaVnKB
- dmOaMKmYLOKCwrnRTvSqXlqGgLiPz6hVqYAGQ3nj2vQabF436eGpGQm+il/jABdxQ9QwWm
- Dny6wqNkI62E4uAyxCnQsSyQ+9rVF5CiVEPMBG/v6+Uac2w2nXm2zYZeiAYFCpD52at2JX
- Q1b7xpU8OzmPFkFcAELcRKRrYqi3Mji3FbCKArNlFDh93GKAI784ya75bgiw+KL7UooEwo
- XEAcI6smCDxrF8OtufExtmKESVZGjegWp/qw6K0zd25WBYp2NVQ6Z2P1LqfTOw==
-Subject: [PATCH] bpf, sockmap: Propagate sk_msg_memcopy_from_iter error code
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KzieFDRu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27C941F000C1;
+	Thu, 22 Oct 2026 09:59:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792663164;
+	bh=/LoPiQCUGfG3yrwonqTVIhmD3CZlxk4fMzhSbc/fjQ0=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=KzieFDRu1brJbuoVFhIks1Rmoyr3OuEMQEyWC0Os40zYD3NaxiAgUQ5yUK0qGdAp5
+	 obgkOSrq3EwZDAVjdtt2UAQOpEtSD6InrrjMO1QtbxXzMWcnngTtBM8hlVP80DBlYr
+	 2Tv1d9uD7DF6zX0toafEQNIIZ/154zlr9Bcn7vPpsTA3Ytji194F0WcO1kmLWoBlet
+	 qdItToxxAesR10jLYT6ebCFSKsAeLnhUkMgxX4XgWEfYH6sEDhY2iaWpWpqgn5xFuO
+	 ZSmFFZvo7N5X9LF5HCpEl5EZpbRcwrFtoUkczd4AeOXZ7MqnDOufE6LBUkZlRMpDDU
+	 WhtcNx6rk+/iA==
+Date: Thu, 22 Oct 2026 11:59:16 +0200
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
+	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] USB: add usb_make_subpath() for formatted device
+ subpaths
+Message-ID: <atneGH0t_T-75WmE@debian>
+References: <20261021123146.17202-1-shlomojune6@gmail.com>
+ <20261021123146.17202-2-shlomojune6@gmail.com>
+ <ati7RlrVvmzMjzNr@debian>
+ <tlemhufl7x3zatbf7ygcfnshinyz4bunroyhegmyxutgooqbcc@wtpqkldesosb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,65 +60,159 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Cc: "Rui Qi" <qirui.001@bytedance.com>, 
-	"John Fastabend" <john.fastabend@gmail.com>, 
-	"Jakub Sitnicki" <jakub@cloudflare.com>, 
-	"Jiayuan Chen" <jiayuan.chen@linux.dev>, 
-	"Eric Dumazet" <edumazet@kernel.org>, 
-	"Neal Cardwell" <ncardwell@google.com>, 
-	"Kuniyuki Iwashima" <kuniyu@google.com>, 
-	"David S. Miller" <davem@davemloft.net>, 
-	"Jakub Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, 
-	"Simon Horman" <horms@kernel.org>, 
-	"Daniel Borkmann" <daniel@iogearbox.net>, 
-	"Levi Zim" <rsworktech@outlook.com>, 
-	"open list:BPF [L7 FRAMEWORK] (sockmap)" <bpf@vger.kernel.org>, 
-	"open list" <linux-kernel@vger.kernel.org>
-From: "Rui Qi" <qirui.001@bytedance.com>
-Content-Transfer-Encoding: 7bit
-Date: Thu, 22 Oct 2026 17:58:53 +0800
-Message-Id: <20261022095853.1829161-1-qirui.001@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-To: <netdev@vger.kernel.org>
-X-Lms-Return-Path: <lba+26ad9de6f+57aa16+vger.kernel.org+qirui.001@bytedance.com>
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rh5ndjbw7hffc73s"
+Content-Disposition: inline
+In-Reply-To: <tlemhufl7x3zatbf7ygcfnshinyz4bunroyhegmyxutgooqbcc@wtpqkldesosb>
 
-tcp_bpf_sendmsg() stores the return value of sk_msg_memcopy_from_iter()
-in a local variable "ret" and jumps to out_err on failure, but never
-copies that value into "err".  The "err" variable therefore keeps
-whatever it held before the copy: 0 on the normal allocation path, or
-the stale -ENOSPC left behind by a partial sk_msg_alloc().
 
-On the first loop iteration "copied" is still 0, so the function
-returns "copied > 0 ? copied : err" -- 0 on the normal path and the
-stale -ENOSPC on the partial-allocation path -- instead of the real
-error such as -EFAULT.  A blocking sendmsg() handed data but returning
-0 with no errno can drive userspace into a busy retry loop or be taken
-for a successful short write, and the wrong errno misleads recovery on
-the other path.
+--rh5ndjbw7hffc73s
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+From: Alejandro Colomar <alx+linux-hardening@kernel.org>
+To: linux-input@vger.kernel.org, linux-hardening@vger.kernel.org, 
+	Marcus Folkesson <marcus.folkesson@gmail.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Ville Syrjala <syrjala@sci.fi>, Henk Vergonet <Henk.Vergonet@gmail.com>, 
+	Henrik Rydberg <rydberg@bitmath.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/6] USB: add usb_make_subpath() for formatted device
+ subpaths
+Message-ID: <atneGH0t_T-75WmE@debian>
+References: <20261021123146.17202-1-shlomojune6@gmail.com>
+ <20261021123146.17202-2-shlomojune6@gmail.com>
+ <ati7RlrVvmzMjzNr@debian>
+ <tlemhufl7x3zatbf7ygcfnshinyz4bunroyhegmyxutgooqbcc@wtpqkldesosb>
+MIME-Version: 1.0
+In-Reply-To: <tlemhufl7x3zatbf7ygcfnshinyz4bunroyhegmyxutgooqbcc@wtpqkldesosb>
 
-Propagate the memcopy failure so the real errno reaches userspace,
-consistent with every other out_err path in the function.
+Hi Shihuang,
 
-Fixes: 5153a75ef34b ("tcp_bpf: Fix copied value in tcp_bpf_sendmsg")
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
- net/ipv4/tcp_bpf.c | 1 +
- 1 file changed, 1 insertion(+)
+> Date: 2026-10-22 15:08:58+0800
+> From: Shihuang Liu <shlomojune6@gmail.com>
+>
+> On Wed, Oct 21, 2026 at 03:17:56PM +0200, Alejandro Colomar wrote:
+> > Hi Shihuang,
+> >=20
+> > > Date: 2026-10-21 20:31:41+0800
+> > > From: Shihuang Liu <shlomojune6@gmail.com>
+> > >
+> > > USB drivers often build device paths by calling usb_make_path() :and
+> > > then appending a subpath. Several callers use the deprecated strlcat()
+> > > API for this.
+> > >=20
+> > > In preparation for removing the deprecated strlcat() API[1], add
+> > > usb_make_subpath() to format the USB device path.
+> > >=20
+> > > Link: https://github.com/KSPP/linux/issues/370 [1]
+> > > Signed-off-by: Shihuang Liu <shlomojune6@gmail.com>
+> > > ---
+> > >  include/linux/usb.h | 29 +++++++++++++++++++++++++++++
+> > >  1 file changed, 29 insertions(+)
+> > >=20
+> > > diff --git a/include/linux/usb.h b/include/linux/usb.h
+> > > index 1da4ad1610bca..c90ccea0cdbf6 100644
+> > > --- a/include/linux/usb.h
+> > > +++ b/include/linux/usb.h
+> > > @@ -14,6 +14,7 @@
+> > >  #include <linux/errno.h>        /* for -ENODEV */
+> > >  #include <linux/delay.h>	/* for mdelay() */
+> > >  #include <linux/interrupt.h>	/* for in_interrupt() */
+> > > +#include <linux/stdarg.h>	/* for va_list */
+> > >  #include <linux/list.h>		/* for struct list_head */
+> > >  #include <linux/kref.h>		/* for struct kref */
+> > >  #include <linux/device.h>	/* for struct device */
+> > > @@ -987,6 +988,34 @@ static inline int usb_make_path(struct usb_devic=
+e *dev, char *buf, size_t size)
+> > >  	return (actual >=3D (int)size) ? -1 : actual;
+> > >  }
+> > > =20
+> > > +/**
+> > > + * usb_make_subpath - returns a stable device path and formatted sub=
+path
+> > > + * @dev: the device whose path is being constructed
+> > > + * @buf: where to put the string
+> > > + * @size: how big is "buf"?
+> > > + * @fmt: format string for the subpath, without the leading slash
+> > > + * @...: arguments for @fmt
+> > > + *
+> > > + * Return: Length of the string (> 0) or negative if size was too sm=
+all.
+> > > + */
+> > > +static inline __printf(4, 5)
+> > > +int usb_make_subpath(struct usb_device *dev, char *buf, size_t size,
+> > > +		     const char *fmt, ...)
+> > > +{
+> > > +	struct va_format vaf;
+> > > +	va_list args;
+> > > +	int actual;
+> > > +
+> > > +	va_start(args, fmt);
+> > > +	vaf.fmt =3D fmt;
+> > > +	vaf.va =3D &args;
+> > > +	actual =3D snprintf(buf, size, "usb-%s-%s/%pV", dev->bus->bus_name,
+> > > +			  dev->devpath, &vaf);
+> > > +	va_end(args);
+> > > +
+> > > +	return (actual >=3D (int)size) ? -1 : actual;
+> >=20
+> > Why are you open-coding usb_make_path() here instead of calling it?
+> >=20
+> >=20
+> > Have a lovely day!
+> > Alex
+> >=20
+> Hi, Alex
+>=20
+> With open-coding, a single snprintf() is enough, so we don't need to
+> call usb_make_path() and then another function to append the suffix.
 
-diff --git a/net/ipv4/tcp_bpf.c b/net/ipv4/tcp_bpf.c
-index 97541acb3cce..8cf63a9e7fed 100644
---- a/net/ipv4/tcp_bpf.c
-+++ b/net/ipv4/tcp_bpf.c
-@@ -578,6 +578,7 @@ static int tcp_bpf_sendmsg(struct sock *sk, struct msghdr *msg, size_t size)
- 					       copy);
- 		if (ret < 0) {
- 			sk_msg_trim(sk, msg_tx, osize);
-+			err = ret;
- 			goto out_err;
- 		}
- 
--- 
-2.20.1
+The number of function calls should be negligible compared to all the
+work done by this function.  The readability and robustness is way more
+important.
+
+
+Have a lovely day!
+Alex
+
+>=20
+> Thanks,
+> Shihuang
+> > > +}
+> > > +
+> > >  /*------------------------------------------------------------------=
+-------*/
+> > > =20
+> > >  #define USB_DEVICE_ID_MATCH_DEVICE \
+> > > --=20
+> > > 2.43.0
+> > >=20
+> > >=20
+> >=20
+> > --=20
+> > <https://www.alejandro-colomar.es>
+
+--=20
+<https://www.alejandro-colomar.es>
+
+--rh5ndjbw7hffc73s
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEES7Jt9u9GbmlWADAi64mZXMKQwqkFAmrZ3nQACgkQ64mZXMKQ
+wqn0Fw//SGjH8HrquKq8O/0rj1F203YqVKSK5lxEgPM01cGShGSTDVpddlf/c6Vn
+aJOVaMCAqgKIgY5Co6GyffjnZNUhgFrtgA0mOhUfpAhHAOvtkdfDBNosBjwt87+C
+lNAWL8N8cMFmnfHnTjYTCjFIGht8T+TPeD0nObxkzwlAHItvC3QaOOvQvkZyrUv+
+zcAz+O4TdWC1TJK2g6yzSnX5rGED3ubgLD6x7Fho4uth0b8yJjY9nLCEMpj6MYWB
+YoJvFgrhealZ2sdfoux5XEbg/SvxOZXZKWg8BrN/tp4PiFDrvKCc9sxJsg2Q5TuS
+2gM4aDdfX7DYKonIhD4jzYCu1mRnKcMGNETPep172HucDC51ASkuWdbgShjeZ2sk
+avMKJKnaZxnWcGykOI6wFBBgfSyOZyp1LxHb/CPors+cVwEnZ23n3pfpTDVoh6Gn
+CZFnljF51vv+WEbh27dTO4Wcfg4eMK9K2qlFm/eP6lAMgnl5Q02NXKqfXlVNOxPe
+IV8RFbXyLtKQoADC0grMw2eZ89WS8bHrpsedoG0QFf0TkVx8tPng858KsgSdtOdd
+lcp8qZHEne0MMasUbm80VCvEKmyQohr+f74fqbXm2uvPiJuzxOEDavs8T/u7cXBz
+5AGAaH5C7ZDqtcsT+ZMeg7YJPM7ykhlr64+wtJlHxwHIt1Qoyyw=
+=Z9XF
+-----END PGP SIGNATURE-----
+
+--rh5ndjbw7hffc73s--
