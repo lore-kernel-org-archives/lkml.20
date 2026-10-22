@@ -1,76 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709067;
-	b=Q5euomV0aR9Uatjvx9r8p4cgXMjYg4jSy5OTbT5Fp4+JvXv6KBU6jdM1PjapSAgFaT+6
-	 K9M0vi4+HPcSYx5qvYlZoCu356gDRnra6GINXUZqd3c7sB6l07vngaq91GbnmpvfT4fF9
-	 HyB+QQIW4jWE0ya/y/LjFqHZuDWGRO9dzZOSo45ZI2RqD4rAcjpnWKI2OjemT4wSqtTos
-	 h0pdp8EsY05HOBPx0kTUdWYiYZ5eING87kFTmJKp8XvLChPploJq2GMNz7oHxvzvebfMU
-	 6XuHGalla1hJSivphOZ0BsfyAQYWucqVmiLMXn22oUjq6kXmU3ZmGSuCyLE323Bjfrw==
+	t=1792709083;
+	b=VwJFIapw+E2BelRvUvCn1omJ6ej2jecvb+VbtSfMcC6SqYVOWv2IzQeR8xkD+rRJYqhq
+	 gd4Zhj1UXNnf1R3aTc71lhmkDQaFi9UPcvFCo1Ija8UrzKK7ZlesCjA42SqONxgZ3T8Sc
+	 6EfeEJRd0yxa1QtIkUegpFlRpfqEwOWYf4eQkYGuSEoaqQzCHOCSKo/ufi1/+PSJF/8Ub
+	 o9WoKPwmUjLuSvhIQe6V4xju2omUqAm1IHN+Ef81/Rwtol73VFY0HmWmJZf4lztnm7HLm
+	 HGCKjsqk2JuA4+3YVD5MzbyuvdsXlHoIzpsord9YV2iOCxUInpf9S9oqt09hrEhKyFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709083;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=5J9MvBdhUxYTb7Mgm25rcoiZhjWHj9jpVpCDuA1tNH0=;
-	b=kfO+lThLnTP9Gw3Oepntbsxf9kjw7mtmf+z0InjNr6q98VJQM4cyQjaRIao+5FIOLPZ5
-	 R8mkUE2+SEZMtq3EvvnjoQ+6PSRx4CuFYNG14SvkSCYBq5cw9vKhurmrFa8d+NR/lLp5J
-	 AlABRBd6+lbUTDE7jvui036LESSQYiwXmCdH6bshom9zXcK2alvQiEfWh7PjS5+xUOZJI
-	 nrVFqIqDHNmLb1iVxfVvUeu0yrF+6c9743HA0dsDCv8hZI3t2pii2XLVtAMG/IouIm+4L
-	 5b4q7vPXwEJY0ES0u0q38DwI1sMl2WoRkcjStWQEV5kpGgF+aedM6lCs4buPGkxyN7A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=k4fZoxMlqvig8SEoaOPtbmuY6MUiHBjiaHzykL2lErI=;
+	b=2ShzVFi+crTzpzHuDfP3RDY5Bln8RBoXNdTQyuEzioYO9nHujsEQA+YAeVdS8hO9Udta
+	 n/YX4/P7p5fgukpT9Jp18ibJZH4LujYgTtadsk6Kx3/4lGaqCwFVKRHLRKsZMfWuc0SX/
+	 GgXnnuNEi6mNckCvzTb2lMRG406zGo9YcUsX4DYIp6CtRfIGzjefXRBy08vWjM0SJz/Pr
+	 VmSofkcP836y12XC4q3nMnmSTNq44yhJDq4V5PX9PdWCIvK/44zzea64TJXW6l8B/5dpp
+	 mO66luaQ9QNTm9odE5aZZuPJtUIKRAA2eBHivoA8iq7cJlQALWC5aUHaucCV33wtkZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nfI6Qgg4;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZbtUcfW9;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 609C4606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:44:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 609C4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A6D60A261E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:44:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12A6D60A261E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=nfI6Qgg4
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-89e96c03cd0so236378b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:44:27 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZbtUcfW9
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a05e3f0d23so156701b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:44:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792709067; x=1793313867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5J9MvBdhUxYTb7Mgm25rcoiZhjWHj9jpVpCDuA1tNH0=;
-        b=nfI6Qgg4MPKsp3F6kJ1b0R9Vo+gzsApTN/DbpOJg6b+GnddLliIN9U0QOE7rl5dLGi
-         ONI4G4MYVEM7PszwqIUjiffKr9aFe1uczg6y4lTlJua5l9Sz7+Go5QhbsWwQmcT3hogk
-         TVXpbGtid4lUILqbDkfzBCfH7m7PGXh9grXR+Q2U5MwiFc/H0O/LpYHJyXkjapNGrA43
-         jVHr6mQMhv9CfxwuJ+XjJ6HXjN/awlEhl5Cx0acoyPa/BmemqhoSHNVLDiCGThDN6Yqo
-         U9Pgn6iRF2WxMXPLYIBS712RrxEQft6PDD4YcUb9sEUNllXD3QatZbchvUgoKlcbeMnP
-         5evA==
+        d=gmail.com; s=20251104; t=1792709081; x=1793313881; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k4fZoxMlqvig8SEoaOPtbmuY6MUiHBjiaHzykL2lErI=;
+        b=ZbtUcfW97Cbox1/4oJ+iFUIiIvU0KPpzOsKzU6NFQ3zJlZV1PyZtEMRDhcb0ViKG9d
+         v8Uo2SUmB128g3IGgbyx47fP3y5DkOJU1WNCsfDHRJNvEFYd9Lytzvs9NH46dEY81zxs
+         jFBqN2/AZewvymOUiXVYiLeJNZqT24TKg1v3LFVYZpaXbld26nRy8k44lmMjMh+5wNnS
+         yjzMPMjZbQUpFBQu83pXk3IWuek1tlrNUKdVQQsKoxaGyFIwRbV48CvlCtIAQACDiXaA
+         ya55qS5GpbOk+pQBINSF5tzKGPg09PsNK1tGynu6rR3iDy8eSPmesKht/M1Wxwbo6WKX
+         WB5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792709067; x=1793313867;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5J9MvBdhUxYTb7Mgm25rcoiZhjWHj9jpVpCDuA1tNH0=;
-        b=eBGVqdsND8uycnYtjA1bg/MatUvPD+uGSkgq6kX/tck/BpZkwBXIJeqwgC9Xw5CJde
-         1SIuMPd8d/a8vrWZMGZqPo4kScUHnGciEqzIdp2WfBVXTAs2QnqyBf9Z8mj+C+mVmOoF
-         QBtgOvpB0NKj+L/zOGCXMEJMo887ByhvsTzfTV4YOWKrjcPFmsRJ5IEYgaI4VHCzRaVg
-         PdyQGwQqqvQLpD1N863/cERx5vJp42p2KD2aLg20Cx0dngPLZttfmmnLIvWlUH/NTUHU
-         rPCSESTh7H9412OXgAmkQ3pg3/MIW/tZtCm1CEZpZaux4W12ENcBS3DCI+/JDvOsAIMN
-         rK0g==
-X-Forwarded-Encrypted: i=1; AKwUvByBSyjD1Qv75b9dcuOkczUiV25OjoQkfiJoRnAMv8VfptfllXcAfZ08vnZtdU7DGC1eYV+rzqL33RsiV/k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIUkB9Nmogq1TXhR/QogmXivRc8AAvni9nBPnFbnPrGRg2psy4Y
-	99N4R8EbDQXoytzW68KHw9nYqyt62YKKs9lNbXQHTvjNCsh2eybtClIXKZpXhBa6fOchLgxBANm
-	FOWX5Rw==
-X-Received: from pffk13.prod.google.com ([2002:aa7:88cd:0:b0:886:fe91:dda4])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:a0c:b0:886:458a:42e9
- with SMTP id d2e1a72fcca58-8a2c767402dmr349482b3a.49.1792709066272; Thu, 22
- Oct 2026 15:44:26 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:44:25 -0700
-In-Reply-To: <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1792709081; x=1793313881;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k4fZoxMlqvig8SEoaOPtbmuY6MUiHBjiaHzykL2lErI=;
+        b=ifBFQhOQX0hbtdPH4k5jg2AjlO2zUh/VsZ++PE9lHMUgtUBdl0Ra3xGOBHxzvY5mJ1
+         MbCXvExRC+vXODQ3Wt3R0EhUuGyB1ewjm0tmylT8eTb5FADIkKBkjFshewNnZO1xSQ1f
+         0wXnHGvbBaVrPQw1RPmBjkUQ+JA8t+9bTbw1DjnVtVp9qZ/tB+ygkwjUvGC54BRXTYfb
+         fYv9JWZ8jih+CKvbjdALyxT+pbEHzlyzukIqbBsP/HZSvs18r4qhPui9Iap8mdFcauUV
+         9DfqFq4Rweku81HUZ2l0ytbZwXL+T3MG2bDzuO0NXIcc4samLcqZfR+jJn+jaOoGD37j
+         u2uQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJS6o2gXFeAl1LYUoewWDrNVDU2nBeAgddeV5h2Y988Rs5XE8abh729XLpO4zwN8F+gaGUghuzA7aIpKI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ1yjIx8sD+WfKxT3w29WvXUx4OPpxqM9T/ZwEzIOlOoD4cVEXN
+	mFraKhb/yniiWEdeh+PtA8KAC42JXtlBAfM3bHD1H8QpLVubTJGtQbnp
+X-Gm-Gg: AYBFou2C3O0kP8Hd8wdcPDpordJRNFXgdOjOSNPYvv8LwDneqkyTJv9IrmUpCl1wisl
+	srCAdabne59Air8zWC5BLC+OtlD4k+2xzsarhwwbWbOeNAzxQ/f8KI5vVd/c29KyV4OId6a64g2
+	yy6x5VdvRPdqMRV49DWqQk04kQT/56hTMFRmS0eauypoMRXd4MAiS9M3/7lU0MLpWIQtlCSio0p
+	s/LcmwTW190YvSlYtsnzS7CD3ggLV6HcUOo1tdkK0isgAQJnCY80XppSt8706satu1m5ivHIFN2
+	yhyWevh+RKB/EMMPp+typwmKF50R+8eG9TdtSO3r09QQOKcfym5vtLrmEjQRsvk1mYdVxvBBFqj
+	0Osh0P7jQ82Ci/nEjW1lTKhQhhhjQFTHuc2vukOFqDQO9scecLJVo75GNQVPkdlvyD10dhya5u2
+	N07qFg8D20xH23XiZJJFlJ3CHKEvO95M6C3JEQHCR86MGZFONDCem96B+xRd+F0npswzGuWW0IS
+	Yho7pQVpjTrtDBNl3lzGwsS3m2Nz0aPrSrUn/YhjTu1C2uvYwIduQ==
+X-Received: by 2002:a05:6a21:7084:b0:3e2:729c:9bcb with SMTP id adf61e73a8af0-3e376771294mr257966637.65.1792709081481;
+        Thu, 22 Oct 2026 15:44:41 -0700 (PDT)
+Received: from kir-tp1.lan ([67.185.120.12])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd8ba8e6678sm192717a12.30.2026.10.22.15.44.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 15:44:41 -0700 (PDT)
+From: Kir Kolyshkin <kolyshkin@gmail.com>
+To: Joe Perches <joe@perches.com>,
+	Andy Whitcroft <apw@canonical.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Kir Kolyshkin <kolyshkin@gmail.com>,
+	Dwaipayan Ray <dwaipayanray1@gmail.com>,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 4/4] checkpatch: don't suggest kstrto<type> in userspace code
+Date: Thu, 22 Oct 2026 15:44:23 -0700
+Message-ID: <20261022224426.2756960-5-kolyshkin@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022224426.2756960-1-kolyshkin@gmail.com>
+References: <20261022224426.2756960-1-kolyshkin@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,45 +101,36 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261012233638.2546339-1-yosry@kernel.org> <20261012233638.2546339-27-yosry@kernel.org>
- <CALMp9eS8KDozNGT9J_uN69W32QEvTbg2JrtRqN0ESi00b_uq=A@mail.gmail.com>
-Message-ID: <atqRyeqSXViiNIk6@google.com>
-Subject: Re: [PATCH v3 26/27] KVM: nSVM: Use different ASIDs for L1 and L2
-From: Sean Christopherson <seanjc@google.com>
-To: Jim Mattson <jmattson@google.com>
-Cc: Yosry Ahmed <yosry@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Maxim Levitsky <mlevitsk@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 16, 2026, Jim Mattson wrote:
-> On Mon, Oct 12, 2026 at 4:37=E2=80=AFPM Yosry Ahmed <yosry@kernel.org> wr=
-ote:
-> Moreover, does this change the semantics of PV TLB flush? In
-> record_steal_time(), we have:
->=20
-> if (st_preempted & KVM_VCPU_FLUSH_TLB)
->         kvm_vcpu_flush_tlb_guest(vcpu);
->=20
-> IIUC, an idle vCPU that wakes into L2 will flush only L2's ASID. In
-> the past, with a shared ASID, L1's ASID was always flushed on emulated
-> VM-exit anyway. Now, L1's ASID will be unaffected. Though I can't find
-> any real documentation on PV TLB flush, it *seems* like the remote
-> vCPU would want L1's ASID to be flushed. OTOH, this change makes nSVM
-> behave just like nVMX.
+The SSCANF_TO_KSTRTO check suggests using kstrto<type> instead of a
+single-variable sscanf(). These helpers are kernel-only and are not
+available to userspace code under tools/, so the suggestion can not be
+followed there.
 
-That's a bug that absolutely needs to be fixed, probably relatively urgentl=
-y.  We
-should also document that passing through the steal_time shared information=
- to L2
-to utilize PV TLB flushes for L2 is explicitly not supported.
+Use is_userspace() to skip the check for such files.
 
-I hate to re-introduce deferred actions for L2 =3D> L1 things, but that see=
-ms like
-the only sane way to handle this, because handling the !tdp_enabled case, w=
-here
-KVM needs to sync the current root, requires knowing what MMU is going to b=
-e in
-use when L1 regains control.  Yuck.
+Signed-off-by: Kir Kolyshkin <kolyshkin@gmail.com>
+---
+ scripts/checkpatch.pl | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index be0e0493d4a2..7a520faec34e 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -7204,8 +7204,8 @@ sub process {
+ 			     "unchecked sscanf return value\n" . "$here\n$stat_real\n");
+ 		}
+ 
+-# check for simple sscanf that should be kstrto<foo>
+-		if ($perl_version_ok &&
++# check for simple sscanf that should be kstrto<foo> (not available in userspace)
++		if ($perl_version_ok && !is_userspace($realfile) &&
+ 		    defined $stat &&
+ 		    $line =~ /\bsscanf\b/) {
+ 			my $lc = $stat =~ tr@\n@@;
+-- 
+2.56.0
+
