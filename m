@@ -1,54 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792709216;
-	b=fG5jJuNRKasQeFNQ5lfdOO+FbGfij8ll4sP6E+LRNDMCCwkPOfGxNiFteNFhJ+5cDJcA
-	 9U0H7qPzRIS0DxtbQ8+uMPwxwIB5W50vPK1b89j5Yg+3SNytN/EE3k+Xa79SLRFgLOMh0
-	 OnQMTsN/zgoxKDgzy5kWfGRYp2RqWThNQOyCEFLbvpl7pPaqYsNDv+EpjWZShNsGcJ8ef
-	 E7xBJC/C7q2PhJ/O0GOSa0LFSEDpIdy9YwSVNJZOaKPsL+m40vXax3WapBw5G9Jm3RIfk
-	 YDdIVD9eRLwG4iFfhLyhkcHYWwOgwbh/C5hQjTxmfVE60+XKSs36BO5C6R6pn2+/vGw==
+	t=1792709440;
+	b=eBhBTEEp7qq/yUvjCifylNmEWRfP43QXah/DPgCf6d2iSBIJbyV67dLOnTG+CZBsMZbT
+	 NcPIdWhVV09oL2ys3+EKWFAbVsAALetukuoj7FWx5vOlmvmF1KyUEO1XkdEnpxjfzAw+e
+	 f35rZKnorhNM56rEDK1T/hK2TJAMERgBp9S9QAKQB7a81osg5z+FZCwEctAgJUujRzwO/
+	 WNixI/2mHfen4V8VnWpnaPrcFikAlxRUpymKI/glNWFiyW64V9oBJeBFAy4d/CIoDdn91
+	 lpOAzQjOzDGxls8tNdABJ69VK+r9nMeD6Ag2gNHc8NsWnjDfh+f40JMatabPmr8JSSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792709216;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=6HVNSAC2pVzM5gmZ1G4vnaKyC0gGDE4WBClKRG3TuP0=;
-	b=isSC3VZeSVX3UGCCFUMUnufuLFC3CNzx/48JzZ/jntmHVaHyWwRZvqzQ6/HTRrFcHvak
-	 ibD/pT5R84jcrFaTAvx4V7y0CTdSzVIyD5xlBIF6nbkXiboTX1ZChHSqYdAczi6MpDazY
-	 0gOQWOBuToU4FkRELG5vyATtd9ynQYbBedE9khmc6qJikns0mPnTA+Cu5OLHNU+3Gdwz4
-	 /20G41OkSSv+gHWIZOgCcUhWluPibtT7fjiCPsvYhhcUEdgghywJnaVvdq14cwV33mW00
-	 VStRK/Nb/HbW3DVthpCw3EgbE7NvG5ZNUtl2Nj+uKXuLJVr8C0nekBVE8QXD5IATLCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792709440;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=QcZ8/zo+4ubbzN6kQcHbARyXxVN7Up83gggbGBEi730=;
+	b=MaFs5WTfRzU7Zka9nCkWtTzYqmLIS2Ynqo4nGjb1crngNON862F5QXx7N7/XSbW4A1C3
+	 4rl8HfBhata4mUT5IKym37Obu1DkygsDr/LKUK7H25v324UcmKKKYS8qqQ1Yhkki4YzgN
+	 grKNquMBeSzGQoFHWfPZfSj2jNr52eggSprM1Yol3ZiZ6/OLW+PVVrDkQarSaTG3XycEs
+	 8BPrzPf7fd+HaI/2fM5EjG8P7FZI7rggNzfLbkdAIRjgY2xOuQhSb+xbJJy9Ptg6Y3Y4n
+	 QIqQOsttIdGuDvvmnO4z1t4ZFLE0xLMsdjId4G3xeaO7BlUfE1eXa+AahsLeZaAXdWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=minlexx.ru;
-	spf=none smtp.mailfrom=minlexx.ru;
-	dkim=pass header.d=minlexx.ru header.i=@minlexx.ru header.a=rsa-sha256 header.s=dkim header.b=pHseHkyd;
-	arc=none smtp.remote-ip=31.31.198.150
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=u0+KIhiu;
+	arc=none smtp.remote-ip=209.85.214.198
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A22606A325;
-	Thu, 22 Oct 2026 22:46:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4A22606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BD8606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72BD8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=minlexx.ru header.i=@minlexx.ru header.a=rsa-sha256 header.s=dkim header.b=pHseHkyd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
-	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=6HVNSAC2pVzM5gmZ1G4vnaKyC0gGDE4WBClKRG3TuP0=; b=pHseHkydBg+Ddj7cbPBtrmwDUC
-	wiwDDkr+9kmxC0UP9dguzqQjY8PcyMlPYunuV6YQd10sIL9V+XygJy6RqLfEMQVu5fCTFM7WIOhf8
-	cUMKYQenwJzxLNgu1nor/LJDIdg/UA9sbe+2BX5EDDrJvYQeaeU21UhLucOxChIkb7kM=;
-Received: 
-	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(envelope-from <alexeymin@minlexx.ru>)
-	id 1xK1Yg-00000002Ukl-3uPN;
-	Fri, 23 Oct 2026 01:46:51 +0300
-Message-ID: <2424c934-c928-42f5-9159-01381d81bc86@minlexx.ru>
-Date: Fri, 23 Oct 2026 01:46:50 +0300
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=u0+KIhiu
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ea0fe07201so1629625ad.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:50:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792709439; x=1793314239; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QcZ8/zo+4ubbzN6kQcHbARyXxVN7Up83gggbGBEi730=;
+        b=u0+KIhiubnYthx/xW0tDnkh08B40JT4FU7KGj6YNT/mWvDqkQHguNtcFOrbVeThUBV
+         nQrtVMcuw77zq3bnSdhZqMjvpKhi7kG+9dk5SOTgimRfbsSFz0QRxkYCqzQlsShmMi64
+         +FbsN2ooc4HBUUFIMMOgNgninJXXFtt9c1XaKTVwMq7vjq3g2pFBRDgmUmziuTVGUH5R
+         jHrvWttgtBkp9pUkWwqnux2JIwiIJ/HYfRFvKtvO4f5/pYbOYeiErRdTfG5tVh6DsCZa
+         1cX/ymp2xK0ah0EzTD4j6JGUnw5ueNzBK+c8TXDUzlpKdJB3gLmwvcR1qoLzPqiwsiSX
+         pIeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792709439; x=1793314239;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QcZ8/zo+4ubbzN6kQcHbARyXxVN7Up83gggbGBEi730=;
+        b=HClWCL13Sm1SJgzNTLChoLDJPu0/9p82BQYFOBVrGRhD8y+QmjESbbQjQ6/jdDRGwS
+         1uotdawnxY8MT7NPdeuncK4cTbtg1Zvji4xXG8ZqduViEg8sQmaMPynVMn2paYkRbgVK
+         aU+67e0PXROOfnQ5kV+p/VocH6PbBy3EOt/WZrbhmsUSmYlJZjRrxKSu8c78+g1ndb11
+         VFL5+EStQ9N4ylWZmCTKDystG6zpJAaLXzl9Fm1eyTQEbAr6wWM+YWHNQMRQLZ6OzCXM
+         79P2Br73sDKcSLY5m1kOvImKblN8jRGy/rpzmxDWgTZQfE0xt7VIfqMx9cOOZONSIz0N
+         19Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBxRaRgM1hQclxtsA8o4pP/eoigxHPQh17VWCTsWqimuzPIM3o+L4QdB7PC/Uh1wPph5gN4M/lF87Uo4sA4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJWxuNq9aAm5Rz41YCeGGIYFa+VcOJuVbCSe6fNV3nHEOi3duT9
+	qNJbY1x/RODkiIvymKBOn6cgiPsMFe9OfWG8cPsYKwKDwVoTApvGqrSXh9QJHAK9t6mFRBdZgzT
+	mj9IvBVu8Vr+okQ==
+X-Received: from plpn5.prod.google.com ([2002:a17:902:9685:b0:2e8:18c6:a093])
+ (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:902:f689:b0:2e9:87e8:71c8 with SMTP id d9443c01a7336-2ea7c9ffc99mr6376265ad.4.1792709438571;
+ Thu, 22 Oct 2026 15:50:38 -0700 (PDT)
+Date: Thu, 22 Oct 2026 22:50:25 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,89 +75,275 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] power: supply: qcom_smbx: report charger state
- changes
-To: fabricioakio@gmail.com, Casey Connolly <casey.connolly@linaro.org>,
- Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>,
- phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>,
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
- <20261003-qcom-smbx-chg-state-change-v1-2-fffaef446932@gmail.com>
-Content-Language: en-US
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-In-Reply-To: <20261003-qcom-smbx-chg-state-change-v1-2-fffaef446932@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261022225035.377445-1-dmatlack@google.com>
+Subject: [PATCH v2 00/10] liveupdate: Preserve tmpfs files across Live Update
+From: David Matlack <dmatlack@google.com>
+To: kexec@lists.infradead.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org
+Cc: Alexander Graf <graf@amazon.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Christian Brauner <brauner@kernel.org>, 
+	David Hildenbrand <david@kernel.org>, Hugh Dickins <hughd@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	"Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>, 
+	Pratyush Yadav <pratyush@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Samiullah Khawaja <skhawaja@google.com>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
+	David Matlack <dmatlack@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 03.10.2026 22:45, Fabricio Akio via B4 Relay wrote:
-> From: Fabricio Akio <fabricioakio@gmail.com>
-> 
-> Nothing notifies consumers when the charging state changes on its own,
-> as when a charge completes, so they can keep a stale status.
-> 
-> Request the chg-state-change interrupt when the device tree provides
-> it, and notify consumers when it fires.
-> 
-> Fixes: 8648aeb5d7b7 ("power: supply: add Qualcomm PMI8998 SMB2 Charger driver")
-> Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
-> ---
->   drivers/power/supply/qcom_smbx.c | 24 ++++++++++++++++++++++++
->   1 file changed, 24 insertions(+)
-> 
-> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
-> index f5557b8cc92a..3738eb8638bc 100644
-> --- a/drivers/power/supply/qcom_smbx.c
-> +++ b/drivers/power/supply/qcom_smbx.c
-> @@ -762,6 +762,15 @@ static irqreturn_t smb_handle_usb_icl_change(int irq, void *data)
->   	return IRQ_HANDLED;
->   }
->   
-> +static irqreturn_t smb_handle_chg_state_change(int irq, void *data)
-> +{
-> +	struct smb_chip *chip = data;
-> +
-> +	power_supply_changed(chip->chg_psy);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->   static irqreturn_t smb_handle_wdog_bark(int irq, void *data)
->   {
->   	struct smb_chip *chip = data;
-> @@ -1078,6 +1087,21 @@ static int smb_probe(struct platform_device *pdev)
->   	if (rc < 0)
->   		return rc;
->   
-> +	/* Optional: not every device tree lists it */
-> +	irq = platform_get_irq_byname_optional(pdev, "chg-state-change");
-> +	if (irq > 0) {
-> +		rc = devm_request_threaded_irq(chip->dev, irq, NULL,
-> +					       smb_handle_chg_state_change,
-> +					       IRQF_ONESHOT, "chg-state-change",
-> +					       chip);
-> +		if (rc < 0)
-> +			return dev_err_probe(chip->dev, rc,
-> +					     "Couldn't request irq chg-state-change\n");
-> +	} else if (irq != -ENXIO) {
-> +		return dev_err_probe(chip->dev, irq,
-> +				     "Couldn't get irq chg-state-change\n");
-> +	}
-> +
->   	devm_device_init_wakeup(chip->dev);
->   
->   	rc = devm_pm_set_wake_irq(chip->dev, chip->cable_irq);
-> 
+This series can be found on GitHub:
 
-Tested-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+  https://github.com/dmatlack/linux/tree/liveupdate/tmpfs/v2
 
---
-Regards,
-Alexey Minnekhanov
+This series allows userspace to preserve files on tmpfs mounts across a
+Live Update, in addition to memfds. Today the memfd file handler only
+accepts unlinked shmem files, and LIVEUPDATE_SESSION_RETRIEVE_FD always
+restores them as anonymous memfds. Userspace therefore has to put every
+in-memory file it wants to preserve in a memfd, which works for VM guest
+memory but not for other files that live on tmpfs mounts, such as
+in-memory logs, binaries, and configuration files.
+
+The kernel preserves the contents, size, file position and seals of each
+file. After the Live Update, userspace retrieves each file onto a tmpfs
+mount of its choice and links it at the path of its choice, so userspace
+decides the directory structure, names, owners and permissions of the
+restored files.
+
+This series builds on the per-file-handler argument for
+LIVEUPDATE_SESSION_PRESERVE_FD and LIVEUPDATE_SESSION_RETRIEVE_FD from
+Pasha's v1 [1], following Pratyush's suggestion on the RFC [2], and on
+the design discussion on Pasha's v1 [3].
+
+[1] https://lore.kernel.org/kexec/20261015093816.2438942-1-pasha.tatashin@soleen.com/
+[2] https://lore.kernel.org/kexec/2vxz7bjmkjeu.fsf@kernel.org/
+[3] https://lore.kernel.org/kexec/atE53vmlDeA4cWD2@google.com/
+
+Series Overview
+---------------
+
+This series implements the following:
+
+  1. Let userspace pass a file-handler-specific argument to
+     LIVEUPDATE_SESSION_PRESERVE_FD and LIVEUPDATE_SESSION_RETRIEVE_FD,
+     and let file handlers mark retrieve failures as retryable, so that
+     userspace can fix a bad argument and try again without losing the
+     preserved file (patches 1-3).
+
+  2. Rename the memfd file handler (memfd_luo) to shmem_luo, since it
+     preserves shmem files, which will include files on tmpfs mounts.
+     Preserving memfds created with MFD_HUGETLB will need a separate
+     handler, so naming the handler after the filesystem avoids another
+     rename later. The compatible string stays "memfd-v2" (patch 4).
+
+  3. Fix two existing problems in the retrieve path: a WARN_ON() that
+     userspace can trigger when tracking a retrieved file fails, and a
+     leak of the preserved folios when a retrieve fails before it
+     restores them (patches 5-6).
+
+  4. Retrieve files that were preserved from a tmpfs mount onto a tmpfs
+     mount chosen by userspace, via the new struct
+     liveupdate_shmem_retrieve_arg. The kernel creates the file as if by
+     openat(dirfd, ".", O_TMPFILE | flags, mode), so the file gets the
+     same flags, owner, permission checks and security labels as any
+     other new file in that directory, and is charged to that mount.
+     The kernel fills the file before returning it, so nothing else can
+     access the file before it is complete, and userspace links it at
+     the path it wants with linkat() (patch 7).
+
+  5. Allow preserving tmpfs files that are still linked, and require
+     permission to change the size of a file to preserve it, since
+     preserving a file freezes its size for all users of the file
+     (patch 8).
+
+  6. Allow retrieving tmpfs files with O_RDONLY so that restored
+     binaries can be executed before the session is finished (patch 9).
+
+  7. Add a kexec selftest for preserving and retrieving tmpfs files
+     (patch 10).
+
+uAPI Changes
+------------
+
+  - struct liveupdate_session_preserve_fd and struct
+    liveupdate_session_retrieve_fd gain a 64-bit @arg field, a pointer
+    to a handler-specific argument that starts with a 32-bit size
+    field. Callers that pass the old struct size are not affected.
+
+  - Passing a non-zero @arg when retrieving a token that was already
+    retrieved fails with -EBUSY instead of silently ignoring @arg.
+
+  - New struct liveupdate_shmem_retrieve_arg, with @dirfd, @flags and
+    @mode, for retrieving tmpfs files. Files that were preserved from a
+    tmpfs mount can only be retrieved with it, and memfds can only be
+    retrieved without it. Unlinked tmpfs files (e.g. created with
+    O_TMPFILE) were retrieved as memfds before this series, and now
+    require the argument too.
+
+  - Preserving a file now requires permission to change its size (see
+    Open Questions).
+
+ABI Changes
+-----------
+
+  - struct shmem_luo_ser (formerly struct memfd_luo_ser) gains a
+    SHMEM_LUO_FLAG_TMPFS flag in its existing @flags field, which
+    records that a file was on a tmpfs mount rather than the internal
+    shmem mount that memfds use.
+
+Open Questions
+--------------
+
+  - Preserving a file freezes its size until it is unpreserved: For all
+    users of the file, truncating it, fallocate() and writes past its
+    end fail with -EPERM, and the owner of the file can't undo that.
+    Linked files can be reached by anyone who can read them, so without
+    a permission check, anyone with a session fd could preserve e.g. a
+    world-readable file in /dev/shm through a read-only fd and break its
+    owner. Patch 8 therefore requires permission to write to the file
+    (inode_permission(MAY_WRITE), but neither a file opened for writing
+    nor a writable mount), or ownership if the file is immutable or on a
+    read-only superblock, since its size can't change anyway. The check
+    applies to all files, including memfds, where it passes in practice
+    since memfds are created with mode 0777 (or 0666). Is this the right
+    permission model for preserving files? Should this apply all files
+    or just shmem files?
+
+  - Is patch 9 (retrieving tmpfs files with O_RDONLY) worth merging?
+    Without it, userspace can only retrieve files O_RDWR or O_WRONLY
+    which then LUO keeps open until the session is finished, so
+    executing a restored binary fails with -ETXTBSY until then.
+    Supporting O_RDONLY retrieve is fairly simple so I think it is worth
+    supporting.
+
+Merge Plan
+----------
+
+This series applies on top of the next branch of liveupdate.git
+(commit 80cf37169dae ("Merge branch 'kho-bootmem' into next")) and is
+targeting Linux 7.5.
+
+The series will be merged through liveupdate.git.
+
+[4] https://lore.kernel.org/kexec/20261020144710.4154339-1-pasha.tatashin@soleen.com/
+
+Testing
+-------
+
+All patches were build-tested individually. The series was tested on
+x86_64 and arm64 in QEMU using the Live Update selftests:
+
+  - luo_tmpfs (new): 31 test cases covering the contents, size,
+    position, seals and holes of restored files; creating the file like
+    open(O_TMPFILE), with the requested flags and mode, the caller as
+    owner, and O_EXCL; executing restored binaries before and after the
+    session is finished; preserving files through read-only fds, on
+    read-only mounts and superblocks, and immutable files; rejecting
+    files that the caller can't write to; block accounting on the target
+    mount, including large folios that extend past the end of the file;
+    mount and memcg limits; memfds; invalid arguments; retrieving a
+    token twice; and that no kernel warnings are triggered.
+
+    The main downside of this new test is that it is large (2k lines).
+    It was trivial to generate with AI, but can understand if it is too
+    large to review. I can look for ways to simplify it. On the other
+    hand, having comprehensive test cases is quite nice.
+
+  - luo_kexec_simple, luo_multi_session, luo_stress_files and
+    luo_stress_sessions.
+
+  - liveupdate (including the new preserve_memfd_with_arg test).
+
+The selftests were run with vmtest.sh:
+
+  $ tools/testing/selftests/liveupdate/vmtest.sh -T luo_tmpfs
+
+Changelog
+---------
+
+v2:
+ - Rebase onto liveupdate/next.
+ - Drop the LIVEUPDATE_SESSION_FREEZE patches, which Pasha posted
+   separately [4], and the session freeze tests from patch 2.
+ - Patch 1: Fail with -EBUSY if an argument is passed for a token that
+   was already retrieved. Drop liveupdate_claim_file() and
+   liveupdate_unclaim_file(), which nothing uses anymore.
+ - Rename memfd_luo to shmem_luo, and clarify in the documentation that
+   memfd means a memfd created without MFD_HUGETLB (Pratyush).
+ - Don't WARN if tracking a retrieved file fails (Sashiko).
+ - Don't make early retrieve failures permanent, which also fixes
+   leaking the preserved folios when they happen (Sashiko).
+ - Create the restored tmpfs file in a directory chosen by userspace,
+   like open(O_TMPFILE), instead of restoring it into an existing file
+   provided by userspace (Pasha). This removes the need to check the
+   provided file, and ensures that nothing else can access the file
+   before it is complete. Don't preserve the name of the file, which
+   userspace already knows, so that it stays out of the ABI.
+ - Pass the flags from userspace through to file_open_root(), and only
+   reject unknown flags, unknown mode bits and O_PATH, like openat2().
+ - Decide whether a file is a tmpfs file by its superblock instead of
+   its link count, so that unlinked tmpfs files stay on a tmpfs mount
+   (Pasha).
+ - Require permission to change the size of a file to preserve it
+   (Sashiko).
+ - Split O_RDONLY support for retrieved tmpfs files into its own patch
+   so we can decide if it's worth merging (Pratyush).
+ - Replace the selftest changes with a dedicated kexec selftest.
+
+v1: https://lore.kernel.org/kexec/20261015093816.2438942-1-pasha.tatashin@soleen.com/
+rfc: https://lore.kernel.org/kexec/20260901180713.4185641-1-dmatlack@google.com/
+
+
+David Matlack (7):
+  mm: Rename memfd_luo to shmem_luo
+  liveupdate: Don't WARN if tracking a retrieved file fails
+  mm/shmem_luo: Don't make early retrieve failures permanent
+  mm/shmem_luo: Retrieve tmpfs files onto a tmpfs mount chosen by
+    userspace
+  mm/shmem_luo: Allow preserving tmpfs files that are still linked
+  mm/shmem_luo: Allow retrieving tmpfs files with O_RDONLY
+  selftests/liveupdate: Add a test for preserving tmpfs files
+
+Pasha Tatashin (3):
+  liveupdate: Pass user argument to file preserve and retrieve
+  selftests: liveupdate: Add tests for preserve and retrieve user
+    argument
+  liveupdate: Allow file handlers to mark retrieve failures as retryable
+
+ Documentation/core-api/liveupdate.rst         |    2 +-
+ Documentation/mm/index.rst                    |    2 +-
+ Documentation/mm/memfd_preservation.rst       |   23 -
+ Documentation/mm/shmem_preservation.rst       |   23 +
+ MAINTAINERS                                   |    4 +-
+ include/linux/kho/abi/{memfd.h => shmem.h}    |   56 +-
+ include/linux/liveupdate.h                    |   55 +-
+ include/uapi/linux/liveupdate.h               |   52 +-
+ kernel/liveupdate/Kconfig                     |    8 +-
+ kernel/liveupdate/luo_file.c                  |  110 +-
+ kernel/liveupdate/luo_internal.h              |    5 +-
+ kernel/liveupdate/luo_session.c               |    6 +-
+ mm/Makefile                                   |    2 +-
+ mm/internal.h                                 |    1 +
+ mm/shmem.c                                    |    9 +
+ mm/{memfd_luo.c => shmem_luo.c}               |  369 ++-
+ tools/testing/selftests/liveupdate/Makefile   |    1 +
+ tools/testing/selftests/liveupdate/config     |    4 +
+ .../liveupdate/lib/include/libliveupdate.h    |    3 +
+ .../selftests/liveupdate/lib/lu_utils.c       |   17 +-
+ .../testing/selftests/liveupdate/liveupdate.c |   44 +
+ .../testing/selftests/liveupdate/luo_tmpfs.c  | 2000 +++++++++++++++++
+ .../selftests/liveupdate/run-vmtests.sh       |    1 +
+ 23 files changed, 2630 insertions(+), 167 deletions(-)
+ delete mode 100644 Documentation/mm/memfd_preservation.rst
+ create mode 100644 Documentation/mm/shmem_preservation.rst
+ rename include/linux/kho/abi/{memfd.h => shmem.h} (54%)
+ rename mm/{memfd_luo.c => shmem_luo.c} (50%)
+ create mode 100644 tools/testing/selftests/liveupdate/luo_tmpfs.c
+
+
+base-commit: 80cf37169daef112b6bea9ae7d9808355a045475
+-- 
+2.56.0.257.gf7497c7d27-goog
+
