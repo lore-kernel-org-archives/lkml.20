@@ -1,57 +1,40 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.37.145.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792655304;
-	b=zY5hK9FWfsWXl46LhGdLCL26QWexiWpl8DrGViltQPBZLfyI+CWJmNq1+51VZXOHY0Jz
-	 whjXSXYypeWADxhZHBBT+Tefziegt8drewe5MUI+ylI3vjwqFw5wZqZO6cRVcRu8UgLyR
-	 3/gUqYEPUOYkP4Kytl59454GAi/BbQ7vd/ZoZgmlKAfRZmRhUkjWjFbiywvlZw5V2Rnhv
-	 KPCrRhxXkuN1cRIGs/oT4594XEAFDI/ISCPcnvIo91IGOwrVpseh7FAOTUgBqNHojxx11
-	 pGnXm6bUjmwy3KgpRZ0y2PtT8cnkpG3Xg1YIjNhowGBkqxjrlcNPpPeXF2PVO3yJbRQ==
+	t=1792655425;
+	b=QU1tCXWVVxmpZhXV4RtL5ffDzKmgTMZKpJJR9FGfqjX46RuxpF1YZBxmeR9VzZWc3q/8
+	 nHsj39/Ntag7+NoDffOFPrAopuBIDSkaG46cueevgOXCJH002NTzE/pC+6jA5NVXMmvxC
+	 4hcC9OiysTyFzsL68pUriSyA1ubietQFjAqQv8xoROIZj5D+K+9nlxZzYLGiQ5gIp7hU+
+	 aLdZU/8SgEyb3C71icbmw/3vubPad4lNnbQvr/v7UU+e5GJn+jqmRJR3zzfahmiVm4ozC
+	 +JB9Z+eb+6bvT1EyUNJK/pN2BAoUcpr+MuXLiXcwyRsvgJM1nWUugxEQun7aXKR/NBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792655304;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=X1wKvtC7kKFokkEkFL8BTC6HA5jeLIJj7teLcMrhAXo=;
-	b=mcxZFnJxhTSe44m+vqWFx6uO7+t9P508/u/V4oqO04lSLsal9VQtVe4BnE/Qx1CcNLhx
-	 hwQMN3BQ4yK+5BYHSaWLV4y4JSAg6v0eC6fvNLlvk620BbLIU4xzEFpt9mFZkOCDLHc+C
-	 SbqMvHOqilL6kxJ7HnuNo/POCJ3EkUhFyHf0NswY3oBpeLnVnOPs9PovDcz2hmDDnkmi1
-	 71ERGnG2BB7L2pKjHFhtWpldgF3Uoel8DySaB9PMAVQGb+KdZ8q+9gFU8ZYN0k1jzVVkq
-	 Tme4xjkGqzEcDNv2ntw2WFNbkJWr1Za8DCuFkl1wq9cUzpyFCPmKT7griFtX3kev9iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792655425;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QV+zN2xUewUmdQImdTxG7PLvSY4gZjRJOD9j8lRSP+Q=;
+	b=2XPqzool8/QHCkEZ0g86P4zmN29rumAxFfcMwBIsubv9hf+YLMMhxKmvN3XGjhdX7CNc
+	 stL6dQ5v7+oEpLoiioi8MNp+JmpJ07QbygX7fjdLmXwH6RrzmEu6z8cp1htvLuoEKsl1i
+	 N6nbJwa+RJ5TNlOkyrNuGAc22I2O4a1KSqXGQHEBqT87PpPW79mocpY5Z3lKH7tED2NO9
+	 t3KQeqWFfqvywvJ67+8YL4p9vvNcGBNMfgIBi10eIHzjmcsuVwxBT+tyr10z/RMQRa+s0
+	 HemceRX3zyql3C48aVgLwIwxQSIyKvzvuy7Myfecg5QZwTSqzaK4h4jKRNxAX9BtSvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=okn0yEtx;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+	dmarc=none header.from=iap-kborn.de;
+	spf=pass smtp.mailfrom=iap-kborn.de;
+	arc=none smtp.remote-ip=195.37.145.25
+Received: from mailx.iap-kborn.de (mailx.iap-kborn.de [195.37.145.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D868E606A319;
-	Thu, 22 Oct 2026 07:48:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D868E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=okn0yEtx
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:Content-Type:
-	MIME-Version; bh=X1wKvtC7kKFokkEkFL8BTC6HA5jeLIJj7teLcMrhAXo=;
-	b=okn0yEtxzHV+UXRsC4KIDO/T9jorqzGGeq+yvifPhT66Y4qougEnVNiz+rZ9Tu
-	Z/9XKHze/llvilZD2+t8YDAD+3yv+MoHQVCV0alnoujSZG/QvA35eP/KfDjICgUt
-	pnZ2sgwawsg30B3wB7Mw7eh5RnQmBHiPBISat1qNLHjU0=
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Robin van der Gracht <robin@protonic.nl>,
- Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de
-Cc: Oliver Hartkopp <socketcan@hartkopp.net>,
- Marc Kleine-Budde <mkl@pengutronix.de>, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH net v5] can: j1939: validate the EDPO packet number
-Date: Thu, 22 Oct 2026 15:47:45 +0800
-Message-Id: <179265526538.315101.6846048415570762476@163.com>
-In-Reply-To: <20261020032219.80117-1-quchaosheng000406@163.com>
-References: <20261020032219.80117-1-quchaosheng000406@163.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CCF4606A31B;
+	Thu, 22 Oct 2026 07:50:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CCF4606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iap-kborn.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iap-kborn.de
+Received: from [195.37.145.130] (pcdueff.iap-kborn.de [195.37.145.130])
+	by mailx.iap-kborn.de (Postfix) with ESMTPSA id 1483E3B90E3;
+	Thu, 22 Oct 2026 09:50:15 +0200 (CEST)
+Message-ID: <4ca06c28-d4f1-4876-a9e7-16488c18a380@iap-kborn.de>
+Date: Thu, 22 Oct 2026 09:50:15 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,111 +44,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:_____wD3_6+hv9lqtqyBBg--.62602S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWw1fur48tryxJF15Cr13XFb_yoWrurW7pr
-	ZxKFy3KrWDGrs3Zrn3tF4DXFyFvrs3JF43WF17K34fA3Z8Cr4SyFWUKr1FgayDtwn2k3y2
-	vF43WwnxGr1UJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRvks9UUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC5AIpnmrZv6IcigAA3p
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] NFSv4.1 client hang in nfs4_drain_slot_tbl under concurrent
+ workload against Windows NFS server
+To: =?UTF-8?B?6YOt546y5YW0?= <guolingxing@supcon.com>,
+ Rick Macklem <rick.macklem@gmail.com>
+Cc: Lionel Cons <lionelcons1972@gmail.com>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <552f72d1.1c692.19e389e8ea4.Coremail.guolingxing@supcon.com>
+From: Peter Schubert <schubert@iap-kborn.de>
+In-Reply-To: <552f72d1.1c692.19e389e8ea4.Coremail.guolingxing@supcon.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-v6 addresses both High findings, the Medium, and the two Low comments.
 
-> [High] can j1939_session_cancel() deadlock against the rxtimer callback?
+Am 18.05.2026 um 03:06 schrieb 郭玲兴:
+>   Hi Rick, hi Lionel
+>
+> ...
+>
+> Regarding the "soft" mount option: understood. We will retest
+> with a hard mount as well.
+>
+> One question is whether the observed behavior is expected.
+> Even if a soft mount contributes to the problem, is it expected
+> that a single RPC timeout can leave the client in a state with
+> no forward progress, blocked in nfs4_drain_slot_tbl, and with
+> lease renewal no longer occurring? Or would that more likely
+> indicate a client-side recovery bug?
+>
+>
+> Thanks,
+> Guo Lingxing
+>
+>
+Hi,
 
-Yes, and j1939_tp_txtimer()'s -EOVERFLOW and default branches reach it
-without cancelling the rxtimer first.  The fix is in the helper:
+we have independently observed what appears to be the same NFSv4.1 
+client hang against Microsoft Server for NFS, but with several important 
+differences from the May 2026 report:
 
-  j1939_session_cancel()
-    j1939_session_list_lock()
-    j1939_tp_set_rxtimeout()
-      j1939_session_rxtimer_cancel()
-        hrtimer_cancel()      <- waits for a callback that wants our lock
+- the mounts are HARD, not soft
+- sec=krb5 (RPCSEC_GSS), not AUTH_SYS
+- observed on Linux 5.15 and Linux 6.8 clients
+- Windows Server for NFS is from the Windows Server 2019 / build 17763 
+family
+- the trigger is strongly correlated with a Windows/NFS server restart, 
+especially two rapid consecutive restarts during Windows servicing
 
-v6 cancels the rxtimer before taking the lock, then arms the abort timer
-with hrtimer_start() under the lock.  hrtimer_start() does not wait for the
-callback, so the cancel/arm ordering the callers rely on is preserved
-without the synchronous cancel inside the critical section.
+Mount options:
+   vers=4.1,rw,hard,timeo=1200,retrans=5,sec=krb5,proto=tcp
 
-> [High] What happens if the next bad frame is an ETP.DT or an ETP.CM_CTS?
+We currently have two affected clients preserved in the hung state.
 
-The session is stranded.  The timers are cancelled, j1939_session_cancel()
-sees WAITING_ABORT and does nothing, and nothing is left to deactivate it.
+Client A (Linux 5.15):
+   nfsv4 SEQUENCE ... q:xprt_pending
+   two nfsv4 GETATTR tasks ... q:ForeChannel Slot table
 
-v6 handles that in the helper: a session already in WAITING_ABORT is
-deactivated there instead of being left for a timer the caller has just
-cancelled.  That covers ETP.DT, ETP.CM_CTS and second-RTS without touching
-any of them.  In j1939_xtp_rx_rts_session_active() the receiver branch then
-does what the transmitter branch already did, so both become one
-unconditional deactivation.
+All of these use the same TCP transport to the Windows NFS server.
 
-Measured on v7.3-rc7 under QEMU/KVM on vcan, one tree and one config
-(defconfig + CONFIG_CAN_J1939=3Dy, CONFIG_CAN_VCAN=3Dy, CONFIG_LOCKDEP=3Dy,
-CONFIG_DEBUG_SPINLOCK=3Dy), three kernels differing only in this hunk.  Each
-case is a standalone guest.
+Client B (Linux 6.8):
+   nfsv4 SEQUENCE ... q:xprt_pending
 
-             A           B             C           D
-  stock      SLOT-STUCK  REF-DROPPED*  SLOT-STUCK  never returns
-  v5         SLOT-STUCK  never returns SLOT-STUCK  never returns
-  v6         SLOT-FREE   returns       SLOT-FREE   returns
+The NFS state-manager thread is blocked in:
+   nfs4_drain_slot_tbl
+   nfs4_reset_session
+   nfs4_state_manager
+   nfs4_run_state_manager
 
-  A  out-of-range EDPO, then an unparsable DT; is a second ETP.CM_RTS from
-     the same SA/DA answered with a CTS?
-  B  same as A, last socket closed, does `ip link del vcan0` return?
-  C  two unparsable DTs, no EDPO; second RTS answered?
-  D  two unparsable DTs; does `ip link del vcan0` return?
+`lease_expired` continuously increases on the affected clients.
 
-* B on stock aborts with code 6, UNEXPECTED_DATA, which leaves the session
-  to the abort timer, and the timer deactivates it as the device goes down.
-  A is still stuck on stock.
+A 135-second tcpdump on Client B showed only TCP ACK packets between client
+and server and no NFS RPC payload. The same SEQUENCE XID remained blocked on
+q:xprt_pending before and after the capture.
 
-C and D are the case you described.  On stock the second unparsable DT
-cancels the abort timer the first one armed, so the session stays on
-active_session_list; D prints "unregister_netdevice: waiting for vcan0 to
-become free. Usage count =3D 7" until the guest is killed.  Pre-existing, as
-you said.  v5 fixed only the caller it added, so A through D are unchanged
-from stock.
+Windows-side state at the same time:
+- healthy Linux clients: TotalSessions=1 and an NFS session exists
+- affected clients: the client record may still exist, but TotalSessions=0;
+   Get-NfsSession and Get-NfsOpenFile return no objects
+- one affected client is no longer listed by Get-NfsMountedClient at all,
+   while the Linux client still waits on the stale local NFSv4.1 state
 
-> [Medium] The transmitter role sends BAD_EDPO_OFFSET, and the commit
-> message does not match the code
+Historical correlation:
+We have more than two independent incidents where the Windows NFS 
+service/server was
+restarted twice in rapid succession. In both cases one Linux client 
+entered a
+persistent abnormal NFS client state immediately afterwards. In the current
+incident multiple Linux clients are affected while other clients recovered
+normally.
 
-Both correct.  v6 sends J1939_XTP_ABORT_ECTS_TOO_BIG for a transmission
-session and J1939_XTP_ABORT_BAD_EDPO_OFFSET for a receiver.  With a real
-J1939 sender and an injected oversized CTS, v5 puts 12 on the wire and v6
-puts 15.
+This seems to indicate a client-side recovery deadlock: the server is 
+back and
+TCP is healthy, but the Linux client no longer sends useful NFS traffic 
+because
+a SEQUENCE/session slot never drains, and the state manager can wait 
+indefinitely
+in nfs4_drain_slot_tbl.
 
-The commit message now says what the code does:
+Questions:
+1. Is there a known path where an outstanding NFSv4.1 SEQUENCE RPC can 
+remain on
+    xprt_pending while session recovery waits for the corresponding slot 
+to drain?
+2. Should nfs4_drain_slot_tbl be able to wait indefinitely in this 
+situation?
+3. When the server has lost the old session and is reachable again, 
+should the
+    client force teardown/recreation of the local session rather than 
+waiting for
+    the old slot forever?
+4. Is there an existing patch or additional tracepoint/debug data that 
+would be
+    useful while we still have affected clients preserved in the hung state?
 
-  - tx_acked is pkt - 1 and is not truncated when written to dat[2..4];
-    only dat[1] wraps.  "An offset that cannot be encoded" was wrong.
-  - the check runs on the echo, after j1939_session_tx_dpo() has put the
-    EDPO on the bus.  Before the patch the transmitter did not run with
-    that offset either: j1939_session_tx_dat() failed with -ENOBUFS and the
-    session ended in -ENETUNREACH.
-  - the force-deactivation paragraph now describes the helper.
+The May 2026 report appears closely related:
+https://www.spinics.net/lists/kernel/msg6188959.html
 
-> [Low] The j1939_session_completed() comment
+We can provide the full SUNRPC debugfs output, mountstats, state-manager 
+stacks,
+Windows NFS session output, tcpdump, and timestamps of both server restart
+incidents.
 
-The example cannot happen with the range check in place, so the comment now
-describes the guard as defense in depth.
-
-> [Low] The comment says pkt.dpo "has to stay inside the message", but
-> j1939_session_tx_dpo() has another, unbounded writer
-
-The comment now says it bounds the receiver-side writer, names
-j1939_session_tx_dpo() and the unchecked ETP.CM_CTS packet number, and
-says that is a separate change.
-
-The single-EDPO case and a legal 1786-byte transfer were run on all three
-kernels as well: stock panics with "BUG: kernel NULL pointer dereference,
-address: 0x18" in j1939_sk_recv(), and v6 delivers all 256 packets intact.
-
-Not reproduced: the lockdep race the rxtimer change fixes.  It needs a timer
-callback racing a caller and none of these sequences schedules one at the
-right moment.  No lockdep report or call trace appeared in any run.
-
-pw-bot: cr
-
-  net/can/j1939/transport.c | 81 ++++++++++++++++++++++++++++++++++++++++++--=
--------
-  1 file changed, 66 insertions(+), 15 deletions(-)
-
+Regards,
+Peter Schubert
