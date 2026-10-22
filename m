@@ -1,100 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657680;
-	b=z0OpT+tkobJ1WdTtLYS7gVlUBgYVM5I9iZuqr24qeJVAx+qZGQB4cBpZyGp0yJT+CBwh
-	 1fptixKxHPw5WwDLzCfqfW8w9YTzBalbhkYE7pJQTUQTRnwjMRc9GN+NBnE1b2B2INlas
-	 dAIRkb74u3vODO27LTP5H5YIAnMRy4bZ21/CCfygg7i+jI9UcxwF5cJXtdc6Zdwy30uSr
-	 7gOuZBLWfgv4Kf3IKmPALp82ViAzFqScdgESa/QuIKHlmZW3KBPYJzCOFm9t/aNsfddkd
-	 Fakk49QLxU7dME2n63QEpEAQQCFbbTLpWM8TGsBxH6rK2yquLu9TNNoskbv+gCx9Uiw==
+	t=1792657700;
+	b=Zt44KcXsZs5Y/cJ7ASgWUj3QE1dTd8cuAelfM9LInWwROUM5A/kaxAwd66t8dXpYr+uk
+	 UrcnZchf5sz0YN6IeT5f5LvPZn/5+NyMc4pRPgWFznzkUowzQSaQmgDBvFUvkEPwpmI5N
+	 mINB31DrN4sqVNh9jlBghI8MxW5AfIrQPjYVefTdX76rrXRDRs676FPAdYxC693hEoE2C
+	 7D5RovMjFJZoIlU3melUhFEwPtEYWMt8LEYOkgeOz93VClE5dgUcRa1g0DqvS+oMMZ4N1
+	 Tp7dyDsBSWfuOq4WK46+idbrk+3aHrjoF0oi22GeHxomsbRWyYmJLxapxq2M1UTykiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657680;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657700;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=asTQwS3Q/pIZmKtVtb/ZZcYojtRdxCAchkNTDOljnRg=;
-	b=l0q3dBUapeKfKj3qmxz+qfIrXk4cRAgI1yAts5aRETD5JnwsUm4qipehK+sQmM25L3fW
-	 Z2Sp6O3hK/iA4175hc4+8BwfSKRRz5TAegVNALksG6vjTc6jmeMbRMkhz9RllZWpht+XE
-	 3bvMBY7ye3dT5rprV093u5+4u8zC3EHRfxsRq1v7AzWvyxCGgTjQQgiIXdPaYgNbG2sVC
-	 uGZEnd5Dx2haiGBBn5zaDtKQoZSoJX8gshyb5dVOxPr/42XAFjKaWm9N7oJ9UmDSS6FIM
-	 l+9Wwpf1UZuAKwqhyGgpoecvz9/XAE7Txnha2WIrKwcTXRAQXEZrE2/ZPO+zQ1co5dw==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iwLOjvHCtgaLp2E9XIBdvGe/pxFGO4huYHU7gKZLKOA=;
+	b=he3Tdz+Ozg8UHho6PYtcwgLhd8VRFeOvKtki04Y0CsOpdUnNZJaCYgdV5oD87yhwppiO
+	 ngKmy210SPUgXPYUp9rfl7jgTJRYp8VHQBunkcsnlL2rNhmj0nsatXUaMyaNHLIqlWCyP
+	 KapmwZJhFXdqCcHEixiMI6oOJ4mY/thpTh05rrijY7XLxRDnLhkBtLkkXD1yiOST9OLMw
+	 RBWfwFM8iKnT8Gs4n0iHExytVqtTfvxuOLjT4sa345A8EVc5SdUHgNfxPiM75kl2OdyLo
+	 4PMxHEpm4m8Paf5Mj1h2qOcLuimLi3A6tPMY16hd+XSP5zlr0YAtw8Zv5pbJinRWI3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b="Xqn/2yUi";
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jUsa9ftz;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C93606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:27:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3C93606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64287606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64287606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=Xqn/2yUi
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a1dede3c2cso20034775e9.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:27:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jUsa9ftz
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1e266fca2so10898165e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:28:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1792657677; x=1793262477; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=asTQwS3Q/pIZmKtVtb/ZZcYojtRdxCAchkNTDOljnRg=;
-        b=Xqn/2yUifSYwd1lLkvjTelhwbh1/fDxIkgCiTBzt6jpzF2b6Jtj1W+vx0Bue+MUy58
-         9u42cvxmjlsJRbnQR2g3CWbj4u0rkL/k1ULnZYHkA6SYgBSLjiaJLKo7XUYZtC7tNenJ
-         rsFukD01VvOvzDd3SE4W8Oqv/En+hGSOb1IleVA+BPtjYtldui+qaj/eFrGXDbDTs6Zh
-         HQUgjRlg+/mxJFoLyy6ZYJH45n5kbvVwK0xr1YtKjqBE0q6RxnBXsMTT0TqpvW3YuGgS
-         6xjeAh+dj5PSGSU8D18ZjCN3TeNPZns36H6lwwUccK2iJaoVhrAUeKBlAglwvy3XGzs4
-         TAFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792657677; x=1793262477;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1792657699; x=1793262499; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=asTQwS3Q/pIZmKtVtb/ZZcYojtRdxCAchkNTDOljnRg=;
-        b=0phMfTpgPjgOLTERSgICIJdpY2JC+WQ0i2cP/BcYehOhfTpy2nCeN7ZGigoBiKx4c7
-         jj6AWrgFOky3As1IHuvlptIbhcNnbVjhPI2O7crCpoXXaakSw60KQxHk9TzJ/GFL2O3B
-         olaPFgJQjAGzwEiwWCE3tb+BBBFGF2PHXQ58+lSaXFI+L7qghH5J5rFX8hdn6C+FaT1R
-         kKCYpDPc7LmwxXG53+YhGs6NtTqveleoICs+IzmSwgqOISDU/QigQ3smpDP4pfG1LSwi
-         YjQebQ6MogHCv7RdDklYay2HOrv5VT4YGMAtG2kF39NcgxUfMfd9cyvHtCyqU9dvmpxP
-         rsVw==
-X-Forwarded-Encrypted: i=1; AKwUvBx7fyPxBPWbo2MEWIhXZ7Ay3xP2K7H95G6jR01FeHQeI5L4dRaJrkUVkpft2fQZuL5a6onyBqDl3wb9b20=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIWh9WwBHbMuzzrXPVdvAWNzUW/AZSGA6mnO3kNTO+KjycqOSEl
-	Dda0zQK604qrhv0c95bzmISBTU7ovb6MnGGsRrLc/R1ve17rDSlo1DGntV/EMz+vICc=
-X-Gm-Gg: AYBFou0RqWB4gD6yYC5khW/GwfjqlGhgiqecjc+yXxINHbQPiR2rHn1b9eRI3PjFMwb
-	PhYWHEEN2JM5RGli2ErQfMS0QpXBGSgBJBEgGEYfsIB+V8jTsi+5ngdirGga58YJagxRadfg0yP
-	zcZtwxRtKzPM4D6tNVHYGbCI+7oC2TF86kIykwRdqnMRVOeeLiIWU9AcNMDmnHqWzW5CGLcNmJv
-	aptyob5+AxZ2kqupSPvBteHoW4CGCXexyjGV4XpPBUwfhs8e/bdf94eP4tQUdxbPNimW1gdO5Wz
-	Qgl3WMGN0boyAE3HQ5Xy3/mTdhYxdg7oJOTeugRaTscoF+90q6NiJ2hnpAR/WN/BaAHaX9XKYmI
-	f4eF12uj2jI3FSU1osKOnJFmxsnpY4WFo/1Nv3l59TZGJxIG1U4EoVk6VCvPw8KgItDyWKp9fp0
-	E6fcvg7sYmkVXE+A+ohmSTgz7qN31wC7b2li36jNgZ1YlUPu21RD9tpFGDo5pzvZGbfyyOTZu/7
-	NuXv+jGwcZiL6yhPrF+gu84bSj3+SpIV/yIYmZ+pXirQf2k9aFPyq6B35Xm0hXn
-X-Received: by 2002:a05:600c:524a:b0:4a2:994:5750 with SMTP id 5b1f17b1804b1-4a209945818mr14069445e9.32.1792657677030;
-        Thu, 22 Oct 2026 01:27:57 -0700 (PDT)
-Received: from localhost ([128.77.52.125])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e258426f4sm10865456f8f.54.2026.10.22.01.27.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 01:27:56 -0700 (PDT)
-Date: Thu, 22 Oct 2026 10:27:52 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 05/20] ctlv: Prepare message input handling
-Message-ID: <atnIDx6qmLe-geb4@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-6-jiri@resnulli.us>
- <20261021014324.58376589@jic23-hlaptop>
+        bh=iwLOjvHCtgaLp2E9XIBdvGe/pxFGO4huYHU7gKZLKOA=;
+        b=jUsa9ftzzGj06xox8H7waPRA+MWch8Q8m/vEUpJAbBUKEmdriaGIcGTRgFRBlvCRE1
+         qxLU5zh7C8/h6jaHuYPa92SlX5IOhMBpH1hP/Qz4hm3oT1E6oKhPvqoWEByxLPhnxaoi
+         Z96BbuMoSzDdjohCPU00ExWEb0Z+todJbtyAc23HKtpbug29DrdQY3a0S8R1PQIKMUDr
+         BA0L+K0uGlzO1uDvunDTvBf5wVWm39MjHGUgss5l1l+4OgJ6DD5eB2Hg4q120N8ODQ60
+         EZPe17VXTFVNM4Gk8YLkRxN+xZGqsb7SAeplwX61a+3J4rBQBze3PVJFOi/41NAOLH4j
+         I86A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792657699; x=1793262499;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iwLOjvHCtgaLp2E9XIBdvGe/pxFGO4huYHU7gKZLKOA=;
+        b=mY9hVPAy94gGf94s6aSwfY/swuOtd0jj+aQHwy5TIRxE5DRkBbO1y4XeUkzfhDJE5D
+         FvPImFn6qsyEoIW9MEhHDythn+Lj3SduyR4leSe7w0Ct0AvBqkCURcWS1VSdMAstIm1O
+         NkUkGNXogKiPXD7npcFyzOH0zYIaLKuS6y9VJd0kbu46SHWa19mVlbFfrjon9/BIXxCv
+         v2h0v6Nwrixf1RAP5Qx3ire89vWEKBX0M9Ov8eYeeI+5zoEVwIlDyndnwnw7QlwWG4HY
+         Ouxtz/HGz9knxnQ5zReaAS0AZtyKbLxHIO9v78aJM+d4x64IDq8XTZGUpeFkbSKnPUnZ
+         nvmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWxSfjls8LGuaywmIO/xKIFNPpVp1SyQ5HEeHGILD3PZq+THowX9H7awcGjDC0r9YTPkkqzxTOxwMtYu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqiq2L9cYk9l3vMmLkwBm5SloKnbF3DBKeHaL4BfSNB3e7kH6c
+	wECxIF/GKjJX4a37VC/NPmSR40NQERwvFm8lMjUkm0AN8AQLQ5+S8wLVNSGyvab3bDw=
+X-Gm-Gg: AYBFou1CjyLm9m2WVb1sg64CIg9U9sTxAGnhBzsuv2W10aD4pz0/TGCiBiS0o3FW8AE
+	phA1thIZsAPWkR9SidlePxNDP+y6xZGdnvwObmDQxqxx4yqx9wTn5MEAAlqxQtS1VcwjZJ+sKn9
+	yl8Ss7JhES1x/SoQYOdin/gpKuwvD/vfuUawicDPe8xSIP35xqm+NOI7J5oMEee+3V753HPMgx/
+	ZbDawk0mnKiAW0LjtZIc4HOUDTEhQEsQW5/OrUdqXQkJCp0VJt3zcGFaCcV+55SVHCI9Kc/mQ3g
+	BqB9hlPED3xpQzIKSpTdwk4bvlJk5CXY457SX/TfJgaosm9AZUI+KUctd7PC8EAebfOcmLIQCj4
+	1WlLk3ml6MyPEuDv2Ek+qA4szVTjH88gSWCkg8BRRvxu1eDmcxQ6sjTdXp1bjIYnYs/3FOcu4V/
+	IFO8jOEuXhtt48vVRGIrcLVimcURumIo6t93wdvpG0nVrF+9IyWSFC4fxmDRE87VFu/gMT5E0rl
+	/Zn2/WcFvI6l7alprbrFAB2WUfhanMsk6bEGBjP98gURSZHEgpX/pQvmnvJ
+X-Received: by 2002:a05:600c:8b6c:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a1fd8a7de3mr103361785e9.1.1792657698735;
+        Thu, 22 Oct 2026 01:28:18 -0700 (PDT)
+Received: from [192.168.1.3] ([37.18.141.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203963f3fsm62310355e9.2.2026.10.22.01.28.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 01:28:18 -0700 (PDT)
+Message-ID: <96e51831-ef50-4d0f-aa5c-74d5e3c8ae9e@linaro.org>
+Date: Thu, 22 Oct 2026 09:28:16 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,166 +91,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021014324.58376589@jic23-hlaptop>
-
-Wed, Oct 21, 2026 at 02:43:24AM +0200, jic23@kernel.org wrote:
->On Thu, 15 Oct 2026 16:50:38 +0200
->Jiri Pirko <jiri@resnulli.us> wrote:
->
->> From: Jiri Pirko <jiri@nvidia.com>
->> 
->> Add wire walking, request indexing and validated input accessors for
->> generated family readers.
->> 
->> Keep CONFIG_CTLV unwired until dispatch completes the module.
->> 
->> Assisted-by: Cursor: GPT-5.6 Sol
->> Assisted-by: Cursor: Claude Opus 5.5
->> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
->
->Trivial stuff only. I didn't attempt (yet) to check
->all the walking code, just get a feeling for what was here. 
->
->
->> diff --git a/drivers/ctlv/Kconfig b/drivers/ctlv/Kconfig
->> new file mode 100644
->> index 000000000000..aed3243c55fd
->> --- /dev/null
->> +++ b/drivers/ctlv/Kconfig
->> @@ -0,0 +1,12 @@
->> +# SPDX-License-Identifier: GPL-2.0-only
->> +menuconfig CTLV
->> +	tristate "CTLV character device TLV UAPI"
->> +	help
->> +	  CTLV provides character device UAPIs described by a checked-in YAML
->> +	  specification. It owns the character device lifetime, the strict TLV
->> +	  message format, request validation, reply serialization, the large
->> +	  payloads a request describes rather than carries, per-open event
->> +	  queues and runtime schema introspection, so families only implement
->> +	  semantics.
->> +
->> +	  If you don't know what to do here, say N.
->
->I'd not say that.  Overly cautious for something we expect
->to get fairly extensive use.
-
-Okay.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] perf: cs-etm: HW_ID improvements
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
+ linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>,
+ Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
+ John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
+ Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
+References: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
+ <2bc4b058-3a5b-4a9c-a469-eb8c93215594@linaro.org> <atjDCpTIrchbCLt7@x2>
+Content-Language: en-US
+From: James Clark <james.clark@linaro.org>
+In-Reply-To: <atjDCpTIrchbCLt7@x2>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
->
->
->> diff --git a/drivers/ctlv/message.c b/drivers/ctlv/message.c
->> new file mode 100644
->> index 000000000000..7e5742ba8f70
->> --- /dev/null
->> +++ b/drivers/ctlv/message.c
->
->> +
->> +bool ctlv_message_input_rebind(struct ctlv_cursor *nest, const struct ctlv_schema_tree *tree,
->> +			       u32 node)
->> +{
->> +	const struct ctlv_message_input_scope *bound_scope;
->> +	const struct ctlv_message_input_nest *indexed;
->> +	u32 i;
->> +
->> +	if (WARN_ON_ONCE(!nest->attr || !nest->msg || !nest->msg->index))
->> +		return false;
->> +	if (!ctlv_message_nest_index_ok(nest))
->> +		return false;
->> +	bound_scope = &nest->msg->index->scopes[nest->index_nest_scope];
->> +	indexed = &nest->msg->index->nests[bound_scope->nest];
->> +	for (i = 0; i < indexed->scopes_count; i++) {
->
->	for (u32 i = 0; ...
 
-Okay.
-
-
->
->> +		u32 scope_index = indexed->first_scope + i;
->> +		const struct ctlv_message_input_scope *scope =
->> +			&nest->msg->index->scopes[scope_index];
->> +
->> +		if (scope->tree != tree || scope->node != node)
->> +			continue;
->> +		nest->tree = tree;
->> +		nest->node = node;
->> +		nest->index_nest_scope = scope_index;
->> +		return true;
->> +	}
->> +	return false;
->> +}
->
->> +
->> +void ctlv_attr_next(struct ctlv_cursor *cursor)
->> +{
->> +	const struct ctlv_message_input_slot *slot;
->> +	const struct ctlv_message_input_scope *scope;
->> +	const struct ctlv_node_schema *node;
->> +	const struct ctlv_attr *next;
->> +	u32 next_nest;
->> +	u32 next_offset;
->> +
->> +	slot = ctlv_message_cursor_index(cursor);
->> +	if (!slot || WARN_ON_ONCE(!cursor->attr))
->> +		return;
->> +	next = (const void *)((const u8 *)cursor->attr +
->> +			      ALIGN((size_t)cursor->attr->len, CTLV_ALIGNTO));
->
->kernel code is allowed to rely on void * arithmetic, so this can be
->	next = (const void *)cursor->attr +
->	       ALIGN((size_t)cursor->attr->len, CTLV_ALIGNTO);
->
->container_of() for instance makes use of sizeof(void) == 1.
-
-Okay.
-
-
+On 21/10/2026 14:50, Arnaldo Carvalho de Melo wrote:
+> On Wed, Oct 21, 2026 at 09:42:24AM +0100, James Clark wrote:
+>> On 02/10/2026 12:15, James Clark wrote:
+>>> James Clark (3):
+>>>         perf: cs-etm: Don't add global v0 HW_IDs to unformatted queues
+>>>         perf cs-etm: Free partially created queues
+>>>         perf: cs-etm: Respect --no-itrace option
+>   
+>> Hi Arnaldo,
+>   
+>> Is it ok to take this one please, Leo has left his review tags.
 > 
->
->
->> +const void *ctlv_attr_binary(const struct ctlv_cursor *cursor, u32 *len)
->> +{
->> +	const void *value;
->> +
->> +	*len = 0;
->> +	value = ctlv_message_cursor_payload(cursor, BIT(CTLV_SCHEMA_BINARY), len);
->> +	if (!value)
->> +		*len = 0;
->
->I'd kind of have assumed that ctlv_message_cursor_payload() would not
->set len to anything if it returns NULL.  Thus the default *len = 0 would
->be intact.  From a quick look that seems to be the case making this
->code a little odd. 
->
->Perhaps overly defensive or keeping an LLM happy?
->Same applies on some other functions.
-
-You are right. Will remove these.
-
-
->
->
->
->> +	return value;
->> +}
->> +EXPORT_SYMBOL_NS_GPL(ctlv_attr_binary, "CTLV");
->> +
->> +/*
->> + * The room is measured before anything is written, which is what leaves a
->> + * refused attr's message exactly as it was, padding included.
->> + */
->
->Having a trailing comment in a file rarely adds much or indeed
->even more rarely gets read.
-
-True, will remove.
-
+> Thanks, applied to perf-tools-next, for v7.4.
+> 
+> - Arnaldo
 
 Thanks!
-
->
->
->> diff --git a/drivers/ctlv/message.h b/drivers/ctlv/message.h
