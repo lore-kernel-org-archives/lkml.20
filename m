@@ -1,79 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792686706;
-	b=UuDhUOr+33SYXP2g4hBZESo7EUhG5quSodDUr4kTfX32pIDTAl5tKSBab1k0qlURedWY
-	 WWSndOI2gxBsh753cEv7M5WHFXGw8LBkRnJKyUoR4kmi6skUc4seJsHp++3Q/xvUWyXXT
-	 28sXD/o6u0f4A2uuDnw4e0OfQhRF04vA+dMdnKBGfrkrZYLiDKJjVqAX+TFiuAl+eAVbx
-	 velD7LWuveaVlWi49R6cKi+e5+euJO5UHtokGS/i90f8roxgkVuR+Aw4Emwj6ZAWirzA9
-	 lDXoDtlEL0eeiPjHSyverzN4on1C3yC22ssOmErcKdqS6VxRIO3z1fIeGTLQ3UNR1WQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792686706;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zfmkGR26biULCCpkdz9z11eYXUUcEbs91FqVrijv5ks=;
-	b=oPtWKqB1BB+7Q3U/RHCPDsDquToPbQmlaO1i6uZmFkAX57ZpxAzz0TTILHRJEzSoCnnc
-	 YqlnVxXp/Z7dKlqkKKBMG66jjaMuN4efE3CUliVVvq9oYCuSF6o0gX0D1ZVqSdOA6Fjhx
-	 cAEN1MgfoKRYuLvAINE1u1Vu2DjWfO+w4bM4GkDj4kGlMvlM+NERX+It5/fk6VXgjY8JD
-	 Vf1v7QHJKrf56B9X4xrQZt5AtdPopA6wDQGF+3/4MEWu8TxAUubFHzYJTurcVc4BkiBdS
-	 JTlXveVatHBbtILIUT/G0O4CD6g+OZSo1hIZSL1BiZhq5jmgum5J/OXaPUgjdvC8I2A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZjzKOwL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C95A606A319;
-	Thu, 22 Oct 2026 16:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gZjzKOwL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792686705;
-	b=K/37uFVFSmBkmV9YKzdmrv9o7VvPhU7wfIHP4VjYi2eTjiTsEwHwSumBfEsJ9WcBDt4e
-	 1+mtE12EuLewiXInOEZfu6wU2DuSAsWGrw8iL8+NLQze49+jEGRYcEbSja3mto3fIS0Ql
-	 moY5qCv9NFqhtgsss5DO29L7XM9MzjaI9NsXGVOPWNiV05p/O89OWFzr3qSMERJag+70R
-	 F7vOx3MfI26gtIgW5WgUHyjNnYYGcVhl62hANBuJNlSjztMYqsL/S9hpINHntN7rrQuQF
-	 bZFq0TZ84aYLGl+lFXR3m9Ci5VRpmtQgoariD6AqmM4maCPlIc052AREqckOO3aduQA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792686705;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=zfmkGR26biULCCpkdz9z11eYXUUcEbs91FqVrijv5ks=;
-	b=QxvMpDbdaAdt+kTx0Uds7z1t9RdM59tHMcqoUojxizJJ80K5hKqSfnmKcHhN9RxHs403
-	 nLGVYFHkMEuWqnCHGTVeZ180YPwHX0aKxIYT34QwCOz56YsHBbiEZfjtO0naOVMhlFyMt
-	 aRerAv30sVLAsiDOdUDAQ5im9Y8qjkicqXHxta4dZeR1ePE4VkqhHYMnyZxZx684UGVkm
-	 gzu6C7S3RTYhfYYVKrxmwvz8k4ioRGbrc/p07cZaFjMCj2i05a18praC+OqVjiDesOBH+
-	 pQBUjFICp7Pkpt+edwDlYFSkqxVLcLwPrrzrTmL/syELOO0hEB5x0GxCOdE6pApZvRw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792686753;
+	b=y30RQ1ksQM37mocxBYPPhBna+WxLhWIiBrM04KN0F/3zgYB/6rkTAlnxCEegpr3Gi0iB
+	 cBdI8hVup3cwvbs6+UTi575P9GkKeT6bUDwhVPa16qv9POl6wIGkrbivTsFztXQZetWGF
+	 Le2f0sT8N1SsDGt+QBTzMu3bH14VTGaWvsB4gZ1yVN25dWMv2IgrPyH6RfU5uToWb85Yf
+	 TT+/qJuGLX1BK2bNd/V+S67cxJn0VKVTwPQCVim9TxD+Rr0hNctiWxIlII3s4XbPOuXzK
+	 oI7fOT/0Ete9dFbq/RXQIAtfWXSjX4j1Pqtea3qXa5UM8V8en+klL2JF3uC95SAYqkg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792686753;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=O+E03NrkWyAgYx/OnIv1Bo6JdTIFdK42G1CbBxjO+jc=;
+	b=5kmEkjYVYmSF4kO5QTPHBLqVfl03lpp5hNmg6W9K0LwG77ulr+fyat1FZ2EJoZ3A//Eq
+	 Uwp3v0HGLXYQurfDeVovdlWhcbXDqy4vDtvBDe+A7xWizE6wz3GvQ+GuTZg1eGw/v/oI5
+	 wHwaG/J8WGyz7tsVYITvVCcqope9uGF7YToftIGZzdNIZVASFfljhZ+q86Gkt6HkAsdWq
+	 MLR49Klzc5BpHCfVCVexFr/noSAvr23kk8L6xG4et04CFgOLQeSXENT9VRWLqQOX49Nhi
+	 eJ1t/nG0sICRdCDAUXxIRieJrZROljptmuRP8JCSLVEcsUhTxOJgDVu3CSLmzY2ExIw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=CFqeP8ej;
+	arc=none smtp.remote-ip=198.137.202.133
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9C13A1F01828;
-	Thu, 22 Oct 2026 16:31:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792686705;
-	bh=zfmkGR26biULCCpkdz9z11eYXUUcEbs91FqVrijv5ks=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=gZjzKOwLlnrWNf528ajgJyDycB8+FA/GCFzOq76ThxIGVwta9IY4l3nttw6qbdnBI
-	 nuydHg6Bt/3zsmkD8FGoxhWSwVlw4rjTyakwDibAIkx9Km490YBWgc5eLbUq5SaSlJ
-	 Oc0+yQ5q70yCHi5Gz5Rh9sUrEhnfw420kd/F+9scGZcteukgdpFWV8lOTdr9gJP5vA
-	 dvBwn/VMT3Rbsj06/d74y30hdirbzTLnUIkqP7bA0VzrGvHhWKjpATIKvcqu19lEhX
-	 cn5UyXvW7noMfIJPsiDpxhWY6uk4M4r36oxcjf8Bn4qpkb1/KFo5PhRrvpArHwvibu
-	 vhDweVnFp10nw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 305F741E73;
-	Thu, 22 Oct 2026 16:31:44 +0000 (UTC)
-From: Moe Mahhouk via B4 Relay <devnull+moe.flashbots.net@kernel.org>
-Date: Thu, 22 Oct 2026 16:31:41 +0000
-Subject: [PATCH v2 1/2] virt: tdx-guest: Fix timeout detection in
- wait_for_quote_completion()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DC33606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1DC33606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=CFqeP8ej
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=O+E03NrkWyAgYx/OnIv1Bo6JdTIFdK42G1CbBxjO+jc=; b=CFqeP8ejq/ch5RAZMGMFhf2vvi
+	j7JcjPQ10biIlynhtR6++MCr0kLdhl4bT5RLJV1dUPOu7vH3V3K2aCCk/9R7R8zqDeksgzvYqcGdy
+	ljPNXS3YpBmx+hbojquHp6eAsQBFOFfLxUodOB3XC2VIlFEUcO3blNZXkPsyqlsBTgbU24+U4XZgn
+	v3IK6jIyKgcNfuHSGFk67VkdYLXOmeV/JP4Yj2jPKaO3XVPCFGTLItKW8QEbsM0UEleARiiHpby+g
+	Svxfmf7+Ny8VR1E1N3L+wLMKhaiILB9kmCnCYCPMZDk0PgqD0KyK/Z278FxBankkujXc0hXyKeGvS
+	PRKROQow==;
+Received: from [38.23.173.23] (helo=localhost)
+	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xJviO-0000000EUsO-3sxh;
+	Thu, 22 Oct 2026 16:32:29 +0000
+Date: Thu, 22 Oct 2026 12:32:27 -0400
+From: "Liam R. Howlett" <liam@infradead.org>
+To: Florian Schmaus <florian.schmaus@codasip.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Suren Baghdasaryan <surenb@google.com>, 
+	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org, linux-mm@kvack.org
+Subject: Re: [PATCH 0/3] maple_tree: fix two bugs when freeing RCU-mode trees
+Message-ID: <dtet2zelrbzt36i3jbwgsi5iv3nnwtlhtnhbgdvj3m3kzewcvs@vdgjqdivisf7>
+References: <20261015-maple-tree-fix-slab-corruption-v1-0-160d97f7304c@codasip.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,77 +66,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-tdx-guest-quote-poll-v2-1-7543c6eb2d36@flashbots.net>
-References: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
-In-Reply-To: <20261022-tdx-guest-quote-poll-v2-0-7543c6eb2d36@flashbots.net>
-To: Kiryl Shutsemau <kas@kernel.org>, 
- Rick Edgecombe <rick.p.edgecombe@intel.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, 
- Erdem Aktas <erdemaktas@google.com>, Tom Lendacky <thomas.lendacky@amd.com>, 
- Dan Williams <djbw@kernel.org>
-Cc: Jun Miao <jun.miao@intel.com>, 
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
- x86@kernel.org, linux-coco@lists.linux.dev, kvm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Moe Mahhouk <moe@flashbots.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792686704; l=1829;
- i=moe@flashbots.net; s=20261021; h=from:subject:message-id;
- bh=YaSIvAAyOdwGXioa5qC1w+XfaeHGA1mdgyIez+tbqmI=;
- b=gop851gcNfC9FdA8rDtgApXoAypDqEwm9vBsHIfarMsYKnB/wXH8uxG49GfAyZWG28NmwFcMs
- CHj3aeTmSQIDQj74Yoa2z9lMdTPaMxAk5xsdwb459xgf5rydkSrLnRA
-X-Developer-Key: i=moe@flashbots.net; a=ed25519;
- pk=hJTKfjLno/YESrpxMIKDJk34GM+/8Tol+24XK2b4xf0=
-X-Endpoint-Received: by B4 Relay for moe@flashbots.net/20261021 with
- auth_id=1259
-X-Original-From: Moe Mahhouk <moe@flashbots.net>
-Reply-To: moe@flashbots.net
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015-maple-tree-fix-slab-corruption-v1-0-160d97f7304c@codasip.com>
 
-From: Moe Mahhouk <moe@flashbots.net>
+On 26/10/15 05:11PM, Florian Schmaus wrote:
+> Destroying a non-allocation maple tree with MT_FLAGS_USE_RCU defers freeing
+> its nodes to mt_free_walk(). There are two independent bugs on that path,
+> both caused by the metadata that a maple_range_64 node may keep in its last
+> slot:
+> 
+>  1. mt_free_walk() takes the metadata of a node with 15 children for a
+>     child node and dereferences it.
+>     Reproduced with: 2768 ranges / height 4
+> 
+>  2. mt_destroy_walk() takes the last child of a full node for metadata
+>     and corrupts its pointer, so mt_free_walk() frees a bogus address.
+>     Reproduced with: 120 ranges / a full root
+> 
+> Patch 3 adds a regression test for both cases to lib/test_maple_tree.c.
+> 
+> Testing: on x86_64, in the userspace test harness
+> (tools/testing/radix-tree) built with ASan and UBSan, the new test fails at
+> 120 ranges without patch 2 and at 2768 ranges without patch 1. With the
+> whole series, all maple tree tests pass. The full suite also passes on
+> s390x (big-endian) under qemu-user.
 
-wait_for_quote_completion() counts the seconds it has waited in i and
-reports a timeout when i == timeout. That gets both outcomes of the
-last second wrong:
+Thanks, but did you see Dimitris' patch on the 5th for this [1]?
 
-- If the request is still in flight after the last sleep, the loop
-  condition increments i once more before it fails, so the loop ends
-  with i == timeout + 1 and the function returns 0. The caller then
-  returns -EIO instead of -ETIMEDOUT, without the "GetQuote request
-  timedout" message. Before commit 0f409eaea53e ("virt: tdx-guest:
-  Return error for GetQuote failures") a timed-out request even
-  returned success with an empty Quote.
+I believe this should also resolve your issue.
 
-- If the VMM completes the request during the last sleep, the loop ends
-  on the status check with i == timeout, and the function returns
-  -ETIMEDOUT for a completed request, discarding the Quote.
+[1]. https://lore.kernel.org/all/20261005-fix-maple-tree-range64-rcu-v3-0-ebe7fb278e20@cslab.ece.ntua.gr/
 
-Decide on the Quote buffer instead: the request timed out if it is
-still in flight when the wait ends.
-
-Fixes: f4738f56d1dc ("virt: tdx-guest: Add Quote generation support using TSM_REPORTS")
-Reported-by: Kiryl Shutsemau <kas@kernel.org>
-Closes: https://lore.kernel.org/all/atoHWgQF-0vlTRK4@thinkstation/
-Signed-off-by: Moe Mahhouk <moe@flashbots.net>
----
- drivers/virt/coco/tdx-guest/tdx-guest.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/virt/coco/tdx-guest/tdx-guest.c b/drivers/virt/coco/tdx-guest/tdx-guest.c
-index 11d741da3b35..a5a53174f9d9 100644
---- a/drivers/virt/coco/tdx-guest/tdx-guest.c
-+++ b/drivers/virt/coco/tdx-guest/tdx-guest.c
-@@ -282,7 +282,7 @@ static int wait_for_quote_completion(struct tdx_quote_buf *buf, u32 timeout)
- 			return -EINTR;
- 	}
- 
--	return (i == timeout) ? -ETIMEDOUT : 0;
-+	return (buf->status == GET_QUOTE_IN_FLIGHT) ? -ETIMEDOUT : 0;
- }
- 
- static int tdx_report_new_locked(struct tsm_report *report)
-
--- 
-2.34.1
+Thanks,
+Liam
 
 
+> 
+> No in-tree user is known to hit either bug, because all in-tree RCU-mode
+> trees (mm_mt, sparse_irqs) are allocation trees, whose nodes keep the
+> metadata in a separate field.
+> 
+> We identified these issues on a CHERI [1, 2] system, which provides
+> fine-grained memory protection through architectural capabilities. Our
+> CHERI Linux port uses plain RCU-mode maple trees for CHERI-based temporal
+> safety via revocation and destroys them after every revocation sweep, which
+> exercises a path that in-tree users do not reach. Unlike traditional
+> MMU-based protection, under which zeroing the low bytes of a node pointer
+> silently yields another "valid" address, CHERI invalidated the damaged
+> pointer: the partial write cleared its capability tag. Consequently, the
+> kernel trapped at the next use of that pointer, and the bounds of the
+> faulting capability, exactly one maple node, pointed to a corrupted maple
+> node pointer. We then reproduced both bugs without CHERI on x86 with the
+> userspace test harness under ASan.
+> 
+> 1: https://www.cl.cam.ac.uk/research/security/ctsrd/cheri/
+> 2: https://codasip.com/solutions/riscv-processor-safety-security/cheri/
+> 
+> Signed-off-by: Florian Schmaus <florian.schmaus@codasip.com>
+> ---
+> Florian Schmaus (3):
+>       maple_tree: do not descend into metadata in mt_free_walk()
+>       maple_tree: do not clear the metadata of a full dead node
+>       maple_tree: add a test for destroying RCU-mode trees
+> 
+>  lib/maple_tree.c      | 19 +++++++++++++++----
+>  lib/test_maple_tree.c | 32 ++++++++++++++++++++++++++++++++
+>  2 files changed, 47 insertions(+), 4 deletions(-)
+> ---
+> base-commit: 4056b3c9d3c92ea45955641dbafeb9b960e146ef
+> change-id: 20261015-maple-tree-fix-slab-corruption-d1f098521d15
+> 
+> Best regards,
+> --  
+> Florian Schmaus <florian.schmaus@codasip.com>
+> 
