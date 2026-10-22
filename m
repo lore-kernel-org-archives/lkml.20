@@ -1,45 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792670728;
-	b=0cKL+pynMr/LjAdXF0F6J9SmoLgGPFSrU99qDG9ZDMfmHPWdG5chBFR4zSfT//fLKPIq
-	 1Jbb2lYZoVKqQMvCz8E40b8baJo6r+IBiFYFFIG7fZ6RN8oqWWi9iqnYhDWQ/XxVuPF/q
-	 +nNKz4IlAKTNsY2ZWHphGGhE65LpVnweSwaXnmS9E9qGCNxz9snBOH9w//GLAehkLOubk
-	 nHvDw1BuRTlIejvy7opbSWTLvtzhjlhFOWYAU0X8i+yLIIp0lJLf86M+JPakiow80ACTY
-	 kJg3o44qfBT4DmT+8G/6UT9jaPocmSPCKrNYfFtoha7872OdTCsPVxbK9Q3PqPrcHsg==
+	t=1792670743;
+	b=mHIbcg1Cki0kXQ6VoiBnRXRcqijSwsDJROTK8YmNL3Hen90K9odRrwsTxM+n3wriqcYt
+	 1rGWXYzM0yTe0nq/NnBb6fabCEktg1whUXC/Oj/l4MWnGr0yYniWSWnSN7DROxcW9kurd
+	 HYZorYvmt3R5AbEVxlHqUJ/dbSeVWGcZD34QgY+7necmHW/GldWwUY8CyGalyjzQQyPOY
+	 HfmLZQWsdjTvzKIiGX30nv8kW8/OMYloz9PeLiCulJt1fHkTyfAH9byHfwHAhc1p4FYjY
+	 /AgkRhGrJ1JRbj6h/fz+l/JY47zwbpPOoJNsQ/u3OMz+/lJ/RVfjYSt3IAIgIyQCPBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792670728;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=BvlhOXWWUN/L06dzJGiCJmHB45x99YGwdoXxYD3mGQ0=;
-	b=q/PdWNYTTGHJnOSvJxvz9fTKCa+mzvP3iF59xBNxgh8ACYWaiO6FOEPpWl7oFuWjWBY4
-	 hNkdCvDdB/GZWntLy0J+Bh4I12uzFOPK2/qeNVt+aMEkSjyqJXudu+mpmqHEibk/cIAri
-	 i6V1rODg/tT3N0Gqf+qjFmcaRd5T4tdISOoqMpxyoKLaGaPV9U7RLup3TnPO3oKNm8OA9
-	 kzEl2+fCgkfd4IwmGmYSlSAWXsW7YiooVC7PvoaifvguJzUl1IPapkK6XGy03RVhtBXO3
-	 IDb1pD3Kb+Oc5DARYLrBPXB20hxsuOPdg1sNGmGqBYT6XZg8VVWRTQc2REcVTMfftXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670743;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1lD9amVrEN5VBKxfAQDsDxJlbpUbXAXUW9BovN0dNeo=;
+	b=N4OlT0Nun8qdi36bzBPcl2ir0E4sMYtnlRMSOoCq0M39n8zhzV+mdk76JurqKtdym5SU
+	 htiPeb9UYQU2ogkHC10yffJzEke7EVq8nmxHSi468E9V3IiiuM/I6SX9Uy+jg2545SWb4
+	 /0Sl7EDdfVSHUwk/YHpuSk24c2I/RxY/GQmLKVH0MxHO1Wcy508T9H8hAFG81QUpcoyqY
+	 8VW2r3JG/K6XMFa1QjLuX03zmB1uyY2K3FhFOsGV/Ac3hqPukxjATHZPPlSok1UtY91gn
+	 Qtr4IrVAf3Kslpulq9CTt6Wks0IGe8LEZnpQyJdSGKx+kJFwMSz/jlxDlv8BflgXeEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DXj/Yis2";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=okonski.org;
+	spf=none smtp.mailfrom=okonski.org;
+	dkim=pass header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=TFe0b1FY;
+	arc=none smtp.remote-ip=209.85.208.50
+Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E9E606A319;
-	Thu, 22 Oct 2026 12:05:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588B9606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 588B9606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=okonski.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=okonski.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXj/Yis2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC731F000C1;
-	Thu, 22 Oct 2026 12:05:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792670727;
-	bh=BvlhOXWWUN/L06dzJGiCJmHB45x99YGwdoXxYD3mGQ0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=DXj/Yis2i7vhI5zmDqlK1CRIlRpf0thfdcRZdayh1IsSxseGxBPEQIXkTYnvqnOsn
-	 Cjxmf6s5G3ElMTriImzYQziZhoxlNBA76PThv4IXT1YwpjDfyfRsDlYrI3wmlJSrNv
-	 WBghf5yi+oAyH7MGB6ZVmkPygrMIHGA12rV/kHyeSbr1W2iA53Y1SDTyCJHot0DUZ7
-	 zsxTRB6v3tM/ugBE5CuocO6h6nVECA6D1+zZmv1bcM+PDaQZhkuZmvb/JqRSV1Vnv1
-	 eJ8XR0ex12wdnrx7xnZGDQpMhDAv6WG/DmFb1V0gFlNXUy2Kn4zbM+msYYfQQ6h4Yd
-	 Z/GOVR3ZmBlHQ==
-Content-Type: multipart/mixed; boundary="===============7744310823040091790=="
+	dkim=pass (2048-bit key, unprotected) header.d=okonski-org.20251104.gappssmtp.com header.i=@okonski-org.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=TFe0b1FY
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6afa651700eso2465048a12.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:05:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=okonski-org.20251104.gappssmtp.com; s=20251104; t=1792670741; x=1793275541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1lD9amVrEN5VBKxfAQDsDxJlbpUbXAXUW9BovN0dNeo=;
+        b=TFe0b1FY9C3TGA8Dl67TnvQoj1F18qXwJAPvi9MzJ/df3ytvAibyfiIdATWXBsI9fl
+         MCwA6ZLW8v36el5BmhkkSPbo5GEunLpdo3db1TvPsHsSSb14YOQ5+h+zVSIcovu8rwOd
+         wjg1YGSJXECAgDsJZ0o0omuQO7Xt0VXnt6LCdMTOGS5DyS0bnMY+IT4GNpvFbcJeQg51
+         8EhC9Timl6zYN6M5dJgzc8EFw7TgjubHR2kG/sdVIJnokuwQMB6kRMdtm9DSj0UMugP1
+         1HGeMnaRsZyerpM1+sb6S0r1BQyQHZpmIqnX5Nwoi3iSOol2z5TfFxQTHE828/Loquhp
+         mRWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792670741; x=1793275541;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1lD9amVrEN5VBKxfAQDsDxJlbpUbXAXUW9BovN0dNeo=;
+        b=Uf951Yn5TeMw59wE4iH49eA8U9jsoXh2T8QUi1KN1xKTMzAc61dsX5H3g/4VvR5lZZ
+         Ra7CGdS7Qgu0x2qhi0evQQF1Kt9gz2R7puih+dBr1KTrJiIZm6B2t3hXqA4jzhDEFH/9
+         vzOGAuMXqQn9SiABiQ9GKk+ZBbAeFsvNgqP41x2yT07hdmCNj06wRccn/XC/6tVhsHS/
+         sYIvI4Zdtt8h1FmPPVagRvut0y7eZUaJcneoXWkeTSvFC4xOI+nlxiDd77BvC9vX54Xo
+         WTxHm/JwgPVZS8gMcnGdO2WYE4/etAJ+6bGEKZX7gP4O87Y56WW5fRQ2lwzuOLwQCuva
+         fN0g==
+X-Forwarded-Encrypted: i=1; AKwUvBxj8wXc/vuZibVsoblrv1yOo07TcFWM9gfuZ9/kELjl2dBIuz/SEPrUeUNiEkR2ZOjhzTu3/5fBnXnxyq8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNp+4lPd08QjcwgUEUmDm7ZWfaWeTUJEahHZFn3bSxBCF7qmhd
+	ZnZcXKwe5ZQ6hoBbBaInSC1PiJblc02neojqbYVktT7Mqyx/IrcBwX5BjRRRQ/wx3D0=
+X-Gm-Gg: AYBFou3csfa5qyMb6Bz+7dmKd25VA6oZmr7mbizkblwpS8lBjhD7bkL8RE2v8irs7la
+	QDXdHWg/5JMz9wuSKjAVxm5SFskP+vmwHt69b4F5RMsuPdEde6awqS9hM7COwW10lsiFevhJsUl
+	9EhCYgBx6cmjWXFpb0ZD3/pns9SNEgufNHiat6JPDwLynseoDmk2keVgUOckMUzfyx7yAJ4sD90
+	I3LssXZanxml4pC+vnqvM6LRuBWqwLtH1uca0FL49f+VGPVVx2kyov3RXESX1w8iQNcyUKGjqMG
+	X1jItzI+jvf5wANFTvdqlN8nQFcQoIY/Bak0W5zFjxbqq0ZFLpe6t1MbORyOsnhd/0BN1+dYbsY
+	+A+9Di3n/w4CqHGnEYdibM3r+LXPByOu6O9MpKeBY8PeDmPUmyJ514HncPdK9mW/KJ1GVk8SlKG
+	Pf0329zQ8wz1PbVZF7sU/dP/36UAIUe9Yqk++B0fquYebKIdzGoI98DwPfSn2pwPlIolS+LCAL9
+	jrs4hXmf8PC7b/1fQ4xZHOhg4UktQFIKMmaNPUt9yNH2HenCJdSi9xfPG86G79iySDRUCQXzxS3
+	/Hz6YGfqiv6zy/6FZyMbvZfGKc+yuklsEnuh08lqKmTcCCBFmPEgDeXdEoUGAbgUlQsuMbMlQm3
+	9GiaBOmN+n4DM5O8E2OXt8eh9
+X-Received: by 2002:a05:6402:4284:b0:6b4:29f7:f951 with SMTP id 4fb4d7f45d1cf-6b429f7fb5bmr881676a12.39.1792670740302;
+        Thu, 22 Oct 2026 05:05:40 -0700 (PDT)
+Received: from ?IPV6:2a02:21a0:10:748:1::2? ([2a02:21a0:10:748:1::2])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b403110a23sm1638992a12.17.2026.10.22.05.05.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 05:05:39 -0700 (PDT)
+Message-ID: <a82eb30e-685a-4ee3-af49-36b1102587de@okonski.org>
+Date: Thu, 22 Oct 2026 14:05:38 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,88 +93,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <9e67828ba31a6f6e2d7c4b86bfdbba903cfa05cd468b58d4c03558cb8f453f3a@mail.kernel.org>
-In-Reply-To: <20261022112312.31563-1-ayushmanrout27@gmail.com>
-References: <20261022112312.31563-1-ayushmanrout27@gmail.com>
-Subject: Re: [PATCH bpf-next v2] bpf: Use memmove() to load bytes from an skb and an xdp_buff
-From: bot+bpf-ci@kernel.org
-To: ayushmanrout27@gmail.com,bpf@vger.kernel.org
-Cc: ayushmanrout27@gmail.com,daniel@iogearbox.net,john.fastabend@gmail.com,sdf@fomichev.me,martin.lau@linux.dev,ast@kernel.org,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,davem@davemloft.net,edumazet@kernel.org,kuba@kernel.org,pabeni@redhat.com,horms@kernel.org,hawk@kernel.org,drosen@google.com,netdev@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 22 Oct 2026 12:05:27 +0000 (UTC)
-
---===============7744310823040091790==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/7] sched/eevdf: Move to a single runqueue
+To: Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Mike Galbraith <efault@gmx.de>, Peter Zijlstra <peterz@infradead.org>,
+ mingo@kernel.org, longman@redhat.com, juri.lelli@redhat.com,
+ dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, tj@kernel.org, hannes@cmpxchg.org,
+ mkoutny@suse.com, cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ jstultz@google.com, kprateek.nayak@amd.com, qyousef@layalina.io
+References: <20260605105513.354837583@infradead.org>
+ <20260605124052.227463677@infradead.org>
+ <58dc8e8a-7260-43ce-aebb-8d9c29a6afc9@okonski.org>
+ <b1002150c3e4f877d04790cd8e85d2149d17722f.camel@gmx.de>
+ <atZM6uF0CqCNh__I@vingu-cube>
+ <f1d0fc39-6939-4fb3-a422-273cd5c347c4@okonski.org>
+ <CAKfTPtB_gMM7axqM167_Tb=WiChskGPXFDgQ4YjVz4Bj+ZiJ0g@mail.gmail.com>
+ <01e25832-955c-4f39-a902-6cc253a2791c@okonski.org>
+ <CAKfTPtCVknqCO45p7oR3s=1fNEmDW-jv7-wtQh7vwkuJ=UmVcQ@mail.gmail.com>
+ <CAKfTPtBVJZ7DUeDci=JkCs1kstoYXsBru46VchZV7DE5=RB2+w@mail.gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
+In-Reply-To: <CAKfTPtBVJZ7DUeDci=JkCs1kstoYXsBru46VchZV7DE5=RB2+w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-> bpf: Use memmove() to load bytes from an skb and an xdp_buff
+On 10/21/26 13:55, Vincent Guittot wrote:
+> Which is the correct way to ask scheduler to make a task to run 1st
 
-TL;DR: memmove() fix leaves the multi-frag xdp path (bpf_xdp_copy_buf) using
-forward memcpy(), so bpf_dynptr_read() into an overlapping rdwr slice may
-still corrupt data; the store path looks similar.
+I totally get that and will try to make the changes in my workloads,
+starting with https://invent.kde.org/plasma/kwin/-/merge_requests/10192
 
-> diff --git a/net/core/filter.c b/net/core/filter.c
-> --- a/net/core/filter.c
-> +++ b/net/core/filter.c
+That said, I hope both the cpu.idle and nice 19 issues get resolved and
+I'll be watching those conversations. It's too disruptive otherwise!
 
-[ ... ]
-
-> @@ -4298,7 +4298,7 @@ BPF_CALL_4(bpf_xdp_load_bytes, struct xdp_buff *, xdp, u32, offset,
->  	if (!ptr)
->  		bpf_xdp_copy_buf(xdp, offset, buf, len, false);
->  	else
-> -		memcpy(buf, ptr, len);
-> +		memmove(buf, ptr, len);
->
->  	return 0;
->  }
-
-The commit message says "A read that spans xdp frags still goes through
-bpf_xdp_copy_buf() and is not changed here."
-
-Can the same corruption still happen on that path?
-
-bpf_xdp_copy_buf() copies segment by segment and writes into buf as it goes:
-
-    memcpy(dst, src, copy_len);
-
-For an xdp dynptr, bpf_dynptr_slice_rdwr() with a NULL buffer returns a
-direct pointer into whichever frag holds the requested range, so buf can
-still be a slice of the same packet.
-
-Consider a linear part of 100 bytes and a 4096 byte frag0:
-
-    dst = bpf_dynptr_slice_rdwr(&ptr, 110, NULL, 64);   /* frag0 + 10 */
-    bpf_dynptr_read(dst, 64, &ptr, 90, 0);
-
-    bpf_dynptr_read()
-      __bpf_dynptr_read()
-        __bpf_xdp_load_bytes()
-          bpf_xdp_load_bytes()
-            bpf_xdp_pointer(xdp, 90, 64)   /* NULL, since 90 + 64 > 100 */
-            bpf_xdp_copy_buf(xdp, 90, dst, 64, false)
-
-The first memcpy() copies linear[90..100) onto frag0[10..20), which
-clobbers source bytes that have not been read yet.
-
-The next memcpy() then copies frag0[0..54) onto frag0[20..74), a forward
-copy over an overlapping range.
-
-A user-space model of this loop with forward copying returned 44 of 64 bytes
-wrong.
-
-The skb side does not look affected, since skb slices are always in the
-linear head and skb_copy_bits() copies into a destination below the source.
-
-Would it make sense to make the multi-segment copy overlap safe, for example
-by going through a bounce buffer, or else to say in the commit message that
-the xdp frag case remains broken?  The store path
-(bpf_xdp_store_bytes() -> bpf_xdp_copy_buf(..., true)) has the same shape.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/39772397846
---===============7744310823040091790==--
+Regards,
+Jakub
