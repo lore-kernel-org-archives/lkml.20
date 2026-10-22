@@ -1,94 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700610;
-	b=vWl5T5w2wmhyaK8bn1gWvsS4k9QBs3BxVqvB8a9nmQYTXc05rHeQ/utRjSyLJzw6IymI
-	 437GECAqBbyVlDGzw9c3hTjMi9/Qv6DmVRVhHKYt4MAIfS0t7SPX/pzJjpHT+bEaa5nGG
-	 8uWOM06uKbNkDZ/QO8ndvrra6Z764ad2A8M2BaOKdT3Ub0iZJsrLa1hZorPmAqA1sTu7Q
-	 5EC0RKMG+fDWyNAcOM68m4KQztew1Ufn0g2iMUQTkaIXw1vf8hfJmlxacLK3tUxkT1Ft9
-	 IO2N07kcDk6783Sh5D25Ji0awwOQh3oMIG9+kE4JtLkdDV5kwzh1lzkGFcIUusGspLA==
+	t=1792700708;
+	b=V41txCypj8xXpOQuhIbsPXcKSkIvYczuf69AZaI6Z0Ovn8fLQ0UtWj52S1XQzj8/o6KT
+	 0dyyoZGwbX3KzbNpJYDLhbnZn045QZKSyK9uXpNAuCy1hatLcqNSDHG1h51JBlLlgjtBg
+	 tljio/JqT6hPt6NkZJDvnP/RbsJ/+Xr3wnbNZADEmzU7LFvhL4TIm+FCAkNftHnPDnJuC
+	 hUUjQhG3EbOjqcZ5f5G+KSX6jbMuzuf1AyMV9BvTNOeBX/6A6F3KZsnjHZISOCu2IeP0B
+	 iQa1NnKiHFrdC54y26UQM0wU7hm8tAd4EXKu60UwGEyxfbFV7/x810UaX1o7mjVDeJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700708;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=bZ+dC6noXl55QlVCt5BZLTKiK5g6wFPqaNKr4aU2duo=;
-	b=AiWqMdEB3vuXh/ytvPsRbW1BMHzhtiI2kmyH+4lt/sxFK3IzWP/AEi8O8rbzhl0nGc3C
-	 v8NafSvjGT13rCuss30EHid4rqnmPa6CY2SWTA7XQMWgvFxZSp4su9vjDGTiwXrTm7GQZ
-	 R7s99TPkr4kApC4q1oITfYA0LoMe1maz1gdQNjW3bYftxqstU8rK6uQG/hvJF2x4cj9Wr
-	 YOFGixqCajXIKU6WAJjDRS0zeKDnlZQExzZXAh0CD9uuk3x1ieoSe2UgxSmP9LAhTE/h1
-	 T47YtCVf663CaExRkJdU9aStdiD7XndIKGgP5vA8zi6ezNRVgi0GVUDbtUJ15eqvbsQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YlblYhcykHoL947/Q/nvx+AeatTsVJAcpdiRSXriyMw=;
+	b=MuX6SeVZ1QzH+It5Ld0XDy4tDjWtP3rf9o3f5npwzUBVGlvWHhdXGL7jMS8o6zStdoha
+	 11oKZ8HwBNwURteZjlS5cBmDwGdHXHRHwy3x4zvCnE71beQk2EB0BtecWFrYCxOzlmAqg
+	 oIDP8DpwQgvYqhfO/8fsqsm7+6fB4YGghfYPuv3tAJ5eX47xjdMEIASfwak5X3KZ3xamL
+	 rdCKrAUtdV48pTgL0wWoi02zny7X1mNhBezE/3ncowQPmtsAEoFlAWgnTABI/Co9Qzykj
+	 k2vZNi9GXVQlp+HTzNIo+rl4GKcDChjBW7MIT1/x9+u2P7Ohxz8crnjVI5t6QsxEnMQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=RZvMrKPb;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="lr5vktD/";
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CEF606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:23:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86CEF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6330F606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:25:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6330F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=RZvMrKPb
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35ef6b49813so314161eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:23:29 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=lr5vktD/
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso604793eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:25:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1792700608; x=1793305408; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bZ+dC6noXl55QlVCt5BZLTKiK5g6wFPqaNKr4aU2duo=;
-        b=RZvMrKPbBFnx2yyTosWZ04aFqIkL8Ce/WGIYyuZqTADisEr63CdZ37DebuMQCINTfO
-         csg6+7j4vMkjRDPV6N4jaBU4NUssCs7RBPlM+ionoNfAG9CiBcWOKRa032cV+jil6Bvl
-         AHBRFarAcS76VSGbf+L6p88zW4JoQA3R5NuOW5eBDln5EyVYa1x8pAF+/8f94GIyYzlh
-         HlRIOI5pfHDJs+y8opigZZsI2FcoTByBzNjAIXd/+V1di4APMvgpIMUcKESWvMseCbGB
-         P2q+6uRzDgBdJ1QhN1elEt7YyHAnCpEPqx5bt+wmHhUOY0D0/4iiR8Erl/fqWu4bSv4c
-         b9wA==
+        d=gmail.com; s=20251104; t=1792700706; x=1793305506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YlblYhcykHoL947/Q/nvx+AeatTsVJAcpdiRSXriyMw=;
+        b=lr5vktD/6CswC/F1Uk5PKrnZa2f3WBlIHZUm2oIg3rkwp3Q0F7WLaxbTL/kGZsTxx/
+         dh4F8xHb+pCnrG2znll8Cs1NOsoKCMuVc5gr4e7Iy+J1OIEk9tKYtzDGiPe68Mgs0TL1
+         Fu0hrQlkBDqRtjyo2sTaPv7gCewKEK+ZJstYpmC4Yjieg4LCERrZyFz8zvxSx6m4ASQV
+         mdoiTR9c7GYAEBihSWt5UJayWa8T3pDgg/JJzkNhNA556A1HuRzlugmeGVI9MNzZT/ni
+         wgxHo1Ke8y5ebYZu5Q5AyhWnD4yG46z9Skt9oG1ojcJDDNmYXoNw5jI9fCgGl/+9E+BD
+         T3jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792700608; x=1793305408;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bZ+dC6noXl55QlVCt5BZLTKiK5g6wFPqaNKr4aU2duo=;
-        b=ieVXbywWF70XQvgok3r9I7zV1VkBh5fi1KZVQS3UYoQPWvooVkfh4Lu+iz8/CQvwMf
-         SQtHfFO7SdEO+v4kpW/0uSFkVnER25a5/aZGTB7fZTqu2Ma7Y7hBNLHUu9T0aXL3K4gK
-         kHjwygH3yOyGFTZzCFzQyA4iUJGENaiFz4QpsOJnRgvphCSIBUCorJeOGM//acfRAUtF
-         Mm9xvDSK7S7qN27vLo1BtsVNClA3gIN9qsElwoP9o3aupo+zzTEGH22rvJW8YFEckskG
-         cDT9BMG1CaF2t7yMOlcgnYc4Fa8V1Eg4UM3UVHdz27FFwKt6U9jPruKRzVRVE34LMLLG
-         XSBA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0F4dKciFBK4duhnvYwODeKqdu9ua+tyY890ERVEPCz6LfeDmCXq1AaQFv/oA+YzlyNA4qz6kbvHbzHNk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhyRA7zgSRBqwJD6OzZEa43Ko5TY3eLuswri4JOaQnJ18i42gS
-	pvm4AS0BybeJHP7wUe2MHIpMC034GLDGt1YSHg11Wln5XZ3eSd5VQBFTs+f1EfHPZs0=
-X-Gm-Gg: AYBFou2I8BrTD3wtCJ271Mv4a6Z/LrsnBJ83H3r+Ffo/APS+uIzAMSof346j8YLIPpf
-	Ts2i3/DLSpWIQT/DIXpm0w/z2eQt565tmm0AMzWOpeEt66Az6WuGdl6FX7wEd6s97Dz68/VYgSW
-	CFtSpx7JSsCZMKnCbXfvHgAYHv1Geq+mQPUy26I1xFNS7Be46C0V1Kyd5e2A1mufClIARMdstUa
-	BrQidpW/RkNsa69YPqqWqWlP4ilEKSONZuOhG6WnCej+HD6hbtKoGkcCUPkriyB09LGL+eTaKGm
-	W+ufgPYfwfzgkFnuX3aVDmpF2NKkD32i6khyTTMwfrQTQU5C3p2AFzicRM5rQbbkftVfNI0zzei
-	L+52gQyAKeryu6IzgKbL1oJwPQXXkWgyeMrjthLPGVjo2q0351yOw+GepEkCAvXdunE0NF5qiG/
-	EGJKAp50R90+vFBYsfgBD7TZ2Bt8s9QkY+DzGiVuw2fVO9DZUA5+1tUi72vR/2pcXm18kbNtU1O
-	SWaFdRlEZtLrFniZqevOgukhwxDlvctQ+W7AGQZA0awNq0CWgXZBSYjA1yCSXCjeODrLSW2dXx+
-X-Received: by 2002:a05:7300:2a9c:b0:365:b147:b458 with SMTP id 5a478bee46e88-369d90c7547mr323249eec.3.1792700608112;
-        Thu, 22 Oct 2026 13:23:28 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([208.88.152.253])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-369d9d8978csm426450eec.13.2026.10.22.13.23.27
+        d=1e100.net; s=20260707; t=1792700706; x=1793305506;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YlblYhcykHoL947/Q/nvx+AeatTsVJAcpdiRSXriyMw=;
+        b=hVFrHfoD+l5jO+xeYrjyjlISeG2yxEmwFtMBmLhJZAvdCpQk4KjfiXkpMoTFj3ECM+
+         wY7roPKAgdfWc4PJuN71i0dzCi8wooNViTPqM+LsH9lxMAVOOvEDVPxmNntQCRPn8rhy
+         vyslNX2qNyvykovUTplOuEzkFrTZw/3rJo0dFZlfIQt4qyu0Rse316S5ldV7FUBUUMct
+         mx6LxPVi4oR2uGfwaMe6n3l+bGpg8lkxiIrxiZ3q83f8pdNTw/6XZs+59mAOMPMWt175
+         3X+1yrde63ZHKnOjDLfcCMswlsnOyF3tteg3zVyvjoIKKXu0cbcCglo9nLFWQa0bFSe0
+         6G0A==
+X-Forwarded-Encrypted: i=1; AKwUvBycXYnLYqa/knrKeBgcbpY0oIA8sPD/M5WUnj0HLEgvabFdvpQ90obTQjEAz8kUPPFtg62g1IlWn0ASzzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYInW08wOrPUQQ2hrHyJl+axdDZalF6gnw+77b5Emacxwz0blml6
+	L1OwcyGw4oDLOTzkEsAIeQWNJ7T+hGIvDhHOiOtboFPY3pexN/XExPp2
+X-Gm-Gg: AYBFou19KC1zH6NBhWtxiuxzu9U4P85pq0qwKUZd9DTNOxAaR0Physg0i8F6q6wrc80
+	s38VBledKAjHQXLzo5tcWfSlnDf51tF5BdqG/ZOyfiqFh0jsq9ga63G6fAiOJPadESbbyRSdm4R
+	/knZ+yywq5ziy9UmsK6AgeU+ZxUgqDRvclrntjU7jgwWU5Nm1kXxgi+pSBGouMDKGc2JgX0rCah
+	Grufphut7BkMYd26ibZ6tb7jeBMtR3BICcLQE7L6GzLJO691dScBjZqBHa+isj1fVLDPMfp+1/T
+	M1IbWfpM2v++xxtc3+KEAqZQNwqVW/BI+BuIM5Gpie/uR5ZkjmwsFHEnAwqZOkV3aD8OKFvwwxU
+	JNzJhF0Qo+M+APK5diSUoUcj6JQ8uC7+zsX6Z5vDoQjnFjwafIU3BptEUPh41XBnjqDWVhjdPzP
+	pLKfvcv3cXqpaJKsiyldFuselZQ8h4BTDDJKgzA/UY/yyfdk63ZQaErUlK3oTyd/tJQC9dNUTub
+	gKNCZVNHweqJSkzjza1giWdp/wW6PaDKE3LihYhK0Lw/cz/YvmyhkGU6yx0oKAC
+X-Received: by 2002:a05:7300:e9cf:20b0:365:f73b:510b with SMTP id 5a478bee46e88-369d971f2a0mr324415eec.13.1792700706330;
+        Thu, 22 Oct 2026 13:25:06 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:5e95:3be4:ff57:f0a5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d9c0e60dsm331332eec.2.2026.10.22.13.25.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 13:23:27 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:23:26 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Md Haris Iqbal <haris.iqbal@linux.dev>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org,
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-Subject: Re: [v3 for-next 0/3] block: delay support for error injection
-Message-ID: <20261022202326.GB2931-mkhalfella@purestorage.com>
-References: <20260928221634.43239-1-haris.iqbal@linux.dev>
+        Thu, 22 Oct 2026 13:25:04 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: greybus-dev@lists.linaro.org,
+	outreachy@lists.linux.dev
+Cc: pure.logic@nexus-software.ie,
+	johan@kernel.org,
+	elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+	Alex Elder <elder@riscstar.com>
+Subject: [PATCH v2] staging: greybus: loopback: Use fsleep() for delay
+Date: Fri, 23 Oct 2026 01:54:55 +0530
+Message-ID: <20261022202455.104142-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,77 +100,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928221634.43239-1-haris.iqbal@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-I wanted to use the delay injection for a test case that I am currently
-working on [1]. Are you still working on these changes?
+In the loopback function, usleep_range() is used for short delays
+and msleep() for longer delays. This requires choosing the delay
+function based on the requested time and converting microseconds
+to milliseconds when using msleep().
 
-1- https://lore.kernel.org/all/20261022185920.GA2931-mkhalfella@purestorage.com/
+Replace both functions with fsleep(), which chooses a delay
+delay method based on the requested time. For short delays,
+fsleep() allows up to 25% extra time instead of the fixed 100
+microseconds. For longer delays, the old code rounds the
+requested time down to whole milliseconds, while fsleep() rounds
+it up when using msleep().
 
+These changes may affect time between loopback operations and
+the reported performance.
 
-On Tue 2026-09-29 00:16:31 +0200, Md Haris Iqbal wrote:
-> Error injection can only fail a bio today.  This adds a delay_us option so
-> that a rule can hold a bio back first, to model a slow device.  The delay
-> happens above the driver, so it tests the code waiting above the block
-> layer, not the blk-mq timeout handler.
-> 
-> A delayed bio is marked with a new BIO_ERROR_INJECTED flag so the rules
-> are not applied to it again, even after a split.  Christoph asked on v2
-> to avoid the flag by allowing a delay only together with an error.  I kept
-> delay-only rules, as a slow device that succeeds is the more useful case,
-> so the flag question is still open.
-> 
-> Holding a bio back reorders it against bios submitted later, which breaks
-> sequential write ordering on zoned devices.
-> 
-> Patch 1 is a prep cleanup.  It moves the rejection of an unknown status
-> tag into the parser, because patch 2 makes a rule without a status valid.
-> 
-> Tested in a VM.
-> 
-> v1: https://lore.kernel.org/linux-block/20260827000115.128093-1-haris.iqbal@linux.dev/
-> v2: https://lore.kernel.org/linux-block/20260830012002.80275-1-haris.iqbal@linux.dev/
-> 
-> Changes since v2:
-> 
->  - Patch 1: return bool, rewrite the commit message.
-> 
->  - Patch 2: drop __submit_bio_noacct_nocheck(); the flag alone stops the
->    rules being applied again.  Log the error when a delayed bio is failed.
-> 
->  - Patch 3: trim the documentation.
-> 
-> Changes since v1:
-> 
->  - Add the BIO_ERROR_INJECTED bio flag.  v1 only resubmitted a delayed bio
->    below the injection hook, which left the remainder of a split going
->    through the hook and matching the same rule again, so a bio was held
->    once per split instead of once.
-> 
->  - Patch 1: tag_to_blk_status() returns an error and passes the status back
->    through a pointer, instead of returning BLK_STS_OK for both the "OK" tag
->    and an unknown one.  A delay-only rule has no status, so the two have to
->    be told apart.
-> 
->  - Documentation: a delayed bio is held once rather than once per split.
-> 
-> Md Haris Iqbal (3):
->   block: Reject unknown status tags in error injection rules
->   block: allow error injection rules to delay bios
->   Documentation: block: document error injection delay feature
-> 
->  Documentation/block/error-injection.rst |  39 +++++-
->  block/blk-core.c                        |  14 +-
->  block/blk.h                             |   2 +-
->  block/error-injection.c                 | 167 +++++++++++++++++++++---
->  block/error-injection.h                 |   1 +
->  include/linux/blk_types.h               |   1 +
->  6 files changed, 192 insertions(+), 32 deletions(-)
-> 
-> -- 
-> 2.53.0
-> 
+Suggested-by: Alex Elder <elder@riscstar.com>
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+---
+v2:
+- Add more details about how fsleep() affects delays.
+- Update the subject to include the loopback module.
+
+v1: https://lore.kernel.org/outreachy/c482704b-903e-413d-ba7b-5bf31c0a6104@riscstar.com/T/#t
+---
+ drivers/staging/greybus/loopback.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+index efc69c10cffe..2fe845eaef29 100644
+--- a/drivers/staging/greybus/loopback.c
++++ b/drivers/staging/greybus/loopback.c
+@@ -898,12 +898,8 @@ static int gb_loopback_fn(void *data)
+ 		gb->send_count++;
+ 		mutex_unlock(&gb->mutex);
+ 
+-		if (us_wait) {
+-			if (us_wait < 20000)
+-				usleep_range(us_wait, us_wait + 100);
+-			else
+-				msleep(us_wait / 1000);
+-		}
++		if (us_wait)
++			fsleep(us_wait);
+ 	}
+ 
+ 	gb_pm_runtime_put_autosuspend(bundle);
+-- 
+2.43.0
+
