@@ -1,81 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652357;
-	b=2FQy6nuThpDDXbEImZEzinG7ZfO11v4qArrJWeAVD00qdmchO76vNkU6Ky5X88dohGFi
-	 6nX5QQRzw1nnqqG13fxYW+1JGEWfrfTh6ESVTywBhMrQHnQfyCGOIS5e2dvALHix5ydC3
-	 YJnzFrAw9kU43uuA1I2dpL+SVrOWhrdIEHP5I0ic2lFVH9nhebeMXBkiza9L++PmQm6HB
-	 DujLDQYYywMMMHPouWUYh1+I7x+P9DgxIVu+N6Kc1aE3HQwsKDWV8CnTmZbBrOnpUxhYU
-	 A/XIYSbkYZQE5m8JIL6w/wehQYnSQSHJSDl8JLKR7H5nvjP/qRz2aismpeh1GnlIxWw==
+	t=1792652469;
+	b=PciYXN9TvQPEBpyXDddBwh0Bq1UDX1qDxS+6O9Elm+a76T80LdM1u/fSTrwmg8EpklcB
+	 ijje9F1iL8CC2rFsBlKV7y330nCjw5nQbvIcIw61uiGvNfYSjKPQkpFhnUNC33BXVBHhK
+	 3l8XCde/M47dT9Ju2OtZBH+SGrpDZ52AbmFfmgx+/dCtLe0J6sUBGfy14SncUKLRQvUJN
+	 WDwVbx7+M7WqzMFvGggFPM0aH4odJJnWvFgrREE1l1Wqiy0n3aORd15VIx2ojvQDM47Vp
+	 H+b1KLdDwnHVr+3BjMyo/AjWCqIg3ht8Gsr3mJblvXGZZHVMiSwgy0/lQ1bc+gVZ/Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652357;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=A2v0UyZLrL0FvCelp3xxh8E2yhouhyinnzcUd/OTtsM=;
-	b=ym0Dn9HAumS2DSuwb1l5N3SIVZZA0UAyGxqBIFFqxJ78WZMMLZtUJuZvIemnnTJ71WGk
-	 MrUjNWDwqCdZ60GcUi1yvSQXNhEj2hwUQTQdPuwmwfrnFaDmzVZuXP3TaJZtibGrPrhU6
-	 BQ4Ih8jzIQSq0O/tz1PrtVCgTzWHM/sGuJ2sNYFasmykBlK2UohroPzEg8FNPrsuigy2n
-	 mmphOudwPwm6qHK6ebwuMbiLOnhMGjEYSrQ4qCtMexFdGsteWEvp2oB18Qx8YcbQNjE2Q
-	 QZUMFrjR9e/bNi8nZWKV9tW0B7aZgc9MO8n6a+rj1/Qf7K7UmOzzCNp0BAVlT/XXZ4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652469;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=EXjmarcs8jPMRVcm820ceFNk9nolMb8Iitf1PYFVGXY=;
+	b=tFWFw+gBqyHa4wp4moS+POGl+qHA7f/WW4I1ZFxH5sOC+xKZ4GCIQO/z4tdGVeTffYjz
+	 JY9NC8T+vIpYEZaO0XqgdYKApq+hJjQ59ci6XT2sDt2m619M69i4UanRftJZtmASfXN+Z
+	 M8jq9VHzabJbykDSPG3dbWWDCn8XCpYnNDHZZHV+0LQLuznoWkSKhMbWLwSQizWQfDwuD
+	 Y+FL2Lqmxqkswu1QSrXlsJW9690sspuJJmwou+k20YyeP9C5RtjRuP5tPbVVGBJdSkKX7
+	 qyX/0rhR8pnM2kMDW0oOOGjNtr49sWF4SKQQjADJIaBvPpT1lOdyD5l3m3v61ZXZw7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l6Fp6cZc;
-	arc=none smtp.remote-ip=198.175.65.18
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOpcw62D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92E18606A319;
-	Thu, 22 Oct 2026 06:59:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92E18606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E42C606A319;
+	Thu, 22 Oct 2026 07:01:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=l6Fp6cZc
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792652357; x=1824188357;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uaxQzhw7nU91HZ63N2v0J7ZNjT2kjXjlHg0x8yYroP0=;
-  b=l6Fp6cZcdhTBRm8f5eO2mhaEp3hvp38OayYWM2Jp09JgqC+FK1mU98rd
-   J4OG7xBw9hNR1w5bv/4Na8BI3TfbZiPT/7Q8iIACRN0HVmYEKkZWEVdNL
-   sLfM3uLtvnwfX0AbyQBW6fdACTvo+qLwxpePTooeoS24nYZeLWuYeShmZ
-   0GVFwhus2srgP5QVKahMuT24D1XvsZ36BAJOe3K61yNuYPexzX2VcBEoB
-   zd31efHXT3v5bAJewoeJmgvG07pe8rXc7OsATAvfrOks6T4zA5r9fSi5p
-   SOAnTqFSmyNU1xQRjSj9iS6rQ5TZnpQk+gKtV4sjH7Yp3o86jyxN/2Ule
-   w==;
-X-CSE-ConnectionGUID: 2jUG1UaITV2x6SkH2FVKKg==
-X-CSE-MsgGUID: sOphSEG4T3eZvoudpLcrig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1397782"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1397782"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:59:16 -0700
-X-CSE-ConnectionGUID: foGnZhXYSiW2zSl4eblvtw==
-X-CSE-MsgGUID: T47D7lz+QhGW4Ns1SfpWng==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3639674"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Oct 2026 23:59:13 -0700
-Date: Thu, 22 Oct 2026 09:59:11 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Brian Norris <briannorris@chromium.org>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
-	Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 03/17] iio: accel: mma8452: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <atm0P1iD3e4Qmtv2@ashevche-desk.local>
-References: <20261021235818.3059519-1-briannorris@chromium.org>
- <20261021165858.v2.3.I0ce530b298f72acf4015d898d8b2aaee89482b8e@changeid>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOpcw62D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B6B1F000C1;
+	Thu, 22 Oct 2026 07:01:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792652469;
+	bh=EXjmarcs8jPMRVcm820ceFNk9nolMb8Iitf1PYFVGXY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WOpcw62DU8gibkhW2vEgsyGAsBB19FUq95K2E9GjjhBhLudBjKFLRWiR6sKZCqFiS
+	 6KsnGELeDLc+J9alftd8tfiYUUlyEcre1sxQWoSGJSNacb4WRGUQNutS5En9/+Oi7q
+	 78ZVVbFzTWEePVavInekIeQ60500OAZq4m8nxVdL4WIDb7lsq9gcG5ZOLn4HPm0eAo
+	 9+k3Uy/RjnlSDtkGneF8USxti5DoxjKo8Hu+qI2UdEu/rlCwgHkG+txWDuaF/MoPz0
+	 2JoIuJ12lRbW5aX0c6HjNt1ur3ieXKfsIW0MxE0Ni1m5Y9+69MXqGJ1pTdghqDc6b3
+	 A7elOM6Ayc2sg==
+Message-ID: <3f657b75-64c9-442b-a609-987cc16f5501@kernel.org>
+Date: Thu, 22 Oct 2026 09:01:05 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,66 +51,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021165858.v2.3.I0ce530b298f72acf4015d898d8b2aaee89482b8e@changeid>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ata: pata_artop: read the ATP865 mode register
+ through pci_iomap
+To: Daniel Palmer <daniel@0x0f.com>, ysato@users.sourceforge.jp,
+ dalias@libc.org, glaubitz@physik.fu-berlin.de, cassel@kernel.org,
+ linux-sh@vger.kernel.org, linux-ide@vger.kernel.org
+Cc: geert@linux-m68k.org, linux-kernel@vger.kernel.org
+References: <20261017041419.311921-1-daniel@0x0f.com>
+ <20261017041419.311921-2-daniel@0x0f.com>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20261017041419.311921-2-daniel@0x0f.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 04:57:04PM -0700, Brian Norris wrote:
-> This driver propagates the return value of pm_runtime_put_autosuspend(),
-> which is not particularly useful.
+On 2026/10/17 6:14, Daniel Palmer wrote:
+> artop_init_one() probes the 6280's "fast" bit with inb() on the raw
+> start address of BAR 4.  That address is a PCI I/O address, which is
+> only a usable port number on platforms whose I/O port base maps PCI I/O
+> space one to one.  On an SH7751 LANDISK (identity io_port_base, PCI I/O
+> window at 0xfe240000) the resource starts at 0x1400 and inb(0x1400)
+> dereferences that address:
 > 
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
+>   BUG: unable to handle kernel paging request at 00001400
+>   PC is at artop_init_one+0x10e/0x170
 > 
-> For this reason, modify this driver to simply discard the
-> pm_runtime_put_autosuspend() return value, and inline the pm_runtime
-> helper, since the behavior is the same with and without CONFIG_PM.
+> Map the BAR with pci_iomap() and use ioread8(), as libata-sff does for
+> the BMDMA registers later on.
 > 
-> While I'm at it: I see that mma8452_data_rdy_trigger_set_state() and
-> mma8452_write_event_config() mismanage the runtime PM reference count,
-> and instead rely on (racy) autosuspend delay for correct ordering.
-> Undo this choice, and instead properly drop the reference count only
-> after we're done touching the hardware.
+> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
+> ---
+>  drivers/ata/pata_artop.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
 > 
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
-
-...
-
-> static int mma8452_read(struct mma8452_data *data, __be16 buf[3])
-
-> -	ret = mma8452_set_runtime_pm_state(data->client, true);
-> -	if (ret)
-> +	ret = pm_runtime_resume_and_get(&data->client->dev);
-> +	if (ret < 0) {
-> +		dev_err(&data->client->dev, "failed to resume: %d\n", ret);
->  		return ret;
+> diff --git a/drivers/ata/pata_artop.c b/drivers/ata/pata_artop.c
+> index 9f8d41639a62..351ff4c8e48e 100644
+> --- a/drivers/ata/pata_artop.c
+> +++ b/drivers/ata/pata_artop.c
+> @@ -405,13 +405,21 @@ static int artop_init_one (struct pci_dev *pdev, const struct pci_device_id *id)
+>  	case 1:		/* 6260 */
+>  		ppi[0] = &info_626x;
+>  		break;
+> -	case 2:		/* 6280 or 6280 + fast */
+> -		if (inb(pci_resource_start(pdev, 4)) & 0x10)
+> +	case 2: {	/* 6280 or 6280 + fast */
+> +		void __iomem *bmdma = pci_iomap(pdev, 4, 1);
+> +		u8 cfg;
+> +
+> +		if (!bmdma)
+> +			return -ENOMEM;
+> +		cfg = ioread8(bmdma);
+> +		pci_iounmap(pdev, bmdma);
+> +		if (cfg & 0x10)
+>  			ppi[0] = &info_628x_fast;
+>  		else
+>  			ppi[0] = &info_628x;
+>  		break;
+>  	}
 > +	}
->  
->  	ret = i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
->  					    3 * sizeof(__be16), (u8 *)buf);
->  	if (ret < 0)
->  		return ret;
->  
-> -	ret = mma8452_set_runtime_pm_state(data->client, false);
-> +	pm_runtime_put_autosuspend(&data->client->dev);
->  
-> -	return ret;
-> +	return 0;
 
-Now it can use PM_RUNTIME_ACQUIRE*(), no?
+This is really ugly... Please move the "case 2" variable declarations to the top
+of the function so that you do not have to do something like this.
 
->  }
+Of note also is that this switch does not have a "default" case, which is really
+bad practice, even though in this case, we should never hit unknown values.
+But I would still prefer seeing something like:
+
+	default:
+		pr_warn("Invalid driver data\n");
+		pci_disable_device(pdev);
+		return -ENODEV;
+	}
+
+or a big hammer:
+
+	default:
+		BUG();
+	}
+
+>  
+>  	BUG_ON(ppi[0] == NULL);
+>  
+
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Damien Le Moal
+Western Digital Research
