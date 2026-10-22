@@ -1,116 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792701901;
-	b=qJ7VuHKtzcj7qIz1FL8xeXwYLeKVm3Zg8i/S85NUVl+9+JOvQxpFb/4LcWN5+bbmzjzT
-	 VF1FmBowkvWy7tqFCYToeEi2o/T8CCxLQ7g4sES7+XQLgdJruToSQ4V4hJ51mvRyM3nhj
-	 2sT9F9oSv49EWZM3DZVJXQGjIUkozwM378E4iqdj1irJNKL7kVNOajVEnCLc7ZIvTtAUh
-	 d6Ly991gYTaOsGrCoieOdWlmpKPbnfydYRwp1cm394HOhzr6xn8+YgIFNMd+t4OQqPvuP
-	 n0YggPdMnkCGDOGiTpLNGfyZ5OhlnyMehsJv/dUrjNeXJoKKs2h5yMVuyYDGqMIp2KA==
+	t=1792701999;
+	b=duAxz6wqMEFUKeOBEGofyCzon9+uCzPURaruA1znEai3+Cm2s1JQNfLrKuGPdG/qQVhu
+	 FJq28nRc5eWSnf67vJOl9JptTVvER4GkVOWdIjCscQWCI8gcgSUQiOOcZp0j2U/PACDIe
+	 fXRVsoOYrV3HbTbwlPnKbzM+JPTcylNy/gQHrFUF78Bi3jNNiaHcFyBHpCW7lr7T4G5Mc
+	 gBf5CsZJ0CIGGCWfXydIIP3bwyLU9kAN++1nTMRDTkGnw6M48s4WWBKETH61tQbnFcUC/
+	 EaGv9ByldPxfaamL4jEKVd1U+/vITZqynTqdT5HGxKvm9p/o2Z6wXHLXgu0nWMKb9sQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792701901;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=KUa73tAP6sqc80IwZh4prgSCGi9ezU4jrTu+zr0i9qA=;
-	b=cZrtGFsy2maGy51prefipPe4r7xOm4leXD8/Q3qV3Ga3tyIaN3wm6dyUaeFBjSQX6Ghr
-	 5oe6S8zuG0DGtUlb4Nst1SLa/bWGB7twyaTmvvaMdNoXxUiJWubTv4Hga5TTdNc+/6t2B
-	 Jq1emG4cO8UKqd5NoL+0G6Tdb6RUFkmn/uQxHrImmEfK5kwLJzpbUf4A8g/eXHmSzfMIp
-	 xvYWmog7spOKGN3ghPE4feOKzO0/VsL7I4s6rJkKkOCTJ4phtJet2YTQFgyY7SzII+bjG
-	 0JVarCqyFCU/yrrwBMAHeugB6x1wINKa7Wja7hDtueT0fHulbGNEClxMBel6nKK2jRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792701999;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5EXSTLNSsguQaSynPItTzP5zk0jMq4+PZis12D7icos=;
+	b=3kGbNj/p8QvdmWv+/YXrBy9jnIl7yZKSvSGHSB5cOGIkU/1B0kL7j0vDAP6EAsLDjzEu
+	 /7ZVaBye28Ulzch64qH3xyF0341Xj9NyIUE/iCWuvAQTvpAOO7pm2H6ms+TJpSeMOfgFg
+	 uIGtocf3Q131EaAcElFRyCE97h9y48igw2gNzvlkw7X7Ab9zz7z6OQtlS0LLvmUN/3Ub1
+	 LcWrdN/oT4uTDwIGk9p3tfHqGwGDE1k4oqxD/zD/ROPCVgHh4xi6mRveooSlmGmoOdg5D
+	 So7OpwW3GIVOHwEJdeaETsbDfwy6I90XKQnselWcBA66LTpR5cvm7P4Io2FgByKWa3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=INHuFtQX;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=u33GNpRG;
+	arc=none smtp.remote-ip=74.125.82.197
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CCE606A31A;
-	Thu, 22 Oct 2026 20:45:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CCE606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A95F9606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:46:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A95F9606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=INHuFtQX
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MIE9Vd747378;
-	Thu, 22 Oct 2026 20:43:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=KUa73t
-	AP6sqc80IwZh4prgSCGi9ezU4jrTu+zr0i9qA=; b=INHuFtQXCrvxUd/nxpENCk
-	LBin4ksk+tIqygfEHxJCgc8fuK+zI6uY3pyMhhVtAfdvbKX33PDtmswcEUMs0utO
-	nsy8ak9edxpnhH7JQZHv8wLi9v4wj9bLL1wK+XxhecMAEYxtobeSEKCbc0NT4FdU
-	+/3yBMPz5FucCW1CdDwqtct9iHTa3Fd4Rq6XkGW+4uTGOJstJSPwhMzoGdBbvh6G
-	ReHypm9HNVp5RDBpz51+tHDWEIuKBYzkZOjm8qqlWtFi5STgcWHfD2tAjyo4AW9K
-	mmoT0XrUnaITkCcglXXbwnW/LSwhUZBZOfrJbmWs5qeyArT1eumqsDgKJWr3wllw
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hdw591fgy-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 20:43:36 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 69MIK4dT862992;
-	Thu, 22 Oct 2026 20:43:35 GMT
-Received: from smtprelay02.wdc07v.mail.ibm.com ([172.16.1.69])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hekdggtr7-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 20:43:35 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
-	by smtprelay02.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 69MKhZSd31130202
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 22 Oct 2026 20:43:35 GMT
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F16DF58056;
-	Thu, 22 Oct 2026 20:43:34 +0000 (GMT)
-Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 56C0258052;
-	Thu, 22 Oct 2026 20:43:33 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.77.162.217])
-	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 22 Oct 2026 20:43:33 +0000 (GMT)
-Message-ID: <dcc62b1f9a64fae22cacdcde55a2110dc59e7c2d.camel@linux.ibm.com>
-Subject: Re: [PATCH RFC 00/20] attestation: Add a common subsystem and TDX
- support
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: James Bottomley <James.Bottomley@HansenPartnership.com>,
-        Jason
- Gunthorpe	 <jgg@nvidia.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, Dionna Glaze <drdeeglaze@gmail.com>,
-        Jarkko Sakkinen <jarkko@kernel.org>, linux-coco@lists.linux.dev,
-        linux-kernel@vger.kernel.org, linux-api@vger.kernel.org,
-        x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org,
-        david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org,
-        rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com,
-        aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com,
-        pgonda@google.com, jic23@kernel.org, alistair.francis@wdc.com,
-        ankita@nvidia.com, suzuki.poulose@arm.com, kas@kernel.org,
-        rick.p.edgecombe@intel.com, elena.reshetova@intel.com,
-        dave.hansen@linux.intel.com,
-        sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com,
-        roberto.sassu@huawei.com
-In-Reply-To: <827296091dbd27becdf85ad8301f94cb16025afb.camel@HansenPartnership.com>
-References: 
-	<CANwfdvUhuQ6L+w+91iDZD=diMmaJ6_2ZsFKkcoiKWOmPMC1oKg@mail.gmail.com>
-		 <20261019225658.GS13920@nvidia.com> <ath4vwt7KGyDXKVJ@FV6GYCPJ69>
-		 <103486a4a29ecc7b72940dd051c00ae59266bd05.camel@linux.ibm.com>
-		 <20261021143529.GP3008132@nvidia.com>
-		 <95b895522bb314187ac1cdc5d0c143c01f0705a9.camel@HansenPartnership.com>
-		 <20261022131141.GD3008132@nvidia.com>
-		 <db0f90dde6421c3f2ca0164ea042e73d13b4d02b.camel@HansenPartnership.com>
-		 <20261022191911.GB3746973@nvidia.com>
-		 <d3274fc7bea368e7e117fdffcff2193210d9d8b7.camel@linux.ibm.com>
-		 <20261022194527.GE3746973@nvidia.com>
-	 <827296091dbd27becdf85ad8301f94cb16025afb.camel@HansenPartnership.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Oct 2026 16:43:32 -0400
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=u33GNpRG
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35cbea41088so273479eec.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:46:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792701998; x=1793306798; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=5EXSTLNSsguQaSynPItTzP5zk0jMq4+PZis12D7icos=;
+        b=u33GNpRGviPmex4xNfgxzzF6v4zZMgm6KsvsrIONWfBx5RphfJB+KWNvkgdO9Lxnye
+         V2X0kj7L0OQ/sph5Ul1MFeCAVPl3h42gPfKo2n6PpRML9pZ6X6CcKBao9hQ7k7MKz0jo
+         YSCE77galjDfjLW+6ksA3yhgJ/p4go3+NR01Dpw29tPNePe+3axSy0oYAJL1iKIRg+fb
+         nMnVq0uRmMzfKNjnNooz03c8yvzAaPmzlOVxD9XT0R1ncCwZ8X5Z0UAplqinyVfi6h0Z
+         VoO3VMO8EWTzvD3ckHdFu/qSud+C+8i1kSbi5ThW5IG+cytozbaOOACAe0c54FQX66yG
+         IedQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792701998; x=1793306798;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5EXSTLNSsguQaSynPItTzP5zk0jMq4+PZis12D7icos=;
+        b=E5Xe/euB6IdbXiLK2dHduNCf1BgvwW9az3GkgRWJWfTDLcLtNkqyebQbOrOZBF4LEE
+         0DtibYqsTZsRJqqKisIs8zkE1JXe6rgZve7LtpXCuoUm2ADJEx24IhLRIQX3veFmafB1
+         1nzzRL8c8yMgo2JXQBfAzBtHQeqDgZv1nPwBC0tKMZ2GQpkjDfNaccN9uhRIONFOu1/6
+         L3uKkuvYzhpsKez4jO20AGmX6NNF5yW/CEkDRxaNVMREIv+r/+I2uEPXP0dKD2kIzkvT
+         F2o1Bna//2nLP0hYv5kvQzcXi01a1XyLRKvLs/4h7Ry8v2wqrL4lhf4jBXHyMkU19vrW
+         9wng==
+X-Forwarded-Encrypted: i=1; AKwUvBy2Jaof1Lh0V0y1txfdHDApLiUSKdRFsiscvPlyKC+b6D12Cv3nqzR6sh3zw15UftfTMpIcMr++vajfi2s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3xzwkUUKpwfxEV3nnLnf96ZiswrZQX4vUCMiMon1VJmzyV1Ib
+	LhT6UbitxNDKPrr3YYgRWNla5SYdKaCjbPsM34FUPxBH/dSg79m4QQ4LzLyWgetjcyTtXgY541C
+	r15rqKgUbNw==
+X-Received: from dybfc19.prod.google.com ([2002:a05:7300:3e93:b0:359:198a:8046])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:608e:b0:35d:4e41:d2c2
+ with SMTP id 5a478bee46e88-369d98bcdaemr432842eec.33.1792701997376; Thu, 22
+ Oct 2026 13:46:37 -0700 (PDT)
+Date: Thu, 22 Oct 2026 13:46:27 -0700
+In-Reply-To: <20261022204627.1813821-1-irogers@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,72 +79,219 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: yaJZ0r2Xr5BFR8E-vk2nMF_ISSMIxKQz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA4MCBTYWx0ZWRfX5WqoN2j0T76f
- ydyr88s51yqER3SZAr+E8/CO9dNbdc21NG9wWUzlJyA4gS+3iOq29Kt8l16rSqQxfTO3BzRvPG5
- SUO5phcqtnxuuWyo6y8bwgS/aCt/YAM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4MCBTYWx0ZWRfX5C8WVHR/Oo15
- WrnjbK6XZt7h8nTNGfMhn5nAFujl2P41K+IjoAi3syIZyf/g2U4eeu0O6+QPyc3I50KqO7a0dem
- imQTLUttWEU3qPs4xrUKyq3uA5tJ0M7TkBrxu6Lq5iTVtvUc6yfYN818UtwAtfBfO7Jub81XNnl
- vRYEYh6A6Uw797V1rN7XJLaHjJkMO3A/kdQ1hR9MaEgHuBMY0YjROgt2eN7B022jPyy1LKr551/
- 4wIJYhLd+g9o8Wf25Ask4hkprTmHOiEpM3kblmofJ+iUBa1/zHFXLz2+6Ht44U3R4UvMnulU4rB
- VhrlnGAdu5EOdSQLVXWZ2zfAYpJMXXLaoR7YqocGz9VqqDFA/w7aLHqbaG+7I7JEtidOBjXkQdq
- 8MD9MHomuWL8V6IB2wOTaKEkf39va8qAFfxZB9tlgewdfIRVhNZLs80ZLcxWmkaDsjdgEKAI7BV
- 5KJXr2uCihwLRGYA5pQ==
-X-Proofpoint-ORIG-GUID: TKhfdmFmEYh4lueQyisSIkbNtOqRwnNZ
-X-Authority-Analysis: v=2.4 cv=Ob4NnRTY c=1 sm=1 tr=0 ts=6ada7579 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=xvKMnzRlZjCcE3-R3fcA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 phishscore=0 spamscore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220080
+Mime-Version: 1.0
+References: <20261013231430.2163505-1-irogers@google.com> <20261022204627.1813821-1-irogers@google.com>
+X-Mailer: git-send-email 2.56.0.307.g5fe7bd680c-goog
+Message-ID: <20261022204627.1813821-3-irogers@google.com>
+Subject: [PATCH v3 2/2] perf test make: Add BPF skeleton build tests for clang
+ and bpf-gcc
+From: Ian Rogers <irogers@google.com>
+To: irogers@google.com, acme@kernel.org, cupertino.miranda@oracle.com, 
+	jose.marchesi@oracle.com, namhyung@kernel.org
+Cc: adrian.hunter@intel.com, andrii@kernel.org, eddyz87@gmail.com, 
+	james.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org, 
+	yonghong.song@linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2026-10-22 at 15:52 -0400, James Bottomley wrote:
-> On Thu, 2026-10-22 at 16:45 -0300, Jason Gunthorpe wrote:
-> > On Thu, Oct 22, 2026 at 03:37:46PM -0400, Mimi Zohar wrote:
-> >=20
-> > > > Advisory entries shouldn't matter with a scheme like this.
-> > >=20
-> > > IMA has something called violations (e.g. open-writers, ToMToU),
-> > > which are more
-> > > than just advisory.=C2=A0 They intentionally invalidate the IMA
-> > > measurement list
-> > > since the measurement cannot be trusted.
-> >=20
-> > Maybe I got lost, but when James said "advisory" I understood this as
-> > the TCG type that does not get included in a PCR extend.
->=20
-> No, I meant the TCG type where the event description isn't part of the
-> measurement (and thus can contain pretty much anything).
->=20
-Thanks for the clarification.
+Add make_bpf_skel_clang (CLANG=3Dclang BPF_GCC=3D) and make_bpf_skel_bpf_gc=
+c
+(BPF_GCC=3Dbpf-gcc CLANG=3D) targets to tools/perf/tests/make when the
+corresponding compiler and BPF skeleton dependencies are available on
+the host.
 
-> In IMA
-> measurements, the path is part of the log but isn't part of the
-> measurement (primarily because it's not reliable: a mount namespace
-> could make it anything it wants).
+Include tools/build/Makefile.feature and tools/scripts/utilities.mak in
+tools/perf/tests/make to reuse the existing feature checks
+(libelf, zlib, bpf, libopenssl, clang-bpf-co-re, libbfd-threadsafe, and
+llvm-perf) instead of open-coding compiler invocations.
 
-You have a good memory!  Prior to IMA being upstreamed, only the file data =
-hash
-was extended into the TPM PCR.
+Verify with 'perf check -q feature bpf_skeletons' that BPF skeleton
+support is enabled for both targets and disabled (exit code 1) for
+make_no_bpf_skel.
 
-The upstreamed 'ima' template extended the template data hash, containing t=
+Assisted-by: Antigravity:gemini-3.1-pro
+Signed-off-by: Ian Rogers <irogers@google.com>
+---
+ tools/perf/tests/make | 71 +++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 58 insertions(+), 13 deletions(-)
+
+diff --git a/tools/perf/tests/make b/tools/perf/tests/make
+index 7524de522802..a40390ed47f1 100644
+--- a/tools/perf/tests/make
++++ b/tools/perf/tests/make
+@@ -54,6 +54,7 @@ srctree :=3D $(patsubst %/,%,$(dir $(srctree)))
+ endif
+=20
+ include $(srctree)/tools/scripts/Makefile.arch
++include $(srctree)/tools/scripts/utilities.mak
+=20
+ # FIXME looks like x86 is the only arch running tests ;-)
+ # we need some IS_(32/64) flag to make this generic
+@@ -65,6 +66,7 @@ endif
+=20
+ has =3D $(shell which $1 2>/dev/null)
+ python_perf_so :=3D $(shell $(MAKE) python_perf_target|grep "Target is:"|a=
+wk '{print $$3}')
++BPF_GCC ?=3D bpf-gcc
+=20
+ # standard single make variable specified
+ make_clean_all      :=3D clean all
+@@ -78,6 +80,8 @@ make_extra_tests    :=3D EXTRA_TESTS=3D1
+ make_no_jevents     :=3D NO_JEVENTS=3D1
+ make_jevents_all    :=3D JEVENTS_ARCH=3Dall
+ make_no_bpf_skel    :=3D BUILD_BPF_SKEL=3D0
++make_bpf_skel_clang :=3D CLANG=3D$(CLANG) BPF_GCC=3D
++make_bpf_skel_bpf_gcc :=3D BPF_GCC=3D$(BPF_GCC) CLANG=3D
+ make_gen_vmlinux_h  :=3D GEN_VMLINUX_H=3D1
+ make_no_python_module :=3D NO_PYTHON_MODULE=3D1
+ make_no_scripts     :=3D NO_PYTHON_MODULE=3D1
+@@ -127,21 +131,49 @@ make_minimal        +=3D NO_LIBBPF=3D1
+ make_minimal        +=3D NO_SDT=3D1 NO_JVMTI=3D1 NO_LIBZSTD=3D1
+ make_minimal        +=3D NO_CAPSTONE=3D1
+=20
++override FEATURE_OUTPUT :=3D $(shell mktemp -d)
++ifeq ($(FEATURE_OUTPUT),)
++$(error Failed to create temporary directory for feature checks)
++endif
++saved_OUTPUT :=3D $(OUTPUT)
++override OUTPUT :=3D $(FEATURE_OUTPUT)/
++FEATURE_DISPLAY_DEFERRED :=3D 1
++FEATURE_TESTS :=3D libelf zlib bpf libopenssl
++FEATURE_CHECK_CFLAGS-bpf =3D -I. -I$(srctree)/tools/include -I$(srctree)/t=
+ools/arch/$(SRCARCH)/include/uapi -I$(srctree)/tools/include/uapi
++include $(srctree)/tools/build/Makefile.feature
++
+ # binutils 2_42 and newer have bfd_thread_init()
+-new_libbfd :=3D $(shell echo '#include <bfd.h>' | $(CC) -E -x c - | grep b=
+fd_thread_init)
++$(call feature_check,libbfd-threadsafe)
+=20
+ # Whether libLLVM can be built, which needs the llvm-devel/llvm-dev header=
+s and
+-# libraries of version 13 or newer, not just llvm-config. This mirrors the
+-# llvm-perf feature test in tools/build/feature/test-llvm-perf.cpp so that
+-# libLLVM is only asserted below when the default compiler can really buil=
+d it.
++# libraries of version 13 or newer, not just llvm-config.
+ ifneq ($(call has,$(LLVM_CONFIG)),)
+-have_libllvm :=3D $(shell printf '#include <llvm/Support/ManagedStatic.h>\=
+n#include <llvm/Support/raw_ostream.h>\n#if LLVM_VERSION_MAJOR < 13\n#error=
+ "llvm-devel/llvm-dev version 13 or greater is required"\n#endif\nint main(=
+){llvm::errs()<<"";llvm::llvm_shutdown();return 0;}\n' | \
+-	$(CXX) -x c++ -std=3Dgnu++17 -I$(shell $(LLVM_CONFIG) --includedir 2>/dev=
+/null) - -o /dev/null \
+-		-L$(shell $(LLVM_CONFIG) --libdir 2>/dev/null) \
+-		$(shell $(LLVM_CONFIG) --libs Core BPF 2>/dev/null) \
+-		$(shell $(LLVM_CONFIG) --system-libs 2>/dev/null) >/dev/null 2>&1 && ech=
+o y)
++  $(call feature_check,llvm-perf)
++endif
++
++ifeq ($(feature-libelf)$(feature-zlib)$(feature-bpf)$(feature-libopenssl),=
+1111)
++  ifneq ($(call get-executable,$(CLANG)),)
++    CLANG_VERSION :=3D $(shell $(CLANG) --version | head -1 | sed 's/.*cla=
+ng version \([[:digit:]]\+.[[:digit:]]\+.[[:digit:]]\+\).*/\1/g')
++    ifneq ($(call version-lt3,$(CLANG_VERSION),12.0.1),1)
++      $(call feature_check,clang-bpf-co-re)
++      ifeq ($(feature-clang-bpf-co-re),1)
++        have_clang_bpf :=3D 1
++      endif
++    endif
++  endif
++  ifneq ($(call get-executable,$(BPF_GCC)),)
++    BPF_GCC_VERSION :=3D $(shell $(BPF_GCC) -dumpfullversion 2>/dev/null)
++    ifneq ($(BPF_GCC_VERSION),)
++      ifneq ($(call version-lt3,$(BPF_GCC_VERSION),14.0.0),1)
++        have_bpf_gcc :=3D 1
++      endif
++    endif
++  endif
+ endif
+=20
++$(shell rm -rf -- "$(FEATURE_OUTPUT)")
++override OUTPUT :=3D $(saved_OUTPUT)
++
+ # $(run) contains all available tests
+ run :=3D make_pure
+ # Targets 'clean all' can be run together only through top level
+@@ -155,7 +187,7 @@ MAKE_F :=3D $(MAKE) -f $(MK)
+ endif
+ run +=3D make_python_perf_so
+ run +=3D make_debug
+-ifneq ($(new_libbfd),)
++ifeq ($(feature-libbfd-threadsafe),1)
+ run +=3D make_nondistro
+ # Demangling with libbfd is only built when the C++ ABI's __cxa_demangle
+ # isn't available, so it needs a build of its own to be compiled at all.
+@@ -165,7 +197,7 @@ endif
+ # a C compiler and a C++ compiler that don't match.
+ ifneq ($(call has,clang),)
+ run +=3D make_clang
+-ifneq ($(new_libbfd),)
++ifeq ($(feature-libbfd-threadsafe),1)
+ run +=3D make_clang_nondistro
+ endif
+ endif
+@@ -173,6 +205,12 @@ run +=3D make_extra_tests
+ run +=3D make_no_jevents
+ run +=3D make_jevents_all
+ run +=3D make_no_bpf_skel
++ifeq ($(have_clang_bpf),1)
++run +=3D make_bpf_skel_clang
++endif
++ifeq ($(have_bpf_gcc),1)
++run +=3D make_bpf_skel_bpf_gcc
++endif
+ run +=3D make_gen_vmlinux_h
+ run +=3D make_no_python_module
+ run +=3D make_no_scripts
+@@ -306,13 +344,20 @@ test_make_libbpf_dynamic_O :=3D ldd $$TMP_O/perf | gr=
+ep -q libbpf
+ # doesn't fail the build, it just quietly turns off everything that needs =
+a
+ # C++ compiler. Check a feature that does, otherwise these tests would pas=
+s
+ # while producing a perf with less in it than the default build has.
+-ifneq ($(have_libllvm),)
++ifeq ($(feature-llvm-perf),1)
+ test_make_clang               :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
+f check -q feature libLLVM
+ test_make_clang_O             :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
+eck -q feature libLLVM
+ test_make_clang_nondistro     :=3D $(test_make_clang)
+ test_make_clang_nondistro_O   :=3D $(test_make_clang_O)
+ endif
+=20
++test_make_no_bpf_skel         :=3D test -x $(PERF_O)/perf && ($(PERF_O)/pe=
+rf check -q feature bpf_skeletons; test $$? -eq 1)
++test_make_no_bpf_skel_O       :=3D test -x $$TMP_O/perf && ($$TMP_O/perf c=
+heck -q feature bpf_skeletons; test $$? -eq 1)
++test_make_bpf_skel_clang      :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
+f check -q feature bpf_skeletons
++test_make_bpf_skel_clang_O    :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
+eck -q feature bpf_skeletons
++test_make_bpf_skel_bpf_gcc    :=3D test -x $(PERF_O)/perf && $(PERF_O)/per=
+f check -q feature bpf_skeletons
++test_make_bpf_skel_bpf_gcc_O  :=3D test -x $$TMP_O/perf && $$TMP_O/perf ch=
+eck -q feature bpf_skeletons
++
+ test_make_python_perf_so_O    :=3D test -f $$TMP_O/python/perf.so
+ test_make_perf_o_O            :=3D test -f $$TMP_O/perf.o
+ test_make_util_map_o_O        :=3D test -f $$TMP_O/util/map.o
+@@ -445,7 +490,7 @@ $(FEATURES_DUMP_FILE_STATIC):
+ # The clang tests exist to run feature detection with a compiler other tha=
+n
+ # the default one, so they have to do their own and are left out of both t=
 he
-file data hash and filename limited to 255 bytes.  Depending on the templat=
-e
-format (e.g. ima-ng, ima-ngv2, ima_sig, ima_sigv2), the file template hash
-contains the full file pathname.
+ # dependency and the 'FEATURES_DUMP=3D' append below.
+-no_features_dump :=3D make_clang make_clang_nondistro
++no_features_dump :=3D make_clang make_clang_nondistro make_bpf_skel_clang =
+make_bpf_skel_bpf_gcc
+ no_features_dump +=3D $(addsuffix _O,$(no_features_dump))
+=20
+ # Add feature dump dependency for run/run_O targets
+--=20
+2.56.0.307.g5fe7bd680c-goog
 
-Mimi
