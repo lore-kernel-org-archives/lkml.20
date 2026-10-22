@@ -1,70 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792653823;
-	b=UnMSIQQNysKaLbcK87zB7JDVDvHqynlQCcUIBoPlin7jwy/tY6hVnYYxKxFENMbDizJ0
-	 07NmYqS61GmxTl5jI5NWRb79DpQyd541PoZOug3FqTmeJYjsTUoNCnmsj6yWOmuHR2xnT
-	 rBW4HgNvX1pg0jT9qeHqTTAPDXJ+yN2pCUhqBpmDyQ2Bw1BgZPFapcqIcIaJY1JBoueTQ
-	 P22WHI31LArIcmpfZoNhyLpgTLpaLLIufjkVGQAgHEc2Wx+rpkXcPpkai0hrKUAwYIY+B
-	 6k7f6G59gGML1AGf5EU+pMWlzijIZBY8HRGVAfTSjM//KSZtqpA4icXwYcpfJez3vQw==
+	t=1792653910;
+	b=Pxp/DDyg94Ly1kHH7AZgXDSfhIc7DtlrHNP50SGq5LbG2+7s30UWI6AEGcbDnR4U+CKv
+	 tcQ92yrbJ/QqQ3xRg/3tFpkCSfWcJ6b0LxpAaxHqB/8tzfAMj0oXqp4TaBhaxIrh2P0ZV
+	 Irr71wmwmSPKSQME423DG++W/nO6HEe8p2lLSEJQf8E7/NXUMrPKys2NsVPczB/baLhi+
+	 uWtNJ3Ua3LZN8j+A7KWa8PVMc7QFCPbKK28NTGgTOjK5IaSIgpgCMIyvpRrnAdap/WPNs
+	 Kqx8GSqQjS1c64bX3KWfw88+rxD6Lnsl16599pf1kCCsQAGniBmpl3KOLqkx/IMgGWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792653823;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nxhw37Ts8JjVkeWnUUXvGcPNaHqWJWHYSG2L4Bkd61Q=;
-	b=N06CMm9uvNJOz/GhbXlJbnvop8EEh8qt4G1+0nSNLXm8o+LwmWR7jTESbkr5Otc/qKrz
-	 ynu+bVtNp9LAx4WqD7FoP3/h/hB6//nmr8b7m5Evtebqyz8OUO0n88KJn6eqw5XLeT3Yb
-	 kZhRmvmgSLNYEYwHNcXTprdgEo2zkvrb6qMwDOlI2BqAPc36aF+I26aHhPpfP0VE0+wq7
-	 XBI1FQe8WhxwmusKTqgYxeMbiS449h1NF4vRLHP8gZ1siji1Wpn4f4zV5qRfYM0y81ugx
-	 /Ej28j/ebDxS+/ICDGZz4ili1jtB5ZkLdlazxIEFh/BdXry51yeUOuOeGYG+LQH0sQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792653910;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GzocSWmRnJBjCb2IF2ZXZ1TezmknaQ/uzyUsvuQWgJw=;
+	b=v1BHdE0+zJb9Q7hrj6I1Q7KQ2Xu2umkpFIk9/gjs8kRBepEsJxMWyGdcojoBpa8wGHZU
+	 Iq3IS2iNyd8FEBE77lOE+GD/1qJKyxSQ+Nrrq0En4Sde8jmwQteUvo/p3taKF81Yz4tDv
+	 bPV0snJJm0jBLdDjDjzZb50FRlPLIC1B0iyDpIV1lax11qkteN21ninLKqNn2K3m56qk6
+	 hgFGKnr6lPvqN2GF76vz2QQT5Z6S+eq0GEepGq0QY9buOvc/VQsGTNFj0dwdEq2PXWFqh
+	 rykZ+7tYWREZ7YZ/N8TLtXac+kbLPH11gGzMrk2j9AkFRxDIKczc6X0epCc1wn6YRQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="T/lTafwa";
-	arc=none smtp.remote-ip=91.218.175.35
-Received: from mta0.migadu.com (out-35.mta0.migadu.com [91.218.175.35])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="R/0Q6bHq";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A892A606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:23:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A892A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89ECA606A319;
+	Thu, 22 Oct 2026 07:25:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=T/lTafwa
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=iMb60vufG01+4AZR+z8pGmBhQmm04VfW1fUB7oSscv8=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792653820; v=1; x=1793258620;
- b=T/lTafwa65EQjI/GtYIBCe7AQBRuvqgyRLahgfzDvuKGIaOaB3DFUhz5dSLW7IXuO2QqUQ8j
- S/qh/jKzHOmbM0GHuIwfOhGFPo0hb2NzRYMvUEADqKdMrWktbH0gGgxy5rTpe/8EnGUFfgxFFTq
- +kwRSZLqQpq/Fpxk37KiTDtE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ab87abfd04d8baec;
-	Thu, 22 Oct 2026 07:23:40 +0000
-X-Mizu-Trace-ID: ab87abfd04d8baec
-X-Migadu-Flow: FLOW_OUT
-From: Lance Yang <lance.yang@linux.dev>
-To: songmuchun@bytedance.com
-Cc: osalvador@suse.de,
-	akpm@linux-foundation.org,
-	rppt@kernel.org,
-	qi.zheng@linux.dev,
-	lance.yang@linux.dev,
-	jthoughton@google.com,
-	david@kernel.org,
-	muchun.song@linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/12] mm: hugetlb_vmemmap: simplify vmemmap head page handling
-Date: Thu, 22 Oct 2026 15:23:29 +0800
-Message-ID: <20261022072329.67561-1-lance.yang@linux.dev>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20261020115824.823278-2-songmuchun@bytedance.com>
-References: <20261020115824.823278-2-songmuchun@bytedance.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R/0Q6bHq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9BF1F000C1;
+	Thu, 22 Oct 2026 07:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792653910;
+	bh=GzocSWmRnJBjCb2IF2ZXZ1TezmknaQ/uzyUsvuQWgJw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R/0Q6bHqEEwQkMFBTpOUh4aAud/xmgWYqMgfLFHpDm11MHPv4m65rIi2mdpJSPAwh
+	 Je0+7/QCnmveYgttqoY3iGFia0GHA2u9x+1SiZH7wJyopn2pXBqBQpoHJmjmKZkFHW
+	 STd3VJKealBIMYLjCyUHiKYFB8bxsibJr9I3fL2kh+gR4pI2NQs7wSZKUrqKCh3+ql
+	 PxGTzA88H+vY6DLs+po4LkexVJ3kKT5bF1Jwuo3KAuELxNJAt4EvBM6z5aJkklf17u
+	 TYgikUf80/489n2MTmF2V6Dcc3lNSS299qZHBLeigEikha+CaNebVdDWJ7PQHV26q4
+	 nMfmSSQ/Wd2JQ==
+Date: Thu, 22 Oct 2026 00:25:08 -0700
+From: Eric Biggers <ebiggers@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-doc@vger.kernel.org, workflows@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
+	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
+Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
+Message-ID: <20261022072508.GB1857@sol>
+References: <20261020212235.1143086-1-ebiggers@kernel.org>
+ <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
+ <20261021063927.GA31908@sol>
+ <d5d0801e-371c-4836-8b4a-26bff33df46f@kernel.org>
+ <20261021064940.GC31908@sol>
+ <aea2328d-4ea8-45bc-922e-9c1fed94083f@kernel.org>
+ <20261021163242.GB325924@killaraus.ideasonboard.com>
+ <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,33 +67,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <73d01869-b536-4fcd-a139-6f9d0a043347@kernel.org>
 
+On Thu, Oct 22, 2026 at 08:57:55AM +0200, Krzysztof Kozlowski wrote:
+> On 21/10/2026 18:32, Laurent Pinchart wrote:
+> > On Wed, Oct 21, 2026 at 01:55:37PM +0200, Krzysztof Kozlowski wrote:
+> >>
+> >>> there's no base-commit?  Including any historical patch (from
+> >>> months/years ago), patches with dependencies, etc.
+> >>
+> >> Dependency is something else, but for every other patch:
+> >> 1. For testing/CI: you apply on top of next
+> >> 2. Every other case the maintainer knows where to apply it, because it
+> >> is his HEAD of next-branch.
+> >>
+> >> I am repeating myself, but I really had no single problem of lack of
+> >> knowledge where to apply a patch as a maintainer or reviewer of some
+> >> subsystem, thus maybe I do not understand the actual problem you are
+> >> experiencing.
+> > 
+> > When I review patches, I often need to apply them to a tree, mainly to
+> > see the context, but sometimes also to test them. I have encountered
+> > many cases where the patch wouldn't apply on the current for-next branch
+> > of the relevant subsystem. That's often because the patch had
+> > dependencies. When I'm lucky they are listed manually in the cover
+> > letter with a link to a branch, but that's far from being the common
+> > case. I then have to ask the submitter to provide a branch, or enough
+> > information to recreate a branch. Having base information (base-commit,
+> > prerequisite-patch-id, and possibly base-tree) would save me quite some
+> > time.
+> > 
+> > I understand your concern about maintainers cherry-picking and sometimes
+> > introducing issues as a result. In that case I also prefer asking the
+> > submitter to rebase, retest, and resubmit. That's not what I want to use
+> > base information for, in my case it helps with the review process.
+> 
+> That's valid and for 95% (guessing the number...) of cases will be
+> solved by having linux-next as a base, thus requiring the base
+> information is redundant. It's just linux-next.
 
-On Tue, Oct 20, 2026 at 07:58:15PM +0800, Muchun Song wrote:
-[...]
->@@ -289,7 +290,6 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
->  *		to remap.
->  * @end:	end address of the vmemmap virtual address range that we want to
->  *		remap.
->- * @vmemmap_head: the page to be installed as first in the vmemmap range
->  * @vmemmap_tail: the page to be installed as non-first in the vmemmap range
->  * @vmemmap_pages: list to deposit vmemmap pages to be freed.  It is callers
->  *		responsibility to free pages.
->@@ -298,7 +298,6 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
->  * Return: %0 on success, negative error code otherwise.
->  */
+linux-next changes every day, so "It's just linux-next" is ambiguous.
 
+Without base-commit, the workaround ends up being to use the date the
+patch was sent and various other information to try to guess a base
+commit.  That's time-consuming and unreliable.
 
-/**
- * vmemmap_remap_free - remap the vmemmap virtual address range [@start, @end)
- *			to use @vmemmap_head/tail, then free vmemmap which
- *			the range are mapped to.
-
-Nit: could you update the @vmemmap_head/tail comment too, now that the
-head argument is gone?
-
-Nothing jumped out at me, so
-
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+- Eric
