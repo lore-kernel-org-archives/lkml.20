@@ -1,98 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792702810;
-	b=E8nbZ8718RjcrZrVUQ+NgnFNWKr2SuMkj4IOkyQky63cuuLizZFrmE5sQBcV0vmr25At
-	 tAzVzKCTQnDK79JRlJOE6WW2aET289/X/Ty6ZmAs54JxFQd06vtAINio3/Rn+tQLEZBz/
-	 iEpSVKdL7ateVD/feEjZo5zW//OIED+8Rj/SM0f0BgvxKn/De5HbUs1m3c7nWbZwzUp8K
-	 oEfx0p6xrR5B2W8DNS9MjhkiH9ejoihBkON3LxzesaHkaeccziQV1YYBGDG5kLwb+y5yT
-	 1Wj+bMRqW3CcXWUqcMH4gwK3ZuSZlodYRHZV+sopEaEw720N3B5Bo4FtYt29lRZ8jEA==
+	t=1792702901;
+	b=KpLDf6A+6H8kdT0d0PymHQ6TBCYpR+Hye+OBkxm+w3kV+sDXG1F97/8a4Yz29rbVKBMa
+	 WNFjbsW8dyC6DUn5us/q9P0Pd7iMQ6oC7KYeeiE6VjVilFRP0GWt3ofan636OUStncHWm
+	 Z4AxHVxYQFumiy5o6ycCt9yTi4uG1WED62vlKVmR3EPU481cVDIzqIVVLAVAtz+PYtV4b
+	 36mktlQiquWwAd8/RrU/fOIsfJyZvqTbWCWqqLEbexQd8tTz2+RTxfro+LLr3faSZaYCm
+	 9SE1AyBWJ/soXOF7KAvz9NuTWuVwjpRX8f/qB0p2p70MUKXnjZe5Ga10Pj6b71y+WbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792702810;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792702901;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=a+TVj+4Eo0cuLbImvgKBU3zCHqSsK0fiVALfcKdKlGQ=;
-	b=DRsI2dQPWZbVgUyIMAKeoYl64+Fo7mPsAg/tTSEs0/NT/5UCTm7xpo7G26QbTfTRwpNb
-	 ursgga1rh/LG3mwJ3/yFUEzrjc0Kjbw6qUPf8JvV9plwJAZodqz1vCyl1rwYcXI1ftknF
-	 dL434+Com0QNdwLe22KUetNRwibqkG+Kis2Hnhr8f+PUL+aIUtSS+JXppqGHjHplCyeqi
-	 z7uxlvdcC9PNV0xu929nibyGTHEurxPjwVnhhEafZPRkKAUdZyXBWXlKMcP3pOdlnGZZW
-	 JzAywZFC4Lfa0UV0LsLHLah+nNJTktlUlAnKIQnRAIK3GlKxRI7HklHneSOoVRkJr+A==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=OCOTNO/IXud/wgdz3r5yHSjAgnmq1BH8vHgLtdaK+l4=;
+	b=KT3/9HB3dyuGM6J4CGfFbf7+OsQIMAS/UV0dnojBzYIf9tlGfEK63R6bWUXKxN2F5pmG
+	 TVvOisoii0ogI8Udf4pBbDn0xhtPNMp1C4WbXPtamCqhZOZfD5kN6F7RbFv9ZRMnJMkae
+	 tZ1TG2er37ayVDg1+rCMGRhRjx9cl/pvb4NnWnHuMCje4/eQxz0MC08BMUuv7iJmv27Hc
+	 bZgWM7hrt/GLgSgFYhlRHEfPT9QNjDtf50BP275UalYDIdl7BztJf0WA9LzTN+g9Hu/T8
+	 jLBaezMCukVh6hkHbLupqqeeL6NXZCbJ3cn9hafA+Hbmegel4JlxaHDsHTzYSbgI9RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bqMtcI04;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DrELhp+l;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F05606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:00:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83F05606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AA2606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 21:01:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20AA2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=bqMtcI04
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so1905265e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:00:10 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=DrELhp+l
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89f71ac2e2fso198343b3a.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:01:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792702809; x=1793307609; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a+TVj+4Eo0cuLbImvgKBU3zCHqSsK0fiVALfcKdKlGQ=;
-        b=bqMtcI04Pu5MSW9kbxQGcCWePH2OxfIiXtLBYdnh7Seuyo9Ha7kw9yZyibB5Rp8p+8
-         +uJJX57c4HZiUPJwPgqsh9QF+bSRsy2A6lJRFVN76J5sGZQOm4l+/O2Q4yKLoDg6hOKG
-         K3Mo5geiAHPki9CxUGGiOwGbUxHUVJ+B4j6CfSmk6IZJ2FtFyU31hYNw7fyRt9j6Bezp
-         f9o3/IoCKyfDj7NAn9jR9Y1pLBeHGdR/RNW4Rbe+lr7SM98dYCf3avjMvhIYJP1Yk/I5
-         HfiVahpE7JFWivhrx9+BRGdO3ccbDi7iVo3n0TeklgMs1i7WbTuW+QQIQKS8wON0TVBA
-         kVsA==
+        d=google.com; s=20251104; t=1792702900; x=1793307700; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OCOTNO/IXud/wgdz3r5yHSjAgnmq1BH8vHgLtdaK+l4=;
+        b=DrELhp+lBsFky1XaNVigTB5xQlL8X0/xojJcvUjAHF6FgpTphCdmGUlv0pjsAUE1uA
+         5l3WXId7fm4EO7HuXPGCBZc3M0oUD/RZlZ+Bsm7+T8E7kEJpof1xHawdM8UUO4NPuR2H
+         YwKL9D224gRJvUSfh7wRTv3wZ9hofXB4JrhYQ/vPZ2gh7ToSZzJH6LzTt54aDu9QjS/J
+         d6wlFo1TQYc5mCJHzgXcv2Rv8AT/LJ7ZNNgBMoqfI1UtxVxbfU+2T+JJfrbhaOCFU1IT
+         JDGu9ESCUTUV21mhPQtb+tabzewR9WArk/mJxDM5II3gHn5GPkDVuVP8pTl1uSXsUJAB
+         Qwog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792702809; x=1793307609;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a+TVj+4Eo0cuLbImvgKBU3zCHqSsK0fiVALfcKdKlGQ=;
-        b=C4teLfHGDNVqrDGO5IX79UFwnoNPFJFHYgoWx0c3Bjhb9UiZy8ACBoyrozUlLK6XuR
-         9wIuswi68HcJgFK4ZKYOXbBj76y1rcjYTggdpk0fHX4x6xl/Q789gwKbrSrU+sDkfX1H
-         200FRV+Bt2gcnRY3Oz/tBm93ewvF3+vl4hToEKCBXkiUi31rdDR2v0a1Ajn8NjhQ5L2A
-         OWEqOGUMIfICWfFcO/qmwJz+fIEOS/rjIctcgHaULenZNkllF/I01Zztp/ByjSodDJru
-         bVm3WsQ0rHuSGTnzZ4tTJ3dJ16B5+e1svwGsmptQPQmTG1qoy2ljIUIoVvHMkNyDObx7
-         mFWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXSZKcJDKjlPaj0o3IyosS2Yrl7G0QNUGDGc6Uj9r8z2VyV7rQXNdUCkmy02MmI+wSYESuWdBBmV9UENU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMShqktbJnOSguSnxerElfdTm+ZbQPMenCXKqsqV1kxKSPs20I
-	mfyAm4Ct8lY2LqbuzjNnTPRS+vKCEIQGluBFCt8YTbvXmTnDy2Ggd04p
-X-Gm-Gg: AYBFou3hZubZ+7UGUAl5Z0kO4KOiCTd5L8Kh1isf8L4wtx6zljpPis1oXy3xIQdoGDa
-	ylsREClUW4jBFaqvFa6TrnaqjKjFk3EeyNbpim+Rv4r1EbKQVJJjDZL3PpCQkxR/WPpLpnOjJBe
-	nykRePhnkDlWx6Ilqq69TvmLRXRnqcB5ig0ATHRw8LKL+LAQveGDg5UM/0s9mW+k98JXUwLcets
-	pzEjq6Vwk7krYH73f5AzTDTRHmm9kB0WchJ02j0zdTPyNu6551aVbc5JMV0IwpldmTs7iRwBepN
-	o3D5euMrqf+3J3q1DeyWm4mlfNeZs+x3s0lJTARF2ySaFPmRJS8ETr8KKfk+wseMH3pp1UsiU3l
-	I+T6CpgLH9lLnq1IvZMvVzb8FaE8wO2nD4Q7osp8i3dnfoG3eF7XuW1kF9NBfkDaLRmIi9wdyHS
-	MloLbMeBgrLg2cvi0XLIXmBW4Zfh6bSoI12XKMllQflNiLoPLKyc54TA5wFMuYyjSzJYXWzcrT0
-	H42rVrAY4wyNrxagi6M12i/hOyfA3PwiISSOZzTlAUKYS9qfOrbAH1B3N+r8Y9WL+W/VEvaJ6VJ
-	q/yerg5p6YSDDerg
-X-Received: by 2002:a05:600c:3111:b0:4a2:1a:a128 with SMTP id 5b1f17b1804b1-4a211ed7ec2mr3619535e9.19.1792702808835;
-        Thu, 22 Oct 2026 14:00:08 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a211b89beasm8702815e9.5.2026.10.22.14.00.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 14:00:08 -0700 (PDT)
-Date: Thu, 22 Oct 2026 22:00:06 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Dmitry Antipov <dmantipov@yandex.ru>,
- Jacek Anaszewski <j.anaszewski@samsung.com>, Bryan Wu <cooloney@gmail.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, linux-leds@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 14/21] leds: flash: Avoid divide-by-zero in
- led_clamp_align()
-Message-ID: <20261022220006.6e066670@pumpkin>
-In-Reply-To: <20261021123406.3163547-15-lee@kernel.org>
-References: <20261021123406.3163547-1-lee@kernel.org>
-	<20261021123406.3163547-15-lee@kernel.org>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20260707; t=1792702900; x=1793307700;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OCOTNO/IXud/wgdz3r5yHSjAgnmq1BH8vHgLtdaK+l4=;
+        b=vPx+99MEf6+AqaNmNo6NJJnzPsP9CRIDlhZHZibQDPHvuOAT/iSahxIEqUuZcaBHx+
+         JTSl3MMIzD7Ig45aCS3AWxLU4FM9g9EBI28b1liDtRKPgSCJbNvK0SiloMBXoWy41KjB
+         ar4Pv7DYSdeERbqgFPkx3MoVat+AeLBYJtEBAR+jTuNQ3sQLOeP5lqw0IX1tyAvrOdDw
+         lvpAPqGcuHUR0df69iANbW6bBnBJJBXWYi42TNI1attu0+0hVq13lj3hxYI/keRj/J1h
+         8gdh+AB5+BtOXEK+3jEGFXH2p7yVe3bbsz6edctNKFU06oYjq+KivaZDE7kkXAnKZzIz
+         5oFg==
+X-Forwarded-Encrypted: i=1; AKwUvBxjEIefJdinn4YB4q0Q31SZP2sd/GGdjC1yxO3j2JWt1LoiQ0rXaj0A/iX0j/lOapwXN36dtuD94PE0UkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKPTre9IF1VIGyqilO8NOTcI+vXH2dtaPHYt6lQWky4geHzIyfN
+	q+i1zjgstoWlS6sK88/cAoi8xL7PrCOhGmxGGGIDJoY6cUIX+BDid5BJyZUW8gaurKM7PQ9iJdI
+	Omlz6YQ==
+X-Received: from pga23.prod.google.com ([2002:a05:6a02:4f97:b0:cd8:b4c4:efd9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:3e01:b0:3e2:2c81:bc6a
+ with SMTP id adf61e73a8af0-3e376674955mr107626637.47.1792702899271; Thu, 22
+ Oct 2026 14:01:39 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu, 22 Oct 2026 14:01:31 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,48 +76,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261022210134.612848-1-seanjc@google.com>
+Subject: [PATCH v2 0/3] x86/cpuid: KVM: TDX CPUID fixes
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: "H. Peter Anvin" <hpa@zytor.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-coco@lists.linux.dev, Binbin Wu <binbin.wu@linux.intel.com>, 
+	Changyuan Lyu <changyuanl@google.com>, Sashiko <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 21 Oct 2026 12:32:23 +0000
-Lee Jones <lee@kernel.org> wrote:
+Boris or Dave, can you grab patch 1 for 7.4, ideally sooner than later?  That
+would avoid having to carry a stable topic branch for a trivial change.
 
-> If a flash LED driver leaves a setting's step size as zero, writing to
-> the corresponding sysfs attribute invokes led_clamp_align() and triggers
-> an integer division by zero when aligning the offset to s->step.
-> 
-> Clamp s->val to [s->min, s->max] and return early when s->step is zero.
-> 
-> Fixes: 7aea8389a77a ("leds: Add LED Flash class extension to the LED subsystem")
-> Closes: https://sashiko.dev/#/bug/linux-9d06d7fe-310b-4aee-8b16-0fb49550c287
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-> ---
->  drivers/leds/led-class-flash.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
-> index 181dfd49c6ad..16b3b6b9365b 100644
-> --- a/drivers/leds/led-class-flash.c
-> +++ b/drivers/leds/led-class-flash.c
-> @@ -375,6 +375,11 @@ static void led_clamp_align(struct led_flash_setting *s)
->  {
->  	u32 v, offset;
->  
-> +	if (!s->step) {
-> +		s->val = clamp(s->val, s->min, s->max);
-> +		return;
-> +	}
+Annotate CPUID entries that have a significant index when reporting TDX
+capabilities to userspace, and enforce that userspace honors significant
+indices to avoid creating a misconfiguring between KVM and the TDX Module,
+which in the worst case scenario could lead to host state getting clobbered.
 
-Why not just:
-	u32 step = s->step ?: 1;
-and then use step instead of s->step.
+Patch 1 is a fix to mark function 0x23 as being indexed.  That change is
+needed to avoid tripping a WARN sanity check that KVM and the TDX Module
+agree on which functions are indexed.
 
-David
+I'd like to take this through the KVM tree as it seems extremely unlikely
+the cpuid_function_is_indexed() will conflict or grow other dependencies,
+i.e. creating a shared topic branch for this seems rather silly.  Actually,
+a better alternative would be to rush patch 1 into 7.4 so that I can use
+7.4-rc2 as a base (even rc3 or rc4 would be a-ok).  /me adds an intro
 
-> +
->  	v = s->val + s->step / 2;
->  	v = clamp(v, s->min, s->max);
->  	offset = v - s->min;
+Note, SIGNIFCANT_INDEX isn't a typo, KVM's uAPI macro is misspelled...
+
+v2:
+ - Add CPUID.0x23 to the indexed set. [Rick, Binbin]
+ - Document that zeroing the index when it's supposed to be ignored is KVM
+   ABI that at least QEMU relies on. [Binbin]
+ - Zero out all of flags to ensure garbage isn't reported to userspace.
+
+v1: https://lore.kernel.org/all/20260223214336.722463-1-changyuanl@google.com
+
+Changyuan Lyu (1):
+  KVM: TDX: Set SIGNIFCANT_INDEX flag as appropriate when filling CPUID
+    entries
+
+Sean Christopherson (2):
+  x86/cpuid: Mark CPUID function 0x23 as being indexed
+  KVM: TDX: Reject KVM_TDX_INIT_VM if indexed CPUID functions don't
+    match
+
+ arch/x86/include/asm/cpuid/api.h |  1 +
+ arch/x86/kvm/vmx/tdx.c           | 22 +++++++++++++++++++---
+ 2 files changed, 20 insertions(+), 3 deletions(-)
+
+
+base-commit: 814607cd40df80d5727957adaa857e0feca43497
+-- 
+2.56.0.257.gf7497c7d27-goog
 
