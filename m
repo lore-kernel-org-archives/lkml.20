@@ -1,100 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792647146;
-	b=YjlAZi0sqdPv/SYjW0JAyy3TuskQZl4bidLEdy1ReikkUBaYdwCJlumAWJTV1Tr9jWz2
-	 pah6Ygi6KiYIphoio/QDgxE/1doR3277HYJpqhmD+6BKP//5dRQHv8lddi/ExV6usTNL6
-	 zE/Gd3Rd0Ud7gpo6mHF2DsRa4DGNKDyRMAWBWv3wzxDL0+QemSkuS4U4TXVhhv8c1zvou
-	 ZsU7MxOTNG3bU1qZBnM19fqJGMZB9KyQ/FxBg0RQ+sPkOMm1tsLRu2ky5kLus0fBtKERv
-	 0daOV9nmOY8mAEPfcjUwzWqIcHlj+0X/+zavPaK39IPEG0i7NOz9vc2XglrnMW2PY4w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792647146;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=GoyFVEQmrmpDs5Spa00paVrQpesVfiNMtphiwTnAmQY=;
-	b=xI9x2xcWtezuKEp/Js5Cq/cQi+t0lAJqf0EA8rpXDJItJbkl2RjEKKxfKtxH5xX/4XmA
-	 HY5qNWdd0ZMA762RNd75LvHBHQmGyN/MLtdf2NjVi4Wl4H9rQb/ZGoaoYYkqqrWpdtv2a
-	 JYcolb1/Zks/nZuZO47UR3n5jYyb4/inTVW73NspDb+JmTP/NZ3OdRZIZNZg3r9iutq+C
-	 nMRqU6oA9wY7fXRXNMmjhs43VPFWlPq+9vohFSn1p5IxcBlmboiLkF6yoNDTWN7fmLa5M
-	 JEQy9Q6R/xtdCfdj+PSvGAGP9mBUREhHwWq0NCQQI7Ac41Deccl7tQsPymeP0s5qIng==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ueYFD8Y1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.9
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012009.outbound.protection.outlook.com [40.93.195.9])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792647198;
+	b=IidxbtNK5OGBREw+qhCXq/kFKB9w91xf2vpzNLJtBYK8jN3D+tMhsQcCZ7ENGM1+2TCF
+	 UYc19UWu38VhasSglR090EF5/M2qQQhM/zwYm5mHUKjI8LDCkDEXyT+EoOboK8mEd/nrS
+	 S4GxVtPNRQBC4+sy8C8+Lg3k1jhu6aha5vVy3VSAaPKQjRigGt/YhEziDixvrBdGlv099
+	 Zlwmf+sMynBMlce4TfdKGv5bsRC6aD1xMn5HnvEVbq7rXo5LLv6sO7M5eytZM1E0R513w
+	 c9IMd3CtmXb4h+HQPqwQ3rxX+cxDem6Jc0ABFfIHryr30+Mlhh0Gp5sb0PVLYUEthYw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792647198;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=Q4RqrinK9LsGYWI5esNb2rulRFrnYZVl9D8CHAi44Uw=;
+	b=oAZTYBNpy3RTU1nDfP4kQwS0LO2MWbY/rPLzwxa4P2Q/KZcZbUul9ioP6hZWgaBjsUN4
+	 19r2kUX9Sfn6IZkFEZZjh/PNZ9EKvp78A8k9bv+DYpqD5KpQu6h19yT72dHml1miWr9z6
+	 BqMN59NPtVfJGTsJpx2dyaZSx30XPZ5oOKHtH4XgqLDCEAIyFB43fD//e1VpP58wGkIgl
+	 CKY1TKwOc2LJiZDXMjY/K7S2ozkmmvp6Ei55plXxMZyiDaeD+s6Qv44WR2Pp8kQRaGLa4
+	 WGwSYg3dQw0GHroyYEMkgC/Uellg3h2gnhPjL/siHilg1F8HldhdKs85AbbcCHUFmjg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N625fQ0a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA5A606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DA5A606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD41606A319;
+	Thu, 22 Oct 2026 05:33:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ueYFD8Y1
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=U/fIyF/hOLYbKshgqcZZfxAY0bS/fnqfzVoZAtPZCFiYDAKsLCcREZc87CHPyCJXYznWwtPSEeKQrsCS2ySPDoq5X/qCeAJWUi24u6KkPx4Rc7op/rN1Ti0Nd40rgoRgkCXBt05IWFw9Tz2YyCeXEQuvZqYtSFwET8DvmsXiqb/tDRskP8caqMtEJ1f3DegY8z5kH8riOI7tw7maNDZ92pAAgsvrxdAZqbtDoDj8+hDZTz0jGP8HJRZbRQPRdsIJKI+2IZNfoCBkZ32ivuh9FrgNQcUW2kdhQlYHDDx4sYkaz+FgPWSFt4s6W8XKmAcY2ke/crmsmTuyeoP4RaQ85A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GoyFVEQmrmpDs5Spa00paVrQpesVfiNMtphiwTnAmQY=;
- b=JUrYFh9JY+e4Z0R7eHs9ZOw8qbRvg8hth7iKWjq8ryo8MUDpS0lLL95e5VaVMQi0KD9MJ9W6yr8DEg7rtMex8Vo4T43JYPRUyDpIUU6ZtXmV/octWqXTHtkARLbVBHHJzjBBOkIgIrh9Vz5zQaYdmCrNBgc/udzULzedO843SpcQYsTbz75TKrYNg1XrqUo+TGRhQ4wRkSQTg1M1W9UbSV7gHsBKh0n+NIEJu7k2inE6GPJscCFz8zQYSSKjawHGVts4p3MlLl7Z2NOGVqu5ew7yx443//YBEx6OpvhwUsJvPKB/mVLrgEAOmIbcxC8yA/5bu6hPI7nvVieCuGgF8g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GoyFVEQmrmpDs5Spa00paVrQpesVfiNMtphiwTnAmQY=;
- b=ueYFD8Y12xKQCFQ9RZ+s9NpW22BY/yrZ2N+ntbtu28Gh77npxO2xQ93qf2ipmN0bOlIbb9CnJc/pp4p4QikyHjcqAWMOcLRArff8o9bMSIhlwiyNyQ9IyGTdu8cgTCbjkKlIg4zPSZX2VG5a2YzOsjEpJokPfIHNGk6MlL8mkDY=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- by MN2PR12MB4064.namprd12.prod.outlook.com (2603:10b6:208:1d3::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 05:32:21 +0000
-Received: from DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19]) by DSVPR12MB999171.namprd12.prod.outlook.com
- ([fe80::b7ec:f444:4560:9f19%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 05:32:17 +0000
-Message-ID: <a6e93726-ff61-4f41-8da5-d45e9cfd4fcb@amd.com>
-Date: Thu, 22 Oct 2026 12:32:08 +0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/24] iommu/amd: Introduce
- EVENT_TYPE_GUEST_EVENT_FAULT
-To: Vasant Hegde <vasant.hegde@amd.com>, linux-kernel@vger.kernel.org,
- iommu@lists.linux.dev, joro@8bytes.org, jgg@nvidia.com
-Cc: yi.l.liu@intel.com, kevin.tian@intel.com, nicolinc@nvidia.com,
- jon.grimm@amd.com, santosh.shukla@amd.com, Sairaj.K@amd.com,
- jay.chen@amd.com, Ming.Shu@amd.com, SooJin.Tan@amd.com, chrisl@kernel.org,
- wvw@google.com, wnliu@google.com, dantuluris@google.com, kpsingh@google.com,
- alejandro.j.jimenez@oracle.com, joao.m.martins@oracle.com,
- guanghuifeng@linux.alibaba.com
-References: <20260930092344.5616-1-suravee.suthikulpanit@amd.com>
- <20260930092344.5616-3-suravee.suthikulpanit@amd.com>
- <787b4f08-fd74-4597-8508-fe4ccaf75a24@amd.com>
-Content-Language: en-US
-From: "Suthikulpanit, Suravee" <suravee.suthikulpanit@amd.com>
-In-Reply-To: <787b4f08-fd74-4597-8508-fe4ccaf75a24@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: JH0PR01CA0175.apcprd01.prod.exchangelabs.com
- (2603:1096:990:75::23) To DSVPR12MB999171.namprd12.prod.outlook.com
- (2603:10b6:8:388::22)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N625fQ0a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AF111F000C2;
+	Thu, 22 Oct 2026 05:33:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792647197;
+	bh=Q4RqrinK9LsGYWI5esNb2rulRFrnYZVl9D8CHAi44Uw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=N625fQ0apUXM3X8xk6Vqu42xoYa/t1AvH3Qhoht+FCermWPieDo+vTarBCW/2z8oe
+	 KvODAt0X2GmMt5btYwVnj1T1N1WOmAbwjMWyQxOjJ4/CpZj5VACjzEawingcDIAtQN
+	 eQT7ZMmh5d0I83jf2UfKnYq4PyL03sQriOqKCybh7Ohqk02rTMPKA6xQWAC2RSGqai
+	 t6i3ESBEhVdUJ8+SXRUhXKu7MPdEpw65hkgZkOmz9gj4/DNixxLVDmqihtcf8xu7eJ
+	 dByu+G4UFXrCUgX9MhqpJ+jHx80huAXJmov6OlzD767HEYn7VbxkjN8/KVbPr3bj+B
+	 PLc0iRGHIA9KQ==
+Message-ID: <sashiko-outbox-181031@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH 6/9] rv: Add KUnit coverage for IRQ context
+ transitions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261022050712.75035-7-kmehltretter@gmail.com>
+References: <20261022050712.75035-1-kmehltretter@gmail.com>
+ <20261022050712.75035-7-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 22 Oct 2026 05:33:16 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,292 +60,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR12MB999171:EE_|MN2PR12MB4064:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e98ca59-7f57-4984-de21-08df2ffdd5e4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|56012099006|4143699003|11063799006|261021123027099003|261021121427099003|261009223027099003|10067099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	wStmrKnVxmvKKuuy/wG5lesZG6/xfzoK9QxzqKuOTY/cWr+DcTo05/DaZy7yw24rzIcYLl6+Qlchlb3x/315DF8Z0h2IM9be0DkMe5bEo4bxpiXf+JaHgH33nIh+Cmdn2g67Fwlw8cK48tJw916JlM/yt+FPlUJzbd3mSzbrZcJHq0Xk9s2SrN1ABs16F694ugwssou21d4FVem01Fphc5Ff8gPaDXQTa3yhYJUAYXtwFcfcx7CgNHfvQpMT2N+iHPUUm2YlYoDZdYDV7x9g9JKZU9JqZzXdvlhSxK3K7aFE+RZSfalc4R8jMAvWIYDJ9NanX8ykxaWpK4NLwkhNQlW4FF6I7xIuuQr2woipOX2XDDZoPZLRHbqKrPtMTALKJAJTUfIwu07gPcAEFPYM6hg2b6Zszx7COMSJEii464w6vQXPwwfienJHjguLEImcPGNuJ6N/tkuvZF8ktfSLlS1GsM+ksLotbXjPfYIQdd05GmyTAURh9kGl66h7Mcq6UhjkAs74rJtCcLZzm0YQDhmflOo1Uyktmo2X7Bh1jAlI0HgOrQd8+KJGOq6tfU+HGr4xV9IXaJpjC0IcgByb7nC+vLgkw+Is7sMu8Hz/TW2XwvGt2mYAovGC1JYGHAuGTpN3+JipzOXjVUldoIqMHgpLGXBtrUHM4sLolVZUUdI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR12MB999171.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(261021123027099003)(261021121427099003)(261009223027099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cmVHaTM1R2YwRmVVc1JaeklDRDRHQTJwMDdwYTV2cFJObzY5TFZ1aU5jMjl2?=
- =?utf-8?B?N3lXczdha09aN1phdUlmNE9SNG9PRGVNM1FONHNGSGNPamJwcUV2RlgwWjdh?=
- =?utf-8?B?Z0hNZXBweXZvU2tPZnphSmViMG4rN2NJUVNKRzBjOXNOdmd5anlZT09tSmk1?=
- =?utf-8?B?YytCMEZ4azZqOFlUR2pBRElaR2JRblpRZ0dzRlNHQXZ0dlpPeDZtTXFyR0Fq?=
- =?utf-8?B?RWlqUzNaeVhNRHBFOVROS0RjTFFUWFhtSktNaDdtd00zS0ZYcG1Dbktzc0VL?=
- =?utf-8?B?WllsckVqclZBTVFaSVR3bGZqT0VoRkJSVjV5UUVRVTAvZEdmcGhNVUhCaW5W?=
- =?utf-8?B?d3phQXNZaEI2OG9lKzY1UEk3YWVuc0Z1ZFRNNHYzV0lzL0FFOTQ0WkRYK2E0?=
- =?utf-8?B?aWN3ZTZWSytMUWFHKzdXWUtHNUc1V3V2dVRYb1BzcXZWaGtLZGQ0QjJReUdF?=
- =?utf-8?B?UUM4WVJBTlVqTDkwSzRJcklkMHBMVkd3M2dkdnJZKzFYaWx0L2N3UitIaURF?=
- =?utf-8?B?OFowTUN5Z201VTZya0JCWG1mS3BPeEVGM29HV3JYMlhwK2l4dGZvS01SejJ0?=
- =?utf-8?B?OThPWEVEVitudEl4UExWS1hRWG1HZS9SU2FKOC9yK21jK2x6Z2NTV2UwbDly?=
- =?utf-8?B?VU5IMWF4dDhVTDhNbTJ5bFRwbHlSQWgxK0FmWnBpbS9BMlZaT0FQNVVmUW55?=
- =?utf-8?B?c3lTR3JjQ1VkOWNKeEwrZE1BM0E1OEJZSHN6bGZxelYzYTJMSEZ6NFNNdTYz?=
- =?utf-8?B?OThjb3BjdGl0YkVoTWNtZytNdGQ3YTR4R3Znd29Bam5LYWVlTm0xbGlzSk5p?=
- =?utf-8?B?WEpmQzVoUmsrbGZISGJGenF4aTNnQUF1anNUcGVLa0xiM3RMSnJTd0QvU2U0?=
- =?utf-8?B?MHU4ais3ZVJUa29GMlJjSmZyU040VExWRno2UUZLVVNpVUpYLzl3YlJEYmo4?=
- =?utf-8?B?Wm5CQVZRbzkrVUF5OWtXdGNINnQzemcxSHhBaE9VUGJOQ3ZoUzBHaXV3bC9S?=
- =?utf-8?B?TjRWOGVKaUREdWpPUnZEdXJLN213ZXg2eTdhTjMvSW00MnhLZEhpODZvc1NZ?=
- =?utf-8?B?amkyaFIyQ2FjWE1yQWRDVnR6U0UzOTA5bFlNQk1YbCtvMkRZbjgyN3Vnb29G?=
- =?utf-8?B?TGdXcXhFMlhwbzhkU0w0UkhCQjRCclk2cFY0Y3J2NmN6VFdQSHhTTGRkbnBk?=
- =?utf-8?B?eFg4dlc3cjlMKytGQTVuNkd5YXByeW83L1ArQUNzZmZyZUJNTlhpcUJZRFk1?=
- =?utf-8?B?cDEya2R5SGgrMitRejhCbSt1TFB1aGUvenFmUzVTYXh0bEtZQ0tleU54Z3Rq?=
- =?utf-8?B?bmZadTUxOWEyMTBTdXZiVWhJeXpqNDNVSmJKb3VuekpZRTVlQUdYN0xZamFr?=
- =?utf-8?B?aFQxSkhrREhOZEttNVlrNytvQ3huZ1JTK3R0YTFvUXpRQkx3NWFoM1VCQlZ2?=
- =?utf-8?B?bGlXNVVlQzJqMGcydFNndkovcDFJNEwrUzdkSU9YbHVNd01USWc5czRiblJu?=
- =?utf-8?B?ZTVpMUJzLzRRSEJMTzdkeUpaWWZtWXZCYzZQMzFPUDN2Ym9xcmhxWnpRNXRX?=
- =?utf-8?B?QTk1bWQyOXJ3N1NtbXZ0Zm5ubFFQRkxDMkJ5K3pQL3JkK3hEaGlsc0x3ME1J?=
- =?utf-8?B?ZW4ydDB2eThRcjFQR20vVEVjT2IraTBIdnBnanVFbHdHdnFsODhPb29nUXUv?=
- =?utf-8?B?NnpLTXNqOG9RMGQ4dDYzMFQ0YVZNUlJZc0tBMHEyS3pjYWNmT1pLeW84RHNy?=
- =?utf-8?B?Ly9jUm9CK0VXeFB6ODlmK2VXeW1hazRJelVycXlhMFBTSGRNWUliUjlrNGxz?=
- =?utf-8?B?Nlh3NGZscWNwdHBHUFdROHVSQkRES2pjK2xMSU5vWGVJcHp1Zk1qWWhMQkts?=
- =?utf-8?B?ZjFKejJXeGVDbmFqOWdwRDVQRk1Ga0ZkSDNOT2hhQWxnOFFkV2M5WWgvK2or?=
- =?utf-8?B?K1I1elNXMTJRelZMdmxFRnU0ekxUaTRYWkdKZ2dnamllcDZCSjdXckJBUDRq?=
- =?utf-8?B?YTVlOSsxQXQ2NGNnR0lYank5YXRJSTlrUjlCc0htRUpwbk9CaFZ2dno0Q1Ar?=
- =?utf-8?B?VWNDeHJDdExlbmNVM052OWZsNkN5MVNZZDdpeU1kUjJIL00yUEpoUmNKdGZv?=
- =?utf-8?B?U0x6M0tKV0dld3Y2bVp0cXdiTlA2TXI4a0lhdkF2MmN5a3RLK0lmemx5VUZn?=
- =?utf-8?B?RW8vaHo1aGRGWC96YnRrR2pJc1ZWMWVFOWZtNnlMNm9mTUJGSGtNQXViS0t0?=
- =?utf-8?B?WVpReDFReDZTM0l3T0lEeU5zTmpXOXF6UElLdjlZenl6SGtaSFBhV1ZjMTBo?=
- =?utf-8?B?S2ZWcHEwbFFZaDBzM3o0S01HaWlwaDloQldHZjZNVXk0Zko2ZjZaUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e98ca59-7f57-4984-de21-08df2ffdd5e4
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR12MB999171.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 05:32:17.4996
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: N711iAQyms3C3FpdGGkDlGAr4/Mb9yV0MmniIzSI5TjcSCHW3wpGIl5JF/N4PVefhIGNnfuNUFgJ3qjgb2XujA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4064
 
-Vasant,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] rv: kunit: rq->nr_pinned leak on kunit_skip() under guard(migrate)=
+()
+--
 
-On 10/19/2026 1:10 PM, Vasant Hegde wrote:
-> 
-> 
-> On 9/30/2026 2:53 PM, Suravee Suthikulpanit wrote:
->> INSERT_GUEST_EVENT with non-zero reserved bits logs
->> GUEST_EVENT_FAULT followed by the original guest event.
->> Consume both event-log slots, wrapping via
->> evt_buf+(head+EVTLOG_ENTRY_SIZE)%size, and dump the guest
->> payload raw so it is not decoded as a host event.
->>
->> Wait until occupancy is at least two entries, not merely
->> until live tail is not the pair offset. Re-read the
->> event-log tail each poll iteration so a return of 2 cannot
->> advance head past a stale cached tail and walk empty slots
->> with the type-0 erratum retry.
->>
->> Retry a type-0 guest slot up to LOOP_TIMEOUT, the same way
->> erratum 732 waits for the primary slot. Return 2 only when
->> that slot is already in [head, live_tail). Return 1 if the
->> pair never appears in tail. Rate-limit the guest-triggered
->> logs.
->>
->> Log an invalid guest-event when the pair slot is still
->> missing or type 0 after that wait, instead of stalling
->> the event log.
-> 
-> 
-> As per spec:
->    GUEST_EVENT_FAULT event is always written in pairs with a guest event entry
-> immediately after it into the event log.
->
-> Why not add one additional check in iommu_poll_events() such that:>    if event at head is GUEST_EVENT_FAULT and actual fault event is
-> not-yet-written by HW just return.
->    If subsequent event is also written then handle the event.
-> 
-> and increase head pointer accordingly.
+commit 3183a8d5a8d274f51929b98832f2ad4013dd57a7
+Author: Karl Mehltretter <kmehltretter@gmail.com>
 
-I would like to keep the code for handling GUEST_EVENT_FAULT (including 
-the logic for checking guest event pair entry) in iommu_print_event() to 
-simplify the code readability.
+rv: Add KUnit coverage for IRQ context transitions
 
-Originally, I try to handle the case where the guest event pair may 
-arrive late, but that adds complexity to the tail polling logic. For v7, 
-I can simplify the logic to just report GUEST_EVENT_FAULT event with 
-missing guest eventinstead then.
+This commit adds KUnit test cases for the irqstate runtime verification
+monitor covering generated state tables, invalid transitions, enable-time
+synchronization, nested hardirqs, shared IRQ actions, PREEMPT_RT serving
+intervals, and live tracepoint wiring.
 
->> ....
->> diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
->> index 43a5690721af..2df81e29519e 100644
->> --- a/drivers/iommu/amd/iommu.c
->> +++ b/drivers/iommu/amd/iommu.c
->> @@ -942,8 +942,18 @@ static void amd_iommu_report_ppr_err(struct amd_iommu *iommu, volatile u32 *even
->>   	pci_dev_put(pdev);
->>   }
->>   
->> -static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->> +static u32 evtlog_used(u32 head, u32 tail)
->>   {
->> +	return (tail + amd_iommu_evtlog_size - head) % amd_iommu_evtlog_size;
->> +}
->> +
->> +/*
->> + * Decode one event-log slot (or a GUEST_EVENT_FAULT pair).
->> + * Returns the number of slots consumed.
->> + */
->> +static unsigned int iommu_print_event(struct amd_iommu *iommu, u32 head)
->> +{
->> +	void *__evt = iommu->evt_buf + head;
->>   	struct device *dev = iommu->iommu.dev;
->>   	int type, devid, flags;
->>   	volatile u32 *event = __evt;
->> @@ -965,7 +975,7 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->>   		/* Did we hit the erratum? */
->>   		if (++count == LOOP_TIMEOUT) {
->>   			pr_err("No event written to event log\n");
->> -			return;
->> +			return 1;
-> 
-> This will cause head to progress event though there is no event. 
+> diff --git a/kernel/trace/rv/monitors/irqstate/irqstate_kunit.c b/kernel/=
+trace/rv/monitors/irqstate/irqstate_kunit.c
+> new file mode 100644
+> index 0000000000000..c5b8834fea3d9
+> --- /dev/null
+> +++ b/kernel/trace/rv/monitors/irqstate/irqstate_kunit.c
+> @@ -0,0 +1,1384 @@
 
-Actually, there is an event (since the head != tail) but with (type == 0 
-: invalid event). So, we need to discard the entry and increment head.
+[ ... ]
 
->>   		}
->>   		udelay(1);
->>   		goto retry;
->> @@ -975,7 +985,7 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->>   
->>   	if (type == EVENT_TYPE_IO_FAULT) {
->>   		amd_iommu_report_page_fault(iommu, devid, pasid, address, flags, vflags);
->> -		return;
->> +		return 1;
->>   	}
->>   
->>   	switch (type) {
->> @@ -1023,9 +1033,90 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->>   	case EVENT_TYPE_INV_PPR_REQ:
->>   		amd_iommu_report_ppr_err(iommu, event, devid, address, flags);
->>   		break;
->> +	case EVENT_TYPE_GUEST_EVENT_FAULT:
->> +	{
->> +		u16 gid = FIELD_GET(EVENT_GID_MASK, event[1]);
->> +		u32 next = (head + EVTLOG_ENTRY_SIZE) % amd_iommu_evtlog_size;
->> +		u32 *guest;
->> +		u32 live_tail, w0, w1, w2, w3;
->> +		int guest_type, wait;
->> +
->> +		dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT gid=%#x flags=0x%04x vflags=%#x]\n",
->> +				    gid, flags, vflags);
->> +
->> +		/*
->> +		 * GUEST_EVENT_FAULT is paired with the original guest
->> +		 * event in the next log slot (possibly wrapped). The
->> +		 * poll-time tail can predate that slot. Wait until
->> +		 * occupancy is at least two entries, then retry a
->> +		 * type-0 pair slot the same way erratum 732 waits
->> +		 * for DMA visibility. Return 2 only when that slot
->> +		 * is already in [head, live_tail). iommu_poll_events()
->> +		 * re-reads tail each iteration so head cannot skip
->> +		 * past tail.
->> +		 */
->> +		wait = 0;
->> +		for (;;) {
->> +			live_tail = readl(iommu->mmio_base + MMIO_EVT_TAIL_OFFSET);
->> +			if (evtlog_used(head, live_tail) >=
->> +			    2 * EVTLOG_ENTRY_SIZE)
->> +				break;
->> +			if (++wait == LOOP_TIMEOUT) {
-> 
-> I think we should avoid avoid this loop in interrupt handler path.
+> +/* Exercise non-RT inline softirq processing from a real hardirq exit. */
+> +static void rv_test_irqstate_irq_exit_inline(struct kunit *test)
+> +{
 
-I am removing this loop.
+[ ... ]
 
->> +				dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT invalid guest-event (does not exist)]\n");
->> +				if (!amd_iommu_snp_en)
->> +					memset(__evt, 0, EVTLOG_ENTRY_SIZE);
->> +				return 1;
->> +			}
->> +			udelay(1);
->> +		}
->> +
->> +		guest = (u32 *)(iommu->evt_buf + next);
->> +		wait = 0;
->> +		for (;;) {
->> +			w1 = READ_ONCE(guest[1]);
->> +			guest_type = (w1 >> EVENT_TYPE_SHIFT) & EVENT_TYPE_MASK;
->> +			if (guest_type)
->> +				break;
->> +			if (++wait == LOOP_TIMEOUT) {
->> +				w0 = READ_ONCE(guest[0]);
->> +				w2 = READ_ONCE(guest[2]);
->> +				w3 = READ_ONCE(guest[3]);
->> +				dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT invalid guest-event %08x %08x %08x %08x]\n",
->> +						    w0, w1, w2, w3);
->> +				if (!amd_iommu_snp_en) {
->> +					memset(__evt, 0, EVTLOG_ENTRY_SIZE);
->> +					memset(guest, 0, EVTLOG_ENTRY_SIZE);
->> +				}
->> +				/* Occupancy already includes this slot.
->> +				 * Skip it so a late DMA fill is not
->> +				 * decoded as a host event.
->> +				 */
->> +				return 2;
->> +			}
->> +			udelay(1);
->> +		}
->> +
->> +		w0 = READ_ONCE(guest[0]);
->> +		w2 = READ_ONCE(guest[2]);
->> +		w3 = READ_ONCE(guest[3]);
->> +		dev_err_ratelimited(dev, "Event logged [GUEST_EVENT_FAULT guest-event %08x %08x %08x %08x]\n",
->> +				    w0, w1, w2, w3);
->> +
->> +		/*
->> +		 * Erratum 732: clear both pair slots so a stale guest
->> +		 * event is not decoded on the next poll. The second
->> +		 * slot may wrap to the start of the ring. Skip on SNP;
->> +		 * that buffer is not writable.
->> +		 */
->> +		if (!amd_iommu_snp_en) {
->> +			memset(__evt, 0, EVTLOG_ENTRY_SIZE);
->> +			memset(guest, 0, EVTLOG_ENTRY_SIZE);
->> +		}
->> +		return 2;
->> +	}
->>   	case EVENT_TYPE_VIOMMU_HW_ERR:
->>   	{
->> -		u16 gid = event[0] & 0xFFFF;
->> +		u16 gid = FIELD_GET(EVENT_GID_MASK, event[0]);
->>   		u8 src = (event[0] >> 16) & 0x3;
->>   
->>   		dev_err(dev, "Event logged [VIOMMU_HW_ERR gid=%#x address=%#llx src=%#x flags=0x%04x vflags=%#x]\n",
->> @@ -1044,24 +1135,27 @@ static void iommu_print_event(struct amd_iommu *iommu, void *__evt)
->>   	 * SNP enabled system.
->>   	 */
->>   	if (!amd_iommu_snp_en)
->> -		memset(__evt, 0, 4 * sizeof(u32));
->> +		memset(__evt, 0, EVTLOG_ENTRY_SIZE);
->> +
->> +	return 1;
->>   }
->>   
->>   static void iommu_poll_events(struct amd_iommu *iommu)
->>   {
->>   	u32 head, tail;
->> +	unsigned int n;
->>   
->>   	head = readl(iommu->mmio_base + MMIO_EVT_HEAD_OFFSET);
->> -	tail = readl(iommu->mmio_base + MMIO_EVT_TAIL_OFFSET);
->> -
->> -	while (head != tail) {
->> -		iommu_print_event(iommu, iommu->evt_buf + head);
->> +	for (;;) {
->> +		tail = readl(iommu->mmio_base + MMIO_EVT_TAIL_OFFSET);
-> 
-> We should read tail outside the loop. Otherwise we may stuck in interrupt
-> handler context for long time and cause softlockups.
+> +	KUNIT_ASSERT_FALSE(test, in_interrupt());
+> +	KUNIT_ASSERT_FALSE(test, irqs_disabled());
+> +	KUNIT_ASSERT_EQ(test, softirq_count(), 0U);
+> +	guard(migrate)();
+> +	inline_ctx->owner =3D current;
+> +	inline_ctx->owner_cpu =3D raw_smp_processor_id();
+> +	inline_ctx->softirqd =3D this_cpu_ksoftirqd();
+> +	KUNIT_ASSERT_NOT_NULL(test, inline_ctx->softirqd);
+> +	if (local_softirq_pending() ||
+> +	    !wait_task_inactive(inline_ctx->softirqd, TASK_INTERRUPTIBLE)) {
+> +		kunit_skip(test, "Requires an idle local ksoftirqd");
+> +		return;
+> +	}
+> +	saved_count =3D preempt_count();
+> +	saved_softirq =3D softirq_count();
+> +	local_irq_save(flags);
+> +	if (local_softirq_pending() || task_is_running(inline_ctx->softirqd)) {
+> +		local_irq_restore(flags);
+> +		kunit_skip(test, "Local ksoftirqd stopped being idle");
+> +		return;
+> +	}
+> +	WRITE_ONCE(inline_ctx->armed, true);
+> +	WRITE_ONCE(inline_ctx->raise_on_exit, true);
+> +	irq_enter_rcu();
+> +	tasklet_schedule(&inline_ctx->tasklet);
+> +	irq_exit_rcu();
+> +	ran_inline =3D inline_ctx->tasklet_runs !=3D 0;
+> +	inline_ctx->exit_tasklet_pending =3D
+> +		!!(local_softirq_pending() & BIT(TASKLET_SOFTIRQ));
+> +	/*
+> +	 * A zero return means the exit handoff already made ksoftirqd runnable.
+> +	 * A one return also makes the failure path safe to drain.
+> +	 */
+> +	inline_ctx->softirqd_already_runnable =3D
+> +		!wake_up_process(inline_ctx->softirqd);
+> +	WRITE_ONCE(inline_ctx->armed, false);
+> +	local_irq_restore(flags);
+> +
+> +	/* Drain a tasklet diverted to ksoftirqd before inspecting or skipping.=
+ */
+> +	kunit_release_action(test, irqstate_inline_bh_kill_all, inline_ctx);
+> +	if (!ran_inline) {
+> +		kunit_skip(test, "IRQ exit diverted pending softirq to ksoftirqd");
+> +		return;
+> +	}
 
-I am simplifying this logic.
+[Severity: High]
+Does calling kunit_skip() or KUNIT_ASSERT_*() while guard(migrate)() is
+active in kernel/trace/rv/monitors/irqstate/irqstate_kunit.c leak the
+runqueue nr_pinned counter?
 
-Thanks,
-Suravee
+In rv_test_irqstate_irq_exit_inline(), guard(migrate)() invokes
+migrate_disable() -> __migrate_disable() in include/linux/sched.h:
+
+	guard(preempt)();
+	this_rq_pinned()++;
+	p->migration_disabled =3D 1;
+
+Inside that scope, rv_test_irqstate_irq_exit_inline() calls kunit_skip()
+when local_softirq_pending() is non-zero, when ksoftirqd is not idle, or
+when !ran_inline (for example, when forced IRQ threading diverts the
+tasklet to ksoftirqd). However, kunit_skip() in include/kunit/test.h is:
+
+	#define kunit_skip(test, fmt, ...)				\
+		do {							\
+			kunit_mark_skipped((test), fmt, ##__VA_ARGS__);	\
+			kunit_try_catch_throw(&((test)->try_catch));	\
+		} while (0)
+
+Both kunit_skip() and failed KUNIT_ASSERT_*() macros call
+kunit_try_catch_throw(), which terminates the KUnit runner kthread directly
+via kthread_exit(0) -> do_exit(0) without returning to the caller or
+unwinding the C stack.
+
+Because scope-based cleanup destructors do not run when kthread_exit(0)
+exits the thread, migrate_enable() -> __migrate_enable() never executes to
+decrement this_rq_pinned() (rq->nr_pinned). Wouldn't that leave
+rq_has_pinned_tasks(rq) permanently true on that CPU and cause subsequent
+CPU hotplug offline operations to hang in balance_hotplug_wait()?
+
+The same issue also applies if any KUNIT_ASSERT_*() fails while
+guard(migrate)() is held in rv_test_irqstate(),
+rv_test_irqstate_shared_actions(), rv_test_irqstate_sync(),
+rv_test_irqstate_irq_exit_inline(), rv_test_irqstate_preempt(),
+rv_test_irqstate_rt_prepare_irq(), and rv_test_irqstate_rt_prepare_switch().
+Could migration disabling be managed with a kunit_add_action_or_reset()
+cleanup action, or released before calling kunit_skip() and KUNIT_ASSERT_*()
+macros?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261022050712.7503=
+5-1-kmehltretter@gmail.com?part=3D6
