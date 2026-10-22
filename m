@@ -1,103 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707458;
-	b=ioBfhZb/eBQUBNzFk4mXcwu5bT5AL5MhQZs3kOgDnfwz1WgpIe9+4/9vFT8q++QoLake
-	 Ollhb5VCk+5dTdyWDNPdtO7VTuC2HStMpkJ1ckNM60hsDBl9ZfThOWzLl0b+S/FVbfLG1
-	 h0KxrEQ2Bj/TNHi0qwnkO8g9YqnobA2hw6BIDmCHk4fAciz0/HvQbtVZhsDZYZOJUUbQm
-	 ITuA55jM+m3tGewVHQva5KTng8sUMbTXojYg5UdfQ+fqjoQX8S5Of1T3emvEIsJkVm+O6
-	 BXkkkf4XXt6hj6iY2Xn1GYqzCqINAMFV98GnPedUOkhx+skZZMtiIrxpZC/gHfGjX2A==
+	t=1792707462;
+	b=4Iq3uBAMeWwu5PQlSyPOEzePrMMaP4QJ3IysITz7VEAhU+c785Ev8gtX3hBej2qJ9aCn
+	 gTzVj6REKv8daN3S+SeQgSL5RzQmyvvoUpcVjRdBfRLQuXvh8un1QnH3/kcdqKYK5ra/O
+	 5/pqG7FbXef912WMBBLbPZNv2R6Bi0/eiaw0SfVUMP/Bg2Q0zwOdZpv66sU2qjqLUQ4mN
+	 scBkspj111wdp6caV0uOTmkomqY3j3ADAXcalJaEknIX29xThk4Ost7L4zo/Q8oJsdWgh
+	 NieSYOJ15CBiLC8VYJ0gm8h/T2f5yBRoW9fbj/NCLS2lC1nZko1bP4Piyj7UvU0Pewg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707458;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707462;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=O9rxmQQE5HClmg1Y7ttdTB+8dKWaLFnE1l1C4A2emaY=;
-	b=XoxH+3OHOSX74RMdXnyz+Mexswuv3sSdF85hMl3uiwJ3Nh+RkoA0SzSiDf7Nz/Ahdf+U
-	 okN6CgNNLycUaeH2eqNC413mdRss/D+IOJH2DeCSROF1M87srYUyIVmDcwSKe2E5xeSBO
-	 HUchyKbIoBnIGYc45f69MmUYDbCuob2Ss+/kinr+jJ7lPVqGxcwQxui8HLnpgMU84iTJc
-	 Vbda3zZzFiEsOwvZMS0kO3Xj8sXNQUBzzqn0CpsUWbPLgGtfbowLa23zJjbuQDjSX5cwc
-	 dPYV/SZZE511PmAsVzF7BXxp/oDIh3xfeHVmQBy/3iHL73igUBrvnweGKKRdzPLQWow==
+	 X-Relaying-Domain:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=0R7rE+XCksbEQAe/OwXOT+2nY0iz6MsHRCIFnvTH3No=;
+	b=sSLuvqcdrZG5gPBX/2Py/oYo67tfB4oMVacjMthv9UTI4g2bHO5pWasjfis1InTlA+GO
+	 cjLcn3vOd+KaOt0fFiLYVxUJegyuv+eGP46Bh057VJfmTktQUl0fXx5pZ/WxsuPYDUzZs
+	 NrQkUXaO3B6kKDeXkKrUJ8l65hkimAzmw95Bpzy4yhhBDYIqEAKc/bokSeBDHavoP5d0r
+	 u0dZWwV2kav+fTYCKMBN1/YS3Fu5dPHcICkonJCghj4U8qayGM9jat0HO6oM/uue1rJds
+	 baX6ojgBkveqVfqCz1xRoayin22mDdkKsY3i6WdHsRyf8Mg7SijKwSn0fwCJ/6lpdfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pA2QiHkx;
-	arc=none smtp.remote-ip=209.85.221.182
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	dmarc=pass header.from=purestorage.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=ZgZMNMw+;
+	arc=none smtp.remote-ip=209.85.215.228
+Received: from mail-pg1-f228.google.com (mail-pg1-f228.google.com [209.85.215.228])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC76606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:17:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCC76606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA8DE606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:17:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA8DE606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=pA2QiHkx
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5ead32bc7d8so284641e0c.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:17:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=ZgZMNMw+
+Received: by mail-pg1-f228.google.com with SMTP id 41be03b00d2f7-cd67cc518a6so228444a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:17:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792707457; x=1793312257; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=O9rxmQQE5HClmg1Y7ttdTB+8dKWaLFnE1l1C4A2emaY=;
-        b=pA2QiHkxBFb/q0goNPPdecNtw6q+j3oXi69o0L3tJicEB1r7mcoboI+othycHl+r4f
-         vgS6s4Ma/g3rXaJDjEc5Yeo5Jl5lYzSMloAbtN4lcRdh48PAOqTededyogTm7dUY8ytk
-         fuyA8hRF5XRddAaWE1kmKh4AuyJN+DC85mDnB4quPLD8aa+rj8iwcyCAQUnk9Db3ieNf
-         yXw/D0c3AB2ipZ3qSejD4IvjuOav84BN/bsIyIkA9TwdUIeeQ0RhuTGHfENHL2Icya6z
-         fbsOFBEWwL/qoEbcji8ppX8swLW2Lk8MxCVkml1MrK1c8qMqx39tvpKQWA/Xvwq6ZzTe
-         2DMA==
+        d=purestorage.com; s=google2022; t=1792707461; x=1793312261; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0R7rE+XCksbEQAe/OwXOT+2nY0iz6MsHRCIFnvTH3No=;
+        b=ZgZMNMw+BxZSQVUaLTjV8OT7YDViZ/mW0pBn0m29kyYPV8feUICu2x5DiG6dd1hMM1
+         30SdQ7bBsXQreyr9B50WSzAwrG1Phn0294CjnAIInNe+VYIwRwzWKAJg04ndcOL1uRhO
+         LewgZ4Gqra1wgEPRiVl+t2+mokkuYjAZQykNQ1ihWx/O+WsQG3KX/ey9YRInE90JHs/T
+         5RU01+41nPqnHQthun2PQ2JvoQw4A0sR4tVzL6xoJtp59jGaSkLD3LO0iYndLphKLMFp
+         Hz5up95lq6l9BxJNZMtpeTck4TzWQ0vY1BkkzCWPu9qJSnT3Pl5o3OixgKDxLoTeXQLn
+         8LOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792707457; x=1793312257;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O9rxmQQE5HClmg1Y7ttdTB+8dKWaLFnE1l1C4A2emaY=;
-        b=kD7JGuHIHNMZNqwfmXVrhK4GegD5joTfRuglnwc1dnH4zhMYuaO5i2WwWEzepB8TcV
-         Y6cIQxQCO/oOSFBnnz8huvBbeh1ejfbhsLaKR5iOdJ66Zs3CDmuvIrOBCTjibkBFvv4J
-         NOwzUsnlaxK1nGMneQb1cdzhdTdWvbqgdJTC7azRcYb7j9f2z+xC6Bw30OQkc30+0pkk
-         ERM+AwN/8M1K02R07+BskCx3Ecz52UyaQcUgj4lLi9EMeIs6PTZOaEKuKHLfoSZdIlwg
-         hZVhZ34xsMny39PbyFrtSk1trM7Y0gEKYnsFDUbejbw3CCJzCshsY9UjTqcFJuUJTB/e
-         Fk4g==
-X-Forwarded-Encrypted: i=1; AKwUvBwQ+xHyIYTEIh4oGv3cGax/VsR3ZSoriLvhRlkRb84JqgohGmMw5dOssXM0Y+/72eXEkpOl+B4UGRCs5MA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrmbKZyBaFgaG3zfG3hXgI9uW71NIQKen5k7rx4PbXRRoDkvmD
-	xxrk1OBhavr4u+OnsnErxf5CQhpiQJvhvuCvE62RSKVPa/iU6QnXyrr0
-X-Gm-Gg: AYBFou3lS+Fg5CTroMoEYzD1z+xLlgSX/R1IuDsPeNs4FOzQy7tlAIxti8TODuzmwHS
-	S5yiJhtVlz0ubdBwaQTwxpTJzKiwdtKPkMXNixCz/k2q5kjFrkMMaIn+FNGcucOFKoExQ7cpOr9
-	rPkknWlTIrf32L2wp1YamV6tef9UxIJgVCBeierDMarr0yjsLfU2Dgc02FlZEKvGkP7zKpuWg9z
-	fXW/fzQLKf7vlFTXBFJlYX38oUZOTkl95hsBVjwNtCMDILCgdYQDgvGlfdwwzoZPbE01GrM7P5v
-	vqo5ozEaSULSUflA+CXVzlQ+9pldGJz01bVE9Wg1ZLuadhLDNWunSFJIX3sJr8Jicmv9bX5yDYd
-	112h1XA+OvL6OgsVW+G3NNQGWZHF1P5UVCmtGEhEQDIyUt/5dPUi/RuD3IrySVD3Mr3Rk5QXmvF
-	tMVXFfG3meghOYkt/fpGez5dJ/3RlDFQlxmCX/rLLIlOLL9bvXGKLhWBEhzJWwnhHndP+XVVgza
-	HTTel90MxdCvMNEKaytMfovwIniJHf/z2UMoo0mrVV0SLHZiA==
-X-Received: by 2002:a05:6122:4002:b0:5ea:df96:c394 with SMTP id 71dfb90a1353d-5ec14a6ff39mr101116e0c.5.1792707456873;
-        Thu, 22 Oct 2026 15:17:36 -0700 (PDT)
-Received: from unix.. ([181.229.23.179])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec13f2cfe0sm456271e0c.14.2026.10.22.15.17.33
+        d=1e100.net; s=20260707; t=1792707461; x=1793312261;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0R7rE+XCksbEQAe/OwXOT+2nY0iz6MsHRCIFnvTH3No=;
+        b=ke4VueERTt4jKSQosrZRah6J9iOD26yysNE8m6iFsxn/l8P0QOsMTKDxBkmWXdxALR
+         NCfaD3eYuCCoCsjFmphpiRKRH2PfXZy3RePrpdsPdP4zEj3qD6tPTFp3zl47PdQLNyVT
+         weq1DwpWh3NBiJCt5RI7koofpNNcYmFSwtO5XuDTBT0HuQIaTyoT6ZxNmAZ9k/9mP0xW
+         zvxnXNQAAxKRwzpB6k5JxKtGplx+vYFMFQSq0eG0VIcyeFluPwjLMBufhTHTPlG5TGVu
+         OyLczTemgQlC4b6kZr05gOdU2WWYl/DyZ/3TLHli3gEt41Ow0ZQdTWY0Q63cXZWajESX
+         W7gQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy53FoC13KtqvOwfqt+gZKgrnhHQ5vyXBsdXaX3MdPPUVvSG+6Rqkv33daY7ypMvVk6nqq2bo33IzjCrEs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJT/604NshUI1XH0NabnQ1B8B9xS7JGqtjHU7+23jsoJPWMW7mq
+	9bLcqIJOU5cO1S/BoMUhVkgPU6/CGzCKoREFzZo1W1XCX79e4VXGxxrtW7c8Un/r1F+VbAUu+C7
+	1xEPEn6uclKGNO+Y80HHPGrPMvmeTiGj/Tm5L
+X-Gm-Gg: AYBFou2W2fm9rKDAWRpEPII6ogIkDAGjtDBOdSElNPPCb979CUFWZRWAi0N6vTTSi3b
+	Ku7s3E5SVeSd/x4RmSBThVeZn2avln3f6hWbYQmCAoWgudLpbskhBmDMum2C43gi9YyuwylelCM
+	ER5jiqRCT09M+F/cCJ7pAsWwTDsf2CZHGyqwWxYJv69xzUZi2NurxLooxKPVNUNh3QpREHBrYJs
+	l/AQ++GfiqG/bq+eVeJHVJvSLuZDGorQJKBjEgoXYVRBkvtSbNrx36f1bDHFToB4A9AveKIgf0e
+	arUjzxjSh+LlhxJoXI4lhiu6s0YUZ2FgxznfeH3Ez9L/NyflXVG1w44YyWHc4euodcUbwtXjC0R
+	1HV/Bv2QsxB4IWuADzcg3BUUlHmGxwOjoYAo=
+X-Received: by 2002:a17:90b:3c8b:b0:3a8:185:cf40 with SMTP id 98e67ed59e1d1-3adcdfaab13mr261184a91.10.1792707461243;
+        Thu, 22 Oct 2026 15:17:41 -0700 (PDT)
+Received: from c7-smtp-2026.dev.purestorage.com ([208.88.159.128])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3adcb1ea2a2sm362551a91.8.2026.10.22.15.17.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 15:17:36 -0700 (PDT)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org
-Cc: "H . Peter Anvin" <hpa@zytor.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	=?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-Subject: [PATCH v2 2/2] selftests/x86: shadow stack must survive a bad TLS
-Date: Thu, 22 Oct 2026 19:17:21 -0300
-Message-ID: <20261022221722.619233-3-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022221722.619233-1-ivanrwcm25@gmail.com>
-References: <20261015023147.519257-1-ivanrwcm25@gmail.com>
- <20261022221722.619233-1-ivanrwcm25@gmail.com>
+        Thu, 22 Oct 2026 15:17:41 -0700 (PDT)
+X-Relaying-Domain: purestorage.com
+Received: from dev-rjethwani.dev.purestorage.com (dev-rjethwani.dev.purestorage.com [IPv6:2620:125:9025:23::2ea])
+	by c7-smtp-2026.dev.purestorage.com (Postfix) with ESMTP id 260834029F;
+	Thu, 22 Oct 2026 16:17:40 -0600 (MDT)
+Received: by dev-rjethwani.dev.purestorage.com (Postfix, from userid 1557719937)
+	id 236CBDC48A1; Thu, 22 Oct 2026 16:17:40 -0600 (MDT)
+From: Rishikesh Jethwani <rjethwani@purestorage.com>
+To: netdev@vger.kernel.org
+Cc: Rishikesh Jethwani <rjethwani@purestorage.com>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Dirk van der Merwe <dirk.vandermerwe@netronome.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net v2 4/4] tls: device: fix next-record queued checks in core-driven RX resync
+Date: Thu, 22 Oct 2026 16:15:00 -0600
+Message-ID: <20261022221732.1397620-5-rjethwani@purestorage.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261022221732.1397620-1-rjethwani@purestorage.com>
+References: <20261022221732.1397620-1-rjethwani@purestorage.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,391 +110,106 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-clone3(CLONE_VM|CLONE_SETTLS) with an out-of-range TLS fails in
-set_new_tls() after copy_thread() has mapped a shadow stack.
-copy_process() does not call exit_thread() on that failure, so the
-VMA stays in the parent's mm.
+TLS_OFFLOAD_SYNC_TYPE_CORE_NEXT_HINT resync tells the device where the
+next record starts. That is only useful if the device has not yet seen
+the next record's header, so both places that send the hint first check
+whether any of the next record is already queued on the socket, using
+tcp_inq(). tcp_inq() counts from copied_seq, so the checks are only
+right if they know how much of the current record has been consumed.
 
-Use kselftest.h / KTAP. Skip paths that cannot run the regression
-run before ksft_set_plan(). Then confirm a valid clone3, that sixteen
-bad-TLS clones return -EPERM, and that the shadow-stack VMA count is
-unchanged while the parent's stack still supports call/return.
+tls_device_core_ctrl_rx_resync() runs when a record is entirely
+encrypted and checks tcp_inq() > rxm->full_len. With the original
+strparser the record had already been read out, so this asked for more
+than a whole record beyond the current one instead of any data at all,
+contrary to the intent stated in the commit that added it. Since the
+TLS-specific strparser the check is correct in its normal mode, where
+the record is still queued, but copy mode has consumed the record and
+keeps the original error. The hint can then be sent immediately for a
+boundary the device has already passed.
 
-SKIP the valid-TLS control only for ENOSYS, EPERM, or EACCES. Missing
-/proc/self/smaps (ENOENT) is SKIP. Read errors, truncated lines, and
-VMA records without VmFlags are FAIL so under-counting cannot hide a
-leak. Skip when CPUID has no shadow stack or when user SHSTK cannot
-be enabled. The child exits with a raw syscall because it resumes on
-an empty shadow stack.
+tls_device_rx_resync_new_rec() runs when a new record header is parsed
+and checks tcp_inq() > rcd_len, relying on the queue still holding the
+record being parsed. That does not hold once part of the record has
+been consumed: in copy mode, and with the original strparser, which
+also consumed incomplete headers before parsing them. The check then
+underestimates what is queued and can send the hint after the next
+header has arrived, too late for the device to use it.
 
-The recursive call goes through an indirect call. A visible recursive
-body is optimized into a closed form and does not execute ret.
+In both cases the attempt is wasted and the next try is made only after
+backoff, keeping the stream on software decryption longer.
 
-Assisted-by: LLM
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Count from the record start instead of copied_seq. With the record
+start now tracked by the strparser in both modes, rcv_nxt minus that
+start is the number of bytes received for this record and beyond,
+regardless of how much has been consumed. The
+tls_device_rx_resync_nh_delay tracepoint now reports received sequence
+space from the record start, including data already consumed in copy
+mode. A FIN right after the record now counts as queued data, which
+only defers a hint that could not be used, since no record can follow
+it.
+
+Only drivers using TLS_OFFLOAD_SYNC_TYPE_CORE_NEXT_HINT are affected.
+
+Found by code inspection while working on TLS 1.3 hardware offload
+support.
+
+Fixes: f953d33ba122 ("net/tls: add kernel-driven TLS RX resync")
+Signed-off-by: Rishikesh Jethwani <rjethwani@purestorage.com>
 ---
- tools/testing/selftests/x86/Makefile          |   3 +-
- tools/testing/selftests/x86/shstk_clone_tls.c | 334 ++++++++++++++++++
- 2 files changed, 336 insertions(+), 1 deletion(-)
- create mode 100644 tools/testing/selftests/x86/shstk_clone_tls.c
+ net/tls/tls_device.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/tools/testing/selftests/x86/Makefile b/tools/testing/selftests/x86/Makefile
-index d478b13cc8d5..4f8a771b0839 100644
---- a/tools/testing/selftests/x86/Makefile
-+++ b/tools/testing/selftests/x86/Makefile
-@@ -19,7 +19,8 @@ TARGETS_C_32BIT_ONLY := entry_from_vm86 test_syscall_vdso unwind_vdso \
- 			test_FCMOV test_FCOMI test_FISTTP \
- 			vdso_restorer
- TARGETS_C_64BIT_ONLY := fsgsbase sysret_rip syscall_numbering \
--			corrupt_xstate_header amx lam test_shadow_stack avx apx
-+			corrupt_xstate_header amx lam test_shadow_stack avx apx \
-+			shstk_clone_tls
- # Some selftests require 32bit support enabled also on 64bit systems
- TARGETS_C_32BIT_NEEDED := ldt_gdt ptrace_syscall
+diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+index a6c4d0cc54c7..8181564600c1 100644
+--- a/net/tls/tls_device.c
++++ b/net/tls/tls_device.c
+@@ -805,10 +805,10 @@ void tls_device_rx_resync_new_rec(struct sock *sk, u32 rcd_len, u32 seq)
+ 		if (likely(!rx_ctx->resync_nh_do_now))
+ 			return;
  
-diff --git a/tools/testing/selftests/x86/shstk_clone_tls.c b/tools/testing/selftests/x86/shstk_clone_tls.c
-new file mode 100644
-index 000000000000..5c9b5709b440
---- /dev/null
-+++ b/tools/testing/selftests/x86/shstk_clone_tls.c
-@@ -0,0 +1,334 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * clone3(CLONE_VM|CLONE_SETTLS) with an out-of-range TLS must not leak a
-+ * shadow-stack VMA. copy_thread() maps one before set_new_tls() can fail,
-+ * and copy_process() does not call exit_thread() on that failure.
-+ *
-+ * KTAP via kselftest.h. Capability / clone3 skips run before
-+ * ksft_set_plan(). After ARCH_SHSTK_ENABLE, exit only through ksft_exit_*
-+ * (do not return from main).
-+ *
-+ * Relies on /proc/self/smaps (CONFIG_PROC_PAGE_MONITOR).
-+ */
-+#define _GNU_SOURCE
-+
-+#include <errno.h>
-+#include <linux/sched.h>
-+#include <sched.h>
-+#include <signal.h>
-+#include <stdint.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+#include <sys/syscall.h>
-+#include <sys/wait.h>
-+#include <unistd.h>
-+
-+#include "../kselftest.h"
-+
-+#ifndef __NR_clone3
-+#define __NR_clone3 435
-+#endif
-+
-+#ifndef ARCH_SHSTK_ENABLE
-+#define ARCH_SHSTK_ENABLE	0x5001
-+#endif
-+#ifndef ARCH_SHSTK_STATUS
-+#define ARCH_SHSTK_STATUS	0x5005
-+#endif
-+#ifndef ARCH_SHSTK_SHSTK
-+#define ARCH_SHSTK_SHSTK	1ULL
-+#endif
-+
-+#define NCLONE		16
-+#define STACK_SIZE	(64 * 1024)
-+#define CPUID_SHSTK	0x80	/* CPUID.(EAX=07H,ECX=0):ECX[7] */
-+
-+/*
-+ * Inlined arch_prctl — same constraint as test_shadow_stack.c: after
-+ * SHSTK is enabled, a libc syscall wrapper return has no shadow token.
-+ */
-+#define ARCH_PRCTL(arg1, arg2)					\
-+({								\
-+	long _ret;						\
-+	register long _num  asm("eax") = __NR_arch_prctl;	\
-+	register long _arg1 asm("rdi") = (long)(arg1);		\
-+	register long _arg2 asm("rsi") = (long)(arg2);		\
-+								\
-+	asm volatile (						\
-+		"syscall\n"					\
-+		: "=a"(_ret)					\
-+		: "r"(_arg1), "r"(_arg2),			\
-+		  "0"(_num)					\
-+		: "rcx", "r11", "memory", "cc"			\
-+	);							\
-+	_ret;							\
-+})
-+
-+static __always_inline unsigned long get_ssp(void)
-+{
-+	unsigned long ret = 0;
-+
-+	/* RDSSPQ is a NOP when SHSTK is off; keep destination cleared. */
-+	asm volatile("xor %0, %0; rdsspq %0" : "=r" (ret));
-+	return ret;
-+}
-+
-+static int cpu_has_shstk(void)
-+{
-+	unsigned int eax, ebx, ecx, edx;
-+
-+	asm volatile("cpuid"
-+		     : "=a" (eax), "=b" (ebx), "=c" (ecx), "=d" (edx)
-+		     : "a" (7), "c" (0));
-+	return ecx & CPUID_SHSTK;
-+}
-+
-+static void on_fault(int sig)
-+{
-+	(void)sig;
-+	/* Async-signal-safe path; do not call into libc printf. */
-+	_exit(KSFT_FAIL);
-+}
-+
-+struct ss_span {
-+	unsigned long start;
-+	unsigned long end;
-+};
-+
-+static FILE *open_smaps(void)
-+{
-+	FILE *f = fopen("/proc/self/smaps", "r");
-+
-+	if (f)
-+		return f;
-+	if (errno == ENOENT)
-+		ksft_exit_skip("/proc/self/smaps unavailable\n");
-+	ksft_exit_fail_msg("fopen /proc/self/smaps: %s\n", strerror(errno));
-+}
-+
-+/*
-+ * Count ss VMAs; optionally resolve SSP → span and check a known span.
-+ * Empty stacks leave SSP at the exclusive end.
-+ *
-+ * Each address-range header must be followed by VmFlags before the next
-+ * range (or EOF). Truncated lines and a dangling range are FAIL — silent
-+ * skips would under-count leaked shadow stacks.
-+ */
-+static void ss_scan(int *vmas, unsigned long ssp, struct ss_span *hit,
-+		    const struct ss_span *want, int *kept)
-+{
-+	FILE *f = open_smaps();
-+	char line[256];
-+	unsigned long start = 0, end = 0;
-+	int saw_range = 0;
-+
-+	*vmas = 0;
-+	if (hit) {
-+		hit->start = 0;
-+		hit->end = 0;
-+	}
-+	if (kept)
-+		*kept = 0;
-+
-+	while (fgets(line, sizeof(line), f)) {
-+		unsigned long a, b;
-+		size_t len = strlen(line);
-+
-+		if (len + 1 == sizeof(line) && line[len - 1] != '\n') {
-+			fclose(f);
-+			ksft_exit_fail_msg("smaps line truncated\n");
-+		}
-+
-+		if (sscanf(line, "%lx-%lx", &a, &b) == 2) {
-+			if (saw_range) {
-+				fclose(f);
-+				ksft_exit_fail_msg(
-+					"smaps range %lx-%lx missing VmFlags\n",
-+					start, end);
-+			}
-+			start = a;
-+			end = b;
-+			saw_range = 1;
-+			continue;
-+		}
-+		if (strncmp(line, "VmFlags:", 8))
-+			continue;
-+		if (!saw_range) {
-+			fclose(f);
-+			ksft_exit_fail_msg("smaps VmFlags without range\n");
-+		}
-+		saw_range = 0;
-+		if (!strstr(line, " ss"))
-+			continue;
-+
-+		(*vmas)++;
-+		if (hit && ((ssp >= start && ssp < end) || ssp == end)) {
-+			hit->start = start;
-+			hit->end = end;
-+		}
-+		if (kept && want && start == want->start && end == want->end)
-+			*kept = 1;
-+	}
-+	if (ferror(f)) {
-+		fclose(f);
-+		ksft_exit_fail_msg("read /proc/self/smaps: %s\n",
-+				   strerror(errno));
-+	}
-+	if (saw_range) {
-+		fclose(f);
-+		ksft_exit_fail_msg("smaps range %lx-%lx missing VmFlags\n",
-+				   start, end);
-+	}
-+	fclose(f);
-+}
-+
-+/*
-+ * Returns 0 if the child exited 0, -errno if clone3 failed, 1 otherwise.
-+ * Child uses a raw exit: it resumes on an empty shadow stack.
-+ */
-+static int clone_tls(void *stack, size_t stack_size, unsigned long tls)
-+{
-+	struct clone_args args = {
-+		.flags = CLONE_VM | CLONE_SETTLS,
-+		.exit_signal = SIGCHLD,
-+		.stack = (uint64_t)(uintptr_t)stack,
-+		.stack_size = stack_size,
-+		.tls = tls,
-+	};
-+	long ret;
-+	int st;
-+
-+	asm volatile("syscall"
-+		     : "=a" (ret)
-+		     : "0" (__NR_clone3),
-+		       "D" (&args),
-+		       "S" (sizeof(args))
-+		     : "rcx", "r11", "memory");
-+	if (ret == 0) {
-+		asm volatile("syscall"
-+			     :
-+			     : "a" (__NR_exit),
-+			       "D" (0)
-+			     : "memory");
-+		__builtin_unreachable();
-+	}
-+	if (ret < 0)
-+		return ret;
-+	if (waitpid((pid_t)ret, &st, 0) < 0)
-+		return -errno;
-+	if (!WIFEXITED(st) || WEXITSTATUS(st) != 0)
-+		return 1;
-+	return 0;
-+}
-+
-+/*
-+ * Indirect call so GCC cannot fold recursion into n+1 (call *%rax + ret).
-+ */
-+static int depth(int n);
-+static int (*depth_fn)(int n) = depth;
-+
-+static int depth(int n)
-+{
-+	int (*go)(int n);
-+
-+	if (n <= 0)
-+		return 1;
-+	asm volatile("" : "=r" (go) : "0" (depth_fn) : "memory");
-+	return go(n - 1) + 1;
-+}
-+
-+static void enable_shstk(void)
-+{
-+	long rc;
-+	unsigned long status = 0;
-+
-+	/*
-+	 * RDSSPQ leaves its destination unchanged when shadow stacks are
-+	 * disabled. Enable SHSTK before inspecting the SSP.
-+	 */
-+	rc = ARCH_PRCTL(ARCH_SHSTK_ENABLE, ARCH_SHSTK_SHSTK);
-+	if (rc == -EPERM) {
-+		if (ARCH_PRCTL(ARCH_SHSTK_STATUS, &status) ||
-+		    !(status & ARCH_SHSTK_SHSTK))
-+			ksft_exit_skip("user shadow stack is locked\n");
-+		return;
-+	}
-+	if (rc == -EOPNOTSUPP || rc == -EINVAL)
-+		ksft_exit_skip("user shadow stack unavailable: %ld\n", rc);
-+	if (rc)
-+		ksft_exit_fail_msg("ARCH_SHSTK_ENABLE: %ld\n", rc);
-+}
-+
-+int main(void)
-+{
-+	struct sigaction sa = { 0 };
-+	struct ss_span parent;
-+	void *stack;
-+	unsigned long ssp, ssp_mid;
-+	int vmas0, vmas1;
-+	int i, kept, d, cret, n_eperm = 0;
-+
-+	ksft_print_header();
-+
-+	if (!cpu_has_shstk())
-+		ksft_exit_skip("CPUID has no shadow stack\n");
-+
-+	stack = mmap(NULL, STACK_SIZE, PROT_READ | PROT_WRITE,
-+		     MAP_PRIVATE | MAP_ANONYMOUS | MAP_STACK, -1, 0);
-+	if (stack == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap stack: %s\n", strerror(errno));
-+
-+	enable_shstk();
-+	if (!get_ssp())
-+		ksft_exit_fail_msg("enable left SSP at 0\n");
-+
-+	/*
-+	 * Positive control before the plan: SKIP only when clone3 is
-+	 * unavailable or denied; unexpected errno is reported as a failed
-+	 * test after ksft_set_plan().
-+	 */
-+	cret = clone_tls(stack, STACK_SIZE, 0);
-+	if (cret == -ENOSYS || cret == -EPERM || cret == -EACCES)
-+		ksft_exit_skip("clone3 valid TLS unavailable: %s\n",
-+			       strerror(-cret));
-+
-+	ksft_set_plan(3);
-+
-+	ksft_test_result(cret == 0,
-+			 "clone3 valid TLS (rc=%d)\n", cret);
-+
-+	sa.sa_handler = on_fault;
-+	sigaction(SIGSEGV, &sa, NULL);
-+	sigaction(SIGBUS, &sa, NULL);
-+
-+	ssp = get_ssp();
-+	ss_scan(&vmas0, ssp, &parent, NULL, NULL);
-+	if (!parent.start)
-+		ksft_exit_fail_msg("SSP %lx matches no shadow-stack VMA\n",
-+				   ssp);
-+
-+	for (i = 0; i < NCLONE; i++) {
-+		cret = clone_tls(stack, STACK_SIZE, (unsigned long)-1);
-+		if (cret == -EPERM)
-+			n_eperm++;
-+	}
-+	ksft_test_result(n_eperm == NCLONE,
-+			 "clone3 bad TLS returns -EPERM x%d (got %d)\n",
-+			 NCLONE, n_eperm);
-+
-+	ss_scan(&vmas1, 0, NULL, &parent, &kept);
-+	ssp_mid = get_ssp();
-+	d = (kept && ssp_mid) ? depth(16) : -1;
-+	ssp = get_ssp();
-+
-+	ksft_print_msg("ss_vmas=%d->%d parent=%lx-%lx kept=%d depth=%d ssp=%lx\n",
-+		       vmas0, vmas1, parent.start, parent.end, kept, d, ssp);
-+
-+	ksft_test_result(vmas1 == vmas0 && kept && d == 17 && ssp_mid && ssp,
-+			 "no shadow-stack VMA leak; parent stack works (%d->%d)\n",
-+			 vmas0, vmas1);
-+
-+	ksft_finished();
-+}
+-		/* head of next rec is already in, note that the sock_inq will
+-		 * include the currently parsed message when called from parser
++		/* head of next rec is already in, count from the record start
++		 * since copy mode may have consumed part of it already
+ 		 */
+-		sock_data = tcp_inq(sk);
++		sock_data = READ_ONCE(tcp_sk(sk)->rcv_nxt) - seq;
+ 		if (sock_data > rcd_len) {
+ 			trace_tls_device_rx_resync_nh_delay(sk, sock_data,
+ 							    rcd_len);
+@@ -841,6 +841,7 @@ static void tls_device_core_ctrl_rx_resync(struct tls_context *tls_ctx,
+ {
+ 	struct tls_sw_context_rx *sw_ctx = tls_sw_ctx_rx(tls_ctx);
+ 	struct strp_msg *rxm;
++	u32 next_seq;
+ 
+ 	/* device will request resyncs by itself based on stream scan */
+ 	if (ctx->resync_type != TLS_OFFLOAD_SYNC_TYPE_CORE_NEXT_HINT)
+@@ -866,9 +867,10 @@ static void tls_device_core_ctrl_rx_resync(struct tls_context *tls_ctx,
+ 		ctx->resync_nh.decrypted_tgt += TLS_DEVICE_RESYNC_NH_MAX_IVAL;
+ 
+ 	rxm = strp_msg(skb);
++	next_seq = tls_strp_msg_seq(sw_ctx) + rxm->full_len;
+ 
+ 	/* head of next rec is already in, parser will sync for us */
+-	if (tcp_inq(sk) > rxm->full_len) {
++	if (after(READ_ONCE(tcp_sk(sk)->rcv_nxt), next_seq)) {
+ 		trace_tls_device_rx_resync_nh_schedule(sk);
+ 		ctx->resync_nh_do_now = 1;
+ 	} else {
+@@ -878,9 +880,7 @@ static void tls_device_core_ctrl_rx_resync(struct tls_context *tls_ctx,
+ 		memcpy(rcd_sn, tls_ctx->rx.rec_seq, prot->rec_seq_size);
+ 		tls_bigint_increment(rcd_sn, prot->rec_seq_size);
+ 
+-		tls_device_resync_rx(tls_ctx, sk,
+-				     tls_strp_msg_seq(sw_ctx) +
+-				     rxm->full_len, rcd_sn);
++		tls_device_resync_rx(tls_ctx, sk, next_seq, rcd_sn);
+ 	}
+ }
+ 
 -- 
-2.43.0
+2.50.1
 
