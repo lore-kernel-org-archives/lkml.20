@@ -1,99 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792685133;
-	b=g23WDcEW+D+uvTN7Ul5F+ypKVswULdj8wqlAS81me+1ymtb3cIfRCgz1mM6qj5TYVlmD
-	 HMgBpSawviP5/SgaQIES7HNqKzpjeiYnEODEHzluWfchlwIppsXc6ZLDkicUXhFjgxAOw
-	 /0Z6cvy1na0zEcaGLshG0HXG9pihOiA4kiEiGqCnWTdniMrrt4zRYx7pvPpZSPaPGZGIZ
-	 +Y9IKw4SV4CMYqUgc5OkkGPG1UjOAddWjwj4mhN4yssKnvSKexBMoVsOQgbqNmOycDv/P
-	 aCGosXTlEWTf9PI6NEUMS0cCefgr9cjit2JORz6ozKKtgzXQgp3/9vpm1dWPoPyY8lg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685133;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=mocTbU6QYoGmhL7dstIxBqOB3/wT12OUsHUZqXTiEeg=;
-	b=eG6iKFFCpSZ6uSOPf8JRpS83UF7Ci+zLvXRIONTKnZRKRWMZKe1DvMx1gdm/yUxyq4i8
-	 3C1NJlEXm4Y+hIXaJev/+F5Snx02gOk9iR5XOTIPNWnYZy6DNaqjd7YWmHU0FLq4bbrON
-	 EAF3Ots4MCo9eo5hGMlgVIvoE6pqfh3Ntqe43yZXnTwdXrwaxRMCYsTFJwHeM1pjPj5b7
-	 X+0MvYIZqG1CsC73o7MjEFwO57pLLMnBnfapqYs4balEkKnP8Q+HXGDzmk41+AY4tjVO6
-	 U/RqlsEMXR3T8kbEDyfLB1u7e4dG3g9se6wrLCTlTa/PT9uflrKhxp5JMR7yjp9bRHQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=po2Ejtmm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.175
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com [209.85.208.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.147
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792685187;
+	b=uYmHp+dNzItp+gGmdgBAcfdPvdG0ZkZ3Am1dKx/eQRimkEWidqrzH0xcJTo5mA4UwXzB
+	 oJJvcPwPkwf32VxGEQ0s2DYtOYU++luwioL04ou+cyFn+8+dosKEBrOnIcidOgg0XEBfO
+	 7728a9kJJNJGE5ym4FObSrHUelN7qazx725qEOLHOg/6YM2Gf5OhqbO7qTCP30tibtaW3
+	 EZCc8/DaMtOt8fs7/Kv2DmXAKNN2hMjUzqpLSxAfxkwqiNJrPUhvrclDXBA5cbFuyqj4I
+	 mqLW+I0W0NvE7fu7iXhFu+G2SrIbu7JAiF8S/rYvxj6I+dSAYkqx8RmMhi9xu903KAg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685187;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=QExCyscQiBpYtGq9U5DYyILBNvVQzlq3lEvTCoEEpok=;
+	b=Dvnkdyi1kpepFr9QAT7hLyIAYTBiBWrknwk4hrg9gFhtjOqTm6E6aLylnCC6FveL3/2L
+	 8Nupku30VnQ+9J2I4EoW41jbWGGLLIk50sEDP92SLHKI0ujR/cXe8NMHeE4bANMe3AueU
+	 3BC/vlV069Gs/6dl4DQTR64UBT1QGauIK9854TlVB8FqMWfo8fZI2JQvxsACdyCzuO3Ov
+	 ITDpAWN6IAwJIxZIVtSxGLbP2X0IFe1MAEjQ5BuasiabMjIpmqltYIM5Q4JJEldLP88g+
+	 ZDhRcpCRHnX4Zlqj/xXTImH81K+jnG4prEM2MFeFT06cLtJzx4AdqYRve6iho+g8/lQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=tyhicks.com;
+	spf=pass smtp.mailfrom=tyhicks.com;
+	dkim=pass header.d=tyhicks.com header.i=@tyhicks.com header.a=rsa-sha256 header.s=fm1 header.b=LIpYU3cd;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kr+hexmF;
+	arc=none smtp.remote-ip=103.168.172.147
+Received: from fout-a4-smtp.messagingengine.com (fout-a4-smtp.messagingengine.com [103.168.172.147])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CD9606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:05:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3CD9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6C64606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:06:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6C64606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tyhicks.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tyhicks.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=po2Ejtmm
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a60cb94b80so21142731fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:05:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792685131; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fS8DCfgIjTk0WQr21C79irTUg/zb9ZPdouup08LKBvES+IWCbcGMqYxT1yzaMCr2WH
-         XBM9+q2QKpzAJ9KK2FI84FV7+a486Zg42sa4LEdpXG9PkdSDzQNV/p6tM7KJ4jC4D59Y
-         HlvvxGF1kTnkOeKxFG2Pt8SjoNOKdRVA1qHlgQCXXhTdHL8/FcD1xhiBwD50udkmNqe0
-         2k+aDmBWNrHO/sKIZvxj1gx8RXdJUjUjpbGTHVfqkOSNpLqz+SBk09kU+m3OH+i+ufEW
-         9CKpndV6XZRq9SaqfwtWZFySz2BTHWF+13dhS+1wyfZ0ZN1+2cAJtpyagnZhePhmOwnW
-         ul9g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=mocTbU6QYoGmhL7dstIxBqOB3/wT12OUsHUZqXTiEeg=;
-        fh=1jzw9XcmvgAYV4cEYE01/20qS8P9ICbymOY7ojCchLs=;
-        b=oNNPD3hscTHVJPXvD1UeZm33POIcVsHqGhsDkCRRHLSD8T7ozXLAczgWy59AhmUlnx
-         fJLRPZlui9qrN0xG4mYQslH44trGfNuLzCZbbfvWoYbtFaohLKGRfO+EPwaWIPa9NI0J
-         WuAGViO0At0TZMlgBlK5soqFw+b4davwwZPEvB0pMxNsSCS2w6s4+5zY9nRtBh/M0Z4T
-         hxhB9FRM6CQFsAjNvph66bJgYCMz6Va/BceUACI/LkWtbM3IoP8CxSf9LZy2J4DzpS0J
-         WBmXqYLz5J8JXVtYXiW44oq7OyRHkXJfbxefI2b8wB2WAs7enn+VTvVjp4hFCP3XWKPQ
-         mwXg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792685131; x=1793289931; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mocTbU6QYoGmhL7dstIxBqOB3/wT12OUsHUZqXTiEeg=;
-        b=po2EjtmmhjEnBHkbQa505xq9tldXRzLLiYUKajpmJEW6SybEo90CZ0lqMjVa63jsZc
-         hBqO+hVyyfp3yMA3aOmJ/rYRiZTHJeyhNRuTBX5d7el4UNaAUSpUj0iajRk30E1ugAdr
-         2G4T5gLJtkMgJThjAbkjcfdONnuZbru9nEP8pIO/2nmPriJoUBZnQekt5x2y3lec11md
-         bQ7OfvBEGTrDvpc0tQtmEBfFcnEXfoKGYpnbVi8qY5k+7PRNl6d/wifiA0bHvzixl07I
-         pvFROBWdh0rZOyDKhlPSor8xwgaeSIbOVGatbpAHmH/8+VTlGB27UgUCaThtBfsY4u0z
-         WE7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792685131; x=1793289931;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=mocTbU6QYoGmhL7dstIxBqOB3/wT12OUsHUZqXTiEeg=;
-        b=X5KDFVlUDBgzdwf3UZE/wi1QRDJdC425MvLi9b5vIEePL+4NbNZh2iIyGsPJ2nc/1i
-         tKDdpkQxlOcu9AHh5J50sLjmOIFCeoLpHeeqBCiiZkgg4zt+QiEclVw4HJX8jaMlzGN4
-         EBB0yeJ8RdyzE1oc87ffBEnftDwm8eLrn06puKjxlorhrP3myv4tXlv9649ouiHFAvMS
-         jer/2t0XapNnn1Urf3NfyMlPbqgM3lmtIG/4nhmrvK6tAuFjxvegICM9y/A915JERr7f
-         Cgw0bbwu0KOLUGeGGI4H72HIkj+vLvqlvZa7jfsEbEwTODWjzZqzEDD8AZtB8wKc4jpe
-         elow==
-X-Forwarded-Encrypted: i=1; AKwUvBzA30gkjRWWl7im8MGZZinYZRgN83MuSIKXnsBENOXlu8y24HDU5UeLObjb5CYTP4cA3PGKTbitFUpNXwM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIsJJjlYbiWOg+2Xy1/8Ir4Ncgyev8yyRugEu1BDVoinDmt5B7I
-	nQQ3kj2DuZ/geiunNJTeJbz7r3tPWtG2C7OTjKxYMpxzW7NGC1o8jMcXXkP+C7DZW07Ptgbd5dO
-	0kArLQJi/aSK0Ocb/HaettyRa8hRvw84=
-X-Gm-Gg: AYBFou0HzIO+VpmFi8Kywkhe5KHqIcUDICIPpUk6J26Smj8vAvDaw5kEbzxBwx6Fcs0
-	666WznLTHtB03N7Go69o3nOYr0sNhKXmzG6w+c3PS0WRD+HHgw52kR8m46tsE/Lj7wHc+FuqpWN
-	YF8c9PdbP/RYAVfC+ZJnYkfhW8eN5Ktg6mkpK3CzYQRDEnNcb1m5/ptwAv76O4fmNEiSP9wQz1+
-	kCaQgvCSBkMSh5sOViTBNHvVdZxEWU18pzOi2rFgaEE7GhYlQ85IKCLPkm4SrFIJmnxP47PN7W7
-	Qdekr/uOXCvqG5oXVh2LGl4suboZNBtnLVg4ahxKVcmilgNz0skkkTVGSlW5dRlBnZWl2W70VZI
-	m8EYU4m2lVJPRWjw4gyIO2g/jZIYIa7vj4w+9bQ==
-X-Received: by 2002:a05:651c:c01b:20b0:3ab:3f1c:c2c0 with SMTP id
- 38308e7fff4ca-3ac441adcf0mr12071131fa.22.1792685130710; Thu, 22 Oct 2026
- 09:05:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=tyhicks.com header.i=@tyhicks.com header.a=rsa-sha256 header.s=fm1 header.b=LIpYU3cd;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kr+hexmF
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id EB4CBEC0114
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:06:25 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Thu, 22 Oct 2026 12:06:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tyhicks.com; h=
+	cc:cc:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm1; t=1792685185; x=1792771585; bh=QExCyscQiB
+	pYtGq9U5DYyILBNvVQzlq3lEvTCoEEpok=; b=LIpYU3cdYPXrdQP9qOWT6MSrTS
+	DBGH9VS6lZ6gwId2PYqnSLL3Sn52dLcqwrj4tU7EYiZW5w5zt5alRgaLBPyeSeld
+	n1/o8OA+WrdNONkr7uklcALUoYNGufcw3iFuln3J0R5qflDCl7SP4ypaBqtR5o5k
+	jWekeIig3cr2Q9InAyw8bH9QqBlI4Iz/Z0pwqHMAV1y+GOnXXrXVJdJTynGDvH3l
+	sDnTvkgvQK2vvcdFDijucGMO1ahz7TWO0Oe+bSg1PW4QQWz9E8kM/ARhRc52jy/Z
+	BTLcDOUcgQmgdDnSHZTzoQn0a27sKWyNltOXcwmXXa2h15KLVu8d8iI4030g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1792685185; x=1792771585; bh=QExCyscQiBpYtGq9U5DYyILBNvVQzlq3lEv
+	TCoEEpok=; b=kr+hexmFCFDuh5wufayRC5G8wCN9lAxGJFQYuRa74kyoa0YyNnq
+	ZMILrw413wCZcsFOk4iKEwFJpYFZ9ckzwy7ehiMSlo6r+GjE7VozHxtWdVQiomqA
+	yavoBoH0EFpW0cExtWafH491ouMXaAUUDFp6CtPgCH2wj+NdJbM54OOD/Hi4YVwm
+	oEjtKPRBPDsYTY629kCT2/rsb1TPUlBc/UYupGpjKqd3Jhkp08B1Nw0Yy9spUn03
+	ST8K6SMZVCIDLpmx8io4neqmVqpi31UHqdhusKYDSOu6i8sHZ6Hz8HfJ8eV/jWbT
+	aR+MXYL0dV4fv+C00C3bt+G5EJsKnh9neOQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=sign d=tyhicks.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1792685185; d=tyhicks.com;
+	mf=PGNvZGVAdHloaWNrcy5jb20+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:YKI8uD6kYCmJiaH0OqPfH/1nVmzF5VJ69RUvK3FPpdLpHh5
+	yVCPmtDH8bWztHUT/5PDsGHHTYFL4MITpDWirs67QzR0Ul05izESxzAmAY9iBg9s
+	LrBlCz6nBy1GVGYyAhlsADgjcAxFesYuwYg032G7FBnlGah7CHnaX1WLv1EqXJhd
+	fD0vm5XbZQQ5QCuHb6PfWiyEBXz/9ko1eG43ucIBE3bOgTsuR+c8Zy9fKyBNxpE1
+	BJlhBe2yf7dB/ZBYX+P7kh/oSJ4Gw6vuxbWr3yN6niD5slhsfTniC5czSUb/m0c3
+	We2CeiWlDIEh+2QvFUahM5xBi8TzOPhepG78i9Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-07;
+	repo=github.com/dkim2wg/interop; date=2026-10-18; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-disposition,content-type,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:tgn4ibvdS0EBVO0lJEKvIjwRQvUDlflCYNC+QTYihpk=:4h/Ps8qAn41v60iM2u0/HN41xSrwZY/BxA2bQXQb9I0=;
+X-ME-Sender: <xms:gTTaam3MXosFyuCmqpHrms1NE922UXrQfM0j0Z_CGIeo2aztwYseeA>
+    <xme:gTTaakhGGcwLxboCsWdospx_my9fcULecn6Vz_0UiXrRm9Xcdii0D3hu4XkdZzGwd
+    zc_W9rZVFeX-r5LJbTQeVcUCuDkHOoQLLrXTmupM_5rSekC0ges_fAW>
+X-ME-Received: <xmr:gTTaaiawMl7M-QMwriU37yv5Psrdl_1oEFi8MV3KU0l6-Xp4lSw1DQ>
+X-ME-Proxy-Cause: dmFkZTFhdwpjuLQ6mcLNPFLTfHEZbMvTZWojMowugQkJdB7V9bzLxSS4OZz1ztMtRFGCft
+    /tpMWrldycJwnvbda48/JoeGKk1XlRXivL/lZAOYcoumP8hXyk8umgYkCOKNlaSeoPQAfe
+    OAIAAagpN+eHnrMxeNCIkDcH2fzbGIcQDtqFXv05OtN74sAD6piniZP+zmZ6Xw27HnsMXB
+    tkSUVXBUQjm4d9YROLS8usf6UwfzGnOk4ybInha+kgr1BXsRhCC23hFzs9s41ZzMT5qqkX
+    F6zW+8wSV5eexp3vLGnndiKZz5NePXjSDChEA5pGxH0N6yOkfySKdsH0U5+jTVnUTMCmiy
+    hjB2Epka3ZnAhEYyLMXVqYK3d1yWwXdoD2WvuVVAtAXQtrcPeSI9OfihNyWQ1XGFyJG0CL
+    /0uxrBquZiE1PKusSeDHwGENZrOsCqT0IwVHYC1AXvB31cdLzEcA6kgD2tiYXX3qUgudQu
+    0hrwTErwnEn6BRQLoUUYurpcKnkQVAWKDHLMZLizqFh5V9FbsczWwLoR8J53j8ONk6sLQ/
+    Fa64fQOBbJCJmMI2Omf/AHvE2yIZ9lpCgafjoG3Iua2mN33D0MiTNtgHGLwOvglzD/s+Z3
+    ZcjYue8hepVjmv/vBF1oTIZB9k5eeEiyJDg3BprIH84grrPpvvFrYt5lrEoQ
+X-ME-Proxy: <xmx:gTTaasQKDBiA_TQE0orsjLG_deH-FqCQWu7l8gyItqPYck5JLfGYfg>
+    <xmx:gTTaalRAj5bTT5MHwgvAK1T9JrisyLydbz0LDHvKULq-es9hrJKeOg>
+    <xmx:gTTaagQG23mHYMHun9GRZJvj9tFg0Hc-mgXXCPqRFPMiAX1cclU_8A>
+    <xmx:gTTaaq7kbuLoLHNe6qFOeEPDX-m0-IDq9n9NyodrtbH0uR1VzPdSsg>
+    <xmx:gTTaannVzjnVVErf_8kUZpxNi1drYcFW3rnaf9xyoqSiLi4-Ze8cNW8_>
+Feedback-ID: i78e14604:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 22 Oct 2026 12:06:25 -0400 (EDT)
+Date: Thu, 22 Oct 2026 11:06:23 -0500
+From: Tyler Hicks <code@tyhicks.com>
+To: syzbot <syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [ecryptfs?] KASAN: slab-out-of-bounds Read in md5_block
+Message-ID: <ato0f6AUVyixt40U@elm>
+References: <6abebdfe.7503fbd6.2d3f6.0009.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,103 +121,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016154819.17936-1-muchamadcoirulanwar@gmail.com> <179260197668.3127.18219777718091081046@linux.dev>
-In-Reply-To: <179260197668.3127.18219777718091081046@linux.dev>
-From: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-Date: Thu, 22 Oct 2026 23:05:18 +0700
-X-Gm-Features: AclHuK-_6y3CZAcHO0wx7PGRH7qXj55F0nJkQUzx_zuArGiTC_UADw4Zf8xvi5o
-Message-ID: <CAO26r3QK+Q5=JR5TeMzEX-WiLpgYWd8Zn0O1qx11LxTgN96BPg@mail.gmail.com>
-Subject: Re: [RFC PATCH v6 0/4] iio: position: add Rust driver for ams AS5600
-To: Igor Korotin <igor.korotin@linux.dev>
-Cc: Danilo Krummrich <dakr@kernel.org>, Jonathan Cameron <jic23@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Lars-Peter Clausen <lars@metafoo.de>, 
-	Mark Brown <broonie@kernel.org>, Brandon StJohn <branstj@gmail.com>, linux-iio@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, rust-for-linux@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6abebdfe.7503fbd6.2d3f6.0009.GAE@google.com>
 
-On Wed, 21 Oct 2026 at 23:59, Igor Korotin <igor.korotin@linux.dev> wrote:
->
-> Hi Muchamad,
->
-> Reviewed the lifetime/teardown contracts you asked about. read_raw() has
-> a problem: it takes parent: &Device<Bound> and recovers &I2cClient<Bound>
-> via TryFrom. That conversion just got removed upstream ("rust: i2c:
-> remove TryFrom<&Device> implementation for &I2cClient", use-after-free,
-> unrelated thread), so this won't compile anymore. More importantly, Gary
-> Guo made the point that needing the conversion at all is the actual
-> design issue: a class device shouldn't reach back into a generic parent
-> reference during a callback -- whatever bus-specific resource it needs
-> should be captured once, at registration time, and handed back via its
-> own private data.
->
-> Concretely, this means dropping devres and letting Data<'bound> carry a
-> borrowed reference directly, which it's designed for
-> (Driver::Data<'bound>: Send + 'bound):
->
->   pub struct As5600Priv<'a> {
->       client: &'a I2cClient<Bound>,
->       #[pin]
->       io_lock: Mutex<()>,
->   }
->
->   unsafe impl Send for As5600Priv<'_> {}
->   unsafe impl Sync for As5600Priv<'_> {}
->
->   unsafe impl IioDriver for As5600Priv<'_> {
->       fn read_raw(&self, _chan: *const iio_chan_spec, info: IioChanInfo)
->           -> Result<IioVal> {
->           let client = self.client;
->           ...
->       }
->   }
->
-> In probe(), capture the client once via deref coercion (Core -> Bound)
-> and split the driver struct so the registered IIO device carries the
-> same 'bound lifetime:
->
->   struct As5600;
->
->   struct As5600Data<'bound> {
->       _iio_dev: Device<As5600Priv<'bound>, Registered>,
->   }
->
->   impl Driver for As5600 {
->       type Data<'bound> = As5600Data<'bound>;
->       fn probe<'bound>(dev: &'bound I2cClient<Core<'_>>, ...) -> ... {
->           let client: &'bound I2cClient<Bound> = dev;
->           ...
->       }
->   }
->
-> register() then just returns Device<T, Registered> directly instead of
-> transferring it to parent devres -- that transfer is what forced T:
-> 'static in the first place, which is what made storing the borrowed
-> client impossible and pushed you toward TryFrom.
->
-> I built this end to end against current rust-next: compiles clean, zero
-> warnings, and zero changes to rust/kernel/i2c.rs. Happy to send the full
-> diff if it's useful as a starting point for v7.
+On 2026-10-01 13:09:34, syzbot wrote:
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    551c722f4080 Merge tag 'rtc-7.3-fixes' of git://git.kernel..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=15154035580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=7d012d9c67977ee4
+> dashboard link: https://syzkaller.appspot.com/bug?extid=03c68e42ce4b33f7ce9b
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13154035580000
+> 
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+03c68e42ce4b33f7ce9b@syzkaller.appspotmail.com
 
-Hi Igor,
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs.git next
 
-Thanks for working through this and building the changes. I'd be glad
-to use your approach for v7, and I'd appreciate seeing the full diff you
-offered.
-
-I got the lifetime model wrong in v5 by storing an
-`ARef<I2cClient<Bound>>`. I only realized that while fixing the
-documentation for v6. In v6 I stopped storing that `ARef`, but ended up
-relying on `TryFrom` in `read_raw()` instead.
-
-Storing the client reference in the IIO private data rather than converting
-the parent back in `read_raw()` makes sense. I'll check the lifetime and
-teardown details as I prepare v7, and I'll acknowledge your contribution.
-
-Thanks again,
-Coirul
-
-
-> Cheers
-> Igor
