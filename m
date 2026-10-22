@@ -1,66 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792661184;
-	b=Rs2oX2cOmaZM1sFbfyjy+faGxXL8RFu38LYb+wUh6Ai4hlJbJiQNlc7JzM/+wlsdMOua
-	 1QUF+AMaWFnhPMPJCfmm2ozzCNLNJ/IX9kRfA0ovu7+sKRPzruMBxh1QbHiFqOGKw1acD
-	 ICaUJDD9LgDaBe4pfwSqDj3oVp0DuXE+kLOSJbb9RTl1Hq3rxLKGyum/gqpH0+I/HFRAb
-	 AvxPYcRtkPjSc08cxM8fKtkMFTjyg8lrEVIjm6VUv8aaeErW/6g6SgejccbFgs2I0Pss9
-	 g2FE7ovRImvwjYb5b7pWKKp8RQZKseBZ1aHdwEPsHzlsC7G34y9HtdQrmP+ewj4VS8Q==
+	t=1792661266;
+	b=Z7HfUegmtRaHJyxyGmcTUy6KepH5H2Qyd1nDE/Mv6EwlhD5Dbyec9mr18363zkS49PUJ
+	 hxLR9g5hV8QiaAvJo3eoaLGFVBKJQMIWElyCzKRmtzJyB5pAOIBTafClD66uYszDYQtKU
+	 ahgr2ZhwsGm4JY9l8foKIFK0KKfxhuYD8p1f1iK6DHcw/iFYTv63tl3KcfA12WKNa24Nn
+	 S0flygrdRGYZMloF+7gmkIp8NtjaBXtBa4MG2bZlpbDOibyjxFQKmRhMN+07jYp5Bz+Lj
+	 LX1v1JmiI8AFu02mbcCOXNT1yAgAD4wGmv3Tn4LV9UFwABQ1ttoC9YcHVkVR5kZGRiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661184;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=k21UMMNw0tvkklAYSvGNs34RUQwl8FHj4AqmfTuArTc=;
-	b=rX0IuiBIoXT+To9BrsjsbT3G+xYm1Lo7gDb9k+NV7Mc7RypUGmqsShzurDPFK9es/crW
-	 yn4cTjmglCNZSzVMKlYHYZGZ/aQ7LFNlUUSANhTQz5F32hfTGTYyAaIOr30gQXW00IKa+
-	 Pa8/ieXC+Q32agT4kMCY6nyiihUG12wp3Ti+9FdJiNoOyPTnQleb9BXvrzeYXnUmuJHr/
-	 9j4O2bxKX2fBIPIUO7H4DcH0eUJXDh6z6jeIffYTlIFKBvuAgAP8yDjVylCeZypXEtQ3w
-	 8N7wZZiYeUD2Ko0mm5tSqz6D0gjspGaF4jub1X/hxIOGdXi4FJuRv18b03Zx/I0FkIQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661266;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=;
+	b=5h0IWRyqxdblcQGquuemi9ea6rUvtkzaQOcm8WrigiXIv/TT3KXMP9URUP3JEtYBk55n
+	 T684YaZPGnMu6787hDGxq+s8/ZedOj69KfrIF6E73bfMUGHv1emh+3Zm5Aertv+50BotN
+	 2Fqdd1thCGGkN+tyAkWH5WcT/m2wU3FwH+VfmRYG/GPcC2FVRqp3Mc+WxlCLhsj3Oz7oO
+	 eZCCUoqRHzpqvJ1z82e4+PF6sbUlObqJreAqo70yTHYlhjkXSozc5mjAaZl5uOMpkneza
+	 8tZnWR+NPqDCOvgCGO/ul7Q3Q4d4RCPXdtIvGxv88zkgZIFxw8K+9iEdpsSX4kbGQzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HwjPBD94;
-	arc=none smtp.remote-ip=95.215.58.225
-Received: from mta1.migadu.com (out-225.mta1.migadu.com [95.215.58.225])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B4AbYG7l;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="fUe90/x7";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD65A60A3812
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:26:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD65A60A3812
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF56D606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:27:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF56D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=HwjPBD94
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=r1/frCn5Y4nxyzWtLUbaul+E6be27/GCcEY/adAYhdk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792661181; v=1; x=1793265981;
- b=HwjPBD94TYEjjGfMPmBYXe6eVPFoxI0j1egZoRKRsUPMF6VyBXjMfWCXIIvxIjpajlsclMpQ
- Gtsn0K+bgioXdD7iAmypz0sv9LAPzsKctynG4eArG89dzbs74OcKN7tuAkjU2m41qHgT9nuAmH7
- RCQAsLT1fiEf0WKbMiCJVWmI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ab41a45b7b4c1891;
-	Thu, 22 Oct 2026 09:26:21 +0000
-X-Mizu-Trace-ID: ab41a45b7b4c1891
-X-Migadu-Flow: FLOW_OUT
-From: Huiwen He <huiwen.he@linux.dev>
-To: linkinjeon@kernel.org
-Cc: linux-cifs@vger.kernel.org,
-	senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	tj@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 4/4] ksmbd: send READ payloads with MSG_SPLICE_PAGES
-Date: Thu, 22 Oct 2026 17:25:14 +0800
-Message-ID: <20261022092514.2590010-5-huiwen.he@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261022092514.2590010-1-huiwen.he@linux.dev>
-References: <20261022092514.2590010-1-huiwen.he@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=B4AbYG7l;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=fUe90/x7
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M70ELQ2516128
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:27:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=; b=B4AbYG7lnrJgKWKL
+	CUUYVPrPmNE4FBjdYSgr9aq+iBuZDvy0sDenENjOSKXWEHNqUOTtzs/L5Kn8y8O2
+	WDkiTOtDdWKHHJD1s7FW6G06M9uKLGfYIrRk1nq+FlDKuyYbPhHz3Zkeg0gy0wRI
+	0Um5szZwsNEGdxQuxJL+y4uCzkL7NC7NnyJ9TmOOPvXDwUK2ptMsWa/fa7D5Q5KN
+	XYjiGFhjpemCyYc7Nzg9OVI5lWPHOmjzqcIAUqgisYdithFBlUZlc3MyrZKPV8D/
+	LZTQjjpvqxQvCO6pYOHfZC5JNdYQ93scOC00E2rnDwa2EwF8Fnh8zBJ761i6c2PN
+	AcaE6g==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93a9pw1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:27:45 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cd0b795aa8cso449397a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:27:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1792661264; x=1793266064; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=;
+        b=fUe90/x7h5NtO8907E0Vn48jVBFXS02qeXA1kT5Ytkto1Y0MxyFm4Qx546k/ErHQfL
+         wtYc4oWP+ZzBnIU3Mr1/jDDvEhPrEC0ehwegzcZkXQu6IwdR33OAeAi3K6jNG0rXQjmz
+         1EqF123mAFlL3nnC/hpDFEf95If/Ox/CVvOUc8qSR9scp4SLD90qojxXD1ijoCt3bccx
+         zYRSL0R3igNGP6LjBeKrOYWM+iSfULDC+LEKy+T4gyMD2bUiSFQ4XemBCZPAVA+Covoh
+         T01jP5m61iPtNmaH9o2QHeLj7Dr+NFF6iHV95JiS2Yqqjh4l0Z1Rzw6WinJSOdN9PfUQ
+         b6VQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792661264; x=1793266064;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IyT7fwjUNFNu0NAAjlLz6JQgqyL2WtB5iiNKLluFvCs=;
+        b=AZTwu+zcMwCa9Gj9/7g6EixENLi1u33SPU2ctFwXcNzoQkscb59gzDJB8RTiXkiADy
+         yVy8TwX3KlsrJtUeKi8oP7oqCZQycCP4JT0nU+sji9mmO56ZA/gVdf+aoVWONhBbd6Gl
+         vM4c43KsMkIpqCOKTD1A+eycadAppne0ofetIT2fEspWBcyZPER8sTdoAIVHSilxSw27
+         QYwcNC/l7WMn1PyZqqBDjeTX4NjGalwQS01PfK9MD7wPVsgx9JiKPmmNTTQXE2na55Jk
+         N3ZaiqlQZKKdhjHzxMd6eokmgymC7raw2vOVoz1dswtNRhXs6YQ4Si2RnY6IqqQzXDh0
+         55ZA==
+X-Forwarded-Encrypted: i=1; AKwUvByg58bu9a9TJ75y70d8DLKS46Sp+FXKUl4b3+T39x47jqDtVB/OMUsVIedytnx59H8QQ6wMxtfTTQi3+UU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLBSDxwcnnApGZ46xyA0S3PwcYMI4vZQKbDhPIfXoNYsR8CkQDJ
+	8y1BPHYs7Z5GueXZRs/dE8udAYNdWC1C0sv+eU7r9XaC1Aa7XozJJg+clLmrZ7WoCkz45Do0NAc
+	k6X+QKZmGsiP/3XGeiBrRfn3Xs15X4ytjxEzXIgGmgO2M4x6Q8V/v8MbtyAy9D9AZYyo=
+X-Gm-Gg: AYBFou2Q8HrPft8T8p2QtbuIWDsSBJH+OnWD/iWkh4Ju7JIohRuol7D3kRMV4cK/9IJ
+	NBQAcnIyMJC4SJWlgBZP2Bgvh+nsiASPJ5MYf5OFxh++Y/DtlL5qsbpSYTKexNFeBSLJ2wag6Z2
+	v98EcbwfHZFafH71Jk/pH7qNv4+9SQ5XBiHnWnHKQfByhuguh35R+FHd0Y7X2ugD5iH5fN+opao
+	dXqZTemlMbC32hs+uLd5qnDWNTHoK1fpncBOaS+LuAiXskdbu8Ne1z+tBHTQ3IDYRjemoQl8q5l
+	8Ff2L7TJc6oiYZq/RU2Z9nXx2S15/+WjzZ1IePh3Tg8dG/3wEer1vkkEEfSiUi3WTEa5zcEDOFn
+	aOdS8KzDcVV6+M94UEDSGvj5At3dgiP1KtA==
+X-Received: by 2002:a05:6a21:7317:b0:3e2:3de2:5947 with SMTP id adf61e73a8af0-3e2a09dde1fmr1349105637.16.1792661264442;
+        Thu, 22 Oct 2026 02:27:44 -0700 (PDT)
+X-Received: by 2002:a05:6a21:7317:b0:3e2:3de2:5947 with SMTP id adf61e73a8af0-3e2a09dde1fmr1349092637.16.1792661263974;
+        Thu, 22 Oct 2026 02:27:43 -0700 (PDT)
+Received: from [10.219.56.252] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd6b84831d3sm976688a12.10.2026.10.22.02.27.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 02:27:43 -0700 (PDT)
+Message-ID: <28a4a452-340c-4ac6-afba-5cd39b370ceb@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 14:57:38 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,646 +115,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] arm64: dts: qcom: Remove FastRPC compute CB9 entries
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        srinivas.kandagatla@linaro.org, linux-arm-msm@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com,
+        ekansh.gupta@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        quic_chennak@quicinc.com, dri-devel@lists.freedesktop.org,
+        arnd@arndb.de
+References: <20261016052042.3755352-1-abhinav.parihar@oss.qualcomm.com>
+ <b0763841-cfe9-4355-b900-ae43d93dedf6@oss.qualcomm.com>
+Content-Language: en-US
+From: Abhinav Parihar <abhinav.parihar@oss.qualcomm.com>
+In-Reply-To: <b0763841-cfe9-4355-b900-ae43d93dedf6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=JudkP84C c=1 sm=1 tr=0 ts=6ad9d711 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=OuD0wRZ8gfjUqNd7lbQA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-ORIG-GUID: fqEYx-cp6ItjMqegbBZMfFpAqid1Wnva
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNyBTYWx0ZWRfXxi13LSQxAdLn
+ 7Vg5nnMWwH1mmsjOuBrvjXR1aplKb1ByGfANuhKPq+hOOqxDI/XBKLW9kynBU7i780ZA0rOea5A
+ 0DQkmm/p2J2mxxCmE03VAtatw5vqO6g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNyBTYWx0ZWRfX4inaYPHm8BAw
+ /13N3hkTjfxl+TmtE1juZckxjuD18fW6bWPa5dLkLtF4Be/VfUzqJla6B8yl5s/rVIq4NhNsC4V
+ +WNmTwgVn0nmfBm+DjzRtG40Kr7WG8dtKrEwiPSspMX0yXTfmgxtk80DTEjuBVt70Sf52hqILwA
+ Ao+zFpQgIObHy3AHsTzbk0yUV6sZRRt/i9uyREhIGdi1+oCRBFZCJ8DyuK6tvFJ9/COgcWRWZVb
+ yB9k2yZyPH8R4IEU3izjkIg2tYJ3x8lB51Vmrgfc8K+vWb2xSASqC6g3MiqUo9WzB5OI9vp7OGY
+ r2RIGqsPS7tYtgZrVOjgFBgCh0INXDmjtpXdcDq+Zzlq/8gFtY/5ShEAAE1vcNUoPb2fyk5P6Ih
+ qGwRP6wi0j32wZlkpwKru0lJ8o/Ixr8dSYtrSjB9PYgD6ub1Gxt2nP3Z+sYG9nu6wKBIoUzUr4Q
+ Xi72mX08F1Yfn+8WY5Q==
+X-Proofpoint-GUID: fqEYx-cp6ItjMqegbBZMfFpAqid1Wnva
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 phishscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
+ definitions=main-2610220037
 
-From: Huiwen He <hehuiwen@kylinos.cn>
 
-The TCP send path copies READ payloads that ksmbd has already read into
-its response buffer, adding CPU and memory bandwidth overhead.
-
-Use page-backed READ buffers and MSG_SPLICE_PAGES to avoid this copy.
-Keep the existing copy path as a fallback when page-backed sending is
-not applicable.
-
-Tested with fio on a 128-CPU server with a local 4-vCPU client VM
-(tmpfs, 16 jobs, QD32 per job, libaio, direct=0, cache=none;
-mixed=50/50 R/W). Throughput (MiB/s) and paired changes are medians
-of four runs.
-
-A: read_splice=0; B: read_splice=1.
-
-  Block  Ch  Workload      A MiB/s    B MiB/s  B/A change
-  -----  --  ---------  ---------  ---------  ----------
-  4KiB    1  READ          290.73     282.21      -2.94%
-  4KiB    1  WRITE         193.01     192.84      +1.17%
-  4KiB    1  mixed         238.67     240.15      +0.55%
-  4KiB    2  READ          404.46     404.66      +1.17%
-  4KiB    2  WRITE         334.67     342.19      +0.34%
-  4KiB    2  mixed         338.24     336.34      -0.38%
-  4KiB    4  READ          453.28     456.10      -0.87%
-  4KiB    4  WRITE         415.69     417.24      +0.37%
-  4KiB    4  mixed         396.75     386.93      -1.41%
-  64KiB   1  READ         2162.74    2558.10     +19.56%
-  64KiB   1  WRITE        1976.37    2031.92      +1.26%
-  64KiB   1  mixed        1974.08    2176.16     +10.13%
-  64KiB   2  READ         3246.35    3591.95     +10.58%
-  64KiB   2  WRITE        3222.85    3205.70      -0.66%
-  64KiB   2  mixed        3283.75    3317.22      +0.86%
-  64KiB   4  READ         4227.13    4427.29      +5.01%
-  64KiB   4  WRITE        3089.17    3047.30      -1.36%
-  64KiB   4  mixed        3877.03    3962.34      +2.09%
-  1MiB    1  READ         2126.23    3353.03     +59.40%
-  1MiB    1  WRITE        3452.84    3460.33      +0.25%
-  1MiB    1  mixed        2961.50    3096.88      +4.64%
-  1MiB    2  READ         3887.33    5546.88     +42.10%
-  1MiB    2  WRITE        4158.22    4174.43      +0.18%
-  1MiB    2  mixed        4335.01    4954.98     +18.71%
-  1MiB    4  READ         6707.91    8311.51     +23.28%
-  1MiB    4  WRITE        3557.26    3612.88      +0.38%
-  1MiB    4  mixed        5444.00    5604.89      +3.12%
-
-Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
----
- fs/smb/server/connection.c    |   1 +
- fs/smb/server/connection.h    |   2 +
- fs/smb/server/ksmbd_work.c    |  88 ++++++++++++++++++-------
- fs/smb/server/ksmbd_work.h    |   9 +++
- fs/smb/server/server.c        |   1 +
- fs/smb/server/smb2pdu.c       | 120 ++++++++++++++++++++++++++++------
- fs/smb/server/smb2pdu.h       |   1 +
- fs/smb/server/transport_tcp.c |  61 +++++++++++++++--
- 8 files changed, 235 insertions(+), 48 deletions(-)
-
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index 4cb92d6599ee..4eb59d81f966 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -518,6 +518,7 @@ static int __ksmbd_conn_write(struct ksmbd_work *work,
- 	tx->iov = work->iov;
- 	tx->iov_cnt = work->iov_cnt;
- 	tx->size = get_rfc1002_len(work->iov[0].iov_base) + 4;
-+	tx->splice_header_len = work->splice_header_len;
- 	tx->need_invalidate_rkey = work->need_invalidate_rkey;
- 	tx->remote_key = work->remote_key;
- 
-diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
-index a92e0fea0f06..27a8b17bcbb7 100644
---- a/fs/smb/server/connection.h
-+++ b/fs/smb/server/connection.h
-@@ -166,6 +166,8 @@ struct ksmbd_transport_write {
- 	struct kvec	*iov;
- 	int		iov_cnt;
- 	int		size;
-+	/* Prefix to copy into a page fragment before the page-backed last iov. */
-+	unsigned int	splice_header_len;
- 	bool		need_invalidate_rkey;
- 	unsigned int	remote_key;
- 	int		msg_flags;
-diff --git a/fs/smb/server/ksmbd_work.c b/fs/smb/server/ksmbd_work.c
-index e1b87bc0c949..9bdd9af1b955 100644
---- a/fs/smb/server/ksmbd_work.c
-+++ b/fs/smb/server/ksmbd_work.c
-@@ -35,6 +35,47 @@ bool ksmbd_queue_request(struct ksmbd_work *work, bool use_write_wq)
- 	return queue_work(wq, &work->work);
- }
- 
-+struct aux_read *ksmbd_alloc_read_buf(size_t length, bool allow_splice)
-+{
-+	struct aux_read *ar;
-+	size_t alloc_size = ALIGN(length, 8);
-+
-+	ar = kzalloc_obj(*ar, KSMBD_DEFAULT_GFP);
-+	if (!ar)
-+		return NULL;
-+
-+	if (allow_splice && length) {
-+		unsigned int order = get_order(alloc_size);
-+
-+		/* TCP references to tails must keep the whole allocation alive. */
-+		if (order <= MAX_PAGE_ORDER)
-+			ar->page = alloc_pages(GFP_KERNEL | __GFP_COMP |
-+					       __GFP_NORETRY | __GFP_NOWARN, order);
-+	}
-+	if (ar->page)
-+		ar->buf = page_address(ar->page);
-+	else
-+		ar->buf = kvmalloc(alloc_size, KSMBD_DEFAULT_GFP);
-+	if (!ar->buf) {
-+		kfree(ar);
-+		return NULL;
-+	}
-+	return ar;
-+}
-+
-+void ksmbd_free_read_buf(struct aux_read *ar)
-+{
-+	if (!ar)
-+		return;
-+	if (ar->page) {
-+		/* TCP may still own references; never reuse or modify these pages. */
-+		put_page(ar->page);
-+	} else {
-+		kvfree(ar->buf);
-+	}
-+	kfree(ar);
-+}
-+
- static int ksmbd_reserve_iov(struct ksmbd_work *work, int need_iov_cnt)
- {
- 	struct kvec *new;
-@@ -92,9 +133,8 @@ void ksmbd_free_work_struct(struct ksmbd_work *work)
- 	kvfree(work->response_buf);
- 
- 	list_for_each_entry_safe(ar, tmp, &work->aux_read_list, entry) {
--		kvfree(ar->buf);
- 		list_del(&ar->entry);
--		kfree(ar);
-+		ksmbd_free_read_buf(ar);
- 	}
- 
- 	kfree(work->tr_buf);
-@@ -188,23 +228,14 @@ static inline void __ksmbd_iov_pin(struct ksmbd_work *work, void *ib,
- 	work->iov_cnt++;
- }
- 
--static int __ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len,
--			       void *aux_buf, unsigned int aux_size)
-+/* On success, work owns ar, including a buffer with no response payload. */
-+int ksmbd_iov_pin_rsp_read(struct ksmbd_work *work, void *ib, int len,
-+			   struct aux_read *ar, unsigned int aux_size)
- {
--	struct aux_read *ar = NULL;
--	int need_iov_cnt = 1;
--
--	if (aux_size) {
--		need_iov_cnt++;
--		ar = kmalloc_obj(struct aux_read, KSMBD_DEFAULT_GFP);
--		if (!ar)
--			return -ENOMEM;
--	}
-+	int need_iov_cnt = aux_size ? 2 : 1;
- 
--	if (ksmbd_reserve_iov(work, need_iov_cnt)) {
--		kfree(ar);
-+	if (ksmbd_reserve_iov(work, need_iov_cnt))
- 		return -ENOMEM;
--	}
- 
- 	/* Plus rfc_length size on first iov */
- 	if (!work->iov_idx) {
-@@ -218,25 +249,36 @@ static int __ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len,
- 	inc_rfc1001_len(work->iov[0].iov_base, len);
- 
- 	if (aux_size) {
--		__ksmbd_iov_pin(work, aux_buf, aux_size);
-+		__ksmbd_iov_pin(work, ar->buf, aux_size);
- 		inc_rfc1001_len(work->iov[0].iov_base, aux_size);
--
--		ar->buf = aux_buf;
--		list_add(&ar->entry, &work->aux_read_list);
- 	}
-+	if (ar)
-+		list_add(&ar->entry, &work->aux_read_list);
- 
- 	return 0;
- }
- 
- int ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len)
- {
--	return __ksmbd_iov_pin_rsp(work, ib, len, NULL, 0);
-+	return ksmbd_iov_pin_rsp_read(work, ib, len, NULL, 0);
- }
- 
--int ksmbd_iov_pin_rsp_read(struct ksmbd_work *work, void *ib, int len,
-+int ksmbd_iov_pin_rsp_data(struct ksmbd_work *work, void *ib, int len,
- 			   void *aux_buf, unsigned int aux_size)
- {
--	return __ksmbd_iov_pin_rsp(work, ib, len, aux_buf, aux_size);
-+	struct aux_read *ar;
-+	int ret;
-+
-+	if (!aux_size)
-+		return ksmbd_iov_pin_rsp(work, ib, len);
-+	ar = kzalloc_obj(*ar, KSMBD_DEFAULT_GFP);
-+	if (!ar)
-+		return -ENOMEM;
-+	ar->buf = aux_buf;
-+	ret = ksmbd_iov_pin_rsp_read(work, ib, len, ar, aux_size);
-+	if (ret)
-+		kfree(ar); /* The caller still owns aux_buf. */
-+	return ret;
- }
- 
- int allocate_interim_rsp_buf(struct ksmbd_work *work)
-diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
-index 9f87b6c4393a..26b3d57a8429 100644
---- a/fs/smb/server/ksmbd_work.h
-+++ b/fs/smb/server/ksmbd_work.h
-@@ -13,6 +13,7 @@ struct ksmbd_conn;
- struct ksmbd_session;
- struct ksmbd_tree_connect;
- struct ksmbd_file;
-+struct page;
- 
- #define KSMBD_WORK_INLINE_IOVS	4
- 
-@@ -24,6 +25,8 @@ enum {
- 
- struct aux_read {
- 	void *buf;
-+	/* Non-NULL for a buffer owned through a compound-page reference. */
-+	struct page *page;
- 	struct list_head entry;
- };
- 
-@@ -45,6 +48,8 @@ struct ksmbd_work {
- 	int				iov_alloc_cnt;
- 	int				iov_cnt;
- 	int				iov_idx;
-+	/* Final response prefix before a page-backed last iov; zero disables splice. */
-+	unsigned int		splice_header_len;
- 	struct kvec			iov_inline[KSMBD_WORK_INLINE_IOVS];
- 
- 	/* Next cmd hdr in compound req buf*/
-@@ -149,6 +154,8 @@ static inline void *ksmbd_req_buf_next(struct ksmbd_work *work)
- 
- struct ksmbd_work *ksmbd_alloc_work_struct(void);
- void ksmbd_free_work_struct(struct ksmbd_work *work);
-+struct aux_read *ksmbd_alloc_read_buf(size_t length, bool allow_splice);
-+void ksmbd_free_read_buf(struct aux_read *ar);
- 
- void ksmbd_work_pool_destroy(void);
- int ksmbd_work_pool_init(void);
-@@ -159,6 +166,8 @@ bool ksmbd_queue_work(struct ksmbd_work *work);
- extern bool ksmbd_write_wq_enabled;
- bool ksmbd_queue_request(struct ksmbd_work *work, bool use_write_wq);
- int ksmbd_iov_pin_rsp_read(struct ksmbd_work *work, void *ib, int len,
-+			   struct aux_read *ar, unsigned int aux_size);
-+int ksmbd_iov_pin_rsp_data(struct ksmbd_work *work, void *ib, int len,
- 			   void *aux_buf, unsigned int aux_size);
- int ksmbd_iov_pin_rsp(struct ksmbd_work *work, void *ib, int len);
- int allocate_interim_rsp_buf(struct ksmbd_work *work);
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index 5347eba916ed..70cad4e0e8e2 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -351,6 +351,7 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 	if (work->sess)
- 		ksmbd_user_session_put(work->sess);
- 
-+	smb2_set_read_splice(work);
- 	ksmbd_conn_write(work);
- }
- 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 54ecdd096bd2..3d139c686393 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -14,6 +14,8 @@
- #include <linux/ethtool.h>
- #include <linux/falloc.h>
- #include <linux/mount.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
- #include <linux/filelock.h>
- #include <linux/fileattr.h>
- #include <linux/timekeeping.h>
-@@ -47,6 +49,29 @@
- #include "transport_tcp.h"
- #include "compress.h"
- 
-+/* Switching affects allocation, not ownership of existing READ buffers. */
-+static bool read_splice;
-+
-+static int read_splice_set(const char *val, const struct kernel_param *kp)
-+{
-+	bool enabled;
-+	int ret;
-+
-+	ret = kstrtobool(val ?: "1", &enabled);
-+	if (!ret)
-+		WRITE_ONCE(*(bool *)kp->arg, enabled);
-+	return ret;
-+}
-+
-+static const struct kernel_param_ops read_splice_ops = {
-+	.flags = KERNEL_PARAM_OPS_FL_NOARG,
-+	.set = read_splice_set,
-+	.get = param_get_bool,
-+};
-+module_param_cb(read_splice, &read_splice_ops, &read_splice, 0644);
-+__MODULE_PARM_TYPE(read_splice, "bool");
-+MODULE_PARM_DESC(read_splice, "Page-backed ordinary TCP READ sends");
-+
- static void __wbuf(struct ksmbd_work *work, void **req, void **rsp)
- {
- 	if (work->next_smb2_rcv_hdr_off) {
-@@ -7700,9 +7725,9 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
- 	if (rc)
- 		goto err_out;
- 
--	rc = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
--			offsetof(struct smb2_query_info_rsp, Buffer),
--			pntsd, secdesclen);
-+	rc = ksmbd_iov_pin_rsp_data(work, (void *)rsp,
-+				    offsetof(struct smb2_query_info_rsp, Buffer),
-+				    pntsd, secdesclen);
- err_out:
- 	if (rc) {
- 		rsp->OutputBufferLength = 0;
-@@ -8684,7 +8709,7 @@ static noinline int smb2_read_pipe(struct ksmbd_work *work)
- 			       rpc_resp->payload_sz);
- 
- 		nbytes = rpc_resp->payload_sz;
--		err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
-+		err = ksmbd_iov_pin_rsp_data(work, (void *)rsp,
- 					     offsetof(struct smb2_read_rsp, Buffer),
- 					     aux_payload_buf, nbytes);
- 		if (err) {
-@@ -9004,6 +9029,63 @@ static ssize_t smb2_read_rdma(struct ksmbd_work *work,
- 	return length;
- }
- 
-+void smb2_set_read_splice(struct ksmbd_work *work)
-+{
-+	const unsigned int prefix_len = sizeof(__be32);
-+	const unsigned int rsp_len = offsetof(struct smb2_read_rsp, Buffer);
-+	const unsigned int header_len = prefix_len + rsp_len;
-+	const struct smb2_read_rsp *rsp;
-+	const struct kvec *payload;
-+	const struct aux_read *ar;
-+
-+	work->splice_header_len = 0;
-+	if (!list_is_singular(&work->aux_read_list))
-+		return;
-+	ar = list_first_entry(&work->aux_read_list, struct aux_read, entry);
-+	/* Only eligible TCP READs allocate a page-backed auxiliary buffer. */
-+	if (!ar->page)
-+		return;
-+
-+	/* The final response must still be RFC1002 length + READ header + data. */
-+	if (work->iov_cnt != 3 || work->iov[0].iov_len != prefix_len ||
-+	    work->iov[1].iov_len != rsp_len)
-+		return;
-+	rsp = work->iov[1].iov_base;
-+	payload = &work->iov[2];
-+
-+	/* Signing follows the READ handler; session/tcon refs may be gone. */
-+	if (rsp->hdr.Flags & SMB2_FLAGS_SIGNED)
-+		return;
-+
-+	/* Retain the original payload and send only the initialized bytes. */
-+	if (payload->iov_base != ar->buf ||
-+	    !payload->iov_len ||
-+	    payload->iov_len > page_size(ar->page) ||
-+	    get_rfc1002_len(work->iov[0].iov_base) + prefix_len !=
-+					payload->iov_len + header_len)
-+		return;
-+
-+	/* Do not pin an oversized compound allocation for a short READ. */
-+	if (get_order(payload->iov_len) < compound_order(ar->page))
-+		return;
-+
-+	work->splice_header_len = header_len;
-+}
-+
-+static bool smb2_read_splice_eligible(struct ksmbd_work *work,
-+				    const struct smb2_read_req *req)
-+{
-+	/* Negotiated signing/encryption capabilities alone do not exclude READs. */
-+	return READ_ONCE(read_splice) &&
-+		!work->next_smb2_rcv_hdr_off && !req->hdr.NextCommand &&
-+		!work->encrypted &&
-+		!work->sess->sign && !work->conn->sign &&
-+		!(req->hdr.Flags & SMB2_FLAGS_SIGNED) &&
-+		!(req->Flags & SMB2_READFLAG_REQUEST_COMPRESSED) &&
-+		req->Channel == SMB2_CHANNEL_NONE &&
-+		ksmbd_transport_is_tcp(work->conn->transport);
-+}
-+
- /**
-  * smb2_read() - handler for smb2 read from file
-  * @work:	smb work containing read command buffer
-@@ -9013,6 +9095,7 @@ static ssize_t smb2_read_rdma(struct ksmbd_work *work,
- int smb2_read(struct ksmbd_work *work)
- {
- 	struct ksmbd_conn *conn = work->conn;
-+	struct aux_read *ar = NULL;
- 	struct smb2_read_req *req;
- 	struct smb2_read_rsp *rsp;
- 	struct ksmbd_file *fp = NULL;
-@@ -9024,7 +9107,6 @@ int smb2_read(struct ksmbd_work *work)
- 	bool is_rdma_channel = false, async_interim = false;
- 	unsigned int max_read_size = conn->vals->max_read_size;
- 	unsigned int id = KSMBD_NO_FID, pid = KSMBD_NO_FID;
--	void *aux_payload_buf;
- 
- 	ksmbd_debug(SMB, "Received smb2 read request\n");
- 
-@@ -9137,15 +9219,14 @@ int smb2_read(struct ksmbd_work *work)
- 	ksmbd_debug(SMB, "filename %pD, offset %lld, len %zu\n",
- 		    fp->filp, offset, length);
- 
--	aux_payload_buf = kvmalloc(ALIGN(length, 8), KSMBD_DEFAULT_GFP);
--	if (!aux_payload_buf) {
-+	ar = ksmbd_alloc_read_buf(length, smb2_read_splice_eligible(work, req));
-+	if (!ar) {
- 		err = -ENOMEM;
- 		goto out;
- 	}
- 
--	nbytes = ksmbd_vfs_read(work, fp, length, &offset, aux_payload_buf);
-+	nbytes = ksmbd_vfs_read(work, fp, length, &offset, ar->buf);
- 	if (nbytes < 0) {
--		kvfree(aux_payload_buf);
- 		err = nbytes;
- 		goto out;
- 	}
-@@ -9157,10 +9238,10 @@ int smb2_read(struct ksmbd_work *work)
- 	 * client.  Zero just that tail.
- 	 */
- 	if (nbytes & 7)
--		memset(aux_payload_buf + nbytes, 0, ALIGN(nbytes, 8) - nbytes);
-+		memset(ar->buf + nbytes, 0, ALIGN(nbytes, 8) - nbytes);
- 
- 	if ((nbytes == 0 && length != 0) || nbytes < mincount) {
--		kvfree(aux_payload_buf);
-+		ksmbd_free_read_buf(ar);
- 		rsp->hdr.Status = STATUS_END_OF_FILE;
- 		smb2_set_err_rsp(work);
- 		if (async_interim)
-@@ -9175,16 +9256,15 @@ int smb2_read(struct ksmbd_work *work)
- 	if (is_rdma_channel == true) {
- 		rdma_transform_len = smb2_prep_rdma_read(work, req,
- 							 rsp,
--							 aux_payload_buf,
-+							 ar->buf,
- 							 nbytes);
- 		if (rdma_transform_len < 0) {
--			kvfree(aux_payload_buf);
- 			err = rdma_transform_len;
- 			goto out;
- 		}
- 		/* write data to the client using rdma channel */
- 		remain_bytes = smb2_read_rdma(work, req,
--					      aux_payload_buf,
-+					      ar->buf,
- 					      nbytes);
- 		if (remain_bytes < 0)
- 			pr_err("RDMA READ transfer failed: session=%llu payload=%zu transform=%d rc=%zd\n",
-@@ -9195,8 +9275,8 @@ int smb2_read(struct ksmbd_work *work)
- 				    "RDMA READ transfer completed: session=%llu payload=%zu transform=%d\n",
- 				    work->sess ? work->sess->id : 0, nbytes,
- 				    rdma_transform_len);
--		kvfree(aux_payload_buf);
--		aux_payload_buf = NULL;
-+		ksmbd_free_read_buf(ar);
-+		ar = NULL;
- 		nbytes = 0;
- 		if (remain_bytes < 0) {
- 			err = (int)remain_bytes;
-@@ -9214,11 +9294,10 @@ int smb2_read(struct ksmbd_work *work)
- 	err = ksmbd_iov_pin_rsp_read(work, (void *)rsp,
- 				     offsetof(struct smb2_read_rsp, Buffer) +
- 				     rdma_transform_len,
--				     aux_payload_buf, nbytes);
--	if (err) {
--		kvfree(aux_payload_buf);
-+				     ar, nbytes);
-+	if (err)
- 		goto out;
--	}
-+	ar = NULL; /* The response now owns the buffer. */
- 	if (async_interim)
- 		release_async_work(work);
- 	/*
-@@ -9234,6 +9313,7 @@ int smb2_read(struct ksmbd_work *work)
- 	return 0;
- 
- out:
-+	ksmbd_free_read_buf(ar);
- 	if (async_interim)
- 		release_async_work(work);
- 	if (err) {
-diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
-index 3f08d1ca5a38..27e60f9ff4db 100644
---- a/fs/smb/server/smb2pdu.h
-+++ b/fs/smb/server/smb2pdu.h
-@@ -429,6 +429,7 @@ bool smb3_encryption_negotiated(struct ksmbd_conn *conn);
- /* smb2 misc functions */
- int ksmbd_smb2_check_message(struct ksmbd_work *work);
- void smb2_complete_request_open(struct ksmbd_work *work);
-+void smb2_set_read_splice(struct ksmbd_work *work);
- 
- /* smb2 command handlers */
- int smb2_handle_negotiate(struct ksmbd_work *work);
-diff --git a/fs/smb/server/transport_tcp.c b/fs/smb/server/transport_tcp.c
-index 1183bb75aa24..5acf183dab64 100644
---- a/fs/smb/server/transport_tcp.c
-+++ b/fs/smb/server/transport_tcp.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/freezer.h>
-+#include <linux/page_frag_cache.h>
- 
- #include "smb_common.h"
- #include "server.h"
-@@ -32,6 +33,8 @@ static int bind_additional_ifaces;
- struct tcp_transport {
- 	struct ksmbd_transport		transport;
- 	struct socket			*sock;
-+	/* Serialized by conn->srv_mutex. */
-+	struct page_frag_cache		tx_frag_cache;
- 	struct kvec			*iov;
- 	unsigned int			nr_iov;
- };
-@@ -66,6 +69,7 @@ static struct tcp_transport *alloc_transport(struct socket *client_sk)
- 	if (!t)
- 		return NULL;
- 	t->sock = client_sk;
-+	page_frag_cache_init(&t->tx_frag_cache);
- 
- 	conn = ksmbd_conn_alloc();
- 	if (!conn) {
-@@ -100,6 +104,7 @@ static void ksmbd_tcp_free_transport(struct ksmbd_transport *kt)
- 	struct tcp_transport *t = TCP_TRANS(kt);
- 
- 	sock_release(t->sock);
-+	page_frag_cache_drain(&t->tx_frag_cache);
- 	kfree(t->iov);
- 	kfree(t);
- }
-@@ -431,6 +436,38 @@ static int ksmbd_tcp_read(struct ksmbd_transport *t, char *buf,
- 	return ksmbd_tcp_readv(TCP_TRANS(t), &iov, 1, to_read, max_retries);
- }
- 
-+/* The last iov is page-backed; consolidate the prefix into a page fragment. */
-+static void *ksmbd_tcp_build_splice_iov(struct tcp_transport *t,
-+				       const struct ksmbd_transport_write *tx,
-+				       struct kvec *splice_iov)
-+{
-+	unsigned int header_len = tx->splice_header_len;
-+	const struct kvec *payload;
-+	struct iov_iter iter;
-+	void *header_frag;
-+
-+	if (!header_len || header_len > PAGE_SIZE || header_len >= tx->size ||
-+	    tx->iov_cnt < 2)
-+		return NULL;
-+	payload = &tx->iov[tx->iov_cnt - 1];
-+	if (payload->iov_len != tx->size - header_len)
-+		return NULL;
-+
-+	header_frag = page_frag_alloc(&t->tx_frag_cache, header_len,
-+				 GFP_KERNEL | __GFP_NORETRY | __GFP_NOWARN);
-+	if (!header_frag)
-+		return NULL;
-+	iov_iter_kvec(&iter, ITER_SOURCE, tx->iov, tx->iov_cnt, header_len);
-+	if (!copy_from_iter_full(header_frag, header_len, &iter)) {
-+		page_frag_free(header_frag);
-+		return NULL;
-+	}
-+	splice_iov[0].iov_base = header_frag;
-+	splice_iov[0].iov_len = header_len;
-+	splice_iov[1] = *payload;
-+	return header_frag;
-+}
-+
- static int ksmbd_tcp_writev(struct ksmbd_transport *t,
- 			    const struct ksmbd_transport_write *tx)
- {
-@@ -438,21 +475,35 @@ static int ksmbd_tcp_writev(struct ksmbd_transport *t,
- 		.msg_flags = MSG_NOSIGNAL | tx->msg_flags,
- 	};
- 	struct socket *sock = TCP_TRANS(t)->sock;
-+	struct kvec splice_iov[2];
-+	void *header_frag;
- 	int ret;
- 
--	iov_iter_kvec(&smb_msg.msg_iter, ITER_SOURCE, tx->iov,
--		      tx->iov_cnt, tx->size);
--	/* The caller holds srv_mutex across the entire frame. */
-+	/* The caller holds srv_mutex across preparation and the entire frame. */
-+	header_frag = ksmbd_tcp_build_splice_iov(TCP_TRANS(t), tx, splice_iov);
-+	if (header_frag) {
-+		iov_iter_kvec(&smb_msg.msg_iter, ITER_SOURCE, splice_iov,
-+			      ARRAY_SIZE(splice_iov), tx->size);
-+		smb_msg.msg_flags |= MSG_SPLICE_PAGES;
-+	} else {
-+		iov_iter_kvec(&smb_msg.msg_iter, ITER_SOURCE, tx->iov,
-+			      tx->iov_cnt, tx->size);
-+	}
- 	while (iov_iter_count(&smb_msg.msg_iter)) {
- 		ret = sock_sendmsg(sock, &smb_msg);
- 		if (ret <= 0) {
- 			/* Never append another SMB frame to an incomplete one. */
- 			kernel_sock_shutdown(sock, SHUT_RDWR);
--			return ret ?: -EIO;
-+			ret = ret ?: -EIO;
-+			goto out;
- 		}
- 	}
- 
--	return tx->size;
-+	ret = tx->size;
-+out:
-+	if (header_frag)
-+		page_frag_free(header_frag);
-+	return ret;
- }
- 
- static void ksmbd_tcp_disconnect(struct ksmbd_transport *t)
--- 
-2.43.0
-
+On 10/16/2026 2:15 PM, Konrad Dybcio wrote:
+> On 10/16/26 7:20 AM, Abhinav Parihar wrote:
+>> Context bank 9 is reserved for secure use cases and must not be exposed
+>> as a FastRPC compute context bank for non-secure offloading.
+> The lack of a platform name in the commit message and a split over that
+> suggests this is a universal truth for all Qualcomm platforms, yet the
+> patch only limits this to some of those who currently define a cb@9.
+>
+> Please make it more clear which one is intended.
+Ack, patch v2 will have patch series including removal from all 
+platforms having cb@9
+>> Remove the compute-cb@9 nodes from the Lemans and Monaco device trees to
+>> prevent clients from selecting a secure context bank for normal FastRPC
+>> workloads.
+>>
+>> Secure use case support is not currently implemented upstream.
+> Ordering this sentence before the previous paragraph would make the
+> commit message read more naturally
+>
+> Konrad
+Ack
