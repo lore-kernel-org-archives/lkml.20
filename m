@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792635088;
-	b=s452upHA+Flxeq9lt+ikkWd1CHhftZWwYQoY37lJXuCdrMJA2K7uJua4jbjCV+f52PVm
-	 G8Fi6fUaeoWq4nTqzjxyNcu07CzStishQwZ4iBp2MD0DwLjgRny6ml/z5dHd1WST6tyb4
-	 Yu35a9hn90I9oU20d9qIn/V1vGvZzAaDPrG6gXXufHpihIxdk/9pLteAtHwc0bYvV7FfH
-	 XS/T98Jx6Sw76VB1GeehyjvqZPTPm+zgx33pD2PSUatwmmU5dmqXOHcdaVR83g4TLI4Oe
-	 qNZChDjCUZj+10uRT00CNtozum6OmYfPxZKdqsxHmlIt/NVKYW4k7K8GvdmQ6BfE4Bg==
+	t=1792635084;
+	b=HLLu2s6BKdOfS9w0C0K9MKRnC4H4EraPB7juNjeCCavNjxixc2UMmG1+3VaJOFkmdT8S
+	 oQJkp4i/FH16hemURyAPdrxbM0GX1XbfQSro7sJc9OZh39mQK70u5on2/zv79R+9CDa+j
+	 a8hqI2+3jPo64RhOcVjJY0cr/SQv8IOwEtbx+WWnbR81opVp9qqDBtHNkMlzhXtXKwvHq
+	 GjZaEnEW5mCNk/S/fNGgbchAEvV1mpuAUdVhqIXZd9yxHvKsjgIxmA2786mBHHVoidNGs
+	 nnjuKvfMZ6nlF1X5SKYLFzsTxQTq/z0xqsL/CFnqbKgwvHfpWzB53T1OTSBIY9XQIlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792635088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792635084;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=ufUFmryCQ5/cziiF8CC+dv7WB0Oz7MQ1k7QzIbPVAGw=;
-	b=gi5qn6aL4j2Hg5x+9XcFoHcYnOPb9PYZNKUjIhFkyHxelb8ilOB4DdCF3m0+uKEHr/p7
-	 PI3Qlo1PadDLf74lSIVtZQe4aONnPiydpAaaEjRT7gbMb0Sg75jUnZXK1TDZoEgIjtRLx
-	 AZ0U8uo5ZKYFSYckcVwvLgRnXmFPyTVuJVM8EvrWV9pd4uGfArbzycwQDysQjbVRcuTRi
-	 o2LJSlMiB/QzdieBq/3nwUwkLLavQSU9dNkjpe8ctI7MES6lQd/+cJrs0Th64zoyVFb0m
-	 huNI84WBY8VGXXd9k8Nf6HvyOhyd9My1wouhzO0cOfF7nXCeTZc/yiO4LNR4toD7DqA==
+	bh=NVpJPsHPb+g87dZ4jzbZKza1MAEpX4JtDsoNjlMaUsw=;
+	b=ftTmD+9B+SqYl+EtHN8D64xo+JC3gL/DIAd9U/FoVLu0ZogQF2kylngJOZKJutMs9IYj
+	 WSY6ZdwF3IrJu59vZaOp+UsjH9y0zlFFSnss6ILaPEQvd4gMudZzcOEc4I8LYw/4EKFgD
+	 h9qn0ZZKyJxZVOcuDCKLAfDa7SlWzo1nYHZJPxRFm8R0/cYdxKfk5wUe/VEnCYn+/VeRc
+	 j9PcfB9wwfGHNQc29tDaBq4GwyvHswVj7RbE7IG2OBZXl+rreGJ46p5PW2TMzBPmLQJON
+	 nIL5WsKPqBdTLrJ6CUR0iqU89CLBQ4QWf0QsKjxOcgjN2xRpHfnEIX1V+1hrY4kr12w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVv8CltN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQ7UYTVF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70530606A331;
-	Thu, 22 Oct 2026 02:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45032606A31A;
+	Thu, 22 Oct 2026 02:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WVv8CltN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E5E1F000C1;
-	Thu, 22 Oct 2026 02:11:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CQ7UYTVF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4D31F000C1;
+	Thu, 22 Oct 2026 02:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792635088;
-	bh=ufUFmryCQ5/cziiF8CC+dv7WB0Oz7MQ1k7QzIbPVAGw=;
+	s=k20260515; t=1792635083;
+	bh=NVpJPsHPb+g87dZ4jzbZKza1MAEpX4JtDsoNjlMaUsw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=WVv8CltN4eQlTrbylpl5R7zGBsej5r4oe2lSd+bwMIe5NhLnkFmKiryOujvXqiUhk
-	 JLWP+73fdnES3KJCx3kR0NSJMCqd2dGdkvemRw9G3DiAnbVS4zuzMo4UX6Vz+4jWOr
-	 Aq6fXDP9eUR3MLnbHxLVjhZdtQZ38YqQa6PkiuKiHPLEmPFEKG9jlavZ869MDMY3IW
-	 zXala83rWIS6THGhJ9XmJu3RfgPONDl8ngEJguoLPw+pLJYZyHvdGyf0sON/1bhv7Z
-	 a2FZ/6AMxrMAxaMH1Jt3F7RAviihhcn2oewa4Qmu9P6LZKqOl9wL+Zi3KNeX1HChZj
-	 KN2OHBk0HDCLQ==
-Subject: Re: [PATCH net-next v16 5/5] net: dsa: motorcomm: Add support for
- Motorcomm YT922x
+	b=CQ7UYTVFlYKUjN/9ndlYFGdcEC1tqhYjzia13KPLTe6fvW8MZ1r90dbbWmB6ycdLK
+	 1sPYvOsEUB68E8vQP32CNrjkDTsAvJgkNA2zgSC4cjwv5FftU1/yfTxYsNG/NSoD4c
+	 CPB/ZArcijXNEgeoyOv5X1SLoG94znqlsppcS7sgfPLnt86bOzwNSyaPk6BUMjLzvr
+	 94NxUa8vsxGvQGSoK6QCWsm+zR3NgoLHzeCSqL7KAY38pN6FLUhAiNCPfP8ZxVfyxI
+	 1tgD1tzH4hUn2jgEvjR9rit5tv51cagpIzK500GCzCh8J4aBknPqJwopODn+uCTRjw
+	 ne3hxxXrlcqYg==
+Subject: Re: [PATCH net-next v16 1/5] net: dsa: motorcomm: initialize
+ dsa_switch based on chipid
 From: netdev-bot+sashiko@kernel.org
 To: kyle.switch@motor-comm.com
 Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
@@ -50,11 +50,11 @@ Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
  linux-kernel@vger.kernel.org, ming.xu@motor-comm.com,
  xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com, wei.zhang@gl-inet.com,
  sijia.huang@gl-inet.com
-Date: Thu, 22 Oct 2026 02:11:27 +0000
-Message-ID: <179263508707.3135.8457050259877070501@kernel.org>
-In-Reply-To: <20261020111115.3072180-6-kyle.switch@motor-comm.com>
-References: <20261020111115.3072180-6-kyle.switch@motor-comm.com>
-X-sashiko-severity: Medium
+Date: Thu, 22 Oct 2026 02:11:22 +0000
+Message-ID: <179263508238.3135.2126359044683205033@kernel.org>
+In-Reply-To: <20261020111115.3072180-2-kyle.switch@motor-comm.com>
+References: <20261020111115.3072180-2-kyle.switch@motor-comm.com>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -67,298 +67,88 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 6 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 0 · Medium: 4 · Low: 2
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] yt921x_of_match in drivers/net/dsa/motorcomm/chip.c now
-  accepts the new compatible "motorcomm,yt9224", but the DT binding was…
-- [Medium] yt922x_port_up() (drivers/net/dsa/motorcomm/chip.c) sets
-  YT922X_PORT_FC_AN | YT922X_PORT_LINK_AN whenever pp->inband is true.
-- [Medium] On YT922x SerDes ports (0 and 8), nothing tells the SerDes
-  side the resolved speed, duplex or link when in-band AN is not enabled.
-- [Medium] yt922x_pcs_an_restart() (drivers/net/dsa/motorcomm/pcs-922x.c)
-  sets BMCR_RESET in addition to BMCR_ANRESTART.
-- [Low] The YT922x code disagrees with itself on
-  PHY_INTERFACE_MODE_100BASEX.
-- [Low] The YT92XX_MODE_YT922X entry in yt92xx_series_table
-  (drivers/net/dsa/motorcomm/chip.c) declares capabilities that…
+- [Low] When yt921x_reg_read(priv, YT921X_CHIP_ID, &chipid) fails,
+  yt92xx_register_switch() (drivers/net/dsa/motorcomm/chip.c) prints…
 
 --
 
-net: dsa: motorcomm: Add support for Motorcomm YT922x
+net: dsa: motorcomm: initialize dsa_switch based on chipid
 
-This adds initial support for the Motorcomm YT9224 switch to the yt921x
-DSA driver. It adds a separate dsa_switch_ops and phylink_mac_ops table
-for the YT922x series and a new PCS implementation in pcs-922x.c. Only
-port_setup, setup, phylink_get_caps and get_tag_protocol are provided.
+This patch replaces the hardcoded dsa_switch setup in yt921x_mdio_probe()
+with a new helper, yt92xx_register_switch(). The helper reads the chip ID,
+looks up a per-series descriptor table and fills in the dsa_switch fields
+from that descriptor.
 
 > diff --git a/drivers/net/dsa/motorcomm/chip.c b/drivers/net/dsa/motorcomm/chip.c
-> index be82fbb99a936..b5c76a5ce55a2 100644
+> index d4fc20c52a58d..4add61b89310a 100644
 > --- a/drivers/net/dsa/motorcomm/chip.c
 > +++ b/drivers/net/dsa/motorcomm/chip.c
 
 [ ... ]
 
-> @@ -2574,6 +2593,470 @@ static const struct dsa_switch_ops yt921x_dsa_switch_ops = {
-
-[ ... ]
-
-> +static int
-> +yt922x_port_up(struct yt921x_priv *priv, int port, unsigned int mode,
-> +	       phy_interface_t interface, int speed, int duplex,
-> +	       bool tx_pause, bool rx_pause)
+> +static int yt92xx_register_switch(struct dsa_switch *ds)
 > +{
+> +	struct yt921x_priv *priv = dsa_to_yt921x_priv(ds);
+> +	struct device *dev = yt921x_priv_to_device(priv);
+> +	const struct yt92xx_series *series;
+> +	u32 chipid;
+> +	u32 major;
+> +	int res;
+> +
+> +	mutex_lock(&priv->reg_lock);
+> +	res = yt921x_reg_read(priv, YT921X_CHIP_ID, &chipid);
+> +	mutex_unlock(&priv->reg_lock);
+> +	if (res) {
+> +		dev_err(dev, "Unexpected chipid 0x%x\n", chipid);
+                                                          ^^^^^^
 
-[ ... ]
+[Severity: Low]
+Can this print an uninitialized value?
 
-> +	/*
-> +	 * Self-negotiation: the LINK/AN bits in ctrl are set based to inband.
-> +	 * Forced mode: set LINK, keep the AN bit at 0 and clear it via the mask
-> +	 */
-> +	if (pp->inband)
-> +		ctrl |= (YT922X_PORT_FC_AN | YT922X_PORT_LINK_AN);
-> +	else
-> +		ctrl |= YT922X_PORT_LINK;
+chipid is a local u32 with no initializer. This dev_err() only runs when
+yt921x_reg_read() has failed. With the MDIO backend, the output pointer is
+written only on success. Every error path jumps over the store:
 
-[Severity: Medium]
-Should YT922X_PORT_FC_AN really be set every time pp->inband is true?
-
-pp->inband is set in yt922x_pcs_config():
-
-	bool inband = neg_mode & PHYLINK_PCS_NEG_INBAND;
-
-In include/linux/phylink.h, PHYLINK_PCS_NEG_INBAND_DISABLED has the same
-value as PHYLINK_PCS_NEG_INBAND. So this test is also true when in-band AN
-is disabled and BMCR_ANENABLE is being cleared. yt922x_pcs_config() also
-never reads permit_pause_to_mac.
-
-As a result, FC_AN gets set in these cases:
-
-- the INBAND_DISABLED case
-- SGMII, whose in-band word carries no pause bits
-- when phylink passes permit_pause_to_mac = false, for example after
-  ethtool -A ... autoneg off
-
-In those cases, would the MAC ignore the tx_pause/rx_pause values that
-phylink passed to mac_link_up()?
-
-The YT921x path in pcs-921x.c gates the equivalent bit like this:
-
-yt921x_serdes_config() {
+drivers/net/dsa/motorcomm/chip.c:yt921x_reg_mdio_read() {
     ...
-	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED && permit_pause_to_mac &&
-	    interface != PHY_INTERFACE_MODE_SGMII)
-		ctrl |= YT921X_PORT_CTRL_PAUSE_AN;
-    ...
+	res = __mdiobus_read(bus, addr, reg_data);
+	if (res < 0)
+		goto end;
+	val = (val << 16) | (u16)res;
+
+	*valp = val;
+	res = 0;
+
+end:
+	mutex_unlock(&bus->mdio_lock);
+	return res;
 }
 
-Could YT922x use the same condition?
+So if an MDIO error happens during yt921x_mdio_probe(), the log line will
+show leftover stack contents. The wording also suggests a bad ID was read,
+when in fact the read failed.
 
-> +
-> +	res = yt921x_reg_update_bits(priv, YT922X_PORTn_CTRL(port), mask, ctrl);
-> +	if (res)
+The same string in yt921x_chip_detect() is printed only after a successful
+read, when the major is not recognized.
+
+Could the read-failure path just return res, or print a message that does
+not use chipid?
+
+It looks like the final patch of this series, "net: dsa: motorcomm: Add
+support for Motorcomm YT922x", rewrites this branch as a plain "if (res)
+return res;". After that change, chipid is printed only on the unknown-major
+path. The intermediate patches in the series still contain this code.
+
 > +		return res;
-
-[Severity: Medium]
-On the SerDes ports (0 and 8), does anything program the SerDes side with
-the resolved speed, duplex and link when in-band AN is not used? Examples
-are SGMII with an out-of-band PHY, or a fixed-link.
-
-As far as I can see, nothing does:
-
-- yt922x_port_up() writes only YT922X_PORTn_CTRL.
-- yt922x_pcs_config() writes only the SerDes mode field and
-  BMCR_ANENABLE.
-- yt922x_phylink_pcs_ops has no .pcs_link_up.
-- yt922x_port_config() sets pp->serdes = true, but no YT922x code reads
-  it.
-
-The YT921x path does this step in yt921x_port_up():
-
-	if (pp->serdes) {
-		mask = YT921X_SERDES_SPEED_M;
-		ctrl = YT921X_SERDES_SPEED(ps);
-		...
-
-If the YT922x PCS works the same way, could a 10/100 link through an SGMII
-PHY with AN disabled leave the PCS at its default rate while the MAC is
-forced to 10/100? The link would come up but pass no traffic.
-
-The YT922x register map isn't public, so the MAC-side write may be enough
-on its own. Could this be confirmed?
-
-[ ... ]
-
-> +static struct phylink_pcs *
-> +yt922x_phylink_mac_select_pcs(struct phylink_config *config,
-> +			      phy_interface_t interface)
-> +{
-> +	struct dsa_port *dp = dsa_phylink_to_port(config);
-> +	struct yt921x_priv *priv = dsa_to_yt921x_priv(dp->ds);
-> +
-> +	switch (interface) {
-> +	case PHY_INTERFACE_MODE_SGMII:
-> +	case PHY_INTERFACE_MODE_1000BASEX:
-> +	case PHY_INTERFACE_MODE_2500BASEX:
-> +	case PHY_INTERFACE_MODE_USXGMII:
-> +		return &priv->ports[dp->index].pcs;
-> +
-> +	default:
-> +		return NULL;
 > +	}
-> +}
-
-[Severity: Low]
-Is PHY_INTERFACE_MODE_100BASEX meant to be supported on YT922x?
-
-Some of the code handles it:
-
-- yt922x_port_config() accepts it.
-- yt922x_pcs_config() programs YT922X_SERDES_MODE_100BASEX.
-- yt922x_pcs_get_state() has a dedicated 100BASEX branch.
-
-Other places leave it out:
-
-- yt922x_dsa_phylink_get_caps() does not set it in
-  config->supported_interfaces.
-- yt922x_pcs_setup() does not set it in pcs.supported_interfaces.
-- yt922x_phylink_mac_select_pcs() returns NULL for it.
-
-phylink will reject 100base-x, so the 100BASEX handling looks like dead
-code. Should 100BASEX be added to the caps and the PCS selection, or
-dropped?
-
-Also, yt922x_phylink_pcs_ops has no .pcs_inband_caps. yt921x_phylink_pcs_ops
-has yt921x_phylink_pcs_inband_caps(), which limits 100BASEX to
-LINK_INBAND_DISABLE. Should YT922x provide one as well, so phylink knows
-the in-band limits of the PCS?
 
 [ ... ]
-
-> @@ -2586,12 +3069,25 @@ static const struct yt92xx_series yt92xx_series_table[] = {
->  		.switch_ops = &yt921x_dsa_switch_ops,
->  		.mac_ops = &yt921x_phylink_mac_ops
->  	},
-> +	[YT92XX_MODE_YT922X] = {
-> +		.name = "YT922x",
-> +		.max_ports = YT922X_PORT_NUM,
-> +		.num_lag_ids = YT922X_LAG_NUM,
-> +		.ageing_time_min = 1 * 6000,
-> +		.ageing_time_max = U16_MAX * 6000,
-> +		.dscp_prio_mapping_is_global = true,
-> +		.assisted_learning_on_cpu_port = true,
-> +		.switch_ops = &yt922x_dsa_switch_ops,
-> +		.mac_ops = &yt922x_phylink_mac_ops,
-> +	},
->  };
-
-[Severity: Low]
-Do these capabilities match what yt922x_dsa_switch_ops implements?
-
-yt92xx_register_switch() copies these fields into struct dsa_switch:
-
-- num_lag_ids
-- ageing_time_min/max
-- dscp_prio_mapping_is_global
-- assisted_learning_on_cpu_port
-
-yt922x_dsa_switch_ops only has get_tag_protocol, phylink_get_caps,
-port_setup and setup. There is no port_lag_join, set_ageing_time,
-port_fdb_add/del or DSCP op.
-
-With assisted_learning_on_cpu_port set, the DSA core will try to program
-host FDB entries. dsa_user_fdb_event() then returns -EOPNOTSUPP because
-port_fdb_add/del are missing.
-
-Nothing breaks at runtime today. Should these fields stay unset until the
-matching ops are added? They look copied from the YT921x entry.
-
-[ ... ]
-
-> @@ -2716,6 +3210,7 @@ static int yt921x_mdio_probe(struct mdio_device *mdiodev)
->  
->  static const struct of_device_id yt921x_of_match[] = {
->  	{ .compatible = "motorcomm,yt9215" },
-> +	{ .compatible = "motorcomm,yt9224" },
->  	{}
->  };
-
-[Severity: Medium]
-Is a binding update for this compatible missing from the series?
-
-Documentation/devicetree/bindings/net/dsa/motorcomm,yt921x.yaml still has:
-
-    const: motorcomm,yt9215
-
-Its description only covers the YT9213/4/5/8 port layouts. YT9224 has a
-different layout: internal PHYs on ports 4-7, SerDes on ports 0 and 8, and
-no xMII.
-
-Any DTS using motorcomm,yt9224 would fail dtbs_check. checkpatch will also
-warn about an undocumented compatible.
-
-[ ... ]
-
-> diff --git a/drivers/net/dsa/motorcomm/pcs-922x.c b/drivers/net/dsa/motorcomm/pcs-922x.c
-> new file mode 100644
-> index 0000000000000..5ad7873e0df7e
-> --- /dev/null
-> +++ b/drivers/net/dsa/motorcomm/pcs-922x.c
-
-[ ... ]
-
-> +static void yt922x_pcs_an_restart(struct phylink_pcs *pcs)
-> +{
-
-[ ... ]
-
-> +	mutex_lock(&priv->reg_lock);
-> +	res = yt921x_intif_read(priv, addr, MII_BMCR, &bmcr);
-> +	if (res)
-> +		goto err;
-> +	bmcr |= BMCR_ANRESTART;
-> +	bmcr |= BMCR_RESET;
-> +	res = yt921x_intif_write(priv, addr, MII_BMCR, bmcr);
-
-[Severity: Medium]
-Is BMCR_RESET intended here?
-
-This PCS is driven as a Clause 22 device. get_state uses MII_BMSR/MII_LPA
-and phylink_mii_c22_pcs_decode_state().
-
-On such a PCS, BMCR bit 15 resets the control registers to their defaults.
-Could that wipe out the MII_ADVERTISE value and the BMCR_ANENABLE state
-that yt922x_pcs_config() just wrote? The code also does not wait for the
-self-clearing reset to complete.
-
-This path runs right after configuration. yt922x_pcs_config() reports a
-change even when only ANENABLE toggles:
-
-	changed |= (bmcr_new != bmcr_old);
-
-So for 1000BASE-X/2500BASE-X with in-band AN, the first major config
-returns > 0 and phylink then calls pcs_an_restart. Running ethtool -r on
-the port takes the same path through phylink_ethtool_nway_reset().
-
-The YT921x version, yt921x_phylink_pcs_an_restart(), only sets
-BMCR_ANRESTART. yt921x_serdes_config() also clears changed when ANENABLE
-toggles:
-
-	/* If the ANENABLE bit was changed, the PHY will restart negotiation,
-	 * so we don't need to flag a change to trigger its own restart.
-	 */
-	if (bmcr != val)
-		changed = false;
-
-Should YT922x follow the same approach?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020111115.3072180-1-kyle.switch%40motor-comm.com
