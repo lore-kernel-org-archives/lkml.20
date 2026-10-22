@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673579;
-	b=yR00kmagTUc1xFf6VSia3ziSGuyQNWuhba2FH1wGhKZIdMUVThnZeEFBVlv2YEZKWptt
-	 7bZC9mm54vfx3296xRWmSPjGCh32iU1TTRIV/hQhkX1CvkI9jW4Ng0nUrhhemNRcsrkjK
-	 jC17mhtMw0RAUlx7BfgdyqnQak/WOEbQbIgOQajTYjErrd4aV6MLqQZC80UWczS2SJ4iX
-	 O0N4W0LpCn922pCz7+6tWBtaNDT8qr6+no9J0je9/l2lJULyunXohW6zkuuHtoNUIULjC
-	 Cg0o6icuZc2HUnvR9q77hpr4txAkfoPLztBqsZv39eJqTSAYmN7yN6LSKTn+WQQExog==
+	t=1792673586;
+	b=X07ZjzGYBbLxyedwIgR1szsGV0/b3Pqp+6pjm00tC4SfKm/tT6QYwrbLopq2Gn2iHIK4
+	 lfEv64BWlFCxhpz60hDhDAIrcYolbX426jYCP4/SEkPlSDbXfBy8O9cNfuPiIoZ1gbRDm
+	 xHaPChUr3kaBFFUkSPfc+V/CZjeG29Sa0d8OMeKXfa+vX2ispwjAORMGQSQuQE3mcZSny
+	 YIwipmhu/IlOGcgTxfIUGmuduWmwRrGN309UroxIde8wC3lTNXQE/h1NjL3m5bEIi9uIW
+	 9UjeRWleWivhMGiN9qmv0wRDuxVe6EMylN9sOrawEYhqeT+Q9rjtUPJ/WZszmqPTorg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673579;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673586;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rD/zYPBi22vsuAiR4tO4UQi89pBhgDe4H1fTUVyIAbI=;
-	b=GfwrF6xhGL94ywLZQlPnYnUwtZiIrc2orxu3G614/MsfaoEdI3UApUFgLdYx3vhtcSdz
-	 CEhH1x7/LrFSUQNUQH+Zx6iTMwWA8tKrf/WFm3IX4WdhBGx2qD3wAKW0YhzoI74IH8FbZ
-	 ClCqG5vHPoUWm7hUVL1EUJpCW4YRHsZ/6LGUUsJSaQ3J2ErZ3/tGNdDO2fUHfW3NJ90rA
-	 2tas15WhXEwM2UYXCMGp+wXa034oVFNlfzTFbQAeyomh/SjoJ83wRV50XghehgXP/TyzE
-	 k1cj4koTTvdTPhU2wJRUbwSsLkfmPUt4RT+jBqVP0PF2DOntbQArE8Qu1t+nqXl3QgA==
+	bh=f3425FFwqY4+ykygrz2W1w/JyuCVFU9bZFNGhlsY4u4=;
+	b=Nhn6xRyc1tDPosV3gtDkuGOQIOkTNhm4CMNDnmxJD4N/o5tAuEB/JEZwWlRnCvtxPrb2
+	 uC8gAuCyAbuWp/TnkkvCJhThFkLUQpcKeCXfIED92eNxCNEvchT67pJdI5AUQWRrDTbvQ
+	 8vBWimt0aXgLnZyo/emhVfocC8L/vQEoUJgGU3TUH1Q+JLbEQ2+uf5VCY/aoWEMtVoJJ8
+	 DyQWNqpgEjRQi/1BEXY6yQ0pWbdxt6frJBf5hHJD6NNEl2LwHknt2jZacSgISA7RrYmaX
+	 /o5Si8ejV2sG5r7Avc2ynWibGXZV+n1u/GXbXS0gXDslUYFgLl2lYDHTu6D5ItinroQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBOUgA8P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kj16Mgas;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36996606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4559A606A336
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:53:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IBOUgA8P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4EA51F000C3;
-	Thu, 22 Oct 2026 12:52:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kj16Mgas
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92DC51F000C2;
+	Thu, 22 Oct 2026 12:53:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673578;
-	bh=rD/zYPBi22vsuAiR4tO4UQi89pBhgDe4H1fTUVyIAbI=;
+	s=k20260515; t=1792673585;
+	bh=f3425FFwqY4+ykygrz2W1w/JyuCVFU9bZFNGhlsY4u4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IBOUgA8Pb8Wqvp+WCfY5ecnoUrksSDJ/VCHXIWx/OlGyCNK04Rh9mZAkGOjHCAN12
-	 IWz9gGumN/zMrC+h31N0thY1PKy2dj1JHrk08uu8TMYDRMXVu65DbFw8XXbm2VX4nO
-	 EO0C2jdhaLP2jUc+3b8x03VPDlmNb1F4abT11AKd/biaNjTWkBVFdHi9ziiSx+kyHM
-	 1ULlrGkiWcq34WE+WWrk96r/8c+fcmoIL09BIqy23x5E+AyMOtlTObn7PWFqpaEGh4
-	 r5hLxC6jnJlVdHaWpVSqY/KbgUCnXvATnNxOCoW/Wf1DIu3xIsZFaT15SCUELaKVMC
-	 jcB8h0PAslBsg==
+	b=Kj16MgasWVl8hOMHuDqyew0FxWjoNWqjQtGJiRUni2hZnZA+2gejVwlEndYitzM8A
+	 1kGal2hP8cykmGouQK6FwBYDg+25sqPu+L5pnarOzg7ikigoRfVPJaztMXC955hkhO
+	 bzXP/aRRnAoU7PLLziY8CtPSrW3OIpCIgMYvm7fQTx9TAs5s0GLQck6LTSqigPxZnq
+	 RtRhSoRtUmYiqYkGRjDam9lfAM6/l4+aUdfkFvTho0st7ZWHs3PzA1tqmibwe0wcd/
+	 al1ISjek0Cxz68Ijr8EW/jl4Bns7+pbzXh5tQEeg1t9d89Ut2YrrCFP/wYC/CZ+TzF
+	 7kndehlPHlzvA==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>,
 	stable@kernel.org
-Subject: [PATCH 2/7] f2fs: fix to return -EIO from f2fs_sync_fs() if cp_error is set
-Date: Thu, 22 Oct 2026 12:52:39 +0000
-Message-ID: <20261022125244.2205275-2-chao@kernel.org>
+Subject: [PATCH 7/7] f2fs: cache: fix to initialize f2fs_writeback info at mount time
+Date: Thu, 22 Oct 2026 12:52:44 +0000
+Message-ID: <20261022125244.2205275-7-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
 In-Reply-To: <20261022125244.2205275-1-chao@kernel.org>
 References: <20261022125244.2205275-1-chao@kernel.org>
@@ -64,121 +64,111 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-f2fs_sync_fs() returns 0 w/o doing checkpoint once cp_error is set, so
-its callers can not tell whether checkpoint was done or not.
+f2fs_start_cache_wb_thread() initializes cache_wb_wq and f2fs_writeback
+tunables every time f2fs_writeback thread is started, e.g. in remount,
+which causes below race conditions:
 
-For a file which needs a checkpoint to persist its fsynced data, e.g. a
-compressed file (CP_COMPRESSED), f2fs_do_sync_file() calls
-f2fs_sync_fs(). So if shutdown (e.g. F2FS_GOING_DOWN_NOSYNC) races w/
-fsync, after f2fs_sync_file() passed its cp_error check, fsync() returns
-0 while neither checkpoint nor fsync node blocks were written: after
-recovery, the fsynced data of the compressed file is rolled back to an
-old version or lost.
+1. cache_wb_interval, cache_wb_dirty_threshold and
+   cache_wb_total_threshold configured via sysfs will be reset to
+   default value after remount.
 
-In addition, syncfs(2) and F2FS_IOC_WRITE_CHECKPOINT report false
-success on a stopped filesystem as well, whereas other filesystems
-return -EIO from ->sync_fs after shutdown.
+2. remount will reinitialize cache_wb_wq, which may be used by another
+   thread, e.g. f2fs_wake_up_cache_wb(), concurrently.
 
-Note that f2fs_write_checkpoint() already returns -EIO if cp_error is
-set, so callers of f2fs_sync_fs() have to handle -EIO anyway.
-
-So let's return -EIO from f2fs_sync_fs() if cp_error is set, and in
-f2fs_do_sync_file(), bail out w/o clearing FI_APPEND_WRITE and
-FI_UPDATE_WRITE if f2fs_sync_fs() fails, as the non-checkpoint path
-already does after f2fs_fsync_node_caches().
-
-For shutdown, F2FS_GOING_DOWN_METASYNC and F2FS_GOING_DOWN_NEED_FSCK
-have already converted -EIO from f2fs_sync_fs() to 0, however,
-F2FS_GOING_DOWN_FULLSYNC fails w/ -EIO once cp_error is set, e.g. when
-the filesystem is shutdown again, because:
-
-- f2fs_do_shutdown
- - bdev_freeze
-  - fs_bdev_freeze
-   - freeze_super
-    - sync_filesystem
-     - f2fs_sync_fs_super
-      - f2fs_sync_fs
-      : return -EIO due to cp_error
-    - f2fs_freeze
-    : return -EIO due to cp_error as well
-
-whereas other filesystems return 0 in this case. So let's do the
-conversion for all shutdown modes at the end of f2fs_do_shutdown(), and
-only if cp_error is set, so that the error is still returned to the
-caller if the filesystem was not stopped, e.g. bdev_freeze() fails due
-to other reasons.
+Let's introduce f2fs_init_cache_wb_info() to initialize them only once
+in f2fs_fill_super(), then f2fs_start_cache_wb_thread() only needs to
+reset cache_wb_throttled, and READ_ONCE()/WRITE_ONCE() is enough for
+cache_wb_task.
 
 Cc: stable@kernel.org
-Fixes: 1f227a3e215d ("f2fs: stop all the operations by cp_error flag")
+Fixes: f45afeabd5df ("f2fs: cache: introduce writeback thread")
+Fixes: eeadc4807c95 ("f2fs: cache: wake up f2fs_writeback when exceeding threshold")
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/file.c  | 16 ++++++++++------
- fs/f2fs/super.c |  2 +-
- 2 files changed, 11 insertions(+), 7 deletions(-)
+ fs/f2fs/cache.c | 23 ++++++++++++++---------
+ fs/f2fs/cache.h |  1 +
+ fs/f2fs/super.c |  1 +
+ 3 files changed, 16 insertions(+), 9 deletions(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index b077e4eb790d..27e295bdce1c 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -417,6 +417,8 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
- 	if (cp_reason) {
- 		/* all the dirty node pages should be flushed for POR */
- 		ret = f2fs_sync_fs(inode->i_sb, 1);
-+		if (ret)
-+			goto out;
+diff --git a/fs/f2fs/cache.c b/fs/f2fs/cache.c
+index ddf94b5791e7..6cac7662fc1a 100644
+--- a/fs/f2fs/cache.c
++++ b/fs/f2fs/cache.c
+@@ -844,8 +844,7 @@ void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi)
+ {
+ 	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
  
- 		/*
- 		 * We've secured consistency through sync_fs. Following pino
-@@ -2564,11 +2566,8 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
- 	case F2FS_GOING_DOWN_METASYNC:
- 		/* do checkpoint only */
- 		ret = f2fs_sync_fs(sb, 1);
--		if (ret) {
--			if (ret == -EIO)
--				ret = 0;
-+		if (ret)
- 			goto out;
--		}
- 		f2fs_stop_checkpoint(sbi, false, STOP_CP_REASON_SHUTDOWN);
- 		break;
- 	case F2FS_GOING_DOWN_NOSYNC:
-@@ -2584,8 +2583,6 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
- 		set_sbi_flag(sbi, SBI_IS_DIRTY);
- 		/* do checkpoint only */
- 		ret = f2fs_sync_fs(sb, 1);
--		if (ret == -EIO)
--			ret = 0;
- 		goto out;
- 	default:
- 		ret = -EINVAL;
-@@ -2613,6 +2610,13 @@ int f2fs_do_shutdown(struct f2fs_sb_info *sbi, unsigned int flag,
+-	/* pairs with smp_store_release() in f2fs_start_cache_wb_thread() */
+-	if (!smp_load_acquire(&cache_thread->cache_wb_task))
++	if (!READ_ONCE(cache_thread->cache_wb_task))
+ 		return;
  
- 	f2fs_update_time(sbi, REQ_TIME);
- out:
-+	/*
-+	 * If filesystem has already stopped, e.g. it was shutdown before,
-+	 * bdev_freeze() or f2fs_sync_fs() will fail w/ -EIO, let's return
-+	 * 0 for such case, as other filesystems did.
-+	 */
-+	if (ret == -EIO && f2fs_cp_error(sbi))
-+		ret = 0;
+ 	if (!f2fs_should_wake_up_cache_wb(sbi))
+@@ -855,6 +854,17 @@ void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi)
+ 		wake_up(&cache_thread->cache_wb_wq);
+ }
  
- 	trace_f2fs_shutdown(sbi, flag, ret);
- 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 149ad6061097..ba2ec6123251 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -2130,7 +2130,7 @@ int f2fs_sync_fs(struct super_block *sb, int sync)
- 	int err = 0;
- 
- 	if (unlikely(f2fs_cp_error(sbi)))
--		return 0;
-+		return -EIO;
- 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED)))
++void f2fs_init_cache_wb_info(struct f2fs_sb_info *sbi)
++{
++	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
++
++	init_waitqueue_head(&cache_thread->cache_wb_wq);
++	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
++	cache_thread->cache_wb_dirty_threshold = DEF_CACHE_WB_DIRTY_THRESH;
++	cache_thread->cache_wb_total_threshold = 0;
++	cache_thread->cache_wb_throttled = false;
++}
++
+ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ {
+ 	struct f2fs_cache_kthread *cache_thread = &sbi->cache_thread;
+@@ -865,11 +875,7 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 	if (cache_thread->cache_wb_task)
  		return 0;
  
+-	init_waitqueue_head(&cache_thread->cache_wb_wq);
+-	cache_thread->cache_wb_interval = DEF_DIRTY_CACHE_TIMEOUT;
+-	cache_thread->cache_wb_dirty_threshold = DEF_CACHE_WB_DIRTY_THRESH;
+-	cache_thread->cache_wb_total_threshold = 0;
+-	cache_thread->cache_wb_throttled = false;
++	WRITE_ONCE(cache_thread->cache_wb_throttled, false);
+ 	snprintf(name, sizeof(name), "f2fs_writeback-%u:%u",
+ 			MAJOR(dev), MINOR(dev));
+ 
+@@ -877,8 +883,7 @@ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi)
+ 	if (IS_ERR(task))
+ 		return PTR_ERR(task);
+ 
+-	/* pairs with smp_load_acquire() in f2fs_wake_up_cache_wb() */
+-	smp_store_release(&cache_thread->cache_wb_task, task);
++	WRITE_ONCE(cache_thread->cache_wb_task, task);
+ 	return 0;
+ }
+ 
+diff --git a/fs/f2fs/cache.h b/fs/f2fs/cache.h
+index 5408727dd321..cd017c1b188f 100644
+--- a/fs/f2fs/cache.h
++++ b/fs/f2fs/cache.h
+@@ -245,6 +245,7 @@ struct f2fs_cache_kthread {
+ 	bool cache_wb_throttled;	/* last round made no progress */
+ };
+ 
++void f2fs_init_cache_wb_info(struct f2fs_sb_info *sbi);
+ int f2fs_start_cache_wb_thread(struct f2fs_sb_info *sbi);
+ void f2fs_stop_cache_wb_thread(struct f2fs_sb_info *sbi);
+ void f2fs_wake_up_cache_wb(struct f2fs_sb_info *sbi);
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index ba2ec6123251..12a051ba51ac 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -5356,6 +5356,7 @@ static int f2fs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	f2fs_init_cache(sbi, META_CACHE(sbi), F2FS_META_CACHE);
+ 	f2fs_init_cache(sbi, NODE_CACHE(sbi), F2FS_NODE_CACHE);
+ 	f2fs_init_cache(sbi, COMPRESS_CACHE(sbi), F2FS_COMPRESS_CACHE);
++	f2fs_init_cache_wb_info(sbi);
+ 
+ 	err = f2fs_get_valid_checkpoint(sbi);
+ 	if (err) {
 -- 
 2.49.0
 
