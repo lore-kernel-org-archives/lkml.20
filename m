@@ -1,87 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657700;
-	b=Zt44KcXsZs5Y/cJ7ASgWUj3QE1dTd8cuAelfM9LInWwROUM5A/kaxAwd66t8dXpYr+uk
-	 UrcnZchf5sz0YN6IeT5f5LvPZn/5+NyMc4pRPgWFznzkUowzQSaQmgDBvFUvkEPwpmI5N
-	 mINB31DrN4sqVNh9jlBghI8MxW5AfIrQPjYVefTdX76rrXRDRs676FPAdYxC693hEoE2C
-	 7D5RovMjFJZoIlU3melUhFEwPtEYWMt8LEYOkgeOz93VClE5dgUcRa1g0DqvS+oMMZ4N1
-	 Tp7dyDsBSWfuOq4WK46+idbrk+3aHrjoF0oi22GeHxomsbRWyYmJLxapxq2M1UTykiA==
+	t=1792657762;
+	b=zkYGAzTyW+Vv0gAHMKhVWaXegCQY0e71kt9x+zJQZ0OkGQ1adg6G1HTn+4xsjyYMymE2
+	 Ci0o8cvNQQCGDKT8M5Xjrmd/AGGFPhxlJuAiq3O3nvD0JLyMjwgZPjKOxzx0Z6OlQgrMm
+	 jpfM416qmljN2a1fQ5juRnFShmQIRI8VXWnW4fniXM4zOiNYOLyWZk6dHpSSmzzre/WQ3
+	 TWFjJSapOyTLNX/Vw6vvTcvOZxSYIkPwSr/e6bqSo3t5RmknYTF+INMEXPL8HJgvW8ECJ
+	 wDXFT3gf5sxI9su6cziUEYiHJQpaYNgtRbzHohabP86t51VuxY+G7Km9HY7Vts8zQbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657700;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=iwLOjvHCtgaLp2E9XIBdvGe/pxFGO4huYHU7gKZLKOA=;
-	b=he3Tdz+Ozg8UHho6PYtcwgLhd8VRFeOvKtki04Y0CsOpdUnNZJaCYgdV5oD87yhwppiO
-	 ngKmy210SPUgXPYUp9rfl7jgTJRYp8VHQBunkcsnlL2rNhmj0nsatXUaMyaNHLIqlWCyP
-	 KapmwZJhFXdqCcHEixiMI6oOJ4mY/thpTh05rrijY7XLxRDnLhkBtLkkXD1yiOST9OLMw
-	 RBWfwFM8iKnT8Gs4n0iHExytVqtTfvxuOLjT4sa345A8EVc5SdUHgNfxPiM75kl2OdyLo
-	 4PMxHEpm4m8Paf5Mj1h2qOcLuimLi3A6tPMY16hd+XSP5zlr0YAtw8Zv5pbJinRWI3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657762;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=AweYBayPZNWOkLOXG91ofBMSZSAcZuPxGyGqj1NCK1M=;
+	b=L9qeYj+2N+EV1zd1NRh/3tHlOyvHtTcth8oBOMu5zIhrsR8mb7TtHQW51vTqE6m822qj
+	 xfDoXj73tSNcMpl3LNcMU7hwxYPx2YWFQJ+Fh7tHQiRiLiKUX5h3yJqxUizRtf3DLy4Mn
+	 QVIEgS3ZNtoNcIxrmOVufSaeZ9xWmTseDBPtvaJLLchTxGlaFvFs/SnQ3I+E0Pu1nnLEv
+	 +dTwMYg6yO8NhsjBihjbiEhGPvVWQabfhOCXn0h3ZMV1ElFIlHBOZJ4TtRUWTyJSVE03q
+	 Bd1uOss+s28fUSmCcwnVQaP8iAxKVTaU2PyrRk31XBEQwbwKvdev3GRNVhiiJ504ouw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jUsa9ftz;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sTpcUNRc;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G6fgFST3;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sTpcUNRc;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G6fgFST3;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64287606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:28:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64287606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8102B606A319;
+	Thu, 22 Oct 2026 08:29:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8102B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jUsa9ftz
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1e266fca2so10898165e9.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:28:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792657699; x=1793262499; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iwLOjvHCtgaLp2E9XIBdvGe/pxFGO4huYHU7gKZLKOA=;
-        b=jUsa9ftzzGj06xox8H7waPRA+MWch8Q8m/vEUpJAbBUKEmdriaGIcGTRgFRBlvCRE1
-         qxLU5zh7C8/h6jaHuYPa92SlX5IOhMBpH1hP/Qz4hm3oT1E6oKhPvqoWEByxLPhnxaoi
-         Z96BbuMoSzDdjohCPU00ExWEb0Z+todJbtyAc23HKtpbug29DrdQY3a0S8R1PQIKMUDr
-         BA0L+K0uGlzO1uDvunDTvBf5wVWm39MjHGUgss5l1l+4OgJ6DD5eB2Hg4q120N8ODQ60
-         EZPe17VXTFVNM4Gk8YLkRxN+xZGqsb7SAeplwX61a+3J4rBQBze3PVJFOi/41NAOLH4j
-         I86A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792657699; x=1793262499;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iwLOjvHCtgaLp2E9XIBdvGe/pxFGO4huYHU7gKZLKOA=;
-        b=mY9hVPAy94gGf94s6aSwfY/swuOtd0jj+aQHwy5TIRxE5DRkBbO1y4XeUkzfhDJE5D
-         FvPImFn6qsyEoIW9MEhHDythn+Lj3SduyR4leSe7w0Ct0AvBqkCURcWS1VSdMAstIm1O
-         NkUkGNXogKiPXD7npcFyzOH0zYIaLKuS6y9VJd0kbu46SHWa19mVlbFfrjon9/BIXxCv
-         v2h0v6Nwrixf1RAP5Qx3ire89vWEKBX0M9Ov8eYeeI+5zoEVwIlDyndnwnw7QlwWG4HY
-         Ouxtz/HGz9knxnQ5zReaAS0AZtyKbLxHIO9v78aJM+d4x64IDq8XTZGUpeFkbSKnPUnZ
-         nvmg==
-X-Forwarded-Encrypted: i=1; AKwUvBxWxSfjls8LGuaywmIO/xKIFNPpVp1SyQ5HEeHGILD3PZq+THowX9H7awcGjDC0r9YTPkkqzxTOxwMtYu8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqiq2L9cYk9l3vMmLkwBm5SloKnbF3DBKeHaL4BfSNB3e7kH6c
-	wECxIF/GKjJX4a37VC/NPmSR40NQERwvFm8lMjUkm0AN8AQLQ5+S8wLVNSGyvab3bDw=
-X-Gm-Gg: AYBFou1CjyLm9m2WVb1sg64CIg9U9sTxAGnhBzsuv2W10aD4pz0/TGCiBiS0o3FW8AE
-	phA1thIZsAPWkR9SidlePxNDP+y6xZGdnvwObmDQxqxx4yqx9wTn5MEAAlqxQtS1VcwjZJ+sKn9
-	yl8Ss7JhES1x/SoQYOdin/gpKuwvD/vfuUawicDPe8xSIP35xqm+NOI7J5oMEee+3V753HPMgx/
-	ZbDawk0mnKiAW0LjtZIc4HOUDTEhQEsQW5/OrUdqXQkJCp0VJt3zcGFaCcV+55SVHCI9Kc/mQ3g
-	BqB9hlPED3xpQzIKSpTdwk4bvlJk5CXY457SX/TfJgaosm9AZUI+KUctd7PC8EAebfOcmLIQCj4
-	1WlLk3ml6MyPEuDv2Ek+qA4szVTjH88gSWCkg8BRRvxu1eDmcxQ6sjTdXp1bjIYnYs/3FOcu4V/
-	IFO8jOEuXhtt48vVRGIrcLVimcURumIo6t93wdvpG0nVrF+9IyWSFC4fxmDRE87VFu/gMT5E0rl
-	/Zn2/WcFvI6l7alprbrFAB2WUfhanMsk6bEGBjP98gURSZHEgpX/pQvmnvJ
-X-Received: by 2002:a05:600c:8b6c:b0:4a0:1b14:e283 with SMTP id 5b1f17b1804b1-4a1fd8a7de3mr103361785e9.1.1792657698735;
-        Thu, 22 Oct 2026 01:28:18 -0700 (PDT)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203963f3fsm62310355e9.2.2026.10.22.01.28.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 01:28:18 -0700 (PDT)
-Message-ID: <96e51831-ef50-4d0f-aa5c-74d5e3c8ae9e@linaro.org>
-Date: Thu, 22 Oct 2026 09:28:16 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sTpcUNRc;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G6fgFST3;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=sTpcUNRc;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=G6fgFST3
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 896DF1F830;
+	Thu, 22 Oct 2026 08:29:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792657759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AweYBayPZNWOkLOXG91ofBMSZSAcZuPxGyGqj1NCK1M=;
+	b=sTpcUNRccOMTPmE2FZz4su04pHP2Kk0bw0GJfcNtTHPSIvsaJADpxRJkgOsSBcUPvRHcZs
+	CmZTM7ZG3SJjZQIE1DbX05GmGHyM9YCLXFvwtuH1EqWgCtfydg8qmOiuvdHD3IfBzsCvRg
+	kHXq8SGB5M+dLow0IfZculTqHD1tEAw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792657759;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AweYBayPZNWOkLOXG91ofBMSZSAcZuPxGyGqj1NCK1M=;
+	b=G6fgFST3Uu0u6934OlunVlIK82IeDqzyO9FAdjc4uIn07Mt9Ccrcr5yaBXiREgsI2bQygw
+	CC7iHpML9zXnqoDA==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1792657759; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AweYBayPZNWOkLOXG91ofBMSZSAcZuPxGyGqj1NCK1M=;
+	b=sTpcUNRccOMTPmE2FZz4su04pHP2Kk0bw0GJfcNtTHPSIvsaJADpxRJkgOsSBcUPvRHcZs
+	CmZTM7ZG3SJjZQIE1DbX05GmGHyM9YCLXFvwtuH1EqWgCtfydg8qmOiuvdHD3IfBzsCvRg
+	kHXq8SGB5M+dLow0IfZculTqHD1tEAw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1792657759;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=AweYBayPZNWOkLOXG91ofBMSZSAcZuPxGyGqj1NCK1M=;
+	b=G6fgFST3Uu0u6934OlunVlIK82IeDqzyO9FAdjc4uIn07Mt9Ccrcr5yaBXiREgsI2bQygw
+	CC7iHpML9zXnqoDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 40F82134E6;
+	Thu, 22 Oct 2026 08:29:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 1SmDBl/J2Wo3KgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 22 Oct 2026 08:29:19 +0000
+Date: Thu, 22 Oct 2026 10:29:18 +0200
+Message-ID: <87y0bqcf4x.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: songxiebing <songxiebing@kylinos.cn>
+Cc: tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda/generic: Use "Input Source" for the capture source selector
+In-Reply-To: <20261022080904.1740256-1-songxiebing@kylinos.cn>
+References: <20261022025743.520258-1-songxiebing@kylinos.cn>
+	<20261022080904.1740256-1-songxiebing@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,46 +111,62 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/4] perf: cs-etm: HW_ID improvements
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>,
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Leo Yan <leo.yan@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>,
- John Garry <john.g.garry@oracle.com>, Will Deacon <will@kernel.org>,
- Mike Leach <mike.leach@arm.com>, Leo Yan <leo.yan@linux.dev>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>
-References: <20261002-james-cs-hw_id-output-failure-v3-0-1d8b6ef339c8@linaro.org>
- <2bc4b058-3a5b-4a9c-a469-eb8c93215594@linaro.org> <atjDCpTIrchbCLt7@x2>
-Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <atjDCpTIrchbCLt7@x2>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-
-
-On 21/10/2026 14:50, Arnaldo Carvalho de Melo wrote:
-> On Wed, Oct 21, 2026 at 09:42:24AM +0100, James Clark wrote:
->> On 02/10/2026 12:15, James Clark wrote:
->>> James Clark (3):
->>>         perf: cs-etm: Don't add global v0 HW_IDs to unformatted queues
->>>         perf cs-etm: Free partially created queues
->>>         perf: cs-etm: Respect --no-itrace option
->   
->> Hi Arnaldo,
->   
->> Is it ok to take this one please, Leo has left his review tags.
+On Thu, 22 Oct 2026 10:09:04 +0200,
+songxiebing wrote:
 > 
-> Thanks, applied to perf-tools-next, for v7.4.
+> >It must be rather a problem of PulseAudio, and it should be able to
+> >handle Capture Source, as it's been used for most of old AC97-based
+> >cards.
+> >
+> >Reverting this old behavior change (since 14 years ago!) is just
+> >no-go.
+> >
+> >
+> >thanks,
+> >
+> >Takashi
 > 
-> - Arnaldo
+> Thank you for reply.  You are right -- changing the name
+> unconditionally was not well thought out, and I agree that reverting the
+> long-standing behavior is not acceptable.
+> 
+> Would it be acceptable if I add a flag to hda_gen_spec (e.g.
+> use_input_source) that decides whether to use "Input Source" for the
+> capture source selector?  A codec driver could set it when needed, while
+> the default behavior stays unchanged.
 
-Thanks!
+That can work, but I'd rather check further why PA doesn't work with
+Capture Source.  If it's something like an element that doesn't match
+with the actual input, it's a driver's problem and we may work around
+it somehow.  But before figuring it out, it's not wise to blindly
+work around something just because it looks as if working.
+
+
+thanks,
+
+Takashi
