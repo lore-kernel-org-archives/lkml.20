@@ -1,63 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792694070;
-	b=qwMY03GYHUziOapQQbD7kN/KyzfdojCfChPG7AwOIvJ88QPbSbzSVDviAlVEpVxNsILy
-	 UCaOnTM5uTbEj+DpNy2xFyYmtjgnkrhnIsiDsPfIuM7wxg9wlaSWMb37OstqVU1pthm9M
-	 MqUClbs5XkhckdvnsqVnD3MJclVUzqdcC/aTCBQhmaBjLDTFRVT0qEEnXelWCqBzMXlfp
-	 Wg9NFjyZx8hWky0k45iTQ93by2Qyh4Y7UlRcynF+qZpnyUrsmW/JmUK2FZ7vbgPn/nSfR
-	 v1sWyJk+uQxZKOeofGXRNfXTtEXS1ne4kAXbDxu425IFl8jgO3iIOFDsF0QhGo3sDpg==
+	t=1792694198;
+	b=cU2h+ufV2SN/oX9T8Zw8GXQwGR+DpsjwOKQImbPXL9iKsN1CEE+bMtJmdswznlGaaKu1
+	 FxcyaiTdBDguUgnl24dMom+QvXbq/FO8iqkEorBJj3slo/ssXgLWcLnOd+R/bONcjz4Gy
+	 V2n/PdemDrLxHBA3JLR+7VU20WX050JgWs3+RqiHakF7ObYnvvCVw5l9KXw3ml1d+I2rt
+	 L6FZQ1gGEKB0OYl89Bsg3FmVPe+GjdD1gtVNp9UtLDl1BAQUQf9nbfdepsUBwCedbwTvh
+	 V2DQSWfl3Z/DhPCZ2S1iqnjgTJzQo8x6MnnRU7efsuYuFEpsiL1cd0qMCdrgsepyDUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792694070;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=PdkRaccD1btVOH0LBu6sQ5YBHpxN2f5z22x9TBYOydk=;
-	b=N5seR3daF54LEJuJ/wP9KHytHBaCm0PLqvfpJO4yhpnyzzxuE8Ei7zpuPu7OG8PGPNn6
-	 ywqjFrH69MuJnZ0feIsOkx0JLNOEcAQg2zmzjHFK5FB29Qvdb0GzAGXgHcRqHVSoPfLJM
-	 giSZYqnoq+GZLiwTHaGqLrkV/qHzGjUwOV6faccY0oSphtlbJzLZb+tlzsy+Xu33a78sf
-	 5eOgnPAViwQz4fdfhKCtY/Y//87a9KTnVHZCrvcK0PRvYqxlLJj6ALbde/e2QtWaH3z4e
-	 E/jmdB5lRpjhV3LhdL8ykDEHaxBufuvSWLb6oN/eN8e0IRUK2UEingW+pH4yZKg1yag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792694198;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=hMJO7okefCo16JBnjmJNL1CUuu6f5S3gnSgt1A1bKKw=;
+	b=peHxEv2+NPIxPn783KfXKvgssEXTg4XQSrmeP2ED36V+QTD3/u2nUK/YfLNhkYIBqlKY
+	 FOm7HCzte5ocJuSyvUtFXdUy/QHIBtjrAaogJnWhs1Poxwjnt/4TZS8f9SEyna246p0WB
+	 HgtopXjSFYFeqsI1h1aWCW3zes4bpJFDHdaN6FG/m9foq+0wyeXrxLlosbniuVuF8aBuQ
+	 S654i380yiaIId9n8r28t3Mm8MJI6KwBZKnBL3UuXOpES2k+eclbni8dShOuSZa35rO2J
+	 bfoU8yu9jaqZtC5ogmHrvaYJaimn9Epr/OAoo7kqzdZItfxyfxqsybLtZhS0MbtSmtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQzstwxQ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=toxicpanda.com;
+	spf=pass smtp.mailfrom=toxicpanda.com;
+	dkim=pass header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=JmaP09OS;
+	arc=none smtp.remote-ip=209.85.222.172
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1A1160A2635;
-	Thu, 22 Oct 2026 18:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0538F606A320
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:36:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0538F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=toxicpanda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toxicpanda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VQzstwxQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846921F01829;
-	Thu, 22 Oct 2026 18:34:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792694069;
-	bh=PdkRaccD1btVOH0LBu6sQ5YBHpxN2f5z22x9TBYOydk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VQzstwxQauE/bWiwmh+0QiBkB9soaW5z0ayO9tLQCNDZ0gvkIf5yapSuHnUyLGhAx
-	 mUfKib5lQvx2ivSwWcXsGfHPQ8Q2JeCIKS6YvndjemkH2KKFvdaLjSPJaGyzGodFlS
-	 PXAVz1Et9DnS5A3EQXJe9OpKkg2GHmoOJnIiih2fU6ZPG4ituaOHvWOZpVyt/tlG3D
-	 0xtcga462Gg59c90mTPksjQUPejxATcca12Z6zaCOoN2Qz4pnbYPpxPHTz5dFkFQfr
-	 V7lZVvNNGo37fN/2TyfvIWZ2BIezEw51hK6yd4a5S00zouOOt0xVn3W5oDmeD+xQV8
-	 wnCbQCW7gEKwQ==
-Date: Thu, 22 Oct 2026 19:34:25 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
- toshiba,tc9564-reset.yaml
-Message-ID: <20261022-clench-drum-5907c17cb8d2@spud>
-References: <20261012164354.3872326-1-elder@riscstar.com>
- <20261012164354.3872326-2-elder@riscstar.com>
- <20261012-shale-rosy-805c49f6c404@spud>
- <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
- <20261012-numerous-flatworm-9e4cfa659541@spud>
- <325b8836-61a2-4e1c-98e3-92f0a5177f9d@riscstar.com>
- <20261013-stump-reactor-055d05dc5b3a@spud>
- <b904f4ea-e198-488e-a6dd-476d744593da@riscstar.com>
+	dkim=pass (2048-bit key, unprotected) header.d=toxicpanda.com header.i=@toxicpanda.com header.a=rsa-sha256 header.s=google header.b=JmaP09OS
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-93f3c895a0eso5418585a.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:36:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=toxicpanda.com; s=google; t=1792694196; x=1793298996; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hMJO7okefCo16JBnjmJNL1CUuu6f5S3gnSgt1A1bKKw=;
+        b=JmaP09OSsKmcspZYEx0c54x/72P25RZFz9cFO86XuF95EqPCjXHktx4TDzm1hyIXe1
+         5ImvA30PcO83zFsyz8g/Vhz8UGM+Zixt1UiDy2OEVMnz7hGHKiaOPMv9SiOTq//4c1KK
+         dfsJHt0zlJ/LTyyFF518cZV6ztNeydYWhbvUIIUhlm7BjkXOCh3dzfeb+0Z1WsmpdJyB
+         ni0qo4QT/4af/AcwC5uSD0cKkV9tSn7jhIk29vbrYk9CxOyVLEZCLJZukiiDjKO2wBlu
+         7B+sep7qrgGCi8VUKp51xymH624FjeBI/hWq0UYiuAdaUztCK6taf5wxGfAUuzqWyWce
+         lWhQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792694196; x=1793298996;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hMJO7okefCo16JBnjmJNL1CUuu6f5S3gnSgt1A1bKKw=;
+        b=tjWcuOC905n44eVKLRVDpHCAQv7fcCl5ilAGrUmNRw7mZbQIJM4EGzMHzfuVJ8gLHG
+         lGRq/IUZTn1geZHGjgwkFW5xarSawXF45NP+jLsA1rsUgLLqrRvIJBMcsgGcVDk2x6Te
+         BbTztyEMwj1VBw8aNfFht9HfbrUWljAGL8UwSyFQOhLqc6euQwEPgd726zjI+im1Vwn5
+         lt92g4lrMhJhSVWG65J8HeUo/MGNls7MO6TzdDgMk57GS2d/NKO7px5+VqY8tHeWG0Rk
+         1jUve03So3JPm2s8+3NxMLptsqFTcQx6i1sHqbI5mt46AXGH5l0hNfNHdV40Jl19evrU
+         MmHg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgtGlgoAx/auOtM2U/hUi10+59pe8pqY4PeuOtttTrpt9XPcac4x7qlOA80vgSqS0FJt5alKeqQCRkm5U=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKz9kelfo5yEbofDdxbF3jcjV+0rsycTPY2cpO0+wEaoF6MDJLu
+	jtPVTuzyFTrHwlwlW5ekW/sd1t9bpxvgGOoPn+mxnyrIrhqOH/7FN/Fcm+4+YW1qtZE=
+X-Gm-Gg: AYBFou1te82KbSxNvccaKxf6gbbF4k48RMaqO4QtoBRtJgR6d3J1GuenSOLvy3oSVIb
+	WyduWch3SO4JsrSGtFDnxvmkJ7YJdX9Ro7mQYl4zfEcFNmWMp8AuRROFGcLK9wuZJcXS21uUzlk
+	5ECv48cy8oD20fUIaJzA2OIvzfRD6Sy2oLNIm+yhLZZAOih1xYrpWoHEhk9//WnQiMVRofh/2So
+	WFoSE0HBXCQ3Fw3MuEwzl13Ozwliz50obgyr0QCLV8ZqYs0tO4c/kE7hFLkY5LD8GH5AWN8fq1T
+	WefMqMXPylNGoHsxpcsjfgwwQZBwCzVXamNHhRpU8qnVQ8F5dalsUCTBGe0j9ZUuaPH98AaK4np
+	us/TzS7DCaq5YQBuQVJPOTka1HjZt4Mn7K5GHfabxKPn5TSit3kuc0xOancCwMX1b5Jw29xhVFr
+	rrINUd6toPx4C75lRjOoM0hrDDIFHP/8V6NF8c6qlf+9CDfYc3GvE/y07dtjPAXmVUSZECQFu9T
+	riY/1GJ6/yNbggESt/drtfL6BjXIfub1cUkbWHIcq5B9ILKgOLl7+abY3un6WRMGpmm/PHT
+X-Received: by 2002:a05:620a:198a:b0:93f:6375:aa97 with SMTP id af79cd13be357-93f6f8a8819mr50992785a.83.1792694195592;
+        Thu, 22 Oct 2026 11:36:35 -0700 (PDT)
+Received: from toxicpanda.com ([153.61.196.244])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f6fbaf2ebsm18580685a.21.2026.10.22.11.36.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 11:36:34 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+Subject: [PATCH v4 0/5] capabilities: close the ways around the CAP_SETFCAP
+ rule for uid 0
+Date: Thu, 22 Oct 2026 18:36:18 +0000
+Message-Id: <20261022-b4-setfcap-userns-v4-0-88aa0ffaa08f@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,310 +92,188 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xzm8Ckc8K3fo8G/l"
-Content-Disposition: inline
-In-Reply-To: <b904f4ea-e198-488e-a6dd-476d744593da@riscstar.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKNX2moC/33OQW7DIBAF0KtErEvDAIWkq94jygKGcU3VYAscK
+ 1XkuxfcTapaXf7R/Kd/Z4VypMJed3eWaY4lDqkG/bRj2Lv0TjyGmpkU0oAQhnvNC00dupFfazc
+ VHoyCw4tTgKRY7Y2ZunhbzdP5J5er/yCcGtQ+vCvEfXYJ+3b6HPde79fjb7r99rFMQ/5aB87Qz
+ P+2zMAF77QlS8EYYeXbNNwiji4F94zDhbVBs3xgQG8xsjEOdYCjPECwm4x6YCRsMaoyR4t1jCa
+ tCP4wy7J8A3D1E1aDAQAA
+X-Change-ID: 20261006-b4-setfcap-userns-d63185a31ce3
+To: Serge Hallyn <serge@hallyn.com>, Paul Moore <paul@paul-moore.com>, 
+ Christian Brauner <brauner@kernel.org>
+Cc: James Morris <jmorris@namei.org>, David Howells <dhowells@redhat.com>, 
+ Jarkko Sakkinen <jarkko@kernel.org>, "Andrew G. Morgan" <morgan@kernel.org>, 
+ Serge Hallyn <sergeh@kernel.org>, linux-security-module@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, keyrings@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, Bradley Morgan <brads@mainlining.org>, 
+ Josef Bacik <josef@toxicpanda.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1792694191; l=7797;
+ i=josef@toxicpanda.com; h=from:subject:message-id;
+ bh=b/PGE1EHr0+tFSt+l4/WL6aJt3MPRlSgVM4u/FG1+lo=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgUBr36M/n0nWN0DNbnxwzIiCZez6MG
+ JiruuNaSCI/zXsAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QIbko9Fjm4GxuTaTU1MNUfVx7KsRaF+8wS2oO018+hptvfEEeVWoUzK5hrJScCj4n6Xuwun1ymC
+ E1HMTbu6VsQE=
+X-Developer-Key: i=josef@toxicpanda.com; a=openssh;
+ fpr=SHA256:C8kOX2QUJCMqnCX+KEeoqRAjLo9L+ELOSH2NSAJHqGA
 
---xzm8Ckc8K3fo8G/l
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+v1: https://lore.kernel.org/all/20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com/
+v2: https://lore.kernel.org/all/20261014-b4-setfcap-userns-v2-0-fac4d19281d7@toxicpanda.com/
+v3: https://lore.kernel.org/all/20261021-b4-setfcap-userns-v3-0-97c7ed4e43e1@toxicpanda.com/
 
-On Wed, Oct 21, 2026 at 02:50:41PM -0500, Alex Elder wrote:
-> On 10/13/26 12:51 PM, Conor Dooley wrote:
-> > On Tue, Oct 13, 2026 at 08:22:50AM -0500, Alex Elder wrote:
-> > > On 10/12/26 4:22 PM, Conor Dooley wrote:
-> > > > On Mon, Oct 12, 2026 at 02:10:01PM -0500, Alex Elder wrote:
-> > > > > On 10/12/26 1:51 PM, Conor Dooley wrote:
-> > > > > > On Mon, Oct 12, 2026 at 11:43:52AM -0500, Alex Elder wrote:
-> > > > > > > Define the binding for the reset controller functionality pre=
-sent in
-> > > > > > > the Toshiba TC9564 SoC.
-> > > > > > >=20
-> > > > > > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> > > > > > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> > > > > > > Signed-off-by: Alex Elder <elder@riscstar.com>
-> > > > > > > ---
->=20
-> Finally back to looking at this again.  Sorry for the delay.
->=20
-> > > > > > >     .../bindings/reset/toshiba,tc9564-reset.yaml  | 56 ++++++=
-+++++++++++++
-> > > > > > >     MAINTAINERS                                   |  7 +++
-> > > > > > >     include/dt-bindings/reset/toshiba,tc9564.h    | 26 ++++++=
-+++
-> > > > > > >     3 files changed, 89 insertions(+)
-> > > > > > >     create mode 100644 Documentation/devicetree/bindings/rese=
-t/toshiba,tc9564-reset.yaml
-> > > > > > >     create mode 100644 include/dt-bindings/reset/toshiba,tc95=
-64.h
-> > > > > > >=20
-> > > > > > > diff --git a/Documentation/devicetree/bindings/reset/toshiba,=
-tc9564-reset.yaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-=
-reset.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 0000000000000..1908e9539abac
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-=
-reset.yaml
-> > > > > > > @@ -0,0 +1,56 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: http://devicetree.org/schemas/reset/toshiba,tc9564-rese=
-t.yaml#
-> > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > +
-> > > > > > > +title: Toshiba TC9564 Reset Controller
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Alex Elder <elder@riscstar.com>
-> > > > > > > +  - Daniel Thompson <daniel@riscstar.com>
-> > > > > > > +
-> > > > > > > +description:
-> > > > > > > +  The Toshiba TC9564 is an SoC accessed by a host system thr=
-ough the
-> > > > > > > +  upstream PCIe port on the PCIe switch it implements.  The =
-switch
-> > > > > > > +  includes an embedded PCIe endpoint that provides access to=
- various
-> > > > > > > +  SoC peripherals (including a reset controller) via its BAR=
-s.
-> > > > > > > +
-> > > > > > > +  A total of 13 resets are implemented, though two of these =
-are not
-> > > > > > > +  controllable.  Access to the reset controller relies on PC=
-Ie being
-> > > > > > > +  functional, so the PCIe reset is assumed to be deasserted.=
-  Similarly,
-> > > > > > > +  the PCIe controller relies on I2C, so the I2C reset is als=
-o assumed
-> > > > > > > +  to be deasserted.
-> > > > > > > +
-> > > > > > > +  Reset ids are defined in <dt-bindings/reset/toshiba,tc9564=
-=2Eh>.
-> > > > > > > +
-> > > > > > > +  The reset controller uses registers within the same page a=
-s a
-> > > > > > > +  clock controller, so both devices are defined as children =
-of a
-> > > > > > > +  "config" syscon.
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    const: toshiba,tc9564-reset
-> > > > > >=20
-> > > > > > Why does this need to exist as a standalone device, rather than=
- be
-> > > > > > rolled up into the parent syscon node? It doesn't have any reso=
-urces, so
-> > > > > > it should be doable.
-> > > > >=20
-> > > > > This is along the lines of what Krzysztof has mentioned, and it
-> > > > > seems clear I must be missing something.
-> > > > >=20
-> > > > > > This kind of thing for a syscon is always difficult to review w=
-hen only
-> > > > > > one element is present - where is the rest of the syscon's
-> > > > > > functionality?
-> > > > >=20
-> > > > > The reason a syscon was used was simply for the benefit of
-> > > > > having a shared regmap that the reset, clock, and DWMAC drivers
-> > > > > can use.  All three of those drivers use registers that reside
-> > > > > within a single page of addressible MMIO space.
-> > > >=20
-> > > > What does the dwmac use the region for? I assume it's for some misc
-> > > > register and you don't mean that the dwmac lies within the region?
-> > >=20
-> > > That's right.  There is one register (per DWMAC--there are two)
-> > > that contains one bit (bit 21) that is used to signal that initializa=
-tion of
-> > > the PMA is done.  We assert reset, set up
-> > > clocks, then deassert, and finally wait for this bit to be set.
-> > > The DWMAC code uses a phandle property to refer to the syscon,
-> > > like:
-> > >      toshiba,config-syscon =3D <&tc9564_config_syscon0 0x1070>
-> > >=20
-> > > So again, the purpose of the syscon was to get the automatic
-> > > regmap for managing the region, which contains registers used
-> > > for distinct purposes.
-> > >=20
-> > > After making the syscon be the parent of both the reset and
-> > > clock nodes, I *removed* the "reg" properties and just defined
-> > > those offsets in the driver.  Maybe that was a mistake.
-> >=20
-> > No, that's typically what happens in the setup I describe below, so
-> > that's not abnormal.
->=20
-> Thank you for confirming this.
->=20
-> > > > There's nothing inherently wrong with the act of using of a syscon =
-here,
-> > > > what I am actually complaining about is how you are using it.
-> > > > In cases where a syscon region contains clock and reset, the typica=
-l way
-> > > > we want people to do this is via something like
-> > > >=20
-> > > > syscon@f00 {
-> > > > 	compatible =3D "toshiba,tc9564-bla-syscon", "syscon", "simple-mfd";
-> > > > 	reg =3D <0x0 0x2000>;
-> > > > 	#reset-cells =3D <1>;
-> > > > 	#clock-cells =3D <1>;
-> > > > };
-> > >=20
-> > > In this case it seems I must create a syscon driver that provides
-> > > combined reset and clock functionality.  Is that right?  (This
-> > > series is the result of separating the reset code from the clock
-> > > code in a combined driver.)
-> >=20
-> > There's two ways to do it, depending on what sort of device you have.
-> > If you have a clock controller that also does reset, the preferred thing
-> > to do is something like
-> >=20
-> > clock-controller@f00 {
-> > 	compatible =3D "toshiba,tc9564-clk";
-> > 	reg =3D <0x0 0x2000>;
-> > 	#reset-cells =3D <1>;
-> > 	#clock-cells =3D <1>;
-> > };
-> >=20
-> > and in the clock controller driver probe the reset controller driver as
-> > a auxiliary bus device.
->=20
-> My last version combined these two but did not make the
-> reset an auxiliary device.
->=20
-> > You have something else though, because there's assorted other functions
-> > in here, including the dwmac and things you don't use yet. In that case,
-> > I would make a node like
-> >=20
-> > syscon@f00 {
-> > 	compatible =3D "toshiba,tc9564-bla-syscon", "syscon";
-> > 	reg =3D <0x0 0x2000>;
-> > 	#reset-cells =3D <1>;
-> > 	#clock-cells =3D <1>;
-> > };
-> >=20
-> > and in the syscon driver use MFD_CELL_NAME() to probe both clock and
-> > reset drivers, and can use device_node_to_regmap(). Your dwmac stuff
-> > (and any other future stuff that needs a syscon reference) can use the
-> > automagic syscon regmap stuff that we've already talked about.
->=20
-> This sounds like the way to go.
->=20
-> > Note, there's no "simple-mfd" here, because you have no child nodes.
-> > The point of "simple-mfd" is to probe those kinds of devices.
->=20
-> OK.  Let's see if I understand what you're saying.
->=20
-> This approach uses:
-> - A single top-level syscon driver (under drivers/mfd?) which
->   probes based on a devicetree node compatible string ("toshiba,...")
+v3->v4:
+- 4/5: a v2 security.capability xattr skipped the new checks, it was
+  written as is whenever the writer had CAP_SETFCAP over the
+  filesystem's namespace.  It now only does that when the filesystem's
+  root user is within reach, and goes through the v3 conversion and its
+  checks otherwise (Sashiko).
 
-I'm not sure if it needs to be under mfd (there's some in soc/foo too)
-but I guess so.
+v2->v3:
+- The setns() check in 2/5 and the ptrace check in 5/5 only apply to
+  namespaces that map the root user of an ancestor within the creator's
+  CAP_SETFCAP, or that have no uid_map yet.  Root users stored through
+  an idmapped mount are left to whoever sets up the mount, so a root
+  task without CAP_SETFCAP can join an ordinary "0 100000" container
+  again (Serge, Christian).
+- 2/5 adds cred_may_setfcap_userns() for those two checks and
+  cred_setfcap_reaches() for the uid_map check; nothing outside
+  create_user_ns() calls cap_setfcap_level() directly (Serge).
+- Fixed the cap_setfcap_level() kernel-doc, @ns doesn't have to be the
+  cred's namespace or below; cap_capable() is compared with != 0
+  (Serge).
+- Picked up Bradley's Reviewed-by on 1/5 and 3/5, not on 2/5, which
+  changed.
+- Rebased onto current vfs.all.
 
-> - That compatible string will require a (fairly simple) devicetree
->   binding
-> - That driver initializes a regmap which will cover the space
->   defined in its devicetree node (<0x0 0x2000>)
+v1->v2:
+- The state lives on the user namespace now: ns->setfcap_level replaces
+  ns->parent_could_setfcap, and cred->setfcap_level is gone (Serge,
+  Christian).
+- New 2/5: setns() refuses a task whose CAP_SETFCAP doesn't reach as far
+  up as the namespace's setfcap_level.  It applies to every user
+  namespace, not only to those that map the parent's uid 0, because of
+  idmapped mounts (Serge, Christian).
+- 5/5 asks a tracer for what setns() asks for, also when the namespace
+  doesn't map an ancestor's root user, again because of idmapped mounts.
+- Dropped "userns: don't let setns() lend the right to map uid 0", the
+  setns() check covers it.  Its nested case moved into 3/5, which checks
+  the opener and the writer.
+- set_cred_user_ns() isn't touched anymore, so the put-before-use in
+  userns_install() is gone (Sashiko).
+- Rebased onto current vfs.all.
 
-I don't think the driver has to even do this at all, e.g.
-sg2044-topsys.c doesn't. Whenever someone requests the regmap it will
-get created automatically since you're a syscon.
+What it does now:
 
-> - That driver has an array that uses MFD_CELL_NAME() to define
->   cells for clock and reset
-> - That driver will call some form of mfd_add_devices() using the
->   MFD cell array
-> - The stmmac driver can refer to this device node with a phandle
->   property to specify the syscon that provides the regmap it needs
->=20
-> And then, for the clock and reset devices:
-> - A clock platform driver (under drivers/clk) will match based
->   on the driver name (matching what's supplied by MFD_CELL_NAME())
-> - A reset driver will be similar (under drivers/reset)
-> - As you mentioned, these drivers get at the regmap they need using
->   device_node_to_regmap() (or dev_get_regmap() or something)
+Every user namespace gets a setfcap_level when it's created, which is
+how far up the creator's CAP_SETFCAP counted.  If its tasks can write
+file capabilities for the root user of an ancestor, because the
+namespace maps that root user or can still map it, setns() only lets in
+tasks whose own CAP_SETFCAP reaches that far, and PTRACE_ATTACH asks the
+tracer for the same.  The checks on the way to file capabilities then go
+by the namespace instead of the cred: a uid_map write that maps the
+parent's uid 0 (opener and writer), and setting security.capability.
 
-I think "regmap =3D device_node_to_regmap(pdev->dev.parent->of_node);" is
-the correct way to do it.
+The visible difference from v1 is the setns() restriction.  A task
+without CAP_SETFCAP can't join, or attach to tasks in, a namespace that
+maps the root user of an ancestor, such as host uid 0, and was created
+by a task that had it.  A task that joins takes on the namespace's
+reach.  Containers that don't map host uid 0, unprivileged users and
+anything with CAP_SETFCAP aren't affected.
 
-> - And despite these being separate drivers (from the syscon driver)
->   they don't have devicetree nodes, and the syscon node itself
->   defines the clock-controller and reset-controller properties.
->=20
-> Does that sound right?  Am I missing anything?
+Testing: the v1 flows plus the setns() and ptrace cases, 41 in all, on
+vfs.all with and without the series.  For v4 also the v2 xattr route: a
+task that unshared without CAP_SETFCAP mounts a tmpfs, writes a v2 xattr
+on it, and an overlay mounted from the initial namespace makes a uid
+1000 user run the file with CAP_SYS_ADMIN.  That works without the
+series and with v3, and gets -EPERM with v4.  Every flow gives what's
+expected, and the only ones that changed from v2 are the five idmapped
+mount and "0 100000" container cases, which are allowed again.  The
+pidfd, namespaces, mount_setattr and ptrace selftests give identical
+results with and without.  The TLA+ model, which has no idmapped mounts,
+finds no violation with the narrower checks, and still finds the setns()
+bypass when the check is taken out.
 
-Sounds about right.
+--- Original email (v1) ---
 
->=20
->=20
-> > > To be honest I don't have a lot of experience with proper use of
-> > > syscons.  I have no problem writing or restructuring the code,
-> > > it just seems I need help knowing what the final structure should
-> > > look like.
-> > >=20
-> > > > because the child node exists for no other reason than to access li=
-nux
-> > > > driver probing in the most trivial way. If there's some features th=
-at
-> > > > actually need a child node, that's fine, but those will end up being
-> > > > things with significantly more properties or things with competing
-> > > > property use (e.g. if there were devices with buses that need
-> > > > address/size cells).
-> > >=20
-> > > I'm not sure I understand this statement (and that might be part
-> > > of the problem).
-> > >=20
-> > > There are other devices (currently just two DWMACs, plus an
-> > > interrupt controller that generates MSIs for each PCI function)
-> > > that use the reset and clock signals.  I haven't yet
-> > > posted the reworked DWMAC code but I just sent the first version
-> > > of the interrupt driver yesterday.
-> > >    https://lore.kernel.org/lkml/20261012190245.3988619-1-elder@riscst=
-ar.com/
-> >=20
-> > Here I am talking about why child nodes aren't correct in your case.
-> > Neither clock nor reset needs anything other than the relevant #cells
-> > property, so the only benefit of a child node over having these in the
-> > syscon node itself are to use the compatible to probe the driver.
->=20
-> Yes I now see what you mean.  By using a MFD model the child device
-> is just a function provided by the top-level syscon device.  The
-> driver code still benefits from the device model, but the subordinate
-> devices match based on the device name and not a devicetree compatible
-> string.  And no nodes exposed in devicetree are needed for the clock
-> and reset.
->=20
-> > Child nodes should only be used when the functions provided by the
-> > syscon have conflicting properties or are very complicated (I would
-> > probably always use a child node for pinctrl for example). It'd also be
-> > reasonable if the functions are reused across devices, but that's
-> > rarely the case with clock or reset controllers (or really anything
-> > that appears in these kinds of "random register regions" in SoCs).
-> >=20
-> > Does that make more sense?
->=20
-> Yes, it definitely helps a lot.  I realize I might not have every
-> detail right, but I feel much better about how to organize this
-> (and presumably this also addresses what Krzysztof was asking for).
+Hello,
 
-Yeah presumably!
+Commit db2e718a4798 ("capabilities: require CAP_SETFCAP to map uid 0")
+stops a root task that has given up CAP_SETFCAP from creating a user
+namespace that maps uid 0 and then writing file capabilities in it that
+the initial namespace honours.  The check only looks at the task that
+creates the namespace, so if somebody who did have CAP_SETFCAP created
+one, there are still several ways around it:
 
-Cheers,
-Conor.
+- setns() into their namespace and write uid_map from inside (patch 2)
+- write "0 0 1" through a uid_map fd that they opened (patch 3)
+- setns() into a namespace of theirs that already maps uid 0 and set
+  security.capability there, no map write needed (patch 4)
+- ptrace one of their tasks and have it do any of the above (patch 5)
 
---xzm8Ckc8K3fo8G/l
-Content-Type: application/pgp-signature; name=signature.asc
+On an unmodified kernel we took a uid 0 task with CAP_SETFCAP dropped
+from its permitted, effective and bounding sets and, through each of
+these, ended up with a file that a uid 1000 user execs with
+CAP_SYS_ADMIN in its effective set.
 
------BEGIN PGP SIGNATURE-----
+Patch 1 adds cred->setfcap_level, which records how far up the
+namespace tree a task's CAP_SETFCAP reached when it entered its
+namespace, and patches 2-5 check it.  Patch 4 is the check that closes
+the class, the map patches make the uid 0 map rule mean what
+db2e718a4798 meant it to, and patch 5 keeps ptrace from borrowing what
+the target is entitled to.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatpXMQAKCRB4tDGHoIJi
-0tDZAQDNoz1ST1W6mKcr6UWcD+2kUJGWeafT0Fy12j/m38MKzgD8D631WfDzyKD/
-4D4ACb7geIEXoFyGqAX36FWdXods1gY=
-=9MND
------END PGP SIGNATURE-----
+This does change behaviour.  Everything new is -EPERM:
 
---xzm8Ckc8K3fo8G/l--
+- a task that entered a namespace without CAP_SETFCAP outside can't map
+  uid 0 of the outside or write fscaps for that root user anymore
+- a uid_map fd opened by a task with CAP_SETFCAP can't be used by a
+  task without it to map uid 0
+- if a privileged task maps "0 0 1" from the parent for a namespace
+  created by a task without CAP_SETFCAP, that namespace can no longer
+  write fscaps honoured outside
+- PTRACE_ATTACH and PTRACE_TRACEME fail when the tracer gave up
+  CAP_SETFCAP and CAP_SYS_PTRACE, the target didn't, and they share a
+  root user
+
+Rootless containers, privileged runtimes writing the map from the
+parent, nested unprivileged namespaces and containers that don't map
+host uid 0 aren't affected.  The ptrace check is one compare for
+targets in the initial namespace and in namespaces entered without
+the capability.
+
+Testing: a set of flows run on the base and patched kernels, every
+bypass route above gets -EPERM with the series and the 16 legitimate
+flows behave the same.  The capabilities, namespaces, ptrace, pidfd and
+proc selftests give the same results before and after. Thanks,
+
+Josef
+
+---
+Changes in v4:
+- Link to v3: https://patch.msgid.link/20261021-b4-setfcap-userns-v3-0-97c7ed4e43e1@toxicpanda.com
+
+Changes in v3:
+- Link to v2: https://patch.msgid.link/20261014-b4-setfcap-userns-v2-0-fac4d19281d7@toxicpanda.com
+
+Changes in v2:
+- Link to v1: https://patch.msgid.link/20261006-b4-setfcap-userns-v1-0-f47e7ed66072@toxicpanda.com
+
+---
+Josef Bacik (5):
+      userns: record how far up CAP_SETFCAP reaches
+      userns: don't let setns() lend CAP_SETFCAP
+      userns: check the opener and the writer before mapping uid 0
+      capabilities: limit fscaps to where CAP_SETFCAP reaches
+      capabilities: don't let ptrace borrow CAP_SETFCAP
+
+ include/linux/capability.h     |   7 ++
+ include/linux/user_namespace.h |   7 +-
+ kernel/user_namespace.c        |  37 +++++++--
+ security/commoncap.c           | 183 +++++++++++++++++++++++++++++++++++++++--
+ 4 files changed, 214 insertions(+), 20 deletions(-)
+---
+base-commit: 2c3ba1f1cb416b81d617b92a24a4bcaa48d574e3
+change-id: 20261006-b4-setfcap-userns-d63185a31ce3
+
