@@ -1,89 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.241.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657431;
-	b=rEVTxa1fETZ2jPIpXEPhfbMlsN+Y1/ySTekj7kRF0OItZ0cKH+4Y/y/8I+GfqfuAz3zK
-	 YmbY+0kiY5Be8hxZGnYX00s6aGauJ9RcWp6CwSJD9BCPBBO9XKitC5vq5tsZ121VLRZ79
-	 om8q8sqUEZpsbewMdCR7qjuZxutIgY+iA6/5QgNVobmvJOPrwWRbfyu2Wd2WlGVO3VJGO
-	 Iwu8fAdrAt4ZbenwesLZX3b9MeGP0u8jyH12RTO9ObnhW2w2DvYg/QmgWLlSsm2Lb3l6t
-	 GNF+9kbGRopMfyA/cjT9eZRJej4KRZgSYA7AizGn8HGvmW2zKz4uJe0p8bA9IWrscQA==
+	t=1792657465;
+	b=fmjPPek+PkIftReSolLt8beD2VBniF3GuWOyibo+oQfyGaaAxjWXnIpbdJoo3fooJKv+
+	 g5sDCe2MQmedpxiDhPJhUursrcR1h9paQyWAK5I5sZSva9JlZviw0upwetkMUbiCwhCnU
+	 zcYTt/3LAzIOnImoLK0J408CMfw9SxWaniLgNFSPLLgium4gji2hGjUEgYT7ISXh7t3Bt
+	 TLCYj1MiByFoTYf1FFE6LhJNcR/JaAMxToBZggV8EGAHZ4BoTiDRBkeYr6JrLGt1VTcV7
+	 AYOB4N7YILmdw2erG7DpffjMSL07487ktuJ9/reexTnSrE/AuqMrFa5Wh4CtyYpk+jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657431;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=OpCHeT+ItKv8nHJPT/Wkk6sG+p0mmdo47Mm35DWfsss=;
-	b=AyN//PUUfZLJveCIy4HF+0HcoP53yyY6vdESuaQ8pPyNfV5CWXgyV34ZGQ2tSgV8dxTh
-	 z1k2sOaDIbtm76E+cDjLf5D6gQtwo+onyrRHrt2cqSo+8rFPgd5GkEfVdaiF2thdfji2i
-	 hOrKM5c38hr+VKMc+x9eWMQu9lvdiFYkQTq1KhJjsl1pxQvszAD/cNyi2iaixqp70Pjnj
-	 2dW/XtWlRH/ARI1UWnOON2KGmNbrN14RkUOwFS2YOYD26qAMUdtC96wGEIEoPp0M9romF
-	 27Oqh8wIlVnAPFSg6VXcZID+psfP4YCFudmF/8GHuwZ09qCmE9wk43e7xMloJc51CqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657465;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=+884JubjXlXMynukNsCRLxjX6Ct6GtLaA+gmpnTujNk=;
+	b=cwPDS625VH4sTLe4VCAi2QR+ob68rJhuF3JVFlA7de4FYYx5wahb9qGhh03pZKDk1ZC0
+	 esBSpxvg9dC+hAhY/qN1IIynPf7pu/ZPghFQKdhRucW/+8JMEeDkIIVGddr669hcBvL2k
+	 BTcvQheXTo3KvL+zSSbyjx6RrVPrcHjJjUukHANtKG3jdr6qiRMXQu+9Ea0PYtZCce4jR
+	 +tBCicAqTEUL5MUb3QxJTzcBgQj7KGpVPQcTGxH8Rtwb9gWZ2Jz2Dfg6fZKQe6393Th5P
+	 hjYhebCQR4vLB+GtI/h2BwOX4AKvHa3B/enxl+ON920Oz5/Qg+5Xd2dhKYQFvacBJrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WrdbIvVr;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=codeconstruct.com.au;
+	spf=pass smtp.mailfrom=codeconstruct.com.au;
+	dkim=pass header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=I7ChGgiG;
+	arc=none smtp.remote-ip=203.29.241.158
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB772606A31A;
-	Thu, 22 Oct 2026 08:23:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB772606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D9BC606A319;
+	Thu, 22 Oct 2026 08:24:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D9BC606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WrdbIvVr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792657431; x=1824193431;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ZIMvMdbRto9Du0/f4ZPVVv9EYhNM7Ia3Zy1EH0bmMjo=;
-  b=WrdbIvVrvyNA5S14B9o/6hnA5F8e/iQw/V40x40M7XPdKjgmt2hUZffA
-   XUkQZLUZOxgU6yEfyo4nrLCVXcmLRmPj8plitFCsICTq7ALLpR8pIzNov
-   mRlg2IOTCA4bMf/hC+WtNOE190vTRH1UGVM6quY0963ggqXucXUG8SXhy
-   yJTm4zYBruCnKjaceuFulakXlldMEtBYdP+R6cGTcW5Mcmtfuczk7WUQ+
-   wrTC7fGh1Q3/lViyfld3sTc4t0x3xSVPlwRBHjBjBrcFfcDQiMHbb+KJ3
-   e5SBqAo+XVwBBIEBuDroP+y3KqjpJ5gJtPGsPYwYsEuqSzOW4WedgFyHX
-   A==;
-X-CSE-ConnectionGUID: sekE5jLdSBaIQrMP2dkRuQ==
-X-CSE-MsgGUID: +htILlBSTsWKOQt7M08x2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1300282"
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="1300282"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 01:23:48 -0700
-X-CSE-ConnectionGUID: SrynGbDCRLOq4cnYO1pLrQ==
-X-CSE-MsgGUID: RPPb7y7MRvCubn1VDJQ4Sg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
-   d="scan'208";a="3380062"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 01:23:45 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 10C39121B7D;
-	Thu, 22 Oct 2026 11:23:44 +0300 (EEST)
-Date: Thu, 22 Oct 2026 11:23:44 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 04/16] media: sony-starvis2: Parameterise the
- configuration to allow for other models
-Message-ID: <atnIEKiroIEUlPe8@kekkonen.localdomain>
-References: <20261015-media-starvis2-v4-0-75fcdb4163f3@raspberrypi.com>
- <20261015-media-starvis2-v4-4-75fcdb4163f3@raspberrypi.com>
- <atc1us1fj6MN6UfF@kekkonen.localdomain>
- <CAPY8ntC1dU9r7Ku890b5cqpH5LtQkRFS68dVkYbe0FtVXG7GiA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.a=rsa-sha256 header.s=2022a header.b=I7ChGgiG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1792657460;
+	bh=+884JubjXlXMynukNsCRLxjX6Ct6GtLaA+gmpnTujNk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=I7ChGgiGN4jfCP+XXyck1s8WA/gUU8KScpvYXoTeVCb3y4ktOdcx+6BlQBzM6P6S0
+	 APztRMSenw5GTaDz+ySOGBmK9bC+AGg/vL+oz4BRhYkMXGKs4hMpxu9UzDY+fERdc4
+	 62SNIQvBZhwAaCbhwc93KLkOpL5/aQiUSeVHsq1+N95qWGd735sU2SM4QMG9Y+pdmk
+	 rMLmPy6yocfQaoLg4y/EcUXxO12DguKtksZhJuB5DOzrh6WpNRnhgx8pqGtULykbBJ
+	 ez6Li8HfEgScDbhzUJtYBgXhlvpsenxzWFWO+OlOAZp5X+LZdvUp72ouwwh9FMYbnl
+	 2/mWKEQ3QipEQ==
+Received: from [192.168.12.105] (unknown [144.6.157.237])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id E24096C53B;
+	Thu, 22 Oct 2026 16:24:19 +0800 (AWST)
+Message-ID: <f8c47a860a37c36221a62f1afb0593bbd82e3501.camel@codeconstruct.com.au>
+Subject: Re: [PATCH net] mctp i2c: fix double free of midev on netdev
+ register failure
+From: Matt Johnston <matt@codeconstruct.com.au>
+To: Kenny Hsieh <kenny_hsieh@jabil.com>, "netdev@vger.kernel.org"
+	 <netdev@vger.kernel.org>, Jeremy Kerr <jk@codeconstruct.com.au>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "davem@davemloft.net"	
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski	
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "stable@vger.kernel.org"	 <stable@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>
+Date: Thu, 22 Oct 2026 16:24:19 +0800
+In-Reply-To: <DM8PR02MB8087DCE3AE16D853D284FF2D8E652@DM8PR02MB8087.namprd02.prod.outlook.com>
+References: <20261022031704.2295541-1-kenny_hsieh@jabil.com>
+	 <51bf6b10b2fc1c5d6ed7234e61067869380eebad.camel@codeconstruct.com.au>
+	 <DM8PR02MB8087DCE3AE16D853D284FF2D8E652@DM8PR02MB8087.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,35 +74,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAPY8ntC1dU9r7Ku890b5cqpH5LtQkRFS68dVkYbe0FtVXG7GiA@mail.gmail.com>
 
-Hi Dave,
+On Thu, 2026-10-22 at 07:22 +0000, Kenny Hsieh wrote:
+>=20
+> Agreed, that is cleaner than making the free idempotent. Here's what I'm
+> planning, let me know if it looks right and I'll go ahead:
+>=20
+>   - in mctp_i2c_unregister(), deselect mcli->sel if it points at this
+>     midev, before mctp_unregister_netdev(), so its dev_hold() doesn't
+>     block the unregister.
+>   - call mctp_i2c_midev_free() after mctp_unregister_netdev() and before
+>     free_netdev(), and take the sel handling out of it since that now
+>     happens earlier.
+>   - leave the mctp_i2c_add_netdev() error path calling
+>     mctp_i2c_midev_free() as it is, which then becomes the only free on
+>     a failed register.
+>   - delete mctp_i2c_ndo_uninit() and .ndo_uninit.
 
-On Wed, Oct 21, 2026 at 02:59:16PM +0100, Dave Stevenson wrote:
-> > >       starvis2->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops,
-> > >                                            V4L2_CID_HBLANK, hblank, max_hblank,
-> > > -                                          IMX678_PIX_PER_CLK, hblank);
-> > > +                                          starvis2->variant->pix_per_clk,
-> 
-> And that IMX678_PIX_PER_CLK (8) is changed to
-> starvis2->variant->pix_per_clk, which matches the change above.
-> 
-> v4l2-ctl --list-ctrls-menu with imx585 is giving me
->             horizontal_blanking 0x009e0902 (int)    : min=544
-> max=520424 step=8 default=544 value=544 flags=has-min-max
-> and with imx662 gives me
->             horizontal_blanking 0x009e0902 (int)    : min=1034
-> max=194669 step=3 default=1034 value=1034 flags=has-min-max
-> 
-> Are you seeing somewhere else where the step is set incorrectly?
+Yes, that looks good.
 
-I guess that must have been somewhere else indeed. You're right, there's no
-bug here. But probably somewhere else there is one. There are too many
-sensor drivers. :-(
-
--- 
-Regards,
-
-Sakari Ailus
+Cheers,
+Matt
