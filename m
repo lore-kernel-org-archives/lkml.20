@@ -1,96 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.77
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792667836;
-	b=nUhrgD+R1HvTtfrkN7OXmhkWIvMLvcCPMsjnTz27rzTyMFYEmuGXzCFYx9saMPAM57R9
-	 hauV0wCCsEKHdQ7J6pba2ELJQdBMFTrMT9FwQ6AHwORSy9G+3j8BHYYfunVe38hI6VGZh
-	 Vz+H007shBaiLqoyiQk7+8qDQsg9YFhkJs5EdF1GnDXxgrfwCkJbpdCWqP+JT6G4nAdIf
-	 4Mf7EWnpzjgxJYa9T7mgMYf+w3AXxlIG09+9b3TJPcdDYntGmIaMXzJqIHok486Lf4nPc
-	 ta6a4inpBo51LT3Bij+v8WsEg0XyAQYiH22cbMIaT8vxbYJclVXCyjGsJ4XcRs8LJdQ==
+	t=1792667927;
+	b=v/ppstupZ/kMlrZQ7cR08QcGgDOxEvgVFWknXEzx8Nfm3htC3+QJ0sGxW5vdZdE4YLbw
+	 jregiY+omSd92xEKhHaKnHg/wxr6SPyqAmY1kvLpTvC7UNtPoHPCxrVkJMipnvRE0ObhF
+	 7595bHYAXpkFxzH+9CFK5/2dsdvwNZ9jM7umo6qehcp52SBVP7M/Ss8rl7rengVzVQEWj
+	 GRMcj90RcndiDQoyRoR+eeVTLl25bosEQosJ4rj4ZegZA1CbfptCCptqJ2TJ/XSM9w3W8
+	 Ouz9DFR6AIor5pUsd0tmRpuBHq1QvXto20xz2KEmDIpOr7mX850Ju2YZzkCtxfMnduQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667836;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Hu4sJAi0UR6zv2af8fNQzaD1mOTsI3PakILnf/N52jc=;
-	b=Gps1D2UvpA546HYt+TIU0fYUOIDtXp/5T5DdOQ1CFmzlhjohEekONQcNc2K0e53GD7kn
-	 qjP2bemEk9DWC6/h8q50juUoRZedIEdJqJfv1Z1NT5eQ1EApBB+SkJBjXx3mRuQl6eavD
-	 2tk0l4l/FADw/PMQjYBWY3YgBK9udI1+2HF78YVYr8C8aVVhu0PDZjDaItizQY5dwoadH
-	 wvsD3PyfXgcyl7BMvMhb7skk3p9E3ZQhV0T+oHyKNFYQcEHY/IsW8T4W12AIi873mtaWd
-	 5OCkJswiqELFvr7KKsDb5eMhSt9A+Rjn3RtptbaH2bZcCTMtoUNhV6MYuC7/w+hKBPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667927;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:Received:Received:Received:From:To:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-ADIRuleOP-NewSCL:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=AdEU80TitjMHrKkuBHE8Zu0KYCNoq2++sT7G+pQ//1I=;
+	b=xwRGrweDV4VbDWaX0H2OxP04skPTND2jZVQ5GVofhS5wGsCYhIWLW5g8eDd1F7KZbcez
+	 cARmEiGsM4m1GXuBn3PHD5P2jkbHAQ+KTa/kyIRJ2RqwziiaR4DFm1XuYZAPGfa+HZ7Mv
+	 +TDV/PDu2mYpSMcAaGpnfrGzNdpp0nl4Yrta3WnPc/BIAjGHKg0m4047mdWP0pDXfDBIo
+	 4ra+ybo7ZSpYVieoJA9IJKFnZ/XQ2Yk0iErA8Yf2KiqzokEXiyq88P+qzEIXq0icx0lts
+	 JIb3J3OQdBkDQrba6EzhURPgJ4KlGzpPZtccUJe9deR38Uy+LdEyWhbQv0NIfqwa8lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Hobq1Y1S;
-	arc=none smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=analog.com;
+	spf=pass smtp.mailfrom=analog.com;
+	dkim=pass header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rZhXJnnj;
+	dkim=pass header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=v7lJ22zn;
+	arc=none smtp.remote-ip=148.163.135.77
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494D8606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:17:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 494D8606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DD6606A320;
+	Thu, 22 Oct 2026 11:18:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3DD6606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Hobq1Y1S
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-679a420b5afso1679838d50.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:17:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792667829; x=1793272629; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Hu4sJAi0UR6zv2af8fNQzaD1mOTsI3PakILnf/N52jc=;
-        b=Hobq1Y1Sbj74oF1Ned+FV45xdT2LX4eirbIJTjp4Pm8WgeIZix3oM/y4qD07kqKL1N
-         Fuvuflpa/Zk/tWSolzT27ateQjBv+v+//hm7J5PGK+lVUp/J27a41U7s5AkAVfGDe87P
-         QpPWj4Ys9wPFVH9zXwnD66gdndZdqcNKBJh73rRnzFfdaYchZwlrcRmdm0m31x5q3eXu
-         Le8opCiEKTs0y77zRfym268FPcO0llb3P9TLtTADeCQxWM5QnS7LdQpEgi47GMrswmxb
-         B2rQZSc0hK5QL6cE8hHFdI4VrhnpSEBdpKIw0PJ5x2nGnIJAMyrM1qpmaq9LAoTEB+Xq
-         txjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667829; x=1793272629;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hu4sJAi0UR6zv2af8fNQzaD1mOTsI3PakILnf/N52jc=;
-        b=r7rJmJRZvS70Y0Fkesq+sfTNRqQgaLxw5OOJadwYVj6z6Ojwt1/af48DwezapFfrtn
-         buNj37T9fSo3cpNxGxRM8tc1o8jHWUx7SAkKOvUTFr+6iHoB9UxO1wbyWsFUg1TJWMdW
-         pR+6OC/f/jndettTA9kebgh5kz24C4OMcapUwfeX2Ymzb8lV2m6E/tY1Vzz7HHi9Fryl
-         fQVocSH/c7isQQjhGO4pvKrTEI8JxpN9ZhkGtBKu+BJWvvXsGkOqkShvkg6dVS4wEVHH
-         rExASMhsVBLyQW5hOd7Kt+6wja05B3YX5go8eCr/TuoI261y7fVC3/vBxIEWIm5C/+KC
-         5TaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzFfBL2xvPbnBkUZPfMbdb+G0fK217YAhYRtDnRKNYdJhbcZHWuTeSmHoFpP0XKrSsKwtrswNmvt4c9CjE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImZYEQxqWFau64rxTLB+lka2I4x5ThfInhLvaWYDHvqb3irK4E
-	x9gTjrElgNrFur1/grdnS74NAkSYK68saMLxqQp/jEac0PEOHy3S9su/Gxlk2r3EOQ==
-X-Gm-Gg: AYBFou13pBKn3z/nTsn70TcNI3QLrFpJx/Zb0idsEflrzNd60GJ9rJycrylMjeMRNN7
-	20vq+04deWHawmEK//NBrDrchkd6Ao0Bdd9EnLL+c8qr+7yemkeLNGubOM1aw03VhKt6SCBFp//
-	MWIk1vFW1+hJlt123OzbTnnMsq0QrVxOmJFmJGnW4HqHaWNaqahb7svXBVIoPdhZdt+YI2XPnTC
-	1m8985HrnqCshIsJ+ignG9eUor/cz+DABpEA+7n5Whv/sq9HtINXHJDfhlwnkG5bFDZQ5OQlySD
-	jiM5GKbr7ZfAY6mWi8ALW9+R+stX8Wqec/cgn/KiVbZWWa2rZJvm0bek5fTu6Xz7KYf4Cv70mcy
-	Rebt3DJsntrtGR49ak61be1GRMU0V4ygjKixpnMyFNS1nz0hE1kdIgo7aGMmNtqPERESGzQtHoP
-	FZECGwd6wO+SlybU3EWouMLPYsercduA1tqgZH56PaU/6d0ffc2jiARJDWxbUt998Vo9D8S8v3u
-	zRDlmJvWgkOAoBgNZAj6pmnmLsXZv9yFxpDLiz3Jkjs1jn0xQJ37hY4zAKL4zWFcA0nugROeAAU
-	HQ==
-X-Received: by 2002:a05:690e:118b:b0:672:99e0:ec0b with SMTP id 956f58d0204a3-67a0e5d222bmr1791670d50.163.1792667829191;
-        Thu, 22 Oct 2026 04:17:09 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e57bb39sm2442948d50.22.2026.10.22.04.17.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:17:08 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: slava@dubeyko.com
-Cc: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com,
-	kees@kernel.org,
-	justinstitt@google.com,
-	maurycy@maurycy.com,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] hfsplus: fix truncated xattr names in listxattr()
-Date: Thu, 22 Oct 2026 07:17:00 -0400
-Message-ID: <20261022111700.1288273-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=vtelectron.com header.i=@vtelectron.com header.a=rsa-sha256 header.s=DKIM header.b=rZhXJnnj;
+	dkim=pass (2048-bit key, unprotected) header.d=analog.com header.i=@analog.com header.a=rsa-sha256 header.s=DKIM header.b=v7lJ22zn
+Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA1sWW1591238;
+	Thu, 22 Oct 2026 07:18:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vtelectron.com;
+	 h=content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=AdEU8
+	0TitjMHrKkuBHE8Zu0KYCNoq2++sT7G+pQ//1I=; b=rZhXJnnjZW4S5Pcj45UFw
+	zMxo+WaRt1nhVCbww0DS1oude3LLpayhMFvLtBYtmyNu2Bm6ZZe9oACtUDF+dt3z
+	mFDmR++9BZGBSQSJVIqTJGXTLfk+2h50qQ84vx0jVe8FkWMQhTMaZ+KRujbgdeXJ
+	ShQ323QnQXkaoOke2HEYh4pLsuSpdCwHEyHn41Am8YkBzgJgVMSAMIDAadtQf+vY
+	gbbksipEQuYIC89Y9d4LP7vzHz2PKU0OAwBTIobAE23J7E9jVTMSHQ4NsAQ1ude7
+	A3z0Q/Hh3zTGm+RLdksr06/GqSxPrpv47QPu4daHf6ck6wye/z1Qq207gbloSy4X
+	w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=AdEU8
+	0TitjMHrKkuBHE8Zu0KYCNoq2++sT7G+pQ//1I=; b=v7lJ22znuldzLobf2ssZL
+	zpeeKkts6ZaraUUt/D3hSHtpvw0Ug7Cqy9N6TT8eTIrzItihRgrOCe2mwBYk1hnB
+	lFyYYhvR78YN8NmBWepKSCXiqHzAWH03KWbntU6J9XwIeDXbATcHv+mZGexv71Z6
+	2Qp8S8CzeFOSSeOmB5sO5OLgnsznBy83f1bcRYITOjSnobzgW+c1y5gw1IXIGYx5
+	8dh8MaYRYeCtvjuGatKrRplWz/zVzfqSqrJorFOW5AHv/oZ9YPdkD7NmG+DOGtlT
+	V7HP4GetDj2a7S47kYQPlzvv5C1XyhY43kWHafEvWlqCwNTAg2uJjZA0JPPl2Wxz
+	Q==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4hf927tpx8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 22 Oct 2026 07:18:31 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 69MBITnx055327
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 22 Oct 2026 07:18:29 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 22 Oct
+ 2026 07:18:29 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 22 Oct 2026 07:18:29 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com ([10.32.223.86])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 69MBI6LF005667;
+	Thu, 22 Oct 2026 07:18:23 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah
+ Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Joshua Crofts <joshua.crofts1@gmail.com>,
+        Marcelo Schmitt
+	<marcelo.schmitt@analog.com>,
+        Radu Sabau <radu.sabau@analog.com>,
+        Janani
+ Sunil <janani.sunil@analog.com>,
+        Salih Erim <salih.erim@amd.com>,
+        Jishnu
+ Prakash <jishnu.prakash@oss.qualcomm.com>,
+        Jakub Szczudlo
+	<jakubszczudlo40@gmail.com>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>
+Subject: [PATCH v2 1/4] iio: adc: ade9000: parameterise the reactive power channel
+Date: Thu, 22 Oct 2026 14:17:54 +0300
+Message-ID: <20261022111759.6019-2-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022111759.6019-1-antoniu.miclaus@analog.com>
+References: <20261022111759.6019-1-antoniu.miclaus@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,97 +121,130 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0NCBTYWx0ZWRfXx8NLpLAdDXci
+ v0AMgbE5BiUCPqSfw3f475AU2DymhWvUhR0Ny6wip7bu+Y2Nn+9PfUxZnGeS8rZYoIjKp7M0ezg
+ dlZfhmaoappTqHc4bcK3IQl/14AI61KdtTHkVBnK9FtPYILdbEnH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0NCBTYWx0ZWRfXwUVf2f6Og9t+
+ eXk3t2EwFzZRN6BpUkmg1hNlY69rXsd9P5b3GrLhm172jGVtp4VelDFn7/aXGHQccDPIYyxJFXW
+ P4JIvEVtP/C7vm34Sflg8kLHXNIQg66c8Yj92wsu4AQiOW7yLHjcftRkopnk/WrBKoC94CC5vWI
+ Bf1HIleO+goztURDg5j460DEg6/l04q+FCBD0oqhOF9FOzIARaCJYt6f54KfyLULJbj60MMWbXX
+ W+Te71nQ0kkKxEqT3aZJwUnpq+rcx3UxBy0EC2LNUuP2hHsiiYPXNsZBmMrx02Jjln4s04gkVMP
+ PKXywwbfzwHvu00BjX9MJzTdxj/JyxOD9GwPiG8vVWHBL3Mo/D6kY3hg7DnxBalGEv0j7s/BzZv
+ tqtA2FuHIQOLTW8D/cU1T69LDF8Z8kjK/t6HfuNMQsUeRQ+t1gWruAtD5L6s8rO/BYN6IoN0IfC
+ qmfHIE6/TjXWQKTEX3A==
+X-Proofpoint-GUID: 9sd_jtKu269EPNQJkIZj54G6XJJMiUsT
+X-Authority-Analysis: v=2.4 cv=U/cHnuru c=1 sm=1 tr=0 ts=6ad9f107 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8 a=pGLkceISAAAA:8
+ a=y2iMgJnqLeesTMF4eTAA:9
+X-Proofpoint-ORIG-GUID: 9sd_jtKu269EPNQJkIZj54G6XJJMiUsT
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 spamscore=0 adultscore=0 lowpriorityscore=0
+ malwarescore=0 suspectscore=0 phishscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220044
 
-From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+The channel array is declared once by ADE9000_DECLARE_CHANNELS() and
+specialised per part through the altvoltage_rms argument, which lets parts
+without dip/swell hardware drop those events. Some parts in the family do
+not compute total reactive power at all and have no AVAR register, so they
+need to drop the reactive power channel as well.
 
-Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
-made copy_name() build names in the osx. namespace with scnprintf().
+Add a second argument that selects the reactive power entry and introduce
+the ADE9000_POWER_REACTIVE_ENTRY()/ADE9000_NO_POWER_REACTIVE_ENTRY() pair
+for it. The entry macros include their own trailing comma so that the
+variant for parts lacking the register can expand to nothing.
 
-However, the size passed to scnprintf() leaves no room for the
-terminating NUL, so the last character of the name is dropped. As of
-now, listxattr() returns every osx. name without its last character,
-and these names cannot be passed back to getxattr().
+No functional change: the preprocessed ade9000_channels and
+ade9078_channels tables are unchanged.
 
-The issue can be reproduced with:
-
-    truncate -s 64M hfs.img
-    mkfs.hfsplus hfs.img
-    mount -o loop hfs.img /mnt
-    touch /mnt/file
-    setfattr -n osx.test -v 1 /mnt/file
-    getfattr -m - /mnt/file
-
-Without this patch, getfattr lists "osx.com.apple.FinderInf" and
-"osx.tes". With this patch, it lists "osx.com.apple.FinderInfo" and
-"osx.test".
-
-This patch adds room for the NUL to the size passed to scnprintf().
-
-Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use strncpy")
-Cc: stable@vger.kernel.org # v6.10+
-Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
-Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
 Changes in v2:
-- Rewrite the commit message. No code change.
-- v1: https://lore.kernel.org/r/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378c@maurycy.com
+ - None.
 
-Maurycy, v1 got no follow-up, so I am resending it as Viacheslav asked
-in the thread below, with you kept as the author. Let me know if you
-would rather send it yourself.
-https://lore.kernel.org/r/dc187921249a3f6716b829624853e64c10321cd1.camel@dubeyko.com
+ drivers/iio/adc/ade9000.c | 25 +++++++++++++++++++------
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-Answers to the questions on v1:
-- generic/377 passes with and without this patch. It only uses user.
-  names, which go through the strscpy() branch. That branch already
-  passes name_len + 1. No xfstests test uses osx. names.
-- Why + 1 helps: the prefix and the name are name_len +
-  XATTR_MAC_OSX_PREFIX_LEN characters long, and scnprintf() writes at
-  most size - 1 characters before the NUL. Zeroing the buffer first
-  does not help, as the last character is never written.
-- Why the write stays in bounds: both callers check that the buffer
-  has room for name_len() bytes, which covers the prefix, the name and
-  the NUL, before calling copy_name(). This is also the number of bytes
-  copy_name() wrote before commit 7dcbf17e3f91.
-- All xfstests: see the full run below.
-
-Tested in KVM with KASAN on a804c5742bff, without and with this patch:
-- The commands above, and a C test that compares listxattr() with the
-  names set on files and a directory: short, long (up to 127
-  characters) and non-ASCII osx. names, FinderInfo, and user. and
-  trusted. names. Without the patch, every osx. name loses its last
-  character, fewer bytes are copied than the size query returns, a
-  buffer one byte short does not get -ERANGE, and getxattr() fails on
-  the listed osx. names. With it, the names match, the copied length
-  equals the size query, and a buffer one byte short gets -ERANGE.
-  KASAN reported nothing with exact-size buffers.
-- generic/377 and generic/062: 5/5 passed on both kernels.
-- Full fstests (805 generic tests, 608 not run on both kernels): 188
-  passed and 9 failed without the patch, 187 and 10 with it. The only
-  difference is generic/617, which fails on both kernels most of the
-  time (19 of 20 reruns without the patch, 18 of 20 with it).
-  fsck.hfsplus -fn reported no errors.
-
- fs/hfsplus/xattr.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 71364e093fa7..470f090b2699 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char *xattr_name, size_t name_len)
- 	memset(buffer, 0, name_len);
+diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+index c10b8c3f679c..fb69cbbb38fc 100644
+--- a/drivers/iio/adc/ade9000.c
++++ b/drivers/iio/adc/ade9000.c
+@@ -561,6 +561,15 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 	.scan_index = -1						\
+ }
  
- 	if (!is_known_namespace(xattr_name)) {
--		len = scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX_LEN,
--				 "%s%s", XATTR_MAC_OSX_PREFIX, xattr_name);
-+		len = scnprintf(buffer, name_len + XATTR_MAC_OSX_PREFIX_LEN + 1,
-+				"%s%s", XATTR_MAC_OSX_PREFIX, xattr_name);
- 	} else {
- 		len = strscpy(buffer, xattr_name, name_len + 1);
- 		if (len < 0) {
-
-base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
++/*
++ * The entry macros below carry their own trailing comma so that parts without
++ * a total reactive power register can expand to nothing.
++ */
++#define ADE9000_POWER_REACTIVE_ENTRY(num)				\
++	ADE9000_POWER_REACTIVE_CHANNEL(num),
++
++#define ADE9000_NO_POWER_REACTIVE_ENTRY(num)
++
+ #define ADE9000_POWER_APPARENT_CHANNEL(num) {				\
+ 	.type = IIO_POWER,						\
+ 	.channel = num,							\
+@@ -618,8 +627,10 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ /*
+  * Declare a full channel array. @altvoltage_rms picks the RMS voltage channel
+  * variant so parts without dip/swell hardware (e.g. ADE9078) omit those events.
++ * @power_reactive picks the total reactive power entry so parts that only
++ * compute fundamental reactive power omit that channel.
+  */
+-#define ADE9000_DECLARE_CHANNELS(_name, altvoltage_rms)			      \
++#define ADE9000_DECLARE_CHANNELS(_name, altvoltage_rms, power_reactive)	      \
+ 	static const struct iio_chan_spec _name[] = {			      \
+ 		/* Phase A channels */					      \
+ 		ADE9000_CURRENT_CHANNEL(ADE9000_PHASE_A_NR),		      \
+@@ -627,7 +638,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_ALTCURRENT_RMS_CHANNEL(ADE9000_PHASE_A_NR),	      \
+ 		altvoltage_rms(ADE9000_PHASE_A_NR),			      \
+ 		ADE9000_POWER_ACTIVE_CHANNEL(ADE9000_PHASE_A_NR),	      \
+-		ADE9000_POWER_REACTIVE_CHANNEL(ADE9000_PHASE_A_NR),	      \
++		power_reactive(ADE9000_PHASE_A_NR)			      \
+ 		ADE9000_POWER_APPARENT_CHANNEL(ADE9000_PHASE_A_NR),	      \
+ 		ADE9000_ENERGY_ACTIVE_CHANNEL(ADE9000_PHASE_A_NR,	      \
+ 					      ADE9000_REG_AWATTHR_LO),	      \
+@@ -642,7 +653,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_ALTCURRENT_RMS_CHANNEL(ADE9000_PHASE_B_NR),	      \
+ 		altvoltage_rms(ADE9000_PHASE_B_NR),			      \
+ 		ADE9000_POWER_ACTIVE_CHANNEL(ADE9000_PHASE_B_NR),	      \
+-		ADE9000_POWER_REACTIVE_CHANNEL(ADE9000_PHASE_B_NR),	      \
++		power_reactive(ADE9000_PHASE_B_NR)			      \
+ 		ADE9000_POWER_APPARENT_CHANNEL(ADE9000_PHASE_B_NR),	      \
+ 		ADE9000_ENERGY_ACTIVE_CHANNEL(ADE9000_PHASE_B_NR,	      \
+ 					      ADE9000_REG_BWATTHR_LO),	      \
+@@ -657,7 +668,7 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_ALTCURRENT_RMS_CHANNEL(ADE9000_PHASE_C_NR),	      \
+ 		altvoltage_rms(ADE9000_PHASE_C_NR),			      \
+ 		ADE9000_POWER_ACTIVE_CHANNEL(ADE9000_PHASE_C_NR),	      \
+-		ADE9000_POWER_REACTIVE_CHANNEL(ADE9000_PHASE_C_NR),	      \
++		power_reactive(ADE9000_PHASE_C_NR)			      \
+ 		ADE9000_POWER_APPARENT_CHANNEL(ADE9000_PHASE_C_NR),	      \
+ 		ADE9000_ENERGY_ACTIVE_CHANNEL(ADE9000_PHASE_C_NR,	      \
+ 					      ADE9000_REG_CWATTHR_LO),	      \
+@@ -668,8 +679,10 @@ static const struct iio_chan_spec_ext_info ade9000_ext_info[] = {
+ 		ADE9000_POWER_FACTOR_CHANNEL(ADE9000_PHASE_C_NR),	      \
+ 	}
+ 
+-ADE9000_DECLARE_CHANNELS(ade9000_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL);
+-ADE9000_DECLARE_CHANNELS(ade9078_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL_NO_EVENTS);
++ADE9000_DECLARE_CHANNELS(ade9000_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL,
++			 ADE9000_POWER_REACTIVE_ENTRY);
++ADE9000_DECLARE_CHANNELS(ade9078_channels, ADE9000_ALTVOLTAGE_RMS_CHANNEL_NO_EVENTS,
++			 ADE9000_POWER_REACTIVE_ENTRY);
+ 
+ /*
+  * Full-scale codes referred from the respective datasheets. These are the
 -- 
-2.53.0
+2.43.0
 
