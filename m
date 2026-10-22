@@ -1,112 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792685844;
-	b=ebavXb7eReFfIvvp7PGbkNNSjhi1bRdOdHDl+hQVsmLkvLdsVgmDhceMiImUYCiykSzn
-	 kig7XDDOnU0SuMxtRgoGcKwxQRiYYitQOnraDxUb9596ReH8sm7PnZu9gjOCMtPn4BEw+
-	 /+z8CTtipxjj70qbRhT+Gviwc7RRDtXMsfDvXvq0nCucGyi1B2a/YUD1fZa6aVQnP2O7d
-	 jgxASFQTBOjcy4/ntQE8XX5YyUH33C4TerWf3YuUfSktzUOwsMdBRWMExe93M8vskrM+D
-	 ULfXXIACRM9xoBupUkRGTNzHUTk8UZNcYGD3278tUUD/VVThGVybf2J2W+7c/JXpW9A==
+	t=1792685855;
+	b=1WjZeo49e7zvYgfgUHJV6hjlb2EW23bcRZ2+K/qPMICcgUky2dhs/2orgvDDe8osN1cn
+	 4M8f7sgs7mEdouWpAns7ezJKN9n/es68HNTZpNke7TduvoTG7gcq9BDzAyttSVptYCNC5
+	 0AxC1WcD+xrN8ADPz9jp5tN/96CWL/skeGrFbBNxgxpIiCGzvAA5Ju+S0+QXOwmgrapj1
+	 7VjSutNUBdX/1tawEORNsHbVOTbdqRwcQdsMeGmX03m0MjvKRkEa0A/gQ+NE0xPpqfrdp
+	 wkC9pCQNXt+QPFG9kK+vIgi3Our+tpUto0e0cflUePHvuBkw0P72fs3lIc7daIc2qEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792685844;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=W8TGDKZPm9HRrn6f+ybF4qtH4yb+sCZXj0xYIYP+WZI=;
-	b=Dx1ITvwNxiwv87kN0oDHiCHSiJj2n9NZ/4LrwBX8Z8QIzmFqpe98iYfy3CVksKmxnSLN
-	 B4/v9cjb9NB54q/R8itagKHkFxHVT5sTbyPLZp+zbh6JbhyYHpm2d8aioNcF17U9lVIMS
-	 8wsnhm7g4zcp57S/r+Y+Y8pUuWMK9MLpoYTJVWdi1zS1WMlC5PaN8bHdHWqVCUhmFFfUX
-	 jE9hcBkL3jyzOL8S51ub96r0dE9Jn4ZyNYu9OsIBMvoRgNveXS3XuUmbJWHxzyhja1VWP
-	 qWzFpdC7XNmQpbCljmcw+hiLurDYItaGRp6I4XMxe8iUWtTWvHTjfdLlLUCQeMUFQMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792685855;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=5HOxdA60brS5/vE87VoiaV9Lf/Ck3aNReGrQMOrjtAc=;
+	b=vlq2FwyxE9FW2o/7umBuRPE0h3F6WbaiPiAXrRz58egVj6o4hLWBRIte37+0D+9X+QTC
+	 UOB3XlJ3AmeUNd6uV0o4X/ID2hI6sqyi3POOTc8bXSyma7lbgjTfcwwrPNO73fww9ZNJH
+	 rs1vmp+e03HdZqAec5gDdTdoZVr8EeO6nYgXxDXqOTqrkJQZt7zTR/HDaG9oyhKSDbiHU
+	 kkFSUZOUmsVGpC6XI0gMgVw+PqC2KiXbxNxnXisrh7ymr1oR51tw0glg0vpg4RPbAwsze
+	 Bl/dEFykVyY+RZzflfHfwmqY/Vl1P2C65YM8sUahUFIjEruxsQUdd92p+WpTsW8OpvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="ni/5mqHE";
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d3APwiJ0;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.70
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com [209.85.160.70])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 352A1606A320
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:17:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 352A1606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ni/5mqHE;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=d3APwiJ0
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MEFIwM3211179
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:17:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	W8TGDKZPm9HRrn6f+ybF4qtH4yb+sCZXj0xYIYP+WZI=; b=ni/5mqHEPn4Pg9cK
-	Yzbv45AgeD/32UA3TR4NIaQ7nWsiltS4EiH0GBcHQsBF0D6wbcwCKR1u8VZOnwWm
-	JO9+H5rhqD4J4rr+jsv8LYF7ToZiyFWU+htfXWjGLC03AmF/ogEidZMQMWBHa/H8
-	RbuCFtPxSjLu8LGSdpB8QlgrAJE2z8zoq50NcqJ+eZkqe7o1LmnrBCXsJCQLn95Q
-	du6tD1hZkhkqPkSpzTBPdqIHH1O/Dtt9p9gDvfyoeyUPtuyNLDSu2knkkDuSKZXd
-	oVWG869g/BaihcpGBPdi70w96uY8awruxq6YLkfbsoHD3lZb1tzjWD8kJADVpPDQ
-	UOhe2g==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93amfju-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:17:23 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-35a04491c56so904515eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:17:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1792685843; x=1793290643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W8TGDKZPm9HRrn6f+ybF4qtH4yb+sCZXj0xYIYP+WZI=;
-        b=d3APwiJ01oayBVHB4/OfTRjN5HMRJWsngMceHFwKtFz/RSia8EhQIksbWAo99C8vVE
-         QPCRwfSXXVSREVpARQHhp8N7Y4J4n0D/qXCw66GCfgHSoGS9ObZxiAk2nbGNQTGzSFk+
-         VVlzaxpZsCO4a7vCE9tb3oRzaLidPxmbaDq6T18g6RBZ24T7Pntq2/n2HgN3jS2KRXvf
-         hfYqYt2j66aJMBEgdgvIjmAIyvw4/GnLjD6JbYWWWIgGeH8hzXjS7fxuSbJmMSKkFUJC
-         RoRR8h3ghOCxAaupuNxUtAsC1X8nV4db4VPv9O9jGrBQB4sPjUilOYcvhlhrZj8bM5HJ
-         z62A==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671BB606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:17:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 671BB606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-44899f99756so14361fac.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:17:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792685843; x=1793290643;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W8TGDKZPm9HRrn6f+ybF4qtH4yb+sCZXj0xYIYP+WZI=;
-        b=fuc1M4Tsydc5LhnIKIi49DW/gTlGDiiq0KxbpQXDILX3RwfFJZkVYwu8VEtAU2quCK
-         ffZweavO7BgJ+ESpJGexkCXV1Q86THYKccD2lN6+XC1pKokQhrXZClL5py9qCNtYzMtr
-         alAibp5HBIfwmaa+ZSDpLeshMmC9kxU0+uoZoH34GrrForbJBYkM0hfp/VLPeREmygoY
-         BHpR2Hi+eUvrFmCq5Ulu9oIZEHecGQeKECdEIfRMVLAngJ/scaJaZahaNxCrSJbLvzvy
-         FmSy4Xvn9XWeXZTAQzXdgf0tqZP64vXkIW+b4T1mS27QSqda3HWSj0BC3bmGqnbwaoqC
-         3R3A==
-X-Forwarded-Encrypted: i=1; AKwUvBy001ssMyPe/lIHljjirdzaqwtf6KCe1iMLOIdDx4DMyQorQAHSSKtJUwwEUUtueQiBiY0S0JtaqqsOtfQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIU3oh3u7mBMVAclsYX2aaqxKrFhDl2rNDBSjd0AnvZ2egIplQ1
-	oUAzJHEeJ+4qnS+kZM8nKYCGaqPZednbRo8hFAxSkXJFPi9e8ELtR7glNJQOsVah0uL+31tceNe
-	yvhY/3GAPne4j2MTJQqhyqtv2xcX49VXtesd2rKaxz3k7OQP+x4ZCB8vP+fwEHEYUFUsCPIbSK0
-	4=
-X-Gm-Gg: AYBFou1PXhmFNaMV2R5SAkboACDzkgruT1rwXccp7H8PhUWfL4vQ2GaYoq6L5VJVO4p
-	6aCXe3MeYtk0RXKQyFh2qwBjmhdQJFL8nGhfhcbSTKpTfAWyZIAfqDxI69h1HmKFAI+jHoGvnXV
-	A0n+7IWrf2m8NuCc+XnGnQ7Fi2Yaskzg1jHHkz75FXjLB3MfHGbkiBugGFmYlZpy0AveTgfvwuZ
-	ncjuvOYuXTQGPvGuA4i0SKQCMOuYNni/aEaw3InHFTo7kGv23b173DT3EmXPCedn0dbDV4JgfHv
-	NIO3ujO/hUMz65kNY+7HEuZNk5NdS7QueGPS0D/M8Y+QsEYDrEgsSz0i3uH5+d71Xh3qWsqcSjF
-	CBH3X9q7e4jtnKyIWOYQwFiSikw==
-X-Received: by 2002:a05:7300:ec8b:b0:368:d722:48ac with SMTP id 5a478bee46e88-368d7224a10mr2854568eec.14.1792685842405;
-        Thu, 22 Oct 2026 09:17:22 -0700 (PDT)
-X-Received: by 2002:a05:7300:ec8b:b0:368:d722:48ac with SMTP id 5a478bee46e88-368d7224a10mr2854534eec.14.1792685841743;
-        Thu, 22 Oct 2026 09:17:21 -0700 (PDT)
-Received: from [192.168.1.11] ([171.61.216.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36741e71eaesm37045478eec.26.2026.10.22.09.17.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 09:17:21 -0700 (PDT)
-Message-ID: <33ee0863-3e11-44b8-8d66-9a2e0e6b1161@oss.qualcomm.com>
-Date: Thu, 22 Oct 2026 21:47:14 +0530
+        d=1e100.net; s=20260707; t=1792685854; x=1793290654;
+        h=content-transfer-encoding:content-type:to:from:subject:message-id
+         :in-reply-to:date:mime-version:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5HOxdA60brS5/vE87VoiaV9Lf/Ck3aNReGrQMOrjtAc=;
+        b=lq3ofOgEDwXOixL2PxjVpeh0e7UoIQE2EVrbEDvZbocfFM/TYnVVUeRR0CebR+0ygn
+         /Ceptxv5duUmB3HxxFZtFs+ocy9PBEx7JTuSBNzqylQ0+UiPA0aDsIEI0+6rzd5LpF2J
+         EXom/fYkwcY8EyaIfaINDCF9SPG8E6GWiDxdI3cH978kY4foF5rbyJThHXOdNlfvKhHt
+         +L6sfkn/80ua1/uD6P+hQn7AGd+6GMXwojHRJG7UHJYjUKRnmIYbEcOBVcMi5Qy9C2PI
+         HjspZJxVINfF2NEGIGYV9r7kYPUlvzw9I8kSq1R4uaf1tuZqJudfNFj4luNYavRTGN8E
+         +7Jw==
+X-Gm-Message-State: AFq9FYL8bicud6VnmI7cpE9WXXd/gkWBzjtj+i2XHXzssbR2E3UpYVYF
+	P12DzL7d6wNzilqZ5xUb+FHKNJ8zmJI6g7f9FqHI0zOJ5pAaxgYtl4umv5fyOl8bx2jkvZ+4bNx
+	1cBfs9bbPFo8WwVnscjItJ4EMcMkgiqoogPPq4sI0wv0YmS/ksPmxe2eucqU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,135 +57,285 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/5] ASoC: dt-bindings: qcom,sm8250: Add
- shikra-iqs-lt9611uxd-evk sound card
-To: Karthik S <karthik.s@oss.qualcomm.com>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        ajay.nandam@oss.qualcomm.com
-References: <20261022094313.1074873-1-karthik.s@oss.qualcomm.com>
- <20261022094313.1074873-2-karthik.s@oss.qualcomm.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20261022094313.1074873-2-karthik.s@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: vHC7MrcZZScEc60lVu5lVJpUMQkmTrJp
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA2NCBTYWx0ZWRfXy7SfEt52DBz4
- H0biIyvjll2MDcFEU0pKp+eQfMXtOiJVRuU8XyWaMGFY/cljcGWR13zjBsm5W+iMjF69PemZOIJ
- e6KaG4FW/2c6WETOZj+gjZuz7pn5Nqo=
-X-Proofpoint-ORIG-GUID: vHC7MrcZZScEc60lVu5lVJpUMQkmTrJp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA2NCBTYWx0ZWRfX68axLJCW0jh5
- cJW4rb/KWDxQvZasOh3cY+0khCvoGmccfzsufubneHpxIt6LHOn7LUipZnRLmoryhdz16GK0lBZ
- 3WseWdfmgNRNT8n2SAZ/1VS0kmLXWHCzzu8xt/SV9sJoQqb3eyV/VbddpfqG6PLTOXN5ik8UShg
- kFKR4YsrhS1Vt3PAWhaWAQFx8wOXAUn5BE0yTGbTYmU3e6+BkCxy8SQqeDJT+2aAFKCh7pSpIu5
- vjBP0XpUTGa/dAKXS2KG3BS4BJvyo162hC2L3piBeENtIythhjVk5a1WOM/FvQFmegteMUEtBNk
- Z+xFv2wBt0cZWWrw9+5Ea+FIsKSJjdBtm1RpIFP8mOWpAml3nnlOKdhl6+Y4UTy9KvDT1JqOx/6
- yxqF70SyBpogtW3GwvIFCdUTc3F8Hcstmm06l00DoiKQ84qJSiMBCCJr53kjKSeU6dSaml8JZQN
- MbWcGV6ZTSkBQ2yuxnQ==
-X-Authority-Analysis: v=2.4 cv=dOszC+Zb c=1 sm=1 tr=0 ts=6ada3713 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Vglx2bvqrojy+vbCC2YzaQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=poZCmOCFEqE_XbxgsBQA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 malwarescore=0 priorityscore=1501
- suspectscore=0 spamscore=0 adultscore=0 phishscore=0 bulkscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610190000
- definitions=main-2610220064
+X-Received: by 2002:a05:6808:14cf:b0:4fb:90ae:2b0c with SMTP id
+ 5614622812f47-55366181fccmr4037751b6e.68.1792685854466; Thu, 22 Oct 2026
+ 09:17:34 -0700 (PDT)
+Date: Thu, 22 Oct 2026 09:17:34 -0700
+In-Reply-To: <6ad958f5.16f08417.1cb7b7.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ada371e.3ebfcf67.79b0c.0097.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [media?] [usb?] kernel BUG in v4l2_device_put
+From: syzbot <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
+***
 
-On 10/22/2026 3:13 PM, Karthik S wrote:
-> Add the shikra-iqs-lt9611uxd-evk sound card compatible so DT can
-> describe board-specific audio topology. This Shikra EVK variant does
-> not use the MAX98091 codec as the base shikra-iqs does; instead it uses
-> the LT9611UXD HDMI bridge as an I2S audio codec. Describing these
-> variants explicitly in DT allows the machine driver to select the
-> correct DAPM routes, controls, and clocking behavior for each board.
-> 
-> Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
-> ---
->   .../bindings/sound/qcom,sm8250.yaml           | 43 +++++++++++++++++++
->   1 file changed, 43 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> index 1536fcd96d68..d1f948a14c62 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> +++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-> @@ -50,6 +50,7 @@ properties:
->             - qcom,sc7180-qdsp6-sndcard
->             - qcom,sc8280xp-sndcard
->             - qcom,sdm660-sndcard
-> +          - qcom,shikra-iqs-lt9611uxd-sndcard
->             - qcom,sdm845-sndcard
->             - qcom,sm8250-sndcard
->             - qcom,sm8450-sndcard
-> @@ -247,3 +248,45 @@ examples:
->               };
+Subject: Re: [syzbot] [media?] [usb?] kernel BUG in v4l2_device_put
+Author: neganhat@gmail.com
 
-Nit: please keep the compatible list sorted alphabetically
+#syz test: linux-next 8f7df005a756
 
-Thanks
-Ajay Kumar Nandam
-
->           };
->       };
-> +
-> +  - |
-> +    #include <dt-bindings/sound/qcom,q6afe.h>
-> +    sound {
-> +        compatible = "qcom,shikra-iqs-lt9611uxd-sndcard";
-> +        model = "shikra-iqs-lt9611uxd-evk";
-> +        audio-routing = "VA DMIC0", "vdd-micb",
-> +                    "VA DMIC1", "vdd-micb",
-> +                    "VA DMIC2", "vdd-micb",
-> +                    "VA DMIC3", "vdd-micb";
-> +
-> +        pri-i2s-playback-dai-link {
-> +            link-name = "Analog Playback";
-> +            cpu {
-> +                sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
-> +            };
-> +            platform {
-> +                sound-dai = <&q6apm>;
-> +            };
-> +            codec {
-> +                sound-dai = <&lt9611uxd 0>;
-> +            };
-> +        };
-> +
-> +        pri-i2s-capture-dai-link {
-> +            link-name = "Analog Capture";
-> +            status = "disabled";
-> +        };
-> +
-> +        va-dmic-dai-link {
-> +            link-name = "VA DMIC Capture";
-> +            cpu {
-> +                sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
-> +            };
-> +            platform {
-> +                sound-dai = <&q6apm>;
-> +            };
-> +            codec {
-> +                sound-dai = <&vamacro 0>;
-> +            };
-> +        };
-> +    };
-
+On Thu, Oct 22, 2026 at 9:52=E2=80=AFPM Nh=E1=BA=ADt Anh Nguy=E1=BB=85n Duy=
+ <neganhat@gmail.com> wrote:
+>
+> #syz test: linux-next 8f7df005a756
+>
+> On Thu, Oct 22, 2026 at 9:08=E2=80=AFPM syzbot
+> <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com> wrote:
+> >
+> > Hello,
+> >
+> > syzbot has tested the proposed patch but the reproducer is still trigge=
+ring an issue:
+> > KASAN: slab-use-after-free Read in v4l2_release
+> >
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > BUG: KASAN: slab-use-after-free in v4l2_device_supports_requests includ=
+e/media/v4l2-device.h:252 [inline]
+> > BUG: KASAN: slab-use-after-free in v4l2_release+0xfe/0x350 drivers/medi=
+a/v4l2-core/v4l2-dev.c:466
+> > Read of size 8 at addr ffff888035785b10 by task v4l_id/7282
+> >
+> > CPU: 1 UID: 0 PID: 7282 Comm: v4l_id Not tainted syzkaller #0 PREEMPT(f=
+ull)
+> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS=
+ Google 10/07/2026
+> > Call Trace:
+> >  <TASK>
+> >  dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+> >  print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+> >  print_report+0x58/0x70 mm/kasan/report.c:482
+> >  kasan_report+0x117/0x150 mm/kasan/report.c:595
+> >  v4l2_device_supports_requests include/media/v4l2-device.h:252 [inline]
+> >  v4l2_release+0xfe/0x350 drivers/media/v4l2-core/v4l2-dev.c:466
+> >  __fput+0x408/0xa40 fs/file_table.c:513
+> >  fput_close_sync+0x11f/0x240 fs/file_table.c:619
+> >  filp_close_sync fs/open.c:1897 [inline]
+> >  __do_sys_close fs/open.c:2153 [inline]
+> >  __se_sys_close+0xa2/0x160 fs/open.c:2140
+> >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+> >  do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> > RIP: 0033:0x7f4a56ca7407
+> > Code: 48 89 fa 4c 89 df e8 38 aa 00 00 8b 93 08 03 00 00 59 5e 48 83 f8=
+ fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f =
+80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+> > RSP: 002b:00007ffcfee18b00 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
+> > RAX: ffffffffffffffda RBX: 00007f4a57357880 RCX: 00007f4a56ca7407
+> > RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+> > RBP: 00007f4a573576e8 R08: 0000000000000000 R09: 0000000000000000
+> > R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000013
+> > R13: 00007ffcfee18d30 R14: 00007f4a5745c000 R15: 0000557c8543f4d8
+> >  </TASK>
+> >
+> > Allocated by task 5749:
+> >  kasan_save_stack mm/kasan/common.c:57 [inline]
+> >  kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+> >  poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+> >  __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+> >  kasan_kmalloc include/linux/kasan.h:263 [inline]
+> >  __kmalloc_cache_noprof+0x31c/0x600 mm/slub.c:5680
+> >  _kmalloc_noprof include/linux/slab.h:991 [inline]
+> >  _kzalloc_noprof include/linux/slab.h:1312 [inline]
+> >  em28xx_media_device_init drivers/media/usb/em28xx/em28xx-cards.c:3757 =
+[inline]
+> >  em28xx_init_dev+0x857/0x2680 drivers/media/usb/em28xx/em28xx-cards.c:3=
+947
+> >  em28xx_usb_probe+0x17b2/0x2dd0 drivers/media/usb/em28xx/em28xx-cards.c=
+:4324
+> >  usb_probe_interface+0x751/0xe00 drivers/usb/core/driver.c:399
+> >  call_driver_probe drivers/base/dd.c:-1 [inline]
+> >  really_probe+0x254/0xae0 drivers/base/dd.c:707
+> >  __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:869
+> >  driver_probe_device+0x4f/0x240 drivers/base/dd.c:899
+> >  __device_attach_driver+0x270/0x410 drivers/base/dd.c:1027
+> >  bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+> >  __device_attach+0x2bd/0x430 drivers/base/dd.c:1131
+> >  device_initial_probe+0x9c/0x100 drivers/base/dd.c:1190
+> >  __bus_probe_device+0x126/0x220 drivers/base/bus.c:617
+> >  device_add+0x7d7/0xb80 drivers/base/core.c:3776
+> >  usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2280
+> >  usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+> >  usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+> >  call_driver_probe drivers/base/dd.c:-1 [inline]
+> >  really_probe+0x254/0xae0 drivers/base/dd.c:707
+> >  __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:869
+> >  driver_probe_device+0x4f/0x240 drivers/base/dd.c:899
+> >  __device_attach_driver+0x270/0x410 drivers/base/dd.c:1027
+> >  bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+> >  __device_attach+0x2bd/0x430 drivers/base/dd.c:1131
+> >  device_initial_probe+0x9c/0x100 drivers/base/dd.c:1190
+> >  __bus_probe_device+0x126/0x220 drivers/base/bus.c:617
+> >  device_add+0x7d7/0xb80 drivers/base/core.c:3776
+> >  usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
+> >  hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+> >  hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+> >  port_event drivers/usb/core/hub.c:5889 [inline]
+> >  hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
+> >  process_one_work kernel/workqueue.c:3495 [inline]
+> >  process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+> >  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+> >  kthread+0x38b/0x480 kernel/kthread.c:436
+> >  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+> >  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> >
+> > Freed by task 5749:
+> >  kasan_save_stack mm/kasan/common.c:57 [inline]
+> >  kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+> >  kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+> >  poison_slab_object mm/kasan/common.c:264 [inline]
+> >  __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+> >  kasan_slab_free include/linux/kasan.h:235 [inline]
+> >  slab_free_hook mm/slub.c:2780 [inline]
+> >  slab_free mm/slub.c:6630 [inline]
+> >  kfree+0x1c5/0x650 mm/slub.c:6923
+> >  em28xx_unregister_media_device drivers/media/usb/em28xx/em28xx-cards.c=
+:3779 [inline]
+> >  em28xx_release_resources+0xde/0x240 drivers/media/usb/em28xx/em28xx-ca=
+rds.c:3798
+> >  em28xx_usb_disconnect+0x19f/0x2f0 drivers/media/usb/em28xx/em28xx-card=
+s.c:4493
+> >  usb_unbind_interface+0x295/0x9c0 drivers/usb/core/driver.c:460
+> >  device_remove drivers/base/dd.c:619 [inline]
+> >  __device_release_driver drivers/base/dd.c:1357 [inline]
+> >  device_release_driver_internal+0x48d/0x7d0 drivers/base/dd.c:1380
+> >  bus_remove_device+0x444/0x560 drivers/base/bus.c:681
+> >  device_del+0x524/0x8f0 drivers/base/core.c:3965
+> >  usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1484
+> >  usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2355
+> >  hub_port_connect drivers/usb/core/hub.c:5425 [inline]
+> >  hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+> >  port_event drivers/usb/core/hub.c:5889 [inline]
+> >  hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5971
+> >  process_one_work kernel/workqueue.c:3495 [inline]
+> >  process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+> >  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+> >  kthread+0x38b/0x480 kernel/kthread.c:436
+> >  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+> >  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> >
+> > The buggy address belongs to the object at ffff888035785800
+> >  which belongs to the cache kmalloc-1k of size 1024
+> > The buggy address is located 784 bytes inside of
+> >  freed 1024-byte region [ffff888035785800, ffff888035785c00)
+> >
+> > The buggy address belongs to the physical page:
+> > page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x35=
+780
+> > head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+> > flags: 0xfff00000000040(head|node=3D0|zone=3D1|lastcpupid=3D0x7ff)
+> > page_type: f5(slab)
+> > raw: 00fff00000000040 ffff88813ff2bdc0 dead000000000100 dead00000000012=
+2
+> > raw: 0000000000000000 0000000000100010 00000000f5000000 000000000000000=
+0
+> > head: 00fff00000000040 ffff88813ff2bdc0 dead000000000100 dead0000000001=
+22
+> > head: 0000000000000000 0000000000100010 00000000f5000000 00000000000000=
+00
+> > head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffff=
+ff
+> > head: ffffffffffffffff 0000000000000000 00000000ffffffff 00000000000000=
+08
+> > page dumped because: kasan: bad access detected
+> > page_owner tracks the page as allocated
+> > page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd282=
+0(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1=
+62, tgid 162 (kworker/u8:7), ts 176383093465
+> >  set_page_owner include/linux/page_owner.h:33 [inline]
+> >  post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1856
+> >  prep_new_page mm/page_alloc.c:1864 [inline]
+> >  get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3935
+> >  __alloc_frozen_pages_noprof+0x1fe/0x410 mm/page_alloc.c:5459
+> >  alloc_slab_page mm/slub.c:3384 [inline]
+> >  allocate_slab+0x7d/0x5e0 mm/slub.c:3499
+> >  new_slab mm/slub.c:3550 [inline]
+> >  refill_objects+0x2d5/0x350 mm/slub.c:7539
+> >  refill_sheaf mm/slub.c:2917 [inline]
+> >  __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
+> >  alloc_from_pcs mm/slub.c:4887 [inline]
+> >  slab_alloc_node mm/slub.c:5021 [inline]
+> >  __do_kmalloc_node mm/slub.c:5530 [inline]
+> >  __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
+> >  _kmalloc_noprof include/linux/slab.h:995 [inline]
+> >  _kzalloc_noprof include/linux/slab.h:1312 [inline]
+> >  ieee802_11_parse_elems_full+0x14b/0x2a10 net/mac80211/parse.c:1077
+> >  ieee802_11_parse_elems net/mac80211/ieee80211_i.h:2583 [inline]
+> >  ieee80211_rx_mgmt_probe_beacon net/mac80211/ibss.c:1542 [inline]
+> >  ieee80211_ibss_rx_queued_mgmt+0x509/0x2c40 net/mac80211/ibss.c:1573
+> >  ieee80211_iface_process_skb net/mac80211/iface.c:1805 [inline]
+> >  ieee80211_iface_work+0x769/0xfa0 net/mac80211/iface.c:1859
+> >  cfg80211_wiphy_work+0x29e/0x420 net/wireless/core.c:610
+> >  process_one_work kernel/workqueue.c:3495 [inline]
+> >  process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+> >  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+> >  kthread+0x38b/0x480 kernel/kthread.c:436
+> >  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+> >  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+> > page last free pid 31 tgid 31 ts 176051931514 stack trace:
+> >  reset_page_owner include/linux/page_owner.h:26 [inline]
+> >  __free_pages_prepare mm/page_alloc.c:1403 [inline]
+> >  __free_frozen_pages+0xc97/0xd90 mm/page_alloc.c:2954
+> >  __slab_free+0x269/0x2c0 mm/slub.c:5926
+> >  qlink_free mm/kasan/quarantine.c:163 [inline]
+> >  qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+> >  kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+> >  __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
+> >  kasan_slab_alloc include/linux/kasan.h:253 [inline]
+> >  slab_post_alloc_hook mm/slub.c:4720 [inline]
+> >  slab_alloc_node mm/slub.c:5033 [inline]
+> >  __kmalloc_cache_noprof+0x29a/0x600 mm/slub.c:5676
+> >  _kmalloc_noprof include/linux/slab.h:991 [inline]
+> >  dummy_urb_enqueue+0x7c/0x7a0 drivers/usb/gadget/udc/dummy_hcd.c:1327
+> >  usb_hcd_submit_urb+0x328/0x1b60 drivers/usb/core/hcd.c:1543
+> >  usb_start_wait_urb+0x13f/0x5b0 drivers/usb/core/message.c:62
+> >  usb_internal_control_msg drivers/usb/core/message.c:117 [inline]
+> >  usb_control_msg+0x234/0x3e0 drivers/usb/core/message.c:167
+> >  get_bMaxPacketSize0 drivers/usb/core/hub.c:4869 [inline]
+> >  hub_port_init+0xb0b/0x28c0 drivers/usb/core/hub.c:5065
+> >  hub_port_connect drivers/usb/core/hub.c:5514 [inline]
+> >  hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+> >  port_event drivers/usb/core/hub.c:5889 [inline]
+> >  hub_event+0x24e8/0x4d30 drivers/usb/core/hub.c:5971
+> >  process_one_work kernel/workqueue.c:3495 [inline]
+> >  process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+> >  worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+> >  kthread+0x38b/0x480 kernel/kthread.c:436
+> >  ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+> >
+> > Memory state around the buggy address:
+> >  ffff888035785a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> >  ffff888035785a80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> > >ffff888035785b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> >                          ^
+> >  ffff888035785b80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+> >  ffff888035785c00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> >
+> > Tested on:
+> >
+> > commit:         8f7df005 Add linux-next specific files for 20261020
+> > git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linu=
+x-next.git
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=3D120a9fa9580=
+000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=3D9c1b9b13e3e=
+4ce1a
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=3D809dfc586f33f=
+c44b6ac
+> > compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.=
+1.8
+> > patch:          https://syzkaller.appspot.com/x/patch.diff?x=3D17b7b50d=
+580000
+> >
