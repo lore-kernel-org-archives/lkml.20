@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677205;
-	b=Osl5MRX8ZNC/AaUlT/QvwyU0AuCPBXVNZqT/C/on5yUtyMYGFREBajARNRFGFnwATM9q
-	 iQMPVoMvMryZIJzc7fIy75lSHLczUa3FkFsiD7rgb0jCtXANpcJ0nI0M1py4Ro00//0Jv
-	 euUhT4JtQy1ar5WcGsbHfpunncGM//hM7zjCHXk1b3sD6PtJgB6mkIZueq0x823yykxvX
-	 oFgTHwto9zyMUrAjrY6FacnRy34iJ62hX0DxvLLQrT7OkQMABWNwQZ+Nq69L4mt9TQH9u
-	 tIwchmJq6xnrSZV/MtkbGdycSMuc+7giTmA9bG/BmIAJKVgQWQliN8JeQwu36DsFVyQ==
+	t=1792677208;
+	b=Xj5bPyM372YzQmiZ4fec3AIaldMv9/r7W+0fBs7wHvtvoslKZoKoEheNfpWnRT38I3y/
+	 YjAB+5ARRmfinMaB0zslU/OKni8xf9osG995k2VKNbItm2oJWWA8aCnIy+81OMs3jP2Pn
+	 jUD1l1SmHdA0FF7DrCjcPCRuKn7eJMKRxT+rXptNddGUeIs97C87AM8O1Z2yyFr6ZmKQk
+	 4y6VEDiZgZpn7Se79v+xLpkNLCc2tnwdvr3f8GxjaE+oUBJBP1JPdR8dOq+40BJUnnUte
+	 bKKAlkewfB7yLGGpSyCRPQaYFgVtkKeD/BgkeZKLmn3eAU5/lZcL29N0gl8zvhSm65Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677205;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677208;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=bp8Sv56uWGNu5dzO8hoWLI+wBl8bSINfQ15wCZlMHhg=;
-	b=dXGKJzjB5HBBvlWLdZqUf0CF5bY2Iq6u0g2qUHlTt+lgqQYUJo2Jj9SbmapD5ax+FDXK
-	 pwG6Y/DC9hmn29RDvocejahdMMn/guhvSVA2zIpKmFoDCRSktREC3sLzYVMRB7d6fpGtm
-	 ZhQYawxRwNLOJDSpI8pTxv/YRAjAvG/RYDOfZ9LiJ3dtq6aU2ypgV+obUoPwQ70WZKDEk
-	 3SD2pMIj4GYFe6a7icavn2PrKHjldnT8v1XXUayRz0XKE++/MwtBhAxronMsOkP0UuBwH
-	 tR66PUryCXW779+UzFQHeD2onEvodwLQnpxvMymhEESnzFReqrPZWyky4N6tRLB2n6A==
+	bh=hYIZ0Nxu3e4yHwGzd5Edo5K+65SxK/KdsxGn3Zo1Zf8=;
+	b=mXVLzoi4+sIb7yzH2fXupdhak5VR46ZYTId9+MKsrLqtPH58DsPZqxDxHTQVmoBx3MLu
+	 mA7FojzWfgprGTqPCzmAZdwBeX2r61KQoiSOgDP5DYCGcmNBx4loouD2EBF6vW3Yr0M8e
+	 dVT+/ANNePySkQn92rD1FNZKNsS013Dt7cAPcGhUQj5S5tn1h1jTgcBBk80ZbzacQqhQ+
+	 fyfzoNZXkZwdmJz0DoogUEAIIZPMbC1DSgmurw5RPU90pVUnF28T2S9pAc62D3IIoaOzr
+	 wTwWWFKSE9fDYa0Cis8KNWiPcBdokqheKxehfl5p7/AzYcirzJGTVkBggp24dCGGN4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdNbL7ii;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnP99f0U;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F114C606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7A760A261F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdNbL7ii
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BAA1F000C2;
-	Thu, 22 Oct 2026 13:53:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gnP99f0U
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95911F000C6;
+	Thu, 22 Oct 2026 13:53:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792677204;
-	bh=bp8Sv56uWGNu5dzO8hoWLI+wBl8bSINfQ15wCZlMHhg=;
+	s=k20260515; t=1792677208;
+	bh=hYIZ0Nxu3e4yHwGzd5Edo5K+65SxK/KdsxGn3Zo1Zf8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VdNbL7iiFiqZk2DsxL87UDc7lFoy6Jq2+vVHB6I3vfKqQiWtc/K2wgVyCUJLPepZ3
-	 LRpMGtl0mfHIw/lRJx0IixQTr/W5BQxcbe7nlAZjL39eKjHzdFPix3nrhivqNsQsfE
-	 6egR9gqfjR5oPCUrREv6w4LR9Gj1FXI7cnnO2vi5xDMoHGoYq0mkv4H01pkR6T7xgx
-	 kDamF9uZeJcb39UeWdmVF013g4c/cD5sGNh/Y2kQm8OF36Q5wNCpp9O0kd8nSB9i/R
-	 1CnIfhlwXdAFnLlzPXeb+WQZHuU+w2xVxdiWz1i8l+2XQx0lo7qwdk47vtFrGcJkLs
-	 E6dM2CdDSn+8w==
+	b=gnP99f0UG5i2qAIDP7IaXh4NV6xWE5Q2wNOk2dAjbtVulLopXxrwi4r21Zjic4IQh
+	 BX8AGtP+svrHtmkpv8kMLhwQcoA9atwQC3M/gDTPlEWqUwbxl0BqoMNnsAOJDj/mI2
+	 +yCna/X3iaII5OlJ2diGuYAhEV8QxiYDwEK13r9itAjnwMlJaUVPdoI1x4WTr1wlyu
+	 5b7iy/mIYyQNSRnJwIlqNnbnSmghX+O9o7x7SlrEb4K0rwm/gpW8Fje/XRxEEHGYK+
+	 5bZn2S8dJIySkVBb1nakvLyJ5pnK/DH80r5WK1fCjzT1CbO0MUaORkv3/0vDY4ullF
+	 fZ5lzXy5rC0bg==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Thu, 22 Oct 2026 15:53:03 +0200
-Subject: [PATCH v6 02/15] drm/atomic: Switch to krealloc_array() in
- drm_atomic_get_private_obj_state()
+Date: Thu, 22 Oct 2026 15:53:04 +0200
+Subject: [PATCH v6 03/15] drm/atomic: Use __GFP_ZERO instead of explicit
+ memset in drm_atomic_get_private_obj_state()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-drm-reset-state-flag-v6-2-f36d640b7e76@kernel.org>
+Message-Id: <20261022-drm-reset-state-flag-v6-3-f36d640b7e76@kernel.org>
 References: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 In-Reply-To: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -74,48 +74,48 @@ Cc: Daniel Stone <daniels@collabora.com>,
  Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1391; i=mripard@kernel.org;
- h=from:subject:message-id; bh=BzbEMPPA4chwGhrAev6Iwlnw4dYruoi/b+S/QBBvOnk=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RF2yNn6sawlbdMQm02LNmf3LL0/fL1F9eYnSfbmV7
- 705tJO2dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJaN5irC+f2GJoqx6+13Qr
- W2/KkSbf5D1cmrf3Cv7N3d2rcow3W+m278L6JQ8bdnsflkxXlZiuxtiwJ/rT/Yii4rtblDiz2ju
- utEyL4//osCTYverWAhOpDR/+nFjwY82/LamCVWxLHvH3BfEBAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1481; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=/y0t9kvV8Kz+g1uKURCfaTtHcrjM3f6qXQBsVU8JRDM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RF08NhbulUy/c7xJRPto+f2zwr/tt07d8Tz8yiIlf
+ euNl/T+dkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJXFZnbHj/6Z1AuAm71uuY
+ 9ZO0ZJunaOq47PmWkaMoHfs47rqcz5G2O3ZTHq1Lsn3389vmiBvaTIz1eSntFhxa07d/ljw09aX
+ zHlW9NzlrNtUefXT+6aRZjSlLt1yffeKZxORHvkzT4jWWW87uAwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The drm_atomic_get_private_obj_state() function manually computes the
-allocation size by multiplying the element count by the element size
-before passing it to krealloc().
+The drm_atomic_get_private_obj_state() function allocates a new entry in
+the private_objs array using krealloc_array(), then zeroes the new entry
+with a separate memset() call.
 
-krealloc_array() handles this multiplication internally and includes
-overflow checking. Switch to it and drop the now-unused size variable.
+However, since krealloc_array() already supports the __GFP_ZERO flag to
+zero newly allocated memory, the explicit memset() is redundant.
+
+Pass __GFP_ZERO to krealloc_array() and drop the manual memset().
 
 Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
 Reviewed-by: Daniel Stone <daniels@collabora.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_atomic.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_atomic.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 9bb761eda59f..aa47c647df31 100644
+index aa47c647df31..43b58e9b25e4 100644
 --- a/drivers/gpu/drm/drm_atomic.c
 +++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1080,5 +1080,4 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- {
- 	int index, num_objs, ret;
--	size_t size;
- 	struct __drm_private_objs_state *arr;
- 	struct drm_private_state *obj_state;
-@@ -1096,6 +1095,6 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
- 
+@@ -1096,5 +1096,5 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
  	num_objs = state->num_private_objs + 1;
--	size = sizeof(*state->private_objs) * num_objs;
--	arr = krealloc(state->private_objs, size, GFP_KERNEL);
-+	arr = krealloc_array(state->private_objs, num_objs,
-+			     sizeof(*state->private_objs), GFP_KERNEL);
+ 	arr = krealloc_array(state->private_objs, num_objs,
+-			     sizeof(*state->private_objs), GFP_KERNEL);
++			     sizeof(*state->private_objs), GFP_KERNEL | __GFP_ZERO);
  	if (!arr)
  		return ERR_PTR(-ENOMEM);
+@@ -1102,5 +1102,4 @@ drm_atomic_get_private_obj_state(struct drm_atomic_commit *state,
+ 	state->private_objs = arr;
+ 	index = state->num_private_objs;
+-	memset(&state->private_objs[index], 0, sizeof(*state->private_objs));
+ 
+ 	obj_state = obj->funcs->atomic_duplicate_state(obj);
 
 -- 
 2.55.0
