@@ -1,96 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.103
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792668091;
-	b=izj9pcDnSF6J14DN+w60K7vdIi5ilzMu3TyAPPScLBRDv2NqbPpFV8yZghD9kyX6wgbP
-	 6PF72Aeg5SXBCnqx4WYzgX+Rs0OJVvqP8Bp61iejZuboB4jbU4m15JocnhDBbKKQoq7/D
-	 mOGDJoVdtiSSk/h17TO+rhtmhp2Tlq899bFeoVa3gRFYPDRNa/ZA1kKFmgahRivgM4Lif
-	 0Xluf7WKGZJgiYOwrDIndnOwsuyCVMlRtYGK5XtvrE9DzoJsfLzk2kuqVDFDY+WQIqJBk
-	 4rxBlavy4O7MFd/CIiZq9vkq4os1SYerwAPE/lO5eyau9SNqGK5Lo9CIz7L7xvCjiPA==
+	t=1792668122;
+	b=0pxcBckweGGFHIEGX4k+6GbRw6uL7YOzjo70jcmoPlptp/09N2zLbKaWu8V2wApuWl2u
+	 tkMuEC5Ev+C2+ucyT/ARBFTYyXFLQqh8/AhES6pdpxGLLUfWd6UnVsc2f3hdBdC63cpZ4
+	 hdZx/vKY/iOrtU3VdjHrHF3Xw2bMfcJ7MJ6MDCnOvxssBCTqDb/jCgfJCEvDW1R4isY3Q
+	 Gb7JqJnQ5ZURJEo+L/GFnbkfJlHwZSceXb74CF3HUObh0yaetYazzPyZtLZer5W81uGT9
+	 zV2ZaqVN2LPF7SjROPjzCxS+zZ8OLCeA1FoyTT9gaMAaF1V/+lyaOuHIJkaioreGugw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792668091;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=YK5V6UeZ+5TIYQp33vU4MVP0I+g7N2au9bpVxBDnWnI=;
-	b=sU+BXH4WDzlgLyNurQiVHsmnQL0Oih+h45SI4va9DcFeM4pwFZuIBT6iK73JDEHL12m0
-	 Yz9bH7elVo05w/bPH4hovtCNj7NGVnvGZKg6eJ7oyOtqk26vihvo8qe50Cvwevkraukeg
-	 yPHh34GzVBCj/0D4gQoOnp1b2QG8MEipjqPLCDaVwa8jMhtaAiuhkAF7dAmah5Oiy4FMg
-	 O13MxuidUv5dpAXQoaPVcgcOXBK5Q0Njb/vK3e9WDi2FiDUlP0JARurfBcUXw6uS3ln7M
-	 aFrPiJm2y8PXSgxussUBjnJXFzG/k3B7F9tjS2AAfZxarZDfjxaJZnkxot2rbOsD7eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792668122;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=1QGtmRvjOb8fqkCzYCJ9CwnQ/4du45TAYsxkCjrlYtU=;
+	b=pBOJSGOYXSLGXsPwItqOXE+hXoXzqwss3fiiJ4rEhh8cc/dD+7HcvGZDTjAkTj84kxrj
+	 R3/PRPRb1r4MMOMuqPz3F2Pa4h2r3hrapy85e5WKIoAHvgFYyhq0S72j5IQq40uMHfpgp
+	 RFKw96JY7AdGP8OVkdR9Fiv4V+wfIvFZkqL2U94lkXUHc3XcsTcJJlSovCYsM/2ev8+nV
+	 s6ihWBKXdPbGfpei4T8FHj5dnwHeNMM7e1L29a3acDlx/+5TjhIF3B2UkMdqr4A0/K3F7
+	 vzWA1/4Z4byhYxIhAvWX1eQ5oePBVe1He1FdzD2l/NKHnIUDgd5l2wA5+NzqzTG4G+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cW9jK8S+;
-	arc=none smtp.remote-ip=209.85.221.43
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="jgRz//Fp";
+	arc=none smtp.remote-ip=95.215.58.103
+Received: from mta1.migadu.com (out-103.mta1.migadu.com [95.215.58.103])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A2E0606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:21:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A2E0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33C3606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:22:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D33C3606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=cW9jK8S+
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so1048273f8f.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:21:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1792668089; x=1793272889; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YK5V6UeZ+5TIYQp33vU4MVP0I+g7N2au9bpVxBDnWnI=;
-        b=cW9jK8S+5+JFEQzu2vYBukyiRnRVBYQ/ah8hMppajtqwhhK/nqmNV9LwA62KUGaIJZ
-         wxWx2rqwqygnvDxcQMGpG9WxGC3dJIdyDvpD59cvcafwTmGFHGZ2veB34HinUmphLpQ5
-         7oZPNvh4H09CpxIySP1p/g8fePOMscxNgsjlySv4kf1okUIoKQ3gTi/HFpq9TyjSr5b8
-         VI/bOQiX25vu820rQ3uI0VivnR1GKGP7t33XTphuBoCGn8KTY+2eX0mc2bz1ry3OxiHZ
-         iHz0PlI3GAvMzy2AqEmKwEB7IjawHv32QQNa2/qI0FPHBls+GwLWkaa4bMmcqwVIYOJ2
-         /Clw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792668089; x=1793272889;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YK5V6UeZ+5TIYQp33vU4MVP0I+g7N2au9bpVxBDnWnI=;
-        b=061e20t1aCUU91EMTN0fDZp/wCoby1NkQZRIozcKMIgbikPIIFCs6nPykHVVeCxmX6
-         GA01kxr9oQQlkmLTkMEGGqP2Zs6t+sp2sZT115w2qZhMEbohih9gO60ZRmu1fLJtfVlS
-         zg2e7IJ3bdPP+j5VP5f/+X/vLh6XE35XNCb8eFCAZkTEEyXp+4LWcHfR4wp8ylDHZ8rW
-         7uKeo6gaATsrNELa5fRRM6v2/HvGUXL4qMqWDsi+ZBALYWL7DGntGqJWyVgNNRH+1nXG
-         d3rCext4v0W8YXpGL/5Z+jX38qOJb2FmehyCidozXExQ+w4lFAME5QsFF5zycHV9Tvun
-         vvTg==
-X-Forwarded-Encrypted: i=1; AKwUvBzfTXabCpBygBWD+3bmFuVwTAHAy7FkapViM3RFIjOFhsdCN+NpCAsUf6D+0Mrk3JH9+zYhZlNLPzy6UzE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI8Ci7UnLlvcIPmybbWiUMZWrv/PkZIH3wW1cMgiKFVDfSz8bvz
-	3lJW3nV5Jqrr6Efm3unk15vVBdcD/bry7QddKEOyDjLyrSGvCyU1k7QswWJZj7mvPdWJ75+Dztd
-	KRKzrCh0=
-X-Gm-Gg: AYBFou3QM2Kga46KpVCFswl/a2Qd6zHVFM+MxiWK0al4vtcT7DZiqwt8ZE9dlyktbcM
-	Zi+pCcH7MGzNThiloQQOYfxgjZyOskaLcEBrMP9BqoJ2Hs03fzwLMFic0nJKolaLCUVV3WQci0S
-	z5hu01nYuJ/1/WG3rBEfpzRbPrpfTmF7I1AvHB4l6N4BFUGzaX4lhgv3uhy5bnMO3qdT76M+AEn
-	uPHw+A11C4VDwm0SFG9ubYWHVpGsHTyVA706dNSzVdoM59TfWtLaj6kllFsDzr4UvBS0iJee8p8
-	o5NvtzCQX7dzz1YeYisU5zA81rrrJvRd2nlyNhhOFBB7cZVEonGNQvuMWYB8AZWyabCo5F4O8VC
-	MOir2yrrDvwKmEaoCudM9e84oX4MSiFpQg3mSNbJexAjRewCd85SUOTpJHGFfC4e5Wrwb18E33K
-	+HrEGQMrFCPo2HRwZQE+ZBJolrVi2t0P2m7j6itvxNN510N+Xhw0bt3i7VNUHT4hK3hWCUQ93+t
-	jy7siIlm5lHOctBorlVgoBP3mSRnVUWMQ3/tjOQP2Lh49HnNxX+IbBJis7OrIcDidlJ0MvQTeQe
-	QSjxFazw+ZIArPX32w==
-X-Received: by 2002:a05:6000:26cb:b0:48e:10a7:438 with SMTP id ffacd0b85a97d-48e264c2b7dmr9305222f8f.36.1792668089462;
-        Thu, 22 Oct 2026 04:21:29 -0700 (PDT)
-Received: from pathway.suse.cz (nat2.prg.suse.com. [195.250.132.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835e22sm13246580f8f.44.2026.10.22.04.21.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:21:29 -0700 (PDT)
-Date: Thu, 22 Oct 2026 13:21:27 +0200
-From: Petr Mladek <pmladek@suse.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: John Ogness <john.ogness@linutronix.de>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Petr Mladek <pmladek@suse.com>, linux-kernel@vger.kernel.org
-Subject: [GIT PULL] printk for 7.4
-Message-ID: <atnxt9PVFpXO5wja@pathway.suse.cz>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=jgRz//Fp
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=4bKW62D7768HJn2JJyQUW9xW2wLGbCPFplIPtSyTNPc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792668118; v=1; x=1793272918;
+ b=jgRz//FpoZpyqTzdtuKrNMhR5NO7w3KwCAL2cntTuwmfJ3F1CzBNRSyH+p3FO0a/hlZ0e+Rv
+ sA26FPWdd8Ge3j7ThrqVzi6RuOARGsTM4+22zxQm3hyu+AMldyrd/WnVj+yM2XqCOKPJrzO71ID
+ TRvRq0XQz9OI8AGoWRcRQNYI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 33f42ce4c9703787;
+	Thu, 22 Oct 2026 11:21:58 +0000
+X-Mizu-Trace-ID: 33f42ce4c9703787
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b5745b31-adec-4158-bba4-2c21dbfe2566@linux.dev>
+Date: Thu, 22 Oct 2026 19:21:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,65 +58,456 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/5] mm: hugetlb: track CMA reservations by pool
+To: Qi Zheng <qi.zheng@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Qi Zheng <zhengqi.arch@bytedance.com>, david@kernel.org, osalvador@suse.de,
+ akpm@linux-foundation.org, azpijr@gmail.com
+References: <cover.1792651104.git.zhengqi.arch@bytedance.com>
+ <29b35f7221c30f1dfa320a933f6095f37b612a37.1792651104.git.zhengqi.arch@bytedance.com>
+Content-Language: en-US
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <29b35f7221c30f1dfa320a933f6095f37b612a37.1792651104.git.zhengqi.arch@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
 
-please pull the latest printk changes from
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux.git tags/printk-for-7.4
+On 2026/10/22 15:31, Qi Zheng wrote:
+> From: Qi Zheng <zhengqi.arch@bytedance.com>
+>
+> Introduce fixed default and PMD pool slots in preparation for PMD-sized
+> HugeTLB CMA support. Continue accepting only the architecture's existing
+> CMA page size and keep all gigantic sizes sharing the default pool.
+> PMD-sized pool support will be added in a subsequent patch.
+>
+> Select the pool for allocation, CMA-only checks and boot-time accounting.
+> Release folios through the CMA area that owns their physical memory,
+> including after demotion.
+>
+> Record each pool's successfully reserved capacity and remove
+> hugetlb_cma_validate_params(), since the per-pool CMA-only check handles
+> missing or empty reservations.
+>
+> Assisted-by: LLM
+> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
+> ---
+>   mm/hugetlb.c     |   6 +-
+>   mm/hugetlb_cma.c | 154 ++++++++++++++++++++++++++++++++---------------
+>   mm/hugetlb_cma.h |  11 ++--
+>   3 files changed, 112 insertions(+), 59 deletions(-)
+>
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index b37d7d0db7fc9..6b08074d11f52 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -1368,7 +1368,7 @@ static struct folio *alloc_gigantic_frozen_folio(int order, gfp_t gfp_mask,
+>   	if (folio)
+>   		return folio;
+>   
+> -	if (hugetlb_cma_exclusive_alloc())
+> +	if (hugetlb_cma_exclusive_alloc(order))
+>   		return NULL;
+>   
+>   	folio = (struct folio *)alloc_contig_frozen_pages(1 << order, gfp_mask,
+> @@ -3635,7 +3635,7 @@ static void __init hugetlb_hstate_alloc_pages(struct hstate *h)
+>   	 * Skip gigantic hugepages allocation if early CMA
+>   	 * reservations are not available.
+>   	 */
+> -	if (hstate_is_gigantic(h) && hugetlb_cma_total_size() &&
+> +	if (hstate_is_gigantic(h) && hugetlb_cma_size(h) &&
+>   	    !hugetlb_early_cma(h)) {
+>   		pr_warn_once("hugetlb_cma is enabled, skip boot time allocation\n");
+>   		return;
+> @@ -4338,8 +4338,6 @@ static __init void hugetlb_parse_params(void)
+>   
+>   		hcp->setup(hcp->val);
+>   	}
+> -
+> -	hugetlb_cma_validate_params();
+>   }
+>   
+>   /*
+> diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+> index 4f27eb242dc3b..c279c3f548705 100644
+> --- a/mm/hugetlb_cma.c
+> +++ b/mm/hugetlb_cma.c
+> @@ -19,6 +19,7 @@
+>   struct hugetlb_cma_pool {
+>   	struct cma *cma[MAX_NUMNODES];
+>   	unsigned long size;
+> +	unsigned int order;
+>   };
+>   
+>   struct hugetlb_cma_config {
+> @@ -27,14 +28,34 @@ struct hugetlb_cma_config {
+>   	unsigned int percent_in_node[MAX_NUMNODES];
+>   };
+>   
+> -static struct hugetlb_cma_pool hugetlb_cma __ro_after_init;
+> -static struct hugetlb_cma_config hugetlb_cma_config __initdata;
+> +enum {
+> +	HUGETLB_CMA_DEFAULT,
+> +	HUGETLB_CMA_PMD,
+> +	HUGETLB_CMA_POOLS,
+> +};
 
-================================================================
+Since there are exactly two pool roles, could we make that explicit with
+a typed enum, for example:
 
-- John Ogness became PRINTK co-maintainer.
+       enum hugetlb_cma_pool_id {
+             HUGETLB_CMA_POOL_DEFAULT,
+             HUGETLB_CMA_POOL_PMD,
+             HUGETLB_CMA_NR_POOLS,
+       };
 
-- Unregister boot consoles when any proper console is registered at the end
-  of the boot phase. Before they were removed only when the so-called
-  preferred console, usually set via the last console= parameter, got
-  registered.
+and name the array hugetlb_cma_pools[]?
 
-- Fix computation for increasing  the printk ringbuffer on systems
-  with many CPUs and possibly long backtraces from all CPUs.
+> +
+> +static struct hugetlb_cma_pool hugetlb_cma[HUGETLB_CMA_POOLS] __ro_after_init;
+> +static struct hugetlb_cma_config hugetlb_cma_config[HUGETLB_CMA_POOLS] __initdata;
+>   
+>   static bool hugetlb_cma_only __ro_after_init;
+>   
+>   static char hugetlb_cma_cmdline[COMMAND_LINE_SIZE] __initdata;
+>   static unsigned int hugetlb_cma_cmdline_len __initdata;
+>   
+> +static struct hugetlb_cma_pool *hugetlb_cma_pool(unsigned int order)
 
-- Cleaned up irq_works handling for deferred printk operations.
+How about order_to_cma_pool()?
 
-- Use acquire/release semantic for filled_random_ptr_key.
+> +{
+> +	struct hugetlb_cma_pool *pmd_pool = &hugetlb_cma[HUGETLB_CMA_PMD];
+> +
+> +	if (order == PMD_SHIFT - PAGE_SHIFT && pmd_pool->size)
 
-- Allow to use ':' in console options.
+PMD_ORDER is better.
 
-- More code clean up.
+There's another question here: why does PMD-based page allocation
+need to check the pool->size, but gigantic pages don't?
 
-----------------------------------------------------------------
-Andy Shevchenko (1):
-      lib/vsprintf: Use EXPORT_SYMBOL_IF_KUNIT() to export symbols
+> +		return pmd_pool;
+> +
+> +	/* Preserve the default pool's use by gigantic sizes. */
+> +	if (order_is_gigantic(order))
+> +		return &hugetlb_cma[HUGETLB_CMA_DEFAULT];
 
-David Engraf (1):
-      printk: Remove console options before decoding the name
+If we also check size for gigantic pages here, would the code be simpler
+that way for callers?
 
-Jinjie Ruan (1):
-      lib/vsprintf: Use acquire/release for ptr_key publication
+> +
+> +	return NULL;
+> +}
+> +
+>   #ifdef CONFIG_NUMA
+>   static phys_addr_t __init memblock_node_memory_size(int nid)
+>   {
+> @@ -56,10 +77,16 @@ static phys_addr_t __init memblock_node_memory_size(int nid)
+>   
+>   void hugetlb_cma_free_frozen_folio(struct folio *folio)
+>   {
+> -	struct hugetlb_cma_pool *pool = &hugetlb_cma;
+> +	unsigned int i;
+> +	int nid = folio_nid(folio);
+> +	unsigned long nr_pages = folio_nr_pages(folio);
+> +
 
-Petr Mladek (3):
-      MAINTAINERS: Make John PRINTK co-maintainer
-      Merge branch 'for-7.4' into for-linus
-      Merge branch 'for-7.4-console-registration' into for-linus
+Please add a short comment here explaining why all pools must be searched:
+after demotion, the folio order does not identify the CMA pool that 
+originally
+owns the physical range.
 
-Sang-Heon Jeon (1):
-      printk: increase the ring buffer for more than 16 CPUs by default
+Thanks,
+Muchun
 
-Sebastian Andrzej Siewior (1):
-      printk: Use two irq_works instead per-CPU
+> +	for (i = 0; i < HUGETLB_CMA_POOLS; i++) {
+> +		if (cma_release_frozen(hugetlb_cma[i].cma[nid], &folio->page, nr_pages))
+> +			return;
+> +	}
+>   
+> -	WARN_ON_ONCE(!cma_release_frozen(pool->cma[folio_nid(folio)],
+> -					 &folio->page, folio_nr_pages(folio)));
+> +	WARN_ON_ONCE(1);
+>   }
+>   
+>   struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+> @@ -70,9 +97,9 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+>   	struct page *page = NULL;
+>   	const nodemask_t *nmask;
+>   	unsigned int cpuset_mems_cookie;
+> -	struct hugetlb_cma_pool *pool = &hugetlb_cma;
+> +	struct hugetlb_cma_pool *pool = hugetlb_cma_pool(order);
+>   
+> -	if (!pool->size)
+> +	if (!pool || !pool->size)
+>   		return NULL;
+>   
+>   retry_cpuset:
+> @@ -111,7 +138,7 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+>   
+>   void * __init hugetlb_cma_alloc_bootmem(struct hstate *h, int nid, bool node_exact)
+>   {
+> -	struct hugetlb_cma_pool *pool = &hugetlb_cma;
+> +	struct hugetlb_cma_pool *pool = hugetlb_cma_pool(huge_page_order(h));
+>   	struct cma *cma;
+>   	void *m;
+>   	int node;
+> @@ -135,15 +162,16 @@ void * __init hugetlb_cma_alloc_bootmem(struct hstate *h, int nid, bool node_exa
+>   
+>   static int __init hugetlb_cma_parse(char *p)
+>   {
+> -	struct hugetlb_cma_pool *pool = &hugetlb_cma;
+> -	struct hugetlb_cma_config *config = &hugetlb_cma_config;
+> +	struct hugetlb_cma_pool *pool;
+> +	struct hugetlb_cma_config *config;
+> +	unsigned int order = hugetlb_cma[HUGETLB_CMA_DEFAULT].order;
+> +	unsigned int i;
+>   	int nid, count = 0;
+>   	unsigned long tmp;
+>   	char *s = p;
+>   	char *suffix = strchr(p, '@');
+>   
+>   	if (suffix) {
+> -		unsigned int order = arch_hugetlb_cma_order();
+>   		unsigned long long page_size;
+>   		char *end;
+>   
+> @@ -159,6 +187,22 @@ static int __init hugetlb_cma_parse(char *p)
+>   		}
+>   	}
+>   
+> +	if (!order) {
+> +		pr_warn("hugetlb_cma: the option isn't supported by current arch\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	for (i = 0; i < HUGETLB_CMA_POOLS; i++) {
+> +		if (hugetlb_cma[i].order == order)
+> +			break;
+> +	}
+> +
+> +	if (i == HUGETLB_CMA_POOLS)
+> +		return -EINVAL;
+> +
+> +	pool = &hugetlb_cma[i];
+> +	config = &hugetlb_cma_config[i];
+> +
+>   	while (*s) {
+>   		if (sscanf(s, "%lu%n", &tmp, &count) != 1)
+>   			break;
+> @@ -256,20 +300,14 @@ unsigned int __weak arch_hugetlb_cma_order(void)
+>   	return 0;
+>   }
+>   
+> -void __init hugetlb_cma_reserve(void)
+> +static void __init hugetlb_cma_reserve_pool(struct hugetlb_cma_pool *pool,
+> +					    struct hugetlb_cma_config *config)
+>   {
+> -	struct hugetlb_cma_pool *pool = &hugetlb_cma;
+> -	struct hugetlb_cma_config *config = &hugetlb_cma_config;
+> -	unsigned long size, reserved, per_node, order, gigantic_page_size;
+> +	unsigned long size, reserved, per_node, hugepage_size;
+> +	unsigned int order = pool->order;
+>   	bool node_specific_cma_alloc = false;
+>   	bool has_node_specific_param = false;
+>   	int nid;
+> -	char *p;
+> -
+> -	for (p = hugetlb_cma_cmdline;
+> -	     p < hugetlb_cma_cmdline + hugetlb_cma_cmdline_len;
+> -	     p += strlen(p) + 1)
+> -		hugetlb_cma_parse(p);
+>   
+>   	for (nid = 0; nid < MAX_NUMNODES; nid++) {
+>   		if (config->size_in_node[nid] || config->percent_in_node[nid]) {
+> @@ -301,12 +339,6 @@ void __init hugetlb_cma_reserve(void)
+>   	if (!pool->size)
+>   		return;
+>   
+> -	order = arch_hugetlb_cma_order();
+> -	if (!order) {
+> -		pr_warn("hugetlb_cma: the option isn't supported by current arch\n");
+> -		return;
+> -	}
+> -
+>   	/*
+>   	 * HugeTLB CMA reservation is required for gigantic
+>   	 * huge pages which could not be allocated via the
+> @@ -314,12 +346,12 @@ void __init hugetlb_cma_reserve(void)
+>   	 * breaking this assumption.
+>   	 */
+>   	VM_WARN_ON(order <= MAX_PAGE_ORDER);
+> -	gigantic_page_size = PAGE_SIZE << order;
+> +	hugepage_size = PAGE_SIZE << order;
+>   
+>   	if (config->percent) {
+>   		unsigned long orig_size = pool->size;
+>   
+> -		pool->size = ALIGN_DOWN(pool->size, PAGE_SIZE << order);
+> +		pool->size = ALIGN_DOWN(pool->size, hugepage_size);
+>   		if (orig_size && !pool->size)
+>   			pr_warn("hugetlb_cma: reservation size rounded down to 0 from %lu MiB (%u%%)\n",
+>   				orig_size / SZ_1M, config->percent);
+> @@ -331,7 +363,7 @@ void __init hugetlb_cma_reserve(void)
+>   
+>   				config->size_in_node[nid] =
+>   					ALIGN_DOWN(config->size_in_node[nid],
+> -						   PAGE_SIZE << order);
+> +						   hugepage_size);
+>   				if (orig_size && !config->size_in_node[nid])
+>   					pr_warn("hugetlb_cma: reservation size rounded down to 0 from %lu MiB (%u%%) on node %d\n",
+>   						orig_size / SZ_1M,
+> @@ -351,9 +383,9 @@ void __init hugetlb_cma_reserve(void)
+>   
+>   		if (!node_isset(nid, hugetlb_bootmem_nodes)) {
+>   			pr_warn("hugetlb_cma: invalid node %d specified\n", nid);
+> -		} else if (!IS_ALIGNED(size, gigantic_page_size)) {
+> +		} else if (!IS_ALIGNED(size, hugepage_size)) {
+>   			pr_warn("hugetlb_cma: cma area of node %d must be a multiple of %lu MiB\n",
+> -				nid, gigantic_page_size / SZ_1M);
+> +				nid, hugepage_size / SZ_1M);
+>   		} else {
+>   			node_specific_cma_alloc = true;
+>   			continue;
+> @@ -367,9 +399,9 @@ void __init hugetlb_cma_reserve(void)
+>   	if (!pool->size)
+>   		return;
+>   
+> -	if (!IS_ALIGNED(pool->size, gigantic_page_size)) {
+> +	if (!IS_ALIGNED(pool->size, hugepage_size)) {
+>   		pr_warn("hugetlb_cma: cma area must be a multiple of %lu MiB\n",
+> -			gigantic_page_size / SZ_1M);
+> +			hugepage_size / SZ_1M);
+>   		pool->size = 0;
+>   		return;
+>   	}
+> @@ -381,7 +413,7 @@ void __init hugetlb_cma_reserve(void)
+>   		 */
+>   		per_node = DIV_ROUND_UP(pool->size,
+>   					nodes_weight(hugetlb_bootmem_nodes));
+> -		per_node = round_up(per_node, gigantic_page_size);
+> +		per_node = round_up(per_node, hugepage_size);
+>   		if (config->percent)
+>   			pr_info("hugetlb_cma: reserve %lu MiB (%u%%), up to %lu MiB per node\n",
+>   				pool->size / SZ_1M, config->percent,
+> @@ -411,7 +443,7 @@ void __init hugetlb_cma_reserve(void)
+>   		 * may be returned to CMA allocator in the case of
+>   		 * huge page demotion.
+>   		 */
+> -		res = cma_declare_contiguous_multi(size, gigantic_page_size,
+> +		res = cma_declare_contiguous_multi(size, hugepage_size,
+>   					HUGETLB_PAGE_ORDER, name,
+>   					&pool->cma[nid], nid);
+>   		if (res || !cma_validate_zones(pool->cma[nid])) {
+> @@ -434,28 +466,50 @@ void __init hugetlb_cma_reserve(void)
+>   			break;
+>   	}
+>   
+> -	if (!reserved)
+> -		/*
+> -		 * pool->size is used to determine if allocations from
+> -		 * cma are possible.  Set to zero if no cma regions are set up.
+> -		 */
+> -		pool->size = 0;
+> +	/* Only successfully reserved areas enable CMA allocation for this size. */
+> +	pool->size = reserved;
+> +}
+> +
+> +void __init hugetlb_cma_reserve(void)
+> +{
+> +	unsigned int i;
+> +	char *p;
+> +
+> +	hugetlb_cma[HUGETLB_CMA_DEFAULT].order = arch_hugetlb_cma_order();
+> +	hugetlb_cma[HUGETLB_CMA_PMD].order = PMD_SHIFT - PAGE_SHIFT;
+> +
+> +	for (p = hugetlb_cma_cmdline;
+> +	     p < hugetlb_cma_cmdline + hugetlb_cma_cmdline_len;
+> +	     p += strlen(p) + 1)
+> +		hugetlb_cma_parse(p);
+> +
+> +	for (i = 0; i < HUGETLB_CMA_POOLS; i++)
+> +		hugetlb_cma_reserve_pool(&hugetlb_cma[i], &hugetlb_cma_config[i]);
+>   }
+>   
+> -bool hugetlb_cma_exclusive_alloc(void)
+> +bool hugetlb_cma_exclusive_alloc(unsigned int order)
+>   {
+> -	return hugetlb_cma_only;
+> +	struct hugetlb_cma_pool *pool = hugetlb_cma_pool(order);
+> +
+> +	return hugetlb_cma_only && pool && pool->size;
+>   }
+>   
+> -unsigned long __init hugetlb_cma_total_size(void)
+> +unsigned long __init hugetlb_cma_size(struct hstate *h)
+>   {
+> -	return hugetlb_cma.size;
+> +	struct hugetlb_cma_pool *pool = hugetlb_cma_pool(huge_page_order(h));
+> +
+> +	return pool ? pool->size : 0;
+>   }
+>   
+> -void __init hugetlb_cma_validate_params(void)
+> +unsigned long __init hugetlb_cma_total_size(void)
+>   {
+> -	if (!hugetlb_cma.size)
+> -		hugetlb_cma_only = false;
+> +	unsigned long size = 0;
+> +	unsigned int i;
+> +
+> +	for (i = 0; i < HUGETLB_CMA_POOLS; i++)
+> +		size += hugetlb_cma[i].size;
+> +
+> +	return size;
+>   }
+>   
+>   bool __init hugetlb_early_cma(struct hstate *h)
+> @@ -463,5 +517,5 @@ bool __init hugetlb_early_cma(struct hstate *h)
+>   	if (arch_has_huge_bootmem_alloc())
+>   		return false;
+>   
+> -	return hstate_is_gigantic(h) && hugetlb_cma_only;
+> +	return hstate_is_gigantic(h) && hugetlb_cma_exclusive_alloc(huge_page_order(h));
+>   }
+> diff --git a/mm/hugetlb_cma.h b/mm/hugetlb_cma.h
+> index 730b2b4965b64..3d829258f6728 100644
+> --- a/mm/hugetlb_cma.h
+> +++ b/mm/hugetlb_cma.h
+> @@ -9,9 +9,9 @@ void hugetlb_cma_free_frozen_folio(struct folio *folio);
+>   struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+>   				      int nid, nodemask_t *nodemask);
+>   void *hugetlb_cma_alloc_bootmem(struct hstate *h, int nid, bool node_exact);
+> -bool hugetlb_cma_exclusive_alloc(void);
+> +bool hugetlb_cma_exclusive_alloc(unsigned int order);
+> +unsigned long hugetlb_cma_size(struct hstate *h);
+>   unsigned long hugetlb_cma_total_size(void);
+> -void hugetlb_cma_validate_params(void);
+>   bool hugetlb_early_cma(struct hstate *h);
+>   #else
+>   static inline void hugetlb_cma_free_frozen_folio(struct folio *folio)
+> @@ -30,18 +30,19 @@ static inline void *hugetlb_cma_alloc_bootmem(struct hstate *h, int nid,
+>   	return NULL;
+>   }
+>   
+> -static inline bool hugetlb_cma_exclusive_alloc(void)
+> +static inline bool hugetlb_cma_exclusive_alloc(unsigned int order)
+>   {
+>   	return false;
+>   }
+>   
+> -static inline unsigned long hugetlb_cma_total_size(void)
+> +static inline unsigned long hugetlb_cma_size(struct hstate *h)
+>   {
+>   	return 0;
+>   }
+>   
+> -static inline void hugetlb_cma_validate_params(void)
+> +static inline unsigned long hugetlb_cma_total_size(void)
+>   {
+> +	return 0;
+>   }
+>   
+>   static inline bool hugetlb_early_cma(struct hstate *h)
 
-Wang Wensheng (1):
-      printk_ringbuffer: Avoid needless read of prb_desc
-
-Xiaochun Li (1):
-      printk: Remove remaining boot consoles when a real console exists
-
- MAINTAINERS                       |   2 +-
- kernel/printk/printk.c            | 130 ++++++++++++++++++++------------------
- kernel/printk/printk_ringbuffer.c |  17 ++---
- lib/tests/printf_kunit.c          |   1 +
- lib/vsprintf.c                    |  19 +++---
- 5 files changed, 88 insertions(+), 81 deletions(-)
