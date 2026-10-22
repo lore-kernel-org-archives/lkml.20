@@ -1,70 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664852;
-	b=dzLX8jZAnTYnBx2zLuuWlkTRbsaRt3vsptlmdz/rILIV5khJbf5omJxCbjHvUY4KkuDA
-	 vuB+xJEBsI+00jZ4idm3cXTuZ2gqBvLNb5VMNPF3xGc7/IqKi063JBxXLfP5bzVnLdFFL
-	 NaucMcNb1TUpty0HGSKocFrS01CogsR1Kdud5YKuZhTYidRPhUIjvlOKcSY0mqK8W7xXy
-	 5jZiN1yDM4IlRQT3jiA87m2rRUPCqNl9b2uNbSMyR6TepXEVqeMGGfodKwAVVb3DV+TWe
-	 guiHCPZaVwuvaBvLOcTaUIl/ZcimPSPkKmF6SW7YXI9eUSXOuJSBZtmVu3pZ5eJ/gdg==
+	t=1792664858;
+	b=HQLHq6zYvaN3cxVWPZhUEZS4RznegplcnRHxSh+K2OIsdBLag67iUOLmRstHLpuSlpQA
+	 9fNcwtBmsrzyow1xevjcp5tM51cDDHvWcX3gMjoqUCqv0P1i37bkwSfoJZAYrnOdF/92r
+	 qbeoK0pWOSdXfEjzhNdTMKlU2B45c9wmKjAu1LDQXX8f2wyVdLKH+1wHAYgYEMqUN4x7D
+	 5yIaVWpHekjeC0cVcHAgsZZSl3WMO9Ib8BpnoI5a+qpArXAiIki6oaRIDrruOzG2YnQvs
+	 ZoGg4Wxw5PAUgbOhtJ6xWJvTUBG+7NibbCqcV51W1AkrBCjtGBJFE66rok6gTKq77zA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664852;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664858;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=TgOOEpqKih5ogHRUxdmTCh2GDiwR8Qk5ZwygPDFgL2Q=;
-	b=zVcdppIiW4sFHhgqE4D8i23kNTeX2nzr9W5IrZ7xDsRTnwIVu0wqXKVVDCsTfIV7Cz2W
-	 MykBkMQQpcij9OsQmQG4zsmZ8mP5ecmp/mDtOZ8xTEVe0baQbkgGltawWRI0Xo2YBJ3NK
-	 nKo7fOWGmeLD3OUF+cYPud7rTxiw7r2jQ+hCwwEVe1E5vW941brMWOWuPsktp+E70aTUy
-	 jLMROMwKmU5LUcetx8+KXfUUCLBIAHl0yS0vYVIwEyi85Brg/DFEQ1aqVKuBhD2gi1sMQ
-	 EufsiHSFUdV4Mv/fB43rASxhv2alvt5WUmbhJ2gkElJE4IHHgBu7eE+YxKD6ee84oYw==
+	bh=IzAaW5HTBn7UZ4VY2eLl2rr4tjq37RvvwdDzMoAn5+M=;
+	b=m/QXLxS5j8p54diQL290N4QNTGq/33CEUtmZSvyW8SLfhl81CMjpvofg40/xkpLQgy27
+	 5w/W3kHB07BkEWqLTEIs5QGSn+0klepl7rf26IJZuJsoTdDNKR5MBtzQAYDJ+pnrY3hRO
+	 vb+2GGcW+XtYPr6aOwm/5KhP78m9GLTsFuWOqpfU4MHxZpPDnPXV6kKgr7IXi6fjR89Qj
+	 nUC1zvED2XR2OPAuzILw1+eE300G9ZX1X8M0bJtbeuLJ0N1hvYcWIc1Q9SfvznLqwqvqG
+	 YBxKYhLwo02KdUXhB/Z+hhgztMJj0EasHfz/zLK2rVd4hDh5uNFd0O9FHo5A7EWKSqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSWTZWHN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WDW6pcJD;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54D20606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F036606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F036606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CSWTZWHN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0F01F000C1;
-	Thu, 22 Oct 2026 10:27:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792664851;
-	bh=TgOOEpqKih5ogHRUxdmTCh2GDiwR8Qk5ZwygPDFgL2Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CSWTZWHNAPgbOsZV8oU+qLEamweoNFqgirBvIl5wObWslAcgYViZzguK3G9viL4h0
-	 ZEhIj+GxdH0NMm2E7gHROpgyO/RQ07LuvOLtwc1+NLrwmoTM6ry4q9D8seBEltQzkb
-	 Pw+pR0leUEOgDclcB8BVGOhGKvVMOdlgzLbIGdfF+lP0FZIxb8rY5jKQ3ax2zR7+Tk
-	 z58nK1YiONSh7y/NvYLhPu0YIpH6cwn0KFA0ItHux2S7JPt1cTOVKLgQd2oEP3jVkY
-	 xKAhuF1J0ADym5Y6HtHUn5TTf7YNAyynHZjYuPVEBqtoqP1kO7yJEFvSZ572lpWDz5
-	 oYBE5SCUFxRFQ==
-From: "Barry Song (Xiaomi)" <baohua@kernel.org>
-To: baolin.wang@linux.alibaba.com
-Cc: akpm@linux-foundation.org,
-	axelrasmussen@google.com,
-	baohua@kernel.org,
-	baoquan.he@linux.dev,
-	david@kernel.org,
-	hannes@cmpxchg.org,
-	kasong@tencent.com,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=WDW6pcJD
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso280803a91.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:27:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792664857; x=1793269657; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IzAaW5HTBn7UZ4VY2eLl2rr4tjq37RvvwdDzMoAn5+M=;
+        b=WDW6pcJDDHpd1Ud5g2jY19tH+L2agMvBcqN/bsO3W4WNT3gkvy4SW6F/70MpMSpta+
+         4LrnPEarR7pS92CmyLL6UKhWisBpd5ARCYGqATB34qLuQ08FnRT0mlXOuhiJmZJvMTE1
+         GD3+RtXdi4LSk+OMbbCdVG6AFPdcD78wAgClzDgNaATzSJ+wj6lhxYqG9bZfrgWMo0ny
+         e9FC0ZXOyeADHQjjugzwj4nj00qJ4W8XneBFBzkiYYiC8pruZgPfz97hOJkcHEALFtAK
+         b3vvDBIsznqihGslDVymJaGvrCrUd9p74NFM/WTxMVAwjbsLfWW5hhmoCPZetSAnmojx
+         6t/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792664857; x=1793269657;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IzAaW5HTBn7UZ4VY2eLl2rr4tjq37RvvwdDzMoAn5+M=;
+        b=D8HSsfkon6XsWybNM/iAk7t1t+zY3ZA5Vld8dcPZLEqZQT+c/CYLsJOc5N4FGumuaD
+         7jYuGKO6080yyXUacKSVbepGicbMlBR6LLciwrvtZCIi2O20xekjCeLoEYUnzfzbN9GZ
+         4JP+XDBVKPlL2MOn1UOftpLoydmnWFtTvgf3pyhOmHpddsLvOJhxrtbEHmn8TSy85oXE
+         bYngQj+q5yFpiw3WQilGXaLyX0FgR7wjdiIP6szaRTu4z+JEV50QhvDys6Jl1lK857Vw
+         2IkXF2Gd9sbpTcnnVSquQqkh5L8UoEAR22qCqCd+pJNOMbVBAvWKwqnnY6R9Jihe8RBU
+         SInA==
+X-Forwarded-Encrypted: i=1; AKwUvByx6W+T2hchc8vDXl31fecvqm97y9QRCC95XB4t68GfD8hDTGT77/i4z0B5gcs4qSRVND1+4bUGzMImimg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIRb8rwe4yrKzY94L1HHDqjIV6ZsqJlexh7VM6IHClAM9Hkh6EM
+	59y10X1/AV0JVunPBJ0GEm6KU7ySO7JoPJAXSMtFPu5tPeu0fOxgpfXM
+X-Gm-Gg: AYBFou1WAuMlyOeDaOZdJ09JSJ7jK2DL9eWPrc9OJ2zsHdUJyL53BhzQHjSNGJbFi0d
+	n1B4YerpgiFxYHe00pUoeLxnZ8SrWHO/OX+YdYSQ4sIgdQN3mQLJuRNOAMXz3aXlWgOL0BRfX8+
+	Xh25xEfA+2huGkHoRVu6Tn0p5jqfKX6zAYEB/BrxPeVDK9N08p7Ja1p4Dp+/oKZJdr39LXxQwHJ
+	uPARI9uUEs2LEcqyRpPZXM+KnxB5P9gsK8az/wH6sST6di1tJVhbOSQ9wIx7Px547R8tckAzANL
+	WgLCFF30BQ8mHljOzvKgiw6mqpb0pXRbgIcYAv3uaoTCyQ0PlNXNR7SXk+iSoaTfL1mo95OTGcH
+	F9TuBzViqO7MMMbJTLeFd4NNh/nAZjzRtSCd4+xJ9xI0nUXZoiwKsuKgHUB++DFVW3bQOYA+mbu
+	R1mLIMe2aKGsVOHigBBOghCPuebJ9P5Zg39QjV7PR51vrVqZkqVk1O79EgTVs8Wy2x6jR4Xv2N4
+	79bIjDT5y349g8gKL/VQZYHkp9qcHz/1BBr2z4JKvLYWDkVjTiDPIsiNnL4VITm5NZG+HdPjeIZ
+	wT9p+ugeb3ZX2yvn20pdUduqJhr74u5o8Oc3G+8TIblnqQru7i5DPuLHWsGxxTnWE5bxFLY=
+X-Received: by 2002:a17:90b:5870:b0:3ab:5758:3766 with SMTP id 98e67ed59e1d1-3ad8707700dmr4023148a91.51.1792664856940;
+        Thu, 22 Oct 2026 03:27:36 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48a55d5sm3702279a91.9.2026.10.22.03.27.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 03:27:36 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Mark Brown <broonie@kernel.org>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	u.kleine-koenig@baylibre.com,
+	Igor Prusov <ivprusov@salutedevices.com>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	liuxiang.277@bytedance.com,
-	ljs@kernel.org,
-	mhocko@kernel.org,
-	qi.zheng@linux.dev,
-	shakeel.butt@linux.dev,
-	weixugc@google.com,
-	yuanchu@google.com,
-	zhangbo56@xiaomi.com
-Subject: Re: [RFC PATCH v2] mm: vmscan: avoid anon scanning for GFP_NOIO with low swapcache in MGLRU
-Date: Thu, 22 Oct 2026 18:27:26 +0800
-Message-Id: <20261022102726.56682-1-baohua@kernel.org>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
-In-Reply-To: <0cbd219d-f69d-4f72-aec5-43e1f2d978de@linux.alibaba.com>
-References: <0cbd219d-f69d-4f72-aec5-43e1f2d978de@linux.alibaba.com>
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/2] ASoC: codecs: ntp8918: Fix hw_params return values
+Date: Thu, 22 Oct 2026 17:26:37 +0700
+Message-ID: <20261022102638.38606-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,245 +103,71 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 4:49 PM Baolin Wang <baolin.wang@linux.alibaba.com> wrote:
->
->
->
-> On 10/22/26 5:55 AM, Barry Song wrote:
-> > On Wed, Oct 21, 2026 at 3:28 PM Baolin Wang
-> > <baolin.wang@linux.alibaba.com> wrote:
-> > [...]
-> >
-> >>>    static bool lruvec_is_sizable(struct lruvec *lruvec, struct scan_control *sc)
-> >>>    {
-> >>>        unsigned long total;
-> >>>        int swappiness = get_swappiness(lruvec, sc);
-> >>>        struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-> >>>
-> >>> +     swappiness = get_scan_swappiness(lruvec, sc, swappiness);
-> >>> +
-> >>>        total = lruvec_evictable_size(lruvec, swappiness);
-> >>>
-> >>>        /* whether the size is big enough to be helpful */
-> >>> @@ -5249,9 +5265,10 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
-> >>>        bool need_rotate = false, should_age = false;
-> >>>        long nr_batch, nr_to_scan;
-> >>>        int swappiness = get_swappiness(lruvec, sc);
-> >>> +     int scan_swappiness = get_scan_swappiness(lruvec, sc, swappiness);
-> >>
-> >> IMO, 'swappiness' and 'scan_swappiness' are really confusing. Why move
-> >> this logic into get_swappiness()? In get_swappiness(), we already have
-> >> some similar logic to adjust swappiness when there is no available swap
-> >> space.
-> >>
-> >
-> > Yes. It is very confusing. we can't do that in get_swappiness() as otherwise,
-> > we will get cold/hot inversion due to GFP_NOIO. for a real swappiness=0,
-> > we allow cold/hot inversion for anon, but for GFP_NOIO, this is not the
-> > case.
->
-> But can_reclaim_anon_pages() doesn't only handle the GFP_NOIO case, it
-> also covers the swap space limitation scenario. The latter is what
-> concerns me more.
->
-> If we're only talking about the GFP_NOIO case, I'd agree with your
-> concern. However, we could introduce a helper to force anon aging and
-> add comments explaining why we need this. That would look more
-> maintainable than 2 confusing swappiness variables, no?
->
-> Just my 2 cents.
->
-> Something like below (untested):
->
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index daa7e37c2236..7c1d26e6b9d7 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -2890,7 +2890,7 @@ static int get_swappiness(struct lruvec *lruvec,
-> struct scan_control *sc)
->          if (swappiness == SWAPPINESS_ANON_ONLY)
->                  return swappiness;
->
-> -       if (!sc->may_swap)
-> +       if (!sc->may_swap || !(sc->gfp_mask & __GFP_IO))
->                  return 0;
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-For GFP_NOIO, we should also check whether swapcache is low, since
-GFP_NOIO can reclaim swapcache. We already have
-reclaimable_anon_is_low() for this.
+snd_soc_component_update_bits() returns 1 when the register is
+updated successfully. Treating this as an error causes
+ntp8918_hw_params() to return early with a positive value, skipping
+the remaining configuration.
 
->
->          if (!can_demote(pgdat->node_id, sc, memcg) &&
-> @@ -4049,7 +4049,7 @@ static inline void flush_lru_batch(struct
-> list_head *head, struct list_head **ba
->          *batch_end = NULL;
->   }
->
-> -static bool inc_min_seq(struct lruvec *lruvec, int type, int swappiness)
-> +static bool inc_min_seq(struct lruvec *lruvec, int type, int
-> swappiness, bool force_anon_aging)
->   {
->          int zone;
->          int remaining = MAX_LRU_BATCH;
-> @@ -4063,7 +4063,7 @@ static bool inc_min_seq(struct lruvec *lruvec, int
-> type, int swappiness)
->                  goto done;
->
->          /* For anon type, skip the check if swappiness is zero (file
-> only) */
-> -       if (!type && !swappiness)
-> +       if (!type && !swappiness && !force_anon_aging)
->                  goto done;
->
->          VM_WARN_ON_ONCE(get_nr_gens(lruvec, type) != MAX_NR_GENS);
-> @@ -4183,7 +4183,20 @@ static void try_to_inc_min_seq(struct lruvec
-> *lruvec, int swappiness)
->          }
->   }
->
-> -static bool inc_max_seq(struct lruvec *lruvec, unsigned long seq, int
-> swappiness)
-> +static bool is_force_anon_aging(struct scan_control *sc, struct lruvec
-> *lruvec,
-> +               int swappiness)
-> +{
-> +       if (swappiness || (sc->gfp_mask & __GFP_IO))
-> +               return false;
+ASoC expects .hw_params() to return 0 on success to mark the
+operation as completed.
 
-As above, GFP_NOIO doesn't imply swappiness=0 if there are many
-swapcache folios to reclaim. So we should check
-reclaimable_anon_is_low() here.
+Check for negative errors and return 0 on success.
 
-> +
-> +       /*
-> +        * Explain why we neeed to force increase anon min seq.
-> +        * xxxxxx
-> +        */
-> +       return swappiness != sc_swappiness(sc, lruvec_memcg(lruvec));
-> +}
-> +
-> +static bool inc_max_seq(struct lruvec *lruvec, unsigned long seq, int
-> swappiness, bool force_anon_aging)
->   {
->          bool success;
->          int prev, next;
-> @@ -4205,7 +4218,7 @@ static bool inc_max_seq(struct lruvec *lruvec,
-> unsigned long seq, int swappiness
->                  if (get_nr_gens(lruvec, type) != MAX_NR_GENS)
->                          continue;
->
-> -               if (inc_min_seq(lruvec, type, swappiness))
-> +               if (inc_min_seq(lruvec, type, swappiness, force_anon_aging))
->                          continue;
->
->                  lruvec_unlock_irq(lruvec);
-> @@ -4249,7 +4262,7 @@ static bool inc_max_seq(struct lruvec *lruvec,
-> unsigned long seq, int swappiness
->   }
->
->   static bool try_to_inc_max_seq(struct lruvec *lruvec, unsigned long seq,
-> -                              int swappiness, bool force_scan)
-> +                              int swappiness, bool force_scan, bool
-> force_anon_aging)
->   {
->          bool success;
->          struct lru_gen_mm_walk *walk;
-> @@ -4260,7 +4273,7 @@ static bool try_to_inc_max_seq(struct lruvec
-> *lruvec, unsigned long seq,
->          VM_WARN_ON_ONCE(seq > READ_ONCE(lrugen->max_seq));
->
->          if (!mm_state)
-> -               return inc_max_seq(lruvec, seq, swappiness);
-> +               return inc_max_seq(lruvec, seq, swappiness,
-> force_anon_aging);
->
->          /* see the comment in iterate_mm_list() */
->          if (seq <= READ_ONCE(mm_state->seq))
-> @@ -4295,7 +4308,7 @@ static bool try_to_inc_max_seq(struct lruvec
-> *lruvec, unsigned long seq,
->          } while (mm);
->   done:
->          if (success) {
-> -               success = inc_max_seq(lruvec, seq, swappiness);
-> +               success = inc_max_seq(lruvec, seq, swappiness,
-> force_anon_aging);
->                  WARN_ON_ONCE(!success);
->          }
->
-> @@ -5262,7 +5275,9 @@ static bool try_to_shrink_lruvec(struct lruvec
-> *lruvec, struct scan_control *sc)
->                  }
->
->                  if (should_run_aging(lruvec, max_seq, sc, swappiness)) {
-> -                       if (try_to_inc_max_seq(lruvec, max_seq,
-> swappiness, false))
+Fixes: 2bd61fff3e93 ("ASoC: codecs: Add NeoFidelity NTP8918 codec")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ sound/soc/codecs/ntp8918.c | 19 +++++++++++++++----
+ 1 file changed, 15 insertions(+), 4 deletions(-)
 
-This is quite tricky. If we pass swappiness=0, anon aging will be
-skipped. Do we want that for GFP_NOIO cases? I mean, these are not
-real cases where anon aging should be disabled.
-
-static int should_skip_vma(unsigned long start, unsigned long end, struct mm_walk *args)
-{
-        ...  
-        if (vma == get_gate_vma(vma->vm_mm))
-                return true;
-        ...  
-}
-
-> +                       bool force_anon_aging = is_force_anon_aging(sc,
-> lruvec, swappiness);
-
-Adding a force_anon_aging argument to inc_max_seq() seems like
-quite a burden. Maybe a cleaner approach is to pass sc all the
-way to inc_max_seq() and let it detect GFP_NOIO cases itself?
-
-BTW, I guess we don't need to worry about swappiness at all. We can
-simply bypass anon reclaim?
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index fc823fe3bd1f..fa6d9860156d 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4903,6 +4903,8 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	int skipped = 0;
- 	unsigned long remaining = nr_to_scan;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
+diff --git a/sound/soc/codecs/ntp8918.c b/sound/soc/codecs/ntp8918.c
+index eca34fafc4e6..e851cfcca7c0 100644
+--- a/sound/soc/codecs/ntp8918.c
++++ b/sound/soc/codecs/ntp8918.c
+@@ -233,7 +233,7 @@ static int ntp8918_hw_params(struct snd_pcm_substream *substream,
  
- 	VM_WARN_ON_ONCE(nr_to_scan > MAX_LRU_BATCH);
- 	VM_WARN_ON_ONCE(!list_empty(list));
-@@ -4910,6 +4912,9 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	if (get_nr_gens(lruvec, type) == MIN_NR_GENS)
- 		return 0;
+ 	ret = snd_soc_component_update_bits(component, NTP8918_MCLK_FREQ_CTRL,
+ 					     NTP8918_MCLK_FREQ_MCF, mcf);
+-	if (ret)
++	if (ret < 0)
+ 		return ret;
  
-+	if (!type && reclaimable_anon_is_low(memcg, pgdat->node_id, sc))
+ 	switch (ntp8918->format) {
+@@ -253,8 +253,10 @@ static int ntp8918_hw_params(struct snd_pcm_substream *substream,
+ 					    NTP8918_INPUT_FMT_GSA_MODE,
+ 					    input_fmt);
+ 
+-	if (!(input_fmt & NTP8918_INPUT_FMT_GSA_MODE) || ret < 0)
++	if (ret < 0)
+ 		return ret;
++	if (!(input_fmt & NTP8918_INPUT_FMT_GSA_MODE))
 +		return 0;
+ 
+ 	switch (params_width(params)) {
+ 	case 24:
+@@ -276,8 +278,17 @@ static int ntp8918_hw_params(struct snd_pcm_substream *substream,
+ 	gsa_fmt_mask = NTP8918_GSA_BS_MASK |
+ 		       NTP8918_GSA_RIGHT_J |
+ 		       NTP8918_GSA_LSB;
+-	return snd_soc_component_update_bits(component, NTP8918_GSA_FMT,
+-					     gsa_fmt_mask, gsa_fmt);
++	ret = snd_soc_component_update_bits(component, NTP8918_GSA_FMT,
++					    gsa_fmt_mask, gsa_fmt);
++	if (ret < 0)
++		return ret;
 +
- 	gen = lru_gen_from_seq(lrugen->min_seq[type]);
++	/*
++	 * ASoC only marks the DAI hw_params as done when .hw_params() returns 0.
++	 * Since snd_soc_component_update_bits() may return 1, explicitly
++	 * return 0 to ensure the DAI is correctly marked.
++	 */
++	return 0;
+ }
  
- 	for (i = MAX_NR_ZONES; i > 0; i--) {
-@@ -5164,12 +5169,19 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
- 			     struct scan_control *sc, int swappiness)
- {
-+	struct pglist_data *pgdat = lruvec_pgdat(lruvec);
-+	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 	DEFINE_MIN_SEQ(lruvec);
- 
- 	/* have to run aging, since eviction is not possible anymore */
- 	if (evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS > max_seq)
- 		return true;
- 
-+	/* run aging when GFP_NOIO limits anon reclaim with few swapcache folios */
-+	if (swappiness && min_seq[LRU_GEN_FILE] + MIN_NR_GENS > max_seq &&
-+	    reclaimable_anon_is_low(memcg, pgdat->node_id, sc))
-+		return true;
-+
- 	/* try to avoid aging, do gentle reclaim at the default priority */
- 	if (sc->priority == DEF_PRIORITY)
- 		return false;
+ static int ntp8918_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+-- 
+2.43.0
 
