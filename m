@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792637011;
-	b=TcaUnvgp2JEisvneev8pZRvW/RAKCCFh9mxkn+J47aS3hnPK/eReXI88yOQywz+QEp5y
-	 NHrDMz9vdMaBINkcXhWy7Do4FeC0nu7H0RyhiFGdbyyjIqKhW+ieEAtbMbBcjV6Lz4UR+
-	 QGM10rnJumhxKTSaQjxRQTctqjLci94Adpl1WX7capUVLCm2yU54UB4ngH0OdB47g/Pry
-	 9Py7Hv2etmIVPA06hidyzqvZcGoOtNsoGCwOs8vf39/09DCGBfXkAF2itJ0nrAm/zn6mi
-	 4vAqJaMSz0tkOf8k6a/PvHat1AjqDtuFKxlpD2NRCjWRCVekEvPetfuhbP0kiYreaaQ==
+	t=1792637124;
+	b=ehBVN6QSnX6bbxLkK7PeCZouqjIo/sU5qKF3iGkzs33CvPgzTlWhJ5MF0Uw1Jsn1+Ogt
+	 mOQuggTULisFLBJzTHAT/B+zE0TfN5HBsm2IzlRdWBriO7HoNwFxoL7BANa8JlaFzp0JY
+	 gNHrtcagKef6uNyUvdASjJSe2TxPngGgOjlZxZhKY03uBgelkXGaoa9kkToend46/9orA
+	 f3eYzBEhrvABG70xt7rOUPUGSfbg+sAV3sfY4XsCsao68tlCelsvtcXeBgePGTEcGrody
+	 cFfdefas+Gi5PgwK55y7te3AM5EHbXmeAoSWBDhtzh3HbJHFBSSa4ErrtBIgMX+awnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792637011;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792637124;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TUkEOgHWS4CYXansuqJaAAhK76CRt/42A/p2kv2zT+8=;
-	b=wM9305RAt+9jkNmG/1FAn7eD8Y8M8EaQl1PuEgVdMymxtQ7oxdFhvAsNkxBfFYJHuDlV
-	 Z6sFg4Oz7kM1hx+zWRv88nONJk0YIfoOgMAnMBoSztyFoCwl3wiIgc/f01x+Mepuuo473
-	 XN9TJgX/rTRDZZ9ImZMmYGIu/M6zTtQT4TJB7jm21Sk7iEWmj3fS20LWdJotILz2WZt7a
-	 kvw/Ka440vIHP2a3p9yCOMEdQnzHz47tx4Xxlu0QkOAUFh23vYvu1lp6MuRmOAqaN7hY/
-	 ws7XLb+Ai1HVxs+sYEWDmod5hRg56OSHuf/7Rgsg534Zg5SP/PDmk8Zl4KnK7emooAQ==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=gR6R2AHc7gBb5wkqmemqR+xmiUCYbQP36zxK6dFbSqw=;
+	b=b/Dus4xDrwVahPE12VNn0BcpmhkEQYOTpnhdapT7id75YCbzWzgcWo1K6dEyZ0U7cT74
+	 KEOBR89uhI2/MK/SvxONphmkzrwnSGuTiqXs2n76bvjJz9/rtnqMBh34QY9TGWRF7nH7e
+	 toX+akESyRJ17VcKc1VQpnlP+IEI1KihSR8QKKUZfhnOcTKjzght8dPdZGIBX0D6opmHS
+	 T2AtxNEXFaN1LZoXVsH9XgYwB1uHylkoik7fI9nOY2E89KpodXgTatEtYeczXA3uSyJcC
+	 E4jqTowH1wVt2hAGQqzU1js7tx+vZJAzqzxgJ1A14nOVTIr3cNTEUQ/hXKs57u+nY4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="gPtjrI/e";
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CFouMtM2;
+	arc=none smtp.remote-ip=74.125.82.182
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C049606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C049606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB326606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:45:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB326606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=gPtjrI/e
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-19305bcb72cso217863c88.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:43:31 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=CFouMtM2
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-35b2c599f43so3028052eec.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:45:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792637010; x=1793241810; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TUkEOgHWS4CYXansuqJaAAhK76CRt/42A/p2kv2zT+8=;
-        b=gPtjrI/eWprmSXkYZrgsAw966UMXBi3d6Emxbngsphu8FZ9HCv1WfBOsb9sEAR5cg+
-         swmJqk+cNtexTXQEXbYGtHcI04gopVzmJnd2DQ9HzYjhxvcbg0hL8E1pGUuGw3BXqbR1
-         19YqykZlrsfeMoZk4/F6I9g7R46VwOh0HPbPfbdqtq8hyHhzYSW62aWkhmrr/TXaZ8K2
-         51zNSRqckBDI0MA5sT9jFD/GC84pzyTpdH8QOCeu8RRJ5ueFkyn0+lM1/FB/wU/FVMKb
-         tpVg/WDhkGmobFxoGCbHSAVWnqAaiARd6fqCfTY4h/qf1AEESpEDLmnrUXwaIJMRPeJS
-         GzzQ==
+        d=chromium.org; s=google; t=1792637118; x=1793241918; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gR6R2AHc7gBb5wkqmemqR+xmiUCYbQP36zxK6dFbSqw=;
+        b=CFouMtM2xSUV0b2ozmgO28jJ6DsuuN+jq6w7L0pKXhtW0VeifZcL+VwC1/Cx9Z8y5P
+         FOSFY6L26wy6hw+t9jxpVzagxEkWAsYNbHKSHPC87npK4/uVy2gbEEijD9OREpPVv5i9
+         /W/GVKcj1wZDN6G1wmPPnAwWagsviDXNiDrjA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792637011; x=1793241811;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TUkEOgHWS4CYXansuqJaAAhK76CRt/42A/p2kv2zT+8=;
-        b=IcrX0nBTzZbmKsCvkqv8F0B6GiEdqGpwbUEkwU2koyN2/MVJV8+l1xYZ5xHV7tpUMN
-         35VpmpXmCWjqYZSWxa7ugV4pKvtRybRnINoz8gOkueA00KK+QP4CpoGRt5lXn1vY3BZ/
-         BEX4q8MVcbXGmirgdXOZHnFWB73UDUQ3dw4wUua8vBg3NpAiosJS1C1Y9eUAcef+texU
-         1ER0d+oouRb69ZkO5ysHukSOTBeMZxkr4OSW27fOmvb5xLsVKTXMWuTQdyj+AjRgDSq4
-         gl2ByyC4lXkIkRNr5Y/b4MKlmdPccWtSdJVjy2z7zv73SFraRrjhHbuDZG47DWqxLkNL
-         Vqkw==
-X-Forwarded-Encrypted: i=1; AKwUvBy20dYyrekiL0YyH4VptvAbHZuexqYxs7Sy1eBgaWq/NNBOoWHJPAgMOdiNdR3jKluSiCczOg9B8uS5su8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJnmJNwA3ImR+msaQancxD5CkVh/QHLBRsh9gRpM1OuCJYTvo4T
-	4LCH6BbpjWsp+xleJRk/ZR8NJMa5hVFjuc4w9UxuNg2e07pTRF/hJwcx
-X-Gm-Gg: AYBFou2CrNMTUnnGoMFIs3NM0ZZpFSyg7jj041l2SD6GUW5Rd6ImhFRAx8MozVZIx5o
-	Kx/5VnEj/LVOfDFOa6flWQDPOhHv5krNTdwNI0DMRm/ylh4At/vZOW04sQMLcoQQw3yIXh6A5v+
-	Oe9nSb/N+kPPIXn1DmonmJrQdvGfhTmGcoYUDvN0tgagYjKH+o56dbx7JLs9uh1hGDdfQ8YsyfO
-	irFuaIPsZHwfkW7nEWDyF5L3fVrebi2a/E61CLQ5VZFHsT7F4SSatV5Dw1A3Ahefr4CClmuWW0m
-	iYbcaePFhulrxn0o8VnpCgq4c2rQEyl38/kHpz6fZfEEz231DfcCJLi/5Xta0ERhbpT1gyDC3LF
-	dDm4HBN2i1EfmLAkQSaWWR0BjwWP9VcR+pp6tuuYLYTn48vWPkO0g8PwN90lIKbhlCqSEXzQYqu
-	XEHJpndZzI6Lj0FoBR2V0jCkJSALXAo3CCOkc1l9TfBfni0oWz6dH3mLMmLRQum7Ar8m/TiJwhm
-	IgimZsQMd2uwB892rMQJk/UL/4tIrKQOdqDbA/7Hq/VRXDIhHAHupOL+CtvR2fo/Mu9M+sbfL78
-	l1g6gnZWNl3VgLdTfg==
-X-Received: by 2002:a05:7022:7a9:b0:187:eb7f:b8f with SMTP id a92af1059eb24-190a50efe13mr6277201c88.13.1792637010372;
-        Wed, 21 Oct 2026 19:43:30 -0700 (PDT)
-Received: from debian.prasanth ([103.183.205.34])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903ca044d4sm11077386c88.17.2026.10.21.19.43.26
+        d=1e100.net; s=20260707; t=1792637118; x=1793241918;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gR6R2AHc7gBb5wkqmemqR+xmiUCYbQP36zxK6dFbSqw=;
+        b=srWMZKd8+1OWcq64JYN5P7PEoPsSN1B23sMaL302wf8F/BBwkCkH/b+43n1ZNQlCn1
+         8j1BHP1XOsOY+kvVRQc71M3QX1Qaq0V/drm1G+/z1LJPQ8bqaBd7NYl1vehHkgKWFxPw
+         GhS7VZWHtwnnSm9mAbtHEZCJxL7MEaEpmMzgari1yj8nD5NYKlBLq7CNWo5Ic6ve8XdF
+         OfgrYBil4gClPzcl0FQbiQ25JosbIP8suZMZj5ahVICzwihhuCR7W0asZ0UBXCnVXms2
+         j80zKB6ZanzjqIiuNJoJ6/dhpVDKQlV1R5SNEAHe6jO1wmS3HD0uaSdD8C482iKQXzHm
+         BE1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxM1HfDmrWjc8VUT0nCwGFiB8duDD3gK4+vhbrQGc1j8G5iZjdV/J5EJ0bdOZsj4XBasscIvKthkG8hatY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLybIydKpJjYO2Vke00JbYxxWYb2MaUmcRu7J6k4Igfw6H9lwuB
+	ZqW97NXgTxAI/7sHfrXJDt32JPTGFmXr4AxS8DOwfYYkL+bgBV9/ieK1nIfcR3Ns2g==
+X-Gm-Gg: AYBFou3ZEl0ccy402Nqtm36WdXM+hSR4oBQ5nWYCYyqITCrI5owdhPpLelg1HURpY9r
+	395lvE6zpkF+Z7wXLBNDTVf44Eao1BEmmIJixddGeFENsQrrAq2oLkUoSN8XWMlokyfkJX0VB3s
+	/nTsl4bjvFNcHIGBy7RrkGnqanfIUAQ/sDsoTrPL8REGEpyVvVnmjdtG5FvhYUONZwq9wOTQk2/
+	QTPlBCZh/FTqc52izgvwj2TYJVXdgp+7GWPX3KTxy+3ar/ULfHOyUTPlvPrn8GVcuM0vHBcSKMR
+	jYfEVP9v2Mxc4Ti8sdU6SkMjYkhX+lZOs32JWysEdMRLV65Gtx+slQrK2TQePCwftDmjB49aUJt
+	FYFj/SF1Qth7ZBGIHD5okzPrVo4l3qUJjxoOmuMCDp/ZObnq1sRMyUB9WZw+G9EFaIG9a+v7iUc
+	s5EDlswX4HkAr4vrUfgeP7P9aKlYkzlO5/oEOgH3qSVpBooqMiPSnnj3zHRGW3sgRzPNC4bXypP
+	H8jzY13Eot6AUeEQwgDnL4CF9YbHqSUtjDszPF3OAXAjVvV5DfV7ZFsDMDR9DS7t2OF816fZcBL
+	NWexdXHzQ3xAm42czO+F
+X-Received: by 2002:a05:7300:d0a:b0:361:7ab9:479d with SMTP id 5a478bee46e88-3674e8400femr7484266eec.27.1792637118082;
+        Wed, 21 Oct 2026 19:45:18 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:5145:5add:2df6:4671])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367412b24e3sm10388672eec.19.2026.10.21.19.45.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:43:29 -0700 (PDT)
-From: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-To: linux-aspeed@lists.ozlabs.org
-Cc: linux-gpio@vger.kernel.org,
-	openbmc@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	krzk@kernel.org,
-	tan.siewert@9elements.com,
-	billy_tsai@aspeedtech.com,
-	Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
-Subject: [RFC PATCH v2] pinctrl: aspeed: Hand over global GPIOP passthrough to local mux controls
-Date: Thu, 22 Oct 2026 08:13:14 +0530
-Message-ID: <20261022024314.48623-2-prasanth.padarthi10@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
-References: <20261015035118.9495-1-prasanth.padarthi10@gmail.com>
- <20261022024314.48623-1-prasanth.padarthi10@gmail.com>
+        Wed, 21 Oct 2026 19:45:16 -0700 (PDT)
+Date: Thu, 22 Oct 2026 11:45:12 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Martin Leitner-Ankerl <martin.ankerl@gmail.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Minchan Kim <minchan@kernel.org>, linux-mm@kvack.org, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC] seqlz: a compressor for zram, between lz4 and zstd
+Message-ID: <atl35k5lvs34BIej@google.com>
+References: <CAAFOosa2WLf--T17cujJu5CUsN12NNjgTitOvno2LY7jAr1gfw@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,233 +94,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAAFOosa2WLf--T17cujJu5CUsN12NNjgTitOvno2LY7jAr1gfw@mail.gmail.com>
 
-On B650D4U, GPIO-only host power control fails when SCU51C[9]
-selects GPIOP passthrough even after the normal GPIO request path
-clears the per-pin SCU4BC selections. The THRU expressions currently
-model the local controls but not the shared strap source.
+Hi, sorry for the delay.
 
-Experiment with transferring globally selected GPIOP0-P5 THRU roles
-to SCU4BC[29:24] before registering the controller, then clear the
-active shared sources. Leave PWM selection and the strap-source
-selector unchanged. Subsequent requests use the existing mux helpers.
-Clear SCU510[28] through SCU514 and verify the shared enables cleared.
+On (26/10/09 16:21), Martin Leitner-Ankerl wrote:
+> Hi Sergey, Minchan,
+> 
+> I wrote a compressor only for zram's pages, as a personal project of
+> mine. Before I send patches I'd like to know if you would consider a new
+> algorithm for zram at all. Much of the code was written with an AI
+> coding assistant, with me deciding the design and checking the results.
 
-If handover fails, record an instance-local error and reject GPIO and
-mux requests involving P0-P5 before changing their mux state, while
-attempting to register the controller for unrelated pins. A P0-P5
-controller hog can still cause registration to fail. Retain prepared
-local selections after partial failure rather than blindly restoring
-a shared enable.
-
-This RFC explores probe-time normalization rather than the previous
-request callback. Mandatory initialization policy, signal continuity,
-concurrent SCU writers and post-handover registration failure remain
-open design questions.
-
-On the tested B650D4U, the new image powers on the host with unchanged
-GPIO-only power-control userspace. SCU4BC remains 0x30000000 and
-SCU51C remains 0x1c80 before and after the request. The operator also
-reports successful power-on after complete AC removal. Actual P4/P5
-forwarding, transition glitches, PWM coexistence, SCU510[28] hardware
-handling and restricted failure paths have not been validated.
-
-Signed-off-by: Prasanth Kumar Padarthi <prasanth.padarthi10@gmail.com>
----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 147 ++++++++++++++++++++-
- 1 file changed, 143 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
-index b0c7e4f6df9c..54396f2ba91b 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
-@@ -10,6 +10,7 @@
- #include <linux/platform_device.h>
- #include <linux/pinctrl/pinctrl.h>
- #include <linux/pinctrl/pinmux.h>
-+#include <linux/slab.h>
- #include <linux/string.h>
- #include <linux/types.h>
- 
-@@ -40,6 +41,8 @@
- #define SCU4D8		0x4D8 /* Multi-function Pin Control #23 */
- #define SCU500		0x500 /* Hardware Strap 1 */
- #define SCU510		0x510 /* Hardware Strap 2 */
-+#define SCU514		0x514 /* Hardware Strap 2 Clear */
-+#define SCU51C		0x51c /* Hardware Strap 3 */
- #define SCU610		0x610 /* Disable GPIO Internal Pull-Down #0 */
- #define SCU614		0x614 /* Disable GPIO Internal Pull-Down #1 */
- #define SCU618		0x618 /* Disable GPIO Internal Pull-Down #2 */
-@@ -2747,12 +2750,56 @@ static struct aspeed_pinctrl_data aspeed_g6_pinctrl_data = {
- 	.nconfmaps = ARRAY_SIZE(aspeed_g6_pin_config_map),
- };
- 
-+struct aspeed_g6_probe_data {
-+	struct aspeed_pinctrl_data pdata;
-+	int thru_error;
-+};
-+
-+static bool aspeed_g6_is_thru_pin(unsigned int pin)
-+{
-+	return pin >= AB22 && pin <= AB23;
-+}
-+
-+static int aspeed_g6_gpio_request_enable(struct pinctrl_dev *pctldev,
-+					 struct pinctrl_gpio_range *range,
-+					 unsigned int offset)
-+{
-+	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
-+	struct aspeed_g6_probe_data *g6 =
-+		container_of(pdata, struct aspeed_g6_probe_data, pdata);
-+
-+	if (g6->thru_error && aspeed_g6_is_thru_pin(offset))
-+		return g6->thru_error;
-+
-+	return aspeed_gpio_request_enable(pctldev, range, offset);
-+}
-+
-+static int aspeed_g6_set_mux(struct pinctrl_dev *pctldev,
-+			     unsigned int function, unsigned int group)
-+{
-+	struct aspeed_pinctrl_data *pdata = pinctrl_dev_get_drvdata(pctldev);
-+	struct aspeed_g6_probe_data *g6 =
-+		container_of(pdata, struct aspeed_g6_probe_data, pdata);
-+	const struct aspeed_pin_group *pgroup = &pdata->pinmux.groups[group];
-+	unsigned int i;
-+
-+	/* Check the entire group before the shared helper changes any pin. */
-+	if (g6->thru_error) {
-+		for (i = 0; i < pgroup->npins; i++) {
-+			if (aspeed_g6_is_thru_pin(pgroup->pins[i]))
-+				return g6->thru_error;
-+		}
-+	}
-+
-+	return aspeed_pinmux_set_mux(pctldev, function, group);
-+}
-+
- static const struct pinmux_ops aspeed_g6_pinmux_ops = {
- 	.get_functions_count = aspeed_pinmux_get_fn_count,
- 	.get_function_name = aspeed_pinmux_get_fn_name,
- 	.get_function_groups = aspeed_pinmux_get_fn_groups,
--	.set_mux = aspeed_pinmux_set_mux,
--	.gpio_request_enable = aspeed_gpio_request_enable,
-+	.set_mux = aspeed_g6_set_mux,
-+	.gpio_request_enable = aspeed_g6_gpio_request_enable,
- 	.strict = true,
- };
- 
-@@ -2782,15 +2829,107 @@ static const struct pinctrl_desc aspeed_g6_pinctrl_desc = {
- 	.confops = &aspeed_g6_conf_ops,
- };
- 
-+/*
-+ * Experimental: transfer the global GPIOP0-P5 THRU selection to the
-+ * individual mux controls before registering any pinctrl consumers.
-+ * PWM selection is higher priority and is deliberately left unchanged.
-+ *
-+ * Do not undo the local selections on error: a shared enable may already
-+ * have cleared. Keeping the equivalent local selections preserves routing
-+ * while rejecting affected requests, rather than granting an unsafe GPIO.
-+ * Signal continuity during this transfer still needs hardware validation.
-+ * Running before pinctrl registration excludes this controller's consumers,
-+ * not independent SCU writers. Regmap locks individual accesses, not this
-+ * sequence; coordination with other writers remains an RFC design question.
-+ */
-+static int aspeed_g6_thru_handover(struct regmap *scu)
-+{
-+	const u32 local_mask = GENMASK(29, 24);
-+	unsigned int strap2, strap3, local;
-+	int ret;
-+
-+	ret = regmap_read(scu, SCU510, &strap2);
-+	if (ret)
-+		return ret;
-+	ret = regmap_read(scu, SCU51C, &strap3);
-+	if (ret)
-+		return ret;
-+
-+	if (!(strap2 & BIT(28)) &&
-+	    ((strap2 & BIT(30)) || !(strap3 & BIT(9))))
-+		return 0;
-+
-+	/* Preserve every globally selected role, including under PWM. */
-+	ret = regmap_update_bits(scu, SCU4BC, local_mask, local_mask);
-+	if (ret)
-+		return ret;
-+	ret = regmap_read(scu, SCU4BC, &local);
-+	if (ret)
-+		return ret;
-+	if ((local & local_mask) != local_mask)
-+		return -EPERM;
-+
-+	/* Leave the inactive GPIOZ6 source alone in dedicated-strap mode. */
-+	if (!(strap2 & BIT(30)) && (strap3 & BIT(9))) {
-+		ret = regmap_update_bits(scu, SCU51C, BIT(9), 0);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (strap2 & BIT(28)) {
-+		/* SCU510 is write-one-set; do not use an ordinary RW clear. */
-+		ret = regmap_write(scu, SCU514, BIT(28));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = regmap_read(scu, SCU510, &strap2);
-+	if (ret)
-+		return ret;
-+	ret = regmap_read(scu, SCU51C, &strap3);
-+	if (ret)
-+		return ret;
-+	if ((strap2 & BIT(28)) ||
-+	    (!(strap2 & BIT(30)) && (strap3 & BIT(9))))
-+		return -EPERM;
-+
-+	return 0;
-+}
-+
- static int aspeed_g6_pinctrl_probe(struct platform_device *pdev)
- {
--	int i;
-+	struct aspeed_g6_probe_data *g6;
-+	struct regmap *scu;
-+	int i, ret;
-+
-+	if (!pdev->dev.parent)
-+		return -ENODEV;
-+	scu = syscon_node_to_regmap(pdev->dev.parent->of_node);
-+	if (IS_ERR(scu))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(scu),
-+				     "No SCU regmap for THRU handover\n");
-+
-+	g6 = devm_kzalloc(&pdev->dev, sizeof(*g6), GFP_KERNEL);
-+	if (!g6)
-+		return -ENOMEM;
-+	/* Copy per-device state; referenced mapping tables remain shared. */
-+	memcpy(&g6->pdata, &aspeed_g6_pinctrl_data, sizeof(g6->pdata));
-+
-+	ret = aspeed_g6_thru_handover(scu);
-+	if (ret == -EPROBE_DEFER)
-+		return ret;
-+	if (ret) {
-+		g6->thru_error = ret;
-+		dev_warn(&pdev->dev,
-+			 "THRU handover failed (%d); GPIOP0-P5 mux requests blocked\n",
-+			 ret);
-+	}
- 
- 	for (i = 0; i < ARRAY_SIZE(aspeed_g6_pins); i++)
- 		aspeed_g6_pins[i].number = i;
- 
- 	return aspeed_pinctrl_probe(pdev, &aspeed_g6_pinctrl_desc,
--			&aspeed_g6_pinctrl_data);
-+			&g6->pdata);
- }
- 
- static const struct of_device_id aspeed_g6_pinctrl_of_match[] = {
--- 
-2.47.3
-
+If this lands in lib/ (like the rest of compression libraries) then
+sure we can use it in zram (we are currently not on a path to acomp).
+But if the plan is to have it as zram's "private" comrpessor, then
+I'm afraid I'm not equipped to make a decision on that.
