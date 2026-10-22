@@ -1,71 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=166.70.13.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792641354;
-	b=yqe1TOJ5V9eAC9aSCFs6dD/7HRxplmw6blcLrX+41ajWU9TizrOUTt1Q2Wa1mQzjtQOv
-	 6clfbBOw6jX12rc2129GbyGwbRIMndUAV7zlzHXta6dxF1Mj3NlE094uIMIcU2HsMn5MW
-	 FyXvNZMU8emB7fWV5NIiyqW3f2kxbWZMLxjs13KRFKNMLK3USDraOdYOq5p4fyurBMBFj
-	 pi4ty/6zmiP5cNrxgOpZQFVsXExrnDbel6OBPnyJe71i6005Bqfwl0yfps9jFagQcRjTV
-	 UuPJxY6C2dzYuFeY7Jb4w+q46LQWac9gBO/n1/SURvxknSfi5Atu4ECcYDK7C1RntLA==
+	t=1792641384;
+	b=n5+feLjuLRHXlCCgvdBHre7mS6hOnLqYeYeJgYX8tWoMxPN+t95lrK6RBeN9zSXnb2Nw
+	 QJBCgLZZep1tvDzmaT4v7dpJjdN/NsoobknKD4uz1jcikijY0My+lHL0babosTaAaHzRx
+	 XOncbOGA4MIR5GUPgUHBF0+9xwxHZ6TubtTRmKeqKPkK3LgAgrK1nv+AvhRnhUEoIfl+h
+	 W2Y+ABY5DE4FgdMI6pOp+YI0EnoSxx/7JAtH0hzb4lfeC57Kt0IBe68g2cXUi7GneDeSD
+	 G4XYRkJIDeR7E8B4OCeZkPyyF26HV7d7c6Dr42IaZ5iGqPnw2sIWt/dSYcMJieW72GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792641354;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
-	 References:Date:Message-ID:User-Agent:MIME-Version:Content-Type:
-	 X-XM-SPF:X-XM-AID:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
-	 X-Spam-Virus:X-Spam-Report:X-Spam-DCC:X-Spam-Combo:
-	 X-Spam-Relay-Country:X-Spam-Timing:Subject:X-SA-Exim-Connect-IP:
-	 X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
-	bh=PKULCRaq0yE/sYN0J0WQXl3ZQAAJcX/cI3KJOyuw5TU=;
-	b=JTG4FQRrcuylsvbti5GbnbH4dS6igWcuPaJ5oP3nt5eKH3gohjMzGWtblHR1r01DQnN1
-	 +UyAmGRZkhgP7w3yLdpoiY/Ut4DVVKFnmum7zMdNBpgh9JK7hyK78uk1kgQr6eFfzybyw
-	 UR6zSFtpVJRNsvB+b1x41X0gZcnrkZrnap0TbrU9RM0K8FxKqNuz+OqN0pB6A7WZrsn6V
-	 0aibL24yDsyHuBVDUNjWZsgN0zxdreKXKwPDKaIXjllvGtpYA8/HHF2/IJ5vfUqCRrRDj
-	 h9kfCLF8Tj1IesQmjOyn9diCu+XhNTeVJv2cio2i9h6ICtn64NTTWbeV65e33g8gYPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641384;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=nBJVMizSkP5mIMubRGP9eWHn8SLS+RX8waQiqIH32K4=;
+	b=Dzt6qhb8b7jkqxRVx7NrUCy8U27Z4lYcltncVENxwprFrPaLHANN2kbxKqXBPHzW/KaL
+	 1x6RDgEotJWyKmLS7EVO2+64PiEwEIADNDaGcCgkny88naJswZ9oKIbtYMRiatJICGOGP
+	 QkkvwfiMnqM4SREAc3QVdP7zfJyX8/SPmgNpxdQ3B5YPaEaM7J5/i68/JSxKQTeXiW3lS
+	 OYOiKLGraMqwW9gOmhkBHsZsLfPFhKD2ANoAzpNWpklPQdgKvQhkJw0jJ6Olta7mud8rZ
+	 3mbWag9l0+cVGrXzF+ynZlnlKTZ1w0eERggbLvt1AjU+pdL5LToYw/sD71vH4sPWpSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xmission.com;
-	spf=pass smtp.mailfrom=xmission.com;
-	dkim=pass header.d=xmission.com header.i=@xmission.com header.a=rsa-sha256 header.s=xmission header.b=dVyaTRjW;
-	arc=none smtp.remote-ip=166.70.13.232
-Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=onuWEefU;
+	arc=none smtp.remote-ip=209.85.222.182
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B60B606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:55:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B60B606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD493606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:56:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD493606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=xmission.com header.i=@xmission.com header.a=rsa-sha256 header.s=xmission header.b=dVyaTRjW
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
-	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
-	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=IJsjKfoWjZ2x7MB8Zrm5vcXPKLdlgNNIe90ab+rWWTc=; b=dVyaTRjWTcvZoZ/QYAUNslQPAx
-	MBovUeI9Q+UeIRb1Q1gFLiaK2TOxViaZIvEYorkgvwgyd7oVItKpz9yJdNergleIqeFU7hIVpQQWn
-	ceW9RKqJewtRaOuG15fHKU+vB8ddyaxA7Z10W+bpTdj6KUAgXgaMGyMARBIFPekk/mUw=;
-Received: from in02.mta.xmission.com ([166.70.13.52]:44258)
-	by out02.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1xJju5-005l2N-M1; Wed, 21 Oct 2026 21:55:45 -0600
-Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:40954 helo=email.froward.int.ebiederm.org.xmission.com)
-	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.93)
-	(envelope-from <ebiederm@xmission.com>)
-	id 1xJju4-00DfKJ-OZ; Wed, 21 Oct 2026 21:55:45 -0600
-From: "Eric W. Biederman" <ebiederm@xmission.com>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Oleg Nesterov <oleg@redhat.com>,  Andrew Morton
- <akpm@linux-foundation.org>,  Christian Brauner <brauner@kernel.org>,
-  linux-kernel@vger.kernel.org
-In-Reply-To: <20261020181101.1605736-1-thnkslprpt@gmail.com> (Avi Weiss's
-	message of "Tue, 20 Oct 2026 21:11:01 +0300")
-References: <20261020181101.1605736-1-thnkslprpt@gmail.com>
-Date: Thu, 22 Oct 2026 03:55:36 +0000
-Message-ID: <87tsmeo0cn.fsf@email.froward.int.ebiederm.org>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=onuWEefU
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93f20b304c0so164922285a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 20:56:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1792641383; x=1793246183; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nBJVMizSkP5mIMubRGP9eWHn8SLS+RX8waQiqIH32K4=;
+        b=onuWEefU2jjcs+hCjUkLSfdNl69v6fK0TFmwOd7kcR12a6A+gkQYVGBnE9SCneJp34
+         OD+o0tgqfx5K/2B1MsiIpnBswsXjL4yIHRvlekKvfiFnHRLApQH4xtEDYw8LDmJNew2T
+         MftfIYBedbPSORbGkJ/2pJPSY8a3Af/n0E1eGUYdHjRdxQmVGOdVm0vrum0O64RQoLoD
+         6BlwrjGgv2AcZSJTbuS5sjccrjvqZKoxiiL+GlPoe8HGjldsmgPnfYfZTjU3s7zYycXG
+         bXsyPwQlkIvXfryr1Qr2xs28H2bZf1hRDGT0Py1cdiMvHU7Q7MrZpNA2eRb5bPFibZE2
+         05wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792641383; x=1793246183;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nBJVMizSkP5mIMubRGP9eWHn8SLS+RX8waQiqIH32K4=;
+        b=jqUXNsuZqVCH1yleBUgmTEbT1oEc3ktOnRtqua5DqUvRLmJE6srL1Vh8meq9uB6NHm
+         kVDO+iT/+WMFCLd9qbTjFZxYisYlnGd+kVaxrNnjVKXdJe1rFK9oTFq/WLBgD68dKpbK
+         Sd/CyyMcIDDOMyGz0O351PGvZBBumJOjmaoDQPZH4VbqMmG8BdeochgX346mYqRNTrLR
+         KO4q5T959ter6H7gD2AYBUASDa1chPLjlEOxJ9pK0s9Z/7OPMITdVHb9EmAzeaXB7HZj
+         DE+qpnVbh/0O9B0l68xu36MZKh55TKJGJtgCwYn63wfhwqjjBRhaOr10T2+D5naqDp5F
+         56dg==
+X-Forwarded-Encrypted: i=1; AKwUvBzy5sbvrDcETDzy9rj4srz5vWT7yBNuI3cUrgS3qZa64P5lbkGRdDtUdumuD8CDmYsUsr2oVM72c1mbeF0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLwiQfW0xlw6mvHEV0+QFbFB/g7Gv5H0HVajELzCCfUlgq+/qe5
+	GWn4ENYjxhjRczbZUScLxptZ6x/VP5J6RqVohEP+FlsoGcqMHJv/OrsAGWmNcStTaHU=
+X-Gm-Gg: AYBFou1AinMgdImD7jq9IEnOvuHG16Lj1Ng/+1jKdO/4YrQkzwJsWVi9t/mzGlsBuJs
+	CkziqroQPINohGa8lBMyad5L7PQsluV3tDIj4H1LYviEXfz0UbjX21wYCSGH5VqQrMntiaHXZCI
+	yzgfenuGZeI30peKC7hGzUSzrRbg6Etg0zsmDsKUfLgbFiyltM/zjErAJx6Nawg5ySTT5hSvidq
+	dvfvvqy3kP9dFHfc7guR/nrRrEwNMunlPnwoxGeTIB0SJ1erc5rxp8Bhml0PcAtIaLIbMnst6OI
+	W/3SMpYPwSpi3HbwbFkmcW9RMuJjo/UvbBURo4BY9V1jhpIs9/Gen8rtXXZ2xPus951FbJtnR12
+	i0C6Rga10UIq1TvY3xdW/VARMBIF613/S60IdXIsGh7qiElTQ2DkaHcA2+YHMZlCltAVIXsdZyp
+	v83c92L0HCD9hVHBiIOTVbeaCZo6n6EfXNTRb7wpJYcKt3KILE+M7NioII9kYEbFy53477OXPhD
+	X8r/twk0D9Br7hTCxkZGv8Wxo8FvVuQI9lG2VJv7EuyI+wD4DsIsOxfQEVg3j9GOZ2yydXtDhOs
+	rH9qOw3tG/NdYUDlTH/LthDHt3s=
+X-Received: by 2002:a05:620a:6f9a:20b0:93f:6182:53d with SMTP id af79cd13be357-93f618206b2mr208635085a.3.1792641382767;
+        Wed, 21 Oct 2026 20:56:22 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56d9a495sm423380985a.13.2026.10.21.20.56.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 20:56:22 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,101 +88,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
-X-XM-SPF: eid=1xJju4-00DfKJ-OZ;;;mid=<87tsmeo0cn.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
-X-XM-AID: U2FsdGVkX19yqlNQ3wSnFfMwg77E5IpmHQTbBD+J4eg=
-X-Spam-Level: 
-X-Spam-Virus: No
-X-Spam-Report: 
-	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
-	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
-	*      [score: 0.4996]
-	*  0.7 XMSubLong Long Subject
-	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
-	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
-	*      [sa03 1397; Body=1 Fuz1=1 Fuz2=1]
-	*  0.0 T_TooManySym_02 5+ unique symbols in subject
-	*  0.0 T_TooManySym_01 4+ unique symbols in subject
-X-Spam-DCC: XMission; sa03 1397; Body=1 Fuz1=1 Fuz2=1 
-X-Spam-Combo: ;Avi Weiss <thnkslprpt@gmail.com>
-X-Spam-Relay-Country: 
-X-Spam-Timing: total 414 ms - load_scoreonly_sql: 0.06 (0.0%),
-	signal_user_changed: 4.5 (1.1%), b_tie_ro: 2.8 (0.7%), parse: 1.08
-	(0.3%), extract_message_metadata: 3.8 (0.9%), get_uri_detail_list:
-	1.41 (0.3%), tests_pri_-2000: 3.7 (0.9%), tests_pri_-1000: 2.5 (0.6%),
-	tests_pri_-950: 1.12 (0.3%), tests_pri_-900: 0.76 (0.2%),
-	tests_pri_-90: 57 (13.8%), check_bayes: 56 (13.5%), b_tokenize: 7
-	(1.7%), b_tok_get_all: 7 (1.7%), b_comp_prob: 2.4 (0.6%),
-	b_tok_touch_all: 35 (8.4%), b_finish: 1.03 (0.2%), tests_pri_0: 318
-	(76.8%), check_dkim_signature: 0.66 (0.2%), check_dkim_adsp: 3.6
-	(0.9%), poll_dns_idle: 1.62 (0.4%), tests_pri_10: 2.1 (0.5%),
-	tests_pri_500: 11 (2.6%), rewrite_mail: 0.00 (0.0%)
-Subject: Re: [PATCH] signal: skip blocked signals in
- dequeue_synchronous_signal()
-X-SA-Exim-Connect-IP: 166.70.13.52
-X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, brauner@kernel.org, akpm@linux-foundation.org, oleg@redhat.com, thnkslprpt@gmail.com
-X-SA-Exim-Mail-From: ebiederm@xmission.com
-X-SA-Exim-Scanned: No (on out02.mta.xmission.com); SAEximRunCond expanded to false
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [RFC 0/2] mm: add source selectors to memory.reclaim
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: Gregory Price <gourry@gourry.net>, akpm@linux-foundation.org, 
+ david@kernel.org, ziy@nvidia.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, 
+ ying.huang@linux.alibaba.com, ljs@kernel.org, mhocko@suse.com, 
+ muchun.song@linux.dev, roman.gushchin@linux.dev, shakeel.butt@linux.dev, 
+ weixugc@google.com, cgroups@vger.kernel.org, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+In-Reply-To: <30457046-a662-4ff7-a6a8-100398d7a806@bytedance.com>
+References: <20261019141401.11927-1-lizhe.67@bytedance.com>
+ <atY-LD2AzCYATRii@gourry-fedora-PF4VCD3F>
+ <30457046-a662-4ff7-a6a8-100398d7a806@bytedance.com>
+Date: Wed, 21 Oct 2026 23:56:20 -0400
+Message-Id: <179264138036.2549665.17429111144570830454.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Avi Weiss <thnkslprpt@gmail.com> writes:
+On 2026-10-20 21:01 +0800, Li Zhe wrote:
+> On 10/20/26 12:10 AM, Gregory Price wrote:
+> 
+> I agree that the kernel reclaim and demotion behavior still has room for
+> improvement, and the watermark changes and the bottom-up proactive/async
+> reclaim idea you mentioned may be useful to explore for some tiering
+> scenarios. But I think there is also an unavoidable userspace policy
+> component here. The kernel can improve whole-cgroup reclaim, but it
+> cannot know every controller's placement goal.
+> 
+> For example, one controller may want to keep a specific per-tier
+> resident ratio for a cgroup. Another use case, as Joshua pointed out in
+> another reply, is reclaiming from a lower tier first so that later
+> top-tier reclaim has room for demotion. A single default memory.reclaim
+> algorithm cannot express these per-cgroup policy choices.
+> 
 
-> dequeue_synchronous_signal() checks whether an unblocked
-> synchronous signal is pending, but its queue scan can select a
-> different blocked entry with a positive si_code. This can deliver
-> a signal while it is still blocked.
+The latter of these should probably be some level of the system default,
+that's why I brought it up as well.  (proactive reclaim should prefer to
+make progress from the coldest tier first, then work its way up).
+
+I'm not convinced a reclaim interface is the right way to affect a
+per-tier resident ratio policy.  That feels like a hack to get around
+solving the harder problem of something like tiered memcg counters
+(which would otherwise drive reclaim to work exactly the way you
+describe for resident ratios).
+
+> I am not sure whether changing the default whole-cgroup reclaim behavior
+> in this direction could affect existing userspace dependencies. In the
+> old nodes= discussion, Mina mentioned that Meta's reclaim stack relied on
+> memory.reclaim triggering demotion [1].
 >
-> Check the blocked mask for each queued entry. Forced faults
-> are unblocked when necessary by force_sig_info_to_task(), and the
-> existing pending bookkeeping is unchanged.
 
-I am going to quibble a little with your description.
+Yes and on its surface this is something I could see Meta using, however
+I question whether we're simply trying to find a convenient way around
+fixing reclaim to do the right thing (not invert the LRU, apply per-tier
+memcg limits, etc).
 
-What you describe above as a forced fault, is what the code calls a
-synchronous signal.  As such synchronous signals by definition can not
-be blocked.  Unfortunately the code does not currently have a way to
-distinguish between such a signal number used synchronously, and such a
-signal number used normally.
-
-Given the poor state of delivering these things I think the code change
-is technically correct.
-
-The comments change is wrong as there is no such thing as a blocked
-synchronous signal.
-
-Eric
-
-> Fixes: 7146db3317c6 ("signal: Better detection of synchronous signals")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> ---
+> I also do not intend source= to lock in current reclaim implementation
+> details. It should stay consistent with the current design: source= only
+> selects the resident source to which reclaim pressure is applied, while
+> the kernel remains free to change the reclaim policy.
 >
-> Reproduced by blocking SIGSEGV, queuing a positive-code SIGSEGV
-> with rt_tgsigqueueinfo(), then triggering an unblocked SIGTRAP.
-> Without the fix, SIGSEGV was delivered while still blocked.
->
-> Patched version behaved as expected.
->
->  kernel/signal.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/signal.c b/kernel/signal.c
-> index e433de93b430..4dcc47a7d30d 100644
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -684,12 +684,13 @@ static int dequeue_synchronous_signal(kernel_siginfo_t *info)
->  		return 0;
->  
->  	/*
-> -	 * Return the first synchronous signal in the queue.
-> +	 * Return the first unblocked synchronous signal in the queue.
->  	 */
->  	list_for_each_entry(q, &pending->list, list) {
->  		/* Synchronous signals have a positive si_code */
->  		if ((q->info.si_code > SI_USER) &&
-> -		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK)) {
-> +		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK) &&
-> +		    !sigismember(&tsk->blocked, q->info.si_signo)) {
->  			sync = q;
->  			goto next;
->  		}
->
-> base-commit: f47d223627f80cb7a1eb14c585fe6cb35de5e984
+
+Well, sort of, you get exposed to the implementation details by having
+to negotiate what is considered progress under different scenarios.
+
+Lets take one example - what should happen when:
+ - 2 node system, node0=DRAM, node1=CXL
+ - zswap is configured
+ - echo 1G source=nodelist:1 > memory.reclaim
+ - node 1 is pressured, zsmalloc falls back to node0 to allocate
+
+Should that be considered progress? We reclaimed from node1, but
+increased pressure on node0 - which might have kicked kswapd or memcg
+accounting to demote memory from node0 to node1.
+
+Should zswap also take that nodelist as a constraint?
+
+At the very least i think you need to add details in your cover that
+demonstrates the process of doing something like per-node resident
+ratios, and show that it works as you intend.
+
+-- 
+~Gregory
+
