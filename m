@@ -1,85 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792645658;
-	b=QykFGZsw0m7B14icP3E0BFXuC+VANH28Kl7St9JpsHTqiq00KS51vHPpywhmaVG1tG/Q
-	 qz8EOYUZe1SdouHDd7QJJbO+1B7T6gT3M+VvWZJC4UFXo6F2mBPKBcgVorBGxyTH64ZAX
-	 sG9xU67fAFxCLQIEiQTxcjhvIiroGz83iggt/SibHThYGkqPHi8zJpna1enekEYXIFlh5
-	 ucTwuKrJyd74llT6yN9wuA+EWCvWNfkKmLTpNypd9Rk1M3jVADlGXIvPpdgH2epl5bxMl
-	 dg/3dD+s8M3eH6Nv6PM2Lz8Rg33QyYy/bjSt/8La5TD89hpRBkp0NSCIuuNp4Lhw30w==
+	t=1792645661;
+	b=WXTMPiborQmdq/w0lByFu8eIJAwB2iew/nLdf39YXF/aiQRrpVfTHxVPS5R3Us+qddCy
+	 UGyx9U1R3PZJkxXmp8wiMZdwVb2IDYasrZLq0Vs7yGfCap4mo3Tk6f0ye9Ow1K1B6saGI
+	 /O37Izrck0JLUrnLLIgKtG1KsKDoGFUgunBFfoX/gAH7HAb+FAR/0vqeisN61HV19X+5l
+	 3gMwXA/GULOP46ttSRt/eSGkfT8Tny0s7iwQoniifsxfP7Baz5j+AtHpymqgAM7WfBfpt
+	 JTiPMhnl/nT9Z9nxdBrFpSgKb7QDiBZpVf0oOxQWMLF/zhG16hsHPgfOvRIjcC2tUwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792645658;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792645661;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=rvJDGDbxJ+1ZmzBF0ntz3JbtZDPeNlBQcw7LAqsvHgY=;
-	b=QbnC4DdJFTkCs5jycAfHgzhgbtg6DWWRRQOh0cEHk8sFHy+XKJE1FMyHI7tWbsor+dZt
-	 jmWZqvcXi/uzgwC56ADOD0uD66V9DP7QxtW9GFgwRqb903z0Au9vWcckEa8RxPH9tTlTy
-	 sv3Vqu+wyVy6Nf6bAJ/PoSpI/Pj4ytWNvfRkds8aKgB8SP8VQXZ7et74XueB+qAkyHXVe
-	 2hfd+2HMAF/cbflqNbgZytH7mXbD1s9v0bKcpt7MYlTKQb30UqLtSiAoP1+yuJNC3nWdo
-	 VUg4uBrOjzVwCRKDeI3YOK9ZB5mJ9Q+c00+3THSvIHd2esC9QLz6vqT+WtFw5n9jDFQ==
+	bh=07+mRxyOIRiwBbjnVflzXSK1jgEE0EJDr+2fF5PpXTQ=;
+	b=rtYbjxjXP6k+nL4SvFY9Zr+9/srXvgIJmFI2N0e2bVpaUNuhTSqqrzMlwnvS6BUAB6ZT
+	 0Y1iownogDt/Zu6H1JwjxExcSkHenfSGZqS1cnJCiq78nOzUTv2xTYLdFLND1O07ikr33
+	 G9D1oTChNJyNoHORvp3lcOLGC6nBnHAfJxBGQJs+4kP4frCnidlkHwY8HDXZtqhCOd0Ax
+	 1Kc9fhOG4WOTom6fMoPCNvuj2nUZtzqPYopSajKDWsx6M2HdQ90WLaOwStwOlawVF1Gbq
+	 6Y4J3vMqTjuxR1aoKb/ocgm27WYHVsXZZgLDX5EyFAwKyDPUpyUxlqX00SZLFlRcUhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RSH974ZE;
-	arc=none smtp.remote-ip=209.85.221.46
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UdS9Xfv2;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF93606A33F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:07:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FF93606A33F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278A2606A331
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:07:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 278A2606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=RSH974ZE
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48c4649b35bso1340280f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:07:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UdS9Xfv2
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-487049569b6so919950f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:07:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792645656; x=1793250456; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792645658; x=1793250458; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rvJDGDbxJ+1ZmzBF0ntz3JbtZDPeNlBQcw7LAqsvHgY=;
-        b=RSH974ZEzyXzem3TK97lRQZINL1e+zRve4E8/ggH0G2llmfhxkOIn9FpzejpXd5G3x
-         9VXKFpPrNB3a2ztsjBUBlkt8E1yW2mr88E4auOcUw/WGtto0nAv7r+SXF9dEgkpHlt/S
-         vEG3ou2yM8f0pPsL/NgALC2A68/fqDxeQnxhFSnKPwIm1o3SEnOvho+d0oXkUzUy2E1e
-         nbm0gjGVYNbzr5aAebZPeNtxd2FliCKdAN1BIX58YOSZ3dLFR8uhhVoYPHfoIm2kfC+r
-         EhMuSqAqgZQW5ae0aJU8FP006Cc2Z0MsYFoODKnlodmokgHbVDmFya9C5a5tCP9KSVEv
-         4EYw==
+        bh=07+mRxyOIRiwBbjnVflzXSK1jgEE0EJDr+2fF5PpXTQ=;
+        b=UdS9Xfv24SqWeysnJOc7FFvHxrmbmyOzpttjGarq+luMvLN3gc1i5OarNXaF1q+XQZ
+         piMp2/O0kbnoB5x072H7E48bhRG9BFXYr/YiQGL5N7WT2bS8qpyMQIu5BJI9lzsKeGPG
+         ybnE1r51PpegaA7y886I86xemieYQKIirPmw4frgVxeFF58k631E7pm3hhT7kEbgyekC
+         2zLSbTvluo3ffoJRMYezFXpZPPeeY7a4UHnddQbsskBbrPnsjcNSk2pvPlo9W4y7MmM6
+         7Wux2O5xOAYmooe6Qt85EsHU+EHpZKH9efZ0JfPuiqZon/Mzb9H7HG7WVeL9Nu14dauV
+         I1EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792645656; x=1793250456;
+        d=1e100.net; s=20260707; t=1792645658; x=1793250458;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rvJDGDbxJ+1ZmzBF0ntz3JbtZDPeNlBQcw7LAqsvHgY=;
-        b=zZ1/K2dVeqnmy3A0AGq9am8QcuJ3q8tE9CyQhsFMlR/9EdRjinHzikyrREughLWaqE
-         Wz6ddn9oaTqaQh1P9utxys/7G8AexGXVxzBYVx9fa38yqBpVMCA9bEK+iObbDzpLrRYt
-         1pSpwp8WZJoi3NI8Ocub1bkHxNiLuyfInXgrWdTsA21wiD4U8Tu6Vkd/eikbV9X3KXNN
-         0LpNyWrBEnlMnEECX+uFhl/3ofW29Z3xkCT6AwxwbN7bQ+VoKS+rxE1IDUAVto+aH5mJ
-         MX1gg/5z94Kx6v+vLvxVgCV71Gb5dPfN5ZjP7jFvhHc2mLBLs8qGM7iHFA1dXZd+jwfW
-         HhWA==
-X-Forwarded-Encrypted: i=1; AKwUvByVbtf7irbwk01wEzYbOC9cWvPtM6NBkUKo25sw38Tv8Ew0ttRYYVlPpxl2Kah1ER++NROKjY8nZyZWK2g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7cCPGsdAQhivPvA7N5ZG4GfX2cTqUDmspMvkmc5IgYD2yNIvn
-	C/O6HO98SMCnpDkBwBouEAig2+2hynICCfVUusgPflkq9n9Ax6Q0L8Rh
-X-Gm-Gg: AYBFou1AeKKKQEcF7WR9jh8sXRE4Pe8h1ztAVobEhVaJ6KKi6Je7PWQfMAF8mbOV7mt
-	i2Uf6cxjMISJ/O2uVkapapdCFlDIZ7v1TCHY+fqQRFpwCRxrDVhlGbCrLxWVOYcsxsqpMGx5DRG
-	a3ANsmtncVo3RZh1alTmmk5PME0+ZSuv6odd3AcMOwLtDx5m0Oglb2Y3U9lEgZHpMIHTnzPIsVM
-	3UywXKRZtCCRMDXJzx8LgvCxfkXTEsSV8LOlkYt8IQt3zYZ+j4KFKifH4z0Mk/iR0fMET/gDorO
-	M7SEct7pLixHxRdWFgIOksOnaz6aGGOx1AM5SZfaD1cHyIkZ3C4Pm5rTEl2KZ7KdSA6oBrzs+SL
-	Od5IE0qfseRBhR6Oj4V1xc/6MpU9UVdc8j1TB/8TOTHEZenccnHXKUV4xlN/T2KZ9UZrjO1Gt+0
-	Jd4axbCwHWanKRTckojqlpnk0gaO6XsNt+0hkrXegsItFCUd+iZdN/t0pdoJBiP4aNuGifAFmuI
-	rzaPnVJB4sJpKzJ5+rX6RQ8vcScM9asmibGmuohNjgoFqqdN9gDdqE0bQuUWlBziHeOtxHqFWTx
-	sDt+YphOhGQVyOfmbVrYix4km26OFbJH6k6wS29+8dJowDTf6QtnHrh0dWWxRwIDQxH3aH37Hq3
-	cLes6OTTYdGj44OI2s07HpVZmprPql3NxRci56z5n6QEWysBMKcHNCQD4KSiQAXezBbejoL8rCw
-	AXVr7FAQ==
-X-Received: by 2002:a05:6000:2283:b0:48e:fdd:41d9 with SMTP id ffacd0b85a97d-48e264958f2mr10382265f8f.31.1792645655514;
-        Wed, 21 Oct 2026 22:07:35 -0700 (PDT)
+        bh=07+mRxyOIRiwBbjnVflzXSK1jgEE0EJDr+2fF5PpXTQ=;
+        b=WLBG+9NCzA2sXDRxaEJppW3GMEHqQddvFg8xOIXzEBUIlW4ZBB3Wkpol2FYlpscUX1
+         XQw0l1N/F73GynE+yTkYRtt+zkmDQtm5TNCgQFs/OAhj/znu9gJQcDmfWHymxbj+7rAu
+         pifGO6ySTZVp4YE6/re8hAdUZa8OvKCSlhgp9Ta6bBAIvm1G6GYrFOUdHZpidMBMkwp/
+         6yUxFKmJsy2YGYgWAFIVO9UdtGGRl2Vy2uE/KjZDoZ1/DDIi3Bv4vMKXjcXPWwBLMIdC
+         JEuh1TpRU4/ZBCucvBji42rDafotbqhpY6/hU1zWImEeF8fYED2OEZiybG3hdGxG1TZK
+         qETg==
+X-Forwarded-Encrypted: i=1; AKwUvBxnRQaFCKPoyGq0e3ZDz8BSlo7xUSddttRIufeH0nzoqLD/OnuMv0tbLPiA0yR+LrMODZXdUu++3gfGvSY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzN6ILzsf/3zBEJJhcz5QHRhk6zgrIGw0Mz/b5L14wsJ+Vxcwd
+	p9yQHQQ8q+serwO2lvWz0rEVTip2ASquaxhRVVrDAbWCQXP9/9vVnAGe
+X-Gm-Gg: AYBFou2MFb93L9AoU4kpabLtQomNktOdLC89VqUjpzlR0e+VWUhoomjZIdLw49ODW/Y
+	B2OemvMPcc86CsOLW9w7teFr5fzc3JjrGJ9tMkhgcMnmL7E/5UC4ExApmGkbZo+Y5ukgTWfP/eT
+	hZUqFcE+ScSYF+HIT8mKJvXOWdcrWVtoQfKdtV1kuA7Kvse9LM7ZG20yD/XCIqN7EplPqCoTx+r
+	aGf0+THOKymIkkgxF2itsPxnl3l44iJ8byeBB+/arHy0n28I+UVq5FxcTHCcMc7b95+8h3fOtiV
+	vhDOlQAUIeXcQhRmC80GVMaojywysn9qDhUTZL3tnOZL0ibgmlfY93YXct+9a9w6Y1UTKtv4Ru9
+	pQHWVNpuz1e/3Ilgp0+EEvWTI0mG8rT25qazPoU4go5sJ4AMT+zVhxowM5Ws9fyOFCT57C6356/
+	A401a3O+t+hBh4ry2tz6MnXvTSoGUQSL/T6lYQNF3jAnhRAVqfd/3VP/XHVQJGZ4KY9fCU0L1Lq
+	ZfgSNr8scZtWKEJkbahi5D0d/tXoI2y7v3w4v7YTqxrfMBL4w/Z4p1vBFQNnYZ9pExKbrvYZjMN
+	GhW8S6fEArktmzBtWh7jPFWuzDTtAaIH8ikx6ng0KJuREGItXqkyb1ZBaq9xJSuFm46/qG915nT
+	6QI3eeQZPNa6kTb+9A8nrEsk41GceBamXzFDRTpS0uCa8bB/MzUNy1PvSfX0=
+X-Received: by 2002:a05:6000:2901:b0:48e:25e1:5eb8 with SMTP id ffacd0b85a97d-48e2642e9aemr8678202f8f.3.1792645658351;
+        Wed, 21 Oct 2026 22:07:38 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254eeef6sm9994979f8f.8.2026.10.21.22.07.32
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254eeef6sm9994979f8f.8.2026.10.21.22.07.35
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 22:07:34 -0700 (PDT)
+        Wed, 21 Oct 2026 22:07:37 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Gabriele Monaco <gmonaco@redhat.com>
@@ -106,9 +105,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-rt-devel@lists.linux.dev,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 3/9] rv: Add a monitor for generic IRQ context transitions
-Date: Thu, 22 Oct 2026 07:07:06 +0200
-Message-Id: <20261022050712.75035-4-kmehltretter@gmail.com>
+Subject: [RFC PATCH 4/9] rv: Add a monitor for IRQ-exit scheduling ownership
+Date: Thu, 22 Oct 2026 07:07:07 +0200
+Message-Id: <20261022050712.75035-5-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261022050712.75035-1-kmehltretter@gmail.com>
 References: <20261022050712.75035-1-kmehltretter@gmail.com>
@@ -123,197 +122,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The generic IRQ boundary events expose state transitions but do not check
-their order or agreement with live kernel state.
+Existing scheduler events do not identify the task that owns a
+preempt_schedule_irq() invocation after it switches out.
 
-Add the irqentry monitor group and its irqstate hybrid automaton. The
-monitor checks generic hardirq and serving-softirq nesting against live
-kernel state. On PREEMPT_RT, it suspends and resumes task-local softirq
-state across sched_switch().
+Add irqexit, a per-task hybrid-automaton monitor that follows an
+invocation through entry, suspension, migration, resumption, and return.
+Its guards check hardirq context, local interrupt state, and task
+ownership.
 
-The monitor observes only the generic boundary events. It does not cover
-NMI entry, architecture-specific intervals before generic IRQ entry or
-after generic IRQ exit, or paths that bypass the generic helpers.
+The monitor covers preempt_schedule_irq() only. It does not cover
+architecture-specific interrupt-return work or establish that the helper
+was reached from a physical interrupt.
 
 The generated model header is reproducible from the included DOT file
 with the unmodified rvgen tool.
 
 Assisted-by: LLM
 ---
- kernel/trace/rv/Kconfig                       |   4 +
- kernel/trace/rv/Makefile                      |   2 +
- kernel/trace/rv/monitors/irqentry/Kconfig     |  13 +
- kernel/trace/rv/monitors/irqentry/irqentry.c  |  35 +++
- kernel/trace/rv/monitors/irqentry/irqentry.h  |   3 +
- kernel/trace/rv/monitors/irqstate/Kconfig     |  14 +
- kernel/trace/rv/monitors/irqstate/irqstate.c  | 240 ++++++++++++++++++
- kernel/trace/rv/monitors/irqstate/irqstate.h  | 139 ++++++++++
- .../rv/monitors/irqstate/irqstate_trace.h     |  15 ++
+ kernel/trace/rv/Kconfig                       |   1 +
+ kernel/trace/rv/Makefile                      |   1 +
+ kernel/trace/rv/monitors/irqexit/Kconfig      |  14 ++
+ kernel/trace/rv/monitors/irqexit/irqexit.c    | 159 ++++++++++++++++++
+ kernel/trace/rv/monitors/irqexit/irqexit.h    |  85 ++++++++++
+ .../trace/rv/monitors/irqexit/irqexit_trace.h |  19 +++
  kernel/trace/rv/rv_trace.h                    |   1 +
- .../verification/models/irqentry/irqstate.dot |  32 +++
- 11 files changed, 498 insertions(+)
- create mode 100644 kernel/trace/rv/monitors/irqentry/Kconfig
- create mode 100644 kernel/trace/rv/monitors/irqentry/irqentry.c
- create mode 100644 kernel/trace/rv/monitors/irqentry/irqentry.h
- create mode 100644 kernel/trace/rv/monitors/irqstate/Kconfig
- create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate.c
- create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate.h
- create mode 100644 kernel/trace/rv/monitors/irqstate/irqstate_trace.h
- create mode 100644 tools/verification/models/irqentry/irqstate.dot
+ .../verification/models/irqentry/irqexit.dot  |  21 +++
+ 8 files changed, 301 insertions(+)
+ create mode 100644 kernel/trace/rv/monitors/irqexit/Kconfig
+ create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit.c
+ create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit.h
+ create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_trace.h
+ create mode 100644 tools/verification/models/irqentry/irqexit.dot
 
 diff --git a/kernel/trace/rv/Kconfig b/kernel/trace/rv/Kconfig
-index efa930f94ea4a..e7b30668a559b 100644
+index e7b30668a559b..12854fc9643f9 100644
 --- a/kernel/trace/rv/Kconfig
 +++ b/kernel/trace/rv/Kconfig
-@@ -73,6 +73,10 @@ source "kernel/trace/rv/monitors/sssw/Kconfig"
- source "kernel/trace/rv/monitors/opid/Kconfig"
- # Add new sched monitors here
+@@ -75,6 +75,7 @@ source "kernel/trace/rv/monitors/opid/Kconfig"
  
-+source "kernel/trace/rv/monitors/irqentry/Kconfig"
-+source "kernel/trace/rv/monitors/irqstate/Kconfig"
-+# Add new irqentry monitors here
-+
+ source "kernel/trace/rv/monitors/irqentry/Kconfig"
+ source "kernel/trace/rv/monitors/irqstate/Kconfig"
++source "kernel/trace/rv/monitors/irqexit/Kconfig"
+ # Add new irqentry monitors here
+ 
  source "kernel/trace/rv/monitors/rtapp/Kconfig"
- source "kernel/trace/rv/monitors/pagefault/Kconfig"
- source "kernel/trace/rv/monitors/sleep/Kconfig"
 diff --git a/kernel/trace/rv/Makefile b/kernel/trace/rv/Makefile
-index cdbf68c84f5a4..f39a9f8815764 100644
+index f39a9f8815764..c9a0bf8d9f9b8 100644
 --- a/kernel/trace/rv/Makefile
 +++ b/kernel/trace/rv/Makefile
-@@ -17,6 +17,8 @@ obj-$(CONFIG_RV_MON_STS) += monitors/sts/sts.o
- obj-$(CONFIG_RV_MON_NRP) += monitors/nrp/nrp.o
- obj-$(CONFIG_RV_MON_SSSW) += monitors/sssw/sssw.o
+@@ -19,6 +19,7 @@ obj-$(CONFIG_RV_MON_SSSW) += monitors/sssw/sssw.o
  obj-$(CONFIG_RV_MON_OPID) += monitors/opid/opid.o
-+obj-$(CONFIG_RV_MON_IRQENTRY) += monitors/irqentry/irqentry.o
-+obj-$(CONFIG_RV_MON_IRQSTATE) += monitors/irqstate/irqstate.o
+ obj-$(CONFIG_RV_MON_IRQENTRY) += monitors/irqentry/irqentry.o
+ obj-$(CONFIG_RV_MON_IRQSTATE) += monitors/irqstate/irqstate.o
++obj-$(CONFIG_RV_MON_IRQEXIT) += monitors/irqexit/irqexit.o
  obj-$(CONFIG_RV_MON_STALL) += monitors/stall/stall.o
  obj-$(CONFIG_RV_MON_DEADLINE) += monitors/deadline/deadline.o
  obj-$(CONFIG_RV_MON_NOMISS) += monitors/nomiss/nomiss.o
-diff --git a/kernel/trace/rv/monitors/irqentry/Kconfig b/kernel/trace/rv/monitors/irqentry/Kconfig
+diff --git a/kernel/trace/rv/monitors/irqexit/Kconfig b/kernel/trace/rv/monitors/irqexit/Kconfig
 new file mode 100644
-index 0000000000000..c4476650cd930
+index 0000000000000..55d85e3aa3fca
 --- /dev/null
-+++ b/kernel/trace/rv/monitors/irqentry/Kconfig
-@@ -0,0 +1,13 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+config RV_MON_IRQENTRY
-+	depends on RV
-+	bool "irqentry monitor"
-+	help
-+	  Enable the container for monitors which check IRQ-entry execution
-+	  context and ordering. Individual monitors can compare hardirq,
-+	  softirq, and scheduler events with the kernel's recorded execution
-+	  context.
-+
-+	  For further information, see:
-+	    Documentation/trace/rv/monitor_irqentry.rst
-diff --git a/kernel/trace/rv/monitors/irqentry/irqentry.c b/kernel/trace/rv/monitors/irqentry/irqentry.c
-new file mode 100644
-index 0000000000000..4029ef14389b9
---- /dev/null
-+++ b/kernel/trace/rv/monitors/irqentry/irqentry.c
-@@ -0,0 +1,35 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/rv.h>
-+
-+#define MODULE_NAME "irqentry"
-+
-+#include "irqentry.h"
-+
-+struct rv_monitor rv_irqentry = {
-+	.name = "irqentry",
-+	.description = "IRQ-entry context monitors.",
-+	.enable = NULL,
-+	.disable = NULL,
-+	.reset = NULL,
-+	.enabled = 0,
-+};
-+
-+static int __init register_irqentry(void)
-+{
-+	return rv_register_monitor(&rv_irqentry, NULL);
-+}
-+
-+static void __exit unregister_irqentry(void)
-+{
-+	rv_unregister_monitor(&rv_irqentry);
-+}
-+
-+module_init(register_irqentry);
-+module_exit(unregister_irqentry);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Karl Mehltretter <kmehltretter@gmail.com>");
-+MODULE_DESCRIPTION("irqentry: IRQ-entry context monitors.");
-diff --git a/kernel/trace/rv/monitors/irqentry/irqentry.h b/kernel/trace/rv/monitors/irqentry/irqentry.h
-new file mode 100644
-index 0000000000000..a7d72483522d2
---- /dev/null
-+++ b/kernel/trace/rv/monitors/irqentry/irqentry.h
-@@ -0,0 +1,3 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+
-+extern struct rv_monitor rv_irqentry;
-diff --git a/kernel/trace/rv/monitors/irqstate/Kconfig b/kernel/trace/rv/monitors/irqstate/Kconfig
-new file mode 100644
-index 0000000000000..bf43b9a4d64fd
---- /dev/null
-+++ b/kernel/trace/rv/monitors/irqstate/Kconfig
++++ b/kernel/trace/rv/monitors/irqexit/Kconfig
 @@ -0,0 +1,14 @@
 +# SPDX-License-Identifier: GPL-2.0-only
 +#
-+config RV_MON_IRQSTATE
++config RV_MON_IRQEXIT
 +	depends on RV
 +	depends on RV_MON_IRQENTRY
 +	default y
-+	select HA_MON_EVENTS_IMPLICIT
-+	bool "irqstate monitor"
++	select HA_MON_EVENTS_ID
++	bool "irqexit monitor"
 +	help
-+	  Verify that generic hardirq and softirq context boundaries agree
-+	  with the execution context recorded in preempt count.
++	  Verify that IRQ-exit scheduling starts outside hardirq context
++	  with interrupts disabled and returns to its original task.
 +
 +	  For further information, see:
 +	    Documentation/trace/rv/monitor_irqentry.rst
-diff --git a/kernel/trace/rv/monitors/irqstate/irqstate.c b/kernel/trace/rv/monitors/irqstate/irqstate.c
+diff --git a/kernel/trace/rv/monitors/irqexit/irqexit.c b/kernel/trace/rv/monitors/irqexit/irqexit.c
 new file mode 100644
-index 0000000000000..2d8c824a4870a
+index 0000000000000..a088b28b62b17
 --- /dev/null
-+++ b/kernel/trace/rv/monitors/irqstate/irqstate.c
-@@ -0,0 +1,240 @@
++++ b/kernel/trace/rv/monitors/irqexit/irqexit.c
+@@ -0,0 +1,159 @@
 +// SPDX-License-Identifier: GPL-2.0
 +#include <linux/ftrace.h>
 +#include <linux/hardirq.h>
 +#include <linux/init.h>
++#include <linux/irqflags.h>
 +#include <linux/kernel.h>
 +#include <linux/module.h>
-+#include <linux/rcupdate.h>
 +#include <linux/rv.h>
 +#include <linux/tracepoint.h>
 +#include <rv/instrumentation.h>
 +
-+#define MODULE_NAME "irqstate"
++#define MODULE_NAME "irqexit"
 +
-+#include <trace/events/irq.h>
 +#include <trace/events/sched.h>
 +#include <rv_trace.h>
 +#include <monitors/irqentry/irqentry.h>
 +
-+#define RV_MON_TYPE RV_MON_PER_CPU
-+#include "irqstate.h"
++#define RV_MON_TYPE RV_MON_PER_TASK
++#include "irqexit.h"
 +#include <rv/ha_monitor.h>
 +
-+static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_irqstate env,
-+		      u64 time_ns)
++static u64 ha_get_env(struct ha_monitor *ha_mon, enum envs_irqexit env, u64 time_ns)
 +{
 +	switch (env) {
-+	case hardirq_irqstate:
++	case hardirq_irqexit:
 +		return hardirq_count();
-+	case serving_softirq_irqstate:
-+		return !!in_serving_softirq();
++	case irq_off_irqexit:
++		return !!irqs_disabled();
++	case owner_current_irqexit:
++		return ha_get_target(ha_mon) == rv_get_current();
 +	default:
 +		return ENV_INVALID_VALUE;
 +	}
@@ -325,46 +245,27 @@ index 0000000000000..2d8c824a4870a
 +{
 +	bool res = true;
 +
-+	if (curr_state == in_hardirq_irqstate && event == hardirq_exit_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) > 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 0;
-+	else if (curr_state == in_hardirq_irqstate &&
-+		 event == softirq_entry_from_hardirq_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) == 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == idle_irqstate && event == hardirq_entry_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) > 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 0;
-+	else if (curr_state == idle_irqstate && event == softirq_entry_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) == 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == idle_irqstate && event == softirq_resume_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) == 0;
-+	else if (curr_state == in_softirq_irqstate && event == hardirq_entry_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) > 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == in_softirq_irqstate && event == softirq_exit_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) == 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == in_softirq_irqstate && event == softirq_suspend_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) == 0;
-+	else if (curr_state == hardirq_from_softirq_irqstate &&
-+		 event == hardirq_exit_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) > 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == softirq_from_hardirq_irqstate &&
-+		 event == hardirq_entry_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) > 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == softirq_from_hardirq_irqstate &&
-+		 event == softirq_exit_to_hardirq_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) == 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+	else if (curr_state == hardirq_from_softirq_from_hardirq_irqstate &&
-+		 event == hardirq_exit_irqstate)
-+		res = ha_get_env(ha_mon, hardirq_irqstate, time_ns) > 0 &&
-+		      ha_get_env(ha_mon, serving_softirq_irqstate, time_ns) == 1;
-+
++	if (curr_state == idle_irqexit && event == resched_entry_irqexit)
++		res = ha_get_env(ha_mon, hardirq_irqexit, time_ns) == 0ull &&
++		      ha_get_env(ha_mon, irq_off_irqexit, time_ns) == 1ull &&
++		      ha_get_env(ha_mon, owner_current_irqexit, time_ns) == 1ull;
++	else if (curr_state == idle_irqexit && event == switch_in_irqexit)
++		res = ha_get_env(ha_mon, hardirq_irqexit, time_ns) == 0ull &&
++		      ha_get_env(ha_mon, irq_off_irqexit, time_ns) == 1ull;
++	else if (curr_state == idle_irqexit && event == switch_out_irqexit)
++		res = ha_get_env(ha_mon, hardirq_irqexit, time_ns) == 0ull &&
++		      ha_get_env(ha_mon, irq_off_irqexit, time_ns) == 1ull;
++	else if (curr_state == rescheduling_irqexit && event == resched_exit_irqexit)
++		res = ha_get_env(ha_mon, hardirq_irqexit, time_ns) == 0ull &&
++		      ha_get_env(ha_mon, irq_off_irqexit, time_ns) == 1ull &&
++		      ha_get_env(ha_mon, owner_current_irqexit, time_ns) == 1ull;
++	else if (curr_state == rescheduling_irqexit && event == switch_out_irqexit)
++		res = ha_get_env(ha_mon, hardirq_irqexit, time_ns) == 0ull &&
++		      ha_get_env(ha_mon, irq_off_irqexit, time_ns) == 1ull &&
++		      ha_get_env(ha_mon, owner_current_irqexit, time_ns) == 1ull;
++	else if (curr_state == suspended_irqexit && event == switch_in_irqexit)
++		res = ha_get_env(ha_mon, hardirq_irqexit, time_ns) == 0ull &&
++		      ha_get_env(ha_mon, irq_off_irqexit, time_ns) == 1ull;
 +	return res;
 +}
 +
@@ -375,109 +276,43 @@ index 0000000000000..2d8c824a4870a
 +	return ha_verify_guards(ha_mon, curr_state, event, next_state, time_ns);
 +}
 +
-+static void handle_hardirq_entry(void *data, unsigned int depth)
++static void handle_resched_entry(void *data, struct task_struct *owner)
 +{
-+	if (!hardirq_count()) {
-+		da_handle_start_run_event(hardirq_entry_irqstate);
-+		return;
-+	}
-+
-+	/* Nested hardirqs leave the outer context state unchanged. */
-+	if (depth > 1)
-+		return;
-+
-+	if (in_serving_softirq())
-+		da_handle_event(hardirq_entry_irqstate);
-+	else
-+		da_handle_start_run_event(hardirq_entry_irqstate);
++	da_handle_start_run_event(owner, resched_entry_irqexit);
 +}
 +
-+static void handle_hardirq_exit(void *data, unsigned int depth)
++static void handle_resched_exit(void *data, struct task_struct *owner)
 +{
-+	if (!hardirq_count()) {
-+		da_handle_start_run_event(hardirq_exit_irqstate);
-+		return;
-+	}
-+
-+	/* Nested hardirqs leave the outer context state unchanged. */
-+	if (depth > 1)
-+		return;
-+
-+	if (in_serving_softirq())
-+		da_handle_event(hardirq_exit_irqstate);
++	/* Do not hide an invalid return behind enable-mid-invocation sync. */
++	if (owner != rv_get_current() || hardirq_count() || !irqs_disabled())
++		da_handle_start_run_event(owner, resched_exit_irqexit);
 +	else
-+		da_handle_start_event(hardirq_exit_irqstate);
++		da_handle_start_event(owner, resched_exit_irqexit);
 +}
 +
-+static void handle_softirq_entry(void *data, bool serving, bool from_hardirq)
++static void probe_resched_entry(void *data, struct task_struct *owner,
++				unsigned long pc, bool irq_off)
 +{
-+	if (from_hardirq)
-+		da_handle_event(softirq_entry_from_hardirq_irqstate);
-+	else
-+		da_handle_start_run_event(softirq_entry_irqstate);
++	handle_resched_entry(data, owner);
 +}
 +
-+static void handle_softirq_exit(void *data, bool serving, bool from_hardirq)
++static void probe_resched_exit(void *data, struct task_struct *owner,
++			       unsigned long pc, bool irq_off)
 +{
-+	if (from_hardirq) {
-+		da_handle_event(softirq_exit_to_hardirq_irqstate);
-+		return;
-+	}
-+
-+	if (in_serving_softirq())
-+		da_handle_start_event(softirq_exit_irqstate);
-+	else
-+		da_handle_start_run_event(softirq_exit_irqstate);
++	handle_resched_exit(data, owner);
 +}
 +
-+#ifdef CONFIG_PREEMPT_RT
 +static void handle_sched_switch(void *data, bool preempt,
 +				struct task_struct *prev,
 +				struct task_struct *next,
 +				unsigned int prev_state)
 +{
-+	/*
-+	 * Serving-softirq state belongs to a task on RT. At this tracepoint
-+	 * interrupts are disabled and current still names prev. Suspend its
-+	 * context before representing the context of the incoming task.
-+	 */
-+	if (READ_ONCE(prev->softirq_disable_cnt) & SOFTIRQ_OFFSET)
-+		da_handle_start_event(softirq_suspend_irqstate);
-+	if (READ_ONCE(next->softirq_disable_cnt) & SOFTIRQ_OFFSET)
-+		da_handle_start_run_event(softirq_resume_irqstate);
-+}
-+#endif
-+
-+static void attach_irqstate(void)
-+{
-+	rv_attach_trace_probe("irqstate", hardirq_context_entry, handle_hardirq_entry);
-+	rv_attach_trace_probe("irqstate", hardirq_context_exit, handle_hardirq_exit);
-+	rv_attach_trace_probe("irqstate", softirq_context_entry, handle_softirq_entry);
-+	rv_attach_trace_probe("irqstate", softirq_context_exit, handle_softirq_exit);
-+#ifdef CONFIG_PREEMPT_RT
-+	rv_attach_trace_probe("irqstate", sched_switch, handle_sched_switch);
-+	/*
-+	 * Drain BH preparations which sampled the entry tracepoint disabled.
-+	 * Their RCU read-side protection covers that sample and the serving
-+	 * interval. Do not enable the monitor while one can still publish a
-+	 * serving bit without its entry event after an IRQ synchronizes idle.
-+	 */
-+	synchronize_rcu();
-+#endif
++	/* current is still prev; the incoming task must not use that guard. */
++	da_handle_event(prev, switch_out_irqexit);
++	da_handle_event(next, switch_in_irqexit);
 +}
 +
-+static void detach_irqstate(void)
-+{
-+	rv_detach_trace_probe("irqstate", hardirq_context_entry, handle_hardirq_entry);
-+	rv_detach_trace_probe("irqstate", hardirq_context_exit, handle_hardirq_exit);
-+	rv_detach_trace_probe("irqstate", softirq_context_entry, handle_softirq_entry);
-+	rv_detach_trace_probe("irqstate", softirq_context_exit, handle_softirq_exit);
-+#ifdef CONFIG_PREEMPT_RT
-+	rv_detach_trace_probe("irqstate", sched_switch, handle_sched_switch);
-+#endif
-+}
-+
-+static int enable_irqstate(void)
++static int enable_irqexit(void)
 +{
 +	int retval;
 +
@@ -485,256 +320,199 @@ index 0000000000000..2d8c824a4870a
 +	if (retval)
 +		return retval;
 +
-+	attach_irqstate();
++	rv_attach_trace_probe("irqexit", sched_irq_preempt_entry, probe_resched_entry);
++	rv_attach_trace_probe("irqexit", sched_irq_preempt_exit, probe_resched_exit);
++	rv_attach_trace_probe("irqexit", sched_switch, handle_sched_switch);
 +
 +	return 0;
 +}
 +
-+static void disable_irqstate(void)
++static void disable_irqexit(void)
 +{
 +	rv_this.enabled = 0;
 +
-+	detach_irqstate();
++	rv_detach_trace_probe("irqexit", sched_irq_preempt_entry, probe_resched_entry);
++	rv_detach_trace_probe("irqexit", sched_irq_preempt_exit, probe_resched_exit);
++	rv_detach_trace_probe("irqexit", sched_switch, handle_sched_switch);
 +
 +	ha_monitor_destroy();
 +}
 +
 +static struct rv_monitor rv_this = {
-+	.name = "irqstate",
-+	.description = "IRQ context boundaries agree with execution state.",
-+	.enable = enable_irqstate,
-+	.disable = disable_irqstate,
++	.name = "irqexit",
++	.description = "Verify IRQ-exit scheduling ownership.",
++	.enable = enable_irqexit,
++	.disable = disable_irqexit,
 +	.reset = da_monitor_reset_all,
 +	.enabled = 0,
 +};
 +
-+static int __init register_irqstate(void)
++static int __init register_irqexit(void)
 +{
 +	return rv_register_monitor(&rv_this, &rv_irqentry);
 +}
 +
-+static void __exit unregister_irqstate(void)
++static void __exit unregister_irqexit(void)
 +{
 +	rv_unregister_monitor(&rv_this);
 +}
 +
-+module_init(register_irqstate);
-+module_exit(unregister_irqstate);
++module_init(register_irqexit);
++module_exit(unregister_irqexit);
 +
 +MODULE_LICENSE("GPL");
 +MODULE_AUTHOR("Karl Mehltretter <kmehltretter@gmail.com>");
-+MODULE_DESCRIPTION("irqstate: verify IRQ event and execution context agreement");
-diff --git a/kernel/trace/rv/monitors/irqstate/irqstate.h b/kernel/trace/rv/monitors/irqstate/irqstate.h
++MODULE_DESCRIPTION("irqexit: verify IRQ-exit scheduling ownership");
+diff --git a/kernel/trace/rv/monitors/irqexit/irqexit.h b/kernel/trace/rv/monitors/irqexit/irqexit.h
 new file mode 100644
-index 0000000000000..2459f579c4696
+index 0000000000000..f48d44d1dff73
 --- /dev/null
-+++ b/kernel/trace/rv/monitors/irqstate/irqstate.h
-@@ -0,0 +1,139 @@
++++ b/kernel/trace/rv/monitors/irqexit/irqexit.h
+@@ -0,0 +1,85 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * Automatically generated C representation of irqstate automaton
++ * Automatically generated C representation of irqexit automaton
 + * For further information about this format, see kernel documentation:
 + *   Documentation/trace/rv/deterministic_automata.rst
 + */
 +
-+#define MONITOR_NAME irqstate
++#define MONITOR_NAME irqexit
 +
-+enum states_irqstate {
-+	idle_irqstate,
-+	hardirq_from_softirq_irqstate,
-+	hardirq_from_softirq_from_hardirq_irqstate,
-+	in_hardirq_irqstate,
-+	in_softirq_irqstate,
-+	softirq_from_hardirq_irqstate,
-+	state_max_irqstate,
++enum states_irqexit {
++	idle_irqexit,
++	rescheduling_irqexit,
++	suspended_irqexit,
++	state_max_irqexit,
 +};
 +
-+#define INVALID_STATE state_max_irqstate
++#define INVALID_STATE state_max_irqexit
 +
-+enum events_irqstate {
-+	hardirq_entry_irqstate,
-+	hardirq_exit_irqstate,
-+	softirq_entry_irqstate,
-+	softirq_entry_from_hardirq_irqstate,
-+	softirq_exit_irqstate,
-+	softirq_exit_to_hardirq_irqstate,
-+	softirq_resume_irqstate,
-+	softirq_suspend_irqstate,
-+	event_max_irqstate,
++enum events_irqexit {
++	resched_entry_irqexit,
++	resched_exit_irqexit,
++	switch_in_irqexit,
++	switch_out_irqexit,
++	event_max_irqexit,
 +};
 +
-+enum envs_irqstate {
-+	hardirq_irqstate,
-+	serving_softirq_irqstate,
-+	env_max_irqstate,
-+	env_max_stored_irqstate = hardirq_irqstate,
++enum envs_irqexit {
++	hardirq_irqexit,
++	irq_off_irqexit,
++	owner_current_irqexit,
++	env_max_irqexit,
++	env_max_stored_irqexit = hardirq_irqexit,
 +};
 +
-+_Static_assert(env_max_stored_irqstate <= MAX_HA_ENV_LEN, "Not enough slots");
++_Static_assert(env_max_stored_irqexit <= MAX_HA_ENV_LEN, "Not enough slots");
 +
-+struct automaton_irqstate {
-+	char *state_names[state_max_irqstate];
-+	char *event_names[event_max_irqstate];
-+	char *env_names[env_max_irqstate];
-+	unsigned char function[state_max_irqstate][event_max_irqstate];
++struct automaton_irqexit {
++	char *state_names[state_max_irqexit];
++	char *event_names[event_max_irqexit];
++	char *env_names[env_max_irqexit];
++	unsigned char function[state_max_irqexit][event_max_irqexit];
 +	unsigned char initial_state;
-+	bool final_states[state_max_irqstate];
++	bool final_states[state_max_irqexit];
 +};
 +
-+static const struct automaton_irqstate automaton_irqstate = {
++static const struct automaton_irqexit automaton_irqexit = {
 +	.state_names = {
 +		"idle",
-+		"hardirq_from_softirq",
-+		"hardirq_from_softirq_from_hardirq",
-+		"in_hardirq",
-+		"in_softirq",
-+		"softirq_from_hardirq",
++		"rescheduling",
++		"suspended",
 +	},
 +	.event_names = {
-+		"hardirq_entry",
-+		"hardirq_exit",
-+		"softirq_entry",
-+		"softirq_entry_from_hardirq",
-+		"softirq_exit",
-+		"softirq_exit_to_hardirq",
-+		"softirq_resume",
-+		"softirq_suspend",
++		"resched_entry",
++		"resched_exit",
++		"switch_in",
++		"switch_out",
 +	},
 +	.env_names = {
 +		"hardirq",
-+		"serving_softirq",
++		"irq_off",
++		"owner_current",
 +	},
 +	.function = {
 +		{
-+			in_hardirq_irqstate,
++			rescheduling_irqexit,
 +			INVALID_STATE,
-+			in_softirq_irqstate,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			in_softirq_irqstate,
-+			INVALID_STATE,
++			idle_irqexit,
++			idle_irqexit,
 +		},
 +		{
 +			INVALID_STATE,
-+			in_softirq_irqstate,
++			idle_irqexit,
 +			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
++			suspended_irqexit,
 +		},
 +		{
 +			INVALID_STATE,
-+			softirq_from_hardirq_irqstate,
 +			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+		},
-+		{
-+			INVALID_STATE,
-+			idle_irqstate,
-+			INVALID_STATE,
-+			softirq_from_hardirq_irqstate,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+		},
-+		{
-+			hardirq_from_softirq_irqstate,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			idle_irqstate,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			idle_irqstate,
-+		},
-+		{
-+			hardirq_from_softirq_from_hardirq_irqstate,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			INVALID_STATE,
-+			in_hardirq_irqstate,
-+			INVALID_STATE,
++			rescheduling_irqexit,
 +			INVALID_STATE,
 +		},
 +	},
-+	.initial_state = idle_irqstate,
-+	.final_states = { 1, 0, 0, 0, 0, 0 },
++	.initial_state = idle_irqexit,
++	.final_states = { 1, 0, 0 },
 +};
-diff --git a/kernel/trace/rv/monitors/irqstate/irqstate_trace.h b/kernel/trace/rv/monitors/irqstate/irqstate_trace.h
+diff --git a/kernel/trace/rv/monitors/irqexit/irqexit_trace.h b/kernel/trace/rv/monitors/irqexit/irqexit_trace.h
 new file mode 100644
-index 0000000000000..43de706dda7b6
+index 0000000000000..f35366875feff
 --- /dev/null
-+++ b/kernel/trace/rv/monitors/irqstate/irqstate_trace.h
-@@ -0,0 +1,15 @@
++++ b/kernel/trace/rv/monitors/irqexit/irqexit_trace.h
+@@ -0,0 +1,19 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +
-+#ifdef CONFIG_RV_MON_IRQSTATE
-+DEFINE_EVENT(event_da_monitor, event_irqstate,
-+	     TP_PROTO(char *state, char *event, char *next_state, bool final_state),
-+	     TP_ARGS(state, event, next_state, final_state));
++/*
++ * Snippet to be included in rv_trace.h
++ */
 +
-+DEFINE_EVENT(error_da_monitor, error_irqstate,
-+	     TP_PROTO(char *state, char *event),
-+	     TP_ARGS(state, event));
++#ifdef CONFIG_RV_MON_IRQEXIT
++DEFINE_EVENT(event_da_monitor_id, event_irqexit,
++	     TP_PROTO(int id, char *state, char *event, char *next_state, bool final_state),
++	     TP_ARGS(id, state, event, next_state, final_state));
 +
-+DEFINE_EVENT(error_env_da_monitor, error_env_irqstate,
-+	     TP_PROTO(char *state, char *event, char *env),
-+	     TP_ARGS(state, event, env));
-+#endif /* CONFIG_RV_MON_IRQSTATE */
++DEFINE_EVENT(error_da_monitor_id, error_irqexit,
++	     TP_PROTO(int id, char *state, char *event),
++	     TP_ARGS(id, state, event));
++
++DEFINE_EVENT(error_env_da_monitor_id, error_env_irqexit,
++	     TP_PROTO(int id, char *state, char *event, char *env),
++	     TP_ARGS(id, state, event, env));
++#endif /* CONFIG_RV_MON_IRQEXIT */
 diff --git a/kernel/trace/rv/rv_trace.h b/kernel/trace/rv/rv_trace.h
-index 2f8a932432c95..040b3635ef289 100644
+index 040b3635ef289..c90dae4338bcc 100644
 --- a/kernel/trace/rv/rv_trace.h
 +++ b/kernel/trace/rv/rv_trace.h
-@@ -91,6 +91,7 @@ DECLARE_EVENT_CLASS(error_env_da_monitor,
- );
+@@ -190,6 +190,7 @@ DECLARE_EVENT_CLASS(error_env_da_monitor_id,
  
- #include <monitors/opid/opid_trace.h>
-+#include <monitors/irqstate/irqstate_trace.h>
- // Add new monitors based on CONFIG_HA_MON_EVENTS_IMPLICIT here
+ #include <monitors/stall/stall_trace.h>
+ #include <monitors/nomiss/nomiss_trace.h>
++#include <monitors/irqexit/irqexit_trace.h>
+ // Add new monitors based on CONFIG_HA_MON_EVENTS_ID here
  
  #endif
-diff --git a/tools/verification/models/irqentry/irqstate.dot b/tools/verification/models/irqentry/irqstate.dot
+diff --git a/tools/verification/models/irqentry/irqexit.dot b/tools/verification/models/irqentry/irqexit.dot
 new file mode 100644
-index 0000000000000..90c41e8909e4e
+index 0000000000000..eb2e5499ad7a7
 --- /dev/null
-+++ b/tools/verification/models/irqentry/irqstate.dot
-@@ -0,0 +1,32 @@
++++ b/tools/verification/models/irqentry/irqexit.dot
+@@ -0,0 +1,21 @@
 +digraph state_automaton {
 +	center = true;
 +	size = "7,11";
 +	{node [shape = plaintext, style=invis, label=""] "__init_idle"};
 +	{node [shape = doublecircle] "idle"};
-+	{node [shape = circle] "in_hardirq"};
-+	{node [shape = circle] "in_softirq"};
-+	{node [shape = circle] "hardirq_from_softirq"};
-+	{node [shape = circle] "softirq_from_hardirq"};
-+	{node [shape = circle] "hardirq_from_softirq_from_hardirq"};
++	{node [shape = circle] "rescheduling"};
++	{node [shape = circle] "suspended"};
 +	"__init_idle" -> "idle";
 +	"idle" [label = "idle", color = green3];
-+	"idle" -> "in_hardirq" [ label = "hardirq_entry;hardirq > 0 && serving_softirq == 0" ];
-+	"idle" -> "in_softirq" [ label = "softirq_entry;hardirq == 0 && serving_softirq == 1\nsoftirq_resume;hardirq == 0" ];
-+	"in_hardirq" [label = "in_hardirq"];
-+	"in_hardirq" -> "idle" [ label = "hardirq_exit;hardirq > 0 && serving_softirq == 0" ];
-+	"in_hardirq" -> "softirq_from_hardirq" [ label = "softirq_entry_from_hardirq;hardirq == 0 && serving_softirq == 1" ];
-+	"in_softirq" [label = "in_softirq"];
-+	"in_softirq" -> "idle" [ label = "softirq_exit;hardirq == 0 && serving_softirq == 1\nsoftirq_suspend;hardirq == 0" ];
-+	"in_softirq" -> "hardirq_from_softirq" [ label = "hardirq_entry;hardirq > 0 && serving_softirq == 1" ];
-+	"hardirq_from_softirq" [label = "hardirq_from_softirq"];
-+	"hardirq_from_softirq" -> "in_softirq" [ label = "hardirq_exit;hardirq > 0 && serving_softirq == 1" ];
-+	"softirq_from_hardirq" [label = "softirq_from_hardirq"];
-+	"softirq_from_hardirq" -> "in_hardirq" [ label = "softirq_exit_to_hardirq;hardirq == 0 && serving_softirq == 1" ];
-+	"softirq_from_hardirq" -> "hardirq_from_softirq_from_hardirq" [ label = "hardirq_entry;hardirq > 0 && serving_softirq == 1" ];
-+	"hardirq_from_softirq_from_hardirq" [label = "hardirq_from_softirq_from_hardirq"];
-+	"hardirq_from_softirq_from_hardirq" -> "softirq_from_hardirq" [ label = "hardirq_exit;hardirq > 0 && serving_softirq == 1" ];
++	"idle" -> "idle" [ label = "switch_in;hardirq == 0 && irq_off == 1\nswitch_out;hardirq == 0 && irq_off == 1" ];
++	"idle" -> "rescheduling" [ label = "resched_entry;hardirq == 0 && irq_off == 1 && owner_current == 1" ];
++	"rescheduling" [label = "rescheduling"];
++	"rescheduling" -> "idle" [ label = "resched_exit;hardirq == 0 && irq_off == 1 && owner_current == 1" ];
++	"rescheduling" -> "suspended" [ label = "switch_out;hardirq == 0 && irq_off == 1 && owner_current == 1" ];
++	"suspended" [label = "suspended"];
++	"suspended" -> "rescheduling" [ label = "switch_in;hardirq == 0 && irq_off == 1" ];
 +	{ rank = min ;
 +		"__init_idle";
 +		"idle";
