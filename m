@@ -1,88 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792689377;
-	b=XFezGLrvz9VYzOXg62BX1CAl3aDDiKV2Sy7F2px3XcwqdbKH1sjN18iKj3Wgicr6RAXS
-	 HPuYffEl70z3Rv3Tv7z5fFG9ykuevYkmHzo78lahPl1KtxVRT6ytaQqmWKa4gkJCV8QKA
-	 76CjJTPujOyn0PvA16q/ItRZhZohLjP8TeOQQ4oClEWSSGOl83Xyhtpdcbp/TdWzLfc2p
-	 y4/Uwa/YvJSoAkwJ5gfNnMPriAxyJxti9GNwX+j+WaHVd3g1/xMGegE58xZIDDch4h8nY
-	 xo73oa7XZrPbJ8z1i5rqAFkwmLbOLI/Myu1Sebi+iSsTZL/PHdYBY4zXrDuzpj+Vsdg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792689377;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792689554;
+	b=GFOzOnI76WVx401XVmopZFokcPQUqYJ8k64Fy7evBgPntiXLUYIfHKDCIhhltMR5vUK1
+	 xY4dEmVSXg6cS0zAqVVHXrpDoRvEtvFtnplCCdWfiOX+4hSt5bGzWBaL6wb8o+Iepz07H
+	 uLg0G9sW/vuJJTTfiEIpMUcH+7yyaWeQOtPwbA01lP+TyxFaj1q35+YYv+ibEi7D5eyNb
+	 7CjM/psCPELvEtVW+ekbtPptNLYiHw9/D/bIh7IU/8lxZdIArW9wh1KlxOqFwiIWo33Li
+	 ZPIrhVdtZc7/WgYuvo9xFvM2TnejwGKNV3QlUxbVWAqDax2jWlpT9sGgMxqwuBGSo6Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792689554;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=MMBG8QKSR0rhDtOWejNhaXgUwJDCAE1G7Lk1+og1YAE=;
-	b=2pXYRqfzRDu/JYDuDN3VWd+B+cFJQhUdTXaJdCcscp4KwUjAyzp81BP4usiXK1Czghf5
-	 wCX+XZnkhgoGlFXXtQxFupYFOMvLkESDh2bzRQ8KrHGiJcnbc0iTG/zoal+VskZUmqYp/
-	 Y5e2e1DQMU33rXdq1NF5dQGfPWfRs0Nb6Wp/v2n04PViYmUOqLnjXPKNWVbmKpzFiTZwE
-	 0NmZ9p7NZ/u51a0lT40Ny+RdFQ09PkkxJCRNYAoQ/a3poCk4pAjMnZcg2/ZbOC1SrvAHE
-	 1DyT6jPwn42qYOFHagL+iOZYwYLgYukHVFzx4KDZTEXaz4PSv3JRZG9HNmsl9ArBGdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZbAFahrD;
-	arc=none smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=BB37ifua8Sxb2GAG5iG+mcuA1PmZC21b7zD8v0nAGJ4=;
+	b=wCMJJNTZEIf9eHx86gk4KO5QYnYzV0fXp+xP76XshNN30mlveOUGi9QnLaNdVdvislSL
+	 Ft7UxGyLilM8sCfCxRMqazXwd4faYFRKYUtE+h8JB7SK+6qgjoHHqcFyt++65sIfwXTs6
+	 Rc0DmQd/3tyrJ6HXx2k3H2o8FwJWmZk72wepOKJG/5TfsgAkWTpAfSNu3HoU2Gk9nKfD6
+	 yqV1FylKx6NL6fkzmxQVt4or/yWZFdxD4dsx8kAW7tc/rbYfwJ5O+JSFHeP/3pIts1rfb
+	 2yxUgxeir1Zv7tz3421Ew50lhoEle34tA5KFmn3ViKSlKOKnsVoEWF/l5DYhw/5rWuw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=paul-moore.com;
+	spf=pass smtp.mailfrom=paul-moore.com;
+	dkim=pass header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b="K1eIq/GM";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01183606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:16:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01183606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CBC7606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:19:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CBC7606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=paul-moore.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZbAFahrD
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-451a49abd8aso45652fac.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:16:16 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=paul-moore.com header.i=@paul-moore.com header.a=rsa-sha256 header.s=google header.b=K1eIq/GM
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so689195a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:19:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792689553; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oEcWkYGr8GEzsq2siOVJaVvAwrxCxWvygPqWH61AXfmuLs699UN+TOHe9WUwCa+GPU
+         Xjqi3XKRKfJ3xjGItMLs418nkebohDnYYRKq1DsI7o0UlplIpFiQTU2qoYFBA/aNfZU4
+         8FXrWi+7WsMfbcjQR85xNsou6t5fNQUj9f/uzlOR9vkGxwFBvH/a62TCEvCzqfHpFRki
+         gNKaQiXPb+9HP9dV8+v9gpzeH7lWX8JQ9cbDLTSp1b6aM8k99905fTPzIw44SBkiA8U+
+         triVyHgp14QTjxHLiQDlEs3efupEPpYxKV2+k97K48p1z88ez6bczdg0LDzye7IySaA5
+         Liag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=BB37ifua8Sxb2GAG5iG+mcuA1PmZC21b7zD8v0nAGJ4=;
+        fh=V4Sr5Q7Hbu/ZQCPbdLetSdlw2yELN7HVeHXdOMM0dHU=;
+        b=dEXAVFrb0n6/nHHj0oAVwVQsuJ9zmefRiVIEzWajY0hv8NLJr6c0cmus85HQ9LjNM1
+         vvMzRxutY4ZqhdCvVTtdbrp0EeAYmOyiUlNgOUqW8a2sxFAgNgc79XLp3khhBTXxhMtm
+         kDhgbR3AeJK+XKb16G4WEIxiZJ6xxNzP2Dt/wyxKti2lC3ly3WQGOQNr+00NVq9B7EXD
+         zsibylbGIRXpqwrFq2xXlLW0wp4TXl3VExVXdEctVY85TrzqODWFrR3/v/IYkRM0jRwh
+         dZoFrSqBWWxgeW408GtNkko8z29zy2fWf8G5srDePeBOo2OBvu1OdZFldh6uV7xSQbCc
+         cGkg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792689376; x=1793294176; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=MMBG8QKSR0rhDtOWejNhaXgUwJDCAE1G7Lk1+og1YAE=;
-        b=ZbAFahrDCUfbmLIcschgp3VGFEBHdDfeNAh65p58FNTDyCjJ2NI6XbX/m6jzfRzwrU
-         ZLlJlXH5cTS+21RnZbnQfRWIDIDJuda51lAWKfLX1frlpGcZPhcGzpLuIw6h250/nupg
-         cvx8h3oGM+di9E8dI+lvuZ/pjIu5PMuaRrdak+BTFkuPcl/OGx9VuzjFC6lroz7k/xQa
-         PCAc93OGEoqDpohaFYQfx41aEgcWQKJo8NAfBslJZ/qqluyXo2yKUGWR85mikyTE1FzD
-         L2RAhqlTgjOPMqYvZRKNx19JZd0ZWvF/D8N3SmF5Rl7urnninYZZGonNpMUICOpEuqEC
-         X/xw==
+        d=paul-moore.com; s=google; t=1792689553; x=1793294353; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BB37ifua8Sxb2GAG5iG+mcuA1PmZC21b7zD8v0nAGJ4=;
+        b=K1eIq/GMjRwymTiDRmvQUK4W8vEF3J66M/qREU4Pf5Dgs5jQY47GYeuFACctzhxRMp
+         JVIwSc1p02bUGb7HGwOYlEo5uZFib/eQJhSVsSgYR7CG9iocSGXDcq05KcghSCfYpgwy
+         tSFcUsS2z/n7aHILMoQ1mkvzB+iyUr4GqW8+qaZVoW1HBBwoVccXepzOQGzfx8z+oMaH
+         MbnLhZnhS7e1RtF7WDLLDAdCPSOMm7nw6oq6jiVMYt2JckrcBnH+P1DSoy230ddk83Y9
+         MOjI5cf98eAf0w7/SJq4HQ1j/7yH97UuyWDx6nIWaLQ0m7oBxCg7jZCwsTT1NW/Pj+VT
+         1VMg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792689376; x=1793294176;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=MMBG8QKSR0rhDtOWejNhaXgUwJDCAE1G7Lk1+og1YAE=;
-        b=SULvYujDB52qf3OjvVf4i4dmvEim+lv62UBu0Ow6BmQpUBHNy8YPj1cr5BEhfHr7wE
-         4PGYkFufgmUhx2wPDjFcjMW3NfodfFMnTLszKaGtt5He2UK0D0ow8XDzGFJIISU/L14I
-         2KIDRVw8ZsmtVjalkSTaXWmqAcMlxkFXPv4As20nPGuI2kLqNbB6y+ukHfcX3s3GoYZv
-         2j2mbhgT76LfsvtZJOByQSEM9IWhHFmIwlJUA0MPadiOeMG7FeBK83DTbsuRlpQtQcXD
-         VXrW8FXb2VcysBppdk7cV3mjjt7ZHCQSPP9uXXtTf8dFfBFcx4sHR7n1LMHtE1FrWLS8
-         arAQ==
-X-Gm-Message-State: AFq9FYKoIBPVitu4rJsCNvHak9FEKJVjrvc4BNGLFOvSljM2AwYBqFh5
-	es9hISo3Qas5p3NBGpRq2tnudON8PWw8wzNWd1c0SNOvpzYos69Aq2Eo
-X-Gm-Gg: AYBFou1gYJsrTH03oVz9mzNwGK8KgYrIibo1m5jHyqwHjHiNS97NWQf3uG1w4D656jO
-	r6hbVQ4ZJDOLnJJfOUonAf9Arn3mL7Y/e01PQy8PhAWVfliE1n9zUnrHFiMSsEZ6nH72G3WdEAH
-	6uaN/HCHj0r54HbahLt3Y/HLYCVRnE55gHF0Be9oEKg6Vl2btKAQ7UxJYqCXE9UVOrdc0s6GqwI
-	RFiy7kg9l6jKMuWx5izLHMi0p3sOjLhS7vDdmlFIR7uv+NNJQ2N4mEuxXQsmoXWD5wsGJq6MOlB
-	9g7bCwvon8cPJMp/G2aY3gLeGzj7Ic4TpZNsEt9jic+rPMU0J5M/rUEsDtdQKiio3AyJu5//iKf
-	x3U3ZIiqiuui26dIG/1w4pzd2tXiCciFM3+aJSSXCSJr0hbRw1xxiZW5W0iBi9k6UZpTxmG/PCl
-	L9lCg11QAVeU1oW7fFsEcySEpQCjYbOY6VdQr+PZjLe00vJndJQa9CU8tTmfn2h+dZrXmhrV+Ft
-	vs/caS1AMkjDSa6HFFYNsyxP8n7ZKU/+jE/ZiA90EMkaL858FMOIi0ZdKdIOE4Z91lqcKBFkGSk
-	iCv7k7l7e+F7Q5PTS9qiOH29QqsT5EA6fIXyMbVhd2RcPVO3BjgmATnUJdLeQOjj8oxzaodsOJO
-	wWK4cj8t2ILpMXqjiUVHdI8TPz47yjKQm7QrNwvqu/YBLh8llF/9geabaP7oLy7ZEao6B/Y5HUA
-	5mQPk=
-X-Received: by 2002:a05:6870:b3e8:b0:47d:f10:686f with SMTP id 586e51a60fabf-4a7dc1bdb12mr4297357fac.23.1792689375838;
-        Thu, 22 Oct 2026 10:16:15 -0700 (PDT)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a7d611b380sm4997022fac.5.2026.10.22.10.16.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:16:15 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 22 Oct 2026 11:16:11 -0600
-Subject: [PATCH] serial: 8250: release the transmit PM reference on
- shutdown
+        d=1e100.net; s=20260707; t=1792689553; x=1793294353;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BB37ifua8Sxb2GAG5iG+mcuA1PmZC21b7zD8v0nAGJ4=;
+        b=xiJOzGpSiPjbToLH6VsExx5y/AHJfbspbzDYSEUBR5DEJYecPmNhcplNEaLffKEKXp
+         G/LodfwSVW8QwbHXMfmoWRcMx6EVxX0FYmI1PYQGeIhJYZaguDUtGmzV93NfBIf4Hhf8
+         6EKlOtnjUsGdIWaq2fcGryZApJ/+wM89vOvba/SjDgPIPLKdyWD7iUnwu+wQvKxPIUtj
+         8yJcfa81rAHu7+B2Zejd0zw4f/jsVDBYqksYrOkY4Mabh2cM8NveTYwidz30WHNSoue/
+         58eQKoqO8kuexrHGe8FwZTR4KhwroNCJNdpCQJuhUZfEXwGIjQjt3cfXtII3pBbT8Sj2
+         /M7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy2XhfheC4QUjeNs1+t0jzLzSy9MIRPRCvTvPXb7NvSRKs3QwLV4n+NK1YC4cGdvt4dv3NV3ZSJHbK7Pu8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItcRxiN4sMhVVZjy0OPU6K+9UZSFgijLmYOnrkZ0pv125c7vzK
+	AUv+ntNwapZwyLfpu7sW1zTlaE7X/O5HqGqHBgyfb1dca+QoRHI9Tb4e7+WEs2hmaNOtzUZCC6y
+	8T4zxdwIZ6RuxL6ENJEHCPblAMlnVjiDnh/1GCGLhQqHUNa6I5m1ghlHT
+X-Gm-Gg: AYBFou3PwgiljZXqhFt54XlGgukJPMhJH7x971vlVu5MtxJ4eQ+OL6H8y6k7m125GZ5
+	faZB1GLEHMvfv9K5zwn+iZBPtZBSCEP2TzhEgSuexRjn2Sk8DVLKY9mxfvcx3fcmLa9IcWLr2pL
+	tI+tylUI34vHBI0AV4uH7KIpgspEJ/bnLXm764Wx8Kw6HdaYqsyH3fT2x1z49lbyDdP/IVrWpTM
+	qImr5O/nBeUvqrUZlHCtgqij8r+EfeJTGxdqGYqE2J0AXlHPAibGa6nOivEPBAhHojgKGG0/f0f
+	PMSOMxbDPZzOyIVKRgtjFSHK2OEIoP1aY5DYDMXAgPkHNv8SPUA1m6FEK/7qUMyXJC5emPaUsjb
+	HBGGjtRx/9LyM55qg4CKO/m9zS24wlH4pckk0yOkCKlSlPZl6BJGcv4uB5vbSd6oeq74N
+X-Received: by 2002:a17:90b:514c:b0:3ac:95d7:2f95 with SMTP id
+ 98e67ed59e1d1-3ada6d24c14mr2208639a91.20.1792689553067; Thu, 22 Oct 2026
+ 10:19:13 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,106 +104,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261022-submit-serial-8250-tx-pm-shutdown-v1-v1-1-0e894afa3bb8@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAxEr1J5jUUSCWi5CmKRj0uCaFolbimqe
- ncSWHjxRjPPG2RKgTJcmw0SLSGHMRaQhwas1/FBGFxhUEKdpVAK82yGwFhn+oWtOgnkFacBs5/
- Zje+Ii0RnOtFJ56jtL1BUU6I+rL83t/ufi+dJlqu7NozOhCbpaH2NmD/HchhpZdj3L7ZQCsynA
- AAA
-X-Change-ID: 20261022-submit-serial-8250-tx-pm-shutdown-v1-db9091dde8f7
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, Raul E Rangel <rrangel@chromium.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Tony Lindgren <tony@atomide.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.15.2
+References: <20261019-b4-ipe-keyring-rfc-v1-0-156f0b93e843@nvidia.com>
+ <20261019-b4-ipe-keyring-rfc-v1-1-156f0b93e843@nvidia.com>
+ <702ade20-a2f3-4919-97e6-c72faa89399a@kernel.org> <20261021-groll-donnerstag-erfuhren-ce34a0ed4e97@brauner>
+ <CAHC9VhTHUU0h9k74CMT6wYhMwyY3YhbSSFwJoDTvoFRyTFVZwg@mail.gmail.com> <20261022-hausbank-dozent-hurtig-9443f3777475@brauner>
+In-Reply-To: <20261022-hausbank-dozent-hurtig-9443f3777475@brauner>
+From: Paul Moore <paul@paul-moore.com>
+Date: Thu, 22 Oct 2026 13:18:59 -0400
+X-Gm-Features: AclHuK_mpvVbVbsjXsFY4C_2Z-Hg3ACXgqMxfwiNaJKHEvEnCJIfbBS66y6uEck
+Message-ID: <CAHC9VhQ4sdCRvJ+YPZoiQzR_hgQN6-=84qvnTDDGPf=7=L9-jA@mail.gmail.com>
+Subject: Re: [PATCH RFC 1/4] ipe: add the .ipe policy keyring
+To: Christian Brauner <brauner@kernel.org>
+Cc: Fan Wu <wufan@kernel.org>, Manuel Huber <manuelh@nvidia.com>, 
+	David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, 
+	Andrew Halaney <andrew@amutable.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Alexei Starovoitov <ast@kernel.org>, 
+	Daniel Borkmann <daniel@iogearbox.net>, linux-security-module@vger.kernel.org, 
+	keyrings@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-doc@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Transmit holds a runtime PM reference until the transmitter-empty path
-clears THRI. A hangup can shut down the port while that reference is still
-held. Shutdown clears the interrupt enables and stops DMA, leaving no TX
-interrupt to release rpm_tx_active. A suppressed DMA completion cannot
-release it either.
+On Thu, Oct 22, 2026 at 6:19=E2=80=AFAM Christian Brauner <brauner@kernel.o=
+rg> wrote:
+> On Wed, Oct 21, 2026 at 12:51:35PM -0400, Paul Moore wrote:
+>
 
-Drop the transmit reference after shutting down TX in both the generic
-and OMAP shutdown paths. Their separate shutdown PM references keep the
-UART accessible throughout cleanup. The exchange in the helper also
-handles shutdown after the normal TX path already released its reference.
+...
 
-Fixes: d74d5d1b7288 ("tty: serial: 8250_core: add run time pm")
-Reported-by: Raul E Rangel <rrangel@chromium.org>
-Closes: https://lore.kernel.org/r/20261022152019.1621716-1-rrangel@chromium.org
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/tty/serial/8250/8250.h      | 1 +
- drivers/tty/serial/8250/8250_omap.c | 1 +
- drivers/tty/serial/8250/8250_port.c | 5 ++++-
- 3 files changed, 6 insertions(+), 1 deletion(-)
+> > As far as I'm concerned the decision of how IPE uses an IPE keyring is
+> > up to Fan.
+>
+> This is really not an argument. Manuel posted an RFC that follows two
+> existing in-tree keyrings to the letter. Fan asked to deviate from them.
+> I explained what that costs.
 
-diff --git a/drivers/tty/serial/8250/8250.h b/drivers/tty/serial/8250/8250.h
-index 21ed9c41b751..4a7d26e2dbf0 100644
---- a/drivers/tty/serial/8250/8250.h
-+++ b/drivers/tty/serial/8250/8250.h
-@@ -190,6 +190,7 @@ void serial8250_wait_for_xmitr(struct uart_8250_port *up, int bits);
- 
- void serial8250_rpm_get(struct uart_8250_port *p);
- void serial8250_rpm_put(struct uart_8250_port *p);
-+void serial8250_rpm_put_tx(struct uart_8250_port *p);
- DEFINE_GUARD(serial8250_rpm, struct uart_8250_port *,
- 	     serial8250_rpm_get(_T), serial8250_rpm_put(_T));
- 
-diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
-index 29a203ed93fd..bb6c312c8cdf 100644
---- a/drivers/tty/serial/8250/8250_omap.c
-+++ b/drivers/tty/serial/8250/8250_omap.c
-@@ -795,6 +795,7 @@ static void omap_8250_shutdown(struct uart_port *port)
- 	if (up->lcr & UART_LCR_SBC)
- 		serial_out(up, UART_LCR, up->lcr & ~UART_LCR_SBC);
- 	serial_out(up, UART_FCR, UART_FCR_CLEAR_RCVR | UART_FCR_CLEAR_XMIT);
-+	serial8250_rpm_put_tx(up);
- }
- 
- static void omap_8250_throttle(struct uart_port *port)
-diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
-index db066a42f61d..76f35d1b3203 100644
---- a/drivers/tty/serial/8250/8250_port.c
-+++ b/drivers/tty/serial/8250/8250_port.c
-@@ -672,7 +672,7 @@ static void serial8250_rpm_get_tx(struct uart_8250_port *p)
- 	pm_runtime_get_sync(p->port.dev);
- }
- 
--static void serial8250_rpm_put_tx(struct uart_8250_port *p)
-+void serial8250_rpm_put_tx(struct uart_8250_port *p)
- {
- 	unsigned char rpm_active;
- 
-@@ -684,6 +684,7 @@ static void serial8250_rpm_put_tx(struct uart_8250_port *p)
- 		return;
- 	pm_runtime_put_autosuspend(p->port.dev);
- }
-+EXPORT_SYMBOL_GPL(serial8250_rpm_put_tx);
- 
- /*
-  * IER sleep support.  UARTs which have EFRs need the "extended
-@@ -2486,6 +2487,8 @@ void serial8250_do_shutdown(struct uart_port *port)
- 	 */
- 	synchronize_irq(port->irq);
- 
-+	/* TX interrupts can no longer release the transmit reference. */
-+	serial8250_rpm_put_tx(up);
- 	serial8250_rpm_put(up);
- 
- 	up->ops->release_irq(up);
+I felt it was important to show some support for Fan, especially as
+your comments came across (at least to me) as particularly harsh.  The
+strong reactions in your latest comment only served to underscore my
+concern.
 
----
-base-commit: 1184f87e2790e8af9be3116f608d2e86b4792d7d
-change-id: 20261022-submit-serial-8250-tx-pm-shutdown-v1-db9091dde8f7
+> > Of course, fitting in with existing norms is important,
+> > but if it causes IPE or existing IPE uses a lot of pain, that can a
+> > good reason to diverge from those solutions.
+>
+> Which pain?
 
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+As I said before, (emphasis now added for claification) "... *if* it
+causes IPE or existing IPE uses a lot of pain ...".  I intentionally
+did not make a claim either way.  Once again, I wanted to provide Fan
+some support in case there was an issue and he found himself in a
+position where he had to push back to preserve IPE's model.
 
+I think we can all agree that upstream kernel development can be
+difficult at times, and not just because of the technical challenges.
+Working in the security/ space also carries its own struggles beyond
+that.  It has been my experience that having someone stand up and show
+support can sometimes help make that a little bit easier.
+
+> > These days everyone is
+> > going to implement whatever they please, but if you have
+> > needs/requirements about how you want things to behave in LSM land, I
+> > think it would be helpful to engage with us before you make a decision
+> > and then start pleading with the LSM folks to adopt your approach.
+>
+> I'm not pleading with anyone.
+
+Perhaps that was not your intent, but that is how I read your "Please
+don't start breaking an established pattern that works well." comment.
+I believe that is a reasonable interpretation.
+
+> And the engagement you're asking for happened. You just didn't engage:
+>
+> - You read Daniel's bpf keyring series yourself in August, Cc'd the
+>   keyring folks "for obvious reasons", and had nothing to say about
+>   the model. The cover letter spelled out in detail that systemd would
+>   provision that keyring the same way as .dm-verity.
+>
+> - On 2026-10-11 Manuel announced in the KEY_SPEC thread that he'd
+>   propose a .ipe keyring "modeled after the .dm-verity keyring" after
+>   "initial discussions with Fan Wu". You and linux-security-module
+>   were on Cc.
+
+... and you are seeing the engagement now.
+
+> As for "everyone is going to implement whatever they please"... In May
+> you told the bpf folks that "we just need to be willing to accept that
+> we have different needs and show a willingness to accept different
+> solutions as a result" [1]. I don't see why that shouldn't apply to
+> systemd using BPF LSM.
+
+I'm unclear on your comments above.  Obviously out-of-kernel-tree BPF
+LSM code is free to implement whatever it wants within the bounds of
+the BPF constraints/APIs, that was the intent behind my "implement
+whatever they please" comment.  I guess I could have made it more
+clear, but it didn't occur to me that this would be a controversial
+statement since it is already happening today ... ?
+
+> Frankly, I couldn't care less whether IPE chooses to model the keyring
+> the same way.
+
+That wasn't clear from your earlier comments, especially considering
+your tone, but it's good to have that understanding now.
+
+> I'm confused why you have to speak for Fu and why you're so
+> defensive about this.
+
+As mentioned above, I wasn't speaking for Fan, I was speaking in
+support of Fan ("... the decision of how IPE uses an IPE keyring is up
+to Fan.").  Perhaps you didn't intend your comments to be received as
+overly harsh, but in my opinion they had the hallmarks of anti-LSM
+bullying that I've seen far too much of over the years and I wanted
+Fan to know that at least he had my support to make whatever decision
+he felt was necessary.
+
+--=20
+paul-moore.com
