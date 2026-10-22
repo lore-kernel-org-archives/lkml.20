@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792634342;
-	b=yPbKAnesTxKw3kY7CTMdxeKZF7paxQ6scjnYYLi+VTV0hB69BR1dif0klgxOeV1lUIyJ
-	 ZO1BNPeE5kRYkMv4VvRyQFV5ZIfHSxXKH4MW55OJqnr+HSs6hKxhZNeLgrcShnJPUwj2e
-	 GKuHDHmKK7Vgn2/jNYwyK0yh8BWjfX8vEbUkYahN7YOg1n+dEsIYX81MAnaAmJtEh3bZB
-	 IbhcYc01Ng8X1a2zIcadvfZ6DSvrjVX5COBUIP/FoPsv5TkkUT2H1QCAlf8aFeWUXdeAZ
-	 sSCO8lzP5IyIt30Wzg0YZOwB5eVQnt8KJNGW1pVI8xyYBJqmkKDxJ7KGZkkSum5Rw8A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792634342;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
-	b=PaZvtE0tnDyWRbn1CLOt2WM3RWgCOZxXjjC1VAmiv6rIxjaD2uaUWWxQF0ymUjh4dnXY
-	 GSLsHO4zZXqbi704vNQXdBdydGyr03cZqsUztbeOG+6s9LLhSeTS5uhiQq7Pbi6SiXFaU
-	 RznH3WQ0aFSpUleMEBTGi/8w672u547uRXQkIS1XsX6l4248YfiuNd9y4wF+8pVQsbxN8
-	 uKYi/jrhQhM8FoPO9h35U+2HQqUJw+f+ll8FEfWuQNQbF7sk00VKBk8UoHlreJTDsjl6X
-	 eghOsPL5U+mbzlVOgf9gdgGhPEFF6aV0C/tEXu5PWa7XfqBzP0zIsUl4dgTs7v/exAQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=murgatroid.com;
-	spf=pass smtp.mailfrom=murgatroid.com;
-	dkim=pass header.d=murgatroid.com header.i=@murgatroid.com header.a=rsa-sha256 header.s=google header.b=Dn22YTWF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.225
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792634468;
+	b=b+4aqelNfKBxPce2oSwOdJTXcS4L857RfAT8+OxVxQU72R8fiOyO6EslO6VikI+2h5ga
+	 1G/egWXrUza/oeuX6WMHauOUnVnUj8+smqOf1uOP5D3o5oyaFHptr9wEmBxGek6B7CAPY
+	 wGlVTGZpCJla9yNZi4NJZ97sZQ17MTytGcDUbYbxPRRPUhkyfldLhEpH/R56ARE3gP3TO
+	 ppnD61XPUgqjPOIxmyyFjJYQUs0XYl2kcQceV7Z8yMLz5aWEU2qMDrWxRRZFfucEPyTOt
+	 KkJVpPXu26pYL7APeN8jEOKFl8EMM0v4p5/F/880JoLlDdDzc0aRBrKSR1IJZJ/slKA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792634468;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
+	b=TsW8l/UCyh5OCp5iA7oqWRwA/AO4TZbKsSBOLLMWEDfNQzxhd0b8B14UgtMBMkbqLtlu
+	 Cm7R4nq8lWZOpIIWoWD026uWUXTYRbUZez4a7G5Db7dMl6BcIoIYQI2eNcs/jxGUKe1x/
+	 w4AXVadi06pxer6TndPgFkFzm0cpA4Yjs+gib2RwGchAAN9NCx0avMtOfEea9BqwANtDv
+	 3MneyhycFPubfMk2A2wgjbJyEIjhqjaXzGzmp/P+unCZoZnp+8I4hisEK7hlQOsNqXRn1
+	 zqkUchWnOSaubRYQ5+KSkcF8q+vNMfuDr5/h3GveeJzU3nX4L6tkyelW4q8ifDCpsew==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN;
+	arc=none smtp.remote-ip=113.46.200.225
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF06606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FF06606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=murgatroid.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murgatroid.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDB8606A31A;
+	Thu, 22 Oct 2026 02:01:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBDB8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=murgatroid.com header.i=@murgatroid.com header.a=rsa-sha256 header.s=google header.b=Dn22YTWF
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3550c917fd3so1824845eec.0
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:59:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792634341; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FM2Bl1awYEV2qs41DI8wtY8kRx2F/Ox8Z6eb6Ph2KBFXFVvVNlCFYUEQJBjNL33CRk
-         1n1xQ1xf8cDhuVPf5wRyrZakc0iwGTI1GttbFCvC4bThscoeBvqjv5eGkxYwCBBT9eV0
-         ebC0BjVCTwvmIOjXQ6b1lrc19Gcdxq1gHuxrBvOPvaQVz2h4dGvDHM4vS9y3ETcScQlR
-         LtIPjEeJQAxB43r4Oc4TfSQX1lHypy3BcXtumDpHKIb7dmKQH3z8w6LDoQ+29gDa5vwP
-         dZEzR619fmmoUfLI0jP08UBVaYAXeeGwavitM3bOen1aEMJdsTJRKrZHCsrw2PDxaBsR
-         1AzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
-        fh=KXrcdrhHyBmeiQMpIW9QXWuuXDdTHFTQve+eFlf7AuI=;
-        b=mSpoLIvAffnaEtlh2c7+9MBOH/7oLOr/AE6ENs2rNEBFdMnAuanadtw5hVV89nGY1l
-         oeXVmc3xNez0DOFUTePQxUixC/IrFAQk4LCvDgUMNOC7ggHUPjhm16h2xJKGPXSat//T
-         XnwZvAgLZUpChTbm0Pp6j+oFWHLZQ+GK1d+ls3RHj9lVqr4vbYJwAUgsQaBjPs7tee5w
-         +3gIIu7jzgPOtWVKIM4+w9nE/csbgm5MuiYBMysFIl7ryfRcMGyYNIuerSQrhYtXURIX
-         kwzeNRVD25y1bteMHMEaR+CWtAc/dHiKCEYGLRICjmxBS4aWPi6SLKUP/I+ex1ZobdIH
-         tMXA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=murgatroid.com; s=google; t=1792634341; x=1793239141; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
-        b=Dn22YTWFHXuz5eBGAfgcXhBaSngAcdqW6Ktq+DQbZGylcggyWaChglRW/PsuJhLKQg
-         ttkF4JCIZP0NHjN2sKShcr4i3TjPFg+AUESLvr8tjPomsIvOO3VHDGgnFbu7HXRmkwJz
-         kImqDIsxFiYu0K537EdLnpNStdF056NaZPRo14LbHN/aqM0mWS4rIhbcixaBq8jovoA8
-         W6w1+JotaqCa3STOt6xyC2CdQVdq2ylm+m5PNfmvuVoXH0WeS7zIEsdTk6dsJR64Fv2s
-         xW33Ws90oMWQ2mjlNcvVNYalCROvgRUMnn1KIjCqem8758v8B/qRmxfeeJxCtX06kTx/
-         cZ/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792634341; x=1793239141;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ow6Xf98skWxAAfr4tUT3DSmhy2FgTs7yUfongXRVX40=;
-        b=WdJk+Kw+sgVlFPsgWd7Mq8KPjHq2j3Va3S29nWY7jKQwgzk4IJpP3hK1ERGNFAg4M1
-         UkaZ+7iM6zkh7TXGj4uk65CqVECbi5GTCXC3oANxuhUdWhYT+jd/vD9pdeW5WUGKJ43s
-         5BW1HJQ9FVz+sRd9uXc3l3+c+Mf1tgm5+F0KHOQqEAYUu/B5+gzgXUmjlRKwk+G1eD4O
-         StrV0cpc1zGaDOE+rbjx0pc57+eaZCuz33OxqcxARN5MTEvm0cvR5260fGnAIZWsknMU
-         UmabIRKZwEAQej8Y2+OwBMnrR8lGJjUdpIviW2cOHi4f+tEOG4Z9xiawLuIKiyuV6O9a
-         E55Q==
-X-Forwarded-Encrypted: i=1; AKwUvByrKz6sNjYqzMgZ0Sm2NgU1qKFD65okHS6+6dNCwi2VUvrxID4UGuCDiG/S1gDHDun7BedHTyEPCz8aW5k=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKN9Rj+FQJZcaFTpoviIP5Y932HhjqZWgyV5c8YrXKOHB6pU0vo
-	UAwbw8u6xVmZNJkLNoQdtKI32bD9rNcSNJ9E4zbm9g5RkRWdkwkD2MnIdOLCwMzsvapPf6OONaS
-	wttm58bqKTQ4IdfbAoPcpWjv8y7X/wELptbPkmOCC
-X-Gm-Gg: AYBFou33qQ9IEiSiwIjNrXhFRsoGUYZHaBL/CrRt9Mf8GUFBJha9QQB7ZDxdZwKzedi
-	17D6lP3dpFKRuLnbZUo5eXnHVGT4IxkSJ7mdd/GTTis0AWtZE4TEcZk67OhVZFk+vu2qtmFwAU2
-	QxVjRDSovdUOeP4b34SWBiJyd+FqdMeiJPZhxcCAQAIv6cVvmplK/IMtaNv0k5q3Akum9eubrUH
-	mLEbzs1ZsS/dkxNE4ac4iemWyOqVSKMfYAv/YVzDMMDAuc/GIA1AVmk8BcErnAsNrurd/cdNYy6
-	q8lhGLdaaifg4fLT+1A3x9V4H6C0kCwk48xPlIllrskqYbWYy9hJJW8E46MZ0j226p+8HaSju5U
-	7eMO/RiXkyUXZaObxHzCAAUYdMZhMaIvcofGxZVnu4kLFBF4XJgf3kPPSQ/XdhaBfe2Jcdm21Ox
-	NLu9qHY5JkUMMiwQy0t35glugqj4hsxNQzDfo=
-X-Received: by 2002:a05:7300:e70c:b0:351:1bdb:e3b7 with SMTP id
- 5a478bee46e88-3674cb37bb2mr5335214eec.15.1792634341036; Wed, 21 Oct 2026
- 18:59:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Q+4ivRAN
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=loBgwUbLOnAAak0q9uGjIQKEwQ4a4j4TVh8P+20MXEg=;
+	b=Q+4ivRANcgbbFZT+RuqnOmzfQRgx/LVfmZmJnBznw3aijzTfLqiAXmQFPpHZ4wQr5N/a+UnSk
+	9QkwZygXGFsy6k2d0kw287r6cGCOPL2MK5xfPM3ACXVTWwq6O1+K0stbkZqxhIDb9q0MkhN+DRw
+	UTGHL86gM/CDOpMtrrbG38U=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j98WL5Vhfz1K972;
+	Thu, 22 Oct 2026 10:00:46 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 2FEAB40563;
+	Thu, 22 Oct 2026 10:00:51 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
+ 2026 10:00:49 +0800
+Message-ID: <31d63208-3ef2-420f-a0c2-d9d6d49c5e21@huawei.com>
+Date: Thu, 22 Oct 2026 10:00:49 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,104 +62,193 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261019023420.83976-1-ch@murgatroid.com> <20261019023420.83976-2-ch@murgatroid.com>
- <4470c427937d26035d81b99ee7d06e2a602ee4d7.camel@linux.intel.com>
-In-Reply-To: <4470c427937d26035d81b99ee7d06e2a602ee4d7.camel@linux.intel.com>
-From: Christopher Hoover <ch@murgatroid.com>
-Date: Wed, 21 Oct 2026 18:58:49 -0700
-X-Gm-Features: AclHuK-UlpT4QZJ3hk8thqk-ORABl_Te8RQcU0z-w1fijnZP-8kQdVwWN9ZtSy0
-Message-ID: <CACw0PsaJr6E0Y3AXoGKDUiKp4vsaA+GEJjPqEhYuSoKqDp1jUA@mail.gmail.com>
-Subject: Re: [PATCH v3 1/3] HID: hid-sensor-hub: Synchronize callback removal
- with raw events
-To: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Jiri Kosina <jikos@kernel.org>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>, 
-	Joshua Crofts <joshua.crofts1@gmail.com>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 3/8] crash_core: serialize crash header preparation
+ against hotplug
+To: Wandun <chenwandun1@gmail.com>, <robh@kernel.org>, <baoquan.he@linux.dev>,
+	<rppt@kernel.org>, <m.szyprowski@samsung.com>
+CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
+	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <pjw@kernel.org>,
+	<palmer@dabbelt.com>, <aou@eecs.berkeley.edu>, <alex@ghiti.fr>,
+	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<saravanak@kernel.org>, <akpm@linux-foundation.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<robin.murphy@arm.com>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <loongarch@lists.linux.dev>,
+	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<kexec@lists.infradead.org>, <linux-mm@kvack.org>, <iommu@lists.linux.dev>
+References: <20261021083011.2170525-1-chenwandun1@gmail.com>
+ <20261021083011.2170525-4-chenwandun1@gmail.com>
+ <12e4e687-1ff0-41b2-bdf8-7f48b29e1f2f@huawei.com>
+ <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <a1665f9e-3116-47bc-974e-98dce408fa37@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
->  Is this issue actually reproduced or it was found by some AI tools?
-
-Real life.   I wedged my kernel several times with an MCP2221A usb i2c brid=
-ge.
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
 
-On Wed, Oct 21, 2026 at 6:22=E2=80=AFPM Srinivas Pandruvada
-<srinivas.pandruvada@linux.intel.com> wrote:
->
-> On Sun, 2026-10-18 at 19:34 -0700, Christopher Hoover wrote:
-> > sensor_hub_raw_event() holds pdata->lock while it looks a callback up
-> > in dyn_callback_list and calls its capture_sample() and send_event().
-> > sensor_hub_remove_callback() takes only dyn_callback_lock, so it can
-> > unlink a callback and return while another CPU is between the lookup
-> > and the call.  The sensor drivers remove their callback in .remove()
->
-> Two spaces before "The".
->
-> > and keep the struct hid_sensor_hub_callbacks in memory that devres
-> > frees right after, so a report racing an unbind can call through
-> > freed function pointers.
-> >
-> > Take pdata->lock in sensor_hub_remove_callback() too, outside
-> > dyn_callback_lock as in sensor_hub_raw_event(), so the removal waits
-> > for a report in flight.  pdata->lock is otherwise only taken in
-> > sensor_hub_raw_event(), and callbacks are removed from process
-> > context.
-> >
-> > Fixes: 401ca24fb34a ("HID: sensors: introduce sensor framework")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Christopher Hoover <ch@murgatroid.com>
-> > Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> > ---
-> >  drivers/hid/hid-sensor-hub.c | 12 ++++++++++--
-> >  1 file changed, 10 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/hid/hid-sensor-hub.c b/drivers/hid/hid-sensor-
-> > hub.c
-> > index 6470a290ebfc..7cf9f398592e 100644
-> > --- a/drivers/hid/hid-sensor-hub.c
-> > +++ b/drivers/hid/hid-sensor-hub.c
-> > @@ -173,7 +173,14 @@ int sensor_hub_remove_callback(struct
-> > hid_sensor_hub_device *hsdev,
-> >       struct sensor_hub_data *pdata =3D hid_get_drvdata(hsdev-
-> > >hdev);
-> >       unsigned long flags;
-> >
-> > -     spin_lock_irqsave(&pdata->dyn_callback_lock, flags);
-> > +     /*
-> > +      * sensor_hub_raw_event() holds pdata->lock while it looks
-> > up a
-> > +      * callback and calls it.  Taking it here too means no
-> > report is
-> > +      * still using the callback once it is unlinked, so its
-> > owner may
-> > +      * free it as soon as this returns.
-> > +      */
-> > +     spin_lock_irqsave(&pdata->lock, flags);
-> > +     spin_lock(&pdata->dyn_callback_lock);
-> >       list_for_each_entry(callback, &pdata->dyn_callback_list,
-> > list)
-> >               if (callback->usage_id =3D=3D usage_id &&
-> >                                               callback->hsdev =3D=3D
-> > hsdev) {
-> > @@ -181,7 +188,8 @@ int sensor_hub_remove_callback(struct
-> > hid_sensor_hub_device *hsdev,
-> >                       kfree(callback);
-> >                       break;
-> >               }
-> > -     spin_unlock_irqrestore(&pdata->dyn_callback_lock, flags);
-> > +     spin_unlock(&pdata->dyn_callback_lock);
-> > +     spin_unlock_irqrestore(&pdata->lock, flags);
-> >
->
-> The patch looks fine. Is this issue actually reproduced or it was found
-> by some AI tools?
->
-> Thanks,
-> Srinivas
->
-> >       return 0;
-> >  }
+
+在 2026/10/21 17:48, Wandun 写道:
+> 
+> 
+> On 10/21/26 17:13, Jinjie Ruan wrote:
+>>
+>>
+>> 在 2026/10/21 16:30, Wandun Chen 写道:
+>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>
+>>> crash_prepare_headers() counts memory ranges before populating the
+>>> allocated crash_mem array. The weak implementation used by ARM64,
+>>> RISC-V and LoongArch walks memblock.memory, while x86 performs the same
+>>> two-pass operation over system RAM resources. Concurrent memory hotplug
+>>> can change range source between the two walks and make the populate
+>>> pass overflow cmem->ranges.
+>>>
+>>> Take device_hotplug_lock when preparing crash headers during
+>>> kexec_file_load(). The x86/riscv memory hotplug path already takes
+>>> device_hotplug_lock, so call __crash_prepare_headers() directly
+>>> to avoid recursive locking.
+>>>
+>>> Sashiko reported this issue in [1].
+>>>
+>>> Fixes: 3751e728cef2 ("arm64: kexec_file: add crash dump support")
+>>> Fixes: 1bcca8620a91 ("LoongArch: Add crash dump support for kexec_file")
+>>> Fixes: 8acea455fafa ("RISC-V: Support for kexec_file on panic")
+>>> Fixes: dd5f726076cc ("kexec: support for kexec on panic using new system call")
+>>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+>>> Link: https://sashiko.dev/#/message/20260806101002.1F84E1F000E9@smtp.kernel.org [1]
+>>> Acked-by: Baoquan He <baoquan.he@linux.dev>
+>>> ---
+>>>  arch/riscv/kernel/crash.c  |  2 +-
+>>>  arch/x86/kernel/crash.c    |  2 +-
+>>>  include/linux/crash_core.h |  2 ++
+>>>  kernel/crash_core.c        | 17 +++++++++++++++--
+>>>  4 files changed, 19 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/riscv/kernel/crash.c b/arch/riscv/kernel/crash.c
+>>> index fe5a4b306aae..ac8df2edf2a7 100644
+>>> --- a/arch/riscv/kernel/crash.c
+>>> +++ b/arch/riscv/kernel/crash.c
+>>> @@ -70,7 +70,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>>>  	 * memory resources.
+>>>  	 */
+>>> -	if (crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+>>> +	if (__crash_prepare_headers(true, &elfbuf, &elfsz, NULL)) {
+>>>  		pr_err("unable to create new elfcorehdr");
+>>>  		goto out;
+>>>  	}
+>>> diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+>>> index e6f23933a6df..bef008a0cb22 100644
+>>> --- a/arch/x86/kernel/crash.c
+>>> +++ b/arch/x86/kernel/crash.c
+>>> @@ -465,7 +465,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+>>>  	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+>>>  	 * memory resources.
+>>>  	 */
+>>> -	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+>>> +	if (__crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+>>>  		pr_err("unable to create new elfcorehdr");
+>>>  		goto out;
+>>>  	}
+>>> diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
+>>> index bc087124cd78..28e7a81cf263 100644
+>>> --- a/include/linux/crash_core.h
+>>> +++ b/include/linux/crash_core.h
+>>> @@ -61,6 +61,8 @@ extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_ma
+>>>  				       void **addr, unsigned long *sz);
+>>>  extern int crash_prepare_headers(int need_kernel_map, void **addr,
+>>>  				 unsigned long *sz, unsigned long *nr_mem_ranges);
+>>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> +			    unsigned long *nr_mem_ranges);
+>>>  extern int crash_exclude_core_ranges(struct crash_mem **cmem);
+>>>  
+>>>  struct kimage;
+>>> diff --git a/kernel/crash_core.c b/kernel/crash_core.c
+>>> index faa0f22dbb41..8a861a946e26 100644
+>>> --- a/kernel/crash_core.c
+>>> +++ b/kernel/crash_core.c
+>>> @@ -16,6 +16,7 @@
+>>>  #include <linux/mm.h>
+>>>  #include <linux/cpuhotplug.h>
+>>>  #include <linux/memblock.h>
+>>> +#include <linux/device.h>
+>>>  #include <linux/kmemleak.h>
+>>>  #include <linux/crash_core.h>
+>>>  #include <linux/reboot.h>
+>>> @@ -344,8 +345,8 @@ int crash_exclude_core_ranges(struct crash_mem **cmem)
+>>>  	return 0;
+>>>  }
+>>>  
+>>> -int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> -			  unsigned long *nr_mem_ranges)
+>>> +int __crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> +			    unsigned long *nr_mem_ranges)
+>>>  {
+>>>  	unsigned int max_nr_ranges;
+>>>  	struct crash_mem *cmem;
+>>> @@ -382,6 +383,18 @@ int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>>  	return ret;
+>>>  }
+>>>  
+>>> +int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
+>>> +			  unsigned long *nr_mem_ranges)
+>>> +{
+>>> +	int ret;
+>>> +
+>>> +	lock_device_hotplug();
+>>> +	ret = __crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
+>>> +	unlock_device_hotplug();
+>>
+>> I think this patch conflicts with my changes and would also conflict
+>> with the implementation of arm64 crash hotplug.
+>>
+>> https://lore.kernel.org/all/20260921090450.807575-15-ruanjinjie@huawei.com/
+>>
+> Have these patches already been merged? My current work is based on the latest
+> linux-next. If they have already been merged into the maintainer's branch,
+> please let me know, I will update my tree and rebase/re-adapt my changes accordingly.
+> 
+> 
+> Also, regarding the changes in kernel/crash_core.c: it looks like we modified
+> the same spot, the change is not wrong, is that right?
+
+Hi Wandun,
+
+However, I think someone should have informed me in advance; otherwise,
+doing duplicate fix work is pointless.
+
+I see that part of your patch series modifies code I previously changed,
+but I was not CC'd.
+
+> 
+>> arm64 crash hotplug:
+>> https://lore.kernel.org/all/20260918100442.3841135-18-ruanjinjie@huawei.com/
+> 
+> In addition, if arm64 gains crash hotplug support, the code there would indeed
+> need to be modified (to avoid a deadlock). As of now, arm64 crash hotplug
+> support has not been merged yet either, has it? I just want to make sure I
+> haven't missed anything.
+
+Yes, you are right. If your patch series will be merged soon, I will
+develop based on it.
+
+> 
+>>
+>>> +
+>>> +	return ret;
+>>> +}
+>>> +
+>>>  /**
+>>>   * crash_exclude_mem_range - exclude a mem range for existing ranges
+>>>   * @mem: mem->range contains an array of ranges sorted in ascending order
+>>
+> 
+
+-- 
+Best regards,
+Jinjie
+
