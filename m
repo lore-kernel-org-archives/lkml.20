@@ -1,115 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.8
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792678071;
-	b=cTkLvPIVsraUc5IjYm89YCNbeYFN9WO0XRFLfQ1eDnKrIT4frlZQm9i6Hf8EP2V9Fqje
-	 WRm6l/dP9ReYgdzRc8s4v+5mU5/+1RcUWNh/j8mkpdB6Fo2XwGM8juzPCVeCHfXzP8C2y
-	 p4k15R2B+va2/qziDfKZEQKGoMjeD/pTRHyBRcaLCcnDFzQskK0HmTDcopOSwxK3mRPXE
-	 /cW4MCCU40tvEKjoO4esoulI3utNZgVfxkL4TKk3MY4gMYeQFjmKil+Nro1hNHkwwb6I3
-	 gkwmCZw9qfTiXDTO90T6OVnfrWyDH50YIhN7HaRJIX3GmUUQVPPAJDCqF640sGFMNOg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792678071;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1EbvabWJf9I3k7r/Qo9ZKwG1KSZ5dYYF+AhsCrnpI9g=;
-	b=EPWiK1XtdmccPMHccAI8LPPmTZzfbqC/Bt7BTCz8MRP6SZalm08kbbXJvpCvlLTT54f8
-	 T59bLoJ46YCxr9HkKA9ZQOcIbLqq22tsT6I54f5vte8ya1dGbogh6cqohHhlrB+m/6tEp
-	 4lfWOhS91mNffrM/nMIJ1HNXG1TUQFWSXhFZ1IQpTymHOu2+VetoZTG/2x6qTUD+5dcXn
-	 GXJArmwq8zXHAOLSGDJEPwVh8bOzNFf/viyCKECrDSsPFvyJlAgeFTaDbafO1w2SMIevY
-	 2RLekoaC3rEn7XVl2SeBAgFW6qWd376GWvrwMl3NnQRE8DeFfwwX0NGDGMZD0k3Hqaw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VaUSdA6y;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.53.8
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012008.outbound.protection.outlook.com [52.101.53.8])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792678084;
+	b=kHOWXK2/OyyoQEK4LiI2pODzafPh18Ie+v6+G3bxGfyozoUBjTK+8XgBLCvthNM/rbPo
+	 ba5nG1ratp7ZKVPloMdZOMJpcAVylmeclgMFgMmvhynNipDd0zITNknkkoJqlRUwhK0Z2
+	 TEoPOk+YhsayDPo8eIYAXHzyPrt/Y9BOFpRjUjVRT1f9/uHRpDGmrG/9yonfWok3p8NaD
+	 Y1PguLEj07UOVVX8A1wfLI6c5jJV4wWRtY4/VcK9Aqc7NXvj5TSX3a2o+PlLi+QZhpXl7
+	 VnsCu3GBdcfu0KMII/dgYMZh0AE+GoS9r1ZXhoTSxoENbXdrD0pFXR8wJuWonOH2+YQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792678084;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=rbZ657oUKmVzNnNo+kiLLEvhUEx6NuNgh2pU5eo9liI=;
+	b=1w/ODdvfMYd7bQwsW0Jw6wcwQrP9PZIVmSGs5++k6vF0ONwu/cBHfHqgAlaI2pNS9MO1
+	 1smNUSMu8vWzxFxDIRLvPZDoui7rcAZxiZ7IRwC5x/U5tNBQ7wAxObawGpk/qqvG2f7H3
+	 Q3OBMhHjq1d7EfeU2Ib/EROAZVVgk6eZUQlGB9kzbrQssPD3+md7YFW+GS20PUYMLGQMn
+	 +smj3+Wp3RlTvnp4O5cbNm4Wy2T95Sq/kvcpi8ZRikXWKjb46cSXQPqj5Xfx2eVfYd05W
+	 Kg1Fe6KiRf6mYovl3et3F0K4ds1PW4X1S/ZB5SBSEhTuL4n2gh/ivVKmRSX4bnmoWdA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB07606A335;
-	Thu, 22 Oct 2026 14:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBB07606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VaUSdA6y
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kzw467umIlXaVt9vfLq7fauuIoGW61NMPfhF1WKvtnsYlDUV1w8T8MxjsUHtSRUvbgTLji/4QoGR+YSCjwTsnur3yMliS+p7tgwVJ87gaoTO9j3nwhysuHuf1sT65josTGvCGIb4a3GvJLdRqZrK9UShhGJRvwEmfkgUyopP7qG15kgfreXHipb4KLF1k4VdvPRdyGX2+JJXNbftYD+FBKS8P5fQqdPagEgRGQnP9qA+PNUT/N8jVHVY1hVtfB6ym8v/KfCX2+I+BCZeAwRYKFZuWInUB752Px1Iw0nq+waTvDHQ99ca4c28aaner+AJKPg/pQKgCmIErw2X7Fa5pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1EbvabWJf9I3k7r/Qo9ZKwG1KSZ5dYYF+AhsCrnpI9g=;
- b=f1tfrMvEtq5euJ8DNPE1Ua6SEdEqdqsvkXdAk5KVGYweyo3YDn/YvpyrfLQwAPQQpBFObgZUXuv0A7o7MYZKZttU7p9/w1gJC3/RGrcUcQkxw73LNnnjZLVqai1zvxxp/6GHGP9xHJgl80POHHfBbxViqmVGWaO8FsRJlWlFFo5RfPkxD2bE3JmUXqE0Hiy7hwaxmuhIHti0M1ZTHQDMl1dzxgtZzAe57nxEadH9JQQjZmKjnr4rXxbn3dR68j/Sc9r8Fpov7k6xVYKJaTNyZEYSlfXwGzaqE/p8mmHyOyDqEWRlYcxlgjHXYfwBRGqDiA0p0eG7C0pazjdgshkd3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=zytor.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1EbvabWJf9I3k7r/Qo9ZKwG1KSZ5dYYF+AhsCrnpI9g=;
- b=VaUSdA6yREGI7dSlrDPmjJ2wEw8QeLI5afhCAV7YRZ02OvAD7Y1s2BUbmZksgnhSG8M+Lb5h9nKxBXZogH2pZvy0WfuU0KHjdNZxQOBblwNg79ArnLpEqhtobnF/j2QW2BtePj2YBkvGaZR+shpIcFRTOWU5PJXbdhojerAZ0xY=
-Received: from DM6PR02CA0142.namprd02.prod.outlook.com (2603:10b6:5:332::9) by
- IA0PR12MB7554.namprd12.prod.outlook.com (2603:10b6:208:43e::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.14; Thu, 22 Oct
- 2026 14:07:43 +0000
-Received: from CY7PEPF000000F2.namprd05.prod.outlook.com
- (2603:10b6:5:332:cafe::aa) by DM6PR02CA0142.outlook.office365.com
- (2603:10b6:5:332::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.18 via Frontend Transport; Thu,
- 22 Oct 2026 14:07:42 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY7PEPF000000F2.mail.protection.outlook.com (10.167.247.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 14:07:42 +0000
-Received: from BLR-L1-SARUNKOD.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 09:07:32 -0500
-From: Sairaj Kodilkar <sarunkod@amd.com>
-To: "H. Peter Anvin" <hpa@zytor.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Andrew Morton
-	<akpm@linux-foundation.org>, Borislav Petkov <bp@alien8.de>, Dapeng Mi
-	<dapeng1.mi@linux.intel.com>, Dave Hansen <dave.hansen@linux.intel.com>,
-	Ethan Nelson-Moore <enelsonmoore@gmail.com>, Ingo Molnar <mingo@redhat.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jeff Layton <jlayton@kernel.org>, "Jonathan
- Corbet" <corbet@lwn.net>, Kiryl Shutsemau <kas@kernel.org>, Li RongQing
-	<lirongqing@baidu.com>, Marco Elver <elver@google.com>, Paolo Bonzini
-	<pbonzini@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Rick Edgecombe
-	<rick.p.edgecombe@intel.com>, Robin Murphy <robin.murphy@arm.com>, "Sairaj
- Kodilkar" <sarunkod@amd.com>, Sean Christopherson <seanjc@google.com>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Suravee Suthikulpanit
-	<suravee.suthikulpanit@amd.com>, Thomas Gleixner <tglx@kernel.org>, "Vasant
- Hegde" <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
-	<iommu@lists.linux.dev>, <kvm@vger.kernel.org>, <linux-coco@lists.linux.dev>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, <x86@kernel.org>
-Subject: [PATCH v6 2/7] iommu/amd: KVM: SVM: Rename ga_log_intr to wakeup_intr in IOMMU interface
-Date: Thu, 22 Oct 2026 19:34:20 +0530
-Message-ID: <20261022140425.27465-3-sarunkod@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022140425.27465-1-sarunkod@amd.com>
-References: <20261022140425.27465-1-sarunkod@amd.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA8E3606A325
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:08:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA8E3606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4b28deb7ee3so2468198b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:08:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792678083; x=1793282883;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rbZ657oUKmVzNnNo+kiLLEvhUEx6NuNgh2pU5eo9liI=;
+        b=hFqGlb4opbqG9y2Kf6L9aKJJmMA4hK2vjJpuc/RVaHCYidILFRY//rZhurBMIfEmTL
+         R9mwp03h8EasvVWLxaHTHUyUmgGZTN4rIo/6YHUCFYpxzlXSiZEQblMzyPf75g3uGhHn
+         o8IZF9MHXlMK07vImmirIc8Z4Luqu+HXsvvQrnXfj4M6wk87YwmNC141vXFhQ6BFiain
+         OcAy/I4tcpqmSleGa9+PMrt7DjYu89DJSJbukHAgdlq8kF9FT2m2izB1cv56/8rG9aJW
+         QFXdziOaYv2fEbFtUTRdi4TQZ5gzitHOtuJKTlaePZ8Og91cPjT1ctzFMTvnrmTo7mRK
+         UdFg==
+X-Gm-Message-State: AFq9FYJxZJaebK20p9hazfXpY4Rl+nMY2B2bUvLpJ2M6CfTON/OmHORv
+	zKZq0EJiP2skbPWmaH+0tri/YyW1mUQCNghBoVMC8Yn/VuT6kwk8nEWJDBS9H/ZAkS0BIKGjd8R
+	hoFqA/V1MDgA9Tc7SFdEzcCHxVZVm5r1H5SFD+SNSQWY+PPjfcch4YFjV2AU=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -119,302 +57,235 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY7PEPF000000F2:EE_|IA0PR12MB7554:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76614b58-44eb-48f5-01c3-08df3045d706
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|7416014|376014|10067099003|18002099003|22082099003|261021121427099003|921020|261021123027099003|11063799006|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	wONBnVimYsPbQiI3IqE2ODnsV0ebP03b8bCMZSkcOzWWW7Y0CrP6qeF9NLdfDfha04WGArwdlF72MJ2qK/jy0P5DOVITlranXLZ9BXHRtiUtXY/cnnZ1LgV167JvQs0DslTJWQ7TYrrU4SYPR58s65FFuO0WQvR/s9tqu7/GMy774xd63EQJ2Tx+7pP0b/63VXIBKIjD7o2TTAia5DxmHrA+GYlKSOGOa4cIpUO4RMD4Dx/HmKdS5U3+gRWJfgAPC1Xj4Abv0Vjy3Fc8qpo+SwH1pH8ngrXEl0vyrLem030zY73Iua4iLTVw0Tg0Hi8W617AnQAvRPd1VXBTnSH52CUJIOhddNKOt9V4FZinhJ5rX8qgayChvQRHc/HBVRB5CRv61yVp9DXI20Zr47kAqBslCePPZQPu2/DFlA3h67rctnxPTsEcemNBVTCcmA1wKz92e4/hFpW0uucD5EsXpL/cHVV5Tg7J0LcKcQxUxXMhZeRPb385iaXohOP+qfKT48410YFjsWQqrtc1zb1ho+DI7ypzIia1FcWMNfuPGyDX7upR6PeHXcA49x+AJgyDMcoNpE4XMq5RLckYrqjDVvffEwW2zZxT4kK6JoiMq6dQj9f7Mt7fPO+ww+fN7X1EXwjFn3egDC8U5GsgrA1nFAWCpheVQ+KccxmH9KPssA2aN9n9+8rPnrm+vlJNIPjcbXvXXtX52PPHSlL5LWnjtYnQmkWG/7m0AWr1UdAUOl6ZAyk1FOrRpXIs1Dfnf++2
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(7416014)(376014)(10067099003)(18002099003)(22082099003)(261021121427099003)(921020)(261021123027099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	U8RGgorvo//QnjBB1NWgKp9Yd9ZCZNAC9eqXD155sZ+Kamslp7su8D7ckm6SRWVXmU6dF8WrUZpg5nVxX9e8CLJTG/V28HfoeAgN0aPXNEQMUmfnct9RNUtLaWeWKsq687l07ZX1BBsPGKwa3IcpApzTgtVB0ZAhqK9e/xPZB6H3Xn4ZMmZ09ZdxjNspZohdqArFMWJesfmIo+q59nvYyB/RUE1FEIGPz0Bv+q+mGAyfygmjL3jBIQEtDKTC9H4xvUpnGtlolTc1eoZl/J2Z0QcAWh1rasesOzjtjnpP0A+pTpnD8gca6mgkKmkxQXtJ5TWgftsI8DQUB8N7Q/EfGaxcvnP+wuCnEpd7z+zmdVRLAM0DnjZFwPifk7lhS8dsmiaORqzQGf3Lgatpd9NmS++NUmGFMcGc5bTGKUhqh8tRcVDjUpk6rENHWw+0z3gy
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 14:07:42.7428
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76614b58-44eb-48f5-01c3-08df3045d706
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY7PEPF000000F2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7554
+X-Received: by 2002:a05:6808:152a:b0:539:c292:8b04 with SMTP id
+ 5614622812f47-5534c58cb63mr3254497b6e.8.1792678082775; Thu, 22 Oct 2026
+ 07:08:02 -0700 (PDT)
+Date: Thu, 22 Oct 2026 07:08:02 -0700
+In-Reply-To: <CAFJkwZzx+CfBNYxfzToB-0iKrr1=MB6bxh8ySU7uApxyQXm-PA@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ada18c2.4c8f3b9a.1a805.0078.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] kernel BUG in v4l2_device_put
+From: syzbot <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, neganhat@gmail.com, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-When AVIC is enabled, device interrupts are posted into the guest virtual
-APIC backing page regardless of vCPU running state. When the vCPU is not
-running, KVM may additionally need the IOMMU to notify the host so the
-vCPU can be woken, historically via the GA log mechanism.
+Hello,
 
-The existing ga_log_intr name is tied to one specific hardware mechanism.
-Guest APIC Physical Processor Interrupt (GAPPI) provides an alternative
-host-notification path when the vCPU is not running, i.e., IRTE[IsRun] = 0.
-The KVM-side intent is the same in both cases: request host wakeup
-notification while the vCPU is blocked.
+syzbot has tested the proposed patch but the reproducer is still triggering an issue:
+KASAN: slab-use-after-free Read in v4l2_release
 
-Rename ga_log_intr to wakeup_intr in the IOMMU API to describe KVM's
-intent rather than a single hardware knob. The IOMMU driver still maps
-wakeup_intr to IRTE[GALogIntr] in this patch; GAPPI support is added in
-following patches.
+==================================================================
+BUG: KASAN: slab-use-after-free in v4l2_device_supports_requests include/media/v4l2-device.h:252 [inline]
+BUG: KASAN: slab-use-after-free in v4l2_release+0xfe/0x350 drivers/media/v4l2-core/v4l2-dev.c:466
+Read of size 8 at addr ffff888035785b10 by task v4l_id/7282
 
-Similarly rename the synthetic AVIC physical ID table shadow bit from
-AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR to AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR.
+CPU: 1 UID: 0 PID: 7282 Comm: v4l_id Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ v4l2_device_supports_requests include/media/v4l2-device.h:252 [inline]
+ v4l2_release+0xfe/0x350 drivers/media/v4l2-core/v4l2-dev.c:466
+ __fput+0x408/0xa40 fs/file_table.c:513
+ fput_close_sync+0x11f/0x240 fs/file_table.c:619
+ filp_close_sync fs/open.c:1897 [inline]
+ __do_sys_close fs/open.c:2153 [inline]
+ __se_sys_close+0xa2/0x160 fs/open.c:2140
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f4a56ca7407
+Code: 48 89 fa 4c 89 df e8 38 aa 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffcfee18b00 EFLAGS: 00000202 ORIG_RAX: 0000000000000003
+RAX: ffffffffffffffda RBX: 00007f4a57357880 RCX: 00007f4a56ca7407
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000003
+RBP: 00007f4a573576e8 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000013
+R13: 00007ffcfee18d30 R14: 00007f4a5745c000 R15: 0000557c8543f4d8
+ </TASK>
 
-No functional change is intended.
+Allocated by task 5749:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:409 [inline]
+ __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:426
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x31c/0x600 mm/slub.c:5680
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ em28xx_media_device_init drivers/media/usb/em28xx/em28xx-cards.c:3757 [inline]
+ em28xx_init_dev+0x857/0x2680 drivers/media/usb/em28xx/em28xx-cards.c:3947
+ em28xx_usb_probe+0x17b2/0x2dd0 drivers/media/usb/em28xx/em28xx-cards.c:4324
+ usb_probe_interface+0x751/0xe00 drivers/usb/core/driver.c:399
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:707
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:869
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:899
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1027
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2bd/0x430 drivers/base/dd.c:1131
+ device_initial_probe+0x9c/0x100 drivers/base/dd.c:1190
+ __bus_probe_device+0x126/0x220 drivers/base/bus.c:617
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_set_configuration+0x1bb5/0x2260 drivers/usb/core/message.c:2280
+ usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
+ usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
+ call_driver_probe drivers/base/dd.c:-1 [inline]
+ really_probe+0x254/0xae0 drivers/base/dd.c:707
+ __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:869
+ driver_probe_device+0x4f/0x240 drivers/base/dd.c:899
+ __device_attach_driver+0x270/0x410 drivers/base/dd.c:1027
+ bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:503
+ __device_attach+0x2bd/0x430 drivers/base/dd.c:1131
+ device_initial_probe+0x9c/0x100 drivers/base/dd.c:1190
+ __bus_probe_device+0x126/0x220 drivers/base/bus.c:617
+ device_add+0x7d7/0xb80 drivers/base/core.c:3776
+ usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2713
+ hub_port_connect drivers/usb/core/hub.c:5585 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-Signed-off-by: Sairaj Kodilkar <sarunkod@amd.com>
-Reviewed-by: Vasant Hegde <vasant.hegde@amd.com>
----
- arch/x86/include/asm/irq_remapping.h |  2 +-
- arch/x86/include/asm/svm.h           |  9 +++++----
- arch/x86/kvm/svm/avic.c              | 26 +++++++++++++-------------
- drivers/iommu/amd/iommu.c            | 16 ++++++++--------
- include/linux/amd-iommu.h            |  8 ++++----
- 5 files changed, 31 insertions(+), 30 deletions(-)
+Freed by task 5749:
+ kasan_save_stack mm/kasan/common.c:57 [inline]
+ kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
+ kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:264 [inline]
+ __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:296
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2780 [inline]
+ slab_free mm/slub.c:6630 [inline]
+ kfree+0x1c5/0x650 mm/slub.c:6923
+ em28xx_unregister_media_device drivers/media/usb/em28xx/em28xx-cards.c:3779 [inline]
+ em28xx_release_resources+0xde/0x240 drivers/media/usb/em28xx/em28xx-cards.c:3798
+ em28xx_usb_disconnect+0x19f/0x2f0 drivers/media/usb/em28xx/em28xx-cards.c:4493
+ usb_unbind_interface+0x295/0x9c0 drivers/usb/core/driver.c:460
+ device_remove drivers/base/dd.c:619 [inline]
+ __device_release_driver drivers/base/dd.c:1357 [inline]
+ device_release_driver_internal+0x48d/0x7d0 drivers/base/dd.c:1380
+ bus_remove_device+0x444/0x560 drivers/base/bus.c:681
+ device_del+0x524/0x8f0 drivers/base/core.c:3965
+ usb_disable_device+0x3d4/0x8d0 drivers/usb/core/message.c:1484
+ usb_disconnect+0x346/0x9a0 drivers/usb/core/hub.c:2355
+ hub_port_connect drivers/usb/core/hub.c:5425 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x1bbb/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-diff --git a/arch/x86/include/asm/irq_remapping.h b/arch/x86/include/asm/irq_remapping.h
-index 263f4df429d8..789e3e154600 100644
---- a/arch/x86/include/asm/irq_remapping.h
-+++ b/arch/x86/include/asm/irq_remapping.h
-@@ -36,7 +36,7 @@ struct amd_iommu_pi_data {
- 	u32 ga_tag;
- 	u32 vector;		/* Guest vector of the interrupt */
- 	int apicid;
--	bool ga_log_intr;
-+	bool wakeup_intr;
- 	bool is_guest_mode;
- 	void *ir_data;
- };
-diff --git a/arch/x86/include/asm/svm.h b/arch/x86/include/asm/svm.h
-index aa63431ba92c..3de222d6ae15 100644
---- a/arch/x86/include/asm/svm.h
-+++ b/arch/x86/include/asm/svm.h
-@@ -260,11 +260,12 @@ struct __attribute__ ((__packed__)) vmcb_control_area {
- #define AVIC_LOGICAL_ID_ENTRY_VALID_MASK		(1 << 31)
- 
- /*
-- * GA_LOG_INTR is a synthetic flag that's never propagated to hardware-visible
-- * tables.  GA_LOG_INTR is set if the vCPU needs device posted IRQs to generate
-- * GA log interrupts to wake the vCPU (because it's blocking or about to block).
-+ * WAKEUP_INTR is a synthetic flag that's never propagated to hardware-visible
-+ * tables.  WAKEUP_INTR is set if the vCPU needs device posted IRQs to generate
-+ * GA log/GAPPI interrupts to wake the vCPU (because it's blocking or about to
-+ * block).
-  */
--#define AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR		BIT_ULL(61)
-+#define AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR		BIT_ULL(61)
- 
- #define AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK	GENMASK_ULL(11, 0)
- #define AVIC_PHYSICAL_ID_ENTRY_BACKING_PAGE_MASK	GENMASK_ULL(51, 12)
-diff --git a/arch/x86/kvm/svm/avic.c b/arch/x86/kvm/svm/avic.c
-index 5ac5ce4039a6..edbdb5d75062 100644
---- a/arch/x86/kvm/svm/avic.c
-+++ b/arch/x86/kvm/svm/avic.c
-@@ -963,7 +963,7 @@ int avic_pi_update_irte(struct kvm_kernel_irqfd *irqfd, struct kvm *kvm,
- 			pi_data.apicid = entry & AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK;
- 		} else {
- 			pi_data.apicid = -1;
--			pi_data.ga_log_intr = entry & AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR;
-+			pi_data.wakeup_intr = entry & AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR;
- 		}
- 
- 		ret = irq_set_vcpu_affinity(host_irq, &pi_data);
-@@ -1002,15 +1002,15 @@ enum avic_vcpu_action {
- 	 * No unique action is required to deal with a vCPU that stops/starts
- 	 * running.  A vCPU that starts running by definition stops blocking as
- 	 * well, and a vCPU that stops running can't have been blocking, i.e.
--	 * doesn't need to toggle GALogIntr.
-+	 * doesn't need to toggle host wakeup notification.
- 	 */
- 	AVIC_START_RUNNING	= 0,
- 	AVIC_STOP_RUNNING	= 0,
- 
- 	/*
--	 * When a vCPU starts blocking, KVM needs to set the GALogIntr flag
--	 * int all associated IRTEs so that KVM can wake the vCPU if an IRQ is
--	 * sent to the vCPU.
-+	 * When a vCPU starts blocking, KVM needs to request host wakeup
-+	 * notification in all associated IRTEs so that KVM can wake the vCPU
-+	 * if an IRQ is sent to the vCPU.
- 	 */
- 	AVIC_START_BLOCKING	= BIT(1),
- };
-@@ -1018,7 +1018,7 @@ enum avic_vcpu_action {
- static void avic_update_iommu_vcpu_affinity(struct kvm_vcpu *vcpu, int apicid,
- 					    enum avic_vcpu_action action)
- {
--	bool ga_log_intr = (action & AVIC_START_BLOCKING);
-+	bool wakeup_intr = (action & AVIC_START_BLOCKING);
- 	struct vcpu_svm *svm = to_svm(vcpu);
- 	struct kvm_kernel_irqfd *irqfd;
- 
-@@ -1035,9 +1035,9 @@ static void avic_update_iommu_vcpu_affinity(struct kvm_vcpu *vcpu, int apicid,
- 		void *data = irqfd->irq_bypass_data;
- 
- 		if (!(action & AVIC_TOGGLE_ON_OFF))
--			WARN_ON_ONCE(amd_iommu_update_ga(data, apicid, ga_log_intr));
-+			WARN_ON_ONCE(amd_iommu_update_ga(data, apicid, wakeup_intr));
- 		else if (apicid >= 0)
--			WARN_ON_ONCE(amd_iommu_activate_guest_mode(data, apicid, ga_log_intr));
-+			WARN_ON_ONCE(amd_iommu_activate_guest_mode(data, apicid, wakeup_intr));
- 		else
- 			WARN_ON_ONCE(amd_iommu_deactivate_guest_mode(data));
- 	}
-@@ -1073,7 +1073,7 @@ static void __avic_vcpu_load(struct kvm_vcpu *vcpu, int cpu,
- 	WARN_ON_ONCE(entry & AVIC_PHYSICAL_ID_ENTRY_IS_RUNNING_MASK);
- 
- 	entry &= ~(AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK |
--		   AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR);
-+		   AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR);
- 	entry |= (h_physical_id & AVIC_PHYSICAL_ID_ENTRY_HOST_PHYSICAL_ID_MASK);
- 	entry |= AVIC_PHYSICAL_ID_ENTRY_IS_RUNNING_MASK;
- 
-@@ -1134,7 +1134,7 @@ static void __avic_vcpu_put(struct kvm_vcpu *vcpu, enum avic_vcpu_action action)
- 
- 	avic_update_iommu_vcpu_affinity(vcpu, -1, action);
- 
--	WARN_ON_ONCE(entry & AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR);
-+	WARN_ON_ONCE(entry & AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR);
- 
- 	/*
- 	 * Keep the previous APIC ID in the entry so that a rogue doorbell from
-@@ -1146,11 +1146,11 @@ static void __avic_vcpu_put(struct kvm_vcpu *vcpu, enum avic_vcpu_action action)
- 		WRITE_ONCE(kvm_svm->avic_physical_id_table[vcpu->vcpu_id], entry);
- 
- 	/*
--	 * Note!  Don't set AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR in the table as
-+	 * Note!  Don't set AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR in the table as
- 	 * it's a synthetic flag that usurps an unused should-be-zero bit.
- 	 */
- 	if (action & AVIC_START_BLOCKING)
--		entry |= AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR;
-+		entry |= AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR;
- 
- 	svm->avic_physical_id_entry = entry;
- 
-@@ -1182,7 +1182,7 @@ void avic_vcpu_put(struct kvm_vcpu *vcpu)
- 		 * The vCPU was preempted while blocking, ensure its IRTEs are
- 		 * configured to generate GA Log Interrupts.
- 		 */
--		if (!(WARN_ON_ONCE(!(entry & AVIC_PHYSICAL_ID_ENTRY_GA_LOG_INTR))))
-+		if (!(WARN_ON_ONCE(!(entry & AVIC_PHYSICAL_ID_ENTRY_WAKEUP_INTR))))
- 			return;
- 	}
- 
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index aa9848d57f6b..878567708737 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -3994,7 +3994,7 @@ static const struct irq_domain_ops amd_ir_domain_ops = {
- };
- 
- static void __amd_iommu_update_ga(struct irte_ga *entry, int apicid,
--				  bool ga_log_intr)
-+				  bool wakeup_intr)
- {
- 	if (apicid >= 0) {
- 		entry->lo.fields_vapic.destination =
-@@ -4005,7 +4005,7 @@ static void __amd_iommu_update_ga(struct irte_ga *entry, int apicid,
- 		entry->lo.fields_vapic.ga_log_intr = false;
- 	} else {
- 		entry->lo.fields_vapic.is_run = false;
--		entry->lo.fields_vapic.ga_log_intr = ga_log_intr;
-+		entry->lo.fields_vapic.ga_log_intr = wakeup_intr;
- 	}
- }
- 
-@@ -4016,7 +4016,7 @@ static void __amd_iommu_update_ga(struct irte_ga *entry, int apicid,
-  * If the vCPU is associated with a pCPU (@apicid >= 0), configure the
-  * Destination with the pCPU's APIC ID, set IsRun, and clear GALogIntr.  If the
-  * vCPU isn't associated with a pCPU (@apicid < 0), clear IsRun and set/clear
-- * GALogIntr based on input from the caller (e.g. KVM only requests GALogIntr
-+ * GALogIntr based on input from the caller (e.g. KVM only requests wakeup_intr
-  * when the vCPU is blocking and requires a notification wake event).  I.e.
-  * treat vCPUs that are associated with a pCPU as running.  This API is
-  * intended to be used when a vCPU is scheduled in/out (or stops running for
-@@ -4027,7 +4027,7 @@ static void __amd_iommu_update_ga(struct irte_ga *entry, int apicid,
-  * and thus don't require an invalidation to ensure the IOMMU consumes fresh
-  * information.
-  */
--int amd_iommu_update_ga(void *data, int apicid, bool ga_log_intr)
-+int amd_iommu_update_ga(void *data, int apicid, bool wakeup_intr)
- {
- 	struct amd_ir_data *ir_data = (struct amd_ir_data *)data;
- 	struct irte_ga *entry = (struct irte_ga *) ir_data->entry;
-@@ -4041,14 +4041,14 @@ int amd_iommu_update_ga(void *data, int apicid, bool ga_log_intr)
- 	if (!ir_data->iommu)
- 		return -ENODEV;
- 
--	__amd_iommu_update_ga(entry, apicid, ga_log_intr);
-+	__amd_iommu_update_ga(entry, apicid, wakeup_intr);
- 
- 	return __modify_irte_ga(ir_data->iommu, ir_data->irq_2_irte.devid,
- 				ir_data->irq_2_irte.index, entry);
- }
- EXPORT_SYMBOL(amd_iommu_update_ga);
- 
--int amd_iommu_activate_guest_mode(void *data, int apicid, bool ga_log_intr)
-+int amd_iommu_activate_guest_mode(void *data, int apicid, bool wakeup_intr)
- {
- 	struct amd_ir_data *ir_data = (struct amd_ir_data *)data;
- 	struct irte_ga *entry = (struct irte_ga *) ir_data->entry;
-@@ -4071,7 +4071,7 @@ int amd_iommu_activate_guest_mode(void *data, int apicid, bool ga_log_intr)
- 	entry->hi.fields.vector            = ir_data->ga_vector;
- 	entry->lo.fields_vapic.ga_tag      = ir_data->ga_tag;
- 
--	__amd_iommu_update_ga(entry, apicid, ga_log_intr);
-+	__amd_iommu_update_ga(entry, apicid, wakeup_intr);
- 
- 	return modify_irte_ga(ir_data->iommu, ir_data->irq_2_irte.devid,
- 			      ir_data->irq_2_irte.index, entry);
-@@ -4143,7 +4143,7 @@ static int amd_ir_set_vcpu_affinity(struct irq_data *data, void *info)
- 		ir_data->ga_tag = pi_data->ga_tag;
- 		if (pi_data->is_guest_mode)
- 			ret = amd_iommu_activate_guest_mode(ir_data, pi_data->apicid,
--							    pi_data->ga_log_intr);
-+							    pi_data->wakeup_intr);
- 		else
- 			ret = amd_iommu_deactivate_guest_mode(ir_data);
- 	} else {
-diff --git a/include/linux/amd-iommu.h b/include/linux/amd-iommu.h
-index 2c6232aefafa..e20c909edc56 100644
---- a/include/linux/amd-iommu.h
-+++ b/include/linux/amd-iommu.h
-@@ -30,8 +30,8 @@ static inline void amd_iommu_detect(void) { }
- /* IOMMU AVIC Function */
- extern int amd_iommu_register_ga_log_notifier(int (*notifier)(u32));
- 
--extern int amd_iommu_update_ga(void *data, int apicid, bool ga_log_intr);
--extern int amd_iommu_activate_guest_mode(void *data, int apicid, bool ga_log_intr);
-+extern int amd_iommu_update_ga(void *data, int apicid, bool wakeup_intr);
-+extern int amd_iommu_activate_guest_mode(void *data, int apicid, bool wakeup_intr);
- extern int amd_iommu_deactivate_guest_mode(void *data);
- 
- #else /* defined(CONFIG_AMD_IOMMU) && defined(CONFIG_IRQ_REMAP) */
-@@ -42,12 +42,12 @@ amd_iommu_register_ga_log_notifier(int (*notifier)(u32))
- 	return 0;
- }
- 
--static inline int amd_iommu_update_ga(void *data, int apicid, bool ga_log_intr)
-+static inline int amd_iommu_update_ga(void *data, int apicid, bool wakeup_intr)
- {
- 	return 0;
- }
- 
--static inline int amd_iommu_activate_guest_mode(void *data, int apicid, bool ga_log_intr)
-+static inline int amd_iommu_activate_guest_mode(void *data, int apicid, bool wakeup_intr)
- {
- 	return 0;
- }
--- 
-2.34.1
+The buggy address belongs to the object at ffff888035785800
+ which belongs to the cache kmalloc-1k of size 1024
+The buggy address is located 784 bytes inside of
+ freed 1024-byte region [ffff888035785800, ffff888035785c00)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x35780
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88813ff2bdc0 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88813ff2bdc0 dead000000000100 dead000000000122
+head: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 162, tgid 162 (kworker/u8:7), ts 176383093465
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1856
+ prep_new_page mm/page_alloc.c:1864 [inline]
+ get_page_from_freelist+0x220f/0x2280 mm/page_alloc.c:3935
+ __alloc_frozen_pages_noprof+0x1fe/0x410 mm/page_alloc.c:5459
+ alloc_slab_page mm/slub.c:3384 [inline]
+ allocate_slab+0x7d/0x5e0 mm/slub.c:3499
+ new_slab mm/slub.c:3550 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7539
+ refill_sheaf mm/slub.c:2917 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4811
+ alloc_from_pcs mm/slub.c:4887 [inline]
+ slab_alloc_node mm/slub.c:5021 [inline]
+ __do_kmalloc_node mm/slub.c:5530 [inline]
+ __kmalloc_noprof+0x476/0x710 mm/slub.c:5556
+ _kmalloc_noprof include/linux/slab.h:995 [inline]
+ _kzalloc_noprof include/linux/slab.h:1312 [inline]
+ ieee802_11_parse_elems_full+0x14b/0x2a10 net/mac80211/parse.c:1077
+ ieee802_11_parse_elems net/mac80211/ieee80211_i.h:2583 [inline]
+ ieee80211_rx_mgmt_probe_beacon net/mac80211/ibss.c:1542 [inline]
+ ieee80211_ibss_rx_queued_mgmt+0x509/0x2c40 net/mac80211/ibss.c:1573
+ ieee80211_iface_process_skb net/mac80211/iface.c:1805 [inline]
+ ieee80211_iface_work+0x769/0xfa0 net/mac80211/iface.c:1859
+ cfg80211_wiphy_work+0x29e/0x420 net/wireless/core.c:610
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page last free pid 31 tgid 31 ts 176051931514 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1403 [inline]
+ __free_frozen_pages+0xc97/0xd90 mm/page_alloc.c:2954
+ __slab_free+0x269/0x2c0 mm/slub.c:5926
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:361
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4720 [inline]
+ slab_alloc_node mm/slub.c:5033 [inline]
+ __kmalloc_cache_noprof+0x29a/0x600 mm/slub.c:5676
+ _kmalloc_noprof include/linux/slab.h:991 [inline]
+ dummy_urb_enqueue+0x7c/0x7a0 drivers/usb/gadget/udc/dummy_hcd.c:1327
+ usb_hcd_submit_urb+0x328/0x1b60 drivers/usb/core/hcd.c:1543
+ usb_start_wait_urb+0x13f/0x5b0 drivers/usb/core/message.c:62
+ usb_internal_control_msg drivers/usb/core/message.c:117 [inline]
+ usb_control_msg+0x234/0x3e0 drivers/usb/core/message.c:167
+ get_bMaxPacketSize0 drivers/usb/core/hub.c:4869 [inline]
+ hub_port_init+0xb0b/0x28c0 drivers/usb/core/hub.c:5065
+ hub_port_connect drivers/usb/core/hub.c:5514 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5725 [inline]
+ port_event drivers/usb/core/hub.c:5889 [inline]
+ hub_event+0x24e8/0x4d30 drivers/usb/core/hub.c:5971
+ process_one_work kernel/workqueue.c:3495 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+
+Memory state around the buggy address:
+ ffff888035785a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888035785a80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff888035785b00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                         ^
+ ffff888035785b80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff888035785c00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+
+
+Tested on:
+
+commit:         8f7df005 Add linux-next specific files for 20261020
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=120a9fa9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=9c1b9b13e3e4ce1a
+dashboard link: https://syzkaller.appspot.com/bug?extid=809dfc586f33fc44b6ac
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=17b7b50d580000
 
