@@ -1,90 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663531;
-	b=o4qiNz2/OFvM9OVghmHvO/Hf68p5/rz9Wk7st8IH7x/pgLwOqrlrvPFW3pYZrt0debdj
-	 O5PjftnPqpF2GjfdBTvW6Z+i35XGbweiJBmFeFkldjydG6R049ZEbzjZyfmTb4gD1iSMO
-	 pgEuq3VZX57obsLbH1aDg9AxKS3wyddTH9katti65sD0HXOX6VztuhAwyMwUPo0nmw34A
-	 Wol03VNhq399V62PRKUQetMcL/Uy+3OaNKELxgRuROwC9nUJRn6mU+C7gyHU7HryAaeld
-	 7WNAlPe5ytSOKg5Uc1S87Laj39l15ZYdiIADpXvOiGtWeIcqBSpQm9H6+CFtvw9FfcA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663531;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=QbgiR1/GwtHwlpzlTkLd58KzVem/7L0NcwdC+dKmgtw=;
-	b=Tv/WDTnjKxvRZmH+f1y55UX4cr8pnBoIdQ0ZJgmsykmZU17g4CzAqPYcnxbZhiNbijB6
-	 3M8Irhai3Zf2JC5iKAwb3Wyw2fvDOXSDHQUc03ilqExKkLK55Q1eiMfPK5158ma2+yl7b
-	 8FgMW7i5WFt7aZXo8ItKejnC0k4y6ck83bjI8kzcGhK95RpAWPUtPycvhXWzPR+7ZnUGP
-	 pQLSBy8FDpwAo9s90492zoYSwi0JTod973LJDi5TGUeEitsNL8U/XvAMSe9evDTUTrqBN
-	 DuLLYC0PP9JVi5xjI6sr+9DDysQH/EI2Tde+z2PwtxO4TkrgkDXo+I4Se6/56GfoqZA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=grsecurity.net;
-	spf=pass smtp.mailfrom=opensrcsec.com;
-	dkim=pass header.d=grsecurity.net header.i=@grsecurity.net header.a=rsa-sha256 header.s=grsec header.b=bXFvYfFi;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792663590;
+	b=Z+5dv2PxNHaYQJuBqZJ8KYVS9JHJljOJuoQeafcTdWbMKV+tJqpWstHCkZ/znghMtKFa
+	 3h0Fm1YXOylUQtIGB5gdOVfWdTLfunwS1fVHkON642nqQ1V4dMoqQA321oidwwedhZo++
+	 zos1ty9obGbnvfUuuNAXQeHSzb2SgDtV6Tg66V1YHe4NP1CJPYjkvLvBMAfa8msON1yUu
+	 nCTxrBmOtgIybhZ+2BMw28d4bOTEvTc9v4yztJvm4jxdbj/lS+7iy6UIsGJ5NocQ3H3rV
+	 aSdtwRF1sfW9/SBNInGmTavgRn2G1pDwjsKY4ujti+iNnggcDgfSUaEtdEpCk4G7/Vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663590;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=noLkfI1i0GtYQwfbbS+wG3diQbBD6shC7ACKQcK6p1k=;
+	b=PjR0/U14xnnTtFNkM5ozxxH7eQUzyj5j5pt7AmkJQdbjmo/pxqnAxZWSbR+YaENbsUnd
+	 pPU5LebIUH78raiH2m0TPozuAOBeswksllzBnkfX5hcWURKOIhG31++V6p4Nekt3OeboL
+	 Qdk4zkaqOhhoeCsIQNo2dipE1crFoh49HWT2FZJPZAJ0xhnjDjE+H/VGgAFQMYMpas3Tv
+	 Zim6Lijf5R2o+YfWtjJfBG6Jv0q3Fn/vDNaadOFDfuHc5Gp+T8hUZkbEstP63oaHCI92z
+	 OVkF7XDYqCUUx9UiwoiRUlBF7dLkfy4ShakEqxnQTiezoTbc/W71AyPRayi5h7sWIJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jcpxWEGT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.57
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013057.outbound.protection.outlook.com [40.107.159.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F05606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:05:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F05606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=grsecurity.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensrcsec.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590F5606A31A;
+	Thu, 22 Oct 2026 10:06:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 590F5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=grsecurity.net header.i=@grsecurity.net header.a=rsa-sha256 header.s=grsec header.b=bXFvYfFi
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so19236665e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:05:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=grsecurity.net; s=grsec; t=1792663529; x=1793268329; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QbgiR1/GwtHwlpzlTkLd58KzVem/7L0NcwdC+dKmgtw=;
-        b=bXFvYfFi6PvXf1EbOF3ex2H+pBN9m9qZclZ83KB/svbNC80XZURgnFO2T4EIggMcXB
-         000ydNV+jwUnYbODpNlBUdK3y0OMqTkXbbfpM1TXsYNYVTxHfXpqAR2aNEByKG4aCRod
-         iIZotL7cq5JcrpvqZNsWxZN/W5/Ao+nB6cx5NXnyZcKq6fPWDuFdXBXl3XGQqAVQYOFB
-         5yUIO1QUhZuVFxesIhTsD3P4lB+bBBYgRFVGxdCg9/09g232dBBLCls6XyKfUqWJGXpY
-         r6MFx8IuFnEP7byuunNF6R7leYSrrIZ9VxdznxQa84TmNgUYOF4tk0frd/hquRVc22di
-         zfDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792663529; x=1793268329;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QbgiR1/GwtHwlpzlTkLd58KzVem/7L0NcwdC+dKmgtw=;
-        b=oBMUDZjihPqr+B22KK47HdnLtRaw6rsNq9BgtxqJGa3Rknq8X+NQCZ8umWKm1/yynR
-         uHORt8euc60B+luhp2j3A+CH2XgGmsxvGp3EnJATQ4vyJ1dZuCjVSFRfISK05Vg+0NcQ
-         7pNT6TVPFFY5oEDqcg+znjSl9lms3b9GfDV2MWY0k5tN6QQeIhkvyzsfA0HGN0P1QtjI
-         SWMRm0BT7sbnWEyIK+S3zdxFKYLYTaL573jzB/anTXFySGJVHQHaraDPT/UwPAX97pev
-         0jEi+l8i3a1D3Nt9B5XZ3rF0f2uYkQgvCOq4au/X7y11w+JnHENlWJKLcx5NfDeAW2X2
-         Ocaw==
-X-Forwarded-Encrypted: i=1; AKwUvBzCur3ox3heZmBiMqf6p00drINhsLnKRxTVcxYQc7yjtachOyqM58TViwoPNxWaK3ZOdN4zH7dFhH5L6PI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYINrJ7ykYqfgkJck4F0NvhbzbXvYoF6LuvYJLz8ho+NgIN+xsvP
-	Gb8n73k4oOrTlORoJrO0AmLtZwJL/FZPUVVznfEcNJAIIQT8VK8AYpJxl04/ybXJVl6AoDsz/HT
-	TBEtg
-X-Gm-Gg: AYBFou1um4/dvMr23wt+CUqX0KsUfN2sSmVU0YTNGvM6ORbq8vU+MtKEpU/NtXyNdqG
-	fHkSp1Cp4RrbP5V1pnyWcBvLUbPjcrfOrLP5rFH8AhBbXEWZkSqNNkRU3W03msZDzjrgNrjjMFS
-	Lfwqr0GhSXUYBf1k/lYP/AS1Xxsk37o9LJ/hn2l0DnuOddBb21Id5ZAg69xoGcOyZ6egFKBfmZZ
-	nqJmP89O3ox6VBYrC1VHa6i800tI43KyUU/fmpH0eVFbudEiGa2/CBKYXg1xKT1mN0xrVZejGij
-	d1s3/Kpn1KO6kiOyGJxd6JAvzFBGMwieLSMAcSxPnPYh764f93VmYU7UVDCBIPK9AH+rLefyNgC
-	N+z1z4D4wOPfh7zrARIbJ/FRsUtvmzJnI9tXBri0PjGOMfpmZahlLQGmxwsmG7+4ad49rps3rd1
-	1v6JEx4D0Qlz+JkOQlxT30qCrXzg6+Rcxy8fdtAdAHwzPnMvZmurA1toDjw5tzzqexisAalpksf
-	Re6CkBxO2MpMV44SucGumPpWPFdPuwS9LZ+0gbK+iDEvaSQMMNKMT53Dg8eeOmYRuPE4N82bJ+8
-	JCvJuyQyCvLLHYml7mrEH1TJcpeDQrGkwHwKWG2UZb2KtSddE1x5m71R0OXTMkDTM/wmFz45/2Q
-	svjp9QibYO4Ns
-X-Received: by 2002:a05:600c:a0d:b0:4a1:e7ce:10a4 with SMTP id 5b1f17b1804b1-4a1fdd171f6mr105552275e9.29.1792663528838;
-        Thu, 22 Oct 2026 03:05:28 -0700 (PDT)
-Received: from ?IPV6:2003:fa:af11:b900:8855:f04:e797:81cf? (p200300faaf11b90088550f04e79781cf.dip0.t-ipconnect.de. [2003:fa:af11:b900:8855:f04:e797:81cf])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25b04883sm11977150f8f.0.2026.10.22.03.05.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:05:28 -0700 (PDT)
-Message-ID: <e313803a-47ba-4d27-89d9-47dd1abb5183@grsecurity.net>
-Date: Thu, 22 Oct 2026 12:05:27 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=jcpxWEGT
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HVNk1srLLxVKh0LbNut3cv991ENO6oawteKsyIT++bFJgJDMhkQOuVMkQpLHe1jDy+xv9l9v5OVRKePA2MGOLFugjzrvqVFvc+dRjsgbEfUeQmvd+VZdy0edoyi1z1HVsJwr4BkhS15RKlLXhD82vjsr1ZutQfLDikcMC9iN658bZbw/jRIBOYe5eN7PcFm5WodZFbw/pEVAYasJgR7MwPTENZjG7VRxvgcWonvjG6xr3Xu2waOXYob83lm23PMY7jx3StiUjXgSND2jxZdnAT9UG21a0MfinMqikqGCPWIoQgzFN8GlZwK/q1HqrjknD9CpwU/MLHpOp1k0ICariA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=noLkfI1i0GtYQwfbbS+wG3diQbBD6shC7ACKQcK6p1k=;
+ b=jH3TylsOFB23BXYPP/MUBrTBgbMFq75u7zu0cy3KTvhn0YjhZUY44arfeQc6/XcZxBj5NqQeu2rtOcZxciKzWuQ7s2i9tRBNNOuM3xwb7FHEA4tI3THdqftOODzX3Bso+RyntH1WEymISGFPSI7SOHAupReppcXcjNnGMtSdUvbiYkRtx/R2fdBLTU71tGz2q0sbAosy9bTSR/p0v18vNWopwLXrMQmkGCr1edbCDip4eldGE7JvSjQomqFSPsu7m14ppFgVB0je5hvtL02Kqarwy5PyKZS1bI/WVvUWhB2kqsKrFy43uW2YNXApzv+Ti/2qDWWXbTlT2780ga8EZw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=noLkfI1i0GtYQwfbbS+wG3diQbBD6shC7ACKQcK6p1k=;
+ b=jcpxWEGT1j+shCsH531soGS1p1DFaFIjnUAWFpjd6GPhCCQNW1NaOcTJtRmEkz+ClnG3zrbbJHfw4lSW7DIgBZPCW2wcG4IL4MMaWPluwrikKAPBFX/VJtjT+ktKzPL4A0Bd8pawlicFIjVkKRugac0+zzbjQq6vpV8HkBcD7YkE1kpjIFUM5ACou0uVKcCCHUDRExycDcexsqFOCyelW07ppu1VFYxQCFpVuHDefDEht6gJebSPYUSXXGTfn22vQG52UqH+0c9My2L/E7dnuD5iHlI846+X/0r3JbN7SY9YLfPqdQvZoZXToCCl1IsE18tdsU0sEp5nBWeYCYwTSw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com (2603:10a6:800:296::7)
+ by AM8PR04MB7954.eurprd04.prod.outlook.com (2603:10a6:20b:237::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 10:06:23 +0000
+Received: from VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be]) by VI2PR04MB11276.eurprd04.prod.outlook.com
+ ([fe80::60d7:a8e5:eb88:9be%6]) with mapi id 15.21.0522.017; Thu, 22 Oct 2026
+ 10:06:22 +0000
+From: "Sherry Sun (OSS)" <sherry.sun@oss.nxp.com>
+Date: Thu, 22 Oct 2026 18:08:59 +0800
+Subject: [PATCH] tty: serial: core: fix synchronous external abort in
+ uart_tiocmget() for runtime-suspended ports
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261022-b4-serial_uart_tiocmget-v1-1-9608a5e4bb10@nxp.com>
+X-B4-Tracking: v=1; b=H4sIALrg2WoC/x3MTQqAIBBA4avErBN0kBZdJUKsxhroj9EiiO6et
+ XyL790QSZgi1MUNQidH3tYcpiygn/w6kuIhN6DGymhE1Vn1ET+7w0tyibd+GSkpxEBeUzVYGyD
+ rXSjw9Z+b9nleQSjeXWkAAAA=
+X-Change-ID: 20261022-b4-serial_uart_tiocmget-22fea0e6d44f
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Alan Cox <alan@linux.intel.com>, Florian Eckert <fe@dev.tdt.de>, 
+ Lee Jones <lee@kernel.org>, Maarten Brock <m.brock@vanmierlo.com>
+Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ imx@lists.linux.dev, sherry.sun@nxp.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792663752; l=3550;
+ i=sherry.sun@nxp.com; s=20260723; h=from:subject:message-id;
+ bh=Nqr32+auMbZlche2USrO1xSax+p6qxa6eNN++gwgU3U=;
+ b=A1dUYODJ5TR0QB0f6EKSrPny8yiQXA8eEplOwyuBfC10yjTGv9RN+pD3r7inDWGkUW/boGGiN
+ /k/+SU17Jf0C46ufMjRsGhyfw7Ea4eeXjrX0MpIxkFNfJmIS/JYWgBv
+X-Developer-Key: i=sherry.sun@nxp.com; a=ed25519;
+ pk=YnYnIFJ2l+5v951x9shBVfHhminNi+3LTfFa3PxSdnI=
+X-ClientProxiedBy: SI2P153CA0005.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:4:140::11) To VI2PR04MB11276.eurprd04.prod.outlook.com
+ (2603:10a6:800:296::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,138 +110,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kbuild: prevent building single targets twice
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260923123936.2227924-1-minipli@grsecurity.net>
- <5836ab69-cfa6-41cc-a28b-5bd3ecfaea03@grsecurity.net>
- <atjwobCk-mdeIlkd@levanger> <20261021190311.GB2611266@ax162>
- <aad229bb-27c2-4c5f-bfce-73d2a0d04996@grsecurity.net>
- <20261021215524.GA627677@ax162>
-Content-Language: en-US, de-DE
-From: Mathias Krause <minipli@grsecurity.net>
-Autocrypt: addr=minipli@grsecurity.net; keydata=
- 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
- RzDVkdgPJkL/NFTKZHo5foFXNi89kA==
-In-Reply-To: <20261021215524.GA627677@ax162>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VI2PR04MB11276:EE_|AM8PR04MB7954:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffab5eca-f70f-49a9-27dc-08df30242008
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|23010399003|6133799003|10067099003|18002099003|261021121427099003|261021123027099003|11063799006|261009223027099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	e63gm9zr5TzwGc//3rOIz50xyXF4tMN1K6KnB4rLVby9npWNMMoIN9j6Af5wLVl8xweHyCxKnOeWYYVdjG2s9LczDXLw/WPDSO4aS5zRJiDik/iNeVBOV5xcmn6TQg4QdXQOQqu2YR8cwp7Y9xSrtDOWh3KqaX2WLAyKu3c31q8UJCfewItqlf0vMjpkwbspwvXiMzOFDClUfDahAPna1RRreJKkm6xj3AIU51VS3RL5PFtBF5KqxKSherIvitMT86bOxcSJN6irYJSOxPPAw6w80xK9SDbIYhBCD4IgVnkaDjW9dVq48Ad5/zckJT/rBCaI6gDS9cErCMDNiUgEhVwCavNXl0DjW+MBtSEqGMF/HDu9ryOTrPGGen04TbrHkIOg2yBh6BfAlO1VOXpTPx1ZrSF79ztcqYp1qmh5ooaq6XlsFIdgMVUz7/vmu2D0zZ+tlPdG/C7jkDe1r7/s4TOzqtiEYQicdAGsOhHrm73obSWNVTJMuxiFbfMbxwyCWeDuNJ/eZh16H51tLFQmCYL7LafvX7GUASp7V/6ChYLTcCGrjOpXPuJ4OR1DBtboji86U7OG0lPa14lWwY2zmN5huzGuorPan/nXO69z4wtasQeqY6+SIGxJG/Ho0LCKNCRyLtRSAtCujJZyNPdKlnYPqatnFFctDD76sQZyUJc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI2PR04MB11276.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(23010399003)(6133799003)(10067099003)(18002099003)(261021121427099003)(261021123027099003)(11063799006)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cU15Q1JmdVlURXZ2L08xWU9WUXpRL245alp4N2dDdTh6Mjd6Q2VGVGRHUFAw?=
+ =?utf-8?B?eTBLNDQvM3FtaHI1Z0c2L09SaklYelNNYUd0dWp4RUpPRU9HcVkwY2RBMWcr?=
+ =?utf-8?B?WDlsbW5Eb2ZOQmI2Z3BlM0g0YitFaTVSeFZCQjJhOXhJZkROaEdPU1B0KzdJ?=
+ =?utf-8?B?TStBa2NUbXFVa2M5bXY0dEpLdGVCWE14VWxqeUgvUzc4SWNGQmdHTGZmNWQ4?=
+ =?utf-8?B?YXZrTFNYODBVdXNrTUtjU1ByUHlsUGoxbG1PQlQ3RjMxZkZHbHI2TFZTMXFP?=
+ =?utf-8?B?alI4THVDKzNoMWJHbUV2TnJRRXFmb1NZRkVucXZ1dTgvMEdKeWUxajArNWFh?=
+ =?utf-8?B?RWlPODlHeG14T1FhVFpaVHNzdFViaGNCTVYvTkh3aFF4Z0oxWnB2R2NUZyt6?=
+ =?utf-8?B?N3MxU05tb2FUVHNGODM2T2lxeHd1aFFnb3h3VU1paDR1NEJ5M0haWGhPajJv?=
+ =?utf-8?B?RzEwVXBZMnJlMTdGV2w3NzdyNEhVVUdQWklFVFpGVzFXVGg0VkxWL3NxNnpS?=
+ =?utf-8?B?QmVtZm1qc1lJbGExWWxiYUlZOXRIQTNHZmJyK29QdkxnUDRpR2J5aVB4d3dm?=
+ =?utf-8?B?Rk1mL1JiaThzRlFDVVdkMUFZeCtHUk1taFdhQjBYZXhrRjRITWEyMURRRTdH?=
+ =?utf-8?B?ZzFaQnhObG9jTlJDbWhtM1FtZXNpYVRtNWZDVGVFWVcxSEcybGxiSkxXQmNR?=
+ =?utf-8?B?VkUzdWkzMUNHNzF1VEY1dWEyWEVMdENXOGRFTUlidDRxcjNORVNSWjJPRDd4?=
+ =?utf-8?B?eWo3bnJqb3JGYkFZNEFabDE3SlY5YVNKTHdVeGRVUkNCL0FMaS8vN054cnh5?=
+ =?utf-8?B?bUtEeEpLVVNDaDBESTljOXdNQTZzeDZKWTlpWnJHa3VMR3RJTzVTYnpXN3J1?=
+ =?utf-8?B?U0lnZjZOdzlIYnhIbGFoK0lEVnZCQ1VMeUNGUGI4dUpUY2xWZjNsYVRPWGxr?=
+ =?utf-8?B?N1lBZkp2VFc3dE50UUVsWFRndW1rdlN2Y01XMjdCTlZSdDlTQnVsbTVhRzZy?=
+ =?utf-8?B?Ymgza3ZWSXB4NkJjTFNQYVhjZDVjNEJQWEJ0cVpjdlYzWmdQVGJxMmZKYTZC?=
+ =?utf-8?B?ZGNPUUF1UkFoTTU0eitUQytma3BrUTQ4MDBoVlBTOGd2MHVLRk1XOTRrbmp2?=
+ =?utf-8?B?YnN0eTFBSXUvdmFiWGR5cFRYaHRkVUo1b3c4ZlUwdnR3cXM1YTIzVERBRFRN?=
+ =?utf-8?B?VHVSLzR2MTc4eTJhb0kwa1hjU0x5M29KbjZpREY4SkhQZlJzVHdrMWVheTRp?=
+ =?utf-8?B?OHdLV0RsVUM2U1BrODNMMzlGZENEanppWER4NmtxN1VzZmRFZTFkYXozWHRw?=
+ =?utf-8?B?a1R3OFdjb214MCswTTZnbGNwUmtROE9YWEdURGdqbmZRdGFwaTE2NDNyUlUr?=
+ =?utf-8?B?dTNJM0VoYUhEL3dwT0JQMXBIRTByaCtic2hjR25RbEF4czB2TG9Ha1hUV1Jr?=
+ =?utf-8?B?T01kbjNtT3VsRXZ5KytQUGthK1BTR2FycUhWYWJEaXh4Z2QvZmpHTGpnck8r?=
+ =?utf-8?B?TEFkYmhvc1hoZ0owWUFUb3pwR3VYRlJpeXVva2trRXI4Tkt6K2hnSTdtSGtp?=
+ =?utf-8?B?MDBuUlJudmhUTjZ5TGx6SjBJeDkxTU9DbkFEZm1QK3VOT3B0c2pQcVNKcThh?=
+ =?utf-8?B?Zm1Sclg1RjFvbUtpU3VHaE1JS2RXajhoS043WGQ0VE5jZXZleEQ1S3p2SWxt?=
+ =?utf-8?B?ZzhnWVpPeWt3ODl6eU1UNVB0M05ITUZFQXhydm1xd3hPT0pLOWlzaFlxMTJz?=
+ =?utf-8?B?R1RiaEJNbHdiZDNQcWVnRjlsRXRFQWRKS2hTMXU5OUljQ0wzdXM2NUV3TXIz?=
+ =?utf-8?B?UG5mNWdJWjNiRTR0VzBiSSt0Mit1cll0cTFvZHJmanRzWXM0WWlXZ1JQcU9J?=
+ =?utf-8?B?UngvMEc1elhYanRmWFJxdTVtd3pTcU0wbVI3M2wyUm5XUFNoNVJTRThCbU44?=
+ =?utf-8?B?TlMrRDFMY1pvRlo4NEdIcjhPZE1SRm9PczF0aGpsNDRUeWxoOTFCdHJUUk9B?=
+ =?utf-8?B?QkE3Ky83VW9aMml0Q1pMTVFFRFgwblJFYW1RTmNKOTV2aXlCREo1VXFNK1pF?=
+ =?utf-8?B?SkF5SnFacTNSdCsvRnArK3hkTlpkRXpva080NklIb0pvMzFZWmpQN1NXL1o4?=
+ =?utf-8?B?WWwwNjcyekNFcWF3Nmg4dy9OWXRicGtRYkpoNk9YM01aTmhNa3lJbWtmN2Ey?=
+ =?utf-8?B?WEdENXpsWXpoYlZrYUhDVEJHa3B1V0wxRGVMcjYrbkcxOG9YUXhLSGp0RmJQ?=
+ =?utf-8?B?ajAzWXZMaGR6WHg4K2E4Uzh6aWw1dVZvaFg0bStCa2RQUFlxNjFVOStUaDBB?=
+ =?utf-8?B?NW1TcjZuYS91Qm1qSHViRlRJeDRBNnZQbU9BNDNaM3hGT1pvUDFtRS9qdWdt?=
+ =?utf-8?Q?bi1oNUNKExVMdU49h0o1SfajN8pgC6VuRuAWs?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffab5eca-f70f-49a9-27dc-08df30242008
+X-MS-Exchange-CrossTenant-AuthSource: VI2PR04MB11276.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:06:22.6627
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8HvScN0JGksNG7Gx9z3aH+KRgeccjRNKsI8ttLie1ziGy8tdRfv1JyPEChor9qJ5EVlbBvqE8cjpIdDiz79sHAVFHIyIK1P3QuUzCCwDNxf/oNWOvyJijfotogxoAHMG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7954
 
-On 21.10.26 23:55, Nathan Chancellor wrote:
-> [...]
-> I forgot to mention, it looks like this is a known corner case in Kbuild
-> that has come up before:
-> 
->   https://lore.kernel.org/7b663b86-4df0-c3df-18a7-e4f47f900be4@kernel.org/
->   https://lore.kernel.org/CAK7LNAQhORSPEuB=XFa_i5EcQfsJ6uXy0MM5YWo_84eLGcoxNQ@mail.gmail.com/
+From: Sherry Sun <sherry.sun@nxp.com>
 
-Yeah, I saw these too when looking for related issues and fixes.
-However, even Masahiro admitted, that this is just working around the
-issue instead of solving the more fundamental kbuild bug.
+uart_tiocmget() reads the hardware through ops->get_mctrl(), and the
+only check it does first is whether TTY_IO_ERROR is set. That is not
+enough to know the port is powered.
 
-> 
-> This patch might be the fix that Masahiro could not figure out but it
-> might be better to just forsake drivers-y here and use obj-y properly,
-> especially since it looks like core-y is not even used for x86 anymore
-> (but maybe these objects still need to linked towards the end of the
-> kernel?). This diff appears to resolve the reported issue but I did not
-> try running the result.
-> 
-> diff --git a/arch/x86/Kbuild b/arch/x86/Kbuild
-> index 36b985d0e7bf..bd0621207c0c 100644
-> --- a/arch/x86/Kbuild
-> +++ b/arch/x86/Kbuild
-> @@ -36,5 +36,12 @@ obj-$(CONFIG_KEXEC_FILE) += purgatory/
->  
->  obj-y += virt/
->  
-> +obj-$(CONFIG_PCI) += pci/
-> +
-> +# suspend and hibernation support
-> +obj-$(CONFIG_PM) += power/
-> +
-> +obj-$(CONFIG_VIDEO) += video/
-> +
->  # for cleaning
->  subdir- += boot tools
-> diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-> index b7e08519b8c1..9a872bd9520e 100644
-> --- a/arch/x86/Makefile
-> +++ b/arch/x86/Makefile
-> @@ -279,14 +279,6 @@ archprepare: $(cpufeaturemasks.hdr)
->  
->  libs-y  += arch/x86/lib/
->  
-> -# drivers-y are linked after core-y
-> -drivers-$(CONFIG_PCI)            += arch/x86/pci/
-> -
-> -# suspend and hibernation support
-> -drivers-$(CONFIG_PM) += arch/x86/power/
-> -
-> -drivers-$(CONFIG_VIDEO) += arch/x86/video/
-> -
->  ####
->  # boot loader support. Several targets are kept for legacy purposes
->  
+On last close, tty_port_close() calls tty_port_shutdown(), which runs
+uart_tty_port_shutdown() under port->mutex and powers the port down
+with uart_change_pm(UART_PM_STATE_OFF). port->mutex is then dropped,
+and only after that does tty_port_close() set TTY_IO_ERROR. A caller
+waiting for port->mutex in uart_tiocmget() gets the mutex in between,
+sees TTY_IO_ERROR still clear and reads a register of a port that has
+already been powered down.
 
-This only "fixes" (read on why in quotes) this one instance but leaves
-others unsolved.
+A TIOCMGET ioctl from userspace cannot get there, as it needs an open
+file and the file being closed is the last one. But an in-kernel user
+that holds the tty through tty_kopen_shared() can, because
+tty_kopen_shared() only takes a reference to the tty and does not open
+it. ledtrig-tty does this and polls the modem control lines every
+~100ms:
 
-Already visible in the diff context is 'libs-y' which has the same issue
-and a real behavioral change, depending on which compiler invocation
-runs last for arch/x86/lib/delay.o, it'll either be compiled with or
-without -pg under KCSAN.
+  ledtrig_tty_work() -> tty_get_tiocm() -> uart_tiocmget()
+    -> ops->get_mctrl() -> register read
 
-Others are:
-- arch/x86/platform/pvh/enlighten.o (via arch/x86/Kbuild),
-- drivers/char/ipmi/ipmi_msghandler.o (via drivers/Makefile,
-  intentionally there for init ordering),
-- drivers/input/serio/i8042.o (also via drivers/Makefile)
+On i.MX93 with fsl_lpuart, opening and closing the port in a loop while
+the LED trigger is attached to it makes the trigger hit this window
+after the LPUART clocks have been gated. The register read in
+lpuart32_get_mctrl() then causes a synchronous external abort:
 
-But what's worse, your change also affects link order which also defines
-runtime initialization order. I don't want to crawl into that rabbit
-hole and look for all the implicit dependencies that'd be broken by that
-change...
+  Internal error: synchronous external abort: 0000000096000010 [#1]  SMP
+  Workqueue: events ledtrig_tty_work
+  pc : lpuart32_get_mctrl+0x4c/0x64
+  Call trace:
+   lpuart32_get_mctrl+0x4c/0x64 (P)
+   tty_get_tiocm+0x1c/0x30
+   ledtrig_tty_work+0x48/0x2dc
 
-One obvious, however, would be pci_subsys_init() which would then run
-before acpi_init(), leaving out ACPI-discovered PCI roots from getting
-discovered.
+Fix this by also checking state->pm_state in uart_tiocmget() and
+returning -EIO unless the port is powered on. pm_state is the serial
+core record of the port power state. It is only changed under
+port->mutex, which uart_tiocmget() already holds, and on close it is
+set to UART_PM_STATE_OFF in the same critical section that powers the
+port down, before port->mutex is dropped.
 
-So no, I don't like your change and prefer the more fundamental kbuild
-fix to get this sorted out once for all.
+Callers that have the port open, such as userspace TIOCMGET and serdev,
+are not affected, as pm_state stays UART_PM_STATE_ON while the port is
+open. The only exception is system suspend, where uart_suspend_port()
+powers the port down and uart_tiocmget() now returns -EIO instead of
+touching the hardware.
 
-Thanks,
-Mathias
+Fixes: 761ed4a94582 ("tty: serial_core: convert uart_close to use tty_port_close")
+Fixes: 6dec659896b4 ("leds: ledtrig-tty: Add additional line state evaluation")
+Signed-off-by: Sherry Sun <sherry.sun@nxp.com>
+---
+ drivers/tty/serial/serial_core.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index c0deec0e6af4..272feae690ce 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -1088,7 +1088,13 @@ static int uart_tiocmget(struct tty_struct *tty)
+ 	guard(mutex)(&port->mutex);
+ 
+ 	uport = uart_port_check(state);
+-	if (!uport || tty_io_error(tty))
++	/*
++	 * TTY_IO_ERROR alone does not tell whether the hardware can be
++	 * accessed: on last close it is set only after the port has been
++	 * powered down and port->mutex dropped. Check the power state too.
++	 */
++	if (!uport || tty_io_error(tty) ||
++	    state->pm_state != UART_PM_STATE_ON)
+ 		return -EIO;
+ 
+ 	guard(uart_port_lock_irq)(uport);
+
+---
+base-commit: 9a482184d910775cf648863148944945b74e2815
+change-id: 20261022-b4-serial_uart_tiocmget-22fea0e6d44f
+
+Best regards,
+-- 
+Sherry Sun <sherry.sun@nxp.com>
+
