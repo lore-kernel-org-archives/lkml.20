@@ -1,86 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792708253;
-	b=g4XWuKiYfD9TqBGY2T7oonGDof79Cn6ws2alEMGCKXPv2fZUiHqtZaKvd3xqms16hYDR
-	 zkU96RuxqHX3hnF+w4HOUTI+HmaNhQx0061ipks2CeFojx2mPVyDSMuQZJnTRkS1g6js3
-	 ZN1fp/m0Q1UC+Em9nKbApETQ8FGFYyVJs49coTp+NKH17F11eA51fvd2fXALVSpUvxOGr
-	 8UfH5lcIFq2qCPWm325kBxgkxkQQz1G7zgJtHL+uTlPLBV/f2kC4Xn6gMdPYW8sG1n5UT
-	 tc2fEAVU+vctzBUHE1/aZE+4XZjUkCuOU2Q76FE/4aIV9yZRljAdbHVEptaL75oSksw==
+	t=1792708259;
+	b=dBqH4orucmZmuvJRAfNdNQJUHaYtIQH3RQUEguWdbD+PDA4cISq1FO+t0uWB3h//4Ncf
+	 DwNfCtx6TvmExDeIP1EM3xjTZMQEtt4mR9bhj1lLEAO3Pm1Tmf9Rw4f8zjrjGmWESpltF
+	 tgpMroQ3ROKdSvp0N7J7USNnUnPmyC/nbjl55lMthT+6nB7vreWMFn91+gl6T3eLUIopE
+	 NpNIWRZCduthCzoe5zjPxlmkmARaD6+0OiwNQuQ/Xc658ZMeR296YbJ2vT3Kd6h5lh0ez
+	 i3yBlwZK1csivAHekyw7hOjADxYtcp+dDueNWVhBunwods25xQ/hl3AnrfVYB3H7unA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792708253;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-Virus-Version;
-	bh=D+ewVKYcqDAnjJEl4Vgm0+/bjP0vS5Npg2tFFrEWIaU=;
-	b=N4be1whkhCulUVmRFZKS+dOSDYPwWSyg+lHNF00H7ycNPHnlIHi4t/bCPfnbR34dWh2n
-	 mndiCZqUKyS3u7G2KStQOvLhtOqQYX49v5YJEk1B7OU7GSGsyy4NA3U5zMJxQsoxTDzvt
-	 +RzrjsrljQz4KX4zWj7DykhH3wkuPyYhZiTDeSeW8vdf4SUHCv1j+mUNiINUWpnpzEAqJ
-	 drXJPp1eu3cHapbdCV6a19p17XAAFYiZAgWxwY1/GINNX3V3oiLIOrgxWG9Wcf+aRjEYN
-	 MT+FMokTgYE6LznbH5ZHzSKAjvg+f9Jysu26aznnT3Cjw5g/CIYuK233OqEVdjG71Lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792708259;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
+	 In-Reply-To:Mime-Version:References:X-Mailer:Message-ID:Subject:From:
+	 To:Cc:Content-Type;
+	bh=V5Z5GxAUSxf95HmfpK3F+lfXYV/+28XPGEi30XXC9Mw=;
+	b=unh+s/nUXtT0U7uhWQZkkiDZzwEWZ3mc6tS7q1xFPG2wJ0yaMJVJyUBHzlcRFsrVUqQb
+	 yvHlBv0UczDI/FMeokzNcAscvS8KF+hEHy9kB9qYAllKi45Ic8iRUSMs9V+mJ1UppIKiq
+	 DKXCQyDjtRUdD7adq2GGiFhbAaGNXE/hHZ/D0Q2bG37O0mw2VxGoMmCnELFpgIB56PFPQ
+	 4D9EcBPzS0Ui0MRzdwe8jmQjEG1cprRWxNPnVhEYR/9UMUFhXy2pE9nMWLK5nFpFKn8lc
+	 O+jkPTI5lPcxN808Kf0wwoo24Szt93cMPWM8iD1nTGwO/PQSM6AS+tUYJYhyzJBtbEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=GNr1t1qF;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fbGvWp+e;
+	arc=none smtp.remote-ip=209.85.216.71
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA33606A31A;
-	Thu, 22 Oct 2026 22:30:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA33606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F39760A2604
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:30:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F39760A2604
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=GNr1t1qF
-Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MMUg5q1715836;
-	Thu, 22 Oct 2026 15:30:44 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=D+ewVKYcqDAnjJEl4Vgm0+/bjP0vS5Npg2tFF
-	rEWIaU=; b=GNr1t1qFtaQRDKNl61LM7xZCIUKHznLUo/xLlBUXbiFMySeKlhnDU
-	9fCkEk0wWAlMgI8wPDh+CcbCLQLgZU8B0an9s/b2iLU2OU9r9vJ9cWOoJEZ/eT09
-	RcEPb1dR4NOYBmI31UU4m3MA5p6bmorcRC+2csvLhk5R4PgUBiuhdE99xUyAy2Xm
-	laBfCjy+T0iYA6SB6/dGQRy+UCUQjYcGWCbTXDZusLgJqgl/ZMMfdzsa/5+A04Ff
-	ebIQEfjI8qfQ2iNg4NhC3w0gLlPDJYtdJYCnAXuYcclt/xyD9ayhUcDh1T9rPfkX
-	cwLcHE+LzPOltINExybZ4+tZ9fr9S4uAg==
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hfjf6m6bs-10
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 22 Oct 2026 15:30:44 -0700 (PDT)
-Received: from localhost (2620:10d:c0a8:1b::30) by mail.thefacebook.com
- (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Thu, 22 Oct
- 2026 22:30:38 +0000
-From: Todd Freed <toddfreed@meta.com>
-To: <netdev@vger.kernel.org>, <toddfreed@meta.com>
-CC: Daniel Zahka <daniel.zahka@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
-        Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-        "David S. Miller"
-	<davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Andrew Lunn
-	<andrew+netdev@lunn.ch>,
-        Shuah Khan <shuah@kernel.org>, Raed Salem
-	<raeds@nvidia.com>,
-        Rahul Rameshbabu <rrameshbabu@nvidia.com>,
-        Cosmin Ratiu
-	<cratiu@nvidia.com>, <linux-kernel@vger.kernel.org>,
-        <linux-kselftest@vger.kernel.org>,
-        =?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?=
-	<bjorn@kernel.org>
-Subject: [PATCH net v2 1/2] psp: fix transport mode encap with ipv6 extension headers
-Date: Thu, 22 Oct 2026 15:30:13 -0700
-Message-ID: <20261022223014.556388-2-toddfreed@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022223014.556388-1-toddfreed@meta.com>
-References: <20261022223014.556388-1-toddfreed@meta.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=fbGvWp+e
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ac8f449d1bso236965a91.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:30:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1792708259; x=1793313059; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=V5Z5GxAUSxf95HmfpK3F+lfXYV/+28XPGEi30XXC9Mw=;
+        b=fbGvWp+e87THwE5KAq/nPprRW5bgWFjkiUJCeyGn78VM/REnztIrWsLlbWcjVn8SYa
+         jXJahVUOmFtXIPM+J7yXemsew6L38nwLXVb68V1F2J/iG56MAoIo2QawftjGojZ5O4al
+         FGd/+M4qdPi+99jh3d72wprBigd/qIWy6hcAmL9MbRfC4gNbyELuYyEYYbl301E9PRiL
+         uthbOWcETfFueGDiUx461gyF4Z8w5FbIxmgP6cg1zsvh2HuzZWRm0B1oDtwekmRiQ4nk
+         TwvJRNkQ2HEEf+1sL7oAC9UaBdwr5Rny009nBhsInwjF57q0SPNcgay6Zs30iyCNnx6g
+         rUJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792708259; x=1793313059;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V5Z5GxAUSxf95HmfpK3F+lfXYV/+28XPGEi30XXC9Mw=;
+        b=PzYbZty9hn12iAS82skvFgiI4o+vTkIygQWB4pGjTib9FuojYaH0TeYp1igsR4eD2X
+         gKct48yqR4Td7Og44SkDQJ74zbCZHyoUYfuFWcfvVuDBswu6CH4+qGD6EneHvK77xF2b
+         4R6kaCU0hhPUnQj/DELvy6CYucFcrM+6c0Mad1jRwlbfOtEcvZJEQ+VEKXeeLm1g70VZ
+         cYiHG9Oj8vpvsWWtnrIMziul6k94gtcgQoCpx/f+0acDSjFz37diYc5PG4tBWcvCUnW0
+         gv5VXR1Wb29noBduQFgzjjs/n0QFHC62rRZ99EtrKCdaChgy9+CHJBZedlfS5DH/FCD2
+         NBMg==
+X-Forwarded-Encrypted: i=1; AKwUvBxodSuWRSObrTrZajWiDZcLMS9U96EBTjLXOZUGEa8KRt+MukxZc9FTOwImhRhQPwPv4k2vsUWtieGyKZ0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJzw7m9BkmEOcaUXRfgbL4lPqcv92UKPtXPwe8l/TMsyvTBqoE4
+	TdYWRf5RlQuZ1GagNfjmOx+p9U6XGXtfanEHDzZRT5FLT5YRWgkZSSpx9R20Rd2mrgFAFhX0Z+b
+	L+IJ3HQ==
+X-Received: from pjor7.prod.google.com ([2002:a17:90a:9407:b0:3ad:8673:d3c9])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:224a:b0:3ab:9f89:e1b3
+ with SMTP id 98e67ed59e1d1-3adce08500dmr242140a91.40.1792708258533; Thu, 22
+ Oct 2026 15:30:58 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Thu, 22 Oct 2026 15:30:52 -0700
+In-Reply-To: <20261022223052.646891-1-seanjc@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,207 +79,137 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-GUID: 9HTuWbfirsd6CTvC4P_j7Rklf87wg4EU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA4OSBTYWx0ZWRfX2FdqNRCltEbw
- khnSsuOjnyGidTvCGHHlUAsVgWOrigzaVqLhFV1SuQPdSMyJV+n/vAozguC9DVbFW/RoJ4yqCzU
- ArZPq9o1Ewo8vubYQyjvZT6BERqruFk=
-X-Proofpoint-ORIG-GUID: 9HTuWbfirsd6CTvC4P_j7Rklf87wg4EU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4OSBTYWx0ZWRfX0A9QzwFYF/mN
- bykMcChXbW3EWnaDXuwHHxnZE/z3ikHptsm3S1RUwxnJqCYgu6pUVOQRDoKimDTjCITku9UMrO8
- Is3JuFjW7fpiAiMX0nkjuMzIdkfLgIxMGf9oTL35r+NK/Kmq4mw1L+zXIb51PBcpLexPm2ED7vE
- 2Pg1435bCpko/mR7FRygaa/JnUKYPT4vU8NZXbYVd8V86507C3s4Qz53LO83QnmuG1DUQnON/Jk
- ZXsBAlYb0/RihOTvYITblVe3mVHeoH5tCdwAE4am7hQoIH/557jsHPUkYTRpsnmujIAjKrkfxXy
- JbpVTAT89TE8XRA2AdLIhHB2gb73cKFmiQLaVLBKIiFT+LpZjAnvdarvj4MPTqkbiPRrnMTnfwA
- BaU0l27kTEfJIi8RH8IsNY1dMm3NXvC0mP13qndacqaITB1EIJHvctlbSYGyN/Uhf+mbCCtJ3WG
- AMjH27psurukAFGDIUQ==
-X-Authority-Analysis: v=2.4 cv=HOVWhYtv c=1 sm=1 tr=0 ts=6ada8e94 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_1IyUuN4QrATX339ibzo:22 a=pGLkceISAAAA:8 a=VabnemYjAAAA:8
- a=VzoU7SqrFeryVSFTUeIA:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_07,2026-10-21_02,2025-10-01_01
+Mime-Version: 1.0
+References: <20261022223052.646891-1-seanjc@google.com>
+X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
+Message-ID: <20261022223052.646891-5-seanjc@google.com>
+Subject: [PATCH 4/4] KVM: selftests: Update nSVM EFER test to expect #GP when
+ clearing SVME in L2
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-psp_dev_encapsulate() inserts the udp and psp headers and rewrites the
-l3 next header to udp.
+Adjust the nSVM EFER test to expect a #GP on WRMSR if L2 attempts to clear
+EFER.SVME to match KVM's new behavior (synthesizing #GP is safer for KVM as
+it doesn't require yanking the vCPU out of L2, and is fully synchronous).
 
-if the packet is an ipv6 packet with extension headers, the transport
-header comes after them, so rewriting the next header of the ipv6 fixed
-header produces a malformed packet.
-
-a psp tcp socket emits such packets if certain socket options are set on
-it (e.g. IPV6_DSTOPTS). with mlx5, these packets also go out
-unencrypted.
-
-fix by walking the extension header chain to rewrite the nexthdr on the
-last one in the chain instead. the walk looks at the extension header
-types only to find their lengths, and to reject these,
-
-- NEXTHDR_FRAGMENT. this could work, but udp+psp would need to come
-  before it, which is different than how the other option types are
-  handled. for now, keep fragments unsupported for transport mode.
-
-- NEXTHDR_ROUTING. the tcp checksum covers the final destination, but
-  drivers seed tso checksums from the daddr in the fixed hdr
-  (mlx5e_psp_handle_tx_skb()), so this would produce bad checksums.
-  could be supported with more work.
-
-- NEXTHDR_NONE, and types which ipv6_ext_hdr() doesn't know.
-
-on rx, the inverse process is performed in psp_dev_rcv(). transport mode
-psp fragments are rejected on this path as before.
-
-note that the stack doesn't fragment ipv6 tcp packets, so a psp socket
-won't be able to exercise the tx fragment path.
-
-Suggested-by: Daniel Zahka <daniel.zahka@gmail.com>
-Fixes: fc724515741a ("psp: provide encapsulation helper for drivers")
-Fixes: 0eddb8023cee ("psp: provide decapsulation and receive helper for drivers")
-Signed-off-by: Todd Freed <toddfreed@meta.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- net/psp/psp_main.c | 78 +++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 70 insertions(+), 8 deletions(-)
+ .../selftests/kvm/x86/svm_nested_efer_test.c  | 65 +++++++++++--------
+ 1 file changed, 37 insertions(+), 28 deletions(-)
 
-diff --git a/net/psp/psp_main.c b/net/psp/psp_main.c
-index c9c1a8826b7f..0c009d7b08c0 100644
---- a/net/psp/psp_main.c
-+++ b/net/psp/psp_main.c
-@@ -4,6 +4,7 @@
- #include <linux/list.h>
- #include <linux/netdevice.h>
- #include <linux/xarray.h>
-+#include <net/ipv6.h>
- #include <net/net_namespace.h>
- #include <net/psp.h>
- #include <net/udp.h>
-@@ -185,6 +186,42 @@ unsigned int psp_key_size(u32 version)
- }
- EXPORT_SYMBOL(psp_key_size);
+diff --git a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
+index fa0d76a9c390..f612146d23ac 100644
+--- a/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
++++ b/tools/testing/selftests/kvm/x86/svm_nested_efer_test.c
+@@ -15,13 +15,18 @@ static bool l2_ran;
+ static void l2_clear_efer_svme(void)
+ {
+ 	u64 efer = rdmsr(MSR_EFER);
++	u8 vector;
  
-+/**
-+ * psp_ipv6_nexthdr_off() - find the offset to the l4 proto nexthdr
-+ * @hdr:  ipv6 fixed header
-+ * @len:  l3 header total length
-+ *
-+ * Return: offset from @hdr, or -1 to drop the packet
-+ */
-+static int psp_ipv6_nexthdr_off(const u8 *hdr, unsigned int len)
-+{
-+	unsigned int nh = offsetof(struct ipv6hdr, nexthdr);
-+	unsigned int off = sizeof(struct ipv6hdr);
-+	const struct ipv6_opt_hdr *eh;
-+	unsigned int rem;
-+	u8 type;
+ 	/* generic_svm_setup() initializes EFER_SVME set for L2 */
+ 	GUEST_ASSERT(efer & EFER_SVME);
+-	wrmsr(MSR_EFER, efer & ~EFER_SVME);
+ 
+-	/* Unreachable, L1 should be shutdown */
+-	GUEST_ASSERT(0);
++	vector = wrmsr_safe(MSR_EFER, efer & ~EFER_SVME);
++	__GUEST_ASSERT(vector == GP_VECTOR,
++		       "Expected #GP when clearing EFER.LME in L2, got %s",
++		       ex_str(vector));
 +
-+	while (off < len) {
-+		eh = (const void *)(hdr + off);
-+		type = hdr[nh];
-+
-+		if (!ipv6_ext_hdr(type) || type == NEXTHDR_NONE ||
-+		    type == NEXTHDR_FRAGMENT || type == NEXTHDR_ROUTING)
-+			return -1;
-+		rem = len - off;
-+		if (rem < sizeof(*eh))
-+			return -1;
-+
-+		nh = off + offsetof(struct ipv6_opt_hdr, nexthdr);
-+		if (type == NEXTHDR_AUTH)
-+			off += ipv6_authlen(eh);
-+		else
-+			off += ipv6_optlen(eh);
-+	}
-+
-+	return off == len ? nh : -1;
++	l2_ran = true;
++	vmmcall();
+ }
+ 
+ static void l1_clear_efer_svme(struct svm_test_data *svm)
+@@ -29,8 +34,7 @@ static void l1_clear_efer_svme(struct svm_test_data *svm)
+ 	generic_svm_setup(svm, l2_clear_efer_svme);
+ 	run_guest(svm->vmcb, svm->vmcb_gpa);
+ 
+-	/* Unreachable, L1 should be shutdown */
+-	GUEST_ASSERT(0);
++	GUEST_DONE();
+ }
+ 
+ static void l2_lmsle(void)
+@@ -130,31 +134,10 @@ static void test_enumeration(void)
+ 	ksft_test_result_pass("KVM enumerates EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
+ }
+ 
+-static void test_clear_efer_svme(void)
++static void test_efer_in_guest(struct kvm_vcpu *vcpu)
+ {
+-	struct kvm_vcpu *vcpu;
+-	struct kvm_vm *vm;
+-
+-	vcpu = create_l1_vcpu(&vm, l1_clear_efer_svme);
+-
+-	vcpu_run(vcpu);
+-	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_SHUTDOWN);
+-
+-	kvm_vm_free(vm);
+-	ksft_test_result_pass("L2 clearing EFER.SVME shuts down L1\n");
+-}
+-
+-static void test_lmsle(bool lmsle_mbz)
+-{
+-	struct kvm_vcpu *vcpu;
+-	struct kvm_vm *vm;
+ 	struct ucall uc;
+ 
+-	vcpu = create_l1_vcpu(&vm, l1_lmsle);
+-
+-	vcpu_set_or_clear_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ,
+-					lmsle_mbz);
+-
+ 	vcpu_run(vcpu);
+ 	TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
+ 
+@@ -166,6 +149,32 @@ static void test_lmsle(bool lmsle_mbz)
+ 	default:
+ 		TEST_FAIL("Unexpected ucall: %lu", uc.cmd);
+ 	}
 +}
 +
- static void psp_write_headers(struct net *net, struct sk_buff *skb, __be32 spi,
- 			      u8 ver, unsigned int udp_len, __be16 sport)
- {
-@@ -243,7 +280,7 @@ static void psp_write_headers(struct net *net, struct sk_buff *skb, __be32 spi,
- }
- 
- /* Encapsulate a TCP packet with PSP by adding the UDP+PSP headers and filling
-- * them in.
-+ * them in. With IPv6, they go after any extension headers.
-  */
- bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 spi,
- 			 u8 ver, __be16 sport)
-@@ -251,10 +288,17 @@ bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 spi,
- 	u32 network_len = skb_network_header_len(skb);
- 	u32 ethr_len = skb_mac_header_len(skb);
- 	u32 bufflen = ethr_len + network_len;
--
--	if (skb->protocol != htons(ETH_P_IP) &&
--	    skb->protocol != htons(ETH_P_IPV6))
-+	int nh_off = 0;
++static void test_clear_efer_svme(void)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
 +
-+	if (skb->protocol == htons(ETH_P_IPV6)) {
-+		/* UDP + PSP after the extension headers, if any */
-+		nh_off = psp_ipv6_nexthdr_off(skb_network_header(skb),
-+					      network_len);
-+		if (nh_off < 0)
-+			return false;
-+	} else if (skb->protocol != htons(ETH_P_IP)) {
- 		return false;
-+	}
- 
- 	if (skb_cow_head(skb, PSP_ENCAP_HLEN))
- 		return false;
-@@ -272,7 +316,7 @@ bool psp_dev_encapsulate(struct net *net, struct sk_buff *skb, __be32 spi,
- 		ip_hdr(skb)->check =
- 			ip_fast_csum((u8 *)ip_hdr(skb), ip_hdr(skb)->ihl);
- 	} else {
--		ipv6_hdr(skb)->nexthdr = IPPROTO_UDP;
-+		skb_network_header(skb)[nh_off] = IPPROTO_UDP;
- 		be16_add_cpu(&ipv6_hdr(skb)->payload_len, PSP_ENCAP_HLEN);
- 	}
- 
-@@ -331,8 +375,23 @@ int psp_dev_rcv(struct sk_buff *skb, u16 dev_id, u8 generation, bool strip_icv)
- 			return -EINVAL;
- 	} else {
- 		struct ipv6hdr *ipv6h = (struct ipv6hdr *)(skb->data + l2_hlen);
-+		u8 nexthdr = ipv6h->nexthdr;
-+		__be16 frag_off;
-+		int off;
- 
--		is_udp = ipv6h->nexthdr == IPPROTO_UDP;
-+		/* UDP + PSP come after any extension headers. Fragment and
-+		 * routing headers are not supported in transport mode.
-+		 */
-+		off = ipv6_skip_exthdr(skb, l2_hlen + sizeof(*ipv6h), &nexthdr,
-+				       &frag_off);
-+		if (unlikely(off < 0 || frag_off))
-+			return -EINVAL;
++	vcpu = create_l1_vcpu(&vm, l1_clear_efer_svme);
 +
-+		is_udp = nexthdr == IPPROTO_UDP;
-+		l3_hlen = off - l2_hlen;
-+		if (l3_hlen != sizeof(struct ipv6hdr) &&
-+		    !pskb_may_pull(skb, l2_hlen + l3_hlen + PSP_ENCAP_HLEN))
-+			return -EINVAL;
- 	}
++	test_efer_in_guest(vcpu);
++
++	kvm_vm_free(vm);
++	ksft_test_result_pass("L2 clearing EFER.SVME gets #GP\n");
++}
++
++static void test_lmsle(bool lmsle_mbz)
++{
++	struct kvm_vcpu *vcpu;
++	struct kvm_vm *vm;
++
++	vcpu = create_l1_vcpu(&vm, l1_lmsle);
++
++	vcpu_set_or_clear_cpuid_feature(vcpu, X86_FEATURE_EFER_LMSLE_MBZ,
++					lmsle_mbz);
++
++	test_efer_in_guest(vcpu);
  
- 	if (unlikely(!is_udp))
-@@ -386,11 +445,14 @@ int psp_dev_rcv(struct sk_buff *skb, u16 dev_id, u8 generation, bool strip_icv)
- 		iph->check = ip_fast_csum((u8 *)iph, iph->ihl);
+ 	kvm_vm_free(vm);
+ 	ksft_test_result_pass("Guest EFER_LMSLE_MBZ=%d\n", lmsle_mbz);
+@@ -248,7 +257,7 @@ int main(int argc, char *argv[])
+ 		test_clear_efer_svme();
+ 		test_lmsle(true);
  	} else {
- 		struct ipv6hdr *ipv6h = (struct ipv6hdr *)(skb->data + l2_hlen);
-+		int nh_off = psp_ipv6_nexthdr_off((u8 *)ipv6h, l3_hlen);
- 
--		if (unlikely(ntohs(ipv6h->payload_len) < encap))
-+		if (unlikely(nh_off < 0 ||
-+			     ntohs(ipv6h->payload_len) <
-+			     l3_hlen - sizeof(*ipv6h) + encap))
- 			return -EINVAL;
- 
--		ipv6h->nexthdr = psph->nexthdr;
-+		((u8 *)ipv6h)[nh_off] = psph->nexthdr;
- 		ipv6h->payload_len = htons(ntohs(ipv6h->payload_len) - encap);
+-		ksft_test_result_skip("L2 clearing EFER.SVME shuts down L1\n");
++		ksft_test_result_skip("L2 clearing EFER.SVME gets #GP\n");
+ 		ksft_test_result_skip("Guest EFER_LMSLE_MBZ=1\n");
  	}
  
 -- 
-2.53.0-Meta
+2.56.0.257.gf7497c7d27-goog
 
