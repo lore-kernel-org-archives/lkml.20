@@ -1,112 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792664656;
-	b=cDK4mSD5zyIAntVq8Oz51+8gu4z25hzHUdVEdS+f5KFyx+B06Kncqo0AoDbkX4bNYt99
-	 kgLRZwvLbFb3tUQIM3BjVkRoqRO5GsSeyqjlCeQ71hdH2zgQW4X7sDEuk2ioUpr62dIyo
-	 UPbDJoyBbapYbWDsHcnjSGHYFWphAZTtbzRmbvLKla2m87FKeZK0U7atufiTrZ8EJIue7
-	 wWbCTknP+zCmEkRhltORsU6Esi4dDAnE+J7rDixjKEoLz5BoGqmFknRlYsRQe2KWYnCu4
-	 vDhz4JyCF4tem7kA3EfL4IZxR+2jYniJw4+UjyranZ1WTKbQmV4hQVPA1Xrly4f6V8g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664656;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=oMfzdCiVCUxGHwH3OwEDew0VkRxCFE5/WZadEqnhb+4=;
-	b=vCtH61Q8Si10UFtbrgFtVjnfi/Lf0HNETo3XJWWGJ1+TNoe2FIXsbDAcNaIcxpm1bla3
-	 HmIr8k7DdtE23Er9xK7QHxNjXTOcAIJCl7JJyC5f3t5wHmRUPa2aKC5nMGq1Zen2AKv1V
-	 zngHY3CTZtzN9IlUZfxKlQKx3rPVRbcZX1bp3vOIPWBkOQnD9RP4mdV8sqqnbCFuxSqDZ
-	 awTrV4pohuPQV+FZAoreb/K4uVf8K8EIK4Y4d06MArhD40tvUA9HXIXTDFZrThkf9u+Z5
-	 NcCgZd2t6d/2/PQVPNKS9DaGrQjldiDA2L5bJqhdiVkMfFR2HAiRVuW21YpisXq8rqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XLwrnVwW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.61.43
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010043.outbound.protection.outlook.com [52.101.61.43])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792664690;
+	b=FAwHC86rMMYQGlgGPt/sBLSFfHWzWE7uKR2PpKQac2dGQ5Pq6uw3fFqkY8o5FZAsaaHB
+	 v3Z8AnJ4ziSf5LlWtGw9ggYP6YGFpmKQSBC9+ll0jXn6N1LsV4aoJeYcD8FTGL+VdKYQi
+	 ADbF7SCTGluRpuaehwAoi5hWJy2nPWdyiezS3buun6+wLLagyl/pktMfQZACb16EkqVlJ
+	 QHM3wV7NBBpSWVpvHkqF9semr0q4FyazQb4iekBtPDEm0eOaXK6AAQGf8+ilrm78UkYwa
+	 HyFyfWRL82wX9C4LmgNl2uu1sYkeJXMK8Tr2jMZq0ir4LI/CigEKVbV4qHl5A8so/cg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664690;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=pOK+MsJLB+UOA9uQBG84++ekBGJh1mHJyeB6ZcGJiNE=;
+	b=oHr92sWrwGjPPo0QwA7hzcvP5FcStz7gghTH+gYXFPc+sYy4sHFGoB5LayZxShsv0iyh
+	 +yhUCSMTvc6s+nWP7xQtc0bOsl67hhZb1WsdjCn55FiIkP0iykB4rw+wV9kpJpfWImsJF
+	 48Hk03DZ6nT6BeQ6JN5Z/H1LDFQLLD7pGvJszPJqAVaelwpgqZ/vekc8QqpVt+zwTDm5I
+	 3Lu+wRaid7oRcTZgRB0jpeP4gGBezc+uTKGRBLLcXwpQPZ87o/tb2QZxDgVArRtbYL4IU
+	 SHtwHdOtUtpOD7kXHEQq+5mIiRdL3emBmx4TTFAEIRA+sJWHWUrNvck7WTDwc2iD3QQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DO8xdrbR;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CED5F606A31A;
-	Thu, 22 Oct 2026 10:24:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CED5F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BAE606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:24:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3BAE606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=XLwrnVwW
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iu2pGL/9sfheZ95zjBDfeu/94IZhrqLNGmKOyEesCJr6/aalFSRwA+wK5YT/GEFvxyCkjteHH1oiqLlTMVW/EaaZjne1m7dTYNtqefx6Fz/tBvlWLTsbO8kUFL7lSG2P1belra+tv2cpyemV+XakMO1X3tANgpK+o5NUdTUujMrv+3QDATU1gC43l2BOggmzVsFIIiE5QG1e9YlwPGH/7YKpTFMGb/Cy235Aerr19zZ1oMfGT1qLqxxqXhMvcwbVs2aHepDPOhsa6TtgW+p7WJDViuWWuWKBJWpAniANiQyz8yV66Fu/XXsRacQe3EiF1yhcgo77DJOJlYmpkB7A9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oMfzdCiVCUxGHwH3OwEDew0VkRxCFE5/WZadEqnhb+4=;
- b=GMQkOdh6YSyrQmL/irmvwcbTvb3Lri6lXcwjQtC4gw7SFIf1mSHTBlpmJcA7No/m4C71hkw8SrvXeWw7N0l/0fDGT/rYwg9AuQG2nGXBhIenC6p6Bowq4nDdt8N7+RD20ufBCpWTrxsF5/DPasdUl8Pk8iM6NKPVocoQrJ2xaW8U6gEYBVrisn9sbxw5Ibqce2fCkW04+UcdfrCPxFbWdpM6AUzyuYNHRsngIua3MUdyoxjrhHlZdGFje118frjLGcl7/mJEhamb6n8eD6djafrkEltC6FoMCH0rqRreS98I9+eZdCTlX1H9stCsRbsoLyrJaIZYXFycn+mjE4++Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oMfzdCiVCUxGHwH3OwEDew0VkRxCFE5/WZadEqnhb+4=;
- b=XLwrnVwWoZrMr5CBKjrNtDUU2sc7ANpxWSjDeFQqfVT/VAzRMy8DkiVXlGaSiI7MDXdkK5Sdg2mXCDyclvooCkH+N1e60LobeYL2RXZEdmpaO4Ud1TaMzVm1oeYoVHH16JUq5T3vOlg1MptYdFTwP8OJeargQFjTRPfk1WTW3qc=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM4PR12MB5724.namprd12.prod.outlook.com (2603:10b6:8:5f::9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15; Thu, 22 Oct 2026 10:24:06 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 10:24:06 +0000
-Message-ID: <9e54354d-b037-47e1-9390-86d5e25444a7@amd.com>
-Date: Thu, 22 Oct 2026 12:23:57 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 7/8] dma-buf: transfer memcg charges via
- DMA_BUF_IOCTL_XFER_CHARGE
-To: Albert Esteve <aesteve@redhat.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>, Muchun Song <muchun.song@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>, Christian Brauner
- <brauner@kernel.org>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Stephen Smalley <stephen.smalley.work@gmail.com>,
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- =?UTF-8?B?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>
-Cc: cgroups@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-mm@kvack.org, linux-security-module@vger.kernel.org,
- selinux@vger.kernel.org, linux-kselftest@vger.kernel.org,
- mripard@kernel.org, echanude@redhat.com
-References: <20261021-v2_20230123_tjmercier_google_com-v2-0-ef6ee2dd8c5c@redhat.com>
- <20261021-v2_20230123_tjmercier_google_com-v2-7-ef6ee2dd8c5c@redhat.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261021-v2_20230123_tjmercier_google_com-v2-7-ef6ee2dd8c5c@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0235.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e9::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=DO8xdrbR
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4d870d54so1214824f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:24:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792664688; x=1793269488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pOK+MsJLB+UOA9uQBG84++ekBGJh1mHJyeB6ZcGJiNE=;
+        b=DO8xdrbRO6Eea6fWYSKuYysp+WZj1kNJMGDybTOfWi8vFLXMfg5RgTu6wjntKseX36
+         Wc43/g36K8NQ6Edu4M04cd2glQnjNEsg5CPEux5Aq5Z4RJbwkyox0fwH36qpWo7C5/WI
+         wLU/VoLeJYNq5tOQfoDKLAXsNmGs/P55VT/uwqA0zvv75oc7ZGWav5n76omrCClJ5Ac5
+         uI9MWhoklIhjPwdiR3U0ZkKT8RZuUaCHeIPVnC3KewZuVffnX5j2TYusPcw4fso4i5Gp
+         1MoLDePLUqXVOwNC7Ymrrz3v4jtd2MDqgYBq/RZOEV5Ah8rjWB6Ya48AjLuDzEoZe2vg
+         adqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792664688; x=1793269488;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pOK+MsJLB+UOA9uQBG84++ekBGJh1mHJyeB6ZcGJiNE=;
+        b=rR3D8T9KEZwfkzKme2HrufzpWkPxPZjPCMOaiiUfqkD72AH9p7q0/Kw3pkZh+YTTZh
+         B2xwVI2Y6ZVVZkv/cz45ZKDRfbHWM0IYjImBPfOIaEQqGHb8NB53mYOJK1P7eJDvOGxM
+         RZ5Lkz8V1L0nu1uYS6EjmT3tTzDvG6+QhjzFL5CbeY/cIyfE5KBX1EFme38gkGkRMjjJ
+         DtnYrl3+vpOyVgVu1VJx0YFrUAvYBSIR3dK7XcU7J5hFbEBxVnZ+kWEdZ5ZiVFU5xxuB
+         CyKUNhxgY1psBt15KQmtAJMZRZ2O/RX/wBBNydGS82F57eZJ6jPoekLgcWOs6wqpLd7g
+         dFWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwAOlDobOlg91zey6Y7BnCcJ6j6FHz70MyHrWpamKY0japW9jcyZwWZZUdCIxE3WjA5Zf/H1FXZv/PkAZs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7kVEJXRm/I8L3YFB6zucQfvU3l/o0VVrCT0Oa6K38SulwJszB
+	qWmVGzrfVwA8x2XsYpqyCMiwjarVi047mQMEx/Y2aNY4p9WG/qGD5g53
+X-Gm-Gg: AYBFou12mv7GAAOHC17P2BTLr4G8MiHHobR5Sj61fPWB2ZLOtrhnUbYieu2U5sFX5Uz
+	KOBSPp7OADrBw+VvOxeIVeyKeCnhFXxP3S1EBr/ce+undqG5XUU5CM5wu6ux82lDCADT/0vwIhj
+	zMam5iMJ5miAv57shOpgM+cImoDAGxKwT0NSMSBlqTDwGV3+HR5eQhFHefQ6dcECGzrq3taay0n
+	Bm+ml034vg5Ih5zjgkBrPHGSTouA8Ok6K+WBeMiAgW4/nXuruL6rba48wBkmB6jD7zA7nFTu5on
+	vzLH8gAvZMGu5GdDf5wZKi2JIH6sQSGRY0ti9XCBTm2p6Z3NACrFwuSI4LMiXO7yFVzkc94NAxr
+	rF9THE7SwSvbDtyeciPShiAKu5uTfLs0Q3e16VoW3njpb3U1YjkEfWLDBxMjFyD1lfb1wgVsE5w
+	ei0JMiWbTxNVPmAXNC2dn66dTdDTSW8hkWYGFW6cCdF7zuIkxB5/O1Oii8vIVpfQMUScc1cf/uN
+	gZ1iiNpRILsMQMfT2AZXAGEp+c2y7tU+KdCJCH933o5xQsnIAV6eEbysO4=
+X-Received: by 2002:a05:6000:1801:b0:486:f9ea:796f with SMTP id ffacd0b85a97d-48e264cd778mr6455586f8f.41.1792664687952;
+        Thu, 22 Oct 2026 03:24:47 -0700 (PDT)
+Received: from [192.168.1.80] ([87.116.133.17])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25835b1dsm12505216f8f.40.2026.10.22.03.24.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 03:24:47 -0700 (PDT)
+Message-ID: <6bf6c3eb-a142-4f11-92a7-bea7bc715010@gmail.com>
+Date: Thu, 22 Oct 2026 12:24:46 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -116,342 +89,231 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM4PR12MB5724:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8cc9d2b7-f7de-4f24-44ec-08df302699dc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|18002099003|22082099003|921020|4143699003|11063799006|261021135927099003|261009223027099003|261021121427099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	XbNar2ulZyj05LXTGfsmppGG4pYr/3defen2wZRF+QoCPpJN0HBa4KvJQy4jKJTaH5/DLjeJPWgZoBQlD5G4jiI0YiBmfFhx6oUSqk9jfaV9ugQeXfofic3f//YDTKLhDjI7YzdJCROPt1k7aSKVlsP2HUROftZODbk1QvHzPDn18+yY5C5HQrUUUstkw8ln8pNexxmUGakCcYl5cQuQ1bXvJoeOjmrMyxl3Sm/c6gIn3ZGfyfnfHNCAijWUO9JPWuCDY9eY5hNuZoHGrEh2PZTMsoXCGUYzQgQcWVHKKe7dHCNfCzAq9RHh30NznsFH4ViEw+6/3YY7xFCsZncpbgfr1CY2fD/l/oZPzvYJIJDGube9HLk7A5tzbi08GBsY+TyY6xxxh7WxLE8JiaVNckwa84vJS2Yi9cFmNd5IyiBwVRwKYp9rWUCvaJl1qF/6NAnn/2AcJJRsTD0HPTz4PTHc/bL4XE3nshkFnj09GLhpI1WLgOYmC8Dt9IxM/BvoxpU3IM1ppN5Lf20YvdFSACwgGtYDXZA/oI4E2+PpB1YER9mV4J1vecbZVeQM4hRUnI6V+r3FnLIFkATSBZwesmEFPQPNzujTNL0P4g71TukPdUpRDkJRQDuIgnUzuHsm8jH9Mh64OFe0cvZvrD/Cud3Mo7zD2O7JqNeJAJaMzyihKsa6Dk+SX7rCZcd8Eksi7/QxXB49AT18y3aWaFxkpA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(18002099003)(22082099003)(921020)(4143699003)(11063799006)(261021135927099003)(261009223027099003)(261021121427099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUdwaWhkZk9iK1h6dENja2s4b3JqdTlOQ092ZmkwYUhqVU1tTzdMb2E1ZTBR?=
- =?utf-8?B?eEJ6ZUk3Q1drbndmbWJwdkUwNExHYkt1N05kaW1PWnQ5UkFlYjdwN1VoYkRh?=
- =?utf-8?B?emtRMlV4RHZ0dm9FbmNqRlN3QmNBT2wyMFBCV2tiRWJKUXBlRGtPYXZ4dysy?=
- =?utf-8?B?SUxxM0tya2o2SDkvNVdVTjJPUzV4Y29ua05oZGZHY1RmdC9lNk5KaEJoUm00?=
- =?utf-8?B?TDk3ZHNSTU9tdFloMXNjZUJEUDQ0YVpvWXpYSmMwNzRiVHdQNSticzRuYkov?=
- =?utf-8?B?Vzc4WFU5UUV2akJtWjNoaEdmUmp6NURZb1lyQ3dKWm1TMU00Mm5FbHVZY1NK?=
- =?utf-8?B?YTFMSkNxY1V3V093MXliZGJCdDhGWFg4UzQvWlM4d3FLSWNjWkNJNWFNZU5L?=
- =?utf-8?B?T1A4TzNJdmR2TjB5RTRJNDlHeFhrSkdvUXJBTHdHVlVOeHBGUlFMMThFSGRE?=
- =?utf-8?B?dldheUgrSnV6R2VxMVJLVnNGUGxBMUdDcnl3QVduVXkwNFBYUXcrQmtwRjZX?=
- =?utf-8?B?RkJFZElwYk9ycm40T2NVL0I1RmxMME4xV3FWMDdVQzFuY1RPWERLbVlzaXcv?=
- =?utf-8?B?cDhvZEdQM05HanV1Q1ZzWk5mWUF5RDZjdEFURGhQcGh1RlFVeTBEbVhIK1l1?=
- =?utf-8?B?L2F1WEJscVVoTVdBeEFmU2JqNW9DU2JNSXlTQUc3Um9qaUFROUd1SWN4cEQz?=
- =?utf-8?B?MXdDMjlSZnFqMkZ2RitMKzUxSlI5bGtoTHd1c20yNFVFZ3pnNmVIcUxlUTlE?=
- =?utf-8?B?bm5BWDE1TkFvZXJFV2VnY3crZU1rREtycUd5VUhJUUZ2T0tYdFRBOFFVNVEx?=
- =?utf-8?B?bW1SMjVuOE1tb2o0azFSWXQ4bUw2NURoS2FKZ0VkZ3VpUWhmUEI3b002TS9a?=
- =?utf-8?B?a25zeUV5dTJaY3M5c09qUUlMT3pBQnBURmVzZEFJZFZGTTlnQXpBRTBDKy9i?=
- =?utf-8?B?cjBjU1ZSTW1kSjdIVnVmanF4dTZOZkpBRjdjYXBOQ0c4NXk5THdxUURIOUM1?=
- =?utf-8?B?ZHd0VjBPSFh3YnI4TVhTSGllWDh3b1RJYktSTWp5cUo5SGJXSTczdTBja1pD?=
- =?utf-8?B?cEcvNUJET2VpcGcvQzJDd0ZpZUhBS0Z3dWY1VWI3RXBpcWtlam1mNG9iUTI2?=
- =?utf-8?B?L0wrQ2JWSllWTGxqeFVpUGV0UW5XUlNUK29idFlWWjl4L0ZDZjRzTWZrVG9o?=
- =?utf-8?B?Tkt1b2dLMXhWMEs0QWZ6dFpNSUFKUmdNbmhjTlNtWHlCcjZsSVNxMmYzMzhu?=
- =?utf-8?B?dkhEN3VpWUorNzZ5ODFUM1lBTnNlcmRVZW95aTJFbzJtbXdITE9rSTBjWTZB?=
- =?utf-8?B?V3RWUzhxN2ZjdWtablZrQklHRzduYU5xdlNvWlFCdVFkWXFEbXp2dFlVdU00?=
- =?utf-8?B?SWhKeVRISXZYeWZEcUtURGtlSU5ObWtYNHUyUU1DaWN2TGQ1MS9EdHYrdXM0?=
- =?utf-8?B?UjVRVi9kMUpZUVRWNFlPVUdUS2pRSFU1WUJqT1VOK002eDgzV1ZydDZKVldt?=
- =?utf-8?B?NTNSRG5vb05NLzFrQzMrSnRvVlFCWDRVVUFuanROeXJRUFlibVgrWFFOZEZz?=
- =?utf-8?B?eDl4djlTelBlZ0RLUlFvd3lhT0pId0dDOVBnS2pxWEtqTTA5eWF3VWxjZDVn?=
- =?utf-8?B?NDI0WFN4Y0ZweXUzK0YrYkpyTXZKaUxmSjZnOVN1UTBjem00MGhqQWU5WGRI?=
- =?utf-8?B?aVRHaEZsUVVldWJ1UmQ5cVByUzBiNnY4OWlNZjBsSUVpRUl3VDUxQXBUVk1k?=
- =?utf-8?B?SHJrMWcxbXhoZS85dG1RUDluVFZyN0NZNldMK1JSaVJIZktHQ1NEam4xei9O?=
- =?utf-8?B?ZVNzVERzdk55a1NGVGtJQm5maWFMb2pOT1AzdEp5L1RyRnVFZ1JSKy9zYVZK?=
- =?utf-8?B?ZGYyT0JQWGprUVNRcFFTaHJjT2xOK2NvQTB0YlUydm41WmlkWXkrbjQrNFk0?=
- =?utf-8?B?WnJBZnBxSmlYV2owL2M4Nk1hM1pTaHNZYW1va1RpR0h1VHpvdTdoSHRpa0pP?=
- =?utf-8?B?cUxPQUdxdnN5V0UzMGFVOUdRY1V0Z1NLK3N2TmJPUWZQTyt2QjdqWGFTSjFp?=
- =?utf-8?B?QW1WN3pRaGdtUDJ6a0RxQysrSHZhREI3WGU3UFdsZUJLeTZqMDRxMk5xVjBv?=
- =?utf-8?B?STJLelRPOFVUU1FXRy9qdGQzNGtCcWpra3FNUlNiL1QwdXRzcStjeTk1Vm1X?=
- =?utf-8?B?bnVHNG1GeU82bFpxbGxjRHZlb0M2SUhLZlBnNTZOeXpNQVdOa3Rsc1IzSEhN?=
- =?utf-8?B?Qnpia05aMWlodDF6ODZ3YndJaW50ZlQ2NEFTaDBsZUNzeG5WVHpRaW10V0hQ?=
- =?utf-8?Q?NDLbMXMmb5fkP3Zt+x?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8cc9d2b7-f7de-4f24-44ec-08df302699dc
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 10:24:05.9706
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pomOon7gX7g3TuecT060NJP+ToJ3bDALw0HT/RyQBC3Pi7zqXb6WTIFdTzBvAqoG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5724
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org
+From: role <bezrabotni@gmail.com>
+Subject: [BUG] TPPS/2 Elan TrackPoint middle/right buttons not reported on
+ ThinkPad T14s Gen 2
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/21/26 17:42, Albert Esteve wrote:
-> dma-heap already supports charging a specific cgroup at allocation
-> time via charge_fd in DMA_HEAP_IOCTL_ALLOC. However, dma-bufs can
-> originate from any exporter (DRM, V4L2, etc.), and the allocator may
-> not know the final owner at allocation time.
-> 
-> Add DMA_BUF_IOCTL_XFER_CHARGE to transfer a dma-buf's memcg charge
-> to a different cgroup after allocation. The target is identified by
-> charge_fd, which may be a cgroupfd or a pidfd.
-> 
-> The transfer charges the new cgroup before uncharging the old one,
-> preserving the original charge on failure. An atomic cmpxchg on
-> dmabuf->memcg prevents races with concurrent transfers.
-> 
-> Usage example:
->   int cg_fd = open("/sys/fs/cgroup/clients/app1", O_RDONLY | O_DIRECTORY);
-> 
->   struct dma_buf_transfer_charge xfer = {
->       .charge_fd = cg_fd,
->   };
->   ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer);
->   /* charge now on app1's cgroup */
->   close(cg_fd);
-> 
-> Signed-off-by: Albert Esteve <aesteve@redhat.com>
-> ---
->  drivers/dma-buf/dma-buf.c    | 77 ++++++++++++++++++++++++++++++++++++++++++++
->  include/linux/memcontrol.h   |  9 ++++++
->  include/uapi/linux/dma-buf.h | 26 +++++++++++++++
->  mm/memcontrol.c              | 40 +++++++++++++++++++++++
->  4 files changed, 152 insertions(+)
-> 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index f31f49ebd0af..7fa607d9bf65 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -540,6 +540,80 @@ static long dma_buf_import_sync_file(struct dma_buf *dmabuf,
->  }
->  #endif
->  
+Subject: [BUG] TPPS/2 Elan TrackPoint middle/right buttons not reported 
+on ThinkPad T14s Gen 2
 
-A single line code comment what this is all about would be nice to have.
+Summary:
+On a Lenovo ThinkPad T14s Gen 2, the middle and right buttons of the 
+TPPS/2 Elan TrackPoint do not generate any input events at the kernel 
+level, while the left button and pointing stick movement work correctly. 
+The same hardware works without issues under Windows 11, indicating this 
+is a Linux driver initialization or reporting issue, not a hardware fault.
 
-Some note to look at struct dma_buf_transfer_charge for details is most likely good enough.
+Environment:
 
-> +static long dma_buf_xfer_charge(struct dma_buf *dmabuf,
-> +				const void __user *user_data)
-> +{
-> +	struct cgroup *cgrp;
-> +	struct cgroup_subsys_state *css;
-> +	struct dma_buf_transfer_charge arg;
-> +	struct mem_cgroup *memcg;
-> +	struct task_struct *task;
-> +	const struct cred *tcred;
-> +	unsigned int pidfd_flags;
-> +	int ret = 0;
-> +
-> +	if (copy_from_user(&arg, user_data, sizeof(arg)))
-> +		return -EFAULT;
-> +
-> +	if (!IS_ENABLED(CONFIG_MEMCG))
-> +		return 0;
-> +
-> +	if (arg.__padding != 0)
-> +		return -EINVAL;
-> +
-> +	cgrp = cgroup_get_from_fd(arg.charge_fd);
-> +	if (!IS_ERR(cgrp)) {
-> +		/* charge_fd is a cgroupfd */
-> +		rcu_read_lock();
-> +		css = cgroup_css(cgrp, &memory_cgrp_subsys);
-> +		if (!css || !css_tryget_online(css)) {
-> +			rcu_read_unlock();
-> +			cgroup_put(cgrp);
-> +			return -ENOENT;
-> +		}
-> +
-> +		memcg = mem_cgroup_from_css(css);
-> +		rcu_read_unlock();
-> +
-> +		ret = security_dma_buf_charge_cgroup(current_cred(), cgrp);
-> +		cgroup_put(cgrp);
-> +		if (ret) {
+     Laptop: Lenovo ThinkPad T14s Gen 2
+
+     Distribution: Fedora Atomic (Sway)
+
+     Kernel: 7.2.9-201.fc44.x86_64
+
+     libinput: libinput-1.31.3-1.fc44.x86_64
+
+     Input device name: TPPS/2 Elan TrackPoint
+
+     Device node: /dev/input/event4
+
+     Bus/Vendor/Product: 0x11 / 0x2 / 0xa
+
+Problem Description:
+The kernel input device declares support for BTN_LEFT, BTN_RIGHT, and 
+BTN_MIDDLE, but when physically pressing the middle or right button, 
+evtest and libinput debug-events only show events for BTN_LEFT and 
+REL_X/REL_Y. The middle and right buttons produce no EV_KEY events 
+whatsoever.
+
+Evidence:
+
+     - evtest shows the device's declared capabilities include the 
+middle and right buttons:
+
+         Event type 1 (EV_KEY)
+           Event code 272 (BTN_LEFT)
+           Event code 273 (BTN_RIGHT)
+           Event code 274 (BTN_MIDDLE)
+
+     - evtest raw output (pressing left button and moving the stick 
+produces events; pressing middle/right produces nothing):
+
+         Event: time ..., type 1 (EV_KEY), code 272 (BTN_LEFT), value 1
+         Event: time ..., type 2 (EV_REL), code 1 (REL_Y), value 1
+         // No BTN_MIDDLE or BTN_RIGHT events observed
+
+     - libinput debug-events also shows no middle/right button events, 
+only left button and movement events for event4.
+
+     - libinput quirks list --verbose /dev/input/event4 did not reveal 
+any active quirk rules disabling the middle or right buttons.
+
+Attempted Workarounds (all ineffective):
+     - Configuring scroll_method on_button_down / scroll_button 
+BTN_MIDDLE for the TrackPoint in Sway.
+     - Using libinput local-overrides.quirks to try to explicitly enable 
+the buttons.
+     - Removing the psmouse.synaptics_intertouch=1 kernel parameter 
+(currently removed).
+
+Request:
+     Please advise whether the psmouse/trackpoint driver has a known 
+issue with the Elan TrackPoint on this specific ThinkPad model, or if 
+additional debugging information is needed from my side. Since the 
+hardware is fully functional under Windows 11, I suspect the driver may 
+be failing to properly initialize the TrackPoint's extended button 
+functionality during PS/2 protocol negotiation.
 
 
-> +			mem_cgroup_put(memcg);
-> +			return ret;
 
-Maybe use goto skip_transfer; instead?
+Additional information:
 
-> +		}
-> +	} else {
-> +		/* charge_fd is a pidfd  */
-> +		task = pidfd_get_task(arg.charge_fd, &pidfd_flags);
-> +		if (IS_ERR(task))
-> +			return PTR_ERR(task);
-> +
-> +		tcred = get_task_cred(task);
-> +		ret = security_dma_buf_charge_task(current_cred(), tcred);
-> +		put_cred(tcred);
-> +		if (ret) {
-> +			put_task_struct(task);
-> +			return ret;
-> +		}
-> +
-> +		memcg = get_mem_cgroup_from_mm(task->mm);
-> +		put_task_struct(task);
-> +	}
-> +
-> +	if (dmabuf->memcg == memcg)
-> +		goto skip_transfer;
-> +
-> +	if (!mem_cgroup_transfer_dmabuf_charge(dmabuf, memcg)) {
-> +		ret = -ENOMEM;
-> +		goto skip_transfer;
-> +	}
-> +
-> +	return 0;
-> +
-> +skip_transfer:
-> +	mem_cgroup_put(memcg);
-> +	return ret;
-> +}
-> +
->  static long dma_buf_ioctl(struct file *file,
->  			  unsigned int cmd, unsigned long arg)
->  {
-> @@ -590,6 +664,9 @@ static long dma_buf_ioctl(struct file *file,
->  		return dma_buf_import_sync_file(dmabuf, (const void __user *)arg);
->  #endif
->  
-> +	case DMA_BUF_IOCTL_XFER_CHARGE:
-> +		return dma_buf_xfer_charge(dmabuf, (const void __user *)arg);
-> +
->  	default:
->  		return -ENOTTY;
->  	}
-> diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> index aa08fbb0c26c..3a6acfda1423 100644
-> --- a/include/linux/memcontrol.h
-> +++ b/include/linux/memcontrol.h
-> @@ -674,6 +674,9 @@ int mem_cgroup_swapin_charge_folio(struct folio *folio, unsigned short id,
->  bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
->  			      gfp_t gfp_mask);
->  
-> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> +				       struct mem_cgroup *new_memcg);
-> +
->  void __mem_cgroup_uncharge(struct folio *folio);
->  
->  /**
-> @@ -1183,6 +1186,12 @@ static inline bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf,
->  	return true;
->  }
->  
-> +static inline bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> +						     struct mem_cgroup *new_memcg)
-> +{
-> +	return true;
-> +}
-> +
->  static inline void mem_cgroup_uncharge(struct folio *folio)
->  {
->  }
-> diff --git a/include/uapi/linux/dma-buf.h b/include/uapi/linux/dma-buf.h
-> index e827c9d20c5d..4970a7b8e08e 100644
-> --- a/include/uapi/linux/dma-buf.h
-> +++ b/include/uapi/linux/dma-buf.h
-> @@ -168,6 +168,31 @@ struct dma_buf_import_sync_file {
->  	__s32 fd;
->  };
->  
-> +/**
-> + * struct dma_buf_transfer_charge - Transfer a dma-buf's memcg charge
-> + *
-> + * Any holder of a dma-buf file descriptor can perform a
-> + * DMA_BUF_IOCTL_XFER_CHARGE to attribute the buffer's memory
-> + * cost to a specific cgroup, or move it from one cgroup to
-> + * another.  The ioctl charges the new cgroup before uncharging
-> + * the old one atomically.  On failure the original charge is
-> + * preserved.  If the buffer has no existing charge, a new
-> + * charge is established.
-> + */
-> +struct dma_buf_transfer_charge {
-> +	/**
-> +	 * @charge_fd: File descriptor identifying the target cgroup.
-> +	 *
-> +	 * May be either a pidfd, in which case the charge moves to the
-> +	 * memory cgroup of the referenced process, or a cgroupfd obtained
-> +	 * by opening a cgroup v2 directory, in which case the charge moves
-> +	 * directly to that cgroup's memory controller.
-> +	 */
-> +	__u32 charge_fd;
-> +	/** @__padding: Reserved, must be zero */
-> +	__u32 __padding;
+uname -r:
+     7.2.9-201.fc44.x86_64
 
-Maybe rename to flags, put before charge_fd and add "/* unused for now */".
+cat /proc/version:
+     Linux version 7.2.9-201.fc44.x86_64 
+(mockbuild@3cc06c60463046bc9e2813f8ad822a95) (gcc (GCC) 16.2.1 20260819 
+(Red Hat 16.2.1-2), GNU ld version 2.46.1-1.fc44) #1 SMP PREEMPT_DYNAMIC 
+Fri Oct  9 15:04:46 UTC 2026
 
-> +};
-> +
->  #define DMA_BUF_BASE		'b'
->  #define DMA_BUF_IOCTL_SYNC	_IOW(DMA_BUF_BASE, 0, struct dma_buf_sync)
->  
-> @@ -179,5 +204,6 @@ struct dma_buf_import_sync_file {
->  #define DMA_BUF_SET_NAME_B	_IOW(DMA_BUF_BASE, 1, __u64)
->  #define DMA_BUF_IOCTL_EXPORT_SYNC_FILE	_IOWR(DMA_BUF_BASE, 2, struct dma_buf_export_sync_file)
->  #define DMA_BUF_IOCTL_IMPORT_SYNC_FILE	_IOW(DMA_BUF_BASE, 3, struct dma_buf_import_sync_file)
-> +#define DMA_BUF_IOCTL_XFER_CHARGE	_IOW(DMA_BUF_BASE, 4, struct dma_buf_transfer_charge)
->  
->  #endif
-> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-> index e94222237d31..d994a4b2d35e 100644
-> --- a/mm/memcontrol.c
-> +++ b/mm/memcontrol.c
-> @@ -5688,6 +5688,46 @@ bool mem_cgroup_charge_dmabuf(struct dma_buf *dmabuf, struct mem_cgroup *memcg,
->  	return true;
->  }
->  
-> +/**
-> + * mem_cgroup_transfer_dmabuf_charge - move a dma-buf charge
-> + * @dmabuf: buffer to transfer charge
-> + * @new_memcg: target memcg; caller must hold a reference
-> + *
-> + * Transfers the charge for @dmabuf to @new_memcg and, on
-> + * success, stores @new_memcg in @dmabuf->memcg.
-> + * Returns %true on success, %false if the charge against @new_memcg
-> + * failed or a concurrent transfer raced on @dmabuf->memcg.
-> + * On failure the caller retains its reference to @new_memcg.
-> + */
-> +bool mem_cgroup_transfer_dmabuf_charge(struct dma_buf *dmabuf,
-> +				       struct mem_cgroup *new_memcg)
-> +{
-> +	struct mem_cgroup *old_memcg = READ_ONCE(dmabuf->memcg);
-> +	unsigned int nr_pages = PAGE_ALIGN(dmabuf->size) >> PAGE_SHIFT;
+sudo evtest /dev/input/event4:
+     Input driver version is 1.0.1
+     Input device ID: bus 0x11 vendor 0x2 product 0xa version 0x63
+     Input device name: "TPPS/2 Elan TrackPoint"
+     Supported events:
+       Event type 0 (EV_SYN)
+       Event type 1 (EV_KEY)
+         Event code 272 (BTN_LEFT)
+         Event code 273 (BTN_RIGHT)
+         Event code 274 (BTN_MIDDLE)
+       Event type 2 (EV_REL)
+         Event code 0 (REL_X)
+         Event code 1 (REL_Y)
+     Properties:
+       Property type 0 (INPUT_PROP_POINTER)
+       Property type 5 (INPUT_PROP_POINTING_STICK)
+     Testing ... (interrupt to exit)
+     Event: time 1792663533.898538, type 1 (EV_KEY), code 272 
+(BTN_LEFT), value 1
+     Event: time 1792663533.898538, -------------- SYN_REPORT ------------
+     Event: time 1792663534.025420, type 1 (EV_KEY), code 272 
+(BTN_LEFT), value 0
+     Event: time 1792663534.025420, -------------- SYN_REPORT ------------
+     Event: time 1792663543.308504, type 2 (EV_REL), code 1 (REL_Y), 
+value -1
+     Event: time 1792663543.308504, -------------- SYN_REPORT ------------
+     Event: time 1792663549.938592, type 2 (EV_REL), code 0 (REL_X), value 1
+     Event: time 1792663549.938592, type 2 (EV_REL), code 1 (REL_Y), value 1
 
-That doesn't work as easily as this.
+sudo libinput debug-events:
+     -event5   DEVICE_ADDED                 ELAN0676:00 04F3:3195 Mouse  
+      seat0 default group1  cap:p left scroll-nat scroll-button
+     -event6   DEVICE_ADDED                 ELAN0676:00 04F3:3195 
+Touchpad    seat0 default group1  cap:pg  size 114x58mm tap (dl off) 
+left scroll-nat scroll-2fg-edge click-buttonareas-clickfinger dwt-on dwtp-on
+     -event7   DEVICE_ADDED                 RAYD0001:00 2386:4B48       
+      seat0 default group2  cap:t  size 320x180mm ntouches 10 calib
+     -event9   DEVICE_ADDED                 Video Bus            seat0 
+default group3  cap:k
+     -event10  DEVICE_ADDED                 Intel HID events           
+seat0 default group4  cap:k
+     -event2   DEVICE_ADDED                 Power Button           seat0 
+default group5  cap:k
+     -event1   DEVICE_ADDED                 Lid Switch           seat0 
+default group6  cap:S
+     -event0   DEVICE_ADDED                 Sleep Button           seat0 
+default group7  cap:k
+     -event3   DEVICE_ADDED                 AT Translated Set 2 
+keyboard      seat0 default group8  cap:k
+     -event4   DEVICE_ADDED                 TPPS/2 Elan TrackPoint       
+     seat0 default group9  cap:p left scroll-nat scroll-button
+     -event8   DEVICE_ADDED                 ThinkPad Extra Buttons       
+     seat0 default group10 cap:k
+     -event4   POINTER_MOTION               +0.000s   -0.31/ -0.31 ( 
+-1.00/ -1.00)
+      event4   POINTER_MOTION            2  +0.009s   -9.41/ -9.41 ( 
+-3.00/ -3.00)
+      event4   POINTER_MOTION            3  +0.019s   -5.55/ -8.32 ( 
+-2.00/ -3.00)
+      event4   POINTER_MOTION            4  +0.029s   -4.51/ -4.51 ( 
+-2.00/ -2.00)
+      event4   POINTER_MOTION            5  +0.049s   -0.80/ -0.80 ( 
+-1.00/ -1.00)
+      event4   POINTER_MOTION            6  +0.058s    0.00/ -1.00 ( 
++0.00/ -1.00)
+      event4   POINTER_MOTION            7  +0.068s    0.00/  1.00 ( 
++0.00/ +1.00)
+      event4   POINTER_BUTTON               +1.889s  BTN_LEFT (272) 
+pressed, seat count: 1
+      event4   POINTER_BUTTON               +2.026s  BTN_LEFT (272) 
+released, seat count: 0
 
-DMA-buf can contain litterally *anything*, ranging from system memory over device memory all the way to functional HW blocks. In other words doorbell, GWS, GDS, OA, I2C, I2S, any random data consuming or providng HW block...
+sudo dmesg | grep -i -E "psmouse|trackpoint|elan|input":
+     [    0.712414] input: Sleep Button as 
+/devices/platform/PNP0C0E:00/input/input0
+     [    0.712517] input: Lid Switch as 
+/devices/platform/PNP0C0D:00/input/input1
+     [    0.712535] input: Power Button as 
+/devices/platform/LNXPWRBN:00/input/input2
+     [    1.007578] input: AT Translated Set 2 keyboard as 
+/devices/platform/i8042/serio0/input/input3
+     [    1.284865] psmouse serio1: trackpoint: Elan TrackPoint 
+firmware: 0xa1, buttons: 3/3
+     [    1.309768] input: TPPS/2 Elan TrackPoint as 
+/devices/platform/i8042/serio1/input/input5
+     [    2.160064] input: ELAN0676:00 04F3:3195 Mouse as 
+/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0676:00/0018:04F3:3195.0001/input/input6
+     [    2.160228] input: ELAN0676:00 04F3:3195 Touchpad as 
+/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0676:00/0018:04F3:3195.0001/input/input8
+     [    2.160285] hid-generic 0018:04F3:3195.0001: input,hidraw0: I2C 
+HID v1.00 Mouse [ELAN0676:00 04F3:3195] on i2c-ELAN0676:00
+     [    2.232543] input: RAYD0001:00 2386:4B48 Touchscreen as 
+/devices/pci0000:00/0000:00:15.1/i2c_designware.1/i2c-1/i2c-RAYD0001:00/0018:2386:4B48.0002/input/input9
+     [    2.232641] hid-generic 0018:2386:4B48.0002: input,hidraw1: I2C 
+HID v1.00 Device [RAYD0001:00 2386:4B48] on i2c-RAYD0001:00
+     [    2.356491] input: ELAN0676:00 04F3:3195 Mouse as 
+/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0676:00/0018:04F3:3195.0001/input/input11
+     [    2.356652] input: ELAN0676:00 04F3:3195 Touchpad as 
+/devices/pci0000:00/0000:00:15.0/i2c_designware.0/i2c-0/i2c-ELAN0676:00/0018:04F3:3195.0001/input/input13
+     [    2.356803] hid-multitouch 0018:04F3:3195.0001: input,hidraw0: 
+I2C HID v1.00 Mouse [ELAN0676:00 04F3:3195] on i2c-ELAN0676:00
+     [    2.388505] input: RAYD0001:00 2386:4B48 as 
+/devices/pci0000:00/0000:00:15.1/i2c_designware.1/i2c-1/i2c-RAYD0001:00/0018:2386:4B48.0002/input/input14
+     [    2.388562] hid-multitouch 0018:2386:4B48.0002: input,hidraw1: 
+I2C HID v1.00 Device [RAYD0001:00 2386:4B48] on i2c-RAYD0001:00
+     [    2.520171] input: ThinkPad Extra Buttons as 
+/devices/platform/thinkpad_acpi/input/input16
+     [    3.057098] input: Video Bus as 
+/devices/pci0000:00/acpi.video_bus.0/input/input17
+     [   87.858014] input: Intel HID events as 
+/devices/platform/INTC1051:00/input/input18
+     [   88.311777] input: PC Speaker as 
+/devices/platform/pcspkr/input/input19
+     [   91.694203] snd_hda_codec_alc269 ehdaudio0D0:    inputs:
+     [   91.767147] input: sof-hda-dsp Mic as 
+/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input20
+     [   91.767353] input: sof-hda-dsp Headphone as 
+/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input21
+     [   91.767490] input: sof-hda-dsp HDMI/DP,pcm=3 as 
+/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input22
+     [   91.767646] input: sof-hda-dsp HDMI/DP,pcm=4 as 
+/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input23
+     [   91.767802] input: sof-hda-dsp HDMI/DP,pcm=5 as 
+/devices/pci0000:00/0000:00:1f.3/skl_hda_dsp_generic/sound/card0/input24
 
-For memory the "size" is the actually number of bytes the buffer represents, but for everything else it is just an arbitary number given by the exporter. In most cases just 1 or actually number of HW blocks/channels, but for GDS for example it is actually a pretty large number.
+cat /sys/class/dmi/id/modalias:
+dmi:bvnLENOVO:bvrN35ET66W(1.66):bd05/18/2026:br1.66:efr1.46:svnLENOVO:pn20WNS1B010:pvrThinkPadT14sGen2i:rvnLENOVO:rn20WNS1B010:rvrSDK0J40697WIN:cvnLENOVO:ct10:cvrNone:skuLENOVO_MT_20WN_BU_Think_FM_ThinkPadT14sGen2i:pfaThinkPadT14sGen2i:
 
-Saying that you most likely need some flag from the exporter if charging and/or the changing of charging should be possible or not. Otherwise you can potentially do quite a bunch of nonsense with that.
 
-Regards,
-Christian.
+Best Regards,
 
-> +
-> +	if (!mem_cgroup_disabled() && try_charge(new_memcg, GFP_KERNEL, nr_pages))
-> +		return false;
-> +
-> +	if (cmpxchg(&dmabuf->memcg, old_memcg, new_memcg) != old_memcg) {
-> +		if (!mem_cgroup_is_root(new_memcg))
-> +			refill_stock(new_memcg, nr_pages);
-> +		return false;
-> +	}
-> +
-> +	mod_memcg_state(new_memcg, MEMCG_DMABUF, nr_pages);
-> +
-> +	if (old_memcg) {
-> +		/* Uncharge old cgroup */
-> +		mod_memcg_state(old_memcg, MEMCG_DMABUF, -nr_pages);
-> +		if (!mem_cgroup_is_root(old_memcg))
-> +			refill_stock(old_memcg, nr_pages);
-> +		/* unref from buffer - buffer keeps new ref to new_memcg */
-> +		mem_cgroup_put(old_memcg);
-> +	}
-> +
-> +	return true;
-> +}
-> +
->  /**
->   * mem_cgroup_uncharge_dmabuf - uncharge a dma-buf from its memcg
->   * @dmabuf: buffer to uncharge
-> 
+Robert
 
