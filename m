@@ -1,104 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792664543;
-	b=M3xSje+/21Kh3AM1Sox45IVDb/u9nsMi6SkaZxlAM1ZlPeAF7UmIWfMhiyoFdfH/1byt
-	 5hBJdZ0Z65XxITZpsus4bj4JA9Q03YhA/vAr61L9+mnhQKg49a8rfLMqNqyPewcQPKPHG
-	 jKbRDAz/UWjiLzALW9R4LPSixrp/eW59PtMDh7qFGEAb7YM6v0o7QPxM6qPbsaBqNgkKZ
-	 /gfmV3pmQ0YgJD8W+OjCJjKhu9zgfS4lSca+xS59EmHBfT5VKwOhnxFd4eON36YE/nUJr
-	 g+L3XN8waD5TV/T9cLkX7vJ8Hn+1KvLAUaa/oKpNPPuPxSIh7GTSg+4V8aV/3sx10zg==
+	t=1792664599;
+	b=tH+JNdpIl+QCVNAjjD9zzKXK1FSwSYUUOOOE6pDxiN3AW+5Ui0cnRzIIDR8aLqJoKtSC
+	 Py+DgkPcA2rpQ0TXn6PqeiL6hNnAK4q5lFlX1G/bGCggC+zz1r55gmxxj9F5qmyEX5a+h
+	 p0mZAsDOmCv/CDHHOd/BUpzVuNNDtsaDuXeXPdRvdZxzerMxkbYlYh4EGf3R8Iw5m4tpm
+	 eEDAjTo7j3MZ8y7ol88sMmDK0XWemXFBjnbh8xYR3UYlCvJe3keJGxpJRZXaBHxxVExmf
+	 LwTUD705lBLQzDMUVV3F1vbRbyNyDoLodwRlyiml2H/6O9yCGo20QHqPEMqKylecLaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664543;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=X1hkH/WoS1PUodSVVDSJVTIP1ucGICUHF3hWVbzAKEQ=;
-	b=d+YPWxtMu7hduJoJ3NMJJhnkugmyiKCogBCwpl6/iVNYaiYDRk0oVC13nIW+k69MY+ml
-	 yX5jbUTg7hQGVrY7OfCh+HJPPP7PyHDcWFnPsQxKQWPpchBpaR1P0KchafX71psd1UWpD
-	 UQJkAu4lrKdVLgbtA0umGAjxw2y6PQomnxPEaIQ+P9OtJuq/IM9BmLq51xC0GewRT0LG9
-	 V5B/7KnttlLP1l0+xtSKtjVfpjMy2N6MrrDPUKSi3JxSC/DimCbiVLrUMQ1FNjMlcc2VS
-	 soGPZZI6dHBKOamVt5lwtPtb9du/cFLHFFN7AJvwsnkYRSX7fCur60/2UaAfoixp9sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664599;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=aZ3FSAhacOoA0G/LYvZBcAVEF7qI69cr77OqatyrH7k=;
+	b=w/FirYVdee2zk+1mgzdWDj8uDZ3C7Q4SzVWh9pGYPqrhZX2vdBVxQ1nVkYN0K1KbgrBp
+	 +4RPWkLkv9Mim3Ao4BaCH04t32ZfR8Rms9wNAlLMpm5To8+9aFdFSs7T+2dkCTSAVYYjK
+	 wUYZ1o6A7euDKMb257SF9PVl9iCyZ1gp38Pp9C3f4w6eFo2PSq1xlPq7O9rdIVY8vL+07
+	 xU/uPhtBaciD3asj/h2pcXsnog/cdpn2r/4719Rjb9WwhgMQULecfN0VB27xXHTlu9Kkq
+	 a+oAI+rwxRT7MUena8pHEfBmU23FGSX3aHiihl4UnDnFS4m+wLCTUzRI2n48irgWJ3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eZhprx+H;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B978606A322
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B978606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=i7gz2s1V;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D300606A31B;
+	Thu, 22 Oct 2026 10:23:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D300606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=eZhprx+H
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20b122af8so2646175e9.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792664541; x=1793269341; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=X1hkH/WoS1PUodSVVDSJVTIP1ucGICUHF3hWVbzAKEQ=;
-        b=eZhprx+HRqcaL2C5RomVkw5pd9xuEkURWxrCHr2tDbLRt3CYIucTGqF9jEhN8m5z+J
-         wxYD9g1J7yWsweNKfd1yfNWmdN4eePhXf/jU44Pc/dkHm99AkM5NFQbDFSbulgnA9A2P
-         cnfD0Ke4Rgn1tETDwGRXODCBrUMFlHaBTC2IYojDVmh80tKnnuGyR/2hOBS2svsEJAG+
-         rQknlhjKtTzkR0D9jKcAwT3ZOgYxytH9eAyPYdZTc66ZMEIXNRJFNKNgyy7kw8ahcN0s
-         4IrrZjAsV4OAakcfeN3bxafuXNdYY/4f+ZyzIxm60/AG+XUspYGjex9w6rbfQaHMjRd8
-         EAUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792664541; x=1793269341;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X1hkH/WoS1PUodSVVDSJVTIP1ucGICUHF3hWVbzAKEQ=;
-        b=fd4jVjISfybZ2sGQ/Ei+PvxnW1F8faPsZqRos7VRN6GZAD7CeqAxIGy97u9M+Qs0XD
-         UlvbasR/8W1XthunmPPc1VvTfPv4xWfMQ6QDRSuLJitC980HB3jxxZWYMLd5MvYFbYAx
-         zo1cK9fHD306amtW0DKs1hoWI6Wmm+iZRT37sO1PRekMmsBzpReAM11UZyYe6S2kacji
-         L4TFBiw0aXCTICA7QFF9iD18Qa+hf97dnvUTvn8AbsCzeTXDbVttbsZNR+LFMtGaS7QX
-         K+TTLYeGbkWzT/oNkESqiA+MQXqS9QLrcswv2uK8Ib6vj6bELQsTlqJOJJGxU7YX1wdR
-         Cyew==
-X-Forwarded-Encrypted: i=1; AKwUvBx+Elj+dJHM8oVArRglWCxPSclrVs5idGTFAvAasItPi/hBGiBpOwshEWG+EZgI9j3LZvAkLhx09g73GMI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYII4muZDBPQ4guf3/3YV39dQPmPoQzQndCHnQeDrBW/C0FXAcT0
-	waxxHGZmBcsESRLQPYmt1ysIO/O5kmDp4Vu2IuvC0GDPTMJVjzKtg8h/
-X-Gm-Gg: AYBFou0k+29y692I3TXnupceptlXJmPT/wv+nNNS83XQJ6xV3dGH/xgA+W8mpBFVZhq
-	UBPDaugrLOthYfzuEpYGyLlqeeBzGQneQxwJvKWF4wyo5i+/gGcDVWmwYGFwxzqqX1N9Lzzm3sl
-	Fw8BxE4MuY0kMjsy8n0HHtlZLx7OSHEEX/TNnWz9ak7lOIJttpn8FbQRefnY2OV9tlwVU/9Avjz
-	/KBJbU52ixEyn2G7ZQq3rCVv2WDqCz4rQle0+x74mZAjuHLDmmMCM4VGh9wXvXA+xiTnl+R81tP
-	5g7hR98CvxZJCqv5MBKHulNjMQT6/b2GbluCSibPlCbZaIEfqcywImfsSugnJgFz7fwOgAdZnFV
-	8zTWwMCvBBhct9fAk7jTY2BkWXeO125bu/W1vPi6uBuGfsjfRTlDCyb1XKPDMAsYsWh+08RypfI
-	mhpf8N5FFs1araRwiJR3QeWqVL//5RBlFe0STdYEsqMA4TWNwLBDNtbCT1Zadd8sJPsekmLL0tp
-	l4uDRvBlj7FpzN8qmzBG1feGBZWHtkeeaaZFWCgFpj91FzzI5qBKaftx2r3JzMhOIIe19MgDewt
-	4YDrtnuZPyexVx5jkA==
-X-Received: by 2002:a05:600c:3e85:b0:4a1:e6c8:ff74 with SMTP id 5b1f17b1804b1-4a1fdd575ffmr96476065e9.29.1792664541152;
-        Thu, 22 Oct 2026 03:22:21 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b37df4sm60298495e9.6.2026.10.22.03.22.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 03:22:20 -0700 (PDT)
-Date: Thu, 22 Oct 2026 11:22:18 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Claudiu Manoil
- <claudiu.manoil@nxp.com>, Wei Fang <wei.fang@nxp.com>, Clark Wang
- <xiaoning.wang@nxp.com>, Ioana Ciornei <ioana.ciornei@nxp.com>, Zefir
- Kurtisi <zefir.kurtisi@westermo.com>, Zefir Kurtisi
- <zefir.kurtisi@gmail.com>, netdev@vger.kernel.org, imx@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 net 2/4] net: enetc: do not rely on mEMAC hardware
- frame padding
-Message-ID: <20261022112218.11a1faa8@pumpkin>
-In-Reply-To: <euqz7djxfn4tqbd63ymcj2bnu7k2bb6hzlmeilao3rvjdhyisf@bk3wj5hinfnr>
-References: <20261021145314.1435049-1-vladimir.oltean@nxp.com>
-	<20261021145314.1435049-3-vladimir.oltean@nxp.com>
-	<20261022093359.723c7e93@pumpkin>
-	<euqz7djxfn4tqbd63ymcj2bnu7k2bb6hzlmeilao3rvjdhyisf@bk3wj5hinfnr>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=i7gz2s1V
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 04ECF1595;
+	Thu, 22 Oct 2026 03:23:14 -0700 (PDT)
+Received: from e121740.arm.com (e121740.arm.com [10.33.8.69])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5DDEB3F7B4;
+	Thu, 22 Oct 2026 03:23:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1792664597; bh=LlWXz+PA+zM435hlpcLMlUTS430tdpoSr+PxDjy+z5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i7gz2s1V+8RC3RRnbxmDymuL7h2jDLYk4Ge6j4Bzn2SRLYA7flQ08O1OMxby7Bu56
+	 fhWnOI1gmkJasfrzwWWxO/ZndH9TcprW7UxVqeBKx6QilV93iAtNRoSjPa62tIPENr
+	 TetS7yunMuQpOyiteMUIdn8f2NIqA0VkME13bNHs=
+Date: Thu, 22 Oct 2026 11:23:04 +0100
+From: Philip Radford <philip.radford@arm.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, linux-pm@vger.kernel.org,
+	james.quinlan@broadcom.com, f.fainelli@gmail.com,
+	vincent.guittot@linaro.org, etienne.carriere@st.com,
+	peng.fan@oss.nxp.com, michal.simek@amd.com, quic_sibis@quicinc.com,
+	dan.carpenter@linaro.org, d-gole@ti.com, souvik.chakravarty@arm.com,
+	Cristian Marussi <cristian.marussi@arm.com>
+Subject: Re: [PATCH v9 03/13] firmware: arm_scmi: Refactor powercap domain
+ layout
+Message-ID: <atnkCP6oB4xT65dV@e121740.arm.com>
+References: <20260909220437.1254412-1-philip.radford@arm.com>
+ <20260909220437.1254412-4-philip.radford@arm.com>
+ <20261022-spotted-impetuous-kittiwake-b2adcd@sudeepholla>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,96 +67,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-spotted-impetuous-kittiwake-b2adcd@sudeepholla>
 
-On Thu, 22 Oct 2026 12:41:49 +0300
-Vladimir Oltean <vladimir.oltean@nxp.com> wrote:
+On Thu, Oct 22, 2026 at 11:10:06AM +0100, Sudeep Holla wrote:
+> On Wed, Sep 09, 2026 at 10:04:27PM +0000, Philip Radford wrote:
+> > From: Cristian Marussi <cristian.marussi@arm.com>
 
-> On Thu, Oct 22, 2026 at 09:33:59AM +0100, David Laight wrote:
-> > On Wed, 21 Oct 2026 17:53:12 +0300
-> > vladimir.oltean@nxp.com wrote:
-> >   
-> > > The driver sets the ENETC_PM0_CMD_TXP bit to pad short buffers.
-> > > This works, however sending short frames from user space and looking at
-> > > the padding bytes inserted by the MAC at the link partner, we notice on
-> > > LS1028A that the first octet of padding is sometimes not 0.
-> > > 
-> > > This is fine per 802.3, which does not require that the padding is zero.
-> > > 
-> > > However, there is an unproven suspicion that the padding bytes may
-> > > come from internal memories, and unfortunately I couldn't get sufficient
-> > > priority for this octet's origin to be investigated by hardware
-> > > engineers.
-> > > 
-> > > To be defensive and not leak any sensitive information from the SoC,
-> > > let's pad all frames to ETH_ZLEN in software, so that the MAC doesn't
-> > > have to do anything.
-> > > 
-> > > There are 2 distinct cases to handle, for GSO and non-GSO. For non-GSO
-> > > things are trivial; we need to call eth_skb_pad(). For GSO, things are
-> > > not simple, because user space may set gso_size to a very small value,
-> > > which could make the GSO super-skb smaller than ETH_ZLEN;  
+Hi,
+
 > > 
-> > That isn't sensible.
-> > The minimum frame is 64 bytes (including FCS), subtract that, the MAC
-> > header (14 bytes), minimum IP header (20), minimum TCP (20) and that
-> > leaves 6 bytes for user data.
-> > I doubt it is sensible to do GSO for anything under the minimum mtu
-> > (128 bytes rings a bell somewhere).  
+> > SCMIv4.0 introduces the idea of an optional Concurrent Power Limit (CPL)
+> > for each powercap domain, where CPL0 coincides with the one and only
+> > per-domain constraint limit that was available in pre-v4.0 SCMI Powercap.
+> > 
+> > Refactor the powercap domain descriptors and powercap operations to allow
+> > future v4.0 extensions to cope with multiple CPLs.
+> > 
+> > While at that generalize the powercap protocol API to drop PAI references
+> > in favour of a more generic avg_ivl naming, since from v4.0 the number and
+> > types of averaging intervals will change in a non-backward compatible way,
+> > so let's bury these changes within the protocol layer.
+> > 
+> > Last but not least, make the necessary changes to the ARM SCMI Powwercap
+> > driver in order to support all of these new capabilities.
+> > 
+> > No functional change.
+> > 
+> > Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+> > [Philip: Adjusted domain_id comparitor in scmi_powercap_pai_get]
+> > Signed-off-by: Philip Radford <philip.radford@arm.com>
+> > ---
+> > V7->V8
+> > - Fixed conflict due to changes in 7.2-rc1
+> > ---
+> >  drivers/firmware/arm_scmi/powercap.c | 182 +++++++++++++++++----------
+> >  drivers/powercap/arm_scmi_powercap.c |  52 ++++----
+> >  include/linux/scmi_protocol.h        |  74 +++++++----
+> >  3 files changed, 189 insertions(+), 119 deletions(-)
+> > 
+> > diff --git a/drivers/powercap/arm_scmi_powercap.c b/drivers/powercap/arm_scmi_powercap.c
+> > index 96d55921fefc..7c2dbba5002c 100644
+> > --- a/drivers/powercap/arm_scmi_powercap.c
+> > +++ b/drivers/powercap/arm_scmi_powercap.c
+> > @@ -123,7 +123,7 @@ scmi_powercap_set_root_children_enable_state(struct scmi_powercap_root *pr, bool
+> >  
+> >  		if (!scmi_powercap_is_control_type_child(spz))
+> >  			continue;
+> > -		if (!spz->info->powercap_cap_config)
+> > +		if (!spz->info->cpli[0].cap_config)
+> >  			continue;
+> >  		if (prev_state[i] == enable)
+> >  			continue;
 > 
-> My fault for not being clear and inviting this kind of objection.
+> You seem to have left one use `powercap_cap_config` above this hunk which
+> breaks the build and hence build bisectability with this series.
 > 
-> Since we do GSO in software, we advertise NETIF_F_GSO_UDP_L4 too, and
-> there, Sashiko came on v3 with the observation that for UDP GSO, user
-> space can set gso_size to a small value using setsockopt(UDP_SEGMENT):
-> https://lore.kernel.org/netdev/178960175550.22033.10648880872141935672@kernel.org/
 
-I'd fix that in the setsockopt code.
-But that might be a bug anyway.
-UDP segmentation has to use IP fragmentation and that is usually done because
-the interface/path mtu is too short.
-But there is a minimum mtu for IPv4 of (something like) 128 bytes, and
-it may be invalid to fragment into smaller pieces.
+Apologies, I was sure I had tested breaking the build throughout the series.
+I'll amend this.
 
-> Sensible or not, it is possible, and I did generate a test program using
-> an LLM to confirm this.
-> 
-> Regardless of that, the last segment of a GSO super-skb would need
-> padding anyway, because even with a 'normal' TCP MSS, the skb->len
-> modulo gso_size could still result in a last frame < ETH_ZLEN. Padding
-> just the GSO super-skb, as I did in v3, would also not fix this.
-
-True, but that is a different check to the one you did.
-
-> > But does this code allow for the VLAN tag that you forgot about in the
-> > other patch?  
-> 
-> Not sure I understand your concern here? Is it that with VLAN TX
-> insertion offload, we pad "too much" (i.e. to ETH_ZLEN, then the NIC
-> pushes an extra VLAN_HLEN)? I'm not sure that's a problem..
-
-That is a problem, VLAN packets should only be padded to 64 bytes
-including the VLAN header and CRC.
-However such overlong packets are likely to be tolerated because
-an ethernet switch can add a VLAN header before forwarding a packet
-and it can't know whether a short packet is padded.
-
-> Anyway, with VLAN TX offload, the VLAN tag is not part of the frm_len.
-> It's part of the extension BD that we forgot to account for, when
-> determining whether the TX BD ring has enough space for the frame under
-> transmission.
-
-That is what I was thinking of.
-By brain thought it was a normal BD - so would be in the 15 limit.
-
-David
-
-> > I also noticed that the code seems to dma map the fragments for each
-> > gso segment separately, just mapping each skb fragment would be better.
-> > (But that is for another patch series.)   
-> 
-> Noted, I can look into this separately.
-> 
-> Thanks for the review!
-
+Regards,
+Phil
