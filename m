@@ -1,73 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792655890;
-	b=GqRVXF8Z5yHAmOVgCvvzIZMY1/8avU6dRUvnzCpSKo1DD1CNP6fK4AyTKGYdvTLMHfkl
-	 mfd0uHI8/6VcYqOYxDCj9auSxQvqvLt13zT4OyGoWG5h5hyAuRyCy84VnTDKS7899qq9Z
-	 76wF1jAoECV3Ub+TvHpsCnzSnVgOXkoD7M8BBqhOwUbTKVFW0KYXrygojL+Ov9NlS4HKu
-	 1tSSFkE06u8ymOQXWEjSgkg6p3O7Ca7ild+UEV08T7gFGkiivDZkCSiVyIuzrp2lhFsSl
-	 sbEWj2jZ7PAT0Fjv4U2xqUmhjMrP30PPPA2LVRMgv5kZCIkC73BQUnM07BmQj5Y0gVw==
+	t=1792655910;
+	b=zUEj57Pg1Mbcizfwf575Ie9nUSFyRZABMUVncLWMaXHmLidPkjh18qczsVhsHCVXBCmj
+	 tTD112zwM6jaiKzcCdSyOW29GPWERZSVsPDWvJzeMgeC2K52j7uBtPhCEVb/sHpIGxLif
+	 oQTKmdEbU/pdf6HpyntBcJxT4Ux8NpSrAoMzfx17hrRCJacnnwVRG2nBl6fwSGqHO5gB3
+	 7ybxVyLwLYyjBtCMf5xLC3eoT6Ji1DQE7jZCvfGMglzGE3ldo02rGd3TQMcAdFbNsXOIi
+	 JeI7wNJ6MLJ8l5HAnW88F7JVU/vP2/TcTgMhJAwzzpaF25K3nCW37b9iTE2XuICEcwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792655890;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=UmN2s6tgOm0A9GoZQElNdrU9oC4VAYnyPyJsot4d7LQ=;
-	b=Qcug8nHjkU9XpimRPVkAza9HxDXKQItuGFEF7TRMX/PkkFItQ+1V9KA2cVYiLyECNRjh
-	 mk8uqHOuxxtt31tsWsTyDXt3ehNZ7gCKWN2BavxPIl93qqUTkfix4ObDRIEd/QT38c0q5
-	 WwDzME2VWawIjOgih5fxMcFariMCFH47SThOAhVRItT46OTHAdjjNHonCQx1Dy0ymEw0f
-	 tmufHPLQF4zdqYbSyK1YFNXIq870UNEIpzG+ibjyc7QvFgqPr6xQhrdcPZdQcCiMk9FWf
-	 mRJzKU/bJgwrtT3hNmlRv7BEz0pjbzmudGWk+wc3u6dYREYcYOeyckSPIE2AeQ9OsuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792655910;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
+	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=DOGsbHPV9Q6LEJI4bp7YU9lC5DA9e4STqXoDKb5ejb0=;
+	b=AZNy7Ohp/aLbDV6FjPBZBdmphDle6vNilOwgDTzYXIYvV/Itsb8zgbRaFLEaX+bUBwcZ
+	 oaCjq5gQImvX3wAKkFWhhXspCdSDB3EYlmjrQkSXns5s2BNooZG82e4joW78yZQfzp3kE
+	 HmV2oiaEncuA6/qnO6AdMUZzwOBIIWhvv1Wxr3ke+tnTEG0AgNKHeibGJ4YopGsIIHFoy
+	 GJRMd1vtJySsEd9AUkUlAzIJTzWjqjYybDv9hjVU5KkSUxs4ioIuDduELhrjQjcNSblKm
+	 xMDs2uavhg8jwT7BsVeHheg0C4FxipF4I8pDhK4w337LX/O/T8HgfzzuLp3rNse4gVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xugHXf76;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M76WzVlP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE0F4606A319;
-	Thu, 22 Oct 2026 07:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE0F4606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55673606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:58:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=xugHXf76
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 26666C5846E;
-	Thu, 22 Oct 2026 07:59:04 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D4D2C60360;
-	Thu, 22 Oct 2026 07:58:04 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C370A10328C52;
-	Thu, 22 Oct 2026 09:57:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1792655883; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=UmN2s6tgOm0A9GoZQElNdrU9oC4VAYnyPyJsot4d7LQ=;
-	b=xugHXf76jZoypisO7ZkjxkEsPO4sC0PscGRj5Bv65MeP2LRwiSTTmsksoyKe2mUtnP2mmD
-	QEa0e0wrjgZLAxCIk5hQ5MKwF6EIDUxeMmCnywPQkmUXXeXVKwxPPGAQwPVYRpordz/DOu
-	m7PEx/tG+z0tTcDzH8XBzvdS6xIB8Nm/VtN7VJ/1wbNgPCFe9tGOANVvSsxuKFrfdkuxpf
-	qsoUeyOjdvjB/Y4BT3Hle6fW+w95/sHQ9gGzGo7b0bmv1zQaBKAB27MQ593W2dJY3LwJhK
-	qTKxNj7rg0e7c4AtZDDT1zYEiW6YeH+g12X0PsDMZXZg1YKh9gCPORlfANTxqA==
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Stanislav Fomichev <sdf.kernel@gmail.com>
-Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	thomas.petazzoni@bootlin.com,
-	=?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] net: Use a dedicated flag to track disabled napi instances
-Date: Thu, 22 Oct 2026 09:57:57 +0200
-Message-ID: <20261022075757.1164283-1-maxime.chevallier@bootlin.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M76WzVlP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B24C1F000C4
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:58:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792655910;
+	bh=DOGsbHPV9Q6LEJI4bp7YU9lC5DA9e4STqXoDKb5ejb0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=M76WzVlPBD5y4IqVS2atl7PqIsbChiueyPRFZxYypwtus+8TtzwLM94gtwqzkzIi7
+	 Uynjkei/JU0SDmBsWe1Nk8I3NJSux6STZOQjVQ1eQfOQZz6HffJeHfd/TzpY15o8kc
+	 8WhqCoOFQ0jxu+kkVBQNE/Yx7na5wbewb9gOJL1F8njrh6otFV4Qkg5psTGcxAq8/C
+	 +zth5lBobhZL4ML2CkEKJIHNRBU6e0m6mO5QdVaQxiZpgQzE1zsViAQ+u4M5ONY3Mo
+	 Uzi2d8bmao4mA3WvpxO2Ei34QzcdEAV4CGMARW/VfVP8A622QmeMYJgRcAo4DAgXmF
+	 o7l9TiqPsA39A==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a65ed9c7cfso14019341fa.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:58:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwEAcmpnz2gewOPcjhrXDpekiBCHVy6y2fTgxFfa3pVNS6NtZ9nrjinUJLY70M1RQB1tXKEsNu3Oe/Qv4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOYauCQKtQmQxA1ikRSOe0XWTA71fwxZARzRJndkB4u2qc8LaD
+	P2r5fM0p5oWZjNEBdqSeDRp/gfk99WbQTk/2yWQ0f4h9kM13kHCOlMaGiqaqhGFfPg0TLN0ybw9
+	RCou5VvtsWo1IorUrVjI4W9/ac1Lgb3ziZnOSkU5kBw==
+X-Received: by 2002:a2e:a9a5:0:b0:3ab:48e6:6789 with SMTP id
+ 38308e7fff4ca-3ac4414620dmr13295841fa.8.1792655908769; Thu, 22 Oct 2026
+ 00:58:28 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 00:58:26 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 22 Oct 2026 00:58:26 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <179261435862.92690.4559755086697722828@pm.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,135 +65,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261013-qce-fix-self-tests-v10-0-57162a38a554@oss.qualcomm.com>
+ <20261013-qce-fix-self-tests-v10-10-57162a38a554@oss.qualcomm.com> <179261435862.92690.4559755086697722828@pm.me>
+Date: Thu, 22 Oct 2026 00:58:26 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mc1O-xSOt9RNTTF-ue_3skkNoQ4a0h7RovbCbQtexKkdA@mail.gmail.com>
+X-Gm-Features: AclHuK-ddH3eyHdZmxCdnhGchR5nIcmlb3fM-yPWg22T-Acg-ykEAHgaJMn9PAk
+Message-ID: <CAMRc=Mc1O-xSOt9RNTTF-ue_3skkNoQ4a0h7RovbCbQtexKkdA@mail.gmail.com>
+Subject: Re: [PATCH v10 10/14] Revert "crypto: qce - Mark QCE as BROKEN"
+To: Birk Skyum <birk.skyum@pm.me>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
+	"David S. Miller" <davem@davemloft.net>, Stanimir Varbanov <svarbanov@mm-sol.com>, 
+	Eneas U de Queiroz <cotequeiroz@gmail.com>, Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, 
+	Eric Biggers <ebiggers@kernel.org>, Demi Marie Obenour <demiobenour@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>, 
+	linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, brgl@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, 
+	Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Trying to disable the napi threaded state while the napi instance is
-disabled will hang forever in napi_stop_kthread(), as it waits for
-NAPIF_STATE_SCHED_THREADED to clear.
+On Wed, 21 Oct 2026 22:26:23 +0200, Birk Skyum <birk.skyum@pm.me> said:
+> On Tue, 13 Oct 2026 11:57:39 +0200, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com> wrote:
+>> The self-tests for this driver have been fixed. The crypto algorithms
+>> are only registered if the user explicitly requests it with the provided
+>> module parameter defaulting to false. There's no reason to further keep
+>> it unbuildable with the BROKEN label.
+>
+> On X1E80100 the BROKEN label also costs deep sleep in suspend. With
+> nothing bound to the crypto node, aggre2_noc and mc_virt never reach
+> sync_state() ("sync_state() pending due to 1dfa000.crypto"), and on a
+> Lenovo Yoga Slim 7x a deep suspend on 7.3 never counts aosd, cxsd or
+> ddr in qcom_stats.
+>
+> I built qcrypto out of tree from 7.3 with 09 applied, which is what
+> this patch makes possible in tree, and loaded it on 7.3 (with distro
+> patches, none in QCE, the interconnect drivers or the driver core) and
+> the crypto node as in mainline, with ALWAYS tags on its paths. It bound
+> without registering any algorithms, went to runtime suspend with both
+> crypto paths at 0, and both providers synced. The next deep suspend
+> counted aosd, cxsd and ddr, with about 13.7 s in them during an 18 s
+> suspend.
+>
 
-This won't happen until the next ____napi_schedule() call, which won't
-happen as it's disabled.
+Thanks for testing!
 
-This happens in 2 instances :
+> Herbert asked for the series to be split, and the resends since then
+> don't carry 09 and this one. Both should come back as fixes, for 7.3.y
+> as well.
+>
 
- - Drivers that create but don't use napi instances (stmmac's rxtx napi
-   for AF_XDP for example), here it's a driver bug
+Yes, I'm waiting for the fixes to be picked up before re-sending the remaining
+two patches that depend on them.
 
- - Drivers that create their napi instances in .probe(). Here, setting
-   threaded off while the interface is down will hang :
-
-   ip link set eth0 down
-   echo 1 > /sys/class/net/eth0/threaded
-   echo 0 > /sys/class/net/eth0/threaded
-   -> hang
-
-Checking on netif_running() isn't enough, as napi instances may be
-transiently disabled when changing the MTU for example, let's use a
-dedicated flag to track if the instance is disabled.
-
-This allows immediately disabling the kthread when the instance is
-disabled.
-
-This was tested on mvpp2 (probe-time napi_add) and stmmac.
-
-Fixes: 689883de94dd ("net: stop napi kthreads when THREADED napi is disabled")
-Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
----
-V3:
- - Use a new flag to keep track of the napi instance state, if it's
-   disabled or not. It was tested on the same set of boards as before.
-
-   I guess if this approach doesn't work either, we'll have to start
-   fixing all the drivers :)
-
-V2:
-https://lore.kernel.org/r/20261006141119.85562-1-maxime.chevallier@bootlin.com
- - Different approach as per Jakub's review, just don't allow setting
-   the napi threaded mode while interface is down. Uses the NAPI_STATE_NPSVC
-   flag to check the napi state, but it wasn't enough.
-
-V1:
-https://lore.kernel.org/r/20260926194714.648819-1-maxime.chevallier@bootlin.com
-
- include/linux/netdevice.h |  2 ++
- net/core/dev.c            | 15 +++++++++++++--
- 2 files changed, 15 insertions(+), 2 deletions(-)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index ac257221c7c5..d410c7303d1a 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -433,6 +433,7 @@ enum {
- 	NAPI_STATE_SCHED_THREADED,	/* Napi is currently scheduled in threaded mode */
- 	NAPI_STATE_HAS_NOTIFIER,	/* Napi has an IRQ notifier */
- 	NAPI_STATE_THREADED_BUSY_POLL,	/* The threaded NAPI poller will busy poll */
-+	NAPI_STATE_DISABLED,		/* NAPI is disabled */
- };
- 
- enum {
-@@ -448,6 +449,7 @@ enum {
- 	NAPIF_STATE_SCHED_THREADED	= BIT(NAPI_STATE_SCHED_THREADED),
- 	NAPIF_STATE_HAS_NOTIFIER	= BIT(NAPI_STATE_HAS_NOTIFIER),
- 	NAPIF_STATE_THREADED_BUSY_POLL	= BIT(NAPI_STATE_THREADED_BUSY_POLL),
-+	NAPIF_STATE_DISABLED		= BIT(NAPI_STATE_DISABLED),
- };
- 
- enum gro_result {
-diff --git a/net/core/dev.c b/net/core/dev.c
-index e76762e29360..a6d66af8947a 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -7253,6 +7253,13 @@ static void napi_stop_kthread(struct napi_struct *napi)
- {
- 	unsigned long val, new;
- 
-+	/* Instance is disabled, we can immediately stop the kthread */
-+	if (test_bit(NAPI_STATE_DISABLED, &napi->state)) {
-+		clear_bit(NAPI_STATE_THREADED, &napi->state);
-+		clear_bit(NAPI_STATE_THREADED_BUSY_POLL, &napi->state);
-+		goto stop;
-+	}
-+
- 	/* Wait until the napi STATE_THREADED is unset. */
- 	while (true) {
- 		val = READ_ONCE(napi->state);
-@@ -7283,6 +7290,7 @@ static void napi_stop_kthread(struct napi_struct *napi)
- 		msleep(20);
- 	}
- 
-+stop:
- 	kthread_stop(napi->thread);
- 	napi->thread = NULL;
- }
-@@ -7678,6 +7686,7 @@ void netif_napi_add_weight_locked(struct net_device *dev,
- 	napi->list_owner = -1;
- 	set_bit(NAPI_STATE_SCHED, &napi->state);
- 	set_bit(NAPI_STATE_NPSVC, &napi->state);
-+	set_bit(NAPI_STATE_DISABLED, &napi->state);
- 	netif_napi_dev_list_add(dev, napi);
- 
- 	/* default settings from sysfs are applied to all NAPIs. any per-NAPI
-@@ -7714,7 +7723,8 @@ void napi_disable_locked(struct napi_struct *n)
- 			val = READ_ONCE(n->state);
- 		}
- 
--		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC;
-+		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
-+		      NAPIF_STATE_DISABLED;
- 		new &= ~(NAPIF_STATE_THREADED |
- 			 NAPIF_STATE_THREADED_BUSY_POLL |
- 			 NAPIF_STATE_PREFER_BUSY_POLL);
-@@ -7759,7 +7769,8 @@ void napi_enable_locked(struct napi_struct *n)
- 	do {
- 		BUG_ON(!test_bit(NAPI_STATE_SCHED, &val));
- 
--		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC);
-+		new = val & ~(NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC |
-+			      NAPIF_STATE_DISABLED);
- 		if (n->dev->threaded && n->thread)
- 			new |= NAPIF_STATE_THREADED;
- 	} while (!try_cmpxchg(&n->state, &val, new));
--- 
-2.56.0
-
+Bart
