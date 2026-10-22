@@ -1,102 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792644382;
-	b=j6ZSweV1baMyK1J14WsvZZx5nAxj7ZvhKv/h3WpZzkpUcKKSaMkgJEgVgmygvYRF0fxl
-	 o1obed8tbmWS+Nzj3aDXLS8jh5fM++FE9OnX8OLsh0APJ0JwBEhlwcnGLIK9A9T3FvSFy
-	 VUrLZU12O/6gCJR7wbJ5PdKfDf36nuPEYwAYNbxqb3ksD57vTlsOmuJdFIjYDZpPvj8Ul
-	 qrbDHoY7nqoVtDjUt3lY0mfAhBg+YZra3Fl96+qIIYlxVMNfeO9Z135qHUTT4R1Kikf04
-	 rVCCCX4mnaXfsSkfpsAf/aV9xiXw9UqvgSSQfgLk9NKPdI+FjQWOsV7wMfDltMFKwwQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792644382;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Sent-From:X-URL:X-Accept-Language:
-	 X-Accept-Content-Type;
-	bh=wdFwRrD+BVfZHQwBM5w0aHj2+wi05TOz4Yc/Uggdreo=;
-	b=g+tIyzOVjQB8pi9bQka3HXI/oGv+D4DKfbT7N3DR5gD0aKIN8iUpWq4/Ogt67wzxcn79
-	 F1RB/eHEy6l/MpLndGD7e2juHAmg4eBziphE8ZAJIMjVh9gvtsfg7j5jEBQlqudbr/R0d
-	 0eOSMsDbwxBfLAK9bkz2iJr/NNwuPSn8sUDh847DzE0fpX4tHl7T38dRehv5Rd/maVtNg
-	 UyXyPqN6a62OPZnudga6z4jI0ej1DLCmnr8vdyc8GKQ332f6WnfMnYBY8yv+9AIY8Ch7l
-	 URuxIH7jWVHuQoziu3cfGhnrCcUjea5LgxOpkvztm02qxUQBGiH4zeRMv4dM5wMVO6A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ft8Y7DbV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792644398;
+	b=D4luISnwzgNu7+frTpl75npJ37BdaZ+DQaVVDZhTKIzNjlbvIA0bmX8peFUIgl8lJtlJ
+	 Y/m4xBTtmu1kNwFEhos3g+YQVUnJJ2ankhl+5D7JVH6mPdXOJxmqVcLmhMMEyou9efcu6
+	 1uPwKnuJnr8JKNvS37dW6jKmTq3lI7lETJRaD7d/Zr74Ss8+qp26Bh6DkuhWbev0XLIrq
+	 ptYXuUsxJCupOjItuvd6jMgMOaQGKq+IChXjDDKwuIzhhfrAOHycTlkx1sb6lZrIZsCfo
+	 DgtJogbWz559KfTWq3ZvRHDaHf0ITu1NZC4bEIDS4M1Vf7igADqSl2l86PfoWjxTNSw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792644398;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:X-Mailer:Content-Transfer-Encoding:MIME-Version;
+	bh=5+SumxBfrxjsgvn/QRWIFxElRphz0iCgG1RZWJvYrNA=;
+	b=4iZxWlnZd9ySljcDZd8i3Hbz9pA1S8yjgzte9DepGjeasZ2HpZ6286PmO8qS+d62X87v
+	 h/F2QDv9ZybDg7UTsfhQkjgygLjUzBUsUZCwUNviQFQjjDDd1mdZy9zqN9psH7BrGSa4A
+	 NE5/Yw/zbqhI/2Hl9U6aRYQE0kuh9WyJie8VELX0+P4dlUgg/qfj06DkFVKH0bwj/40sH
+	 KZYJpjMRYdI9bPU/VRo5mKzcvzwELk5Y4Fbnahe67tegGWENn68rFBvCb71Vvsft5SAWq
+	 SwIkKI5lNLcZFkPG7XS2EtmCrgBBQJ4v8RPcH8xvCr/AUQbhX1UaBKu7oq0GJQ4E/yQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cWRKB84X;
+	arc=none smtp.remote-ip=209.85.216.42
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461E6606A319;
-	Thu, 22 Oct 2026 04:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 461E6606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E724606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:46:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E724606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Ft8Y7DbV
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 605D4200BBC;
-	Thu, 22 Oct 2026 06:46:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792644378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wdFwRrD+BVfZHQwBM5w0aHj2+wi05TOz4Yc/Uggdreo=;
-	b=Ft8Y7DbVLg1SOtmQLD7h+4S3iEhbc1/WiTPk4G96QPmH1lrEI7zMG0TD1orIxv8uBSgMQy
-	5XFZRLLsutRcURTmkl2L1FOnCqL10vjPaeFTcJ8OqaClr1oj/qNZD9TzTqitH3Qi1HEvPi
-	KM48hlrVL24/+VJ2lH/OBlT9I+xtl6QMMHB0oo+v8fLcmXbJxH/JCVdWwxZ1XItNz6NoDP
-	oA9ARuXeK4jD4unbXDh//xXVgiR+bhC/k9CMEBS3nbiGlWyrO+rBmFSxv3kfIRNXHfBVaU
-	p9rGpJdRZVJLlRje9k31vksqxj8Raf8bSj7leL+MoOa1yAlRvT67Gt+3+9dubQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792644378; a=rsa-sha256;
-	cv=none;
-	b=TwUwG6Au+OgaP0h5lKiTqy8hjH/PwRnVzfor0Nonw2U/m99dD8lj85VYhj/4IpFaApxxB4
-	Lzpg04XxrM5SUcz0sEAtmgJJcAd88eSzF6EgGCrxHBkE35TEjcueZxt3hsu3OtpTddiwsC
-	eA5+yyY0cejEoKidieujf7Ruylt5fsAgYyG3bMwhTrtlAY5xQ537T0sFQa51TOtt8tQIZ/
-	e3bBVTV0ZdKpOO8AgC1Es5VCTb+gE4jvYHkdI6sDxPBMV3BGTXLX28wmKHGOxEYUP3ICQd
-	A2Lj/No5mkWe/3n+hWHqp+FgeltK/gRTxVCf0PYtJRWylp9ShtKDUmETJ9oTxQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=ore@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792644378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wdFwRrD+BVfZHQwBM5w0aHj2+wi05TOz4Yc/Uggdreo=;
-	b=RS0vpSRZaXmSpVvLQ4I7PRhPXdd7Eb/K7D+Sb6zFtdsoCb8CoWlWcCsfKvmoRz3pMX8gZM
-	6Yqvn+EoK7edbmi5Y/FWVj2gSbUzDcPA7n1cIa+Bc+SwtAp9WnbsWweK4DkhcUm+gOdukY
-	WiZf4T1geR/fo40Ij6QIGmfIJHYzGsISI9n9Cmcu6gBErCaX4gLOzKv0xjxCMKhpqEdZcZ
-	gFVccULjTgG/fuj5hDMsX+Ljt4874PUTEeLF2Bz3etWNN0M69Qn4n9Omj0b8XDFg/B5HQ7
-	jPMp4yDmWk/sDeL0Iuw3xWYi1cb5px2L/qn9s2wSUc9ooLaFBd2kPVTx6l61mw==
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJkh0-000efM-0z;
-	Thu, 22 Oct 2026 06:46:18 +0200
-Received: from ore by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <ore@pengutronix.de>)
-	id 1xJkh0-00000009PVz-0ojq;
-	Thu, 22 Oct 2026 06:46:18 +0200
-Date: Thu, 22 Oct 2026 06:46:18 +0200
-From: Oleksij Rempel <o.rempel@pengutronix.de>
-To: Carlo Szelinsky <github@szelinsky.de>
-Cc: Kory Maincent <kory.maincent@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Kyle Swenson <kyle.swenson@est.tech>, Ross Cawston <ross@r-sc.ca>,
-	netdev-bot+sashiko@kernel.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 06/14] net: pse-pd: check the PI state under the
- lock when setting a power limit
-Message-ID: <atmVGoQry_V_Ktu_@pengutronix.de>
-References: <20261020171249.853085-1-github@szelinsky.de>
- <20261020171249.853085-7-github@szelinsky.de>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=cWRKB84X
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ad787e0593so822738a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 21:46:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792644397; x=1793249197; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5+SumxBfrxjsgvn/QRWIFxElRphz0iCgG1RZWJvYrNA=;
+        b=cWRKB84XbahQi2H3i46ML90oKr8CoWeebcyTgeT4j29KM45JaBHNkY3VVfQToaWRCY
+         BGNsb8PfqrzJsbVEzZvQCYt5KGMeUYhIhPJNpLzQSbuy1vGgt9seEBMk4IpgKNd6djdU
+         vqSr/AcJTa0uq4ffUsVtNbx/0nhEePAqgJUPllxtYC8LA8rdxYXo8Ii0M1jSkPbJNKTd
+         2/by9H4JWo+P4e4Lt4Dhn9wL5ezmyy0QNutBAnHpxeX09Zx6cgFu7/DoyBc/o7Ou8MRT
+         7D9IdTPjmWfRm6Anb0/PpfQKnsabgtQ5SoXX3gp+mGf25XKu3vCamXHGCAb6wLLe0lgp
+         117w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792644397; x=1793249197;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5+SumxBfrxjsgvn/QRWIFxElRphz0iCgG1RZWJvYrNA=;
+        b=DYbUeeeqnyAsC6g8f4WBtoLS5yfDPixfZQxToIIET+YnDoLcY94kx2vG/4O6L50lO5
+         8VB4n3Z/QtTjIeqIU4vJcVNh/dmQSVbE6w3wdzBOJMX1gjmGzGdP5HEgHx0XOX/HziDx
+         p4JNjlPO5Ws3KjtBDiwz81TnMOqBWdkIKFW9jfVHp6sKl29WWq2awp0GG5BSrASLtgJo
+         K3wBHFSxsNFrbQIfVUkWtgorPpKzzw5BAeAXjOQaKKgbBphSRvHnf2oQ+TfnouczvAIn
+         hA7tlrd1x90wud1E7VXkKEO156+gjMFiKRJ66VrxyWYSCKtTxhq/Qupik7Cbon5Mpotk
+         si5A==
+X-Forwarded-Encrypted: i=1; AKwUvByBDnYKH1RbmOnI5D1Y/ZK8frZ1jiqalIpxHaBm/hZ/9lmJ83CKsfSYrTp3vBA9IPiigjO3ZrPKFwIPrzc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXo2jKVGqkNExwLw0a46m0VRigFryubZqot+VcGOzWhPNvYksG
+	R+GLaArrxo+cdRaBn9yWTn6dbINMDtGIjLf8VZrIyK1CmxVRoDcSx1QX
+X-Gm-Gg: AYBFou1k/LHKYX88j6zTuJJ7/INQhVV6JUqplrcSPngumaX2TZ40Rp2RQuL3+RqPhUc
+	cSmz+bUsj37CocGONxsQxBsWHIBOHg9u5Yf2m86meQ2Arfo3u9Q02HP7miJF5B7/dirxXuK7hdO
+	Hs/aETR1ww3wbf7L9c6LXsxm0/qt1edDb81wp8iuZMDixvhfvjd32JLEuMQ0bueGylYCOLJBk4T
+	zCgk/2RHRb1uz2eaoLjBncL5IG2I9Tc3VwK+RFUIv9T2LmHy32rHxf9GUOTe2sIsqDR9e2RaBMG
+	O5FJKZ9hh2wLO1NmaVhnCOXrQm+0MuR89m1zz5QR/ilylLuuO4o/bTcZxNDU9X3TGqsW1X1VZfQ
+	vDdZrS68S4guT0yCIL9gBsxNuaruXnQAwPkq9K34jJ9ssD++EbWPzHrQBDX7ZAwdOq3eVUwKcAU
+	6LYrxeOWC5IGSDDEzBUwcRUyI5CUlldTrgpqNjb8T1FVwpF5FVD+J7q/qkhLUPD3nD97KJgYq/v
+	pfR0favH2zaBAjRAIG32qlABASmVQP7Vf8ys0rJNmEfk6OSXYDZHy9G8PNtmcg9Bg1jbCYDwH/3
+	DCBjYp04eRTt/2YXAN8B6f/8vUv8pl0kLO/3jJ4aRFkY+Q4IS7nIh/HTG52D/hWsAtRK+Qapo06
+	2eRPtzQ==
+X-Received: by 2002:a17:90b:28cc:b0:3ac:86a0:5764 with SMTP id 98e67ed59e1d1-3ad86f43109mr3159843a91.64.1792644396689;
+        Wed, 21 Oct 2026 21:46:36 -0700 (PDT)
+Received: from localhost ([153.61.198.240])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada490e5edsm2287101a91.8.2026.10.21.21.46.36
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 21 Oct 2026 21:46:36 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 22 Oct 2026 04:46:35 +0000
+Message-Id: <DMB3EIGZSALV.3C9PAPO7TB923@gmail.com>
+Cc: "Amery Hung" <ameryhung@gmail.com>, "Emil Tsalapatis"
+ <emil@etsalapatis.com>, "Nicholas Carlini" <npc@anthropic.com>,
+ <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <kernel-team@meta.com>
+Subject: Re: [PATCH bpf-next v2 00/11] bpf: Scope callback arguments to
+ their frame
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>
+In-Reply-To: <d2369629-846e-4fd8-b567-a0fd8863256c@linux.dev>
+References: <20261009202759.50520-1-ihor.solodrai@linux.dev> <DM6EVHTVM3IR.3RCFLKV9WC80J@gmail.com> <d2369629-846e-4fd8-b567-a0fd8863256c@linux.dev>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,36 +107,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020171249.853085-7-github@szelinsky.de>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
 
-On Tue, Oct 20, 2026 at 07:12:41PM +0200, Carlo Szelinsky wrote:
-> pse_ethtool_set_pw_limit() checks whether the PI is powered without
-> pcdev->lock. pse_isr() changes that state under the lock, so if the PD
-> disconnects in between, budget is reserved for a port that is no longer
-> powered.
-> 
-> Do the check in pse_pi_update_pw_budget() under the lock, and report
-> whether the budget was changed, so the rollback after a failed
-> regulator_set_current_limit() runs only then. This also rolls back a
-> budget that started from zero, which the old code skipped.
-> 
-> Found by code inspection. Not reproduced.
-> 
-> Fixes: ffef61d6d273 ("net: pse-pd: Add support for budget evaluation strategies")
-> Reviewed-by: Kory Maincent <kory.maincent@bootlin.com>
-> Signed-off-by: Carlo Szelinsky <github@szelinsky.de>
+On Tue, Oct 20, 2026 at 11:32 AM Ihor Solodrai <ihor.solodrai@linux.dev> wrote:
+> Slices are not reached. A slice's parent_id is the dynptr id, and the
+> walk from frame_id finds that id only while the dynptr is still in a
+> register or a stack slot. R1 is caller-saved, so the bpf_dynptr_data()
+> call that creates the slice usually clobbers it.
+>
+> This can be fixed in your diff with:
+>
+> diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
+> index bc12df55d2e2..57859c3baeeb 100644
+> --- a/kernel/bpf/verifier.c
+> +++ b/kernel/bpf/verifier.c
+> @@ -11470,6 +11470,7 @@ void mark_frame_scoped_arg(struct bpf_verifier_env *env, struct bpf_func_state *
+>  {
+>  	if (!callee->frame_id)
+>  		callee->frame_id = ++env->id_gen;
+> +	callee->regs[regno].id = callee->frame_id;
+>  	callee->regs[regno].parent_id = callee->frame_id;
+>  }
+>
+> i.e. the reg is its own parent again.
 
-Acked-by: Oleksij Rempel <o.rempel@pengutronix.de>
+got it. you're right. Let's take your one-liner.
+I think the reg->id != id hunk can still stay out. The reg is
+invalidated in the same pass, so the second pop of frame_id in
+invalidate_reference() finds nothing and the loop ends.
 
-Thank you!
--- 
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+> I don't quite understand the concern with the series as is.
+> I'm guessing a new weird REF_TYPE in refs[] which is not an actual
+> acquirable object gives an ick. Or is it the plumbing?
+> I take it you agree that we need some kind of frame-tied lifetime
+> tracking, right?
+
+Yes, we need it. I guess it's the plumbing that bothers me a bit.
+The id belongs to the frame, but refs[] is in bpf_verifier_state and
+the callback runs in a pushed state. That's why setters had to move
+out of setup_func_entry(), take a state argument and handle errors,
+and why refsafe() and check_reference_leak() need REF_TYPE_FRAME
+cases. A u32 in the frame needs none of that.
+
+> I added some refactoring patches in attempt to avoid growing
+> bpf_func_state vs v1 (Eduard mentioned we create a lot of these
+> objects), and that is what you've just suggested.
+
+Right, it grows. With padding that's 8 bytes on a 960 byte struct,
+880 of which is regs[]. I feel it's cheaper than patches 1-3,
+but I don't insist.
