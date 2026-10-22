@@ -1,49 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792670868;
-	b=too+qO5Lz5Gw4KzpHgW0MS0ghVlRMkO2HZUNPke5JnxGI8LBtToodYcjrDLnkd3Zkhpm
-	 q7cnPAeA0013RKTq4gOB5+WxV/MPYR49cpK+Kl+aWZ0ssC0wYLncLKoPJ1DcrRuCS/R4t
-	 UL8lhNciYoMjoqV12t5vYn9iSwQ0K4TWrvyW/4KgbWS7AckY+bcaC7Q6IuWlr4/4nZbvl
-	 1oS5Zi7sElExF5pVgBWpdN0OSeiB51TCCbAQLMTayouFRFnwDkpDgF5yTE/t2h4fqk+2r
-	 RBoifv4oeaS+gnk7zrflwfOR9xkl2O2rNwPz2f5ilf+TSj0QHQ5Hd4peyQbNGKkasGQ==
+	t=1792670930;
+	b=vuazxWQz26wAys836zBQlggCHuc2DpX6fjJ7KsR35Hi2IBXUuYGwI8IQRQCtjIDKbBV6
+	 PzsCK1V6zLZ94I37HHV5N8WcNJDrxQZ/+2mDUobWt2FaaZ1SY/uvi87x5Knz6x24N7fNF
+	 xLSsyh+4ylkE1MUi1IPI35fFWPFXfEG0hwbKwmzY81f1aKApsSd4D4PmzUyljlJ5VHrLl
+	 vYM4WiIzQ1oz3/pjkqrQsfjEt9ojaruz+NJDa/Kr7vclyLqQlCnX9xGOhY7wBRjpvZn3y
+	 qInfY4Pxaf0OQy6ylIqSp9c2LiiC+jhSJHqtmjTHHn3zeiFpDJWUZYto3pxc3PLF5oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792670868;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=U+E2goX+603MK4R3YbLe0NZDVKTFLoXN52JzT924H9k=;
-	b=W0ycD1J44noTIACDYxPLH6YDFKZbZzNBCNaanmWXfn0z5+klAx5jA8tHk3Eu5GCN0uG4
-	 IAHskiRayaYefsmxgn9GtcvdoqBY+2AoACso/5uRZJtAiKIJYEep8qmfIRy/aUUyBoa0I
-	 YnsPuW0SPGwc0H80ovFAYvsVT1WoHJSe17fHLnwFmBxLOsqvHxLycsTQPPXIiRjn46ExL
-	 I96b665BZcwKCtID38F3K5NqgLRWq6uF3rpy8pZvB7tDXaxmD1Kv5TZxXOLIdZyhH+IBf
-	 P/5BOQ3KK28/Yb5hqs+ZZNMFl3dozoSvDjF8zTLMrN6TMq0v72eUvkpWrpNqYIXPpLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670930;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=N+7K+g7Y1asdLnQHE4wpaKr3SeOPLMqo9gr+h5TTsW4=;
+	b=ZhEf91algNAXVv7iKGHr+XVdAFI+zqZXSZ9gLrLcJTHFHERo+fPP5WDsXTHyEXisUFOh
+	 ALEGF+HHeVc5J92D1OfL69Q0/qq+835WZ6yTOipbJrpTzrZ35JnUQfPYFO9JLRGeWr3DG
+	 G0cKCEJ4atITyajUiFP3HjScqlgQEg+ADsKGEqnktOtS9NlAyG6ZE9eHeqCNp7sw8uSHn
+	 iv/6pSFBVnlGyRQZS2NRooe5s+uQ1NUa0QKvGZlE5AlCI/+aaQ3aUNuz9WvD0kY1wnIl0
+	 HSFBzTdDP42i/9VKcFea7UmXHhk9So68tV3Piulf8Rhe9/RPiMq4wZerIwidyMy6XXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F9rzmpQ0;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 632BC606A319;
-	Thu, 22 Oct 2026 12:07:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 632BC606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kgk4iqux;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA50606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:08:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA50606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=F9rzmpQ0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 405C92C41;
-	Thu, 22 Oct 2026 05:07:43 -0700 (PDT)
-Received: from [10.0.129.145] (Suzukis-MBP.cambridge.arm.com [10.0.129.145])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DDB643F7B4;
-	Thu, 22 Oct 2026 05:07:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1792670866; bh=YaugAaOmXpQMbGlR3yQjGJIUa/UWqthL0o7dDmiSzso=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=F9rzmpQ0ewydjOM5Qv2BdnCe/OuDpwBhtCFdR50SESHcFJQn+h++HvTUD+D4WLr/k
-	 xknS5QY+Wgn8HOgpNw40KmbQhMVVOHGQw3OcgSl7If9mgbz6AA7Lavl4a7hIeoBXK6
-	 xRiC9nve68kc1VzLusRjYJgPqEkbyCJGZX+vwlwg=
-Message-ID: <0ab0d3a1-a225-4a88-91bf-04f8f0e42eb7@arm.com>
-Date: Thu, 22 Oct 2026 13:07:41 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=kgk4iqux
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14394530ec6so2372781c88.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:08:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792670930; x=1793275730; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N+7K+g7Y1asdLnQHE4wpaKr3SeOPLMqo9gr+h5TTsW4=;
+        b=kgk4iquxFgYXjtTTHWGpRRY9DZVAal9dM88gnVTLPb8BMzxHQ5h19povlCpMP56vHc
+         n+VnX2aCifiUGM0Ofj9g6aSmkFzRMHkIjzOLK9u1fJFmiOahEBda53RBPT8ZOFp0i6R8
+         vDgsHLXHg2QI7jUewciB3o4G2+BeNJkZSuAA6+JetKAYPbUXnOw5/Uvj9mbcboNiOeBl
+         Rokd8UKBgGgLqcBTxmetCKQgBJ9hJuAi0TAQg4Pjb8dkOr8tTjG8qduofM+GS2WRdWUZ
+         JtQxc3oIlc2hkM5KrZHXOb48tDu+7mjI3wInhHSwWBLkPrEUX5EnH4o34swFlKffgCxf
+         VXiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792670930; x=1793275730;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N+7K+g7Y1asdLnQHE4wpaKr3SeOPLMqo9gr+h5TTsW4=;
+        b=daOFK8dgjkU+Qb9X2WufbD0fIpIRe6MretNdo6fxrndwL5VNWdsPDKJkz9p4j5IiFX
+         We/PBIITwE4YKduPNIGedE8zFQ2wEJ4Exd6yd6j2HlPkEdxvkeCLPzCPXW1q2mm0lTsI
+         0etO/TpChvvBdQ+dsRoGofSQzpYN1lVO1sV5ZG0upVNvVVmZpkSP3eKgcVNyo5HtfOZW
+         GWaCkQEFnw883cyEmpiw9bgyHNH6qpW6Hv9CQZM8Mq4HKtKHFrPViDqjmyJ9soG//AUx
+         JnrDS8QPaH5R5Psqy4ByuCzfmj+MVcTlYJGbopOTIZkSBUGu//ctLnOaJw4zhdMaIf9Q
+         uNJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzRolNBRagp4HoSREz/VaSBUZOmzliG7w7UTWcg+wHAYxxutrFGsQhhad+vCSbhioRvX+8M/zn/CohTg3g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhLdvZxnlMBIyJEBLGpte3l0cA6n2gXBZ4PYziRjuyQlLxxUcV
+	Z5DwipWJo4rBgLj1WpztUWCScszK9EOOTWof0bcH+kJ6/M46+MSuSxR3
+X-Gm-Gg: AYBFou2foppVuBQK/fJNG7x0C6WrM1OZj1MfM/g+cqqMxK3OCzkfCdTIF7D+/9g7WzW
+	ZF11iNpczIdC4NwYixdAaI0eAlWmJyJnxNjwHsGqvzUwvC40MXHaXGOijyGPs+I2HNXiBYgi0Y8
+	raCNFEmuvT8HwuZy/pTKsG5luOIroRRbeYkEBvNj6gjmUP+hi8AOXpRqEf8ZvXY06vWxl6QNP1j
+	OPBUYhlKwYmV7OuOBaIYd5Zy3VAWnUxqqB1XvjjuMaiUj6vIKZi3IHgI80nG/joDl7xp0v1qXv6
+	hPunG8B5Lyr/+yAoXkiq7w2voLzn2mMVfxj+/Qio074dFY2v9l9oxR5Opn7Uq+IchfBP18Rvdie
+	ebrwFeITgtv5HKn/daRWdBTXNOhihP7+d64n7y/np8W9gky9wUqbPv+ybsrFt+mK34QFmVNLGFU
+	fMrmiF6Jb0CZtX8H7B3a12JOLjgdmkSpsEnxpkmdNtOGPvJUdmVNGZrwI+qpIfOG+E1HcktWslN
+	WlAWashMQRQk3NFg9iQQGJNoiOBuxsPfuDoh7X7zaH+af3L72VFq6383jI=
+X-Received: by 2002:a05:7022:f85:b0:14e:d0ba:7569 with SMTP id a92af1059eb24-190a0612740mr8360111c88.6.1792670929457;
+        Thu, 22 Oct 2026 05:08:49 -0700 (PDT)
+Received: from HP-Pro-Tower.mioffice.cn ([43.224.245.243])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903e02901fsm14930176c88.22.2026.10.22.05.08.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 05:08:49 -0700 (PDT)
+From: lizhijun3 <zhijunli.leo@gmail.com>
+X-Google-Original-From: lizhijun3 <lizhijun3@xiaomi.com>
+To: jaegeuk@kernel.org,
+	chao@kernel.org
+Cc: chenzhangqi@xiaomi.com,
+	linux-f2fs-devel@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	lizhijun3 <lizhijun3@xiaomi.com>
+Subject: [PATCH] f2fs: fix to roll back SIT update on segment allocation failure
+Date: Thu, 22 Oct 2026 20:08:32 +0800
+Message-ID: <20261022120833.1698722-1-lizhijun3@xiaomi.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,202 +98,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v22 06/10] firmware: arm_rmm: Ensure the RMM has GPT
- entries for memory
-Content-Language: en-GB
-To: Kohei Enju <enju.kohei@fujitsu.com>
-Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev, maz@kernel.org,
- will@kernel.org, catalin.marinas@arm.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, steven.price@arm.com,
- aneesh.kumar@kernel.org, oupton@kernel.org, gshan@redhat.com,
- joey.gouly@arm.com, tabba@google.com, yuzenghui@huawei.com,
- linux-coco@lists.linux.dev, gankulkarni@os.amperecomputing.com,
- sdonthineni@nvidia.com, alpergun@google.com, fj0570is@fujitsu.com,
- WeiLin.Chang@arm.com, lpieralisi@kernel.org, sudeep.holla@arm.com,
- jonathan.cameron@oss.qualcomm.com, Soby Mathew <Soby.Mathew@arm.com>
-References: <20261002061507.1600269-1-suzuki.poulose@arm.com>
- <20261002061507.1600269-7-suzuki.poulose@arm.com>
- <atiyZ7_S7aBxowIQ@FCCLS0092175.localdomain>
- <34bf0c98-35b1-4402-842f-a100245cb9a7@arm.com>
- <atjEkyLimpQSL4d4@FCCLS0092175.localdomain>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <atjEkyLimpQSL4d4@FCCLS0092175.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/10/2026 15:00, Kohei Enju wrote:
-> On 10/21 14:35, Suzuki K Poulose wrote:
->> Hi
->>
->> On 21/10/2026 14:07, Kohei Enju wrote:
->>> Hi Suzuki,
->>>
->>> I've tested this series and found a possible TF-RMM issue.
->>> Please  below.
->>>
->>> On 10/02 07:15, Suzuki K Poulose wrote:
->>>> From: Steven Price <steven.price@arm.com>
->>>>
->>>> The RMM maintains the state of all the granules in the system to make
->>>> sure that the host is abiding by the rules. This state can be maintained
->>>> at different granularity, per page (TRACKING_FINE) or per region
->>>> (TRACKING_COARSE or TRACKING_INTERMEDIATE). The region size depends on the
->>>> underlying "RMI_GRANULE_SIZE". For a "coarse"/"intermediate" region,
->>>> all pages in the region must be of the same state, this implies we need to
->>>> have "fine" tracking for DRAM, so that we can delegate individual pages.
->>>>
->>>> For now we only support a statically carved out memory for tracking
->>>> granules for the "fine" regions. This can be extended in the future to
->>>> allow modifying the tracking granularity and remove the need for a
->>>> static allocation by the firmware.
->>>>
->>>> Similarly, the firmware may create L0 GPT entries describing the total
->>>> address space. But if we change the "PAS" (Physical Address Space) of a
->>>> granule, then the firmware may need to create L1 tables to track the PAS
->>>> at a finer granularity. Linux therefore checks if the platform firmware
->>>> manages the PAR region. i.e., the firmware is in charge of managing the
->>>> L1 GPTs (creation and the required memory for the GPT tables - via static
->>>> carveouts) without host intervention. Support for dynamic GPT creation by
->>>> the host will be added later.
->>>>
->>>> If the firmware requires us to manage the tracking or GPT memory,
->>>> deactivate the RMM and reclaim any memory donated at RMM activation.
->>>>
->>>> Apply the same checks when hotplugged memory is brought online.
->>>>
->>>> Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
->>>> Reviewed-by: Gavin Shan <gshan@redhat.com>
->>>> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
->>>> Tested-by: Gavin Shan <gshan@redhat.com>
->>>> Signed-off-by: Steven Price <steven.price@arm.com>
->>>> Co-developed-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
->>>> ---
->>> [...]
->>>> +/*
->>>> + * We do not support creating L1 GPTs yet. So, make sure that all the regions
->>>> + * are managed by the firmware.
->>>> + */
->>>> +static int rmi_verify_gpt_firmware_managed(phys_addr_t start, phys_addr_t end)
->>>> +{
->>>> +	unsigned long l0gpt_sz;
->>>> +	unsigned long next, par_state;
->>>> +
->>>> +	l0gpt_sz = 1UL << (30 + FIELD_GET(RMI_FEATURE_REGISTER_1_L0GPTSZ,
->>>> +					  rmi_feat_reg(1)));
->>>> +	start = ALIGN_DOWN(start, l0gpt_sz);
->>>> +	end = ALIGN(end, l0gpt_sz);
->>>> +
->>>> +	while (start < end) {
->>>> +		long ret = rmi_gpt_info(start, end, &next, &par_state);
->>>> +
->>>> +		if (ret != RMI_SUCCESS) {
->>>> +			pr_err("RMI_GPT_INFO failed for %llx-%llx: (%ld)\n",
->>>> +				start, end, ret);
->>>> +			return -ENXIO;
->>>> +		}
->>>> +
->>>> +		if (WARN_ON(next <= start))
->>>> +			return -ENXIO;
->>>> +
->>>> +		if (par_state != RMI_GPT_PAR_PLAT) {
->>>> +			pr_err("GPT for the region is not managed by firmware %llx-%lx\n",
->>>> +				start, next);
->>>> +			return -ENODEV;
->>>
->>> When system RAM starts at a non-L0GPTSZ-aligned address, the alignment
->>> in rmi_verify_gpt_firmware_managed() may cause the queried L0GPT range
->>> to include a memory hole.
->>
->>>
->>> On out platform, the relevant memory layout is:
->>>
->>>       800c0000000-800dc3fffff : memory hole
->>>       800dc400000-82fffffffff : System RAM
->>>
->>
->> Thanks for the report.
->>
->>> Consequently, Linux queries the following L0GPT range:
->>>
->>>       800c0000000-80100000000
->>>
->>> The query fails with RMI_GPT_PAR_RESERVED:
->>>
->>>       [    8.551855] GPT for the region is not managed by firmware 800c0000000-80100000000
->>>
->>> and arm64_init_rmi() subsequently fails.
->>>
->>> As I understand it, smc_gpt_info() in TF-RMM checks only the beginning
->>> of the aligned L0GPT range. Since that address is in the hole, the whole
->>> range is reported as RMI_GPT_PAR_RESERVED, even though it contains
->>> platform-managed System RAM.
->>>
->>> I believe this should be addressed in TF-RMM. Do you have any thoughts
->>> on the expected RMI_GPT_INFO behavior in this case?
->>
->> I believe the RMM should report a value that represents the situation
->> better. In this case, there is a hole, and some conventional memory
->> areas. For the conventional memory, the RMM has to manage the GPTs.
->> (This applies to the tf-RMM implementation of TRACKING Granule state
->> too. It only looks at the first granule and reports the type of memory.)
->>
->> RMI_GPT_PAR_RESERVED is not accurate as the memory region is not
->> reserved, unless it is reserved for firmware (in which case the
->> memory description is wrong).
->>
->> I would say RMI_GPT_PAR_PLAT  is accurate if the L1GPT exists, as the
->>   region covered by the L0GPT has some memory that are delegable.
->>
->> Otherwise it must be reported as RMI_GPT_HOST_NOT_CREATED.
->>
->> The information that a given memory region is not "memory" (i.e. hole)
->> is basically TRACKING_STATE returned as RMI_MEM_CATEGORY_NONE
-> 
-> Thanks for the clarification. Could you please raise this with the TF-RMM
-> team? Please let me know if I can help with testing or provide any
-> additional information.
+In f2fs_allocate_data_block(), SIT is updated before segment rotation
+since SSR needs the latest valid block information:
 
-[Duplicating Soby's response, which may have been filtered due to the 
-HTML email]
+	update_sit_entry(sbi, *new_blkaddr, 1);
+	update_sit_entry(sbi, old_blkaddr, -1);
 
---->8---
+If the subsequent segment rotation (new_curseg(), change_curseg() or
+get_atssr_segment()) fails, it jumps to out_err and clears *new_blkaddr,
+however, it does not roll back the two SIT updates, so that SIT may
+record that:
 
-Thanks Kohei for reporting this issue. I have pushed a fix for this in 
-TF-RMM which we hope to get merged soon.
+- the new block is valid even if no data was written to it;
+- the old block is free even if a node still refers to it.
 
-https://review.trustedfirmware.org/c/TF-RMM/tf-rmm/+/55689/1
+Not every failure stops the checkpoint. For example, change_curseg()
+returns PTR_ERR() if f2fs_get_sum_folio() fails (e.g. -ENOMEM), and this
+path does not call f2fs_stop_checkpoint(), so the filesystem keeps
+running. A later checkpoint can then persist the inconsistent SIT, and
+the old block may be reallocated while being referenced, causing data
+corruption. The same stale SIT state can also be exposed when pinned
+allocation returns -EAGAIN and the caller retries the allocation.
 
-Best Regards
-Soby Mathew
+Fix it by tracking whether SIT was updated and rolling back the two
+update_sit_entry() calls in the error path.
 
----8<---
+Fixes: 7d009e048d7c ("f2fs: fix to handle segment allocation failure correctly")
+Cc: stable@vger.kernel.org
+Co-developed-by: Chen Zhangqi <chenzhangqi@xiaomi.com>
+Signed-off-by: Chen Zhangqi <chenzhangqi@xiaomi.com>
+Signed-off-by: lizhijun3 <lizhijun3@xiaomi.com>
+---
+ fs/f2fs/segment.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-> 
-> Thanks,
-> Kohei
-> 
->>
->>
->>>
->>> As a side note, we tested this series and the v23 integration branch
->>> with a Linux-side workaround to avoid the problem above, and we have not
->>> observed any other major issues. Sorry for the delay in testing this
->>> series.
->>
->> Thanks for the testing !
->>
->> Suzuki
->>>
->>> Thanks,
->>> Kohei
->>>
->>>> +		}
->>>> +		start = next;
->>>> +	}
->>>> +
->>>> +	return 0;
->>>> +}
->>
-
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 63b712d3d599..033a3b8bf426 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3908,6 +3908,7 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *sbi, struct folio *folio,
+ 	bool from_gc = (type == CURSEG_ALL_DATA_ATGC);
+ 	struct seg_entry *se = NULL;
+ 	bool segment_full = false;
++	bool sit_updated = false;
+ 	int ret = 0;
+ 
+ 	f2fs_down_read(&SM_I(sbi)->curseg_lock);
+@@ -3958,6 +3959,7 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *sbi, struct folio *folio,
+ 	 */
+ 	update_sit_entry(sbi, *new_blkaddr, 1);
+ 	update_sit_entry(sbi, old_blkaddr, -1);
++	sit_updated = true;
+ 
+ 	/*
+ 	 * If the current segment is full, flush it out and replace it with a
+@@ -4027,6 +4029,14 @@ int f2fs_allocate_data_block(struct f2fs_sb_info *sbi, struct folio *folio,
+ 	return 0;
+ 
+ out_err:
++	/*
++	 * SIT is updated before segment rotation for SSR. Roll it back if
++	 * segment rotation fails.
++	 */
++	if (sit_updated) {
++		update_sit_entry(sbi, *new_blkaddr, -1);
++		update_sit_entry(sbi, old_blkaddr, 1);
++	}
+ 	*new_blkaddr = NULL_ADDR;
+ 	up_write(&sit_i->sentry_lock);
+ 	mutex_unlock(&curseg->curseg_mutex);
