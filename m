@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792667585;
-	b=W5IlVyin2U8gBBkn8cPvY+v2za0+pCsmUqSfmbgXcSmzAg4Snq103wziRrcoz43n2AoJ
-	 AaenCmXEkVEimH8png1Q8W4gKviFRBdz5EELj2vCOuaQ/tjUA7M4TnDZ600t2Og+aVVH1
-	 EIdOHTmffcZw+K5+B5ch/wcBJ35DAaDK7jEsSmqexugjb3t32Uj5sawQ2tGKCo8R+vxrl
-	 w5QIXElCPjKQiMr4X0iBUlLMUHSvqisJbWwRHez34Yxa43uyeZMmLWiziMbrxgMXRk9+k
-	 cnpE6tVLqGacYvVkiRuRaiZ3SYcaBIf1gKT9J4F3zP05+ADWT+FF9ZTcPhOJfqvvqbQ==
+	t=1792667590;
+	b=Z/yCl+Vmrk28clENAgl1HL2LNTHx8S7vBj9zHtx+do1JFa9lM6ktwa4qcZdLnCz05PyQ
+	 igemaNUPeDcVde+aj6Chy8+hoOPVnKobNbSSvCkDiDQgZM9mLIEUzFHNBy/2+1+CfPBBe
+	 hgs5AQ0tju4VT+i9iuOdC8fJOMvhAVh1YPQT3/xC0PTkhFold8hdMbRMl+0NlF5dEhGDR
+	 hGgwMTByJTM5r146HDoU32Rqs+S3jGPn0SezKPw+tdYXifqJPLOeDdnnCEW9npu3iL+nu
+	 T6fnp9MRPilwDuRUXnQVdvoC3UIOTz2hrXSe/O3am4g9Qq5gs2eOKA9E7ppW/Lh9UKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667590;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=plgo1VyyX/ZTHQrDVE4OpEvOdaKz2fz6hhtMI1sePFs=;
-	b=YMv6vGtE/X1oevW2MRIiWCxmm7JRqDRPAXHJ4uDMrazVwD7yFc6Xc7up0eiF0nvllUrn
-	 Dh5PkK5yiePUoe4gmq/aPUPa+5gJbjDyCCtCIib68Eo9/Z1e4wbVPIeHlwKNHtvmKYg5V
-	 TmObaicKzbCRkz3NPqzpxAGwWOzoqoG5FBXzDl3hOYhfxdpycU8NeJI7a0jeT1kwTit2t
-	 UVFk3Shq/xCQnpyJPKqEAJLqmxshdmTBF8KsS4KOL+iOdPxUUfXFVnd8BA98KkRy/DVcy
-	 0MQfcbBa2DPgquJZNBcpre9cfS6sOO5Y2E3fKMJ7mK63audnfIld9UJ8LPi97IFMudA==
+	bh=O85oEWnqbB7A3aswtwEX6Ghna+/vXCw0tN0v3/yndfs=;
+	b=TYP9ka14RM6cYkrW1ugX8eksE9YQ//1jojUfF1eZ1vlRFfeDEgAnBBFfp1n2iyL+dnvS
+	 EMoNrS7RsCYsfU2ZnOfLGkV3uKW0f0BRpGRgO3HJ6xm/lSTovp9KCkqdiOxVOMFeCbnlP
+	 Qtq3na0kb3ehQLMGXFO7SKH0qfii7oyeL6zkdI1sYlEWgEZs//S5tAU1S9SONGc9PR5wy
+	 hMkXq1faun2Ez1VFHhnSiqEjRgU1OHdvhkzbVjqmNwLShIUTFucS8B9cHcss+tMvbAItw
+	 K3NXpsGgPcVzwRGFLOrl2PbSJVZPNR8GvKFM+T2qRCoHXHxPEFG7nB+C4hIQvq7hEDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i1FPCBui;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="XU9/dvRS";
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53ADD606A323
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:13:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53ADD606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A698C606A31F
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:13:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A698C606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=i1FPCBui
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-354ba08cfd1so2946679eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:13:04 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=XU9/dvRS
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2926424eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:13:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792667583; x=1793272383; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792667589; x=1793272389; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=plgo1VyyX/ZTHQrDVE4OpEvOdaKz2fz6hhtMI1sePFs=;
-        b=i1FPCBuizCO26W639eEw/62D3Yu9yo/Y5brUjhFuMmOOnzlweK2N3jaqv8aklxIUOM
-         kK1knNxc8zDSAcZL/odfpcGUAz35Ocf1Z7nuGPPkCYBC1LqbdjwGqZ8ijzn9SoY8JMJN
-         wHO7xcxmVIoaH0peVVjOD9tFyoMVesdD6TPgCBYe0yu8tlRW751SVRgSKRZBrskpMQzz
-         abdB0Eg9xWUOy2J5gi/Tl1fODqUJXOnQ4hblQVF5EFopSsi/4rdEWDMxaspq5m9a6/wf
-         SUSNJe+g464Y2WVbCxqdh8dkbhQADAhvfB89rPo/KBdFZfelzIna0cosjVO8B+iODNw5
-         0Qww==
+        bh=O85oEWnqbB7A3aswtwEX6Ghna+/vXCw0tN0v3/yndfs=;
+        b=XU9/dvRSHYB+giTZMeAi9/POi2ADnlIdyVKYNXDcXxlyNMpfOuQihfv2TUQdzwrDfH
+         O9vcXGpPR7zy+HiiYg8K4+YLoaZl2gNa0NWbdRXwiBeNz3Kr0diyzhVhw0/q/lWIgOQJ
+         Yaz2A5k2RXxN7Xviy7NRWoF5hM0z0guCpp2LvrPABd1AP6p0iYVAhhRwtDCi4t9xhAF/
+         CwDEPiIMQk146avf+XPAnDcPOuSu0gs2gjEO463Hx/OR+48Ky68UxBgkMaw8PhPZ9zIG
+         t302diJwq3KupsyYif6yfvdRXbVnFeOiCM6H7P4VxvBmp0kdxLdHyRmynhlFnb4JoL+A
+         fYLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667583; x=1793272383;
+        d=1e100.net; s=20260707; t=1792667589; x=1793272389;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=plgo1VyyX/ZTHQrDVE4OpEvOdaKz2fz6hhtMI1sePFs=;
-        b=WwG3dtxC6jtOltFg3Pqm68mTrAcP9He275YKEDqQlju/N/vCIeXvr+e3ZScRz3zs3y
-         UhW5qRRtbiB2/3MvWAeiz5IEgp+ij43aNBVgCAM1pAeunr6z4Xq+I+sUJRXGt+g+8kOG
-         /K6YJx/2pcFkOSXVzECC88p2soPF5iBZ7ixRYxW7lDtoh7n10o+wynE1o+RvgIVV7THA
-         rPM75BMzmZDGvxTLwqf+Xx+GfVhHynsAMDRVK/lz8/E4dvFA2JvOxy/PjIHGtJ8OHmNV
-         AXvdFGxW2keUpuU+wjaWLaIDGnrt+jOh/S/qhTrPIJr0Yt19Ii9w73fmZMwn76KCdz1a
-         FfYw==
-X-Forwarded-Encrypted: i=1; AKwUvByZ0tDoSCET8Hv2kitWMEcAimfB7d6zw0+XtcPsHlXByz6kxDt0ctC399umYvTcJ2ak22asBzUcEdzdv5o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYtBS+IJhmFF1hunAn7wCqxhxUvZdRzK0dyyNx9+edO/Fq4plJ
-	mT+U4WNLwnxq9YCuMb7P057JchWzNf3VKdk/p2OB/JeV83ISguW3VE/L
-X-Gm-Gg: AYBFou2YzW4RjS1SickxjPXIm8HqNaQBbtdys9VRkQtfhmngTBDttA3go0JTBzROVYN
-	rYNuAr8KUYUSpqeXJyNFtVqEdGwRjQuhFmb9j2s/P04D+n4S2N6V3FmKz85gId0lGKxCTrIERUd
-	vXZyf6/Q/e5t1d8kzTOzkfkEfVZFvScqXIPbjIKmlMyNExdC7/K37R/0E+Ey7qDgcsZjut8spGk
-	MofJ5xiF8Q6SIYSbMW7soQDHuEEWsMrnFklTw+QuMgq4ezG9Tw1WR4CHj5YCea+xnhMNT6STGZK
-	aTisAnDyLXL5CYT0ZEob1hxyLzRbQcoIfgPUOx1910irRD8UyVmGu2dNLzT0XvXPwJr82vWoDKe
-	qtVjQIykYXw4ArUPGJoWBA5RoFaIDCiVyScElwHgz5XCQWqDKHum6IIevO6yx5QyUK4PHVyXiO8
-	OLJ2FTS6k50pM8YfEI6KSK9/nyOGsu2eZJxIbGDlfSABMXE/RCYq2/z54Q1UK+9n6e3xVrbyICs
-	VLeP7mdFdkRN4nuY/xwNN2fd+WK+15KGNrdTEKL+hY9qSFKcv6JPHk0/DRx19Q+SB6aPU4EQyKi
-	5GaKFgayeYcW/ioLGEVEAcvmP2Z4BWR72wknLsnEiweyfawFFNwfUhuxhTkvFaQCZVY=
-X-Received: by 2002:a05:693c:401b:b0:369:21a:dce0 with SMTP id 5a478bee46e88-369021ae29dmr2009629eec.6.1792667583112;
-        Thu, 22 Oct 2026 04:13:03 -0700 (PDT)
+        bh=O85oEWnqbB7A3aswtwEX6Ghna+/vXCw0tN0v3/yndfs=;
+        b=X6zQ+hmW2ktM2tuDkiF8Qol53y89sdfdrYplv2Ef8BmzlxodmAV7VS8lK3+WFZwzKb
+         bWS9UEZHR7nyddLEdpI69jUlmpewfAXix4E1FJMhrGr/F37hCiv53rp2q1a4O4X4TTQk
+         a1tMpBwZ75xrphg0rgi9UDZX9pIFfdruY0IA+d1c1+g2eoUw5LEMCfzD5JUuzAkq3Nbr
+         0lEW/oPIQcXYFWQte7DFG8QPrDwYiLKvt8fqOiIZThRrsaI8dlNsk8Qfml6andVigJvt
+         RITuaoDPEzcu8hdeby/EDvu9lF2kWdIIAi+3sBsefHLwPmV099m4EtUzyPy70RuhmN/q
+         7rAw==
+X-Forwarded-Encrypted: i=1; AKwUvByUa+X7bi6vbsUwp6d4CN5nS/parozFVehw1YQnKdzzds3ZFmXEmk+NL1eZlPpM6jbwSa2tVLhvfDr9+k4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKYaqnBNKntbu06dLkwKaDmtFG4llgwzOh3dphmzH9AWPwvc3xg
+	aS6I+yXnaGBDP7wknrPa21yDv2CgRs1H1FVJwhTh2ljN8jRb6cBkIv5j
+X-Gm-Gg: AYBFou0yHAWmaZ1YFbX+ZUrMtYo3gTWMuV7Vzw3znk/eJrf6aHGeqg/+cVmbBr2hoz9
+	JFrYR27JrDjfBtiI7rV+YN3+Gyjsi8b7jFBA7EOVDg/msVz6QIeEwDBvRGuGm1YwnZs0i7iK3gp
+	5q1zbMQ4XTYd4YMUs1P299RB1l3hHfhoGWDW8GnF4GmGHWGU4Tk8OyGCBFCJc981Mw1eqUQ8dVb
+	AAzu80+E56Rv7oecvfsUZjfikloG6T1GerEode1J8MDYZCA9Nl+5RaYzlM9PdHJS8BK1IjRlSzk
+	1oJP9KESw1yWqEtIIpnUw17Ln+YLrASAQGNvkXVV1FOC25pPfU4fRQfp3ZkavKYjNqNHuQsicGm
+	WBZWPWE7ihGj0N4cUNHwy6weVNoP7M1/xMgUSktHHtyE5EHs44tceM+z2NT4kNkSR9ltup4shUA
+	HKJT9F7k8BtiJSqot5IRUN5UHgiDvNEOwyuYikiaDsI+8WEQbuyARGr0VXAwBjQ2HfXVw8URnqM
+	a7tx6kRJE/xUC5j6u9OiYT2qpIP9F9TRLj+ThpRLtUio3ziWo+yAi0Rbhr6aTk7G0TUCTcrEywM
+	kjC3Ypn222S/VjmYXC4NDHHTmiFtUYRLJVLfvqExAgJh1nGNIySFpW5ry3l4EWJW0B4=
+X-Received: by 2002:a05:693c:87d3:20b0:369:7c:bfce with SMTP id 5a478bee46e88-369008c220fmr1910947eec.14.1792667588795;
+        Thu, 22 Oct 2026 04:13:08 -0700 (PDT)
 Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm6369653eec.5.2026.10.22.04.13.00
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm6369653eec.5.2026.10.22.04.13.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:13:02 -0700 (PDT)
+        Thu, 22 Oct 2026 04:13:07 -0700 (PDT)
 From: HyeongJun An <sammiee5311@gmail.com>
 To: Takashi Iwai <tiwai@suse.com>
 Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
@@ -88,9 +88,9 @@ Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 2/3] selftests: ALSA: pcmtest: Test errors from the PCM callbacks
-Date: Thu, 22 Oct 2026 20:12:43 +0900
-Message-ID: <f1b98dad097550f09e38ee7e90ce30106d89a09d.1792660433.git.sammiee5311@gmail.com>
+Subject: [PATCH 3/3] selftests: ALSA: pcmtest: Test pausing a capture stream
+Date: Thu, 22 Oct 2026 20:12:44 +0900
+Message-ID: <906d65ff1cf78f5e173a5476eadcbca285aa2b17.1792660433.git.sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1792660433.git.sammiee5311@gmail.com>
 References: <cover.1792660433.git.sammiee5311@gmail.com>
@@ -105,142 +105,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver can return an error from its open, hw_params, prepare and
-trigger callbacks, controlled by the inject_*_err module parameters.
-No test uses them, so nothing checks that these errors reach user space.
+The driver supports pause, but no test uses it.
 
-Add a test for each callback. It sets the parameter, checks that the
-matching call fails with the driver's error, then clears the parameter
-and checks that the call succeeds. The trigger test also checks that a
-failed start leaves the stream in the PREPARED state. The fixture
-teardown clears all parameters, so a failed test does not affect the
-next one.
+Add a capture test that pauses the stream halfway for half a second.
+The core does not read the hardware pointer while the stream is
+paused, so a driver that keeps running shows up only at the release,
+as a jump of the pointer. Check that the jump is under a tenth of a
+second, and that the data carries on from where it stopped.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
- .../selftests/alsa/test-pcmtest-driver.c      | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
+ .../selftests/alsa/test-pcmtest-driver.c      | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
 
 diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-index fc4d12542808..380364ee7924 100644
+index 380364ee7924..b796a5613c6f 100644
 --- a/tools/testing/selftests/alsa/test-pcmtest-driver.c
 +++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
-@@ -5,6 +5,7 @@
-  *
-  * Copyright 2023 Ivan Orlov <ivan.orlov0322@gmail.com>
+@@ -7,6 +7,7 @@
   */
-+#include <errno.h>
+ #include <errno.h>
  #include <string.h>
++#include <unistd.h>
  #include <alsa/asoundlib.h>
  #include "kselftest_harness.h"
-@@ -58,6 +59,20 @@ static int read_patterns(void)
- 	return 0;
- }
  
-+static int set_param(const char *name, int value)
-+{
-+	char path[128];
-+	FILE *f;
-+
-+	sprintf(path, "/sys/module/snd_pcmtest/parameters/%s", name);
-+	f = fopen(path, "w");
-+	if (!f)
-+		return -1;
-+	fprintf(f, "%d", value);
-+
-+	return fclose(f) ? -1 : 0;
-+}
-+
- static int get_test_results(char *debug_name)
- {
- 	int result;
-@@ -141,6 +156,10 @@ FIXTURE(pcmtest) {
- };
- 
- FIXTURE_TEARDOWN(pcmtest) {
-+	set_param("inject_open_err", 0);
-+	set_param("inject_hwpars_err", 0);
-+	set_param("inject_prepare_err", 0);
-+	set_param("inject_trigger_err", 0);
- }
- 
- FIXTURE_SETUP(pcmtest) {
-@@ -343,4 +362,74 @@ TEST_F(pcmtest, reset_ioctl) {
+@@ -362,6 +363,54 @@ TEST_F(pcmtest, reset_ioctl) {
  	snd_pcm_close(handle);
  }
  
 +/*
-+ * Here we check that an error from each PCM callback reaches user space. The driver returns
-+ * the error while the matching 'inject_*_err' parameter is set, and works again once it is
-+ * cleared.
++ * Here we pause a capture stream halfway. The core does not read the hardware pointer while
++ * the stream is paused, so a driver that keeps running only shows up after the release, as a
++ * jump of the pointer. The data must also continue where it stopped, so the whole buffer still
++ * matches the patterns.
 + */
-+TEST_F(pcmtest, open_err) {
++TEST_F(pcmtest, capture_pause) {
 +	snd_pcm_t *handle;
-+	char pcm_name[32];
++	snd_pcm_sframes_t read_res, paused_avail, avail, frames, half;
++	unsigned char *samples;
++	struct pcmtest_test_params *params = &self->params;
 +
-+	sprintf(pcm_name, "hw:%d,0,0", self->card);
-+
-+	ASSERT_EQ(set_param("inject_open_err", 1), 0);
-+	ASSERT_EQ(snd_pcm_open(&handle, pcm_name, SND_PCM_STREAM_PLAYBACK, 0), -EBUSY);
-+
-+	ASSERT_EQ(set_param("inject_open_err", 0), 0);
-+	ASSERT_EQ(snd_pcm_open(&handle, pcm_name, SND_PCM_STREAM_PLAYBACK, 0), 0);
-+	snd_pcm_close(handle);
-+}
-+
-+TEST_F(pcmtest, hw_params_err) {
-+	snd_pcm_t *handle;
-+	char pcm_name[32];
-+
-+	snd_pcm_hw_params_alloca(&self->hwparams);
-+	sprintf(pcm_name, "hw:%d,0,0", self->card);
-+	ASSERT_EQ(snd_pcm_open(&handle, pcm_name, SND_PCM_STREAM_PLAYBACK, 0), 0);
-+	ASSERT_EQ(snd_pcm_hw_params_any(handle, self->hwparams), 0);
-+
-+	ASSERT_EQ(set_param("inject_hwpars_err", 1), 0);
-+	ASSERT_EQ(snd_pcm_hw_params(handle, self->hwparams), -EBUSY);
-+
-+	ASSERT_EQ(set_param("inject_hwpars_err", 0), 0);
-+	ASSERT_EQ(snd_pcm_hw_params(handle, self->hwparams), 0);
-+	snd_pcm_close(handle);
-+}
-+
-+TEST_F(pcmtest, prepare_err) {
-+	snd_pcm_t *handle;
++	samples = calloc(params->sec_buf_len * params->time, 1);
++	ASSERT_NE(samples, NULL);
 +
 +	snd_pcm_sw_params_alloca(&self->swparams);
 +	snd_pcm_hw_params_alloca(&self->hwparams);
-+	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams, &self->params,
-+			       self->card, SND_PCM_STREAM_PLAYBACK), 0);
-+
-+	ASSERT_EQ(set_param("inject_prepare_err", 1), 0);
-+	ASSERT_EQ(snd_pcm_prepare(handle), -EINVAL);
-+
-+	ASSERT_EQ(set_param("inject_prepare_err", 0), 0);
-+	ASSERT_EQ(snd_pcm_prepare(handle), 0);
-+	snd_pcm_close(handle);
-+}
-+
-+TEST_F(pcmtest, trigger_err) {
-+	snd_pcm_t *handle;
-+
-+	snd_pcm_sw_params_alloca(&self->swparams);
-+	snd_pcm_hw_params_alloca(&self->hwparams);
-+	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams, &self->params,
++	ASSERT_EQ(setup_handle(&handle, self->swparams, self->hwparams, params,
 +			       self->card, SND_PCM_STREAM_CAPTURE), 0);
 +
-+	ASSERT_EQ(set_param("inject_trigger_err", 1), 0);
-+	ASSERT_EQ(snd_pcm_start(handle), -EINVAL);
-+	ASSERT_EQ(snd_pcm_state(handle), SND_PCM_STATE_PREPARED);
++	frames = params->rate * params->time;
++	half = frames / 2;
++	read_res = snd_pcm_readi(handle, samples, half);
++	ASSERT_EQ(read_res, half);
 +
-+	ASSERT_EQ(set_param("inject_trigger_err", 0), 0);
-+	ASSERT_EQ(snd_pcm_start(handle), 0);
-+	ASSERT_EQ(snd_pcm_state(handle), SND_PCM_STATE_RUNNING);
++	ASSERT_EQ(snd_pcm_pause(handle, 1), 0);
++	ASSERT_EQ(snd_pcm_state(handle), SND_PCM_STATE_PAUSED);
++	paused_avail = snd_pcm_avail(handle);
++	ASSERT_GE(paused_avail, 0);
++	usleep(500000);
++
++	/*
++	 * At 8000 Hz the pause is 4000 frames long. Allow a tenth of a second (800 frames) for
++	 * the release.
++	 */
++	ASSERT_EQ(snd_pcm_pause(handle, 0), 0);
++	avail = snd_pcm_avail(handle);
++	ASSERT_GE(avail, 0);
++	ASSERT_LT(avail - paused_avail, (snd_pcm_sframes_t)params->rate / 10);
++	read_res = snd_pcm_readi(handle, samples + snd_pcm_frames_to_bytes(handle, half),
++				 frames - half);
++	ASSERT_EQ(read_res, frames - half);
 +	snd_pcm_close(handle);
++
++	ASSERT_EQ(find_capture_mismatch(samples, params), -1);
++	free(samples);
 +}
 +
- TEST_HARNESS_MAIN
+ /*
+  * Here we check that an error from each PCM callback reaches user space. The driver returns
+  * the error while the matching 'inject_*_err' parameter is set, and works again once it is
 -- 
 2.43.0
 
