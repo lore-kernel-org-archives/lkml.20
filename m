@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792711705;
-	b=eZH4CS26J2kr/qzY/tEj6h9gn5GKV+vqIi5LmSNsWE3akfWWsKy5w7fy4SoIUBHgJkj1
-	 w4NXIeMmAr8sIQUH6Fu0ZSGJAuWrGU45ka1Et3u756/mie0sn+Evd12EcZ9w/yej26MeM
-	 a53J5+tXFlP/vG4Oshggwc2HbqQV/fTOhvz1QiDL1MeCr2DxuakxLFjEs8LjMxqvcduwN
-	 9SgZvG8o2zY8/5PosinqR4zGYRKEBtx5nSA1eTJl8uc4ru6j7yu+GVOyfnbR/5hAGIedt
-	 d6mXNBYvRnWvI50s4hiXuYzY2N5eORAVwUgGJbtWKEXXTnh8xM9CfsQtmWD3zEx8rBA==
+	t=1792711696;
+	b=ESo/CKKdRmO0VYm3FOdRkbnh70HKGFRT9u8ehhJUcccWlFkRAUiBPF9EYA43wFErB+Xy
+	 3nclhnfF/Gm4DAHrs9AGyrfp6wpFAzNGZwdNnoUzsd/p/7c1Dk95bK7B1fbKjkTfjjXlK
+	 LekPebmU3ekoXd2z/JyzqPhIKzjkW+nRdTn5OukPgSyQYXo+X752Kc8NGz2XKKwf4qnR8
+	 0ScChUVAnNADcBfK0oK8Df0+KXlczms5fciu32EwRmI14zZL0VQ84jnP+D8gkJoS0etsA
+	 hQ5HFroxyQP2sKNENh1mtd0PgeTVzKcfR9TtFyHrXPodFbsaquXVlZB/+qZOf9XlwyA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792711705;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792711696;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5CAsspFacI74tIRNd6wHkIQKFznmSOkNFeqBDDMzIpo=;
-	b=Vvg9G59BjGFG3eEvTJfOqRA8MXpBS03JoQrw+KDIyF+Vr2CtitNnokYjwkxIudZ5ZQMI
-	 mOThG066+fNHZKdXfkCHxbjVo81l2J1KCIYtHGc5qJCbHbYmSGXk8/rNyzL/xUI7ZA/y3
-	 bRvLfgqW8VSs6qhgXvOBM+ODFWmVBXsARGnqnQ/ohgd/yLoilPQMhh5cMApH7NTdl2Xjs
-	 4UgwTZ3oJNSAugmFJ6Gh2cmmlRRC2oxFTY8DehS9nvxWDSMRZdUHJuP3OUkuIl8zjyqLs
-	 elN99xDyNhai8ApNfV2DFBcwQxltLznjW3L/3hRL66va/YitS1hrlKr/R35PM9ubofQ==
+	bh=k68GYBk436CaPNprL/QXtHO9RB8x7lga/CshgV9NcYc=;
+	b=zuLQGmnAuKXf34NuWuysw10DeVQhFhwsY0aolwdAH4VVe2O7Fj/FJjOyUttbMI1AhIAj
+	 2dQG0TaiWfgMD+RUbUHmF3Q4IlJhltcj4Ak2YUtwaDNa9+elehVMyDNVUqdqYRuTWJYX5
+	 7+yi4m8PMcz+pKwr6tlJBYf9eE/L7rtKk4kapKZtSNzUld7XCFIyvxCFfthKlMk+C0dof
+	 56AAywijWmCEgjJr4RdjeVfgEmuXRHNZ2Y2378C7pABJAxwP5WGXgYvVWIKSn180sHb2s
+	 UlqrMvco3dADFFbx0wHxnVOYcsPWI7+9787kMPxXeUMIihakuaL0aGvnQuOd6NUKWpw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+iMV+Tl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QhxqA100;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 242E96073FD5;
-	Thu, 22 Oct 2026 23:28:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D8E606F4A2;
+	Thu, 22 Oct 2026 23:28:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h+iMV+Tl
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QhxqA100
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792711705;
-	b=EJWlkWKmtAD3sxbmMiy9Lrhjh7+TXBO8IA0GDnVxoTVdbCB8I2A7r2xBVnBIilr8IfS/
-	 l8zYMkZg4paabBcL/thrw8FjI0JltfcDwPRUhFVeQ3auR+FidrBu/woJYx1BksXX23hsJ
-	 fO7x2XnTMoub+nLHJH8HHAkHInNEeSn0MStaGj5XUIKqFeFDUBWLuhkJLI3p/jQW9CBcO
-	 VdXvWEsbypW1rKT7oWSsZTZRqbK8UEaE61ae7A+/vnZU/37/9sx+innhwimdwO/7uIO8+
-	 qjdJjThNlfzTmHCPzXqbI/Fq6p1HpPoJkSlkd1jS6Qlm4hd456du+Pvx1DCG5tB0JZw==
+	t=1792711696;
+	b=cvDtnGyYarj2143j7NgZGvdsQbwfEhxHa8YK3V6xlyo8Bm04I+Ji8Ps19YxVgNJEaEQn
+	 rLu0bXgKhQbfUIXSFOho8f2Ei49H6udfzd9PaXrlduhGoDKIO1VKTzV9CX4QuK81dNZhC
+	 Yom+zr/H9mzgPHy5MF+B9G/WEME/IECJA05aivwLGnxakYxi+actnxcvXZH0J/N+jiIPP
+	 zkjBoaekBVoxP9MGdzfMPNfBbnoKkOBjQo3tlqbxwvhNQ1QybiU5hdReFdcg3vTN4B6Zx
+	 sVmrJMA9SJm1lRgqJ3XyaRjNvHat8xkbrmSGwbrPz5LJJiPsOMNtcqMB+k8h0lW6t2w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792711705;
+	c=relaxed/relaxed; t=1792711696;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5CAsspFacI74tIRNd6wHkIQKFznmSOkNFeqBDDMzIpo=;
-	b=XGwHZXrCPPUnWvslAM429Kk2JLVqlAFN17eUeNlGjolC0ya+eozrCw4o3tvFZFPE5Ozr
-	 xhMFO3GYtiakYfXtWcXgebkZHT67FhFBa1VFA0ANkFy81R9cfam5Q8H6LHYnkjMscmIZo
-	 wQmV1vuJyI9zAAUfbsf4BOolLuG93Zju5zTqZHGjbzDTyZ0WYoAVSPk+/ZaxhnC5J14vC
-	 8FobtJIgqU/fshgcpEfNNSBy6vdTcfIAa0JVKUXeDKg7y3Ci9KlQg+Cj2DbkgwKpiGngF
-	 iRxgLlFW0y7UewXa6QiVpk5Z/YDrCSOEUcEHyviZvK8U0yYwp/1yMbACRYepZp+CFwg==
+	bh=k68GYBk436CaPNprL/QXtHO9RB8x7lga/CshgV9NcYc=;
+	b=SSGMnw4F1a8Z+G/YGjJXYAF4ivm8mNp7ZSOEGYTEY8q+txTgXyURIRedXwTp23bTECcG
+	 s2+HdcRDA9y5Q8ZzBEdUZRP2si44Z1CKRCUsgE6I3svyfxlue+lr78GbpOZyPDgaUcgW+
+	 ZARY5MQ+q3VN8kWYD+w9Fb3GqIxk1/dP5FLqGHt6Pbhi6g2G9MGOOFOJNiAM+uAPq78i1
+	 qNbY7RlaA8o/w1JXN0eRMOB4MaoGb2xG2mnygjV/dzD5e2OqAmU8gyzxj1otir2K2t+l0
+	 pAm9dhhHsl+q/mshsuJyVtCXuVpgT5GC3Uw2YOx9+q2L8thQaJipEXK+9Jr7cCmJzOw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C3F071F011AA;
-	Thu, 22 Oct 2026 23:28:17 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 3D1041F011B1;
+	Thu, 22 Oct 2026 23:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792711705;
-	bh=5CAsspFacI74tIRNd6wHkIQKFznmSOkNFeqBDDMzIpo=;
+	s=k20260515; t=1792711696;
+	bh=k68GYBk436CaPNprL/QXtHO9RB8x7lga/CshgV9NcYc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=h+iMV+TloPo27vdnRshYBnjzGiRui2RgjmT58nuXdqtvRRsg8zIzOVgyRPpV1lirA
-	 774vzBkvJEwcqo/kaRb8CJNmNxO3q3jIR0lrDo0hD9IS9+wjJGVLmEv95vBR36sWmM
-	 d3TwfG0ChfoNlYbvwLo3riXCiTCAiA0la910HGhJbLKBDzPOgFeQoYvoi1naXyLM9G
-	 L2AU60rZuyMRR342+8t50wu+QhPA7OV6k6mGHhOV7tbRUadzxGRjv8kYXAlE1mFG1C
-	 rJIGxCXYVJCKE6MTVZ/brQdGTFMPxMAJMmGrhphOTt9MnfKZmzmQKytt31pwes5D9l
-	 BCLvA2pREAinA==
+	b=QhxqA1000h7kswdTR8r1ZnQuYv0OC8zXLQGB8nxldWR9Lu8xMdBqBesTZTOxLj8mP
+	 cGobQyGslhd46XULNRJs+l8J0saq8xea91BJMvR2Gtnk1bI5VpTia/IzcNL77VGkIy
+	 RkyZBl5nNFlug/dxp4vLSlXJOIy5k8N6eMpNWqRMUtV8AdAEH/vqecdQnS9gPXJLIi
+	 fhD1VfBW/ODIyxqvU6lNcptj9FXLy8CMJnTg940nm3ly+15riWBFOpG3nXuv6RsOxh
+	 HV3gXA6kYXuaOmYmN20et92U7YFfu+c+QZ4aOtmNitcgcTORV7oMbY/4TybHDM8FG/
+	 vqLxn4N6ff9BQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 58565420EF;
-	Thu, 22 Oct 2026 23:27:50 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id B1B82420BC;
+	Thu, 22 Oct 2026 23:27:49 +0000 (UTC)
 From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Thu, 22 Oct 2026 16:28:15 -0700
-Subject: [PATCH RFC v2 43/50] KVM: guest_memfd: Export kvm_gmem_revoke for
- provider-driven revocation
+Date: Thu, 22 Oct 2026 16:28:02 -0700
+Subject: [PATCH RFC v2 30/50] KVM: selftests: Add basic test for sample
+ memory provider
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261022-gmem-alternative-providers-v2-43-5dd1dc6c660a@google.com>
+Message-Id: <20261022-gmem-alternative-providers-v2-30-5dd1dc6c660a@google.com>
 References: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
 In-Reply-To: <20261022-gmem-alternative-providers-v2-0-5dd1dc6c660a@google.com>
 To: Alex Williamson <alex@shazbot.org>, Alexander Graf <graf@amazon.de>, 
@@ -135,11 +135,11 @@ Cc: kvm@vger.kernel.org, linux-doc@vger.kernel.org,
  linux-kselftest@vger.kernel.org, linux-mm@kvack.org, llvm@lists.linux.dev, 
  Ackerley Tng <ackerleytng@google.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=6495;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792711665; l=5553;
  i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=hV27o4dOKADJOBUsB7Zz8/cT/cHzwJnpPOhSKk352LI=;
- b=4E+0DU5MfmUTG1hQwn7ACZlFI+aTYH7wks1B6nXtVQ3pWafKFTMBo9Mjy6qKdycEe7OVKp8HY
- LiHgjjinaImDtSQUqTE85dXAF4QL/Tb+eK+zVjZ97MxpL/inN+lsKCX
+ bh=DxHc6o6FnWpOH7kMAejZmhFMGKZWARQeHZ9yAfr2gtM=;
+ b=MZWm5OhI65j5qGliKRKMwC78fhjZnRK4OJnvkL5NZPMB3GRVId6GmA9lc7rWY/7Oe6I17BuFk
+ /BfBpbRroEDB7//o/KaeRPl5dErRndTcfCEIUCt859LcAinaQKoho5Y
 X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
  pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
 X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
@@ -150,166 +150,184 @@ Content-Transfer-Encoding: 7bit
 
 From: Ackerley Tng <ackerleytng@google.com>
 
-Providers may dynamically revoke physical memory ranges (e.g., dynamic
-page removal or device teardown) and need a mechanism to sever guest and
-host mappings and reclaim confidential architecture state.
+Add a selftest for the sample memory provider (/dev/mem_provider_sample).
 
-Introduce __kvm_gmem_revoke() to share the core invalidation and
-reclamation path between kvm_gmem_punch_hole() and kvm_gmem_revoke().
-
-Introduce boolean to control whether to call .put_pfn_range().
-.put_pfn_range() must not be called when revoke is used by a provider,
-because the provider already initiated the revocation and calling back into
-the provider could lead to self-deadlock or re-entrancy on provider locks.
-
-Export kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-const unsigned long *pfn) via EXPORT_SYMBOL_GPL. Providers must pass
-both start and pfn.
+Test basic lifecycle creation across multiple sizes. Verify file capacity
+and absent pages accounting using the MPS_GET_STATS ioctl. Also test
+marking pages absent and present with MPS_SET_PRESENT, verifying that
+absent pages are reflected in stats accordingly.
 
 Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
- arch/x86/kvm/Makefile       |  3 ++-
- include/linux/guest_memfd.h | 14 +++++++++-
- virt/kvm/guest_memfd.c      | 63 ++++++++++++++++++++++++++++++++++++++-------
- 3 files changed, 69 insertions(+), 11 deletions(-)
+ tools/testing/selftests/kvm/Makefile.kvm           |   1 +
+ .../selftests/kvm/mem_provider_sample_test.c       | 147 +++++++++++++++++++++
+ 2 files changed, 148 insertions(+)
 
-diff --git a/arch/x86/kvm/Makefile b/arch/x86/kvm/Makefile
-index c6bf463f50327..5fd01bd19d1c4 100644
---- a/arch/x86/kvm/Makefile
-+++ b/arch/x86/kvm/Makefile
-@@ -61,7 +61,8 @@ exports_grep_trailer := --include='*.[ch]' -nrw $(srctree)/virt/kvm $(srctree)/a
- 				-e kvm_page_track_unregister_notifier \
- 				-e kvm_write_track_add_gfn \
- 				-e kvm_write_track_remove_gfn \
--				-e kvm_file_to_kvm_fn
-+				-e kvm_file_to_kvm_fn \
-+				-e kvm_gmem_revoke
+diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
+index 17a4256e90819..5f7118bddfc36 100644
+--- a/tools/testing/selftests/kvm/Makefile.kvm
++++ b/tools/testing/selftests/kvm/Makefile.kvm
+@@ -72,6 +72,7 @@ TEST_GEN_PROGS_COMMON += set_memory_region_test
+ TEST_GEN_PROGS_COMMON += memslot_modification_stress_test
+ TEST_GEN_PROGS_COMMON += memslot_perf_test
+ TEST_GEN_PROGS_COMMON += vm_types_test
++TEST_GEN_PROGS_COMMON += mem_provider_sample_test
  
- # Force grep to emit a goofy group separator that can in turn be replaced with
- # the above newline macro (newlines in Make are a nightmare).  Note, grep only
-diff --git a/include/linux/guest_memfd.h b/include/linux/guest_memfd.h
-index 3c0cc35f748bc..3e2c0714ca33e 100644
---- a/include/linux/guest_memfd.h
-+++ b/include/linux/guest_memfd.h
-@@ -36,7 +36,8 @@ struct mempolicy;
-  * @put_pfn_range: Release a range of PFNs previously obtained for a given
-  *                 index.  The provider does not need to ensure that backing
-  *                 memory is present. If backing memory is not available, the
-- *                 provider should skip the unbacked range.
-+ *                 provider should skip the unbacked range. Not called on
-+ *                 kvm_gmem_revoke().
-  *
-  * Used by filesystems and device drivers that provide memory for guest_memfd.
-  */
-@@ -53,4 +54,15 @@ struct guest_memfd_provider_operations {
- 	void (*put_pfn_range)(void *provider, pgoff_t index, size_t nr_pages);
- };
- 
-+#ifdef CONFIG_KVM_GUEST_MEMFD
-+int kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-+		    const unsigned long *pfn);
-+#else
-+static inline int kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-+				  const unsigned long *pfn)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
-+
- #endif /* _LINUX_GUEST_MEMFD_H */
-diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-index a4519f3b9eadb..3c4bedceccfc2 100644
---- a/virt/kvm/guest_memfd.c
-+++ b/virt/kvm/guest_memfd.c
-@@ -421,18 +421,25 @@ static void kvm_gmem_pfn_reclaim(struct gmem_inode *gi, pgoff_t start, pgoff_t e
- static void kvm_gmem_pfn_reclaim(struct gmem_inode *gi, pgoff_t start, pgoff_t end) {}
- #endif
- 
--static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
-+static int __kvm_gmem_revoke(struct inode *inode, pgoff_t start,
-+			      size_t nr_pages, const unsigned long *pfn,
-+			      bool put_pfn_range)
- {
- 	enum kvm_gfn_range_filter filter = kvm_gmem_get_all_gfns_filter(inode);
--	loff_t size = i_size_read(inode);
--	pgoff_t start, end;
-+	pgoff_t max_pages = i_size_read(inode) >> PAGE_SHIFT;
-+	loff_t offset, len;
-+	pgoff_t end;
- 
--	if (offset >= size)
-+	if (start >= max_pages)
- 		return 0;
- 
--	len = min(len, size - offset);
--	start = offset >> PAGE_SHIFT;
--	end = (offset + len) >> PAGE_SHIFT;
-+	nr_pages = min_t(size_t, nr_pages, max_pages - start);
-+	if (!nr_pages)
-+		return 0;
-+
-+	offset = (loff_t)start << PAGE_SHIFT;
-+	len = (loff_t)nr_pages << PAGE_SHIFT;
-+	end = start + nr_pages;
- 
- 	/*
- 	 * Bindings must be stable across invalidation to ensure the start+end
-@@ -444,8 +451,14 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
- 
- 	if (kvm_gmem_is_pfn_mode(GMEM_I(inode))) {
- 		unmap_mapping_range(inode->i_mapping, offset, len, 0);
--		kvm_gmem_pfn_reclaim(GMEM_I(inode), start, end);
--		gmem_provider_put_pfn_range(GMEM_I(inode), start, end - start);
-+#ifdef CONFIG_HAVE_KVM_ARCH_GMEM_RECLAIM
-+		if (pfn)
-+			kvm_arch_gmem_reclaim(*pfn, nr_pages);
-+		else
-+			kvm_gmem_pfn_reclaim(GMEM_I(inode), start, end);
-+#endif
-+		if (put_pfn_range)
-+			gmem_provider_put_pfn_range(GMEM_I(inode), start, nr_pages);
- 	} else {
- 		truncate_inode_pages_range(inode->i_mapping, offset, offset + len - 1);
- 	}
-@@ -457,6 +470,38 @@ static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
- 	return 0;
- }
- 
-+static long kvm_gmem_punch_hole(struct inode *inode, loff_t offset, loff_t len)
-+{
-+	return __kvm_gmem_revoke(inode, offset >> PAGE_SHIFT, len >> PAGE_SHIFT,
-+				 NULL, true);
-+}
-+
-+/**
-+ * kvm_gmem_revoke - Revoke and reclaim a range of memory in guest_memfd.
-+ * @inode:    The guest_memfd inode.
-+ * @start:    Starting page index within the file.
-+ * @nr_pages: Number of pages to revoke.
-+ * @pfn:      The physical address / frame number being revoked. Directly
-+ *            reclaims this physical range without querying the provider's
-+ *            .lookup_pfn_range().
-+ *
-+ * guest_memfd will do everything to make sure the range revoked is no longer in
-+ * use across guest and host mappings, as well as reclaim any confidential
-+ * architecture state.
-+ *
-+ * Must be called before accessing memory contents. Keeping the mapping from
-+ * @start to @pfn constant is the responsibility of the caller.
-+ * .put_pfn_range() will not be called.
-+ *
-+ * Return: 0 on success, or a negative error code on failure.
+ # Compiled test targets
+ TEST_GEN_PROGS_x86 = $(TEST_GEN_PROGS_COMMON)
+diff --git a/tools/testing/selftests/kvm/mem_provider_sample_test.c b/tools/testing/selftests/kvm/mem_provider_sample_test.c
+new file mode 100644
+index 0000000000000..932ea3f30f494
+--- /dev/null
++++ b/tools/testing/selftests/kvm/mem_provider_sample_test.c
+@@ -0,0 +1,147 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Tests for the sample memory provider (/dev/mem_provider_sample).
 + */
-+int kvm_gmem_revoke(struct inode *inode, pgoff_t start, size_t nr_pages,
-+		    const unsigned long *pfn)
-+{
-+	return __kvm_gmem_revoke(inode, start, nr_pages, pfn, false);
-+}
-+EXPORT_SYMBOL_GPL(kvm_gmem_revoke);
++#include <fcntl.h>
++#include <stdint.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <sys/ioctl.h>
++#include <sys/stat.h>
++#include <unistd.h>
 +
- static long kvm_gmem_allocate(struct inode *inode, loff_t offset, loff_t len)
- {
- 	struct address_space *mapping = inode->i_mapping;
++#include "test_util.h"
++#include "../../../../samples/kvm/mem_provider_sample.h"
++
++#define DEV_PATH "/dev/mem_provider_sample"
++
++static int open_provider_dev(void)
++{
++	int fd = open(DEV_PATH, O_RDWR);
++
++	if (fd < 0) {
++		TEST_REQUIRE(errno != ENOENT && errno != ENODEV);
++		TEST_FAIL("Failed to open %s: %d (%s)", DEV_PATH, errno,
++			  strerror(errno));
++	}
++	return fd;
++}
++
++static int create_provider_file(int dev_fd, uint64_t size)
++{
++	struct mps_new_file nf = {
++		.size = size,
++	};
++	int fd;
++
++	fd = ioctl(dev_fd, MPS_NEW_FILE, &nf);
++	TEST_ASSERT(fd >= 0, "MPS_NEW_FILE failed for size 0x%lx: %d (%s)",
++		    size, errno, strerror(errno));
++	return fd;
++}
++
++static void test_lifecycle_and_creation(int dev_fd)
++{
++	size_t page_size = getpagesize();
++	uint64_t sizes[] = {
++		page_size,
++		2 * page_size,
++		2 * 1024 * 1024,
++	};
++	struct mps_stats st;
++	int i, fd;
++
++	for (i = 0; i < ARRAY_SIZE(sizes); i++) {
++		fd = create_provider_file(dev_fd, sizes[i]);
++
++		memset(&st, 0, sizeof(st));
++		TEST_ASSERT(!ioctl(fd, MPS_GET_STATS, &st),
++			    "MPS_GET_STATS failed: %d (%s)",
++			    errno, strerror(errno));
++		TEST_ASSERT(st.size == sizes[i],
++			    "size mismatch: expected 0x%lx, got 0x%llx",
++			    sizes[i], st.size);
++		TEST_ASSERT(st.absent_pages == 0,
++			    "absent_pages mismatch: expected 0, got %llu",
++			    st.absent_pages);
++
++		close(fd);
++	}
++}
++
++static void test_set_present(int dev_fd)
++{
++	size_t page_size = getpagesize();
++	uint64_t nr_pages = 4;
++	uint64_t file_size = nr_pages * page_size;
++	struct mps_set_present sp;
++	struct mps_stats st;
++	int ret, fd;
++
++	fd = create_provider_file(dev_fd, file_size);
++
++	/* Initially all pages are present */
++	TEST_ASSERT(!ioctl(fd, MPS_GET_STATS, &st),
++		    "MPS_GET_STATS failed: %d (%s)", errno, strerror(errno));
++	TEST_ASSERT(st.absent_pages == 0,
++		    "Initial absent_pages mismatch: expected 0, got %llu",
++		    st.absent_pages);
++
++	/* Mark page 1 absent */
++	memset(&sp, 0, sizeof(sp));
++	sp.value = 0;
++	sp.offset = page_size;
++	sp.len = page_size;
++	ret = ioctl(fd, MPS_SET_PRESENT, &sp);
++	TEST_ASSERT(!ret, "MPS_SET_PRESENT (absent) failed: %d (%s)",
++		    errno, strerror(errno));
++
++	TEST_ASSERT(!ioctl(fd, MPS_GET_STATS, &st),
++		    "MPS_GET_STATS failed: %d (%s)", errno, strerror(errno));
++	TEST_ASSERT(st.size == file_size,
++		    "size changed unexpectedly: 0x%llx", st.size);
++	TEST_ASSERT(st.absent_pages == 1,
++		    "absent_pages mismatch after absent: expected 1, got %llu",
++		    st.absent_pages);
++
++	/* Mark page 1 back to present */
++	sp.value = 1;
++	ret = ioctl(fd, MPS_SET_PRESENT, &sp);
++	TEST_ASSERT(!ret, "MPS_SET_PRESENT (present) failed: %d (%s)",
++		    errno, strerror(errno));
++
++	TEST_ASSERT(!ioctl(fd, MPS_GET_STATS, &st),
++		    "MPS_GET_STATS failed: %d (%s)", errno, strerror(errno));
++	TEST_ASSERT(st.absent_pages == 0,
++		    "absent_pages mismatch after restore: expected 0, got %llu",
++		    st.absent_pages);
++
++	/* Mark all pages absent */
++	sp.value = 0;
++	sp.offset = 0;
++	sp.len = file_size;
++	ret = ioctl(fd, MPS_SET_PRESENT, &sp);
++	TEST_ASSERT(!ret, "MPS_SET_PRESENT (all absent) failed: %d (%s)",
++		    errno, strerror(errno));
++
++	TEST_ASSERT(!ioctl(fd, MPS_GET_STATS, &st),
++		    "MPS_GET_STATS failed: %d (%s)", errno, strerror(errno));
++	TEST_ASSERT(st.absent_pages == nr_pages,
++		    "absent_pages mismatch after all absent: expected %lu, got %llu",
++		    nr_pages, st.absent_pages);
++
++	close(fd);
++}
++
++int main(int argc, char *argv[])
++{
++	int dev_fd;
++
++	dev_fd = open_provider_dev();
++
++	test_lifecycle_and_creation(dev_fd);
++	test_set_present(dev_fd);
++
++	close(dev_fd);
++	return 0;
++}
 
 -- 
 2.56.0.257.gf7497c7d27-goog
