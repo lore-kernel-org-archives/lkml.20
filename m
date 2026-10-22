@@ -1,93 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792690782;
-	b=Xkq3qyHXEiWfnWI853n+7U3ncW/A9ypGc4UB6o0vLkIiRs4OC8WjrbswKzay+JlcJjC4
-	 APeqylTtEFGCZeBJOIEByEsK8/UwzMolbX0USxBbLE1VjfJG+Dxgi2gzcrK8pT8sABWTa
-	 HWkc92CLIqWTPT9EFQolnE6teCKW3MZHo8fDBBvzFcA37R+oQA69+K9ikfVGea1HZd21b
-	 r6o0gGn2206+bvcYCbB7zOg4+xDV3HSPDKPVwPqII85trxLGwXDwBdc0SnClqGBwqJRLY
-	 GaErgPdm8JS74Q6VjbTN082ms+hksAVtAoIwGtdz0F6cv1sqVjrCpqvDAj5//zw0pow==
+	t=1792690855;
+	b=FAtkYUoXocQ8eKEChmeJnvnVn+mrdbdYuFhXvhNDAoTvjNaYUBfpVzkHUGKozR38KmPp
+	 vybRchyHRyiXZwsI8VkAjBTKa+QQ+0Qre1ySKPD5FF/lpnwckhlOKS3/LhuzgJTvG2s2C
+	 mzGsQtrEI71T4ozmMJio8KXlirmzRZ6iKv5EHAuBws8DuK0zk+pdAmmk2mJSNdo+aw5Vy
+	 rOmFauctGBua+hZdHq2EGYc6jhckcBS2JCuvazMOXHUjn3yhlu9cdfeoeaNcC7IPVVPsV
+	 m1sG+LCbYhhVlIut50yqWXoQHYj4dpfgkNg4YvwQ2QqeXQmYupo7czDOxQhdmIvXtwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792690782;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=i/noOztbS2t6WZeL5Ffb7JJaj+8g0AIhxEQ+LUXgBF4=;
-	b=RSHM9IgpnMaE01tywqi6QIvOEbfwmjuAI8nQ1JxQ8v105UgKhlA32P+THRfahkS1iswR
-	 uKYA4P2h21GiQ5SwWKwzykHL4c33Lm3Di7WFuJI9mvUXS4mKopO7S6OSWAiuO5s0VZY3q
-	 A3GU5O8zSYRlR3+8E5LP/1ggxVvuX14nc6vsePTHoXaeQntr4QfW4kJ6fq6ZzJf7xXQ5p
-	 K2v8QxJ2dSvgAqNZrXXRs3wCRdXgvw9AgyaU+EDGXh/sorI33WTq+db8AiIyRIlVBrjZr
-	 FdAv/wtzJu1AtFaVay+w09RMYNBfqsm0Fv5v55fcyozzGItGp+lMtBE+VlajXV5lDoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792690855;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=lqDNdqh7JWi24rY3vzEqU+LCO6MlMl1qL5MbUIf6AO4=;
+	b=HJ8uL+Vdo8fgtiMCRMsw0OIma/DtC7gXRUbqqCTr4JoA91lG5Ecsxq+HYOqWFSk1ZhUX
+	 yg4dp/q1vRoi094q8GNf3iAWkS0fz1oW66sh9QaxhdwlLgCT6pEgU4qMwxacgqXttZhgN
+	 KJmLaBU18qEJefYmllhGUznDwZOGfNHXgqDPd+RB/+C6bIPhZ/Uk8IERnej54kF3jFbuR
+	 FnxsUYwreWbT4suV0Fb27MJedx1VcaST9V1cGG73t/zc0a62pjOZtfKkxxNgxxu7HyOpL
+	 /lBAxHedyauwmieQT2x34FmfEtvhnh4Gw31wDrOjHigUpPvwpRzAToED0eFHwGF2Z7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
+	dmarc=fail header.from=linux.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r9foKYqO;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5515B606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:39:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5515B606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33072606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:40:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33072606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=r9foKYqO
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2df921c1d0eso7133335ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:39:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792690781; x=1793295581; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i/noOztbS2t6WZeL5Ffb7JJaj+8g0AIhxEQ+LUXgBF4=;
-        b=r9foKYqOLCGeFTWsNvX1SY7qNK0YpcGUhWiUzillccvc067Z5eH6LNl1BhiJzf5SNl
-         zXBGTeEhMW4lJVEw2Mt3BH8S2TjxK3PUm8ID7dH78sVgcw3V3MuoJ6y8aBUSOrxHXHGH
-         2tvIdn4LUOeB6tjGY/3DNzq8GgSw9KXRIuH0On/gjKlU2OnvpwfBO1AYGXehQPx9YMvK
-         x1lWssudXhYG9jZJpALKTl/+K/E8M/pTBiKYjObzYiQnf/cmQPZ/bENQEY7lNruaOHIL
-         iLVL8L8dYgmID8Cfr9KkA0JmxitOA693A5HtpscmxuLcNrjMkuDYsmMiUtZkYvR+l4dA
-         iCKg==
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso941865e9.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:40:54 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792690781; x=1793295581;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1792690853; x=1793295653;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=i/noOztbS2t6WZeL5Ffb7JJaj+8g0AIhxEQ+LUXgBF4=;
-        b=mnucdtsBEGIjLJDN8DtGysGLc5+1lVSiSMIm791+4JqIRDK5ihKy4OwArhp6WIEB7M
-         95k/5yaxGc3Dfgo9Uav/JIqx6KfvkvYIPDOr66IJXt5EVBxuzFThDvrUvsWlY9VMJwh/
-         fWAPgz7K1qGnMlA8fTxlyi7MsWBpfls1v0HmjE5Gkax6nxOd4hzGKTNtx0E0Bw27u4uz
-         awFKnUzWOTLAONnI2y27gCdOkeqRpGsRgpKFyDX8GWx5GuIIBGynQRE33s5BPf1kaY14
-         8SjBc2xEYBBZLJKPx/hFXkTtHiQVBA9cQM4GSaZpkGbcOC0RrNIh2WeoJzXPRAiUNp6+
-         gGyg==
-X-Forwarded-Encrypted: i=1; AKwUvBwKemSTIPVJ1NDurT8URDMS5qM0ycMla/cblVJKPdCjpcJOwcODc187+B5G2e+gE6g6XP2S8F1MLD518xk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKcHViv17GY8CaWSm6u7/C14DqH4cCqxsmgimo1/gDlZtw1jjmO
-	V52yy1bW1PGabbVFxRgkZCK4TImwQDGVgZT9GsIljGouI5435pyxff4OU3GQitSTq5E=
-X-Gm-Gg: AYBFou0XHRo6Rp5SjmIg3JYTKsM+HPuoTXv96ka5VigU89uSisL44vwJX8n7COu2Wk4
-	looYbUoi1CMY4b1GHsvi7yyuynSSulXaUNR6d1StDxUsYrdBpXFNFhriIxKcSoNTQ55tOyFuFMl
-	38u3im/vU6+ISp62ZgICsSTAiHgOLGNFZqNOVhQn9IOhI3UKO9M7L1Cf1qpokIQIw4QdEy8FvFp
-	w2uoZUi5edzBjaxi6m0cPJRt3GK9dfBnf/hp8apSSi4PcXNVacMh7kV9WPRxPz0krQaMhgD+8o9
-	ekOmDBl5wyAKQMuwpY9ZwuLhcNt2ZbmUD5RthGqzWHCJXeWzoQWvbZDp/Uiko8iuepty0lT3DBI
-	ieh5mWaGhrYMqMVg+dmkfqSxemorYcTkZ07FQ3PEw/kBQ9adcDiQz73yS+jZgCFjS6HLP/9qP+v
-	j81o+rssUjCeAbcdUNpxzAZYOLRHJ3FN6lSIjH0MYzt5YmGlbZX555lU0AuQUGTlb1YPgszsMvU
-	PuJGZKCNMMUfcJqZVOcEXVvfs+cDHWrtMEkv9/HJzXntNKvsSkZwSotHLZrgMRt6fVLuTawLb6m
-	NBLy
-X-Received: by 2002:a17:903:4b0e:b0:2e9:a166:f7fe with SMTP id d9443c01a7336-2ea440a4ec4mr51883235ad.62.1792690781547;
-        Thu, 22 Oct 2026 10:39:41 -0700 (PDT)
-Received: from localhost.localdomain ([121.128.174.79])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b3d15ffsm1483045ad.56.2026.10.22.10.39.39
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 22 Oct 2026 10:39:41 -0700 (PDT)
-From: Yongjun Gwon <d3bugee@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ksmbd: serialize directory emptiness checks with readdir
-Date: Fri, 23 Oct 2026 02:38:32 +0900
-Message-ID: <20261022173832.14696-1-d3bugee@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=lqDNdqh7JWi24rY3vzEqU+LCO6MlMl1qL5MbUIf6AO4=;
+        b=np5eGrgzY6b/NxOHUxvzXVB1nedXlD5RTyeFXjDuJhkpQwpbqvhNizT2S4FLPva23O
+         Y+luJ3uNevR9133zKPKQSNGJKWS9IraKoVm3JFfXzuxV/0R/Y6YUmfr+I9u5mG+EBO8i
+         MfRPzyBd7xTx4aRXHTp+Sx23MXiq5yqT/k1BEPHxZN5FgXa+XhiR/ARBXRxCXO2E/G1S
+         hJmgjLfuq1e/oRPVPDn/fWOhmdy4AmRyQAWQ7t6cJNg6kQcLdfrbvFSss0h9oytK4P4W
+         kVbQSY/tGeLon0DFmIhKZ50sd2Zx06P5BdRsjsifUqxcapG6ZxHfN6T3v/7TB212fscR
+         braQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMI8/HZHg9+35fJXL52n7wPNsVHy8ejoJrMSH0aV2/zFDZZi+ooz1opv6uij01BWNyJCO/2tO2MofPKDU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImgZDzQt8upzlgPi1VGMCrnYwOtYYG5ViiLy7bHr7cKr/3rxyN
+	CP7js2UnEcibe/XYn2j0LhHK9r+YHnT5HGPgsgphj5b58ySOJE5guXfH
+X-Gm-Gg: AYBFou0UOSCyH/lZhVZmOfvI8eh9uTQ02YcqpSbTAXXBdHdd9YEwTT+UaAeFN+QwJFd
+	0DU2C1vAUHWdOdvSMeHz2qeTfZPt/63cPNwXl4apI3+IMB+IKG79rcZm58DT6jXvXHwHPy8FqP+
+	kLKjMOf/eY15WRcEq/1UrrZLKjXlVyPetDkCM9fnFs92rfKxfnjas6vFDeWTAT+D1h9muLX/EwM
+	k5SlzZQLsa1FDG/ynOwX8xu+mZ26zJFYD62K959iHhXHycOyQcqZimN+6hG1xWJ6XY51cWu5cRJ
+	/6jAgayKZYzdtKKkK+5Fy2nk71m4AiP7hGW05lX41ZqxoSm2LzBxfenZz0app+rVD7rhSYuaDXa
+	Eb6hgeeyEjFZDTES9eSw3cg8jwCXnSuwgj7DfoUEiNwUP7FVjJMOdhPjQuAb9vd55++Ey1bBQ4S
+	GWvGGXJFDnfQDUy61qoHQQGKrpHJ3G9TvTPfF2so6CIKznSYGtPHOpvwi+C9xKMCldeYOX0Ynm1
+	KxCFfRV2UHODk0KHBLcwVP6Ys8r56MXakNC6WaW30flsWxwFuHpbl+Z/j/FFVkn9seHtMnNY9fo
+	/8sgQ5JtuQ==
+X-Received: by 2002:a05:600c:8b45:b0:4a2:a3b:7aa8 with SMTP id 5b1f17b1804b1-4a20a3b7c0emr41739035e9.3.1792690853435;
+        Thu, 22 Oct 2026 10:40:53 -0700 (PDT)
+Received: from [192.168.1.135] ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2101cd7cesm14216005e9.0.2026.10.22.10.40.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 10:40:52 -0700 (PDT)
+Message-ID: <74840159-62d9-4d6d-a0c3-b079e6e4da6e@linux.com>
+Date: Thu, 22 Oct 2026 18:40:51 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,98 +75,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/8] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-8-tanure@linux.com>
+ <CAFBinCC8iKESoc2zEXJMEmqk0cwWbVap-a2KcAtB7-KFKO9Atg@mail.gmail.com>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <CAFBinCC8iKESoc2zEXJMEmqk0cwWbVap-a2KcAtB7-KFKO9Atg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-SMB2 QUERY_DIRECTORY holds fp->readdir_lock while it calls iterate_dir()
-on fp->filp. An SMB2 SET_INFO request with FILE_DISPOSITION_INFORMATION
-can resolve the same FileId and call ksmbd_vfs_empty_dir() on the same
-filp without that lock.
+On 10/10/2026 23:00, Martin Blumenstingl wrote:
+> On Sat, Oct 10, 2026 at 12:59 PM Lucas Tanure <tanure@linux.com> wrote:
+> [...]
+>> RGMII needs a delay on each of its two clocks, and on this board
+>> both come from inside the chips, not from the board traces. The PHY
+>> adds the one on receive. Its transmit delay does not work here, so the
+>> controller adds that one.
+> [...]
+>> +&ethmac {
+>> +       status = "okay";
+>> +       pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
+>> +       pinctrl-names = "default";
+>> +       phy-mode = "rgmii-id";
+>> +       phy-handle = <&external_phy>;
+>> +       tx-internal-delay-ps = <2000>;
+> You're stating that RTL8211F's TX delay doesn't work but not explaining why.
+> I haven't come across this behavior before and I'm worried that that's
+> an issue with a batch of RTL8211F.
+> What if the previous/next batch of RTL8211F will have working TX delay
+> again - wouldn't that mean 4ns delay in total unless the RTL8211F
+> driver is changed?
 
-iterate_dir()'s inode read lock permits concurrent readers and does not
-serialize per-file iterator state. ext4 stores its dx readdir cursor and
-fname RB tree in file->private_data. Concurrent reset or refill can
-therefore free a fname node while the other worker still traverses it or
-retains its RB-tree link, resulting in use-after-free accesses.
+Yes, you are right. After I understood I had a missing clock I re-tested 
+the everything from scratch.
 
-An authenticated SMB client with list and delete rights on a directory in
-a writable KSMBD share backed by ext4 can trigger this when the directory
-takes the dx readdir path. The client overlaps an SMB2 QUERY_DIRECTORY
-request with an SMB2 SET_INFO request carrying FILE_DISPOSITION_INFORMATION
-on one live FileId.
+On the T7 the register block with PRG_ETH0/PRG_ETH1 sits behind a clock
+gate (the "pclk" clock in patches 2 and 6). My first tests ran before I
+knew about that gate: the block ignored every write and PRG_ETH0 kept
+the value the bootloader left there, 0x1621. Bit 5 of that value is the
+TX clock phase select, 1/4 cycle, which is 2ns at 1Gbit/s. So with
+"rgmii-id" the PHY added 2ns and the MAC added another 2ns nobody asked
+for, 4ns in total. The CRC errors from that made me believe the PHY TX
+delay was not working.
 
-In one x86_64 SMP KASAN multi-shot guest using ksmbd-for-next at
-171df27077fb, the unmodified kernel reported a cross-worker use-after-free
-before a panic. The first report's access and free stacks show the two
-request paths directly (trimmed):
+With the clock enabled and a plain "rgmii-id" node, no delay property:
 
-  BUG: KASAN: slab-use-after-free in ext4_htree_store_dirent+0x488/0x550
-  Read of size 8 by task kworker/2:0/29
-  Workqueue: ksmbd-io handle_ksmbd_work
-  Call Trace:
-   ext4_htree_store_dirent+0x488/0x550
-   htree_dirblock_to_tree+0x535/0x990
-   ext4_htree_fill_tree+0x319/0xba0
-   ext4_readdir+0x175a/0x2f40
-   iterate_dir+0x1b6/0x630
-   smb2_query_dir+0x1003/0x1cc0
+   PRG_ETH0 = 0x1601 (TX phase 0), PRG_ETH1 = 0x0
+   RTL8211F page 0xd08: reg 0x11 = 0x0109 (TX delay on),
+                        reg 0x15 = 0x0019 (RX delay on)
+   iperf3: 940 Mbit/s board to PC, 943 Mbit/s PC to board, 0 retransmits
+   0 CRC errors on both ends
 
-  Freed by task 279:
-   free_rb_tree_fname+0x67/0xc0
-   ext4_readdir+0x13a9/0x2f40
-   iterate_dir+0x1b6/0x630
-   ksmbd_vfs_empty_dir+0xa2/0x100
-   smb2_set_info+0x2ffa/0x45d0
+v4 drops tx-internal-delay-ps from the VIM4 node and the wrong sentence
+from the commit message. The PHY adds both delays, as the generic text
+expects.
 
-Take fp->readdir_lock across the entire emptiness check. This places both
-iterators over that handle's filp in the same lock domain while
-preserving the disposition status handling. The exact code change
-completed a warning-free x86_64 KASAN bzImage build. Tracing three request
-pairs showed that the two iterate_dir() calls no longer overlapped and the
-expected statuses were preserved. A further 1,600 reproducer iterations
-completed with expected statuses and no KASAN report, Oops, or panic.
-
-The reproducer and complete guest configuration are available privately
-to maintainers on request.
-
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Yongjun Gwon <d3bugee@gmail.com>
----
- fs/smb/server/smb2pdu.c | 11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index da82d80..f5fe3cf 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -8918,6 +8918,7 @@ static int set_file_disposition_info(struct ksmbd_work *work,
- 				     struct smb2_file_disposition_info *file_info)
- {
- 	struct inode *inode;
-+	int err;
- 
- 	if (!(fp->daccess & FILE_DELETE_LE)) {
- 		pr_err("no right to delete : 0x%x\n", fp->daccess);
-@@ -8932,9 +8933,13 @@ static int set_file_disposition_info(struct ksmbd_work *work,
- 		if (ksmbd_has_stream_without_delete_share(fp))
- 			return -ESHARE;
- 
--		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp) &&
--		    ksmbd_vfs_empty_dir(fp) == -ENOTEMPTY)
--			return -EBUSY;
-+		if (S_ISDIR(inode->i_mode) && !ksmbd_stream_fd(fp)) {
-+			mutex_lock(&fp->readdir_lock);
-+			err = ksmbd_vfs_empty_dir(fp);
-+			mutex_unlock(&fp->readdir_lock);
-+			if (err == -ENOTEMPTY)
-+				return -EBUSY;
-+		}
- 		smb_break_all_levII_oplock_for_delete(work, fp);
- 		ksmbd_fd_set_delete_pending(fp);
- 	} else {
-
-base-commit: 171df27077fb49b4af2c53ad2cedcd0e39664fe8
--- 
-2.55.0
-
+Thanks
+Lucas
