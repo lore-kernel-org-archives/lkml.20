@@ -1,57 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792688175;
-	b=NyaqDs7yFGFwNNSiXnYz5qw9YoO9ugJ/ei7T4Kp76KyArnFEJ4GVdvh5pbnNlXbv+AY8
-	 iXoSVOgciY51gAHtckL9VNtp+LZDFkwDxE8e/GsW9HxOdE9l45+VnB4cCkaSwciCuGx7r
-	 352Uwxx+We/oQ/YJz+jLzHLawwNtX3vJgav+UFvPBor6qWSaGTg/GGkheDrpXsTKNOGuG
-	 FmMX9OCHtFA5yVrPY3Kudx2XdTPuJm8yzG7KfRUMEkFOTA30Mz7XmNWYE7LPjgvxEpgIA
-	 qxx7YTihkViocUF4vAkSUDqmF3BgZElE+wGHkSfyNOXjdhSvzbq3L7QmIt4OKHhiy8Q==
+	t=1792688202;
+	b=vxPu3OKB34PEiZWtH8i6FFex4Yxq7otJd2a/RHDBAstglTZzcxFxosfuCrfwviQmZmIN
+	 C3T9NIAbXIrOmR3vCO/GMOqk5KQ/8aFye8BCB8AHzZCobV19mZJKvCOAf23xYwOFb6w/5
+	 JtBMYsTUmD4pCegQZWghJ8VURHR1QIAXC9Ay9Fb341m/SRRnK61/AJJuXZmZYmdiiEtFf
+	 BSfabjjM/ns0NRcBOYCye7qElgVjcXIlh81W4nb4oxwO23j5XQGe5oLzQUmIJnX9Otr34
+	 HvSaKICLaUHUnbZjtLWCVN1AnB+Dd6Fkzko0PZ1LAK7aJLNh9I9aH9FB4scdqjulIzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792688175;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JFlmCiiT2/nXSNlSzFPx/z1Ts3xiQYmLMPe1wikoxjA=;
-	b=aLAtqn8DZgmh27M6tQwRkxfS2WOEPVDaf5F7JpRBrM85Y+Eo9qLR6GGsrA069dYb6AKr
-	 0jUz6QGmnzFOjQBmQIL4JryXd2O3a6N3ODfcuDxunsFmxaYJ2Br2jPGgH6zea/UI8TK9P
-	 R1M3Zb7DDUkv+bPsVYx82kaSZ2H9QTbzX466wR/ooIXZ8YCWzIp/6gzCaUD7BYKcu8u/0
-	 utPCwvWkS0Ewv/dYxkKvkl73TCVuosxgSJdCQ7i7Yd9jxNgQiLykvQaUurqWVjQoMNZt3
-	 95M4pSPC/PFvPsuctKp/OhMs1TkUn880/7FTKjGjSK+74O8GQG5eK7Ml5U+e9Gsobdw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792688202;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=il28kZEu1J1N+magMxahRVyuOLNhpdSTnTMxXMXXMko=;
+	b=o99n/1QIoZKmlaxcpW8JJ1JoifL/cMkKpt1vrNMQw+JC2UHyei4SDgndeJ3wXsHuR1XM
+	 IdubnvLCGrFnLYgBivv1lPjXKeJEmDVMyWJ0DkFd2obLwOdAnt2AFxQP1SezTuiquZYGE
+	 oLsa2HLBI5xpNvvV85STkJfZFiGYJl8pcCP9ZGzBKa3qUqtFNtcv075oXzxnaSgriI1S6
+	 jHyYlnyNBBA+W7a+Z5n+A+E2cwsOs3qWrWM5p8b01cyOgptKRbAdHr+J5I7po5vo3aXGQ
+	 dm6q14br6N4LDi36N8ANOssKXeFMpW7jP/Viht33fQm332mG1dL8tnEBOlqM8mm3hww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=1g4.org;
-	spf=pass smtp.mailfrom=1g4.org;
-	arc=none smtp.remote-ip=79.135.106.100
-Received: from mail-106100.protonmail.ch (mail-106100.protonmail.ch [79.135.106.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hD8uTPmE;
+	arc=none smtp.remote-ip=198.175.65.15
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 646F9606A31B;
-	Thu, 22 Oct 2026 16:56:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 646F9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=1g4.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=1g4.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=1g4.org;
-	s=protonmail; t=1792688166; x=1792947366;
-	bh=JFlmCiiT2/nXSNlSzFPx/z1Ts3xiQYmLMPe1wikoxjA=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NHbiW6lCm2LcZRh0DwmVRUem5BpBsRqYAusAMrdtEWIdKfRjHt2kkb2g/1BG2z3Jz
-	 5HwZT7Moei0PAGAb6T9P2WOic9fErYf0J4vY9xXRbmLHKI4C8lap7NkQWLHRVzeTnp
-	 k41ErmKkD3nFoDNGcVNKjUr+O+JdVtAWtmcKkCMapDpsRHlp6qNpglx8hT5Wp3A5tq
-	 Joi6avyRxzLRvv3H/f80pYfTystqbJA3jFVYas+OHuh74Ra+3XL7atQ1wi4Xbow/fF
-	 RIARX+jY43IeyUAflh3VLZ2Ky8cCDRAkxmPUvJ4QEUthEh9+8uCYOjC3Z3FrZglj+8
-	 6S548inJeqIJg==
-Date: Thu, 22 Oct 2026 16:55:59 +0000
-To: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-From: Paul Moses <p@1g4.org>
-Cc: netdev@vger.kernel.org, magnus.karlsson@intel.com, sdf@fomichev.me, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] xsk: restore UMEM flags after failed pool assignment
-Message-ID: <xFs3DcEr8aRQdjIeuzTZ4fmeQ3Ay8_x_94KB387XkLZDamj_rLyn4IGiFdZMi0u69fpiYrPQq9P6o1j_xixC1WbF-tl3JxDLmcMZZkPk70k=@1g4.org>
-In-Reply-To: <atnKf5dNv0Vk1sCo@boxer>
-References: <20261021224705.2078753-1-p@1g4.org> <atnKf5dNv0Vk1sCo@boxer>
-Feedback-ID: 8253658:user:proton
-X-Pm-Message-ID: 7d3e5e1dfa3b4d83e18d04fc9041e74619d97bde
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CA4606A31F;
+	Thu, 22 Oct 2026 16:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5CA4606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hD8uTPmE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792688202; x=1824224202;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hC0Qyh2g7Icwd/EcjcvpTpq/WQc4ueuC05RnQixe8sw=;
+  b=hD8uTPmEpWT6UXStV8Y1L2ZgrK4n57cx9MtiAW0nZLHU3RcV4rUCoKeo
+   kyGO5Ne+F0BsUYWF8XMsVPjHR6Fjj01lNhRA4uHl5bMcGyYQI5VhhgD/F
+   BCVURqFGJQn4wg0MRod1S2XigZdrMzwc0oLScrEt69kj5Z6StLWBDQTzD
+   clA5SqCOJX0/eIONZUmVJXa0EXcfd41S03RC4CJg1SYVRIIk6FgLqQhch
+   jnNJGyiFVzbmkCcYXtaz/dpqejPuxiYdeBywq2gYbQrF/CwvYDPZzaQSU
+   oTrM1JJ0TNe0aY7FIV9iVUNPj+RkayRlVMF26aVV/Vc7jAqxytz32zHlV
+   A==;
+X-CSE-ConnectionGUID: mhmjK1n1Td6ZucnDqQa+kA==
+X-CSE-MsgGUID: pSZyk3wWRdum71Tjzd/owg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1445950"
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="1445950"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:56:41 -0700
+X-CSE-ConnectionGUID: wHkTaDjRTnSigA5qAQwUFg==
+X-CSE-MsgGUID: nD0U/ixbRAijSlpqq5kx/g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="3501791"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:56:39 -0700
+Date: Thu, 22 Oct 2026 19:56:37 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/5] gpiolib: avoid krealloc() in gpiod_get_array()
+Message-ID: <atpARSOuQaWkY1Sr@ashevche-desk.local>
+References: <20261021190212.2237804-1-dmitry.torokhov@gmail.com>
+ <20261021190212.2237804-5-dmitry.torokhov@gmail.com>
+ <atkTqWUn-2tzRw69@ashevche-desk.local>
+ <ebd179ed9fd8af509ef3ecbea1c348c6@gmail.com>
+ <atkmj6rxedA-XPf-@ashevche-desk.local>
+ <atkp9edGVHRWrJCa@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,82 +86,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atkp9edGVHRWrJCa@google.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thursday, October 22nd, 2026 at 3:34 AM, Maciej Fijalkowski <maciej.fija=
-lkowski@intel.com> wrote:
+On Wed, Oct 21, 2026 at 02:17:56PM -0700, Dmitry Torokhov wrote:
+> On Wed, Oct 21, 2026 at 11:54:39PM +0300, Andy Shevchenko wrote:
+> > On Wed, Oct 21, 2026 at 01:39:49PM -0700, Dmitry Torokhov wrote:
+> > > On Wed, Oct 21, 2026 at 10:34:01PM +0300, Andy Shevchenko wrote:
+> > > > On Wed, Oct 21, 2026 at 12:02:10PM -0700, Dmitry Torokhov wrote:
 
-> On Wed, Oct 21, 2026 at 10:47:33PM +0000, Paul Moses wrote:
-> > xp_assign_dev() sets XDP_UMEM_SG_FLAG before checking whether the
-> > device supports multibuffer zero-copy. If assignment fails, xsk_bind()
-> > destroys the pool but retains the registered UMEM. A subsequent bind
-> > without XDP_USE_SG inherits the stale flag.
->
-> so you opened a socket, tried binding with XDP_USE_SG, failed then retrie=
-d
-> without the flag and you noticed unexpected rx frame size due to kept
-> XDP_UMEM_SG_FLAG - do i get this right?
->
-> socket not being closed kept the umem alive...
->
-> >
-> > The flag also changes RX buffer sizing after DMA mapping. On igc, a
-> > failed SG bind followed by a non-SG retry with 4096-byte chunks and
-> > 1792 bytes of headroom passes admission with 2048 bytes, but programs
-> > a 1024-byte RX buffer. On I225-V hardware, an ordinary 1514-byte frame
-> > is truncated to 1024 bytes or 1008 with RX timestamps enabled.
-> > Restoring the original flags eliminates the truncation in both cases.
->
-> It should be enough to state that sg flag presence takes into account
-> tailroom size and therefore has influence on final rx frame size provided
-> to driver.
->
-> >
-> > Save the UMEM flags before assignment and restore them on failure.
->
-> Regarding the patch content:
-> Acked-by: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
->
-> >
-> > Fixes: d609f3d228a8 ("xsk: add multi-buffer support for sockets sharing=
- umem")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Paul Moses <p@1g4.org>
-> > ---
-> >  net/xdp/xsk_buff_pool.c | 2 ++
-> >  1 file changed, 2 insertions(+)
-> >
-> > diff --git a/net/xdp/xsk_buff_pool.c b/net/xdp/xsk_buff_pool.c
-> > index 0ebd4d46f7ab..7750d2ec4ee2 100644
-> > --- a/net/xdp/xsk_buff_pool.c
-> > +++ b/net/xdp/xsk_buff_pool.c
-> > @@ -166,6 +166,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
-> >  {
-> >  =09u32 needed =3D netdev->mtu + ETH_PAD_LEN;
-> >  =09u32 segs =3D netdev->xdp_zc_max_segs;
-> > +=09u8 umem_flags =3D pool->umem->flags;
-> >  =09bool mbuf =3D flags & XDP_USE_SG;
-> >  =09bool force_zc, force_copy;
-> >  =09struct netdev_bpf bpf;
-> > @@ -268,6 +269,7 @@ int xp_assign_dev(struct xsk_buff_pool *pool,
-> >  =09if (!force_zc)
-> >  =09=09err =3D 0; /* fallback to copy mode */
-> >  =09if (err) {
-> > +=09=09pool->umem->flags =3D umem_flags;
-> >  =09=09xsk_clear_pool_at_qid(netdev, queue_id);
-> >  =09=09hlist_del(&pool->dev_node);
-> >  =09=09pool->netdev =3D NULL;
-> >
-> > --
-> > 2.56.GIT
-> >
-> >
->
+...
 
-Right, evidence suggests igc handles it gracefully, I had attempted=20
-to provide multiple examples of real world impact to satiate Sashiko,
-but only igc survived final edit. It needs to be open for the failed=20
-bind and successful retry, it can be closed after and bad state=20
-remains. If you're looking for greater impact, look at stmmac. I'll
-send out a v2 without naming drivers specifically soon.
+> > > > > +	bitmap_set(array_info->get_mask, 0, count);
+> > > > > +	bitmap_set(array_info->set_mask, 0, count);
+> > > >
+> > > > With the above being done, I would rather see bitmap_zalloc() for bitmaps.
+> > > 
+> > > struct gpio_array is defined with a flexible array member (invert_mask[])
+> > > specifically so that descs, array_info, and all three bitmaps live in a
+> > > single allocation. Switching to bitmap_zalloc() would turn one allocation
+> > > into four or five separate allocations and require freeing the bitmaps
+> > > both in gpiod_put_array() and when cancelling the fast path in
+> > > gpio_descs_check_fastpath(), so I would prefer to keep the single
+> > > contiguous allocation here.
+> > 
+> > Why? You can also allocate 3x bitmaps with bitmap_zalloc(). So I see only
+> > a single additional allocation.
+> 
+> So the proposal is to continue combining gpio_descs and gpio_array
+> allocation but split out bitmap allocations (still combining them into
+> one, so needing to round up nbits).
+> 
+> This looks like worst combination of all. Why do you prefer
+> bitmap_zalloc()?
+
+It's proper allocation mechanism for bitmap. With k*alloc*() this sounds like
+a (non-critical) layering violation. This also might add an additional churn
+in case the bitmap APIs will get their own type (currently we use the knowledge
+on how unsigned long:s is used for bitmap, but imagine the allocation that adds
+some header or tail to it).
+
+...
+
+> > > > >  	for (i = 0; i < count; i++) {
+> > > > > -		desc = gpiod_get_index(dev, con_id, i, flags);
+> > > > > +		struct gpio_desc *desc __free(gpiod_put) =
+> > > > > +			gpiod_get_index(dev, con_id, i, flags);
+> > > > >  		if (IS_ERR(desc))
+> > > > >  			return ERR_CAST(desc);
+> > > > >  
+> > > > > +		if (i == 0) {
+> > > >
+> > > > This is almost invariant to the loop. Can we move it out?
+> > > >
+> > > > > +			descs = gpio_descs_alloc(count, desc);
+> > > > > +			if (!descs)
+> > > > >  				return ERR_PTR(-ENOMEM);
+> > > > >  		}
+> > > > >  
+> > > > > +		gpio_descs_check_fastpath(descs, desc);
+> > > > >  
+> > > > > +		descs->desc[descs->ndescs++] = no_free_ptr(desc);
+> > > > >  	}
+> > > 
+> > > gpio_descs_alloc() needs the first descriptor (desc at index 0, acquired
+> > > by gpiod_get_index() inside the loop) to check gpiod_hwgpio(desc) and
+> > > gdev->ngpio so it knows whether to allocate space for array_info and the
+> > > bitmaps up front instead of reallocating with krealloc(). Before the
+> > > loop we have not looked up the first descriptor yet.
+> > 
+> > That's why I put 'almost' which means we might need to duplicate a few calls
+> > outside as well.
+> 
+> Yeah, I think doing it inside the loop rather than duplication
+> gpiod_get_index() outside makes it cleaner.
+
+OK.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
