@@ -1,103 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.33
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792700440;
-	b=J0eRAwzMOlVOBRYgFCeFlHcxs4jYjYIUVdIiamp0f9g/26vx5dsE5OztyceBRFM6gIgR
-	 aU+poExizpY0yN/wO0At4eIdAd/9hM9yt2yy3eyedOdtjV6YW6yg4aKEFlrC67mWHJqY1
-	 RIES2kdNdC8IzThKA7mKvCuHvlUfkDJR1L3rUkPGAfD45ErSBuT5UN6E1fVAopUfW1DjQ
-	 H6GoT6G8rqn+2QSb8WXKRF+VSYRuGdu/iO04p9mxrpyqZCRvh72X8jozpz1mgdjSzivy5
-	 EekXEh6Pi/UttA+DewYfdAOk3/t2jiVeR6zpKUyf9MCZ94NENDsO0Wcp7I7AkglYqnw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700440;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=QdHHL7IpiHmMLYOMZy+6u6Pt02r6FyjyxB4yFu3TTr4=;
-	b=drooQU90b18iVVIXXO8hoIseRjCeOaMfzlXISgvucgolHc+yv8LxVq8YmZ2f8tqE8PYK
-	 dKZKQNnCLxvAw3tXC9gVHKebc6ARCghiXgsF2wZaua61iLXU7QUiNj4iIWVstqEnIb4V0
-	 8p88ISFLzlXhALBTfMWcYxBcBCJpyQfoDwRcTWGLhUry6oKGnJQnX2mBaeUsnfErsq0yz
-	 InKAYKiW2Nic/CFwlvoU5oQsTqlxiN3AlztNBUPhBwviruNUiEKt9/jzCe6vEZRKnWpg4
-	 bZsGu5xiKLVsLZgGqeWs7y1BaZ3mqPFwKxBh41OoLRwg9v4H4oFdgu13j6IEP/T0RhQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bzA2K2nC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.159.33
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013033.outbound.protection.outlook.com [40.107.159.33])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=166.70.13.232
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792700494;
+	b=cW1BkOrtXGu9g3J+1cHRqdLqZquC4nsL5NgiEmdGAiS5+0NXfL3NYSVui5IbN/qNcsRB
+	 SNpy4vHqLzC29eMxaLKRU8xKXLGPiOLBE3VVhkmseANBeldesGgwcAQ7xiYiNtTiMvhqd
+	 YfPAu8JwQnApvJrsxEpoMEnMtE3E1EO14BRelUH+adBY1KkAXzsYsZbSTE3LL22YapzJN
+	 wAxqUUf7DlU6tn6nFA2ocgCnPsYKsXq4bELjul7Gk8ilkUbl2cnLvz9XSxrHpQLuqGJJN
+	 UX0zWeIW7V4JDuCx7zbKO+MRcKUQqfXVNcB17b/WPbuP4IC5laSClTLyT/n8sKf9Bnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700494;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:In-Reply-To:
+	 References:Date:Message-ID:User-Agent:MIME-Version:Content-Type:
+	 X-XM-SPF:X-XM-AID:X-Spam-Checker-Version:X-Spam-Level:X-Spam-Status:
+	 X-Spam-Report:X-Spam-DCC:X-Spam-Combo:X-Spam-Relay-Country:
+	 X-Spam-Timing:Subject:X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:
+	 X-SA-Exim-Mail-From:X-SA-Exim-Scanned;
+	bh=LcRz1Ev8DmcKSEVZ7ce9IIus/Kh4engCFXM+xi1JDXo=;
+	b=V3MMXXAaX7N956nZw6EplPak7On+As/8jdDVk1BAZruXOqaz0Lebqgiv1Tk3x7OFigZc
+	 20vW99cgHEtXHsOo4zJm+4KjDcL9ojFlEUGV1QI4ESP22thED/lkHv+32DWCtEZMXyIM3
+	 qvaF+IYVnrWC8MuTdbhXoolRk9dPmwW5RnO6jSZfA6i6psrJA4YwmaQ8P4oU3qzQdARLM
+	 agQek0TOzHuHrP5qc0sRc68DnmAuunQ0YPFuU1fYPhOIcNTJbtrm6G26Hs0Ua3utNWsiQ
+	 Hs0W89XOH4YrpHwt1MS6TSKFPVKrw5SkQma+ClBy3TC6kmuTq1PK5stCrmPB1pPwbJw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=xmission.com;
+	spf=pass smtp.mailfrom=xmission.com;
+	dkim=pass header.d=xmission.com header.i=@xmission.com header.a=rsa-sha256 header.s=xmission header.b=MaS0idwL;
+	arc=none smtp.remote-ip=166.70.13.232
+Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581BC606A31D;
-	Thu, 22 Oct 2026 20:20:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 581BC606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2BB606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:21:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F2BB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=bzA2K2nC
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rEWyaV4bMXIfxYt8vhddu9H0Ls+OVtUDt6MFVJkNTd3QC0G/wexAmhsxAdrT3NgQfGnaEDjbvOqUZs7nxH10BilKjvcKDU9ibG8mIEPKqbgw+8PvYliz0HqCs/U98Ix4KAin3qvdxOMCeuOxyaOsqL9JRB34nwzPcYuj/KvaEkhXiPhXr1wdSQKH044GuwShdWZVISCYnRtrf+hFgPAJsUeUkDllhSY7E8mNNgx2dVb8Jhef78bzTZ5jDmPyw81kwvQ05UuiELLCXp33Dtqb+1xezXMJ1huXlGPcc6K+qm4ubagJcgMaNNBg6qy9NE80MBj5RHz/1ToNKzxuKjGsxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QdHHL7IpiHmMLYOMZy+6u6Pt02r6FyjyxB4yFu3TTr4=;
- b=WYZCb2zp1P5T9nlyzgIQRwa2NuUDgirjRqoA9QMO6gnZnJ9SI8J6+lKzuHyB5R1CDJEUalrV4mXe53qUhSv1vlZIy9cmwHEqnjvzlqN1DYyZEoyYPcyiCF+WyGafnlGGjYXn3alZYXSYwml/JRCwZpzMNjxX34+4LKsxYmuS+39xB269SSV6vnli+xrFZ/OEnNsmWvadOy4isFePhrlvRae4y1qM2omLuAoAJ3kucNMlkcQaxx8EyS5YB97OJx7hOdQ/MuLsqYyOXX8ZcpmNz51GZOV8eKTVejoDF8H87BCYf/TBHpZbcfBekF4/z7XP0DMw89t0Kznl6ID578rWfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QdHHL7IpiHmMLYOMZy+6u6Pt02r6FyjyxB4yFu3TTr4=;
- b=bzA2K2nC+QJ8yrcuSd43O6ZagFWfN5F7G7Jku6vuZcjTziXUXXrN3et3f4T7mJRtF1XXw2j6Q/ry/4CYwTX3nNJ/jkuEws4yZj2t2FFJiB1xNcG3Uw95KSErm9tFziFlxk6k2cyNKEdRpHk9bi5kWzZQAKrCoXQjNQS2s6QUnYVQatzqarX/cfckO6q5ZoZGeqhTSvI+eKg3EpoXswvw8z7eETNjVcxoD09Qrn0iG7r673dUcJ+18CHxX0YXnKbmLV8FoB/82SlTZuKzAfIChxo++DMs2n3n8gnf7p7BHE/BV2IRLg0KQdqKs7Sv2yeA7p6PK/SLSl1pvhvZLn4kgA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DU4PR04MB12151.eurprd04.prod.outlook.com (2603:10a6:10:640::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 20:20:37 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 20:20:37 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] arm64: dts: freescale: imx9[135]-toradex-osm-dev: Fix USB_A source PDO to 900 mA
-Date: Thu, 22 Oct 2026 16:20:30 -0400
-Message-ID: <179270041362.1301511.16483651144538374557.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009132550.20793-1-francesco@dolcini.it>
-References: <20261009132550.20793-1-francesco@dolcini.it>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: DS7PR05CA0042.namprd05.prod.outlook.com
- (2603:10b6:8:2f::29) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (1024-bit key, unprotected) header.d=xmission.com header.i=@xmission.com header.a=rsa-sha256 header.s=xmission header.b=MaS0idwL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=1epwcureGNJe5lZImEmuL8jL3EcLC66Hw65Ezl9z594=; b=MaS0idwL+v+sz+ztqqVGyN+omI
+	0s5OI/NpokVagz1E1v03b+Mbyc7lHroUSFkf22A5kMDLHB+mmPPfgadlh2XpQrBf0uWCY9GCYUlIZ
+	Q+B0SBmvea8tjhrRMhCs8K6UT+GEKbm+pKKHctUyo/eGhr4LjzPGROIb1aZysAl4LnMg=;
+Received: from in02.mta.xmission.com ([166.70.13.52]:36712)
+	by out02.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1xJzI5-0079yo-Fp; Thu, 22 Oct 2026 14:21:33 -0600
+Received: from ip72-198-196-98.om.om.cox.net ([72.198.196.98]:44010 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1xJzI4-00FRPs-IO; Thu, 22 Oct 2026 14:21:33 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Avi Weiss <thnkslprpt@gmail.com>,  Andrew Morton
+ <akpm@linux-foundation.org>,  Christian Brauner <brauner@kernel.org>,
+  linux-kernel@vger.kernel.org
+In-Reply-To: <atn6anj4NRKpT-qN@redhat.com> (Oleg Nesterov's message of "Thu,
+	22 Oct 2026 13:58:34 +0200")
+References: <20261022061015.3737924-1-thnkslprpt@gmail.com>
+	<atn6anj4NRKpT-qN@redhat.com>
+Date: Thu, 22 Oct 2026 20:21:26 +0000
+Message-ID: <878q3po5a1.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,93 +76,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DU4PR04MB12151:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6a17e0f9-2abc-4296-2b4b-08df3079ef50
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|19092799006|1800799024|366016|56012099006|11063799006|261009221227099003|261009223027099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	sJLkFcjY0R25tWHNzXr/J+k77AkZjUMeLphGl7qKhBsPoxVF6O2JyirXFqlYEV+KG1dR+hXd7WfcS1FtIZ52XKUPKbQ7qetp41gQMHf/oGTkhQc7zQedX2abXcdQ+ZPYQRouwgD6KEHp7qOCKZZ0tWsmSTP9y2lrGsrbH6lTOfeMUPdicoD52eLZn9zmDqGmXpC4+RDcMFBf1E/etr8js684RxANLtRk6kjpXHEtH6m4tGvOmFMv0rnxgKE8INTD3pAYDrEYHVI7RV5fqd8PKLXEjlfCvJXj2QLpECckOrhczDuk9qgzHSkJuMvVCSamZevkSSXhe/JtLcfrC5KA17LOPdMV/QtdJj/zND4IpTTLhuY7FTyR4k4XROUCpPsHieoye8UdTFMF/+YirEz/0uECBfaq/NQsIL52fULd4OsmwxnvWetYRZ9hKkyhMOfxlrypPoubTm+/Yo9+4zx2TGYlPSTDecH8t9gWXr2I25Q07z2tqpgd/GqjxfVlxnF/DvSD6HIwaqX3Z8R+FpaWDpznRQUa6Z/1Sl/b3GVZqknEf7OadTkTh7E126pPa4FK+JTzhMD5jWmbWK81YviueYPGKZsUtYOPMXT8jL3B2cusPZ0zmIm6OTn9tMVK6PjVYzkmgoQ//vu7DKBKE/u/V+vlIqjtvsnnlrnfe0BeU1Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(19092799006)(1800799024)(366016)(56012099006)(11063799006)(261009221227099003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2xBZTNsWkcxRUc3VmZxeS9iTnc2eUNNMnlnRitWQzZ5R0l3QmxvNVM5dEZv?=
- =?utf-8?B?dlFtVjliWCsyQldEMkRBZUI0a2drcUNNSzQ1dDdlODFQM1BIOEFFMnNGQkxZ?=
- =?utf-8?B?eW0ydmFtRjlvd0J1eUNwdWFhTmw5UTZYQWtHcU0vUlhKNDhPWFF4d2swU3R5?=
- =?utf-8?B?aWxGbTU3UXp0TjJkcDhtOWVKaDJvKzkvcVQrT2pnakdBZjBSaHB1YWphS3Uz?=
- =?utf-8?B?bkgzVzB5M3FPVUE0MWZPSXBOZ2gvOW1ydlYyYlFnQklyVDlEZWtBS2taRVAr?=
- =?utf-8?B?S1hvUkVqTzROVmYvZG1WTTdlMDNLbGRmSGZGUWZ4dEd0SmNxcnJUZmxackVn?=
- =?utf-8?B?N1FBSFd0R21JRnVYODJWQXpYZEVndnRsWGVZQ2tkNGFkRVg4ZGpPYk5hd0VY?=
- =?utf-8?B?Mi9Pa0xtTSs2M3Nzc0NOLyt1aGpTaWFQWHBPcFdWK0E3VDlEczc4VWJabjly?=
- =?utf-8?B?NkVLTjc4aXhWanQyNGNvVlFsVndYVy9NMkk2TnhZdUI4Y1FzcEZMK2llWjNm?=
- =?utf-8?B?Z0NXeCsxMmhnQWxiRE5rUTNSb3VtaUpScDhFeWFTU0JYYlN2RkNCR0ZQQ2RF?=
- =?utf-8?B?ZzU0cExoVHlybG5ZVmErWjl5cGRlTnZaSzBlZlZpaFhiVnZySlBSc094YXhs?=
- =?utf-8?B?WThSYXRqLzJpMU5yLzlEdDNsb1ZlUkxTRTRMdHhqb2RwWUNCdTBEcmhuVzJ5?=
- =?utf-8?B?MFQra3Z5Yzg0Vm82allHdW1qb1FnanBGblplM1F0Rm1zWGlsT01Rc2tlZC9t?=
- =?utf-8?B?UHl0dlVwZjYwUlpoMzZnRjUremMxOHdJNExLbWt6M2hrRG1ETFVTeDV4WGEy?=
- =?utf-8?B?NWR5S21tTERnbVE1WXlKaU90WFVxZ05YVDNkenpIcHhYWUhDc1NrdGhxTGVI?=
- =?utf-8?B?OG1hRlZKQ1UyMTJzd09DcEhvRXFueXMrY0Zuak9NR3AvaklTMFRnSmljQTFR?=
- =?utf-8?B?aFREWGtzWXNqMysyWkc5MHB6aG42VGgwVVhkYUd5a3JLd0VLQ0daQ1hBdHRr?=
- =?utf-8?B?a0M0N2pmSlN3R0hGOVgzbUdkOEZkNERsZTVxZ1hVNGVqV2hTUk1XV3hvUmU1?=
- =?utf-8?B?MjBqVXhXRFAxNUNGbDZjUlhUTUxiTW11OWd5TlF3R1ZSc25yU3o4T0d2eTBU?=
- =?utf-8?B?cU5WUERRNC83VjZydEhMaGVIazVtaTNyWElHSFpMZURsNE9wZ2V5eWhSVnR1?=
- =?utf-8?B?SGgxbXRyaWF3dE5CSGt3ak90K3FBUHNGdnVrRUIvSkMyZTNPTFltSW1zcGNr?=
- =?utf-8?B?VGpyK2V4bFMya0NaSzBna1JFY3dCZ0ZZZER5V0pxcUhHVlNTNjFDaHY0Ni9a?=
- =?utf-8?B?dS9kaW82OTNWckRaelV0eUNpSmJCTUJCUWNTb1NRMmZJVm9oMytEbzlHRDZC?=
- =?utf-8?B?WXhLWVZQNUk3ZzJ5aHRtR0lGM1oyTXo4WVN0Z3JHMDJJaXRlNFcvNDh0Uk92?=
- =?utf-8?B?TXBNTnVhNG9HT1FhL3h2RTc1cGtGcmpwQjJhY1FycWczWVNqQ2ZPbnVDblFt?=
- =?utf-8?B?SXVSUWQycWtpbmw1WXBzZVYwa284VnYxWncxb0IvSE1oYVN6S2xSdGZlVUFL?=
- =?utf-8?B?SExtVjVNTHp4N1RkV0Z5YW1JR3AwWnhEaUp4YzNGdmJndWtzd2RLUmo1UGlL?=
- =?utf-8?B?N2xGbHhQZzF4Zzl3MFJBeXNrZE5UK0kzYnppM2VraWFVMWREZmN5MmVkOExL?=
- =?utf-8?B?aTdKekQwTTUxZyt1ZFl0aG9mWUN2akZnNGwvTTE2eUU4QXBwT2tRNDc2dW5W?=
- =?utf-8?B?Rkw4cXo0Mm1velp1aFZkRUEvZXJ0N0czWElLWFh2K3NTMmVxdHAyRVRYZXVQ?=
- =?utf-8?B?b0M5Y0IzVGpLaWFYdHBJRnA4ektjQUFjUWtJaSt3Smora2ZwazZreVVNVWhm?=
- =?utf-8?B?dmEyeFVGMHpycXpNTEZqaGQwYkVTR21yNTRUVGZtY1FJcU1SNnQ0UHp0bU01?=
- =?utf-8?B?ZXR6M3BWYUcxUktPd0J4dVR6NlgyYkJIWGQveG5MZFZEQkpIZ1Npc3QzMnYr?=
- =?utf-8?B?em9wL2FPQTM4d202VElwVENlQWluQXgwSzJxVzUxbjM3bWMzWEs3REgvT3lW?=
- =?utf-8?B?eG5ZZld3T0o0d3JxK2FPWGhTMEJ3ZGNEV1V5djdlaUxnMm80amZUSWxVRkhx?=
- =?utf-8?B?akpvK2ErZnhmc0FReTZtOXRKWnJpK2VXWUhPS3k1eXZvYndHNXlObnY4SnZm?=
- =?utf-8?B?S3R4Z0F5QnJsT2VZci9ZeWxEdHpTQnFkTUJOSmJQSXlwek5iMGwxeVhoMW9J?=
- =?utf-8?B?UERSb3pveno4MityWUZuZ0VWSjhXM0NBdkd3azMvRWdLS3ArdzFaSnpJVzd5?=
- =?utf-8?B?RW8rOTlFWnMrbGNQTVlleWxyRzljV2l4aDlmdE9IWHQwcWxNK1cwYVlFSThN?=
- =?utf-8?Q?uUfW5Mky6Hzz8fAt0Fubbfh/bhYIohzK//PQP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6a17e0f9-2abc-4296-2b4b-08df3079ef50
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 20:20:37.4938
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4Vi8Mb6T/VhqMGnDx9JNmTBclJW0xHCGoLf76GACheOoG8gymfLnxW5pTCP+E2EEEy2mPD6HW/sSgRe9iNUzVer3Jyw9v9OiCR2ojUr2aCVHoKe166c61d4MHAlFQ0WI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR04MB12151
+Content-Type: text/plain
+X-XM-SPF: eid=1xJzI4-00FRPs-IO;;;mid=<878q3po5a1.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.196.98;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX18JiXHqZK5E60Wmiv15NtR6CppcuNhGn+E=
+X-Spam-Level: 
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.5000]
+	*  0.7 XMSubLong Long Subject
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa08 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.0 T_TooManySym_02 5+ unique symbols in subject
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa08 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;Oleg Nesterov <oleg@redhat.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 424 ms - load_scoreonly_sql: 0.08 (0.0%),
+	signal_user_changed: 14 (3.2%), b_tie_ro: 12 (2.8%), parse: 0.95
+	(0.2%), extract_message_metadata: 4.0 (0.9%), get_uri_detail_list:
+	1.61 (0.4%), tests_pri_-2000: 3.8 (0.9%), tests_pri_-1000: 2.4 (0.6%),
+	tests_pri_-950: 1.12 (0.3%), tests_pri_-900: 0.77 (0.2%),
+	tests_pri_-90: 93 (22.0%), check_bayes: 91 (21.6%), b_tokenize: 7
+	(1.8%), b_tok_get_all: 9 (2.1%), b_comp_prob: 3.7 (0.9%),
+	b_tok_touch_all: 66 (15.5%), b_finish: 1.45 (0.3%), tests_pri_0: 281
+	(66.3%), check_dkim_signature: 0.70 (0.2%), check_dkim_adsp: 3.5
+	(0.8%), poll_dns_idle: 0.75 (0.2%), tests_pri_10: 2.5 (0.6%),
+	tests_pri_500: 12 (2.8%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH v2] signal: respect the blocked mask in
+ dequeue_synchronous_signal()
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, brauner@kernel.org, akpm@linux-foundation.org, thnkslprpt@gmail.com, oleg@redhat.com
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out02.mta.xmission.com); SAEximRunCond expanded to false
 
-From: Frank Li <Frank.Li@nxp.com>
+Oleg Nesterov <oleg@redhat.com> writes:
+
+> I was going to send another cleanup on top of this fix. Can't do this today,
+> but let me explain... It is a bit ugly to check si_signo twice.
+
+I can see where your proposed change is addressing that and it seems
+reasonable.
+
+> And afaics we have another problem. sys_rt_sigqueueinfo() allows to
+> send a SI_FROMKERNEL RT signal to itself.
+
+I don't see where your proposed code is addressing this.
+
+From 10,000 feet I think it is deliberate that we allow sending all
+possible pending signals to ourselves.  Some version of that is
+necessary to restore a checkpoint of a process, if it has not
+yet handled the signal at the point it is check-pointed.
+
+You can look at CRIU if you need to see if this is behavior that
+is being relied upon.
+
+> In this case sigmask(q->info.si_signo) leads to UB on 32-bit.
+
+I presume you are referring to a signal number that exceeds 32
+being put into a 32bit mask.  That does seem worth fixing.
+
+Eric
 
 
-On Fri, 09 Oct 2026 15:25:46 +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+> I'll recheck, write the changelog, and send something like below tomorrow.
+> perhaps rt_sigmask() makes more sense than sigset_t...
 >
-> Correct USB_A source PDO from 3A to 900mA.
+> Oleg.
 >
-> The USB_A Type-C port on the Toradex OSM development board can source
-> only 900 mA on VBUS, but the connector advertises a 5V / 3A fixed PDO.
 >
-> [...]
-
-Applied to imx/dt64-intend (will appear to linux-next after v7.4-rc1),
-thanks!
-
-[1/2] arm64: dts: freescale: imx95-toradex-osm-dev: Fix USB_A source PDO to 900 mA
-      commit: 43a88b1dd043f686e6b384088d31545e21f32cba
-[2/2] arm64: dts: freescale: imx93-imx91-toradex-osm-dev: Fix USB_A source PDO to 900 mA
-      commit: 478c8c418615ea9d3fbd80d0a8d3e3889644ddea
-
-Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+> From 6f7441ff08d7b88b96ac6787b40634e8c173003c Mon Sep 17 00:00:00 2001
+> From: Oleg Nesterov <oleg@redhat.com>
+> Date: Thu, 22 Oct 2026 13:43:01 +0200
+> Subject: [PATCH] signal: cleanup the .si_signo checks in dequeue_synchronous_signal()
+>
+> Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+> ---
+>  kernel/signal.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+>
+> diff --git a/kernel/signal.c b/kernel/signal.c
+> index 7386b9552dc3..9cfd4d03cad4 100644
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -676,21 +676,24 @@ static int dequeue_synchronous_signal(kernel_siginfo_t *info)
+>  	struct task_struct *tsk = current;
+>  	struct sigpending *pending = &tsk->pending;
+>  	struct sigqueue *q, *sync = NULL;
+> +	unsigned long mask;
+> +	sigset_t xxx;
+>  
+>  	/*
+>  	 * Might a synchronous signal be in the queue?
+>  	 */
+> -	if (!((pending->signal.sig[0] & ~tsk->blocked.sig[0]) & SYNCHRONOUS_MASK))
+> +	mask = (pending->signal.sig[0] & ~tsk->blocked.sig[0]) & SYNCHRONOUS_MASK;
+> +	if (!mask)
+>  		return 0;
+>  
+> +	siginitset(&xxx, mask);
+>  	/*
+>  	 * Return the first synchronous signal in the queue.
+>  	 */
+>  	list_for_each_entry(q, &pending->list, list) {
+>  		/* Synchronous signals have a positive si_code */
+> -		if ((q->info.si_code > SI_USER) &&
+> -		    (sigmask(q->info.si_signo) & SYNCHRONOUS_MASK) &&
+> -		    !sigismember(&tsk->blocked, q->info.si_signo)) {
+> +		if (SI_FROMKERNEL(&q->info) &&
+> +		    sigismember(&xxx, q->info.si_signo)) {
+>  			sync = q;
+>  			goto next;
+>  		}
