@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792706570;
-	b=ADdXGO4u4JEp9crzCsGmBwByOZemX/FsAqnhW8oCrz5HaDLaxoemlxCuAs++ietakOr1
-	 wM/l+nCRPtPKPliO3cxfpOnsFexJhMWy7zAU7JZNNWmQDDQ5kwdz5Op+RFe2lQM6550v4
-	 CUDYp4LSL/Y50zF2ODZgIWNfXOYTOhwoRvciQZi7Xc2MT/xOjM+KWYrwvEmRh+8q5OQJ9
-	 8kUv4Ynhpuiar5+mXfpgDGSqhar32c2p2fUD0AktJNWnAw0sKddAATHcsx6xCmyxFkxpy
-	 O5Y+99LW/dv7uE4YKaD2K9vgph3Lm0vPy26G1g52A0NE78pmwaT3GdebzB+KL9tJaUw==
+	t=1792706575;
+	b=OSiAFNLL4xtIRZiALgxrxcaLbahWKsbxVp/dO2wFNXJHsM0QGeh9QKe/M5xGWbFRWmf2
+	 ibXZM7HM8vrQhM1C/oQ4iC8UXgcbwtK8yGaejx4fV9G1Wt14TF2PyQt2DzCpO6HabpT81
+	 chTEvKruMXcqgrwlLAWELfEO+5SnXFV4YqmgpgeCPvGnm5XA8PSFMvHuOGYFWwZ2T7L+n
+	 G0TP2ciB7GSltFDhU7moMmaYlDkUZg+S0hleya6K1Wf4Uc2lQVmtzTVwKeUOhwp7KJYE+
+	 a4uEg+HvG7WATMC1OStUEqblnMkZ/vsUppMd8o/CNrvWrNvke2/ujxRgdpoFV6iqx9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792706570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792706575;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Sl3aeEmF+DgO2uZizXsDZ5ZBFmZ3+GpoVXSv0sPUA8E=;
-	b=WZmrck7Jmj2YnIs2G9mm0UYTA2ffiwiHif6VUUS27WTjqpFEOdZvdM7yfIwJhcPNeuF6
-	 +kcvn/Pv4ic8imGEi9jEhtKSldFVEV3EaTyDFikVaNYf7n++yJCuW/9pz4Io+DVOC5BaT
-	 FNZ0HDnSVe88PJmPqdIWkJ22CABt63RiQfr5Ms9PLoJtjxsBIzoiS86E5pl+DGPMbsFPf
-	 1G85zABzY7KGbcGHRS+XgzvB/BXAb+Gad+9AFUCUhTaiiCGLHu22fS67NdUWZRMXfGYTP
-	 z0Ada9/4YhQi5CO726Xy7UzRauDIkv+VKPNGvUqIyjh4dGQLPevDVwluTLsGoePXI5g==
+	bh=Xtd1xmqUkU6Igt+6PgHWcxy4mu3ymMXyv97LOgthK8w=;
+	b=oKL68snLS6Bu1ul2bxfIBbv8vgz0jdeYFTXLhFgN7i91WZoeg/JxDqc18Cu3MspgDsmu
+	 g/vbUziwnSgDiJ3pBhY+yf7ClW6d3GioNEWvRi/m30BiHa9Kuf8JK6hby58zQXqQEFeBZ
+	 wxtQURFDYsIgIysOJWY4udr+QwD6m6AB6wd0JlLyUbUsVPyNniNg4HRR+mWTxdfKqApG0
+	 QWf9ko81j6d98cGhtN5POJngs1EomMCCbSR2SdnEt1IHkEo9yKN/enNyhA5SjeVlYDVp4
+	 tr8YiDgqv7c06CUWvbJdEkHukJWYWYQ7ZgtcqVVftGMgFI4jRe+bywMWz1w76I23j+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LLbo/Mmx";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AV7bX8G8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD255606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:02:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19566606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 22:02:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LLbo/Mmx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3A411F031E1;
-	Thu, 22 Oct 2026 22:02:44 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AV7bX8G8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0E071F01828;
+	Thu, 22 Oct 2026 22:02:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792706569;
-	bh=Sl3aeEmF+DgO2uZizXsDZ5ZBFmZ3+GpoVXSv0sPUA8E=;
+	s=k20260515; t=1792706574;
+	bh=Xtd1xmqUkU6Igt+6PgHWcxy4mu3ymMXyv97LOgthK8w=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LLbo/Mmx+7bkJV9DRqdJxOZMsJWRlsWBCzzvDtHQy4Qqu7NFsLnR7/4cDhdB1GmFe
-	 Z3pHX2qMKN7St84w3ZNR8CABchw7xCfytmOF+52nIrOQCnnls+ePKzAPNU0zSOuzPU
-	 kA49bkzE3Phb/vXviWkuYLQ75hSWLNM9taSPJbf0O2iWKj048Y6t/UqgKWZL9A+bfK
-	 WrYG+4hy25lWtrwANtKoxPgy8XNqiSWmFR5ADkQFcbmL5CAX8ZtVbcOsHYzov/hbxK
-	 YCX9EbzA3sH4alFF9Y+48wLDVdbv3534JnfoYd+Jdq1D7K9P0ysrl/5u2cVQVngjOM
-	 RVEpwiivvucFA==
+	b=AV7bX8G8qO+jPFJMCJchpU5Oxq6KakoU5XMJmOIykVfOWwcLLi0QMTeaYuHmBbCfJ
+	 28RmdlIdWlJstd8VwovBPzlODL5xzctWu2Z1WRtB9BIFLUCQLvd0wN2ufTIB6Arffc
+	 CQeEoi4tttYpx8E0H0h7nHppoBtl2cUW66ffz1f5OqR3eoabvlzt1x6duhwaJc+Df7
+	 g9gY9heqnLREMii6/LLfM6xT75pYLYhcUK+hDSk2kblYOTtFFC/y8tGnuJ5FooVC4q
+	 MOmmcE9iEkNcMRVDA0whmeFHNTdX4/VBQp6s/UPaefwadSV8aIokbObs4dWYPZO987
+	 00HiS1ZDVOv3w==
 From: "Barry Song (Xiaomi)" <baohua@kernel.org>
 To: akpm@linux-foundation.org,
 	linux-mm@kvack.org
@@ -70,9 +70,9 @@ Cc: hui.zhu@linux.dev,
 	lyugaofei@xiaomi.com,
 	ridong.chen@linux.dev,
 	kunwu.chan@gmail.com
-Subject: [RFC PATCH v5 07/14] mm/mglru: balance anon and file scan budget by refault rate
-Date: Fri, 23 Oct 2026 06:01:56 +0800
-Message-Id: <20261022220203.91911-8-baohua@kernel.org>
+Subject: [RFC PATCH v5 08/14] mm/mglru: lift youngest gen protection for higher priority
+Date: Fri, 23 Oct 2026 06:01:57 +0800
+Message-Id: <20261022220203.91911-9-baohua@kernel.org>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261022220203.91911-1-baohua@kernel.org>
 References: <20261022220203.91911-1-baohua@kernel.org>
@@ -89,388 +89,58 @@ Content-Transfer-Encoding: 8bit
 
 From: Kairui Song <kasong@tencent.com>
 
-Replace get_type_to_scan() and isolate_folios(), which selected one
-type per batch, with a proportional split of the scan budget between
-anon and file, and scan both types each round.
+The forced protection of younger gens is in contradict of the goal of
+minimizing the IO cost for reclaim. And under high pressure, MGLRU runs
+into premature OOM constantly, where classical LRU never goes OOM.
 
-lru_gen_balance_scan() splits the total by
+The problem is when aging can't catch up with reclaimer, reclaimers will
+all abort early seeing there is only empty gens, or only two gens left.
+Proactive aging won't help eigher because there will be limited threads
+doing aging, but there could be unlimited threads doing reclaim, which
+is a fundommental limitation of MGLRU. One way to avoid this is to use a
+aging lock, like in commit .... However, aging lock caused several
+jitter when under huge pressure, and was reported to be causing
+obserable lags already on Android.
 
-        anon : file = swappiness * r_file * w_anon :
-                      (MAX_SWAPPINESS - swappiness) * r_anon * w_file
+What's more, the gen model somehow contradicts with the goal of
+swappiness, which aim to reduce IO cost intead of following hotness
+blindly.
 
-where r_anon and r_file are the per-type refault rates scaled by
-4096, clamped to [1, 4096]; a rate at the 4096 ceiling means the type
-refaults at least as often as it is evicted. The w factors bias the
-split toward the LRU sizes at mild swappiness and follow the IO cost
-ratio at the extremes. Both rate accumulators start at MIN_LRU_BATCH,
-so a type without eviction history reads as 100% until evictions
-accumulate, and the floor of 1 keeps a type that never refaults from
-zeroing out the other type's share. Swappiness 0 and
-SWAPPINESS_ANON_ONLY keep their single-type behavior; at swappiness ==
-MAX_SWAPPINESS the file factor is zero, so anon gets the whole budget,
-as in the classical LRU; swappiness 1 no longer forces file-only
-scanning as the old code did.
+So instead, let's lift the protection based on priority. With default
+priority, we still fully respect the MIN_NR_GEN protection. But as the
+priority raised, allow it to reclaim younger gens step by step.
 
-The proportional protection and priority reduction are applied to the
-total once, before the split, and each budget is capped at its type's
-evictable size. Regular reclaim derives the total from the evictable
-sizes, so the budgets sum to it. The proactive path re-splits the
-remaining target each round, so eviction keeps working while either
-type makes progress, until the target is met or no progress is
-possible. The debugfs scan_control gets .priority = DEF_PRIORITY so
-eviction starts from the oldest gen and reports the default priority
-in the tracepoints.
+OOM is gone, and swappiness is fair after this commit.
 
 Signed-off-by: Kairui Song <kasong@tencent.com>
-Co-developed-by: lyugaofei <lyugaofei@xiaomi.com>
-Signed-off-by: lyugaofei <lyugaofei@xiaomi.com>
 Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
 ---
- mm/vmscan.c | 223 +++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 140 insertions(+), 83 deletions(-)
+ mm/vmscan.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 0930bee5906e..0e37f5c8f355 100644
+index 0e37f5c8f355..12aca97be56b 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -5018,79 +5018,110 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
- 	return tier - 1;
- }
- 
--static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
-+/*
-+ * Balance the anon vs file scan budget using MGLRU's per-type refault
-+ * rates, where swappiness is the relative IO cost of anon vs file (see
-+ * Documentation/admin-guide/sysctl/vm.rst).
-+ *
-+ * On entry, nr[] holds the evictable size of each type, on return it
-+ * holds each type's scan budget, bounded by its evictable size.
-+ *
-+ * LRU lock not needed: a stale snapshot merely skews the split for one pass,
-+ * and MGLRU aging averages the fault rate so we can simply read it, no need
-+ * to do any extra work here. If reclaim is blocked by unfair type hotness or
-+ * stall aging, the priority will raise and a raised priority drives the
-+ * aging.
-+ *
-+ * Calculation is basically based on following formula with a LRU size bias:
-+ *
-+ * anon : file = swappiness * r_file * w_anon :
-+ *               (MAX_SWAPPINESS - swappiness) * r_anon * w_file
-+ *
-+ * r_file / r_anon: refault rate for file / anon.
-+ * w_file / w_anon: LRU size weight of file / anon.
-+ *
-+ * We don't calculate the scan cost, MGLRU uses lazy promotion, which will
-+ * cancel the scan budget natually.
-+ */
-+static void lru_gen_balance_scan(struct lruvec *lruvec, int swappiness,
-+		unsigned long total_scan, unsigned long nr[])
- {
--	struct ctrl_pos sp, pv;
-+	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+	u64 refault_rate[ANON_AND_FILE], anon_factor, file_factor;
-+	u64 anon_scan, file_scan, total;
-+	u64 anon_weight, file_weight;
-+	int size_bias;
- 
--	if (swappiness <= MIN_SWAPPINESS + 1)
--		return LRU_GEN_FILE;
-+	total = nr[LRU_GEN_ANON] + nr[LRU_GEN_FILE];
-+	if (!total)
-+		return;
- 
--	if (swappiness >= MAX_SWAPPINESS)
--		return LRU_GEN_ANON;
--	/*
--	 * Compare the sum of all tiers of anon with that of file to determine
--	 * which type to scan.
--	 */
--	read_ctrl_pos(lruvec, LRU_GEN_ANON, LRU_TIER_MIN, LRU_TIER_MAX,
--		      swappiness, &sp);
--	read_ctrl_pos(lruvec, LRU_GEN_FILE, LRU_TIER_MIN, LRU_TIER_MAX,
--		      MAX_SWAPPINESS - swappiness, &pv);
-+	if (swappiness <= MIN_SWAPPINESS) {
-+		nr[LRU_GEN_ANON] = 0;
-+		nr[LRU_GEN_FILE] = min_t(u64, total_scan, nr[LRU_GEN_FILE]);
-+		return;
-+	}
- 
--	return positive_ctrl_err(&sp, &pv);
--}
-+	if (swappiness == SWAPPINESS_ANON_ONLY) {
-+		nr[LRU_GEN_FILE] = 0;
-+		nr[LRU_GEN_ANON] = min_t(u64, total_scan, nr[LRU_GEN_ANON]);
-+		return;
-+	}
- 
--static inline bool is_single_type_reclaim(int swappiness)
--{
--	return swappiness == MIN_SWAPPINESS ||
--	       swappiness == SWAPPINESS_ANON_ONLY;
--}
-+	for (int type = LRU_GEN_ANON; type <= LRU_GEN_FILE; type++) {
-+		int hist = lru_hist_from_seq(READ_ONCE(lrugen->min_seq[type]));
-+		/* start at MIN_LRU_BATCH to smooth the rate on gen start */
-+		u64 refaulted = MIN_LRU_BATCH, evicted = MIN_LRU_BATCH;
- 
--static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
--			  struct scan_control *sc, int swappiness,
--			  struct list_head *list, int *isolated,
--			  int *isolate_type, int *isolate_scanned)
--{
--	bool type_fallback_allowed = !is_single_type_reclaim(swappiness);
--	int type = get_type_to_scan(lruvec, swappiness);
--	int total_scanned = 0, scanned, tier;
--	bool tried = false;
-+		for (int tier = 0; tier < MAX_NR_TIERS; tier++) {
-+			refaulted += READ_ONCE(lrugen->avg_refaulted[type][tier]);
-+			refaulted += atomic_long_read(&lrugen->refaulted[hist][type][tier]);
- 
--retry:
--	tier = get_tier_idx(lruvec, type);
--	scanned = scan_folios(nr_to_scan, lruvec, sc,
--			      type, tier, list, isolated);
-+			evicted += READ_ONCE(lrugen->avg_total[type][tier]);
-+			evicted += atomic_long_read(&lrugen->evicted[hist][type][tier]);
-+		}
- 
--	total_scanned += scanned;
--	if (*isolated) {
--		*isolate_type = type;
--		*isolate_scanned = scanned;
--		return total_scanned;
-+		/*
-+		 * The rate scaled by 4096 to survive integer division, clamped
-+		 * to [1, 4096] (~0% - 100%), the floor of 1 keeps a type that
-+		 * never refaults from zeroing out the other type's share.
-+		 */
-+		refault_rate[type] = mul_u64_u64_div_u64(refaulted, 4096, evicted);
-+		refault_rate[type] = clamp_t(u64, refault_rate[type], 1, 4096);
- 	}
+@@ -4929,12 +4929,14 @@ static int scan_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	VM_WARN_ON_ONCE(!list_empty(list));
  
  	/*
--	 * We are running out of the current reclaim type. Fall back to
--	 * the other type if allowed.
-+	 * The more extreme the swappiness, the wider the IO cost gap between
-+	 * anon and file, so the split should follow the IO cost ratio rather
-+	 * than the sizes. With a mild swappiness, balance the scan by the
-+	 * actual LRU size more.
+-	 * Respect the gen hotness distribution at low priority to avoid
+-	 * aging and scan cost, but prefer to satisfy the reclaimers request
+-	 * when under pressure to respect swappiness more and reduce IO cost.
++	 * Respect hotness at default priority, and only reach into the
++	 * newest generation when under severe pressure, so hot folios are
++	 * not evicted as soon as priority is raised.
  	 */
--	if (!scanned && !tried && type_fallback_allowed) {
--		type = !type;
--		tried = true;
--		type_fallback_allowed = false;
--		goto retry;
--	}
-+	size_bias = max(1, min(swappiness, MAX_SWAPPINESS - swappiness));
-+	anon_weight = nr[LRU_GEN_ANON] + nr[LRU_GEN_FILE] / size_bias;
-+	file_weight = nr[LRU_GEN_FILE] + nr[LRU_GEN_ANON] / size_bias;
-+
-+	anon_factor = (u64)swappiness * refault_rate[LRU_GEN_FILE] * anon_weight;
-+	file_factor = (u64)(MAX_SWAPPINESS - swappiness) * refault_rate[LRU_GEN_ANON] * file_weight;
-+
-+	/* Cross-multiply the ratio above. */
-+	anon_scan = mul_u64_u64_div_u64(total_scan, anon_factor, anon_factor + file_factor);
-+	file_scan = (u64)total_scan - anon_scan;
-+
- 	/*
--	 * We scanned some folios but failed to isolate any due to promotions,
--	 * protections, or races. Retry once to avoid a larger loop.
-+	 * Bound each type by its evictable size. Hand the exceeding part to
-+	 * the other type. Any excess left when total_scan exceeds both sizes
-+	 * is dropped, since it only stresses the scanner with no gain.
- 	 */
--	if (scanned && !tried) {
--		tried = true;
--		goto retry;
--	}
--
--	return total_scanned;
-+	if (anon_scan > nr[LRU_GEN_ANON])
-+		file_scan += anon_scan - nr[LRU_GEN_ANON];
-+	if (file_scan > nr[LRU_GEN_FILE])
-+		anon_scan += file_scan - nr[LRU_GEN_FILE];
-+	nr[LRU_GEN_ANON] = min_t(u64, anon_scan, nr[LRU_GEN_ANON]);
-+	nr[LRU_GEN_FILE] = min_t(u64, file_scan, nr[LRU_GEN_FILE]);
- }
+ 	if (sc->priority == DEF_PRIORITY)
+-		seq = lrugen->min_seq[type];
++		seq = lrugen->max_seq - MIN_NR_GENS;
++	else if (sc->priority > DEF_PRIORITY / 2)
++		seq = lrugen->max_seq - 1;
+ 	else
+ 		seq = lrugen->max_seq;
  
- static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
--			struct scan_control *sc, int swappiness)
-+			struct scan_control *sc, int type, int swappiness)
- {
- 	LIST_HEAD(list);
- 	LIST_HEAD(clean);
-@@ -5099,8 +5130,8 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	enum node_stat_item item;
- 	struct reclaim_stat stat;
- 	struct lru_gen_mm_walk *walk;
--	int scanned, reclaimed;
--	int isolated = 0, nr_isolated = 0, type, type_scanned;
-+	int tier, scanned, reclaimed;
-+	int isolated = 0, nr_isolated = 0;
- 	unsigned long total_reclaimed = 0;
- 	bool skip_retry = false;
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
-@@ -5111,8 +5142,9 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	/* In case folio deletion left empty old gens, flush them */
- 	try_to_inc_min_seq(lruvec, swappiness);
- 
--	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness,
--				 &list, &isolated, &type, &type_scanned);
-+	tier = get_tier_idx(lruvec, type);
-+	scanned = scan_folios(nr_to_scan, lruvec, sc,
-+			      type, tier, &list, &isolated);
- 	nr_isolated = isolated;
- 	if (nr_isolated)
- 		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
-@@ -5134,7 +5166,7 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
- 	if (isolated)
- 		handle_reclaim_writeback(isolated, pgdat, sc, &stat);
- 	trace_mm_vmscan_lru_shrink_inactive(pgdat->node_id,
--			type_scanned, reclaimed, &stat, sc->priority,
-+			scanned, reclaimed, &stat, sc->priority,
- 			type ? LRU_INACTIVE_FILE : LRU_INACTIVE_ANON);
- 
- 	list_for_each_entry_safe_reverse(folio, next, &list, lru) {
-@@ -5211,22 +5243,22 @@ static bool should_run_aging(struct lruvec *lruvec, unsigned long max_seq,
- 	return evictable_min_seq(min_seq, swappiness) + MIN_NR_GENS == max_seq;
- }
- 
--static long get_nr_to_scan(struct lruvec *lruvec, struct scan_control *sc,
--			   struct mem_cgroup *memcg, int swappiness)
-+static void lru_gen_prepare_scan(struct lruvec *lruvec, struct scan_control *sc,
-+				 struct mem_cgroup *memcg, int swappiness,
-+				 unsigned long nr_to_scan[])
- {
--	unsigned long nr_to_scan, evictable, sizes[ANON_AND_FILE];
-+	unsigned long total;
- 
--	lruvec_evictable_size(lruvec, swappiness, sizes);
--	evictable = sizes[LRU_GEN_ANON] + sizes[LRU_GEN_FILE];
-+	lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
-+	total = nr_to_scan[LRU_GEN_ANON] + nr_to_scan[LRU_GEN_FILE];
- 
--	/* try to scrape all its memory if this memcg was deleted */
-+	/* Just scrape all pages calculated above if this memcg was deleted */
- 	if (!mem_cgroup_online(memcg))
--		return evictable;
--
--	nr_to_scan = apply_proportional_protection(memcg, sc, evictable);
--	nr_to_scan >>= sc->priority;
-+		return;
- 
--	return nr_to_scan;
-+	total = apply_proportional_protection(memcg, sc, total);
-+	total >>= sc->priority;
-+	lru_gen_balance_scan(lruvec, swappiness, total, nr_to_scan);
- }
- 
- static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
-@@ -5259,6 +5291,30 @@ static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
- 	return true;
- }
- 
-+static long evict_folio_lists(unsigned long nr_to_scan[], struct lruvec *lruvec,
-+			     struct scan_control *sc, int swappiness, unsigned long max_batch)
-+{
-+	int type;
-+	unsigned long batch, scanned, total_scanned = 0;
-+
-+	/*
-+	 * Scan both types with the given budgets; the caller checks if
-+	 * reclaim is satisfied after each pass.
-+	 */
-+	for (type = LRU_GEN_FILE; type >= LRU_GEN_ANON; type--) {
-+		if (!nr_to_scan[type])
-+			continue;
-+
-+		batch = min(nr_to_scan[type], max_batch);
-+		scanned = evict_folios(batch, lruvec, sc, type, swappiness);
-+
-+		nr_to_scan[type] -= min(nr_to_scan[type], scanned);
-+		total_scanned += scanned;
-+	}
-+
-+	return total_scanned;
-+}
-+
- /*
-  * For future optimizations:
-  * 1. Defer try_to_inc_max_seq() to workqueues to reduce latency for memcg
-@@ -5266,8 +5322,8 @@ static bool should_abort_scan(struct lruvec *lruvec, struct scan_control *sc)
-  */
- static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- {
-+	unsigned long nr[ANON_AND_FILE];
- 	bool need_rotate = false, should_age = false;
--	long nr_batch, nr_to_scan;
- 	int swappiness = get_swappiness(lruvec, sc);
- 	struct mem_cgroup *memcg = lruvec_memcg(lruvec);
- 
-@@ -5284,9 +5340,9 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 			return false;
- 	}
- 
--	nr_to_scan = get_nr_to_scan(lruvec, sc, memcg, swappiness);
--	while (nr_to_scan > 0) {
--		int delta;
-+	lru_gen_prepare_scan(lruvec, sc, memcg, swappiness, nr);
-+
-+	while (nr[LRU_GEN_ANON] > 0 || nr[LRU_GEN_FILE] > 0) {
- 		DEFINE_MAX_SEQ(lruvec);
- 
- 		if (mem_cgroup_below_min(sc->target_mem_cgroup, memcg)) {
-@@ -5300,9 +5356,7 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 			should_age = true;
- 		}
- 
--		nr_batch = min(nr_to_scan, MIN_LRU_BATCH);
--		delta = evict_folios(nr_batch, lruvec, sc, swappiness);
--		if (!delta)
-+		if (!evict_folio_lists(nr, lruvec, sc, swappiness, MIN_LRU_BATCH))
- 			break;
- 
- 		if (should_abort_scan(lruvec, sc))
-@@ -5315,7 +5369,6 @@ static bool try_to_shrink_lruvec(struct lruvec *lruvec, struct scan_control *sc)
- 		if (root_reclaim(sc) && should_age)
- 			break;
- 
--		nr_to_scan -= delta;
- 		cond_resched();
- 	}
- 
-@@ -5930,8 +5983,8 @@ static int run_aging(struct lruvec *lruvec, unsigned long seq,
- static int run_eviction(struct lruvec *lruvec, unsigned long seq, struct scan_control *sc,
- 			int swappiness, unsigned long nr_to_reclaim)
- {
--	int nr_batch;
- 	DEFINE_MAX_SEQ(lruvec);
-+	unsigned long nr_to_scan[ANON_AND_FILE];
- 
- 	if (seq + MIN_NR_GENS > max_seq)
- 		return -EINVAL;
-@@ -5947,8 +6000,11 @@ static int run_eviction(struct lruvec *lruvec, unsigned long seq, struct scan_co
- 		if (sc->nr_reclaimed >= nr_to_reclaim)
- 			return 0;
- 
--		nr_batch = min(nr_to_reclaim - sc->nr_reclaimed, MAX_LRU_BATCH);
--		if (!evict_folios(nr_batch, lruvec, sc, swappiness))
-+		lruvec_evictable_size(lruvec, swappiness, nr_to_scan);
-+		lru_gen_balance_scan(lruvec, swappiness,
-+				     nr_to_reclaim - sc->nr_reclaimed, nr_to_scan);
-+
-+		if (!evict_folio_lists(nr_to_scan, lruvec, sc, swappiness, MAX_LRU_BATCH))
- 			return 0;
- 
- 		cond_resched();
-@@ -6011,6 +6067,7 @@ static ssize_t lru_gen_seq_write(struct file *file, const char __user *src,
- 		.may_writepage = true,
- 		.may_unmap = true,
- 		.may_swap = true,
-+		.priority = DEF_PRIORITY,
- 		.reclaim_idx = MAX_NR_ZONES - 1,
- 		.gfp_mask = GFP_KERNEL,
- 		.proactive = true,
 -- 
 2.34.1
 
