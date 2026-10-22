@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792672904;
-	b=ET/l211vFICRudqeDTRflObpf3yPEEgn4FSrFOJW5uTtV9lO+u/Ga/zBhUQnQpc3G24q
-	 2TYL1D9tW42fCgu2pa6T2HGi5soMiXaJeeKp6sXPqmeT3YZxB3FmL9eI5OFVx+bhPRb3g
-	 vGYE1rLmZPFw4CnshJ0c3ty2sNzJvKZvXAZipjoIwGNS9g6CD81qO6+sZNo5gplzlOHze
-	 gCzbV6OxikoDIRvDmzZ2Guc6R59I8vWwL7f7U4ItG1QFJRhi224Cca3hcVQ6iwfASMCF+
-	 Z0eLKnN9RZw2CBWPoUVNGRwYAbq7e4fRDP/feqO/C1jrkW/oQfLBORhxfMlPNrIcZUA==
+	t=1792672909;
+	b=5ME0kH5YNv0QnYOnkGp7FsqcshGm0DaSAIp1WiVXX+0YH/Zwcsn6zHwxI8wL6LoiPse+
+	 g/06vBd1aWkiZSfSmlpjJMnj6BW1B1i1mf6rFAR/cyWH5zvmi2xsMtIX2Ki2cWIhh+5+y
+	 FVDvdP8ozZLppwaqNlWmZQ+lQFFqmK7k4rWUaynJYIT5dDoYiDpcQby3cd4xmbS+RM/Az
+	 dYQO2BKB/ns6Qqkgy5mw5H26eGDUf+UEmlr4AeesAnk/B0L++k7mduNvQvztmKH4mceit
+	 EXRncl++LUbkGf3weMPaI6S9iGwPRL6Z/dI84V6n0E5pYepK1XnUyWryh1eAfPhFNFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672904;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=wbJWk78mn0OUQjjb5FrHOIhob0gYSClNRqitvSrG/2I=;
-	b=XVNJebjWRYcRvn4Q5XDupVZ01rXX9lPqnPQF/zR+77mM0nYKERO8x/CUAAluePHTi8ja
-	 KqRgpMSpMU4wLomcM70jaUcDFVP+GI4mjRrK6YAs7tMbQu8mqJzz3DcsVGcQyTticCIAo
-	 o1YIT/T3qAVJwRvyyYzv6dScENezHsHmV6SG6NImzw0Bhup8Fcit0xbUG9Y/vPhAvvqB9
-	 24NXz7d67HMGBXWZAZaHul+d1OWzepi8sfpdcpf8JRnq7zuDuS9O49bahO1sa1YOCRMBb
-	 Zv0Yu4C0toIK12Vk54wNRUX7MeTJOcaodwyYl8qu6TC9iOrkzCTcF6mrI94VUSik99Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672909;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=SJbq/0wOnbvPIMJtKcmtse3uM3IzsSK29zH+AGSwz+s=;
+	b=bZy2sRJozOS3fKx17ongCNge3F5w2NgzD6w9eI3GZxEGTNJN+ipxSPXUzhOcju7sbH2K
+	 Ac8a4UoFJSCa7keWhyIWmi5q1dKjgqalxqgCNhKkxBtdwDASB5lNIMRlWzreEUy8vcTgU
+	 Ib6tTT2FBOFK23NdZiRmbIuwyzNjkz30PlNeSc6izOgh2kx0V6yq7F+lpEzfz+72pOoo8
+	 Y3T9S4gn34Jluip2kmDaf/N3Atir2Sr3YoV5GCOdtpSiTsQ4JMG5S9evqO6xdCRJVEWzL
+	 bKIU+PiSEmlAvaz2GHWGuXgxzVyZ0iw2sYoiEuUgobHyJI1s8LORl+v+tH+OHRioYvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dW2RC3nC;
-	arc=none smtp.remote-ip=95.215.58.164
-Received: from mta1.migadu.com (out-164.mta1.migadu.com [95.215.58.164])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C9F9sNuC;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FE606A31D
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:41:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 403FE606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38B02606A319;
+	Thu, 22 Oct 2026 12:41:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38B02606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dW2RC3nC
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=h6l8HPo9Y9nflW29RMe4Ez3evRSBhkhVHZB03PLHvzM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1792672901; v=1; x=1793277701;
- b=dW2RC3nC7g713Ol6NnP1YzzBuoxQLyYyJnIVzuYrCZIqjUcrGIrTFyB+Cyr+NvEkofrE2LKl
- E0iTIJi+zW/BRooXlW+Kz6j393U3cuAPCVIZfYrCijPcVLJzCR7nFLWDAndVKGK+BcTzYpTz2qk
- M0M8Uv4RzEbYBBgeWSI0HcUI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a85b208720a85165;
-	Thu, 22 Oct 2026 12:41:41 +0000
-X-Mizu-Trace-ID: a85b208720a85165
-X-Migadu-Flow: FLOW_OUT
-Date: Thu, 22 Oct 2026 14:41:31 +0200
-From: "Pankaj Raghav (Samsung)" <pankaj.raghav@linux.dev>
-To: Daejun Park <daejun7.park@samsung.com>
-Cc: Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, 
-	Christoph Hellwig <hch@lst.de>, "Darrick J. Wong" <djwong@kernel.org>, 
-	Dave Chinner <dgc@kernel.org>, Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
-	Dai Ngo <Dai.Ngo@oracle.com>, Sergey Bashirov <sergeybashirov@gmail.com>, 
-	Andrey Albershteyn <aalbersh@kernel.org>, linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 1/9] xfs: mark the inode preallocated for pNFS write
- layouts past EOF
-Message-ID: <atoEW7EUgDXKS7gh@quentin>
-References: <20261020-xfs-pnfs-batch-v4-0-9230fa2ca4a4@samsung.com>
- <20261020-xfs-pnfs-batch-v4-1-9230fa2ca4a4@samsung.com>
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=C9F9sNuC
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BFF671063F2;
+	Thu, 22 Oct 2026 14:41:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1792672903; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=SJbq/0wOnbvPIMJtKcmtse3uM3IzsSK29zH+AGSwz+s=;
+	b=C9F9sNuCPPI19GLbN7IIa7VhIXPfYcTzqKUpOCajwBULhDJoKjQCTPfkzFOfPH/bEaTzis
+	+Pz6PCWAIjCUpSzQa/JabukUESupasHMhFkW6hEJmNeWF/DGSvfiga86ck7dL1J1mn+0hA
+	Q+JqUurkH820nmS9fbwtCXf6bbSwT/nGAn4dC9FaM5j3EkAiDf9St6gNtfXwDP8hsA0nR2
+	Rv1T5INdwMkJr5VynUdit9lAC/OmWKWuPuKZgTTwZ0jKUqROMbiVZDNj53QzgSu/PrRQxe
+	lOT+N/BImuxfceka91T+wV1YS63gpW0jlPtwQtwO4IhFry/mboi45MyA9/WLDQ==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] ARM: dts: stm32: Convert GPIO hog to USB connector Vbus supply on STM32MP15xx DHCOM PicoITX
+Date: Thu, 22 Oct 2026 14:40:55 +0200
+Message-ID: <20261022124138.185850-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,73 +69,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-xfs-pnfs-batch-v4-1-9230fa2ca4a4@samsung.com>
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 20, 2026 at 12:08:44PM +0900, Daejun Park wrote:
-> xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC after it
-> allocates blocks for a write layout, so that xfs_free_eofblocks() does
-> not free blocks past EOF that a client may write to. But a write layout
-> for a range past EOF where blocks are already allocated, such as the
-> speculative preallocation of buffered writes, gets those blocks without
-> an allocation, and the inode is not marked. blockgc, or the release of
-> the file, then frees them without breaking the layout. The client still
-> writes to them, and they may belong to another file by then.
-> 
-> With pynfs as the client, a file grown to 1 MiB by two buffered writes
-> on the server had 960 KiB preallocated past EOF, and an RW LAYOUTGET for
-> that range got it as one INVALID_DATA extent, without the inode being
-> marked. About 300 seconds later, with the default
-> speculative_prealloc_lifetime, blockgc freed those blocks while the
-> layout was still held. When the client then wrote through the layout and
-> sent LAYOUTCOMMIT, xfs_fs_commit_blocks() found a hole where the
-> unwritten extent had been, and xfs_iomap_write_unwritten() allocated for
-> it with no blocks reserved:
-> 
->   XFS (nvme0n1): Corruption of in-memory data (0x8) detected at
->     xfs_trans_mod_sb+0x817/0x960 (fs/xfs/xfs_trans.c:351).
->     Shutting down filesystem.
->   ...
->    xfs_trans_mod_sb+0x817/0x960
->    xfs_alloc_vextent_finish+0x2e7/0x990
->    xfs_alloc_vextent_start_ag+0x25d/0x720
->    xfs_bmap_btalloc+0xdd2/0x1720
->    xfs_bmapi_allocate+0x197/0xf90
->    xfs_bmapi_write+0x4d0/0xb60
->    xfs_iomap_write_unwritten+0x307/0x7e0
->    xfs_fs_commit_blocks+0x1d9/0x630
->    nfsd4_block_proc_layoutcommit+0x5c2/0x7d0
->    nfsd4_layoutcommit+0x4b5/0xa20
-> 
-> The client got NFS4ERR_IO, in six runs out of six. When small files were
-> written on the server after blockgc, with a sync first so that the freed
-> extents were no longer busy, they got those blocks, and the client's
-> write through the layout replaced 978944 bytes of their data before the
-> LAYOUTCOMMIT. A LAYOUTGET and LAYOUTCOMMIT 30 seconds apart, before
-> blockgc runs, leave the client's data in place.
-> 
-> Mark the inode also when a write mapping ends past EOF and nothing was
-> allocated, the same way as for an allocation, before the blocks are
-> handed out. With this, the same test keeps the blocks past blockgc, and
-> the LAYOUTCOMMIT after 360 seconds succeeds with the data in place.
-> 
-> To share the update with the allocation case, set a local update_inode
-> flag in both cases, call xfs_fs_map_update_inode() in one place below
-> them, and move the log force into xfs_fs_map_update_inode().
-> 
-> Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chuck Lever <cel@kernel.org>
-> Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
-> Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> ---
->  fs/xfs/xfs_pnfs.c | 34 +++++++++++++++++++++++++---------
->  1 file changed, 25 insertions(+), 9 deletions(-)
+Replace current GPIO hog with USB-A connector vbus-supply.
+This moves the Vbus GPIO into port control, where it can
+be enabled and disabled by the controller as needed.
 
-Looks good,
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: kernel@dh-electronics.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+---
+ .../dts/st/stm32mp15xx-dhcom-picoitx.dtsi     | 27 +++++++++----------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
+index 01c693cc03446..7f444bd4c58d3 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-picoitx.dtsi
+@@ -16,6 +16,14 @@ led-0 {
+ 			default-state = "off";
+ 		};
+ 	};
++
++	usb_vbus: vbus-regulator {
++		compatible = "regulator-fixed";
++		gpio = <&gpioa 13 GPIO_ACTIVE_LOW>;
++		regulator-name = "Vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++	};
+ };
+ 
+ &adc {
+@@ -30,21 +38,6 @@ &fmc {
+ 	status = "disabled";
+ };
+ 
+-&gpioa {
+-	/*
+-	 * NOTE: The USB Port on the PicoITX needs a PWR_EN signal to enable
+-	 * port power. This signal should be handled by USB power sequencing
+-	 * in order to turn on port power when USB bus is powered up, but so
+-	 * far there is no such functionality.
+-	 */
+-	usb-port-power-hog {
+-		gpio-hog;
+-		gpios = <13 0>;
+-		output-low;
+-		line-name = "usb-port-power";
+-	};
+-};
+-
+ &gpioc {
+ 	gpio-line-names = "", "", "", "",
+ 			  "", "", "PicoITX-In1", "",
+@@ -132,6 +125,10 @@ &usbphyc {
+ 
+ &usbphyc_port0 {
+ 	phy-supply = <&vdd_usb>;
++	connector {
++		compatible = "usb-a-connector";
++		vbus-supply = <&usb_vbus>;
++	};
+ };
+ 
+ &usbphyc_port1 {
 -- 
-Pankaj
+2.53.0
+
