@@ -1,99 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792658244;
-	b=BtSO4zLfZvr5mHh85x5w3T8VtpfL2+ucYKZWtI8B1kExbGdzpkU6ir+C/QxRHCKZYh46
-	 ma1Yt2v2paCOVQIWgpnSVwFyYzApympqSDdj8HTGeh9iwWyXpcpb4P3XiGaXZCd6TIg6w
-	 KDhere6qM0xdHc7OmOnbibZEh/BgrxUarrNXndmu0r9tA0mZFwJQPyO8XW5mh0IbXs0cU
-	 BoIlvxzBIYCRYgl6iNgXiVZQlr4XyvZtkIVQPz457gWO5ZQCXqp8O37IWUpZuZKAnN8h2
-	 Q52PfCHqazqREutqtJggOaSs1Lf3hdhViQmlRSOLhg9hjxtYLXTq7H46IstHOQxv8uQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658244;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
-	b=ffRrwB1iy+oRNuN8D7dK8Ll6U2enR6QObIP2qFFt+WI77XGCYs8ikRTa5Ah2+Wgvz8Ms
-	 q6T3IYwKpCdiNGrO7TcU+5rHLyx2PFTVhkT/Pzx3Llcqp4Ak+eFrd/oprqhLbHeZLoJDK
-	 xQD3x14xXx2MvjHL+1f5brlBwm6P58Oo5wYEGTNpvKJ9SznHcYfHm/sRFAQMJJpEJoKs3
-	 sKvbNYTTda1PvrrDKVwfnq1hP0WZeq2CLUTrQIXxOzXzEpnSMY7P4rlqm/9Wfr5SvFkGF
-	 e2k2Q8Oo/8k/JVZm69oJZ7OpFPUk1PBl9k+r5TulUSKUhLr5pZBArh5J0ri3+8pDjdQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PAfpzSHD;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792658242;
+	b=Mri0WldE6I1WPzQsQGG3MPsRAd+G9KP1f3WNsga5Mn/CdAmKjWSeIF2hsrX7CRfB/Hva
+	 wI0SfNvLCMphT8rn1F8mlCVuo0vOs6kOSG7SfVbXN/b7OtC9dX7kwYJahFTd5Apx5l1jy
+	 r4cOEg7k7u9gAx304eZMSh6mF/hTugjkOduzn8RYZnOYpwpvSS4d+O71oS7TF4vbPbvSx
+	 D+0J7PJ7A+TuBzPHoZVqa0HP/gpu9zorBXjmCUtEA75NjCM60vwnjmbBJc8hgoHscOM6S
+	 o3OYJ4Z/IS6yyMqHwM3Ispk9C0XgZo8imGZl8FiNn0MQky62SfxBNsndqLQnAXecBMA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658242;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=IOEXCVhtNogAF9n7evnbF1KwICnoSgaiuPuP05wrMmU=;
+	b=W0JSv+7xnnmicsj1GopT1x28Nxm4m6f9d/ip2vGfLwRNo8znoZ3FCItbsEfU4OFmwPZO
+	 91o5P+o0Fez7q8i+vm9PhE2mihVyT69OtNeqFpeBX2UEfxgJErn5yTyF4bdc6zSOuwjKX
+	 NExYcTbqRM/IghezFKvNQo8ceYVlbxvHTwjC2cu+L6wLrZT9pdagZijgFv6AZftc8fTp4
+	 t9dS8TZ/3j/MBF+1uYWLdRzI4e8mimh75wniEvxI/MWmMaguxX6Xiw1m/0laCNcfHemYE
+	 zW5TYICVIsY2KB5b56jHvYg/GgAHhezoJvKr51A+ZvrIacXKA5lkiPI1lpduJGK8T6Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDVxjPkr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 832E3606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:37:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 832E3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B0E606A31A;
+	Thu, 22 Oct 2026 08:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=PAfpzSHD
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1f4d8e09aso2411733a12.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:37:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792658242; cv=none;
-        d=google.com; s=arc-20260327;
-        b=IjRReWT3gT9z1mPB2NIq2uCbGheUJvV6lxo+IDOzrCuJApr8+kCE4cLVL8nrixv3Oh
-         eOjHK9cbIu/BGna8rJu5iZZquyakQPlu4UwS169BmTgxFaB1OgKUS+vEaTcTeWY+uEca
-         kFhl9QmVMcwsqmuKVbr46Ljzdmx+mj3qX6FbDYsqrMZRntSL8rSCJ11S8eGtNr/EsE28
-         yo/Qqa6EquYOZwlDZFK91wXuGRARntMJX/kenpZ0eCZNzrC7S9+57kYYX2BnLZaKXLNy
-         ib7AOoXtMEDW16uegdBtMAMzSz32zdqYAZTfg621nYfS8YIceQGwM8x2JI1HWPD0GeJK
-         Km+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
-        fh=TAG+sUC1YZuWrJbCgiUkEGLhMvnLRopsIkMXtkzu3Tk=;
-        b=g5RV8xhmBF38jYkE1I4bdFaLx4+12iK7dYSHcr/jmIJ5EvjBwmal30i2VvQjduO1TG
-         BiLhS4InWRhoYzo4Z4Ty9PE9BZq/+svpfE2sCi5BY4Eaao8jvMXUC0iBtErcDyjfB15X
-         jt389zKUHnF8lqlxC7isMH8edR+aMJqIp6Sfgbsu5ZqZn21E8M+tUs8zQBGjL0Rrf0z9
-         k6KRPJVaPM9AFhIRFoPG69zxyGM4jL3rRSwAtYC6tX2OQTtca1ndLyNnqkMocihaG4Y2
-         exL6WoIenKJnImJiItRXqaBG89T2cI67TdcFYcSZ9+uy4UEQtWlXCt4P126+Yb17JivT
-         XDhg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792658242; x=1793263042; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
-        b=PAfpzSHDOYHTfSSbb6PDHcdTMqnnYkFH2KqdLvZ+Lm+HzAqT3+/J2dG8v/YYHWgauG
-         ZPt/vJO6xYkYYk4ZrIDe21mloQrySrxu0kJvfNiPwYDV+RiIhqGr40NdbG/7SesiazZ5
-         BsAJd+nO+zGSicGhDW9DQ/1fNXYCZpoKC1Xg7C4jiWu9EUZmM04hJpGg7iwn1cbub5Lw
-         NvUHrur1pWVQhYQ/DFj1n+zM0mhoSBEi2kN3BJOTMVoZYt1R2v7N0+y2wwCFDLDztlAN
-         sStajyOpqunDJX1vkSWQUN556w5RvUbGkMCA+nTaJ8Re8lxiwByY0xGnwtabnsFwhzH+
-         lDaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792658242; x=1793263042;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=LhQbAcxNkz86xsBgkVUi0/UOY0moEtgIwLHM48+f3Gg=;
-        b=Vbs6NmY0KFkdzrb1O19HogHsmZNy5+LZ/iWh6h0s+VMskbXR1DzZjAci49nuUMCgnS
-         L7H+WFRZ4YOmu+rVqjpL/gYtnduufjprNY3MkfcuzAY4iwK95RujWiEnpqJfhIHaiMxz
-         qFMhpW99meFiODmYJqs05Z497EHqBq8t9QddsJlhdLXNY3JFqnqD2C6kUrKGKo/KGWIM
-         jPLy+3S4iDZsuLBTd6kD0xifLXufsBHmItcVepwDitxNLKQLE6mR2SFjlUJS+4KM+rur
-         zsR8AjHDe9efKFeClQKCfEPqdP8886KyiwJccaliZf7G4ilqnTe/I7Ij/XWRK//YnFsl
-         kQwA==
-X-Forwarded-Encrypted: i=1; AKwUvBxRuiUITP399rFjr/Wo1s58qrVHWH4E1BVARPeX91UD2AAwMrXyucZQttxI46PbVMIzCjj2pPWCwLi3S88=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfwDcH/9kKe24gqzTenY5MQkDw+1ao+a/F7CpOEuc7KMFrJpTy
-	3wM37b61+5TuKtAQgC8oFsK36QkASbKDGqkY1S6YjbCIOPtEPoApawVOsm5pTNrLEonsMvq1sKJ
-	fbRN6H8W//ZiZp1a/wWgblZz4Px9Np/0Vosw2yNqKIA==
-X-Gm-Gg: AYBFou12m0F5b2Qk2R114cy+0H8hANUtMR4UvyJaVbk0BMUOGJI/1bfCm5XjEydSaht
-	NFVVwLpx5N6lMdtDwGLHI/FUEwedVvY9EiRRgd4KlYW/0jqRdw02hRXTeSOSTqjEuIxl0sjr7ql
-	mZujRSmy//jq2XAXwQ6mEYpJ5kHqSP6Mk/ZrjhvJkXa4J/it7zva78jHrH2jAXgp5Uc+OsN61SU
-	iDWjTfU3qOl7f8n8JS8qg77LN+07PsKpoe4xqZnpCT2YACkHSXF7MhV68ajqGf8weHqQnnRWIm9
-	/HgZevii2G9HHbaldLCqBD8rFvXju9CWxP+1QFa7GmSu9d47GmI84ojdE0wd0Hi0NTCAGs7HGrL
-	WVhiMccfRn+xiHmqKM2ArrgJCPBEiLIXGiO08xAWfk0voh7vMUEFWLAhEb/JqxlSQsQtqxkk=
-X-Received: by 2002:a05:6402:449b:b0:6b2:2331:3ea9 with SMTP id
- 4fb4d7f45d1cf-6b408eb5808mr3928513a12.17.1792658241764; Thu, 22 Oct 2026
- 01:37:21 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MDVxjPkr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFD671F000C1;
+	Thu, 22 Oct 2026 08:37:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792658242;
+	bh=IOEXCVhtNogAF9n7evnbF1KwICnoSgaiuPuP05wrMmU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=MDVxjPkrVwS3bvxYbf8b+MGqbCRhbOJG7TuxZOJyfxmPrzJDHF+Ov2696VwDkRTtp
+	 uUWjPS2KES/Mecq0QI+n48fJs5RV7oBMx1yRrNlF2NkUQTJlFcV1QaKsHD4pEx+E2R
+	 izdgFsCHMh8OQ1Ymc7H6ulp4hLRsk9NfXd57mm6M68GDETY8fKOmosN43dzgWBsZyl
+	 CZE+jijaOmppUm1AkQpogHCQPFh5HzF87LL69kX+rA7vvKUN55EBN2azVdimvtzVRh
+	 UQVBjMOOMNJcuxNZkULgVHbHbbquW/DmzSPL/ulAmOJikHHG+G/q+BIXFS5jtTiI7C
+	 7TiEBFWcShxqw==
+Subject:
+ Re: [PATCH net v6] net: dsa: qca8k: preserve port state across MTU changes
+From: netdev-bot+sashiko@kernel.org
+To: yongzhao.derek@gmail.com
+Cc: netdev@vger.kernel.org, ansuelsmth@gmail.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, linux@armlinux.org.uk,
+ florian.fainelli@broadcom.com, linux-kernel@vger.kernel.org,
+ hzyitc@outlook.com
+Date: Thu, 22 Oct 2026 08:37:21 +0000
+Message-ID: <179265824122.3135.15072303811434404600@kernel.org>
+In-Reply-To: <20261019173716.198475-1-yongzhao.derek@gmail.com>
+References: <20261019173716.198475-1-yongzhao.derek@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,64 +65,223 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022034930.225042-1-sh_def@163.com>
-In-Reply-To: <20261022034930.225042-1-sh_def@163.com>
-From: Vincent Guittot <vincent.guittot@linaro.org>
-Date: Thu, 22 Oct 2026 10:37:10 +0200
-X-Gm-Features: AclHuK9CXM67_w3oDn7g4a4UkceOaJ-tmnbEdkYHOmv3hLfDc4qnAsB0F6f_7Z4
-Message-ID: <CAKfTPtDQbNgC=gEe87v5kMnz_pB2AEU+ihp2PM5izno6pkNeZA@mail.gmail.com>
-Subject: Re: [PATCH] sched/pelt: Fix truncation of the PELT period count
-To: Hui Su <sh_def@163.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Juri Lelli <juri.lelli@redhat.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 22 Oct 2026 at 05:50, Hui Su <sh_def@163.com> wrote:
->
-> accumulate_sum() computes the number of elapsed PELT periods in a
-> u64 but returns u32. When the count is a multiple of 2^32, it is
-> truncated to zero even though the PELT sums have been updated.
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Did you face this problem, or did you find it only during a code review?
+Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
 
-This would happen every multiple of exactly 2^32 ms (~50days) without
-updating pelt whereas the latter is supposed to be updated far more
-often (within second) until it reaches 0. Then such a large period
-would keep it at 0 anyway
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
->
-> The caller interprets zero as no period boundary crossed and skips
-> recomputing the averages, leaving *_avg stale relative to *_sum.
->
-> Return only whether any period elapsed, which is all the caller
-> needs.
->
-> Signed-off-by: Hui Su <sh_def@163.com>
+- [Medium] On a dual-CPU qca8k (ports 0 and 6 both declared as DSA CPU
+  ports), the patch does not keep its own promise that an MTU change…
+- [Medium] qca8k_port_status_restore() (qca8k-common.c:491-492) calls
+  regmap_update_bits(priv->regmap, PORT_STATUS(port), mask,…
 
-Even if I doubt it can happen, it's better to fix it anyway
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but bringing up a
+  qca8k user port that has no PHY dereferences a NULL phy_device.
 
-Reviewed-by: Vincent Guittot <vincent.guittot@linaro.org>
+--
 
-> ---
->  kernel/sched/pelt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
-> index 779eb58a4261..519bc9c40043 100644
-> --- a/kernel/sched/pelt.c
-> +++ b/kernel/sched/pelt.c
-> @@ -146,7 +146,7 @@ accumulate_sum(u64 delta, struct sched_avg *sa,
->         if (running)
->                 sa->util_sum += contrib << SCHED_CAPACITY_SHIFT;
->
-> -       return periods;
-> +       return !!periods;
->  }
->
->  /*
-> --
-> 2.55.0
->
+net: dsa: qca8k: preserve port state across MTU changes
+
+This patch adds a dedicated mutex that serializes PORT_STATUS writers with
+the MTU update in qca8k_port_change_mtu(). The MTU path now saves and
+restores the MAC bits on ports 0 and 6 instead of enabling them
+unconditionally. Failed PORT_STATUS writes are cached and retried from a
+delayed work item.
+
+> diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
+> index 13005f10edb7..04001c345dd6 100644
+> --- a/drivers/net/dsa/qca/qca8k-common.c
+> +++ b/drivers/net/dsa/qca/qca8k-common.c
+
+[ ... ]
+
+> @@ -471,10 +471,74 @@ void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
+>  	if (port > 0 && port < 6)
+>  		mask |= QCA8K_PORT_STATUS_LINK_AUTO;
+>  
+> -	if (enable)
+> -		regmap_set_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port), mask);
+> +	return mask;
+> +}
+> +
+> +static int qca8k_port_status_restore(struct qca8k_priv *priv, int port)
+> +{
+> +	u32 mask = priv->port_status_mask[port];
+> +	int ret;
+> +
+> +	lockdep_assert_held(&priv->port_status_lock);
+> +
+> +	if (!mask)
+> +		return 0;
+> +
+> +	if (mask == U32_MAX)
+> +		ret = qca8k_write(priv, QCA8K_REG_PORT_STATUS(port),
+> +				  priv->port_status_value[port]);
+>  	else
+> -		regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port), mask);
+> +		ret = regmap_update_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port),
+> +					 mask, priv->port_status_value[port]);
+
+[Severity: Medium]
+Can this write bits outside of mask into PORT_STATUS?
+
+For a partial mask, the whole cached priv->port_status_value[port] is
+passed as the value. qca8k_port_status_update() below only refreshes the
+bits inside the current mask. That leaves the bits from the last full
+link_up write (mask U32_MAX) in the cache: the forced SPEED field, DUPLEX,
+TXFLOW, RXFLOW, and LINK_AUTO on ports 0 and 6.
+
+The qca8k regmap has no cache and provides a .reg_update_bits callback.
+PORT_STATUS is therefore treated as volatile, and _regmap_update_bits()
+passes the raw value to the driver without applying val & mask:
+
+drivers/base/regmap/regmap.c:_regmap_update_bits() {
+    if (regmap_volatile(map, reg) && map->reg_update_bits) {
+        ...
+        ret = map->reg_update_bits(map->bus_context, reg, mask, val);
+    ...
+}
+
+qca8k_regmap_update_bits_eth() and qca8k_regmap_update_bits_mii() then
+both do this without masking write_val:
+
+	val &= ~mask;
+	val |= write_val;
+
+The old regmap_set_bits() and regmap_clear_bits() calls only passed mask
+or 0. With this change, every partial PORT_STATUS update ORs the cached
+non-mask fields into the live register. That covers link_down,
+port_enable/disable, qca8k_set_pm(), the MTU pause restore and the retry
+worker.
+
+The live non-mask bits can differ from the cache. For example, the switch
+may lose state across suspend before qca8k_set_pm(priv, 1). Or a port 1-5
+may be in LINK_AUTO with hardware-updated speed bits while the cache
+still holds forced speed bits.
+
+In those cases, could this turn on flow control or duplex bits that no
+phylink decision requested? Could it also combine two SPEED encodings
+into the reserved value 3, until the next full link_up write?
+
+Would passing priv->port_status_value[port] & mask avoid this?
+
+[ ... ]
+
+> @@ -751,8 +815,10 @@ int qca8k_port_enable(struct dsa_switch *ds, int port,
+>  {
+>  	struct qca8k_priv *priv = ds->priv;
+>  
+> -	qca8k_port_set_status(priv, port, 1);
+> +	mutex_lock(&priv->port_status_lock);
+> +	__qca8k_port_set_status(priv, port, 1);
+>  	priv->port_enabled_map |= BIT(port);
+> +	mutex_unlock(&priv->port_status_lock);
+>  
+>  	if (dsa_is_user_port(ds, port))
+>  		phy_support_asym_pause(phy);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can phy be NULL here for a
+user port that has no PHY?
+
+Take a fixed-link port, or an in-band/SFP port on 0 or 6 without a
+phy-handle. For these, phylink_fwnode_phy_connect() returns 0 without
+attaching a PHY:
+
+	if (!phylink_expects_phy(pl))
+		return 0;
+
+dsa_user_phy_setup() then succeeds without taking its -ENODEV fallback,
+so dev->phydev stays NULL. Bringing the interface up then goes:
+
+dsa_user_open()
+  dsa_port_enable_rt(dp, dev->phydev)
+    qca8k_port_enable(ds, port, NULL)
+      phy_support_asym_pause(NULL)
+        phy_copy_pause_bits(phydev->advertising, phydev->supported)
+
+phy_support_asym_pause() has no NULL check. This would oops in ndo_open
+with RTNL held. The code has looked like this since commit b3a302b171f7
+("net: dsa: qca8k: move set age/MTU/port enable/disable functions to
+common code").
+
+Would it be enough to check phy as well as dsa_is_user_port() here?
+
+[ ... ]
+
+> @@ -782,27 +852,53 @@ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+>  	if (!dsa_is_cpu_port(ds, port))
+>  		return 0;
+>  
+
+[ ... ]
+
+> +	mutex_lock(&priv->port_status_lock);
+> +
+> +	ports = BIT(0) | BIT(6);
+> +
+> +	/* Do not mistake a failed restore for a new link-down decision. */
+> +	for_each_set_bit(i, &ports, QCA8K_NUM_PORTS) {
+> +		ret = qca8k_port_status_restore(priv, i);
+> +		if (ret)
+> +			goto unlock;
+> +	}
+
+[Severity: Medium]
+If ports 0 and 6 are both CPU ports, can qca8k_port_change_mtu() return
+an error after the frame size has already been committed?
+
+dsa_switch_mtu() calls port_change_mtu once for every port that
+dsa_port_mtu_match() accepts, and that includes every CPU port. It returns
+the first error:
+
+net/dsa/switch.c:dsa_switch_mtu() {
+    ...
+		if (dsa_port_mtu_match(dp, info)) {
+			ret = ds->ops->port_change_mtu(ds, dp->index,
+						       info->mtu);
+			if (ret)
+				return ret;
+    ...
+}
+
+QCA8K_MAX_FRAME_SIZE is a single global register, so the sequence could
+be:
+
+call 1, port 0:
+  qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, ...) succeeds
+  qca8k_port_status_update() restore fails, mask stays pending
+  returns 0
+
+call 2, port 6:
+  qca8k_port_status_restore() on the pending port fails again
+  goto unlock, returns the error
+
+If the regmap_read() snapshot or regmap_clear_bits() fails in call 2,
+the result is the same.
+
+dsa_user_change_mtu() then jumps to out_cpu_failed, which only does:
+
+	if (new_conduit_mtu != old_conduit_mtu)
+		dev_set_mtu(conduit, old_conduit_mtu);
+
+The user and conduit netdevs keep their old MTU while MAX_FRAME_SIZE
+keeps the new value. If the MTU was being shrunk, the switch would drop
+frames that the netdev MTUs still allow, until the next MTU change.
+
+Isn't this the mismatch that the "A restore failure must not report a
+committed frame size as rejected" comment and the commit message are
+meant to prevent?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261019173716.198475-1-yongzhao.derek%40gmail.com
