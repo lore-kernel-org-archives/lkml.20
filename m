@@ -1,116 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792645675;
-	b=IgEDACo081ujgSQYSiyC3IvSXFFUAfkcYXRjBMI64pqkz4a4lRqJmHXeXEW0NlFSQ6YP
-	 i498YDbtjlD/ax/AuKJLugp3MhPFsxofOZw2NuPSSYNIiG91ZdOUi88+tf7TSslmyX2Vp
-	 1xYcPQdo/lJiUhAsI06pjML2IQbYLhzmh/mqescB0z44C/1pj1oCbNcZ8KbIvv9RQ8n3t
-	 lW9npy1EwdrXW6TMRVwaR1RMTorrxw1Pc+D9JPSHBORt6zDKZbJl3khoY7kyDkOPvgzIb
-	 OOpsC2blaXPcojjnveFc8Mdz+Kfl9ep/CylMNmWFRBsd/xl5GRAnPyGXx94nTOpRZ5w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792645675;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=EF/h0rMXJUnxDWL5NWwUz+wdD6IPIXWWrt9mBxieEP8=;
-	b=x6G74BSR+ykBZA/l7rPjSkrXeQLJ8nwcTFpb779qlqsMAgpMV7XYtgw0JahknBxx+W6N
-	 43tk98NUy4LVKzQhvyBB+1xgnQ1DzDkC7FRxKhSuB1FoLh+Xzn4DKNCn3W39eroXuZaKQ
-	 QjHLL5hbnXxQ7opq1Q3fw3hZeFQ4zg181XALqrgmXBXwbxDhr+NQEyPw6bMB34TAAuqOc
-	 YjRMYIOkRvG34rOq/SvKi9Uce2yn19ioV7Pb2eP6vZ9OJgl9x+Zy0LEopi9vVylWG0BZg
-	 UQ6tWuaO9U9etPrGUzGUVkdZe9oE9AyWIcsVDgBf1Qj3cB0wreNjcM6J7wjPJgIRAlw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="fUf5/yVB";
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.119
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792645746;
+	b=ktJlqBfOvoDs3hTNDNkurpLFKEEuZms8Y0G+tbbXI4cl1VXFLAcJVywJOR6xPt85PwIR
+	 rbP8rA7BSO3bcxR7fGoqZGnj4drahrLfSKBOW55iPmCN8ri+qT2k7fqgOnbwcphV2bMio
+	 R/fC+H9HRgobS6kFFI5Uk+TqZHW6xLKfmWNwTmAJCjz2ulTdhbUhmH/AQUnnfRxIs72ha
+	 bbGLbi/yID3/fJmtsjBXCyu5nTiHj5BN4GdqqIxvY++vjzjdU/RCHH4SaxPhrFkf4adij
+	 JPeo99z+KG4muTPT8f6L78OwClkOMrkA7TJELX1iGRRVxs0VAKQbCUM/igSkt4JnZiQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792645746;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=1Baohzr6HFZ0onRNndEDcuP4rBz4iqsAu8pmnGCrGnw=;
+	b=D9UIN6XuGm6F5LITN44qabxkJxuhCYUYDe8Xq1Y1Eq2DIO3zHZ4oLseUygWTwyrzFEqR
+	 t59voK7KkH+XQrVwelempLrSrhHwAVXXf8Nxx71ZkL9vx3kK//M3VIQUH2PUgQ7J/R83D
+	 lzPIQeynSFrwDuLryDj3Be+DIJJagInUDENL06TEMAED28U15IwOB+0nhrY0ZW9hPPZzt
+	 X6eeNZBaWu5eW9NL8oCzKseLpdKIoj5LQPzY7y4HJzMokl3ysrHNoEjzZY30lxEC24mEY
+	 UVzDI/32gqkFx0yPYByxKgHVJv04/XhJtboQGQBm3sSvmDCw42Hz1UbPqUJRI7ujcgA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b="fa8ya/SG";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.119
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020119.outbound.protection.outlook.com [52.101.228.119])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6613D606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:07:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6613D606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A33D606A31A;
+	Thu, 22 Oct 2026 05:09:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A33D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=fUf5/yVB
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a0286c981dso14518815e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:07:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792645673; x=1793250473; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EF/h0rMXJUnxDWL5NWwUz+wdD6IPIXWWrt9mBxieEP8=;
-        b=fUf5/yVBlRJV//nxi0A7ZHTJS3JTdp72+gsNK6vGmlbHe5grZS2eqSXfB04KFqLc/1
-         WTqWw7IhwB+3RnHY2sFhr8YOrKA/8phHHoCPfv/j5HVCuA/6dhtrLomG3/HaHv05p2qU
-         8ti/vX0ICIc6Cm9lx/vUArRUWL9DyNp/vUEFQxIpmNbzh43w/WhSiiEhDkXeFwvSN1kh
-         ErphMk3pH2ruUzhNh4wC5wdJ4o9SAWUJyIszzOpQYwUfGKsD8+r+OTtnLtDRdE8m9IlA
-         QNSvSvezqUi9O5jWKMUIKM/MQQQyqlhlj/1jZfOYY0k714nnRZNvlf8sb9rIbZ8c5BU3
-         ej6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792645673; x=1793250473;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EF/h0rMXJUnxDWL5NWwUz+wdD6IPIXWWrt9mBxieEP8=;
-        b=m1BNSysTdMKvMhV8in9ttnFen0qBfnXlepnSm1xep6FXYHbjPOa/uMczMevPYoy3SR
-         oakNxQ0Rmmuax2aBRDClpwKUYxwGzLWff05RghU5+VdV9L3nhAR6vSndjh8Lv33am9UK
-         famn1hhAd5pok3KPBoE36xN2WBH1Mg6cS+AZQ1hK5VpQEFuwPxGdD7K1WexPECcPNO7D
-         S1Y0+F21D5h3OmERrdrxxd3fMHX6CLMbWyX1E533RIVs1wt7V3RLFHWzZAopnL3eLgrj
-         9eFGg5+G56vue3k34Dvv9oDrhFupH7nOqwYDvEkZX6wxmVovL/G77DJUXDP9ROiSYkof
-         BRuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymDrJblXfxi2LLTjG6CM/e2hQ0HYZYgDIy7Ujs8xsRgSKd7bt09cmlYGCiuZjd3YYTdgOAWWCmgOnb3AM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJaNc3SLUT+7T2DfkpULXLLs4983sXi9umUdykZ6oXKGl6xYaw+
-	YXNQj/rRZz1smMPUFmigFr57xMqYVWJoKcIGzbm9PK+jU9A2q3AVIZti
-X-Gm-Gg: AYBFou1dd0jRGlnoINv0qZjILR1zmQvr0bO5GWOXFeVfsVN6SbT931aZPgrHcPoETet
-	75ipp0umbJek3D6qzXnqXH1DFRkeJrfwoO+v3C/z6GW22dHu99/mhld64injRQxB7rxy2qLpxQQ
-	u2//KsjWHDxMsysmXY/TEk3O+oDYynhdzTmghpQJhNJiOfpFTasBaiuNC5849c3RQn69BWg2E5Q
-	fp5PUL4JKI0kkpXNupHwUsxDKeJ23N/5ulaUNLOT0Bw7P8hpCL+pAIm0irAj4lwEvL/Zq1d3Jqk
-	BF6b5BOlxYKrKRXccfSEHe2RwLB47FiMT1QsUeL8tgq0hdLbj1WeVDzC00Ive/QVPlVL4SahSMz
-	6Y0OxAWSdpWnDacojXi+CPQY95xETD7lfFQfIM6INyZmKp972dwlAU7AHihQs4TKFV0taqHAK+r
-	gPPutHnlsir7817d/m8GctgPpezf9H0iTHeSO4bs/xRpMlBXkfJ+HWmddK84/lQTmualB4SLMj9
-	iPnZxtQpsgmVaXtvHo9GR6yNoVHrBqVfMkg5eTmgrcjSjDlqz6IqXxa0nLtdgPseJ/HaskcyJb/
-	Z8M0voGTJYPR0Nn8P/y8x3JtC7eB/ml6WTUBzB35WlqnRdocQe9DJqp4m32gachcRqaDVkrnObA
-	5U31zjsKWHhPjOQXDiy1qgoJVhTFz+E8LciMn1+cvyRFkoanrXkgcZTFDBqoJ
-X-Received: by 2002:a05:600d:19:b0:4a1:f625:2108 with SMTP id 5b1f17b1804b1-4a1fdd40492mr63435395e9.33.1792645672547;
-        Wed, 21 Oct 2026 22:07:52 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254eeef6sm9994979f8f.8.2026.10.21.22.07.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 22:07:51 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Gabriele Monaco <gmonaco@redhat.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Andy Lutomirski <luto@kernel.org>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Ben Segall <bsegall@google.com>,
-	Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 7/9] rv: Add KUnit coverage for IRQ-exit scheduling
-Date: Thu, 22 Oct 2026 07:07:10 +0200
-Message-Id: <20261022050712.75035-8-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20261022050712.75035-1-kmehltretter@gmail.com>
-References: <20261022050712.75035-1-kmehltretter@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=fa8ya/SG
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j2vXQEe3dLDEcIvCWmqzswaTL1a22RAxRtl+hDtDLKhW+brUPO53+vISrE/3VxBYWYEHR6mxz9sEMd4YRQSG1ZXPCttEuE1pxxdGDDcapIhkgF0dL3xf5AwoMFy1JNOznQBsJU+TRcBT4MUfFuXA7paBov00/SJNEWn4AbblrwfVh2rE4hfpA6/EFIdoOoHrpwjXbbNdFccgrEUMxUGFq8X3j6OByl4nuJM1DQGNWkegNnoYTaM23SUJUi6YzzVqvA7pmM0tvc4wcFebu8TR5RD4ZvScmmIDplDtmtHDroHtSps73Pra5gxjkw0Q7iHN98FG1CGsGWAo/XOy/2HQxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1Baohzr6HFZ0onRNndEDcuP4rBz4iqsAu8pmnGCrGnw=;
+ b=UPmSi34Z/yw/ZxGLC6+1/HgK2yUZU2b6q40Onict3ztS/fPrZSUd+qLGX2cbYKKBII04WMPXE4NxM+HLqArhceeMniBZ/+bt9RV1kTQ81WxOFFANJqcyyLs5uT+8wokhFSj8uctqjG9jN024wBeeOMqcPhVRzKJLXei2zaHp4AfK1CRbZ62m2mZpsBOJPiEjw5wr+XuVCuccROtSovArZsxbiDCD+25GTPI+3CYrVkky/M0FDvQO3I0racpRae1053IxH7xxSRgP5PI/WKomrtDEDZYYntSYYLEhjyIHcoJfGrn9kn7zyMxYhgvNMaC54zBedR7a8ykSOunEXJ7EYA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1Baohzr6HFZ0onRNndEDcuP4rBz4iqsAu8pmnGCrGnw=;
+ b=fa8ya/SGM0gZAmS8Nbv6WnzM8oJCULKiNLuoYNTEmWZdxNiDwGs2UPn00JeGWB/jWc7mbg1yI02MVvWFAfzQIAW7Ug8u8TQs3vfyVHTw8ky2th4+FxqaelZE5tp7LZENRrFHOvYx0vuA99M/pHmrEX6YX/DuS1thjaMtKf+uW0Y=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TYRP286MB5399.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:192::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
+ 2026 05:09:02 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
+ 05:09:01 +0000
+Date: Thu, 22 Oct 2026 14:08:59 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Frank Li <Frank.Li@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Kishon Vijay Abraham I <kishon@kernel.org>, Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Niklas Cassel <cassel@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, linux-pci@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, ntb@lists.linux.dev
+Subject: Re: [PATCH v7 06/10] PCI: endpoint: pci-epf-vntb: Allow DMA and MW
+ to share a BAR
+Message-ID: <rjlarph76rs5j73m5fj5oto3mocx7isd5xfel3zodbdqrc47yb@qpk6j2yug2ew>
+References: <20261021042229.2280937-1-den@valinux.co.jp>
+ <20261021042229.2280937-7-den@valinux.co.jp>
+ <atjfwC1LTX3L6ncV@SMW015318>
+ <fmnltbvuo6nm2sddmoqmpb6ema345rdqgavhf6xhrggnj7twpa@nlwyqy7zjppk>
+ <atkLwWs1uufsGkRV@SMW015318>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <atkLwWs1uufsGkRV@SMW015318>
+X-ClientProxiedBy: TYWPR01CA0032.jpnprd01.prod.outlook.com
+ (2603:1096:400:aa::19) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,688 +107,296 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYRP286MB5399:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5e459d5-c801-4c44-2f3a-08df2ffa961d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|10070799003|1800799024|366016|261021123027099003|56012099006|4143699003|261009223027099003|18002099003|10067099003|22082099003|6133799003|261021135927099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	zsiP1/k9HcqCijLUBEh/6g+5MnsdYRKM/I4KyeC+UJbYUuo7sbOYnyYzemRJOhltBunZrmiQdkhys0nI0x6xIEL99cFcElAf4Mpkj4BK7xCmwUZNeCWCvdGM0dl+LVRAdvDbl1RdvyS6s1q/okVGv8i9iTnvuygE/FgIhiNhR7+SzplBe3EVmh6aenpmsIsMr+3i6+G66TIfeYij56PLisKi+hElu8kPndFPW2WiwwmHLsxwRcwW/9T6UKw3pYcSHBn9uFmYvDPxzBZ19dsIA9sfgP0mMW2RCmus1dLHvsBnuS/q3FKy7KqNAF6Cg6m374aI+0vl0xv4Ahd0qmLclWbemx+SNvJJGuNftSMn+BzcNhFQKiOgK6MrlE/U5vHv2a8kcZjYrnRiukwIp/qxdq3kARuBsZ5vJBF9q3kANH9TYiz0Twc53v0s/gJgERmx5XpqrFk63o0kXni2zsVApPSCYBZPirjwTPCRR9JsMhfEj40p6A6s/u59FR2cQrEPj8rVbed5P0FiLnz/XCPHor29jTruofsN8VRs1bOViO3R/SZMcBkTz2CBhZmwgTUsfw0UtXbmsedItk4NnUU5oeuo4YY8dXnZ3F9w9bWeIgzNsso2xfnqniJaLD+rXpEHLDnYx8d5kArfG8xLhWy/SImJJwWCI906E3O0N2qgmZg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(10070799003)(1800799024)(366016)(261021123027099003)(56012099006)(4143699003)(261009223027099003)(18002099003)(10067099003)(22082099003)(6133799003)(261021135927099003)(261021121427099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dzXtPsfP8DzPBUsfAHAkbXCvv3oaL7CWHMPJvuOyh93l5RaI4KRJZy6TzY7V?=
+ =?us-ascii?Q?J2IfkBYo/ABR/k/g/Q8sXoeI4Skw/IgVdh2WC6SHdi7v/skRGWjVPWFmEPzF?=
+ =?us-ascii?Q?lRfP7lmmKnnx7LKaAJf8N9wFXs/flNQwCXGdqPntrwTLDM3vgb/H2FLzWhKI?=
+ =?us-ascii?Q?4EpWJnAh2Dz/1aLCxLhq2rmH1kHiF8S3p2Iypqs1yA/2F0ze8cTGPRoialds?=
+ =?us-ascii?Q?FULK+a/Gns2AJFcUv8gdC0RWBu1YH5j6S9MmKxO+W7G3YSkCaSF5X3G8PSZa?=
+ =?us-ascii?Q?IcQkiXOAFP9RiX9POIbYcUhvg4lLyBPYvCvm1PV94ULVAeEfFtXLePo+Ocbt?=
+ =?us-ascii?Q?2QMXqiwztD/5O9Z5pgTefe5UoS1iDV/bgjKvFSoaEDmVSoIrpyFTdOAs/Qr3?=
+ =?us-ascii?Q?BKIyf7x0z9vqSRw83Ir7s622kq6PZJZhZLzAavkoV1IRMlcH01zSSbfg5FK3?=
+ =?us-ascii?Q?gOh2Blg8F2XDqkdbJCwRiokBntAIHdnyPbgTrmiD+BfL5w+1nHUGX25LKsyn?=
+ =?us-ascii?Q?fXKdgxRyl59GB0VeCc9ZrH8XKfxiPjpaARQlSTgivO3c75afobp4++sCjgTm?=
+ =?us-ascii?Q?uGP/WIqcIDF8fRhdjCJGtBo/Uptx3jZ5CJqTJJ8YxuKgRNiM9cEbi3ZgPHVj?=
+ =?us-ascii?Q?H4FxFUiSmtwazn2pnoxrx3LBoWomknobACBJdtckfg58WsQ1vW54PHpfbb3T?=
+ =?us-ascii?Q?k3wu7UifUjPV/qWv0fwHuK34Zg/YkkFWCq7rCY+12aXgod1xiMhS2zJAMlR0?=
+ =?us-ascii?Q?Qjz8mR+vYTbRYnbOPwhfju7NZWak9a/1C8NMtWBTP0qgDjjKgCOZiVeXbZC3?=
+ =?us-ascii?Q?WFcxcphNAO8wqhOL/uI9Oq98gUKCAVN3O3xyDWTOE6uZ4Hatk1qQ3TJWxLRc?=
+ =?us-ascii?Q?DxDQLxxa4zVXK+iuhsT9xsXAmDw22rhdrI4Lm3M41U3vh12UxLBR55oCHEgV?=
+ =?us-ascii?Q?JzBMfzAFca0OckMikuXiuxvkOnJyE7s0VANyh7MwKqxIDqU/A75hhLRqBVE7?=
+ =?us-ascii?Q?P+CTLGRCF0KA3MoC9DHp30vs/nVxUub+jJV1wxBvdNTUTESfyrnF/ZN9Zc0A?=
+ =?us-ascii?Q?pkUTBGnTAKGF0xPYQDqbiPFN/lQmWMw4HPHVDuoB0mjCZurY4FhZpeFoW3Mv?=
+ =?us-ascii?Q?i4RTrklQb1OgQzTgE+dA/7XA9CWW7jMFjsp6joV5SUB9e21yr6fOWcuNRV+g?=
+ =?us-ascii?Q?Py4bqz9Igklsjdj+2mPg+UgcptTY/mY6GTNs/xT59O3J4AYJ4r96Tn/LFYeW?=
+ =?us-ascii?Q?CWhn2Bu3i4odJLsYcB98obxLy4+nFmmtc5YML89Z5yw1I9Ttg6ZR1ktrcCVY?=
+ =?us-ascii?Q?+z5ycI2eddpvUQjHCtZ/5DRo+7Kx86i3OOHE6566maBe0UWM48mJvS+SssXw?=
+ =?us-ascii?Q?HDxNw36BOjw7/uPYyY2BAgFB+KPoObQ4wxNOUnNiRw11ylSl6JRcBBdZEZJb?=
+ =?us-ascii?Q?xDmer/XKJisCA1PwzWMi+UYGc4ELNae6GdRmycc+96Aw7ceiclXaiQkp5yNU?=
+ =?us-ascii?Q?3+ytpxCFIdrlB6d/nM52rGAt88/K4fyMUc8S1Wgvqhu9tTdNtMOLtSWfD3HB?=
+ =?us-ascii?Q?TyRegnkjRAgNWgcF7KKT8+N7DqKkTYrVjkC/dCeMYjW/bKA+FoPESFzSZwrP?=
+ =?us-ascii?Q?BRmJCwBEbW4B+h7bv36eD/YflqIpHH3G1lcRhv6AgSvAH0195iRdESE8pcCy?=
+ =?us-ascii?Q?QYkXQgtk5mWawg2JUgdxxLCPG8h0dIt/1yTCFK2p3Pei8qxjPiIvFP0y4y3f?=
+ =?us-ascii?Q?18kpZTfGrCPP3DMyjLt60UVAznjhteozlEFTAn7SU5vAMCEoeIUH?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5e459d5-c801-4c44-2f3a-08df2ffa961d
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 05:09:01.8802
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aYst8rOHgBeZVZFu3qbFHMWS4t0GlBkyEVOZO+6dzz7/QVMxjwiz/EbSLp2EnCe4jCmR2bivwP+gFhW+TVmQ4A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRP286MB5399
 
-Add KUnit coverage for the irqexit generated state table, invalid
-transitions, and enable-time synchronization. Test live
-preempt_schedule_irq() invocations without switching, across a task switch,
-and across CPU migration. The migration case runs when another CPU is
-available. The live cases require the built-in suite because they invoke a
-non-exported helper.
+On Wed, Oct 21, 2026 at 02:00:17PM -0500, Frank Li wrote:
+> On Thu, Oct 22, 2026 at 01:35:18AM +0900, Koichiro Den wrote:
+> > On Wed, Oct 21, 2026 at 10:52:32AM -0500, Frank Li wrote:
+> > > On Wed, Oct 21, 2026 at 01:22:25PM +0900, Koichiro Den wrote:
+> > > > Some endpoint configurations have no spare BAR for DMA resources. Allow
+> > > > dma_bar to select an MW BAR and place the DMA ranges after that MW.
+> > > >
+> > > > DMA submaps have fixed BAR offsets, so a shared MW translation must
+> > > > cover its configured size. Report that size as the translation alignment
+> > > > and require it to be a power of two.
+> > > >
+> > > > Older hosts treat the whole BAR as an MW. Require the host to advertise
+> > > > MW/DMA boundary support in LINK_UP before enabling a shared-BAR link.
+> > > >
+> > > > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > > > ---
+> > > > Changes since v6:
+> > > >   - Split out the host-side changes. (Frank)
+> > > >   - Require MW/DMA BAR boundary support in LINK_UP for shared BARs.
+> > > >
+> > > >  drivers/pci/endpoint/functions/pci-epf-vntb.c | 154 ++++++++++++++----
+> > > >  include/linux/pci-epf-ntb.h                   |   3 +
+> > > >  2 files changed, 122 insertions(+), 35 deletions(-)
+> > > >
+> > > > diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> > > > index ac83af54122f..721cd841a1dd 100644
+> > > > --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> > > > +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> > > > @@ -84,12 +84,13 @@ enum epf_irq_slot {
+> > > >  #define MIN_DB_COUNT			(EPF_IRQ_DB_START + 1)
+> > > >
+> > > >  struct epf_ntb_dma {
+> > > > +	struct mutex lock; /* Serialize DMA submap and MW updates */
+> > > >  	struct epf_ntb_dma_ctrl ctrl;
+> > > >  	struct dma_chan *dchan[EDMA_MAX_RD_CH];
+> > > >  	void *bar_scratch;
+> > > >  	dma_addr_t bar_scratch_phys;
+> > > >  	size_t bar_scratch_size;
+> > > > -	struct pci_epf_bar_submap submap[EDMA_MAX_RD_CH + 2];
+> > > > +	struct pci_epf_bar_submap submap[EDMA_MAX_RD_CH + 3];
+> > > >  	struct pci_epf_bar_submap *reg_submap;
+> > > >  	unsigned int num_submap;
+> > > >  	u16 rd_ch_cnt;
+> > > > @@ -229,6 +230,22 @@ static bool epf_ntb_is_bar_used(struct epf_ntb *ntb,
+> > > >  	return false;
+> > > >  }
+> > > >
+> > > > +static u64 epf_ntb_dma_bar_offset(struct epf_ntb *ntb, enum pci_barno barno)
+> > > > +{
+> > > > +	unsigned int i;
+> > > > +
+> > > > +	for (i = 0; i < ntb->num_mws; i++)
+> > > > +		if (ntb->epf_ntb_bar[BAR_MW1 + i] == barno)
+> > > > +			return ntb->mws_size[i];
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +static bool epf_ntb_dma_shares_bar(struct epf_ntb *ntb, enum pci_barno barno)
+> > > > +{
+> > > > +	return ntb->dma && ntb->epf_ntb_bar[BAR_DMA] == barno;
+> > > > +}
+> > > > +
+> > > >  struct epf_ntb_dma_filter {
+> > > >  	struct device *dev;
+> > > >  	int chan_id;
+> > > > @@ -353,6 +370,7 @@ static int epf_ntb_dw_edma_collect(struct epf_ntb *ntb,
+> > > >  	unsigned int i;
+> > > >  	size_t align;
+> > > >  	u32 next = 0;
+> > > > +	u64 offset;
+> > > >  	int ret;
+> > > >
+> > > >  	if (ctrl->u.dma_ctrl.reg_layout_data != EDMA_MF_EDMA_UNROLL)
+> > > > @@ -371,9 +389,30 @@ static int epf_ntb_dw_edma_collect(struct epf_ntb *ntb,
+> > > >  	if (!is_power_of_2(align))
+> > > >  		return -EINVAL;
+> > > >
+> > > > -	if (epf_ntb_is_bar_used(ntb, barno) ||
+> > > > -	    pci_epc_get_next_free_bar(features, barno) != barno)
+> > > > +	if (barno == ntb->epf_ntb_bar[BAR_CONFIG] ||
+> > > > +	    barno == ntb->epf_ntb_bar[BAR_DB])
+> > > > +		return -EINVAL;
+> > > > +
+> > > > +	offset = epf_ntb_dma_bar_offset(ntb, barno);
+> > > > +	if (!offset &&
+> > > > +	    (epf_ntb_is_bar_used(ntb, barno) ||
+> > > > +	     pci_epc_get_next_free_bar(features, barno) != barno))
+> > > > +		return -EINVAL;
+> > > > +	if (offset > U32_MAX)
+> > > > +		return -EOVERFLOW;
+> > > > +	if (offset && !is_power_of_2(offset))
+> > > >  		return -EINVAL;
+> > > > +	dma->ctrl.submap.offset = offset;
+> > > > +	next = offset;
+> > > > +	if (next) {
+> > > > +		/*
+> > > > +		 * submap[0] covers the MW prefix. Keep its temporary
+> > > > +		 * target at address 0 until the MW translation is
+> > > > +		 * installed.
+> > > > +		 */
+> > > > +		dma->submap[0].size = next;
+> > > > +		dma->num_submap = 1;
+> > > > +	}
+> > > >
+> > > >  	dma->ctrl.magic = EPF_NTB_DMA_MAGIC;
+> > > >  	dma->ctrl.revision = EPF_NTB_DMA_REVISION;
+> > > > @@ -408,7 +447,7 @@ static int epf_ntb_dw_edma_collect(struct epf_ntb *ntb,
+> > > >  		chan->desc_addr_lo = lower_32_bits(dma_addr);
+> > > >  		chan->desc_addr_hi = upper_32_bits(dma_addr);
+> > > >  	}
+> > > > -	dma->ctrl.submap.size = next;
+> > > > +	dma->ctrl.submap.size = next - dma->ctrl.submap.offset;
+> > > >
+> > > >  	dma_dev = ntb->epf->epc->dev.parent;
+> > > >  	for (i = 0; i < dma->rd_ch_cnt; i++) {
+> > > > @@ -481,6 +520,8 @@ static int epf_ntb_dma_collect(struct epf_ntb *ntb)
+> > > >  	if (!dma)
+> > > >  		return -ENOMEM;
+> > > >
+> > > > +	mutex_init(&dma->lock);
+> > > > +
+> > > >  	switch (ctrl->u.dma_ctrl.reg_layout) {
+> > > >  	case PCI_EPC_AUX_DMA_REG_LAYOUT_DW_EDMA:
+> > > >  		ret = epf_ntb_dw_edma_collect(ntb, dma, ctrl, resources, count);
+> > > > @@ -551,7 +592,7 @@ static int epf_ntb_dma_bar_init(struct epf_ntb *ntb)
+> > > >  		return -EOPNOTSUPP;
+> > > >
+> > > >  	barno = ntb->epf_ntb_bar[BAR_DMA];
+> > > > -	mapped_size = dma->ctrl.submap.size;
+> > > > +	mapped_size = dma->ctrl.submap.offset + dma->ctrl.submap.size;
+> > > >  	/*
+> > > >  	 * Submaps cannot be installed until the host assigns the BAR address.
+> > > >  	 * Use address 0 for the temporary BAR Match Mode mapping, as is done
+> > > > @@ -607,21 +648,25 @@ static void epf_ntb_dma_bar_clear(struct epf_ntb *ntb)
+> > > >  	memset(bar, 0, sizeof(*bar));
+> > > >  }
+> > > >
+> > > > -static int epf_ntb_dma_set_bar(struct epf_ntb *ntb)
+> > > > +static int epf_ntb_dma_set_bar_locked(struct epf_ntb *ntb,
+> > > > +				      const dma_addr_t *mw_addr)
+> > > >  {
+> > > >  	struct pci_epf_bar_submap *old_submap;
+> > > >  	struct epf_ntb_dma *dma = ntb->dma;
+> > > >  	unsigned int old_num_submap;
+> > > >  	struct pci_epf_bar *bar;
+> > > > +	dma_addr_t old_mw_addr;
+> > > >  	int restore, ret;
+> > > > -
+> > > > -	if (!dma)
+> > > > -		return 0;
+> > > > +	lockdep_assert_held(&dma->lock);
+> > > >
+> > > >  	bar = &ntb->epf->bar[ntb->epf_ntb_bar[BAR_DMA]];
+> > > >
+> > > >  	old_submap = bar->submap;
+> > > >  	old_num_submap = bar->num_submap;
+> > > > +	if (mw_addr) {
+> > > > +		old_mw_addr = dma->submap[0].phys_addr;
+> > > > +		dma->submap[0].phys_addr = *mw_addr;
+> > > > +	}
+> > > >  	bar->submap = dma->submap;
+> > > >  	bar->num_submap = dma->num_submap;
+> > > >
+> > > > @@ -631,6 +676,8 @@ static int epf_ntb_dma_set_bar(struct epf_ntb *ntb)
+> > > >  		return 0;
+> > > >
+> > > >  	/* A failed dynamic update may have already removed the old mapping. */
+> > > > +	if (mw_addr)
+> > > > +		dma->submap[0].phys_addr = old_mw_addr;
+> > > >  	bar->submap = old_submap;
+> > > >  	bar->num_submap = old_num_submap;
+> > > >  	restore = pci_epc_set_bar(ntb->epf->epc, ntb->epf->func_no,
+> > > > @@ -642,6 +689,18 @@ static int epf_ntb_dma_set_bar(struct epf_ntb *ntb)
+> > > >  	return ret;
+> > > >  }
+> > > >
+> > > > +static int epf_ntb_dma_set_bar(struct epf_ntb *ntb)
+> > > > +{
+> > > > +	struct epf_ntb_dma *dma = ntb->dma;
+> > > > +
+> > > > +	if (!dma)
+> > > > +		return 0;
+> > > > +
+> > > > +	guard(mutex)(&dma->lock);
+> > > > +
+> > > > +	return epf_ntb_dma_set_bar_locked(ntb, NULL);
+> > > > +}
+> > > > +
+> > > >  /**
+> > > >   * epf_ntb_configure_mw() - Configure the Outbound Address Space for VHOST
+> > > >   *   to access the memory window of HOST
+> > > > @@ -780,6 +839,13 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+> > > >  					     EPF_NTB_COMMAND_STATUS_OK;
+> > > >  		break;
+> > > >  	case EPF_NTB_COMMAND_LINK_UP:
+> > > > +		if (ntb->dma && ntb->dma->ctrl.submap.offset &&
+> > > > +		    !(argument & EPF_NTB_LINK_UP_DMA_MW_SUPPORTED)) {
+> > > > +			epf_ntb_set_link_enabled(ntb, false);
+> > > > +			dev_err(dev, "Host does not support MW/DMA BAR sharing\n");
+> > > > +			ctrl->command_status = EPF_NTB_COMMAND_STATUS_ERROR;
+> > >
+> > > suppose it should be fallback to old method?
+> > > EPF_NTB_LINK_UP_DMA_MW_SUPPORTED is new feature.
+> >
+> > It's possible (by using the whole BAR as an MW), but I personally think the
+> > extra complexity would not really be worthwhile for this case.
+> >
+> > If a "New" endpoint is paired with an "Old" host whose kernel cannot be
+> > upgraded, the DMA feature cannot be used anyway. For that setup, I think
+> > disabling DMA export with dma_bar = -1 (the default) and rebinding the endpoint
+> > would be sufficient, with host re-enumeration as needed.
+> 
+> At least it should work without using DMA as previous version. Assume build
+> as PCIE card, which have already prebuild image, which may plug into any
+> host machine. You can't require user to rebinding endpoint software.
+> 
+> Many PCI card have not provided any console after production.
 
-KUnit failure reporting may allocate with GFP_KERNEL. Record reaction
-counts inside synthetic IRQ-disabled and hardirq intervals. Evaluate the
-expectations after restoring normal task context to avoid secondary
-atomic-sleep or lockdep diagnostics.
+Makes sense. I'll send v8 including the fallback implementation shortly.
+"Compatibility matrix" in the cover letter will look like this:
 
-The live tests invoke the generic helper directly. They do not exercise
-an architecture-specific physical interrupt-return path.
+  EP                              | Old host     | New host
+  --------------------------------+--------------+----------
+  Old                             | OK*          | OK*
+  New (dma_bar = -1)              | OK*          | OK*
+  New (dedicated DMA BAR)         | OK*          | OK
+  New (shared MW/DMA BAR)         | OK*          | OK
 
-Assisted-by: LLM
----
- Documentation/trace/rv/monitor_irqentry.rst   |  21 +
- kernel/trace/rv/monitors/irqexit/irqexit.c    |  13 +
- .../trace/rv/monitors/irqexit/irqexit_kunit.c | 537 ++++++++++++++++++
- .../trace/rv/monitors/irqexit/irqexit_kunit.h |  21 +
- kernel/trace/rv/rv_monitors_test.c            |  13 +
- 5 files changed, 605 insertions(+)
- create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_kunit.c
- create mode 100644 kernel/trace/rv/monitors/irqexit/irqexit_kunit.h
+  *  NTB works without DMA.
 
-diff --git a/Documentation/trace/rv/monitor_irqentry.rst b/Documentation/trace/rv/monitor_irqentry.rst
-index ba9e78e7c4a08..f4cd34c1b6bf1 100644
---- a/Documentation/trace/rv/monitor_irqentry.rst
-+++ b/Documentation/trace/rv/monitor_irqentry.rst
-@@ -292,6 +292,27 @@ boundary probes require exactly one entry before the callback and one exit
- afterward, both with local interrupts disabled and live serving state set;
- the monitor must accept the pair and the original counts must be restored.
- 
-+With built-in RV KUnit tests, ``rv_test_irqexit_live`` enters the real
-+``preempt_schedule_irq()`` helper with and without a task switch on one CPU.
-+``rv_test_irqexit_migrate`` instead wakes a same-CPU FIFO worker which moves
-+the switched-out owner to a different allowed online CPU. The test requires
-+accepted entry and suspension on the source CPU and resumption and return
-+on the destination. It also samples the CPU on which the helper actually
-+returned, independently of the RV observer, and checks restoration of the
-+owner's original affinity before the tested task exits.
-+
-+The two live helper cases use single-element parameter fixtures. Monitor
-+slot allocation and destruction, and CPU-hotplug read locking, run in the
-+suite runner, which owns the RV interface mutex. The case body and its
-+cleanup can run in different KUnit threads. The tests retain a task
-+reference until the observer and worker are stopped; the migration case
-+checks restoration of the tested task's affinity before that task exits.
-+
-+The migration case skips when fewer than two allowed CPUs are online, or
-+when the tests are modules: the helper is not exported. These tests exercise
-+the real helper and scheduler, but invoke the helper directly. They are not
-+evidence of an architecture's physical interrupt-return assembly path.
-+
- Coverage limits
- ---------------
- 
-diff --git a/kernel/trace/rv/monitors/irqexit/irqexit.c b/kernel/trace/rv/monitors/irqexit/irqexit.c
-index a088b28b62b17..baee718dbe83c 100644
---- a/kernel/trace/rv/monitors/irqexit/irqexit.c
-+++ b/kernel/trace/rv/monitors/irqexit/irqexit.c
-@@ -157,3 +157,16 @@ module_exit(unregister_irqexit);
- MODULE_LICENSE("GPL");
- MODULE_AUTHOR("Karl Mehltretter <kmehltretter@gmail.com>");
- MODULE_DESCRIPTION("irqexit: verify IRQ-exit scheduling ownership");
-+
-+#if IS_ENABLED(CONFIG_RV_MONITORS_KUNIT_TEST)
-+#include <kunit/visibility.h>
-+#include "irqexit_kunit.h"
-+
-+const struct rv_irqexit_ops rv_irqexit_ops = {
-+	.mon = RV_MON_OPS_INIT(),
-+	.handle_resched_entry = handle_resched_entry,
-+	.handle_resched_exit = handle_resched_exit,
-+	.handle_sched_switch = handle_sched_switch,
-+};
-+EXPORT_SYMBOL_IF_KUNIT(rv_irqexit_ops);
-+#endif
-diff --git a/kernel/trace/rv/monitors/irqexit/irqexit_kunit.c b/kernel/trace/rv/monitors/irqexit/irqexit_kunit.c
-new file mode 100644
-index 0000000000000..56a9442e2f704
---- /dev/null
-+++ b/kernel/trace/rv/monitors/irqexit/irqexit_kunit.c
-@@ -0,0 +1,537 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include <linux/completion.h>
-+#include <linux/cpu.h>
-+#include <linux/hardirq.h>
-+#include <linux/irqflags.h>
-+#include <linux/jiffies.h>
-+#include <linux/kernel.h>
-+#include <linux/kthread.h>
-+#include <linux/rv.h>
-+#include <linux/sched.h>
-+#include <linux/sched/task.h>
-+#include <rv/kunit.h>
-+#include <rv_trace.h>
-+#include <trace/events/sched.h>
-+
-+#include "irqexit_kunit.h"
-+
-+#if IS_REACHABLE(CONFIG_RV_MON_IRQEXIT)
-+
-+static void irqexit_test_switch(struct task_struct *prev, struct task_struct *next)
-+{
-+	rv_mock_current(prev);
-+	rv_irqexit_ops.handle_sched_switch(NULL, true, prev, next, TASK_RUNNING);
-+	rv_mock_current(next);
-+}
-+
-+static void rv_test_irqexit(struct kunit *test)
-+{
-+	struct task_struct *owner = rv_kunit_alloc_mock_task(test);
-+	struct task_struct *other = rv_kunit_alloc_mock_task(test);
-+	struct rv_kunit_ctx *ctx = test->priv;
-+	unsigned long flags;
-+	int observed;
-+
-+	owner->pid = 101;
-+	other->pid = 102;
-+	prepare_test(test, &rv_irqexit_ops.mon);
-+	rv_mock_current(owner);
-+
-+	local_irq_save(flags);
-+	/* The scheduling loop may return without an actual task switch. */
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+
-+	/* A different task's IRQ-exit loop cannot complete owner's loop. */
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	irqexit_test_switch(owner, other);
-+	rv_irqexit_ops.handle_resched_entry(NULL, other);
-+	__irq_enter_raw();
-+	__irq_exit_raw();
-+	rv_irqexit_ops.handle_resched_exit(NULL, other);
-+	irqexit_test_switch(other, owner);
-+
-+	/* Both tasks can have suspended invocations at the same time. */
-+	irqexit_test_switch(owner, other);
-+	rv_irqexit_ops.handle_resched_entry(NULL, other);
-+	irqexit_test_switch(other, owner);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	irqexit_test_switch(owner, other);
-+	rv_irqexit_ops.handle_resched_exit(NULL, other);
-+	observed = READ_ONCE(ctx->reactions);
-+	local_irq_restore(flags);
-+	RV_KUNIT_EXPECT_OBSERVED(test, ctx, observed, 0);
-+}
-+
-+static void rv_test_irqexit_invalid(struct kunit *test)
-+{
-+	struct task_struct *owner = rv_kunit_alloc_mock_task(test);
-+	struct task_struct *other = rv_kunit_alloc_mock_task(test);
-+	struct rv_kunit_ctx *ctx = test->priv;
-+	unsigned long flags;
-+	int observed[14];
-+	unsigned int i = 0;
-+
-+	owner->pid = 101;
-+	other->pid = 102;
-+	prepare_test(test, &rv_irqexit_ops.mon);
-+	rv_mock_current(owner);
-+
-+	KUNIT_ASSERT_FALSE(test, irqs_disabled());
-+	RV_KUNIT_EXPECT_REACTION_HERE(test, ctx)
-+		rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+
-+	local_irq_save(flags);
-+	/* Scheduling must not start before the hardirq count is removed. */
-+	__irq_enter_raw();
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	__irq_exit_raw();
-+
-+	/* A return with hardirq state still active is invalid as well. */
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	__irq_enter_raw();
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	__irq_exit_raw();
-+
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+
-+	/* The first exit synchronizes; the second unmatched exit must fail. */
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+
-+	/* The state permits exit, but its task identity must still agree. */
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	rv_mock_current(other);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+
-+	/* Matching current is insufficient if the invocation is suspended. */
-+	rv_mock_current(owner);
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	irqexit_test_switch(owner, other);
-+	rv_mock_current(owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	observed[i++] = READ_ONCE(ctx->reactions);
-+
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	local_irq_restore(flags);
-+	for (i = 0; i < ARRAY_SIZE(observed); i += 2) {
-+		RV_KUNIT_EXPECT_OBSERVED(test, ctx, observed[i], 0);
-+		RV_KUNIT_EXPECT_OBSERVED(test, ctx, observed[i + 1], 1);
-+	}
-+	RV_KUNIT_EXPECT_REACTION_HERE(test, ctx)
-+		rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+
-+	/* Even an unsynchronized bad return must not be silently skipped. */
-+	rv_mock_current(other);
-+	RV_KUNIT_EXPECT_REACTION_HERE(test, ctx)
-+		rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+}
-+
-+static void rv_test_irqexit_sync(struct kunit *test)
-+{
-+	struct task_struct *owner = rv_kunit_alloc_mock_task(test);
-+	struct task_struct *other = rv_kunit_alloc_mock_task(test);
-+	struct rv_kunit_ctx *ctx = test->priv;
-+	unsigned long flags;
-+	int observed;
-+
-+	owner->pid = 101;
-+	other->pid = 102;
-+	prepare_test(test, &rv_irqexit_ops.mon);
-+	rv_mock_current(owner);
-+
-+	local_irq_save(flags);
-+	/* Switch events alone do not synchronize an already active loop. */
-+	irqexit_test_switch(owner, other);
-+	irqexit_test_switch(other, owner);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+
-+	/* Model disable/reset/re-enable while that invocation is suspended. */
-+	rv_irqexit_ops.mon.rv_this->enabled = 0;
-+	irqexit_test_switch(owner, other);
-+	rv_irqexit_ops.handle_resched_entry(NULL, other);
-+	rv_irqexit_ops.handle_resched_exit(NULL, other);
-+	rv_irqexit_ops.mon.task_reset(owner);
-+	rv_irqexit_ops.mon.task_reset(other);
-+	rv_irqexit_ops.mon.rv_this->enabled = 1;
-+	irqexit_test_switch(other, owner);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	rv_irqexit_ops.handle_resched_entry(NULL, owner);
-+	rv_irqexit_ops.handle_resched_exit(NULL, owner);
-+	observed = READ_ONCE(ctx->reactions);
-+	local_irq_restore(flags);
-+	RV_KUNIT_EXPECT_OBSERVED(test, ctx, observed, 0);
-+}
-+
-+#ifndef MODULE
-+struct irqexit_live_ctx {
-+	struct task_struct *owner;
-+	struct task_struct *worker;
-+	const char *skip_reason;
-+	struct completion worker_done;
-+	unsigned int entries;
-+	unsigned int exits;
-+	unsigned int switches_out;
-+	unsigned int switches_in;
-+	unsigned int entry_cpu;
-+	unsigned int exit_cpu;
-+	unsigned int switch_out_cpu;
-+	unsigned int switch_in_cpu;
-+	unsigned int target_cpu;
-+	unsigned int raw_entries;
-+	unsigned int raw_exits;
-+	unsigned int bad_raw_context;
-+	int affinity_result;
-+	cpumask_t saved_mask;
-+	cpumask_t test_mask;
-+	bool migrate;
-+	bool affinity_changed;
-+	bool observer_attached;
-+	bool raw_entry_attached;
-+	bool raw_exit_attached;
-+	bool hotplug_disabled;
-+};
-+
-+/* Parent fixtures run in the suite runner, which owns rv_interface_lock. */
-+static int irqexit_live_fixture_init(struct kunit *test)
-+{
-+	struct rv_monitor *mon = rv_irqexit_ops.mon.rv_this;
-+	struct irqexit_live_ctx *live;
-+	int ret;
-+
-+	if (mon->enabled)
-+		return -EBUSY;
-+	live = kunit_kzalloc(test, sizeof(*live), GFP_KERNEL);
-+	if (!live)
-+		return -ENOMEM;
-+
-+	/* Keep the online mask stable without nesting tracepoint registration. */
-+	cpu_hotplug_disable();
-+	live->hotplug_disabled = true;
-+	ret = mon->enable();
-+	if (ret) {
-+		cpu_hotplug_enable();
-+		live->hotplug_disabled = false;
-+		kunit_kfree(test, live);
-+		return ret;
-+	}
-+	kunit_register_params_array(test, live, 1, NULL);
-+	return 0;
-+}
-+
-+static void irqexit_live_fixture_exit(struct kunit *test)
-+{
-+	struct irqexit_live_ctx *live = (void *)test->params_array.params;
-+	struct rv_monitor *mon = rv_irqexit_ops.mon.rv_this;
-+
-+	mon->enabled = 0;
-+	mon->disable();
-+	if (live->hotplug_disabled) {
-+		cpu_hotplug_enable();
-+		live->hotplug_disabled = false;
-+	}
-+	/* Retain the child's explicit skip reason on the parent case. */
-+	if (live->skip_reason)
-+		kunit_mark_skipped(test, "%s", live->skip_reason);
-+}
-+
-+static int irqexit_live_worker(void *data)
-+{
-+	struct irqexit_live_ctx *live = data;
-+
-+	if (live->migrate)
-+		live->affinity_result =
-+			set_cpus_allowed_ptr(live->owner, cpumask_of(live->target_cpu));
-+	complete(&live->worker_done);
-+	while (!kthread_should_stop()) {
-+		set_current_state(TASK_INTERRUPTIBLE);
-+		if (!kthread_should_stop())
-+			schedule();
-+	}
-+	__set_current_state(TASK_RUNNING);
-+	return 0;
-+}
-+
-+static void irqexit_observe_event(void *data, int id, char *state,
-+				  char *event, char *next_state, bool final_state)
-+{
-+	struct irqexit_live_ctx *live = data;
-+
-+	if (id != live->owner->pid)
-+		return;
-+	if (!strcmp(event, "resched_entry")) {
-+		live->entry_cpu = raw_smp_processor_id();
-+		live->entries++;
-+	} else if (!strcmp(event, "resched_exit")) {
-+		live->exit_cpu = raw_smp_processor_id();
-+		live->exits++;
-+	} else if (!strcmp(event, "switch_out") && !strcmp(state, "rescheduling")) {
-+		if (!live->switches_out)
-+			live->switch_out_cpu = raw_smp_processor_id();
-+		live->switches_out++;
-+	} else if (!strcmp(event, "switch_in") && !strcmp(state, "suspended")) {
-+		if (!live->switches_in)
-+			live->switch_in_cpu = raw_smp_processor_id();
-+		live->switches_in++;
-+	}
-+}
-+
-+static void irqexit_observe_entry(void *data, struct task_struct *owner,
-+				  unsigned long pc, bool irq_off)
-+{
-+	struct irqexit_live_ctx *live = data;
-+
-+	if (owner != live->owner)
-+		return;
-+	live->raw_entries++;
-+	if (pc || !irq_off)
-+		live->bad_raw_context++;
-+}
-+
-+static void irqexit_observe_exit(void *data, struct task_struct *owner,
-+				 unsigned long pc, bool irq_off)
-+{
-+	struct irqexit_live_ctx *live = data;
-+
-+	if (owner != live->owner)
-+		return;
-+	live->raw_exits++;
-+	if (pc || !irq_off)
-+		live->bad_raw_context++;
-+}
-+
-+static int irqexit_observe_boundaries(struct irqexit_live_ctx *live)
-+{
-+	int ret;
-+
-+	ret = register_trace_sched_irq_preempt_entry(irqexit_observe_entry, live);
-+	if (ret)
-+		return ret;
-+	live->raw_entry_attached = true;
-+	ret = register_trace_sched_irq_preempt_exit(irqexit_observe_exit, live);
-+	if (!ret)
-+		live->raw_exit_attached = true;
-+	return ret;
-+}
-+
-+static void irqexit_live_cleanup(void *data)
-+{
-+	struct irqexit_live_ctx *live = data;
-+	struct rv_monitor *mon = rv_irqexit_ops.mon.rv_this;
-+
-+	mon->enabled = 0;
-+	if (live->observer_attached)
-+		unregister_trace_event_irqexit(irqexit_observe_event, live);
-+	if (live->raw_entry_attached)
-+		unregister_trace_sched_irq_preempt_entry(irqexit_observe_entry, live);
-+	if (live->raw_exit_attached)
-+		unregister_trace_sched_irq_preempt_exit(irqexit_observe_exit, live);
-+	tracepoint_synchronize_unregister();
-+	if (live->worker)
-+		kthread_stop(live->worker);
-+	if (live->affinity_changed && !(READ_ONCE(live->owner->flags) & PF_EXITING))
-+		KUNIT_EXPECT_EQ(kunit_get_current_test(),
-+				set_cpus_allowed_ptr(live->owner, &live->saved_mask), 0);
-+	put_task_struct(live->owner);
-+	live->owner = NULL;
-+
-+	RV_KUNIT_EXPECT_NO_REACTION(kunit_get_current_test(), active_ctx);
-+	mon->react = mon->reactor ? mon->reactor->react : NULL;
-+	active_ctx = NULL;
-+	rv_mock_current(NULL);
-+}
-+
-+static void rv_test_irqexit_live(struct kunit *test)
-+{
-+	struct rv_monitor *mon = rv_irqexit_ops.mon.rv_this;
-+	struct rv_kunit_ctx *ctx = test->priv;
-+	struct irqexit_live_ctx *live = (void *)test->param_value;
-+	struct task_struct *worker;
-+	unsigned int entries, exits, switches_out, switches_in;
-+	unsigned int first_entries, first_switches;
-+	unsigned long flags;
-+	bool worker_done;
-+
-+	KUNIT_ASSERT_FALSE(test, mon->enabled);
-+	live->owner = current;
-+	get_task_struct(live->owner);
-+	init_completion(&live->worker_done);
-+
-+	active_ctx = ctx;
-+	mon->react = rv_kunit_mock_react;
-+	rv_mock_current(NULL);
-+	KUNIT_ASSERT_EQ(test, 0,
-+			kunit_add_action_or_reset(test, irqexit_live_cleanup, live));
-+	/* The worker must run on this CPU inside the explicit scheduling loop. */
-+	guard(migrate)();
-+	worker = kthread_create(irqexit_live_worker, live, "rv-irqexit-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, worker);
-+	live->worker = worker;
-+	kthread_bind(worker, smp_processor_id());
-+	sched_set_fifo(worker);
-+	KUNIT_ASSERT_EQ(test, 0,
-+			register_trace_event_irqexit(irqexit_observe_event, live));
-+	live->observer_attached = true;
-+	KUNIT_ASSERT_EQ(test, irqexit_observe_boundaries(live), 0);
-+
-+	mon->enabled = 1;
-+
-+	KUNIT_ASSERT_EQ(test, preempt_count(), 0);
-+	local_irq_save(flags);
-+	preempt_schedule_irq();
-+	first_entries = live->entries;
-+	first_switches = live->switches_out;
-+	wake_up_process(worker);
-+	preempt_schedule_irq();
-+	entries = live->entries;
-+	exits = live->exits;
-+	switches_out = live->switches_out;
-+	switches_in = live->switches_in;
-+	worker_done = completion_done(&live->worker_done);
-+	local_irq_restore(flags);
-+
-+	/* Accepted model events prove that the real boundary probes ran. */
-+	KUNIT_EXPECT_GT(test, entries, 0);
-+	KUNIT_EXPECT_GT(test, first_entries, 0);
-+	KUNIT_EXPECT_GT(test, entries, first_entries);
-+	KUNIT_EXPECT_EQ(test, entries, exits);
-+	KUNIT_EXPECT_EQ(test, switches_out, switches_in);
-+	KUNIT_EXPECT_GT(test, switches_out, first_switches);
-+	KUNIT_EXPECT_TRUE(test, worker_done);
-+	KUNIT_EXPECT_GE(test, live->raw_entries, 2U);
-+	KUNIT_EXPECT_GE(test, live->raw_exits, 2U);
-+	KUNIT_EXPECT_EQ(test, live->bad_raw_context, 0U);
-+	RV_KUNIT_EXPECT_NO_REACTION(test, ctx);
-+	kunit_info(test, "live IRQ-exit entries=%u exits=%u switches=%u\n",
-+		   entries, exits, switches_out);
-+	mon->enabled = 0;
-+}
-+
-+static void rv_test_irqexit_migrate(struct kunit *test)
-+{
-+	struct rv_monitor *mon = rv_irqexit_ops.mon.rv_this;
-+	struct rv_kunit_ctx *ctx = test->priv;
-+	struct irqexit_live_ctx *live = (void *)test->param_value;
-+	struct task_struct *worker;
-+	unsigned int source_cpu, resumed_cpu;
-+	unsigned long flags;
-+	bool affinity_restored;
-+	int restore_result;
-+
-+	KUNIT_ASSERT_FALSE(test, mon->enabled);
-+	live->owner = current;
-+	get_task_struct(live->owner);
-+	init_completion(&live->worker_done);
-+	active_ctx = ctx;
-+	mon->react = rv_kunit_mock_react;
-+	rv_mock_current(NULL);
-+	KUNIT_ASSERT_EQ(test, 0,
-+			kunit_add_action_or_reset(test, irqexit_live_cleanup, live));
-+	if (num_online_cpus() < 2) {
-+		live->skip_reason = "Requires two online CPUs";
-+		kunit_skip(test, "%s", live->skip_reason);
-+		return;
-+	}
-+	cpumask_copy(&live->saved_mask, current->cpus_ptr);
-+	cpumask_and(&live->test_mask, &live->saved_mask, cpu_online_mask);
-+	if (cpumask_weight(&live->test_mask) < 2) {
-+		live->skip_reason = "Requires two allowed online CPUs";
-+		kunit_skip(test, "%s", live->skip_reason);
-+		return;
-+	}
-+	source_cpu = cpumask_first(&live->test_mask);
-+	live->target_cpu = cpumask_any_but(&live->test_mask, source_cpu);
-+	KUNIT_ASSERT_EQ(test, set_cpus_allowed_ptr(current, cpumask_of(source_cpu)), 0);
-+	live->affinity_changed = true;
-+	live->migrate = true;
-+	worker = kthread_create(irqexit_live_worker, live, "rv-irqexit-mig");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, worker);
-+	live->worker = worker;
-+	kthread_bind(worker, source_cpu);
-+	sched_set_fifo(worker);
-+	KUNIT_ASSERT_EQ(test, 0,
-+			register_trace_event_irqexit(irqexit_observe_event, live));
-+	live->observer_attached = true;
-+	KUNIT_ASSERT_EQ(test, irqexit_observe_boundaries(live), 0);
-+	mon->enabled = 1;
-+
-+	KUNIT_ASSERT_EQ(test, preempt_count(), 0);
-+	local_irq_save(flags);
-+	live->entries = 0;
-+	live->exits = 0;
-+	live->switches_out = 0;
-+	live->switches_in = 0;
-+	/*
-+	 * The FIFO worker runs only after this task switches out inside the
-+	 * real helper. It moves the queued, non-running owner to another CPU.
-+	 * Do not migration-disable the owner: migration is the property tested.
-+	 */
-+	wake_up_process(worker);
-+	preempt_schedule_irq();
-+	resumed_cpu = raw_smp_processor_id();
-+	mon->enabled = 0;
-+	local_irq_restore(flags);
-+	KUNIT_ASSERT_NE(test, wait_for_completion_timeout(&live->worker_done, 5 * HZ), 0UL);
-+	KUNIT_EXPECT_EQ(test, live->affinity_result, 0);
-+	KUNIT_EXPECT_EQ(test, live->entries, 1U);
-+	KUNIT_EXPECT_EQ(test, live->exits, 1U);
-+	KUNIT_EXPECT_GT(test, live->switches_out, 0U);
-+	KUNIT_EXPECT_EQ(test, live->switches_out, live->switches_in);
-+	KUNIT_EXPECT_EQ(test, live->entry_cpu, source_cpu);
-+	KUNIT_EXPECT_EQ(test, live->switch_out_cpu, source_cpu);
-+	KUNIT_EXPECT_EQ(test, live->switch_in_cpu, live->target_cpu);
-+	KUNIT_EXPECT_EQ(test, live->exit_cpu, live->target_cpu);
-+	/* Check actual resumed execution independently of the RV observer. */
-+	KUNIT_EXPECT_EQ(test, resumed_cpu, live->target_cpu);
-+	KUNIT_EXPECT_GT(test, live->raw_entries, 0U);
-+	KUNIT_EXPECT_GT(test, live->raw_exits, 0U);
-+	KUNIT_EXPECT_EQ(test, live->bad_raw_context, 0U);
-+	restore_result = set_cpus_allowed_ptr(current, &live->saved_mask);
-+	KUNIT_EXPECT_EQ(test, restore_result, 0);
-+	affinity_restored = !restore_result &&
-+		cpumask_equal(current->cpus_ptr, &live->saved_mask);
-+	KUNIT_EXPECT_TRUE(test, affinity_restored);
-+	if (affinity_restored)
-+		live->affinity_changed = false;
-+	RV_KUNIT_EXPECT_NO_REACTION(test, ctx);
-+	kunit_info(test, "live IRQ-exit migration cpu=%u->%u actual=%u entries=%u exits=%u switches=%u\n",
-+		   live->entry_cpu, live->exit_cpu, resumed_cpu, live->entries, live->exits,
-+		   live->switches_out);
-+	kunit_info(test, "live IRQ-exit affinity restored=%u\n", affinity_restored);
-+}
-+#else
-+static void rv_test_irqexit_live(struct kunit *test)
-+{
-+	/* preempt_schedule_irq() is deliberately not exported to modules. */
-+	kunit_skip(test, "Requires built-in RV tests");
-+}
-+
-+static void rv_test_irqexit_migrate(struct kunit *test)
-+{
-+	kunit_skip(test, "Requires built-in RV tests");
-+}
-+#endif
-+
-+#else
-+#define rv_test_irqexit rv_test_stub
-+#define rv_test_irqexit_invalid rv_test_stub
-+#define rv_test_irqexit_sync rv_test_stub
-+#define rv_test_irqexit_live rv_test_stub
-+#define rv_test_irqexit_migrate rv_test_stub
-+#endif
-diff --git a/kernel/trace/rv/monitors/irqexit/irqexit_kunit.h b/kernel/trace/rv/monitors/irqexit/irqexit_kunit.h
-new file mode 100644
-index 0000000000000..b475388455c2a
---- /dev/null
-+++ b/kernel/trace/rv/monitors/irqexit/irqexit_kunit.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __IRQEXIT_KUNIT_H
-+#define __IRQEXIT_KUNIT_H
-+
-+#if IS_ENABLED(CONFIG_RV_MONITORS_KUNIT_TEST)
-+
-+#include <linux/rv.h>
-+#include <rv/kunit.h>
-+
-+extern const struct rv_irqexit_ops {
-+	struct rv_kunit_mon mon;
-+	void (*handle_resched_entry)(void *data, struct task_struct *owner);
-+	void (*handle_resched_exit)(void *data, struct task_struct *owner);
-+	void (*handle_sched_switch)(void *data, bool preempt,
-+				    struct task_struct *prev,
-+				    struct task_struct *next,
-+				    unsigned int prev_state);
-+} rv_irqexit_ops;
-+#endif
-+
-+#endif /* __IRQEXIT_KUNIT_H */
-diff --git a/kernel/trace/rv/rv_monitors_test.c b/kernel/trace/rv/rv_monitors_test.c
-index 4fb611a9f8b85..9eb37cbd2de22 100644
---- a/kernel/trace/rv/rv_monitors_test.c
-+++ b/kernel/trace/rv/rv_monitors_test.c
-@@ -150,6 +150,7 @@ static void rv_test_dummy(struct kunit *test)
- #include "monitors/sssw/sssw_kunit.c"
- #include "monitors/sts/sts_kunit.c"
- #include "monitors/irqstate/irqstate_kunit.c"
-+#include "monitors/irqexit/irqexit_kunit.c"
- #include "monitors/opid/opid_kunit.c"
- #include "monitors/nomiss/nomiss_kunit.c"
- #include "monitors/pagefault/pagefault_kunit.c"
-@@ -171,6 +172,18 @@ static struct kunit_case rv_mon_test_cases[] = {
- 	KUNIT_CASE(rv_test_irqstate_preempt),
- 	KUNIT_CASE(rv_test_irqstate_rt_prepare_irq),
- 	KUNIT_CASE(rv_test_irqstate_rt_prepare_switch),
-+	KUNIT_CASE(rv_test_irqexit),
-+	KUNIT_CASE(rv_test_irqexit_invalid),
-+	KUNIT_CASE(rv_test_irqexit_sync),
-+#if IS_REACHABLE(CONFIG_RV_MON_IRQEXIT) && !defined(MODULE)
-+	KUNIT_CASE_PARAM_WITH_INIT(rv_test_irqexit_live, kunit_array_gen_params,
-+				   irqexit_live_fixture_init, irqexit_live_fixture_exit),
-+	KUNIT_CASE_PARAM_WITH_INIT(rv_test_irqexit_migrate, kunit_array_gen_params,
-+				   irqexit_live_fixture_init, irqexit_live_fixture_exit),
-+#else
-+	KUNIT_CASE(rv_test_irqexit_live),
-+	KUNIT_CASE(rv_test_irqexit_migrate),
-+#endif
- 	KUNIT_CASE(rv_test_opid),
- 	KUNIT_CASE(rv_test_nomiss),
- 	KUNIT_CASE(rv_test_pagefault),
--- 
-2.39.5 (Apple Git-154)
+Thanks for the review!
 
+Best regards,
+Koichiro Den
+
+> 
+> Frank
