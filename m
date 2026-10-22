@@ -1,110 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691840;
-	b=sYaFH5KEZUTaPrtlTU/1eO1bIS27hz/8BsFRKhQlVRqKwKErYtRkRvx8z+cGxCFOu8aJ
-	 IuWoGdqTZDg4sJKUhdMvO6C+WTuTRHScN+BJqmZeFWTvAIf10vsFNHL+UrOVBCsPVcP0b
-	 FpEFZZ3avXGjSLTnSH8l5hPVCVB2s6MuoG+QDQhw350k7hy1z3eIFXo8jdKFPyvX5epLf
-	 K5Ga91kw2/D/bS3OsjFeWLl+3zB02aWyHnf/ixoADVfTed6cbO12tpfQoMvK7gKiEZgWj
-	 KPOMf+mcEt0Lr0nrJcDbyN3NDw+UMe+LzQEuQecwhNzu1nspb/O6Zy0Jn3Kwlcso2Jw==
+	t=1792691883;
+	b=XD2rvDRGM/h7YzVc2A8Adtjyqvmd62MoojUO2r4JHc98cMc1dBhzmgpPQ6zRcnA2uLJj
+	 1U0XvqxtQLy18wBZMSifGlGO/mbiiN7yjgH8XpKcMW2F+viudkVwtnYuxz6udcPPCerTw
+	 7ZNBd8VX1wLQnf4eGSSGobMrSieOGt8ouePAnQwahLyfp/xpHySqdu7JqasZZ84Ce2rI4
+	 pkvj/rk6Suyv3sh4a6ToSS2C4EnXWHrhUVR66pOW7ZjChjj5ZeDKDf6VICxAvvRX414UW
+	 GTvmx/M/WHjnqd3OlIL0VXoO3SMfR4BWByHIMD8By+ho3+UBxoqcZBo7NP8jDbRYQOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691840;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=8EgRcbuDfKORZQpY0utOTTMffHlpWo5to8q3utLizKM=;
-	b=4tH6Y0MhQdPH1D2MfeIxyfpp6Mw0Lnn/dF6GK9IBk1GLLOkvtQezESNtyNlwlBx2aaEm
-	 vwLKQChBZTBS0Eg+cesT0DFpwz4IwKopeCfP1GuuZTxWP2ZJ/AQxzCePnMRDNSrqjuKGg
-	 8miZQjYLFcmGyi2tUwl2QDbzDmsME6/WH6VJ7OyQWQMcbF5bgX+qsr7tUiRFZWfUGaYGQ
-	 t7ffxbjx+3FbElheta9HkeQFKkA4v8g0kdGPFcm6+wJNkj6GVk3pS5XD2WNjUvgZnv0xQ
-	 jzO6CDHg6Obd6VIsD5pQhe5ZmQxrYyoUQiXlkqBOkIBoD74WhJTBG8VpwusecKi6Syg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691883;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=n1REvRKYYNfK5I+aUVJkrK0y0rIac5QSu0xgyudqYaQ=;
+	b=MFSjdv1za+Dy0DEBTknHMSJ3Pqevh/NA1I+kAouhhGhneUP/ahRsTb2z3hiu9G5uU+ki
+	 ofebKRyENy6fyQDRldn14PQ+0PRQ60Ov8GNbm15nZHulaAI4L4ZfSCAFgww5YlaAJp5tT
+	 gYVCryOTK6BJD6fFeAMQpdPh3PGkirKAkCVcKfsGTmN9qLi/56BxXdjgA6oOicSjHI4DJ
+	 NnPXGXxXahJ656xPOGUoJ64UU3zK3WZeadcH5O0A0TTJPJbMpKpCkRPT4IyC3vxjTaA90
+	 +QCnN5z4JvvJ26djeR/BHkfmth+/biYB2fzRs4TT5VRgvDfm1NEdfcLy3doBnBl15iA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=WA9JyD3j;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESPLJ8uy;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AA1606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:57:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69AA1606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB28606A322
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:58:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=WA9JyD3j
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8b20a899fso85795ad.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:57:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792691840; x=1793296640; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8EgRcbuDfKORZQpY0utOTTMffHlpWo5to8q3utLizKM=;
-        b=WA9JyD3j3itUY4lpXFpySPuRa1vB0WMDbXDWzbH5meWjpkiKz8M2ORcecVCQMPW6On
-         NZxrCd95AGwvVXGo2wNHowz20f3Y7syCumDLBaj0DE3bwViDTT5DHqk7RRBBguxfrEFC
-         goGLj86653STW4eXuGeTo93EvGmQDdLRRJIEzZ16lfAHDcKM8/HI5+n6W4OPJ/4tLkbs
-         NwLWZ9Qgya3s6H0s1NOzrjasSmSWIHbWZXPuqlCgHOHYQ7kqcFHB+hBd3GCAARAx7j/8
-         p/NAIP6KlLywer4KnwCnIGba7fMS3myOBLfQuC0IKs7/P6nGO+1XrYWZk2zLW4/TS25E
-         pqng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792691840; x=1793296640;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8EgRcbuDfKORZQpY0utOTTMffHlpWo5to8q3utLizKM=;
-        b=rNU+qUeAi0qupRDzh/Sn4Wrwy2ZWK/1QLm21XDMFyEgaQkauBCbMq6HdNXUwl3RABU
-         ianHRxYDyseiF/+nakNEbFU0EGLh2JHT35HV8nbwQ0Ks9QatpId0GcDobIzHT982cTJF
-         atYJNJLjqQhAP2zZ9PCYdPaNNqJ5GRnkXsI80HxEdWbG5bCMSlOBaOvezEUHMsxYURN5
-         dzz5nXubcQ+SKYPywnBCesyxr7MMGf2hisWRWzfZ1O9eXlwik5rGMyHgDxGAqmhkQ9On
-         wOKp4/9jc2/lUA7nC/LoBd88U4CIUQvAyQoBiQK8Yen3JazDwobXt8jeTns9r91kD1R0
-         HZPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxfcewzbiA4ytn13lEFRnzGMxufRR6kibSoSg4PeyqI1zY8bWZ+PKYUb1mYJQN1PqzoQRVNY7rPnueagm8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLDSyw40G3besggIZ6CTGRarySQ2h7s9Xwr+Gg19DMD3Am6na//
-	HZZnBNriawiuPzb2Q60OLkQPSsOjNd45XXPsrPPn1KBfKcFjjvwQwgWL1fABdfVf2Q==
-X-Gm-Gg: AYBFou2GIlUJtPQoF2vadAerkVqAu8AobCQgo82vnSoFDPyaSFF5jllj4AliGZ3Gykq
-	TfDtKsyPeyxMu6ytj4X/IAe+cwEhJTtjL+9+Rf9nNxBWvwOLGu/jk0ydt5zkGhsD9WsHeqaUhJs
-	+UaBblEY0g+vYcp1bSPEV/dc6YNhyA0Zt/EAW1ke0ZhonSEMnSRGGuTcnx8CI9RJuCvlxnkbr0/
-	9Sw+/8Tq/ylOwI8HAJtVeFFUExziY2VNl7cBXwMmiAcZDc812AReVAPXhxNNxpsnEzzFi0uvfdx
-	sxUWOly2/ARiR3a9Ji8yGvwjVuMzOKccWlTzozrV+pIrIPXIbIn3xBL6AhubGqzQ6AZJw/3tRUS
-	4EpqGg0H04Xx7slKoNi28b83/Us/9HqoL94oldQTUE8d2NeKpexlrqSEV8SWzaFahSlXIol4NXj
-	DpGZxV4etXq/2ZqEpekHHXJo0nfNPjtn8PSQUlJsTyF94wWkBBygMQR/4/kMANae9RiJEcITssV
-	4KvUML4/LlE/+QYFG6I+FZiJBxhI8nUVf6mZKHdEQXB8/TeV2+v1LiYhNtTaTXXEL5GCF3vRkRY
-	889LoXz9esySJARvF6ss7Q==
-X-Received: by 2002:a17:903:19ef:b0:2e9:61bf:6591 with SMTP id d9443c01a7336-2ea7c33be70mr1491705ad.45.1792691839016;
-        Thu, 22 Oct 2026 10:57:19 -0700 (PDT)
-Received: from google.com (192.150.203.35.bc.googleusercontent.com. [35.203.150.192])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ea7b34dadbsm1687675ad.26.2026.10.22.10.57.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 10:57:18 -0700 (PDT)
-Date: Thu, 22 Oct 2026 17:57:15 +0000
-From: David Matlack <dmatlack@google.com>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-Cc: Tarun Sahu <tarunsahu@google.com>,
-	Andrew Morton <akpm@linux-foundation.org>, joro@8bytes.org,
-	Mike Rapoport <rppt@kernel.org>,
-	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
-	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
-	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
-	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
-	will@kernel.org, Alexander Graf <graf@amazon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
-	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
-	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
-	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
-	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 2/4] liveupdate: Select file handler by name in
- the preserve ioctl
-Message-ID: <atpOe-blcgW-uDd4@google.com>
-References: <20261021152527.375070-1-tarunsahu@google.com>
- <20261021152527.375070-3-tarunsahu@google.com>
- <CA+CK2bCnS8wcVDbOymBGeJB6pDUkknOpF22EynbwSV=D5=J4ow@mail.gmail.com>
- <atlEdhPjlyTPDWmG@google.com>
- <CA+CK2bAxgtx2gZ-UE2HqwAU8=h9K5RE3xozBs1njgLo1-CaPvA@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ESPLJ8uy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4615A1F031F4
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:58:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792691883;
+	bh=n1REvRKYYNfK5I+aUVJkrK0y0rIac5QSu0xgyudqYaQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ESPLJ8uyn9I9Q8vwd0wftJM/00hPrIbl0LqcSweUdd9MNDyyY2z3cATHvF2GoN+AJ
+	 JolU0v0O8/StGNwXLF9xfJMoMyA5fXGyLr5BHCM9gr4WPadC9qWc/rFh/LLwqZDL88
+	 PY9kYsyM1a/a5b5YDekHDeHF5aQ4D/iRrF/A4wJTGDhZmr05fJXePpk85nWKUWf4Cs
+	 5uxIIogHSGsYqvhE9XGaREvJJUVDFt0X2n1jkRdmGt0Knm5Ei0RoRdhQlXYolVTe+c
+	 AsYmUduLKfMy2GnO0W7i7RGONQ0rPH25FD3922dA6l6IjhtQLIUpchvr52QOl4t+ay
+	 s0d4PsRVFbxbw==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5ba36cc21cdso2557045e87.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:58:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz3hiKbHHjtCTVfBcFhHm3cxe9Q5kFpnpcEerT8khKqId0hXBbBU75zqNjwshtTxjO9GZ2SBi7mKceP/UA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhT3+Ak5+aYHVECWb1kmCxDJApBedUPP7EofFwqBVTg+YCT6DX
+	xXsTX8VleoqEcauqVaXPaqcGvdonpGaOzH9f21/PVKlJQwnJ+dy9tV4MermF8zr7GFyc6VccbMc
+	CgtPA9/lqbcTBZSX1lGjq6CYtajtk8SU=
+X-Received: by 2002:a05:6512:138a:b0:5bc:b67d:58d0 with SMTP id
+ 2adb3069b0e04-5bfa1bee863mr2387595e87.24.1792691881611; Thu, 22 Oct 2026
+ 10:58:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,76 +59,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CA+CK2bAxgtx2gZ-UE2HqwAU8=h9K5RE3xozBs1njgLo1-CaPvA@mail.gmail.com>
+References: <20261018122220.678822-1-aliamemis@disroot.org>
+In-Reply-To: <20261018122220.678822-1-aliamemis@disroot.org>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Thu, 22 Oct 2026 19:55:41 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0hke5wNJSJvAmiA3ON4yPXcGL=v2n5ev6=MZuVs-=dSPg@mail.gmail.com>
+X-Gm-Features: AclHuK9EPLLPC_-L6-IZdNf5QI0rsgLXOu6t35sNCcJB1-f2gYVIoB-IIxp3uJY
+Message-ID: <CAJZ5v0hke5wNJSJvAmiA3ON4yPXcGL=v2n5ev6=MZuVs-=dSPg@mail.gmail.com>
+Subject: Re: [PATCH v3 0/4] ACPI: Serialize battery, INT3403 _TMP and ideapad methods
+To: =?UTF-8?Q?Ali_Ahmet_Memi=C5=9F?= <aliamemis@disroot.org>
+Cc: "Rafael J . Wysocki" <rafael@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Rong Zhang <i@rong.moe>, Len Brown <lenb@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Ike Panhc <ikepanhc@gmail.com>, "Derek J . Clark" <derekjohn.clark@gmail.com>, 
+	Mark Pearson <mpearson-lenovo@squebb.ca>, Armin Wolf <W_Armin@gmx.de>, 
+	Charis Stratakis <c.stratakis@proton.me>, Avraham Hollander <anhollander516@gmail.com>, 
+	=?UTF-8?Q?Jeffrey_W=C3=A4lti?= <jeffrey@waelti.dev>, 
+	Rick <rickk1166@gmail.com>, linux-acpi@vger.kernel.org, linux-pm@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org, acpica-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-10-21 09:14 PM, Pasha Tatashin wrote:
-> On Wed, Oct 21, 2026 at 7:02 PM David Matlack <dmatlack@google.com> wrote:
-> >
-> > On 2026-10-21 01:17 PM, Pasha Tatashin wrote:
-> > > On Wed, Oct 21, 2026 at 11:25 AM Tarun Sahu <tarunsahu@google.com> wrote:
-> > > >
-> > > > Currently luo_preserve_file() iterates over luo_file_handler_list and
-> > > > picks the first registered handler whose .can_preserve() callback
-> > > > returns true. When a subsystem introduces a new, backwards-incompatible
-> > > > file handler alongside an existing one for the same file type, userspace
-> > > > has no way to choose which handler preserves a file descriptor, nor can
-> > > > the kernel keep the existing rollback-safe handler as the default while
-> > > > allowing callers to opt into the new handler.
-> > >
-> > > That is not how it will work. If we are in the .can_preserve() call,
-> > > it means the user has already decided which file handlers to use. We
-> > > need to do that before any preservation happens; otherwise, we could
-> > > run into conflicts on FLBs i.e. FH of different version require
-> > > different FLBs.
-> > >
-> > > Therefore, there should be a luoctl call (i.e via a new ioctl to set
-> > > compatability) that provides the kernel with the specs file of the
-> > > target kernel we are updating to, allowing the kernel to select the
-> > > compatible file handlers. Since .can_preserve() is called when the
-> > > user is already preserving files, the specification must have already
-> > > been supplied, or the kernel should fall back to using the default
-> > > (i.e., latest) file handlers.
-> >
-> > I don't think that is the right direction. IMO the kernel should not be
-> > choosing which file handler to use, userspace should be. If userspace
-> > gets it wrong and chooses a file handler the next kernel does not
-> > support, that's on them.
-> >
-> > The problem with the kernel making a decision about file handlers is
-> > then userspace does not know what arguments to pass in. We are adding
-> > custom per-file handler arguments to PRESERVE_FD and RETRIEVE_FD. If the
-> > kernel is picking which file handler to use, say for a memfd, then
-> > userspace doesn't know which arguments to pass in.
-> 
-> It is not the kernel deciding on its own which handler to use; it is
-> the system admin (or host orchestrator) that configures LUO before the
-> LU process starts, because the sysadmin knows what kernel we are
-> rebooting into and the LUO specs of that target kernel. Meanwhile, the
-> process calling PRESERVE_FD (e.g., a VMM) only knows about its own FDs
-> and should not have to track target kernel serialization versions.
-> 
-> Also, the PRESERVE_FD and RETRIEVE_FD arguments are uABI tied to the
-> FD type, not to a specific internal handler version. They are stable,
-> and we can expand them the same way any ioctl argument is expanded
-> (via size and flags), without ever shrinking or breaking them. We
-> should not play the game of providing completely different uABI
-> argument structs for different versions of a file handler. If a caller
-> passes a new feature in the uABI args that the currently configured
-> file handler version does not support, PRESERVE_FD simply returns
-> -EOPNOTSUPP, just like any other extensible ioctl.
+On Sun, Oct 18, 2026 at 2:22=E2=80=AFPM Ali Ahmet Memi=C5=9F <aliamemis@dis=
+root.org> wrote:
+>
+> On ThinkPad P1 Gen2 and P53, INT3403 _TMP switches the EC page selector
+> without taking the mutex the battery methods use.  On some Lenovo
+> IdeaPad and Yoga models, the battery _BIX and the ideapad GBMD take the
+> EC mutex and a serialized method in opposite order and deadlock until
+> an AML mutex times out.
+>
+> As discussed in [1], add exclusive variants of the AML evaluation
+> helpers and use them for the battery, INT3403 _TMP and ideapad methods.
+> Patches 2-4 depend on patch 1.
+>
+> Changes in v3:
+> - Also evaluate _TMP exclusively where int3403 and processor_thermal
+>   probe for it
+>
+> Changes in v2:
+> - Merge the follow-up series [2] and drop its EC query and UCSI patches
+>   until they are shown to help
+> - Add acpi_execute_simple_method_exclusive() for _BTP and ideapad
+> - Make the helpers wrappers that take the lock around the existing ones
+> - Join lines up to 100 columns, add a Link: for Suggested-by:
+> - Drop Hans' Reviewed-by from patch 1 due to the rework
+>
+> Link: https://lore.kernel.org/all/CAJZ5v0gS4agVUkCO6M=3DVW4Wi2y1-s+k23bpz=
+mX9aAZ0Rsv4z9Q@mail.gmail.com/ [1]
+> Link: https://lore.kernel.org/all/20261014190544.150093-1-aliamemis@disro=
+ot.org/ [2]
+> Link: https://bugzilla.kernel.org/show_bug.cgi?id=3D221065
+> v2: https://lore.kernel.org/all/20261017130652.318778-1-aliamemis@disroot=
+.org/
+> v1: https://lore.kernel.org/all/20261014132703.93355-1-aliamemis@disroot.=
+org/
+>
+> Ali Ahmet Memi=C5=9F (4):
+>   ACPI: utils: Add exclusive AML evaluation helpers
+>   ACPI: battery: Evaluate battery methods exclusively
+>   thermal: intel: int340x: Evaluate _TMP exclusively
+>   platform/x86: ideapad-laptop: Evaluate ACPI methods exclusively
+>
+>  drivers/acpi/battery.c                        | 12 +++---
+>  drivers/acpi/utils.c                          | 41 +++++++++++++++++++
+>  drivers/platform/x86/lenovo/ideapad-laptop.c  | 12 ++++--
+>  .../intel/int340x_thermal/int3403_thermal.c   |  3 +-
+>  .../int340x_thermal/int340x_thermal_zone.c    |  6 ++-
+>  .../processor_thermal_device.c                |  2 +-
+>  include/acpi/acpi_bus.h                       |  7 ++++
+>  7 files changed, 68 insertions(+), 15 deletions(-)
+>
+>
+> base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
+> --
 
-If we require that PRESERVE_FD and RETRIEVE_FD uAPI is stable across
-different file handlers for the same file type, then my concern is
-resolved.
-
-> More generally, we are rebooting the host into a single target kernel,
-> so compatibility is a session-level property, not a per-FD property.
-> If we need an upfront global ioctl anyway, configuring the target
-> compatibility upfront in one place is much cleaner than exposing FLBs
-> to userspace and splitting version selection between a global ioctl
-> and per-FD PRESERVE_FD calls.
-
-That's a good point. Ok let's not do per-FD FH selection.
+Whole series applied as 7.4-rc material, thanks!
