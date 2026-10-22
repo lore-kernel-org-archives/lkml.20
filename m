@@ -1,56 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.88
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792672618;
-	b=iNH36PfoaUqCN05LkHYJ/g7YCnOVwIZEXmvDsCfQe8mWHU6fc0cUqKZmxVlIuH6jO3g7
-	 uJQNlx40hXsnCHdHexBmGQBTHcgN3RRr0345d0UnYq9WgbErdc01yLVgwyi8Sw8LZ8WCB
-	 cZWfHpRqarTSX5VGtKkx7JwJyMEG6kajePc4kuLXceNsj7bAPMtpdMq/6cbMM/HPYtaoc
-	 ev8iBdaC97fJdJmY0dqVPdKVs59wA64svXGSjk1po4p7/Df0N2NVaeGQQE67y2ugl2stF
-	 DmUSg1xQTKSBA91g3mgeyyBmSuzUoDS6eW85gWwEozI++ebL4oRJ1O4X+QYgL/GuXGQ==
+	t=1792672747;
+	b=PgZIqVxeqvtd/FeeKkDfqjAhVqHWbxgUYSJdjwcLIu0XmpDm6oueJL6EZvhh6zbX7gXd
+	 7Lss62JwNrRHKkqVLWakgp2DPS6agl8MnXA/gqJoiZp9DW0lZJ3vqe9CgSdXBPJEAiU9Y
+	 mRfaccPME37voS2asBuJg9ZjVyx3/fJLFyYr1EKYkYIWNLyvvFBrA7kgbMeSzy3X1NaD9
+	 kPFcFnduHC/Y26+QpUkh9Ao0uiA9iGBY9ekBdIMpAHO9oqCOXNzpfDqwUGhmrIG7UnULg
+	 5k136hZb6WcV2CdEekL/Sc6xjb3PV2xkltEiEVzYxznGQaVshQQQYYwpfl9E809DDbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672618;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=2AVYDVIfgqfkP0XMmMllKTp+e7zNLw0N1Ot5Z6OeEQ0=;
-	b=dAcI6PrsghQniEG7T/gqVLkogShBUiMIK8fAurE3KLdiQYnz8DfhgWJz2aQScC0qstsP
-	 xnNOjHFXB94ciUjWUPdFLG5l0lBiTmwbFucsLfyjeBI8muQoQnSgGcwp/DIsEqYGPF8ik
-	 1EfC5bADTzUZ6js+dGQf4yJQDM1bYS3RBQMpOKvXlVWuK5ixeelQnBfhCAIkLmy1D5ei8
-	 1LZpIiKmkb9TXiUWWWfiW1r5bW1EuAaU3btfSc0zUwDCqZPrNBMt+xischcHV+GdtSAXd
-	 mDnOth/JPMdCLJNZooxonWVziOFipqjJQ+sF5jdKCO25wepRkmv3Xfsxs2ORV/rcRFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672747;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=pEn/o5vicVIiycYibVKL0UsnyzA/YANniegdeifG/s4=;
+	b=U7WeZxt+l3CjcxjX2EVHW4Ttl2CnqJv3aadEh1qL1VYRpby5XW1H40hz/fX6iWfxUkUQ
+	 DgdcMIBkrWkk8zbjWRXtfmjAEWB3C/6VDHO3cQPs/3TfyNh387pQG6saXJqZoLF8qBaFF
+	 NXQeguyxuY3suVJpdFRpAnSeQVsNQ+39OZLoE81d4q1s3UEYyB3IKl7y+Xv778woi6eIV
+	 jDlgWLWesodNRcXhV22HLjMx1VeWh56UjxwBuW1rGSUSVgrvLIdxdU0vhhHaW92JudPau
+	 Xl9f/HvY0GETSlfqijjOAqAcWE1MldoBeOS0PQko79Mz0UFW638RVJklG52kmy2Qz0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiAmWkn6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nOjz2OQr;
+	arc=none smtp.remote-ip=95.215.58.88
+Received: from mta1.migadu.com (out-88.mta1.migadu.com [95.215.58.88])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD35606A319;
-	Thu, 22 Oct 2026 12:36:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15F7D606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15F7D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiAmWkn6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595711F000C1;
-	Thu, 22 Oct 2026 12:36:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792672617;
-	bh=2AVYDVIfgqfkP0XMmMllKTp+e7zNLw0N1Ot5Z6OeEQ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZiAmWkn6gV977xjzSfELCTexHhfd7cQ28a8A2y7P5QiuAz3cfvAhBt2nR2Ik8CTIM
-	 yPoXr4vp/MSxBZmBnVsfaZAupj9yDUTA4k+C3OgHodJ7oEwkb3PqFUwBapWTlNDQIk
-	 RFldXGSu2oL1jaT1Vre3tCgKVNNGz2dN8QGw2o8XEMUB5ak3MNVuPdsdMI56OA317h
-	 MilcAXPLRuNoIxq7dCn4G3V1zp9pFObS3J1ejFUiIXguny83OzUlPGqA9Cy9OtDhor
-	 K7z7TDaitCqsjAcSQxg7aTn+ryqVRLBQftOvtXNDTr4/lUhpYm+FD7A1O1OdHHUpgO
-	 tSBtqbmBIVCqQ==
-Date: Thu, 22 Oct 2026 14:36:55 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Aaron Tomlin <atomlin@atomlin.com>
-Cc: axboe@kernel.dk, tom.leiming@gmail.com, hare@suse.de, dwagner@suse.de,
-	tj@kernel.org, sean@ashe.io, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	marco.crivellari@suse.com
-Subject: Re: [PATCH v4] blk-mq: dispatch kworker to housekeeping CPU when
- hctx cpumask is empty
-Message-ID: <atoDZ85GTNGyaNPL@localhost.localdomain>
-References: <20261022034737.47820-1-atomlin@atomlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nOjz2OQr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eP1LGnMko9h7Km3zC9LDbu+hXl6U04EeI1vwWmy1Fx8=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1792672742; v=1; x=1793277542;
+ b=nOjz2OQrNk73XSno40Pf6U+nyDPsxvXMg4Tzqu4XgyDh2uEuEgCHK2p2C2bA9C8LDoRDxZK6
+ Etz7Wfkpzjiw9Pi2gsbiPjcPJVKoaPWH2xan2mkgzK7BDj7DeCG8IOWrMvCHBKlm2jbGMarSqDn
+ Up3bysopPUfk3R73vnQkcyXA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 33f383ea385dc4c6;
+	Thu, 22 Oct 2026 12:39:02 +0000
+X-Mizu-Trace-ID: 33f383ea385dc4c6
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <58cfeba3-a3c0-426e-ba97-8f82da5b1e8d@linux.dev>
+Date: Thu, 22 Oct 2026 20:38:53 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,157 +58,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] mm/compaction: skip folios containing hwpoisoned
+ pages
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Huang, Ying" <ying.huang@linux.alibaba.com>,
+ Yuanhe Shu <xiangzao@linux.alibaba.com>
+Cc: akpm@linux-foundation.org, vbabka@kernel.org, linmiaohe@huawei.com,
+ nao.horiguchi@gmail.com, ziy@nvidia.com, wangkefeng.wang@huawei.com,
+ tujinjiang@huawei.com, mgorman@techsingularity.net, chengkaitao@kylinos.cn,
+ muchun.song@linux.dev, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260928105805.1215770-1-xiangzao@linux.alibaba.com>
+ <20260928105805.1215770-2-xiangzao@linux.alibaba.com>
+ <99cbd960-439d-4672-aba9-6b49697db8b3@kernel.org>
+ <20260929034123.2705745-1-xiangzao@linux.alibaba.com>
+ <877bjowf9i.fsf@DESKTOP-5N7EMDA>
+ <fbd5ae06-b6da-48f6-9c46-188fb6ba9684@linux.dev>
+ <bc1b3255-99f7-49c8-bb52-bada6df80f72@kernel.org>
+ <23d3756c-1a87-402d-80b4-c838dfc29f4d@linux.dev>
+ <9da90d76-031f-4211-b9de-439cbf7bc63d@kernel.org>
+ <49966df8-c092-40de-a05a-ff6d69382dd4@linux.dev>
+ <e4c3ce3a-c19b-418a-a92e-40e077f1ea63@kernel.org>
+From: Kaitao Cheng <kaitao.cheng@linux.dev>
+In-Reply-To: <e4c3ce3a-c19b-418a-a92e-40e077f1ea63@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261022034737.47820-1-atomlin@atomlin.com>
 
-(Adding Marco)
 
-Le Wed, Oct 21, 2026 at 11:47:37PM -0400, Aaron Tomlin a �crit :
-> Commit a46c27026da1 ("blk-mq: don't schedule block kworker on isolated
-> CPUs") excluded isolated CPUs from hctx->cpumask to prevent worker
-> threads from executing block work on isolated CPUs. When all CPUs mapped
-> to a hardware queue are isolated (i.e. blk_mq_hctx_empty_cpumask(hctx)
-> evaluates to true), blk_mq_hctx_next_cpu() returns WORK_CPU_UNBOUND with
-> the intention of offloading execution.
-> 
-> However, kblockd_workqueue is allocated as a per-CPU workqueue
-> (WQ_PERCPU). When WORK_CPU_UNBOUND is queued on a per-CPU workqueue, the
-> workqueue core resolves the target CPU via raw_smp_processor_id().
-> Consequently, if a task executing on an isolated CPU submits I/O and
-> triggers an asynchronous queue dispatch with zero delay (e.g. upon
-> hardware queue congestion, tag/resource exhaustion returning
-> BLK_STS_RESOURCE, or plugging), &hctx->run_work is queued directly onto
-> the local isolated CPU's worker pool. This causes the local per-CPU
-> high-priority kworker (e.g. "kworker/6:1H-kblockd") to be scheduled on
-> the isolated CPU. In real-time environments, an active SCHED_FIFO workload
-> will starve this SCHED_NORMAL worker, causing hardware dispatch to stall,
-> in addition to introducing unwanted latency jitter on nohz_full cores,
-> thereby defeating the original objective of commit a46c27026da1.
-> 
-> Introduce blk_mq_hctx_unbound_cpu() to select an online housekeeping CPU
-> from housekeeping_cpumask(HK_TYPE_DOMAIN) via
-> cpumask_any_and_distribute() when executing on an isolated CPU, and
-> otherwise fall back to WORK_CPU_UNBOUND. Use this helper across the
-> unbound fallback paths in blk_mq_hctx_next_cpu().
-> 
-> Additionally, for single-queue devices, gate the check behind the static
-> key housekeeping_overridden under CONFIG_CPU_ISOLATION to ensure that
-> common configurations without CPU isolation incur zero overhead on the
-> fast path.
-> 
-> This ensures that:
->     1.  When executing on an isolated CPU, deferred queue work is
->         cleanly offloaded to an online housekeeping CPU across single-queue
->         devices, hardware queues with empty cpumasks, and offline CPU
->         fallback paths.
-> 
->     2.  The per-CPU high-priority kworker on the isolated CPU is not
->         scheduled, avoiding priority inversion and latency jitter.
-> 
->     3.  When executing on a non-isolated CPU, WORK_CPU_UNBOUND is
->         preserved, maintaining optimal local execution with zero CPU
->         bouncing while avoiding timer pinning hazards.
-> 
->     4.  On systems without CPU isolation, single-queue devices maintain
->         the zero-overhead fast path via a static key.
-> 
-> Fixes: a46c27026da1 ("blk-mq: don't schedule block kworker on isolated CPUs")
-> Cc: Ming Lei <ming.lei@redhat.com>
-> Cc: Jens Axboe <axboe@kernel.dk>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
-> ---
-> Changes since v3:
-> 
->  - Create companion blktests test case (block/050) to reproduce this issue
->    and verify the fix (Daniel Wagner)
-> 
->  - Gate the single-queue (nr_hw_queues == 1) check behind the static key
->    housekeeping_overridden under CONFIG_CPU_ISOLATION to ensure the
->    common case without CPU isolation incurs zero overhead on the fast
->    path (Jens Axboe)
-> 
->  - Wrap the evaluation of cpu_is_isolated() inside guard(rcu)() in
->    blk_mq_hctx_unbound_cpu() to prevent an RCU lockdep warning and ensure
->    safe dereferencing of the housekeeping cpumask while concurrent cpuset
->    updates occur
-> 
->  - Disable preemption via guard(preempt)() around cpumask_any_and_distribute()
->    to prevent a preemption warning under CONFIG_PREEMPT_RCU and avoid
->    data races when accessing per-CPU distribution state
-> 
->  - Link to v3: https://lore.kernel.org/all/20261016052203.489760-1-atomlin@atomlin.com/
-> 
-> Changes since v2:
-> 
->  - Query housekeeping_cpumask(HK_TYPE_DOMAIN) instead of HK_TYPE_TIMER
->    to align with cpu_is_isolated(), workqueue affinity rules, and cpuset
->    isolated partitions
-> 
->  - Query the housekeeping cpumask under guard(rcu)() to safely handle
->    dynamic cpuset updates without lockdep warnings
-> 
->  - Validate that cpumask_any_and_distribute() returns a valid cpu ID
->    before returning, falling back cleanly to WORK_CPU_UNBOUND
-> 
->  - Link to v2: https://lore.kernel.org/lkml/20261015020225.422107-1-atomlin@atomlin.com/
-> 
-> Changes since v1:
-> 
->  - Introduce the blk_mq_hctx_unbound_cpu() helper to steer deferred work
->    to an online housekeeping CPU only when executing on an isolated
->    core, preserving WORK_CPU_UNBOUND and local cache locality for
->    housekeeping cores
-> 
->  - Apply blk_mq_hctx_unbound_cpu() across all unbound fallback paths in
->    blk_mq_hctx_next_cpu(), comprehensively covering single-queue devices
->    (nr_hw_queues == 1), empty hardware queue cpumasks, and the offline
->    CPU fallback path.
-> 
->  - Elaborate in the commit log on the triggers for asynchronous queue
->    dispatch (e.g. tag exhaustion, BLK_STS_RESOURCE backpressure, and
->    plugging) and the SCHED_FIFO worker starvation hazard on isolated
->    cores
-> 
->  - Link to v1: https://lore.kernel.org/lkml/20261012012905.267920-1-atomlin@atomlin.com/
-> ---
->  block/blk-mq.c | 31 ++++++++++++++++++++++++++++---
->  1 file changed, 28 insertions(+), 3 deletions(-)
-> 
-> diff --git a/block/blk-mq.c b/block/blk-mq.c
-> index 025a799f35b9..f8f862a0e525 100644
-> --- a/block/blk-mq.c
-> +++ b/block/blk-mq.c
-> @@ -2241,6 +2241,23 @@ static bool blk_mq_hctx_empty_cpumask(struct blk_mq_hw_ctx *hctx)
->          return hctx->next_cpu >= nr_cpu_ids;
->  }
->  
-> +static inline int blk_mq_hctx_unbound_cpu(void)
-> +{
-> +	guard(rcu)();
-> +
-> +	if (cpu_is_isolated(raw_smp_processor_id())) {
-> +		int cpu;
-> +
-> +		guard(preempt)();
-> +		cpu = cpumask_any_and_distribute(housekeeping_cpumask(HK_TYPE_DOMAIN),
-> +						 cpu_online_mask);
-> +		if (cpu < nr_cpu_ids)
-> +			return cpu;
-> +	}
-> +
-> +	return WORK_CPU_UNBOUND;
-> +}
 
-Just for future record, we are working on a WQ_PREFER_PERCPU workqueue flag that
-should automatically handle this sort of things. It's not ready for now so these
-hacks are still necessary but keep in mind this is a good candidare for future
-simplication.
+在 2026/10/21 16:27, David Hildenbrand (Arm) 写道:
+> On 10/21/26 04:49, Kaitao Cheng wrote:
+>>
+>>
+>> 在 2026/10/20 21:58, David Hildenbrand (Arm) 写道:
+>>> On 10/20/26 15:31, Kaitao Cheng wrote:
+>>>>
+>>>>
+>>>> 在 2026/10/20 21:07, David Hildenbrand (Arm) 写道:
+>>>>
+>>>> It does require architecture support, but that doesn't seem practical, haha.
+>>>
+>>> Well, but that's required when an arch wants to rule out all races.
+>>>
+>>>>> Will architectures that are not prepared for copy_mc_user_highpage() not simply
+>>>>> crash if they trigger an MCE during an access?
 
-Thanks.
+After thinking about it, if the memcpy here is guaranteed to cause a crash,
+wouldn't the system inevitably crash at some point anyway, even if we check
+folio_contain_hwpoisoned_page() beforehand and return early, since this kind
+of memory error is unrecoverable?
+
+If the system won't crash, it seems fine to defer the check as well.
+
+>>>>
+>>>> Do we need to check both before and after the copy? This feels a bit
+>>>> redundant, and I'm not sure whether such a small race window warrants
+>>>> an additional check.
+>>>>
+>>>
+>>> I don't see how checking after the copy makes any sense? :)
+>>>
+>>> You already crashed if there was a problem, why check? Or what am I missing?
+>> In cases such as transient errors, software poison injection, repeated
+>> bit flips in memory, or bit flips in the ECC check bits themselves, a
+>> page may be faulty while memcpy() still completes normally. If the copied
+>> data is correct, only the PG_hwpoison flag is lost during migration. But
+>> if the copied data is corrupted and the kernel or a process subsequently
+>> treats it as valid, I think the consequences could be more serious than
+>> an immediate crash. However, I cannot estimate how likely this is to happen.
+> That's the point, me neither. I'm happy to perform checks before access, or
+> after, in the default copy implementation, but I want to have properly
+> documented how this makes sense and which races exist.
+> 
+Here are a few subtle corner cases I came up with. They may be extremely
+unlikely to occur. 
+
+case A:
+CPU 1                                           CPU 2
+
+if (folio_contain_hwpoisoned_page())            The check passes because
+        return -EHWPOISON;                      PG_hwpoisoned is not set.
+
+                                                A transient bus error occurs,
+                                                or the flag is injected by software.
+
+                                                PG_hwpoisoned is set.
+
+                                                The bus temporarily returns to normal.
+
+memcpy(new, old);                               The copy succeeds and copies
+                                                the correct data.
+
+                                                PG_hwpoisoned is not propagated
+                                                to the new page, so the flag is lost.
+
+
+case B:
+CPU 1                                           CPU 2
+
+if (folio_contain_hwpoisoned_page())
+        return -EHWPOISON;
+
+                                                A memory bit flips, causing
+                                                an ECC error.
+
+                                                PG_hwpoisoned is set.
+
+                                                Other bits in the same byte then flip,
+                                                or the ECC check bits themselves flip.
+
+                                                ECC check passes.
+
+memcpy(new, old);                               The copy succeeds but copies
+                                                corrupted data.
+
+                                                PG_hwpoisoned is lost.
+
+                                                The kernel or user treats
+                                                the corrupted data as valid.
+
 
 -- 
-Frederic Weisbecker
-SUSE Labs
+Thanks
+Kaitao Cheng
+
