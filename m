@@ -1,134 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792696535;
-	b=kXGkoCdmNro5T/LaphO5jOVXxdOGIH9RAJXjGAcPoPwAJVgqUiCxYOEiVUyFZq8HuZHE
-	 yYLokDNySQIbfHGPkHKFJ5RpN6Bv9EQ56veZQostLk8spIeVpafbm0tvVjmZpYqdDI7Pr
-	 1TlCenE6N9EDQaX2a2Y+mGYodcvniJBOnrZ8OnPr5uBM5zVBar8U0XH2rPXdmZXSdk8Ck
-	 AO8D0z/z0lcdQ+3P5b0FrxtBtdKL0no8Oqq4CjT9s5JQ30a5XkL7AyocJ9rpJziSGlzkS
-	 smGtxrtXA3c6a5Ngpyw5k6xSRFTGjUQZREbkj6BcWpNpRKOtb3nQpV62yx4IrBhiLzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696535;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
-	 Received:Received:X-MS-Exchange-Authentication-Results:Received-SPF:
-	 Received:Received:Received:Received:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
-	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=llb4UFvN+MUQ0myGE95Y8ZVSSd69f0sodbZNxF+j3b4=;
-	b=Tc150KAGVOowDOhJIt0cUEt9uvDRtCEVWLJ0vY3dp7HmeXFlZeT1uqKGOOWsjkj76i2W
-	 OLWKQxMvdhzIHR6xAZxRM4G2S4JW7aZGsni4mIuUNIypx2zJN+Lcy3YRCM6NRv8WJtReM
-	 vpP7ORiMsseMThasxXJ3i7CQKI6BOMxOUqfT3uY+6sb3x1cltzVCfjIhfoqyRkk9jn+/k
-	 zM5v+6mkxiQ7IAKwSoCc/WjVcBXcdd6n+I2R/tLm5mcly1WHO6zhuPcP48xeUOwoOplKW
-	 xv8Q1ifCrSQA9/goVXN/exMF9YvZuoC3CkVBAO+ITajhfH6/RP2WHMkUDbwfuuat0Qw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ti.com;
-	spf=pass smtp.mailfrom=ti.com;
-	dkim=pass header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=NVDpCk73;
-	dkim=pass header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b="QcD/2XPT";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.150.75
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792696538;
+	b=rtO1xQ0lBwdpDkDpgNEsyLsHcNHzxq1jmulaL3AbxZL53155buEgyU/ZoZTgDLxU1jk7
+	 ERba1cT/spWNIw/rY6D8sW9h33hYwVHqzGuLz3susWtuY3caBGtFo1cSontNIJANhxZXr
+	 DKftmRM0QN3Hxs0IvlYUsBClSGiHXMd/kB9NWxUi3HMce/f5JOU3pAeUThHdBPJgh1A/X
+	 1lvsUPhKQaIuiS0LYDthy2qqUzmc8fcWcXd/Xi4gL+qM2iO7SGUr3Pnmd5ge5Mg+eXT2N
+	 Be523sTgutCkykfNKxZvUXhWQHiLf6Ic7kjr+Mx4OGf1COFgBi6FKl7K5GiRUfDpGCg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696538;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=OYbVSiq9gMoCoikDWdvSWgHNA/JlaBVavasL/SrwvaY=;
+	b=3B07PDfyGiGKX0R9zWkEFp0NGPPPZl3sZAMfWsSk0P8EEJZXckUJR5frorCpE/UHoCis
+	 lrTlevHbCbKAV0IsJcfZefff/SKTaJSgV8+1lWG5Q40wEdRiXNJSGYCu64bEniROPS3uE
+	 Bk81Ciog9eUB+5K7HJyBwOWO3MTr1rBBZGAwTUDdZIDJUQfmlfr4r4EeTreywMPx0PiqK
+	 cvNwIA85DMO94QW3nRWDiESAnLCnxuOUNGs63PKqGGFHP8YoKBuGyYTJ9Jj+wCg3ux7ox
+	 MDVOR0GgYtxEe3tiVEpqzn16Q/+B4gGKoX8KO+XOwgEyVy/VCOMEa8cMtR8Cy6Z7M9Q==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBTBekKe;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C955606A319;
-	Thu, 22 Oct 2026 19:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C955606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17427606A327;
+	Thu, 22 Oct 2026 19:15:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ti.com header.i=@ti.com header.a=rsa-sha256 header.s=proofpoint-05-2026 header.b=NVDpCk73;
-	dkim=pass (1024-bit key, unprotected) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-ticloud-onmicrosoft-com header.b=QcD/2XPT
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 69MHsXHd827035;
-	Thu, 22 Oct 2026 14:15:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=llb4UFvN+MUQ0
-	myGE95Y8ZVSSd69f0sodbZNxF+j3b4=; b=NVDpCk73eAIx/Zq1j2s1H1c1rZw1k
-	l38rCyULh9X7VQzjyCUQ7w1Gg2tkAHcsvKwBPxslVNHNmWJTybY2c9G0K+jpqt8W
-	YkgD90MEL1Q6Vy+pQHgfnL2DUNoFSsKSb0KLJZu85Oo8M3mE6KjMJRwxl/qjERnP
-	VLuE44xGHw6Er3UlfQLTtRO2iiCTcl+S5nizWVfT3XkyJUfhKOfDtlbVIVhdlSHv
-	2JGZ9Qz5i8vC7CgknTv9TQSlEYjuTngolBVRT/oFqumcQt+zHjCqeauCQPjOPlNh
-	VqgVxaWHNlXeOpTRV4KlwgDk+jms0vWXMOU2izvvRI4oD6+o8n8CAr20g==
-Received: from ph7pr06cu001.outbound.protection.outlook.com (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4hfmg21rc8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 14:15:23 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ILWokNX/G8p7fu8SLaqZtS302DofELTho8FQJ1+4FeXlcB9KQgUc2QPb3nUo/R0uEpuwWeSMGd6iHkQFHe/QTpXl+BykzroNfn+mZKG9bmWKXb4NAE7pvwPK7JPYiNbuj/YZWDH2e/V4rLH1pWVJ+AKFaHoIL3sNaDHQgOwd7kFcck3TWzhiEEDzxOmgFvadLJ2UjTnuwZI3biO8QMgiy8WJV/97RbvZrizGPeHfGMtLTLfrfxeNvyOYyLBNBoL7MGlTvuk311IZR8Z93EO8AvgjC2bhxwUn4h/6ovWelAyloi0Do0T2fwZjvulZXoE0fBUMiNKC6g0Ska/ZlYIBLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=llb4UFvN+MUQ0myGE95Y8ZVSSd69f0sodbZNxF+j3b4=;
- b=NuSlPs50BF+wp84XJj5zwaqxrW6F96m1MEJBJVK1HbMbygOGiJ1GT5V2widUOsX3qJ+wLH+FMD5waXxvmkC3Hu7sznFYxra7V0O5QFC6Pj80l29vcA5N6MccTvVRVJjsmRR91lYuCzC2H4BViLQqKOOIQzW8xoIupavu9Tn411WB4M/yEmEaQZ6vtCiE0EzCoMxR5lkjfaOUDBXjlPmSiX5aG3xnWoSfDXI42e42Yglb+1ExFUqYMAI92nVqZST8WUVkLfqCSpFS2lO8Z1kxOOcr6p6huVUgO9QRx24FdKkjcXQVzSgx1JV0iJ66yJkIR+yuDT4Y6mjnQG7AIHXWIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=llb4UFvN+MUQ0myGE95Y8ZVSSd69f0sodbZNxF+j3b4=;
- b=QcD/2XPT6g/YJtN+qfUJes9K6a3TVnuvPEiBGFB/HF90qfkWh0M6t29ba0GvpUwbJfsTR5HhdmX3yvyIj1kTxr08TSHWSKmezQKAiZcVck1mibYw66FxcZ17wR0/1hjujrFucDD0ESbOy/slOJsAxpe2r1GILZn79O47EsLqwHU=
-Received: from SJ0PR13CA0196.namprd13.prod.outlook.com (2603:10b6:a03:2c3::21)
- by SA3PR10MB6969.namprd10.prod.outlook.com (2603:10b6:806:316::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 19:15:21 +0000
-Received: from MW2PEPF00014674.namprd04.prod.outlook.com
- (2603:10b6:a03:2c3:cafe::42) by SJ0PR13CA0196.outlook.office365.com
- (2603:10b6:a03:2c3::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.3 via Frontend Transport; Thu, 22
- Oct 2026 19:15:21 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 198.47.23.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- MW2PEPF00014674.mail.protection.outlook.com (10.167.249.181) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 19:15:20 +0000
-Received: from DLEE211.ent.ti.com (157.170.170.113) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
- 2026 14:15:05 -0500
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE211.ent.ti.com
- (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 22 Oct
- 2026 14:15:05 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Thu, 22 Oct 2026 14:15:05 -0500
-Received: from b-brnich.dhcp.ti.com (b-brnich.dhcp.ti.com [128.247.75.1])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69MJF5iU989659;
-	Thu, 22 Oct 2026 14:15:05 -0500
-From: <b-brnich@ti.com>
-To: <devarsht@ti.com>, <mchehab@kernel.org>, <hverkuil@kernel.org>,
-        <nicolas.dufresne@collabora.com>, <benjamin.gaignard@collabora.com>,
-        <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <b-brnich@ti.com>
-Subject: [PATCH v5 0/4] E5010 Probe Cleanup and Adding autosuspend
-Date: Thu, 22 Oct 2026 14:14:59 -0500
-Message-ID: <20261022191503.1025072-1-b-brnich@ti.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JBTBekKe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DC1C1F01825;
+	Thu, 22 Oct 2026 19:15:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792696537;
+	bh=OYbVSiq9gMoCoikDWdvSWgHNA/JlaBVavasL/SrwvaY=;
+	h=From:To:Cc:Subject:Date;
+	b=JBTBekKeEGyEtBw7bZtgGZqml/ddgutWegWtHvzcSZAc9XtSZVZVZetUGIg1mtDh6
+	 53lCVBa+jronbCP7ZVJFpZFU8GGWDEkWKvz0LkqHuQ9CggbNIMM4l3EU4X5/op9l28
+	 M915CfwHJYhvZJF80p8PeVbHI4o50g9mSSw9l+3C0DZVX7/k0IpTMh11/jzKeHZCfb
+	 LlyPg7QXBYhTPSYGh5iXuGJ3HGWSzaBVgzoZwfZpnVV1iYMzNSyCqp/eajpOTJI/do
+	 milzSpMp3QzSCA1rNVyS2ylY8S+JFDVwV3o/XexBbJCsQFF4PcLO0vzQk7B6CzXHN1
+	 z6/oXRK/gP2hQ==
+From: Chuck Lever <cel@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Jeff Layton <jlayton@kernel.org>,
+	<linux-nfs@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [GIT PULL] NFSD changes for v7.4
+Date: Thu, 22 Oct 2026 15:15:30 -0400
+Message-ID: <20261022191536.3094786-1-cel@kernel.org>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -138,121 +57,401 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW2PEPF00014674:EE_|SA3PR10MB6969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d1e89b2-7193-4881-02a5-08df3070d102
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|18002099003|261022105027099003|13003099007|261009223027099003|261021135927099003|261021123027099003|261021121427099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ehwHfrAHISdRybJ4ioj3wXRf2eoL06c+etDN/YgAQF0m2jlzMAyeQGYdWHJBJthA7gOs4VTqTG4LeMqaagF632LZPgPWuotfrj/x64qGF1aoADYalIsg9IpC5cQvbBVwLgA1Z1/95fS1gRmBW01G+QUrcKX3AZAkk9kHRUVLYk5gQgZhrrMjtk1t8T170jIgyyc+eci9Y8GUTnZRnuPMB49frCXvh5U24ExQWiO1DTL98lxn1lmBGIhfT3TefSdKScrQL/5AIJxOPPgBUgob5Ro8T6qkLoMHX365nJBH0KuoZrw/DwTV/poRV6tAfdZw2PRWI7dvLc9goUpYeQr5Aojp1rN3tIMRpwYGegZW4D502WKBCGcimxGNaT5TBSZzHgBytIN8+JO6l+thQVgr84FlwwR7wxLylgNECZCxbzjdywJY5DHoqlvEdEjoPkf0ZDqUDHJyNt5z3osSFZJKHmNqDYaYdDc7s3G61R2ZY7GaRcdZrSPxT+AtnLZjNQS9Geyu2+U9l7Xy0aOb4SWuuBALZ/PEyLVidOSdVjhO6cDzAcb4J3hc+1o/4EyWJb9GzlRSjn+zlD7wKK8MHElggnWuq03AxrvzuS2lEerRWXFN0DHLikj/34ezH1q+PYwkATS3mw6D2Cey7obzPQN4zuKxr7mm2XOO91PUNZ3UReA=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(18002099003)(261022105027099003)(13003099007)(261009223027099003)(261021135927099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bPa3ezJOurp/pvuDEeTSOWPNmQxOTs21gGlqm1Bp7j224MrbhRVNxC33sb6OD5h71o5BY3Gc5ycUTS17PpI9EzkNcOBpaeISlVBef7CTg76L6nnQf1TYcbCNVT5cKadrNUMI+fcYcEPH0IQp1hzitC6Xe310D0zY22OS4FVOXcX9uJgDabw+iKEHeLs0tWlqaaf1OIC8R+5Vb6pk2JxQiewgHi+8lVPUrT0XoSRI+XnapMPlnr7XGihWLpumJChriTMdXwLc0EUDf9F3qswiJIMe+uhC8ZexoWLj2kcnEo9b1HbXHnjMacUzSqNC+xqtbRWyyADM++1ZPIaYlSP+OHwp/EZfm4oDNQfe545kP+01knBQz2Fjma0GY5MeGlD9GKIJLQAicH8bOiAh0mh0uqVDoV3j1IYzKqkipLqxJ8f7BhezQvswt1YAyFUwJ2jo
-X-Exchange-RoutingPolicyChecked:
-	A16IBl8Fpn7ayMqBZ4oWo7F81XwGYSMiUDG0kj+9GW3a273MJilvZs3rxUaYyfHTxzO3FSRZ4EcQC1JFFn8nED/9I3J0YbZhI2lLYLxxEoXOnxe5jru7NnCInC9ZjuWpNmGFEuYl41kj1B5rAFs90MmT/lqZHCD/The/Q2mMQnm1cNNp5M+cJG2/lt/aDUJVP5dbesNJwOBFv+GgfMJKYuk2s2D3O+Geg2XTUxwSvXpJzi8d998I/zW0a2OoFvlzIu6b/qdNR4kYsQAj1GM/3lUy11eghygwrFfh0A+MnPERvibx1iIVYfql26cKXCol/5D7sIVq6o0+EEX9X4o1NA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 19:15:20.9570
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d1e89b2-7193-4881-02a5-08df3070d102
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MW2PEPF00014674.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR10MB6969
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA3NiBTYWx0ZWRfX78+cSM4c+hCr
- CdKdpiKMf42x/qrCvxH0QjWsymUKOBk1oLIhn6Y+bWpAIv+pGcz12zzTccFB5bQLsX4mNe+cZHK
- HCf4QTpBr0jELLKfEee6ukDB/krT/9U=
-X-Proofpoint-ORIG-GUID: p5I6uZThKKXEMp9jiHYuHjyySJWZ2s-6
-X-Authority-Analysis: v=2.4 cv=XISl2ghE c=1 sm=1 tr=0 ts=6ada60cc cx=c_pps
- a=f0OpuPnQRmDrWRgsA3vZMw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10
- a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=sozttTNsAAAA:8
- a=3KFijOh3VjW_D7tkKcMA:9
-X-Proofpoint-GUID: p5I6uZThKKXEMp9jiHYuHjyySJWZ2s-6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA3NiBTYWx0ZWRfX33hobLH6le08
- EbvS2hhycvRvdOQqoZaYsIX9xfYiGwqQ08/41cWsZuDIP6Y8hYIIhawk3fYwgn46INeZ/ZTNkz4
- z8JOkl+e7EcZ1ikdiJNBLW0e91NQJcvXJgUiCn9Ez2KKjIiYdC1ZykZsaoN8Es7e2b7C9wjjxRC
- cRIL60/JRXOYuNAKJPsnLZShW52r/j4yQfrLYOD/EwJLzQejN9QLIYAwhB2YlKVO4PD8TsAMySy
- Es7+t/MpNhwhxXXiIvCrK/Qfx09ZUcxKK7FxBo5C9DP9CUHRYGbO2+c7T9+QVWQouIHi8tOv6Ld
- 2+BYOI1O27eWQfriLTH1mL6QJffbiIIgF9HF8C3cUBZPP3KHO/8RyCOP8gmawvf0Nc54Nc0oAvl
- PIUWY13vMdNjRgZtaVKH76YTi7dKOdeX1UsshBxi1XoDBnmZs79YcMJiArO+ITZVqNu392HBkTR
- TXGZ7bYQTRdPRds7A2g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015
- impostorscore=0 suspectscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220076
 
-From: Brandon Brnich <b-brnich@ti.com>
+The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
 
-Hello all,
+  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
 
-I noticed a report from the intel bot[0] which pointed out a valid issue
-with the driver never calling e5010_init_device unless CONFIG_PM was
-enabled. 
+are available in the Git repository at:
 
-While looking at probe though, I noticed that the clk_enable was never
-properly called. That has now been fixed with a proper remove path as
-well.
+  https://git.kernel.org/pub/scm/linux/kernel/git/cel/linux.git tags/nfsd-7.4
 
-Lastly, I cleaned up the goto jumps in probe to fix an issue where the
-m2m_dev wasn't being freed.
+for you to fetch changes up to eafb6de800781f0a1be5cdd98d150620041d8b27:
 
-Changes since v4:
+  SUNRPC: use assign_bit() where applicable (2026-10-11 23:13:07 -0400)
 
-- Change authorship of patch 1 since Myeonghun sent a similar patch
-  first
-- addressed Devarsh's comments in Patch 1 to follow similar naming
-  structure as rest of probe function
-- Moved the clk_enable call after pm_runtime_enable here so I can check
-  success of that call. If runtime pm is enabled then don't enable the
-  clock here
-- Patch 3 no changes
-- Patch 4 I added the macro requested by Devarsh instead of using magic
-  number
-- failure to power on now goes through the existing no_ready_buf_err path,
-  so buffers are marked as error and the job is finished
+----------------------------------------------------------------
+NFSD 7.4 Release Notes
 
+Jeff Layton extended the netlink listener-set operation so that a
+management daemon can register NFSD's programs with rpcbind itself.
+This prevents an unresponsive rpcbind from stalling NFSD adminis-
+tration for a minute at a time.
 
-Changes since v3:
+Bulk delegation recall now adjusts the number of delegations it
+wants returned, based on memory pressure. The previous mechanism
+was spec-conformant, but it requested all delegations to be
+returned at once. Clients are free to return few or none in such
+cases, but requesting smaller batches of delegations is more
+neighborly.
 
-  - patches 1 and 2 are new in v4
-  - patch 3 remains unchanged
-  - patch 4
-      > updated goto to match changes in patch 1
-      > update PM calls in probe
+In preparation for handling TLS KeyUpdate, the server's TCP receive
+path has been reworked to handle control records. In the process,
+the use of sock_recvmsg was replaced with ->read_sock, which contends
+less with other holders of the socket lock.
 
-Best,
-Brandon
+NFSv2 XDR code is now generated by xdrgen, which mechanically
+generates the encoders and decoders from the RPC language
+specification for the protocol. Replacing hand-built XDR code
+makes prototyping new protocol elements faster, reduces errors, and
+improves memory safety. Replacement of XDR code for newer NFS
+versions will continue in subsequent releases of NFSD.
 
-[0]: https://lore.kernel.org/oe-kbuild-all/202608140323.qyc8mKlp-lkp@intel.com/
+The remaining bulk of changes in v7.4 is bug fixes, clean-ups, and
+small optimizations. Sincere thanks to all contributors, reviewers,
+testers, and bug reporters who participated in the v7.4 NFSD
+development cycle.
 
-Brandon Brnich (3):
-  media: imagination: e5010: Fix clk never enabled without CONFIG_PM
-  media: imagination: e5010: Move e5010_init_device to Runtime Resume
-    Hook
-  media: imagination: e5010: Enable autosuspend for runtime PM
+----------------------------------------------------------------
+Aldo Ariel Panzardo (5):
+      nfsd: propagate SETXATTR value decode errors
+      NFSD: copy SETXATTR data from all XDR buffer segments
+      nfsd: zero NFSv4 COMPOUND tag padding
+      nfsd: clear XDR padding in GETXATTR replies
+      nfsd: use xdr_encode_opaque_fixed for all GETXATTR fragments
 
-Myeonghun Pak (1):
-  media: imagination: e5010: release m2m device on probe failure
+Ameer Hamza (4):
+      nfsd: fix race between client_info_show() and free_client()
+      sunrpc: treat empty auth.unix.gid replies as negative entries
+      sunrpc: honor the netlink unix_gid NEGATIVE flag
+      nfsd: don't modify a session slot when replaying its cached reply
 
- .../platform/imagination/e5010-jpeg-enc.c     | 86 +++++++++++--------
- .../platform/imagination/e5010-jpeg-enc.h     |  1 +
- 2 files changed, 52 insertions(+), 35 deletions(-)
+Cen Zhang (Microsoft Security FORGE Labs) (1):
+      nfsd: hold cl_lock in client_has_openowners()
 
--- 
-2.43.0
+Chris Mason (1):
+      sunrpc: pin gss module across auth_domain RCU free
 
+Chuck Lever (124):
+      NFSD: Move XDR encoding helpers out of xdr4.h
+      NFSD: Move pre-xdr'ed status codes out of nfsd.h
+      NFSD: Remove two unused NFSv4 constants
+      NFSD: Relocate NFSv4-internal constants to state.h
+      NFSD: Evacuate NFSv4 entry-point prototypes from nfsd.h
+      NFSD: Move nfsd_v4client() out of nfsd.h
+      NFSD: Map flex file layout IDs through the request's user namespace
+      NFS: Add linux/nfs_fh.h
+      lockd: Switch linux/nfs.h to linux/nfs_fh.h
+      NFSD: Use struct knfsd_fh in struct pnfs_ff_layout
+      nfs_common: Remove unused nfs_ssc_client_ops infrastructure
+      NFSD: Hoist nfs42_ssc_open() into fs/nfs_common/nfs_ssc.c
+      nfs_common: Synchronize access to the SSC client ops table
+      NFSD: Split linux/nfs_ssc.h
+      NFS: Move definition of enum nfs3_stable_how
+      NFSD: Replace nfsd_write()'s "stable" argument with "iocb_flags"
+      NFSD: Move the RPC program definition for LOCALIO
+      nfs_common: Remove "#include <linux/nfs.h>" from linux/nfslocalio.h
+      NFSD: Tighten header includes in localio.c
+      NFSD: Name the fh_maxsize value that carries no NFS version
+      NFSD: Don't apply NFS version-specific behavior to LOCALIO requests
+      NFSD: Budget the CB_SEQUENCE opcode and referring call array count
+      NFSD: Budget the CB_RECALL truncate field
+      NFSD: Budget the CB_LAYOUTRECALL recall stateid
+      NFSD: Budget the CB_OFFLOAD opcode
+      NFSD: Budget the CB_NOTIFY_LOCK opcode
+      NFSD: Budget the CB_RECALL_ANY opcode
+      NFSD: Correct locking documentation for delegation sc_status
+      NFSD: Destroy a recalled delegation the client does not hold
+      NFSD: Send referring calls with CB_RECALL
+      NFSD: Point contributors and sashiko.dev to the nfsd-testing branch
+      SUNRPC: Do not credit control-record octets to the RPC stream
+      SUNRPC: Reject a TLS alert record that is not two octets
+      SUNRPC: Treat every TLS error alert as fatal
+      SUNRPC: Resume receiving after a TLS control record
+      NFSD: Replace NFS3_ACCESS_FULL in nfsd4_access()
+      NFSD: Move version-specific ACCESS maps into per-version code
+      NFSD: Make the write verifier reset helper available outside vfs.c
+      NFSD: Move NFSv4-specific CLONE logic into nfsd4_clone()
+      NFSD: Remove xdr-related headers from fs/nfsd/vfs.c
+      SUNRPC: Reject a socket that already has an svc_sock attached
+      NFSD: Fail a pool_threads read whose reply does not fit
+      nfsd: set op->status when an operation's header cannot be encoded
+      NFSD: Do not send CB_RECALL_ANY to NFSv4.0 clients
+      NFSD: Count the delegations held by each client
+      NFSD: Name directory delegations in the CB_RECALL_ANY type mask
+      NFSD: Send a meaningful CB_RECALL_ANY keep count
+      NFSD: Count delegations per network namespace
+      NFSD: Give delegations their own state shrinker
+      NFSD: Pace the state shrinker's scan requests
+      NFSD: Apportion CB_RECALL_ANY recalls among clients
+      NFSD: Move the nfs3.h include out of nfsd.h
+      NFSD: Include <linux/nfs_fh.h> where struct nfs_fh is used
+      NFSD: Clean up header guards in fs/nfsd/xdr.h
+      NFSD: Resolve the recall-any mask names in the trace format
+      SUNRPC: Separate the TLS control-record receive from its policy
+      SUNRPC: Close the transport on an unhandled TLS record type
+      SUNRPC: Flush a received record's pages once it is complete
+      SUNRPC: Receive RPC records with ->read_sock
+      SUNRPC: Bypass sock_recvmsg() for the TLS control-record receive
+      lockd: Fix use-after-free in nlmsvc_retry_blocked
+      lockd: Serialize block retries against host teardown
+      NFSD: Fix out-of-bounds read in the rpc_status dump
+      NFSD: Fix POSIX ACL leak in unexecuted NFSv4 COMPOUND operations
+      NFS: Import NFS3ERR definitions
+      NFSD: Rework be32 nfserr definitions
+      NFSD: Replace the use of include/trace/misc/nfs.h
+      svcrdma: Grant credits from the clamped sc_max_requests
+      svcrdma: Clear XPT_DATA when the last receive context is consumed
+      SUNRPC: Skip xpt_reserved accounting for non-UDP transports
+      NFSD: Return NFSERR_ISDIR for NFSv2 READ and WRITE on a non-regular file
+      NFSD: Don't complete a cld upcall the daemon has not read
+      NFSD: Move the cld upcall message out of the caller's stack frame
+      NFSD: Complete a cld upcall when copying its reply fails
+      NFSD: Reject an oversized principal hash from nfsdcld
+      pnfs/blocklayout: Complete a device upcall only on its own reply
+      NFSD: Set nn->cld_net before registering the cld pipe
+      NFSD: Complete a cld upcall when the daemon closes the pipe
+      pnfs/blocklayout: Complete a device upcall when the pipe is closed
+      SUNRPC: Copy the deferred RPC Call from the head buffer
+      NFSD: return NFS4ERR_EXIST for a guarded OPEN of a non-regular object
+      SUNRPC: Carry a generated-codec context pointer in struct xdr_stream
+      SUNRPC: Bind the svc_rqst to its XDR streams
+      SUNRPC: Add svcxdr_encode_opaque_payload()
+      xdrgen: Pass the containing struct name to member codec emitters
+      xdrgen: Add a "pragma pages" directive
+      SUNRPC: Add svcxdr_decode_opaque_payload()
+      xdrgen: Extend the pages directive to page-resident arguments
+      xdrgen: Add hook-driven aggregate codec for variable-length arrays
+      xdrgen: Extend the aggregate codec to optional-data list members
+      xdrgen: Stream optional-data aggregate lists during encode
+      xdrgen: Reject a "pragma pages" union arm declared as an opaque
+      xdrgen: Report unsupported client-side directives without a traceback
+      xdrgen: Document that aggregate members of a struct share an element type
+      xdrgen: Update the aggregate_members comment for optional-data lists
+      NFSD: map fh_verify() status codes for NFS_ACLv2 replies
+      NFSD: map fh_verify() status codes for NFS_ACLv3 replies
+      Documentation: Add the RPC language description of NFSv2
+      NFSD: Add infrastructure for generating NFSv2 XDR encoders and decoders
+      NFSD: Use xdrgen-generated NFSv2 protocol definitions
+      NFSD: Remove '#include "xdr.h"' from fs/nfsd/xdr3.h
+      NFSD: Relocate the NFSv2 XDR storage union into nfsproc.c
+      NFSD: Use xdrgen XDR functions for the NFSv2 NULL procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 GETATTR procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 SETATTR procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 ROOT procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 LOOKUP procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 READLINK procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 READ procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 WRITECACHE procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 WRITE procedure
+      NFSD: Refactor nfsd_proc_create()
+      NFSD: Use xdrgen XDR functions for NFSv2 CREATE procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 REMOVE procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 RENAME procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 LINK procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 SYMLINK procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 MKDIR procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 RMDIR procedure
+      NFSD: Use xdrgen XDR functions for the NFSv2 STATFS procedure
+      NFSD: Use xdrgen XDR functions for NFSv2 READDIR arguments
+      NFSD: Add a streaming directory reader
+      NFSD: Refactor NFSv2 directory cookie encoding
+      NFSD: Use xdrgen XDR functions for NFSv2 READDIR results
+
+David Flynn (1):
+      nfsd: fetch direct I/O alignment for files handed to the filecache
+
+Jeff Layton (23):
+      nfsd: pass caller-provided attrmask storage into nfsd4_setup_notify_entry4()
+      nfsd: back CB_NOTIFY notify_mask words with per-delegation storage
+      NFSD: cap the number of listeners accepted in listener_set
+      NFSD: validate transport name in listener_set before serv creation
+      SUNRPC: keep the first error in svc_register()
+      SUNRPC: bound the local rpcbind client timeout to 1s
+      NFSD: report listener creation failures through extack
+      SUNRPC: report local rpcbind calls that get no answer
+      SUNRPC: stop svc_register() once rpcbind stops answering
+      SUNRPC: stop the svc_unregister() sweep once rpcbind stops answering
+      SUNRPC: stop unregistering listeners once rpcbind stops answering
+      NFSD: stop registering with rpcbind after a failure in listener_set
+      selftests/nfsd: exercise listener_set request validation
+      selftests/nfsd: add a per-netns rpcbind stub and the listener round-trips
+      selftests/nfsd: check that listener_set asks rpcbind once
+      selftests/nfsd: check that listener removal asks rpcbind once
+      nfsd: don't offer flexfiles layouts when NFSv3 isn't being served
+      nfsd: shorten extack string returned with dodgy listener
+      SUNRPC: allow a service to opt out of rpcbind registration
+      NFSD: add a userspace-rpcbind flag to listener_set
+      NFSD: honour the userspace-rpcbind flag in listener_set
+      NFSD: report registerable programs in the listener_set reply
+      selftests/nfsd: exercise the userspace-rpcbind listener_set flag
+
+Jérémy Jean (2):
+      nfsd: preflight SEQUENCE replies before accepting a slot
+      SUNRPC: fix oversized GSS proxy token copy
+
+Karl Mehltretter (2):
+      NFSD: docs: Fix pNFS SCSI Kconfig symbol
+      svcrdma: Fix svc_rdma_recv_cid_init() kernel-doc
+
+NeilBrown (17):
+      nfsd: honour client-provided attributes for NFS4_CREATE_EXCLUSIVE4_1
+      nfsd: move check_nfsd_access() call into nfsd_cross_mnt()
+      nfsd: correctly handle CREATE of mounted-on files
+      nfsd: replace fh_fill_both_attrs() with fh_fill_post_noop()
+      nfsd: move fh_want_write() after preamble in nfsd4_create_file()
+      nfsd: move more nfs-specific code into preamble of nfsd4_create_file()
+      nfsd: remove subtlety from nfsd4_create_file()
+      nfsd: in nfsd4_create_file() let VFS report if file was created.
+      nfsd: nfsd4_create_file(): Move NFSD_MAY_CREATE check earlier
+      nfsd: fh_want_write) failure need not be immediately fatal for nfsd4_create_file()
+      nfsd: (almost) always open file in nfsd4_create_file()
+      nfsd: reduce range of directory lock in nfsd4_create_file()
+      nfsd: open-code nfsd4_vfs_create() into nfsd4_create_file()
+      nfsd: move some code out of the d_really_is_negative() branch in nfsd4_create_file()
+      nfsd: reduce want-write range in nfsd4_create_file()
+      nfsd: move v0 checking out of nfsd_check_obj_isreg()
+      nfsd: separate out VFS-specific code from nfsd4_create_file()
+
+Peng Fan (1):
+      SUNRPC: use assign_bit() where applicable
+
+Wentao Liang (1):
+      nfsd: Fix id-to-name cache entry leak in idtoname_parse()
+
+Zhiling Zou (1):
+      SUNRPC: trace an accepted transport before publishing it
+
+Zijing Yin (1):
+      SUNRPC: fix netns use-after-free in write_gssp()
+
+ Documentation/admin-guide/nfs/pnfs-scsi-server.rst |    2 +-
+ Documentation/netlink/specs/nfsd.yaml              |   55 +-
+ Documentation/sunrpc/xdr/nfs2.x                    |  254 +++
+ MAINTAINERS                                        |    4 +-
+ fs/lockd/svc.c                                     |    1 -
+ fs/lockd/svclock.c                                 |   33 +-
+ fs/lockd/trace.h                                   |    1 -
+ fs/lockd/xdr.h                                     |    2 +-
+ fs/namei.c                                         |    2 +
+ fs/nfs/blocklayout/blocklayout.h                   |    5 -
+ fs/nfs/blocklayout/rpc_pipefs.c                    |   79 +-
+ fs/nfs/netns.h                                     |    5 +-
+ fs/nfs/nfs4file.c                                  |    1 +
+ fs/nfs/super.c                                     |   25 -
+ fs/nfs_common/common.c                             |    5 +-
+ fs/nfs_common/nfs_ssc.c                            |  126 +-
+ fs/nfsd/Makefile                                   |   15 +-
+ fs/nfsd/blocklayout.c                              |    1 +
+ fs/nfsd/blocklayoutxdr.c                           |   11 +
+ fs/nfsd/export.c                                   |    8 +-
+ fs/nfsd/export.h                                   |    3 +-
+ fs/nfsd/filecache.c                                |    5 +-
+ fs/nfsd/flexfilelayout.c                           |   24 +-
+ fs/nfsd/flexfilelayoutxdr.c                        |    9 +-
+ fs/nfsd/flexfilelayoutxdr.h                        |    8 +-
+ fs/nfsd/localio.c                                  |   10 +-
+ fs/nfsd/lockd.c                                    |    5 +-
+ fs/nfsd/netlink.c                                  |    5 +-
+ fs/nfsd/netns.h                                    |   17 +-
+ fs/nfsd/nfs2acl.c                                  |   66 +-
+ fs/nfsd/nfs2xdr_gen.c                              | 1079 ++++++++++++
+ fs/nfsd/nfs2xdr_gen.h                              |   46 +
+ fs/nfsd/nfs3acl.c                                  |   16 +
+ fs/nfsd/nfs3proc.c                                 |   79 +-
+ fs/nfsd/nfs3xdr.c                                  |    6 +
+ fs/nfsd/nfs4acl.c                                  |    1 +
+ fs/nfsd/nfs4callback.c                             |    8 +-
+ fs/nfsd/nfs4ctl.h                                  |   83 +
+ fs/nfsd/nfs4idmap.c                                |    5 +-
+ fs/nfsd/nfs4layouts.c                              |    5 +-
+ fs/nfsd/nfs4proc.c                                 |  475 +++---
+ fs/nfsd/nfs4recover.c                              |   92 +-
+ fs/nfsd/nfs4state.c                                |  587 ++++++-
+ fs/nfsd/nfs4xdr.c                                  |  227 ++-
+ fs/nfsd/nfscache.c                                 |    1 +
+ fs/nfsd/nfsctl.c                                   |  323 +++-
+ fs/nfsd/nfsd.h                                     |  243 +--
+ fs/nfsd/nfserr.h                                   |  159 ++
+ fs/nfsd/nfsfh.c                                    |   73 +-
+ fs/nfsd/nfsfh.h                                    |   33 +-
+ fs/nfsd/nfsproc.c                                  | 1597 ++++++++++++------
+ fs/nfsd/nfssvc.c                                   |   74 +-
+ fs/nfsd/nfsxdr.c                                   |  606 ++-----
+ fs/nfsd/state.h                                    |   46 +-
+ fs/nfsd/trace.h                                    |   45 +-
+ fs/nfsd/vfs.c                                      |  537 +++---
+ fs/nfsd/vfs.h                                      |   79 +-
+ fs/nfsd/xdr.h                                      |  173 +-
+ fs/nfsd/xdr3.h                                     |    5 +-
+ fs/nfsd/xdr4.h                                     |  156 +-
+ fs/nfsd/xdr4cb.h                                   |   20 +-
+ include/linux/nfs.h                                |   55 +-
+ include/linux/nfs3.h                               |   43 +
+ include/linux/nfs4.h                               |    6 +
+ include/linux/nfs_common.h                         |    4 +-
+ include/linux/nfs_fh.h                             |   63 +
+ include/linux/nfs_ssc.h                            |   69 +-
+ include/linux/nfsd_ssc.h                           |   38 +
+ include/linux/nfslocalio.h                         |   11 +-
+ include/linux/sunrpc/clnt.h                        |    3 +-
+ include/linux/sunrpc/svc.h                         |   95 +-
+ include/linux/sunrpc/svc_rdma.h                    |    2 +-
+ include/linux/sunrpc/svc_xprt.h                    |    5 +-
+ include/linux/sunrpc/xdr.h                         |    1 +
+ include/linux/sunrpc/xdrgen/_defs.h                |   34 +
+ include/linux/sunrpc/xdrgen/nfs2.h                 |  298 ++++
+ include/trace/misc/nfs.h                           |   13 +-
+ include/uapi/linux/nfsd_netlink.h                  |   20 +
+ net/sunrpc/auth_gss/svcauth_gss.c                  |   29 +-
+ net/sunrpc/rpcb_clnt.c                             |   34 +-
+ net/sunrpc/svc.c                                   |   72 +-
+ net/sunrpc/svc_xprt.c                              |   83 +-
+ net/sunrpc/svcauth_unix.c                          |    9 +
+ net/sunrpc/svcsock.c                               |  508 +++---
+ net/sunrpc/xdr.c                                   |    3 +
+ net/sunrpc/xprtrdma/svc_rdma_recvfrom.c            |   18 +-
+ net/sunrpc/xprtrdma/svc_rdma_transport.c           |    3 +-
+ tools/net/sunrpc/xdrgen/README                     |  154 +-
+ tools/net/sunrpc/xdrgen/generators/pointer.py      |   68 +-
+ tools/net/sunrpc/xdrgen/generators/struct.py       |  203 ++-
+ tools/net/sunrpc/xdrgen/generators/union.py        |   69 +-
+ tools/net/sunrpc/xdrgen/grammars/xdr.lark          |    2 +
+ tools/net/sunrpc/xdrgen/subcmds/source.py          |   19 +-
+ .../templates/C/pointer/decoder/pages_opaque.j2    |    6 +
+ .../templates/C/pointer/definition/pages_opaque.j2 |    5 +
+ .../templates/C/pointer/encoder/pages_opaque.j2    |   10 +
+ .../C/struct/declaration/aggregate_hooks.j2        |   14 +
+ .../templates/C/struct/decoder/aggregate_array.j2  |   33 +
+ .../C/struct/decoder/aggregate_optional.j2         |   10 +
+ .../templates/C/struct/decoder/pages_opaque.j2     |    6 +
+ .../templates/C/struct/definition/pages_opaque.j2  |    5 +
+ .../templates/C/struct/encoder/aggregate_array.j2  |   37 +
+ .../C/struct/encoder/aggregate_optional.j2         |   29 +
+ .../templates/C/struct/encoder/pages_opaque.j2     |   10 +
+ .../templates/C/union/encoder/pages_opaque.j2      |   10 +
+ tools/net/sunrpc/xdrgen/xdr_ast.py                 |  506 ++++++
+ tools/testing/selftests/Makefile                   |    1 +
+ tools/testing/selftests/nfsd/.gitignore            |    1 +
+ tools/testing/selftests/nfsd/Makefile              |    6 +
+ tools/testing/selftests/nfsd/config                |   14 +
+ .../testing/selftests/nfsd/nfsd_netlink_listener.c | 1721 ++++++++++++++++++++
+ tools/testing/selftests/nfsd/settings              |    1 +
+ 112 files changed, 9312 insertions(+), 2813 deletions(-)
+ create mode 100644 Documentation/sunrpc/xdr/nfs2.x
+ create mode 100644 fs/nfsd/nfs2xdr_gen.c
+ create mode 100644 fs/nfsd/nfs2xdr_gen.h
+ create mode 100644 fs/nfsd/nfs4ctl.h
+ create mode 100644 fs/nfsd/nfserr.h
+ create mode 100644 include/linux/nfs_fh.h
+ create mode 100644 include/linux/nfsd_ssc.h
+ create mode 100644 include/linux/sunrpc/xdrgen/nfs2.h
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/pointer/decoder/pages_opaque.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/pointer/definition/pages_opaque.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/pointer/encoder/pages_opaque.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/declaration/aggregate_hooks.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/decoder/aggregate_array.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/decoder/aggregate_optional.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/decoder/pages_opaque.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/definition/pages_opaque.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/encoder/aggregate_array.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/encoder/aggregate_optional.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/struct/encoder/pages_opaque.j2
+ create mode 100644 tools/net/sunrpc/xdrgen/templates/C/union/encoder/pages_opaque.j2
+ create mode 100644 tools/testing/selftests/nfsd/.gitignore
+ create mode 100644 tools/testing/selftests/nfsd/Makefile
+ create mode 100644 tools/testing/selftests/nfsd/config
+ create mode 100644 tools/testing/selftests/nfsd/nfsd_netlink_listener.c
+ create mode 100644 tools/testing/selftests/nfsd/settings
