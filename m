@@ -1,59 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792627206;
-	b=uhsYzLqbDw8k+QhUz2B3UDVy6kMIV8rbs9Yb14M8eDGJPsTlgjP8lUHJgjIW12tx66nU
-	 gtRn6yDOE90RSNv+0Zz/DRRYHCkwJwIYFC0EfLIoHJJTY7e50FDt2nDgQ75BILP16Sb2S
-	 348Msg+6Xw1v/xQX5Ym3CG+JNeqN6yNmeMXzxBMmV9URv7dleeDOfBjwbn52ZP38rXiTr
-	 +MI6EQO0YhiN/jJTUMAbghgsjIA7aFeTWzGOCRzlCoPH9KYU2u0e1R5cmzdc9QoadNjqV
-	 1uHGzwGnyGLhDMMJDgGwQJ93boQVJYiLzGZi/MxGVrlU44q7TEDVzXmBvQl826ZKFSA==
+	t=1792627216;
+	b=ob3wMnLXEtm/6h809jNSMn4OeATRhVruNUuDUwPLdRYcq5ljoTx0FjHblSz4cl0m+Yey
+	 yCZXU8y2ErtfSPHxEkJgCEwfj2yXpOLbtt1b+ZSbH78vR3r8xw+hYiRRLbIblZgpLsAl5
+	 JcazIqC5QDoQ7d75sQ0QEqL7Aj6WoeQqm1Vg41r/O0h4hJFHkAao4mo7R1Faadbs5VZs4
+	 iqIboTeX7MCqTQIRJdQiFh2PIm0f7bpb2Ty3ZqyKv8V/AArzALcIXNJreFrXkZKnhd5WE
+	 YD2gQN4FFGnZsh4CbkKQWizinOC+Ht2KAjNrQ8fYcBNEfJMY+7JUsBlvaanbGXXDFPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792627206;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=vFMMIEZR5ZqyObdP64d3oDSzWnXF1pfF29ub6G+xXYo=;
-	b=DlIqE5uqqRuWQUtIzZ4kIzXi9nnbcjQJlIGuRRXX1bxD8OdnbhNnasVRWCIZHnXLhsay
-	 2p6E+gjwoHN7oRmPw3xNQnH5TjXv9Yq+lRqaUooGGwFXAaT5ATxvHRtIvIrqevRhY75/K
-	 twQdnuJjdJZ6OGZ/8HyAVtd3ASzuA17XfIIHtln2MTXLlXcxi9oEUaw0o1noj7L/0e7HU
-	 I81Wp/k/+8iRJt0kVyM7tDxliAFS7wpgmO8GEwrcQdMyQBIccbDiwmCr2eFLnwDUt21sT
-	 ST7uEkhpIM8ne2W65nNzx01g9DIpakIbleTSeDhPgPeKJLChhlPQWbxTUg9Bk+/9O3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792627216;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=YPuKNwql1HIbNGqoX33bMzSynPjwm2jO6JjQ4c2NRG0=;
+	b=lA2dT6NuGAy+350TEwFW2KUuMgBUbTzTL+41aUZOFvmQmhpoO2l/YvNMm7QEXIJm3h4Q
+	 6dJ+p8r0DvodXKcXM6hrakXHzANRfYQXoijvSe069rHB/xRPN2I/8gMl+xKPIZiTVHcWt
+	 h+NrQLy3BpVcSL2ol/cZelINCJM6yqQbQ7w+OsNVHz0kuwa9DREGIDHIgF4bbQ8WHKkoO
+	 UesbM+98FCGDs0fvjVAzdaLXzeXbiRbOE3JR5+fEtp3kZDXKBr1RghYKZTnMm9+nV6Lx8
+	 UvNqj6w0bFg4hhLzGOHmYy64pPssF47JkrbJzp2J2zWGNYMKbOVHYABQ1m1au05xlVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cBFeUdNT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SByisiU6;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D312606A31A;
-	Thu, 22 Oct 2026 00:00:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED03E606A324
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 00:00:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED03E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cBFeUdNT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 990A31F000C1;
-	Thu, 22 Oct 2026 00:00:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792627205;
-	bh=vFMMIEZR5ZqyObdP64d3oDSzWnXF1pfF29ub6G+xXYo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=cBFeUdNTLcNWXsVL30bdlV/Sw2o1XJuvHz3lwm+AYddfYDk1m9V3aHQXknU1YiRAl
-	 n7Nf/NuW4FRYISfS7jMUTa3IM1pQ5m1JstJq5hXAl5eVQLvoIqTflVWA0r4NR/RMRb
-	 9tIQ7e9BXPWbIHvWxRmBmQpyj4iMy+3kyNH9E3oglifK7KxngMlQI7ozSO/bFdjpVh
-	 kU1R9ERy5Bg/uYI8XqtKOac6PiFph6Ct/wCheQmOnQMgYuZl6nx8ekXALVNIGIso4O
-	 UDw1bt90UsBSTmxHd0sJ8dO6eqDIXITG7urJwqBsV4YBMHrQ/4VUW/zbStWL9MNtw3
-	 Gr77qPX0rDSBg==
-Subject: Re: [PATCH net v2 3/3] rxrpc: Fix RACK-TLP implementation
-From: netdev-bot+sashiko@kernel.org
-To: dhowells@redhat.com
-Cc: netdev@vger.kernel.org, marc.dionne@auristor.com, kuba@kernel.org,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
- jaltman@auristor.com, stable@vger.kernel.org
-Date: Thu, 22 Oct 2026 00:00:04 +0000
-Message-ID: <179262720415.3135.5535463489251782086@kernel.org>
-In-Reply-To: <20261020201258.290827-4-dhowells@redhat.com>
-References: <20261020201258.290827-4-dhowells@redhat.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=SByisiU6
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-702dedeb70dso772448eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 17:00:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792627215; x=1793232015; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YPuKNwql1HIbNGqoX33bMzSynPjwm2jO6JjQ4c2NRG0=;
+        b=SByisiU6fJXNb0cLpxl09Fm0k75RSzbkJ1LipdlzldJm2OfFf5NptDDfAGgYx44eVi
+         /RdV4DDervYxrUvnq4RYVhwKSxhXo9CU7eq2d2/sKCeizfqzCJmhT9xJb/BRxIVDxsvO
+         3ss+kBYwTLCV3FBcUHpjeUkO8cXcrRCAd7xEbgmoZEloRaWYYcigZNlc5eyIwYGXGL49
+         4gxLUKhYDe5qr1oVl5M4CfYbympkunrl1OVi7/ViSk+gXvB5kGoaikAxTZ/ZHLMdAee3
+         HwPoBjW6KqsWQaDgxHgO0UIGzNnSBEbhDU0736Edyaas5oW3fUAIlZUslQmuGFrYM1yZ
+         PvFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792627215; x=1793232015;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YPuKNwql1HIbNGqoX33bMzSynPjwm2jO6JjQ4c2NRG0=;
+        b=QsNymXNJb2f4G/tx7cFrUxftjadUClrisn3K4ar0GbR5sjZNHyDXqAouoIH6XvpC0/
+         26f62J5EDAuC+ncaiysqsz6mSDrkUS7yVHTKy4QeOK9N5obon80ZYxN5FtJmHdWQP1Ap
+         QuhTNfLIwNXllXMEhIo6NTE2o5bUXzceYnqf3s7TIN9MNcPqQhTIpj1aMzHz/5BA26WM
+         mo99Nr10WH7325esNCbpA/nhzw/AL5TfoAXw02bYdRBAMlV5qAOU380SERRF59FfGlJw
+         vgnQDrQAzz5aUQyv/r6hlZU/4PXxQWSatLrSbHnIPs+Og+HnSg8eQygmensFFJ9LCHTt
+         5qZg==
+X-Forwarded-Encrypted: i=1; AKwUvByhxI00CpMPqDSilVAgRCTw2JbHc7O9YJk6d9q7na73lPkRhjVbpQC1Nhy9sKoUKj4TreMGN1o/i4981Nk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIH3oqLtSiNqu7JUfu+rjzUvxdQ5L3kIiVjJ4Va12a7nT2QKK/0
+	3yP6+OK6nQhxxFmCHKDKCCFMfR6rHXLzeKmPIV7G/6PSL9KLVxuwQrXL
+X-Gm-Gg: AYBFou3zuoaw9NbRjTsDHcwXri/cil7ZY1YXRxXo3btdof8oqZvgY3HvyzH7A5DBHGe
+	Pd8DdzK5+JLviL0HjO+oa0+g9hS5QIXTJDrPWXJfVnc3aTPyihPhUVrPUUHFKgSsrYeqDYNzw/7
+	jglWbPMUIEyBaH5z8fGUZ92dGhiJFdUBNTLV3fArhEuJ/ZlrqpLCwH2ddJWF4H/1pbiqBWNEImu
+	a4x5OwAjQHCG+ZdaKfbRd5kDlyqpCDdGAbNZR32WwTI4Tp4SrvPB/wUYWn5K2nHkVDaWdDaSX5x
+	nWp72BSuBH1v6zNA6A3Qwr27YjVcqBscTcXsfQXGQKEAGBTevClGx2MM5FLL+FJrCuXiJHPA/vw
+	SLrbjKXIe5CpuC1ZX5Qkejg3rJC1svSdaz6Y+audZU40CTT9E5HGNXhfWCPl2AA+JOylsXyIcpU
+	HSHbG9HbYlEWiF0jyysO9B8qb2721DcI1A5LMjiC6FXqanEa9iPp48C27/cjJB7X8yVCqFWmYIo
+	DZj7yTNGTQgbELCkznAUN8fVzQkgH50uAYpmUhWxOX6KpoLHzPWxoCAkxAUXy0yV+9b3vb+uXcX
+	+opBF8RMXbNcOJDDLLk4BM3fDwCGpZMO/O0FRxtGwf7ljO+00RqCRy4SoW+mbU++xnAHBPU8Qdu
+	1riJ/+ACmonTWSWiPVmIQwdelt+i0pDFwzcHsJnXP0NJBztSVVLVQ2BSALfMzR1ICl8bJ1cPVlw
+	ouu7qe6LX8GuSMUDlbrhk1yh4Z
+X-Received: by 2002:a05:6820:c87:b0:6d2:a9c5:ec7a with SMTP id 006d021491bc7-7093fdbccf6mr2829070eaf.34.1792627214681;
+        Wed, 21 Oct 2026 17:00:14 -0700 (PDT)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84cbddc7100sm3710064a34.24.2026.10.21.17.00.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 17:00:14 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Wed, 21 Oct 2026 18:00:12 -0600
+Subject: [PATCH] i2c: mv64xxx: protect transfers against input clock
+ changes
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,255 +93,311 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261021-submit-i2c-mv64xxx-clock-v1-v1-1-959ea2aa3f90@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22PwW6EMAxEfwXl3KiJISHlV6o9OI4paQtsCYuQV
+ vvvNUuPvVgae+ZpfFeFl8xFddVdLbzlkudJhH2pFA04fbDOSbQCA94asLrc4phXnYH0uPlm33d
+ N3zN96c1qhyaFFiCC9UoI14X7vD/p75dTS/yTaT2QhyNiYR0XnGg4VmJY+Of1P/gfT843Kbme0
+ DNP8yiVuqphgto7MiFxbXzvwLujUO2Rexc8ROQUQ3qicKVBfusq7qltWpnovKmRjYuI9i0EkCy
+ nNjkSDU5dHo9fnKmpbC8BAAA=
+X-Change-ID: 20261021-submit-i2c-mv64xxx-clock-v1-5a0d8722b216
+To: Gregory CLEMENT <gregory.clement@bootlin.com>, 
+ Andi Shyti <andi.shyti@kernel.org>
+Cc: linux-i2c@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+The controller's timing divisor is calculated once at probe. On Allwinner
+H616 the input is APB2, which also supplies the UARTs. Changing that shared
+clock leaves I2C using its old divisor and can change SCL during an active
+transfer.
 
-Critical: 0 · High: 0 · Medium: 1 (2) · Low: 2
+Register an input clock notifier for DT-configured controllers. Calculate
+the prospective timing without modifying the current divisor, then try to
+acquire the adapter bus lock. A running transfer vetoes the change; an idle
+adapter keeps the lock through POST or ABORT so a new transfer cannot start
+between validation and the actual rate change. Do not wait for the bus lock
+under the clock framework lock: a transfer may be waiting there in runtime
+resume. Also reject a change while START or STOP is still pending in an
+active controller, since software completion can precede the physical STOP.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Publish the new packed divisor on POST and install it before the next
+transfer. Runtime resume reads the same cached word, so a suspended
+controller needs no register access from the notifier. Preserve the old
+timing on ABORT. Drain notifications before removing the adapter, whose
+device storage is cleared by i2c_del_adapter().
 
-- [Medium] Item (6) of the commit message describes a change that is not
-  in the patch.
-- [Low] Item (1) of the commit message says the "in/exiting Fast or RTO
-  recovery" flags, plural, move from rxrpc_ack_summary to rxrpc_call so…
-- [Low] In rxrpc_congestion_management() (net/rxrpc/input.c), the
-  RXRPC_CA_FAST_RETRANSMIT case sets call->cong_in_recovery = true (line…
+Keep platform-data controllers on their supplied fixed divisors because
+they do not provide the requested bus frequency needed for recalculation.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but
-  call->cong_in_recovery is documented as "If we're in Fast/RTO…
-- [Medium] This problem wasn't introduced by this patch, but the patch
-  rewrites the exact line involved.
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Based on i2c/i2c-next with the posted clock-abort fix [0]. The notifier
+holds the adapter lock between PRE_RATE_CHANGE and POST_RATE_CHANGE or
+ABORT_RATE_CHANGE, so an aborted parent change must deliver its matching
+ABORT notification.
 
---
+[0] https://lore.kernel.org/r/20261021-submit-clk-parent-abort-v1-v1-1-2936181822fc@gmail.com
+---
+ drivers/i2c/busses/i2c-mv64xxx.c | 137 +++++++++++++++++++++++++++++++++------
+ 1 file changed, 117 insertions(+), 20 deletions(-)
 
-I found five things worth raising on this patch. Two are about the commit message not matching the diff. One is a small state problem the patch introduces. Two are older bugs that this patch touches but did not cause, and those are labelled as such inline.
+diff --git a/drivers/i2c/busses/i2c-mv64xxx.c b/drivers/i2c/busses/i2c-mv64xxx.c
+index 1acba628e16c..e34998b74fdd 100644
+--- a/drivers/i2c/busses/i2c-mv64xxx.c
++++ b/drivers/i2c/busses/i2c-mv64xxx.c
+@@ -24,6 +24,7 @@
+ #include <linux/io.h>
+ #include <linux/of.h>
+ #include <linux/clk.h>
++#include <linux/notifier.h>
+ #include <linux/err.h>
+ #include <linux/delay.h>
+ 
+@@ -132,8 +133,12 @@ struct mv64xxx_i2c_data {
+ 	u32			send_stop;
+ 	u32			block;
+ 	int			rc;
+-	u32			freq_m;
+-	u32			freq_n;
++	u32			baud_div;
++	u32			bus_freq;
++	u32			new_baud_div;
++	struct notifier_block	clk_notifier;
++	bool			clk_change_ready;
++	bool			clk_change_locked;
+ 	struct clk              *clk;
+ 	struct clk              *reg_clk;
+ 	wait_queue_head_t	waitq;
+@@ -212,7 +217,7 @@ mv64xxx_i2c_hw_init(struct mv64xxx_i2c_data *drv_data)
+ 	}
+ 
+ 	writel(0, drv_data->reg_base + drv_data->reg_offsets.soft_reset);
+-	writel(MV64XXX_I2C_BAUD_DIV_M(drv_data->freq_m) | MV64XXX_I2C_BAUD_DIV_N(drv_data->freq_n),
++	writel(READ_ONCE(drv_data->baud_div),
+ 		drv_data->reg_base + drv_data->reg_offsets.clock);
+ 	writel(0, drv_data->reg_base + drv_data->reg_offsets.addr);
+ 	writel(0, drv_data->reg_base + drv_data->reg_offsets.ext_addr);
+@@ -751,6 +756,10 @@ mv64xxx_i2c_xfer_core(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
+ 	if (rc)
+ 		return rc;
+ 
++	/* The adapter lock excludes rate changes until the transfer finishes. */
++	writel(READ_ONCE(drv_data->baud_div),
++		drv_data->reg_base + drv_data->reg_offsets.clock);
++
+ 	BUG_ON(drv_data->msgs != NULL);
+ 	drv_data->msgs = msgs;
+ 	drv_data->num_msgs = num;
+@@ -813,9 +822,9 @@ static const struct of_device_id mv64xxx_i2c_of_match_table[] = {
+ MODULE_DEVICE_TABLE(of, mv64xxx_i2c_of_match_table);
+ 
+ #ifdef CONFIG_OF
+-static int
++static unsigned long
+ mv64xxx_calc_freq(struct mv64xxx_i2c_data *drv_data,
+-		  const int tclk, const int n, const int m)
++		  unsigned long tclk, const int n, const int m)
+ {
+ 	if (drv_data->clk_n_base_0)
+ 		return tclk / (10 * (m + 1) * (1 << n));
+@@ -825,26 +834,96 @@ mv64xxx_calc_freq(struct mv64xxx_i2c_data *drv_data,
+ 
+ static bool
+ mv64xxx_find_baud_factors(struct mv64xxx_i2c_data *drv_data,
+-			  const u32 req_freq, const u32 tclk)
++			  u32 req_freq, unsigned long tclk, u32 *baud_div)
+ {
+-	int freq, delta, best_delta = INT_MAX;
++	unsigned long freq, best_freq = 0;
+ 	int m, n;
+ 
+ 	for (n = 0; n <= 7; n++)
+ 		for (m = 0; m <= 15; m++) {
+ 			freq = mv64xxx_calc_freq(drv_data, tclk, n, m);
+-			delta = req_freq - freq;
+-			if (delta >= 0 && delta < best_delta) {
+-				drv_data->freq_m = m;
+-				drv_data->freq_n = n;
+-				best_delta = delta;
++			if (freq <= req_freq && freq > best_freq) {
++				*baud_div = MV64XXX_I2C_BAUD_DIV_M(m) |
++					    MV64XXX_I2C_BAUD_DIV_N(n);
++				best_freq = freq;
+ 			}
+-			if (best_delta == 0)
++			if (best_freq && best_freq == req_freq)
+ 				return true;
+ 		}
+-	if (best_delta == INT_MAX)
+-		return false;
+-	return true;
++	return best_freq != 0;
++}
++
++static int mv64xxx_i2c_clk_notifier(struct notifier_block *nb,
++				  unsigned long event, void *arg)
++{
++	struct mv64xxx_i2c_data *drv_data =
++		container_of(nb, struct mv64xxx_i2c_data, clk_notifier);
++	struct clk_notifier_data *ndata = arg;
++	struct i2c_adapter *adap = &drv_data->adapter;
++	int active;
++	u32 control;
++
++	switch (event) {
++	case PRE_RATE_CHANGE:
++		/* The adapter's bus lock is not available during registration. */
++		if (!smp_load_acquire(&drv_data->clk_change_ready))
++			return NOTIFY_BAD;
++		if (!mv64xxx_find_baud_factors(drv_data, drv_data->bus_freq,
++					     ndata->new_rate, &drv_data->new_baud_div))
++			return NOTIFY_BAD;
++		/* A transfer can be waiting for the clock framework in runtime PM. */
++		if (!i2c_trylock_bus(adap, I2C_LOCK_ROOT_ADAPTER))
++			return NOTIFY_BAD;
++
++		/* Software completion can precede the STOP reaching the wire. */
++		active = pm_runtime_get_if_active(adap->dev.parent);
++		if (active > 0 || !IS_ENABLED(CONFIG_PM)) {
++			control = readl(drv_data->reg_base + drv_data->reg_offsets.control);
++			if (active > 0)
++				pm_runtime_put(adap->dev.parent);
++			if (control & (MV64XXX_I2C_REG_CONTROL_START |
++				       MV64XXX_I2C_REG_CONTROL_STOP)) {
++				i2c_unlock_bus(adap, I2C_LOCK_ROOT_ADAPTER);
++				return NOTIFY_BAD;
++			}
++		}
++		drv_data->clk_change_locked = true;
++		return NOTIFY_OK;
++	case POST_RATE_CHANGE:
++		/* Runtime resume can read this without holding the adapter lock. */
++		if (drv_data->clk_change_locked)
++			WRITE_ONCE(drv_data->baud_div, drv_data->new_baud_div);
++		fallthrough;
++	case ABORT_RATE_CHANGE:
++		if (drv_data->clk_change_locked) {
++			drv_data->clk_change_locked = false;
++			i2c_unlock_bus(adap, I2C_LOCK_ROOT_ADAPTER);
++		}
++		return NOTIFY_OK;
++	default:
++		return NOTIFY_DONE;
++	}
++}
++
++static int mv64xxx_i2c_init_clk_notifier(struct mv64xxx_i2c_data *drv_data,
++				       struct device *dev)
++{
++	int ret;
++
++	if (!IS_ENABLED(CONFIG_COMMON_CLK) || !drv_data->bus_freq)
++		return 0;
++
++	drv_data->clk_notifier.notifier_call = mv64xxx_i2c_clk_notifier;
++	ret = devm_clk_notifier_register(dev, drv_data->clk, &drv_data->clk_notifier);
++	if (ret)
++		return ret;
++
++	/* A rate change is now vetoed until the adapter is registered. */
++	if (!mv64xxx_find_baud_factors(drv_data, drv_data->bus_freq,
++				     clk_get_rate(drv_data->clk), &drv_data->baud_div))
++		return -EINVAL;
++
++	return 0;
+ }
+ 
+ static int
+@@ -853,7 +932,8 @@ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
+ {
+ 	const struct mv64xxx_i2c_regs *data;
+ 	struct device_node *np = dev->of_node;
+-	u32 bus_freq, tclk;
++	unsigned long tclk;
++	u32 bus_freq;
+ 	int rc = 0;
+ 
+ 	/* CLK is mandatory when using DT to describe the i2c bus. We
+@@ -873,7 +953,8 @@ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
+ 	    of_device_is_compatible(np, "allwinner,sun6i-a31-i2c"))
+ 		drv_data->clk_n_base_0 = true;
+ 
+-	if (!mv64xxx_find_baud_factors(drv_data, bus_freq, tclk)) {
++	drv_data->bus_freq = bus_freq;
++	if (!mv64xxx_find_baud_factors(drv_data, bus_freq, tclk, &drv_data->baud_div)) {
+ 		rc = -EINVAL;
+ 		goto out;
+ 	}
+@@ -920,6 +1001,12 @@ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
+ 	return rc;
+ }
+ #else /* CONFIG_OF */
++static int mv64xxx_i2c_init_clk_notifier(struct mv64xxx_i2c_data *drv_data,
++				       struct device *dev)
++{
++	return 0;
++}
++
+ static int
+ mv64xxx_of_config(struct mv64xxx_i2c_data *drv_data,
+ 		  struct device *dev)
+@@ -1018,8 +1105,8 @@ mv64xxx_i2c_probe(struct platform_device *pd)
+ 		return drv_data->irq;
+ 
+ 	if (pdata) {
+-		drv_data->freq_m = pdata->freq_m;
+-		drv_data->freq_n = pdata->freq_n;
++		drv_data->baud_div = MV64XXX_I2C_BAUD_DIV_M(pdata->freq_m) |
++				     MV64XXX_I2C_BAUD_DIV_N(pdata->freq_n);
+ 		drv_data->adapter.timeout = msecs_to_jiffies(pdata->timeout);
+ 		drv_data->offload_enabled = false;
+ 		memcpy(&drv_data->reg_offsets, &mv64xxx_i2c_regs_mv64xxx, sizeof(drv_data->reg_offsets));
+@@ -1042,6 +1129,10 @@ mv64xxx_i2c_probe(struct platform_device *pd)
+ 	platform_set_drvdata(pd, drv_data);
+ 	i2c_set_adapdata(&drv_data->adapter, drv_data);
+ 
++	rc = mv64xxx_i2c_init_clk_notifier(drv_data, &pd->dev);
++	if (rc)
++		return dev_err_probe(&pd->dev, rc, "Cannot monitor input clock changes\n");
++
+ 	pm_runtime_set_autosuspend_delay(&pd->dev, MSEC_PER_SEC);
+ 	pm_runtime_use_autosuspend(&pd->dev);
+ 	pm_runtime_enable(&pd->dev);
+@@ -1064,6 +1155,8 @@ mv64xxx_i2c_probe(struct platform_device *pd)
+ 		goto exit_free_irq;
+ 	}
+ 
++	/* Publish the initialized adapter, including its bus lock, to PRE. */
++	smp_store_release(&drv_data->clk_change_ready, true);
+ 	return 0;
+ 
+ exit_free_irq:
+@@ -1081,11 +1174,15 @@ mv64xxx_i2c_remove(struct platform_device *pd)
+ {
+ 	struct mv64xxx_i2c_data		*drv_data = platform_get_drvdata(pd);
+ 
++	/* Drain notifications before i2c_del_adapter() clears adap->dev. */
++	clk_rate_exclusive_get(drv_data->clk);
++	WRITE_ONCE(drv_data->clk_change_ready, false);
+ 	i2c_del_adapter(&drv_data->adapter);
+ 	free_irq(drv_data->irq, drv_data);
+ 	pm_runtime_disable(&pd->dev);
+ 	if (!pm_runtime_status_suspended(&pd->dev))
+ 		mv64xxx_i2c_runtime_suspend(&pd->dev);
++	clk_rate_exclusive_put(drv_data->clk);
+ }
+ 
+ static const struct dev_pm_ops mv64xxx_i2c_pm_ops = {
 
-rxrpc: Fix RACK-TLP implementation
+---
+base-commit: 4ec2365c08de306f52650d8736aef5862baedb8d
+change-id: 20261021-submit-i2c-mv64xxx-clock-v1-5a0d8722b216
+prerequisite-patch-id: efc747efca5603ae05baa198820d8ed7d5caa125
 
-This commit makes several fixes to the rxrpc RACK-TLP code. The in-recovery
-flag moves from rxrpc_ack_summary to rxrpc_call. The RTO timer is now rearmed
-in rxrpc_input_call_event() when no other RACK timer is set. TLP init moves
-to the transition into FAST_RETRANSMIT, the segment_xmit_ts reset moves into
-rxrpc_rack_detect_loss(), and the PTO flight_size check is adjusted.
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
-> Fix the RACK-TLP implementation in the following ways:
->
->  (1) Move the "in/exiting Fast or RTO recovery" flags to the rxrpc_call
->      struct rather than rxrpc_ack_summary so that they persist beyond ACK
->      parsing to the next time rxrpc_congestion_management() happens (when
->      the next ACK is parsed).  This allows those values to be accessed by
->      RACK-TLP when invoked by the Reorder timer expiring.
-
-[Severity: Low]
-Does this match what the patch does? Only the "in" flag moves, and it
-becomes call->cong_in_recovery. The "exiting" flag is still in the per-ACK
-summary:
-
-struct rxrpc_ack_summary {
-	...
-	bool		exiting_fast_or_rto_recovery:1;
-	...
-};
-
-rxrpc_congestion_management() still sets it for each ACK, and
-rxrpc_rack_update_reo_wnd() still reads it as
-summary->exiting_fast_or_rto_recovery.
-
-rxrpc_rack_timer_expired() passes a zeroed summary from its stack, so the
-exiting flag is always false on the Reorder timer path.
-
-Keeping the exiting flag per ACK looks deliberate, but could the commit
-message say that only the "in" flag moves?
-
->  (6) In rxrpc_prepare_data_packet(), only increment call->tx_nr_resent if
->      the DATA packet being retransmitted was not previously transmitted
->      otherwise tx_nr_resent will keep getting bigger and cause RACK-TLP to
->      malfunction (the value is used in the in-flight calculation).
->      tx_nr_resent is decremented when a packet that has been retransmitted
->      is discarded - but only by 1 per packet.
-
-[Severity: Medium]
-Is this item still accurate? The diff does not touch net/rxrpc/output.c,
-and struct rxrpc_call has no tx_nr_resent member in this tree.
-
-The previous commit in the series, "rxrpc: Fix counting of in-flight
-transmitted packets", seems to have removed tx_nr_resent and tx_nr_sent. It
-replaced them with the per-txqueue in_flight bitmap and call->tx_in_flight.
-rxrpc_prepare_data_packet() already does this:
-
-		if (!__test_and_set_bit(ix, &tq->in_flight))
-			call->tx_in_flight++;
-
-This patch is Cc'd to stable. Could item (6) be dropped, or reworded to
-refer to the previous commit?
-
-> diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
-> index d0e18eb6301e9..d3b1b095192da 100644
-> --- a/net/rxrpc/ar-internal.h
-> +++ b/net/rxrpc/ar-internal.h
-> @@ -811,6 +811,7 @@ struct rxrpc_call {
->  #define RXRPC_TX_SMSS		RXRPC_JUMBO_DATALEN
->  #define RXRPC_MIN_CWND		4
->  	enum rxrpc_ca_state	cong_ca_state;	/* Congestion control state */
-> +	bool			cong_in_recovery:1; /* If we're in Fast/RTO recovery */
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but does anything set this flag
-during RTO recovery? rxrpc_congestion_management() sets it to true in only
-two places: the PACKET_LOSS to FAST_RETRANSMIT transition, and the
-RXRPC_CA_FAST_RETRANSMIT case.
-
-The RACK RTO path never touches it:
-
-rxrpc_rack_timer_expired()
-    case RXRPC_CALL_RACKTIMER_RTO:
-        rxrpc_rack_mark_losses_on_rto(call);
-
-The other RTO hook in rxrpc_congestion_management() looks unreachable.
-RXRPC_CALL_RETRANS_TIMEOUT is tested and cleared there but never set
-anywhere:
-
-	if (test_and_clear_bit(RXRPC_CALL_RETRANS_TIMEOUT, &call->flags)) {
-
-So after an RTO, rxrpc_rack_update_reo_wnd() uses a non-zero reordering
-window. RFC 8985 section 6.2 step 4 uses 0 during RTO recovery. The old
-summary->in_fast_or_rto_recovery flag had the same gap.
-
->  	u8			cong_extra;	/* Extra to send for congestion management */
-
-[ ... ]
-
-> diff --git a/net/rxrpc/input.c b/net/rxrpc/input.c
-> index f497eba59cf6e..815749c7abeb8 100644
-> --- a/net/rxrpc/input.c
-> +++ b/net/rxrpc/input.c
-> @@ -34,6 +34,7 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
->  {
->  	summary->change = rxrpc_cong_no_change;
->  	summary->in_flight = call->tx_in_flight;
-> +	call->cong_in_recovery = false;
->  
->  	if (test_and_clear_bit(RXRPC_CALL_RETRANS_TIMEOUT, &call->flags)) {
->  		summary->retrans_timeo = true;
-> @@ -106,12 +107,12 @@ static void rxrpc_congestion_management(struct rxrpc_call *call,
->  		call->cong_extra = 0;
->  		call->cong_dup_acks = 0;
->  		summary->need_retransmit = true;
-> -		summary->in_fast_or_rto_recovery = true;
-> +		call->cong_in_recovery = true;
-> +		rxrpc_tlp_init(call);
->  		goto out;
->  
->  	case RXRPC_CA_FAST_RETRANSMIT:
-> -		rxrpc_tlp_init(call);
-> -		summary->in_fast_or_rto_recovery = true;
-> +		call->cong_in_recovery = true;
-
-[Severity: Low]
-Should cong_in_recovery be cleared when this case leaves recovery? The flag
-is set here before the exit check, and the exit path is:
-
-		} else {
-			summary->change = rxrpc_cong_progress;
-			call->cong_cwnd = call->cong_ssthresh;
-			if (call->acks_nr_snacks == 0) {
-				summary->exiting_fast_or_rto_recovery = true;
-				goto resume_normality;
-			}
-		}
-
-resume_normality sets cong_ca_state to RXRPC_CA_SLOW_START or
-RXRPC_CA_CONGEST_AVOIDANCE, but leaves call->cong_in_recovery set.
-
-The flag now lives on the call. Until the next ACK, it says the call is in
-Fast/RTO recovery while cong_ca_state says it is not.
-
-Suppose a Reorder timer armed by an earlier ACK fires in that window:
-
-rxrpc_rack_timer_expired()
-  rxrpc_rack_detect_loss_and_arm_timer()
-    rxrpc_rack_detect_loss()
-      rxrpc_rack_update_reo_wnd()
-        if (call->cong_in_recovery)
-            return 0;
-
-If rack_reordering_seen is false, call->rack_reo_wnd is set to 0, and
-rxrpc_rack_mark_losses_on_rto() later uses that value.
-
-acks_nr_snacks is 0 on this path, so the timer has no NACKed segments to
-mark lost. The practical effect looks small.
-
-> +		if (!summary->new_low_snack) {
->  			if (summary->nr_new_sacks == 0)
->  				call->cong_cwnd += 1;
-
-[ ... ]
-
-> diff --git a/net/rxrpc/input_rack.c b/net/rxrpc/input_rack.c
-> index e43ce032a2618..1f6b51fa9721f 100644
-> --- a/net/rxrpc/input_rack.c
-> +++ b/net/rxrpc/input_rack.c
-
-[ ... ]
-
-> @@ -230,6 +229,7 @@ static ktime_t rxrpc_rack_detect_loss(struct rxrpc_call *call,
->  				remaining = ktime_sub(ktime_add(xmit_ts, lost_after), now);
->  				if (remaining <= 0) {
->  					rxrpc_rack_mark_lost(call, tq, ix);
-> +					tq->segment_xmit_ts[ix] = UINT_MAX;
-
-[Severity: Medium]
-This is a pre-existing issue, not one introduced by this patch, but the
-patch moves this line. What happens if a segment marked lost here is acked
-before it is retransmitted?
-
-rxrpc_get_xmit_ts() turns the sentinel into KTIME_MAX:
-
-	if (tq->segment_xmit_ts[ix] == UINT_MAX)
-		return KTIME_MAX;
-
-If the original packet was only reordered, a later ACK can still ack it.
-One way is the old NAK to ACK flip, rxrpc_input_soft_ack_tq() ->
-rxrpc_input_rack(). Another is the soft NAK to hard ACK case,
-rxrpc_rotate_tx_window() -> rxrpc_input_rack_one().
-
-rxrpc_rack_update() then uses KTIME_MAX as if it were a real transmit
-time. segment_retransmitted is clear for this segment, so the serial and
-min_rtt checks are skipped:
-
-	ktime_t xmit_ts = rxrpc_get_xmit_ts(tq, ix);
-	ktime_t rtt = ktime_sub(call->acks_latest_ts, xmit_ts);
-	...
-	if (ktime_after(xmit_ts, call->rack_rtt_ts)) {
-		call->rack_rtt	  = rtt;
-		call->rack_rtt_ts = xmit_ts;
-	}
-
-rack_rtt ends up hugely negative, and rack_rtt_ts and rack_xmit_ts end up
-at KTIME_MAX. Only rxrpc_rack_update() writes these fields, and no later
-timestamp can be greater than KTIME_MAX. So the bad values stay for the
-rest of the call.
-
-After that, lost_after in rxrpc_rack_detect_loss() is very negative, so
-every reported NACK is marked lost at once. The deadline in
-rxrpc_rack_mark_losses_on_rto() is also skewed.
-
-Could this cause spurious retransmissions for the rest of the call? No
-concurrency seems to be needed. rxrpc_input_call_event() handles several
-queued ACKs and Reorder timer expiries in its rx_queue loop before
-rxrpc_resend() runs.
-
->  					trace_rxrpc_rack_detect_loss(call, summary, seq);
->  				} else {
->  					timeout = max(remaining, timeout);
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261020201258.290827-1-dhowells%40redhat.com
