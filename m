@@ -1,60 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792688854;
-	b=iy8n85gwHW5riajQ5OwTuheeXwiPL6dvwsfuiF0y7dWL2YaRA6tsBu44Uo0Lgra6t1Dq
-	 dXZB3V3I0V5AMgOowz49dIjaUpmQ6YmQkOQqOZmokj85mQjQ3ZVRjzpabXg+zKtoRBmsj
-	 5QRRPihj5U7TSqy+a1RyJ11MT84L81Z/kTueeZulJAnH11MN/ytYuYgJv+c/BQqx2BSnm
-	 yq+cF6ItWNpAq650V4cBvMsE2ZtZ5FrAMjsESfyJiHPjO6Oc6vBQ/v/5ZcNOQmfSL7KaP
-	 9aX1rzpLIXZqmg6gn340IrjGgDn2WrOYYsEksZdhxJdj7+GvaLCy0mkQDteQu3yIs6g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792688854;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=KncKH2UewY/IQiP6GR2JSb1uHy6TFz2Qs/vbYyhK7F4=;
-	b=yxIquGyXrdQc3Z/7sMFoL91VZcQnOkKIhh8X8O3t1EDpQTvD/A5tToUjbwwhVvXF2BBb
-	 IhhvhlAUGr9qTPTD704vPQJpc5NnTVPHDi/8eTj85f34E327VrWoiqG8Pc5iK3D8qaIhh
-	 52BD46dqrkBAizmM7kXoPYyXB2IyHN2ur4x5RXgUxVkj/8XVyhKv7/5n6P25DuzlLuODT
-	 3+u7tEDU7VXt5TjSAX7zROEnDc0AmlCtMjzVH3g6G9F7y/AZzNlPVHKFGm+LOxG3MN9xE
-	 KRabzc+cnCrUPCSkMCDUsKvo7JASrrkGUniot6dl2k0FroWm/Egq38wT6WiZpYjSfdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vinarskis.com;
-	spf=pass smtp.mailfrom=vinarskis.com;
-	dkim=pass header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=Xz3GQSYr;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792688954;
+	b=IKedcF0M87UeTY/TTmGsAvXVUzWewKpsjHY2tS2DK04Kgk13cg0sE0NuX1bTwUZU9T84
+	 Tm/QrsGOhXA1oymtm+sBJp33kBXJi++rjSHrxOktTvtXIQiubZgrZy+kMOYkicAQJn13v
+	 gFDvgUYZgksRhEZSM90sKogbXe8pm7MfZcV/3PLxkNKk6E9nR2bByo+oVOo/XHDsu/o9O
+	 B5hSH6bwYy+1r086XR3NJW15op6RhoNABRy9ROHcKSTdg5XBDc4FE/LnWDoRBS41kv/5J
+	 nUv+7aawoYLLW18lybTr7JtKM1g3/mXARxwTy2h8oI4c2cH2kU1K9+a/8gRzWxz3+Ig==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792688954;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GfwVNjBinLhECyFto+p6qJ9Qf/67yX4e3W2C93lJd7A=;
+	b=DOeiL00+Ni4uetiSgLMOp6aJxWAJfukCM4qwu2jdzcsXVRodDWpmNshI2n/SEkVePI7R
+	 UfchluQsmkdXPlpoIt3eujee+seKIeWyKJ5waBHLpguhN0EHXmtzF0FfvYbe4MCZVaPzs
+	 ez+jkZmGR66sKKqzcvdlcnIy2Hd03G4yjXS5SVA0SCd0au7HHPhrlPQGFJd7BeoKnkbtm
+	 m/q549FNpxTVXvVlnHS5qxpS886cPyZ82XpYsEx9wFD7egVo5aaeqoJCe8zb1aYeK9yG3
+	 zqggDIKM9eyf6br4ylsPDCvouZQGfyeCWyHcpzC/jHnf+1aFBg5Y0N69kK0fipDMEUQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWu9tbxW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC2E606A319;
-	Thu, 22 Oct 2026 17:07:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECC2E606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FDF606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:09:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35FDF606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vinarskis.com header.i=@vinarskis.com header.a=rsa-sha256 header.s=protonmail3 header.b=Xz3GQSYr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1792688850; x=1792948050;
-	bh=KncKH2UewY/IQiP6GR2JSb1uHy6TFz2Qs/vbYyhK7F4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Xz3GQSYrq8v4eGe62C6e13on1kSbd4fOE6dfOZbmVlk/WjJ9aAoEXYN8gxeGpoaxe
-	 rQrhLSbrqx0zxSjIxTeAdW4axJGaX8ObQCqt5DHI6u4Fz8wkFW/mwV15N5ayRw5mHi
-	 7Q23Zs9uM3rDSakmRbCd/Wq+gPjHonvkqyzrlY0qkdElfQKih28Y45dBN0n9Ku1/rD
-	 PpcvyBJkaOtRGyWecbxprhfip0ZlY+F6YTtdvf3We82xVyQldxlzkWLoxguVN3Dbaq
-	 UQMnCIPWRIxQbwL2LCzaHe7ockt9xcnFDmfbXslnuw5gKOhXhtcwYb9IBVo2GzhiVz
-	 R/XKf4QSSyl4A==
-Date: Thu, 22 Oct 2026 17:07:25 +0000
-To: Liviu Nicoara <lnicoara@thinkoid.org>
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Cc: Michael Burch <me@michaelburch.net>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, "Gustavo A . R . Silva" <gustavoars@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, Neil Armstrong <neil.armstrong@linaro.org>, Stephan Gerhold <stephan.gerhold@linaro.org>, linux-hardening@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
-Message-ID: <NCQ5O8k2_GpmJZBjDzgZL67uwdiYmmuSudO9VmdRaFTDq0u7aec6at00VYbzdwwSVvgJnLnGxewwp_TVO9oTjM2pAjP_LoiURf9JCIKXB-w=@vinarskis.com>
-In-Reply-To: <20261013195327.19571-1-lnicoara@thinkoid.org>
-References: <20261013172718.12355-1-me@michaelburch.net> <20261013195327.19571-1-lnicoara@thinkoid.org>
-Feedback-ID: 158356072:user:proton
-X-Pm-Message-ID: f96dfcfbbb36501a2b9c4dfd42be303868b89fe4
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=CWu9tbxW
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5361e313e63so21503161cf.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:09:14 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792688953; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YF8ZfUv/bd5AOsJdaa6prBkTqNMjeBT/Bxl1WtYPiZGZyEMFLZQ+sIhtOZgEIwBjtf
+         NNgPRsDYtDubtmGiCz+ZbsL511NCKxqL0HHhy+VKFookRZpIjaEcgS0Ld+9nHVthj8x+
+         qhSihehMqwZzKZu808oVrv20/Tx2QXg/rQ8TcQNU+db+b3tHPBalqC/pzRt9yTp8o0WI
+         8AKPFxOLuktuyNuu9yvdMf3m4ghnOEB5E1HAjsXrsKX8gmpOXWNMXcyNR/w7gBoovXzm
+         4Mf9RrT1P7wrM2HDmX5R7E93gXXELv59V+uKRiUQsm5sTmb9Oz/pNSizJwFeHgqcVEmR
+         DL2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GfwVNjBinLhECyFto+p6qJ9Qf/67yX4e3W2C93lJd7A=;
+        fh=Y90UtOmchNhjDDTRcFblIDZNCaxxvkiVLHKoooIDes4=;
+        b=TIf+xYJ2amSDyoccGmKvz+t0xm2KY+fIjKHId3OQZWWs85P8qqpmuAMLlN/nvnGLKA
+         1ahuBQBKIcL41odLn+E2UdrGpHpPGYu+xP0JRsiGaiWXuboYgL3TuhxXkpnCNpojw66d
+         hA99vz95t1xGI15ytn2+DeSERVpy9Y/p5Cy8SkqQ23p/c6sila8+nGx9dWKlBZh70KYK
+         xrb3txVnGj6pIaDYdzG0TMMvmHL8G10GZmejhQWlAkS+bQzTB908LJvRRdKUrZfSO/mU
+         rDM6rK4ag2fu5vn4zuaOZvR/stRWkwGf5nKJqUz3/1h9SgR1mDW1JFrokTp7oEPsNI6n
+         6A4g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792688953; x=1793293753; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GfwVNjBinLhECyFto+p6qJ9Qf/67yX4e3W2C93lJd7A=;
+        b=CWu9tbxWxgTFBB5ptc29m/qvoMkf2DmuRsTTZ6ZYhcSwdT1Zi7sV8MibkjICc4cUuV
+         8OM0KuXCyDL1FgPP4jP0YxFTtwKL55k61thmSwnkBhMqElm4k/pw5wGX2C9HwhOw10wd
+         zx4qNdrCzd8dvHbTvscSojLpOWCO6rII2fAHEYWnhojkujlVTZ+n69BwHCdDqIlexu0i
+         qXnfR2MJwf++ki8hijM7YAZE+m4Ki7K/6hTmj+kHUlSPGPyn+Dt4bFK7Prqn5ZE9uaXH
+         H7h2ihbAHvk+HNhz51oA4nxYVx9OT1QMyJFX2u+bcgIHVvMYslBWpNQpdu7f2GrxVCER
+         +NJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792688953; x=1793293753;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GfwVNjBinLhECyFto+p6qJ9Qf/67yX4e3W2C93lJd7A=;
+        b=BfSzbreDIuz8g4hxdadHNEFFmwRqdfN8YDs0COIvmjNEx+OcAZ5WJW+vl0/M3kovqL
+         /S+9woIiaKonCSY9zzLrXLFKgQfQCDWhbPfmKT4D5jKaS4ASdRY40IKIy42Fj0wE9T+1
+         ELB/axBz7l3CmKH19JIdCDxRlecF89u8LyzEROHhcwaG2Yf273dZszECu7Td88WmArvl
+         uEZGBEkXc2nw2O+Qb3dCqo1gnBKmusjO5mxIUAv5vtuXD/TAYAR/DJfZgsNuaHT/L1X2
+         d77mclZlGqJXu/Nu3a0Apdjgy5P7wXtGOJ5+/yM/eMDwHFDFUU1YhhGxGqRdOG26LVcX
+         BPnA==
+X-Forwarded-Encrypted: i=1; AKwUvByj1+/rUzmJaYw3fTsoMV4GPU8/tUFxXJ2UOVKFRiNHWdveuD0lMOhZ7i9IWifvS+kJHX1tyBmIdOfdsY8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL1m45H3/fkGeqcld+38lioI1azmgvxKzXH701D+lLfw4xZ/9NS
+	PFzFxVCzW8bTbXAAkymOopDK0aEg+xem94msn5tl20vpNcN/a5Xi7DIjbn6L1Al1OcmaDK4E5+x
+	BssBF6QbZLZbIUGweIb5cQ58S6zfMwE8=
+X-Gm-Gg: AYBFou0cw+ku5/8njsnVCn9h1oCzGjDj9LIQ+J7AJcW3TqAT6acNP3nB/8Qh5DTPjfD
+	EWs1xVVVJu8dCyw91h/XSAIXlQa3q3diV9QLpfK56zXhwASBakmN48NZ7RB8HGCEL7mXRPlMK6Z
+	1VWonwLc5z8S0YiT2jbRK3djQrsS/ohS50viVSObELHP8C4ua0uBc9GYJwj1NfLMbDwgVJg6+vJ
+	T8T5i3NGusVIUvVUYpSCFM6YvcKvvOMnU1B3MV73LZnCfS8UH4MDIBgJ5yA9yzhEvqs/IU6LGeH
+	RY8xC87HrY1mWSWDmgZaiuoApq6HAjLo3kD9aPUXi/xxaAYcKG3OOtDwf/QVYh2LzVomTVWn8sO
+	eH0HH/MhJK7qP4DJ3rrgCUMqPsSlX9V2dECATewUU4EXNRLk01V09iSnNyMQKAr2HpDigfYVVAN
+	8WgBxUd2YUl3xTER0chKjCklDsSxp9LgmxncwHUTjQVPXl+OiJ
+X-Received: by 2002:a05:622a:13c6:b0:535:127c:da40 with SMTP id
+ d75a77b69052e-5369b43ac98mr94537041cf.4.1792688952819; Thu, 22 Oct 2026
+ 10:09:12 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,327 +105,212 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20261015125644.12908-1-danielmaraboo@gmail.com>
+ <20261015125644.12908-2-danielmaraboo@gmail.com> <atQ_mXYNqs4tnDpW@wyuan.org> <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn>
+In-Reply-To: <79dd90f0.11f3f.1a15272eff3.Coremail.dzm91@hust.edu.cn>
+From: Daniel Pereira <danielmaraboo@gmail.com>
+Date: Thu, 22 Oct 2026 14:09:00 -0300
+X-Gm-Features: AclHuK8MKhFqv1-o86xCTgtpKNiTMbzIKd3UQBTkUEoNRn9kUQJAvh3qiLz1k7Y
+Message-ID: <CAMAsx6eb3X7GLheOaVoumORnvKftFYkU0VHynZYyx9m74+CTTw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for translators
+To: dzm91@hust.edu.cn
+Cc: wy@wyuan.org, jani.nikula@linux.intel.com, alexs@kernel.org, 
+	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
+	si.yanteng@linux.dev, chenyou910331@gmail.com, federico.vaga@vaga.pv.it, 
+	akiyks@gmail.com, carlos.bilbao@kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tuesday, October 13th, 2026 at 21:53, Liviu Nicoara <lnicoara@thinkoid.o=
-rg> wrote:
+On Mon, Oct 19, 2026 at 12:37 +0800, Dongliang Mu wrote:
+> So my suggestion is that, after confirming all the translated
+> docuementation follows this style, we can delete this field and write
+> this relocation style in the translation guidance.
 
-> On Tue, 13 Oct 2026 12:27:16 -0500, Michael Burch wrote:
-> > These two should be AMUX1_GPIO and AMUX2_GPIO. My unit (BIOS 2.14.0)
-> > shows what Liviu reported [1]: 0x14c (lpddr5_therm) reads 130.048 C fro=
-m
-> > boot on, and that is the value the EC is sent.
->=20
-> Same here, and the ADC1 table settles what my readings left open.
-> On this unit (also BIOS 2.14.0), with all four GPIO channels defined
-> in one DTB on a 7.2.6 kernel:
->=20
-> 0x14a  38.6 C        0x14c  130.0 C (constant)
-> 0x14b  32.7 C        0x14d   34.7 C
->=20
-> A charger on the left USB-C port warmed 0x14b by 1.6 C in three
-> minutes; 0x14d stayed within 0.1 C. So usb_charger_left_therm is
-> AMUX2_GPIO, 0x14b, as your table says; 0x14a reads a board
-> temperature and warms with the SoC.
+Hi Weijie, Dongliang, Alex, Jani,
 
-Hey,
+I checked docs-next. it_IT, pt_BR, ja_JP and ko_KR already mirror the
+original path for every file. There are 14 files in sp_SP, zh_CN and
+zh_TW that do not, for two reasons:
 
-Thats a very good find. I have checked and it seems you are right;
-Most of mapping between ADC channels relied on schematics that I
-managed to get my hands on, its now clear that it is not a most up
-to date document... As EC only reacts to some of the temperatures
-fed to it and not all, I missed this in my testing.
+- the original has moved and the translation was not moved with it:
+magic-number (now in staging/), gdb-kernel-debugging (now in
+process/debugging/), security-bugs (now in process/), xfrm_proc
+(now in networking/xfrm/), memory-barriers (now in
+core-api/wrappers/), and the three gfs2 documents in zh_CN;
+- the document exists only in the translation: glossary.rst in zh_CN
+and zh_TW, and how-to.rst in zh_CN.
 
-Ignoring all the information from schematics now, I am trying to
-re-verify names for all the ADC channels. I do not think the left
-charger you identified is correct - how did you arrive to that
-conclusion? Curious to compare to my method. I run a number of
-stress tests to narrow it down:
+So I agree with Dongliang's order. For v3 of the guide I propose:
 
-1. RHS charger getting plugged, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              49.5=C2=B0C     49.0=C2=B0C     -0.6=C2=B0C
-vph_pwr_therm                53.3=C2=B0C     53.1=C2=B0C     -0.2=C2=B0C
-usb_charger_right_therm      45.2=C2=B0C     47.5=C2=B0C     +2.3=C2=B0C
-ssd_conn_therm               47.0=C2=B0C     46.6=C2=B0C     -0.4=C2=B0C
-sys_therm5                   39.1=C2=B0C     39.3=C2=B0C     +0.2=C2=B0C
-keyboard_therm               51.6=C2=B0C     51.3=C2=B0C     -0.3=C2=B0C
-pm8550_gpio_01               51.4=C2=B0C     51.1=C2=B0C     -0.3=C2=B0C
-pm8550_gpio_02               44.6=C2=B0C     44.3=C2=B0C     -0.3=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.9=C2=B0C     35.8=C2=B0C     -0.0=C2=B0C
-pm8550ve_2_die_temp          50.7=C2=B0C     50.3=C2=B0C     -0.4=C2=B0C
-pmk8550_die_temp             48.1=C2=B0C     47.6=C2=B0C     -0.5=C2=B0C
-pmc8380_3_die_temp           48.6=C2=B0C     48.1=C2=B0C     -0.5=C2=B0C
-pmc8380_4_die_temp           47.1=C2=B0C     46.7=C2=B0C     -0.3=C2=B0C
-pmc8380_5_die_temp           48.8=C2=B0C     48.3=C2=B0C     -0.5=C2=B0C
-pmc8380_6_die_temp           48.0=C2=B0C     47.4=C2=B0C     -0.6=C2=B0C
-pm8550ve_8_die_temp          47.3=C2=B0C     47.8=C2=B0C     +0.5=C2=B0C
-pm8550ve_9_die_temp          51.3=C2=B0C     51.0=C2=B0C     -0.4=C2=B0C
+- state the path mirroring as a rule, since the language switcher and
+checktransupdate.py both depend on it;
+- describe ":Original:" as optional and not needed when the path
+mirrors the original, instead of showing it in the header example.
 
-Charger unplugged:
-LABEL                         START        END       DIFF
-pm8550_die_temp              49.3=C2=B0C     48.5=C2=B0C     -0.8=C2=B0C
-vph_pwr_therm                53.0=C2=B0C     52.5=C2=B0C     -0.6=C2=B0C
-usb_charger_right_therm      47.1=C2=B0C     45.7=C2=B0C     -1.4=C2=B0C
-ssd_conn_therm               46.5=C2=B0C     46.1=C2=B0C     -0.4=C2=B0C
-sys_therm5                   39.2=C2=B0C     39.2=C2=B0C     -0.0=C2=B0C
-keyboard_therm               51.3=C2=B0C     51.0=C2=B0C     -0.3=C2=B0C
-pm8550_gpio_01               51.3=C2=B0C     51.0=C2=B0C     -0.3=C2=B0C
-pm8550_gpio_02               44.3=C2=B0C     44.0=C2=B0C     -0.3=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.8=C2=B0C     35.8=C2=B0C     -0.0=C2=B0C
-pm8550ve_2_die_temp          50.2=C2=B0C     49.7=C2=B0C     -0.5=C2=B0C
-pmk8550_die_temp             47.5=C2=B0C     47.3=C2=B0C     -0.3=C2=B0C
-pmc8380_3_die_temp           48.4=C2=B0C     47.8=C2=B0C     -0.6=C2=B0C
-pmc8380_4_die_temp           46.8=C2=B0C     46.4=C2=B0C     -0.4=C2=B0C
-pmc8380_5_die_temp           48.6=C2=B0C     48.0=C2=B0C     -0.6=C2=B0C
-pmc8380_6_die_temp           48.1=C2=B0C     47.3=C2=B0C     -0.7=C2=B0C
-pm8550ve_8_die_temp          48.2=C2=B0C     47.3=C2=B0C     -0.9=C2=B0C
-pm8550ve_9_die_temp          51.2=C2=B0C     50.6=C2=B0C     -0.7=C2=B0C
+Moving the files above and removing the existing ":Original:" fields
+can then be done per language, as separate series, by people who know
+each translation. I can send the moves for the files whose originals
+were relocated, if the maintainers of those translations agree.
 
-`usb_charger_right_therm` gained 2.3C in 10s, lost 1.4C 10s.
-Clearly follows.
+Thanks,
+Daniel
 
-2. LHS charger getting plugged, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              47.6=C2=B0C     47.3=C2=B0C     -0.3=C2=B0C
-vph_pwr_therm                51.6=C2=B0C     51.5=C2=B0C     -0.1=C2=B0C
-usb_charger_right_therm      44.2=C2=B0C     43.6=C2=B0C     -0.5=C2=B0C
-ssd_conn_therm               45.2=C2=B0C     45.0=C2=B0C     -0.2=C2=B0C
-sys_therm5                   38.8=C2=B0C     38.6=C2=B0C     -0.2=C2=B0C
-keyboard_therm               50.1=C2=B0C     49.9=C2=B0C     -0.2=C2=B0C
-pm8550_gpio_01               50.0=C2=B0C     49.7=C2=B0C     -0.3=C2=B0C
-pm8550_gpio_02               43.2=C2=B0C     43.3=C2=B0C     +0.2=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.8=C2=B0C     35.8=C2=B0C     -0.0=C2=B0C
-pm8550ve_2_die_temp          49.1=C2=B0C     48.8=C2=B0C     -0.2=C2=B0C
-pmk8550_die_temp             46.6=C2=B0C     46.2=C2=B0C     -0.3=C2=B0C
-pmc8380_3_die_temp           47.0=C2=B0C     46.8=C2=B0C     -0.2=C2=B0C
-pmc8380_4_die_temp           45.6=C2=B0C     45.4=C2=B0C     -0.2=C2=B0C
-pmc8380_5_die_temp           47.3=C2=B0C     46.8=C2=B0C     -0.5=C2=B0C
-pmc8380_6_die_temp           46.7=C2=B0C     46.1=C2=B0C     -0.6=C2=B0C
-pm8550ve_8_die_temp          46.2=C2=B0C     45.8=C2=B0C     -0.4=C2=B0C
-pm8550ve_9_die_temp          49.8=C2=B0C     49.5=C2=B0C     -0.3=C2=B0C
 
-Charger unplugged:
-LABEL                         START        END       DIFF
-pm8550_die_temp              47.3=C2=B0C     47.2=C2=B0C     -0.1=C2=B0C
-vph_pwr_therm                51.4=C2=B0C     50.9=C2=B0C     -0.5=C2=B0C
-usb_charger_right_therm      43.8=C2=B0C     43.4=C2=B0C     -0.4=C2=B0C
-ssd_conn_therm               45.0=C2=B0C     44.8=C2=B0C     -0.1=C2=B0C
-sys_therm5                   38.6=C2=B0C     38.4=C2=B0C     -0.2=C2=B0C
-keyboard_therm               49.7=C2=B0C     49.3=C2=B0C     -0.4=C2=B0C
-pm8550_gpio_01               49.6=C2=B0C     49.2=C2=B0C     -0.5=C2=B0C
-pm8550_gpio_02               43.4=C2=B0C     43.3=C2=B0C     -0.1=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.8=C2=B0C     35.8=C2=B0C     +0.0=C2=B0C
-pm8550ve_2_die_temp          48.7=C2=B0C     48.4=C2=B0C     -0.3=C2=B0C
-pmk8550_die_temp             46.1=C2=B0C     45.8=C2=B0C     -0.3=C2=B0C
-pmc8380_3_die_temp           46.9=C2=B0C     46.5=C2=B0C     -0.4=C2=B0C
-pmc8380_4_die_temp           45.4=C2=B0C     45.0=C2=B0C     -0.4=C2=B0C
-pmc8380_5_die_temp           46.9=C2=B0C     46.5=C2=B0C     -0.4=C2=B0C
-pmc8380_6_die_temp           46.3=C2=B0C     45.9=C2=B0C     -0.4=C2=B0C
-pm8550ve_8_die_temp          45.8=C2=B0C     45.6=C2=B0C     -0.3=C2=B0C
-pm8550ve_9_die_temp          49.5=C2=B0C     49.1=C2=B0C     -0.4=C2=B0C
-
-pm8550_gpio_02 does NOT clearly follow. In your test you have
-waited multiple minutes, which is enough to heat up a larger
-area on the motherboard.
-
-3. SSD stress test, 30s wait:
-LABEL=09                      START=09   END=09     DIFF
-pm8550_die_temp=09             45.7=C2=B0C=0951.6=C2=B0C=09   +5.9=C2=B0C
-vph_pwr_therm=09             49.6=C2=B0C=0955.0=C2=B0C=09   +5.4=C2=B0C
-usb_charger_right_therm=09     41.5=C2=B0C=0944.4=C2=B0C=09   +2.9=C2=B0C
-ssd_conn_therm=09             42.9=C2=B0C=0947.9=C2=B0C=09   +5.0=C2=B0C
-sys_therm5=09             36.7=C2=B0C=0936.9=C2=B0C=09   +0.2=C2=B0C
-keyboard_therm=09             47.7=C2=B0C=0953.0=C2=B0C=09   +5.3=C2=B0C
-pm8550_gpio_01=09             47.7=C2=B0C=0952.5=C2=B0C=09   +4.8=C2=B0C
-pm8550_gpio_02=09             41.0=C2=B0C=0944.6=C2=B0C=09   +3.6=C2=B0C
-lpddr5_therm=09            130.0=C2=B0C    130.0=C2=B0C=09   +0.0=C2=B0C
-usb_charger_left_therm=09     35.7=C2=B0C=0935.9=C2=B0C=09   +0.2=C2=B0C
-pm8550ve_2_die_temp=09     47.0=C2=B0C=0952.4=C2=B0C=09   +5.4=C2=B0C
-pmk8550_die_temp=09     44.2=C2=B0C=0948.4=C2=B0C=09   +4.2=C2=B0C
-pmc8380_3_die_temp=09     46.0=C2=B0C=0952.8=C2=B0C=09   +6.8=C2=B0C
-pmc8380_4_die_temp=09     43.5=C2=B0C=0948.2=C2=B0C=09   +4.7=C2=B0C
-pmc8380_5_die_temp=09     46.8=C2=B0C=0951.3=C2=B0C=09   +4.5=C2=B0C
-pmc8380_6_die_temp=09     45.3=C2=B0C=0949.7=C2=B0C=09   +4.4=C2=B0C
-pm8550ve_8_die_temp=09     44.2=C2=B0C=0947.4=C2=B0C=09   +3.2=C2=B0C
-pm8550ve_9_die_temp=09     48.4=C2=B0C=0953.4=C2=B0C=09   +5.0=C2=B0C
-
-Cooldown, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              50.9=C2=B0C     50.8=C2=B0C     -0.1=C2=B0C
-vph_pwr_therm                54.0=C2=B0C     53.2=C2=B0C     -0.8=C2=B0C
-usb_charger_right_therm      44.6=C2=B0C     44.5=C2=B0C     -0.0=C2=B0C
-ssd_conn_therm               48.1=C2=B0C     47.9=C2=B0C     -0.2=C2=B0C
-sys_therm5                   36.9=C2=B0C     37.0=C2=B0C     +0.0=C2=B0C
-keyboard_therm               52.4=C2=B0C     51.7=C2=B0C     -0.7=C2=B0C
-pm8550_gpio_01               52.1=C2=B0C     51.4=C2=B0C     -0.7=C2=B0C
-pm8550_gpio_02               44.9=C2=B0C     44.8=C2=B0C     -0.0=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.9=C2=B0C     35.9=C2=B0C     +0.0=C2=B0C
-pm8550ve_2_die_temp          51.4=C2=B0C     50.6=C2=B0C     -0.8=C2=B0C
-pmk8550_die_temp             48.2=C2=B0C     47.6=C2=B0C     -0.6=C2=B0C
-pmc8380_3_die_temp           49.9=C2=B0C     49.1=C2=B0C     -0.7=C2=B0C
-pmc8380_4_die_temp           47.4=C2=B0C     46.7=C2=B0C     -0.6=C2=B0C
-pmc8380_5_die_temp           50.2=C2=B0C     49.2=C2=B0C     -1.0=C2=B0C
-pmc8380_6_die_temp           48.9=C2=B0C     48.1=C2=B0C     -0.8=C2=B0C
-pm8550ve_8_die_temp          47.2=C2=B0C     46.9=C2=B0C     -0.3=C2=B0C
-pm8550ve_9_die_temp          52.4=C2=B0C     51.5=C2=B0C     -0.8=C2=B0C
-
-This is a bit inconclusive. Both SSD, keyboard, and
-pm8550_gpio_01 (LPDDR5, see below) heated up significantly.
-
-4. Stress RAM, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              50.5=C2=B0C     51.0=C2=B0C     +0.5=C2=B0C
-vph_pwr_therm                53.8=C2=B0C     55.9=C2=B0C     +2.1=C2=B0C
-usb_charger_right_therm      45.8=C2=B0C     46.3=C2=B0C     +0.5=C2=B0C
-ssd_conn_therm               47.8=C2=B0C     47.9=C2=B0C     +0.0=C2=B0C
-sys_therm5                   39.9=C2=B0C     39.9=C2=B0C     -0.1=C2=B0C
-keyboard_therm               52.0=C2=B0C     55.1=C2=B0C     +3.0=C2=B0C
-pm8550_gpio_01               51.9=C2=B0C     54.7=C2=B0C     +2.8=C2=B0C
-pm8550_gpio_02               45.6=C2=B0C     45.4=C2=B0C     -0.2=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.9=C2=B0C     35.8=C2=B0C     -0.0=C2=B0C
-pm8550ve_2_die_temp          51.0=C2=B0C     53.0=C2=B0C     +2.1=C2=B0C
-pmk8550_die_temp             48.1=C2=B0C     49.3=C2=B0C     +1.1=C2=B0C
-pmc8380_3_die_temp           50.8=C2=B0C     52.7=C2=B0C     +1.8=C2=B0C
-pmc8380_4_die_temp           47.3=C2=B0C     49.7=C2=B0C     +2.4=C2=B0C
-pmc8380_5_die_temp           50.0=C2=B0C     53.0=C2=B0C     +3.0=C2=B0C
-pmc8380_6_die_temp           48.9=C2=B0C     52.9=C2=B0C     +4.0=C2=B0C
-pm8550ve_8_die_temp          50.0=C2=B0C     51.4=C2=B0C     +1.4=C2=B0C
-pm8550ve_9_die_temp          53.7=C2=B0C     55.7=C2=B0C     +2.0=C2=B0C
-
-5. Cooldown, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              52.2=C2=B0C     51.3=C2=B0C     -0.8=C2=B0C
-vph_pwr_therm                56.3=C2=B0C     55.2=C2=B0C     -1.1=C2=B0C
-usb_charger_right_therm      47.2=C2=B0C     46.7=C2=B0C     -0.5=C2=B0C
-ssd_conn_therm               49.0=C2=B0C     48.5=C2=B0C     -0.5=C2=B0C
-sys_therm5                   39.4=C2=B0C     39.4=C2=B0C     -0.0=C2=B0C
-keyboard_therm               54.7=C2=B0C     53.6=C2=B0C     -1.1=C2=B0C
-pm8550_gpio_01               54.6=C2=B0C     53.4=C2=B0C     -1.1=C2=B0C
-pm8550_gpio_02               45.8=C2=B0C     45.6=C2=B0C     -0.2=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.9=C2=B0C     35.9=C2=B0C     +0.0=C2=B0C
-pm8550ve_2_die_temp          53.5=C2=B0C     52.3=C2=B0C     -1.2=C2=B0C
-pmk8550_die_temp             51.1=C2=B0C     50.0=C2=B0C     -1.1=C2=B0C
-pmc8380_3_die_temp           51.5=C2=B0C     50.2=C2=B0C     -1.3=C2=B0C
-pmc8380_4_die_temp           49.7=C2=B0C     48.7=C2=B0C     -0.9=C2=B0C
-pmc8380_5_die_temp           51.4=C2=B0C     50.1=C2=B0C     -1.3=C2=B0C
-pmc8380_6_die_temp           50.9=C2=B0C     49.8=C2=B0C     -1.1=C2=B0C
-pm8550ve_8_die_temp          50.2=C2=B0C     49.3=C2=B0C     -0.9=C2=B0C
-pm8550ve_9_die_temp          54.3=C2=B0C     53.3=C2=B0C     -1.0=C2=B0C
-
-pm8550_gpio_01 and keyboard_therm clearly respond. This
-would make sense, I am guessing two sensors are located
-very close to each other on the motherboard, but on the
-opposite sides of the PCBA.
-
-6. Hairdryer on the keyboard, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              49.3=C2=B0C     49.1=C2=B0C     -0.2=C2=B0C
-vph_pwr_therm                50.6=C2=B0C     50.4=C2=B0C     -0.2=C2=B0C
-usb_charger_right_therm      43.7=C2=B0C     43.6=C2=B0C     -0.1=C2=B0C
-ssd_conn_therm               46.4=C2=B0C     46.3=C2=B0C     -0.1=C2=B0C
-sys_therm5                   36.8=C2=B0C     37.0=C2=B0C     +0.2=C2=B0C
-keyboard_therm               49.6=C2=B0C     49.4=C2=B0C     -0.2=C2=B0C
-pm8550_gpio_01               49.2=C2=B0C     48.9=C2=B0C     -0.2=C2=B0C
-pm8550_gpio_02               44.1=C2=B0C     44.1=C2=B0C     +0.1=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.9=C2=B0C     35.8=C2=B0C     -0.1=C2=B0C
-pm8550ve_2_die_temp          48.1=C2=B0C     48.0=C2=B0C     -0.1=C2=B0C
-pmk8550_die_temp             45.3=C2=B0C     45.1=C2=B0C     -0.2=C2=B0C
-pmc8380_3_die_temp           46.0=C2=B0C     45.7=C2=B0C     -0.4=C2=B0C
-pmc8380_4_die_temp           44.6=C2=B0C     44.3=C2=B0C     -0.3=C2=B0C
-pmc8380_5_die_temp           46.3=C2=B0C     45.9=C2=B0C     -0.3=C2=B0C
-pmc8380_6_die_temp           45.3=C2=B0C     45.0=C2=B0C     -0.3=C2=B0C
-pm8550ve_8_die_temp          45.4=C2=B0C     45.1=C2=B0C     -0.3=C2=B0C
-pm8550ve_9_die_temp          48.8=C2=B0C     48.6=C2=B0C     -0.2=C2=B0C
-
-Another 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              49.0=C2=B0C     49.6=C2=B0C     +0.6=C2=B0C
-vph_pwr_therm                50.6=C2=B0C     51.0=C2=B0C     +0.5=C2=B0C
-usb_charger_right_therm      43.7=C2=B0C     44.3=C2=B0C     +0.6=C2=B0C
-ssd_conn_therm               46.5=C2=B0C     47.2=C2=B0C     +0.7=C2=B0C
-sys_therm5                   37.5=C2=B0C     38.8=C2=B0C     +1.3=C2=B0C
-keyboard_therm               49.6=C2=B0C     50.2=C2=B0C     +0.7=C2=B0C
-pm8550_gpio_01               49.1=C2=B0C     49.7=C2=B0C     +0.6=C2=B0C
-pm8550_gpio_02               44.6=C2=B0C     45.7=C2=B0C     +1.1=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       35.8=C2=B0C     35.9=C2=B0C     +0.1=C2=B0C
-pm8550ve_2_die_temp          48.2=C2=B0C     48.6=C2=B0C     +0.4=C2=B0C
-pmk8550_die_temp             45.3=C2=B0C     46.1=C2=B0C     +0.8=C2=B0C
-pmc8380_3_die_temp           46.0=C2=B0C     46.4=C2=B0C     +0.4=C2=B0C
-pmc8380_4_die_temp           44.5=C2=B0C     45.2=C2=B0C     +0.6=C2=B0C
-pmc8380_5_die_temp           46.3=C2=B0C     46.7=C2=B0C     +0.4=C2=B0C
-pmc8380_6_die_temp           45.3=C2=B0C     46.0=C2=B0C     +0.7=C2=B0C
-pm8550ve_8_die_temp          45.3=C2=B0C     46.1=C2=B0C     +0.8=C2=B0C
-pm8550ve_9_die_temp          48.7=C2=B0C     49.6=C2=B0C     +0.9=C2=B0C
-
-Cooldown, 10s wait:
-LABEL                         START        END       DIFF
-pm8550_die_temp              55.8=C2=B0C     55.3=C2=B0C     -0.5=C2=B0C
-vph_pwr_therm                57.8=C2=B0C     57.3=C2=B0C     -0.5=C2=B0C
-usb_charger_right_therm      51.0=C2=B0C     50.6=C2=B0C     -0.4=C2=B0C
-ssd_conn_therm               54.0=C2=B0C     53.6=C2=B0C     -0.4=C2=B0C
-sys_therm5                   45.8=C2=B0C     45.3=C2=B0C     -0.6=C2=B0C
-keyboard_therm               56.3=C2=B0C     55.8=C2=B0C     -0.5=C2=B0C
-pm8550_gpio_01               55.8=C2=B0C     55.4=C2=B0C     -0.4=C2=B0C
-pm8550_gpio_02               52.5=C2=B0C     51.9=C2=B0C     -0.5=C2=B0C
-lpddr5_therm                130.0=C2=B0C    130.0=C2=B0C     +0.0=C2=B0C
-usb_charger_left_therm       36.0=C2=B0C     36.0=C2=B0C     +0.0=C2=B0C
-pm8550ve_2_die_temp          54.7=C2=B0C     54.2=C2=B0C     -0.5=C2=B0C
-pmk8550_die_temp             52.0=C2=B0C     51.6=C2=B0C     -0.4=C2=B0C
-pmc8380_3_die_temp           51.5=C2=B0C     51.2=C2=B0C     -0.3=C2=B0C
-pmc8380_4_die_temp           50.3=C2=B0C     49.9=C2=B0C     -0.4=C2=B0C
-pmc8380_5_die_temp           51.9=C2=B0C     51.5=C2=B0C     -0.4=C2=B0C
-pmc8380_6_die_temp           51.0=C2=B0C     50.8=C2=B0C     -0.2=C2=B0C
-pm8550ve_8_die_temp          52.7=C2=B0C     52.4=C2=B0C     -0.3=C2=B0C
-pm8550ve_9_die_temp          55.4=C2=B0C     55.1=C2=B0C     -0.3=C2=B0C
-
-I would say it is also inconclusive; Looks more like
-"sys_therm5" is the actual keyboard thermistor.
-
-With this in mind:
-ADC5_GEN3_AMUX1_GPIO_100K_PU - Likely "lpddr5_therm"
-ADC5_GEN3_AMUX2_GPIO_100K_PU - Li
-ADC5_GEN3_AMUX1_THM_100K_PU  -
-ADC5_GEN3_AMUX2_THM_100K_PU  - RHS USB Charger
-ADC5_GEN3_AMUX3_THM_100K_PU  -
-ADC5_GEN3_AMUX4_THM_100K_PU  -
-ADC5_GEN3_AMUX5_THM_100K_PU  -
-
-Would like to hear how you arrived to the labels. I am
-in parallel checking if tearing down the laptop would
-help me identify which thermistor is which, but this
-will take a while. Alternatively, I am leaning to drop
-the labels for anything we are not sure about...
-
-P.S. With most platforms starting sys_therm node count
-from 1 and not 0, and schematics used to make this
-mapping being wrong I would change this series to match
-usual convention in the next series.
-
-Regards,
-Alex
-
->=20
-> > +=09sys_therm0: channel@14a {
-> > +=09=09reg =3D <ADC5_GEN3_AMUX1_GPIO_100K_PU(1)>;
->=20
-> One note on the shape: hamoa-pmics.dtsi already defines
-> channel@14a and channel@14b as pm8550_gpio_01 and pm8550_gpio_02,
-> with gpio3 and gpio4 in high impedance for them. The EC's io-channels
-> can reference those two directly; redefining the nodes in the board
-> file only adds the labels, which the EC node does not need.
->=20
-> Happy to test a v7 with the two channels moved.
->=20
-> Liviu
-> 
+Em seg., 19 de out. de 2026 =C3=A0s 01:37, =E6=85=95=E5=86=AC=E4=BA=AE <dzm=
+91@hust.edu.cn> escreveu:
+>
+>
+> > =E5=8F=91=E4=BB=B6=E4=BA=BA: "Weijie Yuan" <wy@wyuan.org>
+> > =E5=8F=91=E9=80=81=E6=97=B6=E9=97=B4:2026-10-18 11:40:09 (=E6=98=9F=E6=
+=9C=9F=E6=97=A5)
+> > =E6=94=B6=E4=BB=B6=E4=BA=BA: "Daniel Pereira" <danielmaraboo@gmail.com>
+> > =E6=8A=84=E9=80=81: "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan" <s=
+khan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>, "Alex Sh=
+i" <alexs@kernel.org>, "Yanteng Si" <si.yanteng@linux.dev>, "Dongliang Mu" =
+<dzm91@hust.edu.cn>, "Chen-Yu Yeh" <chenyou910331@gmail.com>, "Federico Vag=
+a" <federico.vaga@vaga.pv.it>, "Akira Yokosawa" <akiyks@gmail.com>, "Carlos=
+ Bilbao" <carlos.bilbao@kernel.org>, "Avadhut Naik" <avadhut.naik@amd.com>,=
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, "Jani Nikula" <ja=
+ni.nikula@linux.intel.com>
+> > =E4=B8=BB=E9=A2=98: Re: [PATCH v2 1/2] docs: doc-guide: add a guide for=
+ translators
+> >
+> > +cc Jani Nikula
+> >
+> > On 2026-10-15 09:56:42 -0300, Daniel Pereira <danielmaraboo@gmail.com> =
+wrote:
+> >
+> > > The documentation has seven translations, but nothing in the English
+> > > documentation explains how to contribute to them.  The only guide tha=
+t
+> > > exists, Documentation/translations/zh_CN/how-to.rst, is written in
+> > > Chinese and covers the zh_CN translation only.
+> > >
+> > > As a result, the same problems come up over and over in the review of
+> > > translation patches: labels and citations copied from the original,
+> > > which are global in Sphinx and collide with the English ones; partial
+> > > builds with SPHINXDIRS that hide those collisions; lines over 80
+> > > columns; translations not added to any toctree; missing commit
+> > > descriptions, tags separated by blank lines, HTML email rejected by t=
+he
+> > > lists, and the documentation maintainer left out of the recipients.
+> > >
+> > > Add Documentation/doc-guide/translations.rst, a guide that covers the
+> > > whole workflow of a translation: choosing what to translate, the layo=
+ut
+> > > of a translated document (path, header, labels, citations,
+> > > cross-references, what must not be translated), translation quality a=
+nd
+> > > terminology, adding the document to the build, checking it with a ful=
+l
+> > > htmldocs build, checkpatch and checktransupdate.py, preparing and
+> > > sending the patch, the review process, keeping translations up to dat=
+e
+> > > and starting a new translation.  The commit message format it suggest=
+s
+> > > is the one already recognized by tools/docs/checktransupdate.py.
+> > >
+> > > Link the guide from the doc-guide index and from the translations
+> > > index.
+> > >
+> > > Signed-off-by: Daniel Pereira <danielmaraboo@gmail.com>
+> > > ---
+> > > Changes in v2:
+> > > - Drop the Assisted-by references from the AI tools section, the tags
+> > >   example and the checklist (Weijie Yuan).
+> > > - Use a plain path in the ":Original:" example and drop ":Translator:=
+"
+> > >   from it (Weijie Yuan).
+> > >
+> > > v1: https://lore.kernel.org/linux-doc/20261013003702.5824-2-danielmar=
+aboo@gmail.com/
+> > >
+> > >  Documentation/doc-guide/index.rst        |   1 +
+> > >  Documentation/doc-guide/translations.rst | 694 +++++++++++++++++++++=
+++
+> > >  Documentation/translations/index.rst     |   3 +
+> > >  3 files changed, 698 insertions(+)
+> > >  create mode 100644 Documentation/doc-guide/translations.rst
+> >
+> > [...]
+> >
+> > > +Anatomy of a translated document
+> > > +=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> > > +
+> > > +Location and file name
+> > > +----------------------
+> > > +
+> > > +A translation mirrors the path of its original under the language
+> > > +directory, and keeps the same file name::
+> > > +
+> > > +  Documentation/process/howto.rst
+> > > +  Documentation/translations/<lang>/process/howto.rst
+> > > +
+> > > +Do not translate file or directory names.  The documentation build u=
+ses
+> > > +this mapping to add, at the top of every page, links to the same pag=
+e in
+> > > +the other languages; it only works if the paths match.
+> > > +
+> > > +The file header
+> > > +---------------
+> > > +
+> > > +Start the file with the same SPDX license identifier as the original=
+.
+> > > +Most translations then indicate, in some form, which document was
+> > > +translated and include the language's disclaimer.  For example, the
+> > > +Italian translation uses::
+> > > +
+> > > +  .. include:: ../disclaimer-ita.rst
+> > > +
+> > > +  :Original: Documentation/core-api/symbol-namespaces.rst
+> > > +
+> > > +A plain path is enough in the ``:Original:`` field: the documentatio=
+n
+> > > +build turns ``Documentation/...`` paths into links automatically.
+> >
+> > Oh, btw. There's a comment about ":Original:" from Jani [1]:
+> >
+> > | I'm wondering, are these :Original: fields useful anymore since the
+> > | translations extension adds the button to switch between languages?
+> > |
+> > | The pretty much hard-coded expectation is that the English version at
+> > | path/to/foo.rst is the original, and its translations are at
+> > | translations/xx_YY/path/to/foo.rst.
+> > |
+> > | I.e. neither the HTML nor the RST benefit from it, and it's just
+> > | repetition.
+> >
+> > Perhaps we could have a bit of discussion here?
+>
+> Hi Jani and Weijie,
+>
+> if all the translation documentation follows the relocation style -
+>
+> Documentation/XXX/XXX.rst to Documentation/translations/XXX/XXX.rst,
+>
+> the ":Original:" has no meaning, but actually this convention does not wo=
+rk sometimes.
+>
+> BTW, tools/docs/checktransupdate.py uses this relocation style in the zh_=
+CN translation. When I try to test this script in other translations, this =
+issue occurs.
+>
+> So my suggestion is that, after confirming all the translated docuementat=
+ion follows this style, we can delete this field and write this relocation =
+style in the translation guidance.
+>
+> Dongliang Mu
+>
+> >
+> > Thanks.
+> >
+> > [1] https://lore.kernel.org/linux-doc/c719c6756f345c6c39db483654578ef09=
+de1948f@intel.com/
+>
+>
+> ------------------------------
+> Best regards,
+> Dongliang Mu
