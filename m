@@ -1,52 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792651791;
-	b=JqHOZhQQdLV6dxJYuSPgCWPQaN7K9ATSSEJllBuSoTG5Tt24OA2hDr+GKfmxlctS9mtQ
-	 mt9uanQsb6DjfRFQi9mHkSWKcFaNojpsblAdgN3iqndN/QzXcKnkAtxXe3xc1FVkUxlK9
-	 +F1SA6JK1ALepFHR0J2iEa61L0xrQrhK1ZUCnnWIERORs+q54UPsX/puBIyF5Ue5A7I1v
-	 vh9R1MfqmoXw53Y7ng+YQWiXTKQo9ifEslPrWUHv78Q5PWuqj34Q8q9A0EjKestlAMymo
-	 wBNlLZbA3lEGNFSM+ZGGL7TEjKu75QPcFF+CNFOCDKAC9jvHPxl1Q8ad/N0vtZax5Mg==
+	t=1792651830;
+	b=sOhXNyX622muXMHSsTzFVbljN8mjV0KYn6+WyQJPd0PDC+0cv9dpoXj3IbX+/i0I8ep7
+	 5J1MHpdOIbsZ8xmeOXrrzYj50NY3+Wo1cLI7ABu4KIAFEQvDgt4sPAz/LQIyt7RCm25q6
+	 LqUa5i39Vxmlg6PedzhUjfL37bL+HDTcdkPigpEB0UfiekLzKnrHLXj/0cg1ph6raHVhR
+	 M5tZVMf/0LJFFZz/1glkVUAFb3eS+KBlR3cLNwocDmarvvXA1+6s711FpM9/4qOjglN0L
+	 ISyYk/5xraEMtuaaYt8tO3LRZMcFmqE965tPQFOKFduHU8siWTE7DklwHoufBbp7+3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651791;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=YoPKot+7OFfT2JTNWL87bj+n+ySvp+5zZLX5ffnAJSw=;
-	b=RUfYsciXf9LNFebMJUMtijwpfY6qcWk8n4pRBAnZTsequN7CpOhz3kLdiA98UxneTVMy
-	 2AhItUB0LhvrdslXzmL4ZZBXaEiS737ckADN0gpC7vi9e4t+LbYMAaGpeEprPu7kDjDFy
-	 dwXjU3VoIDLUYQLV3KQ70aFjB/dCQyUDKJEV9T3qyx+EQRkUzZWl1psyT9H9lcIHJcBUo
-	 kjyzZ4to7FtJoBYwvhoRXY64+WGBdxnzNVM3KX2xx/vRBI3paV4z/LnmflM5cLDjB3SDZ
-	 mk7OnvC764lxoJ4iDr6+67f68hbgdWF5XkGrySrOnqcvGCOG9dB1dmWMqgEWaB4zEiQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651830;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BHhajxLyQjIggPfERX4J5IymxXdQBLrR5tOcaGMBjj8=;
+	b=ga9ctNAGUexgm8Vdn6pOT3ui73F38GBK/8AoJXP2Ppzf3PXX5O5jhenGtL2dKOme3k7X
+	 nmUHfUM5FGNhbBHnUNEg3Sd/nGdG7LWLhHDUNiUcYkx1ZXZ4WNpM7g/zCOVMtO6mT3R1L
+	 dr9aA8apDtQ/9zq20gnBBoDlkjQoS+FH7wrD3w22jOiEV6b3yxQN1ilq5adtyqCCX+J4C
+	 oWfvMHNqiQ3N+3O7Z3VmYQRMKAMq0ddk3JS1jT0lnqKYHL9sSVOxpJVPo4jaZuqOYyRFV
+	 ZgGwvq5TZ08G1f4KYTfgH+SRl0zt6Ot31pQ35e6gL9I2fdUl475JRG0tqtDwtVAMvTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=U8UrzikZ;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXDFI2vo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50E2606A319;
-	Thu, 22 Oct 2026 06:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C50E2606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F532606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:50:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=U8UrzikZ
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 285091064DB;
-	Thu, 22 Oct 2026 08:49:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1792651779;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=YoPKot+7OFfT2JTNWL87bj+n+ySvp+5zZLX5ffnAJSw=;
-	b=U8UrzikZz0xZabqwk+QoTCrngKROX+XZlyNL7Ubml2HXtPTUdBa/4P+rpMgCEW47j2jXPs
-	oqL8LBGnpUBp8zdNbqwadWIT8ZHt6LIstgvYjdiKH7l+m/aV6HvWytVOPIQLCYftUlVyP7
-	qUyCDufkNwHJVGozYYsZnON8LFYQ8yS+Gz/kjWw8F+YshkeRKUN3saIha4kLMNX80N8Nze
-	NLCeJvUMgIdvcjAq6Yzg5AvsGF4nGq8C/Oa9V24UbZo4w+CoK/zKUVrw/LOddXXzQYa+FI
-	uPc5BSV6IX2+cROaESq3NReNxjH+nyQlEo/q3gwVov1g8MrnpnuVmB72U10C+Q==
-Message-ID: <d4b9c444-a848-4b4f-9273-1c832db45fc8@nabladev.com>
-Date: Wed, 21 Oct 2026 20:55:39 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lXDFI2vo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F431F000C1;
+	Thu, 22 Oct 2026 06:50:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792651830;
+	bh=BHhajxLyQjIggPfERX4J5IymxXdQBLrR5tOcaGMBjj8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lXDFI2voqvPVnhrcv3mCBj9iw7gFtv8c2eYodVCu3sABZGnH/1x6vsSoA86M2qZZt
+	 SGxInoXRTs4Hb1UUpdTu9mWdoPxjQRMySUj36JXLs+3LqxQ8XzeGq0CRhTBdF2NPrQ
+	 vufeC0i1wv+2P0tRBVHE33hq5mgtciSc3PVFIj8AS4TcbkfR9xe8abE8oPeVxuphos
+	 dxnjlDcOtCnsDIQEX+7fH2qeuDQs8UDhzwsKoVp3S+V+4Ki7rlYccsvp3YoYse+Sni
+	 120oQxaV8rDais8KVHaLvyC130iHgvQv+mpFG+Ogc5iYJckLsK0DGrKE01RHsE/cYS
+	 9N6u7nNLn4OKw==
+Date: Thu, 22 Oct 2026 09:50:23 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Li Zhe <lizhe.67@bytedance.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, muchun.song@linux.dev,
+	osalvador@suse.de, peterx@redhat.com, azpijr@gmail.com,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH v3 2/3] mm/hugetlb: disable PMD sharing for UFFD missing
+ mode
+Message-ID: <atmyL8tmB9ZCdSin@kernel.org>
+References: <20261022034543.51226-1-lizhe.67@bytedance.com>
+ <20261022034543.51226-3-lizhe.67@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,67 +59,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ARM: dts: imx6ull-dhcor-maveo-box: Remove unused SPI
- device
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
- linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, kernel@dh-electronics.com, linux-kernel@vger.kernel.org
-References: <20261021134435.17350-1-cniedermaier@dh-electronics.com>
- <1073daf0-3676-4123-9ca4-c182ea5883a3@nabladev.com>
- <20261021183704.GA1116319@francesco-nb>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261021183704.GA1116319@francesco-nb>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022034543.51226-3-lizhe.67@bytedance.com>
 
-On 10/21/26 8:37 PM, Francesco Dolcini wrote:
-> On Wed, Oct 21, 2026 at 07:19:30PM +0200, Marek Vasut wrote:
->> On 10/21/26 3:44 PM, Christoph Niedermaier wrote:
->>> On the maveo box, the SPI pins are connected to connector X10,
->>> but no device is connected. The device "dhcom-board" was used
->>> only to test the hardware, but was not removed afterward. So
->>> remove this device to accurately represent the current hardware
->>> configuration here.
->>>
->>> Fixes: 145e2732a5e9 ("ARM: dts: imx6ull-dhcor: Add Marantec maveo box")
->>> Signed-off-by: Christoph Niedermaier <cniedermaier@dh-electronics.com>
->>> ---
->>> Cc: Rob Herring <robh@kernel.org>
->>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->>> Cc: Conor Dooley <conor+dt@kernel.org>
->>> Cc: Frank Li <Frank.Li@nxp.com>
->>> Cc: Sascha Hauer <s.hauer@pengutronix.de>
->>> Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
->>> Cc: Fabio Estevam <festevam@gmail.com>
->>> Cc: Marek Vasut <marex@nabladev.com>
->>> Cc: devicetree@vger.kernel.org
->>> Cc: imx@lists.linux.dev
->>> Cc: kernel@dh-electronics.com
->>> Cc: linux-kernel@vger.kernel.org
->>> ---
->>>    arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts | 8 --------
->>>    1 file changed, 8 deletions(-)
->>>
->>> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
->>> index 047f7b2d8526..eb0b91040110 100644
->>> --- a/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
->>> +++ b/arch/arm/boot/dts/nxp/imx/imx6ull-dhcor-maveo-box.dts
->>> @@ -60,14 +60,6 @@ &ecspi4 {
->>>    	pinctrl-0 = <&pinctrl_ecspi4>;
->>>    	pinctrl-names = "default";
->>>    	status = "okay";
->>
->> Drop "status = "okay"" too , since this controller will be unused ?
+On Thu, Oct 22, 2026 at 11:45:42AM +0800, Li Zhe wrote:
+> From: "David Hildenbrand (Arm)" <david@kernel.org>
 > 
-> you can instantiate a new device on the SPI bus from userspace. up to
-> you, but if I was a user I would appreciate to have it enabled.
-Good point -- Christoph, is this the (use)case here , can the user do that?
+> For UFFDIO_POISON to install a poison marker in a hugetlb mapping, it is
+> sufficient to have the VMA registered for missing mode.
+> 
+> However, UFFD missing mode does currently not block PMD table sharing, so
+> installing the marker will be visible to everyone using the shared PMD
+> table, which is wrong as UFFDIO_POISON must stay local to the process.
+> 
+> To fix it, make uffd_disable_huge_pmd_share() cover VM_UFFD_MISSING as
+> well. With missing mode covered, hugetlb PMD sharing is disabled for all
+> userfaultfd registered VMAs, so the helper can simply return whether the
+> VMA has a userfaultfd context instead of testing individual UFFD mode
+> flags. Add a debug check on the marker installation path.
+> 
+> The existing registration path will then unshare PMD tables, and
+> subsequent faults will not share them while the mapping remains
+> registered.
+> 
+> The alternative would be to unshare PMD tables selectively when
+> installing poison markers, which results in way more complexity. Or
+> alternatively, simply failing the marker installation, which might break
+> some use cases.
+> 
+> This also disables PMD sharing for userfaultfd registrations that never
+> use UFFDIO_POISON.
+> 
+> Suggested-by: Li Zhe <lizhe.67@bytedance.com>
+> Suggested-by: Mike Rapoport <rppt@kernel.org>
+> Fixes: 8a13897fb0da ("mm: userfaultfd: support UFFDIO_POISON for hugetlbfs")
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+
+> ---
+>  include/linux/userfaultfd_k.h | 16 +++-------------
+>  mm/hugetlb.c                  |  1 +
+>  2 files changed, 4 insertions(+), 13 deletions(-)
+
+-- 
+Sincerely yours,
+Mike.
