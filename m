@@ -1,99 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792687563;
-	b=SfCf8Iqyy3HnPGHAEB+NF5GLtNdMb/XRPv5Pt5GcY+NVl6/2oxtoYPT9505wRLUfKtiw
-	 UjUiAw/RGTNJNXjhIE7qmTiIXckec2DXuE7+//kQ/ROasYA0D5OHkODjgAZVzd7XmQ6XL
-	 KGQNxBw0eJtuOVNm27W1hZFmCRmH0tidSqz4B5ZlhVy9+lZiMkn8GVKUk2srlerU08Jnj
-	 /3akbdRjK3+i8ed/Cp1aOp0ndZnA8R7IrV5Jv/nKAyoKWxqGhkOyY0GBUdemYbetoxxD/
-	 4oy+XQxFGdMe5i9XHz3Yai1qc77flPzQtTyCqGxuBOa0sPZdZv/Ad1P6zdpGsRkCQrw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687563;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792687568;
+	b=slbL8tdDN+xFUooDmTcj7ijhbNyMiAuZpu1XswHuO7Xsf6fjwaDb5MD0jsoq6I1AR7Vf
+	 iyKvCO4QejxJQ2/WBJ8WiGF8r8YdQt87hO0fV6cWESqQzBwaZgOnimTApnAgB0fCHgX6o
+	 I8w/hLH/SUr7r4KDCyPa46clNC/ZzBlp32PK77TbxTFkk3B23OeWMazh+MnRhSsPw2qLP
+	 iBe2wqatId+u0SkiLMwO+b4TPei5BWrb0QSWFPfqfySA4+dvfVNttdYXtD/gFC59Drp/+
+	 LsgwNA+PxnSWV5yUTwFIfX2rUR3jTPoKlORlYlzCDJyelPQOSlsiFrPr8n0++lVDwvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687568;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=7QjbmIGCrtIQ6tCBoJIzAI0pejSWTsFGJkAT3QK1DP8=;
-	b=Lxcj1VyDk7/1CN6L4chS31yUp/bi2FjFIdr4OSusltaLllVRDcR6sYHLdn3mvetRxD+h
-	 bS55on2lsir1uw9f8jO079ypmAiuhySjlOssU3ZagVP7ov2/skVx1TJQ0+mfLjvPe1o95
-	 vmt1aK5Y7rhaW/YhyxDgw5Cbm107vSuROxQLwd/s4PLFUhIAe+jpQZGNdCXD4LgZGySJR
-	 9W57mukjii6PyKrG1YsUylJQhPP4jK6qNRTgyFKAfje9GcUJ9TEBWsGK6JIgegr01KveW
-	 vlXESDhtoM1GNxjuhzsGXPni9tRVIfnrvNRvJ74D6rfTQUUZG4abfpRs4yz0eLr9Kow==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=M66QCxhz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ulbhMpPNAEqRrIOhtV5MGUC4m/y05Tb2A9NkmVyj/X8=;
+	b=hpL6OMasVsoWk3xbdEPx1rTCPpf9DUFGLIGknefkrItrz+6JfQklrlqfusDIfTGuO/jS
+	 ASz6cmlp+qmq6UO0A12PyjJMO7FVHGdl6dOsdqnXiXHjj8tVEPnELn3u7S3C9p8vf5Sl+
+	 0rCK8PAIaLzzKNWrRP+GUkcmJjWPDIAdMSZ3Ow5uA0kYzM1ioyLcAebJUQQR0gm60Io9y
+	 t4Ts/58Nn9mXMCeM6h5j/xioCaaKvMjomwa64ZYFrWfidJao6PmDL3uTlhug+TKtxeDRN
+	 zdn1wpY95nU4b/rrYAI9tMcNI1J8G+0jMw6OmxLh5kJQUE1aePXY3n+F8XjiEbq+JUg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V02IlN5i;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD8C0606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:46:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD8C0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F641606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:46:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F641606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=M66QCxhz
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b2232d8ef5so3291717a12.3
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:46:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792687561; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EZ2hwODRrCx7tOHCdGOU7YIuMq/Wqni/Z4DyWe255FCouYfXWnqBADRvow/6yp4sxa
-         HhiqR/fMCOpqkSDasW4rRit3KUNtsi9h6RutQzghn7xkm7gNlkAf9/9JrwAB1+3kFpGJ
-         yY07s8GY+AGE6Z89OzJTdUkUbo+LiF1F0Tu/dCdFceNtW1OKxmxrdNjW7ZM6xtYf6Lb5
-         icF1+kZF/9Rh1CGb8w1r3A+uFDEdIgGPGUn58D1ljJB7/pO5jHgXX0mGb9Mb5QXQQink
-         haJ5tsh6e8bp/bngmYg2VVhIrk5BGCWq1fIXq9Krd2OIemv02f5S0g4ls+wFcwU3g0ux
-         3rfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=7QjbmIGCrtIQ6tCBoJIzAI0pejSWTsFGJkAT3QK1DP8=;
-        fh=5A3J+NolkeQHJlFgW+8h+Jj8+ePfPoPxPD8cPlKK8wk=;
-        b=cqPa0T+UUhJacbov27740SermkN9KKNAPQcJpdiXZDERLRIPMHXXNCY0P3XEIgzOob
-         vl2ENGLREqGD/ZVhE/W9X23UDgMfSCNi/Kg3MJ+xKIJhl16bU6yE+OyBfcKn8n7LVUFp
-         iuqgVuiEPovlwXqR+a7uqrr3Rzh9+wHKNNSnj+GMMG5UohLztACHGa4Q+2LLuPAlYPnr
-         6UitytZh/UN9jovlQQ5TGTgwnzKil0Uz6cLfMBXTMfuA07urEF66Yh+dV36N5rdl2OAV
-         6so80s6ehV8tenBgPtSIj4LQmoVqLZ0ps4JdRAIjMQfu0oEPYDu8WNFXjs4dKM4+WT3f
-         qoVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=V02IlN5i
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48b001cd92bso3113f8f.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:46:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1792687561; x=1793292361; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7QjbmIGCrtIQ6tCBoJIzAI0pejSWTsFGJkAT3QK1DP8=;
-        b=M66QCxhzgfUbzPqiJ9B/b+kTckyRx1hkamMEguvpk2hjSGiKeiJBuX0xS735bq2Dmj
-         PhQfeywaq4e08BZYcqy9/KtlscEKHSVAs7ztL1FoZADZKD8w8UQWQRqM2WuWxphtuQbj
-         FWO21f5APdGiFbQj3hGiraGvRPquXWeWLb8zlzomRQFsIQ43jmCxVWYOj00RN04iV7jl
-         dNhhPJBqRvFoZWtzvVRtxhDd9EL+YJuxQ0N7WXMXBfNmd5FnsN9aVMR9ug+E0XcSeGFz
-         1BNnDqLVJTksD8jHtQ2jmJssSFRiaVieF1/m5QofTNMcXEQE1mej6livTmodsAmhYWyq
-         ajnQ==
+        d=gmail.com; s=20251104; t=1792687567; x=1793292367; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ulbhMpPNAEqRrIOhtV5MGUC4m/y05Tb2A9NkmVyj/X8=;
+        b=V02IlN5iKRq9f3UIaNYf4qBsqYnr4l/l1KhUDGmkCUKaiS/X9h8h9pTCOlP26lwQBC
+         6Ubo3bRbASFVUO4Y7aV5Y64cxTndUcxU/M6oXGrVQ3ELWe570k2A4i3i0PsUFmHqzp4P
+         0f3+1STiGrSkfsyvMu+W4LkrN0rmNffD7yVa1JgTHvgfENNl8fAjnlx5rvoEkjZ/vPzP
+         Y5dDTjkUxE/rt6PLd0grpYr1GCPmQyJ/xCiy30snNwiYKXfzuWV/+trMSrl2r+h+WmUO
+         FTUjZUb39eJzoOFjrJUCip+qBfMpKBe8IjpfrVVVgAt3UtV2J/0G93rbhBm76lZeGdkx
+         ZTbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687561; x=1793292361;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7QjbmIGCrtIQ6tCBoJIzAI0pejSWTsFGJkAT3QK1DP8=;
-        b=rUXVtQB/bc18G1SAxg5X8WJ3v6sETM1FwBdYj0aZ8ftcVfbE9bcZbwnDK+1t3hSRU5
-         j8McuM1dDKh0x8pSFdaz5K+abbGy3QC3OAh6dnHerSL1iZ4nMW2NeDpKqaOQLC9RwQ5j
-         Y3/qojb8SkTpF2O+6wR/9IEs9zy6e71490OOhFiU6EPlX6QklsRgIW4w+r7IVB0idVF9
-         dkqFJHIugENT/l9bpWBCQCHflPgGFSilBgSGFpd9O71drUQpK2hq3yT8cltiOPf8rxl/
-         rSE2IHuUy05O5mZYaq9TT3v2hPduNtQgRqboOgI9KNqOFn9uSRM04yMZJZbTjd7vpZeI
-         mrnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBySBKPVWiU2Qj7HSzjzxfXwFOIG7E4GsIc0K9y5qOwnQcjdgzIreCD8oFZKHeA6h8jtq/BWliQX//eH8CM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIBjXsOtGr/lgSh6oElCh3FbtJhdu2ew3XSAKG+JQ6NJdGgtzrz
-	k55PA5AhSjOh479Kw9v5qFofoXAe5cNWEmzmxx/TO4QQmYs2Mr2G7/eQteWzJiJtdmR8MXQ4HZ1
-	zsRqxcE2IJEBUKA9qs1LhX6akIDdQD056eW1WoGjrrg==
-X-Gm-Gg: AYBFou39D4cF/CUS3XlW484P1dBJLk65u42zpZGmF4zmpDNgCVxNpnT307qiS+GH59w
-	S1PQ7XSCjlTkjwyhb5TL/CtwiiPL7vECGjT6qYkLwFyYf00WBWUf2XToL8LtbndEgQ/i07Wh/wg
-	grOK+EhMJ1iPgm0S4Y7h+EM+X5lnH+VwKYi/tBHNYTeVbWci4JcRR6z/RYlYufU14aTSKEwWQqc
-	/aAdUvBBLifxCQasVabHSK0Zk+Bib8p84cXqTpGLHXspKfv7NJk5rxp9RffRuSgVEkmnLJb491i
-	Nic20xJccii4BKh+pRaKFbKWrtoOLnPUnp//6GFenxt2/kLz1NGZTciqg2LPW+dcXwpNgOAQ7UR
-	g2tdf2cCuLOcFStOshVbFSMbKOcWVm1UJN+eaFuu3nCnQF1pLK6ye269f3WQxVdDGAvBkplU=
-X-Received: by 2002:a05:6402:3606:b0:6ac:70f2:9205 with SMTP id
- 4fb4d7f45d1cf-6b408ee83c9mr6292700a12.43.1792687561234; Thu, 22 Oct 2026
- 09:46:01 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1792687567; x=1793292367;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ulbhMpPNAEqRrIOhtV5MGUC4m/y05Tb2A9NkmVyj/X8=;
+        b=Bd5ujg8uy9S1ubHBdhxXHT4sgoHNSpD7Xr8Jl7Eb0LJInaArADe/DsQDvX1/vIQ2qa
+         0Z5lh1K8PqNiZdf4p94qYFFQqKqORtaM6f3FrinGBnVS1+xFmcWsW8BmZQZI4UH0uR3x
+         MppLPKjwDBE4Y5Wh+FpEKgYx/a22LfdnB8wA8SNPaUxuKC0QaraSdkEADBAo9JpwP45W
+         rNQ3ZnV7/B+Qd/HXc2Mro9n5DbvM4CiFxX3d00Q9gK4sWI6wGZ8BhGpKHq/HpxpgPsNX
+         1LLamYsXnmERJq4B0pYL+laL+aTyT7WK9CuLsq0t5zr7gsUtvDEmVaSQZkulaYQmmNYF
+         D1yQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw52lGc7q6V3oHf7SM/Plgm+GkNHklgxDoqm8UOY6+dhMn3APWkEvY5f/MfTioJaoPoP5sKgmwvyOlvB8c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLm1ZpZ2yKlpssIqlrkhXJYH1acmZCdndHGwCbv6TP1THdIKj2/
+	UhdKI1zYF6ZkFQ9JFp71NuEzj3VOq/b7bXqbBQc0INwQgyNQHEDdAuQ=
+X-Gm-Gg: AYBFou0+fCC5ZfjmMIiGhpqbjOoHHikiI8AS1mV9mhq7/hkQ8tVdmgQZVnKpvJif8/a
+	c8yKE6ImcAhXEvPtvz093rUpunaACzTVJ0jlT5cgu9pfYr+nycajxJEP+HRfeG17tvoU2QXB88f
+	Y2K7UMdngsfPR2FhxOMjcp+E5ih3x3s8d/7x9dh7VNMvZrGAOVKZfyTpZVetjhnV3naCK6l0yow
+	UTXnHnvNVetKxtQiaq3CAyIogKGLbMkOZj4M1StXYSDHeeQVA4P3LyO+sCHjZJa8Nm3dB15Le1t
+	GcJoeNnKrgkQ9Av2FzvtEYu6WrtE3q//UPCd4MqRWcWNXAK7Tuo0K8B/WtQF9b59vc9/HJBTZhq
+	6zsvnvVIozKacLkuL1zKBzq2Zu8/LfdxxrKY8iJTBy/DZknLCVyMm6/WGHdFeBFA7tLXw0nd1NP
+	rEE1FEPJS7iecsO4qK+gyhFQN/XW5ySwCNC0M5w1J+3f2xBf/mpTRb0sLTvU1xC3IaJjSG4jZbM
+	YnW+3zqDEVAFdMOOAWe3eXSwwY3D0pk40iE9LkW7/9oy//o7urDoUBc49a8+mMOZm4sP8YCu6R0
+	lF/KYpYdWjK1kROBSMStD1wNFQdF1EQ9Sr32KHB7He125Fw1lZdUjrBYjQ==
+X-Received: by 2002:a5d:5f95:0:b0:48d:ffce:6cef with SMTP id ffacd0b85a97d-48e263ac3a5mr12539089f8f.0.1792687566645;
+        Thu, 22 Oct 2026 09:46:06 -0700 (PDT)
+Received: from localhost ([2a02:810d:4a94:b300:7204:b73f:b5ab:d041])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48e25827087sm13154209f8f.21.2026.10.22.09.46.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 09:46:06 -0700 (PDT)
+From: Florian Fuchs <fuchsfl@gmail.com>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org
+Cc: Kees Cook <kees@kernel.org>,
+	Markus Elfring <elfring@users.sourceforge.net>,
+	Adrian McMenamin <adrianmcmenamin@gmail.com>,
+	Florian Fuchs <fuchsfl@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: sh: aica: Fix spu_memset() stride
+Date: Thu, 22 Oct 2026 18:32:41 +0200
+Message-ID: <20261022163241.2504922-1-fuchsfl@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,66 +99,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261014103241.3847-1-sid9.karanam@gmail.com>
-In-Reply-To: <20261014103241.3847-1-sid9.karanam@gmail.com>
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-Date: Thu, 22 Oct 2026 10:45:49 -0600
-X-Gm-Features: AclHuK-ugzsTcBNRw7i6zHWRnWRBooXuVu1JVUz_WJYFo6DEMNRW_AY2qU9QAv4
-Message-ID: <CANLsYkzqS=aHojaCefeSyoWHe9cPS9YdMv1331Bm55JF5JmgZw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] remoteproc: Merge ti_sci_dev and ti_sci_proc abstraction
-To: Siddharth Karanam <sid9.karanam@gmail.com>, "Andrew F. Davis" <afd@ti.com>, Beleswar Padhi <b-padhi@ti.com>
-Cc: andersson@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-I will wait for Andrew and Beleswar to review this set before moving forward.
+spu_memset() writes one 32-bit word per iteration, but advances the
+destination offset by only one byte. spu_reset() calls it with
+0x200000 / 4 words to clear the 2 MiB of sound RAM, so:
 
-Thanks,
-Mathieu
+ - three out of four writel() calls target an unaligned address. The
+   SH4 can't do that. Each one traps and is emulated by the unaligned
+   access fixup. This call to spu_memset() causes 393216 unaligned
+   accesses, visible in /proc/cpu/alignment.
+ - the clear covered only about 512 KiB of sound RAM, not 2 MiB.
 
-On Wed, 14 Oct 2026 at 04:32, Siddharth Karanam <sid9.karanam@gmail.com> wrote:
->
-> The previous version of the patch had a new header ti_sci_dev.h,
-> that mirrors ti_sci_proc.h in terms of the struct decl and
-> its helper function structure, with the goal of abstracting
-> all ti_sci_handle's members like ti_sci_dev_ops from being
-> invoked directly in the driver code.
->
-> Lore link to the v1 patch:
-> https://lore.kernel.org/all/20260922191453.324983-1-sid9.karanam@gmail.com/
->
-> Upon discussing in the original patch thread, it seemed
-> better to combine ti_sci_proc.h and ti_sci_dev.h's structs
-> and merge all their helpers into a single header. That is
-> what ti_sci_ctrl.h aims to do: It has the union of tsd
-> (ti_sci_dev) and tsp (ti_sci_proc) and both their helper
-> functions are prefixed with ti_sci_ctrl_dev and
-> ti_sci_ctrl_proc respectively.
->
-> The goal of the patch (v2) is to maintain a single source of origin
-> for all ti_sci_dev/proc_ops call sites. Any stray calls
-> to dev_ops/proc_ops function pointer members in driver code should
-> eventually be abstracted through this header (ti_sci_ctrl.h).
->
-> In the future we can try to abstract tsd's dev_ops even further
-> through pm_runtime, but there are some roadblocks that
-> I am unaware of, so that warranties a different patch.
->
-> Siddharth Karanam (2):
->   remoteproc: Add ti_sci_dev_ops abstraction
->   remoteproc: Merge ti_sci_dev and ti_sci_proc abstraction
->
->  drivers/remoteproc/ti_k3_common.c         |  21 +--
->  drivers/remoteproc/ti_k3_common.h         |   6 +-
->  drivers/remoteproc/ti_k3_dsp_remoteproc.c |  26 ++--
->  drivers/remoteproc/ti_k3_m4_remoteproc.c  |  23 ++-
->  drivers/remoteproc/ti_k3_r5_remoteproc.c  |  66 +++-----
->  drivers/remoteproc/ti_sci_ctrl.h          | 177 ++++++++++++++++++++++
->  drivers/remoteproc/ti_sci_proc.h          | 130 ----------------
->  7 files changed, 231 insertions(+), 218 deletions(-)
->  create mode 100644 drivers/remoteproc/ti_sci_ctrl.h
->  delete mode 100644 drivers/remoteproc/ti_sci_proc.h
->
-> --
-> 2.55.0
->
+Advance the offset by the size of the written word, to clear the full
+sound RAM using aligned writes.
+
+Fixes: 198de43d758c ("[ALSA] Add ALSA support for the SEGA Dreamcast PCM device")
+Signed-off-by: Florian Fuchs <fuchsfl@gmail.com>
+---
+The patch has been tested on the hardware and sound is also still
+working well, the boot is faster by about 4s due to less unaligned
+fixups.
+
+Previously: 7.9s to boot:
+[    2.900000] AICA AICA: ALSA Driver for Yamaha AICA Super Intelligent Sound Processor
+..
+[    7.872000] ALSA device list:
+[    7.876000]   #1: Yamaha AICA Super Intelligent Sound Processor for SEGA Dreamcast
+
+After: 3.8s to boot:
+[    2.892000] AICA AICA: ALSA Driver for Yamaha AICA Super Intelligent Sound Processor
+..
+[    3.796000] ALSA device list:
+[    3.800000]   #1: Yamaha AICA Super Intelligent Sound Processor for SEGA Dreamcast
+
+ sound/sh/aica.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/sh/aica.c b/sound/sh/aica.c
+index 078fc7fc08f9..04f80c8c89c0 100644
+--- a/sound/sh/aica.c
++++ b/sound/sh/aica.c
+@@ -94,7 +94,7 @@ static void spu_memset(u32 toi, u32 what, int length)
+ 		local_irq_save(flags);
+ 		writel(what, toi + SPU_MEMORY_BASE);
+ 		local_irq_restore(flags);
+-		toi++;
++		toi += sizeof(what);
+ 	}
+ }
+ 
+
+base-commit: c1b1c25de0d6008c3fcabc942fba635ea3693c3f
+-- 
+2.43.0
+
