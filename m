@@ -1,59 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792692322;
-	b=nVH1O+wwsN+nEG3Pepa70PURxW1LsFV8iXn2u+oJGu+0UD7sUJyBA3glnXpBLK+U4SuP
-	 R4wMqrWmr9a+8psDaAyYS4dfgq4BdZQRpSy5nkSxhDWn6L9H1o05rNFJ+A13oLAxpLACy
-	 f/OhCfOjupwVI37c1lrClE3vnY5vAdWjgM175cqBTYDHsErtFJZTarMSPySIqRcJzupuq
-	 tttpZtm5bON1tJx7rkXwBTDIeSKpUgzMobl7OY81eeV9Pri5XHyVPzwBWq7akWXVy08dj
-	 BmUOnrJB9E6CRxbnkSl8vLtshEEVeoOWsDRLcttZzJhLxkshtsQsdX0KDms1DLBrh2A==
+	t=1792692343;
+	b=U3gCexmgOJeqYCoJeDmA3Vh7TeTkAA4OpVimXSvVKNXk3atJqf8/AATqdehGyy3W7a8b
+	 /A5ocgyBfoHMCICtLovrwnHfApoUhoBgGhE8wCScN4yImGavtHz+bOzZM8N+SwBN3ckI1
+	 8YC1Y2furIbuJ1mvYZmSOF2hOIOKgDHKF/N1ghve1V0tCA5+N9efvZhApu6oVSlr1V4rY
+	 8kp6yX/Cl8Kb2XWygooYS1ZIzHBxdyHwDPse7jwo5z83+fFa7+/XCxjfODeZGqWrv44Cj
+	 cHUFycu7sADNlLoBJuW5UoPu1+zNxOQpvkFCbUFREch2DC+yKLqBAJuwQLj9wwFupwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792692322;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=66xP79lt5Tjx1kcLiN+8GMbh1FpuhTHreHBKUBB8XQE=;
-	b=BSR9V26F10BojhetR+hdrQ4QwZKlM8gqlzb+m/PYmXlaxiuuLk2geuOQ9QESyI9uAxLD
-	 CPI8lxuk//gaYKYXitpbZ0yRH4wb+8Dwl4xH3B+MqU4dRGn/boYP6zsRn/NTsrWDJ7wKE
-	 sHtHg/KDRaDviCp4NRR/8c49erBoR5roEP7H+wyCZMDEo/V8gZ+XnL2xOkvp247r4jjAg
-	 yS0XDa28maYoT6HS5AlGIWJXHwWmihJGuCXUS26M4c/htpJddsjmBoBromuCoTsSBUVag
-	 8BgSWN85W6Vf4r+WKJjKGopc6+1xsqXL0CVoqIuITcJVuL/rXvph/AJlsTmU2m1SbXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792692343;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:From:To:Cc:References:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=JY/kgswJkw3rC1uB03Rt3fXoWelWaBya4FySXulL7N8=;
+	b=vk1DeMF5BbHOIX6/KjIOGejAuhF/vq9lSBLH90KqlOLEhzbfv4u856recFODhAaqGkR0
+	 xNLh3uiJlh41R5xnS4Zsyy4em11kjUPMp55/W7o5Xs7Y62L2wTHO6WAjpM4rOrMXJ5Tit
+	 YKyB2C+70Q6RMTV37VBPxRsgj1qE1+tf2vLhj6DwKiRekzi5bAaTC9LCw41DLIgHpDc4E
+	 6YJay0jGnoOIi5MkiLpqRY06txe02d5HVmzzk0wEgg+CQ2qD0qQO2NZuJDvXWPuo64UxY
+	 PSHLO4cCzRPDBxqNuSZQX6U7jABdIYrNqDCmujn6TbQn/8gJGHafbok38c0ULP/XlsA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJfdPjF2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ENiGG3gy;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A900F606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:05:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC967606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC967606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJfdPjF2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00321F01825;
-	Thu, 22 Oct 2026 18:05:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792692322;
-	bh=66xP79lt5Tjx1kcLiN+8GMbh1FpuhTHreHBKUBB8XQE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZJfdPjF2alXuM40GMRoGu4hYOPz5NM3T0w3PpA4rALN1G+0hRFrXmN/qk3AIaAuL6
-	 z8Q26ZQNS/HkJ1knitkpc+NlkxL+hhPNz6+JejM2ufAJtp/V92Em4/QvBMsIxy3jmE
-	 U9VX2UvFEng+RGSS7ekzg5RC4+puHIc4jwnCmS4rXz1UY7VMKFTY6mswJA29cKkHrs
-	 kd8uQa1FaZUfQkEsVkxPA5WpeQRLoKY6dmAdavxdqv0DV8ERlS0Acw/8CvoFdTYD3m
-	 LkPwWQNHpakJTxqVMurGds5J1cc4AxJf85+BSLlUBWXvgNW56QRgaIsoZ4KDxtQy4O
-	 G+JzE7Fn48mfg==
-Date: Thu, 22 Oct 2026 19:05:18 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-Cc: Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	Darshan Prajapati <darshan.prajapati@einfochips.com>
-Subject: Re: [PATCH] cache: sifive_ccache: Enable all ways when no LIM is
- reserved
-Message-ID: <20261022-chubby-quote-4d06564dc4ba@spud>
-References: <20261021130906.2501060-1-pinkesh.vaghela@einfochips.com>
- <20261021-negation-carol-e42b4ecf3726@spud>
- <BY5PR04MB70254A39FF5BC39716B23E5783652@BY5PR04MB7025.namprd04.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ENiGG3gy
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1d75f2f11so681825e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:05:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792692341; x=1793297141; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JY/kgswJkw3rC1uB03Rt3fXoWelWaBya4FySXulL7N8=;
+        b=ENiGG3gyyAuVeWIKa4LSnuOTEfgIAnd+HliVCcVvSd97dGwI6+bb0LpYPHo6PkUhTh
+         cXLAv7cMZKpMSaKp1xlOAHaQrEPRp+Qqcvvu9jMexARfKbIFjlgs7TPyJI6ptY4sRcJ7
+         pnHKxke6wzEvPe0C+4sWoOS7fNm1Hz7UeYddytJeKWtdBlr1pXgF3JsLtc0Qbk71FO1A
+         zNwpb+ECp6OuM+oqFq6mdi4sEC6XQ9NfaU+4A3Q5dKnFNQ/P7cxSZJ2On8cNhfa/UoE7
+         PVqbFHyi73gJU57gv2Sb1YRRm5dqOLgZR11k9/R4jd4q+y4oM4XJqk+7Gz7ys1NviWvz
+         a7sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792692341; x=1793297141;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JY/kgswJkw3rC1uB03Rt3fXoWelWaBya4FySXulL7N8=;
+        b=A1w22LRAyjCLAQ0NC8lYVleOVI5vGuItxkQQ/P7fSGdNvKYD/5T9tm1QJ8qvOqcq6g
+         Wq62HLnBmJKoe4BST1J4LjFoqXD2M2U2Rdd9jPia6EPVJEGM62zNBOqXRf4LSyTsMlfn
+         zJpHyXVDz8KdzXzlIwQVFOt0P2Cg/t1Aw56szdkENmGqsWmfGZ35rTqFHup8jgBDkX0p
+         osyZCqDlplTlexKnk7eFfQl3mLfnFSrfwiluYgmmIdAdMiTtj9QoHrldNhCw7nMNiFds
+         KOWIM+DinhmYSFEV6Y+/1sQVFM6dgsXEwsmopfTheZ7gXTOrNNjPgRR6o36vRXCCPulj
+         bspA==
+X-Forwarded-Encrypted: i=1; AKwUvBxpBNK6cvs/igSuY5ZGQXWnmuXwcTwtPsfdbLOEjWxvFS0W02eXddyH23nIagOgwmakYK/mD7gXMROPHHU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoTaHTyd03q/YtiUxAwuX1/VrsLQJREvkbXbu4xV0S4mvFC3Cc
+	jYl+/VIzW/3KrDkGmi8jsIzMVOfWI2Vs1OsqW+FtuSZyCANBWNabsXY=
+X-Gm-Gg: AYBFou27gxYnkFfUmc78AdjGScmnBCwJYf9kbN3NgtfHpJ9Alv/my9gdOzgFbwPJJxT
+	riXBa+ZBNVzIU5BDsJQ8KOENfkPpjEcbfhLjxU59454LkMADIjcjxuPJG/fX5YNKaR2Q4q+bZmA
+	qqeAgyuBFWLHN0kq7TSUhVc7PVxpYAW1ft/tf00WtRiWdJ9BLkwFwQ2UN8PpykgCWjz2qbR2nTY
+	66xa/Fegy87wo3rqZ/WsqUcab9a5JjCeWUW5VeKnEcfGQuW0uey6taZskjIsF4FdNTnFpUEyV1t
+	mYPkq2QVf7gho2Im8SGK5INi9geXYaEQ+MLQiKZnHIFQayj3k3ZwxT2AJ9TekBELqKbpzAyrjMv
+	LWioM5D71OoTuU2Q2LzY/3GA+MCfqCRIp6b65NagRYYhFYoESotZf70odv2IKNkZlShrixstHS+
+	RxkUYVLkCjkAzeY1hGRquJA3eA6BWCE/ZcP/Cw2JdxZVb2HEZ7CQa6ixUH0zgGFhyEEqRpjTRRN
+	u4J7gZgRVRWZsM6BOWNvs/UXevIhq0hQ/i6Kf0IkvqHczsMPcCSJbXfkfzEviZGxfkukGd7zJOi
+	x4Gw8n29z67+TnLamSzIkEHYR4L/MF96VcHt
+X-Received: by 2002:a05:600c:46d3:b0:4a1:acaa:c355 with SMTP id 5b1f17b1804b1-4a1fdd0b191mr127111405e9.10.1792692340943;
+        Thu, 22 Oct 2026 11:05:40 -0700 (PDT)
+Received: from ?IPV6:2001:b07:2ec:601d:4b26:1672:75c7:805a? ([2001:b07:2ec:601d:4b26:1672:75c7:805a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2104627e0sm14106125e9.9.2026.10.22.11.05.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 11:05:40 -0700 (PDT)
+Message-ID: <31970f28-5415-4e78-aa0f-51f15d779e1b@gmail.com>
+Date: Thu, 22 Oct 2026 20:05:38 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,87 +90,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4lkyleY9UN/A2RLt"
-Content-Disposition: inline
-In-Reply-To: <BY5PR04MB70254A39FF5BC39716B23E5783652@BY5PR04MB7025.namprd04.prod.outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 03/13] drm/msm: look for lpac from dts
+From: Anna Maniscalco <anna.maniscalco2000@gmail.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
+ Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, iommu@lists.linux.dev,
+ linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org
+References: <20260705-descriptive-name-lpac-upstream-v1-0-01d50c3e0c99@gmail.com>
+ <20260705-descriptive-name-lpac-upstream-v1-3-01d50c3e0c99@gmail.com>
+ <rwohvfbsw2brpxrfg26egu5arwe6g7n2etelo33eegmu5cz65k@3syofuxzsjrc>
+ <dc5aef2e-600e-4e97-b76b-dcc8bd72c709@gmail.com>
+ <m4vwrqt6yyaawpvkyrqfzs3kbipbhygmtrhphuthl2gmjvkgyt@u2d3dnvl2phy>
+ <54cb37bb-aaa5-4c5d-a563-acca4822dd35@oss.qualcomm.com>
+ <t5gu6ciwmxdb2jghc44gtixdsbedkgy4yzke5sgawjrr2h362u@ahvhh3yfe6lx>
+ <wtun2cfukyzxlsfiz2izsejd33k4jpapwqa3uqih5drcsrkff5@e6llkke5dayw>
+ <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
+Content-Language: en-US
+In-Reply-To: <1f6db59c-b7a9-41a1-8022-6713365fa09e@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---4lkyleY9UN/A2RLt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 10/22/26 2:54 PM, Anna Maniscalco wrote:
+> On 7/9/26 9:39 PM, Dmitry Baryshkov wrote:
+>> On Thu, Jul 09, 2026 at 05:54:23PM +0300, Dmitry Baryshkov wrote:
+>>> On Thu, Jul 09, 2026 at 07:12:39PM +0530, Akhil P Oommen wrote:
+>>>> On 7/7/2026 10:09 PM, Dmitry Baryshkov wrote:
+>>>>> On Tue, Jul 07, 2026 at 05:02:43PM +0200, Anna Maniscalco wrote:
+>>>>>> On 7/6/26 5:04 PM, Dmitry Baryshkov wrote:
+>>>>>>> On Sun, Jul 05, 2026 at 09:13:37PM +0200, Anna Maniscalco wrote:
+>>>>>>>> In order to associate the SID used by LPAC to it's own domain and
+>>>>>>>> context bank we need a separate node on the DTS.
+>>>>>>> Can we use iommu-map instead of adding a new device using the same
+>>>>>>> addresses? You provide zero explanations, but it seems like you are
+>>>>>>> trying to separate a part of the GPU into a separate device, but 
+>>>>>>> it's
+>>>>>>> unnecessary.
+>>>>>> What I was trying to say is that we need to map sid0 and sid1 to 
+>>>>>> different
+>>>>>> context banks.
+>>>>>>
+>>>>>>  From what I recall, so long as we use the same dt node, the 
+>>>>>> iommu drivert
+>>>>>> provides no way of doing this.
+>>>>>>
+>>>>>> What kgsl does is having a node for the iommu and then subnodes 
+>>>>>> for gfx lpac
+>>>>>> and secure.
+>>>>>>
+>>>>>> The address on the lpac device doesn't really matter. I have very 
+>>>>>> limted
+>>>>>> knowledge of DTSs but I think we could just leave it out altogether?
+>>>>> I think, you were poined to the Glymur Iris patches. Another 
+>>>>> option is
+>>>>> the QDA driver being submitted too. Both ot them use iommu-map to
+>>>>> describe the same usecase - a set of SIDs which are used by the 
+>>>>> device
+>>>>> but which should not be a part of the defaut set. With it in place 
+>>>>> you
+>>>>> don't need to have separate qcom,lpac devices, no additional 
+>>>>> properties,
+>>>>> etc.
+>>>>>
+>>>>> I'd recommend following the same approach.
+>>>> iiuc, the conclusion in this recent thread is to use child nodes for a
+>>>> similar case:
+>>>> https://lore.kernel.org/all/20260618151745.GD231643@ziepe.ca/
+>>> Let me check internally.
+>> After a brief discussion: it can be either, depending on what suites
+>> better (and if you can persuade DMA / IOMMU maintainers to let one extra
+>> bus or not).
+>>
+> One thing sashiko is pointing out is that new dt should work with hold 
+> kernel so, in general moving sid1 from there would break it since old 
+> kernels don't know how to handle them separately.
+>
+> Not sure how to address this.
+>
+> Best regards,
 
-On Thu, Oct 22, 2026 at 10:20:47AM +0000, Pinkesh Vaghela wrote:
->=20
-> Hi Conor,
-> =20
-> On Wed, Oct 21, 2026 at 10:43 PM +0530, Conor Dooley wrote:
-> > On Wed, Oct 21, 2026 at 06:39:06PM +0530, Pinkesh Vaghela wrote:
-> > > The composable cache resets with only way 0 enabled, while the
-> > > remaining ways are available as Loosely Integrated Memory (LIM).
-> > > Systems that do not reserve LIM therefore use only one cache way
-> > > unless software increases WayEnable.
-> >=20
-> > This is not true in the general case, firmware may intercede to set the=
- ways as
-> > it pleases.
-> >=20
-> > > When no memory-region property is present, DT describes no LIM
-> > > reservation for the cache controller. Validate the reported way count,
-> > > then enable all cache ways so Linux can use the full cache capacity.
-> > >
-> > > When memory-region is present, leave WayEnable unchanged because
-> > > enabled ways cannot be returned to LIM until reset. This may leave
-> > > more ways assigned to LIM than required, but avoids consuming reserved
-> > LIM.
-> > >
-> > > Apply this policy to all compatibles handled by the driver. Firmware
-> > > or
-> >=20
-> > I know this is going to cause problems for all the microchip boards, wh=
-ich
-> > maybe should have reserved LIM but never did because the LIM was never
-> > put in the devicetree as memory in the first place.
-> > They also don't suffer from the problem you mention because firmware se=
-ts
-> > the ways up.
-> >=20
-> > > DT configurations that require LIM must provide memory-region;
-> > > otherwise, Linux will convert all disabled ways to cache.
-> >=20
-> > I don't like this behavioural change, it's never been mandatory to have=
- a
-> > reserved memory region for the LIM. I'm only in favour of doing this on
-> > devices where we know it is actually required to be done. The eic7700 I
-> > assume is one such device.
-> >=20
-> > Cheers,
-> > Conor.
->=20
-> Thanks for pointing this out.
-> =20
-> I agree that firmware may have already configured the cache/LIM
-> partition, so applying this behavior generally could overwrite that
-> configuration.
-> =20
-> EIC7700 firmware does not enable the additional cache ways, leaving
-> only way 0 enabled when no LIM is reserved.
-> =20
-> I will restrict the change to EIC7700 using a device-specific quirk
-> while retaining the memory-region check. Would this approach be
-> acceptable?
+Also, looking into iommu-map, it seems like I would ultimately still 
+need to add a child device.
 
-Seems reasonable to me, yes.
+Best regards,
+-- 
+Anna Maniscalco <anna.maniscalco2000@gmail.com>
 
---4lkyleY9UN/A2RLt
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatpQXgAKCRB4tDGHoIJi
-0ixCAP9/hAD9o5Vy6FG7ZT8n7KDT+Pe6cB1sfDmRyZHLpO6eWgEAzT+1nU4Q8eAG
-mZvo5zxTiyh7mPUMpumY9iHMXCJM7g0=
-=V8G9
------END PGP SIGNATURE-----
-
---4lkyleY9UN/A2RLt--
