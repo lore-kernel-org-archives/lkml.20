@@ -1,76 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792663510;
-	b=bwsISZj2+csXWr4ZpmCV7rmQTYfuCi7x/AaCOKz6A6+D14vZCdtgMH/7GlhZCkx9X3SA
-	 OGWVvG1YaYEviTZm0cH/i+umGF0HxIm8CalmXi8C7JuIpPMo5AA4Jqvkfs6Ab6ib0Y1Yh
-	 AbMKYkWzOlwNtl4m0FElIU2Sgtx31XzXk8pL4fRlXJojev5CaQ5M0b3ihc+Bpt22KMyDM
-	 uSJkH4Q0iormVNIYquTytSuTqgWr4ytadgYDRv7MEi4VQJwA7adDX/Uw65gWDr9iCBJRU
-	 PZqmjl9cz+tpUxyQnRRjLBXE6DdXQ1/bCTMCVANNh9onu6Z0gpshPcX1JH+LwWJissg==
+	t=1792663531;
+	b=o4qiNz2/OFvM9OVghmHvO/Hf68p5/rz9Wk7st8IH7x/pgLwOqrlrvPFW3pYZrt0debdj
+	 O5PjftnPqpF2GjfdBTvW6Z+i35XGbweiJBmFeFkldjydG6R049ZEbzjZyfmTb4gD1iSMO
+	 pgEuq3VZX57obsLbH1aDg9AxKS3wyddTH9katti65sD0HXOX6VztuhAwyMwUPo0nmw34A
+	 Wol03VNhq399V62PRKUQetMcL/Uy+3OaNKELxgRuROwC9nUJRn6mU+C7gyHU7HryAaeld
+	 7WNAlPe5ytSOKg5Uc1S87Laj39l15ZYdiIADpXvOiGtWeIcqBSpQm9H6+CFtvw9FfcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792663510;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:
-	 X-Forwarded-Encrypted:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=AmtBa+LxL4SvVmJcPn57Ipgp4NVdoxGD7DbFVBLBg0I=;
-	b=UJuQcKKMtzNLu8o+sgDnhcrmCZd0iYPyobno/mBu3HpHqGkt1kclgcJ5FFqK3H/zQmbh
-	 fBAZS5Gd4AA0eECR9pJlGzjp+OucuVuRATylj/dDP7KFRTm0Q1wCibHN+AZ+XrFaYVd9J
-	 Bvg+MeM97fvrWn+b8Bx0NozWknNDFKc/Jizh4BS3YmJ0crjtPN3NJHW2u4eye1bt+0CoX
-	 z6k1+I4QBFeA3DfEy3EFGy0Nz859zgvttPEnFSWm2H2E7aiTt1pGm3tI2LWz1zpgBTkrJ
-	 iqif1UEklqmhlG1gAD/nMiPpjTH9bRBw9aU5eAO/Fmieo2b4e5flzYZVCKpoJxefTrw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792663531;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QbgiR1/GwtHwlpzlTkLd58KzVem/7L0NcwdC+dKmgtw=;
+	b=Tv/WDTnjKxvRZmH+f1y55UX4cr8pnBoIdQ0ZJgmsykmZU17g4CzAqPYcnxbZhiNbijB6
+	 3M8Irhai3Zf2JC5iKAwb3Wyw2fvDOXSDHQUc03ilqExKkLK55Q1eiMfPK5158ma2+yl7b
+	 8FgMW7i5WFt7aZXo8ItKejnC0k4y6ck83bjI8kzcGhK95RpAWPUtPycvhXWzPR+7ZnUGP
+	 pQLSBy8FDpwAo9s90492zoYSwi0JTod973LJDi5TGUeEitsNL8U/XvAMSe9evDTUTrqBN
+	 DuLLYC0PP9JVi5xjI6sr+9DDysQH/EI2Tde+z2PwtxO4TkrgkDXo+I4Se6/56GfoqZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-m68k.org;
-	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.51
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+	dmarc=pass header.from=grsecurity.net;
+	spf=pass smtp.mailfrom=opensrcsec.com;
+	dkim=pass header.d=grsecurity.net header.i=@grsecurity.net header.a=rsa-sha256 header.s=grsec header.b=bXFvYfFi;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9B4606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:05:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9E9B4606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-98fea7e52b7so926744241.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:05:09 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F05606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:05:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2F05606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=grsecurity.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensrcsec.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=grsecurity.net header.i=@grsecurity.net header.a=rsa-sha256 header.s=grsec header.b=bXFvYfFi
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so19236665e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:05:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=grsecurity.net; s=grsec; t=1792663529; x=1793268329; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QbgiR1/GwtHwlpzlTkLd58KzVem/7L0NcwdC+dKmgtw=;
+        b=bXFvYfFi6PvXf1EbOF3ex2H+pBN9m9qZclZ83KB/svbNC80XZURgnFO2T4EIggMcXB
+         000ydNV+jwUnYbODpNlBUdK3y0OMqTkXbbfpM1TXsYNYVTxHfXpqAR2aNEByKG4aCRod
+         iIZotL7cq5JcrpvqZNsWxZN/W5/Ao+nB6cx5NXnyZcKq6fPWDuFdXBXl3XGQqAVQYOFB
+         5yUIO1QUhZuVFxesIhTsD3P4lB+bBBYgRFVGxdCg9/09g232dBBLCls6XyKfUqWJGXpY
+         r6MFx8IuFnEP7byuunNF6R7leYSrrIZ9VxdznxQa84TmNgUYOF4tk0frd/hquRVc22di
+         zfDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792663508; x=1793268308;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AmtBa+LxL4SvVmJcPn57Ipgp4NVdoxGD7DbFVBLBg0I=;
-        b=GXB2WrEXGzDQ+cGEk5l00lNdFDxk9qpL2sc1Zbx7x0cwoY+X/fOprQ7754XVeM+IZN
-         BI1b/u/fOATmatk3/058q3eIkYZ0G+K5AqAVYLqGLhM02glWQ8G6yXG3AQoEqUdkjD4k
-         eu+3dOZWwzHdeumyJfEe3jd1AGA1ovhF9+iuQQVHtWT7PpOQLaaotFEeGLLb3qlK1yE6
-         UJHTz1jUBjZHL5ZMdhp00n/7o80wpS2B/D1q+75GuOSZ0648B2tyvwryuUeNDbheI5Ss
-         f3cMRLaMFirOpRH989wZuAB/oMorZCQwKf8Lfu1pWXccd8AJkpAAvaNlxdaQ8GQ4bi8S
-         WqGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwvitm1W5o8j9ox36ZmZkBvUx2vH5eZwuAzKq2REoBM0T+aV7EHwA6+PfVcR4FavaI0QYxGkazDa+3Qwlk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKZUqQ/xSnjvJ5rvJN2uU1Nh6nUxSP3kNrqXP8Ye6NLlLxBOqv
-	jllwGmBU2BlC6H5gO8tQ6cheLXvPLc8DZk6AJY4lFovGzSLGJfYjYOmUFW6weEOM
-X-Gm-Gg: AYBFou3WTOJjUOaK0c582/sueqIbBU2oufdeExAOtk+N0tFMQiwt+CzaSTMWnc64dew
-	5bV4vumQCGtDSqMHsThvfufxRUVv4I8ih1t9K0owUzYbSChAwOrzNeyAv4XJsPxY4kSDzUpvvKG
-	cJaKHMMf+1UuYI5qO/fkjWEuDIpqmF7gqiU0BaCQGUdbYzkqIdUwSgfriXR0Ys6PBQhy71w1W5z
-	v/GAv+q7nb9sQ+ZCKTvjRtamhN+txuCmfpleitCeuY3QQHZ+efSg/N4Z4vKV5zW5XjmYN/c8w/c
-	+ULzqdQIUPvlhzgvUe07OKl62+YAgT0Vsi0PuLUDL8PVHIlfIAp7ansH/kWgeKQKGZIb0XwgRCD
-	F6RpACt9N88maBwUCqLbW+GBs7ZlR+jYegnQopTjLCdCfwSxr8mkJVc9sPm4b2z21pS9WJHX3H6
-	LAtBt2myDCCtVI8W3ax28b+G4nWTJWPUvRRFgEDSrfOnoP64IjmSDhCtoNjZSv+YxGmeKJHE8K+
-	A/eBN83gQ+JU/IUBMxuKwaxhzLpwjopl1CQhji125DyJlyyTPeTAmdCdHif7nff7keCn2u8W4QT
-	N7trh7FKs89DL2yNeA/jD8THG4/GVpHw8UbF7V4=
-X-Received: by 2002:a05:6102:4410:b0:7cc:2946:7f80 with SMTP id ada2fe7eead31-7cc927441e4mr2229861137.35.1792663508499;
-        Thu, 22 Oct 2026 03:05:08 -0700 (PDT)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-990d109018dsm5801348241.6.2026.10.22.03.05.07
-        for <linux-kernel@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1792663529; x=1793268329;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QbgiR1/GwtHwlpzlTkLd58KzVem/7L0NcwdC+dKmgtw=;
+        b=oBMUDZjihPqr+B22KK47HdnLtRaw6rsNq9BgtxqJGa3Rknq8X+NQCZ8umWKm1/yynR
+         uHORt8euc60B+luhp2j3A+CH2XgGmsxvGp3EnJATQ4vyJ1dZuCjVSFRfISK05Vg+0NcQ
+         7pNT6TVPFFY5oEDqcg+znjSl9lms3b9GfDV2MWY0k5tN6QQeIhkvyzsfA0HGN0P1QtjI
+         SWMRm0BT7sbnWEyIK+S3zdxFKYLYTaL573jzB/anTXFySGJVHQHaraDPT/UwPAX97pev
+         0jEi+l8i3a1D3Nt9B5XZ3rF0f2uYkQgvCOq4au/X7y11w+JnHENlWJKLcx5NfDeAW2X2
+         Ocaw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCur3ox3heZmBiMqf6p00drINhsLnKRxTVcxYQc7yjtachOyqM58TViwoPNxWaK3ZOdN4zH7dFhH5L6PI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYINrJ7ykYqfgkJck4F0NvhbzbXvYoF6LuvYJLz8ho+NgIN+xsvP
+	Gb8n73k4oOrTlORoJrO0AmLtZwJL/FZPUVVznfEcNJAIIQT8VK8AYpJxl04/ybXJVl6AoDsz/HT
+	TBEtg
+X-Gm-Gg: AYBFou1um4/dvMr23wt+CUqX0KsUfN2sSmVU0YTNGvM6ORbq8vU+MtKEpU/NtXyNdqG
+	fHkSp1Cp4RrbP5V1pnyWcBvLUbPjcrfOrLP5rFH8AhBbXEWZkSqNNkRU3W03msZDzjrgNrjjMFS
+	Lfwqr0GhSXUYBf1k/lYP/AS1Xxsk37o9LJ/hn2l0DnuOddBb21Id5ZAg69xoGcOyZ6egFKBfmZZ
+	nqJmP89O3ox6VBYrC1VHa6i800tI43KyUU/fmpH0eVFbudEiGa2/CBKYXg1xKT1mN0xrVZejGij
+	d1s3/Kpn1KO6kiOyGJxd6JAvzFBGMwieLSMAcSxPnPYh764f93VmYU7UVDCBIPK9AH+rLefyNgC
+	N+z1z4D4wOPfh7zrARIbJ/FRsUtvmzJnI9tXBri0PjGOMfpmZahlLQGmxwsmG7+4ad49rps3rd1
+	1v6JEx4D0Qlz+JkOQlxT30qCrXzg6+Rcxy8fdtAdAHwzPnMvZmurA1toDjw5tzzqexisAalpksf
+	Re6CkBxO2MpMV44SucGumPpWPFdPuwS9LZ+0gbK+iDEvaSQMMNKMT53Dg8eeOmYRuPE4N82bJ+8
+	JCvJuyQyCvLLHYml7mrEH1TJcpeDQrGkwHwKWG2UZb2KtSddE1x5m71R0OXTMkDTM/wmFz45/2Q
+	svjp9QibYO4Ns
+X-Received: by 2002:a05:600c:a0d:b0:4a1:e7ce:10a4 with SMTP id 5b1f17b1804b1-4a1fdd171f6mr105552275e9.29.1792663528838;
+        Thu, 22 Oct 2026 03:05:28 -0700 (PDT)
+Received: from ?IPV6:2003:fa:af11:b900:8855:f04:e797:81cf? (p200300faaf11b90088550f04e79781cf.dip0.t-ipconnect.de. [2003:fa:af11:b900:8855:f04:e797:81cf])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e25b04883sm11977150f8f.0.2026.10.22.03.05.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Oct 2026 03:05:07 -0700 (PDT)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7a6e560f580so1096563137.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:05:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByCG51l+IsZqU7dNm40Fk+l7pwopqBjlJA61krQ5HIM1Y8fh6tF2lhitiXJGJsk6f52pUDVPIEJovyEbxw=@vger.kernel.org
-X-Received: by 2002:a05:6102:4410:b0:7cc:2946:7f80 with SMTP id
- ada2fe7eead31-7cc927441e4mr2229849137.35.1792663507671; Thu, 22 Oct 2026
- 03:05:07 -0700 (PDT)
+        Thu, 22 Oct 2026 03:05:28 -0700 (PDT)
+Message-ID: <e313803a-47ba-4d27-89d9-47dd1abb5183@grsecurity.net>
+Date: Thu, 22 Oct 2026 12:05:27 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,85 +94,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020212235.1143086-1-ebiggers@kernel.org> <363b228a-7e96-481a-b70f-195ba55d025e@kernel.org>
- <87y0br3zln.fsf@trenco.lwn.net> <9704f11c-4c2e-426b-87df-13ea2ffdca3c@kernel.org>
-In-Reply-To: <9704f11c-4c2e-426b-87df-13ea2ffdca3c@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 22 Oct 2026 12:04:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW6fLN66GzWt1C+zpCwW99UCaN=C2xCrxL9k1P7K7VKHg@mail.gmail.com>
-X-Gm-Features: AclHuK_CDyU6-9WYZXLSnQ7yP-CtCllBONPjh-ERk93EX-FDKMuOE4BuJWpX_k8
-Message-ID: <CAMuHMdW6fLN66GzWt1C+zpCwW99UCaN=C2xCrxL9k1P7K7VKHg@mail.gmail.com>
-Subject: Re: [PATCH] docs: submitting-patches: Require base tree information
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Eric Biggers <ebiggers@kernel.org>, linux-doc@vger.kernel.org, 
-	workflows@vger.kernel.org, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org, 
-	Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] kbuild: prevent building single targets twice
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Nicolas Schier <nsc@kernel.org>, linux-kbuild@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260923123936.2227924-1-minipli@grsecurity.net>
+ <5836ab69-cfa6-41cc-a28b-5bd3ecfaea03@grsecurity.net>
+ <atjwobCk-mdeIlkd@levanger> <20261021190311.GB2611266@ax162>
+ <aad229bb-27c2-4c5f-bfce-73d2a0d04996@grsecurity.net>
+ <20261021215524.GA627677@ax162>
+Content-Language: en-US, de-DE
+From: Mathias Krause <minipli@grsecurity.net>
+Autocrypt: addr=minipli@grsecurity.net; keydata=
+ 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
+ RzDVkdgPJkL/NFTKZHo5foFXNi89kA==
+In-Reply-To: <20261021215524.GA627677@ax162>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
+On 21.10.26 23:55, Nathan Chancellor wrote:
+> [...]
+> I forgot to mention, it looks like this is a known corner case in Kbuild
+> that has come up before:
+> 
+>   https://lore.kernel.org/7b663b86-4df0-c3df-18a7-e4f47f900be4@kernel.org/
+>   https://lore.kernel.org/CAK7LNAQhORSPEuB=XFa_i5EcQfsJ6uXy0MM5YWo_84eLGcoxNQ@mail.gmail.com/
 
-On Wed, 21 Oct 2026 at 18:01, Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On 21/10/2026 16:19, Jonathan Corbet wrote:
-> > Krzysztof Kozlowski <krzk@kernel.org> writes:
-> >
-> >> For many of my contributions base is obvious and not needed to be
-> >> explicitly defined. For all the patches I accept, answer is the same -
-> >> base is either obvious or if not and patch does not apply, then the base
-> >> does not matter.
-> >>
-> >> Requiring it is just bureaucracy without actual benefit.
-> >>
-> >> The only benefit would be if maintainer COULD change its base to apply
-> >> some patch with odd base... but this cannot happen. Maintainer base is
-> >> fixed - it's the HEAD of his development branch for given category of
-> >> commits (e.g. DTS branch for SoC maintainers).
-> >
-> > I fairly routinely get docs patches that don't apply to docs-next; when
-> > I'm in the mood, I'll try to figure what they *do* apply to, then
-> > cherry-pick them over.  Base information would make that process easier,
-> > and even automatable.
-> >
->
-> Some maintainers do that indeed and I propose not to. Every two months I
-> see one of my or other folks around my area patch which is being changed
-> in incorrect way between mailing list and Git. Change is done because:
->
-> 1. Patch did not apply cleanly (a lot of simultaneous work, so base is
-> obviously old the moment the maintainer applies such patch)
->
-> 2. Maintainer tried to resolve that by applying to the correct base (so
-> followed your process) and then did git rebase or cherry pick to his
-> final development branch.
->
-> 3. Maintainer is overloaded and has no time to investigate whether
-> rebase/cherry-pick from above is truly correct, except building the
-> code, so every two months result of such rebase is wrong.
->
-> This is a real issue because it is very difficult to spot - your commit
-> is applied, but you never verify whether is applied THE SAME way and
-> maintainer thinks everything was applied cleanly.
->
-> If (1) happens and patch does not apply, the solution is to ask the
-> contributor to rebase.
+Yeah, I saw these too when looking for related issues and fixes.
+However, even Masahiro admitted, that this is just working around the
+issue instead of solving the more fundamental kbuild bug.
 
-This happens a lot in DTS-enablement patches: multiple people are
-working on different devices for the same SoC/board, so half of their
-patches insert new device nodes at the same conflicting location.
-Perhaps we can teach to git how to handle DTS addition conflicts?
+> 
+> This patch might be the fix that Masahiro could not figure out but it
+> might be better to just forsake drivers-y here and use obj-y properly,
+> especially since it looks like core-y is not even used for x86 anymore
+> (but maybe these objects still need to linked towards the end of the
+> kernel?). This diff appears to resolve the reported issue but I did not
+> try running the result.
+> 
+> diff --git a/arch/x86/Kbuild b/arch/x86/Kbuild
+> index 36b985d0e7bf..bd0621207c0c 100644
+> --- a/arch/x86/Kbuild
+> +++ b/arch/x86/Kbuild
+> @@ -36,5 +36,12 @@ obj-$(CONFIG_KEXEC_FILE) += purgatory/
+>  
+>  obj-y += virt/
+>  
+> +obj-$(CONFIG_PCI) += pci/
+> +
+> +# suspend and hibernation support
+> +obj-$(CONFIG_PM) += power/
+> +
+> +obj-$(CONFIG_VIDEO) += video/
+> +
+>  # for cleaning
+>  subdir- += boot tools
+> diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+> index b7e08519b8c1..9a872bd9520e 100644
+> --- a/arch/x86/Makefile
+> +++ b/arch/x86/Makefile
+> @@ -279,14 +279,6 @@ archprepare: $(cpufeaturemasks.hdr)
+>  
+>  libs-y  += arch/x86/lib/
+>  
+> -# drivers-y are linked after core-y
+> -drivers-$(CONFIG_PCI)            += arch/x86/pci/
+> -
+> -# suspend and hibernation support
+> -drivers-$(CONFIG_PM) += arch/x86/power/
+> -
+> -drivers-$(CONFIG_VIDEO) += arch/x86/video/
+> -
+>  ####
+>  # boot loader support. Several targets are kept for legacy purposes
+>  
 
-So your solution is that I apply one new patch every day and publish
-the result, and ask all other N-1 series to be rebased? Obviously this
-not only applies to queuing patches, but also to applying patches for
-build/run testing during review?
+This only "fixes" (read on why in quotes) this one instance but leaves
+others unsolved.
 
-Gr{oetje,eeting}s,
+Already visible in the diff context is 'libs-y' which has the same issue
+and a real behavioral change, depending on which compiler invocation
+runs last for arch/x86/lib/delay.o, it'll either be compiled with or
+without -pg under KCSAN.
 
-                        Geert
+Others are:
+- arch/x86/platform/pvh/enlighten.o (via arch/x86/Kbuild),
+- drivers/char/ipmi/ipmi_msghandler.o (via drivers/Makefile,
+  intentionally there for init ordering),
+- drivers/input/serio/i8042.o (also via drivers/Makefile)
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+But what's worse, your change also affects link order which also defines
+runtime initialization order. I don't want to crawl into that rabbit
+hole and look for all the implicit dependencies that'd be broken by that
+change...
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+One obvious, however, would be pci_subsys_init() which would then run
+before acpi_init(), leaving out ACPI-discovered PCI roots from getting
+discovered.
+
+So no, I don't like your change and prefer the more fundamental kbuild
+fix to get this sorted out once for all.
+
+Thanks,
+Mathias
