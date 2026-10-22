@@ -1,87 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792669994;
-	b=TbrYc+Knkq5akYxNPqw10TqNWWh/bSshWw4+pwAiT51m5yDoelzSMZoVxF649BZ8wgcQ
-	 diSVhn8sId0R63tmyIjrbG6SMqYxRxpgBm79ak0Jx0EPJz8pLRJ1pE8En9EDwq3ynmua7
-	 TvrxhyiwTWwgUn1hOEksZfHCPhzYYRntKLvSUKqMUGfqEZQ9gapIR2tzCxgfbR16wx9M9
-	 /qQcl6kVqJqpJoprNYQUH1IXmwg0iVbSJdXC7MPw0MfTnZw1+oVaCDEOrWGRB6DUNTAzd
-	 Pg0Mw3FF99NuTdRkS+l1kGpg8zoU0VEehFNFpfsf6n8DyKXoMtvOVk8WCaJN9TlOkRw==
+	t=1792670009;
+	b=gSs/H4eNeHxBjPCTzVkE/LjPRshdwLoyQjkOmijj9cS9lWPGaBXhHKson78fUKDNTD2X
+	 O6Q2ZwTYgMKDC4VnLxKFQkl7bARZz1oUsX3oau8Zem7PCKJiKnm1Mxy6H2XR1LJ7Mj67X
+	 3FBTu+v7BpwCZrm/wGxM+naYYZcKjTT1F5rFlSf0VzZzaslhN+GKkcImJuuAouuLbniIr
+	 8jJ47ycJhu4AUyr9IYcX4AXz1o6dTFhJyRXmhrV1mX5TUCXiPRhfxzZtPzW8Glay7vbsU
+	 jAg/EcQYTtqP6srbxCFltfulw0fpGEev4pobSY9LZ9gqhw+j/g7Zt/JT/vzfRuoqotw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792669994;
-	h=DMARC-Filter:DKIM-Signature:Subject:Date:To:
-	 Content-Transfer-Encoding:X-Lms-Return-Path:Content-Type:Message-Id:
-	 X-Mailer:Cc:From:Mime-Version:X-Original-From;
-	bh=wwNZsqH4WwjIxo3V+udGCSsZZgNsNxQdDxK8sok/lF0=;
-	b=lOj83PPKDkJr47MhdTc5+Mfa5YXK5eQAtMqMpG9OLBW26QmaNcIximmGKpbmmH/bdBKj
-	 B3oCTASE4SfO1ax7vnSz+UJGhpNzXP/a67FFUcZH5HMVc5h2QvLD5GKBVYUFQQmw/E+St
-	 pykbkDDnecI7TyFSDheedohCaCvVNQ7hBfC/LIli0OwJXaHNaUXEcfp/UAGaH6sKpRoJ9
-	 aS9KQXRCjhcDKG35xVXYcUAF0/9KS/3NRqlP6LgGWEN9ACbFDicLjmVe4Ig9QfHqs1KWs
-	 7CjHEo98kCWDTt5xoouRd7YDF/srwJxSWNRZvo3Vf9zCluLDz+aBO6gqLX1G01OkB2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792670009;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=zV5QG4YkFp0gVJhnVxy6R7n/tOnhTNMpTs3brqT/FzQ=;
+	b=xqSNBEIU7YwyOAyHOekcZp8uwMaPUQiLuZ/r+5EOS2Issu6U2MyNNZXw7I/CuuPpAo/M
+	 Yj+QAd0PHCuEyWhQULOaq2JsZKNfX3BqPRm57w/rsANEj+7iEliXKeJV7DZOFweQjWjNm
+	 OXvSbI/bteYqWBQMkK0Q7OjLuBVbYZoKV7jjJ1mop2omZPPUXQaQkeQAK7jNsrdnOC0vc
+	 1IKKh5x2QWIDrArW2OAplitER4yH6x/dA69KCTnHv080kjFJSPLd0fu7rY8rZFDYpJRLl
+	 PJyGvJluStPzbqAWeDd067HfX++Ndt1FrfHzZCGGmplgDBD8bSj7dTvO9VBKNuK35Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b="d7E87zM/";
-	arc=none smtp.remote-ip=209.127.230.111
-Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sTF34MsF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3lEc3Duh;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sTF34MsF;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3lEc3Duh;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F3B4606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:53:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F3B4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE6B606A319;
+	Thu, 22 Oct 2026 11:53:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FE6B606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=d7E87zM/
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792669987; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=wwNZsqH4WwjIxo3V+udGCSsZZgNsNxQdDxK8sok/lF0=;
- b=d7E87zM/6FdiVORDFZWdsuHKrPpU8g8xdVn/gJZuU562umHDoiDbM6IKttUKAFMjnOtJJt
- /e5tMyDUtVUeCXhuxJwOSSaJ8P7gTuQJj/OqIL/UlbQfrV1VOCldN5rg2saYo+sM0zVeN6
- zmWj67F3x9uMSKBQPykCIiXU7p0dsGRwVq6hEelO0DYYIuNxj0UVqCrKHsvZcOV2NBvFwK
- E69RW/onzw6a/Vu0Jchdc0tYuUniHnY4+LD7SMUUedI0G7EZpstGOqZWrcCkPj3RauZ+Nl
- LO1TzgaLelUSDjn2Go1PU5iwx8aqOjC3DLqAOxahzoIy/0MG2c7VMnk2GiE+1w==
-Subject: [PATCH] ACPI: APEI: GHES: Cache EFI memory attributes
-Date: Thu, 22 Oct 2026 19:52:06 +0800
-To: <rafael@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-Lms-Return-Path: <lba+26ad9f921+6c335c+vger.kernel.org+qirui.001@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Message-Id: <20261022115218.1937861-1-qirui.001@bytedance.com>
-X-Mailer: git-send-email 2.20.1
-Cc: "Rui Qi" <qirui.001@bytedance.com>, 
-	"Catalin Marinas" <catalin.marinas@arm.com>, 
-	"Will Deacon" <will@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, 
-	"Paul Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, 
-	"Albert Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, 
-	"Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>, 
-	"Borislav Petkov" <bp@alien8.de>, 
-	"Dave Hansen" <dave.hansen@linux.intel.com>, 
-	"maintainer:X86 ARCHITECTURE (32-BIT AND 64-BIT)" <x86@kernel.org>, 
-	"H. Peter Anvin" <hpa@zytor.com>, "Tony Luck" <tony.luck@intel.com>, 
-	"Hanjun Guo" <guohanjun@huawei.com>, 
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Shuai Xue" <xueshuai@linux.alibaba.com>, "Len Brown" <lenb@kernel.org>, 
-	"Chengwen Feng" <fengchengwen@huawei.com>, 
-	"Jonathan Cameron" <jic23@kernel.org>, 
-	"Punit Agrawal" <punit.agrawal@oss.qualcomm.com>, 
-	"Osama Abdelkader" <osama.abdelkader@gmail.com>, 
-	"mrigendrachaubey" <mrigendra.chaubey@gmail.com>, 
-	"Peixin Xie" <peixin.xie@linux.spacemit.com>, 
-	"Vivian Wang" <wangruikang@iscas.ac.cn>, 
-	"Lorenzo Pieralisi" <lpieralisi@kernel.org>, 
-	"Ricardo Neri" <ricardo.neri-calderon@linux.intel.com>, 
-	"Dexuan Cui" <dexuan@kernel.org>, "Dave Jiang" <dave.jiang@intel.com>, 
-	"Fabio M. De Francesco" <fabio.m.de.francesco@linux.intel.com>, 
-	"Breno Leitao" <leitao@debian.org>, 
-	"Terry Bowman" <terry.bowman@amd.com>, "Dan Williams" <djbw@kernel.org>, 
-	"moderated list:ARM64 PORT (AARCH64 ARCHITECTURE)" <linux-arm-kernel@lists.infradead.org>, 
-	"open list" <linux-kernel@vger.kernel.org>, 
-	"open list:RISC-V ARCHITECTURE" <linux-riscv@lists.infradead.org>, 
-	"open list:ACPI APEI" <linux-acpi@vger.kernel.org>
-From: "Rui Qi" <qirui.001@bytedance.com>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sTF34MsF;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3lEc3Duh;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=sTF34MsF;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=3lEc3Duh
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 8ADCD22063;
+	Thu, 22 Oct 2026 11:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792670006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zV5QG4YkFp0gVJhnVxy6R7n/tOnhTNMpTs3brqT/FzQ=;
+	b=sTF34MsFN8C2u7tuEg9iRDlD4THKNNI+leLe/iBnmU3IqXApfEuEbuyxV3JFCSgFQYWWhj
+	Hi55jhm5rZxihECmP4FtxpFcpMae/xjkfGkKHwAtM6B0y8ymBV9AFioqzMuVgGU0gGIppn
+	5T9QP6dj1mOiQ1Y9DCQk65ZbyKr92Tk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792670006;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zV5QG4YkFp0gVJhnVxy6R7n/tOnhTNMpTs3brqT/FzQ=;
+	b=3lEc3Duh0ASAf2b9CjK8AMVYQ+WAoTauI5WfcD1ZW0adON56e45CmT41CBlkX3oHzHFfk/
+	R0spkBGVeUxBycDQ==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=sTF34MsF;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=3lEc3Duh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1792670006; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zV5QG4YkFp0gVJhnVxy6R7n/tOnhTNMpTs3brqT/FzQ=;
+	b=sTF34MsFN8C2u7tuEg9iRDlD4THKNNI+leLe/iBnmU3IqXApfEuEbuyxV3JFCSgFQYWWhj
+	Hi55jhm5rZxihECmP4FtxpFcpMae/xjkfGkKHwAtM6B0y8ymBV9AFioqzMuVgGU0gGIppn
+	5T9QP6dj1mOiQ1Y9DCQk65ZbyKr92Tk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1792670006;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zV5QG4YkFp0gVJhnVxy6R7n/tOnhTNMpTs3brqT/FzQ=;
+	b=3lEc3Duh0ASAf2b9CjK8AMVYQ+WAoTauI5WfcD1ZW0adON56e45CmT41CBlkX3oHzHFfk/
+	R0spkBGVeUxBycDQ==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 637D0133F3;
+	Thu, 22 Oct 2026 11:53:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id zAwHEDb52Wq4BQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Thu, 22 Oct 2026 11:53:26 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 057E3A1417; Thu, 22 Oct 2026 13:53:22 +0200 (CEST)
+Date: Thu, 22 Oct 2026 13:53:21 +0200
+From: Jan Kara <jack@suse.cz>
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 4/5] fs: don't make sync(2) wait for unborn superblocks
+Message-ID: <qwvy5gtgtrhzoekv52dbyyv6klw2vdr4v4zhida4kx5xzbmpyx@ol5fouuzn7hb>
+References: <20261021-b4-super-lock-unborn-v1-0-0265eddb6dee@toxicpanda.com>
+ <20261021-b4-super-lock-unborn-v1-4-0265eddb6dee@toxicpanda.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,180 +112,117 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021-b4-super-lock-unborn-v1-4-0265eddb6dee@toxicpanda.com>
+X-Spamd-Result: default: False [-13.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[toxicpanda.com:email,suse.cz:email,suse.cz:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -13.01
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 8ADCD22063
 
-GHES copies error status blocks through a fixmap because the physical
-address of the firmware buffer may only be known from IRQ, timer or
-other atomic notification contexts. On arm64, each fixmap update asks
-the architecture code to derive the mapping attributes from the EFI
-memory map.
+On Wed 21-10-26 16:47:00, Josef Bacik wrote:
+> A mount which is stuck reading from its device or waiting for its server
+> hangs every sync(2) on the machine, and the emergency sync as well, and
+> they can't be killed.
+> 
+> A superblock is on the list sync(2) walks from sget_fc() on, but isn't
+> usable until vfs_get_tree() sets SB_BORN, and super_lock() waits for that
+> uninterruptibly.
+> 
+> There is nothing in that wait for them.  sync(2) is about what was written
+> before it was called, and nobody can have written to a filesystem which
+> isn't mounted yet.  What the filesystem writes on its own while it is being
+> mounted, replaying a journal say, is the mount's business: it has to get
+> that to disk whether or not anybody calls sync(2).
+> 
+> Add a flag for __iterate_supers() to skip superblocks without SB_BORN and
+> pass it from iterate_supers_sync().
+> 
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
 
-efi_mem_desc_lookup() scans the EFI descriptor map. A multi-page CPER
-record can therefore repeat the same descriptor search for adjacent
-pages while ghes_notify_lock_irq is held and interrupts are disabled.
-GHES records are bounded, so this is not normally a hot path, but
-corrected error storms on systems with fragmented EFI memory maps can
-amplify that latency.
+Looks good. Feel free to add:
 
-Return the end of the matching EFI descriptor through the APEI memory
-attribute hook and let GHES reuse the computed page protection while
-copying pages covered by the same descriptor.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Signed-off-by: Rui Qi <qirui.001@bytedance.com>
----
- arch/arm64/include/asm/acpi.h |  7 ++++---
- arch/arm64/kernel/acpi.c      | 11 ++++++++---
- arch/riscv/include/asm/acpi.h |  5 ++++-
- arch/x86/include/asm/acpi.h   |  5 ++++-
- drivers/acpi/apei/ghes.c      | 25 +++++++++++++++++++++----
- 5 files changed, 41 insertions(+), 12 deletions(-)
+								Honza
 
-diff --git a/arch/arm64/include/asm/acpi.h b/arch/arm64/include/asm/acpi.h
-index 8a54ca6ba602..055205f52f9f 100644
---- a/arch/arm64/include/asm/acpi.h
-+++ b/arch/arm64/include/asm/acpi.h
-@@ -66,7 +66,7 @@ static inline unsigned int arch_get_idle_state_flags(u32 arch_flags)
- 
- /* Basic configuration for ACPI */
- #ifdef	CONFIG_ACPI
--pgprot_t __acpi_get_mem_attribute(phys_addr_t addr);
-+pgprot_t __acpi_get_mem_attribute(phys_addr_t addr, phys_addr_t *end);
- 
- /* ACPI table mapping after acpi_permanent_mmap is set */
- void __iomem *acpi_os_ioremap(acpi_physical_address phys, acpi_size size);
-@@ -155,9 +155,10 @@ static __always_inline const char *acpi_get_enable_method(int cpu)
-  * for compatibility.
-  */
- #define acpi_disable_cmcff 1
--static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr)
-+static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr,
-+						   phys_addr_t *end)
- {
--	return __acpi_get_mem_attribute(addr);
-+	return __acpi_get_mem_attribute(addr, end);
- }
- #endif /* CONFIG_ACPI_APEI */
- 
-diff --git a/arch/arm64/kernel/acpi.c b/arch/arm64/kernel/acpi.c
-index 681aa2bbc399..b3097f6e0ea8 100644
---- a/arch/arm64/kernel/acpi.c
-+++ b/arch/arm64/kernel/acpi.c
-@@ -270,7 +270,7 @@ static pgprot_t __acpi_get_writethrough_mem_attribute(void)
- 	return __pgprot(PROT_NORMAL_NC);
- }
- 
--pgprot_t __acpi_get_mem_attribute(phys_addr_t addr)
-+pgprot_t __acpi_get_mem_attribute(phys_addr_t addr, phys_addr_t *end)
- {
- 	/*
- 	 * According to "Table 8 Map: EFI memory types to AArch64 memory
-@@ -280,9 +280,14 @@ pgprot_t __acpi_get_mem_attribute(phys_addr_t addr)
- 	 * of a memory region.
- 	 */
- 
--	u64 attr;
-+	efi_memory_desc_t md;
-+	u64 attr = 0;
- 
--	attr = efi_mem_attributes(addr);
-+	if (!efi_mem_desc_lookup(addr, &md)) {
-+		attr = md.attribute;
-+		if (end)
-+			*end = md.phys_addr + (md.num_pages << EFI_PAGE_SHIFT);
-+	}
- 	if (attr & EFI_MEMORY_WB)
- 		return PAGE_KERNEL;
- 	if (attr & EFI_MEMORY_WC)
-diff --git a/arch/riscv/include/asm/acpi.h b/arch/riscv/include/asm/acpi.h
-index c11fc0fa9bee..882ed5433214 100644
---- a/arch/riscv/include/asm/acpi.h
-+++ b/arch/riscv/include/asm/acpi.h
-@@ -121,8 +121,11 @@ static inline void acpi_map_cpus_to_nodes(void) { }
-  * RISC-V does not have CMC, so always disable it.
-  */
- #define acpi_disable_cmcff 1
--static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr)
-+static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr,
-+						   phys_addr_t *end)
- {
-+	if (end)
-+		*end = (phys_addr_t)-1;
- 	return PAGE_KERNEL;
- }
- #endif /* CONFIG_ACPI_APEI */
-diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
-index c4e6459bd56b..a3f1f1b0a9f7 100644
---- a/arch/x86/include/asm/acpi.h
-+++ b/arch/x86/include/asm/acpi.h
-@@ -227,7 +227,8 @@ extern int x86_acpi_numa_init(void);
- struct cper_ia_proc_ctx;
- 
- #ifdef CONFIG_ACPI_APEI
--static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr)
-+static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr,
-+						   phys_addr_t *end)
- {
- 	/*
- 	 * We currently have no way to look up the EFI memory map
-@@ -242,6 +243,8 @@ static inline pgprot_t arch_apei_get_mem_attribute(phys_addr_t addr)
- 	 * is active, the ACPI information will not be encrypted,
- 	 * so return PAGE_KERNEL_NOENC until we know differently.
- 	 */
-+	if (end)
-+		*end = (phys_addr_t)-1;
- 	return PAGE_KERNEL_NOENC;
- }
- 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index 663dc2e601cf..b4cd95d3e697 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -176,13 +176,12 @@ static struct gen_pool *ghes_estatus_pool;
- static struct ghes_estatus_cache __rcu *ghes_estatus_caches[GHES_ESTATUS_CACHES_SIZE];
- static atomic_t ghes_estatus_cache_alloced;
- 
--static void __iomem *ghes_map(u64 pfn, enum fixed_addresses fixmap_idx)
-+static void __iomem *ghes_map(u64 pfn, enum fixed_addresses fixmap_idx,
-+			      pgprot_t prot)
- {
- 	phys_addr_t paddr;
--	pgprot_t prot;
- 
- 	paddr = PFN_PHYS(pfn);
--	prot = arch_apei_get_mem_attribute(paddr);
- 	__set_fixmap(fixmap_idx, paddr, prot);
- 
- 	return (void __iomem *) __fix_to_virt(fixmap_idx);
-@@ -345,10 +344,28 @@ static void ghes_copy_tofrom_phys(void *buffer, u64 paddr, u32 len,
- 	void __iomem *vaddr;
- 	u64 offset;
- 	u32 trunk;
-+	phys_addr_t prot_end = 0;
-+	pgprot_t prot = __pgprot(0);
- 
- 	while (len > 0) {
- 		offset = paddr - (paddr & PAGE_MASK);
--		vaddr = ghes_map(PHYS_PFN(paddr), fixmap_idx);
-+		/*
-+		 * Cache the page protection to avoid an EFI descriptor
-+		 * lookup on every page.  prot is valid for all addresses
-+		 * below prot_end.
-+		 */
-+		if (paddr >= prot_end) {
-+			prot = arch_apei_get_mem_attribute(paddr, &prot_end);
-+			/*
-+			 * If the EFI lookup fails, *end is not written and
-+			 * prot_end stays at a stale value <= paddr.  Restore
-+			 * the invariant prot_end > paddr so the cached prot
-+			 * remains valid for the current page.
-+			 */
-+			if (prot_end <= paddr)
-+				prot_end = paddr + PAGE_SIZE;
-+		}
-+		vaddr = ghes_map(PHYS_PFN(paddr), fixmap_idx, prot);
- 		trunk = PAGE_SIZE - offset;
- 		trunk = min(trunk, len);
- 		if (from_phys)
+> ---
+>  fs/super.c | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
+> 
+> diff --git a/fs/super.c b/fs/super.c
+> index ecba64ed0c2a..b8d6f1c969ce 100644
+> --- a/fs/super.c
+> +++ b/fs/super.c
+> @@ -1041,6 +1041,7 @@ enum super_iter_flags_t {
+>  	SUPER_ITER_UNLOCKED	= (1U << 1),
+>  	SUPER_ITER_REVERSE	= (1U << 2),
+>  	SUPER_ITER_WAIT_SHUTDOWN = (1U << 3),
+> +	SUPER_ITER_SKIP_UNBORN	= (1U << 4),
+>  };
+>  
+>  static inline struct super_block *first_super(enum super_iter_flags_t flags)
+> @@ -1073,6 +1074,10 @@ static int __iterate_supers(void (*f)(struct super_block *, void *), void *arg,
+>  		if (super_flags(sb, SB_DYING))
+>  			continue;
+>  
+> +		if ((flags & SUPER_ITER_SKIP_UNBORN) &&
+> +		    !super_flags(sb, SB_BORN))
+> +			continue;
+> +
+>  		if (!refcount_inc_not_zero(&sb->s_passive))
+>  			continue;
+>  
+> @@ -1114,12 +1119,16 @@ void iterate_supers(void (*f)(struct super_block *, void *), void *arg)
+>   * down writes it out.  Wait for that, so that it is on disk as well by the time
+>   * the walk is over.
+>   *
+> + * A superblock which is still being set up isn't passed to @f either, and
+> + * isn't waited for.  Nobody can have written to it yet.
+> + *
+>   * Return: 0 if all the superblocks were seen, -ERESTARTSYS if the task was
+>   *         killed while it waited for one.
+>   */
+>  int iterate_supers_sync(void (*f)(struct super_block *, void *), void *arg)
+>  {
+> -	return __iterate_supers(f, arg, SUPER_ITER_WAIT_SHUTDOWN);
+> +	return __iterate_supers(f, arg, SUPER_ITER_WAIT_SHUTDOWN |
+> +					SUPER_ITER_SKIP_UNBORN);
+>  }
+>  
+>  /**
+> 
+> -- 
+> 2.55.0
+> 
 -- 
-2.20.1
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
