@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697029;
-	b=o7KEgiRPbcUxLScC/MhKCjXLSIxqqHRwFTGleOMYo8j4+dT4tplP74yPX4HV+jaV21Fx
-	 7lq23pE3DhHFpwwW5EVACXGDSmy80DzYwUQJayCfEY0LTuvHmDHL/5w9QF+NuVYR7j1i7
-	 oKZ6QVKAUiRazq73qNdFkZv0Drj24CBHCDnelarN4Zd2r264KoRCUnh5Cgw/q50buj16V
-	 eAu5v7MfE6wFcJKDz29RgD3fIukG0iqvEsYtbTmpyJhaCBAzWfBOq9c88m9fHaclqceE4
-	 sB42rgmNNzB9jPtIhl1HaCJRKAJkK/DwaJlcdQTV6B1RwUuxU3LBC7FJ8BPZSHoG8xQ==
+	t=1792697176;
+	b=Rmv1TS+03WTxeHU3S22yIHIN/NqLnT7eNI4MdWh9l8G/se9SxB0qv2qqTtGMoL5GPim6
+	 n8hUZqIjqkvy/nJBNnz2IJSY7xvIWX5Ax7XH7oG0FOluI7L4IOvKiwcYg+NH2gD8xcqwL
+	 UWVB0/qxcAJeStDtnaVUSYmFCHrn9K7En11L82ykmiTxCrVlGXuwSlEJ34jc6tuzdDjns
+	 gVXyQ+X3b84kKt2ES9hCsdH/1ezaXozgdzyWDixEuAv0Pe0QtM041N0lOgas9m7MCtZS+
+	 ceTeuX52/VtVm4UX8WSq4Zhzol0yIxQFO2adZdGxAOupSqLku9FLyzMYdXuNunlFk6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697176;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=mWyRbyYobbwew4V6IGeQkBhZcI3WNmI+oWsGUUslDMk=;
-	b=U7deUr1PYXgMKfcMyTflp2D4IxkZ2AJ6PxlYSZ3z+HvFlbA0V0qC2KLUTTgiLmn2P/MW
-	 XDniI2H7NitllYec8NLEWddqr9WmT6QcUKlCQMbFvBwXr1vscT22bhPqwQ4XUi0LY+5Pq
-	 wkZhADxl3XG5cylqrq5d/SRwnV5dTzo6s/LVzhWq8hDuJjCAdP1uzr/1pnmorOQm3Bv0M
-	 3EFcSWPJZ87mV4MnYwRpJk9cm1ex/uJnSUbdXeB2QHwNuC1gGFpXsZek6cnPul+wrMJry
-	 1YblbaXviNxBliC+s7QriZnzY1TQi29mvWGC/ANHeIH/TZhZoRQGZFpHoLpXqKOzQ+w==
+	bh=gK7izGGtZVYQa86HMWiLhtBvLLYZxvuYYPXUeMfCAJs=;
+	b=TENMGUDuHBmvsvtIKjuErRZeAMlaNfTPxK8Ua96TexxMf5M+dl0oKrSz5OKM7Ib53fh4
+	 mv+FCPeTvEUkdGLqxRyi5gllJ7c1QwmnYUD3oAy6RAeRDGH9bevYK3NAUA6eZ3WBTpruO
+	 /mQ+uo8EYsQNRyw2wOfRd9rTWgsp+rgzVHSxZvhy37g76ErURKPdQSA7V+Zxh2z7TGVG+
+	 ElAtG+R/AUmCWKn1dV3OVq8EL0Vt/sRlzRZZUmQO9gV7ikmquZi/NbAoDibSRDkg1VMoh
+	 7B9NLiX9aE5InE/msr64460xhngck+4Gc+di5EtPl6cVqxjBLubmeaUzjNO4/JN8AQg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f2aWndYO;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="Qju46AX/";
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA967606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:23:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA967606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A96B606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:26:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A96B606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=f2aWndYO
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso144601a91.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:23:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Qju46AX/
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35943f55c06so143180eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:26:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792697028; x=1793301828; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792697175; x=1793301975; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mWyRbyYobbwew4V6IGeQkBhZcI3WNmI+oWsGUUslDMk=;
-        b=f2aWndYOi0BcQtBJ/P4f0GNsHNQutqimzrnIgfZZhby1J0ouHPMov00i5R57dbvV71
-         yws5H/5pTjO8znLBTEfLWLI0dPqMPn1+jbyGunxMZcuoUrKXpq5fUTvgX8a2DJwNou84
-         Rnqvvhi/UTkyeNFaJwb3m/5sk3GITBCyHcHEFyf5ae8k1jiHoPFPpjfAvBzbAoUj1pyA
-         mb2CcfMfaWjjwk93qTqqRNXC/6yk9yQg+zlI1dxah1tPnvxO8D6KzReAX262NrRGN+Sv
-         mPygRLcSDb4wJVmsAqmMlt1icXaHC0/gtQXiQr/l46h4m43go5D4YhN67eQtdLBC5Dat
-         gCHg==
+        bh=gK7izGGtZVYQa86HMWiLhtBvLLYZxvuYYPXUeMfCAJs=;
+        b=Qju46AX/WWhzm85wKH0dV9cGY9cLEKbV/bpBBPt4d4j1X8gO8+sNByrdzXiuMN2cW+
+         4PvQ49wMXxZeMy1TcFmwdh95p55HDma5/PBjcRGuwwA2+8gr0DAvekmbMfxK4vPH5+e4
+         3IooWl2cRb0PC5JO04IgnkeSyxPEC+JAujgQUf/ooLSLMCwuiTLDGQg5zHb6VSNbQbOU
+         NdLjQ8xRr3RBxKkCBCbHHoP+xsbDkPqTDYY+H9SMVEWlT/I3ajRIWAk4WaF+4aZZ5Lbb
+         xk/wdfDChc95Zvrt/HBGQDaEVLUj+zdcwBrO8gKPIOr1OM6z+uqcKyO+W5Kf2SpeIct7
+         C5yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697028; x=1793301828;
+        d=1e100.net; s=20260707; t=1792697175; x=1793301975;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mWyRbyYobbwew4V6IGeQkBhZcI3WNmI+oWsGUUslDMk=;
-        b=O1Selv5ecyBenKYfvyK9m8Q7hU6HiMaY9gLa1QXVVFtDEJ7qhoQDbkqGKIcNzKHQlk
-         9AhnXFmM/3ifFRJik3k0UVHotlHBC2Ez8zVU7E0AAfxB77AftIuStA7C8KflYH8Qk6ec
-         gYAJZctRvH/f3WNYjEGxqbz6EXeotop0/kxv5XtRg7ubqga0N01O10gzQLK1QJAYnzk/
-         dwj1Lf/kbQmdhPnETKGjEN+G0f3TrscxZREsDuMtYPxT8hvjfFON1E6aZ5HjAC2e+hxK
-         ZA8/+hMM7XYmb3CnRFOPN0tc2Y2ZiRtBEg8c2UJ64d8oOo0I9tZ1E6CjZ1O34NThabYz
-         mXdA==
-X-Forwarded-Encrypted: i=1; AKwUvBwP5ZQVtLqLrUBdPCw15jxW/JhHXPsN2RVj0HB2ZtT1+MuBy3RkaK/mEKyTVfncZueDqX0ytZf3OZepCjg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLVnU0/78JaTINosH4iWDVqqyWSRCqlwR6DofLrOD8Ueh5X0MnE
-	y0kpqaN7HYlXx8sYdWFSuu69LRAobG4tkdxbxAPz34+LFokP618xcIyf
-X-Gm-Gg: AYBFou3FjPwdRPD+bqFAjeYuGStaIQg7nThwo0fmxuB4J804WAedCZcHO7Y2EhNr2LH
-	KU5ZxBOChsUrh8UqynbcsBP2NVTXfmVozhhI6O1XzlO+zJRw5CR5UShMIU7la5mA4wpYrfikTX3
-	2lJPC66q/NTdp8hQDXPmUowS9flNL1OXk/vbFy2Ln6Ofd8QWLIasJVWUN3lLDPZIFRvi8DYThBo
-	rD2CTchDaoDlmc0/UMvT+EI0sPt7ObMH+AEG3Y9Hgz1jop4wF56ItjxcjitJM7vO7RbKfHLqcoi
-	X8/w8VoSWoMLU1p9f311kSWDo7HBytVG/2YO7KpyYCrvETVayyJCK+ysBS0uGyw0K6idfrvv4l8
-	/YVCNnZO+F6wDrEuLYOxzwvGRkxGzTUBFJpMet5IvTkaprwazULPaBfXkRrlHSHl92p9ey3OE73
-	FSRhFfXWQ5r7+AyGv1pI0rZnzP5HmBvvIEPXXiZa8sVFif0bcA9xj9c8AdJ4w/ZtB1Quhay3C7Y
-	1uEnA8eGB8MDfuZrooVs5HzOQU0vzyGCC/wJndj87fJN2ywulp+9fGMZBnOgnUi4sJ8muucWw+O
-	APQoBkbMSHIumvLyHkb59lndSXckLW6hu6YuFEBwS8x/aU3Yo6/XZhtyLxBZqUfm3Elh2902LVB
-	oTwvCp5ML8Ac3r3n71trXAIhw1eqT
-X-Received: by 2002:a17:90b:4c52:b0:3ac:80dc:f409 with SMTP id 98e67ed59e1d1-3ad86f39201mr4606639a91.61.1792697028146;
-        Thu, 22 Oct 2026 12:23:48 -0700 (PDT)
+        bh=gK7izGGtZVYQa86HMWiLhtBvLLYZxvuYYPXUeMfCAJs=;
+        b=XAxV2XJCpYkTdKGms54lf3LXg1W+5WD1RRBHqJrSGOuRkD4nmqayQrrkA4JW8zEpX+
+         yApICojI8UAtDkgh2n1YyQINSnupE37aYq0doWoLFrCqp5x5q9XZKZBi8tQkI3GTtSUf
+         Dny4q9xnFTeLexSXfrqxc41s7JEf1J/8q7p5jP5tNUvxf+vJBzpTs5pWktsyWig2Lv3F
+         OEBDHKPFRtyxZink51i0yZIsY2UmXaZxRfUz0q2LXAtywWFjqH02S1D/wrD9e9lvZ5wR
+         Yc/xQC3hrY2NdH0I21TcrmotUH2jN/wEcLYoC4BwZ3ukHMn92KztzRO2Uc6xVxTAcJcU
+         tHpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTkIMT3rgYz24nv9Q6MSYwUPJ87U4yHYfmqyyzqJBbpihHlls0tXSFmcZVVi5Wn7ncDWNZhLeTYYxC8So=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+XUuHXSCCSAu/pNfaq9F+9L6B9v/nA053s8GOuS+2NwuFaimi
+	6aKbkQ/kDWg4PXSJJKXycaPHf41I6UTosKbOexJNP5aOActUnM1MyBaT
+X-Gm-Gg: AYBFou1+onoMiXuRfIi4iqUwvHFwqqEACdVCDTd7/xr0spT301aQjsUwlebdxoHSTTn
+	s/IiWtvdSMULKddvK6hBExw7ylt3pDWc9PWMympCR2DmJui2XdQp3WYZzppDdjkwvO8QSq9Y1Ru
+	MuENab1HX4q3edaM6PGK8MtgCEwvmxzt2KtwaX8tfbgt3lR6j4aFk5CbYBKqWdXhZKqPfM0LzVx
+	OE17E3u1gfUz/EEOGq1KFVNtHWhbffxaP/GS/9J2ykXLCy5zc5WNi4VGXOPwLBAksL6+Vt/MPhq
+	JxplW+gwgjs5t7/hZ1zfVLeBB/HU+4ypC1XUEI1/tOk/qgI9JnuILcFcVeuZbv8bpJ73H1EgARl
+	wo/2Ce89jNvu+yT0ypVSobK6ifocZFX5mh7MJe66vyfwtNg/2f5UnHw+NGB7aofGJMoXoUzWwHw
+	NvkH0oi9afrYyBwtzfxixasc+2rr3jadkZDwAbYvpGgUW7R55BtHmExsfiQyy4Xcfr7jj/MDvvd
+	JSLLlXMcyjvlmhTMR59zP652RKcY3xLSJu86jeNWGS45U/uwPPtqrlB+YZjCwi/euJKa276hBFR
+	O+v+xCjxno/KOe21Rd3YSg6hScTp7Qra9o/OmAySoM7fTfAWnfcer5BCZnPSc0Bcvc7Ao7d/qX6
+	7CTGgSlMgHnbKo/JODhrNHvigADl1
+X-Received: by 2002:a05:7300:559a:b0:360:aeee:9b8a with SMTP id 5a478bee46e88-368afd86aabmr3963048eec.8.1792697175344;
+        Thu, 22 Oct 2026 12:26:15 -0700 (PDT)
 Received: from ryzen.lan ([2601:644:8000:37f::e36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada48ed6c0sm5532585a91.6.2026.10.22.12.23.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-369d8fb1a06sm328384eec.23.2026.10.22.12.26.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 12:23:47 -0700 (PDT)
+        Thu, 22 Oct 2026 12:26:14 -0700 (PDT)
 From: Rosen Penev <rosenp@gmail.com>
 To: linux-wireless@vger.kernel.org
-Cc: "John W. Linville" <linville@tuxdriver.com>,
-	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+Cc: =?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	"John W. Linville" <linville@tuxdriver.com>,
 	b43-dev@lists.infradead.org (open list:B43 WIRELESS DRIVER),
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH wireless] wifi: b43: don't read the LPF bandwidth on N-PHY rev 3-6 for TX calibration
-Date: Thu, 22 Oct 2026 12:23:46 -0700
-Message-ID: <20261022192346.3327061-1-rosenp@gmail.com>
+Subject: [PATCH wireless] wifi: b43: HT-PHY: read 32-bit table entries low half first
+Date: Thu, 22 Oct 2026 12:26:13 -0700
+Message-ID: <20261022192613.3329978-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,47 +99,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-b43_nphy_tx_cal_phy_setup() reads the LPF bandwidth control from the RF
-sequence table on all N-PHY revisions from 3 on, but only uses it on
-rev 7 and later, as brcmsmac only reads it there. On a BCM4716 with an
-N-PHY rev 5 (ASUS RT-N16), the read causes a data bus error, so the
-TX IQ/LO calibration oopses there.
+From: Erik Conijn <egc112@msn.com>
 
-b43 does not run that calibration on these revisions yet, as
-nphy->perical is 2, so this only shows when it is called. Read the LPF
-bandwidth control only where it is used. With this, the calibration
-runs and returns success on the RT-N16.
+The PHY latches a 32-bit table entry on the access to the low data
+register, as b43's N-PHY table code and Broadcom's wlc_phy_read_table
+assume. The HT-PHY code read the high half first and got the stale high
+half of the previous access: TX gain table entry 0x1a/0xc0 0x10f90040
+read back as 0x10190040, so b43_phy_ht_tx_power_fix() programmed a
+corrupted radio gain word.
 
-Fixes: 40c68f20e63c ("b43; N-PHY: write most of the missing code for revs 7+")
+Fixes: 1a9313923718 ("b43: HT-PHY: prepare place for HT-PHY tables")
+Signed-off-by: Erik Conijn <egc112@msn.com>
 Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/net/wireless/broadcom/b43/phy_n.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/net/wireless/broadcom/b43/tables_phy_ht.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/b43/phy_n.c b/drivers/net/wireless/broadcom/b43/phy_n.c
-index 22359bd9db47..41a8ba8e8736 100644
---- a/drivers/net/wireless/broadcom/b43/phy_n.c
-+++ b/drivers/net/wireless/broadcom/b43/phy_n.c
-@@ -5108,13 +5108,16 @@ static void b43_nphy_tx_cal_phy_setup(struct b43_wldev *dev)
- 		b43_phy_mask(dev, B43_NPHY_PAPD_EN0, ~0x0001);
- 		b43_phy_mask(dev, B43_NPHY_PAPD_EN1, ~0x0001);
- 
--		tmp = b43_nphy_read_lpf_ctl(dev, 0);
--		if (phy->rev >= 19)
-+		/* The RF sequence table of older revisions is shorter */
-+		if (phy->rev >= 19) {
-+			tmp = b43_nphy_read_lpf_ctl(dev, 0);
- 			b43_nphy_rf_ctl_override_rev19(dev, 0x80, tmp, 0, false,
- 						       1);
--		else if (phy->rev >= 7)
-+		} else if (phy->rev >= 7) {
-+			tmp = b43_nphy_read_lpf_ctl(dev, 0);
- 			b43_nphy_rf_ctl_override_rev7(dev, 0x80, tmp, 0, false,
- 						      1);
-+		}
- 
- 		if (nphy->use_int_tx_iq_lo_cal && true /* FIXME */) {
- 			if (phy->rev >= 19) {
+diff --git a/drivers/net/wireless/broadcom/b43/tables_phy_ht.c b/drivers/net/wireless/broadcom/b43/tables_phy_ht.c
+index 1acf2df66e5e..a6db39c644e3 100644
+--- a/drivers/net/wireless/broadcom/b43/tables_phy_ht.c
++++ b/drivers/net/wireless/broadcom/b43/tables_phy_ht.c
+@@ -622,9 +622,9 @@ u32 b43_httab_read(struct b43_wldev *dev, u32 offset)
+ 		break;
+ 	case B43_HTTAB_32BIT:
+ 		b43_phy_write(dev, B43_PHY_HT_TABLE_ADDR, offset);
+-		value = b43_phy_read(dev, B43_PHY_HT_TABLE_DATAHI);
+-		value <<= 16;
+-		value |= b43_phy_read(dev, B43_PHY_HT_TABLE_DATALO);
++		/* the low half latches the entry: read it first */
++		value = b43_phy_read(dev, B43_PHY_HT_TABLE_DATALO);
++		value |= b43_phy_read(dev, B43_PHY_HT_TABLE_DATAHI) << 16;
+ 		break;
+ 	default:
+ 		B43_WARN_ON(1);
+@@ -658,9 +658,8 @@ void b43_httab_read_bulk(struct b43_wldev *dev, u32 offset,
+ 			data += 2;
+ 			break;
+ 		case B43_HTTAB_32BIT:
+-			*((u32 *)data) = b43_phy_read(dev, B43_PHY_HT_TABLE_DATAHI);
+-			*((u32 *)data) <<= 16;
+-			*((u32 *)data) |= b43_phy_read(dev, B43_PHY_HT_TABLE_DATALO);
++			*((u32 *)data) = b43_phy_read(dev, B43_PHY_HT_TABLE_DATALO);
++			*((u32 *)data) |= b43_phy_read(dev, B43_PHY_HT_TABLE_DATAHI) << 16;
+ 			data += 4;
+ 			break;
+ 		default:
 -- 
 2.56.0
 
