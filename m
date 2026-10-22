@@ -1,58 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=61.135.153.141
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792711413;
-	b=sm+thPRenEvE35ptUjSqnHT5FUTlTgC+0jj53pRBBJ1CWTj9Rc5jckH2iEXRZ6iLrDqk
-	 xmKH/jJQN+B94cjZt9i+cOMLMFypFrBnVTfO9ZaTlWdw+zpg5Xv85Vj3nXcpF/gdipFIz
-	 kuk25IfZAo3dtgvj/yZKBO8pPLzgGzwzO6VeulJcteEMsqYUU7tmJfJeqXFz9HKGKlyJx
-	 xpNIRWGH+GmL0JJvPCZztNDf1VKaCdXG0j6RamHUfuM8ouzexKu76FW82OnMErJNCRvmf
-	 oXuo9gjlovOS+kJ1tUbNwqAKAGwskV1ZDRL2g1q7uSKJ8cVwCRpJohvgLZs0f5QgbWQ==
+	t=1792711561;
+	b=NXxiXN8TAZOc/9rL2Mvhp/8BZLSKp2SA3hM8x/uQOcUEtMA3ElHdw9zaMunFImX8REz0
+	 auhb75gOraThbFosAv25+5gHeps8jZxT7Nt0H7WGy6YbhK4h8nbDYpUZoXVlZCnQo6Lvz
+	 QZqD9tOXac9gu6Tgh/stW78+VPfZaq9eSL/Q2b3GGta79yxGD/Fsp4vE7V7Bfk1qLgcSe
+	 Ftm4WWzTF6ksMNChgPGK0EA6E/jSEv0oYAkP0F/Wp4PbH72X1e5Jf+IzrgpGrOYBbQ2ux
+	 UfOe8omKC9hC+YX9dxyyKaYs5KD1Bs+Vp6SF8cQosDFTnQ+MR42LzTsO/Nk8q01TgGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792711413;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=iB1qRE5TjHcp1JAI8RwwmxnKVJod/0Zmh1zD5MFJOZs=;
-	b=mEt9iz2KomsqaUBqVQDnyb7oh1gKhHTUCHFQ2j8Xo5vfCqv0RXAH1YSMyRhJOdYIMVNc
-	 iE5mY+Ct9mn8TlFVJJkEjCNL1wWNaOgVEKG68MIlHDrNDsDKuX3NdDHsAN5G32HXOQKts
-	 JzxgEjgCrwH1+vVx1qjAfMmNsekZ5FrwIsrgJn9/XBWmZEY89tY3y+Dsg43DkhuHqu9u9
-	 rJg+DoIYndk52LmFLUsamHDb157g2h+LEm2hVuqYAb4kNJLaTjr50J+1IitmN+JxoQsFD
-	 jZk1/8g/0bBNyaagXH7QUBUR5CfYMetQuJ9TRkRwbzvhAakwVqD99530NRJ7uzdsQdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792711561;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=couYRd8E8JXWZWDdDnGH4eKgPjAkCu1Qn2pLPm6IYGQ=;
+	b=Ye+uu0KKZ0a+xWe2kU7bn3C2DJUgXEt5pAd8ScnBQx1gtFDS3uutKdLecz57I92u2okF
+	 VNWPX5+AzvNSsRV+wT0hkw8yMhAprM4ep9yp5vGWW0hUFy+CocFLoP1FNE9dEec/kSttW
+	 mkICvYoLu3qvMBUptRO2/7jL0PpLGoamcEd/Phr0ZbAO7P6BnA0LjsxCY9sUXhgWoi+i/
+	 b02I1ylwHc/gwLm0k6OSl4KIGdI9uguE2HRLy6Z5fxBrjOzOE/UOM2bAWKsEDxaxyOCHM
+	 0w4TxHp4YVzEPqQhQROFubIVf0TGxbepolEyiza05Wn/dF7fhRa7y6s/wD//qlJsseQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEPfsY1+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=K+1xnp1o;
+	arc=none smtp.remote-ip=61.135.153.141
+Received: from smtp153-141.sina.com.cn (smtp153-141.sina.com.cn [61.135.153.141])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 5FA65606A319;
-	Thu, 22 Oct 2026 23:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E774606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:25:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E774606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IEPfsY1+
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 659721F01825;
-	Thu, 22 Oct 2026 23:23:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792711412;
-	bh=iB1qRE5TjHcp1JAI8RwwmxnKVJod/0Zmh1zD5MFJOZs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IEPfsY1+/HOMvZrxgq1jThp2aLJs3QoYJusuyLv+s6xrU63qIE40rJj45+nUq7yQ3
-	 +2rQaIfUjUaiz3uKc1PQVZEnLuML7Q5pamzanFikNVeq3vhK3eAKcMHpSy4BXJlvH9
-	 sTTf47U16f/+6NuOBgdyzBg3bFlMISjXvqIK15LR0aiaMVzMgGcBbN1HrknId2exaf
-	 IHbjTg2mzgBY+W4ADqHbdk6EY3MtmKL3WGOnt0M25ZROgHNjsXDBsjUoa+noc+zDNX
-	 nRJ5GKVjaxOY+h2kEG3zffPJz4Qn03ZI+Peu5didwWl3GTNUgTLWZoKtYuV4zzJJbO
-	 ZHXqsBcERNS2A==
-Date: Fri, 23 Oct 2026 02:23:29 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: David Howells <dhowells@redhat.com>
-Cc: keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct
- keyring_index
-Message-ID: <atqa8Y0cROHISnbD@kernel.org>
-References: <20261016215326.4110064-1-jarkko@kernel.org>
- <20261016215326.4110064-6-jarkko@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=K+1xnp1o
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792711551;
+	bh=couYRd8E8JXWZWDdDnGH4eKgPjAkCu1Qn2pLPm6IYGQ=;
+	h=From:Subject:Date:Message-ID;
+	b=K+1xnp1oMH6P0zzaRUGmklaUEzyEoN0fMPbkDDtlWtRx3H5SN3LIAvxo8W2Plfude
+	 QONwYb2RZ9npEiuaPhMEL3PmeiZWj5wgztYTI1C8+ebIL1zG50LXMefv+YAC/IcRHc
+	 s3rp85KvGrULtVUeSwvztWyaC2PBW+pLa3ASo1lA=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.244.129.212])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6ADA9B79000039F9; Thu, 23 Oct 2026 07:25:48 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 2334166815986
+X-SMAIL-UIID: F945EA0D6C1C4AE692DD24BD6881420C-20261023-072548-1
+From: Hillf Danton <hdanton@sina.com>
+To: Sergey Senozhatsky <senozhatsky@chromium.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Brian Geffon <bgeffon@google.com>,
+	Barry Song <21cnbao@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v6 09/13] zram: split zcomp into separate R/W streams
+Date: Fri, 23 Oct 2026 07:25:37 +0800
+Message-ID: <20261022232538.978-1-hdanton@sina.com>
+In-Reply-To: <atlt8YGuSxgRb5uE@google.com>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,45 +72,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261016215326.4110064-6-jarkko@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 17, 2026 at 12:53:03AM +0300, Jarkko Sakkinen wrote:
-> Linux keyring would be better off without struct assoc_array given the
-> overhead caused by sole ownership of it. Linux has multiple popular choices
-> for key-value store and there is nothing special in lib/assoc_array.c that
-> would make it stand out enough to be ratiaonalize the time spent on
-> maintaining it.
+On Thu, 22 Oct 2026 11:06:53 +0900 Sergey Senozhatsky wrote:
+> On (26/10/22 08:08), Hillf Danton wrote:
+> [..]
+> > >>> Given lock like mutex, priority inversion happens from Monday to Friday,
+> > >>> but I wonder if you are inventing some wheels in 2026 if proxy excution
+> > >>> works for you.
+> > >>
+> > >> Reader-Writer split is a foundation for further improvements (like
+> > >> singleton recompression stream and so on).
+> > >>
+> > > But that split is not needed at all if PE works, yes?
+> > >
+> > 
+> > When the number of locks and tasks grows, I have increasing difficulty even
+> > describing the lock chain that you in combination with Brian are unable to
+> > handle. That is why in general PE is prefered over whatever wheels you can create.
 > 
-> A keyring has a sparse data population, making rhashtable a plausible
-> choice. Multiple subsystems rely on it, and best of all, rhashtable has
-> dedicated maintainers.
+> Hillf, if we reinvent the wheel then I'm very happy with this reinvention.
+> But we don't.
 > 
-> Replace assoc_array with struct keyring_index, allocated for a keyring on
-> its first link attempt. Initialize its ht member with rhashtable_init()
-> to store links indexed by key type, domain tag and description.
-> 
-> Maintain two linked lists in the index:
-> 
-> - all: enumerate committed links without retrying hash table walks when
->   the table resizes.
-> - keyrings: visit nested keyrings during recursive search without scanning
->   links to other key types.
-> 
-> A key can belong to several keyrings. Represent each link with struct
-> keyring_link so it has separate hash table and list nodes and holds its
-> own key reference. Traverse the lists under RCU and defer freeing removed
-> links and dropping their key references until after a grace period.
-> 
-> Assisted-by: LLM
-> Co-developed-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-> Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> There is not a single reason for compression and decompression to be in
+> the same context - they don't share a single byte.  And there is no
+> reason whatsoever to serialize them against each other.  Compression and
+> decompression should have been separate contexts from the beginning.
+> While serializing decompression with a PE/PI-enabled mutex is cool, not
+> having decompression serialization at all is way cooler.  In addition,
 
-For the functions introduced, I'll also use cleanup.h primitives to
-cover all fallible initializations. This is something that I don't
-recall seeing in the review comments, and it is a nice extra safety
-measure when landing a refactor like this.
-
-Br, Jarkko
+I see compression and decompression are decoupled at the mutex level, but given
+the "same CPU" in your log message, nothing changes at the CPU level, reguarding
+the micro seconds to complete the two critical sections. So the decouple sounds
+like the half baked croissant, HBC, the Eric Dumazet dude sometimes is happy
+to deliver to lore.
