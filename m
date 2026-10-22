@@ -1,80 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679958;
-	b=RC6HMZdmrSfaWpcuCN7onQmAK0zcx/XWU5a4KNAQucGp+FQxoiXWCxFlX9IICc4LD6xp
-	 gq0JVTiFBAIu3nHLphvmHrC4etazPKO7lIq2wu4BtICCIuK637LisPIQn9/jy9kb3cBwY
-	 5VKgD3NGB9sussBUJGDvwoTL+Z0fyi+f66YA/e3MlWiDfWoqc/Yr3OjnRyCbnx6mzN5Q3
-	 BNIal0BDgLMVIQQUqxFUW1fCbavQLGiUiTzln1nqFPdby8uW4pbw+29d7sLoEvXbg8HHV
-	 upO5vQY8FzC4wVipck6KoX9mN+z68209J/AcsRh1OVicHNXskv3vQBzNn5XR4wHwIEg==
+	t=1792679994;
+	b=IDeSpHqN4EJXBOvL99V8a9Iax0OCOZgN4jJb9tknxxdSSzrDNih1kSXnxcLqc2EKI5eP
+	 Fx4OQvKZmvI4CpafKcx2qxET0qXrDW+E5JJ0av8Yz2asd7ofpd9hgknEPzEYOzxqaSNei
+	 SQG5JKhgUajyvA3Z1Sarzk3eroKRs2kCg86JVd9QI3FC5U48LPdzwbvSmSZ0tiMCMajWR
+	 jBGk061ZrI0WdG4//z6yyV20YIXfVSRUFRTb3P3KeZqdW+F0jBVuNU8dKoOWxvUhMm6Gv
+	 ZlMapx5Su/vbx8kiPmdaiUXYIFX2lPmgDMP/WeDP6Fc4pTjDYhwUOEp3kKNeg0gm1lQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679958;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=Ay2dAxYWfMnhM9xJPPfFSkhbkrQTRaOckqI85OWR7Xc=;
-	b=vR748Q+g6PPRCa/tTH2JyJF+ahVitL3+q10G6zy2YW8gNG55EgX7hvmB9dj1V1deZH4+
-	 KE+1vIQB/uNMGRTMxe5e3QZc0TEw879qd+KF0Ptv2xx/aNH4sau2e+TFlKH2jNthYF3Lp
-	 ENova9XkKXLjIwTJf+cVBcj8lajwzantX+yyBzKhhgg4gSjW3ctz0PqIpq3v5wXDIWXxj
-	 BmVOkjs/5fhl1wO7Z8cXwJBYjbrv9bEit4bY1YwPwsogAO0DjX2VNkxxtjdMkiw8h7JfE
-	 /KHq/JfsvQLzquEE7k29/yQVSUPCBMQmxH0OcdMf9vXoxGm2RdUOJNpEz+IRyWQx0lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679994;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6GGMKrOc7lyQki5JLMpUTllqUsowmWvQtYFIkrSVo20=;
+	b=RAQETt08FRAYVKmXv/JeEl/RzpqJd6fE3iZ5inmIcWUsBRYdo+BRzo4tUe1p2Eh51eHC
+	 ofnSQp8B9G7oQ50cpNWQCv4SoOJ2p6yWdF4k71XDFdorwTL/3wNfJ6OiARv2l+LcPWQFo
+	 0pZBcmu1o8CoyqCQ0CGpunW7WYj/h8eW2tPaldDAwJXuQtolnmCPn8hl/mi6I1dQlZitR
+	 p9Yg5weq+sNOm+agna3+iesZ7UuL0zVZ++aezQ2Nx6Yxbz+kFjEcRveBbFJw/KOHQmAcj
+	 g0PaBbrji8nL6itH15Z25fDBvl0jakgrshwtv5ld8FYD1F5Eg221kOJGayIlm3enbNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdNfDTm6;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=isslab.korea.ac.kr;
+	spf=none smtp.mailfrom=isslab.korea.ac.kr;
+	dkim=pass header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Dse13JcB;
+	arc=none smtp.remote-ip=209.85.215.169
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B138606A319;
-	Thu, 22 Oct 2026 14:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B138606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A101606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A101606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=isslab.korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=isslab.korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IdNfDTm6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1792679957; x=1824215957;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=B4+XEdsVBeguDOEIlkOZq29w4jkQR2Fe80SlxDptpgE=;
-  b=IdNfDTm6OsiuytVypHtmSnY3hvU8I7ah9cr7vW/FEX/PXc771MuGgRBM
-   azI5m7Q7fkFBGn3wgCOwQ9HCHbLbW9L4/HVLf4tBHOkm2aulXhcm+EMkZ
-   +tAG/Bge8epRK40oz/hrrusUJE+halPMxeoUBXGvjxbv3we0C3FtPlVhg
-   Sh6NjxVwDNVI4JgiJndSOns3b45vRpuwzUvWdyqFnoYhfxSj8HS8l/C1y
-   yWNZ/jgwfQ9UoIONM3rGOJGlGrCmMDuftQNLuqVuZvPX5/Vofkc3IhB1R
-   gTfCybGwd6F7wqjXNdNteqDdnYiOMbo0kA7MmBEp+4Ddl+SADLyNLD8BY
-   w==;
-X-CSE-ConnectionGUID: v9LWILIoS8OkQHBEkRXSpw==
-X-CSE-MsgGUID: nWZQT+TbRkOukSZpY1bFLQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1438626"
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="1438626"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 07:39:17 -0700
-X-CSE-ConnectionGUID: pSImwiEvSl64btL9eh7LHA==
-X-CSE-MsgGUID: zlK7GDk/Qey0Buv0F3czrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
-   d="scan'208";a="5217544"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 07:39:15 -0700
-Date: Thu, 22 Oct 2026 17:39:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bamvor Jian Zhang <bamv2005@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Samuel Moelius <sam.moelius@trailofbits.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/3] gpio: Introduce helper to dispose IRQ mappings
-Message-ID: <atogECYXhbdRkzT6@ashevche-desk.local>
-References: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
- <CAMRc=MdHEzHBXx=P1-0Ut80P5=sQnPDwZRD-zdpoE75iHcJjBA@mail.gmail.com>
- <atoQfGQZeJDU3eMF@ashevche-desk.local>
- <CAMRc=MfALArmtGmv6h_sPrwxQrqyjOECN9m-GVb9DKQ4kyBE1A@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=isslab-korea-ac-kr.20251104.gappssmtp.com header.i=@isslab-korea-ac-kr.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=Dse13JcB
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cd3310348d2so405898a12.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:39:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=isslab-korea-ac-kr.20251104.gappssmtp.com; s=20251104; t=1792679993; x=1793284793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6GGMKrOc7lyQki5JLMpUTllqUsowmWvQtYFIkrSVo20=;
+        b=Dse13JcB9u4hnKJMQtNhuSb+IAz6YYm5Qcm2vC1EUxNv+T8Vf9yExs7BtXGV02trFQ
+         txCGCc+ZsYhPBbVR4Mep6WexjupniMiyBlAiA6QU1f9TJUAWhxpiBLmQR20d9PDltiuD
+         NoyJQ+LjUl2eoyd75/moNl1OzD5qUl0BpASS/p0CO7n3heYY3/cnRqbYDUmtsFrexA9/
+         CcYChIx+XsAbdfvfvjn3drpIEEM0uRDB0Xg0Z5reraROiUScEgx/e2pf/LiBSlFL8lDy
+         gJLSDgCbn5Ao/sx13KFWa0BBk+fpUYkuF1q2DG/9XKM7eWOQp0uN7lWatu2bjO9cA57J
+         Q9sQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792679993; x=1793284793;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6GGMKrOc7lyQki5JLMpUTllqUsowmWvQtYFIkrSVo20=;
+        b=uT9LMkRmoCBYNVgzgJmWjfpblh+flTFBcyuSfApiU2scnJWXnAopj/nFRAzMxnv0aP
+         zk+TJmnw6arvKvdilyBvWhVAyucY3532c7nDb7Hksyv5s4BtA/qwgHeCs2yJMCU8mq7F
+         ElNOmbgIv+s0fZS3CZ4gcLjXLqiH9LKeja8LcH5zP1+anHDKt/fYx16jEhTn97nBk1gk
+         Iq25PzJJ4jQIh0nNl/k751IU5e2XdC9+1cIljd41bt2LV0aDYeL3ed4gvCO3RoMgkhVF
+         eE/XW8welBynxFnN63hHAulENg5kNSaH/3gmYDbQj3y4hFkTmlt47PI09huteTKutX+u
+         DOMw==
+X-Forwarded-Encrypted: i=1; AKwUvBz11jvDWWBpcu4YkVfO30nnrS2k8UK86Iav4ER9k7grPoAkUL30zM20JWWvSpvptCmlkt5bUjiV+L2pvwM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4oZIiyFz3x9kbtqmz5bo8VXnUQP90D5UbuArEN6gYgMXseZ7C
+	wuLDNTBCjqV1HEcRPr9lk8DWe4yF4VRyAGxdubkU/P4fEya+ztQDTzJp77csdGA2IZo=
+X-Gm-Gg: AYBFou3LOS1ajOgmYnLk9sl+cCSG8HadJNxk2vUwgNszfoQCyBdXseRHfi2+nTNVa6x
+	paM4GvMsBSx9NiT92kuHRRf1t/tBsHM3x2e+LEeYLMxK3TcFoz63q1n9dBi0z1a8iPvNAwZJ2qF
+	3JuGNdIQpt44v46zfEEhG9lM7mt9Njlf2pO/QXjzXz+AcdS9zFf/cK/G6b3FNbdZdl2fYeZ0e6y
+	/w1IBzUU4VGfYSgwv6uMGrJDcQe7dlWBD+YLoewh2pVGYhBvBr10o+mGgCv/AsBL8oF2lyx1CzU
+	35C9Zt7eHryLOOeL3B9HDsT2+g7B/+uwRqHI9W9V/6lnYWJEXH8F3FRWELDw2wIE844ChTck5Vb
+	l2YHOccrQPu7ybq9NohN2gi7IIAFRseDm14qBeHKK47foOipHo+biA8cVRQFiFgQgKyB5rugw0h
+	u4+rxvfuk9529j3KAA3lrIXt63sAMPO2z6Wu14MtE0eMFZTNIoPchNCwXYu1/Ot3n2VgvnkoN8T
+	dxkLSSZFZZCNhaWlf1jKgPHpovoTrYiBiwGNviFaUvAx9Rva3erWiV3EmgQ9XcuY0qs+BMNjFpD
+	QiI=
+X-Received: by 2002:a17:90b:590e:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ada6cb4b5emr1409865a91.38.1792679993350;
+        Thu, 22 Oct 2026 07:39:53 -0700 (PDT)
+Received: from localhost.localdomain ([2406:5900:1044:110c:13e0:b266:5a7d:e119])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4887669sm4719043a91.2.2026.10.22.07.39.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 07:39:53 -0700 (PDT)
+From: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	linux-rdma@vger.kernel.org,
+	target-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	yhlee@isslab.korea.ac.kr
+Subject: [PATCH v3 1/2] RDMA/srpt: bound the indirect descriptor table to the IU
+Date: Thu, 22 Oct 2026 23:39:00 +0900
+Message-ID: <20261022143901.2991062-2-yhlee@isslab.korea.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261022143901.2991062-1-yhlee@isslab.korea.ac.kr>
+References: <20261022143901.2991062-1-yhlee@isslab.korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,39 +102,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMRc=MfALArmtGmv6h_sPrwxQrqyjOECN9m-GVb9DKQ4kyBE1A@mail.gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 22, 2026 at 07:05:55AM -0700, Bartosz Golaszewski wrote:
-> On Thu, 22 Oct 2026 15:32:44 +0200, Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> said:
-> > On Thu, Oct 22, 2026 at 02:11:38AM -0700, Bartosz Golaszewski wrote:
-> >> On Wed, 21 Oct 2026 22:44:42 +0200, Andy Shevchenko
-> >> <andriy.shevchenko@linux.intel.com> said:
-> >> > I have noticed that a few drivers use almost the same code to dispose IRQ
-> >> > mappings. This series to deduplicate the efforts. I only converted a couple
-> >> > of the users (there are potentially more) in order to stay in the same
-> >> > subsystem.
-> >> The "few" being 2 testing drivers of which one (mockup) should ideally go away.
-> >> Do we really want to add more code to GPIO core that will only be used in
-> >> testing module(s)? I don't think this is useful, sorry.
-> >
-> > I meant a few. As I pointed these were chosen explicitly for the sake of not
-> > crossing the subsystem boundaries. I looked at Broadcom one, it is so big mess
-> > but I think I can get an advantage on it. Also there are other drivers that
-> > just need more work to check (and many of them are outside of drivers/gpio),
-> > but I'm pretty sure the new API has a good potential.
-> 
-> Would it be possible to provide at least one more user other than the testing
-> drivers?
+srpt_get_desc_tbl() takes the number of INDIRECT descriptors from
+idb->table_desc.len, which the initiator controls, and checks it only
+against data_out_desc_cnt + data_in_desc_cnt, two more initiator fields.
+Both are u8, so the pair admits up to 510 descriptors, and nothing
+compares the table against the receive IU it has to live in.
+srpt_alloc_rw_ctxs() then walks idb->desc_list for that many entries.
 
-Sure.
+With the default srp_max_req_size of 8276 the table fits as long as the
+additional CDB is short, but ADDITIONAL CDB LENGTH is an initiator field
+too, and at its maximum of 252 bytes 510 descriptors end at
+48 + 252 + 20 + 510 * 16 = 8480, which is past the end of the object:
 
+  BUG: KASAN: slab-out-of-bounds in srpt_alloc_rw_ctxs+0x64c/0x820
+  Read of size 4 at addr ffff888002d3a05c by task kunit_try_catch/44
+
+  CPU: 0 UID: 0 PID: 44 Comm: kunit_try_catch Tainted: G                 N  7.3.0-dirty #1 PREEMPT(lazy)
+  Tainted: [N]=TEST
+  Call Trace:
+   <TASK>
+   dump_stack_lvl+0x3f/0x50
+   print_report+0xcd/0x620
+   ? alloc_pages_node_noprof+0xa2/0x140
+   ? srpt_alloc_rw_ctxs+0x64c/0x820
+   kasan_report+0xde/0x110
+   ? srpt_alloc_rw_ctxs+0x64c/0x820
+   srpt_alloc_rw_ctxs+0x64c/0x820
+   srpt_test_run.constprop.0+0x13b/0xc50
+   ? __pfx_srpt_test_run.constprop.0+0x10/0x10
+   ? pick_task_fair+0x126/0x1950
+   ? update_curr.constprop.0+0x4a/0x390
+   ? __set_cpus_allowed_ptr+0x181/0x240
+   ? __pfx_read_tsc+0x10/0x10
+   ? ktime_get_ts64+0x192/0x250
+   kunit_try_run_case+0x1ca/0x4b0
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? kthread_affine_node+0x247/0x360
+   ? __pfx_kthread_affine_node+0x10/0x10
+   ? __pfx_kunit_try_run_case+0x10/0x10
+   ? __pfx_kunit_generic_run_threadfn_adapter+0x10/0x10
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36a/0x4f0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork+0x34d/0x620
+   ? __pfx_ret_from_fork+0x10/0x10
+   ? __switch_to+0x22/0xde0
+   ? __pfx_kthread+0x10/0x10
+   ret_from_fork_asm+0x19/0x30
+   </TASK>
+
+  Allocated by task 44:
+   kasan_save_stack+0x33/0x60
+   kasan_save_track+0x14/0x30
+   __kasan_slab_alloc+0x6e/0x70
+   kmem_cache_alloc_noprof+0x11d/0x2f0
+   srpt_test_ctx_init.constprop.0+0x481/0xfa0
+   srpt_test_run.constprop.0+0xf4/0xc50
+   kunit_try_run_case+0x1ca/0x4b0
+   kunit_generic_run_threadfn_adapter+0x7b/0xe0
+   kthread+0x36a/0x4f0
+   ret_from_fork+0x34d/0x620
+   ret_from_fork_asm+0x19/0x30
+
+  The buggy address belongs to the object at ffff888002d38000
+   which belongs to the cache srpt-kunit-iu of size 8276
+  The buggy address is located 8 bytes to the right of
+   allocated 8276-byte region [ffff888002d38000, ffff888002d3a054)
+
+The KUnit harness that forces this is not part of this patch.
+
+Compare the count against the room the IU actually leaves for the table.
+recv_ioctx->byte_len is signed, so a byte_len too small to cover even the
+descriptor header yields a negative room and the same test refuses it.
+
+The header itself is always inside the buffer. The largest offset
+srpt_get_desc_buf() can return is 48 + 252 and the header is 20 bytes, so
+it ends at 320, while srp_max_req_size is at least MIN_MAX_REQ_SIZE,
+which is 996. Only the table needs bounding, so one test placed after the
+existing count check is enough.
+
+Fixes: a42d985bd5b2 ("ib_srpt: Initial SRP Target merge for v3.3-rc1")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+---
+ drivers/infiniband/ulp/srpt/ib_srpt.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/infiniband/ulp/srpt/ib_srpt.c b/drivers/infiniband/ulp/srpt/ib_srpt.c
+index 7197d95f2216b..97758082f71d2 100644
+--- a/drivers/infiniband/ulp/srpt/ib_srpt.c
++++ b/drivers/infiniband/ulp/srpt/ib_srpt.c
+@@ -1117,6 +1117,8 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
+ 		struct srp_indirect_buf *idb = srpt_get_desc_buf(srp_cmd);
+ 		int nbufs = be32_to_cpu(idb->table_desc.len) /
+ 				sizeof(struct srp_direct_buf);
++		int desc_off = (u8 *)idb - (u8 *)srp_cmd;
++		int room;
+ 
+ 		if (nbufs >
+ 		    (srp_cmd->data_out_desc_cnt + srp_cmd->data_in_desc_cnt)) {
+@@ -1128,6 +1130,14 @@ static int srpt_get_desc_tbl(struct srpt_recv_ioctx *recv_ioctx,
+ 			return -EINVAL;
+ 		}
+ 
++		room = (recv_ioctx->byte_len - desc_off - (int)sizeof(*idb)) /
++			(int)sizeof(struct srp_direct_buf);
++		if (nbufs > room) {
++			pr_err("received SRP_CMD with %d descriptors but room for %d in the IU\n",
++			       nbufs, room);
++			return -EINVAL;
++		}
++
+ 		*data_len = be32_to_cpu(idb->len);
+ 		return srpt_alloc_rw_ctxs(ioctx, idb->desc_list, nbufs,
+ 				sg, sg_cnt);
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
