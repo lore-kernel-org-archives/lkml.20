@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1792659260;
-	b=0zgLvnr7mpnHbOkiAiXjDYPKXOZ76fGJrebYlBiDFJmhH8mHHO+gLQGhM8HP26PswLuV
-	 xNElD5kpvTUe3Z4LHTXCY2K1KRqLc1aU+UgSpsBwlxeH3D+CQoGjHjOGL6jhIw2OEyL1X
-	 LdfOpOAE9OGWu1NOQ9p8WaqKQq1i69FqgKrGxIc3Y5/PV//bYbG6PPwX3Y7/duGYnZymN
-	 js/9OTFeC6wSEDIiUrTyDORWYv1NQn5obAS+YEKAbAsZUaa3Gyv1rjgrFsBsJIoPpERoB
-	 p+esLOcRI7sOvKao+3zNSV6G0KBKFxr7gk+NEIlJqGs4tOphG+tbVmszo4c7I/g7JIw==
+	b=k/QRabYadxy1QN7RIijFtbmO3uwRhgKs6Q7TqnF3RPdtTwH1S6hWClGGe+chnchqSxp9
+	 kBrWW3M3MtyJY3OGD6w/jQ/+nF5sUiaVYX5eRV7SuBKDNCiedImHv2e3TbkpS5a+1EjPl
+	 5LQ2DCXmVxG6YWh+d2urNXRUuILnRr5BAzEV7Ojrl/EF+abxpKAuWGYZVhR+FmKKlJ9Jv
+	 zX2TFy1sNkoF5Ih9q15h3e00wgsA61eMqG35Kj475sStmQbm7vmJ6mwsjhw5sG498f0aZ
+	 W0JTbnpl/nybzI5YfeoukTfc2/G+DHzXLcmMgsBaIzbZGXALJP5GPJEsrF4dd0K/wvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1792659260;
-	h=DMARC-Filter:Received:DKIM-Signature:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
-	bh=/AICmVWqfrMJ780GqvhcQ3Q9weXbT+oeNC4HrBmA/ww=;
-	b=G3nErz7ED9YCnx+h8Bh8DV8AAkAeARSm369AqxPwgiMu4gnvVEzoeed6jNif5zIt7cuM
-	 FUZEWJdiODlO+kh3oQuxnorwsVMUXERW+LXgAN0VRyELl6ZXRNgBscerK0WN226uZw5Lo
-	 VSWzinZYsNrGoNTu1EmTvWrY2IobHHlJWOZs3q3OYHXaX1dNw6iW+j7q3XyT9A6FX9OfW
-	 Uk0iDko6fnb9RPz8NBwaarU+a9Nqr8rINMSTnbo+lLGLz3HjOKJiH2karZeICaQBM5wzv
-	 1EnBFE9fEdxcIgcMcuW2ZkQSkmvLzCpgXSZXxFmTepX6AXVcmAnoMPXKLZVao9OEjQg==
+	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=i8kKzAxwRj+gsfR5tIIxVblkQjaYGtvUZ0W4uHjhqZ0=;
+	b=NW77POW1l2ZX+OBM+8VRy+aGFzU7v0KYedtBzm0k8RxZevRBHTnZjAwSFYpj5hRj2eU7
+	 3vSNTJ/Jk5UAFyp2kCe7N3TrgH8cUFE8JYDPzbxR4av0p20bkLb3jxsUKHVjYKaCYQpt2
+	 nQMkCFk/0CrRKOhfOm1BkNUijqZUrRBXwG36oUWDbTWoLxz/7w6T4DJVm/vUgg5gxxa2C
+	 svMj9mAhnyN1oi6pNtgxKINQbK70kX7//fHcU333555n2QqagP6R1fnm2aKW6wK4E9pXU
+	 LmSCHkDnmwuZnkuNPRKebMgftEaaFCSODDULMDh01nyXPrDGGrvIuebBkzIZZ7cdPAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=tipi-net.de;
 	spf=pass smtp.mailfrom=tipi-net.de;
-	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=EkOv9rqa;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=XpgmsGMr;
 	arc=none smtp.remote-ip=194.13.80.246
 Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AAA606A31A;
-	Thu, 22 Oct 2026 08:54:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67AAA606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7595A606A31B;
+	Thu, 22 Oct 2026 08:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7595A606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=EkOv9rqa
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A91B3A0064;
-	Thu, 22 Oct 2026 10:54:11 +0200 (CEST)
+	dkim=pass (2048-bit key, unprotected) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=XpgmsGMr
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DC7AA1584;
+	Thu, 22 Oct 2026 10:54:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1792659255; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=/AICmVWqfrMJ780GqvhcQ3Q9weXbT+oeNC4HrBmA/ww=;
-	b=EkOv9rqaQZa+ZUKmbPBKQkKDWCVlC6Ewg7nr3USCwpAZRj5Z+jzkOmkp2cj9ABawsvf36h
-	3uR9WStyGnPzq1yEfyo+QlF1U3Wxc/TUJoUFECma+VzblseTv2jkaguN1NojhAp2/MT0xO
-	8AFozERqVeOCb5uA4fDZyafvXiZ+6JiHUkmBTN2+kuR0PfMGXdURRaYiwzDy1SpGA64r1G
-	bEe6Asx/JbHIZfCrrlfswPx61iGomw98vlZMutSPZbQTA8EASih74LTDP+oqv8Uvgzffj4
-	VAJQ1w61ikqzu2J2cM5IRDHKP/m0Rwso9TQb4hpyHkuXvbxJQEx/EDuf2/JXlQ==
+	t=1792659256; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=i8kKzAxwRj+gsfR5tIIxVblkQjaYGtvUZ0W4uHjhqZ0=;
+	b=XpgmsGMri7OTM6DAPuieClpFy6jfHznmsaejoGyDMBhlxuYr8RaXpEME2ksaVdjzvykG4r
+	69ox0jQI3vc7mpto7cPGJoLYBd0IV8d4Mjy5fmAnQyk0MKBALMRJFOiq+QTh8UWpLWbwHC
+	OS/+GTdVHtAehF21wBbJZ/uUlF6Uc8YiH55BlFbl7PTlepPgl6ZTCHmTunH0mmr773zfgG
+	LucaMBYAmdEafuRX8S9Yy0R9KtVtTV8VHVXqQ7eJZhLRt/6PDpxSEhudU9Bq2mZ6SqGLkA
+	GrF1sQJoCSiLpyoQZdCxrGtYdse2nkIA+okJZfXbD28R8k8x88yWzunm3IEwdA==
 From: Nicolai Buchwitz <nb@tipi-net.de>
-Subject: [PATCH net v3 0/2] net: bcmgenet: fixes for a failed resume and
- the ring rebuild
-Date: Thu, 22 Oct 2026 10:54:05 +0200
-Message-Id: <20261022-nb-genet-fini-dma-net-v3-0-6e9fc89c0156@tipi-net.de>
+Date: Thu, 22 Oct 2026 10:54:07 +0200
+Subject: [PATCH net v3 2/2] net: bcmgenet: restore the Tx coalescing
+ setting when the rings are rebuilt
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,11 +59,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNyw6CMBBFf4V0bQ0tfYAr/8O4KDDAmFhIi0RD+
- Hfb6kIXLO/MveesxIND8OSUrcTBgh5HG0JxyEgzGNsDxTZkwnOuWM4ktTXtwcJMO7RI27uhMSh
- uigqACVCShO3koMNn4l5IKJDr5+gf9Q2aORJjbUA/j+6V7AtL5a9I74gWRnMqNOhG6k6VhTjPO
- GF8HVtIloX/cqo9Dg+cupSdqiuupDD/nG3b3vwpFq4bAQAA
-X-Change-ID: 20261015-nb-genet-fini-dma-net-62a39ee14e65
+Message-Id: <20261022-nb-genet-fini-dma-net-v3-2-6e9fc89c0156@tipi-net.de>
+References: <20261022-nb-genet-fini-dma-net-v3-0-6e9fc89c0156@tipi-net.de>
+In-Reply-To: <20261022-nb-genet-fini-dma-net-v3-0-6e9fc89c0156@tipi-net.de>
 To: Doug Berger <opendmb@gmail.com>, 
  Florian Fainelli <florian.fainelli@broadcom.com>, 
  Nicolai Buchwitz <nb@tipi-net.de>, 
@@ -77,92 +75,71 @@ Cc: Justin Chen <justin.chen@broadcom.com>,
 X-Mailer: b4 0.16.0
 X-Last-TLS-Session-Version: TLSv1.3
 
-This is v3 of my resume and ring fixes for genet.
+bcmgenet_set_coalesce() writes tx_max_coalesced_frames straight into
+DMA_MBUF_DONE_THRESH and keeps no copy of it, while
+bcmgenet_init_tx_ring() programs a fixed 1. An ifdown and ifup or a resume
+then puts the Tx coalescing back to one frame per interrupt.
 
-Mostly findings sashiko raised during my recent review sessions.
+Rx keeps its value per ring and reapplies it on init. Do the same for Tx.
 
-Patch 1 is a resume that fails in bcmgenet_init_dma(), which leaves the
-interface up with no datapath and the next ifdown hanging in
-napi_disable() with RTNL held. It is one patch because nothing that
-resume leaves behind is reachable on its own, the second suspend never
-returns until the hang is fixed.
-
-Patch 2 (was patch 4 in v1) is the Tx coalescing threshold going back
-to the driver default whenever the rings are rebuilt.
-
-Patch 1 fixes the rebuild path, not the root cause. bcmasp for example
-parks the PHY in its WoL suspend and has one deinit with a flag, which
-looks like the direction for genet too. But one step at a time :)
-
-It is also prep for the next version of my MTU series [1], which
-drops the "hallmark of a bad design" flag in favour of the ring pointers
-it clears.
-
-[1] https://patch.msgid.link/20261013-nb-genet-mtu-nn-v2-v5-0-076b6fc240be@tipi-net.de
-
-For backports: the WoL hunks in patch 1 need 254f3239dd07, on older trees
-they can be dropped. The rest should apply on its own.
-
-Tested on BCM2711 (Raspberry Pi CM4) with the resume allocation forced to
-fail. BCM2711 has no WoL irq, so I had to force the capability.
-With this a magic packet wakes the board and the interface
-recovers on the next suspend and resume. Thanks to Florian for pointing
-out that s2idle can do this at all.
-
-WoL doesn't wake the board after a failed resume though: as sashiko
-pointed out init_umac() left UMAC_CMD at 10 Mb/s and only adjust_link puts
-it back, so it arms fine and then misses the packet. But this is
-pre-existing, arguably even better since it no longer hangs the system
-like before. IMHO the proper fix is to let resume allocate before it
-touches the hardware ... I'll do that after the MTU series.
-
-Florian, Justin: if you have a board where the WoL irq is actually
-wired, I'd appreciate a run on it too.
-
+Fixes: 2f9130709d2c ("net: bcmgenet: Implement TX coalescing control knobs")
 Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
 ---
-Changes in v3:
-- Arm only the configured wake filters instead of turning HFB off (sashiko)
-- Share that selection with the normal WoL suspend path
-- Fix the clock wording in patch 1 (sashiko)
-- Tested the WoL paths on a CM4, see above
-- Link to v2: https://patch.msgid.link/20261019-nb-genet-fini-dma-net-v2-0-b85f6b92654a@tipi-net.de
+ drivers/net/ethernet/broadcom/genet/bcmgenet.c | 10 ++++++++--
+ drivers/net/ethernet/broadcom/genet/bcmgenet.h |  1 +
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Squashed v1 patches 1 to 3 into one, each was either a no-op or left a
-  broken tree on its own
-- Turn HFB off on the suspend early return, it stayed armed as a wake
-  source (sashiko)
-- Second Fixes tag for the WoL hunks
-- Let PHY_ERROR reach phy_stop() too (sashiko)
-- Link to v1: https://patch.msgid.link/20261017-nb-genet-fini-dma-net-v1-0-47e7c57f6834@tipi-net.de
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.c b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+index e7dec73d5b1c0..f258997f20a9f 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.c
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.c
+@@ -931,10 +931,13 @@ static int bcmgenet_set_coalesce(struct net_device *dev,
+ 	/* Program all TX queues with the same values, as there is no
+ 	 * ethtool knob to do coalescing on a per-queue basis
+ 	 */
+-	for (i = 0; i <= priv->hw_params->tx_queues; i++)
++	for (i = 0; i <= priv->hw_params->tx_queues; i++) {
++		priv->tx_rings[i].tx_max_coalesced_frames =
++			ec->tx_max_coalesced_frames;
+ 		bcmgenet_tdma_ring_writel(priv, i,
+ 					  ec->tx_max_coalesced_frames,
+ 					  DMA_MBUF_DONE_THRESH);
++	}
+ 
+ 	for (i = 0; i <= priv->hw_params->rx_queues; i++)
+ 		bcmgenet_set_ring_rx_coalesce(&priv->rx_rings[i], ec);
+@@ -2758,7 +2761,8 @@ static void bcmgenet_init_tx_ring(struct bcmgenet_priv *priv,
+ 
+ 	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_PROD_INDEX);
+ 	bcmgenet_tdma_ring_writel(priv, index, 0, TDMA_CONS_INDEX);
+-	bcmgenet_tdma_ring_writel(priv, index, 1, DMA_MBUF_DONE_THRESH);
++	bcmgenet_tdma_ring_writel(priv, index, ring->tx_max_coalesced_frames,
++				  DMA_MBUF_DONE_THRESH);
+ 	/* Disable rate control for now */
+ 	bcmgenet_tdma_ring_writel(priv, index, flow_period_val,
+ 				  TDMA_FLOW_PERIOD);
+@@ -4176,6 +4180,8 @@ static int bcmgenet_probe(struct platform_device *pdev)
+ 		priv->rx_rings[i].index = i;
+ 		priv->rx_rings[i].rx_max_coalesced_frames = 1;
+ 	}
++	for (i = 0; i <= priv->hw_params->tx_queues; i++)
++		priv->tx_rings[i].tx_max_coalesced_frames = 1;
+ 
+ 	/* Initialize u64 stats seq counter for 32bit machines */
+ 	for (i = 0; i <= GENET_MAX_MQ_CNT; i++) {
+diff --git a/drivers/net/ethernet/broadcom/genet/bcmgenet.h b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+index 86f2aed20dbe8..e48ce39d3e7c8 100644
+--- a/drivers/net/ethernet/broadcom/genet/bcmgenet.h
++++ b/drivers/net/ethernet/broadcom/genet/bcmgenet.h
+@@ -553,6 +553,7 @@ struct bcmgenet_tx_ring {
+ 	unsigned int	prod_index;	/* Tx ring producer index SW copy */
+ 	unsigned int	cb_ptr;		/* Tx ring initial CB ptr */
+ 	unsigned int	end_ptr;	/* Tx ring end CB ptr */
++	unsigned int	tx_max_coalesced_frames;
+ 	struct bcmgenet_priv *priv;
+ };
+ 
 
-To: Doug Berger <opendmb@gmail.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-To: Nicolai Buchwitz <nb@tipi-net.de>
-To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Florian Fainelli <f.fainelli@gmail.com>
-Cc: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Nicolai Buchwitz (2):
-      net: bcmgenet: recover from a failed resume
-      net: bcmgenet: restore the Tx coalescing setting when the rings are rebuilt
-
- drivers/net/ethernet/broadcom/genet/bcmgenet.c | 102 +++++++++++++++++--------
- drivers/net/ethernet/broadcom/genet/bcmgenet.h |   1 +
- 2 files changed, 71 insertions(+), 32 deletions(-)
----
-base-commit: 82e31923c0553fdbfcddcd910ca07952880ca9b9
-change-id: 20261015-nb-genet-fini-dma-net-62a39ee14e65
-
-Best regards,
---  
-Nicolai Buchwitz <nb@tipi-net.de>
+-- 
+2.53.0
 
