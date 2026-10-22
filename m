@@ -1,60 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792662260;
-	b=Mzy07Y9pYi5OWwm3Z8Rjt0t9zP5dcMj/Cmfle6FP8V4YivgRL313WbnjK5GfpxT9UbSv
-	 xirCnAsd/8d4H2rE/alnXuF+vzVwUIaheiZOGeecNAuMfZ1hWssIWAw/Z+dTyvWfFdoMK
-	 HaEpeo1XK4YiuX0Pci22SsF7ghoiDlwICFa6y8UoHuH1R42MRx5XKXv5JJfP+SuVmabad
-	 +6+P9M9uqISiiMkCLfmDz0l2FKYLL3rYT3F7N0X22b7ZHx1vwwTDgCxpVjRegaGa8GPRM
-	 nMXh9PNwNCRo6IH6CAdqOxH47IY2c4XWaGt9+PrLkCl4qhw9pcHDAbhfMSNEUP1jFZg==
+	t=1792662462;
+	b=ztcut1D2PtOveE7XV4aZjNUrXKKgKjxb+H7tyVU49FkVfF5q0PhZS/of2KVBwA+0+UAR
+	 C1bRrrcHS1rvD2csErYvE4ud46nteaCVVrxG9s64F7q+Tauy02s/fMrySIqF0AT+F7beL
+	 +UrOiY1n3vlYprEFkLDn9D3zjMHTsTo6Zfg46WFSlWCPbxDc7O7wLk4YnjlLj+xfRkh51
+	 L1d/qxsQUhZfSRQPOJV3sDkea92njpAPYzGM3oV7ajUGKrfPezW/s0FUn0mRUF5UxbVY5
+	 IdL8vFFW5M6qw011UaDUuxU/Mobr393GjmeZbSgD8dmVMKATzkeKKUPxXDnBpgluQ+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792662260;
-	h=DMARC-Filter:DKIM-Signature:Message-Id:Cc:From:X-Original-From:
-	 X-Lms-Return-Path:To:Mime-Version:Content-Type:User-Agent:
-	 Content-Transfer-Encoding:References:Subject:In-Reply-To:Date;
-	bh=OUGHKG75J/Ha1UT9SfogPm3T2YK7q5WmnJNj8nl5ncM=;
-	b=3PXndRWbmBp/+duHCrJqXupb7ZhcK+0SFaGpSHbrpFhvzo4DoNiLCknK6X9XMfvj63oZ
-	 4GBG9wCSFNWpQslALO80bAd2RUUosabOyexkcWsBzbVFsUPofa40PhkQVyfYUnLhVvcHx
-	 LFCPi5tzuziGto2liQyOBC9devrXi8nk+2Rayqb1D8vqHcZfq9mkjtdjrg/fTiMu6XITI
-	 zjoJpCGjOItGf6STfy+P+2ALZlftrv5MrpY3y6qLGu4aDuRpyys4JekVbLOEWJKYX8Uj7
-	 4HWzwZEc1r53bo3PNqNTTlv0A3o4T2H7ytlTVAGnlSvdhRpAols9tHK/cQHS3RO0BLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792662462;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Y5oGHAGTxprDGXgoMex5C9TxEtgcDLlwr7sbjVK09k8=;
+	b=xZ8/niHQyUGO0RP8tvIccKHNDZCXLJdaKs1qMJsGfiDkH4gHD//DLvCx7OYBUeEOmWlw
+	 9cwzQoMzX9/oDWfUVVbkSz4QmldHvGHjEIgV63z5yWnHId5WAqg8OcAETJy9oWG9iQqa3
+	 DRL2Lh0+tfwZ6ftntQIiudvPosyuJUuCtCinsR3kn4LRqX65B8jjRLAoBhyNL2W0xYSe2
+	 mrYVyOXFQ4Uib5iK3xuoIMgRyYSidYuP3OAk54mxg5KHqPtOHOeNbDCEbMoNhKaFSVFAr
+	 1knyev/h3rOceLhiD6nRRgnA2qxDa5PJo1QiG9zrRPhYS5SBabEzwLjRG+DNdugiskg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QgXszFg8;
-	arc=none smtp.remote-ip=209.127.231.115
-Received: from va-2-115.ptr.blmpb.com (va-2-115.ptr.blmpb.com [209.127.231.115])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=nol3rY6g;
+	arc=none smtp.remote-ip=202.108.3.24
+Received: from r3-24.sinamail.sina.com.cn (r3-24.sinamail.sina.com.cn [202.108.3.24])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853C5606A321
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 853C5606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE9606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:47:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EDE9606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=QgXszFg8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1792662252; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=OUGHKG75J/Ha1UT9SfogPm3T2YK7q5WmnJNj8nl5ncM=;
- b=QgXszFg8BQyFzMHr+mS9D6ndBB9hF1GzlRV9C+V1WtRI0Da2uvUB2pOW7NBZM91KwRp8ge
- ECBtD77JopJSEPqWADA2RGCbdf7HlvhOPgm5jeY0WEM0y2v4dR6+vFliA+LfOGIzagobu0
- ZXhAArMow6hYHmdIIsTdsSMcBSXl6TQNvhAJ4GADIBJmpXqZtc2LqaHnDuLrIxhZfzj0hc
- rnV2MJmkp9PmZx5bceIzAUPApsI/MhQ+YmpZcp5zCIHi5wY/EcEzbAbpdAdtmYbiR/D8Q4
- ozameHasAU8fGA7RTuzeaxBP4GVu2EYi9bL4yR0O8WyC/EPfdjdbMh0cRkGcVQ==
-Message-Id: <9b715272-3ed9-42da-a6ae-467e8ae00c0b@bytedance.com>
-Cc: <akpm@linux-foundation.org>, <david@kernel.org>, <ziy@nvidia.com>, 
-	<joshua.hahnjy@gmail.com>, <rakie.kim@sk.com>, 
-	<ying.huang@linux.alibaba.com>, <ljs@kernel.org>, <mhocko@suse.com>, 
-	<muchun.song@linux.dev>, <roman.gushchin@linux.dev>, 
-	<shakeel.butt@linux.dev>, <weixugc@google.com>, 
-	<cgroups@vger.kernel.org>, <linux-doc@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-From: "Li Zhe" <lizhe.67@bytedance.com>
-X-Original-From: Li Zhe <lizhe.67@bytedance.com>
-X-Lms-Return-Path: <lba+26ad9daea+d8d221+vger.kernel.org+lizhe.67@bytedance.com>
-To: "Gregory Price (Meta)" <gourry@gourry.net>
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=nol3rY6g
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1792662460;
+	bh=Y5oGHAGTxprDGXgoMex5C9TxEtgcDLlwr7sbjVK09k8=;
+	h=From:Subject:Date:Message-ID;
+	b=nol3rY6gbDIUNf5j3vZRsVPFuPSy5JnSITmJnPocfZuhru0kYTuMd0Kal1e8YTuFO
+	 /7i77Z2tXnT1bi4tCPe1FWwqPafH8phjpPKtTlqhAVOT/E/6t/Tyn5bGSFrWT2AHex
+	 ykfKbieArcmIvlBfRkySViv0Xj8IO93TjFt2AN6U=
+X-SMAIL-HELO: lxu-ped-host..
+Received: from unknown (HELO lxu-ped-host..)([111.198.231.89])
+	by sina.com (10.54.253.31) with ESMTP
+	id 6AD9DBB100000217; Thu, 22 Oct 2026 17:47:31 +0800 (CST)
+X-Sender: eadavis@sina.com
+X-Auth-ID: eadavis@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=eadavis@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=eadavis@sina.com
+X-SMAIL-MID: 6866546816076
+X-SMAIL-UIID: AF1A6D85FA254DF2ADBFD9477B29945F-20261022-174731-1
+From: Edward Adam Davis <eadavis@sina.com>
+To: syzbot+4fae162886e497f72228@syzkaller.appspotmail.com
+Cc: linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] kernel BUG in create_default_group...
+Date: Thu, 22 Oct 2026 17:47:28 +0800
+Message-ID: <20261022094729.104768-1-eadavis@sina.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
+References: <6ad65cac.5a04d468.191e0a.001c.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,131 +68,39 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-User-Agent: Mozilla Thunderbird
-Content-Transfer-Encoding: 7bit
-References: <20261019141401.11927-1-lizhe.67@bytedance.com> <atY-LD2AzCYATRii@gourry-fedora-PF4VCD3F> <30457046-a662-4ff7-a6a8-100398d7a806@bytedance.com> <179264138036.2549665.17429111144570830454.b4-reply@b4>
-Subject: Re: [RFC 0/2] mm: add source selectors to memory.reclaim
-In-Reply-To: <179264138036.2549665.17429111144570830454.b4-reply@b4>
-Date: Thu, 22 Oct 2026 17:43:49 +0800
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 10/22/26 11:56 AM, Gregory Price (Meta) wrote:
-> On 2026-10-20 21:01 +0800, Li Zhe wrote:
->> On 10/20/26 12:10 AM, Gregory Price wrote:
->>
->> I agree that the kernel reclaim and demotion behavior still has room for
->> improvement, and the watermark changes and the bottom-up proactive/async
->> reclaim idea you mentioned may be useful to explore for some tiering
->> scenarios. But I think there is also an unavoidable userspace policy
->> component here. The kernel can improve whole-cgroup reclaim, but it
->> cannot know every controller's placement goal.
->>
->> For example, one controller may want to keep a specific per-tier
->> resident ratio for a cgroup. Another use case, as Joshua pointed out in
->> another reply, is reclaiming from a lower tier first so that later
->> top-tier reclaim has room for demotion. A single default memory.reclaim
->> algorithm cannot express these per-cgroup policy choices.
->>
-> The latter of these should probably be some level of the system default,
-> that's why I brought it up as well.  (proactive reclaim should prefer to
-> make progress from the coldest tier first, then work its way up).
->
-> I'm not convinced a reclaim interface is the right way to affect a
-> per-tier resident ratio policy.  That feels like a hack to get around
-> solving the harder problem of something like tiered memcg counters
-> (which would otherwise drive reclaim to work exactly the way you
-> describe for resident ratios).
+From: Edward Aadm Davis <eadavis@sina.com>
 
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git 58161ead29e5
 
-Thanks for the detailed comments.
-
-I agree that improving the default proactive/async reclaim behavior can
-be useful, and I also agree that tiered memcg counters/limits would be
-useful. I do not see source=nodes as a replacement for those directions.
-They solve different parts of the problem: tiered counters/limits provide
-accounting and policy targets, while source=nodes is only an actuator for
-proactive reclaim.
-
-So I think these directions are compatible. A better default reclaim
-policy or tiered memcg limits can improve kernel-driven behavior, while
-source=nodes gives userspace an explicit way to apply reclaim pressure
-to a selected resident source.
-
->
->> I am not sure whether changing the default whole-cgroup reclaim behavior
->> in this direction could affect existing userspace dependencies. In the
->> old nodes= discussion, Mina mentioned that Meta's reclaim stack relied on
->> memory.reclaim triggering demotion [1].
->>
-> Yes and on its surface this is something I could see Meta using, however
-> I question whether we're simply trying to find a convenient way around
-> fixing reclaim to do the right thing (not invert the LRU, apply per-tier
-> memcg limits, etc).
-
-
-That is fair, and I do not intend this to avoid improving reclaim or
-adding better tier-aware memcg accounting. A better memory.reclaim
-algorithm would also make source=nodes more useful, because source=nodes
-still uses the existing reclaim path after selecting the resident source.
-The goal here is narrower: expose a source-scoped proactive reclaim
-actuator while keeping the kernel's reclaim policy in control. The old
-nodes= discussion had ABI problems, but it also showed that a
-nodemask-like source selector is a useful primitive for finer-grained
-proactive reclaim control [1].
-
->
->> I also do not intend source= to lock in current reclaim implementation
->> details. It should stay consistent with the current design: source= only
->> selects the resident source to which reclaim pressure is applied, while
->> the kernel remains free to change the reclaim policy.
->>
-> Well, sort of, you get exposed to the implementation details by having
-> to negotiate what is considered progress under different scenarios.
->
-> Lets take one example - what should happen when:
->   - 2 node system, node0=DRAM, node1=CXL
->   - zswap is configured
->   - echo 1G source=nodelist:1 > memory.reclaim
->   - node 1 is pressured, zsmalloc falls back to node0 to allocate
->
-> Should that be considered progress? We reclaimed from node1, but
-> increased pressure on node0 - which might have kicked kswapd or memcg
-> accounting to demote memory from node0 to node1.
->
-> Should zswap also take that nodelist as a constraint?
-
-
-This is a good example of why source=nodes should not be described as a
-one-shot net footprint guarantee. Assuming source=nodes:1, the request
-applies reclaim pressure to memcg memory resident on node1. That may
-free some space on node1 in the short term, which can provide room for a
-later node0-to-node1 demotion step. If zswap allocation, kswapd, or memcg
-reclaim later moves pressure back across tiers and node1 usage rises
-again, that is part of the dynamic reclaim/tiering behavior.
-
-So userspace cannot rely on one write to memory.reclaim to produce a
-final per-node distribution. The intended usage is a feedback loop: the
-controller observes the memcg's resident distribution, chooses the source
-nodes it wants to relieve, applies source-scoped reclaim pressure,
-observes the new distribution, and iterates.
-
-I do not think this patch should make source=nodes constrain zswap pool
-allocations. That would be a different and much stronger semantic. The
-current intent is only to constrain the resident source from which memcg
-reclaim applies pressure, while completion accounting remains the
-existing memory.reclaim accounting.
-
->
-> At the very least i think you need to add details in your cover that
-> demonstrates the process of doing something like per-node resident
-> ratios, and show that it works as you intend.
-Agreed. I will update the cover letter to make this model clearer. I
-will also make clear that source=nodes is not a final net per-node
-footprint guarantee and does not change memory.reclaim completion
-accounting.
-
-[1] https://lkml.org/lkml/2022/12/14/194
-
-Thanks,
-Zhe
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index eda80c2a2d38..d8e74abe3485 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -65,8 +65,24 @@ static void configfs_d_iput(struct dentry * dentry,
+ 	iput(inode);
+ }
+ 
++static int configfs_d_revalidate(struct inode *dir, const struct qstr *name,
++			 struct dentry *dentry, unsigned int flags)
++{
++	struct inode *inode = d_inode(dentry);
++	struct configfs_dirent * parent_sd = dentry->d_fsdata;
++
++	if (!inode)
++		return -ECHILD;
++
++	if (!configfs_dirent_is_ready(parent_sd))
++		return -ECHILD;
++
++	return 1;
++}
++
+ const struct dentry_operations configfs_dentry_ops = {
+ 	.d_iput		= configfs_d_iput,
++	.d_revalidate   = configfs_d_revalidate,
+ };
+ 
+ #ifdef CONFIG_LOCKDEP
