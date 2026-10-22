@@ -1,97 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792661786;
-	b=1/8jL2FEZ95hz99rZcrCE6oN7yPJfikE/E0AgmjlaelWiKnBVs5a77ssM6OCRHmUK5c2
-	 mjm8khtKaMktIaAy4UlHkuCn7Heesijqu2Ed7m1KZzZJI7VCbwdFUaidO6/seSBl5a9fN
-	 5D+VZSnEYPpABYHy+8xZxRSlm4b/PjyrTEwIpa81HP5VueurVUOesEtwZT7Wqt7t83uTl
-	 cOfMoOLavoETD6MuL/i4fQWBWEyLkdYm7OKXwI8IZi5VEMqXlVyZanxQbB6lB1fICGiNz
-	 ZBtTtQycpPclbHjI9jOuY9Y2ITdJ6u71B/Y5+2iO7hApDtFTypBEFoS0MpYnkS1Ft5g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792661786;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792661797;
+	b=nCzDVPMhlJbrBAv6gBZ3Or0LsbJanme0AHlJBPTc4PBt2uBq35DPYrBsoWj2YzQMNQF5
+	 75v3mi8/6d5t3nhLgqFj07E1Ov5jzW8cVSyteoSpkI17fR2RwoGWOaJbiIrgBwJe8ysUQ
+	 7/C3qIpOhiOtHbes3YwCoEZRchReIEhPH+gfNBxt5npKdGsC/uhuxr38JafnJNnfYX6EO
+	 DHa5u2Rw5Wn8enRLBFpLMZ3cBrBQDCl9cSzSOAzFyjUhO2OVBJoXzPUDoY7p1WWB+FeB8
+	 qBAWh/INAi2/BTal29DGNMRecHpRtabm0bgxuAqW/OFwpa9AKszvHwH7cxsoTOXujfA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792661797;
 	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
 	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=y6fKhPj/87pimLsrwa96wiOXJcyMQ8XJmdtAlqWwRbI=;
-	b=gVwoSRe1kH5xJLFSMao8PNftvGC8kICsDMHM65DTJODm8iyvbxZe2DYu8bStAPCzknnX
-	 HSfWRUgJ4/k5GkbJBXoAWoLDeLqZoFCq9aDwbsYx7/TE9OojroJooWputeqk8MxkyvhHj
-	 VWeRPgc8Z2ooPfGSJlAttKSOatyRF1IYWeQRjOKrMyVVewq01etlqvGFAo2+hiCE+5TQ0
-	 9G7IwqFH147NbbJ3bOn+YKNswVs67D2pXIBCcWd7SdtEA/JvairVb4/Il1gtD+vYTtrBs
-	 4syraSVzv4W+VrSBKBBwUEiARBp/LtGNbG5dnGngAlaq0B2ImQG5dhjq2chx/Jaeskw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bXq7ph6n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	 User-Agent:MIME-Version:X-MBO-RS-META:X-MBO-RS-ID;
+	bh=Fc2YFueeB/SK2J9VCO7SMxkejhsFNGh0Gg5Mxu6KtE0=;
+	b=m1m1oWT70OF6L0fTe1idiGZQva2ueGdlclaRKgiwAmRMDWKA588EtEqfj6LGuRY6Sc1i
+	 w7+IKBItzWyWb0ap2Jm35BTGaYhq+S2EgzD5SvWcykEq4yrUIADxdQ14Jq1QNsP0EQ/y4
+	 kWJFx6rw9pjOwi22HLLa1+bT5bmnIsqXNuEk6IYPcQ/cZjwCad+iqgk6Xbg0tuQqTm1JR
+	 gC4VXXasXF9lru5ORTzPFMNio3NWebqAi8YdZjCi4DXbUYPKefWV0RpAZZfFEWFmNRCq9
+	 tUmCnAJpSUxH8XvrzCeNHMbX2gERwiWYsCs+3BH2aYx+XFPtAZYS8Yx3LEr6EDFFXFA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=SY11R6Lj;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9553606A31D;
-	Thu, 22 Oct 2026 09:36:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9553606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4789960A2611;
+	Thu, 22 Oct 2026 09:36:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4789960A2611
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=bXq7ph6n
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E7E4E2004FF;
-	Thu, 22 Oct 2026 11:36:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792661782;
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=SY11R6Lj
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4j9LdD58sszKnDb;
+	Thu, 22 Oct 2026 11:36:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1792661792;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=y6fKhPj/87pimLsrwa96wiOXJcyMQ8XJmdtAlqWwRbI=;
-	b=bXq7ph6ntsifd3fQBzyhED2nbhwiV5G4GjRpF7oFKQoKAHwUavLydnwPtO02w6UoTIsrwm
-	IGgtbDu2MC0TXa48uEbryw/KHSrSc3Imjl5CQD9kvpGT0wD8tL5zO1jP3UCdWWKEJ2EFbh
-	L93LUL7PHPjIL6/Xx9ARsW4wKx/tPdDqYd0USbBI7rcF9wWbYbAgALnL6t/GwCY8LJc7MH
-	9o1KrLus06gNGE8s6FqOFx0LAqKB/3U7rg3056+7ggxpQfYK7xYraXDYB8K5Y5toq7aEL1
-	XiSQi57j9TVqW32yPWKBhS8dtloO/BDUwvsaAMvVYQMYSJiFDfzdXvvYnJRwzw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1792661782; a=rsa-sha256;
-	cv=none;
-	b=WykGo8jD8hoj3R5BdABolvEsTgPvDWg7IgivSeTxChcYdeiN6LdCe4v9cw+PDHxpQAhd34
-	LXriW4TjdGJZ7sSihMd8BL8IJsbgE4DGcCKGRW5pJx31vQuUcx3mo1b8fCKtZ6mMHS8BCO
-	aGs0UHSk/z9zxhRVxEyAx4wiMwSFcbsE5iBntSLen4y8ABKhooPDyDYOYMhu+6XikA7MK6
-	lyhJTX8ytsYN/7l8om/+UGIrQRfH4D2PIvcLkC2sE7bgi6HW52XO7G4kxrMOezltHNY/LC
-	k1r6cEBbsYxtKUPj8QvSdYmlvvuGxXLhKveo1VeT9XD4uJ/uK6RNusU4jntSbQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1792661782;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=y6fKhPj/87pimLsrwa96wiOXJcyMQ8XJmdtAlqWwRbI=;
-	b=LlMqAmC8/AkwywL7CYQSP+s+ZiAPecaqDv7M7KJsdN/HON5OTFOnpzKh35OY1Gp3fQouio
-	6kgS82yTFZfAvm4MPHy8/4sqgfAj5ozTWBQV62TJXfusG4nE690zUP5S4dVSnMxeWZIRtK
-	4kSR14eJ19qmpOKGXGplWQ3cxZ9gkwaTxXYLfCecd+xus6QvTonC0ddc50BUTxS9Q9R8rT
-	UnG0UVcY+NW8fANIsuDZq6oc4vu2adjbXzthGL8cWhdvNE0Qi6vVkRe+gALT2VvbJ7SUl+
-	C15BT2EQ5kMRBIz+c4HFjFPQN0zqb8SvcoJsyjPPSeKzmayAwZoOAezz5+gtqg==
-Message-ID: <bafa6ad636d5e8a681494714adbd66bf8f2f7b19.camel@pengutronix.de>
-Subject: Re: [PATCH v3 6/6] usb: gadget: udc: crg: Add core driver and build
- integration
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Petar Stepanovic <pstepanovic@axiado.com>, Naveen Kumar Rajgiri Bassappa
-	 <rbnaveenkumar@axiado.com>, Prasad Bolisetty <pbolisetty@axiado.com>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tzu-Hao Wei	 <twei@axiado.com>, Karthikeyan Mitran
- <kmitran@axiado.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	openbmc@lists.ozlabs.org, Krutik Shah <krutikshah@axiado.com>
-Date: Thu, 22 Oct 2026 11:36:22 +0200
-In-Reply-To: <20261020-axiado-ax3000-usb-device-controller-v3-6-3012ecfc0a93@axiado.com>
-References: 
-	<20261020-axiado-ax3000-usb-device-controller-v3-0-3012ecfc0a93@axiado.com>
-	 <20261020-axiado-ax3000-usb-device-controller-v3-6-3012ecfc0a93@axiado.com>
+	bh=Fc2YFueeB/SK2J9VCO7SMxkejhsFNGh0Gg5Mxu6KtE0=;
+	b=SY11R6Ljv51h5vDJMn+ZNFZpONum7lk5bqfmYYeGDCsAKuOzh8grQsKtJMQu2lduEHaUfP
+	kUFiRsa5odkckATsX5qwuEfPuHiwKYKvpeExHwu96lTKnbCG6nNK7xRpv5BOm2rmR8Gcx8
+	dSwOHGrQiVQoqB6+/PgatT9o3ftS+zqiImr+NTJbcnpUft1ylqcQS3i/YGBDDxYABWYEK7
+	6JwLqsJTDErlrgJJmZYhRFBtZUZsUolUk8tqwfU9ZOEDFaah0d5AHjYqHsOZpqSDUB3/qG
+	DfDioV2W1Azz8sJWWoT4fgNFKFELfXcwO1iuYx+VURwFqvszXAy88E2I8yVN/w==
+Message-ID: <6cfc3d91f725146c6d8c6c21b869b1d21a08044e.camel@mailbox.org>
+Subject: Re: [PATCH RFC] changes.rst: introduce 'Required for'-column
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+To: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, linux-kbuild@vger.kernel.org,
+ oe-kbuild-all@lists.linux.dev, 	linux-debuggers@vger.kernel.org,
+ tools@linux.kernel.org, "open list:DOCUMENTATION PROCESS"	
+ <workflows@vger.kernel.org>, "open list:DOCUMENTATION"	
+ <linux-doc@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Nicolas Schier
+	 <n.schier@fritz.com>
+Date: Thu, 22 Oct 2026 11:36:29 +0200
+In-Reply-To: <d57ce591-2399-4bd4-ae70-8fdabf63ae82@infradead.org>
+References: <20261007163736.3942745-2-manuelebnerli@mailbox.org>
+	 <d57ce591-2399-4bd4-ae70-8fdabf63ae82@infradead.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Content-Transfer-Encoding: base64
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,60 +78,113 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MBO-RS-META: bh77bp6gb6p4ih3jwhqda78yz39uuz3y
+X-MBO-RS-ID: 11341410093911fc079
 
-On Di, 2026-10-20 at 00:19 -0700, Petar Stepanovic wrote:
-> This patch introduces the core probe/remove functions for the Axiado
-> AX3000/AX3005 UDC driver, and wires up the directory into the build
-> system via Kconfig and Makefile.
->=20
-> Co-developed-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> Signed-off-by: Naveen Kumar Rajgiri Bassappa <rbnaveenkumar@axiado.com>
-> Co-developed-by: Krutik Shah <krutikshah@axiado.com>
-> Signed-off-by: Krutik Shah <krutikshah@axiado.com>
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-> ---
->  MAINTAINERS                               |   1 +
->  drivers/usb/gadget/udc/Kconfig            |   2 +
->  drivers/usb/gadget/udc/Makefile           |   1 +
->  drivers/usb/gadget/udc/crg/Kconfig        |  16 +
->  drivers/usb/gadget/udc/crg/Makefile       |   9 +
->  drivers/usb/gadget/udc/crg/crg-udc-core.c | 706 ++++++++++++++++++++++++=
-++++++
->  6 files changed, 735 insertions(+)
->=20
-[...]
-> diff --git a/drivers/usb/gadget/udc/crg/crg-udc-core.c b/drivers/usb/gadg=
-et/udc/crg/crg-udc-core.c
-> new file mode 100644
-> index 000000000000..80a4fc6a61e8
-> --- /dev/null
-> +++ b/drivers/usb/gadget/udc/crg/crg-udc-core.c
-> @@ -0,0 +1,706 @@
-[...]
-> +static int crg_udc_init_hw(struct crg_gadget_dev *crg_udc)
-> +{
-> +	struct device *dev =3D crg_udc->dev;
-> +	int ret;
-> +
-> +	crg_udc->clk =3D devm_clk_get_optional(dev, NULL);
-> +	if (IS_ERR(crg_udc->clk))
-> +		return dev_err_probe(dev, PTR_ERR(crg_udc->clk),
-> +				     "failed to get clock\n");
-> +
-> +	ret =3D clk_prepare_enable(crg_udc->clk);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to enable clock\n");
-> +
-> +	ret =3D devm_add_action_or_reset(dev, crg_udc_clk_disable, crg_udc->clk=
-);
-> +	if (ret)
-> +		return ret;
-> +
-> +	crg_udc->rst =3D
-> +		devm_reset_control_get_optional_exclusive_deasserted(dev, NULL);
+SGkgUmFuZHkswqAKCk9uIFdlZCwgMjAyNi0xMC0yMSBhdCAyMjo0MSAtMDcwMCwgUmFuZHkgRHVu
+bGFwIHdyb3RlOgo+IEhpLAo+IAo+IE9uIDEwLzcvMjYgOTozNyBBTSwgTWFudWVsIEVibmVyIHdy
+b3RlOgo+ID4gVGhlIG9wdGlvbmFsIHRhZyBpc24ndCBvYnZpb3VzIG5vciBkZWZpbmVkLiBUaGVy
+ZWZvcmUgcmVtb3ZlIHRoZSB0YWcgYW5kCj4gPiBhZGQgY29sdW1uICdSZXF1aXJlZCBmb3InIHRv
+IG1ha2UgaXQgZWFzaWVyIHRvIGRlZmluZSB0aGUgbmVlZCBmb3IgdGhlIHRvb2xzLgo+ID4gCj4g
+PiBDQzogTWlndWVsIE9qZWRhIDxtaWd1ZWwub2plZGEuc2FuZG9uaXNAZ21haWwuY29tPgo+ID4g
+Q0M6IE5pY29sYXMgU2NoaWVyIDxuLnNjaGllckBmcml0ei5jb20+Cj4gPiAtLS0KPiA+IElmIGFu
+eWJvZHkgaGFzIGluZm8gdG8gYWRkIHRvIG9yIHJlZmluZSB0aGUgbmV3IGNvbHVtbiBJIHdvdWxk
+IGFwcHJlY2lhdGUgaXQgYSBsb3QuCj4gPiBQbGVhc2UgZm9yd2FyZCB0aGlzIHRvIGxpc3Qgb3Ig
+cGVvcGxlIHdoaWNoIGNhbiBjb250cmlidXRlIHRvIHRoaXMgcGF0Y2guCj4gPiAKPiA+IFRoZXJl
+J3MgYWxzbyB0aGUgb3B0aW9uIHRvIHJlbW92ZSB0aGUgJ0NvbW1hbmQgdG8gY2hlY2sgdGhlIHZl
+cnNpb24nLWNvbHVtbgo+ID4gYW5kIHJlZmVyIHRvIHNjcmlwdHMvdmVyX2xpbnV4IC0gYW5kIHdp
+dGggdGhpcyBhbHNvIHJlbW92aW5nIHRoZSBkdXBsaWNhdGVkCj4gPiBpbmZvcm1hdGlvbi1pc3N1
+ZS4KPiA+IAo+ID4gW3YzXQo+ID4gwqBSZWFyYW5nZSBjb2x1bW4gc3BhY2Ugb2YgdGhlIHRhYmxl
+IGluIG9yZGVyIHRvIGFkZCBjb2x1bW4gaW5zdGVhZCBvZiByZXBsYWNpbmcgY29sdW1uCj4gPiDC
+oGFkZCBzb21lIHJlcXVpcmVtZW50cyB0byB0aGUgdGFibGUKPiA+IAo+ID4gW3YyXQo+ID4gwqBE
+aXRjaCBmb290bm90ZXMgaW4gZmF2b3Igb2YgYSBjb2x1bW4KPiA+IMKgUmVwbGFjZSAnQ2hlY2sg
+VmVyc2lvbiBDb21tYW5kJy1jb2x1bW4gd2l0aCBvcHRpb25hbC1jb2x1bW4KPiA+IMKgaHR0cHM6
+Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYwODMxMTUyNTIzLjYzODg4MS0xLW1hbnVlbGVibmVy
+bGlAbWFpbGJveC5vcmcvCj4gPiAKPiA+IFt2MV0KPiA+IMKgaHR0cHM6Ly9sb3JlLmtlcm5lbC5v
+cmcvYWxsLzIwMjYwODEyMTIyNDI2LjE2MzYyMjctMi1tYW51ZWxlYm5lcmxpQG1haWxib3gub3Jn
+Lwo+ID4gLS0tCj4gPiDCoERvY3VtZW50YXRpb24vcHJvY2Vzcy9jaGFuZ2VzLnJzdCB8IDk3ICsr
+KysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0KPiA+IMKgMSBmaWxlIGNoYW5nZWQsIDUxIGlu
+c2VydGlvbnMoKyksIDQ2IGRlbGV0aW9ucygtKQo+ID4gCj4gPiBkaWZmIC0tZ2l0IGEvRG9jdW1l
+bnRhdGlvbi9wcm9jZXNzL2NoYW5nZXMucnN0IGIvRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NoYW5n
+ZXMucnN0Cj4gPiBpbmRleCAyOGYyY2E2MzMuLmRhZmUwNTMwZiAxMDA2NDQKPiA+IC0tLSBhL0Rv
+Y3VtZW50YXRpb24vcHJvY2Vzcy9jaGFuZ2VzLnJzdAo+ID4gKysrIGIvRG9jdW1lbnRhdGlvbi9w
+cm9jZXNzL2NoYW5nZXMucnN0Cj4gPiAKPiA+IMKgCj4gPiDCoC4uLgo+ID4gCj4gPiDCoAo+ID4g
+Kz09PT09PT09PT09PT09wqAgPT09PT09PT3CoCA9PT09PT09PT09PT09PT09PT09PT09PcKgID09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KPiA+ICvCoMKgwqAgUHJvZ3Jh
+bcKgwqDCoMKgIE1pbmltYWzCoMKgwqDCoMKgIENvbW1hbmQgdG8gY2hlY2vCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgIFJlcXVpcmVkIGZvcgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoCB2ZXJzaW9uwqDCoMKgwqDCoMKgwqDCoCB0aGUgdmVyc2lvbgo+ID4gKz09
+PT09PT09PT09PT09wqAgPT09PT09PT3CoCA9PT09PT09PT09PT09PT09PT09PT09PcKgID09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KPiA+ICtiYXNowqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCA0LjLCoMKgwqDCoMKgwqAgYmFzaCAtLXZlcnNpb27CoMKgwqDCoMKgwqDCoMKg
+wqDCoCBnZW5lcmFsIHJlcXVpcmVtZW50Cj4gPiArYmPCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCAxLjA2Ljk1wqDCoCBiYyAtLXZlcnNpb27CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgS2J1aWxk
+ICgKPiAKPiBTb21ldGhpbmcgbWlzc2luZyBhZnRlciB0aGUgJygnPwoKVGhlcmUncyBzb21ldGhp
+bmcgbWlzc2luZyBiZWNhdXNlIEkgZGlkbid0IGtub3cgd2hhdCB0byBwdXQgdGhlcmUuIEkga25v
+dyBiYyBpcyBjYWxjdWxhdGluZwpzb21ldGhpbmcgZHVyaW5nIHRoZSBidWlsZCwgYnV0IG5vdyBo
+b3cgdG8gcHV0IGl0LgoKPiA+ICtiaW5kZ2VuwqDCoMKgwqDCoMKgwqDCoCAwLjcxLjHCoMKgwqAg
+YmluZGdlbiAtLXZlcnNpb27CoMKgwqDCoMKgwqDCoCBDT05GSUdfUlVTVD15Cj4gPiArYmludXRp
+bHPCoMKgwqDCoMKgwqDCoCAyLjMwwqDCoMKgwqDCoCBsZCAtdgo+ID4gK2Jpc29uwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgMi4wwqDCoMKgwqDCoMKgIGJpc29uIC0tdmVyc2lvbsKgwqDCoMKgwqDCoMKg
+wqDCoCBLYnVpbGQgKC5jb25maWcpCj4gPiArYnRyZnMtcHJvZ3PCoMKgwqDCoCAwLjE4wqDCoMKg
+wqDCoCBidHJmcyAtLXZlcnNpb24KPiA+ICtDbGFuZy9MTFZNwqDCoMKgwqDCoCAxNy4wLjHCoMKg
+wqAgY2xhbmcgLS12ZXJzaW9uwqDCoMKgwqDCoMKgwqDCoMKgIGFsdGVybmF0aXZlIHRvIEdOVSBD
+IChnY2MpCj4gPiArZTJmc3Byb2dzwqDCoMKgwqDCoMKgIDEuNDEuNMKgwqDCoCBlMmZzY2sgLVbC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZXh0NAo+ID4gK2ZsZXjCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgIDIuNS4zNcKgwqDCoCBmbGV4IC0tdmVyc2lvbsKgwqDCoMKgwqDCoMKgwqDCoMKg
+IEtidWlsZCAoLmNvbmZpZykKPiA+ICtnZGLCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgNy4ywqDC
+oMKgwqDCoMKgIGdkYiAtLXZlcnNpb27CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIERlYnVnZ2luZwo+
+ID4gK0dOVSBhd2vCoMKgwqDCoMKgwqDCoMKgIDUuMS4wwqDCoMKgwqAgZ2F3ayAtLXZlcnNpb27C
+oMKgwqDCoMKgwqDCoMKgwqDCoCBvYmp0b29sLCBDT05GSUdfU1lTVEVNX0JMQUNLTElTVF9IQVNI
+X0xJU1Q9eQo+ID4gK0dOVSBDwqDCoMKgwqDCoMKgwqDCoMKgwqAgOC4xwqDCoMKgwqDCoMKgIGdj
+YyAtLXZlcnNpb27CoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFsdGVybmF0aXZlIHRvIENsYW5nL0xM
+Vk0gKGNsYW5nKQo+ID4gK0dOVSBtYWtlwqDCoMKgwqDCoMKgwqAgNC4wwqDCoMKgwqDCoMKgIG1h
+a2UgLS12ZXJzaW9uCj4gPiArR05VIHRhcsKgwqDCoMKgwqDCoMKgwqAgMS4yOMKgwqDCoMKgwqAg
+dGFyIC0tdmVyc2lvbgo+ID4gK0dSVULCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDAuOTPCoMKgwqDC
+oMKgIGdydWIgLS12ZXJzaW9uIHx8Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqAgZ3J1Yi1pbnN0YWxsIC0tdmVyc2lvbgo+ID4gK2d0YWdzwqDC
+oMKgwqDCoMKgwqDCoMKgwqAgNi42LjXCoMKgwqDCoCBndGFncyAtLXZlcnNpb27CoMKgwqDCoMKg
+wqDCoMKgwqAgdG8gZ2VuZXJhdGUgdGFnIGZpbGVzIHRocm91Z2ggYGBtYWtlIGd0YWdzYGAKPiA+
+ICtpcHRhYmxlc8KgwqDCoMKgwqDCoMKgIDEuNC4ywqDCoMKgwqAgaXB0YWJsZXMgLVYKPiA+ICtq
+ZnN1dGlsc8KgwqDCoMKgwqDCoMKgIDEuMS4zwqDCoMKgwqAgZnNjay5qZnMgLVYKPiA+ICtrbW9k
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAxM8KgwqDCoMKgwqDCoMKgIGttb2QgLVYKPiA+ICttY2Vs
+b2fCoMKgwqDCoMKgwqDCoMKgwqAgMC42wqDCoMKgwqDCoMKgIG1jZWxvZyAtLXZlcnNpb24KPiA+
+ICtta2ltYWdlwqDCoMKgwqDCoMKgwqDCoCAyMDE3LjAxwqDCoCBta2ltYWdlIC0tdmVyc2lvbsKg
+wqDCoMKgwqDCoMKgIEZsYXQgSW1hZ2UgVHJlZSAoRklUKSBvciBBUkNIPWFyYywgYXJtIG9yIHBv
+d2VycGMKPiA+ICtuZnMtdXRpbHPCoMKgwqDCoMKgwqAgMS4wLjXCoMKgwqDCoCBzaG93bW91bnQg
+LS12ZXJzaW9uCj4gPiArb3BlbnNzbMKgwqDCoMKgwqDCoMKgwqAgMS4wLjDCoMKgwqDCoCBvcGVu
+c3NsIHZlcnNpb24KPiA+ICtwYWhvbGXCoMKgwqDCoMKgwqDCoMKgwqAgMS4yNsKgwqDCoMKgwqAg
+cGFob2xlIC0tdmVyc2lvbgo+ID4gK3BjbWNpYXV0aWxzwqDCoMKgwqAgMDA0wqDCoMKgwqDCoMKg
+IHBjY2FyZGN0bCAtVgo+ID4gK3BpZ3rCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIDIuNMKgwqDCoMKg
+wqDCoCBwaWd6IC0tdmVyc2lvbsKgwqDCoMKgwqDCoMKgwqDCoMKgIENvbXBpbGUgYW5kIGJvb3Qg
+d2l0aCBLUEdaSVA9eQo+ID4gK1BQUMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAyLjQuMMKgwqDC
+oMKgIHBwcGQgLS12ZXJzaW9uCj4gPiArcHJvY3BzwqDCoMKgwqDCoMKgwqDCoMKgIDMuMi4wwqDC
+oMKgwqAgcHMgLS12ZXJzaW9uCj4gPiArUHl0aG9uwqDCoMKgwqDCoMKgwqDCoMKgIDMuOS54wqDC
+oMKgwqAgcHl0aG9uMyAtLXZlcnNpb24KPiA+ICtxdW90YS10b29sc8KgwqDCoMKgIDMuMDnCoMKg
+wqDCoMKgIHF1b3RhIC1WCj4gPiArUnVzdMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgMS44NS4wwqDC
+oMKgIHJ1c3RjIC0tdmVyc2lvbsKgwqDCoMKgwqDCoMKgwqDCoCBDT05GSUdfUlVTVD15Cj4gPiAr
+U3BoaW54wqDCoMKgwqDCoMKgwqDCoMKgIDMuNC4zwqDCoMKgwqAgc3BoaW54LWJ1aWxkIC0tdmVy
+c2lvbsKgwqAgYnVpbGQga2VybmVsIGRvY3VtZW50YXRpb24KPiA+ICtzcXVhc2hmcy10b29sc8Kg
+IDQuMMKgwqDCoMKgwqDCoCBta3NxdWFzaGZzIC12ZXJzaW9uCj4gPiArdWRldsKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgMDgxwqDCoMKgwqDCoMKgIHVkZXZhZG0gLS12ZXJzaW9uCj4gPiArdXRpbC1s
+aW51eMKgwqDCoMKgwqAgMi4xMG/CoMKgwqDCoCBtb3VudCAtLXZlcnNpb24KPiA+ICt4ZnNwcm9n
+c8KgwqDCoMKgwqDCoMKgIDIuNi4wwqDCoMKgwqAgeGZzX2RiIC1WCj4gPiArPT09PT09PT09PT09
+PT3CoCA9PT09PT09PcKgID09PT09PT09PT09PT09PT09PT09PT09wqAgPT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PQo+ID4gK8KgwqDCoCBQcm9ncmFtwqDCoMKgwqAgTWlu
+aW1hbMKgwqDCoMKgwqAgQ29tbWFuZCB0byBjaGVja8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqAgUmVxdWlyZWQgZm9yCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+IHZlcnNpb27CoMKgwqDCoMKgIGNoZWNrIHRoZSB2ZXJzaW9uCj4gPiArPT09PT09PT09PT09PT3C
+oCA9PT09PT09PcKgID09PT09PT09PT09PT09PT09PT09PT09wqAgPT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PQo+IAo+IE9uIG15IGJ1aWxkIG9mICdtYWtlIGh0bWxkb2Nz
+JywgdGhlIHRhYmxlIGVuZGluZyBjb25mdXNlcyBkb2N1dGlscy4KPiBEaWQgeW91IGJ1aWxkIHRo
+aXMgd2l0aCAnbWFrZSBodG1sZG9jcyc/Cj4gCj4gRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NoYW5n
+ZXMucnN0OjczOiBXQVJOSU5HOiBCbGFuayBsaW5lIHJlcXVpcmVkIGFmdGVyIHRhYmxlLiBbZG9j
+dXRpbHNdCj4gRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NoYW5nZXMucnN0Ojc1OiBXQVJOSU5HOiBC
+bG9jayBxdW90ZSBlbmRzIHdpdGhvdXQgYSBibGFuayBsaW5lOyB1bmV4cGVjdGVkIHVuaW5kZW50
+LiBbZG9jdXRpbHNdCj4gRG9jdW1lbnRhdGlvbi9wcm9jZXNzL2NoYW5nZXMucnN0OjQxOTogRVJS
+T1I6IE1hbGZvcm1lZCB0YWJsZS4KPiBCb3R0b20gYm9yZGVyIG9yIGhlYWRlciBydWxlIGRvZXMg
+bm90IG1hdGNoIHRvcCBib3JkZXIuCj4gCj4gPT09PT09PT09PT09PT3CoCA9PT09PT09PcKgID09
+PT09PT09PT09PT09PT09PT09PT09wqAgPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PQoKSSdsbCByZW1vdmUgdGhlIGJvdHRvbSAnaGVhZC1yb3cnLgoKPiAKPiAuLi4KClRo
+YW5rcwogTWFudWVsIAo=
 
-Why is this stored in struct crg_gadget_dev? It's not used anywhere
-that I can see. The struct reset_control could be a local variable.
-
-regards
-Philipp
