@@ -1,65 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792651064;
-	b=AQijbpKl2F722ILBGovQ2tGoeRlHzD/20WMiZDnKh2Gp8E5CPmU8bflhe6i9xQoaA6OJ
-	 t1QL4Ghed4Bn7XvFGV5JOiisLh7QWjENizlnYBVr737MvjW5ydq5huLlZnLDi52UwwepA
-	 Ey1PLDbIKJS0PECFF+/wp+PScCcjD0f8DTnDlPt4vaSZuNNnswJ1EZ/onaJr3Gs90slWz
-	 EXcekWHJEYjovJuJQ/2lfK+KRO5TakC4Cb+Klx5yTkZm8ZoV/ZVB7xp0gP1+5vsgKyjZS
-	 jA6Jq4J/IJqwiOi462NUBkUbkXAyhz/T9FT+k6FqKHG/UiTcplOzZ31Gi/y949ueFoQ==
+	t=1792651190;
+	b=myihebza5+yAav5l0TCQzCMmbyTZRru+fN06VjkPPaHiZpgQ7uK30/deFu++FAdWf6a1
+	 rwgbAPp1pTvT39Qzr4lC3a84YUam9n/iKjcORhnhZUoA/BDo0mLb9h23rXwCOY9bL2l/7
+	 7X8Bc/Y3cSMz3EQUAe1Wh4fqdhQILWrmndU8Pif7Jui5nNZI/JCljaQVplQO57neAIJZT
+	 1fqj4bxkjQ7sQ5PrWnmWb+Xh9XCCEHzjOg5Uroie+F5/UQp/nPGWE4r8xf1gedFP2VbJa
+	 gNc5cUmUnMe9SMKt39O591V8GjulNs5MIWsS1ljrkQcAtVYD38J2zPpjCX2xLXXXAJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651064;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
-	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
-	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
-	 In-Reply-To:X-QQ-mid;
-	bh=VQFTusPZWZAQO9ncVP5/pVATTKlUKVRB9FJ/9plts7M=;
-	b=qxsERAmFXfrWt3rPadL929akjVfzIviyF6nO/RjFScZUdqbbvQeH8+KIUGj/67ZdMAh0
-	 NKReBPUjAoqFfMcBQecTbssQiGFUxD71F4PxfP0aZHxXe4vcAhLUayiuSGVatSIllDeGj
-	 mnJy3o0vMvJgM80ck6ujDurBr2v0PZiW5ojtikuaaHNiNaep3kBMdhhuYTPzE3apc3Q+L
-	 ocvZ7RYL9Vn48n1tCU0z6uSRWwXAIQj+u6Af5bjacVKcG7CjATg1+SP+7liunfk1JjEbP
-	 UnXTovOPvsM3dQdtzSYPiDlGk2HIRBJEbXPe66BRAsvFVRJUKwdShXae8r3wddZlo5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651190;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=F5xNpfAD02cdt0fNkq//IluH1XyFdn8v8eKHcwoQ9gY=;
+	b=w3zHLMuFSDqZ0vxG/7IEujm8XKwSaxO8yuTU98KUxEOSGr1o9JEiT4Fn5wc81wbXU0Je
+	 nC3zhkzABPuVAuyO1KOb9XVBDtgFgQofulgovd7h2ilvEFH1sVpiuTw3blOMsT5s1hvzw
+	 sHdgrORg846oX5apjX5WpwhutJQAOiWI3C2TaJCnyWV2YqI2clCswst/TmI1yeT5PNjRP
+	 HRnwsTwqlxrdeazu3doAkjwtrd3AkzOdM5tC9Sk0YH3zLpoTCYYLoDJUedq+ENE+awJA5
+	 +tzYTnPDXJ8by0owzBD4v6qw5uINu0tSM3NfWVKW/7Yh+W6sEiGk1C+LVOsR/RwFS5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GmTf6oYL;
-	arc=none smtp.remote-ip=43.163.128.47
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=S+FhUgHa;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68DCC606A323;
-	Thu, 22 Oct 2026 06:37:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68DCC606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96023606A323
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:39:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96023606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GmTf6oYL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1792651052; bh=VQFTusPZWZAQO9ncVP5/pVATTKlUKVRB9FJ/9plts7M=;
-	h=From:To:Cc:Subject:Date:References:In-Reply-To;
-	b=GmTf6oYL8AKlduANqJiMvZbkQOf7gKp/zQwFXmoaknAFcT1VltESHTOaOrg1fcjsW
-	 ooQVtPfnStMG4UMWTARNwo+QdJW0/ktwQv7oAfnOSn7krkbD0yr8PCfT2j9MVsT4Ld
-	 a+4EUQyPnJwSlLkvXFQ17TUOpHSAfKWsStATXj6U=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-XMAILINFO: N6vT1niysq6m+dolIeSRQmZ0Z/lSCBqEUxgMgKnhlcqyDzFYwRYb/nFI862AH8
-	 hx16FZ7vQ76yOO4KNrAZLP9nGxJ89E38Vmc3rNG+xB70iOUAV7wSRAQwTihTOulk5fqrM0fPZ230B
-	 KEjiMz7HM7L4qzHyBVCqvG9OHxF9AE9K5R4nq44q5B5A5vDvoF2e6N2kZaxF1Xwl7qyXn0HPU+w0q
-	 jx+hU0FDBXH84DVvxXpEVC45nfZW7RE5b4cT+s2JTCz893w+J65yZGKPYhKhbfVjLu1uzs423rZHF
-	 YhpWLoHB7Z5iyFTSqhVekL+bsNuil22wBS381bllGmpRd0Z5eGD8IpYIPKcsKtvIw3suSvGWztqCp
-	 ZGnIzV/u3oZCv65hNU2vXGJYFoE1CwNhDvwyxZLhcqUptZfdM3alzxLkTi4sZcGcAkl0YQLxv0wcs
-	 xDYdGeTy4dt8w7sun/yBo2hbrgzaosoCMO9RohKNuUElD6qUPsPbWHI0n7ImrN45HY2QPGs1bCvVk
-	 MWSRQYnB5gBQQseXW+2S7fzKMYfLxHzAz/06wSHooNP221o35sl8hHLxnG+gxrgIhpp8SEAZcRLdv
-	 wttYLqc66aRhuxibq6faN+1fdUvvf0l4cS04L724Xdz7CC95Ngz5WGvieS2ipVQY1PH3RPEC0SCQc
-	 LLZDi4lUTEtGHPpV3lXVwSsXOJZKBClnzlse4Bo/O+ZEZSX8poOOa0aS22M1U1Gi0XNUU8VxABkh2
-	 bEmFwFeuf6x8bwc+bj+CMBVRMOBbJozHjSlFbbqRMjHcly44ucpG1KRKT5UmvuIARe2VdvezT5O6l
-	 4AjpimmT+Wwm48X5K++Szf3pWy8brWR888+n7HrXrJNl+S1bpTLclyQC60yZO5MIsRD1+1zgcsxEy
-	 Y16MLptC3/0G6NBTSzeoOt/17k+XaE4mdHZh69reiQfF1CWqaBhKA87ASDRQ945nLDYWOlNQ6C5AI
-	 wOHX74OkmtP7bfnjvPr48Afne4f9RYdonvRTS0CxUYkICRgEbasogiv1kyvxnWGZzdyciyj+lRx9T
-	 ZTKQ1aSJt3odwsS1uNe1fIHMqU8WkURomskKvfn9JQJrjd4w=
-From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
-To: "=?utf-8?B?U2hhd24gTGlu?=" <shawn.lin@rock-chips.com>
-Cc: "=?utf-8?B?c2hhd24ubGlu?=" <shawn.lin@rock-chips.com>, "=?utf-8?B?bGludXgtY2xr?=" <linux-clk@vger.kernel.org>, "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bWZk?=" <mfd@lists.linux.dev>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bmV0ZGV2?=" <netdev@vger.kernel.org>, "=?utf-8?B?bGludXgtcG0=?=" <linux-pm@vger.kernel.org>, "=?utf-8?B?bGludXgtaTJj?=" <linux-i2c@vger.kernel.org>, "=?utf-8?B?bGludXgtc2VyaWFs?=" <linux-serial@vger.kernel.org>, "=?utf-8?B?bGludXgtbW1j?=" <linux-mmc@vger.kernel.org>, 
-	"=?utf-8?B?bGludXgtc3RtMzI=?=" <linux-stm32@st-md-mailman.stormreply.com>, "=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 00/27] rockchip: Add RK3572 and Forlinx OK3572-C support
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=S+FhUgHa
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1200389a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:39:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792651189; x=1793255989; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F5xNpfAD02cdt0fNkq//IluH1XyFdn8v8eKHcwoQ9gY=;
+        b=S+FhUgHa7+uJvTERie8Eh+msu/qTG4smFNLP7wCxYwDWhkeJbRRuAkaHCtBDkN2fEL
+         vTIyTesqVTz5mj+Kj5pqX2in9paYHMVI31pf+KR6BhS80h24s94OxeoGHU1EhzUzCD4v
+         1bYTBaxHGRJNNe4kVXyokdUyndbRv+JcWmgi80V8XhMtZK4rcxdsHVh2HHE460qnLyZZ
+         m0BJm0oSk/veJuxGfR31bNOzusliR9hLo1FznTK9+BFpAsDjaLnBbkt0nvzhgdYkvF+9
+         ef1XE6lJv215fO7aJDmVWCGij9Jormnc4lhs5dvnaOj+FxvzBPK6fQVvKQyBSBJXVUoe
+         U/CA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792651189; x=1793255989;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F5xNpfAD02cdt0fNkq//IluH1XyFdn8v8eKHcwoQ9gY=;
+        b=e7wqiPxQjmWNbXGDC2ggdutnmQw0uTh3XN/g8zM0RkFpZ7tq1x654EfKIYX/dyJTDR
+         zgNnooPrxCJn3bKoVEPsVtYBRqfcx73HwoI2Vz1CBCjnQKlHnS0wikfctNy8cikxynPx
+         BQVvBXPmD7t21UVFqUKeGztP9OGF7Qu9a/+yc0cjivR1QydjjLi+P4t4hAUP+XDg+fWR
+         NH3jMYJT8AsrwE81tr2/cB8hNIO36LR5eggFfM7vODlwyu8JZYmkIcna9hPlaewUimn6
+         WoThbtI5Cv5Ct3L82zYDGXr+INta5wKRIEhauV9Dxc65cTXiAJ98kDajaUQGQtuUny0d
+         0mXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0GVwfWhhqbwgnoLDtip3LtObYKl6UyPJybF+mY0U+UDOc2sobBC67MWKCCCuXQyrhntb2Cm0R6HDVqVY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK2DCHoU/fPWjjbA2VrMsnvSOo73Lk7kR6ukj4TjwRNyrhul2rY
+	4tBNBoYnkdKY4cvCMwzJYlKOw3aOYRZSrIzqDYBxVzCOvbUNW9DOnXcSM4kUmnEZwq8=
+X-Gm-Gg: AYBFou3tn1GMSgPYw8J/+YPCej4bQjKJQ14h5g8NnhMsN7GHeyp4SELhWQZ2sfyKXbE
+	GbPXdBUIbkGMGk1UJ6JGtECKzihvOHSg9mmqexUNKc0cdymI8mj97yQa0r2GikXOquaLKSbtsGc
+	Pw9xLoUzD6ZYyhWeB5aVWzfG9n1pYXStbxDIhLzZ/q/5ZPH8spXodSfD8OJbOu9VTOGyzavjzY+
+	vHYdnod8Md+KsglKQJGyXPJx2fvVHmreru2qmkug1h6awnvX4t42ZLC5BNf+9WBbUlx9F1PEFV9
+	5vX8C0P3G9jOg2QzvTMnUjbOXTLE/rYZc8Dl0u98sEglijJqNagku0WfNkXbitZ+6BPrANgtbeW
+	uFu/cXn7i+FDYO0xM0hnGtx0GpTSeo/AWz6rxSwxsT1X0w8XrlcdvHdAnQChJfhYXsCdah7snd4
+	hlWfrl8JqMla+bNkSViuvX/ZpcbucFG0W01e32jI7pZfZJp62CD9RCfeEZvzo0WA6xT9RdoOXCH
+	oP4OmyaGucDK9apqCs/crPIoaihBj0Vf1wq+eVGRC1Uc5TDyPhyId3NY2KFHsBWWusdx+vKmHGV
+	iHeeie4pLhykRw==
+X-Received: by 2002:a17:90b:17c5:b0:3ac:adce:60be with SMTP id 98e67ed59e1d1-3ad86f44ed6mr4102493a91.21.1792651188958;
+        Wed, 21 Oct 2026 23:39:48 -0700 (PDT)
+Received: from archlinux (d173-183-236-7.abhsia.telus.net. [173.183.236.7])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada4887669sm2784741a91.2.2026.10.21.23.39.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 23:39:48 -0700 (PDT)
+From: Artem Novak <artem122novak@gmail.com>
+To: glaubitz@physik.fu-berlin.de
+Cc: dalias@libc.org,
+	ysato@users.sourceforge.jp,
+	linux-sh@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	geert+renesas@glider.be,
+	Artem Novak <artem122novak@gmail.com>
+Subject: [RFC PATCH 1/2] sh: dts: add Casio fx-9750GIII board
+Date: Thu, 22 Oct 2026 00:39:35 -0600
+Message-ID: <20261022063936.472520-2-artem122novak@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022063936.472520-1-artem122novak@gmail.com>
+References: <20261022063936.472520-1-artem122novak@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,27 +101,51 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
-Date: Thu, 22 Oct 2026 14:37:30 +0800
-X-Priority: 3
-Message-ID: <tencent_1468586598128C460803261171FD769AA209@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
-	<7fa26028-5c7c-4c5d-8cc5-3116b2e51cc0@rock-chips.com>
-In-Reply-To: <7fa26028-5c7c-4c5d-8cc5-3116b2e51cc0@rock-chips.com>
-X-QQ-mid: xmsezb41-0t1792651050t9mjujcfl
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-SGksCgo+IFRoYW5rcyBmb3IgeW91ciBwYXRjaGVzLiBUeXBpY2FsbHksIGEgc2VyaWVzIG9m
-IHRoaXMgc2l6ZSBjb3ZlcmluZyBTb0MKPiBzdXBwb3J0IHNob3VsZCBiZSBzcGxpdCBieSBz
-dWJzeXN0ZW3vvIxmb3IgaW5zdGFuY2UsIHNlcGFyYXRlIERUIGJpbmRpbmcKPiBhbmQgZHJp
-dmVyIHBhdGNoZXMgZm9yIGVhY2ggc3Vic3lzdGVt77yMYW5kIG9ubHkgQ0MgdGhlIHJlbGV2
-YW50Cj4gbWFpbnRhaW5lcnMgYW5kIG1haWxpbmcgbGlzdHMuIFRoZSBEVFMgcGF0Y2ggY2Fu
-IGZvbGxvdyBhZnRlcndhcmRzLgoKVGhhbmsgeW91IGZvciB0aGUgZ3VpZGFuY2UuIEkgYXBv
-bG9naXplIGZvciB0aGUgaW5jb252ZW5pZW5jZS4gSSdsbCBzcGxpdAp2MiBieSBzdWJzeXN0
-ZW0uCgpCZXN0IHJlZ2FyZHMsCkN1bmhhbw==
+Describe the Casio fx-9750GIII graphing calculator, which uses the Renesas SH7305 processor.
+
+Added the board Device Tree and its DTB build rule.
+The description uses existing SH7305 SoC include
+and affirm the calculator memory region.
+
+Signed-off-by: Artem Novak <artem122novak@gmail.com>
+---
+ arch/sh/boot/dts/Makefile       |  1 +
+ arch/sh/boot/dts/fx9750giii.dts | 15 +++++++++++++++
+ 2 files changed, 16 insertions(+)
+ create mode 100644 arch/sh/boot/dts/fx9750giii.dts
+
+diff --git a/arch/sh/boot/dts/Makefile b/arch/sh/boot/dts/Makefile
+index d109978a5eb9..4887fb16dbf2 100644
+--- a/arch/sh/boot/dts/Makefile
++++ b/arch/sh/boot/dts/Makefile
+@@ -1,2 +1,3 @@
+ # SPDX-License-Identifier: GPL-2.0-only
++dtb-$(CONFIG_SH_FX9750GIII) += fx9750giii.dtb
+ obj-$(CONFIG_BUILTIN_DTB) += $(addsuffix .dtb.o, $(CONFIG_BUILTIN_DTB_NAME))
+diff --git a/arch/sh/boot/dts/fx9750giii.dts b/arch/sh/boot/dts/fx9750giii.dts
+new file mode 100644
+index 000000000000..bccae22e4899
+--- /dev/null
++++ b/arch/sh/boot/dts/fx9750giii.dts
+@@ -0,0 +1,15 @@
++// SPDX-License-Identifier: GPL-2.0-only
++// Copyright (C) 2026 Artem Novak
++/dts-v1/;
++
++#include "sh7305.dtsi"
++
++/ {
++	model = "Casio fx-9750GIII";
++	compatible = "casio,fx-9750giii", "renesas,sh7305";
++
++	memory@8000000 {
++		device_type = "memory";
++		reg = <0x08000000 0x00080000>;
++	};
++};
+-- 
+2.56.0
 
