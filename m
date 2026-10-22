@@ -1,72 +1,142 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792700548;
-	b=q3pq72zhp/PN/ea5zbJstznU9k+rElqz8yj2pwUw3nibZW5tj2PRth9/k2Q8WsrLtUKL
-	 9NJBKt5lMajavpln5WCmZjAz1218VXLMaQslpm4KENlZqZ3JsKMzoGmSuuSG+AWcdqRoq
-	 Xc9GjK9q6DuR+KkKkCcHT9WDUcGB3W/owUJL1V6BpwdxrxEw7w4GZXKly0u0adjov9Eqd
-	 +jFMbsc8T9TsrZgcBPbTGxdTFCh7C+4q+Ninkd4udU+RyDxFkPwP4RSzVlIHgcBtPw1me
-	 jrq1UUaYr5SfgIlvEcXZxrB7NAaP/Tqy51yUIT93LNasiXtpc3l8WrSrsQ6Pj7ZlcVA==
+	t=1792700570;
+	b=TQoVyBrVWUw/vJkWdTC2vLb2ximQjJG5RRNrqlIWosBC3BDRQ6mGHz2lwWLS4graxODQ
+	 jd3o2KxQweGBomV7sto9vWPyok5ush3JA45+sMnQRQa8NPVBkiajc3SwvXENXZA+90/7E
+	 pu+BNeduluL1mEXrCOAPJzCYsT/44lB4OeWtwFH2rSn81auENLq7B2GhHSW8rsHbq5SSf
+	 D6pjVpdVVrwnSlDIsAZes1YYqIZG5lQJ2DaZ6wFWXp8rH+j7TPiqFF6+SdbCHXOrd+WSr
+	 bY98Ap8tK/NXbY6zf2QA1G7AJP9F7KwKI0NLrdFrsUgCRlxj9Hw3/uayHIYgvyZpJUg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792700548;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
-	bh=UVfPiBY11c+DvREEA3B+kQj+k08oJhZBDtYiIKmLFFU=;
-	b=gY70EBEGPreGCtrvW1hYWyW8YdRs7uTrV7QIZO/9ZNTEJWQ69LaUH7gf/EB5iV/Rpgis
-	 hIBe17H70j014E/s0ln9YKqVKWF7OgBitEPITaBf1sfyEc4fbWLP6H1a1/3035pcfnLzU
-	 lU2bokc5f16rxkMDwOwXOz8JqUJ0ilhNTx+x16Tv7GaMDv6EXseBZ5RAu+kY8OAZfQQL+
-	 HJo1zVaCa+N7Gp49AH7MnTzSzMCQbz5nampmH2+B+ky/y/ESgI7YWdHQbchCOzMO8MSCf
-	 i7//5q16S3se0qqbR+6yp5S89O1vvz4yQJv4rX6ocu30ZoXhPiQYtxsFvKPX4uTnkqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792700570;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=6+OZ7UAj4wpyLIvTVHWqEA215IR1A8qQvTEaOHFShS4=;
+	b=rxNHj1pQM30Um/tMkxRisf3OutuztmVcAm4QixSAyN5rP232ZRrEMfvmxFTuP540+2Ku
+	 pjekhy4FgDBkEsTcI4ptAZbtgCxGts4yb0iSShuKLzOWPGgOricWwXomY+3yfBCH0mwfX
+	 hnxd8Uqz325KwbCijDFVd0UG1xFAEBykHKNvfW6pcretS3PjXUl8jK49j4GI0KHv3Yc2/
+	 NqY0vOlBWQaMD5PgON3wxuthaMVuom5b1ihK8WVFQlOO93agKQLUSpw2Eu4nlesdZApVI
+	 02y9ZcmQlKkBvJO9pvMUYODInDx0DlKrZh1wi5ZHDxHe+sba6WXALTPcGgLAZSn0eOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ik1fQicX;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b="LX/PbAP3";
+	arc=none smtp.remote-ip=74.125.224.50
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0C6606A321;
-	Thu, 22 Oct 2026 20:22:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C0C6606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5626606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 20:22:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5626606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=ik1fQicX
-Received: from pps.filterd (m0528006.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MHt4QM1017972;
-	Thu, 22 Oct 2026 13:22:25 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	pps82601-s2048-2026-q3; bh=UVfPiBY11c+DvREEA3B+kQj+k08oJhZBDtYiI
-	KmLFFU=; b=ik1fQicXuyPhrSN6v0M/+wop3gjgDEx0ZNLqYOkIP9PbQp/1KgNc6
-	2RTr1hmNBemFxzFRVwJQXx7CPzeU3BDv2MEdLFtdebXBx6RJx7nk6a5AMlpGKlce
-	POk0j33mdsGND55lkr6rRC9xjdW4zKagxuH1NT5el8foa5LVzApCXGGpOx+FnIs4
-	/qeGo9CcYZEGeiPq0+xwmHXYfUvjUBoQI9m1VSj0KF7Dv8z6zzX/s56FmFh0LM74
-	9xxIayOVuuOaktjFmTfFGQ+LkDrgzYNE7YmHtSXsJpRE0UZz28W3Tjb/emdgZ3V6
-	8RWlfbvwinsq2xqHNd5F57bpdeBTWrkNw==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hfjf63rsk-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
-	Thu, 22 Oct 2026 13:22:25 -0700 (PDT)
-Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
- (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Thu, 22 Oct
- 2026 20:22:23 +0000
-From: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@meta.com>
-To: Jens Axboe <axboe@kernel.dk>
-CC: =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <cleger@meta.com>,
-        <io-uring@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: [RFC PATCH 2/2] io_uring/net: Add bundle support for multishot recvmsg
-Date: Thu, 22 Oct 2026 13:20:23 -0700
-Message-ID: <20261022202106.2474515-3-cleger@meta.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261022202106.2474515-1-cleger@meta.com>
-References: <20261022202106.2474515-1-cleger@meta.com>
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=LX/PbAP3
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-679aeeddc6bso322551d50.2
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:22:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1792700569; x=1793305369; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6+OZ7UAj4wpyLIvTVHWqEA215IR1A8qQvTEaOHFShS4=;
+        b=LX/PbAP3SVuSBH9kbpXY0xPdGlqMqb9hUY2i/eVrUHvo3AcBCIjUXvpkN7qNFuEUkr
+         IMaSW6GIzwyYRoM26Eot6lV+mYkFX2IuQYXc5XA7qVqnyKO/PRNtI2qD4+8h3vUl7mgy
+         P+snby1i4L73rC75zcNABoO4L/fcZDb0n8LmliR9IH1LUnjYxyZ/d2AwP0fmlMHS52hF
+         /vrIwBii/xYYYsz9D4A03iWhrSJMERu4FLL5tDehyr9tza6Hlykp4tDWhgZOJspflkMY
+         kB1G8Mm/JSqUSN2hj6p/w6SCHo//aJzhqBb7k9G7u7Mtyz9BP3iAVGUxsu5OPo0ydvt4
+         F35w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792700569; x=1793305369;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6+OZ7UAj4wpyLIvTVHWqEA215IR1A8qQvTEaOHFShS4=;
+        b=I4maa1LklwdGp1iSnOGCdN05tISHQnVff0FQENZZZHW8hI+r9g/p2xL9zVAQR2aPOa
+         XlCWLOKaA3IECaRZkKtNalkzdT9RCAfYu8c5tb74S/iyJVmiDu/be2wvmhjviiKNADq5
+         KdD0TBZhojxmdf117sTT16Xp6NKGbIiGaGUPr+zkvHADCfmM+pBmfgFJjPnORLM3pWOy
+         AAK7l1n6KV0UBfAgdZeqbHzv9WourQGkmrNtyjvLLKjcxJ0wRUiuXEQk25VPPYMQW6hE
+         dQXzaux7rVdJGFvacEfQSYjiRLgBPwdJD1xhgyikcnmTGw7pfn2nr6HTjbBYcHO80I1L
+         cz2A==
+X-Forwarded-Encrypted: i=1; AKwUvBxSE3AOmHJ/VBa0BEQ6L6hTKuGHLfefZOlWNlrcUjdv6A3pLAStpc1GphRM1dDdpIr3DGADY2POALp4/N4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIF8y98SAgkBjj7RPh1SEtkfOVHxSHdqSwr61wQQV8O22cGLHcR
+	uKRUdQZIRRAgIHe3kfpbhsvI1Gt4m6F+C3N0H4NvP4cwuCu4bAHmxk7ZkMfzvmP/QCM=
+X-Gm-Gg: AYBFou266GeIuBRJi1L6SDR+weqSgb0pyr4LTiNITVPqDHeoznGwuU4d3BhMccnuDD0
+	J1xL22dXHpdsdFfhb7iMnX/NBWGi1QCZd3VnEJv22klg1yxjFlisPOWo1A6zdAdXlb6Y9De66e8
+	qtjld1iyuF/GQKXr6LCO5eaUn9I+/3DojAqqV4i3jO5hBzACirCe81148imq7FalGspey1kFm4U
+	sjgoymJisXBaDs8WsDbTV/eGr8Ih8Q5e2ux1MAKrZWmZK329RQrOMY9LDdeSYtDHSaKfLSuB6Nk
+	U2B+j26NOOiNtqMVVAUBic4vmwgT6l37oGQfzfWZ2Byh7Vcy6sGkDjzOBhy0mLIHQArMt75b2C8
+	C7OkbLPqVQalKdzOzp1Joi/5gVESt9LwWaWXR6419PXTqN3wJbgW95FNvrgiEyjZXxIyGpWEOBc
+	dJ759kQlhsU2caqPRZfrOowbpAWR5DHDh6ntK22yyRaFzSF4Agw8V55volN4fIA1vvhzNybUuF9
+	LvAzx98jQ6cHEIZdseeyKb59haTuRKgJLAStaEqmRuTs5fIbECXBGrY2L37ARydZvIMgoAn9Iqx
+	qtmLGs9PPx2I/L3pip6YDxBAv19DcvAt1ybP/HWBFA2GZhc+UZt7dawcr5iDQISZQNLY5MkZwTN
+	O5eoKlZw8WIk7dzQOA1/w4ZD9fSjYhAr71TKzchf9RghDpA==
+X-Received: by 2002:a05:690c:60c7:b0:8af:e4ee:a91c with SMTP id 00721157ae682-8b157dd761cmr909137b3.41.1792700568859;
+        Thu, 22 Oct 2026 13:22:48 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:d350:a0e4:db9b:3217? ([2600:1700:6476:1430:d350:a0e4:db9b:3217])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1561e365fsm3568247b3.45.2026.10.22.13.22.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 13:22:48 -0700 (PDT)
+Message-ID: <4d28ca686fee764bb0eb3710f390a6f5fc9c0d4a.camel@dubeyko.com>
+Subject: Re: [PATCH v2] hfsplus: fix truncated xattr names in listxattr()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, kees@kernel.org, 
+	justinstitt@google.com, maurycy@maurycy.com, linux-fsdevel@vger.kernel.org,
+ 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 22 Oct 2026 13:22:46 -0700
+In-Reply-To: <20261022111700.1288273-1-hengyul@cs.unc.edu>
+References: <20261022111700.1288273-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=mQINBGgaTLYBEADaJc/WqWTeunGetXyyGJ5Za7b23M/ozuDCWCp+yWUa2GqQKH40dxRIR
+ zshgOmAue7t9RQJU9lxZ4ZHWbi1Hzz85+0omefEdAKFmxTO6+CYV0g/sapU0wPJws3sC2Pbda9/eJ
+ ZcvScAX2n/PlhpTnzJKf3JkHh3nM1ACO3jzSe2/muSQJvqMLG2D71ccekr1RyUh8V+OZdrPtfkDam
+ V6GOT6IvyE+d+55fzmo20nJKecvbyvdikWwZvjjCENsG9qOf3TcCJ9DDYwjyYe1To8b+mQM9nHcxp
+ jUsUuH074BhISFwt99/htZdSgp4csiGeXr8f9BEotRB6+kjMBHaiJ6B7BIlDmlffyR4f3oR/5hxgy
+ dvIxMocqyc03xVyM6tA4ZrshKkwDgZIFEKkx37ec22ZJczNwGywKQW2TGXUTZVbdooiG4tXbRBLxe
+ ga/NTZ52ZdEkSxAUGw/l0y0InTtdDIWvfUT+WXtQcEPRBE6HHhoeFehLzWL/o7w5Hog+0hXhNjqte
+ fzKpI2fWmYzoIb6ueNmE/8sP9fWXo6Av9m8B5hRvF/hVWfEysr/2LSqN+xjt9NEbg8WNRMLy/Y0MS
+ p5fgf9pmGF78waFiBvgZIQNuQnHrM+0BmYOhR0JKoHjt7r5wLyNiKFc8b7xXndyCDYfniO3ljbr0j
+ tXWRGxx4to6FwARAQABtCZWaWFjaGVzbGF2IER1YmV5a28gPHNsYXZhQGR1YmV5a28uY29tPokCVw
+ QTAQoAQQIbAQUJA8JnAAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBFXDC2tnzsoLQtrbBDlc2cL
+ fhEB1BQJoGl5PAhkBAAoJEDlc2cLfhEB17DsP/jy/Dx19MtxWOniPqpQf2s65enkDZuMIQ94jSg7B
+ F2qTKIbNR9SmsczjyjC+/J7m7WZRmcqnwFYMOyNfh12aF2WhjT7p5xEAbvfGVYwUpUrg/lcacdT0D
+ Yk61GGc5ZB89OAWHLr0FJjI54bd7kn7E/JRQF4dqNsxU8qcPXQ0wLHxTHUPZu/w5Zu/cO+lQ3H0Pj
+ pSEGaTAh+tBYGSvQ4YPYBcV8+qjTxzeNwkw4ARza8EjTwWKP2jWAfA/ay4VobRfqNQ2zLoo84qDtN
+ Uxe0zPE2wobIXELWkbuW/6hoQFPpMlJWz+mbvVms57NAA1HO8F5c1SLFaJ6dN0AQbxrHi45/cQXla
+ 9hSEOJjxcEnJG/ZmcomYHFneM9K1p1K6HcGajiY2BFWkVet9vuHygkLWXVYZ0lr1paLFR52S7T+cf
+ 6dkxOqu1ZiRegvFoyzBUzlLh/elgp3tWUfG2VmJD3lGpB3m5ZhwQ3rFpK8A7cKzgKjwPp61Me0o9z
+ HX53THoG+QG+o0nnIKK7M8+coToTSyznYoq9C3eKeM/J97x9+h9tbizaeUQvWzQOgG8myUJ5u5Dr4
+ 6tv9KXrOJy0iy/dcyreMYV5lwODaFfOeA4Lbnn5vRn9OjuMg1PFhCi3yMI4lA4umXFw0V2/OI5rgW
+ BQELhfvW6mxkihkl6KLZX8m1zcHitCpWaWFjaGVzbGF2IER1YmV5a28gPFNsYXZhLkR1YmV5a29Aa
+ WJtLmNvbT6JAlQEEwEKAD4WIQRVwwtrZ87KC0La2wQ5XNnC34RAdQUCaBpd7AIbAQUJA8JnAAULCQ
+ gHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRA5XNnC34RAdYjFEACiWBEybMt1xjRbEgaZ3UP5i2bSway
+ DwYDvgWW5EbRP7JcqOcZ2vkJwrK3gsqC3FKpjOPh7ecE0I4vrabH1Qobe2N8B2Y396z24mGnkTBbb
+ 16Uz3PC93nFN1BA0wuOjlr1/oOTy5gBY563vybhnXPfSEUcXRd28jI7z8tRyzXh2tL8ZLdv1u4vQ8
+ E0O7lVJ55p9yGxbwgb5vXU4T2irqRKLxRvU80rZIXoEM7zLf5r7RaRxgwjTKdu6rYMUOfoyEQQZTD
+ 4Xg9YE/X8pZzcbYFs4IlscyK6cXU0pjwr2ssjearOLLDJ7ygvfOiOuCZL+6zHRunLwq2JH/RmwuLV
+ mWWSbgosZD6c5+wu6DxV15y7zZaR3NFPOR5ErpCFUorKzBO1nA4dwOAbNym9OGkhRgLAyxwpea0V0
+ ZlStfp0kfVaSZYo7PXd8Bbtyjali0niBjPpEVZdgtVUpBlPr97jBYZ+L5GF3hd6WJFbEYgj+5Af7C
+ UjbX9DHweGQ/tdXWRnJHRzorxzjOS3003ddRnPtQDDN3Z/XzdAZwQAs0RqqXrTeeJrLppFUbAP+HZ
+ TyOLVJcAAlVQROoq8PbM3ZKIaOygjj6Yw0emJi1D9OsN2UKjoe4W185vamFWX4Ba41jmCPrYJWAWH
+ fAMjjkInIPg7RLGs8FiwxfcpkILP0YbVWHiNAabQoVmlhY2hlc2xhdiBEdWJleWtvIDx2ZHViZXlr
+ b0BrZXJuZWwub3JnPokCVAQTAQoAPhYhBFXDC2tnzsoLQtrbBDlc2cLfhEB1BQJoVemuAhsBBQkDw
+ mcABQsJCAcCBhUKCQgLAgQWAgMBAh4BAheAAAoJEDlc2cLfhEB1GRwP/1scX5HO9Sk7dRicLD/fxo
+ ipwEs+UbeA0/TM8OQfdRI4C/tFBYbQCR7lD05dfq8VsYLEyrgeLqP/iRhabLky8LTaEdwoAqPDc/O
+ 9HRffx/faJZqkKc1dZryjqS6b8NExhKOVWmDqN357+Cl/H4hT9wnvjCj1YEqXIxSd/2Pc8+yw/KRC
+ AP7jtRzXHcc/49Lpz/NU5irScusxy2GLKa5o/13jFK3F1fWX1wsOJF8NlTx3rLtBy4GWHITwkBmu8
+ zI4qcJGp7eudI0l4xmIKKQWanEhVdzBm5UnfyLIa7gQ2T48UbxJlWnMhLxMPrxgtC4Kos1G3zovEy
+ Ep+fJN7D1pwN9aR36jVKvRsX7V4leIDWGzCdfw1FGWkMUfrRwgIl6i3wgqcCP6r9YSWVQYXdmwdMu
+ 1RFLC44iF9340S0hw9+30yGP8TWwd1mm8V/+zsdDAFAoAwisi5QLLkQnEsJSgLzJ9daAsE8KjMthv
+ hUWHdpiUSjyCpigT+KPl9YunZhyrC1jZXERCDPCQVYgaPt+Xbhdjcem/ykv8UVIDAGVXjuk4OW8la
+ nf8SP+uxkTTDKcPHOa5rYRaeNj7T/NClRSd4z6aV3F6pKEJnEGvv/DFMXtSHlbylhyiGKN2Amd0b4
+ 9jg+DW85oNN7q2UYzYuPwkHsFFq5iyF1QggiwYYTpoVXsw
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,274 +146,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA4MCBTYWx0ZWRfXwcPUUNWj0iIU
- zuHlGXj26HxASZ8I2iJdWd0cSMkE5f0Thv5sNanjKgQxFS6gRGiSVxTqXjRt3Rr5KZkNaz8H+yK
- PySl/eT7EwI27MSTyqFfAtM9j81zISA=
-X-Proofpoint-GUID: 0GiS0BuLXjxZjyJ67zeWKGS3pynViWch
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA4MCBTYWx0ZWRfX77n6EVL/5Z0Z
- tNyFmsQEo9iLTo1AhB0quQZa7AKI6OTXJNHI/Uo6+N/edABTrgvJ4r277nLUe0/w1JQz/A9NVJ7
- t6tyJdZB6E9V0eyb0lk8/zxt4pHROyhZ+9pAhQ/JN10c1t+yk5IRkPJ9hK6ChsjtJpcf5ReZcwq
- f9D1vjAlokML/9BdZe1ohr3EJal/ufvNuKBjD042avpAgqQgNSFmL5gx8srf16K66O63cQxUfrn
- ltF4bkvUT41KBGzPoFmj+lTYrCuIHLLpGHFU4VZZZX+vskP1K1j4QkEr9UlW8LgZtELwX3XPYdL
- VrV1Z1qpUj0mTs0bhINPmEkO6jaP+3Jhyh1KNdMYlJ2xemuA9cOKkmlj69XNZN0jr7VVQF/wQfN
- u77ao3/zvAodLHGc19FCOYQBrCv4LSDlv4lWhHPoITVdRaLUrbXb+ADtdoH+FvFvEqKQ59WssUi
- TouypcsFkd2mm7L2iog==
-X-Authority-Analysis: v=2.4 cv=VN5IDNPX c=1 sm=1 tr=0 ts=6ada7081 cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=M51BFTxLslgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=kkcUborcUVj0H7zxAXTl:22
- a=VabnemYjAAAA:8 a=ZktdnOYcYsRQubDeTi8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: 0GiS0BuLXjxZjyJ67zeWKGS3pynViWch
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_06,2026-10-21_02,2025-10-01_01
 
-IORING_RECVSEND_BUNDLE was disabled for IORING_OP_RECVMSG because the
-envelope and control-message sizing was not implemented. Enable
-bundled multishot recvmsg by reserving its metadata in the first buffer
-and accounting for payload spread across the selected buffer run.
+On Thu, 2026-10-22 at 07:17 -0400, Hengyu Liang wrote:
+> From: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+>=20
+> Commit 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
+> strncpy")
+> made copy_name() build names in the osx. namespace with scnprintf().
+>=20
+> However, the size passed to scnprintf() leaves no room for the
+> terminating NUL, so the last character of the name is dropped. As of
+> now, listxattr() returns every osx. name without its last character,
+> and these names cannot be passed back to getxattr().
 
-Signed-off-by: Clément Léger <cleger@meta.com>
----
- io_uring/net.c | 150 +++++++++++++++++++++++++++++++++++++++++++------
- 1 file changed, 134 insertions(+), 16 deletions(-)
+Yeah, I see the point now. Thanks for clear explanation. The main=20
+point that scnprintf() expects buffer size that includes terminating
+NUL too.
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index 1606824971ec..3ae2ae405ce3 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -735,6 +735,8 @@ static int io_recvmsg_copy_hdr(struct io_kiocb *req,
- 	if (unlikely(ret))
- 		return ret;
- 
-+	iomsg->msg.msg_inq = 0;
-+
- 	if (!(req->flags & REQ_F_BUFFER_SELECT)) {
- 		ret = io_net_import_vec(req, iomsg, msg.msg_iov, msg.msg_iovlen,
- 					ITER_DEST);
-@@ -830,7 +832,8 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- 	}
- 
- 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
--		if (req->opcode == IORING_OP_RECVMSG)
-+		if (req->opcode == IORING_OP_RECVMSG &&
-+		    !(sr->flags & IORING_RECV_MULTISHOT))
- 			return -EINVAL;
- 	}
- 
-@@ -845,6 +848,37 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- #define CQE_F_MASK	(IORING_CQE_F_SOCK_NONEMPTY|IORING_CQE_F_MORE|\
- 			 IORING_CQE_F_BUF_MORE)
- 
-+static int io_recv_payload_len(struct io_kiocb *req,
-+			       struct io_async_msghdr *kmsg, int consumed)
-+{
-+	size_t hdr;
-+
-+	if (req->opcode != IORING_OP_RECVMSG ||
-+	    !(req->flags & REQ_F_APOLL_MULTISHOT) || consumed <= 0)
-+		return consumed;
-+
-+	if (check_add_overflow(sizeof(struct io_uring_recvmsg_out),
-+			       (size_t)kmsg->namelen, &hdr) ||
-+	    check_add_overflow(hdr, kmsg->controllen, &hdr) ||
-+	    (size_t)consumed <= hdr)
-+		return 0;
-+
-+	return consumed - (int)hdr;
-+}
-+
-+static bool io_recvmsg_bundle_bufs_left(struct io_async_msghdr *kmsg,
-+					int nbufs)
-+{
-+	struct iov_iter *iter = &kmsg->msg.msg_iter;
-+	const struct iovec *iov;
-+
-+	if (!iter_is_iovec(iter))
-+		return false;
-+
-+	iov = kmsg->vec.iovec ?: &kmsg->fast_iov;
-+	return iter_iov(iter) - iov + iter->nr_segs > nbufs;
-+}
-+
- /*
-  * Finishes io_recv and io_recvmsg.
-  *
-@@ -877,20 +911,37 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 
- 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
- 		size_t this_ret = sel->val - sr->done_io;
-+		int nbufs;
-+		int payload = io_recv_payload_len(req, kmsg, consumed);
-+
-+		/*
-+		 * A zero-length plain recv recycles its selection before this point.
-+		 * recvmsg still consumes the first buffer for its output envelope.
-+		 */
-+		if (req->opcode == IORING_OP_RECVMSG && consumed > 0 && !payload)
-+			nbufs = 1;
-+		else
-+			nbufs = io_bundle_nbufs(kmsg, payload);
- 
--		cflags |= io_put_kbufs(req, consumed, sel->buf_list, io_bundle_nbufs(kmsg, consumed));
-+		cflags |= io_put_kbufs(req, consumed, sel->buf_list, nbufs);
- 		if (sr->flags & IORING_RECV_RETRY)
- 			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
- 		if (sr->mshot_len && sel->val >= sr->mshot_len)
- 			sr->flags |= IORING_RECV_MSHOT_CAP;
-+		if (req->opcode == IORING_OP_RECVMSG &&
-+		    io_recvmsg_bundle_bufs_left(kmsg, nbufs))
-+			req->flags &= ~REQ_F_BL_EMPTY;
- 		/* bundle with no more immediate buffers, we're done */
- 		if (req->flags & REQ_F_BL_EMPTY)
- 			goto finish;
- 		/*
- 		 * If more is available AND it was a full transfer, retry and
--		 * append to this one
-+		 * append to this one. This is not supported for recvmsg: each
-+		 * CQE must carry exactly one envelope, so appending a second
-+		 * recvmsg return into the same completion is not possible.
- 		 */
--		if (!(sr->flags & IORING_RECV_NO_RETRY) &&
-+		if (req->opcode != IORING_OP_RECVMSG &&
-+		    !(sr->flags & IORING_RECV_NO_RETRY) &&
- 		    kmsg->msg.msg_inq > 1 && this_ret > 0 &&
- 		    !iov_iter_count(&kmsg->msg.msg_iter)) {
- 			req->cqe.flags = cflags & ~CQE_F_MASK;
-@@ -936,14 +987,14 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 
- static int io_recvmsg_prep_multishot(struct io_async_msghdr *kmsg,
- 				     struct io_sr_msg *sr, void __user **buf,
--				     size_t *len)
-+				     size_t *len, size_t total)
- {
- 	unsigned long ubuf = (unsigned long) *buf;
- 	unsigned long hdr;
- 
- 	hdr = sizeof(struct io_uring_recvmsg_out) + kmsg->namelen +
- 		kmsg->controllen;
--	if (*len < hdr)
-+	if (*len < hdr || total < hdr)
- 		return -EFAULT;
- 
- 	if (kmsg->controllen) {
-@@ -955,7 +1006,8 @@ static int io_recvmsg_prep_multishot(struct io_async_msghdr *kmsg,
- 
- 	sr->buf = *buf; /* stash for later copy */
- 	*buf = (void __user *) (ubuf + hdr);
--	kmsg->payloadlen = *len = *len - hdr;
-+	*len = *len - hdr;
-+	kmsg->payloadlen = total - hdr;
- 	return 0;
- }
- 
-@@ -1054,28 +1106,94 @@ static int io_recv_bundle_peek(struct io_kiocb *req,
- 	return nr_iovs;
- }
- 
-+static int io_recvmsg_bundle_select(struct io_kiocb *req,
-+				    struct io_async_msghdr *kmsg,
-+				    struct io_br_sel *sel)
-+{
-+	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
-+	struct buf_sel_arg arg;
-+	size_t iov0_len, max_len;
-+	int nr_iovs;
-+	int ret;
-+
-+	if (sr->len)
-+		max_len = sr->len;
-+	else if (kmsg->msg.msg_inq > 1)
-+		/* the envelope + cmsg also live in the mapped buffers */
-+		max_len = kmsg->msg.msg_inq +
-+			  sizeof(struct io_uring_recvmsg_out) +
-+			  kmsg->namelen + kmsg->controllen;
-+	else
-+		/*
-+		 * No size hint (datagram sockets don't report inq): map all
-+		 * available buffers so a single datagram can span them. A
-+		 * recvmsg returns at most one datagram and only the consumed
-+		 * buffers are committed.
-+		 */
-+		max_len = MAX_RW_COUNT;
-+
-+	nr_iovs = io_recv_bundle_peek(req, kmsg, sel, &arg, max_len);
-+	if (unlikely(nr_iovs <= 0))
-+		return !nr_iovs ? -ENOBUFS : nr_iovs;
-+	/* legacy provided buffers map a single buffer and don't set out_len */
-+	if (!sel->buf_list)
-+		arg.out_len = arg.iovs[0].iov_len;
-+
-+	if (sel->buf_list && sel->buf_list->flags & IOBL_INC)
-+		return -EOPNOTSUPP;
-+
-+	/* reserve the envelope + cmsg at the front of the first buffer only */
-+	iov0_len = arg.iovs[0].iov_len;
-+	ret = io_recvmsg_prep_multishot(kmsg, sr, &arg.iovs[0].iov_base,
-+					&iov0_len, arg.out_len);
-+	if (unlikely(ret))
-+		return ret;
-+	arg.iovs[0].iov_len = iov0_len;
-+
-+	iov_iter_init(&kmsg->msg.msg_iter, ITER_DEST, arg.iovs, nr_iovs,
-+		      kmsg->payloadlen);
-+	return 0;
-+}
-+
- static int io_recvmsg_buf_select(struct io_kiocb *req,
- 				 struct io_async_msghdr *kmsg,
- 				 struct io_br_sel *sel,
- 				 unsigned int issue_flags)
- {
- 	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
--	size_t len = sr->len;
- 	int ret;
- 
--	*sel = io_buffer_select(req, &len, sr->buf_group, issue_flags);
--	if (!sel->addr)
--		return -ENOBUFS;
--
--	if (req->flags & REQ_F_APOLL_MULTISHOT) {
--		ret = io_recvmsg_prep_multishot(kmsg, sr, &sel->addr, &len);
--		if (ret) {
-+	/*
-+	 * Bundle recvmsg spans multiple provided buffers, but the peek
-+	 * interface can only be used when the ring is locked. If we came
-+	 * in unlocked, fall back to a single-buffer envelope carve.
-+	 */
-+	if (!(issue_flags & IO_URING_F_UNLOCKED) &&
-+	    sr->flags & IORING_RECVSEND_BUNDLE) {
-+		ret = io_recvmsg_bundle_select(req, kmsg, sel);
-+		if (unlikely(ret < 0)) {
- 			io_kbuf_recycle(req, sel->buf_list, issue_flags);
- 			return ret;
- 		}
-+	} else {
-+		size_t len = sr->len;
-+
-+		*sel = io_buffer_select(req, &len, sr->buf_group, issue_flags);
-+		if (!sel->addr)
-+			return -ENOBUFS;
-+
-+		if (req->flags & REQ_F_APOLL_MULTISHOT) {
-+			ret = io_recvmsg_prep_multishot(kmsg, sr, &sel->addr,
-+							&len, len);
-+			if (ret) {
-+				io_kbuf_recycle(req, sel->buf_list, issue_flags);
-+				return ret;
-+			}
-+		}
-+
-+		iov_iter_ubuf(&kmsg->msg.msg_iter, ITER_DEST, sel->addr, len);
- 	}
- 
--	iov_iter_ubuf(&kmsg->msg.msg_iter, ITER_DEST, sel->addr, len);
- 	return 0;
- }
- 
--- 
-2.53.0-Meta
+>=20
+> The issue can be reproduced with:
+>=20
+> =C2=A0=C2=A0=C2=A0 truncate -s 64M hfs.img
+> =C2=A0=C2=A0=C2=A0 mkfs.hfsplus hfs.img
+> =C2=A0=C2=A0=C2=A0 mount -o loop hfs.img /mnt
+> =C2=A0=C2=A0=C2=A0 touch /mnt/file
+> =C2=A0=C2=A0=C2=A0 setfattr -n osx.test -v 1 /mnt/file
+> =C2=A0=C2=A0=C2=A0 getfattr -m - /mnt/file
+>=20
+> Without this patch, getfattr lists "osx.com.apple.FinderInf" and
+> "osx.tes". With this patch, it lists "osx.com.apple.FinderInfo" and
+> "osx.test".
+>=20
+> This patch adds room for the NUL to the size passed to scnprintf().
 
+Usually, "This patch" is not good idea to use. :) It will be better
+another way: "Add room for the NUL to the size passed to scnprintf()".
+
+>=20
+> Fixes: 7dcbf17e3f91 ("hfsplus: refactor copy_name to not use
+> strncpy")
+> Cc: stable@vger.kernel.org=C2=A0# v6.10+
+> Signed-off-by: Maurycy Pawlowski-Wieronski <maurycy@maurycy.com>
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+> ---
+> Changes in v2:
+> - Rewrite the commit message. No code change.
+> - v1:
+> https://lore.kernel.org/r/20260828-hfsplus-copy_name-fix-v1-1-75ed9f0f378=
+c@maurycy.com
+>=20
+> Maurycy, v1 got no follow-up, so I am resending it as Viacheslav
+> asked
+> in the thread below, with you kept as the author. Let me know if you
+> would rather send it yourself.
+> https://lore.kernel.org/r/dc187921249a3f6716b829624853e64c10321cd1.camel@=
+dubeyko.com
+>=20
+> Answers to the questions on v1:
+> - generic/377 passes with and without this patch. It only uses user.
+> =C2=A0 names, which go through the strscpy() branch. That branch already
+> =C2=A0 passes name_len + 1. No xfstests test uses osx. names.
+> - Why + 1 helps: the prefix and the name are name_len +
+> =C2=A0 XATTR_MAC_OSX_PREFIX_LEN characters long, and scnprintf() writes a=
+t
+> =C2=A0 most size - 1 characters before the NUL. Zeroing the buffer first
+> =C2=A0 does not help, as the last character is never written.
+> - Why the write stays in bounds: both callers check that the buffer
+> =C2=A0 has room for name_len() bytes, which covers the prefix, the name
+> and
+> =C2=A0 the NUL, before calling copy_name(). This is also the number of
+> bytes
+> =C2=A0 copy_name() wrote before commit 7dcbf17e3f91.
+> - All xfstests: see the full run below.
+>=20
+> Tested in KVM with KASAN on a804c5742bff, without and with this
+> patch:
+> - The commands above, and a C test that compares listxattr() with the
+> =C2=A0 names set on files and a directory: short, long (up to 127
+> =C2=A0 characters) and non-ASCII osx. names, FinderInfo, and user. and
+> =C2=A0 trusted. names. Without the patch, every osx. name loses its last
+> =C2=A0 character, fewer bytes are copied than the size query returns, a
+> =C2=A0 buffer one byte short does not get -ERANGE, and getxattr() fails o=
+n
+> =C2=A0 the listed osx. names. With it, the names match, the copied length
+> =C2=A0 equals the size query, and a buffer one byte short gets -ERANGE.
+> =C2=A0 KASAN reported nothing with exact-size buffers.
+> - generic/377 and generic/062: 5/5 passed on both kernels.
+> - Full fstests (805 generic tests, 608 not run on both kernels): 188
+> =C2=A0 passed and 9 failed without the patch, 187 and 10 with it. The onl=
+y
+> =C2=A0 difference is generic/617, which fails on both kernels most of the
+> =C2=A0 time (19 of 20 reruns without the patch, 18 of 20 with it).
+> =C2=A0 fsck.hfsplus -fn reported no errors.
+
+The xfstests cannot help with testing osx. names. This is how I missed
+the issue. It will be great to have a KUnit test(s) dedicated to
+testing HFS+ xattr functionality.
+
+>=20
+> =C2=A0fs/hfsplus/xattr.c | 4 ++--
+> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
+> index 71364e093fa7..470f090b2699 100644
+> --- a/fs/hfsplus/xattr.c
+> +++ b/fs/hfsplus/xattr.c
+> @@ -515,8 +515,8 @@ static ssize_t copy_name(char *buffer, const char
+> *xattr_name, size_t name_len)
+> =C2=A0	memset(buffer, 0, name_len);
+> =C2=A0
+> =C2=A0	if (!is_known_namespace(xattr_name)) {
+> -		len =3D scnprintf(buffer, name_len +
+> XATTR_MAC_OSX_PREFIX_LEN,
+> -				 "%s%s", XATTR_MAC_OSX_PREFIX,
+> xattr_name);
+> +		len =3D scnprintf(buffer, name_len +
+> XATTR_MAC_OSX_PREFIX_LEN + 1,
+> +				"%s%s", XATTR_MAC_OSX_PREFIX,
+> xattr_name);
+> =C2=A0	} else {
+> =C2=A0		len =3D strscpy(buffer, xattr_name, name_len + 1);
+> =C2=A0		if (len < 0) {
+>=20
+> base-commit: a804c5742bff224d4cb4d25dd383554d598be32b
+
+Looks good.
+
+Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+
+Thanks,
+Slava.
