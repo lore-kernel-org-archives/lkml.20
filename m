@@ -1,93 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792710276;
-	b=H3SG+uKsY+EHpUUU1v45RdXEaTrWt6U3mxqlt0K2mA81197IvkKTEhiyb4LPzDM+C4fW
-	 9nNhhHQergYms7Nb2UK+9hpv3v1Irm6azQbmpZPX7pSDjOL8wc3TkJYwIu8jQ2i9Z1frj
-	 54DY1wFpeA9vLa1ccm5CMbSmtxmeG58+dEmoul7BqSgaHC3RBc4j4ZPiO6lAafk9NA4tf
-	 Fj52V8NP0AKU76sKuIeKFyP78xBm7VW638vHiKYOqW4YIdmo6ZPUDi+Kw1mytbbB6ZlgD
-	 YfJQrzVnIo+XDVLVViFJGIr3xl9oRIgKgR5wdF6zSpxEMs2xXerx+a0UQo47fKwr35Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792710276;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792710697;
+	b=Wkm+1ZgHwCHJKOAJmetJuKHfeeDpKrmtnlCI1p9a/Ga5mDxyqCToo28+1TCa5ZN9W2HX
+	 c0TpkraZJaqrSbzqInOO3lf5kG0eup/tywgUWHFtJh/jIcTpBEqDke8+r0YTOHn4/Owj2
+	 Sjt0ws4EgGQ+NuP2HSCKpH4lm6Kilh4qZE724o+ve55vjs8xqj82diBi68v/OyawylpNG
+	 yfJtp5ru6I0qzAJj8DL2SqpniNV5G0TPtshQ5Kr1aGEifw7zdOGkIIExqVYMXKsmmp9A/
+	 33WwmBSAu+/kbE2SlSYM0WnO9pAlZLAum1jiJdBlcvRa6k9SIP4GB1JpN5Yw0bYP8hA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792710697;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=jSu0BLMuA7L43aT6T2KcW7Fkv7IJTbKPBRbS3rQaZjo=;
-	b=IqpTF6KJqEUSTH0rrGyweh9OxfETdiQ3Q7ilr5sFShin6s5A08UuK0/DboBALDfFn0jZ
-	 0Zf0OXfWywBbDy0L1VWz1ESxoQ/DmLjWtfW+iwiflXrWmSA8WiRTL6HkOkzjg36HSAg3B
-	 2xc136EvmnfETb4cEg+6lj7kpqcwdE0GcudyTxRnnAomJA0SnSlbH9DDDeEKzbzc7SS3i
-	 jx6Eth1CTjm/MhHF9w7n4QfaReYXexAeI2Z9oDg92sF4hHGapZpHt/w712v0Qp4EBCfYa
-	 Z2kxZPSSlSLY8z4NdoM7e0sOvbt0WENAoRRpicUMNi/ZgWvclpAxtj8kzCjdzY2axsA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=tenstorrent.com;
-	spf=pass smtp.mailfrom=tenstorrent.com;
-	dkim=pass header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=Rh9CHB+j;
-	arc=none smtp.remote-ip=209.85.210.51
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com [209.85.210.51])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=u9FF5OWfzsi4DyrpW60LLUMz1VcIwydXpbxb65LGd/A=;
+	b=rdytvWv45MnfiOHHzz4nJlZ0oAhFwDUrUdaPkHTbd2CTsVtSMTb+EAdnVX0Aw4lifGmz
+	 OuDQnCLkiKZgzHB/+i0jmR0rxFgFUAMhPWhg+rv6k+tw5pZnf2wqpPfRJpTLTMrqzTWen
+	 v4zU6FciqYVvRBTdVJsFrbpzp2tzQTV4fXYQDok7h5pXLT1BgCtyMyV2O/Iwh0YcymZB+
+	 bhd31h+4hemaGmqMiiU4u8GGB0K0SQoY7wSVqFYyxYWgeLZFNmG6/lR7RtBIRodKY1s90
+	 j3/f9APKZgchETbeGdjPyqHtqZTVrjrV6lK7TX40p8fTU2sUaRvnXZFruvoO3j9gRgQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="L/tELMm6";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AB1606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:04:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51AB1606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=tenstorrent.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tenstorrent.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A68606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 23:11:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8A68606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=tenstorrent.com header.i=@tenstorrent.com header.a=rsa-sha256 header.s=google header.b=Rh9CHB+j
-Received: by mail-ot1-f51.google.com with SMTP id 46e09a7af769-82109f51565so119295a34.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:04:34 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=L/tELMm6
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d577so238158a91.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:11:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792710696; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DiNvr8JF72Kh7a0q9JFmlKAsghxJD+tEnu8Wp7W/bNbB7dbdmEceg7JqTcc57tyuhD
+         9yeB4oHxnZH4jDEJERjD+xR+vcH6EV2FUdYav8/I1n1irQflkDWN+RrhxW3bR5NCUqxs
+         vzOSNhDMmmiMGGVh1kGAKSq4M97yoHHx2HIZ4r+65Yn1QsRLANcpo/uOkYnzkvMNjy4p
+         hAYQ6ZSjHXC7vswuUu/ytH0srVfjx5SOllQ1S+3eDV4ZiTN/D8EyLBnahBVUcBqZY9+r
+         gHIF+ry1GEW5Kl5mpQqKS+Ed8ku3Al8rDqXYe6kP7/cn/1yESVVE34cqsyhHQycKnrBw
+         7iVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=u9FF5OWfzsi4DyrpW60LLUMz1VcIwydXpbxb65LGd/A=;
+        fh=xYVjgfhtAuZ4tzYtWPSaUmo2LtrZbGYzYA0WRvYEbjk=;
+        b=WXigQLZ3CKWylx5ljbQoH/MBvq9ARExo6M/uGfHK2Tx/BCZyHWkPmxUAPldlRS+khw
+         0tAVCU/4P4vyxXJqMs2gW04YE9BpeZDlaso0KVvEnBs6rngH49HgDSClcGU+3DVOzPEC
+         ANvoaL6JywB05qgt9IDtE409GnTYHnMRRoe4W4Wf1xKhoaHJf5gj8d/uPMG4TzBRNE3w
+         xYMuFSQ6ej4cwEXDSQ/1QmCqEgCnYk4Z4QInKM0pQn7gIRFmmPe1Iv9vvM96RY4GPnRq
+         lIzFIst8pXLG3ws9wqrRJu/LUVmjq2wXNFh5k4gyxwlBSYPjhdOUlhGpQZfN1DaqPC3o
+         c0vw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=tenstorrent.com; s=google; t=1792710273; x=1793315073; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792710696; x=1793315496; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jSu0BLMuA7L43aT6T2KcW7Fkv7IJTbKPBRbS3rQaZjo=;
-        b=Rh9CHB+jn7oBMt5+iZ/1u1xk7/8yF6uok12/Il/siW3YL+3xdlTge0WkaW/h/zuXpF
-         Yzy3BoOm7gBYOwUSCmNdNe0ojCH5KWZhS65cpU2UJpRYGPHhMGFUT6giAP3ZKUH8PdRv
-         wJE54AX1ZgW0NoJ0jsJHikJsv9+RlEYVNSUQwiUVFMdyGOQm2R39O0X/Fcr22b7iy/f8
-         3NXYdrP203qXaMheYCKxREFewGqwpRSS+4Z2dAhQa6PrZ3zOd4Khj0ELRZgX+2yxZC64
-         dTzA/kHbUw9XOl+ZWWNrOKepk5v5sQiRx1/yGaRulHh8T1/40vS3D5trMk813S97S/5W
-         RGXw==
+        bh=u9FF5OWfzsi4DyrpW60LLUMz1VcIwydXpbxb65LGd/A=;
+        b=L/tELMm6jIUKzclV/xG4I2WKyVgupyfttBTneMTpnZLJvyszCXMB2wwnwH152cnFVs
+         dpSEiFHs6xNYQfcv9A+ZV2tYBlmvDJAq2r3g/YNI8FUSpsXE/iXzKvNLmqDwEk5idJFU
+         x9LIynNIIh0OkXHLLn3NZRvjV8su2mXrQp/LaKFaPLqkVQuZQ2YsWMyFOeSlJgDv0NZ/
+         qm4hhC9sW2wNv5YQah5Dk/vdEkNJOu2lcDfXkvAW3OmFjb+zyoJJFpRNSa0g/7mvdCQO
+         sO2a1U8zOsimUFUOhO9TEOEWozPst2Kr0SW+O5YVsa9//xIIAelVbuyfCgiuXtYtHFQo
+         3AWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792710273; x=1793315073;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1792710696; x=1793315496;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jSu0BLMuA7L43aT6T2KcW7Fkv7IJTbKPBRbS3rQaZjo=;
-        b=uaAaMWK0wVQyrIvT8E5ZZ6mxkJEZ9eii6cHGs86YXs+AqQ6EciErd5jP1oe4mr7iWZ
-         HXXIEgzVhZIKFirWvTi6bA7g6dh8G1sAaDiU6ycnLvcJTvTjSjcVH2H9hqX6t5tm31pq
-         Y54uGxVFIB6ydJkfc43K+1DI+GC13tgtxtFACAzGkQ5o3wW4xQclGhCpYrxwvudw+G97
-         13zIn2yfZMUdJzBVzUc8eaU/sG5+t6aG9C9XGuZyDbvIPTD7QdLr/8jZf8yXrBtggQVo
-         Lplw5iWrzoEmR9rRAnUmOAMiraqyWBUDPPNSXmw25clwERVvQPbYq2jdspg60CBGqFAz
-         tQjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwmNO2g7F2podg+m0Q4d1/Rofu4QEzfSovXHLUsOsI5yWVhkRDoSZlYXE6BP41vpAoi/SUjQSZN1t9S7X4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIplTG7EfywSr8pz4pwfI0LiD1YEAZCccbAP+hwNk28IQ2aWFEM
-	k1blT8VcK6Z5gxSMHf1Cm5KXlqie+GhsgRvG5thshj48RyVhNls13UJ2BCHobgmHdb8=
-X-Gm-Gg: AYBFou14g3VI6vEpr/UeROQY7f45NhqVnLJlRzgEPSO213QEY7SExO4BFRs9GAMImTe
-	N1BzTzmCXGzhHzQcFCy4ez4wMb7WLvHz0lnPUx6wwxoErmsTU4k9WVcISbGl9PXYgOQ9H2K8psS
-	qXDCpDrGOk20ALH9VIc4Q9hIfmeoneVDzj8g4uu0Urq+YZidDLAO++uPveoPCofsG6nY8VTpFiN
-	F+9LWCDbBVD+QTQEutXVRf2o3rd8XlvlxCv3GYm9816lsSfhMK/HKWQe2N4zvlGEYwpy/je4khn
-	njKDAU2kjjJMw6enV3csndUNK+JgB7rGPWjTxq4uWg509WXwJEBDEtJXaxo3cW+p2ZZ2xJ24roW
-	TpGpuBpy81Fm9o+9zFvWuEM9VaqlVHxK+UsAFTnZ/t38iw+WsJ/ZjI7GjL2AcvqJzacMiflRzDB
-	ZHj80zrO3/zVTtz4Nkz2JTz2Fh9h41thswOZeZQ0t1Y2o5pre8VMaksEQZEXAiroLYZfGdIRV2c
-	zjRiE5Hh2apJ2vo7iqwQBKmun0Su41sCDr5qaJQ9p6kfPQuoY6LDmjfdmDX5B1y+z4=
-X-Received: by 2002:a05:6830:b14:b0:814:b62d:3122 with SMTP id 46e09a7af769-84fb135c9c0mr429298a34.22.1792710273153;
-        Thu, 22 Oct 2026 16:04:33 -0700 (PDT)
-Received: from localhost ([68.203.12.10])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-84fbb382c62sm432420a34.1.2026.10.22.16.04.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 16:04:32 -0700 (PDT)
-Date: Thu, 22 Oct 2026 18:04:31 -0500
-From: Andy Chiu <tchiu@tenstorrent.com>
-To: Guobin Zhang <guobin.zhang@intel.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] riscv: signal: protect regs->status RMW from
- concurrent preemption
-Message-ID: <atqWfyAobkl6TXCN@Tao-Chiu's-Mac>
-References: <20261020-vector_fpu_regs_status_rmw_fix-v2-1-474a59155e96@intel.com>
+        bh=u9FF5OWfzsi4DyrpW60LLUMz1VcIwydXpbxb65LGd/A=;
+        b=IIoo23pPKMesuhTyu0MTOerfP09EgGuX/C53ZBuLmgKMBwNT82T0B42g91M789s2jX
+         S8AM+bo2XjIeS+/vxoPZFRPcM1wSnVR7wcgrhRTMboegsguNeyitkDEk+4nQbXa+BRxg
+         vmykinnYoVjava8paRn2t+k7ZO//7CvpH+bCVwB6msPE8XE5rVmXR8GLX1QYDd2MyTkU
+         NPPRKPP8iMZMI2K03DsSmYRlfoGx9XI0tcwpnqjtjrx8G/y9+gT6/0Brl8+Pxn6gUK2s
+         VD5RRjvzgkzUZzN0JJ6hrwdy+Jhq5WqvORcKtBCJX5G3wbn6h1Rt+ZPoxfpdGTj1ALeV
+         r7sA==
+X-Forwarded-Encrypted: i=1; AKwUvBycDyXHJqrpuzqVJjoM+0WJOS/pQwmueIbivpyzsf71EQJFljT/4xbjVbc0UoNUileL3oLBZyJ0firUQDo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLv3k4qPuqc54efSC+kKFxa9fgxSN5WFvwe2Gds+Ow0c3ASRZ4M
+	VdDqnpBM1caI2+RyYrcI38/wgn34bbSEUJJLMYCsA3+NCsOKlIqPQdRuc2HQMoA0IlKAPUb4Qc1
+	XWwq2n0+piI0F1H2jiDeYa+cbJe4x/Ww=
+X-Gm-Gg: AYBFou09afyphtn7NMg+bxCt4gmPSOLCLfLQ3gdqSiTwpgSzRIJxDEvUEMcRm+ADvzI
+	kJO8x86GzQZlEtRsCBSXzfXQ/p0OYSO+BTnIXkiAF+L6RepNhLvCMJsfPugTQ623OHBM05PIqoB
+	t6WOBrt580lCxAjUKXcnM9BhOWvOExBoO3v6hAfn53saqlWVEm9LjYWyxb0mflkLjFni7Mt238f
+	xY8ttG2raq400yNph/b0pZxJxA6J/ndCpeKvAY/rO6rFfMmIJJ8QEbKCVZDlqyoKDxh/JdtycYb
+	cwAUzxnWR4U7RjA6QYhiWMNqhINRwYKHWgyzb4HPHSpvBClK6sG2vSZ2ZlyXG/t5o8bJIgde8sV
+	+haPaz+GMjbicuXRq2AmwfuJPrsreFktJim3rZugY3ZLPuDivujcT8pTvUjpMgdJdeA7NCf8lzP
+	4boXY+EEjaqs4H9pvwXaRPcnkGiiw4DUn7PQ==
+X-Received: by 2002:a17:90b:3fcc:b0:3ac:7377:fd48 with SMTP id
+ 98e67ed59e1d1-3adce14f242mr304117a91.56.1792710695710; Thu, 22 Oct 2026
+ 16:11:35 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,222 +105,380 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261020-vector_fpu_regs_status_rmw_fix-v2-1-474a59155e96@intel.com>
+References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com> <20261022015712.1297331-6-alexei.starovoitov@gmail.com>
+In-Reply-To: <20261022015712.1297331-6-alexei.starovoitov@gmail.com>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Thu, 22 Oct 2026 16:11:20 -0700
+X-Gm-Features: AclHuK8s6DwZCvueetumGiOa-ygE3J-xVZ2OzdSVggL1R0XHASR0IqYhKSbBJKQ
+Message-ID: <CAEf4BzYs_Kis9ghhwnM3qWSCWRBwEtaZy5Xk+CJjYH3q0E9bNQ@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 5/9] uprobes: Don't sleep on mmap_lock under dup_mmap_sem
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	eddyz87@gmail.com, memxor@gmail.com, oleg@redhat.com, peterz@infradead.org, 
+	mhiramat@kernel.org, jolsa@kernel.org, akpm@linux-foundation.org, 
+	liam@infradead.org, ljs@kernel.org, surenb@google.com, david@kernel.org, 
+	vbabka@kernel.org, jannh@google.com, hughd@google.com, kees@kernel.org, 
+	mingo@redhat.com, tglx@kernel.org, x86@kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 20, 2026 at 07:24:25PM +0800, Guobin Zhang wrote:
-> __fstate_clean() performs a non-atomic read-modify-write (RMW) on
-> task_pt_regs(current)->status to clear the FS bits. This RMW is
-> unprotected - it runs with preemption enabled and IRQs on during
-> signal delivery (setup_rt_frame -> fstate_save) and sigreturn
-> (restore_fp_state -> fstate_restore).
-> 
-> If a reschedule IPI or timer interrupt triggers preemption between
-> the load and store of this RMW, __switch_to_vector() calls
-> riscv_v_vstate_set_restore() which modifies the VS bits of the
-> same regs->status. When the preempted task resumes, it stores back
-> the stale value captured before preemption, overwriting the VS
-> update and restoring VS=DIRTY while TIF_RISCV_V_DEFER_RESTORE
-> remains set - a combination that should never occur and leads to
-> vector state corruption.
-> 
-> The race window:
-> 
->   __fstate_clean (signal path)      set_restore (schedule path)
->   -----------------------------     -----------------------------
->   ld  a0, regs->status  // VS=DIRTY, FS=DIRTY
->                                      <- preempted (reschedule IPI)
->                                      regs->status VS = INITIAL
->                                      set TIF_RISCV_V_DEFER_RESTORE
->                                      <- resumed
->   andi a0, ~FS
->   ori  a0, FS_CLEAN     // stale a0 still has VS=DIRTY
->   sd   a0, regs->status // overwrites VS=INITIAL with VS=DIRTY
->   -> result: VS=DIRTY + DEFER -> ANOMALY
-> 
-> Fix by adding preempt_disable/enable in fstate_save() and
-> fstate_restore(), which covers the RMW in __fstate_clean(), and
-> around the RMW in fstate_off(). Add fstate_{save,restore}_preempt_off()
-> for code that already runs with preemption disabled (the scheduler and
-> kernel_mode_fpu).
-> 
-> riscv_v_vstate_set_restore() has the identical hazard: it is called
-> from __restore_v_state() (sigreturn path) with preemption enabled, and
-> it can race the same way against the scheduler's own call to
-> riscv_v_vstate_set_restore() for the same task in __switch_to_vector().
-> Wrap that call site with preempt_disable/enable as well.
-> 
-> Add WARN_ON_ONCE(preemptible()) to riscv_v_vstate_restore()
-> to catch any future unprotected callers at development time.
-> 
-> Suggested-by: Andy Chiu <tchiu@tenstorrent.com>
-> Signed-off-by: Guobin Zhang <guobin.zhang@intel.com>
+On Wed, Oct 21, 2026 at 6:57=E2=80=AFPM Alexei Starovoitov
+<alexei.starovoitov@gmail.com> wrote:
+>
+> From: Alexei Starovoitov <ast@kernel.org>
+>
+> register_for_each_vma() takes dup_mmap_sem for writing, collects mms that
+> map the file and takes mmap_lock of every mm. fork() takes dup_mmap_sem f=
+or
+> reading. When mmap_lock of one mm is busy every fork() in the system wait=
+s
+> for it:
+>
+>   A:       mmap(MAP_POPULATE) -> mmap_read_lock(A)
+>   tracer:  percpu_down_write(&dup_mmap_sem), mmap_write_lock(A) sleeps
+>   others:  fork() -> percpu_down_read(&dup_mmap_sem) sleeps
+>
+> Only trylock mmap_lock under dup_mmap_sem. Leave mms with busy mmap_lock =
+in
+> the list, drop dup_mmap_sem and then wait for them.
+>
+> dup_mmap_sem makes sure that mm doesn't fork between build_map_info() and
+> install_breakpoint() or remove_breakpoint(). Otherwise the child misses
+> the breakpoint, or inherits the breakpoint of uprobe that is gone and get=
+s
+> SIGTRAP. Now mm in the list can fork. dup_mmap() holds mmap_lock of
+> the parent, so uprobe_dup_mmap() does what the walk is going to do to thi=
+s
+> mm before vmas are copied. The walk sees info->done and skips it.
+>
+> The error in uprobe_dup_mmap() is the error of the walk, unless fork() is
+> being killed. Such fork() fails in copy_process() and there is no child, =
+so
+> leave mm to the walk. With ref_ctr_offset the walk can update the counter
+> twice in this case.
+>
 
-Reviewed-by: Andy Chiu <tchiu@tenstorrent.com>
+fwiw, none of the above blurb was really helpful, I had to read code
+to actually get the high level idea of the patch. If anything, commit
+message would be more helpful if it had less technicaly precise
+description of what is being done, but rather a more high-level idea
+to get the reviewer started. I don't know how much persuasion you'd
+need to make your AI do this, but I think it would be helpful going
+forward, especially for some dense stuff like this uprobe
+registration/unregistration piece.
 
+But as for the fix itself, it feels like the real problem is global
+dup_mmap_sem lock, no? What if instead of one fancy (per-cpu) global
+rwsem, we just have a per-mm rwsem. register_for_each_vma() will take
+each mm's uprobe dup per-mm rwsem first, and keep it for the duration
+of uprobe registration. In dup_mm() we only ever take mm-specific
+rwsem, while register_for_each_vma() does a more heavy multiple lock
+taking. But other than that we don't have a global uprobe walk list,
+we don't have to handle registration/unregistration in two places,
+etc.
+
+I might be missing some remaining races, but I thought I'll propose
+this and see if this idea has legs?
+
+> dup_mmap_sem protects the list of walks. mm in the list is kept by
+> mm_count. The walk takes mm_users only for the visit, so the process that
+> exits meanwhile frees its memory.
+>
+> Busy mms are visited last. The tracer that is killed while it waits for o=
+ne
+> of them has installed the breakpoint in all other mms and cannot remove i=
+t.
+> "uprobes: Don't leak the breakpoints if the unregistering task is killed"
+> fixes that.
+>
+> Process A loops over mmap(4G, MAP_POPULATE) and munmap(). A and 10 idle
+> processes map the file. Process B calls fork() in a loop. 32 cpu VM.
+> Median (max) of 15-25 runs, msec:
+>
+>                          the longest fork() in B    attach
+>                          before      after          before  after
+>  uprobe_multi, 1 uprobe  197 (209)   0.33 (0.70)       210    233
+>  uprobe_multi, 4 uprobes 421 (429)   0.38 (0.60)      1467   1532
+>  perf_event, 4 uprobes   422 (439)   0.43 (0.59)      3135   3289
+>
+> During detach: 264-423 -> 0.35-0.47. Attach and detach still wait for
+> mmap_lock of A. B doesn't.
+>
+> The tracer pays when traced processes fork all the time. mm that forks
+> holds its mmap_lock, so the walk sleeps on many mms in turn. Fork storms =
+of
+> 1200, 2000 and 5000 processes, 6 cpu VM, msec, without and with the serie=
+s:
+>
+>  enable uprobe event    105 -> 205   201 -> 481   207 -> 784
+>  disable uprobe event   225 -> 294   354 -> 579   407 -> 893
+>
+> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 > ---
-> regs->status is shared between the FPU (SR_FS) and vector (SR_VS) state
-> machines, and is updated with plain read-modify-write. When such an RMW
-> runs preemptible on the current task, the scheduler may update the other
-> field of the same word in between (e.g. riscv_v_vstate_set_restore() in
-> __switch_to_vector() on switch-in), and the stale store then clobbers
-> it, leaving VS=DIRTY with TIF_RISCV_V_DEFER_RESTORE set.
-> 
-> v2 follows Andy's suggestion: preemption is disabled at the
-> fstate_save()/fstate_restore() level, which is fine because the FPU
-> register save/restore itself is reentrant-safe, and new
-> fstate_{save,restore}_preempt_off() variants are used by callers that
-> already run with preemption disabled (__switch_to_fpu() and
-> kernel_fpu_{begin,end}()). fstate_off() and the
-> riscv_v_vstate_set_restore() call in __restore_v_state() are wrapped
-> directly.
-> 
-> local_irq_disable() is not needed: no IRQ handler touches regs->status.
-> 
-> Reproduced on Spacemit K1 hardware; not reproducible under QEMU/TCG.
-> ---
-> Changes in v2:
-> - Disable preemption at the fstate_save()/fstate_restore() level and add
->   fstate_{save,restore}_preempt_off() for the scheduler and kernel_mode_fpu
->   (Andy Chiu)
-> - Drop preempt_disable() from __fstate_clean()
-> - Link to v1: https://patch.msgid.link/20260807-vector_fpu_regs_status_rmw_fix-v1-1-0c16848b60db@intel.com
-> ---
->  arch/riscv/include/asm/switch_to.h  | 30 ++++++++++++++++++++++++------
->  arch/riscv/include/asm/vector.h     |  2 ++
->  arch/riscv/kernel/kernel_mode_fpu.c |  4 ++--
->  arch/riscv/kernel/signal.c          |  2 ++
->  4 files changed, 30 insertions(+), 8 deletions(-)
-> 
-> diff --git a/arch/riscv/include/asm/switch_to.h b/arch/riscv/include/asm/switch_to.h
-> index 0e71eb82f920..709831688ef3 100644
-> --- a/arch/riscv/include/asm/switch_to.h
-> +++ b/arch/riscv/include/asm/switch_to.h
-> @@ -27,11 +27,13 @@ static inline void __fstate_clean(struct pt_regs *regs)
->  static inline void fstate_off(struct task_struct *task,
->  			      struct pt_regs *regs)
+>  kernel/events/uprobes.c | 178 ++++++++++++++++++++++++++++++++--------
+>  1 file changed, 143 insertions(+), 35 deletions(-)
+>
+> diff --git a/kernel/events/uprobes.c b/kernel/events/uprobes.c
+> index 6792004be6fa..a9274016c55d 100644
+> --- a/kernel/events/uprobes.c
+> +++ b/kernel/events/uprobes.c
+> @@ -1192,8 +1192,29 @@ struct map_info {
+>         struct map_info *next;
+>         struct mm_struct *mm;
+>         unsigned long vaddr;
+> +       bool done;
+>  };
+>
+> +/*
+> + * Every fork() waits for dup_mmap_sem, so register_for_each_vma() must =
+not
+> + * sleep on mmap_lock while it holds dup_mmap_sem. It leaves mms with bu=
+sy
+> + * mmap_lock in ->busy, drops dup_mmap_sem, and only then waits for them=
+.
+> + *
+> + * Such mm can fork before its turn comes. dup_mmap() holds its mmap_loc=
+k, so
+> + * uprobe_dup_mmap() does what the walk is going to do to this mm, and
+> + * the child has the same breakpoints as the child of mm that wasn't bus=
+y.
+> + */
+> +struct uprobe_walk {
+> +       struct list_head list;
+> +       struct uprobe *uprobe;
+> +       struct uprobe_consumer *new;
+> +       struct map_info *busy;
+> +       int err;
+> +};
+> +
+> +/* dup_mmap_sem protects the list and ->busy of every walk in it */
+> +static LIST_HEAD(uprobe_walks);
+> +
+>  static inline struct map_info *free_map_info(struct map_info *info)
 >  {
-> +	preempt_disable();
->  	regs->status = (regs->status & ~SR_FS) | SR_FS_OFF;
-> +	preempt_enable();
+>         struct map_info *next =3D info->next;
+> @@ -1242,6 +1263,7 @@ build_map_info(struct address_space *mapping, loff_=
+t offset, bool is_register)
+>
+>                 info->mm =3D vma->vm_mm;
+>                 info->vaddr =3D offset_to_vaddr(vma, offset);
+> +               info->done =3D false;
+>         }
+>         i_mmap_unlock_read(mapping);
+>
+> @@ -1271,26 +1293,79 @@ build_map_info(struct address_space *mapping, lof=
+f_t offset, bool is_register)
+>         return curr;
 >  }
->  
-> -static inline void fstate_save(struct task_struct *task,
-> -			       struct pt_regs *regs)
-> +static inline void fstate_save_preempt_off(struct task_struct *task,
-> +					   struct pt_regs *regs)
+>
+> -static int
+> -register_for_each_vma(struct uprobe *uprobe, struct uprobe_consumer *new=
+)
+> +/*
+> + * mmap_lock of info->mm is held for writing. info->done is set under it=
+.
+> + * The walk also tests it without mmap_lock, to skip mm.
+> + */
+> +static void register_one_mm(struct uprobe_walk *walk, struct map_info *i=
+nfo,
+> +                           bool in_fork)
 >  {
->  	if ((regs->status & SR_FS) == SR_FS_DIRTY) {
->  		__fstate_save(task);
-> @@ -39,8 +41,8 @@ static inline void fstate_save(struct task_struct *task,
->  	}
->  }
->  
-> -static inline void fstate_restore(struct task_struct *task,
-> -				  struct pt_regs *regs)
-> +static inline void fstate_restore_preempt_off(struct task_struct *task,
-> +					      struct pt_regs *regs)
->  {
->  	if ((regs->status & SR_FS) != SR_FS_OFF) {
->  		__fstate_restore(task);
-> @@ -48,14 +50,30 @@ static inline void fstate_restore(struct task_struct *task,
->  	}
->  }
->  
-> +static inline void fstate_save(struct task_struct *task,
-> +			       struct pt_regs *regs)
-> +{
-> +	preempt_disable();
-> +	fstate_save_preempt_off(task, regs);
-> +	preempt_enable();
+> +       struct uprobe_consumer *new =3D walk->new;
+> +       struct uprobe *uprobe =3D walk->uprobe;
+> +       struct mm_struct *mm =3D info->mm;
+> +       struct vm_area_struct *vma;
+>         bool is_register =3D !!new;
+> -       struct map_info *info;
+>         int err =3D 0;
+>
+> +       if (info->done)
+> +               return;
+> +
+> +       if (is_register && READ_ONCE(walk->err))
+> +               goto done;
+> +
+> +       if (check_stable_address_space(mm))
+> +               goto done;
+> +
+> +       vma =3D find_vma(mm, info->vaddr);
+> +       if (!vma || !valid_vma(vma, is_register) ||
+> +           file_inode(vma->vm_file) !=3D uprobe->inode)
+> +               goto done;
+> +
+> +       if (vma->vm_start > info->vaddr ||
+> +           vaddr_to_offset(vma, info->vaddr) !=3D uprobe->offset)
+> +               goto done;
+> +
+> +       if (is_register) {
+> +               /* consult only the "caller", new consumer. */
+> +               if (consumer_filter(new, mm))
+> +                       err =3D install_breakpoint(uprobe, vma, info->vad=
+dr);
+> +       } else if (mm_flags_test(MMF_HAS_UPROBES, mm)) {
+> +               if (!filter_chain(uprobe, mm))
+> +                       err =3D remove_breakpoint(uprobe, vma, info->vadd=
+r);
+> +       }
+> +
+> +       if (err) {
+> +               /*
+> +                * fork() was killed meanwhile. This is not the error of
+> +                * the walk. See uprobe_dup_mmap().
+> +                */
+> +               if (in_fork && fatal_signal_pending(current))
+> +                       return;
+> +               WRITE_ONCE(walk->err, err);
+> +       }
+> + done:
+> +       WRITE_ONCE(info->done, true);
 > +}
 > +
-> +static inline void fstate_restore(struct task_struct *task,
-> +				  struct pt_regs *regs)
+> +static int
+> +register_for_each_vma(struct uprobe *uprobe, struct uprobe_consumer *new=
+)
 > +{
-> +	preempt_disable();
-> +	fstate_restore_preempt_off(task, regs);
-> +	preempt_enable();
-> +}
+> +       struct uprobe_walk walk =3D { .uprobe =3D uprobe, .new =3D new };
+> +       struct map_info *info, *next;
 > +
->  static inline void __switch_to_fpu(struct task_struct *prev,
->  				   struct task_struct *next)
->  {
->  	struct pt_regs *regs;
->  
->  	regs = task_pt_regs(prev);
-> -	fstate_save(prev, regs);
-> -	fstate_restore(next, task_pt_regs(next));
-> +	fstate_save_preempt_off(prev, regs);
-> +	fstate_restore_preempt_off(next, task_pt_regs(next));
->  }
->  
->  static __always_inline bool has_fpu(void)
-> diff --git a/arch/riscv/include/asm/vector.h b/arch/riscv/include/asm/vector.h
-> index 00cb9c0982b1..da1559bcee36 100644
-> --- a/arch/riscv/include/asm/vector.h
-> +++ b/arch/riscv/include/asm/vector.h
-> @@ -315,6 +315,8 @@ static inline void riscv_v_vstate_save(struct __riscv_v_ext_state *vstate,
->  static inline void riscv_v_vstate_restore(struct __riscv_v_ext_state *vstate,
->  					  struct pt_regs *regs)
->  {
-> +	WARN_ON_ONCE(preemptible());
+>         percpu_down_write(&dup_mmap_sem);
+> -       info =3D build_map_info(uprobe->inode->i_mapping,
+> -                                       uprobe->offset, is_register);
+> +       info =3D build_map_info(uprobe->inode->i_mapping, uprobe->offset,=
+ !!new);
+>         if (IS_ERR(info)) {
+> -               err =3D PTR_ERR(info);
+> -               goto out;
+> +               percpu_up_write(&dup_mmap_sem);
+> +               return PTR_ERR(info);
+>         }
+>
+> -       while (info) {
+> +       for (; info; info =3D next) {
+>                 struct mm_struct *mm =3D info->mm;
+> -               struct vm_area_struct *vma;
+>
+> -               if (err && is_register)
+> +               next =3D info->next;
+> +               /* If install failed the caller is going to undo it */
+> +               if (new && walk.err)
+>                         goto free;
+>                 /*
+>                  * We take mmap_lock for writing to avoid the race with
+> @@ -1299,38 +1374,56 @@ register_for_each_vma(struct uprobe *uprobe, stru=
+ct uprobe_consumer *new)
+>                  * is_trap_at_addr() true right after find_uprobe_rcu()
+>                  * returns NULL in find_active_uprobe_rcu().
+>                  */
+> -               mmap_write_lock(mm);
+> -               if (check_stable_address_space(mm))
+> -                       goto unlock;
+> -
+> -               vma =3D find_vma(mm, info->vaddr);
+> -               if (!vma || !valid_vma(vma, is_register) ||
+> -                   file_inode(vma->vm_file) !=3D uprobe->inode)
+> -                       goto unlock;
+> -
+> -               if (vma->vm_start > info->vaddr ||
+> -                   vaddr_to_offset(vma, info->vaddr) !=3D uprobe->offset=
+)
+> -                       goto unlock;
+> -
+> -               if (is_register) {
+> -                       /* consult only the "caller", new consumer. */
+> -                       if (consumer_filter(new, mm))
+> -                               err =3D install_breakpoint(uprobe, vma, i=
+nfo->vaddr);
+> -               } else if (mm_flags_test(MMF_HAS_UPROBES, mm)) {
+> -                       if (!filter_chain(uprobe, mm))
+> -                               err |=3D remove_breakpoint(uprobe, vma, i=
+nfo->vaddr);
+> +               if (!mmap_write_trylock(mm)) {
+> +                       /*
+> +                        * uprobe_dup_mmap() compares info->mm until list=
+_del().
+> +                        * Keep mm_struct, but not the memory of the proc=
+ess.
+> +                        */
+> +                       mmgrab(mm);
+> +                       mmput_async(mm);
+> +                       info->next =3D walk.busy;
+> +                       walk.busy =3D info;
+> +                       continue;
+>                 }
+> -
+> - unlock:
+> +               register_one_mm(&walk, info, false);
+>                 mmap_write_unlock(mm);
+>   free:
+>                 /* exit_mmap() of the last user must not run under dup_mm=
+ap_sem */
+>                 mmput_async(mm);
+> -               info =3D free_map_info(info);
+> +               kfree(info);
+>         }
+> - out:
 > +
->  	if (riscv_v_vstate_query(regs)) {
->  		__riscv_v_vstate_restore(vstate, vstate->datap);
->  		__riscv_v_vstate_clean(regs);
-> diff --git a/arch/riscv/kernel/kernel_mode_fpu.c b/arch/riscv/kernel/kernel_mode_fpu.c
-> index 0ac8348876c4..03d847fbfcf6 100644
-> --- a/arch/riscv/kernel/kernel_mode_fpu.c
-> +++ b/arch/riscv/kernel/kernel_mode_fpu.c
-> @@ -14,7 +14,7 @@
->  void kernel_fpu_begin(void)
->  {
->  	preempt_disable();
-> -	fstate_save(current, task_pt_regs(current));
-> +	fstate_save_preempt_off(current, task_pt_regs(current));
->  	csr_set(CSR_SSTATUS, SR_FS);
+> +       if (!walk.busy) {
+> +               percpu_up_write(&dup_mmap_sem);
+> +               return walk.err;
+> +       }
+> +
+> +       list_add(&walk.list, &uprobe_walks);
+>         percpu_up_write(&dup_mmap_sem);
+> -       return err;
+> +
+> +       for (info =3D walk.busy; info; info =3D info->next) {
+> +               struct mm_struct *mm =3D info->mm;
+> +
+> +               /* Don't wait for mm if its fork() did it or if install f=
+ailed */
+> +               if (READ_ONCE(info->done) || (new && READ_ONCE(walk.err))=
+)
+> +                       continue;
+> +               /* All users are gone, like in build_map_info() */
+> +               if (!mmget_not_zero(mm))
+> +                       continue;
+> +               mmap_write_lock(mm);
+> +               register_one_mm(&walk, info, false);
+> +               mmap_write_unlock(mm);
+> +               mmput(mm);
+> +       }
+> +
+> +       percpu_down_write(&dup_mmap_sem);
+> +       list_del(&walk.list);
+> +       percpu_up_write(&dup_mmap_sem);
+> +
+> +       for (info =3D walk.busy; info; info =3D free_map_info(info))
+> +               mmdrop(info->mm);
+> +
+> +       return walk.err;
 >  }
->  EXPORT_SYMBOL_GPL(kernel_fpu_begin);
-> @@ -22,7 +22,7 @@ EXPORT_SYMBOL_GPL(kernel_fpu_begin);
->  void kernel_fpu_end(void)
+>
+>  /**
+> @@ -1841,6 +1934,21 @@ void uprobe_end_dup_mmap(void)
+>
+>  void uprobe_dup_mmap(struct mm_struct *oldmm, struct mm_struct *newmm)
 >  {
->  	csr_clear(CSR_SSTATUS, SR_FS);
-> -	fstate_restore(current, task_pt_regs(current));
-> +	fstate_restore_preempt_off(current, task_pt_regs(current));
->  	preempt_enable();
->  }
->  EXPORT_SYMBOL_GPL(kernel_fpu_end);
-> diff --git a/arch/riscv/kernel/signal.c b/arch/riscv/kernel/signal.c
-> index 59784dc117e4..6f6f3315bc09 100644
-> --- a/arch/riscv/kernel/signal.c
-> +++ b/arch/riscv/kernel/signal.c
-> @@ -123,7 +123,9 @@ static long __restore_v_state(struct pt_regs *regs, void __user *sc_vec)
->  	 * to avoid getting the vstate incorrectly clobbered by the
->  	 *  discarded vector state.
->  	 */
-> +	preempt_disable();
->  	riscv_v_vstate_set_restore(current, regs);
-> +	preempt_enable();
-
-Just a quick note for Paul that my v6 vctxopt series will conflict with
-the above code, can be fixed by including __riscv_v_vstate_clean() to the
-preemption off region. I can also respin the unmerged patches if that
-makes things easier.
-
->  
->  	/* Copy everything of __sc_riscv_v_state except datap. */
->  	err = __copy_from_user(&current->thread.vstate, &state->v_state,
-> 
-> ---
-> base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-> change-id: 20260807-vector_fpu_regs_status_rmw_fix-b51fa4a453d8
-> 
-> Best regards,
-> --  
-> Guobin Zhang <guobin.zhang@intel.com>
-> 
-
-Thanks,
-Andy
+> +       struct uprobe_walk *walk;
+> +       struct map_info *info;
+> +
+> +       list_for_each_entry(walk, &uprobe_walks, list) {
+> +               /*
+> +                * fork() that is being killed fails in copy_process().
+> +                * There will be no child. Leave oldmm to the walk.
+> +                */
+> +               if (fatal_signal_pending(current))
+> +                       break;
+> +               for (info =3D walk->busy; info; info =3D info->next)
+> +                       if (info->mm =3D=3D oldmm)
+> +                               register_one_mm(walk, info, true);
+> +       }
+> +
+>         if (mm_flags_test(MMF_HAS_UPROBES, oldmm)) {
+>                 mm_flags_set(MMF_HAS_UPROBES, newmm);
+>                 /* unconditionally, dup_mmap() skips VM_DONTCOPY vmas */
+> --
+> 2.55.0
+>
