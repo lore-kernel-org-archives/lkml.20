@@ -1,109 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792684711;
-	b=riJjg4VRQXroW9cIT6+deEo1QuHCmSVf/g4UurkHU0ZQ0ZoYIfts+ZUOSxkwRL1DRH+h
-	 9yjLvydqR1xa0p0iAi+xsufGACa0bHdyoS5K1deXjQEab8+iLtQ2KZCsmJ048kSi3fRQO
-	 6UwPLM3e8nC91KZ45KHqJiqaD8wuNQlCxYP32PR++psjbGEes4zeti91bdz1BtVHuThae
-	 oXxZCdq8OXwfc3EDAvKybH8RctXxRL0/CuldDdSQZVYkrW6UmLuTEhsY3uCJA2ssfgdTy
-	 reXSy6oC1mzJLr76KorU4ysppk14PcdhQfHKRWvaNZ3f7vEwdpf9y5IXfwvlf1fRJwA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684711;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
-	b=JQIpQPJXkCfxlbTuQdqBnqKWbZnqMTqXdFtElqqkjl4HywZxkHCbPlV9s7sJswtvfA0W
-	 FLIt8fqCE7MOFHiReK3ZfihPAX2yazGL876i6uhRaeSp7soKqrNnHODaLPas5somIHIh1
-	 1FcEUFwK/njgFgH7/IYN0AUBtyaTfkT88kQRy5/+J2hUjG3Mvduq+PvJhrdpsnE/5tF5K
-	 HJjERaADpbVfimb2NAXivUOEnYyKz1JW0QUXmW/ErNu4LZeJSY0aEG1fOlg2TYFt2DbH8
-	 tPnJYn3c2dobfgAD0afl+o/GGl+tyRrjP6c6yKYZHXE5e1YIQCz8WTndvE3DjzlQDpg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YSsMAZsL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.62.1
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011001.outbound.protection.outlook.com [52.101.62.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792684723;
+	b=Va5fsQcvLm0c8VyhVaL8Ku5Eb8GCOlBO6zZ1UHaV/jkSYVvV+91Cxb3OJ8yWiB/sZAkd
+	 GmYsy9HcYVZLvZVZMTcuV1QvytaujrEUcisfE74D/eWd7L6mj2rl3uMQRUCG26CuA5Bvr
+	 OYcYdav/eUGgRB/iZh52I5tiUk1ot9YgFOOpPcHBM1V5aNhl/kIv1YYNgbc3T8sYAwJb6
+	 1HtM+Ubg30dbpyuN2xLZ7iOzUvD+uqmNw2ksUov4V/BxwRgX0LpkuYe2VoQX+hs0X2PJY
+	 6bbEAlxmLsiLc3GRfOqLNSZACq7j7D3Xfr3BP0a02q8NJpabyZNPl4tx1/XbykJkjFw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684723;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=y7C37lkYJx3z+0BOHoOqBhwyueswG8B5c3uzYLhRKKU=;
+	b=N4hASDliZUN719eXtFAtHFWc/u87Zwi9wT6AriRPBTtMN9SOkkx5wnBwV/QykKeRDwk2
+	 AWnsq/P+4y/n8pt7J57rQUt8XiwfFPK2PlGAscK9nY8WyNZ+YuwH6DzIR6TIq5O6rjo30
+	 a6lMdDPbKtCFPsgklfrIpmLvUKNW+Tw7keuE2b3I4WZs0WgtklEqnOdy8gMg2pQ4e7oVA
+	 fvCflT/IB1JzckmOEL9rYMACZg+gpNPfIaDPD9iXlM388maOWyYgXZJqKWWy5OhqFxMDQ
+	 6i4v8MAk7LkCGFNBcPVtWfnrfEMaiTk431vfeTRVzeTMQSPIYMb+xQuv65P7kk4Ksag==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Qy1jRaAa;
+	arc=none smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D37D606A319
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:58:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D37D606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42767606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42767606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=YSsMAZsL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NSXAP4TM1NASw3DjBQPbfhBT85ox/tH0jHk8RbSh3m0JoorrHkhIOuq5Fe73ZxuDoLetveYk1Ku0NWnvkvxRKPP86byp4ObNo6/+IAefxxEeJsvDhL0l8598TNL7FCsa4FtkvAxnpokahfYgWMaB/zcHxfWeWJ1G0SofNsKwXeKo5eoRcT9P6AwsYKqqMzR/sJtkDbWQeb5XNkvjc5Uxwnt6pGvajrJQkRu10NkNaicpnHHlGJBfVHLwRRquGUruchCgqgANI9fmfV6+DDpimYLRo+Ab4aFcdr4NuvrMn7Rc/jFJH0ATWMfDkiHiS/TrNVC3gBQvRnaLIv3x5xRfVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
- b=upye9aE45WkTgw5iNfMPoqdXIzZNrfsS8xPquI9X0TFHGg0iiyWdqdNDlK18utMdXvbJDFU2q1h7wiCgTvTOZLFtUY7if4JyNeI3xx89DtxM3vHe/FLfoF+V75/KdoFRzpKiDqDkTgzN1N5YtYpCGdGO+BYTw56s7xAdf/KDC3mSnqmU2BRJjJkkWjSp5LifsEePDdzO1/pIbl7dRrhj5g8Cp17hHj8bizgOnMlE0JHWmUiJb5SJ+3j9L2X1agbXzoTiOoX7UHS4NxDaUdeS2dk3JvTgBzzEmm0lzhccyyp2+ZObfbPoG8jbRTDpopQj7qcroQJmToNDKQKKUo/3sw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q+iRucOpyzVZYqLOhtf2lLfuMQTWP6HMT9jJ94Hp2dQ=;
- b=YSsMAZsL9O1Yp5CsBAj8zD1cGe6YLSM8JVmip7o1j1uCl8tY5/Pi2kCCN+16ddl5e66auyWlFhmZnZhnD+yUFm+60jVxS4eh2fOiq6JNQIVGWECNOPKZkD6TwTeePiOFnTLzwaU/QhY/WvciZ4bAjISs+VX0gyCixBq67XnxA0U=
-Received: from PH7P223CA0002.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::28)
- by DS5PR12MB575708.namprd12.prod.outlook.com (2603:10b6:8:47c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 15:58:14 +0000
-Received: from CY8PEPF00000059.namprd21.prod.outlook.com
- (2603:10b6:510:338:cafe::51) by PH7P223CA0002.outlook.office365.com
- (2603:10b6:510:338::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
- 22 Oct 2026 15:58:14 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY8PEPF00000059.mail.protection.outlook.com (10.167.247.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.569.0 via Frontend Transport; Thu, 22 Oct 2026 15:58:14 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 10:58:13 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 10:58:13 -0500
-Received: from xsjlizhih51.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Thu, 22 Oct 2026 10:58:12 -0500
-From: Max Zhen <max.zhen@amd.com>
-To: <ogabbay@kernel.org>, <quic_jhugo@quicinc.com>, <lizhi.hou@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <mario.limonciello@amd.com>,
-	<karol.wachowski@linux.intel.com>
-CC: Max Zhen <max.zhen@amd.com>, <linux-kernel@vger.kernel.org>,
-	<sonal.santan@amd.com>, Umio Yasuno <coelacanth_dream@protonmail.com>
-Subject: [PATCH V1 1/5] accel/amdxdna: Use compatible fdinfo engine key
-Date: Thu, 22 Oct 2026 08:57:53 -0700
-Message-ID: <20261022155753.232976-1-max.zhen@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=Qy1jRaAa
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b1aa4d71e7so2326362a12.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:58:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792684722; x=1793289522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y7C37lkYJx3z+0BOHoOqBhwyueswG8B5c3uzYLhRKKU=;
+        b=Qy1jRaAa3isiKDFBrrchK356IFswBJwe/Gwc+iG0Z8n1+srN/3A413LYWg2YUDnqfK
+         l1YHuO9BaqzwG5S5drFLsJ9Y5TEwUnNHQg594uijRrse8AkuMXPF0iR+QVv6VjAMWtxe
+         Vnt45aMTzgV7pQIqcaSp9gZyxrtwusGY/CIcfJSi+BwNAv/BXHDCDykoRYHeVsy4WcyR
+         lnevgG6qjKaOEPhhT69xWwGpWjl15rIJz0eVpfddxCsfNbGMNn99yKVyWuuIw9gbz92l
+         wlYsTU3mORu5Wf8MwCxVsF0IBZbdFaQiQCBq681mHbAbiLNr/lY0KTGPsfnT9XONG/mA
+         tBlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792684722; x=1793289522;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y7C37lkYJx3z+0BOHoOqBhwyueswG8B5c3uzYLhRKKU=;
+        b=NP56ECGwnhhhfwAjaLf96HRKYkrpmc6/Mfw/WhscpGJrpz2baOkeoOIVO0q7xI09MM
+         ZuDCdEhMXx7nUfTU0qToVsye0ViADzO1/IrkvTqm5hL0dQ50Dlejkulo/HpVhyLe3q4E
+         FD2tGgD1FiIxVK8XJYR4IS3H5ge+J0GXCOMJMyp2CJnpjUEQobqlqvtsEDSz9FpM+8Fn
+         RIRC1CKMtNrb4HLaLyE434QLJB+GgQjPAs3QRevNXf7M63agJksP8sh31Nl5ur/OPqVq
+         UrBrAL8iSNmbMQmvHM2acyPvlL8T8nR7N2388HIXlm46GMq05jiqs/YHihKrpwZIberX
+         /x3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzQAqG0K9H9JH+9GPH7IKvlD14Ncv/KnayS7jLyR2ncN/3ciHswm/c1H8G3smBSw38KCQfYmci/oRO6sLY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK8Vp0otRZhPU8i6QJVo1FveuJdtL5DnbvAni2oPL3qrOYhU373
+	lE+By+NcsASz3sfQj7J59GR57HLK1CEZDFEiLh2TUvX92RGcrZucbIMa
+X-Gm-Gg: AYBFou2JDo70zJssLjRyf1GybIMzwzXQqtMy2Jh0Yf9fgR4ug3Ka/flyMKdwylOQDaj
+	Z3d2hePW+3z/TSv7LbE4jP/kLdkYViBRBIYI4WI7YtJ4ROqPLhoILB841n83wJFeh3Brw5enY0C
+	5GukNfeVevtqSr2v1YF6C89ar327YyHAhHtNu3LbGJmBkO/h1xGZeqV0vTAcaR2nXrWw+G1zWEx
+	q09s+Ew5+znSagIoVL80jF3tWHjThVdNYfoEP5y0gQ34ytiR8ey+XxtkpwJ+yoZfsMzrqoKO7ZX
+	H3tDYrMho79H/vZpJBsrblqfWj5cebChTXvjsAZ3y3ThtffpV+N5dQsRO17oQCZQ1m1+gLd+cPt
+	1MYT8LoKx1vf2biz8PiChplnCZ4W97MO1d+zus22msonEsXnx5vBabJmQKgcdsDnkRCJcxPoIVW
+	dYoQAoKt5M05Tir096Ta92F6MRhuT7WT8xQvajUZfFwx35p+PT/UMaxzj71hLuWtX+2tBu1KUnD
+	4l8Mxr5sAXUAObSxuyJESLWiVXEcTs8hUTulPVOYdpOKRseq7k9swh3CzQFNJbKPoRvA44Zk2uq
+	PIXpYjb3/TbMJp+RfP6Vid/RTrOowb+KAwYBkWjCmOXxjHhGRxUSqAsQLL2u2MLej1riVfZGSNZ
+	/sGo=
+X-Received: by 2002:a17:907:d40a:b0:c3e:f05:3dfa with SMTP id a640c23a62f3a-c46799be0ccmr597057766b.34.1792684721234;
+        Thu, 22 Oct 2026 08:58:41 -0700 (PDT)
+Received: from CCM-PC (31-208-243-52.cust.bredband2.com. [31.208.243.52])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c46a5d17fabsm1427766b.86.2026.10.22.08.58.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 08:58:40 -0700 (PDT)
+From: Yongzhao Chen <yongzhao.derek@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	linux-kernel@vger.kernel.org,
+	Ziyang Huang <hzyitc@outlook.com>
+Subject: [PATCH net v7] net: dsa: qca8k: preserve port state across MTU changes
+Date: Thu, 22 Oct 2026 17:58:37 +0200
+Message-ID: <20261022155837.760-1-yongzhao.derek@gmail.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,78 +106,423 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY8PEPF00000059:EE_|DS5PR12MB575708:EE_
-X-MS-Office365-Filtering-Correlation-Id: 200b4cd7-f255-4913-e158-08df305547a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|261009223027099003|261021123027099003|261021121427099003|10067099003|56012099006|3023799007|6133799003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	83KqkgozhXnvMKxUVefjZPdq8lfikgjNg5KEcFO1PryiPapH3Kz66btd8JQ+kIXOEFCgHoq1M9aS6Qm5z1zHdMqUuOSDoVCEzoTj7rKYLhzkC1gOofsgM7RXOPI8fbzrcf3sCQjWswPOzPbbL3KFVFvH6pghYmTTotXnldvMY39ECh01vATqmESJwCJcbmgCMJ1hUz5BjZS1DPv4FbXSHvRZu/i7DERAdM/GKNFSHsYUomeC8c5uLYkALKm4QBnsuzUpmxLu2YktR1YZnjvijkj9qIOHUTWUhRdPjoe95+kNdpoFSJEh78TaXKc9MStUXOi79Pu59xhkmPxa92JlhZKAOtFLPj4bj8dLUI4fYEORNF+HOMv05yde44pSxGHWebkH4kacfF3u/NQG01cXFXTQXJivaqkeD2TMUXF0kioOn0cbDrggBjOJz/UOnuVsyhq5DNKSgFJQooKr0y0OJJJPGlsnRaDGRE1hhZhOMVn1GAIcU41XjvHJPFHzDpSNCy0+fwIAikLQogTRT6IrNhAEtxxqh9d4FhhKgzPh3PD+gsVi+Snwt8HsQNt2BTR+ZLrkNhj0bUWGW9zlIVit22TKJlns6g3eNNrxV+8gPWU0L6PaZz4bH7GqqS47k2DdhF9ub18wI/e5Z553Uj+3SuBDatXoinCIu6MX2mLicIzUdtH+4br9XMfBWW+m5yYFNLltwiw6lwegitUvT++HzA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(261009223027099003)(261021123027099003)(261021121427099003)(10067099003)(56012099006)(3023799007)(6133799003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fM/o4jP9Nm7WvDWP2BXutQ5c3IZT8INpSRt37+Qt95ztS3qogemUSyyQwzhry1yQSWH3LoC0joEiAXXidlnI5DgV6KptN9PgDvEcNCwlCzJju1h59inx/awPosVgNUEEteyiP/5QApU+y3g8DScMl3a5yWo7Ad9iekIaccmpREeoPkdPautsoYIQQ6uldOHNb/7+NFZXRjyNfTpx3cEd1rnlvMvBShIUZE7gyA3RwwDxtpHyvgPk//yKN1tgb9Xg2/7iRuf6KG4CR9Z5lvaHZlkzcbr+Q+lgf2yv3t1lwrbEhalM+kIpMSCPEDNj0UQ3giX8g3G2ynQ0Mgu20ChHdKtY6e7a7uixKExDjm+rMrWuhnjC5+5SJZRiA9E5BvdgrrebGstpEk2y0z3+z0Wse7Ydw+Ghgr4XDDLdCQWALpgnOJwF5+IjIFPcKbUPXScD
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:58:14.1219
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 200b4cd7-f255-4913-e158-08df305547a1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY8PEPF00000059.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PR12MB575708
 
-The released out-of-tree amdxdna driver uses amdxdna_accel_driver as the
-drm-engine key string, which is consumed by several applications.
+The MTU update pauses enabled ports 0 and 6 and then unconditionally
+enables their MACs. This can undo a phylink link-down decision. Phylink
+callbacks also run without RTNL and can enable a MAC during the update.
+Changing MAX_FRAME_SIZE with a CPU MAC running can stop the switch from
+sending packets until reset, as described in commit 386228c694bf.
 
-Use the same key string in the upstream driver to maintain compatibility
-with the out-of-tree driver.
+Serialize the MTU transaction and PORT_STATUS writers with a dedicated
+mutex. Save and restore the MAC bits, abort before the frame-size write
+on detected snapshot or pause errors, and restore every touched port.
+Mask partial status values before passing them to the regmap callback.
 
-Reported-by: Umio Yasuno <coelacanth_dream@protonmail.com>
-Closes: https://github.com/amd/xdna-driver/issues/1754
-Fixes: 489a8539ca6f ("accel/amdxdna: Expose NPU device busy time via DRM fdinfo")
-Signed-off-by: Max Zhen <max.zhen@amd.com>
+Return the result of the frame-size write even if a later port restore
+fails: DSA does not roll back the switch's frame size when the CPU MTU
+callback returns an error. Record successful frame-size writes and skip
+requests for the same value. DSA invokes the callback for every CPU port,
+so a second invocation must not reject an already committed global value.
+
+Retain failed status writes and retry them every second, because a
+fixed-link port may receive no further link-up callback. Merge newer port
+decisions into the pending target, and recover pending writes on ports 0
+and 6 before changing the frame size again. Disable and drain retries for
+suspend, shutdown and removal, with managed cleanup on probe failure.
+
+Fixes: 386228c694bf ("net: dsa: qca8k: reset cpu port on MTU change")
+Assisted-by: LLM
+Signed-off-by: Yongzhao Chen <yongzhao.derek@gmail.com>
 ---
- Documentation/accel/amdxdna/amdnpu.rst  | 2 +-
- drivers/accel/amdxdna/amdxdna_pci_drv.c | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+v7:
+- Address Sashiko's review of v6 [1]:
+  - Mask cached PORT_STATUS values for partial writes. The qca8k regmap
+    callbacks do not mask their value argument.
+  - Track the successfully committed global frame size and return success
+    for repeated requests. This covers DSA invoking the MTU callback for
+    both CPU ports, including a pending restore failure after the first
+    callback. Initialize the record from the setup write and update it
+    only when a frame-size write succeeds.
+- The tests now use the actual Ethernet RMW callback and DSA CPU-port
+  iteration, which the v6 fixtures did not model correctly.
 
-diff --git a/Documentation/accel/amdxdna/amdnpu.rst b/Documentation/accel/amdxdna/amdnpu.rst
-index d72af1b51ccf..b0cc481c73ae 100644
---- a/Documentation/accel/amdxdna/amdnpu.rst
-+++ b/Documentation/accel/amdxdna/amdnpu.rst
-@@ -289,7 +289,7 @@ Example of the output showing the implemented key value pairs:
-         drm-driver:	amdxdna_accel_driver
-         drm-client-id:	3219
-         drm-pdev:	0000:c5:00.1
--        drm-engine-npu: 14003870 ns
-+        drm-engine-amdxdna_accel_driver:        14003870 ns
-         amdxdna_accel_driver-heap-alloc:	60 KiB
-         amdxdna_accel_driver-internal-alloc:	67588 KiB
-         amdxdna_accel_driver-external-alloc:	0
-diff --git a/drivers/accel/amdxdna/amdxdna_pci_drv.c b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-index edf807c93144..f233eb70a295 100644
---- a/drivers/accel/amdxdna/amdxdna_pci_drv.c
-+++ b/drivers/accel/amdxdna/amdxdna_pci_drv.c
-@@ -284,9 +284,9 @@ static void amdxdna_show_fdinfo(struct drm_printer *p, struct drm_file *filp)
+v6: https://lore.kernel.org/netdev/20261019173716.198475-1-yongzhao.derek@gmail.com/
+v5: https://lore.kernel.org/netdev/20261015104550.43169-1-yongzhao.derek@gmail.com/
+
+This remains the standalone net fix for existing ports 0 and 6. Internal
+CPU support stays in the separate net-next series. The pre-existing NULL
+PHY dereference noted in the review is outside this change.
+
+The affected arm64 objects build with W=1, with CONFIG_PM_SLEEP enabled
+and disabled. A userspace harness compiled the driver, Ethernet RMW and
+DSA MTU functions with mocked transport, topology, netdev and workqueue
+boundaries. It covered single and dual CPU ports, both traversal orders,
+MTU growth and shrink, failed initial writes, duplicate callbacks, later
+MTU changes, retries, callback interleavings and lifecycle handling.
+The sent v6 and six deliberately broken variants fail the checks.
+This revision has not been tested on hardware or with kernel lockdep.
+
+The net base can still swallow MDIO write errors. The retry and committed
+frame-size record handle only errors reported by the register API; they
+cannot detect a write that falsely reports success or guarantee recovery
+from a write whose completion is unknown.
+
+Merge note: net-next has changed qca8k_port_set_status() to use
+regmap_assign_bits(). This patch replaces that function body with the
+serialized status-update helper, so that hunk needs manual resolution
+when propagating the net fix to net-next.
+
+[1] https://lore.kernel.org/netdev/179265824122.3135.15072303811434404600@kernel.org/
+
+ drivers/net/dsa/qca/qca8k-8xxx.c   |  33 ++++++-
+ drivers/net/dsa/qca/qca8k-common.c | 150 ++++++++++++++++++++++++-----
+ drivers/net/dsa/qca/qca8k.h        |  15 +++
+ 3 files changed, 174 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/net/dsa/qca/qca8k-8xxx.c b/drivers/net/dsa/qca/qca8k-8xxx.c
+index 4c928983b..f9ae0fe67 100644
+--- a/drivers/net/dsa/qca/qca8k-8xxx.c
++++ b/drivers/net/dsa/qca/qca8k-8xxx.c
+@@ -1483,7 +1483,9 @@ qca8k_phylink_mac_link_up(struct phylink_config *config,
+ 
+ 	reg |= QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
+ 
+-	qca8k_write(priv, QCA8K_REG_PORT_STATUS(port), reg);
++	mutex_lock(&priv->port_status_lock);
++	qca8k_port_status_update(priv, port, U32_MAX, reg);
++	mutex_unlock(&priv->port_status_lock);
+ }
+ 
+ static struct qca8k_pcs *pcs_to_qca8k_pcs(struct phylink_pcs *pcs)
+@@ -1995,6 +1997,7 @@ qca8k_setup(struct dsa_switch *ds)
+ 
+ 	/* Setup our port MTUs to match power on defaults */
+ 	ret = qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, ETH_FRAME_LEN + ETH_FCS_LEN);
++	priv->max_frame_size = ret ? 0 : ETH_FRAME_LEN + ETH_FCS_LEN;
+ 	if (ret)
+ 		dev_warn(priv->dev, "failed setting MTU settings");
+ 
+@@ -2055,6 +2058,13 @@ static const struct dsa_switch_ops qca8k_switch_ops = {
+ 	.connect_tag_protocol	= qca8k_connect_tag_protocol,
+ };
+ 
++static void qca8k_port_status_stop(void *data)
++{
++	struct qca8k_priv *priv = data;
++
++	disable_delayed_work_sync(&priv->port_status_work);
++}
++
+ static int
+ qca8k_sw_probe(struct mdio_device *mdiodev)
  {
- 	struct amdxdna_client *client = filp->driver_priv;
- 	size_t heap_usage, external_usage, internal_usage;
--	char *drv_name = filp->minor->dev->driver->name;
-+	char *drv_name = "amdxdna_accel_driver";
+@@ -2116,6 +2126,11 @@ qca8k_sw_probe(struct mdio_device *mdiodev)
+ 	priv->ds->ops = &qca8k_switch_ops;
+ 	priv->ds->phylink_mac_ops = &qca8k_phylink_mac_ops;
+ 	mutex_init(&priv->reg_mutex);
++	mutex_init(&priv->port_status_lock);
++	INIT_DELAYED_WORK(&priv->port_status_work, qca8k_port_status_work);
++	ret = devm_add_action_or_reset(priv->dev, qca8k_port_status_stop, priv);
++	if (ret)
++		return ret;
+ 	dev_set_drvdata(&mdiodev->dev, priv);
  
--	drm_printf(p, "drm-engine-npu:\t%llu ns\n",
-+	drm_printf(p, "drm-engine-%s:\t%llu ns\n", drv_name,
- 		   amdxdna_io_stats_busy_time_ns(client));
+ 	return dsa_register_switch(priv->ds);
+@@ -2130,6 +2145,7 @@ qca8k_sw_remove(struct mdio_device *mdiodev)
+ 	if (!priv)
+ 		return;
  
- 	mutex_lock(&client->mm_lock);
++	qca8k_port_status_stop(priv);
+ 	for (i = 0; i < QCA8K_NUM_PORTS; i++)
+ 		qca8k_port_set_status(priv, i, 0);
+ 
+@@ -2143,6 +2159,7 @@ static void qca8k_sw_shutdown(struct mdio_device *mdiodev)
+ 	if (!priv)
+ 		return;
+ 
++	qca8k_port_status_stop(priv);
+ 	dsa_switch_shutdown(priv->ds);
+ 
+ 	dev_set_drvdata(&mdiodev->dev, NULL);
+@@ -2165,13 +2182,24 @@ qca8k_set_pm(struct qca8k_priv *priv, int enable)
+ 	}
+ }
+ 
++static void qca8k_port_status_start(struct qca8k_priv *priv)
++{
++	enable_delayed_work(&priv->port_status_work);
++	schedule_delayed_work(&priv->port_status_work, 0);
++}
++
+ static int qca8k_suspend(struct device *dev)
+ {
+ 	struct qca8k_priv *priv = dev_get_drvdata(dev);
++	int ret;
+ 
++	qca8k_port_status_stop(priv);
+ 	qca8k_set_pm(priv, 0);
++	ret = dsa_switch_suspend(priv->ds);
++	if (ret)
++		qca8k_port_status_start(priv);
+ 
+-	return dsa_switch_suspend(priv->ds);
++	return ret;
+ }
+ 
+ static int qca8k_resume(struct device *dev)
+@@ -2179,6 +2207,7 @@ static int qca8k_resume(struct device *dev)
+ 	struct qca8k_priv *priv = dev_get_drvdata(dev);
+ 
+ 	qca8k_set_pm(priv, 1);
++	qca8k_port_status_start(priv);
+ 
+ 	return dsa_switch_resume(priv->ds);
+ }
+diff --git a/drivers/net/dsa/qca/qca8k-common.c b/drivers/net/dsa/qca/qca8k-common.c
+index 13005f10e..d9db5e579 100644
+--- a/drivers/net/dsa/qca/qca8k-common.c
++++ b/drivers/net/dsa/qca/qca8k-common.c
+@@ -463,7 +463,7 @@ int qca8k_mib_init(struct qca8k_priv *priv)
+ 	return ret;
+ }
+ 
+-void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
++static u32 qca8k_port_status_mask(int port)
+ {
+ 	u32 mask = QCA8K_PORT_STATUS_TXMAC | QCA8K_PORT_STATUS_RXMAC;
+ 
+@@ -471,10 +471,77 @@ void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
+ 	if (port > 0 && port < 6)
+ 		mask |= QCA8K_PORT_STATUS_LINK_AUTO;
+ 
+-	if (enable)
+-		regmap_set_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port), mask);
++	return mask;
++}
++
++static int qca8k_port_status_restore(struct qca8k_priv *priv, int port)
++{
++	u32 mask = priv->port_status_mask[port];
++	int ret;
++
++	lockdep_assert_held(&priv->port_status_lock);
++
++	if (!mask)
++		return 0;
++
++	if (mask == U32_MAX)
++		ret = qca8k_write(priv, QCA8K_REG_PORT_STATUS(port),
++				  priv->port_status_value[port]);
+ 	else
+-		regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(port), mask);
++		ret = regmap_update_bits(priv->regmap,
++					 QCA8K_REG_PORT_STATUS(port), mask,
++					 priv->port_status_value[port] & mask);
++	if (ret) {
++		dev_err_ratelimited(priv->dev,
++				    "failed to restore port %d status: %d\n",
++				    port, ret);
++		schedule_delayed_work(&priv->port_status_work, HZ);
++	} else {
++		priv->port_status_mask[port] = 0;
++	}
++
++	return ret;
++}
++
++void qca8k_port_status_update(struct qca8k_priv *priv, int port,
++			      u32 mask, u32 val)
++{
++	lockdep_assert_held(&priv->port_status_lock);
++
++	/* A newer decision supersedes pending bits, even if it fails too. */
++	priv->port_status_value[port] &= ~mask;
++	priv->port_status_value[port] |= val & mask;
++	priv->port_status_mask[port] |= mask;
++	qca8k_port_status_restore(priv, port);
++}
++
++void qca8k_port_status_work(struct work_struct *work)
++{
++	struct qca8k_priv *priv = container_of(to_delayed_work(work),
++					       struct qca8k_priv,
++					       port_status_work);
++	int port;
++
++	mutex_lock(&priv->port_status_lock);
++	for (port = 0; port < QCA8K_NUM_PORTS; port++)
++		qca8k_port_status_restore(priv, port);
++	mutex_unlock(&priv->port_status_lock);
++}
++
++static void __qca8k_port_set_status(struct qca8k_priv *priv, int port,
++				    int enable)
++{
++	u32 mask = qca8k_port_status_mask(port);
++
++	lockdep_assert_held(&priv->port_status_lock);
++	qca8k_port_status_update(priv, port, mask, enable ? mask : 0);
++}
++
++void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable)
++{
++	mutex_lock(&priv->port_status_lock);
++	__qca8k_port_set_status(priv, port, enable);
++	mutex_unlock(&priv->port_status_lock);
+ }
+ 
+ void qca8k_get_strings(struct dsa_switch *ds, int port, u32 stringset,
+@@ -751,8 +818,10 @@ int qca8k_port_enable(struct dsa_switch *ds, int port,
+ {
+ 	struct qca8k_priv *priv = ds->priv;
+ 
+-	qca8k_port_set_status(priv, port, 1);
++	mutex_lock(&priv->port_status_lock);
++	__qca8k_port_set_status(priv, port, 1);
+ 	priv->port_enabled_map |= BIT(port);
++	mutex_unlock(&priv->port_status_lock);
+ 
+ 	if (dsa_is_user_port(ds, port))
+ 		phy_support_asym_pause(phy);
+@@ -764,14 +833,19 @@ void qca8k_port_disable(struct dsa_switch *ds, int port)
+ {
+ 	struct qca8k_priv *priv = ds->priv;
+ 
+-	qca8k_port_set_status(priv, port, 0);
++	mutex_lock(&priv->port_status_lock);
++	__qca8k_port_set_status(priv, port, 0);
+ 	priv->port_enabled_map &= ~BIT(port);
++	mutex_unlock(&priv->port_status_lock);
+ }
+ 
+ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ {
++	u32 frame_size = new_mtu + ETH_HLEN + ETH_FCS_LEN;
++	u32 status[QCA8K_NUM_PORTS] = { 0 };
+ 	struct qca8k_priv *priv = ds->priv;
+-	int ret;
++	unsigned long ports, stopped = 0;
++	int ret, i;
+ 
+ 	/* We have only have a general MTU setting.
+ 	 * DSA always set the CPU port's MTU to the largest MTU of the user
+@@ -782,27 +856,59 @@ int qca8k_port_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
+ 	if (!dsa_is_cpu_port(ds, port))
+ 		return 0;
+ 
+-	/* To change the MAX_FRAME_SIZE the cpu ports must be off or
+-	 * the switch panics.
+-	 * Turn off both cpu ports before applying the new value to prevent
+-	 * this.
++	/* To change MAX_FRAME_SIZE, pause enabled ports 0 and 6.
++	 * Serialize with phylink and restore the saved MAC state.
+ 	 */
+-	if (priv->port_enabled_map & BIT(0))
+-		qca8k_port_set_status(priv, 0, 0);
++	mutex_lock(&priv->port_status_lock);
++
++	/* DSA calls us for every CPU port, but the frame size is global. */
++	if (priv->max_frame_size == frame_size) {
++		ret = 0;
++		goto unlock;
++	}
+ 
+-	if (priv->port_enabled_map & BIT(6))
+-		qca8k_port_set_status(priv, 6, 0);
++	ports = BIT(0) | BIT(6);
+ 
+-	/* Include L2 header / FCS length */
+-	ret = qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, new_mtu +
+-			  ETH_HLEN + ETH_FCS_LEN);
++	/* Do not mistake a failed restore for a new link-down decision. */
++	for_each_set_bit(i, &ports, QCA8K_NUM_PORTS) {
++		ret = qca8k_port_status_restore(priv, i);
++		if (ret)
++			goto unlock;
++	}
++
++	ports &= priv->port_enabled_map;
++	for_each_set_bit(i, &ports, QCA8K_NUM_PORTS) {
++		ret = regmap_read(priv->regmap, QCA8K_REG_PORT_STATUS(i),
++				  &status[i]);
++		if (ret)
++			goto unlock;
++	}
++
++	for_each_set_bit(i, &ports, QCA8K_NUM_PORTS) {
++		u32 mask = qca8k_port_status_mask(i);
++
++		if (!(status[i] & mask))
++			continue;
++
++		__set_bit(i, &stopped);
++		ret = regmap_clear_bits(priv->regmap, QCA8K_REG_PORT_STATUS(i),
++					mask);
++		if (ret)
++			goto restore;
++	}
+ 
+-	if (priv->port_enabled_map & BIT(0))
+-		qca8k_port_set_status(priv, 0, 1);
++	ret = qca8k_write(priv, QCA8K_MAX_FRAME_SIZE, frame_size);
++	if (!ret)
++		priv->max_frame_size = frame_size;
+ 
+-	if (priv->port_enabled_map & BIT(6))
+-		qca8k_port_set_status(priv, 6, 1);
++restore:
++	/* A failed restore must not reject a committed frame size. */
++	for_each_set_bit(i, &stopped, QCA8K_NUM_PORTS)
++		qca8k_port_status_update(priv, i, qca8k_port_status_mask(i),
++					 status[i]);
+ 
++unlock:
++	mutex_unlock(&priv->port_status_lock);
+ 	return ret;
+ }
+ 
+diff --git a/drivers/net/dsa/qca/qca8k.h b/drivers/net/dsa/qca/qca8k.h
+index 956338893..f4ab46475 100644
+--- a/drivers/net/dsa/qca/qca8k.h
++++ b/drivers/net/dsa/qca/qca8k.h
+@@ -10,6 +10,7 @@
+ 
+ #include <linux/delay.h>
+ #include <linux/regmap.h>
++#include <linux/workqueue.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/leds.h>
+ #include <linux/dsa/tag_qca.h>
+@@ -459,6 +460,17 @@ struct qca8k_priv {
+ 	struct mii_bus *internal_mdio_bus;
+ 	struct dsa_switch *ds;
+ 	struct mutex reg_mutex;
++	/* Serializes writes to QCA8K_REG_PORT_STATUS and the MTU update. Taken
++	 * from phylink MAC callbacks: do not access a PHY or call into phylink
++	 * with it held.
++	 */
++	struct mutex port_status_lock;
++	/* Committed frame size, 0 if unknown; protected by port_status_lock. */
++	u32 max_frame_size;
++	struct delayed_work port_status_work;
++	/* Nonzero masks mark pending writes; protected by port_status_lock. */
++	u32 port_status_mask[QCA8K_NUM_PORTS];
++	u32 port_status_value[QCA8K_NUM_PORTS];
+ 	struct device *dev;
+ 	struct gpio_desc *reset_gpio;
+ 	struct net_device *mgmt_conduit; /* Track if mdio/mib Ethernet is available */
+@@ -502,6 +514,9 @@ static inline u32 qca8k_port_to_phy(int port)
+ extern const struct qca8k_mib_desc ar8327_mib[];
+ extern const struct regmap_access_table qca8k_readable_table;
+ int qca8k_mib_init(struct qca8k_priv *priv);
++void qca8k_port_status_work(struct work_struct *work);
++void qca8k_port_status_update(struct qca8k_priv *priv, int port,
++			      u32 mask, u32 val);
+ void qca8k_port_set_status(struct qca8k_priv *priv, int port, int enable);
+ int qca8k_read_switch_id(struct qca8k_priv *priv);
+ 
+
+base-commit: 78731b46967e3e7102b5cd5062bef185f3404b5c
 -- 
-2.34.1
+2.43.0
 
