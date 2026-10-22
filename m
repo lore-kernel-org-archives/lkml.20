@@ -1,55 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.183.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792681046;
-	b=0OrjQamv3ITshLb3dqW9wwk5W5TzssyTSZtjIp97ozC35obbZrJ8DjJcSDCDesBiTTcd
-	 x55byOHbk8idAm3dC40gD2jxpJ9PelNnvvWq7tpnTueGEVhSBpjyRosizB1MRtMqs0HgH
-	 OeRm9wFuHUTQ92bHqp+Qep9cqVOHtgIRkV6S/HRAgb0K/uRMdJ6gSTM+BpX9Zr8Gt0og0
-	 5ujwqBCXKs1TbGWm8rAyTDfx9NIJzJsMwX/yF9Uthq0/gChDC5cuRqNvUUDdB0VrRznkv
-	 k1f167wIesqosbYR5XVxVRYCniLqI7YcfqnzuCbIkTLHkfA7bSYJEHXfqMTfA9+1sRg==
+	t=1792681055;
+	b=j8SLBBb1/kKV0blqaqy50yHbm5zKOEUx3NM51ldtKWDLx5YYHSvzge1SHVI8QpORrSpz
+	 Gk5FuyZTOiLG93SVoIGmLb9BvqX+6EAL3wDuiIn1Rk02N4/4YuqeW5E5yL95/E6w9L/dD
+	 GD5NDNTwwQFz7hPiSi5r6GPthhOcPAv0H2EfbuY5Ajmx4DkDS2Y8nPJzxCxUy8RFbInvm
+	 UIgr6xleil/6mWair4i2Botc3h4TMIZEhUNjzkvjisYi/8IkuwPbIF+84tq06iQeUMdxm
+	 MLXXXT+DPaADmfTF/sG3YT5gkJ389zr6krkNdv4mHvQF+80Olzx3+H3UDHvdZO35Kgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792681046;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lSB1/qSQSVVMedalAK+a89GjHY0Aht+HPppY0CFMDs4=;
-	b=kuOLq45bEGqKHPIbMQLITTh1Fpb4vssEUmJuFhmTlemurZCZhQOyPixewabafski/Tb6
-	 FwXiuBF9ozQXOxrmRfGZyTGOz9Y4fg2jKca6ieq+GJUeZv79fUo5BMMxwHwydwJhIL87G
-	 LO47e5QePywaPy0ysdhZefG1qNR41ljtIaj8Blg7DxRZuZ73rxkK/7v3aXcXEV0AhYrmZ
-	 yV0mi0yPDjZq8JxQg253MlpRLp9Frpfb1EPpqOG3DJD8yBO+bJAaGXKBPiMadCTGB6tZX
-	 EMIDOxPUcdSn0qZCGQu1k4qCTkTpflMRkjWX1cO5s7UOVu9wq+cBtxZ4Dhx0SgT0Ftg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792681055;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-GND-Sasl:X-GND-State:X-GND-Score:X-GND-Cause;
+	bh=8QuZtSGqXLr085dyK7y5RKTFc5UVxTXFjTZMMP+q+d8=;
+	b=aSTNjlAEo3VnqTjS1ces/uEefE7Qt/9IDN8IpiTdr6RKMkKdhe667yKPbim0MCkeDJem
+	 5zFLbXKRkuN7U9q+BcQjqxwH2E1S59OylCH1rULhMaA+K0fC39JU+xKr5s9HcJ0FEp21m
+	 jofNYCEps5rU7g7SpX62vsE6xvtsSq6zd4u6xAt3U5nFjvDaWmQmGApWEjbU8aexy3Lzj
+	 DfrInoqzXREf67a4fvDPgMzMogYmDejeGRIAZlsj0/VAcfT/rarAn3ajb8S3WiX0W7XBw
+	 KcpjXen65mL+e8kYXNwcbuEq/bRxXEUEpiaWhJWNS6Y91LaE1ql4aeTnIdjCConrXwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Spa0GefT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=ghiti.fr;
+	spf=pass smtp.mailfrom=ghiti.fr;
+	arc=none smtp.remote-ip=217.70.183.198
+Received: from relay6-d.mail.gandi.net (relay6-d.mail.gandi.net [217.70.183.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CD9606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:57:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Spa0GefT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2871F000C4
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:57:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792681045;
-	bh=lSB1/qSQSVVMedalAK+a89GjHY0Aht+HPppY0CFMDs4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Spa0GefTgAjge9vB8SL83iquJ2oDN2KWw2R3G9fzs84ZGdYnoKpqD0E0WRFUpkx+1
-	 QHPKEPPx++wBzTPu59hvZC8s4TlBKUc9dg6yGOehjRAWtH/KnKJU8WOs9Re9EP8vQQ
-	 1rx+Evuw1DjIanV+dsaSXQqanlRadUKfMuWL/D5ylnpYDfB+WNiXOZ2VerSc0wuRj7
-	 6YGSyInixYz0Ier+DO/lGxehRL5qAEE4iCknO9k/pnqfC7DQZKL+4W+ts1Zs8lrGAi
-	 /xk8DxVUOUtz9O+YnqcZvDxygb2LLjYxhs/lEHiPIu68I9pJcSIBt44Y7JEj+8oTMa
-	 0F3BL7FP4d7Nw==
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6d68de53053so959113eaf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:57:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzoqyXkRP47GN8/mgDWet9jVbHzRlAClHEeiXQgrLhEGHoBBAicWRREHDqO68z5GXR11WT50uxhdHp48CA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKZZTHHibM3MK+d5CHI/sd+i/rRSPzUmxhVou/sEyT1YZKPC/tK
-	rNmo4RNHRgWSoAz3bqZiLYhGKW+rJ2m4fSpt7QYec7TiV5dt54OhyxL1OYWFMEE/8QWpBghlXv5
-	sYypbufCKuU1HBmXxO6myIossQyJGGsU=
-X-Received: by 2002:a05:6820:4b81:b0:703:b7b6:3093 with SMTP id
- 006d021491bc7-709413c4d40mr2962513eaf.65.1792681044587; Thu, 22 Oct 2026
- 07:57:24 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C62606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:57:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7C62606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ghiti.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ghiti.fr
+Received: by mail.gandi.net (Postfix) with ESMTPSA id A2DCE3EC4B;
+	Thu, 22 Oct 2026 14:57:21 +0000 (UTC)
+From: Alexandre Ghiti <alex@ghiti.fr>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Kairui Song <kasong@tencent.com>,
+	Barry Song <baohua@kernel.org>,
+	Chris Li <chrisl@kernel.org>,
+	Kemeng Shi <shikemeng@huaweicloud.com>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Youngjun Park <youngjun.park@lge.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Alexandre Ghiti <alex@ghiti.fr>
+Subject: [RFC PATCH 1/1] mm/swap: allocate contiguous swap slots for a reclaim batch
+Date: Thu, 22 Oct 2026 16:54:46 +0200
+Message-ID: <20261022145615.2184343-2-alex@ghiti.fr>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261022145615.2184343-1-alex@ghiti.fr>
+References: <20261022145615.2184343-1-alex@ghiti.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,76 +70,389 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261022144755.65025-1-shawnq1@163.com>
-In-Reply-To: <20261022144755.65025-1-shawnq1@163.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Thu, 22 Oct 2026 16:57:13 +0200
-X-Gmail-Original-Message-ID: <CAL4WiipjAy2M5kok3bkB1Ny=9ryJvrWkt1jz_awuSoPY3Nx_vQ@mail.gmail.com>
-X-Gm-Features: AclHuK_ZymQtBac5SLmvPX2cY8IcEsAwKR4_uxsEP0hW1yO_0q-mPrvDW3qvIJ4
-Message-ID: <CAL4WiipjAy2M5kok3bkB1Ny=9ryJvrWkt1jz_awuSoPY3Nx_vQ@mail.gmail.com>
-Subject: Re: [BUG] net/sched: malformed UFO GSO geometry can soft-lock DRR dequeue
-To: shaos <shawnq1@163.com>, Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: Jiri Pirko <jiri@resnulli.us>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	security@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-GND-Sasl: alex@ghiti.fr
+X-GND-State: clean
+X-GND-Score: -100
+X-GND-Cause: dmFkZTGGwXX605MRFxxh77C8bVeV69JHrqX9kX+xnkh/Rce3XBZErtXJpq+vDes15AACTqiSg4nggE5KsHicePpOkfxRVMG+ns0HbhmD4wcZPbz8/ScBKbWCgHGKJ+5MzLpLlnvrWbKAbFAm/ftl1/xiDURFwxp26OJKi1asm5yfuFdWJwuLlKp0u4vZlodO8kiarkRvwOdQoaDgzusQVGc1ptc4Wl1OGgbRiWmWuQCIp8MearuWAJP/C1l6wTrTn0EYOs2cXx+oJKNqFkp3hsf2vlAzBlvYkdVg01IprBEkFy1Y3r0jXoFhT/9i27g08AhG9wR0xsKDRH7QO3FoU5NUr73SOp3n2lIbRmw8I3OJUGA4+epLB5coGnASodirmpWsFVkFcdUoqDvN7oDQbmFQ0pMMfciNNYN9kic7qMxPhdQasDcZ3v30F6vlXlqBrpnm9PXaRVTKBjVCGis9tGIYoPocMtzyeqklwyKTs3MKm8mD3tb3AA9hvyeS301LysOlDIffdsolQHn1v6k7/JwKyNKcGrpSV74y3qVL150/rL+UkJ4tUZmiksBJBLfv/AH5GhIRH0EQ0GkaZ3zmi4Z5v1OByXAb1oDAD/nxIemkeGb/BFF1dupSZdRprz4iw7cfZgVEJt53iA6BgBSl7o86iTFE6NAu/RaTSlJOdp6VfqK6Vg
 
-Le jeu. 22 oct. 2026 =C3=A0 16:48, shaos <shawnq1@163.com> a =C3=A9crit :
->
-> Hello,
->
-> A PACKET_VNET_HDR AF_PACKET send supplies UFO GSO with gso_size=3D1 and h=
-dr_len=3D65532 for a 524275-byte frame. qdisc_pkt_len_segs_init() computes =
-an accounted length of 4,294,574,091 bytes. With DRR quantum 256, the deque=
-ue path needs about 16.8 million deficit refills before it can dequeue the =
-skb, keeping the CPU in the qdisc path long enough to trigger the soft-lock=
-up watchdog.
->
-> HEAD commit:    c03c1a14507dfaf8b856c2608f9ac216021fc222
-> git tree:       30fd2ef82912c26cf3a58ad0ba6afc375fa851ac
-> source version: Linux 7.3.0, local master
-> compiler:       gcc 11.4.0, GNU ld 2.38
->
-> console output:
-> https://gist.githubusercontent.com/shaos26/8a4f7f445aa23601bfe8e04f9c6a52=
-02/raw/f4ca89881f7b8163ddea72fbc54b204385142bb8/console-output.txt
-> user-namespace positive output:
-> https://gist.githubusercontent.com/shaos26/8a4f7f445aa23601bfe8e04f9c6a52=
-02/raw/14de8e3a06e7e73c540ebf408e73d301bae3922d/userns-positive.log
-> kernel config:
-> https://gist.githubusercontent.com/shaos26/8a4f7f445aa23601bfe8e04f9c6a52=
-02/raw/6ea0e3da68f1e239d565c64f7906d0f9c73bf784/kernel-config.txt
-> reproducer sources:
-> https://gist.githubusercontent.com/shaos26/e2add470a38b7aab41f2b79ef021ac=
-cf/raw/7153646b9233fa53aca81c9af879d48e8f95dd80/poc.c
-> https://gist.githubusercontent.com/shaos26/e2add470a38b7aab41f2b79ef021ac=
-cf/raw/e8acddd986023c10a43b5106b4734a456a063deb/drop_priv.c
->
-> Build the tested kernel with the attached configuration and boot a dispos=
-able QEMU guest. Compile the linked userspace reproducer and privilege-drop=
- helper, then run the AF_PACKET/VNET_HDR test from a fresh user/network nam=
-espace.
->
-> Impact and prerequisites:
-> A process with only namespace-scoped CAP_NET_ADMIN and CAP_NET_RAW can ke=
-ep a CPU in the DRR dequeue path long enough to trigger a host soft-lockup.=
- With softlockup_panic=3D1, as used in the test configuration, the watchdog=
- panics the kernel. This is a local denial-of-service issue; no memory corr=
-uption or privilege escalation is demonstrated.
->
-> Validation: Two fresh positives reproduced the soft lockup, including one=
- run from an unprivileged UID mapped to namespace UID 0. The same-frame non=
--GSO control completed in milliseconds.
->
-> Thanks,
->
+Reclaim allocates swap slots one folio at a time and only then batches
+the writes, merging folios whose slots happen to be contiguous. Order-0
+allocations scan the nonfull clusters before taking a free cluster, so
+once frees have left holes in otherwise full clusters, a batch of LRU-
+adjacent folios is scattered over those holes and written with many
+small requests. Since swap slots are freed on exclusive write faults,
+this happens with any workload that rewrites swapped out memory.
 
-Related recent work:
+Before swapping out a batch, record how many pages of each small order
+need a slot, and make those allocations follow contiguous free slots,
+SWAP_CLUSTER_MAX at a time: in a nonfull cluster if one has them,
+otherwise in a free cluster. When neither has them, the rest of the
+batch fills the holes as before. Nothing is reserved.
 
-commit 8f735d64382dcf162f4276d6699d03ad2f859c0b
-Author: Jamal Hadi Salim <jhs@mojatatu.com>
-Date:   Tue Aug 25 04:14:03 2026 -0400
+Signed-off-by: Alexandre Ghiti <alex@ghiti.fr>
+---
+ mm/shmem.c    |   2 +
+ mm/swap.h     |  10 +++
+ mm/swapfile.c | 211 +++++++++++++++++++++++++++++++++++++++++++++++++-
+ mm/vmscan.c   |  11 ++-
+ 4 files changed, 229 insertions(+), 5 deletions(-)
 
-    net/sched: bound qdisc_pkt_len to prevent qdisc soft lockup
+diff --git a/mm/shmem.c b/mm/shmem.c
+index fd0953d55fd6..1415aeb72cf3 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -1850,6 +1850,8 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
+ 		folio_test_set_dirty(folio);
+ 		if (split_folio_to_list(folio, folio_list))
+ 			goto redirty;
++		if (folio_list)
++			folio_alloc_swap_split(1 << order);
+ 
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ 		if (order >= HPAGE_PMD_ORDER) {
+diff --git a/mm/swap.h b/mm/swap.h
+index d5bf21f517dc..c52ad5ee262b 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -243,6 +243,8 @@ extern int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp);
+  *
+  * folio_put_swap(): does the opposite thing of folio_dup_swap().
+  */
++void folio_alloc_swap_prepare(struct list_head *folios);
++void folio_alloc_swap_split(unsigned int nr_pages);
+ int folio_alloc_swap(struct folio *folio);
+ int folio_dup_swap(struct folio *folio, struct page *page);
+ void folio_put_swap(struct folio *folio, struct page *page);
+@@ -363,6 +365,14 @@ static inline struct swap_info_struct *__swap_entry_to_info(swp_entry_t entry)
+ 	return NULL;
+ }
+ 
++static inline void folio_alloc_swap_prepare(struct list_head *folios)
++{
++}
++
++static inline void folio_alloc_swap_split(unsigned int nr_pages)
++{
++}
++
+ static inline int folio_alloc_swap(struct folio *folio)
+ {
+ 	return -EINVAL;
+diff --git a/mm/swapfile.c b/mm/swapfile.c
+index c3288910b3e3..67161e184905 100644
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -120,6 +120,8 @@ atomic_t nr_rotate_swap = ATOMIC_INIT(0);
+ struct percpu_swap_cluster {
+ 	struct swap_info_struct *si[SWAP_NR_ORDERS];
+ 	unsigned long offset[SWAP_NR_ORDERS];
++	/* Pages of the current reclaim batch still to allocate, per order */
++	unsigned int batch_left[SWAP_NR_ORDERS];
+ 	local_lock_t lock;
+ };
+ 
+@@ -916,6 +918,41 @@ static bool cluster_scan_range(struct swap_info_struct *si,
+ 	return true;
+ }
+ 
++/*
++ * First offset in [@start, @end), aligned to @nr_pages, followed by
++ * @nr_contig free slots. Reclaimable swap cache does not count as free.
++ */
++static unsigned long cluster_find_free_contig(struct swap_cluster_info *ci,
++					      unsigned long start,
++					      unsigned long end,
++					      unsigned int nr_pages,
++					      unsigned int nr_contig)
++{
++	unsigned long offset, contig_start = start;
++
++	if (cluster_is_empty(ci))
++		return start + nr_contig <= end ? start : SWAP_ENTRY_INVALID;
++
++	for (offset = start; offset < end; offset++) {
++		if (!swp_tb_is_null(__swap_table_get(ci, offset % SWAPFILE_CLUSTER))) {
++			contig_start = ALIGN(offset + 1, nr_pages);
++			offset = contig_start - 1;
++			continue;
++		}
++		if (offset + 1 - contig_start >= nr_contig)
++			return contig_start;
++	}
++
++	return SWAP_ENTRY_INVALID;
++}
++
++static bool cluster_slots_free(struct swap_cluster_info *ci,
++			       unsigned long offset, unsigned int nr_pages)
++{
++	return cluster_find_free_contig(ci, offset, offset + nr_pages,
++					nr_pages, nr_pages) == offset;
++}
++
+ static bool __swap_cluster_alloc_entries(struct swap_info_struct *si,
+ 					 struct swap_cluster_info *ci,
+ 					 struct folio *folio,
+@@ -1042,6 +1079,59 @@ static unsigned int alloc_swap_scan_list(struct swap_info_struct *si,
+ 	return found;
+ }
+ 
++/* Larger folios already make large enough write requests on their own */
++#define SWAP_BATCH_MAX_ORDER	(ilog2(SWAP_CLUSTER_MAX) - 1)
++
++static inline unsigned int swap_batch_contig(unsigned int left)
++{
++	return min_t(unsigned int, left, SWAP_CLUSTER_MAX);
++}
++
++/*
++ * Like alloc_swap_scan_list(), but only allocate at the start of @nr_contig
++ * free slots. Order 0 clusters without them move to the frag list until a
++ * slot is freed, larger orders stay nonfull as the folio may still fit.
++ */
++static unsigned int alloc_swap_scan_list_contig(struct swap_info_struct *si,
++						struct list_head *list,
++						struct folio *folio,
++						unsigned int nr_contig)
++{
++	unsigned int found = SWAP_ENTRY_INVALID, order = folio_order(folio);
++	struct swap_cluster_info *ci;
++	unsigned long start, offset;
++	LIST_HEAD(skipped);
++
++	while ((ci = isolate_lock_cluster(si, list))) {
++		start = cluster_offset(si, ci);
++		offset = SWAP_ENTRY_INVALID;
++		if (SWAPFILE_CLUSTER - ci->count >= nr_contig)
++			offset = cluster_find_free_contig(ci, start,
++							  start + SWAPFILE_CLUSTER,
++							  1 << order, nr_contig);
++		if (offset == SWAP_ENTRY_INVALID) {
++			if (order)
++				move_cluster(si, ci, &skipped,
++					     CLUSTER_FLAG_NONFULL);
++			else
++				relocate_cluster(si, ci);
++			swap_cluster_unlock(ci);
++			continue;
++		}
++		found = alloc_swap_scan_cluster(si, ci, folio, offset);
++		if (found)
++			break;
++	}
++
++	if (!list_empty(&skipped)) {
++		spin_lock(&si->lock);
++		list_splice_tail(&skipped, list);
++		spin_unlock(&si->lock);
++	}
++
++	return found;
++}
++
+ static void swap_reclaim_full_clusters(struct swap_info_struct *si, bool force)
+ {
+ 	long to_scan = 1;
+@@ -1109,6 +1199,7 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 	struct swap_cluster_info *ci;
+ 	unsigned int order = likely(folio) ? folio_order(folio) : 0;
+ 	unsigned int offset = SWAP_ENTRY_INVALID, found = SWAP_ENTRY_INVALID;
++	unsigned int left;
+ 
+ 	/*
+ 	 * Swapfile is not block device so unable
+@@ -1129,7 +1220,14 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 		if (cluster_is_usable(ci, order)) {
+ 			if (cluster_is_empty(ci))
+ 				offset = cluster_offset(si, ci);
+-			found = alloc_swap_scan_cluster(si, ci, folio, offset);
++			/* The batch's contiguous slots are used up */
++			if (likely(folio) &&
++			    this_cpu_read(percpu_swap_cluster.batch_left[order]) &&
++			    !cluster_slots_free(ci, offset, 1 << order))
++				swap_cluster_unlock(ci);
++			else
++				found = alloc_swap_scan_cluster(si, ci, folio,
++								offset);
+ 		} else {
+ 			swap_cluster_unlock(ci);
+ 		}
+@@ -1148,6 +1246,21 @@ static unsigned long cluster_alloc_swap_entry(struct swap_info_struct *si,
+ 			goto done;
+ 	}
+ 
++	/* Keep a reclaim batch on contiguous free slots, not in small holes */
++	left = likely(folio) ?
++	       this_cpu_read(percpu_swap_cluster.batch_left[order]) : 0;
++	if (left && order < PMD_ORDER) {
++		found = alloc_swap_scan_list_contig(si, &si->nonfull_clusters[order],
++						    folio, swap_batch_contig(left));
++		if (found)
++			goto done;
++		found = alloc_swap_scan_list(si, &si->free_clusters, folio, false);
++		if (found)
++			goto done;
++		/* No contiguous slots left, allocate the rest of the batch as usual */
++		this_cpu_write(percpu_swap_cluster.batch_left[order], 0);
++	}
++
+ 	if (order < PMD_ORDER) {
+ 		found = alloc_swap_scan_list(si, &si->nonfull_clusters[order], folio, true);
+ 		if (found)
+@@ -1390,7 +1503,15 @@ static bool swap_alloc_fast(struct folio *folio)
+ 	if (cluster_is_usable(ci, order)) {
+ 		if (cluster_is_empty(ci))
+ 			offset = cluster_offset(si, ci);
+-		alloc_swap_scan_cluster(si, ci, folio, offset);
++		/* The batch's contiguous slots are used up */
++		if (this_cpu_read(percpu_swap_cluster.batch_left[order]) &&
++		    !cluster_slots_free(ci, offset, 1 << order)) {
++			swap_cluster_unlock(ci);
++			this_cpu_write(percpu_swap_cluster.offset[order],
++				       SWAP_ENTRY_INVALID);
++		} else {
++			alloc_swap_scan_cluster(si, ci, folio, offset);
++		}
+ 	} else {
+ 		swap_cluster_unlock(ci);
+ 	}
+@@ -1729,6 +1850,86 @@ static int swap_dup_entries_cluster(struct swap_info_struct *si,
+ 	return err;
+ }
+ 
++static void swap_alloc_prepare(unsigned int order, unsigned int nr)
++{
++	unsigned int nr_contig = swap_batch_contig(nr);
++	struct swap_cluster_info *ci;
++	struct swap_info_struct *si;
++	unsigned long offset;
++	bool keep = false;
++
++	local_lock(&percpu_swap_cluster.lock);
++	if (nr <= (1 << order)) {
++		this_cpu_write(percpu_swap_cluster.batch_left[order], 0);
++		goto out;
++	}
++	this_cpu_write(percpu_swap_cluster.batch_left[order], nr);
++
++	/* Keep the cursor if enough free slots follow it */
++	si = this_cpu_read(percpu_swap_cluster.si[order]);
++	offset = this_cpu_read(percpu_swap_cluster.offset[order]);
++	if (si && offset && get_swap_device_info(si)) {
++		ci = swap_cluster_lock(si, offset);
++		if (cluster_is_usable(ci, order)) {
++			if (cluster_is_empty(ci))
++				offset = cluster_offset(si, ci);
++			keep = offset % SWAPFILE_CLUSTER + nr_contig <=
++			       SWAPFILE_CLUSTER &&
++			       cluster_find_free_contig(ci, offset,
++							offset + nr_contig,
++							1 << order,
++							nr_contig) == offset;
++		}
++		swap_cluster_unlock(ci);
++		put_swap_device(si);
++	}
++	if (!keep)
++		this_cpu_write(percpu_swap_cluster.offset[order],
++			       SWAP_ENTRY_INVALID);
++out:
++	local_unlock(&percpu_swap_cluster.lock);
++}
++
++/**
++ * folio_alloc_swap_prepare - prepare swap allocation for a reclaim batch
++ * @folios: list of folios reclaim is about to swap out
++ *
++ * Record how many pages of each small order the batch will swap out, so
++ * that their slots are allocated contiguously. Nothing is reserved.
++ */
++void folio_alloc_swap_prepare(struct list_head *folios)
++{
++	unsigned int max_order = min(SWAP_BATCH_MAX_ORDER, SWAP_NR_ORDERS - 1);
++	unsigned int nr[SWAP_BATCH_MAX_ORDER + 1] = {};
++	struct folio *folio;
++	unsigned int order;
++
++	if (!total_swap_pages)
++		return;
++
++	list_for_each_entry(folio, folios, lru) {
++		if (!folio_test_swapbacked(folio) || folio_test_swapcache(folio))
++			continue;
++		order = folio_order(folio);
++		if (order <= max_order)
++			nr[order] += 1 << order;
++	}
++
++	for (order = 0; order <= max_order; order++)
++		swap_alloc_prepare(order, nr[order]);
++}
++
++/**
++ * folio_alloc_swap_split - account for a large folio split by reclaim
++ * @nr_pages: number of order-0 folios the split produced
++ */
++void folio_alloc_swap_split(unsigned int nr_pages)
++{
++	local_lock(&percpu_swap_cluster.lock);
++	this_cpu_add(percpu_swap_cluster.batch_left[0], nr_pages);
++	local_unlock(&percpu_swap_cluster.lock);
++}
++
+ /**
+  * folio_alloc_swap - allocate swap space for a folio
+  * @folio: folio we want to move to swap
+@@ -1771,6 +1972,12 @@ int folio_alloc_swap(struct folio *folio)
+ 	local_lock(&percpu_swap_cluster.lock);
+ 	if (!swap_alloc_fast(folio))
+ 		swap_alloc_slow(folio);
++	if (folio_test_swapcache(folio)) {
++		unsigned int left = this_cpu_read(percpu_swap_cluster.batch_left[order]);
++
++		this_cpu_write(percpu_swap_cluster.batch_left[order],
++			       left > size ? left - size : 0);
++	}
+ 	local_unlock(&percpu_swap_cluster.lock);
+ 
+ 	if (!order && unlikely(!folio_test_swapcache(folio))) {
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index ea2d4c8d1890..86245036872c 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1175,6 +1175,8 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 	memset(stat, 0, sizeof(*stat));
+ 	cond_resched();
+ 	do_demote_pass = can_demote(pgdat->node_id, sc, memcg);
++	if (sc->gfp_mask & __GFP_IO)
++		folio_alloc_swap_prepare(folio_list);
+ 
+ retry:
+ 	while (!list_empty(folio_list)) {
+@@ -1378,9 +1380,11 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 				 * We can free the unmapped pages without IO.
+ 				 */
+ 				if (data_race(!list_empty(&folio->_deferred_list) &&
+-				    folio_test_partially_mapped(folio)) &&
+-				    split_folio_to_list(folio, folio_list))
+-					goto activate_locked;
++				    folio_test_partially_mapped(folio))) {
++					if (split_folio_to_list(folio, folio_list))
++						goto activate_locked;
++					folio_alloc_swap_split(nr_pages);
++				}
+ 			}
+ 			ret = folio_alloc_swap(folio);
+ 			if (ret) {
+@@ -1393,6 +1397,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 				/* Fallback to swap normal pages */
+ 				if (split_folio_to_list(folio, folio_list))
+ 					goto activate_locked;
++				folio_alloc_swap_split(nr_pages);
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ 				if (nr_pages >= HPAGE_PMD_NR) {
+ 					count_memcg_folio_events(folio,
+-- 
+2.53.0-Meta
+
