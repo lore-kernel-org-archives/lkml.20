@@ -1,95 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.65
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792672002;
-	b=KXtG9KJbU134ZStQxMdftX9DV15ujvIYgLMELvQI+IeJEMHBXBiugLvQgZrzYd1HWRq+
-	 QB1Jm3x+zB3ifd6mlv/r8DUO/FJ2wBXWewe8fs3VKmHx7LfQOAo0WCuQkNIyQvqhmavWE
-	 ZSJdbW9o0OZu7eTqR/nziUI9v7tcD/zGFNjG6hbu/hvWRVKA7QgfJfTCnfUb8Dz31kqCZ
-	 sBIKW4N4YB2ZUDL0xWPaoLkv7io5BayTW2ICeh7OM+wKzvxFEMqvqgFP19e5+Y3Y2KA1a
-	 Q12J7AQSQU8v9b6ZXHMKTTBGrHN14x/5Fdbw6TvIA961tJmilDxSddZWDs73NScq1AA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792672002;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
-	b=j247MA2vvb1/2ox5Jk2he+oq8NEetBrlMpeGmz1i1HCXFCdWckzD/ljEGA10qIXqqdRj
-	 IS3pSAs5cLEd5KR/g7RRLsBbNlKFd4faLsgybS5wUElrKxlwHz//qdGksk10CWuEOHKwa
-	 WB3Vi3lRnCofFz3gx9eAHMTM72Hl3+bNfj/SiIcBnJA6X+dCunKMnXQQEf47XmhtaIpPK
-	 sehSZxCarB8XbILzdTT4mJSl5Yp4alf943R7A/FauJhFJEUYIHSnM235aYHt6KIH/rtxd
-	 JFDVNAwjKtHzfCizLFV8EIxtTluRw/LgExCEPfRL+GaTmndirbHWFTcf+mtWaSgyz5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oWkkhing;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.65
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013065.outbound.protection.outlook.com [40.93.196.65])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.132
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792672021;
+	b=AugOA6ZbatXqcLE9Ph9OLt8Gxbe/vURfZ0lpUDlpKmr9BhFOxAjXectjWmCuJYD5i08b
+	 jhuJg0KE9dmNtItkI7CbckP/mk9Rsd4Uo4HtkHd2KvBEpsxgx4jNmGzqpOSxW0/OJ/qFw
+	 j1MAXz0IxAyzAZI3w6JUcOPIqhfpmy9WrUQ/ax5qqcK4UmgfPAa7e3Hrm0kuQYnTr5kKr
+	 0TtRIu59MRY1B1Zbzc9tBBg6Uxlv+TFWPKJa1GSp2eLcABV+4jP6dmJKSYyV4V3LMVaoj
+	 koKPt1/GvRolHLDG5cOVb+UFBQnpAHfLbKB1ZoY1S0VmOzVZ29VNoKpZV0uAXwG0VAQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792672021;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zHtsQLHE6ovq3l4Z/94Incy1hLkuwupHe9qWX8o4Dws=;
+	b=jX9wmlKtMhLbs71cJj/my8M//wOP3Vtv7o7NCB7uyrcHMTrOuXg0ZFI3tbfmWPWvV6WR
+	 SyrI4V3lrkgEo7a3yOKwy983NGaGmf4MBZZY5akVZUQoQYapkkow+C+DB9IJ6YmMlWjyz
+	 6nnjM6NIKjJ5pXSacWG2S24DzOS9CH5vRCymRrECKQm+eWWQILhoe8l7oj/zwH/75IOlD
+	 YJuzPIlN4PYfK3INiw1EeY5jif80zlyb70N6A9wszfPwKPsV0bgwqExl18FxhWgZQ0tHi
+	 OJkXfctSYNMRO9IBrGbcDE/9J9CsKyjN/kJFdgolo5ys9RGkg2GiqORC2ba2rC99efw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LdmSZwmm;
+	arc=none smtp.remote-ip=115.124.30.132
+Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFDF8606A319;
-	Thu, 22 Oct 2026 12:26:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFDF8606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EB0606A319;
+	Thu, 22 Oct 2026 12:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1EB0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=oWkkhing
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jCyrJwn9xZPVbY3BhKOV4zbHZfogu86Kq6sOnf9RTvco1DYYy7ypftOIffE187VG9DZZfWTObj2xYubb2UVjhoswQ5lwiucTww+K53D5vTYaRZ7B0oES4NOgKZ+JjJIysDEsRXr73/F5Za6H87Anbz5s/kLkowzG8Em2CRhd/C4r2oDYFTGD8eZP1DZBH06ZtRl0ArfZOmnymHglvHFv2uJBi/65Kkv8LsxR+8pEOeiv7a0mdZDdQbvtxku2DuJ5alEDID9kZYEqB97mqHgD9+F4csm8pqcz+BuKSf+MNBbbQ/bDrxSkKKdxhPeZHgwXyFSp6RHNaks1wSgALhWH0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
- b=W79sAQm2b0Ki0ojQnb6nV4iyiPY1cSNkUROS+bFb9ZnkgQ7Srn+1pMzJ0JKiQBH7xFusoVbjMc7CEslLT28o1gVhHfQc8si/AH/sacN6Spmc/LsgIvltQvixK+FpsYOMCpfEKrNt3fmQ//dT15zVVCOAdJEOpTzhvPDwY/t2+O7Xf6DrINWeHkKXX6V8AW5/02Hg+XtD3PEl6wn7g5M9KHtHE8CH2luMb+yiwjc2S/zHHHWgIe0xJiVHPgawKNCkq1WoWSq++sTnN1LAuJMBnUZOIJktjM6R+5VCLw/TunZXZvy5AHxJHf8pcJkVt0wRdLCxVByKt7hTDuYFJRL0bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zOefd6k+NFCbfCkfEo1k7OaGQiDwLvUPzLygZtT/7cs=;
- b=oWkkhingT8ySPltDZP1mj6RbcJk2FDzw+VOjeJzA9vllTinr6KSx/mUyoW7gkn03WSFepCmKT5rAMl08jjl+NXbi9p1nE0wE0K8tReDGvpBF4tC8OLwLj76+v9DoKdrQuWofgl8l/3EUdkvexaWrPI2SEjcP45qj+rJ8UErRZjs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by LV2PR12MB332773.namprd12.prod.outlook.com (2603:10b6:408:3b4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.16; Thu, 22 Oct
- 2026 12:26:38 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 12:26:38 +0000
-Message-ID: <bcb4f2fd-dec9-4d2f-869e-a1578843ab84@amd.com>
-Date: Thu, 22 Oct 2026 14:26:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dma-buf: Add DMA_BUF_IOCTL_SET_RELEASE_EVENTFD
-To: Val Packett <val@invisiblethingslab.com>,
- Sumit Semwal <sumit.semwal@linaro.org>, Philipp Stanner <phasta@kernel.org>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20261021093533.1990028-1-val@invisiblethingslab.com>
- <6e45ae81-0319-4857-a96e-159509c1b140@amd.com>
- <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a1057af1-2390-41c0-ac57-4ab9ef0fe31d@invisiblethingslab.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BN0PR08CA0017.namprd08.prod.outlook.com
- (2603:10b6:408:142::24) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=LdmSZwmm
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1792672014; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=zHtsQLHE6ovq3l4Z/94Incy1hLkuwupHe9qWX8o4Dws=;
+	b=LdmSZwmmUvNTV5MQg4pdp7LrnoQ8ke0nmQS0zy3EK6LQB/EqAkw1BhTpUzxanhOUC8vaFD9VQEhWot0/EwhJhSZI3eOBt980UXni9FbhPLHtJ/Kz9JkVgrNjpilrNHBDNdr935hsH4zg1EaauTkOUDpKlRDSuio01+nu3PwbDdg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R311e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=libaokun@linux.alibaba.com;NM=1;PH=DS;RN=10;SR=0;TI=SMTPD_---0XDJG62f_1792671985;
+Received: from x31h02109.sqa.na131.tbsite.net(mailfrom:libaokun@linux.alibaba.com fp:SMTPD_---0XDJG62f_1792671985 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 22 Oct 2026 20:26:54 +0800
+From: Baokun Li <libaokun@linux.alibaba.com>
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	jack@suse.cz,
+	yi.zhang@huawei.com,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ext4: skip eof zeroing when the zero range covers the eof block
+Date: Thu, 22 Oct 2026 20:26:25 +0800
+Message-ID: <20261022122625.1744363-1-libaokun@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <sashiko-outbox-181121@kernel.org>
+References: <sashiko-outbox-181121@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,98 +67,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|LV2PR12MB332773:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7376ce5-ab9d-4478-ee3f-08df3037b7e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|56012099006|11063799006|4143699003|261021121427099003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	/bOFNHgbC7iJH5Um5N8oNN/+JLJIUnM7+CmH7C68EDn34OgtN0LmSLRcjeefMoVZZJdMPjVC2E64gBzILgNGlogfihJmo0F33oRHF/giixPzbbqA2uVNUXJismFFy3XkJ/jDglgxKy73syaw2+bjKVSojfxDUixDUg4oSUCGSphbvz7yewGlKzqrJuJPJqzZJRl18jDDMVqYz2zreh6Qll16he921g5+pX/4ti3lalUetioYidcaOXYisb8a26/A/orohD03Z1fxEyYV3QKo/fRfEzceKJWzv1+nn6FacH0maLwMBMzbvyilEqCO0SXk3mMcnUQq9EiJ4l9zbbgiPZwiEvZhcShm3vlM+dTyD04XBC1JfE17tOlif3z0cN9ydFMOEV/99MLACuqBdKks0YcFHecObI9bkhUKC0AdbNRoYupD4U3rPSHF9TT3Q2cRpNRCgY0Us6AH0YlPX5PTnO+3icYdgLNDlt3XFQbu5B63Z3lr6otF4DfxGpR42RW7VydHbJWCC9vJvXG5FGm7gx9GEHqTalLYiFYow6KjDCAPuSdgVcj1/rX/hvWQY8WSmJ6/bm6Wgx3m/LbuEjwygmOojhAloQMxqtdvnUGQ4jkjSdrdlMX6nxHvplrxwV1ShgdxTc+wcmQwj76bWDLWKL05KZzk+xh0bVo/laKs0Zs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(11063799006)(4143699003)(261021121427099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?QWRFbnc1R0JuSXl2SlFHWXF4N2pRSEczMGNDd1RQaTRaWStkNlFhZ2ZCcHIv?=
- =?utf-8?B?UXNFaHlzdEtKUE11UExwUnBSVENPMlNOc0JXYzFyQ3owUS9sdUQyWW5WaHBS?=
- =?utf-8?B?T0xuL0ZoeWV5d0ttK0RaRTRmZmU5WGJFVGZZM3BlNXpvdHVGYWxBd3Z6RHQy?=
- =?utf-8?B?VVRtR2psMHVTb2puWFg4TmF6TGhpOGs2WnlWckMrenpheGFsMjV1SXpmVytk?=
- =?utf-8?B?cFdQbHIrRWRIbGZLRXZVbDl4RjNiYlpKdFJuSDJyNUFnelRDOGIxS1d0Vmk5?=
- =?utf-8?B?aWoydGxVaEtwSlVUVUlmNklNbU90azAwUTBFL2ZvRGtLRnhvaTZGdG5CYy80?=
- =?utf-8?B?OWVsay9adjB3a2NsUUJKZ09ZRGNxTEkvN29ybFRXSkZCR29hK2RFeWwvSk9i?=
- =?utf-8?B?VERJSmVFMVIyT3NBRGRwVHMxRVFER1ZWb2dOTzFhWHV4clEreENORXVvV0pM?=
- =?utf-8?B?NnllQlY5YVFCOHkvUE9xc1Q4UVQ1TXBOWWZ2VFQrUUlaK1hhb0hkRXpHZW5u?=
- =?utf-8?B?VFZtSTk2SXF4aHBqOEozMkErd3pjYkU3c1pUbzZuYUdvTEJiRjYwQzlhS0Ja?=
- =?utf-8?B?WDZNdGlhMXVKYWUyN0tweGJ0b0pPa2xIYlFEQkg0a0VQK2RCL3pCWGhXYzNE?=
- =?utf-8?B?TUdULys5RU5BdEJuT0s5ckNXVUgxc2RtYUU3STdsL0J6dy9QTXNqcjRsbkhw?=
- =?utf-8?B?elkyaGpnUEtRLzQ1c3JvLzNIZWg0ai82ZTdEUXUxQWtYYmE0UDBwbnorNGht?=
- =?utf-8?B?WHk4SWdlTkJZbVUrV0VNMTRJYVVvdlJWVktWeEpmQ3BDVFVad3BsN0l6Um16?=
- =?utf-8?B?WUpocS9UTmd0QlVMeml6UTVNRzZQY0E3eW91MTFvRXIvU2ZOamp5KzhHMTBY?=
- =?utf-8?B?dU9ybEwwbzBXQVN1Vmh1SklRWHFZb2srcGw0clQ1YmRKdkRMb3FPcWpoTEVr?=
- =?utf-8?B?MEtZUE01bmFyTFcwRjhhaVFlWHIwMlluZGRxRmhxcWo2SnRFOVlNdnZocStI?=
- =?utf-8?B?Z3g3ZWVEUDFMUlV1U3pUTnFvbVhIdVhOc3Niem9sQWxiMU4vbHg4eHlKY24x?=
- =?utf-8?B?a3Z6YVdkZTZNbW1Kam1rMUN5VFJpa3hOREFLVVZvMFo4djVUcnJNV2Z0SURY?=
- =?utf-8?B?T203MWRvWnhyLzEvNVJOeEVtdjVwSC9NOGVET1JFKzZ6RXY3VmJQUmFvVVVG?=
- =?utf-8?B?bFQ3ejBYK0s3TEo5Ukg4bmdiYWdJYzJHZkxqd3J0amxQK3R2ZnlyTnVXTi9O?=
- =?utf-8?B?cnlzSUFlRzIycVNudVExZTFJK0Z6cmNLRS9CWngzcTNEdStNWkJSSFNGcHF1?=
- =?utf-8?B?cUhBSzR0LzNrYWJycTRtZnYwU0orUlV4NjZKaWRjUUxzVXZSYUR6S2NhUTdQ?=
- =?utf-8?B?bTVCN3M0aDliM0RmK0NZNHJtM1pTLzlRQUNoMnlYaWo0ZWFoK2RMWWR2U2Zt?=
- =?utf-8?B?bzcrcUI3bXNFR3RycG5SUTk1U2ZjelB6NWMwbGRkclE5SVVDcXg3K3J0UW5R?=
- =?utf-8?B?T0NrM296Mjdmd3ZBNm05dTNyK29hY2o1RXk3U2NQZGN1SFFRM3lSd2xZdVVD?=
- =?utf-8?B?dnFkdGxaZzRCRWFKMERpUW51ZGxIcGVNeDBmWUJCMzNtbGtBaWJGUGFEZmQx?=
- =?utf-8?B?NnRWSjM3UE4xTjV2L3ltRWNjMmFaODl2aUJGVWRsL1pDbFg3RTYxQkRmK01i?=
- =?utf-8?B?RWlyWmJBMmRiU09NUTl0Tndudm9jVHpmaDVVeEx1aDBva1lvbUdPWDJLRHNM?=
- =?utf-8?B?R01lR0U4RURmQzlNcU1jdElDenJ5Q0cyRHN2SFc4N3VDUTVQamNOREVSUXA3?=
- =?utf-8?B?WnVpaUg2R2xOYzNSNm5RUjN2eW04T1FCb3JoVTQzbzdEc0UwWE9meDUrcGtF?=
- =?utf-8?B?enN2N1Z5bGNUZjlsWnpUaFhlVHRleXFIaEcvMjIyRldpMHd5QnNxWlIzNm1n?=
- =?utf-8?B?d2lSdDl3STV0TExKSjN1a1Z2VnUzVWhFMnBBMTFlVUtJWVpMLzMxMW9vUW5B?=
- =?utf-8?B?SjU1ZFUrOUpkMDBsNTNWckRTamRXd2tzcFRGNjZXTlY2UTUrakp2YTZhajVa?=
- =?utf-8?B?bnc2d1lGYXRmdVJFQnE5M3NOUjRZeDBZc0lwRkpGbUZjTXgxMVZSN2ZHUXp5?=
- =?utf-8?B?M1Y0NDgxelBYczJpZEdFdnZqbzZYSHpVcHIzV3NHdXpDWTRUT085VE9mOHov?=
- =?utf-8?B?Z3FSbEo3SHRsU09aeU0ycTFZSStaSUs1MXBHc1JuSFhrQ245VXpjVnV6NmMv?=
- =?utf-8?B?RlB6eWVON3IwTGhCNDJVS1R1b1RSUlpyTVJGUmkxNnZyaHhUSDJQYUI0eVBu?=
- =?utf-8?Q?nKuaGYj/r5jzZsAgUF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7376ce5-ab9d-4478-ee3f-08df3037b7e7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 12:26:37.9700
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dsn8brhv/zbhh1IzzmziwOw6Arxdebij8BosNbrQ0hbe2ip5kp0LaxKQFKvyD9QB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB332773
+Content-Transfer-Encoding: 8bit
 
-On 10/21/26 22:16, Val Packett wrote:
-> 
-> On 10/21/26 10:43 AM, Christian König wrote:
->> [..]
->>> The buffer lifecycle coordination we need this for applies to KVM as well
->>> and it generally doesn't make sense to have this as a provider-specific
->>> thing since it's not related to the provider in any way, it's just
->>> something we want from dmabufs in general.
->> I wouldn't put that on the DMA-buf file descriptor where basically anybody can mess with it. That is just an recipe for trouble.
->>
->> The better approach seems to be putting it into the udmabuf_ioctl(), so that from the very beginning you add the eventfd which signals when the udmabuf is released.
->>
->> If we need that for more implementations than just udmabuf, we can potentially add it to dma_buf_export_info so that exporters can provide the eventfd file descriptor directly on creation.
-> 
-> Well, we already need it with both udmabuf and gntdev-dmabuf..
-> 
-> Involving the exporter sounds really annoying when it's not something exporter dependent really.. What if the policy is just "only one eventfd ever" i.e. the first call of the ioctl succeeds but later calls on the same dmabuf return an error?
+ext4_zero_range() drops the page cache of the range before allocating,
+to avoid exposing stale cached data.  However, the dropped page can be
+read back by the eof zeroing:
 
-No, exactly that is what I'm trying to avoid.
+  fallocate(fd, FALLOC_FL_ZERO_RANGE, 0, 4096)
+    ext4_zero_range()
+      ext4_truncate_page_cache_block_range(0, 4096)
+        truncate_pagecache_range(0, 4095)
+          truncate_inode_pages_range()
+            delete_from_page_cache_batch()  # drops the page
+      ext4_alloc_file_blocks(..., 4096)
+        ext4_block_zero_eof(512, LLONG_MAX) # not block aligned
+          ext4_load_tail_bh()
+             __filemap_get_folio(FGP_WRITEBEGIN | FGP_ACCESSED)
+             # FGP_CREAT reads the dropped page back
+             # zeroes [512,1024), marks the buffer dirty
+        ext4_map_blocks(...)  # converts the extent to unwritten
+        ext4_update_inode_size(4096)
 
-Nobody except the original creater should be able to insert an eventfd here.
+The bytes below the old EOF keep the stale disk content.  The page is
+left dirty, so read() returns old data while O_DIRECT reads zeroes, and
+a write into the same block is not converted and is lost until the page
+is dropped:
 
-Regards,
-Christian.
+  page [0, 4096), 1k block size, file ends at 512
+   0            512          1024                      4096
+   |--- data ----|-- tail ---|---- zero range ----------|
+   | old data    |           |                          |
 
-> That should remove the concern about one user messing with another's events (and avoid the concurrent replacement issue sashiko-bot warned about)..
-> 
-> Thanks,
-> ~val
-> 
+For example:
+
+  $ xfs_io -f -c "pwrite -S 1 0 512" f
+  $ sync
+  $ fallocate -z -o 0 -l 4096 f
+  $ xfs_io -c "pread -v 0 16" f  # old data, not zeroes
+
+FALLOC_FL_WRITE_ZEROES hits the same path.  ext4_issue_zeroout() zeroes
+the block on disk without updating the page cache, and the block stays
+written.  Therefore, writeback of the dirty page overwrites the zeroes
+with old data.
+
+Since the whole eof block is converted to unwritten or zeroed out,
+zeroing it here is redundant.  Therefore, skip the zeroing when this
+allocation covers the eof block entirely.
+
+Fixes: c4602a1d09ec ("ext4: move zero partial block range functions out of active handle")
+Fixes: f4265b8d32c4 ("ext4: add FALLOC_FL_WRITE_ZEROES support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Baokun Li <libaokun@linux.alibaba.com>
+---
+Changes since v1:
+ * Also skip the eof zeroing for FALLOC_FL_WRITE_ZEROES, which
+   reads the dropped page back in the same way (Reported by Sashiko).
+ * Corrected the Fixes tags: the ZERO_RANGE regression comes from
+   c4602a1d09ec, and f4265b8d32c4 introduced the WRITE_ZEROES one.
+ * Fixed the call chains in the commit message.
+
+v1: https://patch.msgid.link/20261022065342.3569693-1-libaokun@linux.alibaba.com
+
+This hunk does not apply to v6.17 - v7.0, where the eof zeroing is
+done inside the allocation loop; those trees need a manual backport.
+
+ fs/ext4/extents.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
+index ad0d80e33f60..b05015b8b62c 100644
+--- a/fs/ext4/extents.c
++++ b/fs/ext4/extents.c
+@@ -4639,8 +4639,15 @@ static int ext4_alloc_file_blocks(struct file *file, loff_t offset, loff_t len,
+ 	credits = ext4_chunk_trans_blocks(inode, len_lblk);
+ 	depth = ext_depth(inode);
+ 
+-	/* Zero to the end of the block containing i_size */
+-	if (new_size > old_size) {
++	/*
++	 * Zero to the end of the block containing i_size.
++	 * Loading the eof block back before it is converted to unwritten
++	 * or zeroed out may leave the page cache inconsistent with the
++	 * disk, and zeroing it is redundant, so skip it.
++	 */
++	if (new_size > old_size &&
++	    !(in_range(old_size >> blkbits, map.m_lblk, map.m_len) &&
++	      (flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN || alloc_zero))) {
+ 		ret = ext4_block_zero_eof(inode, old_size, LLONG_MAX);
+ 		if (ret)
+ 			return ret;
+-- 
+2.43.7
 
