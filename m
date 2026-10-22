@@ -1,54 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792673578;
-	b=ts16tstgD//wfaQ3C9GdWTTfs5KKoB4ti2UEJ/IboZxopmnkFBfpOLEOKQajjOghgzPQ
-	 9IxKXkcEIoCHKSEzxfSOL01p8hJa7ze1nkSpKzQUt/dyFdccDKF9IEiuqEDGzQZnrCKLF
-	 nsezyA90t7Le5nExhqVMmQ9I8fSso0/JcYXxeS5xOf5rZK3jera1sVMRty+EKoj7Otlqg
-	 ZGHAhscmXVL6ye5o2OTFb5IJl40v+kV1tMRcKrHVq3ElpBj371OEmbcSaIYQI161yPkCj
-	 4EsK1HALAiKMH/6tGOhnOSdoeijRghFdIU9tb0Zj/sUaYfkUkSqv3P4TAoD1Xas12PA==
+	t=1792673580;
+	b=TAo2AGJx1Vyy0nsHA3gSQzbpjiXliYsorf5+Shi4SRaO0JZD+l5ylCU82yNmZU1cmp9r
+	 aG2m/3lrh6VQHsQ9tsZqNm19EJ7CgikB1xD2S+tJrrYyGHnpah3q1UdQji42vjP4i1mTa
+	 2o1J/pdJQ59YV4PsWDjhgVka0XYwmnJKxMjj0zSuauX1tiYFGNOF//N3mmdjJng2gpWhS
+	 1cR5TcN2DOPcEwXfig4tOn+bm0S2z9PCOQbRn90Ogz3ZNOKL3E2LTDBi+yYfK1XFc7UN9
+	 8vFlUyosFmI7YA0fb6QX9HjeFawVRy4DVgsXb6NuMUq2aqeOQJUhhDw5wSojVGTynyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792673578;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792673580;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JgFKhpkT5XI8KFhoSBHdBkczKlFEWgcD2DZDQ/kGhUA=;
-	b=gLX1efkBP3GS/sWv/Mw/YVd5Rl99jaIghqKJOD39+r2HFwIBdH/wvfzMYj3n7/+ukLeT
-	 Vr5prm1nEH7j8w5hPn29As3wt8gthu0/4uWR8UA+kQONPT+3gnQ9PMvyma6GNlqdj56LJ
-	 VuJQq5NY6JwXdTF61yFDiU1d3dpe5X4MfVwOzCqeqNE7weiywS7bIAKCX8J1fiMdn3TJr
-	 4UGRkWg5kt3eWEcqzJPK+CXZl/o/l8zT7uQtFgWb5GZgb0AhKpV26omSANW81c8JSBr0T
-	 YOgR+mFy40sGLUVEq9gXnTMUF9mNzpKfSwVMFfZ3ct04pJtoeOGCXzTykWHWJxN/9CA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=yltvb7S7CsW0Y3hHn9MIuF57ZhMRPNep49yh/7UlWzw=;
+	b=rAs3iQDldt1w3xgIDd+1ueLLzbsB3ezxWbMy/zc/qAqGG6pHPxr+Lp+9befmoVeoXJTn
+	 cJAesFqcJOFWwajtCVCa6LUKaNRErlGb0OZutrw7nx8Wjq/s1VtjUSuoF2C2AK0SXRLk5
+	 y4um5ZdLOwulpVA7/KX09w9fHBUnlYeayKlU/foEdrtgIC/vcF8Fmj9Mf5k6w7w+dMQpR
+	 ypadbqcHz+b68g4SvRmVexi9ckkkEyL2LPJUsuzmSPOlfMI10MArw2L3n6nXvRdb2cBRd
+	 IruhQDuBPCVuy98fGN/6gmBeeykza6h0v69DHMR4I0Cm2aLNHHFKAh54AQHP8gflGwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnfBVEAg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BA9WjkND;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0EC6606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:52:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1139606A328
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:53:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnfBVEAg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93B991F000C1;
-	Thu, 22 Oct 2026 12:52:56 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BA9WjkND
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 418401F000C2;
+	Thu, 22 Oct 2026 12:52:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792673577;
-	bh=JgFKhpkT5XI8KFhoSBHdBkczKlFEWgcD2DZDQ/kGhUA=;
-	h=From:To:Cc:Subject:Date;
-	b=OnfBVEAgGVeufO9YCJhASbf7BuYWrHZMwDga/KArg1dlgh9NB+iNlHVGpLLobBHN/
-	 EjyNZAnvJKOfRTZU8NqMaYmLZtdFQAWAkAq8+waKGsDeT7HGq5n3Mt4hBpelRv3667
-	 59XCB5QTqntxBQeVEB5wtRX2DpLf13BtJcrQp1lZX+RXJ+PzzEjGj/c+aQilJQDPDa
-	 lM3vxQ3M8vXkM/C78Bvla4ADbmg6abHAcViJ07h+f+uzaJ0XdjGdIZSMRxXETBy1ZN
-	 CaSUXyp0d6N0OEyLp4yaAP3mwCvtl13WVZVIXtkIHSr0RepACIurEzzwGRDu6iHkIk
-	 Ycy5k1mSpbvcg==
+	s=k20260515; t=1792673580;
+	bh=yltvb7S7CsW0Y3hHn9MIuF57ZhMRPNep49yh/7UlWzw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BA9WjkNDjc7dr1GBsCzr0Gyg0ty5odDY/l9jcL2DgkIZlsaGQYVNWF1dd/yTK2RIX
+	 pvoC12SSVkgDpCZiTCRzaNRTb9MGxHgaiv0BzHeXZy+9muJBFZdlGfHx6j4Y3W35/E
+	 DBWSAFfRzudpzklRbndJVSpvg5nV846Lm+38XZvnfAK0nHMOoD2sW64raNumgeU6Ul
+	 z4pu1zrvuITUzHVUsVHWQ5d0jIHEYAf29H/d/AIGP1/rgQzulyM4HvMW5RZhQZCpeI
+	 50coxM8gtNdv52SGuq2miVk9BXgGAWE1bwDgSPVZWtmnRf6rP9SqYbYF2KwIvKs6X6
+	 GTY+3ufqpNdig==
 From: Chao Yu <chao@kernel.org>
 To: jaegeuk@kernel.org
 Cc: linux-f2fs-devel@lists.sourceforge.net,
 	linux-kernel@vger.kernel.org,
 	Chao Yu <chao@kernel.org>,
 	stable@kernel.org
-Subject: [PATCH 1/7] f2fs: fix to persist i_size extended inside last block for fsync
-Date: Thu, 22 Oct 2026 12:52:38 +0000
-Message-ID: <20261022125244.2205275-1-chao@kernel.org>
+Subject: [PATCH 3/7] f2fs: fix to return -EIO from f2fs_write_checkpoint() once cp_error is set
+Date: Thu, 22 Oct 2026 12:52:40 +0000
+Message-ID: <20261022125244.2205275-3-chao@kernel.org>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
+In-Reply-To: <20261022125244.2205275-1-chao@kernel.org>
+References: <20261022125244.2205275-1-chao@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,84 +64,108 @@ Content-Transfer-Encoding: 8bit
 
 From: Chao Yu <chao@kernel.org>
 
-generic/737 fails on 16k block size f2fs, after writing a 1M file w/
-O_SYNC buffered or direct IO and shutdown, the file size is 0xff000
-rather than 0x100000, i.e. the last fsynced 4k data is lost.
+f2fs_write_checkpoint() skips a CP_SYNC/CP_FASTBOOT/CP_DISCARD request
+w/ err = 0 if the superblock is not dirty, and this check is done before
+the f2fs_cp_error() check.
 
-It can be reproduced as below w/ 16k block size:
+However, do_checkpoint() clears SBI_IS_DIRTY unconditionally, even when
+the checkpoint fails due to cp_error (e.g. shutdown), and only returns
+-EIO at the end. So a checkpoint request which was queued before cp_error
+was set, and waits on cp_global_sem or in the checkpoint merge queue, will
+see a clean superblock once the previous checkpoint failed, and returns 0
+w/o doing checkpoint.
 
-xfs_io -fs -c "pwrite -S 0x5a 0 32k" /mnt/f2fs/file
-xfs_io -x -c "shutdown" /mnt/f2fs
-umount /mnt/f2fs; mount /dev/vdd /mnt/f2fs
-stat -c %s /mnt/f2fs/file
-28672
+For a file which relies on checkpoint to persist its fsynced data, e.g. a
+compressed file (CP_COMPRESSED), f2fs_do_sync_file() -> f2fs_sync_fs()
+then returns 0, and fsync() reports false success, whereas its data was
+neither covered by a checkpoint nor by fsync node blocks: after recovery,
+the fsynced data is rolled back to an old version.
 
-xfs_io writes 4k per pwrite() and fsyncs it, the 16k-sized 4k unaligned
-direct IO falls back to buffered IO as well:
+Note that commit e41de21d78ec ("f2fs: fix to return -EIO from
+f2fs_sync_fs() if cp_error is set") only covers the case cp_error is set
+before f2fs_sync_fs() is called, not the case it is set while the request
+is pending.
 
-- pwrite [16k, 20k): allocates the block, last_disk_size = 32k (end of
-  the page) after writeback, i_size (20k) is unaligned, so fsync writes
-  the inode and its dnode w/ fsync mark
-- pwrite [20k, 24k), [24k, 28k): in-place update of the block, i_size is
-  unaligned, fsync writes the inode w/ i_size = 28k
-- pwrite [28k, 32k): in-place update of the block, f2fs_i_size_write()
-  sets FI_AUTO_RECOVER as the inode was clean; i_size (32k) is aligned
-  and equals last_disk_size, so f2fs_skip_inode_update() returns true,
-  and nothing is written for fsync since the in-place update doesn't
-  dirty the dnode
+This was reproduced by the f2fs consistency test (verify_consistency.sh
+--init zoned -S 64 --mode consistency, w/ compress_algorithm=lz4 and
+default checkpoint_merge, under fault injection): fsync_verify.py randomly
+overwrites 4K blocks w/ a generation number and fsyncs them, the test
+injects "f2fs_io shutdown 2" in the middle, then verifies the fsynced
+generation after fsck and remount:
 
-After shutdown, roll-forward recovery restores i_size = 28k from the
-last fsynced inode, and do_recover_data() only extends i_size to the end
-of a recovered block when i_size doesn't exceed the block's start
-(28k > 16k), so i_size stays at 28k, losing the fsynced 4k data.
+  FAIL: file 2 block 510: rolled back: gen 17 < durable gen 18
+  FAIL: file 2 block 561: rolled back: gen 22 < durable gen 23
+  FAIL: file 2 block 955: rolled back: gen 12 < durable gen 13
+  FAIL: file 2 block 3986: rolled back: gen 23 < durable gen 24
 
-FI_AUTO_RECOVER means that the dirtied inode can be recovered from data
-blocks via roll-forward recovery, it's not true when i_size is extended
-inside the old last block, let's clear FI_AUTO_RECOVER in that case, so
-that fsync will write the inode. It happens w/ 4k block size as well,
-e.g. w/ 1k O_SYNC appends.
+w/ debug logs (trace_printk) added in f2fs, the ftrace log of the
+failing compressed file (ino 438) shows:
+
+  python3-346519  2267.558508: FSV SYNC-BEGIN f=2 fdatasync n=4
+  python3-346519  2267.558519: ino=438 FSYNC enter datasync=1 dirty=4 cpver=14c8edcb
+  f2fs_ckpt       2267.559876: CP end reason=4 err=0 cpver=14c8edcb
+  python3-346519  2267.570549: ino=438 DOWRITE OPU idx=510 old=a21bc1 new=ae4af3 hdr[f=2 b=510 g=18]
+  python3-346519  2267.571478: ino=438 WCACHE exit ret=0 nwritten=4 dirty_left=0
+  bash            2267.571810: iteration 4: injecting shutdown 2
+  f2fs_ckpt       2267.573403: CP start reason=4 cpver=14c8edcb dirty=1
+  python3-346519  2267.579576: ino=438 FSYNC wait_range ret=0 dirty_left=0 append=1
+  f2fs_ckpt       2267.589393: CP end reason=4 err=-5 cpver=14c8edcc cp_error=1
+  f2fs_ckpt       2267.589413: CP start reason=4 cpver=14c8edcc dirty=0
+  f2fs_ckpt       2267.589414: CP SKIPPED (sb not dirty) reason=4
+  f2fs_ckpt       2267.589415: CP end reason=4 err=0 cpver=14c8edcc cp_error=1
+  python3-346516  2267.589431: SYNC_FS sync=1 err=-5
+  python3-346519  2267.589503: SYNC_FS sync=1 err=0          <--- false success
+  python3-346519  2267.589507: ino=438 FSYNC cp_reason=2 sync_fs ret=0
+  python3-346519  2267.589510: ino=438 FSYNC exit ret=0
+  python3-346519  2267.589567: FSV SYNC-OK f=2 D=510:18,561:23,955:13,3986:24
+  [shutdown -> umount -> fsck -> remount, recovery from cpver 14c8edcb]
+  kworker         2370.028185: ino=438 READ-END idx=510 hdr[f=2 b=510 g=17]
+
+- the checkpoint which should cover the data written at 2267.570549
+failed w/ -EIO due to shutdown, and cleared SBI_IS_DIRTY.
+- the next merged checkpoint request was skipped as the superblock looked
+clean, and returned 0, so fdatasync() of ino 438 returned 0.
+- after recovery from the last valid checkpoint (14c8edcb), block 510
+has gen 17 instead of the fsynced gen 18.
+
+Let's check cp_error before the "superblock is not dirty" check in
+f2fs_write_checkpoint(), so that a pending checkpoint request returns
+-EIO once cp_error is set.
 
 Cc: stable@kernel.org
-Fixes: 26de9b117130 ("f2fs: avoid unnecessary updating inode during fsync")
+Fixes: c34f42e2cb2d ("f2fs: report error of do_checkpoint")
 Signed-off-by: Chao Yu <chao@kernel.org>
 ---
- fs/f2fs/f2fs.h | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+ fs/f2fs/checkpoint.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index e9f8b31d5dab..d6b3955f9a6f 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -3615,8 +3615,9 @@ static inline void f2fs_i_size_write(struct inode *inode, loff_t i_size)
- {
- 	bool clean = !is_inode_flag_set(inode, FI_DIRTY_INODE);
- 	bool recover = is_inode_flag_set(inode, FI_AUTO_RECOVER);
-+	loff_t old_size = i_size_read(inode);
+diff --git a/fs/f2fs/checkpoint.c b/fs/f2fs/checkpoint.c
+index 5c5b45d3c67b..819073671f3d 100644
+--- a/fs/f2fs/checkpoint.c
++++ b/fs/f2fs/checkpoint.c
+@@ -1945,14 +1945,19 @@ int f2fs_write_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
  
--	if (i_size_read(inode) == i_size)
-+	if (old_size == i_size)
- 		return;
+ 	stat_cp_time(cpc, CP_TIME_LOCK);
  
- 	i_size_write(inode, i_size);
-@@ -3625,7 +3626,18 @@ static inline void f2fs_i_size_write(struct inode *inode, loff_t i_size)
- 		return;
- 
- 	f2fs_mark_inode_dirty_sync(inode, true);
--	if (clean || recover)
-+
+-	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
+-		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
+-		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
+-		goto out;
 +	/*
-+	 * Roll-forward recovery only extends i_size to the end of a recovered
-+	 * block if i_size doesn't exceed that block's start, so it can't
-+	 * recover an extension inside the old last block, e.g. an O_SYNC 4k
-+	 * append filling up a 16k block, which is an in-place update of an
-+	 * already allocated block. Let fsync write the inode for it.
++	 * Check cp_error first: a failed checkpoint has cleared SBI_IS_DIRTY
++	 * in do_checkpoint(), so a following request would be skipped below
++	 * and report false success.
 +	 */
-+	if (i_size > old_size &&
-+	    old_size > round_down(i_size - 1, i_blocksize(inode)))
-+		clear_inode_flag(inode, FI_AUTO_RECOVER);
-+	else if (clean || recover)
- 		set_inode_flag(inode, FI_AUTO_RECOVER);
- }
+ 	if (unlikely(f2fs_cp_error(sbi))) {
+ 		err = -EIO;
+ 		goto out;
+ 	}
++	if (!is_sbi_flag_set(sbi, SBI_IS_DIRTY) &&
++		((cpc->reason & CP_FASTBOOT) || (cpc->reason & CP_SYNC) ||
++		((cpc->reason & CP_DISCARD) && !sbi->discard_blks)))
++		goto out;
+ 
+ 	trace_f2fs_write_checkpoint(sbi->sb, cpc->reason, CP_PHASE_START_BLOCK_OPS);
  
 -- 
 2.49.0
