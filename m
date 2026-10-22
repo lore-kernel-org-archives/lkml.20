@@ -1,81 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.218.115.239
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792691312;
-	b=RQiZPVdddQ2sEhf7F5cukCDttzMcifwNg+xPL3xWxvDVcaT8ewCn4L1bQmS1e2d76ji/
-	 YJoA/WeWc7Hhn01jSNB4dPporlgzmHwh4lwoIbXnyRqELgfn4ZqaNVXiCt7Elbwihrmv+
-	 /UMLWo9Lj21W5vblEljDDp7ZZ3/NRmQOCbG15UFjZ9YaWnDyj5ZJLtA+r7TwndVsC/lVL
-	 0lQEUOMa7QEz0t/R3DjBxEUAJlHUVpHePuCGl8uU2fgKmjFMRc9bd7iuL+omtnOOtw/GN
-	 fax7sAZCGNW2szmaVzBD/6Gf4Ou/vV8zF7Ipm1wKpS6S9RhCc7njhlbXx2FXpNBO+sw==
+	t=1792691327;
+	b=KbcR2v2BHOXUhc1h6aT3VyUsAQrTbDqm1UE3TxWDKlJCrAwt5ThaLDssvf7n3pTKZX60
+	 HpEZNo3Zb9NBL84bdWSI8kNND/FumC7llmIjcqNnubeSzVbnhMnd0+mDdbargxCeK/fo4
+	 n7ZFG1J9pa+I/1sY79lym5QvkLCmqD9P97AG2T0idvbVJsHjhy3/Xs+4wjW6UJfaGAHK9
+	 nYHktsE7E6lvK2JthtmaBwySE8GMTdMZWTfc6aslSTWtGjRIStmEWUVav65bCeNRAKQUB
+	 34D7pcRPbnvg6eg/2eVG8/AuH86yhbVtrNfuEJcTo5hH7InqyTUDq1t2yNPKCP51cKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792691312;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=SpslVbUahu1lzhSFFj8q6rCig7MM9wSX+fuc0eipTGc=;
-	b=pSHBU/mtzpO+HNAV5/2kCFIC/8XqDZAl9Pt5Z3CZ/tWsFztVTCqET+wDKGJs4nI5tg4X
-	 gHFU/9o2Xqs5+7oVPUaEgWGm81L8lvTRQpTqYNS7Lto1QBux2q6z/GlE5vkugpWRVDH+H
-	 zyIot7u9n4MU5/uK0NV8NQIS4kxfNfEdkIsHfTqvJVV20qsB5s8/BZfKN20Di5zg5mqgR
-	 n7XfccH/WMTBt39BUVsPy5qZYiYnZ/KUN22XSYTmxm09engiPrxaqzVzfAXMucj5SYzPX
-	 GmNHISkTz4fn0MqeQjxrEnTXKYh1JKe+rRE09Eih6VRL2tHQk3eQfDRjK2JRdGE0VBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792691327;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=EPri+pnxfg/GkSkcUBWyDRaSPhtWuHho0ObTvb26NIc=;
+	b=svgNq54f8o83P+nk3bGRM04DlalSemwu8lRmAqBFU95WVJVhSK1oyTNxO5mrAmT+KfX3
+	 1fY/J0IkONhY7/wvu7rA5HFpc3lrclUKUbE7KYMZ8WZEgPBKA8qFizFtM7koXvjoaBstY
+	 fqmHxtnbeu9+fS1pU2xaHyV0Umi63vDMJh4xPXQK8z7tHLW73hgsH1V98dqG0QwAUzOSA
+	 jbpfRZf9ifCmfDdNfluWxVcUNEXzCzrHeqqcxaKu8QTxgUGBj7NL3Y4dXX9JVXHxdzLHX
+	 B4p3P9fFi8fYoYSeFnTT1/ll7zfPGBrPgGRM7foGywe2zDwTvJU3sNzmIr+VfFk2BFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="T7UZ/xC6";
-	arc=none smtp.remote-ip=34.218.115.239
-Received: from pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com [34.218.115.239])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=fail header.from=linux.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B691C606A31B;
-	Thu, 22 Oct 2026 17:48:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B691C606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=T7UZ/xC6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1792691311; x=1824227311;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=SpslVbUahu1lzhSFFj8q6rCig7MM9wSX+fuc0eipTGc=;
-  b=T7UZ/xC6BezNuiL+3Wdnm2IPgpNrcke8tP3zj/jRsjKllA7/0EFuxw1F
-   khtCIz85VrOONWTTkCBuhckHsDodgNsudIsHhIH3Wg4Z67FF6Wf6EUwAv
-   MQ40zrLKCkvdpxn2qsGKZ81bunMYR4Dg8yxEKlf4OM33hdS2fRqvdeSAo
-   Vyh8G/sv3ZrrOInFxn7IKEiBLJ672Cs0ezqq9dlhXt23cToS4OmLzVGEx
-   mKllSEfpS5DQEaD+ip+IMt/kt/GbQAw52fmPzQcTxyIGUXLdcZ2dx1YN4
-   7N3CZlMONw4DwOW2KzRxm0a77qYAz862aw63rU1DQlr1/68fRA+VNV6bo
-   g==;
-X-CSE-ConnectionGUID: L+EihjG2S0W5i2YMzsl0Uw==
-X-CSE-MsgGUID: xBeVkGZtR9OnaJ0HESE8mw==
-X-IronPort-AV: E=Sophos;i="6.27,172,1787011200"; 
-   d="scan'208";a="31772390"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-013.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 17:48:31 +0000
-Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:11227]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.29.97:2525] with esmtp (Farcaster)
- id dd35c2c1-3ca3-49e5-a666-293da7c32e6d; Thu, 22 Oct 2026 17:48:31 +0000 (UTC)
-X-Farcaster-Flow-ID: dd35c2c1-3ca3-49e5-a666-293da7c32e6d
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Thu, 22 Oct 2026 17:48:30 +0000
-Received: from dev-dsk-aarnahmd-2a-95203392.us-west-2.amazon.com
- (172.19.38.251) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Thu, 22 Oct 2026
- 17:48:30 +0000
-From: Aaron Ahmed <aarnahmd@amazon.com>
-To: <stable@vger.kernel.org>
-CC: <maz@kernel.org>, <oupton@kernel.org>, <joey.gouly@arm.com>,
-	<seiden@linux.ibm.com>, <suzuki.poulose@arm.com>, <yuzenghui@huawei.com>,
-	<fuad.tabba@linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<kvmarm@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH 5.10.y] KVM: arm64: vgic-its: Don't dereference a NULL collection on ITT save
-Date: Thu, 22 Oct 2026 17:45:36 +0000
-Message-ID: <20261022174537.2767-1-aarnahmd@amazon.com>
-X-Mailer: git-send-email 2.47.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9BD606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 17:48:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB9BD606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso868730f8f.1
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:48:46 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792691325; x=1793296125;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EPri+pnxfg/GkSkcUBWyDRaSPhtWuHho0ObTvb26NIc=;
+        b=a5ZWjKzNT8zFDKOAO4/n8/NMCOiQx+Ch96bl6geTKWiSZLlvxWyucVa+tOjSGHg802
+         jLMen/Zy7bWPLyiS/78knzzIo7w/akVjGhOoQVHbJzbA/Tr08eDzXGNkxSeLXOqUoe0k
+         qxjnLMfzXDr0P4thQ7bDdOt9zoI3aEGePfiJWY4h46cLD+EpVyHbbMzBfMAP4jQ4qVVV
+         xpz0egCk2uWCrVe0UBpRWWEhaLOl3rxzp+kVMIkd9p8c9D9QdCr29BRZ/VIWCumh1vTf
+         gPszxRR5JHcH+YwgChYSc3DQFty9Zr3dZHKcGmSpMEIDvJu5FMuOgsk4cMD47MXLbr5D
+         wWoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0nHpksx6ectVK+mmvy9KtGr7zmFR9AV+HdxBfLYaPTx8OegYKesoUYptNqNb+7+oJffywsfzE5OwATNo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIwbHxx31gk67Xzwnf9QyWD3t3QHaRE/+8NgRZ41VHQWjnFo8dh
+	XqQnyLOBSWy4fcYb2sJ7R5Lt8/Kw67MEst7bd04MjNbOR+7xSX0KiHwV
+X-Gm-Gg: AYBFou1H06WzP9WpkloetL+ebdq0pfqKK60Vd0u+XdveSKJR4KIcUC6O/cDEK+nMzUx
+	ValPNPdw4dLKgL8SAJjaiqpTH0uPp89uusacHopDnEO8BRW9sJExVyAfoB/w2x3fOf1HUXYK0Sv
+	NlfIcWMmDj7Kb+u2QvGheEuthOYsxYd0MRtXOhR4mwrdK1azxsyMnrJQNCPXLXyIjBb7nAJnunm
+	4u/5qqHANyyY2OnUQ8u3TMTHl6gpMrOwXpDJrNDgDZjbjVHtIJ0QCCeEa4CYuk5I9WbfBg9vs2O
+	34f9u5KnjFyGKhikg4cqiMu+AnCQ6Z1kA+TUlsvv9PqzEbXg8CmJr7xdZSmQ0liRu9jXLiAGzZX
+	E2IghSOGi0cBwBDH1UDuEttcAIuyDWDk45nblAW7BVrtN9Mmsy8rXpjHd7f587bLMW023FiT01S
+	lIMscAwoKi3MW3z5iRqvYIXhDxCiDEUXLu56VR4F0GyD1CoxvIrQnxdo9DZTR6c26oU7IN2b7Oe
+	3f75CqOE6QoDxKd6iKv5QWpVFOI95NTevZovy86t8fd6EaBCYQ4wD8Jt5VaRVr9ULgI+NgWq/5Z
+	X9MD9Lp5Jg==
+X-Received: by 2002:a05:600c:3e0c:b0:49f:c5aa:9ef4 with SMTP id 5b1f17b1804b1-4a204b042e5mr54395825e9.8.1792691325102;
+        Thu, 22 Oct 2026 10:48:45 -0700 (PDT)
+Received: from [192.168.1.135] ([81.79.62.202])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a210327422sm14119865e9.14.2026.10.22.10.48.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 10:48:43 -0700 (PDT)
+Message-ID: <9b5fe9c2-aca1-4460-81fa-826e05e88c1a@linux.com>
+Date: Thu, 22 Oct 2026 18:48:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,60 +75,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
+ who adds the RGMII delays
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-9-tanure@linux.com>
+ <CAFBinCB8203vL6YK3+V2zDhz=qqeAwJoufPM60cD0Vz3s-OS6g@mail.gmail.com>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <CAFBinCB8203vL6YK3+V2zDhz=qqeAwJoufPM60cD0Vz3s-OS6g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC003.ant.amazon.com (10.13.139.252) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-From: Fuad Tabba <fuad.tabba@linux.dev>
+On 10/10/2026 23:37, Martin Blumenstingl wrote:
+> Hi Andrew, Hi Lucas,
+> 
+> On Sat, Oct 10, 2026 at 12:59 PM Lucas Tanure <tanure@linux.com> wrote:
+> [...]
+>> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
+>> +#   rgmii       -                     -                     PCB trace   PCB trace
+>> +#   rgmii-id    -                     -                     PHY         PHY
+>> +#   rgmii-id    present               -                     MAC         PHY
+>> +#   rgmii-id    -                     present               PHY         MAC
+>> +#   rgmii-id    present               present               MAC         MAC
+>> +#   rgmii-txid  -                     -                     PHY         PCB trace
+>> +#   rgmii-txid  present               -                     MAC         PCB trace
+>> +#   rgmii-rxid  -                     -                     PCB trace   PHY
+>> +#   rgmii-rxid  -                     present               PCB trace   MAC
+> We have some boards where the PCB traces result in part (1200ps) of
+> the delay needed for RGMII (2000ps).
+> The remainder (800ps) has to be added by either PHY or MAC: the
+> (RTL8211F) PHY can only generate 0 or 2000ps delay so the MAC has to
+> take over.
+> For the three boards I have in mind, please see $ git grep
+> rx-internal-delay-ps arch/arm64/boot/dts/amlogic/
+> 
+>> +# A property for a clock the PCB already delays is not in this table.
+> Can you please explain this sentence (I'm not a native English speaker)?
+> How I interpret the sentence: The PCB may add delays but those are
+> implicit and not part of the {rx,tx}-internal-delay-ps properties. If
+> the delays added by the PCB don't cover the full 2ns requirement then
+> either MAC or PHY need to add the remainder, see fine-tuning below.
+> 
+>> +# It is either the fine tuning described next, or a mistake the MAC
+>> +# should report as a fatal error.
+> How can I differentiate between "fine tuning" and "mistake"?
+> 
+> 
+> Best regards,
+> Martin
+The patch is wrong. It assumes a present property moves the 2ns from
+the PHY to the MAC, and Andrew's reply on patch 4 says it does not.
+I am dropping it in v4.
 
-[ Upstream commit c6c156d931c33b92362383cf76f6d6e1291dcbfe ]
-
-MAPC with V=0 drops ite->collection but leaves the ITE on the device's
-ITT list, and vgic_its_save_ite() dereferences it unconditionally. A
-guest that issues MAPD, MAPTI and then MAPC(V=0) therefore oopses the
-host when the VMM issues KVM_DEV_ARM_ITS_SAVE_TABLES to migrate it.
-That sequence is UNPREDICTABLE per the architecture, but KVM already
-handles the resulting state in the translate, MOVI and DISCARD paths.
-
-Save a zeroed entry, which vgic_its_restore_ite() reads back as
-invalid. Skipping the ITE instead would leave the ITT slot holding
-whatever is in guest memory, and restore rejects an entry naming a
-collection the restored collection table does not have.
-
-Fixes: eff484e0298da ("KVM: arm64: vgic-its: ITT save and restore")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20260807104102.2410744-2-fuad.tabba@linux.dev
-Signed-off-by: Oliver Upton <oupton@kernel.org>
-[aarnahmd: Upstream vgic_its_write_entry_lock() takes in the kind of table
- entry (ite) and looks up its size, while 5.10 takes in the size of an ite
- directly via ite_esz, because commit 3b2c81d5feb2 ("KVM: arm64: vgic-its:
- Add stronger type-checking to the ITS entry sizes") is not in 5.10.]
-Signed-off-by: Aaron Ahmed <aarnahmd@amazon.com>
----
- arch/arm64/kvm/vgic/vgic-its.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index e6ec0701f5616..07b8ca72111f3 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -2151,6 +2151,14 @@ static int vgic_its_save_ite(struct vgic_its *its, struct its_device *dev,
- 	u32 next_offset;
- 	u64 val;
- 
-+	/*
-+	 * MAPC with V=0 keeps the ITEs mapped but drops their collection,
-+	 * and with it the ICID. Save a zeroed entry, which the restore path
-+	 * reads back as invalid.
-+	 */
-+	if (!ite->collection)
-+		return vgic_its_write_entry_lock(its, gpa, 0ULL, ite_esz);
-+
- 	next_offset = compute_next_eventid_offset(&dev->itt_head, ite);
- 	val = ((u64)next_offset << KVM_ITS_ITE_NEXT_SHIFT) |
- 	       ((u64)ite->irq->intid << KVM_ITS_ITE_PINTID_SHIFT) |
--- 
-2.47.3
+thanks
+Lucas
 
