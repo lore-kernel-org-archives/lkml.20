@@ -1,109 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792649593;
-	b=sZvPjRHs/qBR5Q5h4fcrNrQx16LntUZ+Vr92hxG+RgYZBmX+AQEjTcnMZlbxVYelJKNz
-	 2eSvdWCgNz+hWKLAKW/FDbR/t2iQ/zfXhp04GymM7JJpCumfeU+VHiqZsQSaHbFlI9797
-	 xoTUVFqoTRy0WuZSnyB/EfYfactoN7VCwWBcCqQOvXymY6xottodAeDP1DGVELaTfRQDS
-	 pDyHSHbncfku/DBZ7K13N6CEQpu6rqQM38JIVTNHAZSgcGVImkpB8sBRdKNtT3ow2Xh7W
-	 tEFzkN69KDXX1hVOeZMaSK1N7vcpbYws5yvTcUA8QrMQCakCqmqfgV9QEGMsWn9SoEQ==
+	t=1792649633;
+	b=pb61UDeM2d4XcCze6QUytFPGe26GVBeipFWXIcyMa3i0Heq5yhB0+pEZMaLlH10dqNjo
+	 a+kSpqamEsamtxWdILXZe7wg7d0Z21AvL7RT84fCbu3myEDRYcVOPYrI6DTELGBECd3J7
+	 5Iu8vcF1U0FElF/pTAhJCmG6MZgs+KvBymh1sAsG8HPtzNnDaytXquZHpyHXdTg983EH4
+	 b7VZETYHSL3CMJ5acYG/xiFgfVXgQKe4ucIIDMeyF8N/B914LrpgnQRm/k2QvPWvgLrNE
+	 g29JPe++CgDCJoxuC2HRGyd/2VoFSTBgFJz6L8D77+iXxWOfp+KiJlw6HG07aHaUg7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792649593;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=gzYjuKLtQxOd5KozGsdO5M3bVrLMq2eImqRMA1Csb4E=;
-	b=k2RMLpBs7Mh+cqUQP0S94RoosbsVnwn39b1PDI3JJEJcWvI0fllFBe5579E9gO5QYE5i
-	 QABEc/rgN9lAKhrEw7ZuXCoGCUO/a8/N/G9au+44emN98sZRs8wnlByZfaANYVljEE8MR
-	 dw2pW+NRpYfwxUDXhvpD1rg8jLjzG4EK0SUSMAZdmbJzStVBECwL1O7jb/xplo93V14ld
-	 4yDO08sDron7eOuAYUqM/FwxVM484EkDRGecKqS3JSiaa08d2QZLwBKQrlkObk7EoCxNU
-	 9Tl8hy9zDYesvfuk/whD4w5DLGxK2zyLXXnpsR3QdxElYdprxOQvhkmq91Sf5k7matA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792649633;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=BmgIMapkahKlbfyQzrcwQvh1U+8wbB6XnkC4IJQYK+Y=;
+	b=3h/Qo29jy62IQsjNL5cW6hjMEZNk1eZ5jZ4sKgMROPuYvBN2u1kccIE+BW/jx+RUMqUT
+	 R6jSxRXrWXwFH7Jr3eWd2qnH4ho7LJ6fotXRft5Qi4ACkrGJVrJ3y2ev06bDKg3uG0vwu
+	 qs/1BKSk7qJCzVT3agXdVqtey8iLe3fpgh/AGsk1nydVTxvEOMeKJx01pW3fh3yLt1/hb
+	 HozOICekmt2VeMu1225HVsYvJvCGqEoQvoW69+oRR5bm0Ea4i4r9ax6qeQwQswysq7Bm4
+	 Fj47x1hBPMK18L1ynGws88LJCYuCoM0/3Sl0yQ86uFwfOQhNmr6t0+AxdESs15MbZGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YTKLR0m+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=F2laU8Ry;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YTKLR0m+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=F2laU8Ry;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JTezKpN3;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BB1606A31A;
-	Thu, 22 Oct 2026 06:13:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38BB1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92150606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:13:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92150606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YTKLR0m+;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=F2laU8Ry;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=YTKLR0m+;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=F2laU8Ry
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 26D2921EA2;
-	Thu, 22 Oct 2026 06:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792649591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gzYjuKLtQxOd5KozGsdO5M3bVrLMq2eImqRMA1Csb4E=;
-	b=YTKLR0m+Fh8wnVFqXw33bGNiMcWHgU8I+tQGDAUnDBxI6ATpAXx34rQqOFO/tv6NZJezuw
-	H2kN/Lhq/UoASD+FyXfZxkvelSzEwi5JEnwtnguMS3hzPZiuFSZyzi1nXjNliS1zxSq9tm
-	/5yIEwKDO+I7U0X1WzH38QCGENlrlHc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792649591;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gzYjuKLtQxOd5KozGsdO5M3bVrLMq2eImqRMA1Csb4E=;
-	b=F2laU8Ry8UxLNin/BraQp26zrKPlWSfY78PgJyCLjTlWbSL5FTH7I8c13aNG9ZWWr6YGLz
-	jXI6JMOuUtb7iqCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=YTKLR0m+;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=F2laU8Ry
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1792649591; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gzYjuKLtQxOd5KozGsdO5M3bVrLMq2eImqRMA1Csb4E=;
-	b=YTKLR0m+Fh8wnVFqXw33bGNiMcWHgU8I+tQGDAUnDBxI6ATpAXx34rQqOFO/tv6NZJezuw
-	H2kN/Lhq/UoASD+FyXfZxkvelSzEwi5JEnwtnguMS3hzPZiuFSZyzi1nXjNliS1zxSq9tm
-	/5yIEwKDO+I7U0X1WzH38QCGENlrlHc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1792649591;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gzYjuKLtQxOd5KozGsdO5M3bVrLMq2eImqRMA1Csb4E=;
-	b=F2laU8Ry8UxLNin/BraQp26zrKPlWSfY78PgJyCLjTlWbSL5FTH7I8c13aNG9ZWWr6YGLz
-	jXI6JMOuUtb7iqCA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CEB30134E6;
-	Thu, 22 Oct 2026 06:13:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 11hNKXap2WpUHQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Thu, 22 Oct 2026 06:13:10 +0000
-Date: Thu, 22 Oct 2026 08:13:10 +0200
-Message-ID: <875wyue009.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: songxiebing <songxiebing@kylinos.cn>
-Cc: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/generic: Use "Input Source" for the capture source selector
-In-Reply-To: <20261022025743.520258-1-songxiebing@kylinos.cn>
-References: <20261022025743.520258-1-songxiebing@kylinos.cn>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JTezKpN3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bm
+	gIMapkahKlbfyQzrcwQvh1U+8wbB6XnkC4IJQYK+Y=; b=JTezKpN3CCTU0OaMKO
+	kYgp0UP06HFSdGEGDpvvyD9edd9RlzLTM8drMne4VLPZpUHPLVFCUHEYsJ7+uE/5
+	Hxur8C0ma6J1+AyGx3kAHJzrrurUYLhXsNa4+2zhsEIab7gnxq4zStOgI/W23xFb
+	bgcQdpr9CumtIdSetAJmulYJk=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3HzFPqdlq2HKKBg--.22271S2;
+	Thu, 22 Oct 2026 14:12:32 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	elver@google.com,
+	jpoimboe@kernel.org,
+	heiko.carstens@de.ibm.com,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH] sched: Drop the never-defined $(PROFILING) from CFLAGS_core.o
+Date: Thu, 22 Oct 2026 15:12:31 +0900
+Message-ID: <20261022061231.610118-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,72 +70,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	DKIM_TRACE(0.00)[suse.de:+]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 26D2921EA2
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3HzFPqdlq2HKKBg--.22271S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Wry5XF4rAr1xtF1rWr4UJwb_yoWkWwcEga
+	97CFs8Kw40grWkJa1xCrW7XrWaq3s8Jrn5Zws7Gr17JrZ5tr98XFyDuF1DGFs3Jws7Zrn3
+	JFySqFn8WrW5KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRRtkuUUUUUU==
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RCP7mrZqVBYwwAA3J
 
-On Thu, 22 Oct 2026 04:57:43 +0200,
-songxiebing wrote:
-> 
-> From: Bob Song <songxiebing@kylinos.cn>
-> 
-> The generic parser names the capture-source selector "Capture Source" when a
-> single ADC is used, and "Input Source" when multiple ADCs are handled
-> (including the dynamic ADC switching case).  Commit 624d914d091a
-> ("ALSA: hda - Use "Capture Source" for single sources") introduced this
-> split to keep the nicer name for the common single-ADC case, because
-> "Capture Source" doesn't work well with the alsa-lib simple-mixer
-> abstraction when multiple instances are present.
-> 
-> However, alsa-lib expands a control named "Capture Source" into one
-> simple-mixer element per enum item (an exclusive capture switch per input),
-> so there is no enumerated simple-mixer element named "Capture Source" for
-> userspace to look up.  PulseAudio's ALSA backend resolves its input-source
-> element by name via snd_mixer_find_selem() and therefore cannot find the
-> selector, leaving the capture source uncontrollable on such single-ADC
-> systems.
-> 
-> "Input Source" is mapped by alsa-lib to a single enumerated element and
-> works for both the single- and multi-ADC cases.  Use it unconditionally.
+$(PROFILING) is not defined anywhere in the build system, so
+"CFLAGS_core.o := $(PROFILING) -fno-omit-frame-pointer" expands to just
+"-fno-omit-frame-pointer".  The reference is left over from the days when
+the scheduler build rules lived in kernel/Makefile; the ftrace compiler
+options moved to CC_FLAGS_FTRACE in c0a80c0c27e5, and KBUILD_CFLAGS adds
+those to every object.
 
-It must be rather a problem of PulseAudio, and it should be able to
-handle Capture Source, as it's been used for most of old AC97-based
-cards.
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Reverting this old behavior change (since 14 years ago!) is just
-no-go.
+diff --git a/kernel/sched/Makefile b/kernel/sched/Makefile
+index b1f1a367034f..bd6f4e25e686 100644
+--- a/kernel/sched/Makefile
++++ b/kernel/sched/Makefile
+@@ -22,7 +22,7 @@ ifneq ($(CONFIG_SCHED_OMIT_FRAME_POINTER),y)
+ # me.  I suspect most platforms don't need this, but until we know that for sure
+ # I turn this off for IA-64 only.  Andreas Schwab says it's also needed on m68k
+ # to get a correct value for the wait-channel (WCHAN in ps). --davidm
+-CFLAGS_core.o := $(PROFILING) -fno-omit-frame-pointer
++CFLAGS_core.o := -fno-omit-frame-pointer
+ endif
+ 
+ # Branch profiling isn't noinstr-safe
 
-
-thanks,
-
-Takashi
