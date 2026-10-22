@@ -1,13 +1,13 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792657485;
-	b=cUyAlJV1XDYkQzcbXVbbtaORcQF5Vg5isnVcdSSrqOk5PIvJBUuydUfja7dD0/w1HKyO
-	 OyODJJTy3S7g8M7+7KaV5hLHzzVsq19jIJxcwAxyRZSwIrpFUBaSwFX/tObCqsGnNz88I
-	 /qgRnMG6seNdOrh5YRrdO7027LfkCt+dOL02Hr9P2IXIDflp9+UcVLKb1LJKIJWId0OJ9
-	 8mi1fdC0yw+Ch5waeQuYgYVghnW8MmR+ZPrjfR+EcRpCpKUXwCINjBKlQzMYqAF8/ok+w
-	 lpBignjPTxqfU3m9DCyMeQUIyTX0eaLcnn8fCXzabkTz17+u4qql4xENIn5Sr5qMmBQ==
+	t=1792657482;
+	b=uKNDDPVolnXteZORtJ6kzYObsmUvTO41ix2WIHhqHX//eVoYLupweund16p77QR4mE5N
+	 dcH5cppIOi7qvV61PuHAcSTOiFBOkdk2m5LqU39Zz+itVGRMaFJ6kDAsNKS75Uq6sVgoc
+	 3QbhbCyAv6sUKPPkNG/Z8+qABsRzg7ZIisp1G8Fk+nbpsV9qekz9ASes8GCmCCk7klf6Z
+	 R9S3AbIUeZ1Vc4SIEak/AOEP60E2XsAEDq0+Ggv7RZPcKM4Fh50iIdlGxL8aJ+uc5fsWa
+	 WtilyG4gqh4ZGD97UfEYji7thVxUcbZFN3OrmaawZ00UIiM/zigo0yZWrv6pxnZ1KEQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792657485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792657482;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
 	 References:MIME-Version:Content-Transfer-Encoding:
@@ -15,53 +15,53 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
 	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=prQr/G7jAmWg2TrFoI2eyPO/q5JOANgC6w4svDt10+Q=;
-	b=5DHiXsBcTKTJ1gQOHQvRVOADXNbTbnYrMLsL0qhuHqojF7QULze9bIEftX/mu7yKReah
-	 yFxEMv+BxtAf5NMfHNXFbOsPGRMjx7vTLUuSKDxQ2wSgIfZn4MEYoN7148hngtIcRdEP6
-	 hKrJHUSwOkXrHGwTyKA3P2os7gD8cERbHJra99bzrHXkWyUzO9etZAfZaOiD+Pqy3iAMC
-	 wBjlUmMRHWxX1QVCd+FXcoBF7fhWbWxRenA6TL+md1wpvGNetdHU/wMmxTgrTqnXJqZG6
-	 F/JWqUu6nrRGfQvHrPOfoLGMnV+NbUs5ivmPeB8FhTSea6e4nk0FVVMaJNxRltYmm8Q==
+	bh=fhIVSFg/vNvPlHwlrqiJOQjBXFYFpUwfX5osWlW3GMY=;
+	b=q/hNUbFVAUmpteKk8drUfBpIA15gfkf6xQI0LwUe2PiaUbSqbqhMJsXfAoyT/qCzthYk
+	 DSPf1M8TPXxCkKebT1aUFl2q1OC8uZaqPaFT7zebmOTmKeBz/2cKAbdtsn078FnH7MC8T
+	 7NsDVCJyUHihEW9LnQejwx9oF+h/376c8FQ/0Poly+t9KWIFp2XXBiNg2oQ877lssnDiQ
+	 mZxKhuL1yKd8a/FGlr12M3xprGSlPYFAeg5wU1iKmmLO2tLqMone2roKZ/NZHm9OFRD8s
+	 yJ+7dBPi/V6XGKrYHy8tmPvPOJ6UmBfr+d+oK5nhdFYVnDsQOp/DcHeBMKKMp6J6hYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GbG0Pj+Y;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AtKIKqIh;
 	arc=none smtp.remote-ip=205.220.180.131
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA00606A31A;
-	Thu, 22 Oct 2026 08:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FA00606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8D26606A327;
+	Thu, 22 Oct 2026 08:24:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8D26606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GbG0Pj+Y
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=AtKIKqIh
 Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8Lnps3194744;
-	Thu, 22 Oct 2026 08:24:38 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M8Lnpo3194744;
+	Thu, 22 Oct 2026 08:24:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=prQr/G7jAmW
-	g2TrFoI2eyPO/q5JOANgC6w4svDt10+Q=; b=GbG0Pj+YoCvmrl/k9UOzrw8f0e4
-	zp7KtIyR+55TtGu1FVEbqsSDZLEAGD4JuqtbhHSSjzM4JXkr8LlufsTFIQgD2zVc
-	aF0Cx+5aGm7ql8ITC5EX8KvClUEp7fR4F2H0va8Pwz6BAtG9j9WUdLqHbLOAKim6
-	WbxvIiOacdDdjcEfj3j1cLJ1zi3GiuItFWkWCm3oSyJ6IZlLOIT2apTNkxZSrx6D
-	+yHwbTwvYSfzy45KdMPMt1y0WrmVC5z+WStYAhfY88hLDh31cD02/QSPZxwPCTEc
-	BigZ6JW9VwQDN5NPyngr9oU2ZCSF0y4ZwJR3Iif5Oxm664w51w78EVwByPg==
+	:mime-version:references:subject:to; s=qcppdkim1; bh=fhIVSFg/vNv
+	PlHwlrqiJOQjBXFYFpUwfX5osWlW3GMY=; b=AtKIKqIhHxskz2jS5TFoa5RTtzE
+	k1E1VU0ANO7ZL+n2e1EQBdXfu+KIvkoP1+u2z0LyIMebFrUv/iWF6CIchYcX9S0S
+	EkrelE8PCqPe1p0IwvtQTFGmgrgQRDoxh7X1DjDt9skN76azEMI5IrhZVWS/R+e5
+	6Xg5aXehzGSLasAmFttt8RXbQrJwD9NgiI0g9QQJ++7uC+1WMN+SiHdZFRL63wwG
+	nFi344BIEwJQuYX1e2qfH01/dPyCJXZsA2Q1UKP4yGatTtKNYLiSopw9rzR8jqYW
+	y4gjDU/gWkCjoveQlFpA2eQSrrJQ2F2zSTJ5bsh34djFvesXui164cqPhZA==
 Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq00c5-82
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq00c5-77
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 08:24:37 +0000 (GMT)
+	Thu, 22 Oct 2026 08:24:30 +0000 (GMT)
 Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M7gPZM1894752;
-	Thu, 22 Oct 2026 07:42:26 GMT
+	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M7gPZL1894752;
+	Thu, 22 Oct 2026 07:42:25 GMT
 Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M7gQK51894757
+	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M7gP1w1894743
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 07:42:26 +0000 (GMT)
+	Thu, 22 Oct 2026 07:42:25 +0000 (GMT)
 Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 3BCCF678; Thu, 22 Oct 2026 13:12:25 +0530 (+0530)
+	id 9B75566C; Thu, 22 Oct 2026 13:12:24 +0530 (+0530)
 From: Karthik S <karthik.s@oss.qualcomm.com>
 To: Srinivas Kandagatla <srini@kernel.org>,
         Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -74,9 +74,9 @@ To: Srinivas Kandagatla <srini@kernel.org>,
 Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 2/5] arm64: dts: qcom: shikra-iqs: Add LT9611UXD HDMI audio overlay
-Date: Thu, 22 Oct 2026 13:12:17 +0530
-Message-Id: <20261022074220.989787-3-karthik.s@oss.qualcomm.com>
+Subject: [PATCH v1 1/5] ASoC: dt-bindings: qcom,sm8250: Add shikra-iqs-lt9611uxd-evk sound card
+Date: Thu, 22 Oct 2026 13:12:16 +0530
+Message-Id: <20261022074220.989787-2-karthik.s@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
 References: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
@@ -93,122 +93,102 @@ Content-Transfer-Encoding: 8bit
 X-Proofpoint-Reinject: loops=2 maxloops=12
 X-QCInternal: smtphost
 X-QCInternal: smtphost
-X-Proofpoint-GUID: RAflZPNrrUTKZGxpW8nHs2a5nbQVyRkh
-X-Proofpoint-ORIG-GUID: RAflZPNrrUTKZGxpW8nHs2a5nbQVyRkh
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX/V4FiBAY3Hyc
- qcSe+sNGe0lOUmx7v6beAzhrlB8pcAt8pBbsdtCbryCBmg87guxkjNGrUMoqHHuLN40qDTlWlT9
- 6TIuX8Ys4nRp9eQgvHmoubq+fxbSfFs=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9c846 cx=c_pps
+X-Proofpoint-GUID: gz9n-pqq9BRrD9GnUgXJ9uFkd-F_MdYT
+X-Proofpoint-ORIG-GUID: gz9n-pqq9BRrD9GnUgXJ9uFkd-F_MdYT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX6THLOxUSVfgT
+ 1hBADjNaHxn8d7/eMnZLFao7cT8Cf5WCgUQT5vcep504FTbhBFzPJPB5F1KyI1aAf7dZXqPfQyF
+ 9EJyaIMv6QFoVgDHLbpQXR3hKWe37UQ=
+X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9c83f cx=c_pps
  a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=ttgH6qQV0czHaN5LAcgA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfXxbtJt2BUKmNK
- RS0Vl11Tx8qaFnaYG2ZmIp6E4bqsPqvRx+BYBCS0SAWSJFU4ZRrempW7BDFZpmjs4Vx6itdTSaR
- Quwf/wN0FL0/8+gdBaOyBEeGG6t/XjRAEgh+WbtDVr27baUIIH9VrOaB4yWpEuH25LhygJd4Nd8
- OSoh3U6VWc9WC9fn83QKKrQcaDd/WoUezfBqzCifXQ/2Z4Mmn7CQkW/JzSqHL534Aqb6nB5kr7H
- 19t/osg6rYYG9D8STIWfA03DeIueB6mq5Nk7/jECCGcFydLg8a42yOwyC48QD62N7nYxXMLuGAb
- PcEgL1epJP4JMQ8XFrpnxYiNlsjyyl/Wdch87yF3hwJAhJckAz9vsxGaGAc9RMqTcudZBV/9NEm
- Muakj+GekOQrUYZHN2TJ2kv50Bz8FEmn8WFKUDAYW8pKrdjoZHxWmGCbqQ1ARFUbTyYKsB5h6Gn
- f4lHLWfFhwK23xxEj7A==
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=p1RO9Tmeah0oeRdPf1sA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzMyBTYWx0ZWRfX75/rdIOokkmO
+ 6cOJpvi7Cu0N55TBvx3ZN8nt/iYR9U0r+acMBteFEbQkpGVfH8Yb+oICcuNEVJyAZRDE5Kakme/
+ 0hclbm//Cz9Z3XLhvx45e/b3HxArQFr5EtYVlO9ErIG4/6DmEnQvQhH/CSs9lIQ0hV/V6oY1Wmb
+ lV/iH7ATx5oe0Ir6DZm46xA6zk3Z9ZF4gmJHxBlnuYWwcak12Zi1Ao1ivLWrnzsR5taQJuWkdMW
+ s5fs7jbgI52bifjykmbMYqq0sdYsSXZlqZ2daRpFEjkSeu7Zk5A70N6sJjm372/ivwmHN+fiHXh
+ rq/5P7SV8Z8jvIxI+dWz5tmdv1g+PnBE1AYbfSyutL8r8Estz3LQm6hi4RQqCrNsTrXfPvRmIYq
+ Y/NoULtJ/cVEPjN8kaiTLCRDMEX7Nj0RebKAGrvFG00IiHspY56T/2n/3oYGKE5LLxhFlHclEqm
+ UKV3oYw1ScVgNJ3s+9Q==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
+ suspectscore=0 clxscore=1011 phishscore=0 lowpriorityscore=0 bulkscore=0
  impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220033
 
-Add a device tree overlay for Shikra IQS EVK boards that use the
-LT9611UXD HDMI bridge as an I2S audio codec instead of the MAX98091.
-
-The overlay reconfigures the sound card compatible to
-qcom,shikra-iqs-lt9611uxd-sndcard, overrides the primary I2S playback
-codec to LT9611UXD, disables the capture DAI link, and disables the
-MAX98091 codec node.
-
-Add a node label to the sound node in shikra-iqs-evk.dts to allow the
-overlay to reference it, and wire up the new composite DTB in the
-Makefile.
+Add the shikra-iqs-lt9611uxd-evk sound card compatible so DT can
+describe board-specific audio topology. This Shikra EVK variant does
+not use the MAX98091 codec as the base shikra-iqs does; instead it uses
+the LT9611UXD HDMI bridge as an I2S audio codec. Describing these
+variants explicitly in DT allows the machine driver to select the
+correct DAPM routes, controls, and clocking behavior for each board.
 
 Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile             |  4 +++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts   |  2 +-
- .../dts/qcom/shikra-iqs-lt9611uxd-evk.dtso    | 36 +++++++++++++++++++
- 3 files changed, 41 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso
+ .../bindings/sound/qcom,sm8250.yaml           | 43 +++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55..127c5c345eff 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -339,6 +339,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index 1536fcd96d68..d1f948a14c62 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -50,6 +50,7 @@ properties:
+           - qcom,sc7180-qdsp6-sndcard
+           - qcom,sc8280xp-sndcard
+           - qcom,sdm660-sndcard
++          - qcom,shikra-iqs-lt9611uxd-sndcard
+           - qcom,sdm845-sndcard
+           - qcom,sm8250-sndcard
+           - qcom,sm8450-sndcard
+@@ -247,3 +248,45 @@ examples:
+             };
+         };
+     };
 +
-+shikra-iqs-lt9611uxd-evk-dtbs		:= shikra-iqs-evk.dtb shikra-iqs-lt9611uxd-evk.dtbo
++  - |
++    #include <dt-bindings/sound/qcom,q6afe.h>
++    sound {
++        compatible = "qcom,shikra-iqs-lt9611uxd-sndcard";
++        model = "shikra-iqs-lt9611uxd-evk";
++        audio-routing = "VA DMIC0", "vdd-micb",
++                    "VA DMIC1", "vdd-micb",
++                    "VA DMIC2", "vdd-micb",
++                    "VA DMIC3", "vdd-micb";
 +
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-lt9611uxd-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-index 69b0c34ec9c4..b920c96aba14 100644
---- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -22,7 +22,7 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- 
--	sound {
-+	sound: sound {
- 		compatible = "qcom,shikra-iqs-sndcard";
- 		model = "shikra-iqs-evk";
- 
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso
-new file mode 100644
-index 000000000000..e308552e9206
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-lt9611uxd-evk.dtso
-@@ -0,0 +1,36 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
++        pri-i2s-playback-dai-link {
++            link-name = "Analog Playback";
++            cpu {
++                sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
++            };
++            platform {
++                sound-dai = <&q6apm>;
++            };
++            codec {
++                sound-dai = <&lt9611uxd 0>;
++            };
++        };
 +
-+/dts-v1/;
-+/plugin/;
++        pri-i2s-capture-dai-link {
++            link-name = "Analog Capture";
++            status = "disabled";
++        };
 +
-+/* Board subtype 0: LT9611UXD as I2S audio codec, no MAX98091 */
-+
-+&lt9611uxd {
-+	#sound-dai-cells = <1>;
-+};
-+
-+&sound {
-+	compatible = "qcom,shikra-iqs-lt9611uxd-sndcard";
-+	model = "shikra-iqs-lt9611uxd-evk";
-+	audio-routing = "VA DMIC0", "vdd-micb",
-+			"VA DMIC1", "vdd-micb",
-+			"VA DMIC2", "vdd-micb",
-+			"VA DMIC3", "vdd-micb";
-+
-+	pri-i2s-playback-dai-link {
-+		codec {
-+			sound-dai = <&lt9611uxd 0>;
-+		};
-+	};
-+
-+	pri-i2s-capture-dai-link {
-+		status = "disabled";
-+	};
-+};
-+
-+&max98091 {
-+	status = "disabled";
-+};
++        va-dmic-dai-link {
++            link-name = "VA DMIC Capture";
++            cpu {
++                sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
++            };
++            platform {
++                sound-dai = <&q6apm>;
++            };
++            codec {
++                sound-dai = <&vamacro 0>;
++            };
++        };
++    };
 -- 
 2.34.1
 
