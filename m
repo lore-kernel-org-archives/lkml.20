@@ -1,66 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792705482;
-	b=3aF97JCalImYEX7fB4qEqK9AzBsOXKPqBVEr4JaSsgwF03zFGnUnLHFKK/qV04jwV1o/
-	 89/MGFKBtOqVnwXyCt5GI8Z3ruI5u+VQWxH0d8Ob8NNyi5mPg09qgLhr56nDGf/iRBjQK
-	 Augh/Ma5Ye7/vrtqGpc9ORJp+J2+b3GvoxKXnwvxtdt2zHlbaTQPdVrNHiWtInKdeWC2X
-	 CRG8gFtNvNLVWHyv3n/Wka6/Zo3pq3QyJ74Lt8kyCJ+pqo/Z8jIBUyUijF7Yean85faM1
-	 x2N0+BW209Vt9DRngn5VF7GngGJ95gkhqg1KdqBYdTE0JPnUGxQYy8KyRZElVsHgS4Q==
+	t=1792705500;
+	b=0svRkYc2pa13sWJF9DY7cTeZRt8rvJQKvRoh30AKpuLIUX+FGxCMcMwB+i/fraodGgYl
+	 cQzE7M4gJCt5HtVsCpGO4K6TZFTxwBb1rom21wzyBXPnE/8UV0tQm67gfbzwViC/kIZqD
+	 C8iMjFj1lOhHx0/pmxeQOk0xrbbmFOdiraESAxW2HrmLKY2MWChW+CNCXsGIvoHQv25pR
+	 xrc75A7+xgbhUyxufNLQ72Sbf+Y1hnyeMjlw88XLA7cv1hdXPqglBMvyHKR6tctMLbnj9
+	 h+4CG2FaLFLdwq6Gz8OD1naFgfi7T+F7dpUQzW0DrWsYPc884hP7tYv1qIh0Bf1+8OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792705482;
-	h=DMARC-Filter:DKIM-Filter:DKIM-Signature:Received:From:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=Woe6xHcsEP+dAFnzYb9P6peVQw4vpnrcC8v3BR/2jnE=;
-	b=fhteExr8hcREUrCm8IGS20B3J9/NmOMDfeSTHRuKkyqVKFeL3thLx5DB9qfxeRgH5rFL
-	 znx8GFsENbFLUgoudxg2PE/CCaPgxkx4YuF+iKL+MR/u5RA5iVf2DJK/b2KReoTh2Stgo
-	 8hM2XB2irZMIzSjDhAqrzFu/Hh4q+62tW0WrHxlxXQJvfMk9F0EUTaMTga/TQPhH48Aga
-	 gY4+Hk/F3Crdjcr4TWvBP/q3OddwrNt2mOr1B8dct5YDgB/xankCdaXS8YZGNwkD9SkM7
-	 B9bcsZ+ffiD27R45KXizSRcj82NSYkfCpvsBIQ0OVjimCuLl6CNRE5TfMMktr5v2Iyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792705500;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3z/tnqIkbwuOSMz8YvGq/0kmnO/cJuin9JInGArnj78=;
+	b=Ikh23/7riNr+GjjQSjoIdDKjJy/LqpKr3cAEZp4LVZq2HCKFs2neXuMJKZYBjnXB7d6p
+	 AFQV1W3Z21Ve3l2fUOmQSd0Ec6VTtGKfQsbOuspzD47i1ldO50B2lmnV/pEyyDlbF1zEQ
+	 hrZPXaFB6Qzkj7NSo/yGynMANe+h8180nZDsm+et5j0HE51gf6ymX02AiS/G+H7a138pm
+	 QY0CJSrAcCkENYOnfj8Cwy36EteG62xgNo2xguct3ereNBu/K48K4uoF87cT33zR5S6bc
+	 UhbxsxwcwFPn1bBzK1d1AqTvDpoygIo7kNVIjt6EOw7FNwsO1YIQISYh4RFNgTasZzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lwn.net;
-	spf=pass smtp.mailfrom=lwn.net;
-	dkim=pass header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=lhJJsOrJ;
-	arc=none smtp.remote-ip=45.79.88.28
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoeHQDI1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8A9606A31A;
-	Thu, 22 Oct 2026 21:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA8A9606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3BF4606A31B;
+	Thu, 22 Oct 2026 21:44:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=lwn.net header.i=@lwn.net header.a=rsa-sha256 header.s=20201203 header.b=lhJJsOrJ
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net D63E8408F6
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1792705481; bh=Woe6xHcsEP+dAFnzYb9P6peVQw4vpnrcC8v3BR/2jnE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=lhJJsOrJHzLb6hn6bv7VHV2+mYFyaQtqk92z4rf3sxZo/TyHcTlvOfRjkRsCZIrF0
-	 Nip8jdgWVfzcS5qQI+OMAL+VtSulUBFCWcXY7gA8o/jOsJQsrstXMFjBdxeJfnxw9u
-	 5wJdFCNdvqkzNXjHfSnYt93QL8pkpmOBk6cOJ0/N/5f3M6MHxTIjb7KxIyxwiL3gqZ
-	 eG8q9GbK58WGOoVPrjX3IaLo2gcnl9GFu9fn8NRI2Ejut7IYXkXkh45XCpYhNNTgiz
-	 h8WveE+lhUaTo/m2YMOszMhQ417gK5tNzbqnqVBrp7v1kgVKLoOtQV+68J6yOnW5dH
-	 /1Q9GqWTslmNg==
-Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id D63E8408F6;
-	Thu, 22 Oct 2026 21:44:40 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Breno Rodrigues Alves <breno3011alves@gmail.com>, linux@armlinux.org.uk
-Cc: Bart Van Assche <bvanassche@acm.org>,
- James.Bottomley@HansenPartnership.com, mkp@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-scsi@vger.kernel.org,
- linux-kernel@vger.kernel.org, Breno Rodrigues Alves
- <breno3011alves@gmail.com>
-Subject: Re: [PATCH v4] scsi: arm: Convert acornscsi-io.S to C
-In-Reply-To: <20261022210252.80844-1-breno3011alves@gmail.com>
-References: <20261022183658.58090-1-breno3011alves@gmail.com>
- <20261022210252.80844-1-breno3011alves@gmail.com>
-Date: Thu, 22 Oct 2026 15:44:40 -0600
-Message-ID: <871p9h1kc7.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UoeHQDI1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9851F01825;
+	Thu, 22 Oct 2026 21:44:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792705499;
+	bh=3z/tnqIkbwuOSMz8YvGq/0kmnO/cJuin9JInGArnj78=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UoeHQDI15eToRxgaD0Ha7ap01/yMx/3jPiGoCmRX64jHQu1oi978N8hkIdwkWNdiR
+	 GNcqbAzXNLJxI0C0g0xTfIfBjI0p20fBbw3+H6cViKiS9/wLHDdKfyTxULZFhmflon
+	 i4bxSGg4IfMBvAqsHePGCBlUmX70hzBX0KbIFpnDEd4oKz5Of6dc6Ts9qP8ibKvMFO
+	 gNtqKszYUc5kaXz3WNRMMfXCPZ2jnXd3R8SYHKO1BXfGLaDvW+r3xZGInIetq3hIm/
+	 fOKwC26Ek6gY52+fDzS6EB7rlks3H9zLSF0NuCdGvcS0zGPL5759rVR2Uba8fgJNtw
+	 berlKLS4OzuQg==
+Date: Thu, 22 Oct 2026 21:44:57 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Frank.Li@oss.nxp.com, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-doc@vger.kernel.org,
+	Anatolij Gustschin <agust@denx.de>,
+	Saeed Bishara <saeed@marvell.com>,
+	Rameshwar Prasad Sahu <rsahu@apm.com>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	Anup Patel <anup.patel@broadcom.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH RFC 1/4] md/dm-integrity: replace async_tx with
+ synchronous xor for journal
+Message-ID: <20261022214457.GB1383716@google.com>
+References: <20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com>
+ <20261015-asycn_tx_remove-v1-1-056a7085e0a1@nxp.com>
+ <fb9c7c5c-e377-7926-c8f1-a7f9e93c2d46@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,24 +75,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fb9c7c5c-e377-7926-c8f1-a7f9e93c2d46@redhat.com>
 
-Breno Rodrigues Alves <breno3011alves@gmail.com> writes:
+On Thu, Oct 22, 2026 at 03:24:18PM +0200, Mikulas Patocka wrote:
+> > async_tx adds significant complexity and maintenance overhead while
+> > providing little practical benefit on modern systems, where RAID parity
+> > computation is typically performed more efficiently by CPU-based XOR/PQ
+> > implementations than by DMA engine offload.
 
-> The Acorn SCSI expansion card presents each 16-bit SCSI data halfword
-> on the low half of a 32-bit card access.  The hand-written assembly
-> in acornscsi-io.S implements the two directions of the data path:
->
->   - __acornscsi_in()  : packs pairs of 16-bit card reads into 32-bit
->                         memory words
->   - __acornscsi_out() : expands 16-bit memory halfwords into 32-bit
->                         card writes (duplicating the halfword in both
->                         halves for the bulk of the transfer)
->
-> Both routines are simple pointer walks that a modern compiler handles
-> just as well as hand-written assembly, so replace the .S file with an
-> equivalent C implementation.
+This patch is to dm-integrity, which is doing an XOR, but not for a RAID
+parity computation.  The above paragraph should be adjusted.
 
-How have you tested this change?
+> > ---
+> >  drivers/md/dm-integrity.c | 26 ++++++++++++++------------
+> >  1 file changed, 14 insertions(+), 12 deletions(-)
 
-jon
+Should also drop the 'select ASYNC_XOR' from CONFIG_DM_INTEGRITY.
+
+> > +		src0 = kmap_local_page(source_pl[pl_index].page);
+> > +		src1 = kmap_local_page(ic->journal_xor[pl_index].page);
+> > +		dst  = kmap_local_page(target_pl[pl_index].page);
+> > +
+> > +		memcpy(dst + pl_offset, src0 + pl_offset, this_step);
+> > +		crypto_xor(dst + pl_offset, src1 + pl_offset, this_step);
+
+crypto_xor_cpy(), instead of memcpy() + crypto_xor().
+
+Also, these pages come from dm_integrity_alloc_page_list() which
+allocates them in lowmem, and elsewhere in the file they are accessed
+using lowmem_page_address().  So the kmap_local is not necessary.
+
+Also note that crypto_xor() and crypto_xor_cpy() just use scalar
+instructions.  Probably fine (it's just an XOR after all), but it might
+be worthwhile to mention why xor_gen() isn't used instead.  Is it
+because the pointers and lengths aren't aligned well enough for that?
+Or just because not enough data is being processed here to bother?
+
+- Eric
