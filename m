@@ -1,94 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687434;
-	b=TLy2/WBgV5+wcaeFpBM12NHG6FusmbpDUXM1nYQu7gXu0GuM8PngzHjprXkcUZ7J9Xuo
-	 xjPDnhOsVTnAcqwJSTsS5xQ7SMa/nLOSyzhoIs9tVzhtie1P3nSOmd7zg+v2dJCsfbCOX
-	 3ahamxsn+wk/Ea7UaMoUiLFmNYXPTbo31S5bNbmbmkb/xUknaaN9BbcCvKDIdnnQRPPNz
-	 LNY1G3TuHjBSUsr5X78bGQV18ehFfWNxWWYOpSFhUkY8l8O2IVlvIjoYqyiZYcUJ4UBTC
-	 RSRt4/HtWEQcQo4LyjlyTkWV/mTrOyKRc3dgRZcKGQOEUG5zyNxGxvka8zUerj2b83g==
+	t=1792687492;
+	b=OCGAZ4OLSHMJtiqFQ+5BJZvym4yvk4zyNgShJPCkwkh1q4VwEF9+WQw4OIqRnU4ulyzx
+	 /TKAD0KDb7Ob2LRZKlb9ki5IzLmZWAI9gNvKO2nfPual2vEqsyP1WjtKaNaxaBFi0vKtR
+	 Di7lfbwECGBfCdtnUf1EfFwjOJS9CrKrhnbUg0aLQ/shXk+yTUWZXlrOPdWvohsOT+M5P
+	 2mcsCYhTCRySUpmPTaL7Qr4WpKw/zOub2Tod1DRM1W6+YUBk1ZvDt5SPlHkRZdc478YKc
+	 TTmagqAHLm0lby2e3v/0ZcXVbiQHIS+Q+zGsaXSH1jFG/9zYGJFIUrm8KXMijqj48CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687434;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ETjJA992+3Nw94AfVhCDwB14jB6KIUui/slQ6pLMm7s=;
-	b=VoqsfknK2ecoEEWdVx/lSeAzfyerHuPUejj4EMo+0hv/5tB2EhOxsErQ87tiI2G7HysH
-	 xCsfPy4vURqLrIlSQ/FsTuk6ZIG54g4Rv3OUJ9XpkCiNciqkSlxhYkuvE9ngt9kO+wdkk
-	 qXIdWy/2ff+ns8B7SuffVOqD8H+PFO5lPb8cC2ttdpWAlyD6CUBtT/bJ0Cg4RCpSXOJEt
-	 uMeyJF02Ao/zbCf6EaYu8ZOMROIWjxirrXZM5WbApEaGJRng8VhTYFLvFzpZ9QrAnPXBI
-	 j5jRiVk2Q03uG2Js9Aod0R1+k6lQACNLYK9qra4+WpS+OY4Ch+ToFn/4z/M9MbMZMtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687492;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=vkgH7/1CsUWpFerkD8pe7z4GSs6lcDLx7Deh/tAsIzI=;
+	b=rOa1ve9tiIX3wa4x0HnqGR7QuOfX9bb1KFExHrOzs6DUcE5QQqEyIANMxEC52xlrEvr0
+	 BDdj81IjADCJcaTZ9Qq7AS46MxYPd8cQwekog3C1mvgW1TLZPPH13whTPopcjALHwW21y
+	 hNBiRHUiAlRUNeL3qE2ngyefE7K1FgywmDwL8ytYPs9tVqoqhbUSPPUP803OtOtYLXX1Y
+	 4odYsikyq/MfAMvF0H8BxbCc6Z6LHEvr5BKmzFZd6raJK7FgdDWq9Raf2FxO1c1IyguU7
+	 46f3ICv8wVaoR8i0o276g84ntabPChcuTLMwdRhwGXf063ASOUXlpmmIHT0j6Wkg0sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmpxchg.org;
-	spf=pass smtp.mailfrom=cmpxchg.org;
-	dkim=pass header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CEN3gmk+;
-	arc=none smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C376C606A325
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:43:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C376C606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cmpxchg.org header.i=@cmpxchg.org header.a=rsa-sha256 header.s=google header.b=CEN3gmk+
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-679334baa1fso85339d50.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:43:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1792687431; x=1793292231; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ETjJA992+3Nw94AfVhCDwB14jB6KIUui/slQ6pLMm7s=;
-        b=CEN3gmk+YO/eN2F39INYrEU+HFy0QEePQ4t8Tq51Vhh+SvKt3BlNS6nL7RyQG5Mx87
-         zI42p49MigzPI3ZgcAX1xD+YW8vI2JMIvAT2lFyzxFd0PBX6bufbXv00SGXNnQ64pv+M
-         GiiZkcTN2mOr5qG9ZKJDVUgzNP4keXJmGaxOoT2u0czlKj64wnREjZ6GObot3heZpZlK
-         D0rFcNGzora7+RcTMza585NTMqwzn7R5xH4sk0wFOnl5/TfNHUtnX702VxVZ13z129jB
-         AIVXphUzwoBq32Q9Vtw3IBscF89gjvdi30HYfMaSDEvZw44BcetxiWGa6dOxKd6ReCbs
-         zjsA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96207606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96207606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-54213290993so52597b6e.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:44:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687431; x=1793292231;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ETjJA992+3Nw94AfVhCDwB14jB6KIUui/slQ6pLMm7s=;
-        b=I9x/p5gQTQDCZY26/OWkU+y+CfXpwcjpS8zi119PRi37mcR+OGsM4kMF7mfz9B770V
-         0plSC/yOPxXx6E66gWGu2vCoKUHF1BPtiG94ysFC5YJN2ejKclOoSQRUnv4m2KozbuN+
-         xVOltVjeSBk3O99jsJ48EhrgH+T4jEx7AYMyUv4LQPB1kBbPaTdPzoYbgr6qiUar3ute
-         VSaW6M6MSuYg56Yl85Uvcjl0hAQtVu8UlWaYoL9akqorZ0sQxQUJ7Q7NkFZ6OYO4Xcid
-         mHJTgnf+uNKpeMMfkuCEWDMy7cyQR0tdTNYn89i0vVWX56nu5yygaaeP13LF223gBLCH
-         y6FQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWBavXILSC3RN6uSWHjLCXPL2LzbWEHAoPbIberlytJtrBgjDtGyF7vPdcH6krH0ZTnUk+tmPQh7LsXVM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMKvM6a8Logjz+mcmu1SeAllK5h+XyBFkTOF0MvWRuHx/29vtL
-	nObKuT1G+3B/+tqQsHj5gt464inOtG3Ji+byo8Gq34Rnsz1QdyA0Lpt/tGWfUnU5NRXdUUWzevB
-	RHW41
-X-Gm-Gg: AYBFou2ljrQ2L2LR4lChMOejrzlg8gfJRuHrziWcuAIXcaSQfNK7xdSKux+P7J5MEfZ
-	0vplcwYRrn2HqgD/gxJqwwl4cjDtKFohLSa47IWGMUaBAjdyaUcHaW4lYdxnXlEy6RSyjM1/r9G
-	mmi+0aDFbnU+UPkNtTJbbb9kfCg5fgFQ9yhSlgBBG6f7x5vnjo5nEv8KgToTNyiyZqkMQ+56lVA
-	PAtFHkiPdCfV3qJOWg/Dxk0yUbcpB/660Bwn1lMUZL6N3fkU+1HRVFtfUcj/T62UNay1cl4eA7Y
-	dIr7CCyBogQOIQqKFuUumtbaSzZQ8bkADC2hJrNV3S2c2xKHFyKBUeAz0AsS7id0wOsNxiqzdlL
-	NLE3Ju/Y7a6SxKoC5zL+y+I4wiwtpqQGue2PJYYNaR7chfX1x1gy8PBJcsayOyQnFUw6Mpn3gCY
-	N07LfL56eUhPkLvj6ARTLFO3hKf3y1RZiKX4PMXqWZ6KuLnLGyK9AWkhiqRzunECjjuWA4/sCL5
-	2RDQBSUF6vXyPQGp3nMYfaz3vzmjP/R+T3bz/N5Jv7F8XuZ3rIiW8/L
-X-Received: by 2002:a53:dd09:0:b0:672:99e0:ebdf with SMTP id 956f58d0204a3-67a0e57f0ebmr1751623d50.119.1792687431653;
-        Thu, 22 Oct 2026 09:43:51 -0700 (PDT)
-Received: from localhost ([2605:8600:200:14e3:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e496732sm2881390d50.5.2026.10.22.09.43.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:43:51 -0700 (PDT)
-Date: Thu, 22 Oct 2026 12:43:50 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Zenghui Yu <zenghui.yu@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	akpm@linux-foundation.org, vbabka@kernel.org, surenb@google.com,
-	mhocko@suse.com, brendan.jackman@linux.dev, ziy@nvidia.com
-Subject: Re: [PATCH] mm/page_alloc: remove unneeded forward declaration of
- __free_pages_ok()
-Message-ID: <ato9Rvu6H3Ze60ht@cmpxchg.org>
-References: <20261022124504.75642-1-zenghui.yu@linux.dev>
+        d=1e100.net; s=20260707; t=1792687490; x=1793292290;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vkgH7/1CsUWpFerkD8pe7z4GSs6lcDLx7Deh/tAsIzI=;
+        b=lCSwK9zcKqfN9eHejguxlnofjwjCV7BARQcqrddYqXlEi5Y3MzsFv80OR+G8Nt42N+
+         6LBqJqOrZWWYqzZtBIhyzaF06JjjRp8x6+MFktVS40uVuih9RsE7sPGU/l5VzQbw3YhC
+         rNCpi0KVfS7Cc7nC8tQ5ivHi54T0V4OhynhO4WEBa0b11ACPb+cMU34YuSTdN+LREr4e
+         f2C+KyooJp1qgHTeuCaZWbj3/81kqrU5d8b0uK3K/3Oi0HgdSexAFBOafUs9QT7cWwFp
+         OLJxIhr65DubfEIddxqlmQShMswgLV+PKG+gvvUHsPzLWwxqRJqegSKjrgXtdMy0tZaV
+         pLRg==
+X-Forwarded-Encrypted: i=1; AKwUvBzY6UOQivRr3vy2kNsyiznwqJMh1yILxEhUIBSuh2WBzM4lr45Rms+hX8DVpATqXNYzcebx+ukjDpHYZaA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHySqrlKKvrpvzk88uiLBNg6VKa+b77Wuijhya09YpEK7hHsvX
+	FZ7x1c1nAk+6KaujBrPNX8y5py80YbbdI5TuipDJCfKPy0eeq73z4uTyojsmJHXcBQcT5mSyPNh
+	BwVH7qYvfcmyAIKY2oyWtgjNTmKcm+Cs9ps5lU68E6bqerJUwKhsLoZBlwoY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,17 +58,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261022124504.75642-1-zenghui.yu@linux.dev>
+X-Received: by 2002:a05:6808:150a:b0:52b:7641:33a6 with SMTP id
+ 5614622812f47-5535a66d1d5mr4259216b6e.14.1792687490640; Thu, 22 Oct 2026
+ 09:44:50 -0700 (PDT)
+Date: Thu, 22 Oct 2026 09:44:50 -0700
+In-Reply-To: <6aa9c7f8.a211d2ce.1a5198.02b5.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ada3d82.d1c214cc.659fa.00db.GAE@google.com>
+Subject: Re: [syzbot] [netfilter?] WARNING in nf_flow_table_extend_ct_timeout
+From: syzbot <syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com>
+To: coreteam@netfilter.org, davem@davemloft.net, edumazet@google.com, 
+	edumazet@kernel.org, fw@strlen.de, horms@kernel.org, kuba@kernel.org, 
+	linux-kernel@vger.kernel.org, mike.michalo@gmail.com, netdev@vger.kernel.org, 
+	netfilter-devel@vger.kernel.org, pabeni@redhat.com, pablo@netfilter.org, 
+	phil@nwl.cc, stable@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 22, 2026 at 08:45:04PM +0800, Zenghui Yu wrote:
-> From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
-> 
-> All remaining callers of __free_pages_ok() appear after its definition, so
-> the forward declaration near the top of mm/page_alloc.c is no longer
-> needed.  Remove it.
-> 
-> Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+syzbot has found a reproducer for the following issue on:
 
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
+HEAD commit:    abeacca61eea Merge branch 'net-mlx5-hws-fix-modify-header-..
+git tree:       net
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=111f4d0d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=c4b098695335c89f
+dashboard link: https://syzkaller.appspot.com/bug?extid=521f7e7e2b974abde99a
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1491e029580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=157d410d580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/22930d0e9391/disk-abeacca6.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d2e18d51f288/vmlinux-abeacca6.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/69879bb16225/bzImage-abeacca6.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+521f7e7e2b974abde99a@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+1
+WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_table_extend_ct_timeout+0x1ee/0x2f0 net/netfilter/nf_flow_table_core.c:553, CPU#1: kworker/1:2/123
+Modules linked in:
+CPU: 1 UID: 0 PID: 123 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Workqueue: events_power_efficient nf_flow_offload_work_gc
+RIP: 0010:nf_flow_table_extend_ct_timeout+0x1ee/0x2f0 net/netfilter/nf_flow_table_core.c:553
+Code: 00 00 00 41 83 ff 06 0f 84 9a 00 00 00 41 83 ff 05 0f 85 b0 00 00 00 e8 e0 10 a9 f7 41 bf 30 75 00 00 eb 0f e8 d3 10 a9 f7 90 <0f> 0b 90 41 bf 01 00 00 00 48 c7 c0 80 f2 a0 8f 48 c1 e8 03 42 80
+RSP: 0018:ffffc90002dcf930 EFLAGS: 00010293
+RAX: ffffffff8a1effad RBX: ffff888027a52900 RCX: ffff88801ffa1f40
+RDX: 0000000000000000 RSI: ffffffff912fa640 RDI: 000000000000002f
+RBP: 0000000000000737 R08: ffff88801ffa1f40 R09: 0000000000000002
+R10: 0000000000000011 R11: 0000000000000000 R12: dffffc0000000000
+R13: 1ffff11004f4a538 R14: ffff888027a52948 R15: 000000000000002f
+FS:  0000000000000000(0000) GS:ffff888123bbd000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f926bd5bd3c CR3: 000000000fb48000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ nf_flow_offload_gc_step+0x5aa/0x840 net/netfilter/nf_flow_table_core.c:593
+ nf_flow_table_iterate+0x13c/0x1f0 net/netfilter/nf_flow_table_core.c:459
+ nf_flow_table_gc_run net/netfilter/nf_flow_table_core.c:616 [inline]
+ nf_flow_offload_work_gc+0x22/0x70 net/netfilter/nf_flow_table_core.c:624
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
