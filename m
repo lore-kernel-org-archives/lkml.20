@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792684854;
-	b=yW6lR0Y4EmyXPB8eyAJRgYBY0rsOqo8m4Tn/OKh5uXGiBQoCXvk9xWWusE6DPM9pRg3u
-	 UjL7HZLgNIk8w6QSUsGMbDP7ExjMrrI2ZJygbTB/XXHvhwSIObQNkaF2SWPfVa+L3EOJr
-	 VLCThgFKZkfP13pf0//yWF4fDFU0wiZ61A3Hb2bxj+OpqeJnr1GcSK3GRBZFJzYH00Htn
-	 UdRVTWlMRESPMexbZUAStufiHct3C8e4QM48J4Hin0KwqyZYs9zm0eN3T7bYzSFtPlEVm
-	 q/Y8qxdCYAGv7BwCL2KhnFlO2W2dzcFnLGo7tn+T1EWXdEVB4Vo3uGhFrLx0eCEAB+Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684854;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792684867;
+	b=ncMxQ+j3kNoi1qwPoIeqqtLV4ZlJivdRHg1B7vdlXqFyucj9/AKVP0WAhLWLWIAC0unj
+	 XVL7XBDTaCtNWN7r4QwFoaPysu902VdUdtowDnum2BY/Cq/mG1SKrS+HZELXzLnfeSfqt
+	 RQBlEX/OCZbWEKbQged14Et0IiH+unrLdbuBRrrdPH7sB/BtqgN3qDEuyx02dB/YIVkJE
+	 WU7izaJMdXw5H7NjFToX0wvh6GADoJJWQ2rut6mDjW+gQkY8RYXZZ9Cc4xW4AtEz2Jmkf
+	 7ObdI7lVQZBkgsRHit+P/wDLBOkZXE57DWZRXUDGoLfOdQybK7RJXS1ohVYzG8Ipnlg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684867;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Mk3GH3Ng2PrOezdHtaigQomG0NHLOTtcMUPVoA3YW2Q=;
-	b=LVCc9NrJyxDKLl73mksFk5lrM/aUhMjcv9t7Yx+KNrocJdcb0NIaVoUwXkPxIvEcBJt1
-	 BnMxQBBHDbDVmmoOz0qxl1t5AJlF7b8pB5CA77fhuHDQc4frBBFSMrF79pY5/3SNZ7nbY
-	 G3MM/A/vih20IYGLqVFVXe1ag8JKelyQgcYSlByWey1oUbhPW0L85RV3ohO/gNjZCt6ef
-	 XFpxpf3U+xMc4+V0jhy3GAp8qongK3t+1WbjVJkq7PZdIPwTlIH0l+RrOkgVSSgtrL3k7
-	 1ffWxOr4G0Cgg3nXstRou4gM8ArgblKfdus9qGcIxZ6+gEjZOkRXEqj96xN6z5GFu7g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=wcPHXCUC;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=eHHz19nOUlPLFRSL+CDhh91ENP/dHGkHNHTFaFg4hGw=;
+	b=W3JYTZ7i/YNJhTRXXaPWu9Oq6zT0BTTJXbmzbsKJIhXExUqOcgf9BdRm3H1nWAmEiNCv
+	 4WFfv1sG6q+gpKnJ9x1qOkXSMo0aEfK02F65fPFtERH59ljFuthHtziLKSSO5WrfJT6PN
+	 FKuPyxS2Eho1/I/GpmNr0DvU6Hqrp41hWUgRrjLAY+9d3cx5KJGkEXbNA9Acbg5z1fVae
+	 orpzpzxctbb2imuMv6j8ryHFbqlS6H3oRAqvtmTY5WjYZ0QiokCV/j/z4pJrsUquLoR3W
+	 vOoZn+flcxyxt+NariZJKeKbaV50zUEW71VNkf90kNAO/kN2iacuyad5ApGrcBP5r0w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b="o/C8w0X1";
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA8C8606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:00:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA8C8606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA53606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA53606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=wcPHXCUC
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5337c7b9937so394291cf.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:00:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1792684852; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pV6fWGUbkRalNU3GG9c7KQz/F5lc0QXny32rQ7dJeMUBh/mPUQf5KlMijLxFqGdFkQ
-         QFdh/+AkH/lmLnejnLVNx2rDEPwhzeKUewVhyyKFEIHxrw9BjCX52qBxQwbv8Njaxlog
-         4XqjBua4aPHC/wwK+6b3iB9s2dyl8A18gSEVy0UykBOl94Kt4Ta81XLM8miHMWXNoe04
-         T1PfPlTcgOMOtFks3rQrsJzblVzmMjGrQ5gmsekNsMumqrjJZLC8gsOXu8VDvH/+I8tM
-         pUmRR0xhfi+eBuEzkLzCbSDUWgpOMpTDcYC5/QpU1rbG88UkMsV3rbs8y+7gzkSas231
-         PBtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Mk3GH3Ng2PrOezdHtaigQomG0NHLOTtcMUPVoA3YW2Q=;
-        fh=Usn6AJi7ZIWOL/kKnGSXqwAqSnmBL0oG4ZpcHt/TVRg=;
-        b=eoKnGEf6QTwD/YKSEXpcjHcwqvHRAILIk18nqo+TzfS01Q6dye6fbzbmTFBd0wCuwh
-         +Kc2m3t4c2Ap1oQzaZvI3y9gd9OfjaIm5aT/xYJLeN5hfo2UJW+EiQUUiO4jkORSdxf7
-         axP2SzgF0inB5I4mCx/sY/7gmrgHuge+QlGdbcKHACtK5ywD8Q5pO2I/UCK0gpn72dgL
-         OSL4gIFlmKzJX8Kagc7ek3cxaJVssyxrCC6U+RQ0YXskAscKgumlcFvJa4ZbDhBJfgi+
-         DaH4L/WY8a62Y+qZa1a9WyewzhqJ3vMKGuScFqNgrzOk22+eD18BVNfk05WPWxnFjiu8
-         1pOg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=o/C8w0X1
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35b2c599f43so4451086eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:01:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792684852; x=1793289652; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1792684866; x=1793289666; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id
+         :references:in-reply-to:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Mk3GH3Ng2PrOezdHtaigQomG0NHLOTtcMUPVoA3YW2Q=;
-        b=wcPHXCUCvSkXxZZ7WS6Rpw7hKROhm1IgP90r2hOA8IKeEPB107jlnEdXttjG9t0Z+Z
-         17Uk2+OLg4RxdvYtIfWj0cawSZaM/3NM16eOobG4ZFqeEvNu8gR32SC+sd+7liDxD6/R
-         qQaAgKATAd3TiLggDKUxH53zuBp/mT1Ui+z+3Xjhw/iQtOViLjZaWSuxGT6NrHDpDD5Q
-         mpzD9vVSM5FotapjaaoV9zjxRDVlnVUwRopzTV5zKFZSY/UjnqHFGVMUSebxT9v4Axkd
-         hKtf85ZjpC9moHzzCZAnQAsZdSwz9RgovSzxkWbuIbcD0CdEzvW52oSufOUAKJyyrF/9
-         cB9Q==
+        bh=eHHz19nOUlPLFRSL+CDhh91ENP/dHGkHNHTFaFg4hGw=;
+        b=o/C8w0X1JFCJCzsj9wqiMzBbf1HKiACo68tON325Bb5TJCx5AIRudOeR7R2v4ZO60f
+         gfgLUs65dWsklkvOCDmB97l7NGM75lpDcj0tJP7t0Jw1r65nOTExKzyu0UuR+W/RWR0a
+         /dXtzIqyPcJP9gmZgmRh6+6Xv0AAzlF7+CkBtVbF3ARCjet7gpCvueRIK3hjA/KdsnRa
+         i+UF7+O9TrCwDTA2tTxCo6wuz3TNPqOE4r5cUkkSX0ym8d6Zr3OgPd2gWPmVsR93qURd
+         3fyan+yckODDxP3JD9CqPzBZomT1rpbgLe6Nxtd55ln0tHsZW1fo63V2HoO4ZptuPVzV
+         6qNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792684852; x=1793289652;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1792684866; x=1793289666;
+        h=mime-version:content-transfer-encoding:content-type:message-id
+         :references:in-reply-to:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Mk3GH3Ng2PrOezdHtaigQomG0NHLOTtcMUPVoA3YW2Q=;
-        b=xebih1TgznHtylRip0bZtsOTS1Iu2XbQ0ZdJdaH3fE1lIaCPp65eEKCDXmav8j9Z8W
-         rjbBQOyiubXEx4TTvrPKMJpH7wVx7Pl5BkhpCwGXy2M1GKCUFO+y5vLclSg0z7Ula3DY
-         SKjw6thOMSchY2urEIBORJbZCWZBkdBIXU9NUezhEK2w97eaKGLJxqrjPoKNr+VE7+bH
-         aCgXbFQGW+3tsJeGfNtWRaDi+PBL9l/nXOoyFiBMlTZubHNdSTr7/2YKTiYFJQEtD3C/
-         p6mknEMnKVuzP0U/r61lKuPRHK+plmNtwLbuFOvSobhrtCH3WqPnHT4h8J1g6dvfzinP
-         UJ7A==
-X-Forwarded-Encrypted: i=1; AKwUvBxC9aYsVQeJ0lRH7m//0aWUSbkgFSC9pbtLh0Q11qspBFMUexUr5f2bZIwUqwMCo0VTJN2yLaNITSlf4vo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI4sgoCJtLvYAMIpOsmzATYwgNBHo/j6s5mI/rBSEs0RJLNBUb4
-	5Yw26UCQd2YSksZLTURUJJzmEZWpcDcM+kPyc2PQdvHxqN74irmgmYt9DmknE9vIZlIaR7xSlr5
-	99pirEFGSmsAiz9N4EbJZackK1HmvxGFbDbUm2/Jj
-X-Gm-Gg: AYBFou1zFmZmecuxgMX5f1HVpvNN7oameiMpRBx3sVVhWM0hC//MV07c4vMJ+lVdwen
-	lbVzQFQriujmW8lkDjbG055yf9pXYkBVfxW4aJe0mAGy8ypw7KwL/iH6DN5kaZLvvf1KR6293nA
-	zfF4FBpGsRfNEc6mvHPslfLsVNKbrBFEQz/cspHNzXrprmy9zIBDJubSFghyheSXZ+TssZpARFu
-	uHFsLFLTG4kgK6TVf8Z30nRxcI53NfFweur96jhqb3tFWs6NhlQm7sLoWvQjHilQTkVLZ8Kvt1n
-	vc0db6t8aws4ghEnOuR6p1txkRPU5BMGx8X7xLHLMoLAOtnE+92tzQ44WqKaQJmLt2eSreXLJI9
-	pGQqOd7YA6YJmyFfwTL9F/kKi2ImH4BXiziqFOHzJqZysgkbDWKa/vz2Ud/87ZA2MI5g=
-X-Received: by 2002:a05:622a:1801:b0:536:35e0:4f97 with SMTP id
- d75a77b69052e-536b0631604mr19791391cf.11.1792684849952; Thu, 22 Oct 2026
- 09:00:49 -0700 (PDT)
+        bh=eHHz19nOUlPLFRSL+CDhh91ENP/dHGkHNHTFaFg4hGw=;
+        b=GOINXUeYdwKdyQg7qO/eYdF7icxvXN4zcpW8Hsa973e1ztqv4EBQtHmdsi0JaLXLr9
+         8RlQjSVuwMhj5OJXL65+yUgj4GTMMZQdFp61rveVsQmvRdwOEW4gIMSE4d718Q5O+BRF
+         4B7t3TWfnypgRzPOxwWST2RGBIZ1v5GRAHSL+SUWBids7iqw0eNwinFq1d2Vl6nzpQqh
+         rsU97UUkFvKW8v54DNynXi9mAdWruDYbB86QEyjgHLL+rDjPnW0E3k4HHCcroUEv6AYk
+         v0HmTIjjcMymBJBU8Foz2VGdTY6eo/5aIu63oiBf7ufZpVmcOMwoUL4NLMnN0UqhpsIS
+         2H7Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzuCrgpJf8zacHv1/pSCvC0WG4jC6y5NwHk2WKzB0ZBQXR5IjOhraBL5r0dDFvp7wP1a/asW6fSTPJu3S4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqgTmHC60PzqM6jcBx9Uv8FKkQ1nv10Sn1MqOyIgIz2NXZR+eI
+	o1+Of6xGBMc/svauyV0Fz5M6AsXI0vRlcYNvBDrEqi1Qy42R2AkUcCsL
+X-Gm-Gg: AYBFou0qyjN3/3+tGCJxmdQJfEzYy5sJgZoSj2Z3fiCYPNrVmfTNlMJwiX57kRgsdjj
+	lqMSHzZxgScwAXWlGZD3wMN84ORQA/VrJrT8QoAJxJG9KRjlepZZQDRkNMi+31cx1J8xIx5r4HA
+	KRK6QsShZ8JzzvvjpiyZlCm4r5i+uK7TTdXi6allqzAa/5K3mYyjd6O2sFKSGwgIhBl/IMeKNlR
+	p0AB38E01/D9KDLRBpbfldOCtRT0rXk3JSDz3gH4hbfMwgrIsN5RnZKCltdtQdJ54edvd7RCJJ0
+	gMMFfl939mYE3JwnNLxA343lCG8HcivqPsrZkt6jbjAx5iJA46SWSZ1BB4fdTpcOvUyhK5ouh56
+	h0M11yX/3z2PNzRCL9SpiD0rkQxjVqLGi8cIPJ6jnwWuvY8cghQ8WUUKnxPigcmfdH6zm6bqst6
+	DbnLNqw/vxqX+RkQSLYyqzStaX7Yo2hQkHXz1vVw/8dz4cz3oM9SZeV0eOYP5zy5VlYPuxTdFwa
+	NEvLawwEL3NJ/ivGWutCd88aVv+wTXFljD1JoTgZV43Nqh2MHnMUXd3OwJgT287tz83xgkn8FcG
+	F2ts
+X-Received: by 2002:a05:7300:c019:10b0:366:83dd:46f3 with SMTP id 5a478bee46e88-3674de4cb85mr8534410eec.14.1792684864580;
+        Thu, 22 Oct 2026 09:01:04 -0700 (PDT)
+Received: from [127.0.1.1] (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3674198f1cdsm19744253eec.25.2026.10.22.09.01.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 09:01:03 -0700 (PDT)
+Date: Thu, 22 Oct 2026 09:01:03 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Benjamin LaHaise <ben@communityfibre.ca>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ linux-aio@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [BUG] fs/aio: io_setup integer wrap can exhaust global aio quota
+In-Reply-To: <20261022154852.GQ8374@kvack.org>
+References: <20261022091748.3653127-1-teel4res@gmail.com>
+ <20261022152305.GP8374@kvack.org>
+ <179268384018.50580.15623131516982541149@gmail.com>
+ <20261022154852.GQ8374@kvack.org>
+Message-ID: <179268485745.64118.8307604514392982010@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,40 +104,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260929025345.88829-1-irogers@google.com> <20261012234724.721224-1-irogers@google.com>
- <as_1Jr1h4qFF_2Jj@google.com> <atYLkAOAGkg1dyIX@x2>
-In-Reply-To: <atYLkAOAGkg1dyIX@x2>
-From: Ian Rogers <irogers@google.com>
-Date: Thu, 22 Oct 2026 09:00:37 -0700
-X-Gm-Features: AclHuK-uJH4YZWfjtxaoJ1MMQZSmKk9LsolQziPKPCYRQKJgJS7vz0QuFThVjWc
-Message-ID: <CAP-5=fUMGe3x3OnJ4nf+KrXHdZRoxfRjVyUr1AgZuZQb11gZKw@mail.gmail.com>
-Subject: Re: [PATCH v4 0/3] perf test: Per-test timeouts, JUnit XML
- compliance, and snippet improvements
-To: Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: 9erthalion6@gmail.com, adrian.hunter@intel.com, james.clark@linaro.org, 
-	jolsa@kernel.org, leo.yan@arm.com, linux-kernel@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 19, 2026 at 5:22=E2=80=AFAM Arnaldo Carvalho de Melo
-<acme@kernel.org> wrote:
->
-> On Wed, Oct 14, 2026 at 02:33:26PM -0700, Namhyung Kim wrote:
-> > On Mon, Oct 12, 2026 at 04:47:21PM -0700, Ian Rogers wrote:
-> > > Ian Rogers (3):
-> > >   perf test: Add per-test timeout support
-> > >   perf test: Improve JUnit XML schema compliance and completeness
->
-> Both are failing to apply to perf-tools-next, I'm pushing what I have
-> (with 3/3) to tmp.perf-tools-next now.
->
-> > >   perf test: Avoid stack trace noise in verbose=3D1 failure snippets
->
-> Applied.
->
-> > Acked-by: Namhyung Kim <namhyung@kernel.org>
+Hi Ben,
 
-Thanks Namhyung and Arnaldo! I'll rebase and send a v5 series.
+Here is the exact path, step by step, with the values at each line of
+v7.3 fs/aio.c (commit 08ab31164c55). Precondition: root has set
+fs.aio-max-nr to 2147483649 (0x80000001); fs.aio-nr is 0.
 
-Ian
+The caller does io_setup(0x80000001, &ctx).
+
+1. Line 796:  max_reqs = nr_events;
+              max_reqs = 0x80000001
+
+2. Line 807:  nr_events = max(nr_events, num_possible_cpus() * 4);
+              nr_events = 0x80000001
+
+3. Line 808:  nr_events *= 2;
+              0x80000001 * 2 = 0x100000002, which does not fit in
+              32 bits, so nr_events = 2
+
+4. Line 811:  if (nr_events > 0x10000000U / sizeof(struct io_event))
+              2 > 8388608 is false, so no return
+
+5. Line 816:  if (!nr_events || max_reqs > aio_max_nr)
+              nr_events is 2, and 0x80000001 > 0x80000001 is false,
+              so no return
+
+6. Line 845:  aio_setup_ring(ctx, nr_events)  with nr_events = 2
+              succeeds and builds a one-page ring (127 slots)
+
+7. Line 856:  if (aio_nr + ctx->max_reqs > aio_max_nr || ...)
+              0 + 0x80000001 > 0x80000001 is false, so no error
+
+8. Line 862:  aio_nr += ctx->max_reqs;
+              aio_nr = 0x80000001        <-- aio_nr is updated here
+
+9. Line 868:  err = ioctx_add_table(ctx, mm);
+              returns 0                  <-- ioctx_add_table() is called
+
+10. Line 877: return ctx;
+              io_setup() returns 0 and the context is live.
+
+You can check it in under a minute:
+
+  # sysctl -w fs.aio-max-nr=2147483649
+  # cat /proc/sys/fs/aio-nr
+  0
+  ... run io_setup(0x80000001, &ctx) ...
+  # cat /proc/sys/fs/aio-nr
+  2147483649
+
+If aio_nr were never updated, the second read would be 0. It is
+2147483649. The context returned in step 10 also works with
+io_submit() and io_getevents(), which is only possible if
+ioctx_add_table() installed it.
+
+The early return you describe is real, but it is step 5 with the
+default fs.aio-max-nr of 65536. That is not the configuration in
+the report.
+
+I am not asking you to take a patch. I only want the record to be
+accurate: on this path, aio_nr is updated and ioctx_add_table() is
+called.
+
+Thanks,
+Cheng
