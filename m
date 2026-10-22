@@ -1,96 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.1
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792656901;
-	b=46l6aZ91o7/Zu1Mslx/1BeJRKCn3mcYXx+4wUBtui7cj4uTBVB+6+VwuhIIMQpU2Fc7j
-	 uwWAiUkE9uZvUKY+aOgvTQyQSrdwjDnOTk9RcX1tPVNuiGB3+++t93PVWr+wUHIZ7G6Ur
-	 f3EuzOah7ttINCsuoJI2M6vsoml5XES96YpSaqclFdxmw9qM+4exasy012T/sdCMfyO0L
-	 KZHqeGawfHNgsudzPKs0FVIu4oQwQDLlsklS0B7ziOLEGFY6b2OAwXqqfqga++a5uP87u
-	 3IdphJqons7iVJnmt7/i4momh8NcHu/8txUPbqrAewWLHjlt1gCuIhumVQxPN33MQnA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792656901;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-ID:X-B4-Tracking:X-Change-ID:To:CC:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4Ggmb2T35F4YzKlY/PinzTKbGL1YnxGJMdUAWJDf+VM=;
-	b=L7J2EIPKfehpzGiPl3wOx7+rkT5NMvWqXzTgcA5mxn2dg8ldQ5ep2CinhX6avzHvHWdN
-	 collUQc5LgjXY9hqn6RCjR4DULPYMG6MYFbmR/zsqsX1IQbJcdGcubDvkBwRkl6qmoatY
-	 6e/7OToS0fR7uQoWLcw7hREc+g0qkSTSHXvja/zw6DLG6TiI2/oSMmpvjTt6nZYxgYuf2
-	 g8EPQ3zbExBi9ElnPCo+qcFLb4l1viwcTi9UmqNOOuTDBXKhtXhbYNhj9ctXDCD/nHUE/
-	 WV0POZm4utOpaZwfDJpsLY/OJt0R1EXPQ134ADFNQ2GFLIBQ+heO30Kn0hNoH++ko4Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=olAiWblh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.1
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011001.outbound.protection.outlook.com [40.107.208.1])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792656947;
+	b=U6RFlOc+Dds9ZDTk7L9n6VAB29dmJlQneMuqwJTU8SR5QSt1q2aOuhdTl7ft/HKfmR+F
+	 NfqJnnXreaRgOirl/YB4csFOF6AHX2jM7lQiQLJVAQ4r1CkqTd9aUzGCXXLf4SCHkxcZl
+	 tpo7SZ5tLH8nn1gQsdJIsEIFsiMx7lluFeqRq6V1ozPZMwo9nCkNSHYl17pr9ewH4U2JS
+	 pz2Lm+9WxrUzdjmFAlNznFxHqYYYlIhTfNqVG651O1Jct4RLAQLqQs0k3DJkL4vV5Z7m8
+	 M50TJ9bqUloV9CzQ8Ws0dCHfL9T+EdKIHK6TjWj1KN2Z9saDhVai/6FW3fdKBzE4K1A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792656947;
+	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
+	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
+	bh=J5vbUlRNCs7S8y6HZc8htFWDT7aYGvGDyqB/FQ/diuk=;
+	b=p4MxzyNZ6DgbySuHTTO1eu2XZGLRVnnB8SJkgDqoIEtBud2c5tlP36PT8vie0AsbBOus
+	 HBhn6pXOKTbfbGT+zc2gOzJpBZWgfUfBgyMZmUFtLA9Urp8wff8PZHyiAapAnUCIqrGW5
+	 95ulpOuadivJ6Coqn+fAka6ltJJyR97JOc23oZ+FBurX89c8K36s6FsPfdfGQjcJc8n7F
+	 wy9O8+JhbxzmkCw5xGrJDrKk/R2zheA5juGXzLSixze7krzO+XN4x+OEiara3ey/PkC+H
+	 xRPrxsBbEa1sPvFd0pgwpUCVbMM8X7fLqESZYF4nvqxYIKEeQt36UXgE5SERK3Zpzbg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=pb3tIRh4;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=d6RpW0SI;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFC0606A324
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:15:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DFC0606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8B1606A319;
+	Thu, 22 Oct 2026 08:15:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE8B1606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=olAiWblh
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e4TUtgdaFMYIsTZl2fdLgFrGnyUtoeYIRB6IBkD/g4Mk/pkooKCvQeISCBhlqlH9qn14p2y7wacXErEY3453EmPuna75157u8yoC06qcYVS7wZMadm5JIW3sm6RpWursk/wcg4AWpvMl+6iBoYDJmtAYOl5BnKJxcd2lYiUfBgLtP2j5V7BJHay/FujrZQSyrKvb8uinvHu/csvD7aCk3wP/oblX2nl+jV93qsajRYOLj1Tk6a9Bu/g/j7vhPmP8z+pYQ5N50iPBxtD+gCw/nS+AXESRIZvV/QxMmx36xFYOjeanABc44E4DnoUjm2QPz3qirZk+bCNtbmp7nh3FtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Ggmb2T35F4YzKlY/PinzTKbGL1YnxGJMdUAWJDf+VM=;
- b=kFApM48DPw7BtrvHlWRWb0uLcnGDDaaY4LQjrYBnyZMCku6Xy5+UdX+XaNfmPqlNdCOK6JyPF1XY+DwcCRenV6KiB2EbCf5DEw281f4gYGLUiMZLrV6IFzlIBezneRQJrstGhSdVBlyKGg8to0gXmWyErpqRN880siof5X/Q1W3EV9umepGKcE83fyJuUX+OYXAPawYj42vh20aHUwNnqC6EssleHqPFCwOZzvLrHTvBFWw7TJl4wE0e1b6Nhy+mIUw6ipog0+fQFAzHovhLr/laUXDo823J92TXBm2fqMhWlkjhFX82bBBqzPCl0KjGkMKoAzu1Gg4WBwvwjmFdNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=linux-foundation.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Ggmb2T35F4YzKlY/PinzTKbGL1YnxGJMdUAWJDf+VM=;
- b=olAiWblhIu4iFZ5UswhiaoZT79tG1Ih2R82DljTc/9kCCN3IqoxxfWK0QBRRvOM5Ppo13geVsjl0+7tZPbP0+nZ4bvZFOZHm5IgQmdB09JcuP6JoC2JKVCawrPaQcgla5k/n+qS5Z31JolBDOT4v7qtD/uLiEFz/jxor4DJHFRk=
-Received: from CH2PR12CA0029.namprd12.prod.outlook.com (2603:10b6:610:57::39)
- by SA1PR12MB7104.namprd12.prod.outlook.com (2603:10b6:806:29e::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.14; Thu, 22 Oct
- 2026 08:14:56 +0000
-Received: from CH2PEPF000166C2.namprd04.prod.outlook.com
- (2603:10b6:610:57:cafe::e) by CH2PR12CA0029.outlook.office365.com
- (2603:10b6:610:57::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.16 via Frontend Transport; Thu,
- 22 Oct 2026 08:14:55 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF000166C2.mail.protection.outlook.com (10.167.244.228) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 08:14:55 +0000
-Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Thu, 22 Oct
- 2026 03:14:50 -0500
-From: Shivank Garg <shivankg@amd.com>
-Date: Thu, 22 Oct 2026 08:14:30 +0000
-Subject: [PATCH RFC] mm/memory: drop PROCESS_PAGES_NON_PREEMPT_BATCH
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=pb3tIRh4;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=d6RpW0SI
+From: John Ogness <john.ogness@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1792656943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J5vbUlRNCs7S8y6HZc8htFWDT7aYGvGDyqB/FQ/diuk=;
+	b=pb3tIRh4qt//ziCyq6bXR09LSLhWXItxh/VvgzpKAy+noDQsJb8Zx2HRtFqr50N3q/9EPk
+	r3gdYLhKu0jKQM2O8e/iWuS5jTaRnZdpk4SgAoYZvVMiItDag6FXXBPHTikNa8It3qziud
+	1miGLbmdpTOOusdX63FgYBzjl43g+q1/sHOpzFnEUEXE8/bsrsP/TbJAzzatzVlBw81DXC
+	kMPSie8EkZ1VY68hVQbibJ0hckMAW0T7GsPf/bFi/etFyKokjglg4EzfKNoi4sDoTmjshO
+	baRQcTTAjYiu8DA0ezpK+v/7n7Y2GBX32sAmQEiWTmLkqsl2kfkG1fdq9ysJYg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1792656943;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=J5vbUlRNCs7S8y6HZc8htFWDT7aYGvGDyqB/FQ/diuk=;
+	b=d6RpW0SIcYw3QOU8+HZa/z8hLhxYcGe+jyeP/DU772pZunn+T50KIaSSSZW2ZUOi4cUcNd
+	fFF0azj++viFPdAw==
+To: Gabriele Monaco <gmonaco@redhat.com>, Steven Rostedt <rostedt@goodmis.org>
+Cc: Nam Cao <namcao@linutronix.de>, Tomas Glozar <tglozar@redhat.com>,
+ Alexei Starovoitov <alexei.starovoitov@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, Wen Yang <wen.yang@linux.dev>, Tobias Schaffner
+ <tobias.schaffner@siemens.com>, Viktor Malik <vmalik@redhat.com>
+Subject: Re: [PATCH v2 10/15] tools/rv: Add BPF monitors
+In-Reply-To: <f147fa9dfc553767ce92802b66723a85cf804e46.camel@redhat.com>
+References: <20261001152042.124445-1-gmonaco@redhat.com>
+ <DM6H7SK4YZ7A.F0MM6C0I77OR@gmail.com>
+ <878q3xtptq.fsf@jogness.linutronix.de>
+ <8B3FF026-6159-48CF-8FEA-AF2FACD2E4EB@redhat.com>
+ <87bj8s8ih9.fsf@jogness.linutronix.de>
+ <DM78SVMBI2XW.2XHVC67VON48A@gmail.com>
+ <87v770uuyr.fsf@jogness.linutronix.de>
+ <DM7I2PYHNKXE.3AYY3N1HATXLW@gmail.com>
+ <87ik2zryzo.fsf@jogness.linutronix.de>
+ <0055967d4571e7c8549dfa476fa6b15b93013701.camel@redhat.com>
+ <CAP4=nvR2i092924zszA8Qh0UUYnwXfAsa+7KjPe-NpwC+bbLXw@mail.gmail.com>
+ <8580176d216258e9008c344e0529509117dcc18b.camel@redhat.com>
+ <CAP4=nvTc297yQHz8aumZFAQ3+JK=5Z_=416WdosT0S6nHEeNfQ@mail.gmail.com>
+ <87pkx5q1w4.fsf@jogness.linutronix.de>
+ <0d4f11b1999588ddba9d855db43fc492eda32de1.camel@redhat.com>
+ <87h5ifqy6w.fsf@yellow.woof>
+ <a8d8b080f403eed617242a3276717706b4081ed1.camel@redhat.com>
+ <20261021094853.29b9f7be@gandalf.local.home>
+ <fb5c20f226f723cbb4df5092462dfcf5f2686367.camel@redhat.com>
+ <87h5ifvw3p.fsf@jogness.linutronix.de>
+ <f147fa9dfc553767ce92802b66723a85cf804e46.camel@redhat.com>
+Date: Thu, 22 Oct 2026 10:21:42 +0206
+Message-ID: <874ieetakx.fsf@jogness.linutronix.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,200 +94,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261022-clear-pages-batch-v1-1-13d3bd0b876e@amd.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDAyND3eSc1MQi3YLE9NRi3aTEkuQMXXPzNHOj1DQLA4tUEyWgvoKi1LT
- MCrCZ0UpBbs5KsbW1AIWWIh9oAAAA
-X-Change-ID: 20261021-clear-pages-batch-77f72ef808e4
-To: Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand
-	<david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett"
-	<liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
-	<rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
-	<mhocko@suse.com>, Ankur Arora <ankur.a.arora@oracle.com>, Pedro Falcato
-	<pfalcato@suse.de>, Peter Zijlstra <peterz@infradead.org>, Borislav Petkov
-	<bp@alien8.de>, Bharata B Rao <bharata@amd.com>, Hrushikesh Salunke
-	<hsalunke@amd.com>, K Prateek Nayak <kprateek.nayak@amd.com>
-CC: <x86@kernel.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
-	Shivank Garg <shivankg@amd.com>
-X-Mailer: b4 0.15-dev-47d62
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792656890; l=5625;
- i=shivankg@amd.com; s=20260518; h=from:subject:message-id;
- bh=omSR5vmJ3yaZhow23seaqvygXTzvIQppRXnLIVoQevg=;
- b=TbA2pHzTPLdcYKXt/huIbOy/SL2K42TN2agRWDrtNT4dnQBPzMIky8sNuBuoH2LlthruI4dXH
- Lx+Bpyclt5+Acsf3tH2AtiiLXROClXwnaNJF5u456zS3cUGq4RWXF5q
-X-Developer-Key: i=shivankg@amd.com; a=ed25519;
- pk=2l2QGTeXuGkZTtfmx0nPQU8iFZfjYmX/ymMojitevx4=
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF000166C2:EE_|SA1PR12MB7104:EE_
-X-MS-Office365-Filtering-Correlation-Id: 582cd918-f9e7-412f-a7fe-08df30148e61
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|36860700016|82310400026|23010399003|921020|261021121427099003|56012099006|5023799004|261009223027099003|11063799006|261021123027099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	nXwBOfUNMv69hvvq4jCyIJXUtLjETF74lbqq8f7DpYuE3QF4YTHbnOLXwMSRlekNWe/D6+66w+kaP/D/M4bIDnmqauLZONje2hOS2QVsjXEIjjR/4COttnzVM/wrHB/nT4I8wle2h/5KjRcyy8FDAYtaJOVEkXoQXiiH2JAABGWhdMlLf71nipL2l2F3DdQ2oZiwSd0IreS01VflnmJ6P7/fbByKGdE8GdxC20aSnWRVp18U1GZF8Ds2fd/oGqHwztwyet8fuaOsWGidYJB9Z+vhBicO7EDpEbesX1zjP5FcY4EHTrzg08XTeyEULrRZ0AvZFgruktcm1QEf8cy4NafXUy62C8xaPg2vtxyOS76D0jdPgKKHOXhPsywPXBPhS0TB4qBAJVCSaKu/iz52Ik6/IgsmRte+zflR1YtgvCFUMbFU0UJ6SN/yYt4+p5XebraRdi5pYvXcETnH1RsZCubkjG4FcSVdO+LVmzoPVCoPQnB3Eir6vqYqZ4QQXtPxWwTWfkOqKAdimJst3twtc/PSWGBHHkr25a2QOMXEOcZmYMzlDRP72tKLGirIVkBgUo0aMe0gxcBTolhGeQt61lxg65i7it7T1dtv3MxRVgGhhFwypVtCRua7jYaEj7lgD4fEUShMkHCymHyHUpuB1QZMzyBgaeNQeqGAI4fxA48h+NbDGavOdIBoOJOca9uVE7w9Pgdd8r1RnF5jRi3T+g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(36860700016)(82310400026)(23010399003)(921020)(261021121427099003)(56012099006)(5023799004)(261009223027099003)(11063799006)(261021123027099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	kcLsiIJ92ub+8RM4KcDI/3KvX0Cj+ifYkMmdZ7rD1g6AHzuiDrSFlCQE893+/dzt42XSbK2XNGwr4QnnS1e5wtStQMb1umUrQf6lJC1S13gxDz1jF5tXW/PJfbQm9ASFBajupvkUNpGQotPD63enup+NHQQty5rHsseJiwIKyVERMuw6LNMn0s4PiALHTWZqDBWI3vamB2ZYAt30wmh8Kv6oQRov68QXdewJd2q/B1aOqGUGN2XRlaXghvbPK72TUyWgSXXDkj3eZX9KBBXT6dPT8LDwHsCGmi0q6aoy+Bt55jU4sxSLd0AMxXNwxP1FzixrmkMPm2eZask8nvnqGZ/Ny1RNU7jbj8iruwaodsm3JAUuj8/sbbUVyAF8IzPSUU4D6hJYK772H7F82vI6gi/x1d04QKLuhk/72JPOOGCBKATsjKgG27d6V81xwIWN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 08:14:55.5570
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 582cd918-f9e7-412f-a7fe-08df30148e61
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF000166C2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7104
+Content-Type: text/plain
 
-clear_contig_highpages() clears the whole range at once under
-preemptible models. Otherwise it clears PROCESS_PAGES_NON_PREEMPT_BATCH
-pages at a time, with a cond_resched() in between. The batch is 32MB if
-the architecture defines clear_pages(), and one page otherwise.
+On 2026-10-22, Gabriele Monaco <gmonaco@redhat.com> wrote:
+>> I am wondering if coexistence should be the goal. For example, the
+>> monitor classes (DA, LTL, HTA) are only implemented in the kernel and
+>> provide kfuncs for the state transition functions to be available to BPF
+>> monitors. I would expect that this would allow BPF monitors to have the
+>> full functionality as in-kernel monitors, since the events, errors, and
+>> reactors would all trigger from the monitor class code.
+>
+> Well, this would be yet another hybrid requiring BPF monitors registration in
+> the kernel like I proposed in the RFC [1], which was the main point of
+> contention (that fully shared reactors and sysfs interface, by the way).
 
-Since commit 7dadeaa6e851 ("sched: Further restrict the preemption
-modes"), architectures that support lazy preemption only offer the
-full, lazy and RT preemption models, also with PREEMPT_DYNAMIC. x86 is
-one of them, and it is the only architecture that defines
-clear_pages(). So the 32MB batch is never used: whenever
-clear_contig_highpages() runs under a cooperative model, the batch is
-one page.
+I think there is a difference, because the registration could be via
+kfunc interface rather than requiring kernel patches. Similarly, the
+kernel is able to load drivers that it does not know about it advance.
 
-Make that explicit. Clear the whole range when CONFIG_PREEMPTION is
-set, and one page at a time with cond_resched() in between otherwise.
-Drop PROCESS_PAGES_NON_PREEMPT_BATCH, which has no other users.
+> For this I would argue, though, that such monitors would be BPF just
+> on paper, we wouldn't be able to use many advantages BPF provides
+> (e.g. BPF maps).
 
-PREEMPT_DYNAMIC kernels also have CONFIG_PREEMPTION set, and
-cond_resched() does nothing on any of these kernels. So a build-time
-CONFIG_PREEMPTION check is enough, and preempt_model_preemptible() is
-not needed.
+It seems to me that your main motivation of BPF is to move the
+RV-machinery into BPF. For example, moving include/rv/ltl_monitor.h into
+BPF. But that code should not require the flexibility that BPF
+offers. It is the monitors themselves that I think benefit from BPF. For
+example, kernel/trace/rv/monitors/wakeup/wakeup.c
 
-No functional change intended.
+I do not understand why you would call it BPF on paper, when the
+semantics of the states and transitions is all coded in BPF. Everything
+that makes two monitors using the same monitor class different from each
+other. Only the generic state machine (with its tracepoints for events
+and errors) and calling of reactors is in the kernel.
 
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Shivank Garg <shivankg@amd.com>
----
-This came up in review of the copy_mc_highpages() series [1]. Pedro
-pointed out that most architecture are full or lazy preempt, so mm does
-not need to check the preemption model at runtime or batch the copy for
-cond_resched(), and simple per-page fallback is enough for non-preemptible
-models. David suggested doing the same for the zeroing path, and
-this patch does that.
+> The current implementation already shares the header with in-kernel monitors, so
+> the actual logic is shared.
 
-[1] https://lore.kernel.org/all/20261019-batpagecopy-v2-1-d75e7d0dfaae@amd.com 
----
- include/linux/mm.h | 28 +---------------------------
- mm/memory.c        | 29 ++++++++++++++++-------------
- 2 files changed, 17 insertions(+), 40 deletions(-)
+When you say "shared" you really mean "copied". If it was "shared" (in
+the kernel) then the whole tracepoint/reactor topic would nearly solve
+itself.
 
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 35f5fc43861a..1083d0645d63 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -5269,7 +5269,7 @@ static inline void clear_page_guard(struct zone *zone, struct page *page,
-  *
-  * When running under preemptible models this is not a problem. Under
-  * cooperatively scheduled models, however, the caller is expected to
-- * limit @npages to no more than PROCESS_PAGES_NON_PREEMPT_BATCH.
-+ * clear one page at a time and call cond_resched() in between.
-  */
- static inline void clear_pages(void *addr, unsigned int npages)
- {
-@@ -5280,32 +5280,6 @@ static inline void clear_pages(void *addr, unsigned int npages)
- }
- #endif
- 
--#ifndef PROCESS_PAGES_NON_PREEMPT_BATCH
--#ifdef clear_pages
--/*
-- * The architecture defines clear_pages(), and we assume that it is
-- * generally "fast". So choose a batch size large enough to allow the processor
-- * headroom for optimizing the operation and yet small enough that we see
-- * reasonable preemption latency for when this optimization is not possible
-- * (ex. slow microarchitectures, memory bandwidth saturation.)
-- *
-- * With a value of 32MB and assuming a memory bandwidth of ~10GBps, this should
-- * result in worst case preemption latency of around 3ms when clearing pages.
-- *
-- * (See comment above clear_pages() for why preemption latency is a concern
-- * here.)
-- */
--#define PROCESS_PAGES_NON_PREEMPT_BATCH		(SZ_32M >> PAGE_SHIFT)
--#else /* !clear_pages */
--/*
-- * The architecture does not provide a clear_pages() implementation. Assume
-- * that clear_page() -- which clear_pages() will fallback to -- is relatively
-- * slow and choose a small value for PROCESS_PAGES_NON_PREEMPT_BATCH.
-- */
--#define PROCESS_PAGES_NON_PREEMPT_BATCH		1
--#endif
--#endif
--
- #ifdef __HAVE_ARCH_GATE_AREA
- extern struct vm_area_struct *get_gate_vma(struct mm_struct *mm);
- extern int in_gate_area_no_mm(unsigned long addr);
-diff --git a/mm/memory.c b/mm/memory.c
-index 976cd03954e3..e09a53ea5943 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -7654,27 +7654,30 @@ static inline int process_huge_page(
- }
- 
- static void clear_contig_highpages(struct page *page, unsigned long addr,
--				   unsigned int nr_pages)
-+		unsigned int nr_pages)
- {
--	unsigned int i, count;
-+	unsigned int i;
-+
-+	might_sleep();
-+
- 	/*
- 	 * When clearing we want to operate on the largest extent possible to
- 	 * allow for architecture specific extent based optimizations.
- 	 *
--	 * However, since clear_user_highpages() (and primitives clear_user_pages(),
--	 * clear_pages()), do not call cond_resched(), limit the unit size when
--	 * running under non-preemptible scheduling models.
-+	 * clear_user_highpages() (and primitives clear_user_pages(),
-+	 * clear_pages()) do not call cond_resched(). That is fine on
-+	 * preemptible kernels, where the scheduler can preempt the clearing
-+	 * at any point, so clear the whole range at once. Otherwise, clear
-+	 * one page at a time and reschedule in between.
- 	 */
--	const unsigned int unit = preempt_model_preemptible() ?
--				   nr_pages : PROCESS_PAGES_NON_PREEMPT_BATCH;
--
--	might_sleep();
-+	if (IS_ENABLED(CONFIG_PREEMPTION)) {
-+		clear_user_highpages(page, addr, nr_pages);
-+		return;
-+	}
- 
--	for (i = 0; i < nr_pages; i += count) {
-+	for (i = 0; i < nr_pages; i++) {
- 		cond_resched();
--
--		count = min(unit, nr_pages - i);
--		clear_user_highpages(page + i, addr + i * PAGE_SIZE, count);
-+		clear_user_highpages(page + i, addr + i * PAGE_SIZE, 1);
- 	}
- }
- 
+> Besides, we'd need to be extra careful on controlling the callers. Right now
+> handlers are static, so it's easier to make sure no rogue caller messes up with
+> monitoring.
 
----
-base-commit: fcec4f4bcc1101dbd7e3aff267856b3bbfe128c6
-change-id: 20261021-clear-pages-batch-77f72ef808e4
+That problem is orthogonal. But I expect kfunc flags, capabilities,
+and/or signed BPF objects will be the direction to take.
 
-Best regards,
--- 
-Shivank Garg <shivankg@amd.com>
+The reason for my suggestion of a "true" hybrid approach is because I
+feel like you were trying to completely relocate RV to BPF, and now due
+to the tracepoint/reactor requirements, we're trying to find some hacks
+to somehow make it work good enough.
 
+I was suggesting to take a step back and consider an approach where
+there are in-kernel pieces to leverage the benefits of in-kernel
+(generic state machine, tracepoints, reactors) and BPF pieces to
+leverage the benefits of BPF (freedom to define the semantics of states
+and transitions for any domain-specific monitor).
+
+John
