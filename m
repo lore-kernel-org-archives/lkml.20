@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677187;
-	b=tg7P2U4lxPMMzYtdKN08rhUxsO7wmewGk2BhH1SGfS/EXBaBbn01jpJha30G54i2ERET
-	 KET/Rn07hY7/TevNFGV7vcLvy70v4TLwQDsm1Q8+mTngamuETbHhjnicwk4oc/sVVRfN1
-	 LTWbJ171jExDY0sI3UdCHlDOfJ5TQrTUDBVuNJob+BvCW9jivZiqNRuWuajvJ5l2CQCr3
-	 ngMZxcpZATG2Mlu0A5j8+fxCYEw7RjUnH7xI12wx0EOeGIZX6t5dO7WApdD7fuNh0uE+y
-	 3xXWvb7bhzH38f0UFwlBya+hONAPBfPsYGAgBbcbqKwq6L26fyRWhBk62TQ8k85c6/Q==
+	t=1792677198;
+	b=uEdJ3xI94Tcmc5ejqRjRpfbBIaCaQVkQmQe+aMtNi7x5xFDl7CZ9GHo+eFHUfl9wyR3+
+	 mJB/cPSSy+SNGsQsMf75Kym0j6WFQqSousI2yqomKjqWANEFCvZL38AQzKP7lNh9S6To7
+	 99URqWjoqhpjk/1rlx9hgVPfNp/MVKuWA+DSkpenvaLh411VwMz2M9qyDE0FyZCuS9Sis
+	 WO4ooZiEsIq/MswVl0FyIjLdRhMr+8JH39g1sLgHe3WG/UICmCA2uGoU9uZL6LIQm+fBT
+	 +gJTaJU5ZMFP5jn1iIZ3AJbS8zjk/WckFKjHiLdFwo8xtwF7haClHBJllIk3y6tsxWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677187;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding;
-	bh=rA7gxUL9eHb/Wehu22XwKglTsNUkAP7+310aScn9f4I=;
-	b=okjRc52tgGLd8WfCc1qDpeJ0YU5mL2guKLT1rWi5hTvZbAg8JZFByMw+fydnW0fpD0+T
-	 O/4gLc1/LPFU7pkctksHGCzSChUOSxMctdyUYgaI7wiAeqdGL2jokxekj7VmtrB3sFAMJ
-	 hiQOPT++aXM6cSKhY2ETMNzPoFoIv/Sgqzaw8DiypLCI63HjhjRg/ETrxcePEoEGFBeBC
-	 Z5g9usqVbVWoVSHt8amphspp0SlvEjOy/bk4Bhkt266yNmicWVR9lDNMMDQgSsK84Su+o
-	 ja+rrrozUsUCVoiKpMdSSdNq2W5WLt71p2/6KD4QdSKgomNiuMRFofhBr3PSLBoLuIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677198;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=IpUq/OjiNWccmva9eLiM8o2ics/m5yOdrT3sfjEjErU=;
+	b=uTfhMKSqgLCmAz3HeH16U+Rk52ZHZrAsb3HKrLLpVtB/Oa2wjuESTAVW6C1s7rc6hKrT
+	 ebbb6C8u2AHAiunjbfQLEz7OjtqMyaNApHeVooF1TycfOxgpBfioUHPsRCaQyc6hxpct4
+	 XaPaHriEdlmXnsuBJoGagIqvh3H9zbXwtRgiDJUx9Ugy6/NBdjY4JiLQw9a1KG//bEp92
+	 DbQoRzw2JSsa3GXbfBkl6/IdHhZtVxUQTW2912tBn6D5Dvg/NA7PriwNiK/Zg6Un3FLXH
+	 iJitouIGf8e6XrrVV0j1mVs6yxzghhLTqpydA9r5WoQG1AIrnrk6AMwXfQISH92bSWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tKHtb8K3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I90b8iUd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE62606A31E;
-	Thu, 22 Oct 2026 13:53:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B320F60A2609
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:53:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tKHtb8K3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 562471F000C1;
-	Thu, 22 Oct 2026 13:53:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792677187;
-	bh=rA7gxUL9eHb/Wehu22XwKglTsNUkAP7+310aScn9f4I=;
-	h=Date:From:To:Cc:Subject;
-	b=tKHtb8K3ADcUa5Q34Jfq15UH3UCPKRhqIqEN965ux+lWC7lmyvVCOXeZQ23OOMc7i
-	 /9FZ+XeJ14UT/q/sXw6KAW6mRLMTd4wI1UlHxMnDRrx3JzMFT/99nu25MC5FyLAChi
-	 vYGaKEh3IypUajArkVPcDSp33d70303vkJJM/17M=
-Date: Thu, 22 Oct 2026 15:50:07 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Jiri Slaby <jslaby@suse.cz>, Andrew Morton <akpm@linux-foundation.org>,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: [GIT PULL] TTY/Serial driver updates for 7.4-rc1
-Message-ID: <atoUj_wOHwHCqwdS@kroah.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I90b8iUd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DCA41F000C4;
+	Thu, 22 Oct 2026 13:53:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792677197;
+	bh=IpUq/OjiNWccmva9eLiM8o2ics/m5yOdrT3sfjEjErU=;
+	h=From:Subject:Date:To:Cc;
+	b=I90b8iUd2TgG4ICdQ+nVI2Z2Abx8obin1qEQTRbvITTVdIVLKRJh0ve8ax4AuMPWb
+	 w+Lu6EqTkA2WMOr0svFEXR3tTGuXAa3o0btAlyKEUWDY85+qdzGbJrPhEOdFIMyd9m
+	 sfJ5iqbjYPqkrUNCGvv0yAalC9H9E2v+u8UQmCGteMoJQHhG3k9IfdT5dd7TODuhO3
+	 0OQAH0F2rsizukbxqfTRIc9FjTDUsf9Woh3FmPFICxe/AssBGXehegWnL11DfIBtuW
+	 +gNrqPBv2rCE/5m0+Fq+Ibn+293Hj4Hp40ISdf72xGzKtRunzIUN3n/jcPi9lPQaHQ
+	 9G8JqzlWVfTrw==
+From: Maxime Ripard <mripard@kernel.org>
+Subject: [PATCH v6 00/15] drm: Add DRM_MODE_ATOMIC_RESET flag
+Date: Thu, 22 Oct 2026 15:53:01 +0200
+Message-Id: <20261022-drm-reset-state-flag-v6-0-f36d640b7e76@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,325 +53,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XRS2rDMBAG4KsYraui9yOr3qNkIUsjRzS2W0kxL
+ SF3r5JA02JMl//AfDPMnFGBnKCgXXdGGZZU0jy1oJ465A9uGgCn0DJihCmiicEhjzhDgYpLdRV
+ wPLoBs9izXmpKo9Wotb5niOnzxr7uWz6kUuf8dZuy0Gv1H3ChmGDPdfDWSGFkeHmDPMHxec4Du
+ ooLeyiGsg2FNQWs8kA5pzqsFf5Q7OYuvCmWSKlJ5EY7sVLEL4VuKaIp0gVKFG8QkStF/iiUULW
+ hyKYEF1hQoleW93+Uy/30GT5O7ZH1fn/UuwLYz+OY6q4TxjojufVOxdZw+Qae0gQeAQIAAA==
+X-Change-ID: 20260708-drm-reset-state-flag-2fb2b5711f97
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Louis Chauvet <louis.chauvet@bootlin.com>, 
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Melissa Wen <melissa.srw@gmail.com>
+Cc: Daniel Stone <daniels@collabora.com>, 
+ Harry Wentland <harry.wentland@amd.com>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, 
+ =?utf-8?q?Jonas_=C3=85dahl?= <jadahl@redhat.com>, 
+ =?utf-8?q?Michel_D=C3=A4nzer?= <mdaenzer@redhat.com>, 
+ Pekka Paalanen <pekka.paalanen@collabora.com>, 
+ Sebastian Wick <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, 
+ Victoria Brekenfeld <victoria@system76.com>, 
+ Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>, 
+ Daniel Stone <daniel@fooishbar.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5358; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=umcqg+1I7mYY1xFgpimFgQ+TJGE3mXbOmISj3U3WXA8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFm3RJ090urEDkmVLWlKP6ErdFb/zJr7vBVvNqcKeR208
+ PLtm1raMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACZyToGx4UAGs/DVm6efhT1b
+ +93q/N/6lG2Ckfc7TrauPP7gJPecf/H5xltUf23pyPnLfaxwFc/Ur4wNa34G8fI6TOw8sH3zz4q
+ wmfa7nFbsOlesLDIz//PqXVkx4W1ftGyXacc47VnQa7pwy3smAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-The following changes since commit a90ee4305c4a5df72c11b31dacfdc76e00fcf78a:
+Hi,
 
-  Linux 7.3-rc6 (2026-10-04 13:45:25 -0700)
+Userspace currently has no atomic way to bring a display pipeline back
+to a pristine state. A compositor that wants to start from a known
+baseline must explicitly set every property on every KMS object to its
+default value, which requires tracking which properties exist and what
+their defaults are. This is fragile and must be updated every time a
+new property is added to the kernel.
 
-are available in the Git repository at:
+This series introduces a new DRM_MODE_ATOMIC_RESET flag for the
+atomic ioctl. When set, the kernel fills the commit with default
+states for all KMS objects before applying the properties supplied in
+the request. Properties not explicitly included remain at their
+defaults. This allows userspace to describe the desired end state
+declaratively, without caring about the current state or the full set
+of properties.
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty.git tags/tty-7.4-rc1
+The bulk of the series extracts the state insertion logic from each
+drm_atomic_get_*_state() into standalone helpers, since the
+fill_with_defaults path creates states through atomic_create_state()
+rather than atomic_duplicate_state() and cannot reuse the existing
+functions directly.
 
-for you to fetch changes up to 1184f87e2790e8af9be3116f608d2e86b4792d7d:
+A driver-specific property is added to vkms planes for testing.
+Standard properties are impractical for this: compositors like Mutter
+enumerate all known properties, making it hard to isolate the reset
+behavior in a test.
 
-  tty: hvc: dcc: Detect JTAG connection only on CPU core 0 (2026-10-14 17:40:30 +0200)
+Mutter has a working implementation using the new flag, with a
+vkms-based test exercising the reset behavior:
+https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/5309
 
-----------------------------------------------------------------
-TTY/Serial driver updates for 7.4-rc1
+And we have IGT tests as well:
+https://lore.kernel.org/igt-dev/20260916095159.2896630-1-mripard@kernel.org/
 
-Here is the "big" set of tty and serial driver updates for 7.4-rc1.
-It's not really all that big, it's been kind of quiet in this area of
-the tree this development cycle in relation to other parts of the tree.
-But still, included in here are:
-  - 8250 port updates and fixes
-  - 8250 driver cleanups by Jiri
-  - deletion of the obsolete moxa driver (making this pull request
-    remove more lines than added!)
-  - different serial driver updates for dma and other reported issues
+This series relies on all drivers implementing atomic_create_state.
+The conversion is in progress but not yet complete.
 
-All of these have been in linux-next with no reported problems.
+Let me know what you think,
+Maxime
 
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Changes in v6:
+- If using a lease, only considered the leased objects
+- Fix amdgpu plane atomic_create_state implementation
+- Link to v5: https://lore.kernel.org/r/20261016-drm-reset-state-flag-v5-0-dad2d64b693b@kernel.org
 
-----------------------------------------------------------------
-Andy Shevchenko (2):
-      serial: 8250_port: Remove redundant pm_runtime_mark_last_busy() call
-      serial: 8250_port: properly handle runtime PM in IRQ
+Changes in v5:
+- Fix bisection issue
+- Improve the documentation
+- Fix connector hotplugging issue
+- Added kunit tests for drm_atomic_commit_fill_with_defaults()
+- Link to v4: https://lore.kernel.org/r/20260918-drm-reset-state-flag-v4-0-5ad106370f05@kernel.org
 
-Aniket Randive (2):
-      serial: qcom-geni: Fix port_ida handling for console and probe errors
-      serial: qcom-geni: Avoid double-free of PM domain list
+Changes in v4:
+- Improve the drm_atomic_get_private_obj_state and
+  drm_atomic_get_connector_state array reallocations
+- Return void on functions to insert an object state into a commit when
+  it cannot fail
+- Rename drm_atomic_can_create_state() into
+  drm_atomic_implements_create_state()
+- Move capability check from drm_atomic_commit_fill_with_defaults to its
+  caller 
+- Added IGT test
+- Link to v3: https://lore.kernel.org/r/20260908-drm-reset-state-flag-v3-0-905570f387a4@kernel.org
 
-Benjamin Larsson (1):
-      dt-bindings: serial: 8250: Add Airoha compatibles
+Changes in v3:
+- Rebased on top of the latest atomic_create_state series
+- Sebastian Wick created and tested this work with mutter and vkms
+- Fix colorop locking
+- Link to v2: https://lore.kernel.org/r/20260812-drm-reset-state-flag-v2-0-e96ce13317dd@kernel.org
 
-Christian Marangi (2):
-      dt-bindings: serial: 8250: Reorganize compatible to single enum
-      serial: 8250: Add Airoha SoC UART and HSUART support
+Changes in v2:
+- Fix bisection
+- Add capability to let userspace know if it can reset the state
+- Link to v1: https://lore.kernel.org/r/20260708-drm-reset-state-flag-v1-0-c37dc985485d@kernel.org
 
-Cui GaoSheng (1):
-      serial: core: fix NULL/dangling port_dev on failed re-register
+---
+Maxime Ripard (14):
+      drm/amd/display: Fix planes atomic_create_state implementation
+      drm/atomic: Switch to krealloc_array() in drm_atomic_get_private_obj_state()
+      drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_private_obj_state()
+      drm/atomic: Use __GFP_ZERO instead of explicit memset in drm_atomic_get_connector_state()
+      drm/atomic: Create function to insert CRTC state into a commit
+      drm/atomic: Create function to insert plane state into a commit
+      drm/atomic: Create function to insert colorop state into a commit
+      drm/atomic: Create function to insert private obj state into a commit
+      drm/atomic: Create function to insert connector state into a commit
+      drm/atomic: Add drm_atomic_implements_create_state() helper
+      drm/atomic: Allow filling a commit with pristine object states
+      drm/tests: atomic: Add tests for drm_atomic_commit_fill_with_defaults()
+      drm/vkms: Switch container_of helpers to container_of_const
+      drm/vkms: Add driver-specific plane property for testing
 
-Danish Khateeb (1):
-      serial: 8250: Fix section mismatch with CONFIG_MODULES=n
+Sebastian Wick (1):
+      drm/atomic-uapi: Add DRM_MODE_ATOMIC_RESET flag
 
-David Heidelberg (1):
-      serial: qcom-geni: power the console back up on system resume
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |   3 -
+ drivers/gpu/drm/drm_atomic.c                       | 381 +++++++++++++++++----
+ drivers/gpu/drm/drm_atomic_uapi.c                  |  18 +
+ drivers/gpu/drm/drm_ioctl.c                        |   4 +
+ drivers/gpu/drm/tests/drm_atomic_test.c            | 141 +++++++-
+ drivers/gpu/drm/vkms/vkms_drv.h                    |  11 +-
+ drivers/gpu/drm/vkms/vkms_plane.c                  |  61 +++-
+ include/drm/drm_atomic.h                           |   4 +
+ include/uapi/drm/drm.h                             |  10 +
+ include/uapi/drm/drm_mode.h                        |  14 +-
+ 10 files changed, 572 insertions(+), 75 deletions(-)
+---
+base-commit: 489a8539ca6f347102c1334c2f08198abacc86c8
+change-id: 20260708-drm-reset-state-flag-2fb2b5711f97
 
-Dmitry Sinyavin (1):
-      serial: msm: select PM_OPP
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
 
-Ferry Toth (1):
-      Revert "serial: 8250_port: Drop duplicate NULL check"
-
-Frank Li (3):
-      serial: use dmaengine_get_dma_device() instead of chan->device->dev
-      serial: amba-pl011: use dmaengine public API instead of raw ops
-      tty: serial: pch_uart: use dmaengine_submit() instead of ->tx_submit()
-
-Geert Uytterhoeven (2):
-      dt-bindings: serial: renesas,hscif: Increase number of DMA channels to 6
-      dt-bindings: serial: renesas,scif: Increase number of DMA channels to 6
-
-Greg Kroah-Hartman (2):
-      tty: moxa: remove driver.
-      Merge 7.3-rc6 into tty-next
-
-Greg Ungerer (1):
-      serial: mcf: update author email address
-
-Hemanth Selam (2):
-      tty: serial: fix typo "inteface" in comment
-      tty: serial: fix typo "satify" in comment
-
-Hengyu Liang (1):
-      serial: core: fix TIOCSSERIAL and TIOCSERCONFIG on uninitialised ports
-
-Hugo Villeneuve (1):
-      serial: sc16is7xx: declare MCR and IER as volatile registers
-
-Ibrahim Abdelkader (1):
-      serdev: ttyport: Clear serport->tty after freeing
-
-Igor Putko (1):
-      serial: core: shut down initialized port on removal
-
-Jan Čermák (1):
-      serial: 8250_bcm2835aux: Add support for RTS/CTS auto flow control
-
-Jiannan Du (1):
-      tty: hvc: dcc: Detect JTAG connection only on CPU core 0
-
-Jiri Slaby (SUSE) (6):
-      serial: 8250: drop err label from serial8250_register_8250_port()
-      serial: 8250_exar: remove useless void * casts
-      serial: 8250_exar: store the GPIO platform device in struct exar8250
-      serial: 8250_lpss: do not touch uninitialized line in ehl_serial_exit()
-      serial: 8250_omap: set priv->line before enabling the IRQ
-      serial: 8250: make port operations work on struct uart_8250_port
-
-Jisheng Zhang (1):
-      dt-bindings: serial: snps-dw-apb-uart: Add Synaptics sl2610 uart
-
-Karl Mehltretter (1):
-      serial: ma35d1: Do not force-enable an unselected console
-
-Kees Cook (1):
-      vt: keyboard: Allocate new_map with ARRAY_SIZE()
-
-Li Jun (1):
-      tty: atmel: Replace SIMPLE_DEV_PM_OPS with DEFINE_SIMPLE_DEV_PM_OPS
-
-Linmao Li (3):
-      serial: 8250_mxpcie: set the driver data before registering ports
-      serial: 8250_mxpcie: only unregister the ports that were registered
-      serial: 8250_mxpcie: take the line settings from the new termios
-
-Malathi A (2):
-      serial: 8250_uniphier: Use devm_clk_get_enabled()
-      serial: 8250_uniphier: Use dev_err_probe() in probe error paths
-
-Martin Fuzzey (1):
-      serial: sc16is7xx: fix data corruption due to unexpected xon/xoff
-
-Mike Rapoport (Microsoft) (3):
-      tty: port: replace get_zeroed_page() with kzalloc()
-      serial: core: replace get_zeroed_page() with kzalloc()
-      tty: hvcs: replace __get_free_page() with kmalloc()
-
-Moteen Shah (2):
-      dt-bindings: serial: snps-dw-apb-uart: Add ti,tda54-uart
-      serial: 8250_dw: Add ti,tda54-uart quirk to skip empty FIFO read
-
-Myeonghun Pak (1):
-      serial: sh-sci: Unregister UART on sysfs setup failure
-
-Nathan Chancellor (1):
-      serial: 8250_mid: Add missing module namespace import for SERIAL_8250
-
-Nicolai Buchwitz (3):
-      serial: amba-pl011: honour delay_rts_before_send for every write
-      serial: amba-pl011: keep transmitter enabled when disabling RS485
-      serial: amba-pl011: drive the bus during break in RS485 mode
-
-Peng Fan (2):
-      tty: serial: fsl_lpuart: use dmaengine_get_dma_device() for DMA mapping
-      tty: use assign_bit() where applicable
-
-Praveen Talari (1):
-      serial: qcom-geni: Drop unsafe rx_buf realloc from setup_fifos()
-
-Rosen Penev (2):
-      serial: 8250: Add Armada 38x earlycon support
-      serial: hvc: use modern IRQ acquisition API
-
-Shawn Lin (1):
-      tty: serial: move sdio_uart from mmc/core to tty/serial
-
-Steffen Dirkwinkel (1):
-      serial: 8250_dw: Add device HID for AMDI0021 AMD UART controller
-
-Swark Yang (1):
-      dt-bindings: serial: Document Axiado AX3005 UART
-
-Tapio Reijonen (9):
-      serial: max310x: don't clobber the TX break bit in set_termios
-      serial: max310x: fix breaks not reaching the wire in RS485 mode
-      serial: max310x: centralize the RS485 transceiver programming
-      serial: max310x: fix RS485 delays being programmed as bit-times
-      serial: max310x: don't power down the port mid-transmission on close
-      serial: max310x: support active-low RTS on the hardware path
-      serial: max310x: schedule tx_work directly from the IRQ handler
-      serial: max310x: drive RTS in software when hardware delays are too short
-      serial: max310x: don't transmit while an RS485 reconfigure is pending
-
-Tate Whiteberg (2):
-      serial: 8250: export and rename wait_for_xmitr()
-      serial: 8250_mid: wait for LSR tx empty before setting termios
-
-Thorsten Blum (2):
-      serial: core: Use isdigit() in uart_parse_options()
-      serial: earlycon: Use isdigit() in earlycon_init()
-
-Tim Douglas (2):
-      serial: pmac_zilog: push received data to the port that received it
-      serial: pmac_zilog: report received breaks
-
-Uwe Kleine-König (1):
-      serial: tegra-tcu: Make use of dev_err_probe() in .probe()
-
-Uwe Kleine-König (The Capable Hub) (8):
-      serial: 8250_pci: Catch up on new pci_device_id entry without named initializer
-      serial: txx9: Drop noop probe function and dangerous remove callback
-      serial: txx9: Drop usage of uart_match_port()
-      serial: 8250: Make uart_match_port() a 8250 specific function
-      serial: 8250: Simplify serial8250_match_port()
-      serial: 8250: Fix corner case for port matching
-      serial: 8250: hub6: Add cleanup code
-      serial: 8250: pnp: Annotate init and exit functions for conditional discarding
-
-Viken Dadhaniya (2):
-      soc: qcom: geni-se: Correct QUP Core ICC vote constants
-      tty: serial: qcom_geni_serial: Keep console RX functional after deep idle
-
-Xiaochun Li (1):
-      serial: core: Fix a potential NULL pointer dereference in uart_parse_earlycon()
-
-Yicong Yang (1):
-      serial: 8250_dw: Prefer SRBR in bogus RX timeout workaround if available
-
-Zongmin Zhou (1):
-      serial: sifive: fix off-by-one in console port bounds check
-
-bui duc phuc (1):
-      serial: qcom-geni: Propagate errors from optional IRQ lookup
-
- Documentation/admin-guide/devices.txt              |   13 +-
- Documentation/devicetree/bindings/serial/8250.yaml |   32 +-
- .../devicetree/bindings/serial/cdns,uart.yaml      |    1 +
- .../devicetree/bindings/serial/renesas,hscif.yaml  |    4 +-
- .../devicetree/bindings/serial/renesas,scif.yaml   |    4 +-
- .../bindings/serial/snps-dw-apb-uart.yaml          |   13 +-
- Documentation/driver-api/serial/driver.rst         |    2 +-
- MAINTAINERS                                        |    2 +-
- drivers/acpi/acpi_apd.c                            |    1 +
- drivers/mmc/core/Kconfig                           |    7 -
- drivers/mmc/core/Makefile                          |    1 -
- drivers/ptp/ptp_ocp.c                              |   36 +-
- drivers/tty/Kconfig                                |   10 -
- drivers/tty/Makefile                               |    1 -
- drivers/tty/hvc/hvc_dcc.c                          |   30 +-
- drivers/tty/hvc/hvc_opal.c                         |   11 +-
- drivers/tty/hvc/hvcs.c                             |    6 +-
- drivers/tty/moxa.c                                 | 2136 --------------------
- drivers/tty/pty.c                                  |    5 +-
- drivers/tty/serdev/serdev-ttyport.c                |    2 +
- drivers/tty/serial/8250/8250.h                     |   17 +-
- drivers/tty/serial/8250/8250_acorn.c               |    5 +-
- drivers/tty/serial/8250/8250_airoha.c              |  178 ++
- drivers/tty/serial/8250/8250_aspeed_vuart.c        |   13 +-
- drivers/tty/serial/8250/8250_bcm2835aux.c          |  187 +-
- drivers/tty/serial/8250/8250_bcm7271.c             |   33 +-
- drivers/tty/serial/8250/8250_core.c                |  153 +-
- drivers/tty/serial/8250/8250_dfl.c                 |   22 +-
- drivers/tty/serial/8250/8250_dma.c                 |   29 +-
- drivers/tty/serial/8250/8250_dw.c                  |   32 +-
- drivers/tty/serial/8250/8250_dwlib.c               |    5 +
- drivers/tty/serial/8250/8250_dwlib.h               |    7 +-
- drivers/tty/serial/8250/8250_early.c               |    1 +
- drivers/tty/serial/8250/8250_em.c                  |   26 +-
- drivers/tty/serial/8250/8250_exar.c                |   59 +-
- drivers/tty/serial/8250/8250_fsl.c                 |   24 +-
- drivers/tty/serial/8250/8250_hp300.c               |   27 +-
- drivers/tty/serial/8250/8250_hub6.c                |   11 +-
- drivers/tty/serial/8250/8250_ingenic.c             |   11 +-
- drivers/tty/serial/8250/8250_ioc3.c                |   26 +-
- drivers/tty/serial/8250/8250_keba.c                |   13 +-
- drivers/tty/serial/8250/8250_loongson.c            |   20 +-
- drivers/tty/serial/8250/8250_lpc18xx.c             |   11 +-
- drivers/tty/serial/8250/8250_lpss.c                |   17 +-
- drivers/tty/serial/8250/8250_men_mcb.c             |   14 +-
- drivers/tty/serial/8250/8250_mid.c                 |   29 +-
- drivers/tty/serial/8250/8250_mtk.c                 |   19 +-
- drivers/tty/serial/8250/8250_mxpcie.c              |   43 +-
- drivers/tty/serial/8250/8250_ni.c                  |   12 +-
- drivers/tty/serial/8250/8250_of.c                  |   25 +-
- drivers/tty/serial/8250/8250_omap.c                |   45 +-
- drivers/tty/serial/8250/8250_parisc.c              |   14 +-
- drivers/tty/serial/8250/8250_pci.c                 |   23 +-
- drivers/tty/serial/8250/8250_pci1xxxx.c            |   41 +-
- drivers/tty/serial/8250/8250_pericom.c             |   15 +-
- drivers/tty/serial/8250/8250_platform.c            |   32 +-
- drivers/tty/serial/8250/8250_pnp.c                 |   23 +-
- drivers/tty/serial/8250/8250_port.c                |   50 +-
- drivers/tty/serial/8250/8250_pxa.c                 |   17 +-
- drivers/tty/serial/8250/8250_tegra.c               |   20 +-
- drivers/tty/serial/8250/8250_uniphier.c            |   43 +-
- drivers/tty/serial/8250/Kconfig                    |   15 +-
- drivers/tty/serial/8250/Makefile                   |    3 +-
- drivers/tty/serial/8250/serial_cs.c                |   15 +-
- drivers/tty/serial/Kconfig                         |   11 +
- drivers/tty/serial/Makefile                        |    1 +
- drivers/tty/serial/amba-pl011.c                    |  123 +-
- drivers/tty/serial/arc_uart.c                      |    2 +-
- drivers/tty/serial/atmel_serial.c                  |    8 +-
- drivers/tty/serial/earlycon.c                      |   10 +-
- drivers/tty/serial/fsl_lpuart.c                    |   18 +-
- drivers/tty/serial/kgdboc.c                        |    2 +-
- drivers/tty/serial/ma35d1_serial.c                 |    2 +-
- drivers/tty/serial/max310x.c                       |  632 +++++-
- drivers/tty/serial/mcf.c                           |    4 +-
- drivers/tty/serial/pch_uart.c                      |    4 +-
- drivers/tty/serial/pmac_zilog.c                    |    5 +-
- drivers/tty/serial/qcom_geni_serial.c              |   49 +-
- drivers/tty/serial/samsung_tty.c                   |   27 +-
- drivers/tty/serial/sc16is7xx.c                     |    4 +-
- drivers/{mmc/core => tty/serial}/sdio_uart.c       |    0
- drivers/tty/serial/serial_core.c                   |   70 +-
- drivers/tty/serial/serial_txx9.c                   |   62 +-
- drivers/tty/serial/sh-sci.c                        |   22 +-
- drivers/tty/serial/sifive.c                        |    2 +-
- drivers/tty/serial/tegra-tcu.c                     |   22 +-
- drivers/tty/sysrq.c                                |    5 +-
- drivers/tty/tty_port.c                             |    8 +-
- drivers/tty/vt/keyboard.c                          |    4 +-
- include/linux/serial_8250.h                        |    8 +-
- include/linux/serial_core.h                        |    2 -
- include/linux/soc/qcom/geni-se.h                   |   12 +-
- 92 files changed, 1862 insertions(+), 2999 deletions(-)
- delete mode 100644 drivers/tty/moxa.c
- create mode 100644 drivers/tty/serial/8250/8250_airoha.c
- rename drivers/{mmc/core => tty/serial}/sdio_uart.c (100%)
