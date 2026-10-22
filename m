@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.74.67.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792677008;
-	b=B98a6e2cARLSrLC5clcb06Z3+YVyyZPALOaBif2Wi2pGUeAUbKCB0lkb2vRRB0Sj7N4H
-	 +g4W4QEkZ2ehH2UnsQLeOosbIsb9ibSFbuZVOGDBW+BdmGn6amj/XAUicGeQ8U0d81yH9
-	 CCK3w6LpGExAzDE9U9vZXiZnwf/0HBRpRcZ5D+ZChueX4/HCZcjYwZSv1kCSvaB4sNaXY
-	 KSoZlYzI1KzVGEc1GRh/W0gW1NGqJ3OCvzpa3vYb6f3z/2XIFRnqmvoeMpC4zPftqI5Xj
-	 NyjqvuMQmEX3X6AxNGG1O5j6eDModa6OOx046zl5PT+rtTaGzvaLAIGIXsHkljiMjBQ==
+	t=1792677099;
+	b=vLoUbk3t3on1jYDay8SLWE9USqX9Cvr+LK0S7PFCfz4In0DmDz+rOXd4N8ML9LlwlLNG
+	 6UH2XG973mvtzTkl6W3ETGlfzndsd4yBlLJweOmxwiGcCTYttfteEibts8b5/j/OOsf5Y
+	 o+ols4DgjqozgNoofI4VL/Y5gbQ6JWMEZwy2VWC2TbaIb3zkKeTUBVqGxDrjKxsNLkGiQ
+	 ValOQkPNEpeDKo8D+RRJrUHAauaDOVF68g7IghlQ64IgS7FW5X6XAuqASjLym6wUAZ/wI
+	 S/a6RI5B5+Si9C2X+9Y1Ufe+H/gZ3lf+FPAW1R41jLE1ejaVQfPHu9JVYoRxyFNRzTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792677008;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 DKIM-Signature;
-	bh=p4EAUH5+wKS7RKX2hJH8PUg8FImMtmWSRGw0eMoplYQ=;
-	b=5kfMcgxQ5ua/yZyN1rRDKe4wT4yhOP/JFJuWpBHz5GKcanW5WHxdOLpLgLGxBvBPcjrA
-	 sFuwFsPbmoFMKUeeKCJJa+Wp92kOgXjsHIPsFxjQkWPbSEs1TOrTK2eNUfzjeRW2r9JUB
-	 uXl5znz4vlEE5DRbrBGDAYzFtGHDRoqNwBHS+tyLlFvYwpxoigslA2C5ST6NbT0Z+PcjM
-	 TQ0gXAyPqdE6FKE89Cgrk6uGWfjMv6pqkhm064HrRuYMk4zc5k+5mYMyY/P4GU/Jn0PM7
-	 Qe7XY057LmHld/zPMinnlYeeIHbyNHzX3bBnA1Iaelyx+P5ict0UVuvhQiUhZgi4+ZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792677099;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3AMzmTxZ8irr3o941QbW5F8QIQhOchreftiX6DcpbdY=;
+	b=W2or4Q5A7wY+wrQk9YD2maVLs0VQjZS03/r7sMJaaTkv4V6PGgsK2Iy4Io4V56+fUab/
+	 hSq/s7zdt8fHDJrhrlnXcdaqBxVovmfUtKIpQvzf3d6F9Mt36hVeQNA0z2alIdJkxi4O2
+	 pYGv7jrg/2LmsCDErwrdr0NLCQvsq5qChUEy1E7c4Jkhn935KDDppyj30gi0N5QEyvnoE
+	 09Eq5zX0TwBfip75Rm9SeSpab1zgsYJKTRxHAHAZY5GpxgVAzOAW7+PPEVTGoatGpeQ4r
+	 vSW9RQI7bnDmKTCoI2R1NdDrriAt8hCyh9qxN7tK2lApmSFlJ1xdXEGd6r76+1Vbgww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=poczta.fm;
-	spf=pass smtp.mailfrom=poczta.fm;
-	dkim=pass header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=wE5iZ+Dq;
-	arc=none smtp.remote-ip=217.74.67.63
-Received: from smtpo63.interia.pl (smtpo63.interia.pl [217.74.67.63])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=cs.unc.edu;
+	spf=pass smtp.mailfrom=cs.unc.edu;
+	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=P32fr4BZ;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88F4660A6F72
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:50:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88F4660A6F72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=poczta.fm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=poczta.fm
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F41B606A31E
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 13:51:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F41B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=poczta.fm header.i=@poczta.fm header.a=rsa-sha256 header.s=dk header.b=wE5iZ+Dq
-Received: from localhost (unknown [80.68.231.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by poczta.interia.pl (INTERIA.PL) with ESMTPSA;
-	Thu, 22 Oct 2026 15:50:04 +0200 (CEST)
-From: Slawomir Stepien <sst@poczta.fm>
-To: gregkh@linuxfoundation.org,
-	andrzej.p@samsung.com,
-	jiashengjiangcool@gmail.com,
-	yun.zhou@windriver.com,
-	zzzccc427@gmail.com,
-	bigeasy@linutronix.de,
-	nab@linux-iscsi.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Slawomir Stepien <sst@poczta.fm>
-Subject: [PATCH 3/3] usb: gadget: f_tcm: don't hold dep_lock across unregister_gadget_item()
-Date: Thu, 22 Oct 2026 15:49:26 +0200
-Message-ID: <20261022134926.1125473-3-sst@poczta.fm>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261022134926.1125473-1-sst@poczta.fm>
-References: <20261022134926.1125473-1-sst@poczta.fm>
+	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=P32fr4BZ
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8726acc5eadso17260887b3.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:51:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1792677098; x=1793281898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3AMzmTxZ8irr3o941QbW5F8QIQhOchreftiX6DcpbdY=;
+        b=P32fr4BZjij+rD5LraykhzhDfK+ay3sYhjxH/jlCUBM+aixlrMyW9mHNIwV5haFGQv
+         7R2DpV0fqFMUpQMQ2mpn2Pg/ayPsrBt0rhnSNesomauMzfy9DyTdSGB96zrhDCgdx9gB
+         tSdkrzanKtOPXnR1D0GrGFYGIalJdtcRiZ1b34R3VLSBpxanlQ7jCWxgT6tg7Q7YbukY
+         cK2LRg0NuIiwKnrGlBqm6PDXCQSesSoxpTfXiJW5lUoDx8iWEa+BUdE41Swxqb9sCfmr
+         2Re9+tZCoz8Xhp3h1tS6jMPVLDqHAUNI9JIuD0YRtnzGCfmBb3lb9pjeuiMe59olYDn4
+         nGsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792677098; x=1793281898;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3AMzmTxZ8irr3o941QbW5F8QIQhOchreftiX6DcpbdY=;
+        b=I7zPekkIB0v5K+l8XkgS0iGxXIBjSUV4tELxCF+gLWDtORoP/qBy/ZIBa/sbo6KHnE
+         4gE7A0Czz5c3NRRn9Zt9MkSnHL3NpdClYLfjQuUjLu7POoYs+eyM1BDGi55O4uS74KMO
+         6Md0NLODR5HkQw15Oh84X9y7fTj6+Xw68u9L5Biq6KkHsqreiA9trtPtFQXcJ72MKzHk
+         XeXo+loVB1GazNI0k7iZD1N6dOD67H8L/5mdQ9GDeGtlnLM4543lVoXkXasc+63LTYZo
+         NjdEMtO+29XYasX0rMeY7p5DGt15j3kuKuUz5zdqDwrTt8zHdYrYuVk9IpU/soKq0P0o
+         pTEw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDCehdeJ7L6NReE9FmPAdU3jN145nwnd+mAC4iqne3wl+WQBN08GBt/FiGm3uK6Ty7Xi2tE6tGslTFb1w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaXFIRVdNuLHSowOyDVVmv/GDyKGRtQ+WwoLcP4HDikACtoMx4
+	Tp0REt7rjVgXR2qCzmLUytHl51aVT9fjAUgm3Jn3bqZ2GKHlk4y9bq6XomaSAAQzfNGHCNIyKZz
+	ejwzwpA==
+X-Gm-Gg: AYBFou3WuNF0g25x506EmPtbbboI90nGlATaqdLgMivqHBI9FQyDJi76GXaBBg9zBnd
+	utkByPzX5MSBDb2SB7q43mZa2Q3Yj9J2bhXECjC5xnul8GHBE6j+rf56rtur79UxDWs6bJTMeuF
+	MZb7uUW4p9fl7gtL6+xxHr9WuSXaCn4GuqvArS9pVdVmdiWBgBFmlFZ6cUhlK19fKcZQHj4cGnB
+	GDibam1g4GDhHnUdw0ezTeWXVuIDFKdBvXj6XXmsKmKzULw6zyFHiYG0LMCPB5n2J7dp28tzRWF
+	tN6l/yKmxtdQp2t9XBprvYWL+ZdMJ+ic8yrBFhW+7b8Ix14hq/VeYZVYmtNbJI9FWpwC35bXk3h
+	TV0aRyY2aSsFVy9sWaba9pAfvy+FORDhkExMYVJivL8VdtCMPN58lYJeZI3kdYmN+dRxOBSccRY
+	82E7TcAHu1sQ0h84cCqq67N6yqbWbqUONZoACMdCM0iMMJ5YdcgsrtrqRKqjD/b53WyyZjxBB0h
+	Sks+bhL2vFpm7Axi79/7gFLnRjt+SYLNhbtipsC1UIps3iBUhi+vQSmsfpFTo/hHIpQIe9YJx/3
+	wXM=
+X-Received: by 2002:a05:690e:4090:b0:66d:112b:769 with SMTP id 956f58d0204a3-67a0e02c93fmr2630941d50.1.1792677097897;
+        Thu, 22 Oct 2026 06:51:37 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67a0e185441sm2707787d50.3.2026.10.22.06.51.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 06:51:37 -0700 (PDT)
+From: Hengyu Liang <hengyul@cs.unc.edu>
+To: slava@dubeyko.com
+Cc: glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] hfs: report errors when extending files with setattr
+Date: Thu, 22 Oct 2026 09:51:33 -0400
+Message-ID: <20261022135133.1411613-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2b9ea598558ed4b7dd25eb26a05f6667522c3afc.camel@dubeyko.com>
+References: <20261021145627.288953-1-hengyul@cs.unc.edu> <2b9ea598558ed4b7dd25eb26a05f6667522c3afc.camel@dubeyko.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,67 +101,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=poczta.fm; s=dk;
-	t=1792677005; bh=p4EAUH5+wKS7RKX2hJH8PUg8FImMtmWSRGw0eMoplYQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=wE5iZ+Dq0ZsqXKwXGwzLrGHxOoPaYiboGxpgiDMILyl8RueOyAjxyiPKoCAjuCLQt
-	 MHaq84tyZJIKWp3yVIaqypzWJIvrKodo4s7b76pm6WVjI8mGOvYW1yEpbWceDdjmbN
-	 yyAWPI7d+H3iVfOr04jDB8Z4Cc4BkUeOHxPxcwcc=
 
-tcm_unregister_callback() runs when a TPG is disabled and unbinds the
-configfs gadget via unregister_gadget_item() while holding
-opts->dep_lock. unregister_gadget_item() takes gi->lock.
+Hi Slava,
 
-The opposite order is taken when a UDC is assigned to the gadget:
-gadget_dev_desc_UDC_store() holds gi->lock across
-usb_gadget_register_driver(), which binds the configuration and ends
-up in tcm_bind(), which takes opts->dep_lock:
+On Wed, Oct 21, 2026 at 02:22:41PM -0700, Viacheslav Dubeyko wrote:
+> I think now this code [1] becomes dead. And we need to rework it:
+>
+> void hfs_file_truncate(struct inode *inode)
+> {
+>         ...
+>         hfs_dbg(...);
+>
+>         if (WARN_ON_ONCE(inode->i_size > HFS_I(inode)->phys_size))
+>                 return;
+>         if (inode->i_size == HFS_I(inode)->phys_size)
+>                 return;
+[...]
+> It will be great if you could share another patch with the fix.
 
-  CPU0: echo 0 > .../tpgt_N/enable    CPU1: echo <udc> > .../UDC
-  tcm_unregister_callback()           gadget_dev_desc_UDC_store()
-    mutex_lock(&opts->dep_lock)         mutex_lock(&gi->lock)
-                                        ...
-                                          tcm_bind()
-                                            mutex_lock(&opts->dep_lock)
-    unregister_gadget_item()
-      mutex_lock(&gi->lock)
+Thanks for the review. I made this change and ran the whole xfstests
+set, but the grow path is still reached. The WARN_ON_ONCE() fires under
+fsstress in generic/013, 076, 476, 650, 750 and 795, every time from
+close() through hfs_file_release().
 
-Disabling a TPG while a UDC is being assigned can therefore deadlock.
+It comes from direct writes:
 
-Here dep_lock only needs to cover the can_attach update, so clear
-can_attach under the lock and call unregister_gadget_item() after
-dropping it. Once can_attach is false, any later tcm_bind() fails with
--ENODEV, and a bind that already passed the check is undone by the
-unregister that follows. The function item, and with it the gadget
-item reached via ci_parent, stays alive because the TPG still holds a
-configfs dependency on it.
+1. When an inode is read, phys_size is set to i_size, which does not
+   have to be block aligned, e.g. 100.
+2. A direct write does not go through cont_write_begin(). When it
+   needs a new block, hfs_get_block() only adds s_blocksize to
+   phys_size. A direct write of 512 bytes at offset 512 makes phys_size
+   612 and i_size 1024.
+3. At the last close, hfs_file_truncate() sees i_size > phys_size and
+   calls hfs_write_begin(). cont_write_begin() then zeroes
+   [phys_size, i_size) in the page cache, which overwrites the data
+   that the direct write has just written.
 
-Fixes: 4bb8548df632 ("usb: gadget: f_tcm: add configfs support")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Slawomir Stepien <sst@poczta.fm>
----
- drivers/usb/gadget/function/f_tcm.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+So today this path loses data, and removing it would only replace that
+with the warning, while phys_size stays behind i_size.
 
-diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
-index bcf11f4405ae..d4bb7ad3f1ae 100644
---- a/drivers/usb/gadget/function/f_tcm.c
-+++ b/drivers/usb/gadget/function/f_tcm.c
-@@ -2648,10 +2648,11 @@ static void tcm_unregister_callback(struct usb_function_instance *f)
- 	struct f_tcm_opts *opts = container_of(f, struct f_tcm_opts, func_inst);
- 
- 	mutex_lock(&opts->dep_lock);
--	unregister_gadget_item(opts->
--		func_inst.group.cg_item.ci_parent->ci_parent);
- 	opts->can_attach = false;
- 	mutex_unlock(&opts->dep_lock);
-+
-+	/* Takes gi->lock; UDC_store holds gi->lock while tcm_bind() takes dep_lock. */
-+	unregister_gadget_item(opts->func_inst.group.cg_item.ci_parent->ci_parent);
- }
- 
- static int usbg_attach(struct usbg_tpg *tpg)
--- 
-2.56.0
+The issue can be reproduced with:
 
+    truncate -s 32M hfs.img
+    mkfs.hfsplus -h hfs.img
+    mount -t hfs -o loop hfs.img /mnt
+    printf 'A%.0s' $(seq 100) > /mnt/f
+    umount /mnt
+    mount -t hfs -o loop hfs.img /mnt
+    xfs_io -d -c 'pwrite -S 0x42 512 512' /mnt/f
+    umount /mnt
+    mount -t hfs -o loop hfs.img /mnt
+    od -An -tx1 -j 512 -N 512 /mnt/f
+
+On a804c5742bff, with and without the v2 patch, the last 412 bytes
+read back as zeros instead of 0x42, and fsck.hfs reports no error.
+With the cleanup applied, the data is intact but the warning fires.
+
+HFS+ has the same problem. hfsplus_file_truncate() has the same grow
+path, and commit 5f63ac80aef2 ("hfsplus: fix issue of direct writes
+beyond end-of-file") only covers writes that start past EOF. A direct
+write of 1024 bytes at offset 0 to the same 100-byte file loses 924
+bytes on HFS+.
+
+I think the direct write path should be fixed first, so that i_size
+can no longer get past phys_size. Then the grow path really is dead
+and your cleanup is right. The simplest way I see is what
+fat_direct_IO() does: if a direct write would end past phys_size,
+return 0 so that it falls back to a buffered write, which zeroes and
+accounts through cont_write_begin().
+
+Would that be fine with you? If so, I will send that fix for HFS with
+your cleanup on top, and a similar fix for HFS+.
+
+Thanks,
+Hengyu
