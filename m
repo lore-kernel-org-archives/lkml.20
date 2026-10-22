@@ -1,95 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792637750;
-	b=K7yy5pzV16l73KtPeubU9DkQU3i2NfgE0qu8n2g6wgaYcPkVH2fQmeYSSkvrYHAyvzh0
-	 8H99ZxTE2wYNxTkiVzIQBnugUZ74SD0SndP1kULNeohDYpY1bzJTV12SsSo1PvQ6NduUg
-	 HKUqgksvimcF3YQibM5FxxNKmh+OLlPWX6S5LEdPeQJ2WRli/u9SufGvhldqhfXZax6+7
-	 nl2TivtwachZQN+qeTcblwlbkL6DNjTLyVWISoeoA7BXCiWHDK1oZVQCOs+B4a8K2zmkO
-	 Gg381OZxXjf3rnzTgHj8lBbT7cUMawk2wV3dHLvo+ovRXR7Imvn5e91ik5tW8Yyk92w==
+	t=1792637852;
+	b=HxySLl/nWh7oRTgdtns0Wio7fSDz5MBdKcKnjAzr9S5uSEw/1oABQ3gKouiAstJNul5V
+	 63brquO3trXy837gh9b3m/xo+mOjzugxu8gVTV0ThOYWijjT3zSAoBpho8bVzQJjZVNE8
+	 cbw/WjyJUIHG3damNJmByZ2zlngs0MYCmlHe/6l8d0zG9T6glQtVIlzYZbNDu+M+iImc+
+	 u2eUwyld6RptAFcBSOhbXDqVLy6xqSHPUq9h9rm4zcZBNXH8KBf9SAlAGJ2pMNjrHfc01
+	 38wNeU2ymmT9JpqHLWLYqHn1AOHxv05Q+Xz7EslAbVIMI5D0UAwQbsKVO294mh0btqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792637750;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792637852;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=Cr4fF23yKRo0SqQXK8klVw/Syk8sr6hkGOQHdTp+MUU=;
-	b=xg5uqun/4aGtMD5K2ErNAkyaS8a69IDPXs7+BEhNWDYJB+lJMUCNJd8eqP6KlLY9uhJT
-	 6YAoIFmsf60iIgBbmEJ+/pOoRkkN1bgNntBFSIODEwLqx3xHvBkRFWG4usqtpT7wJtA8b
-	 xkxqac//LSPSkphC2wWZA97Bj82F2azJP2QOBbjbP/urQ+tSj3KPk1tCU10OvgKddytr3
-	 k1Ag7SUbk+Q5rvV6s6ZSEo3UvBLxiTYnAqXIT8sPl1Q9ELJtNaIbzoRAkGNQQzdWTzUNo
-	 7j4B4d/fEfenivSieaSILvNXA+mNu5NA7ohSZogIoCe7EcHNZsnCVU+w5V/94qFjsIw==
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=jbCDllRU5wYbKPFOhnGrl1xB/avA24qTnso9VdtaQCs=;
+	b=jVsM+fTW3SHE8oi3vxCbn+4OpE6IvTmFy/YOyJaVrMcGU2nLw+AHhipF+3nSHO4dmIoL
+	 YHJMohHdO1e+uUEAusVrOaoTh3WLmDv1nQ0NPUUuUOPzFUg3b3IRQdBrSrLEg8YVjeF0Y
+	 3HXA+OLxRywiheYKO6oJBowik1FKuobgPmroQnnRdQIxWGbUSp3SjlddYqLA/4pD482IS
+	 fsB3Gp72nBjDWKtws+dmEFyFmjY3koLf1hAupR3NTamDuFKUo3TvHHNlIiNaOKtlX6ZPe
+	 Dz07CJ0KbEUNSVOulp3+D2KlYfk7fz2tiE8tuCD2T8r6EQpgKTIa4G8uXN9tg0VJPhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="koa/V6Uj";
+	arc=none smtp.remote-ip=209.85.222.180
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3940F606A31E
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:55:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3940F606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35f1f76ea84so2003559eec.1
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:55:45 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6437E606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:57:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6437E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=koa/V6Uj
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e63ee7b4cso160238285a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:57:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1792637744; x=1793242544; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Cr4fF23yKRo0SqQXK8klVw/Syk8sr6hkGOQHdTp+MUU=;
-        b=hXvKaNXjGoRUKXPDJB5peVk/oGgRC/sI+dePrB+CKlNOPHv00cw2AezXkZkIce/MJ2
-         sWsnWAh4jWTgiq6EfbkB3FKAMgojpfE5w0g++3+00XlIdfkldU7rbrWrymeZAk+N5hpp
-         p8xwuziRQec6hkbg251u8lYdHCNyy16me0NSI=
+        d=gourry.net; s=google; t=1792637850; x=1793242650; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jbCDllRU5wYbKPFOhnGrl1xB/avA24qTnso9VdtaQCs=;
+        b=koa/V6UjBswa4FuSyaK1aj7mCWWDpckd3P8cm34TWWyRP4wzh2NLGZFSH6Q4M4DXu3
+         qzvnXX9HeaVR6rcKzXOZbL4uzEnVmqZL+MMzzyWUGBG2X6ItbpmKYvjiIE7ZPOD6pDdX
+         PykgPTns0Qtfo8nduMQ1sHSyApXHEviCMbeUO00ZvHROPMI86Ykmx6SQl+abfVMyiKWf
+         CvkbnJxDfiv3XJxFjZ82pcIdZyeNVZqTP/ETC6T9H+76M973HmqPv2qbgfT+YBQjViJJ
+         TAOrklU+ENqV10WidZ/pbmFlwYkvtftj2K/YJxpRPZem9Bu3acDn5HeG7eCd8A/aUPfS
+         BT4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792637744; x=1793242544;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Cr4fF23yKRo0SqQXK8klVw/Syk8sr6hkGOQHdTp+MUU=;
-        b=JM7WnQ1QppAy5C+Dr7llKXThIWnOQRONGP2alKO+hV8aGYiLNu6oTgvRXeV1DJQC1l
-         Y38pJ30FNYhp0WUUTXUNbURTv0VZG+JHyOnjIDO1sHDdrg32o5jM9pmtxGUsPPCyVmQv
-         q4Uxa7swXKJ3qkLaFqGDhBHsoEVo1g5+yYBB1weCQgBlVEFMf2waiHR9vaWv0oARr6AX
-         HhWCSjs+iGYv8M/Sd0MrYXI2l9Vs32E7e+oZjFe0x6gVJMfxU0G9Dt5YN2VQxaB6f3Ii
-         51nfe2/EofFO854C6iuvNLM/ROVpyu0b9TRZECYB11wExgmFkmFziaXsZYIaH8nmNUwx
-         Z0Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwNBxYE0wU/d00k3nLUz7iYnKhOKpBo+gFboaEij2FDLEcMtotqkoinSVD8eUM2jrwvjIPbgDtTJs1Npg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKhWQHaKorP2F9KbsGvymMR+H/eZPnBHdvqM6pirfoaxOp7zlaL
-	/lqizbmRxR5rdHsIsSoXTtXZ7BjFNaYnG0sKh25ziglzPceXy8ErJLvLw5cckVzuDQ==
-X-Gm-Gg: AYBFou32T3mygH9F9pQZqXnIiVHxHzn9x9mJuMQZuqnre1rcfx8VDThyeW8F5r6mM+o
-	/YSFjSIEaP/zRLmex9RP49BSdcM9/QuQffghVEfl5EnLqAHrlUFuTR9Mqs1QSaizvEmjqAiYGMv
-	KgQ9tj5arur0/c+qpVA4b9dubWTDDVolmJqgC9SwtWemoMhJCtlss+LOqHbuHDgsClJnEIRA9Sp
-	XqU4d9V5njEt2as9scBsNh/mWYJhjXXt/X0A2uYkldYpjxAL/LaZLImbQY40AKOo9PmI+jgz47Y
-	BO5akzbzu0rhbV3mf+kRC9QWdoqqefeGu6DBgJljL8fZiISSXvw7jp/2HnxaQLmu/9NEMsIgxNf
-	3rpE/25U4XK1uL83VIC6nmNFYnULTY6AavHjAY+OG5ulD/aHcxrdIP7smdsoZGqPUNqm+ot0LWA
-	CSkbjDkSEYus1n0/ZAFqHzAMEQZLRVO25uISudt+hIfRquPv1U/Y2R/h+39NSgp1sshs9je9jKm
-	mflsRJEPos9AKeyvBOcAq0Ow2KDiEGggS/q6UEeuf74f4mOuAfoSWzmtm6IsQG5/JNy5L0DxOLa
-	ep1gQE9eEMeIyMKT/4oPshjwzIcRnSSiK4jEh1sXpg==
-X-Received: by 2002:a05:7301:f89:b0:35c:85fa:5a61 with SMTP id 5a478bee46e88-3674f1186b6mr4958712eec.38.1792637744268;
-        Wed, 21 Oct 2026 19:55:44 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:5145:5add:2df6:4671])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-367405ee5e3sm11457355eec.4.2026.10.21.19.55.40
+        d=1e100.net; s=20260707; t=1792637850; x=1793242650;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jbCDllRU5wYbKPFOhnGrl1xB/avA24qTnso9VdtaQCs=;
+        b=nqFt9SFLKJ7/tZNxNqqBtwu29x9s0tvE9gl9CDl4YTIQASizvBu+cOXTlAOUfa4oMF
+         V2sTHhcE7Fjlh0JHuf6p1epULYKc+9P1sIPhdwItRbljzUGKb7FIVShOGaqwKvbIWpyy
+         aqwJ3W+5L3vkVddCS6nlBpoROr9LPTqHpBj/vF09BzkrozF99MVA1FmRWd3OTxg7e1No
+         zxUkVm39yPL2ji7eR9XYc/zXve1vt2KmqRLKJ3cnUYC3NekJOZHJhk1fvWwoIRJor2+Z
+         PqeVvOOzasYJKdW0rc+lfcHYQU9UtzZf3dcH08q0U0LHCT9wp1XQa5BSXp2GjcFHqyyY
+         bs2g==
+X-Forwarded-Encrypted: i=1; AKwUvBzVBacMpcZBfxwQTIGM/eq0ubvZWw0nIydhAyxsEtFf2QlGi+qjUC0QXw8CV+Pjka+jYvIxX6eG1abwfAY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI30v5qcmXopJMP5grLb/L0mDlYz8Vb2rGvn5ijc58rZ3t1579i
+	Ty+dNy/H6QA7z8cdC7huHHf9hc2rnXwOP3O3js0wvr/SlrfSY0xwgA4EzOWR33sj54M=
+X-Gm-Gg: AYBFou0Zs1Twpgk6GuNggh7FPZSMUZQFvV7hZhW6SZkLSO0+hWe/sHMHEcl1S5MJMNl
+	ea+Zat2eukkUWalov01TTP9H+rJhUF81Jo2WU7fYC2uAmGNUjpmLJZyItv7dgR/6Mdq9OTzGsBe
+	bPZWP7yImJWLhD4SHwDPkAABWgoXBMavYHME6K5U2Ts4l4MzcjWV4JO/tBCVbUeukFxeytHjz0D
+	YhsEPLliav1WN38SnFDlzaOqt6pHoOuj2z1Vd5weRxyeiLseQeIysFkJpoFPBccOzG3ionf/qDe
+	bu1KWqFA28rY+frp0t50VUl8zDFm5GQiuTtOeaOqe2EYsB/W7rRuM2lbcsyjdoPs9EOq5qoPYFg
+	t8SAS93S/MOL2lUEtG7mKyiIByPjI1oDxHsXl8VC5dFmcECG6fPJrq9AHTyMbMD7/tOxt8A6IjT
+	pp3NbvT8zupU1psIVVNfX7FNCgO2DLmsdc+4yRXTnJ0OFTJWNlz+FUP+LeaH9FhFL4fpAByJMeg
+	2ua/1uo5P3/fjy844VKxSGw10St5QDCCYkBZS7HV3RABQPMJwC4E+gZVRhHKYzszQzvrsUw3EUB
+	wokeaFK1Ibiohjz8684sYYY/YrE=
+X-Received: by 2002:a05:620a:2415:10b0:93f:5cc0:5978 with SMTP id af79cd13be357-93f5cc05b2cmr353949485a.37.1792637850409;
+        Wed, 21 Oct 2026 19:57:30 -0700 (PDT)
+Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e30610sm406637385a.43.2026.10.21.19.57.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:55:43 -0700 (PDT)
-Date: Thu, 22 Oct 2026 11:55:38 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Nhat Pham <nphamcs@gmail.com>
-Cc: Hongfeng Chen <chenhongfeng0212@gmail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Barry Song <baohua@kernel.org>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Jens Axboe <axboe@kernel.dk>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Minchan Kim <minchan@kernel.org>, 
-	Sergey Senozhatsky <senozhatsky@chromium.org>, Yosry Ahmed <yosry@kernel.org>, 
-	Wenchao Hao <haowenchao@xiaomi.com>, Wenchao Hao <haowenchao22@gmail.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, 
-	Hongfeng Chen <hongfengchen@xiaomi.com>
-Subject: Re: [RFC PATCH v4 0/2] mm/zsmalloc: defer object free to per-cpu
- batches
-Message-ID: <atl6mcXcDt9NZoW8@google.com>
-References: <20261016120927.3191690-1-hongfengchen@xiaomi.com>
- <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com>
+        Wed, 21 Oct 2026 19:57:28 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,81 +88,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKEwX=ONniSwdiZAe_8NT5XwVj=Mmc-WJs_rWE4Y5snjFg2=Eg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH bpf-next 3/9] uprobes/x86: Finish an unoptimization
+ which failed half-way
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Cc: bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+ eddyz87@gmail.com, memxor@gmail.com, oleg@redhat.com, peterz@infradead.org, 
+ mhiramat@kernel.org, jolsa@kernel.org, akpm@linux-foundation.org, 
+ liam@infradead.org, ljs@kernel.org, surenb@google.com, david@kernel.org, 
+ vbabka@kernel.org, jannh@google.com, hughd@google.com, kees@kernel.org, 
+ mingo@redhat.com, tglx@kernel.org, x86@kernel.org, 
+ linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261022015712.1297331-4-alexei.starovoitov@gmail.com>
+References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
+ <20261022015712.1297331-4-alexei.starovoitov@gmail.com>
+Date: Wed, 21 Oct 2026 22:57:26 -0400
+Message-Id: <179263784614.2549665.557126403507804820.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On (26/10/16 09:09), Nhat Pham wrote:
-> On Fri, Oct 16, 2026 at 5:10 AM Hongfeng Chen
-> <chenhongfeng0212@gmail.com> wrote:
-> >
-> > Performance results:
-> >
-> > ROCK 5B+ (RK3588: 4x Cortex-A55 at 1.8GHz, 4x Cortex-A76 at 2.4GHz,
-> > performance governor), single process munmap on A55:
-> >
-> >   times in ms, speedups over base
-> >               Base       Patch1       Patch1+2
-> >   size        time    time speedup   time speedup
-> >   64MB       13.81    3.62   3.81x   3.28   4.21x
-> >   128MB      28.50    7.18   3.97x   6.49   4.39x
-> >   192MB      42.19   10.71   3.94x   9.69   4.36x
-> >   256MB      56.06   14.26   3.93x   12.89  4.35x
-> >   512MB     109.50   28.43   3.85x   25.66  4.27x
-> >   1024MB    217.10   56.70   3.83x   51.15  4.24x
-> >
-> > Same machine, single process munmap on A76:
-> >
-> >   times in ms, speedups over base
-> >               Base       Patch1        Patch1+2
-> >   size        time    time speedup    time speedup
-> >   64MB        5.59    1.58   3.54x    1.49   3.76x
-> >   128MB      11.86    3.16   3.75x    2.95   4.02x
-> >   192MB      17.18    4.72   3.64x    4.45   3.86x
-> >   256MB      22.89    6.29   3.64x    5.87   3.90x
-> >   512MB      45.15   12.52   3.61x   11.64   3.88x
-> >   1024MB     89.16   24.75   3.60x   23.12   3.86x
-> >
-> > x86 (Intel Core i7-14700HX, P-cores locked at 2.1GHz with turbo off),
-> > single process munmap:
-> >
-> >   times in ms, speedups over base
-> >               Base       Patch1         Patch1+2
-> >   size        time    time speedup    time speedup
-> >   64MB        2.87    1.50   1.92x    1.14   2.53x
-> >   128MB       6.00    2.93   2.05x    2.21   2.71x
-> >   192MB       9.33    4.35   2.15x    3.33   2.80x
-> >   256MB      12.51    5.78   2.17x    4.38   2.85x
-> >   512MB      24.96   11.39   2.19x    8.62   2.90x
-> >   1024MB     50.19   22.78   2.20x   17.05   2.94x
-> >
-> > 1-4 process munmap of 256MB each:
-> >
-> >   times in ms, speedups over base
-> >               Base       Patch1        Patch1+2
-> >   mode        time    time speedup   time speedup
-> >   1p         13.18    5.78   2.28x   4.35   3.03x
-> >   2p         25.83   14.41   1.79x   4.57   5.65x
-> >   3p         35.70   22.14   1.61x   4.68   7.63x
-> >   4p         44.25   28.71   1.54x   4.75   9.31x
+On 2026-10-22 01:57 +0000, Alexei Starovoitov wrote:
+> From: Alexei Starovoitov <ast@kernel.org>
 > 
-> The numbers look nice, but I think it's a given that if we measure the
-> process whose work is offloaded, we'll see a speedup.
+> int3_update_unoptimize() restores optimized nop10 in three writes:
 > 
-> But would this come at a cost?
+>   48 8d 64 24 80 e8 d0 d1 d2 d3    lea -0x80(%rsp),%rsp; call tramp
+>   cc 8d 64 24 80 e8 d0 d1 d2 d3    1. trap new entries
+>   cc 2e 0f 1f 84 e8 d0 d1 d2 d3    2. restore bytes 1..4
+>   66 2e 0f 1f 84 e8 d0 d1 d2 d3    3. restore byte 0
 > 
-> 1. Would memory freeing be slowed down? Could you compare the host
-> memory usage over this period of time etc.? Hopefully the parallelism
-> would cancel out the extra overhead of setting up the work offloading.
+> uprobe_write() can fail with -ENOMEM, or with -EINTR when the task is being
+> killed. When the 2nd write fails the result of the 1st one stays. Byte 0 is
+> a breakpoint and it works. But the next set_orig_insn() doesn't find lea in
+> byte 0, takes it for a plain breakpoint and restores one byte:
+> 
+>   66 8d 64 24 80 e8 d0 d1 d2 d3    lea -0x80(%rsp),%sp; call tramp
+> 
+> Nothing recognizes these bytes anymore. The process keeps the call into
+> uprobe trampoline, which can be unmapped already.
+> 
+> Teach is_optimized() to recognize the half-way state, and let the 1st write
+> of int3_update_unoptimize() skip what is already done.
+> 
+> The failure wasn't reproduced, but the state can be made by hand. Attach to
+> nop10, call it to get it optimized, write 0xcc over byte 0, detach.
+> 
+> "uprobes: Don't sleep on mmap_lock under dup_mmap_sem" needs this. There
+> fork() removes the breakpoint from its mm. When fork() is killed in
+> the middle register_for_each_vma() removes it for the second time.
+> 
+> Fixes: 554ba38456da ("uprobes/x86: Move optimized uprobe from nop5 to nop10")
+> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
 
-Right, especially interesting what happens if OOM-kill of an app with
-a considerable amount of data stored in zsmalloc pool, is not immediately
-easing the memory pressure.
+This was a nice read.
 
-[..]
-> If it's the former, we should dedicate more time
-					^^^^
-					and tokens ;)
-> towards improving zsmalloc.
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
+-- 
+Gregory Price (Meta) <gourry@gourry.net>
