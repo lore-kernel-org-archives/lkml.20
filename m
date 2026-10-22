@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792684440;
-	b=dfGRFy5b0lihgigRWwA/let5z9iG0sVpz1c2I+ckpQA6Ss/PsolTzDlXqUQQ6nRfYo9F
-	 bA6xTnLvAn2dQhtLCA3HIRg1hCAb70HyaWcS4kyHNNVY73UR5izsDz7SeXNzbk7m4B5+S
-	 fnF7AHzUgTNIbSMyIeOV5uQV96jICxH4feNEm2tLchjgHYlsBb1e2Er3HQ8KKXL24K3x5
-	 T70D0KUIGNawMZQag0hAuEliVQdYPppMHhf+6AL/pyBCL3+13yaBxr6EFmrYEhwd83/4O
-	 Hvni6iOvpFpapffjbxs6k96zbjaHfCYI300HW4ao0cpfWr98Y9f+KmwqnK05GSQ0iCw==
+	t=1792684441;
+	b=UR/smZ5HAKPW1q5WFks9t4Wm8bUBw53LIqod9FnPwcoLiAu4zinMxhsNirEW0qNcJQxx
+	 oqpacAXjWZQvh0iw5gDbl0Np85kNs/iG7oyabaIAxKU23QZv9rr6RvRqW7XzMLFzSLMGu
+	 wtkpola9O+8lVD/OhYUUwPl2n8pbD/qtya20HfJ9jXJm+XSbuYTBRSzZXmzt4Aq1zxmoC
+	 nYIioNtx764ExBNUI4LUm3WSCLRcoUppi3X0DQo/aO5qo+GM+wc4LIK30EQutwLv/XkPN
+	 r+TqwnCinT6xyc2nwjYkf+Vr8XMExUP+76XAMIprKZ1l/hd/CO8HtP+zBenVPZP9YxQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792684440;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792684441;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=FfwESk2+W5GLOfREmJ4jIQRgAZiuRjaWD2FZlMqIe78=;
-	b=3eMwcnqRYnE0fWVzE+Ap8TVK7vtsq/B7IoHnXj7bAUtprlsQzA2yECl3U361l8F+q4Sb
-	 jvwMDVCNA3WHaaypztyCRVTQScxbaXtNWGs/t/DzybqdrXbTCll+YOBT5vWT4dQadwjoC
-	 dhhsM3BdFCHYLEZ24O/Fx3mAmE2B11Uo4TAMXM4GavOzUpi0V92CB0WJ5jeMpGqL18Qcu
-	 hlD4V97NOuFXPuUPXqgm5Isn+i9AwI2hBETNA/jNMuE1Y045webmLxBOnrxz9uh7ECocM
-	 FUg6DUdrdsCP+43tbThSrYW/una8cj9Uq4bIHGWPbIG8eJBwSh2+FNFTAoDl4EC039w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=KI910im9LTbTVP0mkZ5a0lfmv5lwSA07KjHuia0I/3A=;
+	b=5o5Ht5qMK8u3rBi4Ipx+iXD4Zt2gVcflYLGDhi+6m1X8rB88K2FcLjKIu8ToNaL3c6dM
+	 izH05S8DkrX4mkqfRUTNwi7eVLhD84l1VArQGilCI45gIqQRWEx95/Vkazad0MozFEKST
+	 nR1dTdjaZmBNmr9Dq/jKWVX5gvE7Pd3oCX6jqBZOPIQlHlNPIZzoGUspBYrMgqmARki5q
+	 gTizcWqnmwvaMX8dXX7SDS7ZFgnA7qPVGSaKa16+crWFd5+62FU/gPG7N8rhP4lAx+YBg
+	 3I23Za5ZhUO6+HeNeu3kVjCK10zM38sSqcDszmgPYb5Etn/bFvH+9CY/gTynR1mmPmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rDMMaPPW;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b="KaQPx/n9";
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31E60606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1AE606A322
 	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:54:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31E60606A31A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE1AE606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=rDMMaPPW
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ab7f1efe5dso3399907a91.1
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=KaQPx/n9
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e60770381cso20253765ad.0
         for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:54:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792684439; x=1793289239; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FfwESk2+W5GLOfREmJ4jIQRgAZiuRjaWD2FZlMqIe78=;
-        b=rDMMaPPW90DTMQi9NJX0sguLIdDumDTL6hrvbR16ROZWSeukVKj0a9uWMfSa6oxBTC
-         pyzoOphzHnqpVFZ5x9Pc3wwEvv39dLySj9lWln1C+mzTrQrLjeOb9yTNw7y1n5sgm+6w
-         w4lSEHWqOMsVWrIEwguLdB7YUPuAl3zdHOzJMMAD6+c2lxoiB17SrfKDHk9778zz38dE
-         3hdIRI12kMBVuggOzcTUU4XhXV3Ubr5ocOdGzxC9WN9oxOIUFDmrIDireYQm7PnsK3PL
-         Y7Gou8MxQoxVLeWQWI9yTbFWgGvIQTTaL3KnC5K4pQ3jYCtkKWArZyKFMqqOYNcX9Ypj
-         Qy4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792684439; x=1793289239;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1792684440; x=1793289240; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FfwESk2+W5GLOfREmJ4jIQRgAZiuRjaWD2FZlMqIe78=;
-        b=oWPgaSxaNgKRKF9jlAsXSyUtngi0yyDafWyxnt+kg7SiDXnV+WWxjG181bj9T4YDdx
-         quhWNap/6Rqp7/7zie9LDbo8ZTNZNxIQT1y4/4zx6ar9NX1dQ4VqWoF944JoreN5f25T
-         Mh6uyh/ufd/5+EVmsqFTuHmKBI14GZWxZQWk5v9zB0DdYLcwFHDXdF1+GzqelRYGLsZq
-         dfcvGtYx8PdjZ3CG5hUD7O1dvIL3+KBthHXqBc4b7+P9pKQfJTTNuRujfDJdOODvldmX
-         VToGjXNhtOEuvfDyEyMpcN6+VJvreTzJN8/7NShaBQv6J1jqOHT60wH/o+XO2tQX5CTP
-         Y3Yw==
-X-Forwarded-Encrypted: i=1; AKwUvBxu6YYZTQqeFLMlvcL+6X5CHduZg5zdf81Ylw1R5v6HIMqlwY/knATfBiUarWmsJCpOX/DrHiqTBI1SM+A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLqSM6lGmGi6W0ced1C/QOIh7Xk9BzwskM6+xnMYswB3N5pSPz
-	irGmYnM0DI5vlkMbiZ2z2YsFWcr1Mt1e8wKvbIc+4h4hFA/PHrz+HtkSl6m9regXSY7jdfvfnKI
-	QhKTgMENRtw==
-X-Received: from plti3.prod.google.com ([2002:a17:902:6ac3:b0:2e5:e061:9f9f])
- (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:258b:b0:3a4:f8da:2478
- with SMTP id 98e67ed59e1d1-3ad86f3c4b6mr4324356a91.29.1792684439331; Thu, 22
- Oct 2026 08:53:59 -0700 (PDT)
-Date: Thu, 22 Oct 2026 15:53:33 +0000
+        bh=KI910im9LTbTVP0mkZ5a0lfmv5lwSA07KjHuia0I/3A=;
+        b=KaQPx/n9OKgBo7g58ndZ9L8mghRWuJopTgkml+I/OhRf/9AmhitUCJGPqCK/Ql2oH9
+         iY7RWgXQtK5gUUs4qTgDVpfnSYMqpZkCd1Pnj96D/OU7mAZI5WoW9usU4H9P3BtbTawl
+         Ay5arszfDhhIbsYBMD6gpRVQWn+eg4N3VgarXO0J1Mk9D+8smbUPXnbpp/6J2jIcoUuq
+         2GFgs88pFkNw7Keg+v6CM3E71x6xOiF2lpIhSarbDCziimt5ckVwwnTd6Qdno/H7xMld
+         OQnp2oNVW0HKiDWANcB6W0OArMVHHxgUbgHVVyJ0a/Hogff6z9o3/1mYw4cyd0diAhMI
+         QwZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792684440; x=1793289240;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KI910im9LTbTVP0mkZ5a0lfmv5lwSA07KjHuia0I/3A=;
+        b=hsqDmObOIEWmRGgYx9aZF8Czvjm11AAm8kyydupoFrYYdY/kbzm4LkfFw9MJf44n8t
+         gZzekAZsgvDr31/iMkrLttxBOLnoyBD5oD81wzGOBVVBKcAgG4zYn7qPbYWqSMYsjD4s
+         xw+FrvSB/QyC6sNFVHTs5xVJTnuxn+XoUzLfOubnjvcnfAkvADGjk/U6q0+IPr9hwzmn
+         dA6FUlGEQRHPpG9mh7nFn+rZ/YmnKHOR/zBr/W7g3VX7Xv63yppHhr6td6YVWeQuNoSc
+         q/qByghVCukrSOK8ePQjY2i6ARgl8kO+nbYAF5QhxCAP7UPirUNZSn+sFbWnJ+9HuQgz
+         FlmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxnxwbBzRKh/kBFq0i7HAMVqubWA8of8jCEcOZADZ+oQm632hIA+Tv5pqxpD2/Bm7W6WB2WgQ5EZH47mhs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJndSsHxON03sNYBFkVAGXN9ln6mXglybtroH7fp3deVfqZgJTO
+	88LbUj5sHSphaC4vNlTCN2xpLI0dXW3P3jz9GiQGj2NisFSpvGpbmYmFUltxys1sX7+25fsO1DU
+	PBjpxG+Olsg==
+X-Received: from pldc14.prod.google.com ([2002:a17:902:d98e:b0:2e1:2a71:d15b])
+ (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ffce:b0:2e9:61bf:6587
+ with SMTP id d9443c01a7336-2ea43cccc07mr43696895ad.49.1792684440077; Thu, 22
+ Oct 2026 08:54:00 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:53:34 +0000
+In-Reply-To: <20261022155352.1293020-1-wfelipe@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,9 +79,10 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261022155352.1293020-1-wfelipe@google.com>
 X-Mailer: git-send-email 2.56.0.218.g1ec904b173-goog
-Message-ID: <20261022155352.1293020-1-wfelipe@google.com>
-Subject: [PATCH 0/3] workqueue: expose per-workqueue stats in debugfs
+Message-ID: <20261022155352.1293020-2-wfelipe@google.com>
+Subject: [PATCH 1/3] workqueue: preserve pwq->stats[] when unbound pwqs are released
 From: Wilson Felipe Pereira <wfelipe@google.com>
 To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>
 Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
@@ -87,30 +91,45 @@ Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
 	Shuhao Tan <tanshuhao@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-struct pool_workqueue already tracks runtime counters in pwq->stats[],
-pwq->total_in_flight, and pwq->nr_active, but reading them currently
-requires tools/workqueue/wq_monitor.py with drgn and kernel DWARF
-debuginfo.
+When an unbound pool_workqueue is replaced (e.g. during CPU hotplug or
+apply_workqueue_attrs()), pwq_release_workfn() unlinks and frees the old
+pwq along with its pwq->stats[]. This causes cumulative per-workqueue
+counters to go backwards.
 
-This series:
-- Preserves pwq->stats[] in wq->retired_stats[] when unbound pwqs are
-  released so cumulative per-workqueue counters do not go backwards.
-- Exposes per-workqueue stats via /sys/kernel/debug/workqueue/stats so
-  they can be read directly on systems without drgn or debuginfo.
-- Updates wq_monitor.py to include wq->retired_stats[] and report a
-  'queued' column alongside 'infl'.
+Add retired_stats[] to struct workqueue_struct and accumulate a released
+pwq's stats into wq->retired_stats[] under wq->mutex before freeing it.
 
-Wilson Felipe Pereira (3):
-  workqueue: preserve pwq->stats[] when unbound pwqs are released
-  workqueue: expose per-workqueue stats in debugfs
-  tools/workqueue: report queued items and retired stats in
-    wq_monitor.py
+Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
+---
+ kernel/workqueue.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
- Documentation/core-api/workqueue.rst |  47 +++++++-----
- kernel/workqueue.c                   | 105 +++++++++++++++++++++++++++
- tools/workqueue/wq_monitor.py        |  24 +++++-
- 3 files changed, 155 insertions(+), 21 deletions(-)
-
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index f2e8071a6f4e..88c8cc2b38d8 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -397,6 +397,8 @@ struct workqueue_struct {
+ 	struct workqueue_attrs	*attrs;	/* PW: workqueue attributes */
+ 	struct pool_workqueue __rcu *dfl_pwq;   /* PW: only for unbound wqs */
+ 
++	u64			retired_stats[PWQ_NR_STATS]; /* WQ: stats from released pwqs */
++
+ #ifdef CONFIG_SYSFS
+ 	struct wq_device	*wq_dev;	/* I: for sysfs interface */
+ #endif
+@@ -5475,8 +5477,12 @@ static void pwq_release_workfn(struct kthread_work *work)
+ 	 * @wq, and @wq is invalid to access.
+ 	 */
+ 	if (!list_empty(&pwq->pwqs_node)) {
++		int i;
++
+ 		mutex_lock(&wq->mutex);
+ 		list_del_rcu(&pwq->pwqs_node);
++		for (i = 0; i < PWQ_NR_STATS; i++)
++			wq->retired_stats[i] += pwq->stats[i];
+ 		is_last = list_empty(&wq->pwqs);
+ 
+ 		/*
 -- 
 2.56.0.218.g1ec904b173-goog
 
