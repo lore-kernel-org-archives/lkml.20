@@ -1,94 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792658035;
-	b=hoPb3NtebmFLCiKqiYK0khr6Mc0RX/DigA+577DF8g8nPTknfRYvYgCN9jSDDRB0vCT9
-	 2S/Xscm3Pwg+iJ6X0B96QVuoJenR7IlAmIzA+nqqKBPabOU1CCHXlcBbkw7yQiBYYErch
-	 TrfDkCNHSXKk2E3csWPbLuTS72kZAi9yg7GxzFeZEYjS51Yril0r3iqoetAiMnJxhvSmk
-	 6pM//oiZHhjHwUvb91bun0NnaM5QagR0FLnnrSoxRZXTPy/WGGuBbTdMl3aft0pVRuV/d
-	 RbWIlcBrdQUjVL3gP4kdMlJ9FK2RYGiFwCRLLVBG2HK3oNoGicxRUHWMXsBRqelx9fw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792658035;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:Content-Transfer-Encoding:Content-Type:
-	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=1TWPbr2p5fM3AWnNnJS0EAN17l9S5AMf53Pme49pOJM=;
-	b=Hj5MWfGsiF0kq6LP7p6Y4ljxcA6BH4DqtOcI583lFGRuMP4Iz5OEUb96z1/+HcqGRcDc
-	 NrG4wqk/8XuNk9ENf4CSqd7xIZuv35IPNZf4nNbl6sJeFluUNwAQkmLowrXq6KJt/WW4U
-	 HsMW068jI9htkDmGLtaZ9+nMl+s6pZ5SPXiwLReH/vFEXxbYBvtmEopuqreP35Ut0VI1f
-	 M0nCFT5P4VNk3BZPIi0SLD9RD3RzIGJqCKINPoKjbQYTp0CPRThw7eHkirxnUWRjBIYqz
-	 qyTlrgIdLVeE6Qy5Dbqo/VHtPvvD19wfuFy/u1GdARwjo3VL+dWVZUFUFv7J9ZUilsg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XWfoq5+z;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.31
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012031.outbound.protection.outlook.com [52.101.48.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792658044;
+	b=MpUGWRn0CvX7dql0K9cOt4CW7XlKIzAdcPcfGUOhxQW7ft9FFLBD4tpGt+b9p2gSF2x8
+	 P/f1JkSrzDNdig48glhZf6b5CCzsApT8Wq/O7R3T8F9iebmx1lMMplKlGePbaZGEv9CtI
+	 obJD0l+UHako7PibjjkAHVlwty+uDRAN+dy7ZyQk1YQrhyGcrCyo5ceArPjfep9d1Ymcd
+	 wqgEQmSoPDzY6sKMKavT5o05eUoZohpPCr4ZOPWDSt41RQ7sjin1a5W7AWlWZLQ05Eu9w
+	 PEffNM7yR+Nxx5bNvoVZ8J8l4UIJbxC71vbNgWu4cwaEtftDaLfJwZ879YJ9WSdjZRw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792658044;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Yax36yyXPOjU+t0sLu2tNeMo+58jNxQtj3yAO7yym5E=;
+	b=BVxWMmgulL4uzZ7v00Sz3qwStCNUKaxaN5BLdPAy44LXyXzk/8Ibvf3sZQT+dkqnM0Md
+	 tXiMojAoEF2zchB1YLOkRrlWsOx0HdykgqiSAWiFVjc3ECR5OYrZkyMlC0fOR1lY8m4Eo
+	 RhyxfZV43VlW+7xbtTwVvOQttvH/qiDe6O7zABTEGv019DxEV31YePcNMav7dg1ELT8Gt
+	 g8AU+uIqkSandmv+CE/sho5ZgETNKdedyjuZRkCD6hmL0I1gLLMGg6K/abbtVHyMIqmEy
+	 oXSbo/56KBs3oWyEenWahzc7CzZfQLA66kTi/tI5tfjgIESwIKeXhMIaw08QcZGcvdQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C7bQgVoA;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973B3606A319;
-	Thu, 22 Oct 2026 08:33:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 973B3606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0071606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 08:34:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0071606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=XWfoq5+z
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=idNDOqkY+V6b8x/ipQKAsvPOh4GUM3u9OzN8OOaagAuMnLZw1pmp8/Tg4kT1uk4emI4ebtLtF6sElow5Las9ZEKDZFvZRzIBIq441XQPPwDbXN3HIUao3xfLLElqnGUxc9YkhzH6YzPLH9dvQynrWcD/937E+InBnvIDl97GHFzn3Xz5xU0VQPoCcEehdHDmQ/Z8OI2cVx8YctDE1Uae61hJyP2QINDyoM0fifkeutQv4x4Dcpvbt8fe6THOEC2SahClkxp/YtyF/EtpAd/BefPFFpvzRY+37M+2GeSvKW8u1rQqT4yhrcQ5i5KL0Zel/EPUlyc28o79Lo5dtAc+iQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1TWPbr2p5fM3AWnNnJS0EAN17l9S5AMf53Pme49pOJM=;
- b=JsZhpc5aEaw77/DISmRnj6/DnSZ3koT66gWquPophmooGbo1z3NMw9si1DfwtgW9b12qJPB/n8m+TOiy+gHUxSV10o8FRbvK1hJuEHyAlw+FrDbSN/vY+2ic+gpY+gzPtZJ04ElC5r0BaiZ4Jkxy2XdbzGsa8ledYCUWahzfaNuvbpEszPUKAILbIGhPZkuvIIGxIwkUBRq81KMXYaBkM9iyi+dTakyn674ZVpyBErg/taToxi0tcZUvceCACkuJKkA8jng4Mbm1+fC+L1UfwFszrcNbV9aeLOEUWTcFVXguDv64LYhk3cjBBD2Z4q4EXXgS6efY3zmtMyORvKOh9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1TWPbr2p5fM3AWnNnJS0EAN17l9S5AMf53Pme49pOJM=;
- b=XWfoq5+zn7RHJrEB/SDOWukYFlmCusd1cfeLyBmdg5g16C3UZi9qQPoFSDDAkGCTFAndIhJc+nKow7lSOI1yFQ2qqx9GXahqRlZ0FvxEX+ciCWwiUDKUp9QwbnsKRQVR/Bd/CAQNr3CY6S1MDoQXNbxL1jA2cyk1I2JVb6ttmA+3FMig/f0vvQ2+BxaIYPmCWV/abqGieHN6c4bfi4u+E1HW25PJQJOyw63rtiNcrqrVVUc9DL8RFs4GrKKTZwzLhNpIXyDmegQIVOozD/586ynnBysGXLLJnYV4uM25XWLAQsSdIHQ/4sYbxIK9ccOHbvCqJR/4T9w8+ienyRuxYQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com (2603:10b6:510:1d9::19)
- by DS5PPF5C5D42165.namprd12.prod.outlook.com (2603:10b6:f:fc00::64f) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 08:33:49 +0000
-Received: from PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0]) by PH7PR12MB5974.namprd12.prod.outlook.com
- ([fe80::f5a5:bbc3:e9da:f8a0%3]) with mapi id 15.21.0546.016; Thu, 22 Oct 2026
- 08:33:48 +0000
-From: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] gpiolib: don't report -ENOMEM for a requested line without a label
-Date: Thu, 22 Oct 2026 11:33:44 +0300
-Message-ID: <20261022083343.3905973-3-aambrozewicz@nvidia.com>
-X-Mailer: git-send-email 2.43.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZR2P278CA0090.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:65::14) To PH7PR12MB5974.namprd12.prod.outlook.com
- (2603:10b6:510:1d9::19)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=C7bQgVoA
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1ec92f655so7369065e9.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:34:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792658042; x=1793262842; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Yax36yyXPOjU+t0sLu2tNeMo+58jNxQtj3yAO7yym5E=;
+        b=C7bQgVoAO4RA3HhlsxxWdnOhzaahrxQinb+MEjUCFSl9WedqaMJiMV4w3XHFlwirl3
+         Ynm+CBOqgVH+8HTYM0ctuRV3EXPa/5srVyOiIodR0KNGzZ6x4Vmatk5W0gLdUNulB2jQ
+         YDTO7tPPUJHjhQ/kCbfbSYfJfkIMiC0EJw3zJFdM2RYmB9gZR6z8dq1ci3rZ1+Qs06mz
+         38Q1t5Vy8nTjvXlHhzfJza38tSEcDSLenwHAu6WNBCT1a2nA7MAqY58RVwmV/z2lKTTq
+         0JFPT8VN+Y+PENgONSenlJwZSRAC3T0Wy5Y0bF0RrW8UwP2pBYOECkCyhkOSVtTXdLKx
+         Rarw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792658042; x=1793262842;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Yax36yyXPOjU+t0sLu2tNeMo+58jNxQtj3yAO7yym5E=;
+        b=J/qzvELDgayvv0JCJ7F+SHdJ6acmDX7SuV31nvaZsYgXhwVeOFFhmyQOJgVUn2jD3S
+         mtP5yX0F55VJOYgKygAm9sP0YuMZkzIHOzO3WLXuP3RwtrFvdH37i8D1wYD+wElh1Cw/
+         8AwYhz7dhlnIWAqsaakzDuauKdjbSqH4qDBGD+AD6wgs+5sU6H3AkbMQieJ4MCaBkFFU
+         cvoBRQMS7xmB++qqS2cuiglVzADLpIXLbWomkVGJrzk4dZpRcwpeJzzgV8HpFlCvZi07
+         4toj41vpmrPgvo7RGSAqEkA2Do3ehE8jKGrjW2HD3UJ789FFc6Ipp7SHvNyPToRup59k
+         DIWw==
+X-Forwarded-Encrypted: i=1; AKwUvBwIFFG/yyozZjt0dm+8nqbVVbMwUGtmGiqUWs8m9nWOQwEr+8rQqHEzk6WsL4dFvqf2mGb71ToDCo6vlVI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJlPFDMV9z1E8lzq18g9Bw4LIUyxseE5BnytvyGHU92pXvtzAH+
+	rZLCd5AY5NOMwAM+XwltgxQ5guCL9e0GItQ0OrAfYdKZjPhVYAYg+yub
+X-Gm-Gg: AYBFou1QZJGHSPjbSKSO9w4OyAVHevomV7YJH1iRa0J40sB95TyM4cGaVGhG33AjjHS
+	DT3G2Ab7r0EuHbTAYqd6555kzk0n1+g6gZ7wzoEZbOJl/268F9hfZ4wMFFjged1BSdqf0AlnSXx
+	kGy/0QTneJOzSAOuC36j+RdkhmyvnTpob7oPun6ErvdPhWOcD+fhXPie+PL9O4wAFSPAWISx0XC
+	J5G7psvMzPJ1DKPosF13nRKOkzrkwq9LgznSfQQD4AaKY9K2Z4AsIMgMbgp/Z4qW08lKCFIjxxp
+	pdwkpknA/fJh/XUlHcWLl/E0OXtMRPWoIkAw/nPxqQaKdWfmlQzEJ2rDx4oETBsVPa24uQK/7yU
+	thopOJgVQDaU28+R+DgYHVl/TsqPjNbZURzCb7GoVEqrWkRRUYwfx1ltz9MrFwGPdXBUb5YNcZk
+	FpZOocBVVKU3T5bYyGS6c4c4b5Xd8ovuTzz1s5iInunWpOLh0/xs4koLD4KUY8zAwfZ5mMfztiL
+	+veEGRhduXkllVKAUmGAmb3wWLEo6Ec5y59sNZbetSvXMUEwaGS5C5umvh7AfK/8KvL0/GNyfZD
+	zXvt7Bobr60UvMnW
+X-Received: by 2002:a05:600c:a49:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a204b20321mr33355645e9.11.1792658041966;
+        Thu, 22 Oct 2026 01:34:01 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b28f91sm51399915e9.5.2026.10.22.01.34.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 01:34:01 -0700 (PDT)
+Date: Thu, 22 Oct 2026 09:33:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: vladimir.oltean@nxp.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Claudiu Manoil
+ <claudiu.manoil@nxp.com>, Wei Fang <wei.fang@nxp.com>, Clark Wang
+ <xiaoning.wang@nxp.com>, Ioana Ciornei <ioana.ciornei@nxp.com>, Zefir
+ Kurtisi <zefir.kurtisi@westermo.com>, Zefir Kurtisi
+ <zefir.kurtisi@gmail.com>, netdev@vger.kernel.org, imx@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 net 2/4] net: enetc: do not rely on mEMAC hardware
+ frame padding
+Message-ID: <20261022093359.723c7e93@pumpkin>
+In-Reply-To: <20261021145314.1435049-3-vladimir.oltean@nxp.com>
+References: <20261021145314.1435049-1-vladimir.oltean@nxp.com>
+	<20261021145314.1435049-3-vladimir.oltean@nxp.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,115 +106,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5974:EE_|DS5PPF5C5D42165:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cda377d-5301-4160-abc5-08df30173167
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|11063799006|261021121427099003|56012099006|261009223027099003|10067099003|18002099003|261021123027099003;
-X-Microsoft-Antispam-Message-Info:
-	W6oBSKLcOEnsyntbYWNsocXalr2RYFdJdJttCUOojUa7F3ybfKSRMMnq5VtviRd/4+l85UOhK4GVfUB+Tndb8dagcdB/k7DjpbGlWnACYg/e4Ltqqs/OM5r32KDTbmERayeS/X2D2mVP2EbTl5NzWQxpDJIMvR3bPdaS+bXIuTUrr7JtcvZ7E0VEWv9jvkhAkncWX9PXMH8/QSxW0N/LbzDPLF4UtKvgZSFnhYyBc0cQuiF0o9uplRcY3x5bW3IHztMyUjjDUmIQJQU3zGxJlAeJkiM8gF1bCjr/Q/gCNJtRDXk8OmtPnl7sA5a+ATFs7rkx/a4pgS9t83BWNO+wumPa85yYGrLfj7kvgdPg5jswlJs3FvOvHtfELn04vnZ9wXeid2rDmZKERRUGV0MWoR6BDJ13QtjOF501mOekG84EzZcnCKoyKvt4H7RtezCPw61MXy6asIj/O6ibv7T5S7RenJCgEAiYuGHw64fN+AwjagNdka8I8HGcmUcK8GEkd9yDFL8m9IZWqAx1NErT1my/oAqnPcDqkUgIK9tVAzBWvQbzqGBYHT/sujssrhpCKBfJac+GKj9htgrGIZifgC9g9InYG7ra2tp5aLBHVnUQRh1HK5hHTcHXeNh24F+qz3M10zGF91AqVUpB0gjYbIjPHgKNWFnoo6x07Mpt0kc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5974.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(11063799006)(261021121427099003)(56012099006)(261009223027099003)(10067099003)(18002099003)(261021123027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?We3BOpetbjpb6XjnsLVl4zWG2OaH4L6jNJBzApU3RDdQ3zB67xAUwgTyofdN?=
- =?us-ascii?Q?eW55NqFQiYFfxpfxevPo7xNrUV+esIDc2gBAO8cxrH5Y+0LrOJIRzHtB9y26?=
- =?us-ascii?Q?NgurzPZPP3gHEQMIf4UsE+ru71IFFq1a8kZnXTdIHmyZt4Z4ezfFsNbTYR8i?=
- =?us-ascii?Q?Ime60TsaQNPByY/RSOkP3t5/417L2+Vr3n06ahqYIPw7QIEX6APPZ3Pf5cPo?=
- =?us-ascii?Q?anKrXMsOVwAP1rrXGxJZcENPHBIw88DI+IpFCWvxvYZy+uBxWRW/xdQV7ffK?=
- =?us-ascii?Q?3le/0r9IxEkUMDYZo1KZFynHHgVMP2VREjTNgDou48eH2MN6bephS3SBRahf?=
- =?us-ascii?Q?xP5mVbgUfwNqBBYDMqtlwzgh6GicbIXeJL4ALcibQi+izRiU9JoiepOgCFYU?=
- =?us-ascii?Q?E5KCnAg8qOL5cCtoVN9jf7CNLq6GYLhGQb4jRG0NBDWaqwGm2DgaJh0KWM5d?=
- =?us-ascii?Q?UQ8atoO7MU5ryCmuu0naAyblMM7aJYmNb8qiby1nHdnyJn5HVDOuWCTyL9YH?=
- =?us-ascii?Q?rGQtllF8TK56MZ4008slBf0BtIqfmJ2x/bKodyN/MZxMHz8Z+HxkzG4GXkNk?=
- =?us-ascii?Q?XduvQsB9WXUHOHZcUJ10jB73x/VKW4O/8ccJsljwC5JcYAqMffSqPANLDpV0?=
- =?us-ascii?Q?E0AgjzfyqY3WPw45Cs3CQV1kz9a0tiKILTPt56lPT0NjXSNVyWk45EPuDl3V?=
- =?us-ascii?Q?A12RJvh4frjo86KdVY3v54CThBQr30cxcKym0CZ20qQ8/YBSEZzdyuBr8iUQ?=
- =?us-ascii?Q?UUpKq7HS/3TDn7Cf0oDwBOLcsc+dQzs7zrz2Hi1LApg3lKPDBz4ts+MyeWTu?=
- =?us-ascii?Q?w8hIIXooCiSIe8reKulOfNUTKs+aWx1czMumvGTqTyjlMQnjARoJBwMICLxU?=
- =?us-ascii?Q?JPyvKOMBAYOLU73LJjnxy0doEF911qkkHCjzGZBWbpvYUdsakzs8RjAm4IDs?=
- =?us-ascii?Q?LwmCVHxjHmMHONev/uCxwCtKDfPi+q5IWeu5XyVtDo8yxw+LrH9adY0J34AA?=
- =?us-ascii?Q?bSROD7nst1+l2F9bOpIOM1y6bEH5GzvRvoeZPbvmoX8z4arIKMKa+PeJxOAs?=
- =?us-ascii?Q?L4ulgxnuv7qRgmuIPAyl932SNpTnZ4XVy4hU2RBAW7NEAFE0Wb3TafF87/jb?=
- =?us-ascii?Q?6/mjFny+AgHARg2P3I9AQS/UDoa1NRR0Dckk48IUP9Ptvd4hIP5OXiM+8j/r?=
- =?us-ascii?Q?1YOAfouEYf3dDBIb93orh+dOp8lR/N4slKwanWu4loTdnsHOJQQtXKsm5LQ/?=
- =?us-ascii?Q?nQZ9YLxlFFYZKSm/V4dsyqnW0w32a4EqUEPzjTKauFETXny6BQToJqWGTZby?=
- =?us-ascii?Q?smD173/hvnKX9E8qeuEnY48Ka4Lf9VPmQ91vNONABs+902pgXDAgI1TlqbGc?=
- =?us-ascii?Q?pZC0ARgSlvswvSTlPrsNOa9rf7yohTIUGVvMBMva7ObWgq6PfTAJulf6czmy?=
- =?us-ascii?Q?vTrePpn8c4aOBmv7pSEd0m7moGnZSa/7kVtKmD3fFs8++K4IkjVAyHGtJV+l?=
- =?us-ascii?Q?JtLetLdrnCYjBT4LrcPl7hZ9ejJGZEwguIMxiFvA8NFb3mNIsncj/BLW3quH?=
- =?us-ascii?Q?aacmpk67RKmyyuCKA3Wi9dk/hoCgFq2qc5QC+Aax/NXkQb6fjRmRmf8/dhvq?=
- =?us-ascii?Q?ILWe4UG17NnmvUGkZMPzMxGlf5tQBV1XyG1rM/DrXS3CnfR5zVwaCWahg3vh?=
- =?us-ascii?Q?IiwVbZomS8VT8rFea9a+hltzZb/hebgDOfkJvtYQXhkJRcx8fJi0HW9skbIy?=
- =?us-ascii?Q?FSUg2S3YXw=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cda377d-5301-4160-abc5-08df30173167
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5974.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 08:33:48.3841
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1Ov3qOXWZDDUQ5qLgqyfqlF8Gh4pt4Y+ml5WXxyfqUSIhVRyignnH2OrWiR7nbFB8QPhUD23GXg3i575u1dJPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5C5D42165
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-gpiod_request_commit() sets GPIOD_FLAG_REQUESTED, calls ->request() and
-only then sets the label. A line in between has no label, so
-gpiochip_dup_line_label() passes NULL to kstrdup() and returns
-ERR_PTR(-ENOMEM), which for_each_hwgpio() then passes to kfree():
+On Wed, 21 Oct 2026 17:53:12 +0300
+vladimir.oltean@nxp.com wrote:
 
-  BUG: unable to handle page fault for address: ffcc73074355ffc8
-  Call Trace:
-   gpio_sim_dbg_show
-   gpiolib_seq_show
-   seq_read_iter
+> The driver sets the ENETC_PM0_CMD_TXP bit to pad short buffers.
+> This works, however sending short frames from user space and looking at
+> the padding bytes inserted by the MAC at the link partner, we notice on
+> LS1028A that the first octet of padding is sometimes not 0.
+> 
+> This is fine per 802.3, which does not require that the padding is zero.
+> 
+> However, there is an unproven suspicion that the padding bytes may
+> come from internal memories, and unfortunately I couldn't get sufficient
+> priority for this octet's origin to be investigated by hardware
+> engineers.
+> 
+> To be defensive and not leak any sensitive information from the SoC,
+> let's pad all frames to ETH_ZLEN in software, so that the MAC doesn't
+> have to do anything.
+> 
+> There are 2 distinct cases to handle, for GSO and non-GSO. For non-GSO
+> things are trivial; we need to call eth_skb_pad(). For GSO, things are
+> not simple, because user space may set gso_size to a very small value,
+> which could make the GSO super-skb smaller than ETH_ZLEN;
 
-Return NULL for such a line, as for an unrequested one.
+That isn't sensible.
+The minimum frame is 64 bytes (including FCS), subtract that, the MAC
+header (14 bytes), minimum IP header (20), minimum TCP (20) and that
+leaves 6 bytes for user data.
+I doubt it is sensible to do GSO for anything under the minimum mtu
+(128 bytes rings a bell somewhere).
 
-Reproduced with gpio-sim: reading /sys/kernel/debug/gpio in a loop while
-lines are requested and released oopses within seconds; with this
-change, 100000 cycles pass.
+But does this code allow for the VLAN tag that you forgot about in the
+other patch?
 
-Fixes: 35b545332b80 ("gpio: remove gpio_lock")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261020-gpiolib-chip-removal-v3-0-aambrozewicz@nvidia.com?part=2
-Assisted-by: LLM
-Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
----
- drivers/gpio/gpiolib.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+I also noticed that the code seems to dma map the fragments for each
+gso segment separately, just mapping each skb fragment would be better.
+(But that is for another patch series.) 
 
-diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-index 1438f97d0634..9c05d36ccd74 100644
---- a/drivers/gpio/gpiolib.c
-+++ b/drivers/gpio/gpiolib.c
-@@ -2721,6 +2721,7 @@ void gpiod_free(struct gpio_desc *desc)
- char *gpiochip_dup_line_label(struct gpio_chip *gc, unsigned int offset)
- {
- 	struct gpio_desc *desc;
-+	const char *name;
- 	char *label;
- 
- 	desc = gpiochip_get_desc(gc, offset);
-@@ -2732,7 +2733,11 @@ char *gpiochip_dup_line_label(struct gpio_chip *gc, unsigned int offset)
- 
- 	guard(srcu)(&desc->gdev->desc_srcu);
- 
--	label = kstrdup(gpiod_get_label(desc), GFP_KERNEL);
-+	name = gpiod_get_label(desc);
-+	if (!name)
-+		return NULL;
-+
-+	label = kstrdup(name, GFP_KERNEL);
- 	if (!label)
- 		return ERR_PTR(-ENOMEM);
- 
+David
 
-base-commit: a0fe269293509acdd93b9cfb3f46636f7b91b33a
--- 
-2.43.0
+> padding that
+> would produce more segments than originally intended. What needs to be
+> done is to pad individual segments instead.
+> 
+> When a GSO segment's hdr_len + data_len is below ETH_ZLEN, append a
+> zero-padding data BD and advertise the padded length in the header BD's
+> frm_len.
+> 
+> The padding bytes are always the same zeros, so a single read-only
+> DMA-coherent buffer (tx_pad, ETH_ZLEN bytes, zero-initialized by
+> dma_alloc_coherent() and never written) is shared by all padding BDs of
+> the ring. Like the header BD, a padding BD carries no per-BD DMA address,
+> so cleanup does not unmap it. The pad BD becomes the segment's last BD,
+> so the F flag and the skb pointer move onto it. Segment checksums are
+> unaffected as they are computed over data_len only, before padding.
+> 
+> The worst-case descriptor reservation grows by one BD per segment.
+> The pad BD also counts towards the per-frame chained BD limit (15 on
+> LS1028A, including the head and extension BD), so a padded segment may
+> use one data BD less.
+> 
+> Only LS1028A (NETCv1) needs this. On i.MX95 (NETC v4.1), it was observed
+> that padding bytes are always zero, and the reference manual also
+> documents in "106.3.5.1.2.1.3.7 FCS generation and append on transmit"
+> that HTA Transmit pads short frames (including LSO segment frames) with
+> zeros before appending the FCS. On LS1028A it does not say this (padding
+> seems an exclusively mEMAC task).
+> 
+> Nonetheless, for simplicity's sake, we keep the unconditional eth_skb_pad()
+> call in the common transmit path, but we leave the hardware LSO transmit
+> path unpadded in software. The latter is only present on NETC v4.1 and
+> later (thus already contains zeroes).
+> 
+> Fixes: fb8629e2cbfc ("net: enetc: add support for software TSO")
+> Fixes: d4fd0404c1c9 ("enetc: Introduce basic PF and VF ENETC ethernet drivers")
+> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> ---
+> v4->v5:
+> - account for the pad BD in the new enetc_tso_count_descs() helper
+>   from "net: enetc: reserve VLAN extension BDs for software TSO",
+>   instead of open-coding it in enetc_start_xmit()
+> - count the pad BD towards the per-frame chained BD limit, so a padded
+>   segment may use one data BD less
+> - explain in the commit message why hardware LSO is not affected
+> v3->v4:
+> - split from "net: enetc: pad short frames in software", bring its own
+>   justification:
+>   https://lore.kernel.org/netdev/20260921112946.edo5uw6cl7jx6oez@skbuf/
+> ---
+>  drivers/net/ethernet/freescale/enetc/enetc.c | 61 ++++++++++++++++++--
+>  drivers/net/ethernet/freescale/enetc/enetc.h |  6 ++
+>  2 files changed, 62 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/freescale/enetc/enetc.c b/drivers/net/ethernet/freescale/enetc/enetc.c
+> index f6b352a3a49c..a9ea124f7835 100644
+> --- a/drivers/net/ethernet/freescale/enetc/enetc.c
+> +++ b/drivers/net/ethernet/freescale/enetc/enetc.c
+> @@ -524,7 +524,7 @@ static int enetc_map_tx_buffs(struct enetc_bdr *tx_ring, struct sk_buff *skb)
+>  static int enetc_map_tx_tso_hdr(struct enetc_bdr *tx_ring, struct sk_buff *skb,
+>  				struct enetc_tx_swbd *tx_swbd,
+>  				union enetc_tx_bd *txbd, int *i, int hdr_len,
+> -				int data_len)
+> +				int data_len, int frm_len)
+>  {
+>  	union enetc_tx_bd txbd_tmp;
+>  	u8 flags = 0, e_flags = 0;
+> @@ -541,7 +541,7 @@ static int enetc_map_tx_tso_hdr(struct enetc_bdr *tx_ring, struct sk_buff *skb,
+>  	txbd_tmp.buf_len = cpu_to_le16(hdr_len);
+>  
+>  	/* first BD needs frm_len and offload flags set */
+> -	txbd_tmp.frm_len = cpu_to_le16(hdr_len + data_len);
+> +	txbd_tmp.frm_len = cpu_to_le16(frm_len);
+>  	txbd_tmp.flags = flags;
+>  
+>  	/* For the TSO header we do not set the dma address since we do not
+> @@ -613,6 +613,22 @@ static int enetc_map_tx_tso_data(struct enetc_bdr *tx_ring, struct sk_buff *skb,
+>  	return 0;
+>  }
+>  
+> +static void enetc_append_tx_pad(struct enetc_bdr *tx_ring, int i, int pad_len)
+> +{
+> +	struct enetc_tx_swbd *tx_swbd = &tx_ring->tx_swbd[i];
+> +	union enetc_tx_bd *txbd = ENETC_TXBD(*tx_ring, i);
+> +
+> +	enetc_clear_tx_bd(txbd);
+> +	txbd->addr = cpu_to_le64(tx_ring->tx_pad_dma);
+> +	txbd->buf_len = cpu_to_le16(pad_len);
+> +	txbd->flags = ENETC_TXBD_FLAGS_F;
+> +
+> +	tx_swbd->len = pad_len;
+> +	tx_swbd->is_eof = true;
+> +	tx_swbd->do_twostep_tstamp = false;
+> +	tx_swbd->check_wb = false;
+> +}
+> +
+>  static __wsum enetc_tso_hdr_csum(struct tso_t *tso, struct sk_buff *skb,
+>  				 char *hdr, int hdr_len, int *l4_hdr_len)
+>  {
+> @@ -687,7 +703,8 @@ static int enetc_lso_count_descs(const struct sk_buff *skb)
+>  
+>  static int enetc_tso_count_descs(const struct sk_buff *skb)
+>  {
+> -	int count = tso_count_descs(skb);
+> +	/* +gso_segs to cover one pad BD per segment */
+> +	int count = tso_count_descs(skb) + skb_shinfo(skb)->gso_segs;
+>  
+>  	/* Each segment also needs an extension BD for VLAN insertion */
+>  	if (skb_vlan_tag_present(skb))
+> @@ -926,6 +943,9 @@ static int enetc_map_tx_tso_buffs(struct enetc_bdr *tx_ring, struct sk_buff *skb
+>  	i = tx_ring->next_to_use;
+>  
+>  	while (total_len > 0) {
+> +		int max_data_bds;
+> +		int frm_len;
+> +		int pad_len;
+>  		char *hdr;
+>  
+>  		/* Get the BD */
+> @@ -937,6 +957,12 @@ static int enetc_map_tx_tso_buffs(struct enetc_bdr *tx_ring, struct sk_buff *skb
+>  		data_len = min_t(int, skb_shinfo(skb)->gso_size, total_len);
+>  		total_len -= data_len;
+>  
+> +		/* Pad segments below ETH_ZLEN so the mEMAC does not pad them. */
+> +		frm_len = max_t(int, hdr_len + data_len, ETH_ZLEN);
+> +		pad_len = frm_len - (hdr_len + data_len);
+> +		/* The pad BD counts towards the max chained BD limit */
+> +		max_data_bds = priv->max_frags - !!pad_len;
+> +
+>  		/* prepare packet headers: MAC + IP + TCP */
+>  		hdr = tx_ring->tso_headers + i * TSO_HEADER_SIZE;
+>  		tso_build_hdr(skb, hdr, &tso, data_len, total_len == 0);
+> @@ -944,7 +970,7 @@ static int enetc_map_tx_tso_buffs(struct enetc_bdr *tx_ring, struct sk_buff *skb
+>  		/* compute the csum over the L4 header */
+>  		csum = enetc_tso_hdr_csum(&tso, skb, hdr, hdr_len, &pos);
+>  		count += enetc_map_tx_tso_hdr(tx_ring, skb, tx_swbd, txbd,
+> -					      &i, hdr_len, data_len);
+> +					      &i, hdr_len, data_len, frm_len);
+>  		bd_data_num = 0;
+>  
+>  		while (data_len > 0) {
+> @@ -966,8 +992,10 @@ static int enetc_map_tx_tso_buffs(struct enetc_bdr *tx_ring, struct sk_buff *skb
+>  			csum = csum_block_add(csum, csum2, pos);
+>  			pos += size;
+>  
+> +			/* When padding, the pad BD is the last one, not this */
+>  			err = enetc_map_tx_tso_data(tx_ring, skb, tx_swbd, txbd,
+>  						    tso.data, size,
+> +						    !pad_len &&
+>  						    size == data_len);
+>  			if (err) {
+>  				if (i == 0)
+> @@ -982,12 +1010,19 @@ static int enetc_map_tx_tso_buffs(struct enetc_bdr *tx_ring, struct sk_buff *skb
+>  			bd_data_num++;
+>  			tso_build_data(skb, &tso, size);
+>  
+> -			if (unlikely(bd_data_num >= priv->max_frags && data_len))
+> +			if (unlikely(bd_data_num >= max_data_bds && data_len))
+>  				goto err_chained_bd;
+>  		}
+>  
+>  		enetc_tso_complete_csum(tx_ring, &tso, skb, hdr, pos, csum);
+>  
+> +		if (pad_len) {
+> +			enetc_bdr_idx_inc(tx_ring, &i);
+> +			enetc_append_tx_pad(tx_ring, i, pad_len);
+> +			tx_swbd = &tx_ring->tx_swbd[i];
+> +			count++;
+> +		}
+> +
+>  		if (total_len == 0)
+>  			tx_swbd->skb = skb;
+>  
+> @@ -1050,6 +1085,9 @@ static netdev_tx_t enetc_start_xmit(struct sk_buff *skb,
+>  			enetc_unlock_mdio();
+>  		}
+>  	} else {
+> +		if (eth_skb_pad(skb))
+> +			return NETDEV_TX_OK;
+> +
+>  		if (unlikely(skb_shinfo(skb)->nr_frags > priv->max_frags))
+>  			if (unlikely(skb_linearize(skb)))
+>  				goto drop_packet_err;
+> @@ -2285,8 +2323,18 @@ static int enetc_alloc_tx_resource(struct enetc_bdr_resource *res,
+>  		goto err_alloc_tso;
+>  	}
+>  
+> +	res->tx_pad = dma_alloc_coherent(dev, ETH_ZLEN, &res->tx_pad_dma,
+> +					 GFP_KERNEL);
+> +	if (!res->tx_pad) {
+> +		err = -ENOMEM;
+> +		goto err_alloc_pad;
+> +	}
+> +
+>  	return 0;
+>  
+> +err_alloc_pad:
+> +	dma_free_coherent(dev, bd_count * TSO_HEADER_SIZE, res->tso_headers,
+> +			  res->tso_headers_dma);
+>  err_alloc_tso:
+>  	enetc_dma_free_bdr(res);
+>  err_alloc_bdr:
+> @@ -2298,6 +2346,7 @@ static int enetc_alloc_tx_resource(struct enetc_bdr_resource *res,
+>  
+>  static void enetc_free_tx_resource(const struct enetc_bdr_resource *res)
+>  {
+> +	dma_free_coherent(res->dev, ETH_ZLEN, res->tx_pad, res->tx_pad_dma);
+>  	dma_free_coherent(res->dev, res->bd_count * TSO_HEADER_SIZE,
+>  			  res->tso_headers, res->tso_headers_dma);
+>  	enetc_dma_free_bdr(res);
+> @@ -2425,6 +2474,8 @@ static void enetc_assign_tx_resource(struct enetc_bdr *tx_ring,
+>  	tx_ring->tx_swbd = res ? res->tx_swbd : NULL;
+>  	tx_ring->tso_headers = res ? res->tso_headers : NULL;
+>  	tx_ring->tso_headers_dma = res ? res->tso_headers_dma : 0;
+> +	tx_ring->tx_pad = res ? res->tx_pad : NULL;
+> +	tx_ring->tx_pad_dma = res ? res->tx_pad_dma : 0;
+>  }
+>  
+>  static void enetc_assign_rx_resource(struct enetc_bdr *rx_ring,
+> diff --git a/drivers/net/ethernet/freescale/enetc/enetc.h b/drivers/net/ethernet/freescale/enetc/enetc.h
+> index d9e91832a9c1..db3b3bad0f59 100644
+> --- a/drivers/net/ethernet/freescale/enetc/enetc.h
+> +++ b/drivers/net/ethernet/freescale/enetc/enetc.h
+> @@ -145,6 +145,8 @@ struct enetc_bdr_resource {
+>  	};
+>  	char *tso_headers;
+>  	dma_addr_t tso_headers_dma;
+> +	void *tx_pad;
+> +	dma_addr_t tx_pad_dma;
+>  };
+>  
+>  struct enetc_bdr {
+> @@ -182,6 +184,10 @@ struct enetc_bdr {
+>  	/* DMA buffer for TSO headers */
+>  	char *tso_headers;
+>  	dma_addr_t tso_headers_dma;
+> +
+> +	/* Shared read-only zero buffer to pad short frames to ETH_ZLEN */
+> +	void *tx_pad;
+> +	dma_addr_t tx_pad_dma;
+>  } ____cacheline_aligned_in_smp;
+>  
+>  static inline void enetc_bdr_idx_inc(struct enetc_bdr *bdr, int *i)
 
