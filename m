@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792659949;
-	b=wgYa/HvF0+U2ixTzlVu9MgYZtQTuKfj0Z/xYd4rB3hJBzTMX709FdCA9ETiBjSwKLLWA
-	 iQ7I0T+S2fNJZfuWnW5QkbdhlL1mHqiAlIuQV1YSgLWswJqtM4t+W+86CJ6V9/Nk2jMvB
-	 MwcAojygxkTvnLSUq4Frumq97NGo+vLBKhca3YrqYTAEhyMvNuqE/qUzLjkU4XOwZ7LVZ
-	 f09z0IIfXuTi9DxRGp4KJCitOTrnl93XJlv68tvuH1XOFJjb/tfkabfjtedCpnWRLJ/pv
-	 3cxfjxWuuIpMHyerZDTMd+MS/EtD/FT1DSI+OJS6MZVtSXm2K5VkhlXhOTw3SLgHjdw==
+	t=1792659955;
+	b=XoooPztDW1AdS8OmCR9Ok8RLYAiCXQ64b4xzl+OeEeKqvcWTBvX8xGNI18Gqvu1q8MFO
+	 XDdOn7VXSN7YA3/TSkyhritmKeVNKtAcBRXMAEaOgJy+QiGVhNqCBKOukJRU40ltrMBnz
+	 a8olmJLFU+9HXC8YEGDimMzrt2kp+whj3vmwhV9mofHH3UZCOILRNvjuD8j1b8Et2D5wM
+	 O4RzctOB/+B2AyT8WF17+GymfVrN34htYXb8MTG6f/m4vWaZxhcNAn3enh0YhyFVcM/wm
+	 W8QkX9T0t60a5NWlxjF/Xyly+5QtrnNduMExtTXRJJVx7krvRhUHI+2Vj/J8bSyC9Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792659949;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VCtPLF1g5YCJnqvDxXjL/9SGDpcHIvBwNuJeTWJPyWo=;
-	b=oPpIOoakSr0dDTw6fgyBB5tUTvaEcoDz2oj0eFct1h6dba5xyMJkI1e+AMTcNGaaTpPx
-	 MK7yzZZKjuc8DmJkTTExUbaDQucTYiokcId75fjxm4yJZlzqqfk1JVnI/uwVgvlE2qb7F
-	 FLd1vfvyxw6OrY2Z6ObI6GigW5Mgn4u/T9jQ5W1zYAzsCPUMsGwKTdtJ+1I8LxjO2R9GX
-	 B1Xa/cnd4I8eD/Cl7U1lLzTP7OQBU81jk3Pz18LisAf7ba+7OwLPvpMtI3p+MsyZOM4OJ
-	 w9QAFe7KfgnR3XOCwMWKPvCeJRv241cG2xdEC/KZT9OCBQpZKYIbQL20xU9FK/H9tvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792659955;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=974NUlzB6Uq3BGLWRZQayoTrMdo4vO0+DzseNpw9CgM=;
+	b=di4y2z4dZpDjf56a1WSEXzfzdMtHvwjT/iVD5xFfYJlR9EEO/+wf9haw416qJjVRtbSW
+	 sEqlnGw5KaWxwMmzmzJuz4qEVhhOjpQBEFkIm13VJTHF7sAQ1A1f4D7iTMmyt4Rq6rsz7
+	 RhxzGhPRlhCZgKuFa2HN2WzHz5ynXiSTF5fOj5Qdkl7S8jeafUfSPFew980Et7AUbjPUg
+	 4daHq9UoroHJ0xVKn7bDgPT1dvxYh/U5HYTDMJp3pM8SoO0xAYZNlRrywNJZiuv4rawDz
+	 azLyJ6as4p4zxZcx4caWZrZW+YITnNAtvmA//OPrhhM7ApDeTFljuaFmqc9kFsxzkeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=resnulli.us;
-	spf=pass smtp.mailfrom=resnulli.us;
-	dkim=pass header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=CG4pwxKj;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=liVqCkre;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H2d4Ur0H;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C631606A31F
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:05:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C631606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=resnulli.us
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=resnulli.us
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87A95606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:05:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87A95606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=resnulli.us header.i=@resnulli.us header.a=rsa-sha256 header.s=google header.b=CG4pwxKj
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso1615635e9.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:05:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=liVqCkre;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=H2d4Ur0H
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69M70SXo4113275
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:05:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	974NUlzB6Uq3BGLWRZQayoTrMdo4vO0+DzseNpw9CgM=; b=liVqCkreZmk/rJxZ
+	bvPqMCoh2XwrtRWPRKpDCbxgPz1oHtOvIFzl9Kx3RVMLTIFPlLaXTFOYr2eDG9NJ
+	dNHcWMR5Hv3ti6aBvJc9IUqP64tEZTkPMZ1xtMysbOC8JRL40ZmiecCe3Lg0kgXo
+	uX7NWPGVrxTPTym82ehyZsgVurN+zMCsEtsK1sCyDtIhsT2sUGjLCw6qYll1lOme
+	h+KbouQO6D9U1NtBzEFgfrtfntTNbtvMCgW4zo+PKumPmJR9xDQNtAUgJ1L6n3sG
+	PXQ5ZHE/OFB5agtBUTOMGxw8yeB7KNbBZ1spYfBB4ZEzoXy6NVvf9Op3tGCQStLZ
+	4sZqjw==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hf93ahmjn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:05:53 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-91795e52969so4382256d6.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:05:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=resnulli.us; s=google; t=1792659947; x=1793264747; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VCtPLF1g5YCJnqvDxXjL/9SGDpcHIvBwNuJeTWJPyWo=;
-        b=CG4pwxKjkPq41V9lUY1xPtyLM7VGkWfj0wIo2355s6BuBYcgsuRPWfhiVq6CnU5EUK
-         U6ISRUDw6LP3pxCtWf53VXIfVLLFARjt5/A5RTFt+Wj5BQOl97jTWy5uCVl0uJZWZjdx
-         5QJOnQ67tU8DZeBGkIBPmyGxUBNX8t40T1FxTQcWlxN/XSMqIzeI5/KwqhLXE/nZYg/2
-         l652BLCNN5Kg7dZMEBleKvf3x4lpyF2+1ohF3/UOY/Bo5ex0KS/FI4UCDM6fFbSf2m7g
-         Jwj6H3TFMAkXXh6cmYl2j5nTS3Z5Ixi/a1aX0e55EA1spziMAnLVlnozBP/BV3o2LlvG
-         bjuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792659947; x=1793264747;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1792659953; x=1793264753; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VCtPLF1g5YCJnqvDxXjL/9SGDpcHIvBwNuJeTWJPyWo=;
-        b=lVo4JyWFbN2szRWXqQFxdTSRxjoW9YK/TE0lt7fQH1sjx6alsCvkDxXmiNt0GJ4/uQ
-         p5F7Z6enMesCZcwHM4G7y7o7xXMrmcWZYkHsuK5ivD0ZD7Fv4KazNOon2yq87ACfRmJ6
-         1fJ9Ai6kAMfBGac4doIJK7J2aOGIUBrqzcT5hQXEuNpp86XEk+VQpZtUq4nAuumz+NIt
-         FllCYvw+Lc4LCql6c9sDIVAV6AuxGlLpKZc91/WYo4Yz53bIOcgVbZ8B6FAkMp1ftgeS
-         gYDJE2fqbMpqOamTl671zl0EHXnkyQll0k03Sg4ePRK1u5ke3vGlFw7ClIi2eZfNTumO
-         rSLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwyKBENwbaysYHBElb+EGXiHuWXBt+8u3X2IrnV/hom5pYzT3rDpnkoXYZaRA8C7Z9+mFfJ5oOtaUkzkf0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhuixqq/ZfIH6zyFRydvzgDDZleOrbcS1eSVRVVUtV7SmypV4y
-	bICGmW5uHW8Evoihc5zizyN6D0HUpFw0UetSBzzYx0fJ9cEzr2V44dkvLcgEimbYIF0=
-X-Gm-Gg: AYBFou2kQ3zk0QO5yceWZ624FpGtjCVVKMRWGPlwSgzDhqFu8KYoLUcwaJjXj22I8F/
-	0jvA3nYWnXmKGiuXBRPzqjeoe9DxhLW5mez6v4FBJGVONaqTsoDskOCAXIiRHdltQzMKx+n8F/y
-	UAqpZdzj+V2QTD4AYN5jWfoqh+dV50h2hxgPCqoMHjcRxXBWXbSDjcGyU32ZSQMZ1WEf76k2yOV
-	UdXg1ni3kYRw8vN+Xhlh/3So2OuPE6c5AruyRGrHfwPidxLfEx6/ewOOd/xrHXfPNu25yT+4xZ2
-	f4f+fennNQGnpmTXvW9g9g/y+ZnfT/G1M45DHrGAoJuiwPW5QyQQyjX8lX8PlxaNFxCg5GFf5Hy
-	XJOkIIjGjcfx1Z5tEG8rX2o7CXc6/X8IxsbB8K/kUvIrGGqw3Als3HT85/7/D1f4RAKIpIo0w2+
-	VTb16fjXjT995lNyTzZwmmxDwXQsQ0y2CO0pgL83/V/Rbz4nZq83A8aVktWbwPYOT/XFUVextzo
-	r4tqM2LgzeBsO1f5He/lI5lQo33a05uwL9Sr2OvC8LEwgIbDfRCqAZcy6ZY6m4t
-X-Received: by 2002:a05:600c:3b1d:b0:4a1:d41b:5060 with SMTP id 5b1f17b1804b1-4a1fdb1358bmr98096365e9.22.1792659946257;
-        Thu, 22 Oct 2026 02:05:46 -0700 (PDT)
-Received: from localhost ([128.77.52.125])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a203b28f70sm62056445e9.4.2026.10.22.02.05.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 02:05:45 -0700 (PDT)
-Date: Thu, 22 Oct 2026 11:05:41 +0200
-From: Jiri Pirko <jiri@resnulli.us>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-api@vger.kernel.org, x86@kernel.org, kvm@vger.kernel.org, linux-doc@vger.kernel.org, 
-	jgg@ziepe.ca, david.quigley@intel.com, lukas@wunner.de, ksinyuk@kernel.org, 
-	rodrigo.vivi@intel.com, cedric.xing@intel.com, sameo@meta.com, drdeeglaze@gmail.com, 
-	James.Bottomley@hansenpartnership.com, aik@amd.com, jpiotrowski@nvidia.com, qinkun@google.com, 
-	pgonda@google.com, alistair.francis@wdc.com, ankita@nvidia.com, 
-	suzuki.poulose@arm.com, kas@kernel.org, rick.p.edgecombe@intel.com, 
-	elena.reshetova@intel.com, dave.hansen@linux.intel.com, 
-	sathyanarayanan.kuppuswamy@linux.intel.com, peter.fang@intel.com
-Subject: Re: [PATCH RFC 12/20] ctlv: Add device and operation dispatch
-Message-ID: <atnRsQHieSNzE51D@FV6GYCPJ69>
-References: <20261015145053.3664509-1-jiri@resnulli.us>
- <20261015145053.3664509-13-jiri@resnulli.us>
- <20261021022505.6fe1b1bb@jic23-hlaptop>
+        bh=974NUlzB6Uq3BGLWRZQayoTrMdo4vO0+DzseNpw9CgM=;
+        b=H2d4Ur0HLY/OpwYtUQF7x67o0xPAj8uMqnIdFSbMLXHU5lSfDS+ATwZF+sLEZyvhUx
+         NcouU7CdlJtarFxKXdN8PHdTq+ZJchFhogyhn4Y8batvYuCMyltgUTYVeuj5rg/WE8i5
+         7U4soUHVIget/zS05qYG/tRaxY2+ekrZQHEqtt13d81Pzvarlw9NDnECg36aLvPXkbe/
+         2yowN3zWwH0VeQayH46mz8pb1WAIV9rJKkB7lhIBkCn43YK1ppAuLZVTWy+lPO8lt7mq
+         KlEdoyi0IOMY5lI2mZEboqGIFkrjtDhlPZqbuPAqWq8HO+r6SUHeQ+TW0C/kBdpSBy2E
+         /11Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792659953; x=1793264753;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=974NUlzB6Uq3BGLWRZQayoTrMdo4vO0+DzseNpw9CgM=;
+        b=j+nGEXSBqK8MYepaXBYAHD22j7RA08K7zq3nTyVzuawsFaI7VswDbGzgUIWfQq0hL/
+         U1MS64zZXFlcIZkDIxw9qJZ9lY0nOl0UGrVyBr4HuStBLQ3x9hG1Y3kOBvVC5/wlYeY4
+         Qg9eXDyofO+KuOYTwmsupniQdQ8rJlY0hfVe3cDw6ImcMLCn4UwOqA2vC2UnM1o5YJXs
+         3wrNzWnzC4gDikO+WyLPbpbj9EUraOWonxcfu0tlf243iHc+FUPm2F3y9LeTkBNYfArM
+         XP3ErmKrtobZ8Jy7sLUt9a8cR59Hv5QCu2uTYjgayjfVdRM55GYMfXo/X1t/cMpugRO0
+         GuwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwIWfrvXEcbfwaYdys7NWdqdd9brZ9ovPjCZnLhhzXBbo37OsYNfVaLMkCpGMH/+e4hJqxs6EyAoP2Orbg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYImt+DXKA3VqCE1hyZV4/uVBJF7vNgvwNXHUuKaXjw1yYZLqUr+
+	/4o8cL9wa46sL5nIgyeTwzOUfdGBBlSw1sloOecBFGdj7SPsmF/PDllvv1wZhGXJ6xw5JFFjHuz
+	L7f1DQzLcooTlGkUwCzWvvYjj5DEYR2ZpeQXt6d3qtVxB1eAZJYNFSUXoUFdWOBa5TOs=
+X-Gm-Gg: AYBFou1dd2ycay1UeXFRPHuslG5Kgqw02rAKYZFJuJ7mgX2b67xX7wDbZb/ReRK5pL3
+	HeSSsqT4CLIjF6Lc67JduBXYGQnihh1ldBiOVGfHPppcWkgrsy9qu897RwaZ+BSg1k6R4ynss52
+	7Ks6oQ71NrlC4L2y2+sIzjbvvp5C8p8c9mH8SF1GeMn6HR5HoaioWJ7h1B38o/TvdRgH1F4DQZL
+	FcoZfNB9ti24wIYbEpbeG1JNURim7vO9BzIgwPPNh9jR2FZ1qutKuU/ijPWTc01Lb0EH74fVxIX
+	aBtimE58tTb83dgzNbyLfNq/HBes5FNNjZ2WIg7dNWVdgy5HcLYWz48CJ0wE8KlxcVrSDmyGdQA
+	/T0wqgRF3QboFrFO34+/gdA==
+X-Received: by 2002:a05:620a:4511:b0:93f:977:5d9 with SMTP id af79cd13be357-93f57dbe348mr988867285a.0.1792659952790;
+        Thu, 22 Oct 2026 02:05:52 -0700 (PDT)
+X-Received: by 2002:a05:620a:4511:b0:93f:977:5d9 with SMTP id af79cd13be357-93f57dbe348mr988863085a.0.1792659952237;
+        Thu, 22 Oct 2026 02:05:52 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b40316698esm1638748a12.33.2026.10.22.02.05.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 02:05:50 -0700 (PDT)
+Message-ID: <741e2f4a-c49f-4a4a-a376-8e986a609bf8@oss.qualcomm.com>
+Date: Thu, 22 Oct 2026 11:05:47 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,214 +115,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261021022505.6fe1b1bb@jic23-hlaptop>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/4] arm64: dts: qcom: nord-ride-embedded: Enable USB
+ ports
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>, brgl@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20261013-nord-usb-dwc-dts-v3-0-bcaaf3faae24@oss.qualcomm.com>
+ <20261013-nord-usb-dwc-dts-v3-4-bcaaf3faae24@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261013-nord-usb-dwc-dts-v3-4-bcaaf3faae24@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX2SNHOgjSUv+f
+ UDc9agayAZA9/eqECWs+h8Ea1ilXHO9q8Fh8jvLQ0odZmp0P8lGQOMOO8w1Qm9SGAnhSyZSWUuf
+ WrNBrGOM0ED7wwWY5L1ISTdK7SBODRODF8xdiAbG8gETKe1sE6GkLaXRvmlsF8EhEZpnZkIM7A1
+ oCUrJKnE+tSZ+L5atbPR1CGbeWSnWeEDEwtdNZiiHA3/J8JkkPyYDJXE8/bqdnSYuzsVDC0zRi6
+ kGAr3api7yD62HmefunTpnd0j/PHdVPl2eXD2WovGP3Arg50NB4W8dEwHsXxCWYuEtLOFIhkPYh
+ Scrr1u3X3FC1VhTjqH0PFyOtLRyiEmV1g20iLmN4YFGl5QdxPftPptCtVt4348PAMNJdxf+uhzg
+ b/FkB7/K5E7Bq6v7303H7QEvE/L0SWTKNIw2ESnmLp6nztIIr8kT8exCBCUu+OOfUerQCop4XLL
+ NDUcrSBV7qlM+1/BCaw==
+X-Authority-Analysis: v=2.4 cv=H7FOUOYi c=1 sm=1 tr=0 ts=6ad9d1f1 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=Ix1rd1RWtsmLIZAbYf0A:9 a=QEXdDO2ut3YA:10
+ a=1HOtulTD9v-eNWfpl4qZ:22
+X-Proofpoint-ORIG-GUID: obRORVjGpnqPIl5L0SB_cQx8rHkTCm5h
+X-Proofpoint-GUID: obRORVjGpnqPIl5L0SB_cQx8rHkTCm5h
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDAzNiBTYWx0ZWRfX07WYxsLI17uf
+ cVEKZHGvpTJWiPvujf89SWt25L8NwSduqtdZpEMxloFOw7ML0lAUdsCxVUWH6Hp0ZSF52oPvo3Z
+ EAIh6CQVh6fr9LwiWf5Sk1m35JvAus8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-22_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ phishscore=0 adultscore=0 spamscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220036
 
-Wed, Oct 21, 2026 at 03:25:05AM +0200, jic23@kernel.org wrote:
->On Thu, 15 Oct 2026 16:50:45 +0200
->Jiri Pirko <jiri@resnulli.us> wrote:
->
->> From: Jiri Pirko <jiri@nvidia.com>
->> 
->> Register CTLV devices, resolve family chains and dispatch operations
->> through validated messages. Wire CONFIG_CTLV and the generated root family
->> after all module objects are present.
->> 
->> Assisted-by: Cursor: GPT-5.6 Sol
->> Assisted-by: Cursor: Claude Opus 5.5
->> Signed-off-by: Jiri Pirko <jiri@nvidia.com>
->> ---
->>  drivers/Kconfig             |    2 +
->>  drivers/Makefile            |    1 +
->>  drivers/ctlv/Makefile       |    4 +-
->>  drivers/ctlv/core.c         | 1517 +++++++++++++++++++++++++++++++++++
->Normally I'd push back hard on too big to read, but it is an rfc
->and other patches in the series are much large.
->
->I'm out of time for today and not sure when I'll get back to this,
->so just a few quick comments inline on the bit I did look at.
->
->>  drivers/ctlv/device.h       |   17 +
->>  include/linux/ctlv.h        |   55 ++
->>  include/linux/ctlv_family.h |   22 +
->>  7 files changed, 1616 insertions(+), 2 deletions(-)
->>  create mode 100644 drivers/ctlv/core.c
->
->> diff --git a/drivers/ctlv/core.c b/drivers/ctlv/core.c
->> new file mode 100644
->> index 000000000000..aeab29fe2fdd
->> --- /dev/null
->> +++ b/drivers/ctlv/core.c
->
->...
->
->> +static int ctlv_file_open(struct inode *inode, struct file *filp)
->> +{
->> +	struct ctlv_device *ctlvdev = container_of(inode->i_cdev, struct ctlv_device, cdev);
->> +	struct ctlv_file *cfile;
->> +	int ret;
->> +
->> +	/*
->> +	 * A failed create can withdraw the cdev while an open is waiting for
->> +	 * the lifecycle lock, so admission itself first pins core storage.
->> +	 */
->> +	get_device(&ctlvdev->dev);
->> +	ctlv_file_open_pinned(ctlvdev);
->> +	scoped_guard(rwsem_read, &ctlvdev->registration_lock) {
->> +		if (!ctlv_file_open_allowed(ctlvdev)) {
->> +			ret = -ENODEV;
->> +			break;
->Personally I still dislike the hidden for loop in scoped_guard()
->and using break with that enough I'd do a 
->	do {
->		guard(rwsem_read)(&ctlvdev->registration_lock);
->
->	
->	} while (0);
->
->Just so it is obvious what those breaks are from.
+On 10/13/26 1:34 PM, Bartosz Golaszewski wrote:
+> From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> 
+> Wire up the board specific pieces for USB ports. Enable i2c9 and add the
+> three NXP PTN3222 eUSB2 repeaters (one per USB port) with their 1.8 V
+> supply and reset GPIOs on the PMIC GPIO expanders.
+> 
+> Add the onsemi FUSB15201 dual port Type-C controller at 0x50, with
+> its interrupt and pinctrl state on pmau0102_i gpio8. Both controller
+> ports are wired on this board, so describe two usb-c-connector
+> children and cross-link their HS and SS endpoints to the dwc3 HS
+> endpoint and the QMP combo PHY SS output of USB_0 and USB_1. Both
+> controllers therefore run in OTG mode with usb-role-switch.
+> 
+> USB_2 has no Type-C connector, so it is configured as a fixed host
+> port. Its VBUS is supplied by a fixed regulator gated by
+> pmau0102_h gpio3, kept always-on since nothing switches it at
+> runtime.
 
-Agreed, easier to read. Will fix.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-
->
->Maybe I just need to get this one into my code review head...
->> +		}
->> +		if (!(filp->f_mode & FMODE_READ)) {
->> +			ret = -EACCES;
->> +			break;
->> +		}
->> +
->> +		cfile = kzalloc_obj(*cfile, GFP_KERNEL_ACCOUNT);
->> +		if (!cfile) {
->> +			ret = -ENOMEM;
->> +			break;
->> +		}
->> +		cfile->ctlvdev = ctlvdev;
->> +		/*
->> +		 * Commits this description to the device. An open that failed
->> +		 * after this would have to take it back.
->> +		 */
->> +		ret = ctlv_event_file_init(cfile);
->> +		if (ret) {
->> +			kfree(cfile);
->> +			break;
->> +		}
->> +		/* This description keeps the reference taken on entry. */
->> +		filp->private_data = cfile;
->> +		return 0;
->> +	}
->> +
->> +	put_device(&ctlvdev->dev);
->> +	return ret;
->> +}
->
->> +struct ctlv_device *ctlv_create(struct device *parent_dev, const struct ctlv_family *family,
->> +				const void *init_info)
->> +{
->> +	struct ctlv_device *ctlvdev;
->> +	int devnum, ret;
->> +
->> +	if (!parent_dev || !family)
->> +		return ERR_PTR(-EINVAL);
->> +
->> +	ctlvdev = kzalloc_obj(*ctlvdev, GFP_KERNEL);
->> +	if (!ctlvdev)
->> +		return ERR_PTR(-ENOMEM);
->> +	ctlvdev->family = family;
->> +	init_rwsem(&ctlvdev->registration_lock);
->> +	spin_lock_init(&ctlvdev->transition_lock);
->> +	ctlv_event_device_init(ctlvdev);
->> +
->> +	/* Before anything reads the schema through this device. */
->> +	ret = ctlv_op_resolution_init(ctlvdev, family);
->> +	if (ret)
->> +		goto err_free;
->> +	/* What this family's events need of every queue opened on it. */
->> +	ret = ctlv_event_sizes(ctlvdev);
->> +	if (ret)
->> +		goto err_free;
->> +	/* Before a minor is spent on a device that could not be announced. */
->> +	ret = ctlv_device_uevent_check(family);
->> +	if (ret)
->> +		goto err_free;
->> +	if (ctlvdev->dynamic_ops_count) {
->> +		ctlvdev->disabled = bitmap_zalloc(ctlvdev->dynamic_ops_count, GFP_KERNEL);
->> +		if (!ctlvdev->disabled) {
->> +			ret = -ENOMEM;
->> +			goto err_free;
->> +		}
->> +	}
->> +	devnum = ida_alloc_max(&ctlv_device_ids, CTLV_MAX_DEVICES - 1, GFP_KERNEL);
->> +	if (devnum < 0) {
->> +		ret = devnum;
->> +		goto err_free;
->> +	}
->> +
->> +	ctlvdev->dev.devt = ctlv_device_number + devnum;
->> +	ctlvdev->dev.class = &ctlv_device_class;
->> +	ctlvdev->dev.parent = parent_dev;
->> +	device_initialize(&ctlvdev->dev);
->> +	/*
->> +	 * The core owns the file operations, so an open holds the core module
->> +	 * and not the family's, which may unload while readers remain.
->> +	 */
->> +	cdev_init(&ctlvdev->cdev, &ctlv_file_operations);
->> +	ctlvdev->cdev.owner = THIS_MODULE;
->> +
->> +	ret = dev_set_name(&ctlvdev->dev, "ctlv%d", devnum);
->> +	if (ret)
->> +		goto err_put;
->> +	ret = ctlv_family_claim_add(family->schema);
->> +	if (ret)
->> +		goto err_put;
->> +	ret = ctlv_family_privs_pre_init(ctlvdev, init_info);
->> +	if (ret)
->> +		goto err_put;
->> +	ret = ctlv_family_privs_init(ctlvdev);
->> +	if (ret)
->> +		goto err_put;
->> +	ctlv_op_publish_all(ctlvdev);
->> +	ctlv_event_contexts_start(ctlvdev);
->> +	ret = ctlv_family_privs_post_init(ctlvdev);
->> +	if (ret)
->> +		goto err_fini;
->> +	scoped_guard(rwsem_write, &ctlvdev->registration_lock) {
->> +		ret = ctlv_device_add(ctlvdev);
->> +		if (!ret)
->> +			ctlvdev->registered = true;
->> +	}
->> +	if (ret)
->> +		goto err_fini;
->> +	return ctlvdev;
->> +
->> +err_fini:
->> +	ctlv_device_fini(ctlvdev);
->> +err_put:
->> +	put_device(&ctlvdev->dev);
->> +	return ERR_PTR(ret);
->
->Jason did some nice handling in the fwctl stuff for
->device alloc and hand over after device_initialize()
->(I've copied it into a few places recently :)
->
->I'd like to see something similar here as it made
->it easier to follow lifetimes etc.
-
-Will do.
-
-
->
->> +err_free:
->> +	bitmap_free(ctlvdev->disabled);
->> +	ctlv_family_privs_free(ctlvdev);
->> +	kfree(ctlvdev->ops);
->> +	kfree(ctlvdev);
->> +	return ERR_PTR(ret);
->> +}
->> +EXPORT_SYMBOL_NS_GPL(ctlv_create, "CTLV");
->
-
-Thanks!
-
+Konrad
