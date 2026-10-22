@@ -1,46 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792651920;
-	b=mATgwnItz1YDABtwQCZe40SUqVF92a48beyNqLMgtDfTYsxndv3Ow9JUwdtZ2G7BvsIx
-	 COIAF6fhQut/rUqXtGcnWWilMIZGK3beO8oP4KdwRqxwJnvgqLTC1p9Klpx7NmvSsu5FR
-	 sxjsIWhQgXXJNs+1wya+TRrO/RpzagtellqPA1lVQlYjDwukc5PKGTC0GMxhkrfXOZArR
-	 fUBRpe89qwuXSZvCcxO267Ii6pg4lTv/1MphplGfQudqnaJtJTUsVLA4E2QVVavzgpsFe
-	 WOyUpRz1x5j0IyDkrwx1QnxeYUqJPyYngk0FyD7cCZpr5q+m0FWP/3EBlsKIPuVxAnQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651920;
-	h=Received:DKIM-Signature:Date:From:To:Subject:Message-ID:MIME-Version:
-	 Content-Type:Content-Disposition;
-	bh=Fxx+f+pmoy2K8FG2VJY88utQ88NglXhrdhzsq7ogqNI=;
-	b=sCrJyrAX/zoAlqKEPlA9Tuygxh6UCThRQamuK0s4dgswuP9Kr6HBXQYqYwnxoZDH9G8k
-	 dHbANFXwUZZQHJyUZLubihRlr2ABQSQY7OFObChqewCNzYhF8a0W/R48k+ugy4jkC6ZdD
-	 bakxt/t2DEDgHA36yOHFfqSSJvAjIL7TwyTsAt5LMKFiXdAYQzKkDfy2fpKEq1KuNkfmn
-	 EXAv75I2q6M/KEIDEhysbwMqMhrQ2pSmSlLYIvlL1+Oqo54uTKaoI0ppkie8rSOsJGOUN
-	 RG4X5UqD8VyoM5AGsN/NQk+Pcm7tl/CmKPOuHRaeQAH7W6eS8lELyxBtuHMdelYbNPQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m9dCyeNL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1792651992;
+	b=ctm/GQBUQSXAAtpEo49X49xJxLe+Biv2QU56dsfcAdNYidgCuBwfV5WxQW384KEbledR
+	 eBv3AoNCszuUmjOTR3hTASkVPSPd9PTi/A81xMa5bHGkjAqbmfuQthqt5vCMHO1WbQrqZ
+	 Yexb+ojs0JVIMHci7VfZk2BzNRyZgVeb+X6zZQmV3s2lpqsEkbCoGH/XdM+36QHrtEkyy
+	 0ykwcOYMjAsBnnypqSuCHjB30JqQxNajNGRZEQSZE0KEM7idNQcAEJJ/boRXhyv8DoEEs
+	 /vYm0jaFoSjSGMsg3drFiHWS4PojiwhJElg8eBX+cCh9xuSXMwr6kf5MopSlBIN0tCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651992;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+	b=aACmyjMs3qrngSpkoxPDDPS9bQZMeBDxxouiS3zt15rwrzA9vyRlXCOaRYZ8YjJZkhVc
+	 bC5O/LBKH/mtODz61Fl3hcmnseVTuVLallftagCZ/0XWqcbVbD4EPZHT1MjLCZe2A6OOu
+	 aDNnJbDYzTI40UHz8JnaPJNf/wLQZg5BHTQRlHvAZIxb305Pl3ABmWSehMRdQgmZ1O4EH
+	 4nXQffGzCPSW9AQkd+qAt73x340v/A14IPtoBtoxCjpn1d79FbHRxclqoz3lBPFZ9y/W4
+	 ltGZ9YraQJVpxiMdkqP0lmV+uIyVbnopKIJ/LgnkUFOA8cKa2bAfAgz7tdbNUF1QUKA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UASPXeKT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B04606A319;
-	Thu, 22 Oct 2026 06:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8217F606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:53:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8217F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=m9dCyeNL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6A741F000C1;
-	Thu, 22 Oct 2026 06:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1792651919;
-	bh=Fxx+f+pmoy2K8FG2VJY88utQ88NglXhrdhzsq7ogqNI=;
-	h=Date:From:To:Subject;
-	b=m9dCyeNL7g2ENWmYszzuYPvV+joCCX/sqqjjfXO/vl4+IQzoof0w5OVqmDmYnv9m3
-	 DhXqjFxoIxnkFniFVk5qplbjL9IoQJ2+zzx4DP9uHdi00bpKvy0/TfLxUkcVR8f4Hb
-	 qTgvk5EjWYLEj9tdxqwYjL4IH0vklwEpMdIOLrsw=
-Date: Thu, 22 Oct 2026 08:51:41 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: usbutils 020 release
-Message-ID: <atmyfUVyCnr5WnJh@kroah.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UASPXeKT
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2acc1e170cso214093866b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 23:53:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1792651989; cv=none;
+        d=google.com; s=arc-20260327;
+        b=h+pqhhUWgyhcJonJtS3uud74141UIL9jzsuTpf1GKCi35Ys+S4UsoUua6vO6mRR/O+
+         iIob0RAtz5wRDePxbXIyVKZSN+/Xb2CXNyoo2XDSsh/+wkDermJxFWxURfnev3mEVoUR
+         inNU0z79dFAEwOjPhLa5tq67UYbVyTYgNYhiezQfrTPAUPsf6K5wA6pDPldclJowiMcp
+         1zaOb0ji4QQuKnt87hQHBvmYpJQgMsaPfni/NODHeszjXuaz3MVFJu9BW+odyOQXlgLm
+         /l/rDm7yWu4nYHpmWEV0WFIGRZCu4WOiNACZPD7sW3TI1XT/8gjrbNi+dr8QYmpEKjZa
+         Mh5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+        fh=tyHOm4tibJmRM1G89kBgeOr/Hksen11+vO+2HTtmkis=;
+        b=QNWGDKq2SYMU4t2/AWShXAJydQCCJmpL0MKpR/knEBBtZKplFFtmNuW9/I0tO+jW4R
+         17/HyGSTO0HkueMbHs6hR88k2f9QOFbTgsvJzL48WBj8CP6XkWOXakb68SdXX/B1Rzp/
+         G/ku72Z3s4Wm2FYTBJED5b7YC6NFDT5KzuiORP9nnjrdqWkCBmlb3zZ3YRynY7SOCJY+
+         /2bWqXt45vsA6RzFejuaD9FnLVneVzVcMDMMza8JTain9Ypnufim2G5CHOfFouOrNnbd
+         ZSkKLKopdCluWyTzR+NA61Gwkv/D7M5SyERQvAv1agPvS+hrf62ZFLsi18+SoIM0n/XI
+         y3ZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792651989; x=1793256789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+        b=UASPXeKTAHaKwh8vbwoCb/VP+qE0e0U+GD6HxVbCrAk7FwuV+0cbhRwR2DbD8/Qnuq
+         jh+AVCTR1VepsqN50RlZ4ixYRGFq+hph0bslye8bPQSntnR//lSPcGGIvXj6KNRFygCt
+         hsZCSAGnJ2aSJcCi++AIXqcNN3/S3slWciZgiBQJF93Q4NetY1Mj7+kD4u9mxSl4YM2n
+         5Qc9TCicOf+DFPRVErJO66r5A+5JLHeUECasDJytIQA7vD+aisQTkH5DvJKb4AdBE7VS
+         +XGiovP0nPUKgRz6O1d++2NDRZnlysGRTjdWlyFPbZfAUzEnCkgQr3CAHbEn8DVgrTXr
+         xM+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792651989; x=1793256789;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rg3MYkiixfpOGWKpQ3X74Jm8FS7vqinp1afZZUlph/Y=;
+        b=YMyyaer/kFVjizwOfR4/ExtF4/7Zi+rFotphmn+xBdwpBBD67FqSzyawZLMoIuOZ5Z
+         3gU0k8cLSdFTQcnQUJgoTEISQPCaOeb4UEGQ5RY4soP16W3aCapwdmfYIVY2/Xk1s0Bw
+         Z+tqhjVvJh0GUWvJrgq2yV5Oob3czOnAegrrj0ZWdZPEvFMqV9osTJgMahD3BYagLgrm
+         l/LQ4j//4/mbaNJSQkzaPVRGvFzqY/gDXBD6BlTKgogFdecuh+W5GSlc2VasG6sV5gYY
+         wCM92Pv1Lm/8C7OXYTd9GoSEnW+DI1k8jRmL+BSRnv5W52VIgcywRQbgGOLmjYApiwQL
+         5w5w==
+X-Forwarded-Encrypted: i=1; AKwUvBw1X1Jh9VTlL4bGd5tXcDNzXHEUzSMdkQ8lxrdYOD9x/tup+g6GCB5maZY4/+5moWmGirtDqlIeHxV7Hqk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKTTGrmItH+6qcgPuOpsp9hKY8Agks4TmwDYMTa9TVjenGnTZ+L
+	gLNPe8yBC3ttwa5tSxJTloQiVSUV6Mec/yrCtKw7QSUU/ECw6q+tFGbsYws7+DyuxM6YBGH9f2d
+	RDNWZXJOL6a25+MJXhxAf9FYQ4yE3mAY=
+X-Gm-Gg: AYBFou2JHV2h8RuA3qp1ycLZ4q9V+iZy4SeVfwtKizbHIlQpmwu4z0aOzcaCP7fzvDj
+	LcDNHlEPKLOxzxgG+v7x827uY2YjkS6kX7sEsYS882J/55sl2ldkUjcS507MqeAgBHbUW01vve6
+	y4+vczmsP49/9rVrMZYYNrSnhAxDkZIrv09xUuVAXwn+q1RZUKrU/Xi8cCh7fpSXp3VDSrkwRqD
+	yyTCbGkrwWqHF9SSZri2AvN8bQ848uLpvNLNFOYy5xu/A9OIK1GqSFxp/2j42IAykR69ysidJRe
+	j37NHj2pTmjsRx03bEFBoUzxRnRh38AWBcO9jhbC1lki79MAvJC5KhAF0MGwGsjtrNOlQZQL+Ks
+	ecOILLeAcuchp3T0Q9r8oiT1pyPTCvihdVwcfgybOS5xgx7Scwfe14Stj3Ge6OVtg129Rv9s=
+X-Received: by 2002:a17:907:3e8a:b0:c37:8c7c:a840 with SMTP id
+ a640c23a62f3a-c467966c0c2mr359451866b.18.1792651989383; Wed, 21 Oct 2026
+ 23:53:09 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,226 +104,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j+14c5xRj1NLxu8m"
-Content-Disposition: inline
+References: <20261019160615.2348500-1-nphamcs@gmail.com> <CAMgjq7AEg6XEUJPaM3mMBQAeS_KiDv8_za4w-R2WaZ=ZGenvuw@mail.gmail.com>
+ <CAKEwX=O=PL3DEaEDe=F-=zhQ=VW3_UtcqesdX9fH_cr6orb2wQ@mail.gmail.com>
+In-Reply-To: <CAKEwX=O=PL3DEaEDe=F-=zhQ=VW3_UtcqesdX9fH_cr6orb2wQ@mail.gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Thu, 22 Oct 2026 14:52:32 +0800
+X-Gm-Features: AclHuK_1506PMfDGxQQ_jKcqLOauYM9YVlFaV9ZgB9uWuZJ7dc_z3c4TC8n9H3w
+Message-ID: <CAMgjq7BSzYTbrzbA4vGqMbvegoHnDtJ0vA9PcwCet-m6Ow3ouA@mail.gmail.com>
+Subject: Re: [PATCH] mm, swap: revalidate populated clusters before scanning
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, linux-mm <linux-mm@kvack.org>, 
+	LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---j+14c5xRj1NLxu8m
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Nhat Pham <nphamcs@gmail.com> =E4=BA=8E 2026=E5=B9=B410=E6=9C=8821=E6=97=A5=
+=E5=91=A8=E4=B8=89 04:19=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Oct 20, 2026 at 10:58=E2=80=AFAM Kairui Song <ryncsn@gmail.com> w=
+rote:
+> >
+> > On Tue, Oct 20, 2026 at 1:41=E2=80=AFAM Nhat Pham <nphamcs@gmail.com> w=
+rote:
+> > >
+> > > swap_cluster_populate() can publish a cluster's table with the cluste=
+r
+> > > lock dropped. A cached allocator can use and empty it before the
+> > > populating allocator reacquires the lock. The resumed scan can then
+> > > dereference a NULL table.
+> > >
+> > > For example, CPU1 can retain a cached cluster offset on an SSD with
+> > > per-page discard disabled:
+> > >
+> > >     CPU0                          CPU1
+> > >     ----                          ----
+> > >     swap_cluster_populate()
+> > >       swap_cluster_alloc_table() fails
+> > >       spin_unlock(&ci->lock)
+> > >       local_unlock(&percpu_swap_cluster.lock)
+> > >       swap_cluster_alloc_table()
+> > >         rcu_assign_pointer(ci->table, table)
+> >
+> > Nice catch!
+> >
+> > I think the real problem is that it turns out calling
+> > swap_cluster_alloc_table() without holding ci lock is bad idea... I
+> > think this patch still leaves some other call site too?
+>
+> Do we have another callsite? There's a callsite in setup code, but I
+> assume that's safe...?
+>
+> But at this point, who knows any more. The caching only stores a
+> swapfile struct, and an offset. I wonder if there is a potential race
+> between swapoff-then-re-swapon and cached allocation? That'd be pretty
+> wild.
+>
+>
+> >
+> > We may instead add a "bool locked" to swap_cluster_alloc_table, and
+> > let it lock the ci first before it does any assign (not the alloc) if
+> > the allocation context is not locked. That is, keep the
+> > sleep-allocated tables private until swap_cluster_populate()
+> > reacquires local/global/ci, then install them under ci->lock,
+> > something like pre-cdd77f84d966, always assign it atomically.
+>
+> Hmm so a bitlock?
+>
+> Lemme think about it a bit.
 
-Another year later, so it's time for a new usbutils release.
+Ah, no, not that complex, just something like:
 
-I'd like to announce the usbutils 020 release.
+--- a/mm/swapfile.c
++++ b/mm/swapfile.c
+@@ -449,9 +449,13 @@ static void swap_cluster_free_table(struct
+swap_cluster_info *ci)
+        swap_cluster_free_count_table(table);
+ }
 
-Lots of fuzzing fixes in this release for 'bad' devices, now that people
-are starting to worry more about these types of USB devices.  I'm not
-guaranteeing that all "malformed" USB devices will now not crash the
-codebase, but we should be a better off than in the past.  As usbutils
-is NOT something that is a "security boundry" this really isn't a
-problem in real life, but it is nice to harden up the USB descriptor
-parser a lot.  Thanks to lots of OS fuzzing rounds, we should be better
-off here.  There's also now a built in "test suite" that can help make
-modifying the code a bit easier to verify that nothing obvious is
-different from the system-installed version of the tools (unless you are
-wanting there to be a change, and in that case, you can ignore the test
-failures.)
+-static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gf=
+p)
++static int swap_cluster_alloc_table(struct swap_cluster_info *ci, gfp_t gf=
+p,
++               bool locked)
+ {
+        struct swap_table *table =3D NULL;
++       struct swap_memcg_table *memcg_table =3D NULL;
++       unsigned long *zeromap =3D NULL;
++
+        struct folio *folio;
 
-Other than that, there's some new support for a newer USB spec, and the
-constant churn of "where is the usb ids file located now?" work to
-handle more distros and systems, and some cleanups of 'lsusb -t' to make
-it more obvious which device is which at times.
+        /* The cluster must be empty and not on any list during allocation.=
+ */
+@@ -472,8 +476,8 @@ static int swap_cluster_alloc_table(struct
+swap_cluster_info *ci, gfp_t gfp)
+ #ifdef CONFIG_MEMCG
+        if (!mem_cgroup_disabled()) {
+                VM_WARN_ON_ONCE(ci->memcg_table);
+-               ci->memcg_table =3D kzalloc_obj(*ci->memcg_table, gfp);
+-               if (!ci->memcg_table) {
++               memcg_table =3D kzalloc_obj(*ci->memcg_table, gfp);
++               if (!memcg_table) {
+                        swap_cluster_free_count_table(table);
+                        return -ENOMEM;
+                }
+@@ -484,8 +488,8 @@ static int swap_cluster_alloc_table(struct
+swap_cluster_info *ci, gfp_t gfp)
+        VM_WARN_ON_ONCE(ci->zero_bitmap);
+        ci->zero_bitmap =3D bitmap_zalloc(SWAPFILE_CLUSTER, gfp);
+        if (!ci->zero_bitmap) {
+-               swap_cluster_free_table(ci);
+                swap_cluster_free_count_table(table);
++               kfree(memcg_table);
+                return -ENOMEM;
+        }
+ #endif
+@@ -494,6 +498,20 @@ static int swap_cluster_alloc_table(struct
+swap_cluster_info *ci, gfp_t gfp)
+         * Make tables visible to cluster_is_usable() after everything is
+         * ready.
+         */
++       if (!locked) {
++               / * Lock it here before assign, not after the asssign
+and return */
+...
 
-Full details of the changes in this are found below in the shortlog.
-
-Tarballs can be found on kernel.org here:
-	https://www.kernel.org/pub/linux/utils/usb/usbutils/
-
-Or you can pull from the following git locations as well:
-	https://git.sr.ht/~gregkh/usbutils
-	https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usbutils.git
-	https://github.com/gregkh/usbutils
-	https://github.com/linux-usb/usbutils
-
-thanks,
-
-greg k-h
-
-------------
-
-usbutils 020
-============
-
-Armin Wolf (1):
-      lsusb: Add support for FWStatus Capability decoding
-
-Greg Kroah-Hartman (124):
-      justfile: add 'make' target
-      usb-spec.h: fix up spelling mistake for "Tone Enable" entry
-      tests: vendor brat 0.10.1 as the test runner
-      tests: compare built lsusb against the installed copy
-      tests: lsusb -h: compare built against installed
-      tests: lsusb -t: compare built against installed
-      tests: lsusb -s: compare built against installed
-      tests: lsusb -d: compare built against installed
-      tests: lsusb -D: compare built against installed
-      tests: usb-devices: compare built against installed
-      tests: lsusb.py: compare built against installed
-      tests: lsusb.py -h: compare built against installed
-      tests: lsusb.py -i: compare built against installed
-      tests: lsusb.py -I: compare built against installed
-      tests: lsusb.py -u: compare built against installed
-      tests: lsusb.py -U: compare built against installed
-      tests: lsusb.py -c: compare built against installed
-      tests: lsusb.py -C: compare built against installed tests:
-      lsusb.py -e: compare built against installed
-      tests: lsusb.py -w: compare built against installed
-      tests: lsusb.py -f: compare built against installed
-      justfile: add 'test' target
-      desc-dump: fix operator precedence bug in bit-to-byte conversion
-      usbmisc: fix NULL dereference on getcwd() failure in get_absolute_path()
-      usbmisc: check malloc() return in get_dev_string_ascii()
-      usbmisc: check malloc() return in usb_string_to_native()
-      usbmisc: fix unbounded recursion and strncpy issues in readlink_recursive()
-      names: replace sprintf() with snprintf() for modalias formatting
-      lsusb-t: replace sprintf() with snprintf() in lanes_to_str()
-      desc-dump: fix NULL pointer dereference for unknown audio terminal types
-      desc-dump: fix integer underflow in get_array_entry_count()
-      names: fix missing null termination in get_vendor_product_with_fallback()
-      sysfs: fix buffer handling in read_sysfs_prop()
-      sysfs: check initial snprintf() return value in get_sysfs_name()
-      lsusb: fix out-of-bounds array access in dump_encryption_type()
-      lsusb: fix out-of-bounds reads in video EXTENSION_UNIT descriptor parsing
-      lsusb: fix unaligned memory access in dump_printer_device()
-      lsusb: fix out-of-bounds read in video HEADER descriptor parsing
-      lsusb: fix out-of-bounds read in HID report descriptor parsing
-      lsusb: replace sprintf() with snprintf() in get_guid()
-      lsusb: fix out-of-bounds read in MIDI streaming endpoint descriptor
-      lsusb: fix out-of-bounds read in STILL_IMAGE_FRAME descriptor parsing
-      lsusb-t: fix buffer handling in read_sysfs_file_string()
-      lsusb: fix wrong variable in FORMAT_TYPE_II descriptor length calculation
-      lsusb: fix out-of-bounds reads in video INPUT_HEADER and OUTPUT_HEADER
-      lsusb: fix out-of-bounds reads in video PROCESSING_UNIT descriptor
-      lsusb: fix out-of-bounds reads in video terminal and selector descriptors
-      lsusb: fix undefined behavior in convert_le_u32() signed shift
-      lsusb: fix OOB reads in UAC1 audio FORMAT_TYPE descriptor parsing
-      lsusb: fix out-of-bounds read in SuperSpeedPlus capability descriptor
-      lsusb: fix OOB reads in audio FORMAT_SPECIFIC descriptor parsing
-      lsusb: fix out-of-bounds reads in IPP printer descriptor parsing
-      lsusb: add missing length checks in dump_wire_adapter and dump_rc_interface
-      lsusb: add missing length checks in dump_security and dump_encryption_type
-      lsusb: fix OOB read in dump_dfu_interface on short descriptors
-      lsusb: add missing length check in dump_association()
-      lsusb: fix out-of-bounds reads in dump_hid_device() on short descriptors
-      lsusb: fix OOB reads in UAC2 FORMAT_TYPE descriptor parsing
-      lsusb: fix OOB reads in MIDI HEADER and MIDI_IN_JACK descriptor parsing
-      lsusb: fix OOB read in dump_videocontrol_interrupt_endpoint()
-      lsusb: fix OOB reads in video streaming format descriptors
-      lsusb: fix OOB reads in video FRAME descriptor parsing
-      lsusb: fix remaining OOB read in MIDI_OUT_JACK initial fields
-      lsusb: fix remaining OOB reads in video descriptor warn-and-continue paths
-      lsusb: fix OOB reads in video INPUT_HEADER and OUTPUT_HEADER data loops
-      lsusb: fix OOB read in STILL_IMAGE_FRAME compression pattern loop
-      lsusb: fix OOB read in FORMAT_MPEG2TS descriptor on short descriptors
-      lsusb: zero hub descriptor buffer to prevent reading uninitialized data
-      lsusb: fix OOB read in FORMAT_STREAM_BASED descriptor parsing
-      lsusb: fix unsigned integer underflow in dump_bytes calls for short descriptors
-      lsusb: fix wrong byte printed for CCID bClassEnvelope
-      lsusb: bounds-check MIDI ELEMENT bNrInputPins/bElCapsSize against bLength
-      lsusb: bounds-check UVC INPUT_TERMINAL bControlSize against bLength
-      lsusb.py: strip control characters from device-supplied sysfs strings
-      usbreset: refuse ambiguous selectors that match more than one device
-      usbmisc, usb-devices: strip control characters from device-supplied strings
-      lsusb: don't loop forever in find_otg() on a zero-bLength sub-descriptor
-      desc-defs: fix off-by-one in UAC1 wFormatTag string lookup
-      lsusb: bounds-check the BOS device-capability walk
-      usbhid-dump: skip interfaces with bInterfaceNumber 0xff
-      usb-devices: use printf instead of echo for device-supplied strings
-      usb-devices: fix default case in class_decode()
-      lsusb: strip control characters from the WebUSB landing-page URL
-      lsusb: bound the report-fetch loop in dump_hid_device() too
-      lsusb: bounds-check MIDI OUT_JACK bNrInputPins against bLength
-      lsusb: bounds-check IPP printer capability walk against bLength
-      desc-dump: bound get_value_from_field() against descriptor length
-      sysfs: strip control characters from device-supplied string attributes
-      lsusb, usbmisc, usbhid-dump: zero-init buffers passed to libusb control transfers
-      lsusb: migrate the MIDIStreaming parsers onto the desc-dump table engine
-      desc-dump: don't exit() on a device-supplied size_field value
-      lsusb: return on short bLength in the class-specific descriptor dispatchers
-      lsusb: check FORMAT_TYPE bLength before reading bFormatType
-      lsusb: avoid undefined behaviour when assembling u32s from descriptor bytes
-      lsusb: bound the extra[] dispatch loops by remaining size
-      lsusb: fix wHubDelay decoding in the USB3 hub descriptor dump
-      usbhid-dump: bound the HID-descriptor-extra walk by entry end, not start
-      lsusb: fix two -D path-resolution edge cases in usbmisc.c
-      lsusb: don't pass NULL into %s for unknown HID report/usage tags
-      tests: brat: fix some spelling issues
-      usbutils.spdx: update with new files added
-      lsusb: add expected length message for video descriptor endpoint
-      meson.build: turn off -Wno-unused-function
-      lsusb: fix up parsing for older uvc devices
-      tests: usbhid-dump: compare built against installed
-      tests: usbhid-dump -h: compare built against installed
-      tests: usbhid-dump -s: compare built against installed
-      tests: usbhid-dump -d: compare built against installed
-      tests: usbhid-dump -i: compare built against installed
-      tests: usbhid-dump -e: compare built against installed
-      tests: add lsusb argument-combination brat tests
-      tests: add lsusb.py argument-combination brat tests
-      tests: add lsusb -h/-V interaction test
-      tests: add lsusb -t precedence test (-s/-d/-D ignored under -t)
-      tests: add lsusb -D precedence test (-s/-d ignored under -D)
-      tests: add lsusb -V precedence test
-      tests: add lsusb -h precedence test
-      tests: add lsusb repeated -s/-d/-D test
-      tests: add lsusb -d :pid product-only filter test
-      tests: add lsusb -D error-path tests
-      tests: add lsusb -P/-p vestigial-option test
-      tests: add lsusb -- end-of-options test
-      test/lsusb-vv.brat: send errors to /dev/null
-      lsusb-t: fall back to the sysfs vendor/product strings
-
-Jefferson Kline (1):
-      usbreset: return failure when device reset fails
-
-John Whittington (1):
-      lsusb.c: fix typo dwMaxiumumClock
-
-MingHao Chen (1):
-      lsusb.py: fix parse_usb_ids
-
-MoJl4yH (1):
-      lsusb: fix shift UB and truncated-item reads in HID report dump
-
-dependabot[bot] (8):
-      ci: bump github/codeql-action in the all-actions group
-      ci: bump the all-actions group with 5 updates
-      ci: bump the all-actions group across 1 directory with 4 updates
-      ci: bump github/codeql-action in the all-actions group
-      ci: bump the all-actions group with 2 updates
-      ci: bump the all-actions group with 5 updates
-      ci: bump the all-actions group with 5 updates
-      ci: bump the all-actions group across 1 directory with 3 updates
-
-
---j+14c5xRj1NLxu8m
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEZH8oZUiU471FcZm+ONu9yGCSaT4FAmrZsn0ACgkQONu9yGCS
-aT51HBAAjNx/XmP9uhXKHwxCBfPKMZyA/lJqjWuHnwSAtXs1bhIvYFuCo+DLO6Kn
-v+P0cxotXME2HTUKFhi3slJQN2mCJBH4IwQluDG0jhBgwasB5a8pL9j9WjQLIAex
-EEdW8l7SVsqyzB7Kdvwe9pCCCOVf+9jZaZku4mtMKde79A2v/TUOGpeRVxa/zMO6
-4usSHaX3g+7cUUFzGe3LQRtTsx6+hYVZXpKiWvuuokSMFTUcwCQ+u78/03WOkAlV
-6WL7okGrJOCAg9jws29KB4JtOxj32y9KE2ROKVW3Yj9O+A0g31xvW2tS0QddseCG
-l2XcFNaaH5q/CQBv0La1acpEkYWxrfWfah1U9BOsl1KwMgpzZ1FqRgj9X2+PshnS
-UI9tFhAAROIzyh7nEjzkV58pGQVliwyfV/k8uJKqgteqAOE4eu8HIzua9Cf2iXVz
-pq0Ho4zpPEWIxX3yIya0VSB8bNzsaqdd7+Jri5ARZo0y61729+xAg0aYZYW5e9l2
-qEfk9HchWfjW1KBjVHOP098Bj4Z4LzNmOS4pbjILc122KZQfuk61pwZGx9iGj9C8
-M8oWkb/cgpqGVC202VLaWML7Lkjw5jdBajVcoDaM9IYs7MkDuSEWUFDLApVKM3mc
-RkBuUuOmw7sCQzCkdUtxa13avFabYtj6ldP8ZPUDTCp8SUvjjy0=
-=8dpi
------END PGP SIGNATURE-----
-
---j+14c5xRj1NLxu8m--
+This should fix all potential issues I think?
