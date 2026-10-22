@@ -1,67 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792649633;
-	b=pb61UDeM2d4XcCze6QUytFPGe26GVBeipFWXIcyMa3i0Heq5yhB0+pEZMaLlH10dqNjo
-	 a+kSpqamEsamtxWdILXZe7wg7d0Z21AvL7RT84fCbu3myEDRYcVOPYrI6DTELGBECd3J7
-	 5Iu8vcF1U0FElF/pTAhJCmG6MZgs+KvBymh1sAsG8HPtzNnDaytXquZHpyHXdTg983EH4
-	 b7VZETYHSL3CMJ5acYG/xiFgfVXgQKe4ucIIDMeyF8N/B914LrpgnQRm/k2QvPWvgLrNE
-	 g29JPe++CgDCJoxuC2HRGyd/2VoFSTBgFJz6L8D77+iXxWOfp+KiJlw6HG07aHaUg7A==
+	t=1792649933;
+	b=fhV7pbb++ziXXmuv+LQla8umFL009hyG8HWvLXgaQMuYntroP1XWVHiN0Gz31I6z/Ch3
+	 o5+nqrqpSznLM/dm7ZdZRPTKLneFFSPsVsSHrnwS6dze3BYVViv3FlOf2x5r14qNuJ4m0
+	 IOMQUIREc6P70z+nl1BIWb+turGAtStuugz6AFNj8ALi/By9pvgrGMsvg0F1cGeGDlcoH
+	 8PPCL4tSM7KzVxQjWzqoVu1qYytWfjBAjINXeLU8nc83I4SqpTCVHuuLUMYbVK5H4GLeb
+	 uq8NHMx8h7RaA9Y1kiDm6zF8Q20iPGG1nlEz0NniSXsDHOHR7ppNOmnZCMjoxUUZ8HA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792649633;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=BmgIMapkahKlbfyQzrcwQvh1U+8wbB6XnkC4IJQYK+Y=;
-	b=3h/Qo29jy62IQsjNL5cW6hjMEZNk1eZ5jZ4sKgMROPuYvBN2u1kccIE+BW/jx+RUMqUT
-	 R6jSxRXrWXwFH7Jr3eWd2qnH4ho7LJ6fotXRft5Qi4ACkrGJVrJ3y2ev06bDKg3uG0vwu
-	 qs/1BKSk7qJCzVT3agXdVqtey8iLe3fpgh/AGsk1nydVTxvEOMeKJx01pW3fh3yLt1/hb
-	 HozOICekmt2VeMu1225HVsYvJvCGqEoQvoW69+oRR5bm0Ea4i4r9ax6qeQwQswysq7Bm4
-	 Fj47x1hBPMK18L1ynGws88LJCYuCoM0/3Sl0yQ86uFwfOQhNmr6t0+AxdESs15MbZGg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792649933;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=sdkf6x2nSvsbqLuxdgn1+SU3gZJnlP6tWDG2RxdcBLY=;
+	b=bmsTzLv5gXPtUXuFNo8cTemjsTU5HNCbaSrNXGOGOr+HbBTG7DCkodO3bj4mRls2b/ou
+	 CTCdf38Z+r+XsOhoPAWftcstB3ggd6Tr4gczs+yL8Kyf/xDvj+3UJETxqoqR1zkqzG3Wz
+	 bXSu7fDq+Q/MzuaqZoT3e2cu0syuxsePQa6JyKE5Ie3fdubZ+o7ODLKTUyw6KQ6iepXWG
+	 ICEeNHyNIIXoZOPKP3vuOIjh3F5pAObUONfydcND4Dt/lb+BAvpKfP88VUjLOeu+SumOn
+	 RCmErI9416dWUvy60OlhKCkROi/tEQi7FKed8xmrThTkgh4Gfj2wRkbAGFKCEz2nQOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JTezKpN3;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92150606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 06:13:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92150606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=JTezKpN3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Bm
-	gIMapkahKlbfyQzrcwQvh1U+8wbB6XnkC4IJQYK+Y=; b=JTezKpN3CCTU0OaMKO
-	kYgp0UP06HFSdGEGDpvvyD9edd9RlzLTM8drMne4VLPZpUHPLVFCUHEYsJ7+uE/5
-	Hxur8C0ma6J1+AyGx3kAHJzrrurUYLhXsNa4+2zhsEIab7gnxq4zStOgI/W23xFb
-	bgcQdpr9CumtIdSetAJmulYJk=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3HzFPqdlq2HKKBg--.22271S2;
-	Thu, 22 Oct 2026 14:12:32 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: mingo@redhat.com,
-	peterz@infradead.org,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: linux-kernel@vger.kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	elver@google.com,
-	jpoimboe@kernel.org,
-	heiko.carstens@de.ibm.com,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH] sched: Drop the never-defined $(PROFILING) from CFLAGS_core.o
-Date: Thu, 22 Oct 2026 15:12:31 +0900
-Message-ID: <20261022061231.610118-1-sh_def@163.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAF0606A319;
+	Thu, 22 Oct 2026 06:18:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BAF0606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from ar (unknown [42.86.112.99])
+	by APP-03 (Coremail) with SMTP id rQCowAAHDTvFqtlqS_5rCw--.2003S2;
+	Thu, 22 Oct 2026 14:18:45 +0800 (CST)
+From: Sun Yuechi <sunyuechi@iscas.ac.cn>
+To: Xiubo Li <xiubo.li@clyso.com>
+Cc: idryomov@gmail.com,
+	amarkuze@redhat.com,
+	slava@dubeyko.com,
+	ceph-devel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ceph: reconnect on peer reset even if the mdsmap says the MDS is active
+Date: Wed, 21 Oct 2026 23:18:45 -0700
+Message-ID: <20261022061845.2719518-1-sunyuechi@iscas.ac.cn>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <CAOJNxR+bfs_g7t4qkZyfcWJAd2W51LH0skzzOpSztSZqCjuqeg@mail.gmail.com>
+References: <20261021170613.1144381-1-sunyuechi@iscas.ac.cn> <CAOJNxR+bfs_g7t4qkZyfcWJAd2W51LH0skzzOpSztSZqCjuqeg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,36 +57,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3HzFPqdlq2HKKBg--.22271S2
-X-Coremail-Antispam: 1Uf129KBjvdXoW7Wry5XF4rAr1xtF1rWr4UJwb_yoWkWwcEga
-	97CFs8Kw40grWkJa1xCrW7XrWaq3s8Jrn5Zws7Gr17JrZ5tr98XFyDuF1DGFs3Jws7Zrn3
-	JFySqFn8WrW5KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRRtkuUUUUUU==
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RCP7mrZqVBYwwAA3J
+X-CM-TRANSID:rQCowAAHDTvFqtlqS_5rCw--.2003S2
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYF7k0a2IF6F4UM7kC6x804xWl14x267AK
+	xVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGw
+	A2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r4j
+	6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Cr
+	1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv
+	0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z2
+	80aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28I
+	cxkI7VAKI48JMxAqzxv26xkF7I0En4kS14v26r126r1DMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU8rcTPUUUUU==
+X-CM-SenderInfo: 5vxq53phfkxq5lvft2wodfhubq/1tbiBwEIAmrZhhp5jQABsW
 
-$(PROFILING) is not defined anywhere in the build system, so
-"CFLAGS_core.o := $(PROFILING) -fno-omit-frame-pointer" expands to just
-"-fno-omit-frame-pointer".  The reference is left over from the days when
-the scheduler build rules lived in kernel/Makefile; the ftrace compiler
-options moved to CC_FLAGS_FTRACE in c0a80c0c27e5, and KBUILD_CFLAGS adds
-those to every object.
+On Thu, Oct 22, 2026 at 05:02, Xiubo Li wrote:
+> A few nits, none of them blocking:
+>
+> 1. It would help to say in the changelog that this is a partial revert:
+[...]
+> 2. The reproducer needs the client to send no MDS request between the
+[...]
+> 3. check_new_map() still warns on every non-zero return of
+[...]
+> 4. Nit: "replies with CLOSE (or REJECT if it has no session for us)".
+[...]
+> Reviewed-by: Xiubo Li <xiubo.li@clyso.com>
+> Tested-by: Xiubo Li <xiubo.li@clyso.com>
 
-Signed-off-by: Hui Su <sh_def@163.com>
----
- kernel/sched/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks for reviewing and testing. I'll address 1, 2 and 4 in v2 and do
+3 as a follow-up.
 
-diff --git a/kernel/sched/Makefile b/kernel/sched/Makefile
-index b1f1a367034f..bd6f4e25e686 100644
---- a/kernel/sched/Makefile
-+++ b/kernel/sched/Makefile
-@@ -22,7 +22,7 @@ ifneq ($(CONFIG_SCHED_OMIT_FRAME_POINTER),y)
- # me.  I suspect most platforms don't need this, but until we know that for sure
- # I turn this off for IA-64 only.  Andreas Schwab says it's also needed on m68k
- # to get a correct value for the wait-channel (WCHAN in ps). --davidm
--CFLAGS_core.o := $(PROFILING) -fno-omit-frame-pointer
-+CFLAGS_core.o := -fno-omit-frame-pointer
- endif
- 
- # Branch profiling isn't noinstr-safe
+Yuechi
 
