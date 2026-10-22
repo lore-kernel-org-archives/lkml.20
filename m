@@ -1,47 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792652469;
-	b=PciYXN9TvQPEBpyXDddBwh0Bq1UDX1qDxS+6O9Elm+a76T80LdM1u/fSTrwmg8EpklcB
-	 ijje9F1iL8CC2rFsBlKV7y330nCjw5nQbvIcIw61uiGvNfYSjKPQkpFhnUNC33BXVBHhK
-	 3l8XCde/M47dT9Ju2OtZBH+SGrpDZ52AbmFfmgx+/dCtLe0J6sUBGfy14SncUKLRQvUJN
-	 WDwVbx7+M7WqzMFvGggFPM0aH4odJJnWvFgrREE1l1Wqiy0n3aORd15VIx2ojvQDM47Vp
-	 H+b1KLdDwnHVr+3BjMyo/AjWCqIg3ht8Gsr3mJblvXGZZHVMiSwgy0/lQ1bc+gVZ/Pw==
+	t=1792652482;
+	b=ax1RRcI4XNtTh81m19z9Hx5mdxTyMINOHoq5D90EAnB3okCLQ+8mAaeL4HLO30b64gNN
+	 CsRRqJGtOX4B9q3t32gNid7Oo64UTC6mALADuqrFrAiB0bAfqmcKpQCclagO7j2EgpB5b
+	 Cw17GQd7GALqWzyUDoEOm5D+UumtPd7kfuMatikZXLg6YSY3gJ1cWL7sVm4yCKGMPThd5
+	 dtPp5u1NGzqMi3pdSE8jnCc+Fh7berY0LxnXPZpb+Ynm+wJr8YUYqV1KV4lEDbsSZK9Fn
+	 w1ZIehlBf7dPssCqlJb6jp3Q5B/wZSAzVhgvf7J8KdPd7OiQyJYcLl+93eUcjTdIuMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792652469;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=EXjmarcs8jPMRVcm820ceFNk9nolMb8Iitf1PYFVGXY=;
-	b=tFWFw+gBqyHa4wp4moS+POGl+qHA7f/WW4I1ZFxH5sOC+xKZ4GCIQO/z4tdGVeTffYjz
-	 JY9NC8T+vIpYEZaO0XqgdYKApq+hJjQ59ci6XT2sDt2m619M69i4UanRftJZtmASfXN+Z
-	 M8jq9VHzabJbykDSPG3dbWWDCn8XCpYnNDHZZHV+0LQLuznoWkSKhMbWLwSQizWQfDwuD
-	 Y+FL2Lqmxqkswu1QSrXlsJW9690sspuJJmwou+k20YyeP9C5RtjRuP5tPbVVGBJdSkKX7
-	 qyX/0rhR8pnM2kMDW0oOOGjNtr49sWF4SKQQjADJIaBvPpT1lOdyD5l3m3v61ZXZw7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792652482;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=ltUAnBtou90SNn5Ne2wUoBg+rS3tKtz8jx12czMY9Ds=;
+	b=bjOV3z9pNU0ubrc4Pw2uYXhioQXrqYQShmS6u5c8hj+6jpAmTMC4p037T91Jpls4GFpp
+	 nLc03FCTDP9bhaF+rhCcoYaqJwa2waRUyuQBEFUXanLKLtbKq/UbFwYFicJb+JVu70F9f
+	 wXfhjO6UcRWAMRm7kYYdcahYUjIEGXlFC09SY9C4wVy9ugng6tR+whBd8yStENKeedWcl
+	 h0hwKQ6WUlai5EzAS/MddzMHKzvQWNyMWUkWeDqDkK4TjrD3kkp6vStmLXMZXSaZN1PGa
+	 D5kSHNwliy+VNZvWpmd/Jyde6z+xVaJ64FoemmFqXt37urQ4l0eJfoMrqb02Pnhn/ZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOpcw62D;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WnQq+LMS;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E42C606A319;
-	Thu, 22 Oct 2026 07:01:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5145606A319;
+	Thu, 22 Oct 2026 07:01:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5145606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WOpcw62D
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B6B1F000C1;
-	Thu, 22 Oct 2026 07:01:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792652469;
-	bh=EXjmarcs8jPMRVcm820ceFNk9nolMb8Iitf1PYFVGXY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=WOpcw62DU8gibkhW2vEgsyGAsBB19FUq95K2E9GjjhBhLudBjKFLRWiR6sKZCqFiS
-	 6KsnGELeDLc+J9alftd8tfiYUUlyEcre1sxQWoSGJSNacb4WRGUQNutS5En9/+Oi7q
-	 78ZVVbFzTWEePVavInekIeQ60500OAZq4m8nxVdL4WIDb7lsq9gcG5ZOLn4HPm0eAo
-	 9+k3Uy/RjnlSDtkGneF8USxti5DoxjKo8Hu+qI2UdEu/rlCwgHkG+txWDuaF/MoPz0
-	 2JoIuJ12lRbW5aX0c6HjNt1ur3ieXKfsIW0MxE0Ni1m5Y9+69MXqGJ1pTdghqDc6b3
-	 A7elOM6Ayc2sg==
-Message-ID: <3f657b75-64c9-442b-a609-987cc16f5501@kernel.org>
-Date: Thu, 22 Oct 2026 09:01:05 +0200
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WnQq+LMS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792652482; x=1824188482;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=sxCKi+fB6UvtVKaiMqUH73/SrcAlNTYOkHoZYOedpjE=;
+  b=WnQq+LMSEiZYYwrkcAkBM5RibwrTzr3UE3tr3qVhu9KF9W29WhjmIQMA
+   2XkNlfYGmNNjvrL/gBfrH2c8ZpNbjzq4RGXko0HqmJ5t2KBfKvfmvGXYH
+   afoHjP2K+klwR1njYP6OVG5Zx2JbvtABtHfLcewpF3pKjq4o/XqT/H7YZ
+   5h6FoDnL8+3ynnYR8V+CviK+3hLJkV5Gx1D0rEzSDdc3US9NNUpufxKSv
+   JkdcWvfmeQmzaQX2n3N+WHUvpPNMsSzkhruwhFl/1iANIOZ7YKOkqoY5U
+   8wh6jgoxWTcpgXtR7s5qoIOkD5zFLQu2jKH1FAIDQSmrOjs7003S6srdu
+   A==;
+X-CSE-ConnectionGUID: EXN/E/NyRwiJcGaxpsTm4w==
+X-CSE-MsgGUID: QBecM9ucTa2IYUdUgGt8sQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1292278"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1292278"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:01:21 -0700
+X-CSE-ConnectionGUID: ygzg2km4Tc+VdCIJZWeZqQ==
+X-CSE-MsgGUID: lbV0Lw9HSsa5obFnAv3qWw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3692933"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 00:01:16 -0700
+Date: Thu, 22 Oct 2026 10:01:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Brian Norris <briannorris@chromium.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, linux-pm@vger.kernel.org,
+	Andy Shevchenko <andy@kernel.org>,
+	David Lechner <dlechner@baylibre.com>, linux-iio@vger.kernel.org,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Rui Miguel Silva <rmfrfs@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH v2 00/17] iio: Stop looking at
+ pm_runtime_put_autosuspend() return codes
+Message-ID: <atm0umwtxZlQSAhy@ashevche-desk.local>
+References: <20261021235818.3059519-1-briannorris@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,91 +88,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ata: pata_artop: read the ATP865 mode register
- through pci_iomap
-To: Daniel Palmer <daniel@0x0f.com>, ysato@users.sourceforge.jp,
- dalias@libc.org, glaubitz@physik.fu-berlin.de, cassel@kernel.org,
- linux-sh@vger.kernel.org, linux-ide@vger.kernel.org
-Cc: geert@linux-m68k.org, linux-kernel@vger.kernel.org
-References: <20261017041419.311921-1-daniel@0x0f.com>
- <20261017041419.311921-2-daniel@0x0f.com>
-From: Damien Le Moal <dlemoal@kernel.org>
-Content-Language: en-US
-Organization: Western Digital Research
-In-Reply-To: <20261017041419.311921-2-daniel@0x0f.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021235818.3059519-1-briannorris@chromium.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 2026/10/17 6:14, Daniel Palmer wrote:
-> artop_init_one() probes the 6280's "fast" bit with inb() on the raw
-> start address of BAR 4.  That address is a PCI I/O address, which is
-> only a usable port number on platforms whose I/O port base maps PCI I/O
-> space one to one.  On an SH7751 LANDISK (identity io_port_base, PCI I/O
-> window at 0xfe240000) the resource starts at 0x1400 and inb(0x1400)
-> dereferences that address:
+On Wed, Oct 21, 2026 at 04:57:01PM -0700, Brian Norris wrote:
+> Similar to this effort:
 > 
->   BUG: unable to handle kernel paging request at 00001400
->   PC is at artop_init_one+0x10e/0x170
+>   Subject: [PATCH v1 00/23] PM: runtime: Convert pm_runtime_put() to a void function
+>   https://lore.kernel.org/all/6245770.lOV4Wx5bFT@rafael.j.wysocki/
 > 
-> Map the BAR with pci_iomap() and use ioread8(), as libata-sff does for
-> the BMDMA registers later on.
+> i.e., commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
+> type to void") and friends.
 > 
-> Signed-off-by: Daniel Palmer <daniel@0x0f.com>
-> ---
->  drivers/ata/pata_artop.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+> As with pm_runtime_put(), there is very little value in return-code
+> checking for pm_runtime_put_autosuspend().
 > 
-> diff --git a/drivers/ata/pata_artop.c b/drivers/ata/pata_artop.c
-> index 9f8d41639a62..351ff4c8e48e 100644
-> --- a/drivers/ata/pata_artop.c
-> +++ b/drivers/ata/pata_artop.c
-> @@ -405,13 +405,21 @@ static int artop_init_one (struct pci_dev *pdev, const struct pci_device_id *id)
->  	case 1:		/* 6260 */
->  		ppi[0] = &info_626x;
->  		break;
-> -	case 2:		/* 6280 or 6280 + fast */
-> -		if (inb(pci_resource_start(pdev, 4)) & 0x10)
-> +	case 2: {	/* 6280 or 6280 + fast */
-> +		void __iomem *bmdma = pci_iomap(pdev, 4, 1);
-> +		u8 cfg;
-> +
-> +		if (!bmdma)
-> +			return -ENOMEM;
-> +		cfg = ioread8(bmdma);
-> +		pci_iounmap(pdev, bmdma);
-> +		if (cfg & 0x10)
->  			ppi[0] = &info_628x_fast;
->  		else
->  			ppi[0] = &info_628x;
->  		break;
->  	}
-> +	}
+> Checking the return code is more likely to produce a race condition
+> (fighting with user space writing "on" to the "control" attribute) than
+> to tell a consumer useful info.
+> 
+> Because the IIO subsystem has the bulk of drivers that inspect
+> pm_runtime_put_autosuspend(), and because those drivers have a lot of
+> other issues touching the same code (which Jonathan suggested [1] I
+> fix -- I fix some, but not all), I'm sending an IIO-specific series
+> under a v2 label (since many of the changes are still borrowed from the
+> earlier series).
 
-This is really ugly... Please move the "case 2" variable declarations to the top
-of the function so that you do not have to do something like this.
-
-Of note also is that this switch does not have a "default" case, which is really
-bad practice, even though in this case, we should never hit unknown values.
-But I would still prefer seeing something like:
-
-	default:
-		pr_warn("Invalid driver data\n");
-		pci_disable_device(pdev);
-		return -ENODEV;
-	}
-
-or a big hammer:
-
-	default:
-		BUG();
-	}
-
->  
->  	BUG_ON(ppi[0] == NULL);
->  
-
+After three patches I stopped because it seems more works needs in each of
+the individual drivers. Yes, the series can be applied as is in exchange for
+a bigger additional churn in the future. My preference is to see everything
+settled down in a single step.
 
 -- 
-Damien Le Moal
-Western Digital Research
+With Best Regards,
+Andy Shevchenko
+
+
