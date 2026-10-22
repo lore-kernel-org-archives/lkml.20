@@ -1,83 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792640946;
-	b=iD3MD99GqdVo8pI9iktBweoCXM2yFMZpPThZLZJGQ2cyMxZB3AD9rToRnIqd/8HmDr5b
-	 DSUDndVxUtT/KnZ0zUqfutWLctp3xng19X0ejqocaRkA64hMdCS4Vf6KVcW7B217LvqHa
-	 iIrZ+o6crp/LO+itI2m2KwalyRcD8d1GX03UTJs5ZlJPRCNQ2MDefjyXUeqN7AvCp6SDd
-	 ykSxgB/kIHUwq7Mnwf8IiE+mfYDk7vMw1TAeH46wFrQJZ4xV0Z1FcXurt9jbIfgw45BK3
-	 WxgmfIl6ATWEmVpr1R7whk32sIfNt8CGE/Fx7phP7qAg3pR8Km8VFH/Fjx+tX0+NuoA==
+	t=1792641052;
+	b=aI/cpFjG2gn7MWF2+QYRTU6+L/M4L78OIePXsg4fsCj3keQRZn1KbeqrRCtw/OMvRquL
+	 +vymoorqycgsrhlsdmm9WtNeB1+S9lTMdR0zItMVJntqr0Lenta1KpU95vJ/FWL0idftg
+	 r6GenSxl9O98UmzLb7SX7j+gDGwleMuzdHwke18sJIoD5dqqnvBbn17rsrUJWVLUHejO9
+	 EWacsvKO7AMdqjF5lPBZWhF5BBr8H/eOMETU6A1EJML0/3szUD7jbeS+4/b1ewNHM4Mu+
+	 OCvTvV9tKuKzZvZr/RgBIpZxCiw+3UutaeEuf3Ikb/IY/fq0x4fL+shDQrdCCh/7Cig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792640946;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=LmqgZiFbRAvIkPr1jApL88Sp8XKHBPCBhtR5scBhfNA=;
-	b=iJrKssP8FTTWrbMPxPrAy9vXx40OX9o1axpl0SWpTdLwBQUNnLFpz641FWhelvO0rmDV
-	 TRMZQU+HgC7ycRODaQOuk6UZkh3Bb/L2dHyaZtfDye8SiTfnORMJ5rqg1tyvNK9cW0J2o
-	 ZQ+7bAcfaXBVA5gb6oktJpJn0lmR8eT7G2I1nu23xPsZa9faZzhgxtREwWtDwuVB5Zi84
-	 9t8Gh65Izr3Gs1xoFJ8sMnRiE07I8+5SY37iatsxkaep9r2hLtZMA/EIZVVVyEmXzLVNF
-	 rSRMTEar461XsJYbIOKoMcJ80LShb4kQDxt3jvZgdL/BXRUPDIeAZYnaeEKeBTFMeaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792641052;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=JsfUO8dXWDpAInx7mMxTwcH6GSdHX/xaEyBCjjhsbp0=;
+	b=hHgcIlqPFcEi+rouOJ9IjjzWQ+Q2IF6JuVrtGWU/6IkJxVeMsC07vvuy3mQQhAdJk8v1
+	 ez+T67dR3n/nZXNwcURT8cSABLQAP3wDkKjAYNCDVOUULNr7nQsvX8NKMOZG/4BqeALe1
+	 d1BNC8VBPf3T/t17FjXJekT4ehbGemZeTx3XddzMKOIM10tevzziS8pfz53T/5HT9RKjr
+	 L7+oj2+YT3XVADzBxurRB162gi2svqCOr/DX7kIP7BTsI++dx4ZmNoqr+wzZratdXAw89
+	 9wHjK0mHMWiRkIDBHJCY4kK37/2zS16Y48p59CHo3oS5yeowOe+156kNoO6NSPUxXew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b="nWb+lQF/";
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ClVBXC5T;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0944606A31A;
-	Thu, 22 Oct 2026 03:49:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0944606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4C19606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4C19606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=nWb+lQF/
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 69M3n0F71575595, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1792640941; bh=LmqgZiFbRAvIkPr1jApL88Sp8XKHBPCBhtR5scBhfNA=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=nWb+lQF/rifEr2sK22hyX7BuRLrMJ22prS02avnx8ERFlOAUOEkxSSxJusl/E4FMc
-	 9zAR3eAuaks1vMV48oxMnYdEhgC+pjln2jn0VnztVQHAnx7w2Az9spFFYLMkKsfRJa
-	 R6qjjYszxF6pykcZb60DcRvS6wI4ScicFlBO3W/khi0fcnkySSLVVcRLu8Yr3zrY+Z
-	 BZ68O3gziBHuF+R7XNYxCbbRp3V4U0WxlCVp9UNG7YepTLzK01BodYv7OJqq29Dmty
-	 bOqZshSg8XmiwF/nfaJnNXXBMz4sf0zqoRYV3Q31pRlYhfikuqiwKoOZqPRejfHQvS
-	 qyJp6UHjtAYoQ==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 69M3n0F71575595
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 22 Oct 2026 11:49:00 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 11:49:01 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Thu, 22 Oct 2026 11:49:01 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
- 15.02.2562.049; Thu, 22 Oct 2026 11:49:01 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Abdurrahman Karadag <abdurrahmankaradag19@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when the
- rings are reset
-Thread-Topic: [PATCH rtw-next v2] wifi: rtw88: pci: wake the TX queues when
- the rings are reset
-Thread-Index: AQHdWO4MPV0dG/pKrEyzZWvhd4YBNrb5eb7AgAINFoCAAMEoQIAEANAAgAPLA9CAAz37AIABqy0w
-Date: Thu, 22 Oct 2026 03:49:01 +0000
-Message-ID: <74b5ab33c8a3445ea45d2f5d0c8d7387@realtek.com>
-References: <3c588aeae8f74a8caa39aa2852bce437@realtek.com>
- <20261021101356.1976617-1-abdurrahmankaradag19@gmail.com>
-In-Reply-To: <20261021101356.1976617-1-abdurrahmankaradag19@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ClVBXC5T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Js
+	fUO8dXWDpAInx7mMxTwcH6GSdHX/xaEyBCjjhsbp0=; b=ClVBXC5TK7b2vIHt/L
+	NRUgP36cvCIP73CLpEOPwoEBNmUPN00DB7MaiLx41LZ/8qUyzM5Wmhw6MuJdLHqt
+	/MfPF2+V2CV0Tm19u0YgdJAk3X/vKw5XEEnu08JGBYN+MpeiAhu3s5Ui7vlPVJuP
+	+q+V4MiuNP1IMzCMsf9v9eTCg=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDnT7zKh9lqFjoMCA--.35041S2;
+	Thu, 22 Oct 2026 11:49:37 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org,
+	Hui Su <sh_def@163.com>
+Subject: [PATCH] sched/pelt: Fix truncation of the PELT period count
+Date: Thu, 22 Oct 2026 12:49:30 +0900
+Message-ID: <20261022034930.225042-1-sh_def@163.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,27 +68,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnT7zKh9lqFjoMCA--.35041S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Xw1fZw1UXFW5CFWkWry5twb_yoWfXrX_Xa
+	1q9rnrtw4DtanFvws7AF4fWryxtayjqF1rAw47Wry2grW5KFs8J34DCFZ3Jrn7X397JFyD
+	Cr9xtF1kGF1vgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRNHUqUUUUUU==
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6hInhmrZh9II4gAA3V
 
-Abdurrahman Karadag <abdurrahmankaradag19@gmail.com> wrote:
-> > I need your help to summarize the dumps. I don't have much time to
-> > analyze them. Sorry.
+accumulate_sum() computes the number of elapsed PELT periods in a
+u64 but returns u32. When the count is a multiple of 2^32, it is
+truncated to zero even though the PELT sums have been updated.
 
-I meant if you have more dumps in the future, please analyze them and
-give us summary.
+The caller interprets zero as no period boundary crossed and skips
+recomputing the averages, leaving *_avg stale relative to *_sum.
 
-> They fall into two main groups: stalled TX rings, and a dead link
-> despite continuing ring progress. In the first the hardware read index
-> stops advancing while the ring fills behind it, and in a couple it had
-> filled and the queue was stopped - the state v4 clears. In this group
-> recovery was observed only after reconnect or interface down/up. The
-> second group is the larger one and I have nothing for it; that is what
-> the monitor capture would be for. The patch does not claim to address
-> every link loss.
+Return only whether any period elapsed, which is all the caller
+needs.
 
-Let's me clarify two groups are:
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/pelt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-1. stalled TX ring causing queue_stopped flag raised
-2. link (connection) loss (not clear yet)
-
-Ping-Ke
+diff --git a/kernel/sched/pelt.c b/kernel/sched/pelt.c
+index 779eb58a4261..519bc9c40043 100644
+--- a/kernel/sched/pelt.c
++++ b/kernel/sched/pelt.c
+@@ -146,7 +146,7 @@ accumulate_sum(u64 delta, struct sched_avg *sa,
+ 	if (running)
+ 		sa->util_sum += contrib << SCHED_CAPACITY_SHIFT;
+ 
+-	return periods;
++	return !!periods;
+ }
+ 
+ /*
+-- 
+2.55.0
 
