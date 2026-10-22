@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792667574;
-	b=zmuG0ZmTBaqCAkmZf292dSwqJJGksxAgxaJVchIUoaazpwy/4AwcDPQfcSiiV0xRY6B9
-	 6AfGkjz7S5TtIWFXi0wLk8C1MXbcSbl1zpJx9tK2c2JV/Mczt/uq/oCx6CI9vVgELu9rL
-	 NfH8nPhBuIaHeEDMhWjUUydCwKSMOLAYNWj+en0zxj1rGKLGLVi3Sjb0otTPPNkqh6gsj
-	 T0EVbw1AmhJV48MgHNBhhAb30i6cn5ieGYeGTNjMlq31E6fnaQuktmHhn7zvMTng3qvcW
-	 nu/cJeuR5LLRjbAEgXDzUWdcJjIvZ3KE4VHz3/GhLwwqeGrUnFDcES2lWxnYlYVGA3g==
+	t=1792667580;
+	b=48C+wlNGYom58a7l1yPrPg5+S3BNVQZoJmT5Iuns2Mrb3cB7wTZ0wz3bRJhfP7b2Yvfx
+	 xktpMvOhYk3noBVnuLtnacjhdVxl2gzqsvFgYdFDBtjLBsnbIvl+k09NId73Ksus+mWiM
+	 zRcwSUK8Tk5qrDF9mCyG7DmowDM3lcAMpUWUF5UQrKAVgLfVweomvWBoVMZ2izEXJ7ogX
+	 LGx41rFsFB6xpWFy/SkpdFPDD/KxlMrCUn3CUGw/TaRAFgZ32Oym5Jlc5M73ANWaDIHwo
+	 YwlvfQFxHDpH+WWgBoeGCLq+u5mBcP1Ao8eNr8ERIxh99Uaz1GbplKWT7Mj4x8DzJlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792667574;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792667580;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GgDo4vP1xHG06cdv66t6KcA+DO/n1085uQpIt3C0Ugo=;
-	b=za57HIODHf7X9G4eUN45qAWvYUEeouDs7L5Dh63TuJJp9X64RLGfpcuXgQbvfLdXo5HD
-	 GJhRsxtZDjsDG28QfiNe6OsevtWQKsJtC4NVTexF9OthMyM1avmRQU5qYSg6qJzwnphC4
-	 cD3CKp6dj1kUUYFHwZdbvrd9omy3PePWTIf2UND4M339p7ChhwPohl6c9FULesaLheBqL
-	 kHnG4vIsZsSrlGeKP1xRCnVfKLYGDGCXBISlBuZu7IJ2A4WIll4WpamGMv2oqin3f7Gh9
-	 lQtzu32u8eiY7YF9rBc9CMezJ4rOVa4W4kzTouxM19dzEWBEsDFdaaTz3Sx1pvFp8ng==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uhLtiQT7t6ajo473ebLicX49UUv+Dvbpjn9PDNkFvIY=;
+	b=m2O+3r91aKvsfhRpIqypaufQTJIhyMV5mw36xNBMVrn/3ADAy+5tZC/AaDPXx4m1v0cU
+	 7p9WvVlhJ0PrJLDxysv3ZEbpc8OVZU9QEybFkzhr/tXc594uGCPt3yhmDypCxlduxH0B0
+	 eVfMZRU7STnG+gE4Lvw5RYsFAW4NJcVDWnIDMtm4713BaFRrVvI/AjLPcrTIOqVrmXCyJ
+	 tDdiBhHYLoawIyfC9OEDse2Z9NNP5KlnNJ7vUmv3uB9JgbDOtytQ5FahnW6MwvnQPQ50F
+	 n7PgBIqNgKFwR0AinNRbOxGho9RQUMyKjv9k+sYWScQKBUi6GGtsq8KEQBIt8rMZH0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZcTQ4KX2;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GVlifdhM;
+	arc=none smtp.remote-ip=74.125.82.173
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5A6606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE5A6606A31B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBB5606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 11:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BBB5606A31B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZcTQ4KX2
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-368581df789so953681eec.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:12:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=GVlifdhM
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1366417eec.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 04:12:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792667573; x=1793272373; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GgDo4vP1xHG06cdv66t6KcA+DO/n1085uQpIt3C0Ugo=;
-        b=ZcTQ4KX2ntDRRIv4SBZYFcVfL7jnVW4UQvhEXGWiWO2WaAXbf6L074aFxyEF5iD3VU
-         4TFuic1S+pCJGiSI35lB4I7yYkRHGoOHkXdWSQQR4U3pV/n4zJyPtm5tJ9to/ZtLygIL
-         le71bgQxKUPJ3MyAo6g+jM3qtoi2NVbf5Tu1U4XLU3wq22zUyKosor89B0sLXvg0yDIV
-         3DGnLQGNFIpxfp8p3/AE3QP52gMje/KQmxEVfnDkaKCDVcPIHw+3dGzlspUpR5Wj1XX5
-         GsY/RV6Ly2TXnB+77J5z05vj6zruUmcCqE0FNG9s5P/kBrLI+wnh5D1vQfOLRbScC5sV
-         x3gA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792667573; x=1793272373;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1792667579; x=1793272379; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GgDo4vP1xHG06cdv66t6KcA+DO/n1085uQpIt3C0Ugo=;
-        b=poBotWUHeNHlIsl0mh5rQ3L3o7fEVgvDnuwFHE1p49zXEXujwnKsIuSJoQoYd0Rxkb
-         c6JDZMTyY2k9y7cphe89BTP5ulkMcsfqd4YeDE3SkcX3ihQa3qCwD2j9rRpchHfbPXFT
-         2+HBxyb4Aru9qu5ybVDLDIkqtqyNQQTZXZFWNWwugQL7Y/4+6VPMHIzVHQKRuCt6dKID
-         VGy2r5eLNfreobiw+49Igl67nDaQC4V084m9UPCGRzNsoHCAbc5H1fcVdBC1u4HsBU/r
-         5WTC+q2+G7KaIFIZ3sw7RxrkFAMdYes6y02i2tm6FrKxDc0te/5imICW3xg1P9UStUfW
-         39OQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzas65lh9JAd0UlQ15BLljELIS9za714oOoVepc7H27oKAfFdj7sw/9e8/Noi0TD+hPq71ou6fC2mavXog=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcNkELNXJzlY/CYrNsjwkR1+rc9EON3QL4ASoQ+FN5Vi+GXtKA
-	GkHs8JLq9JL2OvaNGV3DULym1HL1zShK+v5xFzrLD6FYzFdzNew16zTY
-X-Gm-Gg: AYBFou1hRiM4Gl/Gf76u6Q9W2NNpB/uIxE+x+eO5G6P+JHoC4FJ2P5u6nvugza2PPW5
-	LPDNttqxvGAFg0v/4/7B+TSe4PFjUQYvQQjJmr4xZFSa6f938FgBUtfmVN3vO4DOAtBVhZzhdUk
-	0oLw2FmPyhu+4XwFqUfFO5dOVITXlceVM7ybA9ybwIVMZeyW/5b1mtET6Xt9asOYBDZYuII//QS
-	6aTtJtjwpOMjMYXytAOHp0SaJwWx5csT6L6A2a7ht7nfZ+jqTCl3P/4SEmOSAw1KvMrzPbNzeix
-	zjAONLyIphH/Vw6VJaWmXjlQZJErlTHRUTync54/zcYE/cqtaTMMD7mgeuCzXwrKDJVcKYwuHU3
-	m8tXANo30W0D+M1FJWZPI6m2bIvT1M2OE7vHojKzLyXQ0xtIhlgRuYHs6SJT4ogIXbHIACvm7B/
-	7V3QOt/+BKrMHzs60VGmeBYFJ6EkgVEt5JSQa88ilCEyTXsR0qVgENOcsfA86Nhxc+N6Esoe6ma
-	LUPlTMPRNs2z4r1mr1BMYEGPajWzz5CsghawdXWwNY1TQJr42I8PngouwhQsPwR4tysFItDNS2O
-	RotTCjFbeF0+QoaowV7CSjWtQ/KRlH+jwYMiiLA9Wj2pd9TNGd/PwlmOqFZBVL51bjrkqmWBMQJ
-	+EbY4MSoAmeFM
-X-Received: by 2002:a05:7301:4392:b0:35a:3b98:b428 with SMTP id 5a478bee46e88-368af6a28c6mr2581832eec.12.1792667572921;
-        Thu, 22 Oct 2026 04:12:52 -0700 (PDT)
+        bh=uhLtiQT7t6ajo473ebLicX49UUv+Dvbpjn9PDNkFvIY=;
+        b=GVlifdhMD8peZksqyC6MnS7qD+0lfFkn24BKyxAmJI7BVH1EiCH6cO0jGnFHNGRWXX
+         6UHoo9GYJnNNIYOjysaZOa3YZ2YK34NJ2BD6einTFyUg3t7iK7dqDH2UgzviMn3VR4k9
+         rILnvDAmjRllXbgAIj8fMPvUa+mMWs3YSzY4YQ11kWHpBszPHDrzjoyNY+8kStoBi0nA
+         5lM8860Mswqh2TDrmPZIMgkBgsHpw2GlR+mR3nf+fYKeXPaQOJZ4EThy+3V/CZo+Yea3
+         6f5rYL4w1vQQTNdOiMCb3FisOqQsuWvSkgh4W/ag9VMCj2z2nyn4TFgFaY19zngFdWH5
+         OHuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792667579; x=1793272379;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uhLtiQT7t6ajo473ebLicX49UUv+Dvbpjn9PDNkFvIY=;
+        b=zhLiunxcJ3gAGO1psNL1cRzpRdj5lWz9TiI5uvUwFK1OE7H9fjPO8Q/qULfJqo+OTD
+         MCL0URF857XYpP223zw/4oTtazAWI0YDi3WwQSIAUa6Gs1FkkzhVU3u67lTj4ml1ciPo
+         7wvkm4bMdwrVSa+faYQV079TcUwzKoDCIvI+tPh4flThqMHXgvuJOI7C/qtwWZH30yVo
+         BBiujGBP3JMyZArADogkuwjGUJ/2IibQ2hsVwTyXa9eKIkTgag/VwwmF7RbuVTFGKiPz
+         hMMXxwRsJl0Wrm4rlnwRPdovIBsrYqC+34qCApHFxU+ASwkAONR09cQFm7UL6c8PKwzH
+         rj9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxamDPU/jcRLeFqjM2s4/W3PbQlNMav6GD1IhcS9uoqVvnpTQmAUeoqsQbRb69dHamOPHp1hNOeAvn3QrA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7/4oeqihqm+9xsJ48XMohEa0FSG5UpYRpUkW0z5tH6fklv0P3
+	XaygQWMtpAiEDi/g1jvv+vkYQbuttfq6PMGXtl55NNmSrqQ6X/2KKy22
+X-Gm-Gg: AYBFou2MXSNubHW+3H7HpSSdlq+BfIyV6qphlXUenaEMKtOU2LJoWJTtzSmNIrYB0JS
+	vtzSolnxV2iQavky7kcrLo6hqJmRfc4OJOPcF4rs+HySe4P9ROtOGspiLuQAid503iUUxoGeZDx
+	RnFly1uCrcbwSYdJop9LcuXHDN8Fq4/KhSHnpMl9EGDhSjVDpZGckFRfLeb/k4W7VKGDFky5SQC
+	YzYnxIdwNk7rzWfk6QN/V0BWVoI7ZbHLAxFCThqH6dC8wOLvlzkv/K4r7XG5+S0bFx/Kcu5L7A+
+	WYyf0ISANTQ3WMMo6Sd2DpSUQ6a6K6jgnu866Ljy41IMCdZMogGPvXi3OJyt0w6ZyBNL22RHXWd
+	zLLMGQ7v+GweIZxKs7L3iz8mXUwZpJ4b/mMaky+0HVHWWFx5fqhEH6UCscq/pe993wzQwq/X/h1
+	dn9qD4b9BQDG5Frv0GsDBf1JDpgLUmPpVqcVjgPJ03LTh2X4CzVGhkLLKajwS8zjxLg18iEx6d5
+	DxSxOixojkPKUVoiPgxKIn5OPi200N5PahSA+8B/mjMSBEIJxrsg60TpVOoJW1lKqm3sK+WaKUf
+	VkKAC61LjAyXRE+ebehv1CSAseEu+016SEvoeYiViyIO/G5JYx/4/XxFdMjoqZ6orD8=
+X-Received: by 2002:a05:693c:414c:20b0:358:2e30:8e5 with SMTP id 5a478bee46e88-3674b62ecdbmr7545567eec.1.1792667578429;
+        Thu, 22 Oct 2026 04:12:58 -0700 (PDT)
 Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm6369653eec.5.2026.10.22.04.12.49
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-368ca914bb8sm6369653eec.5.2026.10.22.04.12.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 04:12:52 -0700 (PDT)
+        Thu, 22 Oct 2026 04:12:57 -0700 (PDT)
 From: HyeongJun An <sammiee5311@gmail.com>
 To: Takashi Iwai <tiwai@suse.com>
 Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
@@ -88,10 +88,12 @@ Cc: Ivan Orlov <ivan.orlov0322@gmail.com>,
 	linux-kselftest@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	HyeongJun An <sammiee5311@gmail.com>
-Subject: [PATCH 0/3] selftests: ALSA: pcmtest: Test error injection and pause
-Date: Thu, 22 Oct 2026 20:12:41 +0900
-Message-ID: <cover.1792660433.git.sammiee5311@gmail.com>
+Subject: [PATCH 1/3] selftests: ALSA: pcmtest: Move the capture data check into a helper
+Date: Thu, 22 Oct 2026 20:12:42 +0900
+Message-ID: <2922e4e3021760ebed68b8e44b80fe0b2e3f1d9c.1792660433.git.sammiee5311@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1792660433.git.sammiee5311@gmail.com>
+References: <cover.1792660433.git.sammiee5311@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,28 +105,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The pcmtest driver can return errors from its PCM callbacks and
-supports pause, but the selftest covers neither. This series adds tests
-for both.
+The capture test checks the captured bytes against the patterns in an
+inline loop. A pause test added later needs the same check, so move the
+loop into find_capture_mismatch(). It returns the offset of the first
+wrong byte, or -1 when all bytes match.
 
-Patch 1 moves the capture data check into a helper, so patch 3 can
-reuse it. Patch 2 tests each inject_*_err parameter. Patch 3 tests
-pausing a capture stream.
+No functional change.
 
-Tested on x86_64 with the sound/for-next driver, built for a 6.17 host.
-All 10 tests pass in three runs. To check that the pause test catches
-real bugs, I loaded two broken drivers. One keeps running on PAUSE_PUSH.
-The other restarts the data on PAUSE_RELEASE. Only capture_pause fails
-on each.
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
+---
+ .../selftests/alsa/test-pcmtest-driver.c      | 29 +++++++++++++------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-HyeongJun An (3):
-  selftests: ALSA: pcmtest: Move the capture data check into a helper
-  selftests: ALSA: pcmtest: Test errors from the PCM callbacks
-  selftests: ALSA: pcmtest: Test pausing a capture stream
-
- .../selftests/alsa/test-pcmtest-driver.c      | 167 +++++++++++++++++-
- 1 file changed, 158 insertions(+), 9 deletions(-)
-
+diff --git a/tools/testing/selftests/alsa/test-pcmtest-driver.c b/tools/testing/selftests/alsa/test-pcmtest-driver.c
+index 18ee72d5d4c9..fc4d12542808 100644
+--- a/tools/testing/selftests/alsa/test-pcmtest-driver.c
++++ b/tools/testing/selftests/alsa/test-pcmtest-driver.c
+@@ -82,6 +82,25 @@ static size_t get_sec_buf_len(unsigned int rate, unsigned long channels, snd_pcm
+ 	return rate * channels * snd_pcm_format_physical_width(format) / 8;
+ }
+ 
++/*
++ * Check interleaved capture data against the patterns. Return the offset of the first wrong
++ * byte, or -1 if all bytes match.
++ */
++static long find_capture_mismatch(const unsigned char *it, struct pcmtest_test_params *params)
++{
++	size_t i, cur_ch, pos_in_ch;
++
++	for (i = 0; i < params->sec_buf_len * params->time; i++) {
++		cur_ch = (i / params->sample_size) % CH_NUM;
++		pos_in_ch = i / params->sample_size / CH_NUM * params->sample_size
++			    + (i % params->sample_size);
++		if (it[i] != patterns[cur_ch].buf[pos_in_ch % patterns[cur_ch].len])
++			return i;
++	}
++
++	return -1;
++}
++
+ static int setup_handle(snd_pcm_t **handle, snd_pcm_sw_params_t *swparams,
+ 			snd_pcm_hw_params_t *hwparams, struct pcmtest_test_params *params,
+ 			int card, snd_pcm_stream_t stream)
+@@ -207,9 +226,7 @@ TEST_F(pcmtest, playback) {
+  */
+ TEST_F(pcmtest, capture) {
+ 	snd_pcm_t *handle;
+-	unsigned char *it;
+ 	snd_pcm_sframes_t read_res;
+-	int i, cur_ch, pos_in_ch;
+ 	void *samples;
+ 	struct pcmtest_test_params *params = &self->params;
+ 
+@@ -226,13 +243,7 @@ TEST_F(pcmtest, capture) {
+ 	read_res = snd_pcm_readi(handle, samples, params->rate * params->time);
+ 	ASSERT_EQ(read_res, params->rate * params->time);
+ 	snd_pcm_close(handle);
+-	it = (unsigned char *)samples;
+-	for (i = 0; i < self->params.sec_buf_len * self->params.time; i++) {
+-		cur_ch = (i / params->sample_size) % CH_NUM;
+-		pos_in_ch = i / params->sample_size / CH_NUM * params->sample_size
+-			    + (i % params->sample_size);
+-		ASSERT_EQ(it[i], patterns[cur_ch].buf[pos_in_ch % patterns[cur_ch].len]);
+-	}
++	ASSERT_EQ(find_capture_mismatch(samples, params), -1);
+ 	free(samples);
+ }
+ 
 -- 
 2.43.0
 
