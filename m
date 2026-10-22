@@ -1,151 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.36
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792664451;
-	b=GL8AlPr3cmfKk+4UXNaqMzX5pwldphO2Ww7odBPetysK4sMi6s2YwgU7px3XVk9z1Mgf
-	 pYcGQkcVWZoCgobxVLw8a2FxXnIdTX5JurCVBhGYChF483FmO3dIJToiSzg7IOj7PdO98
-	 nGp9D6u91jhsmwQ+E9kt5B3mnMvfpUD/fjMx6w0GsNX1Z43dnxIKfp6RggTARbGq6A4I4
-	 3iW3Ux9W2CfuYN9pY09KseX6CmPMOUdgvYgLt5DNmgiWLX5MTKUjehYEPwqv9F3ktcCum
-	 ebHxI/02cjCLGyDoiPdin0H4WSEEdJ9fbsN9DjmiCiM8kG+B6uLMdB3+tvhU4nG7sVg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792664451;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
-	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
-	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
-	 msip_labels:x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:
-	 x-ms-exchange-atpmessageproperties:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=aYBzU/XppeheFXFmE5BLeoFRNMT681CX4S0wIhaXofA=;
-	b=AL+Y/Vgqp8yOX672t7RaYD3LYtYg8f0g4R5CQjdsJGSMSBMzwKitgCB2MtdfrcFQBEet
-	 txsTHwVhl+oCCPDsi/E9gAvcGwg0Bhpb3sZ4xMWpA8yOIUuYTNbvxOALmAO5vJf0CmG9Q
-	 XDRepMmuNngBGOgiy/f3FYu9Sni7cTySSi+Kh5wzOleo0KnfKfk9pLR+E33cEgnNFjccu
-	 FfCOQstRsJ1+6opv0keS8h8fwEf9jV4ptrTpN+bNOonyWq8XR+YiZN8nL28H38ctNeUTr
-	 Y4WFgqlFTw4cpangAN8qnia68nxe0yjAmVUZRjqU/h7HY7J3R+JywOs0RyRfxNNh0qQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=einfochips.com;
-	spf=pass smtp.mailfrom=einfochips.com;
-	dkim=pass header.d=einfochips.com header.i=@einfochips.com header.a=rsa-sha256 header.s=selector1 header.b=suS+fq5r;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.36
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012036.outbound.protection.outlook.com [40.107.209.36])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792664492;
+	b=zh3/Pb470XD5u5OjwBQIkd4XLUvQa0qxRY8LgOYKCptOX7lA7tOqIXZCD9I4+kC5XchF
+	 N/jkH2DYXCTmk+9Jepr5ZsjcJNNj1jfpXFNgXwbGR3AM0azmyavZFvBCHkdmukzhFQN1s
+	 N5sI0cxJKy2ZJ8LJxmj9dklMRaJBHckNqYX8fuWyjpuRbcfkCao+hIpNPRiLBwFpLkzLc
+	 P3FvCKUXDD8mbz6X+UHxdXPMpjvK5RvZ25tqkqVpisfyAYHN2kS2Dd9ydopoQlbIf4PRn
+	 y1ntmPlT705z9U4LUP8PvYum+FQlZ2CabkvJrk7cww9HmlyzxjQLv14MJM99S8XgMmg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792664492;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=YBxTUn7ywMgpmSnO6blmLwOaVhY7BWSoJVdPqCPYsuk=;
+	b=rX1eb6kdP+RauVESAP/rWH3233X0BEyXxy5MXUY4WB5zB7rgBsHhk3ov8j4/1rCxaXXO
+	 rCHCUoL5pkNAv3IUMiiv8wPmVZqeK7tCTcW+OLlm8qgNNOO9aPmB+UP4uzu5tyT+71TcT
+	 upR0vdEnw7RhdYa6XLHqLqYUwzRuGT8wogdug4BTHfKnNpVOeq78Qc+d+cBda7ebeZmld
+	 T4Agkb+JnOtxSYelWeTztEfB7XHuGuMecjJ6srfGY8qFb6AuxyhYWkJmZ0Y6rZVYqbXxr
+	 J7MvTWTW3W7O2D+1P+0Zby4t/oIJuy6sr0Qg1TgtnnUGIrgoKWXM/5m7t0nj9HscA4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E43OUbuz;
+	arc=none smtp.remote-ip=209.85.210.179
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B50B606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:20:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B50B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=einfochips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=einfochips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3993A606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:21:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3993A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=einfochips.com header.i=@einfochips.com header.a=rsa-sha256 header.s=selector1 header.b=suS+fq5r
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=voP3I5d7tZnNnCS3rDboqWiLEnPb/0R1jIeAcatDhfrM9F1zERhZg+WwL+VOhRiI9TJ9VKmVZCp0od0T0BwZsBkqnuIrJaCOL1GwAQvRiTKlsoj6lbQvSt858Jxa/hFZN7yTMVockr3KGwU9R9fFNN27xpFeguf8ybm3lDNnKKVNLFBvA2OBwqPMXABEWugVrSamhNPj6Gy3T1vbvjqvOWNvxxAzdCZJY1lgtFtyA9ND4E+SbcyjlAnzCY2LGKahQ6aBnBvQ+KtqFCpElLxkpuOF5O19KWE5xVKGUfmosQ9PCHlttiSZ4xeCgiW+hloXWT96r8UrVaVL/nqKGMs5uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aYBzU/XppeheFXFmE5BLeoFRNMT681CX4S0wIhaXofA=;
- b=kEnk0zVIivTv3YdvPydomjrStoKkNz1iyOPNSE9HNMNwdB9SKONDDo92KlsdYILN0KuU05CijgAb6aBoMmwz+c2mf+NLS4BX5a0dSW2V1l6f7K3tCkYBrDJBL4gNrCDEh2nFoN2W4JEeZQL1ybPqfAeifiwVWEW1wYaJZ+2QcNZGWOoHHbml3dHoYOOQWYu1IOSB5T0R3AUCs9RfHVJ5hQ2WJ9vLAOtb2ZguL9B+kr71XfVRlw8r/NycrDgTf4W63vFMJbXrxgb5x/IhWOwUKMlrm6D/HlrkX5dHz0yq0wRT8wUNlnEJpEz+ShZkNHTwQmREyK1EJxye3GVzsM+9zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=einfochips.com; dmarc=pass action=none
- header.from=einfochips.com; dkim=pass header.d=einfochips.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=einfochips.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aYBzU/XppeheFXFmE5BLeoFRNMT681CX4S0wIhaXofA=;
- b=suS+fq5rW6V5bcvVqDICmRKiTbJCfpBnWfyZRW1F4dEJgpiX0wArIWKgL8ACVJc4v86LdHchoVl+b85y/0Rpg1pPK0MJ+IY8/HK7hMIn8/0l4fXZWsciGpKnlpdTHO9SOnSOU+SDVxCxVAVZitcLz2pJLdqoT/dePYIQIRkCGEg=
-Received: from BY5PR04MB7025.namprd04.prod.outlook.com (2603:10b6:a03:22f::17)
- by SJ0PR04MB7469.namprd04.prod.outlook.com (2603:10b6:a03:296::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.19; Thu, 22 Oct
- 2026 10:20:49 +0000
-Received: from BY5PR04MB7025.namprd04.prod.outlook.com
- ([fe80::97f1:60bb:2ae8:6f01]) by BY5PR04MB7025.namprd04.prod.outlook.com
- ([fe80::97f1:60bb:2ae8:6f01%4]) with mapi id 15.21.0546.012; Thu, 22 Oct 2026
- 10:20:48 +0000
-From: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Samuel Holland
-	<samuel.holland@sifive.com>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Darshan Prajapati
-	<darshan.prajapati@einfochips.com>
-Subject: Re: [PATCH] cache: sifive_ccache: Enable all ways when no LIM is
- reserved
-Thread-Topic: [PATCH] cache: sifive_ccache: Enable all ways when no LIM is
- reserved
-Thread-Index: AQHdYg8BHevFmech/kmjtw7J+NG/nA==
-Date: Thu, 22 Oct 2026 10:20:47 +0000
-Message-ID:
- <BY5PR04MB70254A39FF5BC39716B23E5783652@BY5PR04MB7025.namprd04.prod.outlook.com>
-References: <20261021130906.2501060-1-pinkesh.vaghela@einfochips.com>
- <20261021-negation-carol-e42b4ecf3726@spud>
-In-Reply-To: <20261021-negation-carol-e42b4ecf3726@spud>
-Accept-Language: en-US, en-GB
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ActionId=cf2522fc-10a0-40b2-a933-263add331aac;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_ContentBits=0;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Enabled=true;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Method=Standard;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Name=879e395e-e3b5-421f-8616-70a10f9451af;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SetDate=2026-10-22T10:15:10Z;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_SiteId=0beb0c35-9cbb-4feb-99e5-589e415c7944;MSIP_Label_879e395e-e3b5-421f-8616-70a10f9451af_Tag=10,
- 3, 0, 1;
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=einfochips.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY5PR04MB7025:EE_|SJ0PR04MB7469:EE_
-x-ms-office365-filtering-correlation-id: c5bc1fca-0e41-4bf0-d424-08df30262406
-x-ms-exchange-atpmessageproperties: SA
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|38070700021|261021121427099003|11063799006|4143699003|56012099006|261009223027099003|55112099003|18002099003|10067099003|22082099003|6133799003;
-x-microsoft-antispam-message-info:
- 2wNV7J1RSDbxi5a+0YxUdcVjvSk5F1xmn9qoSEbeCZWkPY8LCgSto9hxKszxzmHPmIxvrwA7GEMU6d9/H0CQFgyiVyyeHRkxxHzZ+pzw6Q/2WJEUIsK92NumWL57G3SvGBFE9ooGS+K31URuhgqzWDfMMF5jEZTBjGjz2c+YAXZnuOxmrv8yzT6Y9sL73YZGe1dVqH/a6iWkE9eGfR+Hj4vdQydZCbjGo1nuQaCwzAMcovQ7ecJq71Pdr3BAxN01bo79UahjTTkNOyaCriepa01o7V1qLt9eAZ1e8fuXkHuPs+nMUFOCCjbRAsZpZC+CE6i2HVXhbM1tQeQU53VWDf+lDIPkb96o6rGLChR/1s2Io8fyjImgUFoza4f5M2SnACed6UL6ZudvadYarg87PzA5T8Z16AAV44xiVgE6vtoqTFJrpPkTSMjQpecNCqEMM7T8FSbITdQzOSOEiyyTglWbFxzRBI/7E5J1gPW8j42QKPMmwczxphhJDcgaSrYyRqYnWsMLKKw8QcJSsQcve69ao/x3vAJnZVNP8sbyPvAkVPCvbcqbWXTYSgLlqKCLH7NGnnlWt+Vt4n5cvl2/aoQ8GXnxc5uNxTdYmXCYHuNTR0IHIfF4NYI0lCw2MFONb1rlpAD94ESFnYXUn1Z5DxzSPvomvy5YO94JYzmXabys450LmY/qx2u148YVW6mKvPiFvHiXFSOpj5Wwjp7nNLg5XAw2e9dDmfs+wvXNOgw=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY5PR04MB7025.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(38070700021)(261021121427099003)(11063799006)(4143699003)(56012099006)(261009223027099003)(55112099003)(18002099003)(10067099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?u290nuHyGTrrfEqocU2q3tDsbzFbpQwYsJCrAfqKP8bMk3FP2DDTuxsmwUOA?=
- =?us-ascii?Q?/yJTG6IBtMzwPNLMcDSBhl1AW5bWtYaEG81hu1T1XVYtK25Capz/VG2jG3nW?=
- =?us-ascii?Q?S3/J7FKknqJKn5PJEXsZw00tR0hgRN+ltGQECKgNRAY6wXbBmlf43lNxNCr9?=
- =?us-ascii?Q?5wEU3G9GLC2e6a6OzUzLr883Ptgt9a2IUh4Dx3rv+aldwgAzKqJW9+D/QtEP?=
- =?us-ascii?Q?pmdCjij7lzUJHYRU9zNPTl9bau+t4yeJmDh0xjdQHjkVot6kYTGm1IJtHb7X?=
- =?us-ascii?Q?484kskA2AitbMiOz3pqHYBaPpB+eXdMdB0W8ghgSpZZBgVeIKzxyj/kRC9WO?=
- =?us-ascii?Q?ghRPjPjRyftgp9kXxzQ0l54nvUWlZB4Pou8WiAzVUV3bmVMRcszjkFaY7lSG?=
- =?us-ascii?Q?86ZzEHrEP+pxqC/hw6b4yTLywxVUvZqspFR2twVeH2peTavrwqsMSIjuEzGl?=
- =?us-ascii?Q?TF+Ld3Bxt9iwScKzreNEHoUPSxtaResQpEW2B5X8R+Pn/evjdzYBjVYrvQtl?=
- =?us-ascii?Q?ZbBKB4cZtpyFubj64emqq0m0FQmIG1IX4Zg4a1na/pWAfkaCtEr9SchP/sxo?=
- =?us-ascii?Q?IFsxtrPib3fHgwvbSlOOf5O87ewOhgRyUuwxyAqKfd/AHeFvNp0MGEaya/Ou?=
- =?us-ascii?Q?QBt+ra8n+YIrl47MVi8WhsmmCFvmpd7ajQy2M10qJB6S/ijahJlodzhw43CA?=
- =?us-ascii?Q?TT7v3urXRAg/X0wr08jAey4tzGGmi5k7F/EIpOWzVdfDouhfp/TJncL33KU+?=
- =?us-ascii?Q?uwYCdyfvMnXmuoAYZBAh4W/vc66Y47172Klp36QFen78fZ/NbLDsU+Kd1dCs?=
- =?us-ascii?Q?vrP0D1hHEPyRPmLoYBUKRINkF5mz8hpAZuc5vkleHq0z83NldCI0fI0wykvJ?=
- =?us-ascii?Q?YTd2RqOgMviY1eRvX1RlW9Yoz+lbb/bHdqOba1MnLBgrzqRiMkkWvgys72JZ?=
- =?us-ascii?Q?T46OePbe0yid/E1lfKa2WgEJk5adz2QGxnzppJculsamaj1sgT9nqXsQ/DFQ?=
- =?us-ascii?Q?A4H5rZ1JLFo/w2+YSShFYqmfUy/ZIuwRbPTmXLDTmiexd/Zornw4t7QbnXkL?=
- =?us-ascii?Q?IycBPfBvdhf25lp5bpsiSJxK+kSA7o1Dci5dZtIlqxM5KcI2NZC6PzKZoa2k?=
- =?us-ascii?Q?AoCjpgHdjPxTbAaEs6MEtkNr73hK4n+gO7AQSInY7Np+RbXS4WgGWAWe/I5S?=
- =?us-ascii?Q?7KQKFPFh0FycPQVHotSm4AzoEAORFPNNV3pcSHOp54PHV2r0jVhPRjBvHLhQ?=
- =?us-ascii?Q?+TLIIdsbL1XdzOaUY5z2xIH3+j1fro9yZlknHgWI6fZqRVC74Yqzu9MBDTWQ?=
- =?us-ascii?Q?wndMUTIVtZYKWj9sX13sSLQNk4Tyygfl+D2IO72Xj7t0zwdcnDEsdu1lO6Z/?=
- =?us-ascii?Q?A2IJWfuOviCRkqw4rMQ/5/jNxcH8xqgL2CsvCUjYby5uZI/5I9mHn6LkeWcw?=
- =?us-ascii?Q?AhoF61+O/0qDzgD0sOg/mrpk8E67mQNkaRNTfX7Ha6aPytyMJIRgmAcuKtZZ?=
- =?us-ascii?Q?1fW5Y4EFPWGDuxjmUPpwa5yiHifAGWcYlrkOyWCPCTlgImLnOHQGAiHXbdi4?=
- =?us-ascii?Q?nwukDSsxy80HKIbWsZJ3tBIH4mP95cOPln6NX5Rm5YACseW6p3o2pfvdlZdg?=
- =?us-ascii?Q?dsbh7iB3tzXkYRumhOkmc5wwU5fhiIzOvYs4pG8JsylvXKw0s/9Y4ZXmuFIl?=
- =?us-ascii?Q?w4lFxkScom1VK699b9sxRsq0mWf+/LIE3JQKIqlrV825yuOnC0PUHxsukUzN?=
- =?us-ascii?Q?STnyDZpnQ5RNxm6opPyAf0fQSlyg8xU=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=E43OUbuz
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8a06e79e152so782983b3a.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:21:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792664491; x=1793269291; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YBxTUn7ywMgpmSnO6blmLwOaVhY7BWSoJVdPqCPYsuk=;
+        b=E43OUbuzxm4EzJfgMySiC8Ve7HyD5qb7yTndMUJFtP8nICC6fK/ULXi/5juq8CwXim
+         v6c3TTMTNpJDP1HOJ+e3WWn6pUEqKIC/HT3NnsMEuzn0rxAqv+VoZr/GehiaKMOu25d9
+         fLHj6lthUA/XuW/ZN9kSxD3P8nB1r8dFcXySzSrBEAHADpgqKC4ri8ng1eIkIW/VZMeW
+         UE/j9sCuTYjtq4WSg6YxhWhf4EmDHC9plDTdgq7CpP/AP7fPguoc204ZEDlGXnuJpjIb
+         hn1bRWEIQGT9qMsuolIJtU/fgSn6re69SBr7Zg1LWfwOidMh7L6Yk+h/CN4fMBBEkYuc
+         1wzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792664491; x=1793269291;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YBxTUn7ywMgpmSnO6blmLwOaVhY7BWSoJVdPqCPYsuk=;
+        b=EZvBi/YTJNHkm89bOOkRCzA6KD5EWDxY5Du8C4OpH5ecOWKqVZqoTYXke1Jl5f2uN2
+         Wl2k/rEgzOm7gOKxSWXIg7wgd+rya2/gU+1q5302fjxArgNFrx8APd3MJhE6wklYxs9u
+         RCloA0v3CKgXZJ7gCLgKpPbg2piMyytO7RXJJf8fOLghqMJfUNwKFxP1MZKzTiioXbof
+         b2cdi22yl8FcdNKzL3E2fJzgUrYiANErvAD/yVwJWm16rUw5jxI1bAKS0aTWF8U+5T40
+         iG1TU77dMn9swheehSLHaMDByTzf4JX4fYLiEgfD28lGuh/PctXF65xQ7WcK0LCGsNG0
+         oLDg==
+X-Forwarded-Encrypted: i=1; AKwUvBzHJvx8j2A8YoZd6b7svh5yDo64roTUkmEwXbf9Kr/bQf+cYLSEgSKMh9uqslRYoCjqxs6z7RABESkEcss=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJei/XjUjAT6KHlwrZX0Re/NYDuQxBhqA3HeTSp8thcwmXzziVL
+	ChFjIVqhi/v0G532ClcZaXuubjhGrEyOYYDQ9N0qF5JqqSNpLU+SgPDEouiG322LJqilSQ==
+X-Gm-Gg: AYBFou2uze/L9RfIJ2X/sDEE65Kc3ov6Gw7N6KwXSg3hK92CMq14pjboCwGBK6yfAUZ
+	LCUXu6fxK68DOdm588rI/IDENBY8crOISLhErwFr34gSx/XPflAef9wftMSKDtLzWA3r0gvtrVW
+	T2W98kvzgD2nrqZIOWimhjJzaZRzywCVY74KCaG1I/u8KTGCjVnhSipslfYh54qZ3GuPznodc/q
+	IpiylLqb72xWU90FdGrg5gg5dl+wXKeZNcYIo75NPelSlzn12HMmeG+YhoHd/efkRMhYChbuLRY
+	hd+OqduPnxXPeXCNJp8CcFrEi2Nw4e3At4awDPbrfME7WlV4Zzdgn6HUCcpQwa56YnHSdqe0Pgp
+	k0GdDEFybYn2bnema+mXQYwT82BWB/UudX33EBzpH8J29+ab+dQhfDbDo/+MS0hyKtscCaO5wTp
+	AO6rUSgp9YEsr3/XB4b/y70wpKATaQUNo4Dyx4R1lXJQw9g60v4HblWyftZfGdWxf6I8MZHM8KJ
+	7/wXW9arRd+12Sj0+LF515CyFWdvU6SXWJ/6ZoRfhoiyHAiLC9saHk5V0bPVngUlixKc0kePOZ4
+	OtUH70UkNuCJCq59ZMXr3AlcQ34hnn0oF6qoWO9uBy3ZfhYszK9g/IqKgIRzf+IxAnkdrk4Dwug
+	QLJ81C5QQrx6SeOKXNSfwvTymPQG0RFGE
+X-Received: by 2002:a05:6a00:2e9e:b0:890:bd5c:5710 with SMTP id d2e1a72fcca58-8a089f6585dmr3709575b3a.41.1792664491420;
+        Thu, 22 Oct 2026 03:21:31 -0700 (PDT)
+Received: from fedora (aipl-202-179-95-46.static.ankhnet.net. [202.179.95.46])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8a08933c9b1sm1943324b3a.3.2026.10.22.03.21.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 03:21:30 -0700 (PDT)
+From: Ninad Naik <ninadnaik07@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: linux-spi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Ninad Naik <ninadnaik07@gmail.com>
+Subject: [PATCH] spi: mtk-snfi: use min() in mtk_snand_read_page_cache()
+Date: Thu, 22 Oct 2026 15:50:20 +0530
+Message-ID: <20261022102020.107609-1-ninadnaik07@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -155,124 +100,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-OriginatorOrg: einfochips.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY5PR04MB7025.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5bc1fca-0e41-4bf0-d424-08df30262406
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Oct 2026 10:20:48.1195
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 0beb0c35-9cbb-4feb-99e5-589e415c7944
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Cqx0GN3Tw+TolWI51n3djnDU1ohVyzGEovMkUqcfQwXXaTCH8yhyxO/UpKu+I/Bi3l/rxtJCyp/6r2t34IlmTMHIlRhLt6S1WBwWtNG6p4I=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR04MB7469
+Content-Transfer-Encoding: 8bit
 
+Replace the ternary case with min() to pick the smaller of cap_len and
+req_left.
+No functional change intended. Compile tested only.
+Found using Coccinelle.
 
-Hi Conor,
-=20
-On Wed, Oct 21, 2026 at 10:43 PM +0530, Conor Dooley wrote:
-> On Wed, Oct 21, 2026 at 06:39:06PM +0530, Pinkesh Vaghela wrote:
-> > The composable cache resets with only way 0 enabled, while the
-> > remaining ways are available as Loosely Integrated Memory (LIM).
-> > Systems that do not reserve LIM therefore use only one cache way
-> > unless software increases WayEnable.
->=20
-> This is not true in the general case, firmware may intercede to set the w=
-ays as
-> it pleases.
->=20
-> > When no memory-region property is present, DT describes no LIM
-> > reservation for the cache controller. Validate the reported way count,
-> > then enable all cache ways so Linux can use the full cache capacity.
-> >
-> > When memory-region is present, leave WayEnable unchanged because
-> > enabled ways cannot be returned to LIM until reset. This may leave
-> > more ways assigned to LIM than required, but avoids consuming reserved
-> LIM.
-> >
-> > Apply this policy to all compatibles handled by the driver. Firmware
-> > or
->=20
-> I know this is going to cause problems for all the microchip boards, whic=
-h
-> maybe should have reserved LIM but never did because the LIM was never
-> put in the devicetree as memory in the first place.
-> They also don't suffer from the problem you mention because firmware sets
-> the ways up.
->=20
-> > DT configurations that require LIM must provide memory-region;
-> > otherwise, Linux will convert all disabled ways to cache.
->=20
-> I don't like this behavioural change, it's never been mandatory to have a
-> reserved memory region for the LIM. I'm only in favour of doing this on
-> devices where we know it is actually required to be done. The eic7700 I
-> assume is one such device.
->=20
-> Cheers,
-> Conor.
+Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
+---
+ drivers/spi/spi-mtk-snfi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Thanks for pointing this out.
-=20
-I agree that firmware may have already configured the cache/LIM
-partition, so applying this behavior generally could overwrite that
-configuration.
-=20
-EIC7700 firmware does not enable the additional cache ways, leaving
-only way 0 enabled when no LIM is reserved.
-=20
-I will restrict the change to EIC7700 using a device-specific quirk
-while retaining the memory-region check. Would this approach be
-acceptable?
-=20
-Regards,
-Pinkesh
+diff --git a/drivers/spi/spi-mtk-snfi.c b/drivers/spi/spi-mtk-snfi.c
+index 6e96e50fedad..bbb65a21a684 100644
+--- a/drivers/spi/spi-mtk-snfi.c
++++ b/drivers/spi/spi-mtk-snfi.c
+@@ -1017,7 +1017,7 @@ static int mtk_snand_read_page_cache(struct mtk_snand *snf,
+ 			if (req_left)
+ 				memcpy(op->data.buf.in + snf->nfi_cfg.page_size,
+ 				       buf_fdm,
+-				       cap_len < req_left ? cap_len : req_left);
++				       min(cap_len, req_left));
+ 		} else if (rd_offset < snf->buf_len) {
+ 			u32 cap_len = snf->buf_len - rd_offset;
+ 
+-- 
+2.56.0
 
->=20
-> > Signed-off-by: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
-> > ---
-> >  drivers/cache/sifive_ccache.c | 22 ++++++++++++++++++++++
-> >  1 file changed, 22 insertions(+)
-> >
-> > diff --git a/drivers/cache/sifive_ccache.c
-> > b/drivers/cache/sifive_ccache.c index 2acb8bdf06d5..17b6ba8ab984
-> > 100644
-> > --- a/drivers/cache/sifive_ccache.c
-> > +++ b/drivers/cache/sifive_ccache.c
-> > @@ -117,6 +117,22 @@ static void ccache_config_read(void)
-> >  	pr_info("Index of the largest way enabled: %u\n", cfg);  }
-> >
-> > +static int ccache_enable_all_ways(void) {
-> > +	u32 config, ways;
-> > +
-> > +	config =3D readl(ccache_base + SIFIVE_CCACHE_CONFIG);
-> > +	ways =3D FIELD_GET(SIFIVE_CCACHE_CONFIG_WAYS_MASK, config);
-> > +	if (!ways) {
-> > +		pr_err("Invalid cache configuration: zero ways\n");
-> > +		return -EINVAL;
-> > +	}
-> > +
-> > +	writel(ways - 1, ccache_base + SIFIVE_CCACHE_WAYENABLE);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> >  static const struct of_device_id sifive_ccache_ids[] =3D {
-> >  	{ .compatible =3D "eswin,eic7700-l3-cache",
-> >  	  .data =3D (void *)(QUIRK_NONSTANDARD_CACHE_OPS) }, @@ -319,6
-> +335,12
-> > @@ static int __init sifive_ccache_init(void)
-> >  		goto err_unmap;
-> >  	}
-> >
-> > +	if (!of_property_present(np, "memory-region")) {
-> > +		rc =3D ccache_enable_all_ways();
-> > +		if (rc)
-> > +			goto err_unmap;
-> > +	}
-> > +
-> >  #ifdef CONFIG_RISCV_NONSTANDARD_CACHE_OPS
-> >  	if (quirks & QUIRK_NONSTANDARD_CACHE_OPS) {
-> >  		riscv_cbom_block_size =3D SIFIVE_CCACHE_LINE_SIZE;
-> > --
-> > 2.34.1
-> >
