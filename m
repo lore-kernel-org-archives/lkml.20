@@ -1,56 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.136
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792692290;
-	b=U9pLtiUxBEniFSeuL3xfTihqUng0NyGF4ARSzRjF/G5MNk4WvAfdNwHNgxrMo1LNOOB2
-	 XpNZ3hKisqo7eJzPI4kVR3qPyuw+Y8LkKcydH6cBzPl4LsAGl9xn/rTFR/ya+2BQwhG16
-	 W4hXRzyP5Q5zPFfEzTrVdTERSlm/6FrSLjEm+q4imwBq36Eloz3+Vixs9SlkYpQg6FMc/
-	 gaMI2Y88xoTMpQ54Q4GwCYBdUu+UxKX0QwycJSM64YTubEHuxtK0swfHezjly5zR1deAT
-	 O/oZAd01uBRJjnJU304qoW5BwAYLBb5Sxsu3laswYt25bL8fVYVPrYZVPdb63nU7Whg==
+	t=1792692322;
+	b=nVH1O+wwsN+nEG3Pepa70PURxW1LsFV8iXn2u+oJGu+0UD7sUJyBA3glnXpBLK+U4SuP
+	 R4wMqrWmr9a+8psDaAyYS4dfgq4BdZQRpSy5nkSxhDWn6L9H1o05rNFJ+A13oLAxpLACy
+	 f/OhCfOjupwVI37c1lrClE3vnY5vAdWjgM175cqBTYDHsErtFJZTarMSPySIqRcJzupuq
+	 tttpZtm5bON1tJx7rkXwBTDIeSKpUgzMobl7OY81eeV9Pri5XHyVPzwBWq7akWXVy08dj
+	 BmUOnrJB9E6CRxbnkSl8vLtshEEVeoOWsDRLcttZzJhLxkshtsQsdX0KDms1DLBrh2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792692290;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=RhnfvKmfoxy+HUbDsORpInOXf0Z9ck2xlJJLmjkZQrQ=;
-	b=wKlFg5x+9IXxaqIqGze0znFrnDDWrdJLKX9zysd/fUOAIj/6I0bTUkeAS7pcyOsF6jN+
-	 d13sGMHbPzDSOpXNeCatRTqMSurXUet2tRqZX/y/NyIvPYbpD9AxRd4TeLdY2t+YhsxS9
-	 S839MWwjt1pOEmQfN3BbK70eCUlogtRAUhA7+Ht4YoYfQk6biCQIzJhrmJqBFnLhp6hzd
-	 6EplL86cYKNQv5biB2InnVQHXtLfwkdwHqwBqKeXwwIUUDH7yvlNx4KZ/Ph/mJL6Nyuqx
-	 bvo1FXqD9W95+qWeQhATG+K1MW/OBxdP0YMYMMJZiWgxEcZvQMzgAAnQS9y0H4SNHPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792692322;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=66xP79lt5Tjx1kcLiN+8GMbh1FpuhTHreHBKUBB8XQE=;
+	b=BSR9V26F10BojhetR+hdrQ4QwZKlM8gqlzb+m/PYmXlaxiuuLk2geuOQ9QESyI9uAxLD
+	 CPI8lxuk//gaYKYXitpbZ0yRH4wb+8Dwl4xH3B+MqU4dRGn/boYP6zsRn/NTsrWDJ7wKE
+	 sHtHg/KDRaDviCp4NRR/8c49erBoR5roEP7H+wyCZMDEo/V8gZ+XnL2xOkvp247r4jjAg
+	 yS0XDa28maYoT6HS5AlGIWJXHwWmihJGuCXUS26M4c/htpJddsjmBoBromuCoTsSBUVag
+	 8BgSWN85W6Vf4r+WKJjKGopc6+1xsqXL0CVoqIuITcJVuL/rXvph/AJlsTmU2m1SbXA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zytor.com;
-	spf=pass smtp.mailfrom=zytor.com;
-	dkim=pass header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=wS32jOje;
-	arc=none smtp.remote-ip=198.137.202.136
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJfdPjF2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58917606A31B;
-	Thu, 22 Oct 2026 18:04:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58917606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A900F606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 18:05:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zytor.com header.i=@zytor.com header.a=rsa-sha256 header.s=2026092801 header.b=wS32jOje
-Received: from [172.27.3.124] (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 69MI2jre822700
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Thu, 22 Oct 2026 11:02:46 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 69MI2jre822700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026092801; t=1792692174;
-	bh=RhnfvKmfoxy+HUbDsORpInOXf0Z9ck2xlJJLmjkZQrQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=wS32jOjeFWsFEs7/XC2lmhjx+vaso38Aa1yvVUAkT9A1W3myWjPjlKJ97J5iL0Ywq
-	 bPF69gGCe7jooHw6vT1puqfAAMWwIenPVsBB0BtjXDHBnYwO13DlDPhjiEozTqjEHM
-	 Tnne7bJIubMKnpcLaITiN/m+5GZf8SNZmR76JFs4RsiRgOXjXb7KnOu57Xbk4+jf0R
-	 res/2bYXDI5YQACu5N7auw0s2PeA2biV4pFQrygkfChnNdCyphEU5uiDFSgPKPiKVV
-	 mrz+yPrxO0ZpIXSlYj8frGR29U2PsHFm2Ceilf5VQYeo3Indd2RWAuBubWzuARjG4V
-	 DyvcySggronVQ==
-Message-ID: <9d875fab-fdad-413e-9737-6160fac2a406@zytor.com>
-Date: Thu, 22 Oct 2026 11:00:24 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZJfdPjF2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E00321F01825;
+	Thu, 22 Oct 2026 18:05:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792692322;
+	bh=66xP79lt5Tjx1kcLiN+8GMbh1FpuhTHreHBKUBB8XQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZJfdPjF2alXuM40GMRoGu4hYOPz5NM3T0w3PpA4rALN1G+0hRFrXmN/qk3AIaAuL6
+	 z8Q26ZQNS/HkJ1knitkpc+NlkxL+hhPNz6+JejM2ufAJtp/V92Em4/QvBMsIxy3jmE
+	 U9VX2UvFEng+RGSS7ekzg5RC4+puHIc4jwnCmS4rXz1UY7VMKFTY6mswJA29cKkHrs
+	 kd8uQa1FaZUfQkEsVkxPA5WpeQRLoKY6dmAdavxdqv0DV8ERlS0Acw/8CvoFdTYD3m
+	 LkPwWQNHpakJTxqVMurGds5J1cc4AxJf85+BSLlUBWXvgNW56QRgaIsoZ4KDxtQy4O
+	 G+JzE7Fn48mfg==
+Date: Thu, 22 Oct 2026 19:05:18 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Pinkesh Vaghela <pinkesh.vaghela@einfochips.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
+	Darshan Prajapati <darshan.prajapati@einfochips.com>
+Subject: Re: [PATCH] cache: sifive_ccache: Enable all ways when no LIM is
+ reserved
+Message-ID: <20261022-chubby-quote-4d06564dc4ba@spud>
+References: <20261021130906.2501060-1-pinkesh.vaghela@einfochips.com>
+ <20261021-negation-carol-e42b4ecf3726@spud>
+ <BY5PR04MB70254A39FF5BC39716B23E5783652@BY5PR04MB7025.namprd04.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,73 +63,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [patch 16/18] x86/entry: Get rid of the sys_ni_syscall()
- indirection
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-        Thomas Gleixner <tglx@kernel.org>
-Cc: LKML <linux-kernel@vger.kernel.org>,
-        Peter Zijlstra
- <peterz@infradead.org>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        Kees Cook <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
-        loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, linux-riscv@lists.infradead.org,
-        Sven Schnelle <svens@linux.ibm.com>, linux-s390@vger.kernel.org,
-        x86@kernel.org, Mark Rutland <mark.rutland@arm.com>,
-        Jinjie Ruan <ruanjinjie@huawei.com>, Andy Lutomirski <luto@kernel.org>,
-        Oleg Nesterov <oleg@redhat.com>,
-        Richard Henderson <richard.henderson@linaro.org>,
-        Russell King <linux@armlinux.org.uk>,
-        Catalin Marinas <catalin.marinas@arm.com>, Guo Ren <guoren@kernel.org>,
-        Geert Uytterhoeven <geert@linux-m68k.org>,
-        Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-        Helge Deller
- <deller@gmx.de>,
-        Yoshinori Sato <ysato@users.sourceforge.jp>,
-        Richard Weinberger <richard@nod.at>, Chris Zankel <chris@zankel.net>,
-        linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
-        linux-csky@vger.kernel.org, linux-m68k@vger.kernel.org,
-        linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
-        linux-sh@vger.kernel.org, linux-um@lists.infradead.org,
-        Arnd Bergmann <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>,
-        Will Deacon <will@kernel.org>, Brian Cain <bcain@kernel.org>,
-        Michal Simek <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>,
-        "David S. Miller" <davem@davemloft.net>,
-        Andreas Larsson <andreas@gaisler.com>,
-        linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
-        linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
-        linux-arch@vger.kernel.org,
-        =?UTF-8?Q?Michal_Such=C3=A1nek?= <msuchanek@suse.de>,
-        Jonathan Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
-References: <20260707181957.433213175@kernel.org>
- <20260707190254.493733289@kernel.org> <20261022142425.3Wx-RrU5@linutronix.de>
- <20261022150235.V2CSdtmu@linutronix.de>
-Content-Language: en-US, sv-SE
-From: "H. Peter Anvin" <hpa@zytor.com>
-In-Reply-To: <20261022150235.V2CSdtmu@linutronix.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4lkyleY9UN/A2RLt"
+Content-Disposition: inline
+In-Reply-To: <BY5PR04MB70254A39FF5BC39716B23E5783652@BY5PR04MB7025.namprd04.prod.outlook.com>
 
-On 2026-10-22 08:02, Sebastian Andrzej Siewior wrote:
-> On 2026-10-22 16:24:30 [+0200], To Thomas Gleixner wrote:
->> The test could be updated via the hunk below in case the new behaviour
->> is what is expected. hpa made the extension to the test in commit
->> 795e2a023b808 ("selftests/x86/syscall: Add tests under ptrace to
->> syscall_numbering_64").
->>
->> diff --git a/tools/testing/selftests/x86/syscall_numbering.c b/tools/testing/selftests/x86/syscall_numbering.c
->> index ca0eca7b9dced..1435394fba022 100644
->> --- a/tools/testing/selftests/x86/syscall_numbering.c
->> +++ b/tools/testing/selftests/x86/syscall_numbering.c
-> 
-> Now I notice the fix depends on CONFIG_X86_X32_ABI=y (fails for =n).
-> But we want to get rid of it anyway so…
-> CONFIG_IA32_EMULATION is not affected (with the fix).
-> 
-It would be very simple to probe for by issuing a simple system call like
-getppid() with the x32 bit set.
+--4lkyleY9UN/A2RLt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-	-hpa
+On Thu, Oct 22, 2026 at 10:20:47AM +0000, Pinkesh Vaghela wrote:
+>=20
+> Hi Conor,
+> =20
+> On Wed, Oct 21, 2026 at 10:43 PM +0530, Conor Dooley wrote:
+> > On Wed, Oct 21, 2026 at 06:39:06PM +0530, Pinkesh Vaghela wrote:
+> > > The composable cache resets with only way 0 enabled, while the
+> > > remaining ways are available as Loosely Integrated Memory (LIM).
+> > > Systems that do not reserve LIM therefore use only one cache way
+> > > unless software increases WayEnable.
+> >=20
+> > This is not true in the general case, firmware may intercede to set the=
+ ways as
+> > it pleases.
+> >=20
+> > > When no memory-region property is present, DT describes no LIM
+> > > reservation for the cache controller. Validate the reported way count,
+> > > then enable all cache ways so Linux can use the full cache capacity.
+> > >
+> > > When memory-region is present, leave WayEnable unchanged because
+> > > enabled ways cannot be returned to LIM until reset. This may leave
+> > > more ways assigned to LIM than required, but avoids consuming reserved
+> > LIM.
+> > >
+> > > Apply this policy to all compatibles handled by the driver. Firmware
+> > > or
+> >=20
+> > I know this is going to cause problems for all the microchip boards, wh=
+ich
+> > maybe should have reserved LIM but never did because the LIM was never
+> > put in the devicetree as memory in the first place.
+> > They also don't suffer from the problem you mention because firmware se=
+ts
+> > the ways up.
+> >=20
+> > > DT configurations that require LIM must provide memory-region;
+> > > otherwise, Linux will convert all disabled ways to cache.
+> >=20
+> > I don't like this behavioural change, it's never been mandatory to have=
+ a
+> > reserved memory region for the LIM. I'm only in favour of doing this on
+> > devices where we know it is actually required to be done. The eic7700 I
+> > assume is one such device.
+> >=20
+> > Cheers,
+> > Conor.
+>=20
+> Thanks for pointing this out.
+> =20
+> I agree that firmware may have already configured the cache/LIM
+> partition, so applying this behavior generally could overwrite that
+> configuration.
+> =20
+> EIC7700 firmware does not enable the additional cache ways, leaving
+> only way 0 enabled when no LIM is reserved.
+> =20
+> I will restrict the change to EIC7700 using a device-specific quirk
+> while retaining the memory-region check. Would this approach be
+> acceptable?
 
+Seems reasonable to me, yes.
+
+--4lkyleY9UN/A2RLt
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCatpQXgAKCRB4tDGHoIJi
+0ixCAP9/hAD9o5Vy6FG7ZT8n7KDT+Pe6cB1sfDmRyZHLpO6eWgEAzT+1nU4Q8eAG
+mZvo5zxTiyh7mPUMpumY9iHMXCJM7g0=
+=V8G9
+-----END PGP SIGNATURE-----
+
+--4lkyleY9UN/A2RLt--
