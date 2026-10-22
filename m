@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792646263;
-	b=fUxIfznswgB7I4a/lf0bZd9xaKpwAjSoKxpqjZKBF2eOHRYSk4xIr6Lom/m9qXSV6tID
-	 RI+35gheZfR9DkjxYzkwT7dEBJNuPPaqnE2h/Mp92eGupZuURK3CfMqB1+FueFR0JvnDO
-	 zWoCIKMdMI8eAUiIeMynWl0Ysf2GPXvCERb4KNpRooZMuyXwDQgeWXHzPS131wo/IeuUK
-	 eEsdknSOGidy5whVTBH6QBP7uZ5IxykUSqmg9yYoat7zPkSxVf3dhUoLBiwzq52E0mPry
-	 Pcel59/tSlmLgt2+8iuKRXzI+1paCHh1mGwkl4BQIO6MFosvwMMF8250Dpa9M+6boWg==
+	t=1792646260;
+	b=OsBQMUUmENamGP1nSHsATHYoZ4QormgmgIRAHMc+drWAnW/SNwEFspLdR9EbDOAHlK1y
+	 3f7WukDsQYvdyDanjlH/XYgf4ptMSytM6+dv7b7Eqw1TDQV5qfH9Dvwx+bp154M1Ra3rX
+	 W+rAGQfxFfX7HWtfZdrWTLfo8G+zjA9fvYBd7wi5JWCGoVge0NKDvObkWEyatoT9AVnBt
+	 XgBvh1BBPtqns2QQaHnknlVAsXlQ5+BRrXFlUDqXSVM3kKo/bLKSzBW4TCxdwuk0TrV4v
+	 U4NKO4IPVPIWnhiyUpWu7Zj7n6sy0b/MqXOjIzBnfoqc4nRIcSpoSGGalbh4mw8oW1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792646263;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792646260;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=kNAQ43P7mOXqvjFIm1UIgh+LHBg4TUD3j/lYh+CFxWo=;
-	b=fMHA78s8QFxn3GmZ2MntuwywKBw7Y2Pwjn03ee5q0XjMtB7r9IfRUW0DbQUR+Hr/XUq6
-	 x5bb3S4NDLXxJ0z8Szr5xKH4NU9ehQKcNdccpgYScLlosRGwlelR706267D52Ynyr4EL2
-	 WM08vsdva6Hw8GoNEHKftMNe4cPF1bCtmAusQJjHmzIN92Ii+O17sWAe8X4K7WcV/3Ygq
-	 Uq7R1G8OdaLwzCQGbthtro99sobikmz1R0EBmbR4exbPLkvF9G5QePq/XAHMkgPLLeSFg
-	 BhLVEV9hO2sYQH98lDJl4VzDu66HZfECy6QgaiXnJmuXbnGd8sJu4Kgr9KsBY6iPBGg==
+	bh=yI/KRMuZRPijWcltjKclweO2FOu/JT/OWUV8SsmHo1Y=;
+	b=hZNnkzu1IOnSWSqJews+yJpUqG3kC7IYo4UoFJNKrsf9YAXJcJWOCpHMjjWzfuvHcgzt
+	 WrEIBQauGJLzQxhvJhfgB2e7NZ/ZOfpLxUpjjroQTSItn9lB/2/zCgjc2vzo2csWRjuar
+	 8CgxAgGtu7nH9f7EsCX3BZW1AI1Xbz/itnfBz5kwlKa60cEB9mBa8jTMwUuvWHsnXJd5t
+	 antHIMoRCL3+oLEi5happyPY71FR52aCB97egy3UUw6POEyDUE+YGXIWFJ6/HxBs1JWbK
+	 19rrbf4gkcZ6mU/HI1mYpv20YVfcxRanmIb5N4iq8MRRRHy9OaByey0rU0Xp5ypBf+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sVoa5sPI;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qI8Dm1lc;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB75606A331
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:17:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DB75606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A419F606A332
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 05:17:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A419F606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=sVoa5sPI
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so2075145e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:17:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=qI8Dm1lc
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so9975075e9.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 22:17:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792646262; x=1793251062; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1792646258; x=1793251058; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kNAQ43P7mOXqvjFIm1UIgh+LHBg4TUD3j/lYh+CFxWo=;
-        b=sVoa5sPIaKdctHZpZqX/Tr/a3nD/WcLeHZH9WemG0HXKqTdFFgQaFQZ4Cur//1TVtP
-         +IJn6IC0dDP6m4vxjQWZ5aR79dbKnXLHOPNUVurEmFnZV/yqzsl/muVxW+cMH/0zPQdd
-         dK/8pqIuUUk9dLZUuIQTWEglQ5bCKqg/XsY7lVX/kuRlghT8EUfinDMS4f2mkQ8Mt9Fz
-         EmXEQVQ/l6Wtatrq/tc7Is3h3kRt4DHc0JnYD0UP1IIfrpj77eW+iAD7w+r8XxYlAHrZ
-         EElQx2RYSJCa1tDUa2Y9+3pFcnzxyHS/dBzXaHOgb2gR8NWlTrnSbb607yDipz8V6BfE
-         WVNg==
+        bh=yI/KRMuZRPijWcltjKclweO2FOu/JT/OWUV8SsmHo1Y=;
+        b=qI8Dm1lc6l4Pm124YVTo0ElbcftWuaEQ4GUynWy9sON0zmFKegF1hgN/8G0IXY5sNz
+         i3tk9CDskvKX7y4UqVoiblcDq6ju1fpVmO/jKOtZpM2j9CIJmFUOLYcuZVP3eSvzgIiW
+         WnlIJ9lm6R/XwfcfwIAkdK3NpVRLXGW05c4emxzVr5SPkYM6ivtHtodRLZ2W52iBdoMR
+         D033B8ZVWX3dzDj7cK4rAQlVRRMnEDvBrtxHoVVDBa/BTfXcrv7ObYbCrvHjaxSXL3ZZ
+         0F3154PeUwnYQJPZOkffD1b06f2onhTKkNudOsZdNQ+sfKqznFIqV8dzf2eWkbbWx4qC
+         oHlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792646262; x=1793251062;
+        d=1e100.net; s=20260707; t=1792646258; x=1793251058;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kNAQ43P7mOXqvjFIm1UIgh+LHBg4TUD3j/lYh+CFxWo=;
-        b=Nz9NEktDr/291fHkIV03Gl2Ae6XzeVvVV3vtniWsfTkWhTOTzpfIDN4FYdq45Qwz4+
-         O9Yj5DYkGjcd4geMuf+YREDVm+nAbGbpCY8bAHEx77CHSLUPJUHvPHAYPLJJGb5fnyHx
-         oSkS8JkLC1XM5FWD7sdTFhc4/6Cy3OB4rjLmPw2DDFNIJX/LAuDLg3q88C0n3JPrT7wq
-         mzacHG8nt1E/tfM9p25lBX0/SIDucOiIrPL9OYKjW09ex9wdoQ0KLvsAjxyBX0Qb9rVw
-         aQM/iCtYXGoDxNBLiEiXmfaRpv4OVLVCj9d7++kI73EdVuaCkj5NWOczlIjNaAlQonGO
-         KyUA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFpnAWWZ+HLA9g1g8HtrLxexy8E2FxaFCryvXz2QLEBT/yfW1QD9bOiFWINueitSdm2M78NNyCmQAFiI4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI5P66xf6zTBYx1xatgP0wYg0NOyxpRroP+y2XmtLToWNPSChcQ
-	DJs3PYqkY5YlzN6w228PXBKGEghI7waBumEyYSTXYYHM6a5AJhDeqKFf
-X-Gm-Gg: AYBFou375V5BtvtSxYYqMsJThcNpgBA8/AdtIoGeVHKVRbdH4HY3oZ2hzT9ozVWBswJ
-	OFMMZ2Xt6BbBOt+fqVXQykdqNYjItLTXOLP1NIk9ZIqK5pSA3UpUITbqMY5/Fq4ouS8i7444Bo7
-	iqgi10tiLArRdM5itjkJcTH6T86q9SQq+FKGzSurjSBN7TuWIvDYe2iXPHZx72lytSEB3ny6gjb
-	ckrpfHsoMgupXp1e38JB4zM+vv5Gn4XNdYxQzzT8/yvfA/ORwoVHb1p4B5auh+kMqND7PbCcRuY
-	ukTFuHfFdNrB598e5zKnl3Rz/WubimSPoFJvDGV+yk/xXCIw4a9xbAN8XUpAcO4DUPDhR1Yo1HS
-	2/+je1xeMmt/uXawQfjHEU9QxZN0osQgYThUa7LyxkYdXZ1nau90WfGH+G8j+38d/8wcuL9pPWP
-	Dy/mjW0SJNRlNkikF9V6BSN1/d8c3jcpZGP1jYj/pH+qtH/X6dJKX3CR+MCgbI0p5s3M0c01Ede
-	3U828f5hxCdOi7Moc7jqD7O9ZdE9yZAjmw9cUY6eGq/TBUiAGOldXWKUhMzRWZDxPsvKa5WlPBj
-	KOcHTq7Q3c8mea4b388Fm2QpQgTN50GFQlcVOM7F/doZlPsquAZ0abDQU9r+rZ9gkGall3Ie+6o
-	1QTGt2Uj4ILraPwIBBwUt4jMCVFJ1Ut9kTEj3Ccm4JGoEDeAQHt2etfhfW/5Voc/GVSI61nwIq3
-	hee9Jh5w==
-X-Received: by 2002:a05:600c:8b4c:b0:4a2:729:f7ce with SMTP id 5b1f17b1804b1-4a20729f92bmr16486165e9.8.1792646261504;
-        Wed, 21 Oct 2026 22:17:41 -0700 (PDT)
+        bh=yI/KRMuZRPijWcltjKclweO2FOu/JT/OWUV8SsmHo1Y=;
+        b=gd60BCET6UoxTrma8U1X7UuGXPUuqau++jSd5IgIc86irzm7xRF8gnsdq96sDu+AUi
+         jbBBnzrKBJ3yP9lK/fbHB9KBqKpstHqK77CgAXtMJToqYxKFbIUTSSR//EszDO6B2GNZ
+         IRCgrBtb+L4UPRdwzObHNk1oVEwI//QkeDn3p7f+7Bn6QGzPbyGyFjpykxand9duMqqd
+         eSwI4+BpIsTiGDlJ9CasI3Ve4GXlcIwKhjKpuzVYOscCAny3xJH/IyIwDrs/fmDLdgtg
+         IeaUIE2XbTR41CoAbDiOUP2p50C3EyhLMAA67lTj0woGwlk5ow8fZ3CioBoyp5J8uWYd
+         gGKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwPEc+PMDc6W6/h4ZRsx3lh6zCP5npVdp8u54IB3yyecJ3fJZKBAxJsfJz4Q3exEZR5AYb4cQIA1ZbKa3g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKMIqjow9hLLK6rmN5Tx+5GJTq1chTHQ2k0i/8XNkafX5jTnNAB
+	5+gU+9yvkUWATQnVO7ArYOkjMEW7Hci+fKv/hPFp5xdhAfJT04LQ02Pv
+X-Gm-Gg: AYBFou06I0fRBtukoGo26niEcE+k+JBr+uNm9S6o/bsKbOuILDrj7LjpvOcBDG5AptL
+	o8fwcDlfarKartyRhbOVG4s35xP7zNLkAjlPj9JAdeMn66Y9gP5zl1Z4vF5yLNccWW83+WQsepW
+	pbOPqs0KVkhom5cuZrTxbG7W9UBud1gGyt18U40zl9m0icP5Op7NcdS1XmgbRQT3MKeUi7Tsk+y
+	qP5RgiaZZfKLBdG+swGB/mu6Gcy4gMTIni402zYv1F2PL4f9O/EQhbqPb2y/g++Y2xQgc1r78uN
+	d7gSsWuMwVQXDOX68DkV4W0musLVoFkOPX9EpqdeXpM8SNzOcGXb9YJ1rqkpEPcBPULf1RtER7R
+	KYukNPpz3XstLWFZ9RtQGeiOkS7d/Id51Rg6qUZfxRgSiKWn8tIZVRhoin0M2Qsy0RGFbb3PE94
+	U4bdj1QrUwn4v6WNp8uiAJJCB3cYWK7Gtmg0Z3XGW6TYRwLkpmwgazF49rKuLLg4btM76N/LKhO
+	sDPEKGRHZToyrFnHLzT1M3WW0WlHGc/pVPjbueOqkVRREytGanmT/TWWQRy0aGnpnM682IB/l8r
+	JoRRSnnivVBmZyckY5uwL1fDF/MGCcfFnnAXWi33vIcA1HYXGjzQCk3/bCDr5Z/290GMMXiI+QX
+	1CfggC1xRMZvFFeqSoeDMcYGNBZxGpNLJbBgGiXRRe7qOGmPqMt8bjMw3Dh9euCvRq7mCO+p2Kg
+	0fKbxl
+X-Received: by 2002:a05:600c:1f88:b0:4a1:da58:1ee with SMTP id 5b1f17b1804b1-4a1fdd15bc6mr83285535e9.31.1792646257872;
+        Wed, 21 Oct 2026 22:17:37 -0700 (PDT)
 Received: from localhost.localdomain (dynamic-2a02-3100-ad43-d501-2c28-bb72-120d-420e.310.pool.telefonica.de. [2a02:3100:ad43:d501:2c28:bb72:120d:420e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm90362275e9.3.2026.10.21.22.17.38
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1fd0f4427sm90362275e9.3.2026.10.21.22.17.33
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 21 Oct 2026 22:17:41 -0700 (PDT)
+        Wed, 21 Oct 2026 22:17:37 -0700 (PDT)
 From: Karl Mehltretter <kmehltretter@gmail.com>
 To: Steven Rostedt <rostedt@goodmis.org>,
 	Peter Zijlstra <peterz@infradead.org>,
@@ -117,9 +117,9 @@ Cc: Karl Mehltretter <kmehltretter@gmail.com>,
 	linux-doc@vger.kernel.org,
 	llvm@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 09/12] arm64: Use the pre-counted hardirq lifecycle
-Date: Thu, 22 Oct 2026 07:16:51 +0200
-Message-Id: <20261022051654.79224-10-kmehltretter@gmail.com>
+Subject: [RFC PATCH 08/12] entry: Classify ordinary hardirq return-tail work as hardirq context
+Date: Thu, 22 Oct 2026 07:16:50 +0200
+Message-Id: <20261022051654.79224-9-kmehltretter@gmail.com>
 X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 In-Reply-To: <20261022051654.79224-1-kmehltretter@gmail.com>
 References: <20261022051654.79224-1-kmehltretter@gmail.com>
@@ -134,105 +134,187 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ordinary EL0 and EL1 interrupt paths establish generic entry state before
-irq_enter_rcu() adds HARDIRQ_OFFSET and lockdep nesting. Callbacks in that
-early window are therefore not classified as hardirq work. Their exit paths
-also drop the classification before function-graph return callbacks and the
-kernel return tail have completed.
+An ordinary hardirq removes its original count and lockdep state before the
+return path may preempt. Traceable return-tail callbacks then appear to run
+in the interrupted task or softirq context and can collide with recursion
+state owned by that context.
 
-After the EL1 pseudo-NMI decision, enter ordinary interrupts through
-irqentry_hardirq_enter(). Complete delayed timer and accounting work with
-irq_enter_rcu_preempt_counted(). Use the retained exit preparation followed
-immediately by raw count and lockdep teardown.
+Use the saved ordinary-hardirq provenance to restore only preempt-count and
+lockdep classification after the preemption decision. Keep it across
+traceable return-tail work, deferred hrtimer rearming, IRQ-on preparation,
+and context-tracking preparation.
 
-For kernel returns, restore return-tail classification after masking DAIF
-and before MTE exit tracing. Keep the pseudo-NMI lifecycle unchanged. Force
-arm64 preempt_count() inline so noinstr callers cannot be outlined into
-instrumentable text.
+Before removing the raw tail state, prepare the count and lockdep teardown
+and close late regular or forced-thread softirq work. Complete any pending
+RCU quiescent-state transition only after that raw teardown.
 
-The noinstr path also depends on the raw preempt-count and
-__kern_my_cpu_offset() inlining changes carried as patches 1 and 2. Keep
-them separate because they are externally authored fixes.
+Do not repeat interrupt accounting, RCU or tick entry. Existing non-hardirq
+return paths remain unchanged.
 
-Link: https://lore.kernel.org/all/c3a90368dd6c096af9d918e036a27728696fb8a4.1786603168.git.hongyan.xia@transsion.com/
-Link: https://lore.kernel.org/r/20260918161407.2300-12-will@kernel.org
 Assisted-by: LLM
 ---
- arch/arm64/include/asm/preempt.h |  2 +-
- arch/arm64/kernel/entry-common.c | 23 +++++++++++++++++------
- 2 files changed, 18 insertions(+), 7 deletions(-)
+ include/linux/hardirq.h          |  5 +++
+ include/linux/irq-entry-common.h | 59 ++++++++++++++++++++++++++++++--
+ kernel/softirq.c                 | 18 ++++++++++
+ 3 files changed, 79 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/include/asm/preempt.h b/arch/arm64/include/asm/preempt.h
-index 4f917596f387d..3d61be0f825fb 100644
---- a/arch/arm64/include/asm/preempt.h
-+++ b/arch/arm64/include/asm/preempt.h
-@@ -7,7 +7,7 @@
- #define PREEMPT_NEED_RESCHED	BIT(32)
- #define PREEMPT_ENABLED	(PREEMPT_NEED_RESCHED)
+diff --git a/include/linux/hardirq.h b/include/linux/hardirq.h
+index ad27a06c859a0..a120e3756d076 100644
+--- a/include/linux/hardirq.h
++++ b/include/linux/hardirq.h
+@@ -27,6 +27,7 @@ static __always_inline void rcu_irq_enter_check_tick(void)
  
--static inline int preempt_count(void)
-+static __always_inline int preempt_count(void)
+ void irq_enter_rcu_preempt_counted(void);
+ bool irq_exit_rcu_preempt_counted_prepare(void);
++void noinstr irqentry_hardirq_tail_exit(void);
+ 
+ /*
+  * Prepare every potentially instrumentable part of hardirq teardown before
+@@ -37,6 +38,10 @@ static __always_inline bool irqentry_hardirq_exit_prepare(void)
  {
- 	return READ_ONCE(current_thread_info()->preempt.count);
- }
-diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-index 93056a766fb20..fda807c61ff27 100644
---- a/arch/arm64/kernel/entry-common.c
-+++ b/arch/arm64/kernel/entry-common.c
-@@ -56,6 +56,8 @@ static void noinstr __arm64_exit_to_kernel_mode(struct pt_regs *regs,
- 						irqentry_state_t state)
+ 	bool do_sub;
+ 
++	/*
++	 * Preempt-on tracing can raise deferred work. The caller must perform
++	 * the final worker closure before removing the raw hardirq count.
++	 */
+ 	do_sub = preempt_count_sub_prepare(HARDIRQ_OFFSET);
+ 	lockdep_hardirq_exit_prepare();
+ 	return do_sub;
+diff --git a/include/linux/irq-entry-common.h b/include/linux/irq-entry-common.h
+index 2ed637cf66b0c..c6bdd5a2522e8 100644
+--- a/include/linux/irq-entry-common.h
++++ b/include/linux/irq-entry-common.h
+@@ -355,6 +355,28 @@ typedef struct irqentry_state {
+ 
+ irqentry_state_t noinstr irqentry_hardirq_enter(struct pt_regs *regs);
+ 
++/**
++ * irqentry_hardirq_tail_enter - Restore ordinary-hardirq return-tail state
++ * @state: Return value from the matching irqentry_hardirq_enter()
++ *
++ * Restore only the hardirq classification which traceable return-tail work
++ * needs. Accounting, RCU and tick handling belong to the completed interrupt
++ * and must not be repeated here.
++ */
++static __always_inline void
++irqentry_hardirq_tail_enter(irqentry_state_t state)
++{
++	if (!state.hardirq)
++		return;
++
++	__preempt_count_add(HARDIRQ_OFFSET);
++	lockdep_hardirq_enter();
++
++	instrumentation_begin();
++	preempt_count_add_finish(HARDIRQ_OFFSET);
++	instrumentation_end();
++}
++
+ /**
+  * irqentry_exit_cond_resched - Conditionally reschedule on return from interrupt
+  *
+@@ -505,7 +527,9 @@ static inline void irqentry_exit_to_kernel_mode_preempt(struct pt_regs *regs,
+  *
+  * The rearm on return to user mode needs no such annotation: no locks are
+  * held there, so it uses the same lock chains as the rearm in hardirq
+- * context.
++ * context. Ordinary-hardirq return paths do not use this wrapper: their saved
++ * provenance restores both the hardirq count and lockdep nesting across the
++ * whole traceable tail and they call hrtimer_rearm_deferred() directly.
+  */
+ static __always_inline void irqentry_hrtimer_rearm_deferred(void)
  {
- 	local_daif_mask();
-+	/* arm64 uses the split exit API, so enter the tail before MTE tracing. */
+@@ -520,7 +544,9 @@ static __always_inline void irqentry_hrtimer_rearm_deferred(void)
+  * @state:	Return value from matching call to irqentry_enter_from_kernel_mode()
+  *
+  * This is to be invoked after irqentry_exit_to_kernel_mode_preempt() and before
+- * actually returning to the interrupted context.
++ * actually returning to the interrupted context. If @state records ordinary
++ * hardirq provenance, the caller must first invoke
++ * irqentry_hardirq_tail_enter() exactly once.
+  *
+  * There are no requirements for the CPU state other than being able to complete
+  * the tracing, lockdep and RCU state transitions. After this function returns
+@@ -529,6 +555,31 @@ static __always_inline void irqentry_hrtimer_rearm_deferred(void)
+ static __always_inline void
+ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_t state)
+ {
++	struct ct_irq_exit_state ct_state = { };
++
++	if (state.hardirq) {
++		if (!regs_irqs_disabled(regs)) {
++			instrumentation_begin();
++			hrtimer_rearm_deferred();
++			/* Tell the tracer that the return will enable IRQs. */
++			trace_hardirqs_on_prepare();
++			lockdep_hardirqs_on_prepare_irqtail();
++			instrumentation_end();
++		}
++
++		if (state.exit_rcu)
++			ct_state = ct_irq_exit_prepare();
++
++		irqentry_hardirq_tail_exit();
++
++		if (state.exit_rcu)
++			ct_irq_exit_finish(ct_state);
++
++		if (!regs_irqs_disabled(regs))
++			lockdep_hardirqs_on(CALLER_ADDR0);
++		return;
++	}
++
+ 	if (!regs_irqs_disabled(regs)) {
+ 		/*
+ 		 * If RCU was not watching on entry this needs to be done
+@@ -570,7 +621,8 @@ irqentry_exit_to_kernel_mode_after_preempt(struct pt_regs *regs, irqentry_state_
+  *
+  * This is the counterpart of irqentry_enter_from_kernel_mode() and combines
+  * the calls to irqentry_exit_to_kernel_mode_preempt() and
+- * irqentry_exit_to_kernel_mode_after_preempt().
++ * irqentry_exit_to_kernel_mode_after_preempt(). It also establishes the
++ * conditional hardirq return tail between those calls.
+  *
+  * The requirement for the CPU state is that it can schedule. After the function
+  * returns the tracing, lockdep and RCU state transitions are completed and the
+@@ -585,6 +637,7 @@ static __always_inline void irqentry_exit_to_kernel_mode(struct pt_regs *regs,
+ 	irqentry_exit_to_kernel_mode_preempt(regs, state);
+ 	instrumentation_end();
+ 
 +	irqentry_hardirq_tail_enter(state);
- 	mte_check_tfsr_exit();
  	irqentry_exit_to_kernel_mode_after_preempt(regs, state);
  }
-@@ -523,12 +525,16 @@ static __always_inline void __el1_irq(struct pt_regs *regs,
- 				      void (*handler)(struct pt_regs *))
- {
- 	irqentry_state_t state;
-+	bool do_sub;
  
--	state = arm64_enter_from_kernel_mode(regs);
-+	state = irqentry_hardirq_enter(regs);
-+	mte_check_tfsr_entry();
-+	mte_disable_tco_entry(current);
- 
--	irq_enter_rcu();
-+	irq_enter_rcu_preempt_counted();
- 	do_interrupt_handler(regs, handler);
--	irq_exit_rcu();
-+	do_sub = irq_exit_rcu_preempt_counted_prepare();
-+	irqentry_hardirq_exit_finish(do_sub);
- 
- 	arm64_exit_to_kernel_mode_preempt(regs, state);
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+index 63427d29cb6d1..80d12deeb694a 100644
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -833,6 +833,24 @@ irq_exit_wake_late_softirqs(unsigned int wake_flags)
+ 		irq_exit_wake_ksoftirqd();
  }
-@@ -839,16 +845,21 @@ asmlinkage void noinstr el0t_64_sync_handler(struct pt_regs *regs)
- static void noinstr el0_interrupt(struct pt_regs *regs,
- 				  void (*handler)(struct pt_regs *))
- {
--	arm64_enter_from_user_mode(regs);
+ 
++/**
++ * irqentry_hardirq_tail_exit - Close work and remove return-tail state
++ *
++ * Run every instrumentable teardown operation, including the final worker
++ * closure, before removing the raw hardirq count and lockdep nesting.
++ */
++void noinstr irqentry_hardirq_tail_exit(void)
++{
 +	bool do_sub;
 +
-+	(void)irqentry_hardirq_enter(regs);
-+	mte_disable_tco_entry(current);
-+	sme_enter_from_user_mode();
- 
- 	write_sysreg(DAIF_PROCCTX_NOIRQ, daif);
- 
- 	if (regs->pc & BIT(55))
- 		arm64_apply_bp_hardening();
- 
--	irq_enter_rcu();
-+	irq_enter_rcu_preempt_counted();
- 	do_interrupt_handler(regs, handler);
--	irq_exit_rcu();
-+	do_sub = irq_exit_rcu_preempt_counted_prepare();
++	instrumentation_begin();
++	do_sub = irqentry_hardirq_exit_prepare();
++	irq_exit_wake_late_softirqs(0);
++	instrumentation_end();
++
 +	irqentry_hardirq_exit_finish(do_sub);
- 
- 	arm64_exit_to_user_mode(regs);
- }
++}
++
+ static __always_inline unsigned int __irq_exit_rcu(bool keep_hardirq_count)
+ {
+ 	unsigned int wake_flags = 0;
 -- 
 2.39.5 (Apple Git-154)
 
