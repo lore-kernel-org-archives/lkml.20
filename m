@@ -1,103 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792679363;
-	b=Seiud594xXaQ5hh0sACsI+h2h/7Z2829CMgR/NRVYpcUWhb7rDbrPaTgCZkS6mwh43aR
-	 mFx25Ma/n5yO2pdDkMRO8qmw8rYrMyf0GJWgH8+Lnj+V87yboJgyEIcDKHY9+TOwAy5xL
-	 mLw54mWeZ3Gz1SrUN7Zcth732dWvuCDG8K14FonMJ2suxtmLvZN9BeGTp47Gc1BoEbRVB
-	 JWNeqqZ74+xJ75hWznPIRrAS+pK9PJO0WAW466lilT9gaWo9I3cbZAb0wRJMExKsfYN9b
-	 KzVN/UK804g4D5GgQWLOUqJlNaVkW1ub269+f1nGWpSWq+mbk3KaQYK5Y8WRLkqF8xA==
+	t=1792679361;
+	b=bgMvoF0Ur08A/dT1yPEYLo71QNt2rjwVBe0QdB9nvRgW2MdG2vMhLyq1+YYlPlasPpUv
+	 Ergj5CLSgXKubLWaRjip+ukT5J6dLiKMgKqlktLgugKllz7Cr7+v2hXCpgMjBPI2lnzB4
+	 f5xtwvY/IhFyySCLAw43i9YzdJUsRQrB3PlYI6qMGeuoUP/SFBGEPeEylSR7mhYVmksw2
+	 4c7i/AfexYFgoJBATuWYVm42qJhh1mzlGioKrV/4jJCblxxAWKhpZ/fVVs2aGHe0b+Di/
+	 z8TpVXpWtlrtOYoU4FfJ3tV9LvWRYGnsqgRXrLSFSyQZvVSKlmBCq2utHNbp13Ktb+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792679363;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792679361;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
-	b=5XHGWG4Ay8Pkz1EzsrADJfCmJRdPUSuyCnkzPKpAdBDmInOvw7OH1ixccA4j3KRv0oic
-	 rrz0jOCfmCcItY83qts8hQ7cHHpeOnVkd4eYIXH9JP0qCmo9Y+5Hj/v/KMjAYv3UF325A
-	 rbiixYup6DksReRaY1pQSmaZ1x9iF5UxRvawjuvAWogYfIrDXVBWdp2yriNGPq5USbGwR
-	 PVkyil2KR3SxfvqjuQTqow4DWrTCet4USf0yv9HZzuxDUaP7DRgcfUywgAemWZiW7+fCZ
-	 RROevaaS+bPHkaAA3jUETIevlPL3Fvbndeg1VlTV+yY0VPTA7IEvM+ZEciSsVcg4XEw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=AepUBMEk9tXpEQAUUGXuQHkD4I3CSkHf6Wpw+Q/6E+o=;
+	b=z1TH/IsBT8WX0pij0s5By4HX93JxqksAbvs3+7lL0vqxxpWlsyupWg8C1755RODCMUjY
+	 +Nmu8oHn9lN+MxFc62iRFjF6zJqQHDqyug5NJxTusItOlTa4Dw50miENXIY61YRHl+QzA
+	 /cuHGACm3Kj4M5oJUH/tYyV9+yh93VkY7L1DRCTjl3kcSXLR9VGn9w4ZhHI4ZJT0g93eS
+	 HZy4FtpJuFSNDhfOep/M+jCtIMASqwMM/Eo80aG0emFmrt6ddeu8XOlytAgqhPMw/Wos9
+	 +E0+r/mWl/9By4LI3X5XwVXn4lvTukc4LxBTQlOKyIdSpicbxSW1oL93Mv+sSeu3ang==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cs.unc.edu;
-	spf=pass smtp.mailfrom=cs.unc.edu;
-	dkim=pass header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY;
-	arc=none smtp.remote-ip=209.85.128.170
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	dmarc=pass header.from=cloudflare.com;
+	spf=pass smtp.mailfrom=cloudflare.com;
+	dkim=pass header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=V95bAJGN;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFC31606A32A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:29:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFC31606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF84606A31A
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 14:29:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CF84606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cs.unc.edu header.i=@cs.unc.edu header.a=rsa-sha256 header.s=google header.b=Sh3VG5SY
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b0e21048f8so18566267b3.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:29:22 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=cloudflare.com header.i=@cloudflare.com header.a=rsa-sha256 header.s=google09082023 header.b=V95bAJGN
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1e3098ee2so23035595e9.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 07:29:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cs.unc.edu; s=google; t=1792679362; x=1793284162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=cloudflare.com; s=google09082023; t=1792679359; x=1793284159; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
-        b=Sh3VG5SYS86Y/cUu48NcOpZrlstcwtzOP6oDtt0f1lj8SLeLI5pZWs7o+SIp4ix3oT
-         5SggpjHjZ7iWCohx4alswx4ieJz3fvs2sb977apngl3IBzprzk4ulKjhiMFuN6ydLzPY
-         u+OpLY/nMxUyMt/PFrFzJImPdTz/mxUyUWVNKGrEISFLs6U1C1IZZV7uuawmXExSMTo/
-         fLl4ztuQw5RQXnLf6jlBAC9GycJ38e4qI3pKMz8GHe7RDB8g6Qib28eKU+J32wqwYyK5
-         90VRC7sN7POAsHt2h6PjNVLCGTBMGFJ/5KOAClc+KKEbaLuUeqK6opKhBmbEwfSp6jMU
-         PbbQ==
+        bh=AepUBMEk9tXpEQAUUGXuQHkD4I3CSkHf6Wpw+Q/6E+o=;
+        b=V95bAJGNr/tfX+drDCQCZX4U7BDkZVq85lpx40pCMxooe4zm/itb53JhvYJsPmR5sI
+         hCt2ZsTJIoJMNh5krr8802Qg4jn1UbMYdquCf8WmjQoWwSj8zLqJMgIm87x/YVYhg5AZ
+         AHUGCh8NRd++lTPayE5H63JEBKfZcUwSqbH39qBbwWJb5A2w8SUH7PBwDs3d1s99cd6l
+         wrdfJhzzZgraYywcOgEw/2HPGvXdv7bUU4vbGk/PnIa0aDSjby6kgEoW/sg+IPdvY2v6
+         r9EOBsc842uGFcGOrPDyOglB7HeJRht2AumaGFyPo+0//gJuCEuS0fmQXwaanGMWSqS1
+         sapQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792679362; x=1793284162;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1792679359; x=1793284159;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ip3LDVkz43JVMLeEy65y5DnSL95eKEKIg6rsimQU6Ow=;
-        b=ruAf0pXGFTQKIrXSoXBhb/FEifS3I7Ib8TRtzstyAQu3iWQnZX8DQMy4LntSGFVirx
-         AaJoQl5wzBhT3aefrQzvneVf80SdhCtiFhpn0wRCzfILqXHWvhiwhPA1zHro+7iaKtFo
-         Iwwbsscf7wbWY4wn5q8uMLtbqpKZb3RFO28mhjaM5pCbRN1Td1pDzuhClrPy/2ZqiiLh
-         hLSmKhoMLmfUHEdlodphnij4EUdQcSPjCR7wqbQ9vwlgHDjvF+L9xbNr/Sb231HgwjTm
-         klYbGQXgCrqb4JL3MDT2XCyfQQY3d0Z62wiowPF61p86JTaKNhiho/6bDoIcJXX6RMyS
-         YOrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdwSVs/jGOZE9b7Osd/r0X39Py3lgWCjCL6TKzZl8Zu93UnlMKf9Un5+T4oiaBVZQI/e3/egGU8AxEUTU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlg6wHwR6ykeCuIc4TpmQobjwAmrA/gtwyePm6CxqViIbrHckW
-	i1RBI6S6dEyz7XU1st5BPA9Yn2j49GYgFWUUjr51mYxM1a7NdkqdaA/13Nv97SfwWA==
-X-Gm-Gg: AYBFou3Zi1ZfuAn1byHHm7J8pJaBRNF3ljWw98w7s/sb+ARXWYnFJ5AaTrLyDCVoFby
-	pHhkp7lt/U5qg4iupEoBa1VvtppqJ4d3dTmWJ1rDWJsa+y1++bn/nON0balKwztVggIMXPSs0E2
-	JpPXHPiYkfU3S+2V9rkWCxHgzgBILH93zIibJ+iCZ17zXPO9/5dO3X5rekLW8ttj3VoGq2xTO+M
-	Cg07kA/FbM80c2Sz1bqCdxVy7Se13AYDnnevaWP1iiu3NrfYF5CXUhUugKYZyKQedMa6/Th3Wf1
-	BPTok3jioZdfVNmRFsbnbQqWVZ3dOmco1AFnQ6sTbO8Sg982CbTku3Zp8kI0yqAtV2O2lzHnsWt
-	i2t9oyQ4RzvMrwdqOtY501sDMTmTd9aPIS3a1mHM1rgR8xto3ff6r5kCWkA48imcZa9JNQNg843
-	cvv2z8R8V7KYeuUKlcw7m9ixa0ohQavdlrRQAmegJjZvCpCFcoSE8o6SsdWQYUTfA5NCpRK1DmH
-	aifng2/MYbmFTzfR757Y27Tv6SoLWdhDynhxI298Lc0an/bCAhzMrKN0ld2B+qgT0LgtH09gxGr
-	OCQCetL6466rAizgqmZz0N8f
-X-Received: by 2002:a05:690c:6603:b0:8b0:a171:65e4 with SMTP id 00721157ae682-8b133f979ebmr36772897b3.15.1792679361535;
-        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
-Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b1300f3cfesm27329767b3.27.2026.10.22.07.29.20
+        bh=AepUBMEk9tXpEQAUUGXuQHkD4I3CSkHf6Wpw+Q/6E+o=;
+        b=zobpC/HBG0rNTKadfaXh/3o0sbwk8dPOGzJyn3hxK5yLwJppmef04uJ8QSgSd5p1jH
+         SWSAB732SQ9VADzUMMk6yH35D2BGQ06piuBETYH7XztHNbgEYl++ctdDDyVJQfe6gnpB
+         ANW6re6Vdf4+++pbv06Y80fvMfMTo1eylcAywVlePu4yDS4J+uYpDA+hqoNv08epD4k6
+         zbc69mkL+krfM/3wVVlriiZmEDUY0vbohfGvdw+tjkOGF1OlH9oQcl5LkQLlTYRKkryv
+         rMi2UOCz9oM994ZRC7909Sis9C04RX+f7o/J6rpZDVaWIae4Q1E2H/hJ8dffYu6TNLZH
+         TLjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwTPK/uQqdbbMpyEigGuHbvqw6SMwlS3jJfdWAJbgNuVXkyuvAl0BfcbLsl8hPhqXGQkk0RB44a4vVpGoY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYItXpeHstIv0+Xg/gv4KqS9BQNsXnE1SaSJOQGJfTwykrmBeW0Y
+	32kzndQzZKGBoLwyQzHytq+YQj7TCf86QjJPao2r8qAEHtGKu5NzupwsMGdArHFsawY=
+X-Gm-Gg: AYBFou0nb7ok/WZcKbc7ccEH1IPMDMYERS3TQqUR8lKY2BiDaNEZPbvKU+uoObYWZqN
+	m12fTpcCoDyaFAr82m+EuLZF2yNljpW1oXtziWv80NpTvwASM/IkxI7sOn6sbKTQ42GBbBNhAhw
+	ZKJH8INBokcnstYQwVzFYNVEnwV7WGnlK/wjMrrpLgV7Y7uzivjjlZZkSlnNi5ZRt9HVRneb0Zp
+	aO0dK9e2SITZsgSLQ4d6E6eOIno2uoUb1ig/KMMdQaX7ktT5JjRH9yv0Ik2rYLJkFMVLct53e/K
+	gO+PWIjHS4lC6mWsW4mZicQbMyhS7JkXOk0GAUxia3jLvCKkZ34Nc40hE10SqjKEq5S7s1q4bBF
+	8RE73ifw68nIPFsY5/YAH4vS7XBvMgwLR6yOyuJtxggz0zvGOeg+gLHuMz7qVAIHy0gD01NSdBG
+	P4nppWgzp8oKvoPoFg+l6iQEE2JXUyy8cC5N8MjVOYf+rq7BQ5Jr/RxMbMjmRRAyHZkPCiXXbaI
+	pWS7FcW2tQrBNv/XvKxlFffzDKzxDK9V16crn4PUV4=
+X-Received: by 2002:a05:600c:6096:b0:4a2:fe1:26db with SMTP id 5b1f17b1804b1-4a20fe1270amr3372125e9.27.1792679359312;
+        Thu, 22 Oct 2026 07:29:19 -0700 (PDT)
+Received: from localhost ([2a09:bac6:37a8:294b::41d:9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a2101cd7cesm791675e9.0.2026.10.22.07.29.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 07:29:21 -0700 (PDT)
-From: Hengyu Liang <hengyul@cs.unc.edu>
-To: jack@suse.cz
-Cc: tytso@mit.edu,
-	linux-ext4@vger.kernel.org,
-	adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	dave.hansen@linux.intel.com,
-	akpm@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ext4: do not advance i_size on a buffered write that copied nothing
-Date: Thu, 22 Oct 2026 10:29:11 -0400
-Message-ID: <20261022142911.1490979-1-hengyul@cs.unc.edu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
-References: <20261009044656.1993196-1-hengyul@cs.unc.edu> <34dtkdstf5yxg2ulinnh4hocc53gz35ij6k62egi2ykgpyc3a5@zuxt6doiajwq>
+        Thu, 22 Oct 2026 07:29:18 -0700 (PDT)
+Date: Thu, 22 Oct 2026 15:29:18 +0100
+From: Matt Fleming <mfleming@cloudflare.com>
+To: Marco Elver <elver@google.com>
+Cc: Caleb Kan <calebkan1106@gmail.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	kasan-dev@googlegroups.com, Vlastimil Babka <vbabka@kernel.org>, 
+	Alexander Potapenko <glider@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+	Andrey Konovalov <andreyknvl@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+	Caleb Kan <ckan@cloudflare.com>, kernel-team@cloudflare.com
+Subject: Re: [PATCH RFC v2 00/11] stackdepot: reduce memory use for
+ persistent stack records with a trie
+Message-ID: <atodIhryrdxsU5mB@matt-Precision-5490>
+References: <20260908-stackdepot-trie-v2-0-1996d5cef732@cloudflare.com>
+ <ateDvB145CN_R7CA@elver.google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,58 +101,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ateDvB145CN_R7CA@elver.google.com>
 
-Hi Jan,
+On Tue, Oct 20, 2026 at 03:07:40PM +0000, 'Marco Elver' via kernel-team wrote:
+> On Tue, Sep 08, 2026 at 02:13PM +0100, Caleb Kan wrote:
+> > Hi,
+> > 
+> > This series reduces the memory used by persistent stack depot records by
+> > sharing common frame prefixes in a path-compressed trie.
+> > 
+> > Cloudflare runs KASAN on pre-production servers so allocation and free
+> > stack traces are available when diagnosing memory-safety bugs. On some of
+> > these servers, stack depot exhausted its pool budget even after we raised
+> > stack_depot_max_pools from 8,192 to 32,768. Once the depot is full, a new
+> > persistent trace returns no handle and a later KASAN report can lose the
+> > history needed to explain the bug.
+> > 
+> > With 4 KiB pages, 32,768 order-2 pools allow 512 MiB of stack storage.
+> > Doubling the limit again would allow 1 GiB, but it would not change the
+> > linear growth: the hash backend shares identical complete traces, while
+> > two traces that differ by one frame are still stored independently.
+> > 
+> > The trie is opt-in and disabled by default.
+> 
+> Have you measured how much of the memory reduction comes simply from
+> storing 32-bit compressed frames (patch 9) directly inside the existing
+> hash-backed struct stack_record? That alone cuts frame storage by
+> ~40-45% across *all* callers (including page_owner and KASAN aux stacks)
+> with O(1) lookups and none of the trie/bitmap/RCU complexity. If prefix
+> sharing is still needed on top of that, deduplicating fixed-size (e.g.
+> 4- or 8-frame) immutable segments from caller to callee in the existing
+> hash table (chained via parent_handle) would avoid mutable child arrays,
+> RCU retirement, and the bitmap allocator entirely.
 
-On Thu 22-10-26 11:48:35, Jan Kara wrote:
-> I agree with the problem but first, Ted has merged rewrite of ext4
-> buffered IO path to iomap your fix would very likely need rebasing, and
-> second:
-
-Thanks for the review.
-
-In the ext4 dev branch, the iomap buffered path is only used with the
-new buffered_iomap mount option, and it faults the source in before
-->write_begin(), so it does not have this problem. The default
-buffer_head path still does: on 8c4f6e337634, a 100-byte file still
-has a size of 1048586 after a failed pwrite() at 1 MiB + 10, sync and
-remount. The patch applies to the dev branch without changes, and I
-will base v2 on it.
-
-> this is wrong and would leak delayed allocation reservations AFAICT. You
-> should just use ext4_truncate_failed_write() like e.g.
-> ext4_da_write_begin() does on failure.
-
-I don't think it leaks. ext4_es_remove_extent() gives back the
-reservation of the delayed blocks it removes through
-ext4_da_release_space(), which ext4_iomap_punch_delalloc() also relies
-on in the iomap path.
-
-To check this, I ran my earlier tests on the dev branch with the patch
-as sent and with the helper replaced by ext4_truncate_failed_write(),
-plus a test on an image with the quota feature that reads the user's
-quota usage (which includes reserved space) and the free block count.
-After a failed write past EOF, both versions bring both numbers back
-to their values before the write, and nothing is logged at umount.
-Without the patch, the same case keeps 64 KiB reserved until the inode
-is evicted.
-
-I did not use ext4_truncate_failed_write() because since 665575cff098
-this path is also taken by ordinary writes. When the source page is
-not faulted in yet, the first copy fails, ->write_end() sees
-copied == 0, and generic_perform_write() faults the page in and tries
-again. ext4_truncate_failed_write() would then run ext4_truncate() for
-each such write that starts past EOF, and that frees blocks
-preallocated past EOF with FALLOC_FL_KEEP_SIZE, even though the write
-succeeds right after. In my test, a 64 KiB write from untouched
-anonymous memory into a file with 1 MiB preallocated past EOF leaves
-st_blocks at 2056 with the helper, but drops it to 136 with
-ext4_truncate_failed_write().
-
-So I would prefer to keep the helper. Is that OK with you, or would
-you still rather use ext4_truncate_failed_write()?
+No, I don't think we've done that. But I will run the numbers and
+report back.
 
 Thanks,
-Hengyu
+Matt
