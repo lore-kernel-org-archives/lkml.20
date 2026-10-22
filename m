@@ -1,73 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792697351;
-	b=tdJHwgwHIDHHdGqjG2PTapy2wK9sDZ7llbOGBN2LdR42gQX1feSSHD7gsraA+L4z+2HU
-	 jd52x3BLIluaq32Ip+0Beie/izve9za2oXq1Xescnj9UsvLbKYQQJHpqzJf6TITminczb
-	 7vwdQ5RosjtJzDhs+wyHhPy6I/VeYX5iKapzkGUw7kvWjq4JRFGGVb9xAk92OR/Z9MT1N
-	 r2aZd5Lp4dPMPNkOFg2RkXsj7EXqu8lqw7NMpDpsM+kNhRGQOMJxP8hN1vchexC8bWcch
-	 /7hCuH2X6xSoRA1hmsRIsHisJ/0bT0RxhDnnvNwTbnLihqwzBvzKJYWW4k+3pYYvhXA==
+	t=1792697373;
+	b=LYbSpytPhgMPnPVRSZAdpYV3E4ONTOzy15H7eKVzEeTTqFV2lP23I0Q26PNVkkIarfMJ
+	 odiKZut/BWmAkQ0N5vjHOwqXALjlEKR/pEgp+9jIgeNnGLI6vbRpiwKV3cf4AU3QN1K1t
+	 Le0pH+yF8JAGgyZpQZ1Z3yz9rmq4Aw2cjAsOa5dN/nLwxmm4aD+y5VJS/lcgXYbdOjsqr
+	 0Qh3RnLmwqelHSGc0/MY6C+zDz8WT3P9kl3VzCAcA9IAE7bJKC4CyoquU45Ej4y+nGtXf
+	 BZj9a3RlA3oOmGQhYjRc7otpvVvmFvS3BpOg+ONgbDtxZrwzVcI6zDlOHBTAdARWwQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792697351;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792697373;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Reply-To:Date:
-	 Mime-Version:X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Arx6jy0MOgeqv9tTVqXlk/d3btfDuiHwkJcNQqBQPR0=;
-	b=C406DCxEP3kmwv2YSvCV8ZMgoUUvZWR4uqHwWm3TBqwwgE1s4TdpWbNHUlhu3zYqc3bm
-	 3LWkT4cH5jTbMWIzyAE+bqH8zjkEfnHCGU4IEh1k0uhVYTWmUb6ZUYVUwswOXnseFj7gT
-	 AWox/oHpAgkZNoTGU2jJX1P0Da6QGOg17YLIzo9dhYrjAuC7g99buy4AqR1Gm1J6fJtM7
-	 EzVEjLAAMBCjGK+dmtIZL9tlnfzxFQFnIct3Oi51RKZGck+3SCgoDOWAMVaHWihtDK8MZ
-	 HjI0gD/HNjV0Kw8a/gNLQeU9cN/2tFVp8aZVOM1elQcYhC4Iz0Gq0zgkxH/ubtcA9eg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dtIDxskl9CL4u3HCClPUlqLnyLEWtYjRFUBbhD8dpoA=;
+	b=ylxX7XD5k+dq/I4bnTMRHZjkPq4f5oT4hmEpN6017XWL+Bm/GujfC6jBf++A4tq7z0bo
+	 oGnH4QlNKvJCWE3JnyGHtrTMLw47XURzZ9IvDAdYSvochzkKOklRfoI/GWTvcl6p5DSE7
+	 FHpt3V7ugF2CfuEQMeJPikL+DgpGl8xC4ewBJ+BF1D5f4tz9i+mw60ZOowU+DnmfoT5ti
+	 WGUAPLcdtClunL6PS0m/OlIRsDttVqRVsledhEw0VtFwD5SPxW0vt0JpezSHSFuMLL4Rv
+	 GiNBuQqhpdVEKsr6tbUnVr8FNeaWbAaZh0RtV0fThljG18Rggg0TFDkgSkEfh1d7MEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=glfJBT7v;
-	arc=none smtp.remote-ip=209.85.210.198
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	dmarc=pass header.from=riscstar.com;
+	spf=pass smtp.mailfrom=riscstar.com;
+	dkim=pass header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=OPrQxawG;
+	arc=none smtp.remote-ip=209.85.161.47
+Received: from mail-oo1-f47.google.com (mail-oo1-f47.google.com [209.85.161.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CCC606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:29:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80CCC606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA724606A31B
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 19:29:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA724606A31B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=glfJBT7v
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89fb6a45c48so227165b3a.1
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:29:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.a=rsa-sha256 header.s=20251104 header.b=OPrQxawG
+Received: by mail-oo1-f47.google.com with SMTP id 006d021491bc7-6de1ca1b05aso104933eaf.0
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 12:29:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1792697351; x=1793302151; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Arx6jy0MOgeqv9tTVqXlk/d3btfDuiHwkJcNQqBQPR0=;
-        b=glfJBT7v/vB1FELM8qGbuCUF2czjr7b1NMK5MamyEnEJjrgKkL39ExXtm/L3K/IB2r
-         aa40Bbhar82iZy8w0SSoGzdIJxOifChE+AN3Y4lYn8TI3l/YhRrvON1zZs7TR/Fr3eZQ
-         m+dOpAba07tiuw1d6WuOEKZRPLhQUYTYv7XX9l6CmfnpAF2VabkkXPegP7g/FowdWJUm
-         0R8Wxs9QcyBk9z0ZYxMJNlR6z7oYyYlTiCMuq1ONKK19Y4U4+XrotWyjGxTniGXiVD4q
-         zbNbkWiU8JY2smC/psRJul+Jgk0XQCyqdNUSYb/4n6cqY5R0F7kpSKpwxgXngpzsGmnM
-         hUyQ==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1792697371; x=1793302171; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dtIDxskl9CL4u3HCClPUlqLnyLEWtYjRFUBbhD8dpoA=;
+        b=OPrQxawGwlnDpw5uY43sifYd5c/xLnZG0farwLqGa+sabqukoDv26jrNhJphHuBpp9
+         bhYMaGIwkqrwMvSCr8Ua8qdvIDoN8SpLCIdFY7rggGccwDgxxzUDGhxZJwxRGuTH4CjY
+         Puc4C5mVvkrz0LxmWKc0ux5GQHubWRBCWqLAf4iNidtX+QFHHl/2FXbF1m4/JNBQAiyD
+         8V4iWjV8SGEJHQNViRvUoEw4wD2pCy0RsH9mcIbQfegIIeu6sgxOV0YBulHziwvEhokS
+         rRgp8sCyknSSh2wA3XewdCy7FXEp3cglGOJom2EddjT7ERT6O01mRrw6s3HdNI+9J/Wd
+         XfEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792697351; x=1793302151;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Arx6jy0MOgeqv9tTVqXlk/d3btfDuiHwkJcNQqBQPR0=;
-        b=fMxz0uoAbKIknEE4kjJAAeRfi+9Z9Khy1oI70oEDK+sQzGD1RYug2jc3Uc+wcj1qn3
-         3c35KBRbfV9woj8HsMnGieF7YNnp41j8D0xZVthxsExUJETjhQsLh2r2Q9M6mkT9ayWD
-         PvnHHfeg1H8siBg8EwNwNCJuEjmRLYNV+CLWfpRRDuSLvhg0fFxYkrNqDs9RnsciBusu
-         Vvd/Uzv4swMrHKA1SI0Jsc8poi12loCoTTTOzLwrwJH5Cm+YN/CTVHVHtx7ydfrKMnnE
-         4auhvA26Dsp6yQFw/r6lQgoTeTA+VHIVj2S+4ljtY/lWpjxYeMQEIEU8tE/Ljwx85kpZ
-         B1XA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1ohsOUthXLYfHQ/9gs6ZWuuryImrAlCn+D96sEfcg5cp+V62V8gXYnDczwrbsTmJkyvMBK+qmzO77dSM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9KejD+1fEoegIe+AZnYWLH8uvPj8rVDqpfrdw4f3RZELoJ2BH
-	7/y4oHRJzmMWeNYCeDtWON/boiQtA6vb11YHKyHGpIaW481KIK2vVyHWyRKxfVWIxWfpi/JvLab
-	nXNj13g==
-X-Received: from pgmt10.prod.google.com ([2002:a63:224a:0:b0:cd6:b0a6:8d94])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:d50d:b0:3e1:fcec:c724
- with SMTP id adf61e73a8af0-3e287e6f7bbmr4535725637.31.1792697350460; Thu, 22
- Oct 2026 12:29:10 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Thu, 22 Oct 2026 12:29:08 -0700
+        d=1e100.net; s=20260707; t=1792697371; x=1793302171;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dtIDxskl9CL4u3HCClPUlqLnyLEWtYjRFUBbhD8dpoA=;
+        b=YAdmGV4AjVglLWKiSp80ggOWmaO+nXDSOpBDLlzO5cvc7NZkqEsEnQWr0U2ibTd7EZ
+         VWe8E52PxwJ4hxJzp06Hc4KxrhM8Oa6lHVqQWgd67S/nDKT7Z5Yl7OlYRlYgV8nDrfkp
+         5NXYZXC+6NeaXzmMXPxUXmP2nlgSlDGdqbVEku6QGxUjXPmEifKwXG1QeL1vbXokYNuU
+         3RFJqknuwz/aoHNNjaYIsDz2WGUOHvKiG4H9M4QWkcF9WUJOj86ahqSxJKna58WQu5by
+         BSXQgXBeU7MLyG3iPSMaz+mnI1cIxOsSHnryRrtuBejD7QL6DX7Dd+zmkP0ZBdgnwZI+
+         nEww==
+X-Forwarded-Encrypted: i=1; AKwUvBxV3WxBivPgtGW9LJUiO9KvRctoI1mVAMo6EdZWmUW3OC/7X2kBqyCltXwqEhgYsfVm9L3kahK+MP8ex2E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLrSEUfSVbiflLkB8kwq3MxX5gyRLu/0o/lHszIb5dgY8j0Ql2w
+	wkOg9y2EW8hfADhBFm5NAhS9eXGOeYgdaoP2hUOAE/h/nae/VhcUHItW3v2OfFd2Sup+kbVQhuM
+	EibCN7ik=
+X-Gm-Gg: AYBFou2lvwxgY6gvwDElrj7YDBdG504+fMtzX2ytzCANmTeWSqYkIMAW48J+dO3MJu+
+	GU56SIyzjVUWzWl7Bir2mgh7YkzSEBKlhxAJ/f/7OD4VeI9qoSy4OnDOMo7FLEQiWo7Oc5UE1z2
+	QAU9eJTGBozUtmSb+fdRZXIxAf8+NWZhplBkbgzK2ndbtQY+RWDC9r/HcriLwqOSSNQLAfoRRO+
+	5pjm50Fxz6YKvgfMRNiFdo96i6qIZNgFfx2Q3dU+ZY1rem2ureUGUbpuYpruysbFQ6g+Swe2CJG
+	hT3Z9PcBWywDf3C84NOyAqIAT5FIHd536Sdob2HQ90bENDDgYRCSbt5F2gzFMk0RtH8ahp/J80R
+	KSW/sJyCsiOi3se+uwKAnE9XzFa1PWVEoDqwkYPwln7MTAjhb0u2IGbjl1MrlAX+l83sbGy+LEN
+	syH92iCfJQn86XtJAPOJSUzWpRLpg46iu+vdTHIFwYMqLEhIFFsyZIPdpvStZaHby84nUJ+hBqO
+	YkSoicch4cDKHlaX5pt6aIFU+vMZ7Wu90Xs4XAwZhM4mzieKwcwDO5S
+X-Received: by 2002:a05:6820:5611:b0:6f6:b13f:5d2d with SMTP id 006d021491bc7-70b8884d3acmr221772eaf.12.1792697371436;
+        Thu, 22 Oct 2026 12:29:31 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-70b8b266f0bsm19815eaf.6.2026.10.22.12.29.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 22 Oct 2026 12:29:31 -0700 (PDT)
+Message-ID: <c482704b-903e-413d-ba7b-5bf31c0a6104@riscstar.com>
+Date: Thu, 22 Oct 2026 14:29:29 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,61 +91,144 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.257.gf7497c7d27-goog
-Message-ID: <20261022192908.554376-1-seanjc@google.com>
-Subject: [PATCH] KVM: nVMX: Clear nested.smm.guest_mode when freeing nested state
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Karthikeyan Bhargavan <karthik@cryspen.com>, Chris Mason <mason@kernel.org>, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, Josef Bacik <josef@toxicpanda.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] staging: greybus: Use fsleep() for delay
+To: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+Cc: greybus-dev@lists.linaro.org, outreachy@lists.linux.dev,
+ pure.logic@nexus-software.ie, johan@kernel.org, elder@kernel.org,
+ gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261022110238.38824-1-pavankumaryalagada@gmail.com>
+ <6d683673-39de-4986-a593-68a5a495e764@riscstar.com> <atpggBthwjZIFwXR@user>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <atpggBthwjZIFwXR@user>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+On 10/22/26 2:14 PM, Yalagada Pavan Kumar wrote:
+> On Thu, Oct 22, 2026 at 08:28:23AM -0500, Alex Elder wrote:
+>> On 10/22/26 6:02 AM, pavankumaryalagada@gmail.com wrote:
+>>> From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+>>>
+>>> In the loopback function, usleep_range() is used for short delays
+>>> and msleep() for longer delays. This requires choosing the delay
+>>> function based on the requested time and converting microseconds
+>>> to milliseconds when using msleep().
+>>>
+>>> Replace both functions with fsleep(), which selects a suitable
+>>> delay method based on the requested time. This avoids the need
+>>> to choose the delay function and convert the time manually.
+>>>
+>>> Suggested-by: Alex Elder <elder@riscstar.com>
+>>> Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
+>>
+>> Your description above is pretty good, but I agree with
+>> Johan's comment.  In fact, you should think about and
+>> understand exactly how that behavior changes with the
+>> switch to using fsleep().
+>> - When would the delay be different from before?
+>> - When it differs--by how much does it differ?
 
-If an SMI arrives while L2 is active, vmx_enter_smm() forces a VM-Exit
-to L1, and records in nested.smm.guest_mode that RSM has to re-enter L2
-and in nested.smm.vmxon that the vCPU was post-VMXON.  free_nested()
-clears the latter, but not the former.
+FYI, I was not really looking for a response here
+(other than you sending a new version of the patch
+that provides some additional information).  I was
+simply suggesting the way you should approach
+making a change like this.
 
-Userspace can get KVM to free the nested state while the vCPU is in SMM,
-with KVM_SET_NESTED_STATE, e.g. with no VMXON region to say that the
-vCPU isn't in VMX operation, or by flipping the SMM flag back and forth
-with KVM_SET_VCPU_EVENTS.  When the guest then executes RSM,
-vmx_leave_smm() tries to re-enter L2 even though there is no vmcs12 any
-more, and nested_vmx_check_restored_vmcs12() dereferences the NULL
-nested.cached_vmcs12.
+> The current code uses usleep_range() for delays below 20
+> milliseconds and msleep() for longer delays. When using
+> msleep(), it converts microseconds to milliseconds by
+> rounding down, which can make the delay shorter than
+> requested.
+> 
+> For example, a requested delay of 20,500 microseconds
+> becomes msleep(20), which requests a 20 millisecond
+> sleep.
+> 
+> With fsleep(), the kernel selects the delay method
+> based on the requested time. For a 1000 microsecond
+> delay, the current code allows 100 microseconds of
+> extra time, while fsleep() allows up to 250 microseconds.
 
-Clear nested.smm.guest_mode along with the state that it refers to.
+Well it depends on the value of HZ, but I think it's
+typically 1000.
 
-Fixes: 8fcc4b5923af ("kvm: nVMX: Introduce KVM_CAP_NESTED_STATE")
-Reported-by: Karthikeyan Bhargavan <karthik@cryspen.com>
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Cc: Chris Mason <mason@kernel.org>
-Co-developed-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Signed-off-by: Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/vmx/nested.c | 1 +
- 1 file changed, 1 insertion(+)
+>> - Is this amount significant?
+>> And the third question gets at exactly what Johan was
+>> saying should be included in the patch description.
+>>
+>> We want to know not just the mechanics of the change,
+>> but at a higher level, what is its effect?
+> 
+> The change may affect the time between loopback operations
+> and the reported performance. The code does not seem to
+> need an exact delay, so i think using fsleep() is reasonable.
+> However, testing is needed to confirm its actual effect.
 
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index 9b0bfa2f854c..66a7b57c9f16 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -349,6 +349,7 @@ static void free_nested(struct kvm_vcpu *vcpu)
- 
- 	vmx->nested.vmxon = false;
- 	vmx->nested.smm.vmxon = false;
-+	vmx->nested.smm.guest_mode = false;
- 	vmx->nested.vmxon_ptr = INVALID_GPA;
- 	free_vpid(vmx->nested.vpid02);
- 	vmx->nested.posted_intr_nv = -1;
+This is technically right, but you have already shown
+a little intuition about what the change does.  And
+my point was that you should approach making changes
+to the code with this kind of analysis in mind.
 
-base-commit: 164405e8e9a0378c7e1aff2254625a6553a291f1
--- 
-2.56.0.257.gf7497c7d27-goog
+Simple fixups like this are great, but ideally they
+should produce *zero* change in behavior.  In this
+particular case, there *is* a change, and you should
+make sure you understand it, and as Johan suggested,
+make a comment on it.
+
+> I do not have Greybus hardware to test the driver at runtime,
+> so my assessment is based on reviewing the code and fsleep()
+> implementation.
+> 
+> If possible, could you please check the runtime behavior or
+> and let me know if you find any issues with this change?
+
+I am not set up to do any testing like this either.
+I don't think you strictly need to test this (other
+than doing compile testing and things like checkpatch).
+I'm just trying to suggest good practice for you to
+follow when proposing changes.
+
+					-Alex>
+> Thanks,
+> Pavan
+> 
+>>
+>> You don't need to provide a super high level of detail
+>> in this particular change, but you should demonstrate
+>> somehow that you've thought about these things.
+>>
+>> Please submit a new version of the patch and reword
+>> the description a bit to concisely capture why it
+>> makes sense to make the change, and why you believe
+>> that the change in behavior is likely harmless.
+>>
+>> Thanks.
+>>
+>> 					-Alex
+>>
+>>> ---
+>>>    drivers/staging/greybus/loopback.c | 8 ++------
+>>>    1 file changed, 2 insertions(+), 6 deletions(-)
+>>>
+>>> diff --git a/drivers/staging/greybus/loopback.c b/drivers/staging/greybus/loopback.c
+>>> index efc69c10cffe..2fe845eaef29 100644
+>>> --- a/drivers/staging/greybus/loopback.c
+>>> +++ b/drivers/staging/greybus/loopback.c
+>>> @@ -898,12 +898,8 @@ static int gb_loopback_fn(void *data)
+>>>    		gb->send_count++;
+>>>    		mutex_unlock(&gb->mutex);
+>>> -		if (us_wait) {
+>>> -			if (us_wait < 20000)
+>>> -				usleep_range(us_wait, us_wait + 100);
+>>> -			else
+>>> -				msleep(us_wait / 1000);
+>>> -		}
+>>> +		if (us_wait)
+>>> +			fsleep(us_wait);
+>>>    	}
+>>>    	gb_pm_runtime_put_autosuspend(bundle);
+>>
 
