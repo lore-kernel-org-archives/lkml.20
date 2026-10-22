@@ -1,61 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792660301;
-	b=wfyTw/9Y+pnKKo3+/ZU7UOeEXs4kv5fhJZkx2PtZFDeB4uR5v70rTTRAt05KHeO9VwoN
-	 3XKF9o1gCIJ7i5XP6Ml3lu/CQ/BnqCx/nEeAOkHzqY3Yuj16hl3xrQPKXuyHncgHopheQ
-	 JorgLvcf2wuF/NcRyzzQv4epIfki+uyI9AE+28s81h5EsbnhJe+IfHZTWL3eeoSCUMyc3
-	 /rWaa7j4/B6enu/1iXW1p9xJwZqmZvX48r7mPKxJdpbA+ASe4vVL7aAFLCmWKT6SGXW8y
-	 bn/0Gcu18GOjQb3LVR69KYmxWU69rg6+ydWFKLS4OeSXDV6luKasocWSV3xBftiDWrQ==
+	t=1792660305;
+	b=3ropeYW4Wiq1EKu7vfjinaxKg7yE0Im+NAgolk283y5I51AOBHRo6uB8990eG8wttI26
+	 ZyiTScoSZ5oEv/yqi1FGnmVkU1yB3E3TCO4efSzqOGH/kKUE5aKZTNuXR1leuDZMC42/U
+	 aPYuAJLCVtR1zadi7rg43nbuqKCsSJgrrHSe8udzx404YOW+wrgQ+fua33MR02/6V3Nxh
+	 g/fosAiGPSN90IQP85BMy0QvMSzGL87GqjAfadRJB9c5ity0D+BVtirukpeqg6dqYwA6x
+	 Uvuv3/VqBIA7TqnMpuyqXCu/sAektDW9eq70OX1HI/8ayaAE2F7jboEs5AKdOsFnNJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792660301;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:Received:Received:From:In-Reply-To:
-	 MIME-Version:References:Date:X-Gmail-Original-Message-ID:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=p/rWYroWakeh+XKdFXLD4/hTsWddof8wuTHxvaKPBIs=;
-	b=WUw+MWb7wfk1vyfqa17OBn3uYv2qMn9+6+dN4Zsteuy6Se78mzhVQQr5ue4kzo89DTbI
-	 iyOggNGxsn+bc5tk+Smf9Quqx0qW7M9S7rjbg4VyYMtcUYuC0zE4izK4OTJC7mp3JtXg3
-	 GfGS4jBmDOxBY5EsusNXv/JBQcfNqfLgykp/ZJA/JROmXVdMjLaFhdSti1z0zuybf4vOF
-	 vpK89dSofPhrUsPHI36RnH6bLhtMx41q/gPJ4AdxcD3KAFtVoNYJ59kz0a/Wsp8hzCKSc
-	 tEX85+boJn/DCtKdZLQNjjST2yhF4Nj+/Q2UQsPQnZzLSryeu9AL0lJgDRY9xEqyj4Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792660305;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=Ua5rqS+M66UnjBJ5kQcrA+aCzB6P+WQ6Ck+EetFcnug=;
+	b=KUsZaul1ysFsFePuIpcsnfE7chzHOj7RA5qHxe3d+PWf0HHMKb/3BiJNfdbzABbRGTnu
+	 cS2bW0bmQze3QdKwScpV6cyHBNxJs0VD6z4TGTA5tNzlbeTGPeh7XZjsdupwAmfcDm9Hy
+	 0DrEdJuF9UQNmjXNPr05T4q4rnHRgexdpZOYEyufZqDm8nbaDk1gLKiPjZoaq9RgdLQz/
+	 n1spFSOT4FjaQt/NWO0nXHfeMt2G7xtpxagtFptEjK9li5ddJkB8mP3dEArr7kcMamx0f
+	 Mu0XtM5f1h78HXGzQOFVMgcPEkFKuNF+824RsZ0mbooYt/XKHwizA3sIB1IDQ5Sayvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgXn7b0F;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vb33JHXW;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D927606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:11:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74642606A32E;
+	Thu, 22 Oct 2026 09:11:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74642606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JgXn7b0F
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F021F000C7
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:11:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792660300;
-	bh=p/rWYroWakeh+XKdFXLD4/hTsWddof8wuTHxvaKPBIs=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=JgXn7b0FPQxh81xw+phuxyPgQ9fuRV/9DmFkK0eOdg8ypWV4kydREYNqip5Nm2b14
-	 p4ve/6KD56vOpkpFi3Yp90WjnlYiMR71N4Kr1/nwbH1PWsfBtzhN2Wq5tUym79Hrc7
-	 1fds9Tn6ugtgU7PlIwDFioK/oxKiJXXk/IKuvoSpaemVzVMjQGqO6JpDHof8OsDbz3
-	 NvArg4bpbV/VJxnT0S7+nU2Xl88zgTEGjg6NP7+hRPX3AyMX4brriLK2xVeTrfJ52z
-	 iGhrkI+U0FhRoeUNwiv1BcFnJWygwCDJGbgrIj18u8YrQ3W5RCXqWoTipeBEs32Q56
-	 sAPgrSgr0lZfQ==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3ab39af88aeso13853171fa.2
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:11:40 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwsv5hqkjvYDeOUy8ktPw6deClC+O//Cdv6RgUGIOb6NBX82m3Sj/DUZhhiHtIK1KxFr1GA5cWB2CG82/8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7zygx9cFpKw//UdeF+2UXDr8KLWKe8ey6SiQIL6k75dhl+RLs
-	FsnT/Zvd8PaywF8YzsNc8+ZX0Y47nnfo/Nx4VsJPwY3Q6W4DLRukXqmnL/WTXLyeElr4o3Wlgt2
-	j7rBfqt5Z4FTGGdzqwY/Fv1dtIl5H+mWAkNvMs1qbQQ==
-X-Received: by 2002:a2e:be9e:0:b0:3a9:d937:7540 with SMTP id
- 38308e7fff4ca-3ac4416243dmr12975201fa.9.1792660299462; Thu, 22 Oct 2026
- 02:11:39 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Oct 2026 02:11:38 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 22 Oct 2026 02:11:38 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Vb33JHXW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792660305; x=1824196305;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=yUO+03PCzKOpPATkFdI7CV7q8rqB524brlL+Inf/GGQ=;
+  b=Vb33JHXWDZ+btzb3Y/LPIIoqPCa71EXKm2NEisO+6F/wU2SiGpf3N4st
+   Xwtu4Thg+2DiSWvbAD/VtfckmRYNghpWGm1swWnYeld6WKynWPUtDPtlW
+   1fsEANB7c5txC1h1xZ2Rs85AhOiutCO1pDJo7X3y5LrUUrIYN0Xt7PuQ/
+   VzRpyRGN+QhHBkaYA+7sYCWQD9fdkkISy86/eCy+WUS8WIm8fSPK/i0O5
+   WCcbksVG83buptNzlntPnMfx/w+zBAG40aDe8B0+Hqlo2NgE21vDCajZB
+   841YwIFB4yxoXF17qTCk/HJHVCcUEkW6mj9tvMmAV5j0bW0Th3CfsxrZH
+   g==;
+X-CSE-ConnectionGUID: 620vwITgS1GQZGMdWuAJ1w==
+X-CSE-MsgGUID: Y5C4jojiSWq4E9Rk9lYgsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1283920"
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="1283920"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 02:11:44 -0700
+X-CSE-ConnectionGUID: 22dxuheFTfSMLW4D/oBpIw==
+X-CSE-MsgGUID: FvWKl4wJTo+dHODHyBfxGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,171,1787036400"; 
+   d="scan'208";a="3328115"
+Received: from wgawrons-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.246.187])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 02:11:39 -0700
+Date: Thu, 22 Oct 2026 12:11:36 +0300
+From: Tony Lindgren <tony.lindgren@linux.intel.com>
+To: Rick Edgecombe <rick.p.edgecombe@intel.com>
+Cc: pbonzini@redhat.com, dave.hansen@intel.com, seanjc@google.com,
+	x86@kernel.org, kas@kernel.org, adrian.hunter@intel.com,
+	yan.y.zhao@intel.com, binbin.wu@intel.com, xiaoyao.li@intel.com,
+	chao.gao@intel.com, linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org, nik.borisov@suse.com, yilun.xu@linux.intel.com
+Subject: Re: [PATCH v2 0/2] Drop unneeded cache flushing
+Message-ID: <atnTSJ5bDb5OxWfE@tlindgre-MOBL1>
+References: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,29 +81,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261021204654.1001101-1-andriy.shevchenko@linux.intel.com>
-Date: Thu, 22 Oct 2026 02:11:38 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdHEzHBXx=P1-0Ut80P5=sQnPDwZRD-zdpoE75iHcJjBA@mail.gmail.com>
-X-Gm-Features: AclHuK_hz-v2b1ECvbFN520xl5CJy3PF0_qpuWYzZq4NEyeOn4Gq02HoHw6YzK4
-Message-ID: <CAMRc=MdHEzHBXx=P1-0Ut80P5=sQnPDwZRD-zdpoE75iHcJjBA@mail.gmail.com>
-Subject: Re: [PATCH v1 0/3] gpio: Introduce helper to dispose IRQ mappings
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Bamvor Jian Zhang <bamv2005@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Samuel Moelius <sam.moelius@trailofbits.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261015191710.3632302-1-rick.p.edgecombe@intel.com>
 
-On Wed, 21 Oct 2026 22:44:42 +0200, Andy Shevchenko
-<andriy.shevchenko@linux.intel.com> said:
-> I have noticed that a few drivers use almost the same code to dispose IRQ
-> mappings. This series to deduplicate the efforts. I only converted a couple
-> of the users (there are potentially more) in order to stay in the same
-> subsystem.
->
+On Thu, Oct 15, 2026 at 12:17:08PM -0700, Rick Edgecombe wrote:
+> Hi TDX developers,
+> 
+> Can I get another round of review before we ask Dave and Sean to look at
+> it? I'd like to pick up a few more RB tags.
 
-The "few" being 2 testing drivers of which one (mockup) should ideally go away.
-Do we really want to add more code to GPIO core that will only be used in
-testing module(s)? I don't think this is useful, sorry.
+Thanks for updating the patch description, for both:
 
-Bartosz
+Reviewed-by: Tony Lindgren <tony.lindgren@linux.intel.com>
