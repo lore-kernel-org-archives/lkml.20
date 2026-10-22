@@ -1,81 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792639060;
-	b=1aCsHZkf7u3EQlNrdNsHo0xa31YDqEwIaI9ZJe76jMn8wUtrCU4X2ks9T4jenvCI1LHU
-	 LtKQt9xFJ7JrhvuOwFqKYifeZGEfsqsSwTn+qki0pp6DSegwLuVJyiDOBflK8aa7Qbm8V
-	 4hsdN6MANNKjchgZf7lmncsKyGYKUmR8sSKQn501yTuAcbB41LyCRm7sTD99/07udz21K
-	 EHqVd8/W9Nbg47sbqZT1HOm2EHgIcKOf7ZTl2mIAbWlAUWQN0xllVB1b82cgYcU4XE7CH
-	 gVu2BrPk4VplSbK7W5IQngk0ipRK6OVEofkmxcyvTBbW3U5XY8kbRf6mubpK4VtatFA==
+	t=1792639070;
+	b=yePwKaGnY3uXfls5C3IKzcA1MLp6X7Ms6/uYZOBc4ZP/4dJFadxyL7RAUuXbG1w9If9S
+	 sp15/8eCXAP+qgBPwwj5oY3oH/hdJW0L9gFxebwUKeHsGEKJQNaZuNQs9H3ihcO5pM6mJ
+	 ukCtR0p67oU2PfJSQu6BK3ch9lLs4R5yswC3rWwzISfxBQVQJ1g8vdzMtaQ9t1XWqU7i4
+	 N/L0VIPisaTb1vORj+TaSL6Fqn4PBJx9ekNv/5GXWpYXfPCg13YM67Ajm6voPanvhbf8v
+	 /DxDrwkPoS6WNm+yzmed+MzUPCariUfouSN+I7UePK52NaZX1qblMDZDacZlV0Kq7Zw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792639060;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=CRAKIw+aAavYc/qCE23QYfjcaOtP9DAYHQGNbtw3SAw=;
-	b=YwYeKkdcgBUNdhcEGBAMNOrGfI4HxWVD+wIcs2a7aYjCXL8ZgsILPTNEnJTwW+LQI1bK
-	 d9TA2R7xXdQN60Xruq897xkEHnAG8N/JFdWv6ZMV5ZMgpFP2braQNSCwZ00N1N+bQb4nl
-	 gN/rJAQQdA8L6Ex5WYz1Kry6zNqcHQM0nw9qjqwQydbBNjvjmRT4v3dKjsWiLhV/0EU1s
-	 fMPD6d98c2Lsu5aEEgUy2HP13uJ32Ba6AOTJ1T+EJf6IiDzEHGRnXtY7qdycYS+pcQqFC
-	 hQCvuD3/4fcyvMUrlx91R2fXCrJEJb0/ymsYPy7yvHyJwkdn/T/8c69LXfsru8ai42A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792639070;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=2Vv9fUmCqweE9qS+76IlqIkZkrjZz9MP1KBOs5pGlCI=;
+	b=eB9905/GBn8xHH5AN8Yntna2my7NcaB6jSmmjVzlatWASgpcpDo+oIQLZkAJqpb7DiUG
+	 U3hqsHXkTi+IXzgTe6ddhaVbAMhykZNf3HqFEMObTCNODysPru6PA72p4SyqbJvRgf8OF
+	 +AL4fNVDUD58446Kn3h3JSaWLrlqt45DKGulurhkTMdZ/D/HX87ak8F1xvQxr6fhWLbNY
+	 IQBY0vrIWWLcgc/PjqbjXNjWvn8pCGwWKWH07iKrVQ2jJyAfsgNMGegIU3Z8F3HZCrnbL
+	 6d/siiHgWXub/KcJE1XWRWaqYWjtumdTn0ITFH2LoerNE4CyzNPPXSJvJTJaicYF1Mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bp8Qrgvj;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD43860A262B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:17:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD43860A262B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=bp8Qrgvj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1792639058;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CRAKIw+aAavYc/qCE23QYfjcaOtP9DAYHQGNbtw3SAw=;
-	b=bp8Qrgvj9/rDtsYsI7Id9EOI42MYTA9e05y7ff5Q94eLeEG99t6CbPVq3yZmFqJgfeiaoF
-	SJOkMMguty3fGkuqZb6s3Xub/erdLpYxyOA3LBgrJVxnJZmpSTmXbcL1q7rDbRfQJ1RdeZ
-	wZueQoX4udZw59w63G0PRsqQQ06jSnE=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-632-dszNzGzAPfuombXYQm15xw-1; Thu,
- 22 Oct 2026 03:17:33 +0000
-X-MC-Unique: dszNzGzAPfuombXYQm15xw-1
-X-Mimecast-MFC-AGG-ID: dszNzGzAPfuombXYQm15xw_1792639051
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4186519560BB;
-	Thu, 22 Oct 2026 03:17:31 +0000 (UTC)
-Received: from llong-thinkpadp16vgen1.rmtusnh.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8D68418005B7;
-	Thu, 22 Oct 2026 03:17:29 +0000 (UTC)
-From: Waiman Long <longman@redhat.com>
-To: Ridong Chen <ridong.chen@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Waiman Long <longman@redhat.com>
-Subject: [PATCH-next 4/6] cgroup/cpuset: Minor fixes to prstate_housekeeping_conflict()
-Date: Wed, 21 Oct 2026 23:16:41 -0400
-Message-ID: <20261022031643.1351877-5-longman@redhat.com>
-In-Reply-To: <20261022031643.1351877-1-longman@redhat.com>
-References: <20261022031643.1351877-1-longman@redhat.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BE060A3815;
+	Thu, 22 Oct 2026 03:17:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81BE060A3815
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202610; t=1792639066;
+	bh=2Vv9fUmCqweE9qS+76IlqIkZkrjZz9MP1KBOs5pGlCI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=R43SLHeRRzRAn9ShAZ01lyFMhKv/GkFAJRZOpVmENzfdEis9TigVt6RKRB19or/CK
+	 Eo6aAGrmZF7i7pBEkDzRIsA7o2i6lM51HbaLv5JSNXuY2ig65WuPdkIgrlOFl8g2SG
+	 zplDHShyvDn8Ox2EPzk2FShHBgeIupgFpZzgttt/FEuKa3OvfOKzJW57FIioG2VR4E
+	 53jaWN4xjVByOVyZTpG4Z2eVPEZ0MqRj9bjMz2qRqCxHsiSg8bhxPEfIYt+nE5Lsw7
+	 HwY7fNT5uUbe4+vGyQw7fCaRjXQ/IhSnCA2i3yfUqcPZxgL5iyLTNqXebaxrxZsj7B
+	 luwvndKjlfIQQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4j9BDB4dNLz4wCW; Thu, 22 Oct 2026 14:17:46 +1100 (AEDT)
+Date: Thu, 22 Oct 2026 14:17:38 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 15/15] Introduce v18 dtb version
+Message-ID: <atmASGg1OZt9jfXI@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-16-herve.codina@bootlin.com>
+ <arDMhoNNXcPi81sR@gractus.seuss>
+ <20260925152157.511dc65c@bootlin.com>
+ <as3ZWBr3wRonkxXF@gractus.seuss>
+ <20261013190347.4f1d9b9d@bootlin.com>
+ <atGzdxETQZ9ovJFh@gractus.seuss>
+ <20261019151121.26d99f30@bootlin.com>
+ <atgi4rMsw5W6kKkS@gractus.seuss>
+ <20261021172043.4bbd2bc5@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,132 +79,221 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mL+9gLkvUMZ5U3yt"
+Content-Disposition: inline
+In-Reply-To: <20261021172043.4bbd2bc5@bootlin.com>
 
-Commit 9527ff78a413 ("group/cpuset: Consider all the exclusive CPUs when
-doing housekeeping check") changes the way prstate_housekeeping_conflict()
-is being used by considering all the exclusive xcpus to be owned by the
-partition when doing housekeeping check. However there are two minor
-issues reported by sashiko with that patch:
+--mL+9gLkvUMZ5U3yt
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
- 1) In partition_cpus_change(), prstate_housekeeping_conflict() can
- be called with an invalid partition root. In that case, there are
- no isolated CPUs that are going to be returned back to the system to
- become housekeeping CPUs, so the calculation of the del_cpus cpumask
- is meaningless.
+On Wed, Oct 21, 2026 at 05:20:43PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Wed, 21 Oct 2026 13:26:49 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > >=20
+> > > Ok, my proposal seems to be a no-go and so I will follow your proposa=
+l given
+> > > above. =20
+> >=20
+> > To be clear, I'm rejecting the original proposal because I think it's
+> > internally inconsistent (if you follow the consequences of decisions
+> > far enough).  I'm not necessarily opposed to something other than the
+> > above, as long as the rules for when unknown tags must be invalidated
+> > (and what that does to the version) are made very clear in the
+> > structured tag spec.  e.g. see an alternative proposal below.
+>=20
+> No problem, I understand your point.
+>=20
+> ...
+>=20
+> >=20
+> > Essentially the theory of the proposal above is to be maximally
+> > conservative: any write (adding, removing, changing, in-place,
+> > whatever) will invalidate all unknown tags and downgrade the version.
+> >=20
+> >=20
+> > But, here's an alternative proposal for invalidation/version semantics
+> > that I think is consistent, while being a bit closer to your original
+> > proposal.
+> >=20
+> > 1. version and last_comp_version retain their meanings.  No new header
+> >    version.
+>=20
+> Ok
+>=20
+> > 2. If version >=3D 18 the tree may include any structured tags, even if
+> >    they weren't defined as of v18.
+>=20
+> Ok
+>=20
+> > 3. Some future version might _require_ certain structured tags to be
+> >    present.  But a client must only rely on those tags if the version
+> >    indicates it can.
+> >      - e.g. suppose FDT_FOO tag is introduced in v20.  A client
+> >        reading a v19 tree _might_ see some FDT_FOO tags (because of
+> >        (2)), but cannot rely on them being present in all the places
+> >        they should be.
+>=20
+> Ok, kind of degraded mode. Whether or not a v20 compatible client can con=
+tinue
+> or not will depend of each tags known by this v20 client. For some tags, =
+having
+> them removed will not be a problem whereas it will be a problem for some =
+other.
 
- 2) The checking of del_cpus in prstate_housekeeping_conflict() to see
- if it can contain an active housekeeping CPU that can be returned to the
- system ignores the fact that an active CPU not in HK_TYPE_DOMAIN_BOOT HK
- cpumask will not become an active housekeeping CPU when it is released
- by an isolated partition.
+Exactly.
 
-Update the existing code to handle these two issues properly to make
-prstate_housekeeping_conflict() produce more accurate result.
+> Makes sense.
+>=20
+> > 4. Any write to a property (including in place) invalidates all
+> >    unknown tags on that property (they must be stripped)
+>=20
+> Ok
+>=20
+> > 5. Any write to a property invalidates all unknown tags on that
+> >    property's node
+>=20
+> Will see in the implementation. The offset of the written property will be
+> incorrect after the write. Indeed, some tags (tags related to the node)
+> available before the property can be removed. With splices instead of
+> FDT_NOP, offsets change.
 
-Fixes: 9527ff78a413 ("group/cpuset: Consider all the exclusive CPUs when doing housekeeping check")
-Signed-off-by: Waiman Long <longman@redhat.com>
----
- kernel/cgroup/cpuset.c | 45 +++++++++++++++++++++++++++++-------------
- 1 file changed, 31 insertions(+), 14 deletions(-)
+Oh, good point, this rule doesn't work.  I think we still have a
+consistent set of rules if property writes don't invalidate parent
+node tags (subnode add/delete still would).  Of coutse, that does
+further restrict what sorts of information you could safely put in
+node tags under this scheme.
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 7b9062326f35..6e1bef12f86d 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -1397,6 +1397,9 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
- 	    !cpumask_subset(new_cpus, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT)))
- 		return true;
- 
-+	if (del_cpus && cpumask_empty(del_cpus))
-+		del_cpus = NULL;
-+
- 	/*
- 	 * Exit 2nd check early and return false if
- 	 * 1) there is no boot time isolated nohz_full CPU
-@@ -1405,8 +1408,7 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
- 	 *    be returned back to the parent.
- 	 */
- 	if (!housekeeping_enabled(HK_TYPE_KERNEL_NOISE) ||
--	    (new_prs == parent_prs) ||
--	    ((new_prs == PRS_ROOT) && (!del_cpus || cpumask_empty(del_cpus))))
-+	    (new_prs == parent_prs) || (!del_cpus && (new_prs == PRS_ROOT)))
- 		return false;
- 
- 	/*
-@@ -1417,20 +1419,29 @@ static bool prstate_housekeeping_conflict(int new_prs, int parent_prs,
- 	if (parent_prs == PRS_ISOLATED)
- 		swap(new_cpus, del_cpus);
- 
--	if (del_cpus &&
--	   (cpumask_first_and_and(del_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
--				   cpu_active_mask) < nr_cpu_ids))
--		return false;
--
- 	if (!alloc_cpumask_var(&full_hk_cpus, GFP_KERNEL))
- 		return true;
- 
-+	/*
-+	 * Check if del_cpus may contain a CPU that can become an active
-+	 * housekeeping CPU again.
-+	 */
-+	if (del_cpus) {
-+		cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
-+			    housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-+		if (cpumask_first_and_and(del_cpus, full_hk_cpus,
-+					  cpu_active_mask) < nr_cpu_ids) {
-+			res = false;
-+			goto out;
-+		}
-+	}
-+
- 	cpumask_and(full_hk_cpus, housekeeping_cpumask(HK_TYPE_KERNEL_NOISE),
- 		    housekeeping_cpumask(HK_TYPE_DOMAIN));
- 	cpumask_andnot(full_hk_cpus, full_hk_cpus, isolated_cpus);
- 	cpumask_and(full_hk_cpus, full_hk_cpus, cpu_active_mask);
- 	res = !cpumask_weight_andnot(full_hk_cpus, new_cpus);
--
-+out:
- 	free_cpumask_var(full_hk_cpus);
- 	return res;
- }
-@@ -2475,23 +2486,29 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
- 				  struct tmpmasks *tmp)
- {
- 	enum prs_errcode prs_err;
-+	int parent_prs = is_remote_partition(cs)
-+		       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
- 
- 	if (cs_is_member(cs))
- 		return;
- 
- 	prs_err = validate_partition(cs, trialcs);
--	if (!prs_err && !cpumask_empty(trialcs->effective_xcpus)) {
-+	if (!prs_err && (parent_prs > 0) &&
-+	    !cpumask_empty(trialcs->effective_xcpus)) {
- 		int prs = cs->partition_root_state;
--		int parent_prs = is_remote_partition(cs)
--			       ? PRS_ROOT : parent_cs(cs)->partition_root_state;
-+
- 		/*
- 		 * Check for housekeeping conflict by passing the whole
- 		 * effective_xcpus as well as those CPUs that are to be
- 		 * removed from cs as delmask.
- 		 */
--		cpumask_andnot(tmp->delmask, cs->effective_xcpus, trialcs->effective_xcpus);
--		if (parent_prs > 0 &&
--		    prstate_housekeeping_conflict(prs, parent_prs,
-+		if (prs > 0)
-+			cpumask_andnot(tmp->delmask, cs->effective_xcpus,
-+				       trialcs->effective_xcpus);
-+		else
-+			cpumask_clear(tmp->delmask);
-+
-+		if (prstate_housekeeping_conflict(prs, parent_prs,
- 						  trialcs->effective_xcpus, tmp->delmask))
- 			prs_err = PERR_HKEEPING;
- 	}
--- 
-2.55.0
+> This also brings a question. Are API functions such as fdt_get_property_b=
+y_offset_w()
+> need to be deprecated?
 
+I think we can keep it - kind of like fdt_next_tag() this is a
+low-level function.  If you use it, you're opting in to having to deal
+with tag invalidation.
+
+> Those kind of functions return a pointer to the data of a property for mo=
+dification
+> by the caller. We don't know if the caller will modify or not the propert=
+y.
+>=20
+> Without deprecated it we can change the function to
+> ---- 8< ----
+> struct fdt_property *fdt_get_property_by_offset_w(void *fdt,
+> 						  int offset,
+> 						  int *lenp)
+> {
+> 	int new_offset;
+>=20
+>         /*
+>          * The modification is goind to be done out of libfdt.
+>          * Unknown tags are removed (rules for modification when unknown =
+tags
+>          * are involved) but also known tags. Indeed, we cannot know if t=
+he
+>          * modification will have impacts on known tags
+>          */
+> 	new_offset =3D fdt_remove_all_tags_due_to_property_modification(fdt, off=
+set);
+>=20
+> 	return (struct fdt_property *)(uintptr_t)
+> 		fdt_get_property_by_offset(fdt, new_offset, lenp);
+> }
+> ---- 8< ----
+>=20
+> The idea is to be conservative here also and consider that property data =
+retrieved
+> for writing will be modified by the caller.
+>=20
+> Also, the offset used as parameter of fdt_get_property_by_offset_w() is n=
+o more
+> valid after the call.
+>=20
+> Last point to have in mind, getting the node offset from the property off=
+set will
+> need to walk the tree from the beginning. It can be costly.
+
+Right, that's what I was thinking of when I said this might not be
+practical to implement.  It's doable in the common case where we alter
+properties by node offset + property name, but not when we use a
+property offset.  But the fact that this would change the offset of
+the property in queestion is a much bigger showstopper.
+
+> > 6. Adding or deleting a property on a node invalidates all unknown tags
+> >    on the node
+>=20
+> Ok.
+>=20
+> > 7. Adding or deleting a subnode invalidates all unknown tags on the
+> >    node
+>=20
+> Ok.
+>=20
+> > 8. Whenever a tag is invalidated and stripped, the overall version
+> >    must be downgraded (to let clients know they can't count on tags
+> >    being present)
+>=20
+> Ok.
+>=20
+> >=20
+> > Points (4)-(7) are all somewhat negotiable.  In particular, I'm not
+> > sure how feasible (6) is to implement.
+>=20
+> Well, this new proposal is more complex to implement than your first
+> proposal but it has a finer grain to handle unknown tags on modification.
+
+Certainly - that's why I proposed the other one first :).
+
+> I can try to implement something based on this new proposal.
+
+To be clear, I kind of prefer my first proposal still.  The question
+is whether what the updated scheme buys (preserving more tags when a
+bootloader makes minor writes) worth the added complexity of
+implementation.  You're better placed to answer that question than I
+am.
+
+> > Note that because writes don't invalidate tags on ancestor nodes
+> > beyond one level, this proposal doesn't permit tags to contain summary
+> > information about an entire subtree that could be invalidated by
+> > writes further down in that tree.
+> >=20
+>=20
+> Well this doesn't look like an issue on my side. At some point if such ta=
+gs
+> are added, we can avoid any modification using the last_comp_version
+> field.
+
+Yes.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--mL+9gLkvUMZ5U3yt
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrZgEgACgkQzQJF27ox
+2GdsKw/+MOf+b1HVFIR37G0EXRAd8oIA3uvbH/rMYt5e7dYeWy0FBPn4rz4neLJx
+quLI3gXiC+4fdJL6eYa30JLKYiipFK+/kyKKMF7cz2LLh7u+J9giRta52seYkcZl
+nlBrU/oDyNbCPFZk0vQsIY0PYrrrSBQ5tdk7PZoQmPmmZAhNZZ8Xu/y6zKqTIKF8
+qu6Yp0iWRR7Yf5rCsFV6B6U29a28ZyJuMJBoHPMG8kUztgs70gNEdxU8rp7gMPJQ
+i/Rw9iPHviwMs5wpmDzhrxp2+U7q1S54V5zb0rM2eDxo2aJzmeX3A9W8d2GNvcZU
+lb8rOnhKw6byugr0O4CxCL5uq7lAOiDGXfxWQzY7W9DcWGreAaYohqDlSUwQYFor
+Z99zxcSeFMGBAOACatp9QQG2bskKbvsyiL26hFPj4ln7YYYC1OOM8n6TtDZAztiZ
+erqOJ0fdD8+E/v0tyMUuZno82mzzyM2bYT07yIJkvWdDyhkkM6naUJY8MOQ0ln0Z
+lq1Hp3VA/59aDODnTMD5Wa1GFc8EdK/ppF7Ub9k1Xl4JbR6QeR5kbOY9whMtBvHS
+XMPNAQ91WUe18FQ/Hi13I9OTD55BL0urm4D4SlfKnjo3IxbwXZ1Jeo2sGG0+chkk
++Sxzn3LZF6oB56HgN/YGbp9Zr3pzdTwTlgjarYTcG1kRNgtE8hs=
+=I6j+
+-----END PGP SIGNATURE-----
+
+--mL+9gLkvUMZ5U3yt--
