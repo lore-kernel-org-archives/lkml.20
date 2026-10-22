@@ -1,47 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792631967;
-	b=NHpMHJa2vl8rReH0UXhR/xTO8ib85nn/+K+ypv3k36zJT29m+F8/28ZkcEcv3+yeR1Cu
-	 Ykt5vIvCCzW9BtV15BH1vKnIIlraK7Rxc3Hk5uN/oBziI2GMYlHWT9UzeMuibWmyC9p9N
-	 MvvTJI7NH9alzOLrmcdTRSwSki47eLIe/cg89wac+rHVwGZRqI+IMtK/E6AGuUdkCNbzm
-	 vs4KnsZPM4mf6Lx9KisMHdLCs6p9nYCyr3cDr8yDwsJQQPU5mMTvC0yiwqQ/2RDQOqJgs
-	 UQ+uaioje57HLpccBSom0wRZWb8J2c9DXsp8uL//wQnqOaQ7qbocyGsZQuARjP0mQLA==
+	t=1792632085;
+	b=gPNerZsKKbIY+QPFMEsgYeElM4yOVpQKU4NAXh2eY7K8pArUU2GqzXhMcWIIA7E9t/UZ
+	 NMpCfgIUOPmsxcgC0db3NZUcwVlK2SHdgTWRkrmNHo+2FuzzQJEK88E6et2PFLhMlLOqv
+	 4jPfR0VIvWivj1dTQ5yyhsA0LGU2O2LFzAe2t9JoEdxntQQIrcXgopOUYYT8nsxzqoJFq
+	 0kcPUUPqwkaAJl4uRAJz32lCO/WbfZkN7WxvTLrPuuis+zumS7IHig8o16fCJYTR5xQsc
+	 vkKo7fznPYEF49ep4g/yRcNfegzO3nZhao45riB8P9FG/Og0In7hImzQIVIclKj/5ug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792631967;
-	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=oWDWqU+fwBcVPLNxqHFARcWr0x+nxDFPaG05KLIUslA=;
-	b=lBH54hPAMgmhvVG1D+nw6NwvU9k9rlM+CaxMxpdlR/XWPEz5orPxsEundYmJr/w657Cx
-	 ZoiK0wP+Mla52T+9howASEUD66Wcszr+WoZTLKHWC0obupyNlDaT/qojWJOXKbH6xJmRg
-	 lBtZHYx8sim10iUM6ZouCBcBsZiMC2PmoaV1ZrzbPKggAJFWdWLFvdwYQGNDInluj2DKk
-	 X8w6+csrfcNK0S7v/ryEgzpLg1wzrriygmr9EWlp14o9UZBnlerDzh0qYpoRNTObuWv/d
-	 9g76G1b2puZcee6GdML7ewKuPzVbXQ+fA7HSjvJOQdZmigRswkufFYsxa/lH/AVJiXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792632085;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Qx7+7XSSqG/7ruMWKUHyodvPkjCtTRNq2u7cxI+GQYc=;
+	b=p2k3BOE0akJsKOiL+hgIaSC940YPg55t/YuoWzpi5JCBBNvQAQ0/MP4IdoE65D8iIB9Q
+	 FbhkKn63PqMOFaU17t4VqXZ7MoAImFokR6WJgN9a1YcnpTruWQyCyCUBJkH8eYWyuchE/
+	 USKDQNToGrknp1OAwPlVy35jCJPz95kIAymzuGqq7QEbmFyx9uowSmp1VBnwaYw7s+s3q
+	 U3B82/kJHEzqit5hLnY/cOCswcJV8dUVQkHys2zDn+ovA/QvJTCySpLh8d3t119kiEt78
+	 p4tFjFv9VR8esemTLHAJBmHBScLt6r3kZXGjN+rUpyOD4nVg6nH6hUqOSFhTbRc7x+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.112
-Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BJhPig08;
+	arc=none smtp.remote-ip=209.85.222.178
+Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453FF606A31A;
-	Thu, 22 Oct 2026 01:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 453FF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.177])
-	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4j97bQ2wNCz20DS;
-	Thu, 22 Oct 2026 09:19:14 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id 428B44096E;
-	Thu, 22 Oct 2026 09:19:16 +0800 (CST)
-Received: from [10.67.110.36] (unknown [10.67.110.36])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgC3ufySZNlqx8pXBQ--.12560S2;
-	Thu, 22 Oct 2026 09:19:15 +0800 (CST)
-Message-ID: <b6c0b7b2-3ffa-4dd6-a4e0-23333e9b7d92@huaweicloud.com>
-Date: Thu, 22 Oct 2026 09:19:14 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46715606A31D
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 01:21:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46715606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=BJhPig08
+Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93efc0452b5so105157585a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 18:21:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792632084; x=1793236884; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Qx7+7XSSqG/7ruMWKUHyodvPkjCtTRNq2u7cxI+GQYc=;
+        b=BJhPig08+mT86pMWIHNQ0skT/8BZgi5ukrkIhfP7WVoWgs6ZAnR1sSyVf8Z6jTKBJd
+         +npZco9WmHyBhzYvwIBu0Hh58K5GZiK+MEcD4+UZyupekr3nsNt3tLajnhD2tYPhGTPJ
+         Ijl0PUdhuPNPyl6Wv/CWFzEeFFlmbOGLrD5wELNGNcU7AD8szwM5HcyDryL9f3DEYiWv
+         l4JIqXvtik6zJCk41Uldih/gqgpvfamDIqSTjmzqQvMj66ZiJZ3WdnocdoSc1wZFbJv6
+         XhVfwojIMGetPSOG87Wp3/DzDxKlFTABPDqu3G6p1NgOF5+O3B/kftjkLxAz405zQo85
+         sxFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792632084; x=1793236884;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Qx7+7XSSqG/7ruMWKUHyodvPkjCtTRNq2u7cxI+GQYc=;
+        b=wbNW//l4vfsBowQGM6g5/Fe38/2/3MRF9pu3YBbNm64o4iriZCStQgzzfXs38D1dUB
+         lw8C3wHljllweo4HsJdfbOQA/XOjZY4LVVfsAlTRpiVhYpRkHkEsxpsreBVp5LAC4vzM
+         pby8NwqgDJORmy6u8D6sjXim5JulHqOjvi3CaTmZwnPbJWkHoD/FH5rTNizb6MHlh635
+         g5q5d6Bn2IV/fcEPLdHdZrxw/1sVaLt7Zxr45Gdc0trgWicmGUXZJST2TMQT52O32+yn
+         /KHZjg9T6FGw10DJkcxOEOeMTqJ6JEhiJp3BrIciY69wBdaW0+xrhtvlTt8c94CicLWV
+         WPgg==
+X-Forwarded-Encrypted: i=1; AKwUvByp7ejSeoRXi2gto5UyXFXGCcecme3pph/SV5umSUEDRAVbgeBMG/buFaIPKABXMQ5tnMewIEmvGAHMdBg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKB/PitCWP0hk5n28q5SCPCZugosg7iyECpNJEuaVYz+W8Kuy6B
+	2h+Dr3ABHKDEfnjfTB/hdeo1XRmteWCQVkcztDD3aY0w3AAviAbd4399
+X-Gm-Gg: AYBFou0JDUtIEa8wcnQXz9C+vKt+3CEoV5QbNxQYS+qa9OyQ8WaxvmKBB402gAeAQYP
+	1nOiuM2bf+MYXoA9NZGa7GiMtKi5e9lyMjWTg6WKnC9MQzbX6kQ47s6whycl2NQ/YUi14A+DTJn
+	n1n3pkfN86tP46AgyJB1M4P4WU4+CbKpqXXWRNchBmbX8q4RE2MpP4RGpHa5tFRS7ZqZLnf6/cO
+	KEuYqPdaOwXDQb7TcFu4FMZph5WfHmHP1uwAcSLAs83Ck5eFj5naAU1niZ2Bi70AOnr16A395Nh
+	eebbsqjniNCY/oMvU2S9lyz4AlMPPfL6p0Vwii0FqSIIHIludmn8+GbMmPFtqmxZAy8J0gqX8M1
+	A3YjP59JYp+0nmyDYGD0v1ZeXMJtKPSL+i2osOxZBDcDKJbTEFBzV0B4iYT7xkhK46e6cgw4Of/
+	0hAvNhqJthinvAp2s1utDsCogugmCEVvKm1gBS7K2CGRKotxtw52kOVyZzj8eUyAnJldj9RGWvP
+	Gzz+jatO85Lhz1ZV8gdFPWjEtlamwawlq1mRaSvgXeYA448I6l+aRkqpTg=
+X-Received: by 2002:a05:620a:1a15:b0:93f:2236:a61 with SMTP id af79cd13be357-93f57fa6757mr729777685a.61.1792632084168;
+        Wed, 21 Oct 2026 18:21:24 -0700 (PDT)
+Received: from keith-pc ([2600:4040:50fa:9200:fff4:6e82:93d2:837e])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56ddd369sm401066485a.21.2026.10.21.18.21.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 21 Oct 2026 18:21:22 -0700 (PDT)
+Date: Wed, 21 Oct 2026 21:21:09 -0400
+From: Keith Teeple <keithrteeple@gmail.com>
+To: Hungyu Lin <dennylin0707@gmail.com>
+Cc: pmladek@suse.com, rostedt@goodmis.org, 
+	andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk, senozhatsky@chromium.org, 
+	akpm@linux-foundation.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] lib/vsprintf: Preserve the sign of seconds in %ptSp
+Message-ID: <atlflhXoxUsXu-BS@keith-pc>
+References: <20261021110628.37106-1-dennylin0707@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,86 +96,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/15] perf annotate arm64: Support instruction
- tracking for data type profiling
-To: Arnaldo Carvalho de Melo <acme@kernel.org>
-Cc: Namhyung Kim <namhyung@kernel.org>, james.clark@linaro.org,
- xueshuai@linux.alibaba.com, Peter Zijlstra <peterz@infradead.org>,
- leo.yan@linux.dev, Li Huafei <lihuafei1@huawei.com>,
- Ian Rogers <irogers@google.com>, Kim Phillips <kim.phillips@arm.com>,
- Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>,
- Bill Wendling <morbo@google.com>,
- Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Adrian Hunter <adrian.hunter@intel.com>, Zecheng Li <zli94@ncsu.edu>,
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev
-References: <cover.1791629326.git.wutengda@huaweicloud.com>
- <atFdpZG-b2JPS1St@google.com>
- <8fdf2566-bbac-4854-8faf-0276af5f936e@huaweicloud.com> <atkzKm_TPnhyzgx3@x2>
- <atlO6EJswVvj76rN@google.com>
-Content-Language: en-US
-From: Tengda Wu <wutengda@huaweicloud.com>
-In-Reply-To: <atlO6EJswVvj76rN@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_Ch0CgC3ufySZNlqx8pXBQ--.12560S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7JryfXrykZrWUGFW7XFy3twb_yoW8JrW5pF
-	Z5J3W8tF4kXF4Iyrs5tr1UZF1FqFyxWr15W34rJw1FkFyq9r1Sgry2grWjg3s8Kr95Gr4I
-	9rya93WavFyDAa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
-	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
-	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x
-	0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
-	rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4
-	IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kK
-	e7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_
-	WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07
-	jIksgUUUUU=
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261021110628.37106-1-dennylin0707@gmail.com>
 
+On Wed, Oct 21, 2026 at 11:06:28AM +0000, Hungyu Lin wrote:
+> The documentation defines %ptSp as equivalent to %lld.%09ld, but
+> timespec64_str() formats tv_sec with default_dec_spec, which does not
+> have SIGN set. Negative seconds are therefore printed as unsigned
+> values: {-1, 0} produces "18446744073709551615.000000000" instead of
+> "-1.000000000".
 
+Tested on mainline 4df4d2a577db with gcc 16.2.1 under UML and i386
+(QEMU). With only the new tests applied and vsprintf.c unchanged,
+time_and_date fails on both. The -1, -1.999999999 and S64_MIN checks
+print the unsigned values and the 0, %ptS and S64_MAX checks pass.
 
-On 2026/10/22 7:46, Namhyung Kim wrote:
-> On Wed, Oct 21, 2026 at 06:48:26PM -0300, Arnaldo Carvalho de Melo wrote:
->> On Fri, Oct 16, 2026 at 09:18:38AM +0800, Tengda Wu wrote:
->>> On 2026/10/16 7:11, Namhyung Kim wrote:
->>>>> Please let me know if you have any feedback.
->>>>
->>>> Thanks a lot for your work!  Assuming you'll fix the issues from Sashiko
->>>> in the next version, you can add my:
->>>>
->>>> Reviewed-by: Namhyung Kim <namhyung@kernel.org>
->>>>
->>>
->>> Yes, I'll address the issues reported by Sashiko and send a v8.
->>> Most of them are minor, and I'll fix them accordingly (or explain
->>> in the v8 thread if I think any of them is a false positive).
->>> I'll carry your Reviewed-by in the next version as agreed.
->>
->> I applied the first 5 patches that are sashiko-clean, will push soon to
->> tmp.perf-tools-next and then to perf-tools next after test building on
->> my containers.
-> 
-> There is v8 already which should have addressed the concerns.
-> 
-> https://lore.kernel.org/r/cover.1792411435.git.wutengda@huaweicloud.com
-> 
+All tests pass on UML and i386 with the full patch applied.
 
-Yes, applying based on v8 would be better. All Sashiko comments have been
-addressed in v8, so the whole series can be applied and tested as-is.
-
-Thanks a lot.
-
-Best regards,
-Tengda
-
-> Thanks,
-> Namhyung
-> 
-
+Tested-by: Keith Teeple <keithrteeple@gmail.com>
