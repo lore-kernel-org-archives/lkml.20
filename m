@@ -1,116 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792682354;
-	b=OfqDeXiJwgQ9llTqQl6fMYD43sLYu8bQS/9kbBNlxY1OksoszgdKG4Qjd/o20owxU7P8
-	 Bsg55x+qcgRB6h037HmzKJGjwyGa0hWss86M7UQgjAITyeeh7TOJJbXZ8kHYmdItQ/Jtw
-	 w8Xh1thGK6KbsoBpMMamX+qTXgY61WKknWdh26HvZIvIulJETePeDk9YyAPHBVO8Qub8q
-	 IPTBM+4r1e0OQ8yWP0VYQigGswOT9gAztgpv1aPSbjC0H+NozSj03XCf0IGP3whmNQryL
-	 VVQKXHjS/9XYDz/tobhCtlGRYD/zG/tz0OsrXSroRmjrR1pttd2zV9uqKBA6xVG/PBg==
+	t=1792682350;
+	b=z+czLZu/nt6l/E7U2eN11Rjq0JRHtEL6NFers7jmEkwA9Pwo0q8p5nu10vRYakh5/Pem
+	 SyCaumCfAdrbGQP+XIOpfy1kmnVr4hpRjU1Jk+7zByCTnbh7IfEaYQ4NcHjlk1/kDutQ6
+	 8yU2YFu8VwZfm90iarbvnqx90XVyJU6XqpvSanBSKVvN49cTpi2wKOknMItarneiMYolf
+	 aIYHpJz+zNOr3Z0mDfoKn5x7EBHng445zVdEDFKChhn3BZYQOn41t5dUouoTrM6i7MAff
+	 W052aAKflsT7nMX4fEspVUsT0si+e/7qCtITME5YS6farJtW3wbJYmQRO9LO3jAeSAQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792682354;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=wGNuj1U77chEdN69w8f4IqxaXzHHXuiIrzEEhMB3yxk=;
-	b=zyMftI6EN5V8mtz/JPsqFj6LEBeZ194meQgJadtrOvRhYxGX4Cbf4nNAiALYhzD6sGQG
-	 W1gxd7XmL428kE0zdbB8qfoM9Rw8d0EAngeC9kGToJIj5YehX9zXjUaXDSaOU95dgxl6B
-	 n8LXGgsPIQRm/NMjrJuaSkc0n/Jx0SXkKcEL5bS6hQyD7aGcxT71QF/5XNbGCsgOdxBOH
-	 uk1Z5/x7OqCGM+OF6iepaduiGrawQOOGCXNPyW0H0FNP0HEYwEaWjARNt5up0At07U8VP
-	 maNzR6D32JK3wDNrxhQHC5Rl4vHHJ/TRXp/CTkRhdOlbnd1dE/X9HFQT7T6IR+kAkPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792682350;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=s8461N4x6bAd9nJahZR75PpHJ9523zVsVCtLDHgioC8=;
+	b=LV7UdNrOVbf6vyQaQZ3Ir6783xXWLKRb4wg66OU8RVwMDkdpVxTGNV5XXNeArU4TF6+n
+	 u8JgCK0G+szOqXVAZgzCLI9vSClOY3ZXUC7pRdafslPDK+wg/63PQT38wByP59LtLYcPa
+	 MV5n/RiySlI6KWKATJ7rxN5Ae5e7yOY7FXHPXV7GIlmjC2EYT3wI/rVaIBNFq7OlwNelm
+	 imjP36VMPJAvIFvIKon/uxwUcNWVHSx+PfXEHnEdyd2ct+wz37fDdn+HZBIizTsWPYspC
+	 h4zvG/2aJKvdog2G3C/aj70K6GNqc82PADmSQoR37Xaj77LEb6PZWkRhyxl7e3zovWA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LtU3xVkF;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.45
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Il4+S/7p";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10112606D4FF
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 15:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10112606D4FF
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5C7606CC42;
+	Thu, 22 Oct 2026 15:19:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LtU3xVkF
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=twFq7MOErEa4mmIW+ng2D2UB5614P5erhK2J0yUP0wOjXzv0XRroIQUFlSIQ+7tQmFRSbVLbGRAl7x3aHNpgNnkYrRj/XJ3btfv8Fu5zWduGTTSR8IE9sVOnl34fXVP+PEqDUTQ6xMArPs4ImqlAlaigOim6lhKziJhAxYGFMILf1lLCXLQ7YDbF2QmgjrKTKMc5QYlY9rCPppFZvAr+31QrA8PyfP3rIzclUe6WLsd6sGYHz3RL13S90SrdQpWFbM24uQYzASgT9N4QP7IQaU4VTiMh1CP5wVcctOsREZvo2vaAUu6t0jkPn45Ty69+a8wmXDGaTDZK0H06BxvQHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wGNuj1U77chEdN69w8f4IqxaXzHHXuiIrzEEhMB3yxk=;
- b=aylcQ8JR6j/73OsU+je094iG401kdTQbugcjVoBnrGRlouPGzkMUlkCtXcriZgrje1KsoaIzprvVUO1xz79uEVjgJreJzJ5ZivVVlnlq+TAJP0joU4QWNKiO4b6Wf3QyiI7+QcInMShfALVtDr1Nw/L7UH6JvapIsd+2GNhrSaZU4TMeX2+hSE6yXsQsbaR1+isUaVyin9/Bbxjt80YlEs8yP0flMwD9TdToD6d4927g7Pg9PoBh2Fe9BHyMCCKGu6raAUFJrp+j2MLkkhMI4HVlBW8ES1jGLy2GpnkcRUhC2jW4I10io1Xi4sEe7o7TymUm3z7W9LLvoMy5Ufa/BA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=arm.com smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wGNuj1U77chEdN69w8f4IqxaXzHHXuiIrzEEhMB3yxk=;
- b=LtU3xVkFuT01IC+YeQGQf/vHMY1vDXX7p1i7Z+LvgKbuvyxA+SQbK9TluaUcbmGN3Vt8MyKj7U2J0hnDjxLOv9Vo8stAPxhdPe/J+SqJ+mg7wRp5aqNQ4dfCZ1SUPj1y/iJjpF+xQJ4dzi5RwsYj+F8uZi8s7GgCLXd0oUQYuYvJasZbtEDmMExbgi8SIjaBjxOIHTd+oapCNDiDkIfQyooffq8KAUTwLFABsrOnc2ITRBOVmK2jKXdM6udQp+MiJPxlO8yZO+BE9w6Ku/OGlW6q4gjpw/HbvZ8u7FuJ0WAxSEuAAkluLC5iWV8lk7fx9CkBNUiBDkAIxWlL/ZBuDQ==
-Received: from DS7P221CA0015.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25c::6) by
- SA5PPFF3CB57EDE.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8eb) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.546.15; Thu, 22 Oct
- 2026 15:18:49 +0000
-Received: from DM2PEPF00003FC5.namprd04.prod.outlook.com
- (2603:10b6:8:25c:cafe::41) by DS7P221CA0015.outlook.office365.com
- (2603:10b6:8:25c::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.546.17 via Frontend Transport; Thu,
- 22 Oct 2026 15:18:49 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- DM2PEPF00003FC5.mail.protection.outlook.com (10.167.23.23) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.546.15 via Frontend Transport; Thu, 22 Oct 2026 15:18:49 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Thu, 22 Oct
- 2026 08:18:26 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 22 Oct
- 2026 08:18:26 -0700
-Received: from nvidia.com (10.127.8.13) by mail.nvidia.com (10.129.68.9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Thu, 22 Oct 2026 08:18:25 -0700
-Date: Thu, 22 Oct 2026 08:18:22 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: John Garry <john.garry@arm.com>
-CC: <will@kernel.org>, <robin.murphy@arm.com>, <joro@8bytes.org>,
-	<jgg@nvidia.com>, <praan@google.com>, <kevin.tian@intel.com>,
-	<smostafa@google.com>, <linux-arm-kernel@lists.infradead.org>,
-	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>, <jamien@nvidia.com>,
-	<kas@kernel.org>, Cristian Prundeanu <cpru@amazon.com>, Breno Leitao
-	<leitao@kernel.org>
-Subject: Re: [PATCH v11 08/11] iommu/arm-smmu-v3-kexec: Implement
- is_attach_deferred()
-Message-ID: <atopPqqaCA9tT3cq@nvidia.com>
-References: <cover.1791226953.git.nicolinc@nvidia.com>
- <a80c74a629ee31af4dead1e9c263cde81abd5c1f.1791226953.git.nicolinc@nvidia.com>
- <a65c757a-04b0-43e2-bd2a-5c07ab4f61f8@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Il4+S/7p
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1792682349;
+	b=aPuG9em0hhrVsF5iokravzKPyiPC3pPAE+ddDHznvGlu5uAZhNwfoe+xoUnaBdgBtM/m
+	 1A0FgYnb0n6Xyakfqi1xlZ0jD58xpER0oXFolGWMbhUbcOoGWU+cHGRNnMKKaRWIqx+ho
+	 IGMzErWbuifbU6zlYinWx2LP8y6VgKkYj8MigmAeMc/dd3lXzq/Os8zLHi6LDZ2F+dSmH
+	 4SCietQ4j4JW8Z4M/+hEfT0IDw30FZnwyIHPaqFAQpPLpDuwcN7l49GTyA6mwKEu7OILC
+	 sVwtx/k7b5JZGpOn1fRqj+DdFKzjm3MLNLd2cEUcQEb798E3qCoMmfptBUdRiUffnQg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1792682349;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=s8461N4x6bAd9nJahZR75PpHJ9523zVsVCtLDHgioC8=;
+	b=lcyxS8Jko8Sr/OWVAHSqj++eUr/I7dN+aBiaSgGPQ9A/Yr7Z2AI3teRlhxpAtwlXGCb7
+	 lyn1zmcucMyu4vPpbS8lQKfD2sGMjagNtPEGZzla7Ulfd78wSQJNIEqqMpebWRx5hi1hB
+	 UT745mBjPRI0C5bCoCBPKRFibeX2hFlUNycN01pWRD5ymGrGvoBttCmscUmHlBHoF0+xr
+	 g/2KvpmX3rcpSdgGt0Fow68J2CaC8+9WxQlOH7AR41LfCz/qIx1WQ6RBPiy/xDL/ZjNYp
+	 YuY5qajNxhpLpG4rv3l0AzJnKAvGgPAtQifE1uVplx9KqljHHX6+bMm1pifmtrP+zlQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 929C51F01825;
+	Thu, 22 Oct 2026 15:19:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1792682349;
+	bh=s8461N4x6bAd9nJahZR75PpHJ9523zVsVCtLDHgioC8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=Il4+S/7pKcYheXI/6/z+C3XKEBFcowDQMLZkC3Jtpn/VcdNWMXRhdTY89HahVLYfX
+	 hSpCZGGz3ANlkx0H64/jysXGKE8DtL8gsxg5QKV68h4/T2pEOCuvuvFg6qxFU01T9P
+	 8Z0acnWedIhAgvSu4D0/QCOPvF1OMZXUmW3zHP8H1E2FKlTVKvmcqP+u166x6+r08C
+	 be6lYerdqTlgRefJIOMuGzjjTP7O6cXvF+qRXK9lKURgnlQTjxn04WpYE6t5pK5rIH
+	 t6eagxzSZIFVAWpKsDENWyYmZeG/VbCUxCQOcdCag2RPHvwrs0kAb1vff7UOU/ceG0
+	 9h5cDA4LU21XA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id E27B641E49;
+	Thu, 22 Oct 2026 15:19:07 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Subject: [PATCH v2 00/10] iio: frequency: ad9910: add IIO backend support
+Date: Thu, 22 Oct 2026 12:18:58 -0300
+Message-Id: <20261022-ad9910-backend-support-v2-0-0ff7f0bff326@analog.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,62 +83,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <a65c757a-04b0-43e2-bd2a-5c07ab4f61f8@arm.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC5:EE_|SA5PPFF3CB57EDE:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7163e7a0-1c76-4ac2-079d-08df304fc607
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|376014|7416014|36860700016|82310400026|56012099006|11063799006|4143699003|261021121427099003|261021135927099003|261009223027099003|261009221227099003|10067099003|18002099003|22082099003|6133799003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ufZDh/uZWd+rvF62uYVODHW//I387EEKuGre5F9yPLoQdSA2WQQ4IAYgGigZh4qeSA+jd5JJ957/t8X50jrvYbFmfN5TrEpKBkXeVhkIZFN2qj1SGl5FFJ6rVQbPpaVJfoeSs9fpj7qVyAXHLJZxpTm8H3SlzEVkE7tU1DjFfRXmDSCoUvmOBf0nPHE55JFS56MBU5ODC+JICDMPG7mUVEObL9nL76ogNFXqmS4uyNCEx9zWEeDgKwvnyzeU5SBJquXCZM5zeWRTW98Komt6PwIW3LZ2j/yaFg1Z4u78Xn74UFyyxVzbNQfSsdz9HLpNAgWlLJG7Mct+XhbXwA80S38otkVmGjsATJD0zlExvO11voYW2U2zPldh7nQ1qrtxcd7EEQwF2rLF4dSSfp8dWzmrsO3ZwEPvbPclCo6fjp/3PjYEo0A0Al40jY6EUD6qFEB7ASNtwuT59UwwwDQYYfPxQ6joc0pUbfhQNkayO79mWlp58Ju9WEWI22fUE4/K0sTW0DlgcZEurlTRVDDJnlWcSBxKfjm4MBNkW+iYpyOcjhfanwJ0SUj+lOWP+6qDdSNfmrQGbcxDTIYlU++NKXUjZqTP+7p70m02v/X7IBsAJYNJYjGrnk+isAC2mhCJt0I9eWAfsyGU0IyvuiR1702DWsULb0c/5aR0K9PaAd8l1o3hskXAosFg4FpdWKQ8qTu9OAthKWOtJyKhkalSRg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(36860700016)(82310400026)(56012099006)(11063799006)(4143699003)(261021121427099003)(261021135927099003)(261009223027099003)(261009221227099003)(10067099003)(18002099003)(22082099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	rHfQlvbjtveFVoRrFb0PXXebhAYEqdafxzB8fTlK5pJ1JUD+/9YTKZP+6VfpBMMtRLhPy8sGdn2H/sW0ycDD7kYTDBHDidZQEtlnpqLxMIQJjE+XNjyA5n5FMb71lVGBNCtD8Vzc1kjevxC+pmhUeEJFih3P9kvRHn61XU1aZ3drCEUnJp4Ulk7f7nWk5yxVwPjeKc6c8tsH6tFpo/ChbErysn6eWWkLkzyi8sMCZOl/oAz9MbmQofKJ19jj0JU1ElsjLO135DosLhd8hS7rACa7RM40jkWtcJMrvmMtbiTWB0e55yQe15cSXK++4RV1rEemeoWJyj4cp6UuXGPlbdDeNJaLH4DCAPNlrxP7oPhSmMH/RtX7WKJiwn2/7ERHtZP4cRHiOIpFkD1+1NLtcGVhoa9dt/3r8XtQMSExU98h9+DgDXfXxAZYIyebWZxt
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Oct 2026 15:18:49.1330
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7163e7a0-1c76-4ac2-079d-08df304fc607
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM2PEPF00003FC5.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFF3CB57EDE
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAGMp2moC/3WNyw6CMBBFf4V0bc1MqTxc+R+GRWlHqI+2aYFoC
+ P8u4NrlSe49Z2aJoqXEztnMIk02We9WEIeM6V65jrg1KzMBooA6B65MXSPwVukHOcPTGIKPA8d
+ SydJgKWUObD2HSDf73sXX5sdpbO+kh822LXqbBh8/e3nCbbdHEPD0LzIhB55rgYWsdEWiuCinn
+ r47av9izbIsX7sMNCjPAAAA
+X-Change-ID: 20260930-ad9910-backend-support-17a47d174430
+To: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux@analog.com, devicetree@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, 
+ Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1792682347; l=3858;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=0eDi3cJlO2Kr5JHOSDc8le20UlTOxTiPawBS9a/r7Yw=;
+ b=sxcKxjCN9UmZ2Bs3ih1g5pqsK/jnxHT9HQq5BAZRrooMewHfSK9NAtArw3Q2C1l8AQ9zbUoJk
+ P/9zAYqltf6AVzz1rJBJm2VIvzNkTuEaY+ciBXsXoVAxPJFmHcH+Eiy
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
 
-On Thu, Oct 22, 2026 at 12:02:12PM +0100, John Garry wrote:
-> On 10/5/26 20:30, Nicolin Chen wrote:
-> >   					    struct arm_smmu_strtab_l2 **l2table);
-> > +bool arm_smmu_kdump_is_attach_deferred(struct arm_smmu_master *master);
-> >   #else /* CONFIG_CRASH_DUMP */
-> >   static inline int arm_smmu_kdump_adopt_strtab(struct arm_smmu_device *smmu)
-> >   {
-> > @@ -1331,6 +1348,12 @@ arm_smmu_kdump_adopt_deferred_l2_strtab(struct arm_smmu_device *smmu, u32 sid,
-> >   {
-> >   	return -EOPNOTSUPP;
-> >   }
-> > +
-> > +static inline bool
-> > +arm_smmu_kdump_is_attach_deferred(struct arm_smmu_master *master)
-> > +{
-> > +	return false;
-> > +}
-> >   #endif /* CONFIG_CRASH_DUMP */
-> 
-> This is really a comment for 06/11, but I have already commented there...
-> anyway, I am curious - why use CONFIG_CRASH_DUMP and not
-> CONFIG_ARM_SMMU_V3_KEXEC? If your kconfig for ARM_SMMU_V3_KEXEC changes,
-> then this would need to change, right?
+This series extends the AD9910 DDS driver with support for an IIO backend,
+enabling data streaming through the parallel data port, and with control of
+the DRCTL pin, which defines the slope direction of the digital ramp
+generator (DRG).
 
-Because arm-smmu-v3-kexec will be shared with liveupdate:
-https://lore.kernel.org/linux-iommu/20260929071950.2710070-5-praan@google.com/
+The parallel data port allows modulation of the DDS core parameters
+(amplitude, phase, frequency or polar) at up to the PDCLK rate, which is
+SYSCLK / 4. Such data rates require an FPGA IP core as the data source, so
+an AXI backend driver is added for the AD9910 HDL reference design. Besides
+streaming data from memory via DMA, the IP core also drives the PROFILE[2:0]
+and DRCTL pins. The latter is exposed as a PWM output, so that the frontend
+driver can consume it through the PWM framework without depending on the
+backend being present.
 
-Nicolin
+The backend is optional: the AD9910 remains functional through the SPI
+control interface alone, hence the new devm_iio_backend_get_optional()
+helper.
+
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+Changes in v2:
+- IIO Backend: Use device_property_present() when getting optional backends.
+- AD9910 Backend: Move PWM driver to waveform semantics.
+- AD9910 Backend: sync PWM configs when sysclk updates.
+- Misc changes addressing other feedback (including sashiko's).
+- Link to v1: https://patch.msgid.link/20261015-ad9910-backend-support-v1-0-3c21648c8e26@analog.com
+
+To: Rodrigo Alencar <rodrigo.alencar@analog.com>
+To: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+To: linux-iio@vger.kernel.org
+To: linux@analog.com
+To: linux-kernel@vger.kernel.org
+To: devicetree@vger.kernel.org
+To: linux-pwm@vger.kernel.org
+To: linux-doc@vger.kernel.org
+Cc: Nuno Sá <nuno.sa@analog.com>
+Cc: Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>
+Cc: Andy Shevchenko <andy@kernel.org>
+Cc: Olivier Moysan <olivier.moysan@foss.st.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Uwe Kleine-König <ukleinek@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+
+---
+Rodrigo Alencar (10):
+      iio: frequency: ad9910: powerdown fix
+      iio: backend: add devm_iio_backend_get_optional()
+      dt-bindings: iio: frequency: add adi,ad9910-axi-backend
+      dt-bindings: iio: frequency: ad9910: add io-backends property
+      iio: frequency: ad9910: move channel indexes into a shared header
+      iio: frequency: ad9910: add axi backend driver
+      iio: frequency: ad9910: support drctl control
+      iio: frequency: ad9910: support iio backend
+      iio: ABI: add integration_time for output channels
+      docs: iio: ad9910: document DRCTL pin control
+
+ Documentation/ABI/testing/sysfs-bus-iio            |  17 +
+ .../iio/frequency/adi,ad9910-axi-backend.yaml      |  74 +++
+ .../bindings/iio/frequency/adi,ad9910.yaml         |  38 ++
+ Documentation/iio/ad9910.rst                       |  90 +++-
+ MAINTAINERS                                        |   3 +
+ drivers/iio/frequency/Kconfig                      |  19 +
+ drivers/iio/frequency/Makefile                     |   1 +
+ drivers/iio/frequency/ad9910-axi-backend.c         | 525 +++++++++++++++++++++
+ drivers/iio/frequency/ad9910.c                     | 420 ++++++++++++++---
+ drivers/iio/frequency/ad9910.h                     |  44 ++
+ drivers/iio/industrialio-backend.c                 |  38 ++
+ include/linux/iio/backend.h                        |   2 +
+ 12 files changed, 1205 insertions(+), 66 deletions(-)
+---
+base-commit: 43ffda3c7f8456bbe641ae8249a077a361b97880
+change-id: 20260930-ad9910-backend-support-17a47d174430
+
+Best regards,
+--  
+Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+
