@@ -1,47 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=78.133.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792696071;
-	b=SP1QHDp3UlzCeu7N+FHSigmorDGWYfvBE3LSUICLnsNpJQ+qY4fjItnKACjWdgIAZwZx
-	 KO8ITtcJwQungU0IoDB4k8GSayxsFYc0sw2tpukUwy219hM3KiKih3HQDacrKZwF3ZOFC
-	 CJoPN9HQaalxSNH6np0Yt2dRwJd0wufCHCFEV+2VpXgibyBdbYFjhPgsJ1h6ksZsfyyzI
-	 2hz+jn3AkH5TAhwcTRycHw+/Bw3wi1JLNj3VL5kVn+0cnb5MFKuSfO3TbePMSOSWYlAdl
-	 8alo5TmPOzQjkmjSMfK+ojFeGK67RR4tw8FMufMuZoNvlUVUzrkqC0blBMGIo9jLd1w==
+	t=1792696128;
+	b=gAzRer2o9KVM4g1EJva8LYbF8nb3swrS8jCISQZgh528O7yT6IeCSz+70krq+pPTM7uB
+	 zuCzaJ8o2e7n1+qrAzDWtY2FDsW7Cudecg7iG4FlXXonNoLuUNurtGJqM0Qd0cHfjOY0u
+	 H38XL0IGNgN9JYc/952KWngEi6NAVeT+tiONXtGN6zRGJ7bxQgstEDzCxCzecMZjV5pvx
+	 DCm2ZZ5gXKaTpSjI92HHcfe0ljVUFic/PWEQyS16fT2VnT/SvSMh7r/bEFevxGOPSbxDY
+	 jqardBHUffGwlJlgOt56iYyqplkZpjR2XsoYKnl5232zoG+IcWi+hifglf+KH7oKmAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792696071;
-	h=DMARC-Filter:Received:Received:Date:From:To:cc:Subject:In-Reply-To:
-	 Message-ID:References:User-Agent:MIME-Version:Content-Type;
-	bh=3ljvcb14XNhLnHcOmJEx73K2+x2OStvM/Cj3DPoChpc=;
-	b=PaDhStsi62lnW7W6DZYdTod1U+Q70HT5rgGm5ZoogRUqhhXKmmGa5wqSYAjo+ipCztuR
-	 LR2ilK3pIw/5lXZfXAc4mISE9+vPj6O3cpxrR7uwOBYhnl2euOfhtcgV4yHXLR+DnLZOy
-	 sLv2T/kdVwS6ChFpWnf8rAXUZ1qh/iBsSDuHsMQuG2tR6KDOAKbW1QajjXnBJAAs4d0+G
-	 7kv/0iHvRFE9Yw9XfoJAASH5immbvA+e1189ZqO+tOdv4dYriEJJ12Seff8gTfolPbuq6
-	 J0qBbWkxtiHxuspKp4I/Saj3JxFN+bEnpJ4ErOFx1biJhZMF49bwBb4ZTWjxKmTLFvw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792696128;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=d+IRbs3FeqA37fXeROEiKyHno8d9zy8yIxQWW2C+tuY=;
+	b=JmIKmJR8KnyC42JPEbfmLU7Snkmx4rtboSa3rbx4JcWk5Y7iRKO6h2hb/yZMkwNAceCv
+	 /98+11dRCBLrf6jXRDtmG2ZYpsJFtjnF0tmYwyGUZc7TNKi2hQ78wD0pos3C+o1n9ChsI
+	 TnoqFHsbPhXeDCeuhfHjbkIl0iizPsid76uZQEIH9RRNXAK+WAQg3hwQ83d/Oj8T93Z91
+	 vUeFx1u9EHnoR299j7Vh/JP5oplz+js4emsd9KdJRFzv0hG7JQFhn0T+bRQc+LAUJyOnh
+	 3CdcyeYgyLZZTAMqBJ1IrM6qsWShh7yznkjeCg+Bs4BQXLjqo9sfQ+RiPrRaNvzRzQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=orcam.me.uk;
-	spf=none smtp.mailfrom=orcam.me.uk;
-	arc=none smtp.remote-ip=78.133.224.34
-Received: from angie.orcam.me.uk (angie.orcam.me.uk [78.133.224.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBDB9606A31B;
-	Thu, 22 Oct 2026 19:07:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBDB9606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=orcam.me.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=orcam.me.uk
-Received: by angie.orcam.me.uk (Postfix, from userid 500)
-	id B9A2692009E; Thu, 22 Oct 2026 21:07:47 +0200 (CEST)
-Received: from localhost (localhost [127.0.0.1])
-	by angie.orcam.me.uk (Postfix) with ESMTP id B362F92009C;
-	Thu, 22 Oct 2026 20:07:47 +0100 (BST)
-Date: Thu, 22 Oct 2026 20:07:47 +0100 (BST)
-From: "Maciej W. Rozycki" <macro@orcam.me.uk>
-To: Imre Kaloz <kaloz@kernel.org>
-cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
-    linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] MIPS: SGI-IP27: Install the cache error vector on every
- CPU
-In-Reply-To: <20261021190253.30128-1-kaloz@kernel.org>
-Message-ID: <alpine.DEB.2.21.2610221953220.22065@angie.orcam.me.uk>
-References: <20261021190253.30128-1-kaloz@kernel.org>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hMx3kx2u;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 163DB606A31A;
+	Thu, 22 Oct 2026 19:08:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 163DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hMx3kx2u
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 2540740E016C;
+	Thu, 22 Oct 2026 19:08:43 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id QVTxtbd_px1P; Thu, 22 Oct 2026 19:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1792696120; bh=d+IRbs3FeqA37fXeROEiKyHno8d9zy8yIxQWW2C+tuY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hMx3kx2u5Yv12yYwRnZIj8ko41SrEY0/Bo24yD1IkaXB3w0Cduv/+/mZALYiTB1c7
+	 ljjfmrxGeDxztfA7wvUouPo7jX29EoogFB3E4lCS4jQ8D52zyU62aHlDAlJAs1GO5X
+	 Gqyg+Csp7RMyGnOeVI1L0OJodlzLQ52GA0ajToo8k+DBUjpRRzVsi3eMUWjfAQxNwp
+	 3LmFfL6H1eDU1EDO9Ixj6jX0p1x/ThQfPKXHEpNgFUAS7Qn20cMOD715Lbw3XO79FH
+	 adaQ3dlCrkNZu+IcSTHZW849r7wmXSICNIF2yl9TYCzQTodWgcYqKuJBX9Da/xeyt9
+	 DzDAvwtI6/PwCNVaCM4TMMWNNt5jvXQ0yt4AUTbQ+NEeWMwAO8+k9Vx8kguPHk58m0
+	 FFlWKMwpgsJQ6J97aAdrFKQcAN0N9Fe5Dbpf1LWhd1gGcpBbP0SreR2Nqj9i/SDHcO
+	 vsl9S1wNoXpSLNG8/60rkaFfEQRl6oPrWD2YwB/c4H0lX77G2c6dNVEqTMmS1sirxw
+	 y0QmbcRQjNu3D+20Vx9kkvi43ZRkuM08HJvV4Hs5BqhipIVG6y+Z2+nuBkCWqZUxzl
+	 Ukr+sL/72S9yWdkXaQBA3XEatB4/zUgEqiORrYh0k+vVOYPPG6qhkuxpYgRIrtxFts
+	 3ZcV3/WTjJYy2zQ0cM0Xzm+Q=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5237B40E029E;
+	Thu, 22 Oct 2026 19:08:24 +0000 (UTC)
+Date: Thu, 22 Oct 2026 12:08:21 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Tony Luck <tony.luck@intel.com>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+	"linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
+	Borislav Petkov <bp@suse.de>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v5 0/9] Add Aspeed AST2700 SDRAM EDAC support
+Message-ID: <20261022190821.GAatpfJYsT2fqKhk3T@fat_crate.local>
+References: <20261007-edac-v5-0-5c31fc5df4cf@aspeedtech.com>
+ <TY2PPF5CB9A1BE6C09C55652B1A6AA68725F2652@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,36 +90,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <TY2PPF5CB9A1BE6C09C55652B1A6AA68725F2652@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 
-On Wed, 21 Oct 2026, Imre Kaloz wrote:
+On Thu, Oct 22, 2026 at 09:52:36AM +0000, Ryan Chen wrote:
+> Hello Boris,
+> 	Just a gentle ping on this series.
+> 	Any feedback would be appreciated.
+> 	Please let me know if there is anything I should address or revise.
 
-> diff --git a/arch/mips/sgi-ip27/ip27-smp.c b/arch/mips/sgi-ip27/ip27-smp.c
-> index 62733e049570..0fef66b86959 100644
-> --- a/arch/mips/sgi-ip27/ip27-smp.c
-> +++ b/arch/mips/sgi-ip27/ip27-smp.c
-> @@ -133,6 +135,18 @@ static void ip27_init_cpu(void)
->  	per_cpu_init();
->  }
->  
-> +static void ip27_init_secondary(void)
-> +{
-> +	/*
-> +	 * The hub flips the low 128K of the attribute 0 uncached alias per
-> +	 * CPU slice and the cache error vector is fetched through that alias,
-> +	 * so the copy trap_init() made through TO_UNCAC() only serves slice 0.
-> +	 */
-> +	memcpy((void *)CKSEG1ADDR(0x100), (void *)TO_UNCAC(0x100), 0x80);
+Lemme give you the spiel since you're new :)
 
- This just copies instructions between the same physical memory locations, 
-from an XKPHYS mapping to its corresponding KSEG1 mapping, i.e. the bus 
-addresses are the same, so please give a more elaborate explanation how 
-this is supposed to work.  I guess I'm just missing something, but that 
-has to be obvious from the contribution itself, also for other people that 
-may come across this change in the repo in the future.
+From: Documentation/process/maintainer-tip.rst
 
- Also, please don't cc stable with submissions targeting mainline, fixes 
-will be picked up for backporting based on the Cc: tag in the commit 
-description.
+Merge window
+^^^^^^^^^^^^
 
-  Maciej
+Please do not expect large patch series to be handled during the merge
+window or even during the week before.  Such patches should be submitted in
+mergeable state *at* *least* a week before the merge window opens.
+Exceptions are made for bug fixes and *sometimes* for small standalone
+drivers for new hardware or minimally invasive patches for hardware
+enablement.
+
+During the merge window, the maintainers instead focus on following the
+upstream changes, fixing merge window fallout, collecting bug fixes, and
+allowing themselves a breath. Please respect that.
+
+The release candidate -rc1 is the starting point for new patches to be
+applied which are targeted for the next merge window.
+
+---
+
+While you're waiting, you could read
+
+https://docs.kernel.org/process/submitting-patches.html
+https://docs.kernel.org/process/development-process.html
+
+and you could even help out and review some patches yourself. That would be
+the most awesome help you could give to folks, and it would be very much
+appreciated by maintainers who are drowning in patches.
+
+Thanks.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
