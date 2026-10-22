@@ -1,59 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792707024;
-	b=2ePcJWEPP/DuUHvzO8qW0Fe8JqwuDf0kfFroab+Gq3l+lfQ0OqZakozxm4Nw+/KtzpcA
-	 A/6WzVsEhYS3c0PDLUROadaymAver+Y9iCFvZqEjmemfRKxOreDxPKfr/sjzviRzr8oS+
-	 wvoAbpxcCaEgcFZm7fTIDi5CvpjXpAyqDv28r19GNuNqAuA09A4a17hCVQXZ8u8P3rnhB
-	 xWaK7iAP3TODFamoBKCqpeuywwys4aUHibjop+WVOv4WnIO5J8ETR0trkZTu84UAkKQ7Y
-	 DwQrLBJ+yYrexzH9yesHZw/vH9eNPN8dCL5Cfwp/PDoQp1ntQfXZqoaHeu5Bk0gZqxg==
+	t=1792707117;
+	b=PD2vdS6w0sc0stXe1ULrFtgBTqkZaDeC0VEK/2nmoWpcrMITteXeR+CHyyWsFj2l84Cw
+	 7TwLMoRi83QTPnztaacU/0CmcGUTkTofP8p67lKYPfFLqmpHBtBry8cjN5OHWrsfhXCot
+	 7JC5bTbfJnW7gCvJp8P1DGDN8dB9nBBgiXslLPEyd8ykKDa2FImF5ryWIZjIZElUX1TJl
+	 YiPXADeRsoVHfs+5J1BFvzdLbJllfO7Ro/j5VrPPwd4GF7IJE3rz1p09Bs1CdJ4JH0hTC
+	 kpsV/v1OVpfriJIOAZl9ivc47GsuF8GnbrUqLKKWmJ4OvwyM96FJZWKyXFKP4Y2g0ew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792707024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792707117;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=BPD8JkJHXHODhQVF9+MgJdtTWQmQDK/Um3JEAhipQJs=;
-	b=c4LAfCc26hzZW9KxmVjza0+iAq5IoIsj2/zp0Q525NBUtm5tADwr1kkuxphEY1lW6onC
-	 /9d1YX51OrnVf6tBTDEaNrdLyschU6T97mfihfpaBPpbCwR7VB0XB9qEPh3kZi02+SD7U
-	 gnydYrBV36ukEUr/0wHPROHZz4SRalcb+e3KXI/vBeuVqOhqHGUlEqG5Y2CF3ORW6TG0j
-	 iDFi6CqnyT5zFEsxu39pD99ziYpcZ8IH+Yw0rNIoBQ0ETpbNcQpcpz8BDMzSO/zCmqAWy
-	 bqoxXoV5OYyBUn7ZgTTf1+HFwiTJfVG9DpksiOwNqXAd2h9qK2lAmaRap6goztAqslw==
+	bh=QacJows3gmaboTfKLZmmjG4i7xvTX4p5fR874XUDeTw=;
+	b=VuABgTqBc/6VkXAIrBaPpQkhgbiR0lKS/Ez08CYtW8+tWRy5Ryb24SZ+7FGqi9s0GFpv
+	 NlhdypT/a5ZONzTraBc92xDLoNM/wXWMGH2fmWKp7UsI/BhgrGI8Hq9fqbz3LwYKyMcfA
+	 QhXM02wl95effoE7mMKO5zrKflVeS5oxPiAoAburdRlLgIKQEYTBi0Zdo1xg8M+D3mZO+
+	 vN5sl4lFFiTOnBG6UC7b+530gnud+aoNz2+Vy3YHlTOGcyJf/fkhCB6+UMSNgdmyb7uOG
+	 T9RAtbRxpmxM0Gjc1UNK4nSyw5E51oQpsLPxZlheESKfXbqazKgsBBHv8e7B1Zc57tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlNUlvej;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YfwOT/zV";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 2D6D7606A31A;
-	Thu, 22 Oct 2026 22:10:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A4FA606A319;
+	Thu, 22 Oct 2026 22:11:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QlNUlvej
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7C1CB1F01825;
-	Thu, 22 Oct 2026 22:10:23 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YfwOT/zV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5721F01825;
+	Thu, 22 Oct 2026 22:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792707024;
-	bh=BPD8JkJHXHODhQVF9+MgJdtTWQmQDK/Um3JEAhipQJs=;
+	s=k20260515; t=1792707117;
+	bh=QacJows3gmaboTfKLZmmjG4i7xvTX4p5fR874XUDeTw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QlNUlvejXTz9i/tJq5LSyOKBcSqVisbfZC07oj6HSLlYFdHGmt3yXFIeVw8/HWzno
-	 KwlTmvi9vGsB825Uw2O1xybNMPHa3XbdrJokL+chWsCFxT7Og3IqAuO+aoCrxTMwPw
-	 k8g5ALRXNp+qL56olf4lf+rZreH0s7fX7O69+H27TgSP1JWQfGQ41GqZQgndF0Ovkq
-	 fTJhW6S0hVCR4kkeJ8vFHMbDS5ccKCPbxTSabrzC65PmZi8V3OdU5pxkFELMDgpbbV
-	 EQV4zAxT81fp8gelv8YxgzqNXO/6m7ktGz5x70lmSFSbyROCCFg1FpNaF49fO4Jgcp
-	 Phdnxhyva1hvg==
-Date: Fri, 23 Oct 2026 01:10:20 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [RFC PATCH 5/6] KEYS: Replace assoc_array with struct
- keyring_index
-Message-ID: <atqJzKw12w0MFOwQ@kernel.org>
-References: <20261016215326.4110064-1-jarkko@kernel.org>
- <20261016215326.4110064-6-jarkko@kernel.org>
- <20261018070822.GA1904@sol>
+	b=YfwOT/zVJEVMCIxmHFCwkUagikrh7EhlUbd/V7ONTJKqFm1j9FK8X7TrZt2UqO+wE
+	 Xqg8QA5U0LJoC6TmIlme/U0w9tehgebHvTq23jItnvCrSAln8GX7wuEtHd1IV+HpCB
+	 hFF6m3l3lO+3AmCdmaZ4CoknkcHY0Pqeb6w93agvDCiYZ4eiuB51uopVvnAonJXXaw
+	 ZYrUlOjGXUAf+L0UPXjjirjNJD8r8t72kjAAyr3qs+2KaNSt9Enud/yJAD88cMMZ6R
+	 QfdgueqQ2oYBLsNoBdQH7E3QXnw03GHSEDamjyXai/MiwitBEGAxEr+tsr6bhPXFo7
+	 wAJcses0GoZRA==
+Date: Thu, 22 Oct 2026 22:11:54 +0000
+From: Eric Biggers <ebiggers@kernel.org>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Cc: Frank.Li@oss.nxp.com, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Song Liu <song@kernel.org>, Yu Kuai <yukuai@fygo.io>,
+	Li Nan <magiclinan@didiglobal.com>, Xiao Ni <xiao@kernel.org>,
+	Dan Williams <djbw@kernel.org>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>, dm-devel@lists.linux.dev,
+	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-doc@vger.kernel.org,
+	Anatolij Gustschin <agust@denx.de>,
+	Saeed Bishara <saeed@marvell.com>,
+	Rameshwar Prasad Sahu <rsahu@apm.com>,
+	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
+	Anup Patel <anup.patel@broadcom.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH RFC 1/4] md/dm-integrity: replace async_tx with
+ synchronous xor for journal
+Message-ID: <20261022221154.GA1591067@google.com>
+References: <20261015-asycn_tx_remove-v1-0-056a7085e0a1@nxp.com>
+ <20261015-asycn_tx_remove-v1-1-056a7085e0a1@nxp.com>
+ <fb9c7c5c-e377-7926-c8f1-a7f9e93c2d46@redhat.com>
+ <20261022214457.GB1383716@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,17 +78,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261018070822.GA1904@sol>
+In-Reply-To: <20261022214457.GB1383716@google.com>
 
-On Sun, Oct 18, 2026 at 12:08:22AM -0700, Eric Biggers wrote:
-> Make 'hash' u32 and make it adjacent to 'is_keyring' to get rid of the
-> hole?
+On Thu, Oct 22, 2026 at 09:44:57PM +0000, Eric Biggers wrote:
+> On Thu, Oct 22, 2026 at 03:24:18PM +0200, Mikulas Patocka wrote:
+> > > async_tx adds significant complexity and maintenance overhead while
+> > > providing little practical benefit on modern systems, where RAID parity
+> > > computation is typically performed more efficiently by CPU-based XOR/PQ
+> > > implementations than by DMA engine offload.
+> 
+> This patch is to dm-integrity, which is doing an XOR, but not for a RAID
+> parity computation.  The above paragraph should be adjusted.
+> 
+> > > ---
+> > >  drivers/md/dm-integrity.c | 26 ++++++++++++++------------
+> > >  1 file changed, 14 insertions(+), 12 deletions(-)
+> 
+> Should also drop the 'select ASYNC_XOR' from CONFIG_DM_INTEGRITY.
+> 
+> > > +		src0 = kmap_local_page(source_pl[pl_index].page);
+> > > +		src1 = kmap_local_page(ic->journal_xor[pl_index].page);
+> > > +		dst  = kmap_local_page(target_pl[pl_index].page);
+> > > +
+> > > +		memcpy(dst + pl_offset, src0 + pl_offset, this_step);
+> > > +		crypto_xor(dst + pl_offset, src1 + pl_offset, this_step);
+> 
+> crypto_xor_cpy(), instead of memcpy() + crypto_xor().
+> 
+> Also, these pages come from dm_integrity_alloc_page_list() which
+> allocates them in lowmem, and elsewhere in the file they are accessed
+> using lowmem_page_address().  So the kmap_local is not necessary.
+> 
+> Also note that crypto_xor() and crypto_xor_cpy() just use scalar
+> instructions.  Probably fine (it's just an XOR after all), but it might
+> be worthwhile to mention why xor_gen() isn't used instead.  Is it
+> because the pointers and lengths aren't aligned well enough for that?
+> Or just because not enough data is being processed here to bother?
 
-The whole 'is_keyring' is completely redundant and more like a glitch
-in this RFC patch (equal to key->type == &key_type_keyring).
+There's also a stale comment:
 
-Nothing wrong in the review comment. I just wanted to remark this
-dead obvious fact that I should noticed immediately (doing updates
-ATM) :-)
+    /* mirror async_tx per-page completion accounting */
+    complete_journal_op(comp);
 
-Br, Jarkko
+- Eric
