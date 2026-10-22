@@ -1,85 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792665482;
-	b=Vq61KUD2MIMn+P+MJvWNuRWLSRpFDwskwitbBxcYZcmIKdDvUrixqHxisa3OBCaNI1Bo
-	 vvMNcw74zqMRvCOEqhCdZVKfZlLjqIDqI68fh70MGWZyVkw9yySt2yuVvmBFN5dZQzVXx
-	 7uK7F2Y41MVvWW4jG/MAentaaaEzC6spFtFBh8ZEv+nELtZvr8XXb1yNAbJJVps4Fyu3D
-	 e7gdvDjC3JajxNzyGRm0fhL8/yHYxRZp/1EIX7jexHMbgc8m1tOq6oXnbjAIWMlU+nbRo
-	 qkn1l5/U6JTVEnI1U3zA6ZhZKACQE3TAhZwCuIzYaBa5OgMHV1CJSl5STRy3sz64DrA==
+	t=1792665520;
+	b=YN+BpSuuiBFdCV0EaLZNl0+Jj8T4DV4gnVK9W7fvKbWO2cTiNipqS7wv5Zs2SuntELt+
+	 vgMnWbW62aEKbIldAsEFB0p77yv2EfsnmYzOjSYjWR7s7doM9PWvIllfRj+9lh3c10AYA
+	 tXwDTDf4KTrVRHwMWsPbG8CeKMCVzTpkH6Tg1dhM1ZEHIet5NYKPEKEF6hrtPJFMi/q4e
+	 Eekt+G8NNpGpsgLPN8p/8rtA+LoLtxTXujqLl/JTdll8aAA9xG8a1AgrYBARkHfQ7ehpg
+	 I4ZYD6HdpLDnZDl1SgyWr2vUJu+U9+Cflq6kOfWOiyi22scaDl4jMeY1BdB/7zoyWMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792665482;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:
-	 X-Proofpoint-Reinject:X-QCInternal:X-QCInternal:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=QMYP8ijA1WpgdLtyfabSG4b/YDwMHHYnoLHhmHn5e5c=;
-	b=IwrShHCwjdBptShNs6N+Q5HcbnrBngLzs7juhmaBdqKBDtbBvxUFOXzpFXmFhhl56Cpb
-	 mYQ4/KVDPzXLa2OB0uppFnqcw8EL9G9+JNrp3Ldu6DmQIOeW58Anm5cp5L44MdI+1phtF
-	 oZNkmTSD5/lXcl6I2GmthVbfANUrrP2imTFIzdK7wf0odEP0XgV3MmcYmULG15J3fkUbC
-	 hT0ZBoi8p/u2yBo4TnNOKNcC+V+JqvM95a1ePEZRcn9/MqU1VaZcdj0a6AfUMzNcBCdtG
-	 epm/E9n218ECvP9EWG+qAh/O1YhRbFONEgS4sY/KUi0thWuiKiUSjF5K+t3Ikj2PD3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792665520;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pVMLwxSCpD/ytFzS+nn7Bl0k4R6JGoce3kfN9Q3T/gw=;
+	b=fCqv9RSHXi6o7YM9kggj5W8lvZrhYaj71S/IbRebEYngrajECFmT3KnFV/b9WLSnCN+e
+	 mr4OTSD9u/6C8n/yOHLLT9cZ3dKGpGU6kpqkyMu4/Gwt4T14rtYoH3PqrT3U7dTjjm9ha
+	 tS3yUb6xcCyyqu4k7CU3yRue4seb9H6cj9juCDWCHb2HJep42DJMjx6Az92mcuD9DJeHy
+	 Qo5Z6I/nkxdfWI0MAatFCAVAyH7UASsrG9ArxidiJEzFw3zXw5a3mPlxhGoemJ+HNoi3/
+	 QmPmaXC5ph6nmBU21tqR74VvmNvTaFC6AKNEjCnfjSY2MwUXOMY6mJFwZD1yThx5xlA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gVsmUhpH;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UtzxzJsb;
+	arc=none smtp.remote-ip=209.85.221.51
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512E9606A319;
-	Thu, 22 Oct 2026 10:38:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 512E9606A319
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBE5606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 10:38:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FBE5606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=gVsmUhpH
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69MA052w3427058;
-	Thu, 22 Oct 2026 10:37:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=QMYP8ijA1Wp
-	gdLtyfabSG4b/YDwMHHYnoLHhmHn5e5c=; b=gVsmUhpH7B2B/l4uXwDLZSWnA3n
-	Yr1lzR9Myitx5ULPo0nL6DmtFieEMO8Ka+p8HLE040lytlvO9nbNtCRN6Hx41ULn
-	SQgSKta1EhcGtyGGaSqJrSzdy68HOHGOmBnW4aTrnqeyr9GXcrc0+JYCtFRli7gZ
-	eTUxvRtO9nrsgQx0U0WapjqNCWLdjPIu7Vc2XlSLwOqUOH3Mx1H8lyM8rSPxaQDs
-	Y98soacGpD/UFj7Sz7W89zZa2DRS0FiMRKoXvTr9Qh29gt9AY3syY6dWpgfFgA3y
-	VTY9oJcUXXRA0wva1xHM2hgjH7w3FuiCAomAdPODGIqab1iZFzaYEg0dpZw==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hfewq0shy-8
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 10:37:52 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 69M7gOqq1894732;
-	Thu, 22 Oct 2026 07:42:26 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-ks5-hyd.qualcomm.com [10.147.255.18])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 69M7gQLv1894759
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 22 Oct 2026 07:42:26 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4763723)
-	id 9F5CF67F; Thu, 22 Oct 2026 13:12:25 +0530 (+0530)
-From: Karthik S <karthik.s@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Karthik S <karthik.s@oss.qualcomm.com>
-Subject: [PATCH v1 3/5] ASoC: qcom: q6apm-dai: Add 32-bit sample format support
-Date: Thu, 22 Oct 2026 13:12:18 +0530
-Message-Id: <20261022074220.989787-4-karthik.s@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
-References: <20261022074220.989787-1-karthik.s@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=UtzxzJsb
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48dc202a60eso851491f8f.3
+        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 03:38:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1792665519; x=1793270319; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pVMLwxSCpD/ytFzS+nn7Bl0k4R6JGoce3kfN9Q3T/gw=;
+        b=UtzxzJsbudrr2qENNOpIb/DQSaek2Lte0iA7WVnmAhe++JCzDY4NETk3cY5qG1iF28
+         jD00fXy5tX9Bia9+j25Cvn1nmc92x/8ejbXORmkNUH4smbpOF9RDErn+77ON+zG9B3O6
+         Xt9SFf0RdU2L4sY9jljEiY2J8B9tGEyJUjlalWRODeYV2kD4XrxgZU1nNnMOVq3cDiyM
+         aoCiMFU7cfHKlawnMe7yn9l3/s9QP+whZGlTynnKtlAhARncxOPux0u6gLAO8IRH0HDQ
+         soflXpobOeGb+BNCIK28cOMg4N7ahUtPi2VaGs0vUbuE54PO/BUaMt0Ivc4jx+4oa4Rd
+         zMdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1792665519; x=1793270319;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pVMLwxSCpD/ytFzS+nn7Bl0k4R6JGoce3kfN9Q3T/gw=;
+        b=CcdmCieuzyLGE1imeU0D+jCbmU5uC+emEeUK0nvdnUxPVSplYK6kFuS4Zr3RpZY8JM
+         fDhKjIXd5lPmINivzCLZMnMB3P0N0euGg7g3BlGy/jXX0PTa+O6H/I7QTRMRrtYjrtH2
+         /rJgm5uhhdy1dkS94HBpysnH3irSZfxtQ2soit8E/FKvfbgM2UGE2H2qC2eRTJKaao9Q
+         oWfnOyed9Sgfuv9fFBFHpUps7g0F0w2BdDWo2AXK74lrWrxqxatPj2zdQreK5yqbaRYD
+         D/3cjVARo73xtYA1Q6bcrHOuVjbnBjgtY6EfcbMrGDWTBTs880dS5uuf4X2OUdVKpX1Y
+         FURg==
+X-Forwarded-Encrypted: i=1; AKwUvBwx6UhWMIUUaAbr0aKuSo+30X64JPj/uwQ+MBV16YMTPThQU7Tkp+1irrGFKLexakz/r+XwLovxqNMD520=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK9sProGnboRGrkeY76Hmc27YLvbdrcY0t7WqFaGXZn0UNLUHrX
+	1Q0sFgmvOPHXwq6mG6rm6s1LLL4GpGI4BWBKrcpf5+AmF52IcFL44k5h
+X-Gm-Gg: AYBFou2ZrMTJN9DAcykm5Eo64hXa9jagx+9tFqAHlC1x7Lz4LIOh0Eah1WEHGAGtl1w
+	Yf13p1glrrRgJcwSdYg5rm8Fxb7xUHev+Buu+JVC1Q6DWTVaa9pt9kqI01O6mnZ41CB88yg7aZj
+	l9UIO9sKD2L2WLVyY3naweHCK7QQYtt21be8375oKmNrvdKyzS+2TUfKP4EmEzmJLwbeWh5M5WQ
+	3ONPt+KdlV++Tmq0SbhuTcx8b8zIEjrxbAuc+a7UaRFPEvNHT3KIoclr5MtonfhDLoiT2IoPbSK
+	J0l6UoaBgOZNwGkx+ot/KquvOOVtCD91NaB4cMxuY4tedqJQC7vIUgKRsYjh4W2nDbjdTDckDry
+	Rsn1LlXyc1o9T5VRtcu3uAK7hQguwDXqSKOYoYeumPCSVoOrl4G5a2HuGFzeTUKCvKGbkyMhwp5
+	DoEnX6uBlXYkF1o2boY/xUbiH/AS8EtdkuHKIp+kIPRif8qrQVRFemcE9VpnZhG2qVZe4+0vr5k
+	dxge/nJZGBNfgq1tBxLq0Uq8OXqDKbUJyZxB91/Qj5nJAo7RQJsTwE/ej1soDMs0cPvOSnlm9Pc
+	hcb01pjLltj62PxudO7pinoVoA==
+X-Received: by 2002:a05:6000:1789:b0:48d:ffcb:28e1 with SMTP id ffacd0b85a97d-48e264a6351mr10425346f8f.11.1792665518651;
+        Thu, 22 Oct 2026 03:38:38 -0700 (PDT)
+Received: from stukan.bbrouter (224-91-201-46.pool.ukrtel.net. [46.201.91.224])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e254f02f1sm12757371f8f.3.2026.10.22.03.38.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 22 Oct 2026 03:38:38 -0700 (PDT)
+From: Timur Stukan <timur.stukan.linux@gmail.com>
+To: netdev@vger.kernel.org
+Cc: Hangbin Liu <liuhangbin@gmail.com>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Timur Stukan <timur.stukan.linux@gmail.com>,
+	Jay Vosburgh <jv@jvosburgh.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net] bonding: fix missing down path on speed/duplex failure after FAIL->UP
+Date: Thu, 22 Oct 2026 13:38:21 +0300
+Message-ID: <20261022103821.89552-1-timur.stukan.linux@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,78 +104,163 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: KDRxDxeBacy-lNKRwNC2xqI6r534CZF8
-X-Proofpoint-ORIG-GUID: KDRxDxeBacy-lNKRwNC2xqI6r534CZF8
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfX4DeKHgvdqOaw
- RXBoCaDw10BEWWbCFQoUU4fBlkB7YRtkFOyM6AGHQm5VOWi0CEnQICrTV2i7vdwpRsrRPrFF+We
- hs/26xByzio95GcahkRXmfe3jQQCRqo=
-X-Authority-Analysis: v=2.4 cv=G4OJgNk5 c=1 sm=1 tr=0 ts=6ad9e780 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8 a=0GeEMZVGUYcv1euD6hYA:9
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDIyMDA0MiBTYWx0ZWRfX4vwPR9PzFB/4
- 8HF40z05b+NPd7X+Z1iRYj2XJL9mDVdB8owBTdHgcOxQeEdn3lWbvh9gHCTgUWWWJCWZz/lo6g4
- EG9YZXrSMtDEKdnl12PzIuB3M30+73pPR4Mqfcjtx4Z/KPpsN0d2fIiCPVp9VRdKyKgWIs+WI3j
- mRLbzE8G67LTgRlnuTFeAWClZkWY+EGVciiyvWrHuUjyc2wdWnAjcUMXHQBYeIkLI+vurjaGLUT
- My9IB46JDfKM0zUc0LWFBCBV2jF3sWEgAzsdc3dCyKA3Jm5H0wqpCMCO25d/GA5AiLuHK+JPW4B
- PrXFGX+5GH04dacxqn5QNy3UMY7KpDzNdVSDa+OqxPIM0skrT5RimZc8xqpnGa2e0uGuZKhyJ7b
- l+0FlqtYLQUGv8HljOyWDQbx85uB1347yxgt6+y/eAEO12Uqx/fcJrBljKIClErRhMYTxIacaiy
- E5+EG4OK3u/vCtZXI9g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-22_04,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 lowpriorityscore=0 bulkscore=0
- impostorscore=0 adultscore=0 malwarescore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610190000 definitions=main-2610220042
 
-Add SNDRV_PCM_FMTBIT_S32_LE to the supported formats for both capture
-and playback hardware descriptors, and handle SNDRV_PCM_FORMAT_S32_LE
-in q6apm_dai_hw_params() to set bits_per_sample to 32.
+In bond_miimon_commit(), when a slave is proposed as BOND_LINK_UP but
+bond_update_speed_duplex() fails in bonding mode that needs speed/duplex
+(802.3ad, tlb, alb), the slave is set to BOND_LINK_DOWN directly. This
+bypasses bond_set_slave_link_state(), bond_miimon_link_change() and
+failover.
 
-Signed-off-by: Karthik S <karthik.s@oss.qualcomm.com>
+This is fine for slave that coming from BOND_LINK_BACK, which was never
+brought up and is not in use. But since commit 1899bb325149 ("bonding:
+fix state transition issue in link monitoring") the commit phase also
+handles BOND_LINK_FAIL -> BOND_LINK_UP which means a slave that is still
+in use and may be curr_active_slave.
+
+If the link recovers within downdelay and goes down again before the
+commit phase reads speed/duplex, the slave is silently marked down while
+remaining the active slave in worst cases. In alb/tlb the bond MAC stays
+on the dead port, no failover happens and TLB/RLB state is not cleaned,
+so the bond stops passing traffic until that link comes back even though
+other slaves are up. A non-active slave is affected too, in alb, RLB
+clients assigned to it are not reassigned and become unreachable.
+
+Reproduced in tlb and alb mode with miimon=100 and downdelay=10000 by
+flapping a slave within downdelay and dropping it again before commit
+(a longer delay was added between inspect and commit to make window
+wider and easier to test):
+  bond0: (slave enp0s3): link status down for interface, disabling it in 10000 ms
+  bond0: (slave enp0s3): link status up again after 3400 ms
+  bond0: (slave enp0s3): failed to get link speed/duplex
+
+procfs then shows the active slave with "MII Status: down" and "Link
+Failure Count: 0", and all traffic is lost.
+
+Fix this by recording the link state before the miimon commit and when
+the speed/duplex update fails for a slave coming from BOND_LINK_FAIL,
+taking it through the regular down path, including failover. The
+BOND_LINK_BACK case keeps the current behaviour. The down path is moved
+into bond_miimon_slave_down() so both callers share it.
+
+After the fix:
+  bond0: (slave enp0s3): failed to get link speed/duplex
+  bond0: (slave enp0s3): link status definitely down, disabling slave
+  bond0: (slave enp0s4): making interface the new active one
+
+Fixes: 1899bb325149 ("bonding: fix state transition issue in link monitoring")
+Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
 ---
- sound/soc/qcom/qdsp6/q6apm-dai.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6apm-dai.c b/sound/soc/qcom/qdsp6/q6apm-dai.c
-index 033197bdd870..ec9ae2276361 100644
---- a/sound/soc/qcom/qdsp6/q6apm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6apm-dai.c
-@@ -93,7 +93,8 @@ static const struct snd_pcm_hardware q6apm_dai_hardware_capture = {
- 				 SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME |
- 				 SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_SYNC_APPLPTR |
- 				 SNDRV_PCM_INFO_BATCH),
--	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE),
-+	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+				 SNDRV_PCM_FMTBIT_S32_LE),
- 	.rates =                SNDRV_PCM_RATE_8000_48000,
- 	.rate_min =             8000,
- 	.rate_max =             48000,
-@@ -113,7 +114,8 @@ static const struct snd_pcm_hardware q6apm_dai_hardware_playback = {
- 				 SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME |
- 				 SNDRV_PCM_INFO_NO_REWINDS | SNDRV_PCM_INFO_SYNC_APPLPTR |
- 				 SNDRV_PCM_INFO_BATCH),
--	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE),
-+	.formats =              (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |
-+				 SNDRV_PCM_FMTBIT_S32_LE),
- 	.rates =                SNDRV_PCM_RATE_8000_192000,
- 	.rate_min =             8000,
- 	.rate_max =             192000,
-@@ -522,6 +524,9 @@ static int q6apm_dai_hw_params(struct snd_soc_component *component,
- 	case SNDRV_PCM_FORMAT_S24_LE:
- 		prtd->bits_per_sample = 24;
- 		break;
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+		prtd->bits_per_sample = 32;
-+		break;
- 	default:
- 		return -EINVAL;
+Notes:
+    sizeof(struct slave) grows from 608 to 616 bytes due to padding.
+    I kept link_prev_state next to link/link_new_state for readability;
+    it can be moved into the hole after 'delay' if preferred.
+
+ drivers/net/bonding/bond_main.c | 53 ++++++++++++++++++++++-----------
+ include/net/bonding.h           |  1 +
+ 2 files changed, 36 insertions(+), 18 deletions(-)
+
+diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
+index 09aa45d71fab..602ad697a9c2 100644
+--- a/drivers/net/bonding/bond_main.c
++++ b/drivers/net/bonding/bond_main.c
+@@ -2779,6 +2779,27 @@ static void bond_miimon_link_change(struct bonding *bond,
  	}
+ }
+ 
++static bool bond_miimon_slave_down(struct bonding *bond,
++				   struct slave *slave)
++{
++	if (slave->link_failure_count < UINT_MAX)
++		slave->link_failure_count++;
++
++	bond_set_slave_link_state(slave, BOND_LINK_DOWN,
++				  BOND_SLAVE_NOTIFY_NOW);
++
++	if (BOND_MODE(bond) == BOND_MODE_ACTIVEBACKUP ||
++	    BOND_MODE(bond) == BOND_MODE_8023AD)
++		bond_set_slave_inactive_flags(slave,
++					      BOND_SLAVE_NOTIFY_NOW);
++
++	slave_info(bond->dev, slave->dev, "link status definitely down, disabling slave\n");
++
++	bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
++
++	return slave == rcu_access_pointer(bond->curr_active_slave);
++}
++
+ static void bond_miimon_commit(struct bonding *bond)
+ {
+ 	struct slave *slave, *primary, *active;
+@@ -2807,10 +2828,21 @@ static void bond_miimon_commit(struct bonding *bond)
+ 			err = bond_update_speed_duplex(slave);
+ 			netdev_unlock_ops(slave->dev);
+ 			if (err && bond_needs_speed_duplex(bond)) {
+-				slave->link = BOND_LINK_DOWN;
+ 				if (net_ratelimit())
+ 					slave_warn(bond->dev, slave->dev,
+ 						   "failed to get link speed/duplex\n");
++				/* Coming from FAIL, the slave is still in
++				 * use and may be curr_active_slave, so take
++				 * it through the full down path. Coming from
++				 * DOWN/BACK, it was never brought up, so just
++				 * revert it to DOWN.
++				 */
++				if (slave->link_prev_state == BOND_LINK_FAIL) {
++					if (bond_miimon_slave_down(bond, slave))
++						do_failover = true;
++					continue;
++				}
++				slave->link = BOND_LINK_DOWN;
+ 				continue;
+ 			}
+ 			bond_set_slave_link_state(slave, BOND_LINK_UP,
+@@ -2839,24 +2871,8 @@ static void bond_miimon_commit(struct bonding *bond)
+ 			continue;
+ 
+ 		case BOND_LINK_DOWN:
+-			if (slave->link_failure_count < UINT_MAX)
+-				slave->link_failure_count++;
+-
+-			bond_set_slave_link_state(slave, BOND_LINK_DOWN,
+-						  BOND_SLAVE_NOTIFY_NOW);
+-
+-			if (BOND_MODE(bond) == BOND_MODE_ACTIVEBACKUP ||
+-			    BOND_MODE(bond) == BOND_MODE_8023AD)
+-				bond_set_slave_inactive_flags(slave,
+-							      BOND_SLAVE_NOTIFY_NOW);
+-
+-			slave_info(bond->dev, slave->dev, "link status definitely down, disabling slave\n");
+-
+-			bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
+-
+-			if (slave == rcu_access_pointer(bond->curr_active_slave))
++			if (bond_miimon_slave_down(bond, slave))
+ 				do_failover = true;
+-
+ 			continue;
+ 
+ 		case BOND_LINK_FAIL:
+@@ -2919,6 +2935,7 @@ static void bond_mii_monitor(struct work_struct *work)
+ 
+ 		if (commit) {
+ 			bond_for_each_slave(bond, slave, iter) {
++				slave->link_prev_state = slave->link;
+ 				bond_commit_link_state(slave,
+ 						       BOND_SLAVE_NOTIFY_LATER);
+ 			}
+diff --git a/include/net/bonding.h b/include/net/bonding.h
+index 598d56b1bc97..b2b102946fe1 100644
+--- a/include/net/bonding.h
++++ b/include/net/bonding.h
+@@ -165,6 +165,7 @@ struct slave {
+ 	unsigned long target_last_arp_rx[BOND_MAX_ARP_TARGETS];
+ 	s8     link;		/* one of BOND_LINK_XXXX */
+ 	s8     link_new_state;	/* one of BOND_LINK_XXXX */
++	s8     link_prev_state; /* one of BOND_LINK_XXXX */
+ 	u8     backup:1,   /* indicates backup slave. Value corresponds with
+ 			      BOND_STATE_ACTIVE and BOND_STATE_BACKUP */
+ 	       inactive:1, /* indicates inactive slave */
 -- 
-2.34.1
+2.43.0
 
