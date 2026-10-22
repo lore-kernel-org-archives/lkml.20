@@ -1,79 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1792651362;
-	b=ASaosvmJF3e3G2OWyfkMb/uDHivGOXz21rD9w8pUdIknQ2r3yze76b7AmBdOKQwJEXxv
-	 C6TBtJ4Hd1EuVIyZglNtoWf2M+tfQZpCGS+TzedQ/NTArDYMUuesXtwZ1B8jWdetb/4on
-	 Frn2NCMpj4bUcyWelm2VGxJtUY0J3VsFoe9tIriRshDyVwm1c611nWs5AAXu1zawE9Yql
-	 U0lSirtQvVPlM5rvvGOdEByjKNKnJlWE/LVCEKuHsoyRPhXTk1HF0+f5n/DO1U6HEZSqb
-	 awEOX26QqY/gwa4RfMIwwKbyM4RGjKWtMCZ22FhuxxGUWCU+1QdlZBoucH48nbsYEQw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792651362;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J/flEiTmGLficv+5MmLLk4wXKjultVTWKnMpX+Cttak=;
-	b=QKe7XTZuT4iodWan77Zz02tZpoi3Y/Kjt7i3hg6bZSGK9C2FCw7gP8ovHySMo5AxusKJ
-	 2EqZu+8kLbhWVRNWcjpK5RBMFPidiYoicBaja+u0yTevIABOEfbEKq3Z+W7s23yR/wtHF
-	 6XMgzvzCviw2ZwLuBbksNwg/3azy0VDllUVkvPB6iBbaHL/Xe3KzSX2xAdg/b/TxFiWZq
-	 sejxn/BUiuVy4+jLiXO73RvDtfy+A44wiK/nxpztmkfX1ZcupBypKjzr4q9FbME+RfaQI
-	 CdGNovduhxtUp/q19z/SeOBYqmJpURyQPF6CO43advpOhDlHEs/g16O6a91ECDGwWQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0LM9dH3;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1792651436;
+	b=pLuP1cHlgh8LYe5zLZHHPR06kv3FunjMa20QSPTTKBzveOkiE3fpZeSIcdd592Z/I7Fk
+	 /URsqs3nHSnr0QW8C51cJMZiPIDzXDRjK9qgXMIIkQKxnY3KsIXtb5abt6W7C0CU7fLHP
+	 nHaTfrFTouP7G0TJXToi/UCYlUJDIEqepRoHjAlcmb8Z4egbZ/hIDZp2KfAcjc/MisnuD
+	 KcS3zzZUbdfzi9NEExt14gTQ2Yv3l8QeAN2k2zjLgnblOuokoOtm4auZoyucexK17SNbK
+	 yFNlRUfY3+VKv+2BpRzJvrFTBEd9XXbXnckMyl0RYdaaCNIbyGq4Q6fyUeu8Ir5Z27Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792651436;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=aFucjpuwH0j10r8rB0xRq98gv+GUqPboTiWqHPsU1AY=;
+	b=NnORHSoOHIQoo/jbA1GFigcHjgMoiMBpAnP3rnkFSEDgYgKBB1CxZRxJL2Y3xwqoiFjq
+	 vIhdMRvAxXOenr+tdBxN9RbRLOMfVJXDcUOpvS0pNQric77wswx1gNFElNpqajpusT8cZ
+	 mmsK3iTjUkfFhct+RSkeklvunn8YLRDfvgQEB3tNAYWuf6XDAiS8BMazSgYLWXq+f1gN0
+	 Fi7OF5/5jzIpE+LCQrJ4tisqCr0+LJ8G8q/tm2eYd+rB2OrYESn78zdh6vXkoajJXI/jw
+	 8bC/r1oR+UzgB13irsoyG2ei9qBD3cKB+VDXDHHpSLtopaeXaWzl5wHyC9tiRS9rURA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cePFW3Pc;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67818606A31A;
-	Thu, 22 Oct 2026 06:42:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBB2606A31B;
+	Thu, 22 Oct 2026 06:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B0LM9dH3
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1792651361;
-	b=etiYGrinhqmkiFPWeF5ahK0A8opN9iE/0pd8TjIYkr9DedN3a+d8fTywa6Ad6IQ4T4+m
-	 q6vIahuBNn3gH2AGl2fyv/DVw5k2aB64y/iYNEs7iL+AkLGEkm8Xx/rDQ6ay2n1DyFFuS
-	 EqLcrbFHi4U9g0/waQyJMl2iFu4Q18r8xcW6cQcwUzmziULnqkB1m6UwFmSHpGPQ23D6R
-	 AbmcbHB+uWiVOReqp8tNqKXRK8mNefVtW2Gn7+FBXw60IwDskj+uoZIbo035xTOhfzcGX
-	 EzKLeqOx8vu4SmdwxM0eISoldp9dl8iarM/cR74U8qagTLeWRIgeUht7Za72DVt3rHA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1792651361;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=J/flEiTmGLficv+5MmLLk4wXKjultVTWKnMpX+Cttak=;
-	b=L97++srPQurkOkrhmwOfSwEvN1hMxqA7sr5Us+OmD7Qy9VN64k6me67ShZRp8f6J4s7M
-	 UHGMrpQy/YJptX/DF+vAOE3wuLC+N57mIzxhhaQKG2PtSyJudECVgtUowXCPRO+Ph9hu+
-	 m0arpVEpgLbPLZLWFJWtyYEM6UWiqhXdeW6Y6L7pgbwUbxcqZ/WTwGZUw7NeqtPr7PDOf
-	 nK+5dXx6T6X9i1S1H75FI6cDvAKnVIfoCtJG2chA1s/W+6QcrjNje619Gv+CQIxZdcoJE
-	 0kdgHXgcXQcNAAuPPSp/3D6SUJdATKgO4ex9zAZIiALlKBJqOr7RiCVXTxyWjp4OOYg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 3D3AC1F000C2;
-	Thu, 22 Oct 2026 06:42:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cePFW3Pc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959781F000C1;
+	Thu, 22 Oct 2026 06:43:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1792651361;
-	bh=J/flEiTmGLficv+5MmLLk4wXKjultVTWKnMpX+Cttak=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=B0LM9dH322ZXuiEXTgWzPvolOmrHeulPTFzf2ash7Z6HaBZ2Eq9YyGcKtAGxVUl77
-	 feb+pwOr+nzrbxycPDGSVDDTzljAQ8CH8YUr4eNDblY6j7xLIeAmLxkXQADdAy1d3n
-	 ODuA1R1+s7r+0kyg0SlRDG4xc7O475pUM9UVvBWx5J2AcOvqedEsLU//4rSmYictjg
-	 178N+urpjJ3m9pNyMGJvZTIiGvwrZrafj7I1q5fsqNO1gUtTDtj7P30weZ43FogI7X
-	 n0Og0Ewk+Dw2RymB4MoxHLxB1tp4Dyga2VOwPtSzItrUToi1pDA21IYIWXtwrOvdZf
-	 QhmxqPmbRBQyg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C2B924351A;
-	Thu, 22 Oct 2026 06:42:39 +0000 (UTC)
-From: John Macias via B4 Relay <devnull+dencity7.gmail.com@kernel.org>
-Date: Wed, 21 Oct 2026 23:42:37 -0700
-Subject: [PATCH ath-next v2 1/2] wifi: ath11k: bound READY MAC address
- array reads
+	s=k20260515; t=1792651435;
+	bh=aFucjpuwH0j10r8rB0xRq98gv+GUqPboTiWqHPsU1AY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cePFW3Pc8RdsHIvENQO8gtCTXKpiGowW/j+CGwDXbGb/ag+JPQF5T4OgKFgQ9t1hP
+	 E5TZPEcE9TrkVjThtJ4uPlsL2X07kyz7LXakl5kd5wCwol2K6l5BsyApt4ZXv/a5Pe
+	 5vzQl/ZYcmDUkZk1g2oYPQR33zF7oBMLsDAaN48bfdujQUjMdNV83CBRuQLKeCan9y
+	 MeNrm7Sv13nsv8SAOP2oBhxPZEZOawRSHAju8oFOU4KlPq4o0sp7jqxBZDFGrJYkpT
+	 EfVU6yHKMOnfZQkIGjnX5ZHBa3UDA63FdwG6zzv8viGOqxuutEuKWZu7JBrZZ/kclb
+	 OZWpQCnhjgfWA==
+Date: Thu, 22 Oct 2026 08:43:47 +0200
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	driver-core@lists.linux.dev, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH RFC 02/11] ACPI: Introduce irq_get() for static fwnodes
+Message-ID: <atmwo3Bpi62kB8_n@red-moon>
+References: <arqSqcoWAkhy-8do@red-moon>
+ <d1720b63-65bf-4019-bc19-1852555f7993@arm.com>
+ <asieTvinZ7c2QpQm@red-moon>
+ <CAJZ5v0hVLSJs1j8J1TV3yJ8Psyaf=B_0UfHsYSMtM5xTup0B_Q@mail.gmail.com>
+ <atXyIadz1TEKSodg@red-moon>
+ <CAJZ5v0joJBZg==DWPsNviPfL7Jo=qupRhb6GinqOLoHXGnvevg@mail.gmail.com>
+ <ateI-JcExDyfXKrs@red-moon>
+ <athimRqtDvQu1ZzA@ashevche-desk.local>
+ <atiAmZSPiRNBAO5O@red-moon>
+ <7f077fd3-9c67-409a-b46f-7f28a55c180b@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,83 +80,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261021-rdy-mac-array-bounds-v2-1-cf7f45f868dd@gmail.com>
-References: <20261021-rdy-mac-array-bounds-v2-0-cf7f45f868dd@gmail.com>
-In-Reply-To: <20261021-rdy-mac-array-bounds-v2-0-cf7f45f868dd@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: linux-wireless@vger.kernel.org, ath11k@lists.infradead.org, 
- linux-kernel@vger.kernel.org, ath12k@lists.infradead.org, 
- John Macias <dencity7@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1792651359; l=2463;
- i=dencity7@gmail.com; s=20261015; h=from:subject:message-id;
- bh=Fqs87XxAhySy9Ng8R56w4xVx0qjiqfm2ePiFbvNvI0Y=;
- b=1rbPMf1BSr/GGfj65eUpIJF4yZRe3hLo3DA3U+vzKR3WDcbWXpQY9t3TZ8elaMNfkv4yepyYd
- lFF8gZuF23zAyAOAqk4W+O+tuDj1WP4STFq19BtPLc4uNM6z0yIq6dY
-X-Developer-Key: i=dencity7@gmail.com; a=ed25519;
- pk=z7cMHA0B6NULvJzsST/bbOOegMB6xCo9+/ytQure7B8=
-X-Endpoint-Received: by B4 Relay for dencity7@gmail.com/20261015 with
- auth_id=1198
-X-Original-From: John Macias <dencity7@gmail.com>
-Reply-To: dencity7@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7f077fd3-9c67-409a-b46f-7f28a55c180b@arm.com>
 
-From: John Macias <dencity7@gmail.com>
+On Wed, Oct 21, 2026 at 12:18:39PM +0100, Robin Murphy wrote:
+> On 2026-10-21 10:06 am, Lorenzo Pieralisi wrote:
+> > On Wed, Oct 21, 2026 at 09:58:33AM +0300, Andy Shevchenko wrote:
+> > > On Tue, Oct 20, 2026 at 05:30:00PM +0200, Lorenzo Pieralisi wrote:
+> > > > On Mon, Oct 19, 2026 at 08:05:50PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > > > On Mon, Oct 19, 2026 at 12:34 PM Lorenzo Pieralisi
+> > > > > <lpieralisi@kernel.org> wrote:
+> > > 
+> > > [...]
+> > > 
+> > > > > Basically, yes, the idea is to defer the creation of the platform
+> > > > > device until the dependency is met.
+> > > > > 
+> > > > > > till the dependencies are cleared but then, without a _CRS, where will
+> > > > > > the consumer driver find the platform device resources ?
+> > > > > 
+> > > > > Well, good question.
+> > > > > 
+> > > > > > There are multiple facets in this issue and possibly some of them have
+> > > > > > been already solved but I need to pull them together.
+> > > > > > 
+> > > > > > > Note that the dependencies can be added to acpi_dep_list after
+> > > > > > > creating a struct acpi_device with acpi_add_single_object() and
+> > > > > > > acpi_scan_add_dep() is not really suitable for that, but it should be
+> > > > > > > doable if the dependencies can be found.
+> > > > > > > 
+> > > > > > > > I need to have a deeper look into this next week but I wanted to ask first
+> > > > > > > > whether there was something I missed - most likely.
+> > > > > > > 
+> > > > > > > Well, it is not really straightforward.
+> > > > > > 
+> > > > > > Yes it is getting messy. This RFC, with all its flaws, does not transparently
+> > > > > > prevents enumeration but rather relies on -EPROBE_DEFER to sort out
+> > > > > > dependencies - though it does so by adding more stuff into ACPI static fwnode
+> > > > > > that to be honest I'd rather see gone.
+> > > > > 
+> > > > > I think what you need is a notification mechanism that will trigger
+> > > > > when a specific device (enumerated via the ACPI Namespace) becomes
+> > > > > operational.  It doesn't look like any of the existing ones (platform
+> > > > > device probe deferral or ACPI device dependencies tracking) is really
+> > > > > suitable for your use case.
+> > > > 
+> > > > Yes. It might just be a notification from ACPI core to say "the driver for
+> > > > this ACPI device probed, go create platform devices that depends on it".
+> > > > 
+> > > > We can check and track the dependency in code that does create those
+> > > > devices today.
+> > > > 
+> > > > I will think about this to see how bad this might look like.
+> > > 
+> > > Don't we do something similar in drivers/acpi/x86/lpss.c?
+> > 
+> > I suppose I can add a notifier that checks whether the device whose
+> > companion represents the ACPI device a given platform device IRQ depends
+> > on was bound to its driver and then map the IRQ and add the platform device
+> > _then_ - after all that's what acpi_dev_clear_dependencies() does (similar
+> > at least).
+> > 
+> > There is still the question - where the GSI number, flags should be
+> > stashed so that the notifier can grab them in a uniform way. We
+> > could simply attach platform data storing those values to a pdev, either on
+> > a per static table basis or generalize the data so that a single notifier
+> > would be able to deal with it.
+> > 
+> > That or I can just piggyback on acpi_dev_clear_dependencies() and add
+> > a separate dep mechanism to acpi_dep_data that instead of being acpi_handle
+> > based the consumer is fwnode based (something Rafael mentioned before).
+> > 
+> > I will have a stab at this and see what's the least bad solution I can
+> > come up with.
+> > 
+> > I suppose we are scrapping the -EPROBE_DEFER solution (ie this set),
+> > what we are talking about above won't need to defer anything other
+> > than the time when platform devices are added.
+> 
+> I dunno, that seems pretty drastic for some use-cases - the fact that a GSI
+> is described in a table doesn't necessarily mean it is critical to device
+> operation. If we don't even create the device until all possible resources
+> are available, then its driver never has any chance to decide whether it's
+> happy to ignore the deferral and just use MSIs or polling instead...
 
-The READY event carries a fixed record whose num_extra_mac_addr field
-advertises how many per-radio MAC addresses follow, and a separate
-WMI_TAG_ARRAY_FIXED_STRUCT TLV holding that array. The TLV iterator
-only ensures that the array TLV fits inside the event;
-ath11k_wmi_tlv_rdy_parse() then copies one address per radio without
-checking that the array really holds num_radios entries.
+I agree with you (but that's what we do for ACPI autodep and AFAICS OF
+devlinks - though there there might be opt-outs).
 
-If firmware advertises at least num_radios extra addresses but sends a
-shorter array, for example two radios with an eight-byte array, the second
-ether_addr_copy() reads past the end of the TLV value.
+To make -EPROBE_DEFER work I have to pursue the approach undertaken in this
+set and apply requested changes - I don't see any other way.
 
-Check the array length against num_radios before copying. When it is too
-short, warn and leave pdevs_macaddr_valid unset, so the driver falls back
-to deriving the per-radio addresses as it does when no array is provided,
-instead of failing READY processing.
+Are we willing to accept the approach taken in this patchset (I can remove
+software nodes and make the whole thing ACPI static nodes self-contained) ?
 
-Found by code review while bringing up a device with older firmware; a
-userspace harness that includes the unmodified parser reports a 6-byte
-heap-buffer-overflow read under AddressSanitizer for this input, and
-the fixed parser passes. Compile tested on ath-next (W=1). The same
-change has also run on an IPQ8074 hw1.0 board (with out-of-tree
-enablement patches) on every boot since 16 Oct 2026; that firmware
-sends a well-formed array, so this exercises only the normal path,
-which still assigns both per-radio addresses and prints no warning.
+One way or another this ought to be sorted, please all let me know your
+take on this.
 
-Tested-on: IPQ8074 hw1.0 AHB WLAN.HK.2.0-01792-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Assisted-by: LLM
-Signed-off-by: John Macias <dencity7@gmail.com>
----
- drivers/net/wireless/ath/ath11k/wmi.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 08fd6795ed..6ae4e881f8 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.c
-+++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -7330,6 +7330,12 @@ static int ath11k_wmi_tlv_rdy_parse(struct ath11k_base *ab, u16 tag, u16 len,
- 		if (!(ab->num_radios > 1 && num_mac_addr >= ab->num_radios))
- 			break;
- 
-+		if (len < ab->num_radios * sizeof(*addr_list)) {
-+			ath11k_warn(ab, "ready event mac address array too short: %u bytes for %d radios\n",
-+				    len, ab->num_radios);
-+			break;
-+		}
-+
- 		for (i = 0; i < ab->num_radios; i++) {
- 			pdev = &ab->pdevs[i];
- 			ether_addr_copy(pdev->mac_addr, addr_list[i].addr);
-
--- 
-2.47.3
-
-
+Thanks,
+Lorenzo
