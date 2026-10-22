@@ -1,84 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792637852;
-	b=HxySLl/nWh7oRTgdtns0Wio7fSDz5MBdKcKnjAzr9S5uSEw/1oABQ3gKouiAstJNul5V
-	 63brquO3trXy837gh9b3m/xo+mOjzugxu8gVTV0ThOYWijjT3zSAoBpho8bVzQJjZVNE8
-	 cbw/WjyJUIHG3damNJmByZ2zlngs0MYCmlHe/6l8d0zG9T6glQtVIlzYZbNDu+M+iImc+
-	 u2eUwyld6RptAFcBSOhbXDqVLy6xqSHPUq9h9rm4zcZBNXH8KBf9SAlAGJ2pMNjrHfc01
-	 38wNeU2ymmT9JpqHLWLYqHn1AOHxv05Q+Xz7EslAbVIMI5D0UAwQbsKVO294mh0btqA==
+	t=1792637867;
+	b=E3cM1dImE1a6yyzktQfV661mY7O1Spk8Pou/wUKGpuBrze2swlto9TE/ae2+Mq3feTIv
+	 3l9CYO2GTLDiOlhcBAqOruGK/gFZI5eJRgvYO9Dd0um8I5kfzAKPCzxtSkXdBArZy7vl3
+	 bQRN/S6obwd++k+7gRw8Bo208j209DCXrXbYYjf/Osoa1+cjZaqf9xec9S3ZCFGb3s5BG
+	 SO6FPI+CdBQergfzr+F8t4OQzhRhinoB4nzm4bkps+hkLU4jL8U0djFD+wal5yWNiXNZA
+	 EqmpWLHu424k8F664rG+8VsP6cl9QUG2hmqygcY4SoSCwkPro2uwGPvP+hss+FepxIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792637852;
+	a=rsa-sha256; c=relaxed/relaxed; t=1792637867;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=jbCDllRU5wYbKPFOhnGrl1xB/avA24qTnso9VdtaQCs=;
-	b=jVsM+fTW3SHE8oi3vxCbn+4OpE6IvTmFy/YOyJaVrMcGU2nLw+AHhipF+3nSHO4dmIoL
-	 YHJMohHdO1e+uUEAusVrOaoTh3WLmDv1nQ0NPUUuUOPzFUg3b3IRQdBrSrLEg8YVjeF0Y
-	 3HXA+OLxRywiheYKO6oJBowik1FKuobgPmroQnnRdQIxWGbUSp3SjlddYqLA/4pD482IS
-	 fsB3Gp72nBjDWKtws+dmEFyFmjY3koLf1hAupR3NTamDuFKUo3TvHHNlIiNaOKtlX6ZPe
-	 Dz07CJ0KbEUNSVOulp3+D2KlYfk7fz2tiE8tuCD2T8r6EQpgKTIa4G8uXN9tg0VJPhw==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=9EhJunI31x30V5twb29p5JvXR/ZnOh8avGc16eTeBG0=;
+	b=s3Kw2OqHdlUHChVThRGl4ysBuo2+GjlBYkxYQjCgDDK07DDuZrxao2xsCJyz0oD2nItD
+	 Ak3E9wJwNZpFhzQJx7IMi/kD65V9FhoR5lmFYchoqNnltqyQSQRsVGgOjoNMCdkKqNWF1
+	 SwMDP7NHssqEMY+NKoWkx6zsWwh6xzMPk8NDvOQuY1uLkvKZ5FKclONJNpQZoB75QE5VC
+	 gHhr0jOAaar8GpgJnrOwZHNRDt2UiB2zMMYFyqxhTVquC1j438XuE1Gp9CtYgx0Ek+3JU
+	 7D+rbiVsChBxpByKl9yqAvLE6hCL5QdF/WceD8ZKhcHL8uJ8QcO7R8bnBv2wn+QvKPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b="koa/V6Uj";
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dRoWI2O9;
+	arc=none smtp.remote-ip=209.85.215.179
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6437E606A31A
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:57:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6437E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E21D606A319
+	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 02:57:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E21D606A319
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=koa/V6Uj
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93e63ee7b4cso160238285a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:57:31 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20251104 header.b=dRoWI2O9
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so534381a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 21 Oct 2026 19:57:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1792637850; x=1793242650; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jbCDllRU5wYbKPFOhnGrl1xB/avA24qTnso9VdtaQCs=;
-        b=koa/V6UjBswa4FuSyaK1aj7mCWWDpckd3P8cm34TWWyRP4wzh2NLGZFSH6Q4M4DXu3
-         qzvnXX9HeaVR6rcKzXOZbL4uzEnVmqZL+MMzzyWUGBG2X6ItbpmKYvjiIE7ZPOD6pDdX
-         PykgPTns0Qtfo8nduMQ1sHSyApXHEviCMbeUO00ZvHROPMI86Ykmx6SQl+abfVMyiKWf
-         CvkbnJxDfiv3XJxFjZ82pcIdZyeNVZqTP/ETC6T9H+76M973HmqPv2qbgfT+YBQjViJJ
-         TAOrklU+ENqV10WidZ/pbmFlwYkvtftj2K/YJxpRPZem9Bu3acDn5HeG7eCd8A/aUPfS
-         BT4g==
+        d=google.com; s=20251104; t=1792637866; x=1793242666; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9EhJunI31x30V5twb29p5JvXR/ZnOh8avGc16eTeBG0=;
+        b=dRoWI2O9b4O92k+WOpxwi565DGBEPYlPq0ghfq07r2y3WRvZEDPJ7i0ROgbY6wUSuS
+         AdNT2jZT04waQarxGzpsFOkuGkcLz6ztwEZzLkyCgXet2o61a5dXghq9VTZ92NNNcMrf
+         /+LGCpmWuIP1Aagyq4YfMSLq+WSt92yoZPw+QaI762w393JWkg6u8G3V17ksbFYBBVzI
+         gHiGvVlcABlRMpDhSMkjjrVx/XmdpP/fklOi0VmZNnNnWKpmuvwaR2vQUOrwKNF2oWcT
+         QYXdnfSlN1Fdfqf3CrBxt7gsbSBeCL3AcwfNBYU/Go70bECwqrn8/zbZOHnb2Tq4F2CH
+         jQzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792637850; x=1793242650;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jbCDllRU5wYbKPFOhnGrl1xB/avA24qTnso9VdtaQCs=;
-        b=nqFt9SFLKJ7/tZNxNqqBtwu29x9s0tvE9gl9CDl4YTIQASizvBu+cOXTlAOUfa4oMF
-         V2sTHhcE7Fjlh0JHuf6p1epULYKc+9P1sIPhdwItRbljzUGKb7FIVShOGaqwKvbIWpyy
-         aqwJ3W+5L3vkVddCS6nlBpoROr9LPTqHpBj/vF09BzkrozF99MVA1FmRWd3OTxg7e1No
-         zxUkVm39yPL2ji7eR9XYc/zXve1vt2KmqRLKJ3cnUYC3NekJOZHJhk1fvWwoIRJor2+Z
-         PqeVvOOzasYJKdW0rc+lfcHYQU9UtzZf3dcH08q0U0LHCT9wp1XQa5BSXp2GjcFHqyyY
-         bs2g==
-X-Forwarded-Encrypted: i=1; AKwUvBzVBacMpcZBfxwQTIGM/eq0ubvZWw0nIydhAyxsEtFf2QlGi+qjUC0QXw8CV+Pjka+jYvIxX6eG1abwfAY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI30v5qcmXopJMP5grLb/L0mDlYz8Vb2rGvn5ijc58rZ3t1579i
-	Ty+dNy/H6QA7z8cdC7huHHf9hc2rnXwOP3O3js0wvr/SlrfSY0xwgA4EzOWR33sj54M=
-X-Gm-Gg: AYBFou0Zs1Twpgk6GuNggh7FPZSMUZQFvV7hZhW6SZkLSO0+hWe/sHMHEcl1S5MJMNl
-	ea+Zat2eukkUWalov01TTP9H+rJhUF81Jo2WU7fYC2uAmGNUjpmLJZyItv7dgR/6Mdq9OTzGsBe
-	bPZWP7yImJWLhD4SHwDPkAABWgoXBMavYHME6K5U2Ts4l4MzcjWV4JO/tBCVbUeukFxeytHjz0D
-	YhsEPLliav1WN38SnFDlzaOqt6pHoOuj2z1Vd5weRxyeiLseQeIysFkJpoFPBccOzG3ionf/qDe
-	bu1KWqFA28rY+frp0t50VUl8zDFm5GQiuTtOeaOqe2EYsB/W7rRuM2lbcsyjdoPs9EOq5qoPYFg
-	t8SAS93S/MOL2lUEtG7mKyiIByPjI1oDxHsXl8VC5dFmcECG6fPJrq9AHTyMbMD7/tOxt8A6IjT
-	pp3NbvT8zupU1psIVVNfX7FNCgO2DLmsdc+4yRXTnJ0OFTJWNlz+FUP+LeaH9FhFL4fpAByJMeg
-	2ua/1uo5P3/fjy844VKxSGw10St5QDCCYkBZS7HV3RABQPMJwC4E+gZVRhHKYzszQzvrsUw3EUB
-	wokeaFK1Ibiohjz8684sYYY/YrE=
-X-Received: by 2002:a05:620a:2415:10b0:93f:5cc0:5978 with SMTP id af79cd13be357-93f5cc05b2cmr353949485a.37.1792637850409;
-        Wed, 21 Oct 2026 19:57:30 -0700 (PDT)
-Received: from [192.168.86.58] (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93f56e30610sm406637385a.43.2026.10.21.19.57.27
+        d=1e100.net; s=20260707; t=1792637866; x=1793242666;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=9EhJunI31x30V5twb29p5JvXR/ZnOh8avGc16eTeBG0=;
+        b=LQ9dH/Dl8sp2Ej+K7pjzDDZMwPCRQOoDHN2POKG9iaGPwl1c90VSHcGYmQcOKgJukj
+         LtDDIcYEWF/D+tTO+QL9+0kZuZWsKhIZ2HmPuWtkqnDXRFlb33HtKrDCQPLHqAHJEZL4
+         0cg8gsnJaehOSlMVU7TFxdoyYVu6c0ZPfadEB6K/GG6+LFks4K9lrpHSAr8dpmqKGTdx
+         sFZfuv6cARyZR9LPtCtev40OottwKe+ZsfLPGTg/Wjq3dknh6QHua0RT0Jo3JJf9kLnq
+         rsPgIZ7/ydJlKmx+L3iSZYyeLLXbZHxQhLbrnU6FHldkCn+3MDelQQCKt5ByQ+zjCoV2
+         MrxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxJuU0ecGYIEk4GVXi6wk+HAuroeUR5yT4gBq5Fg7pHb8rMyIEd1wLEl3AYofP4qBCSGrHwLxeIH20V8yU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKp+JP6tjHNHVuLo40kFFs19qQhpQkXlhFhrWvDFg1eQCHTTr9R
+	O35WM7MUyB6EA7MkEn18J0SU6M41c5nQRRIHRKrun6K59b2fW24cE9K74/hRAjpxrA==
+X-Gm-Gg: AYBFou3JZ0WNyA6Un6cI5BHQrNzoW5GF8P5VDLkCxhq+87rEFc3LMh8ZUmd4L9y7gEL
+	0axPOKd8BI2jkd6h2Ieg7qY9jO0aA++HKbcdljqdKjKC/Gm3zvD31YZ9l6DfevnXC+3c8fkWGhq
+	plOMq6af8vFYUWJW/CfjetoyOFX2NKyuKo6frxz2hWY7i/d0eGIK3WAR1HjYG2T8sDmugSOQFuT
+	rSh51UEf3rLsE5/4MCMHjQp4NImSSmv2jvRWK4wP1mptpP0U+7Wf3887qdi5y6w4RJoFDFuJMXf
+	LStbWl0l9hKI4YcLoZX1l+tBZbDBwGjs985tAQ9scjETbm7lCWJNBHkMnwECWyG+I2y9urrmqmM
+	P7OE9KLWYADoEpF3vkQcSQ/9WxrC6+njMMUxFCaHF56doIvXl6omfx47HqYrfu8R0TukkPeHHyh
+	cXg/Ebo2rlENiXF5Ldf/t821bAhXzKS/gYrqtBLPwMzdI23aQh35hJeNOqcgmqGpIt4z044QHsN
+	cDwR5jgX1pmDh+BU4I5k/knihtomLnlHJri4MfSd1FirAPHkK3t4wY33nBdbjJtT+9qyTmpUhAG
+	Y96rqd5oUUAERSsf
+X-Received: by 2002:a17:90b:3ec8:b0:3ac:adce:60ad with SMTP id 98e67ed59e1d1-3ad86e96c9emr2886416a91.22.1792637865925;
+        Wed, 21 Oct 2026 19:57:45 -0700 (PDT)
+Received: from google.com (64.75.127.34.bc.googleusercontent.com. [34.127.75.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ada495315dsm2092370a91.15.2026.10.21.19.57.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 21 Oct 2026 19:57:28 -0700 (PDT)
+        Wed, 21 Oct 2026 19:57:45 -0700 (PDT)
+Date: Thu, 22 Oct 2026 02:57:41 +0000
+From: David Matlack <dmatlack@google.com>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+Cc: tarunsahu@google.com, Andrew Morton <akpm@linux-foundation.org>,
+	joro@8bytes.org, Mike Rapoport <rppt@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>, maz@kernel.org, arnd@arndb.de,
+	jgg@nvidia.com, robin.murphy@arm.com, loganodell@google.com,
+	oupton@kernel.org, kevin.tian@intel.com, alex@shazbot.org,
+	dwmw2@infradead.org, pbonzini@redhat.com, seanjc@google.com,
+	will@kernel.org, Alexander Graf <graf@amazon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>, baolu.lu@linux.intel.com,
+	linux-arm-kernel@lists.infradead.org, linux-arch@vger.kernel.org,
+	sagis@google.com, linux-mm@kvack.org, kvmarm@lists.linux.dev,
+	iommu@lists.linux.dev, linux-pci@vger.kernel.org,
+	kexec@lists.infradead.org, skhawaja@google.com, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 3/4] liveupdate: Replace compatibility string with
+ a 2-bit pair feature header
+Message-ID: <atl7peoVHdP5hz7z@google.com>
+References: <20261021152527.375070-1-tarunsahu@google.com>
+ <20261021152527.375070-4-tarunsahu@google.com>
+ <CA+CK2bAQbmq3ArP3XMErF_8RC2CUwvgpLY0H83D0nCJTaVKYyA@mail.gmail.com>
+ <9huzecdi6go0.fsf@tarunix.c.googlers.com>
+ <CALzav=dLdJoVy=B1pv0FAurD9OhAzLSTjJNbtjTdJRmSqaB0yw@mail.gmail.com>
+ <CA+CK2bAQRMAEXZyHTEuUN0_Fo59Sn0hBmYbme_J9ewjx6gPyJQ@mail.gmail.com>
+ <atlKsD-aJB3mJr2j@google.com>
+ <CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,63 +116,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH bpf-next 3/9] uprobes/x86: Finish an unoptimization
- which failed half-way
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Cc: bpf@vger.kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
- eddyz87@gmail.com, memxor@gmail.com, oleg@redhat.com, peterz@infradead.org, 
- mhiramat@kernel.org, jolsa@kernel.org, akpm@linux-foundation.org, 
- liam@infradead.org, ljs@kernel.org, surenb@google.com, david@kernel.org, 
- vbabka@kernel.org, jannh@google.com, hughd@google.com, kees@kernel.org, 
- mingo@redhat.com, tglx@kernel.org, x86@kernel.org, 
- linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261022015712.1297331-4-alexei.starovoitov@gmail.com>
-References: <20261022015712.1297331-1-alexei.starovoitov@gmail.com>
- <20261022015712.1297331-4-alexei.starovoitov@gmail.com>
-Date: Wed, 21 Oct 2026 22:57:26 -0400
-Message-Id: <179263784614.2549665.557126403507804820.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+CK2bABt4OZO31TenVF2+uBUWVwViWbvfE00=0xbAw=f7K9SA@mail.gmail.com>
 
-On 2026-10-22 01:57 +0000, Alexei Starovoitov wrote:
-> From: Alexei Starovoitov <ast@kernel.org>
+On 2026-10-21 09:26 PM, Pasha Tatashin wrote:
+> On Wed, Oct 21, 2026 at 7:28 PM David Matlack <dmatlack@google.com> wrote:
+> >
+> > On 2026-10-21 02:50 PM, Pasha Tatashin wrote:
+> > > On Wed, Oct 21, 2026 at 2:47 PM David Matlack <dmatlack@google.com> wrote:
+> > > >
+> > > > On Wed, Oct 21, 2026 at 11:40 AM <tarunsahu@google.com> wrote:
+> > > > >
+> > > > > Pasha Tatashin <pasha.tatashin@soleen.com> writes:
+> > > > >
+> > > > > > On Wed, Oct 21, 2026 at 11:25 AM Tarun Sahu <tarunsahu@google.com> wrote:
+> > > > > >>
+> > > > > >> LUO and its file handlers validate handed-over state with monolithic
+> > > > > >> compatibility strings ("luo-v5", "memfd-v2"). Any change to a serialized
+> > > > > >> structure, even an optional additive one, must bump the string, which
+> > > > > >> breaks live update between adjacent kernels. Replace the string in
+> > > > > >> struct luo_ser with a feature header, so that the target kernel can
+> > > > > >> accept or reject the source kernel state per feature.
+> > > > > >>
+> > > > > >> struct luo_feature_hdr is a fixed 128-byte header: the serialized
+> > > > > >
+> > > > > > This patch is all wrong; 128 bytes is far too large. For every _ser
+> > > > > > struct, we only need 8 bytes instead.
+> > > > >
+> > > > > NOO, It is not. It is intended to avoid complex mess with unnecessary
+> > > > > over-engineering.
+> > >
+> > > 128-byte per serialized struct is not starter.
+> > >
+> > > > >
+> > > > > >
+> > > > > > The first 4 bytes are the size, and the next 4 bytes are flags (i.e.,
+> > > > > > 30 feature flags + 2 reserved bits for flags extension). The last two
+> > > > > > bits of the flags indicate whether an extended flags field is present.
+> > > > > > Each extended flags field is 8 bytes, and its last two bits indicate
+> > > > > > that yet another extended flags field follows.
+> > > > >
+> > > > > If we will have dynamic extension of flags, Think about this.
+> > > >
+> > > > To support dynamic extensions in a backward compatible way you want
+> > > > something like this:
+> > > >
+> > > > struct luo_feature_hdr {
+> > > >    size
+> > > >    flags
+> > >
+> > > __u32 size
+> > > __u32 flags
+> > >
+> > > >    extensions  // offset of first luo_feature_extensions (or 0)
+> > >
+> > > __u64 extensions[0]  --> but the size should be specificed in
+> > > declaration macro that I showed in the next patch.
+> >
+> > I think you may have misunderstood what I meant. In my proposal,
+> > extensions is an offset to the first extension, not an array of
+> > extensions that immediately follow the header.
+> >
+> > If the extensions immediately follow the header, then the number of
+> > extensions is baked into the struct layout. Every field after them sits
+> > at an offset that depends on how many extensions there are. If we ever
+> > need one more extension, all the fields shift and old and new kernels
+> > can no longer read each other's struct. That is the problem Tarun
 > 
-> int3_update_unoptimize() restores optimized nop10 in three writes:
+> We can structure it cleanly by nesting the payload: something like
+> struct { struct header {...}h; struct serialize_data { ... }p; };
+> That way, the header can expand dynamically at the front, while all
+> fields inside `serialize_data` stay at fixed offsets relative to the
+> start
+> of the payload.
 > 
->   48 8d 64 24 80 e8 d0 d1 d2 d3    lea -0x80(%rsp),%rsp; call tramp
->   cc 8d 64 24 80 e8 d0 d1 d2 d3    1. trap new entries
->   cc 2e 0f 1f 84 e8 d0 d1 d2 d3    2. restore bytes 1..4
->   66 2e 0f 1f 84 e8 d0 d1 d2 d3    3. restore byte 0
-> 
-> uprobe_write() can fail with -ENOMEM, or with -EINTR when the task is being
-> killed. When the 2nd write fails the result of the 1st one stays. Byte 0 is
-> a breakpoint and it works. But the next set_orig_insn() doesn't find lea in
-> byte 0, takes it for a plain breakpoint and restores one byte:
-> 
->   66 8d 64 24 80 e8 d0 d1 d2 d3    lea -0x80(%rsp),%sp; call tramp
-> 
-> Nothing recognizes these bytes anymore. The process keeps the call into
-> uprobe trampoline, which can be unmapped already.
-> 
-> Teach is_optimized() to recognize the half-way state, and let the 1st write
-> of int3_update_unoptimize() skip what is already done.
-> 
-> The failure wasn't reproduced, but the state can be made by hand. Attach to
-> nop10, call it to get it optimized, write 0xcc over byte 0, detach.
-> 
-> "uprobes: Don't sleep on mmap_lock under dup_mmap_sem" needs this. There
-> fork() removes the breakpoint from its mm. When fork() is killed in
-> the middle register_for_each_vma() removes it for the second time.
-> 
-> Fixes: 554ba38456da ("uprobes/x86: Move optimized uprobe from nop5 to nop10")
-> Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+> Since the header size is self-describing via continuation bits (e.g.,
+> the last two bits indicating whether another flag word follows), LUO
+> can
+> easily compute where the payload begins in the incoming blob. This
+> keeps the implementation simple, avoids linked lists of offsets.
 
-This was a nice read.
+Oh interesting. I agree a dynamically sized header at the front can work
+and is simpler than a linked list.
 
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+So the header and the payload need to be separate, and the payload is
+located with pointer arithmetic on the header. For example:
 
--- 
-Gregory Price (Meta) <gourry@gourry.net>
+struct luo_ser_hdr {
+    u32 size;    /* Size of the payload in bytes */
+    u32 flags;    /* Bits [31:30] indicate an extension word follows */
+    /* u64 extension words follow while the continuation bits are set */
+};
+
+/* Size of the header, including any extension words. */
+size_t luo_ser_hdr_size(const struct luo_ser_hdr *hdr);
+
+static inline void *luo_ser_payload(const struct luo_ser_hdr *hdr)
+{
+    return (void *)hdr + luo_ser_hdr_size(hdr);
+}
+
+On preserve:
+
+    hdr = kho_alloc_preserve(luo_ser_hdr_size_for(nr_ext) + sizeof(*ser));
+    luo_ser_hdr_init(hdr, sizeof(*ser), ...);
+    ser = luo_ser_payload(hdr);
+    ...
+    args->serialized_data = virt_to_phys(hdr);
+
+On retrieve:
+
+    hdr = phys_to_virt(args->serialized_data);
+    err = luo_ser_hdr_validate(hdr, ...);
+    if (err)
+        return err;
+
+    ser = luo_ser_payload(hdr);
+
+What would size mean in luo_ser_hdr? The size of the payload or the size
+of the combined luo_ser_hdr + payload. luo_ser_hdr is self describing so
+maybe it's just the size of the payload?
