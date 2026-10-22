@@ -1,96 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1792687944;
-	b=IlH22RFNB6uLWECWFl7YX/Tsr3wC2p2U9hVYPy5a9rXQh42twCINBkZiwcw2+KNidNNh
-	 ddWUA94acUehAplGb2Vm0SwjDsS0cNce5nJSS528xPHGrR2m9oWuQXlx6xCZ8L1K8+kq+
-	 pqu/o2qeOUY+UBM3HG3UTqhpVpC/BcpFhKpDgpYygYDhKatXXEgLEWUwNtRBOHwCjKXJU
-	 fJmJXsI5lq6OBhF/G47OyoYjqNsrSK3bCIiBZAxh60vJz72y+uXC0u9kg5Kue/DgX/091
-	 AegESJHHQP4r54bkCHqGBV+lfvAs7U0FQr4qdfNvMbQHBneYqsVy3DACLiwglNN0YvQ==
+	t=1792687996;
+	b=ltkCK2WlffWQrha7Wj1EsVHbC6r5BXLIRBAPJM9qm9ZfWOCVO1xUoh5p6kJKLZ+sg2nZ
+	 orvAq39aZifuOg5ifB306e7MQ9+dElPag9miUvZYXiAPBoSgkEb5VLjtKa9mj5X1yIOLt
+	 jm1aaXeoQ8b/UjrwmQ44j5fsv0QGxsgTCVEWrwnocrdoV1fKtxKYfhuohIlcB0Re+RPyE
+	 vI0mrhL73bOWQxqaHoGnrWAnPcXfT4mwXl6X1ofktZZq9kn7GDAnK7DN5Pho5bNq/qacB
+	 Ba7O6OtALhXjn92f8S6+b5iWkSht+KGbCxwn31p52nZ6iccGWXWbNbWLfZtY6vQAO0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1792687944;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jMHX9wN/BHCrbGnqRhP4+R8W0f/fc00EEaOQLsHpHDs=;
-	b=V6OgBJP62oE88CpfG5XDu9Ti8+g60SlG/5j+z68HJ46b+Ck4MpUyejcZbsHUMQypyQl7
-	 cp6RYeAOkfHedPEpvyJAJefQvQOqovMu4ZqJl1/l8V8YPBJ/gK2fuO5ri/HU3JUocOWth
-	 yDbOrPLKSDC2akE4qdtDr1yvdCtR8E7Wp3nxuN5XK8JjnHMAWbVPtLBbQqw0JrHKhSoJA
-	 iPr3axJeGqTPGVWgq36h9bD3hNinhoPObM9KPk/9wjkm6xMvZ/i1cmL82DZ2HZycWhly/
-	 8WC3rSVNXaqBXoINfAkcZBEkzgaJZOErBuGig+j8aKmafrD8Qmfyf9KijEhbzLVbmPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1792687996;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=RnjTwDdPL27OkjVG+9TQeoWZzi+3hlrocYUpqRLD/jM=;
+	b=2PdNycjv6TTljQFiNyhDxAYAMy1rsM9HhzKS3EH2+gEVGZMfIFEP8Pud+2kwsybAVk8A
+	 GNpgAkeBckfzmhS7FPw2DQSI4TDgdBChVt/e7g8m6Z69zWSPRxbwo3/AQO7pcpDvKv7xC
+	 ly0wIN7/dvEqLJxaTkSC3UdAFFx+0nK8zELi1yqkwKsVtG9ZXBwsC4wcDyA7u4Ij06sGW
+	 qn6ae95Ukfh81X0MOO0cOGmMzA8sIVtyaWj9gr/yDKX/xaiTpaDL7/tPbyZ9Pqe2KVC1g
+	 T9OigWveE0NdNLW95a5nZbl5ZmT0QgM2KsEVrRG8sFNORNZdVqF6bjF0wYLykud4Rlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZNtXLkbq;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dx5Ttdm1;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5A6606A31B
-	for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 16:52:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA5A6606A31B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E866B606A31A;
+	Thu, 22 Oct 2026 16:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E866B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20251104 header.b=ZNtXLkbq
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-35829219da8so1273071eec.0
-        for <linux-kernel@vger.kernel.org>; Thu, 22 Oct 2026 09:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1792687943; x=1793292743; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jMHX9wN/BHCrbGnqRhP4+R8W0f/fc00EEaOQLsHpHDs=;
-        b=ZNtXLkbqxXKhm9LkyYZ3wmwXyLpGV4IAMBJmnHcSAGUODvO78X7nykOabEjPuQR/6f
-         UJjQ8pmf1efreQGhE1YwaQaViWz9q249jdFTEIfmWX3XBPj9z7s3XwzGFgcOfczn++gz
-         NTBj4IxQauJoxjGBa8VKbnSRin1Tj8KjOLKJnsiHfg1j0l9sr8diNw0TxgMjHAR7HgNc
-         uIaNm7r872/J7oPO8pOrqw6J7nz6ImCe5V2GcLsmylQOAZ+YrlhGBCnZ90Xk2O740Tj9
-         z7Rn/idIEICZqAckbDNFdfzo8OktNwoYo579qWKB0A8UfmKffQi12opciVzkXFjGV/F0
-         gTBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1792687943; x=1793292743;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jMHX9wN/BHCrbGnqRhP4+R8W0f/fc00EEaOQLsHpHDs=;
-        b=gLgXeRIwV8pzhkiTnGEEY2ftgQjwbsesLQ/kc3LWpveffSR50o0nBMqN4R0VbSHz8X
-         gxWfXoBEqFSlW042+348NsOnXN+2VfvSGywuCP6A3xC38VJWyui6j3fjq6sfbtrzu0gt
-         4defkyUrIlt/e1muNb33C4TL8D8G6xKH7X9J+C2t92ocCkCfzBTs1vKwo7H+qavO5ZR3
-         sZja2FEbOe/P28pxeJM3y8cguS7TUCLSVQJOOAz81FoO5deoRIv0Z73tsRBvzoYzxoM6
-         IeZAwUNWkfWpZHAU9glDCdH4dMWHWGg3TBRm1GKseRO62klqm0UMFXOMuHttZ8SI3y8C
-         4Z0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxDyaXV8JRH13/WlsTkGjgVIBNrmJSsU5HAxlF7cSOorE4TaGzkjOEfg21LSX/6e47lVFjtKH0EYZVmAU4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7dpmBWu9KfYCkOYKlu0NwqvVLlpnJuGiptL4qRPlItZMVgc8p
-	zeqikgnE7IbWtdEGSDcvu54HtcdKLVbD3ZH046yCg2Tz8unyqIDHvvaa
-X-Gm-Gg: AYBFou1aoD60LyUfjU0JyatYcBLJfjba7DN/1xTiQpoYRE+gWCKH5uiGT2ux4TdX8EI
-	USxvH0G7gE2aZntbsBqfUQjvZQtwhzgwA1QoCcALJPHOcNqSPUQFFLs98bWaRADevjq9/niBkyw
-	DBNjRoup9xH5CXVcvwiVda7nZLVPW8UJ9QZ28LY9TDDBU1ULSiGx70Ji2f2KRgmeB/qwuow/cDo
-	/A5oib6TMbGstppd92En/Zrj7+kc+nQS5m7xN5rOv9UzStmgiXqScERzoJ+bYtQTGrqGmHmhwdG
-	yL7wRvaXALT6+cEurgy3jnOXNiP/v49JhYzeDHL4ygAL8KUwhBOPXt6FcBuDoOk7jmvaCWO4eb1
-	f88xZbPTmcEMsyCuTib2bgrUwsk9vHnwzDI5nm/ejIXRH9SMJNlTiTMDU6g/zqa+f6BOAOej5Zr
-	QLnSJjlLSRy+p1Mu0GG7/HZVN5b+SGx8s1/pxlUhTUgACJWWRwbYNRSlukbYI5XvWtrZ9u/Z+l5
-	cz2jy1uqNfDSStECE9ZrfMJgg40jo0nPrlaQu1k/Rl00/ZZaUf9hTgSTI81AiOlbMFBz0Y=
-X-Received: by 2002:a05:701b:4250:10b0:184:40db:6bb9 with SMTP id a92af1059eb24-192f2d2204cmr3620614c88.8.1792687942800;
-        Thu, 22 Oct 2026 09:52:22 -0700 (PDT)
-Received: from DESKTOP-NM9EKIA ([125.134.240.130])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1903bb7f098sm25263741c88.12.2026.10.22.09.52.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 22 Oct 2026 09:52:21 -0700 (PDT)
-From: Joonhoe Kim <26rote@gmail.com>
-To: vkoul@kernel.org
-Cc: neil.armstrong@linaro.org,
-	mani@kernel.org,
-	konrad.dybcio@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	val@packett.cool,
-	wesley.cheng@oss.qualcomm.com,
-	linux-arm-msm@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] phy: qcom: qmp-combo: Leave the USB PCS alone in DP-only mode
-Date: Fri, 23 Oct 2026 01:52:19 +0900
-Message-ID: <20261022165219.1368-1-26rote@gmail.com>
-X-Mailer: git-send-email 2.55.0.windows.5
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dx5Ttdm1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1792687995; x=1824223995;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=apdNtBYS9jQOXfTQEStHFo+xPC6oHGEMoFVfhkq3zl4=;
+  b=dx5Ttdm1H3T1LhAzZ2JyvQLOKAbg/2NmvHIGiw5mmNDUVpjVwwGv4sZ0
+   zT3KaiwjO0QuI10tVSyqBDcBtjtLx4alU7a0J9NmMmWQDtqw7TeLs4rrw
+   sb7R1HYTqkjn8AB/pngK+z3ueZIaLYK/EeNrJ3br5MiattiM5WQgR/ON+
+   m7mmHBvqpg/CD8nEIrZ5z7J1NWJTlwjYldKxlccVfl4cXu3hYfSEZ7PGe
+   r8a37U7UjhJYKBzn6euaMxkCR5XndSoS8ahZUH97ihI62m4NtVtJBm9eV
+   kBUHGZVfxoyAUC64eWHlA1XbMuxYSSzlWnbMHylDJHb3XQ0bINQ+nVFfP
+   g==;
+X-CSE-ConnectionGUID: xSVZM/IYTQGZvWKxy6bN+A==
+X-CSE-MsgGUID: yxQN4dhuRn+FzZxDluy4zg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11942"; a="1456456"
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="1456456"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:53:14 -0700
+X-CSE-ConnectionGUID: FmLqOjvvQi+F4RF4oLFx+Q==
+X-CSE-MsgGUID: t6Hx7mIGQEitWksXE5gsaQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,172,1787036400"; 
+   d="scan'208";a="3799455"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.245.189])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 22 Oct 2026 09:53:12 -0700
+Date: Thu, 22 Oct 2026 19:53:09 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jan Remes <ciakval@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Joe Sandom <joe.g.sandom@gmail.com>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Jan Remes <jan.remes@mycroftmind.com>,
+	stable@vger.kernel.org,
+	Martin Triska <martin.triska@mycroftmind.com>
+Subject: Re: [PATCH v3 1/4] iio: light: tsl2591: don't divide by zero
+Message-ID: <ato_dUykpQ7__roU@ashevche-desk.local>
+References: <20261022-first-patch-v3-0-b792e89a429a@mycroftmind.com>
+ <20261022-first-patch-v3-1-b792e89a429a@mycroftmind.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,74 +85,22 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261022-first-patch-v3-1-b792e89a429a@mycroftmind.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-In DP-only mode (DisplayPort pin assignments C and E) all four lanes
-belong to the DisplayPort PHY and the USB PCS stays powered down. The
-USB controller can still exit and re-init its PHY in this state, e.g.
-across a system suspend that loses power. qmp_combo_usb_init() then
-programs the USB serdes, lane and PCS tables over the DisplayPort
-configuration and times out waiting for PHYSTATUS, and
-qmp_combo_usb_exit() resets and powers down a PCS that is not in use.
+On Thu, Oct 22, 2026 at 01:53:57PM +0200, Jan Remes wrote:
 
-In DP-only mode only take and drop the common reference, but keep
-counting the USB user, so that qmp_combo_reconfigure_phy() powers the
-USB PCS up when the port leaves DP-only mode.
+...
 
-On a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with a USB-C monitor
-in pin assignment C, resume from s2idle failed with "phy initialization
-timed-out", the dwc3 resume returned -110 and the following xHCI resume
-hung the system.
+> Assisted-by: LLM
 
-Fixes: 896277138c13 ("phy: qcom: qmp-combo: register a typec mux to change the QMPPHY_MODE")
-Signed-off-by: Joonhoe Kim <26rote@gmail.com>
----
-Tested on a 7.3-rc4 based tree, where the mux switch itself still drops
-usb_init_count when it enters DP-only mode, so the tested change skipped
-the count as well. This version follows the reworked mux path in
-phy-next and is build-tested only.
+Kill this tag everywhere in your patches.
 
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 187f0cd11f6c..6e3406d519d2 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -4459,10 +4459,12 @@ static int qmp_combo_usb_init(struct phy *phy)
- 	if (ret)
- 		return ret;
- 
--	ret = qmp_combo_usb_power_on(phy);
--	if (ret) {
--		qmp_combo_com_exit(qmp, false);
--		return ret;
-+	if (qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY) {
-+		ret = qmp_combo_usb_power_on(phy);
-+		if (ret) {
-+			qmp_combo_com_exit(qmp, false);
-+			return ret;
-+		}
- 	}
- 
- 	qmp->usb_init_count++;
-@@ -4484,9 +4486,11 @@ static int qmp_combo_usb_exit(struct phy *phy)
- 		return 0;
- 	}
- 
--	ret = qmp_combo_usb_power_off(phy);
--	if (ret)
--		return ret;
-+	if (qmp->qmpphy_mode != QMPPHY_MODE_DP_ONLY) {
-+		ret = qmp_combo_usb_power_off(phy);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = qmp_combo_com_exit(qmp, false);
- 	if (ret)
-
-base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
